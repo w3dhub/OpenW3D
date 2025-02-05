@@ -118,7 +118,7 @@ class ServerSettingsClass
 {
 	public:
 
-		ServerSettingsClass(char *filename = "svrcfg_cnc.ini", unsigned short *configname = (unsigned short*)TRANSLATE(IDS_SERVER_SAVELOAD_DEFAULT), int file_number = 0);
+		ServerSettingsClass(const char *filename = "svrcfg_cnc.ini", const wchar_t *configname = TRANSLATE(IDS_SERVER_SAVELOAD_DEFAULT), int file_number = 0);
 		ServerSettingsClass(ServerSettingsClass *other);
 		bool Is_Default(void) {return(FileNumber == 0);}
 		bool Is_Default_Custom(void) {return(FileNumber == 1);}

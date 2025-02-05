@@ -1234,8 +1234,8 @@ void cPlayerManager::Render_Player_List(void)
 		show_inactive = true;
 	}
 #endif // WWDEBUG
-
-	for (int j = 0; j < count; j++) {
+	int j;
+	for (j = 0; j < count; j++) {
       WWASSERT(j < MAX_PLAYERS);
 	   cPlayer * p_player = Player_Array[j];
 		if (!p_player) continue;

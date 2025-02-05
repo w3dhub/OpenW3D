@@ -299,7 +299,8 @@ void VisRenderContextClass::Compute_2D_Bounds
 	
 	// rotate and project the corners of the box
 	Vector3 corner[8];
-	for (int ivert=0; ivert<NUM_BOX_VERTS; ivert++) {
+	int ivert;
+	for (ivert=0; ivert<NUM_BOX_VERTS; ivert++) {
 		corner[ivert].X = wrld_bbox.Center.X + _boxverts[ivert][0] * wrld_bbox.Extent.X;
 		corner[ivert].Y = wrld_bbox.Center.Y + _boxverts[ivert][1] * wrld_bbox.Extent.Y;
 		corner[ivert].Z = wrld_bbox.Center.Z + _boxverts[ivert][2] * wrld_bbox.Extent.Z;

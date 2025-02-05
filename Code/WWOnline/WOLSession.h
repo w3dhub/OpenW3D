@@ -39,6 +39,7 @@
 #ifndef __WOLSESSION_H__
 #define __WOLSESSION_H__
 
+#include <windows.h>
 #include <atlbase.h>
 #include "WOLLoginInfo.h"
 #include "WOLUser.h"

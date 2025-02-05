@@ -464,8 +464,8 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 								  Commands->Set_Objective_Status(1019, OBJECTIVE_STATUS_ACCOMPLISHED);
 
 								  int id = Commands->Create_Conversation("M10CON052", 99, 2000, false);
-								  Commands->Join_Conversation(NULL, id);
-								  Commands->Join_Conversation(STAR, id);
+								  Commands->Join_Conversation(NULL, id, true, true, true);
+								  Commands->Join_Conversation(STAR, id, true, true, true);
 								  Commands->Start_Conversation(id, 100052);
 								  Commands->Monitor_Conversation(obj, id);
 							  }
@@ -473,7 +473,7 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 					else if (type == 1015)
 					{
 						int id = Commands->Create_Conversation("M10CON028", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Start_Conversation(id, 100028);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -485,8 +485,8 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 							if (e_sam_count == 1)
 							{
 								int id = Commands->Create_Conversation("M10CON035", 99, 2000, false);
-								Commands->Join_Conversation(NULL, id);
-								Commands->Join_Conversation(STAR, id);
+								Commands->Join_Conversation(NULL, id, true, true, true);
+								Commands->Join_Conversation(STAR, id, true, true, true);
 								Commands->Start_Conversation(id, 100035);
 								Commands->Monitor_Conversation(obj, id);
 							}
@@ -497,7 +497,7 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 								Commands->Set_Objective_Status(1018, OBJECTIVE_STATUS_ACCOMPLISHED);
 
 								int id = Commands->Create_Conversation("M10CON034", 99, 2000, false);
-								Commands->Join_Conversation(STAR, id);
+								Commands->Join_Conversation(STAR, id, true, true, true);
 								Commands->Start_Conversation(id, 100034);
 								Commands->Monitor_Conversation(obj, id);
 							}
@@ -508,8 +508,8 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 						if (++w_sam_count == 2)
 						{
 							int id = Commands->Create_Conversation("M10CON045", 99, 2000, false);
-							Commands->Join_Conversation(NULL, id);
-							Commands->Join_Conversation(STAR, id);
+							Commands->Join_Conversation(NULL, id, true, true, true);
+							Commands->Join_Conversation(STAR, id, true, true, true);
 							Commands->Start_Conversation(id, 100045);
 							Commands->Monitor_Conversation(obj, id);
 
@@ -534,8 +534,8 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 								if (primary_count == 7)
 								{
 									int id = Commands->Create_Conversation("M10CON019", 99, 2000, false);
-									Commands->Join_Conversation(STAR, id);
-									Commands->Join_Conversation(NULL, id);
+									Commands->Join_Conversation(STAR, id, true, true, true);
+									Commands->Join_Conversation(NULL, id, true, true, true);
 									Commands->Start_Conversation(id, 100019);
 									Commands->Monitor_Conversation(obj, id);
 
@@ -571,11 +571,11 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 			if (obj_con)
 			{
 				Commands->Start_Timer(obj, this, 3.0f, 1);
-				Commands->Send_Custom_Event(obj, obj_con, 1003, 3);
-				/*Commands->Send_Custom_Event(obj, obj_con, 1009, 3);
-				Commands->Send_Custom_Event(obj, obj_con, 1008, 3);
-				Commands->Send_Custom_Event(obj, obj_con, 1015, 3);				
-				Commands->Send_Custom_Event(obj, obj_con, 1012, 3);*/
+				Commands->Send_Custom_Event(obj, obj_con, 1003, 3, 0.0f);
+				/*Commands->Send_Custom_Event(obj, obj_con, 1009, 3, 0.0f);
+				Commands->Send_Custom_Event(obj, obj_con, 1008, 3, 0.0f);
+				Commands->Send_Custom_Event(obj, obj_con, 1015, 3, 0.0f);				
+				Commands->Send_Custom_Event(obj, obj_con, 1012, 3, 0.0f);*/
 			}
 
 			Commands->Attach_Script(STAR, "M10_Havoc_Script", "");
@@ -585,8 +585,8 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 		if(timer_id == 1)
 		{
 			int id = Commands->Create_Conversation("M10CON064", 99, 2000, false);
-			Commands->Join_Conversation(NULL, id);
-			Commands->Join_Conversation(STAR, id);
+			Commands->Join_Conversation(NULL, id, true, true, true);
+			Commands->Join_Conversation(STAR, id, true, true, true);
 			Commands->Start_Conversation(id, 100064);
 			Commands->Monitor_Conversation(obj, id);
 		}
@@ -606,7 +606,7 @@ DECLARE_SCRIPT (M10_Ion_Cannon, "")
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
 			GameObject * obj_con = Commands->Find_Object(1100154);
-			Commands->Send_Custom_Event(obj, obj_con, 1003, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1003, 1, 0.0f);
 		}
 	}
 };
@@ -723,8 +723,8 @@ DECLARE_SCRIPT(M10_Power_Plant, "")
 
 		if (action_id == 100014)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1001, 3);
-			Commands->Send_Custom_Event(obj, obj_con, 1001, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1001, 3, 0.0f);
+			Commands->Send_Custom_Event(obj, obj_con, 1001, 1, 0.0f);
 		}
 	}
 	
@@ -735,14 +735,14 @@ DECLARE_SCRIPT(M10_Power_Plant, "")
 		Commands->Destroy_Object (Commands->Find_Object (1203589));
 
 		int id = Commands->Create_Conversation("M10CON014", 99, 2000, false);
-		Commands->Join_Conversation(NULL, id);
+		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Start_Conversation(id, 100014);
 		Commands->Monitor_Conversation(obj, id);
 
 		GameObject * obelisk = Commands->Find_Object(1153938);
 		if (obelisk)
 		{
-			Commands->Send_Custom_Event(obj, obelisk, 1000, 1000);
+			Commands->Send_Custom_Event(obj, obelisk, 1000, 1000, 0.0f);
 		}
 
 		Commands->Static_Anim_Phys_Goto_Frame ( 1285077, 1, "L10_LASERFENCE1.L10_LASERFENCE1" );
@@ -758,7 +758,7 @@ DECLARE_SCRIPT(M10_Con_Yard, "")
 
 		if (action_id == 100005)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1002, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1002, 1, 0.0f);
 		}
 	}
 
@@ -768,120 +768,120 @@ DECLARE_SCRIPT(M10_Con_Yard, "")
 		Commands->Destroy_Object (Commands->Find_Object (2014792));
 
 		int id = Commands->Create_Conversation("M10CON005", 99, 2000, false);
-		Commands->Join_Conversation(NULL, id);
+		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Start_Conversation(id, 100005);
 		Commands->Monitor_Conversation(obj, id);
 
 		GameObject * power_plant = Commands->Find_Object(1153931);
 		if (power_plant)
 		{
-			Commands->Send_Custom_Event(obj, power_plant, 3000, 3000);
+			Commands->Send_Custom_Event(obj, power_plant, 3000, 3000, 0.0f);
 		}
 		GameObject * turret1 = Commands->Find_Object(1100013);
 		if (turret1)
 		{
-			Commands->Send_Custom_Event(obj, turret1, 3000, 3000);
+			Commands->Send_Custom_Event(obj, turret1, 3000, 3000, 0.0f);
 		}
 		GameObject * comm_center = Commands->Find_Object(1153932);
 		if (comm_center)
 		{
-			Commands->Send_Custom_Event(obj, comm_center, 3000, 3000);
+			Commands->Send_Custom_Event(obj, comm_center, 3000, 3000, 0.0f);
 		}
 		GameObject * heli_pad = Commands->Find_Object(1154083);
 		if (heli_pad)
 		{
-			Commands->Send_Custom_Event(obj, heli_pad, 3000, 3000);
+			Commands->Send_Custom_Event(obj, heli_pad, 3000, 3000, 0.0f);
 		}
 		GameObject * sam_site = Commands->Find_Object(1100010);
 		if (sam_site)
 		{
-			Commands->Send_Custom_Event(obj, sam_site, 3000, 3000);
+			Commands->Send_Custom_Event(obj, sam_site, 3000, 3000, 0.0f);
 		}
 		GameObject * turret2 = Commands->Find_Object(1100014);
 		if (turret2)
 		{
-			Commands->Send_Custom_Event(obj, turret2, 3000, 3000);
+			Commands->Send_Custom_Event(obj, turret2, 3000, 3000, 0.0f);
 		}
 
 		GameObject * hon = Commands->Find_Object(1153939);
 		if (hon)
 		{
-			Commands->Send_Custom_Event(obj, hon, 3000, 3000);
+			Commands->Send_Custom_Event(obj, hon, 3000, 3000, 0.0f);
 		}
 		GameObject * sam1 = Commands->Find_Object(1100007);
 		if (sam1)
 		{
-			Commands->Send_Custom_Event(obj, sam1, 3000, 3000);
+			Commands->Send_Custom_Event(obj, sam1, 3000, 3000, 0.0f);
 		}
 		GameObject * turret3 = Commands->Find_Object(2000728);
 		if (turret3)
 		{
-			Commands->Send_Custom_Event(obj, turret3, 3000, 3000);
+			Commands->Send_Custom_Event(obj, turret3, 3000, 3000, 0.0f);
 		}
 		GameObject * turret4 = Commands->Find_Object(2000729);
 		if (turret4)
 		{
-			Commands->Send_Custom_Event(obj, turret4, 3000, 3000);
+			Commands->Send_Custom_Event(obj, turret4, 3000, 3000, 0.0f);
 		}
 		GameObject * refinery = Commands->Find_Object(1153940);
 		if (refinery)
 		{
-			Commands->Send_Custom_Event(obj, refinery, 3000, 3000);
+			Commands->Send_Custom_Event(obj, refinery, 3000, 3000, 0.0f);
 		}
 		GameObject * turret5 = Commands->Find_Object(1205749);
 		if (turret5)
 		{
-			Commands->Send_Custom_Event(obj, turret5, 3000, 3000);
+			Commands->Send_Custom_Event(obj, turret5, 3000, 3000, 0.0f);
 		}
 		GameObject * turret6 = Commands->Find_Object(1205748);
 		if (turret6)
 		{
-			Commands->Send_Custom_Event(obj, turret6, 3000, 3000);
+			Commands->Send_Custom_Event(obj, turret6, 3000, 3000, 0.0f);
 		}
 		GameObject * obelisk = Commands->Find_Object(1153938);
 		if (obelisk)
 		{
-			Commands->Send_Custom_Event(obj, obelisk, 3000, 3000);
+			Commands->Send_Custom_Event(obj, obelisk, 3000, 3000, 0.0f);
 		}
 		GameObject * sam2 = Commands->Find_Object(1100008);
 		if (sam2)
 		{
-			Commands->Send_Custom_Event(obj, sam2, 3000, 3000);
+			Commands->Send_Custom_Event(obj, sam2, 3000, 3000, 0.0f);
 		}
 		GameObject * sam3 = Commands->Find_Object(1100009);
 		if (sam3)
 		{
-			Commands->Send_Custom_Event(obj, sam3, 3000, 3000);
+			Commands->Send_Custom_Event(obj, sam3, 3000, 3000, 0.0f);
 		}
 		GameObject * airstrip = Commands->Find_Object(1154061);
 		if (airstrip)
 		{
-			Commands->Send_Custom_Event(obj, airstrip, 3000, 3000);
+			Commands->Send_Custom_Event(obj, airstrip, 3000, 3000, 0.0f);
 		}
 		GameObject * helipad1 = Commands->Find_Object(1154084);
 		if (helipad1)
 		{
-			Commands->Send_Custom_Event(obj, helipad1, 3000, 3000);
+			Commands->Send_Custom_Event(obj, helipad1, 3000, 3000, 0.0f);
 		}
 		GameObject * sam4 = Commands->Find_Object(1100012);
 		if (sam4)
 		{
-			Commands->Send_Custom_Event(obj, sam4, 3000, 3000);
+			Commands->Send_Custom_Event(obj, sam4, 3000, 3000, 0.0f);
 		}
 		GameObject * sam5 = Commands->Find_Object(1100011);
 		if (sam5)
 		{
-			Commands->Send_Custom_Event(obj, sam5, 3000, 3000);
+			Commands->Send_Custom_Event(obj, sam5, 3000, 3000, 0.0f);
 		}
 		GameObject * silo1 = Commands->Find_Object(1153935);
 		if (silo1)
 		{
-			Commands->Send_Custom_Event(obj, silo1, 3000, 3000);
+			Commands->Send_Custom_Event(obj, silo1, 3000, 3000, 0.0f);
 		}
 		GameObject * silo2 = Commands->Find_Object(1154051);
 		if (silo2)
 		{
-			Commands->Send_Custom_Event(obj, silo2, 3000, 3000);
+			Commands->Send_Custom_Event(obj, silo2, 3000, 3000, 0.0f);
 		}
 	}
 };
@@ -894,8 +894,8 @@ DECLARE_SCRIPT(M10_Comm_Center, "")
 
 		if (action_id == 100011)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1004, 3);
-			Commands->Send_Custom_Event(obj, obj_con, 1004, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1004, 3, 0.0f);
+			Commands->Send_Custom_Event(obj, obj_con, 1004, 1, 0.0f);
 		}
 	}
 
@@ -905,8 +905,8 @@ DECLARE_SCRIPT(M10_Comm_Center, "")
 		Commands->Enable_Radar (true);
 
 		int id = Commands->Create_Conversation("M10CON011", 99, 2000, false);
-		Commands->Join_Conversation(NULL, id);
-		Commands->Join_Conversation(NULL, id);
+		Commands->Join_Conversation(NULL, id, true, true, true);
+		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Start_Conversation(id, 100011);
 		Commands->Monitor_Conversation(obj, id);
 
@@ -922,15 +922,15 @@ DECLARE_SCRIPT(M10_Hand_Of_Nod, "")
 
 		if (action_id == 100021)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1008, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1008, 1, 0.0f);
 		}
 	}
 
 	void Killed(GameObject * obj, GameObject * killer)
 	{
 		int id = Commands->Create_Conversation("M10CON021", 99, 2000, false);
-		Commands->Join_Conversation(NULL, id);
-		Commands->Join_Conversation(STAR, id);
+		Commands->Join_Conversation(NULL, id, true, true, true);
+		Commands->Join_Conversation(STAR, id, true, true, true);
 		Commands->Start_Conversation(id, 100021);
 		Commands->Monitor_Conversation(obj, id);
 	}
@@ -944,15 +944,15 @@ DECLARE_SCRIPT(M10_Refinery, "")
 
 		if (action_id == 100031)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1009, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1009, 1, 0.0f);
 		}
 	}
 
 	void Killed(GameObject * obj, GameObject * killer)
 	{
 		int id = Commands->Create_Conversation("M10CON031", 99, 2000, false);
-		Commands->Join_Conversation(STAR, id);
-		Commands->Join_Conversation(NULL, id);
+		Commands->Join_Conversation(STAR, id, true, true, true);
+		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Start_Conversation(id, 100031);
 		Commands->Monitor_Conversation(obj, id);
 	}
@@ -966,16 +966,16 @@ DECLARE_SCRIPT(M10_Airstrip, "")
 
 		if (action_id == 100037)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1010, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1010, 1, 0.0f);
 		}
 	}
 
 	void Killed(GameObject * obj, GameObject * killer)
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100161), NO_DROP, 0);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100161), NO_DROP, 0, 0.0f);
 
 		int id = Commands->Create_Conversation("M10CON037", 99, 2000, false);
-		Commands->Join_Conversation(NULL, id);
+		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Start_Conversation(id, 100037);
 		Commands->Monitor_Conversation(obj, id);
 	}
@@ -988,7 +988,7 @@ DECLARE_SCRIPT(M10_Silo, "")
 		GameObject * silo_con = Commands->Find_Object(2005260);
 		if (silo_con)
 		{
-			Commands->Send_Custom_Event(obj, silo_con, KILLED, 0);
+			Commands->Send_Custom_Event(obj, silo_con, KILLED, 0, 0.0f);
 		}
 	}
 };
@@ -1014,8 +1014,8 @@ DECLARE_SCRIPT(M10_Silo_Controller, "")
 			GameObject * obj_con = Commands->Find_Object(1100154);
 
 			//Commands->Set_Objective_Status(1011, OBJECTIVE_STATUS_ACCOMPLISHED);
-			Commands->Send_Custom_Event(obj, obj_con, 1011, 3);
-			Commands->Send_Custom_Event(obj, obj_con, 1011, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1011, 3, 0.0f);
+			Commands->Send_Custom_Event(obj, obj_con, 1011, 1, 0.0f);
 		}
 	}
 
@@ -1028,8 +1028,8 @@ DECLARE_SCRIPT(M10_Silo_Controller, "")
 			if (count >= 2)
 			{
 				int id = Commands->Create_Conversation("M10CON043", 99, 2000, false);
-				Commands->Join_Conversation(STAR, id);
-				Commands->Join_Conversation(NULL, id);
+				Commands->Join_Conversation(STAR, id, true, true, true);
+				Commands->Join_Conversation(NULL, id, true, true, true);
 				Commands->Start_Conversation(id, 100043);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -1064,9 +1064,9 @@ DECLARE_SCRIPT(M10_Obelisk, "")
 			GameObject * obj_con = Commands->Find_Object(1100154);
 			if (obj_con)
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1020, 1);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object (2010415), KILLED, 0);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object (6000728), KILLED, 0);
+				Commands->Send_Custom_Event(obj, obj_con, 1020, 1, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object (2010415), KILLED, 0, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object (6000728), KILLED, 0, 0.0f);
 			}
 		}
 	}
@@ -1225,7 +1225,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 			destroyed[param] = true;
 			if (Commands->Find_Object(apache_id[param]))
 			{
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(apache_id[param]), 300, 300);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(apache_id[param]), 300, 300, 0.0f);
 			}
 		}
 		if (type == 2000)
@@ -1259,7 +1259,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 		{
 			if (area == param)
 			{
-				Commands->Send_Custom_Event(obj, sender, 100, 100);
+				Commands->Send_Custom_Event(obj, sender, 100, 100, 0.0f);
 				attacking_apache = area;
 			}
 		}
@@ -1275,7 +1275,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 		GameObject * apache = Commands->Find_Object(apache_id[current_area]);
 		if (apache)
 		{
-			Commands->Send_Custom_Event(Owner(), apache, 200, 200);
+			Commands->Send_Custom_Event(Owner(), apache, 200, 200, 0.0f);
 		}
 	}
 
@@ -1284,7 +1284,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 		GameObject * apache = Commands->Find_Object(apache_id[current_area]);
 		if (apache)
 		{
-			Commands->Send_Custom_Event(Owner(), apache, 500, 500);
+			Commands->Send_Custom_Event(Owner(), apache, 500, 500, 0.0f);
 		}
 	}
 
@@ -1293,7 +1293,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 		GameObject * apache = Commands->Find_Object(apache_id[area]);
 		if (apache)
 		{
-			Commands->Send_Custom_Event(Owner(), apache, 100, 100);
+			Commands->Send_Custom_Event(Owner(), apache, 100, 100, 0.0f);
 			attacking_apache = area;
 		}
 	}
@@ -1308,7 +1308,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 		char param[10];
 		sprintf(param, "%d", current_area);
 		Commands->Attach_Script(apache, "M10_Apache", param);
-		Commands->Send_Custom_Event(Owner(), apache, 400, 400);
+		Commands->Send_Custom_Event(Owner(), apache, 400, 400, 0.0f);
 		apache_id[current_area] = Commands->Get_ID(apache);
 	}
 	
@@ -1322,7 +1322,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 				GameObject * apache = Commands->Find_Object(apache_id[area]);
 				if (apache)
 				{
-					Commands->Send_Custom_Event(Owner(), apache, 100, 100);
+					Commands->Send_Custom_Event(Owner(), apache, 100, 100, 0.0f);
 					attacking_apache = area;
 				}
 			}
@@ -1398,7 +1398,7 @@ DECLARE_SCRIPT(M10_Apache, "Area:int")
 			pad_destroyed = true;
 			if (on_pad)
 			{
-				Commands->Apply_Damage(obj, 10000.0f, "EXPLOSIVE");
+				Commands->Apply_Damage(obj, 10000.0f, "EXPLOSIVE", NULL);
 			}
 			else 
 			{
@@ -1494,7 +1494,7 @@ DECLARE_SCRIPT(M10_Apache, "Area:int")
 				GameObject * controller = Commands->Find_Object(1110009);
 				if (controller)
 				{
-					Commands->Send_Custom_Event(obj, controller, 5000, Get_Int_Parameter("Area"));
+					Commands->Send_Custom_Event(obj, controller, 5000, Get_Int_Parameter("Area"), 0.0f);
 				}
 			}
 			if (timer_id == 4)
@@ -1537,7 +1537,7 @@ DECLARE_SCRIPT(M10_Apache, "Area:int")
 				GameObject * controller = Commands->Find_Object(1110009);
 				if (controller)
 				{
-					Commands->Send_Custom_Event(obj, controller, 4000, Get_Int_Parameter("Area"));
+					Commands->Send_Custom_Event(obj, controller, 4000, Get_Int_Parameter("Area"), 0.0f);
 				}
 			}
 			if (action_id == 3)
@@ -1555,7 +1555,7 @@ DECLARE_SCRIPT(M10_Apache, "Area:int")
 		GameObject * controller = Commands->Find_Object(1110009);
 		if (controller)
 		{
-			Commands->Send_Custom_Event(obj, controller, 2000, Get_Int_Parameter("Area"));
+			Commands->Send_Custom_Event(obj, controller, 2000, Get_Int_Parameter("Area"), 0.0f);
 		}
 	}
 };
@@ -1701,10 +1701,10 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 		GameObject *chinook_rail = Commands->Create_Object("Generic_Cinematic", loc);
 		Commands->Set_Model(chinook_rail, "X5D_Chinookfly");
 		Commands->Set_Facing(chinook_rail, facing);
-		Commands->Set_Animation(chinook_rail, "X5D_Chinookfly.X5D_Chinookfly", false);
+		Commands->Set_Animation(chinook_rail, "X5D_Chinookfly.X5D_Chinookfly", false, NULL, 0.0f, -1.0f, false);
 		GameObject *chinook = Commands->Create_Object("Nod_Chinook", loc);
 		Commands->Set_Facing(chinook, facing);
-		Commands->Set_Animation(chinook, "v_nod_chinook.vf_nod_chinook", true);
+		Commands->Set_Animation(chinook, "v_nod_chinook.vf_nod_chinook", true, NULL, 0.0f, -1.0f, false);
 		Commands->Attach_To_Object_Bone(chinook, chinook_rail, "BN_Chinook_1");
 
 		dead = false;
@@ -1749,7 +1749,7 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 				para1 = Commands->Create_Object("Generic_Cinematic", loc);
 				Commands->Set_Facing(para1, facing);
 				Commands->Set_Model(para1, "X5D_Parachute");
-				Commands->Set_Animation(para1, "X5D_Parachute.X5D_ParaC_1", false);
+				Commands->Set_Animation(para1, "X5D_Parachute.X5D_ParaC_1", false, NULL, 0.0f, -1.0f, false);
 				Commands->Create_3D_Sound_At_Bone("parachute_open", para1, "ROOTTRANSFORM");
 				Commands->Attach_Script(para1, "M10_No_More_Parachute", "");
 			}
@@ -1761,7 +1761,7 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 				para2 = Commands->Create_Object("Generic_Cinematic", loc);
 				Commands->Set_Facing(para2, facing);
 				Commands->Set_Model(para2, "X5D_Parachute");
-				Commands->Set_Animation(para2, "X5D_Parachute.X5D_ParaC_2", false);
+				Commands->Set_Animation(para2, "X5D_Parachute.X5D_ParaC_2", false, NULL, 0.0f, -1.0f, false);
 				Commands->Create_3D_Sound_At_Bone("parachute_open", para2, "ROOTTRANSFORM");
 				Commands->Attach_Script(para2, "M10_No_More_Parachute", "");
 			}
@@ -1773,7 +1773,7 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 				para3 = Commands->Create_Object("Generic_Cinematic", loc);
 				Commands->Set_Facing(para3, facing);
 				Commands->Set_Model(para3, "X5D_Parachute");
-				Commands->Set_Animation(para3, "X5D_Parachute.X5D_ParaC_3", false);
+				Commands->Set_Animation(para3, "X5D_Parachute.X5D_ParaC_3", false, NULL, 0.0f, -1.0f, false);
 				Commands->Create_3D_Sound_At_Bone("parachute_open", para3, "ROOTTRANSFORM");
 				Commands->Attach_Script(para3, "M10_No_More_Parachute", "");
 			}
@@ -1785,7 +1785,7 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 			GameObject *box1 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box1, "X5D_Box01");
 			Commands->Set_Facing(box1, facing);
-			Commands->Set_Animation(box1, "X5D_Box01.X5D_Box01", false);
+			Commands->Set_Animation(box1, "X5D_Box01.X5D_Box01", false, NULL, 0.0f, -1.0f, false);
 
 			GameObject *soldier1;
 			soldier1 = Commands->Create_Object_At_Bone(box1, preset, "Box01");
@@ -1793,7 +1793,7 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 			Commands->Attach_Script(soldier1, "RMV_Trigger_Killed", "1110009, 10000, 10000");
 			Commands->Attach_Script(soldier1, "M00_No_Falling_Damage_DME", "");
 			Commands->Attach_To_Object_Bone( soldier1, box1, "Box01" );
-			Commands->Set_Animation(soldier1, "s_a_human.H_A_X5D_ParaT_1", false);
+			Commands->Set_Animation(soldier1, "s_a_human.H_A_X5D_ParaT_1", false, NULL, 0.0f, -1.0f, false);
 			out++;
 		
 			}
@@ -1805,14 +1805,14 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 			GameObject *box2 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box2, "X5D_Box02");
 			Commands->Set_Facing(box2, facing);
-			Commands->Set_Animation(box2, "X5D_Box02.X5D_Box02", false);
+			Commands->Set_Animation(box2, "X5D_Box02.X5D_Box02", false, NULL, 0.0f, -1.0f, false);
 
 			GameObject *soldier2;
 			soldier2 = Commands->Create_Object_At_Bone(box2, preset, "Box02");
 			Commands->Set_Facing(soldier2, facing);
 			Commands->Attach_Script(soldier2, "RMV_Trigger_Killed", "1110009, 10000, 10000");
 			Commands->Attach_Script(soldier2, "M00_No_Falling_Damage_DME", "");
-			Commands->Set_Animation(soldier2, "s_a_human.H_A_X5D_ParaT_2", false);
+			Commands->Set_Animation(soldier2, "s_a_human.H_A_X5D_ParaT_2", false, NULL, 0.0f, -1.0f, false);
 			Commands->Attach_To_Object_Bone( soldier2, box2, "Box02" );
 			out++;
 				
@@ -1825,14 +1825,14 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 			GameObject *box3 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box3, "X5D_Box03");
 			Commands->Set_Facing(box3, facing);
-			Commands->Set_Animation(box3, "X5D_Box03.X5D_Box03", false);
+			Commands->Set_Animation(box3, "X5D_Box03.X5D_Box03", false, NULL, 0.0f, -1.0f, false);
 
 			GameObject *soldier3;
 			soldier3 = Commands->Create_Object_At_Bone(box3, preset, "Box03");
 			Commands->Set_Facing(soldier3, facing);
 			Commands->Attach_Script(soldier3, "RMV_Trigger_Killed", "1110009, 10000, 10000");
 			Commands->Attach_Script(soldier3, "M00_No_Falling_Damage_DME", "");
-			Commands->Set_Animation(soldier3, "s_a_human.H_A_X5D_ParaT_3", false);
+			Commands->Set_Animation(soldier3, "s_a_human.H_A_X5D_ParaT_3", false, NULL, 0.0f, -1.0f, false);
 			Commands->Attach_To_Object_Bone( soldier3, box3, "Box03" );
 			out++;
 			
@@ -1876,7 +1876,7 @@ DECLARE_SCRIPT(M10_Reinforcement_Chinook, "Controller_ID:int")
 	void Killed(GameObject * obj, GameObject * killer)
 	{
 		GameObject * con = Commands->Find_Object(Get_Int_Parameter(0));
-		Commands->Send_Custom_Event(obj, con, 23000, 23000);
+		Commands->Send_Custom_Event(obj, con, 23000, 23000, 0.0f);
 	}
 
 	void Destroyed(GameObject * obj)
@@ -1935,7 +1935,7 @@ DECLARE_SCRIPT(M10_Cargo_Plane_Dropoff, "")
 			GameObject * stealth_tank = Commands->Create_Object("Nod_Stealth_Tank", Vector3(0,0,0));
 			if (stealth_tank)
 			{
-				Commands->Send_Custom_Event(obj, new_object, M00_CUSTOM_CINEMATIC_SET_SLOT + 3, Commands->Get_ID(stealth_tank));
+				Commands->Send_Custom_Event(obj, new_object, M00_CUSTOM_CINEMATIC_SET_SLOT + 3, Commands->Get_ID(stealth_tank), 0.0f);
 				Commands->Attach_Script(stealth_tank, "M10_Stealth_Attack_02", "");
 			}
 
@@ -1959,7 +1959,7 @@ DECLARE_SCRIPT(M10_Cargo_Plane_Dropoff, "")
 				GameObject * stealth_tank = Commands->Create_Object("Nod_Stealth_Tank", Vector3(0,0,0));
 				if (stealth_tank)
 				{
-					Commands->Send_Custom_Event(obj, new_object, M00_CUSTOM_CINEMATIC_SET_SLOT + 3, Commands->Get_ID(stealth_tank));
+					Commands->Send_Custom_Event(obj, new_object, M00_CUSTOM_CINEMATIC_SET_SLOT + 3, Commands->Get_ID(stealth_tank), 0.0f);
 					Commands->Attach_Script(stealth_tank, "M10_Stealth_Attack_02", "");
 				}
 
@@ -2007,7 +2007,7 @@ DECLARE_SCRIPT(M10_Light_Tank, "")
 			params.Set_Attack(STAR, 100.0f, 4.0f, true);
 			attacking = !attacking;
 			params.AttackActive = attacking;
-			Commands->Modify_Action(obj, 0, params);
+			Commands->Modify_Action(obj, 0, params, true, true);
 			Commands->Start_Timer(obj, this, (attacking) ? 3.0f : 5.0f, 1);
 		}
 	}
@@ -2040,14 +2040,14 @@ DECLARE_SCRIPT(M10_Ion_Cannon_Detector, "")
 		{
 			if (obj_con)
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1007, 1);
+				Commands->Send_Custom_Event(obj, obj_con, 1007, 1, 0.0f);
 			}
 		}
 		else
 		{
 			if (obj_con)
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1007, 2);
+				Commands->Send_Custom_Event(obj, obj_con, 1007, 2, 0.0f);
 			}
 		}
 	}
@@ -2539,7 +2539,7 @@ DECLARE_SCRIPT (M10_GDI_Reinforcement_Waypath, "")
 
 	void Killed(GameObject * obj, GameObject * killer)
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (2000861), KILLED, 1);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (2000861), KILLED, 1, 0.0f);
 	}		
 };
 
@@ -2616,7 +2616,7 @@ DECLARE_SCRIPT (M10_SAM_Reinforce, "")
 {
 	void Killed (GameObject * obj, GameObject * killer)
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (2000861), REINFORCE, 1);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (2000861), REINFORCE, 1, 0.0f);
 	}
 };
 
@@ -2657,18 +2657,18 @@ DECLARE_SCRIPT (M10_Gate_Check, "Objective:int, Gate1:int, Gate2:int")
 		if (action_id == 100002)
 		{
 			first = true;
-			Commands->Send_Custom_Event(obj, obj_con, 1005, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1005, 1, 0.0f);
 		}
 
 		if (action_id == 100008)
 		{
 			second = true;
-			Commands->Send_Custom_Event(obj, obj_con, 1007, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1007, 1, 0.0f);
 		}
 
 		if (action_id == 100017)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1006, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1006, 1, 0.0f);
 		}
 
 	}
@@ -2687,14 +2687,14 @@ DECLARE_SCRIPT (M10_Gate_Check, "Objective:int, Gate1:int, Gate2:int")
 				int gate1 = Get_Int_Parameter("Gate1");
 				int gate2 = Get_Int_Parameter("Gate2");
 
-					//Commands->Send_Custom_Event(obj, Commands->Find_Object (1100154), objective, 1);
+					//Commands->Send_Custom_Event(obj, Commands->Find_Object (1100154), objective, 1, 0.0f);
 				Commands->Static_Anim_Phys_Goto_Last_Frame (gate1, NULL );
 				Commands->Static_Anim_Phys_Goto_Last_Frame (gate2, NULL );
 
 				if (objective == 1005)
 				{
 					int id = Commands->Create_Conversation("M10CON002", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100002);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -2702,7 +2702,7 @@ DECLARE_SCRIPT (M10_Gate_Check, "Objective:int, Gate1:int, Gate2:int")
 				if (objective == 1007 && first)
 				{
 					int id = Commands->Create_Conversation("M10CON008", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100008);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -2710,31 +2710,31 @@ DECLARE_SCRIPT (M10_Gate_Check, "Objective:int, Gate1:int, Gate2:int")
 				if (objective == 1007 && !first)
 				{
 					second = true;
-					Commands->Send_Custom_Event(obj, obj_con, 1007, 1);
+					Commands->Send_Custom_Event(obj, obj_con, 1007, 1, 0.0f);
 				}
 
 				if (objective == 1006 && first && second)
 				{
 					int id = Commands->Create_Conversation("M10CON017", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);
 					Commands->Start_Conversation(id, 100017);
 					Commands->Monitor_Conversation(obj, id);
 				}
 
 				if (objective == 1006 && !first && second)
 				{
-					Commands->Send_Custom_Event(obj, obj_con, 1006, 1);
+					Commands->Send_Custom_Event(obj, obj_con, 1006, 1, 0.0f);
 				}
 
 				if (objective == 1006 && first && !second)
 				{
-					Commands->Send_Custom_Event(obj, obj_con, 1006, 1);
+					Commands->Send_Custom_Event(obj, obj_con, 1006, 1, 0.0f);
 				}
 
 				if (objective == 1006 && !first && !second)
 				{
-					Commands->Send_Custom_Event(obj, obj_con, 1006, 1);
+					Commands->Send_Custom_Event(obj, obj_con, 1006, 1, 0.0f);
 				}
 			}
 		}
@@ -2794,7 +2794,7 @@ DECLARE_SCRIPT (M10_Mammoth_Grant_Controller, "") //2001634
 				
 				if (!hon_alive && mammoth)
 				{
-					Commands->Send_Custom_Event(obj, obj, GRANT, 0);
+					Commands->Send_Custom_Event(obj, obj, GRANT, 0, 0.0f);
 				}
 			}			
 		}
@@ -2820,7 +2820,7 @@ DECLARE_SCRIPT (M10_Mammoth_Grant_Controller, "") //2001634
 			GDI_soldier = Commands->Create_Object ("GDI_MP", GI_loc);
 
 			int id = Commands->Create_Conversation("M10CON071", 99, 2000, false);
-			Commands->Join_Conversation(GDI_soldier, id);
+			Commands->Join_Conversation(GDI_soldier, id, true, true, true);
 			Commands->Start_Conversation(id, 100071);
 			Commands->Monitor_Conversation(obj, id);		
 		}
@@ -2835,7 +2835,7 @@ DECLARE_SCRIPT (M10_Hon_Killed, "")
 		Commands->Enable_Spawner (2000850, false);
 		Commands->Enable_Spawner (2000851, false);
 
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (2001634), KILLED, HON);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (2001634), KILLED, HON, 0.0f);
 	}
 };
 
@@ -2843,7 +2843,7 @@ DECLARE_SCRIPT (M10_Helipad_Killed, "")
 {
 	void Killed(GameObject * obj, GameObject * killer)
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (2001634), KILLED, HELIPAD);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (2001634), KILLED, HELIPAD, 0.0f);
 	}
 };
 
@@ -2856,7 +2856,7 @@ DECLARE_SCRIPT (M10_Stealth_Drop, "")
 
 	void Destroyed(GameObject * obj) 
 	{
-		Commands->Send_Custom_Event( obj, Commands->Find_Object (1110056), KILLED, 0 );
+		Commands->Send_Custom_Event( obj, Commands->Find_Object (1110056), KILLED, 0 , 0.0f);
 	}
 
 	void Custom(GameObject * obj, int type, int param, GameObject * sender)
@@ -3048,12 +3048,12 @@ DECLARE_SCRIPT (M10_Stealth_Attack_01, "")
 		params.AttackCheckBlocked = false;
 		//params.AttackActive = true;
 		
-		Commands->Modify_Action(obj, 10, params);				
+		Commands->Modify_Action(obj, 10, params, true, true);				
 	}
 
 	void Killed(GameObject * obj, GameObject * killer)
 	{
-		Commands->Send_Custom_Event( obj, Commands->Find_Object (1110056), KILLED, 0 );
+		Commands->Send_Custom_Event( obj, Commands->Find_Object (1110056), KILLED, 0 , 0.0f);
 	}
 
 	void Timer_Expired (GameObject* obj, int timer_id)
@@ -3091,7 +3091,7 @@ DECLARE_SCRIPT (M10_Stealth_Attack_01, "")
 				//params.Set_Attack(STAR, 100.0f, 5.0f, true);
 				//params.AttackCheckBlocked = false;
 				//params.AttackActive = true;
-				//Commands->Modify_Action(obj, 10, params);
+				//Commands->Modify_Action(obj, 10, params, true, true);
 
 				Commands->Action_Attack(obj, params);
 			}
@@ -3167,7 +3167,7 @@ DECLARE_SCRIPT (M10_Stealth_Attack_02, "")
 
 	void Killed(GameObject * obj, GameObject *killer )
 	{
-		Commands->Send_Custom_Event( obj, Commands->Find_Object (1100161), TANK_KILLED, 0);
+		Commands->Send_Custom_Event( obj, Commands->Find_Object (1100161), TANK_KILLED, 0, 0.0f);
 	}
 	
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
@@ -3188,7 +3188,7 @@ DECLARE_SCRIPT (M10_Stealth_Attack_02, "")
 		params.AttackCheckBlocked = false;
 		//params.AttackActive = true;
 		
-		Commands->Modify_Action(obj, 10, params);				
+		Commands->Modify_Action(obj, 10, params, true, true);				
 	}
 
 	void Timer_Expired (GameObject* obj, int timer_id)
@@ -3222,7 +3222,7 @@ DECLARE_SCRIPT (M10_Stealth_Attack_02, "")
 				//params.Set_Attack(STAR, 100.0f, 5.0f, true);
 				//params.AttackCheckBlocked = false;
 				//params.AttackActive = true;
-				//Commands->Modify_Action(obj, 10, params);
+				//Commands->Modify_Action(obj, 10, params, true, true);
 
 				Commands->Action_Attack(obj, params);
 			}
@@ -3331,7 +3331,7 @@ DECLARE_SCRIPT(M10_Obelisk_MCT, "")
 	{
 		if (alive)
 		{
-			Commands->Send_Custom_Event( obj, Commands->Find_Object (2010415), M10_PLAYERTYPE_CHANGE_OBELISK, 0);
+			Commands->Send_Custom_Event( obj, Commands->Find_Object (2010415), M10_PLAYERTYPE_CHANGE_OBELISK, 0, 0.0f);
 		}
 	}
 
@@ -3353,7 +3353,7 @@ DECLARE_SCRIPT(M10_Refinery_Keycard, "")
 			GameObject * obj_con = Commands->Find_Object(1100154);
 			if (obj_con)
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1012, 1);
+				Commands->Send_Custom_Event(obj, obj_con, 1012, 1, 0.0f);
 			}
 		}
 	}
@@ -3487,7 +3487,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 
 		if (timer_id == KEY_OBJ)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1012, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1012, 3, 0.0f);
 		}
 	};
 
@@ -3497,78 +3497,78 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 
 		if (action_id == 100001)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1005, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1005, 3, 0.0f);
 			Commands->Start_Timer (obj, this, 2.5f, KEY_OBJ);		
 		}
 		
 		if (action_id == 100004)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1002, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1002, 3, 0.0f);
 		}
 
 		if (action_id == 100007)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1007, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1007, 3, 0.0f);
 		}
 
 		if (action_id == 100010)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1004, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1004, 3, 0.0f);
 		}
 
 		if (action_id == 100015)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1001, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1001, 3, 0.0f);
 		}
 
 		if (action_id == 100018)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1006, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1006, 3, 0.0f);
 		}
 
 		if (action_id == 100020)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1008, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1008, 3, 0.0f);
 		}
 
 		if (action_id == 100027)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1015, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1015, 3, 0.0f);
 		}
 
 		if (action_id == 100030)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1009, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1009, 3, 0.0f);
 		}
 
 		if (action_id == 100033)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1018, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1018, 3, 0.0f);
 		}
 
 		if (action_id == 100036)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1010, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1010, 3, 0.0f);
 		}
 
 		if (action_id == 100039)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1014, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1014, 3, 0.0f);
 		}
 
 		if (action_id == 100042)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1011, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1011, 3, 0.0f);
 		}
 
 		if (action_id == 100044)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1017, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1017, 3, 0.0f);
 		}
 
 		if (action_id == 100051)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1019, 3);
+			Commands->Send_Custom_Event(obj, obj_con, 1019, 3, 0.0f);
 		}
 	}
 
@@ -3584,7 +3584,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON001", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100001);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3594,7 +3594,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON003", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100003);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3604,7 +3604,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON004", 100, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100004);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3613,12 +3613,12 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 				{
 					already_entered = true;
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014793), ENTERED, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014792), ENTERED, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014793), ENTERED, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014792), ENTERED, 0, 0.0f);
 
 					int id = Commands->Create_Conversation("M10CON006", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);
 					Commands->Start_Conversation(id, 100006);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3627,11 +3627,11 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 				{
 					already_entered = true;
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2017710), ENTERED, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014796), ENTERED, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2017710), ENTERED, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014796), ENTERED, 0, 0.0f);
 
 					int id = Commands->Create_Conversation("M10CON007", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100007);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3641,8 +3641,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON010", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);
 					Commands->Start_Conversation(id, 100010);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3652,7 +3652,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON013", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100013);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3661,12 +3661,12 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 				{
 					already_entered = true;
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014798), ENTERED, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014799), ENTERED, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014800), ENTERED, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014798), ENTERED, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014799), ENTERED, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014800), ENTERED, 0, 0.0f);
 
 					int id = Commands->Create_Conversation("M10CON015", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Start_Conversation(id, 100015);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3676,8 +3676,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON009", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);
 					Commands->Start_Conversation(id, 100016);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3687,8 +3687,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON018", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);					
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);					
 					Commands->Start_Conversation(id, 100018);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3698,8 +3698,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON020", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);					
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);					
 					Commands->Start_Conversation(id, 100020);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3711,8 +3711,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON022", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
-						Commands->Join_Conversation(STAR, id);					
+						Commands->Join_Conversation(NULL, id, true, true, true);
+						Commands->Join_Conversation(STAR, id, true, true, true);					
 						Commands->Start_Conversation(id, 100022);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3725,7 +3725,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON023", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Start_Conversation(id, 100023);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3736,8 +3736,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					already_entered = true;
 
 					int id = Commands->Create_Conversation("M10CON027", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);					
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);					
 					Commands->Start_Conversation(id, 100027);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3749,8 +3749,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON029", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
-						Commands->Join_Conversation(STAR, id);					
+						Commands->Join_Conversation(NULL, id, true, true, true);
+						Commands->Join_Conversation(STAR, id, true, true, true);					
 						Commands->Start_Conversation(id, 100029);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3760,12 +3760,12 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 				{
 					already_entered = true;
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2015525), ENTERED, 0);
-						Commands->Send_Custom_Event(obj, Commands->Find_Object (2015524), ENTERED, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2015525), ENTERED, 0, 0.0f);
+						Commands->Send_Custom_Event(obj, Commands->Find_Object (2015524), ENTERED, 0, 0.0f);
 
 					int id = Commands->Create_Conversation("M10CON030", 99, 2000, false);
-					Commands->Join_Conversation(NULL, id);
-					Commands->Join_Conversation(STAR, id);					
+					Commands->Join_Conversation(NULL, id, true, true, true);
+					Commands->Join_Conversation(STAR, id, true, true, true);					
 					Commands->Start_Conversation(id, 100030);
 					Commands->Monitor_Conversation(obj, id);
 				}
@@ -3776,12 +3776,12 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					{
 						already_entered = true;
 
-						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016248), ENTERED, 0);
-						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016249), ENTERED, 0);
+						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016248), ENTERED, 0, 0.0f);
+						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016249), ENTERED, 0, 0.0f);
 
 						int id = Commands->Create_Conversation("M10CON032", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
-						Commands->Join_Conversation(STAR, id);					
+						Commands->Join_Conversation(NULL, id, true, true, true);
+						Commands->Join_Conversation(STAR, id, true, true, true);					
 						Commands->Start_Conversation(id, 100032);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3794,8 +3794,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON033", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
-						Commands->Join_Conversation(STAR, id);					
+						Commands->Join_Conversation(NULL, id, true, true, true);
+						Commands->Join_Conversation(STAR, id, true, true, true);					
 						Commands->Start_Conversation(id, 100033);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3808,7 +3808,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON036", 99, 2000, false);
-						Commands->Join_Conversation(STAR, id);		
+						Commands->Join_Conversation(STAR, id, true, true, true);		
 						Commands->Start_Conversation(id, 100036);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3821,8 +3821,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON038", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
-						Commands->Join_Conversation(STAR, id);		
+						Commands->Join_Conversation(NULL, id, true, true, true);
+						Commands->Join_Conversation(STAR, id, true, true, true);		
 						Commands->Start_Conversation(id, 100038);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3835,8 +3835,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON039", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
-						Commands->Join_Conversation(STAR, id);		
+						Commands->Join_Conversation(NULL, id, true, true, true);
+						Commands->Join_Conversation(STAR, id, true, true, true);		
 						Commands->Start_Conversation(id, 100039);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3848,12 +3848,12 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					{
 						already_entered = true;
 
-						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016251), ENTERED, 0);
-						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016976), ENTERED, 0);
+						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016251), ENTERED, 0, 0.0f);
+						Commands->Send_Custom_Event(obj, Commands->Find_Object (2016976), ENTERED, 0, 0.0f);
 
 						int id = Commands->Create_Conversation("M10CON042", 99, 2000, false);
-						Commands->Join_Conversation(STAR, id);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(STAR, id, true, true, true);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Start_Conversation(id, 100042);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3865,11 +3865,11 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 					{
 						already_entered = true;
 
-						Commands->Send_Custom_Event(obj, Commands->Find_Object (2017698), ENTERED, 0);
-						Commands->Send_Custom_Event(obj, Commands->Find_Object (2017699), ENTERED, 0);
+						Commands->Send_Custom_Event(obj, Commands->Find_Object (2017698), ENTERED, 0, 0.0f);
+						Commands->Send_Custom_Event(obj, Commands->Find_Object (2017699), ENTERED, 0, 0.0f);
 
 						int id = Commands->Create_Conversation("M10CON044", 99, 2000, false);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Start_Conversation(id, 100044);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3882,8 +3882,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON047", 99, 2000, false);
-						Commands->Join_Conversation(STAR, id);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(STAR, id, true, true, true);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Start_Conversation(id, 100047);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3896,8 +3896,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						/*int id = Commands->Create_Conversation("M10CON049", 99, 2000, false);
-						Commands->Join_Conversation(STAR, id);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(STAR, id, true, true, true);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Start_Conversation(id, 100049);
 						Commands->Monitor_Conversation(obj, id);*/
 					}
@@ -3910,8 +3910,8 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 						already_entered = true;
 
 						int id = Commands->Create_Conversation("M10CON051", 99, 2000, false);
-						Commands->Join_Conversation(STAR, id);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(STAR, id, true, true, true);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Start_Conversation(id, 100051);
 						Commands->Monitor_Conversation(obj, id);
 					}
@@ -3921,11 +3921,11 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 				{
 					already_entered = true;
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014795), ENTERED, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object (2017711), ENTERED, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2014795), ENTERED, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object (2017711), ENTERED, 0, 0.0f);
 
 					int id = Commands->Create_Conversation("M10CON054", 99, 2000, false);
-					Commands->Join_Conversation(STAR, id);
+					Commands->Join_Conversation(STAR, id, true, true, true);
 					Commands->Start_Conversation(id, 100054);
 					Commands->Monitor_Conversation(obj, id);					
 				}
@@ -3948,7 +3948,7 @@ DECLARE_SCRIPT(M10_Sam_Killed, "SamNumber:int")
 
 		if (action_id == 100050)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1016, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1016, 1, 0.0f);
 		}
 	}*/
 
@@ -3960,26 +3960,26 @@ DECLARE_SCRIPT(M10_Sam_Killed, "SamNumber:int")
 		{
 		case 1: 
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1015, 3);
-				Commands->Send_Custom_Event(obj, obj_con, 1015, 1);
+				Commands->Send_Custom_Event(obj, obj_con, 1015, 3, 0.0f);
+				Commands->Send_Custom_Event(obj, obj_con, 1015, 1, 0.0f);
 
 				Commands->Set_Objective_Status(1015, OBJECTIVE_STATUS_ACCOMPLISHED);
 			}
 			break;
 		case 2:
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1017, 1);
+				Commands->Send_Custom_Event(obj, obj_con, 1017, 1, 0.0f);
 			}
 			break;
 		case 3:
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1018, 1);
+				Commands->Send_Custom_Event(obj, obj_con, 1018, 1, 0.0f);
 			}
 			break;
 		case 4:
 			{
-				Commands->Send_Custom_Event(obj, obj_con, 1016, 3);
-				Commands->Send_Custom_Event(obj, obj_con, 1016, 1);
+				Commands->Send_Custom_Event(obj, obj_con, 1016, 3, 0.0f);
+				Commands->Send_Custom_Event(obj, obj_con, 1016, 1, 0.0f);
 
 				Commands->Set_Objective_Status(1016, OBJECTIVE_STATUS_ACCOMPLISHED);
 			}
@@ -3996,14 +3996,14 @@ DECLARE_SCRIPT(M10_Helipad_Destroyed, "PadNumber:int")
 
 		if (action_id == 100040)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1014, 3);
-			Commands->Send_Custom_Event(obj, obj_con, 1014, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1014, 3, 0.0f);
+			Commands->Send_Custom_Event(obj, obj_con, 1014, 1, 0.0f);
 		}
 
 		if (action_id == 100048)
 		{
-			Commands->Send_Custom_Event(obj, obj_con, 1013, 3);
-			Commands->Send_Custom_Event(obj, obj_con, 1013, 1);
+			Commands->Send_Custom_Event(obj, obj_con, 1013, 3, 0.0f);
+			Commands->Send_Custom_Event(obj, obj_con, 1013, 1, 0.0f);
 		}
 	}
 
@@ -4014,8 +4014,8 @@ DECLARE_SCRIPT(M10_Helipad_Destroyed, "PadNumber:int")
 		case 1: 
 			{
 				int id = Commands->Create_Conversation("M10CON040", 99, 2000, false);
-				Commands->Join_Conversation(NULL, id);
-				Commands->Join_Conversation(STAR, id);
+				Commands->Join_Conversation(NULL, id, true, true, true);
+				Commands->Join_Conversation(STAR, id, true, true, true);
 				Commands->Start_Conversation(id, 100040);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4024,12 +4024,12 @@ DECLARE_SCRIPT(M10_Helipad_Destroyed, "PadNumber:int")
 			{
 				GameObject * obj_con = Commands->Find_Object(1100154);
 
-				Commands->Send_Custom_Event(obj, obj_con, 1013, 3);
-				Commands->Send_Custom_Event(obj, obj_con, 1013, 1);
+				Commands->Send_Custom_Event(obj, obj_con, 1013, 3, 0.0f);
+				Commands->Send_Custom_Event(obj, obj_con, 1013, 1, 0.0f);
 
 				/*int id = Commands->Create_Conversation("M10CON048", 99, 2000, false);
-				Commands->Join_Conversation(STAR, id);
-				Commands->Join_Conversation(NULL, id);
+				Commands->Join_Conversation(STAR, id, true, true, true);
+				Commands->Join_Conversation(NULL, id, true, true, true);
 				Commands->Start_Conversation(id, 100048);
 				Commands->Monitor_Conversation(obj, id);*/
 			}
@@ -4044,8 +4044,8 @@ DECLARE_SCRIPT(M10_Turret_Killed, "")
 	{
 		GameObject * obj_con = Commands->Find_Object(1100154);
 
-		Commands->Send_Custom_Event(obj, obj_con, 1019, 3);
-		Commands->Send_Custom_Event(obj, obj_con, 1019, 1);
+		Commands->Send_Custom_Event(obj, obj_con, 1019, 3, 0.0f);
+		Commands->Send_Custom_Event(obj, obj_con, 1019, 1, 0.0f);
 	}	
 };
 
@@ -4146,12 +4146,12 @@ DECLARE_SCRIPT(M10_Mrls_Waypath, "")
 {
 	void Created (GameObject *obj)
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100007), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100008), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100009), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100010), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100011), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100012), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100007), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100008), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100009), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100010), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100011), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100012), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
 
 		ActionParamsStruct params;
 		params.Set_Basic( this, 99, 10 );
@@ -4165,12 +4165,12 @@ DECLARE_SCRIPT(M10_Humm_SAMIgnore, "")
 {
 	void Created (GameObject *obj)
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100007), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100008), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100009), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100010), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100011), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100012), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100007), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100008), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100009), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100010), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100011), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100012), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
 	}
 };
 
@@ -4178,29 +4178,29 @@ DECLARE_SCRIPT(M10_Occupied, "")
 {
 	void Created (GameObject *obj)
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100007), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100008), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100009), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100010), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100011), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100012), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj));
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100007), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100008), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100009), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100010), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100011), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100012), M00_CUSTOM_SAM_SITE_IGNORE, Commands->Get_ID (obj), 0.0f);
 	}
 
 	void Killed( GameObject * obj, GameObject * killer ) 
 	{
-		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), MAMMY, 0);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), MAMMY, 0, 0.0f);
 	}
 
 	void Sound_Heard(GameObject* obj, const CombatSound & sound)
 	{
 		if (sound.Type == CLEAR1)
 		{
-			Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), OCCUPIED, 1);
+			Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), OCCUPIED, 1, 0.0f);
 		}
 
 		if (sound.Type == CLEAR2)
 		{
-			Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), OCCUPIED, 2);
+			Commands->Send_Custom_Event(obj, Commands->Find_Object (1100166), OCCUPIED, 2, 0.0f);
 		}
 	}
 };
@@ -4237,7 +4237,7 @@ DECLARE_SCRIPT(M10_Con_Yard_Repair, "RepairSpeed=1:float")
 		{
 			if (damager == STAR)
 			{
-				Commands->Send_Custom_Event(obj, Commands->Find_Object (1206469), DAMAGED, 0);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object (1206469), DAMAGED, 0, 0.0f);
 			}
 
 			curr_health = Commands->Get_Health (obj);
@@ -4293,7 +4293,7 @@ DECLARE_SCRIPT (M10_Ssm_Trigger, "")
 		{
 			already_entered = true;
 
-			Commands->Send_Custom_Event (obj, Commands->Find_Object (2009688), M00_LAUNCH_SSM, 0);
+			Commands->Send_Custom_Event (obj, Commands->Find_Object (2009688), M00_LAUNCH_SSM, 0, 0.0f);
 		}
 	}
 };
@@ -4352,12 +4352,12 @@ DECLARE_SCRIPT(M10_Radar_Scramble, "")
 		{
 			if (!already_entered)
 			{
-				Commands->Send_Custom_Event (obj, Commands->Find_Object (1110022), ENTERED, 0);
-				Commands->Send_Custom_Event (obj, Commands->Find_Object (1100160), ENTERED, 0);
+				Commands->Send_Custom_Event (obj, Commands->Find_Object (1110022), ENTERED, 0, 0.0f);
+				Commands->Send_Custom_Event (obj, Commands->Find_Object (1100160), ENTERED, 0, 0.0f);
 				already_entered = true;
 
 				int id = Commands->Create_Conversation("M03CON068", 99, 2000, false);
-				Commands->Join_Conversation(NULL, id);
+				Commands->Join_Conversation(NULL, id, true, true, true);
 				Commands->Start_Conversation(id, 100068);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4434,7 +4434,7 @@ DECLARE_SCRIPT (M10_SoldierPoke, "")
 		case 0: 
 			{
 				int id = Commands->Create_Conversation("M10CON065", 99, 2000, false);
-				Commands->Join_Conversation(obj, id);
+				Commands->Join_Conversation(obj, id, true, true, true);
 				Commands->Start_Conversation(id, 100065);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4442,7 +4442,7 @@ DECLARE_SCRIPT (M10_SoldierPoke, "")
 		case 1:
 			{
 				int id = Commands->Create_Conversation("M10CON066", 99, 2000, false);
-				Commands->Join_Conversation(obj, id);
+				Commands->Join_Conversation(obj, id, true, true, true);
 				Commands->Start_Conversation(id, 100066);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4450,7 +4450,7 @@ DECLARE_SCRIPT (M10_SoldierPoke, "")
 		case 2:
 			{
 				int id = Commands->Create_Conversation("M10CON067", 99, 2000, false);
-				Commands->Join_Conversation(obj, id);
+				Commands->Join_Conversation(obj, id, true, true, true);
 				Commands->Start_Conversation(id, 100067);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4458,7 +4458,7 @@ DECLARE_SCRIPT (M10_SoldierPoke, "")
 		case 3:
 			{
 				int id = Commands->Create_Conversation("M10CON068", 99, 2000, false);
-				Commands->Join_Conversation(obj, id);
+				Commands->Join_Conversation(obj, id, true, true, true);
 				Commands->Start_Conversation(id, 100068);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4466,7 +4466,7 @@ DECLARE_SCRIPT (M10_SoldierPoke, "")
 		case 4:
 			{
 				int id = Commands->Create_Conversation("M10CON069", 99, 2000, false);
-				Commands->Join_Conversation(obj, id);
+				Commands->Join_Conversation(obj, id, true, true, true);
 				Commands->Start_Conversation(id, 100069);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4474,7 +4474,7 @@ DECLARE_SCRIPT (M10_SoldierPoke, "")
 		case 5:
 			{
 				int id = Commands->Create_Conversation("M10CON070", 99, 2000, false);
-				Commands->Join_Conversation(obj, id);
+				Commands->Join_Conversation(obj, id, true, true, true);
 				Commands->Start_Conversation(id, 100070);
 				Commands->Monitor_Conversation(obj, id);
 			}
@@ -4512,7 +4512,7 @@ DECLARE_SCRIPT(M10_NBase_Attacked, "") //1206469
 			message_fired = true;
 
 			int id = Commands->Create_Conversation("M10CON072", 99, 2000, false);
-			Commands->Join_Conversation(NULL, id);
+			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Start_Conversation(id, 100072);
 			Commands->Monitor_Conversation(obj, id);
 

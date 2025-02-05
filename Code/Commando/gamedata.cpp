@@ -1860,7 +1860,8 @@ void cGameData::Show_Game_Settings_Limits(void)
 	// Re-compose the OldBottomText vector
 
 	OldBottomText.Reset_Active();
-	for (int j=0;j<BottomText.Count();++j) {
+	int j;
+	for (j=0;j<BottomText.Count();++j) {
 		OldBottomText.Add(BottomText[j]);
 	}
 	BottomText.Reset_Active();

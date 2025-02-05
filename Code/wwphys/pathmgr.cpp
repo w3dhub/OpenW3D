@@ -118,7 +118,8 @@ PathMgrClass::Free_Objects (void)
 	//
 	//	Free the list of available objects
 	//
-	for (int index = 0; index < AvailablePathList.Count (); index ++) {
+	int index;
+	for (index = 0; index < AvailablePathList.Count (); index ++) {
 		PathSolveClass *path = AvailablePathList[index];
 		REF_PTR_RELEASE (path);
 	}

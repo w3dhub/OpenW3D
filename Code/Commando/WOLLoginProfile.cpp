@@ -57,7 +57,7 @@ static const char* REG_VALUE_TEAMRANK = "RankTeam";
 static const char* REG_VALUE_CLANRANK = "RankClan";
 
 // Profile ranking columns
-static enum
+enum
 {
 	COL_LADDERNAME = 0,
 	COL_WINS,

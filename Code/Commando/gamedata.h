@@ -289,7 +289,7 @@ class	cGameData :
 		virtual	void	Get_Description(WideStringClass & description);
 
 
-		WideStringClass	Get_Settings_Description(void)						{return(SettingsDescription);}
+		WideStringClass	Get_Settings_Description(void)						{return(SettingsDescription.Peek_Buffer());}
 		void					Set_Settings_Description(WideStringClass desc)	{SettingsDescription = desc;}
 
 		cBoolean			IsIntermission;

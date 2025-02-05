@@ -316,7 +316,7 @@ private:
 	/*
 	** Combat Mode Management
 	*/
-	typedef enum {
+	enum {
 		COMBAT_MODE_NONE,
 		COMBAT_MODE_FIRST_PERSON,
 		COMBAT_MODE_THIRD_PERSON,

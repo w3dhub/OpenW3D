@@ -43,6 +43,10 @@
 
 #include "bittype.h"
 
+#if defined _MSC_VER && _MSC_VER <= 1200
+#include <wchar.h>
+#endif
+
 enum BANDWIDTH_TYPE_ENUM {
 
 	BANDWIDTH_FIRST = 100,
@@ -68,7 +72,7 @@ class	cBandwidth {
       ~cBandwidth(void) {};
 
 		static ULONG						Get_Bandwidth_Bps_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
-		static const unsigned short *	Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
+		static const wchar_t *	Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
 		static BANDWIDTH_TYPE_ENUM		Get_Bandwidth_Type_From_String(LPCSTR bandwidth_string);
 };
 

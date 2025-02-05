@@ -3443,7 +3443,8 @@ WWAudioClass::Set_Active_Sound_Page (SOUND_PAGE page)
 	//
 	//	Pause any sounds that are playing in the old page
 	//
-	for (int index = 0; index < m_Playlist[m_CurrPage].Count ();index ++) {
+	int index;
+	for (index = 0; index < m_Playlist[m_CurrPage].Count ();index ++) {
 		m_Playlist[m_CurrPage][index]->Pause ();
 	}
 

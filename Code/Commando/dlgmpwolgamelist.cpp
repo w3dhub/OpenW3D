@@ -62,7 +62,7 @@
 using namespace WWOnline;
 
 // Game List columns
-static enum
+enum
 	{
 	COL_ICON = 0,
 	COL_HOST_NAME,

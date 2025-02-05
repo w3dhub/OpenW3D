@@ -1004,7 +1004,7 @@ float		WeaponChartIconScale = 0.45f / 640.0f;
 
 static	void	Clear_Weapon_Chart_Icons( void )
 {
-	if ( WeaponChartIcons.Count != 0 ) {
+	if ( WeaponChartIcons.Count() != 0 ) {
 		int i;
 		for ( i = 0; i < WeaponChartIcons.Count(); i++) {
 			delete WeaponChartIcons[i];
@@ -2723,13 +2723,13 @@ static bool		_HUDEnabled = true;
 static bool		_HUDInited = false;
 
 #ifdef ATI_DEMO_HACK
-typedef enum {
+enum {
 	DEMO_HUD_IMAGE=0,
 	DEMO_HUD_IMAGE2,
 	NUM_RENDER_IMAGES,
 };
 #else
-typedef enum {
+enum {
 	RETICLE	= 0,
 	RETICLE_HIT,
 	ACTION_STATUSBAR_RENDERER,

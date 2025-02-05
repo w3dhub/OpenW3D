@@ -74,6 +74,7 @@
 #include "physcoltest.h"
 #include "objlibrary.h"
 #include "hudinfo.h"
+#include "colmathaabox.h" // Agressive inlining causes linker issues if this isn't here.
 
 
 DECLARE_FORCE_LINK (MendozaBoss)
@@ -382,79 +383,79 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	//
 	//	Register the Overall states with its state machine
 	//	
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_FLYING_SIDEKICK);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_MELEE_ATTACK);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_RANGED_ATTACK);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_FIREBALL_ATTACK);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_FIND_HEALTH);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_SYDNEY_BOLTS);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_RUN_AFTER_SYDNEY);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_TOY_WITH_SYDNEY);
-	ADD_STATE_TO_MACHINE (OverallState, OVERALL_STATE_DEATH_SEQUENCE);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_FLYING_SIDEKICK);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_MELEE_ATTACK);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_RANGED_ATTACK);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_FIREBALL_ATTACK);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_FIND_HEALTH);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_SYDNEY_BOLTS);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_RUN_AFTER_SYDNEY);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_TOY_WITH_SYDNEY);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_DEATH_SEQUENCE);
 	
 	//
 	//	Register the Move states with its state machine
 	//
-	ADD_STATE_TO_MACHINE (MoveState, MOVE_STATE_STOP);
-	ADD_STATE_TO_MACHINE (MoveState, MOVE_STATE_GET_CLOSE_TO_PLAYER);
-	ADD_STATE_TO_MACHINE (MoveState, MOVE_STATE_ATTACK_PATTERN1);
-	ADD_STATE_TO_MACHINE (MoveState, MOVE_STATE_ATTACK_PATTERN2);
-	ADD_STATE_TO_MACHINE (MoveState, MOVE_STATE_GOTO_HELIPAD);	
-	ADD_STATE_TO_MACHINE (MoveState, MOVE_STATE_RUN_TO_HEALTH);
-	ADD_STATE_TO_MACHINE (MoveState, MOVE_STATE_CHASE_SYDNEY);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_STOP);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_GET_CLOSE_TO_PLAYER);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_ATTACK_PATTERN1);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_ATTACK_PATTERN2);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_GOTO_HELIPAD);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_RUN_TO_HEALTH);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_CHASE_SYDNEY);
 
 	//
 	//	Register the Mendoza states with its state machine
 	//
-	ADD_STATE_TO_MACHINE (MendozaState, MENDOZA_STATE_STANDING);
-	ADD_STATE_TO_MACHINE (MendozaState, MENDOZA_STATE_FALLING);
-	ADD_STATE_TO_MACHINE (MendozaState, MENDOZA_STATE_KIPPING);
-	ADD_STATE_TO_MACHINE (MendozaState, MENDOZA_STATE_PACK_EXPLODING);
-	ADD_STATE_TO_MACHINE (MendozaState, MENDOZA_STATE_DYING);
-	ADD_STATE_TO_MACHINE (MendozaState, MENDOZA_STATE_DEAD);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_STANDING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_FALLING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_KIPPING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_PACK_EXPLODING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_DYING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_DEAD);
 	MendozaState.Set_State (MENDOZA_STATE_STANDING);
 	
 	//
 	//	Register the Sydney states with its state machine
 	//
-	ADD_STATE_TO_MACHINE (SydneyState, SYDNEY_STATE_WAITING);
-	ADD_STATE_TO_MACHINE (SydneyState, SYDNEY_STATE_BOLTING);
-	ADD_STATE_TO_MACHINE (SydneyState, SYDNEY_STATE_TRIPPING);
-	ADD_STATE_TO_MACHINE (SydneyState, SYDNEY_STATE_GETTING_UP);	
-	ADD_STATE_TO_MACHINE (SydneyState, SYDNEY_STATE_COWERING);
-	ADD_STATE_TO_MACHINE (SydneyState, SYDNEY_STATE_STRIKE_A_POSE);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_WAITING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_BOLTING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_TRIPPING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_GETTING_UP);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_COWERING);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_STRIKE_A_POSE);	
 
 	//
 	//	Register the Head states with its state machine
 	//
-	ADD_STATE_TO_MACHINE (HeadState, HEAD_STATE_NONE);
-	ADD_STATE_TO_MACHINE (HeadState, HEAD_STATE_LOOKING_AT_STAR);
-	ADD_STATE_TO_MACHINE (HeadState, HEAD_STATE_LOOKING_AT_SYDNEY);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, HeadState, HEAD_STATE_NONE);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, HeadState, HEAD_STATE_LOOKING_AT_STAR);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, HeadState, HEAD_STATE_LOOKING_AT_SYDNEY);
 
 	//
 	//	Register the attack states with its state machine
 	//
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_NONE);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_MELEE);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_MELEE_FLYING_SIDEKICK_RUN);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_MELEE_FLYING_SIDEKICK);	
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_MELEE_CRESENT_KICK);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_MELEE_SIDE_KICK);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_MELEE_SIDE_KICK_RETRACT);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_MELEE_PUNCH);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_FLAMETHROWER);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_FIREBALL);	
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_HANDGUN);
-	ADD_STATE_TO_MACHINE (AttackState, ATTACK_STATE_SYDNEY);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_NONE);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_FLYING_SIDEKICK_RUN);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_FLYING_SIDEKICK);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_CRESENT_KICK);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_SIDE_KICK);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_SIDE_KICK_RETRACT);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_PUNCH);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_FLAMETHROWER);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_FIREBALL);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_HANDGUN);
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_SYDNEY);
 	AttackState.Set_State (ATTACK_STATE_NONE);	
 
 	//
 	//	Register the camera states with its state machine
 	//
-	CameraState.Add_State (NULL,													NULL,		On_CAMERA_STATE_NORMAL_Begin,					NULL);
-	CameraState.Add_State (On_CAMERA_STATE_FACE_ZOOM_Think,				NULL,		On_CAMERA_STATE_FACE_ZOOM_Begin,				NULL);
-	CameraState.Add_State (On_CAMERA_STATE_WAYPATH_FOLLOW_Think,		NULL,		On_CAMERA_STATE_WAYPATH_FOLLOW_Begin,		NULL);
-	CameraState.Add_State (On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Think,	NULL,		On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Begin,	NULL);	
+	CameraState.Add_State (NULL,													NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_NORMAL_Begin,					NULL);
+	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Think,				NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Begin,				NULL);
+	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Think,		NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin,		NULL);
+	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Think,	NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Begin,	NULL);	
 	CameraState.Set_State (CAMERA_STATE_NORMAL);
 
 	//

@@ -749,7 +749,7 @@ void ConsoleModeClass::Think(void)
  * HISTORY:                                                                                    *
  *   12/17/2001 5:06PM ST : Created                                                            *
  *=============================================================================================*/
-ConsoleModeClass::Add_Message(WideStringClass *formatted_text, Vector3 *text_color, bool forced)
+void ConsoleModeClass::Add_Message(WideStringClass *formatted_text, Vector3 *text_color, bool forced)
 {
 
 	if (!ProfileMode && formatted_text && text_color && (forced || (Pos == 1 && TIMEGETTIME() - LastKeypressTime > 3 * 1000))) {

@@ -844,7 +844,8 @@ void TextureClass::_Init_Filters(TextureClass::TextureFilterMode filter_type)
 	}
 
 	// For stages above zero, set best filter to the same as the stage zero, except if anisotropic
-	for (int i=1;i<MAX_TEXTURE_STAGES;++i) {
+	int i;
+	for (i=1;i<MAX_TEXTURE_STAGES;++i) {
 /*		_MinTextureFilters[i][FILTER_TYPE_NONE]=D3DTEXF_POINT;
 		_MagTextureFilters[i][FILTER_TYPE_NONE]=D3DTEXF_POINT;
 		_MipMapFilters[i][FILTER_TYPE_NONE]=D3DTEXF_NONE;

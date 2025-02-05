@@ -153,8 +153,8 @@ MPWolIgnoreListPopupClass::Refresh_List (void)
 
 	//	Loop over the entries
 	const WOLBuddyMgr::IgnoreList& ignore = mBuddyMgr->GetIngoreList();
-
-	for (unsigned int index = 0; index < ignore.size(); index++) {
+	unsigned int index;
+	for (index = 0; index < ignore.size(); index++) {
 		const WideStringClass& name = ignore[index];
 
 		int pos = list_ctrl->Insert_Entry(0xFFFF, name);

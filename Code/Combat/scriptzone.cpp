@@ -336,7 +336,7 @@ void	ScriptZoneGameObj::Think()
 {
 	ScriptableGameObj::Think();
 
-	if ( Get_Observers().Count == 0 && Get_Definition().ZoneType != TYPE_CTF ) {
+	if ( Get_Observers().Count() == 0 && Get_Definition().ZoneType != TYPE_CTF ) {
 		return;
 	}
 

@@ -1108,7 +1108,8 @@ TreeCtrlClass::Delete_Item (TreeItemClass *item)
 	//	Recursively delete all this item's children
 	//
 	int child_count = item->Get_Child_Count ();
-	for (int index = 0; index < child_count; index ++) {
+	int index;
+	for (index = 0; index < child_count; index ++) {
 		TreeItemClass *child = item->Get_Child (index);
 		Delete_Item (child);
 	}

@@ -137,7 +137,8 @@ TextMarqueeCtrlClass::Create_Text_Renderer (void)
 	float start_height	= (ScrollPos - ctrl_height);
 
 	float curr_height		= 0;
-	for (int curr_row = 0; curr_row < CreditLines.Count (); curr_row ++) {		
+	int curr_row;
+	for (curr_row = 0; curr_row < CreditLines.Count (); curr_row ++) {		
 		if ((curr_height + CreditLines[curr_row].Height) >= start_height) {
 			break;
 		}

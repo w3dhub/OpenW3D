@@ -30,6 +30,8 @@ target_compile_definitions(wwconfig PRIVATE
     _AFXDLL
     $<$<CONFIG:Debug>:WWDEBUG>
     $<$<CONFIG:Debug>:_DEBUG>
+    $<$<CONFIG:Debug>:WWDEBUG>
+    $<$<CONFIG:Debug>:_DEBUG>
 )
 
 target_link_libraries(wwconfig PRIVATE

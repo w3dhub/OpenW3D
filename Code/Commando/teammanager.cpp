@@ -559,7 +559,8 @@ void cTeamManager::Render_Team_List(void)
 	}
 
 	// Verify that the team list is valid
-   for (int j = 0; j < MAX_TEAMS; j++) {
+	int j;
+   for (j = 0; j < MAX_TEAMS; j++) {
 		if (!Team_Array[j]) {
 			Sort_Teams();
 			break;

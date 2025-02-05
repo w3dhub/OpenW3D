@@ -38,6 +38,7 @@
 // Disable warning about exception handling not being enabled.
 #pragma warning(disable : 4530)
 
+#include <windows.h>
 #include <atlbase.h>
 #include "RefCounted.h"
 #include "RefPtr.h"

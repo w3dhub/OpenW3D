@@ -135,7 +135,7 @@ void	PersistentGameObjObserverManager::Remove( PersistentGameObjObserverClass * 
 /*
 **
 */
-typedef	enum {
+enum {
 	CHUNKID_OBSERVERS			=	1,
 };
 

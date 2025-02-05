@@ -58,7 +58,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 	
 	void Created( GameObject * obj )
 	{
-		Commands->Set_Animation ( obj, "V_NOD_C-130E3.M_cargo-drop", 0 );
+		Commands->Set_Animation ( obj, "V_NOD_C-130E3.M_cargo-drop", 0 , NULL, 0.0f, -1.0f, false);
 		int drop_frame;
 		drop_frame = 460;
 		float drop_time;
@@ -186,7 +186,7 @@ DECLARE_SCRIPT(RMV_Hostage_Rescue_Point, "")
 	{
 		if (!Commands->Is_A_Star(enterer))
 		{
-			Commands->Send_Custom_Event(obj, enterer, 999, 999);
+			Commands->Send_Custom_Event(obj, enterer, 999, 999, 0.0f);
 		}
 	}
 };
@@ -200,7 +200,7 @@ DECLARE_SCRIPT(RMV_Trigger_Killed, "ID:int, Type:int, Param:int")
 			GameObject * target = Commands->Find_Object(Get_Int_Parameter("ID"));
 			int type = Get_Int_Parameter("Type");
 			int param = Get_Int_Parameter("Param");
-			Commands->Send_Custom_Event(obj, target, type, param);
+			Commands->Send_Custom_Event(obj, target, type, param, 0.0f);
 		}
 	}
 };
@@ -299,7 +299,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		is_gun = (Get_Int_Parameter("Is_Gun") == 1) ? true : false;
 		enemy_seen = timer_expired = alert = attacking = false;
 
-		Commands->Enable_Enemy_Seen(obj);
+		Commands->Enable_Enemy_Seen(obj, true);
 
 		ActionParamsStruct params;
 		params.Set_Basic(this, 90, 0);
@@ -327,7 +327,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 			GameObject * alarm = Commands->Find_Object(Get_Int_Parameter("Alarm_ID"));
 			if (alarm)
 			{
-				Commands->Send_Custom_Event(Owner(), alarm, M00_CUSTOM_CAMERA_ALARM, enemy_id);
+				Commands->Send_Custom_Event(Owner(), alarm, M00_CUSTOM_CAMERA_ALARM, enemy_id, 0.0f);
 			}
 		}
 		
@@ -525,8 +525,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_PathA", number);
 		char trans_anim[40];
 		sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsA", (nod == 1) ? "NOD" : "GDI", number);
-		Commands->Set_Animation(traj, traj_anim, false);
-		Commands->Set_Animation(transport, trans_anim, false);
+		Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
 		Commands->Attach_To_Object_Bone(transport, traj, "BN_Trajectory");
 		Commands->Start_Timer(obj, this, 280.0f / 30.0f, 0);
 
@@ -547,8 +547,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 			sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_Pathloop", number);
 			char trans_anim[40];
 			sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsloop",(nod == 1) ? "NOD" : "GDI", number);
-			Commands->Set_Animation(traj, traj_anim, false);
-			Commands->Set_Animation(transport, trans_anim, false);
+			Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
+			Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
 			Commands->Start_Timer(obj, this, 94.0f / 30.0f, 1);
 		}
 		else if (timer_id == 1)
@@ -559,8 +559,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 				sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_PathZ", number);
 				char trans_anim[40];
 				sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsz", (nod == 1) ? "NOD" : "GDI", number);
-				Commands->Set_Animation(traj, traj_anim, false);
-				Commands->Set_Animation(transport, trans_anim, false);
+				Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
 				Commands->Start_Timer(obj, this, 231.0f / 30.0f, 2);
 			}
 			else
@@ -569,8 +569,8 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 				sprintf(traj_anim, "XG_TransprtBone.XG_EV%d_Pathloop", number);
 				char trans_anim[40];
 				sprintf(trans_anim, "v_%s_trnspt.XG_EV%d_trnsloop", (nod == 1) ? "NOD" : "GDI", number);
-				Commands->Set_Animation(traj, traj_anim, false);
-				Commands->Set_Animation(transport, trans_anim, false);
+				Commands->Set_Animation(traj, traj_anim, false, NULL, 0.0f, -1.0f, false);
+				Commands->Set_Animation(transport, trans_anim, false, NULL, 0.0f, -1.0f, false);
 				Commands->Start_Timer(obj, this, 94.0f / 30.0f, 1);
 			}
 		}
@@ -616,7 +616,7 @@ DECLARE_SCRIPT(RMV_Trigger_Poked_2, "Target:int, Type:int, Param:int")
 		GameObject * target = Commands->Find_Object(Get_Int_Parameter("Target"));
 		if (target)
 		{
-			Commands->Send_Custom_Event(obj, target, Get_Int_Parameter("Type"), Get_Int_Parameter("Param"));
+			Commands->Send_Custom_Event(obj, target, Get_Int_Parameter("Type"), Get_Int_Parameter("Param"), 0.0f);
 		}
 		Commands->Destroy_Object(obj);
 	}

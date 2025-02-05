@@ -59,12 +59,12 @@
 			is_begin ? On_##state##_Begin : NULL,									\
 			is_end ? On_##state##_End : NULL);	*/
 
-#define ADD_STATE_TO_MACHINE(machine, state)		\
+#define ADD_STATE_TO_MACHINE(base, machine, state)		\
 		machine.Add_State (								\
-			On_##state##_Think,							\
-			On_##state##_Request_End,					\
-			On_##state##_Begin,							\
-			On_##state##_End);
+			&base## ::On_##state##_Think,							\
+			&base## ::On_##state##_Request_End,					\
+			&base## ::On_##state##_Begin,							\
+			&base## ::On_##state##_End);
 
 
 		//machine.Add_State (On_##state_Think, On_##state_Request_End, On_##state_Begin, On_##state_End);
@@ -258,10 +258,10 @@ public:
 	///////////////////////////////////////////////////////////////////
 	void	Add_State
 	(
-		STATE_OBJ::THINK_PTR think_ptr,
-		STATE_OBJ::REQUEST_END_PTR request_ptr,
-		STATE_OBJ::BEGIN_PTR begin_ptr,
-		STATE_OBJ::END_PTR end_ptr
+		typename STATE_OBJ::THINK_PTR think_ptr,
+		typename STATE_OBJ::REQUEST_END_PTR request_ptr,
+		typename STATE_OBJ::BEGIN_PTR begin_ptr,
+		typename STATE_OBJ::END_PTR end_ptr
 	)
 	{
 		StateClass<T> state;

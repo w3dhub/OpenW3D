@@ -732,7 +732,8 @@ WWPROFILE( "Input Active" );
 			//
 			//	Add all the 2D sounds to the message
 			//
-			for (int sample_index = 0; sample_index < count_2d; sample_index ++) {
+			int sample_index;
+			for (sample_index = 0; sample_index < count_2d; sample_index ++) {
 				temp_string.Format (" %d.", sample_index + 1);
 				message += temp_string;
 

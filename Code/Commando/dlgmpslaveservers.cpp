@@ -313,7 +313,7 @@ void SlaveServerDialogClass::Set_Slave_Button(int slavenum)
 				if (size != 0) {
 					description = char_description;
 				} else {
-					description = (unsigned short *)TRANSLATE(IDS_SERVER_SAVELOAD_DEFAULT);
+					description = TRANSLATE(IDS_SERVER_SAVELOAD_DEFAULT);
 					size = 1;
 				}
 			}

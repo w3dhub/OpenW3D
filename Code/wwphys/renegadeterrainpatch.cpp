@@ -346,7 +346,8 @@ RenegadeTerrainPatchClass::Render (RenderInfoClass &rinfo)
 		//
 		//	Render the base passes first
 		//
-		for (int index = 0; index < MaterialPassList.Count (); index ++) {
+		int index;
+		for (index = 0; index < MaterialPassList.Count (); index ++) {
 			Render_By_Texture (index, RenegadeTerrainMaterialPassClass::PASS_BASE);
 		}
 
@@ -1791,7 +1792,8 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 	//
 	csave.Begin_Chunk (CHUNKID_HEIGHTS);
 
-		for (int index = 0; index < GridPointCount; index ++) {
+		int index;
+		for (index = 0; index < GridPointCount; index ++) {
 			csave.Write (&Grid[index].X, sizeof (float) * 3);
 		}
 				

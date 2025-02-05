@@ -460,7 +460,7 @@ bool MotorVehicleDefClass::Load(ChunkLoadClass &cload)
 	if (!EngineTorqueCurveFilename.Is_Empty()) {
 
 		// strip the path off the filename
-		char * fname = strrchr(EngineTorqueCurveFilename,'\\');
+		const char * fname = strrchr(EngineTorqueCurveFilename,'\\');
 		if (fname == NULL) {
 			EngineTorqueCurve = LookupTableMgrClass::Get_Table(EngineTorqueCurveFilename);
 		} else {

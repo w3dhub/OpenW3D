@@ -388,7 +388,8 @@ DialogueClass::Get_Conversation (void)
 	// to determine which one to use.
 	//
 	float total = SilenceWeight;
-	for (int index = 0; index < OptionList.Count (); index ++) {
+	int index;
+	for (index = 0; index < OptionList.Count (); index ++) {
 		total += OptionList[index]->Get_Weight ();
 	}
 

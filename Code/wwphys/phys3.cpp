@@ -2055,7 +2055,8 @@ void Phys3Class::Clip_Move(const Vector3 * contacts,int contact_count,Vector3 * 
 			//WWASSERT(Vector3::Dot_Product(*move,contacts[i]) >= 0.0f);
 		}
 		
-		for (int j=0; j<contact_count; j++) {
+		int j;
+		for (j=0; j<contact_count; j++) {
 			float check = Vector3::Dot_Product(*move,contacts[j]);
 			if (check < 0.0f) {
 				break;	// this contact isn't happy yet... keep choppin.

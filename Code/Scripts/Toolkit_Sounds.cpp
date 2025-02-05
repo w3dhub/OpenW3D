@@ -629,7 +629,7 @@ DECLARE_SCRIPT(RMV_Audio_Timer_Delay, "Target_ID:int, Custom_Type=0:int, Custom_
 		{
 			GameObject *target;
 			target = Commands->Find_Object(Get_Int_Parameter("Target_ID"));
-			Commands->Send_Custom_Event(obj, target, type, param);
+			Commands->Send_Custom_Event(obj, target, type, param, 0.0f);
 		}
 		else
 			if ((min != 0) && (max == 0))

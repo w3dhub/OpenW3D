@@ -852,7 +852,7 @@ const DefParameterClass &
 DefParameterClass::operator= (const DefParameterClass &src)
 {
 	m_Value = src.m_Value;
-	DefParameterClass::operator= (src);
+	ParameterClass::operator= (src);
 	return *this;
 }
 

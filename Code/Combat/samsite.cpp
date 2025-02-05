@@ -125,7 +125,7 @@ const PersistFactoryClass & SAMSiteGameObj::Get_Factory (void) const
 }
 
 
-typedef enum {
+enum {
 	SAMSITE_STATE_DOWN,
 	SAMSITE_STATE_UP,
 	SAMSITE_STATE_RISING,

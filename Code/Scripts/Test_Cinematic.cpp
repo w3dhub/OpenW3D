@@ -95,7 +95,7 @@ DECLARE_SCRIPT(Test_Cinematic_Primary_Killed, "CallbackID=:int")
 
 			GameObject * callback = Commands->Find_Object( id );
 			if ( callback ) {
-				Commands->Send_Custom_Event( obj, callback, M00_CUSTOM_CINEMATIC_PRIMARY_KILLED, 0 );
+				Commands->Send_Custom_Event( obj, callback, M00_CUSTOM_CINEMATIC_PRIMARY_KILLED, 0, 0.0f );
 			}
 		}
 	}
@@ -110,7 +110,7 @@ DECLARE_SCRIPT(Test_Cinematic_Primary_Killed, "CallbackID=:int")
 
 			GameObject * callback = Commands->Find_Object( id );
 			if ( callback ) {
-				Commands->Send_Custom_Event( obj, callback, M00_CUSTOM_CINEMATIC_PRIMARY_KILLED, 0 );
+				Commands->Send_Custom_Event( obj, callback, M00_CUSTOM_CINEMATIC_PRIMARY_KILLED, 0, 0.0f );
 			}
 		}
 	}
@@ -550,7 +550,7 @@ public:
 		char * host_bone_name = Get_Next_Parameter();
 
 		GameObject * host_obj = Commands->Find_Object( ObjectSlots[ host_slot ] );
-		Commands->Create_Explosion_At_Bone( preset_name, host_obj, host_bone_name );
+		Commands->Create_Explosion_At_Bone( preset_name, host_obj, host_bone_name, NULL );
 	}
 
 	void	Command_Destroy_Object( char * params )
@@ -703,7 +703,7 @@ public:
 
 		GameObject * to = Commands->Find_Object( to_id );
 		if ( to ) {
-			Commands->Send_Custom_Event( Owner(), to, type, parameter );
+			Commands->Send_Custom_Event( Owner(), to, type, parameter, 0.0f );
 		} else {
 //			Commands->Debug_Message( "Send Custom Target not found %d\n", to_id );
 		}

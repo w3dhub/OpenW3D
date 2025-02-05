@@ -329,7 +329,8 @@ void DynamicShadowTexMgrClass::Reset(void)
 void DynamicShadowTexMgrClass::Set_Max_Simultaneous_Shadows(unsigned int max)
 {
 	int curlen = ShadowTextures.Length();
-	for (int i=max;i<curlen; i++) {
+	int i;
+	for (i=max;i<curlen; i++) {
 		REF_PTR_RELEASE(ShadowTextures[i]);
 	}
 	ShadowTextures.Resize(max);

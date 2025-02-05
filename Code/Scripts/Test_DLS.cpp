@@ -126,7 +126,7 @@ DECLARE_SCRIPT(DLS_Invulnerable_Test, "")
 	void Created (GameObject * obj)
 	{
 		Commands->Set_Health( obj, 2);
-		Commands->Apply_Damage( obj, 50000.0f, "STEEL");
+		Commands->Apply_Damage( obj, 50000.0f, "STEEL", NULL);
 		
 	}
 
@@ -351,8 +351,8 @@ DECLARE_SCRIPT(DLS_Test_NULL, "Debug_Mode=0:int")
 	void Poked(GameObject * obj, GameObject * poker)
 	{
 		const char *conv_name = ("IDS_M06_D05");
-		int conv_id = Commands->Create_Conversation (conv_name);
-		Commands->Join_Conversation(NULL, conv_id, false, true);
+		int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
+		Commands->Join_Conversation(NULL, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 1);
 		Commands->Monitor_Conversation (obj, conv_id);	
 	}
@@ -715,7 +715,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		switcher = enemy_id = 0;
 		enemy_seen = timer_expired = alert = false;
 
-		Commands->Enable_Enemy_Seen(obj);
+		Commands->Enable_Enemy_Seen(obj, true);
 
 		ActionParamsStruct params;
 		params.Set_Basic(this, INNATE_PRIORITY_ENEMY_SEEN - 5, 0);
@@ -980,10 +980,10 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		GameObject *chinook_rail = Commands->Create_Object("Generic_Cinematic", loc);
 		Commands->Set_Model(chinook_rail, "X5D_Chinookfly");
 		Commands->Set_Facing(chinook_rail, facing);
-		Commands->Set_Animation(chinook_rail, "X5D_Chinookfly.X5D_Chinookfly", false);
+		Commands->Set_Animation(chinook_rail, "X5D_Chinookfly.X5D_Chinookfly", false, NULL, 0.0f, -1.0f, false);
 		GameObject *chinook = Commands->Create_Object("Nod_Cargo_Plane", loc);
 		Commands->Set_Facing(chinook, facing);
-		Commands->Set_Animation(chinook, "vf_nod c-130.vf_nod c130", true);
+		Commands->Set_Animation(chinook, "vf_nod c-130.vf_nod c130", true, NULL, 0.0f, -1.0f, false);
 		Commands->Attach_To_Object_Bone(chinook, chinook_rail, "BN_Chinook_1");
 
 		dead = false;
@@ -1028,7 +1028,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 				para1 = Commands->Create_Object("Generic_Cinematic", loc);
 				Commands->Set_Facing(para1, facing);
 				Commands->Set_Model(para1, "X5D_Parachute");
-				Commands->Set_Animation(para1, "X5D_Parachute.X5D_ParaC_1", false);
+				Commands->Set_Animation(para1, "X5D_Parachute.X5D_ParaC_1", false, NULL, 0.0f, -1.0f, false);
 				Commands->Create_3D_Sound_At_Bone("parachute_open", para1, "ROOTTRANSFORM");
 				Commands->Attach_Script(para1, "M03_No_More_Parachute", "");
 			}
@@ -1040,7 +1040,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 				para2 = Commands->Create_Object("Generic_Cinematic", loc);
 				Commands->Set_Facing(para2, facing);
 				Commands->Set_Model(para2, "X5D_Parachute");
-				Commands->Set_Animation(para2, "X5D_Parachute.X5D_ParaC_2", false);
+				Commands->Set_Animation(para2, "X5D_Parachute.X5D_ParaC_2", false, NULL, 0.0f, -1.0f, false);
 				Commands->Create_3D_Sound_At_Bone("parachute_open", para2, "ROOTTRANSFORM");
 				Commands->Attach_Script(para2, "M03_No_More_Parachute", "");
 			}
@@ -1052,7 +1052,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 				para3 = Commands->Create_Object("Generic_Cinematic", loc);
 				Commands->Set_Facing(para3, facing);
 				Commands->Set_Model(para3, "X5D_Parachute");
-				Commands->Set_Animation(para3, "X5D_Parachute.X5D_ParaC_3", false);
+				Commands->Set_Animation(para3, "X5D_Parachute.X5D_ParaC_3", false, NULL, 0.0f, -1.0f, false);
 				Commands->Create_3D_Sound_At_Bone("parachute_open", para3, "ROOTTRANSFORM");
 				Commands->Attach_Script(para3, "M03_No_More_Parachute", "");
 			}
@@ -1064,13 +1064,13 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 			GameObject *box1 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box1, "X5D_Box01");
 			Commands->Set_Facing(box1, facing);
-			Commands->Set_Animation(box1, "X5D_Box01.X5D_Box01", false);
+			Commands->Set_Animation(box1, "X5D_Box01.X5D_Box01", false, NULL, 0.0f, -1.0f, false);
 
 			GameObject *soldier1;
 			soldier1 = Commands->Create_Object_At_Bone(box1, preset, "Box01");
 			Commands->Set_Facing(soldier1, facing);
 			Commands->Attach_To_Object_Bone( soldier1, box1, "Box01" );
-			Commands->Set_Animation(soldier1, "s_a_human.H_A_X5D_ParaT_1", false);
+			Commands->Set_Animation(soldier1, "s_a_human.H_A_X5D_ParaT_1", false, NULL, 0.0f, -1.0f, false);
 			out++;
 			if ((out - 1) == DIFFICULTY)
 			{
@@ -1086,12 +1086,12 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 			GameObject *box2 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box2, "X5D_Box02");
 			Commands->Set_Facing(box2, facing);
-			Commands->Set_Animation(box2, "X5D_Box02.X5D_Box02", false);
+			Commands->Set_Animation(box2, "X5D_Box02.X5D_Box02", false, NULL, 0.0f, -1.0f, false);
 
 			GameObject *soldier2;
 			soldier2 = Commands->Create_Object_At_Bone(box2, preset, "Box02");
 			Commands->Set_Facing(soldier2, facing);
-			Commands->Set_Animation(soldier2, "s_a_human.H_A_X5D_ParaT_2", false);
+			Commands->Set_Animation(soldier2, "s_a_human.H_A_X5D_ParaT_2", false, NULL, 0.0f, -1.0f, false);
 			Commands->Attach_To_Object_Bone( soldier2, box2, "Box02" );
 			out++;
 			if ((out - 1) == DIFFICULTY)
@@ -1108,12 +1108,12 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 			GameObject *box3 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box3, "X5D_Box03");
 			Commands->Set_Facing(box3, facing);
-			Commands->Set_Animation(box3, "X5D_Box03.X5D_Box03", false);
+			Commands->Set_Animation(box3, "X5D_Box03.X5D_Box03", false, NULL, 0.0f, -1.0f, false);
 
 			GameObject *soldier3;
 			soldier3 = Commands->Create_Object_At_Bone(box3, preset, "Box03");
 			Commands->Set_Facing(soldier3, facing);
-			Commands->Set_Animation(soldier3, "s_a_human.H_A_X5D_ParaT_3", false);
+			Commands->Set_Animation(soldier3, "s_a_human.H_A_X5D_ParaT_3", false, NULL, 0.0f, -1.0f, false);
 			Commands->Attach_To_Object_Bone( soldier3, box3, "Box03" );
 			out++;
 			if ((out - 1) == DIFFICULTY)
@@ -1153,7 +1153,7 @@ DECLARE_SCRIPT(M00_Reinforcement_C130, "Controller_ID:int")
 	void Killed(GameObject * obj, GameObject * killer)
 	{
 		GameObject * con = Commands->Find_Object(Get_Int_Parameter(0));
-		Commands->Send_Custom_Event(obj, con, 23000, 23000);
+		Commands->Send_Custom_Event(obj, con, 23000, 23000, 0.0f);
 		Commands->Stop_Sound(sound_id, true);
 	}
 };
@@ -1171,9 +1171,9 @@ DECLARE_SCRIPT(DLS_Test_Conversation, "Debug_Mode=0:int")
 	{
 	
 		const char *conv_name = ("IDS_M00_Test");
-		int conv_id = Commands->Create_Conversation (conv_name);
-		Commands->Join_Conversation(Commands->Get_A_Star(Commands->Get_Position(obj)), conv_id, false, true);
-		Commands->Join_Conversation(obj, conv_id, false, true);
+		int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
+		Commands->Join_Conversation(Commands->Get_A_Star(Commands->Get_Position(obj)), conv_id, false, true, true);
+		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 300001);
 		Commands->Monitor_Conversation (obj, conv_id);
 		
@@ -1359,8 +1359,8 @@ DECLARE_SCRIPT (DLS_Playertype, "")
 	void Poked(GameObject * obj, GameObject * poker)
 	{
 		Commands->Set_Player_Type(obj, SCRIPT_PLAYERTYPE_GDI );
-		Commands->Give_PowerUp(obj, "MG Weapon 1 Clip PowerUp");
-		Commands->Give_PowerUp(obj, "MiniGun 2 Clips PU");
+		Commands->Give_PowerUp(obj, "MG Weapon 1 Clip PowerUp", false);
+		Commands->Give_PowerUp(obj, "MiniGun 2 Clips PU", false);
 		
 	}
 };
@@ -1485,8 +1485,8 @@ DECLARE_SCRIPT(DLS_SSM_Test, "")
 
 	void Damaged( GameObject * obj, GameObject * damager )
 	{
-		Commands->Set_Animation(obj, "V_NOD_SSM.V_NOD_SSM", 0);
-		Commands->Set_Animation(Commands->Find_Object(ssm_missile_id), "v_nod_ssm_Missl.v_nod_ssm_Missl", 0);
+		Commands->Set_Animation(obj, "V_NOD_SSM.V_NOD_SSM", 0, NULL, 0.0f, -1.0f, false);
+		Commands->Set_Animation(Commands->Find_Object(ssm_missile_id), "v_nod_ssm_Missl.v_nod_ssm_Missl", 0, NULL, 0.0f, -1.0f, false);
 	}
 };
 
@@ -1702,7 +1702,7 @@ DECLARE_SCRIPT(DLS_Test_Evac, "")  // Deadeye2
 
 	void Created(GameObject * obj)
 	{
-		Commands->Set_Animation ( obj, "S_A_Human.XG_EV5_troop", true );
+		Commands->Set_Animation ( obj, "S_A_Human.XG_EV5_troop", true, NULL, 0.0f, -1.0f, false );
 		Commands->Enable_Hibernation(obj, false);
 		ActionParamsStruct params;
 
@@ -1779,7 +1779,7 @@ enum
 #define	WRONG_WAY_CONV_TABLE_SIZE  ( sizeof(Wrong_Way_Conv_Table) / sizeof (Wrong_Way_Conv_Table[0]) )
 const char *	Wrong_Way_Conv_Table[] = 
 {
-	"MX0_A04_CON015",	// You’re going the wrong way, Havoc!
+	"MX0_A04_CON015",	// Youï¿½re going the wrong way, Havoc!
 	"MX0_A04_CON016",	// Stay with the Mission, Havoc!
 	"MX0_A04_CON017",	// This area is already secure.
 	"MX0_A04_CON018",	// Havoc, Did I say retreat? Now Turn Around!
@@ -2014,7 +2014,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		// Commands to destroy Mobile Artillery in front of base
 		if (type == MX0_A10_STRIKE)
 		{
-			Commands->Apply_Damage( Commands->Find_Object(mobile_artillery_id), 50000.0f, "STEEL");
+			Commands->Apply_Damage( Commands->Find_Object(mobile_artillery_id), 50000.0f, "STEEL", NULL);
 		}
 		// Finale concludes, mission success
 		if(type == MX0_MISSION_SUCCESS)
@@ -2056,7 +2056,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		
 		const char *conv_name = Wrong_Way_Conv_Table[conv_num];
 		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-		Commands->Join_Conversation(obj, conv_id, false, true);
+		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 10);
 		conv_num++;
 	}
@@ -2247,12 +2247,12 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		// Commando, take out those SAMs
 		if(timer_id == CONVERSATION_HAVOC_TAKE_OUT_SAMS)
 		{
-			// Havoc, you’ve got  to clear out those SAM sites!
+			// Havoc, youï¿½ve got  to clear out those SAM sites!
 			const char *conv_name = ("MX0_A04_CON005");
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true);
+			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1);
-			// RocketTrooper - It’s down! The Obelisk is down!
+			// RocketTrooper - Itï¿½s down! The Obelisk is down!
 			Commands->Send_Custom_Event( obj, Commands->Find_Object(gdi_trooper2_id), MX0_SPECIFIC_ACTION, MX0_ROCKETTROOPER_OBELISK_DOWN, 3.0f);
 		}
 		if(timer_id == SAMS_DESTRUCTION)
@@ -2323,11 +2323,11 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		}
 		if(timer_id == DESTROY_SAM1)
 		{
-			Commands->Apply_Damage(Commands->Find_Object(1500015), 50000.0f, "STEEL");
+			Commands->Apply_Damage(Commands->Find_Object(1500015), 50000.0f, "STEEL", NULL);
 		}
 		if(timer_id == DESTROY_SAM2)
 		{
-			Commands->Apply_Damage(Commands->Find_Object(1500016), 50000.0f, "STEEL");
+			Commands->Apply_Damage(Commands->Find_Object(1500016), 50000.0f, "STEEL", NULL);
 		}
 
 		if(timer_id == A10_STRIKE)
@@ -2352,12 +2352,12 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				{
 					// Start A10 - Outro muzak
 					Commands->Fade_Background_Music( "Renegade_A10_Outro.mp3", 1, 1);
-					// A10 - This is Eagle Claw 1 –Starting  attack run
+					// A10 - This is Eagle Claw 1 ï¿½Starting  attack run
 					const char *conv_name = ("MX0_A04_CON010");
 					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-					Commands->Join_Conversation(NULL, conv_id, false, true);
+					Commands->Join_Conversation(NULL, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 1);
-					// A10 - I’m hit! I’m hit!
+					// A10 - Iï¿½m hit! Iï¿½m hit!
 					Commands->Start_Timer (obj, this, 5.0f, A10_HIT);
 					// A10 cinematic
 					GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
@@ -2374,22 +2374,22 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 			}
 			
 		}
-		// A10 - I’m hit! I’m hit!
+		// A10 - Iï¿½m hit! Iï¿½m hit!
 		if(timer_id == A10_HIT)
 		{
 			const char *conv_name = ("MX0_A04_CON011");
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true);
+			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1);
 
 		}
 		if(timer_id == ION_CANNON_STRIKE)
 		{
 			// We have a lock on that base
-			// This is Eagle Base.  I’m not risking any more pilots.
+			// This is Eagle Base.  Iï¿½m not risking any more pilots.
 			const char *conv_name = ("MX0_A04_CON012");
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true);
+			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1);
 			// Ion Cannon strike
 			GameObject * ion_cannon_strike = Commands->Create_Object("Nod_RocketSoldier_1Off", Commands->Get_Position(Commands->Find_Object(1500087)));
@@ -2530,10 +2530,10 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			// Humvee announces discovery of Nod Base
 			if(param == MX0_DISCOVERS_NOD_BASE)  
 			{
-				// Eagle Base– We found it!
+				// Eagle Baseï¿½ We found it!
 				const char *conv_name = ("MX0_A04_CON001");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, CON001);
 				Commands->Monitor_Conversation (obj, conv_id);		
 			}
@@ -2543,7 +2543,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 				// We need you up here, Sir.
 				const char *conv_name = ("MX0_A04_CON013");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 10);
 					
 			}
@@ -2557,7 +2557,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			// Confirmed.  Excellent work!
 			const char *conv_name = ("MX0_A04_CON002");
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-			Commands->Join_Conversation(NULL, conv_id, false, true);
+			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, CON002);
 		//	Commands->Monitor_Conversation (obj, conv_id);	
 		}
@@ -2566,7 +2566,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			// They have an Obelisk!
 			const char *conv_name = ("MX0_A04_CON003");
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-			Commands->Join_Conversation(obj, conv_id, false, true);
+			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, CON002);
 			
 			
@@ -2801,7 +2801,7 @@ DECLARE_SCRIPT (MX0_GDI_Killed_DLS, "Unit_ID=0:int")
 		// If damaged by the Obelisk Weapon
 		if((damager == Commands->Find_Object(1500020)) && (Commands->Find_Object(1500020)))
 		{
-			Commands->Apply_Damage( obj, 50000.0f, "STEEL");
+			Commands->Apply_Damage( obj, 50000.0f, "STEEL", NULL);
 		}
 	}
 
@@ -2924,7 +2924,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				// Death #1 - Bullet death scream
 				const char *conv_name = ("MX0_A04_CON019");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 10);	
 			}
 			// Rocket Trooper sights obelisk
@@ -2933,7 +2933,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				// They have an Obelisk!
 				const char *conv_name = ("MX0_A04_CON003");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_SEES_OBELISK);	
 				
 				// Start Area4 muzak
@@ -2946,16 +2946,16 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				// The Obelisk is hot!  Look out!
 				const char *conv_name = ("MX0_A04_CON004");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_HOT_OBELISK);	
 			}
-			// Rocket Trooper - It’s down! The Obelisk is down!
+			// Rocket Trooper - Itï¿½s down! The Obelisk is down!
 			if(param == MX0_ROCKETTROOPER_OBELISK_DOWN) 
 			{
-				// It’s down! The Obelisk is down!
+				// Itï¿½s down! The Obelisk is down!
 				const char *conv_name = ("MX0_A04_CON006");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_OBELISK_DOWN);	
 			}
 			// Rocket Trooper - Go! Go!  Knock out those SAMs!
@@ -2964,7 +2964,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				// Go! Go!  Knock out those SAMs!
 				const char *conv_name = ("MX0_A04_CON007");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_TAKE_SAMS);
 			}
 			// Rocket Trooper - The SAMs are history!
@@ -2973,7 +2973,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				// The SAMs are history!
 				const char *conv_name = ("MX0_A04_CON008");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_SAMS_HISTORY);
 			}
 			// Trooper1 - There, on the wall!
@@ -2982,7 +2982,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				// There, on the wall!
 				const char *conv_name = ("MX0_A04_CON009");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_TROOPER_UP_ON_WALL);
 			}
 			// If Havoc turns back and exits Area4
@@ -2991,7 +2991,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				// We need your help - over here, Sir!
 				const char *conv_name = ("MX0_A04_CON014");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
-				Commands->Join_Conversation(obj, conv_id, false, true);
+				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_CANT_TURN_BACK);
 			}
 					
@@ -3214,7 +3214,7 @@ DECLARE_SCRIPT (MX0_Plant_Ion_Beacon_DLS, "")
 	{
 		ActionParamsStruct params;
 
-		Commands->Give_PowerUp(obj, "POW_IonCannonBeacon_Ai" );
+		Commands->Give_PowerUp(obj, "POW_IonCannonBeacon_Ai", false );
 		Commands->Select_Weapon(obj, "Weapon_IonCannonBeacon_Ai" );
 
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
@@ -3280,7 +3280,7 @@ DECLARE_SCRIPT (MX0_Explosive_Barrels_DLS, "Logical_Sound=0:int, Radius:float")
 	{
 		if(sound.Type == Get_Int_Parameter("Logical_Sound"))
 		{
-			Commands->Apply_Damage( obj, 50000.0f, "STEEL");
+			Commands->Apply_Damage( obj, 50000.0f, "STEEL", NULL);
 		}
 	}
 

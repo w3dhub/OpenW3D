@@ -52,8 +52,11 @@ const float DIFFUSE_TO_AMBIENT_FRACTION = 1.0f;
 /*
 ** Static variables
 */
-static _LightingLODCutoff			= 0.5f;	
-static _LightingLODCutoff2			= 0.5f * 0.5f;
+// TODO These should be float and have initial value, but didn't have types assigned leading to them being int 0 in original game.
+// static int _LightingLODCutoff;
+// static int _LightingLODCutoff2;
+static float _LightingLODCutoff			= 0.5f;	
+static float _LightingLODCutoff2			= 0.5f * 0.5f;
 
 
 /************************************************************************************************

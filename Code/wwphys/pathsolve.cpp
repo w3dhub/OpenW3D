@@ -1512,7 +1512,8 @@ PathSolveClass::Post_Process_Path (void)
 	m_Path[m_Path.Count () - 1].m_SectorCenter = m_StartSector->Get_Bounding_Box ().Center;
 	m_Path[m_Path.Count () - 1].m_SectorExtent = m_StartSector->Get_Bounding_Box ().Extent;
 
-	for (int index = 0; index < temp_node_list.Count (); index ++) {
+	int index;
+	for (index = 0; index < temp_node_list.Count (); index ++) {
 
 		PathNodeClass *node				= temp_node_list[index];
 		PathfindPortalClass *portal	= node->Peek_Portal ();

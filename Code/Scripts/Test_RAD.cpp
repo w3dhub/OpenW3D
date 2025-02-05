@@ -131,7 +131,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					actor = Commands->Find_Object (MX0_A02_UNIT_ID [count]);
 					if (actor)
 					{
-						Commands->Send_Custom_Event (obj, actor, MX0_A02_CUSTOM_TYPE_MAIN_ENDING, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, actor, MX0_A02_CUSTOM_TYPE_MAIN_ENDING, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					count++;
 				}
@@ -143,7 +143,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 			{
 				if (sender)
 				{
-					Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_KILL_SNIPER_01, MX0_A01_NOD_SNIPER_01);
+					Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_KILL_SNIPER_01, MX0_A01_NOD_SNIPER_01, 0.0f);
 				}
 				break;
 			}
@@ -151,7 +151,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 			{
 				if (sender)
 				{
-					Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_KILL_SNIPER_02, MX0_A01_NOD_SNIPER_02);
+					Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_KILL_SNIPER_02, MX0_A01_NOD_SNIPER_02, 0.0f);
 				}
 				break;
 			}
@@ -257,8 +257,8 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * a01_controller = Commands->Find_Object (MX0_A01_CONTROLLER_ID);
 					if (a01_controller)
 					{
-						Commands->Send_Custom_Event (obj, a01_controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_01_ID, MX0_A02_CUSTOM_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, a01_controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, a01_controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_01_ID, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, a01_controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					Commands->Start_Timer (obj, this, 1.0f, MX0_A02_TIMER_RANDOM_EXPLOSIONS);
 				}
@@ -270,11 +270,11 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				{
 					if (param < MX0_A02_ACTOR_NOD_START)
 					{
-						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_REQUEST_TARGET, MX0_A02_UNIT_ID[Get_Int_Random(MX0_A02_ACTOR_NOD_START, (MX0_A02_ACTOR_HEADCOUNT - 1))]);
+						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_REQUEST_TARGET, MX0_A02_UNIT_ID[Get_Int_Random(MX0_A02_ACTOR_NOD_START, (MX0_A02_ACTOR_HEADCOUNT - 1))], 0.0f);
 					}
 					else
 					{
-						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_REQUEST_TARGET, MX0_A02_UNIT_ID[Get_Int_Random(1, (MX0_A02_ACTOR_NOD_START - 1))]);
+						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_REQUEST_TARGET, MX0_A02_UNIT_ID[Get_Int_Random(1, (MX0_A02_ACTOR_NOD_START - 1))], 0.0f);
 					}
 				}
 				break;
@@ -292,7 +292,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 						GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[3]);
 						if (soldier)
 						{
-							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_KILL_SNIPER_01, MX0_A01_NOD_SNIPER_01);
+							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_KILL_SNIPER_01, MX0_A01_NOD_SNIPER_01, 0.0f);
 						}
 					}
 					else
@@ -303,7 +303,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 							GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[3]);
 							if (soldier)
 							{
-								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_KILL_SNIPER_02, MX0_A01_NOD_SNIPER_02);
+								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_KILL_SNIPER_02, MX0_A01_NOD_SNIPER_02, 0.0f);
 							}
 						}
 					}
@@ -313,7 +313,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
 					if (soldier)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 
 					// Tell the APC it's okay to start shooting.
@@ -321,7 +321,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * apc = Commands->Find_Object (MX0_A02_GDI_APC_ID);
 					if (apc)
 					{
-						Commands->Send_Custom_Event (obj, apc, MX0_A02_CUSTOM_TYPE_STARTUP, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, apc, MX0_A02_CUSTOM_TYPE_STARTUP, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 				}
 			}
@@ -345,7 +345,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					soldier = Commands->Find_Object (MX0_A02_UNIT_ID[nod_count]);
 					if (soldier)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_DAMAGE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_DAMAGE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					nod_count++;
 				}
@@ -362,7 +362,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[2]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -371,7 +371,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_03, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_03, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -380,7 +380,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[2]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_04, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_04, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -389,7 +389,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[3]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_05, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_START_GDI_05, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -402,7 +402,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					{
 						congrats_loop = 0;
 					}
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_PLAYER_CONGRATS, congrats_loop);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_PLAYER_CONGRATS, congrats_loop, 0.0f);
 					congrats_loop++;
 				}
 				break;
@@ -417,7 +417,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					{
 						soldier_congrats_loop = 0;
 					}
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SOLDIER_CONGRATS, soldier_congrats_loop);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SOLDIER_CONGRATS, soldier_congrats_loop, 0.0f);
 					soldier_congrats_loop++;
 				}
 				break;
@@ -635,7 +635,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * target = Commands->Find_Object (MX0_A02_UNIT_ID[current_nod_target]);
 					if (target)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_NOD_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_NOD_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -650,7 +650,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * target = Commands->Find_Object (MX0_A02_UNIT_ID[current_nod_target]);
 					if (target)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_01, MX0_A02_UNIT_ID[current_nod_target]);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_01, MX0_A02_UNIT_ID[current_nod_target], 0.0f);
 					}
 				}
 
@@ -663,7 +663,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_RESPONDS_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_RESPONDS_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -677,7 +677,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * target = Commands->Find_Object (MX0_A02_UNIT_ID[current_nod_target]);
 					if (target)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_02, MX0_A02_UNIT_ID[current_nod_target]);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_02, MX0_A02_UNIT_ID[current_nod_target], 0.0f);
 					}
 				}
 				break;
@@ -698,14 +698,14 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				{
 					if (sender)
 					{
-						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_GET_APC_ID, MX0_A02_GDI_APC_ID);
+						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_GET_APC_ID, MX0_A02_GDI_APC_ID, 0.0f);
 					}
 				}
 				else
 				{
 					if (sender)
 					{
-						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_GET_APC_ID, 0);
+						Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_GET_APC_ID, 0, 0.0f);
 					}
 				}
 				break;
@@ -715,7 +715,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[2]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_HELI_DESTROYED, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_HELI_DESTROYED, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -724,7 +724,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[3]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_FLAME, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_FLAME, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -733,7 +733,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[4]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_FLAME_DEAD, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_FLAME_DEAD, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -762,7 +762,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[4]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -771,7 +771,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_03, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_03, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -780,7 +780,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[2]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_04, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_04, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -789,7 +789,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[3]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_05, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_05, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -804,7 +804,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				if (sender)
 				{
 					engineer_01_id = Commands->Get_ID (sender);
-					Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_ENGINEER_MOVETOTANK, MX0_A02_MED_TANK_ID);
+					Commands->Send_Custom_Event (obj, sender, MX0_A02_CUSTOM_TYPE_ENGINEER_MOVETOTANK, MX0_A02_MED_TANK_ID, 0.0f);
 				}
 				break;
 			}
@@ -813,7 +813,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_TANK, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_TANK, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					Commands->Start_Timer (obj, this, 5.0f, MX0_A02_TIMER_ENTER_TANK);
 				}
 				break;
@@ -834,7 +834,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (engineer_02_id);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_FIREHOLE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_FIREHOLE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -843,13 +843,14 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * debris = Commands->Find_Object (MX0_A02_BLOCKAGE_ID);
 				if (debris)
 				{
-					Commands->Create_Explosion ("Ground Explosion 01 - Harmless", Vector3(-71.233f, -41.517f, 0.181f), NULL);					Commands->Set_Animation (debris, "AG_L0_BLOCKAGE1.AG_L0_BLOCKAGE1", false);
+					Commands->Create_Explosion ("Ground Explosion 01 - Harmless", Vector3(-71.233f, -41.517f, 0.181f), NULL);
+					Commands->Set_Animation (debris, "AG_L0_BLOCKAGE1.AG_L0_BLOCKAGE1", false, NULL, 0.0f, -1.0f, false);
 					Commands->Start_Timer (obj, this, 2.0f, MX0_A02_TIMER_DESTROY_RUBBLE);
 				}
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_FOLLOW_HAVOC, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_FOLLOW_HAVOC, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				Commands->Start_Timer (obj, this, 1.0f, MX0_A02_TIMER_WRONG_WAY);
 				break;
@@ -859,7 +860,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[3]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_APC_DOWN, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_APC_DOWN, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -871,7 +872,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[count]);
 					if (soldier)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SHOOT_HELI_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SHOOT_HELI_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					count++;
 				}
@@ -956,7 +957,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					}
 					if (soldier)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_PRE_AMBIENT, pre_ambient_count);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_PRE_AMBIENT, pre_ambient_count, 0.0f);
 					}
 					pre_ambient_count++;
 					if (pre_ambient_count > MX0_A02_PRE_AMBIENT_MAX)
@@ -979,7 +980,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 						GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[Get_Int_Random(1,4)]);
 						if (soldier)
 						{
-							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_PLAYER_RETREAT, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_PLAYER_RETREAT, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 					}
 					Commands->Start_Timer (obj, this, 3.0f, MX0_A02_TIMER_PLAYER_RETREAT);
@@ -997,7 +998,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 			}
 		case (MX0_A02_TIMER_AFTER_HELI_01):
 			{
-				Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_NEXT_SEQUENCE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_NEXT_SEQUENCE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				break;
 			}
 		case (MX0_A02_TIMER_NOD_RETREAT):
@@ -1027,7 +1028,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 						GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[count]);
 						if (soldier)
 						{
-							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_RETREAT_SEQUENCE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_RETREAT_SEQUENCE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 					}
 					count++;
@@ -1046,10 +1047,10 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 					GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[count]);
 					if (soldier)
 					{
-						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_RETREAT_DONE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_RETREAT_DONE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						if (count == 2)
 						{
-							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_ENDING_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 					}
 					count++;
@@ -1072,7 +1073,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 							GameObject * soldier = Commands->Find_Object (engineer_02_id);
 							if (soldier)
 							{
-								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_TANKSAY_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_TANKSAY_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 							}
 							break;
 						}
@@ -1081,7 +1082,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 							GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[1]);
 							if (soldier)
 							{
-								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_TANKSAY_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_TANKSAY_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 							}
 							break;
 						}
@@ -1090,7 +1091,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 							GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[2]);
 							if (soldier)
 							{
-								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_TANKSAY_03, MX0_A02_CUSTOM_PARAM_DEFAULT);
+								Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_TANKSAY_03, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 							}
 							break;
 						}
@@ -1227,7 +1228,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MX0_A02_UNIT_ID[wrong_way_count]);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_WRONG_WAY, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MX0_A02_CUSTOM_TYPE_SAY_WRONG_WAY, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				Commands->Start_Timer (obj, this, 5.0f, MX0_A02_TIMER_WRONG_WAY);
 			}
@@ -1316,7 +1317,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 		int actor_id = Get_Int_Parameter("ActorID");
 		if (!actor_id)
 		{
-			Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT);
+			Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 		}
 		else
 		{
@@ -1371,11 +1372,11 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 					Commands->Action_Attack (obj, params);
 					can_damage = true;
 					Commands->Start_Timer (obj, this, 10.0f, MX0_A02_TIMER_DESTROY_FLAME);
-					Commands->Trigger_Weapon (obj, true, Vector3(-90.941f,-60.470f,0.069f));
+					Commands->Trigger_Weapon (obj, true, Vector3(-90.941f,-60.470f,0.069f), true);
 					GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_FLAME, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_FLAME, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					break;
 				}
@@ -1475,7 +1476,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 							if (controller)
 							{
-								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_RESPONDS_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_RESPONDS_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 							}
 							break;
 						}
@@ -1508,14 +1509,14 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 			{
 				if (killer == STAR)
 				{
-					Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_PLAYER_KILLED_NOD, MX0_A02_CUSTOM_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_PLAYER_KILLED_NOD, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 				}
 				else
 				{
 					if (killer)
 					{
 						int killer_id = Commands->Get_ID (killer);
-						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_SOLDIER_KILLED_NOD, killer_id);
+						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_SOLDIER_KILLED_NOD, killer_id, 0.0f);
 					}
 				}
 				if (my_register_id >= MX0_A02_ACTOR_NOD_START)
@@ -1610,7 +1611,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 							if (controller)
 							{
-								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT);
+								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 							}
 						}
 					}
@@ -1619,7 +1620,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 					}
 					break;
@@ -1641,12 +1642,12 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						}
 						else
 						{
-							Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 					}
 					else
 					{
-						Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					break;
 				}
@@ -2025,7 +2026,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2036,7 +2037,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_04, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_04, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2047,7 +2048,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_05, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_05, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2058,7 +2059,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_03, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_START_GDI_03, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2069,7 +2070,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_CONTINUE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_CONTINUE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2078,7 +2079,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2087,7 +2088,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2096,7 +2097,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_03, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_03, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2105,7 +2106,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_04, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_04, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2114,7 +2115,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_05, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_05, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2123,7 +2124,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_06, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENDING_06, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2134,7 +2135,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENGINEER_DONE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENGINEER_DONE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2151,7 +2152,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_EXPLODE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_EXPLODE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2160,7 +2161,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_SHOOT_HELI_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_SHOOT_HELI_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2190,7 +2191,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 							if (controller)
 							{
-								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT);
+								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 							}
 						}
 						break;
@@ -2208,7 +2209,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						}
 						else
 						{
-							Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2217,13 +2218,13 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HANDOFF_SNIPER_02_ID, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
 				case (MX0_A02_ACTION_ROCKET_SNIPER_SHOOT_02):
 					{
-						Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, obj, MX0_A02_CUSTOM_TYPE_DEFAULT_STATE_ON, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						break;
 					}
 				case (MX0_A02_ACTION_BASIC_MOVE_01):
@@ -2234,7 +2235,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 							if (controller)
 							{
-								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_REQUEST_TARGET, my_register_id);
+								Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_REQUEST_TARGET, my_register_id, 0.0f);
 							}
 						}
 						break;
@@ -2250,7 +2251,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_NOD_01, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_NOTICES_NOD_01, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2260,7 +2261,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GDI_SHOOTS_NOD_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2269,7 +2270,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GET_APC_ID, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GET_APC_ID, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2278,7 +2279,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_SAY_APC_DOWN, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_SAY_APC_DOWN, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						ActionParamsStruct params;
 						params.Set_Basic(this, MX0_A02_PRIORITY_FORCED_ACTION, MX0_A02_ACTION_NOD_DONEWITH_APC);
@@ -2292,7 +2293,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 						GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_NEXT_SEQUENCE, MX0_A02_CUSTOM_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_NEXT_SEQUENCE, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -2565,7 +2566,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 					GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENGINEER_MOVETOTANK, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENGINEER_MOVETOTANK, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					break;
 				}
@@ -2574,7 +2575,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 					GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENGINEER_02_REGISTER, MX0_A02_CUSTOM_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENGINEER_02_REGISTER, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 					}
 					ActionParamsStruct params;
 					params.Set_Basic(this, MX0_A02_PRIORITY_FORCED_ACTION, MX0_A02_ACTION_ENGINEER_02_RUBBLE);
@@ -2962,7 +2963,7 @@ DECLARE_SCRIPT (MX0_A02_GDI_MEDTANK, "")
 			GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 			if (controller)
 			{
-				Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENTERED_TANK, MX0_A02_CUSTOM_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_ENTERED_TANK, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 			}
 		}
 	}
@@ -3022,7 +3023,7 @@ DECLARE_SCRIPT (MX0_A02_ZONE_STARTUP, "")
 		GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 		if (controller)
 		{
-			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_STARTUP, MX0_A02_CUSTOM_PARAM_DEFAULT);
+			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_STARTUP, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 			Commands->Destroy_Object (obj);
 		}
 	}
@@ -3050,7 +3051,7 @@ DECLARE_SCRIPT (MX0_A02_HELICOPTER, "ActorID=0:int")
 			GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 			if (controller)
 			{
-				Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HELI_DESTROYED, MX0_A02_CUSTOM_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HELI_DESTROYED, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 			}
 		}
 		else
@@ -3058,7 +3059,7 @@ DECLARE_SCRIPT (MX0_A02_HELICOPTER, "ActorID=0:int")
 			GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 			if (controller)
 			{
-				Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HELI_DESTROYED_02, MX0_A02_CUSTOM_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_HELI_DESTROYED_02, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
 			}
 		}
 	}
@@ -3098,9 +3099,9 @@ DECLARE_SCRIPT (MX0_A02_ZONE_DEFAULT_ON, "")
 		GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 		if (controller)
 		{
-			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_MAIN_STARTUP, MX0_A02_CUSTOM_PARAM_DEFAULT);
-			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_01_ID, 1200017);
-			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_02_ID, 1200023);
+			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_MAIN_STARTUP, MX0_A02_CUSTOM_PARAM_DEFAULT, 0.0f);
+			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_01_ID, 1200017, 0.0f);
+			Commands->Send_Custom_Event (obj, controller, MX0_A02_CUSTOM_TYPE_GET_SNIPER_02_ID, 1200023, 0.0f);
 		}
 	}
 };
@@ -3214,8 +3215,8 @@ DECLARE_SCRIPT (M00_Test_Sound_RAD, "")
 	{
 		int id = Commands->Create_Conversation("M00_TEST_CONVERSATION", 100, 300, true);
 		Commands->Stop_All_Conversations (); /// <--- This cancels the following conversation!
-		Commands->Join_Conversation(NULL, id);
+		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Join_Conversation (STAR, id, true, false, false);
-		Commands->Start_Conversation(id);
+		Commands->Start_Conversation(id, 0);
 	}
 };

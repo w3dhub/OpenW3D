@@ -110,8 +110,8 @@ private:
 	HDC									MemDC;
 	CharDataStruct *					ASCIICharArray[256];
 	CharDataStruct **					UnicodeCharArray;
-	uint16								FirstUnicodeChar;
-	uint16								LastUnicodeChar;
+	wchar_t								FirstUnicodeChar;
+	wchar_t								LastUnicodeChar;
 	bool									IsBold;
 };
 

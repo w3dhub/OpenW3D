@@ -63,10 +63,10 @@ DECLARE_SCRIPT(MDD_Objective_Controller, "")
 		{
 			Commands->Attach_Script(camera, "Test_Cinematic", "XG_DemoCam.txt");
 		}
-		int id = Commands->Create_Conversation("Demo_Intro");
-		Commands->Join_Conversation(NULL, id);
-		Commands->Join_Conversation(STAR, id);
-		Commands->Start_Conversation(id);
+		int id = Commands->Create_Conversation("Demo_Intro", 0, 0, true);
+		Commands->Join_Conversation(NULL, id, true, true, true);
+		Commands->Join_Conversation(STAR, id, true, true, true);
+		Commands->Start_Conversation(id, 0);
 
 		//DEMO
 		// Set up the expected number of convoy trucks for the objective.
@@ -156,14 +156,14 @@ DECLARE_SCRIPT (MDD_Respawn_Controller, "")
 
 		// Wake up the A25 units.
 
-		//DEMO Commands->Send_Custom_Event(obj, Commands->Find_Object(400985), 0, 0);
+		//DEMO Commands->Send_Custom_Event(obj, Commands->Find_Object(400985), 0, 0, 0.0f);
 		//DEMO Turn on A25
 		GameObject * object = Commands->Find_Object(M02_OBJCONTROLLER);
 
 		if (object)
 		{
-			Commands->Send_Custom_Event(obj, object, 104, 25);
-			Commands->Send_Custom_Event(obj, Commands->Find_Object(401741), 0, 0);
+			Commands->Send_Custom_Event(obj, object, 104, 25, 0.0f);
+			Commands->Send_Custom_Event(obj, Commands->Find_Object(401741), 0, 0, 0.0f);
 		}
 
 		// Call the ORCA strike intro.
@@ -591,7 +591,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 			{
 				// Complete this mission objective.
 
-				Commands->Send_Custom_Event (obj, obj, 222, 1);
+				Commands->Send_Custom_Event (obj, obj, 222, 1, 0.0f);
 			}
 		}
 		//DEMO
@@ -797,7 +797,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		{
 			if (sound.Creator)
 			{
-				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 			}
 		}
 
@@ -835,14 +835,14 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			{
 				// Register with the respawn controller.
 
-				Commands->Send_Custom_Event(obj, object, 103, param);
+				Commands->Send_Custom_Event(obj, object, 103, param, 0.0f);
 
 				if (officer)
 				{
 					// Unit is a preplaced officer. Register as an officer and hibernate.
 				
 					Commands->Set_Innate_Take_Cover_Probability (obj, 100.0f);
-					Commands->Send_Custom_Event(obj, object, 106, param);
+					Commands->Send_Custom_Event(obj, object, 106, param, 0.0f);
 				}
 				else
 				{
@@ -901,7 +901,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 					bool visibility = Commands->Is_Object_Visible(star_obj, obj);
 					if (!visibility)
 					{
-						Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+						Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 					}
 					else
 					{
@@ -969,7 +969,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 				{
 				case (0):
 					{
-						GameObject *nearsoldier = Commands->Find_Closest_Soldier (myloc, 1.0f, 50.0f);
+						GameObject *nearsoldier = Commands->Find_Closest_Soldier (myloc, 1.0f, 50.0f, true);
 						if ((nearsoldier) && (nearsoldier != STAR))
 						{
 							ActionParamsStruct params;
@@ -1011,7 +1011,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 		else if (timer_id == 6)
 		{
-			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 		}
 		else if (timer_id == 7)
 		{
@@ -1062,7 +1062,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			GameObject* starobj = Commands->Find_Object(403063);
 			if (starobj)
 			{
-				Commands->Send_Custom_Event (obj, starobj, 100, 0);
+				Commands->Send_Custom_Event (obj, starobj, 100, 0, 0.0f);
 			}
 			Commands->Start_Timer(obj, this, 10.0f, 8);
 		}
@@ -1095,7 +1095,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 
 		if (object)
 		{
-			Commands->Send_Custom_Event (obj, object, 101, param);
+			Commands->Send_Custom_Event (obj, object, 101, param, 0.0f);
 		}
 		if (param == 3)
 		{
@@ -1105,7 +1105,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			{
 				// If a Medium Tank is needed for A03, drop it.
 					
-				Commands->Send_Custom_Event (obj, object, 111, 2);
+				Commands->Send_Custom_Event (obj, object, 111, 2, 0.0f);
 			}
 		}
 	}
@@ -1256,7 +1256,7 @@ DECLARE_SCRIPT (MDD_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 			int type = Get_Int_Parameter("Soldier_Type");
 			if (type < 12)
 			{
-				Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+				Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 			}
 			if (!stop_following)
 			{
@@ -1415,7 +1415,7 @@ DECLARE_SCRIPT (MDD_Stationary_Vehicle,"Area_ID:int")
 				int	player_type = Commands->Get_Player_Type (obj);
 				if (player_type == SCRIPT_PLAYERTYPE_NOD)
 				{
-					Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+					Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 				}
 			}
 		}
@@ -1435,7 +1435,7 @@ DECLARE_SCRIPT (MDD_Stationary_Vehicle,"Area_ID:int")
 	{
 		if (timer_id == 1)
 		{
-			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", NULL);
 		}
 		else if (timer_id == 2)
 		{
@@ -1598,7 +1598,7 @@ DECLARE_SCRIPT (MDD_Nod_Apache, "Area_ID:int")
 				if (distance > 3000.0f)
 				//DEMO
 				{
-					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 				}
 			}
 			Commands->Start_Timer(obj, this, 15.0f, 3);
@@ -1613,7 +1613,7 @@ DECLARE_SCRIPT (MDD_Nod_Apache, "Area_ID:int")
 		{
 			if (sound.Creator)
 			{
-				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 			}
 		}
 	}
@@ -1762,7 +1762,7 @@ DECLARE_SCRIPT (MDD_Flying_Vehicle, "Unit_ID:int")
 		}
 		else
 		{
-			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 		}
 	}
 
@@ -1774,11 +1774,11 @@ DECLARE_SCRIPT (MDD_Flying_Vehicle, "Unit_ID:int")
 			int unit_id = Get_Int_Parameter ("Unit_ID");
 			if (!unit_id)
 			{
-				Commands->Send_Custom_Event(obj, object, 180, 0);
+				Commands->Send_Custom_Event(obj, object, 180, 0, 0.0f);
 			}
 			else
 			{
-				Commands->Send_Custom_Event(obj, object, 181, 0);
+				Commands->Send_Custom_Event(obj, object, 181, 0, 0.0f);
 			}
 		}
 	}

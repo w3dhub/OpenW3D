@@ -721,7 +721,7 @@ WWINLINE Vector4 DX8Wrapper::Convert_Color(unsigned color)
 	return col;
 }
 
-#if 0
+#if 1 // The ASM function clobber the stack under certain optimisation levels in newer MSVC.
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color, const float alpha)
 {
 	WWASSERT(color.X<=1.0f);
@@ -747,6 +747,14 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 	WWASSERT(color.W>=0.0f);
 
 	return D3DCOLOR_COLORVALUE(color.X,color.Y,color.Z,color.W);
+}
+
+WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
+{
+	for (int i = 0; i < 4; ++i) {
+		float f = (color[i] < 0.0f) ? 0.0f : color[i];
+		color[i] = (f > 1.0f) ? 1.0f : f;
+	}
 }
 #else
 
@@ -899,6 +907,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 {
 	return Convert_Color(reinterpret_cast<const Vector3&>(color),color[3]);
 }
+#endif
 
 WWINLINE unsigned int DX8Wrapper::Convert_Color_Clamp(const Vector4& color)
 {
@@ -906,9 +915,6 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color_Clamp(const Vector4& color)
 	DX8Wrapper::Clamp_Color(clamped_color);
 	return Convert_Color(reinterpret_cast<const Vector3&>(clamped_color),clamped_color[3]);
 }
-
-#endif
-
 
 WWINLINE void DX8Wrapper::Set_Alpha (const float alpha, unsigned int &color)
 {

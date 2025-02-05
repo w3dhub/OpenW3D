@@ -922,7 +922,8 @@ FirewallHelperClass::FirewallBehaviorType FirewallHelperClass::Detect_Firewall_B
 	/*
 	** Convert the mangler addresses to IPAddressClass format.
 	*/
-	for (int i=0 ; i<num_mangler_addresses ; i++) {
+	int i;
+	for (i=0 ; i<num_mangler_addresses ; i++) {
 		unsigned char addr[4];
 		memcpy(addr, &mangler_addresses[i][0], 4);
 		manglers[i].Set_Address(addr, mangler_port);

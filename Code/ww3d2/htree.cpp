@@ -686,8 +686,9 @@ void HTreeClass::Combo_Update
 #endif
 			float	weight_total = 0;
 			int wcount = 0;
+			int anim_num;
 
-			for ( int anim_num = 0; anim_num < anim->Get_Num_Anims(); anim_num++ ) {
+			for ( anim_num = 0; anim_num < anim->Get_Num_Anims(); anim_num++ ) {
 
 				HAnimClass *motion = anim->Get_Motion( anim_num );
 

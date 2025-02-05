@@ -594,7 +594,8 @@ void LoginInfo::StoreLogin(const char* nickname, const char* password,
 		const CComPtr<WOL::IChat>& chat = session->GetChatObject();
 
 		// Find the next empty slot
-		for (int index = 1; index <= MAX_NICKNAMES; ++index)
+		int index;
+		for (index = 1; index <= MAX_NICKNAMES; ++index)
 			{
 			const char* slotNick = NULL;
 			const char* slotPass = NULL;

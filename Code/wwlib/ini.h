@@ -50,6 +50,10 @@
 //#include	"straw.h"
 //#include	"wwfile.h"
 
+#if defined _MSC_VER && _MSC_VER <= 1200
+#include <wchar.h>
+#endif
+
 class PKey;
 class FileClass;
 class Straw;
@@ -147,7 +151,7 @@ class INIClass {
 		int Get_Int(char const * section, char const * entry, int defvalue=0) const;
 		int Get_String(char const * section, char const * entry, char const * defvalue, char * buffer, int size) const;
 		const StringClass& Get_String(StringClass& new_string, char const * section, char const * entry, char const * defvalue="") const;
-		const WideStringClass& Get_Wide_String(WideStringClass& new_string, char const * section, char const * entry, unsigned short const * defvalue=L"") const;
+		const WideStringClass& Get_Wide_String(WideStringClass& new_string, char const * section, char const * entry, wchar_t const * defvalue=L"") const;
 		int Get_List_Index(char const * section, char const * entry, int const defvalue, char *list[]);
 		int *	Get_Alloc_Int_Array(char const * section, char const * entry, int listend);
 		int Get_Int_Bitfield(char const * section, char const * entry, int defvalue, char *list[]);
@@ -180,7 +184,7 @@ class INIClass {
 		bool Put_Point(char const * section, char const * entry, TPoint3D<int> const & value);
 		bool Put_Point(char const * section, char const * entry, TPoint3D<float> const & value);
 		bool Put_Point(char const * section, char const * entry, TPoint2D<int> const & value);
-		bool Put_Wide_String(char const * section, char const * entry, const unsigned short * string);
+		bool Put_Wide_String(char const * section, char const * entry, const wchar_t * string);
 
 //	protected:
 		enum {MAX_LINE_LENGTH=512};

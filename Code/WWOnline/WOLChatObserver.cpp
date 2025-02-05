@@ -1759,8 +1759,9 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 	const UserList& user_list = mOuter->GetUserList();
 	const unsigned int count = user_list.size();
 	unsigned long ip = 0;
+	unsigned int index;
 
-	for (unsigned int index = 0; index < count; index++) {
+	for (index = 0; index < count; index++) {
 		const RefPtr<UserData>& user = user_list[index];
 		if (user.IsValid()) {
 			WOL::User userdata = user->GetData();
@@ -3141,7 +3142,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeMessage(HRESULT result, WOL::Channel*,
 		}
 	else
 		{
-		ChatMessage msg(user, message, false, false);
+		ChatMessage msg(user, (const wchar_t *)message, false, false);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3180,7 +3181,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeMessage(HRESULT result, WOL::User* us
 		}
 	else
 		{
-		ChatMessage msg(user, message, true, false);
+		ChatMessage msg(user, (const wchar_t *)message, true, false);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3219,7 +3220,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeAction(HRESULT result, WOL::User* use
 		}
 	else
 		{
-		ChatMessage msg(user, message, true, true);
+		ChatMessage msg(user, (const wchar_t *)message, true, true);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3258,7 +3259,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeAction(HRESULT result, WOL::Channel*,
 		}
 	else
 		{
-		ChatMessage msg(user, message, false, true);
+		ChatMessage msg(user, (const wchar_t *)message, false, true);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3300,7 +3301,7 @@ STDMETHODIMP ChatObserver::OnPagedUnicode(HRESULT result, WOL::User* user, const
 		{
 		wchar_t name[64];
 		mbstowcs(name, (const char*)&user->name[0], sizeof(user->name));
-		PageMessage page(name, text);
+		PageMessage page(name, (const wchar_t *)text);
 		mOuter->NotifyObservers(page);
 		}
 

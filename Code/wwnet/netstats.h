@@ -47,7 +47,7 @@
 //
 //     Syntax is U/R then Pkt/Byte/AppByte then Sent/Rcv
 //
-typedef enum Statistic
+enum Statistic
 {
    STAT_PktSent,
    STAT_PktRcv,

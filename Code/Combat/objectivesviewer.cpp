@@ -171,7 +171,8 @@ ObjectivesViewerClass::Update (void)
 	//	Build a temporary list of objectives that we can sort
 	//
 	SimpleDynVecClass<Objective *> sorted_list;
-	for (int index = 0; index < objective_count; index ++){
+	int index;
+	for (index = 0; index < objective_count; index ++){
 		Objective *objective = ObjectiveManager::ObjectiveList[index];
 		
 		//
