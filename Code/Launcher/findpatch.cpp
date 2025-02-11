@@ -113,7 +113,7 @@ bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
   HKEY   regKey;
   LONG   regRetval;
   /////////////DWORD  regPrevious;
-  regRetval=RegOpenKeyEx(HKEY_LOCAL_MACHINE,path.get(),0,KEY_READ,&regKey);
+  regRetval=RegOpenKeyEx(HKEY_CURRENT_USER,path.get(),0,KEY_READ,&regKey);
   if (regRetval!=ERROR_SUCCESS)
   {
     DBGMSG("RegOpenKey failed");

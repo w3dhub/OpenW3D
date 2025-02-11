@@ -267,18 +267,18 @@ RefPtr<UString> Protect::GetPassKey(void) const
 		HKEY hKey;
 		
 		/*
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE,
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER,
 			"Software\\Westwood\\Red Alert 2", 0, KEY_READ, &hKey);
 		*/
 
 #if	defined(FREEDEDICATEDSERVER)
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
 #elif defined(MULTIPLAYERDEMO)
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
 #elif defined(BETACLIENT)
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
 #else
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
 #endif
 
 		if (result != ERROR_SUCCESS)
@@ -356,7 +356,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			}
 
 		// Obtain windows product ID
-		result = RegOpenKeyEx(HKEY_LOCAL_MACHINE,
+		result = RegOpenKeyEx(HKEY_CURRENT_USER,
 			"Software\\Microsoft\\Windows\\CurrentVersion", 0, KEY_READ, &hKey);
 
 		if (result != ERROR_SUCCESS)
@@ -491,20 +491,20 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 /*
 #ifdef FREEDEDICATEDSERVER
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
 #else  //FREEDEDICATEDSERVER
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
 #endif //FREEDEDICATEDSERVER
 */
 
 #if	defined(FREEDEDICATEDSERVER)
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
 #elif defined(MULTIPLAYERDEMO)
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
 #elif defined(BETACLIENT)
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
 #else
-		LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
 #endif
 
 		assert((result == ERROR_SUCCESS) && "Failed to open game registry key");
@@ -561,7 +561,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			}
 
 		// Obtain windows product ID
-		result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, "Software\\Microsoft\\Windows\\CurrentVersion", 0, KEY_READ, &hKey);
+		result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion", 0, KEY_READ, &hKey);
 		assert((result == ERROR_SUCCESS) && "Failed to open windows registry key!");
 
 		if (result == ERROR_SUCCESS)

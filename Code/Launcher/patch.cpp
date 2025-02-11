@@ -195,7 +195,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     LONG   regRetval;
     DWORD  regPrevious;
     regRetval=RegCreateKeyEx(
-      HKEY_LOCAL_MACHINE,
+      HKEY_CURRENT_USER,
       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
       0,
       "",
@@ -323,7 +323,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     // Open the registry key for modifying now...
     HKEY regKey;
     LONG regRetval;
-    regRetval=RegOpenKeyEx(HKEY_LOCAL_MACHINE,path.get(),0,
+    regRetval=RegOpenKeyEx(HKEY_CURRENT_USER,path.get(),0,
         KEY_ALL_ACCESS,&regKey);
     if (regRetval!=ERROR_SUCCESS)
       DBGMSG("Can't open reg key for writing");

@@ -721,7 +721,7 @@ WWINLINE Vector4 DX8Wrapper::Convert_Color(unsigned color)
 	return col;
 }
 
-#if 1 // The ASM function clobber the stack under certain optimisation levels in newer MSVC.
+#if defined _MSC_VER && _MSC_VER > 1200 // The ASM function clobber the stack under certain optimisation levels in newer MSVC.
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color, const float alpha)
 {
 	WWASSERT(color.X<=1.0f);

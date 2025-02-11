@@ -2174,7 +2174,7 @@ bool Open_Registry(void)
 {
 	HKEY key;
 	unsigned long disposition;
-	long result = RegCreateKeyEx(HKEY_LOCAL_MACHINE, RegistryPath, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, &disposition);
+	long result = RegCreateKeyEx(HKEY_CURRENT_USER, RegistryPath, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, &disposition);
 	if (result == ERROR_SUCCESS) {
 		RegistryKey = key;
 		return(true);

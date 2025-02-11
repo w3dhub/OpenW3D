@@ -170,7 +170,7 @@ bool RegistryManagerClass::Get_Desktop_Path (WideStringClass &path)
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_Game_Pathname (WideStringClass &pathname)
 {
-	return (Get_String (HKEY_LOCAL_MACHINE, &pathname, SOFTWARE_KEY, WESTWOOD_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), INSTALL_PATHNAME_KEY, NULL));
+	return (Get_String (HKEY_CURRENT_USER, &pathname, SOFTWARE_KEY, WESTWOOD_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), INSTALL_PATHNAME_KEY, NULL));
 }
 
 
@@ -221,7 +221,7 @@ bool RegistryManagerClass::Get_Target_Game_Folder (WideStringClass &folder)
 	WideStringClass  path, folderpath;
 	WCHAR				 *suffixroot;
 
-	if (Get_String (HKEY_LOCAL_MACHINE, &path, SOFTWARE_KEY, WESTWOOD_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), FOLDER_PATH_KEY, NULL)) {
+	if (Get_String (HKEY_CURRENT_USER, &path, SOFTWARE_KEY, WESTWOOD_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), FOLDER_PATH_KEY, NULL)) {
 		Get_Folder_Path (folderpath);
 		suffixroot = Extract_Suffix_Root (path, folderpath);
 		if (suffixroot != NULL) {
@@ -248,7 +248,7 @@ bool RegistryManagerClass::Get_Target_Game_Folder (WideStringClass &folder)
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_WOL_Pathname (WOLComponentEnum wolcomponent, WideStringClass &pathname)
 {
-	return (Get_String (HKEY_LOCAL_MACHINE, &pathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLKeys [wolcomponent], INSTALL_PATHNAME_KEY, NULL));
+	return (Get_String (HKEY_CURRENT_USER, &pathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLKeys [wolcomponent], INSTALL_PATHNAME_KEY, NULL));
 }
 
 
@@ -299,7 +299,7 @@ bool RegistryManagerClass::Get_Target_WOL_Folder (WOLComponentEnum wolcomponent,
 	WideStringClass  path, folderpath;
 	WCHAR				 *suffixroot;
 
-	if (Get_String (HKEY_LOCAL_MACHINE, &path, SOFTWARE_KEY, WESTWOOD_KEY, WOLKeys [wolcomponent], FOLDER_PATH_KEY, NULL)) {
+	if (Get_String (HKEY_CURRENT_USER, &path, SOFTWARE_KEY, WESTWOOD_KEY, WOLKeys [wolcomponent], FOLDER_PATH_KEY, NULL)) {
 		Get_Folder_Path (folderpath);
 		suffixroot = Extract_Suffix_Root (path, folderpath);
 		if (suffixroot != NULL) {
@@ -326,7 +326,7 @@ bool RegistryManagerClass::Get_Target_WOL_Folder (WOLComponentEnum wolcomponent,
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_WOL_Version (WOLComponentEnum wolcomponent, DWORD &version)
 {
-	return (Get_Value (HKEY_LOCAL_MACHINE, &version, SOFTWARE_KEY, WESTWOOD_KEY, WOLKeys [wolcomponent], VERSION_KEY, NULL));
+	return (Get_Value (HKEY_CURRENT_USER, &version, SOFTWARE_KEY, WESTWOOD_KEY, WOLKeys [wolcomponent], VERSION_KEY, NULL));
 }
 
 
@@ -347,7 +347,7 @@ bool RegistryManagerClass::Use_IGR_Settings (bool &useigrsettings)
 	bool	success;	
 	DWORD igrsettings;
 
-	success = Get_Value (HKEY_LOCAL_MACHINE, &igrsettings, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, OPTIONS_KEY, NULL);
+	success = Get_Value (HKEY_CURRENT_USER, &igrsettings, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, OPTIONS_KEY, NULL);
 	if (success) {
 		useigrsettings = (igrsettings == IGR_ALL);
 	}
@@ -384,66 +384,66 @@ void RegistryManagerClass::Register_Game (const WideStringClass &name,
 	// The input SKU also contains the languageid in the LSB, so mask this off.
 	maskedsku = sku & 0xffffff00;
 
-	Set_String (HKEY_LOCAL_MACHINE, name,						   SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, NAME_KEY,							   NULL);
-	Set_String (HKEY_LOCAL_MACHINE, installpathname,			SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, INSTALL_PATHNAME_KEY,				NULL);
-	Set_String (HKEY_LOCAL_MACHINE, folderpath,				   SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, FOLDER_PATH_KEY,					NULL);
-	Set_String (HKEY_LOCAL_MACHINE, desktopshortcutpathname, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, DESKTOP_SHORTCUT_PATHNAME_KEY, NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, languageid,					SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, LANGUAGE_KEY,						NULL);
-	Set_String (HKEY_LOCAL_MACHINE, wideserialnumber,			SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, SERIAL_KEY,							NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, sku,							SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, SKU_KEY,								NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, version,						SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, VERSION_KEY,							NULL);
+	Set_String (HKEY_CURRENT_USER, name,						   SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, NAME_KEY,							   NULL);
+	Set_String (HKEY_CURRENT_USER, installpathname,			SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, INSTALL_PATHNAME_KEY,				NULL);
+	Set_String (HKEY_CURRENT_USER, folderpath,				   SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, FOLDER_PATH_KEY,					NULL);
+	Set_String (HKEY_CURRENT_USER, desktopshortcutpathname, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, DESKTOP_SHORTCUT_PATHNAME_KEY, NULL);
+	Set_Value  (HKEY_CURRENT_USER, languageid,					SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, LANGUAGE_KEY,						NULL);
+	Set_String (HKEY_CURRENT_USER, wideserialnumber,			SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, SERIAL_KEY,							NULL);
+	Set_Value  (HKEY_CURRENT_USER, sku,							SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, SKU_KEY,								NULL);
+	Set_Value  (HKEY_CURRENT_USER, version,						SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, VERSION_KEY,							NULL);
 
 	s = L"http://renchat2.westwood.com/cgi-bin/cgiclient?ren_clan_manager&request=expand_template&Template=index.html&SKU=%d&LANGCODE=%d&embedded=1";
 	url.Format (s, maskedsku, languageid);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "BattleClans", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "BattleClans", NULL);
 
 	s = L"http://renchat2.westwood.com/cgi-bin/cgiclient?ren_clan_manager&request=expand_template&Template=index.html&SKU=%d&LANGCODE=%d";
 	url.Format (s, maskedsku, languageid);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "BattleClansX", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "BattleClansX", NULL);
 
 	s = L"http://renchat2.westwood.com/renegade_embedded/index.html";
 	url.Format (s);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "Ladder", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "Ladder", NULL);
 
 	s = L"http://renchat2.westwood.com/renegade/index.html";
 	url.Format (s);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "LadderX", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "LadderX", NULL);
 
 	s = L"http://battleclans.westwood.com/cgi-bin/cgiclient?rosetta&request=do_netstatus&LANGCODE=%d&SKU=%d&embedded=1";
 	url.Format (s, languageid, maskedsku);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "NetStatus", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "NetStatus", NULL);
 
 	s = L"http://battleclans.westwood.com/cgi-bin/cgiclient?rosetta&request=do_netstatus&LANGCODE=%d&SKU=%d";
 	url.Format (s, languageid, maskedsku);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "NetStatusX", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "NetStatusX", NULL);
 
 	s = L"http://battleclans.westwood.com/cgi-bin/cgiclient?rosetta&request=do_news&LANGCODE=%d&SKU=%d&embedded=1";
 	url.Format (s, languageid, maskedsku);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "News", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "News", NULL);
 
 	s = L"http://battleclans.westwood.com/cgi-bin/cgiclient?rosetta&request=do_news&LANGCODE=%d&SKU=%d";
 	url.Format (s, languageid, maskedsku);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "NewsX", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "NewsX", NULL);
 
 	s = L"http://renchat2.westwood.com/cgi-bin/cgiclient?live_ren_register&request=expand_template&Template=newreg_menu.html&LANGCODE=%d&embedded=1&SKU=%d";
 	url.Format (s, languageid, maskedsku);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "Signup", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "Signup", NULL);
 
 	s = L"http://renchat2.westwood.com/cgi-bin/cgiclient?live_ren_register&request=expand_template&Template=newreg_menu.html&LANGCODE=%d&SKU=%d";
 	url.Format (s, languageid, maskedsku);
-	Set_String (HKEY_LOCAL_MACHINE, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "SignupX", NULL);
+	Set_String (HKEY_CURRENT_USER, url, SOFTWARE_KEY, WESTWOOD_KEY, gameproductkey, WOLSETTINGS_KEY, URL_KEY, "SignupX", NULL);
 
 	// Register the executable with the OS.
 	s = installpathname;
 	Remove_Trailing_Name (s);
-	Set_String (HKEY_LOCAL_MACHINE, s,					 SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, APP_PATHS_KEY, RxStringClass (IDS_GAME_EXECUTABLE_FILENAME), PATH_KEY, NULL);
-	Set_String (HKEY_LOCAL_MACHINE, installpathname, SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, APP_PATHS_KEY, RxStringClass (IDS_GAME_EXECUTABLE_FILENAME), "",		   NULL);
+	Set_String (HKEY_CURRENT_USER, s,					 SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, APP_PATHS_KEY, RxStringClass (IDS_GAME_EXECUTABLE_FILENAME), PATH_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, installpathname, SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, APP_PATHS_KEY, RxStringClass (IDS_GAME_EXECUTABLE_FILENAME), "",		   NULL);
 
 	// Register the uninstall program with the OS.
-	Set_String (HKEY_LOCAL_MACHINE, TxWideStringClass (IDS_VERBOSE_GAME_PRODUCT_NAME), SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), DISPLAY_NAME_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, TxWideStringClass (IDS_VERBOSE_GAME_PRODUCT_NAME), SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), DISPLAY_NAME_KEY, NULL);
 	s += L"\\";
 	s += RxWideStringClass (IDS_GAME_UNINSTALL_FILENAME); 
-	Set_String (HKEY_LOCAL_MACHINE, s, SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), UNINSTALLER_FILENAME_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, s, SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), UNINSTALLER_FILENAME_KEY, NULL);
 }	
 
 
@@ -470,22 +470,22 @@ void RegistryManagerClass::Register_WOLAPI (const WideStringClass &folderpath,
 
 	WideStringClass s;
 
-	Set_String (HKEY_LOCAL_MACHINE, folderpath,		 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, FOLDER_PATH_KEY,		NULL);
-	Set_String (HKEY_LOCAL_MACHINE, installpathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, INSTALL_PATHNAME_KEY, NULL);
-	Set_String (HKEY_LOCAL_MACHINE, name,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, NAME_KEY,				   NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, sku,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, SKU_KEY,				   NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, version,			 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, VERSION_KEY,			   NULL);
+	Set_String (HKEY_CURRENT_USER, folderpath,		 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, FOLDER_PATH_KEY,		NULL);
+	Set_String (HKEY_CURRENT_USER, installpathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, INSTALL_PATHNAME_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, name,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, NAME_KEY,				   NULL);
+	Set_Value  (HKEY_CURRENT_USER, sku,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, SKU_KEY,				   NULL);
+	Set_Value  (HKEY_CURRENT_USER, version,			 SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, VERSION_KEY,			   NULL);
 
 	// Register the uninstall program with the OS.
-	Set_String (HKEY_LOCAL_MACHINE, TxWideStringClass (IDS_VERBOSE_WOL_PRODUCT_NAME), SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, WOLAPI_KEY, DISPLAY_NAME_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, TxWideStringClass (IDS_VERBOSE_WOL_PRODUCT_NAME), SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, WOLAPI_KEY, DISPLAY_NAME_KEY, NULL);
 	s  = installpathname;
 	Remove_Trailing_Name (s);
 	s += L"\\";
 	s += RxWideStringClass (IDS_WOL_UNINSTALL_FILENAME);
-	Set_String (HKEY_LOCAL_MACHINE, s, SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, WOLAPI_KEY, UNINSTALLER_FILENAME_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, s, SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, WOLAPI_KEY, UNINSTALLER_FILENAME_KEY, NULL);
 
 	// Write the game room settings.
-	Set_Value (HKEY_LOCAL_MACHINE, igrsettings [useigrsettings], SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, OPTIONS_KEY, NULL);
+	Set_Value (HKEY_CURRENT_USER, igrsettings [useigrsettings], SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, OPTIONS_KEY, NULL);
 }
 
 
@@ -507,11 +507,11 @@ void RegistryManagerClass::Register_WOLRegister (const WideStringClass &folderpa
 	  															 DWORD sku,
 																 DWORD version)
 {
-	Set_String (HKEY_LOCAL_MACHINE, folderpath,		 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, FOLDER_PATH_KEY,		  NULL);
-	Set_String (HKEY_LOCAL_MACHINE, installpathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, INSTALL_PATHNAME_KEY, NULL);
-	Set_String (HKEY_LOCAL_MACHINE, name,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, NAME_KEY,				  NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, sku,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, SKU_KEY,				  NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, version,			 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, VERSION_KEY,			  NULL);
+	Set_String (HKEY_CURRENT_USER, folderpath,		 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, FOLDER_PATH_KEY,		  NULL);
+	Set_String (HKEY_CURRENT_USER, installpathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, INSTALL_PATHNAME_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, name,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, NAME_KEY,				  NULL);
+	Set_Value  (HKEY_CURRENT_USER, sku,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, SKU_KEY,				  NULL);
+	Set_Value  (HKEY_CURRENT_USER, version,			 SOFTWARE_KEY, WESTWOOD_KEY, WOLREGISTER_KEY, VERSION_KEY,			  NULL);
 }
 
 
@@ -531,9 +531,9 @@ void RegistryManagerClass::Register_WOLBrowser (const WideStringClass &installpa
 	  															const WideStringClass &name,
 	  															DWORD version)
 {
-	Set_String (HKEY_LOCAL_MACHINE, installpathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLBROWSER_KEY, INSTALL_PATHNAME_KEY, NULL);
-	Set_String (HKEY_LOCAL_MACHINE, name,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLBROWSER_KEY, NAME_KEY,				 NULL);
-	Set_Value  (HKEY_LOCAL_MACHINE, version,			 SOFTWARE_KEY, WESTWOOD_KEY, WOLBROWSER_KEY, VERSION_KEY,			 NULL);
+	Set_String (HKEY_CURRENT_USER, installpathname, SOFTWARE_KEY, WESTWOOD_KEY, WOLBROWSER_KEY, INSTALL_PATHNAME_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, name,				 SOFTWARE_KEY, WESTWOOD_KEY, WOLBROWSER_KEY, NAME_KEY,				 NULL);
+	Set_Value  (HKEY_CURRENT_USER, version,			 SOFTWARE_KEY, WESTWOOD_KEY, WOLBROWSER_KEY, VERSION_KEY,			 NULL);
 }
 
 
@@ -556,14 +556,14 @@ void RegistryManagerClass::Update_WOLAPI()
 
 	keyindex	  = 0;
 	usagecount = 0;
-	while (Get_Key (HKEY_LOCAL_MACHINE, keyindex, &keyname, SOFTWARE_KEY, WESTWOOD_KEY,	NULL)) {
+	while (Get_Key (HKEY_CURRENT_USER, keyindex, &keyname, SOFTWARE_KEY, WESTWOOD_KEY,	NULL)) {
 
 		DWORD				 sku;
 		WideStringClass serialnumber;
 
 		// If a SKU and a serial number exist...
-		if (Get_Value (HKEY_LOCAL_MACHINE, &sku, SOFTWARE_KEY, WESTWOOD_KEY, keyname, SKU_KEY, NULL)) {
-			if (Get_String (HKEY_LOCAL_MACHINE, &serialnumber, SOFTWARE_KEY, WESTWOOD_KEY, keyname, SERIAL_KEY, NULL)) {
+		if (Get_Value (HKEY_CURRENT_USER, &sku, SOFTWARE_KEY, WESTWOOD_KEY, keyname, SKU_KEY, NULL)) {
+			if (Get_String (HKEY_CURRENT_USER, &serialnumber, SOFTWARE_KEY, WESTWOOD_KEY, keyname, SERIAL_KEY, NULL)) {
 				
 				WideStringClass widekeyname;
 				char				 skuname [MAX_NUMBER_STRING_LENGTH];	
@@ -571,7 +571,7 @@ void RegistryManagerClass::Update_WOLAPI()
 				// Create a key for the key name under the WOLAPI key.
 				ltoa (sku, skuname, 10);
 				widekeyname = keyname;
-				Set_String (HKEY_LOCAL_MACHINE, widekeyname, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, skuname, NAME_KEY, NULL);
+				Set_String (HKEY_CURRENT_USER, widekeyname, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, skuname, NAME_KEY, NULL);
 				usagecount++;
 			}
 		}
@@ -579,7 +579,7 @@ void RegistryManagerClass::Update_WOLAPI()
 	}
 
 	// Update the WOLAPI usage count.
-	Set_Value (HKEY_LOCAL_MACHINE, usagecount, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, USAGE_KEY, NULL);
+	Set_Value (HKEY_CURRENT_USER, usagecount, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, USAGE_KEY, NULL);
 }
 
 
@@ -640,7 +640,7 @@ bool RegistryManagerClass::Get_WOL_Account (unsigned index, WideStringClass &nam
  *=============================================================================================*/
 void RegistryManagerClass::Set_Preferred_WOL_Account (const WideStringClass &accountname)
 {
-	Set_String (HKEY_LOCAL_MACHINE, accountname, SOFTWARE_KEY, WESTWOOD_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), WOLSETTINGS_KEY, PREFERRED_LOGIN_KEY, NULL);
+	Set_String (HKEY_CURRENT_USER, accountname, SOFTWARE_KEY, WESTWOOD_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), WOLSETTINGS_KEY, PREFERRED_LOGIN_KEY, NULL);
 }
 
 
