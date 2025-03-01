@@ -36,10 +36,11 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <GameSpy\gcdkeyserver.h>
-#include <GameSpy\gcdkeyclient.h>
-#include <GameSpy\nonport.h>
-#include <GameSpy\gs_md5.h>
+#include <wchar.h>
+#include <GameSpy/gcdkey/gcdkeys.h>
+#include <GameSpy/gcdkey/gcdkeyc.h>
+#include <GameSpy/nonport.h>
+#include <GameSpy/md5.h>
 #include <stdlib.h>
 #include "wwdebug.h"
 #include "CDKeyAuth.h"
@@ -48,6 +49,7 @@
 #include "playermanager.h"
 #include "_globals.h"
 #include "ServerSettings.h"
+#include "GameSpy_QnR.h"
 
 // static void c_auth_callback(int localid, int authenticated, char *errmsg, void *instance)
 // {
@@ -72,7 +74,7 @@ char * CCDKeyAuth::GenChallenge(int nchars)
 If the client has been, then we send them a "welcome" string, representative of
 allowing them to "enter" the game. If they have not been authenticated, we dump
 them after sending an error message */
-void CCDKeyAuth::auth_callback(int localid, int authenticated, char *errmsg, void *instance)
+void CCDKeyAuth::auth_callback(int gameid, int localid, int authenticated, char *errmsg, void *instance)
 {
 //	client_t *clients = (client_t *)instance;
 //	char outbuf[512];
@@ -107,7 +109,7 @@ void CCDKeyAuth::auth_callback(int localid, int authenticated, char *errmsg, voi
 }
 
 void CCDKeyAuth::DisconnectUser(int localid) {
-	gcd_disconnect_user(localid);
+	gcd_disconnect_user(CGameSpyQnR::cdkey_id, localid);
 
 }
 
@@ -117,7 +119,7 @@ void CCDKeyAuth::AuthenticateUser(int localid, ULONG ip, char *challenge, char *
 	// Take the response from our challenge that we sent to the client
 	// and send it off to the Authserver along with the original challenge
 
-	gcd_authenticate_user(localid, ip, challenge, authstring, CCDKeyAuth::auth_callback, NULL);
+	gcd_authenticate_user(CGameSpyQnR::cdkey_id, localid, ip, challenge, authstring, CCDKeyAuth::auth_callback, NULL, NULL);
 
 }
 
@@ -150,7 +152,7 @@ void CCDKeyAuth::AuthSerial(const char *challenge, StringClass &resp) {
 	MD5Digest((BYTE *)cdkey, strlen(cdkey), md5hash);
 
 	// hashserial, challenge, outbuf
-	gcd_compute_response(md5hash, challenge, response);
+	gcd_compute_response(cdkey, (char *)challenge, response, CDResponseMethod_NEWAUTH);
 
 	delete [] cdkey;
 	resp = response;

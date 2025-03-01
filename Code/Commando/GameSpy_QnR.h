@@ -23,7 +23,7 @@
 /********
 INCLUDES
 ********/
-#include <GameSpy\gqueryreporting.h>
+#include <GameSpy/qr/gqueryreporting.h>
 #include <WWLib\WideString.h>
 #include "trim.h"
 
@@ -33,7 +33,7 @@ DEFINES
 
 class CGameSpyQnR
 {
-
+	friend class CCDKeyAuth;
 protected:
 	char secret_key[9];
 	BOOL m_GSInit;
