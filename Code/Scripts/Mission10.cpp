@@ -3412,7 +3412,7 @@ DECLARE_SCRIPT (M10_Flyover_Controller, "")
 			{
 				count = 0;
 
-				char *flyovers[10] = 
+				static constexpr const char* flyovers[10] =
 				{
 					"X10A_Apache_00.txt",
 					"X10A_Apache_01.txt",

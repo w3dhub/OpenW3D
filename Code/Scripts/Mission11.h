@@ -215,9 +215,9 @@ enum
 // Timer Enumerations
 
 //mission functions
-inline char *M11_Choose_Mutant_Idle_Sound ( )
+inline const char *M11_Choose_Mutant_Idle_Sound ( )
 {
-	char *soundList[4] = 
+	static constexpr const char *soundList[4] =
 		{
 			"M00MEIN_CTOA0001I1MEIN_SND",
 			"M00MEIN_CTOR0001I1MEIN_SND",
@@ -229,9 +229,9 @@ inline char *M11_Choose_Mutant_Idle_Sound ( )
 	return soundList[random];
 };
 
-inline char *M11_Choose_Mutant_Alerted_Sound ( )
+inline const char *M11_Choose_Mutant_Alerted_Sound ( )
 {
-	char *soundList[3] = 
+	static constexpr const char *soundList[3] =
 		{
 			"M00MEIN_CTOS0001I1MEIN_SND",
 			"M00MEIN_RTOS0001I1MEIN_SND",
@@ -242,9 +242,9 @@ inline char *M11_Choose_Mutant_Alerted_Sound ( )
 	return soundList[random];
 };
 
-inline char *M11_Choose_Mutant_Attack_Sound ( )
+inline const char *M11_Choose_Mutant_Attack_Sound ( )
 {
-	char *soundList[3] = 
+	static constexpr const char *soundList[3] =
 		{
 			"M00MEIN_ATOS0001I1MEIN_SND",
 			"M00MEIN_CTOS0001I1MEIN_SND",
@@ -255,9 +255,9 @@ inline char *M11_Choose_Mutant_Attack_Sound ( )
 	return soundList[random];
 };
 
-inline char *M11_Choose_Mutant_Attack_Animation ( )
+inline const char *M11_Choose_Mutant_Attack_Animation ( )
 {
-	char *animationList[6] = 
+	static constexpr const char *animationList[6] =
 		{
 			"S_A_Human.H_A_4243",
 			"S_A_Human.H_A_822A",

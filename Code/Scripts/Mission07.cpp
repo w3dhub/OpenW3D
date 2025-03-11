@@ -5680,7 +5680,7 @@ DECLARE_SCRIPT(M07_Flyover_Controller, "")
 
 	void Timer_Expired(GameObject * obj, int timer_id)
 	{
-		char *flyovers[8] = 
+		static constexpr const char *flyovers[8] =
 		{
 			"X7A_CPlane_00.txt",
 			"X7A_CPlane_01.txt",
