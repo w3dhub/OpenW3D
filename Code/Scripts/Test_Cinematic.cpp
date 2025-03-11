@@ -198,14 +198,14 @@ public:
 	*/
 	void	Load_Control_File( const char * filename ) 
 	{
-		Commands->Debug_Message( "Loading Control File %s\n", (int)filename );
+		Commands->Debug_Message( "Loading Control File %s\n", filename );
 
 		char full_filename[80];
-		sprintf( full_filename, "DATA\\%s", filename );
+		snprintf( full_filename, sizeof(full_filename), "DATA\\%s", filename );
 //		FILE * in = fopen( full_filename, "rt" );
 		int handle = Commands->Text_File_Open( filename );
 		if ( handle == 0 ) {
-			Commands->Debug_Message( "Failed to open %s\n", (int)full_filename );
+			Commands->Debug_Message( "Failed to open %s\n", full_filename );
 			return;
 		}
 
@@ -247,13 +247,13 @@ public:
 	/*
 	**
 	*/
-	char * Get_Command_Parameter( char * string = NULL )
+	char* Get_Command_Parameter( char * string = NULL )
 	{
 		if ( string != NULL ) {
 			NextParameter = string;
 		}
 
-		if ( NextParameter == NULL || *NextParameter == 0 ) return "";
+		if ( NextParameter == NULL || *NextParameter == 0 ) return nullptr;
 
 		// Start at this parameter;
 		char * parameter = NextParameter;
@@ -896,7 +896,7 @@ public:
 	/*
 	**
 	*/
-	bool	Title_Match( char * * command, char * title ) 
+	bool	Title_Match( char ** command, const char * title ) 
 	{
 		if ( ::strnicmp( *command, title, strlen( title ) ) == 0 ) {
 			*command += strlen( title );

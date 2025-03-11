@@ -592,9 +592,9 @@ typedef enum
 	M1TIMER_START = STIMER_MISSION1,
 } M1TIMER;
 //mission functions
-inline char *M01_Choose_Cheer_Animation ( )
+inline const char* M01_Choose_Cheer_Animation ( )
 {
-	char *animationList[4] = 
+	static constexpr const char* animationList[4] =
 		{
 			"H_A_J01C",
 			"H_A_J18C",
@@ -607,9 +607,9 @@ inline char *M01_Choose_Cheer_Animation ( )
 	return animationList[random];
 };
 
-inline char *M01_Choose_Duck_Animation ( )
+inline const char* M01_Choose_Duck_Animation ( )
 {
-	char *animationList[5] = 
+	static constexpr const char* animationList[5] =
 		{
 			"H_A_A0A0_L20",
 			"H_A_A0A0_L21",
@@ -623,9 +623,9 @@ inline char *M01_Choose_Duck_Animation ( )
 	return animationList[random];
 };
 
-inline char *M01_Choose_Search_Animation ( )
+inline const char* M01_Choose_Search_Animation ( )
 {
-	char *animationList[4] = 
+	static constexpr const char *animationList[4] =
 		{
 			"H_A_J01C",
 			//"H_A_J18C",
@@ -639,9 +639,9 @@ inline char *M01_Choose_Search_Animation ( )
 	return animationList[random];
 };
 
-inline char *M01_Choose_Idle_Animation ( )
+inline const char* M01_Choose_Idle_Animation ( )
 {
-	char *animationList[14] = 
+	static constexpr const char* animationList[14] =
 		{
 			"H_A_A0A0_L01",
 			"H_A_A0A0_L02",
