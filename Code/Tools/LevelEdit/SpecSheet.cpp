@@ -67,7 +67,8 @@ SpecSheetClass::SpecSheetClass (DefinitionClass *definition)
 /////////////////////////////////////////////////////////////////////////////
 SpecSheetClass::~SpecSheetClass (void)
 {
-	for (int index = 0; index < m_CtrlList.Count (); index ++) {
+	int index;
+	for (index = 0; index < m_CtrlList.Count (); index ++) {
 		ParameterCtrlClass *ctrl = m_CtrlList[index];		
 		delete ctrl;
 	}
@@ -296,7 +297,8 @@ SpecSheetClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 	//	Create a control object for every parameter
 	//
 	int count = m_Definition->Get_Parameter_Count ();
-	for (int index = 0; index < count; index ++) {
+	int index;
+	for (index = 0; index < count; index ++) {
 		ParameterClass *parameter = m_Definition->Lock_Parameter (index);
 
 		//
@@ -393,7 +395,7 @@ SpecSheetClass::Get_Parameter (int index)
 // OnNcHitTest
 //
 /////////////////////////////////////////////////////////////////////////////
-UINT
+LRESULT
 SpecSheetClass::OnNcHitTest (CPoint point) 
 {
 	return HTCLIENT;
@@ -669,7 +671,8 @@ SpecSheetClass::Scroll_Controls (int amount)
 	//
 	//	Build a list of all the child windows we want to scroll
 	//
-	for (	HWND child_wnd = ::GetWindow (m_hWnd, GW_CHILD);
+	HWND child_wnd;
+	for (	child_wnd = ::GetWindow (m_hWnd, GW_CHILD);
 			child_wnd != NULL;
 			child_wnd = ::GetWindow (child_wnd, GW_HWNDNEXT))
 	{

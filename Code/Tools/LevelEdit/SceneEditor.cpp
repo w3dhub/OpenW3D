@@ -747,7 +747,8 @@ SceneEditorClass::Delete_Nodes (void)
 	//
 	// Build a list of all the nodes that are affected by this operation
 	//
-	for (int index = 0; index < m_SelectionMgr->Get_Count (); index ++) {
+	int index;
+	for (index = 0; index < m_SelectionMgr->Get_Count (); index ++) {
 		NodeClass *node = m_SelectionMgr->Get_At (index);
 		if (node != NULL) {
 			
@@ -2064,7 +2065,8 @@ SceneEditorClass::DoObjectGoto (NodeClass *node1, NodeClass *node2)
 	//
 	//	Register all the waypaths with the pathfinding system
 	//
-	for (	NodeClass *node = NodeMgrClass::Get_First (NODE_TYPE_WAYPATH);
+	NodeClass *node;
+	for (	node = NodeMgrClass::Get_First (NODE_TYPE_WAYPATH);
 			node != NULL;
 			node = NodeMgrClass::Get_Next (node, NODE_TYPE_WAYPATH))
 	{
@@ -2188,7 +2190,8 @@ SceneEditorClass::Import_Lights
 	//
 	//	Build a list of light objects from the LIG files
 	//
-	for (int index = 0; index < filename_list.Count (); index ++) {		
+	int index;
+	for (index = 0; index < filename_list.Count (); index ++) {		
 		FileClass *file = _TheFileFactory->Get_File (filename_list[index]);
 		if (file != NULL && file->Open ()) {
 
@@ -2650,7 +2653,8 @@ SceneEditorClass::Replace_Selection (void)
 			//
 			//	Loop over all the selected nodes
 			//
-			for (int index = 0; index < count; index ++) {
+			int index;
+			for (index = 0; index < count; index ++) {
 				
 				//
 				//	Get the transform of this selected node

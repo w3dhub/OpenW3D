@@ -328,7 +328,8 @@ VideoConfigDialogClass::Update_Resolution_Slider (void)
 	//	Filter out any resolutions that don't fit the current
 	// bit depth
 	//
-	for (int index = 0; index < ResolutionList.Count (); index ++) {
+	int index;
+	for (index = 0; index < ResolutionList.Count (); index ++) {
 		const ResolutionDescClass &res_desc = ResolutionList[index];
 
 		//

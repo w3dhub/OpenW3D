@@ -221,7 +221,8 @@ GroupMgrClass::Clone_Group (void)
 	//
 	// Duplicate the group list
 	//
-	for (int index = 0; index < m_GroupList.Count (); index ++) {
+	int index;
+	for (index = 0; index < m_GroupList.Count (); index ++) {
 		NodeClass *node = m_GroupList[index];
 		temp_list.Add (node);
 	}
@@ -462,7 +463,8 @@ SelectionMgrClass::Clone_Group (void)
 	//
 	// Remove the selection box from around all the items
 	//
-	for (int index = 0; index < m_GroupList.Count (); index ++) {
+	int index;
+	for (index = 0; index < m_GroupList.Count (); index ++) {
 		NodeClass *node = m_GroupList[index];
 		node->Show_Selection_Box (false);		
 	}

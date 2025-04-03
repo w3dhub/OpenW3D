@@ -364,7 +364,7 @@ TransitionEditDialogClass::OnDestroy (void)
 void
 TransitionEditDialogClass::Render_View (void)
 {
-	static render_lock = false;
+	static bool render_lock = false;
 
 	if (!render_lock) {
 		render_lock = true;

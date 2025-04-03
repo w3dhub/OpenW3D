@@ -2983,7 +2983,8 @@ CMainFrame::OnTestPathfind (void)
 		//
 		//	Register all the waypaths with the pathfinding system
 		//
-		for (	NodeClass *node = NodeMgrClass::Get_First (NODE_TYPE_WAYPATH);
+		NodeClass *node;
+		for (	node = NodeMgrClass::Get_First (NODE_TYPE_WAYPATH);
 				node != NULL;
 				node = NodeMgrClass::Get_Next (node, NODE_TYPE_WAYPATH))
 		{

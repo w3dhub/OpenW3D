@@ -824,7 +824,8 @@ WaypathNodeClass::Update_Line (void)
 		//
 		//	Fill in the array of points with our waypoint locations
 		//
-		for (int index = 0; index < count; index ++) {
+		int index;
+		for (index = 0; index < count; index ++) {
 
 			WaypointNodeClass *waypoint = m_PointList[index];
 

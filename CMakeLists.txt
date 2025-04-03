@@ -12,6 +12,9 @@ endif()
 
 project(commando LANGUAGES C CXX)
 
+# This file handles extra settings wanted/needed for different compilers.
+include(cmake/compilers.cmake)
+
 # Set where the build results will end up
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})

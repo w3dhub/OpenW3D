@@ -107,7 +107,7 @@ EditStringTwiddlerDialogClass::OnInitDialog (void)
 		//	Add the list of strings to the database
 		//
 		for (int index = 0; index < StringObject->Get_String_Count (); index ++) {
-			Insert_String (StringObject->Get_String (index));
+			Insert_String (StringObject->Get_String_Index (index));
 		}
 
 	} else {

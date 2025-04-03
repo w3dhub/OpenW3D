@@ -90,4 +90,6 @@ target_link_libraries(scripts PRIVATE
     wwcommon
 )
 
+set_target_properties(scripts PROPERTIES PREFIX "")
+
 target_sources(scripts PRIVATE ${SCRIPTS_SRC})

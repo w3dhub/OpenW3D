@@ -561,7 +561,8 @@ StringsMgrClass::Import_From_Translation (const char *filename, uint32 lang_id)
 	//	Keep reading until we don't have any more data to read
 	//
 	bool keep_going = true;
-	for (int index = 0; keep_going; index ++) {
+	int index;
+	for (index = 0; keep_going; index ++) {
 
 		//
 		//	Read these fields of data

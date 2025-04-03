@@ -131,7 +131,7 @@ EditorINIClass::Get_Matrix3D
 {
 	// check input parameters
 	if ( section == NULL || entry == NULL ) {
-		return false;
+		return defvalue;
 	}
 
 	// read UU string

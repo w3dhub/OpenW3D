@@ -1078,8 +1078,8 @@ FileMgrClass::Find_Files
 	// Find all files that match this wildcard
 	WIN32_FIND_DATA find_info = { 0 };
 	BOOL bcontinue = TRUE;
-	for (HANDLE hfile_find = ::FindFirstFile (file_spec, &find_info);
-		  (hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
+	HANDLE hfile_find = ::FindFirstFile (file_spec, &find_info);
+	for (;(hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
 		  bcontinue = ::FindNextFile (hfile_find, &find_info)) {
 
 		// Is this a file?

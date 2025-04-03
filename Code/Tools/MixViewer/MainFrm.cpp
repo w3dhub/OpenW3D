@@ -185,7 +185,7 @@ Strip_Filename_From_Path (LPCTSTR path)
 	}
 
 	// Return the path only
-	return StringClass (temp_path);
+	return temp_path;
 }
 
 
@@ -211,21 +211,21 @@ CMainFrame::OnCombineDuplicates (void)
 		//
 		//	Determine what directory to search
 		//
-		StringClass full_path	= dialog.GetPathName ();
-		StringClass directory	= Strip_Filename_From_Path (full_path);
+		StringClass full_path	= static_cast<const char *>(dialog.GetPathName ());
+		StringClass directory	= static_cast<const char *>(Strip_Filename_From_Path (full_path));
 		combiner.Set_Destination_File (full_path);
 
 		WIN32_FIND_DATA find_info	= { 0 };
 		BOOL keep_going				= TRUE;
 
-		CString search_mask = directory + "\\*.mix";
+		CString search_mask = static_cast<const char *>(directory + "\\*.mix");
 
 		//
 		// Loop over all the mix files in the search directory
 		//
 		int count = 0;
-		for (HANDLE find_handle = ::FindFirstFile (search_mask, &find_info);
-			  (find_handle != INVALID_HANDLE_VALUE) && keep_going;
+		HANDLE find_handle = ::FindFirstFile (search_mask, &find_info);
+		for (;(find_handle != INVALID_HANDLE_VALUE) && keep_going;
 			  keep_going = ::FindNextFile (find_handle, &find_info))
 		{
 			//

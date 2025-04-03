@@ -601,7 +601,8 @@ PresetClass::Copy_Properties (const PresetClass &preset)
 			//
 			//	Free any existing transitions
 			//
-			for (int index = 0; index < dest_list->Count (); index ++) {
+			int index;
+			for (index = 0; index < dest_list->Count (); index ++) {
 				TransitionDataClass *data = (*dest_list)[index];
 				SAFE_DELETE (data);
 			}
@@ -1352,7 +1353,8 @@ PresetClass::Remove_Child_Preset (int child_id)
 {
 	int index = m_ChildIDList.ID (child_id);
 	if (index != -1) {
-		m_ChildIDList.Delete (index);
+		// Cast needed to disambiguate Delete(int) and Delete(const T &) where T = int
+		(m_ChildIDList.*(static_cast<bool (DynamicVectorClass<int>::*) (int)>(&DynamicVectorClass<int>::Delete))) (index);
 	}
 		
 	return ;

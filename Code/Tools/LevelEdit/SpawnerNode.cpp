@@ -207,7 +207,8 @@ SpawnerNodeClass::Save (ChunkSaveClass &csave)
 	//
 	//	Save the list of scripts
 	//
-	for (int index = 0; index < m_Scripts.Count (); index ++) {
+	int index;
+	for (index = 0; index < m_Scripts.Count (); index ++) {
 		EditScriptClass *script = m_Scripts[index];
 		
 		//

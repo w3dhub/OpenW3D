@@ -157,7 +157,8 @@ EditConversationDialogClass::OnInitDialog (void)
 	//
 	//	Configure the orator controls
 	//
-	for (int index = 0; index < ORATOR_MAX; index ++) {
+	int index;
+	for (index = 0; index < ORATOR_MAX; index ++) {
 
 		//
 		//	Put the icon into the button control
@@ -415,8 +416,9 @@ EditConversationDialogClass::OnOK (void)
 	//
 	//	Get all the conversations from the list control and add them to the
 	// conversation manager
-	//	
-	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
+	//
+	int index;
+	for (index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
 		ConversationRemarkClass *remark = Get_Entry_Data (index);		
 		m_Conversation->Add_Remark (*remark);
 	}

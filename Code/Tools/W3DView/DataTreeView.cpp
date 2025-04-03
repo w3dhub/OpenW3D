@@ -467,7 +467,8 @@ CDataTreeView::LoadAnimationsIntoTree (void)
                 LPCTSTR pszHierarchyName = pHierarchyAnim->Get_HName ();
 
                 // Loop through all the hierarchies and add this animation to any pertinent ones
-                for (HTREEITEM hNode = FindFirstChildItemBasedOnHierarchyName (m_hHierarchyRoot, pszHierarchyName);
+                HTREEITEM hNode;
+				for (hNode = FindFirstChildItemBasedOnHierarchyName (m_hHierarchyRoot, pszHierarchyName);
                      (hNode != NULL);
                      hNode = FindSiblingItemBasedOnHierarchyName (hNode, pszHierarchyName))
                 {

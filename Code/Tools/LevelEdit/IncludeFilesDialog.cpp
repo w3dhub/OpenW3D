@@ -109,7 +109,8 @@ IncludeFilesDialogClass::OnInitDialog (void)
 	
 	// Loop through all the global include files and add them to the tree control
 	DynamicVectorClass<CString> &global_list = ::Get_File_Mgr ()->Get_Global_Include_File_List ();
-	for (int index = 0; index < global_list.Count (); index ++) {
+	int index;
+	for (index = 0; index < global_list.Count (); index ++) {
 		int icon_index = (::strpbrk (global_list[index], "*?") != NULL) ? FILES_ICON : FILE_ICON;
 		m_IncludesTreeCtrl.InsertItem (global_list[index], icon_index, icon_index, m_hGlobalFolder);
 	}
@@ -154,8 +155,9 @@ IncludeFilesDialogClass::OnOK (void)
 	global_list.Delete_All ();
 	level_list.Delete_All ();
 
-	// Loop through all the children of the global folder	
-	for (HTREEITEM hchild = m_IncludesTreeCtrl.GetChildItem (m_hGlobalFolder);
+	// Loop through all the children of the global folder
+	HTREEITEM hchild;
+	for (hchild = m_IncludesTreeCtrl.GetChildItem (m_hGlobalFolder);
 		  hchild != NULL;
 		  hchild = m_IncludesTreeCtrl.GetNextSiblingItem (hchild)) {
 		

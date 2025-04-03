@@ -42,6 +42,6 @@ target_compile_options(mixviewer PRIVATE
     ${WARNING_FLAGS}
 )
 
-target_link_libraries(mixviewer PRIVATE wwdebug wwlib winmm)
+target_link_libraries(mixviewer PRIVATE wwcommon wwdebug wwlib winmm)
 
 target_sources(mixviewer PRIVATE ${MIXVIEWER_SRC})

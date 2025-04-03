@@ -40,6 +40,7 @@ target_link_libraries(wwconfig PRIVATE
     version
     winmm
     milesstub
+    wwcommon
     wwdebug
     wwlib
     wwmath

@@ -191,6 +191,7 @@ target_link_libraries(w3dview PRIVATE
     version
     winmm
     milesstub
+    wwcommon
     wwdebug
     wwlib
     wwmath

@@ -507,7 +507,8 @@ MixFileDatabaseClass::Get_All (LPCTSTR dest_path, LPCTSTR search_mask)
 	//	Loop over all the factories
 	//
 	int factory_count = MainFileFactory.Get_Factory_Count ();
-	for (int index = 0; index < factory_count; index ++) {
+	int index;
+	for (index = 0; index < factory_count; index ++) {
 		
 		//
 		//	Get a pointer to the current factory
@@ -605,7 +606,7 @@ MixFileDatabaseClass::Get_Filename (LPCTSTR path, StringClass &filename)
 	//	Check to see if the sub-directory is important, if it is, then
 	// return the sub-directory as well
 	//
-	char *subdir_token = ::strstr (filename, "+\\");
+	const char *subdir_token = ::strstr (filename, "+\\");
 	if (subdir_token != NULL) {
 
 		//

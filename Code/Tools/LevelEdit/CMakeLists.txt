@@ -468,6 +468,7 @@ target_link_libraries(leveledit PRIVATE
     binkstub
     gamespy
     bandtest
+    wwcommon
     wwdebuge
     wwlib
     wwbitpack
@@ -488,10 +489,12 @@ target_link_libraries(leveledit PRIVATE
 
 if(WIN32 OR "${CMAKE_SYSTEM}" MATCHES "Windows")
     target_link_options(leveledit PRIVATE /NODEFAULTLIB:libci.lib /NODEFAULTLIB:libc.lib)
-    add_custom_target(VSSBuild ALL
+    add_custom_command(
+        OUTPUT VSS.h VSS_i.c
         COMMAND midl.exe "${CMAKE_CURRENT_SOURCE_DIR}\\VSS.IDL" /header VSS.h
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        BYPRODUCTS VSS.h VSS_i.c
+        DEPENDS "${CMAKE_CURRENT_LIST_DIR}/VSS.IDL"
+        VERBATIM
     )
 
     target_sources(leveledit PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/VSS_i.c LevelEdit.rc)

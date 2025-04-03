@@ -75,7 +75,11 @@ protected:
 	afx_msg void OnObjectProperties();
 	afx_msg void OnUpdateObjectProperties(CCmdUI* pCmdUI);
 	afx_msg void OnLodGenerate();
+#if (defined(_MSC_VER) && _MSC_VER < 1300)
 	afx_msg void OnActivateApp(BOOL bActive, HTASK hTask);
+#else
+	afx_msg void OnActivateApp(BOOL bActive, DWORD hTask);
+#endif
 	afx_msg void OnFileOpen();
 	afx_msg void OnAniSpeed();
 	afx_msg void OnAniStop();
