@@ -693,7 +693,8 @@ ListCtrlClass::Update_Scroll_Bar_Visibility (void)
 	//
 	bool needs_scrollbar	= false;
 	float y_pos				= TextRect.Top;
-	for (int index = 0; index < RowInfoList.Count (); index ++) {
+	int index;
+	for (index = 0; index < RowInfoList.Count (); index ++) {
 		y_pos += RowInfoList[index]->Get_Height ();
 		if (y_pos >= TextRect.Bottom) {
 			needs_scrollbar = true;
@@ -1950,7 +1951,8 @@ ListCtrlClass::Delete_All_Entries (void)
 	//
 	//	Delete each of our row information sturctures
 	//
-	for (int index = 0; index < RowInfoList.Count (); index ++) {
+	int index;
+	for (index = 0; index < RowInfoList.Count (); index ++) {
 		delete RowInfoList[index];
 	}
 	RowInfoList.Delete_All ();
@@ -2271,7 +2273,8 @@ ListCtrlClass::Scroll_Page (int direction)
 	//	Scan either direction from the current scroll
 	// position until we've moved a whole page
 	//
-	for (	int index = ScrollPos;
+	int index;
+	for (	index = ScrollPos;
 			index >= 0 && index < count;
 			index += direction)
 	{		

@@ -34,8 +34,6 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <Gamespy\gs_patch_usage.h>
-#include <Gamespy\gcdkeyserver.h>
 #include "specialbuilds.h"
 #include "dlgcncteaminfo.h"
 #include "resource.h"
@@ -74,6 +72,8 @@
 #include "shellapi.h"
 #include "netutil.h"
 #include "gamespybanlist.h"
+#include <Gamespy/pt/pt.h>
+#include <Gamespy/gcdkey/gcdkeys.h>
 
 CGameSpyQnR GameSpyQnR;
 
@@ -81,7 +81,7 @@ CGameSpyQnR GameSpyQnR;
 	const char *CGameSpyQnR::gamename = "ccrenegadedemo";
 	const char *CGameSpyQnR::bname = "Demo";
 	const int CGameSpyQnR::prodid = 10063;
-	const int CGameSpyQnR::cdkey_id = 0;
+	const int CGameSpyQnR::cdkey_id = 590; // https://aluigi.altervista.org/papers/gspids.txt
 #elif defined(FREEDEDICATEDSERVER)
 	const char *CGameSpyQnR::bname = "FDS";
 	const char *CGameSpyQnR::gamename = "ccrenegade";

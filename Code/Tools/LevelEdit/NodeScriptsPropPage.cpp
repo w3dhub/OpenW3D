@@ -363,7 +363,8 @@ NodeScriptsPropPage::Apply_Changes (void)
 	//
 	//	Delete all the scripts in the old list
 	//
-	for (int index = 0; index < m_ScriptList->Count (); index ++) {
+	int index;
+	for (index = 0; index < m_ScriptList->Count (); index ++) {
 		EditScriptClass *script = (*m_ScriptList)[index];
 		SAFE_DELETE (script);
 	}

@@ -178,7 +178,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 				GameObject* logan = Commands->Find_Object(MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO);
+					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO, 0.0f);
 				}
 
 				// Turn off the AGT
@@ -186,7 +186,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 				GameObject * tower = Commands->Find_Object (MTU_TOWER);
 				if (tower)
 				{
-					Commands->Send_Custom_Event (obj, tower, 0, 0);
+					Commands->Send_Custom_Event (obj, tower, 0, 0, 0.0f);
 				}
 				break;
 			}
@@ -328,7 +328,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 					if (sydney_zone)
 					{
 						sydney_restart = false;
-						Commands->Send_Custom_Event (obj, sydney_zone, MTU_TYPE_SYDNEY_IS_RESET, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, sydney_zone, MTU_TYPE_SYDNEY_IS_RESET, MTU_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -426,7 +426,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 				{
 					if (found_targets)
 					{
-						Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_SPEECH_MORE_TARGETS);
+						Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_SPEECH_MORE_TARGETS, 0.0f);
 					}
 					else
 					{
@@ -436,7 +436,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 							range_powerup = 0;
 							Commands->Destroy_Object (range_powerup_obj);
 						}
-						Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_TARGETS_ELIMINATED);
+						Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_TARGETS_ELIMINATED, 0.0f);
 					}
 				}
 				break;
@@ -878,12 +878,12 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 				if (hotwire_state == -1)
 				{
 					hotwire_state = 0;
-					Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_FACTORY_CLEANUP, MTU_PARAM_DEFAULT);
-					Commands->Send_Custom_Event (obj, obj, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_FACTORY_CLEANUP, MTU_PARAM_DEFAULT, 0.0f);
+					Commands->Send_Custom_Event (obj, obj, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT, 0.0f);
 					GameObject * logan = Commands->Find_Object (MTU_LOGAN);
 					if (logan)
 					{
-						Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_WEAPONS);
+						Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_WEAPONS, 0.0f);
 					}
 				}
 				break;
@@ -892,8 +892,8 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 			{
 				// This is called by all other buildings to force weapon factory cleanup!
 				hotwire_state = -1;
-				Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_FACTORY_CLEANUP, MTU_PARAM_DEFAULT);
-				Commands->Send_Custom_Event (obj, obj, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_FACTORY_CLEANUP, MTU_PARAM_DEFAULT, 0.0f);
+				Commands->Send_Custom_Event (obj, obj, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT, 0.0f);
 				break;
 			}
 		case (MTU_TYPE_HOTWIRE_START):
@@ -909,7 +909,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 							GameObject * hotwire = Commands->Find_Object (MTU_HOTWIRE);
 							if (hotwire)
 							{
-								Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_INTRO);
+								Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_INTRO, 0.0f);
 							}
 							advance_state = true;
 							break;
@@ -921,35 +921,35 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 							{
 								if (checkpoint_count > 3)
 								{
-									Commands->Send_Custom_Event (obj, obj, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT);
-									Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_MEDTANK);
-									Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_FACTORY_CLEANUP, MTU_PARAM_DEFAULT);
-									Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_CREATE_MEDTANK, MTU_PARAM_DEFAULT);
+									Commands->Send_Custom_Event (obj, obj, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT, 0.0f);
+									Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_MEDTANK, 0.0f);
+									Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_FACTORY_CLEANUP, MTU_PARAM_DEFAULT, 0.0f);
+									Commands->Send_Custom_Event (obj, obj, MTU_TYPE_WEAP_CREATE_MEDTANK, MTU_PARAM_DEFAULT, 0.0f);
 									GameObject * action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_01);
 									if (action_zone)
 									{
-										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 									}
 									action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_02);
 									if (action_zone)
 									{
-										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 									}
 									action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_03);
 									if (action_zone)
 									{
-										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 									}
 									action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_04);
 									if (action_zone)
 									{
-										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+										Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 									}
 									advance_state = true;
 								}
 								else
 								{
-									Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_UNFINISHED);
+									Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_UNFINISHED, 0.0f);
 								}
 							}
 							break;
@@ -1053,7 +1053,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 					GameObject * mobius = Commands->Find_Object (MTU_MOBIUS);
 					if (mobius)
 					{
-						Commands->Send_Custom_Event (obj, mobius, MTU_TYPE_MOBIUS, MTU_PARAM_SPEECH_MOBIUS_REFINERY);
+						Commands->Send_Custom_Event (obj, mobius, MTU_TYPE_MOBIUS, MTU_PARAM_SPEECH_MOBIUS_REFINERY, 0.0f);
 					}
 				}
 				break;
@@ -1071,14 +1071,14 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 					GameObject * petrova = Commands->Find_Object (MTU_PETROVA);
 					if (petrova)
 					{
-						Commands->Send_Custom_Event (obj, petrova, MTU_TYPE_PETROVA, MTU_PARAM_SPEECH_PETROVA_POWER);
+						Commands->Send_Custom_Event (obj, petrova, MTU_TYPE_PETROVA, MTU_PARAM_SPEECH_PETROVA_POWER, 0.0f);
 					}
 				}
 				break;
 			}
 		case (MTU_TYPE_ACTIVATE_FINALE):
 			{
-				Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+				Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 				GameObject * instructor = Commands->Find_Object (MTU_SYDNEY);
 				if (instructor)
 				{
@@ -1107,7 +1107,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 				instructor = Commands->Find_Object (MTU_CONTROLLER);
 				if (instructor)
 				{
-					Commands->Send_Custom_Event (obj, instructor, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, instructor, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				instructor = Commands->Create_Object ("GDI_Female_Lieutenant", Vector3(-43.724f,37.967f,2.0f));
 				if (instructor)
@@ -1123,7 +1123,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 				GameObject * lieutenant = Commands->Find_Object (lieutenant_id);
 				if (lieutenant)
 				{
-					Commands->Send_Custom_Event (obj, lieutenant, MTU_TYPE_LIEUTENANT, MTU_PARAM_ACTION_GOTO_HAVOC);
+					Commands->Send_Custom_Event (obj, lieutenant, MTU_TYPE_LIEUTENANT, MTU_PARAM_ACTION_GOTO_HAVOC, 0.0f);
 				}
 				break;
 			}
@@ -1133,17 +1133,17 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 				GameObject * soldier = Commands->Find_Object (MTU_GATE_GUARD);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MTU_TYPE_GDI_SOLDIER_PATROL, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MTU_TYPE_GDI_SOLDIER_PATROL, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				soldier = Commands->Find_Object (MTU_GDI_01);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MTU_TYPE_GDI_SOLDIER_PATROL, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MTU_TYPE_GDI_SOLDIER_PATROL, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				soldier = Commands->Find_Object (MTU_GDI_02);
 				if (soldier)
 				{
-					Commands->Send_Custom_Event (obj, soldier, MTU_TYPE_GDI_SOLDIER_PATROL, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, soldier, MTU_TYPE_GDI_SOLDIER_PATROL, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				GameObject * officer = Commands->Create_Object ("Nod_Minigunner_1Off", Vector3 (51.793f,23.554f,1.135f));
 				if (officer)
@@ -1301,14 +1301,14 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					}
 				case (MTU_PARAM_SPEECH_CROUCH): // Logan is told to start sneaking speech.
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Say_Something (obj, MTU_SPEECH_LOGAN_CROUCH);
 						break;
 					}
 				case (MTU_PARAM_SPEECH_JUMP): // Logan is told to give results of sneaking and start jump speech.
 					{
 						Move_Somewhere (obj, MTU_MOVE_LOGAN_JUMP_TRAINING, MTU_ACTION_LOGAN_JUMP_TEST);
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						/*if (logan_heard_commando)
 						{
 							Say_Something (obj, MTU_SPEECH_LOGAN_SNEAK_LOSE);
@@ -1323,19 +1323,19 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					}
 				case (MTU_PARAM_SPEECH_EVA): // Logan is told to start the eva training speech.
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Say_Something (obj, MTU_SPEECH_LOGAN_EVA);
 						break;
 					}
 				case (MTU_PARAM_SPEECH_COURSE_DONE): // Logan is told to move to the commando and finish the obstacle course.
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Move_Somewhere (obj, MTU_MOVE_LOGAN_COURSE_EXTERIOR, MTU_ACTION_LOGAN_COURSE_DONE);
 						break;
 					}
 				case (MTU_PARAM_ACTION_KEYCARD_TRAIN): // The commando has arrived at the AGT, lock control, give keycard speech.
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Say_Something (obj, MTU_SPEECH_LOGAN_KEYCARDS);
 						break;
 					}
@@ -1459,7 +1459,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 				{
 				case (MTU_PARAM_SPEECH_SYDNEY_START):
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Say_Something (obj, MTU_SPEECH_SYDNEY_START);
 						break;
 					}
@@ -1471,19 +1471,19 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					}
 				case (MTU_PARAM_SPEECH_PICKUP):
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Say_Something (obj, MTU_SPEECH_SYDNEY_ARMOR);
 						break;
 					}
 				case (MTU_PARAM_SPEECH_SHOOT_AGAIN):
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Say_Something (obj, MTU_SPEECH_SYDNEY_SHOOT_AGAIN);
 						break;
 					}
 				case (MTU_PARAM_SPEECH_LAST_TIME):
 					{
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 						Commands->Action_Reset (obj, 100);
 						Say_Something (obj, MTU_SPEECH_SYDNEY_LAST_TIME);
 						break;
@@ -1510,7 +1510,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 						GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_CHECK_TARGETS, MTU_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_CHECK_TARGETS, MTU_PARAM_DEFAULT, 0.0f);
 						}
 						break;
 					}
@@ -1521,7 +1521,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 						{
 						case (1):
 							{
-								Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+								Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 								Say_Something (obj, MTU_SPEECH_GUNNER_START);
 								break;
 							}
@@ -1534,7 +1534,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 								GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 								if (controller)
 								{
-									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_SNIPER_RIFLE, MTU_PARAM_DEFAULT);
+									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_SNIPER_RIFLE, MTU_PARAM_DEFAULT, 0.0f);
 								}
 								break;
 							}
@@ -1547,7 +1547,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 								GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 								if (controller)
 								{
-									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_AUTORIFLE, MTU_PARAM_DEFAULT);
+									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_AUTORIFLE, MTU_PARAM_DEFAULT, 0.0f);
 								}
 								break;
 							}
@@ -1560,7 +1560,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 								GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 								if (controller)
 								{
-									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_ROCKET, MTU_PARAM_DEFAULT);
+									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_ROCKET, MTU_PARAM_DEFAULT, 0.0f);
 								}
 								break;
 							}
@@ -1573,7 +1573,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 								GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 								if (controller)
 								{
-									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_C4, MTU_PARAM_DEFAULT);
+									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_C4, MTU_PARAM_DEFAULT, 0.0f);
 								}
 								break;
 							}
@@ -1586,7 +1586,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 								GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 								if (controller)
 								{
-									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_ION, MTU_PARAM_DEFAULT);
+									Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_ION, MTU_PARAM_DEFAULT, 0.0f);
 								}
 								break;
 							}
@@ -1761,7 +1761,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 				GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 				if (controller)
 				{
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ACTIVATE_FINALE, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ACTIVATE_FINALE, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -2324,12 +2324,12 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * course_gate = Commands->Find_Object (MTU_GATE_01);
 					if (course_gate)
 					{
-						Commands->Set_Animation (course_gate, "CHT_JAIL.CHT_JAIL", false, NULL, 0.0f, 2.0f);
+						Commands->Set_Animation (course_gate, "CHT_JAIL.CHT_JAIL", false, NULL, 0.0f, 2.0f, false);
 					}
 					course_gate = Commands->Find_Object (MTU_GATE_02);
 					if (course_gate)
 					{
-						Commands->Set_Animation (course_gate, "CHT_JAIL.CHT_JAIL", false, NULL, 0.0f, 2.0f);
+						Commands->Set_Animation (course_gate, "CHT_JAIL.CHT_JAIL", false, NULL, 0.0f, 2.0f, false);
 					}
 					break;
 				}
@@ -2348,25 +2348,25 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 			case (MTU_SPEECH_LOGAN_CROUCH_TEST):
 				{
 					Commands->Set_HUD_Help_Text(IDS_MTUDSGN_DSGN0382I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					break;
 				}
 			case (MTU_SPEECH_LOGAN_SNEAK_LOSE):
 			case (MTU_SPEECH_LOGAN_SNEAK_WIN): // Logan gave results of sneak test, move to jump test location.
 				{
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_DISABLE, 0.0f);
 					Move_Somewhere (obj, MTU_MOVE_LOGAN_JUMP_TRAINING, MTU_ACTION_LOGAN_JUMP_TEST);
 					break;
 				}
 			case (MTU_SPEECH_LOGAN_JUMP_TEST): // Logan finished giving jump test introduction, enable commando and move to next spot.
 				{
 					Commands->Set_HUD_Help_Text(IDS_MTUDSGN_DSGN0383I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					Move_Somewhere (obj, MTU_MOVE_LOGAN_EVA_TRAINING, MTU_ACTION_LOGAN_EVA_TRAIN);
 					GameObject * course_gate = Commands->Find_Object (MTU_GATE_03);
 					if (course_gate)
 					{
-						Commands->Set_Animation (course_gate, "CHT_JAIL.CHT_JAIL", false, NULL, 0.0f, 2.0f);
+						Commands->Set_Animation (course_gate, "CHT_JAIL.CHT_JAIL", false, NULL, 0.0f, 2.0f, false);
 					}
 					break;
 				}
@@ -2383,13 +2383,13 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 				{
 					Commands->Set_HUD_Help_Text(IDS_MTUDSGN_DSGN0385I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
 					Commands->Select_Weapon (STAR, "Weapon_Pistol_Player");
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					break;
 				}
 			case (MTU_SPEECH_LOGAN_COURSE_DONE): // Logan finished telling the commando about the course. Move to the AGT.
 				{
 					Commands->Set_HUD_Help_Text(IDS_M00DSGN_DSGN1003I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					Move_Somewhere (obj, MTU_MOVE_LOGAN_AGT, MTU_ACTION_LOGAN_GOTO_AGT);
 					break;
 				}
@@ -2398,7 +2398,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					Commands->Set_HUD_Help_Text(IDS_MTUDSGN_DSGN0386I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
 					Commands->Create_Object ("Level_01_Keycard", Vector3(-12.637f,24.426f,0.0f));
 					Say_Something (obj, MTU_SPEECH_LOGAN_GO_INSIDE);
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					break;
 				}
 			case (MTU_SPEECH_LOGAN_WHATSNEXT): // Logan gave the Whats Next dialog.
@@ -2452,7 +2452,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 						GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 						if (controller)
 						{
-							Commands->Send_Custom_Event(obj, controller, MTU_TYPE_HEALTH_POWERUP_ADD, pow_id);
+							Commands->Send_Custom_Event(obj, controller, MTU_TYPE_HEALTH_POWERUP_ADD, pow_id, 0.0f);
 						}
 						Say_Something (obj, MTU_SPEECH_SYDNEY_PICKUP);
 					}
@@ -2469,15 +2469,15 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 						GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 						if (controller)
 						{
-							Commands->Send_Custom_Event(obj, controller, MTU_TYPE_ARMOR_POWERUP_ADD, pow_id);
+							Commands->Send_Custom_Event(obj, controller, MTU_TYPE_ARMOR_POWERUP_ADD, pow_id, 0.0f);
 						}
-						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+						Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					}
 					break;
 				}
 			case (MTU_SPEECH_SYDNEY_PICKUP):
 				{
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					break;
 				}
 			case (MTU_SPEECH_SYDNEY_SHOOT_AGAIN):
@@ -2503,14 +2503,14 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 			case (MTU_SPEECH_SYDNEY_RADAR):
 				{
 					Commands->Set_HUD_Help_Text(IDS_MTUDSGN_DSGN0389I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					Commands->Set_Objective_Status (MTU_OBJECTIVE_02, OBJECTIVE_STATUS_PENDING);
 					Commands->Set_Objective_Radar_Blip (MTU_OBJECTIVE_02, Vector3(-16.216f,72.693f,1.042f));
 					Commands->Set_Objective_HUD_Info_Position (MTU_OBJECTIVE_02, 99, "POG_M00_1_02.tga", IDS_POG_LOCATE, Vector3 (-16.216f,72.693f,1.042f));
 					GameObject * logan = Commands->Find_Object (MTU_LOGAN);
 					if (logan)
 					{
-						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_INFANTRY);
+						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_INFANTRY, 0.0f);
 					}
 					break;
 				}
@@ -2520,11 +2520,11 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 			case (MTU_SPEECH_GUNNER_START):
 				{
 					Commands->Set_HUD_Help_Text(IDS_MTUDSGN_DSGN0390I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
-					Commands->Send_Custom_Event (obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event (obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_HANDGUN, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_SETUP_HANDGUN, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					break;
 				}
@@ -2534,7 +2534,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * logan = Commands->Find_Object (MTU_LOGAN);
 					if (logan)
 					{
-						Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_WEAPONS);
+						Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_WEAPONS, 0.0f);
 					}
 					Commands->Set_Objective_Status (MTU_OBJECTIVE_03, OBJECTIVE_STATUS_PENDING);
 					Commands->Set_Objective_Radar_Blip (MTU_OBJECTIVE_03, Vector3(-0.687f,-18.630f,0.100f));
@@ -2550,7 +2550,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_HUMMVEE, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_HUMMVEE, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					Say_Something (obj, MTU_SPEECH_HOTWIRE_GO_OUT);
 					break;
@@ -2560,32 +2560,32 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * action_zone = Commands->Find_Object (MTU_ZONE_VEHICLE_APPROACHED);
 					if (action_zone)
 					{
-						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_01);
 					if (action_zone)
 					{
-						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_02);
 					if (action_zone)
 					{
-						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_03);
 					if (action_zone)
 					{
-						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					action_zone = Commands->Find_Object (MTU_ZONE_CHECKPOINT_04);
 					if (action_zone)
 					{
-						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, action_zone, MTU_TYPE_RESET_TRIGGER_ONCE, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RESET_CHECKPOINT_COUNT, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					break;
 				}
@@ -2605,7 +2605,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * powerplant = Commands->Find_Object (MTU_POWERPLANT);
 					if (powerplant)
 					{
-						Commands->Send_Custom_Event (obj, powerplant, MTU_TYPE_BUILDING_POWER_OFF, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, powerplant, MTU_TYPE_BUILDING_POWER_OFF, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					Say_Something (obj, MTU_SPEECH_PETROVA_POWER_END);
 					break;
@@ -2616,7 +2616,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * powerplant = Commands->Find_Object (MTU_POWERPLANT);
 					if (powerplant)
 					{
-						Commands->Send_Custom_Event (obj, powerplant, MTU_TYPE_BUILDING_POWER_ON, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, powerplant, MTU_TYPE_BUILDING_POWER_ON, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					break;
 				}
@@ -2625,7 +2625,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 
 			case (MTU_SPEECH_LIEUTENANT_START):
 				{
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR_FACING, 1);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR_FACING, 1, 0.0f);
 					GameObject * chinook_obj1 = Commands->Create_Object("Invisible_Object", Vector3(-16.836f,36.188f,1.341f));
 					if (chinook_obj1)
 					{
@@ -2637,7 +2637,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 			case (MTU_SPEECH_LIEUTENANT_LETIN):
 				{
 					Commands->Set_Position (STAR, Vector3(-16.382f,55.559f,-8.956f));
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR_FACING, 2);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR_FACING, 2, 0.0f);
 					GameObject * engineer = Commands->Create_Object ("GDI_Engineer_0", Vector3(-24.003f,56.286f,-8.596f));
 					if (engineer)
 					{
@@ -2652,17 +2652,17 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 			case (MTU_SPEECH_LIEUTENANT_MCT):
 				{
 					Commands->Set_Position (STAR, Vector3(-16.487f,30.453f,1.125f));
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR_FACING, 3);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR_FACING, 3, 0.0f);
 					GameObject * barracks = Commands->Find_Object (MTU_BARRACKS);
 					if (barracks)
 					{
-						Commands->Send_Custom_Event(obj, barracks, MTU_TYPE_BUILDING_DESTROY, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event(obj, barracks, MTU_TYPE_BUILDING_DESTROY, MTU_PARAM_DEFAULT, 0.0f);
 					}
-					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE);
+					Commands->Send_Custom_Event(obj, STAR, MTU_TYPE_STAR, MTU_PARAM_CONTROL_ENABLE, 0.0f);
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_MOCK_INVASION, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_MOCK_INVASION, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					Say_Something (obj, MTU_SPEECH_LIEUTENANT_AFTER);
 					break;
@@ -2701,7 +2701,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_LIEUTENANT_START, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_LIEUTENANT_START, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					Commands->Destroy_Object (obj);
 					break;
@@ -2716,7 +2716,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 					GameObject * tower = Commands->Find_Object (MTU_TOWER);
 					if (tower)
 					{
-						Commands->Send_Custom_Event (obj, tower, 1, 0);
+						Commands->Send_Custom_Event (obj, tower, 1, 0, 0.0f);
 					}
 					Commands->Destroy_Object (obj);
 					break;
@@ -2800,7 +2800,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_JUMP);
+					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_JUMP, 0.0f);
 				}
 				destroy_zone = true;
 				break;
@@ -2810,7 +2810,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_EVA);
+					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_EVA, 0.0f);
 				}
 				destroy_zone = true;
 				break;
@@ -2820,7 +2820,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_COURSE_DONE);
+					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_COURSE_DONE, 0.0f);
 				}
 				destroy_zone = true;
 				break;
@@ -2830,7 +2830,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_KEYCARD_TRAIN);
+					Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_KEYCARD_TRAIN, 0.0f);
 				}
 				destroy_zone = true;
 				break;
@@ -2845,16 +2845,16 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 				if (controller)
 				{
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT);
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ALL_POWERUPS_RESET, MTU_PARAM_DEFAULT);
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_SYDNEY_RESET, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT, 0.0f);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ALL_POWERUPS_RESET, MTU_PARAM_DEFAULT, 0.0f);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_SYDNEY_RESET, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_AGT_RESET);
+					Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_AGT_RESET, 0.0f);
 				}
-				Commands->Send_Custom_Event (obj, STAR, MTU_TYPE_STAR, MTU_PARAM_SYDNEY_SHOT_RESET);
+				Commands->Send_Custom_Event (obj, STAR, MTU_TYPE_STAR, MTU_PARAM_SYDNEY_SHOT_RESET, 0.0f);
 				break;
 			}
 		case (MTU_ZONE_START_SYDNEY):
@@ -2862,7 +2862,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 				if (controller)
 				{
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_SYDNEY_CHECK_RESET, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_SYDNEY_CHECK_RESET, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -2876,11 +2876,11 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					{
 						if (Get_Obj_Distance (logan, STAR) < 10.0f)
 						{
-							Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO_INFANTRY);
+							Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO_INFANTRY, 0.0f);
 						}
 						else
 						{
-							Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_INFANTRY);
+							Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_INFANTRY, 0.0f);
 						}
 					}
 					destroy_zone = true;
@@ -2895,19 +2895,19 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * gunner = Commands->Find_Object (MTU_GUNNER);
 					if (gunner)
 					{
-						Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_GUNNER_RESET);
+						Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_GUNNER_RESET, 0.0f);
 					}
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_CLEANUP_TARGETS, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_CLEANUP_TARGETS, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 					if (logan)
 					{
-						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_INFANTRY);
+						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_INFANTRY, 0.0f);
 					}
 				}
 				break;
@@ -2917,7 +2917,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * gunner = Commands->Find_Object (MTU_GUNNER);
 				if (gunner)
 				{
-					Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_SPEECH_RETICULE);
+					Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_SPEECH_RETICULE, 0.0f);
 				}
 				destroy_zone = true;
 				break;
@@ -2927,7 +2927,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * gunner = Commands->Find_Object (MTU_GUNNER);
 				if (gunner)
 				{
-					Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_CHECK_TARGETS);
+					Commands->Send_Custom_Event (obj, gunner, MTU_TYPE_GUNNER, MTU_PARAM_CHECK_TARGETS, 0.0f);
 				}
 				break;
 			}
@@ -2941,11 +2941,11 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					{
 						if (Get_Obj_Distance (logan, STAR) < 4.0f)
 						{
-							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_WEAP_INTRO);
+							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_WEAP_INTRO, 0.0f);
 						}
 						else
 						{
-							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_WEAPONS);
+							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_WEAPONS, 0.0f);
 						}
 					}
 					destroy_zone = true;
@@ -2960,8 +2960,8 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_ATTEMPT_RESET, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_ATTEMPT_RESET, MTU_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -2974,8 +2974,8 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_ATTEMPT_RESET, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_ATTEMPT_RESET, MTU_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -2985,7 +2985,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 				if (controller)
 				{
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_HOTWIRE_START, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_HOTWIRE_START, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				break;
 			}
@@ -2998,7 +2998,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * hotwire = Commands->Find_Object (MTU_HOTWIRE);
 					if (hotwire)
 					{
-						Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_ACTION);
+						Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_ACTION, 0.0f);
 					}
 				}
 				break;
@@ -3012,7 +3012,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -3026,7 +3026,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -3040,7 +3040,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -3054,7 +3054,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_ADD_CHECKPOINT, MTU_PARAM_DEFAULT, 0.0f);
 					}
 				}
 				break;
@@ -3069,11 +3069,11 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					{
 						if (Get_Obj_Distance (logan, STAR) < 4.0f)
 						{
-							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO_REFINERY);
+							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO_REFINERY, 0.0f);
 						}
 						else
 						{
-							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_REFINERY);
+							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_REFINERY, 0.0f);
 						}
 					}
 					destroy_zone = true;
@@ -3093,14 +3093,14 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_MOBIUS_RESET, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_MOBIUS_RESET, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 					if (logan)
 					{
-						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_REFINERY);
+						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_REFINERY, 0.0f);
 					}
 				}
 				break;
@@ -3110,12 +3110,12 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 				if (controller)
 				{
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_MOBIUS_CHECK_RESET, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_MOBIUS_CHECK_RESET, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				GameObject * logan = Commands->Find_Object (MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_POWER);
+					Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_POWER, 0.0f);
 				}
 				break;
 			}
@@ -3129,11 +3129,11 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					{
 						if (Get_Obj_Distance (logan, STAR) < 4.0f)
 						{
-							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO_POWER);
+							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_SPEECH_INTRO_POWER, 0.0f);
 						}
 						else
 						{
-							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_POWER);
+							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_POWER, 0.0f);
 						}
 					}
 					destroy_zone = true;
@@ -3153,14 +3153,14 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 					GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 					if (controller)
 					{
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT);
-						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RESET_PETROVA, MTU_PARAM_DEFAULT);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_REMOVE_OBJECTIVES, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_FORCE_RESET, MTU_PARAM_DEFAULT, 0.0f);
+						Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RESET_PETROVA, MTU_PARAM_DEFAULT, 0.0f);
 					}
 					GameObject * logan = Commands->Find_Object(MTU_LOGAN);
 					if (logan)
 					{
-						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_POWER);
+						Commands->Send_Custom_Event(obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_GOTO_POWER, 0.0f);
 					}
 				}
 				break;
@@ -3170,12 +3170,12 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 				GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 				if (controller)
 				{
-					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_PETROVA_CHECK_RESET, MTU_PARAM_DEFAULT);
+					Commands->Send_Custom_Event (obj, controller, MTU_TYPE_PETROVA_CHECK_RESET, MTU_PARAM_DEFAULT, 0.0f);
 				}
 				GameObject * logan = Commands->Find_Object (MTU_LOGAN);
 				if (logan)
 				{
-					Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_FINALE);
+					Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_FINALE, 0.0f);
 				}
 				break;
 			}
@@ -3211,7 +3211,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 			GameObject * sydney = Commands->Find_Object (MTU_SYDNEY);
 			if (sydney)
 			{
-				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_SYDNEY_START);
+				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_SYDNEY_START, 0.0f);
 			}
 		}
 		if (type == MTU_TYPE_RESET_TRIGGER_ONCE)
@@ -3272,8 +3272,8 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 			Commands->Select_Weapon (STAR, NULL);
 			gate_guard_opened = true;
 			int conversation = Commands->Create_Conversation ("MTU_GDI_POKE", 100.0f, 300.0f, true);
-			Commands->Join_Conversation(obj, conversation, false, true);
-			Commands->Join_Conversation(STAR, conversation, false, true);
+			Commands->Join_Conversation(obj, conversation, false, true, true);
+			Commands->Join_Conversation(STAR, conversation, false, true, true);
 			Commands->Start_Conversation (conversation, MTU_SPEECH_GATEGUARD_POKE);
 			Commands->Monitor_Conversation (obj, conversation);
 		}
@@ -3439,13 +3439,13 @@ DECLARE_SCRIPT (MTU_Commando, "")
 			{
 				Commands->Set_Health (obj, 25.0f);
 				sydney_shot = true;
-				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_HEALTH);
+				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_HEALTH, 0.0f);
 			}
 			else
 			{
 				Commands->Set_Health (obj, 50.0f);
 				Commands->Set_Shield_Strength (obj, 50.0f);
-				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_LAST_TIME);
+				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_LAST_TIME, 0.0f);
 			}
 		}
 	}
@@ -3470,12 +3470,12 @@ DECLARE_SCRIPT (MTU_PowerUp_Health, "")
 			GameObject * sydney = Commands->Find_Object (MTU_SYDNEY);
 			if (sydney)
 			{
-				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_PICKUP);
+				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_PICKUP, 0.0f);
 			}
 			GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 			if (controller)
 			{
-				Commands->Send_Custom_Event(obj, controller, MTU_TYPE_HEALTH_POWERUP_SUBTRACT, 0);
+				Commands->Send_Custom_Event(obj, controller, MTU_TYPE_HEALTH_POWERUP_SUBTRACT, 0, 0.0f);
 			}
 		}
 	}
@@ -3491,12 +3491,12 @@ DECLARE_SCRIPT (MTU_PowerUp_Armor, "")
 			GameObject * sydney = Commands->Find_Object (MTU_SYDNEY);
 			if (sydney)
 			{
-				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_SHOOT_AGAIN);
+				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_SHOOT_AGAIN, 0.0f);
 			}
 			GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 			if (controller)
 			{
-				Commands->Send_Custom_Event(obj, controller, MTU_TYPE_ARMOR_POWERUP_SUBTRACT, 0);
+				Commands->Send_Custom_Event(obj, controller, MTU_TYPE_ARMOR_POWERUP_SUBTRACT, 0, 0.0f);
 			}
 		}
 	}
@@ -3533,7 +3533,7 @@ DECLARE_SCRIPT (MTU_Nod_Apache, "Apache_ID:int")
 			GameObject * sydney = Commands->Find_Object (MTU_SYDNEY);
 			if (sydney)
 			{
-				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_RADAR);
+				Commands->Send_Custom_Event(obj, sydney, MTU_TYPE_SYDNEY, MTU_PARAM_SPEECH_RADAR, 0.0f);
 			}
 		}
 	}
@@ -3555,7 +3555,7 @@ DECLARE_SCRIPT (MTU_Range_Target, "Target_ID:int")
 		if (controller)
 		{
 			int param = Get_Int_Parameter ("Target_ID");
-			Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_TARGET_DESTROYED, param);
+			Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_TARGET_DESTROYED, param, 0.0f);
 		}
 	}
 };
@@ -3630,7 +3630,7 @@ DECLARE_SCRIPT (MTU_Range_Powerup, "Powerup_ID:int")
 			if (controller)
 			{
 				int param = Get_Int_Parameter ("Powerup_ID");
-				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_POWERUP_RETRIEVED, param);
+				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_POWERUP_RETRIEVED, param, 0.0f);
 			}
 		}
 	}
@@ -3661,11 +3661,11 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 			int my_id = Get_Int_Parameter ("Vehicle_ID");
 			if (my_id == 1)
 			{
-				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_HUMMVEE, MTU_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_HUMMVEE, MTU_PARAM_DEFAULT, 0.0f);
 			}
 			else
 			{
-				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_MEDTANK, MTU_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_MEDTANK, MTU_PARAM_DEFAULT, 0.0f);
 			}
 		}
 	}
@@ -3686,7 +3686,7 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 						GameObject * hotwire = Commands->Find_Object (MTU_HOTWIRE);
 						if (hotwire)
 						{
-							Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_MOVEOUT);
+							Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_MOVEOUT, 0.0f);
 						}
 						break;
 					}
@@ -3696,12 +3696,12 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 						GameObject * hotwire = Commands->Find_Object (MTU_HOTWIRE);
 						if (hotwire)
 						{
-							Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_SQUISH);
+							Commands->Send_Custom_Event (obj, hotwire, MTU_TYPE_HOTWIRE, MTU_PARAM_SPEECH_WEAP_SQUISH, 0.0f);
 						}
 						GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 						if (controller)
 						{
-							Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_SQUISHIES, MTU_PARAM_DEFAULT);
+							Commands->Send_Custom_Event (obj, controller, MTU_TYPE_WEAP_CREATE_SQUISHIES, MTU_PARAM_DEFAULT, 0.0f);
 						}
 
 						// Setup Logan to intro the next part of the course - Tiberium Refinery.
@@ -3709,7 +3709,7 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 						GameObject * logan = Commands->Find_Object (MTU_LOGAN);
 						if (logan)
 						{
-							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_REFINERY);
+							Commands->Send_Custom_Event (obj, logan, MTU_TYPE_LOGAN, MTU_PARAM_ACTION_PREPARE_REFINERY, 0.0f);
 						}
 						break;
 					}
@@ -3763,7 +3763,7 @@ DECLARE_SCRIPT (MTU_Building_Controller, "Building_ID:int")
 		else if (type == MTU_TYPE_BUILDING_DESTROY)
 		{
 			can_be_damaged = true;
-			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", NULL);
 		}
 	}
 };
@@ -3810,7 +3810,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 			GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 			if (controller)
 			{
-				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_TRIGGER_SPAWNER, MTU_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_TRIGGER_SPAWNER, MTU_PARAM_DEFAULT, 0.0f);
 			}
 		}
 		else if (soldier_id == 2)
@@ -3818,7 +3818,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 			GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 			if (controller)
 			{
-				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_COUNT_OFFICERS, MTU_PARAM_DEFAULT);
+				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_COUNT_OFFICERS, MTU_PARAM_DEFAULT, 0.0f);
 			}
 		}
 	}
@@ -3827,7 +3827,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 	{
 		if (timer_id == MTU_TIMER_NOD_SOLDIER_REMOVAL)
 		{
-			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 		}
 	}
 };

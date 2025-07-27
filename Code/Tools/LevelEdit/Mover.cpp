@@ -297,7 +297,8 @@ MoverClass::Position_Nodes_Along_Ray
 	//
 	//	Turn off collision detection
 	//
-	for (int index = 0; index < list.Count (); index ++) {
+	int index;
+	for (index = 0; index < list.Count (); index ++) {
 		PhysClass *phys_obj = list[index]->Peek_Physics_Obj ();
 		if (phys_obj != NULL) {			
 			phys_obj->Inc_Ignore_Counter();
@@ -910,7 +911,8 @@ MoverClass::Rotate_Nodes
 	// Determine if we should restrict rotation or not
 	//
 	bool restrict_rotation = false;
-	for (int index = 0; index < list.Count (); index ++) {
+	int index;
+	for (index = 0; index < list.Count (); index ++) {
 		restrict_rotation |= list[index]->Is_Rotation_Restricted ();
 	}
 
@@ -971,7 +973,8 @@ MoverClass::Rotate_Nodes_Z
 	// Determine if we should restrict rotation or not
 	//
 	bool restrict_rotation = false;
-	for (int index = 0; index < list.Count (); index ++) {
+	int index;
+	for (index = 0; index < list.Count (); index ++) {
 		restrict_rotation |= list[index]->Is_Rotation_Restricted ();
 	}
 

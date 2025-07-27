@@ -387,7 +387,8 @@ PathfindClass::Save_Portals (ChunkSaveClass &csave)
 	bool retval = true;
 
 	int count = m_PortalList.Count ();
-	for (int index = 0; index < count && retval; index ++) {		
+	int index;
+	for (index = 0; index < count && retval; index ++) {		
 		PathfindPortalClass *portal = m_PortalList[index];
 
 		//
@@ -871,7 +872,8 @@ PathfindClass::Reset_Portals (void)
 	//
 	//	Release our hold on each of the portals
 	//
-	for (int index = 0; index < m_PortalList.Count (); index ++) {
+	int index;
+	for (index = 0; index < m_PortalList.Count (); index ++) {
 		PathfindPortalClass *portal = m_PortalList[index];
 		REF_PTR_RELEASE (portal);
 	}
@@ -1442,7 +1444,8 @@ PathfindClass::Free_Waypath_Sectors_And_Portals (void)
 	//
 	//	Release our hold on each of the waypath portals
 	//
-	for (int index = 0; index < m_WaypathPortalList.Count (); index ++) {
+	int index;
+	for (index = 0; index < m_WaypathPortalList.Count (); index ++) {
 		PathfindPortalClass *portal = m_WaypathPortalList[index];
 
 		//

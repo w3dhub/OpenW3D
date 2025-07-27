@@ -58,9 +58,9 @@ typedef struct
 	const char *name;
 	int			clsid;
 	int			icon;
-} CATEGORY_INFO;
+} CategoryInfoStruct;
 
-const CATEGORY_INFO PRESET_CATEGORIES[] = 
+const CategoryInfoStruct PRESET_CATEGORIES[] = 
 {
 	{ "Terrain",			CLASSID_TERRAIN,				TERRAIN_ICON },
 	{ "Tile",				CLASSID_TILE,					TILE_ICON },
@@ -77,7 +77,7 @@ const CATEGORY_INFO PRESET_CATEGORIES[] =
 	{ "Global Settings",	CLASSID_GLOBAL_SETTINGS,	OBJECT_ICON },	
 };
 
-const int PRESET_CATEGORY_COUNT = sizeof (PRESET_CATEGORIES) / sizeof (CATEGORY_INFO);
+const int PRESET_CATEGORY_COUNT = sizeof (PRESET_CATEGORIES) / sizeof (CategoryInfoStruct);
 
 
 #endif //__NODE_CATEGORIES_H

@@ -879,9 +879,9 @@ void CW3DUpdateDlg::RegisterShellExt()
 		ret_val = ::RegSetValueEx(reg_key, "",0L,REG_SZ,(BYTE *)(LPCTSTR)reg_value,reg_value.GetLength () + 1);
 	}
 	::RegCloseKey (reg_key);
-	//[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
+	//[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved]
 	reg_key_name.LoadString(IDS_MSEXTENSIONS_KEY);
-	ret_val = ::RegCreateKeyEx (HKEY_LOCAL_MACHINE,reg_key_name,0L,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,NULL,&reg_key,NULL);
+	ret_val = ::RegCreateKeyEx (HKEY_CURRENT_USER,reg_key_name,0L,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,NULL,&reg_key,NULL);
 	if (ERROR_SUCCESS == ret_val) {
    //"{556F8779-49C4-4e88-9CEF-0AC2CFD6B763}"="W3D Shell Extension"
 		value_name.LoadString(IDS_W3DSHELLEXT_GUID);

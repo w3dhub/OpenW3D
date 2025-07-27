@@ -430,7 +430,7 @@ void WOLQuickMatch::ParseResponse(const wchar_t* message)
 		while (token)
 			{
 			// Find the first occurance of the token in the message
-			wchar_t* cmd = wcsstr(message, token);
+			const wchar_t* cmd = wcsstr(message, token);
 
 			// If the token was found and it is at the start of the message
 			// then return the type of message this is.

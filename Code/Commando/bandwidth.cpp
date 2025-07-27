@@ -82,7 +82,7 @@ ULONG cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type
 }
 
 //-----------------------------------------------------------------------------
-const unsigned short *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type)
+const wchar_t *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type)
 {
 	static char _bandwidth_auto_txt[128];
 	static WideStringClass s;

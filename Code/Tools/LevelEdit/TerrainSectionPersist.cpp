@@ -420,7 +420,8 @@ TerrainSectionPersistListClass::Initialize_Virgin_Sections (void)
 	//	Give each section a unique ID if we couldn't match it up with
 	// its saved version.
 	//
-	for (int index = 0; index < m_VirginSections.Count (); index ++) {
+	int index;
+	for (index = 0; index < m_VirginSections.Count (); index ++) {
 		NodeClass *node = m_VirginSections[index];
 		if (node != NULL) {
 			node->Set_ID (NodeMgrClass::Get_Node_ID (node->Get_Type ()));

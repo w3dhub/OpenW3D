@@ -97,7 +97,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Register_RAD, "Terminal_ID:int, Send_Attempts=3:
 				if (terminal_obj)
 				{
 					SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Registry_RAD is sending custom type M00_CUSTOM_BROADCASTER_REGISTRATION, param %d.\n", item_id));
-					Commands->Send_Custom_Event (obj, terminal_obj, M00_CUSTOM_BROADCASTER_REGISTRATION, item_id);
+					Commands->Send_Custom_Event (obj, terminal_obj, M00_CUSTOM_BROADCASTER_REGISTRATION, item_id, 0.0f);
 				}
 				else
 				{
@@ -127,7 +127,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Register_RAD, "Terminal_ID:int, Send_Attempts=3:
 		if (terminal_obj)
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Registry_RAD is sending custom type M00_CUSTOM_BROADCASTER_REGISTRATION, param 0.\n"));
-			Commands->Send_Custom_Event (obj, terminal_obj, M00_CUSTOM_BROADCASTER_REGISTRATION, 0);
+			Commands->Send_Custom_Event (obj, terminal_obj, M00_CUSTOM_BROADCASTER_REGISTRATION, 0, 0.0f);
 		}
 	}
 };
@@ -379,7 +379,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 											if (target_obj)
 											{
 												SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD is sending custom type %d, param %d.\n", type, param));
-												Commands->Send_Custom_Event (obj, target_obj, type, param);
+												Commands->Send_Custom_Event (obj, target_obj, type, param, 0.0f);
 											}
 											else
 											{
@@ -404,7 +404,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 										{
 											random_value = int(Commands->Get_Random (float(parameter_low), float(parameter_high)));
 											SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD is sending custom type %d, param %d.\n", type, random_value));
-											Commands->Send_Custom_Event (obj, target_obj, type, random_value);
+											Commands->Send_Custom_Event (obj, target_obj, type, random_value, 0.0f);
 										}
 										else
 										{
@@ -432,7 +432,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 											{
 												random_value2 = int(Commands->Get_Random (float(parameter_low), float(parameter_high)));
 												SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD is sending custom type %d, param %d.\n", type, random_value2));
-												Commands->Send_Custom_Event (obj, target_obj, type, random_value2);
+												Commands->Send_Custom_Event (obj, target_obj, type, random_value2, 0.0f);
 											}
 											else
 											{
@@ -454,7 +454,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 										if (target_obj)
 										{
 											SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD is sending custom type %d, param %d.\n", type, param));
-											Commands->Send_Custom_Event (obj, target_obj, type, param);
+											Commands->Send_Custom_Event (obj, target_obj, type, param, 0.0f);
 										}
 										else
 										{
@@ -476,7 +476,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 
 			SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD is sending custom type M00_CUSTOM_BROADCASTER_REGISTRY_ERROR, param 0.\n"));
 
-			Commands->Send_Custom_Event (obj, sender, M00_CUSTOM_BROADCASTER_REGISTRY_ERROR, 0);
+			Commands->Send_Custom_Event (obj, sender, M00_CUSTOM_BROADCASTER_REGISTRY_ERROR, 0, 0.0f);
 		}
 	}
 };
@@ -526,8 +526,8 @@ DECLARE_SCRIPT (M00_Broadcaster_Activator_RAD, "Terminal_ID:int, Prompt_Value=0:
 			SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Activator_RAD is sending custom type M00_CUSTOM_BROADCASTER_PROMPTER, param %d.\n", prompt_value));
 			SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Activator_RAD is sending custom type %d, param %d.\n", type, param));
 			
-			Commands->Send_Custom_Event (obj, terminal_obj, M00_CUSTOM_BROADCASTER_PROMPTER, prompt_value);
-			Commands->Send_Custom_Event (obj, terminal_obj, type, param);
+			Commands->Send_Custom_Event (obj, terminal_obj, M00_CUSTOM_BROADCASTER_PROMPTER, prompt_value, 0.0f);
+			Commands->Send_Custom_Event (obj, terminal_obj, type, param, 0.0f);
 		}
 		else
 		{

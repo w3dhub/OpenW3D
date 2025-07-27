@@ -111,7 +111,7 @@ Filename_From_Asset_Name (const char *asset_name)
 		//
 		// Do we need to strip off the model's suffix?
 		//
-		char *suffix = ::strchr (filename, '.');
+		char *suffix = (char *)::strchr (filename, '.');
 		if (suffix != NULL) {
 			suffix[0] = 0;
 		}

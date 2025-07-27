@@ -208,7 +208,7 @@ void WOLBuddyMgr::LoadIgnoreList(void)
 	mIgnoreList.clear();
 
 	HKEY hKey;
-	LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, APPLICATION_SUB_KEY_NAME_IGNORE_LIST, 0, KEY_READ, &hKey);
+	LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_IGNORE_LIST, 0, KEY_READ, &hKey);
 
 	if (ERROR_SUCCESS == result)
 		{

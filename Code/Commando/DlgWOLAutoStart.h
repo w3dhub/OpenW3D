@@ -52,7 +52,7 @@ class AutoRestartProgressDialogClass : public MenuDialogClass
 		AutoRestartProgressDialogClass(void);
 		void On_Init_Dialog(void);
 		void On_Command(int ctrl_id, int message_id, DWORD param);
-		void Add_Text(unsigned short *txt);
+		void Add_Text(wchar_t *txt);
 		static AutoRestartProgressDialogClass *Get_Instance(void) {return(Instance);}
 
 	private:

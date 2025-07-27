@@ -677,7 +677,7 @@ BuildingGameObj::Name_Prefix_Matches_This_Building (const char * name)
 
 	if (name != NULL) {
 		StringClass prefex(Get_Definition().MeshPrefix,true);
-		char * meshname = strchr(name,'.');
+		const char * meshname = strchr(name,'.');
 		if (meshname != NULL) {
 			meshname++;
 			retval = (strnicmp(meshname,prefex,strlen(prefex)) == 0);
@@ -1552,8 +1552,8 @@ BuildingGameObj::Find_Closest_Poly_For_Model
 	//
 	Vector3 obj_space_point;
 	Matrix3D::Inverse_Transform_Vector (model->Get_Transform (), pos, &obj_space_point);
-
-	for (int index = 0; index < model->Get_Num_Sub_Objects (); index++) {
+	int index;
+	for (index = 0; index < model->Get_Num_Sub_Objects (); index++) {
 		RenderObjClass *sub_obj = model->Get_Sub_Object (index);
 		
 		//

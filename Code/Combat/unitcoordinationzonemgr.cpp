@@ -42,6 +42,7 @@
 #include "pscene.h"
 #include "staticanimphys.h"
 #include "elevator.h"
+#include "colmathaabox.h" // Agressive inlining causes linker issues if this isn't here.
 
 
 //////////////////////////////////////////////////////////////////////

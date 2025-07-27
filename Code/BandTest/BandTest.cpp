@@ -784,7 +784,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 	*/
 	unsigned long downstream_bandwidth = upstream_bandwidth;
 	int old_band = Get_Registry_Int("Up", 0);
-	unsigned long diff = abs(upstream_bandwidth - old_band);
+	unsigned long diff = abs(int(upstream_bandwidth - old_band));
 	bool calc_down = true;
 	if (diff < upstream_bandwidth / 10) {
 		downstream_bandwidth = Get_Registry_Int("Down", upstream_bandwidth);
@@ -1175,8 +1175,9 @@ void Ping_Profile(SOCKADDR_IN *router_addr, unsigned long my_ip)
 	*/
 	float min_ping = 10000.0f;
 	float max_ping = -1.0f;
+	int i;
 
-	for (int i=0 ; i<ping_number ; i++) {
+	for (i=0 ; i<ping_number ; i++) {
 		min_ping = min(min_ping, ping_averages[i]);
 		max_ping = max(max_ping, ping_averages[i]);
 	}
@@ -2173,7 +2174,7 @@ bool Open_Registry(void)
 {
 	HKEY key;
 	unsigned long disposition;
-	long result = RegCreateKeyEx(HKEY_LOCAL_MACHINE, RegistryPath, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, &disposition);
+	long result = RegCreateKeyEx(HKEY_CURRENT_USER, RegistryPath, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, &disposition);
 	if (result == ERROR_SUCCESS) {
 		RegistryKey = key;
 		return(true);

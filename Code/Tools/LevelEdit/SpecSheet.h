@@ -67,7 +67,7 @@ public:
 protected:
 	//{{AFX_MSG(SpecSheetClass)
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	afx_msg UINT OnNcHitTest(CPoint point);
+	afx_msg LRESULT OnNcHitTest(CPoint point);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);

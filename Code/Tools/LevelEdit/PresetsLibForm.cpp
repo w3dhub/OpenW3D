@@ -2938,7 +2938,8 @@ PresetsFormClass::Update_Embedded_Nodes (PresetClass *preset)
 	//
 	//	Loop over all the nodes in the scene
 	//
-	for (	NodeClass *node = NodeMgrClass::Get_First ();
+	NodeClass *node;
+	for (	node = NodeMgrClass::Get_First ();
 			node != NULL;
 			node = NodeMgrClass::Get_Next (node))
 	{

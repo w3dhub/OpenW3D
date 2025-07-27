@@ -177,7 +177,8 @@ void cBitPacker::Get_Bits(ULONG & value, UINT num_bits)
 	value = (ULONG(Buffer[byte_num++]) << (bit_offset+24));
 	num_bits-=bit_count;
 
-	for (int shift=24-bit_count;shift>0;shift-=8,num_bits-=8) value|=unsigned(Buffer[byte_num++]) << shift;
+	int shift;
+	for (shift=24-bit_count;shift>0;shift-=8,num_bits-=8) value|=unsigned(Buffer[byte_num++]) << shift;
 	if (num_bits>0) value|=Buffer[byte_num++]>>(-shift);
 
 	value >>= 32-read_len;

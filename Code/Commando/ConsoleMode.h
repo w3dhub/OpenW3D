@@ -73,7 +73,7 @@ class ConsoleModeClass
 		void Print(char const * string, ...);
 		void Print_Maybe(char const * string, ...);
 		static void Static_Print_Maybe(char const * string, ...);
-		Add_Message(WideStringClass *formatted_text, Vector3 *text_color, bool forced = false);
+		void Add_Message(WideStringClass *formatted_text, Vector3 *text_color, bool forced = false);
 
 		/*
 		** Profiling support.

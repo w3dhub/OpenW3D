@@ -110,7 +110,7 @@ public:
 	void								Add_String (int string_id)			{ StringList.Add (string_id); }
 	void								Reset_String_List (void)			{ StringList.Delete_All (); }
 	int								Get_String_Count (void) const		{ return StringList.Count (); }
-	int								Get_String (int index) const		{ return StringList[index]; }
+	int								Get_String_Index (int index) const		{ return StringList[index]; }
 	TDBObjClass *					Lookup_String (int index);
 	
 protected:

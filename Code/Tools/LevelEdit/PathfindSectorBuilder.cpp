@@ -950,8 +950,8 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 		
 		_PhysSimObj->Set_Position (start_pos);
 		_PhysSimObj->Set_Velocity (Vector3 (0, 0, 0));
-
-		for (int attempt = 0; attempt < 20; attempt ++) {
+		int attempt;
+		for (attempt = 0; attempt < 20; attempt ++) {
 			if (_PhysSimObj->Is_In_Contact ()) {
 				break;
 			}
@@ -1407,7 +1407,8 @@ PathfindSectorBuilderClass::Check_Edge
 	//	Check the given number of cells in the left direction
 	//
 	FloodfillBoxClass *curr_cell = start_box;
-	for (int x = 0; retval && x < count_left; x++) {
+	int x;
+	for (x = 0; retval && x < count_left; x++) {
 		
 		//
 		// Can we move one step in this direction?
@@ -1457,7 +1458,8 @@ PathfindSectorBuilderClass::Check_Edge
 	//	Check the given number of cells in the up direction
 	//
 	curr_cell = start_box;
-	for (int y = 0; retval && y < count_up; y++) {
+	int y;
+	for (y = 0; retval && y < count_up; y++) {
 		
 		//
 		// Can we move one step in this direction?
@@ -1622,8 +1624,8 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 	//
 	FloodfillBoxClass *upper_left1 = up_cell;
 	FloodfillBoxClass *upper_left2 = left_cell;
-
-	for (int index = 0; index < perimeter->count_left; index ++) {
+	int index;
+	for (index = 0; index < perimeter->count_left; index ++) {
 		upper_left1 = upper_left1->Peek_Neighbor (DIR_LEFT);
 	}
 

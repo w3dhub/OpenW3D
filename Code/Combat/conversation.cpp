@@ -153,7 +153,8 @@ ConversationClass::operator= (const ConversationClass &src)
 	//
 	//	Copy the remark list
 	//
-	for (int index = 0; index < src.RemarkList.Count (); index ++) {		
+	int index;
+	for (index = 0; index < src.RemarkList.Count (); index ++) {		
 		const ConversationRemarkClass &remark = src.RemarkList[index];
 		Add_Remark (remark);
 	}
@@ -291,7 +292,8 @@ ConversationClass::Save (ChunkSaveClass &csave)
 	//
 	//	Save the orator list
 	//
-	for (int index = 0; index < OratorList.Count (); index ++) {
+	int index;
+	for (index = 0; index < OratorList.Count (); index ++) {
 		OratorClass &orator = OratorList[index];
 
 		//

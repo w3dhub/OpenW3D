@@ -134,9 +134,9 @@ DECLARE_SCRIPT(M02_Objective_Controller, "")
 						Commands->Set_Objective_Status (213, OBJECTIVE_STATUS_ACCOMPLISHED);
 						Commands->Stop_All_Conversations ();
 						int id = Commands->Create_Conversation ("M02_SECONDARY_09_FINISH", 100, 300, true);
-						Commands->Join_Conversation (NULL, id);
+						Commands->Join_Conversation (NULL, id, true, true, true);
 						Commands->Join_Conversation (STAR, id, true, false, false);
-						Commands->Start_Conversation (id);
+						Commands->Start_Conversation (id, 0);
 					}
 					break;
 				}
@@ -166,9 +166,9 @@ DECLARE_SCRIPT(M02_Objective_Controller, "")
 									rocket_soldier_speech = true;
 									Commands->Stop_All_Conversations ();
 									int id = Commands->Create_Conversation("M02_MORE_ROCKET_SOLDIERS", 100, 300, true);
-									Commands->Join_Conversation(NULL, id);
+									Commands->Join_Conversation(NULL, id, true, true, true);
 									Commands->Join_Conversation (STAR, id, true, false, false);
-									Commands->Start_Conversation(id);
+									Commands->Start_Conversation(id, 0);
 								}
 							}
 						}
@@ -334,9 +334,9 @@ DECLARE_SCRIPT(M02_Objective_Controller, "")
 		}
 		if (id)
 		{
-			Commands->Join_Conversation(NULL, id);
+			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Join_Conversation (STAR, id, true, false, false);
-			Commands->Start_Conversation(id);
+			Commands->Start_Conversation(id, 0);
 		}
 	}
 
@@ -555,9 +555,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 					{
 						Commands->Stop_All_Conversations ();
 						int id = Commands->Create_Conversation("M02_BAY_DOOR_WARNING", 100, 300, true);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Join_Conversation (STAR, id, true, false, false);
-						Commands->Start_Conversation(id);
+						Commands->Start_Conversation(id, 0);
 						destroy_zone = true;
 					}
 					break;
@@ -566,9 +566,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_PRIMARY_03_GUIDE", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 					destroy_zone = true;
 					break;
 				}
@@ -578,9 +578,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 					{
 						was_entered = true;
 						int id = Commands->Create_Conversation("MX2DSGN_DSGN0001", 100, 300, true);
-						Commands->Join_Conversation(NULL, id);
+						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Join_Conversation (STAR, id, true, false, false);
-						Commands->Start_Conversation(id);
+						Commands->Start_Conversation(id, 0);
 						Commands->Set_HUD_Help_Text(IDS_M02DSGN_DSGN0186I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
 					}
 					break;
@@ -589,12 +589,12 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 206, 0);
-					Commands->Send_Custom_Event(obj, object, 207, 0);
+					Commands->Send_Custom_Event(obj, object, 206, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 207, 0, 0.0f);
 
 					// Turn on A00
 
-					Commands->Send_Custom_Event(obj, object, 104, 0);
+					Commands->Send_Custom_Event(obj, object, 104, 0, 0.0f);
 
 					// Call GDI Rocket Soldiers
 
@@ -606,16 +606,16 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Tell A00 units to wake up
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400286), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400287), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400288), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400292), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400293), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400285), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400206), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401004), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401005), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401006), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400286), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400287), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400288), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400292), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400293), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400285), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400206), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401004), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401005), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401006), 0, 0, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -624,17 +624,17 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 208, 0);
-					Commands->Send_Custom_Event(obj, object, 209, 0);
+					Commands->Send_Custom_Event(obj, object, 208, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 209, 0, 0.0f);
 
 					// Turn on A01
 					
-					Commands->Send_Custom_Event(obj, object, 104, 1);
+					Commands->Send_Custom_Event(obj, object, 104, 1, 0.0f);
 
 					// Create A01 Nod Buggy for Player
 
-					Commands->Send_Custom_Event(obj, object, 112, 1);
-					Commands->Send_Custom_Event(obj, object, 111, 1);
+					Commands->Send_Custom_Event(obj, object, 112, 1, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 111, 1, 0.0f);
 
 					// Tell the GDI Rocket Soldiers for A00 to go to the tower.
 
@@ -647,18 +647,18 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Tell A01 units to wake up.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400342), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400343), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400347), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400332), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400340), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400348), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400344), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400345), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400333), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400207), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400371), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401008), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400342), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400343), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400347), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400332), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400340), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400348), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400344), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400345), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400333), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400207), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400371), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401008), 0, 0, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -667,13 +667,13 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 210, 0);
-					Commands->Send_Custom_Event(obj, object, 221, 0);
+					Commands->Send_Custom_Event(obj, object, 210, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 221, 0, 0.0f);
 
 					//Turn off A01, Turn on A02
 
-					Commands->Send_Custom_Event(obj, object, 105, 1);
-					Commands->Send_Custom_Event(obj, object, 104, 2);
+					Commands->Send_Custom_Event(obj, object, 105, 1, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 2, 0.0f);
 					
 					// Tell A01 units to go to home points.
 
@@ -682,15 +682,15 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Turn on A02 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400372), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400373), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400374), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401167), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400208), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401014), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401015), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401016), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401017), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400372), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400373), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400374), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401167), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400208), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401014), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401015), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401016), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401017), 0, 0, 0.0f);
 
 					// Create the A02 buggy
 
@@ -709,12 +709,12 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 211, 0);
+					Commands->Send_Custom_Event(obj, object, 211, 0, 0.0f);
 
 					//Turn off A03, Turn on A04
 
-					Commands->Send_Custom_Event(obj, object, 105, 3);
-					Commands->Send_Custom_Event(obj, object, 104, 4);
+					Commands->Send_Custom_Event(obj, object, 105, 3, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 4, 0.0f);
 
 					// Tell the GDI Rocket Soldiers for A02 to go to the house.
 
@@ -727,21 +727,21 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Wake up A04 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400210), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400451), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400452), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400453), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400499), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400500), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401025), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401026), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401027), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401028), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400210), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400451), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400452), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400453), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400499), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400500), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401025), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401026), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401027), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401028), 0, 0, 0.0f);
 
 					// Create A04 Nod Light Tank for Player
 
-					Commands->Send_Custom_Event(obj, object, 112, 4);
-					Commands->Send_Custom_Event(obj, object, 111, 4);
+					Commands->Send_Custom_Event(obj, object, 112, 4, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 111, 4, 0.0f);
 
 					// Create the A04 Nod Buggy
 
@@ -749,7 +749,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Activate the A04 Medium Tank motion and destruction.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401018), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401018), 0, 0, 0.0f);
 
 					// Start the tank speaking timer
 
@@ -763,13 +763,13 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 212, 0);
-					Commands->Send_Custom_Event(obj, object, 213, 0);
+					Commands->Send_Custom_Event(obj, object, 212, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 213, 0, 0.0f);
 
 					//Turn off A02, Turn on A03
 
-					Commands->Send_Custom_Event(obj, object, 105, 2);
-					Commands->Send_Custom_Event(obj, object, 104, 3);
+					Commands->Send_Custom_Event(obj, object, 105, 2, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 3, 0.0f);
 
 					// Tell A02 units to go to home points.
 
@@ -782,13 +782,13 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Wake up A03 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400410), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400209), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400411), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400412), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400413), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400414), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400415), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400410), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400209), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400411), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400412), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400413), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400414), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400415), 0, 0, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -797,26 +797,26 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 215, 0);
-					Commands->Send_Custom_Event(obj, object, 216, 0);
+					Commands->Send_Custom_Event(obj, object, 215, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 216, 0, 0.0f);
 
 					//Turn on A06
 
-					Commands->Send_Custom_Event(obj, object, 104, 6);
+					Commands->Send_Custom_Event(obj, object, 104, 6, 0.0f);
 
 					// Wake up A06 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400211), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400976), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400975), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400977), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400978), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400979), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400980), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401036), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401037), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401038), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401045), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400211), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400976), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400975), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400977), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400978), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400979), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400980), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401036), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401037), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401038), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401045), 0, 0, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -825,7 +825,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Default shut off for A11, Power Plant spawns.
 
-					Commands->Send_Custom_Event(obj, object, 105, 11);
+					Commands->Send_Custom_Event(obj, object, 105, 11, 0.0f);
 					
 					// Tell A11 units to go to home points.
 
@@ -859,12 +859,12 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 						// Complete final objective
 
-						Commands->Send_Custom_Event(obj, object, 205, 1);
+						Commands->Send_Custom_Event(obj, object, 205, 1, 0.0f);
 						Commands->Mission_Complete (true);
 
 						//Turn off A21
 						
-						Commands->Send_Custom_Event(obj, object, 105, 21);
+						Commands->Send_Custom_Event(obj, object, 105, 21, 0.0f);
 					}
 					break;
 				}
@@ -897,12 +897,12 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 211, 0);
+					Commands->Send_Custom_Event(obj, object, 211, 0, 0.0f);
 
 					// Turn off A03, Turn on A04
 
-					Commands->Send_Custom_Event(obj, object, 105, 3);
-					Commands->Send_Custom_Event(obj, object, 104, 4);
+					Commands->Send_Custom_Event(obj, object, 105, 3, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 4, 0.0f);
 
 					// Tell A03 units to go to home points.
 
@@ -915,21 +915,21 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Wake up A04 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400210), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400451), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400452), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400453), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400499), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400500), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401025), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401026), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401027), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401028), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400210), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400451), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400452), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400453), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400499), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400500), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401025), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401026), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401027), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401028), 0, 0, 0.0f);
 
 					// Create A04 Nod Light Tank for Player
 
-					Commands->Send_Custom_Event(obj, object, 112, 4);
-					Commands->Send_Custom_Event(obj, object, 111, 4);
+					Commands->Send_Custom_Event(obj, object, 112, 4, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 111, 4, 0.0f);
 
 					// Create the A04 Nod Buggy
 
@@ -937,7 +937,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Activate the A04 Medium Tank motion and destruction.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401018), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401018), 0, 0, 0.0f);
 
 					// Start the tank speaking timer
 
@@ -951,7 +951,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn off A04
 
-					Commands->Send_Custom_Event(obj, object, 105, 4);
+					Commands->Send_Custom_Event(obj, object, 105, 4, 0.0f);
 
 					// Tell A04 units to go to home points.
 
@@ -960,19 +960,19 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Turn on A05 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400552), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400553), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400560), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400555), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400558), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400559), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400557), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400554), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400556), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400552), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400553), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400560), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400555), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400558), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400559), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400557), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400554), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400556), 0, 0, 0.0f);
 
 					//Turn off A24
 
-					Commands->Send_Custom_Event(obj, object, 105, 24);
+					Commands->Send_Custom_Event(obj, object, 105, 24, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -981,21 +981,21 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on objectives
 
-					Commands->Send_Custom_Event(obj, object, 202, 0);
-					Commands->Send_Custom_Event(obj, object, 203, 0);
-					Commands->Send_Custom_Event(obj, object, 217, 0);
+					Commands->Send_Custom_Event(obj, object, 202, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 203, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 217, 0, 0.0f);
 
 					//Turn off A06, Turn on A09 (Dam Top)
 
-					Commands->Send_Custom_Event(obj, object, 105, 6);
-					Commands->Send_Custom_Event(obj, object, 104, 9);
+					Commands->Send_Custom_Event(obj, object, 105, 6, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 9, 0.0f);
 
 					// Turn on A09 units.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400212), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400981), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400982), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400983), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400212), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400981), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400982), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400983), 0, 0, 0.0f);
 
 					// Tell A06 units to go to home points.
 
@@ -1010,9 +1010,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_PRIMARY_01_GUIDE", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 
 					destroy_zone = true;
 					break;
@@ -1021,20 +1021,20 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					//Turn off A09, Turn on A08 (Dam Interior)
 
-					Commands->Send_Custom_Event(obj, object, 105, 9);
-					Commands->Send_Custom_Event(obj, object, 104, 8);
+					Commands->Send_Custom_Event(obj, object, 105, 9, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 8, 0.0f);
 
 					// Wake up A08 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400275), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401046), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401047), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401048), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401049), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401050), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401051), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401052), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401053), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400275), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401046), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401047), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401048), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401049), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401050), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401051), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401052), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401053), 0, 0, 0.0f);
 
 					// Tell A09 units to go to home points.
 
@@ -1049,20 +1049,20 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					//Turn off A09, Turn on A08 (Dam Interior)
 
-					Commands->Send_Custom_Event(obj, object, 105, 9);
-					Commands->Send_Custom_Event(obj, object, 104, 8);
+					Commands->Send_Custom_Event(obj, object, 105, 9, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 8, 0.0f);
 
 					// Wake up A08 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400275), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401046), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401047), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401048), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401049), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401050), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401051), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401052), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401053), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400275), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401046), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401047), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401048), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401049), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401050), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401051), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401052), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401053), 0, 0, 0.0f);
 
 					// Tell A09 units to go to home points.
 
@@ -1083,8 +1083,8 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					//Turn off A08, Turn on A10
 
-					Commands->Send_Custom_Event(obj, object, 105, 8);
-					Commands->Send_Custom_Event(obj, object, 104, 10);
+					Commands->Send_Custom_Event(obj, object, 105, 8, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 10, 0.0f);
 
 					// Tell A08 units to go to home points.
 
@@ -1093,12 +1093,12 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Wake up A10 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400213), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400984), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401054), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401055), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401056), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401057), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400213), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400984), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401054), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401055), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401056), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401057), 0, 0, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -1107,25 +1107,25 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					//Turn off A10, Turn on A11
 
-					Commands->Send_Custom_Event(obj, object, 105, 10);
-					Commands->Send_Custom_Event(obj, object, 104, 11);
+					Commands->Send_Custom_Event(obj, object, 105, 10, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 11, 0.0f);
 
 					// Force an A11 spawn
 
-					Commands->Send_Custom_Event(obj, object, 114, 11);
-					Commands->Send_Custom_Event(obj, object, 102, 11);
+					Commands->Send_Custom_Event(obj, object, 114, 11, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 102, 11, 0.0f);
 
 					// Wake up A11 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400276), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400199), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401065), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401058), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401059), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401060), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401061), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401063), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401064), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400276), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400199), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401065), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401058), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401059), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401060), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401061), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401063), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401064), 0, 0, 0.0f);
 
 					// Tell A10 units to go to home points.
 
@@ -1146,7 +1146,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 						float health_check = Commands->Get_Health(power_plant_obj);
 						if (health_check <= 0.0f)
 						{
-							Commands->Send_Custom_Event(obj, object, 105, 11);
+							Commands->Send_Custom_Event(obj, object, 105, 11, 0.0f);
 
 							// Tell A11 units to go to home points.
 
@@ -1155,14 +1155,14 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 							// Force an A10 spawn.
 
-							Commands->Send_Custom_Event(obj, object, 114, 10);
-							Commands->Send_Custom_Event(obj, object, 102, 10);
+							Commands->Send_Custom_Event(obj, object, 114, 10, 0.0f);
+							Commands->Send_Custom_Event(obj, object, 102, 10, 0.0f);
 							destroy_zone = true;
 						}
 
 						// Shut off the Power Plant announcement
 
-						Commands->Send_Custom_Event(obj, power_plant_obj, 1, 0);
+						Commands->Send_Custom_Event(obj, power_plant_obj, 1, 0, 0.0f);
 					}
 					break;
 				}
@@ -1170,15 +1170,15 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Make the A00 soldiers return to home points, turn of A00
 
-					Commands->Send_Custom_Event(obj, object, 105, 0);
+					Commands->Send_Custom_Event(obj, object, 105, 0, 0.0f);
 					Vector3 obj_position = Commands->Get_Position (obj);
 					Commands->Create_Logical_Sound (obj, 1050, obj_position, 1000.0f);
 
 					// Turn on A23 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400317), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400318), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400319), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400317), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400318), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400319), 0, 0, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -1189,20 +1189,20 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Wake up A24 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400503), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400504), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400505), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400506), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400507), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400508), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400509), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400510), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400503), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400504), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400505), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400506), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400507), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400508), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400509), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400510), 0, 0, 0.0f);
 
-					Commands->Send_Custom_Event(obj, object, 104, 24);
+					Commands->Send_Custom_Event(obj, object, 104, 24, 0.0f);
 
 					// Turn on objective - SAM Site
 					
-					Commands->Send_Custom_Event(obj, object, 214, 0);
+					Commands->Send_Custom_Event(obj, object, 214, 0, 0.0f);
 
 					dual_zone = 400502;
 					destroy_zone = true;
@@ -1212,22 +1212,22 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					//Turn on A24
 
-					Commands->Send_Custom_Event(obj, object, 104, 24);
+					Commands->Send_Custom_Event(obj, object, 104, 24, 0.0f);
 
 					// Wake up A24 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400503), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400504), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400505), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400506), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400507), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400508), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400509), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400510), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400503), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400504), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400505), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400506), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400507), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400508), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400509), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400510), 0, 0, 0.0f);
 
 					// Turn on objective - SAM Site
 					
-					Commands->Send_Custom_Event(obj, object, 214, 0);
+					Commands->Send_Custom_Event(obj, object, 214, 0, 0.0f);
 
 					dual_zone = 400501;
 					destroy_zone = true;
@@ -1320,8 +1320,8 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Force an A08 spawn
 
-					Commands->Send_Custom_Event(obj, object, 114, 8);
-					Commands->Send_Custom_Event(obj, object, 102, 8);
+					Commands->Send_Custom_Event(obj, object, 114, 8, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 102, 8, 0.0f);
 					destroy_zone = true;
 					break;
 				}
@@ -1329,10 +1329,10 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Wake up A13 Obelisk units. No spawns in here.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(400200), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401067), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401068), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401069), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(400200), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401067), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401068), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401069), 0, 0, 0.0f);
 
 					// Shut off the Obelisk warning.
 
@@ -1340,7 +1340,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 					
 					if (obelisk)
 					{
-						Commands->Send_Custom_Event (obj, obelisk, 1, 0);
+						Commands->Send_Custom_Event (obj, obelisk, 1, 0, 0.0f);
 					}
 
 					destroy_zone = true;
@@ -1350,8 +1350,8 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on A14, Turn off A11 as default.
 
-					Commands->Send_Custom_Event(obj, object, 105, 11);
-					Commands->Send_Custom_Event(obj, object, 104, 14);
+					Commands->Send_Custom_Event(obj, object, 105, 11, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 14, 0.0f);
 
 					// Tell A11 units to go to home points.
 
@@ -1360,18 +1360,18 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Wake up A14 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401071), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401072), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401073), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401074), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401075), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401076), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401077), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401078), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401192), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401193), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401194), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401195), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401071), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401072), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401073), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401074), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401075), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401076), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401077), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401078), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401192), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401193), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401194), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401195), 0, 0, 0.0f);
 
 					dual_zone = 401196;
 					destroy_zone = true;
@@ -1381,8 +1381,8 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn off A14, Turn on A15
 
-					Commands->Send_Custom_Event(obj, object, 105, 14);
-					Commands->Send_Custom_Event(obj, object, 104, 15);
+					Commands->Send_Custom_Event(obj, object, 105, 14, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 15, 0.0f);
 
 					// Tell A14 units to go to home points.
 
@@ -1391,27 +1391,27 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Turn on A15 Objectives
 
-					Commands->Send_Custom_Event(obj, object, 218, 0);
-					Commands->Send_Custom_Event(obj, object, 219, 0);
-					Commands->Send_Custom_Event(obj, object, 220, 0);
+					Commands->Send_Custom_Event(obj, object, 218, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 219, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 220, 0, 0.0f);
 
 					// Wake up A15 Units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401089), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401087), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401086), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401088), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401085), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401090), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401091), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401092), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401094), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401095), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401096), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401097), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401189), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401190), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401191), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401089), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401087), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401086), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401088), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401085), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401090), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401091), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401092), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401094), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401095), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401096), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401097), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401189), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401190), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401191), 0, 0, 0.0f);
 
 					dual_zone = 401080;
 					destroy_zone = true;
@@ -1421,8 +1421,8 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn off A14, Turn on A15
 
-					Commands->Send_Custom_Event(obj, object, 105, 14);
-					Commands->Send_Custom_Event(obj, object, 104, 15);
+					Commands->Send_Custom_Event(obj, object, 105, 14, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 15, 0.0f);
 
 					// Tell A14 units to go to home points.
 
@@ -1431,27 +1431,27 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Turn on A15 Objectives
 
-					Commands->Send_Custom_Event(obj, object, 218, 0);
-					Commands->Send_Custom_Event(obj, object, 219, 0);
-					Commands->Send_Custom_Event(obj, object, 220, 0);
+					Commands->Send_Custom_Event(obj, object, 218, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 219, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 220, 0, 0.0f);
 
 					// Wake up A15 Units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401089), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401087), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401086), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401088), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401085), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401090), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401091), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401092), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401094), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401095), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401096), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401097), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401189), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401190), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401191), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401089), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401087), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401086), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401088), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401085), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401090), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401091), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401092), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401094), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401095), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401096), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401097), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401189), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401190), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401191), 0, 0, 0.0f);
 
 					dual_zone = 401079;
 					destroy_zone = true;
@@ -1461,7 +1461,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on Hand of Nod objective
 
-					Commands->Send_Custom_Event(obj, object, 204, 0);
+					Commands->Send_Custom_Event(obj, object, 204, 0, 0.0f);
 
 					// Tell A15 units to go to home points.
 
@@ -1470,15 +1470,15 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Turn off A15, Turn on A16 units - First HoN encounter set.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401103), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401104), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401105), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401106), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401107), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401108), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401109), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401110), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401112), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401103), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401104), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401105), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401106), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401107), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401108), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401109), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401110), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401112), 0, 0, 0.0f);
 
 					dual_zone = 401102;
 					destroy_zone = true;
@@ -1488,7 +1488,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on Hand of Nod objective
 
-					Commands->Send_Custom_Event(obj, object, 204, 0);
+					Commands->Send_Custom_Event(obj, object, 204, 0, 0.0f);
 
 					// Tell A15 units to go to home points.
 
@@ -1497,15 +1497,15 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Turn off A15, Turn on A16 units - First HoN encounter set.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401103), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401104), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401105), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401106), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401107), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401108), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401109), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401110), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401112), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401103), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401104), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401105), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401106), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401107), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401108), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401109), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401110), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401112), 0, 0, 0.0f);
 
 					dual_zone = 401101;
 					destroy_zone = true;
@@ -1515,14 +1515,14 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on A17 Units, Hand of Nod underside.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401115), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401116), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401117), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401118), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401119), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401120), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401121), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401122), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401115), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401116), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401117), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401118), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401119), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401120), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401121), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401122), 0, 0, 0.0f);
 
 					dual_zone = 401114;
 					destroy_zone = true;
@@ -1532,14 +1532,14 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on A17 Units, Hand of Nod underside.
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401115), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401116), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401117), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401118), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401119), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401120), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401121), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401122), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401115), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401116), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401117), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401118), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401119), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401120), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401121), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401122), 0, 0, 0.0f);
 
 					dual_zone = 401113;
 					destroy_zone = true;
@@ -1549,12 +1549,12 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on A18 Units, Hand of Nod Lowest Level
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401124), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401125), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401126), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401127), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401128), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401129), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401124), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401125), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401126), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401127), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401128), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401129), 0, 0, 0.0f);
 
 					destroy_zone = true;
 					break;
@@ -1569,22 +1569,22 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 						{
 							Commands->Stop_All_Conversations ();
 							int id = Commands->Create_Conversation("M02_SECONDARY_01_GUIDE", 100, 300, true);
-							Commands->Join_Conversation(NULL, id);
+							Commands->Join_Conversation(NULL, id, true, true, true);
 							Commands->Join_Conversation (STAR, id, true, false, false);
-							Commands->Start_Conversation(id);
+							Commands->Start_Conversation(id, 0);
 						}
 					}
 
 					// Turn on A19 Units, Hand of Nod area
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401132), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401133), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401134), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401135), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401136), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401137), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401138), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401139), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401132), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401133), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401134), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401135), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401136), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401137), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401138), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401139), 0, 0, 0.0f);
 
 					dual_zone = 401131;
 					destroy_zone = true;
@@ -1600,22 +1600,22 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 						{
 							Commands->Stop_All_Conversations ();
 							int id = Commands->Create_Conversation("M02_SECONDARY_01_GUIDE", 100, 300, true);
-							Commands->Join_Conversation(NULL, id);
+							Commands->Join_Conversation(NULL, id, true, true, true);
 							Commands->Join_Conversation (STAR, id, true, false, false);
-							Commands->Start_Conversation(id);
+							Commands->Start_Conversation(id, 0);
 						}
 					}
 
 					// Turn on A19 Units, Hand of Nod area
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401132), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401133), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401134), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401135), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401136), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401137), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401138), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401139), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401132), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401133), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401134), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401135), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401136), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401137), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401138), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401139), 0, 0, 0.0f);
 
 					dual_zone = 401130;
 					destroy_zone = true;
@@ -1631,9 +1631,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_SECONDARY_14_GUIDE", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 
 					dual_zone = 401187;
 					destroy_zone = true;
@@ -1649,9 +1649,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_SECONDARY_14_GUIDE", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 
 					dual_zone = 401186;
 					destroy_zone = true;
@@ -1661,8 +1661,8 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Turn on A14, Turn off A11 as default.
 
-					Commands->Send_Custom_Event(obj, object, 105, 11);
-					Commands->Send_Custom_Event(obj, object, 104, 14);
+					Commands->Send_Custom_Event(obj, object, 105, 11, 0.0f);
+					Commands->Send_Custom_Event(obj, object, 104, 14, 0.0f);
 
 					// Tell A11 units to go to home points.
 
@@ -1671,18 +1671,18 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 					// Wake up A14 units
 
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401071), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401072), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401073), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401074), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401075), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401076), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401077), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401078), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401192), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401193), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401194), 0, 0);
-					Commands->Send_Custom_Event(obj, Commands->Find_Object(401195), 0, 0);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401071), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401072), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401073), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401074), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401075), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401076), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401077), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401078), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401192), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401193), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401194), 0, 0, 0.0f);
+					Commands->Send_Custom_Event(obj, Commands->Find_Object(401195), 0, 0, 0.0f);
 
 					dual_zone = 401070;
 					destroy_zone = true;
@@ -1692,9 +1692,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_SECONDARY_13_START", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 
 					// Fly the Lear Jet over
 
@@ -1710,9 +1710,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_OBELISK_APPROACH", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 					destroy_zone = true;
 					break;
 				}
@@ -1720,9 +1720,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_PRIMARY_02_REMIND", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 					destroy_zone = true;
 					break;
 				}
@@ -1735,9 +1735,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_SECONDARY_03_START", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 					destroy_zone = true;
 					break;
 				}
@@ -1759,9 +1759,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_SECONDARY_11_START", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 
 					Commands->Start_Timer (obj, this, 6.0f, 12);
 					destroy_zone = true;
@@ -1842,22 +1842,22 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				params.Set_Basic (this, 100, 0);
 				Commands->Action_Follow_Input (STAR, params);
 
-				Commands->Send_Custom_Event(obj, object, 201, 1);
-				Commands->Send_Custom_Event(obj, object, 205, 0);
+				Commands->Send_Custom_Event(obj, object, 201, 1, 0.0f);
+				Commands->Send_Custom_Event(obj, object, 205, 0, 0.0f);
 
 				//Turn on A21
 
-				Commands->Send_Custom_Event(obj, object, 104, 21);
+				Commands->Send_Custom_Event(obj, object, 104, 21, 0.0f);
 
 				// Wake up A21 units
 
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(400277), 0, 0);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(401141), 0, 0);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(401142), 0, 0);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(401143), 0, 0);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(401144), 0, 0);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(401145), 0, 0);
-				Commands->Send_Custom_Event(obj, Commands->Find_Object(401146), 0, 0);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(400277), 0, 0, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(401141), 0, 0, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(401142), 0, 0, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(401143), 0, 0, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(401144), 0, 0, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(401145), 0, 0, 0.0f);
+				Commands->Send_Custom_Event(obj, Commands->Find_Object(401146), 0, 0, 0.0f);
 
 				// Create Mendoza
 
@@ -1869,7 +1869,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 					GameObject * endzone = Commands->Find_Object (400194);
 					if (endzone)
 					{
-						Commands->Send_Custom_Event(obj, endzone, 999, mendoza_id);
+						Commands->Send_Custom_Event(obj, endzone, 999, mendoza_id, 0.0f);
 					}
 				}
 				Commands->Destroy_Object(obj);
@@ -1886,9 +1886,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				if (distance < 20.0f)
 				{
 					int id = Commands->Create_Conversation ("MX2DSGN_DSGN0009", 100, 300, true);
-					Commands->Join_Conversation (NULL, id);
+					Commands->Join_Conversation (NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation (id);
+					Commands->Start_Conversation (id, 0);
 				}
 				else
 				{
@@ -1902,9 +1902,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 			if (tank)
 			{
 				int id = Commands->Create_Conversation ("MX2DSGN_DSGN0010", 100, 300, true);
-				Commands->Join_Conversation (NULL, id);
+				Commands->Join_Conversation (NULL, id, true, true, true);
 				Commands->Join_Conversation (STAR, id, true, false, false);
-				Commands->Start_Conversation (id);
+				Commands->Start_Conversation (id, 0);
 			}
 		}
 		else if (timer_id == 12)
@@ -1913,9 +1913,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 			if (tank)
 			{
 				int id = Commands->Create_Conversation ("MX2DSGN_DSGN0011", 100, 300, true);
-				Commands->Join_Conversation (NULL, id);
+				Commands->Join_Conversation (NULL, id, true, true, true);
 				Commands->Join_Conversation (STAR, id, true, false, false);
-				Commands->Start_Conversation (id);
+				Commands->Start_Conversation (id, 0);
 			}
 		}
 	}
@@ -1928,7 +1928,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 
 			if (object)
 			{
-				Commands->Send_Custom_Event(obj, object, type, 1);
+				Commands->Send_Custom_Event(obj, object, type, 1, 0.0f);
 				enemies_defeated = false;
 				Commands->Destroy_Object(obj);
 				
@@ -1936,7 +1936,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 				{
 					// Check if the commando needs a new vehicle.
 
-					Commands->Send_Custom_Event(obj, object, 111, 0);
+					Commands->Send_Custom_Event(obj, object, 111, 0, 0.0f);
 
 					// Tell the GDI rocket solders to go to the tower.
 
@@ -1956,9 +1956,9 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 			gave_secure_warning = true;
 			Commands->Stop_All_Conversations ();
 			int id = Commands->Create_Conversation("M02_EVAG_SECURE_WARNING", 100, 300, true);
-			Commands->Join_Conversation(NULL, id);
+			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Join_Conversation (STAR, id, true, false, false);
-			Commands->Start_Conversation(id);
+			Commands->Start_Conversation(id, 0);
 		}
 	}
 
@@ -2301,7 +2301,7 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 
 		// Wake up the A25 units.
 
-		Commands->Send_Custom_Event(obj, Commands->Find_Object(400985), 0, 0);
+		Commands->Send_Custom_Event(obj, Commands->Find_Object(400985), 0, 0, 0.0f);
 
 		// Call the ORCA strike intro.
 
@@ -3239,12 +3239,12 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 			{
 				// Complete this mission objective.
 
-				Commands->Send_Custom_Event (obj, obj, 222, 1);
+				Commands->Send_Custom_Event (obj, obj, 222, 1, 0.0f);
 				Commands->Stop_All_Conversations ();
 				int id = Commands->Create_Conversation("M02_HIDDEN_02_FINISH", 100, 300, true);
-				Commands->Join_Conversation(NULL, id);
+				Commands->Join_Conversation(NULL, id, true, true, true);
 				Commands->Join_Conversation (STAR, id, true, false, false);
-				Commands->Start_Conversation(id);
+				Commands->Start_Conversation(id, 0);
 			}
 		}
 	}
@@ -3364,7 +3364,7 @@ DECLARE_SCRIPT (M02_Reset_Spawn, "Area_ID:int,Spawn_Type:int")
 			int spawn_type;
 			area_id = Get_Int_Parameter("Area_ID");
 			spawn_type = Get_Int_Parameter("Spawn_Type");
-			Commands->Send_Custom_Event(obj, object, spawn_type, area_id);
+			Commands->Send_Custom_Event(obj, object, spawn_type, area_id, 0.0f);
 		}
 	}
 };
@@ -3456,7 +3456,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		{
 			if (sound.Creator)
 			{
-				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 			}
 		}
 
@@ -3494,14 +3494,14 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			{
 				// Register with the respawn controller.
 
-				Commands->Send_Custom_Event(obj, object, 103, param);
+				Commands->Send_Custom_Event(obj, object, 103, param, 0.0f);
 
 				if (officer)
 				{
 					// Unit is a preplaced officer. Register as an officer and hibernate.
 				
 					Commands->Set_Innate_Take_Cover_Probability (obj, 100.0f);
-					Commands->Send_Custom_Event(obj, object, 106, param);
+					Commands->Send_Custom_Event(obj, object, 106, param, 0.0f);
 					Commands->Enable_Hibernation (obj, 1);
 				}
 				else
@@ -3556,7 +3556,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 					bool visibility = Commands->Is_Object_Visible(star_obj, obj);
 					if (!visibility)
 					{
-						Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+						Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 					}
 					else
 					{
@@ -3624,7 +3624,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 				{
 				case (0):
 					{
-						GameObject *nearsoldier = Commands->Find_Closest_Soldier (myloc, 1.0f, 50.0f);
+						GameObject *nearsoldier = Commands->Find_Closest_Soldier (myloc, 1.0f, 50.0f, true);
 						if ((nearsoldier) && (nearsoldier != STAR))
 						{
 							ActionParamsStruct params;
@@ -3666,7 +3666,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 		else if (timer_id == 6)
 		{
-			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 		}
 		else if (timer_id == 7)
 		{
@@ -3718,9 +3718,9 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			if (distance < 20.0f)
 			{
 				int id = Commands->Create_Conversation ("MX2DSGN_DSGN0014", 100, 300, true);
-				Commands->Join_Conversation (NULL, id);
+				Commands->Join_Conversation (NULL, id, true, true, true);
 				Commands->Join_Conversation (STAR, id, true, false, false);
-				Commands->Start_Conversation (id);
+				Commands->Start_Conversation (id, 0);
 				Commands->Start_Timer (obj, this, 3.0f, 11);
 			}
 			else
@@ -3731,9 +3731,9 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		else if (timer_id == 11)
 		{
 			int id = Commands->Create_Conversation ("MX2DSGN_DSGN0015", 100, 300, true);
-			Commands->Join_Conversation (NULL, id);
+			Commands->Join_Conversation (NULL, id, true, true, true);
 			Commands->Join_Conversation (STAR, id, true, false, false);
-			Commands->Start_Conversation (id);
+			Commands->Start_Conversation (id, 0);
 		}
 	}
 
@@ -3764,7 +3764,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 
 		if (object)
 		{
-			Commands->Send_Custom_Event(obj, object, 101, param);
+			Commands->Send_Custom_Event(obj, object, 101, param, 0.0f);
 		}
 		if (param == 3)
 		{
@@ -3774,7 +3774,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			{
 				// If a Medium Tank is needed for A03, drop it.
 					
-				Commands->Send_Custom_Event (obj, object, 111, 2);
+				Commands->Send_Custom_Event (obj, object, 111, 2, 0.0f);
 			}
 		}
 	}
@@ -3902,7 +3902,7 @@ DECLARE_SCRIPT(M02_Obelisk, "")
 			{
 				// Tell the Engineer to repair the building.
 
-				Commands->Send_Custom_Event (obj, obj_engineer, 99, 202);
+				Commands->Send_Custom_Event (obj, obj_engineer, 99, 202, 0.0f);
 
 				//Actually repair the building.
 
@@ -3916,9 +3916,9 @@ DECLARE_SCRIPT(M02_Obelisk, "")
 					info_given = true;
 					Commands->Stop_All_Conversations ();
 					int id = Commands->Create_Conversation("M02_EVA_OBELISK_REPAIR", 100, 300, true);
-					Commands->Join_Conversation(NULL, id);
+					Commands->Join_Conversation(NULL, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation(id);
+					Commands->Start_Conversation(id, 0);
 				}
 			}
 		}
@@ -3932,7 +3932,7 @@ DECLARE_SCRIPT(M02_Obelisk, "")
 
 			if (object)
 			{
-				Commands->Send_Custom_Event(obj, object, 202, 1);
+				Commands->Send_Custom_Event(obj, object, 202, 1, 0.0f);
 			}
 		}
 		GameObject * zone = Commands->Find_Object (405116);
@@ -3976,7 +3976,7 @@ DECLARE_SCRIPT (M02_Power_Plant, "")
 		{
 			// Tell the Engineer to repair the building.
 
-			Commands->Send_Custom_Event (obj, obj_engineer, 99, 217);
+			Commands->Send_Custom_Event (obj, obj_engineer, 99, 217, 0.0f);
 
 			//Actually repair the building.
 
@@ -3990,9 +3990,9 @@ DECLARE_SCRIPT (M02_Power_Plant, "")
 				info_given = true;
 				Commands->Stop_All_Conversations ();
 				int id = Commands->Create_Conversation("M02_EVA_POWER_REPAIR", 100, 300, true);
-				Commands->Join_Conversation(NULL, id);
+				Commands->Join_Conversation(NULL, id, true, true, true);
 				Commands->Join_Conversation (STAR, id, true, false, false);
-				Commands->Start_Conversation(id);
+				Commands->Start_Conversation(id, 0);
 			}
 		}
 	}
@@ -4003,8 +4003,8 @@ DECLARE_SCRIPT (M02_Power_Plant, "")
 
 		if (object)
 		{
-			Commands->Send_Custom_Event(obj, object, 217, 1);
-			Commands->Send_Custom_Event(obj, object, 202, 1);
+			Commands->Send_Custom_Event(obj, object, 217, 1, 0.0f);
+			Commands->Send_Custom_Event(obj, object, 202, 1, 0.0f);
 		}
 
 		GameObject * obelisk = Commands->Find_Object(1153845);
@@ -4069,7 +4069,7 @@ DECLARE_SCRIPT (M02_Dam_MCT, "")
 				GameObject * object = Commands->Find_Object(M02_OBJCONTROLLER);
 				if (object)
 				{
-					Commands->Send_Custom_Event(obj, object, 203, 1);
+					Commands->Send_Custom_Event(obj, object, 203, 1, 0.0f);
 					Commands->Grant_Key (STAR, 6, true);
 				}
 				Commands->Set_Animation_Frame (obj, "MCT_NOD.MCT_NOD", 7);
@@ -4087,7 +4087,7 @@ DECLARE_SCRIPT (M02_Helipad, "")
 
 		if (object)
 		{
-			Commands->Send_Custom_Event(obj, object, 206, 1);
+			Commands->Send_Custom_Event(obj, object, 206, 1, 0.0f);
 		}
 	}
 };
@@ -4105,7 +4105,7 @@ DECLARE_SCRIPT (M02_Destroy_Objective, "Objective_ID:int")
 		{
 			if (objective_id != 222)
 			{
-				Commands->Send_Custom_Event(obj, object, objective_id, 1);
+				Commands->Send_Custom_Event(obj, object, objective_id, 1, 0.0f);
 			}
 
 			// Special case items, mission is solved by above line!
@@ -4114,7 +4114,7 @@ DECLARE_SCRIPT (M02_Destroy_Objective, "Objective_ID:int")
 			{
 				// Drop powerups into A03.
 
-				Commands->Send_Custom_Event(obj, object, 113, 3);
+				Commands->Send_Custom_Event(obj, object, 113, 3, 0.0f);
 			}
 			else if (objective_id == 214)
 			{
@@ -4130,19 +4130,19 @@ DECLARE_SCRIPT (M02_Destroy_Objective, "Objective_ID:int")
 			{
 				// Send a custom to the controller to count destroyed SAMs on the bridge.
 
-				Commands->Send_Custom_Event(obj, object, 115, 0);
+				Commands->Send_Custom_Event(obj, object, 115, 0, 0.0f);
 			}
 			else if (objective_id == 204)
 			{
 				// Hand of Nod destroyed, turn off respawns in the area.
 
-				Commands->Send_Custom_Event(obj, object, 105, 21);
+				Commands->Send_Custom_Event(obj, object, 105, 21, 0.0f);
 			}
 			else if (objective_id == 222)
 			{
 				// Send a custom to the controller to count destroyed Tiberium Silos.
 
-				Commands->Send_Custom_Event(obj, object, 116, 0);
+				Commands->Send_Custom_Event(obj, object, 116, 0, 0.0f);
 			}
 		}
 	}
@@ -4156,7 +4156,7 @@ DECLARE_SCRIPT (M02_Destroy_Objective, "Objective_ID:int")
 			GameObject* engineer = Commands->Find_Object(400510);
 			if (engineer)
 			{
-				Commands->Send_Custom_Event(obj, engineer, 99, 214);
+				Commands->Send_Custom_Event(obj, engineer, 99, 214, 0.0f);
 			}
 		}
 	}
@@ -4173,7 +4173,7 @@ DECLARE_SCRIPT (M02_Nod_Convoy_Truck, "")
 		{
 			// Tell the controller to subtract a truck.
 
-			Commands->Send_Custom_Event(obj, object, 900, 3);
+			Commands->Send_Custom_Event(obj, object, 900, 3, 0.0f);
 
 			// Create an explosion here.
 
@@ -4289,7 +4289,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 						{
 							int id = Commands->Create_Conversation("M02_GOMG_RADIO_01", 99, 20, true);
 							Commands->Join_Conversation (obj, id, true, true, true);
-							Commands->Start_Conversation(id);
+							Commands->Start_Conversation(id, 0);
 							shout_count++;
 							break;
 						}
@@ -4297,7 +4297,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 						{
 							int id = Commands->Create_Conversation("M02_GOMG_RADIO_02", 99, 20, true);
 							Commands->Join_Conversation (obj, id, true, true, true);
-							Commands->Start_Conversation(id);
+							Commands->Start_Conversation(id, 0);
 							shout_count++;
 							break;
 						}
@@ -4305,7 +4305,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 						{
 							int id = Commands->Create_Conversation("M02_GOMG_RADIO_03", 99, 20, true);
 							Commands->Join_Conversation (obj, id, true, true, true);
-							Commands->Start_Conversation(id);
+							Commands->Start_Conversation(id, 0);
 							shout_count++;
 							break;
 						}
@@ -4329,7 +4329,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 			int id = Commands->Create_Conversation("M02_GOMG_CONVERSATION", 99, 10, true);
 			Commands->Join_Conversation (obj, id, true, true, true);
 			Commands->Join_Conversation(STAR, id, true, true, false);
-			Commands->Start_Conversation(id);
+			Commands->Start_Conversation(id, 0);
 		}
 	}
 
@@ -4382,7 +4382,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 			GameObject * controller = Commands->Find_Object (M02_OBJCONTROLLER);
 			if (controller)
 			{
-				Commands->Send_Custom_Event (obj, controller, 1000, 1000);
+				Commands->Send_Custom_Event (obj, controller, 1000, 1000, 0.0f);
 			}
 		}
 		else if (area_id == 9)
@@ -4390,7 +4390,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 			GameObject * controller = Commands->Find_Object (M02_OBJCONTROLLER);
 			if (controller)
 			{
-				Commands->Send_Custom_Event (obj, controller, 1000, 1001);
+				Commands->Send_Custom_Event (obj, controller, 1000, 1001, 0.0f);
 			}
 		}
 	}
@@ -4412,7 +4412,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 						int id = Commands->Create_Conversation("M02_GERS_COVER_01", 99, 50, true);
 						Commands->Join_Conversation (obj, id, true, true, false);
 						Commands->Join_Conversation(STAR, id, true, true, false);
-						Commands->Start_Conversation(id);
+						Commands->Start_Conversation(id, 0);
 						break;
 					}
 				case (4): // Grenadier
@@ -4420,7 +4420,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 						int id = Commands->Create_Conversation("M02_GEGR_COVER_01", 99, 50, true);
 						Commands->Join_Conversation (obj, id, true, true, false);
 						Commands->Join_Conversation(STAR, id, true, true, false);
-						Commands->Start_Conversation(id);
+						Commands->Start_Conversation(id, 0);
 						break;
 					}
 				default:
@@ -4461,9 +4461,9 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 			if (my_id == 401016)
 			{
 				int id = Commands->Create_Conversation ("MX2DSGN_DSGN0008", 100, 300, true);
-				Commands->Join_Conversation (NULL, id);
+				Commands->Join_Conversation (NULL, id, true, true, true);
 				Commands->Join_Conversation (STAR, id, true, false, false);
-				Commands->Start_Conversation (id);
+				Commands->Start_Conversation (id, 0);
 			}
 			else if (my_id == 401167)
 			{
@@ -4471,9 +4471,9 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 				if (tank)
 				{
 					int id = Commands->Create_Conversation ("MX2DSGN_DSGN0007", 100, 300, true);
-					Commands->Join_Conversation (tank, id);
+					Commands->Join_Conversation (tank, id, true, true, true);
 					Commands->Join_Conversation (STAR, id, true, false, false);
-					Commands->Start_Conversation (id);
+					Commands->Start_Conversation (id, 0);
 				}
 			}
 		}
@@ -4505,7 +4505,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 				int	player_type = Commands->Get_Player_Type (obj);
 				if (player_type == SCRIPT_PLAYERTYPE_NOD)
 				{
-					Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+					Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 				}
 			}
 		}
@@ -4525,7 +4525,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 	{
 		if (timer_id == 1)
 		{
-			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", NULL);
 		}
 		else if (timer_id == 2)
 		{
@@ -4683,7 +4683,7 @@ DECLARE_SCRIPT (M02_Nod_Apache, "Area_ID:int")
 				distance = Commands->Get_Distance (myloc, starloc);
 				if (distance > 300.0f)
 				{
-					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 				}
 			}
 			Commands->Start_Timer(obj, this, 15.0f, 3);
@@ -4698,7 +4698,7 @@ DECLARE_SCRIPT (M02_Nod_Apache, "Area_ID:int")
 		{
 			if (sound.Creator)
 			{
-				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 			}
 		}
 	}
@@ -4763,7 +4763,7 @@ DECLARE_SCRIPT (M02_Nod_Vehicle, "Area_ID:int")
 		{
 			if (sound.Creator)
 			{
-				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 			}
 		}
 	}
@@ -4785,7 +4785,7 @@ DECLARE_SCRIPT (M02_Nod_Vehicle, "Area_ID:int")
 				distance = Commands->Get_Distance (myloc, starloc);
 				if (distance > 300.0f)
 				{
-					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 				}
 			}
 			Commands->Start_Timer(obj, this, 15.0f, 1);
@@ -4829,7 +4829,7 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 
 				if (distance > 300.0f)
 				{
-					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 				}
 			}
 			Commands->Start_Timer(obj, this, 15.0f, 1);
@@ -4842,11 +4842,11 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 		GameObject* controller = Commands->Find_Object(M02_OBJCONTROLLER);
 		if (controller)
 		{
-			Commands->Send_Custom_Event(obj, controller, 112, area_id);
+			Commands->Send_Custom_Event(obj, controller, 112, area_id, 0.0f);
 		}
 		if ((area_id == 2) && (!entered_me))
 		{
-			Commands->Send_Custom_Event(obj, controller, 221, 2);
+			Commands->Send_Custom_Event(obj, controller, 221, 2, 0.0f);
 		}
 	}
 
@@ -4861,7 +4861,7 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 				GameObject* controller = Commands->Find_Object(M02_OBJCONTROLLER);
 				if (controller)
 				{
-					Commands->Send_Custom_Event(obj, controller, 221, 1);
+					Commands->Send_Custom_Event(obj, controller, 221, 1, 0.0f);
 				}
 			}
 		}
@@ -4925,7 +4925,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 				distance = Commands->Get_Distance (myloc, starloc);
 				if (distance > 300.0f)
 				{
-					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+					Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 				}
 			}
 			Commands->Start_Timer(obj, this, 15.0f, 1);
@@ -4954,7 +4954,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 		{
 			if (sound.Creator)
 			{
-				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1);
+				Commands->Send_Custom_Event(obj, sound.Creator, 100, 1, 0.0f);
 			}
 		}
 	}
@@ -5003,7 +5003,7 @@ DECLARE_SCRIPT (M02_Approach_Vehicle, "Area_ID:int")
 
 	void Timer_Expired(GameObject * obj, int timer_id)
 	{
-		Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+		Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 	}
 };
 
@@ -5033,7 +5033,7 @@ DECLARE_SCRIPT (M02_Destroy_Vehicle, "")
 		}
 		else if (timer_id == 2)
 		{
-			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 		}
 	}
 
@@ -5041,7 +5041,7 @@ DECLARE_SCRIPT (M02_Destroy_Vehicle, "")
 	{
 		if (damager != STAR)
 		{
-			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 		}
 	}
 
@@ -5124,8 +5124,8 @@ DECLARE_SCRIPT (M02_Mendoza, "")
 				int id = Commands->Create_Conversation ("MX2DSGN_DSGN0025", 100, 300, true);
 				Commands->Join_Conversation (obj, id, true, false, false);
 				Commands->Join_Conversation (STAR, id, true, false, false);
-				Commands->Join_Conversation (NULL, id);
-				Commands->Start_Conversation (id);
+				Commands->Join_Conversation (NULL, id, true, true, true);
+				Commands->Start_Conversation (id, 0);
 			}
 		}
 		else if (action_id == 2)
@@ -5189,7 +5189,7 @@ DECLARE_SCRIPT (M02_Mendoza, "")
 			}
 			Commands->Join_Conversation (obj, id, true, false, false);
 			Commands->Join_Conversation (STAR, id, true, false, false);
-			Commands->Start_Conversation (id);
+			Commands->Start_Conversation (id, 0);
 			Commands->Start_Timer (obj, this, 7.0f, 1);
 
 			if (!move_toggle)

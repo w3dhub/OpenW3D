@@ -673,7 +673,8 @@ ActiveConversationClass::Save (ChunkSaveClass &csave)
 	//
 	//	Save each of the monitors
 	//
-	for (int index = 0; index < MAX_MONITORS; index ++) {		
+	int index;
+	for (index = 0; index < MAX_MONITORS; index ++) {		
 		if (MonitorArray[index].Get_Ptr () != NULL) {
 			csave.Begin_Chunk (CHUNKID_MONITOR);
 				MonitorArray[index].Save (csave);

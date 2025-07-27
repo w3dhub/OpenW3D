@@ -778,7 +778,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						if (player_has_unlocked_pen == true)
 						{
 							unlocked_gate_conv = Commands->Create_Conversation( "M01_Remove_Unlock_Gate_Objective", 100, 1000, false);
-							Commands->Join_Conversation( NULL, unlocked_gate_conv, false, false );
+							Commands->Join_Conversation( NULL, unlocked_gate_conv, false, false, true );
 							Commands->Start_Conversation( unlocked_gate_conv, unlocked_gate_conv );
 
 							Commands->Monitor_Conversation(  obj, unlocked_gate_conv );
@@ -873,7 +873,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						} 
 
 						int church_upadate = Commands->Create_Conversation( "M01_Add_Church_Objective", 100, 1000, false);
-						Commands->Join_Conversation( NULL, church_upadate, false, false );
+						Commands->Join_Conversation( NULL, church_upadate, false, false, true );
 						//Commands->Join_Conversation( STAR, church_upadate, false, false );
 						Commands->Start_Conversation( church_upadate,  0 );
 						Commands->Send_Custom_Event( obj, obj, 0, M01_ADD_CHURCH_OBJECTIVE_JDG, 8 );
@@ -1253,7 +1253,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						} 
 
 						int hand_of_nod_conv = Commands->Create_Conversation( "M01_Add_HON_Objective", 100, 1000, false);
-						Commands->Join_Conversation( NULL, hand_of_nod_conv, false, false );
+						Commands->Join_Conversation( NULL, hand_of_nod_conv, false, false, true );
 						Commands->Start_Conversation( hand_of_nod_conv,  0 );
 						Commands->Send_Custom_Event( obj, obj, 0, M01_ADD_HON_OBJECTIVE_JDG, 10 );
 					}
@@ -1311,7 +1311,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							{
 								first_time_poking_gate_lock = false;
 								int prisoner_conv = Commands->Create_Conversation( "M01_Add_Unlock_Gate_Objective", 100, 1000, false);
-								Commands->Join_Conversation( NULL, prisoner_conv, false, false );
+								Commands->Join_Conversation( NULL, prisoner_conv, false, false, true );
 								Commands->Start_Conversation( prisoner_conv,  prisoner_conv );
 							}
 
@@ -1356,8 +1356,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 				case M01_ANNOUNCE_COMMCENTER_SAM_OBJECTIVE_JDG:
 					{
 						int comm_sam_conv = Commands->Create_Conversation( "M01_Add_Comm_SAM_Objective", 100, 1000, false);
-						Commands->Join_Conversation( NULL, comm_sam_conv, false, false );
-						//Commands->Join_Conversation( STAR, comm_sam_conv, false, false );
+						Commands->Join_Conversation( NULL, comm_sam_conv, false, false, true );
+						//Commands->Join_Conversation( STAR, comm_sam_conv, false, false, true );
 						Commands->Start_Conversation( comm_sam_conv,  0 );
 						Commands->Send_Custom_Event( obj, obj, 0, M01_ADD_COMM_SAM_OBJECTIVE_JDG, 6 );
 
@@ -1385,7 +1385,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 				case M01_ANNOUNCE_UNLOCK_GATE_OBJECTIVE_JDG:
 					{
 						int unlock_gate_conv = Commands->Create_Conversation( "M01_Add_Unlock_Gate_Objective", 100, 1000, false);
-						Commands->Join_Conversation( NULL, unlock_gate_conv, false, false );
+						Commands->Join_Conversation( NULL, unlock_gate_conv, false, false, true );
 						Commands->Start_Conversation( unlock_gate_conv,  0 );
 					}
 					break;
@@ -1414,7 +1414,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						if (commcenter_sam_destroyed == true)
 						{
 							unlocked_gate_conv = Commands->Create_Conversation( "M01_Remove_Unlock_Gate_Objective", 100, 1000, false);
-							Commands->Join_Conversation( NULL, unlocked_gate_conv, false, false );
+							Commands->Join_Conversation( NULL, unlocked_gate_conv, false, false, true );
 							Commands->Start_Conversation( unlocked_gate_conv, unlocked_gate_conv );
 
 							Commands->Monitor_Conversation(  obj, unlocked_gate_conv );
@@ -1486,7 +1486,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 				case M01_ANNOUNCE_PRISONER_OBJECTIVE_JDG:
 					{
 						int prisoner_conv = Commands->Create_Conversation( "M01_Add_Unlock_Gate_Objective", 100, 1000, false);
-						Commands->Join_Conversation( NULL, prisoner_conv, false, false );
+						Commands->Join_Conversation( NULL, prisoner_conv, false, false, true );
 						Commands->Start_Conversation( prisoner_conv,  prisoner_conv );
 
 						Commands->Send_Custom_Event( obj, obj, 0, M01_ADD_UNLOCK_GATE_OBJECTIVE_JDG, 10 );
@@ -1723,8 +1723,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							{
 								loveshack_conv_playing = true;
 								loveshack_conv = Commands->Create_Conversation( "M01_Locke_ChurchReminder_Conversation", 45, 1000, true);
-								Commands->Join_Conversation( NULL, loveshack_conv, false, false );
-								//Commands->Join_Conversation( STAR, loveshack_conv, false, false );
+								Commands->Join_Conversation( NULL, loveshack_conv, false, false, true );
+								//Commands->Join_Conversation( STAR, loveshack_conv, false, false, true );
 								Commands->Start_Conversation( loveshack_conv,  loveshack_conv );
 								Commands->Monitor_Conversation( obj, loveshack_conv );
 							}
@@ -1915,8 +1915,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 				case M01_ANNOUNCE_TURRETS_OBJECTIVE_JDG:
 					{
 						turrets_conv = Commands->Create_Conversation( "M01_Add_Turrets_Objective", 100, 1000, false);
-						Commands->Join_Conversation( NULL, turrets_conv, false, false );
-						Commands->Join_Conversation( NULL, turrets_conv, false, false );
+						Commands->Join_Conversation( NULL, turrets_conv, false, false, true );
+						Commands->Join_Conversation( NULL, turrets_conv, false, false, true );
 						Commands->Start_Conversation( turrets_conv,  turrets_conv );
 
 						Commands->Monitor_Conversation( obj, turrets_conv );
@@ -1948,7 +1948,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						}
 
 						int c4_conv = Commands->Create_Conversation( "M01_Locke_Sending_C4_Conversation", 100, 1000, false);
-						Commands->Join_Conversation( NULL, c4_conv, false, false );
+						Commands->Join_Conversation( NULL, c4_conv, false, false, true );
 						Commands->Start_Conversation( c4_conv,  c4_conv );
 
 						Vector3 airdropPosition (-82.786f, 113.665f, 2.221f);
@@ -1979,7 +1979,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								Commands->Send_Custom_Event( obj, gunboat, 0, M01_END_TURRETS_OBJECTIVE_PASS_JDG, 0 );
 
 								int turrets_conv_02 = Commands->Create_Conversation( "M01_Remove_Turrets_Objective", 100, 1000, false);
-								Commands->Join_Conversation( NULL, turrets_conv_02, false, false );
+								Commands->Join_Conversation( NULL, turrets_conv_02, false, false, true );
 								Commands->Start_Conversation( turrets_conv_02,  0 );
 								Commands->Send_Custom_Event( obj, obj, 0, M01_PASS_TURRETS_OBJECTIVE_JDG, 5 );
 							}
@@ -1987,8 +1987,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							else
 							{
 								//turrets_hummVee_conv = Commands->Create_Conversation( "M01_Locke_GiveHummVee_Conversation", 100, 1000, false);
-								//Commands->Join_Conversation( NULL, turrets_hummVee_conv, false, false );
-								//Commands->Join_Conversation( STAR, turrets_hummVee_conv, false, false );
+								//Commands->Join_Conversation( NULL, turrets_hummVee_conv, false, false, true );
+								//Commands->Join_Conversation( STAR, turrets_hummVee_conv, false, false, true );
 								//Commands->Start_Conversation( turrets_hummVee_conv,  turrets_hummVee_conv );
 
 								//Commands->Monitor_Conversation(  obj, turrets_hummVee_conv );
@@ -2017,8 +2017,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						{
 							int barn_conv = Commands->Create_Conversation( "M01_Add_Barn_Objective", 100, 1000, false);
 
-							Commands->Join_Conversation( NULL, barn_conv, false, false );
-							Commands->Join_Conversation( STAR, barn_conv, false, false );
+							Commands->Join_Conversation( NULL, barn_conv, false, false, true );
+							Commands->Join_Conversation( STAR, barn_conv, false, false, true );
 							Commands->Start_Conversation( barn_conv,  0 );
 
 							Commands->Send_Custom_Event( obj, obj, 0, M01_ADD_BARN_OBJECTIVE_JDG, 6 );
@@ -2110,7 +2110,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						if (barn_objective_failed != true)
 						{
 							int roundupcivs_conv = Commands->Create_Conversation( "M01_Add_Barn_Roundup_Objective", 100, 1000, false);
-							Commands->Join_Conversation( NULL, roundupcivs_conv, false, false );
+							Commands->Join_Conversation( NULL, roundupcivs_conv, false, false, true );
 							Commands->Start_Conversation( roundupcivs_conv,  roundupcivs_conv );
 
 							Commands->Set_Objective_Status( M01_BARN_OBJECTIVE_JDG, OBJECTIVE_STATUS_ACCOMPLISHED );
@@ -2136,8 +2136,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								Commands->Set_Objective_Status( M01_BARN_ROUNDUP_OBJECTIVE_JGD, OBJECTIVE_STATUS_FAILED );
 
 								barnfailed_conv = Commands->Create_Conversation( "M01_Locke_3CivsDead_Conversation", 100, 1000, false);
-								Commands->Join_Conversation( NULL, barnfailed_conv, false, false );
-								Commands->Join_Conversation( STAR, barnfailed_conv, false, false );
+								Commands->Join_Conversation( NULL, barnfailed_conv, false, false, true );
+								Commands->Join_Conversation( STAR, barnfailed_conv, false, false, true );
 								Commands->Start_Conversation( barnfailed_conv,  barnfailed_conv );
 
 								Commands->Monitor_Conversation(  obj, barnfailed_conv );
@@ -2148,7 +2148,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								//Commands->Set_Objective_Status( M01_BARN_ROUNDUP_OBJECTIVE_JGD, OBJECTIVE_STATUS_ACCOMPLISHED );
 
 								//barnfailed_conv = Commands->Create_Conversation( "M01_AirDrop_Conversation", 100, 1000, false);
-								//Commands->Join_Conversation( NULL, barnfailed_conv, false, false );
+								//Commands->Join_Conversation( NULL, barnfailed_conv, false, false, true );
 								//Commands->Start_Conversation( barnfailed_conv,  barnfailed_conv );
 
 								//Commands->Monitor_Conversation(  obj, barnfailed_conv );
@@ -2177,9 +2177,9 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						if ( barnPrisoner02 != NULL && barn_prisoner_02_is_dead != true) //this is billy
 						{
 							billy_conv = Commands->Create_Conversation( "M01_Billys_Conversation", 100, 1000, true);
-							Commands->Join_Conversation( barnPrisoner02, billy_conv, true, true );
+							Commands->Join_Conversation( barnPrisoner02, billy_conv, true, true, true );
 							Commands->Join_Conversation( STAR, billy_conv, false, true, true );
-							Commands->Join_Conversation( NULL, billy_conv, false, false );
+							Commands->Join_Conversation( NULL, billy_conv, false, false, true );
 							Commands->Start_Conversation( billy_conv,  billy_conv );
 							Commands->Monitor_Conversation(  obj, billy_conv );
 						}
@@ -2315,8 +2315,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								kane_and_no2_conv01_active = true;
 
 								kane_and_no2_conv01 = Commands->Create_Conversation( "M01_Kane_and_Number02_Conversation_01", 100, 1000, true);
-								Commands->Join_Conversation( kane, kane_and_no2_conv01, false, true );
-								Commands->Join_Conversation( commBaseCommander, kane_and_no2_conv01, false, true );
+								Commands->Join_Conversation( kane, kane_and_no2_conv01, false, true, true );
+								Commands->Join_Conversation( commBaseCommander, kane_and_no2_conv01, false, true, true );
 								Commands->Start_Conversation( kane_and_no2_conv01,  kane_and_no2_conv01 );
 							}
 						}
@@ -2340,8 +2340,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							{
 								kane_and_havoc_conv_active = true;
 								kane_and_havoc_conv = Commands->Create_Conversation( "M01_Kane_and_Havoc_Conversation", 100, 1000, false);
-								Commands->Join_Conversation( kane, kane_and_havoc_conv, false, true );
-								Commands->Join_Conversation( STAR, kane_and_havoc_conv, false, false );
+								Commands->Join_Conversation( kane, kane_and_havoc_conv, false, true, true );
+								Commands->Join_Conversation( STAR, kane_and_havoc_conv, false, false, true );
 								Commands->Start_Conversation( kane_and_havoc_conv,  kane_and_havoc_conv );
 									
 								Commands->Monitor_Conversation(  obj, kane_and_havoc_conv );
@@ -2443,8 +2443,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					else if (action_id == barnfailed_conv) 
 					{
 						//int honAlerted_conv = Commands->Create_Conversation( "M01_HandOfNod_Alerted_Conversation", 100, 1000, false);
-						//Commands->Join_Conversation( NULL, honAlerted_conv, false, false );
-						//Commands->Join_Conversation( STAR, honAlerted_conv, false, false );
+						//Commands->Join_Conversation( NULL, honAlerted_conv, false, false, true );
+						//Commands->Join_Conversation( STAR, honAlerted_conv, false, false, true );
 						//Commands->Start_Conversation( honAlerted_conv,  honAlerted_conv );
 					}
 
@@ -4445,7 +4445,7 @@ DECLARE_SCRIPT(M01_Tiberium_Cave_Helicopter_JDG, "")
 
 			params.Set_Attack (STAR, 100, 0, true);	
 			
-			Commands->Modify_Action (obj, M01_START_ACTING_JDG, params);
+			Commands->Modify_Action (obj, M01_START_ACTING_JDG, params, true, true);
 
 			float delayTimer = Commands->Get_Random ( 1, 2 );
 			Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_02_JDG, delayTimer );
@@ -5597,9 +5597,9 @@ DECLARE_SCRIPT(M01_Player_Is_Entering_Tailgun_Alley_JDG, "")//this guys ID is 10
 		if (enterer == STAR)
 		{
 			int tankWarning = Commands->Create_Conversation( "M01_Announce_LightTank_Conversation", 100, 1000, false);
-			Commands->Join_Conversation( NULL, tankWarning, false, false );
-			Commands->Join_Conversation( NULL, tankWarning, false, false );
-			//Commands->Join_Conversation( STAR, tankWarning, false, false );
+			Commands->Join_Conversation( NULL, tankWarning, false, false, true );
+			Commands->Join_Conversation( NULL, tankWarning, false, false, true );
+			//Commands->Join_Conversation( STAR, tankWarning, false, false, true );
 			Commands->Start_Conversation( tankWarning,  tankWarning );
 
 			if ( Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ))
@@ -7413,7 +7413,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY
 				Vector3 explosion_location = sound_location;
 				
 				explosion_location.Z -= 10;
-				Commands->Create_Explosion("Ground Explosions Twiddler", explosion_location);
+				Commands->Create_Explosion("Ground Explosions Twiddler", explosion_location, NULL);
 
 				float delayTimer = Commands->Get_Random ( delayTimerMin, delayTimerMax );
 				Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, delayTimer );
@@ -7687,7 +7687,7 @@ DECLARE_SCRIPT(M01_HarvesterScript_New_JDG, "")
 				if (deadYet == false)
 				{
 					int lockeHarvester = Commands->Create_Conversation( "M01_Add_Harvester_Objective", 100, 1000, true);
-					Commands->Join_Conversation( NULL, lockeHarvester, false, false );
+					Commands->Join_Conversation( NULL, lockeHarvester, false, false, true );
 					Commands->Start_Conversation( lockeHarvester,  lockeHarvester );
 				}
 			}
@@ -7708,7 +7708,7 @@ DECLARE_SCRIPT(M01_HarvesterScript_New_JDG, "")
 		if (action_id == M01_WALKING_WAYPATH_01_JDG)
 		{
 			animation_count = 0;
-			Commands->Set_Animation(obj, "V_NOD_HRVSTR.V_NOD_HRVSTR", false);
+			Commands->Set_Animation(obj, "V_NOD_HRVSTR.V_NOD_HRVSTR", false, NULL, 0.0f, -1.0f, false);
 		}
 	}
 
@@ -7716,7 +7716,7 @@ DECLARE_SCRIPT(M01_HarvesterScript_New_JDG, "")
 	{
 		if (animation_count <= 2)
 		{
-			Commands->Set_Animation(obj, "V_NOD_HRVSTR.V_NOD_HRVSTR", false);
+			Commands->Set_Animation(obj, "V_NOD_HRVSTR.V_NOD_HRVSTR", false, NULL, 0.0f, -1.0f, false);
 			animation_count++;
 		} 
 
@@ -7756,9 +7756,9 @@ DECLARE_SCRIPT(M01_TibField_Guard01_New_JDG, "")
 					if (chemGuy03 != NULL)
 					{
 						int tibFieldConv = Commands->Create_Conversation( "M01_TiberiumField_Conversation", 80, 25, true);
-						Commands->Join_Conversation( chemGuy01, tibFieldConv);
-						Commands->Join_Conversation( chemGuy02, tibFieldConv);
-						Commands->Join_Conversation( chemGuy03, tibFieldConv);
+						Commands->Join_Conversation( chemGuy01, tibFieldConv, true, true, true);
+						Commands->Join_Conversation( chemGuy02, tibFieldConv, true, true, true);
+						Commands->Join_Conversation( chemGuy03, tibFieldConv, true, true, true);
 						Commands->Start_Conversation( tibFieldConv,  tibFieldConv );
 					}
 				}
@@ -8067,7 +8067,7 @@ DECLARE_SCRIPT(M01_TurretBeach_GDI_Guy_01_JDG, "")//
 		if (action_id == M01_HUNT_THE_PLAYER_JDG)
 		{
 			turretbeach_conv = Commands->Create_Conversation( "M01_TurretBeach_TurnOverTank_Conversation", 100, 50, true);
-			Commands->Join_Conversation( obj, turretbeach_conv, true, true );
+			Commands->Join_Conversation( obj, turretbeach_conv, true, true, true );
 			Commands->Start_Conversation( turretbeach_conv,  turretbeach_conv );
 
 			Commands->Monitor_Conversation (obj, turretbeach_conv);
@@ -8306,7 +8306,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Waypath_JDG, "")
 	{
 		if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathA") == 0)
 		{
-			Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_Pathloop", true );
+			Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_Pathloop", true , NULL, 0.0f, -1.0f, false);
 		}
 
 		else if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathZ") == 0)
@@ -8321,7 +8321,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Waypath_JDG, "")
 		{
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
-					Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_PathZ", false );
+					Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -8348,7 +8348,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Chopper_JDG, "")
 	{
 		if (stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsA") == 0)
 		{
-			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsloop", true );
+			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsloop", true, NULL, 0.0f, -1.0f, false );
 
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_DO_END_MISSION_CHECK_JDG, 2 );
 
@@ -8384,7 +8384,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Chopper_JDG, "")
 		{
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
-					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsz", false );
+					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
@@ -8473,7 +8473,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Waypath_JDG, "")
 	{
 		if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathA") == 0)
 		{
-			Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_Pathloop", true );
+			Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_Pathloop", true, NULL, 0.0f, -1.0f, false );
 		}
 
 		else if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathZ") == 0)
@@ -8488,7 +8488,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Waypath_JDG, "")
 		{
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
-					Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_PathZ", false );
+					Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -8515,7 +8515,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Chopper_JDG, "")
 	{
 		if (stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsA") == 0)
 		{
-			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsloop", true );
+			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsloop", true, NULL, 0.0f, -1.0f, false );
 
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_DO_END_MISSION_CHECK_JDG, 2 );
 
@@ -8551,7 +8551,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Chopper_JDG, "")
 		{
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
-					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsz", false );
+					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
@@ -10129,7 +10129,7 @@ DECLARE_SCRIPT(M01_GDIBase_EvacMonitor_JDG, "")//M01_GDIBASE_EVAC_MONITOR_JDG
 			if (unitsEvacuated == 4)
 			{
 				int airdrop_conv = Commands->Create_Conversation( "M01_AirDrop_Conversation", 100, 1000, false);
-				Commands->Join_Conversation( NULL, airdrop_conv, false, false );
+				Commands->Join_Conversation( NULL, airdrop_conv, false, false, true );
 				Commands->Start_Conversation( airdrop_conv,  airdrop_conv );
 
 				Vector3 airDropSpot (-32.247f, 36.075f, 0.547f);
@@ -10167,7 +10167,7 @@ DECLARE_SCRIPT(M01_ChurchArea_EvacMonitor_JDG, "")//M01_CHURCHAREA_EVAC_MONITOR_
 			if (unitsEvacuated == 3)
 			{
 				int airdrop_conv = Commands->Create_Conversation( "M01_AirDrop_Conversation", 100, 1000, false);
-				Commands->Join_Conversation( NULL, airdrop_conv, false, false );
+				Commands->Join_Conversation( NULL, airdrop_conv, false, false, true );
 				Commands->Start_Conversation( airdrop_conv,  airdrop_conv );
 
 				Vector3 airDropSpot (-158.807f, 351.532f, 10.353f);
@@ -10199,7 +10199,7 @@ DECLARE_SCRIPT(M01_MovieProjector_JDG, "")//103942
 		if (damager == STAR && destroyed == false)
 		{
 			destroyed = true;
-			Commands->Set_Animation ( obj, "DSP_PROJECTOR.DSP_PROJECTOR", false, NULL, 0, 9 );
+			Commands->Set_Animation ( obj, "DSP_PROJECTOR.DSP_PROJECTOR", false, NULL, 0, 9, false );
 
 			GameObject * propagandaController = Commands->Find_Object ( 103099 );
 			if (propagandaController != NULL)
@@ -10623,7 +10623,7 @@ DECLARE_SCRIPT(M01_PaintballRoom_ChatterController_JDG, "")//107554
 				if (nodguy01 != NULL)
 				{
 					int paintball_alert_conv = Commands->Create_Conversation( "M01_Paintball_Intruder_Conversation_02", 95, 20, true);
-					Commands->Join_Conversation( nodguy01, paintball_alert_conv);
+					Commands->Join_Conversation( nodguy01, paintball_alert_conv, true, true, true);
 					Commands->Start_Conversation( paintball_alert_conv,  paintball_alert_conv );
 				}
 			}
@@ -10634,7 +10634,7 @@ DECLARE_SCRIPT(M01_PaintballRoom_ChatterController_JDG, "")//107554
 				if (nodguy02 != NULL)
 				{
 					int paintball_alert_conv = Commands->Create_Conversation( "M01_Paintball_Intruder_Conversation_02", 95, 20, true);
-					Commands->Join_Conversation( nodguy02, paintball_alert_conv);
+					Commands->Join_Conversation( nodguy02, paintball_alert_conv, true, true, true);
 					Commands->Start_Conversation( paintball_alert_conv,  paintball_alert_conv );
 				}
 			}
@@ -10645,7 +10645,7 @@ DECLARE_SCRIPT(M01_PaintballRoom_ChatterController_JDG, "")//107554
 				if (nodguy03 != NULL)
 				{
 					int paintball_alert_conv = Commands->Create_Conversation( "M01_Paintball_Intruder_Conversation_01", 95, 20, true);
-					Commands->Join_Conversation( nodguy03, paintball_alert_conv);
+					Commands->Join_Conversation( nodguy03, paintball_alert_conv, true, true, true);
 					Commands->Start_Conversation( paintball_alert_conv,  paintball_alert_conv );
 				}
 			}
@@ -10656,7 +10656,7 @@ DECLARE_SCRIPT(M01_PaintballRoom_ChatterController_JDG, "")//107554
 				if (nodguy04 != NULL)
 				{
 					int paintball_alert_conv = Commands->Create_Conversation( "M01_Paintball_Intruder_Conversation_01", 95, 20, true);
-					Commands->Join_Conversation( nodguy04, paintball_alert_conv);
+					Commands->Join_Conversation( nodguy04, paintball_alert_conv, true, true, true);
 					Commands->Start_Conversation( paintball_alert_conv,  paintball_alert_conv );
 				}
 			}
@@ -10667,7 +10667,7 @@ DECLARE_SCRIPT(M01_PaintballRoom_ChatterController_JDG, "")//107554
 				if (nodguy05 != NULL)
 				{
 					int paintball_alert_conv = Commands->Create_Conversation( "M01_Paintball_Intruder_Conversation_03", 95, 20, true);
-					Commands->Join_Conversation( nodguy05, paintball_alert_conv);
+					Commands->Join_Conversation( nodguy05, paintball_alert_conv, true, true, true);
 					Commands->Start_Conversation( paintball_alert_conv,  paintball_alert_conv );
 				}
 			}
@@ -10678,7 +10678,7 @@ DECLARE_SCRIPT(M01_PaintballRoom_ChatterController_JDG, "")//107554
 				if (nodguy06 != NULL)
 				{
 					int paintball_alert_conv = Commands->Create_Conversation( "M01_Paintball_Intruder_Conversation_03", 95, 20, true);
-					Commands->Join_Conversation( nodguy06, paintball_alert_conv);
+					Commands->Join_Conversation( nodguy06, paintball_alert_conv, true, true, true);
 					Commands->Start_Conversation( paintball_alert_conv,  paintball_alert_conv );
 				}
 			}
@@ -11080,7 +11080,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Trainer_JDG, "")//this guys ID is M01_HON_DOJO_SENSE
 					Commands->Innate_Soldier_Enable_Footsteps_Heard ( obj, false );
 
 					dojo_conv = Commands->Create_Conversation( "M01_Dojo_Sensei_Conversation", 100, 1000, true);
-					Commands->Join_Conversation( obj, dojo_conv, false, true );
+					Commands->Join_Conversation( obj, dojo_conv, false, true, true );
 					Commands->Start_Conversation( dojo_conv,  dojo_conv );
 							
 					Commands->Monitor_Conversation(  obj, dojo_conv);
@@ -11572,7 +11572,7 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 						Commands->Set_HUD_Help_Text ( IDS_M00DSGN_DSGN1004I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 
 						escKeyConv = Commands->Create_Conversation( "M01_Press_ESC_For_Objectives_Conversation", 100, 1000, false);
-						Commands->Join_Conversation( NULL, escKeyConv, false, false );
+						Commands->Join_Conversation( NULL, escKeyConv, false, false, true );
 						Commands->Start_Conversation( escKeyConv,  escKeyConv );
 
 						Commands->Monitor_Conversation(  obj, escKeyConv );
@@ -11594,8 +11594,8 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 			if (param == M01_GDI_BASE_COMMANDER_OBJECTIVE_JDG)
 			{
 				missionIntro = Commands->Create_Conversation( "M01_Start_Mission_Conversation", 100, 1000, false);
-				Commands->Join_Conversation( NULL, missionIntro, false, false );
-				//Commands->Join_Conversation( STAR, missionIntro, false, false );
+				Commands->Join_Conversation( NULL, missionIntro, false, false, true );
+				//Commands->Join_Conversation( STAR, missionIntro, false, false, true );
 				Commands->Start_Conversation( missionIntro,  missionIntro );
 
 				Commands->Monitor_Conversation(  obj, missionIntro );//M01_GDI_BASE_COMMANDER_OBJECTIVE_JDG
@@ -11604,7 +11604,7 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 			if (param == M01_MODIFY_YOUR_ACTION_JDG)
 			{
 				escKeyConv = Commands->Create_Conversation( "M01_Press_ESC_For_Objectives_Conversation", 100, 1000, false);
-				Commands->Join_Conversation( NULL, escKeyConv, false, false );
+				Commands->Join_Conversation( NULL, escKeyConv, false, false, true );
 				Commands->Start_Conversation( escKeyConv,  escKeyConv );
 
 				Commands->Monitor_Conversation(  obj, escKeyConv );
@@ -11809,8 +11809,8 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 		if ((param == M01_START_ACTING_JDG))//civs have been freed--play protect civs conversation
 		{
 			protectCivsConv = Commands->Create_Conversation( "M01_Protect_Clergy_Conversation", 100, 1000, false);
-			Commands->Join_Conversation( NULL, protectCivsConv, false, false );
-			//Commands->Join_Conversation( STAR, protectCivsConv, false, false );
+			Commands->Join_Conversation( NULL, protectCivsConv, false, false, true );
+			//Commands->Join_Conversation( STAR, protectCivsConv, false, false, true );
 			Commands->Start_Conversation( protectCivsConv,  protectCivsConv );
 			Commands->Monitor_Conversation (obj, protectCivsConv);
 		}
@@ -11875,14 +11875,14 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 			Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
 			if(troopbone)
 			{
-				Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false);
+				Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false, NULL, 0.0f, -1.0f, false);
 			}
 			else
 			{
 				Commands->Debug_Message("troopbone not created yet");
 			}
 			
-			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false );
+			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 		}
 	}
 
@@ -11939,7 +11939,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Rope_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -11973,7 +11973,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Waypath_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -11984,7 +11984,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 {
 	void Created( GameObject * obj ) 
 	{
-		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false );
+		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
 		Commands->Set_Shield_Type ( obj, "Blamo" );
 		Commands->Enable_Hibernation( obj, false );
@@ -12010,7 +12010,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
-			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true );
+			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true, NULL, 0.0f, -1.0f, false );
 
 			GameObject * loveshackNun = Commands->Find_Object ( M01_CHURCH_LOVESHACK_NUN_ID ); 
 			GameObject * churchNun = Commands->Find_Object ( M01_CHURCH_INTERIOR_NUN_ID );
@@ -12047,7 +12047,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false );
+					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
@@ -12251,7 +12251,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 			else if (action_id == M01_PICK_A_NEW_LOCATION_JDG)//priest is by Havoc--cue lucky charms conversation
 			{ 
 				//lucky_charms = Commands->Create_Conversation( "M01_Priest_LuckyCharms_Conversation", 100, 1000, false);
-				//Commands->Join_Conversation( obj, lucky_charms, true, true );
+				//Commands->Join_Conversation( obj, lucky_charms, true, true, true );
 				//Commands->Start_Conversation( lucky_charms,  lucky_charms );
 
 				//Commands->Monitor_Conversation( obj, lucky_charms );
@@ -12604,7 +12604,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Rope_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -12638,7 +12638,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Waypath_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -12649,7 +12649,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Chopper_JDG, "")
 {
 	void Created( GameObject * obj ) 
 	{
-		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false );
+		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
 		Commands->Set_Shield_Type ( obj, "Blamo" );
 		Commands->Enable_Hibernation( obj, false );
@@ -12694,7 +12694,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Chopper_JDG, "")
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
-			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true );
+			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true, NULL, 0.0f, -1.0f, false );
 
 			GameObject * barnCiv01 = Commands->Find_Object ( M01_BARN_PRISONER_01_ID );
 			GameObject * barnCiv02 = Commands->Find_Object ( M01_BARN_PRISONER_02_ID );
@@ -12731,7 +12731,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Chopper_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false );
+					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
@@ -13314,7 +13314,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Rope_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -13350,7 +13350,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Waypath_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -13404,7 +13404,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Waypath_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -13439,7 +13439,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Rope_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false );
+					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 		}
@@ -13894,8 +13894,8 @@ DECLARE_SCRIPT(M01_Tiberium_Cave_Spawn_Helicopter_Zone_JDG, "")//M01_TIB_TUNNEL_
 			Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_SPAWN_TIB_CAVE_HELICOPTER_JDG, 0 );
 
 			int apacheConv = Commands->Create_Conversation( "M01_Announce_Apache_Conversation", 100, 1000, false);
-			Commands->Join_Conversation( NULL, apacheConv, false, false );
-			Commands->Join_Conversation( STAR, apacheConv, false, false );
+			Commands->Join_Conversation( NULL, apacheConv, false, false, true );
+			Commands->Join_Conversation( STAR, apacheConv, false, false, true );
 			Commands->Start_Conversation( apacheConv,  apacheConv );
 
 			GameObject * tunnelGuy = Commands->Find_Object ( 103274 );
@@ -14830,8 +14830,8 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 		if (STAR)
 		{
 			int guardTowerOutro = Commands->Create_Conversation( "M01_GuardTower_Outro_Conversation", 100, 1000, false);
-			Commands->Join_Conversation( NULL, guardTowerOutro, false, false );
-			//Commands->Join_Conversation( STAR, guardTowerOutro, false, false );
+			Commands->Join_Conversation( NULL, guardTowerOutro, false, false, true );
+			//Commands->Join_Conversation( STAR, guardTowerOutro, false, false, true );
 			Commands->Start_Conversation( guardTowerOutro,  guardTowerOutro );
 		}
 
@@ -14890,8 +14890,8 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 						{
 							introConvPlaying = true;
 							guardTowerIntro = Commands->Create_Conversation( "M01_GuardTower_Intro_Conversation", 95, 1000, true);
-							Commands->Join_Conversation( NULL, guardTowerIntro, false, false );
-							//Commands->Join_Conversation( STAR, guardTowerIntro, false, false );
+							Commands->Join_Conversation( NULL, guardTowerIntro, false, false, true );
+							//Commands->Join_Conversation( STAR, guardTowerIntro, false, false, true );
 							Commands->Start_Conversation( guardTowerIntro,  guardTowerIntro );
 							Commands->Monitor_Conversation( obj, guardTowerIntro );
 						}
@@ -15069,7 +15069,7 @@ DECLARE_SCRIPT(M01_KeyCard01_Script_JDG, "")
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
 			int lockeKeycard = Commands->Create_Conversation( "M01_First_Keycard_Conversation", 100, 1000, true);
-			Commands->Join_Conversation( NULL, lockeKeycard, false, false );
+			Commands->Join_Conversation( NULL, lockeKeycard, false, false, true );
 			Commands->Start_Conversation( lockeKeycard,  lockeKeycard );
 		}
 	}
@@ -15146,8 +15146,8 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_JDG, "")//M01_TAILGUNAREA_NOD_LIGHTTANK_JDG
 	void Killed( GameObject * obj, GameObject * killer ) 
 	{
 		int tankReward = Commands->Create_Conversation( "M01_TankReward_Conversation", 100, 1000, false);
-		Commands->Join_Conversation( NULL, tankReward, false, false );
-		//Commands->Join_Conversation( STAR, tankReward, false, false );
+		Commands->Join_Conversation( NULL, tankReward, false, false, true );
+		//Commands->Join_Conversation( STAR, tankReward, false, false, true );
 		Commands->Start_Conversation( tankReward,  tankReward );
 		
 		Vector3 tankDeathSpot (4.2f, 279.8f, 3.2f);
@@ -15248,7 +15248,7 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_JDG, "")//M01_TAILGUNAREA_NOD_LIGHTTANK_JDG
 					params.Set_Attack( STAR, tankRange, tankAccuracy, true );
 					params.AttackActive = true;
 
-					Commands->Modify_Action ( obj, M01_WALKING_WAYPATH_02_JDG, params );
+					Commands->Modify_Action ( obj, M01_WALKING_WAYPATH_02_JDG, params, true, true );
 				}
 				break;
 		}
@@ -15316,7 +15316,7 @@ DECLARE_SCRIPT(M01_Sinking_Gunboat_JDG, "")
 {
 	void Created( GameObject * obj ) 
 	{
-		Commands->Set_Animation ( obj, "V_GDI_GBOAT.XG_GBOAT_SINK", false, NULL, 0, 60 );
+		Commands->Set_Animation ( obj, "V_GDI_GBOAT.XG_GBOAT_SINK", false, NULL, 0, 60, false );
 	}
 
 	void Animation_Complete(GameObject * obj, const char *anim)
@@ -15487,8 +15487,8 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 			if (action_id == barnAirdrop_conv)
 			{
 				int honAlerted_conv = Commands->Create_Conversation( "M01_HandOfNod_Alerted_Conversation", 100, 1000, false);
-				Commands->Join_Conversation( NULL, honAlerted_conv, false, false );
-				//Commands->Join_Conversation( STAR, honAlerted_conv, false, false );
+				Commands->Join_Conversation( NULL, honAlerted_conv, false, false, true );
+				//Commands->Join_Conversation( STAR, honAlerted_conv, false, false, true );
 				Commands->Start_Conversation( honAlerted_conv,  honAlerted_conv );
 			}
 		}
@@ -15525,7 +15525,7 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 			if (unitsEvacuated == 3 && failed == false)
 			{
 				barnAirdrop_conv = Commands->Create_Conversation( "M01_AirDrop_Conversation", 100, 1000, false);
-				Commands->Join_Conversation( NULL, barnAirdrop_conv, false, false );
+				Commands->Join_Conversation( NULL, barnAirdrop_conv, false, false, true );
 				Commands->Start_Conversation( barnAirdrop_conv,  barnAirdrop_conv );
 
 				Commands->Monitor_Conversation(  obj, barnAirdrop_conv );
@@ -15565,14 +15565,14 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 			Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
 			if(troopbone)
 			{
-				Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false);
+				Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false, NULL, 0.0f, -1.0f, false);
 			}
 			else
 			{
 				Commands->Debug_Message("troopbone not created yet");
 			}
 			
-			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false );
+			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 		}
 
 		else if (param == M01_SEND_BARN_CIVILIANS_RESCUE_CHINOOK_JDG)//a gdi guy is waiting for evac--call in a helicopter
@@ -15611,8 +15611,8 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 			if (failed == true)
 			{
 				int honAlerted_conv = Commands->Create_Conversation( "M01_HandOfNod_Alerted_Conversation", 100, 1000, false);
-				Commands->Join_Conversation( NULL, honAlerted_conv, false, false );
-				//Commands->Join_Conversation( STAR, honAlerted_conv, false, false );
+				Commands->Join_Conversation( NULL, honAlerted_conv, false, false, true );
+				//Commands->Join_Conversation( STAR, honAlerted_conv, false, false, true );
 				Commands->Start_Conversation( honAlerted_conv,  honAlerted_conv );
 			}
 		}
@@ -17212,7 +17212,7 @@ DECLARE_SCRIPT(M01_GDIBase_RealLightTank_JDG, "")//120022
 	void Killed( GameObject * obj, GameObject * killer ) 
 	{
 		//int airdrop_conv = Commands->Create_Conversation( "M01_AirDrop_Conversation", 100, 1000, false);
-		//Commands->Join_Conversation( NULL, airdrop_conv, false, false );
+		//Commands->Join_Conversation( NULL, airdrop_conv, false, false, true );
 		//Commands->Start_Conversation( airdrop_conv,  airdrop_conv );
 
 		
@@ -17309,7 +17309,7 @@ DECLARE_SCRIPT(M01_First_AutoRifle_JDG, "")
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
 			int pressEnterConv = Commands->Create_Conversation( "M01_Press_Enter_Conversation", 100, 1000, true);
-			Commands->Join_Conversation( NULL, pressEnterConv, false, false );
+			Commands->Join_Conversation( NULL, pressEnterConv, false, false, true );
 			Commands->Start_Conversation( pressEnterConv,  pressEnterConv );
 
 			Commands->Set_HUD_Help_Text ( IDS_M01DSGN_DSGN0520I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
@@ -17325,7 +17325,7 @@ DECLARE_SCRIPT(M01_Announce_First_ObjectiveZone_JDG, "")//116380
 	void Created( GameObject * obj ) 
 	{
 		int pressF1Conv = Commands->Create_Conversation( "M01_Press_F1_Conversation", 100, 1000, true);
-		Commands->Join_Conversation( NULL, pressF1Conv, false, false );
+		Commands->Join_Conversation( NULL, pressF1Conv, false, false, true );
 		Commands->Start_Conversation( pressF1Conv,  pressF1Conv );
 
 		Commands->Set_HUD_Help_Text ( IDS_M01DSGN_DSGN0515I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
@@ -17449,7 +17449,7 @@ DECLARE_SCRIPT(M01_Use_Ladder_Zone_JDG, "")
 		if (enterer == STAR)
 		{
 			int pressF1Conv = Commands->Create_Conversation( "M01_Press_E_For_Ladders_Conversation", 100, 1000, true);
-			Commands->Join_Conversation( NULL, pressF1Conv, false, false );
+			Commands->Join_Conversation( NULL, pressF1Conv, false, false, true );
 			Commands->Start_Conversation( pressF1Conv,  pressF1Conv );
 
 			Commands->Set_HUD_Help_Text ( IDS_M01DSGN_DSGN0514I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
@@ -17464,7 +17464,7 @@ DECLARE_SCRIPT(M01_AccessDenied_Zone_JDG, "")
 		if (enterer == STAR)
 		{
 			int pressF1Conv = Commands->Create_Conversation( "M01_Lockdown_Conversation", 100, 1000, true);
-			Commands->Join_Conversation( NULL, pressF1Conv, false, false );
+			Commands->Join_Conversation( NULL, pressF1Conv, false, false, true );
 			Commands->Start_Conversation( pressF1Conv,  pressF1Conv );
 
 			//Commands->Set_HUD_Help_Text ( IDS_M00EVAG_DSGN0039I1EVAG_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
@@ -17497,7 +17497,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Chopper_JDG, "")
 {
 	void Created( GameObject * obj ) 
 	{
-		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false );
+		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
 		Commands->Set_Shield_Type ( obj, "Blamo" );
 		Commands->Enable_Hibernation( obj, false );
@@ -17523,7 +17523,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Chopper_JDG, "")
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
-			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true );
+			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true, NULL, 0.0f, -1.0f, false );
 
 			GameObject * gdiBaseCommander = Commands->Find_Object ( 106050 );
 			if (gdiBaseCommander != NULL)
@@ -17559,7 +17559,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Chopper_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false );
+					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
@@ -17708,14 +17708,14 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_EvacController_JDG, "")//106694
 				Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
 				if(troopbone)
 				{
-					Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false);
+					Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false, NULL, 0.0f, -1.0f, false);
 				}
 				else
 				{
 					Commands->Debug_Message("troopbone not created yet");
 				}
 				
-				Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false );
+				Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 			}
 		}
 	}
@@ -17838,14 +17838,14 @@ DECLARE_SCRIPT(M01_GDIBase_POWEncounter02_Controller_JDG, "")//M01_GDIBASE_POWSC
 			Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
 			if(troopbone)
 			{
-				Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false);
+				Commands->Set_Animation ( troopbone, "XG_EV5_troopBN.XG_EV5_troopBN", false, NULL, 0.0f, -1.0f, false);
 			}
 			else
 			{
 				Commands->Debug_Message("troopbone not created yet");
 			}
 			
-			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false );
+			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 		}
 
 		else if (param == M01_MODIFY_YOUR_ACTION_JDG)//a gdi guy is waiting for evac--call in a helicopter
@@ -17892,7 +17892,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Chopper_JDG, "")
 {
 	void Created( GameObject * obj ) 
 	{
-		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false );
+		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
 		Commands->Set_Shield_Type ( obj, "Blamo" );
 		Commands->Enable_Hibernation( obj, false );
@@ -17918,7 +17918,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Chopper_JDG, "")
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
-			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true );
+			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true, NULL, 0.0f, -1.0f, false );
 
 			GameObject * gdiGuy01 = Commands->Find_Object ( M01_GDIBASE_POWSCENE02_POWGUY01_JDG );
 			GameObject * gdiGuy02 = Commands->Find_Object ( M01_GDIBASE_POWSCENE02_POWGUY02_JDG );
@@ -17949,7 +17949,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Chopper_JDG, "")
 			case M01_MODIFY_YOUR_ACTION_JDG: 
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
-					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false );
+					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
@@ -18471,9 +18471,9 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 				{
 					secondHealthWarningPlayed = true;
 					int gunboatHealthWarning02 = Commands->Create_Conversation( "M01_Gunboat_HealthWarning_02", 100, 1000, false);
-					Commands->Join_Conversation( NULL, gunboatHealthWarning02, false, false );
-					Commands->Join_Conversation( NULL, gunboatHealthWarning02, false, false );
-					Commands->Join_Conversation( STAR, gunboatHealthWarning02, false, false );
+					Commands->Join_Conversation( NULL, gunboatHealthWarning02, false, false, true );
+					Commands->Join_Conversation( NULL, gunboatHealthWarning02, false, false, true );
+					Commands->Join_Conversation( STAR, gunboatHealthWarning02, false, false, true );
 					Commands->Start_Conversation( gunboatHealthWarning02,  gunboatHealthWarning02 );
 				}
 			}
@@ -18484,8 +18484,8 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 				{
 					firstHealthWarningPlayed = true;
 					int gunboatHealthWarning01 = Commands->Create_Conversation( "M01_Gunboat_HealthWarning_01", 100, 1000, false);
-					Commands->Join_Conversation( NULL, gunboatHealthWarning01, false, false );
-					Commands->Join_Conversation( NULL, gunboatHealthWarning01, false, false );
+					Commands->Join_Conversation( NULL, gunboatHealthWarning01, false, false, true );
+					Commands->Join_Conversation( NULL, gunboatHealthWarning01, false, false, true );
 					Commands->Start_Conversation( gunboatHealthWarning01,  gunboatHealthWarning01 );
 				}
 			}
@@ -18549,7 +18549,7 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 
 			params.AttackActive		= true;
 			params.AttackCheckBlocked = false;
-			Commands->Modify_Action (obj, M01_WALKING_WAYPATH_02_JDG, params);
+			Commands->Modify_Action (obj, M01_WALKING_WAYPATH_02_JDG, params, true, true);
 
 			float delayTimer = Commands->Get_Random ( 4, 6 );
 			Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_03_JDG, delayTimer );
@@ -18564,7 +18564,7 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 			//params.WaypathID = 101497;
 			params.AttackActive	= false;
 
-			Commands->Modify_Action (obj, M01_WALKING_WAYPATH_02_JDG, params);
+			Commands->Modify_Action (obj, M01_WALKING_WAYPATH_02_JDG, params, true, true);
 
 			float delayTimer = Commands->Get_Random ( 0, 2 );
 			Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_03_JDG, delayTimer );
@@ -20176,8 +20176,8 @@ DECLARE_SCRIPT(M01_HON_Escorts_Warroom_MCT_ZoneController_JDG, "")//103378
 				if ((mctProtector01 != NULL) && (mctProtector02 != NULL))
 				{
 					int protectMct_conv = Commands->Create_Conversation( "M01_Protect_The_MCT", 100, 1000, true);
-					Commands->Join_Conversation( mctProtector02, protectMct_conv, false, false );
-					Commands->Join_Conversation( mctProtector01, protectMct_conv, false, false );
+					Commands->Join_Conversation( mctProtector02, protectMct_conv, false, false, true );
+					Commands->Join_Conversation( mctProtector01, protectMct_conv, false, false, true );
 					Commands->Start_Conversation( protectMct_conv,  protectMct_conv );
 				}
 			}
@@ -20773,7 +20773,7 @@ DECLARE_SCRIPT(M01_HON_WarroomController_JDG, "")//124044
 		{
 			if (player_in_warroom == false)
 			{
-				Commands->Apply_Damage( gdiGuy01, 10000.0f, "STEEL");
+				Commands->Apply_Damage( gdiGuy01, 10000.0f, "STEEL", NULL );
 			}
 
 			else if (gdiGuy01 != NULL)
@@ -20786,7 +20786,7 @@ DECLARE_SCRIPT(M01_HON_WarroomController_JDG, "")//124044
 		{
 			if (player_in_warroom == false)
 			{
-				Commands->Apply_Damage( gdiGuy02, 10000.0f, "STEEL");
+				Commands->Apply_Damage( gdiGuy02, 10000.0f, "STEEL", NULL );
 			}
 
 			else if (gdiGuy02 != NULL)
@@ -20854,7 +20854,7 @@ DECLARE_SCRIPT(M01_CantBring_MediumTank_ThroughHereZone_JDG, "")
 			if (player_in_tank == true)//M01_Must_Leave_Tank_Conversation
 			{
 				int hoofit_conv = Commands->Create_Conversation( "M01_Must_Leave_Tank_Conversation", 100, 100, true);
-				Commands->Join_Conversation( NULL, hoofit_conv, true, true );
+				Commands->Join_Conversation( NULL, hoofit_conv, true, true, true );
 				Commands->Start_Conversation( hoofit_conv,  hoofit_conv );
 
 				Commands->Destroy_Object ( obj );
@@ -21423,7 +21423,7 @@ DECLARE_SCRIPT(M01_DataDisc_TextController_JDG, "")//117188
 			{
 				playingText = true;
 				int pressEnterConv = Commands->Create_Conversation( "M01_Press_ESC_for_Map_Conversation", 100, 1000, true);
-				Commands->Join_Conversation( NULL, pressEnterConv, false, false );
+				Commands->Join_Conversation( NULL, pressEnterConv, false, false, true );
 				Commands->Start_Conversation( pressEnterConv,  pressEnterConv );
 
 				Commands->Set_HUD_Help_Text ( IDS_M01DSGN_DSGN0517I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
@@ -21442,7 +21442,7 @@ DECLARE_SCRIPT(M01_DataDisc_TextController_JDG, "")//117188
 			if (param == 1 && playingText == false)//player has picked up a C4 -- start text routine
 			{
 				int pressF1Conv = Commands->Create_Conversation( "M01_C4_Tutorial_Conversation", 100, 1000, true);
-				Commands->Join_Conversation( NULL, pressF1Conv, false, false );
+				Commands->Join_Conversation( NULL, pressF1Conv, false, false, true );
 				Commands->Start_Conversation( pressF1Conv,  pressF1Conv );
 				Commands->Set_HUD_Help_Text ( IDS_M01DSGN_DSGN0519I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );//Press '9' to select Remote C4.\n
 				Commands->Send_Custom_Event( obj, obj, 1, 2, 2 );
@@ -21472,7 +21472,7 @@ DECLARE_SCRIPT(M01_DataDisc_TextController_JDG, "")//117188
 			if (param == 1 && playingText == false)//player has picked up a C4 -- start text routine
 			{
 				int pressF1Conv = Commands->Create_Conversation( "M01_Sniper_Tutorial_Conversation", 100, 1000, true);
-				Commands->Join_Conversation( NULL, pressF1Conv, false, false );
+				Commands->Join_Conversation( NULL, pressF1Conv, false, false, true );
 				Commands->Start_Conversation( pressF1Conv,  pressF1Conv );
 				Commands->Set_HUD_Help_Text ( IDS_M01DSGN_DSGN0518I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );//Press '3' to select your Sniper Rifle.\n
 				Commands->Send_Custom_Event( obj, obj, 2, 2, 2 );

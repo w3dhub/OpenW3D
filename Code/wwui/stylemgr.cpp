@@ -218,7 +218,8 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 		//	Load each font into windows
 		//
 		int count = ini_file->Entry_Count (FONT_FILE_SECTION);
-		for (int index = 0; index < count; index ++) {
+		int index;
+		for (index = 0; index < count; index ++) {
 			StringClass	filename (0, true);
 			ini_file->Get_String (filename, FONT_FILE_SECTION, ini_file->Get_Entry (FONT_FILE_SECTION, index));
 
@@ -308,7 +309,8 @@ StyleMgrClass::Shutdown (void)
 	//
 	//	Free each font
 	//
-	for (int index = 0; index < FONT_MAX; index ++) {
+	int index;
+	for (index = 0; index < FONT_MAX; index ++) {
 		REF_PTR_RELEASE (Fonts[index]);
 	}
 

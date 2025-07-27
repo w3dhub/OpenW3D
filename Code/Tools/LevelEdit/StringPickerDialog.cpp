@@ -279,7 +279,8 @@ StringPickerDialogClass::OnInitDialog (void)
 	//	Loop over all the categories in the database
 	//
 	int count = TranslateDBClass::Get_Category_Count ();
-	for (int index = 0; index < count; index ++) {
+	int index;
+	for (index = 0; index < count; index ++) {
 		
 		//
 		//	Lookup this category

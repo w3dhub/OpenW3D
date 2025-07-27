@@ -275,7 +275,8 @@ ConversationMgrClass::Save (ChunkSaveClass &csave)
 		//	Save each conversation in this category
 		//
 		int count = ConversationList[SaveCategoryID].Count ();
-		for (int index = 0; index < count; index ++) {
+		int index;
+		for (index = 0; index < count; index ++) {
 			ConversationClass *conversation = ConversationList[SaveCategoryID][index];
 			if (conversation != NULL) {
 				csave.Begin_Chunk (CHUNKID_CONVERSATION);

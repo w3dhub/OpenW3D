@@ -350,7 +350,8 @@ bool	SpawnerClass::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_SPAWN_COUNT, SpawnCount );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_SPAWN_DELAY_TIMER, SpawnDelayTimer );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ENABLED, Enabled );
-		for ( int i = 0; i < SpawnPointList.Count(); i++ ) {
+		int i;
+		for ( i = 0; i < SpawnPointList.Count(); i++ ) {
 			Matrix3D tm = SpawnPointList[i];
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_SPAWN_POINT_ENTRY, tm );
 		}

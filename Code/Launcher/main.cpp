@@ -512,7 +512,7 @@ bool Get_Restart_Flag(Process &proc, bool &slave)
 	}
 	strcat(regpath, APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
 
-	int result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, regpath, 0, KEY_ALL_ACCESS, &key);
+	int result = RegOpenKeyEx(HKEY_CURRENT_USER, regpath, 0, KEY_ALL_ACCESS, &key);
 
 	if (result == ERROR_SUCCESS) {
 

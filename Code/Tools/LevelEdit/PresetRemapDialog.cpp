@@ -155,7 +155,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 					//
 					//	Take a best guess at a preset name for the object
 					//
-					char *separator = ::strchr (name, '.');
+					char *separator = const_cast<char *>(::strchr (name, '.'));
 					if (separator != NULL) {
 						separator[0] = 0;
 						const char *candidate_preset_name = name;

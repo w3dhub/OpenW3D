@@ -1259,7 +1259,8 @@ PathClass::Clip_Spline_To_Pathfind_Data
 	// and convert the clipped points back into hermite spline
 	// tangents.
 	//
-	for (int index = 0; index < node_list.Count () - 1; index ++) {
+	int index;
+	for (index = 0; index < node_list.Count () - 1; index ++) {
 		
 		//
 		//	Get the current and next points on the path

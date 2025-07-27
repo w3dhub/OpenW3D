@@ -153,7 +153,7 @@ DECLARE_SCRIPT(GTH_Zone_Send_Custom, "Enter_Message=20000:int,Enter_Param=1:int,
 		int message = Get_Int_Parameter("Enter_Message");
 		GTH_DEBUG_INT(message,"GTH_Zone_Send_Custom sending enter message %d\n");
 		if (message != 0) {
-			Commands->Send_Custom_Event(obj,enterer,message,Get_Int_Parameter("Enter_Param"));
+			Commands->Send_Custom_Event(obj,enterer,message,Get_Int_Parameter("Enter_Param"), 0.0f);
 		}
 	}
 
@@ -162,7 +162,7 @@ DECLARE_SCRIPT(GTH_Zone_Send_Custom, "Enter_Message=20000:int,Enter_Param=1:int,
 		int message = Get_Int_Parameter("Exit_Message");
 		GTH_DEBUG_INT(message,"GTH_Zone_Send_Custom sending exit message %d\n");
 		if (message != 0) {
-			Commands->Send_Custom_Event(obj,exiter,message,Get_Int_Parameter("Exit_Param"));
+			Commands->Send_Custom_Event(obj,exiter,message,Get_Int_Parameter("Exit_Param"), 0.0f);
 		}
 	}
 };
@@ -950,7 +950,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 					int cust_id = Get_Int_Parameter("Flag_Returned_Event_ID");
 					GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Returned_Object_ID"));
 					if (event_obj == NULL) event_obj = obj;
-					Commands->Send_Custom_Event(obj,event_obj,cust_id, 1);
+					Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 				}
 				return;
 			}
@@ -967,7 +967,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 		int cust_id = Get_Int_Parameter("Flag_Stolen_Event_ID");
 		GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Stolen_Object_ID"));
 		if (event_obj == NULL) event_obj = obj;
-		Commands->Send_Custom_Event(obj,event_obj,cust_id, 1);
+		Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 	}
 
 	void Timer_Expired (GameObject * obj, int timer_id)
@@ -997,7 +997,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 				int cust_id = Get_Int_Parameter("Captures_Exceeded_Event_ID");
 				GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Captures_Exceeded_Object_ID"));
 				if (event_obj == NULL) event_obj = obj;
-				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1);
+				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 
 				// win!  
 				GameObject * win_obj = Commands->Find_Object(Get_Int_Parameter("Win_Object_To_Kill0"));
@@ -1043,7 +1043,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 				int cust_id = Get_Int_Parameter("Flag_Lost_Event_ID");
 				GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Lost_Object_ID"));
 				if (event_obj == NULL) event_obj = obj;
-				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1);
+				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 			}
 			
 			// check if we have a capturer and need to update
@@ -1068,7 +1068,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 					int cust_id = Get_Int_Parameter("Flag_Saved_Event_ID");
 					GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Saved_Object_ID"));
 					if (event_obj == NULL) event_obj = obj;
-					Commands->Send_Custom_Event(obj,event_obj,cust_id, 1);
+					Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 				}
 			}
 
@@ -1092,7 +1092,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 						int cust_id = Get_Int_Parameter("Flag_Returned_Event_ID");
 						GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Flag_Returned_Object_ID"));
 						if (event_obj == NULL) event_obj = obj;
-						Commands->Send_Custom_Event(obj,event_obj,cust_id, 1);
+						Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 					}
 				}
 			}

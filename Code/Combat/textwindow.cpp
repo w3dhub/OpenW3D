@@ -283,7 +283,8 @@ TextWindowClass::Set_Backdrop
 		//
 		//	Tile the text backdrop sections
 		//
-		for (int index = 0; index < section_count; index ++) {			
+		int index;
+		for (index = 0; index < section_count; index ++) {			
 			
 			//
 			//	Submit the geometry

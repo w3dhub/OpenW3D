@@ -1250,7 +1250,8 @@ BeaconGameObj::Was_Owner_Interrupted (void)
 		ControlClass &control = soldier->Get_Control ();
 		// Ignore up/down and turning
 //		for (int index = 0; index < ControlClass::ANALOG_CONTROL_COUNT; index ++) {
-		for (int index = 0; index < ControlClass::ANALOG_MOVE_LEFT+1; index ++) {
+		int index;
+		for (index = 0; index < ControlClass::ANALOG_MOVE_LEFT+1; index ++) {
 			//
 			//	Check this input to see if the soldier is moving
 			//

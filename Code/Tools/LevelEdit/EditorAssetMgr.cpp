@@ -262,7 +262,7 @@ EditorAssetMgrClass::Create_Render_Obj (const char * name)
 	if (WW3D_Load_On_Demand && proto == NULL) {	// If we didn't find one, try to load on demand
 		char filename[ MAX_PATH ];
 		sprintf( filename, "%s.W3D", name);
-		char *mesh_name = ::strchr (name, '.');
+		const char *mesh_name = ::strchr (name, '.');
 		if (mesh_name != NULL) {
 			::lstrcpyn (filename, name, ((int)mesh_name) - ((int)name) + 1);
 			::lstrcat (filename, ".W3D");
@@ -312,7 +312,7 @@ EditorAssetMgrClass::Get_HAnim (const char * name)
 	if (WW3D_Load_On_Demand && panim == NULL) {	// If we didn't find it, try to load on demand
 		
 		char filename[ MAX_PATH ];
-		char *animname = strchr( name, '.');
+		const char *animname = strchr( name, '.');
 		if (animname != NULL) {
 			sprintf( filename, "%s.W3D", animname+1);
 		} else {
@@ -608,7 +608,7 @@ EditorFileFactoryClass::Get_File (char const *filename)
 				//
 				//	Does the file exist in this directoy?
 				//
-				StringClass full_path = Make_Path (SearchPathList[index], filename);
+				StringClass full_path = static_cast<const char *>(Make_Path (SearchPathList[index], filename));
 				if (::GetFileAttributes (full_path) != 0xFFFFFFFF) {
 					path = full_path;
 					break;

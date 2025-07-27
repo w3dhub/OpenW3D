@@ -339,8 +339,9 @@ void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 	if ((Style & ES_PASSWORD) != 0) {
 		int len = Title.Get_Length();
 		wchar_t* buffer = text.Peek_Buffer();
+		int index;
 
-		for (int index = 0; index < len; ++index) {
+		for (index = 0; index < len; ++index) {
 			buffer[index] = L'*';
 		}
 

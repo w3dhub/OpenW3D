@@ -455,18 +455,18 @@ void DebugManager::Write_To_File(LPCSTR str)
 #ifndef PARAM_EDITING_ON
 #ifndef STEVES_NEW_CATCHER
 
-extern "C" {
-void *gsimalloc(size_t size)
-{
-	WWMEMLOG(MEM_BINK);
-	return(WWMemoryLogClass::Allocate_Memory(size));
-}
-void gsifree(void *ptr)
-{
-	WWMEMLOG(MEM_BINK);
-	WWMemoryLogClass::Release_Memory(ptr);
-}
-}
+//extern "C" {
+//void *gsimalloc(size_t size)
+//{
+//	WWMEMLOG(MEM_BINK);
+//	return(WWMemoryLogClass::Allocate_Memory(size));
+//}
+//void gsifree(void *ptr)
+//{
+//	WWMEMLOG(MEM_BINK);
+//	WWMemoryLogClass::Release_Memory(ptr);
+//}
+//}
 
 
 void * ::operator new (size_t size)

@@ -797,7 +797,7 @@ void DlgMPTeamSelect::HandleNotification(GameOptionsMessage& message)
 		while (token)
 			{
 			// Find the first occurance of the token in the message
-			char* cmd = strstr(options, token);
+			const char* cmd = strstr(options, token);
 
 			// If the token was found and it is at the start of the message
 			// then invoke the handler for this message.

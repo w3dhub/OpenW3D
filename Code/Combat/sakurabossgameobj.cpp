@@ -2001,7 +2001,8 @@ SakuraBossGameObj::Set_Sakura_State (int new_state)
 				//	Find the first available taunt
 				//
 				int taunt_id = 0;
-				for (int index = 0; index < MAX_TAUNTS; index ++) {
+				int index;
+				for (index = 0; index < MAX_TAUNTS; index ++) {
 					if (TauntList[index] != 0) {
 						taunt_id = TauntList[index] - 1;
 						TauntList[index] = 0;

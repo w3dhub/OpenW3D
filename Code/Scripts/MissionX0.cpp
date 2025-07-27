@@ -1245,7 +1245,7 @@ DECLARE_SCRIPT (MX0_SniperAction, "FaceObj:int")
 
 	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
 	{
-		Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+		Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 
 		if ( damager == STAR )
 		{
@@ -1260,7 +1260,7 @@ DECLARE_SCRIPT (MX0_SniperAction, "FaceObj:int")
 		}
 		else
 		{
-			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 		}
 	}
 
@@ -1455,7 +1455,7 @@ DECLARE_SCRIPT(MX0_GDI_ORCA, "" )
 
 			// "Eagle Base, we must be close. There's a NOD Harvester here..."
 			const char *conv_name = ("MX0_A03_02");
-			int conv_id = Commands->Create_Conversation (conv_name);
+			int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 			Commands->Join_Conversation(NULL, conv_id, true, true, true);
 			Commands->Start_Conversation (conv_id, 1);
 			Commands->Monitor_Conversation (obj, conv_id);
@@ -1478,7 +1478,7 @@ DECLARE_SCRIPT(MX0_GDI_ORCA, "" )
 		{
 			// "Orca6: "Orca 6 to Eagle Base. I have visual on the harvester. Starting my run, now."
 			const char *conv_name = ("MX0_A03_03");
-			int conv_id = Commands->Create_Conversation (conv_name);
+			int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 			Commands->Join_Conversation(NULL, conv_id, true, true, true);
 			Commands->Start_Conversation (conv_id, 1);
 		}
@@ -1494,7 +1494,7 @@ DECLARE_SCRIPT(MX0_GDI_ORCA, "" )
 			GameObject *Trooper_One = Commands->Find_Object( Trooper_One_Id );
 
 			// "Trooper1: Woah. "That Rocked!" Orca6: "This is Orca 6 -- bingo Fuel. Returning to Base..."
-			int conv_id = Commands->Create_Conversation ( "MX0_A03_04" );
+			int conv_id = Commands->Create_Conversation ( "MX0_A03_04" , 0, 0, true);
 			Commands->Join_Conversation(Trooper_One, conv_id, false, false, true);
 			Commands->Join_Conversation(NULL, conv_id, true, true, true);
 			Commands->Start_Conversation (conv_id, 2);
@@ -1963,14 +1963,14 @@ DECLARE_SCRIPT (MX0_A03_CONTROLLER_DAK, "" )
 				if ( rand == 1 )
 				{
 					// Trooper1: "Standing in Tiberium...Not Smart.
-					int conv_id = Commands->Create_Conversation ( "MX0_A03_06" );
+					int conv_id = Commands->Create_Conversation ( "MX0_A03_06" , 0, 0, true);
 					Commands->Join_Conversation( Trooper_One, conv_id, false, false, true);
 					Commands->Start_Conversation (conv_id, 0);
 				}
 				else
 				{
 					// Trooper1: "What was he thinking? Standing in a Tiberium field!"
-					int conv_id = Commands->Create_Conversation ( "MX0_A03_07" );
+					int conv_id = Commands->Create_Conversation ( "MX0_A03_07" , 0, 0, true);
 					Commands->Join_Conversation( Trooper_One, conv_id, false, false, true);
 					Commands->Start_Conversation (conv_id, 0);
 				}
@@ -1991,7 +1991,7 @@ DECLARE_SCRIPT (MX0_A03_CONTROLLER_DAK, "" )
 				{
 					GameObject *Trooper_One = Commands->Find_Object( Trooper_One_Id );
 					// Trooper1: "Nice! That'll cost 'em!"
-					int conv_id = Commands->Create_Conversation ( "MX0_A03_08" );
+					int conv_id = Commands->Create_Conversation ( "MX0_A03_08" , 0, 0, true);
 					Commands->Join_Conversation( Trooper_One, conv_id, false, false, true);
 					Commands->Start_Conversation (conv_id, 0);
 				}
@@ -2116,7 +2116,7 @@ DECLARE_SCRIPT ( MX0_A03_HUMVEE, "" ) // moves humvee
 		Commands->Attach_Script( obj, "M00_Send_Object_ID", "1500020,1,1.0f"); 
 
 		const char *conv_name = ("MX0_A03_01");
-		int conv_id = Commands->Create_Conversation (conv_name);
+		int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 		Commands->Join_Conversation(NULL, conv_id, true, true, true);
 		Commands->Start_Conversation (conv_id, 1);
 
@@ -2359,7 +2359,7 @@ DECLARE_SCRIPT ( MX0_A03_NOD_HARVESTER, "" )
 	{
 		if ( obj )
 		{
-			Commands->Set_Animation( obj, "V_NOD_HRVSTR.V_NOD_HRVSTR", false);
+			Commands->Set_Animation( obj, "V_NOD_HRVSTR.V_NOD_HRVSTR", false, NULL, 0.0f, -1.0f, false);
 		}
 	}
 
@@ -2481,7 +2481,7 @@ DECLARE_SCRIPT( MX0_A03_GDI_TROOPER_ONE, "" )
 			if ( Harvester_Not_Destroyed )
 			{
 				// Trooper1: Blast that Harvester for us, sir!
-				int conv_id = Commands->Create_Conversation ( "MX0_A03_05" );
+				int conv_id = Commands->Create_Conversation ( "MX0_A03_05" , 0, 0, true);
 				Commands->Join_Conversation( obj, conv_id, false, false, true);
 				Commands->Start_Conversation (conv_id, 0);
 

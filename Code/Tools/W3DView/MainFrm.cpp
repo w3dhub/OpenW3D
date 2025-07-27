@@ -1035,7 +1035,12 @@ void
 CMainFrame::OnActivateApp
 (
     BOOL bActive,
-    HTASK hTask
+	
+#if (defined(_MSC_VER) && _MSC_VER < 1300)
+	HTASK hTask
+#else
+    DWORD hTask
+#endif
 ) 
 {
 	// Get a pointer to the 'graphic' pane's window

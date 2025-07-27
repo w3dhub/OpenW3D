@@ -176,7 +176,8 @@ CharacterOptionsMenuClass::Fill_Character_Combobox (void)
 	//	Fill in the GDI characters
 	//
 	const int MAX_ENTRIES = 10;
-	for (int index = 0; index < MAX_ENTRIES; index ++) {
+	int index;
+	for (index = 0; index < MAX_ENTRIES; index ++) {
 		
 		int item_index = combo_box->Add_String (settings1->Get_Name (index));
 		if (item_index != -1) {

@@ -265,7 +265,8 @@ MessageWindowClass::On_Frame_Update (void)
 		//	Remove messages from the top of the list if we have more then we
 		// can display
 		//
-		for (int index = 0; index < items_to_remove; index ++) {
+		int index;
+		for (index = 0; index < items_to_remove; index ++) {
 			TextWindow->Delete_Item (0);
 		}
 

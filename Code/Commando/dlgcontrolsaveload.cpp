@@ -46,7 +46,7 @@
 ////////////////////////////////////////////////////////////////
 //	Local constants
 ////////////////////////////////////////////////////////////////
-static enum
+enum
 {
 	MBEVENT_DELETE_PROMPT	= 1,
 	MBEVENT_SAVE_PROMPT
@@ -85,7 +85,8 @@ ControlSaveLoadMenuClass::On_Init_Dialog (void)
 		//	Loop over all the configurations
 		//
 		int count = InputConfigMgrClass::Get_Configuration_Count ();
-		for (int index = 0; index < count; index ++) {
+		int index;
+		for (index = 0; index < count; index ++) {
 			
 			//
 			//	Get information about this configuration

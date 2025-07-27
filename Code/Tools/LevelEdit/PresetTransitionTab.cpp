@@ -186,7 +186,8 @@ PresetTransitionTabClass::Apply_Changes (void)
 	//	Free the old transitions
 	//
 	int count = m_TransitionList->Count ();
-	for (int index = 0; index < count; index ++) {				
+	int index;
+	for (index = 0; index < count; index ++) {				
 		TransitionDataClass *transition = (*m_TransitionList)[index];
 		SAFE_DELETE (transition);
 	}

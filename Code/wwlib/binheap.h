@@ -223,8 +223,9 @@ class BinaryHeapClass
 
 			// Decrement the number of elements in the tree.
 			Number_Of_Elements--;
+			unsigned int i;
 
-			for (unsigned int i = 1; (i * 2) <= Number_Of_Elements; i = child)
+			for (i = 1; (i * 2) <= Number_Of_Elements; i = child)
 			{
 				// Find a smaller child.
 				child = i * 2;

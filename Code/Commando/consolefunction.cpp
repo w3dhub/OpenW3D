@@ -2932,7 +2932,7 @@ public:
 			//
 			// C & S can both use id=xxxxxx format
 			//
-			char * p_id = ::strstr(input, "id=");
+			const char * p_id = ::strstr(input, "id=");
 			if (p_id != NULL) {
 				int id = -1;
 				::sscanf(p_id, "id=%d", &id);
@@ -2955,7 +2955,7 @@ public:
 			// Remaining functionality only for server.
 			//
 
-			char * p_pc = strstr(input, "percent=");
+			const char * p_pc = strstr(input, "percent=");
 			int percent = 100;
 			if (p_pc != NULL) {
 				sscanf(p_pc, "percent=%d", &percent);
@@ -3585,7 +3585,8 @@ public:
 		WW3D::Get_Device_Resolution(w,h,bits,windowed);
 		const RenderDeviceDescClass& desc=WW3D::Get_Render_Device_Desc();
 		const DynamicVectorClass<ResolutionDescClass> & resos=desc.Enumerate_Resolutions();
-		for (int i=0;i<resos.Count();++i) {
+		int i;
+		for (i=0;i<resos.Count();++i) {
 			if (resos[i].Width==w && resos[i].Height==h && resos[i].BitDepth==bits) {
 				break;
 			}
@@ -4148,7 +4149,8 @@ public:
 			if (!input || !(*input)) return;
 			cPlayer *player = NULL;
 
-			for (SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ()
+			SLNode<cPlayer> *player_node;
+			for (player_node = cPlayerManager::Get_Player_Object_List ()->Head ()
 				; player_node != NULL; player_node = player_node->Next ()) {
 
 				player = player_node->Data ();
@@ -4459,7 +4461,7 @@ public:
 		float skytintfactor, ramptime;
 		bool	success = false;
 
-		argcount = sscanf (input, "%f %f %f", &skytintfactor, &ramptime);
+		argcount = sscanf (input, "%f %f", &skytintfactor, &ramptime);
 		switch (argcount) {
 
 			case 1:

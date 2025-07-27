@@ -1084,7 +1084,8 @@ VisPointGeneratorClass::Generate_Camera_Locations (const Matrix3D &real_vis_poin
 	//	Loop through each camera simulation point (they lie
 	// in a circle around the position)
 	//	
-	for (int index = 0; index < m_CameraSimPointCount; index ++) {
+	int index;
+	for (index = 0; index < m_CameraSimPointCount; index ++) {
 				
 		//
 		//	Build a ray from the given position down 1000 meters

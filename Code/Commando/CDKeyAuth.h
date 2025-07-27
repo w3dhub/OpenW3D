@@ -33,7 +33,7 @@ class CCDKeyAuth
 
 protected:
 
-	static void auth_callback(int localid, int authenticated, char *errmsg, void *instance);
+	static void auth_callback(int gameid, int localid, int authenticated, char *errmsg, void *instance);
 
 public:
 	static void GetSerialNum(StringClass &serial);

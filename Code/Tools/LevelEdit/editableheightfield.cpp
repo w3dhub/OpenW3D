@@ -612,7 +612,8 @@ EditableHeightfieldClass::Update_Normals (int min_x, int min_y, int max_x, int m
 	//
 	//	First, initialize each vertex normal to 0
 	//
-	for (int y_pos = min_y; y_pos <= max_y; y_pos ++) {
+	int y_pos;
+	for (y_pos = min_y; y_pos <= max_y; y_pos ++) {
 		int vert_index = (y_pos * GridPointsX) + min_x;
 		for (int x_pos = min_x; x_pos <= max_x; x_pos ++) {
 			
@@ -939,7 +940,8 @@ EditableHeightfieldClass::Smooth_Foundation_Heightfield
 	//
 	//	Loop over all the verts in this region and apply the deformation
 	//
-	for (int y_pos = min_y; y_pos <= max_y; y_pos ++) {
+	int y_pos;
+	for (y_pos = min_y; y_pos <= max_y; y_pos ++) {
 		int curr_offset = (y_pos * GridPointsX) + min_x;
 
 		for (int x_pos = min_x; x_pos <= max_x; x_pos ++) {
@@ -1417,8 +1419,8 @@ EditableHeightfieldClass::Save (ChunkSaveClass &csave)
 	//	Now, write out the "array" of heights
 	//
 	csave.Begin_Chunk (CHUNKID_HEIGHTS);
-
-		for (int index = 0; index < GridPointCount; index ++) {
+		int index;
+		for (index = 0; index < GridPointCount; index ++) {
 			csave.Write (&Grid[index].Z, sizeof (float));
 		}
 				
@@ -1848,9 +1850,9 @@ EditableHeightfieldClass::Create
 			} else {
 
 				int pixel_x0 = (int)pixel_x;
-				int pixel_x1 = min (pixel_x0 + 1, bmp_info.bmWidth - 1);
+				int pixel_x1 = min<int> (pixel_x0 + 1, bmp_info.bmWidth - 1);
 				int pixel_y0 = (int)pixel_y;
-				int pixel_y1 = min (pixel_y0 + 1, bmp_info.bmHeight - 1);
+				int pixel_y1 = min<int> (pixel_y0 + 1, bmp_info.bmHeight - 1);
 
 				//
 				//	Get the z-values of the four corners of the pixel

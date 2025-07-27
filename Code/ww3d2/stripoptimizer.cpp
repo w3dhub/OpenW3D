@@ -161,7 +161,8 @@ void StripOptimizerClass::Optimize_Strip_Order (int* strips, int strip_count)
 	
 	int**	ss = new int*[strip_count];							// pointers to beginning of strips
 	int* s = strips;
-	for (int i = 0; i < strip_count; i++)
+	int i;
+	for (i = 0; i < strip_count; i++)
 	{
 		ss[i] = s;
 		int len = *s++;			// read len
@@ -245,7 +246,8 @@ void StripOptimizerClass::Optimize_Triangle_Order (int *tris, int triangle_count
 	WWASSERT(tris);
 
 	Tri** t = new Tri*[triangle_count];
-	for (int i = 0; i < triangle_count; i++)
+	int i;
+	for (i = 0; i < triangle_count; i++)
 	{
 		t[i] = (Tri*)(tris + i*3);
 	}
@@ -706,7 +708,8 @@ inline TriangleQueue::TriangleQueue	(Triangle* tris, int N)
 inline Vector3i Stripify::getTriangleNodeConnectivityWeights (const TriangleQueue& queue, const Triangle& tri)
 {
 	int weight[3];
-	for (int i = 0; i < 3; i++)
+	int i;
+	for (i = 0; i < 3; i++)
 	{
 		weight[i] = queue.getVertexConnectivity(tri.m_vertices[i]);
 	}

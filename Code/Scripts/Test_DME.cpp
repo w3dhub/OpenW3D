@@ -267,14 +267,14 @@ DECLARE_SCRIPT (DME_Test_Paradrop, "")
 		GameObject *box1 = Commands->Create_Object("Generic_Cinematic", loc);
 		Commands->Set_Model(box1, "X5D_Box01");
 		Commands->Set_Facing(box1, facing);
-		Commands->Set_Animation(box1, "X5D_Box01.X5D_Box01", false);
+		Commands->Set_Animation(box1, "X5D_Box01.X5D_Box01", false, NULL, 0.0f, -1.0f, false);
 
 		GameObject *soldier1;
 		soldier1 = Commands->Create_Object_At_Bone(box1, "Nod_Technician_0", "Box01");
 		Commands->Set_Facing(soldier1, facing);
 		Commands->Attach_Script(soldier1, "RMV_Trigger_Killed", "1144444, 1000, 1000");
 		Commands->Attach_To_Object_Bone( soldier1, box1, "Box01" );
-		Commands->Set_Animation(soldier1, "s_a_human.H_A_X5D_ParaT_1", false);
+		Commands->Set_Animation(soldier1, "s_a_human.H_A_X5D_ParaT_1", false, NULL, 0.0f, -1.0f, false);
 		
 		
 
@@ -291,7 +291,7 @@ DECLARE_SCRIPT (DME_Test_Paradrop, "")
 			para1 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Facing(para1, facing);
 			Commands->Set_Model(para1, "X5D_Parachute");
-			Commands->Set_Animation(para1, "X5D_Parachute.X5D_ParaC_1", false);
+			Commands->Set_Animation(para1, "X5D_Parachute.X5D_ParaC_1", false, NULL, 0.0f, -1.0f, false);
 			Commands->Create_3D_Sound_At_Bone("parachute_open", para1, "ROOTTRANSFORM");
 			Commands->Attach_Script(para1, "M03_No_More_Parachute", "");
 		}
@@ -330,7 +330,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 	{																		//100 not occupied, 200 is occupied.
 		if (type == DME_OCCUPIED && param == 100)
 		{
-			Commands->Send_Custom_Event(obj, sender, 70, 70);				//if not occupied, sends custom to set status to occupied.
+			Commands->Send_Custom_Event(obj, sender, 70, 70, 0.0f);				//if not occupied, sends custom to set status to occupied.
 		}
 
 		else if (type == 200 && param == 200)
@@ -473,10 +473,10 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			anim_playing = false;
 			
 			Commands->Action_Reset(obj, 99);
-			Commands->Set_Animation( obj, NULL, false );
+			Commands->Set_Animation( obj, NULL, false , NULL, 0.0f, -1.0f, false);
 			
 			destination_object = Commands->Find_Object (loc_id [choice]);
-			Commands->Send_Custom_Event(obj, destination_object, 90, 90);
+			Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 			Worker_Loop (obj);
 						
@@ -488,7 +488,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			star_seen = false;
 
 			Commands->Action_Reset(obj, 99);
-			Commands->Set_Animation( obj, "H_A_HOST_L1B", false );
+			Commands->Set_Animation( obj, "H_A_HOST_L1B", false, NULL, 0.0f, -1.0f, false );
 			Commands->Set_Animation_Frame(obj, "H_A_HOST_L1B", 16);
 			
 			Worker_Loop (obj);
@@ -519,14 +519,14 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			if (anim_playing == false)
 			{
 				destination_object = Commands->Find_Object (loc_id [choice]);
-				Commands->Send_Custom_Event(obj, destination_object, 90, 90);
+				Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 				star_seen = true;
 				Commands->Start_Timer (obj, this, 9.0f, 510);
 				
 				const char *conv_name = ("IDS_M06_DME");
-				int conv_id = Commands->Create_Conversation (conv_name);
-				Commands->Join_Conversation(obj, conv_id, false, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
+				Commands->Join_Conversation(obj, conv_id, false, false, true);
 				Commands->Start_Conversation (conv_id, 1);
 				
 				
@@ -547,7 +547,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			Commands->Set_Player_Type( obj, -2 );
 
 			destination_object = Commands->Find_Object (loc_id [choice]);
-			Commands->Send_Custom_Event(obj, destination_object, 90, 90);
+			Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 			poked = true;
 			
@@ -558,8 +558,8 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 					Commands->Start_Timer (obj, this, 5.0f, 520);
 					
 					const char *conv_name = ("IDS_M06_DME02");
-					int conv_id = Commands->Create_Conversation (conv_name);
-					Commands->Join_Conversation(obj, conv_id, false, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
+					Commands->Join_Conversation(obj, conv_id, false, false, true);
 					Commands->Start_Conversation (conv_id, 1);
 					Commands->Create_Logical_Sound(obj, SOUND_TYPE_GUNSHOT, Commands->Get_Position(obj), 75.0f);
 
@@ -573,8 +573,8 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 					Commands->Start_Timer (obj, this, 5.0f, 520);
 					
 					const char *conv_name = ("IDS_M06_D05");
-					int conv_id = Commands->Create_Conversation (conv_name);
-					Commands->Join_Conversation(obj, conv_id, false, false);
+					int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
+					Commands->Join_Conversation(obj, conv_id, false, false, true);
 					Commands->Start_Conversation (conv_id, 1);
 
 				
@@ -587,7 +587,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 					if (reward_given == false)
 					{
 						Commands->Action_Reset(obj, 99);
-						Commands->Set_Animation( obj, "H_A_HOST_L1B", false );
+						Commands->Set_Animation( obj, "H_A_HOST_L1B", false , NULL, 0.0f, -1.0f, false);
 						Commands->Set_Animation_Frame(obj, "H_A_HOST_L1B", 16);
 						
 						reward_given = true;									//records that the reward has been given.
@@ -595,14 +595,14 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 						Commands->Start_Timer (obj, this, 5.0f, 530);
 
 						const char *conv_name = ("IDS_M06_DME3");				//starts conversation.
-						int conv_id = Commands->Create_Conversation (conv_name);
-						Commands->Join_Conversation(obj, conv_id, false, false);
+						int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
+						Commands->Join_Conversation(obj, conv_id, false, false, true);
 						Commands->Start_Conversation (conv_id, 1);
 
 						
 						Vector3 pos = Commands->Get_Position(obj);				//specifies drop location and plays droping anim.
 						float facing = Commands->Get_Facing(obj);
-						Commands->Set_Animation( obj, "H_A_J12C", false );
+						Commands->Set_Animation( obj, "H_A_J12C", false, NULL, 0.0f, -1.0f, false );
 						float a = cos(DEG_TO_RADF(facing)) * 1.5;
 						float b = sin(DEG_TO_RADF(facing)) * 1.5;
 						Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
@@ -684,13 +684,13 @@ DECLARE_SCRIPT (DME_Test_Work_Area, "")		//this script needs to be placed on all
 			if (!occupied)
 			{
 				Commands->Debug_Message("Not occupied\n");
-				Commands->Send_Custom_Event(obj, sender, DME_OCCUPIED, 100);
+				Commands->Send_Custom_Event(obj, sender, DME_OCCUPIED, 100, 0.0f);
 			}
 
 			else
 			{
 				Commands->Debug_Message("Occupied\n");
-				Commands->Send_Custom_Event(obj, sender, 200, 200);
+				Commands->Send_Custom_Event(obj, sender, 200, 200, 0.0f);
 			}
 		}
 
@@ -839,7 +839,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 	{																		//100 not occupied, 200 is occupied.
 		if (type == DME_OCCUPIED && param == 100)
 		{
-			Commands->Send_Custom_Event(obj, sender, 70, 70);				//if not occupied, sends custom to set status to occupied.
+			Commands->Send_Custom_Event(obj, sender, 70, 70, 0.0f);				//if not occupied, sends custom to set status to occupied.
 		}
 
 		else if (type == 200 && param == 200)
@@ -950,10 +950,10 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 			anim_playing = false;
 			
 			Commands->Action_Reset(obj, 99);
-			Commands->Set_Animation( obj, NULL, false );
+			Commands->Set_Animation( obj, NULL, false, NULL, 0.0f, -1.0f, false );
 			
 			destination_object = Commands->Find_Object (loc_id [choice]);
-			Commands->Send_Custom_Event(obj, destination_object, 90, 90);
+			Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 			Worker_Loop (obj);
 						
@@ -965,7 +965,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 			star_seen = false;
 
 			Commands->Action_Reset(obj, 99);
-			Commands->Set_Animation( obj, "H_A_HOST_L1B", false );
+			Commands->Set_Animation( obj, "H_A_HOST_L1B", false , NULL, 0.0f, -1.0f, false);
 			Commands->Set_Animation_Frame(obj, "H_A_HOST_L1B", 16);
 			
 			Worker_Loop (obj);
@@ -980,14 +980,14 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 			if (anim_playing == false)
 			{
 				destination_object = Commands->Find_Object (loc_id [choice]);
-				Commands->Send_Custom_Event(obj, destination_object, 90, 90);
+				Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 				star_seen = true;
 				Commands->Start_Timer (obj, this, 9.0f, 510);
 				
 				const char *conv_name = ("IDS_M06_DME");
-				int conv_id = Commands->Create_Conversation (conv_name);
-				Commands->Join_Conversation(obj, conv_id, false, false);
+				int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
+				Commands->Join_Conversation(obj, conv_id, false, false, true);
 				Commands->Start_Conversation (conv_id, 1);
 				
 				
@@ -1006,7 +1006,7 @@ DECLARE_SCRIPT (test_Ssm_Trigger, "")
 	{
 		if (damager == STAR)
 		{
-			Commands->Send_Custom_Event (obj, obj, M00_LAUNCH_SSM, 0);
+			Commands->Send_Custom_Event (obj, obj, M00_LAUNCH_SSM, 0, 0.0f);
 		}
 	}
 };

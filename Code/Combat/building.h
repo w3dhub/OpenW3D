@@ -92,7 +92,7 @@ namespace BuildingConstants
 		LEGACY_TEAM_NOD,
 	} LegacyBuildingTeam;
 
-	typedef enum
+	enum
 	{
 		BASE_COUNT = 2,
 	};

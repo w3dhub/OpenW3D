@@ -1219,7 +1219,7 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 void SlaveMasterClass::Delete_Registry_Copies(void)
 {
 	HKEY base_key;
-	long result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, APPLICATION_SUB_KEY_NAME, 0, KEY_ALL_ACCESS, &base_key);
+	long result = RegOpenKeyEx(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME, 0, KEY_ALL_ACCESS, &base_key);
 	WWASSERT(result == ERROR_SUCCESS);
 
 	if (result == ERROR_SUCCESS) {

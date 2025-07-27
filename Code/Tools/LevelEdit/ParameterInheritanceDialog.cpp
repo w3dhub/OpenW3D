@@ -58,7 +58,7 @@ static const int ICON_PHYS_SETTING		= 1;
 //	Local prototypes
 /////////////////////////////////////////////////////////////////////////////
 static LRESULT CALLBACK CheckBoxSubclassProc (HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
-static BOOL TreeView_SetCheckState (HWND hwndTreeView, HTREEITEM hItem, BOOL fCheck);
+static BOOL TreeView_CustomSetCheckState (HWND hwndTreeView, HTREEITEM hItem, BOOL fCheck);
 static bool Find_Parameter_In_List (DynamicVectorClass<DefinitionParameterClass *> &parameter_list, ParameterClass *parameter);
 
 
@@ -333,7 +333,7 @@ ParameterInheritanceDialogClass::Add_Children_To_Tree (HTREEITEM parent_item, in
 					//
 					//	Check this preset by default
 					//
-					TreeView_SetCheckState (m_TreeCtrl, new_item, true);
+					TreeView_CustomSetCheckState (m_TreeCtrl, new_item, true);
 
 					//
 					//	Recursively fill in this presets's children
@@ -519,7 +519,7 @@ ParameterInheritanceDialogClass::Update_Tree_Entry_Check (HTREEITEM parent_item,
 	//
 	//	Update this entry's check-state
 	//
-	TreeView_SetCheckState (m_TreeCtrl, parent_item, checked);
+	TreeView_CustomSetCheckState (m_TreeCtrl, parent_item, checked);
 
 	//
 	//	Recurse through all the children
@@ -570,11 +570,11 @@ ParameterInheritanceDialogClass::Update_List_Entry_Check (int index, bool checke
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// TreeView_SetCheckState
+// TreeView_CustomSetCheckState
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-TreeView_SetCheckState (HWND hwndTreeView, HTREEITEM hItem, BOOL fCheck)
+TreeView_CustomSetCheckState (HWND hwndTreeView, HTREEITEM hItem, BOOL fCheck)
 {
     TVITEM tvItem;
 

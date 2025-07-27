@@ -96,7 +96,7 @@ ImageCtrlClass::Create_Control_Renderer (void)
 	//
 	//	Draw the control's outline
 	//
-	if ( Style & WS_BORDER == WS_BORDER ) {
+	if ( (Style & WS_BORDER) == WS_BORDER ) {
 		renderer.Add_Outline (Rect, 1.0F, color);
 	}
 	return ;

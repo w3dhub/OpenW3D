@@ -209,12 +209,12 @@ DECLARE_SCRIPT (M00_VisceroidInnate_DAY, "")
 	void Created( GameObject *obj )
 	{	
 		Commands->Set_Loiters_Allowed( obj, false );
-		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid", true );
+		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid", true, NULL, 0.0f, -1.0f, false );
 	}
 
 	void Killed( GameObject *obj, GameObject *killer )
 	{
-		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid_Die", false );
+		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid_Die", false, NULL, 0.0f, -1.0f, false );
 	}
 
 };
@@ -286,7 +286,7 @@ DECLARE_SCRIPT (M00_PlayAnimation_DestroyObject_DAY, "AnimationName:string")
 	void Created( GameObject * obj )
 	{
 		const char * animname = Get_Parameter("AnimationName");
-		Commands->Set_Animation( obj, animname, 0 );
+		Commands->Set_Animation( obj, animname, 0, NULL, 0.0f, -1.0f, false );
 	}
 
 	void Animation_Complete( GameObject * obj, const char * animation_name )

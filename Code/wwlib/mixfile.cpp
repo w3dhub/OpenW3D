@@ -327,7 +327,9 @@ MixFileFactoryClass::Flush_Changes (void)
 		//
 		//	Add all the remaining files from our file set
 		//
-		for (int index = 0; index < FilenameList.Count (); index ++) {
+		int index;
+
+		for (index = 0; index < FilenameList.Count (); index ++) {
 			StringClass &filename = FilenameList[index];
 
 			//

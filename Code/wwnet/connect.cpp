@@ -602,7 +602,7 @@ bool cConnection::Receive_Packet()
 
 	int ret_code = 0;
 
-#ifdef WWDEBUG
+#if 0 //def WWDEBUG // TODO LaggedPacketRetCodes.Delete(p) ambiguous
 	//
 	// See if there are any old packets with simulated lag whos time has come.
 	//
@@ -2352,7 +2352,8 @@ void cConnection::Service_Send(bool is_urgent)
          //
          // Send any appropriate queued packets
          //
-	      for (SLNode<cPacket> * objnode = p_rhost->Get_Packet_List(UNRELIABLE_SEND_LIST).Head();
+		 SLNode<cPacket> * objnode;
+	      for (objnode = p_rhost->Get_Packet_List(UNRELIABLE_SEND_LIST).Head();
             objnode != NULL; objnode = objnode->Next()) {
 
             cPacket * p_packet = objnode->Data();

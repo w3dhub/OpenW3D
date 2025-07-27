@@ -2054,7 +2054,7 @@ void	VehicleGameObj::Passenger_Entering( void )
 {
 	// Play the passenger entering animation
 	char string[80];
-	sprintf( string, "V_%sL1.M_%sCL", Get_Definition().TypeName, Get_Definition().TypeName );
+	sprintf( string, "V_%sL1.M_%sCL", (const char *)Get_Definition().TypeName, (const char *)Get_Definition().TypeName );
 	Set_Animation( string );
 	Get_Anim_Control()->Set_Mode( ANIM_MODE_ONCE );
 	//Debug_Say(("VehicleGameObj::Passenger_Entering\n"));
@@ -2064,7 +2064,7 @@ void	VehicleGameObj::Passenger_Exiting( void )
 {
 	// Play the passenger leaving animation
 	char string[80];
-	sprintf( string, "V_%sL1.M_%sOP", Get_Definition().TypeName, Get_Definition().TypeName );
+	sprintf( string, "V_%sL1.M_%sOP", (const char *)Get_Definition().TypeName, (const char *)Get_Definition().TypeName );
 	Set_Animation( string );
 	Get_Anim_Control()->Set_Mode( ANIM_MODE_ONCE );
 	Control.Clear_Control();

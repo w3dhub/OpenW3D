@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
-#include "NvDXTLib.h"
+//#include "NvDXTLib.h"
 #include "Targa.h"
 #include "TGAToDXT.H"
 #include <io.h>
@@ -126,7 +126,7 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 
 				if (!redundantalpha) {
 
-					errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT5, true, false, 4);
+					//errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT5, true, false, 4);
 
 				} else {
 
@@ -146,13 +146,13 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 						byte += 4;
 					}
 
-					errorcode = ::nvDXTcompress (nonalphaimage, targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
+					//errorcode = ::nvDXTcompress (nonalphaimage, targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
 					delete [] nonalphaimage;
 				}
 
 			} else {
 
-				errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
+				//errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
 			}
 
 			// Was the image compressed successfully?

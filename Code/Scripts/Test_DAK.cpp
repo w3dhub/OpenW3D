@@ -100,7 +100,7 @@ DECLARE_SCRIPT ( DAK_Fire_Gas_Elec_Death_DAK, "DeathType:string" )
 				Commands->Action_Play_Animation( obj, params );
 
 				// begin DeathType damage
-				Commands->Apply_Damage( obj, 1.0f, Get_Parameter( "DeathType" ) );
+				Commands->Apply_Damage( obj, 1.0f, Get_Parameter( "DeathType" ), NULL );
 			}
 		}
 		else
@@ -114,7 +114,7 @@ DECLARE_SCRIPT ( DAK_Fire_Gas_Elec_Death_DAK, "DeathType:string" )
 		if((action_id == 1) && (reason == ACTION_COMPLETE_NORMAL))
 		{
 			// animation is complete. kill obj.
-			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller");
+			Commands->Apply_Damage (obj, 10000.0f, "Blamokiller", NULL);
 		}
 
 	}

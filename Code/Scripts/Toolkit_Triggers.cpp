@@ -75,7 +75,7 @@ void M00_Controller_Trigger_RMV (GameObject * obj, GameObject * target, float ti
 	if ((time_lower_bound == 0.0) && (time_upper_bound == 0.0))
 	{
 		if (target)
-			Commands->Send_Custom_Event(obj, target, custom_type, custom_param);
+			Commands->Send_Custom_Event(obj, target, custom_type, custom_param, 0.0f);
 	}
 	else if ((time_lower_bound != 0.0) && (time_upper_bound == 0.0))
 	{
