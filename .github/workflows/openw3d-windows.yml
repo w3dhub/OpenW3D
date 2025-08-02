@@ -30,9 +30,7 @@ jobs:
       run: |
         $THISDIR=Get-Location
         cd main
-        mkdir build
-        cd build
-        cmake -A Win32 ..
+        cmake -A Win32 -B build .
         cmake --build . --parallel
 
 
