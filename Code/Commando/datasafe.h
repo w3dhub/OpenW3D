@@ -140,7 +140,9 @@
 #include <assert.h>
 #include <malloc.h>
 #include <memory.h>
+#ifdef _WINDOWS
 #include <windows.h>
+#endif
 #endif	//_ALWAYS_H
 
 #ifndef 	_TIMEMGR_H

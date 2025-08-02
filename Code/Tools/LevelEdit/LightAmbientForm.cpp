@@ -19,7 +19,7 @@
 // LightAmbientFormClass.cpp : implementation file
 //
 
-#include "Stdafx.H"
+#include "StdAfx.h"
 #include "LevelEdit.H"
 #include "LightAmbientForm.H"
 #include "Vector3.H"

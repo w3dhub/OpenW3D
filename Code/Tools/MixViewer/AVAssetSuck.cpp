@@ -16,7 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "avassetsuck.h"
 #include "ffactory.h"
 #include "mixfile.h"

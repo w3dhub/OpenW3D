@@ -381,4 +381,4 @@ private:
 
 
 
-#endif CHUNKIO_H
+#endif /*CHUNKIO_H*/

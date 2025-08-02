@@ -33,6 +33,7 @@
 // TheSuperHackers @compile xezon 24/03/2025 Prevent afxwin.h from loading d3d9types.h, colliding with our own DirectX library.
 #define _d3d9TYPES_H_
 
+#ifdef _WINDOWS
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions
 #include <afxdisp.h>        // MFC Automation classes
@@ -40,6 +41,7 @@
 #ifndef _AFX_NO_AFXCMN_SUPPORT
 #include <afxcmn.h>			// MFC support for Windows Common Controls
 #endif // _AFX_NO_AFXCMN_SUPPORT
+#endif
 
 
 //{{AFX_INSERT_LOCATION}}

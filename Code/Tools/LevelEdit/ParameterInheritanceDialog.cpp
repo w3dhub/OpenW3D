@@ -19,7 +19,7 @@
 // ParameterInheritanceDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "ParameterInheritanceDialog.h"
 #include "definition.h"

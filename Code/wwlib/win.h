@@ -59,7 +59,9 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+#ifdef _WINDOWS
 #include	<windows.h>
+#endif
 //#include <mmsystem.h>
 //#include	<windowsx.h>
 //#include	<winnt.h>

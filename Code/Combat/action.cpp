@@ -38,7 +38,7 @@
 #include "input.h"
 #include "persistfactory.h"
 #include "combatchunkid.h"
-#include "path.h"
+#include "Path.h"
 #include "pathsolve.h"
 #include "pathmgr.h"
 #include "vehicledriver.h"

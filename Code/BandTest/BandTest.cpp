@@ -40,21 +40,23 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #define WIN32_LEAN_AND_MEAN
+#ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #pragma warning(disable:4201)
 #include <mmsystem.h>
 #pragma warning(default:4201)
+#include <conio.h>
+#endif
 
 #include <malloc.h>
 #include <stdio.h>
-#include <conio.h>
 #include <stdlib.h>
 #include <assert.h>
 
 #include "BandTest.h"
 
-#include "..\combat\specialbuilds.h"
+#include "../Combat/specialbuilds.h"
 
 // warning C4711: function 'xxx' selected for automatic inline expansion
 #pragma warning(disable:4711)

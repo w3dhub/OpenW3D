@@ -19,7 +19,7 @@
 // AudioConfigDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "wwconfig.h"
 #include "audioconfigdialog.h"
 #include "wwaudio.h"

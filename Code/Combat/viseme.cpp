@@ -19,7 +19,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <wwdebug.h>
-#include "Viseme.h"
+#include "viseme.h"
 #include <ctype.h>
 
 #define IS_VOWEL(x)			( x && (x=='a' || x=='e' || x=='i' || x=='o' || x=='u') )

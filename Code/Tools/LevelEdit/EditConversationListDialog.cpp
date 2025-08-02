@@ -19,7 +19,7 @@
 // EditConversationListDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "editconversationlistdialog.h"
 #include "conversationmgr.h"

@@ -24,7 +24,7 @@
 //
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "mainfrm.h"
 #include "leveleditdoc.h"
 #include "leveleditview.h"

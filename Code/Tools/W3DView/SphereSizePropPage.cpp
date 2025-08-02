@@ -19,7 +19,7 @@
 // SphereSizePropPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "w3dview.h"
 #include "spheresizeproppage.h"
 #include "colorutils.h"

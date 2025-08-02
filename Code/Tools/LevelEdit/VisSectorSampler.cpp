@@ -36,7 +36,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "VisSectorSampler.h"
 #include "SceneEditor.h"
 #include "VisGenProgress.h"

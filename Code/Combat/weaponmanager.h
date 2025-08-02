@@ -50,7 +50,7 @@
 #endif
 
 #ifndef	_DATASAFE_H
-	#include	"..\commando\datasafe.h"
+    #include	"../Commando/datasafe.h"
 #endif		//_DATASAFE_H
 
 class		WeaponClass;

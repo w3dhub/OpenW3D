@@ -43,7 +43,7 @@
 #include "wwstring.h"
 #include "crandom.h"
 #include "physcon.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "rndstrng.h"
 #include "sound3d.h"
 #include "phys.h"

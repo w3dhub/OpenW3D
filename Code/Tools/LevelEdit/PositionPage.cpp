@@ -19,7 +19,7 @@
 // PositionPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "positionpage.h"
 #include "node.h"

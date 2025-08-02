@@ -19,7 +19,7 @@
 // EditDialogueDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "editdialoguedialog.h"
 #include "dialogue.h"

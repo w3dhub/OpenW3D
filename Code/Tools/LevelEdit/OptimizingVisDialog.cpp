@@ -19,7 +19,7 @@
 // OptimizingVisDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "optimizingvisdialog.h"
 #include "utils.h"

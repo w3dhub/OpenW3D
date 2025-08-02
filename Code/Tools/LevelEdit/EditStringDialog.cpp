@@ -19,7 +19,7 @@
 // EditStringDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "editstringdialog.h"
 #include "translateobj.h"

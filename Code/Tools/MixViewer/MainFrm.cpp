@@ -19,7 +19,7 @@
 // MainFrm.cpp : implementation of the CMainFrame class
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "mixviewer.h"
 #include "mainfrm.h"
 #include "wwstring.h"

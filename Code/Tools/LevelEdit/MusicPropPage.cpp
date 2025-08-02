@@ -19,7 +19,7 @@
 // MusicPropPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "LevelEdit.h"
 #include "MusicPropPage.h"
 #include "AudibleSound.h"

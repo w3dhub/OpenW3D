@@ -30,6 +30,16 @@ add_feature_info(RenegadeHeadless RENEGADE_FDS "Build Renegade headless server")
 option(RENEGADE_TOOLS "Build additional tools." ON)
 add_feature_info(RenegadeTools RENEGADE_TOOLS "Build Renegade Mod Tools")
 
+option(SYNTAX_CHECK_ONLY "Syntax check the files only?" OFF)
+add_feature_info(SyntaxCheck SYNTAX_CHECK_ONLY "Syntax check files only")
+if(SYNTAX_CHECK_ONLY)
+    add_compile_options("-fsyntax-only")
+endif(SYNTAX_CHECK_ONLY)
+
+if(UNIX AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_definitions(__cdecl=)
+endif()
+
 include(FetchContent)
 
 # Find/Add build dependencies and stubs.

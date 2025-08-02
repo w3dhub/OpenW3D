@@ -19,7 +19,7 @@
 // W3DViewDoc.cpp : implementation of the CW3DViewDoc class
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 
 #include "w3dview.h"
 #include "w3dviewdoc.h"

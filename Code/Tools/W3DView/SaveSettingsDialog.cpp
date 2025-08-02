@@ -19,7 +19,7 @@
 // SaveSettingsDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "W3DView.h"
 #include "SaveSettingsDialog.h"
 #include "W3DViewDoc.H"

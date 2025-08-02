@@ -19,7 +19,7 @@
 // WeatherPropPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "weatherproppage.h"
 #include "backgroundmgr.h"
 #include "leveledit.h"

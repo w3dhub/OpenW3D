@@ -19,7 +19,7 @@
 // AmbientLightDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 
 #include "W3DView.h"
 #include "AmbientLightDialog.h"

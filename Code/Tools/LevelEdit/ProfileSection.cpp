@@ -30,7 +30,7 @@
  * Functions:                                                                                  * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "ProfileSection.H"
 
 

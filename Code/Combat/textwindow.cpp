@@ -42,7 +42,7 @@
 #include "font3d.h"
 #include "objectives.h"
 #include "translatedb.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "globalsettings.h"
 #include "scene.h"
 #include "rendobj.h"
