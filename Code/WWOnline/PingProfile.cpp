@@ -34,11 +34,11 @@
 
 #include "always.h"
 #include "PingProfile.h"
-#include <WWOnline\WOLSession.h>
-#include <WWOnline\WOLServer.h>
-#include <WWOnline\WOLString.h>
-#include <WWLib\WideString.h>
-#include <WWDebug\WWDebug.h>
+#include <WWOnline/WOLSession.h>
+#include <WWOnline/WOLServer.h>
+#include <WWOnline/WOLString.h>
+#include <WWLib/WideString.h>
+#include <WWDebug/WWDebug.h>
 #include <limits.h>
 #include <math.h>
 

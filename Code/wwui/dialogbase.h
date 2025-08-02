@@ -50,7 +50,7 @@
 #include "widestring.h"
 #include "controladvisesink.h"
 #include "win.h"
-#include "notify.h"
+#include "Notify.h"
 
 ////////////////////////////////////////////////////////////////
 //	Forward declarations

@@ -46,7 +46,7 @@
 #endif
 
 #ifndef	MATRIX3D_H
-	#include "matrix3D.h"
+    #include "matrix3d.h"
 #endif
 
 class	HumanAnimControlClass;
