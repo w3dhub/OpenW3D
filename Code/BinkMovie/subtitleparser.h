@@ -42,7 +42,7 @@
 #define _SUBTITLEPARSER_H_
 
 #include "always.h"
-#include <wwlib\vector.h>
+#include <wwlib/vector.h>
 #include <stddef.h>
 
 class Straw;

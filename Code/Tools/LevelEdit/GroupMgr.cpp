@@ -23,7 +23,7 @@
 //	Class definition for managing groups.
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "groupmgr.h"
 #include "leveleditdoc.h"
 #include "cameramgr.h"

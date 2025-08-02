@@ -18,7 +18,7 @@
 
 // Machine generated IDispatch wrapper class(es) created with ClassWizard
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "excel8.h"
 #include <stdio.h>
 #include <assert.h>

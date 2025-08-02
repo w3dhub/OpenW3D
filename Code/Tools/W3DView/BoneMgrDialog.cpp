@@ -19,7 +19,7 @@
 // BoneMgrDialog.cpp : implementation file
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "W3DView.H"
 #include "BoneMgrDialog.H"
 #include "HTree.H"

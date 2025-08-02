@@ -19,7 +19,7 @@
 // DeviceSelectionDialog.cpp : implementation file
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 
 #include "W3DView.h"
 #include "DeviceSelectionDialog.h"

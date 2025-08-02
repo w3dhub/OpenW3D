@@ -19,7 +19,7 @@
 // NodeInfoPageClass.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "NodeInfoPage.H"
 #include "NodeMgr.H"

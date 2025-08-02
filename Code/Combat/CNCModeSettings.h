@@ -37,7 +37,7 @@
 #ifndef	__CNCMODESETTINGS_H__
 #define	__CNCMODESETTINGS_H__
 
-#include "Always.h"
+#include "always.h"
 #include "Definition.h"
 
 class CNCModeSettingsDef :

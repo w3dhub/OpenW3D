@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "W3DView.H"
 #include "TextureMgrDialog.H"
 #include "Mesh.H"

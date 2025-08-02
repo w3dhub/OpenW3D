@@ -71,7 +71,7 @@ set(WWMATH_SRC
     vector2.h
     vector2i.h
     vector3.h
-    Vector3i.h
+    vector3i.h
     vector4.h
     vehiclecurve.h
     vp.h

@@ -19,7 +19,7 @@
 // PerformanceConfigDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "wwconfig.h"
 #include "performanceconfigdialog.h"
 #include "registry.h"

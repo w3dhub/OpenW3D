@@ -19,7 +19,7 @@
 // EmitterFramePropPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "w3dview.h"
 #include "EmitterFramePropPage.h"
 #include "Utils.H"

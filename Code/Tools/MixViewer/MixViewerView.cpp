@@ -19,7 +19,7 @@
 // MixViewerView.cpp : implementation of the CMixViewerView class
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "MixViewer.h"
 
 #include "mixviewerdoc.h"

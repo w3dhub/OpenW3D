@@ -19,7 +19,7 @@
 // GotoObjectDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "gotoobjectdialog.h"
 #include "utils.h"

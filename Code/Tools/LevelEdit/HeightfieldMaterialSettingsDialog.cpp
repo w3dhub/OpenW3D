@@ -19,7 +19,7 @@
 // HeightfieldMaterialSettingsDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "heightfieldmaterialsettingsdialog.h"
 #include "heightfieldeditor.h"

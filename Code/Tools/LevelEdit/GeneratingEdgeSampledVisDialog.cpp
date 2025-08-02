@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "generatingedgesampledvisdialog.h"
 #include "visgenprogress.h"

@@ -19,7 +19,7 @@
 // EditStringTwiddlerDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "editstringtwiddlerdialog.h"
 #include "editstringdialog.h"

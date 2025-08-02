@@ -19,7 +19,7 @@
 // EmitterGeneralPropPage.cpp : implementation file
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "W3DView.H"
 #include "EmitterGeneralPropPage.H"
 #include "EmitterPropertySheet.H"

@@ -19,7 +19,7 @@
 // LevelEditDoc.cpp : implementation of the CLevelEditDoc class
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "leveleditdoc.h"
 #include "utils.h"

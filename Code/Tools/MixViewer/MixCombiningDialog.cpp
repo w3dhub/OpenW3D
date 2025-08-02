@@ -19,7 +19,7 @@
 // MixCombiningDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "MixViewer.h"
 #include "MixCombiningDialog.h"
 

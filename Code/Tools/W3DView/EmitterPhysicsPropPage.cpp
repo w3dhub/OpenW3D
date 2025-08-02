@@ -19,7 +19,7 @@
 // EmitterPhysicsPropPage.cpp : implementation file
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "W3DView.H"
 #include "EmitterPhysicsPropPage.H"
 #include "Utils.H"

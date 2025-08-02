@@ -487,7 +487,7 @@ class PriorityMultiListIterator : public MultiListIterator<ObjectType>
 public:
 	PriorityMultiListIterator(MultiListClass<ObjectType> *list)
 		:	OriginalHead (NULL),
-			MultiListIterator<ObjectType>(list)			{ First (); }
+            MultiListIterator<ObjectType>(list)			{ this->First (); }
 
 	bool
 	Process_Head (ObjectType **object)
@@ -496,14 +496,14 @@ public:
 
 		//	Check to ensure we don't wrap around the list (stop after iterating
 		// the list once).
-		if (CurNode != NULL && CurNode->Object != NULL && OriginalHead != CurNode) {
-			OriginalHead		= (OriginalHead == NULL) ? CurNode : OriginalHead;
-			(*object)			= (ObjectType *)CurNode->Object;
+        if (this->CurNode != NULL && this->CurNode->Object != NULL && OriginalHead != this->CurNode) {
+            OriginalHead		= (OriginalHead == NULL) ? this->CurNode : OriginalHead;
+            (*object)			= (ObjectType *)this->CurNode->Object;
 
 
 			// Remove the node from the head of the list and
 			// add it to the tail of the list
-			Remove_Current_Object();
+            this->Remove_Current_Object();
 			((MultiListClass<ObjectType> *)PriorityMultiListIterator::List)->Add_Tail ((*object));
 
 			retval = true;

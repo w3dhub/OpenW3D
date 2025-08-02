@@ -31,7 +31,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "ScreenCursor.H"
 #include "Utils.H"
 #include "ww3d.h"

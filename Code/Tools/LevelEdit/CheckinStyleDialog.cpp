@@ -19,7 +19,7 @@
 // CheckinStyleDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "CheckinStyleDialog.h"
 #include "RegKeys.H"

@@ -19,7 +19,7 @@
 // VisErrorReportDialog.cpp : implementation file
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "LevelEdit.H"
 #include "VisErrorReportDialog.H"
 #include "Utils.H"

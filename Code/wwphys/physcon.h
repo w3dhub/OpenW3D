@@ -141,4 +141,4 @@ public:
 };
 
 
-#endif PHYSCON_H
+#endif /*PHYSCON_H*/

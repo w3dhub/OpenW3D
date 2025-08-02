@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
-#include "weathermgr.h"
+#include "WeatherMgr.h"
 #include "apppackettypes.h"
 #include "assetmgr.h"
 #include "audiblesound.h"

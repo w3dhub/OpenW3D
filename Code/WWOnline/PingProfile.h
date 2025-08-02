@@ -35,7 +35,7 @@
 #ifndef __PINGPROFILE_H__
 #define __PINGPROFILE_H__
 
-#include <WWOnline\WaitCondition.h>
+#include <WWOnline/WaitCondition.h>
 
 namespace WWOnline
 {

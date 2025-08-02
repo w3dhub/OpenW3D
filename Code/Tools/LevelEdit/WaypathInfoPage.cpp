@@ -19,7 +19,7 @@
 // WaypathInfoPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "waypathinfopage.h"
 #include "waypathnode.h"

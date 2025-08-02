@@ -25,7 +25,7 @@
 //
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "FormToolbar.H"
 #include "DockableForm.H"
 

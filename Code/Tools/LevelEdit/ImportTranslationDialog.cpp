@@ -19,7 +19,7 @@
 // ImportTranslationDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "importtranslationdialog.h"
 #include "stringsmgr.h"

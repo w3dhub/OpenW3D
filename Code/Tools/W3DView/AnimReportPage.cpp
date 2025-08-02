@@ -19,7 +19,7 @@
 // AnimReportPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "w3dview.h"
 #include "W3DViewDoc.h"
 #include "AdvancedAnimSheet.h"
