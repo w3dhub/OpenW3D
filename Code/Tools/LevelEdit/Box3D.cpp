@@ -62,7 +62,7 @@
 //
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "box3d.h"
 #include "coltest.h"
 #include "tri.h"

@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "VisLog.H"
 #include "Utils.H"
 #include "ChunkIO.H"

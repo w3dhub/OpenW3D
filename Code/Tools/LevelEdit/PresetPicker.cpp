@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "presetpicker.h"
 #include "selectpresetdialog.h"
 #include "preset.h"

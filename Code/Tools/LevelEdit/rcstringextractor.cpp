@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "rcstringextractor.h"
 #include "translatedb.h"
 #include "stringsmgr.h"

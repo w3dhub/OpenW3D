@@ -43,7 +43,7 @@
 #include "mono.h"
 #include "registry.h"
 #include <stdio.h>
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "combat.h"
 #include "wwmemlog.h"
 #include "fastallocator.h"

@@ -19,7 +19,7 @@
 // GeneratingVisDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "generatingvisdialog.h"
 #include "utils.h"

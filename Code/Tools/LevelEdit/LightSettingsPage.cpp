@@ -31,7 +31,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "LevelEdit.H"
 #include "LightSettingsPage.H"
 #include "Utils.H"

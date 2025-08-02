@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "modelutils.h"
 #include "rendobj.h"
 #include "utils.h"

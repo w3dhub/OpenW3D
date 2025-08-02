@@ -19,7 +19,7 @@
 // CoverSpotInfoPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "CoverSpotInfoPage.h"
 #include "leveledit.h"
 #include "coverspotnode.h"

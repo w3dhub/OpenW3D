@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "waypathnode.h"
 #include "sceneeditor.h"
 #include "collisiongroups.h"

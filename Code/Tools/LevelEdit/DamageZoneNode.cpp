@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "damagezonenode.h"
 #include "sceneeditor.h"
 

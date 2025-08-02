@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "tilenode.h"
 #include "staticphys.h"
 #include "sceneeditor.h"

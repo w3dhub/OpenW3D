@@ -19,7 +19,7 @@
 // Vector3Dialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "Vector3Dialog.h"
 #include "utils.h"

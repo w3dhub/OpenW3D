@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "ViewerScene.H"
 #include "Camera.H"
 #include "WW3D.H"

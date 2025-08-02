@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "assetpackagemgr.h"
 #include "utils.h"
 #include "regkeys.h"

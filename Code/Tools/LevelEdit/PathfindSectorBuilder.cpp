@@ -30,7 +30,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "pathfindsectorbuilder.h"
 #include "phys3.h"
 #include "editorassetmgr.h"

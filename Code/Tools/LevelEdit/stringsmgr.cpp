@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "stringsmgr.h"
 #include "filelocations.h"
 #include "filemgr.h"

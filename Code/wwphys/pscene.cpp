@@ -100,7 +100,7 @@
 #include "predlod.h"
 #include "widgets.h"
 #include "renderobjphys.h"
-#include "pathfind.h"
+#include "Pathfind.h"
 #include "lightexclude.h"
 #include "physdecalsys.h"
 #include "quat.h"

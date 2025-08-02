@@ -19,7 +19,7 @@
 // MakeMixFileDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "mixviewer.h"
 #include "MakeMixFileDialog.h"
 #include "wwstring.h"

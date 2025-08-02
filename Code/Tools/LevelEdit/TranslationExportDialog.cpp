@@ -19,7 +19,7 @@
 // TranslationExportDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "translationexportdialog.h"
 #include "translatedb.h"

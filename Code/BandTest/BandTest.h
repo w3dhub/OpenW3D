@@ -47,10 +47,14 @@
 ** BANDTEST_API functions as being imported from a DLL, wheras this DLL sees symbols
 ** defined with this macro as being exported.
 */
+#ifdef _WIN32
 #ifdef BANDTEST_EXPORTS
 #define BANDTEST_API __declspec(dllexport)
 #else
 #define BANDTEST_API __declspec(dllimport)
+#endif
+#else
+#define BANDTEST_API
 #endif
 
 /*

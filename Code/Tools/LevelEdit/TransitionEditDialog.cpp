@@ -19,7 +19,7 @@
 // TransitionEditDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "leveleditview.h"
 #include "transitioneditdialog.h"

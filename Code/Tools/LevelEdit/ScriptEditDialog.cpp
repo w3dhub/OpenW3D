@@ -19,7 +19,7 @@
 // ScriptEditDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "ScriptEditDialog.h"
 #include "ScriptMgr.h"

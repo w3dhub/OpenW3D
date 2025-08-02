@@ -31,7 +31,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "Stdafx.H"
+#include "StdAfx.h"
 #include "W3DView.H"
 #include "VolumeRandomDialog.H"
 #include "V3_Rnd.H"

@@ -22,7 +22,7 @@
 //
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "colorpicker.h"
 #include "colorpickerdialogclass.h"
 #include <math.h>

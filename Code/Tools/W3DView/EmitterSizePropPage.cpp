@@ -19,7 +19,7 @@
 // EmitterSizePropPage.cpp : implementation file
 //
 
-#include "Stdafx.H"
+#include "StdAfx.h"
 #include "W3dview.H"
 #include "EmitterSizePropPage.H"
 #include "Utils.H"

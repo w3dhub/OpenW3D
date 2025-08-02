@@ -19,7 +19,7 @@
 // VideoConfigDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "wwconfig.h"
 #include "videoconfigdialog.h"
 #include "ww3d.h"

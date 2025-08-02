@@ -19,7 +19,7 @@
 // PlaySoundDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "playsounddialog.h"
 #include "utils.h"
 #include "audiblesound.h"

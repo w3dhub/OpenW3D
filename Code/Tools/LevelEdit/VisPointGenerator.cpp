@@ -31,7 +31,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "vispointgenerator.h"
 #include "cameramgr.h"
 #include "utils.h"

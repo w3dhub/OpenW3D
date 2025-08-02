@@ -40,7 +40,7 @@
 #define BITSTREAM_H
 
 
-#include "bitpacker.h"
+#include "BitPacker.h"
 #include "wwdebug.h"
 #include "encoderlist.h"
 #include "mathutil.h"

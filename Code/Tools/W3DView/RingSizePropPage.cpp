@@ -19,7 +19,7 @@
 // RingSizePropPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "w3dview.h"
 #include "ringsizeproppage.h"
 #include "colorutils.h"

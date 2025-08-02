@@ -31,7 +31,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "includefilesdialog.h"
 #include "filemgr.h"

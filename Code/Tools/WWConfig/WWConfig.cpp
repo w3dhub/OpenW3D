@@ -19,7 +19,7 @@
 // WWConfig.cpp : Defines the class behaviors for the application.
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "WWConfig.h"
 #include "WWConfigDlg.h"
 #include "argv.h"

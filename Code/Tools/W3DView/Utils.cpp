@@ -24,7 +24,7 @@
 //
 
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "W3DViewDoc.H"
 #include "MainFrm.H"
 #include "DataTreeView.H"
