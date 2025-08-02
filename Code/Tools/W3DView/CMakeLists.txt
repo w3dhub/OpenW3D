@@ -133,7 +133,7 @@ set(W3DVIEW_SRC
     ParticleSizeDialog.h
     PlaySoundDialog.h
     ResolutionDialog.h
-    Resource.h
+    resource.h
     RestrictedFileDialog.h
     RingColorPropPage.h
     RingGeneralPropPage.h

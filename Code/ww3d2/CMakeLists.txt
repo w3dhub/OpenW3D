@@ -32,7 +32,7 @@ set(WW3D2_SRC
     dynamesh.cpp
     font3d.cpp
     formconv.cpp
-    FramGrab.cpp
+    framgrab.cpp
     hanim.cpp
     hanimmgr.cpp
     hcanim.cpp
@@ -144,7 +144,7 @@ set(WW3D2_SRC
     hanimmgr.h
     hcanim.h
     hlod.h
-    hmdldef.H
+    hmdldef.h
     hmorphanim.h
     hrawanim.h
     htree.h
@@ -195,7 +195,7 @@ set(WW3D2_SRC
     seglinerenderer.h
     shader.h
     shattersystem.h
-    snapPts.h
+    snappts.h
     sortingrenderer.h
     soundrobj.h
     sphereobj.h
