@@ -355,7 +355,7 @@ set(LEVELEDIT_SRC
     rcstringextractor.h
     RegKeys.h
     reportmgr.h
-    Resource.h
+    resource.h
     SceneEditor.h
     ScriptEditDialog.h
     ScriptMgr.h

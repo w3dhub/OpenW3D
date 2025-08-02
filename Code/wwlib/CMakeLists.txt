@@ -97,60 +97,60 @@ set(WWLIB_SRC
     bool.h
     borlandc.h
     bound.h
-    BSEARCH.H
+    bsearch.h
     bsurface.h
-    BUFF.H
+    buff.h
     bufffile.h
     CallbackHook.h
     chunkio.h
-    Convert.h
+    convert.h
     cpudetect.h
-    CRC.H
+    crc.h
     cstraw.h
     data.h
     dsurface.h
     FastAllocator.h
     ffactory.h
-    FONT.H
+    font.h
     gcd_lcm.h
     hash.h
     hashcalc.h
-    HASHLIST.H
+    hashlist.h
     hashtemplate.h
-    IFF.H
-    INDEX.H
-    INI.H
+    iff.h
+    index.h
+    ini.h
     inisup.h
-    INT.H
+    int.h
     iostruct.h
     keyboard.h
     LaunchWeb.h
-    LCW.H
-    LISTNODE.H
+    lcw.h
+    listnode.h
     lzo.h
     lzo1x.h
     lzo_conf.h
     lzoconf.h
     mempool.h
     mixfile.h
-    MONO.H
-    MONODRVR.H
-    MPMATH.H
-    MPU.H
+    mono.h
+    monodrvr.h
+    mpmath.h
+    mpu.h
     msgloop.h
     multilist.h
     mutex.h
     Notify.h
     nstrdup.h
     ntree.h
-    PALETTE.H
-    pcx.H
-    PIPE.H
-    PK.H
-    Point.h
-    RAMFILE.H
-    RANDOM.H
-    RAWFILE.H
+    palette.h
+    pcx.h
+    pipe.h
+    pk.h
+    point.h
+    ramfile.h
+    random.h
+    rawfile.h
     rc4.h
     rcfile.h
     readline.h
@@ -159,9 +159,9 @@ set(WWLIB_SRC
     refcount.h
     regexpr.h
     registry.h
-    RGB.H
-    RLE.H
-    RNDSTRAW.H
+    rgb.h
+    rle.h
+    rndstraw.h
     rndstrng.h
     rng.h
     rsacrypt.h
@@ -171,16 +171,16 @@ set(WWLIB_SRC
     sharebuf.h
     Signaler.h
     simplevec.h
-    SLIST.H
-    SLNODE.H
+    slist.h
+    slnode.h
     srandom.h
     stl.h
-    STRAW.H
+    straw.h
     strtok_r.h
-    Surface.h
+    surface.h
     surfrect.h
     systimer.h
-    TagBlock.h
+    tagblock.h
     TARGA.H
     textfile.h
     thread.h
@@ -189,18 +189,18 @@ set(WWLIB_SRC
     trect.h
     trim.h
     uarray.h
-    Vector.H
+    vector.h
     verchk.h
     visualc.h
-    WATCOM.H
+    watcom.h
     widestring.h
     win.h
     WWCOMUtil.h
-    WWFILE.H
+    wwfile.h
     wwstring.h
     xmouse.h
-    XPIPE.H
-    XSTRAW.H
+    xpipe.h
+    xstraw.h
     xsurface.h
 )
 

@@ -84,7 +84,7 @@ set(COMMANDO_SRC
     singletoninstancekeeper.h
     WINMAIN.CPP
     WINMAIN.H
-    BandwidthCheck.cpp
+    bandwidthcheck.cpp
     bandwidthcheck.h
     FirewallWait.cpp
     FirewallWait.h
@@ -102,7 +102,7 @@ set(COMMANDO_SRC
     WOLGameInfo.h
     WOLJoinGame.cpp
     WOLJoinGame.h
-    WOLLocaleMgr.cpp
+    wollocalemgr.cpp
     wollocalemgr.h
     WOLLoginProfile.cpp
     WOLLoginProfile.h
