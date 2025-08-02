@@ -19,7 +19,7 @@
 // MainDialogBar.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 
 #include "leveledit.h"
 #include "maindialogbar.h"

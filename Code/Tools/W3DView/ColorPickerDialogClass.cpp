@@ -19,7 +19,7 @@
 // ColorPickerDialogClass.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "colorpickerdialogclass.h"
 #include "colorbar.h"
 #include "colorpicker.h"

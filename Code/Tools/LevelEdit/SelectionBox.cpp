@@ -24,7 +24,7 @@
 //
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "selectionbox.h"
 #include "matrix3d.h"
 #include "sceneeditor.h"

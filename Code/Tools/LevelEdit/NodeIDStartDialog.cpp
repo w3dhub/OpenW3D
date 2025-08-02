@@ -19,7 +19,7 @@
 // NodeIDStartDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "NodeIDStartDialog.h"
 #include "regkeys.h"

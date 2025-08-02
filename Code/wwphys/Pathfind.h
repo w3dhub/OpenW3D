@@ -42,7 +42,7 @@
 #define __PATHFIND_H
 
 #include "aabtreecull.h"
-#include "pathfindsector.h"
+#include "PathfindSector.h"
 #include "widgetuser.h"
 
 

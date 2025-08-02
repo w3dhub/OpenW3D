@@ -19,8 +19,8 @@
 // WWConfigDlg.cpp : implementation file
 //
 
-#include "stdafx.h"
-#include "wwconfig.h"
+#include "StdAfx.h"
+#include "WWConfig.h".h"
 #include "wwconfigdlg.h"
 #include "videoconfigdialog.h"
 #include "audioconfigdialog.h"

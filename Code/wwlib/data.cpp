@@ -38,7 +38,7 @@
  *   Fetch_String -- Fetches a string resource.                                                *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #include	"always.h"
-#include <new.h>
+#include <new>
 #include	"data.h"
 
 

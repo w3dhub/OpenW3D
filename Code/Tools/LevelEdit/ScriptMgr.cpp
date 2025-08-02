@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "scriptmgr.h"
 #include "..\..\scripts\ScriptEvents.H"
 #include "EditScript.h"

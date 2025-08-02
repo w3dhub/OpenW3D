@@ -19,7 +19,7 @@
 // MemLogDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "memlogdialog.h"
 #include "wwmemlog.h"

@@ -19,7 +19,7 @@
 // GotoGroupDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "GotoGroupDialog.h"
 #include "Utils.H"

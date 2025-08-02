@@ -19,7 +19,7 @@
 // RestrictedFileDialog.cpp : implementation file
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "W3DView.H"
 #include "RestrictedFileDialog.H"
 #include "Utils.H"

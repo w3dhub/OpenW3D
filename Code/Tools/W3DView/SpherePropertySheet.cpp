@@ -19,7 +19,7 @@
 // SpherePropertySheet.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "w3dview.h"
 #include "SpherePropertySheet.h"
 #include "utils.h"

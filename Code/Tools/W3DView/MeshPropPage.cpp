@@ -19,7 +19,7 @@
 // MeshPropPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "W3DView.h"
 #include "MeshPropPage.h"
 #include "RendObj.H"

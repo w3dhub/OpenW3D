@@ -19,7 +19,7 @@
 // ConversationPickerDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "conversationpickerdialog.h"
 #include "conversationmgr.h"

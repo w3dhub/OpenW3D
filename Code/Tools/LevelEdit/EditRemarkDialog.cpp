@@ -20,7 +20,7 @@
 //
 
 
-#include "stdafx.h"
+#include "StdAfx.h"
 
 #if 0
 

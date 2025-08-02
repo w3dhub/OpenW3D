@@ -19,7 +19,7 @@
 // LevelEditView.cpp : implementation of the CLevelEditView class
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "leveleditdoc.h"
 #include "leveleditview.h"

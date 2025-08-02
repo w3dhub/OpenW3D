@@ -22,7 +22,7 @@
 //
 //
 
-#include "StdAfx.H"
+#include "StdAfx.h"
 #include "ColorUtils.H"
 
 

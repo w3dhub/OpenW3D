@@ -38,7 +38,7 @@
 #include "physstaticsavesystem.h"
 #include "wwphysids.h"
 #include "pscene.h"
-#include "pathfind.h"
+#include "Pathfind.h"
 #include "chunkio.h"
 #include "wwmemlog.h"
 #include "saveload.h"

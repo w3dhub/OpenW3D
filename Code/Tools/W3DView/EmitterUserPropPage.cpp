@@ -19,7 +19,7 @@
 // EmitterUserPropPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "w3dview.h"
 #include "EmitterUserPropPage.h"
 #include "W3D_File.H"

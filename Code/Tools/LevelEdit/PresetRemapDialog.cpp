@@ -19,7 +19,7 @@
 // PresetRemapDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "leveleditdoc.h"
 #include "presetremapdialog.h"

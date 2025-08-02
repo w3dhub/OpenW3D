@@ -19,7 +19,7 @@
 // GraphicView.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "w3dview.h"
 #include "graphicview.h"
 #include "ww3d.h"

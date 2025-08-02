@@ -19,7 +19,7 @@
 // ChooseModPackageDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "choosemodpackagedialog.h"
 #include "assetpackagemgr.h"

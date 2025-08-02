@@ -19,7 +19,7 @@
 // SunlightDialog.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "SunlightDialog.h"
 #include "Utils.H"

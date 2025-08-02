@@ -24,7 +24,7 @@
 //
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 
 #include "globals.h"
 #include "assetmgr.h"

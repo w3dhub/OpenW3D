@@ -19,7 +19,7 @@
 // TerrainLODPage.cpp : implementation file
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "leveledit.h"
 #include "TerrainLODPage.h"
 #include "LODSettingsDialog.H"
