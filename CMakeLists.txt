@@ -38,6 +38,7 @@ endif(SYNTAX_CHECK_ONLY)
 
 if(UNIX AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_compile_definitions(__cdecl=)
+    add_compile_definitions(_cdecl=)
 endif()
 
 include(FetchContent)

@@ -51,7 +51,10 @@
 #else
 #define TCHAR char
 #define WCHAR wchar_t
-#define _cdecl
+#define _tcslen(x) strlen(x)
+#define _tcsclen(x) strlen(x)
+#define _tcscmp(x,y) strcmp(x,y)
+#define _tcsicmp(x,y) strcmp(x,y)
 #endif
 #include "trim.h"
 #include "wwdebug.h"
