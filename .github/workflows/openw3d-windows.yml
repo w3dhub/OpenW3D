@@ -1,6 +1,6 @@
 name: openw3d-windows
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   job:
@@ -14,8 +14,6 @@ jobs:
         include:
           - name: windows-2022
             os: windows-2022
-          - name: windows-2025
-            os: windows-2025
 
     steps:
     - uses: actions/checkout@v4
@@ -30,7 +28,7 @@ jobs:
         cd main
         mkdir build
         cd build
-        cmake ..
+        cmake -A Win32 ..
         cmake --build .
 
 
