@@ -20,9 +20,9 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
-#include "leveleditview.h"
-#include "transitioneditdialog.h"
+#include "LevelEdit.h"
+#include "LevelEditView.h"
+#include "TransitionEditDialog.h"
 #include "ww3d.h"
 #include "scene.h"
 #include "camera.h"

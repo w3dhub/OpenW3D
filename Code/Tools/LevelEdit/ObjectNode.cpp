@@ -36,7 +36,7 @@
 
 
 #include "StdAfx.h"
-#include "objectnode.h"
+#include "ObjectNode.h"
 #include "sceneeditor.h"
 
 #include "tiledefinition.h"

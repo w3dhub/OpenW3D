@@ -37,7 +37,7 @@
 
 #include "StdAfx.h"
 #include "stringsmgr.h"
-#include "filelocations.h"
+#include "FileLocations.h"
 #include "filemgr.h"
 #include "assetdatabase.h"
 #include "chunkio.h"

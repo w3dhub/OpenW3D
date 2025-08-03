@@ -52,7 +52,7 @@
 #include "ScriptMgr.h"
 #include "combatchunkid.h"
 #include "parameterctrls.h"
-#include "zoneeditdialog.h"
+#include "ZoneEditDialog.h"
 #include "specsheet.h"
 #include "phys.h"
 #include "definitionutils.h"

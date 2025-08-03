@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "editstringtwiddlerdialog.h"
 #include "editstringdialog.h"
 #include "stringtwiddler.h"

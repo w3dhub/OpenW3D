@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "presetslibform.h"
 #include "utils.h"
 #include "filemgr.h"

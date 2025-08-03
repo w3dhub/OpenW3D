@@ -35,16 +35,16 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "pathfindsector.h"
+#include "PathfindSector.h"
 #include "phys3.h"
 #include "boxrobj.h"
 #include "chunkio.h"
 #include "wwphysids.h"
 #include "pscene.h"
 #include "decophys.h"
-#include "pathfind.h"
+#include "Pathfind.h"
 #include "waypath.h"
-#include "pathfindportal.h"
+#include "PathfindPortal.h"
 
 
 ///////////////////////////////////////////////////////////////////////////

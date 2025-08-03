@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
-#include "presetpropsheet.h"
+#include "PresetPropSheet.h"
 #include "parameterinheritancedialog.h"
 
 

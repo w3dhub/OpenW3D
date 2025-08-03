@@ -28,7 +28,7 @@
 #endif // _MSC_VER >= 1000
 
 
-#include "LevelEditDoc.H"
+#include "LevelEditDoc.h"
 
 class CLevelEditView : public CView
 {

@@ -20,12 +20,12 @@
 //
 
 #include "StdAfx.h"
-#include "LevelEdit.H"
-#include "VisErrorReportDialog.H"
-#include "Utils.H"
-#include "VisLog.H"
-#include "SceneEditor.H"
-#include "CameraMgr.H"
+#include "LevelEdit.h"
+#include "VisErrorReportDialog.h"
+#include "Utils.h"
+#include "VisLog.h"
+#include "SceneEditor.h"
+#include "CameraMgr.h"
 #include "phys.h"
 #include "rendobj.h"
 

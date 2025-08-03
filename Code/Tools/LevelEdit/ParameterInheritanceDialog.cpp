@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "ParameterInheritanceDialog.h"
 #include "definition.h"
 #include "presetmgr.h"

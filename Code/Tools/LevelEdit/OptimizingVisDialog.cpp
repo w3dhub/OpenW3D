@@ -20,8 +20,8 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
-#include "optimizingvisdialog.h"
+#include "LevelEdit.h"
+#include "OptimizingVisDialog.h"
 #include "utils.h"
 #include "sceneeditor.h"
 #include "rendobj.h"

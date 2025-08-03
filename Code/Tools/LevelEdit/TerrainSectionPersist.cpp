@@ -36,7 +36,7 @@
 
 
 #include "StdAfx.h"
-#include "terrainsectionpersist.h"
+#include "TerrainSectionPersist.h"
 #include "node.h"
 #include "chunkio.h"
 #include "staticphys.h"

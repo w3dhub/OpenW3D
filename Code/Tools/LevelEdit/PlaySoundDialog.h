@@ -25,8 +25,8 @@
 // PlaySoundDialog.h : header file
 //
 
-#include "Resource.H"
-#include "WWAudio.H"
+#include "resource.h"
+#include "WWAudio.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // PlaySoundDialogClass dialog

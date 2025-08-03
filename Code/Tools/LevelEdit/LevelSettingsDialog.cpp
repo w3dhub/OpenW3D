@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "levelsettingsdialog.h"
 #include "combat.h"
 #include "scriptmgr.h"

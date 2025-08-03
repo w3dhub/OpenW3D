@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "VisStatsDialog.h"
 #include "cameramgr.h"
 #include "utils.h"

@@ -20,8 +20,8 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
-#include "outputform.h"
+#include "LevelEdit.h"
+#include "OutputForm.h"
 #include "utils.h"
 
 

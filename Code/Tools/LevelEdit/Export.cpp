@@ -37,7 +37,7 @@
 
 #include "StdAfx.h"
 
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "leveleditdoc.h"
 #include "export.h"
 #include "editorini.h"

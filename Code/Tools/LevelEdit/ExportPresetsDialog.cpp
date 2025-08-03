@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "exportpresetsdialog.h"
 #include "presetmgr.h"
 #include "nodecategories.h"

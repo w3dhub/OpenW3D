@@ -32,7 +32,7 @@
 
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "includefilesdialog.h"
 #include "filemgr.h"
 #include "icons.h"

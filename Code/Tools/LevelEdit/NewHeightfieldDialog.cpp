@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "newheightfielddialog.h"
 #include "heightfieldmgr.h"
 #include "utils.h"

@@ -36,7 +36,7 @@
 
 
 #include "StdAfx.h"
-#include "nodemgr.h"
+#include "NodeMgr.H"
 #include "node.h"
 #include "editorchunkids.h"
 #include "preset.h"
@@ -44,11 +44,11 @@
 #include "chunkio.h"
 #include "persistfactory.h"
 #include "sceneeditor.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "instancespage.h"
 #include "gameobjmanager.h"
 #include "terrainnode.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "regkeys.h"
 #include "presetmgr.h"
 #include "presetremapdialog.h"

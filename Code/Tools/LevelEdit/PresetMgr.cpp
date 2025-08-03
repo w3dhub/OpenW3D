@@ -52,7 +52,7 @@
 #include "definitionfactory.h"
 #include "definitionfactorymgr.h"
 #include "twiddler.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "regkeys.h"
 #include "assetdatabase.h"
 #include "editorbuild.h"

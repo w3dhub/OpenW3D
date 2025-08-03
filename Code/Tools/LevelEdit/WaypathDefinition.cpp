@@ -41,7 +41,7 @@
 #include "definitionmgr.h"
 #include "persistfactory.h"
 #include "editorchunkids.h"
-#include "waypathnode.h"
+#include "WaypathNode.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -20,9 +20,9 @@
 //
 
 #include "StdAfx.h"
-#include "weatherproppage.h"
+#include "WeatherPropPage.h"
 #include "backgroundmgr.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "sceneeditor.h"
 #include "phys.h"
 #include "utils.h"

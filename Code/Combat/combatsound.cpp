@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "combatsound.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 
 /*
 **

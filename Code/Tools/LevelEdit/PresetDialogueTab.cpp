@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "presetdialoguetab.h"
 #include "definition.h"
 #include "preset.h"

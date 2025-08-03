@@ -21,7 +21,7 @@
 
 #include "StdAfx.h"
 #include "CoverSpotInfoPage.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "coverspotnode.h"
 #include "node.h"
 #include "utils.h"

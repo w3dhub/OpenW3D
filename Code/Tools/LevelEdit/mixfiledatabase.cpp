@@ -37,7 +37,7 @@
 #include "StdAfx.h"
 #include "mixfiledatabase.h"
 #include "registry.h"
-#include "utils.h"
+#include "Utils.h"
 #include "mixfile.h"
 #include "rawfile.h"
 #include "shlwapi.h"

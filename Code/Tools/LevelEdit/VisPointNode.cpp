@@ -36,7 +36,7 @@
 
 
 #include "StdAfx.h"
-#include "vispointnode.h"
+#include "VisPointNode.h"
 #include "sceneeditor.h"
 #include "collisiongroups.h"
 #include "persistfactory.h"

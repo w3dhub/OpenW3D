@@ -32,7 +32,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "LogicalListener.H"
+#include "LogicalListener.h"
 #include "WWAudio.H"
 #include "SoundScene.H"
 #include "SoundChunkIDs.h"

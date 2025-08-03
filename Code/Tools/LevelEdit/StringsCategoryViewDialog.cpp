@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "stringscategoryviewdialog.h"
 #include "translateobj.h"
 #include "translatedb.h"

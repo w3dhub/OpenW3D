@@ -24,7 +24,7 @@
 // Description:  Minimal bit encoding
 //
 
-#include "bitpacker.h"
+#include "BitPacker.h"
 
 #include <string.h>	// for memset
 

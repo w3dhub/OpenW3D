@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "NodeIDStartDialog.h"
 #include "regkeys.h"
 #include "utils.h"

@@ -36,9 +36,9 @@
 
 
 #include "StdAfx.h"
-#include "leveledit.h"
-#include "mainfrm.h"
-#include "leveleditview.h"
+#include "LevelEdit.h"
+#include "MainFrm.h"
+#include "LevelEditView.h"
 #include "deviceselectiondialog.h"
 #include "utils.h"
 #include "outputform.h"
@@ -112,7 +112,7 @@
 #include "generictextdialog.h"
 #include "musicproppage.h"
 #include "skyproppage.h"
-#include "weatherproppage.h"
+#include "WeatherPropPage.h"
 #include "memlogdialog.h"
 #include "translatedb.h"
 #include "gotoobjectbyiddialog.h"

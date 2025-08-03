@@ -41,7 +41,7 @@
 #ifndef __UNIQUELIST_H
 #define __UNIQUELIST_H
 
-#include "Vector.H"
+#include "vector.h"
 
 /////////////////////////////////////////////////////////////////////
 //

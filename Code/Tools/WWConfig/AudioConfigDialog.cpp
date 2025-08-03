@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "wwconfig.h"
+#include "WWConfig.h"
 #include "audioconfigdialog.h"
 #include "wwaudio.h"
 #include "locale_api.h"

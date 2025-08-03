@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "heightfieldmaterialsettingsdialog.h"
 #include "heightfieldeditor.h"
 #include "terrainmaterial.h"

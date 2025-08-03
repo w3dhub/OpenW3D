@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "GenerateVisDialog.h"
 #include "GeneratingVisDialog.H"
 #include "Utils.H"
