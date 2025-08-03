@@ -32,7 +32,7 @@
 #define LANCHAT_H
 
 #include "win.h"
-#include <winsock.h>
+#include "network-typedefs.h"
 
 #include "chatshre.h"
 
