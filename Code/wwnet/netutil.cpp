@@ -226,7 +226,7 @@ bool cNetUtil::Would_Block(LPCSTR sFile, unsigned uLine, int ret_code)
 //
 // Returns up to max_addresses adapter addresses for the local host
 //
-int cNetUtil::Get_Local_Tcpip_Addresses(SOCKADDR_IN ip_address[], USHORT max_addresses)
+int cNetUtil::Get_Local_Tcpip_Addresses(struct sockaddr_in ip_address[], USHORT max_addresses)
 {
 	WWDEBUG_SAY(("cNetUtil::Get_Local_Tcpip_Addresses:\n"));
 
@@ -250,7 +250,7 @@ int cNetUtil::Get_Local_Tcpip_Addresses(SOCKADDR_IN ip_address[], USHORT max_add
 	} else {
 		while (num_adapters < max_addresses && p_hostent->h_addr_list[num_adapters] != NULL) {
 
-			ZeroMemory(&ip_address[num_adapters], sizeof(SOCKADDR_IN));
+			ZeroMemory(&ip_address[num_adapters], sizeof(struct sockaddr_in));
 			ip_address[num_adapters].sin_family = AF_INET;
 	      ip_address[num_adapters].sin_addr.s_addr =
 				*((u_long *) (p_hostent->h_addr_list[num_adapters]));
@@ -263,7 +263,7 @@ int cNetUtil::Get_Local_Tcpip_Addresses(SOCKADDR_IN ip_address[], USHORT max_add
 }
 
 //-----------------------------------------------------------------------------
-bool cNetUtil::Is_Same_Address(LPSOCKADDR_IN p_address1, const SOCKADDR_IN* p_address2)
+bool cNetUtil::Is_Same_Address(struct sockaddr_in* p_address1, const struct sockaddr_in* p_address2)
 {
 	//
 	// C disallows comparison of structs...
@@ -279,7 +279,7 @@ bool cNetUtil::Is_Same_Address(LPSOCKADDR_IN p_address1, const SOCKADDR_IN* p_ad
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::Address_To_String(LPSOCKADDR_IN p_address, char * str, UINT len,
+void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, UINT len,
    USHORT & port)
 {
 	WWASSERT(p_address != NULL);
@@ -310,10 +310,10 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::String_To_Address(LPSOCKADDR_IN p_address, LPCSTR str, USHORT port)
+void cNetUtil::String_To_Address(struct sockaddr_in* p_address, LPCSTR str, USHORT port)
 {
 	WWASSERT(p_address != NULL);
-   ZeroMemory(p_address, sizeof(SOCKADDR_IN));
+   ZeroMemory(p_address, sizeof(struct sockaddr_in));
 
    p_address->sin_family			= AF_INET;
    p_address->sin_addr.s_addr		= ::inet_addr(str);
@@ -546,7 +546,7 @@ void cNetUtil::Create_Unbound_Socket(SOCKET & sock)
 }
 
 //-------------------------------------------------------------------------------
-bool cNetUtil::Create_Bound_Socket(SOCKET & sock, USHORT port, SOCKADDR_IN & local_address)
+bool cNetUtil::Create_Bound_Socket(SOCKET & sock, USHORT port, struct sockaddr_in & local_address)
 {
    //
    // TSS - is all this necessary or is above function OK?
@@ -555,7 +555,7 @@ bool cNetUtil::Create_Bound_Socket(SOCKET & sock, USHORT port, SOCKADDR_IN & loc
    Create_Unbound_Socket(sock);
 
    Create_Local_Address(&local_address, port);
-	int result = ::bind(sock, (LPSOCKADDR) &local_address, sizeof(SOCKADDR_IN));
+	int result = ::bind(sock, (LPSOCKADDR) &local_address, sizeof(struct sockaddr_in));
 	if (result == 0) {
 		return true;
    } else {
@@ -576,23 +576,23 @@ void cNetUtil::Close_Socket(SOCKET & sock)
 //-----------------------------------------------------------------------------
 void cNetUtil::Broadcast(SOCKET & sock, USHORT port, cPacket & packet)
 {
-   SOCKADDR_IN broadcast_address;
+   struct sockaddr_in broadcast_address;
    Create_Broadcast_Address(&broadcast_address, port);
    int bytes_sent;
 	//WSA_CHECK(bytes_sent = sendto(sock, packet.Data, packet.SendLength,
-   //   0, &broadcast_address, sizeof(SOCKADDR_IN)));
+   //   0, &broadcast_address, sizeof(struct sockaddr_in)));
 	bytes_sent = sendto(sock, packet.Get_Data(), packet.Get_Compressed_Size_Bytes(),
-      0, (LPSOCKADDR) &broadcast_address, sizeof(SOCKADDR_IN));
+      0, (LPSOCKADDR) &broadcast_address, sizeof(struct sockaddr_in));
 // FIXME (TSS) WSAENOBUFS
    //WWDEBUG_SAY(("Sent broadcast, length = %d bytes\n", bytes_sent));
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::Create_Broadcast_Address(LPSOCKADDR_IN p_broadcast_address,
+void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
    USHORT port)
 {
    WWASSERT(p_broadcast_address != NULL);
-   ZeroMemory(p_broadcast_address, sizeof(SOCKADDR_IN));
+   ZeroMemory(p_broadcast_address, sizeof(struct sockaddr_in));
 
 	p_broadcast_address->sin_family			= AF_INET;
 	p_broadcast_address->sin_addr.s_addr	= INADDR_BROADCAST; // ::inet_addr("255.255.255.255");
@@ -600,10 +600,10 @@ void cNetUtil::Create_Broadcast_Address(LPSOCKADDR_IN p_broadcast_address,
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::Create_Local_Address(LPSOCKADDR_IN p_local_address, USHORT port)
+void cNetUtil::Create_Local_Address(struct sockaddr_in* p_local_address, USHORT port)
 {
    WWASSERT(p_local_address != NULL);
-   ZeroMemory(p_local_address, sizeof(SOCKADDR_IN));
+   ZeroMemory(p_local_address, sizeof(struct sockaddr_in));
 
 	p_local_address->sin_family			= AF_INET;
 	p_local_address->sin_addr.s_addr		= INADDR_ANY;
@@ -611,7 +611,7 @@ void cNetUtil::Create_Local_Address(LPSOCKADDR_IN p_local_address, USHORT port)
 }
 
 //-------------------------------------------------------------------------------
-bool cNetUtil::Get_Local_Address(LPSOCKADDR_IN p_local_address)
+bool cNetUtil::Get_Local_Address(struct sockaddr_in* p_local_address)
 {
 	WWASSERT(p_local_address != NULL);
 
@@ -623,11 +623,11 @@ bool cNetUtil::Get_Local_Address(LPSOCKADDR_IN p_local_address)
 	*/
 
 	const USHORT MAX_ADDRESSES = 10;
-	SOCKADDR_IN local_address[MAX_ADDRESSES];
+	struct sockaddr_in local_address[MAX_ADDRESSES];
 	int num_addresses = Get_Local_Tcpip_Addresses(local_address, MAX_ADDRESSES);
 
 	if (num_addresses > 0) {
-		::memcpy(p_local_address, &local_address[0], sizeof(SOCKADDR_IN));
+		::memcpy(p_local_address, &local_address[0], sizeof(struct sockaddr_in));
 	}
 
 	return (num_addresses > 0);
@@ -642,7 +642,7 @@ void cNetUtil::Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback)
 
    do {
 		cPacket packet;
-		int address_len = sizeof(SOCKADDR_IN);
+		int address_len = sizeof(struct sockaddr_in);
 
 		//
 		// If we appear to crash INSIDE recvfrom then this tends to indicate

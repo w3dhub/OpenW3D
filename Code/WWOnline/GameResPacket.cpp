@@ -35,7 +35,7 @@
 #include "GameResPacket.h"
 #include <assert.h>
 #include <string.h>
-#include <winsock.h>
+#include "network-typedefs.h"
 #include <algorithm>
 
 namespace WWOnline {
