@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "LevelEdit.H"
+#include "LevelEdit.h"
 #include "LightAmbientForm.H"
 #include "Vector3.H"
 #include "Utils.H"

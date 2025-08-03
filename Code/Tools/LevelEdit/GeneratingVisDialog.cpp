@@ -20,13 +20,13 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "generatingvisdialog.h"
 #include "utils.h"
 #include "sceneeditor.h"
 #include "nodemgr.h"
 #include "vispointgenerator.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "groupmgr.h"
 #include "node.h"
 #include "VisPointNode.h"

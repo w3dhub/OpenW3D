@@ -46,7 +46,7 @@
 #include "aabox.h"
 #include "wwdebug.h"
 #include "Pathfind.h"
-#include "path.h"
+#include "Path.h"
 #include "waypathposition.h"
 
 

@@ -20,9 +20,9 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "PresetListDialog.h"
-#include "presetmgr.h"
+#include "PresetMgr.h"
 #include "definition.h"
 #include "definitionfactory.h"
 #include "definitionfactorymgr.h"

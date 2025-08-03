@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "LevelEdit.H"
+#include "LevelEdit.h"
 #include "ColorSelectionDialog.H"
 #include "Utils.H"
 

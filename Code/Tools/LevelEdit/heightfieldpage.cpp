@@ -36,7 +36,7 @@
 
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "heightfieldpage.h"
 #include "nodemgr.h"
 #include "node.h"

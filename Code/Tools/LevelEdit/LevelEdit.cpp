@@ -20,11 +20,11 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 
 #include "mainfrm.h"
 #include "leveleditdoc.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "assetmgr.h"
 #include "ww3d.h"
 #include "wwdebug.h"

@@ -33,14 +33,14 @@
 *
 ******************************************************************************/
 
-#include <WWLib\Always.h>
+#include <WWLib/Always.h>
 #include "WOLDownload.h"
 #include "WOLProduct.h"
 #include "WOLErrorUtil.h"
 #include "WOLString.h"
-#include <WOLAPI\DownloadDefs.h>
-#include <WWLib\WWString.h>
-#include <WWDebug\WWDebug.h>
+#include <WOLAPI/DownloadDefs.h>
+#include <WWLib/WWString.h>
+#include <WWDebug/WWDebug.h>
 
 namespace WWOnline {
 

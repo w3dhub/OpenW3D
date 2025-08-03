@@ -57,7 +57,7 @@
 #include "terrainsectionpersist.h"
 #include "lightphys.h"
 #include "lightnode.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "hlod.h"
 
 //////////////////////////////////////////////////////////////////////////////

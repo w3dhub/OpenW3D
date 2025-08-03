@@ -35,9 +35,9 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "pathfind.h"
-#include "pathfindportal.h"
-#include "path.h"
+#include "Pathfind.h"
+#include "PathfindPortal.h"
+#include "Path.h"
 #include "pscene.h"
 #include "boxrobj.h"
 #include "decophys.h"

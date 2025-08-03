@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "wwconfig.h"
+#include "WWConfig.h"
 #include "videoconfigdialog.h"
 #include "ww3d.h"
 #include "assetmgr.h"

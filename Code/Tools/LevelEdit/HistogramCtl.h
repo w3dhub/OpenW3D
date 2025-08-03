@@ -39,8 +39,8 @@
 #ifndef __HISTOGRAM_CTL_H
 #define __HISTOGRAM_CTL_H
 
-#include "Vector.H"
-#include "Vector3.H"
+#include "vector.h"
+#include "vector3.h"
 
 
 ///////////////////////////////////////////////////////////////////

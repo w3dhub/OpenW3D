@@ -39,7 +39,7 @@
 #include "utils.h"
 #include "cameramgr.h"
 #include "leveleditdoc.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "node.h"
 #include "phys3.h"
 

@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "PlaySoundDialog.h"
 #include "Utils.H"
 #include "AudibleSound.H"

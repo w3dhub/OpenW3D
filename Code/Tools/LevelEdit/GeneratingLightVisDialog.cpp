@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "GeneratingLightVisDialog.h"
 #include "Utils.h"
 #include "SceneEditor.h"

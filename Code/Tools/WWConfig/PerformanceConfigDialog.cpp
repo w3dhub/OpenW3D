@@ -20,8 +20,8 @@
 //
 
 #include "StdAfx.h"
-#include "wwconfig.h"
-#include "performanceconfigdialog.h"
+#include "WWConfig.h"
+#include "PerformanceConfigDialog.h"
 #include "registry.h"
 #include "ww3d.h"
 #include "pscene.h"

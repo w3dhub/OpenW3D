@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "viswindowdialog.h"
 #include "visrasterizer.h"
 #include "visrendercontext.h"

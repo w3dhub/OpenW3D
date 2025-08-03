@@ -32,8 +32,8 @@
 
 
 #include "StdAfx.h"
-#include "leveledit.h"
-#include "nodescriptsproppage.h"
+#include "LevelEdit.h"
+#include "NodeScriptsPropPage.h"
 #include "editscript.h"
 #include "scriptmgr.h"
 #include "utils.h"

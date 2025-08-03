@@ -25,8 +25,8 @@
 // PhysObjEditDialog.h : header file
 //
 
-#include "Resource.h"
-#include "dockableform.h"
+#include "resource.h"
+#include "DockableForm.h"
 
 
 // Forward declaration

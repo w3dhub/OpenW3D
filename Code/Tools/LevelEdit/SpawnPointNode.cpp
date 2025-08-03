@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
-#include "spawnernode.h"
+#include "SpawnerNode.h"
 #include "spawnpointnode.h"
 #include "sceneeditor.h"
 #include "collisiongroups.h"

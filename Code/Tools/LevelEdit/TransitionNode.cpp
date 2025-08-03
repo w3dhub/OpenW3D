@@ -36,7 +36,7 @@
 
 
 #include "StdAfx.h"
-#include "transitionnode.h"
+#include "TransitionNode.h"
 #include "sceneeditor.h"
 
 #include "filemgr.h"

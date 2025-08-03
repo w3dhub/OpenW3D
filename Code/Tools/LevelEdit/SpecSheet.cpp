@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "specsheet.h"
 #include "definition.h"
 #include "parameterctrls.h"

@@ -20,14 +20,14 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "generatingmanualvisdialog.h"
 #include "utils.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "vismgr.h"
 #include "sceneeditor.h"
 #include "nodemgr.h"
-#include "vispointnode.h"
+#include "VisPointNode.h"
 
 
 #ifdef _DEBUG

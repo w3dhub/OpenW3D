@@ -20,9 +20,9 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "leveleditdoc.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "camera.h"
 #include "cameramgr.h"
 #include "mainfrm.h"

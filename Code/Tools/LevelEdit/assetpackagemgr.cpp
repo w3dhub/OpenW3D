@@ -40,7 +40,7 @@
 #include "regkeys.h"
 #include "choosemodpackagedialog.h"
 #include "editorbuild.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "filelocations.h"
 
 

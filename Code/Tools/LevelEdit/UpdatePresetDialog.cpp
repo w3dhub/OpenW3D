@@ -32,8 +32,8 @@
 
 
 #include "StdAfx.h"
-#include "leveledit.h"
-#include "updatepresetdialog.h"
+#include "LevelEdit.h"
+#include "UpdatePresetDialog.h"
 #include "utils.h"
 #include "filemgr.h"
 #include "filelocations.h"

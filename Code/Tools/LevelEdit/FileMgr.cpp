@@ -41,7 +41,7 @@
 #include "rendobj.h"
 #include "matinfo.h"
 #include "regkeys.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "_assetmgr.h"
 #include "editorassetmgr.h"
 #include "updatingdbdialog.h"

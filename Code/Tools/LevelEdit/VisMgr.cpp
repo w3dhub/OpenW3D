@@ -47,7 +47,7 @@
 #include "nodemgr.h"
 #include "cameramgr.h"
 #include "camera.h"
-#include "vispointnode.h"
+#include "VisPointNode.h"
 #include "groupmgr.h"
 
 

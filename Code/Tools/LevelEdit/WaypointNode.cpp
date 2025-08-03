@@ -36,7 +36,7 @@
 
 
 #include "StdAfx.h"
-#include "waypathnode.h"
+#include "WaypathNode.h"
 #include "sceneeditor.h"
 #include "collisiongroups.h"
 #include "persistfactory.h"
@@ -45,8 +45,8 @@
 #include "chunkio.h"
 #include "nodemgr.h"
 #include "segline.h"
-#include "waypointnode.h"
-#include "waypathnode.h"
+#include "WaypointNode.h"
+#include "WaypathNode.h"
 #include "waypathinfopage.h"
 #include "nodeinfopage.h"
 #include "positionpage.h"

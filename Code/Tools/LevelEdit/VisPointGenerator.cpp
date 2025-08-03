@@ -45,7 +45,7 @@
 #include "hittestinfo.h"
 #include "node.h"
 #include "obbox.h"
-#include "vispointnode.h"
+#include "VisPointNode.h"
 #include "nodemgr.h"
 #include "staticphys.h"
 

@@ -32,8 +32,8 @@
 #include "utils.h"
 #include "wwmath.h"
 
-#include "waypointnode.h"
-#include "waypathnode.h"
+#include "WaypointNode.h"
+#include "WaypathNode.h"
 
 
 /////////////////////////////////////////////////////////////

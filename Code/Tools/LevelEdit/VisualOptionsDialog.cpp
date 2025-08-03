@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "VisualOptionsDialog.h"
 #include "Utils.H"
 #include "WW3D.H"

@@ -20,7 +20,7 @@
 //
 
 #include "StdAfx.h"
-#include "leveledit.h"
+#include "LevelEdit.h"
 #include "conversationpickerdialog.h"
 #include "conversationmgr.h"
 #include "conversation.h"

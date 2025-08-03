@@ -28,8 +28,8 @@
 #endif // _MSC_VER >= 1000
 
 
-#include "Vector3.H"
-#include "Matrix3D.h"
+#include "vector3.h"
+#include "matrix3d.h"
 
 
 ///////////////////////////////////////////////////////////

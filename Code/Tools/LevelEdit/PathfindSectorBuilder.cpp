@@ -31,7 +31,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
-#include "pathfindsectorbuilder.h"
+#include "PathfindSectorBuilder.h"
 #include "phys3.h"
 #include "editorassetmgr.h"
 #include "humanphys.h"

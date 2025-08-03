@@ -37,7 +37,7 @@
 #include "StdAfx.h"
 #include "mousemgr.h"
 #include "utils.h"
-#include "leveleditview.h"
+#include "LevelEditView.h"
 #include "cameramgr.h"
 #include "node.h"
 #include "quat.h"
@@ -46,7 +46,7 @@
 #include "sceneeditor.h"
 #include "collisiongroups.h"
 #include "mover.h"
-#include "waypathnode.h"
+#include "WaypathNode.h"
 #include "heightfieldeditor.h"
 
 
