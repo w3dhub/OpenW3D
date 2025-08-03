@@ -1,0 +1,36 @@
+name: openw3d-windows
+
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  job:
+    name: ${{ matrix.os }}-${{ matrix.cxx }}-build-and-test
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 38
+    strategy:
+      fail-fast: false
+      matrix:
+        name: [windows-2022]
+        include:
+          - name: windows-2022
+            os: windows-2022
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false # do not persist auth token in the local git config
+        path: main
+
+    - name: 'run cmake'
+      shell: pwsh
+      run: |
+        $THISDIR=Get-Location
+        cd main
+        cmake -A Win32 -B build .
+        cmake --build build --parallel
+
+
