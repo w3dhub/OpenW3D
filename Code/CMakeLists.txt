@@ -2,8 +2,8 @@
 add_library(wwcommon INTERFACE)
 
 target_compile_definitions(wwcommon INTERFACE
-    #NOMINMAX
-    #WIN32_LEAN_AND_MEAN
+    NOMINMAX
+    WIN32_LEAN_AND_MEAN
     #_WIN32_WINNT=0x400
     #_MBCS
     _CRT_NONSTDC_NO_WARNINGS

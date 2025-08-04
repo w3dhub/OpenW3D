@@ -427,33 +427,9 @@ add_executable(leveledit WIN32)
 target_compile_definitions(leveledit PRIVATE
     _AFXDLL
     PARAM_EDITING_ON
-    #WIN32_LEAN_AND_MEAN
-    $<$<CONFIG:Debug>:WWDEBUG>
-    $<$<CONFIG:Debug>:_DEBUG>
-)
-
-target_compile_options(leveledit PRIVATE
-    ${WARNING_FLAGS}
 )
 
 target_include_directories(leveledit PRIVATE
-    ../../WWMath
-    ../../ww3d2
-    ../../wwphys
-    ../../wwdebug
-    ../../wwui
-    ../../wwbitpack
-    ../../Combat
-    ../../WWAudio
-    ../../wolapi
-    ../../wwutil
-    ../../wwnet
-    ../../wwlib
-    ../../wwsaveload
-    ../../wwtranslatedb
-    ../../BinkMovie
-    ../../SControl
-    ../..
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
@@ -462,11 +438,7 @@ target_link_libraries(leveledit PRIVATE
     vfw32
     wsock32
     shlwapi
-    d3d8lib
     version
-    milesstub
-    binkstub
-    gamespy
     bandtest
     wwcommon
     wwdebuge

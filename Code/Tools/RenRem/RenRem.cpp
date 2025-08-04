@@ -47,6 +47,8 @@
 
 #include "servercontrol.h"
 
+#include <timeapi.h>
+
 #define RENREM_PORT 1234
 #define PROMPT ">"
 
