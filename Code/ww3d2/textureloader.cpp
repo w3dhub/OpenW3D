@@ -145,13 +145,13 @@ SynchronizedTextureLoadTaskListClass::SynchronizedTextureLoadTaskListClass(void)
 
 void SynchronizedTextureLoadTaskListClass::Push_Front(TextureLoadTaskClass *task)
 {
-	FastCriticalSectionClass::LockClass lock(CriticalSection);
+	CriticalSectionClass::LockClass lock(CriticalSection);
 	TextureLoadTaskListClass::Push_Front(task);
 }
 
 void SynchronizedTextureLoadTaskListClass::Push_Back(TextureLoadTaskClass *task)
 {
-	FastCriticalSectionClass::LockClass lock(CriticalSection);
+	CriticalSectionClass::LockClass lock(CriticalSection);
 	TextureLoadTaskListClass::Push_Back(task);
 }
 
@@ -162,7 +162,7 @@ TextureLoadTaskClass *SynchronizedTextureLoadTaskListClass::Pop_Front(void)
 		return 0;
 	}
 
-	FastCriticalSectionClass::LockClass lock(CriticalSection);
+	CriticalSectionClass::LockClass lock(CriticalSection);
 	return TextureLoadTaskListClass::Pop_Front();
 
 }
@@ -174,13 +174,13 @@ TextureLoadTaskClass *SynchronizedTextureLoadTaskListClass::Pop_Back(void)
 		return 0;
 	}
 
-	FastCriticalSectionClass::LockClass lock(CriticalSection);
+	CriticalSectionClass::LockClass lock(CriticalSection);
 	return TextureLoadTaskListClass::Pop_Back();
 }
 
 void SynchronizedTextureLoadTaskListClass::Remove(TextureLoadTaskClass *task)
 {
-	FastCriticalSectionClass::LockClass lock(CriticalSection);
+	CriticalSectionClass::LockClass lock(CriticalSection);
 	TextureLoadTaskListClass::Remove(task);
 }
 
@@ -191,8 +191,8 @@ void SynchronizedTextureLoadTaskListClass::Remove(TextureLoadTaskClass *task)
 // they are defined below. No ordering is necessary for the task list locks,
 // since one thread can never hold two at once.
 
-static FastCriticalSectionClass					_ForegroundCriticalSection;
-static FastCriticalSectionClass					_BackgroundCriticalSection;
+static CriticalSectionClass					_ForegroundCriticalSection;
+static CriticalSectionClass					_BackgroundCriticalSection;
 
 // Lists
 
@@ -304,7 +304,7 @@ void TextureLoader::Init()
 
 void TextureLoader::Deinit()
 {
-	FastCriticalSectionClass::LockClass lock(_BackgroundCriticalSection);
+	CriticalSectionClass::LockClass lock(_BackgroundCriticalSection);
 	_TextureLoadThread.Stop();
 
 	ThumbnailManagerClass::Deinit();
@@ -582,7 +582,7 @@ void TextureLoader::Request_Thumbnail(TextureClass *tc)
 	// Grab the foreground lock. This prevents the foreground thread
 	// from retiring any tasks related to this texture. It also
 	// serializes calls to Request_Thumbnail from multiple threads.
-	FastCriticalSectionClass::LockClass lock(_ForegroundCriticalSection);
+	CriticalSectionClass::LockClass lock(_ForegroundCriticalSection);
 
 	// Has a Direct3D texture already been loaded?
 	if (tc->Peek_DX8_Texture()) {
@@ -624,7 +624,7 @@ void TextureLoader::Request_Background_Loading(TextureClass *tc)
 	// from retiring any tasks related to this texture. It also 
 	// serializes calls to Request_Background_Loading from other
 	// threads.
-	FastCriticalSectionClass::LockClass foreground_lock(_ForegroundCriticalSection);
+	CriticalSectionClass::LockClass foreground_lock(_ForegroundCriticalSection);
 
 	// Has the texture already been loaded?
 	if (tc->Is_Initialized()) {
@@ -654,7 +654,7 @@ void TextureLoader::Request_Foreground_Loading(TextureClass *tc)
 	// from retiring the load tasks for this texture. It also 
 	// serializes calls to Request_Foreground_Loading from other
 	// threads.
-	FastCriticalSectionClass::LockClass foreground_lock(_ForegroundCriticalSection);
+	CriticalSectionClass::LockClass foreground_lock(_ForegroundCriticalSection);
 
 	// Has the texture already been loaded?
 	if (tc->Is_Initialized()) {
@@ -682,7 +682,7 @@ void TextureLoader::Request_Foreground_Loading(TextureClass *tc)
 			// halt background thread. After we're holding this lock,
 			// we know the background thread cannot begin loading
 			// mipmap levels for this texture.
-			FastCriticalSectionClass::LockClass background_lock(_BackgroundCriticalSection);
+			CriticalSectionClass::LockClass background_lock(_BackgroundCriticalSection);
 			_ForegroundQueue.Remove(task);
 			_BackgroundQueue.Remove(task);
 		} else {
@@ -702,7 +702,7 @@ void TextureLoader::Request_Foreground_Loading(TextureClass *tc)
 		// Grab the background lock. After we're holding this lock, we
 		// know the background thread cannot begin loading mipmap levels 
 		// for this texture.
-		FastCriticalSectionClass::LockClass background_lock(_BackgroundCriticalSection);
+		CriticalSectionClass::LockClass background_lock(_BackgroundCriticalSection);
 
 		// if we have a thumbnail task, we should cancel it. Since we are not
 		// the foreground thread, we are not allowed to call Destroy(). Instead,
@@ -762,7 +762,7 @@ void TextureLoader::Flush_Pending_Load_Tasks(void)
 			// violate the lock order when we call Update() (which grabs
 			// the foreground lock) or never give the background thread
 			// a chance to empty its queue.
-			FastCriticalSectionClass::LockClass background_lock(_BackgroundCriticalSection);
+			CriticalSectionClass::LockClass background_lock(_BackgroundCriticalSection);
 			done = _BackgroundQueue.Is_Empty() && _ForegroundQueue.Is_Empty();
 		}
 
@@ -800,7 +800,7 @@ void TextureLoader::Update(void (*network_callback)(void))
 
 	// grab foreground lock to prevent any other thread from
 	// modifying texture tasks.
-	FastCriticalSectionClass::LockClass lock(_ForegroundCriticalSection);
+	CriticalSectionClass::LockClass lock(_ForegroundCriticalSection);
 
 	unsigned long time = timeGetTime();
 
@@ -920,7 +920,7 @@ void LoaderThreadClass::Thread_Function(void)
 		if (!_BackgroundQueue.Is_Empty()) {
 			// Grab background load so other threads know we could be 
 			// loading a texture.
-			FastCriticalSectionClass::LockClass lock(_BackgroundCriticalSection);
+			CriticalSectionClass::LockClass lock(_BackgroundCriticalSection);
 
 			// try to remove a task from the background queue. This could fail
 			// if another thread modified the queue between our test above and

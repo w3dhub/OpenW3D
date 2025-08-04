@@ -197,7 +197,7 @@ private:
 	static unsigned ReservedMask;
 	static char m_TempStrings[];
 
-	static FastCriticalSectionClass m_Mutex;
+	static CriticalSectionClass m_Mutex;
 
 	static TCHAR	m_NullChar;
 	static TCHAR *	m_EmptyString;

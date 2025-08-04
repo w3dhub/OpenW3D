@@ -376,7 +376,7 @@ public:
 
 protected:
    FastFixedAllocator allocators[MAX_ALLOC_SIZE/ALLOC_STEP];
-	FastCriticalSectionClass CriticalSections[MAX_ALLOC_SIZE/ALLOC_STEP];
+	CriticalSectionClass CriticalSections[MAX_ALLOC_SIZE/ALLOC_STEP];
 	bool MemoryLeakLogEnabled;
 
 	unsigned AllocatedWithMalloc;
@@ -389,7 +389,7 @@ WWINLINE unsigned FastAllocatorGeneral::Get_Total_Heap_Size()
 {
 	int size=AllocatedWithMalloc;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
-		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
+		CriticalSectionClass::LockClass lock(CriticalSections[i]);
 		size+=allocators[i].Get_Heap_Size();
 	}
 	return size;
@@ -399,7 +399,7 @@ WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocated_Size()
 {
 	int size=AllocatedWithMalloc;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
-		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
+		CriticalSectionClass::LockClass lock(CriticalSections[i]);
 		size+=allocators[i].Get_Allocated_Size();
 	}
 	return size;
@@ -409,7 +409,7 @@ WWINLINE unsigned FastAllocatorGeneral::Get_Total_Allocation_Count()
 {
 	int count=AllocatedWithMallocCount;
 	for (int i=0;i<MAX_ALLOC_SIZE/ALLOC_STEP;++i) {
-		FastCriticalSectionClass::LockClass lock(CriticalSections[i]);
+		CriticalSectionClass::LockClass lock(CriticalSections[i]);
 		count+=allocators[i].Get_Allocation_Count();
 	}
 	return count;
@@ -441,7 +441,7 @@ WWINLINE void* FastAllocatorGeneral::Alloc(unsigned int n)
 	if (n<MAX_ALLOC_SIZE) {
 		int index=(n)/ALLOC_STEP;
 		{
-			FastCriticalSectionClass::LockClass lock(CriticalSections[index]);
+			CriticalSectionClass::LockClass lock(CriticalSections[index]);
 			pMemory = allocators[index].Alloc();
 		}
 	}
@@ -481,7 +481,7 @@ WWINLINE void FastAllocatorGeneral::Free(void* pAlloc)
 
 		if (size<MAX_ALLOC_SIZE) {
 			int index=size/ALLOC_STEP;
-			FastCriticalSectionClass::LockClass lock(CriticalSections[index]);
+			CriticalSectionClass::LockClass lock(CriticalSections[index]);
          allocators[index].Free(n);
 		}
       else {

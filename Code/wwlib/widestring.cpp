@@ -47,7 +47,7 @@
 
 int		WideStringClass::m_UsedTempStringCount	= 0;
 
-FastCriticalSectionClass WideStringClass::m_TempMutex;
+CriticalSectionClass WideStringClass::m_TempMutex;
 
 WCHAR		WideStringClass::m_NullChar				= 0;
 WCHAR *	WideStringClass::m_EmptyString			= &m_NullChar;
@@ -98,7 +98,7 @@ WideStringClass::Get_String (int length, bool is_temp)
 			//	Make sure no one else is requesting a temp pointer
 			// at the same time we are.
 			//
-			FastCriticalSectionClass::LockClass lock(m_TempMutex);
+			CriticalSectionClass::LockClass lock(m_TempMutex);
 
 			//
 			//	Try to find an available temporary buffer
@@ -206,7 +206,7 @@ WideStringClass::Free_String (void)
 				//	Make sure no one else is modifying a temp pointer
 				// at the same time we are.
 				//
-				FastCriticalSectionClass::LockClass lock(m_TempMutex);
+				CriticalSectionClass::LockClass lock(m_TempMutex);
 				
 				//
 				//	Release our hold on this temporary buffer
