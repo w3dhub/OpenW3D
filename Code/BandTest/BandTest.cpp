@@ -58,6 +58,8 @@
 
 #include "../Combat/specialbuilds.h"
 
+#include <algorithm>
+
 // warning C4711: function 'xxx' selected for automatic inline expansion
 #pragma warning(disable:4711)
 
@@ -815,7 +817,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 
 	if (calc_down && upstream_bandwidth < 576 * 1000 && upstream_bandwidth > 8) {
 
-		int new_ping_timeout = max((int)(average_ping * 5), 200);
+		int new_ping_timeout = std::max((int)(average_ping * 5), 200);
 #if (0)
 		if (upstream_bandwidth > 80000) {
 			method_one = true;
@@ -926,7 +928,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 			}
 		}
 
-		//int new_ping_timeout = max((int)(average_ping * 5), 200);
+		//int new_ping_timeout = std::max((int)(average_ping * 5), 200);
 		float old_average_ping = average_ping;
 		//float old_lowest_ping = lowest_ping;
 		average_ping = 0.0f;
@@ -1180,8 +1182,8 @@ void Ping_Profile(SOCKADDR_IN *router_addr, unsigned long my_ip)
 	int i;
 
 	for (i=0 ; i<ping_number ; i++) {
-		min_ping = min(min_ping, ping_averages[i]);
-		max_ping = max(max_ping, ping_averages[i]);
+		min_ping = std::min(min_ping, ping_averages[i]);
+		max_ping = std::max(max_ping, ping_averages[i]);
 	}
 
 	sprintf(temp_buffer, "%3.1f", max_ping);
@@ -1640,7 +1642,7 @@ float Lowest_Ping(int num_pings, unsigned long *ping_times)
 {
 	float lowest_ping = 1000000.0;
 	for (int i=0 ; i<num_pings ; i++) {
-		lowest_ping = min(lowest_ping, (float)(ping_times[i]));
+		lowest_ping = std::min(lowest_ping, (float)(ping_times[i]));
 	}
 	return(lowest_ping);
 }

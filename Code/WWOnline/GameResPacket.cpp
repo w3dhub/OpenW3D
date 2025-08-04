@@ -36,6 +36,7 @@
 #include <assert.h>
 #include <string.h>
 #include <winsock.h>
+#include <algorithm>
 
 namespace WWOnline {
 
@@ -471,7 +472,7 @@ bool GameResPacket::Get_Field(char *id, void *data, int &length)
 
 	if (field)
 		{
-		memcpy(data, field->mData, min((int)field->mSize, length));
+		memcpy(data, field->mData, std::min((int)field->mSize, length));
 		length = (int) field->mSize;
 		}
 

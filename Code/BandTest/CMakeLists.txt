@@ -7,6 +7,7 @@ target_compile_definitions(bandtest PRIVATE
 target_link_libraries(bandtest PRIVATE
     winmm
     ws2_32
+    wwcommon
 )
 
 set(BANDTEST_SRC
@@ -14,8 +15,6 @@ set(BANDTEST_SRC
     BandTest.h
     BandTest.rc
 )
-
-target_include_directories(bandtest PRIVATE ../Commando)
 
 target_sources(bandtest PRIVATE
     ${BANDTEST_SRC}
