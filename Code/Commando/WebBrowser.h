@@ -100,7 +100,7 @@ class WebBrowser :
 		bool IsExternalBrowserRunning(void) const;
 
 		//! Display the specified web content.
-		bool ShowWebPage(char* page);
+		bool ShowWebPage(const char* page);
 
 		//! Launch the external browser
 		bool LaunchExternal(const char* url);

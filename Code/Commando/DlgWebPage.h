@@ -51,7 +51,7 @@ class DlgWebPage :
 		public Observer<DlgMsgBoxEvent>
 	{
 	public:
-		static void DoDialog(char* page);
+		static void DoDialog(const char* page);
 
 	protected:
 		DlgWebPage();
@@ -78,7 +78,7 @@ class DlgWebPage :
 
 	private:
 		WebBrowser* mBrowser;
-		char* mPage;
+		const char* mPage;
 		unsigned long mTimer;
 	};
 

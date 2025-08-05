@@ -62,8 +62,8 @@ class GameSideServerControlClass
 		static void Init(void);
 		static void Shutdown(void);
 		static const char *App_Request_Callback(char *request);
-		static void Print(char *text, ...);
-		static void Send_Message(char *text, unsigned long ip, unsigned short port);
+		static void Print(const char *text, ...);
+		static void Send_Message(const char *text, unsigned long ip, unsigned short port);
 		static void Set_Welcome_Message(void);
 
 	private:

@@ -946,7 +946,7 @@ void DlgMPTeamSelect::ProcessWOLPlayerInfo(DlgMPTeamSelect& dialog, const char* 
 		strncpy(info, data, 255);
 
 		// Get players name
-		char* name = "";
+		char* name = NULL;
 		PARSE_STRING(info, " ", name);
 
 		// Team type
