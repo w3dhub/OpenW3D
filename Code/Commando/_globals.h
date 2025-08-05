@@ -66,7 +66,7 @@
 #endif
 
 
-extern char *Build_Registry_Location_String(char *base, char *modifier, char *sub);
+extern char *Build_Registry_Location_String(const char *base, const char *modifier, const char *sub);
 
 #define	APPLICATION_SUB_KEY_NAME							Build_Registry_Location_String(APP_SUB_KEY, NULL, "")
 

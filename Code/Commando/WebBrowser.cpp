@@ -412,7 +412,7 @@ bool WebBrowser::FinalizeCreate(HWND window)
 *
 ******************************************************************************/
 
-bool WebBrowser::ShowWebPage(char* page)
+bool WebBrowser::ShowWebPage(const char* page)
 	{
 	// Retrieve URL from page identifier
 	char url[512];

@@ -938,7 +938,7 @@ public:
 	virtual	const char * Get_Help( void )	{ return "EXPOSE_PRELIT - expose precalculated lighting on meshes."; }
 	virtual	void Activate( const char * input ) {
 
-		static char *_comment [2] = {
+		static const char *_comment [2] = {
 			"Unexposed prelit meshes\n",
 			"Exposed	prelit meshes\n"
 		};
@@ -3022,7 +3022,7 @@ public:
 	virtual	const char * Get_Help( void )	{ return "SKELETON_STANDERS - creates 4 skeleton demos."; }
 	virtual	void Activate( const char * input ) {
 
-		char * skel_names[ 4 ] = {
+		const char * skel_names[ 4 ] = {
 			"human_bt",
 			"human_st",
 			"human_bw",

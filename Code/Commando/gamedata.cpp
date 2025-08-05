@@ -595,7 +595,7 @@ bool cGameData::Set_Current_Players(int current)
 }
 
 //-----------------------------------------------------------------------------
-void cGameData::Set_Owner(WideStringClass & owner)
+void cGameData::Set_Owner(const WideStringClass & owner)
 {
    Owner = owner;
 }

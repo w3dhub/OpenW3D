@@ -62,7 +62,7 @@
 *
 ******************************************************************************/
 
-void DlgWebPage::DoDialog(char* page)
+void DlgWebPage::DoDialog(const char* page)
 	{
 	WWASSERT_PRINT(page && (strlen(page) > 0), "Invalid parameter.\n");
 

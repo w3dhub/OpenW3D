@@ -123,7 +123,7 @@ class	cGameData :
 		void				Set_Map_Name(const StringClass & map_name);
 		void				Set_Mod_Name(const StringClass & mod_name);
 		void				Set_Map_Cycle(int map, const StringClass & map_name);
-		void				Set_Owner(WideStringClass & owner);
+		void				Set_Owner(const WideStringClass & owner);
 		bool				Set_Max_Players(int max_players);
 		bool				Set_Time_Limit_Minutes(int time_limit_minutes);
 		void				Set_Radar_Mode(RadarModeEnum mode);
