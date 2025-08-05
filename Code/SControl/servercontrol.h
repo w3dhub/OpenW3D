@@ -94,7 +94,7 @@ class ServerControlClass
 		/*
 		** Send/receive etc.
 		*/
-		void Send_Message(char *text, unsigned long ip, unsigned short port);
+		void Send_Message(const char *text, unsigned long ip, unsigned short port);
 
 		/*
 		** Service.
