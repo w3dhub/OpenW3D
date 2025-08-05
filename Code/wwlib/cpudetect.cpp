@@ -1271,8 +1271,42 @@ void Get_OS_Info(
 				os_info.Code="WINXP";
 				return;
 			}
-			os_info.Code="WINXX";
+			if (OSVersionNumberMinor==2) {
+				os_info.Code="WIN2K3";
+				return;
+			}
+			os_info.Code="WIN5.X";
 			return;
 		}
+		if (OSVersionNumberMajor==6) {
+			if (OSVersionNumberMinor == 0) {
+				os_info.Code = "WIN2K8";
+				return;
+			}
+			if (OSVersionNumberMinor == 1) {
+				os_info.Code = "WIN7";
+				return;
+			}
+			if (OSVersionNumberMinor == 2) {
+				os_info.Code = "WIN2013";
+				return;
+			}
+			if (OSVersionNumberMinor == 3) {
+				os_info.Code = "WIN8";
+				return;
+			}
+			os_info.Code="WIN6.X";
+			return;
+		}
+		if (OSVersionNumberMajor==10) {
+			if (OSVersionNumberMinor == 0) {
+				os_info.Code = "WIN10";
+				return;
+			}
+			os_info.Code="WIN10.X";
+			return;
+		}
+		os_info.Code="UNKNOWN";
+		return;
 	}
 }
