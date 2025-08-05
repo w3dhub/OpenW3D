@@ -89,7 +89,7 @@ bool Locale_Use_Multi_Language_Files ( void )
 /* initialization															*/
 /****************************************************************************/
 
-int Locale_Init	( int language, char *file )
+int Locale_Init	( int language, const char *file )
 {
 	int	result = 0;
 

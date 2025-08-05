@@ -50,7 +50,7 @@ extern	CHAR	LanguageFile[];
 /****************************************************************************/
 /* LOCALE API                                                               */
 /****************************************************************************/
-int				Locale_Init	( int language, CHAR *file );
+int				Locale_Init	( int language, const CHAR *file );
 void			Locale_Restore ( void );
 const CHAR	*	Locale_GetString( int StringID, CHAR *String );
 const WCHAR	*	Locale_GetString( int StringID, WCHAR *String );
