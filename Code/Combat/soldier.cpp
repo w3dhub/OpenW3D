@@ -1331,7 +1331,7 @@ Matrix3D tm(1);
 	static int crc = UNINITIALLIZED_CRC;
 tm.Rotate_X( 1.4f );
 	if ( crc == UNINITIALLIZED_CRC ) {
-		char * filelist[] = {
+		const char * filelist[] = {
 		"laif`wp-gga",								//"objects.ddb",              
 		"bqnlq-jmj",								//"armor.ini",                
 		"almfp-jmj",								//"bones.ini",                
@@ -2282,7 +2282,7 @@ SyncLegs = true;
 static float	_shake_delay = 0;
 static float	_cry_delay = 0;
 
-static char * _profile_name = "Soldier Think";
+static const char * _profile_name = "Soldier Think";
 
 //------------------------------------------------------------------------------------
 void	SoldierGameObj::Think( void )

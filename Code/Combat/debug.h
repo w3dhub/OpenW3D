@@ -195,7 +195,7 @@ private:
 	static	bool	AllowCinematicKeys;
 
 	static	DebugDisplayHandlerClass * DisplayHandler;
-   static	LPSTR LOGFILE;
+   static	const char *LOGFILE;
 	static	char	LogfileNameBuffer[256];
 	static	bool	IsSlave;
 

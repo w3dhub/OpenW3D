@@ -272,7 +272,7 @@ class SkyGlowClass : public VisibilityClass
 class LightningBoltClass : public VisibilityClass, public SegmentedLineClass
 {
 	public:
-		 LightningBoltClass::LightningBoltClass (int branchcount, Matrix3D &m, float length, float childlength, float width, float amplitude);
+		 LightningBoltClass (int branchcount, Matrix3D &m, float length, float childlength, float width, float amplitude);
 		~LightningBoltClass ();
 
 				  void Configure (Vector3 &color);
