@@ -45,10 +45,16 @@
 class cUserOptions
 {
 	public:
+		enum ParseResult {
+			SUCCESS,
+			FAILURE,
+			PRINT_HELP,
+		};
 
-		static bool Parse_Command_Line(LPCSTR command);
+		static ParseResult Parse_Command_Line(int argc, char *argv[]);
+		static void Print_Command_Line_Help(bool error);
 
-		static void Set_Server_INI_File(const char *cmd_line_entry);
+		static void Set_Server_INI_File(const char *ini_file);
 
 		static void Set_Bandwidth_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
 		static BANDWIDTH_TYPE_ENUM Get_Bandwidth_Type(void);

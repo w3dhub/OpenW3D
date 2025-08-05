@@ -35,6 +35,7 @@
 #include "bandwidth.h"
 #include "bandwidthcheck.h"
 #include <stdio.h>
+#include <string.h>
 #include "trim.h"
 #include "singletoninstancekeeper.h"
 #include "slavemaster.h"
@@ -82,57 +83,44 @@ cRegistryFloat cUserOptions::IrrelevancePenalty(				APPLICATION_SUB_KEY_NAME_NET
 cRegistryInt cUserOptions::ResultsLogNumber(						APPLICATION_SUB_KEY_NAME_NETOPTIONS, "ResultsLogNumber",					1);
 
 //-----------------------------------------------------------------------------
-bool cUserOptions::Parse_Command_Line(LPCSTR command)
+cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[])
 {
-	WWASSERT(command != NULL);
-
-	bool retcode = true;
-
-	//
-	// Convert to argv & argc for convenience.
-	// First argument is supposed to be a pointer to the .EXE that is running
-	// but we don't need that here.
-	//
-	int argc = 1;			//Set argument count to 1
-	char * argv[20];		//Pointers to command line arguments
-	argv[0] = NULL;		//Set 1st command line argument to point to full path
-
-	//
-	// Get pointers to command line arguments just like if we were in DOS
-	//
-	char *command_line = strdup(command);
-	char *token = strtok(command_line, " ");
-	while (argc < ARRAY_SIZE(argv) && token != NULL) {
-		argv[argc++] = strtrim(token);
-		token = strtok(NULL, " ");
-		if (argc >= 19) {
-			break;
-		}
-	}
+	ParseResult retcode = ParseResult::SUCCESS;
 
 	//
 	// Loop through all the command line arguments.
 	//
 
-	char *cmd;
 	for (int i=1 ; i<argc ; i++) {
-		cmd = strupr(argv[i]);
+		const char *cmd = argv[i];
 
 		// Look for ip override.
-		if (strstr(cmd, "IP=")) {
+		if (strcmp(cmd, "--ip") == 0) {
+			const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
+			}
 			extern ULONG g_ip_override;
-			g_ip_override = ::inet_addr(strstr(cmd, "IP=") + 3);
+			g_ip_override = ::inet_addr(argval);
 			continue;
 		}
 
 		// See if multiple progrram instances are allowed.
-		if (strstr(cmd, "MULTI")) {
+		if (strcmp(cmd, "--multi") == 0) {
 			SingletonInstanceKeeperClass::Allow_Multiple_Instances(true);
 			continue;
 		}
 
-		if (strstr(cmd, "REGMOD=")) {
-			strcpy(DefaultRegistryModifier, strstr(cmd, "REGMOD=") + 7);
+		if (strcmp(cmd, "--regmod") == 0) {
+            const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
+			}
+			strcpy(DefaultRegistryModifier, argval);
 			#ifdef WWDEBUG
 			OutputDebugString("Registry modifier on command line\n");
 			#endif //WWDEBUG
@@ -140,7 +128,7 @@ bool cUserOptions::Parse_Command_Line(LPCSTR command)
 			continue;
 		}
 
-		if (strstr(cmd, "SLAVE")) {
+		if (strcmp(cmd, "--slave") == 0) {
 			SlaveMaster.Set_Slave_Mode(true);
 			DebugManager::Set_Is_Slave(true);
 
@@ -158,14 +146,26 @@ bool cUserOptions::Parse_Command_Line(LPCSTR command)
 			continue;
 		}
 
-		if (strstr(cmd, "STARTSERVER=")) {
-			Set_Server_INI_File(cmd);
+		if (strcmp(cmd, "--startserver") == 0) {
+            const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
+			}
+			Set_Server_INI_File(argval);
 			continue;
 		}
 
-		if (strstr(cmd, "GAMESPYSERVER=")) {
+		if (strcmp(cmd, "--gamespyserver") == 0) {
+            const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
+			}
 			char server_config_file[MAX_PATH];
-			strcpy(server_config_file, strstr(cmd, "GAMESPYSERVER=") + 14);
+			strcpy(server_config_file, argval);
 			WWDEBUG_SAY(("Set to load gamespy server settings from config file %s\n", server_config_file));
 			RawFileClass file(server_config_file);
 			if (file.Is_Available()) {
@@ -182,149 +182,117 @@ bool cUserOptions::Parse_Command_Line(LPCSTR command)
 			continue;
 		}
 
-		if (strstr(cmd, "NODX")) {
+		if (strcmp(cmd, "--nodx") == 0) {
 			ConsoleBox.Set_Exclusive(true);
 			continue;
 		}
-	}
-
-	free(command_line);
-
 
 #ifndef BETACLIENT
-
-	//GAMESPY
-	//
-	// Gamespy params follow different param format
-	//
-
-	char *tmpstr = strdup(command);
-	tmpstr = _strupr(tmpstr);
-
-	char * ip_param = ::strstr(tmpstr, "+CONNECT");
-	if (ip_param != NULL) {
-		ip_param += ::strlen("+connect");
-
-		USHORT port = 4848;
-		DWORD addr = 0;
-		char ipaddr[300] = "";
-		::sscanf(ip_param, "%s", ipaddr);
-		strtrim(ipaddr);
-
-		char *tport = strchr(ipaddr, ':');
-		if (tport) {
-			*tport++ = 0;
-			if (atoi(tport) != 0 || atoi(tport) > 0) {
-				port = atoi(tport);
+		if (strcmp(cmd, "--gamespy-connect") == 0) {
+			const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
 			}
-		}
+			USHORT port = 4848;
+			DWORD addr = 0;
 
-		addr = ::inet_addr(ipaddr);
-
-		cGameSpyAdmin::Set_Game_Host_Ip(addr);
-		cGameSpyAdmin::Set_Game_Host_Port(port);
-		cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
-	}
-
-	char * nickname_param = ::strstr(tmpstr, "+NETPLAYERNAME");
-	if (nickname_param != NULL) {
-		nickname_param = (char *)(command + (nickname_param-tmpstr));
-		nickname_param += ::strlen("+NetPlayerName");
-
-		char * start = nickname_param;
-		// Strip leading spaces
-		while (*start && *start == ' ') start++;
-		// if we find a space before a quote then space delimit
-		while (*start && *start != '"' && *start != ' ') {
-			start++;
-		}
-		char * end = start;
-		// Match the end quote
-		if (*start && *start != ' ') {
-			start++;
-			end = start;
-			while (*end && *end != '"') {
-				end++;
+            char *saddr_mem = nullptr;
+            const char *saddr = argval;
+            const char *tport = strchr(argval, ':');
+			if (tport) {
+                char *end_port = nullptr;
+                long arg_port = strtol(tport + 1, &end_port, 10);
+                if (end_port != nullptr && *end_port != '\0') {
+                    return FAILURE;
+                }
+                if (arg_port != 0 || arg_port > 0) {
+                    port = arg_port;
+                }
+                saddr = saddr_mem = new char[tport - argval + 1];
+                memcpy(saddr_mem, argval, tport - argval);
+                saddr_mem[tport - argval] = '\0';
 			}
+
+			addr = ::inet_addr(argval);
+
+            delete[] saddr_mem;
+
+			cGameSpyAdmin::Set_Game_Host_Ip(addr);
+			cGameSpyAdmin::Set_Game_Host_Port(port);
+			cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
+			continue;
 		}
 
-		// Couldn't find any quotes, so delimit by spaces
-		if (start == end) {
-			start = nickname_param;
-			while (*start && *start == ' ') start++;
-			end = strchr(start, ' ');
-			if (!end) end = start + strlen(start);
-		}
-		
-		char nickname2[300] = "";
-		::strncpy(nickname2, start, end - start);
-		nickname2[end - start] = 0;
-
-		cUserOptions::GameSpyNickname.Set(nickname2);
-		cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
-	}
-
-	char * password_param = ::strstr(tmpstr, "+PASS");
-	if (password_param != NULL) {
-		char *tmp_param = ::strstr(tmpstr, "+PASSWORD");
-		if (tmp_param) {
-			password_param = (char *)(command + (tmp_param-tmpstr));
-			password_param += ::strlen("+PASSWORD");
-		} else {
-			password_param = (char *)(command + (password_param-tmpstr));
-			password_param += ::strlen("+PASS");
-		}
-
-		char * start = password_param;
-		// Strip leading spaces
-		while (*start && *start == ' ') start++;
-		// if we find a space before a quote then space delimit
-		while (*start && *start != '"' && *start != ' ') {
-			start++;
-		}
-		char * end = start;
-		// Match the end quote
-		if (*start && *start != ' ') {
-			start++;
-			end = start;
-			while (*end && *end != '"') {
-				end++;
+		if (strcmp(cmd, "--gamespy-netplayername") == 0) {
+			const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
 			}
+
+			cUserOptions::GameSpyNickname.Set(argval);
+			cGameSpyAdmin::Set_Is_Launch_From_Gamespy_Requested(true);
+			continue;
 		}
 
-		// Couldn't find any quotes, so delimit by spaces
-		if (start == end) {
-			start = password_param;
-			while (*start && *start == ' ') start++;
-			end = strchr(start, ' ');
-			if (!end) end = start + strlen(start);
+		if (strcmp(cmd, "--gamespy-password") == 0) {
+			const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
+			}
+
+			WideStringClass wide_password;
+			wide_password.Convert_From(argval);
+			cGameSpyAdmin::Set_Password_Attempt(wide_password);
 		}
-
-		char password[300] = "";
-		::strncpy(password, start, end - start);
-		password[end - start] = 0;
-
-		WideStringClass wide_password;
-		wide_password.Convert_From(password);
-		cGameSpyAdmin::Set_Password_Attempt(wide_password);
-	}
-
-	free(tmpstr);
-
 #endif // !BETACLIENT
 
+		if (strcmp(cmd, "--help") == 0) {
+			retcode = ParseResult::PRINT_HELP;
+			break;
+		}
+
+		retcode = ParseResult::FAILURE;
+		break;
+	}
 
 	// Return true if command line options scanned OK.
-	return(retcode);
+	return retcode;
+}
+
+void cUserOptions::Print_Command_Line_Help(bool error)
+{
+	char path[MAX_PATH];
+	char filename[MAX_PATH];
+	char filesuffix[MAX_PATH];
+	FILE *file = error ? stderr : stdout;
+
+	GetModuleFileNameA(NULL, path, sizeof(path));
+	_splitpath(path, NULL, NULL, filename, filesuffix);
+	_makepath(path, NULL, NULL, filename, filesuffix);
+
+	fprintf(file, "usage: %s [--ip IP] [--multi] [--regmod MOD] [--slave] [--startserver]\n", path);
+	fprintf(file, "    [--gamespyserver ADDRESS] [--nodx]\n");
+#ifndef BETACLIENT
+	fprintf(file, "    [--gamespy-connect IP[:PORT]]\n");
+	fprintf(file, "    [--gamespy-netplayername NAME]\n");
+	fprintf(file, "    [--gamespy-password PASSWORD]\n");
+#endif
+	fprintf(file, "    [--help]\n");
 }
 
 
 
 //-----------------------------------------------------------------------------
-void cUserOptions::Set_Server_INI_File(const char *cmd_line_entry)
+void cUserOptions::Set_Server_INI_File(const char *ini_file)
 {
 	char server_config_file[MAX_PATH];
-	strcpy(server_config_file, strstr(cmd_line_entry, "STARTSERVER=") + 12);
+	strcpy(server_config_file, ini_file);
 	WWDEBUG_SAY(("Set to load server settings from config file %s\n", server_config_file));
 	RawFileClass file(server_config_file);
 	if (file.Is_Available()) {
