@@ -61,14 +61,14 @@ class GameResField {
 		// Define constructors to be able to create all the different kinds
 		// of fields.
 		GameResField(void) {};
-		GameResField(char *id, char data);
-		GameResField(char *id, unsigned char data);
-		GameResField(char *id, short data);
-		GameResField(char *id, unsigned short data);
-		GameResField(char *id, long data);
-		GameResField(char *id, unsigned long data);
-		GameResField(char *id, char *data);
-		GameResField(char *id, void *data, int length);
+		GameResField(const char *id, char data);
+		GameResField(const char *id, unsigned char data);
+		GameResField(const char *id, short data);
+		GameResField(const char *id, unsigned short data);
+		GameResField(const char *id, long data);
+		GameResField(const char *id, unsigned long data);
+		GameResField(const char *id, const char *data);
+		GameResField(const char *id, void *data, int length);
 
 		~GameResField();
 

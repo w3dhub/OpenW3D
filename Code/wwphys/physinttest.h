@@ -131,7 +131,7 @@ class PhysMeshIntersectionTestClass : public IntersectionTestClass
 {
 public:
 	
-	PhysMeshIntersectionTestClass::PhysMeshIntersectionTestClass(MeshClass * mesh,int col_group,int col_type,NonRefPhysListClass * result_list) :
+	PhysMeshIntersectionTestClass(MeshClass * mesh,int col_group,int col_type,NonRefPhysListClass * result_list) :
 		IntersectionTestClass(col_type),
 		Mesh(NULL),
 		CollisionGroup(col_group),
