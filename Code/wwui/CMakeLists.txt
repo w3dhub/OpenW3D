@@ -93,7 +93,6 @@ add_library(wwui STATIC)
 
 # This is needed for this module but breaks the build across the whole project?
 target_compile_definitions(wwui PRIVATE
-    _WIN32_WINNT=0x400
     _MBCS
 )
 
