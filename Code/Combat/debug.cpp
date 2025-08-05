@@ -69,7 +69,7 @@ CriticalSectionClass DebugManager::CriticalSection;
 
 DebugDisplayHandlerClass *	DebugManager::DisplayHandler		= NULL;
 #define DEFAULT_LOGFILE_NAME "_logfile.txt"
-LPSTR DebugManager::LOGFILE = DEFAULT_LOGFILE_NAME;
+const char *DebugManager::LOGFILE = DEFAULT_LOGFILE_NAME;
 char DebugManager::LogfileNameBuffer[256];
 
 MonoClass			ScrollingScreen;

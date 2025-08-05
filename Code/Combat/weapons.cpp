@@ -576,7 +576,7 @@ void	WeaponClass::Do_Reload( void )
 
 float	WeaponClass::Get_Range( void )
 {
-	return ( PrimaryAmmoDefinition != NULL ) ? PrimaryAmmoDefinition->Range : 0;
+	return ( PrimaryAmmoDefinition != NULL ) ? static_cast<float>(PrimaryAmmoDefinition->Range) : 0.0f;
 }
 
 

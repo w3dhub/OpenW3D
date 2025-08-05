@@ -1419,7 +1419,7 @@ void VehicleGameObj::Apply_Control( void )
 	SmartGameObj::Apply_Control();
 }
 
-static char * _profile_name = "Vehicle Think";
+static const char * _profile_name = "Vehicle Think";
 
 void	VehicleGameObj::Think( void )
 {
@@ -1452,7 +1452,7 @@ void	VehicleGameObj::Think( void )
 }
 }
 
-static char * _post_profile_name = "Vehicle PostThink";
+static const char * _post_profile_name = "Vehicle PostThink";
 
 void	VehicleGameObj::Post_Think( void )
 {

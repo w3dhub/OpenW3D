@@ -339,7 +339,7 @@ void SAMSiteGameObj::Generate_Control( void )
 	}
 }
 
-static char * _profile_name = "SAMSite Think";
+static const char * _profile_name = "SAMSite Think";
 void	SAMSiteGameObj::Think( void ) 
 {
 	SmartGameObj *target = NULL;
