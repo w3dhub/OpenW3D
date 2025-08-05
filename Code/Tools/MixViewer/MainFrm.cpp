@@ -439,7 +439,7 @@ CMainFrame::OnRemoveAVAssets (void)
 		POSITION pos = dialog.GetStartPosition();
 
 		while (pos != NULL) {
-			StringClass file_name = dialog.GetNextPathName(pos);
+			StringClass file_name = static_cast<const char *>(dialog.GetNextPathName(pos));
 
 			//
 			// Get just the path portion.
@@ -498,7 +498,7 @@ CMainFrame::OnMakeMixPatch(void)
 		// Pull the name of the old source mix file.
 		//
 		POSITION pos = dialog.GetStartPosition();
-		StringClass old_file_name = dialog.GetNextPathName(pos);
+		StringClass old_file_name = static_cast<const char *>(dialog.GetNextPathName(pos));
 
 		//
 		// Ask for the name of the new source mix file.
@@ -517,7 +517,7 @@ CMainFrame::OnMakeMixPatch(void)
 			// Pull the name of the new source mix file.
 			//
 			pos = dialog2.GetStartPosition();
-			StringClass new_file_name = dialog2.GetNextPathName(pos);
+			StringClass new_file_name = static_cast<const char *>(dialog2.GetNextPathName(pos));
 
 
 			//
@@ -537,7 +537,7 @@ CMainFrame::OnMakeMixPatch(void)
 				// Pull the name of the new source mix file.
 				//
 				pos = dialog3.GetStartPosition();
-				StringClass out_file_name = dialog3.GetNextPathName(pos);
+				StringClass out_file_name = static_cast<const char *>(dialog3.GetNextPathName(pos));
 
 				//
 				// Ask for the directory containing the old source art.
