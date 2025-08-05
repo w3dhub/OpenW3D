@@ -1,15 +1,16 @@
 # Interface libraries to set common defines and includes, avoid duplication later
 add_library(wwcommon INTERFACE)
 
+# Build all our code as C++20 code
+target_compile_features(wwcommon INTERFACE cxx_std_20)
+
 target_compile_definitions(wwcommon INTERFACE
     NOMINMAX
     WIN32_LEAN_AND_MEAN
-    #_WIN32_WINNT=0x400
-    #_MBCS
+    _WIN32_WINNT=0x501
     _CRT_NONSTDC_NO_WARNINGS
     _CRT_SECURE_NO_WARNINGS
     $<$<CONFIG:Debug>:WWDEBUG>
-    $<$<CONFIG:Debug>:_DEBUG>
 )
 
 target_compile_options(wwcommon INTERFACE
