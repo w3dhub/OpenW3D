@@ -1966,12 +1966,12 @@ void DX8Wrapper::Apply_Render_State_Changes()
 	unsigned mask=TEXTURE0_CHANGED;
 	for (unsigned i=0;i<MAX_TEXTURE_STAGES;++i,mask<<=1) {
 		if (render_state_changed&mask) {
-			SNAPSHOT_SAY(("DX8 - apply texture %d (%s)\n",i,render_state.Textures[i] ? render_state.Textures[i]->Get_Full_Path() : "NULL"));
+			SNAPSHOT_SAY(("DX8 - apply texture %d (%s)\n",i,render_state.Textures[i] ? static_cast<const char *>(render_state.Textures[i]->Get_Full_Path()) : "NULL"));
 			if (render_state.Textures[i]) render_state.Textures[i]->Apply(i);
 			else TextureClass::Apply_Null(i);
 		}
 		else {
-			SNAPSHOT_SAY(("DX8 - texture %d not changed (%s)\n",i,render_state.Textures[i] ? render_state.Textures[i]->Get_Full_Path() : "NULL"));
+			SNAPSHOT_SAY(("DX8 - texture %d not changed (%s)\n",i,render_state.Textures[i] ? static_cast<const char *>(render_state.Textures[i]->Get_Full_Path()) : "NULL"));
 		}
 	}
 

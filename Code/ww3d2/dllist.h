@@ -73,6 +73,7 @@ public:
 template <class T>
 class DLDestroyListClass : public DLListClass<T>
 {
+	using DLListClass<T>::Head;
 public:
 	virtual ~DLDestroyListClass()
 	{

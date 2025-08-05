@@ -273,6 +273,10 @@ bool SubTitleParserClass::Find_Movie_Entry(const char* moviename)
 
 bool SubTitleParserClass::Parse_Sub_Title(wchar_t* string, SubTitleClass* subTitle)
 {
+	// OpenW3D @fix cfehunter 07/03/2025
+	// Empty char to assign an empty string to the mutable pointer
+	wchar_t empty = L'\0';
+
 	// Parameter check
 	WWASSERT(string != NULL);
 	WWASSERT(subTitle != NULL);
@@ -333,7 +337,7 @@ bool SubTitleParserClass::Parse_Sub_Title(wchar_t* string, SubTitleClass* subTit
 				string = separator;
 			}
 			else {
-				string = L"";
+				string = &empty;
 			}
 		}
 
