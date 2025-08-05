@@ -126,7 +126,7 @@ EditorINIClass::Get_Matrix3D
 (
 	LPCTSTR section,
 	LPCTSTR entry,
-	Matrix3D &defvalue
+	const Matrix3D &defvalue
 ) const
 {
 	// check input parameters

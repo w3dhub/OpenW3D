@@ -202,21 +202,25 @@ MainDialogBarClass::Initialize (void)
 {
 	UpdateData (FALSE);
 	
+	char presets_string[] = "Presets";
 	TC_ITEM tab_info = { 0 };
 	tab_info.mask = TCIF_TEXT;
-	tab_info.pszText = "Presets";
+	tab_info.pszText = presets_string;
 	m_TabCtrl.InsertItem (TAB_GLOBAL, &tab_info);
 
+	char instances_string[] = "Instances";
 	tab_info.mask = TCIF_TEXT;
-	tab_info.pszText = "Instances";
+	tab_info.pszText = instances_string;
 	m_TabCtrl.InsertItem (TAB_INSTANCES, &tab_info);
 
+	char conversations_string[] = "Conversations";
 	tab_info.mask = TCIF_TEXT;
-	tab_info.pszText = "Conversations";
+	tab_info.pszText = conversations_string;
 	m_TabCtrl.InsertItem (TAB_CONVERSATION, &tab_info);
 
+	char overlap_string[] = "Overlap";
 	tab_info.mask = TCIF_TEXT;
-	tab_info.pszText = "Overlap";
+	tab_info.pszText = overlap_string;
 	m_TabCtrl.InsertItem (TAB_OVERLAP, &tab_info);
 
 	//
@@ -232,8 +236,9 @@ MainDialogBarClass::Initialize (void)
 	//
 	//	Install the heightfield tab
 	//
+	char heightfield_string[] = "Heightfield";
 	tab_info.mask		= TCIF_TEXT;
-	tab_info.pszText	= "Heightfield";
+	tab_info.pszText	= heightfield_string;
 	m_TabCtrl.InsertItem (TAB_HEIGHTFIELD, &tab_info);	
 
 	m_pTabs[TAB_HEIGHTFIELD] = new HeightfieldPageClass (this);

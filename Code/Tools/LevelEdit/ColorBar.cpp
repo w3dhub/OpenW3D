@@ -35,6 +35,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+LRESULT WINAPI fnColorBarProc (HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
+
 //extern HINSTANCE _hinstance;
 
 

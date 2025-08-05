@@ -453,7 +453,7 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 	//
 	//	Create the new excel workbook based on this template
 	//
-	StringClass template_path = Make_Path (path, "renegade.xlt");
+	StringClass template_path = static_cast<const char *>(Make_Path (path, "renegade.xlt"));
 	ExcelClass::New_Workbook (template_path);
 
 	//
