@@ -90,7 +90,7 @@ unsigned long BuildInfoClass::Get_Build_Number(void)
  * HISTORY:                                                                                    *
  *   10/29/2001 4:55PM ST : Created                                                            *
  *=============================================================================================*/
-char *BuildInfoClass::Get_Build_Number_String(void)
+const char *BuildInfoClass::Get_Build_Number_String(void)
 {
 	static char _buffer[16];
 	sprintf (_buffer, "%d", *(unsigned long*)(&BuildNumber[28]));
@@ -114,7 +114,7 @@ char *BuildInfoClass::Get_Build_Number_String(void)
  * HISTORY:                                                                                    *
  *   10/29/2001 5:08PM ST : Created                                                            *
  *=============================================================================================*/
-char *BuildInfoClass::Get_Builder_Name(void)
+const char *BuildInfoClass::Get_Builder_Name(void)
 {
 	return(&BuildNumber[32]);
 }
@@ -135,7 +135,7 @@ char *BuildInfoClass::Get_Builder_Name(void)
  * HISTORY:                                                                                    *
  *   10/29/2001 5:10PM ST : Created                                                            *
  *=============================================================================================*/
-char *BuildInfoClass::Get_Build_Date_String(void)
+const char *BuildInfoClass::Get_Build_Date_String(void)
 {
 	static char _buffer[64];
 	SYSTEMTIME systime;
@@ -165,7 +165,7 @@ char *BuildInfoClass::Get_Build_Date_String(void)
  * HISTORY:                                                                                    *
  *   10/29/2001 5:12PM ST : Created                                                            *
  *=============================================================================================*/
-char *BuildInfoClass::Get_Builder_Initials(void)
+const char *BuildInfoClass::Get_Builder_Initials(void)
 {
 	static char _buffer[4];
 
@@ -194,7 +194,7 @@ char *BuildInfoClass::Get_Builder_Initials(void)
  * HISTORY:                                                                                    *
  *   10/29/2001 7:30PM ST : Created                                                            *
  *=============================================================================================*/
-char *BuildInfoClass::Get_Build_Version_String(void)
+const char *BuildInfoClass::Get_Build_Version_String(void)
 {
 	static char _buffer[128];
 	sprintf(_buffer, "%s-%s", Get_Builder_Initials(), Get_Build_Number_String());
@@ -247,7 +247,7 @@ BuildInfoClass::BuildType BuildInfoClass::Get_Build_Type(void)
  * HISTORY:                                                                                    *
  *   10/29/2001 7:42PM ST : Created                                                            *
  *=============================================================================================*/
-char *BuildInfoClass::Get_Build_Type_String(void)
+const char *BuildInfoClass::Get_Build_Type_String(void)
 {
 	switch (Get_Build_Type()) {
 		case BUILD_DEBUG:
@@ -283,7 +283,7 @@ char *BuildInfoClass::Get_Build_Type_String(void)
  * HISTORY:                                                                                    *
  *   10/29/2001 7:49PM ST : Created                                                            *
  *=============================================================================================*/
-char *BuildInfoClass::Composite_Build_Info(void)
+const char *BuildInfoClass::Composite_Build_Info(void)
 {
 	static char _buffer[256];
 	sprintf(_buffer, "%s Build %d by %s - Build time %s", Get_Build_Type_String(), Get_Build_Number(), Get_Builder_Name(), Get_Build_Date_String());

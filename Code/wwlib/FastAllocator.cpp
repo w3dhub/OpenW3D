@@ -18,7 +18,7 @@
 
 #include "FastAllocator.h"
 
-static FastAllocatorGeneral* generalAllocator; //This general allocator will do all allocations for us.
+FastAllocatorGeneral* generalAllocator; //This general allocator will do all allocations for us.
 
 FastAllocatorGeneral* FastAllocatorGeneral::Get_Allocator()
 {

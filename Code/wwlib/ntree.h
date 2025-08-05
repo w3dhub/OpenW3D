@@ -169,6 +169,7 @@ void NTreeClass<T>::Reset (void)
 template<class T>
 class SortedNTreeClass : public NTreeClass<T>
 {
+	using NTreeClass<T>::m_Root;
 public:
 
 	//////////////////////////////////////////////////////////////
@@ -413,6 +414,7 @@ void NTreeLeafClass<T>::Remove (void)
 template<class T>
 class SortedNTreeLeafClass : public NTreeLeafClass<T>
 {
+	using NTreeLeafClass<T>::m_Child;
 public:
 
 	//////////////////////////////////////////////////////////////
