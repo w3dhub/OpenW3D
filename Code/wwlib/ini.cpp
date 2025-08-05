@@ -393,6 +393,7 @@ int INIClass::Load(Straw & ffile)
 {
 	bool end_of_file = false;
 	char buffer[MAX_LINE_LENGTH];
+	char space_divider[] = " ";
 
 	/*
 	**	Determine if the INI database has preexisting entries. If it does,
@@ -472,7 +473,7 @@ int INIClass::Load(Straw & ffile)
 				strtrim(divider);
 				if (!strlen(divider)) {
 					if (KeepBlankEntries)
-						divider = " ";
+						divider = space_divider;
 					else
 						continue;
 				}
@@ -538,7 +539,7 @@ int INIClass::Load(Straw & ffile)
 				strtrim(divider);
 				if (!strlen(divider)) {
 					if (KeepBlankEntries)
-						divider = " ";
+						divider = space_divider;
 					else
 						continue;
 				}

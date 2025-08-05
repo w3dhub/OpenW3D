@@ -36,7 +36,7 @@
 class cEncoderTypeEntry
 {
 	public:
-		cEncoderTypeEntry::cEncoderTypeEntry();
+		cEncoderTypeEntry();
 
 		void Init(double min, double max, double resolution);
 		void Init(int num_bits);
