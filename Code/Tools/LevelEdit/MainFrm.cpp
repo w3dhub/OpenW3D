@@ -5699,7 +5699,7 @@ CMainFrame::OnExportTileList (void)
 		//
 		//	Open the file
 		//
-		StringClass filename = dialog.GetPathName ();
+		StringClass filename = static_cast<const char *>(dialog.GetPathName ());
 		TextFileClass text_file (filename);
 		if (text_file.Open (FileClass::WRITE)) {
 

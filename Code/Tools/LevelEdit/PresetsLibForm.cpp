@@ -2181,7 +2181,9 @@ PresetsFormClass::Compare_Derived_Parameters
 		//	If the parameter values are exactly the same, then
 		// we will assume this parameter is derived and not overridden
 		//
-		if (*curr_parameter == *parameter) {
+		// OpenW3D @fix OmniBlade 05/08/2005
+		// This cast is apparently needed to avoid some new C++20 overload resolution issues.
+		if (*curr_parameter == static_cast<const ParameterClass &>(*parameter)) {
 			info.base_param_list.Add (parameter);
 			info.derived_param_list.Add (curr_parameter);
 		} else if (parameter->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
@@ -2283,7 +2285,7 @@ PresetsFormClass::OnPlay (void)
 		//
 		//	Make sure we have a local copy of this sound
 		//
-		CString filename = definition->Get_Filename ();
+		CString filename = static_cast<const char *>(definition->Get_Filename ());
 		if (::Get_File_Mgr ()->Does_File_Exist (filename, true)) {
 		
 			//
