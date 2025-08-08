@@ -315,6 +315,7 @@ struct MeshRegKeyStruct
 };
 
 
+template <>
 inline unsigned int HashTemplateKeyClass<MeshRegKeyStruct>::Get_Hash_Value(const MeshRegKeyStruct& key)
 {
 	unsigned int hval = (unsigned int)(key.Model) + (unsigned int)(key.UserLighting);
