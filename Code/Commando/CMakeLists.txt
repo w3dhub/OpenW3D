@@ -84,6 +84,7 @@ set(COMMANDO_SRC
     singletoninstancekeeper.h
     WINMAIN.CPP
     WINMAIN.H
+    winmain_compat.h
     bandwidthcheck.cpp
     bandwidthcheck.h
     FirewallWait.cpp

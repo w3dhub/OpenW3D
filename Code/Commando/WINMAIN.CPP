@@ -44,6 +44,7 @@
 
 #include "winmain.h"
 #define _WIN32_WINDOWS 0x0401
+#include "winmain_compat.h"
 #include "win.h"
 #include "resource.h"
 #include "WW3D.H"
@@ -112,14 +113,12 @@ extern "C"
 //----------------------------------------------------------------------------
 //	Local functions
 //----------------------------------------------------------------------------
-static BOOL Create_Main_Window(HANDLE hInstance, int nCmdShow);
+static BOOL Create_Main_Window(void);
 long FAR PASCAL Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 void On_Focus_Loss(void);
 void On_Focus_Restore(void);
-void Split_Command_Line_Args(HINSTANCE instance, char *path_to_exe, char *command_line);
-void Set_Working_Directory(char *old_path, char *new_path);
-int Start_Application( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow );
-void Set_Working_Directory(HINSTANCE hInstance);
+int Start_Application( void );
+void Set_Working_Directory(void);
 
 //#include "packet.h"
 
@@ -129,8 +128,6 @@ long Top_Level_Exception_Filter(EXCEPTION_POINTERS *e_info)
 	return(Exception_Handler(e_info->ExceptionRecord->ExceptionCode, e_info));
 }
 #endif //_MSC_VER
-
-
 
 
 /***********************************************************************************************
@@ -149,7 +146,7 @@ long Top_Level_Exception_Filter(EXCEPTION_POINTERS *e_info)
  * HISTORY:                                                                                    *
  *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
+int main(int argc, char *argv[])
 {
 	WWMemoryLogClass::Init();	// This switches memlog from static to dynamic allocations mode
 
@@ -187,6 +184,19 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	}
 #endif //WWDEBUG
 
+	switch (cUserOptions::Parse_Command_Line(argc, argv)) {
+	case cUserOptions::ParseResult::SUCCESS:
+		break;
+	case cUserOptions::ParseResult::FAILURE:
+        fprintf(stderr, "Error during parsing arguments\n");
+		cUserOptions::Print_Command_Line_Help(true);
+		return 1;
+	case cUserOptions::ParseResult::PRINT_HELP:
+		cUserOptions::Print_Command_Line_Help(false);
+		return 0;
+	}
+	LocalFree(argv);
+
 #ifdef _DEBUG // Denzil - DO NOT COMPILE INTO FINAL BUILD
 	bool webInstalled = WebBrowser::InstallPrerequisites();
 
@@ -196,16 +206,12 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	}
 #endif // WWDEBUG
 
-   if (!cUserOptions::Parse_Command_Line(lpCmdLine)) {
-		return(0);
-	}
-
 	//
 	// There's a couple of options we need for the FDS
 	//
 #ifdef FREEDEDICATEDSERVER
 	if (!SlaveMaster.Am_I_Slave() && !ServerSettingsClass::Is_Server_Settings_File_Set()) {
-		cUserOptions::Set_Server_INI_File("STARTSERVER=server.ini");
+		cUserOptions::Set_Server_INI_File("server.ini");
 	}
 	ConsoleBox.Set_Exclusive(true);
 #endif //FREEDEDICATEDSERVER
@@ -221,7 +227,7 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	//
 	//	Start the game!
 	//
-	int retval = Start_Application( hInstance, hPrevInstance, lpCmdLine, nCmdShow );
+	int retval = Start_Application();
 	return retval;
 }
 
@@ -267,7 +273,7 @@ static bool Graphics_Settings_Trouble_Shooting()
 
 typedef IDirect3D8* (WINAPI *Direct3DCreate8Type) (UINT SDKVersion);
 static Direct3DCreate8Type	Direct3DCreate8Ptr = NULL;
-static HINSTANCE D3D8Lib = NULL;
+static HMODULE D3D8Lib = NULL;
 
 static bool Video_Card_Driver_Check()
 {
@@ -402,22 +408,20 @@ static bool Video_Card_Driver_Check()
 
 
 /***********************************************************************************************
- * Start_Application -- Handles WinMain execution.															  *
+ * Start_Application -- Handles main execution.	                                               *
  *                                                                                             *
  * INPUT:                                                                                      *
- *  																														  *
- * 	Standard WinMain inputs :-)																				  *
- * 																														  *
- * OUTPUT:																												  *
- *  																														  *
- * 	Standard WinMain output																						  *
- * 																														  *
- * WARNINGS:																											  *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * 	Standard main output                                                                       *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   09/19/2001 PDS  : Created.                                                                *
  *=============================================================================================*/
-int Start_Application( HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*lpCmdLine*/, int nCmdShow )
+int Start_Application(void)
 {
 	{
 		WWMEMLOG(MEM_GAMEINIT);
@@ -426,7 +430,7 @@ int Start_Application( HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /
 		/*
 		** Set the working directory.
 		*/
-		Set_Working_Directory(hInstance);
+		Set_Working_Directory();
 
 		//
 		// TEMP Dev code - check the working folder is correct!
@@ -454,7 +458,7 @@ int Start_Application( HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /
 
 		//Debug_Say(("Started logging at time %s", cMiscUtil::Get_Text_Time()));
 
-		if (!Create_Main_Window(hInstance, nCmdShow)) return 0;
+		if (!Create_Main_Window()) return 0;
 
 		Register_Thread_ID(GetCurrentThreadId(), "Main Thread", true);
 	}
@@ -685,8 +689,6 @@ long FAR PASCAL Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM
  *                                                                                             *
  * INPUT:                                                                                      *
  *  																														  *
- * 	hInstance -- Instance handle of the application														  *
- * 	nCmdShow -- how the window is to be shown																  *
  * 																														  *
  * OUTPUT:																												  *
  * 																														  *
@@ -697,19 +699,19 @@ long FAR PASCAL Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM
  * HISTORY:                                                                                    *
  *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-static BOOL Create_Main_Window(HANDLE hInstance, int nCmdShow)
+static BOOL Create_Main_Window(void)
 {
 	WNDCLASS    wc;
 	BOOL        rc;
 
-	ProgramInstance = (HINSTANCE)hInstance;
+	ProgramInstance = (HINSTANCE)GetModuleHandle(NULL);
 
 	if (!ConsoleBox.Is_Exclusive()) {
 		wc.style			= CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 		wc.lpfnWndProc		= Main_Window_Proc;
 		wc.cbClsExtra		= 0;
 		wc.cbWndExtra		= 0;
-		wc.hInstance		= (HINSTANCE)hInstance;
+		wc.hInstance		= ProgramInstance;
 		wc.hIcon				= LoadIcon( NULL, IDI_APPLICATION);
 		wc.hCursor			= LoadCursor( NULL, IDC_ARROW);
 		wc.hbrBackground	= (HBRUSH)GetStockObject( BLACK_BRUSH);
@@ -794,14 +796,14 @@ void Prog_End(void)
  * HISTORY:                                                                                    *
  *   11/6/2001 12:11PM ST : Created                                                            *
  *=============================================================================================*/
-void Set_Working_Directory(HINSTANCE instance)
+void Set_Working_Directory(void)
 {
 	char path_to_exe[256];
 	char drive[_MAX_DRIVE];
 	char dir[_MAX_DIR];
 	char path[_MAX_PATH];
 
-	GetModuleFileName(instance, path_to_exe, sizeof(path_to_exe));
+	GetModuleFileName(NULL, path_to_exe, sizeof(path_to_exe));
 	_splitpath(path_to_exe, drive, dir, NULL, NULL);
 	_makepath(path, drive, dir, NULL, NULL);
 	SetCurrentDirectory(path);
