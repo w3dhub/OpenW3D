@@ -427,7 +427,6 @@ add_library(commando INTERFACE)
 
 target_link_libraries(commando INTERFACE
     winmm
-    vfw32
     wsock32
     version
     wwcommon

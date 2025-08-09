@@ -226,6 +226,8 @@ add_library(ww3d2 STATIC)
 
 target_link_libraries(ww3d2 PRIVATE
     wwcommon
+    vfw32
+    winmm
 )
 
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
@@ -237,6 +239,8 @@ if (RENEGADE_TOOLS)
 
     target_link_libraries(ww3d2e PRIVATE
         wwcommon
+        vfw32
+        winmm
     )
 
     target_compile_definitions(ww3d2e PRIVATE PARAM_EDITING_ON)
