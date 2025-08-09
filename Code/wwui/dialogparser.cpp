@@ -293,6 +293,7 @@ DialogParserClass::Parse_Template
 				buffer = (WORD *)(((char *)ALIGN_WORD_PTR(buffer)) + extra_data_size);
 			}
 		}
+		::FreeResource(hglobal);
 	}
 
 	return ;
