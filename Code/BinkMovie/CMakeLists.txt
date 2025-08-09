@@ -14,6 +14,7 @@ set(BINKMOVIE_SRC
 add_library(binkmovie STATIC)
 
 target_link_libraries(binkmovie PRIVATE
+    binkstub
     wwcommon
 )
 
