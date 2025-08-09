@@ -4,7 +4,7 @@ set(GAMESPY_SERVER_NAME "server.cnc-online.net")
 FetchContent_Declare(
     gamespy
     GIT_REPOSITORY https://github.com/TheAssemblyArmada/GamespySDK.git
-    GIT_TAG        d7ec6d4fea1c11fc37173ea954fc1ec47202a931
+    GIT_TAG        112ee06236193fe5bd3f5164c6b3515eb50b437d
 )
 
 FetchContent_MakeAvailable(gamespy)
