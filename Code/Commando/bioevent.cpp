@@ -137,7 +137,7 @@ cBioEvent::Act(void)
 			// Record his IP address for diagnostic purposes
 			//
 			WWASSERT(cNetwork::Get_Server_Rhost(SenderId) != NULL);
-			SOCKADDR_IN & address = cNetwork::Get_Server_Rhost(SenderId)->Get_Address();
+			struct sockaddr_in & address = cNetwork::Get_Server_Rhost(SenderId)->Get_Address();
 			p_player->Set_Ip_Address(address.sin_addr.s_addr);
 
 			//

@@ -478,7 +478,7 @@ void cGameData::Rebalance_Team_Sides(void)
 void cGameData::Set_Ip_And_Port(void)
 {
 	/*
-	SOCKADDR_IN local_address;
+	struct sockaddr_in local_address;
    bool retcode = cNetUtil::Get_Local_Address(&local_address);
 	WWASSERT(retcode == true);
 

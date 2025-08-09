@@ -151,12 +151,12 @@ class PacketManagerClass
 		unsigned long Get_Total_Compressed_Bandwidth_In(void);
 		unsigned long Get_Total_Compressed_Bandwidth_Out(void);
 
-		unsigned long Get_Raw_Bandwidth_In(SOCKADDR_IN *address);
-		unsigned long Get_Raw_Bandwidth_Out(SOCKADDR_IN *address);
-		unsigned long Get_Compressed_Bandwidth_In(SOCKADDR_IN *address);
-		unsigned long Get_Compressed_Bandwidth_Out(SOCKADDR_IN *address);
+		unsigned long Get_Raw_Bandwidth_In(struct sockaddr_in *address);
+		unsigned long Get_Raw_Bandwidth_Out(struct sockaddr_in *address);
+		unsigned long Get_Compressed_Bandwidth_In(struct sockaddr_in *address);
+		unsigned long Get_Compressed_Bandwidth_Out(struct sockaddr_in *address);
 
-		unsigned long Get_Raw_Bytes_Out(SOCKADDR_IN *address);
+		unsigned long Get_Raw_Bytes_Out(struct sockaddr_in *address);
 
 		void Set_Stats_Sampling_Frequency_Delay(unsigned long time_ms);
 		unsigned long Get_Stats_Sampling_Frequency_Delay(void) {return(StatsFrequency);};

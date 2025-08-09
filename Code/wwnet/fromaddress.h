@@ -43,7 +43,7 @@ class cFromAddress
 	public:
       cFromAddress& operator=(const cFromAddress& rhs) {FromAddress = rhs.FromAddress; return * this;}
 
-		SOCKADDR_IN FromAddress;
+		struct sockaddr_in FromAddress;
 };
 
 #endif // FROMADDRESS_H

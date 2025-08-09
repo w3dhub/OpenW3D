@@ -72,7 +72,7 @@ class cLanChat
       void						Process_Position_Broadcast(cPacket & packet);
 
       SOCKET					Socket;
-		SOCKADDR_IN				LocalAddress;
+		struct sockaddr_in				LocalAddress;
       DWORD						LastPositionBroadcastTimeMs;
       int						PositionBroadcastNumber;
 		ChatLocationEnum		CurrentLocation;
