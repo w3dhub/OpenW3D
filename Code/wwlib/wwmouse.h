@@ -40,6 +40,8 @@
 #include	"win.h"
 #include	"xmouse.h"
 
+#include <mmsystem.h>
+
 class BSurface;
 
 /*
