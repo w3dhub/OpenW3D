@@ -478,7 +478,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 
 	case 4:
 	  // Error message header/text
-      ///////*g_LogFile << (char *)Parm << endl;
+      ///////*g_LogFile << (char *)Parm << std::endl;
       char errmsg[256];
       LoadString(NULL,IDS_ERR_PATCH,errmsg,256);
       MessageBox(NULL,(char *)Param,errmsg,MB_OK);
@@ -550,7 +550,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 	  //// end patch
 	  //LoadString(g_AppInstance, IDS_PROCCOMPLETE, lpcBuf, 256);
 	  //g_DlgPtr->SetProgressText(lpcBuf);
-	  //*g_LogFile << " complete" << endl;
+	  //*g_LogFile << " complete" << std::endl;
       percent=100;
       PostMessage(GetDlgItem(PatchDialog,IDC_PROGRESS2),PBM_SETPOS,percent,0);
 		DBGMSG("P_DONE");
@@ -560,13 +560,13 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 	  //// this one shouldn't happen (only occurs if the command line
 	  ////   doesn't have a patch file in it, and we insure that it does).
 	  //Abort = TRUE;
-	  //*g_LogFile << "Incorrect (or none) patch file specified in command line." << endl;
+	  //*g_LogFile << "Incorrect (or none) patch file specified in command line." << std::endl;
 	break;
 
 	case 0xe:
 	  //// this one shouldn't happen either (same reason)
 	  //Abort = TRUE;
-	  //*g_LogFile << "Incorrect (or none) path specified in command line." << endl;
+	  //*g_LogFile << "Incorrect (or none) path specified in command line." << std::endl;
 	break;
 
 	case 0xf:
@@ -592,7 +592,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 	case 0x14:
 	  //// Location Dialog
 	  //Abort = TRUE;
-      //*g_LogFile << "Specified path is incorrect." << endl;
+      //*g_LogFile << "Specified path is incorrect." << std::endl;
 	break;
 
 	case 0x16:

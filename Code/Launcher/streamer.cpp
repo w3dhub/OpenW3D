@@ -22,16 +22,14 @@
 #endif
 
 
-Streamer::Streamer() : streambuf()
+Streamer::Streamer() : std::streambuf()
 {
-  int state=unbuffered();
-  unbuffered(0);  // 0 = buffered, 1 = unbuffered
 }
  
 Streamer::~Streamer()
 {
   sync();
-  delete[](base());
+  delete[](pbase());
 }
 
 int Streamer::setOutputDevice(OutputDevice *device)
@@ -42,7 +40,7 @@ int Streamer::setOutputDevice(OutputDevice *device)
 
 
 // put n chars from string into buffer
-int Streamer::xsputn(const char* buf, int size) //implementation of sputn
+std::streamsize Streamer::xsputn(const char* buf, std::streamsize size) //implementation of sputn
 {
 
   if (size<=0)  // Nothing to do
@@ -74,7 +72,7 @@ int Streamer::overflow(int c)
     return(EOF);
   else {
     sputc(c);
-    if ((unbuffered() && c=='\n' || pptr() >= epptr())
+    if (pptr() >= epptr()
         && sync()==EOF) {
       return(EOF);
     }
@@ -91,16 +89,15 @@ int Streamer::underflow(void)
 int Streamer::doallocate()
 {
 
-  if (base()==NULL)
+  if (pbase()==NULL)
   {
     char *buf=new char[(2*STREAMER_BUFSIZ)];   // deleted by destructor
     memset(buf,0,2*STREAMER_BUFSIZ);
 
     // Buffer
-    setb(
+    setbuf(
        buf,         // base pointer
-       buf+STREAMER_BUFSIZ,  // ebuf pointer (end of buffer);
-       0);          // 0 = manual deletion of buff 
+       STREAMER_BUFSIZ);  // ebuf pointer (end of buffer)
 
     // Get area
     setg(
@@ -131,11 +128,6 @@ int Streamer::sync()
     Output_Device->print(pbase(),wlen);
   }
 
-  if (unbuffered()) {
-    setp(pbase(),pbase());
-  }
-  else {
-    setp(pbase(),pbase()+STREAMER_BUFSIZ);
-  }
+  setp(pbase(),pbase());
   return(0);
 }

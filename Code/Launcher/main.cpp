@@ -229,7 +229,7 @@ int main(int argc, char *argv[])
 	InitCommonControls();
 
 	// Goto the folder where launcher is installed
-	myChdir(argv[0]);
+	//myChdir(argv[0]);
 
 	// extract the program name from argv[0].  Change the extension to
 	//   .lcf (Launcher ConFig).  This is the name of our config file.
