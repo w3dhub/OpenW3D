@@ -767,6 +767,7 @@ WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
 {
+#if defined(_M_IX86)
 	const float scale = 255.0;
 	unsigned int col;
 
@@ -834,6 +835,13 @@ not_changed:
 
 		mov	col,eax
 	}
+#else
+	unsigned r = (int)(Vector.x * 255.f) & 0xff;
+	unsigned g = (int)(Vector.g * 255.f) & 0xff;
+	unsigned b = (int)(Vector.b * 255.f) & 0xff;
+	unsigned a = (int)(alpha * 255.f) & 0xff;
+	col = (a << 24) | (r << 16) | (g << 8) | (b << 0);
+#endif
 	return col;
 }
 
