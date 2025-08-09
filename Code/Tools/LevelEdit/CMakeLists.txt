@@ -458,7 +458,7 @@ target_link_libraries(leveledit PRIVATE
     combate
 )
 
-if(WIN32 OR "${CMAKE_SYSTEM}" MATCHES "Windows")
+if(WIN32)
     target_link_options(leveledit PRIVATE /NODEFAULTLIB:libci.lib /NODEFAULTLIB:libc.lib)
     add_custom_command(
         OUTPUT VSS.h VSS_i.c

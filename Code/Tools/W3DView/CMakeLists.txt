@@ -202,6 +202,6 @@ target_link_libraries(w3dview PRIVATE
 
 target_sources(w3dview PRIVATE ${W3DVIEW_SRC})
 
-if(WIN32 OR "${CMAKE_SYSTEM}" MATCHES "Windows")
+if(WIN32)
     target_link_options(w3dview PRIVATE "/NODEFAULTLIB:libci.lib")
 endif()
