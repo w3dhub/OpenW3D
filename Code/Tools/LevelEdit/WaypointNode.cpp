@@ -356,7 +356,7 @@ WaypointNodeClass::On_Translate (void)
 			//
 			//	Notify our waypath that we have been moved
 			//
-			Matrix3D &tm = Get_Transform ();
+			const Matrix3D &tm = Get_Transform ();
 			m_Waypath->On_Point_Moved (index, tm.Get_Translation ());
 		}
 	}

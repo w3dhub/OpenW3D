@@ -27,7 +27,7 @@
 
 struct VisemeTableItem
 {
-	char	*LetterCombination;
+	const char	*LetterCombination;
 	char	Visemes[2];
 };
 

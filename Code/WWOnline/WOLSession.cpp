@@ -191,7 +191,7 @@ bool Session::FinalizeCreate(void)
 
 		chatEvents->Init(*this);
 
-		hr = mChat.Advise(chatEvents, WOL::IID_IChatEvent, &mChatCookie);
+		hr = AtlAdvise(chatEvents.p, chatEvents, WOL::IID_IChatEvent, &mChatCookie);
 
 		if (FAILED(hr))
 			{
@@ -234,7 +234,7 @@ bool Session::FinalizeCreate(void)
 
 		utilEvents->Init(*this);
 
-		hr = mNetUtil.Advise(utilEvents, WOL::IID_INetUtilEvent, &mNetUtilCookie);
+		hr = AtlAdvise(mNetUtil, utilEvents, WOL::IID_INetUtilEvent, &mNetUtilCookie);
 
 		if (FAILED(hr))
 			{

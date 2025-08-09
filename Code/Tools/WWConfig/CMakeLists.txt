@@ -28,18 +28,12 @@ add_executable(wwconfig WIN32)
 
 target_compile_definitions(wwconfig PRIVATE
     _AFXDLL
-    $<$<CONFIG:Debug>:WWDEBUG>
-    $<$<CONFIG:Debug>:_DEBUG>
-    $<$<CONFIG:Debug>:WWDEBUG>
-    $<$<CONFIG:Debug>:_DEBUG>
 )
 
 target_link_libraries(wwconfig PRIVATE
     vfw32
-    d3d8lib
     version
     winmm
-    milesstub
     wwcommon
     wwdebug
     wwlib
@@ -48,21 +42,6 @@ target_link_libraries(wwconfig PRIVATE
     wwsaveload
     ww3d2
     wwaudio
-)
-
-target_compile_options(wwconfig PRIVATE
-    ${WARNING_FLAGS}
-)
-
-target_include_directories(wwconfig PRIVATE
-    ../../wwdebug
-    ../../wwlib
-    ../../ww3d2
-    ../../WWMath
-    ../../wwphys
-    ../../wwsaveload
-    ../../WWAudio
-    ../..
 )
 
 target_sources(wwconfig PRIVATE ${WWCONFIG_SRC})

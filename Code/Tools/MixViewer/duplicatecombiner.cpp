@@ -363,7 +363,7 @@ DuplicateRemoverClass::Make_Temp_Directory (void)
 	char temp_dir[MAX_PATH] = { 0 };
 	::GetTempPath (sizeof (temp_dir), temp_dir);
 
-	CString temp_path = Make_Path (temp_dir, "mixcombiner");
+	CString temp_path = static_cast<const char *>(Make_Path (temp_dir, "mixcombiner"));
 	
 	//
 	//	Try to find a unique temp directory to store our data
@@ -507,7 +507,7 @@ DuplicateRemoverClass::Make_Path (LPCTSTR path, LPCTSTR filename)
 void
 DuplicateRemoverClass::Get_Temp_Filename (StringClass &full_path)
 {
-	CString temp_path = Make_Path (TempDirectory, "tempfile");
+	CString temp_path = static_cast<const char *>(Make_Path (TempDirectory, "tempfile"));
 	
 	//
 	//	Try to find a unique temp filename

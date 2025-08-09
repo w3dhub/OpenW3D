@@ -170,7 +170,7 @@ CGameSpyQnR::~CGameSpyQnR()
 }
 
 void CGameSpyQnR::LaunchArcade(void) {
-	char *akey = "Software\\GameSpy\\GameSpy Arcade";
+	const char *akey = "Software\\GameSpy\\GameSpy Arcade";
 	BOOL launched = FALSE;
 	HKEY key = NULL;
 	int result = 0;

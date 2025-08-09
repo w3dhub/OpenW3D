@@ -321,7 +321,7 @@ bool cUserOptions::Parse_Command_Line(LPCSTR command)
 
 
 //-----------------------------------------------------------------------------
-void cUserOptions::Set_Server_INI_File(char *cmd_line_entry)
+void cUserOptions::Set_Server_INI_File(const char *cmd_line_entry)
 {
 	char server_config_file[MAX_PATH];
 	strcpy(server_config_file, strstr(cmd_line_entry, "STARTSERVER=") + 12);

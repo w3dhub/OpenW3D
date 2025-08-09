@@ -3255,7 +3255,7 @@ DECLARE_SCRIPT (M09_Elevator_Movement_Zone, "Direction:int, Anim_num:int, Elev_o
 {
 	void Entered (GameObject * obj, GameObject * enterer)
 	{
-		char *elevators[9] = 
+		static constexpr const char* elevators[9] = 
 		{
 			"l09_res_elev06.l09_res_elev06",
 			"elev01.elev01",
@@ -3352,7 +3352,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Controller, "Waypoint_num:int, Elev_obj_num:int
 
 		block1 = block2 = block3 = block4 = 0;
 
-		char *elevators[9] = 
+		static constexpr const char *elevators[9] =
 		{
 			"l09_res_elev06.l09_res_elev06",
 			"elev01.elev01",
@@ -3385,7 +3385,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Controller, "Waypoint_num:int, Elev_obj_num:int
 //
 	void Custom (GameObject * obj, int type, int param, GameObject * sender)
 	{
-		char *elevators[9] = 
+		static constexpr const char *elevators[9] =
 		{
 			"l09_res_elev06.l09_res_elev06",
 			"res_elev01.res_elev01",
@@ -3836,7 +3836,7 @@ DECLARE_SCRIPT (M09_Flyover_Controller, "")
 	{		
 		if (type == FLYOVER)
 		{
-			char *flyovers[8] = 
+			static constexpr const char *flyovers[8] =
 			{
 				"X9A_Apache_00.txt",
 				"X9A_Apache_01.txt",
@@ -4233,7 +4233,7 @@ DECLARE_SCRIPT (M09_Ambient_Clutter, "")
 	{
 		if (timer_id == AMB_SOUND)
 		{
-			char *ambients[7] = 
+			static constexpr const char *ambients[7] =
 				{
 					"Ambient_Screams_03",
 					"Ambient_Screams_04",

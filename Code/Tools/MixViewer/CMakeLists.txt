@@ -28,18 +28,6 @@ add_executable(mixviewer WIN32)
 
 target_compile_definitions(mixviewer PRIVATE
     _AFXDLL
-    $<$<CONFIG:Debug>:WWDEBUG>
-    $<$<CONFIG:Debug>:_DEBUG>
-)
-
-target_include_directories(mixviewer PRIVATE
-    ../../wwdebug
-    ../../wwlib
-    ../..
-)
-
-target_compile_options(mixviewer PRIVATE
-    ${WARNING_FLAGS}
 )
 
 target_link_libraries(mixviewer PRIVATE wwcommon wwdebug wwlib winmm)

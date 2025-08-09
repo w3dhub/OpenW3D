@@ -172,7 +172,7 @@ bool cGameSpyBanList::Final_Player_Kick(int id) {
 
 	cPlayer *player = cPlayerManager::Find_Player(id);
 	if (player && player->Get_Is_Active().Is_True() && player->Is_Human()) {
-		StringClass user_name = player->Get_Name();
+		StringClass user_name = static_cast<const wchar_t *>(player->Get_Name());
 		ConsoleBox.Print("%s was kicked\n", user_name);
 		player->Set_GameSpy_Kick_State(GAMESPY_KICK_STATE_KICKED);
 		cNetwork::Server_Kill_Connection(id);

@@ -114,7 +114,7 @@ void
 AssetPackageMgrClass::Build_Package_List (STRING_LIST &list)
 {
 	StringClass path			= (const char *)::Get_Startup_Directory ();
-	StringClass search_path	= ::Make_Path (path, "*.*");
+	StringClass search_path	= static_cast<const char *>(::Make_Path (path, "*.*"));
 
 	//
 	//	Search for all sub-directories in our current folder
@@ -174,7 +174,7 @@ void
 AssetPackageMgrClass::Create_Package (const char *name)
 {
 	StringClass path		= (const char *)::Get_Startup_Directory ();
-	StringClass new_path	= ::Make_Path (path, name);
+	StringClass new_path	= static_cast<const char *>(::Make_Path (path, name));
 
 	//
 	//	Attempt to create the directory

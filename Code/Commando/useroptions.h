@@ -48,7 +48,7 @@ class cUserOptions
 
 		static bool Parse_Command_Line(LPCSTR command);
 
-		static void Set_Server_INI_File(char *cmd_line_entry);
+		static void Set_Server_INI_File(const char *cmd_line_entry);
 
 		static void Set_Bandwidth_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
 		static BANDWIDTH_TYPE_ENUM Get_Bandwidth_Type(void);

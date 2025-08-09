@@ -62,33 +62,33 @@ class BuildInfoClass
 		/*
 		** Gets the 32 bit build number as a human readable string.
 		*/
-		static char *Get_Build_Number_String(void);
+		static const char *Get_Build_Number_String(void);
 
 		/*
 		** Gets the name of the person who built this executable.
 		*/
-		static char *Get_Builder_Name(void);
+		static const char *Get_Builder_Name(void);
 
 		/*
 		** Gets the date this executable was built on.
 		*/
-		static char *Get_Build_Date_String(void);
+		static const char *Get_Build_Date_String(void);
 
 		/*
 		** Gets the initials of the person who built this executable.
 		*/
-		static char *Get_Builder_Initials(void);
+		static const char *Get_Builder_Initials(void);
 
 		/*
 		** Get a composite build number string with the works.
 		*/
-		static char *Get_Build_Version_String(void);
+		static const char *Get_Build_Version_String(void);
 
 		/*
 		** Get build type.
 		*/
 		static BuildType Get_Build_Type(void);
-		static char *Get_Build_Type_String(void);
+		static const char *Get_Build_Type_String(void);
 
 		/*
 		** Dump build info to the log file
@@ -98,7 +98,7 @@ class BuildInfoClass
 		/*
 		** Lots of build info together.
 		*/
-		static char *Composite_Build_Info(void);
+		static const char *Composite_Build_Info(void);
 
 
 

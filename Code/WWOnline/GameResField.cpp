@@ -58,7 +58,7 @@ namespace WWOnline {
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, char data)
+GameResField::GameResField(const char *id, char data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_CHAR;
@@ -81,7 +81,7 @@ GameResField::GameResField(char *id, char data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, unsigned char data)
+GameResField::GameResField(const char *id, unsigned char data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_UNSIGNED_CHAR;
@@ -104,7 +104,7 @@ GameResField::GameResField(char *id, unsigned char data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, short data)
+GameResField::GameResField(const char *id, short data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_SHORT;
@@ -127,7 +127,7 @@ GameResField::GameResField(char *id, short data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, unsigned short data)
+GameResField::GameResField(const char *id, unsigned short data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_UNSIGNED_SHORT;
@@ -150,7 +150,7 @@ GameResField::GameResField(char *id, unsigned short data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, long data)
+GameResField::GameResField(const char *id, long data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_LONG;
@@ -173,7 +173,7 @@ GameResField::GameResField(char *id, long data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, unsigned long data)
+GameResField::GameResField(const char *id, unsigned long data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_UNSIGNED_LONG;
@@ -196,7 +196,7 @@ GameResField::GameResField(char *id, unsigned long data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, char *data)
+GameResField::GameResField(const char *id, const char *data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_STRING;
@@ -219,7 +219,7 @@ GameResField::GameResField(char *id, char *data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(char *id, void *data, int length)
+GameResField::GameResField(const char *id, void *data, int length)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_CHUNK;

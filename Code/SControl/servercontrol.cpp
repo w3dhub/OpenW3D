@@ -483,7 +483,7 @@ void ServerControlClass::Reset_Timeout(unsigned long ip, unsigned short port)
  * HISTORY:                                                                                    *
  *   11/16/2001 4:09PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Send_Message(char *text, unsigned long ip, unsigned short port)
+void ServerControlClass::Send_Message(const char *text, unsigned long ip, unsigned short port)
 {
 	ControlMessageStruct message;
 	message.Type = CONTROL_REQUEST;

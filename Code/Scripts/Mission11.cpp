@@ -618,7 +618,7 @@ DECLARE_SCRIPT(M11_Floor01_SecurityTurret_JDG, "")
 				powerupSpawnLocation = turret12_spawnLocation;
 			}
 			
-			char *powerups[9] = 
+			static constexpr const char *powerups[9] =
 			{
 				//this is a list of potential powerups to be dropped by destroyed security turrets
 				"POW_Health_100",
@@ -2016,7 +2016,7 @@ DECLARE_SCRIPT(M11_WetBar_NeighborRoom_SpawnedDude_JDG, "")
 				{
 					if (action_id == M01_WALKING_WAYPATH_01_JDG)
 					{
-						char *animationName = M01_Choose_Search_Animation ( );
+						const char* animationName = M01_Choose_Search_Animation ( );
 
 						params.Set_Basic( this, INNATE_PRIORITY_BULLET_HEARD - 5, M01_DOING_ANIMATION_01_JDG );
 						params.Set_Animation (animationName, false);
@@ -2473,7 +2473,7 @@ DECLARE_SCRIPT(M11_Barracks_SpawnedDude_JDG, "")//
 				{
 					if (action_id == M01_WALKING_WAYPATH_01_JDG)
 					{
-						char *animationName = M01_Choose_Search_Animation ( );
+						const char* animationName = M01_Choose_Search_Animation ( );
 
 						params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, M01_DOING_ANIMATION_01_JDG );
 						params.Set_Animation (animationName, false);
@@ -2546,7 +2546,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantReject_JDG, "")//M11_BARRACKS_MUTANT_REJECT_JD
 			params.Set_Attack( STAR, 1, 0, true );
 			Commands->Action_Attack ( obj, params );
 
-			char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+			const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Sound ( soundName, myPosition, obj );
 		}
@@ -3629,7 +3629,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 		if (obj && enemy == STAR && myState == IDLE)//
 		{
 			myState = ATTACKING;
-			char *soundName = M11_Choose_Mutant_Alerted_Sound ( );
+			const char* soundName = M11_Choose_Mutant_Alerted_Sound ( );
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -3653,7 +3653,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 		{
 			if (obj && myState == IDLE)
 			{
-				char *soundName = M11_Choose_Mutant_Idle_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Idle_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -3663,7 +3663,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 
 			else if (obj && myState != DEAD)
 			{
-				char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -3739,7 +3739,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 
 			else if (obj && action_id == M01_WALKING_WAYPATH_01_JDG)
 			{
-				char *animationName = M01_Choose_Idle_Animation ( );
+				const char* animationName = M01_Choose_Idle_Animation ( );
 
 				params.Set_Basic( this, 60, M01_DOING_ANIMATION_01_JDG );
 				params.Set_Animation (animationName, false);
@@ -3758,11 +3758,11 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner06_Guy_JDG, "")//this one has been fixed f
 			{
 				if (STAR)
 				{
-					char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+					const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 					Vector3 myPosition = Commands->Get_Position ( obj );
 					Commands->Create_Sound ( soundName, myPosition, obj );
 
-					char *animationName = M11_Choose_Mutant_Attack_Animation ( );
+					const char* animationName = M11_Choose_Mutant_Attack_Animation ( );
 
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
 					params.Set_Animation (animationName, false);
@@ -3816,7 +3816,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 		if (obj && enemy == STAR && myState == IDLE)//
 		{
 			myState = ATTACKING;
-			char *soundName = M11_Choose_Mutant_Alerted_Sound ( );
+			const char* soundName = M11_Choose_Mutant_Alerted_Sound ( );
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -3840,7 +3840,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 		{
 			if (obj && myState == IDLE)
 			{
-				char *soundName = M11_Choose_Mutant_Idle_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Idle_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -3850,7 +3850,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 
 			else if (obj && myState != DEAD)
 			{
-				char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -3932,7 +3932,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 
 			else if (obj && action_id == M01_WALKING_WAYPATH_01_JDG)
 			{
-				char *animationName = M01_Choose_Idle_Animation ( );
+				const char* animationName = M01_Choose_Idle_Animation ( );
 
 				params.Set_Basic( this, 60, M01_DOING_ANIMATION_01_JDG );
 				params.Set_Animation (animationName, false);
@@ -3951,11 +3951,11 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner05_Guy_JDG, "")
 			{
 				if (STAR)
 				{
-					char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+					const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 					Vector3 myPosition = Commands->Get_Position ( obj );
 					Commands->Create_Sound ( soundName, myPosition, obj );
 
-					char *animationName = M11_Choose_Mutant_Attack_Animation ( );
+					const char* animationName = M11_Choose_Mutant_Attack_Animation ( );
 
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
 					params.Set_Animation (animationName, false);
@@ -4014,7 +4014,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner04_Guy_JDG, "")
 		if (obj && enemy == STAR && myState == IDLE)//
 		{
 			myState = ATTACKING;
-			char *soundName = M11_Choose_Mutant_Alerted_Sound ( );
+			const char* soundName = M11_Choose_Mutant_Alerted_Sound ( );
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4038,7 +4038,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner04_Guy_JDG, "")
 		{
 			if (obj && myState == IDLE)
 			{
-				char *soundName = M11_Choose_Mutant_Idle_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Idle_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4048,7 +4048,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner04_Guy_JDG, "")
 
 			else if (obj && myState != DEAD)
 			{
-				char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4094,11 +4094,11 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner04_Guy_JDG, "")
 			{
 				if (STAR)
 				{
-					char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+					const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 					Vector3 myPosition = Commands->Get_Position ( obj );
 					Commands->Create_Sound ( soundName, myPosition, obj );
 
-					char *animationName = M11_Choose_Mutant_Attack_Animation ( );
+					const char* animationName = M11_Choose_Mutant_Attack_Animation ( );
 
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
 					params.Set_Animation (animationName, false);
@@ -4152,7 +4152,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 		if (obj && enemy == STAR && myState == IDLE)//
 		{
 			myState = ATTACKING;
-			char *soundName = M11_Choose_Mutant_Alerted_Sound ( );
+			const char* soundName = M11_Choose_Mutant_Alerted_Sound ( );
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4176,7 +4176,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 		{
 			if (obj && myState == IDLE)
 			{
-				char *soundName = M11_Choose_Mutant_Idle_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Idle_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4186,7 +4186,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 
 			else if (obj && myState != DEAD)
 			{
-				char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4271,7 +4271,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 
 			else if (obj && action_id == M01_WALKING_WAYPATH_01_JDG)
 			{
-				char *animationName = M01_Choose_Idle_Animation ( );
+				const char* animationName = M01_Choose_Idle_Animation ( );
 
 				params.Set_Basic( this, 60, M01_DOING_ANIMATION_01_JDG );
 				params.Set_Animation (animationName, false);
@@ -4291,11 +4291,11 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner03_Guy_JDG, "")
 			{
 				if (STAR)
 				{
-					char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+					const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 					Vector3 myPosition = Commands->Get_Position ( obj );
 					Commands->Create_Sound ( soundName, myPosition, obj );
 
-					char *animationName = M11_Choose_Mutant_Attack_Animation ( );
+					const char* animationName = M11_Choose_Mutant_Attack_Animation ( );
 
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
 					params.Set_Animation (animationName, false);
@@ -4354,7 +4354,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner02_Guy_JDG, "")//this script goes on mutan
 		if (obj && enemy == STAR && myState == IDLE)//
 		{
 			myState = ATTACKING;
-			char *soundName = M11_Choose_Mutant_Alerted_Sound ( );
+			const char* soundName = M11_Choose_Mutant_Alerted_Sound ( );
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4378,7 +4378,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner02_Guy_JDG, "")//this script goes on mutan
 		{
 			if (obj && myState == IDLE)
 			{
-				char *soundName = M11_Choose_Mutant_Idle_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Idle_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4388,7 +4388,7 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner02_Guy_JDG, "")//this script goes on mutan
 
 			else if (obj && myState != DEAD)
 			{
-				char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 
@@ -4425,11 +4425,11 @@ DECLARE_SCRIPT(M11_MutantCrypt_Spawner02_Guy_JDG, "")//this script goes on mutan
 			{
 				if (STAR)
 				{
-					char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+					const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 					Vector3 myPosition = Commands->Get_Position ( obj );
 					Commands->Create_Sound ( soundName, myPosition, obj );
 
-					char *animationName = M11_Choose_Mutant_Attack_Animation ( );
+					const char* animationName = M11_Choose_Mutant_Attack_Animation ( );
 
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
 					params.Set_Animation (animationName, false);
@@ -4514,11 +4514,11 @@ DECLARE_SCRIPT(M11_PowerCore_WanderingMutantSpawner_JDG, "")//
 			{
 				if (STAR)
 				{
-					char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+					const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 					Vector3 myPosition = Commands->Get_Position ( obj );
 					Commands->Create_Sound ( soundName, myPosition, obj );
 
-					char *animationName = M11_Choose_Mutant_Attack_Animation ( );
+					const char* animationName = M11_Choose_Mutant_Attack_Animation ( );
 
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );
 					params.Set_Animation (animationName, false);
@@ -4565,7 +4565,7 @@ DECLARE_SCRIPT(M11_PowerCore_StealthSoldier_Group2_JDG, "")
 		Vector3 powerupSpawnLocation = Commands->Get_Position (obj );
 		powerupSpawnLocation.Z += 0.75f;
 
-		char *powerups[2] = 
+		static constexpr const char *powerups[2] =
 		{
 			//this is a list of potential powerups to be dropped by destroyed security turrets
 			"POW_Health_100",
@@ -4656,7 +4656,7 @@ DECLARE_SCRIPT(M11_PowerCore_Powerup_Zone_JDG, "")//
 		{
 			Vector3 powerupSpawnLocation (-5.568f, 57.285f, -38.736f);
 
-			char *powerups[9] = 
+			static constexpr const char *powerups[9] =
 			{
 				//this is a list of potential powerups to be dropped by destroyed security turrets
 				"POW_Health_100",
@@ -4952,7 +4952,7 @@ DECLARE_SCRIPT(M11_KanesRoom_SecurityTurret_JDG, "")
 			Vector3 powerupSpawnLocation = Commands->Get_Position (obj);
 			powerupSpawnLocation.Z = -28.705f;
 			
-			char *powerups[9] = 
+			static constexpr const char* powerups[9] =
 			{
 				//this is a list of potential powerups to be dropped by destroyed security turrets
 				"POW_Health_100",
@@ -6092,7 +6092,7 @@ DECLARE_SCRIPT(M11_CABAL_Babble_Contoller_JDG, "")//  101204
 				speaker03position.Y += Commands->Get_Random(-10,10);
 				speaker03position.Z += Commands->Get_Random(0,10);
 
-				char *cabalSounds[6] = 
+				static constexpr const char* cabalSounds[6] =
 				{
 					//this is a list of potential cabal sayings
 					"M11DSGN_DSGN0088I1EVAC_SND",
@@ -6785,7 +6785,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_Mutant01_JDG, "")//M11_BARRACKS_MUTAN
 				params.Set_Attack( blackhand, 0.5f, 0, true );
 				Commands->Action_Attack ( obj, params );
 
-				char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 			}
@@ -6815,7 +6815,7 @@ DECLARE_SCRIPT(M11_Barracks_MutantUprising_Mutant02_JDG, "")//M11_BARRACKS_MUTAN
 				params.Set_Attack( blackhand, 0.5f, 0, true );
 				Commands->Action_Attack ( obj, params );
 
-				char *soundName = M11_Choose_Mutant_Attack_Sound ( );
+				const char* soundName = M11_Choose_Mutant_Attack_Sound ( );
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Commands->Create_Sound ( soundName, myPosition, obj );
 			}
@@ -6844,7 +6844,7 @@ DECLARE_SCRIPT(M11_Flyover_Contoller_JDG, "")
 		{
 			last = 0;
 		}
-		char *flyovers[4] = 
+		static constexpr const char* flyovers[4] =
 		{
 			//this is a low level traffic lane from nod comm to gdi ocean-- N->S
 			"X11A_Flyover_01.txt",
@@ -7559,7 +7559,7 @@ DECLARE_SCRIPT(M11_Petrova_Taunt_Controller_JDG, "")//103797
 
 			else if (param == M01_MODIFY_YOUR_ACTION_JDG && commandClearance == true && PetrovaDead == false)
 			{
-				char *taunt_sound[9] = 
+				static constexpr const char* taunt_sound[9] =
 				{
 					"M00MBPT_ATOC0001I1MBPT_SND",
 					"M00MBPT_ATOS0001I1MBPT_SND",
@@ -8543,7 +8543,7 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 
 			if (currentDifficulty == easy)
 			{
-				char *powerups[2] = 
+				static constexpr const char *powerups[2] =
 				{
 					//this is a list of potential powerups to be dropped by lab mutants
 					"POW_Health_100",
@@ -8555,7 +8555,7 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 
 			else if (currentDifficulty == medium)
 			{
-				char *powerups[2] = 
+				static constexpr const char *powerups[2] =
 				{
 					//this is a list of potential powerups to be dropped by lab mutants
 					"POW_Health_050",
@@ -8567,7 +8567,7 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 
 			else
 			{
-				char *powerups[2] = 
+				static constexpr const char *powerups[2] =
 				{
 					//this is a list of potential powerups to be dropped by lab mutants
 					"POW_Health_025",

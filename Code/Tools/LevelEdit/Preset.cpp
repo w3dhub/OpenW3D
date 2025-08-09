@@ -971,7 +971,7 @@ PresetClass::Is_Valid_Sound_Preset (void)
 		//
 		//	Does this preset point to a file?
 		//
-		CString filename = definition->Get_Filename ();
+		CString filename = static_cast<const char *>(definition->Get_Filename ());
 		DWORD file_attrs = ::GetFileAttributes (definition->Get_Filename ());
 		if (	filename.GetLength () > 0 && 
 				(file_attrs == 0xFFFFFFFF ||

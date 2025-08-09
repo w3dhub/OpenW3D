@@ -396,7 +396,7 @@ int cNetwork::Get_Data_Files_CRC(void)
 #define	UNINITIALLIZED_CRC	0x4592abf1
 	static int crc = UNINITIALLIZED_CRC;
 	if ( crc == UNINITIALLIZED_CRC ) {
-		char * filelist[] = {
+		const char * filelist[] = {
 		"jgo`fqv+aag",					//"objects.ddb",           
 		"dwhjw+lkl",					//"armor.ini",             
 		"gjk`v+lkl",					//"bones.ini",             

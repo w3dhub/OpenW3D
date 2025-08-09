@@ -16,7 +16,7 @@ set(WWLIB_SRC
     crc.cpp
     cstraw.cpp
     data.cpp
-    ddraw.cpp
+    # ddraw.cpp
     dsurface.cpp
     Except.cpp
     FastAllocator.cpp

@@ -820,7 +820,7 @@ void WOLNATInterfaceClass::HandleNotification(WWOnline::GameOptionsMessage &mess
 		** Get the message.
 		*/
 		const WOL::User& user = message.GetWOLUser();
-		WideStringClass porky_options = message.GetOptions();
+		WideStringClass porky_options = static_cast<const char*>(message.GetOptions());
 
 		/*
 		** Convert to standard string.

@@ -212,8 +212,8 @@ void MakeMixFileDialogClass::OnBrowseDir()
 
 	dialog.m_ofn.lpstrTitle = "Pick A File In the Root Source Directory";
 	if (dialog.DoModal () == IDOK) {
-		StringClass filename	= dialog.GetPathName ();
-		StringClass directory	= Strip_Filename_From_Path (filename);
+		StringClass filename	= static_cast<const char *>(dialog.GetPathName ());
+		StringClass directory	= static_cast<const char *>(Strip_Filename_From_Path (filename));
 		SetDlgItemText( IDC_BROWSE_DIR_NAME, directory );
 	}
 }

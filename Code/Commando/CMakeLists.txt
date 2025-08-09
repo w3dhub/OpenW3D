@@ -429,11 +429,8 @@ target_link_libraries(commando INTERFACE
     winmm
     vfw32
     wsock32
-    d3d8lib
     version
-    milesstub
-    binkstub
-    gamespy
+    wwcommon
     bandtest
     wwdebug
     wwlib
@@ -451,41 +448,6 @@ target_link_libraries(commando INTERFACE
     binkmovie
     wwphys
     combat
-)
-
-target_compile_definitions(commando INTERFACE
-    #NOMINMAX
-    #WIN32_LEAN_AND_MEAN
-    #_WIN32_WINNT=0x400
-    #DIRECTX
-    _CRT_NONSTDC_NO_WARNINGS
-    _CRT_SECURE_NO_WARNINGS
-    $<$<CONFIG:Debug>:WWDEBUG>
-    $<$<CONFIG:Debug>:_DEBUG>
-)
-
-target_compile_options(commando INTERFACE
-    ${WARNING_FLAGS}
-)
-
-target_include_directories(commando INTERFACE
-    ../WWMath
-    ../ww3d2
-    ../wwphys
-    ../wwdebug
-    ../wwui
-    ../wwbitpack
-    ../Combat
-    ../WWAudio
-    ../wolapi
-    ../wwutil
-    ../wwnet
-    ../wwlib
-    ../wwsaveload
-    ../wwtranslatedb
-    ../BinkMovie
-    ../SControl
-    ..
 )
 
 if(WIN32 OR "${CMAKE_SYSTEM}" MATCHES "Windows")

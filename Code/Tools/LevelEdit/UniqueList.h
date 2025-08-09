@@ -51,6 +51,13 @@ template<class T>
 class UniqueListClass : public DynamicVectorClass<T>
 {
 	public:
+	using DynamicVectorClass<T>::Count;
+	using DynamicVectorClass<T>::Add;
+	using DynamicVectorClass<T>::Delete;
+	private:
+	using DynamicVectorClass<T>::Vector;
+
+	public:
 		UniqueListClass (void)
 			: DynamicVectorClass<T> () {}
 		virtual ~UniqueListClass (void) {}

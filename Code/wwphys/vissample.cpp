@@ -195,7 +195,7 @@ const char * VisSampleClass::Get_Cur_Direction_Name(void) const
 	WWASSERT(CurDirection >= 0);
 	WWASSERT(CurDirection < VIS_DIRECTIONS);
 
-	static char * _direction_names[] = 
+	static const char * _direction_names[] = 
 	{
 		"F","L","B","R","U","D"
 	};

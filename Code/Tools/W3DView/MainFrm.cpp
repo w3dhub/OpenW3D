@@ -868,6 +868,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                 CMenu *pMainMenu = GetMenu ();
                 if (pMainMenu)
                 {                    
+                    char animation_string[] = "&Animation";
                     // Load the menu from the resources
                     HMENU hSubMenu = ::LoadMenu (::AfxGetResourceHandle (), MAKEINTRESOURCE(IDR_ANI_MENU));
                     hSubMenu = ::GetSubMenu (hSubMenu, 0);
@@ -877,7 +878,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.fMask = MIIM_SUBMENU | MIIM_TYPE | MIIM_DATA;
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
-                    menuInfo.dwTypeData = "&Animation";
+                    menuInfo.dwTypeData = animation_string;
                     ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
 
                     // Redrew the menu
@@ -897,6 +898,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                 CMenu *pMainMenu = GetMenu ();
                 if (pMainMenu)
                 {
+                    char hierachy_string[] = "&Hierarchy";
                     // Load the menu from the resources
                     HMENU hSubMenu = ::LoadMenu (::AfxGetResourceHandle (), MAKEINTRESOURCE(IDR_HIERARCHY_MENU));
                     hSubMenu = ::GetSubMenu (hSubMenu, 0);
@@ -906,7 +908,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.fMask = MIIM_SUBMENU | MIIM_TYPE | MIIM_DATA;
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
-                    menuInfo.dwTypeData = "&Hierarchy";
+                    menuInfo.dwTypeData = hierachy_string;
                     ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
 
                     // Redrew the menu
@@ -920,6 +922,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                 CMenu *pMainMenu = GetMenu ();
                 if (pMainMenu)
                 {
+                    char aggregate_string[] = "&Aggregate";
                     // Load the menu from the resources
                     HMENU hSubMenu = ::LoadMenu (::AfxGetResourceHandle (), MAKEINTRESOURCE(IDR_AGGREGATE_MENU));
                     hSubMenu = ::GetSubMenu (hSubMenu, 0);
@@ -929,7 +932,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.fMask = MIIM_SUBMENU | MIIM_TYPE | MIIM_DATA;
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
-                    menuInfo.dwTypeData = "&Aggregate";
+                    menuInfo.dwTypeData = aggregate_string;
                     ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
 
                     // Redrew the menu
@@ -943,6 +946,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                 CMenu *pMainMenu = GetMenu ();
                 if (pMainMenu)
                 {
+                    char lod_string[] = "&LOD";
                     // Load the menu from the resources
                     HMENU hSubMenu = ::LoadMenu (::AfxGetResourceHandle (), MAKEINTRESOURCE(IDR_LOD_MENU));
                     hSubMenu = ::GetSubMenu (hSubMenu, 0);
@@ -952,7 +956,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.fMask = MIIM_SUBMENU | MIIM_TYPE | MIIM_DATA;
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
-                    menuInfo.dwTypeData = "&LOD";
+                    menuInfo.dwTypeData = lod_string;
                     ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
 
                     // Redrew the menu

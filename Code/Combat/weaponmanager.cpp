@@ -48,7 +48,7 @@
 /*
 ** Weapon Type Names
 */
-char *WeaponStyleNames[ NUM_WEAPON_HOLD_STYLES ] = {
+const char *WeaponStyleNames[ NUM_WEAPON_HOLD_STYLES ] = {
 	"C4",					// WEAPON_HOLD_STYLE_C4					= 0,
 	"---",				// WEAPON_HOLD_STYLE_NOT_USED,
 	"Shoulder",			// WEAPON_HOLD_STYLE_AT_SHOULDER,	// 2

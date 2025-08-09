@@ -61,7 +61,7 @@ class SlaveServerClass
 		SlaveServerClass(void);
 		~SlaveServerClass(void);
 
-		void Set(bool enable, char *nick, char *serial, unsigned short port, char *settings_file, int bandwidth, char *password);
+		void Set(bool enable, const char *nick, const char *serial, unsigned short port, const char *settings_file, int bandwidth, const char *password);
 		void Get(bool &enable, char *nick, char *serial, unsigned short &port, char *settings_file, int &bandwidth, char *password);
 
 
@@ -112,7 +112,7 @@ class SlaveMasterClass
 
 		int Get_Num_Slaves(void) {return(NumSlaveServers);}
 		int Get_Num_Enabled_Slaves(void);
-		void Add_Slave(bool enable, char *nick, char *serial, unsigned short port, char *settings_file, int bandwidth, char *password);
+		void Add_Slave(bool enable, const char *nick, const char *serial, unsigned short port, const char *settings_file, int bandwidth, const char *password);
 		SlaveServerClass *Get_Slave(int index);
 
 		void Set_Slave_Mode(bool mode) {SlaveMode = mode;}

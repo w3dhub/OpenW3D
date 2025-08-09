@@ -78,9 +78,9 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 	FILE *file;
 	time_t start_time, current_time;
 
-	char* Reason_Lookup(ActionCompleteReason reason)
+	const char* Reason_Lookup(ActionCompleteReason reason)
 	{
-		char* reasons[] = {
+		static constexpr const char* reasons[] = {
 			"ACTION_COMPLETE_NORMAL",
 			"ACTION_COMPLETE_LOW_PRIORITY",
 			"ACTION_COMPLETE_PATH_BAD_START",
@@ -456,7 +456,7 @@ DECLARE_SCRIPT(M00_5MetalBarrels_ChainRxn_Controller_JDG, "Barrel01_Location:vec
 		barrel_04_facing = Get_Float_Parameter("Barrel04_Facing");
 		barrel_05_facing = Get_Float_Parameter("Barrel05_Facing");
 
-		char *simple_barrels[8] = 
+		static constexpr const char* simple_barrels[8] =
 		{
 			"Simple_MetalDrum_01",
 			"Simple_MetalDrum_02",
@@ -468,7 +468,7 @@ DECLARE_SCRIPT(M00_5MetalBarrels_ChainRxn_Controller_JDG, "Barrel01_Location:vec
 			"Simple_MetalDrum_08",
 		};
 
-		char *barrels_animations[8] = 
+		static constexpr const char* barrels_animations[8] =
 		{
 			"DSP_METDRUM01.DSP_METDRUM01",
 			"DSP_METDRUM02.DSP_METDRUM02",
@@ -649,7 +649,7 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Explosion ( "Explosion_Mine_Remote_01", myPosition, NULL );
 
-			char *barrels_animations[8] = 
+			static constexpr const char* barrels_animations[8] =
 			{
 				"DSP_METDRUM01.DSP_METDRUM01",//there's no #1 yet
 				"DSP_METDRUM02.DSP_METDRUM02",

@@ -339,7 +339,7 @@ DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
 
 		if (type == 100003)
 		{
-			char *conv3[4] = 
+			static constexpr const char *conv3[4] = 
 				{
 					"MX0CON003",
 					"MX0CON003alt1",
@@ -406,7 +406,7 @@ DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
 				if (curr_conv7 == 0 || curr_conv7 == 2 || curr_conv7 == 4)
 				{
 
-					char *conv7[6] = 
+					static constexpr const char *conv7[6] = 
 						{
 							"MX0CON012",
 							"MX0CON013",
@@ -426,7 +426,7 @@ DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
 				if (curr_conv7 == 1 || curr_conv7 == 3 || curr_conv7 == 5)
 				{
 
-					char *conv7[6] = 
+					static constexpr const char *conv7[6] =
 						{
 							"MX0CON012",
 							"MX0CON013",
@@ -582,7 +582,7 @@ DECLARE_SCRIPT (MX0_Engineer1, "Damage_multiplier:float")
 
 		if (damager == STAR && !doing_anim)
 		{
-			char *convs[4] = 
+			static constexpr const char* convs[4] =
 				{
 					"MX0CON008",
 					"MX0CON009",
@@ -856,7 +856,7 @@ DECLARE_SCRIPT (MX0_Engineer2, "Damage_multiplier:float")
 
 		if (damager == STAR && !doing_anim)
 		{
-			char *convs[4] = 
+			static constexpr const char* convs[4] =
 				{
 					"MX0CON008",
 					"MX0CON009",
@@ -1335,7 +1335,7 @@ DECLARE_SCRIPT (MX0_KillNotify, "")
 		{
 			if (hit)
 			{
-				char *snipe_conv[6] = 
+				static constexpr const char* snipe_conv[6] =
 					{
 						"Mx0_NODSNIPER_Alt01",
 						"Mx0_NODSNIPER_Alt02",

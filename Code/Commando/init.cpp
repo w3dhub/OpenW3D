@@ -1109,7 +1109,7 @@ bool Game_Init(void)
  * HISTORY:                                                                                    *
  *   11/9/2001 3:39PM ST : Created                                                             *
  *=============================================================================================*/
-char *Build_Registry_Location_String(char *base, char *modifier, char *sub)
+char *Build_Registry_Location_String(const char *base, const char *modifier, const char *sub)
 {
 	static char _whole_registry_string[1024];
 

@@ -971,9 +971,12 @@ void PointGroupClass::Update_Arrays(
 	// since they always all have the same length.
 	if (VertexLoc.Length() < total_vnum) {
 		// Resize arrays (2x guardband to prevent frequent reallocations).
-		VertexLoc.Resize(total_vnum * 2, false);		
-		VertexUV.Resize(total_vnum * 2, false);
-		VertexDiffuse.Resize(total_vnum * 2, false);
+		
+		// OpenW3D @todo cfehunter 09/03/2025
+		// These were passing false as the second parameter... I have no idea what they were trying to do.
+		VertexLoc.Resize(total_vnum * 2);		
+		VertexUV.Resize(total_vnum * 2);
+		VertexDiffuse.Resize(total_vnum * 2);
 	}
 
 	int vert, i, j;

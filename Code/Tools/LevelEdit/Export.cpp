@@ -224,8 +224,8 @@ ExporterClass::Export_Dependency_File (void)
 	//	Make a file that contains a list of all the W3D files that
 	// were part of this export
 	//
-	StringClass dep_filename	= FilenameBase + ".dep";
-	StringClass dep_path			= ::Make_Path (TempDirectory, dep_filename);
+	StringClass dep_filename	= static_cast<const char *>(FilenameBase + ".dep");
+	StringClass dep_path			= static_cast<const char *>(::Make_Path (TempDirectory, dep_filename));
 	AssetDependencyManager::Save_Level_Dependencies (dep_path, m_AssetList);
 
 	//
