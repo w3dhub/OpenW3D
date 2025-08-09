@@ -237,7 +237,7 @@ StringClass::Free_String (void)
 //	Format
 //
 ///////////////////////////////////////////////////////////////////
-int _cdecl
+int __cdecl
 StringClass::Format_Args (const TCHAR *format, const va_list & arg_list )
 {
 	//
@@ -269,7 +269,7 @@ StringClass::Format_Args (const TCHAR *format, const va_list & arg_list )
 //	Format
 //
 ///////////////////////////////////////////////////////////////////
-int _cdecl
+int __cdecl
 StringClass::Format (const TCHAR *format, ...)
 {
 	va_list arg_list;

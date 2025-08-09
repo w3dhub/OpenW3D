@@ -67,7 +67,7 @@ public:
 	static bool Peek_Map_Name( const char * filename, StringClass &map_name );
 
 	// LDD Access - Editor only calls Save_Game, App calls both
-	static void _cdecl Save_Game( const char * filename, ... );
+	static void __cdecl Save_Game( const char * filename, ... );
 	static void	Load_Game( const char * filename );
 	static void	Pre_Load_Game( const char * filename, StringClass &filename_to_load, StringClass &lsd_filename );
 	static const char * Get_Current_Game_Filename( void )	{ return CurrentGameFilename; }
@@ -82,7 +82,7 @@ public:
 
 	// Generic SaveLoadSubSystem Access
 	static void	Load_Save_Load_System( const char * filename, bool auto_post_load );
-	static void _cdecl Save_Save_Load_System( const char * filename, ... );
+	static void __cdecl Save_Save_Load_System( const char * filename, ... );
 
 protected:
 	static StringClass		MapFilename;
