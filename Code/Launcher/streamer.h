@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 
 #include "odevice.h"
@@ -36,7 +36,7 @@
 
 
 // Provide a streambuf interface for a class that can 'print'
-class Streamer : public streambuf
+class Streamer : public std::streambuf
 {
  public:
                Streamer();
@@ -46,12 +46,12 @@ class Streamer : public streambuf
 
  protected:
     // Virtual methods from streambuf
-    int       xsputn(const char* s, int n); // buffer some characters
-    int       overflow(int = EOF);          // flush buffer and make more room
-    int       underflow(void);              // Does nothing
-    int       sync();
+    std::streamsize xsputn(const char* s, std::streamsize n) override;    // buffer some characters
+    int             overflow(int = EOF) override;                         // flush buffer and make more room
+    int             underflow(void) override;                             // Does nothing
+    int             sync() override;
 
-    int       doallocate();                 // allocate a buffer
+    int             doallocate();                                         // allocate a buffer
 
 
     OutputDevice  *Output_Device;

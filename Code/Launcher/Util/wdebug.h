@@ -72,7 +72,7 @@ extern Sem4 DebugLibSemaphore;
   DebugLibSemaphore.Wait(); \
   if (MsgManager::infoStream()) \
     (*(MsgManager::infoStream())) << "INF " << timebuf << " [" << \
-        __FILE__ <<  " " << __LINE__ << "] " << X << endl; \
+        __FILE__ <<  " " << __LINE__ << "] " << X << std::endl; \
   DebugLibSemaphore.Post(); \
 }
 
@@ -85,7 +85,7 @@ extern Sem4 DebugLibSemaphore;
   DebugLibSemaphore.Wait(); \
   if (MsgManager::warnStream()) \
     (*(MsgManager::warnStream())) << "WRN " << timebuf << " [" << \
-        __FILE__ <<  " " << __LINE__ << "] " << X << endl; \
+        __FILE__ <<  " " << __LINE__ << "] " << X << std::endl; \
   DebugLibSemaphore.Post(); \
 }
 
@@ -98,7 +98,7 @@ extern Sem4 DebugLibSemaphore;
   DebugLibSemaphore.Wait(); \
   if (MsgManager::errorStream()) \
     (*(MsgManager::errorStream())) << "ERR " << timebuf << " [" << \
-        __FILE__ <<  " " << __LINE__ << "] " << X << endl; \
+        __FILE__ <<  " " << __LINE__ << "] " << X << std::std::endl; \
   DebugLibSemaphore.Post(); \
 }
 
@@ -154,7 +154,7 @@ extern Sem4 DebugLibSemaphore;
   DebugLibSemaphore.Wait(); \
   if (MsgManager::debugStream()) \
     (*(MsgManager::debugStream())) << __FILE__ << "[" << __LINE__ << \
-       "]: " << ##V << " = " << V << endl; \
+       "]: " << ##V << " = " << V << std::endl; \
   DebugLibSemaphore.Post(); \
 }
 
@@ -164,7 +164,7 @@ extern Sem4 DebugLibSemaphore;
   DebugLibSemaphore.Wait(); \
   if (MsgManager::debugStream()) \
     (*(MsgManager::debugStream())) << "DBG [" << __FILE__ <<  \
-    " " << __LINE__ << "] " << X << endl;\
+    " " << __LINE__ << "] " << X << std::endl;\
   DebugLibSemaphore.Post(); \
 }
 
@@ -183,7 +183,7 @@ extern Sem4 DebugLibSemaphore;
   DebugLibSemaphore.Wait(); \
   if (MsgManager::debugStream()) \
     (*(DebugManager::debugStream())) << __FILE__ << "[" << __LINE__ << \
-     "]: " << ##X << endl; X \
+     "]: " << ##X << std::endl; X \
   DebugLibSemaphore.Post(); \
 }
 
