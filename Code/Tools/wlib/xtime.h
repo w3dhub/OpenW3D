@@ -44,7 +44,7 @@ function :-)
 #include <sys/time.h>
 #else
 #include <sys/timeb.h>
-#include <winsock.h>
+#include <winsock2.h>
 #endif
 
 #include <time.h>

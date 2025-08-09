@@ -32,7 +32,7 @@
 
 #include <stdio.h>
 #include <conio.h>
-#include <winsock.h>
+#include <winsock2.h>
 #include <assert.h>
 
 //---------------------------------------------------------------------------

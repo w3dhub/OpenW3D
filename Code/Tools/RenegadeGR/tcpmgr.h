@@ -32,7 +32,7 @@
 
 #ifdef _WINDOWS
 #include <windows.h>
-#include <winsock.h>
+#include <winsock2.h>
 #include <io.h>
 
 #else  //UNIX

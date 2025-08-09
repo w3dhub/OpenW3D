@@ -38,7 +38,7 @@
 
 #include <always.h>
 #include <memory.h>
-//#include <winsock.h>
+//#include <winsock2.h>
 #include "systimer.h"
 #include <malloc.h>
 
