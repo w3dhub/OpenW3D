@@ -435,7 +435,6 @@ target_include_directories(leveledit PRIVATE
 
 target_link_libraries(leveledit PRIVATE
     winmm
-    vfw32
     wsock32
     shlwapi
     version

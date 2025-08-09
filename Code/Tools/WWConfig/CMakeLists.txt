@@ -31,7 +31,6 @@ target_compile_definitions(wwconfig PRIVATE
 )
 
 target_link_libraries(wwconfig PRIVATE
-    vfw32
     version
     winmm
     wwcommon

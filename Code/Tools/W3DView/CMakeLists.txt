@@ -186,7 +186,6 @@ target_compile_options(w3dview PRIVATE
 )
 
 target_link_libraries(w3dview PRIVATE
-    vfw32
     d3d8lib
     version
     winmm
