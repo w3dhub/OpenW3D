@@ -450,7 +450,7 @@ target_link_libraries(commando INTERFACE
     combat
 )
 
-if(WIN32 OR "${CMAKE_SYSTEM}" MATCHES "Windows")
+if(WIN32)
     target_link_options(commando INTERFACE "/NODEFAULTLIB:libci.lib")
 
     list(APPEND COMMANDO_SRC
