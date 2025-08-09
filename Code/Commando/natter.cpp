@@ -1274,7 +1274,7 @@ bool WOLNATInterfaceClass::Send_Game_Format_Packet_To(IPAddressClass *address, c
 
 #if (0)
 		WWDEBUG_SAY(("WOLNATInterface - sendto %s\n", address->As_String()));
-		int result = sendto(socket_handler->Get_Socket(), full_packet.Get_Data(), full_packet.Get_Compressed_Size_Bytes(), 0, (LPSOCKADDR) &sock_address, sizeof(SOCKADDR_IN));
+		int result = sendto(socket_handler->Get_Socket(), full_packet.Get_Data(), full_packet.Get_Compressed_Size_Bytes(), 0, (LPSOCKADDR) &sock_address, sizeof(struct sockaddr_in));
 		if (result == SOCKET_ERROR){
 			if (LAST_ERROR != WSAEWOULDBLOCK) {
 				WWDEBUG_SAY(("WOLNATInterface - sendto returned error code %d\n", LAST_ERROR));
@@ -1379,7 +1379,7 @@ void WOLNATInterfaceClass::Service_Receive_Queue(SocketHandlerClass *socket)
 		unsigned short port;
 		int bytes = PacketManager.Get_Packet(socket->Get_Socket(), (unsigned char *)full_packet.Get_Data(), full_packet.Get_Max_Size(), ip_address, port);
 		if (bytes > 0) {
-			sockaddr_in *addr_ptr = (LPSOCKADDR_IN) &full_packet.Get_From_Address_Wrapper()->FromAddress;
+			sockaddr_in *addr_ptr = (struct sockaddr_in*) &full_packet.Get_From_Address_Wrapper()->FromAddress;
 			memcpy(&addr_ptr->sin_addr.s_addr, ip_address, 4);
 			addr_ptr->sin_port = port;
 		}
