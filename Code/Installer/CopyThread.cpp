@@ -864,13 +864,13 @@ bool CopyThreadClass::Can_Abort (bool lock)
 	if (lock) {
 
 		if (AbortLock == NULL) {
-			AbortLock = new FastCriticalSectionClass::LockClass (SectionAbort);
+			AbortLock = new CriticalSectionClass::LockClass (SectionAbort);
 		}
 		return (CanAbort);
 
 	} else {
 
-		FastCriticalSectionClass::LockClass cs (SectionAbort);
+		CriticalSectionClass::LockClass cs (SectionAbort);
 
 		return (CanAbort);
 	}
@@ -912,7 +912,7 @@ void CopyThreadClass::Set_Abort (bool abort)
  *=============================================================================================*/
 bool CopyThreadClass::Get_Abort (bool canabort)
 {
-	FastCriticalSectionClass::LockClass cs (SectionAbort);
+	CriticalSectionClass::LockClass cs (SectionAbort);
 		
 	CanAbort = canabort;
 	if (Abort) IsAborting = true;
@@ -934,7 +934,7 @@ bool CopyThreadClass::Get_Abort (bool canabort)
  *=============================================================================================*/
 void CopyThreadClass::Add_Bytes_Copied (unsigned bytecount)
 {
-	FastCriticalSectionClass::LockClass cs (SectionBytesCopied);
+	CriticalSectionClass::LockClass cs (SectionBytesCopied);
 
 	BytesCopied += bytecount;
 }
@@ -954,7 +954,7 @@ void CopyThreadClass::Add_Bytes_Copied (unsigned bytecount)
  *=============================================================================================*/
 float CopyThreadClass::Get_Fraction_Complete()
 {
-	FastCriticalSectionClass::LockClass cs (SectionBytesCopied);
+	CriticalSectionClass::LockClass cs (SectionBytesCopied);
 
 	float fraction;
 
@@ -981,14 +981,14 @@ float CopyThreadClass::Get_Fraction_Complete()
  *=============================================================================================*/
 void CopyThreadClass::Set_Target_Path (const WideStringClass &targetpath)
 {
-	FastCriticalSectionClass::LockClass cs (SectionTargetPath);
+	CriticalSectionClass::LockClass cs (SectionTargetPath);
 	
 	TargetPath = targetpath;
 }
 
 WCHAR *CopyThreadClass::Get_Target_Path (WideStringClass &targetpath)
 {
-	FastCriticalSectionClass::LockClass cs (SectionTargetPath);
+	CriticalSectionClass::LockClass cs (SectionTargetPath);
 	
 	targetpath = TargetPath;
 	return (targetpath.Peek_Buffer());
@@ -1009,14 +1009,14 @@ WCHAR *CopyThreadClass::Get_Target_Path (WideStringClass &targetpath)
  *=============================================================================================*/
 void CopyThreadClass::Set_Status_Message (const WideStringClass &statusmessage)
 {
-	FastCriticalSectionClass::LockClass cs (SectionStatusMessage);
+	CriticalSectionClass::LockClass cs (SectionStatusMessage);
 	
 	StatusMessage = statusmessage;
 }
 
 WCHAR *CopyThreadClass::Get_Status_Message (WideStringClass &statusmessage)
 {
-	FastCriticalSectionClass::LockClass cs (SectionStatusMessage);
+	CriticalSectionClass::LockClass cs (SectionStatusMessage);
 	
 	statusmessage = StatusMessage;
 	return (statusmessage.Peek_Buffer());
@@ -1037,14 +1037,14 @@ WCHAR *CopyThreadClass::Get_Status_Message (WideStringClass &statusmessage)
  *=============================================================================================*/
 void CopyThreadClass::Set_Error_Message (const WideStringClass &errormessage)
 {
-	FastCriticalSectionClass::LockClass cs (SectionErrorMessage);
+	CriticalSectionClass::LockClass cs (SectionErrorMessage);
 	
 	ErrorMessage = errormessage;
 }
 
 WCHAR *CopyThreadClass::Get_Error_Message (WideStringClass &errormessage)
 {
-	FastCriticalSectionClass::LockClass cs (SectionErrorMessage);
+	CriticalSectionClass::LockClass cs (SectionErrorMessage);
 	
 	errormessage = ErrorMessage;
 	return (errormessage.Peek_Buffer());
@@ -1065,14 +1065,14 @@ WCHAR *CopyThreadClass::Get_Error_Message (WideStringClass &errormessage)
  *=============================================================================================*/
 void CopyThreadClass::Set_Status (StatusEnum status)
 {
-	FastCriticalSectionClass::LockClass cs (SectionStatus);
+	CriticalSectionClass::LockClass cs (SectionStatus);
 	
 	Status = status;
 }
 
 CopyThreadClass::StatusEnum CopyThreadClass::Get_Status()
 {
-	FastCriticalSectionClass::LockClass cs (SectionStatus);
+	CriticalSectionClass::LockClass cs (SectionStatus);
 	
 	return (Status);
 }

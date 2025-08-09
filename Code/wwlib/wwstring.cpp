@@ -45,7 +45,7 @@
 //	Static member initialzation
 ///////////////////////////////////////////////////////////////////
 
-FastCriticalSectionClass StringClass::m_Mutex;
+CriticalSectionClass StringClass::m_Mutex;
 
 TCHAR		StringClass::m_NullChar					= 0;
 TCHAR *	StringClass::m_EmptyString				= &m_NullChar;
@@ -87,7 +87,7 @@ StringClass::Get_String (int length, bool is_temp)
 		// the mutex lock, but that is a feature by design and doesn't cause
 		// anything bad to happen.
 		//
-		FastCriticalSectionClass::LockClass m(m_Mutex);
+		CriticalSectionClass::LockClass m(m_Mutex);
 
 		//
 		//	Try to find an available temporary buffer
@@ -207,7 +207,7 @@ StringClass::Free_String (void)
 			//	Make sure no one else is changing the reserved mask
 			// at the same time we are.
 			//
-			FastCriticalSectionClass::LockClass m(m_Mutex);
+			CriticalSectionClass::LockClass m(m_Mutex);
 
 			unsigned index=(buffer_base/MAX_TEMP_BYTES)&(MAX_TEMP_STRING-1);
 			unsigned mask=1<<index;

@@ -106,13 +106,13 @@ class CopyThreadClass : public ThreadClass
 		WideStringClass							 ErrorMessage;
 		StatusEnum									 Status;
 
-		FastCriticalSectionClass::LockClass *AbortLock;
-		FastCriticalSectionClass				 SectionAbort;
-		FastCriticalSectionClass				 SectionBytesCopied;
-		FastCriticalSectionClass				 SectionTargetPath;
-		FastCriticalSectionClass				 SectionStatusMessage;
-		FastCriticalSectionClass				 SectionErrorMessage;
-		FastCriticalSectionClass				 SectionStatus;
+		CriticalSectionClass::LockClass *AbortLock;
+		CriticalSectionClass				 SectionAbort;
+		CriticalSectionClass				 SectionBytesCopied;
+		CriticalSectionClass				 SectionTargetPath;
+		CriticalSectionClass				 SectionStatusMessage;
+		CriticalSectionClass				 SectionErrorMessage;
+		CriticalSectionClass				 SectionStatus;
 
 		DynamicVectorClass <StringClass>		 SubdirectoryLog;
 		DynamicVectorClass <StringClass>		 FilenameLog;
