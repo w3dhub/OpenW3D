@@ -46,7 +46,7 @@ WW3DAssetManager *_TheAssetMgr = NULL;;
 /////////////////////////////////////////////////////////////////////////////
 //	Local prototypes
 /////////////////////////////////////////////////////////////////////////////
-int _cdecl ResolutionSortCallback (const void *elem1, const void *elem2);
+int __cdecl ResolutionSortCallback (const void *elem1, const void *elem2);
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -547,7 +547,7 @@ VideoConfigDialogClass::OnItemchangedDriverList
 // ResolutionSortCallback
 //
 /////////////////////////////////////////////////////////////////////////////
-int _cdecl
+int __cdecl
 ResolutionSortCallback (const void *elem1, const void *elem2)
 {
 	const ResolutionDescClass *res1 = ((const ResolutionDescClass *)elem1);

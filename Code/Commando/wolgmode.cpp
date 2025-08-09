@@ -94,7 +94,7 @@ using namespace WWOnline;
 const int RENEGADE_GAMECODE = 12;
 const wchar_t* RENEGADE_LOBBY_PASSWORD = L"not_a_valid_password";	// Password removed per Security review requirements. LFeenanEA - 27th January 2025
 
-const wchar_t* _cdecl Translate_WOLString(const char* token)
+const wchar_t* __cdecl Translate_WOLString(const char* token)
 {
 	if (token) {
 		StringClass desc(80, true);

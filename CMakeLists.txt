@@ -36,9 +36,8 @@ if(SYNTAX_CHECK_ONLY)
     add_compile_options("-fsyntax-only")
 endif(SYNTAX_CHECK_ONLY)
 
-if(UNIX AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if(NOT WIN32)
     add_compile_definitions(__cdecl=)
-    add_compile_definitions(_cdecl=)
 endif()
 
 include(FetchContent)

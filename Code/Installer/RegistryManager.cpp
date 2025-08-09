@@ -794,7 +794,7 @@ bool RegistryManagerClass::Get_Value (HKEY rootkey, DWORD *value, ...)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool _cdecl RegistryManagerClass::Set_String (HKEY rootkey, const WCHAR *string, ...)
+bool __cdecl RegistryManagerClass::Set_String (HKEY rootkey, const WCHAR *string, ...)
 {
 	HKEY	   key;
 	DWORD	   disposition;
@@ -848,7 +848,7 @@ bool _cdecl RegistryManagerClass::Set_String (HKEY rootkey, const WCHAR *string,
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool _cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
+bool __cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
 {
 	HKEY	   key;
 	DWORD	   disposition;
@@ -899,7 +899,7 @@ bool _cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool _cdecl RegistryManagerClass::Get_Key (HKEY rootkey, DWORD keyindex, StringClass *keyname, ...)
+bool __cdecl RegistryManagerClass::Get_Key (HKEY rootkey, DWORD keyindex, StringClass *keyname, ...)
 {
 	bool			 success = false;
 	va_list		 marker;
