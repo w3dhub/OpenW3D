@@ -20,7 +20,7 @@
 #include "dx8wrapper.h"
 #include "formconv.h"
 #include "render2d.h"
-#include "Bink.h"
+#include "bink.h"
 #include "rect.h"
 #include "subtitlemanager.h"
 #include "dx8caps.h"
