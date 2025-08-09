@@ -41,7 +41,6 @@ target_include_directories(wwcommon INTERFACE
 
 target_link_libraries(wwcommon INTERFACE
     milesstub
-    binkstub
     gamespy
     d3d8lib
 )
