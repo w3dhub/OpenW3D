@@ -184,6 +184,16 @@ int main(int argc, char *argv[])
 	}
 #endif //WWDEBUG
 
+	//
+	// There's a couple of options we need for the FDS
+	//
+#ifdef FREEDEDICATEDSERVER
+	if (!SlaveMaster.Am_I_Slave() && !ServerSettingsClass::Is_Server_Settings_File_Set()) {
+		cUserOptions::Set_Server_INI_File("server.ini");
+	}
+	ConsoleBox.Set_Exclusive(true);
+#endif //FREEDEDICATEDSERVER
+
 	switch (cUserOptions::Parse_Command_Line(argc, argv)) {
 	case cUserOptions::ParseResult::SUCCESS:
 		break;
@@ -205,16 +215,6 @@ int main(int argc, char *argv[])
 				"Renegade Warning!", MB_ICONWARNING|MB_OK);
 	}
 #endif // WWDEBUG
-
-	//
-	// There's a couple of options we need for the FDS
-	//
-#ifdef FREEDEDICATEDSERVER
-	if (!SlaveMaster.Am_I_Slave() && !ServerSettingsClass::Is_Server_Settings_File_Set()) {
-		cUserOptions::Set_Server_INI_File("server.ini");
-	}
-	ConsoleBox.Set_Exclusive(true);
-#endif //FREEDEDICATEDSERVER
 
 	//
 	//	Verify that we can execute (i.e. make sure there are no other instances running)
