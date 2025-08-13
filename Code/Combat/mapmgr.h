@@ -67,12 +67,9 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public constants
 	////////////////////////////////////////////////////////////////
-	enum
-	{
-		CLOUD_WIDTH			= 20,
-		CLOUD_HEIGHT		= 20,
-		CLOUD_VECTOR_SIZE	= ((CLOUD_WIDTH * CLOUD_HEIGHT) / 32) + 1,
-	};
+	static constexpr int CLOUD_WIDTH			= 20;
+	static constexpr int CLOUD_HEIGHT		= 20;
+	static constexpr int CLOUD_VECTOR_SIZE	= ((CLOUD_WIDTH * CLOUD_HEIGHT) / 32) + 1;
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

@@ -146,11 +146,9 @@ class WeatherSystemClass : public RenderObjClass
 
 	protected:
 
-		enum {
-			VERTICES_PER_TRIANGLE = 3,
-			MAX_IB_PARTICLE_COUNT = 2048,
-			MAX_AGE					 = 1000000
-		};
+		static constexpr int VERTICES_PER_TRIANGLE = 3;
+		static constexpr int MAX_IB_PARTICLE_COUNT = 2048;
+		static constexpr int MAX_AGE					 = 1000000;
 
 		struct RayStruct : public AutoPoolClass <RayStruct, GROWTH_STEP>
 		{
