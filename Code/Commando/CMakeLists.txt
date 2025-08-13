@@ -466,6 +466,7 @@ if(RENEGADE_CLIENT) # Full game client
 
     target_link_libraries(renegade PRIVATE
         commando
+        gitinfo
     )
 
     target_sources(renegade PRIVATE ${COMMANDO_SRC})
@@ -476,6 +477,7 @@ if(RENEGADE_FDS) # Dedicated headless server
 
     target_link_libraries(renegadeserver PRIVATE
         commando
+        gitinfo
     )
 
     target_sources(renegadeserver PRIVATE ${COMMANDO_SRC})

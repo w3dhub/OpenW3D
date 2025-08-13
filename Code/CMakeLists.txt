@@ -48,6 +48,7 @@ target_link_libraries(wwcommon INTERFACE
 )
 
 # Module static libraries
+add_subdirectory(GitInfo)
 add_subdirectory(BinkMovie)
 add_subdirectory(Combat)
 add_subdirectory(SControl)
