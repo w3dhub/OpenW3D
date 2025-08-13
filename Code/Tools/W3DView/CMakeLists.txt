@@ -186,7 +186,7 @@ target_compile_options(w3dview PRIVATE
 )
 
 target_link_libraries(w3dview PRIVATE
-    d3d8lib
+    d3d9lib
     version
     winmm
     milesstub

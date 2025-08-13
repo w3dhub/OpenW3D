@@ -1051,7 +1051,8 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 
 		#if WEATHER_PARTICLE_SORT
 		#else
-		DX8Wrapper::Set_DX8_Render_State (D3DRS_ZBIAS, 12);
+		float depthbias = -0.02f;
+		DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS,*reinterpret_cast<unsigned*>(&depthbias));
 		#endif
 
  		camerafocus = rinfo.Camera.Get_Transform().Get_Z_Vector();
@@ -1217,7 +1218,7 @@ void WeatherSystemClass::Render (RenderInfoClass &rinfo)
 
 		#if WEATHER_PARTICLE_SORT
 		#else
-		DX8Wrapper::Set_DX8_Render_State (D3DRS_ZBIAS, 0);
+		DX8Wrapper::Set_DX8_Render_State (D3DRS_DEPTHBIAS, 0);
 		#endif
 	}
 }

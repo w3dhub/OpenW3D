@@ -545,7 +545,7 @@ Render2DSentenceClass::Build_Textures (void)
 		//
 		//	Create the new texture
 		//
-		TextureClass *new_texture = new TextureClass (desc.Width, desc.Width, WW3D_FORMAT_A4R4G4B4, TextureClass::MIP_LEVELS_1);
+		TextureClass *new_texture = new TextureClass (desc.Width, desc.Width, WW3D_FORMAT_A4R4G4B4, TextureClass::MIP_LEVELS_1,TextureClass::POOL_DEFAULT);
 		SurfaceClass *texture_surface = new_texture->Get_Surface_Level ();
 
 		//
@@ -845,7 +845,7 @@ Render2DSentenceClass::Allocate_New_Surface (const WCHAR *text)
 	//
 	//	Create the new surface
 	//
-	CurSurface = NEW_REF (SurfaceClass, (CurrTextureSize, CurrTextureSize, WW3D_FORMAT_A4R4G4B4));
+	CurSurface = NEW_REF (SurfaceClass, (CurrTextureSize, CurrTextureSize, WW3D_FORMAT_A4R4G4B4, SurfaceClass::POOL_SYSTEMMEM));
 	WWASSERT (CurSurface != NULL);
 	CurSurface->Add_Ref ();
 

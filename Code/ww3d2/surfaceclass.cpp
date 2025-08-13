@@ -54,7 +54,7 @@
 #include "vector2i.h"
 #include "colorspace.h"
 #include "bound.h"
-#include <d3dx8.h>
+#include <d3dx9.h>
 
 /***********************************************************************************************
  * PixelSize -- Helper Function to find the size in bytes of a pixel                           *
@@ -212,13 +212,25 @@ void SurfaceClass::Convert_Pixel(unsigned char * pixel,const SurfaceClass::Surfa
 /*************************************************************************
 **                             SurfaceClass
 *************************************************************************/
-SurfaceClass::SurfaceClass(unsigned width, unsigned height, WW3DFormat format):
+SurfaceClass::SurfaceClass(unsigned width, unsigned height, WW3DFormat format, SurfaceClass::PoolType pool):
 	D3DSurface(NULL),
 	SurfaceFormat(format)
 {
 	WWASSERT(width);
 	WWASSERT(height);
-	D3DSurface = DX8Wrapper::_Create_DX8_Surface(width, height, format);
+	D3DPOOL d3dpool = D3DPOOL_DEFAULT;
+	switch (pool) {
+	case SurfaceClass::POOL_DEFAULT:
+		d3dpool = D3DPOOL_DEFAULT;
+		break;
+	case SurfaceClass::POOL_MANAGED:
+		d3dpool = D3DPOOL_MANAGED;
+		break;
+	case SurfaceClass::POOL_SYSTEMMEM:
+		d3dpool = D3DPOOL_SYSTEMMEM;
+		break;
+	}
+	D3DSurface = DX8Wrapper::_Create_DX8_Surface(width, height, d3dpool, format);
 }
 
 SurfaceClass::SurfaceClass(const char *filename):
@@ -230,7 +242,7 @@ SurfaceClass::SurfaceClass(const char *filename):
 	SurfaceFormat=desc.Format;
 }
 
-SurfaceClass::SurfaceClass(IDirect3DSurface8 *d3d_surface)	:
+SurfaceClass::SurfaceClass(IDirect3DSurface9 *d3d_surface)	:
 	D3DSurface (NULL)
 {
 	Attach (d3d_surface);
@@ -744,7 +756,7 @@ void SurfaceClass::Get_Pixel(Vector3 &rgb, int x,int y)
  * HISTORY:                                                                                    *
  *   3/27/2001  pds : Created.                                                                 *
  *=============================================================================================*/
-void SurfaceClass::Attach (IDirect3DSurface8 *surface)
+void SurfaceClass::Attach (IDirect3DSurface9 *surface)
 {
 	Detach ();
 	D3DSurface = surface;

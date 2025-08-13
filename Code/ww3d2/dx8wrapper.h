@@ -45,7 +45,7 @@
 
 #include "always.h"
 #include "dllist.h"
-#include <d3d8.h>
+#include <d3d9.h>
 #include "matrix4.h"
 #include "statistics.h"
 #include "wwstring.h"
@@ -101,14 +101,15 @@ class DX8Caps;
 #define DX8_RECORD_TEXTURE_CHANGE()				texture_changes++
 #define DX8_RECORD_RENDER_STATE_CHANGE()		render_state_changes++
 #define DX8_RECORD_TEXTURE_STAGE_STATE_CHANGE() texture_stage_state_changes++
+#define DX8_RECORD_SAMPLER_STATE_CHANGE() 		sampler_state_changes++
 
 extern unsigned number_of_DX8_calls;
 extern bool _DX8SingleThreaded;
 
 void DX8_Assert();
-void Log_DX8_ErrorCode(unsigned res);
+void Log_DX8_ErrorCode(HRESULT res);
 
-WWINLINE void DX8_ErrorCode(unsigned res)
+WWINLINE void DX8_ErrorCode(HRESULT res)
 {
 	if (res==D3D_OK) return;
 	Log_DX8_ErrorCode(res);
@@ -131,7 +132,7 @@ struct RenderStateStruct
 	ShaderClass shader;
 	VertexMaterialClass* material;
 	TextureClass * Textures[MAX_TEXTURE_STAGES];
-	D3DLIGHT8 Lights[4];
+	D3DLIGHT9 Lights[4];
 	bool LightEnable[4];
 	Matrix4 world;
 	Matrix4 view;
@@ -224,7 +225,7 @@ public:
 
 	static void Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float z=1.0f, unsigned int stencil=0);
 
-	static void	Set_Viewport(CONST D3DVIEWPORT8* pViewport);
+	static void	Set_Viewport(CONST D3DVIEWPORT9* pViewport);
 
 	static void Set_Vertex_Buffer(const VertexBufferClass* vb);
 	static void Set_Vertex_Buffer(const DynamicVBAccessClass& vba);
@@ -236,7 +237,7 @@ public:
 	static void Set_Render_State(const RenderStateStruct& state);
 	static void Release_Render_State();
 
-	static void Set_DX8_Material(const D3DMATERIAL8* mat);
+	static void Set_DX8_Material(const D3DMATERIAL9* mat);
 
 	static void Set_Gamma(float gamma,float bright,float contrast,bool calibrate=true,bool uselimit=true);
 
@@ -260,14 +261,16 @@ public:
 	static void _Set_DX8_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix3D& m);
 	static void _Get_DX8_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4& m);
 
-	static void Set_DX8_Light(int index,D3DLIGHT8* light);
+	static void Set_DX8_Light(int index,D3DLIGHT9* light);
 	static void Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value);
 	static void Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value);
-	static void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8* texture);
+	static void Set_DX8_N_Patch_Mode(float segments);
+	static void Set_DX8_Texture_Sampler_State(unsigned sampler, D3DSAMPLERSTATETYPE state, unsigned value);
+	static void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture9* texture);
 	static void Set_Light_Environment(LightEnvironmentClass* light_env);
 	static void Set_Fog(bool enable, const Vector3 &color, float start, float end);
 
-	static WWINLINE const D3DLIGHT8& Peek_Light(unsigned index);
+	static WWINLINE const D3DLIGHT9& Peek_Light(unsigned index);
 	static WWINLINE bool Is_Light_Enabled(unsigned index);
 
 	// Deferred
@@ -276,7 +279,7 @@ public:
 	static void Get_Shader(ShaderClass& shader);
 	static void Set_Texture(unsigned stage,TextureClass* texture);
 	static void Set_Material(const VertexMaterialClass* material);
-	static void Set_Light(unsigned index,const D3DLIGHT8* light);
+	static void Set_Light(unsigned index,const D3DLIGHT9* light);
 	static void Set_Light(unsigned index,const LightClass &light);
 
 	static void Apply_Render_State_Changes();	// Apply deferred render state changes (will be called automatically by Draw...)
@@ -301,35 +304,39 @@ public:
 	/*
 	** Resources
 	*/
-	static IDirect3DTexture8 * _Create_DX8_Texture(
+	static IDirect3DTexture9 * _Create_DX8_Texture(
 		unsigned int width,
 		unsigned int height,
 		WW3DFormat format,
 		TextureClass::MipCountType mip_level_count,
 		D3DPOOL pool=D3DPOOL_MANAGED,
 		bool rendertarget=false);
-	static IDirect3DTexture8 * _Create_DX8_Texture(const char *filename, TextureClass::MipCountType mip_level_count);
-	static IDirect3DTexture8 * _Create_DX8_Texture(IDirect3DSurface8 *surface, TextureClass::MipCountType mip_level_count);
+	static IDirect3DTexture9 * _Create_DX8_Texture(const char *filename, TextureClass::MipCountType mip_level_count);
+	static IDirect3DTexture9 * _Create_DX8_Texture(IDirect3DSurface9 *surface, TextureClass::MipCountType mip_level_count);
 
-	static IDirect3DSurface8 * _Create_DX8_Surface(unsigned int width, unsigned int height, WW3DFormat format);
-	static IDirect3DSurface8 * _Create_DX8_Surface(const char *filename);
-	static IDirect3DSurface8 * _Get_DX8_Front_Buffer();
+	static IDirect3DSurface9 * _Create_DX8_Surface(unsigned int width, unsigned int height, D3DPOOL pool, WW3DFormat format);
+	static IDirect3DSurface9 * _Create_DX8_Surface(const char *filename);
+	static IDirect3DSurface9 * _Get_DX8_Front_Buffer();
 	static SurfaceClass * _Get_DX8_Back_Buffer(unsigned int num=0);
 
 	static void _Copy_DX8_Rects(
-			IDirect3DSurface8* pSourceSurface,
+			IDirect3DSurface9* pSourceSurface,
 			CONST RECT* pSourceRectsArray,
 			UINT cRects,
-			IDirect3DSurface8* pDestinationSurface,
+			IDirect3DSurface9* pDestinationSurface,
 			CONST POINT* pDestPointsArray
+	);
+	static void _Read_Texture(
+			IDirect3DSurface9* pSourceSurface,
+			IDirect3DSurface9* pDestinationSurface
 	);
 
 	static void _Update_Texture(TextureClass *system, TextureClass *video);
-	static void Flush_DX8_Resource_Manager(unsigned int bytes=0);
+	static void Flush_DX8_Resource_Manager();
 	static unsigned int Get_Free_Texture_RAM();
 
 	static unsigned _Get_Main_Thread_ID() { return _MainThreadID; }
-	static const D3DADAPTER_IDENTIFIER8& Get_Current_Adapter_Identifier() { return CurrentAdapterIdentifier; }
+	static const D3DADAPTER_IDENTIFIER9& Get_Current_Adapter_Identifier() { return CurrentAdapterIdentifier; }
 
 	/*
 	** Statistics
@@ -379,10 +386,10 @@ public:
 	**
 	**	swap_chain_ptr->Present (NULL, NULL, NULL, NULL);
 	**
-	**	DX8Wrapper::Set_Render_Target ((IDirect3DSurface8 *)NULL);
+	**	DX8Wrapper::Set_Render_Target ((IDirect3DSurface9 *)NULL);
 	**
 	*/
-	static IDirect3DSwapChain8 *	Create_Additional_Swap_Chain (HWND render_window);
+	static IDirect3DSwapChain9 *	Create_Additional_Swap_Chain (HWND render_window);
 
 	/*
 	** Render target interface. If render target format is WW3D_FORMAT_UNKNOWN, current display format is used.
@@ -390,12 +397,12 @@ public:
 	static TextureClass *	Create_Render_Target (int width, int height, WW3DFormat format);
 
 	static void					Set_Render_Target (TextureClass * texture);
-	static void					Set_Render_Target (IDirect3DSurface8 *render_target, bool use_default_depth_buffer = false);
-	static void					Set_Render_Target (IDirect3DSwapChain8 *swap_chain);
+	static void					Set_Render_Target (IDirect3DSurface9 *render_target, bool use_default_depth_buffer = false);
+	static void					Set_Render_Target (IDirect3DSwapChain9 *swap_chain);
 	static bool					Is_Render_To_Texture(void) { return IsRenderToTexture; }
 
-	static IDirect3DDevice8* _Get_D3D_Device8() { return D3DDevice; }
-	static IDirect3D8* _Get_D3D8() { return D3DInterface; }
+	static IDirect3DDevice9* _Get_D3D_Device8() { return D3DDevice; }
+	static IDirect3D9* _Get_D3D8() { return D3DInterface; }
 
 	static const DX8Caps*	Get_Current_Caps() { WWASSERT(CurrentCaps); return CurrentCaps; }
 
@@ -408,6 +415,9 @@ public:
 	// Names of the specific values of render states and texture stage states
 	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass& name, D3DTEXTURESTAGESTATETYPE state, unsigned value);
 	static void Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTATETYPE state, unsigned value);
+
+	static const char* Get_DX8_Texture_Sampler_State_Name(D3DSAMPLERSTATETYPE state);
+	static void Get_DX8_Texture_Sampler_State_Value_Name(StringClass& name, D3DSAMPLERSTATETYPE state, unsigned value);
 
 	static const char* Get_DX8_Texture_Address_Name(unsigned value);
 	static const char* Get_DX8_Texture_Filter_Name(unsigned value);
@@ -508,7 +518,8 @@ protected:
 	static bool								world_identity;
 	static unsigned						RenderStates[256];
 	static unsigned						TextureStageStates[MAX_TEXTURE_STAGES][32];
-	static IDirect3DBaseTexture8 *	Textures[MAX_TEXTURE_STAGES];
+	static unsigned						TextureSamplerStates[MAX_TEXTURE_STAGES][14];
+	static IDirect3DBaseTexture9 *	Textures[MAX_TEXTURE_STAGES];
 
 	// These fog settings are constant for all objects in a given scene,
 	// unlike the matching renderstates which vary based on shader settings.
@@ -523,20 +534,21 @@ protected:
 	static unsigned						texture_changes;
 	static unsigned						render_state_changes;
 	static unsigned						texture_stage_state_changes;
+	static unsigned						sampler_state_changes;
 	static bool								CurrentDX8LightEnables[4];
 
 	static unsigned long FrameCount;
 
 	static DX8Caps*						CurrentCaps;
 
-	static D3DADAPTER_IDENTIFIER8		CurrentAdapterIdentifier;
+	static D3DADAPTER_IDENTIFIER9		CurrentAdapterIdentifier;
 
-	static IDirect3D8 *					D3DInterface;			//d3d8;
-	static IDirect3DDevice8 *			D3DDevice;				//d3ddevice8;
+	static IDirect3D9 *					D3DInterface;			//d3d8;
+	static IDirect3DDevice9 *			D3DDevice;				//d3ddevice8;
 
-	static IDirect3DSurface8 *			CurrentRenderTarget;
-	static IDirect3DSurface8 *			DefaultRenderTarget;
-	static IDirect3DSurface8 *			DefaultDepthBuffer;
+	static IDirect3DSurface9 *			CurrentRenderTarget;
+	static IDirect3DSurface9 *			DefaultRenderTarget;
+	static IDirect3DSurface9 *			DefaultDepthBuffer;
 
 	static bool								IsRenderToTexture;
 
@@ -544,6 +556,7 @@ protected:
 	static float							ZNear;
 	static float							ZFar;
 	static Matrix4							ProjectionMatrix;
+	static int								BaseVertexIndex;
 
 	friend void DX8_Assert();
 	friend class WW3D;
@@ -616,7 +629,7 @@ WWINLINE void DX8Wrapper::Set_Fog(bool enable, const Vector3 &color, float start
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL8* mat)
+WWINLINE void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL9* mat)
 {
 	DX8_RECORD_MATERIAL_CHANGE();
 	WWASSERT(mat);
@@ -624,7 +637,7 @@ WWINLINE void DX8Wrapper::Set_DX8_Material(const D3DMATERIAL8* mat)
 	DX8CALL(SetMaterial(mat));
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT8* light)
+WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT9* light)
 {
 	if (light) {
 		DX8_RECORD_LIGHT_CHANGE();
@@ -639,26 +652,6 @@ WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT8* light)
 		DX8CALL(LightEnable(index,FALSE));
 		SNAPSHOT_SAY(("DX8 - DisableLight\n"));
 	}
-}
-
-WWINLINE void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
-{
-	// Can't monitor state changes because setShader call to GERD may change the states!
-	if (RenderStates[state]==value) return;
-
-#ifdef MESH_RENDER_SNAPSHOT_ENABLED
-	if (WW3D::Is_Snapshot_Activated()) {
-		StringClass value_name(0,true);
-		Get_DX8_Render_State_Value_Name(value_name,state,value);
-		SNAPSHOT_SAY(("DX8 - SetRenderState(state: %s, value: %s)\n",
-			Get_DX8_Render_State_Name(state),
-			value_name));
-	}
-#endif
-
-	RenderStates[state]=value;
-	DX8CALL(SetRenderState( state, value ));
-	DX8_RECORD_RENDER_STATE_CHANGE();
 }
 
 WWINLINE void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURESTAGESTATETYPE state, unsigned value)
@@ -681,7 +674,33 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, D3DTEXTURE
 	DX8_RECORD_TEXTURE_STAGE_STATE_CHANGE();
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8* texture)
+WWINLINE void DX8Wrapper::Set_DX8_N_Patch_Mode(float segments)
+{
+	// TODO: proper state tracking!
+	DX8CALL(SetNPatchMode(segments));
+}
+
+WWINLINE void DX8Wrapper::Set_DX8_Texture_Sampler_State(unsigned sampler, D3DSAMPLERSTATETYPE state, unsigned value)
+{
+	// Can't monitor state changes because setShader call to GERD may change the states!
+	if (TextureSamplerStates[sampler][(unsigned int)state]==value) return;
+#ifdef MESH_RENDER_SNAPSHOT_ENABLED
+	if (WW3D::Is_Snapshot_Activated()) {
+		StringClass value_name(0,true);
+		Get_DX8_Texture_Sampler_State_Value_Name(value_name,state,value);
+		SNAPSHOT_SAY(("DX8 - SetTextureSamplerState(sampler: %d, state: %s, value: %s)\n",
+			sampler,
+			Get_DX8_Texture_Sampler_State_Name(state),
+			value_name));
+	}
+#endif
+
+	TextureSamplerStates[sampler][(unsigned int)state]=value;
+	DX8CALL(SetSamplerState(sampler, state, value));
+    DX8_RECORD_SAMPLER_STATE_CHANGE();
+}
+
+WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture9* texture)
 {
 	if (Textures[stage]==texture) return;
 
@@ -695,19 +714,27 @@ WWINLINE void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTextu
 }
 
 WWINLINE void DX8Wrapper::_Copy_DX8_Rects(
-  IDirect3DSurface8* pSourceSurface,
+  IDirect3DSurface9* pSourceSurface,
   CONST RECT* pSourceRectsArray,
   UINT cRects,
-  IDirect3DSurface8* pDestinationSurface,
+  IDirect3DSurface9* pDestinationSurface,
   CONST POINT* pDestPointsArray
 )
 {
-	DX8CALL(CopyRects(
-  pSourceSurface,
-  pSourceRectsArray,
-  cRects,
-  pDestinationSurface,
-  pDestPointsArray));
+	if (cRects == 0) {
+		DX8CALL(UpdateSurface(pSourceSurface, NULL, pDestinationSurface, NULL));
+	} else {
+		for (UINT i = 0; i < cRects; i++) {
+			DX8CALL(UpdateSurface(pSourceSurface, &pSourceRectsArray[i], pDestinationSurface, &pDestPointsArray[i]));
+		}
+	}
+}
+
+WWINLINE void DX8Wrapper::_Read_Texture(
+  IDirect3DSurface9* pSourceSurface,
+  IDirect3DSurface9* pDestinationSurface)
+{
+	DX8CALL(GetRenderTargetData(pSourceSurface, pDestinationSurface));
 }
 
 WWINLINE Vector4 DX8Wrapper::Convert_Color(unsigned color)
@@ -1001,26 +1028,6 @@ WWINLINE void DX8Wrapper::Set_Pseudo_ZBias(int zbias)
 	DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&tmp));
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_ZBias(int zbias)
-{
-	if (zbias==ZBias) return;
-	if (zbias>15) zbias=15;
-	if (zbias<0) zbias=0;
-	ZBias=zbias;
-
-	if (!Get_Current_Caps()->Support_ZBias() && ZNear!=ZFar) {
-		Matrix4 tmp=ProjectionMatrix;
-		float tmp_zbias=ZBias;
-		tmp_zbias*=(1.0f/16.0f);
-		tmp_zbias*=1.0f / (ZFar - ZNear);
-		tmp[2][2]-=tmp_zbias*tmp[3][2];
-		DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&tmp));
-	}
-	else {
-		Set_DX8_Render_State (D3DRS_ZBIAS, ZBias);
-	}
-}
-
 WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Matrix4& m)
 {
 	switch ((int)transform) {
@@ -1117,7 +1124,7 @@ WWINLINE void DX8Wrapper::Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_Light(unsigned index, const D3DLIGHT8* light)
+WWINLINE void DX8Wrapper::Set_Light(unsigned index, const D3DLIGHT9* light)
 {
 	if (light) {
 		render_state.Lights[index]=*light;
@@ -1129,7 +1136,7 @@ WWINLINE void DX8Wrapper::Set_Light(unsigned index, const D3DLIGHT8* light)
 	render_state_changed|=(LIGHT0_CHANGED<<index);
 }
 
-WWINLINE const D3DLIGHT8& DX8Wrapper::Peek_Light(unsigned index)
+WWINLINE const D3DLIGHT9& DX8Wrapper::Peek_Light(unsigned index)
 {
 	return render_state.Lights[index];;
 }
