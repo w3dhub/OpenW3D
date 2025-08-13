@@ -56,7 +56,7 @@
 
 class ChunkLoadClass;
 class ChunkSaveClass;
-struct _D3DMATERIAL8;
+struct _D3DMATERIAL9;
 
 /**
 ** VertexMaterialClass
@@ -236,7 +236,7 @@ protected:
 
 	// We're using the pointer instead of the actual structure
 	// so we don't have to include the d3d header - HY
-	_D3DMATERIAL8 *		Material;
+	_D3DMATERIAL9 *		Material;
 	unsigned int			Flags;
 	unsigned int			AmbientColorSource;
 	unsigned int			EmissiveColorSource;

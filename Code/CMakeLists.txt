@@ -44,7 +44,7 @@ target_include_directories(wwcommon INTERFACE
 target_link_libraries(wwcommon INTERFACE
     milesstub
     gamespy
-    d3d8lib
+    d3d9lib
 )
 
 # Module static libraries
