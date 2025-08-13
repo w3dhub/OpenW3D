@@ -1015,7 +1015,7 @@ bool DX8Wrapper::Set_Device_Resolution(int width,int height,int bits,int windowe
 		if (height != -1) {
 			_PresentParameters.BackBufferHeight = ResolutionHeight = height;
 		}
-#pragma message("TODO: support changing windowed status and changing the bit depth")
+// FIXME TODO: support changing windowed status and changing the bit depth
 		return Reset_Device();
 	} else {
 		return false;

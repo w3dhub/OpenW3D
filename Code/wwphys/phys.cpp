@@ -315,7 +315,7 @@ void PhysClass::Update_Sun_Status(void)
 	scene->Get_Sun_Light_Vector(&sunlight);
 	Vector3 center = Model->Get_Bounding_Sphere().Center; 
 
-#pragma message ("(gth) Need a collision group for sun-rays")
+// FIXME (gth) Need a collision group for sun-rays
 	CastResultStruct sunresult;
 	LineSegClass sunray(center,center - sunlight * SUN_CHECK_DISTANCE);
 	PhysRayCollisionTestClass sunraytest(sunray,&sunresult,0,COLLISION_TYPE_PROJECTILE);

@@ -47,7 +47,7 @@ CClientFps *		PClientFps = NULL;
 
 DECLARE_NETWORKOBJECT_FACTORY(CClientFps, NETCLASSID_CLIENTFPS);
 
-#pragma message("(TSS) high priority for me to fix this CClientFps bug...")
+// FIXME (TSS) high priority for me to fix this CClientFps bug...
 //
 // TSS2001 problem: destruction of this object on the server. Quitting and rejoining 
 // a game will crash the server.

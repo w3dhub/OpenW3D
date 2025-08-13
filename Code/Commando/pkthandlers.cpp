@@ -135,7 +135,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 			//sockaddr_in rhost_addr = PServerConnection->Get_Remote_Host(rhost_id)->Get_Address();
 #endif //WWDEBUG
 
-//#pragma message("(TSS) APPPACKETTYPE_CSDAMAGEEVENT workaround for unknown crash bug.\n")
+//// FIXME (TSS) APPPACKETTYPE_CSDAMAGEEVENT workaround for unknown crash bug.\n
 
 			//WWDEBUG_SAY(("\n"));
 			//WWDEBUG_SAY(("cNetwork::Server_Packet_Handler: received BIT_CREATION (id %d, is_delete_pending = %d, net_classid = %d, from rhost %d - %s) for existing object:\n",

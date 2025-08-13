@@ -590,7 +590,7 @@ void cNetwork::Onetime_Shutdown(void)
 	}
 #endif // 0
 
-#pragma message("(TSS) This packet ref count assert very occasionally fails.")
+// FIXME (TSS) This packet ref count assert very occasionally fails.
    //WWASSERT(cPacket::Get_Ref_Count() == 0);
 
 	REF_PTR_RELEASE(VisTable);

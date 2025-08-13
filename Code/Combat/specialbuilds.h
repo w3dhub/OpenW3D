@@ -81,19 +81,19 @@
 //-----------------------------------------------------------------------------
 
 #ifdef BETASERVER
-#pragma message("*** BETASERVER is defined ***")
+// FIXME *** BETASERVER is defined ***
 #endif // BETACLIENT
 
 #ifdef BETACLIENT
-#pragma message("*** BETACLIENT is defined ***")
+// FIXME *** BETACLIENT is defined ***
 #endif // BETACLIENT
 
 #ifdef FREEDEDICATEDSERVER
-#pragma message("*** FREEDEDICATEDSERVER is defined ***")
+// FIXME *** FREEDEDICATEDSERVER is defined ***
 #endif // FREEDEDICATEDSERVER
 
 #ifdef MULTIPLAYERDEMO
-#pragma message("*** MULTIPLAYERDEMO is defined ***")
+// FIXME *** MULTIPLAYERDEMO is defined ***
 #endif // MULTIPLAYERDEMO
 
 //
@@ -157,7 +157,7 @@
 
 /*
 #ifdef BETASERVER
-#pragma message("*** BETASERVER is defined ***")
+// FIXME *** BETASERVER is defined ***
 #endif // BETASERVER
 */
 

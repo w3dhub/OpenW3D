@@ -216,7 +216,7 @@ void GameObjManager::Destroy_All()		// Destroy each object in the list
 		objnode->Data()->Set_Delete_Pending();
 	}
 
-#pragma message ("Disabling Think and Post_Think in GameObjManager::Destroy_All()")
+// FIXME Disabling Think and Post_Think in GameObjManager::Destroy_All()
 #if 0
 	Think();	
 	Post_Think();

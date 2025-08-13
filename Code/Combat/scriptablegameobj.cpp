@@ -611,7 +611,7 @@ void	ScriptableGameObj::Start_Custom_Timer( ScriptableGameObj * from, float dela
 void	ScriptableGameObj::Think( void )
 {
 	if (Is_Always_Dirty()) {
-#pragma message ("Forcing game objects to be network dirty for updates.\n")
+// FIXME Forcing game objects to be network dirty for updates.\n
 		Set_Object_Dirty_Bit (NetworkObjectClass::BIT_FREQUENT, true);
 	}
 

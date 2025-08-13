@@ -58,7 +58,7 @@
 // Class statics
 //
 const USHORT	cLanChat::LAN_BROADCAST_INTERVAL_MS		= 1000;
-#pragma message ("(TSS) BUMP LAN BCAST PORT FOR D1P")
+// FIXME (TSS) BUMP LAN BCAST PORT FOR D1P
 //const USHORT	cLanChat::LAN_PORT							= 0xEA00;
 const USHORT	cLanChat::LAN_PORT							= 3373;
 

@@ -698,7 +698,7 @@ RepairBayGameObj::Repair_Vehicle (void)
 					float repair_cost_per_pt	= vehicle_cost / (health_max + shield_max);
 
 					//int available_funds			= 1000; //player_data->Get_Score ()
-#pragma message("(TSS) available_funds			= 1000 looks suspect...")
+// FIXME (TSS) available_funds			= 1000 looks suspect...
 					int available_funds			= 1000; //player_data->Get_Money ()
 					
 					int points_restored			= int(available_funds / repair_cost_per_pt);

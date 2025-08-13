@@ -1215,7 +1215,7 @@ void ShatterSystem::Process_Clip_Pools
 						** If there were UV coordinates in the original mesh for either stage,
 						** then copy the vertex's uv's into into the new mesh.
 						*/
-						#pragma MESSAGE("HY- Naty, will dynamesh support multiple stages of UV?")
+						// FIXME HY- Naty, will dynamesh support multiple stages of UV?
 						for (istage=0; istage<MeshMatDescClass::MAX_TEX_STAGES; istage++) {
 							if (mtl_params.UV[ipass][istage] != NULL) {
 								SHATTER_DEBUG_SAY(("UV: pass:%d stage: %d: %f %f\n",ipass,istage,vert.TexCoord[ipass][istage].X,vert.TexCoord[ipass][istage].Y));

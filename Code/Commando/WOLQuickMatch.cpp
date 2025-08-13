@@ -356,7 +356,7 @@ void WOLQuickMatch::SendServerInfo(const char* exInfo, const char* topic)
 	{
 	if (exInfo && topic)
 		{
-#pragma message(__FILE__" *** HACK ALERT *** SINFO msg is imitating WOLAPI IRC topic!")
+// FIXME  *** HACK ALERT *** SINFO msg is imitating WOLAPI IRC topic!
 
 		// *** WARNING *** DANGER *** HACK ALERT ****
 		//
