@@ -2036,8 +2036,11 @@ void DX8MeshRendererClass::Add_To_Render_List(DecalMeshClass * decalmesh)
 
 void DX8MeshRendererClass::Render_Decal_Meshes(void)
 {
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS,8);
-	
+	float depthbias = -0.02f;
+	float slopedscalebias = 1.0f;
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS,*reinterpret_cast<unsigned*>(&depthbias));
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS,*reinterpret_cast<unsigned*>(&slopedscalebias));
+
 	DecalMeshClass * decal_mesh = visible_decal_meshes;
 	while (decal_mesh != NULL) {
 		decal_mesh->Render();
@@ -2045,7 +2048,8 @@ void DX8MeshRendererClass::Render_Decal_Meshes(void)
 	}
 	visible_decal_meshes = NULL;
 
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS,0);
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS,0);
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS,0);
 }
 
 // ----------------------------------------------------------------------------

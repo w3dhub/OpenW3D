@@ -153,10 +153,10 @@ void CheckDriverVersion()
 	int disabled=render_registry.Get_Int( "DriverVersionCheckDisabled" );
 	if (disabled>=87) return;
 
-	IDirect3D8* d3d=NULL;
-	D3DCAPS8 tmp_caps;
-	const D3DCAPS8* d3dcaps=NULL;
-	D3DADAPTER_IDENTIFIER8 adapter_id;
+	IDirect3D9* d3d=NULL;
+	D3DCAPS9 tmp_caps;
+	const D3DCAPS9* d3dcaps=NULL;
+	D3DADAPTER_IDENTIFIER9 adapter_id;
 
 	VideoConfigDialogClass* video=VideoConfigDialogClass::Get_Instance();
 	if (video) {
@@ -168,7 +168,7 @@ void CheckDriverVersion()
 	else {
 		// Init D3D
 		Init_D3D_To_WW3_Conversion();
-		d3d=Direct3DCreate8(D3D_SDK_VERSION);		// TODO: handle failure cases...
+		d3d=Direct3DCreate9(D3D_SDK_VERSION);		// TODO: handle failure cases...
 		if (!d3d) {
 			return;
 		}
@@ -185,9 +185,9 @@ void CheckDriverVersion()
 
 		int adapter_count = d3d->GetAdapterCount();
 		for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
-			D3DADAPTER_IDENTIFIER8 id;
-			::ZeroMemory(&id, sizeof(D3DADAPTER_IDENTIFIER8));
-			HRESULT res = d3d->GetAdapterIdentifier(adapter_index,D3DENUM_NO_WHQL_LEVEL,&id);
+			D3DADAPTER_IDENTIFIER9 id;
+			::ZeroMemory(&id, sizeof(D3DADAPTER_IDENTIFIER9));
+			HRESULT res = d3d->GetAdapterIdentifier(adapter_index,0/*D3DENUM_WHQL_LEVEL*/,&id);
 			// If device ok, check if it matches the currently set adapter name
 			if (res == D3D_OK) {
 				StringClass name(id.Description,true);
@@ -206,10 +206,10 @@ void CheckDriverVersion()
 			return;
 		}
 
-		::ZeroMemory(&adapter_id, sizeof(D3DADAPTER_IDENTIFIER8));
+		::ZeroMemory(&adapter_id, sizeof(D3DADAPTER_IDENTIFIER9));
 		if (FAILED( d3d->GetAdapterIdentifier(
 			current_adapter_index,
-			D3DENUM_NO_WHQL_LEVEL,
+			0/*D3DENUM_WHQL_LEVEL*/,
 			&adapter_id))) {
 			d3d->Release();
 			return;

@@ -828,7 +828,7 @@ void PhysicsSceneClass::Apply_Projectors
 		it.Next();
 	}
 
-	DX8Wrapper::Set_Render_Target((IDirect3DSurface8 *)NULL);
+	DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)NULL);
 }
 
 void PhysicsSceneClass::Apply_Projector_To_Objects
@@ -1005,7 +1005,7 @@ static void Create_Render_Target_Test(TextureClass* render_target)
 //	WW3D::Render(*model,*context);
 	WW3D::End_Render(false);
 
-	DX8Wrapper::Set_Render_Target((IDirect3DSurface8 *)NULL);
+	DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)NULL);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,old_projection_transform);
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,old_view_transform);
 	DX8Wrapper::Set_Transform(D3DTS_WORLD,old_world_transform);
@@ -1016,8 +1016,8 @@ static bool Test_Render_Target_Surface(TextureClass* render_target)
 	SurfaceClass * surf = render_target->Get_Surface_Level();
 	SurfaceClass::SurfaceDescription desc;
 	surf->Get_Description(desc);
-	SurfaceClass * new_surf = NEW_REF(SurfaceClass,(desc.Width,desc.Height,desc.Format));
-	DX8Wrapper::_Copy_DX8_Rects(surf->Peek_D3D_Surface(),NULL,0,new_surf->Peek_D3D_Surface(),NULL);
+	SurfaceClass * new_surf = NEW_REF(SurfaceClass,(desc.Width,desc.Height,desc.Format,SurfaceClass::POOL_SYSTEMMEM));
+	DX8Wrapper::_Read_Texture(surf->Peek_D3D_Surface(), new_surf->Peek_D3D_Surface());
 	REF_PTR_RELEASE(surf);
 
 	int pitch;
@@ -1197,7 +1197,7 @@ void PhysicsSceneClass::Generate_Static_Shadow_Projectors(void)
 			Setup_Static_Directional_Shadow(*obj,sunvector,render_target);
 		}
 
-		DX8Wrapper::Set_Render_Target((IDirect3DSurface8 *)NULL);
+		DX8Wrapper::Set_Render_Target((IDirect3DSurface9 *)NULL);
 		REF_PTR_RELEASE(render_target);
 	}
 	StaticProjectorsDirty=false;
@@ -1270,8 +1270,8 @@ void PhysicsSceneClass::Setup_Static_Directional_Shadow
 
 		SurfaceClass::SurfaceDescription desc;
 		surf->Get_Description(desc);
-		SurfaceClass * new_surf = NEW_REF(SurfaceClass,(desc.Width,desc.Height,desc.Format));
-		DX8Wrapper::_Copy_DX8_Rects(surf->Peek_D3D_Surface(),NULL,0,new_surf->Peek_D3D_Surface(),NULL);
+		SurfaceClass * new_surf = NEW_REF(SurfaceClass,(desc.Width,desc.Height,desc.Format,SurfaceClass::POOL_SYSTEMMEM));
+		DX8Wrapper::_Read_Texture(surf->Peek_D3D_Surface(),new_surf->Peek_D3D_Surface());
 
 		TextureClass * new_texture = NEW_REF(TextureClass,(new_surf));
 
