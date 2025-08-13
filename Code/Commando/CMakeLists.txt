@@ -477,6 +477,7 @@ if(W3D_CLIENT) # Full game client
 
     target_link_libraries(renegade PRIVATE
         commando
+        gitinfo
     )
 
     embed_resources(renegade
@@ -491,6 +492,7 @@ if(W3D_FDS) # Dedicated headless server
 
     target_link_libraries(renegadeserver PRIVATE
         commando
+        gitinfo
     )
 
     target_compile_definitions(renegadeserver PRIVATE FREEDEDICATEDSERVER)
