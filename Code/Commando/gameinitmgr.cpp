@@ -394,7 +394,7 @@ GameInitMgrClass::End_Game (void)
 		is_quick_full_exit_requested = cDevOptions::QuickFullExit.Get();
 #endif // WWDEBUG
 
-#pragma message("(TSS) ***** Memory leak here - please fix (ST - 6/14/2001 2:06PM) *****")
+// FIXME (TSS) ***** Memory leak here - please fix (ST - 6/14/2001 2:06PM) *****
 		cSvrGoodbyeEvent * p_event = new cSvrGoodbyeEvent;
 		p_event->Init(is_quick_full_exit_requested);
 	}
@@ -705,7 +705,7 @@ GameInitMgrClass::Shutdown_SP (void)
 
    WWDEBUG_SAY (("GameInitMgrClass::Shutdown_SP\n"));
 
-//#pragma message ("TSS Fix memory leak here")
+//// FIXME TSS Fix memory leak here
 
 	//cSingleData::Set_Is_Single_Player(false);
 	cGameType::Set_Game_Type(GAMETYPE_NONE);

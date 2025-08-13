@@ -168,7 +168,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 
 	} else {
 
-#pragma message ("(gth) Disabling local shadows")
+// FIXME (gth) Disabling local shadows
 #if 0
 		/*
 		** We couldn't use the sunlight so now we look for the nearest

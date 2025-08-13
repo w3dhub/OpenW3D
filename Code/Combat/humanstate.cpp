@@ -410,7 +410,7 @@ void	HumanStateClass::Set_State( HumanStateType state, int sub_state )
 //			return;
 		}
 
-#pragma MESSAGE( "StateLocked Hack" )
+// FIXME StateLocked Hack
 		if ( !IS_SOLOPLAY ) {		// E3 HACK
 			StateLocked = false;
 		}
@@ -437,7 +437,7 @@ void	HumanStateClass::Set_State( HumanStateType state, int sub_state )
 	}
 
 	// Turn off shadows in vehicles
-#pragma message ("(gth) shadow review hacking")
+// FIXME (gth) shadow review hacking
 #if 0
 	if ( State == IN_VEHICLE )  {
 		HumanPhys->Enable_Shadow_Generation( false );

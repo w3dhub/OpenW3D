@@ -356,7 +356,7 @@ void VertexSolveClass::Add_Light_To_Vertex(LightSolveContextClass & context,int 
 		// cast ray...
 		bool is_occluded = false;
 
-#pragma message("need a collision group for light occlusion here...")
+// FIXME need a collision group for light occlusion here...
 		if (context.Is_Occlusion_Enabled()) {
 			CastResultStruct res;
 			Vector3 p0 = Position[vi];

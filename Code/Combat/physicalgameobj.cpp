@@ -772,7 +772,7 @@ void PhysicalGameObj::Post_Think( void )
 		}
 	}
 
-#pragma message ("Going to hell on a client is problematic.")
+// FIXME Going to hell on a client is problematic.
 #ifndef PARAM_EDITING_ON  //(gth) don't go to hell in the editor cause it will cause a crash!
 	if (CombatManager::I_Am_Only_Client () == false && COMBAT_SCENE != NULL) {
 		Vector3 pos;

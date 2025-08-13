@@ -191,7 +191,7 @@ void MeshModelClass::Register_For_Rendering()
 
 void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)
 {
-#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")
+// FIXME gth - TEMPORARILY REMOVING Replace_Texture
 #if 0
 	WWASSERT(texture);
 	WWASSERT(new_texture);
@@ -222,7 +222,7 @@ void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_tex
 
 void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat)
 {
-#pragma message("gth - TEMPORARILY REMOVING Replace_Texture")
+// FIXME gth - TEMPORARILY REMOVING Replace_Texture
 #if 0
 	WWASSERT(vmat);
 	WWASSERT(new_vmat);

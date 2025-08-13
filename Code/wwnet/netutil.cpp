@@ -583,7 +583,7 @@ void cNetUtil::Broadcast(SOCKET & sock, USHORT port, cPacket & packet)
    //   0, &broadcast_address, sizeof(SOCKADDR_IN)));
 	bytes_sent = sendto(sock, packet.Get_Data(), packet.Get_Compressed_Size_Bytes(),
       0, (LPSOCKADDR) &broadcast_address, sizeof(SOCKADDR_IN));
-#pragma message("(TSS) WSAENOBUFS")
+// FIXME (TSS) WSAENOBUFS
    //WWDEBUG_SAY(("Sent broadcast, length = %d bytes\n", bytes_sent));
 }
 

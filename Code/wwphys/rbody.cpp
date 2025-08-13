@@ -1237,7 +1237,7 @@ void RigidBodyClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque)
 		vel_dir.Normalize();
 		
 // DEBUG DEBUG
-#pragma message ("(gth) HACK! zeroing bad velocities.")
+// FIXME (gth) HACK! zeroing bad velocities.
 const float MAX_VEL = 500.0f;
 const float MAX_ACCEL = 100.0f;
 if (	(Velocity.Is_Valid() == false) || 
@@ -1264,7 +1264,7 @@ if (	(Velocity.Is_Valid() == false) ||
 	Vector3 a_dir = AngularVelocity;
 
 // DEBUG DEBUG
-#pragma message ("(gth) HACK! zeroing bad angular velocities.")
+// FIXME (gth) HACK! zeroing bad angular velocities.
 const float MAX_AVEL = 5.0f * 2.0f * WWMATH_PI;
 if (a_dir.Length2() > MAX_AVEL * MAX_AVEL) {
 	WWDEBUG_SAY(("clearing angluar velocity, model=%s avel=(%f,%f,%f)\r\n",Model->Get_Name(),AngularVelocity.X,AngularVelocity.Y,AngularVelocity.Z));

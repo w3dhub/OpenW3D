@@ -262,7 +262,7 @@ void	PlayerDataClass::Increment_Money( float add )
 	//
 	// Look out for very big increments
 	//
-#pragma message ("(gth) this caused a crash and seems like debugging code so I'm disabling it...")
+// FIXME (gth) this caused a crash and seems like debugging code so I'm disabling it...
 #if 0 
 	static int warning_num = 0;
 	if (add >= 10000 && ++warning_num < 10) {

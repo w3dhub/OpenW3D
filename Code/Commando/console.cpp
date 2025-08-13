@@ -218,7 +218,7 @@ void 	ConsoleGameModeClass::Think()
    if ( !InputActive ) {
       bool enable_console = false;
 
-#pragma message("TODO: relocate and provide UI for player communication.")
+// FIXME TODO: relocate and provide UI for player communication.
 
 
 

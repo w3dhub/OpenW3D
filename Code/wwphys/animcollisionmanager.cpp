@@ -1294,7 +1294,7 @@ bool AnimCollisionManagerClass::Check_Collision(CollideableObjClass & collisiono
 			*/
 			//obj->Notify_Squished(this);
 			revert = true;
-#pragma message ("(gth) commenting out rider squishing code for critical review!")
+// FIXME (gth) commenting out rider squishing code for critical review!
 			VERBOSE_LOG(("Squishing a rider!\r\n"));
 		
 		} else {

@@ -202,7 +202,7 @@ cWinEvent::Import_Creation(BitStreamClass & packet)
 	// This is just causing no end of trouble so I'm going to simplify it.
 	// The host has no business sending win events to people not in the same game anyway. ST - 1/18/2002 2:33PM
 	//
-#pragma message("(TSS) Could this be causing problems?")
+// FIXME (TSS) Could this be causing problems?
 	The_Game()->Set_Hosted_Game_Number(HostedGameNumber + 1);
 #if (0)
 	if (HostedGameNumber != The_Game()->Get_Hosted_Game_Number())
