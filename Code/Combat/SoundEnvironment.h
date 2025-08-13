@@ -66,9 +66,7 @@ class SoundEnvironmentClass : public RefCountClass
 
 	protected:
 		
-		enum {
-			AMPLITUDE_BUFFER_SIZE = 8
-		};
+		static constexpr int AMPLITUDE_BUFFER_SIZE = 8;
 
 		unsigned	 UserCount;
 		unsigned	 AmplitudeIndex;
