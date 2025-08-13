@@ -34,8 +34,8 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#pragma once
-#ifndef _SYSTIMER_H
+#ifndef SYSTIMER_H
+#define SYSTIMER_H
 
 #include "always.h"
 #ifdef _WINDOWS
@@ -116,7 +116,7 @@ __forceinline unsigned long SysTimeClass::Get(void)
 		is_init = true;
 	}
 
-	unsigned long time = timeGetTime();
+	unsigned long time = ::timeGetTime();
 	if (time > StartTime) {
 		return(time - StartTime);
 	}
@@ -137,4 +137,4 @@ __forceinline unsigned long SysTimeClass::Get(void)
 
 
 
-#endif //_SYSTIMER_H
+#endif //SYSTIMER_H

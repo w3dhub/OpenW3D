@@ -46,10 +46,12 @@ include(FetchContent)
 
 # Find/Add build dependencies and stubs.
 # Only 32bit Windows can make use of these APIs as the libraries shipped with the game.
-if(WIN32 AND CMAKE_SIZEOF_VOID_P EQUAL 4)
-    include(cmake/miles.cmake)
-    include(cmake/bink.cmake)
-    include(cmake/dx8.cmake)
+if(WIN32)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+        include(cmake/miles.cmake)
+        include(cmake/bink.cmake)
+    endif()
+    include(cmake/dx9.cmake)
 endif()
 
 include(cmake/gamespy.cmake)
