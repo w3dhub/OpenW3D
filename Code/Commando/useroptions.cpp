@@ -54,6 +54,8 @@ extern char DefaultRegistryModifier[1024];
 //
 // Class statics
 //
+cRegistryString cUserOptions::GameDir(					APPLICATION_SUB_KEY_NAME_OPTIONS, "GameDir",           "");
+
 cRegistryBool cUserOptions::ShowNamesOnSoldier(					APPLICATION_SUB_KEY_NAME_NETOPTIONS, "ShowNamesOnSoldier",           true);
 cRegistryBool cUserOptions::SkipQuitConfirmDialog(				APPLICATION_SUB_KEY_NAME_OPTIONS,	"SkipQuitConfirmDialog",			false);
 cRegistryBool cUserOptions::SkipIngameQuitConfirmDialog(		APPLICATION_SUB_KEY_NAME_OPTIONS,	"SkipIngameQuitConfirmDialog",	false);
@@ -93,6 +95,17 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 
 	for (int i=1 ; i<argc ; i++) {
 		const char *cmd = argv[i];
+
+		if (strcmp(cmd, "--gamedir") == 0) {
+			const char *argval = argv[i + 1];
+			i++;
+			if (i >= argc) {
+				retcode = FAILURE;
+				break;
+			}
+			Set_GameDir(argval);
+			continue;
+		}
 
 		// Look for ip override.
 		if (strcmp(cmd, "--ip") == 0) {
@@ -277,6 +290,7 @@ void cUserOptions::Print_Command_Line_Help(bool error)
 	_makepath(path, NULL, NULL, filename, filesuffix);
 
 	fprintf(file, "usage: %s [--ip IP] [--multi] [--regmod MOD] [--slave] [--startserver]\n", path);
+	fprintf(file, "    [--gamedir PATH]\n");
 	fprintf(file, "    [--gamespyserver ADDRESS] [--nodx]\n");
 #ifndef BETACLIENT
 	fprintf(file, "    [--gamespy-connect IP[:PORT]]\n");
@@ -287,6 +301,12 @@ void cUserOptions::Print_Command_Line_Help(bool error)
 }
 
 
+
+//-----------------------------------------------------------------------------
+void cUserOptions::Set_GameDir(const char *gamedir)
+{
+	GameDir.Set(gamedir);
+}
 
 //-----------------------------------------------------------------------------
 void cUserOptions::Set_Server_INI_File(const char *ini_file)
