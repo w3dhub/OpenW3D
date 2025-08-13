@@ -43,6 +43,10 @@ if(W3D_BUILD_DOCS)
     add_subdirectory(docs)
 endif()
 
+# Do we want to embed git information into the binary?
+option(W3D_EMBED_GIT_INFO "Embed information from git." ON)
+add_feature_info(W3DEmbedGit W3D_EMBED_GIT_INFO "Embed information from git")
+
 option(SYNTAX_CHECK_ONLY "Syntax check the files only?" OFF)
 add_feature_info(SyntaxCheck SYNTAX_CHECK_ONLY "Syntax check files only")
 if(SYNTAX_CHECK_ONLY)
