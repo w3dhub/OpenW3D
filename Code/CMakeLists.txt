@@ -71,6 +71,7 @@ if(TARGET Freetype::Freetype)
 endif()
 
 # Module static libraries
+add_subdirectory(GitInfo)
 add_subdirectory(WWAudio)
 add_subdirectory(BinkMovie)
 add_subdirectory(Combat)
