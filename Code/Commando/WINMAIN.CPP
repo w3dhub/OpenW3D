@@ -118,7 +118,7 @@ long FAR PASCAL Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
 void On_Focus_Loss(void);
 void On_Focus_Restore(void);
 int Start_Application( void );
-void Set_Working_Directory(void);
+bool Set_Working_Directory(void);
 
 //#include "packet.h"
 
@@ -430,7 +430,10 @@ int Start_Application(void)
 		/*
 		** Set the working directory.
 		*/
-		Set_Working_Directory();
+		if (!Set_Working_Directory()) {
+			MessageBox(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
+			return 0;
+		}
 
 		//
 		// TEMP Dev code - check the working folder is correct!
@@ -783,28 +786,31 @@ void Prog_End(void)
 
 
 /***********************************************************************************************
- * Set_Working_Directory -- Sets current directory to be the same as the .exe                  *
- *                                                                                             *
+ * Set_Working_Directory -- Sets current directory as configured in the registry, set through  *
+ *                          command line options or to the same directory as this .exe.        *
  *                                                                                             *
  *                                                                                             *
  * INPUT:    Program instance                                                                  *
  *                                                                                             *
- * OUTPUT:   Nothing                                                                           *
+ * OUTPUT:   true if the directory was changed succesfully, else false.                        *
  *                                                                                             *
  * WARNINGS: None                                                                              *
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   11/6/2001 12:11PM ST : Created                                                            *
  *=============================================================================================*/
-void Set_Working_Directory(void)
+bool Set_Working_Directory(void)
 {
-	char path_to_exe[256];
-	char drive[_MAX_DRIVE];
-	char dir[_MAX_DIR];
-	char path[_MAX_PATH];
-
-	GetModuleFileName(NULL, path_to_exe, sizeof(path_to_exe));
-	_splitpath(path_to_exe, drive, dir, NULL, NULL);
-	_makepath(path, drive, dir, NULL, NULL);
-	SetCurrentDirectory(path);
+	char path_buffer[_MAX_PATH];
+	const char *gamedir = cUserOptions::GameDir.Get();
+	if (gamedir == NULL || gamedir[0] == '\0') {
+		char path_to_exe[256];
+		char drive[_MAX_DRIVE];
+		char dir[_MAX_DIR];
+		GetModuleFileName(NULL, path_to_exe, sizeof(path_to_exe));
+		_splitpath(path_to_exe, drive, dir, NULL, NULL);
+		_makepath(path_buffer, drive, dir, NULL, NULL);
+		gamedir = path_buffer;
+	}
+	return !!SetCurrentDirectory(gamedir);
 }
