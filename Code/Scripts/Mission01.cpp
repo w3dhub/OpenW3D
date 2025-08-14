@@ -4199,7 +4199,7 @@ DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 
 		if (action_id == M01_WALKING_WAYPATH_01_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
 		{ 
-			const const char* animationName = M01_Choose_Idle_Animation ( );
+			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_01_JDG );
 			params.Set_Animation (animationName, false);
