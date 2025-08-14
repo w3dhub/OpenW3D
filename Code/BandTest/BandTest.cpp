@@ -39,7 +39,6 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#define WIN32_LEAN_AND_MEAN
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
