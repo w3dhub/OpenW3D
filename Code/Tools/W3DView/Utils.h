@@ -146,7 +146,6 @@ CString					Filename_From_Asset_Name (LPCTSTR asset_name);
 //	File routines
 //
 bool						Get_File_Time (LPCTSTR path, LPFILETIME pcreation_time, LPFILETIME paccess_time = NULL, LPFILETIME pwrite_time = NULL);
-bool						Are_Glide_Drivers_Acceptable (void);
 bool						Copy_File (LPCTSTR existing_filename, LPCTSTR new_filename, bool bforce_copy = false);
 
 //

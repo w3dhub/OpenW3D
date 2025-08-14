@@ -10,6 +10,7 @@ target_compile_definitions(wwcommon INTERFACE
     _WIN32_WINNT=0x501
     _CRT_NONSTDC_NO_WARNINGS
     _CRT_SECURE_NO_WARNINGS
+    _WINSOCK_DEPRECATED_NO_WARNINGS
     $<$<CONFIG:Debug>:WWDEBUG>
 )
 

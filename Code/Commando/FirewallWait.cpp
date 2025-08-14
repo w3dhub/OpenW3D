@@ -244,7 +244,7 @@ WaitCondition::WaitResult FirewallConnectWait::GetResult(void)
 				if (mQueueCount != mLastQueueCount)
 					{
 					wchar_t temp[256];
-					swprintf(temp, TRANSLATION(IDS_FIREWALL_QUEUE_NOTIFICATION), mQueueCount);
+					swprintf(temp, sizeof(temp), TRANSLATION(IDS_FIREWALL_QUEUE_NOTIFICATION), mQueueCount);
 					WideStringClass text(temp, true);
 					SetWaitText(text);
 					mLastQueueCount = mQueueCount;

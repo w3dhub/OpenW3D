@@ -897,15 +897,31 @@ void CPUDetectClass::Init_Memory()
 
 void CPUDetectClass::Init_OS()
 {
-	OSVERSIONINFO os;
-	os.dwOSVersionInfoSize=sizeof(os);
-	GetVersionEx(&os);
+	// GetVersionEx only returns the version of Windows it was manifested for since Windows 8.
+	// RtlGetVersion returns the correct information at least at the time of writing.
+	typedef LONG(WINAPI * RtlGetVersionFuncPtr)(PRTL_OSVERSIONINFOW);
+	HMODULE nt_lib = LoadLibraryExA("ntdll", NULL, 0);
+	if (nt_lib != nullptr) {
+		RtlGetVersionFuncPtr RtlGetVersion = (RtlGetVersionFuncPtr)::GetProcAddress(nt_lib, "RtlGetVersion");
 
-	OSVersionNumberMajor=os.dwMajorVersion;
-	OSVersionNumberMinor=os.dwMinorVersion;
-	OSVersionBuildNumber=os.dwBuildNumber;
-	OSVersionPlatformId=os.dwPlatformId;
-	OSVersionExtraInfo=os.szCSDVersion;
+		if (RtlGetVersion != nullptr) {
+			RTL_OSVERSIONINFOW os = {0};
+			os.dwOSVersionInfoSize = sizeof(os);
+			RtlGetVersion(&os);
+			OSVersionNumberMajor = os.dwMajorVersion;
+			OSVersionNumberMinor = os.dwMinorVersion;
+			OSVersionBuildNumber = os.dwBuildNumber;
+			OSVersionPlatformId = os.dwPlatformId;		
+            OSVersionExtraInfo = os.szCSDVersion;
+			return;
+		}
+	}
+
+	OSVersionNumberMajor = 6;
+	OSVersionNumberMinor = 2;
+	OSVersionBuildNumber = 0;
+	OSVersionPlatformId = 2;	
+    OSVersionExtraInfo = "";
 }
 
 bool CPUDetectClass::CPUID(
@@ -1022,7 +1038,7 @@ void CPUDetectClass::Init_Processor_Log()
 	}
 
 	if (CPUDetectClass::Get_L1_Instruction_Trace_Cache_Size()) {
-		SYSLOG(("L1 Instruction Trace Cache: %d way set associative, %dk µOPs\r\n",
+		SYSLOG(("L1 Instruction Trace Cache: %d way set associative, %dk uOPs\r\n",
 			CPUDetectClass::Get_L1_Instruction_Cache_Set_Associative(),
 			CPUDetectClass::Get_L1_Instruction_Cache_Size()/1024));
 	}
