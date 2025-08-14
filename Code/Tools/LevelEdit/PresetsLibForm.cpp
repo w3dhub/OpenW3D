@@ -108,7 +108,7 @@ private:
 #ifndef TreeView_SetOverlay
    #define TreeView_SetOverlay(hwndLV, i, overlay) \
       {	\
-			TVITEMEX item_info = { TVIF_STATE, i, INDEXTOOVERLAYMASK(overlay), TVIS_OVERLAYMASK, 0 };	\
+			TVITEMEX item_info = { TVIF_STATE, i, INDEXTOOVERLAYMASK(static_cast<UINT>(overlay)), TVIS_OVERLAYMASK, 0 };	\
 			TreeView_SetItem(hwndLV, &item_info);	\
 		}
 #endif
