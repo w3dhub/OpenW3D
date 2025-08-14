@@ -125,7 +125,7 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 				}
 
 				if (!redundantalpha) {
-
+					errorcode = E_NOTIMPL;
 					//errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT5, true, false, 4);
 
 				} else {
@@ -146,12 +146,13 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 						byte += 4;
 					}
 
+					errorcode = E_NOTIMPL;
 					//errorcode = ::nvDXTcompress (nonalphaimage, targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
 					delete [] nonalphaimage;
 				}
 
 			} else {
-
+				errorcode = E_NOTIMPL;
 				//errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
 			}
 
