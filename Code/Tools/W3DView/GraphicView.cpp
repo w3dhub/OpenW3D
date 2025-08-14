@@ -340,7 +340,7 @@ CGraphicView::OnDestroy (void)
 	}
 
 	// Cache this information in the registry
-	TCHAR temp_string[10];
+	TCHAR temp_string[12];
 	::itoa (m_iWindowed, temp_string, 10);
 	theApp.WriteProfileString ("Config", "Windowed", temp_string);
 

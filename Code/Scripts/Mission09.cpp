@@ -2319,7 +2319,7 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 
 		dead = false;
 		out = 0;
-		char params[10];
+		char params[12];
 		sprintf(params, "%d", Commands->Get_ID(obj));
 		Commands->Attach_Script(chinook, "M03_Reinforcement_Chinook", params);
 
@@ -3930,7 +3930,7 @@ DECLARE_SCRIPT(M09_Evac_Transport, "")  //2000969
 			GameObject * troop = Commands->Create_Object_At_Bone( bone, "GDI_RocketSoldier_2SF", "SPAWNER" );
 			Commands->Attach_Script(troop, "M00_Damage_Modifier_DME", "0.05f, 1, 1, 0, 0");
 			
-			char param1[10];
+			char param1[12];
 			sprintf(param1, "%d", Commands->Get_ID(troop));
 			
 			Commands->Set_Facing(chinook, facing);

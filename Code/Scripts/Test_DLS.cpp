@@ -988,7 +988,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 
 		dead = false;
 		out = 0;
-		char params[10];
+		char params[12];
 		sprintf(params, "%d", Commands->Get_ID(obj));
 		Commands->Attach_Script(chinook, "M00_Reinforcement_C130", params);
 
