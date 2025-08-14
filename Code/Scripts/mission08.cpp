@@ -4537,7 +4537,7 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 		{
 			enemy_seen = true;
 
-			char param1[10];
+			char param1[12];
 			sprintf(param1, "%d", Commands->Get_ID(obj));
 
 			Vector3 pos = Commands->Get_Position(obj);
@@ -4578,7 +4578,7 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 			{
 				enemy_seen = true;
 
-				char param1[10];
+				char param1[12];
 				sprintf(param1, "%d", Commands->Get_ID(obj));
 
 				Vector3 pos = Commands->Get_Position(obj);
@@ -4617,7 +4617,7 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 		{
 			enemy_seen = true;
 
-			char param1[10];
+			char param1[12];
 			sprintf(param1, "%d", Commands->Get_ID(obj));
 
 			Vector3 pos = Commands->Get_Position(obj);
@@ -5292,7 +5292,7 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 		{
 			enemy_seen = true;
 
-			char param1[10];
+			char param1[12];
 			sprintf(param1, "%d", Commands->Get_ID(obj));
 
 			Vector3 pos = Commands->Get_Position(obj);
@@ -5331,7 +5331,7 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 			reinforce++;
 			if(reinforce%2 == 0 && reinforce < 7)
 			{
-				char param1[10];
+				char param1[12];
 				sprintf(param1, "%d", Commands->Get_ID(obj));
 
 				Vector3 pos = Commands->Get_Position(obj);
@@ -5370,7 +5370,7 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 		{
 			enemy_seen = true;
 
-			char param1[10];
+			char param1[12];
 			sprintf(param1, "%d", Commands->Get_ID(obj));
 
 			Vector3 pos = Commands->Get_Position(obj);
@@ -6400,7 +6400,7 @@ DECLARE_SCRIPT(M08_Apache_Controller, "")
 
 		GameObject * apache = Commands->Create_Object("Nod_Apache_No_Idle", start_loc);
 		Commands->Enable_Engine(apache, true);
-		char param[10];
+		char param[12];
 		sprintf(param, "%d", current_area);
 		Commands->Attach_Script(apache, "M08_Apache", param);
 		Commands->Send_Custom_Event(Owner(), apache, 400, 400, 0.0f);

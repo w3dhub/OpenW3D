@@ -1305,7 +1305,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 
 		GameObject * apache = Commands->Create_Object("Nod_Apache_No_Idle", start_loc);
 		Commands->Enable_Engine(apache, true);
-		char param[10];
+		char param[12];
 		sprintf(param, "%d", current_area);
 		Commands->Attach_Script(apache, "M10_Apache", param);
 		Commands->Send_Custom_Event(Owner(), apache, 400, 400, 0.0f);
@@ -1709,7 +1709,7 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 
 		dead = false;
 		out = 0;
-		char params[10];
+		char params[12];
 		sprintf(params, "%d", Commands->Get_ID(obj));
 		Commands->Attach_Script(chinook, "M10_Reinforcement_Chinook", params);
 

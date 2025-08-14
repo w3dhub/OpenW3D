@@ -4132,7 +4132,7 @@ DECLARE_SCRIPT(M07_Inn_APC, "")
 			reinforce++;
 			if(reinforce < 7)
 			{
-				char param1[10];
+				char param1[12];
 				sprintf(param1, "%d", Commands->Get_ID(obj));
 
 				Vector3 pos = Commands->Get_Position(obj);
@@ -5135,7 +5135,7 @@ DECLARE_SCRIPT(M07_APC_Dec, "")
 			reinforce++;
 			if(reinforce < 7)
 			{
-				char param1[10];
+				char param1[12];
 				sprintf(param1, "%d", Commands->Get_ID(obj));
 
 				Vector3 pos = Commands->Get_Position(obj);
@@ -5928,7 +5928,7 @@ DECLARE_SCRIPT(M07_Inn_Evac, "")//104496
 		if (type == M07_DEAD6_EVAC) //SAM sites captured, evac DEAD6 and Sydney
 		{
 
-			char param1[10];
+			char param1[12];
 			sprintf(param1, "%d", param);
 
 			Vector3 evacPosition = Commands->Get_Position ( obj );

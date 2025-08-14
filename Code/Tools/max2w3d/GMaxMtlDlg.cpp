@@ -183,7 +183,7 @@ void GMaxMtlDlg::ReloadDialog()
 		::SendMessage (HwndDisplacementMap, WM_USER+101, 0, 0L);	
 	#endif //WANT_DISPLACEMENT_MAPS
 	// Init the pass count panel
-	char a[10];
+	char a[12];
 	sprintf(a, "%d", TheMtl->Get_Pass_Count());
 	SetWindowText(GetDlgItem(HwndPassCount, IDC_GAMEMTL_PASSCOUNT_STATIC), a);	
 	//Init each pass panel
@@ -529,7 +529,7 @@ void GMaxMtlDlg::Set_Pass_Count_Dialog(void){
 		if(res>4){
 			res = 4;
 		}
-		char a[10];
+		char a[12];
 		sprintf(a, "%d", res);
 		SetWindowText(GetDlgItem(HwndPassCount, IDC_GAMEMTL_PASSCOUNT_STATIC), a);
 		if(TheMtl->Get_Pass_Count() != res){
@@ -747,7 +747,7 @@ void GMaxMtlDlg::Reinitialize(GameMtl* new_mtl, bool update_multimtl){// = false
 		pEdit->SetText(name_str.data());
 		ReleaseICustEdit(pEdit);	//==== HwndPassCount
 	}
-	char a[10];
+	char a[12];
 	sprintf(a, "%d", TheMtl->Get_Pass_Count());
 	SetWindowText(GetDlgItem(HwndSurfaceType, IDC_GAMEMTL_PASSCOUNT_STATIC), a);	
 	PropSheet_SetCurSel(HwndEdit,NULL, cur_page);//Force WM_INITDLG for the page

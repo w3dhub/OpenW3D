@@ -787,7 +787,7 @@ public:
 			GameObject * obj = Commands->Find_Object( id );
 			if ( obj ) {
 				Commands->Enable_Hibernation( obj, false );
-				char id[10];
+				char id[12];
 				sprintf( id, "%d", MyID );
 				Commands->Attach_Script( obj, "Test_Cinematic_Primary_Killed", id );
 			} else {

@@ -253,7 +253,7 @@ void GameMtlDlg::ReloadDialog()
 	/*
 	** Init the pass count panel
 	*/
-	char a[10];
+	char a[12];
 	sprintf(a, "%d", TheMtl->Get_Pass_Count());
 	SetWindowText(GetDlgItem(HwndPassCount, IDC_GAMEMTL_PASSCOUNT_STATIC), a);	
 
@@ -553,7 +553,7 @@ void GameMtlDlg::Set_Pass_Count_Dialog(void)
 		if (res<=0) res = 1;
 		if (res>4) res = 4;
 
-		char a[10];
+		char a[12];
 		sprintf(a, "%d", res);
 		SetWindowText(GetDlgItem(HwndPassCount, IDC_GAMEMTL_PASSCOUNT_STATIC), a);
 		if(TheMtl->Get_Pass_Count() != res)
