@@ -247,13 +247,13 @@ public:
 	/*
 	**
 	*/
-	char* Get_Command_Parameter( char * string = NULL )
+	const char* Get_Command_Parameter( char * string = NULL )
 	{
 		if ( string != NULL ) {
 			NextParameter = string;
 		}
 
-		if ( NextParameter == NULL || *NextParameter == 0 ) return nullptr;
+		if ( NextParameter == NULL || *NextParameter == 0 ) return "";
 
 		// Start at this parameter;
 		char * parameter = NextParameter;
@@ -446,8 +446,8 @@ public:
 		}
 	}
 
-	char * Get_First_Parameter( char * str ) { return Get_Command_Parameter( str ); }
-	char * Get_Next_Parameter( void ) { return Get_Command_Parameter(); }
+	const char * Get_First_Parameter( char * str ) { return Get_Command_Parameter( str ); }
+	const char * Get_Next_Parameter( void ) { return Get_Command_Parameter(); }
 
 	/*
 	**
@@ -456,7 +456,7 @@ public:
 	{
 //		Commands->Debug_Message_2( "Creating Object %s\n", (int)params );
 		int slot = atoi( Get_First_Parameter( params ) );
-		char * model_name = Get_Next_Parameter();
+		const char * model_name = Get_Next_Parameter();
 
 		if ( (slot < 0) || ( slot >= NUM_SLOTS ) ) {
 //			Commands->Debug_Message( "Bad Slot Number %d\n", slot );
@@ -497,9 +497,9 @@ public:
 	{
 //		Commands->Debug_Message_2( "Creating Real Object %s\n", (int)params );
 		int slot = atoi( Get_First_Parameter( params ) );
-		char * preset_name = Get_Next_Parameter();
-		char * host_slot_name = Get_Next_Parameter();
-		char * host_bone_name = Get_Next_Parameter();
+		const char * preset_name = Get_Next_Parameter();
+		const char * host_slot_name = Get_Next_Parameter();
+		const char * host_bone_name = Get_Next_Parameter();
 
 		if ( (slot < 0) || ( slot >= NUM_SLOTS ) ) {
 //			Commands->Debug_Message( "Bad Slot Number %d\n", slot );
@@ -545,9 +545,9 @@ public:
 	void	Command_Create_Explosion( char * params )
 	{
 //		Commands->Debug_Message_2( "Creating Explosion %s\n", (int)params );
-		char * preset_name = Get_First_Parameter( params );
+		const char * preset_name = Get_First_Parameter( params );
 		int host_slot = atoi( Get_Next_Parameter() );
-		char * host_bone_name = Get_Next_Parameter();
+		const char * host_bone_name = Get_Next_Parameter();
 
 		GameObject * host_obj = Commands->Find_Object( ObjectSlots[ host_slot ] );
 		Commands->Create_Explosion_At_Bone( preset_name, host_obj, host_bone_name, NULL );
@@ -580,9 +580,9 @@ public:
 	{
 //		Commands->Debug_Message( "Playing Animation %s\n", (int)params );
 		int slot = atoi( Get_First_Parameter( params ) );
-		char * name = Get_Next_Parameter();
+		const char * name = Get_Next_Parameter();
 		bool looping = atoi( Get_Next_Parameter() ) != 0;
-		char * sub_obj_name = Get_Next_Parameter();
+		const char * sub_obj_name = Get_Next_Parameter();
 		bool is_blended = atoi( Get_Next_Parameter() ) == 1;
 
 		if ( (slot < 0) || ( slot >= NUM_SLOTS ) ) {
@@ -612,9 +612,9 @@ public:
 	void	Command_Play_Audio( char * params )
 	{
 //		Commands->Debug_Message( "Playing Audio %s\n", (int)params );
-		char * preset_name = Get_First_Parameter( params );
-		char * slot_name = Get_Next_Parameter();
-		char * bone_name = Get_Next_Parameter();
+		const char * preset_name = Get_First_Parameter( params );
+		const char * slot_name = Get_Next_Parameter();
+		const char * bone_name = Get_Next_Parameter();
 
 		int slot = -1;
 		if (( slot_name != NULL ) && ( *slot_name != 0 ) ) {
@@ -672,9 +672,9 @@ public:
 	void	Command_Send_Custom( char * params )
 	{
 //		Commands->Debug_Message_2( "Send Custom %s\n", (int)params );
-		char * to_id_name = Get_First_Parameter( params );
+		const char * to_id_name = Get_First_Parameter( params );
 		int type = atoi( Get_Next_Parameter() );
-		char * parameter_name = Get_Next_Parameter();
+		const char * parameter_name = Get_Next_Parameter();
 
 		int to_id = -1;
 		if ( ::strchr( to_id_name, '#' ) != NULL ) {
@@ -714,7 +714,7 @@ public:
 //		Commands->Debug_Message_2( "Attach_To_Bone %s\n", (int)params );
 		int obj_slot = atoi( Get_First_Parameter( params ) );
 		int host_slot = atoi( Get_Next_Parameter() );
-		char * bone_name = Get_Next_Parameter();
+		const char * bone_name = Get_Next_Parameter();
 
 		if ( (obj_slot < 0) || ( obj_slot >= NUM_SLOTS ) ) {
 //			Commands->Debug_Message( "Bad Obj Slot Number %d\n", obj_slot );
@@ -752,8 +752,8 @@ public:
 	{
 //		Commands->Debug_Message_2( "Attach_Script %s\n", (int)params );
 		int obj_slot = atoi( Get_First_Parameter( params ) );
-		char * script_name = Get_Next_Parameter();
-		char * script_parameters = Get_Next_Parameter();
+		const char * script_name = Get_Next_Parameter();
+		const char * script_parameters = Get_Next_Parameter();
 
 		if ( (obj_slot < 0) || ( obj_slot >= NUM_SLOTS ) ) {
 //			Commands->Debug_Message( "Bad Obj Slot Number %d\n", obj_slot );
