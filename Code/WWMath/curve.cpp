@@ -164,6 +164,7 @@ int Curve3DClass::Add_Key(const Vector3 & point,float t)
 	while (idx < Keys.Count() && Keys[idx].Time < t) {
 		idx++;
 	}
+	WWASSERT(!isnan(t));
 
 	KeyClass newkey;
 	newkey.Point = point;
@@ -411,6 +412,7 @@ int Curve1DClass::Add_Key(float point,float t,unsigned int extra)
 	while (idx < Keys.Count() && Keys[idx].Time < t) {
 		idx++;
 	}
+	WWASSERT(!isnan(t));
 
 	KeyClass newkey;
 	newkey.Point = point;
@@ -440,6 +442,7 @@ void Curve1DClass::Find_Interval(float time,int * i0,int * i1,float * t)
 			*i0 = Keys.Count() - 1;
 			*i1 = 0;
 			float interval = 1.0f - Keys[*i0].Time + Keys[*i1].Time;
+			WWASSERT(interval != 0.0f);
 			*t = (1.0f - Keys[*i0].Time + time) / interval;
 			return;
 		}
@@ -447,6 +450,7 @@ void Curve1DClass::Find_Interval(float time,int * i0,int * i1,float * t)
 			*i0 = Keys.Count() - 1;
 			*i1 = 0;
 			float interval = 1.0f - Keys[*i0].Time + Keys[*i1].Time;
+			WWASSERT(interval != 0.0f);
 			*t = (time - Keys[*i0].Time) / interval;
 			return;
 		}
