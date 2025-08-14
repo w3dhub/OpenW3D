@@ -289,3 +289,6 @@ if (RENEGADE_TOOLS)
 
     target_sources(combate PRIVATE ${COMBAT_SRC})
 endif()
+
+# scripts library is dynamically loaded
+add_dependencies(combat scripts)
