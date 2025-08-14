@@ -53,6 +53,9 @@ LPDIRECTINPUTDEVICE2	DIJoystickDevice		= NULL;
 
 DIJOYSTATE				DIJoystickState;
 
+// This warning is a result of the old dinput header we use so just disable it.
+#pragma warning(disable: 4644)
+
 int PASCAL	InitJoystick(LPCDIDEVICEINSTANCE pdinst, LPVOID pvRef);
 
 char						DirectInput::DIKeyboardButtons[NUM_KEYBOARD_BUTTONS];
