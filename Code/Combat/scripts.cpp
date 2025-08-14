@@ -148,6 +148,17 @@ void ScriptManager::Destroy_Pending(void)
 */
 void ScriptManager::Load_Scripts(const char* dll_filename)
 {
+	char dll_fullpath[MAX_PATH];
+	{
+		char path_to_exe[MAX_PATH];
+		char fdrive[_MAX_DRIVE];
+		char fdir[_MAX_DIR];
+		GetModuleFileName(NULL, path_to_exe, sizeof(path_to_exe));
+		_splitpath(path_to_exe, fdrive, fdir, NULL, NULL);
+		_makepath(dll_fullpath, fdrive, fdir, dll_filename, NULL);
+		dll_filename = dll_fullpath;
+	}
+
 	Debug_Say(("Script Manager Loading Script File %s\n", dll_filename));
 
 
@@ -199,7 +210,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 	}
 #endif
 
-	hDLL = LoadLibrary(dll_filename);
+	hDLL = ::LoadLibrary(dll_filename);
 
 	if (hDLL == NULL) {
 		Debug_Say(("Cound not load DLL file %s\n", dll_filename));
