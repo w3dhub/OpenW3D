@@ -133,7 +133,7 @@ ScriptEditDialogClass::OnInitDialog (void)
 	m_ValueNumberEdit.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 	m_ValueListCombo.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height () * 10, SWP_NOZORDER);
 	m_ValueBoolCheck.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
-	m_ValueNumberSpin.SetRange (-1000000, 1000000);
+	m_ValueNumberSpin.SetRange32 (-1000000, 1000000);
 	m_ValueNumberSpin.SetBuddy (&m_ValueNumberEdit);
 
 	//
