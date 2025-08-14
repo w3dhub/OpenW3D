@@ -323,16 +323,16 @@ void MPWolBuddiesMenuClass::Update_Buddy_Ranking(int index, const RefPtr<WWOnlin
 		if (ladder.IsValid()) {
 			wchar_t text[64];
 
-			swprintf(text, L"%d", ladder->GetWins());
+			swprintf(text, sizeof(text), L"%d", ladder->GetWins());
 			list->Set_Entry_Text(index, COL_WINS, text);
 
-			swprintf(text, L"%d / %d", ladder->GetReserved1(), ladder->GetKills());
+			swprintf(text, sizeof(text), L"%d / %d", ladder->GetReserved1(), ladder->GetKills());
 			list->Set_Entry_Text(index, COL_DEATHS, text);
 
-			swprintf(text, L"%d", ladder->GetPoints());
+			swprintf(text, sizeof(text), L"%d", ladder->GetPoints());
 			list->Set_Entry_Text(index, COL_POINTS, text);
 
-			swprintf(text, L"%d", ladder->GetRung());
+			swprintf(text, sizeof(text), L"%d", ladder->GetRung());
 			list->Set_Entry_Text(index, COL_RANK, text);
 		} else {
 			list->Set_Entry_Text(index, COL_WINS, L"-");

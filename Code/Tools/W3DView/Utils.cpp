@@ -827,52 +827,6 @@ Get_File_Time
 	return retval;
 }
 
-
-////////////////////////////////////////////////////////////////////////////
-//
-//  Are_Glide_Drivers_Acceptable
-//
-bool
-Are_Glide_Drivers_Acceptable (void)
-{
-	// Assume success
-	bool retval = true;
-
-	// Is this windows NT?
-	OSVERSIONINFO version = { sizeof (OSVERSIONINFO), 0 };
-	if (::GetVersionEx (&version) && (version.dwPlatformId == VER_PLATFORM_WIN32_NT)) {
-		
-		// Now assume failure
-		retval = false;
-
-		// Get a path to the system directory
-		TCHAR path[MAX_PATH];
-		::GetSystemDirectory (path, sizeof (path));
-		::Delimit_Path (path);
-
-		// Build the full path of the 2 main drivers
-		CString glide2x = CString (path) + "glide2x.dll";
-		CString glide3x = CString (path) + "glide3x.dll";
-
-		// Get the creation time of the glide2x driver
-		FILETIME file_time = { 0 };
-		if (::Get_File_Time (glide2x, NULL, NULL, &file_time)) {
-			CTime time_obj (file_time);
-			retval = ((time_obj.GetYear () == 1998) && (time_obj.GetMonth () == 12)) || (time_obj.GetYear () > 1998);
-		}
-
-		// Get the creation time of the glide3x driver
-		if (::Get_File_Time (glide3x, NULL, NULL, &file_time)) {
-			CTime time_obj (file_time);
-			retval = ((time_obj.GetYear () == 1998) && (time_obj.GetMonth () == 12)) || (time_obj.GetYear () > 1998);
-		}
-	}
-	
-	// Return the true/false result code
-	return retval;
-}
-
-
 ////////////////////////////////////////////////////////////////////////////
 //
 //  Load_RC_Texture
