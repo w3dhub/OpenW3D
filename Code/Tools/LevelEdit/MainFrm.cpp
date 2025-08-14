@@ -5226,7 +5226,7 @@ CMainFrame::OnUpdateEnableVisSectorFallback(CCmdUI* pCmdUI)
 void
 CMainFrame::OnRunManualVisPoints (void)
 {
-	CWaitCursor wait_cursor ();
+	CWaitCursor wait_cursor;
 
 	VisMgrClass::Render_Manual_Vis_Points ();
 	return ;
