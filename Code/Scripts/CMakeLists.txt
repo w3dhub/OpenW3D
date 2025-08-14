@@ -91,5 +91,6 @@ target_link_libraries(scripts PRIVATE
 )
 
 set_target_properties(scripts PROPERTIES PREFIX "")
+set_target_properties(scripts PROPERTIES OUTPUT_NAME "scripts$<$<CONFIG:Debug>:d>")
 
 target_sources(scripts PRIVATE ${SCRIPTS_SRC})
