@@ -139,7 +139,7 @@ class FileLogClass {
 		}
 	
 		WideStringClass RelativePathname;		// Relative pathname of file.
-		__int64			 Size;						// Size of file (in bytes).
+		int64_t			 Size;						// Size of file (in bytes).
 };
 
 
@@ -164,11 +164,11 @@ class InstallerClass
 		bool					 Install_Game();
 		bool					 Install_WOL();
 		bool					 Install_Game_Shortcut();
-		__int64				 Get_Game_Size (bool ondisk);
-		__int64				 Get_WOL_Size (bool ondisk);
-		__int64				 Get_Total_Size (bool ondisk);
-		bool					 Get_Game_Space_Available (const WideStringClass &path, __int64 &diskspace) {return (Get_Disk_Space_Available (path, diskspace));}
-		bool					 Get_WOL_Space_Available (const WideStringClass &path, __int64 &diskspace);
+		int64_t				 Get_Game_Size (bool ondisk);
+		int64_t				 Get_WOL_Size (bool ondisk);
+		int64_t				 Get_Total_Size (bool ondisk);
+		bool					 Get_Game_Space_Available (const WideStringClass &path, int64_t &diskspace) {return (Get_Disk_Space_Available (path, diskspace));}
+		bool					 Get_WOL_Space_Available (const WideStringClass &path, int64_t &diskspace);
 		const char			*Get_Serial_Number (StringClass &serialnumber);
 		const WCHAR			*Get_Target_Game_Path (WideStringClass &path);
 		bool					 Get_Target_Sub_Path (unsigned index, WideStringClass &subdirectoryname);
@@ -190,7 +190,7 @@ class InstallerClass
 		void Set_Preferred_WOL_Account (const WideStringClass &accountname) {_RegistryManager.Set_Preferred_WOL_Account (accountname);}
 
 		// File/subdirectory logging interface.
-		void Log (const WideStringClass &pathname, __int64 size = -1);
+		void Log (const WideStringClass &pathname, int64_t size = -1);
 		void Create_Uninstall_Logs();
 
 	protected:
@@ -209,7 +209,7 @@ class InstallerClass
 
 		// Support functions.
 		bool Check_Source();
-		void Count_Source_Files (const WideStringClass &sourcepath, unsigned &filecount, __int64 &filesize);
+		void Count_Source_Files (const WideStringClass &sourcepath, unsigned &filecount, int64_t &filesize);
 		void Check_Existing_Install();
 		void Auto_Configure();
 		bool Register_COM_Server (const WideStringClass &comdll);
@@ -236,9 +236,9 @@ class InstallerClass
 		bool											  FreshWOLInstall;
 		bool											  TargetWOLOlder;
 		unsigned										  GameFileCount;
-		__int64										  GameSize;	
+		int64_t										  GameSize;	
 		unsigned										  WOLFileCount;
-		__int64										  WOLSize;	
+		int64_t										  WOLSize;	
 		WW3DAssetManager							 *AssetManager;
 		bool											  WwmathInitialized;
 		bool											  DialogMgrInitialized;

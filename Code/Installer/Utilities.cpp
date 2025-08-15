@@ -168,7 +168,7 @@ bool Validate_Install_CD (const char driveletter, const WideStringClass &install
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool Get_Disk_Space_Available (const WideStringClass &path, __int64 &diskspace)
+bool Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace)
 {
 	StringClass    multibytepath (path);
 	char				drive [_MAX_DRIVE];
@@ -392,7 +392,7 @@ bool Create_Directory (const WCHAR *drive, const WCHAR *directory, WCHAR *subdir
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-__int64 Cluster_Padding (unsigned filecount)
+int64_t Cluster_Padding (unsigned filecount)
 {
 	// NOTE: Currently, it is not known how to obtain (or if it is possible to obtain) the cluster size
 	//			of a hard disk. According to MS documentation, the largest possible cluster size of FAT16,
@@ -401,7 +401,7 @@ __int64 Cluster_Padding (unsigned filecount)
 
 	const unsigned clustersize = 0x10000;
 
-	__int64 padding = clustersize * filecount;
+	int64_t padding = clustersize * filecount;
 	return (padding);
 }
 

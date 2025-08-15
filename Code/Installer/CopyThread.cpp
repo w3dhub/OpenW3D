@@ -355,7 +355,7 @@ FNFDINOTIFY( notification_function )
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-CopyThreadClass::CopyThreadClass (__int64 bytestocopy)
+CopyThreadClass::CopyThreadClass (int64_t bytestocopy)
 	: ThreadClass(),
 	  Status (STATUS_OK),
 	  Abort (false),
@@ -625,7 +625,7 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 		
   					// Update the name of the current file being copied.
 					WideStringClass statusmessage;
-					__int64			 filesize;	
+					int64_t			 filesize;	
 
 					statusmessage.Format (COPY_MESSAGE_FORMAT_STRING, TxWideStringClass (IDS_COPYING), filename);
 					Set_Status_Message (statusmessage);
@@ -639,7 +639,7 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
   					targetpathname += L"\\";
   					targetpathname +=	filename;
   				
-					filesize = ((((__int64)MAXDWORD) + 1) * ((__int64) finddata.nFileSizeHigh)) + ((__int64) finddata.nFileSizeLow);
+					filesize = ((((int64_t)MAXDWORD) + 1) * ((int64_t) finddata.nFileSizeHigh)) + ((int64_t) finddata.nFileSizeLow);
 					_Installer.Log (targetpathname, filesize);
 					
 					// If target should be overwitten...

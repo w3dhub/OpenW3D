@@ -53,8 +53,8 @@ class WideStringClass;
 // Public prototypes.
 bool	  Prompt_Install_CD (const WideStringClass &volumelabal, char &sourcedriveletter);
 bool	  Validate_Install_CD (const WideStringClass &sourcepath, const WideStringClass &installvolumename);
-bool	  Get_Disk_Space_Available (const WideStringClass &path, __int64 &diskspace);
-__int64 Cluster_Padding (unsigned filecount);
+bool	  Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace);
+int64_t Cluster_Padding (unsigned filecount);
 bool	  Validate_Path (const WideStringClass &path, int &errorcode);
 bool	  Valid_Install_Drive (const char *drive);
 bool	  Create_Directory (const WideStringClass &path, DynamicVectorClass <StringClass> *log = NULL);

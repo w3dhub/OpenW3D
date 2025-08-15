@@ -63,7 +63,7 @@ void DirectoryDialogClass::Update (bool lazyupdate)
 	WideStringClass	directorypath (Get_Dlg_Item_Text (IDC_DIRECTORY_EDIT));
 	TxWideStringClass spaceneededstring (IDS_DISK_SPACE_NEEDED);
 	WideStringClass	sizestring;
-	__int64				spaceavailable;
+	int64_t				spaceavailable;
 
 	if (!lazyupdate) {
 
@@ -111,7 +111,7 @@ void DirectoryDialogClass::Update (bool lazyupdate)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-WCHAR *DirectoryDialogClass::Megabyte_Format (__int64 bytecount, WideStringClass &outputstring)
+WCHAR *DirectoryDialogClass::Megabyte_Format (int64_t bytecount, WideStringClass &outputstring)
 {
 	char	 buffer [32];
 	double size;
@@ -266,7 +266,7 @@ void DirectoryDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 		{	
 			WideStringClass path (Get_Dlg_Item_Text (IDC_DIRECTORY_EDIT));
 			int				 errormessageid;				
-			__int64			 spaceavailable;
+			int64_t			 spaceavailable;
 
 			// Check that the selected path is valid.
 			if (!Validate_Path (path, errormessageid)) {
