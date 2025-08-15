@@ -53,7 +53,6 @@ protected:
 public:
 	void Init(void);
 	void LaunchArcade(void);
-	void TrackUsage(void);
 	void Shutdown(void);
 	BOOL Parse_HeartBeat_List(const char *list);
 	const char *Get_GameSpy_GameName(void) { return gamename; } 

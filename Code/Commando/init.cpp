@@ -1077,12 +1077,6 @@ bool Game_Init(void)
 
 #endif
 
-
-	//
-	// Send our Spy Usage Info off to Gamespy
-	//
-	GameSpyQnR.TrackUsage();
-
 	return true;
 }
 
