@@ -64,19 +64,19 @@ bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo) {
 	//
 	bool verok = true;
 	unsigned long dummy_var = 0;
-	unsigned long version_size = ::GetFileVersionInfoSize (filename, &dummy_var);
+	unsigned long version_size = ::GetFileVersionInfoSizeA (filename, &dummy_var);
 	if (version_size > 0) {
 		//
 		// Get the file version block
 		//
 		LPBYTE pblock = new BYTE[version_size];
-		if (::GetFileVersionInfo (filename, 0L, version_size, pblock)) {
+		if (::GetFileVersionInfoA (filename, 0L, version_size, pblock)) {
 			//
 			// Query the block for the file version information
 			//
 			UINT version_len = 0;
 			VS_FIXEDFILEINFO *pversion_info = NULL;
-			if (::VerQueryValue (pblock, "\\", (LPVOID *)&pversion_info, &version_len)) {
+			if (::VerQueryValueA (pblock, "\\", (LPVOID *)&pversion_info, &version_len)) {
 				memcpy(fileInfo, pversion_info, sizeof(VS_FIXEDFILEINFO));
 			} else {
 				verok = false;

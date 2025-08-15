@@ -175,7 +175,7 @@ void CGameSpyQnR::LaunchArcade(void) {
 	HKEY key = NULL;
 	int result = 0;
 
-	result = RegOpenKeyEx(HKEY_CURRENT_USER, akey, 0, KEY_READ, &key);
+	result = RegOpenKeyExA(HKEY_CURRENT_USER, akey, 0, KEY_READ, &key);
 	if (result == ERROR_SUCCESS) {
 		StringClass value(true);
 		//
@@ -183,13 +183,13 @@ void CGameSpyQnR::LaunchArcade(void) {
 		//
 		DWORD data_size = 0;
 		DWORD type = 0;
-		result = ::RegQueryValueEx ((HKEY)key, "InstDir", NULL, &type, NULL, &data_size);
+		result = ::RegQueryValueExA ((HKEY)key, "InstDir", NULL, &type, NULL, &data_size);
 		if (result == ERROR_SUCCESS && type == REG_SZ) {
 
 			//
 			//	Read the entry from the registry
 			//
-			::RegQueryValueEx ((HKEY)key, "InstDir", NULL, &type,
+			::RegQueryValueExA ((HKEY)key, "InstDir", NULL, &type,
 				(LPBYTE)value.Get_Buffer(data_size), &data_size);
 		}
 		if (!value.Is_Empty()) {
@@ -203,7 +203,7 @@ void CGameSpyQnR::LaunchArcade(void) {
 			if (file.Is_Available()) {
 				StringClass params("+svc ");
 				params += gamename;
-				if (((int)ShellExecute (NULL, "open", value, params, NULL, SW_SHOW)) > 32) {
+				if (((int)ShellExecuteA (NULL, "open", value, params, NULL, SW_SHOW)) > 32) {
 					launched = TRUE;
 				}
 			}
@@ -219,7 +219,7 @@ void CGameSpyQnR::LaunchArcade(void) {
 		::strcpy(url, "http://www.gamespyarcade.com/features/launch.asp?svcname=ccrenegade&distID=391");
 #endif
 
-		ShellExecute (NULL, "open", url, NULL, NULL, SW_SHOW);
+		ShellExecuteA (NULL, "open", url, NULL, NULL, SW_SHOW);
 	}
 }
 void CGameSpyQnR::Shutdown(void) {
@@ -343,7 +343,7 @@ void CGameSpyQnR::basic_callback(char *outbuf, int maxlen)
 #ifdef WWDEBUG
 	StringClass tstr(true);
 	tstr.Format("GS_QnR -- Basic callback, sent: %s\n",outbuf);
-	OutputDebugString(tstr.Peek_Buffer());
+	OutputDebugStringA(tstr.Peek_Buffer());
 #endif
 	WWDEBUG_SAY(("<--GS_QnR -- Basic callback\n"));
 
@@ -426,7 +426,7 @@ void CGameSpyQnR::info_callback(char *outbuf, int maxlen)
 #ifdef WWDEBUG
 	StringClass tstr(true);
 	tstr.Format("GS_QnR -- Info callback, sent: %s\n",outbuf);
-	OutputDebugString(tstr.Peek_Buffer());
+	OutputDebugStringA(tstr.Peek_Buffer());
 #endif
 	WWDEBUG_SAY(("<--GS_QnR -- Info callback\n"));
 
@@ -467,7 +467,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 
 //		if (b.Is_Empty()) {
 //			char filename[MAX_PATH];
-//			GetModuleFileName(NULL, filename, sizeof(filename));
+//			GetModuleFileNameA(NULL, filename, sizeof(filename));
 //			VS_FIXEDFILEINFO version;
 //			GetVersionInfo(filename, &version);
 //			int ver = version.dwFileVersionMS;
@@ -529,7 +529,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 #ifdef WWDEBUG
 	StringClass tstr(true);
 	tstr.Format("GS_QnR -- Rules callback, sent: %s\n",outbuf);
-	OutputDebugString(tstr.Peek_Buffer());
+	OutputDebugStringA(tstr.Peek_Buffer());
 #endif
 	WWDEBUG_SAY(("<--GS_QnR -- Rules callback\n"));
 
@@ -734,7 +734,7 @@ void CGameSpyQnR::players_callback(char *outbuf, int maxlen)
 #ifdef WWDEBUG
 	StringClass tstr(true);
 	tstr.Format("GS_QnR -- Players callback, sent: %s\n",outbuf);
-	OutputDebugString(tstr.Peek_Buffer());
+	OutputDebugStringA(tstr.Peek_Buffer());
 #endif
 
 	WWDEBUG_SAY(("<--GS_QnR -- Players callback\n"));

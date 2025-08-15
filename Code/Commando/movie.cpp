@@ -150,7 +150,7 @@ void	MovieGameModeClass::Start_Movie( const char * filename )
 	//
 	//	Play the movie (if it exists locally)
 	//
-	if ( ::GetFileAttributes ( filename ) != 0xFFFFFFFF ) {
+	if ( ::GetFileAttributesA ( filename ) != 0xFFFFFFFF ) {
 		Play_Movie ( filename );
 	} else {
 

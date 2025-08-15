@@ -820,7 +820,7 @@ void ServerSettingsManagerClass::Delete_Configuration(ServerSettingsClass *setti
 	if (!settings->Is_Default()) {
 		char filename[MAX_PATH];
 		sprintf(filename, "data\\%s", settings->RawFileName.Peek_Buffer());
-		DeleteFile(filename);
+		DeleteFileA(filename);
 		for (int i=0 ; i<ServerSettingsList.Count() ; i++) {
 			if (strcmp(settings->RawFileName, ServerSettingsList[i]->RawFileName) == 0) {
 				delete ServerSettingsList[i];

@@ -32,7 +32,7 @@
 //
 int Find_Patch(OUT char *filename,int maxlen, ConfigFile &config)
 {
-  WIN32_FIND_DATA     findData;
+  WIN32_FIND_DATAA     findData;
   char                string[128];
   HANDLE              hFile;
   char               *extensions[]={"web","exe","exn","rtp",NULL};
@@ -62,7 +62,7 @@ int Find_Patch(OUT char *filename,int maxlen, ConfigFile &config)
 
       // should probably get the registry entry for the wchat install path
       sprintf(string,"patches\\*.%s",extensions[i]);
-      hFile=FindFirstFile(string,&findData);
+      hFile=FindFirstFileA(string,&findData);
       if (hFile!=INVALID_HANDLE_VALUE)
       {
         _getcwd(filename,MAX_PATH);
@@ -113,7 +113,7 @@ bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
   HKEY   regKey;
   LONG   regRetval;
   /////////////DWORD  regPrevious;
-  regRetval=RegOpenKeyEx(HKEY_CURRENT_USER,path.get(),0,KEY_READ,&regKey);
+  regRetval=RegOpenKeyExA(HKEY_CURRENT_USER,path.get(),0,KEY_READ,&regKey);
   if (regRetval!=ERROR_SUCCESS)
   {
     DBGMSG("RegOpenKey failed");
@@ -121,7 +121,7 @@ bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
   }
   DWORD  type;
   DWORD  length=MAX_PATH;
-  regRetval=RegQueryValueEx(regKey,"InstallPath",NULL,&type,(uint8 *)gamePath,
+  regRetval=RegQueryValueExA(regKey,"InstallPath",NULL,&type,(uint8 *)gamePath,
       &length);
   DBGMSG("GAME PATH = "<<gamePath);
   if ((regRetval!=ERROR_SUCCESS)||(type!=REG_SZ))
@@ -157,7 +157,7 @@ void Delete_Patches(ConfigFile &config)
 {
   char dir[MAX_PATH];
   int  i=1;
-  WIN32_FIND_DATA     findData;
+  WIN32_FIND_DATAA     findData;
   HANDLE              hFile;
 
   DBGMSG("IN DELPATCH");
@@ -180,7 +180,7 @@ void Delete_Patches(ConfigFile &config)
 
     DBGMSG("DELPATCH: "<<dir);
 
-    hFile=FindFirstFile(dir,&findData);
+    hFile=FindFirstFileA(dir,&findData);
     if (hFile!=INVALID_HANDLE_VALUE)
     {
       if (findData.cFileName[0]!='.')
@@ -188,7 +188,7 @@ void Delete_Patches(ConfigFile &config)
         //_unlink(findData.cFileName);
         DBGMSG("UNLINK: "<<findData.cFileName);
       }
-      while(FindNextFile(hFile,&findData))
+      while(FindNextFileA(hFile,&findData))
       {
         if (findData.cFileName[0]!='.')
         {

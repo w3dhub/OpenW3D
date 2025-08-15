@@ -2917,7 +2917,7 @@ GameObject * Find_Nearest_Building_To_Pos( const Vector3 & position, const char 
 			//	Is this the type of building we're looking for?
 			//
 			const char *name_prefix = building->Get_Name_Prefix();
-			if (::lstrcmpi( mesh_prefix, name_prefix ) == 0) {
+			if (::stricmp( mesh_prefix, name_prefix ) == 0) {
 
 				//
 				//	Is this the closest building we've found yet?

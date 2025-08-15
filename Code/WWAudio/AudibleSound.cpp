@@ -1264,10 +1264,10 @@ AudibleSoundClass::Determine_Real_Volume (void) const
 //	Get_Filename
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
-LPCTSTR
+const char*
 AudibleSoundClass::Get_Filename (void) const
 {
-	LPCTSTR filename = NULL;
+	const char* filename = NULL;
 	if (m_Buffer != NULL) {
 		filename = m_Buffer->Get_Filename ();
 	}

@@ -50,7 +50,7 @@ cComInit::cComInit
 	HRESULT hres = ::CoInitialize(NULL);
 	if (!SUCCEEDED(hres))
 	{
-		::MessageBox(NULL, "Unable to initialize COM.", "Error:", MB_OK | MB_ICONERROR);
+		::MessageBoxA(NULL, "Unable to initialize COM.", "Error:", MB_OK | MB_ICONERROR);
 		::exit(0);
 	}
 }

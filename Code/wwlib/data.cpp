@@ -249,7 +249,7 @@ char const * Fetch_String(int id)
 	char * stringptr = _buffers[oldest].String;
 	_buffers[oldest].ID = id;
 	_buffers[oldest].TimeStamp = _time;
-	if (LoadString(ProgramInstance, id, stringptr, sizeof(_buffers[oldest].String)) == 0) {
+	if (LoadStringA(ProgramInstance, id, stringptr, sizeof(_buffers[oldest].String)) == 0) {
 		return("");
 	}
 	stringptr[sizeof(_buffers[oldest].String)-1] = '\0';
@@ -267,10 +267,10 @@ void const * Fetch_Resource(LPCSTR resname, LPCSTR restype)
 	**	Fetch the program instance if it hasn't already been recorded.
 	*/
 //	if (ProgramInstance == 0) {
-//		ProgramInstance = GetModuleHandle("LANGUAGE");
+//		ProgramInstance = GetModuleHandleA("LANGUAGE");
 //	}
 
-	HRSRC handle = FindResource(ProgramInstance, resname, restype);
+	HRSRC handle = FindResourceA(ProgramInstance, resname, restype);
 	if (handle == NULL) {
 		return(NULL);
 	}

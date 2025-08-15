@@ -95,8 +95,8 @@ bool cMiscUtil::File_Exists(LPCSTR filename)
 #if 0
    WWASSERT(filename != NULL);
 
-	WIN32_FIND_DATA find_info;
-   HANDLE file_handle = ::FindFirstFile(filename, &find_info);
+	WIN32_FIND_DATAA find_info;
+   HANDLE file_handle = ::FindFirstFileA(filename, &find_info);
 	
 	if (file_handle != INVALID_HANDLE_VALUE) {
 		::FindClose(file_handle);
@@ -119,7 +119,7 @@ bool cMiscUtil::File_Is_Read_Only(LPCSTR filename)
 {
    WWASSERT(filename != NULL);
 
-	DWORD attributes = ::GetFileAttributes(filename);
+	DWORD attributes = ::GetFileAttributesA(filename);
 	return ((attributes != 0xFFFFFFFF) && (attributes & FILE_ATTRIBUTE_READONLY));
 }
 
@@ -220,7 +220,7 @@ void cMiscUtil::Remove_File(LPCSTR filename)
 {
    WWASSERT(filename != NULL);
 
-	::DeleteFile(filename);
+	::DeleteFileA(filename);
 }
 
 
@@ -253,7 +253,7 @@ int cMiscUtil::Get_Exe_Key(void)
    //
 	char filename[500];
    int succeeded;
-	succeeded = ::GetModuleFileName(NULL, filename, sizeof(filename));
+	succeeded = ::GetModuleFileNameA(NULL, filename, sizeof(filename));
 	::strupr(filename);
 	WWASSERT(succeeded);
       
@@ -309,7 +309,7 @@ int cMiscUtil::Get_Exe_Key(void)
    //
 	char filename[500];
    int succeeded;
-	succeeded = ::GetModuleFileName(NULL, filename, sizeof(filename));
+	succeeded = ::GetModuleFileNameA(NULL, filename, sizeof(filename));
 	::strupr(filename);
 	WWASSERT(succeeded);
       

@@ -271,7 +271,7 @@ bool File::IsAvailable(bool force)
 	mName.ConvertToANSI(name, sizeof(name));
 
 	// Attempt to open the file
-	mHandle = CreateFile(name, GENERIC_READ, FILE_SHARE_READ,
+	mHandle = CreateFileA(name, GENERIC_READ, FILE_SHARE_READ,
 		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	// If the open failed then the file is not available.
@@ -350,19 +350,19 @@ File::EFileError File::Open(ERights rights)
 			{
 			// Read only access
 			case Rights_ReadOnly:
-				mHandle = CreateFile(name, GENERIC_READ, FILE_SHARE_READ,
+				mHandle = CreateFileA(name, GENERIC_READ, FILE_SHARE_READ,
 						NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 			break;
 
 			// Write only access
 			case Rights_WriteOnly:
-				mHandle = CreateFile(name, GENERIC_WRITE, 0,
+				mHandle = CreateFileA(name, GENERIC_WRITE, 0,
 						NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 			break;
 
 			// Read and Write access
 			case Rights_ReadWrite:
-				mHandle = CreateFile(name, GENERIC_READ | GENERIC_WRITE, 0,
+				mHandle = CreateFileA(name, GENERIC_READ | GENERIC_WRITE, 0,
 						NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 			break;
 
@@ -521,7 +521,7 @@ File::EFileError File::Delete(void)
 		char name[MAX_PATH];
 		mName.ConvertToANSI(name, sizeof(name));
 
-		if (!DeleteFile(name))
+		if (!DeleteFileA(name))
 			{
 			OnFileError(FileError_Fault, false);
 			return FileError_Fault;

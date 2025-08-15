@@ -989,7 +989,7 @@ int RawFileClass::Delete(void)
 		#ifdef _UNIX
 			deleteok=(unlink(Filename)==0)?TRUE:FALSE;
 		#else
-			deleteok=DeleteFile(Filename);
+			deleteok=DeleteFileA(Filename);
 		#endif
 
 		if (! deleteok) {

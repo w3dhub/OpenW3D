@@ -62,7 +62,7 @@ unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, Mix
 
 	unsigned			 filecount;
 	StringClass		 findfilepathname;	
-	WIN32_FIND_DATA finddata;	
+	WIN32_FIND_DATAA finddata;	
 	HANDLE			 handle;
 
 	filecount = 0;
@@ -75,7 +75,7 @@ unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, Mix
 		findfilepathname += "\\";
 	}
 	findfilepathname += wildcardname;
-	handle = FindFirstFile (findfilepathname, &finddata);
+	handle = FindFirstFileA (findfilepathname, &finddata);
 	if (handle != INVALID_HANDLE_VALUE) {
 		
 		bool done;
@@ -117,7 +117,7 @@ unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, Mix
 					filecount++;
 				}
 			}
-			done = !FindNextFile (handle, &finddata);
+			done = !FindNextFileA (handle, &finddata);
 		}
 	}
 	return (filecount);

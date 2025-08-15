@@ -708,7 +708,7 @@ void SlaveMasterClass::Startup_Slaves(void)
 							char drive[_MAX_DRIVE];
 							char dir[_MAX_DIR];
 							char path[_MAX_PATH];
-							GetModuleFileName(ProgramInstance, path_to_exe, sizeof(path_to_exe));
+							GetModuleFileNameA(ProgramInstance, path_to_exe, sizeof(path_to_exe));
 							_splitpath(path_to_exe, drive, dir, NULL, NULL);
 #ifdef FREEDEDICATEDSERVER
 							_makepath(path, drive, dir, "renegadeserver", "exe");
@@ -720,7 +720,7 @@ void SlaveMasterClass::Startup_Slaves(void)
 							if (ConsoleBox.Is_Exclusive()) {
 								strcat(command_line, " /NODX");
 							}
-							STARTUPINFO startup_info;
+							STARTUPINFOA startup_info;
 							memset(&startup_info, 0, sizeof(startup_info));
 							startup_info.cb = sizeof(startup_info);
 
@@ -730,7 +730,7 @@ void SlaveMasterClass::Startup_Slaves(void)
 								if (slave_reg.Is_Valid()) {
 									slave_reg.Set_Int("ProcessId", 0);
 								}
-								result = CreateProcess(path, command_line, NULL, NULL, false, 0, NULL, NULL, &startup_info, &SlaveServers[i].ProcessInfo);
+								result = CreateProcessA(path, command_line, NULL, NULL, false, 0, NULL, NULL, &startup_info, &SlaveServers[i].ProcessInfo);
 							}
 							if (result) {
 								SlaveServers[i].IsRunning = true;
@@ -1219,7 +1219,7 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 void SlaveMasterClass::Delete_Registry_Copies(void)
 {
 	HKEY base_key;
-	long result = RegOpenKeyEx(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME, 0, KEY_ALL_ACCESS, &base_key);
+	long result = RegOpenKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME, 0, KEY_ALL_ACCESS, &base_key);
 	WWASSERT(result == ERROR_SUCCESS);
 
 	if (result == ERROR_SUCCESS) {

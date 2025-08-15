@@ -208,7 +208,7 @@ void WOLBuddyMgr::LoadIgnoreList(void)
 	mIgnoreList.clear();
 
 	HKEY hKey;
-	LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_IGNORE_LIST, 0, KEY_READ, &hKey);
+	LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_IGNORE_LIST, 0, KEY_READ, &hKey);
 
 	if (ERROR_SUCCESS == result)
 		{
@@ -217,12 +217,12 @@ void WOLBuddyMgr::LoadIgnoreList(void)
 		unsigned long valueSize = sizeof(valueName);
 		int index = 0;
 
-		while (RegEnumValue(hKey, index, valueName, &valueSize, 0, NULL, NULL, NULL) == ERROR_SUCCESS)
+		while (RegEnumValueA(hKey, index, valueName, &valueSize, 0, NULL, NULL, NULL) == ERROR_SUCCESS)
 			{
 			DWORD type = 0;
 			char name[MAX_USERNAME_LEN];
 			DWORD nameSize = sizeof(name);
-			result = RegQueryValueEx(hKey, valueName, NULL, &type, (LPBYTE)name, (DWORD*)&nameSize);
+			result = RegQueryValueExA(hKey, valueName, NULL, &type, (LPBYTE)name, (DWORD*)&nameSize);
 
 			if ((ERROR_SUCCESS == result) && (REG_SZ == type) && strlen(name))
 				{

@@ -135,16 +135,16 @@ DWORD CALLBACK ApplyPatchThread(LPVOID _file) {
 
 	char *patchfile = (char *)_file;
 
-    HINSTANCE hInst=LoadLibrary("patchw32.dll");
+    HINSTANCE hInst=LoadLibraryA("patchw32.dll");
     if (hInst==NULL)
     {
       char message[256];
-      LoadString(NULL,IDS_ERR_MISSING_FILE,message,256);
+      LoadStringA(NULL,IDS_ERR_MISSING_FILE,message,256);
       char string[256];
       sprintf(string,message,"patchw32.dll");
       char title[128];
-      LoadString(NULL,IDS_ERROR,title,128);
-      MessageBox(NULL,string,title,MB_OK);
+      LoadStringA(NULL,IDS_ERROR,title,128);
+      MessageBoxA(NULL,string,title,MB_OK);
       rtpErrCode = -2;
       return -1;
     }
@@ -154,10 +154,10 @@ DWORD CALLBACK ApplyPatchThread(LPVOID _file) {
     if (patchFunc==NULL)
     {
       char message[256];
-      LoadString(NULL,IDS_BAD_LIBRARY,message,256);
+      LoadStringA(NULL,IDS_BAD_LIBRARY,message,256);
       char title[128];
-      LoadString(NULL,IDS_ERROR,title,128);
-      MessageBox(NULL,message,title,MB_OK);
+      LoadStringA(NULL,IDS_ERROR,title,128);
+      MessageBoxA(NULL,message,title,MB_OK);
       rtpErrCode = -2;
       FreeLibrary(hInst);     // unload the DLL
       return -1;
@@ -194,7 +194,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     HKEY   regKey;
     LONG   regRetval;
     DWORD  regPrevious;
-    regRetval=RegCreateKeyEx(
+    regRetval=RegCreateKeyExA(
       HKEY_CURRENT_USER,
       "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
       0,
@@ -207,24 +207,24 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
 
     if (regRetval==ERROR_SUCCESS)
     {
-      RegSetValueEx(regKey,"EXEPatch",0,REG_SZ,(const uint8*)patchfile,strlen(patchfile)+1);
+      RegSetValueExA(regKey,"EXEPatch",0,REG_SZ,(const uint8*)patchfile,strlen(patchfile)+1);
 
       char message[256];
-      LoadString(NULL,IDS_SYS_RESTART,message,256);
+      LoadStringA(NULL,IDS_SYS_RESTART,message,256);
       char title[128];
-      LoadString(NULL,IDS_SYS_RESTART_TITLE,title,128);
+      LoadStringA(NULL,IDS_SYS_RESTART_TITLE,title,128);
 
-      MessageBox(NULL,message,title,MB_OK);
+      MessageBoxA(NULL,message,title,MB_OK);
 
       Shutdown_Computer_Now();
     }
     else
     {
       char message[256];
-      LoadString(NULL,IDS_RUNONCE_ERR,message,256);
+      LoadStringA(NULL,IDS_RUNONCE_ERR,message,256);
       char string[256];
       sprintf(string,message,patchfile);
-      MessageBox(NULL,string,"ERROR",MB_OK);
+      MessageBoxA(NULL,string,"ERROR",MB_OK);
     }
   }
   //
@@ -249,7 +249,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
 	DWORD last_time = GetTickCount();
 	BOOL forward = FALSE;
 	char worktext[256];
-    LoadString(NULL,IDS_WORKING_TEXT,worktext,sizeof(worktext)-12);
+    LoadStringA(NULL,IDS_WORKING_TEXT,worktext,sizeof(worktext)-12);
 	int scnt = strlen(worktext)+1;
 	strcat(worktext, " ..........");
 	// Wait for the thread to finish
@@ -323,11 +323,11 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     // Open the registry key for modifying now...
     HKEY regKey;
     LONG regRetval;
-    regRetval=RegOpenKeyEx(HKEY_CURRENT_USER,path.get(),0,
+    regRetval=RegOpenKeyExA(HKEY_CURRENT_USER,path.get(),0,
         KEY_ALL_ACCESS,&regKey);
     if (regRetval!=ERROR_SUCCESS)
       DBGMSG("Can't open reg key for writing");
-    regRetval=RegSetValueEx(regKey,"Version",0,REG_DWORD,(uint8 *)&version,
+    regRetval=RegSetValueExA(regKey,"Version",0,REG_DWORD,(uint8 *)&version,
         sizeof(version));
 
 
@@ -356,10 +356,10 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
   else if (strcasecmp(patchfile+strlen(patchfile)-strlen(".web"),".web")==0)
   {
     char message[256];
-    LoadString(NULL,IDS_WEBPATCH,message,256);
+    LoadStringA(NULL,IDS_WEBPATCH,message,256);
     char title[128];
-    LoadString(NULL,IDS_WEBPATCH_TITLE,title,128);
-    MessageBox(NULL,message,title,MB_OK);
+    LoadStringA(NULL,IDS_WEBPATCH_TITLE,title,128);
+    MessageBoxA(NULL,message,title,MB_OK);
 
     FILE *in=fopen(patchfile,"r");
     if (in!=NULL)
@@ -367,7 +367,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
       char URL[256];
       fgets(URL,255,in);
       fclose(in);
-      ShellExecute(NULL,NULL,URL,NULL,".",SW_SHOW);
+      ShellExecuteA(NULL,NULL,URL,NULL,".",SW_SHOW);
       _unlink(patchfile);
       //// This is somewhat skanky, but we can't wait
       //// for the viewer to exit (I tried).
@@ -375,7 +375,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     }
     else
     {
-      MessageBox(NULL,patchfile,"Patchfile vanished?",MB_OK);
+      MessageBoxA(NULL,patchfile,"Patchfile vanished?",MB_OK);
     }
   }
 }
@@ -416,8 +416,8 @@ void Shutdown_Computer_Now(void)
   {
     // Should never happen
     char restart[128];
-    LoadString(NULL,IDS_MUST_RESTART,restart,128);
-    MessageBox(NULL,restart,"OK",MB_OK);
+    LoadStringA(NULL,IDS_MUST_RESTART,restart,128);
+    MessageBoxA(NULL,restart,"OK",MB_OK);
     exit(0);
   }
 
@@ -480,8 +480,8 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 	  // Error message header/text
       ///////*g_LogFile << (char *)Parm << std::endl;
       char errmsg[256];
-      LoadString(NULL,IDS_ERR_PATCH,errmsg,256);
-      MessageBox(NULL,(char *)Param,errmsg,MB_OK);
+      LoadStringA(NULL,IDS_ERR_PATCH,errmsg,256);
+      MessageBoxA(NULL,(char *)Param,errmsg,MB_OK);
       {
         FILE *out=fopen("patch.err","a");
         time_t  timet=time(NULL);
@@ -524,7 +524,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 
 	case 7:
 	  //// begin patch
-	  //LoadString(g_AppInstance, IDS_PROCESSING, lpcBuf, 256);
+	  //LoadStringA(g_AppInstance, IDS_PROCESSING, lpcBuf, 256);
 	  //strcpy(buf,lpcBuf);
 	  //strcat(buf,(char *)Parm);
 	  //g_DlgPtr->SetProgressText(buf);
@@ -539,7 +539,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 
       currFile++;
       char xofy[64];
-      LoadString(NULL,IDS_FILE_X_OF_Y,xofy,64);
+      LoadStringA(NULL,IDS_FILE_X_OF_Y,xofy,64);
       sprintf(string,xofy,currFile,fileCount);
       SetWindowText(GetDlgItem(PatchDialog,IDC_CAPTION),string);
 //      PostMessage(GetDlgItem(PatchDialog,IDC_CAPTION),WM_SETTEXT,0,(LPARAM)string);
@@ -548,7 +548,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 
 	case 8:
 	  //// end patch
-	  //LoadString(g_AppInstance, IDS_PROCCOMPLETE, lpcBuf, 256);
+	  //LoadStringA(g_AppInstance, IDS_PROCCOMPLETE, lpcBuf, 256);
 	  //g_DlgPtr->SetProgressText(lpcBuf);
 	  //*g_LogFile << " complete" << std::endl;
       percent=100;

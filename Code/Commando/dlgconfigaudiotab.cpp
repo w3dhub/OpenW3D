@@ -449,7 +449,7 @@ DlgConfigAudioTabClass::Configure_Driver_List (void)
 				//
 				//	Select this entry if its the default
 				//
-				if (::lstrcmpi (device_name, driver_info->name) == 0) {
+				if (::stricmp (device_name, driver_info->name) == 0) {
 					list_ctrl->Set_Curr_Sel (item_index);
 					selected_default = true;
 				}

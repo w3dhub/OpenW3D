@@ -106,7 +106,7 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 	//	Create an instance of the commando render object we can
 	// use to simulate character movement
 	//
-	CString full_path;
+	CStringA full_path;
 	full_path = Get_File_Mgr ()->Make_Full_Path ("Characters\\Commando");
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
@@ -247,7 +247,7 @@ PathfindSectorBuilderClass::Generate_Sectors (const Vector3 &start_pos)
 	Compress_Sectors ();
 	DWORD after_ticks = TIMEGETTIME ();
 
-	CString message;
+	CStringA message;
 	message.Format ("Time spent compressing: %d secs.\r\n", (after_ticks-before_ticks)/1000);
 	::Ouput_Message (message);
 
@@ -476,7 +476,7 @@ PathfindSectorBuilderClass::Floodfill (const Vector3 &start_pos)
 	//
 	if (!m_bCancel && (::GetAsyncKeyState (VK_ESCAPE) < 0)) {
 		m_bCancel = true;
-		::MessageBox (NULL, "Operation cancelled.", "Pathfind", MB_OK | MB_SETFOREGROUND);
+		::MessageBoxA (NULL, "Operation cancelled.", "Pathfind", MB_OK | MB_SETFOREGROUND);
 	}
 
 	return ;
@@ -667,7 +667,7 @@ PathfindSectorBuilderClass::Compress_Sectors (void)
 		//
 		if (largest_area > 1) {
 
-			CString message;
+			CStringA message;
 			message.Format ("Combining cells: width = %d, height = %d, area = %d\r\n", largest_area_right, largest_area_down, largest_area);
 			::Ouput_Message (message);
 
@@ -780,7 +780,7 @@ PathfindSectorBuilderClass::Compress_Sectors (void)
 	//
 	//	Debug info
 	//
-	CString message;
+	CStringA message;
 	message.Format ("Total sectors: %d\r\n", sectors);
 	::Ouput_Message (message);
 

@@ -258,7 +258,7 @@ WWINLINE void * Get_Mem_Log_Mutex(void)
 #if MEMLOG_USE_MUTEX
 
 	if (_MemLogMutex == NULL) {
-		_MemLogMutex=CreateMutex(NULL,false,NULL);
+		_MemLogMutex=CreateMutexA(NULL,false,NULL);
 		WWASSERT(_MemLogMutex);
 	}
 	return _MemLogMutex;

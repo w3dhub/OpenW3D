@@ -75,7 +75,7 @@ CriticalSectionClass	SoundSceneObjClass::m_IDListMutex;
 class HandleMgrClass
 {
 public:
-	HandleMgrClass (void)	{ SoundSceneObjClass::m_IDListMutex = ::CreateMutex (NULL, FALSE, NULL); }
+	HandleMgrClass (void)	{ SoundSceneObjClass::m_IDListMutex = ::CreateMutexA (NULL, FALSE, NULL); }
 	~HandleMgrClass (void)	{ ::CloseHandle (SoundSceneObjClass::m_IDListMutex); }
 
 };

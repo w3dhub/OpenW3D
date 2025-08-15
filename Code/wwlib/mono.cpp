@@ -101,7 +101,7 @@ MonoClass::MonoClass(void) :
 	Handle(INVALID_HANDLE_VALUE)
 {
 #ifdef _WINDOWS
-	Handle = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	Handle = CreateFileA("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (Current == NULL) {
 		Current = this;
 	}

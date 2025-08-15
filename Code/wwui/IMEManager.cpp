@@ -38,6 +38,7 @@
 #include "wwdebug.h"
 #include <locale.h>
 #include <mbctype.h>
+#include <mbstring.h>
 
 #if defined(_MSC_VER)
 #pragma warning(push, 3)
@@ -885,7 +886,7 @@ void IMEManager::InputLanguageChanged(HKL hkl)
 
 	// Get the default codepage for this input language
 	char localeData[8];
-	GetLocaleInfo(lcid, LOCALE_IDEFAULTANSICODEPAGE, localeData, sizeof(localeData));
+	GetLocaleInfoA(lcid, LOCALE_IDEFAULTANSICODEPAGE, localeData, sizeof(localeData));
 
 	// Set the codepage for character conversion
 	mCodePage = atoi(localeData);
@@ -907,13 +908,13 @@ void IMEManager::InputLanguageChanged(HKL hkl)
 		}
 	else
 		{
-		UINT descSize = ImmGetDescription(hkl, NULL, 0);
+		UINT descSize = ImmGetDescriptionA(hkl, NULL, 0);
 		++descSize;
 
 		StringClass desc((int)descSize, true);
 		char* descPtr = desc.Get_Buffer(descSize);
 
-		ImmGetDescription(hkl, descPtr, descSize);
+		ImmGetDescriptionA(hkl, descPtr, descSize);
 		mIMEDescription = desc;
 		}
 
@@ -1029,7 +1030,7 @@ void IMEManager::DoComposition(unsigned int dbcs, long compFlags)
 		{GCS_RESULTCLAUSE, " GCS_RESULTCLAUSE"},
 		{GCS_RESULTREADCLAUSE, " GCS_RESULTREADCLAUSE"},
 		{GCS_RESULTREADSTR, " GCS_RESULTREADSTR"},
-		{CS_INSERTCHAR, " CS_INSERTCHAR"},
+		{CS_INSERchar, " CS_INSERchar"},
 		{CS_NOMOVECARET, " CS_NOMOVECARET"},
 		{0, ""}
 		};
@@ -1656,7 +1657,7 @@ unsigned long IMEManager::GetGuideline(wchar_t* outString, int length)
 
 	if (imc)
 		{
-		level = ImmGetGuideLine(imc, GGL_LEVEL, NULL, 0);
+		level = ImmGetGuideLineA(imc, GGL_LEVEL, NULL, 0);
 
 		if ((GL_LEVEL_NOGUIDELINE != level) && outString)
 			{
@@ -1669,7 +1670,7 @@ unsigned long IMEManager::GetGuideline(wchar_t* outString, int length)
 			else
 				{
 				char temp[512];
-				DWORD size = ImmGetGuideLine(imc, GGL_STRING, temp, sizeof(temp));
+				DWORD size = ImmGetGuideLineA(imc, GGL_STRING, temp, sizeof(temp));
 				temp[size] = 0;
 
 				MultiByteToWideChar(mCodePage, 0, temp, -1, outString, length);

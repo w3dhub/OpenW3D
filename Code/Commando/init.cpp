@@ -222,14 +222,14 @@ void Append_To_Assert_History(const char * message)
 	// Full filename
 	//
 	char full_filename[MAX_PATH];
-	::GetModuleFileName(NULL, full_filename, sizeof(full_filename));
+	::GetModuleFileNameA(NULL, full_filename, sizeof(full_filename));
 	::sprintf(line, "Filename:   %s\n", full_filename);
 	::fwrite(line, 1, ::strlen(line), file);
 
 	//
 	// File size
 	//
-	HANDLE hfile = ::CreateFile(full_filename, 0, 0, NULL, OPEN_EXISTING, 0L, NULL);
+	HANDLE hfile = ::CreateFileA(full_filename, 0, 0, NULL, OPEN_EXISTING, 0L, NULL);
 	if (hfile != INVALID_HANDLE_VALUE)
 	{
 		DWORD file_size = ::GetFileSize(hfile, NULL);
@@ -421,7 +421,7 @@ void	Construct_Directory_Structure(void)
 	//	Lookup the path of the executable
 	//
 	char path[MAX_PATH] = { 0 };
-	::GetModuleFileName (NULL, path, sizeof (path));
+	::GetModuleFileNameA (NULL, path, sizeof (path));
 
 	//
 	//	Strip off the filename
@@ -440,22 +440,22 @@ void	Construct_Directory_Structure(void)
 	//
 	//	Create the data directory if necessary
 	//
-	if (GetFileAttributes (data_dir) == 0xFFFFFFFF) {
-		::CreateDirectory (data_dir, NULL);
+	if (GetFileAttributesA (data_dir) == 0xFFFFFFFF) {
+		::CreateDirectoryA (data_dir, NULL);
 	}
 
 	//
 	//	Create the save directory if necessary
 	//
-	if (GetFileAttributes (save_dir) == 0xFFFFFFFF) {
-		::CreateDirectory (save_dir, NULL);
+	if (GetFileAttributesA (save_dir) == 0xFFFFFFFF) {
+		::CreateDirectoryA (save_dir, NULL);
 	}
 
 	//
 	//	Create the config directory if necessary
 	//
-	if (GetFileAttributes (config_dir) == 0xFFFFFFFF) {
-		::CreateDirectory (config_dir, NULL);
+	if (GetFileAttributesA (config_dir) == 0xFFFFFFFF) {
+		::CreateDirectoryA (config_dir, NULL);
 	}
 
 
@@ -464,15 +464,15 @@ void	Construct_Directory_Structure(void)
 
 static bool Verify_Log_Directory(const StringClass& folder)
 {
-	if (GetFileAttributes(folder)!=0xffffffff) return true;
+	if (GetFileAttributesA(folder)!=0xffffffff) return true;
 	//HANDLE file;
-	//file = CreateFile(folder, 0, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	//file = CreateFileA(folder, 0, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	//if (file!=INVALID_HANDLE_VALUE) {
 	//	CloseHandle(file);
 	//	return true;
 	//}
 
-	if (CreateDirectory(folder,NULL)) {
+	if (CreateDirectoryA(folder,NULL)) {
 		return true;
 	}
 	if (GetLastError() == ERROR_ALREADY_EXISTS) {
@@ -491,7 +491,7 @@ static bool Create_Log_File_Name(const StringClass& folder, StringClass& filenam
 	for (int i=0;i<999;++i) {
 		HANDLE file;
 		filename.Format("%s\\%3.3d%s",folder,i,original);
-		file = CreateFile(filename, GENERIC_WRITE, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
+		file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
 		if (file!=INVALID_HANDLE_VALUE) {
 			CloseHandle(file);
 			return true;
@@ -510,7 +510,7 @@ static void Copy_Log(const StringClass& folder,const char* filename,bool use_num
 			if (Create_Log_File_Name(folder,log_file_name,use_numbering)) {
 				DWORD written;
 				HANDLE file;
-				file = CreateFile(log_file_name, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+				file = CreateFileA(log_file_name, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 				if (INVALID_HANDLE_VALUE != file) {
 					raw_log_file.Open();
 					unsigned char* memory=new unsigned char[size];
@@ -541,7 +541,7 @@ public:
 
 		char computer_name[MAX_COMPUTERNAME_LENGTH + 1];
 		DWORD size = sizeof(computer_name);
-		::GetComputerName(computer_name, &size);
+		::GetComputerNameA(computer_name, &size);
 
 		RegistryClass reg(APPLICATION_SUB_KEY_NAME_DEBUG);
 		char path[MAX_PATH];
@@ -744,12 +744,12 @@ bool Game_Init(void)
 	//
 	//	Search for all mix files in the data directory
 	//
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find				= NULL;
-	for (file_find = ::FindFirstFile ("data\\*.mix", &find_info);
+	for (file_find = ::FindFirstFileA ("data\\*.mix", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info))
+		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{
 		//
 		//	Add this mix file to our mix file factory list
@@ -831,7 +831,7 @@ bool Game_Init(void)
 	case WW3D_ERROR_DIRECTX8_INITIALIZATION_FAILED:
 	default:
 		WWDEBUG_SAY(("WW3D::Init Failed!\r\n"));
-		::MessageBox(NULL,
+		::MessageBoxA(NULL,
 			"DirectX 8.0 or later is required to play C&C:Renegade.",
 			"Renegade Graphics Initialization Error.",
 			MB_OK);
@@ -936,7 +936,7 @@ bool Game_Init(void)
 	// table version
 	//
 	if (TranslateDBClass::Get_Version_Number () != STRINGS_VER) {
-		MessageBox( 0,
+		MessageBoxA( 0,
 			"This build of Renegade is out of sync with the strings database (strings.tdb).  Strings will be incorrect and may cause the game to crash.",
 			"Version Error",
 			MB_OK | MB_ICONEXCLAMATION | MB_SETFOREGROUND  );
@@ -1000,7 +1000,7 @@ bool Game_Init(void)
 	// Note:  Accelerator tables that are loaded from resources (like
 	// we are doing here) do not need to be manually freed.  Windows
 	// will cleanup for us when the process terminates.
-	HACCEL haccel = ::LoadAccelerators (::GetModuleHandle (NULL), MAKEINTRESOURCE (IDR_ACCELERATOR));
+	HACCEL haccel = ::LoadAccelerators (::GetModuleHandleA (NULL), MAKEINTRESOURCE (IDR_ACCELERATOR));
 	if (haccel) {
 		::Add_Accelerator (MainWindow, haccel);
 	}

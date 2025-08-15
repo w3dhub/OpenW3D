@@ -45,7 +45,7 @@ int PASCAL WinMain( HINSTANCE instance, HINSTANCE, char *command_line, int comma
     char       *argv[64];
 
     char        path_to_exe[512];
-    GetModuleFileName(instance,(char *)&path_to_exe,512);
+    GetModuleFileNameA(instance,(char *)&path_to_exe,512);
     argc=1;
     argv[0]=path_to_exe;
 

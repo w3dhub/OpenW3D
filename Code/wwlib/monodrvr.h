@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 {
 	HANDLE handle;
 
-	handle = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	handle = CreateFileA("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (handle != INVALID_HANDLE_VALUE)  {
 		long retval;		// Return code from IoControl functions.
 		unsigned short * pointer;	// Working pointer to mono RAM.

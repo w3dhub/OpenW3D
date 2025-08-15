@@ -163,7 +163,7 @@ DialogParserClass::Parse_Template
 	//
 	//	Load the resource file
 	//
-	HRSRC resource		= ::FindResource (ProgramInstance, MAKEINTRESOURCE (res_id), RT_DIALOG);
+	HRSRC resource		= ::FindResourceA (ProgramInstance, MAKEINTRESOURCEA (res_id), MAKEINTRESOURCEA(5) /* RT_DIALOG */);
 	HGLOBAL hglobal	= ::LoadResource (ProgramInstance, resource);
 	LPVOID res_buffer	= ::LockResource (hglobal);
 	if(res_buffer != NULL) {

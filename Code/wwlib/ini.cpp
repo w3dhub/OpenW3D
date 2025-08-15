@@ -1641,9 +1641,9 @@ bool INIClass::Put_String(char const * section, char const * entry, char const *
       if (strcmp(entryptr->Entry, entry)) {
          DuplicateCRCError("INIClass::Put_String", section, entry);
       } else {
-   		OutputDebugString("INIClass::Put_String - Duplicate Entry \"");
-	   	OutputDebugString(entry);
-		   OutputDebugString("\"\n");
+   		OutputDebugStringA("INIClass::Put_String - Duplicate Entry \"");
+	   	OutputDebugStringA(entry);
+		   OutputDebugStringA("\"\n");
       }
    	secptr->EntryIndex.Remove_Index(entryptr->Index_ID());
 	   delete entryptr;
@@ -2351,12 +2351,12 @@ void INIClass::DuplicateCRCError(const char *message, const char *section, const
 	_snprintf(buffer, sizeof(buffer), "%s - Duplicate Entry \"%s\" in section \"%s\" (%s)\n", message,
 		entry, section, Filename);
 
-	OutputDebugString(buffer);
+	OutputDebugStringA(buffer);
 	assert(0);
 
 #ifdef NDEBUG
 #ifdef _WINDOWS
-	MessageBox(0, buffer, "Duplicate CRC in INI file.", MB_ICONSTOP | MB_OK);
+	MessageBoxA(0, buffer, "Duplicate CRC in INI file.", MB_ICONSTOP | MB_OK);
 #endif
 #endif
 }

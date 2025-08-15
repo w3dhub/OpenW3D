@@ -409,7 +409,7 @@ public:
 	//
 	//	Logical type identification for use with the definition system
 	//
-	void							Add_Logical_Type (int id, LPCTSTR display_name);
+	void							Add_Logical_Type (int id, const char* display_name);
 	void							Reset_Logical_Types (void);
 	int							Get_Logical_Type_Count (void) const	{ return m_LogicalTypes.Count (); }
 	int							Get_Logical_Type (int index, StringClass &name);
@@ -551,7 +551,7 @@ protected:
 	void						Free_3D_Driver_List (void);
 	void						Reprioritize_Playlist (void);
 	bool						Validate_3D_Sound_Buffer (SoundBufferClass *buffer);
-	FileClass *				Get_File (LPCTSTR filename);
+	FileClass *				Get_File (const char* filename);
 	void						Return_File (FileClass *file);
 
 	//////////////////////////////////////////////////////////////////////
@@ -629,7 +629,7 @@ private:
 		_LOGICAL_TYPE_STRUCT (void)
 			: id (0) {}
 
-		_LOGICAL_TYPE_STRUCT (int _id, LPCTSTR name)
+		_LOGICAL_TYPE_STRUCT (int _id, const char* name)
 			:	display_name (name), id (_id) {}
 
 		bool operator== (const _LOGICAL_TYPE_STRUCT &src) { return false; }

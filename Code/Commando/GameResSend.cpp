@@ -97,7 +97,7 @@ void SendGameResults(unsigned long gameID, cGameData* theGame, SList<cPlayer>* p
 
 	// Version of executable.
 	char filename[MAX_PATH];
-	GetModuleFileName(NULL, filename, sizeof(filename));
+	GetModuleFileNameA(NULL, filename, sizeof(filename));
 	VS_FIXEDFILEINFO version;
 	GetVersionInfo(filename, &version);
 	stats.Add_Field("VERS", version.dwFileVersionMS);
@@ -296,7 +296,7 @@ void SendGameResults(unsigned long gameID, cGameData* theGame, SList<cPlayer>* p
 
 #if(0)
 #ifdef _DEBUG
-	HANDLE file = CreateFile("GameRes.dat", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+	HANDLE file = CreateFileA("GameRes.dat", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if (INVALID_HANDLE_VALUE != file)

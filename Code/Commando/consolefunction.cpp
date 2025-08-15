@@ -3887,8 +3887,8 @@ public:
 					if (FileTimeToLocalFileTime(&creation, &local)) {
 						SYSTEMTIME time;
 						if (FileTimeToSystemTime(&local, &time)) {
-							GetDateFormat(LOCALE_SYSTEM_DEFAULT, 0, &time, NULL, upstring, 256);
-							GetTimeFormat(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, &time, NULL, timestr, 256);
+							GetDateFormatA(LOCALE_SYSTEM_DEFAULT, 0, &time, NULL, upstring, 256);
+							GetTimeFormatA(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, &time, NULL, timestr, 256);
 							strcat(upstring, " - ");
 							strcat(upstring, timestr);
 						}

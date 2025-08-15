@@ -430,7 +430,7 @@ void	ExplosionManager::Explode( int explosion_def_id, const Vector3 & pos, int o
 #ifdef WWDEBUG
 	char computer_name[200];
 	DWORD size = sizeof(computer_name);
-	GetComputerName(computer_name, &size);
+	GetComputerNameA(computer_name, &size);
 	if (cMiscUtil::Is_String_Same(computer_name, "TOMSS2")) {
 		//return;
 		is_enabled = false;
