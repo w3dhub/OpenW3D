@@ -246,7 +246,7 @@ void Process_DD_Result(HRESULT result, int display_ok_msg)
 	*/
 	if (result == DD_OK) {
 		if (display_ok_msg) {
-			MessageBox(MainWindow, "Direct Draw operation processed without error", "Note", MB_OK);
+			MessageBoxA(MainWindow, "Direct Draw operation processed without error", "Note", MB_OK);
 		}
 		return;
 	}
@@ -261,7 +261,7 @@ void Process_DD_Result(HRESULT result, int display_ok_msg)
 	*/
 	for (int index = 0; index < ARRAY_SIZE(_errors); index++) {
 		if (_errors[index].Error == result) {
-			MessageBox(MainWindow, _errors[index].Message, "Westwood Library Direct Draw Error", MB_ICONEXCLAMATION|MB_OK);
+			MessageBoxA(MainWindow, _errors[index].Message, "Westwood Library Direct Draw Error", MB_ICONEXCLAMATION|MB_OK);
 			return;
 		}
 	}
@@ -272,7 +272,7 @@ void Process_DD_Result(HRESULT result, int display_ok_msg)
 	*/
 	char str[80];
 	sprintf(str, "DDRAW.DLL Error code = %08X", result);
-	MessageBox(MainWindow, str, "Direct X", MB_ICONEXCLAMATION|MB_OK);
+	MessageBoxA(MainWindow, str, "Direct X", MB_ICONEXCLAMATION|MB_OK);
 }
 
 
@@ -366,7 +366,7 @@ bool Set_Video_Mode(HWND , int w, int h, int bits_per_pixel)
 	//
 	// Set the required display mode with 8 bits per pixel
 	//
-	//MessageBox(MainWindow, "In Set_Video_Mode. About to call call SetDisplayMode.","Note", MB_ICONEXCLAMATION|MB_OK);
+	//MessageBoxA(MainWindow, "In Set_Video_Mode. About to call call SetDisplayMode.","Note", MB_ICONEXCLAMATION|MB_OK);
 	result = DirectDrawObject->SetDisplayMode(w, h, bits_per_pixel);
 	if (result != DD_OK) {
 //		Process_DD_Result(result, false);
@@ -378,7 +378,7 @@ bool Set_Video_Mode(HWND , int w, int h, int bits_per_pixel)
 	//
 	// Create a direct draw palette object
 	//
-	//MessageBox(MainWindow, "In Set_Video_Mode. About to call CreatePalette.","Note", MB_ICONEXCLAMATION|MB_OK);
+	//MessageBoxA(MainWindow, "In Set_Video_Mode. About to call CreatePalette.","Note", MB_ICONEXCLAMATION|MB_OK);
 	result = DirectDrawObject->CreatePalette( DDPCAPS_8BIT | DDPCAPS_ALLOW256, &PaletteEntries[0], &PalettePtr, NULL);
 	Process_DD_Result(result, false);
 	if (result != DD_OK) {
@@ -387,7 +387,7 @@ bool Set_Video_Mode(HWND , int w, int h, int bits_per_pixel)
 
 	Check_Overlapped_Blit_Capability();
 
-	//MessageBox(MainWindow, "In Set_Video_Mode. About to return success.","Note", MB_ICONEXCLAMATION|MB_OK);
+	//MessageBoxA(MainWindow, "In Set_Video_Mode. About to return success.","Note", MB_ICONEXCLAMATION|MB_OK);
 #if (0)
 	/*
 	** Find out if DirectX 2 extensions are available
@@ -417,7 +417,7 @@ bool Set_Video_Mode(HWND , int w, int h, int bits_per_pixel)
 	}
 #endif	//(0)
 
-	//MessageBox(MainWindow, "In Set_Video_Mode. About to return success.","Note", MB_ICONEXCLAMATION|MB_OK);
+	//MessageBoxA(MainWindow, "In Set_Video_Mode. About to return success.","Note", MB_ICONEXCLAMATION|MB_OK);
 
 	return (true);
 
@@ -515,7 +515,7 @@ unsigned Get_Video_Hardware_Capabilities(void)
 	** Get the capabilities of the direct draw object
 	*/
 	video_capabilities.dwSize = sizeof(video_capabilities);
-	//MessageBox(MainWindow, "In Get_Video_Hardware_Capabilities. About to call GetCaps","Note", MB_ICONEXCLAMATION|MB_OK);
+	//MessageBoxA(MainWindow, "In Get_Video_Hardware_Capabilities. About to call GetCaps","Note", MB_ICONEXCLAMATION|MB_OK);
 	HRESULT result = DirectDrawObject->GetCaps (&video_capabilities, NULL);
 	if (result != DD_OK) {
 		Process_DD_Result(result, false);
@@ -545,7 +545,7 @@ unsigned Get_Video_Hardware_Capabilities(void)
 	/* Is there no hardware assistance avaailable at all? */
 	if (video_capabilities.dwCaps & DDCAPS_NOHARDWARE) 	video |= VIDEO_NO_HARDWARE_ASSIST;
 
-	//MessageBox(MainWindow, "In Get_Video_Hardware_Capabilities. About to return success.","Note", MB_ICONEXCLAMATION|MB_OK);
+	//MessageBoxA(MainWindow, "In Get_Video_Hardware_Capabilities. About to return success.","Note", MB_ICONEXCLAMATION|MB_OK);
 	return (video);
 }
 

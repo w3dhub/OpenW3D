@@ -48,8 +48,8 @@
 #include "registry.h"
 #include "playermanager.h"
 #include "_globals.h"
-#include "ServerSettings.h"
 #include "GameSpy_QnR.h"
+#include "ServerSettings.h"
 
 // static void c_auth_callback(int localid, int authenticated, char *errmsg, void *instance)
 // {

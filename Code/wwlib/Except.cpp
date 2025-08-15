@@ -202,7 +202,7 @@ int __cdecl _purecall(void)
 char const * Last_Error_Text(void)
 {
 	static char message_buffer[256];
-	FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL);
+	FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL);
 	return (message_buffer);
 }
 
@@ -351,7 +351,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	** If this is the first time through then fix up the imagehelp function pointers since imagehlp.dll
 	** can't be statically linked.
 	*/
-	HINSTANCE imagehelp = LoadLibrary("IMAGEHLP.DLL");
+	HINSTANCE imagehelp = LoadLibraryA("IMAGEHLP.DLL");
 
 	if (imagehelp != NULL) {
 		DebugString ("Exception Handler: Found IMAGEHLP.DLL - linking to required functions\n");
@@ -395,7 +395,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 		}
 
 		char module_name[_MAX_PATH];
-		GetModuleFileName(NULL, module_name, sizeof(module_name));
+		GetModuleFileNameA(NULL, module_name, sizeof(module_name));
 
 		if (_SymLoadModule != NULL) {
 			symload = _SymLoadModule(GetCurrentProcess(), NULL, module_name, NULL, 0, 0);
@@ -760,7 +760,7 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 	if ( !WindowedMode ) {
 		Load_Title_Page("TITLE.PCX", true);
 		MouseCursor->Release_Mouse();
-		MessageBox(MainWindow, "This demo has timed out. Thank you for playing Red Alert 2.","Byeee!", MB_ICONEXCLAMATION|MB_OK);
+		MessageBoxA(MainWindow, "This demo has timed out. Thank you for playing Red Alert 2.","Byeee!", MB_ICONEXCLAMATION|MB_OK);
 		return (EXCEPTION_EXECUTE_HANDLER);
 	}
 #endif	//DEMO_TIME_OUT
@@ -810,7 +810,7 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 		*/
 		HANDLE debug_file;
 		DWORD	actual;
-		debug_file = CreateFile("_except.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		debug_file = CreateFileA("_except.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		if (debug_file != INVALID_HANDLE_VALUE){
 			WriteFile(debug_file, ExceptionText, strlen(ExceptionText), &actual, NULL);
 			CloseHandle (debug_file);
@@ -1062,7 +1062,7 @@ void Load_Image_Helper(void)
 	** can't be statically linked.
 	*/
 	if (ImageHelp == (HINSTANCE)-1) {
-		ImageHelp = LoadLibrary("IMAGEHLP.DLL");
+		ImageHelp = LoadLibraryA("IMAGEHLP.DLL");
 
 		if (ImageHelp != NULL) {
 			char const *function_name = NULL;
@@ -1096,7 +1096,7 @@ void Load_Image_Helper(void)
 			}
 
 			char exe_name[_MAX_PATH];
-			GetModuleFileName(NULL, exe_name, sizeof(exe_name));
+			GetModuleFileNameA(NULL, exe_name, sizeof(exe_name));
 
 			if (_SymLoadModule != NULL) {
 				symload = _SymLoadModule(GetCurrentProcess(), NULL, exe_name, NULL, 0, 0);

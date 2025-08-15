@@ -2156,7 +2156,7 @@ unsigned short Get_IP_Checksum(unsigned short *buffer, int size)
 
 bool Set_Registry_Int(const char *name, int value)
 {
-	int result = RegSetValueEx(RegistryKey, name, 0, REG_DWORD, (unsigned char*)&value, sizeof(value));
+	int result = RegSetValueExA(RegistryKey, name, 0, REG_DWORD, (unsigned char*)&value, sizeof(value));
 	return((result == ERROR_SUCCESS) ? true : false);
 }
 
@@ -2166,7 +2166,7 @@ int Get_Registry_Int(const char *name, int def_value)
 	unsigned long data;
 	unsigned long data_size = sizeof(data);
 
-	if (RegQueryValueEx(RegistryKey, name, NULL, &type, (unsigned char*)&data, &data_size) == ERROR_SUCCESS) {
+	if (RegQueryValueExA(RegistryKey, name, NULL, &type, (unsigned char*)&data, &data_size) == ERROR_SUCCESS) {
 		return(data);
 	}
 	return(def_value);
@@ -2177,7 +2177,7 @@ bool Open_Registry(void)
 {
 	HKEY key;
 	unsigned long disposition;
-	long result = RegCreateKeyEx(HKEY_CURRENT_USER, RegistryPath, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, &disposition);
+	long result = RegCreateKeyExA(HKEY_CURRENT_USER, RegistryPath, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, &disposition);
 	if (result == ERROR_SUCCESS) {
 		RegistryKey = key;
 		return(true);
@@ -2230,15 +2230,15 @@ void DebugString (char const * string, ...)
 
 	DWORD	actual;
 	if (DebugFile == INVALID_HANDLE_VALUE) {
-		GetModuleFileName (GetModuleHandle(NULL), &path_to_exe[0], 512);
+		GetModuleFileNameA (GetModuleHandleA(NULL), &path_to_exe[0], 512);
 		_splitpath(path_to_exe, drive, dir, NULL, NULL);
 		_makepath(DebugFileName, drive, dir, "bandtest", "txt");
-		DebugFile = CreateFile(DebugFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+		DebugFile = CreateFileA(DebugFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	} else {
-		DebugFile = CreateFile(DebugFileName, GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		DebugFile = CreateFileA(DebugFileName, GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	}
 
-	OutputDebugString (buffer);
+	OutputDebugStringA (buffer);
 
 	if (DebugFile != INVALID_HANDLE_VALUE) {
 		SetFilePointer (DebugFile, 0, NULL, FILE_END);

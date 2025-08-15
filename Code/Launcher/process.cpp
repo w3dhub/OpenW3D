@@ -31,7 +31,7 @@ Process::Process()
 bit8 Create_Process(Process &process)
 {
     int                      retval;
-    STARTUPINFO              si;
+    STARTUPINFOA              si;
     PROCESS_INFORMATION      piProcess;
     ZeroMemory(&si,sizeof(si));
     si.cb=sizeof(si);
@@ -44,9 +44,9 @@ bit8 Create_Process(Process &process)
     DBGMSG("PROCESS CMD="<<cmdargs<<"  DIR="<<process.directory);
 
 #ifndef COPY_PROTECT
-		retval=CreateProcess(NULL,cmdargs,NULL,NULL,FALSE, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
+		retval=CreateProcessA(NULL,cmdargs,NULL,NULL,FALSE, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
 #else
-		retval=CreateProcess(NULL,cmdargs,NULL,NULL,TRUE, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
+		retval=CreateProcessA(NULL,cmdargs,NULL,NULL,TRUE, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
 #endif
 
     DBGMSG("("<<retval<<") New process:  HANDLE " << (void *)piProcess.hProcess << "   ID "
@@ -56,7 +56,7 @@ bit8 Create_Process(Process &process)
     if (retval==0)
     {
       char message_buffer[256];
-	   FormatMessage( FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL );
+	   FormatMessageA( FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL );
       DBGMSG("ERR: "<<message_buffer);
     }
     process.hProcess=piProcess.hProcess;

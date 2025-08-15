@@ -297,7 +297,7 @@ void PlayerInfoLog::Append_To_Log(PlayerDataClass* data)
 	tmp+="\r\n";
 
 	DWORD written;
-	HANDLE file = CreateFile("history.txt", GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
+	HANDLE file = CreateFileA("history.txt", GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL, NULL);
 	if (INVALID_HANDLE_VALUE != file) {
 		SetFilePointer(file, 0, NULL, FILE_END);

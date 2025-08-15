@@ -135,7 +135,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 			}
 			strcpy(DefaultRegistryModifier, argval);
 			#ifdef WWDEBUG
-			OutputDebugString("Registry modifier on command line\n");
+			OutputDebugStringA("Registry modifier on command line\n");
 			#endif //WWDEBUG
 			Reread();
 			continue;

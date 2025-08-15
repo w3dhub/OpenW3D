@@ -257,7 +257,7 @@ InputConfigMgrClass::Delete_Configuration (int index)
 	//
 	//	Delete the configuration file
 	//
-	::DeleteFile (full_path);
+	::DeleteFileA (full_path);
 
 	//
 	//	Now remove this entry from the list
@@ -314,7 +314,7 @@ InputConfigMgrClass::Find_Configuration (const char *filename)
 		//
 		//	Is this the entry we're looking for?
 		//
-		if (::lstrcmpi (ConfigList[index].Get_Filename (), filename) == 0) {
+		if (::stricmp (ConfigList[index].Get_Filename (), filename) == 0) {
 			retval = index;
 			break;
 		}
@@ -450,7 +450,7 @@ InputConfigMgrClass::Get_Unique_Config_Filename (StringClass &filename)
 		//
 		full_path.Format ("%s\\%s", (const char *)config_path, filename);
 
-	} while (::GetFileAttributes (full_path) != 0xFFFFFFFF);
+	} while (::GetFileAttributesA (full_path) != 0xFFFFFFFF);
 
 	return ;
 }
@@ -692,7 +692,7 @@ InputConfigMgrClass::Get_Config_Path (StringClass &full_path)
 	//	Lookup the path of the executable
 	//
 	char path[MAX_PATH] = { 0 };
-	::GetModuleFileName (NULL, path, sizeof (path));
+	::GetModuleFileNameA (NULL, path, sizeof (path));
 
 	//
 	//	Strip off the filename

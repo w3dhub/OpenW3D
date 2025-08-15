@@ -239,7 +239,7 @@ void GameSideServerControlClass::Print(const char *text, ...)
 
 		buffer[sizeof(buffer)-1] = 0;
 		va_start(va, text);
-		_vsnprintf(&buffer[0], sizeof(buffer)-1, text, va);
+		vsnprintf(&buffer[0], sizeof(buffer)-1, text, va);
 		va_end(va);
 
 		Response += buffer;

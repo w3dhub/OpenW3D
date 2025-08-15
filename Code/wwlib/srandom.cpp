@@ -172,8 +172,8 @@ void SecureRandomClass::Generate_Seed(void)
 	DWORD	comp_len=128;
 	DWORD	name_len=128;
 
-	GetComputerName(comp_name, &comp_len);
-	GetUserName(user_name, &name_len);
+	GetComputerNameA(comp_name, &comp_len);
+	GetUserNameA(user_name, &name_len);
 	for (i=0; i<128; i++)
 	{
 		// Offset in case user_name == comp_name

@@ -121,7 +121,7 @@ void ThreadClass::Sleep_Ms(unsigned ms)
 }
 
 #ifndef _UNIX
-HANDLE test_event = ::CreateEvent (NULL, FALSE, FALSE, "");
+HANDLE test_event = ::CreateEventA (NULL, FALSE, FALSE, "");
 #endif
 
 void ThreadClass::Switch_Thread()

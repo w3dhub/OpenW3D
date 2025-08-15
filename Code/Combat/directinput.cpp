@@ -101,7 +101,7 @@ void DirectInput::Init( void )
 	HRESULT        hr;
 
 	WWASSERT(DirectInputLibrary == NULL);
-	DirectInputLibrary = LoadLibrary("DINPUT8.DLL");
+	DirectInputLibrary = LoadLibraryA("DINPUT8.DLL");
 
 	if (DirectInputLibrary != NULL) {
 		DirectInput8CreatePtr = (DirectInput8CreateType) GetProcAddress((HINSTANCE)DirectInputLibrary, "DirectInput8Create");

@@ -153,7 +153,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 		char path_to_exe[MAX_PATH];
 		char fdrive[_MAX_DRIVE];
 		char fdir[_MAX_DIR];
-		GetModuleFileName(NULL, path_to_exe, sizeof(path_to_exe));
+		GetModuleFileNameA(NULL, path_to_exe, sizeof(path_to_exe));
 		_splitpath(path_to_exe, fdrive, fdir, NULL, NULL);
 		_makepath(dll_fullpath, fdrive, fdir, dll_filename, NULL);
 		dll_filename = dll_fullpath;
@@ -210,7 +210,7 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 	}
 #endif
 
-	hDLL = ::LoadLibrary(dll_filename);
+	hDLL = ::LoadLibraryA(dll_filename);
 
 	if (hDLL == NULL) {
 		Debug_Say(("Cound not load DLL file %s\n", dll_filename));

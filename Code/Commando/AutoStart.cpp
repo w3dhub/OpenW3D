@@ -909,7 +909,7 @@ void AutoRestartClass::Set_Restart_Flag(bool enable)
 				char drive[_MAX_DRIVE];
 				char dir[_MAX_DIR];
 				char path[_MAX_PATH];
-				GetModuleFileName(ProgramInstance, path_to_exe, sizeof(path_to_exe));
+				GetModuleFileNameA(ProgramInstance, path_to_exe, sizeof(path_to_exe));
 				_splitpath(path_to_exe, drive, dir, NULL, NULL);
 #ifdef FREEDEDICATEDSERVER
 				_makepath(path, drive, dir, "renegadeserver", "exe");

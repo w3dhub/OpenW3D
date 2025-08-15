@@ -98,8 +98,8 @@ FirewallHelperClass::FirewallHelperClass(void)
 	ThreadActive = false;
 	ThreadState = THREAD_IDLE;
 	ThreadEvent = INVALID_HANDLE_VALUE;
-	NATThreadMutex = CreateMutex(NULL, false, NULL);
-	NATDataMutex = CreateMutex(NULL, false, NULL);
+	NATThreadMutex = CreateMutexA(NULL, false, NULL);
+	NATDataMutex = CreateMutexA(NULL, false, NULL);
 	ThreadHandle = INVALID_HANDLE_VALUE;
 	QueueNotifyPtr = NULL;
 	SuccessFlagPtr = NULL;
@@ -3382,7 +3382,7 @@ bool FirewallHelperClass::Get_Local_Chat_Connection_Address(void)
 	*/
 	WWDEBUG_SAY(("FirewallHelper - About to load INETMIB1.DLL\n"));
 
-	HINSTANCE mib_ii_dll = LoadLibrary("inetmib1.dll");
+	HINSTANCE mib_ii_dll = LoadLibraryA("inetmib1.dll");
 	if (mib_ii_dll == NULL) {
 		WWDEBUG_SAY(("FirewallHelper - Failed to load INETMIB1.DLL\n"));
 		return(false);
@@ -3390,7 +3390,7 @@ bool FirewallHelperClass::Get_Local_Chat_Connection_Address(void)
 
 	WWDEBUG_SAY(("FirewallHelper - About to load SNMPAPI.DLL\n"));
 
-	HINSTANCE snmpapi_dll = LoadLibrary("snmpapi.dll");
+	HINSTANCE snmpapi_dll = LoadLibraryA("snmpapi.dll");
 	if (snmpapi_dll == NULL) {
 		WWDEBUG_SAY(("FirewallHelper - Failed to load SNMPAPI.DLL\n"));
 		FreeLibrary(mib_ii_dll);

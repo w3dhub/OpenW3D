@@ -309,7 +309,7 @@ TDBObjClass::Load_Variables (ChunkLoadClass &cload)
 //
 /////////////////////////////////////////////////////////////////
 void
-TDBObjClass::Set_English_String (const TCHAR *string)
+TDBObjClass::Set_English_String (const char *string)
 {
 	EnglishString = string;
 
@@ -345,7 +345,7 @@ TDBObjClass::Set_ID (uint32 id)
 //
 /////////////////////////////////////////////////////////////////
 void
-TDBObjClass::Set_ID_Desc (const TCHAR *desc)
+TDBObjClass::Set_ID_Desc (const char *desc)
 {
 	IDDesc = desc;
 	return ;

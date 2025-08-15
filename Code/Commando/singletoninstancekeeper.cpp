@@ -110,7 +110,7 @@ SingletonInstanceKeeperClass::Verify_Safe_To_Execute (void)
 	//
 	// WARNING: DO NOT use this number for any other application except Renegade
 	//
-	AppMutex = ::CreateMutex (NULL, FALSE, APP_GUID);
+	AppMutex = ::CreateMutexA (NULL, FALSE, APP_GUID);
 
 	//
 	//	Is there already an instance of this app somewhere?
@@ -124,7 +124,7 @@ SingletonInstanceKeeperClass::Verify_Safe_To_Execute (void)
 			//
 			//	Find the previous instance
 			//
-			HWND main_wnd = ::FindWindow (APP_GUID, NULL);
+			HWND main_wnd = ::FindWindowA (APP_GUID, NULL);
 			if (main_wnd != NULL) {
 				::SetForegroundWindow (main_wnd);
 				::ShowWindow (main_wnd, SW_RESTORE);
@@ -146,7 +146,7 @@ SingletonInstanceKeeperClass::Verify_Safe_To_Execute (void)
 			//
 			//	Attempt to open the mutex
 			//
-			AutoPlayMutex = ::OpenMutex (MUTEX_ALL_ACCESS, FALSE, AUTOPLAY_GUID);
+			AutoPlayMutex = ::OpenMutexA (MUTEX_ALL_ACCESS, FALSE, AUTOPLAY_GUID);
 			if (AutoPlayMutex != NULL) {
 				WWDEBUG_SAY (("Waiting for Autoplay to quit!\n"));
 
@@ -166,7 +166,7 @@ SingletonInstanceKeeperClass::Verify_Safe_To_Execute (void)
 			// Renegade needs both of these mutexs before it is allowed to run.
 			//
 			if (AutoPlayMutex == NULL) {
-				AutoPlayMutex = ::CreateMutex (NULL, FALSE, AUTOPLAY_GUID);
+				AutoPlayMutex = ::CreateMutexA (NULL, FALSE, AUTOPLAY_GUID);
 
 				if (::GetLastError () == ERROR_ALREADY_EXISTS) {
 					::CloseHandle (AutoPlayMutex);
