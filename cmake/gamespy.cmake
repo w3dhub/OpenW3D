@@ -1,5 +1,5 @@
 set(GS_OPENSSL FALSE)
-set(GS_WINSOCK2 FALSE)
+set(GS_WINSOCK2 TRUE)
 set(GAMESPY_SERVER_NAME "server.cnc-online.net")
 
 FetchContent_Declare(
