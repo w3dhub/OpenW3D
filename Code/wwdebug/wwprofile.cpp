@@ -290,7 +290,7 @@ bool	WWProfileHierachyNodeClass::Return( void )
 {
 	if (--RecursionCounter == 0) {
 		if ( TotalCalls != 0 ) {
-			__int64 time;
+			int64_t time;
 			WWProfile_Get_Ticks(&time);
 			time-=StartTime;
 
@@ -310,7 +310,7 @@ WWProfileHierachyNodeClass		WWProfileManager::Root( "Root", NULL );
 WWProfileHierachyNodeClass	*	WWProfileManager::CurrentNode = &WWProfileManager::Root;
 WWProfileHierachyNodeClass	*	WWProfileManager::CurrentRootNode = &WWProfileManager::Root;
 int									WWProfileManager::FrameCounter = 0;
-__int64								WWProfileManager::ResetTime = 0;
+int64_t								WWProfileManager::ResetTime = 0;
 
 static unsigned int				ThreadID = static_cast<unsigned int>(-1);
 
@@ -468,7 +468,7 @@ void WWProfileManager::Increment_Frame_Counter( void )
  *=============================================================================================*/
 float WWProfileManager::Get_Time_Since_Reset( void )
 {
-	__int64 time;
+	int64_t time;
 	WWProfile_Get_Ticks(&time);
 	time -= ResetTime;
 
@@ -709,7 +709,7 @@ WWTimeItClass::WWTimeItClass( const char * name )
 
 WWTimeItClass::~WWTimeItClass( void )
 {
-	__int64 End;
+	int64_t End;
 	WWProfile_Get_Ticks( &End );
 	End -= Time;
 #ifdef WWDEBUG
@@ -731,7 +731,7 @@ WWMeasureItClass::WWMeasureItClass( float * p_result )
 
 WWMeasureItClass::~WWMeasureItClass( void )
 {
-	__int64 End;
+	int64_t End;
 	WWProfile_Get_Ticks( &End );
 	End -= Time;
 	WWASSERT(PResult != NULL);

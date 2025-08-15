@@ -711,7 +711,7 @@ SaveGameMenuClass::Check_HD_Space (void)
 	ULARGE_INTEGER freebytecount;		// Free bytes on disk available to caller (caller may not have access to entire disk).
 	ULARGE_INTEGER totalbytecount;	// Total bytes on disk.
 	StringClass		kernelpathname;
-	__int64			diskspace;
+	int64_t			diskspace;
 
 	int (__stdcall *getfreediskspaceex) (LPCTSTR, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER);
 
@@ -742,7 +742,7 @@ SaveGameMenuClass::Check_HD_Space (void)
 	//
 	//	Is there at least 2 megs of disk space available?
 	//
-	const __int64 TWO_MEGS = (1024 * 1024 * 2);
+	const int64_t TWO_MEGS = (1024 * 1024 * 2);
 	if (diskspace < TWO_MEGS) {
 
 		//

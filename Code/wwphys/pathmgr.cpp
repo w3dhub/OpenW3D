@@ -58,7 +58,7 @@ enum
 DynamicVectorClass<PathSolveClass *>	PathMgrClass::AvailablePathList;
 DynamicVectorClass<PathSolveClass *>	PathMgrClass::UsedPathList;
 PathSolveClass *								PathMgrClass::ActivePath = NULL;
-__int64											PathMgrClass::TicksPerMilliSec = 0;
+int64_t											PathMgrClass::TicksPerMilliSec = 0;
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -317,10 +317,10 @@ PathMgrClass::Load (ChunkLoadClass &cload)
 //	Get_Time
 //
 ///////////////////////////////////////////////////////////////////////////
-static inline __int64
+static inline int64_t
 Get_Time (void)
 {
-	__int64 curr_time = 0;
+	int64_t curr_time = 0;
 	::QueryPerformanceCounter ((LARGE_INTEGER *)&curr_time);
 	return curr_time;
 }
@@ -334,8 +334,8 @@ Get_Time (void)
 void
 PathMgrClass::Resolve_Paths (const Vector3 &camera_pos, uint32 milliseconds)
 {
-	__int64 start_time	= Get_Time ();
-	__int64 end_time		= start_time + (((__int64)milliseconds) * TicksPerMilliSec);
+	int64_t start_time	= Get_Time ();
+	int64_t end_time		= start_time + (((int64_t)milliseconds) * TicksPerMilliSec);
 
 	WWMEMLOG(MEM_PATHFIND);
 

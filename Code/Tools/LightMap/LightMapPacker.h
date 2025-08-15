@@ -546,8 +546,8 @@ class LightmapPacker {
 		unsigned	 AdjacentFaceCount;
 		unsigned	 BlendedFaceCount;	
 		double	 EdgeBlendAreaSum;
-		__int64	 UnscaledTexelCount;
-		__int64	 ScaledTexelCount;
+		int64_t	 UnscaledTexelCount;
+		int64_t	 ScaledTexelCount;
 		double	 PackingEfficiencySum;
 		double	 ReplicaEfficiencySum;
 		unsigned	 TextureSwapCount;

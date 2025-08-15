@@ -107,7 +107,7 @@ private:
 	static DynamicVectorClass<PathSolveClass *>	AvailablePathList;
 	static DynamicVectorClass<PathSolveClass *>	UsedPathList;
 	static PathSolveClass *								ActivePath;
-	static __int64											TicksPerMilliSec;
+	static int64_t											TicksPerMilliSec;
 };
 
 

@@ -554,7 +554,7 @@ bool InstallerClass::Check_Source()
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsigned &filecount, __int64 &filesize)
+void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsigned &filecount, int64_t &filesize)
 {
 	const WCHAR *wildcardname = L"*.*";
 
@@ -597,7 +597,7 @@ void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsi
 				_wsplitpath (filename, NULL, NULL, NULL, extension);
 				if (_wcsicmp (cabextension, extension) != 0) {
 					filecount++;
-					filesize += (finddata.nFileSizeHigh * ((__int64) MAXDWORD) + 1) + finddata.nFileSizeLow;
+					filesize += (finddata.nFileSizeHigh * ((int64_t) MAXDWORD) + 1) + finddata.nFileSizeLow;
 				}
 			}
 			if (done = FindNextFile (handle, &finddata) == 0) {
@@ -1067,9 +1067,9 @@ bool InstallerClass::Get_Target_Sub_Path (unsigned index, WideStringClass &subpa
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-__int64 InstallerClass::Get_Game_Size (bool ondisk)
+int64_t InstallerClass::Get_Game_Size (bool ondisk)
 {
-	__int64 bytecount = 0;
+	int64_t bytecount = 0;
 
 	if (Install_Game()) {
 
@@ -1101,9 +1101,9 @@ __int64 InstallerClass::Get_Game_Size (bool ondisk)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-__int64 InstallerClass::Get_WOL_Size (bool ondisk)
+int64_t InstallerClass::Get_WOL_Size (bool ondisk)
 {
-	__int64 bytecount = 0;
+	int64_t bytecount = 0;
 
 	if (Install_WOL()) {
 
@@ -1135,7 +1135,7 @@ __int64 InstallerClass::Get_WOL_Size (bool ondisk)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-__int64 InstallerClass::Get_Total_Size (bool ondisk)
+int64_t InstallerClass::Get_Total_Size (bool ondisk)
 {
 	return (Get_Game_Size (ondisk) + Get_WOL_Size (ondisk));
 }
@@ -1153,7 +1153,7 @@ __int64 InstallerClass::Get_Total_Size (bool ondisk)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool InstallerClass::Get_WOL_Space_Available (const WideStringClass &path, __int64 &diskspace)
+bool InstallerClass::Get_WOL_Space_Available (const WideStringClass &path, int64_t &diskspace)
 {
 	WideStringClass targetgamepath, targetwolpath;
 
@@ -2108,7 +2108,7 @@ bool InstallerClass::Get_WOL_Account (unsigned index, WideStringClass &name, Wid
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-void InstallerClass::Log (const WideStringClass &pathname, __int64 size)
+void InstallerClass::Log (const WideStringClass &pathname, int64_t size)
 {
 	WideStringClass path;
 
@@ -2199,7 +2199,7 @@ void InstallerClass::Create_Game_Uninstall_Log()
 	int				 i;
 	DWORD				 byteswritten;
 	StringClass		 multibytelogfilepathname, multibytelog;
-	__int64			 totalfilesize;
+	int64_t			 totalfilesize;
 	
 	_RegistryManager.Get_Folder_Path (folderpath);
 	_RegistryManager.Get_Desktop_Path (shortcutpath);

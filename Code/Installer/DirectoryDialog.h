@@ -69,10 +69,10 @@ class DirectoryDialogClass : public InstallMenuDialogClass
 		void	 On_Activate (bool onoff);
 		void	 On_Frame_Update (void);
 
-		WCHAR *Megabyte_Format (__int64 bytecount, WideStringClass &outputstring);
+		WCHAR *Megabyte_Format (int64_t bytecount, WideStringClass &outputstring);
 
-		virtual __int64 Get_Disk_Space_Needed() = 0;
-		virtual bool	 Get_Disk_Space_Available (const WideStringClass &path, __int64 &diskspace) = 0;
+		virtual int64_t Get_Disk_Space_Needed() = 0;
+		virtual bool	 Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace) = 0;
 
 		DirectoryBrowserClass *Browser;
 		MessageBoxClass		 *OverwriteDialog;
@@ -92,8 +92,8 @@ class GameDirectoryDialogClass : public DirectoryDialogClass
 	protected:
 
 		void	  On_Init_Dialog (void);
-		__int64 Get_Disk_Space_Needed()																	  {return (_Installer.Get_Game_Size (true));}
-		bool	  Get_Disk_Space_Available (const WideStringClass &path, __int64 &diskspace) {return (_Installer.Get_Game_Space_Available (path, diskspace));}
+		int64_t Get_Disk_Space_Needed()																	  {return (_Installer.Get_Game_Size (true));}
+		bool	  Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace) {return (_Installer.Get_Game_Space_Available (path, diskspace));}
 };
 
 
@@ -109,8 +109,8 @@ class WOLDirectoryDialogClass : public DirectoryDialogClass
 	protected:
 		
 		void	  On_Init_Dialog (void);
-		__int64 Get_Disk_Space_Needed()																	  {return (_Installer.Get_WOL_Size (true));}
-		bool	  Get_Disk_Space_Available (const WideStringClass &path, __int64 &diskspace) {return (_Installer.Get_WOL_Space_Available (path, diskspace));}
+		int64_t Get_Disk_Space_Needed()																	  {return (_Installer.Get_WOL_Size (true));}
+		bool	  Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace) {return (_Installer.Get_WOL_Space_Available (path, diskspace));}
 };
 
 

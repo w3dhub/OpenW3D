@@ -60,7 +60,7 @@ class CopyThreadClass : public ThreadClass
 			STATUS_FAILURE
 		};
 
-		 CopyThreadClass (__int64 bytestocopy);
+		 CopyThreadClass (int64_t bytestocopy);
 		~CopyThreadClass();
 
 		void					 Thread_Function();
@@ -93,14 +93,14 @@ class CopyThreadClass : public ThreadClass
 		void Copy_Directory (const WideStringClass &sourcepath, const WideStringClass &targetpath);
 		void Copy_File (const WideStringClass &sourcepathname, const WideStringClass &targetpathname);
 
-		__int64										 BytesToCopy;
+		int64_t										 BytesToCopy;
 		bool											 IsAborting;
 
 		// NOTE: Do not access the following variables directly. Instead use the Set/Get()
 		//			functions because they are protected by critical sections.
 		bool										    Abort;
 		bool											 CanAbort;	
-		__int64										 BytesCopied;		// Bytes copied so far.
+		int64_t										 BytesCopied;		// Bytes copied so far.
 		WideStringClass							 TargetPath;
 		WideStringClass							 StatusMessage;
 		WideStringClass							 ErrorMessage;
