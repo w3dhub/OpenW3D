@@ -1098,7 +1098,11 @@ PathClass::Initialize_Vehicle_Spline (DynamicVectorClass<PATH_NODE> &node_list)
 		//	Add this point as a key along the spline
 		//
 		current_dist		+= (point - last_point).Length ();
-		float curr_time	= current_dist / m_TotalDist;
+
+		float curr_time = 0.0f;
+		if (m_TotalDist != 0.0f) {
+			curr_time = current_dist / m_TotalDist;
+		}
 		m_Spline->Add_Key (point, curr_time);
 
 		//
@@ -1156,11 +1160,9 @@ PathClass::Initialize_Human_Spline(DynamicVectorClass<PATH_NODE> &node_list)
 		//	Add this point as a key along the spline
 		//
 		current_dist		+= (point - last_point).Length ();
-		float curr_time;
+		float curr_time = 0.0f;
 		if (m_TotalDist != 0.0f) {
 			curr_time = current_dist / m_TotalDist;
-		} else {
-			curr_time = 0.0f;
 		}
 		temp_spline.Add_Key (point, curr_time);
 
