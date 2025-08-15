@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_RMV, "Objective_ID:int, Objective_Type=1:int, Objective_Description_ID:int, Radar_Blip=1:int, Hidden=0:int, Object_ID:int, Custom_Type:int, Activate_Param=0:int, Unhide_Param=0:int, Success_Param:int, Failure_Param:int")
 {

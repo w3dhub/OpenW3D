@@ -26,7 +26,7 @@
 #include "resource.h"
 #include "vector.h"
 #include "rddesc.h"
-#include "..\..\combat\specialbuilds.h"
+#include "../../Combat/specialbuilds.h"
 
 /*
 #ifdef MULTIPLAYERDEMO

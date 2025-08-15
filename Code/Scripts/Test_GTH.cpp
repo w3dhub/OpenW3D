@@ -18,7 +18,7 @@
 
 #include "scripts.h"
 #include <string.h>
-#include "toolkit.h"
+#include "Toolkit.h"
 
 #define GTH_DEBUG	0
 

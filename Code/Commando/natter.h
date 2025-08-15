@@ -55,10 +55,10 @@
 ** Project specific includes.
 */
 #include <Notify.h>
-#include	<wwonline\wolsession.h>
-#include	<wwonline\woluser.h>
-#include	<combat\combat.h>
-#include	<wwnet\wwpacket.h>
+#include	<WWOnline/WOLSession.h>
+#include	<WWOnline/WOLUser.h>
+#include	<combat/combat.h>
+#include	<wwnet/wwpacket.h>
 
 
 /*

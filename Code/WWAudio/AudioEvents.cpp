@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "audioevents.h"
+#include "AudioEvents.h"
 #include "soundsceneobj.h"
 
 

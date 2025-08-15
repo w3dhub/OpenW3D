@@ -36,7 +36,7 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "toolkit.h"
+#include "Toolkit.h"
 #include "mission7.h"
 
 // M07B 

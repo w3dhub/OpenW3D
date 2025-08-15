@@ -37,7 +37,7 @@
 
 #include "scripts.h"
 #include <string.h>
-#include "toolkit.h"
+#include "Toolkit.h"
 #include "mission1.h"
 #include "mission11.h"
 

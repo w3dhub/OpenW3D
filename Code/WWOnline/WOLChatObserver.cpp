@@ -50,15 +50,15 @@
 #include "WOLGameOptions.h"
 #include "WOLGame.h"
 #include "WOLErrorUtil.h"
-#include <wwlib\registry.h>
-#include <commando\_globals.h>
+#include <wwlib/registry.h>
+#include <Commando/_globals.h>
 #include "systimer.h"
 #include "specialbuilds.h"
 #include "simplevec.h"
-#include "..\commando\cnetwork.h"
+#include "../Commando/cnetwork.h"
 namespace WOL
 {
-#include <WOLAPI\chatdefs.h>
+#include <wolapi/chatdefs.h>
 }
 
 namespace WWOnline {

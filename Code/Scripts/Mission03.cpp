@@ -36,7 +36,7 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "toolkit.h"
+#include "Toolkit.h"
 #include <string.h>
 #include <stdio.h>
 #include "Mission3.h"

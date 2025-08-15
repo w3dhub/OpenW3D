@@ -39,7 +39,7 @@
 
 #include "scriptevents.h"
 #include "scriptcommands.h"
-#include "scriptregistrant.h"
+#include "ScriptRegistrant.h"
 #include "string_ids.h"
 #include <stdlib.h>
 

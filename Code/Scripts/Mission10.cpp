@@ -36,7 +36,7 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "toolkit.h"
+#include "Toolkit.h"
 #include "mission10.h"
 
 DECLARE_SCRIPT(M10_Objective_Controller, "")
