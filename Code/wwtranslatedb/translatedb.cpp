@@ -423,7 +423,7 @@ TranslateDBClass::Export_Table (const char *filename)
 	//
 	//	Create the file
 	//
-	HANDLE file = ::CreateFile (filename,
+	HANDLE file = ::CreateFileA (filename,
 										  GENERIC_WRITE,
 										  0,
 										  NULL,
@@ -509,7 +509,7 @@ TranslateDBClass::Export_C_Header (const char *filename)
 	//
 	//	Create the file
 	//
-	HANDLE file = ::CreateFile (filename,
+	HANDLE file = ::CreateFileA (filename,
 										  GENERIC_WRITE,
 										  0,
 										  NULL,
@@ -585,7 +585,7 @@ TranslateDBClass::Import_C_Header (const char *filename)
 	//
 	//	Create the file
 	//
-	HANDLE file = ::CreateFile (filename,
+	HANDLE file = ::CreateFileA (filename,
 										  GENERIC_READ,
 										  FILE_SHARE_READ,
 										  NULL,
@@ -1180,7 +1180,7 @@ TranslateDBClass::Import_Strings (const char *filename)
 	//
 	//	Open the file
 	//
-	HANDLE file = ::CreateFile (	filename,
+	HANDLE file = ::CreateFileA (	filename,
 											GENERIC_READ,
 											FILE_SHARE_READ,
 											NULL,

@@ -112,10 +112,10 @@ public:
 	virtual uint32							Get_Category_ID (void)				{ return CategoryID; }
 	
 	virtual void							Set_String (uint32 lang_id, const WCHAR *string);
-	virtual void							Set_English_String (const TCHAR *string);
+	virtual void							Set_English_String (const char *string);
 	virtual void							Set_ID (uint32 id);
-	virtual void							Set_ID_Desc (const TCHAR *desc);
-	virtual void							Set_Animation_Name (const TCHAR *name)	{ AnimationName = name; }
+	virtual void							Set_ID_Desc (const char *desc);
+	virtual void							Set_Animation_Name (const char *name)	{ AnimationName = name; }
 	virtual void							Set_Sound_ID (uint32 id)					{ SoundID = id; }
 	virtual void							Set_Category_ID (uint32 id)				{ CategoryID = id; }
 

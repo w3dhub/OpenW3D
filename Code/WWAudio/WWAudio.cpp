@@ -184,7 +184,7 @@ WWAudioClass::WWAudioClass (bool lite)
 		AIL_startup ();
 	}
 	_theInstance = this;
-	_TimerSyncEvent = ::CreateEvent (NULL, TRUE, FALSE, "WWAUDIO_TIMER_SYNC");
+	_TimerSyncEvent = ::CreateEventA (NULL, TRUE, FALSE, "WWAUDIO_TIMER_SYNC");
 
 	//
 	// Set some default values
@@ -539,7 +539,7 @@ WWAudioClass::Find_Cached_Buffer (const char *string_id)
 			// Is this the sound buffer we were looking for?
 			//
 			CACHE_ENTRY_STRUCT &info = m_CachedBuffers[hash_index][index];
-			if (::lstrcmpi (info.string_id, string_id) == 0) {
+			if (::stricmp (info.string_id, string_id) == 0) {
 				sound_buffer = info.buffer;
 				sound_buffer->Add_Ref ();
 				break;
@@ -1894,7 +1894,7 @@ WWAudioClass::Select_3D_Device (const char *device_name)
 			//
 			//	Is this the device we were looking for?
 			//
-			if (::lstrcmpi (info->name, device_name) == 0) {
+			if (::stricmp (info->name, device_name) == 0) {
 				retval = Select_3D_Device (device_name, info->driver);
 				break;
 			}
@@ -2878,7 +2878,7 @@ WWAudioClass::Simple_Play_2D_Sound_Effect
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 FileClass *
-WWAudioClass::Get_File (LPCTSTR filename)
+WWAudioClass::Get_File (const char* filename)
 {
 	FileClass *file = NULL;
 	if (m_FileFactory != NULL) {
@@ -2940,7 +2940,7 @@ WWAudioClass::Create_Logical_Listener (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////
 void
-WWAudioClass::Add_Logical_Type (int id, LPCTSTR display_name)
+WWAudioClass::Add_Logical_Type (int id, const char* display_name)
 {
 	m_LogicalTypes.Add (LOGICAL_TYPE_STRUCT (id, display_name));
 	return ;

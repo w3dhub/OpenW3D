@@ -56,7 +56,7 @@ bit8 LoadBmp::init(char *filename,HWND hwnd)
   WindowHandle_=hwnd;
 
   // Retrieve a handle identifying the file. 
-  hBitmapFile = CreateFile(
+  hBitmapFile = CreateFileA(
     filename,
     GENERIC_READ, 
     FILE_SHARE_READ,
@@ -187,13 +187,13 @@ bit8 LoadBmp::drawBmp(void)
   if (select==NULL)
   {
     sprintf(string,"Select Pal Fail: %d",GetLastError());
-    MessageBox(NULL,string,"OK",MB_OK);
+    MessageBoxA(NULL,string,"OK",MB_OK);
   }
   UINT realize=RealizePalette(ps.hdc);
   if (realize==GDI_ERROR)
   {
     sprintf(string,"Realize Pal Fail: %d",GetLastError());
-    MessageBox(NULL,string,"OK",MB_OK);
+    MessageBoxA(NULL,string,"OK",MB_OK);
   }
 
   HDC hdcMem = CreateCompatibleDC(ps.hdc); 

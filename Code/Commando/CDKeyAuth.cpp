@@ -37,6 +37,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <wchar.h>
+#include "ServerSettings.h"
 #include <GameSpy/gcdkey/gcdkeys.h>
 #include <GameSpy/gcdkey/gcdkeyc.h>
 #include <GameSpy/nonport.h>
@@ -48,7 +49,6 @@
 #include "registry.h"
 #include "playermanager.h"
 #include "_globals.h"
-#include "ServerSettings.h"
 #include "GameSpy_QnR.h"
 
 // static void c_auth_callback(int localid, int authenticated, char *errmsg, void *instance)

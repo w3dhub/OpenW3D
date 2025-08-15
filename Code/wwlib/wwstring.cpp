@@ -47,8 +47,8 @@
 
 FastCriticalSectionClass StringClass::m_Mutex;
 
-TCHAR		StringClass::m_NullChar					= 0;
-TCHAR *	StringClass::m_EmptyString				= &m_NullChar;
+char		StringClass::m_NullChar					= 0;
+char *	StringClass::m_EmptyString				= &m_NullChar;
 
 //
 // A trick to optimize strings that are allocated from the stack and used only temporarily
@@ -73,7 +73,7 @@ StringClass::Get_String (int length, bool is_temp)
 		return;
 	}
 
-	TCHAR *string = NULL;
+	char *string = NULL;
 
 	//
 	//	Should we attempt to use a temp buffer for this string?
@@ -146,8 +146,8 @@ StringClass::Resize (int new_len)
 		//	Allocate the new buffer and copy the contents of our current
 		// string.
 		//
-		TCHAR *new_buffer = Allocate_Buffer (new_len);
-		_tcscpy (new_buffer, m_Buffer);
+		char *new_buffer = Allocate_Buffer (new_len);
+		strcpy (new_buffer, m_Buffer);
 
 		//
 		//	Switch to the new buffer
@@ -175,7 +175,7 @@ StringClass::Uninitialised_Grow (int new_len)
 		//
 		//	Switch to a newly allocated buffer
 		//
-		TCHAR *new_buffer = Allocate_Buffer (new_len);
+		char *new_buffer = Allocate_Buffer (new_len);
 		Set_Buffer_And_Allocated_Length (new_buffer, new_len);	
 	}
 		
@@ -238,22 +238,19 @@ StringClass::Free_String (void)
 //
 ///////////////////////////////////////////////////////////////////
 int __cdecl
-StringClass::Format_Args (const TCHAR *format, const va_list & arg_list )
+StringClass::Format_Args (const char *format, const va_list & arg_list )
 {
 	//
 	// Make a guess at the maximum length of the resulting string
 	//
-	TCHAR temp_buffer[512] = { 0 };
+	char temp_buffer[512] = { 0 };
 	int retval = 0;
 
 	//
 	//	Format the string
 	//
-	#ifdef _UNICODE
-		retval = _vsnwprintf (temp_buffer, 512, format, arg_list);
-	#else
-		retval = _vsnprintf (temp_buffer, 512, format, arg_list);
-	#endif
+
+	retval = vsnprintf (temp_buffer, 512, format, arg_list);
 	
 	//
 	//	Copy the string into our buffer
@@ -270,7 +267,7 @@ StringClass::Format_Args (const TCHAR *format, const va_list & arg_list )
 //
 ///////////////////////////////////////////////////////////////////
 int __cdecl
-StringClass::Format (const TCHAR *format, ...)
+StringClass::Format (const char *format, ...)
 {
 	va_list arg_list;
 	va_start (arg_list, format);
@@ -278,17 +275,13 @@ StringClass::Format (const TCHAR *format, ...)
 	//
 	// Make a guess at the maximum length of the resulting string
 	//
-	TCHAR temp_buffer[512] = { 0 };
+	char temp_buffer[512] = { 0 };
 	int retval = 0;
 
 	//
 	//	Format the string
 	//
-	#ifdef _UNICODE
-		retval = _vsnwprintf (temp_buffer, 512, format, arg_list);
-	#else
-		retval = _vsnprintf (temp_buffer, 512, format, arg_list);
-	#endif
+	retval = vsnprintf (temp_buffer, 512, format, arg_list);
 	
 	//
 	//	Copy the string into our buffer

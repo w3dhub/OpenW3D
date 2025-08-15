@@ -394,7 +394,7 @@ TextMarqueeCtrlClass::Read_Tag (const WCHAR *text, CREDIT_LINE &line)
 					//	Copy the params to their own temp string
 					//
 					WideStringClass temp_buffer (index + 1, true);
-//					::lstrcpynW (temp_buffer.Peek_Buffer (), text, (index + 1) - tag_len);
+//					::strncpyW (temp_buffer.Peek_Buffer (), text, (index + 1) - tag_len);
 			
 					int length = ((index + 1) - tag_len);
 					WCHAR* tempPtr = temp_buffer.Peek_Buffer();
@@ -464,7 +464,7 @@ TextMarqueeCtrlClass::Read_Line (const WCHAR *text, CREDIT_LINE &line)
 		//
 		if (ch == L'\n' || ch == 0) {			
 			int len = text - text_start;
-//			::lstrcpynW (line.Text.Get_Buffer (len + 1), text_start, len + 1);
+//			::strncpyW (line.Text.Get_Buffer (len + 1), text_start, len + 1);
 
 			WCHAR* buffer = line.Text.Get_Buffer(len + 1);
 			wcsncpy(buffer, text_start, len + 1);

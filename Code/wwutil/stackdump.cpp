@@ -94,7 +94,7 @@ Last_Error_Text
 )
 {
 	static char message_buffer[256];
-	::FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL);
+	::FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM, NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), &message_buffer[0], 256, NULL);
 	return (message_buffer);
 }
 
@@ -107,7 +107,7 @@ cStackDump::Print_Call_Stack
 {
 	WWDEBUG_SAY(("cStackDump::Print_Call_Stack:\n"));
 
-	HINSTANCE imagehelp = ::LoadLibrary("IMAGEHLP.DLL");
+	HINSTANCE imagehelp = ::LoadLibraryA("IMAGEHLP.DLL");
 
 	if (imagehelp == NULL) 
 	{
@@ -152,7 +152,7 @@ cStackDump::Print_Call_Stack
 		}
 
 		char module_name[_MAX_PATH];
-		::GetModuleFileName(NULL, module_name, sizeof(module_name));
+		::GetModuleFileNameA(NULL, module_name, sizeof(module_name));
 
 		if (_SymLoadModule != NULL) 
 		{
@@ -267,7 +267,7 @@ cStackDump::Print_Call_Stack
 	//	Determine the path to the executable
 	//
 	char path[MAX_PATH] = "";
-	DWORD gmf = ::GetModuleFileName(NULL, path, sizeof(path));
+	DWORD gmf = ::GetModuleFileNameA(NULL, path, sizeof(path));
 	
 	if (gmf != 0)
 	{
@@ -280,7 +280,7 @@ cStackDump::Print_Call_Stack
 			filename[0] = 0;
 		}
 
-		::SetCurrentDirectory(path);
+		::SetCurrentDirectoryA(path);
 	}
 	*/
 

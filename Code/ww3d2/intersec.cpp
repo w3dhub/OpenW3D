@@ -299,9 +299,9 @@ void IntersectionClass::Append_Hierarchy_Objects(
 			obj->Release_Ref();	// you already own a reference to the object indirectly
 			if(obj->Intersect_Sphere_Quick(this, &result)) {
 				Append_Object_Array(MaxCount, CurrentCount, ObjectArray, obj);
-//				OutputDebugString("o"); // this shows one o per sphere intersection
+//				OutputDebugStringA("o"); // this shows one o per sphere intersection
 			} else {
-//				OutputDebugString("."); // this shows one . per sphere miss
+//				OutputDebugStringA("."); // this shows one . per sphere miss
 			}
 		}
 
@@ -317,7 +317,7 @@ void IntersectionClass::Append_Hierarchy_Objects(
 
 bool IntersectionClass::Intersect_Hierarchy(RenderObjClass *Hierarchy, IntersectionResultClass *FinalResult, bool Test_Bounding_Sphere, bool Convex ) {
 
-//	OutputDebugString("\n");
+//	OutputDebugStringA("\n");
 //	return FinalResult->Intersects = false;
 
 	RenderObjClass *candidate_objects[MAX_HIERARCHY_NODE_COUNT];
@@ -327,7 +327,7 @@ bool IntersectionClass::Intersect_Hierarchy(RenderObjClass *Hierarchy, Intersect
 
 	// make sure there's at least one sphere hit before continuing to more expensive tests below..
 	if(candidate_count == 0) {
-	//			OutputDebugString("/"); // no sphere intersections
+	//			OutputDebugStringA("/"); // no sphere intersections
 		return FinalResult->Intersects = false; 
 	}
 
@@ -424,7 +424,7 @@ bool IntersectionClass::Intersect_Object_Array(
 	}
 	// test to see if anything actually hit a mesh
 	if( ! hit ) {
-//		OutputDebugString("!"); // no mesh intersections 
+//		OutputDebugStringA("!"); // no mesh intersections 
 		return FinalResult->Intersects = false; 
 	}
 
@@ -440,7 +440,7 @@ bool IntersectionClass::Intersect_Object_Array(
 		}
 		Copy_Results(FinalResult, &TemporaryResults[nearest_index]);
 	}
-//	OutputDebugString("+");	
+//	OutputDebugStringA("+");	
 //	Debug.Print("Mesh ", Object_Array[nearest_index]);
 //	Intersection_Node = candidate_indices[nearest_index];
 	return true;

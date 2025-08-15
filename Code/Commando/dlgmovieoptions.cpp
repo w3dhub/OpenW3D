@@ -226,7 +226,7 @@ MovieOptionsMenuClass::Begin_Play_Movie (void)
 		//
 		//	Play the movie (if it exists locally)
 		//
-		if (::GetFileAttributes (filename->Peek_Buffer ()) != 0xFFFFFFFF) {
+		if (::GetFileAttributesA (filename->Peek_Buffer ()) != 0xFFFFFFFF) {
 			Play_Movie (filename->Peek_Buffer ());
 		} else {
 

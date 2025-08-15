@@ -1539,7 +1539,7 @@ MPLanHostMapCycleOptionsTabClass::Build_Map_List (void)
 {
 	MapList.Delete_All ();
 
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find				= NULL;
 
@@ -1561,9 +1561,9 @@ MPLanHostMapCycleOptionsTabClass::Build_Map_List (void)
 	}
 #endif // WWDEBUG
 
-	for (file_find = ::FindFirstFile (file_filter, &find_info);
+	for (file_find = ::FindFirstFileA (file_filter, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info))
+		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{
 		//
 		//	Convert the string to a wide character format
