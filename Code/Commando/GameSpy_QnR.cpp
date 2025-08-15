@@ -238,24 +238,6 @@ void CGameSpyQnR::Shutdown(void) {
 #endif
 }
 
-void CGameSpyQnR::TrackUsage(void) {
-
-#ifndef WWDEBUG
-	char filename[MAX_PATH];
-	GetModuleFileName(NULL, filename, sizeof(filename));
-	VS_FIXEDFILEINFO version;
-	GetVersionInfo(filename, &version);
-	int ver = version.dwFileVersionMS;
-
-	StringClass b(true);
-	b.Format("%s %s V%d.%3.3d(%s-%d)", "Win-X86", bname, (ver&0xffff0000)>>16, ver&0xffff, 
-		BuildInfoClass::Get_Builder_Initials(), BuildInfoClass::Get_Build_Number());
-
-	// Send off usage Tracking info to GameSpy
-	ptTrackUsage(0, prodid, b.Peek_Buffer(), (cUserOptions::Sku.Get()&0xff)+438, false); 
-#endif // WWDEBUG
-}
-
 void CGameSpyQnR::Init(void) {
 
 #ifndef BETACLIENT
