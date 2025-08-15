@@ -252,7 +252,7 @@ private:
 */
 #define WRITE_WWSTRING_CHUNK(csave,id,var) { \
 	csave.Begin_Chunk(id); \
-	csave.Write((const TCHAR *)var, var.Get_Length () + 1); \
+	csave.Write((const char *)var, var.Get_Length () + 1); \
 	csave.End_Chunk(); }
 
 #define WRITE_WIDESTRING_CHUNK(csave,id,var) { \
@@ -312,7 +312,7 @@ private:
 
 #define WRITE_MICRO_CHUNK_WWSTRING(csave,id,var) { \
 	csave.Begin_Micro_Chunk(id); \
-	csave.Write((const TCHAR *)var, var.Get_Length () + 1); \
+	csave.Write((const char *)var, var.Get_Length () + 1); \
 	csave.End_Micro_Chunk(); }
 
 #define WRITE_MICRO_CHUNK_WIDESTRING(csave,id,var) { \

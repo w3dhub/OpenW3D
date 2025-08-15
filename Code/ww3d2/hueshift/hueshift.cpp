@@ -63,8 +63,8 @@ static void Init_3D_Scene();
 
 // Global Variables:
 HINSTANCE				hInst;									// current instance
-TCHAR						szTitle[MAX_LOADSTRING];			// The title bar text
-TCHAR						szWindowClass[MAX_LOADSTRING];	// The title bar text
+char						szTitle[MAX_LOADSTRING];			// The title bar text
+char						szWindowClass[MAX_LOADSTRING];	// The title bar text
 WW3DAssetManager *	AssetManager=NULL;
 SimpleSceneClass *	my_scene = NULL;
 CameraClass *			my_camera = NULL;
@@ -83,7 +83,7 @@ bool						sort=true;
 float						sep;
 
 // Foward declarations of functions included in this code module:
-ATOM						MyRegisterClass(HINSTANCE hInstance);
+ATOM						MyRegisterClassA(HINSTANCE hInstance);
 LRESULT CALLBACK		WndProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK		About(HWND, UINT, WPARAM, LPARAM);
 void						Render();
@@ -161,16 +161,16 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      int       nCmdShow)
 {
 	HACCEL hAccelTable;
-	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SKELETON);
+	hAccelTable = LoadAccelerators(hInstance, (const char*)IDC_SKELETON);
 	
 	// install debug callbacks
 	WWDebug_Install_Message_Handler(WWDebug_Message_Callback);
 	WWDebug_Install_Assert_Handler(WWAssert_Callback);
 
 	// Initialize global strings
-	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadString(hInstance, IDC_SKELETON, szWindowClass, MAX_LOADSTRING);
-	MyRegisterClass(hInstance);
+	LoadStringA(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+	LoadStringA(hInstance, IDC_SKELETON, szWindowClass, MAX_LOADSTRING);
+	MyRegisterClassA(hInstance);
 
 	// Perform application initialization:
 
@@ -286,7 +286,7 @@ void Render()
 
 // ----------------------------------------------------------------------------
 //
-//  FUNCTION: MyRegisterClass()
+//  FUNCTION: MyRegisterClassA()
 //
 //  PURPOSE: Registers the window class.
 //
@@ -300,9 +300,9 @@ void Render()
 //
 // ----------------------------------------------------------------------------
 
-ATOM MyRegisterClass(HINSTANCE hInstance)
+ATOM MyRegisterClassA(HINSTANCE hInstance)
 {
-	WNDCLASSEX wcex;
+	WNDCLASSEXA wcex;
 
 	wcex.cbSize = sizeof(WNDCLASSEX); 
 
@@ -311,12 +311,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, (LPCTSTR)IDI_SKELETON);
+	wcex.hIcon			= LoadIcon(hInstance, (const char*)IDI_SKELETON);
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
 	wcex.lpszMenuName	= (LPCSTR)IDC_SKELETON;
 	wcex.lpszClassName	= szWindowClass;
-	wcex.hIconSm		= LoadIcon(wcex.hInstance, (LPCTSTR)IDI_SMALL);
+	wcex.hIconSm		= LoadIcon(wcex.hInstance, (const char*)IDI_SMALL);
 
 	return RegisterClassEx(&wcex);
 }
@@ -349,7 +349,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			switch (wmId)
 			{
 				case IDM_ABOUT:
-				   DialogBox(hInst, (LPCTSTR)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
+				   DialogBox(hInst, (const char*)IDD_ABOUTBOX, hWnd, (DLGPROC)About);
 				   break;
 				case IDM_EXIT:
 				   DestroyWindow(hWnd);
@@ -445,7 +445,7 @@ LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 void WWDebug_Message_Callback(DebugType type, const char * message)
 {
-	OutputDebugString(message);
+	OutputDebugStringA(message);
 }
 
 // ----------------------------------------------------------------------------
@@ -456,7 +456,7 @@ void WWDebug_Message_Callback(DebugType type, const char * message)
 
 void WWAssert_Callback(const char * message)
 {
-	OutputDebugString(message);
+	OutputDebugStringA(message);
 	_asm int 0x03
 }
 

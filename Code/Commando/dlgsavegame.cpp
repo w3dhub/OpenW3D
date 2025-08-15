@@ -497,7 +497,7 @@ SaveGameMenuClass::Delete_Game (bool prompt)
 				//
 				//	Delete the file and remove its entry from the list
 				//
-				if (::DeleteFile (full_path) != 0) {
+				if (::DeleteFileA (full_path) != 0) {
 					list_ctrl->Delete_Entry (item_index);
 					Update_Text_Field ();
 					Update_Button_State ();
@@ -540,7 +540,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 		list_ctrl->Set_Curr_Sel (item_index);
 	}
 
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find				= NULL;
 
@@ -548,9 +548,9 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 	//	Build a list of all the saved games we know about
 	//
 	int index = 1;
-	for (file_find = ::FindFirstFile ("data\\save\\*.sav", &find_info);
+	for (file_find = ::FindFirstFileA ("data\\save\\*.sav", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info))
+		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{
 		//
 		//	Get the user description and map name from the file
@@ -590,7 +590,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 			//	Select this entry if its the default
 			//
 			if (	current_filename != NULL && 
-					::lstrcmpi (current_filename, find_info.cFileName) == 0)
+					::stricmp (current_filename, find_info.cFileName) == 0)
 			{
 				list_ctrl->Set_Curr_Sel (item_index);
 			}
@@ -713,14 +713,14 @@ SaveGameMenuClass::Check_HD_Space (void)
 	StringClass		kernelpathname;
 	int64_t			diskspace;
 
-	int (__stdcall *getfreediskspaceex) (LPCTSTR, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER);
+	int (__stdcall *getfreediskspaceex) (const char*, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER);
 
 	//	Get the free disk space on the drive.
 	// NOTE IML: For Win'95, must query for support for GetDiskFreeSpaceEx before using it - otherwise use GetDiskFreeSpace().
-	GetSystemDirectory (kernelpathname.Get_Buffer (_MAX_PATH), _MAX_PATH);
+	GetSystemDirectoryA (kernelpathname.Get_Buffer (_MAX_PATH), _MAX_PATH);
 	kernelpathname += "\\";
 	kernelpathname += "Kernel32.dll";
-	getfreediskspaceex = (int (_stdcall*) (LPCTSTR, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER)) GetProcAddress (GetModuleHandle (kernelpathname.Peek_Buffer()), "GetDiskFreeSpaceExA");
+	getfreediskspaceex = (int (_stdcall*) (const char*, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER)) GetProcAddress (GetModuleHandleA (kernelpathname.Peek_Buffer()), "GetDiskFreeSpaceExA");
 	if (getfreediskspaceex != NULL) {
 
 		if (!getfreediskspaceex (NULL, &freebytecount, &totalbytecount, NULL)) return (false);
