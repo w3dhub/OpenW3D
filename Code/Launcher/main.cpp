@@ -269,7 +269,7 @@ int main(int argc, char *argv[])
 
 	if (in == NULL)
 	{
-		MessageBox(NULL,"You must run the game from its install directory.",
+		MessageBoxA(NULL,"You must run the game from its install directory.",
 			"Launcher config file missing",MB_OK);
 		exit(-1);
 	}
@@ -279,7 +279,7 @@ int main(int argc, char *argv[])
 
 	if (ok == FALSE)
 	{
-		MessageBox(NULL,"File 'launcher.cfg' is corrupt","Error",MB_OK);
+		MessageBoxA(NULL,"File 'launcher.cfg' is corrupt","Error",MB_OK);
 		exit(-1);
 	}
 
@@ -351,7 +351,7 @@ int main(int argc, char *argv[])
 		{
 			// We didn't have the FLAG parameter; somebody's been hacking.  No game for you!  Bad hacker!
 			DBGMSG("Saw cutoffTime of 0; real time is " << time(NULL));
-			MessageBox(NULL,"File 'launcher.cfg' is corrupt","Error",MB_OK);
+			MessageBoxA(NULL,"File 'launcher.cfg' is corrupt","Error",MB_OK);
 			exit(-1);
 		}
 
@@ -394,7 +394,7 @@ void CreatePrimaryWin(char *prefix)
 	/*
 	** set up and register window class
 	*/
-	WNDCLASS wc;
+	WNDCLASSA wc;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = DefWindowProc;
 	wc.cbClsExtra = 0;            // Don't need any extra class data
@@ -405,12 +405,12 @@ void CreatePrimaryWin(char *prefix)
 	wc.hbrBackground = NULL;
 	wc.lpszMenuName = name;
 	wc.lpszClassName = name;
-	RegisterClass(&wc);
+	RegisterClassA(&wc);
 
 	/*
 	** create a window
 	*/
-	HWND hwnd = CreateWindowEx(WS_EX_TOPMOST, name, name, WS_POPUP, 0, 0,
+	HWND hwnd = CreateWindowExA(WS_EX_TOPMOST, name, name, WS_POPUP, 0, 0,
 		GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN),
 		NULL, NULL, Global_instance, NULL);
 
@@ -512,7 +512,7 @@ bool Get_Restart_Flag(Process &proc, bool &slave)
 	}
 	strcat(regpath, APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
 
-	int result = RegOpenKeyEx(HKEY_CURRENT_USER, regpath, 0, KEY_ALL_ACCESS, &key);
+	int result = RegOpenKeyExA(HKEY_CURRENT_USER, regpath, 0, KEY_ALL_ACCESS, &key);
 
 	if (result == ERROR_SUCCESS) {
 
@@ -520,7 +520,7 @@ bool Get_Restart_Flag(Process &proc, bool &slave)
 		unsigned long data = 0;
 		unsigned long data_len = sizeof(data);
 
-		if ((RegQueryValueEx(key, APPLICATION_SUB_KEY_NAME_AUTOSTART, NULL, &type, (LPBYTE)&data, &data_len) == ERROR_SUCCESS) && (type == REG_DWORD)) {
+		if ((RegQueryValueExA(key, APPLICATION_SUB_KEY_NAME_AUTOSTART, NULL, &type, (LPBYTE)&data, &data_len) == ERROR_SUCCESS) && (type == REG_DWORD)) {
 			return((data != 0) ? true : false);
 		}
 	}

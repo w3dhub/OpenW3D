@@ -180,7 +180,7 @@ bool RegisterCOMServer(const char* dllName)
 	{
 	bool success = false;
 
-	HINSTANCE hInst = LoadLibrary(dllName);
+	HINSTANCE hInst = LoadLibraryA(dllName);
 
 	if (hInst != NULL)
 		{
@@ -219,7 +219,7 @@ bool UnregisterCOMServer(const char* dllName)
 	{
 	bool success = false;
 
-	HINSTANCE hInst = LoadLibrary(dllName);
+	HINSTANCE hInst = LoadLibraryA(dllName);
 
 	if (hInst != NULL)
 		{

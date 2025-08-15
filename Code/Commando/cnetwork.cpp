@@ -500,7 +500,7 @@ void cNetwork::Compute_Exe_Key(void)
 
 	char exe_filename[500];
    int succeeded = 0;
-	succeeded = ::GetModuleFileName(NULL, exe_filename, sizeof(exe_filename));
+	succeeded = ::GetModuleFileNameA(NULL, exe_filename, sizeof(exe_filename));
 	WWASSERT(succeeded);
 
 	StringClass key_string;
@@ -1385,7 +1385,7 @@ void cNetwork::Shell_Command(LPCSTR command)
 {
 	WWASSERT(command != NULL);
 
-	HINSTANCE hinst = ShellExecute(NULL, NULL, command, NULL, "", SW_SHOW);
+	HINSTANCE hinst = ShellExecuteA(NULL, NULL, command, NULL, "", SW_SHOW);
 	if ((int) hinst <= 32) {
       WWDEBUG_SAY(("Error: ShellExecute failed.\n"));
 	}

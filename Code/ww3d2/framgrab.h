@@ -103,7 +103,7 @@ protected:
 	PAVIFILE				AVIFile;  
 	long					*Bitmap;
 	PAVISTREAM			Stream;     
-	AVISTREAMINFO		AVIStreamInfo;
+	AVISTREAMINFOA		AVIStreamInfo;
 	BITMAPINFOHEADER	BitmapInfoHeader; 
 
 	// general purpose cleanup routine

@@ -245,7 +245,7 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 	Invalidate_Cached_Render_States();
 
 	if (!lite) {
-		D3D8Lib = LoadLibrary("D3D8.DLL");
+		D3D8Lib = LoadLibraryA("D3D8.DLL");
 
 		if (D3D8Lib == NULL) return false;
 

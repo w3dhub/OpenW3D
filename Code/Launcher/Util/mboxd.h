@@ -30,7 +30,7 @@ class MboxD : public OutputDevice
      char *string=new char[len+1];
      memset(string,0,len+1);
      memcpy(string,str,len);
-     MessageBox(NULL,string,"Debug Message", MB_OK | MB_ICONINFORMATION);
+     MessageBoxA(NULL,string,"Debug Message", MB_OK | MB_ICONINFORMATION);
      delete[](string);
      return(len);
    }
