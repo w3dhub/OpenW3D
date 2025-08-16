@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include "ConsoleFunction.h"
+#include "consolefunction.h"
 
 class WOLConsoleFunctionClass : public ConsoleFunctionClass {
 public:

@@ -41,7 +41,7 @@
 #ifndef __WOLLOCALEMGR_H
 #define __WOLLOCALEMGR_H
 
-#include "wwonline\\wolsession.h"
+#include "WWOnline/WOLSession.h"
 
 
 //////////////////////////////////////////////////////////////////////

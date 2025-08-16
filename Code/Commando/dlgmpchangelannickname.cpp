@@ -34,7 +34,7 @@
 ******************************************************************************/
 
 #include "dlgmpchangelannickname.h"
-#include <WWUI\EditCtrl.h>
+#include <wwui/EditCtrl.h>
 #include "netinterface.h"
 #include "dlgmplangamelist.h"
 

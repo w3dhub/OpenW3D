@@ -39,7 +39,7 @@
 
 #include "DlgWOLWait.h"
 #include <wwui/popupdialog.h>
-#include <WWLib/Notify.h>
+#include <wwlib/Notify.h>
 #include <WWOnline/RefPtr.h>
 
 class DlgWOLLogon;

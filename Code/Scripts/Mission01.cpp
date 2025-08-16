@@ -38,7 +38,7 @@
 #include "scripts.h"
 #include <string.h>
 #include "Toolkit.h"
-#include "mission1.h"
+#include "Mission1.h"
 
 namespace M01Vars
 {

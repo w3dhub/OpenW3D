@@ -64,7 +64,7 @@
 /*
 ** Commonly available components.
 */
-#include <wwlib\vector.h>
+#include <wwlib/vector.h>
 
 
 #ifdef WWASSERT

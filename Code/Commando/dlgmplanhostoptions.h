@@ -45,8 +45,8 @@
 #include "menudialog.h"
 #include "resource.h"
 #include "childdialog.h"
-#include <wwlib\vector.h>
-#include <WWLib\Signaler.h>
+#include <wwlib/vector.h>
+#include <wwlib/Signaler.h>
 
 
 ////////////////////////////////////////////////////////////////

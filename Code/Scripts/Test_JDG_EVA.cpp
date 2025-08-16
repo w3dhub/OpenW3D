@@ -34,8 +34,8 @@
 ******************************************************************************/
 
 #include "Toolkit.h"
-#include "mission1.h"
-#include "mission11.h"
+#include "Mission1.h"
+#include "Mission11.h"
 #include "wwmath.h"
 
 /*

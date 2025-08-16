@@ -37,7 +37,7 @@
 
 #include "scripts.h"
 #include "Toolkit.h"
-#include "mission7.h"
+#include "Mission7.h"
 
 // M07B 
 // Objective Controller

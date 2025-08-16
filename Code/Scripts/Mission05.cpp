@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include "mission5.h"
+#include "Mission5.h"
 #include "Toolkit.h"
 #include "scripts.h"
 

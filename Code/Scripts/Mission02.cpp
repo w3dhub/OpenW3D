@@ -37,7 +37,7 @@
 
 #include "scripts.h"
 #include "Toolkit.h"
-#include "mission2.h"
+#include "Mission2.h"
 
 
 // Mission Objective Controller and Initializer

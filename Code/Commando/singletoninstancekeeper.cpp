@@ -36,7 +36,7 @@
 
 #include "singletoninstancekeeper.h"
 #include "wwdebug.h"
-#include "autostart.h"
+#include "AutoStart.h"
 
 
 //

@@ -38,13 +38,13 @@
 #ifdef COPY_PROTECT
 
 #include "BFish.h"
-#include <Support\UString.h>
-#include <Support\RefPtr.h>
-#include <Storage\File.h>
+#include <Support/UString.h>
+#include <Support/RefPtr.h>
+#include <Storage/File.h>
 #include <windows.h>
 #include <memory>
 #include <assert.h>
-#include <Debug\DebugPrint.h>
+#include <Debug/DebugPrint.h>
 
 #include "SafeDisk\CdaPfn.h"
 

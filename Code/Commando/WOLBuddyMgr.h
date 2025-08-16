@@ -36,13 +36,13 @@
 #ifndef __WOLBUDDYMGR_H__
 #define __WOLBUDDYMGR_H__
 
-#include <WWOnline\RefPtr.h>
-#include <WWOnline\WOLSession.h>
-#include <WWOnline\WOLPageMsg.h>
-#include <WWLib\RefCount.h>
-#include <WWLib\Notify.h>
-#include <WWLib\Signaler.h>
-#include <WWLib\WideString.h>
+#include <WWOnline/RefPtr.h>
+#include <WWOnline/WOLSession.h>
+#include <WWOnline/WOLPageMsg.h>
+#include <wwlib/RefCount.h>
+#include <wwlib/Notify.h>
+#include <wwlib/Signaler.h>
+#include <wwlib/WideString.h>
 
 #if defined(_MSC_VER)
 #pragma warning(push, 3)

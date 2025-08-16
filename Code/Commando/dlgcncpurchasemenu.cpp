@@ -52,7 +52,7 @@
 #include "weapons.h"
 #include "vehiclefactorygameobj.h"
 #include "string_ids.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "gameinitmgr.h"
 #include "healthbarctrl.h"
 #include "imagectrl.h"

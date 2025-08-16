@@ -28,7 +28,7 @@
 #include "DlgMPConnectionRefused.h"
 #include "cnetwork.h"
 #include "resource.h"
-#include <wwdebug\wwdebug.h>
+#include <wwdebug/wwdebug.h>
 #include "dlgmainmenu.h"
 #include "gamespyadmin.h"
 #include "specialbuilds.h"

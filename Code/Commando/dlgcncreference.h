@@ -42,7 +42,7 @@
 #define __DLGCNCREFERENCE_H
 
 #include "menudialog.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 
 
 //////////////////////////////////////////////////////////////////////

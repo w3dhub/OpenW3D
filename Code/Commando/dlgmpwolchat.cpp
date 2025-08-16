@@ -38,17 +38,17 @@
 #include "RenegadeDialogMgr.h"
 #include "WOLLocaleMgr.h"
 #include "DlgMessageBox.h"
-#include <WOLAPI\ChatDefs.h>
-#include <WWOnline\WOLChannel.h>
-#include <WWUI\StyleMgr.h>
-#include <WWUI\DialogMgr.h>
-#include <WWUI\EditCtrl.h>
-#include <WWUI\Listctrl.h>
-#include <WWUI\MenuEntryCtrl.h>
-#include <WWUI\ShortcutBarCtrl.h>
-#include <WW3D2\Render2D.h>
+#include <wolapi/ChatDefs.h>
+#include <WWOnline/WOLChannel.h>
+#include <wwui/StyleMgr.h>
+#include <wwui/DialogMgr.h>
+#include <wwui/EditCtrl.h>
+#include <wwui/Listctrl.h>
+#include <wwui/MenuEntryCtrl.h>
+#include <wwui/ShortcutBarCtrl.h>
+#include <WW3D2/Render2D.h>
 #include "String_IDs.h"
-#include <WWTranslateDB\TranslateDB.h>
+#include <wwtranslatedb/TranslateDB.h>
 
 using namespace WWOnline;
 

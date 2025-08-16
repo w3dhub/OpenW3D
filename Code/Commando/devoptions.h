@@ -137,7 +137,7 @@ class cDevOptions
 	//
 	static cBoolean GoToMainMenu;
 
-#endif WWDEBUG
+#endif /*WWDEBUG*/
 
    //
    // QuickFullExit is a quick but hopefully clean way to leave combat (via

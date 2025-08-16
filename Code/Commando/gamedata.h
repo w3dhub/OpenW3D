@@ -49,7 +49,7 @@
 #include "widestring.h"
 #include "radar.h"
 #include "DlgMPTeamSelect.h"
-#include <WWLib\Signaler.h>
+#include <wwlib/Signaler.h>
 
 const int		MAX_PASSWORD_SIZE			= 16;				//including NULL
 const int		MAX_MAPNAME_SIZE			= 28;				//including NULL

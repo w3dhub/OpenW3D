@@ -38,8 +38,8 @@
 #include "scripts.h"
 #include <string.h>
 #include "Toolkit.h"
-#include "mission1.h"
-#include "mission11.h"
+#include "Mission1.h"
+#include "Mission11.h"
 
 DECLARE_SCRIPT(M04_Objective_Controller_JDG, "")//this guys ID number is M04_OBJECTIVE_CONTROLLER_JDG 100424
 {

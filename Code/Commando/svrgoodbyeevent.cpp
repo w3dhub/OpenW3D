@@ -48,7 +48,7 @@
 #include "wwaudio.h"
 #include "devoptions.h"
 //#include "helptext.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "apppackettypes.h"
 #include "string_ids.h"
 #include "dlgcncwinscreen.h"

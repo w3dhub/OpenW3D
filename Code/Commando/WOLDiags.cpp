@@ -34,8 +34,8 @@
 ******************************************************************************/
 
 #include "WOLDiags.h"
-#include <WWOnline\WOLSession.h>
-#include <WWOnline\WOLServer.h>
+#include <WWOnline/WOLSession.h>
+#include <WWOnline/WOLServer.h>
 
 using namespace WWOnline;
 

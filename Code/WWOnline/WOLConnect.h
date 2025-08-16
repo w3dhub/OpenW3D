@@ -39,8 +39,8 @@
 #include "WOLSession.h"
 #include "WaitCondition.h"
 #include "WOLChatMsg.h"
-#include <WWLib\Notify.h>
-#include <WWLib\WideString.h>
+#include <wwlib/Notify.h>
+#include <wwlib/WideString.h>
 #include "RefPtr.h"
 
 namespace WWOnline {

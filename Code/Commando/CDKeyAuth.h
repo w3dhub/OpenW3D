@@ -22,7 +22,7 @@
 /********
 INCLUDES
 ********/
-#include <WWLib\wwstring.h>
+#include <wwlib/wwstring.h>
 
 /********
 DEFINES

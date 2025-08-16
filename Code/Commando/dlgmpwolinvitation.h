@@ -43,7 +43,7 @@
 
 #include "popupdialog.h"
 #include "resource.h"
-#include <WWOnline\WOLUser.h>
+#include <WWOnline/WOLUser.h>
 
 class WOLBuddyMgr;
 

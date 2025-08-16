@@ -49,8 +49,8 @@
 #include "WOLDownload.h"
 #include "WOLPageMsg.h"
 #include "RefPtr.h"
-#include <WWLib\Notify.h>
-#include <WWLib\WideString.h>
+#include <wwlib/Notify.h>
+#include <wwlib/WideString.h>
 
 namespace WOL
 {

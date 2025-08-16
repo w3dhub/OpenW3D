@@ -309,7 +309,7 @@ SOURCE=.\Toolkit\Storage\File.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Toolkit\Storage\File.h
+SOURCE=.\Toolkit\Storage/File.h
 # End Source File
 # Begin Source File
 
@@ -329,7 +329,7 @@ SOURCE=.\Toolkit\Debug\DebugPrint.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Toolkit\Debug\DebugPrint.h
+SOURCE=.\Toolkit\Debug/DebugPrint.h
 # End Source File
 # End Group
 # Begin Group "Support"
@@ -341,7 +341,7 @@ SOURCE=.\Toolkit\Support\RefCounted.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Toolkit\Support\RefPtr.h
+SOURCE=.\Toolkit\Support/RefPtr.h
 # End Source File
 # Begin Source File
 
@@ -357,11 +357,11 @@ SOURCE=.\Toolkit\Support\UString.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Toolkit\Support\UString.h
+SOURCE=.\Toolkit\Support/UString.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Toolkit\Support\UTypes.h
+SOURCE=.\Toolkit\Support/UTypes.h
 # End Source File
 # Begin Source File
 
