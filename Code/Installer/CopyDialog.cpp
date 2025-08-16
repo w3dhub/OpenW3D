@@ -236,7 +236,7 @@ void CopyDialogClass::On_Frame_Update (void)
 		case CopyThreadClass::STATUS_OK:
 		{
 			float	fraction, framecount;
-			char  percentagestring [10];
+			char  percentagestring [12];
 
 			Add_Models();
 
