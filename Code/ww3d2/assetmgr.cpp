@@ -107,7 +107,7 @@
 #include <ini.h>
 #include <windows.h>
 #include <stdio.h>
-#include <D3dx8core.h>
+#include <d3d9types.h>
 #include "texture.h"
 #include "wwprofile.h"
 #include "assetstatus.h"
@@ -300,13 +300,14 @@ static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
 		if (tex->Is_Initialized()!=inited) continue;
 
 		D3DSURFACE_DESC desc;
-		IDirect3DTexture8* d3d_texture=tex->Peek_DX8_Texture();
+		IDirect3DTexture9* d3d_texture=tex->Peek_DX8_Texture();
 		if (!d3d_texture) continue;
 		DX8_ErrorCode(d3d_texture->GetLevelDesc(0,&desc));
 
 		StringClass tex_format="Unknown";
 		switch (desc.Format) {
 		case D3DFMT_A8R8G8B8: tex_format="D3DFMT_A8R8G8B8"; break;
+		case D3DFMT_A8B8G8R8: tex_format="D3DFMT_A8B8G8R8"; break;
 		case D3DFMT_R8G8B8: tex_format="D3DFMT_R8G8B8"; break;
 		case D3DFMT_A4R4G4B4: tex_format="D3DFMT_A4R4G4B4"; break;
 		case D3DFMT_A1R5G5B5: tex_format="D3DFMT_A1R5G5B5"; break;
@@ -315,9 +316,13 @@ static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
 		case D3DFMT_A8: tex_format="D3DFMT_A8"; break;
 		case D3DFMT_P8: tex_format="D3DFMT_P8"; break;
 		case D3DFMT_X8R8G8B8: tex_format="D3DFMT_X8R8G8B8"; break;
+		case D3DFMT_X8B8G8R8: tex_format="D3DFMT_X8B8G8R8"; break;
 		case D3DFMT_X1R5G5B5: tex_format="D3DFMT_X1R5G5B5"; break;
 		case D3DFMT_R3G3B2: tex_format="D3DFMT_R3G3B2"; break;
 		case D3DFMT_A8R3G3B2: tex_format="D3DFMT_A8R3G3B2"; break;
+		case D3DFMT_A2B10G10R10: tex_format="D3DFMT_A2B10G10R10"; break;
+		case D3DFMT_A2R10G10B10: tex_format="D3DFMT_A2R10G10B10"; break;
+		case D3DFMT_A16B16G16R16: tex_format="D3DFMT_A16B16G16R16"; break;
 		case D3DFMT_X4R4G4B4: tex_format="D3DFMT_X4R4G4B4"; break;
 		case D3DFMT_A8P8: tex_format="D3DFMT_A8P8"; break;
 		case D3DFMT_A8L8: tex_format="D3DFMT_A8L8"; break;
@@ -326,8 +331,11 @@ static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
 		case D3DFMT_L6V5U5: tex_format="D3DFMT_L6V5U5"; break;  
 		case D3DFMT_X8L8V8U8: tex_format="D3DFMT_X8L8V8U8"; break;
 		case D3DFMT_Q8W8V8U8: tex_format="D3DFMT_Q8W8V8U8"; break;
+		case D3DFMT_G16R16: tex_format="D3DFMT_G16R16"; break;
 		case D3DFMT_V16U16: tex_format="D3DFMT_V16U16"; break;
-		case D3DFMT_W11V11U10: tex_format="D3DFMT_W11V11U10"; break;
+		case D3DFMT_A2W10V10U10: tex_format="D3DFMT_A2W10V10U10"; break;
+		case D3DFMT_R8G8_B8G8: tex_format="D3DFMT_R8G8_B8G8"; break;
+		case D3DFMT_G8R8_G8B8: tex_format="D3DFMT_G8R8_G8B8"; break;
 		case D3DFMT_UYVY: tex_format="D3DFMT_UYVY"; break;
 		case D3DFMT_YUY2: tex_format="D3DFMT_YUY2"; break;
 		case D3DFMT_DXT1: tex_format="D3DFMT_DXT1"; break;
@@ -342,6 +350,7 @@ static void Log_Textures(bool inited,unsigned& total_count, unsigned& total_mem)
 		case D3DFMT_D16: tex_format="D3DFMT_D16"; break;
 		case D3DFMT_D24X8: tex_format="D3DFMT_D24X8"; break;
 		case D3DFMT_D24X4S4: tex_format="D3DFMT_D24X4S4"; break;
+		case D3DFMT_D24FS8: tex_format="D3DFMT_D24FS8"; break;
 		default:	break;
 		}
 
