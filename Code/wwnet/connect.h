@@ -154,7 +154,7 @@ class cConnection
 		void Install_Client_Packet_Handler(Client_Packet_Handler handler);
 
 		// Need to use this. ST - 8/10/2001 11:52AM
-      void Send_Packet_To_Address(cPacket & packet, LPSOCKADDR_IN p_address);
+      void Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p_address);
 
 
 #ifdef WWDEBUG
@@ -168,20 +168,20 @@ class cConnection
       cConnection(const cConnection& rhs); // Disallow copy (compile/link time)
       cConnection& operator=(const cConnection& rhs); // Disallow assignment (compile/link time)
 
-      void Init_As_Client(LPSOCKADDR_IN p_server_address, unsigned short my_port = 0);
+      void Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port = 0);
       bool Demultiplex_R_Or_U_Packet(cPacket * p_packet, int rhost_id);
       void Send_Accept_Sc(int new_rhost_id);
       bool Bind(USHORT port, ULONG addr = 0);
       bool Receive_Packet();
-		int Low_Level_Send_Wrapper(cPacket & packet, LPSOCKADDR_IN p_address);
-      int Send_Wrapper(cPacket & packet, LPSOCKADDR_IN p_address);
+		int Low_Level_Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);
+      int Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address);
       int Send_Wrapper(cPacket & packet, int addressee);
 		int Low_Level_Receive_Wrapper(cPacket & packet);
       int Receive_Wrapper(cPacket & packet);
       void Set_R_And_U_Packet_Id(cPacket & packet, int addressee, BYTE send_type);
       void R_And_U_Send(cPacket & packet, int addressee);
-      void Send_Ack(LPSOCKADDR_IN p_address, int reliable_packet_id);
-		void Send_Refusal_Sc(LPSOCKADDR_IN p_address, REFUSAL_CODE refusal_code);
+      void Send_Ack(struct sockaddr_in* p_address, int reliable_packet_id);
+		void Send_Refusal_Sc(struct sockaddr_in* p_address, REFUSAL_CODE refusal_code);
       void Process_Connection_Request(cPacket & packet);
       void Send_Keepalives();
 		static LPCSTR Type_Translation(int type);
@@ -189,7 +189,7 @@ class cConnection
       USHORT Calculate_Packet_Bits(USHORT app_bytes);
       int Single_Player_sendto(cPacket & packet);
       int Single_Player_recvfrom(char * data);
-      int Address_To_Rhostid(const SOCKADDR_IN* p_address);
+      int Address_To_Rhostid(const struct sockaddr_in* p_address);
 		bool Is_Time_To_Resend_Packet_To_Remote_Host(const cPacket *packet, cRemoteHost *rhost);
 		bool Is_Packet_Too_Old(const cPacket *packet, cRemoteHost *rhost);
 

@@ -32,7 +32,7 @@
 #define FROMADDRESS_H
 
 #include "win.h"
-#include <winsock.h>
+#include "network-typedefs.h"
 
 //
 // This trivial class exists solely to speed compile times.
@@ -43,7 +43,7 @@ class cFromAddress
 	public:
       cFromAddress& operator=(const cFromAddress& rhs) {FromAddress = rhs.FromAddress; return * this;}
 
-		SOCKADDR_IN FromAddress;
+		struct sockaddr_in FromAddress;
 };
 
 #endif // FROMADDRESS_H

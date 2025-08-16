@@ -32,7 +32,7 @@
 
 #include <stdio.h>
 #include <conio.h>
-#include <winsock.h>
+#include <winsock2.h>
 #include <assert.h>
 
 //---------------------------------------------------------------------------
@@ -53,7 +53,7 @@ void main(void)
    int rc_ioctl = ::ioctlsocket(sock, FIONBIO, &is_nonblocking);
    assert(rc_ioctl == 0);
 	
-	SOCKADDR_IN local_address;
+	struct sockaddr_in local_address;
 	local_address.sin_family			= AF_INET;
 	local_address.sin_addr.s_addr		= ::inet_addr("127.0.0.1");	// localhost
 	local_address.sin_port				= ::htons(5555);					// arbitrary
@@ -92,7 +92,7 @@ void main(void)
 		{
 			char recv_data[200];
 			::memset(recv_data, 0, sizeof(recv_data));
-			SOCKADDR_IN from_address;
+			struct sockaddr_in from_address;
 			int from_len = sizeof(from_address);
 			rc_recv = ::recvfrom(sock, recv_data, sizeof(recv_data), 0,
 				(LPSOCKADDR) &from_address, &from_len);

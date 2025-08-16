@@ -131,7 +131,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 		if (object != NULL)
 		{
 #ifdef WWDEBUG
-			//sockaddr_in *actual_from_addr_ptr = (LPSOCKADDR_IN) &packet.Get_From_Address_Wrapper()->FromAddress;
+			//sockaddr_in *actual_from_addr_ptr = (struct sockaddr_in*) &packet.Get_From_Address_Wrapper()->FromAddress;
 			//sockaddr_in rhost_addr = PServerConnection->Get_Remote_Host(rhost_id)->Get_Address();
 #endif //WWDEBUG
 

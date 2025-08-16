@@ -41,7 +41,7 @@
 
 // Get rid of the nameless struct/union warning
 #pragma warning(disable: 4201)
-#include <winsock.h>
+#include <winsock2.h>
 #pragma warning(default: 4201)
 
 namespace WWOnline {

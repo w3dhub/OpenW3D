@@ -39,7 +39,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <winsock.h>
+#include <winsock2.h>
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>

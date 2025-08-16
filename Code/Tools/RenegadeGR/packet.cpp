@@ -39,7 +39,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
-#include <winsock.h>
+#include <winsock2.h>
 
 #include "packet.h"
 
