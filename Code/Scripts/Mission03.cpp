@@ -4683,7 +4683,7 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 
 		dead = false;
 		out = 0;
-		char params[10];
+		char params[12];
 		sprintf(params, "%d", Commands->Get_ID(obj));
 		Commands->Attach_Script(chinook, "M03_Reinforcement_Chinook", params);
 

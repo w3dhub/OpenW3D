@@ -318,7 +318,7 @@ char WWKeyboardClass::To_ASCII(unsigned short key)
 	/*
 	**	Ask windows to translate the key into an ASCII equivalent.
 	*/
-	char buffer[10];
+	char buffer[12];
 	int result;
 //	int result = 1;
 	int scancode;

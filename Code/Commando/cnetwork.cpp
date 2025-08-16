@@ -1089,11 +1089,11 @@ LPCSTR cNetwork::Get_Client_Enumeration_String(void)
    WWASSERT(I_Am_Server());
    WWASSERT(PServerConnection->Is_Established());
 
-   char temp_str[10];
+   char temp_str[12];
    strcpy(ClientEnumerationString, "");
    for (int rhost_id = PServerConnection->Get_Min_RHost(); rhost_id <= PServerConnection->Get_Max_RHost(); rhost_id++) {
 		if (Get_Server_Rhost(rhost_id) != NULL) {
-         strcat(ClientEnumerationString, itoa(rhost_id, temp_str, 10));
+         strcat(ClientEnumerationString, itoa(rhost_id, temp_str, 12));
          strcat(ClientEnumerationString, " ");
       }
 
