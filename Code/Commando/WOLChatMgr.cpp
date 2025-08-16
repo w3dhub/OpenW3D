@@ -37,13 +37,13 @@
 #include "WOLBuddyMgr.h"
 #include "MPSettingsMgr.h"
 #include "DlgWOLWait.h"
-#include <WWOnline\WOLSession.h>
-#include <WWOnline\WOLServer.h>
-#include <WWOnline\WOLChannel.h>
-#include <WWOnline\WOLProduct.h>
+#include <WWOnline/WOLSession.h>
+#include <WWOnline/WOLServer.h>
+#include <WWOnline/WOLChannel.h>
+#include <WWOnline/WOLProduct.h>
 #include "String_IDs.h"
-#include <WWTranslateDB\TranslateDB.h>
-#include <WWDebug\WWDebug.h>
+#include <wwtranslatedb/TranslateDB.h>
+#include <wwdebug/WWDebug.h>
 
 using namespace WWOnline;
 

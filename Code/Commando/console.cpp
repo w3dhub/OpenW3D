@@ -88,7 +88,7 @@
 #include "trackedvehicle.h"
 #include "dx8rendererdebugger.h"
 #include "fastallocator.h"
-#include <WWOnline\WOLSession.h>
+#include <WWOnline/WOLSession.h>
 #include "consolemode.h"
 
 //#include "dlgmpingamechat.h"

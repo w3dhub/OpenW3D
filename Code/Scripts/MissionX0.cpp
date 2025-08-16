@@ -36,7 +36,7 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "missionX0.h"
+#include "MissionX0.h"
 
 
 DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001

@@ -118,7 +118,7 @@ SOURCE=.\PerformanceConfigDialog.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\WWLib\rawfile.cpp
+SOURCE=..\..\wwlib/rawfile.cpp
 # End Source File
 # Begin Source File
 
@@ -139,7 +139,7 @@ SOURCE=.\WWConfigDlg.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\WWLib\wwfile.cpp
+SOURCE=..\..\wwlib/wwfile.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -171,7 +171,7 @@ SOURCE=.\PerformanceConfigDialog.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\WWLib\rawfile.h
+SOURCE=..\..\wwlib/rawfile.h
 # End Source File
 # Begin Source File
 
@@ -199,7 +199,7 @@ SOURCE=.\WWConfigDlg.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\WWLib\wwfile.h
+SOURCE=..\..\wwlib/wwfile.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

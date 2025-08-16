@@ -40,7 +40,7 @@
 #include "wwmath.h"
 #include "ww3d.h"
 #include "wwphys.h"
-#include "WWAudio.H"
+#include "WWAudio.h"
 #include "wwsaveload.h"
 #include "input.h"
 #include "inputconfigmgr.h"

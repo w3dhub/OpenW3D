@@ -47,7 +47,7 @@
 #include "dialogcontrol.h"
 #include "dialogbase.h"
 #include "resource.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 
 ////////////////////////////////////////////////////////////////
 //	Local constants

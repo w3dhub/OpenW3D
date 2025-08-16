@@ -36,7 +36,7 @@
 #ifndef __FIREWALLWAIT_H__
 #define __FIREWALLWAIT_H__
 
-#include <WWOnline\WaitCondition.h>
+#include <WWOnline/WaitCondition.h>
 #include <windows.h>
 
 namespace WWOnline

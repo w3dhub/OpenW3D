@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
-#include "soundenvironment.h"
+#include "SoundEnvironment.h"
 #include "camera.h"
 #include "combat.h"
 #include "gameobjmanager.h"

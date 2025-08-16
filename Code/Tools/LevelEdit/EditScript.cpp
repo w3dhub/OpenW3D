@@ -35,8 +35,8 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
-#include "editscript.h"
-#include "..\..\scripts\ScriptEvents.H"
+#include "EditScript.h"
+#include "../../Scripts/scriptevents.h"
 #include "scripts.h"
 #include "chunkio.h"
 #include "scriptmgr.h"

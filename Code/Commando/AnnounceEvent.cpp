@@ -34,7 +34,7 @@
 *
 ******************************************************************************/
 
-#include "announceevent.h"
+#include "AnnounceEvent.h"
 #include "networkobjectfactory.h"
 #include "apppackettypes.h"
 #include "networkobjectmgr.h"
@@ -45,7 +45,7 @@
 #include "translatedb.h"
 #include "wwaudio.h"
 #include "messagewindow.h"
-#include <wwlib\widestring.h>
+#include <wwlib/widestring.h>
 #include "cncmodesettings.h"
 #include "floodprotectionmgr.h"
 

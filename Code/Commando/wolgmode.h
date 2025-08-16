@@ -43,9 +43,9 @@
 
 #include "GameMode.h"
 #include "WOLBuddyMgr.h"
-#include <WWOnline\RefPtr.h>
-#include <WWLib\Notify.h>
-#include <WWLib\Signaler.h>
+#include <WWOnline/RefPtr.h>
+#include <wwlib/Notify.h>
+#include <wwlib/Signaler.h>
 
 class cGameData;
 class cPlayer;

@@ -34,7 +34,7 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "scriptfactory.h"
+#include "ScriptFactory.h"
 #include "dprint.h"
 #include "strtrim.h"
 #include <string.h>

@@ -41,7 +41,7 @@
 #ifndef __CDVERIFY_H
 #define __CDVERIFY_H
 
-#include "notify.h"
+#include "Notify.h"
 
 
 //////////////////////////////////////////////////////////////////////

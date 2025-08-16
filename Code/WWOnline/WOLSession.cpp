@@ -45,7 +45,7 @@
 #include "WOLServer.h"
 #include "WaitCondition.h"
 #include "WOLErrorUtil.h"
-#include <WWDebug\WWDebug.h>
+#include <wwdebug/WWDebug.h>
 #include <stdlib.h>
 
 #ifdef _MSC_VER

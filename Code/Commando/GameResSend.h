@@ -35,7 +35,7 @@
 #ifndef __GAMERESSEND_H__
 #define __GAMERESSEND_H__
 
-#include <WWLib\SList.h>
+#include <wwlib/slist.h>
 
 class cGameData;
 class cPlayer;

@@ -39,8 +39,8 @@
 #include "registry.h"
 #include "bittype.h"
 #include "_globals.h"
-#include "wwonline\\wolsession.h"
-#include <WWOnline\WOLLangCodes.h>
+#include "WWOnline/WOLSession.h"
+#include <WWOnline/WOLLangCodes.h>
 #include "time.h"
 
 

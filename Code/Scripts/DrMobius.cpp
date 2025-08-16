@@ -34,7 +34,7 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "dprint.h"
+#include "DPrint.h"
 
 
 DECLARE_SCRIPT(Dr_Mobius_Script, "")

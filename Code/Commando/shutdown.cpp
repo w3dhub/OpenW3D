@@ -39,7 +39,7 @@
 #include "wwmath.h"
 #include "wwsaveload.h"
 #include "ww3d.h"
-#include "WWAudio.H"
+#include "WWAudio.h"
 #include "wwphys.h"
 #include "debug.h"
 #include "assets.h"

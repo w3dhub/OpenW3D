@@ -28,7 +28,7 @@
 #include "gamechannel.h"
 #include "gamechanlist.h"
 #include "wwdebug.h"
-#include <WWOnline\WOLChannel.h>
+#include <WWOnline/WOLChannel.h>
 //
 // Class statics
 //

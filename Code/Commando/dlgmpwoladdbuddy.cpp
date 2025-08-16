@@ -38,8 +38,8 @@
 #include "WOLBuddyMgr.h"
 #include "WOLLogonMgr.h"
 #include "DlgMessageBox.h"
-#include <WWUI\EditCtrl.h>
-#include <WWDebug\WWDebug.h>
+#include <wwui/EditCtrl.h>
+#include <wwdebug/WWDebug.h>
 #include "translatedb.h"
 #include "string_ids.h"
 

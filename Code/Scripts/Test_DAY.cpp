@@ -30,7 +30,7 @@
 *
 ******************************************************************************/
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 
 DECLARE_SCRIPT(M00_Screenshot_Poser_DAY, "Anim_Name:string" )

@@ -33,7 +33,7 @@
 *
 ******************************************************************************/
 
-#include "scriptfactory.h"
+#include "ScriptFactory.h"
 #include "scriptregistrar.h"
 #include "scripts.h"
 #include "dprint.h"

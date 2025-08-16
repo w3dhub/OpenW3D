@@ -89,7 +89,7 @@
 #include "dlgmpwolmain.h"
 #include "specialbuilds.h"
 #include "gamespy_qnr.h"
-#include <WWUI\ImageCtrl.h>
+#include <wwui/ImageCtrl.h>
 #include "bandwidthcheck.h"
 
 

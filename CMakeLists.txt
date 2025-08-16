@@ -38,6 +38,8 @@ endif(SYNTAX_CHECK_ONLY)
 
 if(NOT WIN32)
     add_compile_definitions(__cdecl=)
+    add_compile_definitions(__stdcall=)
+    add_compile_definitions(_stdcall=)
 endif()
 
 include(FetchContent)

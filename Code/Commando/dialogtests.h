@@ -46,8 +46,8 @@
 #include "childdialog.h"
 #include "resource.h"
 #include "DlgWOLWait.h"
-#include <WWLib\Notify.h>
-#include <WWOnline\RefPtr.h>
+#include <wwlib/Notify.h>
+#include <WWOnline/RefPtr.h>
 
 
 class WheeledVehicleDefClass;

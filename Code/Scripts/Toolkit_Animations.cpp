@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 /*
 Function - M00_Controller_Animation_RMV

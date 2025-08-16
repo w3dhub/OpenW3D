@@ -66,12 +66,12 @@
 
 #ifdef COPY_PROTECT
 #include "Protect.h"
-#include <Debug\DebugPrint.h>
+#include <Debug/DebugPrint.h>
 #endif
 
 #define UPDATE_RETVAL 123456789  // if a program returns this it means it wants to check for patches
 
-#include "..\combat\specialbuilds.h"
+#include "../Combat/specialbuilds.h"
 
 /*
 #ifdef FREEDEDICATEDSERVER

@@ -38,9 +38,9 @@
 #define __DLGQUICKMATCH_H__
 
 #include "WOLQuickMatch.h"
-#include <WWUI\MenuDialog.h>
-#include <WWLib\Notify.h>
-#include <WWOnline\RefPtr.h>
+#include <wwui/MenuDialog.h>
+#include <wwlib/Notify.h>
+#include <WWOnline/RefPtr.h>
 
 class WaitCondition;
 class DlgMsgBoxEvent;

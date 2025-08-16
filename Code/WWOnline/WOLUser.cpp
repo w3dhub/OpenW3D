@@ -38,7 +38,7 @@
 #include "WOLChannel.h"
 #include "WOLSquad.h"
 #include "WOLLadder.h"
-#include <WWDebug\WWDebug.h>
+#include <wwdebug/WWDebug.h>
 
 namespace WWOnline {
 

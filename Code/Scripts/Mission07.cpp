@@ -36,8 +36,8 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "toolkit.h"
-#include "mission7.h"
+#include "Toolkit.h"
+#include "Mission7.h"
 
 // M07B 
 // Objective Controller

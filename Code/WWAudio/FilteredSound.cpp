@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "filteredsound.h"
+#include "FilteredSound.h"
 #include "wwaudio.h"
 #include "soundscene.h"
 #include "soundchunkids.h"

@@ -40,7 +40,7 @@
 #include "WOLLogonMgr.h"
 #include "Resource.h"
 #include "consolemode.h"
-#include <WWUI\ListCtrl.h>
+#include <wwui/ListCtrl.h>
 
 DlgWOLPageReply* DlgWOLPageReply::_mInstance = NULL;
 

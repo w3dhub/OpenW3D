@@ -70,7 +70,7 @@
 #include	"natter.h"
 #include	"vistable.h"
 #include "gameinitmgr.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "apppacketstats.h"
 #include "clientfps.h"
 #include "gamechanlist.h"
@@ -89,7 +89,7 @@
 #include "dlgmpconnectionrefused.h"
 
 #include "Resource.h"
-#include <WWUI\DialogMgr.h>
+#include <wwui/DialogMgr.h>
 #include "ffactory.h"
 #include "realcrc.h"
 

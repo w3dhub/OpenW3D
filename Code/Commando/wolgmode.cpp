@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "WOLGMode.h"
+#include "wolgmode.h"
 #include "GameData.h"
 #include "GameChanList.h"
 #include "GameChannel.h"
@@ -63,24 +63,24 @@
 #include "registry.h"
 #include "init.h"
 #include "debug.h"
-#include <WWOnline\WOLString.h>
-#include <WWOnline\WOLProduct.h>
-#include <WWOnline\WOLSession.h>
-#include <WWOnline\WOLChannel.h>
-#include <WWOnline\WaitCondition.h>
-#include <WWOnline\WOLGame.h>
-#include <WWOnline\WOLGameOptions.h>
-#include <WWOnline\WOLPageMsg.h>
-#include <WWOnline\WOLLadder.h>
-#include <WWOnline\WOLConnect.h>
-#include <WWOnline\WOLServer.h>
-#include <WWOnline\PingProfile.h>
-#include <WWAudio\WWAudio.h>
-#include <WWLib\RealCRC.h>
+#include <WWOnline/WOLString.h>
+#include <WWOnline/WOLProduct.h>
+#include <WWOnline/WOLSession.h>
+#include <WWOnline/WOLChannel.h>
+#include <WWOnline/WaitCondition.h>
+#include <WWOnline/WOLGame.h>
+#include <WWOnline/WOLGameOptions.h>
+#include <WWOnline/WOLPageMsg.h>
+#include <WWOnline/WOLLadder.h>
+#include <WWOnline/WOLConnect.h>
+#include <WWOnline/WOLServer.h>
+#include <WWOnline/PingProfile.h>
+#include <WWAudio/WWAudio.h>
+#include <wwlib/RealCRC.h>
 #include "String_IDs.h"
-#include <WWTranslateDB\TranslateDB.h>
-#include <WWDebug\WWDebug.h>
-#include <WWDebug\WWProfile.h>
+#include <wwtranslatedb/TranslateDB.h>
+#include <wwdebug/WWDebug.h>
+#include <wwdebug/WWProfile.h>
 #include "specialbuilds.h"
 #include "slavemaster.h"
 #include "sctextobj.h"

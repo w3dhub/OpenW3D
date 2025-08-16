@@ -35,7 +35,7 @@
 #ifndef __WOLPAGEMSG_H__
 #define __WOLPAGEMSG_H__
 
-#include <WWLib\WideString.h>
+#include <wwlib/WideString.h>
 
 #ifdef _MSC_VER
 #pragma warning (push,3)

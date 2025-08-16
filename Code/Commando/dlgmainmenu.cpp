@@ -61,7 +61,7 @@
 #include "dialogtests.h"
 #include "dlgwolwait.h"
 #include "nicenum.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "translatedb.h"
 #include "string_ids.h"
 #include "gamespyadmin.h"

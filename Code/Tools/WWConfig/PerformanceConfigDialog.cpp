@@ -35,7 +35,7 @@
 #include "dx8wrapper.h"
 #include "locale_api.h"
 #include "wwconfig_ids.h"
-#include "..\..\combat\specialbuilds.h"
+#include "../../Combat/specialbuilds.h"
 
 
 #ifdef _DEBUG

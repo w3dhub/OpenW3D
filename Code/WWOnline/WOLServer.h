@@ -44,11 +44,11 @@
 #include "RefCounted.h"
 #include "RefPtr.h"
 #include "WOLString.h"
-#include <WWLib\WWString.h>
+#include <wwlib/wwstring.h>
 
 namespace WOL
 {
-#include <WOLAPI\wolapi.h>
+#include <wolapi/WOLAPI.h>
 }
 
 namespace WWOnline {

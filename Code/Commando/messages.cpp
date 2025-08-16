@@ -73,7 +73,7 @@
 #include "wwprofile.h"
 #include "changeteamevent.h"
 #include "DlgMPTeamSelect.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "apppacketstats.h"
 #include "clientpingmanager.h"
 #include "priority.h"

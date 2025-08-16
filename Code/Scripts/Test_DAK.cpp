@@ -30,7 +30,7 @@
 *
 ******************************************************************************/
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 DECLARE_SCRIPT (DAK_TestScriptOne, "")
 {

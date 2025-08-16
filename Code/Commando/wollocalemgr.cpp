@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "WOLLocaleMgr.h"
+#include "wollocalemgr.h"
 #include "WOLLoginProfile.h"
 #include "WOLLogonMgr.h"
 #include "DlgMPWOLLocaleNag.h"

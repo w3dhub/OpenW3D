@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "soundscene.h"
+#include "SoundScene.h"
 #include "soundcullobj.h"
 #include "logicalsound.h"
 #include "logicallistener.h"

@@ -27,7 +27,7 @@
 #include "gamedata.h"
 #include "gamechannel.h"
 #include "wwdebug.h"
-#include <WWOnline\WOLChannel.h>
+#include <WWOnline/WOLChannel.h>
 
 //-----------------------------------------------------------------------------
 cGameChannel::cGameChannel(cGameData * p_game_data, const RefPtr<WWOnline::ChannelData>& channel)

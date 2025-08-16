@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 /*
 Editor Script - M00_Explosion_Create_RMV

@@ -882,27 +882,27 @@ SOURCE=.\vendor.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\wolapi\chatdefs.h
+SOURCE=..\wolapi/chatdefs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\wolapi\downloaddefs.h
+SOURCE=..\wolapi/downloaddefs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\wolapi\ftpdefs.h
+SOURCE=..\wolapi/ftpdefs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\wolapi\netutildefs.h
+SOURCE=..\wolapi/netutildefs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\wolapi\WOLAPI.h
+SOURCE=..\wolapi/WOLAPI.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\wolapi\WOLAPI_i.c
+SOURCE=..\wolapi/WOLAPI_i.c
 # End Source File
 # End Group
 # Begin Group "GameModes"
@@ -1882,199 +1882,199 @@ SOURCE=..\WOLBrowser\WOLBrowser_i.c
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=..\WWOnline\GameResField.cpp
+SOURCE=..\WWOnline/GameResField.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\GameResField.h
+SOURCE=..\WWOnline/GameResField.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\GameResPacket.cpp
+SOURCE=..\WWOnline/GameResPacket.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\GameResPacket.h
+SOURCE=..\WWOnline/GameResPacket.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\PingProfile.cpp
+SOURCE=..\WWOnline/PingProfile.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\PingProfile.h
+SOURCE=..\WWOnline/PingProfile.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\RefCounted.h
+SOURCE=..\WWOnline/RefCounted.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\RefPtr.h
+SOURCE=..\WWOnline/RefPtr.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WaitCondition.cpp
+SOURCE=..\WWOnline/WaitCondition.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WaitCondition.h
+SOURCE=..\WWOnline/WaitCondition.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLAgeCheck.h
+SOURCE=..\WWOnline/WOLAgeCheck.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLChannel.cpp
+SOURCE=..\WWOnline/WOLChannel.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLChannel.h
+SOURCE=..\WWOnline/WOLChannel.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLChatMsg.cpp
+SOURCE=..\WWOnline/WOLChatMsg.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLChatMsg.h
+SOURCE=..\WWOnline/WOLChatMsg.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLChatObserver.cpp
+SOURCE=..\WWOnline/WOLChatObserver.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLChatObserver.h
+SOURCE=..\WWOnline/WOLChatObserver.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLConnect.cpp
+SOURCE=..\WWOnline/WOLConnect.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLConnect.h
+SOURCE=..\WWOnline/WOLConnect.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLDownload.cpp
+SOURCE=..\WWOnline/WOLDownload.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLDownload.h
+SOURCE=..\WWOnline/WOLDownload.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLErrorUtil.cpp
+SOURCE=..\WWOnline/WOLErrorUtil.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLErrorUtil.h
+SOURCE=..\WWOnline/WOLErrorUtil.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLGame.cpp
+SOURCE=..\WWOnline/WOLGame.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLGame.h
+SOURCE=..\WWOnline/WOLGame.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLGameOptions.cpp
+SOURCE=..\WWOnline/WOLGameOptions.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLGameOptions.h
+SOURCE=..\WWOnline/WOLGameOptions.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLLadder.cpp
+SOURCE=..\WWOnline/WOLLadder.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLLadder.h
+SOURCE=..\WWOnline/WOLLadder.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLLangCodes.h
+SOURCE=..\WWOnline/WOLLangCodes.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLLoginInfo.cpp
+SOURCE=..\WWOnline/WOLLoginInfo.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLLoginInfo.h
+SOURCE=..\WWOnline/WOLLoginInfo.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLNetUtilObserver.cpp
+SOURCE=..\WWOnline/WOLNetUtilObserver.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLNetUtilObserver.h
+SOURCE=..\WWOnline/WOLNetUtilObserver.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLPageMsg.cpp
+SOURCE=..\WWOnline/WOLPageMsg.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLPageMsg.h
+SOURCE=..\WWOnline/WOLPageMsg.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLPing.h
+SOURCE=..\WWOnline/WOLPing.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLProduct.cpp
+SOURCE=..\WWOnline/WOLProduct.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLProduct.h
+SOURCE=..\WWOnline/WOLProduct.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLServer.cpp
+SOURCE=..\WWOnline/WOLServer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLServer.h
+SOURCE=..\WWOnline/WOLServer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLSession.cpp
+SOURCE=..\WWOnline/WOLSession.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLSession.h
+SOURCE=..\WWOnline/WOLSession.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLSquad.cpp
+SOURCE=..\WWOnline/WOLSquad.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLSquad.h
+SOURCE=..\WWOnline/WOLSquad.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLString.cpp
+SOURCE=..\WWOnline/WOLString.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLString.h
+SOURCE=..\WWOnline/WOLString.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLUser.cpp
+SOURCE=..\WWOnline/WOLUser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\WWOnline\WOLUser.h
+SOURCE=..\WWOnline/WOLUser.h
 # End Source File
 # End Group
 # Begin Group "NetObjects"

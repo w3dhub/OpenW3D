@@ -37,7 +37,7 @@
 #ifndef __DLGRESTART_H__
 #define __DLGRESTART_H__
 
-#include <WWUI\PopupDialog.h>
+#include <wwui/popupdialog.h>
 
 class DlgRestart :
 		public PopupDialogClass

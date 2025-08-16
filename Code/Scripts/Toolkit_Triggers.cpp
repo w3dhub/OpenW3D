@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 /*
 Associated Custom Types:

@@ -39,12 +39,12 @@
 #define _AUTOSTART_H
 
 #include "WOLLogonMgr.h"
-#include <wwlib\signaler.h>
+#include <wwlib/signaler.h>
 #include "wolgmode.h"
 #include "menudialog.h"
 #include "resource.h"
-#include <wwonline\refptr.h>
-#include <wwonline\wolsession.h>
+#include <wwonline/refptr.h>
+#include <wwonline/wolsession.h>
 
 namespace WOL {
 	class WOLSession;

@@ -41,7 +41,7 @@
 ******************************************************************************/
 
 #include "WOLProduct.h"
-#include <WWLib\win.h>
+#include <wwlib/win.h>
 
 namespace WWOnline {
 

@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "always.h"
-#include "autostart.h"
+#include "AutoStart.h"
 //#include "dlgmplangametype.h"
 #include "gameinitmgr.h"
 #include "registry.h"

@@ -44,10 +44,10 @@
 #include "MenuDialog.h"
 #include "Resource.h"
 #include "WOLGameInfo.h"
-#include <WWOnline\WOLSession.h>
-#include <WWOnline\PingProfile.h>
-#include <WWLib\Notify.h>
-#include <WWLib\Signaler.h>
+#include <WWOnline/WOLSession.h>
+#include <WWOnline/PingProfile.h>
+#include <wwlib/Notify.h>
+#include <wwlib/Signaler.h>
 
 class DlgPasswordPrompt;
 

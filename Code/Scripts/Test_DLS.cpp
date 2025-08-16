@@ -17,7 +17,7 @@
 */
 
 #include "scripts.h"
-#include "toolkit.h"
+#include "Toolkit.h"
 #include "Mission7.h"
 #include "Mission5.h"
 #include <stdio.h>

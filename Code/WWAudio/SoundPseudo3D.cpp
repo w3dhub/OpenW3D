@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "soundpseudo3d.h"
+#include "SoundPseudo3D.h"
 #include "wwaudio.h"
 #include "soundscene.h"
 #include "utils.h"
