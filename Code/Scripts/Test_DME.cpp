@@ -326,7 +326,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Custom (GameObject* obj, int type, int param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
+	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
 	{																				//100 not occupied, 200 is occupied.
 		if (type == DME_OCCUPIED && param == 100)
 		{
@@ -677,7 +677,7 @@ DECLARE_SCRIPT (DME_Test_Work_Area, "")			//this script needs to be placed on al
 		occupied = false;						//70 - change occupied status to true
 	}											//90 - change occupied status to false
 	
-	void Custom (GameObject* obj, int type, int param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
 	{
 		if (type == 50 && param == 50)
 		{
@@ -718,7 +718,7 @@ DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")
 		entered = false;
 	}
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (entered == false)
 		{
@@ -835,7 +835,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		
 	}
 
-	void Custom (GameObject* obj, int type, int param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
+	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
 	{																				//100 not occupied, 200 is occupied.
 		if (type == DME_OCCUPIED && param == 100)
 		{

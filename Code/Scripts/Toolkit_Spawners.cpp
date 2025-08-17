@@ -51,7 +51,7 @@ DECLARE_SCRIPT(M00_Spawner_Controller_RMV, "Spawner_ID:int, Custom_Type_To_Enabl
 		if (Commands->Find_Object(id) != NULL)
 			Commands->Enable_Spawner(id, start_on);
 	}
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == enable)
 		{

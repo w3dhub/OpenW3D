@@ -68,7 +68,7 @@ DECLARE_SCRIPT(M00_Object_Create_RMV, "Start_Now=0:int, Receive_Type:int, Receiv
 		}  */
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{
@@ -113,7 +113,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_RMV, "Receive_Type_Activate:int, Debug_Mode=0:
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (debug_mode)
 			Commands->Debug_Message("M00_Destroy_Object_RMV received custom of type %d and param %d.\n", type, param);
@@ -151,7 +151,7 @@ DECLARE_SCRIPT(M00_Object_Create_Attach_Script_RMV, "Start_Now=0:int, Receive_Ty
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{
@@ -229,7 +229,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_Self_RMV, "Start_Now=1:int, Receive_Type=3:int
 		receive_param_activate = Get_Int_Parameter("Receive_Param_Activate");
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (debug_mode)
 			Commands->Debug_Message("M00_Trigger_Destroy_Self_RMV received custom, type %d and param %d.\n", type, param);
@@ -380,7 +380,7 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 		
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_FALLING_DAMAGE)
 		{
@@ -425,7 +425,7 @@ DECLARE_SCRIPT(M00_Permanent_No_Falling_Damage_IML, "")
 		initial_health = Commands->Get_Health(obj);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_FALLING_DAMAGE)
 		{
@@ -551,7 +551,7 @@ DECLARE_SCRIPT(M00_Vehicle_Regen_DAK, "" )
 		Commands->Send_Custom_Event ( obj, obj, 0, 0, 0 );
 	}
 
-	void Custom (GameObject* obj, int type, int param, GameObject* sender)  override
+	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender)  override
 	{
 		if ( type == 0 ) // regenerate health.
 		{

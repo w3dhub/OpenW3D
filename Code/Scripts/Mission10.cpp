@@ -440,7 +440,7 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 		}		
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		/*if (type == REMOVE_SECONDARY_POG)
 		{
@@ -601,7 +601,7 @@ DECLARE_SCRIPT(M10_Objective_Controller, "")
 
 DECLARE_SCRIPT (M10_Ion_Cannon, "")
 {
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override 
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -692,7 +692,7 @@ DECLARE_SCRIPT(M10_Power_Plant, "")
 		Commands->Static_Anim_Phys_Goto_Frame ( 1285077, 0, "L10_LASERFENCE1.L10_LASERFENCE1" );
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 1000 && param == 1000)
 		{
@@ -1019,7 +1019,7 @@ DECLARE_SCRIPT(M10_Silo_Controller, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == KILLED)
 		{
@@ -1103,7 +1103,7 @@ DECLARE_SCRIPT(M10_Obelisk, "")
 	}
 
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 1000 && param == 1000)
 		{
@@ -1173,7 +1173,7 @@ DECLARE_SCRIPT(M10_Destroyed_Turret, "")
 
 DECLARE_SCRIPT(M10_Destroy_Self, "")
 {
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		Commands->Destroy_Object(obj);
 	}
@@ -1213,7 +1213,7 @@ DECLARE_SCRIPT(M10_Apache_Controller, "")
 		Commands->Attach_Script(apache, "M10_Apache", "2");
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (param < -1 || param > 2)
 		{
@@ -1362,7 +1362,7 @@ DECLARE_SCRIPT(M10_Apache, "Area:int")
 		my_area = Get_Int_Parameter("Area");
 	}
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 100 && param == 100)
 		{
@@ -1583,7 +1583,7 @@ DECLARE_SCRIPT(M10_Reinforcement_Controller, "")
 		current_area = -1;
 	}
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 3000)
 		{
@@ -1842,7 +1842,7 @@ DECLARE_SCRIPT(M10_Chinook_ParaDrop, "Preset:string")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 23000 && param == 23000)
 		{
@@ -1907,7 +1907,7 @@ DECLARE_SCRIPT(M10_Cargo_Plane_Dropoff, "")
 		airstrip_alive = true;				
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if (type == TANK_KILLED)
 		{
@@ -2374,7 +2374,7 @@ DECLARE_SCRIPT (M10_Mammoth_Attack, "")
 		choice = Commands->Get_Random_Int(0,4);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == MAMMOTH && param == ATTACK)
 		{
@@ -2564,7 +2564,7 @@ DECLARE_SCRIPT (M10_GDI_Reinforcement, "")
 				
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == REINFORCE)
 		{
@@ -2782,7 +2782,7 @@ DECLARE_SCRIPT (M10_Mammoth_Grant_Controller, "") //2001634
 				
 	}
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		GameObject * mammoth = Commands->Find_Object (2000787);
 
@@ -2859,7 +2859,7 @@ DECLARE_SCRIPT (M10_Stealth_Drop, "")
 		Commands->Send_Custom_Event( obj, Commands->Find_Object (1110056), KILLED, 0 , 0.0f);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 2500)
 		{
@@ -2964,7 +2964,7 @@ DECLARE_SCRIPT(DME_Cinematic_Zone, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == KILLED)
 		{
@@ -3271,7 +3271,7 @@ DECLARE_SCRIPT(M10_Nod_Obelisk, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if(type == M10_PLAYERTYPE_CHANGE_OBELISK)
 		{
@@ -3335,7 +3335,7 @@ DECLARE_SCRIPT(M10_Obelisk_MCT, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == KILLED)
 		{
@@ -3346,7 +3346,7 @@ DECLARE_SCRIPT(M10_Obelisk_MCT, "")
 
 DECLARE_SCRIPT(M10_Refinery_Keycard, "")
 {
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override 
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -3403,7 +3403,7 @@ DECLARE_SCRIPT (M10_Flyover_Controller, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		
 		if (type == FLYOVER)
@@ -3473,7 +3473,7 @@ DECLARE_SCRIPT (M10_Conversation_Zone, "Conv_Num:int")
 		already_entered = false;				
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == ENTERED)
 		{
@@ -4094,7 +4094,7 @@ DECLARE_SCRIPT(M10_Mrls_Grant, "")
 		}
 	}	
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == MAMMY)
 		{
@@ -4264,7 +4264,7 @@ DECLARE_SCRIPT(M10_Con_Yard_Repair, "RepairSpeed=1:float")
 	}
 
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 3000 && param == 3000)
 		{
@@ -4338,7 +4338,7 @@ DECLARE_SCRIPT(M10_Radar_Scramble, "")
 		already_entered = false;				
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if (type == ENTERED)
 		{
@@ -4505,7 +4505,7 @@ DECLARE_SCRIPT(M10_NBase_Attacked, "") //1206469
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == DAMAGED && !message_fired)
 		{
@@ -4542,7 +4542,7 @@ DECLARE_SCRIPT (M10_NBase_Damage_Modifier, "Damage_multiplier:float")
 		conyard_destroyed = false;
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 3000 && param == 3000)
 		{
@@ -4620,7 +4620,7 @@ DECLARE_SCRIPT(M10_Holograph_EntryZone_DME, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override 
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if (param == 8000)
 		{
@@ -4669,7 +4669,7 @@ DECLARE_SCRIPT(M10_Holograph_EntryZone2_DME, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override 
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if (type == KANE_CONV)
 		{
@@ -4728,7 +4728,7 @@ DECLARE_SCRIPT(M10_KaneHead_DME, "") //2017221
 		}
 	}*/
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override 
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if (param == 8000)//conversation is over--go away
 		{
@@ -4768,7 +4768,7 @@ DECLARE_SCRIPT(M10_KaneHead2_DME, "") //2017221
 		}
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override 
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if (param == 8000)//conversation is over--go away
 		{
