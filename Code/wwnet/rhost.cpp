@@ -79,7 +79,7 @@ cRemoteHost::cRemoteHost() :
 {
    //WWDEBUG_SAY(("cRemoteHost::cRemoteHost\n"));
 
-	ZeroMemory(&Address, sizeof(SOCKADDR_IN));
+	ZeroMemory(&Address, sizeof(struct sockaddr_in));
 
 	if (IsFlowControlEnabled) {
       //ThresholdPriority = cNetUtil::Get_Initial_Threshold_Priority();
@@ -161,7 +161,7 @@ int cRemoteHost::Get_List_Processing_Time(int list_type)
 }
 
 //-----------------------------------------------------------------------------
-SOCKADDR_IN & cRemoteHost::Get_Address()
+struct sockaddr_in & cRemoteHost::Get_Address()
 {
 	return Address;
 }

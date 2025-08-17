@@ -204,7 +204,7 @@ static int Ping_Host(unsigned long host_ip, unsigned long my_ip, int times, int 
 static float Average_Ping(int num_pings, unsigned long *ping_times, bool ignore_low_high);
 static float Lowest_Ping(int num_pings, unsigned long *ping_times);
 static int Get_Path_To_Server(unsigned long *path, unsigned long my_ip, unsigned long server_ip);
-static void Ping_Profile(SOCKADDR_IN *router_addr, unsigned long my_ip);
+static void Ping_Profile(struct sockaddr_in *router_addr, unsigned long my_ip);
 
 static bool Set_Registry_Int(const char *name, int value);
 static int Get_Registry_Int(const char *name, int def_value);
@@ -1072,7 +1072,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 
 
 
-void Ping_Profile(SOCKADDR_IN *router_addr, unsigned long my_ip)
+void Ping_Profile(struct sockaddr_in *router_addr, unsigned long my_ip)
 {
 	float ping_averages[1000];
 	unsigned long ping_times[100];

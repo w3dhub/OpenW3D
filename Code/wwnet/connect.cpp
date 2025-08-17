@@ -229,7 +229,7 @@ void cConnection::Init_Stats()
 }
 
 //------------------------------------------------------------------------------------
-void cConnection::Init_As_Client(LPSOCKADDR_IN p_server_address, unsigned short my_port)
+void cConnection::Init_As_Client(struct sockaddr_in* p_server_address, unsigned short my_port)
 {
    WWASSERT(p_server_address != NULL);
    WWASSERT(!InitDone);
@@ -285,7 +285,7 @@ void cConnection::Init_As_Client(ULONG server_ip, USHORT server_port, unsigned s
 
 	WWASSERT(server_port >= MIN_SERVER_PORT && server_port <= MAX_SERVER_PORT);
 
-   SOCKADDR_IN server_address;
+   struct sockaddr_in server_address;
 	ZeroMemory(&server_address, sizeof(server_address));
 
    if (!cSinglePlayerData::Is_Single_Player()) {
@@ -363,12 +363,12 @@ bool cConnection::Bind(USHORT port, ULONG addr)
 	WWASSERT((!IsServer) ||
 		    (IsServer && port >= MIN_SERVER_PORT && port <= MAX_SERVER_PORT));
 
-   SOCKADDR_IN address;
+   struct sockaddr_in address;
    cNetUtil::Create_Local_Address(&address, port);
 
    if (addr) address.sin_addr.s_addr = htonl(addr);
 
-   if (::bind(Sock, (LPSOCKADDR) &address, sizeof(SOCKADDR_IN)) != SOCKET_ERROR) {
+   if (::bind(Sock, (struct sockaddr*) &address, sizeof(struct sockaddr_in)) != SOCKET_ERROR) {
       LocalPort = port;
       WWDEBUG_SAY(("Bound to local port %d.\n", LocalPort));
       return true;
@@ -636,7 +636,7 @@ bool cConnection::Receive_Packet()
 #ifndef WRAPPER_CRC
    	if (!packet.Is_Crc_Correct()) {
 #ifdef WWDEBUG
-			sockaddr_in *addr_ptr = (LPSOCKADDR_IN) &packet.Get_From_Address_Wrapper()->FromAddress;
+			sockaddr_in *addr_ptr = (struct sockaddr_in*) &packet.Get_From_Address_Wrapper()->FromAddress;
 #endif //WWDEBUG
       	WWDEBUG_SAY(("*** CRC FAILURE: PACKET DISCARDED ***\n"));
       	WWDEBUG_SAY(("*** CRC FAILURE: Packet from %s\n", Addr_As_String(addr_ptr)));
@@ -715,7 +715,7 @@ bool cConnection::Receive_Packet()
 	//
 	const int packet_id = packet.Get_Id();
 	const int sender_id = packet.Get_Sender_Id();
-	SOCKADDR_IN * p_from_address = &packet.Get_From_Address_Wrapper()->FromAddress;
+	struct sockaddr_in * p_from_address = &packet.Get_From_Address_Wrapper()->FromAddress;
 	WWASSERT(p_from_address != NULL);
 	cRemoteHost * p_sender_rhost = NULL;
 	if (sender_id != cPacket::UNDEFINED_ID) {
@@ -990,7 +990,7 @@ bool cConnection::Receive_Packet()
 //-----------------------------------------------------------------------------
 void cConnection::Process_Connection_Request(cPacket & packet)
 {
-	LPSOCKADDR_IN p_address = &packet.Get_From_Address_Wrapper()->FromAddress;
+	struct sockaddr_in* p_address = &packet.Get_From_Address_Wrapper()->FromAddress;
 
    WWASSERT(InitDone);
    WWASSERT(IsServer);
@@ -1085,7 +1085,7 @@ int cConnection::Single_Player_sendto(cPacket & packet)
 }
 
 //------------------------------------------------------------------------------------
-int cConnection::Address_To_Rhostid(const SOCKADDR_IN* p_address)
+int cConnection::Address_To_Rhostid(const struct sockaddr_in* p_address)
 {
    WWASSERT(p_address != NULL);
 
@@ -1114,7 +1114,7 @@ int cConnection::Address_To_Rhostid(const SOCKADDR_IN* p_address)
 //int last_packet_len = 0;
 
 //------------------------------------------------------------------------------------
-int cConnection::Low_Level_Send_Wrapper(cPacket & packet, LPSOCKADDR_IN p_address)
+int cConnection::Low_Level_Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address)
 {
 	WWASSERT(p_address != NULL);
 
@@ -1152,7 +1152,7 @@ memcpy(last_packet, packet.Get_Data(), last_packet_len);
 			return(0);
 			//ret_code = sendto(Sock, packet.Get_Data(),
 			//	packet.Get_Compressed_Size_Bytes(), 0,
-			//	(LPSOCKADDR) p_address, sizeof(SOCKADDR_IN));
+			//	(LPSOCKADDR) p_address, sizeof(struct sockaddr_in));
 		} else {
 			PacketManager.Flush();
 			ret_code = packet.Get_Compressed_Size_Bytes();
@@ -1173,7 +1173,7 @@ memcpy(last_packet, packet.Get_Data(), last_packet_len);
 }
 
 //------------------------------------------------------------------------------------
-int cConnection::Send_Wrapper(cPacket & packet, LPSOCKADDR_IN p_address)
+int cConnection::Send_Wrapper(cPacket & packet, struct sockaddr_in* p_address)
 {
    WWASSERT(p_address != NULL);
 
@@ -1259,7 +1259,7 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 							cRemoteHost *rhost_ptr = PRHost[i];
 
 							if (rhost_ptr) {
-								SOCKADDR_IN rhost_addr = rhost_ptr->Get_Address();
+								struct sockaddr_in rhost_addr = rhost_ptr->Get_Address();
 
 								if (memcmp(ip_address, &rhost_addr.sin_addr.s_addr, 4) == 0) {
 									if (rhost_addr.sin_port == port) {
@@ -1285,20 +1285,20 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 
 
 		if (bytes) {
-			sockaddr_in *addr_ptr = (LPSOCKADDR_IN) &packet.Get_From_Address_Wrapper()->FromAddress;
+			sockaddr_in *addr_ptr = (struct sockaddr_in*) &packet.Get_From_Address_Wrapper()->FromAddress;
 			memcpy(&addr_ptr->sin_addr.s_addr, ip_address, 4);
 			addr_ptr->sin_port = port;
 		}
 		ret_code = bytes;
 
 #if (0)
-   	int address_size = sizeof(SOCKADDR_IN);
+   	int address_size = sizeof(struct sockaddr_in);
 		ret_code = recvfrom(Sock, packet.Get_Data(),
 			packet.Get_Max_Size(), 0,
 	   	(LPSOCKADDR) &packet.Get_From_Address_Wrapper()->FromAddress, &address_size);
 
 		if (ret_code > 0) {
-			//WWDEBUG_SAY(("cConnection: recvfrom %s\n", Addr_As_String((LPSOCKADDR_IN) &packet.Get_From_Address_Wrapper()->FromAddress)));
+			//WWDEBUG_SAY(("cConnection: recvfrom %s\n", Addr_As_String((struct sockaddr_in*) &packet.Get_From_Address_Wrapper()->FromAddress)));
 		}
 #endif //(0)
 
@@ -1427,7 +1427,7 @@ void cConnection::Handle_Send_Resource_Failure(int rhost_id)
 */
 
 //------------------------------------------------------------------------------------
-void cConnection::Send_Packet_To_Address(cPacket & packet, LPSOCKADDR_IN p_address)
+void cConnection::Send_Packet_To_Address(cPacket & packet, struct sockaddr_in* p_address)
 {
    WWASSERT(p_address != NULL);
 
@@ -1649,7 +1649,7 @@ void cConnection::Send_Accept_Sc(int new_rhost_id)
 }
 
 //-----------------------------------------------------------------------------
-void cConnection::Send_Refusal_Sc(LPSOCKADDR_IN p_address, REFUSAL_CODE refusal_code)
+void cConnection::Send_Refusal_Sc(struct sockaddr_in* p_address, REFUSAL_CODE refusal_code)
 {
    WWASSERT(p_address != NULL);
 
@@ -1683,7 +1683,7 @@ void cConnection::Send_Refusal_Sc(LPSOCKADDR_IN p_address, REFUSAL_CODE refusal_
 }
 
 //-----------------------------------------------------------------------------
-void cConnection::Send_Ack(LPSOCKADDR_IN p_address, int packet_id)
+void cConnection::Send_Ack(struct sockaddr_in* p_address, int packet_id)
 {
    WWASSERT(p_address != NULL);
    WWASSERT(InitDone);

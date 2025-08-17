@@ -38,7 +38,7 @@
 
 #include <always.h>
 #include <memory.h>
-//#include <winsock.h>
+//#include <winsock2.h>
 #include "systimer.h"
 #include <malloc.h>
 
@@ -912,12 +912,12 @@ WWPROFILE("PMgr Flush");
 			memcpy(crc_and_buffer + sizeof(crc), (const char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength);
 
 			Register_Packet_Out(&SendBuffers[i].IPAddress[0], SendBuffers[i].Port, SendBuffers[i].PacketSendLength + UDP_HEADER_SIZE + sizeof(crc), 0);
-			int result = sendto(socket, crc_and_buffer, SendBuffers[i].PacketSendLength + sizeof(crc), 0, (LPSOCKADDR) &addr, sizeof(SOCKADDR_IN));
+			int result = sendto(socket, crc_and_buffer, SendBuffers[i].PacketSendLength + sizeof(crc), 0, (LPSOCKADDR) &addr, sizeof(struct sockaddr_in));
 
 #else //WRAPPER_CRC
 
 			Register_Packet_Out(&SendBuffers[i].IPAddress[0], SendBuffers[i].Port, SendBuffers[i].PacketSendLength + UDP_HEADER_SIZE, 0);
-			int result = sendto(socket, (const char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength, 0, (LPSOCKADDR) &addr, sizeof(SOCKADDR_IN));
+			int result = sendto(socket, (const char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength, 0, (LPSOCKADDR) &addr, sizeof(struct sockaddr_in));
 
 #endif //WRAPPER_CRC
 
@@ -946,7 +946,7 @@ WWPROFILE("PMgr Flush");
 			//for (int i=0 ; i<540 ; i++) {
 			//	garbage[i] = rand();
 			//}
-			//sendto(socket, (const char*)garbage, 540, 0, (LPSOCKADDR) &addr, sizeof(SOCKADDR_IN));
+			//sendto(socket, (const char*)garbage, 540, 0, (LPSOCKADDR) &addr, sizeof(struct sockaddr_in));
 
 		}
 	}
@@ -1615,7 +1615,7 @@ unsigned long PacketManagerClass::Get_Total_Compressed_Bandwidth_Out(void)
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Raw_Bandwidth_In(SOCKADDR_IN *address)
+unsigned long PacketManagerClass::Get_Raw_Bandwidth_In(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
 	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
@@ -1644,7 +1644,7 @@ unsigned long PacketManagerClass::Get_Raw_Bandwidth_In(SOCKADDR_IN *address)
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Raw_Bandwidth_Out(SOCKADDR_IN *address)
+unsigned long PacketManagerClass::Get_Raw_Bandwidth_Out(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
 	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
@@ -1674,7 +1674,7 @@ unsigned long PacketManagerClass::Get_Raw_Bandwidth_Out(SOCKADDR_IN *address)
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Raw_Bytes_Out(SOCKADDR_IN *address)
+unsigned long PacketManagerClass::Get_Raw_Bytes_Out(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
 	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
@@ -1705,7 +1705,7 @@ unsigned long PacketManagerClass::Get_Raw_Bytes_Out(SOCKADDR_IN *address)
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Compressed_Bandwidth_In(SOCKADDR_IN *address)
+unsigned long PacketManagerClass::Get_Compressed_Bandwidth_In(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
 	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
@@ -1734,7 +1734,7 @@ unsigned long PacketManagerClass::Get_Compressed_Bandwidth_In(SOCKADDR_IN *addre
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Compressed_Bandwidth_Out(SOCKADDR_IN *address)
+unsigned long PacketManagerClass::Get_Compressed_Bandwidth_Out(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
 	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);

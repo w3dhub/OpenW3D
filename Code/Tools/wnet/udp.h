@@ -26,7 +26,7 @@
 #include <string.h>
 
 #ifdef _WINDOWS
-#include <winsock.h>
+#include <winsock2.h>
 #include <io.h>
 #define close _close
 #define read  _read

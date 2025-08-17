@@ -38,7 +38,7 @@
 #include "wwdebug.h"
 
 #include "win.h"
-#include <winsock.h>
+#include "network-typedefs.h"
 
 //const USHORT MAX_MESSAGE_TYPES = 256;
 
@@ -82,8 +82,8 @@ class cRemoteHost
 		int Get_Last_Contact_Time()						{return LastContactTime;}
 		void Set_Last_Contact_Time(int time)			{LastContactTime = time;}
 
-		SOCKADDR_IN & Get_Address();
-		void Set_Address(SOCKADDR_IN & address)			{Address = address;}
+		struct sockaddr_in & Get_Address();
+		void Set_Address(struct sockaddr_in & address)			{Address = address;}
 
 		int	Get_Target_Bps(void) const					{return TargetBps;}
 		//void	Set_Target_Bps(int bps)						{WWASSERT(bps > 0); TargetBps = bps;}
@@ -178,7 +178,7 @@ class cRemoteHost
       int				AverageInternalPingtimeMs;
       int				MinInternalPingtimeMs;
       int				MaxInternalPingtimeMs;
-      SOCKADDR_IN		Address;
+      struct sockaddr_in		Address;
 		int				ReliablePacketSendId;
 		int				UnreliablePacketSendId;
 		int				ReliablePacketRcvId;
