@@ -39,7 +39,8 @@
 #include	"win.h"
 #include	"mpu.h"
 #include "math.h"
-#include <assert.h>
+#include <cassert>
+#include <cstdint>
 
 typedef union {
 	LARGE_INTEGER LargeInt;
@@ -88,31 +89,13 @@ unsigned long Get_CPU_Clock(unsigned long & high)
 {
 	int h;
 	int l;
-	__asm {
-		_emit 0Fh
-		_emit 31h
-		mov	[h],edx
-		mov	[l],eax
-	}
-	high = h;
+	_int64 tsc = __rdtsc();
+	h = tsc >> 8;
+	l = tsc;
 	return(l);
 }
 
 
-
-
-/*
-**
-** Cut and paste job from an intel example.
-**
-**
-**
-**
-**
-**
-*/
-
-#define ASM_RDTSC _asm _emit 0x0f _asm _emit 0x31
 
 // Max # of samplings to allow before giving up and returning current average.
 #define MAX_TRIES			20
@@ -121,18 +104,6 @@ unsigned long Get_CPU_Clock(unsigned long & high)
 // # of MHz to allow samplings to deviate from average of samplings.
 #define TOLERANCE			1
 
-static unsigned long TSC_Low;
-static unsigned long TSC_High;
-
-void RDTSC(void)
-{
-    _asm
-    {
-        ASM_RDTSC;
-        mov     TSC_Low, eax
-        mov     TSC_High, edx
-    }
-}
 
 
 int Get_RDTSC_CPU_Speed(void)
@@ -145,7 +116,7 @@ int Get_RDTSC_CPU_Speed(void)
 	int	tries=0;						// Number of times a calculation has been
 												// made on this call
 	DWORD	total_cycles=0, cycles;	// Clock cycles elapsed during test
-	DWORD	stamp0, stamp1;			// Time Stamp for beginning and end of test
+	int64_t	stamp0, stamp1;			// Time Stamp for beginning and end of test
 	DWORD	total_ticks=0, ticks;	// Microseconds elapsed during test
 // DWORD	current = 0;				// Elapsed time during loop
 	LARGE_INTEGER count_freq;			// Hi-Res Performance Counter frequency
@@ -197,8 +168,7 @@ int Get_RDTSC_CPU_Speed(void)
 			QueryPerformanceCounter(&t1);
 		}
 
-		ASM_RDTSC;
-		_asm	mov	stamp0, EAX
+		stamp0 = __rdtsc();
 
 		t0.LowPart = t1.LowPart;		// Reset Initial Time
 		t0.HighPart = t1.HighPart;
@@ -211,8 +181,7 @@ int Get_RDTSC_CPU_Speed(void)
 			QueryPerformanceCounter(&t1);
 		}
 
-		ASM_RDTSC;
-		_asm	mov	stamp1, EAX
+		stamp1 = __rdtsc();
 
 
 		cycles = stamp1 - stamp0;					// # of cycles passed between reads
