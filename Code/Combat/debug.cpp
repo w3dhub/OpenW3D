@@ -535,8 +535,8 @@ struct NewCallerStruct {
 };
 
 
-unsigned long ReturnAddresses[20];
-int Stack_Walk(unsigned long *return_addresses, int num_addresses, CONTEXT *);
+void* ReturnAddresses[20];
+int Stack_Walk(void **return_addresses, int num_addresses, CONTEXT *);
 bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement);
 void *NewMutex = NULL;
 
