@@ -147,7 +147,7 @@ Do_Version_Check (void)
 	//	Check the version of the viewer that is out on the network
 	// against the version we are running.
 	//
-	if (Compare_EXE_Version ((int)::AfxGetInstanceHandle (), filename) < 0) {
+	if (Compare_EXE_Version (::AfxGetInstanceHandle (), filename) < 0) {
 		::MessageBox (NULL, "There is a newer version of the W3DViewer, please run W3DUpdate to upgrade your local copy.", "Version Info", MB_ICONEXCLAMATION | MB_OK | MB_SETFOREGROUND | MB_SYSTEMMODAL);
 	}
 
