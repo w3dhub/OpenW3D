@@ -205,7 +205,6 @@ int main(int argc, char *argv[])
 		cUserOptions::Print_Command_Line_Help(false);
 		return 0;
 	}
-	LocalFree(argv);
 
 #ifdef _DEBUG // Denzil - DO NOT COMPILE INTO FINAL BUILD
 	bool webInstalled = WebBrowser::InstallPrerequisites();
