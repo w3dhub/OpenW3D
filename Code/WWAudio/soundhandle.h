@@ -90,7 +90,7 @@ public:
 	//
 	//	Initialization
 	//	
-	virtual void	Set_Miles_Handle (uint32 handle) = 0;
+	virtual void	Set_Miles_Handle (void *handle) = 0;
 	virtual void	Initialize (SoundBufferClass *buffer);
 
 	//
@@ -108,8 +108,8 @@ public:
 	virtual U32		Get_Sample_Loop_Count (void) = 0;
 	virtual void	Set_Sample_MS_Position (U32 ms) = 0;
 	virtual void	Get_Sample_MS_Position (S32 *len, S32 *pos) = 0;
-	virtual void	Set_Sample_User_Data (S32 i, U32 val) = 0;
-	virtual U32		Get_Sample_User_Data (S32 i) = 0;
+	virtual void	Set_Sample_User_Data (S32 i, void *val) = 0;
+	virtual void *	Get_Sample_User_Data (S32 i) = 0;
 	virtual S32		Get_Sample_Playback_Rate (void) = 0;
 	virtual void	Set_Sample_Playback_Rate (S32 rate) = 0;
 	
