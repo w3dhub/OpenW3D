@@ -81,7 +81,7 @@ class	ScriptClass : public GameObjObserverClass
 	#define	SCRIPT_DLL_FUNCT _declspec(dllimport)
 #endif
 #else
-#define SCRIPT_DLL_FUNCT
+#define SCRIPT_DLL_FUNCT extern "C"
 #endif
 
 
