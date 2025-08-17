@@ -75,7 +75,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_RMV, "Start_Now=0:int, Create_At_Obj=0:int, 
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Explosion_Create_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == custom_type) && (param == parameter))
@@ -119,7 +119,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_At_Bone_RMV, "Start_Now=0:int, Receive_Type:
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Explosion_Create_At_Bone_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == custom_type) && (param == parameter))
@@ -169,7 +169,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 		last = 0;
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		
 		if(type == M00_CREATE_RANDOM_EXPLOSION && param == 1)
@@ -223,7 +223,7 @@ DECLARE_SCRIPT( M00_NukeStrike_Anim, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if ( type == 1 )
 		{

@@ -633,7 +633,7 @@ void	Select_Weapon( GameObject * obj, const char * weapon_name )
 /*
 **
 */
-void	Send_Custom_Event( GameObject * from, GameObject * to, int type, int param, float delay )
+void	Send_Custom_Event( GameObject * from, GameObject * to, int type, uintptr_t param, float delay )
 {
 #if(0) // Denzil 4/4/00 - From not required for most messages
 	SCRIPT_PTR_CHECK( from );
