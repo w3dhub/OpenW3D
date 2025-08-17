@@ -790,7 +790,7 @@ void	C4GameObj::Import_Rare( BitStreamClass &packet )
 				po->Set_Position(pos);
 			}
 		}
-		WWDEBUG_SAY(("C4 %d is now STUCK, pos= %f, %f, %f",(int)this, pos.X,pos.Y,pos.Z));
+		WWDEBUG_SAY(("C4 %p is now STUCK, pos= %f, %f, %f", this, pos.X,pos.Y,pos.Z));
 
 		packet.Get(StuckMCT);
 		packet.Get(StuckToObject);
