@@ -755,7 +755,7 @@ DECLARE_SCRIPT(PDS_Test_Inventory, "")
 	////////////////////////////////////////////////////////////////////
 	//	Custom
 	////////////////////////////////////////////////////////////////////
-	void Custom (GameObject *game_obj, int event, int data, GameObject *sender)
+	void Custom (GameObject *game_obj, int event, uintptr_t data, GameObject *sender)
 	{
 		if (event == CUSTOM_HAS_MEDKIT) {
 			int *retval = (int *)data;
