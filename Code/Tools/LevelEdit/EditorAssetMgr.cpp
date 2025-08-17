@@ -264,7 +264,7 @@ EditorAssetMgrClass::Create_Render_Obj (const char * name)
 		sprintf( filename, "%s.W3D", name);
 		const char *mesh_name = ::strchr (name, '.');
 		if (mesh_name != NULL) {
-			::lstrcpyn (filename, name, ((int)mesh_name) - ((int)name) + 1);
+			::lstrcpyn (filename, name, mesh_name - name + 1);
 			::lstrcat (filename, ".W3D");
 		} else {
 			sprintf( filename, "%s.W3D", name);
