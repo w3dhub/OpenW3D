@@ -547,7 +547,7 @@ CW3DViewDoc::LoadAssetsFromFile (LPCTSTR lpszPathName)
 	//
 	if (::strrchr (lpszPathName, '\\')) {
 		CString stringTemp = lpszPathName;
-		stringTemp = stringTemp.Left ((long)::strrchr (lpszPathName, '\\') - (long)lpszPathName);
+		stringTemp = stringTemp.Left (::strrchr (lpszPathName, '\\') - lpszPathName);
 		::SetCurrentDirectory (stringTemp);
 		_TheSimpleFileFactory->Append_Sub_Directory(stringTemp);
 	}

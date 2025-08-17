@@ -3054,7 +3054,7 @@ void	Cinematic_Sniper_Control(bool enabled, float zoom)
 /*
 **
 */
-int	Text_File_Open( const char * filename )
+void *	Text_File_Open( const char * filename )
 {
 	FileClass * file = _TheFileFactory->Get_File( filename );
 	if ( file ) {
@@ -3064,10 +3064,10 @@ int	Text_File_Open( const char * filename )
 			file = NULL;
 		}
 	}
-	return (int)( file );
+	return (void *)file;
 }
 
-bool	Text_File_Get_String( int handle, char * buffer, int size )
+bool	Text_File_Get_String( void *handle, char * buffer, int size )
 {
 	FileClass * file = (FileClass *)handle;
 	char ch[4];
@@ -3085,7 +3085,7 @@ bool	Text_File_Get_String( int handle, char * buffer, int size )
 	return (buffer[0] != 0);
 }
 
-void	Text_File_Close( int handle )
+void	Text_File_Close( void *handle )
 {
 	FileClass * file = (FileClass *)handle;
 	if ( file != NULL ) {
