@@ -250,7 +250,7 @@ void LightMapApp::Do_Version_Check()
 	strcat (pathname, filename);
 	strcat (pathname, extension);
 
-	if (Compare_EXE_Version ((int)::AfxGetInstanceHandle(), pathname) < 0) {
+	if (Compare_EXE_Version (::AfxGetInstanceHandle(), pathname) < 0) {
 		::MessageBox (NULL, newversiontext, "Version Information", MB_ICONEXCLAMATION | MB_OK | MB_SETFOREGROUND | MB_SYSTEMMODAL);
 	}
 }

@@ -2209,7 +2209,7 @@ Check_Editor_Version (void)
 	// against the version we are running.  We don't want people making modifications
 	// with and older version
 	//
-	return (::Compare_EXE_Version ((int)::AfxGetInstanceHandle (), filename) >= 0);
+	return (::Compare_EXE_Version (::AfxGetInstanceHandle (), filename) >= 0);
 #else
 	return true;
 #endif
