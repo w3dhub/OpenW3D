@@ -297,7 +297,7 @@ Sound2DHandleClass::Get_Sample_MS_Position (S32 *len, S32 *pos)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_User_Data (S32 i, U32 val)
+Sound2DHandleClass::Set_Sample_User_Data (S32 i, void *val)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_user_data (SampleHandle, i, val);
@@ -312,10 +312,10 @@ Sound2DHandleClass::Set_Sample_User_Data (S32 i, U32 val)
 //	Get_Sample_User_Data
 //
 //////////////////////////////////////////////////////////////////////
-U32
+void *
 Sound2DHandleClass::Get_Sample_User_Data (S32 i)
 {
-	U32 retval = 0;
+	void * retval = nullptr;
 
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_user_data (SampleHandle, i);
@@ -365,7 +365,7 @@ Sound2DHandleClass::Set_Sample_Playback_Rate (S32 rate)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Miles_Handle (uint32 handle)
+Sound2DHandleClass::Set_Miles_Handle (void *handle)
 {
 	SampleHandle = (HSAMPLE)handle;
 	return ;

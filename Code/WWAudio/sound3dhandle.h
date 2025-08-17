@@ -77,7 +77,7 @@ public:
 	//
 	//	Inherited
 	//
-	void							Set_Miles_Handle (uint32 handle) override;
+	void							Set_Miles_Handle (void *handle) override;
 	void							Initialize (SoundBufferClass *buffer) override;
 	void							Start_Sample (void) override;
 	void							Stop_Sample (void) override;
@@ -91,8 +91,8 @@ public:
 	U32							Get_Sample_Loop_Count (void) override;
 	void							Set_Sample_MS_Position (U32 ms) override;
 	void							Get_Sample_MS_Position (S32 *len, S32 *pos) override;
-	void							Set_Sample_User_Data (S32 i, U32 val) override;
-	U32							Get_Sample_User_Data (S32 i) override;
+	void							Set_Sample_User_Data (S32 i, void *val) override;
+	void *							Get_Sample_User_Data (S32 i) override;
 	S32							Get_Sample_Playback_Rate (void) override;
 	void							Set_Sample_Playback_Rate (S32 rate) override;
 	
