@@ -559,7 +559,7 @@ void SoldierObserverClass::Enemy_Seen(GameObject* obj, GameObject* enemy)
 }
 
 
-void	SoldierObserverClass::Custom( GameObject * obj, int type, int param, GameObject * sender )
+void	SoldierObserverClass::Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender )
 {
 	if ( type == CUSTOM_EVENT_ATTACK_ARRIVED ) {
 //		Debug_Say(( "Attack Arrvied event %d\n", param ));
