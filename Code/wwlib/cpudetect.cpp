@@ -24,6 +24,7 @@
 #pragma warning (disable : 4201)	// Nonstandard extension - nameless struct
 #include <windows.h>
 #include "systimer.h"
+#include <intrin.h>
 
 struct OSInfoStruct {
 	const char* Code;
@@ -147,29 +148,19 @@ const char* CPUDetectClass::Get_Processor_Manufacturer_Name()
 static unsigned Calculate_Processor_Speed(int64_t& ticks_per_second)
 {
 	struct {
-		unsigned timer0_h;
-		unsigned timer0_l;
-		unsigned timer1_h;
-		unsigned timer1_l;
+		int64_t timer0;
+		int64_t timer1;
 	} Time;
 
-	__asm {
-		ASM_RDTSC;
-		mov Time.timer0_h,eax
-		mov Time.timer0_l,edx
-	}
+	Time.timer0 = __rdtsc();
 
 	unsigned start=TIMEGETTIME();
 	unsigned elapsed;
 	while ((elapsed=TIMEGETTIME()-start)<200) {
-		__asm {
-			ASM_RDTSC;
-			mov Time.timer1_h,eax
-			mov Time.timer1_l,edx
-		}
+		Time.timer1 = __rdtsc();
 	}
 
-	int64_t t=*(int64_t*)&Time.timer1_h-*(int64_t*)&Time.timer0_h;
+	int64_t t=Time.timer1-Time.timer0;
 	ticks_per_second=(1000/200)*t;	// Ticks per second
 	return unsigned(t/(elapsed*1000));
 }
@@ -833,6 +824,7 @@ void CPUDetectClass::Init_CPUID_Instruction()
    // because CodeWarrior seems to have problems with
    // the command (huh?)
 
+#ifdef _M_IX86
    __asm
    {
 		mov cpuid_available,0	// clear flag
@@ -854,6 +846,11 @@ done:
 		pop ebx
 	}
 	HasCPUIDInstruction=!!cpuid_available;
+#elif defined(__x86_64__) || defined(_M_AMD64)
+	HasCPUIDInstruction=true;
+#else
+	HasCPUIDInstruction=false;
+#endif
 }
 
 void CPUDetectClass::Init_Processor_Features()
@@ -933,30 +930,13 @@ bool CPUDetectClass::CPUID(
 {
 	if (!Has_CPUID_Instruction()) return false;	// Most processors since 486 have CPUID...
 
-	unsigned u_eax;
-	unsigned u_ebx;
-	unsigned u_ecx;
-	unsigned u_edx;
+	int cpuInfo[4];
+	__cpuid(cpuInfo, cpuid_type);
 
-	__asm
-	{
-		pushad
-		mov		eax,[cpuid_type]
-		xor		ebx,ebx
-		xor		ecx,ecx
-		xor		edx,edx
-		cpuid
-		mov		[u_eax],eax
-		mov		[u_ebx],ebx
-		mov		[u_ecx],ecx
-		mov		[u_edx],edx
-		popad
-	}
-
-	u_eax_=u_eax;
-	u_ebx_=u_ebx;
-	u_ecx_=u_ecx;
-	u_edx_=u_edx;
+	u_eax_=cpuInfo[0];
+	u_ebx_=cpuInfo[1];
+	u_ecx_=cpuInfo[2];
+	u_edx_=cpuInfo[3];
 
 	return true;
 }
