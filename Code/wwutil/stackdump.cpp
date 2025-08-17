@@ -47,15 +47,35 @@
 
 #include	"wwdebug.h"
 
+
+#define STR2(X) #X
+#define STR(X) STR2(X)
+
+#ifdef _WIN64
+typedef DWORD64 DWORD_ARCH;
+typedef DWORD64 *PDWORD_ARCH;
+typedef IMAGEHLP_SYMBOL64 IMAGEHLP_SYMBOL_ARCH;
+typedef IMAGEHLP_SYMBOL64 *PIMAGEHLP_SYMBOL_ARCH;
+typedef PTRANSLATE_ADDRESS_ROUTINE64 PTRANSLATE_ADDRESS_ROUTINE_ARCH;
+typedef PREAD_PROCESS_MEMORY_ROUTINE64 PREAD_PROCESS_MEMORY_ROUTINE_ARCH;
+#else
+typedef DWORD DWORD_ARCH;
+typedef DWORD *PDWORD_ARCH;
+typedef IMAGEHLP_SYMBOL IMAGEHLP_SYMBOL_ARCH;
+typedef IMAGEHLP_SYMBOL *PIMAGEHLP_SYMBOL_ARCH;
+typedef PTRANSLATE_ADDRESS_ROUTINE PTRANSLATE_ADDRESS_ROUTINE_ARCH;
+typedef PREAD_PROCESS_MEMORY_ROUTINE PREAD_PROCESS_MEMORY_ROUTINE_ARCH;
+#endif
+
 typedef BOOL		(WINAPI *SymCleanupType)					(HANDLE hProcess);
-typedef BOOL		(WINAPI *SymGetSymFromAddrType)			(HANDLE hProcess, DWORD Address, LPDWORD Displacement, PIMAGEHLP_SYMBOL Symbol);
+typedef BOOL		(WINAPI *SymGetSymFromAddrType)			(HANDLE hProcess, DWORD_ARCH Address, PDWORD_ARCH Displacement, PIMAGEHLP_SYMBOL Symbol);
 typedef BOOL		(WINAPI *SymInitializeType)				(HANDLE hProcess, LPSTR UserSearchPath, BOOL fInvadeProcess);
-typedef BOOL		(WINAPI *SymLoadModuleType)				(HANDLE hProcess, HANDLE hFile, LPSTR ImageName, LPSTR ModuleName, DWORD BaseOfDll, DWORD SizeOfDll);
+typedef DWORD_ARCH	(WINAPI *SymLoadModuleType)				(HANDLE hProcess, HANDLE hFile, LPSTR ImageName, LPSTR ModuleName, DWORD_ARCH BaseOfDll, DWORD SizeOfDll);
 typedef DWORD		(WINAPI *SymSetOptionsType)				(DWORD SymOptions);
-typedef BOOL		(WINAPI *SymUnloadModuleType)				(HANDLE hProcess, DWORD BaseOfDll);
-typedef BOOL		(WINAPI *StackWalkType)						(DWORD MachineType, HANDLE hProcess, HANDLE hThread, LPSTACKFRAME StackFrame, LPVOID ContextRecord, PREAD_PROCESS_MEMORY_ROUTINE ReadMemoryRoutine, PFUNCTION_TABLE_ACCESS_ROUTINE FunctionTableAccessRoutine, PGET_MODULE_BASE_ROUTINE GetModuleBaseRoutine, PTRANSLATE_ADDRESS_ROUTINE TranslateAddress);
-typedef LPVOID		(WINAPI *SymFunctionTableAccessType)	(HANDLE hProcess, DWORD AddrBase);
-typedef DWORD		(WINAPI *SymGetModuleBaseType)			(HANDLE hProcess, DWORD dwAddr);
+typedef BOOL		(WINAPI *SymUnloadModuleType)			(HANDLE hProcess, DWORD_ARCH BaseOfDll);
+typedef BOOL		(WINAPI *StackWalkType)					(DWORD MachineType, HANDLE hProcess, HANDLE hThread, LPSTACKFRAME StackFrame, LPVOID ContextRecord, PREAD_PROCESS_MEMORY_ROUTINE_ARCH ReadMemoryRoutine, PFUNCTION_TABLE_ACCESS_ROUTINE64 FunctionTableAccessRoutine, PGET_MODULE_BASE_ROUTINE64 GetModuleBaseRoutine, PTRANSLATE_ADDRESS_ROUTINE_ARCH TranslateAddress);
+typedef LPVOID		(WINAPI *SymFunctionTableAccessType)	(HANDLE hProcess, DWORD_ARCH AddrBase);
+typedef DWORD		(WINAPI *SymGetModuleBaseType)			(HANDLE hProcess, DWORD_ARCH dwAddr);
 
 
 static SymCleanupType					_SymCleanup						= NULL;
@@ -68,19 +88,6 @@ static StackWalkType						_StackWalk						= NULL;
 static SymFunctionTableAccessType	_SymFunctionTableAccess		= NULL;
 static SymGetModuleBaseType			_SymGetModuleBase				= NULL;
 
-static char const * ImagehelpFunctionNames[] =
-{
-	"SymCleanup",
-	"SymGetSymFromAddr",
-	"SymInitialize",
-	"SymLoadModule",
-	"SymSetOptions",
-	"SymUnloadModule",
-	"StackWalk",
-	"SymFunctionTableAccess",
-	"SymGetModuleBaseType",
-	NULL
-};
 
 //
 // Class statics
@@ -117,24 +124,19 @@ cStackDump::Print_Call_Stack
 	{
 		WWDEBUG_SAY(("  Found IMAGEHLP.DLL - linking to required functions.\n"));
 
-		char const * function_name = NULL;
-		ULONG * fptr = (ULONG *) &_SymCleanup;
-		int count = 0;
-
-		do 
-		{
-			function_name = ImagehelpFunctionNames[count];
-			if (function_name != NULL) 
-			{
-				*fptr = (ULONG) ::GetProcAddress(imagehelp, function_name);
-				fptr++;
-				count++;
-			}
-		} while (function_name != NULL);
+        _SymCleanup = reinterpret_cast<SymCleanupType>(::GetProcAddress(imagehelp, STR(_SymCleanup)));
+        _SymGetSymFromAddr = reinterpret_cast<SymGetSymFromAddrType>(::GetProcAddress(imagehelp, STR(_SymGetSymFromAddr)));
+        _SymInitialize = reinterpret_cast<SymInitializeType>(::GetProcAddress(imagehelp, STR(_SymInitialize)));
+        _SymLoadModule = reinterpret_cast<SymLoadModuleType>(::GetProcAddress(imagehelp, STR(_SymLoadModule)));
+        _SymSetOptions = reinterpret_cast<SymSetOptionsType>(::GetProcAddress(imagehelp, STR(_SymSetOptions)));
+        _SymUnloadModule = reinterpret_cast<SymUnloadModuleType>(::GetProcAddress(imagehelp, STR(_SymUnloadModule)));
+        _StackWalk = reinterpret_cast<StackWalkType>(::GetProcAddress(imagehelp, STR(_StackWalk)));
+        _SymFunctionTableAccess = reinterpret_cast<SymFunctionTableAccessType>(::GetProcAddress(imagehelp, STR(_SymFunctionTableAccess)));
+        _SymGetModuleBase = reinterpret_cast<SymGetModuleBaseType>(::GetProcAddress(imagehelp, STR(_SymGetModuleBase)));
 	}
 
-	extern int Stack_Walk(ULONG * return_addresses, int num_addresses, CONTEXT * context);
-	ULONG return_addresses[256];
+	extern int Stack_Walk(void ** return_addresses, int num_addresses, CONTEXT * context);
+	void *return_addresses[256];
 	int num_addresses = Stack_Walk(return_addresses, 256, NULL);
 	unsigned char symbol[256];
 	IMAGEHLP_SYMBOL * symptr = (IMAGEHLP_SYMBOL*) &symbol;
@@ -177,7 +179,7 @@ cStackDump::Print_Call_Stack
 		WWDEBUG_SAY(("  Stack:\n"));
 		for (int s = 0 ; s < num_addresses; s++) 
 		{
-			ULONG temp_addr = return_addresses[s];
+			DWORD_ARCH temp_addr = reinterpret_cast<DWORD_ARCH>(return_addresses[s]);
 
 			for (int space = 0 ; space <= s ; space++) 
 			{
@@ -191,14 +193,14 @@ cStackDump::Print_Call_Stack
 				symptr->Size = 0;
 				symptr->Address = temp_addr;
 
-				ULONG displacement = 0;
+				DWORD_ARCH displacement = 0;
 				if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr(GetCurrentProcess(), temp_addr, &displacement, symptr)) 
 				{
 					char symbuf[256];
 					//::sprintf(symbuf, "%s + %08X\n", symptr->Name, displacement);
 					if (s == 0)
 					{
-						::sprintf(symbuf, "%s + %08X", symptr->Name, displacement);
+						::sprintf(symbuf, "%s + %p", symptr->Name, (void *)displacement);
 					}
 					else
 					{
@@ -210,7 +212,7 @@ cStackDump::Print_Call_Stack
 			else 
 			{
 				char symbuf[256];
-				::sprintf(symbuf, "%08x", temp_addr);
+				::sprintf(symbuf, "%p", (void *)temp_addr);
 				WWDEBUG_SAY((symbuf));
 			}
 
@@ -234,7 +236,7 @@ cStackDump::Print_Call_Stack
 
 		if (symload && _SymUnloadModule != NULL) 
 		{
-			_SymUnloadModule(GetCurrentProcess(), NULL);
+			_SymUnloadModule(GetCurrentProcess(), (DWORD_ARCH)NULL);
 		}
 	}
 
