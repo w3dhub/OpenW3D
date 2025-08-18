@@ -84,8 +84,8 @@ unsigned WWProfile_Get_System_Time()
  *=============================================================================================*/
 inline void WWProfile_Get_Ticks(_int64 * ticks)
 {
-#ifdef _UNIX
-       *ticks = TIMEGETTIME();
+#if !defined(_M_IX86)
+	*ticks = TIMEGETTIME();
 #else
 	__asm
 	{
