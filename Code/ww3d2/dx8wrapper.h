@@ -880,7 +880,7 @@ not_changed:
 
 WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 {
-#if defined(_M_X86)
+#if defined(_M_IX86)
 	if (!CPUDetectClass::Has_CMOV_Instruction()) {
 #endif
 		for (int i=0;i<4;++i) {
@@ -888,7 +888,7 @@ WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 			color[i]=(f>1.0f) ? 1.0f : f;
 		}
 		return;
-#if defined(_M_X86)
+#if defined(_M_IX86)
 	}
 
 	__asm
