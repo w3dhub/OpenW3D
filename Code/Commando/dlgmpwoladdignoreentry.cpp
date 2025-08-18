@@ -37,8 +37,8 @@
 
 #include "DlgMPWolAddIgnoreEntry.h"
 #include "WOLBuddyMgr.h"
-#include <WWUI\EditCtrl.h>
-#include <WWDebug\WWDebug.h>
+#include <wwui/EditCtrl.h>
+#include <wwdebug/WWDebug.h>
 
 
 bool MPWolAddIgnoreEntry::DoDialog(const WCHAR* defaultUser)

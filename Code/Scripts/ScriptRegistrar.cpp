@@ -34,7 +34,7 @@
 ******************************************************************************/
 
 #include "always.h"
-#include "scriptregistrar.h"
+#include "ScriptRegistrar.h"
 #include "scriptfactory.h"
 #include "dprint.h"
 #include <string.h>

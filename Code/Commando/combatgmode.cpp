@@ -106,7 +106,7 @@
 #include "radiocommanddisplay.h"
 #include "consolemode.h"
 #include "specialbuilds.h"
-#include <wwlib\realcrc.h>
+#include <wwlib/realcrc.h>
 #include "demosupport.h"
 #include "natter.h"
 #include "gamespyadmin.h"

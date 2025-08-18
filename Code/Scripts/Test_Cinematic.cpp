@@ -34,7 +34,7 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "toolkit.h"
+#include "Toolkit.h"
 #include <stdio.h>
 #include <string.h>
 

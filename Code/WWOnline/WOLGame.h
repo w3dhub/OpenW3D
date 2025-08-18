@@ -38,7 +38,7 @@
 #include "RefPtr.h"
 #include "WOLUser.h"
 #include "WaitCondition.h"
-#include <WWLib\Notify.h>
+#include <wwlib/Notify.h>
 
 namespace WWOnline {
 

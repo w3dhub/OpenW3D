@@ -35,7 +35,7 @@
 #ifndef __WOLGAMEINFO_H__
 #define __WOLGAMEINFO_H__
 
-#include <WWOnline\RefPtr.h>
+#include <WWOnline/RefPtr.h>
 
 class cGameData;
 

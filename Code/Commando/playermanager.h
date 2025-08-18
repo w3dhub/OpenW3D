@@ -47,7 +47,7 @@
 #include "player.h"
 #include "wwstring.h"
 #include "widestring.h"
-#include <WWLib\Notify.h>
+#include <wwlib/Notify.h>
 
 static const int PLAYER_ID_UNKNOWN	= -99999;
 static const int MAX_PLAYERS			= 255;

@@ -60,7 +60,7 @@
 
 
 #ifdef G_CODE_BASE
-#include "..\wwlib\argv.h"
+#include "../wwlib/argv.h"
 #endif
 
 

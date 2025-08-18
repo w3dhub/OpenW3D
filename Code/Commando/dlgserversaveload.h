@@ -43,7 +43,7 @@
 
 
 #include "menudialog.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "translatedb.h"
 #include "string_ids.h"
 

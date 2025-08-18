@@ -40,7 +40,7 @@
 #include "translatedb.h"
 #include "string_ids.h"
 #include "dialogmgr.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "dlgdownload.h"
 #include "dlgquickmatch.h"
 #include "dlgmpwolgamelist.h"

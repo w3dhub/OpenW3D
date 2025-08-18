@@ -45,7 +45,7 @@
 #include "childdialog.h"
 #include "resource.h"
 #include "vector.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 
 
 ////////////////////////////////////////////////////////////////

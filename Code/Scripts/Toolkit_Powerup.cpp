@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 // The Soldier Powerup Tables contains three columns.
 // The first chars of the preset name, the weapon powerup, and the twiddler powerup.

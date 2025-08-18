@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "consolefunction.h"
 #include "wwdebug.h"
 #include "conio.h"

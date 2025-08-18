@@ -37,7 +37,7 @@
 #ifndef __LOGICAL_SOUND_H
 #define __LOGICAL_SOUND_H
 
-#include "SoundSceneObj.H"
+#include "SoundSceneObj.h"
 #include "BitType.H"
 #include "Vector3.H"
 #include "Matrix3D.H"

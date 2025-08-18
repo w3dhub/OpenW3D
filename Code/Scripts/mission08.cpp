@@ -36,8 +36,8 @@
 ******************************************************************************/
 
 #include "scripts.h"
-#include "toolkit.h"
-#include "mission8.h"
+#include "Toolkit.h"
+#include "Mission8.h"
 #include <string.h>
 #include <stdio.h>
 

@@ -41,7 +41,7 @@
 
 // Defines and Includes
 
-#include "toolkit.h"
+#include "Toolkit.h"
 
 #define check		10000
 

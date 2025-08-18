@@ -36,7 +36,7 @@
 #define __WOLGAMEOPTIONS_H__
 
 #include "RefPtr.h"
-#include <WWLib\WWString.h>
+#include <wwlib/WWString.h>
 
 namespace WOL
 {

@@ -56,7 +56,7 @@
 #include	"except.h"
 //#include "debug.h"
 #include "mpu.h"
-//#include "commando\nat.h"
+//#include "commando/nat.h"
 #include "thread.h"
 #include "wwdebug.h"
 #include "wwmemlog.h"

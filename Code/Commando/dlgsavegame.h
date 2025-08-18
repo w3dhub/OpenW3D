@@ -44,7 +44,7 @@
 
 #include "menudialog.h"
 #include "resource.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 
 
 ////////////////////////////////////////////////////////////////

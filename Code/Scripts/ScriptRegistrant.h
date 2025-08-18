@@ -36,7 +36,8 @@
 #ifndef _SCRIPTREGISTRANT_H_
 #define _SCRIPTREGISTRANT_H_
 
-#include "scriptfactory.h"
+#include <cstdlib>
+#include "ScriptFactory.h"
 
 // Script factory registrant
 template<class T>

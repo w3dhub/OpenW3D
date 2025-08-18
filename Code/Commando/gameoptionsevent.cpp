@@ -54,7 +54,7 @@
 #include "dlgmpconnectionrefused.h"
 #include "translatedb.h"
 #include "string_ids.h"
-#include <WWLib\RealCRC.h>
+#include <wwlib/RealCRC.h>
 
 DECLARE_NETWORKOBJECT_FACTORY(cGameOptionsEvent, NETCLASSID_GAMEOPTIONSEVENT);
 

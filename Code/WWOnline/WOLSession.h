@@ -49,12 +49,12 @@
 #include "WOLDownload.h"
 #include "WOLPageMsg.h"
 #include "RefPtr.h"
-#include <WWLib\Notify.h>
-#include <WWLib\WideString.h>
+#include <wwlib/Notify.h>
+#include <wwlib/WideString.h>
 
 namespace WOL
 {
-#include <WOLAPI\wolapi.h>
+#include <wolapi/WOLAPI.h>
 }
 
 #if defined(_MSC_VER)

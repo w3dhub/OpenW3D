@@ -51,7 +51,7 @@
 #include "string_ids.h"
 #include "apppackettypes.h"
 #include "messagewindow.h"
-#include "dlgmessagebox.h"
+#include "DlgMessageBox.h"
 #include "consolemode.h"
 #include "mpsettingsmgr.h"
 

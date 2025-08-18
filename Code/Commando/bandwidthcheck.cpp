@@ -61,7 +61,7 @@
 #include "specialbuilds.h"
 #include "gamespyadmin.h"
 
-#include <WWOnline\WOLSession.h>
+#include <WWOnline/WOLSession.h>
 
 /*
 ** Class statics.
