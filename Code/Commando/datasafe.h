@@ -796,7 +796,7 @@ class DataSafeClass : public GenericDataSafeClass
 		** Type identification.
 		*/
 		static int Get_Type_ID(unsigned long type_code, int size);
-		static unsigned long Get_Type_Code(void);
+		static uintptr_t Get_Type_Code(void);
 
 		/*
 		** Type of this DataSafe.
@@ -1269,7 +1269,7 @@ DataSafeClass<T>::DataSafeClass(T*, int slopcount)
 	** same safe list.
 	*/
 	int data_size = sizeof(T);
-	int type_code = Get_Type_Code();
+	uintptr_t type_code = Get_Type_Code();
 
 	/*
 	** Get_Type_ID will return the Type ID for this type code (instruction pointer). It will create a new type if this one
@@ -1371,7 +1371,7 @@ DataSafeClass<T>::~DataSafeClass(void)
  *   7/2/2001 11:17AM ST : Created                                                             *
  *=============================================================================================*/
 template <class T>
-unsigned long DataSafeClass<T>::Get_Type_Code(void)
+uintptr_t DataSafeClass<T>::Get_Type_Code(void)
 {
 	/*
 	** Make sure this function gets expanded multiple times for different types by referencing the type.
@@ -1384,13 +1384,20 @@ unsigned long DataSafeClass<T>::Get_Type_Code(void)
 	** code will get expanded once for each type it's used with. I will use the location in memory of the function to
 	** uniquely identify each type. What a cunning plan.
 	*/
-	static unsigned long instruction_pointer;
+	/*
+	** FIXME: This cunning plan might break down when linking with `/OPT:ICF`.
+	*/
+	static uintptr_t instruction_pointer;
 	instruction_pointer = 0;
+#ifdef _M_IX86
 	__asm {
 here:
 		lea	eax,here
 		mov	[instruction_pointer],eax
 	};
+#else
+	instruction_pointer = reinterpret_cast<uintptr_t>(DataSafeClass<T>::Get_Type_Code);
+#endif
 
 	ds_assert(instruction_pointer != 0);
 
