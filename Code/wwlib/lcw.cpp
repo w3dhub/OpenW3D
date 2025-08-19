@@ -38,6 +38,7 @@
 
 #include	"always.h"
 #include	"lcw.h"
+#include	<cstdint>
 
 /***************************************************************************
  * LCW_Uncomp -- Decompress an LCW encoded data block.                     *
@@ -48,7 +49,7 @@
  *   Command code, n        |Description                                   *
  * ------------------------------------------------------------------------*
  * n=0xxxyyyy,yyyyyyyy      |short copy back y bytes and run x+3 from dest *
- * n=10xxxxxx,n1,n2,...,nx+1|med length copy the next x+1 bytes from source*
+ * n=10xxxxxx,n1,n2,...,nx  |med length copy the next x bytes from source  *
  * n=11xxxxxx,w1            |med copy from dest x+3 bytes from offset w1   *
  * n=11111111,w1,w2         |long copy from dest w1 bytes from offset w2   *
  * n=11111110,w1,b1         |long run of byte b1 for w1 bytes              *
@@ -104,7 +105,7 @@ int LCW_Uncomp(void const * source, void * dest, unsigned long )
 				if (op_code == 0x80) {
 
 					/* Return # of destination bytes written. */
-					return ((unsigned long) (dest_ptr - (unsigned char*) dest));
+					return dest_ptr - dest;
 
 				} else {
 
@@ -124,7 +125,7 @@ int LCW_Uncomp(void const * source, void * dest, unsigned long )
 					word_data  = (word_data << 24) + (word_data << 16) + (word_data << 8) + word_data;
 					source_ptr += 3;
 
-					copy_ptr = dest_ptr + 4 - ((unsigned) dest_ptr & 0x3);
+					copy_ptr = dest_ptr + 4 - ((uintptr_t) dest_ptr & 0x3);
 					count -= (copy_ptr - dest_ptr);
 					while (dest_ptr < copy_ptr) *dest_ptr++ = data;
 
@@ -132,7 +133,7 @@ int LCW_Uncomp(void const * source, void * dest, unsigned long )
 
 					dest_ptr += (count & 0xfffffffc);
 
-					while (word_dest_ptr < (unsigned*) dest_ptr) {
+					while ((uintptr_t) word_dest_ptr < (uintptr_t) dest_ptr) {
 						*word_dest_ptr		= word_data;
 						*(word_dest_ptr + 1) = word_data;
 						word_dest_ptr += 2;
