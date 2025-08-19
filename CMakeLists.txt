@@ -36,6 +36,10 @@ if(SYNTAX_CHECK_ONLY)
     add_compile_options("-fsyntax-only")
 endif(SYNTAX_CHECK_ONLY)
 
+# Do we want to build with ffmpeg for audio/video decoding?
+option(W3D_BUILD_OPTION_FFMPEG "Build with ffmpeg." OFF)
+add_feature_info(FFMpegBuild W3D_BUILD_OPTION_FFMPEG "Build Renegade with FFMpeg")
+
 if(NOT WIN32)
     add_compile_definitions(__cdecl=)
     add_compile_definitions(__stdcall=)
@@ -44,11 +48,24 @@ endif()
 
 include(FetchContent)
 
+if(W3D_BUILD_OPTION_FFMPEG)
+    include(cmake/ffmpeg.cmake)
+endif()
+
 # Find/Add build dependencies and stubs.
 # Only 32bit Windows can make use of these APIs as the libraries shipped with the game.
 if(WIN32)
     include(cmake/miles.cmake)
+    
+    # Do we want to build with bink for video decoding?
+    option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
+    add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build Renegade with Bink")
+    
+    if(W3D_BUILD_OPTION_BINK)
     include(cmake/bink.cmake)
+        target_compile_definitions(binkstub INTERFACE W3D_HAS_BINK)
+    endif()
+    
     include(cmake/dx9.cmake)
 endif()
 

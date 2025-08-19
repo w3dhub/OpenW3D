@@ -81,7 +81,7 @@ MovieOptionsMenuClass::On_Init_Dialog (void)
 		RegistryClass registry (APPLICATION_SUB_KEY_NAME_MOVIES);
 		if (registry.Is_Valid ()) {
 
-			const char *INTRO_MOVIE	= "DATA\\MOVIES\\R_INTRO.BIK";
+			const char *INTRO_MOVIE	= "MOVIES\\R_INTRO.BIK";
 						
 			//
 			//	Insert the renegade intro movie by default...
