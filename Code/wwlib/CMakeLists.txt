@@ -204,6 +204,10 @@ set(WWLIB_SRC
     xsurface.h
 )
 
+if(TARGET ffmpeg)
+    list(APPEND WWLIB_SRC FFMpegFile.cpp FFMpegFile.h)
+endif()
+
 # Targets to build.
 add_library(wwlib STATIC)
 

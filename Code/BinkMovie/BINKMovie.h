@@ -15,20 +15,12 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-#if defined(_MSV_VER)
-#pragma once
-#endif
-
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
 #ifndef BINKMOVIE_H
 #define BINKMOVIE_H
-
-#include "always.h"
-#include "wwstring.h"
 
 class FontCharsClass;
 
@@ -46,7 +38,7 @@ class FontCharsClass;
 class BINKMovie
 {
 public:
-	static void Play(const char* filename,const char* subtitlename=NULL, FontCharsClass* font = NULL);
+	static void Play(const char* filename,const char* subtitlename=nullptr, FontCharsClass* font = nullptr);
 	static void Stop();
 	static void Update();
 	static void Render();

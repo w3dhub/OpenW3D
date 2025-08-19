@@ -47,6 +47,10 @@ target_link_libraries(wwcommon INTERFACE
     d3d9lib
 )
 
+if(TARGET ffmpeg)
+    target_link_libraries(wwcommon INTERFACE ffmpeg)
+endif()
+
 # Module static libraries
 add_subdirectory(BinkMovie)
 add_subdirectory(Combat)
