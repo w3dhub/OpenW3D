@@ -578,7 +578,7 @@ NodeClass::Save (ChunkSaveClass &csave)
 		//	For pointer remapping
 		//
 		NodeClass *this_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_THISPTR, this_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_THISPTR, this_ptr);
 
 	csave.End_Chunk ();
 	return true;
@@ -627,7 +627,7 @@ NodeClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_ID,						m_ID);
 			READ_MICRO_CHUNK (cload, VARID_ROT_RESTRICT,			m_RotationRestricted);			
 			READ_MICRO_CHUNK (cload, VARID_PRESETID,				m_PresetID);
-			READ_MICRO_CHUNK (cload, VARID_THISPTR,				old_this_ptr)
+			READ_MICRO_CHUNK_PTR (cload, VARID_THISPTR,				old_this_ptr)
 			READ_MICRO_CHUNK (cload, VARID_TRANSFORM,				m_Transform)
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_NAME,		m_Name);
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_COMMENTS,	m_Comments);

@@ -41,6 +41,7 @@
 
 
 const int POINTER_TABLES_GROWTH_STEP = 4096;
+const uint32_t SERIALIZED_POINTER_ID_START = 0x04000000;
 
 
 PointerRemapClass::PointerRemapClass(void)
@@ -48,6 +49,7 @@ PointerRemapClass::PointerRemapClass(void)
 	PointerPairTable.Set_Growth_Step(POINTER_TABLES_GROWTH_STEP);
 	PointerRequestTable.Set_Growth_Step(POINTER_TABLES_GROWTH_STEP);
 	RefCountRequestTable.Set_Growth_Step(POINTER_TABLES_GROWTH_STEP);
+	NextSerializedPointerId = SERIALIZED_POINTER_ID_START;
 }
 
 PointerRemapClass::~PointerRemapClass(void)
@@ -59,6 +61,8 @@ void PointerRemapClass::Reset(void)
 	PointerPairTable.Delete_All();
 	PointerRequestTable.Delete_All();
 	RefCountRequestTable.Delete_All();
+	SerializedPointerIdTable.clear();
+	NextSerializedPointerId = SERIALIZED_POINTER_ID_START;
 }
 
 void PointerRemapClass::Process(void)
@@ -129,6 +133,23 @@ void PointerRemapClass::Process_Request_Table(DynamicVectorClass<PtrRemapStruct>
 void PointerRemapClass::Register_Pointer (void *old_pointer, void *new_pointer)
 {
 	PointerPairTable.Add(PtrPairStruct(old_pointer,new_pointer));
+}
+
+uint32_t PointerRemapClass::Serialize_Pointer (void *pointer)
+{
+	if (pointer == nullptr) {
+		return 0;
+	}
+	uint32_t id;
+	if (const auto mapping = SerializedPointerIdTable.find(pointer); mapping != SerializedPointerIdTable.end()) {
+		id = mapping->second;
+	} else {
+		id = NextSerializedPointerId;
+		WWASSERT(id != 0);
+		NextSerializedPointerId += 4;
+		SerializedPointerIdTable[pointer] = id;
+	}
+	return id;
 }
 
 #ifdef WWDEBUG

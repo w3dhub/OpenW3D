@@ -880,8 +880,8 @@ VehicleDriverClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_IS_BACKING_UP,			m_IsBackingUp);
 		WRITE_MICRO_CHUNK (csave, VARID_IS_BACKUP_LOCKED,		m_IsBackupLocked);
 		WRITE_MICRO_CHUNK (csave, VARID_TURN_OFF_ENGINE,		m_TurnOffEngineWhenDone);
-		WRITE_MICRO_CHUNK (csave, VARID_PATH_PTR,					m_CurrentPath);
-		WRITE_MICRO_CHUNK (csave, VARID_GAME_OBJ_PTR,			m_GameObj);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_PATH_PTR,					m_CurrentPath);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_GAME_OBJ_PTR,			m_GameObj);
 		WRITE_MICRO_CHUNK (csave, VARID_ARRIVED_DIST,			m_ArrivedDist);
 
 	csave.End_Chunk ();
@@ -935,8 +935,8 @@ VehicleDriverClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_IS_BACKING_UP,		m_IsBackingUp);
 			READ_MICRO_CHUNK (cload, VARID_IS_BACKUP_LOCKED,	m_IsBackupLocked);
 			READ_MICRO_CHUNK (cload, VARID_TURN_OFF_ENGINE,		m_TurnOffEngineWhenDone);
-			READ_MICRO_CHUNK (cload, VARID_PATH_PTR,				m_CurrentPath);
-			READ_MICRO_CHUNK (cload, VARID_GAME_OBJ_PTR,			m_GameObj);
+			READ_MICRO_CHUNK_PTR (cload, VARID_PATH_PTR,				m_CurrentPath);
+			READ_MICRO_CHUNK_PTR (cload, VARID_GAME_OBJ_PTR,			m_GameObj);
 			READ_MICRO_CHUNK (cload, VARID_ARRIVED_DIST,			m_ArrivedDist);
 		}
 

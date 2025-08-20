@@ -194,7 +194,7 @@ OratorClass::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 
 		WRITE_MICRO_CHUNK (csave, VARID_ID,					ID);
-		WRITE_MICRO_CHUNK (csave, VARID_CONVERSATION,	Conversation);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_CONVERSATION,	Conversation);
 		WRITE_MICRO_CHUNK (csave, VARID_POSITION,			Position);
 		WRITE_MICRO_CHUNK (csave, VARID_HASARRIVED,		HasArrived);
 		WRITE_MICRO_CHUNK (csave, VARID_FLAGS,				Flags);
@@ -206,7 +206,7 @@ OratorClass::Save (ChunkSaveClass &csave)
 		//	Save our current pointer so we can remap it on load
 		//
 		OratorClass *old_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR, old_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, old_ptr);
 
 	csave.End_Chunk ();
 
@@ -262,11 +262,11 @@ OratorClass::Load_Variables (ChunkLoadClass &cload)
 		switch (cload.Cur_Micro_Chunk_ID ()) {
 
 			READ_MICRO_CHUNK (cload, VARID_ID,					ID);
-			READ_MICRO_CHUNK (cload, VARID_CONVERSATION,		Conversation);
+			READ_MICRO_CHUNK_PTR (cload, VARID_CONVERSATION,		Conversation);
 			READ_MICRO_CHUNK (cload, VARID_POSITION,			Position);
 			READ_MICRO_CHUNK (cload, VARID_HASARRIVED,		HasArrived);
 			READ_MICRO_CHUNK (cload, VARID_FLAGS,				Flags);
-			READ_MICRO_CHUNK (cload, VARID_OLD_PTR,			old_ptr);
+			READ_MICRO_CHUNK_PTR (cload, VARID_OLD_PTR,			old_ptr);
 			READ_MICRO_CHUNK (cload, VARID_ORATOR_TYPE,		OratorType);
 			READ_MICRO_CHUNK (cload, VARID_IS_INVISIBLE,		IsInvisible);
 			READ_MICRO_CHUNK (cload, VARID_LOOK_AT_OBJID,	LookAtObjID);

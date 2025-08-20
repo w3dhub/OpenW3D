@@ -1183,7 +1183,7 @@ PersistClass *	RenderObjPersistFactoryClass::Load(ChunkLoadClass & cload) const
 			{
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK(cload,RENDOBJFACTORY_VARIABLE_OBJPOINTER,old_obj);	
+						READ_MICRO_CHUNK_PTR(cload,RENDOBJFACTORY_VARIABLE_OBJPOINTER,old_obj);
 						READ_MICRO_CHUNK(cload,RENDOBJFACTORY_VARIABLE_TRANSFORM,tm);
 						READ_MICRO_CHUNK_STRING(cload,RENDOBJFACTORY_VARIABLE_NAME,name,sizeof(name));
 					}
@@ -1245,7 +1245,7 @@ void RenderObjPersistFactoryClass::Save(ChunkSaveClass & csave,PersistClass * ob
 	Matrix3D tm = robj->Get_Transform();
 
 	csave.Begin_Chunk(RENDOBJFACTORY_CHUNKID_VARIABLES);
-	WRITE_MICRO_CHUNK(csave,RENDOBJFACTORY_VARIABLE_OBJPOINTER,robj);
+	WRITE_MICRO_CHUNK_PTR(csave,RENDOBJFACTORY_VARIABLE_OBJPOINTER,robj);
 	WRITE_MICRO_CHUNK_STRING(csave,RENDOBJFACTORY_VARIABLE_NAME,name);
 	WRITE_MICRO_CHUNK(csave,RENDOBJFACTORY_VARIABLE_TRANSFORM,tm);
 	csave.End_Chunk();
