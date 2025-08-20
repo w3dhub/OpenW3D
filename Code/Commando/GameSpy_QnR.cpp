@@ -203,7 +203,7 @@ void CGameSpyQnR::LaunchArcade(void) {
 			if (file.Is_Available()) {
 				StringClass params("+svc ");
 				params += gamename;
-				if (((int)ShellExecuteA (NULL, "open", value, params, NULL, SW_SHOW)) > 32) {
+				if (((uintptr_t)ShellExecuteA (NULL, "open", value, params, NULL, SW_SHOW)) > 32) {
 					launched = TRUE;
 				}
 			}
