@@ -211,7 +211,7 @@ cStackDump::Print_Call_Stack
 			} 
 			else 
 			{
-				char symbuf[256]
+				char symbuf[256];
 				::sprintf(symbuf, "%p", (void *)temp_addr);
 				WWDEBUG_SAY((symbuf));
 			}
