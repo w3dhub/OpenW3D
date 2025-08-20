@@ -1386,7 +1386,7 @@ void cNetwork::Shell_Command(LPCSTR command)
 	WWASSERT(command != NULL);
 
 	HINSTANCE hinst = ShellExecuteA(NULL, NULL, command, NULL, "", SW_SHOW);
-	if ((int) hinst <= 32) {
+	if ((uintptr_t) hinst <= 32) {
       WWDEBUG_SAY(("Error: ShellExecute failed.\n"));
 	}
 }
