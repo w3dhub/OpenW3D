@@ -58,7 +58,7 @@ public:
 	SceneSetupDlg(Interface *max_interface);
 
 	// Methods
-	int DoModal (void);
+	INT_PTR DoModal (void);
 
 	// DialogProc
 	BOOL CALLBACK DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
