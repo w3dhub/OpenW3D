@@ -218,7 +218,7 @@ bool	CoverEntryClass::Save( ChunkSaveClass & csave )
 			Vector3 pos = AttackPositionList[i];
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ATTACK_POSITION,     pos );				
 		}
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_REMAP_PTR,     me );				
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_REMAP_PTR,     me );
 	csave.End_Chunk();
 
 	return true;
@@ -249,7 +249,7 @@ bool	CoverEntryClass::Load( ChunkLoadClass & cload )
 							break;
 						}
 
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_REMAP_PTR,     old_me );				
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_REMAP_PTR,     old_me );
 
 						default:
 							Debug_Say(( "Unrecognized CoverEntry Variable chunkID %d\n", cload.Cur_Micro_Chunk_ID() ));

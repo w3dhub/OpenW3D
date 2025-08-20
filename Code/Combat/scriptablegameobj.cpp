@@ -433,12 +433,12 @@ bool	ScriptableGameObj::Save( ChunkSaveClass & csave )
 
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
 		ReferenceableGameObj * referenceable_ptr = (ReferenceableGameObj *)this;
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_REFERENCEABLE_PTR, referenceable_ptr );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_REFERENCEABLE_PTR, referenceable_ptr );
 
 		const GameObjObserverList & observer_list = Get_Observers();
 		for( int index = 0; index < observer_list.Count(); index++ ) {
 			void	* game_obj_observer_ptr = observer_list[ index ];
-			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_GAME_OBJ_OBSERVER_PTR, game_obj_observer_ptr );
+			WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_GAME_OBJ_OBSERVER_PTR, game_obj_observer_ptr );
 		}
 
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_OBSERVER_CREATED_PENDING, ObserverCreatedPending );
@@ -480,12 +480,13 @@ bool	ScriptableGameObj::Load( ChunkLoadClass &cload )
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_REFERENCEABLE_PTR, referenceable_ptr );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_REFERENCEABLE_PTR, referenceable_ptr );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_OBSERVER_CREATED_PENDING, ObserverCreatedPending );
 
 						case MICROCHUNKID_GAME_OBJ_OBSERVER_PTR:
 							GameObjObserverClass * ptr;
-							cload.Read(&ptr,sizeof(ptr));
+							ptr = NULL;
+							cload.Read(&ptr,sizeof(int));
 							Observers.Add( ptr );
 							break;
 

@@ -73,8 +73,7 @@ bool SaveLoadSystemClass::Save (ChunkSaveClass &csave,SaveLoadSubSystemClass & s
 bool SaveLoadSystemClass::Load (ChunkLoadClass &cload,bool auto_post_load)
 {
 	WWLOG_PREPARE_TIME_AND_MEMORY("SaveLoadSystemClass::Load");
-	PointerRemapper.Reset();
-	WWLOG_INTERMEDIATE("PointerRemapper.Reset()");
+	ResetPointerRemapper();
 	bool ok = true;
 
 	// Load each chunk we encounter and link the manager into the PostLoad list
@@ -94,8 +93,7 @@ bool SaveLoadSystemClass::Load (ChunkLoadClass &cload,bool auto_post_load)
 	// Process all of the pointer remap requests
 	PointerRemapper.Process();
 	WWLOG_INTERMEDIATE("PointerRemapper.Process()");
-	PointerRemapper.Reset();
-	WWLOG_INTERMEDIATE("PointerRemapper.Reset()");
+	ResetPointerRemapper();
 
 	// Call PostLoad on each PersistClass that wanted post-load
 	if (auto_post_load) {
@@ -210,6 +208,16 @@ void SaveLoadSystemClass::Register_Post_Load_Callback(PostLoadableClass * obj)
 void SaveLoadSystemClass::Register_Pointer (void *old_pointer, void *new_pointer)
 {
 	PointerRemapper.Register_Pointer(old_pointer,new_pointer);
+}
+
+uint32 SaveLoadSystemClass::Serialize_Pointer (void *pointer)
+{
+	return PointerRemapper.Serialize_Pointer(pointer);
+}
+
+void SaveLoadSystemClass::ResetPointerRemapper() {
+    PointerRemapper.Reset();
+    WWLOG_INTERMEDIATE("PointerRemapper.Reset()");
 }
 
 #ifdef WWDEBUG

@@ -1487,7 +1487,7 @@ PathClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_TOTAL_DIST,				m_TotalDist);
 		
 		PathClass *this_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR,					this_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR,					this_ptr);
 
 		//
 		//	Save each of the action nodes for this path
@@ -1573,7 +1573,7 @@ PathClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_END_TIME,					m_EndTime);
 			READ_MICRO_CHUNK (cload, VARID_ISLOOPING,					m_IsLooping);
 			READ_MICRO_CHUNK (cload, VARID_TOTAL_DIST,				m_TotalDist);
-			READ_MICRO_CHUNK (cload, VARID_OLD_PTR,					old_ptr);			
+			READ_MICRO_CHUNK_PTR (cload, VARID_OLD_PTR,					old_ptr);
 
 			case VARID_PATH_ACTION:
 			{

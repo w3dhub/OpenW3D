@@ -415,8 +415,8 @@ public:
 		while (cload.Open_Micro_Chunk ()) {
 			switch (cload.Cur_Micro_Chunk_ID ())
 			{
-				READ_MICRO_CHUNK (cload, VARID_CURR_STATE,	CurrState);
-				READ_MICRO_CHUNK (cload, VARID_IS_HALTED,		IsHalted);
+				READ_MICRO_CHUNK_UNCHECKED (cload, VARID_CURR_STATE,	this->CurrState);
+				READ_MICRO_CHUNK_UNCHECKED (cload, VARID_IS_HALTED,		this->IsHalted);
 				
 				default:
 					WWDEBUG_SAY (("Unrecognized StateMachineClass variable chunkID\n"));

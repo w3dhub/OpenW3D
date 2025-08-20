@@ -206,7 +206,7 @@ WaypathClass::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 				
 		WaypathClass *this_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR,	this_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR,	this_ptr);
 		WRITE_MICRO_CHUNK (csave, VARID_FLAGS,		m_Flags);
 		WRITE_MICRO_CHUNK (csave, VARID_ID,			m_ID);		
 
@@ -216,7 +216,7 @@ WaypathClass::Save (ChunkSaveClass &csave)
 		//
 		for (int index = 0; index < m_Waypoints.Count (); index ++) {
 			WaypointClass *waypoint = m_Waypoints[index];
-			WRITE_MICRO_CHUNK (csave, VARID_WAYPOINT_PTR, waypoint);
+			WRITE_MICRO_CHUNK_PTR (csave, VARID_WAYPOINT_PTR, waypoint);
 		}
 
 	csave.End_Chunk ();
@@ -272,7 +272,7 @@ WaypathClass::Load_Variables (ChunkLoadClass &cload)
 				// list.  We will remap it later.
 				//				
 				WaypointClass *waypoint = NULL;
-				cload.Read (&waypoint, sizeof (waypoint));				
+				cload.Read (&waypoint, sizeof (int));
 				m_Waypoints.Add (waypoint);				
 			}
 			break;
@@ -284,7 +284,7 @@ WaypathClass::Load_Variables (ChunkLoadClass &cload)
 				// to the remapping system.
 				//				
 				WaypathClass *old_ptr = NULL;
-				cload.Read (&old_ptr, sizeof (old_ptr));
+				cload.Read (&old_ptr, sizeof (int));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 			}
 			break;

@@ -583,11 +583,11 @@ PathActionClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_DOOR_STATE,		DoorState);
 		WRITE_MICRO_CHUNK (csave, VARID_STATE,				State);
 		WRITE_MICRO_CHUNK (csave, VARID_TYPE,				Type);
-		WRITE_MICRO_CHUNK (csave, VARID_PATH_PTR,			Path);
-		WRITE_MICRO_CHUNK (csave, VARID_MECHANISM_PTR,	Mechanism);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_PATH_PTR,			Path);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_MECHANISM_PTR,	Mechanism);
 		WRITE_MICRO_CHUNK (csave, VARID_DESTINATION,		Destination);
 		WRITE_MICRO_CHUNK (csave, VARID_FACEPOS,			FacePos);
-		WRITE_MICRO_CHUNK (csave, VARID_GAME_OBJ_PTR,	GameObj);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_GAME_OBJ_PTR,	GameObj);
 		WRITE_MICRO_CHUNK (csave, VARID_LADDER_STATE,	LadderState);
 		WRITE_MICRO_CHUNK (csave, VARID_LADDER_INDEX,	LadderIndex);
 
@@ -638,11 +638,11 @@ PathActionClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_DOOR_STATE,		DoorState);
 			READ_MICRO_CHUNK (cload, VARID_STATE,				State);
 			READ_MICRO_CHUNK (cload, VARID_TYPE,				Type);
-			READ_MICRO_CHUNK (cload, VARID_PATH_PTR,			Path);
-			READ_MICRO_CHUNK (cload, VARID_MECHANISM_PTR,	Mechanism);
+			READ_MICRO_CHUNK_PTR (cload, VARID_PATH_PTR,			Path);
+			READ_MICRO_CHUNK_PTR (cload, VARID_MECHANISM_PTR,	Mechanism);
 			READ_MICRO_CHUNK (cload, VARID_DESTINATION,		Destination);
 			READ_MICRO_CHUNK (cload, VARID_FACEPOS,			FacePos);
-			READ_MICRO_CHUNK (cload, VARID_GAME_OBJ_PTR,		GameObj);
+			READ_MICRO_CHUNK_PTR (cload, VARID_GAME_OBJ_PTR,		GameObj);
 			READ_MICRO_CHUNK (cload, VARID_LADDER_STATE,		LadderState);
 			READ_MICRO_CHUNK (cload, VARID_LADDER_INDEX,		LadderIndex);
 		}

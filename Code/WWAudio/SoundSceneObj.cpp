@@ -265,10 +265,10 @@ SoundSceneObjClass::Save (ChunkSaveClass &csave)
 	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);		
-		WRITE_MICRO_CHUNK (csave, VARID_ATTACHED_OBJ, m_AttachedObject);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_ATTACHED_OBJ, m_AttachedObject);
 		WRITE_MICRO_CHUNK (csave, VARID_ATTACHED_BONE, m_AttachedBone);		
 		WRITE_MICRO_CHUNK (csave, VARID_USER_DATA, m_UserData);
-		WRITE_MICRO_CHUNK (csave, VARID_USER_OBJ, m_UserObj);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_USER_OBJ, m_UserObj);
 		WRITE_MICRO_CHUNK (csave, VARID_ID, m_ID);		
 	csave.End_Chunk ();
 	return true;
@@ -300,10 +300,10 @@ SoundSceneObjClass::Load (ChunkLoadClass &cload)
 				while (cload.Open_Micro_Chunk ()) {
 					switch (cload.Cur_Micro_Chunk_ID ()) {
 
-						READ_MICRO_CHUNK (cload, VARID_ATTACHED_OBJ, m_AttachedObject);
+						READ_MICRO_CHUNK_PTR (cload, VARID_ATTACHED_OBJ, m_AttachedObject);
 						READ_MICRO_CHUNK (cload, VARID_ATTACHED_BONE, m_AttachedBone);
 						READ_MICRO_CHUNK (cload, VARID_USER_DATA, m_UserData);
-						READ_MICRO_CHUNK (cload, VARID_USER_OBJ, m_UserObj);
+						READ_MICRO_CHUNK_PTR (cload, VARID_USER_OBJ, m_UserObj);
 						READ_MICRO_CHUNK (cload, VARID_ID, id);
 					}
 

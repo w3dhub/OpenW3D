@@ -163,7 +163,7 @@ bool cPlayer::Save(ChunkSaveClass & csave)
 	WRITE_MICRO_CHUNK(csave, MICROCHUNK_DEATHS, Deaths());
 	WRITE_MICRO_CHUNK(csave, MICROCHUNK_TEAMNUMBER, PlayerType());
 	void * old_ptr = this;
-	WRITE_MICRO_CHUNK(csave, MICROCHUNK_REMAP_POINTER, old_ptr);
+	WRITE_MICRO_CHUNK_PTR(csave, MICROCHUNK_REMAP_POINTER, old_ptr);
 
 	csave.End_Chunk();
 
@@ -191,7 +191,7 @@ bool cPlayer::Load(ChunkLoadClass &cload)
 						READ_SAFE_MICRO_CHUNK(cload, MICROCHUNK_KILLS, Kills,int);
 						READ_SAFE_MICRO_CHUNK(cload, MICROCHUNK_DEATHS, Deaths, int);
 						READ_SAFE_MICRO_CHUNK(cload, MICROCHUNK_TEAMNUMBER, PlayerType, int);
-						READ_MICRO_CHUNK(cload, MICROCHUNK_REMAP_POINTER, old_ptr);
+						READ_MICRO_CHUNK_PTR(cload, MICROCHUNK_REMAP_POINTER, old_ptr);
 
 						default:
 							Debug_Say(( "Unrecognized cPlayer Variable chunkID\n" ));

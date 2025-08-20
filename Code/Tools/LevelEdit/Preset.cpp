@@ -329,7 +329,7 @@ PresetClass::Save_Variables (ChunkSaveClass &csave)
 	//	For pointer remapping
 	//
 	PresetClass *this_ptr = this;
-	WRITE_MICRO_CHUNK (csave, VARID_THISPTR, this_ptr);
+	WRITE_MICRO_CHUNK_PTR (csave, VARID_THISPTR, this_ptr);
 	
 	if (m_Parent != NULL) {
 		m_ParentID = m_Parent->Get_ID ();
@@ -390,8 +390,8 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_ISTEMPORARY, m_IsTemporary)
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_COMMENTS, m_Comments);
 
-			READ_MICRO_CHUNK (cload, VARID_PARENTPTR, m_Parent)
-			READ_MICRO_CHUNK (cload, VARID_THISPTR, old_this_ptr)
+			READ_MICRO_CHUNK_PTR (cload, VARID_PARENTPTR, m_Parent)
+			READ_MICRO_CHUNK_PTR (cload, VARID_THISPTR, old_this_ptr)
 
 			READ_MICRO_CHUNK (cload, VARID_PARENT_ID, m_ParentID);
 
