@@ -69,7 +69,7 @@ extern "C"
 //	Local functions
 //----------------------------------------------------------------------------
 static BOOL Create_Main_Window(HANDLE hInstance, int nCmdShow);
-long FAR PASCAL Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 void Focus_Loss(void);
 void Focus_Restore(void);
 void Split_Command_Line_Args(HINSTANCE instance, char *path_to_exe, char *command_line);
@@ -238,7 +238,7 @@ SRBOOL SRCALL WIN_set_fullscreen( SRBOOL state )
  * HISTORY:                                                                                    * 
  *   07/18/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-long FAR PASCAL Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
 	PAINTSTRUCT ps;
 	HDC         hdc;

@@ -114,7 +114,7 @@ extern "C"
 //	Local functions
 //----------------------------------------------------------------------------
 static BOOL Create_Main_Window(void);
-long FAR PASCAL Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK Main_Window_Proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
 void On_Focus_Loss(void);
 void On_Focus_Restore(void);
 int Start_Application( void );
@@ -526,7 +526,7 @@ int Start_Application(void)
  * HISTORY:                                                                                    *
  *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-long FAR PASCAL Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam )
+LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
 	static bool _reset = false;
 
