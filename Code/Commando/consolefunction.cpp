@@ -2316,7 +2316,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "BREAK - break execution. Do not use this just for fun."; }
 	virtual	void Activate( const char * input ) override {
 		Print("Breaking execution on demand.\n");
-		_asm int 0x03;
+		__debugbreak();
 	}
 };
 
