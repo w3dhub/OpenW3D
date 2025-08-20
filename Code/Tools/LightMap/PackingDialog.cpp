@@ -142,7 +142,7 @@ BEGIN_MESSAGE_MAP(PackingDialog, CDialog)
 END_MESSAGE_MAP()
 
 
-int PackingDialog::DoModal() 
+INT_PTR PackingDialog::DoModal()
 {
 	// TODO: Add your specialized code here and/or call the base class
 	
