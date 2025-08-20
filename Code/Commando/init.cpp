@@ -349,7 +349,7 @@ void Commando_Assert_Handler(const char * message)
 			m$"               "m           "
                        																												*/
 
-		_asm int 0x03;
+		__debugbreak();
 	}
 
 	if (cDevOptions::ExitThreadOnAssert.Is_True()) {
