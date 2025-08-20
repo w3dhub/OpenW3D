@@ -285,7 +285,7 @@ ConversationClass::Save (ChunkSaveClass &csave)
 		//	Save our current pointer so we can remap it on load
 		//
 		ConversationClass *old_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR, old_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, old_ptr);
 
 	csave.End_Chunk ();
 
@@ -380,7 +380,7 @@ ConversationClass::Load_Variables (ChunkLoadClass &cload)
 
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_NAME,		Name);
 			READ_MICRO_CHUNK (cload, VARID_ID,						ID);
-			READ_MICRO_CHUNK (cload, VARID_OLD_PTR,				old_ptr);
+			READ_MICRO_CHUNK_PTR (cload, VARID_OLD_PTR,				old_ptr);
 			READ_MICRO_CHUNK (cload, VARID_ISINNATE,				IsInnate);		
 			READ_MICRO_CHUNK (cload, VARID_ISKEY,					IsKey);
 			READ_MICRO_CHUNK (cload, VARID_PROBABILITY,			Probability);

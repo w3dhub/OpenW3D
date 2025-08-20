@@ -638,7 +638,7 @@ bool	BulletClass::Save( ChunkSaveClass & csave )
 		WWASSERT( BulletData.AmmoDefinition != NULL );
 		int def_id = BulletData.AmmoDefinition->Get_ID();
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_AMMO_DEFINITION_ID, def_id );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_PROJECTILE, Projectile );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PROJECTILE, Projectile );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_SOFT_PIERCE_COUNT, BulletData.SoftPierceCount );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DESTROY, BulletData.Destroy );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_TARGET_VECTOR, TargetVector );
@@ -673,7 +673,7 @@ bool	BulletClass::Load( ChunkLoadClass & cload )
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_AMMO_DEFINITION_ID, def_id );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_PROJECTILE, Projectile );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_PROJECTILE, Projectile );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_SOFT_PIERCE_COUNT, BulletData.SoftPierceCount );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DESTROY, BulletData.Destroy );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_TARGET_VECTOR, TargetVector );

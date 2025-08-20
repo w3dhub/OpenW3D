@@ -1597,7 +1597,8 @@ void	Save_Data( ScriptSaver & saver, int id, int size, void * data )
 void Save_Pointer(ScriptSaver& saver, int id, void* pointer)
 {
 	SCRIPT_PTR_CHECK(pointer);
-	Save_Data(saver, id, sizeof(pointer), pointer);
+    const uint32_t pointer_id = SaveLoadSystemClass::Serialize_Pointer(pointer);
+	Save_Data(saver, pointer_id, sizeof(uint32_t), pointer);
 }
 
 
