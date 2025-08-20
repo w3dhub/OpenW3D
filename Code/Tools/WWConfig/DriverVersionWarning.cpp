@@ -308,7 +308,7 @@ void DriverVersionWarning::OnDisableDriverVersionDialogCheckbox()
 	render_registry.Set_Int( "DriverVersionCheckDisabled", is_disabled ? 87 : 0 );
 }
 
-int DriverVersionWarning::DoModal() 
+INT_PTR DriverVersionWarning::DoModal()
 {
 	// TODO: Add your specialized code here and/or call the base class
 
