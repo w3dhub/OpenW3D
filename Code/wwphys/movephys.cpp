@@ -416,10 +416,10 @@ bool MoveablePhysClass::Save(ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK(csave,MOVEABLE_VARIABLE_GRAVSCALE,GravScale);
 	WRITE_MICRO_CHUNK(csave,MOVEABLE_VARIABLE_ELASTICITY,Elasticity);
 	if (Controller != NULL) {
-		WRITE_MICRO_CHUNK(csave,MOVEABLE_VARIABLE_CONTROLLER,Controller);
+		WRITE_MICRO_CHUNK_PTR(csave,MOVEABLE_VARIABLE_CONTROLLER,Controller);
 	}
 	if (Carrier != NULL) {
-		WRITE_MICRO_CHUNK(csave,MOVEABLE_VARIABLE_CARRIER,Carrier);
+		WRITE_MICRO_CHUNK_PTR(csave,MOVEABLE_VARIABLE_CARRIER,Carrier);
 	}
 	csave.End_Chunk();
 
@@ -462,8 +462,8 @@ bool MoveablePhysClass::Load(ChunkLoadClass &cload)
 						READ_MICRO_CHUNK(cload,MOVEABLE_VARIABLE_MASS,Mass);
 						READ_MICRO_CHUNK(cload,MOVEABLE_VARIABLE_GRAVSCALE,GravScale);
 						READ_MICRO_CHUNK(cload,MOVEABLE_VARIABLE_ELASTICITY,Elasticity);
-						READ_MICRO_CHUNK(cload,MOVEABLE_VARIABLE_CONTROLLER,Controller);
-						READ_MICRO_CHUNK(cload,MOVEABLE_VARIABLE_CARRIER,Carrier);
+						READ_MICRO_CHUNK_PTR(cload,MOVEABLE_VARIABLE_CONTROLLER,Controller);
+						READ_MICRO_CHUNK_PTR(cload,MOVEABLE_VARIABLE_CARRIER,Carrier);
 					}
 					cload.Close_Micro_Chunk();	
 				}

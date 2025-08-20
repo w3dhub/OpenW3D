@@ -166,6 +166,9 @@ public:
 	*/
 	static void		Register_Pointer (void *old_pointer, void *new_pointer);
 
+	static uint32	Serialize_Pointer (void *pointer);
+	static void     ResetPointerRemapper(void);
+
 #ifdef WWDEBUG
 	static void		Request_Pointer_Remap (void **pointer_to_convert,const char * file = NULL,int line = 0);
 	static void		Request_Ref_Counted_Pointer_Remap (RefCountClass **pointer_to_convert,const char * file = NULL,int line = 0);

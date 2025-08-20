@@ -72,7 +72,7 @@ public:
 		//
 		cload.Open_Chunk();
 			WWASSERT(cload.Cur_Chunk_ID() == SIMPLEFACTORY_CHUNKID_OBJPOINTER);
-			cload.Read(&old_obj,sizeof(SoundNodeClass *));
+			cload.Read(&old_obj,sizeof(uint32));
 		cload.Close_Chunk();
 
 		//

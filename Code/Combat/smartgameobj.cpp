@@ -304,9 +304,9 @@ bool	SmartGameObj::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_CONTROL_OWNER, ControlOwner );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_IS_ENEMY_SEEN_ENABLED, IsEnemySeenEnabled );
 		void * ptr = &Controller;
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_CONTROLLER_PTR, ptr );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_CONTROLLER_PTR, ptr );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_MOVING_SOUND_TIMER, MovingSoundTimer ); 
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_PLAYER_DATA, PlayerData ); 
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PLAYER_DATA, PlayerData );
 
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STEALTH_ENABLED, StealthEnabled ); 
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STEALTH_POWERUP_TIMER, StealthPowerupTimer ); 
@@ -364,9 +364,9 @@ bool	SmartGameObj::Load( ChunkLoadClass &cload )
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_CONTROL_ENABLED, ControlEnabled );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_CONTROL_OWNER, new_control_owner );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_IS_ENEMY_SEEN_ENABLED, IsEnemySeenEnabled );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_CONTROLLER_PTR,        old_controller_ptr );				
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_CONTROLLER_PTR,        old_controller_ptr );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_MOVING_SOUND_TIMER, MovingSoundTimer ); 
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_PLAYER_DATA, PlayerData ); 
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_PLAYER_DATA, PlayerData );
 
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_STEALTH_ENABLED, StealthEnabled ); 
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_STEALTH_POWERUP_TIMER, StealthPowerupTimer ); 

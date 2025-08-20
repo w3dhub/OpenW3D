@@ -266,7 +266,7 @@ void CMainFrame::Load(ChunkLoadClass & cload)
 			case MAINFRAME_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK(cload,MAINFRAME_VARIABLE_CONTROLLERPTR,controlptr);
+						READ_MICRO_CHUNK_PTR(cload,MAINFRAME_VARIABLE_CONTROLLERPTR,controlptr);
 					}
 					cload.Close_Micro_Chunk();
 				}

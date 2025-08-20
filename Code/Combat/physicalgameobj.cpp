@@ -437,15 +437,15 @@ bool	PhysicalGameObj::Save( ChunkSaveClass & csave )
 
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
 		CombatPhysObserverClass * phys_observer_ptr = (CombatPhysObserverClass *)this;
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_PHYS_OBSERVER_PTR, phys_observer_ptr );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_PHYSICAL_OBJECT, PhysObj );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PHYS_OBSERVER_PTR, phys_observer_ptr );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PHYSICAL_OBJECT, PhysObj );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HIBERNATION_TIMER, HibernationTimer );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HIBERNATION_ENABLE, HibernationEnable );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HOST_GAME_OBJ_BONE, HostGameObjBone );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_RADAR_BLIP_SHAPE_TYPE, RadarBlipShapeType );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_RADAR_BLIP_COLOR_TYPE, RadarBlipColorType );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_RADAR_BLIP_INTENSITY, RadarBlipIntensity );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ACTIVE_CONVERSATION, ActiveConversation );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_ACTIVE_CONVERSATION, ActiveConversation );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HUD_POKABLE_INDICATOR, HUDPokableIndicatorEnabled );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_IS_INNATE_CONVERSATIONS_ENABLED, IsInnateConversationsEnabled );
 
@@ -499,16 +499,16 @@ bool	PhysicalGameObj::Load( ChunkLoadClass &cload )
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_PHYS_OBSERVER_PTR, phys_observer_ptr );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_PHYS_OBSERVER_PTR, phys_observer_ptr );
 						READ_MICRO_CHUNK( cload, LEGACY_MICROCHUNKID_PLAYER_TYPE, PlayerType );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_PHYSICAL_OBJECT, PhysObj );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_PHYSICAL_OBJECT, PhysObj );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_HIBERNATION_TIMER, HibernationTimer );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_HIBERNATION_ENABLE, HibernationEnable );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_HOST_GAME_OBJ_BONE, HostGameObjBone );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_RADAR_BLIP_SHAPE_TYPE, RadarBlipShapeType );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_RADAR_BLIP_COLOR_TYPE, RadarBlipColorType );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_RADAR_BLIP_INTENSITY, RadarBlipIntensity );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_ACTIVE_CONVERSATION, ActiveConversation );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_ACTIVE_CONVERSATION, ActiveConversation );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_HUD_POKABLE_INDICATOR, HUDPokableIndicatorEnabled );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_IS_INNATE_CONVERSATIONS_ENABLED, IsInnateConversationsEnabled );
 

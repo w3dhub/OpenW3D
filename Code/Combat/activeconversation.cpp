@@ -666,7 +666,7 @@ ActiveConversationClass::Save (ChunkSaveClass &csave)
 		//	Save our current pointer so we can remap it on load
 		//
 		ActiveConversationClass *old_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR, old_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, old_ptr);
 	
 	csave.End_Chunk ();
 
@@ -767,7 +767,7 @@ ActiveConversationClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_NEXT_REMARK_TIMER,	NextRemarkTimer);
 			READ_MICRO_CHUNK (cload, VARID_STATE,					State);
 			READ_MICRO_CHUNK (cload, VARID_ID,						ID);
-			READ_MICRO_CHUNK (cload, VARID_OLD_PTR,				old_ptr);
+			READ_MICRO_CHUNK_PTR (cload, VARID_OLD_PTR,				old_ptr);
 			READ_MICRO_CHUNK (cload, VARID_INITIALIZING_TIMER,	InitializingTimeLeft);
 			READ_MICRO_CHUNK (cload, VARID_ACTION_ID,				ActionID);
 			READ_MICRO_CHUNK (cload, VARID_SPOKEN_BITMASK,		OratorSpokenBitmask);		

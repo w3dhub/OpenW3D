@@ -201,7 +201,7 @@ WaypathNodeClass::Save (ChunkSaveClass &csave)
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		WaypathNodeClass *this_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR, this_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, this_ptr);
 		WRITE_MICRO_CHUNK (csave, VARID_FLAGS, m_Flags);		
 	csave.End_Chunk ();
 
@@ -310,7 +310,7 @@ WaypathNodeClass::Load_Variables (ChunkLoadClass &cload)
 				// to the remapping system.
 				//				
 				WaypathNodeClass *old_ptr = NULL;
-				cload.Read (&old_ptr, sizeof (old_ptr));
+				cload.Read (&old_ptr, sizeof (int));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 			}
 			break;

@@ -241,8 +241,8 @@ WaypointNodeClass::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_VARIABLES);		
 		
 		WaypointNodeClass *this_ptr = this;		
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR, this_ptr);
-		WRITE_MICRO_CHUNK (csave, VARID_WAYPATH_PTR, m_Waypath);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, this_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_WAYPATH_PTR, m_Waypath);
 		WRITE_MICRO_CHUNK (csave, VARID_FLAGS, m_Flags);
 				
 	csave.End_Chunk ();

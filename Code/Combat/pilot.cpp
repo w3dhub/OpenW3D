@@ -1093,8 +1093,8 @@ PilotClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_CURRENT_TM,			m_CurrentTM);
 		WRITE_MICRO_CHUNK (csave, VARID_OBJ_SPACE_DEST,		m_ObjSpaceDest);
 		WRITE_MICRO_CHUNK (csave, VARID_OBJ_SPACE_WPOINT,	m_ObjSpaceWaypoint);		
-		WRITE_MICRO_CHUNK (csave, VARID_PATH_PTR,				m_CurrentPath);	
-		WRITE_MICRO_CHUNK (csave, VARID_GAMEOBJ_PTR,			m_GameObj);	
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_PATH_PTR,				m_CurrentPath);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_GAMEOBJ_PTR,			m_GameObj);
 		WRITE_MICRO_CHUNK (csave, VARID_MAX_SPEED,			m_MaxSpeed);
 		WRITE_MICRO_CHUNK (csave, VARID_SPEED_FACTOR,		m_SpeedFactor);
 		WRITE_MICRO_CHUNK (csave, VARID_AGGRESSIVENESS,		m_Aggressiveness);
@@ -1160,8 +1160,8 @@ PilotClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_CURRENT_TM,			m_CurrentTM);
 			READ_MICRO_CHUNK (cload, VARID_OBJ_SPACE_DEST,		m_ObjSpaceDest);
 			READ_MICRO_CHUNK (cload, VARID_OBJ_SPACE_WPOINT,	m_ObjSpaceWaypoint);
-			READ_MICRO_CHUNK (cload, VARID_PATH_PTR,				m_CurrentPath);	
-			READ_MICRO_CHUNK (cload, VARID_GAMEOBJ_PTR,			m_GameObj);	
+			READ_MICRO_CHUNK_PTR (cload, VARID_PATH_PTR,				m_CurrentPath);
+			READ_MICRO_CHUNK_PTR (cload, VARID_GAMEOBJ_PTR,			m_GameObj);
 			READ_MICRO_CHUNK (cload, VARID_MAX_SPEED,				m_MaxSpeed);
 			READ_MICRO_CHUNK (cload, VARID_SPEED_FACTOR,			m_SpeedFactor);
 			READ_MICRO_CHUNK (cload, VARID_AGGRESSIVENESS,		m_Aggressiveness);

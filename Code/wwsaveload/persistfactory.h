@@ -113,7 +113,7 @@ SimplePersistFactoryClass<T,CHUNKID>::Load(ChunkLoadClass & cload) const
 
 	cload.Open_Chunk();
 	WWASSERT(cload.Cur_Chunk_ID() == SIMPLEFACTORY_CHUNKID_OBJPOINTER);
-	cload.Read(&old_obj,sizeof(T *));
+	cload.Read(&old_obj,sizeof(int));
 	cload.Close_Chunk();
 
 	cload.Open_Chunk();
@@ -129,13 +129,13 @@ SimplePersistFactoryClass<T,CHUNKID>::Load(ChunkLoadClass & cload) const
 template<class T, int CHUNKID> void
 SimplePersistFactoryClass<T,CHUNKID>::Save(ChunkSaveClass & csave,PersistClass * obj) const 
 {
-	uintptr_t objptr = (uintptr_t)obj;
+	uint32_t obj_id = SaveLoadSystemClass::Serialize_Pointer(obj);
 	csave.Begin_Chunk(SIMPLEFACTORY_CHUNKID_OBJPOINTER);
-	csave.Write(&objptr,sizeof(uint32));
+		csave.Write(&obj_id,sizeof(uint32_t));
 	csave.End_Chunk();
 
 	csave.Begin_Chunk(SIMPLEFACTORY_CHUNKID_OBJDATA);
-	obj->Save(csave);
+		obj->Save(csave);
 	csave.End_Chunk();
 }
 
