@@ -81,7 +81,7 @@ END_MESSAGE_MAP()
 //
 //	DoModal
 //
-int
+INT_PTR
 WelcomeDialogClass::DoModal (void) 
 {
 	int iret = IDOK;

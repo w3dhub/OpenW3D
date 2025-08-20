@@ -123,7 +123,7 @@ CheckinStyleDialogClass::OnCommand
 //
 // DoModal
 //
-int
+INT_PTR
 CheckinStyleDialogClass::DoModal (void)
 {	
 	UINT ret_code = IDC_UPDATE_NOW;
