@@ -248,7 +248,7 @@ TransitionEditDialogClass::OnInitDialog (void)
 	m_TimerID = ::timeSetEvent (	50,
 											50,
 											fnUpdateTimer,
-											(DWORD)m_hWnd,
+											(DWORD_PTR)m_hWnd,
 											TIME_PERIODIC);	
 	return TRUE;
 }
@@ -423,9 +423,9 @@ TransitionEditDialogClass::fnUpdateTimer
 (
 	UINT	uID,
 	UINT	uMsg,
-	DWORD	user_data,
-	DWORD	dw1,
-	DWORD	dw2
+	DWORD_PTR	user_data,
+	DWORD_PTR	dw1,
+	DWORD_PTR	dw2
 )
 {
 	HWND hwnd = (HWND)user_data;
