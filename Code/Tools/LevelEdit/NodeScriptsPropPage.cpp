@@ -210,7 +210,7 @@ NodeScriptsPropPage::HandleInitDialog (void)
 			//
 			int item_index = m_ListCtrl.InsertItem (index, (LPCTSTR)script->Get_Name ());
 			m_ListCtrl.SetItemText (item_index, COL_PARAMS, (LPCTSTR)script->Get_Composite_String ());
-			m_ListCtrl.SetItemData (item_index, (DWORD)script->Clone ());
+			m_ListCtrl.SetItemData (item_index, (DWORD_PTR)script->Clone ());
 		}
 	}
 
@@ -325,7 +325,7 @@ NodeScriptsPropPage::OnAdd (void)
 		// Put this script into the list control
 		int index = m_ListCtrl.InsertItem (0xFFFF, (LPCTSTR)new_script->Get_Name ());
 		m_ListCtrl.SetItemText (index, COL_PARAMS, (LPCTSTR)new_script->Get_Composite_String ());
-		m_ListCtrl.SetItemData (index, (DWORD)new_script);
+		m_ListCtrl.SetItemData (index, (DWORD_PTR)new_script);
 	}
 
 	return ;

@@ -921,7 +921,7 @@ TransitionEditDialogClass::Fill_Animation_List (void)
 		//
 		int cb_index = m_AnimationList.AddString (animation_name);
 		if (cb_index != CB_ERR) {
-			m_AnimationList.SetItemData (cb_index, (ULONG)::_strdup ((LPCTSTR)filename));
+			m_AnimationList.SetItemData (cb_index, (DWORD_PTR)::_strdup ((LPCTSTR)filename));
 
 			//
 			//	Should we select this animation by default?

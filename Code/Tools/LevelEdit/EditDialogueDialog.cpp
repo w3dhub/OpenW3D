@@ -385,7 +385,7 @@ EditDialogueDialogClass::Insert_Entry (DialogueOptionClass *option)
 			//
 			//	Associate the object with the entry in the list control
 			//
-			m_ListCtrl.SetItemData (item_index, (DWORD)option);
+			m_ListCtrl.SetItemData (item_index, (DWORD_PTR)option);
 						
 			//
 			//	Lookup the string entry in our translation database

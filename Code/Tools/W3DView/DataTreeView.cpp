@@ -273,7 +273,7 @@ CDataTreeView::Load_Materials_Into_Tree (void)
 			// Allocate a new asset information class to associate with this entry
 			ptexture->Add_Ref ();
 			AssetInfoClass *asset_info = new AssetInfoClass (texture_name, TypeMaterial, NULL, (DWORD)ptexture);
-			GetTreeCtrl ().SetItemData (tree_item, (ULONG)asset_info);
+			GetTreeCtrl ().SetItemData (tree_item, (DWORD_PTR)asset_info);
 		}
 	}
 
@@ -401,7 +401,7 @@ CDataTreeView::LoadAssetsIntoTree (void)
 
 						// Allocate a new asset information class to associate with this entry
 						AssetInfoClass *asset_info = new AssetInfoClass (pszItemName, assetType);
-						GetTreeCtrl ().SetItemData (hItem, (ULONG)asset_info);
+						GetTreeCtrl ().SetItemData (hItem, (DWORD_PTR)asset_info);
 					}
 				}
 			}
@@ -481,7 +481,7 @@ CDataTreeView::LoadAnimationsIntoTree (void)
                         ASSERT (hAnimationNode != NULL);
                                     
                         // Associate the items name with its entry
-                        GetTreeCtrl ().SetItemData (hAnimationNode, (ULONG)new AssetInfoClass (pszAnimName, TypeAnimation));
+                        GetTreeCtrl ().SetItemData (hAnimationNode, (DWORD_PTR)new AssetInfoClass (pszAnimName, TypeAnimation));
                     }
                 }
 
@@ -499,7 +499,7 @@ CDataTreeView::LoadAnimationsIntoTree (void)
                         ASSERT (hAnimationNode != NULL);
                                     
                         // Associate the items name with its entry
-                        GetTreeCtrl ().SetItemData (hAnimationNode, (ULONG)new AssetInfoClass (pszAnimName, TypeAnimation));
+                        GetTreeCtrl ().SetItemData (hAnimationNode, (DWORD_PTR)new AssetInfoClass (pszAnimName, TypeAnimation));
                     }
                 }
 
@@ -517,7 +517,7 @@ CDataTreeView::LoadAnimationsIntoTree (void)
                         ASSERT (hAnimationNode != NULL);
                                     
                         // Associate the items name with its entry
-                        GetTreeCtrl ().SetItemData (hAnimationNode, (ULONG)new AssetInfoClass (pszAnimName, TypeAnimation));
+                        GetTreeCtrl ().SetItemData (hAnimationNode, (DWORD_PTR)new AssetInfoClass (pszAnimName, TypeAnimation));
                     }
                 }
 
@@ -579,7 +579,7 @@ CDataTreeView::LoadAnimationsIntoTree (HTREEITEM hItem)
                         ASSERT (hAnimationNode != NULL);
                                     
                         // Associate the items name with its entry
-                        GetTreeCtrl ().SetItemData (hAnimationNode, (ULONG)new AssetInfoClass (pszAnimName, TypeAnimation));
+                        GetTreeCtrl ().SetItemData (hAnimationNode, (DWORD_PTR)new AssetInfoClass (pszAnimName, TypeAnimation));
                     }
                 }
 
@@ -778,7 +778,7 @@ CDataTreeView::Add_Asset_To_Tree
 			
 			// Associate the render object with its entry in the tree
 			AssetInfoClass *asset_info = new AssetInfoClass (name, type);
-			GetTreeCtrl ().SetItemData (htree_item, (ULONG)asset_info);
+			GetTreeCtrl ().SetItemData (htree_item, (DWORD_PTR)asset_info);
 
 			// Load the object's animations into the tree (if necessary)
 			if (asset_info->Can_Asset_Have_Animations ()) {
