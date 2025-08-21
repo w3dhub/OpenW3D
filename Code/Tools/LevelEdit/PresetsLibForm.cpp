@@ -631,7 +631,7 @@ PresetsFormClass::Set_Item_Data (HTREEITEM item, DefinitionFactoryClass *factory
 	//
 	item_data->type		= TYPE_FACTORY;
 	item_data->factory	= factory;
-	m_TreeCtrl.SetItemData (item, (DWORD)item_data);
+	m_TreeCtrl.SetItemData (item, (DWORD_PTR)item_data);
 	return ;	
 }
 
@@ -658,7 +658,7 @@ PresetsFormClass::Set_Item_Data (HTREEITEM item, PresetClass *preset)
 	//
 	item_data->type	= TYPE_PRESET;
 	item_data->preset	= preset;
-	m_TreeCtrl.SetItemData (item, (DWORD)item_data);
+	m_TreeCtrl.SetItemData (item, (DWORD_PTR)item_data);
 	return ;	
 }
 

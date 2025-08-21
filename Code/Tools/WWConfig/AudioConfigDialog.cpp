@@ -312,7 +312,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 			//
 			int item_index = m_ListCtrl.InsertItem (0xFF, driver_info->name);
 			if (item_index >= 0) {
-				m_ListCtrl.SetItemData (item_index, (DWORD)driver_info->driver);
+				m_ListCtrl.SetItemData (item_index, (DWORD_PTR)driver_info->driver);
 
 				//
 				//	Select this entry if its the default

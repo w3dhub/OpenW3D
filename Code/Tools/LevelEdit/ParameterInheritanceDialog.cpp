@@ -265,7 +265,7 @@ ParameterInheritanceDialogClass::Add_Parameters_To_List
 					def_param->Set_Index (index);
 					def_param->Set_Parent (parent);
 
-					m_ListCtrl.SetItemData (item_index, (LONG)def_param);
+					m_ListCtrl.SetItemData (item_index, (DWORD_PTR)def_param);
 					ListView_SetCheckState (m_ListCtrl, item_index, false);
 				}
 			}
@@ -328,7 +328,7 @@ ParameterInheritanceDialogClass::Add_Children_To_Tree (HTREEITEM parent_item, in
 					//
 					//	Associate the preset pointer with this tree item
 					//
-					m_TreeCtrl.SetItemData (new_item, (LONG)child_preset);
+					m_TreeCtrl.SetItemData (new_item, (DWORD_PTR)child_preset);
 
 					//
 					//	Check this preset by default
