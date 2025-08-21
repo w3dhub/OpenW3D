@@ -584,7 +584,7 @@ PresetListDialogClass::Fill_Tree (NTreeLeafClass<PresetClass *> *leaf, HTREEITEM
 				//
 				//	Associate the preset with its tree entry
 				//
-				m_PresetTreeCtrl.SetItemData (new_item, (LONG)preset);
+				m_PresetTreeCtrl.SetItemData (new_item, (DWORD_PTR)preset);
 
 				//
 				//	Recurse if necessary

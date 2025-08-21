@@ -223,7 +223,7 @@ PresetTransitionTabClass::Insert_Transition (TransitionDataClass *transition)
 	int index		= m_ListCtrl.InsertItem (0xFF, name);
 	if (index >= 0) {
 		m_ListCtrl.SetItemText (index, COL_ANIMATION, transition->Get_Animation_Name ());
-		m_ListCtrl.SetItemData (index, (ULONG)transition);
+		m_ListCtrl.SetItemData (index, (DWORD_PTR)transition);
 	}
 
 	return ;

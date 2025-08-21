@@ -683,7 +683,7 @@ InstancesPageClass::Insert_Factory (LPCTSTR name, int class_id)
 		item_data->type		= TYPE_FACTORY;
 		item_data->class_id	= class_id;
 		item_data->name		= name;
-		m_ListCtrl.SetItemData (index, (DWORD)item_data);
+		m_ListCtrl.SetItemData (index, (DWORD_PTR)item_data);
 		m_ListCtrl.SetCheck (index, TRUE);
 	}
 	
@@ -726,7 +726,7 @@ InstancesPageClass::Insert_Node (NodeClass *node)
 		item_data->type	= TYPE_NODE;
 		item_data->node	= node;
 		item_data->name	= node->Get_Name ();
-		m_ListCtrl.SetItemData (index, (DWORD)item_data);
+		m_ListCtrl.SetItemData (index, (DWORD_PTR)item_data);
 		ListView_SetCheckState (m_ListCtrl, index, (node->Is_Hidden () == false));
 	}
 
@@ -768,7 +768,7 @@ InstancesPageClass::Insert_Navigator (void)
 		item_data->type	= TYPE_NAVIGATOR;
 		item_data->node	= NULL;
 		item_data->name	= "..";
-		m_ListCtrl.SetItemData (index, (DWORD)item_data);
+		m_ListCtrl.SetItemData (index, (DWORD_PTR)item_data);
 	}
 
 	return ;	

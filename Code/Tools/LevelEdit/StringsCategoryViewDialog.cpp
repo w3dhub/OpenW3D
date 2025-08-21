@@ -547,7 +547,7 @@ StringsCategoryViewDialogClass::Insert_New_Entry (TDBObjClass *object)
 			}
 		}
 
-		m_ListCtrl.SetItemData (item_index, (DWORD)object);
+		m_ListCtrl.SetItemData (item_index, (DWORD_PTR)object);
 	}
 
 	return ;

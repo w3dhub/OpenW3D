@@ -164,7 +164,7 @@ VisStatsDialogClass::OnInitDialog (void)
 				//
 				//	Add the goto-point to the item
 				//
-				m_SectorList.SetItemData (item_index, (DWORD)(new VisSectorStatsClass(sector_stats)));
+				m_SectorList.SetItemData (item_index, (DWORD_PTR)(new VisSectorStatsClass(sector_stats)));
 			}
 		}
 	}	
