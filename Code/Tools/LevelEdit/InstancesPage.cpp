@@ -427,7 +427,7 @@ CheckBoxSubclassProc
 		}
 
 	} else if (message == WM_DESTROY) {
-		::SetWindowLong (hwnd, GWL_WNDPROC, (LONG)pold_proc);
+		::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)pold_proc);
 		::RemoveProp (hwnd, "OLDPROC");
 	}
 
@@ -635,7 +635,7 @@ InstancesPageClass::OnInitDialog (void)
 	//
 	//	Subclass the list control so we can handle the checkstates
 	//
-	LONG oldproc = ::SetWindowLong (m_ListCtrl, GWL_WNDPROC, (LONG)CheckBoxSubclassProc);
+	LONG_PTR oldproc = ::SetWindowLongPtr (m_ListCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
 	::SetProp (m_ListCtrl, "OLDPROC", (HANDLE)oldproc);
 
 	//

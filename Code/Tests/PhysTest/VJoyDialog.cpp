@@ -168,7 +168,7 @@ BOOL CVJoyDialog::OnInitDialog()
 	RECT rect;
 	
 	HWND movexy_wnd = ::GetDlgItem(m_hWnd,IDC_MOVEXY_STATIC);	
-	long oldproc = SetWindowLong(movexy_wnd,GWL_WNDPROC,(long)JoystickWndProc);
+	void *oldproc = (void *)SetWindowLongPtr(movexy_wnd,GWL_WNDPROC,(LONG_PTR)JoystickWndProc);
 	SetProp(movexy_wnd,"OldWndProc",(void*)oldproc);
 	
 	::GetClientRect(movexy_wnd,&rect);
@@ -176,7 +176,7 @@ BOOL CVJoyDialog::OnInitDialog()
 	SetProp(movexy_wnd,"YCOORD",(HANDLE)(rect.bottom/2));
 
 	HWND turnxy_wnd = ::GetDlgItem(m_hWnd,IDC_TURNXY_STATIC);
-	oldproc = SetWindowLong(turnxy_wnd,GWL_WNDPROC,(long)JoystickWndProc);
+	oldproc = (void*)SetWindowLong(turnxy_wnd,GWLP_WNDPROC,(LONG_PTR)JoystickWndProc);
 	SetProp(turnxy_wnd,"OldWndProc",(void*)oldproc);
 
 	::GetClientRect(movexy_wnd,&rect);

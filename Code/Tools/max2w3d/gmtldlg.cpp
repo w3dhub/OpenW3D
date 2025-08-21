@@ -353,9 +353,9 @@ BOOL GameMtlDlg::PanelProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam 
 
 				/* Installing a windproc for texmap buttons which will handle drag-n-drop
 				HWND hw = GetDlgItem(hwndDlg, texMapID[i]);
-				WNDPROC oldp = (WNDPROC)GetWindowLong(hw, GWL_WNDPROC);
-				SetWindowLong( hw, GWL_WNDPROC, (LONG)TexSlotWndProc);
-				SetWindowLong( hw, GWL_USERDATA, (LONG)oldp);
+				WNDPROC oldp = (WNDPROC)GetWindowLongPtr(hw, GWLP_WNDPROC);
+				SetWindowLongPtr( hw, GWLP_WNDPROC, (LONG_PTR)TexSlotWndProc);
+				SetWindowLongPtr( hw, GWLP_USERDATA, (LONG_PTR)oldp);
 				*/
 
 				return TRUE;
