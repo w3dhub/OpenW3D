@@ -1189,9 +1189,9 @@ void
 Create_UI_Thread
 (
 	MY_UITHREADPROC fnthread_proc,
-	DWORD dwparam1,
-	DWORD dwparam2,
-	DWORD dwparam3,
+	DWORD_PTR dwparam1,
+	DWORD_PTR dwparam2,
+	DWORD_PTR dwparam3,
 	HRESULT *presult,
 	HWND *phmain_wnd
 )
@@ -1604,9 +1604,9 @@ Copy_File
 UINT
 fnUpdatingVSSThread
 (
-	DWORD dwparam1,
-	DWORD /*dwparam2*/,
-	DWORD /*dwparam3*/,
+	DWORD_PTR dwparam1,
+	DWORD_PTR /*dwparam2*/,
+	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,
 	HWND* phmain_wnd
 )
@@ -1634,7 +1634,7 @@ Show_VSS_Update_Dialog (HWND hparent_wnd)
 {
 	// Kick off a UI thread that will display the 'updating' dialog and animation for us
 	HWND hthread_wnd = NULL;
-	::Create_UI_Thread (fnUpdatingVSSThread, (DWORD)hparent_wnd, 0, 0, NULL, &hthread_wnd);
+	::Create_UI_Thread (fnUpdatingVSSThread, (DWORD_PTR)hparent_wnd, 0, 0, NULL, &hthread_wnd);
 	return hthread_wnd;
 }
 

@@ -62,7 +62,7 @@
 //////////////////////////////////////////////////////////////////////////
 //	Local Prototypes
 //////////////////////////////////////////////////////////////////////////
-UINT fnPathfindDialogThread (DWORD dwparam1, DWORD dwparam2, DWORD, HRESULT *, HWND *);
+UINT fnPathfindDialogThread (DWORD_PTR dwparam1, DWORD_PTR dwparam2, DWORD_PTR, HRESULT *, HWND *);
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -2955,9 +2955,9 @@ PathfindSectorBuilderClass::Path_Across_Feature (LevelFeatureClass *level_featur
 UINT
 fnPathfindDialogThread
 (
-	DWORD dwparam1,
-	DWORD dwparam2,
-	DWORD /*dwparam3*/,
+	DWORD_PTR dwparam1,
+	DWORD_PTR dwparam2,
+	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,
 	HWND* /*phmain_wnd*/
 )
@@ -2985,7 +2985,7 @@ fnPathfindDialogThread
 void
 PathfindSectorBuilderClass::Show_Dialog (void)
 {
-	::Create_UI_Thread (fnPathfindDialogThread, 0, (DWORD)&m_pDialog, 0, NULL, NULL);
+	::Create_UI_Thread (fnPathfindDialogThread, 0, (DWORD_PTR)&m_pDialog, 0, NULL, NULL);
 	return ;
 }
 
