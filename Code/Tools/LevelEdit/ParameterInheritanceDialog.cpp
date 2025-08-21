@@ -156,8 +156,8 @@ ParameterInheritanceDialogClass::OnInitDialog (void)
 	//
 	//	Subclass the list and tree controls so we can handle the checkstates
 	//
-	LONG oldproc1 = ::SetWindowLong (m_ListCtrl, GWL_WNDPROC, (LONG)CheckBoxSubclassProc);
-	LONG oldproc2 = ::SetWindowLong (m_TreeCtrl, GWL_WNDPROC, (LONG)CheckBoxSubclassProc);
+	LONG_PTR oldproc1 = ::SetWindowLongPtr (m_ListCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
+	LONG_PTR oldproc2 = ::SetWindowLongPtr (m_TreeCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
 	::SetProp (m_ListCtrl, "OLDPROC",		(HANDLE)oldproc1);
 	::SetProp (m_TreeCtrl, "OLDPROC",		(HANDLE)oldproc2);
 	::SetProp (m_ListCtrl, "IS_LIST_CTRL", (HANDLE)TRUE);
@@ -453,7 +453,7 @@ CheckBoxSubclassProc
 		}
 
 	} else if (message == WM_DESTROY) {
-		::SetWindowLong (hwnd, GWL_WNDPROC, (LONG)old_proc);
+		::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)old_proc);
 		::RemoveProp (hwnd, "OLDPROC");
 		::RemoveProp (hwnd, "IS_LIST_CTRL");
 	}

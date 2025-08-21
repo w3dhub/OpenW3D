@@ -54,7 +54,7 @@ public:
 	int					m_MotionTime;
 	HWND				m_RenderHWnd;
 	int					m_FrameRate;
-	LONG					m_SubClass;
+	LONG_PTR					m_SubClass;
 // Operations
 public:
 

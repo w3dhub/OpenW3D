@@ -143,7 +143,7 @@ ZoneEditDialogClass::OnInitDialog (void)
 	//
 	//	Subclass the 3D window for mouse-tracking
 	//
-	SetWindowLong (::GetDlgItem (m_hWnd, IDC_3D_WINDOW), GWL_WNDPROC, (LONG)fn3DWindow);
+	SetWindowLongPtr (::GetDlgItem (m_hWnd, IDC_3D_WINDOW), GWLP_WNDPROC, (LONG_PTR)fn3DWindow);
 	::SetProp (::GetDlgItem (m_hWnd, IDC_3D_WINDOW), "ZONE_DIALOG", (HANDLE)this);
 
 	//
