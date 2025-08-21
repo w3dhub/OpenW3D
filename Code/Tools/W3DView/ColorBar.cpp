@@ -297,7 +297,7 @@ ColorBarClass::Create
 										 rect.right - rect.left,
 										 rect.bottom - rect.top,
 										 hparent_wnd,
-										 (HMENU)nID,
+										 (HMENU)(DWORD_PTR)nID,
 										 ::AfxGetInstanceHandle (),
 										 this);
 
