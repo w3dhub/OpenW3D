@@ -162,7 +162,7 @@ GeneratingEdgeSampledVisDialogClass::OnInitDialog (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-GeneratingEdgeSampledVisDialogClass::OnTimer (UINT nIDEvent) 
+GeneratingEdgeSampledVisDialogClass::OnTimer (UINT_PTR nIDEvent)
 {
 	//
 	//	Refresh the dialog
