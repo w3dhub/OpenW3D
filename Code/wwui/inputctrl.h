@@ -87,8 +87,8 @@ public:
 	//
 	//	User data support
 	//
-	uint32			Get_User_Data (void)				{ return UserData; }
-	void				Set_User_Data (uint32 data)	{ UserData = data; }
+	uintptr_t			Get_User_Data (void)				{ return UserData; }
+	void				Set_User_Data (uintptr_t data)	{ UserData = data; }
 
 protected:
 
@@ -120,7 +120,7 @@ protected:
 	Render2DClass				HilightRenderer;
 	int							KeyAssignment;
 	int							MouseIgnoreTime;
-	uint32						UserData;	
+	uintptr_t						UserData;
 	int							PendingKeyID;
 };
 

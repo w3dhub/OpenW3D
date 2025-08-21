@@ -199,9 +199,9 @@ SaveGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_inde
 	int	sort_col_index = LOWORD (user_param);
 	BOOL	sort_ascending	= HIWORD (user_param);
 
-	if (list_ctrl->Get_Entry_Data (item_index1, 0) == NULL) {
+	if (list_ctrl->Get_Entry_Data (item_index1, 0) == 0) {
 		retval = -1;
-	} else if (list_ctrl->Get_Entry_Data (item_index2, 0) == NULL) {
+	} else if (list_ctrl->Get_Entry_Data (item_index2, 0) == 0) {
 		retval = 1;
 	} else {
 
@@ -295,7 +295,7 @@ SaveGameMenuClass::Save_Game (bool prompt)
 		//
 		StringClass full_path;
 		bool save_file = true;
-		if (list_ctrl->Get_Entry_Data (item_index, 0) == NULL) {
+		if (list_ctrl->Get_Entry_Data (item_index, 0) == 0) {
 			Get_Unique_Save_Filename (full_path);
 		} else {
 			StringClass filename = ((StringClass *)list_ctrl->Get_Entry_Data (item_index, 2))->Peek_Buffer ();
@@ -410,7 +410,7 @@ SaveGameMenuClass::Update_Text_Field (void)
 		//
 		//	Update the text field with the name of this save game
 		//
-		if (list_ctrl->Get_Entry_Data (curr_sel, 0) != NULL) {
+		if (list_ctrl->Get_Entry_Data (curr_sel, 0) != 0) {
 			Set_Dlg_Item_Text (IDC_FILENAME_EDIT, list_ctrl->Get_Entry_Text (curr_sel, 2));
 		} else {
 			Set_Dlg_Item_Text (IDC_FILENAME_EDIT, L"");
@@ -469,7 +469,7 @@ SaveGameMenuClass::Delete_Game (bool prompt)
 		//
 		//	Determine what filename this entry refers to
 		//		
-		if (list_ctrl->Get_Entry_Data (item_index, 0) != NULL) {
+		if (list_ctrl->Get_Entry_Data (item_index, 0) != 0) {
 			StringClass filename = ((StringClass *)list_ctrl->Get_Entry_Data (item_index, 2))->Peek_Buffer ();
 
 			if (prompt) {
@@ -583,8 +583,8 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 			list_ctrl->Set_Entry_Text (item_index, 1, date_string);
 			list_ctrl->Set_Entry_Text (item_index, 2, description);
 			
-			list_ctrl->Set_Entry_Data (item_index, 0, (uint32)new FILETIME(local_time));
-			list_ctrl->Set_Entry_Data (item_index, 2, (uint32)new StringClass(find_info.cFileName));
+			list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)new FILETIME(local_time));
+			list_ctrl->Set_Entry_Data (item_index, 2, (uintptr_t)new StringClass(find_info.cFileName));
 
 			//
 			//	Select this entry if its the default

@@ -1832,7 +1832,7 @@ ColorBarClass::Clear_Points (void)
 // Set_User_Data
 //
 bool
-ColorBarClass::Set_User_Data (int index, DWORD data)
+ColorBarClass::Set_User_Data (int index, uintptr_t data)
 {
 	bool retval = false;
 	if ((index >= 0) && (index < m_iColorPoints)) {		
@@ -1848,7 +1848,7 @@ ColorBarClass::Set_User_Data (int index, DWORD data)
 //
 // Get_User_Data
 //
-DWORD
+uintptr_t
 ColorBarClass::Get_User_Data (int index)
 {
 	DWORD data = 0;
