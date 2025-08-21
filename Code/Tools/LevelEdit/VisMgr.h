@@ -59,7 +59,7 @@ class NodeClass;
 /////////////////////////////////////////////////////////////////////////
 //	Typedefs
 /////////////////////////////////////////////////////////////////////////
-typedef bool (*VIS_POINT_RENDERED_CALLBACK) (DWORD milliseconds, DWORD param);
+typedef bool (*VIS_POINT_RENDERED_CALLBACK) (DWORD milliseconds, DWORD_PTR param);
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ class VisMgrClass
 		//	Vis generation
 		//
 		static void		Build_Node_List (DynamicVectorClass<NodeClass *> &node_list, bool selection_only = false);
-		static void		Render_Manual_Vis_Points (bool farm_mode = false, int processor_index = 0, int total_processors = 1, VIS_POINT_RENDERED_CALLBACK callback = NULL, DWORD param = 0);
+		static void		Render_Manual_Vis_Points (bool farm_mode = false, int processor_index = 0, int total_processors = 1, VIS_POINT_RENDERED_CALLBACK callback = NULL, DWORD_PTR param = 0);
 
 	protected:
 
