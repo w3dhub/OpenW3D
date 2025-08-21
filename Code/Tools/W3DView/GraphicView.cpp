@@ -57,7 +57,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////
 //  Local Prototypes
 /////////////////////////////////////////////////////////////////////////
-void CALLBACK fnTimerCallback (UINT, UINT, DWORD, DWORD, DWORD);
+void CALLBACK fnTimerCallback (UINT, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR);
 
 
 IMPLEMENT_DYNCREATE(CGraphicView, CView)
@@ -262,7 +262,7 @@ CGraphicView::InitializeGraphicView (void)
 		m_TimerID = (UINT)::timeSetEvent (freq,
 													 freq,
 													 fnTimerCallback,
-													 (DWORD)m_hWnd,
+													 (DWORD_PTR)m_hWnd,
 													 TIME_PERIODIC);
     }
 
@@ -681,9 +681,9 @@ fnTimerCallback
 (
 	UINT uID,
 	UINT uMsg,
-	DWORD dwUser,
-	DWORD dw1,
-	DWORD dw2
+	DWORD_PTR dwUser,
+	DWORD_PTR dw1,
+	DWORD_PTR dw2
 )
 {
 	HWND hwnd = (HWND)dwUser;

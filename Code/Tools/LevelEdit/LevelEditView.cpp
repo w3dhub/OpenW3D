@@ -52,7 +52,7 @@
 /////////////////////////////////////////////////////////////////////////
 //  Local Prototypes
 /////////////////////////////////////////////////////////////////////////
-void CALLBACK fnTimerCallback (UINT, UINT, DWORD, DWORD, DWORD);
+void CALLBACK fnTimerCallback (UINT, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR);
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -585,7 +585,7 @@ CLevelEditView::Start_Update (bool bstart)
 		m_TimerID = (UINT)::timeSetEvent (50,
 													 50,
 													 fnTimerCallback,
-													 (DWORD)m_hWnd,
+													 (DWORD_PTR)m_hWnd,
 													 TIME_PERIODIC);
 
 	} else if ((bstart == false) && (m_TimerID != 0)) {
@@ -844,9 +844,9 @@ fnTimerCallback
 (
 	UINT uID,
 	UINT uMsg,
-	DWORD dwUser,
-	DWORD dw1,
-	DWORD dw2
+	DWORD_PTR dwUser,
+	DWORD_PTR dw1,
+	DWORD_PTR dw2
 )
 {
 	HWND hwnd = (HWND)dwUser;
