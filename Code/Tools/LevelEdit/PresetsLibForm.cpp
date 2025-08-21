@@ -2555,7 +2555,7 @@ PresetsFormClass::OnDrawItem
 	CRect rect = lpDrawItemStruct->rcItem;
 
 	int dss_state = DSS_NORMAL;
-	UINT bk_color = 0;
+	DWORD_PTR bk_color = 0;
 		
 	//
 	//	Deteremine what background and text color to use
