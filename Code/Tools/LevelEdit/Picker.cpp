@@ -193,7 +193,7 @@ PickerClass::Initialize_Control (void)
 											  rect.Width () - BUTTON_WIDTH - 3,
 											  size.cy,
 											  m_hWnd,
-												(HMENU)EDIT_ID,
+											  (HMENU)(DWORD_PTR)EDIT_ID,
 											  ::AfxGetInstanceHandle (),
 											  NULL);	
 		CRect rect2;
@@ -213,7 +213,7 @@ PickerClass::Initialize_Control (void)
 												 BUTTON_WIDTH,
 												 rect.Height (),
 												 m_hWnd,
-												 (HMENU)BUTTON_ID,
+												 (HMENU)(DWORD_PTR)BUTTON_ID,
 												 ::AfxGetInstanceHandle (),
 												 NULL);
 	
