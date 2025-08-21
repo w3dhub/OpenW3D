@@ -2199,7 +2199,7 @@ SceneEditorClass::Import_Lights
 			//	Read the lights from this file
 			//
 			ChunkLoadClass cload (file);
-			int group_id = 0;
+			uintptr_t group_id = 0;
 
 			while (cload.Open_Chunk ()) {
 				switch (cload.Cur_Chunk_ID ()) {
@@ -2257,7 +2257,7 @@ SceneEditorClass::Import_Lights
 				Matrix3D tm						= light->Get_Transform ();
 				LightNodeClass *light_node	= (LightNodeClass *)Create_Node (preset, &tm);
 				light_node->Initialize_From_Light (light);				
-				light_node->Set_Group_ID ((int)light->Get_User_Data ());
+				light_node->Set_Group_ID ((uintptr_t)light->Get_User_Data ());
 				
 				CString light_name;
 				light_name.Format ("%s%04d", (LPCTSTR)base_name, index + 1);
@@ -2294,7 +2294,7 @@ SceneEditorClass::Build_Light_List
 (
 	ChunkLoadClass &							cload,
 	DynamicVectorClass<LightClass *> &	light_list,
-	int											group_id
+	uintptr_t											group_id
 )
 {
 	while (cload.Open_Chunk ()) {

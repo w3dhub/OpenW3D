@@ -1885,7 +1885,7 @@ ListCtrlClass::Set_Entry_Color (int index, int col_index, const Vector3 &color)
 //
 ////////////////////////////////////////////////////////////////
 bool
-ListCtrlClass::Set_Entry_Data (int index, int col_index, uint32 user_data)
+ListCtrlClass::Set_Entry_Data (int index, int col_index, uintptr_t user_data)
 {
 	//
 	//	Store the user data in the first column
@@ -1900,10 +1900,10 @@ ListCtrlClass::Set_Entry_Data (int index, int col_index, uint32 user_data)
 //	Get_Entry_Data
 //
 ////////////////////////////////////////////////////////////////
-uint32
+uintptr_t
 ListCtrlClass::Get_Entry_Data (int index, int col_index)
 {
-	uint32 user_data = 0;
+	uintptr_t user_data = 0;
 
 	//
 	//	Lookup the user data

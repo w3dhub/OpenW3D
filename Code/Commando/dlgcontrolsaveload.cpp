@@ -395,7 +395,7 @@ ControlSaveLoadMenuClass::On_ListCtrl_Delete_Entry
 	//	Remove the data we associated with this entry
 	//
 	InputConfigClass *config = (InputConfigClass *)list_ctrl->Get_Entry_Data (item_index, 0);
-	list_ctrl->Set_Entry_Data (item_index, 0, NULL);
+	list_ctrl->Set_Entry_Data (item_index, 0, 0);
 
 	//
 	//	Free the config object
@@ -431,7 +431,7 @@ ControlSaveLoadMenuClass::Insert_Configuration (const InputConfigClass &config)
 		//	Make a copy of the config object and store it with the entry
 		//
 		InputConfigClass *local_copy = new InputConfigClass (config);
-		list_ctrl->Set_Entry_Data (item_index, 0, (DWORD)local_copy);
+		list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)local_copy);
 
 		//
 		//	Change the color of this configuration if the user cannot edit it
@@ -510,7 +510,7 @@ ControlSaveLoadMenuClass::ListSortCallback
 {
 	int retval = 0;
 
-	if (list_ctrl->Get_Entry_Data (item_index1, 0) == NULL) {
+	if (list_ctrl->Get_Entry_Data (item_index1, 0) == 0) {
 		retval = 1;
 	} else if (list_ctrl->Get_Entry_Data (item_index2, 0) == NULL) {
 		retval = -1;

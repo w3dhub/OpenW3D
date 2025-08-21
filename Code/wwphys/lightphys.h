@@ -75,8 +75,8 @@ public:
 	** lights that should be 'on' when the power to the building is 'on' and lights that should
 	** be 'on' when the power is 'off'.
 	*/
-	void											Set_Group_ID(int new_id)			{ GroupID = new_id; }
-	int											Get_Group_ID(void) const			{ return GroupID; }
+	void											Set_Group_ID(uintptr_t new_id)			{ GroupID = new_id; }
+	uintptr_t											Get_Group_ID(void) const			{ return GroupID; }
 
 	/*
 	** Visibility checking
@@ -94,7 +94,7 @@ public:
 private:
 
 	int											VisSectorID;			// static lights have a pvs.
-	int											GroupID;					// group id, used by external code
+	uintptr_t											GroupID;					// group id, used by external code
 
 	// Not implemented...
 	LightPhysClass(const LightPhysClass &);

@@ -213,7 +213,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		void									Export_Lights (LPCTSTR filename);
 		void									Import_Lights (DynamicVectorClass<StringClass> &filename_list, DynamicVectorClass<LightNodeClass *> *node_list = NULL);
 		void									Import_Sunlight (LPCTSTR filename);
-		void									Build_Light_List (ChunkLoadClass &cload, DynamicVectorClass<LightClass *> &light_list, int group_id = 0);
+		void									Build_Light_List (ChunkLoadClass &cload, DynamicVectorClass<LightClass *> &light_list, uintptr_t group_id = 0);
 		void									Filter_Lights (DynamicVectorClass<LightClass *> &light_list);
 		bool									Compare_Lights (LightClass *light1, LightClass *light2);
 		void									Update_Lighting (void);

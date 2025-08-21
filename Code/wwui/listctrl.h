@@ -125,9 +125,9 @@ public:
 	bool				Set_Entry_Text (int index, int col_index, const wchar_t *text);
 	bool				Set_Entry_Int (int index, int col_index, int value);
 	bool				Set_Entry_Color (int index, int col_index, const Vector3 &color);
-	bool				Set_Entry_Data (int index, int col_index, uint32 user_data);
+	bool				Set_Entry_Data (int index, int col_index, uintptr_t user_data);
 	bool				Select_Entry (int index, bool onoff);
-	uint32			Get_Entry_Data (int index, int col_index);
+	uintptr_t			Get_Entry_Data (int index, int col_index);
 	const wchar_t *	Get_Entry_Text (int index, int col_index);
 	bool				Is_Entry_Selected (int index);
 	bool				Delete_Entry (int index);
@@ -311,8 +311,8 @@ public:
 	//
 	//	User data access
 	//
-	uint32				Get_User_Data (void) const			{ return UserData; }
-	void					Set_User_Data (uint32 user_data)	{ UserData = user_data; }
+	uintptr_t				Get_User_Data (void) const			{ return UserData; }
+	void					Set_User_Data (uintptr_t user_data)	{ UserData = user_data; }
 
 	//
 	//	Icon support
@@ -329,7 +329,7 @@ private:
 	////////////////////////////////////////////////////////////////
 	WideStringClass						Name;
 	Vector3									Color;
-	uint32									UserData;
+	uintptr_t									UserData;
 	DynamicVectorClass<StringClass>	IconList;
 };
 
@@ -396,8 +396,8 @@ public:
 	void					Set_Entry_Color (int index, const Vector3 &color)	{ EntryList[index]->Set_Color (color); }
 	const Vector3 &	Get_Entry_Color (int index) const						{ return EntryList[index]->Get_Color (); }
 
-	void					Set_Entry_Data (int index, uint32 data)				{ EntryList[index]->Set_User_Data (data); }
-	uint32				Get_Entry_Data (int index) const							{ return EntryList[index]->Get_User_Data (); }
+	void					Set_Entry_Data (int index, uintptr_t data)				{ EntryList[index]->Set_User_Data (data); }
+	uintptr_t				Get_Entry_Data (int index) const							{ return EntryList[index]->Get_User_Data (); }
 
 	int					Get_Icon_Count (int index) const							{ return EntryList[index]->Get_Icon_Count (); }
 	const char *		Get_Icon (int index, int icon_index)					{ return EntryList[index]->Get_Icon (icon_index); }

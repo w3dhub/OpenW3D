@@ -202,7 +202,7 @@ void DlgDownload::On_Init_Dialog(void)
 	Set_Dlg_Item_Text(IDC_TRANSFERTEXT, text);
 
 	// Start the wait condition
-	mWait->SetCallback(DlgDownload::HandleCallback, (unsigned long)this);
+	mWait->SetCallback(DlgDownload::HandleCallback, this);
 	mWait->WaitBeginning();
 
 	PopupDialogClass::On_Init_Dialog();
@@ -452,7 +452,7 @@ void DlgDownload::UpdateProgress(DownloadEvent& event)
 *
 ******************************************************************************/
 
-void DlgDownload::HandleCallback(DownloadEvent& event, unsigned long userdata)
+void DlgDownload::HandleCallback(DownloadEvent& event, void *userdata)
 	{
 	DlgDownload* dialog = (DlgDownload*)userdata;
 
