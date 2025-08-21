@@ -547,7 +547,7 @@ EditConversationDialogClass::Add_Entry (const ConversationRemarkClass &remark, i
 			//	Allocate a remark object to associate with this entry in the list control
 			//
 			ConversationRemarkClass *associated_remark = new ConversationRemarkClass (remark);
-			m_ListCtrl.SetItemData (item_index, (DWORD)associated_remark);
+			m_ListCtrl.SetItemData (item_index, (DWORD_PTR)associated_remark);
 		}
 	}
 

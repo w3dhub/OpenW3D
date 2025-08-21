@@ -150,7 +150,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 				//
 				int item_index = m_ListCtrl.InsertItem (0xFF, name);
 				if (item_index >= 0) {
-					m_ListCtrl.SetItemData (item_index, (DWORD)node);
+					m_ListCtrl.SetItemData (item_index, (DWORD_PTR)node);
 
 					//
 					//	Take a best guess at a preset name for the object

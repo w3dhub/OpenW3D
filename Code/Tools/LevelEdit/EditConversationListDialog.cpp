@@ -189,7 +189,7 @@ EditConversationListDialogClass::Add_Conversation (ConversationClass *conversati
 	int item_index = m_ListCtrl.InsertItem (0xFFFF, conversation->Get_Name ());
 	if (item_index != -1) {
 		conversation->Add_Ref ();
-		m_ListCtrl.SetItemData (item_index, (DWORD)conversation);
+		m_ListCtrl.SetItemData (item_index, (DWORD_PTR)conversation);
 	}
 
 	return ;

@@ -125,7 +125,7 @@ PhysObjEditTabClass::HandleInitDialog (void)
 		//
 		if (default_classid == factory->Get_Class_ID ()) {
 			int index = m_ObjTypeCombo.AddString (factory->Get_Name ());
-			m_ObjTypeCombo.SetItemData (index, (ULONG)default_definition);			
+			m_ObjTypeCombo.SetItemData (index, (DWORD_PTR)default_definition);
 			m_ObjTypeCombo.SetCurSel (index);
 		} else {
 
@@ -138,7 +138,7 @@ PhysObjEditTabClass::HandleInitDialog (void)
 				//
 				if (((PhysDefClass *)definition)->Is_Type (m_FilterString)) {
 					int index = m_ObjTypeCombo.AddString (factory->Get_Name ());
-					m_ObjTypeCombo.SetItemData (index, (ULONG)definition);				
+					m_ObjTypeCombo.SetItemData (index, (DWORD_PTR)definition);
 				} else {
 					SAFE_DELETE (definition);
 				}
