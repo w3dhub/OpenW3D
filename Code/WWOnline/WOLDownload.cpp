@@ -1021,7 +1021,7 @@ void DownloadWait::EndWait(WaitResult endResult, const wchar_t* endText)
 *
 ******************************************************************************/
 
-void DownloadWait::SetCallback(DownloadWaitCallback callback, unsigned long userdata)
+void DownloadWait::SetCallback(DownloadWaitCallback callback, void *userdata)
 	{
 	mCallback = callback;
 	mUserdata = userdata;

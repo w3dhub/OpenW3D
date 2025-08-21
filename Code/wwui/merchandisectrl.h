@@ -81,8 +81,8 @@ public:
 
 	int				Get_Selected_Alternate (void)	{ return (CurrentTextureIndex - 1); }
 
-	DWORD				Get_User_Data (void) const		{ return UserData; }
-	void				Set_User_Data (DWORD data)		{ UserData = data; }	
+	uintptr_t				Get_User_Data (void) const		{ return UserData; }
+	void				Set_User_Data (uintptr_t data)		{ UserData = data; }
 
 	void				Increment_Purchase_Count (void)	{ Count ++; Set_Dirty (); }
 	void				Reset_Purchase_Count (void)		{ Count = 0; Set_Dirty (); }
@@ -119,7 +119,7 @@ protected:
 	RectClass					CostRect;
 	RectClass					CountRect;
 
-	DWORD							UserData;
+	uintptr_t							UserData;
 	int							Cost;
 	int							Count;
 

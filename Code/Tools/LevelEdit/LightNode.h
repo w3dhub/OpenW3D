@@ -138,8 +138,8 @@ public:
 
 	LightPhysClass *	Peek_Light_Phys (void)			{ return m_LightPhysObj; }
 
-	void			Set_Group_ID (int group_id);
-	int			Get_Group_ID (void) const;
+	void			Set_Group_ID (uintptr_t group_id);
+	uintptr_t			Get_Group_ID (void) const;
 
 	uint32		Get_Vis_Sector_ID (void) const		{ return m_VisSectorID; }
 	void			Set_Vis_Sector_ID (uint32 vis_id);
@@ -272,7 +272,7 @@ LightNodeClass::Set_Attenuation_Radius (float radius)
 //	Set_Group_ID
 //////////////////////////////////////////////////////////////////
 inline void
-LightNodeClass::Set_Group_ID (int group_id)
+LightNodeClass::Set_Group_ID (uintptr_t group_id)
 {
 	if (m_LightPhysObj != NULL) {
 		m_LightPhysObj->Set_Group_ID (group_id);
@@ -285,10 +285,10 @@ LightNodeClass::Set_Group_ID (int group_id)
 //////////////////////////////////////////////////////////////////
 //	Get_Group_ID
 //////////////////////////////////////////////////////////////////
-inline int
+inline uintptr_t
 LightNodeClass::Get_Group_ID (void) const
 {
-	int group_id = 0;
+	uintptr_t group_id = 0;
 	if (m_LightPhysObj != NULL) {
 		group_id = m_LightPhysObj->Get_Group_ID ();
 	}

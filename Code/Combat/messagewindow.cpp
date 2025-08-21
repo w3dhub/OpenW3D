@@ -280,7 +280,7 @@ MessageWindowClass::On_Frame_Update (void)
 			//
 			int time_left = (int)TextWindow->Get_Item_Data (index);
 			time_left -= TimeManager::Get_Frame_Ticks ();
-			TextWindow->Set_Item_Data (index, (uint32)time_left);
+			TextWindow->Set_Item_Data (index, (uintptr_t)time_left);
 
 			//
 			//	Should we remove this message?

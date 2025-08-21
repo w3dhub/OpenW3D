@@ -312,7 +312,7 @@ void MPWolChatMenuClass::Refresh_Lobby_List(void)
 			if (listIndex >= -1) {
 				// Associate the channel with this lobby entry
 				const ChannelData* channel = lobby.ReferencedObject();
-				list->Set_Entry_Data(listIndex, 0, (uint32)channel);
+				list->Set_Entry_Data(listIndex, 0, (uintptr_t)channel);
 
 				UpdateLobbyUserCount(list, listIndex);
 			}
