@@ -200,7 +200,7 @@ SphereColorPropPageClass::OnInitDialog (void)
 											128);
 		
 		AlphaVectorStruct *data = new AlphaVectorStruct (m_OrigVectorChannel[index].Get_Value ());
-		m_VectorBar->Set_User_Data (index, (ULONG)data);
+		m_VectorBar->Set_User_Data (index, (uintptr_t)data);
 	}
 
 	//
@@ -411,7 +411,7 @@ SphereColorPropPageClass::OnNotify
 				//
 				//	Associate this data with the new key
 				//
-				m_VectorBar->Set_User_Data (color_bar_hdr->key_index, (ULONG)new_data);
+				m_VectorBar->Set_User_Data (color_bar_hdr->key_index, (uintptr_t)new_data);
 				update = true;
 			}
 

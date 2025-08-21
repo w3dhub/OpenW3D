@@ -151,7 +151,7 @@ PresetClass::~PresetClass (void)
 	//	Unlink this definition from its preset (if possible or necessary)
 	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Definition (m_DefinitionID, false);
-	if (definition != NULL && (definition->Get_User_Data () == (uint32)this)) {
+	if (definition != NULL && (definition->Get_User_Data () == (uintptr_t)this)) {
 		definition->Set_User_Data (NULL);
 	}
 
@@ -434,7 +434,7 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 	//	Associate this preset with the definition
 	//
 	if (m_Definition != NULL) {
-		m_Definition->Set_User_Data ((uint32)this);
+		m_Definition->Set_User_Data ((uintptr_t)this);
 	}
 
 	if (m_DefinitionID == 0 || m_Definition == NULL) {
@@ -1303,7 +1303,7 @@ PresetClass::Set_Definition (DefinitionClass *definition)
 	// quickly find the preset given its definition
 	//
 	if (m_Definition != NULL) {
-		m_Definition->Set_User_Data ((uint32)this);
+		m_Definition->Set_User_Data ((uintptr_t)this);
 		m_DefinitionID = m_Definition->Get_ID ();
 	}
 

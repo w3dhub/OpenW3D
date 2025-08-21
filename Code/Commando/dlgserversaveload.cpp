@@ -402,7 +402,7 @@ ServerSaveLoadMenuClass::Insert_Configuration (ServerSettingsClass *config)
 		//	Make a copy of the config object and store it with the entry
 		//
 		ServerSettingsClass *local_copy = new ServerSettingsClass(config);
-		list_ctrl->Set_Entry_Data (item_index, 0, (DWORD)local_copy);
+		list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)local_copy);
 
 		//
 		//	Change the color of this configuration if the user cannot edit it

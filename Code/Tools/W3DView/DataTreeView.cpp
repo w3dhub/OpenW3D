@@ -272,7 +272,7 @@ CDataTreeView::Load_Materials_Into_Tree (void)
 
 			// Allocate a new asset information class to associate with this entry
 			ptexture->Add_Ref ();
-			AssetInfoClass *asset_info = new AssetInfoClass (texture_name, TypeMaterial, NULL, (DWORD)ptexture);
+			AssetInfoClass *asset_info = new AssetInfoClass (texture_name, TypeMaterial, NULL, (uintptr_t)ptexture);
 			GetTreeCtrl ().SetItemData (tree_item, (DWORD_PTR)asset_info);
 		}
 	}

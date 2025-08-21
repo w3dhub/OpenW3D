@@ -583,8 +583,8 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 			list_ctrl->Set_Entry_Text (item_index, 1, date_string);
 			list_ctrl->Set_Entry_Text (item_index, 2, description);
 			
-			list_ctrl->Set_Entry_Data (item_index, 0, (uint32)new FILETIME(local_time));
-			list_ctrl->Set_Entry_Data (item_index, 2, (uint32)new StringClass(find_info.cFileName));
+			list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)new FILETIME(local_time));
+			list_ctrl->Set_Entry_Data (item_index, 2, (uintptr_t)new StringClass(find_info.cFileName));
 
 			//
 			//	Select this entry if its the default
