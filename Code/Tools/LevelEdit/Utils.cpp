@@ -1906,7 +1906,7 @@ fnEditToFloatProc
 void
 Restore_Edit_Ctrl (HWND edit_wnd)
 {
-	LONG orig_proc = (LONG)::GetProp (edit_wnd, "OLD_WND_PROC");
+	DWORD_PTR orig_proc = (DWORD_PTR)::GetProp (edit_wnd, "OLD_WND_PROC");
 	if (orig_proc != 0) {
 		::SetWindowLongPtr (edit_wnd, GWLP_WNDPROC, (LONG_PTR)orig_proc);
 		::RemoveProp (edit_wnd, "OLD_WND_PROC");
