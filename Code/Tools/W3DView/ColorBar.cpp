@@ -220,8 +220,8 @@ fnColorBarProc
 				}
 
 				// Store some information in the window handle
-				::SetProp (hwnd, "CLASSPOINTER", (HANDLE)pwnd);
-				::SetProp (hwnd, "CREATED", (HANDLE)created);
+				::SetProp (hwnd, "CLASSPOINTER", (HANDLE)(DWORD_PTR)pwnd);
+				::SetProp (hwnd, "CREATED", (HANDLE)(DWORD_PTR)created);
 			}
 		}
 		break;
@@ -230,7 +230,7 @@ fnColorBarProc
 		{
 			// Get the creation information from the window handle
 			ColorBarClass *pwnd = (ColorBarClass *)::GetProp (hwnd, "CLASSPOINTER");
-			BOOL created = (BOOL)::GetProp (hwnd, "CREATED");
+			BOOL created = (BOOL)(DWORD_PTR)::GetProp (hwnd, "CREATED");
 
 			if (pwnd != NULL) {
 				pwnd->Detach ();

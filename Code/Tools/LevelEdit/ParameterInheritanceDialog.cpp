@@ -158,8 +158,8 @@ ParameterInheritanceDialogClass::OnInitDialog (void)
 	//
 	LONG_PTR oldproc1 = ::SetWindowLongPtr (m_ListCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
 	LONG_PTR oldproc2 = ::SetWindowLongPtr (m_TreeCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
-	::SetProp (m_ListCtrl, "OLDPROC",		(HANDLE)oldproc1);
-	::SetProp (m_TreeCtrl, "OLDPROC",		(HANDLE)oldproc2);
+	::SetProp (m_ListCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc1);
+	::SetProp (m_TreeCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc2);
 	::SetProp (m_ListCtrl, "IS_LIST_CTRL", (HANDLE)TRUE);
 	::SetProp (m_TreeCtrl, "IS_LIST_CTRL", (HANDLE)FALSE);
 
@@ -408,7 +408,7 @@ CheckBoxSubclassProc
 		//
 		//	Is this the list control or the tree control?
 		//
-		BOOL is_list_ctrl = (BOOL)::GetProp (hwnd, "IS_LIST_CTRL");
+		BOOL is_list_ctrl = (BOOL)(DWORD_PTR)::GetProp (hwnd, "IS_LIST_CTRL");
 		if (is_list_ctrl) {
 			
 			//
