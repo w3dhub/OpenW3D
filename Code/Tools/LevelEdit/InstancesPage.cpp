@@ -636,7 +636,7 @@ InstancesPageClass::OnInitDialog (void)
 	//	Subclass the list control so we can handle the checkstates
 	//
 	LONG_PTR oldproc = ::SetWindowLongPtr (m_ListCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
-	::SetProp (m_ListCtrl, "OLDPROC", (HANDLE)oldproc);
+	::SetProp (m_ListCtrl, "OLDPROC", (HANDLE)(LONG_PTR)oldproc);
 
 	//
 	//	Populate the list control
