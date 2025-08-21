@@ -1908,7 +1908,7 @@ Restore_Edit_Ctrl (HWND edit_wnd)
 {
 	LONG orig_proc = (LONG)::GetProp (edit_wnd, "OLD_WND_PROC");
 	if (orig_proc != 0) {
-		::SetWindowLong (edit_wnd, GWL_WNDPROC, orig_proc);
+		::SetWindowLongPtr (edit_wnd, GWLP_WNDPROC, (LONG_PTR)orig_proc);
 		::RemoveProp (edit_wnd, "OLD_WND_PROC");
 	}
 
@@ -1925,7 +1925,7 @@ Make_Edit_Float_Ctrl (HWND edit_wnd)
 {
 	Restore_Edit_Ctrl (edit_wnd);
 
-	LONG old_proc = ::SetWindowLong (edit_wnd, GWL_WNDPROC, (LONG)fnEditToFloatProc);
+	LONG_PTR old_proc = ::SetWindowLongPtr (edit_wnd, GWLP_WNDPROC, (LONG_PTR)fnEditToFloatProc);
 	SetProp (edit_wnd, "OLD_WND_PROC", (HANDLE)old_proc);
 	return ;
 }
@@ -1979,7 +1979,7 @@ Make_Edit_Int_Ctrl (HWND edit_wnd)
 {
 	Restore_Edit_Ctrl (edit_wnd);
 
-	LONG old_proc = ::SetWindowLong (edit_wnd, GWL_WNDPROC, (LONG)fnEditToIntProc);
+	LONG_PTR old_proc = ::SetWindowLongPtr (edit_wnd, GWLP_WNDPROC, (LONG_PTR)fnEditToIntProc);
 	SetProp (edit_wnd, "OLD_WND_PROC", (HANDLE)old_proc);
 	return ;
 }
