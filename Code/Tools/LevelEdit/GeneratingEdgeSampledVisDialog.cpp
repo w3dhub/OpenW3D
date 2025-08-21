@@ -59,7 +59,7 @@ static const float MINUTES_PER_TICK		= 1.0f / TICKS_PER_MINUTE;
 //////////////////////////////////////////////////////////////////////////
 //	Local Prototypes
 //////////////////////////////////////////////////////////////////////////
-static UINT fnGeneratingVisDialogThread (DWORD dwparam1, DWORD dwparam2, DWORD, HRESULT *, HWND *);
+static UINT fnGeneratingVisDialogThread (DWORD_PTR dwparam1, DWORD_PTR dwparam2, DWORD_PTR, HRESULT *, HWND *);
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -303,7 +303,7 @@ GeneratingEdgeSampledVisDialogClass::Display (void)
 	//	Create the dialog on a separate thread
 	//
 	GeneratingEdgeSampledVisDialogClass *dialog = NULL;
-	::Create_UI_Thread (fnGeneratingVisDialogThread, 0, (DWORD)&dialog, 0, NULL, NULL);
+	::Create_UI_Thread (fnGeneratingVisDialogThread, 0, (DWORD_PTR)&dialog, 0, NULL, NULL);
 	return dialog;
 }
 
@@ -344,9 +344,9 @@ GeneratingEdgeSampledVisDialogClass::Set_Finished (bool is_finished)
 UINT
 fnGeneratingVisDialogThread
 (
-	DWORD dwparam1,
-	DWORD dwparam2,
-	DWORD /*dwparam3*/,
+	DWORD_PTR dwparam1,
+	DWORD_PTR dwparam2,
+	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,
 	HWND* /*phmain_wnd*/
 )

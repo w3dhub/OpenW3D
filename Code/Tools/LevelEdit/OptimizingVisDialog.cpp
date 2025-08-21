@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 //////////////////////////////////////////////////////////////////////////
 //	Local Prototypes
 //////////////////////////////////////////////////////////////////////////
-static UINT fnOptimizeVisDialogThread (DWORD dwparam1, DWORD dwparam2, DWORD, HRESULT *, HWND *);
+static UINT fnOptimizeVisDialogThread (DWORD_PTR dwparam1, DWORD_PTR dwparam2, DWORD_PTR, HRESULT *, HWND *);
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -212,7 +212,7 @@ OptimizingVisDialogClass::Optimize (void)
 	//
 	//	Create the dialog on a separate thread
 	//
-	::Create_UI_Thread (fnOptimizeVisDialogThread, 0, (DWORD)&dialog, 0, NULL, NULL);
+	::Create_UI_Thread (fnOptimizeVisDialogThread, 0, (DWORD_PTR)&dialog, 0, NULL, NULL);
 	dialog->Set_Status_Object (&stats);
 
 	//
@@ -242,9 +242,9 @@ OptimizingVisDialogClass::Optimize (void)
 UINT
 fnOptimizeVisDialogThread
 (
-	DWORD dwparam1,
-	DWORD dwparam2,
-	DWORD /*dwparam3*/,
+	DWORD_PTR dwparam1,
+	DWORD_PTR dwparam2,
+	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,
 	HWND* /*phmain_wnd*/
 )

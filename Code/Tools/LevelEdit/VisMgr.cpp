@@ -322,7 +322,7 @@ VisMgrClass::Render_Manual_Vis_Points
 	int									processor_index,
 	int									total_processors,
 	VIS_POINT_RENDERED_CALLBACK	callback,
-	DWORD									param
+	DWORD_PTR									param
 )
 {
 	SceneEditorClass *scene_editor	= ::Get_Scene_Editor ();
