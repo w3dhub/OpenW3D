@@ -95,7 +95,7 @@ PathfindPortalClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_ID,					m_ID);		
 		
 		PathfindPortalClass *this_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR, this_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, this_ptr);
 
 	csave.End_Chunk ();
 
@@ -153,7 +153,7 @@ PathfindPortalClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_DEST_SECTOR1, m_DestSector1);
 			READ_MICRO_CHUNK (cload, VARID_DEST_SECTOR2, m_DestSector2);
 			READ_MICRO_CHUNK (cload, VARID_ID,				m_ID);
-			READ_MICRO_CHUNK (cload, VARID_OLD_PTR,		old_ptr);
+			READ_MICRO_CHUNK_PTR (cload, VARID_OLD_PTR,		old_ptr);
 
 			default:
 				WWDEBUG_SAY (("Unknown micro chunk ID 0x%X", cload.Cur_Micro_Chunk_ID ()));
@@ -196,8 +196,8 @@ PathfindActionPortalClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, ACTION_VARID_DESTINATION,	m_Destination);
 		WRITE_MICRO_CHUNK (csave, ACTION_VARID_MECHANISM_ID,	m_MechanismID);
 		WRITE_MICRO_CHUNK (csave, ACTION_VARID_ACTION_ID,		m_ActionID);
-		WRITE_MICRO_CHUNK (csave, ACTION_VARID_EXIT_PORTAL,	m_ExitPortal);
-		WRITE_MICRO_CHUNK (csave, ACTION_VARID_ENTER_PORTAL,	m_EnterPortal);
+		WRITE_MICRO_CHUNK_PTR (csave, ACTION_VARID_EXIT_PORTAL,	m_ExitPortal);
+		WRITE_MICRO_CHUNK_PTR (csave, ACTION_VARID_ENTER_PORTAL,	m_EnterPortal);
 	csave.End_Chunk ();
 
 	return true;
@@ -256,8 +256,8 @@ PathfindActionPortalClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, ACTION_VARID_DESTINATION,		m_Destination);
 			READ_MICRO_CHUNK (cload, ACTION_VARID_MECHANISM_ID,	m_MechanismID);
 			READ_MICRO_CHUNK (cload, ACTION_VARID_ACTION_ID,		m_ActionID);
-			READ_MICRO_CHUNK (cload, ACTION_VARID_EXIT_PORTAL,		m_ExitPortal);
-			READ_MICRO_CHUNK (cload, ACTION_VARID_ENTER_PORTAL,	m_EnterPortal);
+			READ_MICRO_CHUNK_PTR (cload, ACTION_VARID_EXIT_PORTAL,		m_ExitPortal);
+			READ_MICRO_CHUNK_PTR (cload, ACTION_VARID_ENTER_PORTAL,	m_EnterPortal);
 
 			default:
 				WWASSERT (0);

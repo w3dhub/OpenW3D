@@ -146,7 +146,7 @@ GeneratingManualVisDialogClass::WindowProc
 		//
 		//	Render the manual vis points
 		//
-		VisMgrClass::Render_Manual_Vis_Points (m_FarmMode, m_ProcessorIndex, m_TotalProcessors, ManualVisPointCallback, (DWORD)this);
+		VisMgrClass::Render_Manual_Vis_Points (m_FarmMode, m_ProcessorIndex, m_TotalProcessors, ManualVisPointCallback, (DWORD_PTR)this);
 
 		::Get_Main_View ()->Allow_Repaint (true);
 		EndDialog (IDOK);	
@@ -224,7 +224,7 @@ GeneratingManualVisDialogClass::Get_Manual_Point_Count (void)
 //
 //////////////////////////////////////////////////////////////////////////////
 bool
-GeneratingManualVisDialogClass::ManualVisPointCallback (DWORD milliseconds, DWORD param)
+GeneratingManualVisDialogClass::ManualVisPointCallback (DWORD milliseconds, DWORD_PTR param)
 {
 	bool retval = true;
 

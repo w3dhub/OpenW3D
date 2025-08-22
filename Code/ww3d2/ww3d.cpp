@@ -809,7 +809,7 @@ WW3DErrorType WW3D::Begin_Render(bool clear,bool clearz,const Vector3 & color, v
 
 	// If we want to clear the screen, we need to set the viewport to include the entire screen:
 	if (clear || clearz) {
-		D3DVIEWPORT8 vp;
+		D3DVIEWPORT9 vp;
 		int width, height, bits;
 		bool windowed;
 		WW3D::Get_Render_Target_Resolution(width, height, bits, windowed);
@@ -1277,7 +1277,7 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 
 	// Lock front buffer and copy
 
-	IDirect3DSurface8 *fb;
+	IDirect3DSurface9 *fb;
 	fb=DX8Wrapper::_Get_DX8_Front_Buffer();
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);
@@ -1559,7 +1559,7 @@ void WW3D::Update_Movie_Capture( void )
 
 		// Lock front buffer and copy
 
-	IDirect3DSurface8 *fb;
+	IDirect3DSurface9 *fb;
 	fb=DX8Wrapper::_Get_DX8_Front_Buffer();
 	D3DSURFACE_DESC desc;
 	fb->GetDesc(&desc);

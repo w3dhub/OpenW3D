@@ -470,7 +470,7 @@ void DlgWOLSettings::InitPersonaCombo(void)
 				if (item >= 0)
 					{
 					LoginProfile* profile = LoginProfile::Get(name, true);
-					combo->Set_Item_Data(item, (uint32)profile);
+					combo->Set_Item_Data(item, (uintptr_t)profile);
 					}
 				}
 			}

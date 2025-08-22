@@ -1189,9 +1189,9 @@ void
 Create_UI_Thread
 (
 	MY_UITHREADPROC fnthread_proc,
-	DWORD dwparam1,
-	DWORD dwparam2,
-	DWORD dwparam3,
+	DWORD_PTR dwparam1,
+	DWORD_PTR dwparam2,
+	DWORD_PTR dwparam3,
 	HRESULT *presult,
 	HWND *phmain_wnd
 )
@@ -1604,9 +1604,9 @@ Copy_File
 UINT
 fnUpdatingVSSThread
 (
-	DWORD dwparam1,
-	DWORD /*dwparam2*/,
-	DWORD /*dwparam3*/,
+	DWORD_PTR dwparam1,
+	DWORD_PTR /*dwparam2*/,
+	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,
 	HWND* phmain_wnd
 )
@@ -1634,7 +1634,7 @@ Show_VSS_Update_Dialog (HWND hparent_wnd)
 {
 	// Kick off a UI thread that will display the 'updating' dialog and animation for us
 	HWND hthread_wnd = NULL;
-	::Create_UI_Thread (fnUpdatingVSSThread, (DWORD)hparent_wnd, 0, 0, NULL, &hthread_wnd);
+	::Create_UI_Thread (fnUpdatingVSSThread, (DWORD_PTR)hparent_wnd, 0, 0, NULL, &hthread_wnd);
 	return hthread_wnd;
 }
 
@@ -1906,9 +1906,9 @@ fnEditToFloatProc
 void
 Restore_Edit_Ctrl (HWND edit_wnd)
 {
-	LONG orig_proc = (LONG)::GetProp (edit_wnd, "OLD_WND_PROC");
+	DWORD_PTR orig_proc = (DWORD_PTR)::GetProp (edit_wnd, "OLD_WND_PROC");
 	if (orig_proc != 0) {
-		::SetWindowLong (edit_wnd, GWL_WNDPROC, orig_proc);
+		::SetWindowLongPtr (edit_wnd, GWLP_WNDPROC, (LONG_PTR)orig_proc);
 		::RemoveProp (edit_wnd, "OLD_WND_PROC");
 	}
 
@@ -1925,7 +1925,7 @@ Make_Edit_Float_Ctrl (HWND edit_wnd)
 {
 	Restore_Edit_Ctrl (edit_wnd);
 
-	LONG old_proc = ::SetWindowLong (edit_wnd, GWL_WNDPROC, (LONG)fnEditToFloatProc);
+	LONG_PTR old_proc = ::SetWindowLongPtr (edit_wnd, GWLP_WNDPROC, (LONG_PTR)fnEditToFloatProc);
 	SetProp (edit_wnd, "OLD_WND_PROC", (HANDLE)old_proc);
 	return ;
 }
@@ -1979,7 +1979,7 @@ Make_Edit_Int_Ctrl (HWND edit_wnd)
 {
 	Restore_Edit_Ctrl (edit_wnd);
 
-	LONG old_proc = ::SetWindowLong (edit_wnd, GWL_WNDPROC, (LONG)fnEditToIntProc);
+	LONG_PTR old_proc = ::SetWindowLongPtr (edit_wnd, GWLP_WNDPROC, (LONG_PTR)fnEditToIntProc);
 	SetProp (edit_wnd, "OLD_WND_PROC", (HANDLE)old_proc);
 	return ;
 }
@@ -2209,7 +2209,7 @@ Check_Editor_Version (void)
 	// against the version we are running.  We don't want people making modifications
 	// with and older version
 	//
-	return (::Compare_EXE_Version ((int)::AfxGetInstanceHandle (), filename) >= 0);
+	return (::Compare_EXE_Version (::AfxGetInstanceHandle (), filename) >= 0);
 #else
 	return true;
 #endif

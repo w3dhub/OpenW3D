@@ -209,7 +209,7 @@ bool	SoldierObserverClass::Save (ChunkSaveClass &csave)
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HOME_RADIUS, HomeRadius );
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ALERT_POSITION, AlertPosition );
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ACTION_TIMER, ActionTimer );
-			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_COVER_POSITION, CoverPosition );
+			WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_COVER_POSITION, CoverPosition );
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_COVERED_ATTACK, CoveredAttack );
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_CONVERSATION_TIMER, ConversationTimer );
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_IS_ALERTED, IsAlerted );
@@ -250,7 +250,7 @@ bool	SoldierObserverClass::Load (ChunkLoadClass &cload)
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_HOME_RADIUS, HomeRadius );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_ALERT_POSITION, AlertPosition );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_ACTION_TIMER, ActionTimer );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_COVER_POSITION, CoverPosition );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_COVER_POSITION, CoverPosition );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_COVERED_ATTACK, CoveredAttack );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_CONVERSATION_TIMER, ConversationTimer );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_IS_ALERTED, IsAlerted );
@@ -559,7 +559,7 @@ void SoldierObserverClass::Enemy_Seen(GameObject* obj, GameObject* enemy)
 }
 
 
-void	SoldierObserverClass::Custom( GameObject * obj, int type, int param, GameObject * sender )
+void	SoldierObserverClass::Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender )
 {
 	if ( type == CUSTOM_EVENT_ATTACK_ARRIVED ) {
 //		Debug_Say(( "Attack Arrvied event %d\n", param ));

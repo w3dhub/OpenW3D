@@ -237,7 +237,7 @@ bool	WeaponClass::Save( ChunkSaveClass & csave )
 			csave.Write( model_name, strlen( model_name ) + 1 );
 			csave.End_Micro_Chunk();
 #endif
-			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_MODEL_PTR, Model );
+			WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_MODEL_PTR, Model );
 		}
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE, State );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE_TIMER, StateTimer );
@@ -325,14 +325,14 @@ bool	WeaponClass::Load( ChunkLoadClass &cload )
 							cload.Open_Micro_Chunk();
 							WWASSERT( cload.Cur_Micro_Chunk_ID() == MICROCHUNKID_MODEL_PTR );
 							void * old_ptr = NULL;
-							cload.Read( &old_ptr, sizeof( old_ptr ) );
+							cload.Read( &old_ptr, sizeof( uint32 ) );
 							SaveLoadSystemClass::Register_Pointer( old_ptr, robj );
 							REF_PTR_RELEASE( robj );
 							break;
 						}
 #endif
 
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_MODEL_PTR, Model );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_MODEL_PTR, Model );
 
 						default:
 							Debug_Say(("Unhandled Micro Chunk:%d File:%s Line:%d\r\n",cload.Cur_Micro_Chunk_ID(),__FILE__,__LINE__));

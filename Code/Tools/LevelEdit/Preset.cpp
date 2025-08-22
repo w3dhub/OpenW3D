@@ -151,7 +151,7 @@ PresetClass::~PresetClass (void)
 	//	Unlink this definition from its preset (if possible or necessary)
 	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Definition (m_DefinitionID, false);
-	if (definition != NULL && (definition->Get_User_Data () == (uint32)this)) {
+	if (definition != NULL && (definition->Get_User_Data () == (uintptr_t)this)) {
 		definition->Set_User_Data (NULL);
 	}
 
@@ -329,7 +329,7 @@ PresetClass::Save_Variables (ChunkSaveClass &csave)
 	//	For pointer remapping
 	//
 	PresetClass *this_ptr = this;
-	WRITE_MICRO_CHUNK (csave, VARID_THISPTR, this_ptr);
+	WRITE_MICRO_CHUNK_PTR (csave, VARID_THISPTR, this_ptr);
 	
 	if (m_Parent != NULL) {
 		m_ParentID = m_Parent->Get_ID ();
@@ -390,8 +390,8 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_ISTEMPORARY, m_IsTemporary)
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_COMMENTS, m_Comments);
 
-			READ_MICRO_CHUNK (cload, VARID_PARENTPTR, m_Parent)
-			READ_MICRO_CHUNK (cload, VARID_THISPTR, old_this_ptr)
+			READ_MICRO_CHUNK_PTR (cload, VARID_PARENTPTR, m_Parent)
+			READ_MICRO_CHUNK_PTR (cload, VARID_THISPTR, old_this_ptr)
 
 			READ_MICRO_CHUNK (cload, VARID_PARENT_ID, m_ParentID);
 
@@ -434,7 +434,7 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 	//	Associate this preset with the definition
 	//
 	if (m_Definition != NULL) {
-		m_Definition->Set_User_Data ((uint32)this);
+		m_Definition->Set_User_Data ((uintptr_t)this);
 	}
 
 	if (m_DefinitionID == 0 || m_Definition == NULL) {
@@ -1303,7 +1303,7 @@ PresetClass::Set_Definition (DefinitionClass *definition)
 	// quickly find the preset given its definition
 	//
 	if (m_Definition != NULL) {
-		m_Definition->Set_User_Data ((uint32)this);
+		m_Definition->Set_User_Data ((uintptr_t)this);
 		m_DefinitionID = m_Definition->Get_ID ();
 	}
 

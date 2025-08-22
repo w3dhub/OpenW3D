@@ -108,7 +108,7 @@ protected:
 	void						Load_Object (void);
 	void						Render_View (void);
 	void						Insert_Zone (void);
-	static void CALLBACK fnUpdateTimer (UINT, UINT, DWORD, DWORD, DWORD);
+	static void CALLBACK fnUpdateTimer (UINT, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR);
 
 	void						Update_Status (void);
 
@@ -125,7 +125,7 @@ private:
 	UINT						m_TimerID;
 	SimpleSceneClass *	m_Scene;
 	CameraClass *			m_Camera;
-	IDirect3DSwapChain8 *m_SwapChain;
+	IDirect3DSwapChain9 *m_SwapChain;
 
 	RenderObjClass *		m_RenderObj;
 	PhysClass *				m_PhysObj;

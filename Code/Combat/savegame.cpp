@@ -98,6 +98,7 @@ enum	{
 */
 void __cdecl SaveGameManager::Save_Game( const char * filename, ... )
 {
+
 	Debug_Say(( "Save Game %s\n", filename ));
 	CurrentGameFilename = filename;
 
@@ -106,6 +107,8 @@ void __cdecl SaveGameManager::Save_Game( const char * filename, ... )
 	file->Open(FileClass::WRITE);
 
 	ChunkSaveClass csave(file);
+
+    SaveLoadSystemClass::ResetPointerRemapper();
 
 	csave.Begin_Chunk( CHUNKID_LEVEL_INFO );
 		WRITE_MICRO_CHUNK_WWSTRING( csave,		MICROCHUNKID_MAP_FILENAME,			MapFilename );

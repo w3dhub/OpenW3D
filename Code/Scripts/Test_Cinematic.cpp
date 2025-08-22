@@ -203,8 +203,8 @@ public:
 		char full_filename[80];
 		snprintf( full_filename, sizeof(full_filename), "DATA\\%s", filename );
 //		FILE * in = fopen( full_filename, "rt" );
-		int handle = Commands->Text_File_Open( filename );
-		if ( handle == 0 ) {
+		void *handle = Commands->Text_File_Open( filename );
+		if ( handle == nullptr ) {
 			Commands->Debug_Message( "Failed to open %s\n", full_filename );
 			return;
 		}

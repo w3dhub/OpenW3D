@@ -774,7 +774,7 @@ const char * _Seat_Textures[3] = {
 
 static	void	Weapon_Reset( void ) 
 {
-	_LastHUDWeapon = (WeaponClass *)0xFFFFFFFF;		// force weapon to re-draw next
+	_LastHUDWeapon = (WeaponClass *)(uintptr_t)-1;		// force weapon to re-draw next
 	_LastVehicleSeat = -1;	// force vehicle seat to re-draw next
 }
 
@@ -864,7 +864,7 @@ static	void	Weapon_Update( void )
 
 		if ( _LastVehicleSeat != seat ) {
 			_LastVehicleSeat = seat;
-			_LastHUDWeapon = (WeaponClass *)0xFFFFFFFF;		// force weapon to re-draw next
+			_LastHUDWeapon = (WeaponClass *)(uintptr_t)-1;		// force weapon to re-draw next
 
 			WeaponImageRenderer->Reset();
 			StringClass filename = _Seat_Textures[seat];

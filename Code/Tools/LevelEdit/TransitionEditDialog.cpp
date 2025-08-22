@@ -165,7 +165,7 @@ TransitionEditDialogClass::OnInitDialog (void)
 	//
 	//	Subclass the 3D window for mouse-tracking
 	//
-	SetWindowLong (::GetDlgItem (m_hWnd, IDC_3D_WINDOW), GWL_WNDPROC, (LONG)fn3DWindow);
+	SetWindowLongPtr (::GetDlgItem (m_hWnd, IDC_3D_WINDOW), GWLP_WNDPROC, (LONG_PTR)fn3DWindow);
 	::SetProp (::GetDlgItem (m_hWnd, IDC_3D_WINDOW), "TRANSITION_DIALOG", (HANDLE)this);
 
 	//
@@ -248,7 +248,7 @@ TransitionEditDialogClass::OnInitDialog (void)
 	m_TimerID = ::timeSetEvent (	50,
 											50,
 											fnUpdateTimer,
-											(DWORD)m_hWnd,
+											(DWORD_PTR)m_hWnd,
 											TIME_PERIODIC);	
 	return TRUE;
 }
@@ -395,12 +395,12 @@ TransitionEditDialogClass::Render_View (void)
 		//
 		//	Blit the frame to the client area of the window
 		//
-		m_SwapChain->Present (NULL, NULL, NULL, NULL);
+		m_SwapChain->Present (NULL, NULL, NULL, NULL, 0);
 		
 		//
 		//	Restore the render target
 		//
-		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE8)NULL);
+		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE9)NULL);
 
 		//
 		//	Cleanup
@@ -423,9 +423,9 @@ TransitionEditDialogClass::fnUpdateTimer
 (
 	UINT	uID,
 	UINT	uMsg,
-	DWORD	user_data,
-	DWORD	dw1,
-	DWORD	dw2
+	DWORD_PTR	user_data,
+	DWORD_PTR	dw1,
+	DWORD_PTR	dw2
 )
 {
 	HWND hwnd = (HWND)user_data;
@@ -921,7 +921,7 @@ TransitionEditDialogClass::Fill_Animation_List (void)
 		//
 		int cb_index = m_AnimationList.AddString (animation_name);
 		if (cb_index != CB_ERR) {
-			m_AnimationList.SetItemData (cb_index, (ULONG)::_strdup ((LPCTSTR)filename));
+			m_AnimationList.SetItemData (cb_index, (DWORD_PTR)::_strdup ((LPCTSTR)filename));
 
 			//
 			//	Should we select this animation by default?

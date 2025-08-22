@@ -214,14 +214,14 @@ fnColorBarProc
 				
 				WNDPROC *pOldWndProc = pwnd->GetSuperWndProcAddr ();
 				if (pOldWndProc) {
-					WNDPROC pold_proc = (WNDPROC)::SetWindowLong (hwnd, GWL_WNDPROC, (DWORD)::AfxGetAfxWndProc ());
+					WNDPROC pold_proc = (WNDPROC)::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)::AfxGetAfxWndProc ());
 					ASSERT (pold_proc != NULL);
 					(*pOldWndProc) = pold_proc;
 				}
 
 				// Store some information in the window handle
-				::SetProp (hwnd, "CLASSPOINTER", (HANDLE)pwnd);
-				::SetProp (hwnd, "CREATED", (HANDLE)created);
+				::SetProp (hwnd, "CLASSPOINTER", (HANDLE)(DWORD_PTR)pwnd);
+				::SetProp (hwnd, "CREATED", (HANDLE)(DWORD_PTR)created);
 			}
 		}
 		break;
@@ -230,14 +230,14 @@ fnColorBarProc
 		{
 			// Get the creation information from the window handle
 			ColorBarClass *pwnd = (ColorBarClass *)::GetProp (hwnd, "CLASSPOINTER");
-			BOOL created = (BOOL)::GetProp (hwnd, "CREATED");
+			BOOL created = (BOOL)(DWORD_PTR)::GetProp (hwnd, "CREATED");
 
 			if (pwnd != NULL) {
 				pwnd->Detach ();
 
 				WNDPROC *pOldWndProc = pwnd->GetSuperWndProcAddr ();
 				if (pOldWndProc) {
-					::SetWindowLong (hwnd, GWL_WNDPROC, (DWORD)(*pOldWndProc));
+					::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)(*pOldWndProc));
 					(*pOldWndProc) = NULL;
 				}
 
@@ -297,7 +297,7 @@ ColorBarClass::Create
 										 rect.right - rect.left,
 										 rect.bottom - rect.top,
 										 hparent_wnd,
-										 (HMENU)nID,
+										 (HMENU)(DWORD_PTR)nID,
 										 ::AfxGetInstanceHandle (),
 										 this);
 
@@ -1832,7 +1832,7 @@ ColorBarClass::Clear_Points (void)
 // Set_User_Data
 //
 bool
-ColorBarClass::Set_User_Data (int index, DWORD data)
+ColorBarClass::Set_User_Data (int index, uintptr_t data)
 {
 	bool retval = false;
 	if ((index >= 0) && (index < m_iColorPoints)) {		
@@ -1848,7 +1848,7 @@ ColorBarClass::Set_User_Data (int index, DWORD data)
 //
 // Get_User_Data
 //
-DWORD
+uintptr_t
 ColorBarClass::Get_User_Data (int index)
 {
 	DWORD data = 0;
