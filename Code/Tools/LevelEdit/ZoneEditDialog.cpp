@@ -322,12 +322,12 @@ ZoneEditDialogClass::Render_View (void)
 		//
 		//	Blit the frame to the client area of the window
 		//
-		m_SwapChain->Present (NULL, NULL, NULL, NULL);
+		m_SwapChain->Present (NULL, NULL, NULL, NULL, 0);
 		
 		//
 		//	Restore the render target
 		//
-		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE8)NULL);
+		DX8Wrapper::Set_Render_Target ((LPDIRECT3DSURFACE9)NULL);
 
 		//
 		//	Cleanup
