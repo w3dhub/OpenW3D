@@ -158,7 +158,7 @@ GenericDataSafeClass::GenericDataSafeClass(void)
 	if (TypeListCount == 0) {
 
 #ifdef THREAD_SAFE_DATA_SAFE
-		SafeMutex = CreateMutex(NULL, false, NULL);
+		SafeMutex = CreateMutexA(NULL, false, NULL);
 #else
 		PreferredThread = GetCurrentThreadId();
 #endif //THREAD_SAFE_DATA_SAFE
@@ -1294,7 +1294,7 @@ inline void GenericDataSafeClass::Unlock(void)
 
 
 /***********************************************************************************************
- * GenericDataSafeClass::Print_Safe_Stats_To_Debug_Output -- Print stats with OutputDebugString*
+ * GenericDataSafeClass::Print_Safe_Stats_To_Debug_Output -- Print stats with OutputDebugStringA*
  *                                                                                             *
  *                                                                                             *
  *                                                                                             *

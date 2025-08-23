@@ -82,9 +82,9 @@ void App_Response_Callback(char *response)
 	if (DumpOutput) {
 		HANDLE file = INVALID_HANDLE_VALUE;
 		if (TruncateFile) {
-			file = CreateFile("RenRem.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			file = CreateFileA("RenRem.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		} else {
-			file = CreateFile("RenRem.txt", GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+			file = CreateFileA("RenRem.txt", GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		}
 		TruncateFile = false;
 

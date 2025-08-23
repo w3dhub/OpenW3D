@@ -1761,8 +1761,8 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 					// Verify the sysinfo folder
 					StringClass dirname(0,true);
 					dirname.Format("sysinfo_%d",DebugManager::Get_Version_Number());
-					if (GetFileAttributes(dirname)==0xffffffff) {
-						if (!CreateDirectory(dirname,NULL)) {
+					if (GetFileAttributesA(dirname)==0xffffffff) {
+						if (!CreateDirectoryA(dirname,NULL)) {
 							return;
 						}
 					}
@@ -1776,7 +1776,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 
 					DWORD written;
 					HANDLE file;
-					file = CreateFile(filename, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
+					file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
 							FILE_ATTRIBUTE_NORMAL, NULL);
 					if (INVALID_HANDLE_VALUE != file) {
 						SetFilePointer(file, 0, NULL, FILE_END);

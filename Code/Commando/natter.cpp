@@ -88,7 +88,7 @@ WOLNATInterfaceClass WOLNATInterface;
  *=============================================================================================*/
 WOLNATInterfaceClass::WOLNATInterfaceClass(void)
 {
-	GameOptionsMutex = CreateMutex(NULL, false, NULL);
+	GameOptionsMutex = CreateMutexA(NULL, false, NULL);
 	ServiceSocketHandler = NULL;
 	IsServer = false;
 	PortBase = 0;

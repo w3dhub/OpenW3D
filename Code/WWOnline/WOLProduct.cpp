@@ -134,7 +134,7 @@ Product::Product(const char* registryPath, int gameCode, const wchar_t* chanPass
 	WWASSERT(registryPath && "Invalid parameter");
 
 	HKEY rKey;
-	LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, registryPath, 0, KEY_READ, &rKey);
+	LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, registryPath, 0, KEY_READ, &rKey);
 	
 	if (result == ERROR_SUCCESS)
 		{
@@ -142,7 +142,7 @@ Product::Product(const char* registryPath, int gameCode, const wchar_t* chanPass
 		DWORD type;
 		DWORD sku = 0;
 		DWORD sizeOfBuffer = sizeof(sku);
-		result = RegQueryValueEx(rKey, "SKU", NULL, &type, (unsigned char*)&sku, &sizeOfBuffer);
+		result = RegQueryValueExA(rKey, "SKU", NULL, &type, (unsigned char*)&sku, &sizeOfBuffer);
 
 		mProductSKU = sku;
 		mLanguageCode = (sku & 0xFF);
@@ -151,7 +151,7 @@ Product::Product(const char* registryPath, int gameCode, const wchar_t* chanPass
 		// Get version
 		DWORD version = 0;
 		sizeOfBuffer = sizeof(version);
-		result = RegQueryValueEx(rKey, "Version", NULL, &type, (unsigned char*)&version, &sizeOfBuffer);
+		result = RegQueryValueExA(rKey, "Version", NULL, &type, (unsigned char*)&version, &sizeOfBuffer);
 
 		mProductVersion = version;
 

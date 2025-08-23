@@ -613,7 +613,7 @@ void ThumbnailManagerClass::Update_Thumbnail_File(const char* mix_file_name,bool
 
 	if (display_message_box && !message_box_displayed) {
 		message_box_displayed=true;
-		::MessageBox(NULL,
+		::MessageBoxA(NULL,
 			"Some or all texture thumbnails need to be updated.\n"
 			"This will take a while. The update will only be done once\n"
 			"each time a mix file changes and thumb database hasn't been\n"
@@ -647,25 +647,25 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 	DynamicVectorClass<StringClass> mix_names;
 
 	char cur_dir[256];
-	GetCurrentDirectory(sizeof(cur_dir),cur_dir);
+	GetCurrentDirectoryA(sizeof(cur_dir),cur_dir);
 	StringClass new_dir(cur_dir,true);
 	new_dir+="\\Data";
-	SetCurrentDirectory(new_dir);
+	SetCurrentDirectoryA(new_dir);
 
-	WIN32_FIND_DATA find_data;
-	HANDLE handle=FindFirstFile("*.mix",&find_data);
+	WIN32_FIND_DATAA find_data;
+	HANDLE handle=FindFirstFileA("*.mix",&find_data);
 	if (handle!=INVALID_HANDLE_VALUE) {
 		for (;;) {
 			if (!(find_data.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY)) {
 				mix_names.Add(find_data.cFileName);
 			}
-			if (!FindNextFile(handle,&find_data)) {
+			if (!FindNextFileA(handle,&find_data)) {
 				FindClose(handle);
 				break;
 			}
 		}
 	}
-	SetCurrentDirectory(cur_dir);
+	SetCurrentDirectoryA(cur_dir);
 
 	// First generate thumbnails for always.dat
 	Update_Thumbnail_File("always.dat",display_message_box);

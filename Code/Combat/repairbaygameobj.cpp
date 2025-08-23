@@ -463,7 +463,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 	for (mesh_iterator.First (); !mesh_iterator.Is_Done (); mesh_iterator.Next ()) {
 		StaticPhysClass *phys_obj = mesh_iterator.Peek_Obj ();
 		if (phys_obj != NULL && phys_obj->Peek_Model () != NULL) {
-			if (::lstrcmpi (phys_obj->Peek_Model ()->Get_Name (), "rep^NOD_fx") == 0) {
+			if (::stricmp (phys_obj->Peek_Model ()->Get_Name (), "rep^NOD_fx") == 0) {
 				RepairMesh = phys_obj;
 				break;
 			}

@@ -84,7 +84,7 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 	bool retval = false;
 
 	char buffer[1024] = { 0 };
-	::GetLogicalDriveStrings (sizeof (buffer), buffer);
+	::GetLogicalDriveStringsA (sizeof (buffer), buffer);
 
 	//
 	//	Loop over all the drives
@@ -95,16 +95,16 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 		//
 		//	Only check CD drives
 		//
-		if (::GetDriveType (drive_root_name) == DRIVE_CDROM) {
+		if (::GetDriveTypeA (drive_root_name) == DRIVE_CDROM) {
 
 			//
 			//	Get the name of this volume
 			//
 			char volume_name[256] = { 0 };			
-			if (::GetVolumeInformation (drive_root_name, volume_name, sizeof (volume_name),
+			if (::GetVolumeInformationA (drive_root_name, volume_name, sizeof (volume_name),
 						NULL, NULL, NULL, NULL, NULL))
 			{
-				int cmp_len	= ::lstrlen (volume_name);
+				int cmp_len	= ::strlen (volume_name);
 				cmp_len		= max (cmp_len, 11);
 
 				//
@@ -121,7 +121,7 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 		//
 		//	Advance to the next drive
 		//
-		drive_root_name += ::lstrlen (drive_root_name) + 1;
+		drive_root_name += ::strlen (drive_root_name) + 1;
 	}
 
 	return retval;

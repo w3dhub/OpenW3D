@@ -65,15 +65,15 @@ bool LaunchWebBrowser(const char* url)
 
 	// Create a temporary file with HTML content
 	char tempPath[MAX_PATH];
-	GetWindowsDirectory(tempPath, MAX_PATH);
+	GetWindowsDirectoryA(tempPath, MAX_PATH);
 	
 	char filename[MAX_PATH];
-	GetTempFileName(tempPath, "WWS", 0, filename);
+	GetTempFileNameA(tempPath, "WWS", 0, filename);
 
 	char* extPtr = strrchr(filename, '.');
 	strcpy(extPtr, ".html");
 
-	HANDLE file = CreateFile(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+	HANDLE file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL, NULL);
 
 	assert(INVALID_HANDLE_VALUE != file && "Failed to create temporary HTML file.");
@@ -91,11 +91,11 @@ bool LaunchWebBrowser(const char* url)
 
 	// Find the executable that can launch this file
 	char exeName[MAX_PATH];
-	HINSTANCE hInst = FindExecutable(filename, NULL, exeName);
+	HINSTANCE hInst = FindExecutableA(filename, NULL, exeName);
 	assert(((int)hInst > 32) && "Unable to find executable that will display HTML files.");
 
 	// Delete temporary file
-	DeleteFile(filename);
+	DeleteFileA(filename);
 
 	if ((int)hInst <= 32)
 		{
@@ -106,12 +106,12 @@ bool LaunchWebBrowser(const char* url)
 	char commandLine[MAX_PATH];
 	sprintf(commandLine, "[open] %s", url);
 
-  STARTUPINFO startupInfo;
+  STARTUPINFOA startupInfo;
 	memset(&startupInfo, 0, sizeof(startupInfo));
 	startupInfo.cb = sizeof(startupInfo);
   
 	PROCESS_INFORMATION processInfo;
-	BOOL createSuccess = CreateProcess(exeName, commandLine, NULL, NULL, FALSE,
+	BOOL createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, FALSE,
 			0, NULL, NULL, &startupInfo, &processInfo);
 
 	assert(createSuccess && "Failed to launch default WebBrowser.");

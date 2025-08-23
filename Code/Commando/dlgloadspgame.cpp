@@ -144,7 +144,7 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
 
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find			= NULL;
 
@@ -168,9 +168,9 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 	//	Build a list of all the saved games we know about
 	//
 	int index = start_index;
-	for (file_find = ::FindFirstFile (search_string, &find_info);
+	for (file_find = ::FindFirstFileA (search_string, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info))
+		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{
 //		if (1 || Is_Game_Allowed( find_info.cFileName ) ) {
 		if ( Is_Game_Allowed( find_info.cFileName ) ) {
@@ -639,7 +639,7 @@ LoadSPGameMenuClass::Update_Button_State (void)
 			//	Check to see if this is a saved game or a level file.
 			//
 			int len = filename.Get_Length ();
-			if (len >= 4 && ::lstrcmpi ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
+			if (len >= 4 && ::stricmp ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
 				enable = true;
 			}
 		}
@@ -702,7 +702,7 @@ LoadSPGameMenuClass::Delete_Game (bool prompt)
 
 			// Never delete .MIX files
 			int len = filename.Get_Length ();
-			if (len >= 4 && ::lstrcmpi ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
+			if (len >= 4 && ::stricmp ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
 
 				if (prompt) {
 
@@ -723,7 +723,7 @@ LoadSPGameMenuClass::Delete_Game (bool prompt)
 					//
 					//	Delete the file and remove its entry from the list
 					//
-					if (::DeleteFile (filename) != 0) {
+					if (::DeleteFileA (filename) != 0) {
 						list_ctrl->Delete_Entry (item_index);
 					}
 				}

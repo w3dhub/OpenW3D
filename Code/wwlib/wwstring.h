@@ -46,16 +46,6 @@
 #include "win.h"
 #include <string.h>
 #include <stdarg.h>
-#ifdef _WINDOWS
-#include <tchar.h>
-#else
-#define TCHAR char
-#define WCHAR wchar_t
-#define _tcslen(x) strlen(x)
-#define _tcsclen(x) strlen(x)
-#define _tcscmp(x,y) strcmp(x,y)
-#define _tcsicmp(x,y) strcmp(x,y)
-#endif
 #include "trim.h"
 #include "wwdebug.h"
 #ifdef _UNIX
@@ -87,58 +77,58 @@ public:
 	StringClass (bool hint_temporary);
 	StringClass (int initial_len = 0, bool hint_temporary = false);
 	StringClass (const StringClass &string, bool hint_temporary = false);
-	StringClass (const TCHAR *string, bool hint_temporary = false);
-	StringClass (TCHAR ch, bool hint_temporary = false);
+	StringClass (const char *string, bool hint_temporary = false);
+	StringClass (char ch, bool hint_temporary = false);
 	StringClass (const WCHAR *string, bool hint_temporary = false);
 	~StringClass (void);
 
 	////////////////////////////////////////////////////////////
 	//	Public operators
 	////////////////////////////////////////////////////////////	
-	bool operator== (const TCHAR *rvalue) const;
-	bool operator!= (const TCHAR *rvalue) const;
+	bool operator== (const char *rvalue) const;
+	bool operator!= (const char *rvalue) const;
 
 	inline const StringClass &operator= (const StringClass &string);
-	inline const StringClass &operator= (const TCHAR *string);
-	inline const StringClass &operator= (TCHAR ch);
+	inline const StringClass &operator= (const char *string);
+	inline const StringClass &operator= (char ch);
 	inline const StringClass &operator= (const WCHAR *string);
 
 	const StringClass &operator+= (const StringClass &string);
-	const StringClass &operator+= (const TCHAR *string);
-	const StringClass &operator+= (TCHAR ch);
+	const StringClass &operator+= (const char *string);
+	const StringClass &operator+= (char ch);
 
 	friend StringClass operator+ (const StringClass &string1, const StringClass &string2);
-	friend StringClass operator+ (const TCHAR *string1, const StringClass &string2);
-	friend StringClass operator+ (const StringClass &string1, const TCHAR *string2);
+	friend StringClass operator+ (const char *string1, const StringClass &string2);
+	friend StringClass operator+ (const StringClass &string1, const char *string2);
 
-	bool operator < (const TCHAR *string) const;
-	bool operator <= (const TCHAR *string) const;
-	bool operator > (const TCHAR *string) const;
-	bool operator >= (const TCHAR *string) const;
+	bool operator < (const char *string) const;
+	bool operator <= (const char *string) const;
+	bool operator > (const char *string) const;
+	bool operator >= (const char *string) const;
 
-	const TCHAR & operator[] (int index) const;
-	TCHAR & operator[] (int index);
-	inline operator const TCHAR * (void) const;
+	const char & operator[] (int index) const;
+	char & operator[] (int index);
+	inline operator const char * (void) const;
 
 	////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////
-	int			Compare (const TCHAR *string) const;
-	int			Compare_No_Case (const TCHAR *string) const;
+	int			Compare (const char *string) const;
+	int			Compare_No_Case (const char *string) const;
 	
 	inline int	Get_Length (void) const;
 	bool			Is_Empty (void) const;
 
 	void			Erase (int start_index, int char_count);
-	int __cdecl  Format (const TCHAR *format, ...);
-	int __cdecl  Format_Args (const TCHAR *format, const va_list & arg_list );
+	int __cdecl  Format (const char *format, ...);
+	int __cdecl  Format_Args (const char *format, const va_list & arg_list );
 
 	// Trim leading and trailing whitespace characters (values <= 32)
 	void Trim(void);
 
-	TCHAR *		Get_Buffer (int new_length);
-	TCHAR *		Peek_Buffer (void);
-	const TCHAR * Peek_Buffer (void) const;
+	char *		Get_Buffer (int new_length);
+	char *		Peek_Buffer (void);
+	const char * Peek_Buffer (void) const;
 
 	bool Copy_Wide (const WCHAR *source);
 
@@ -166,7 +156,7 @@ private:
 	{
 		MAX_TEMP_STRING	= 8,
 		MAX_TEMP_LEN		= 256-sizeof(_HEADER),
-		MAX_TEMP_BYTES		= (MAX_TEMP_LEN * sizeof (TCHAR)) + sizeof (HEADER),
+		MAX_TEMP_BYTES		= (MAX_TEMP_LEN * sizeof (char)) + sizeof (HEADER),
 		ALL_TEMP_STRINGS_USED_MASK = 0xff
 	};
 
@@ -174,7 +164,7 @@ private:
 	//	Private methods
 	////////////////////////////////////////////////////////////
 	void			Get_String (int length, bool is_temp);
-	TCHAR *		Allocate_Buffer (int length);
+	char *		Allocate_Buffer (int length);
 	void			Resize (int size);
 	void			Uninitialised_Grow (int length);
 	void			Free_String (void);
@@ -184,12 +174,12 @@ private:
 	inline HEADER * Get_Header (void) const;
 	int			Get_Allocated_Length (void) const;
 
-	void			Set_Buffer_And_Allocated_Length (TCHAR *buffer, int length);
+	void			Set_Buffer_And_Allocated_Length (char *buffer, int length);
 
 	////////////////////////////////////////////////////////////
 	//	Private member data
 	////////////////////////////////////////////////////////////
-	TCHAR *		m_Buffer;
+	char *		m_Buffer;
 
 	////////////////////////////////////////////////////////////
 	//	Static member data
@@ -199,8 +189,8 @@ private:
 
 	static FastCriticalSectionClass m_Mutex;
 
-	static TCHAR	m_NullChar;
-	static TCHAR *	m_EmptyString;
+	static char	m_NullChar;
+	static char *	m_EmptyString;
 };
 
 ///////////////////////////////////////////////////////////////////
@@ -213,7 +203,7 @@ StringClass::operator= (const StringClass &string)
 	Uninitialised_Grow(len+1);
 	Store_Length(len);
 
-	::memcpy (m_Buffer, string.m_Buffer, (len+1) * sizeof (TCHAR));		
+	::memcpy (m_Buffer, string.m_Buffer, (len+1) * sizeof (char));		
 	return (*this);
 
 }
@@ -222,15 +212,15 @@ StringClass::operator= (const StringClass &string)
 //	operator=
 ///////////////////////////////////////////////////////////////////
 inline const StringClass &
-StringClass::operator= (const TCHAR *string)
+StringClass::operator= (const char *string)
 {
 	if (string != 0) {
 
-		int len = _tcslen (string);
+		int len = strlen (string);
 		Uninitialised_Grow (len+1);
 		Store_Length (len);
 
-		::memcpy (m_Buffer, string, (len + 1) * sizeof (TCHAR));		
+		::memcpy (m_Buffer, string, (len + 1) * sizeof (char));		
 	}
 
 	return (*this);
@@ -255,7 +245,7 @@ StringClass::operator= (const WCHAR *string)
 //	operator=
 ///////////////////////////////////////////////////////////////////
 inline const StringClass &
-StringClass::operator= (TCHAR ch)
+StringClass::operator= (char ch)
 {
 	Uninitialised_Grow (2);
 
@@ -296,7 +286,7 @@ StringClass::StringClass (int initial_len, bool hint_temporary)
 //	StringClass
 ///////////////////////////////////////////////////////////////////
 inline
-StringClass::StringClass (TCHAR ch, bool hint_temporary)
+StringClass::StringClass (char ch, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
 	Get_String (2, hint_temporary);
@@ -323,10 +313,10 @@ StringClass::StringClass (const StringClass &string, bool hint_temporary)
 //	StringClass
 ///////////////////////////////////////////////////////////////////
 inline
-StringClass::StringClass (const TCHAR *string, bool hint_temporary)
+StringClass::StringClass (const char *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
-	int len=string ? _tcsclen(string) : 0;
+	int len=string ? strlen(string) : 0;
 	if (hint_temporary || len>0) {
 		Get_String (len+1, hint_temporary);
 	}
@@ -375,24 +365,24 @@ StringClass::Is_Empty (void) const
 //	Compare
 ///////////////////////////////////////////////////////////////////
 inline int
-StringClass::Compare (const TCHAR *string) const
+StringClass::Compare (const char *string) const
 {
-	return _tcscmp (m_Buffer, string);
+	return strcmp (m_Buffer, string);
 }
 
 ///////////////////////////////////////////////////////////////////
 //	Compare_No_Case
 ///////////////////////////////////////////////////////////////////
 inline int
-StringClass::Compare_No_Case (const TCHAR *string) const
+StringClass::Compare_No_Case (const char *string) const
 {
-	return _tcsicmp (m_Buffer, string);
+	return stricmp (m_Buffer, string);
 }
 
 ///////////////////////////////////////////////////////////////////
 //	operator[]
 ///////////////////////////////////////////////////////////////////
-inline const TCHAR &
+inline const char &
 StringClass::operator[] (int index) const
 {
 	WWASSERT (index >= 0 && index < Get_Length ());
@@ -402,7 +392,7 @@ StringClass::operator[] (int index) const
 ///////////////////////////////////////////////////////////////////
 //	operator[]
 ///////////////////////////////////////////////////////////////////
-inline TCHAR &
+inline char &
 StringClass::operator[] (int index)
 {
 	WWASSERT (index >= 0 && index < Get_Length ());
@@ -410,10 +400,10 @@ StringClass::operator[] (int index)
 }
 
 ///////////////////////////////////////////////////////////////////
-//	operator const TCHAR *
+//	operator const char *
 ///////////////////////////////////////////////////////////////////
 inline
-StringClass::operator const TCHAR * (void) const
+StringClass::operator const char * (void) const
 {
 	return m_Buffer;
 }
@@ -422,7 +412,7 @@ StringClass::operator const TCHAR * (void) const
 //	operator==
 ///////////////////////////////////////////////////////////////////
 inline bool
-StringClass::operator== (const TCHAR *rvalue) const
+StringClass::operator== (const char *rvalue) const
 {
 	return (Compare (rvalue) == 0);
 }
@@ -431,7 +421,7 @@ StringClass::operator== (const TCHAR *rvalue) const
 //	operator!=
 ///////////////////////////////////////////////////////////////////
 inline bool
-StringClass::operator!= (const TCHAR *rvalue) const
+StringClass::operator!= (const char *rvalue) const
 {
 	return (Compare (rvalue) != 0);
 }
@@ -440,36 +430,36 @@ StringClass::operator!= (const TCHAR *rvalue) const
 //	operator <
 ///////////////////////////////////////////////////////////////////
 inline bool
-StringClass::operator < (const TCHAR *string) const
+StringClass::operator < (const char *string) const
 {
-	return (_tcscmp (m_Buffer, string) < 0);
+	return (strcmp (m_Buffer, string) < 0);
 }
 
 ///////////////////////////////////////////////////////////////////
 //	operator <=
 ///////////////////////////////////////////////////////////////////
 inline bool
-StringClass::operator <= (const TCHAR *string) const
+StringClass::operator <= (const char *string) const
 {
-	return (_tcscmp (m_Buffer, string) <= 0);
+	return (strcmp (m_Buffer, string) <= 0);
 }
 
 ///////////////////////////////////////////////////////////////////
 //	operator >
 ///////////////////////////////////////////////////////////////////
 inline bool
-StringClass::operator > (const TCHAR *string) const
+StringClass::operator > (const char *string) const
 {
-	return (_tcscmp (m_Buffer, string) > 0);
+	return (strcmp (m_Buffer, string) > 0);
 }
 
 ///////////////////////////////////////////////////////////////////
 //	operator >=
 ///////////////////////////////////////////////////////////////////
 inline bool
-StringClass::operator >= (const TCHAR *string) const
+StringClass::operator >= (const char *string) const
 {
-	return (_tcscmp (m_Buffer, string) >= 0);
+	return (strcmp (m_Buffer, string) >= 0);
 }
 
 
@@ -489,7 +479,7 @@ StringClass::Erase (int start_index, int char_count)
 
 		::memmove (	&m_Buffer[start_index],
 						&m_Buffer[start_index + char_count],
-						(len - (start_index + char_count) + 1) * sizeof (TCHAR));
+						(len - (start_index + char_count) + 1) * sizeof (char));
 
 		Store_Length( len - char_count );
 	}
@@ -511,12 +501,12 @@ inline void StringClass::Trim(void)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline const StringClass &
-StringClass::operator+= (const TCHAR *string)
+StringClass::operator+= (const char *string)
 {
 	WWASSERT (string != NULL);
 
 	int cur_len = Get_Length ();
-	int src_len = _tcslen (string);
+	int src_len = strlen (string);
 	int new_len = cur_len + src_len;
 
 	//
@@ -528,7 +518,7 @@ StringClass::operator+= (const TCHAR *string)
 	//
 	//	Copy the new string onto our the end of our existing buffer
 	//
-	::memcpy (&m_Buffer[cur_len], string, (src_len + 1) * sizeof (TCHAR));
+	::memcpy (&m_Buffer[cur_len], string, (src_len + 1) * sizeof (char));
 	return (*this);
 }
 
@@ -536,7 +526,7 @@ StringClass::operator+= (const TCHAR *string)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline const StringClass &
-StringClass::operator+= (TCHAR ch)
+StringClass::operator+= (char ch)
 {
 	int cur_len = Get_Length ();
 	Resize (cur_len + 2);
@@ -554,7 +544,7 @@ StringClass::operator+= (TCHAR ch)
 ///////////////////////////////////////////////////////////////////
 //	Get_Buffer
 ///////////////////////////////////////////////////////////////////
-inline TCHAR *
+inline char *
 StringClass::Get_Buffer (int new_length)
 {
 	Uninitialised_Grow (new_length);
@@ -565,7 +555,7 @@ StringClass::Get_Buffer (int new_length)
 ///////////////////////////////////////////////////////////////////
 //	Peek_Buffer
 ///////////////////////////////////////////////////////////////////
-inline TCHAR *
+inline char *
 StringClass::Peek_Buffer (void)
 {
 	return m_Buffer;
@@ -574,7 +564,7 @@ StringClass::Peek_Buffer (void)
 ///////////////////////////////////////////////////////////////////
 //	Peek_Buffer
 ///////////////////////////////////////////////////////////////////
-inline const TCHAR *
+inline const char *
 StringClass::Peek_Buffer (void) const
 {
 	return m_Buffer;
@@ -600,7 +590,7 @@ StringClass::operator+= (const StringClass &string)
 		//
 		//	Copy the new string onto our the end of our existing buffer
 		//
-		::memcpy (&m_Buffer[cur_len], (const TCHAR *)string, (src_len + 1) * sizeof (TCHAR));				
+		::memcpy (&m_Buffer[cur_len], (const char *)string, (src_len + 1) * sizeof (char));				
 	}
 
 	return (*this);
@@ -621,7 +611,7 @@ operator+ (const StringClass &string1, const StringClass &string2)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline StringClass
-operator+ (const TCHAR *string1, const StringClass &string2)
+operator+ (const char *string1, const StringClass &string2)
 {
 	StringClass new_string(string1, true);
 	new_string += string2;
@@ -632,7 +622,7 @@ operator+ (const TCHAR *string1, const StringClass &string2)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline StringClass
-operator+ (const StringClass &string1, const TCHAR *string2)
+operator+ (const StringClass &string1, const char *string2)
 {
 	StringClass new_string(string1, true);
 	StringClass new_string2(string2, true);
@@ -687,7 +677,7 @@ StringClass::Get_Length (void) const
 		// we better manually get the string length.
 		//
 		if (length == 0) {
-			length = _tcslen (m_Buffer);
+			length = strlen (m_Buffer);
 			((StringClass *)this)->Store_Length (length);
 		}
 	}
@@ -702,7 +692,7 @@ StringClass::Get_Length (void) const
 // as the contents of the new buffer are not necessarily defined.
 ///////////////////////////////////////////////////////////////////
 inline void
-StringClass::Set_Buffer_And_Allocated_Length (TCHAR *buffer, int length)
+StringClass::Set_Buffer_And_Allocated_Length (char *buffer, int length)
 {
 	Free_String ();
 	m_Buffer = buffer;
@@ -723,14 +713,14 @@ StringClass::Set_Buffer_And_Allocated_Length (TCHAR *buffer, int length)
 ///////////////////////////////////////////////////////////////////
 // Allocate_Buffer
 ///////////////////////////////////////////////////////////////////
-inline TCHAR *
+inline char *
 StringClass::Allocate_Buffer (int length)
 {
 	//
 	//	Allocate a buffer that is 'length' characters long, plus the
 	// bytes required to hold the header.
 	//
-	char *buffer = new char[(sizeof (TCHAR) * length) + sizeof (StringClass::_HEADER)];
+	char *buffer = new char[(sizeof (char) * length) + sizeof (StringClass::_HEADER)];
 	
 	//
 	//	Fill in the fields of the header
@@ -740,9 +730,9 @@ StringClass::Allocate_Buffer (int length)
 	header->allocated_length	= length;
 
 	//
-	//	Return the buffer as if it was a TCHAR pointer
+	//	Return the buffer as if it was a char pointer
 	//
-	return reinterpret_cast<TCHAR *>(buffer + sizeof (StringClass::_HEADER));
+	return reinterpret_cast<char *>(buffer + sizeof (StringClass::_HEADER));
 }
 
 ///////////////////////////////////////////////////////////////////

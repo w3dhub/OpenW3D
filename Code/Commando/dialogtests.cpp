@@ -283,12 +283,12 @@ SplashOutroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
 	switch (ctrl_id)
 	{
 		case IDC_BUY_RENEGADE:
-			::ShellExecute (NULL, "open", "http://www.ea.com/storeEntry.jsp?sDestinationURL=DETAIL&sSku=14180W&sEntryPoint=EXPSITE", NULL, NULL, SW_SHOW);
+			::ShellExecuteA (NULL, "open", "http://www.ea.com/storeEntry.jsp?sDestinationURL=DETAIL&sSku=14180W&sEntryPoint=EXPSITE", NULL, NULL, SW_SHOW);
 			Stop_Main_Loop (EXIT_SUCCESS);
 			break;
 
 		case IDC_VISIT_WEB_BUTTON:
-			::ShellExecute (NULL, "open", "http://www.westwood.com/games/ccuniverse/renegade", NULL, NULL, SW_SHOW);
+			::ShellExecuteA (NULL, "open", "http://www.westwood.com/games/ccuniverse/renegade", NULL, NULL, SW_SHOW);
 			Stop_Main_Loop (EXIT_SUCCESS);
 			break;
 
@@ -939,7 +939,7 @@ MPMainMenuClass::On_Init_Dialog (void)
 /*void
 Add_Folders (const char *path, TreeCtrlClass *tree_ctrl, TreeItemClass *parent_item)
 {
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find				= NULL;
 	
@@ -949,9 +949,9 @@ Add_Folders (const char *path, TreeCtrlClass *tree_ctrl, TreeItemClass *parent_i
 	//
 	//	Build a list of all the maps we know about
 	//
-	for (file_find = ::FindFirstFile (full_path, &find_info);
+	for (file_find = ::FindFirstFileA (full_path, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info)) 
+		  keep_going = ::FindNextFileA (file_find, &find_info)) 
 	{
 		//
 		//	Only do directories
