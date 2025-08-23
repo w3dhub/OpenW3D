@@ -27,7 +27,7 @@
 #include "netutil.h" // I WANNA BE FIRST!
 
 #include <stdio.h>
-#include <string.h>
+#include <cstring>
 
 #include "miscutil.h"
 #include "mathutil.h"
@@ -230,39 +230,32 @@ bool cNetUtil::Would_Block(LPCSTR sFile, unsigned uLine, int ret_code)
 //
 // Returns up to max_addresses adapter addresses for the local host
 //
-int cNetUtil::Get_Local_Tcpip_Addresses(struct sockaddr_in ip_address[], USHORT max_addresses)
+int cNetUtil::Get_Local_Tcpip_Addresses(sockaddr_in ip_address[], unsigned short max_addresses)
 {
 	WWDEBUG_SAY(("cNetUtil::Get_Local_Tcpip_Addresses:\n"));
 
-	//
-	// Get the local hostname
-	//
 	char local_host_name[200];
-	WSA_CHECK(::gethostname(local_host_name, sizeof(local_host_name)));
-   WWDEBUG_SAY(("  Host name is %s\n", local_host_name));
+	WSA_CHECK(wwnet::SocketGetHostName(local_host_name, sizeof local_host_name));
+	WWDEBUG_SAY(("  Host name is %s\n", local_host_name));
 
-	//
-	// Resolve hostname for local adapter addresses. This does
-   // a DNS lookup (name resolution)
-	//
-	LPHOSTENT p_hostent = ::gethostbyname(local_host_name);
+	hostent* p_hostent = wwnet::SocketGetHostByName(local_host_name);
 
-   int num_adapters = 0;
+	int num_adapters = 0;
+	if (p_hostent) {
+		while (num_adapters < max_addresses && p_hostent->h_addr_list[num_adapters] != nullptr) {
+			sockaddr_in& sa = ip_address[num_adapters];
+			std::memset(&sa, 0, sizeof(sa));
+			sa.sin_family = AF_INET;
 
-	if (p_hostent == NULL) {
-		num_adapters = 0;
-	} else {
-		while (num_adapters < max_addresses && p_hostent->h_addr_list[num_adapters] != NULL) {
+			// copy one IPv4 address
+			std::memcpy(&sa.sin_addr,
+				p_hostent->h_addr_list[num_adapters],
+				std::min<size_t>(sizeof(sa.sin_addr), p_hostent->h_length));
 
-			std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
-			ip_address[num_adapters].sin_family = AF_INET;
-	      ip_address[num_adapters].sin_addr.s_addr =
-				*((u_long *) (p_hostent->h_addr_list[num_adapters]));
-		   WWDEBUG_SAY(("  Address: %s\n", Address_To_String(ip_address[num_adapters].sin_addr.s_addr)));
-			num_adapters++;
+			WWDEBUG_SAY(("  Address: %s\n", Address_To_String(sa.sin_addr.s_addr)));
+			++num_adapters;
 		}
 	}
-
 	return num_adapters;
 }
 
@@ -317,7 +310,7 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 void cNetUtil::String_To_Address(struct sockaddr_in* p_address, LPCSTR str, USHORT port)
 {
 	WWASSERT(p_address != NULL);
-	std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
+	std::memset(p_address, 0, sizeof(struct sockaddr_in));
 
    p_address->sin_family			= AF_INET;
    p_address->sin_addr.s_addr		= ::inet_addr(str);
@@ -608,7 +601,7 @@ void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
 void cNetUtil::Create_Local_Address(struct sockaddr_in* p_local_address, USHORT port)
 {
    WWASSERT(p_local_address != NULL);
-   std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
+   std::memset(p_local_address, 0, sizeof(struct sockaddr_in));
 
 	p_local_address->sin_family			= AF_INET;
 	p_local_address->sin_addr.s_addr		= INADDR_ANY;
