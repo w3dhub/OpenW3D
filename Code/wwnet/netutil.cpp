@@ -98,6 +98,7 @@ void cNetUtil::Wsa_Error(LPCSTR sFile, unsigned uLine)
 //
 const char * cNetUtil::Winsock_Error_Text(int error_code)
 {
+#ifdef _WINDOWS
    static char error_msg[500];
 
    switch (error_code) {
@@ -166,7 +167,10 @@ const char * cNetUtil::Winsock_Error_Text(int error_code)
          break;
    }
 
-	return(error_msg);
+   return error_msg;
+#else
+	return ::strerror(error_code);
+#endif
 }
 
 
