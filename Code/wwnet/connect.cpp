@@ -1310,10 +1310,10 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 		ret_code = bytes;
 
 #if (0)
-   	int address_size = sizeof(struct sockaddr_in);
-		ret_code = recvfrom(Sock, packet.Get_Data(),
+		socklen_t address_size = sizeof(struct sockaddr_in);
+		ret_code = wwnet::SocketRecvFrom(Sock, packet.Get_Data(),
 			packet.Get_Max_Size(), 0,
-	   	(LPSOCKADDR) &packet.Get_From_Address_Wrapper()->FromAddress, &address_size);
+			(LPSOCKADDR)&packet.Get_From_Address_Wrapper()->FromAddress, &address_size);
 
 		if (ret_code > 0) {
 			//WWDEBUG_SAY(("cConnection: recvfrom %s\n", Addr_As_String((struct sockaddr_in*) &packet.Get_From_Address_Wrapper()->FromAddress)));

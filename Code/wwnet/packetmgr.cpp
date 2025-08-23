@@ -907,13 +907,14 @@ WWPROFILE("PMgr Flush");
 			memcpy(crc_and_buffer + sizeof(crc), (const char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength);
 
 			Register_Packet_Out(&SendBuffers[i].IPAddress[0], SendBuffers[i].Port, SendBuffers[i].PacketSendLength + UDP_HEADER_SIZE + sizeof(crc), 0);
-			int result = wwnet::SocketSendTo(socket, crc_and_buffer, SendBuffers[i].PacketSendLength + sizeof(crc), 0, (const sockaddr*) &addr, sizeof(struct sockaddr_in));
+			socklen_t addr_len = sizeof(struct sockaddr_in);
+			int result = wwnet::SocketSendTo(socket, crc_and_buffer, SendBuffers[i].PacketSendLength + sizeof(crc), 0, (const sockaddr*)&addr, &addr_len);
 
 #else //WRAPPER_CRC
 
 			Register_Packet_Out(&SendBuffers[i].IPAddress[0], SendBuffers[i].Port, SendBuffers[i].PacketSendLength + UDP_HEADER_SIZE, 0);
-			int result = wwnet::SocketSendTo(socket, (const char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength, 0, (const sockaddr*) &addr, sizeof(struct sockaddr_in));
-
+			socklen_t addr_len = sizeof(struct sockaddr_in);
+			int result = wwnet::SocketSendTo(socket, (const char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength, 0, (const sockaddr*)&addr, &addr_len);
 #endif //WRAPPER_CRC
 
 
@@ -1143,7 +1144,7 @@ WWPROFILE("Pmgr Get");
 	CriticalSectionClass::LockClass lock(CriticalSection);
 
 	if (NumReceivePackets == 0) {
-   	int address_size = sizeof(sockaddr_in);
+		socklen_t address_size = sizeof(sockaddr_in);
 		sockaddr_in addr;
 		memset(&addr, 0, sizeof(addr));
 		pm_assert(packet_buffer_size >= PACKET_MANAGER_MTU);

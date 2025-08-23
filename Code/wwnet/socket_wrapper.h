@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
 
 #ifdef _WIN32
 #include <winsock2.h>
@@ -38,8 +39,8 @@ namespace wwnet {
 	int SocketIoctl(SocketHandle s, long cmd, SocketIoctlParam* argp);
 	int SocketGetSockOpt(SocketHandle s, int level, int optname, char* optval, int* optlen);
 	int SocketSetSockOpt(SocketHandle s, int level, int optname, const char* optval, int optlen);
-	int SocketSendTo(SocketHandle s, const char* buf, int len, int flags, const struct sockaddr* to, int tolen);
-	int SocketRecvFrom(SocketHandle s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen);
+	int SocketSendTo(SocketHandle s, const char* buf, size_t len, int flags, const struct sockaddr* to, socklen_t* tolen);
+	int SocketRecvFrom(SocketHandle s, char* buf, size_t len, int flags, struct sockaddr* from, socklen_t* fromlen);
 	int SocketGetHostName(char* name, int namelen);
 	struct hostent* SocketGetHostByName(const char* name);
 }
