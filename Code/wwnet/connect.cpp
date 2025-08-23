@@ -85,15 +85,34 @@ static const int		INVALID_RHOST_ID			= -1;
  * HISTORY:                                                                                    *
  *   8/31/2001 3:48PM ST : Created                                                             *
  *=============================================================================================*/
-char * Addr_As_String(sockaddr_in *addr)
+
+#if defined(_WIN32) && (!defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0600)
+static const char* inet_ntop(int af, const void* src, char* dst, size_t size) {
+	if (af == AF_INET) {
+		auto a = static_cast<const in_addr*>(src);
+		const char* s = ::inet_ntoa(*a);
+		if (!s) return nullptr;
+		strncpy_s(dst, size, s, _TRUNCATE);
+		return dst;
+	}
+	::WSASetLastError(WSAEAFNOSUPPORT);
+	return nullptr;
+}
+#endif
+
+
+const char* Addr_As_String(const sockaddr_in* addr)
 {
-	static char _string[128];
-	sprintf(_string, "%d.%d.%d.%d ; %d", 	(int)(addr->sin_addr.S_un.S_un_b.s_b1),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b2),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b3),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b4),
-														htonl((int)(addr->sin_port)));
-	return(_string);
+	static char out[128];
+	char ip[INET_ADDRSTRLEN] = { 0 };
+	if (!inet_ntop(AF_INET, &addr->sin_addr, ip, sizeof(ip))) {
+		const auto* bytes = reinterpret_cast<const uint8_t*>(&addr->sin_addr);
+		std::snprintf(ip, sizeof(ip), "%u.%u.%u.%u", bytes[0], bytes[1], bytes[2], bytes[3]);
+	}
+
+	const unsigned port = (unsigned)ntohs(addr->sin_port);
+	std::snprintf(out, sizeof(out), "%s ; %u", ip[0] ? ip : "0.0.0.0", port);
+	return out;
 }
 //#endif //WWDEBUG
 
