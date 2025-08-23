@@ -1147,11 +1147,11 @@ WWPROFILE("Pmgr Get");
 		sockaddr_in addr;
 		memset(&addr, 0, sizeof(addr));
 		pm_assert(packet_buffer_size >= PACKET_MANAGER_MTU);
-		int bytes;
-		int result = ioctlsocket(socket, FIONREAD, (unsigned long *)&bytes);
-		if (result == 0 && bytes != 0) {
+		wwnet::SocketIoctlParam bytes_available;
+		int result = wwnet::SocketIoctl(socket, FIONREAD, &bytes_available);
+		if (result == 0 && bytes_available != 0) {
 
-			bytes = wwnet::SocketRecvFrom(socket, (char*)packet_buffer, packet_buffer_size, 0, (sockaddr*) &addr, &address_size);
+			int bytes = wwnet::SocketRecvFrom(socket, (char*)packet_buffer, packet_buffer_size, 0, (sockaddr*)&addr, &address_size);
 			if (bytes > 0) {
 #ifndef WRAPPER_CRC
 				Register_Packet_In((unsigned char*) &addr.sin_addr.s_addr, addr.sin_port, bytes + UDP_HEADER_SIZE, 0);

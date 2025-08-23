@@ -541,8 +541,8 @@ void cNetUtil::Create_Unbound_Socket(SOCKET & sock)
    //
    // Make socket non-blocking
    //
-   u_long arg = 1L;
-   WSA_CHECK(ioctlsocket(sock, FIONBIO, (u_long *) &arg));
+   wwnet::SocketIoctlParam arg = 1L;
+   WSA_CHECK(wwnet::SocketIoctl(sock, FIONBIO, &arg));
 }
 
 //-------------------------------------------------------------------------------
