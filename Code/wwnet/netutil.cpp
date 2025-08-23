@@ -250,7 +250,7 @@ int cNetUtil::Get_Local_Tcpip_Addresses(struct sockaddr_in ip_address[], USHORT 
 	} else {
 		while (num_adapters < max_addresses && p_hostent->h_addr_list[num_adapters] != NULL) {
 
-			ZeroMemory(&ip_address[num_adapters], sizeof(struct sockaddr_in));
+			std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
 			ip_address[num_adapters].sin_family = AF_INET;
 	      ip_address[num_adapters].sin_addr.s_addr =
 				*((u_long *) (p_hostent->h_addr_list[num_adapters]));
@@ -313,7 +313,7 @@ LPCSTR cNetUtil::Address_To_String(ULONG ip)
 void cNetUtil::String_To_Address(struct sockaddr_in* p_address, LPCSTR str, USHORT port)
 {
 	WWASSERT(p_address != NULL);
-   ZeroMemory(p_address, sizeof(struct sockaddr_in));
+	std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
 
    p_address->sin_family			= AF_INET;
    p_address->sin_addr.s_addr		= ::inet_addr(str);
@@ -592,7 +592,7 @@ void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
    USHORT port)
 {
    WWASSERT(p_broadcast_address != NULL);
-   ZeroMemory(p_broadcast_address, sizeof(struct sockaddr_in));
+   std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
 
 	p_broadcast_address->sin_family			= AF_INET;
 	p_broadcast_address->sin_addr.s_addr	= INADDR_BROADCAST; // ::inet_addr("255.255.255.255");
@@ -603,7 +603,7 @@ void cNetUtil::Create_Broadcast_Address(struct sockaddr_in* p_broadcast_address,
 void cNetUtil::Create_Local_Address(struct sockaddr_in* p_local_address, USHORT port)
 {
    WWASSERT(p_local_address != NULL);
-   ZeroMemory(p_local_address, sizeof(struct sockaddr_in));
+   std::memset(p_broadcast_address, 0, sizeof(struct sockaddr_in));
 
 	p_local_address->sin_family			= AF_INET;
 	p_local_address->sin_addr.s_addr		= INADDR_ANY;
