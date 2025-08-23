@@ -581,8 +581,9 @@ void cNetUtil::Broadcast(SOCKET & sock, USHORT port, cPacket & packet)
    int bytes_sent;
 	//WSA_CHECK(bytes_sent = sendto(sock, packet.Data, packet.SendLength,
    //   0, &broadcast_address, sizeof(struct sockaddr_in)));
+   socklen_t addr_len = sizeof(struct sockaddr_in);
    bytes_sent = wwnet::SocketSendTo(sock, packet.Get_Data(), packet.Get_Compressed_Size_Bytes(),
-	  0, (const sockaddr*)&broadcast_address, sizeof(struct sockaddr_in));
+	   0, (const sockaddr*)&broadcast_address, &addr_len);
 // FIXME (TSS) WSAENOBUFS
    //WWDEBUG_SAY(("Sent broadcast, length = %d bytes\n", bytes_sent));
 }
@@ -641,15 +642,15 @@ void cNetUtil::Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback)
    unsigned long start_time = TIMEGETTIME();
 
    do {
-		cPacket packet;
-		int address_len = sizeof(struct sockaddr_in);
+	   cPacket packet;
+	   socklen_t address_len = sizeof(struct sockaddr_in);
 
 		//
 		// If we appear to crash INSIDE recvfrom then this tends to indicate
 		// that net neighbourhood broke.
 		//
-		retcode = wwnet::SocketRecvFrom(sock, packet.Get_Data(), packet.Get_Max_Size(),
-			0, (sockaddr*)&packet.Get_From_Address_Wrapper()->FromAddress, &address_len);
+	   retcode = wwnet::SocketRecvFrom(sock, packet.Get_Data(), packet.Get_Max_Size(),
+		   0, (sockaddr*)&packet.Get_From_Address_Wrapper()->FromAddress, &address_len);
 
 		if (retcode == SOCKET_ERROR) {
 			if (::WSAGetLastError() != WSAEWOULDBLOCK) {

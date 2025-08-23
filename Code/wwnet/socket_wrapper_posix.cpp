@@ -45,17 +45,12 @@ namespace wwnet {
         return ::setsockopt(s, level, optname, optval, optlen);
     }
 
-    int SocketSendTo(SocketHandle s, const char* buf, int len, int flags, const struct sockaddr* to, int tolen) {
-        return ::sendto(s, buf, len, flags, to, tolen);
+    int SocketSendTo(SocketHandle s, const char* buf, size_t len, int flags, const struct sockaddr* to, socklen_t* tolen) {
+        return ::sendto(s, buf, len, flags, to, tolen ? *tolen : 0);
     }
 
-    int SocketRecvFrom(SocketHandle s, char* buf, int len, int flags, struct sockaddr* from, int* fromlen) {
-        socklen_t flen = fromlen ? static_cast<socklen_t>(*fromlen) : 0;
-        int rc = ::recvfrom(s, buf, len, flags, from, fromlen ? &flen : nullptr);
-        if (fromlen) {
-            *fromlen = static_cast<int>(flen);
-        }
-        return rc;
+    int SocketRecvFrom(SocketHandle s, char* buf, size_t len, int flags, struct sockaddr* from, socklen_t* fromlen) {
+        return ::recvfrom(s, buf, len, flags, from, fromlen);
     }
 
     int SocketGetHostName(char* name, int namelen) {
