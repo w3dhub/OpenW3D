@@ -4,7 +4,15 @@ namespace wwnet {
 
     int SocketStartup() {
         WSADATA wsa_data;
-        return ::WSAStartup(MAKEWORD(1, 1), &wsa_data);
+        int rc = ::WSAStartup(MAKEWORD(2, 2), &wsa_data);
+        if (rc != 0) {
+            return rc;
+        }
+        if (wsa_data.wVersion != MAKEWORD(2, 2)) {
+            ::WSACleanup();
+            return WSAVERNOTSUPPORTED;
+        }
+        return 0;
     }
 
     void SocketCleanup() {
