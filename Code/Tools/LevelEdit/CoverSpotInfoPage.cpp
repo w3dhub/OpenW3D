@@ -24,9 +24,9 @@
 #include "LevelEdit.h"
 #include "coverspotnode.h"
 #include "node.h"
-#include "utils.h"
+#include "Utils.h"
 #include "sceneeditor.h"
-#include "mousemgr.h"
+#include "MouseMgr.h"
 #include "coverattackpointnode.h"
 
 

@@ -43,7 +43,7 @@
 #include "saveload.h"
 #include "staticphys.h"
 #include "sceneeditor.h"
-#include "utils.h"
+#include "Utils.h"
 #include "nodemgr.h"
 
 

@@ -53,7 +53,7 @@
 #include "suicideevent.h"
 #include "changeteamevent.h"
 #include "cstextobj.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "dlghelpscreen.h"
 #include "crandom.h"
 #include "slavemaster.h"

@@ -27,7 +27,7 @@
 #define __SELECTIONBOX_H
 
 
-#include "Utils.H"
+#include "Utils.h"
 #include "Line3D.H"
 #include "EditorPhys.H"
 

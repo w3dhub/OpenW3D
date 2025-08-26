@@ -37,7 +37,7 @@
 // Includes.
 #include "Utilities.h"
 #include "ErrorHandler.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Translator.h"
 #include <shlwapi.h>
 #include <stdlib.h>

@@ -30,7 +30,7 @@
 #include "DlgWOLWait.h"
 #include <wwlib/Notify.h>
 #include <WWOnline/RefPtr.h>
-// #include <wwlib/RefCount.h>
+// #include <wwlib/refcount.h>
 
 
 class WideStringClass;

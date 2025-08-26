@@ -36,7 +36,7 @@
 
 // Includes.
 #include "Translator.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Win.h"
 #include <stdio.h>
 

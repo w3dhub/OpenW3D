@@ -47,7 +47,7 @@
 #include "playertype.h"
 #include "purchaseresponseevent.h"
 #include "apppackettypes.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 
 
 DECLARE_NETWORKOBJECT_FACTORY(cPurchaseRequestEvent, NETCLASSID_PURCHASEREQUESTEVENT);

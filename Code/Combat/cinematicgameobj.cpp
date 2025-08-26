@@ -40,7 +40,7 @@
 #include "cinematicgameobj.h"
 #include "debug.h"
 #include "animcontrol.h"
-#include "Sound3D.H"
+#include "Sound3D.h"
 #include "combat.h"
 #include "pscene.h"
 #include "persistfactory.h"

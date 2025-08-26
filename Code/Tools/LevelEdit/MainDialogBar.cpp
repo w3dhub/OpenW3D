@@ -24,7 +24,7 @@
 #include "LevelEdit.h"
 #include "maindialogbar.h"
 #include "presetslibform.h"
-#include "utils.h"
+#include "Utils.h"
 #include "instancespage.h"
 #include "overlappage.h"
 #include "conversationpage.h"

@@ -26,7 +26,7 @@
 #include "ww3d.h"
 #include "scene.h"
 #include "camera.h"
-#include "utils.h"
+#include "Utils.h"
 #include "mmsystem.h"
 #include "matrix3d.h"
 #include "rendobj.h"

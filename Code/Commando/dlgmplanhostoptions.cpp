@@ -56,7 +56,7 @@
 #include "specialbuilds.h"
 #include "dlgmpslaveservers.h"
 #include "wolgmode.h"
-#include "wolloginprofile.h"
+#include "WOLLoginProfile.h"
 #include "dlgserversaveload.h"
 #include "modpackagemgr.h"
 #include "modpackage.h"

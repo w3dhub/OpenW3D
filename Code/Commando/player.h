@@ -50,7 +50,7 @@
 #include "netclassids.h"
 #include "wwstring.h"
 #include "gamespyauthmgr.h"
-#include "gamespybanlist.h"
+#include "GameSpyBanList.h"
 
 class Vector3;
 class ChunkSaveClass;

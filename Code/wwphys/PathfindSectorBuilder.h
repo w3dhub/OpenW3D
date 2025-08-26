@@ -39,7 +39,7 @@
 #include "matrix3d.h"
 #include "vector.h"
 #include "physcontrol.h"
-#include "pathfindsector.h"
+#include "PathfindSector.h"
 #include "pathfindbodybox.h"
 #include "gridcull.h"
 

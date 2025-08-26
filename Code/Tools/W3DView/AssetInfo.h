@@ -44,7 +44,7 @@
 #define __ASSET_INFO_H
 
 #include "RendObj.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "AssetTypes.H"
 
 

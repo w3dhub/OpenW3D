@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "CameraSettingsForm.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "CameraMgr.H"
 
 #ifdef _DEBUG

@@ -46,7 +46,7 @@
 #include <comdef.h>
 #include <afxdisp.h>
 #include "excel8.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 typedef enum {

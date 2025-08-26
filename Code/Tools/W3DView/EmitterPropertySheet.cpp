@@ -37,7 +37,7 @@
 #include "Part_Ldr.H"
 #include "AssetMgr.H"
 #include "W3DViewDoc.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "DataTreeView.H"
 #include "AssetInfo.H"
 #include "texture.h"

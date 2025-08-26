@@ -60,11 +60,11 @@
 #include "dx8wrapper.h"
 #include "sortingrenderer.h"
 #include "textureloader.h"
-#include "binkmovie.h"
+#include "BINKMovie.h"
 //#include "helptext.h"
 #include "cnetwork.h"
 #include "dx8rendererdebugger.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 
 
 /*

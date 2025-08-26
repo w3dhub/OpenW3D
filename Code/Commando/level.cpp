@@ -38,7 +38,7 @@
 #include "combat.h"
 #include "pscene.h"
 #include "savegame.h"
-#include "WWAudio.H"
+#include "WWAudio.h"
 #include "SoundScene.h"
 #include "gameobjmanager.h"
 #include "assets.h"

@@ -25,7 +25,7 @@
 #include "deviceselectiondialog.h"
 #include "ww3d.h"
 #include "resource.h"
-#include "utils.h"
+#include "Utils.h"
 #include "rddesc.h"
 
 

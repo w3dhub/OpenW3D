@@ -53,7 +53,7 @@
 #include <windows.h>
 #include	"assert.h"
 #include "cpudetect.h"
-#include	"except.h"
+#include	"Except.h"
 //#include "debug.h"
 #include "mpu.h"
 //#include "commando/nat.h"

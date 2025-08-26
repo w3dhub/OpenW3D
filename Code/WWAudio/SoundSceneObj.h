@@ -41,7 +41,7 @@
 
 #include "refcount.h"
 #include "WWAudio.h"
-#include "BitType.h"
+#include "bittype.h"
 #include "persist.h"
 #include "multilist.h"
 #include "mutex.h"

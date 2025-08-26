@@ -40,7 +40,7 @@
 #include "waypoint.h"
 #include "wwhack.h"
 #include "waypathposition.h"
-#include "pathfind.h"
+#include "Pathfind.h"
 
 
 DECLARE_FORCE_LINK(waypath);

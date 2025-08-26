@@ -28,7 +28,7 @@
 #ifndef __DLGMPCONNECTIONREFUSED_H__
 #define __DLGMPCONNECTIONREFUSED_H__
 
-#include <wwui/PopupDialog.h>
+#include <wwui/popupdialog.h>
 
 class DlgMPConnectionRefused :
 		public PopupDialogClass

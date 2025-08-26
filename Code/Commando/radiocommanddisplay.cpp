@@ -44,7 +44,7 @@
 #include "globalsettings.h"
 #include "scene.h"
 #include "evasettings.h"
-#include "cncmodesettings.h"
+#include "CNCModeSettings.h"
 #include "string_ids.h"
 #include "rendobj.h"
 #include "input.h"

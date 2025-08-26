@@ -37,7 +37,7 @@
 // Includes.
 #include "ReviewDialog.h"
 #include "Installer.h"
-#include "ListCtrl.h"
+#include "listctrl.h"
 #include "Translator.h"
 
 
@@ -77,7 +77,7 @@ void ReviewDialogClass::On_Activate (bool onoff)
 {
 	if (onoff) {
 
-		const WCHAR *formatstring = L"•%s: %s";
+		const WCHAR *formatstring = L"ï¿½%s: %s";
 
 		WideStringClass reviewtext, substring;
 		WideStringClass t;

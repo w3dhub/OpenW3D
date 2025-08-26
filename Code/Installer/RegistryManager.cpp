@@ -38,7 +38,7 @@
 #include "Installer.h"
 #include "ErrorHandler.h"
 #include "RegistryManager.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Translator.h"
 #include "Utilities.h"
 #include "Win.h"

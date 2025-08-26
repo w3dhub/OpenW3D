@@ -44,7 +44,7 @@
 #include "definitionmgr.h"
 #include "definitionclassids.h"
 #include "WWAudio.h"
-#include "audiblesound.h"
+#include "AudibleSound.h"
 #include "htree.h"
 #include "hanim.h"
 

@@ -41,8 +41,8 @@
 #ifndef __DLG_MP_WOL_BUDDIES_H
 #define __DLG_MP_WOL_BUDDIES_H
 
-#include "MenuDialog.h"
-#include "Resource.h"
+#include "menudialog.h"
+#include "resource.h"
 #include "WOLBuddyMgr.h"
 #include "DlgMessageBox.h"
 

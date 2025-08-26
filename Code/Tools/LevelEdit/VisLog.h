@@ -44,7 +44,7 @@
 #define __VISLOG_H
 
 
-#include "Vector.H"
+#include "vector.h"
 #include "VisSample.H"
 
 // Forward declarations

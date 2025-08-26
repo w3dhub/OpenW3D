@@ -45,7 +45,7 @@
 #include "physcon.h"
 #include "WWAudio.h"
 #include "rndstrng.h"
-#include "sound3d.h"
+#include "Sound3D.h"
 #include "phys.h"
 #include "wwprofile.h"
 #include "gameobjref.h"

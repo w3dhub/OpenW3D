@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "filepicker.h"
-#include "utils.h"
+#include "Utils.h"
 #include "filemgr.h"
 
 

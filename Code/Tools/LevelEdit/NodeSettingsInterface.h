@@ -39,7 +39,7 @@
 #ifndef __NODE_SETTINGS_INTERFACE_H
 #define __NODE_SETTINGS_INTERFACE_H
 
-#include "Vector3.H"
+#include "vector3.h"
 
 /////////////////////////////////////////////////////////////////////////////
 //

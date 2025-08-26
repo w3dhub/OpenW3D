@@ -24,7 +24,7 @@
 #include "presetdialoguetab.h"
 #include "definition.h"
 #include "preset.h"
-#include "utils.h"
+#include "Utils.h"
 #include "dialogue.h"
 #include "combatchunkid.h"
 #include "soldier.h"

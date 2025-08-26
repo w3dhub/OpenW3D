@@ -26,7 +26,7 @@
 #ifndef __UTILS_H
 #define __UTILS_H
 
-#include "Vector.H"
+#include "vector.h"
 
 // Forward declarations
 class RenderObjClass;

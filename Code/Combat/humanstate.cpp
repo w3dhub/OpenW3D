@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "timemgr.h"
 #include "definitionclassids.h"
-#include "pathfind.h"
+#include "Pathfind.h"
 #include "encoderlist.h"
 #include "bitpackids.h"
 #include "humanrecoil.h"

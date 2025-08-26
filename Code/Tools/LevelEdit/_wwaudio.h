@@ -42,7 +42,7 @@
 #ifndef __LEVELED_WWAUDIO_H
 #define __LEVELED_WWAUDIO_H
 
-#include "WWAudio.H"
+#include "WWAudio.h"
 
 extern WWAudioClass *_pTheAudioManager;
 

@@ -46,10 +46,10 @@
 #include "translatedb.h"
 #include "stringlibrarydialog.h"
 #include "excel.h"
-#include "audiblesound.h"
+#include "AudibleSound.h"
 #include "definitionmgr.h"
 #include "definitionclassids.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 /////////////////////////////////////////////////////////////////////////

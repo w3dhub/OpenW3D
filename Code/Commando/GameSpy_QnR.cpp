@@ -56,7 +56,7 @@
 #include "vehicle.h"
 #include "assets.h"
 #include "translatedb.h"
-#include "WOLGMode.h"
+#include "wolgmode.h"
 #include <WWOnline/WOLUser.h>
 #include "string_ids.h"
 #include "mousemgr.h"
@@ -64,16 +64,16 @@
 #include "GameSpy_QnR.h"
 #include "verchk.h"
 #include "buildnum.h"
-#include "serversettings.h"
-#include "consolemode.h"
+#include "ServerSettings.h"
+#include "ConsoleMode.h"
 #include "useroptions.h"
 #include "gdcnc.h"
 #include "rawfile.h"
 #include "shellapi.h"
 #include "netutil.h"
-#include "gamespybanlist.h"
-#include <Gamespy/pt/pt.h>
-#include <Gamespy/gcdkey/gcdkeys.h>
+#include "GameSpyBanList.h"
+#include <gamespy/pt/pt.h>
+#include <gamespy/gcdkey/gcdkeys.h>
 
 CGameSpyQnR GameSpyQnR;
 

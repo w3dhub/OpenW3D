@@ -37,7 +37,7 @@
 #define _REGISTRY_MANAGER_H
 
 // Includes
-#include "Registry.h"
+#include "registry.h"
 
 
 // Forward declarations.

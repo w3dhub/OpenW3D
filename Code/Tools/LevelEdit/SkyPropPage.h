@@ -26,7 +26,7 @@
 //
 
 #include <afxdtctl.h>
-#include "Resource.h"
+#include "resource.h"
 
 /////////////////////////////////////////////////////////////////////////////
 // SkyPropPageClass dialog

@@ -47,7 +47,7 @@
 #include "collisiongroups.h"
 #include "coltest.h"
 #include "physcoltest.h"
-#include "utils.h"
+#include "Utils.h"
 #include "sceneeditor.h"
 
 

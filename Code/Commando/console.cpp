@@ -48,8 +48,8 @@
 #include "scene.h"
 #include "ww3d.h"
 #include <stdio.h>
-#include "wwaudio.h"
-#include "audiblesound.H"
+#include "WWAudio.h"
+#include "AudibleSound.h"
 //#include "gamesettings.h"
 #include "gamedata.h"
 #include "overlay.h"
@@ -87,9 +87,9 @@
 #include "textdisplay.h"
 #include "trackedvehicle.h"
 #include "dx8rendererdebugger.h"
-#include "fastallocator.h"
+#include "FastAllocator.h"
 #include <WWOnline/WOLSession.h>
-#include "consolemode.h"
+#include "ConsoleMode.h"
 
 //#include "dlgmpingamechat.h"
 

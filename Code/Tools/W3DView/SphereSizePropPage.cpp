@@ -23,7 +23,7 @@
 #include "w3dview.h"
 #include "spheresizeproppage.h"
 #include "colorutils.h"
-#include "utils.h"
+#include "Utils.h"
 #include "scaledialog.h"
 
 #ifdef _DEBUG

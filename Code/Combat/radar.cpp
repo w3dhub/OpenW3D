@@ -47,7 +47,7 @@
 #include "objectives.h"
 #include "globalsettings.h"
 #include "wwprofile.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "render2dsentence.h"
 #include "stylemgr.h"
 #include "translatedb.h"

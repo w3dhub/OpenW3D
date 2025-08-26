@@ -39,10 +39,10 @@
 #include <WWOnline/RefPtr.h>
 #include <WWOnline/WOLSession.h>
 #include <WWOnline/WOLPageMsg.h>
-#include <wwlib/RefCount.h>
+#include <wwlib/refcount.h>
 #include <wwlib/Notify.h>
 #include <wwlib/Signaler.h>
-#include <wwlib/WideString.h>
+#include <wwlib/widestring.h>
 
 #if defined(_MSC_VER)
 #pragma warning(push, 3)

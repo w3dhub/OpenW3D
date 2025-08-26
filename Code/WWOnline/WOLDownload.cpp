@@ -34,14 +34,14 @@
 ******************************************************************************/
 #include <atlbase.h>
 
-#include <WWLib/Always.h>
+#include <wwlib/always.h>
 #include "WOLDownload.h"
 #include "WOLProduct.h"
 #include "WOLErrorUtil.h"
 #include "WOLString.h"
-#include <WOLAPI/DownloadDefs.h>
-#include <WWLib/WWString.h>
-#include <WWDebug/WWDebug.h>
+#include <wolapi/downloaddefs.h>
+#include <wwlib/wwstring.h>
+#include <wwdebug/wwdebug.h>
 
 namespace WWOnline {
 

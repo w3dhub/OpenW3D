@@ -41,7 +41,7 @@
 #include "rendobj.h"
 #include "phys.h"
 #include "editableheightfield.h"
-#include "mousemgr.h"
+#include "MouseMgr.h"
 #include "texture.h"
 #include "surface.h"
 #include "terrainmaterial.h"

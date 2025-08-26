@@ -38,7 +38,7 @@
 
 // Includes
 #include "MessageBox.h"
-#include "Resource.h"
+#include "resource.h"
 
 
 // Popup dialog to implement directory browsing and selection.

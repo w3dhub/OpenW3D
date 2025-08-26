@@ -51,13 +51,13 @@
 #include	<stddef.h>
 
 #include "bandwidthcheck.h"
-#include "autostart.h"
+#include "AutoStart.h"
 #include "registry.h"
 #include "_globals.h"
 #include "useroptions.h"
 #include "translatedb.h"
 #include "string_ids.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "specialbuilds.h"
 #include "gamespyadmin.h"
 

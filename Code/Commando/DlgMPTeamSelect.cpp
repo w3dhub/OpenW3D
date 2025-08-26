@@ -34,15 +34,15 @@
 *
 ******************************************************************************/
 
-#include "dlgmpteamselect.h"
+#include "DlgMPTeamSelect.h"
 #include "wolgmode.h"
 #include "gamedata.h"
-#include "wolgameinfo.h"
-#include "wolloginprofile.h"
+#include "WOLGameInfo.h"
+#include "WOLLoginProfile.h"
 #include "DlgMessageBox.h"
 #include "renegadedialogmgr.h"
-#include <combat/playertype.h>
-#include <wwonline/wolgameoptions.h>
+#include <Combat/playertype.h>
+#include <WWOnline/WOLGameOptions.h>
 #include <wwui/listctrl.h>
 #include <wwui/comboboxctrl.h>
 #include <wwui/imagectrl.h>

@@ -44,7 +44,7 @@
 #include "vehicle.h"
 #include "damage.h"
 #include "pilot.h"
-#include "path.h"
+#include "Path.h"
 
 
 ////////////////////////////////////////////////////////////////

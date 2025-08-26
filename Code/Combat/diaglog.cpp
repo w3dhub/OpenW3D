@@ -39,7 +39,7 @@
 #include "wwfile.h"
 #include "timemgr.h"
 
-#include <WTYPES.H>	// for SYSTEMTIME
+#include <wtypes.h>	// for SYSTEMTIME
 
 FileClass * _DiagLogFile = NULL;
 

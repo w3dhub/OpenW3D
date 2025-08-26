@@ -46,7 +46,7 @@
 #include "translatedb.h"
 #include "conversationmgr.h"
 #include "conversationpage.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 /////////////////////////////////////////////////////////////////////////

@@ -41,7 +41,7 @@
 
 #include "networkobjectfactory.h"
 #include "textdisplay.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "colors.h"
 #include "playermanager.h"
 #include "matrix3d.h"
@@ -52,7 +52,7 @@
 #include "apppackettypes.h"
 #include "messagewindow.h"
 #include "DlgMessageBox.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "mpsettingsmgr.h"
 
 DECLARE_NETWORKOBJECT_FACTORY(cScTextObj, NETCLASSID_SCTEXTOBJ);

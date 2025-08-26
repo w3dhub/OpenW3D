@@ -31,7 +31,7 @@
 #include "chunkio.h"
 #include "wwdebug.h"
 #include "restrictedfiledialog.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

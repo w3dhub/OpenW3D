@@ -25,7 +25,7 @@
 // WeatherPropPage.h : header file
 //
 
-#include "Resource.h"
+#include "resource.h"
 #include "vector3.h"
 
 /////////////////////////////////////////////////////////////////////////////

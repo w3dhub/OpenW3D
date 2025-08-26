@@ -38,7 +38,7 @@
 #ifndef _GAMESIDESERVERCONTROL_H
 #define _GAMESIDESERVERCONTROL_H
 
-#include <WWLib/wwstring.h>
+#include <wwlib/wwstring.h>
 
 
 #define SERVER_CONTROL_PORT_KEY		"ControlPort"

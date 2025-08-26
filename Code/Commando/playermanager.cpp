@@ -61,7 +61,7 @@
 #include "translatedb.h"
 #include "string_ids.h"
 #include "systeminfolog.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "gamespyadmin.h"
 #include "demosupport.h"
 

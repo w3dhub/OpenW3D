@@ -41,7 +41,7 @@
 
 #include "networkobjectfactory.h"
 #include "textdisplay.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "playermanager.h"
 #include "matrix3d.h"
 #include "cnetwork.h"

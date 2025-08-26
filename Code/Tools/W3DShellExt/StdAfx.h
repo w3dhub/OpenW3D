@@ -44,7 +44,7 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 
 #include "chunkio.h"
-#include "BitType.h"
+#include "bittype.h"
 #include "vector3i.h"
 #include "w3d_file.h"
 #include "IOStruct.h"

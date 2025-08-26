@@ -43,7 +43,7 @@
 #include "ini.h"
 #include "registry.h"
 #include "rawfile.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "specialbuilds.h"
 #include "_globals.h"
 #include "bandwidth.h"
@@ -53,7 +53,7 @@
 #include "gamespyadmin.h"
 #include "servercontrol.h"
 #include "gamesideservercontrol.h"
-#include "autostart.h"
+#include "AutoStart.h"
 #include "GameSpy_QnR.h"
 #include "bandwidthcheck.h"
 

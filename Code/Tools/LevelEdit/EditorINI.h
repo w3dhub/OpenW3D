@@ -43,9 +43,9 @@
 #define __EDITORINI_H
 
 #include "INI.H"
-#include "Vector3.H"
+#include "vector3.h"
 #include "Vector4.H"
-#include "Matrix3D.H"
+#include "matrix3d.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////

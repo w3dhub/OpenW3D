@@ -38,7 +38,7 @@
 #include "Node.h"
 #include "phys.h"
 #include "sceneeditor.h"
-#include "utils.h"
+#include "Utils.h"
 #include "selectionbox.h"
 #include "mover.h"
 #include "chunkio.h"

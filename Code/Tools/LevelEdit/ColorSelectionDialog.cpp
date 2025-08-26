@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "ColorSelectionDialog.H"
-#include "Utils.H"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

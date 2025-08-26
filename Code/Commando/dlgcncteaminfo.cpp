@@ -53,7 +53,7 @@
 #include "vehicle.h"
 #include "assets.h"
 #include "translatedb.h"
-#include "WOLGMode.h"
+#include "wolgmode.h"
 #include <WWOnline/WOLUser.h>
 #include "string_ids.h"
 #include "mousemgr.h"

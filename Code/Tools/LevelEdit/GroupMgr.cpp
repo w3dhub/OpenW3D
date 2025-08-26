@@ -29,7 +29,7 @@
 #include "cameramgr.h"
 #include "node.h"
 #include "sceneeditor.h"
-#include "utils.h"
+#include "Utils.h"
 #include "wwmath.h"
 
 #include "WaypointNode.h"

@@ -84,7 +84,7 @@
 #include "specialbuilds.h"
 #include "gameinitmgr.h"
 #include "dlgcncwinscreen.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "CDKeyAuth.h"
 
 static int LastSortedSecond;

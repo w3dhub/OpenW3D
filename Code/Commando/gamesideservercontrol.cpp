@@ -45,7 +45,7 @@
 #include "gamemode.h"
 #include "buildnum.h"
 #include "slavemaster.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 
 #include <string.h>
 #include <stdio.h>

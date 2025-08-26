@@ -26,7 +26,7 @@
 
 #include "DockableForm.H"
 #include "Resource.H"
-#include "Vector.H"
+#include "vector.h"
 
 
 /////////////////////////////////////////////////////////////////////////////

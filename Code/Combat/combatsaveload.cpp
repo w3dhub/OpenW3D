@@ -50,7 +50,7 @@
 #include "building.h"
 #include "bullet.h"
 #include "backgroundmgr.h"
-#include "weathermgr.h"
+#include "WeatherMgr.h"
 #include "weaponview.h"
 #include "hud.h"
 #include "screenfademanager.h"

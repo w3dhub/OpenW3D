@@ -25,7 +25,7 @@
 #include "stringscategoryviewdialog.h"
 #include "translatedb.h"
 #include "translateobj.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

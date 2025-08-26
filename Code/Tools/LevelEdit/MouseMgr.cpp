@@ -35,8 +35,8 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
-#include "mousemgr.h"
-#include "utils.h"
+#include "MouseMgr.h"
+#include "Utils.h"
 #include "LevelEditView.h"
 #include "cameramgr.h"
 #include "node.h"

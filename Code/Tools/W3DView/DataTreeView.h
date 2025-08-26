@@ -27,7 +27,7 @@
 
 #include "AfxCView.H"
 #include "AssetTypes.H"
-#include "Vector.H"
+#include "vector.h"
 
 // Forward declarations
 class RenderObjClass;

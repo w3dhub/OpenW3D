@@ -37,7 +37,7 @@
 #include "GameResField.h"
 #include <string.h>
 #include <assert.h>
-#include <wwdebug/WWDebug.h>
+#include <wwdebug/wwdebug.h>
 
 // Get rid of the nameless struct/union warning
 #pragma warning(disable: 4201)

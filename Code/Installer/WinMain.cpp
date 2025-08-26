@@ -45,7 +45,7 @@
 #include "MixFile.h"
 #include "Msgloop.h"
 #include "RAMFileFactory.h"
-#include "Resource.h"
+#include "resource.h"
 #include "SafeTimer.h"
 #include "SaveLoad.h"
 #include "Timer.h"

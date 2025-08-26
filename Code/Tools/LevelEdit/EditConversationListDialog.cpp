@@ -25,7 +25,7 @@
 #include "conversationmgr.h"
 #include "editconversationdialog.h"
 #include "conversation.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

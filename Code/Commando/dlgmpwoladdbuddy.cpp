@@ -34,12 +34,12 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "DlgMPWOLAddBuddy.h"
+#include "dlgmpwoladdbuddy.h"
 #include "WOLBuddyMgr.h"
 #include "WOLLogonMgr.h"
 #include "DlgMessageBox.h"
-#include <wwui/EditCtrl.h>
-#include <wwdebug/WWDebug.h>
+#include <wwui/editctrl.h>
+#include <wwdebug/wwdebug.h>
 #include "translatedb.h"
 #include "string_ids.h"
 

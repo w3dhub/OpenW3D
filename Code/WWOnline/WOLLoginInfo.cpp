@@ -37,12 +37,12 @@
 #include <atlbase.h>
 #include "WOLLoginInfo.h"
 #include "WOLSession.h"
-#include <wwlib/WWString.h>
-#include <wwdebug/WWDebug.h>
+#include <wwlib/wwstring.h>
+#include <wwdebug/wwdebug.h>
 
 namespace WOL
 {
-#include <wolapi/wolapi.h>
+#include <wolapi/WOLAPI.h>
 }
 
 namespace WWOnline {

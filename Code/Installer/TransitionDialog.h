@@ -37,7 +37,7 @@
 #define _TRANSITION_DIALOG_H
 
 // Includes.
-#include "MenuDialog.h"
+#include "menudialog.h"
 #include "Random.h"
 
 				  

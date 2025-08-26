@@ -23,7 +23,7 @@
 #include "LevelEdit.h"
 #include "positionpage.h"
 #include "node.h"
-#include "utils.h"
+#include "Utils.h"
 #include "sceneeditor.h"
 #include "mover.h"
 

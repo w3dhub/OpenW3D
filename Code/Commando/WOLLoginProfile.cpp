@@ -37,13 +37,13 @@
 
 #include "WOLLoginProfile.h"
 #include "_globals.h"
-#include "Resource.h"
+#include "resource.h"
 #include <WWOnline/WOLLoginInfo.h>
-#include <wwui/DialogBase.h>
-#include <wwui/ListCtrl.h>
-#include <wwlib/Registry.h>
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
+#include <wwui/dialogbase.h>
+#include <wwui/listctrl.h>
+#include <wwlib/registry.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
 #include <stdio.h>
 
 using namespace WWOnline;

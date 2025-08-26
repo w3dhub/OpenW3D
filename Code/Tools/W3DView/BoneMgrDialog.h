@@ -26,7 +26,7 @@
 //
 
 #include "Resource.H"
-#include "Vector.H"
+#include "vector.h"
 
 // Forward declarations
 class HModelClass;

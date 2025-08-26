@@ -42,8 +42,8 @@
 #include "cnetwork.h"
 #include "devoptions.h"
 #include "packetmgr.h"
-#include "serversettings.h"
-#include "consolemode.h"
+#include "ServerSettings.h"
+#include "ConsoleMode.h"
 
 
 //

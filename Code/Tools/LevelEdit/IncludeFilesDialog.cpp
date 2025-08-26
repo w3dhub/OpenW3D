@@ -36,7 +36,7 @@
 #include "includefilesdialog.h"
 #include "filemgr.h"
 #include "icons.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

@@ -36,16 +36,16 @@
 ******************************************************************************/
 
 #include "DlgWOLLogon.h"
-#include "RenegadeDialogMgr.h"
-#include "MPSettingsMgr.h"
+#include "renegadedialogmgr.h"
+#include "mpsettingsmgr.h"
 #include "DlgMessageBox.h"
 #include "DlgWOLSettings.h"
 #include <WWOnline/WOLLoginInfo.h>
-#include <wwui/ComboBoxCtrl.h>
-#include <wwui/EditCtrl.h>
-#include "DlgWebpage.h"
+#include <wwui/comboboxctrl.h>
+#include <wwui/editctrl.h>
+#include "DlgWebPage.h"
 #include "string_ids.h"
-#include "Resource.h"
+#include "resource.h"
 
 using namespace WWOnline;
 

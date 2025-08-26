@@ -24,7 +24,7 @@
 #include "BoneMgrDialog.H"
 #include "HTree.H"
 #include "AssetMgr.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "MainFrm.H"
 #include "W3DViewDoc.H"
 #include "DataTreeView.H"

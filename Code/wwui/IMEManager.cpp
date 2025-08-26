@@ -34,8 +34,8 @@
 ******************************************************************************/
 
 #include "IMEManager.h"
-#include "WWString.h"
-#include "WWDebug.h"
+#include "wwstring.h"
+#include "wwdebug.h"
 #include <locale.h>
 #include <mbctype.h>
 

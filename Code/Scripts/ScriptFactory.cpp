@@ -34,9 +34,9 @@
 ******************************************************************************/
 
 #include "ScriptFactory.h"
-#include "scriptregistrar.h"
+#include "ScriptRegistrar.h"
 #include "scripts.h"
-#include "dprint.h"
+#include "DPrint.h"
 #include <string.h>
 
 /******************************************************************************

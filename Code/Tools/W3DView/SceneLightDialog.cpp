@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "W3DView.h"
 #include "SceneLightDialog.h"
-#include "Utils.H"
+#include "Utils.h"
 #include "MainFrm.H"
 #include "W3DViewDoc.H"
 #include "Scene.H"

@@ -36,27 +36,27 @@
 
 
 #include "always.h"
-#include <Windows.H>
-#include "WWAudio.H"
-#include "WWDebug.H"
-#include "Utils.H"
-#include "RealCRC.H"
-#include "SoundBuffer.H"
-#include "AudibleSound.H"
-#include "Sound3D.H"
-#include "RawFile.H"
-#include "WW3D.H"
-#include "SoundScene.H"
-#include "SoundPseudo3D.H"
-#include "FFactory.H"
-#include "Registry.H"
-#include "Threads.H"
+#include <windows.h>
+#include "WWAudio.h"
+#include "wwdebug.h"
+#include "Utils.h"
+#include "realcrc.h"
+#include "SoundBuffer.h"
+#include "AudibleSound.h"
+#include "Sound3D.h"
+#include "rawfile.h"
+#include "ww3d.h"
+#include "SoundScene.h"
+#include "SoundPseudo3D.h"
+#include "ffactory.h"
+#include "registry.h"
+#include "Threads.h"
 #include "LogicalSound.h"
 #include "LogicalListener.h"
 #include "definitionclassids.h"
 #include "wwmemlog.h"
 #include "wwprofile.h"
-#include "Ini.h"
+#include "ini.h"
 
 
 #ifdef G_CODE_BASE

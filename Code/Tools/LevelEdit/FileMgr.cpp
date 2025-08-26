@@ -37,7 +37,7 @@
 
 #include "StdAfx.h"
 #include "filemgr.h"
-#include "utils.h"
+#include "Utils.h"
 #include "rendobj.h"
 #include "matinfo.h"
 #include "regkeys.h"

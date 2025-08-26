@@ -24,7 +24,7 @@
 #include "heightfieldmaterialsettingsdialog.h"
 #include "heightfieldeditor.h"
 #include "terrainmaterial.h"
-#include "utils.h"
+#include "Utils.h"
 #include "filemgr.h"
 
 

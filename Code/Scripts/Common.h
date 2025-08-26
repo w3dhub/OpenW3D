@@ -40,7 +40,7 @@
 
 #include "customevents.h"
 #include "scripts.h"
-#include "dprint.h"
+#include "DPrint.h"
 #include "groupcontrol.h"
 #include "group.h"
 #include "vector3.h"

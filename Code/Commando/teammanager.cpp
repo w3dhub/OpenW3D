@@ -57,7 +57,7 @@
 #include "playermanager.h"
 #include "translatedb.h"
 #include "string_ids.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "gamespyadmin.h"
 
 //

@@ -40,7 +40,7 @@
 #include "heightfieldpage.h"
 #include "nodemgr.h"
 #include "node.h"
-#include "utils.h"
+#include "Utils.h"
 #include "cameramgr.h"
 #include "gotoobjectdialog.h"
 #include "sceneeditor.h"

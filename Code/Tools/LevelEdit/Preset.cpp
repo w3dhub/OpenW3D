@@ -70,7 +70,7 @@
 #include "physobjedittab.h"
 #include "definitionutils.h"
 #include "WaypathNode.h"
-#include "utils.h"
+#include "Utils.h"
 #include "coverspotnode.h"
 #include "presetdependencytab.h"
 #include "presetzonetab.h"

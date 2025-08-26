@@ -24,7 +24,7 @@
 #include "PresetTransitionTab.h"
 #include "definition.h"
 #include "preset.h"
-#include "utils.h"
+#include "Utils.h"
 #include "TransitionEditDialog.h"
 #include "objectnode.h"
 #include "rendobj.h"

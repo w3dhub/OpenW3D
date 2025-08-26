@@ -38,7 +38,7 @@
 #define PROCEDURAL_TEXTURE_H
 
 // Includes.
-#include "Vector3.h"
+#include "vector3.h"
 
 
 // This is an interface class for all procedural textures. All procedural textures that

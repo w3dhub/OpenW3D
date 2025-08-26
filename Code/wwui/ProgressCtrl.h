@@ -41,8 +41,8 @@
 #ifndef __PROGRESS_CTRL_H
 #define __PROGRESS_CTRL_H
 
-#include "DialogControl.h"
-#include "Render2D.h"
+#include "dialogcontrol.h"
+#include "render2d.h"
 
 //#include "vector3.h"
 //#include "bittype.h"

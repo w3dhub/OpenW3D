@@ -44,7 +44,7 @@
 
 #include "refcount.h"
 #include "phys.h"
-#include "utils.h"
+#include "Utils.h"
 #include "quat.h"
 #include "persist.h"
 #include "hittestinfo.h"

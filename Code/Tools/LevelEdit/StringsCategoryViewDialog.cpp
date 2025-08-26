@@ -27,7 +27,7 @@
 #include "tdbcategory.h"
 #include "editstringdialog.h"
 #include "editstringtwiddlerdialog.h"
-#include "utils.h"
+#include "Utils.h"
 #include "stringlibrarydialog.h"
 #include "stringtwiddler.h"
 

@@ -38,7 +38,7 @@
 #define __WEBBROWSER_H__
 
 #include "WOLBrowser/WOLBrowser.h"
-#include <WWLib/Notify.h>
+#include <wwlib/Notify.h>
 #include <atlbase.h>
 #include <windows.h>
 

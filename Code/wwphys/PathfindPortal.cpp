@@ -34,9 +34,9 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "pathfindportal.h"
-#include "pathfindsector.h"
-#include "pathfind.h"
+#include "PathfindPortal.h"
+#include "PathfindSector.h"
+#include "Pathfind.h"
 #include "chunkio.h"
 #include "saveload.h"
 

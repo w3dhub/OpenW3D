@@ -37,6 +37,6 @@
 
 
 #include "StdAfx.h"
-#include "WWAudio.H"
+#include "WWAudio.h"
 
 WWAudioClass *_pTheAudioManager = NULL;

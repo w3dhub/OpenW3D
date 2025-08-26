@@ -41,7 +41,7 @@
 #include "matrix3d.h"
 #include "vector.h"
 //#include "physcontrol.h"
-#include "pathfindsector.h"
+#include "PathfindSector.h"
 #include "floodfillbox.h"
 #include "transition.h"
 #include "aabtreecull.h"

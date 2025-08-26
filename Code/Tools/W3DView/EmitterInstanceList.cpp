@@ -33,7 +33,7 @@
 
 #include "StdAfx.h"
 #include "EmitterInstanceList.H"
-#include "Utils.H"
+#include "Utils.h"
 
 /////////////////////////////////////////////////////////////////////
 //

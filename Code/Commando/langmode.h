@@ -41,8 +41,8 @@
 #ifndef LANGMODE_H
 #define LANGMODE_H
 
-#include "GameMode.h"
-#include "LanChat.h"
+#include "gamemode.h"
+#include "lanchat.h"
 
 #define PLC LanGameModeClass::Get_Lan_Interface()
 

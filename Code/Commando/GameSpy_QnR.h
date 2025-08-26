@@ -23,8 +23,8 @@
 /********
 INCLUDES
 ********/
-#include <GameSpy/qr/gqueryreporting.h>
-#include <wwlib/WideString.h>
+#include <gamespy/qr/gqueryreporting.h>
+#include <wwlib/widestring.h>
 #include "trim.h"
 
 /********

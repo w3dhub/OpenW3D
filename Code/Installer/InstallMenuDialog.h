@@ -37,8 +37,8 @@
 #define _INSTALL_MENU_DIALOG_H
 
 // Includes.
-#include "MenuDialog.h"
-#include "Resource.h"
+#include "menudialog.h"
+#include "resource.h"
 #include "MessageBox.h"
 
 

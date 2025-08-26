@@ -54,7 +54,7 @@
 #include "LicenseDialog.h"
 #include "MixFile.h"
 #include "Msgloop.h"
-#include "Registry.h"
+#include "registry.h"
 #include "ReviewDialog.h"
 #include "SafeTimer.h"
 #include "SerialDialog.h"

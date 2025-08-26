@@ -47,7 +47,7 @@
 #include "suicideevent.h"
 #include "changeteamevent.h"
 #include "cstextobj.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "dialogmgr.h"
 #include "menubackdrop.h"
 #include "input.h"

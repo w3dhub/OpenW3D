@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "SunlightDialog.h"
-#include "Utils.H"
+#include "Utils.h"
 #include "Light.H"
 #include "SceneEditor.H"
 #include "Utils.h"

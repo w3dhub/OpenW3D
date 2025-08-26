@@ -37,7 +37,7 @@
 #include "StdAfx.h"
 #include "filemgr.h"
 #include "editormixfile.h"
-#include "utils.h"
+#include "Utils.h"
 #include "mixfile.h"
 #include "TGAToDXT.h"
 #include "LevelEdit.h"

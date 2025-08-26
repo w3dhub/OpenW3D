@@ -24,7 +24,7 @@
 #include "ringcolorproppage.h"
 #include "opacitysettingsdialog.h"
 #include "colorutils.h"
-#include "utils.h"
+#include "Utils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

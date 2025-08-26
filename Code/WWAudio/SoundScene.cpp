@@ -36,13 +36,13 @@
 
 
 #include "SoundScene.h"
-#include "soundcullobj.h"
-#include "logicalsound.h"
-#include "logicallistener.h"
+#include "SoundCullObj.h"
+#include "LogicalSound.h"
+#include "LogicalListener.h"
 #include "chunkio.h"
 #include "persistfactory.h"
 #include "wwprofile.h"
-#include "threads.h"
+#include "Threads.h"
 #include "wwmemlog.h"
 #include "systimer.h"
 

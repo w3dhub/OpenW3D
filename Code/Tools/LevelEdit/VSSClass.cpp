@@ -38,7 +38,7 @@
 #include "StdAfx.h"
 
 #include "vssclass.h"
-#include "utils.h"
+#include "Utils.h"
 #include "filemgr.h"
 #include "oleauto.h"
 #include "afxdisp.h"

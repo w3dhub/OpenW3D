@@ -39,7 +39,7 @@
 #include "groupcontrol.h"
 #include "group.h"
 #include "customevents.h"
-#include "dprint.h"
+#include "DPrint.h"
 
 
 DECLARE_SCRIPT(MXX_Group_Member_DEL, "GroupName:string")

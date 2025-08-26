@@ -36,7 +36,7 @@
 #ifndef _SCRIPTNODE_H_
 #define _SCRIPTNODE_H_
 
-#include "dprint.h"
+#include "DPrint.h"
 
 class ScriptNode
 {

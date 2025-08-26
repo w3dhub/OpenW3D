@@ -37,8 +37,8 @@
 #ifndef __ANNOUNCEEVENT_H__
 #define __ANNOUNCEEVENT_H__
 
-#include "NetEvent.h"
-#include "NetClassIDs.h"
+#include "netevent.h"
+#include "netclassids.h"
 
 enum AnnouncementEnum
 	{

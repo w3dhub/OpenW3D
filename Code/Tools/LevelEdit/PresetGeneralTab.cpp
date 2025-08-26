@@ -24,7 +24,7 @@
 #include "PresetGeneralTab.h"
 #include "definition.h"
 #include "preset.h"
-#include "utils.h"
+#include "Utils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

@@ -52,10 +52,10 @@
 #include "beacongameobj.h"
 #include "spawn.h"
 #include "apppackettypes.h"
-#include "TranslateObj.h"
-#include "TranslateDB.h"
+#include "translateobj.h"
+#include "translatedb.h"
 #include "WWAudio.h"
-#include "MessageWindow.h"
+#include "messagewindow.h"
 #include "CNCModeSettings.h"
 
 ////////////////////////////////////////////////////////////////

@@ -53,7 +53,7 @@
 
 
 #include "crandom.h"
-#include "except.h"
+#include "Except.h"
 #include	"nat.h"
 #include	"natsock.h"
 #include	"nataddr.h"

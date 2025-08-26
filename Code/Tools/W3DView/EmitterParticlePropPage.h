@@ -26,7 +26,7 @@
 //
 
 #include "Resource.H"
-#include "Vector3.H"
+#include "vector3.h"
 #include "V3_Rnd.H"
 
 // Forward delcarations

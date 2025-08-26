@@ -37,7 +37,7 @@
 #include "StdAfx.h"
 #include "parameterctrls.h"
 #include "simpleparameter.h"
-#include "utils.h"
+#include "Utils.h"
 #include "filemgr.h"
 #include "vector3.h"
 #include "PhysObjectEditDialog.h"

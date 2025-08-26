@@ -74,7 +74,7 @@
 #include "meshsave.h"
 #include "gamemaps.h"
 #include "gameMtlForm.h"
-#include "notify.h"
+#include "Notify.h"
 
  
 /*****************************************************************

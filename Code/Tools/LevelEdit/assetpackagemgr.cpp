@@ -36,7 +36,7 @@
 
 #include "StdAfx.h"
 #include "assetpackagemgr.h"
-#include "utils.h"
+#include "Utils.h"
 #include "regkeys.h"
 #include "choosemodpackagedialog.h"
 #include "editorbuild.h"

@@ -47,7 +47,7 @@
 #include "bittype.h"
 #include "IMEManager.h"
 #include "IMECandidateCtrl.h"
-#include "ToolTip.h"
+#include "tooltip.h"
 
 ////////////////////////////////////////////////////////////////
 //

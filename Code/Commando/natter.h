@@ -57,7 +57,7 @@
 #include <Notify.h>
 #include	<WWOnline/WOLSession.h>
 #include	<WWOnline/WOLUser.h>
-#include	<combat/combat.h>
+#include	<Combat/combat.h>
 #include	<wwnet/wwpacket.h>
 
 

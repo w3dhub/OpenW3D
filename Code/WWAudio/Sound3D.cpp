@@ -36,11 +36,11 @@
 
 
 #include "Sound3D.h"
-#include "soundbuffer.h"
-#include "wwaudio.h"
-#include "soundscene.h"
-#include "utils.h"
-#include "soundchunkids.h"
+#include "SoundBuffer.h"
+#include "WWAudio.h"
+#include "SoundScene.h"
+#include "Utils.h"
+#include "SoundChunkIDs.h"
 #include "persistfactory.h"
 #include "chunkio.h"
 #include "sound3dhandle.h"

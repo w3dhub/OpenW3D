@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "pathobject.h"
+#include "PathObject.h"
 #include "rendobj.h"
 #include "phys.h"
 #include "hlod.h"
