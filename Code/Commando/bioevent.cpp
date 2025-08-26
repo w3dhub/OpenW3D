@@ -48,7 +48,7 @@
 #include "gametype.h"
 #include "apppackettypes.h"
 #include "gamedataupdateevent.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "winevent.h"
 #include "gamespyadmin.h"
 

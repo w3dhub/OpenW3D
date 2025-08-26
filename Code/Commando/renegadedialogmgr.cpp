@@ -59,7 +59,7 @@
 #include "directinput.h"
 #include "input.h"
 #include "dlgmainmenu.h"
-#include "dlgwebpage.h"
+#include "DlgWebPage.h"
 #include "dlgmpwolpagebuddy.h"
 #include "dlgmpwolbuddies.h"
 #include "dlgmpwolchat.h"
@@ -68,11 +68,11 @@
 #include "dlgcontrols.h"
 #include "dlgmpwolquickmatchoptions.h"
 #include "dlgmpwolmain.h"
-#include "dlgwolsettings.h"
+#include "DlgWOLSettings.h"
 #include "dlghelpscreen.h"
 #include "dlgcncreference.h"
 #include "wwmemlog.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "specialbuilds.h"
 
 

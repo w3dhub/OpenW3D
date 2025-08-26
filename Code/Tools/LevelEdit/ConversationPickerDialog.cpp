@@ -24,7 +24,7 @@
 #include "conversationpickerdialog.h"
 #include "conversationmgr.h"
 #include "conversation.h"
-#include "utils.h"
+#include "Utils.h"
 #include "icons.h"
 
 #ifdef _DEBUG

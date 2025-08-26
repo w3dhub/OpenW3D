@@ -37,16 +37,16 @@
 #include "textdisplay.h"
 #include "font3d.h"
 #include "assets.h"
-#include "render2D.h"
+#include "render2d.h"
 #include "timemgr.h"
 #include "_globals.h"
 #include "registry.h"
 #include "wwprofile.h"
 #include "combat.h"
 #include "ccamera.h"
-#include "render2Dsentence.h"
+#include "render2dsentence.h"
 #include "wwmemlog.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 
 /*
 ** TextDisplayLine

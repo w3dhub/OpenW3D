@@ -26,7 +26,7 @@
 #include "colorpicker.h"
 #include "colorpickerdialogclass.h"
 #include <math.h>
-#include "utils.h"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

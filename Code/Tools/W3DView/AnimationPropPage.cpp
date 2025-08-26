@@ -26,7 +26,7 @@
 #include "AssetMgr.H"
 #include "Mesh.H"
 #include "W3DViewDoc.H"
-#include "Utils.H"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

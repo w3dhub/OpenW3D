@@ -38,7 +38,7 @@
 #include "persistfactory.h"
 #include "wwphysids.h"
 #include "wwhack.h"
-#include "pathfindportal.h"
+#include "PathfindPortal.h"
 
 
 DECLARE_FORCE_LINK(waypoint);

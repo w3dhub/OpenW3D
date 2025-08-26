@@ -37,7 +37,7 @@
 #define _ERROR_HANDLER_H
 
 // Includes.
-#include "Resource.h"
+#include "resource.h"
 
 #define FATAL_SYSTEM_ERROR				Handle_Fatal_System_Error (GetLastError(), __FILE__, __LINE__)
 #define FATAL_APP_ERROR(errorcode)	Handle_Fatal_Application_Error (errorcode, __FILE__, __LINE__)

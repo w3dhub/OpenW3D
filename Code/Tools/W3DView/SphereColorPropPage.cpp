@@ -24,7 +24,7 @@
 #include "spherecolorproppage.h"
 #include "opacitysettingsdialog.h"
 #include "colorutils.h"
-#include "utils.h"
+#include "Utils.h"
 #include "opacityvectordialog.h"
 
 #ifdef _DEBUG

@@ -34,31 +34,31 @@
 ******************************************************************************/
 
 #include "WOLLogonMgr.h"
-#include "MPSettingsMgr.h"
+#include "mpsettingsmgr.h"
 #include "DlgMessageBox.h"
 #include "DlgWOLWait.h"
-#include "DlgMPWOLMain.h"
-#include "DlgMPWOLAutoLoginPrompt.h"
-#include "DlgMPWOLmotd.h"
+#include "dlgmpwolmain.h"
+#include "dlgmpwolautologinprompt.h"
+#include "dlgmpwolmotd.h"
 #include "WOLLoginProfile.h"
-#include "WOLLocaleMgr.h"
-#include "NetInterface.h"
+#include "wollocalemgr.h"
+#include "netinterface.h"
 #include "nat.h"
 #include "FirewallWait.h"
-#include "BandwidthCheck.h"
+#include "bandwidthcheck.h"
 #include <WWOnline/WOLLoginInfo.h>
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLLoginInfo.h>
 #include <WWOnline/WaitCondition.h>
 #include <WWOnline/PingProfile.h>
 #include "string_ids.h"
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
-#include "UserOptions.h"
-#include "autostart.h"
-#include "consolemode.h"
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
+#include "useroptions.h"
+#include "AutoStart.h"
+#include "ConsoleMode.h"
 #include "specialbuilds.h"
-#include "serversettings.h"
+#include "ServerSettings.h"
 
 using namespace WWOnline;
 

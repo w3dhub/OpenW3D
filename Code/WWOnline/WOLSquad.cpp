@@ -35,7 +35,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include "WOLSquad.h"
-#include <WWDebug/WWDebug.h>
+#include <wwdebug/wwdebug.h>
 
 namespace WWOnline {
 

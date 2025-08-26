@@ -17,7 +17,7 @@
 */
 
 #include "thread.h"
-#include "except.h"
+#include "Except.h"
 #include "wwdebug.h"
 #include <process.h>
 #include <windows.h>

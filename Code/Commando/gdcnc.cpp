@@ -45,7 +45,7 @@
 #include "playerdata.h"
 #include "player.h"
 #include "playertype.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 
 
 //-----------------------------------------------------------------------------

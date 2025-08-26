@@ -56,7 +56,7 @@
 #include "vehicle.h"
 #include "csdamageevent.h"
 #include "specialbuilds.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "gametype.h"
 
 static int RendererFps;

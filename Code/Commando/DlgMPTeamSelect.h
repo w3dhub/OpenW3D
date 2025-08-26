@@ -37,8 +37,8 @@
 #ifndef __DLGMPTEAMSELECT_H__
 #define __DLGMPTEAMSELECT_H__
 
-#include "PlayerManager.h"
-#include <wwui/MenuDialog.h>
+#include "playermanager.h"
+#include <wwui/menudialog.h>
 #include <wwlib/Notify.h>
 #include <wwlib/Signaler.h>
 #include <WWOnline/RefPtr.h>

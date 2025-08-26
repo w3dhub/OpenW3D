@@ -40,7 +40,7 @@
 #include "dlgmpwolpagereply.h"
 #include "dlgmpwolbuddylistpopup.h"
 #include "renegadedialogmgr.h"
-//#include "wolbuddymgr.h"
+//#include "WOLBuddyMgr.h"
 #include "comboboxctrl.h"
 
 

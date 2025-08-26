@@ -27,7 +27,7 @@
 #include "Resource.H"
 #include "Globals.h"
 #include "W3DView.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "rddesc.h"
 
 #ifdef _DEBUG

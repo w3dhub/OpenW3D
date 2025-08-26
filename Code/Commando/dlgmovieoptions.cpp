@@ -36,12 +36,12 @@
 
 #include "dlgmovieoptions.h"
 #include "listctrl.h"
-#include "binkmovie.h"
+#include "BINKMovie.h"
 #include "registry.h"
 #include "translatedb.h"
 #include "_globals.h"
 #include "string_ids.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 
 ////////////////////////////////////////////////////////////////
 //

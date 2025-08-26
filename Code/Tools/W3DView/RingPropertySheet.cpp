@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "w3dview.h"
 #include "RingPropertySheet.h"
-#include "utils.h"
+#include "Utils.h"
 #include "W3DViewDoc.h"
 #include "assetmgr.h"
 #include "datatreeview.h"

@@ -26,7 +26,7 @@
 //
 
 #include "HistogramCtl.h"
-#include "Resource.h"
+#include "resource.h"
 #include "VisLog.h"
 
 

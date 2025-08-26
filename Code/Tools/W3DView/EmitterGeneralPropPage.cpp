@@ -24,7 +24,7 @@
 #include "EmitterGeneralPropPage.H"
 #include "EmitterPropertySheet.H"
 #include "Part_Emt.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "texture.h"
 #include "Shader.H"
 #include "EmitterInstanceList.H"

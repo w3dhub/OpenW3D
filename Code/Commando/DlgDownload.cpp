@@ -37,13 +37,13 @@
 #include "DlgDownload.h"
 #include "DlgMessageBox.h"
 #include "DlgRestart.h"
-#include "Resource.h"
+#include "resource.h"
 #include <wwui/ProgressCtrl.h>
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
 #include "mainloop.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 
 #ifdef _MSC_VER
 #pragma warning (push,3)

@@ -35,10 +35,10 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "wolgmode.h"
-#include "GameData.h"
-#include "GameChanList.h"
-#include "GameChannel.h"
-#include "GameInitMgr.h"
+#include "gamedata.h"
+#include "gamechanlist.h"
+#include "gamechannel.h"
+#include "gameinitmgr.h"
 #include "WOLChatMgr.h"
 #include "WOLBuddyMgr.h"
 #include "WOLQuickMatch.h"
@@ -47,13 +47,13 @@
 #include "DlgMessageBox.h"
 #include "_globals.h"
 #include "colors.h"
-#include "cNetwork.h"
+#include "cnetwork.h"
 #include "GameResSend.h"
-#include "PlayerManager.h"
-#include "MessageWindow.h"
+#include "playermanager.h"
+#include "messagewindow.h"
 #include "natter.h"
-#include "WWProfile.h"
-#include "BandwidthCheck.h"
+#include "wwprofile.h"
+#include "bandwidthcheck.h"
 #include "WOLLoginProfile.h"
 #include "DlgDownload.h"
 #include "AutoStart.h"
@@ -76,11 +76,11 @@
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/PingProfile.h>
 #include <WWAudio/WWAudio.h>
-#include <wwlib/RealCRC.h>
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
-#include <wwdebug/WWProfile.h>
+#include <wwlib/realcrc.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
+#include <wwdebug/wwprofile.h>
 #include "specialbuilds.h"
 #include "slavemaster.h"
 #include "sctextobj.h"

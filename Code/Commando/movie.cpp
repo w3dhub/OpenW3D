@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "movie.h"
-#include "binkmovie.h"
+#include "BINKMovie.h"
 #include "campaign.h"
 #include "input.h"
 #include "_globals.h"
@@ -43,7 +43,7 @@
 #include "renegadedialogmgr.h"
 #include "wwmemlog.h"
 #include "gameinitmgr.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "specialbuilds.h"
 #include "stylemgr.h"
 #include "render2dsentence.h"

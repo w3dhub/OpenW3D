@@ -23,7 +23,7 @@
 #include "w3dview.h"
 #include "w3dviewdoc.h"
 #include "TexturePathDialog.h"
-#include "utils.h"
+#include "Utils.h"
 #include "directorydialog.h"
 
 #ifdef _DEBUG

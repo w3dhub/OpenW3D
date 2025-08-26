@@ -24,7 +24,7 @@
 
 #include "StdAfx.H"
 #include "ColorBar.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "Resource.H"
 #include <Math.H>
 

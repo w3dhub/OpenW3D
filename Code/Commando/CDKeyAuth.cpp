@@ -37,10 +37,10 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <wchar.h>
-#include <GameSpy/gcdkey/gcdkeys.h>
-#include <GameSpy/gcdkey/gcdkeyc.h>
-#include <GameSpy/nonport.h>
-#include <GameSpy/md5.h>
+#include <gamespy/gcdkey/gcdkeys.h>
+#include <gamespy/gcdkey/gcdkeyc.h>
+#include <gamespy/nonport.h>
+#include <gamespy/md5.h>
 #include <stdlib.h>
 #include "wwdebug.h"
 #include "CDKeyAuth.h"

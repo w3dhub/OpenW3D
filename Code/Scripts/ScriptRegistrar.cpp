@@ -35,8 +35,8 @@
 
 #include "always.h"
 #include "ScriptRegistrar.h"
-#include "scriptfactory.h"
-#include "dprint.h"
+#include "ScriptFactory.h"
+#include "DPrint.h"
 #include <string.h>
 #include <assert.h>
 

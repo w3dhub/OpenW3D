@@ -27,7 +27,7 @@
 #include "cameramgr.h"
 #include "mainfrm.h"
 #include "ww3d.h"
-#include "mousemgr.h"
+#include "MouseMgr.h"
 #include "sceneeditor.h"
 #include <process.h>
 #include "nodemgr.h"
@@ -35,7 +35,7 @@
 #include "dynamesh.h"
 #include "vertmaterial.h"
 #include "win.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "combat.h"
 #include "timemgr.h"
 #include "gameobjmanager.h"
@@ -44,8 +44,8 @@
 #include "backgroundmgr.h"
 #include "dazzle.h"
 #include "phys.h"
-#include "weathermgr.h"
-#include "soundenvironment.h"
+#include "WeatherMgr.h"
+#include "SoundEnvironment.h"
 #include "heightfieldeditor.h"
 
 

@@ -36,10 +36,10 @@
 #include "always.h"
 
 #include "WebBrowser.h"
-#include <WWLib/WWCOMUtil.h>
-#include <WW3D2/WW3D.h>
+#include <wwlib/WWCOMUtil.h>
+#include <ww3d2/ww3d.h>
 #include <WWOnline/WOLLoginInfo.h>
-#include <WWDebug/WWDebug.h>
+#include <wwdebug/wwdebug.h>
 #include "win.h"
 #include "_globals.h"
 

@@ -56,7 +56,7 @@
 #include "pot.h"
 #include "materialeffect.h"
 #include "wwmemlog.h"
-#include "targa.h"
+#include "TARGA.H"
 #include "bitmaphandler.h"
 #include "dx8caps.h"
 #include "vertmaterial.h"

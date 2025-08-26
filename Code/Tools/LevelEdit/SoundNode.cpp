@@ -47,7 +47,7 @@
 #include "persistfactory.h"
 #include "editorchunkids.h"
 #include "preset.h"
-#include "sound3d.h"
+#include "Sound3D.h"
 #include "soundsettingspage.h"
 #include "nodeinfopage.h"
 #include "positionpage.h"

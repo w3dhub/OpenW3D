@@ -39,15 +39,15 @@
 #include "gameobjmanager.h"
 #include "playermanager.h"
 #include "cnetwork.h"
-#include "WWAudio.H"
+#include "WWAudio.h"
 #include "ccamera.h"
 #include "gametype.h"
 #include "textdisplay.h"
 #include "wwprofile.h"
 #include "serverfps.h"
 #include "useroptions.h"
-#include "serversettings.h"
-#include "consolemode.h"
+#include "ServerSettings.h"
+#include "ConsoleMode.h"
 #include "demosupport.h"
 
 //-----------------------------------------------------------------------------

@@ -40,7 +40,7 @@
 #include "ViewerAssetMgr.H"
 #include "texture.h"
 #include "ww3d.h"
-#include "Utils.H"
+#include "Utils.h"
 
 
 ////////////////////////////////////////////////////////////////////////

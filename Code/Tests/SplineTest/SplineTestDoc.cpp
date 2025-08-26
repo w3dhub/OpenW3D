@@ -32,7 +32,7 @@
 #include "wwmath.h"
 #include "CardinalDialog.h"
 #include "TCBDialog.h"
-#include "Matrix3D.h"
+#include "matrix3d.h"
 #include "vehiclecurve.h"
 
 

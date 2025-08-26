@@ -26,7 +26,7 @@
 #include "node.h"
 #include "nodemgr.h"
 #include "cameramgr.h"
-#include "utils.h"
+#include "Utils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

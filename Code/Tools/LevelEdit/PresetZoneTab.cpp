@@ -24,7 +24,7 @@
 #include "PresetZoneTab.h"
 #include "definition.h"
 #include "preset.h"
-#include "utils.h"
+#include "Utils.h"
 #include "ZoneEditDialog.h"
 #include "objectnode.h"
 #include "rendobj.h"

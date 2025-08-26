@@ -23,7 +23,7 @@
 #include "LevelEdit.h"
 #include "GenerateVisDialog.h"
 #include "GeneratingVisDialog.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "SceneEditor.H"
 #include "rendobj.h"
 #include "phys.h"

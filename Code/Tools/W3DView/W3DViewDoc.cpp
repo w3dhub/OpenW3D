@@ -39,7 +39,7 @@
 #include "bmp2d.h"
 #include "part_emt.h"
 #include "part_ldr.h"
-#include "utils.h"
+#include "Utils.h"
 #include "w3derr.h"
 #include "chunkio.h"
 #include "assetinfo.h"

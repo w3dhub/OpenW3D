@@ -37,7 +37,7 @@
 #ifndef __PRIORITY_VECTOR_H
 #define __PRIORITY_VECTOR_H
 
-#include "Vector.H"
+#include "vector.h"
 
 ////////////////////////////////////////////////////////////////////
 //

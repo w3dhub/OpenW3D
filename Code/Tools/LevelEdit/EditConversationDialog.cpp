@@ -29,7 +29,7 @@
 #include "playertype.h"
 #include "orator.h"
 #include "oratortypes.h"
-#include "utils.h"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

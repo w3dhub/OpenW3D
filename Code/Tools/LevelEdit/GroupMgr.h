@@ -27,7 +27,7 @@
 #define __GROUPMGR_H
 
 
-#include "utils.h"
+#include "Utils.h"
 #include "vector3.h"
 #include "aabox.h"
 #include "sphere.h"

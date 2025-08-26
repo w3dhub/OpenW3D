@@ -35,7 +35,7 @@
 #include "Texture.H"
 #include "W3DView.H"
 #include "TextureSettingsDialog.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "AssetMgr.H"
 
 /*#ifdef _DEBUG

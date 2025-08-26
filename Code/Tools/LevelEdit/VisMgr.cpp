@@ -41,7 +41,7 @@
 #include "matrix3d.h"
 #include "w3d_file.h"
 #include "chunkio.h"
-#include "utils.h"
+#include "Utils.h"
 #include "staticphys.h"
 #include "node.h"
 #include "nodemgr.h"

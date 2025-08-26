@@ -45,16 +45,16 @@
 #include "gametype.h"
 #include "dialogbase.h"
 #include "dialogmgr.h"
-#include "dlgmpconnect.h"
+#include "DlgMPConnect.h"
 #include "dialogresource.h"
 #include "resource.h"
 #include "apppackettypes.h"
 #include "modpackagemgr.h"
 #include "specialbuilds.h"
-#include "dlgmpconnectionrefused.h"
+#include "DlgMPConnectionRefused.h"
 #include "translatedb.h"
 #include "string_ids.h"
-#include <wwlib/RealCRC.h>
+#include <wwlib/realcrc.h>
 
 DECLARE_NETWORKOBJECT_FACTORY(cGameOptionsEvent, NETCLASSID_GAMEOPTIONSEVENT);
 

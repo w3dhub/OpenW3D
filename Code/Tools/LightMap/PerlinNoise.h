@@ -39,7 +39,7 @@
 
 // Includes.
 #include "ProceduralTexture.h"
-#include "Vector3.h"
+#include "vector3.h"
 
 // Defines.
 #define NOISE_TABLE_SIZE	256					  	  // NOTE: Must be a power of 2.	

@@ -34,7 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "pathdebugplotter.h"
+#include "PathDebugPlotter.h"
 #include "widgets.h"
 #include "matinfo.h"
 

@@ -37,7 +37,7 @@
 #include "floodfillbox.h"
 #include "PathfindSector.h"
 #include "PathfindPortal.h"
-#include "pathfind.h"
+#include "Pathfind.h"
 
 
 //////////////////////////////////////////////////////////////////////////

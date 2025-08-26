@@ -37,8 +37,8 @@
 #define _MESSAGE_BOX_H
 
 // Includes.
-#include "PopupDialog.h"
-#include "MenuDialog.h"
+#include "popupdialog.h"
+#include "menudialog.h"
 
 
 // Forward declarations.

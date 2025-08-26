@@ -38,8 +38,8 @@
 
 
 // Includes.
-#include "MenuDialog.h"
-#include "Resource.h"
+#include "menudialog.h"
+#include "resource.h"
 #include "MessageBox.h"
 #include "WW3D.h"
 

@@ -40,7 +40,7 @@
 
 namespace WOL 
 {
-#include <wolapi/wolapi.h>
+#include <wolapi/WOLAPI.h>
 }
 
 template<typename T> class RefPtr;

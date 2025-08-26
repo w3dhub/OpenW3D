@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "VisualOptionsDialog.h"
-#include "Utils.H"
+#include "Utils.h"
 #include "WW3D.H"
 
 #ifdef _DEBUG

@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "OptimizingVisDialog.h"
-#include "utils.h"
+#include "Utils.h"
 #include "sceneeditor.h"
 #include "rendobj.h"
 #include "phys.h"

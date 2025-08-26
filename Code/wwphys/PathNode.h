@@ -45,7 +45,7 @@
 #include "refcount.h"
 #include "binheap.h"
 #include "mempool.h"
-#include "pathfindportal.h"
+#include "PathfindPortal.h"
 
 
 /////////////////////////////////////////////////////////////////////////

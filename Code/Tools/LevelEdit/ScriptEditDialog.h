@@ -26,7 +26,7 @@
 
 #include "..\..\scripts\scriptevents.h"
 #include "EditScript.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Vector3Dialog.h"
 
 

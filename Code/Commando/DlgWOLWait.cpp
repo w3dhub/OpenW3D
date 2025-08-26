@@ -35,12 +35,12 @@
 
 #include "DlgWOLWait.h"
 #include "DlgMessageBox.h"
-#include "Resource.h"
-#include "String_ids.h"
+#include "resource.h"
+#include "string_ids.h"
 #include <WWOnline/WOLSession.h>
-#include <wwui/MouseMgr.h>
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
+#include <wwui/mousemgr.h>
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
 #include "gamespyadmin.h"
 
 #ifdef _MSC_VER

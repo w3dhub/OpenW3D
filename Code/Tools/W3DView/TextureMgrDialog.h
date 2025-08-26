@@ -41,9 +41,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "Vector.H"
+#include "vector.h"
 #include "RendObj.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "Resource.H"
 #include "DialogToolbar.H"
 #include "texture.h"

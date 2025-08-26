@@ -34,7 +34,7 @@
 #include "StdAfx.h"
 #include "vispointgenerator.h"
 #include "cameramgr.h"
-#include "utils.h"
+#include "Utils.h"
 #include "mesh.h"
 #include "meshmdl.h"
 #include "vector3.h"

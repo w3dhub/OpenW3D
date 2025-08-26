@@ -50,7 +50,7 @@
 #include "WOLPageMsg.h"
 #include "RefPtr.h"
 #include <wwlib/Notify.h>
-#include <wwlib/WideString.h>
+#include <wwlib/widestring.h>
 
 namespace WOL
 {

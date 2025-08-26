@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "W3DView.h"
 #include "ColorSelectionDialog.h"
-#include "Utils.H"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

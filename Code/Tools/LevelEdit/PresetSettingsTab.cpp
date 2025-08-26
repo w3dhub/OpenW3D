@@ -25,7 +25,7 @@
 #include "definition.h"
 #include "preset.h"
 #include "specsheet.h"
-#include "utils.h"
+#include "Utils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

@@ -62,7 +62,7 @@
 #include "wwphysids.h"
 #include "hanim.h"
 #include "combat.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "wwdebug.h"
 #include "wwhack.h"
 #include "wwprofile.h"

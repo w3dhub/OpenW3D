@@ -36,10 +36,10 @@
 
 
 #include "StdAfx.h"
-#include "utils.h"
+#include "Utils.h"
 #include "camera.h"
 #include "cameramgr.h"
-#include "mousemgr.h"
+#include "MouseMgr.h"
 #include "leveleditdoc.h"
 #include "groupmgr.h"
 #include "formtoolbar.h"

@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "PlaySoundDialog.h"
-#include "Utils.H"
+#include "Utils.h"
 #include "AudibleSound.H"
 #include "FileMgr.H"
 

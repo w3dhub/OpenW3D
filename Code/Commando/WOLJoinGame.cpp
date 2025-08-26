@@ -36,17 +36,17 @@
 #include "DlgWOLWait.h"
 #include "DlgMessageBox.h"
 #include "DlgMPConnect.h"
-#include "Nat.h"
-#include "Natter.h"
+#include "nat.h"
+#include "natter.h"
 #include "FirewallWait.h"
-#include "CNetwork.h"
+#include "cnetwork.h"
 #include "WOLGameInfo.h"
 #include <WWOnline/WOLSession.h>
 #include <WWOnline/WOLProduct.h>
 #include <WWOnline/WOLChannel.h>
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
 
 using namespace WWOnline;
 

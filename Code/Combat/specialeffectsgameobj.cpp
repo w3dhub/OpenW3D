@@ -37,7 +37,7 @@
 
 #include "specialeffectsgameobj.h"
 #include "combatchunkid.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "hanim.h"
 #include "assetmgr.h"
 #include "wwhack.h"

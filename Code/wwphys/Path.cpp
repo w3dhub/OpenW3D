@@ -34,15 +34,15 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "path.h"
+#include "Path.h"
 #include <windows.h>
 #include "colmathaabox.h"
-#include "pathfind.h"
-#include "pathfindportal.h"
+#include "Pathfind.h"
+#include "PathfindPortal.h"
 #include "pathsolve.h"
-#include "pathdebugplotter.h"
+#include "PathDebugPlotter.h"
 #include "cardinalspline.h"
-#include "pathobject.h"
+#include "PathObject.h"
 #include "vehiclecurve.h"
 #include "waypath.h"
 #include "waypoint.h"

@@ -41,7 +41,7 @@
 #ifndef __DLG_MP_WOL_PAGE_REPLY_H
 #define __DLG_MP_WOL_PAGE_REPLY_H
 
-#include "PopupDialog.h"
+#include "popupdialog.h"
 #include "WOLBuddyMgr.h"
 
 class EditCtrlClass;

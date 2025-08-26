@@ -27,7 +27,7 @@
 #include "definitionfactory.h"
 #include "definitionfactorymgr.h"
 #include "icons.h"
-#include "utils.h"
+#include "Utils.h"
 #include "preset.h"
 #include "persistfactory.h"
 

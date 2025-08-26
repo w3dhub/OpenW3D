@@ -79,7 +79,7 @@
 #include "apppackettypes.h"
 #include "bandwidthgraph.h"
 #include "priority.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "stylemgr.h"
 #include "demosupport.h"
 

@@ -52,7 +52,7 @@
 #include "dialogcontrol.h"
 #include "specialbuilds.h"
 #include "editctrl.h"
-#include "dlgpasswordprompt.h"
+#include "DlgPasswordPrompt.h"
 #include "registry.h"
 #include "_globals.h"
 #include "dlgmplanhostoptions.h"

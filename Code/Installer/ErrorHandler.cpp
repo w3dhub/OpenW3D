@@ -37,7 +37,7 @@
 // Includes.
 #include "ErrorHandler.h"
 #include "CodeControl.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Translator.h"
 #include "Win.h"
 

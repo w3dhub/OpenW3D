@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <always.h>
-#include "bwbalance.h"
+#include "BWBalance.h"
 #include "connect.h"
 #include "packetmgr.h"
 #include "systimer.h"

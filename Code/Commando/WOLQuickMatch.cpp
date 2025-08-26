@@ -39,8 +39,8 @@
 #include <WWOnline/WOLConnect.h>
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLLadder.h>
-#include <wwlib/CPUDetect.h>
-#include <wwdebug/WWDebug.h>
+#include <wwlib/cpudetect.h>
+#include <wwdebug/wwdebug.h>
 #include "cnetwork.h"
 #include "translatedb.h"
 #include "string_ids.h"

@@ -37,13 +37,13 @@
 #include "dlgconfigaudiotab.h"
 #include "resource.h"
 #include "sliderctrl.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "comboboxctrl.h"
 #include "listctrl.h"
 #include "_globals.h"
 #include "string_ids.h"
 #include "translatedb.h"
-#include "audiblesound.h"
+#include "AudibleSound.h"
 #include "dialogmgr.h"
 
 

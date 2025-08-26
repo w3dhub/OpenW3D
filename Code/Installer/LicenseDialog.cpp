@@ -39,7 +39,7 @@
 #include "CheckBoxCtrl.h"
 #include "ErrorHandler.h"
 #include "MessageBox.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Translator.h"
 
 

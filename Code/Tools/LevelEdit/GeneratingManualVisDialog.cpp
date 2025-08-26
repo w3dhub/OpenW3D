@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "generatingmanualvisdialog.h"
-#include "utils.h"
+#include "Utils.h"
 #include "LevelEditView.h"
 #include "vismgr.h"
 #include "sceneeditor.h"

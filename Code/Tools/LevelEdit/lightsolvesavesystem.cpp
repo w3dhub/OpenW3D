@@ -39,7 +39,7 @@
 #include "StdAfx.h"
 #include "lightsolvesavesystem.h"
 #include "sceneeditor.h"
-#include "utils.h"
+#include "Utils.h"
 #include "chunkio.h"
 #include "saveload.h"
 #include "editorchunkids.h"

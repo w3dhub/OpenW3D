@@ -35,7 +35,7 @@
 #include <string.h>
 #include <memory.h>
 #include "WOLLadder.h"
-#include <wwdebug/WWDebug.h>
+#include <wwdebug/wwdebug.h>
 
 namespace WWOnline {
 

@@ -24,7 +24,7 @@
 #include "PresetDependencyTab.h"
 #include "definition.h"
 #include "preset.h"
-#include "utils.h"
+#include "Utils.h"
 #include "filemgr.h"
 
 #ifdef _DEBUG

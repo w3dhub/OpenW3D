@@ -28,7 +28,7 @@
 #include "W3DViewDoc.H"
 #include "MainFrm.H"
 #include "DataTreeView.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "Texture.H"
 #include "AssetMgr.H"
 #include "Agg_Def.H"

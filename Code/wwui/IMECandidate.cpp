@@ -33,7 +33,7 @@
 ******************************************************************************/
 
 #include "IMECandidate.h"
-#include "WWDebug.h"
+#include "wwdebug.h"
 
 namespace IME {
 

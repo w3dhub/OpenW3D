@@ -46,13 +46,13 @@
 #include "crc.h"
 #include "msgstatlist.h"
 #include "wwprofile.h"
-#include "commando/nat.h"
-#include "commando/natter.h"
+#include "Commando/nat.h"
+#include "Commando/natter.h"
 #include "packetmgr.h"
-#include "bwbalance.h"
+#include "BWBalance.h"
 
 #ifdef WWDEBUG
-#include "combat/crandom.h"
+#include "Combat/crandom.h"
 
 int cConnection::LatencyAddLow = 0;
 int cConnection::LatencyAddHigh = 0;

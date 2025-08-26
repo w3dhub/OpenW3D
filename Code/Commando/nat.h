@@ -57,7 +57,7 @@
 
 #include	"nataddr.h"
 #include "natter.h"
-#include "wolapi.h"
+#include "WOLAPI.h"
 
 /*
 ** Number of ports to use when testing port mangling sequences.

@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "pathnode.h"
+#include "PathNode.h"
 
 
 DEFINE_AUTO_POOL(PathNodeClass, 512);

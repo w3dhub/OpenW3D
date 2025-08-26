@@ -40,7 +40,7 @@
 #include "persist.h"
 #include "persistfactory.h"
 #include "preset.h"
-#include "utils.h"
+#include "Utils.h"
 #include "definition.h"
 #include "editorchunkids.h"
 #include "filemgr.h"

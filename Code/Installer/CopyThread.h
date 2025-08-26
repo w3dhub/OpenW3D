@@ -39,8 +39,8 @@
 // Includes.
 #include "Thread.h"
 #include "Win.h"
-#include	"WWString.h"
-#include "WideString.h"
+#include	"wwstring.h"
+#include "widestring.h"
 
 
 // Class to implement a worker thread that will execute the file copying process.

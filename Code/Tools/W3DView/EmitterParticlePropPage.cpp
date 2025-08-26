@@ -23,7 +23,7 @@
 #include "w3dview.h"
 #include "EmitterParticlePropPage.h"
 #include "Part_Emt.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "Vector3RndCombo.H"
 #include "VolumeRandomDialog.H"
 #include "EmitterInstanceList.H"

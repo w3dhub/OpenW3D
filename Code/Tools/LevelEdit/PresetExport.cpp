@@ -40,7 +40,7 @@
 #include "preset.h"
 #include "presetmgr.h"
 #include "textfile.h"
-#include "utils.h"
+#include "Utils.h"
 #include "parameter.h"
 #include "simpleparameter.h"
 #include "presetslibform.h"

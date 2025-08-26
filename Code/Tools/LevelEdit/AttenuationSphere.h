@@ -45,7 +45,7 @@
 
 #include "Utils.h"
 #include "EditorPhys.h"
-#include "Vector3.h"
+#include "vector3.h"
 
 
 // Forward declarations

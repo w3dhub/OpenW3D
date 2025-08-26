@@ -28,7 +28,7 @@
 #include <process.h>
 #include "quat.h"
 #include "mainfrm.h"
-#include "utils.h"
+#include "Utils.h"
 #include "mmsystem.h"
 #include "light.h"
 #include "viewerassetmgr.h"
@@ -42,8 +42,8 @@
 #include "coltest.h"
 #include "mpu.h"
 #include "dazzle.h"
-#include "soundscene.h"
-#include "wwaudio.h"
+#include "SoundScene.h"
+#include "WWAudio.h"
 #include "metalmap.h"
 #include "dx8wrapper.h"
 

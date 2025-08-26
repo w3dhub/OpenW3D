@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 // Includes.
 #include "WelcomeDialog.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Translator.h"
 
 

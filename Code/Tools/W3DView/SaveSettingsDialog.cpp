@@ -23,7 +23,7 @@
 #include "W3DView.h"
 #include "SaveSettingsDialog.h"
 #include "W3DViewDoc.H"
-#include "Utils.H"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

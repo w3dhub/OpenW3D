@@ -43,7 +43,7 @@
 #include "editorini.h"
 #include "ffactory.h"
 #include "ww3d.h"
-#include "utils.h"
+#include "Utils.h"
 #include "filemgr.h"
 #include "rawfile.h"
 #include "rcfile.h"

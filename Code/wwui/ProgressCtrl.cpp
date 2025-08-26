@@ -35,7 +35,7 @@
 ******************************************************************************/
 
 #include "ProgressCtrl.h"
-#include "StyleMgr.h"
+#include "stylemgr.h"
 
 #define BAR_INSET 3
 

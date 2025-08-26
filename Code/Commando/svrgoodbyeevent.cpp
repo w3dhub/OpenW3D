@@ -45,7 +45,7 @@
 #include "translatedb.h"
 #include "string_ids.h"
 #include "textdisplay.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "devoptions.h"
 //#include "helptext.h"
 #include "DlgMessageBox.h"
@@ -53,7 +53,7 @@
 #include "string_ids.h"
 #include "dlgcncwinscreen.h"
 #include "gamespyadmin.h"
-#include "dlgmpconnectionrefused.h"
+#include "DlgMPConnectionRefused.h"
 #include "specialbuilds.h"
 #include "gamespyadmin.h"
 

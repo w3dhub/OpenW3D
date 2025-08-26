@@ -46,7 +46,7 @@
 
 #include "Dynamesh.H"
 #include "EditorPhys.H"
-#include "Utils.H"
+#include "Utils.h"
 
 
 /////////////////////////////////////////////////////////////////////////

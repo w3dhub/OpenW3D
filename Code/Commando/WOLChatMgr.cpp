@@ -35,15 +35,15 @@
 
 #include "WOLChatMgr.h"
 #include "WOLBuddyMgr.h"
-#include "MPSettingsMgr.h"
+#include "mpsettingsmgr.h"
 #include "DlgWOLWait.h"
 #include <WWOnline/WOLSession.h>
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLChannel.h>
 #include <WWOnline/WOLProduct.h>
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
 
 using namespace WWOnline;
 

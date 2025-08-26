@@ -49,7 +49,7 @@
 #include "textdisplay.h"
 #include "apppackettypes.h"
 #include "messagewindow.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 
 
 DECLARE_NETWORKOBJECT_FACTORY(cPurchaseResponseEvent, NETCLASSID_PURCHASERESPONSEEVENT);

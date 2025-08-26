@@ -34,9 +34,9 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "soundsettingspage.h"
-#include "utils.h"
+#include "Utils.h"
 #include "filemgr.h"
-#include "audiblesound.h"
+#include "AudibleSound.h"
 
 
 #ifdef _DEBUG

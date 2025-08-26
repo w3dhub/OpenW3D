@@ -40,7 +40,7 @@
 #include "translatedb.h"
 #include "natter.h"
 #include <WWOnline/WOLSession.h>
-#include <wwdebug/WWDebug.h>
+#include <wwdebug/wwdebug.h>
 
 #ifdef _MSC_VER
 #pragma warning (push,3)

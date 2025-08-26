@@ -34,19 +34,19 @@
 *
 ******************************************************************************/
 
-#include "DlgQuickMatch.h"
+#include "DlgQuickmatch.h"
 #include "DlgWOLWait.h"
 #include "DlgMessageBox.h"
-#include "DlgMPWolQuickMatchOptions.h"
-#include "Resource.h"
-#include "DialogResource.h"
+#include "dlgmpwolquickmatchoptions.h"
+#include "resource.h"
+#include "dialogresource.h"
 #include "gameinitmgr.h"
 #include "WOLJoinGame.h"
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
 #include <WWOnline/WaitCondition.h>
-#include <wwui/ListCtrl.h>
-#include <wwdebug/WWDebug.h>
+#include <wwui/listctrl.h>
+#include <wwdebug/wwdebug.h>
 
 
 #ifdef _MSC_VER

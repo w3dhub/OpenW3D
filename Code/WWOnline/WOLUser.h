@@ -43,14 +43,14 @@
 #include "RefCounted.h"
 #include "RefPtr.h"
 #include <wwlib/Notify.h>
-#include <wwlib/WideString.h>
+#include <wwlib/widestring.h>
 #include "WOLChannel.h"
 #include "WOLSquad.h"
 #include "WOLLadder.h"
 
 namespace WOL
 {
-#include <wolapi/wolapi.h>
+#include <wolapi/WOLAPI.h>
 #include <wolapi/chatdefs.h>
 }
 

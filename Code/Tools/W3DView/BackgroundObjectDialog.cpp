@@ -23,7 +23,7 @@
 #include "w3dview.h"
 #include "BackgroundObjectDialog.h"
 #include "AssetMgr.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "W3DViewDoc.H"
 
 

@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "WWConfig.h"
 #include "audioconfigdialog.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "locale_api.h"
 #include "wwconfig_ids.h"
 #include "../../Combat/specialbuilds.h"

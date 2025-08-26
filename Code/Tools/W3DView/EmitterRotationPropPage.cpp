@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "w3dview.h"
 #include "EmitterRotationPropPage.h"
-#include "Utils.H"
+#include "Utils.h"
 #include "ParticleRotationKeyDialog.H"
 #include "EmitterInstanceList.H"
 

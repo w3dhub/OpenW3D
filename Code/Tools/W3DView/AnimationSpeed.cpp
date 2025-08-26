@@ -24,7 +24,7 @@
 #include "AnimationSpeed.h"
 #include "MainFrm.H"
 #include "GraphicView.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "W3DViewDoc.H"
 
 #ifdef _DEBUG

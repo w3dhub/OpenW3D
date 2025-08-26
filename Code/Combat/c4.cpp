@@ -48,7 +48,7 @@
 #include "decophys.h"
 #include "assets.h"
 #include "gameobjmanager.h"
-#include "wwaudio.h"
+#include "WWAudio.h"
 #include "wwprofile.h"
 #include "projectile.h"
 #include "wwphysids.h"

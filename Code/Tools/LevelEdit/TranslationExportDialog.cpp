@@ -24,7 +24,7 @@
 #include "translationexportdialog.h"
 #include "translatedb.h"
 #include "export.h"
-#include "utils.h"
+#include "Utils.h"
 #include "stringsmgr.h"
 
 

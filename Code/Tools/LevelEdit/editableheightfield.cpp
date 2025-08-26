@@ -37,7 +37,7 @@
 #include "StdAfx.h"
 
 #include "editableheightfield.h"
-#include "utils.h"
+#include "Utils.h"
 #include "dx8vertexbuffer.h"
 #include "dx8indexbuffer.h"
 #include "dx8wrapper.h"

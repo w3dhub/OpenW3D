@@ -24,7 +24,7 @@
 #include "w3dviewdoc.h"
 #include "graphicview.h"
 #include "CameraSettingsDialog.h"
-#include "utils.h"
+#include "Utils.h"
 #include "camera.h"
 #include "viewerscene.h"
 

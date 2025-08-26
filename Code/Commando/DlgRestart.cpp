@@ -35,11 +35,11 @@
 ******************************************************************************/
 
 #include "DlgRestart.h"
-#include "Resource.h"
-#include "MainLoop.h"
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
+#include "resource.h"
+#include "mainloop.h"
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
 
 /******************************************************************************
 *

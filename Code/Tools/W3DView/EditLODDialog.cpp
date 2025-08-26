@@ -23,7 +23,7 @@
 #include "W3DView.h"
 #include "EditLODDialog.h"
 #include "DistLod.H"
-#include "Utils.H"
+#include "Utils.h"
 #include "RendObj.H"
 #include "W3DViewDoc.H"
 

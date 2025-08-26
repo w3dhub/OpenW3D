@@ -42,7 +42,7 @@
 #include <stdio.h>
 
 
-#include "mission3.h"
+#include "Mission3.h"
 
 DECLARE_SCRIPT(RMV_Test_Script, "")
 {

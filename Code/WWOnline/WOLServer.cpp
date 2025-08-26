@@ -43,8 +43,8 @@
 #include "WOLProduct.h"
 #include <Commando/_globals.h>
 #include <string.h>
-#include <wwdebug/WWDebug.h>
-#include <wwlib/Registry.h>
+#include <wwdebug/wwdebug.h>
+#include <wwlib/registry.h>
 
 namespace WWOnline {
 

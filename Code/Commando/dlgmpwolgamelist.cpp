@@ -34,27 +34,27 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "DlgMPWOLGameList.h"
+#include "dlgmpwolgamelist.h"
 #include "specialbuilds.h"
-#include "cNetwork.h"
-#include "BandwidthCheck.h"
-#include "UserOptions.h"
-#include "GameInitMgr.h"
-#include "DlgMPWOLPageBuddy.h"
+#include "cnetwork.h"
+#include "bandwidthcheck.h"
+#include "useroptions.h"
+#include "gameinitmgr.h"
+#include "dlgmpwolpagebuddy.h"
 #include "DlgMessageBox.h"
 #include "DlgPasswordPrompt.h"
-#include <Combat/PlayerType.h>
+#include <Combat/playertype.h>
 #include "WOLJoinGame.h"
 #include "WOLLogonMgr.h"
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLChannel.h>
-#include <wwui/DialogMgr.h>
-#include <wwui/ShortcutBarCtrl.h>
-#include <wwui/ButtonCtrl.h>
-#include <wwui/CheckBoxCtrl.h>
-#include <wwui/ListCtrl.h>
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
+#include <wwui/dialogmgr.h>
+#include <wwui/shortcutbarctrl.h>
+#include <wwui/buttonctrl.h>
+#include <wwui/checkboxctrl.h>
+#include <wwui/listctrl.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
 #include "dlgmplanhostoptions.h"
 #include "debug.h"
 #include "init.h"

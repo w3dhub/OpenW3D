@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "w3dview.h"
 #include "EmitterFramePropPage.h"
-#include "Utils.H"
+#include "Utils.h"
 #include "ParticleFrameKeyDialog.H"
 #include "EmitterInstanceList.H"
 

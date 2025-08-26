@@ -45,7 +45,7 @@
 #include "assetmgr.h"
 #include "chunkio.h"
 #include "wwphysids.h"
-#include "pathdebugplotter.h"
+#include "PathDebugPlotter.h"
 #include "persistfactory.h"
 #include "waypath.h"
 #include "waypoint.h"

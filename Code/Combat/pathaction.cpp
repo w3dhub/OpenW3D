@@ -40,7 +40,7 @@
 #include "doors.h"
 #include "humanphys.h"
 #include "obbox.h"
-#include "path.h"
+#include "Path.h"
 #include "chunkio.h"
 #include "saveload.h"
 

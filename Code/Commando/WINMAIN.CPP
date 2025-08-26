@@ -42,28 +42,28 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "winmain.h"
+#include "WINMAIN.H"
 #define _WIN32_WINDOWS 0x0401
 #include "winmain_compat.h"
 #include "win.h"
 #include "resource.h"
-#include "WW3D.H"
+#include "ww3d.h"
 
 #include "miscutil.h"
 #include "input.h"
 #include "useroptions.h"
 
-#include "WWAudio.H"
-#include "FFactory.H"
+#include "WWAudio.h"
+#include "ffactory.h"
 
 #include "debug.h"
 #include "verchk.h"
 #include "devoptions.h"
 #include "dialogmgr.h"
 #include "renegadedialogmgr.h"
-#include "except.h"
+#include "Except.h"
 
-#include "DirectInput.h"
+#include "directinput.h"
 #include "WebBrowser.h"
 #include "wwmemlog.h"
 
@@ -76,12 +76,12 @@
 #include "buildnum.h"
 #include "dx8wrapper.h"
 #include "formconv.h"
-#include "autostart.h"
-#include "consolemode.h"
+#include "AutoStart.h"
+#include "ConsoleMode.h"
 #include "specialbuilds.h"
 #include "slavemaster.h"
 
-#include "serversettings.h"
+#include "ServerSettings.h"
 
 #ifdef _DEBUG
 #include	<crtdbg.h>

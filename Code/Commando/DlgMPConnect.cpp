@@ -34,7 +34,7 @@
 *
 ******************************************************************************/
 
-#include "dlgmpconnect.h"
+#include "DlgMPConnect.h"
 #include "gamedata.h"
 #include "gameinitmgr.h"
 #include "campaign.h"

@@ -35,7 +35,7 @@
 #include "LevelEdit.h"
 #include "UpdateAssetsDialog.H"
 #include "FileMgr.H"
-#include "Utils.H"
+#include "Utils.h"
 
 
 #ifdef _DEBUG

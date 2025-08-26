@@ -37,7 +37,7 @@
 #ifndef __EMITTER_INSTANCE_LIST_H
 #define __EMITTER_INSTANCE_LIST_H
 
-#include "Vector.H"
+#include "vector.h"
 #include "Part_Ldr.H"
 #include "Part_Emt.H"
 

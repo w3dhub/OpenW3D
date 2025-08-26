@@ -35,9 +35,9 @@
 ******************************************************************************/
 
 #include "DlgWOLSettings.h"
-#include "UserOptions.h"
-#include "RenegadeDialogMgr.h"
-#include "MPSettingsMgr.h"
+#include "useroptions.h"
+#include "renegadedialogmgr.h"
+#include "mpsettingsmgr.h"
 #include "DlgMessageBox.h"
 #include "DlgWOLWait.h"
 #include "DlgWebPage.h"
@@ -46,13 +46,13 @@
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLLoginInfo.h>
 #include <WWOnline/PingProfile.h>
-#include <wwui/ComboBoxCtrl.h>
-#include <wwui/ShortcutBarCtrl.h>
+#include <wwui/comboboxctrl.h>
+#include <wwui/shortcutbarctrl.h>
 #include "bandwidthcheck.h"
 
-#include "Resource.h"
-#include "String_ids.h"
-#include <wwtranslatedb/TranslateDB.h>
+#include "resource.h"
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
 
 using namespace WWOnline;
 

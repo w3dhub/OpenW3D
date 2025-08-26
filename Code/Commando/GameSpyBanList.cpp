@@ -52,7 +52,7 @@
 #include "rawfile.h"
 #include "gamespyauthmgr.h"
 #include "sctextobj.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include "gamesideservercontrol.h"
 
 

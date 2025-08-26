@@ -34,7 +34,7 @@
 *
 *****************************************************************************/
 
-#include <Windows.h>
+#include <windows.h>
 #include <wtypes.h>
 #include "locale.h"
 #include "locale_api.h"

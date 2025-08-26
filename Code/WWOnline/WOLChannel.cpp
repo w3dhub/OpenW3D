@@ -36,8 +36,8 @@
 #include <stdlib.h>
 #include "WOLChannel.h"
 #include "WOLString.h"
-#include <wolapi/ChatDefs.h>
-#include <wwdebug/WWDebug.h>
+#include <wolapi/chatdefs.h>
+#include <wwdebug/wwdebug.h>
 
 namespace WWOnline {
 

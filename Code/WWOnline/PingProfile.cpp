@@ -37,8 +37,8 @@
 #include <WWOnline/WOLSession.h>
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLString.h>
-#include <WWLib/WideString.h>
-#include <WWDebug/WWDebug.h>
+#include <wwlib/widestring.h>
+#include <wwdebug/wwdebug.h>
 #include <limits.h>
 #include <math.h>
 

@@ -16,7 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "binkmovie.h"
+#include "BINKMovie.h"
 #include "dx8wrapper.h"
 #include "formconv.h"
 #include "render2d.h"

@@ -24,7 +24,7 @@
 #include "exportpresetsdialog.h"
 #include "presetmgr.h"
 #include "nodecategories.h"
-#include "utils.h"
+#include "Utils.h"
 #include "definitionfactory.h"
 #include "definitionfactorymgr.h"
 #include "presetexport.h"

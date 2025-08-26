@@ -38,7 +38,7 @@
 #include "ErrorHandler.h"
 #include "MessageBox.h"
 #include "InstallMenuDialog.h"
-#include "Resource.h"
+#include "resource.h"
 
 
 /***********************************************************************************************

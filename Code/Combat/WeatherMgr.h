@@ -49,7 +49,7 @@
 #include "random.h"
 #include	"rendobj.h"
 #include "saveloadsubsystem.h"
-#include "soundenvironment.h"
+#include "SoundEnvironment.h"
 #include "texture.h"
 #include "vector.h"
 #include "vector2.h"

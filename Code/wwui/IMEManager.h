@@ -39,7 +39,7 @@
 #include "refcount.h"
 #include "IMECandidate.h"
 #include "Notify.h"
-#include "WideString.h"
+#include "widestring.h"
 #include "win.h"
 #include <imm.h>
 

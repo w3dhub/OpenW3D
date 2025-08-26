@@ -59,7 +59,7 @@
 #include "renegadedialogmgr.h"
 #include "campaign.h"
 #include "diaglog.h"
-#include "binkmovie.h"
+#include "BINKMovie.h"
 //#include "helptext.h"
 #include "init.h"
 #include "serverfps.h"
@@ -67,7 +67,7 @@
 #include "playermanager.h"
 #include "teammanager.h"
 #include "bandwidthgraph.h"
-#include "except.h"
+#include "Except.h"
 #include "skinpackagemgr.h"
 #include "modpackagemgr.h"
 

@@ -46,7 +46,7 @@
 #include "render2dsentence.h"
 #include "bittype.h"
 #include "dropdownctrl.h"
-#include "EditCtrl.h"
+#include "editctrl.h"
 
 
 ////////////////////////////////////////////////////////////////

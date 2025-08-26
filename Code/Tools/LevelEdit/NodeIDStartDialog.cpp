@@ -23,7 +23,7 @@
 #include "LevelEdit.h"
 #include "NodeIDStartDialog.h"
 #include "regkeys.h"
-#include "utils.h"
+#include "Utils.h"
 #include "nodemgr.h"
 
 

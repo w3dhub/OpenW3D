@@ -23,7 +23,7 @@
 #include "w3dview.h"
 #include "emittercolorproppage.h"
 #include "part_emt.h"
-#include "utils.h"
+#include "Utils.h"
 #include "opacitysettingsdialog.h"
 #include "colorutils.h"
 #include "emitterinstancelist.h"

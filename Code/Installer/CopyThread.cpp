@@ -40,7 +40,7 @@
 #include "FDI.h"
 #include "Installer.h"
 #include "RegistryManager.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Translator.h"
 #include "Verchk.h"
 #include <io.h>

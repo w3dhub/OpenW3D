@@ -25,7 +25,7 @@
 #include "translatedb.h"
 #include "translateobj.h"
 #include "editstringdialog.h"
-#include "utils.h"
+#include "Utils.h"
 #include "stringscategoryviewdialog.h"
 #include "stringscategorynamedialog.h"
 

@@ -43,7 +43,7 @@
 
 #include "popupdialog.h"
 #include "resource.h"
-#include "WideString.h"
+#include "widestring.h"
 
 
 ////////////////////////////////////////////////////////////////

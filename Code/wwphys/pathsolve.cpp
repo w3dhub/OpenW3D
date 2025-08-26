@@ -38,11 +38,11 @@
 #include "pathsolve.h"
 
 #include <windows.h>
-#include "pathfind.h"
-#include "pathfindportal.h"
-#include "pathnode.h"
-#include "pathdebugplotter.h"
-#include "pathobject.h"
+#include "Pathfind.h"
+#include "PathfindPortal.h"
+#include "PathNode.h"
+#include "PathDebugPlotter.h"
+#include "PathObject.h"
 #include "accessiblephys.h"
 #include "chunkio.h"
 #include "pathmgr.h"

@@ -59,7 +59,7 @@
 #include "registry.h"
 #include "_globals.h"
 #include "dialogtests.h"
-#include "dlgwolwait.h"
+#include "DlgWOLWait.h"
 #include "nicenum.h"
 #include "DlgMessageBox.h"
 #include "translatedb.h"

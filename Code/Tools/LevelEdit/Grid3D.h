@@ -38,8 +38,8 @@
 #ifndef __GRID_3D_H
 #define __GRID_3D_H
 
-#include "Vector3.H"
-#include "WWDebug.H"
+#include "vector3.h"
+#include "wwdebug.h"
 
 //////////////////////////////////////////////////////////////////////////
 //

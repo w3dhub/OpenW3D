@@ -40,7 +40,7 @@
 #include "playermanager.h"
 #include "cnetwork.h"
 #include "gamespyadmin.h"
-#include "cdkeyauth.h"
+#include "CDKeyAuth.h"
 #include "sctextobj.h"
 #include "translatedb.h"
 #include "string_ids.h"

@@ -36,14 +36,14 @@
 
 #include "DlgWebPage.h"
 #include "WebBrowser.h"
-#include <wwui/PopupDialog.h>
-#include <wwui/DialogControl.h>
-#include <Combat/DirectInput.h>
-#include <WW3D2/WW3D.h>
+#include <wwui/popupdialog.h>
+#include <wwui/dialogcontrol.h>
+#include <Combat/directinput.h>
+#include <ww3d2/ww3d.h>
 #include "DlgMessageBox.h"
-#include "Resource.h"
-#include <Combat/String_IDs.h>
-#include "WWDebug.h"
+#include "resource.h"
+#include <Combat/string_ids.h>
+#include "wwdebug.h"
 
 
 /******************************************************************************

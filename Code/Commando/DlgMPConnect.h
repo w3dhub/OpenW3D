@@ -37,7 +37,7 @@
 #ifndef __DLGMPCONNECT_H__
 #define __DLGMPCONNECT_H__
 
-#include <wwui/PopupDialog.h>
+#include <wwui/popupdialog.h>
 
 class cGameData;
 

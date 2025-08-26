@@ -25,7 +25,7 @@
 #include "dialogue.h"
 #include "translatedb.h"
 #include "translateobj.h"
-#include "utils.h"
+#include "Utils.h"
 #include "conversationpickerdialog.h"
 #include "conversationmgr.h"
 #include "conversation.h"

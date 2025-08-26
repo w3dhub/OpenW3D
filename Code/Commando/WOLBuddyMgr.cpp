@@ -35,24 +35,24 @@
 
 #include "WOLBuddyMgr.h"
 #include "_globals.h"
-#include "GameInitMgr.h"
-#include "MPSettingsMgr.h"
-#include "DlgMPWolInvitation.h"
-#include "DlgMPWolPageReply.h"
+#include "gameinitmgr.h"
+#include "mpsettingsmgr.h"
+#include "dlgmpwolinvitation.h"
+#include "dlgmpwolpagereply.h"
 #include "DlgMessageBox.h"
 #include "DlgPasswordPrompt.h"
-#include "DlgMPWolChat.h"
+#include "dlgmpwolchat.h"
 #include "WOLChatMgr.h"
 #include "WOLJoinGame.h"
 #include "WOLGameInfo.h"
-#include "consolemode.h"
+#include "ConsoleMode.h"
 #include <WWOnline/WOLChannel.h>
 #include <WWOnline/WOLProduct.h>
-#include <wwlib/Registry.h>
+#include <wwlib/registry.h>
 
-#include "String_IDs.h"
-#include <wwtranslatedb/TranslateDB.h>
-#include <wwdebug/WWDebug.h>
+#include "string_ids.h"
+#include <wwtranslatedb/translatedb.h>
+#include <wwdebug/wwdebug.h>
 
 using namespace WWOnline;
 

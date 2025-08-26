@@ -44,8 +44,8 @@
 #include "shortcutbarctrl.h"
 #include "translatedb.h"
 #include "string_ids.h"
-#include "GameData.h"
-#include "MPSettingsMgr.h"
+#include "gamedata.h"
+#include "mpsettingsmgr.h"
 
 ////////////////////////////////////////////////////////////////
 //

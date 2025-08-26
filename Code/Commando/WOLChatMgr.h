@@ -38,7 +38,7 @@
 
 #include <wwlib/refcount.h>
 #include <wwlib/Notify.h>
-#include <wwlib/WideString.h>
+#include <wwlib/widestring.h>
 #include <WWOnline/RefPtr.h>
 #include <WWOnline/WOLSession.h>
 #include <WWOnline/WOLChatMsg.h>

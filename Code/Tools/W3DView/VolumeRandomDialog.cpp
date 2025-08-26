@@ -35,7 +35,7 @@
 #include "W3DView.H"
 #include "VolumeRandomDialog.H"
 #include "V3_Rnd.H"
-#include "Utils.H"
+#include "Utils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

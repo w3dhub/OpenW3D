@@ -39,9 +39,9 @@
 #include "ErrorHandler.h"
 #include "DialogText.h"
 #include "Installer.h"
-#include "ListCtrl.h"
+#include "listctrl.h"
 #include	"RegistryManager.h"
-#include "Resource.h"
+#include "resource.h"
 #include "Translator.h"
 #include <io.h>
 

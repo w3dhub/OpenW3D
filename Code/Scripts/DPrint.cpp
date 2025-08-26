@@ -37,7 +37,7 @@
 
 #ifdef _DEBUG
 
-#include "dprint.h"
+#include "DPrint.h"
 #include <windows.h>
 #include <stdio.h>
 #include <stdarg.h>

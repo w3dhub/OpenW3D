@@ -39,7 +39,7 @@
 #include "matrix3d.h"
 #include "movephys.h"
 #include "vehiclephys.h"
-#include "path.h"
+#include "Path.h"
 #include "pscene.h"
 #include "vehicle.h"
 #include "soldier.h"

@@ -22,7 +22,7 @@
 #include "StdAfx.h"
 #include "LevelEdit.h"
 #include "EditorPropSheet.H"
-#include "Utils.H"
+#include "Utils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

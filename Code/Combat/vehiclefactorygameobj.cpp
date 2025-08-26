@@ -50,7 +50,7 @@
 #include "objlibrary.h"
 #include "combat.h"
 #include "soldier.h"
-#include "pathfind.h"
+#include "Pathfind.h"
 #include "waypath.h"
 #include "gameobjmanager.h"
 #include "mapmgr.h"

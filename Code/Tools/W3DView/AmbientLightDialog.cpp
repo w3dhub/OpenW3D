@@ -26,7 +26,7 @@
 #include "MainFrm.H"
 #include "W3DViewDoc.H"
 #include "ViewerScene.H"
-#include "Utils.H"
+#include "Utils.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
