@@ -467,9 +467,9 @@ bool PhysClass::Save (ChunkSaveClass &csave)
 
 	csave.Begin_Chunk(PHYS_CHUNK_VARIABLES);
 	// (gth) not saving observer pointers any more!
-	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_CULLABLE_PTR,cullable_ptr);
-	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_WIDGETUSER_PTR,widgetuser_ptr);
-	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_EDITABLE_PTR,editable_ptr);
+	WRITE_MICRO_CHUNK_PTR(csave,PHYS_VARIABLE_CULLABLE_PTR,cullable_ptr);
+	WRITE_MICRO_CHUNK_PTR(csave,PHYS_VARIABLE_WIDGETUSER_PTR,widgetuser_ptr);
+	WRITE_MICRO_CHUNK_PTR(csave,PHYS_VARIABLE_EDITABLE_PTR,editable_ptr);
 	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_FLAGS,Flags);
 	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_INSTANCEID,InstanceID);	
 	if (Name.Get_Length() > 0) {
@@ -512,9 +512,9 @@ bool PhysClass::Load (ChunkLoadClass &cload)
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						// (gth) not saving observer pointers any more!
-						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_CULLABLE_PTR,cullable_ptr);
-						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_WIDGETUSER_PTR,widgetuser_ptr);
-						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_EDITABLE_PTR,editable_ptr);
+						READ_MICRO_CHUNK_PTR(cload,PHYS_VARIABLE_CULLABLE_PTR,cullable_ptr);
+						READ_MICRO_CHUNK_PTR(cload,PHYS_VARIABLE_WIDGETUSER_PTR,widgetuser_ptr);
+						READ_MICRO_CHUNK_PTR(cload,PHYS_VARIABLE_EDITABLE_PTR,editable_ptr);
 						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_FLAGS,Flags);
 						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_DEFID,defid);
 						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_INSTANCEID,InstanceID);

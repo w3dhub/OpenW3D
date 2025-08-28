@@ -873,11 +873,11 @@ RaveshawBossGameObjClass::Save_Variables (ChunkSaveClass &csave)
 	}
 
 	Matrix3D cam_tm = CameraBoneModel->Get_Transform ();
-	WRITE_MICRO_CHUNK (csave, VARID_CAMERA_BONE_PTR,					CameraBoneModel);
+	WRITE_MICRO_CHUNK_PTR (csave, VARID_CAMERA_BONE_PTR,					CameraBoneModel);
 	WRITE_MICRO_CHUNK (csave, VARID_CAMERA_BONE_TM,						cam_tm);
 	WRITE_MICRO_CHUNK (csave, VARID_RESTORE_FIRST_PERSON,				RestoreFirstPerson);	
 
-	WRITE_MICRO_CHUNK (csave, VARID_THROWN_OBJECT_PTR,					ThrownObject);
+	WRITE_MICRO_CHUNK_PTR (csave, VARID_THROWN_OBJECT_PTR,					ThrownObject);
 	WRITE_MICRO_CHUNK (csave, VARID_IS_TIBERIUM_EFFECT_APPLIED,		IsTiberiumEffectApplied);
 
 	WRITE_MICRO_CHUNK (csave, VARID_CURRENT_DEST_POS,					CurrentDestPos);
@@ -919,11 +919,11 @@ RaveshawBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 				LOAD_MICRO_CHUNK (cload, ArcObjects[arc_obj_index++]);
 				break;
 
-			READ_MICRO_CHUNK (cload, VARID_CAMERA_BONE_PTR,					old_camera_bone_ptr);
+			READ_MICRO_CHUNK_PTR (cload, VARID_CAMERA_BONE_PTR,					old_camera_bone_ptr);
 			READ_MICRO_CHUNK (cload, VARID_CAMERA_BONE_TM,					cam_tm);
 			READ_MICRO_CHUNK (cload, VARID_RESTORE_FIRST_PERSON,			RestoreFirstPerson);	
 
-			READ_MICRO_CHUNK (cload, VARID_THROWN_OBJECT_PTR,				ThrownObject);
+			READ_MICRO_CHUNK_PTR (cload, VARID_THROWN_OBJECT_PTR,				ThrownObject);
 			READ_MICRO_CHUNK (cload, VARID_IS_TIBERIUM_EFFECT_APPLIED,	IsTiberiumEffectApplied);
 
 			READ_MICRO_CHUNK (cload, VARID_CURRENT_DEST_POS,				CurrentDestPos);

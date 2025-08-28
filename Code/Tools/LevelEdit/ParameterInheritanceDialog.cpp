@@ -156,10 +156,10 @@ ParameterInheritanceDialogClass::OnInitDialog (void)
 	//
 	//	Subclass the list and tree controls so we can handle the checkstates
 	//
-	LONG oldproc1 = ::SetWindowLong (m_ListCtrl, GWL_WNDPROC, (LONG)CheckBoxSubclassProc);
-	LONG oldproc2 = ::SetWindowLong (m_TreeCtrl, GWL_WNDPROC, (LONG)CheckBoxSubclassProc);
-	::SetProp (m_ListCtrl, "OLDPROC",		(HANDLE)oldproc1);
-	::SetProp (m_TreeCtrl, "OLDPROC",		(HANDLE)oldproc2);
+	LONG_PTR oldproc1 = ::SetWindowLongPtr (m_ListCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
+	LONG_PTR oldproc2 = ::SetWindowLongPtr (m_TreeCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
+	::SetProp (m_ListCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc1);
+	::SetProp (m_TreeCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc2);
 	::SetProp (m_ListCtrl, "IS_LIST_CTRL", (HANDLE)TRUE);
 	::SetProp (m_TreeCtrl, "IS_LIST_CTRL", (HANDLE)FALSE);
 
@@ -265,7 +265,7 @@ ParameterInheritanceDialogClass::Add_Parameters_To_List
 					def_param->Set_Index (index);
 					def_param->Set_Parent (parent);
 
-					m_ListCtrl.SetItemData (item_index, (LONG)def_param);
+					m_ListCtrl.SetItemData (item_index, (DWORD_PTR)def_param);
 					ListView_SetCheckState (m_ListCtrl, item_index, false);
 				}
 			}
@@ -328,7 +328,7 @@ ParameterInheritanceDialogClass::Add_Children_To_Tree (HTREEITEM parent_item, in
 					//
 					//	Associate the preset pointer with this tree item
 					//
-					m_TreeCtrl.SetItemData (new_item, (LONG)child_preset);
+					m_TreeCtrl.SetItemData (new_item, (DWORD_PTR)child_preset);
 
 					//
 					//	Check this preset by default
@@ -408,7 +408,7 @@ CheckBoxSubclassProc
 		//
 		//	Is this the list control or the tree control?
 		//
-		BOOL is_list_ctrl = (BOOL)::GetProp (hwnd, "IS_LIST_CTRL");
+		BOOL is_list_ctrl = (BOOL)(DWORD_PTR)::GetProp (hwnd, "IS_LIST_CTRL");
 		if (is_list_ctrl) {
 			
 			//
@@ -453,7 +453,7 @@ CheckBoxSubclassProc
 		}
 
 	} else if (message == WM_DESTROY) {
-		::SetWindowLong (hwnd, GWL_WNDPROC, (LONG)old_proc);
+		::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)old_proc);
 		::RemoveProp (hwnd, "OLDPROC");
 		::RemoveProp (hwnd, "IS_LIST_CTRL");
 	}

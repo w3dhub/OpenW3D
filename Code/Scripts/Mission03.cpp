@@ -3082,7 +3082,7 @@ DECLARE_SCRIPT(M03_Commando_Script, "Controller_ID:int")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender)
 	{
 		if (type == 3000)
 		{
@@ -3573,7 +3573,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 	void Poked(GameObject * obj, GameObject * poker)
 	{
 		int has_escort = 1;
-		Commands->Send_Custom_Event(obj, poker, 3000, (int)&has_escort, 0.0f);
+		Commands->Send_Custom_Event(obj, poker, 3000, (uintptr_t)&has_escort, 0.0f);
 		if (has_escort == 1)
 		{
 
@@ -4474,7 +4474,7 @@ DECLARE_SCRIPT(M03_Reinforce_Area, "")
 		}
 	}*/
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender)
 	{
 		if (type == 5000)
 		{
@@ -5845,14 +5845,14 @@ DECLARE_SCRIPT(M03_Area_Troop_Counter, "")
 		killed_count[0] = killed_count[1] = killed_count[2] = 0;
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender)
 	{
 		if (type == 1000 && param == 1000)
 		{
 			int area = -1;
 			int target_count = -1;
-			Commands->Send_Custom_Event(obj, obj, 5000, (int)&area, 0.0f);
-			Commands->Send_Custom_Event(obj, obj, 6300, (int)&target_count, 0.0f);
+			Commands->Send_Custom_Event(obj, obj, 5000, (uintptr_t)&area, 0.0f);
+			Commands->Send_Custom_Event(obj, obj, 6300, (uintptr_t)&target_count, 0.0f);
 			if (area >= 0 && area <= 2)
 			{
 				area_count[area]--;

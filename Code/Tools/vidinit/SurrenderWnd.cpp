@@ -61,7 +61,7 @@ CSurrenderWnd::CSurrenderWnd(CWnd *cwnd, int driver, int width, int height, int 
 
 	WW3D::Set_Window(GetSafeHwnd());
 	
-	m_SubClass = GetWindowLong(GetSafeHwnd(), GWL_WNDPROC);
+	m_SubClass = GetWindowLongPtr(GetSafeHwnd(), GWLP_WNDPROC);
 
 	WW3D::Set_Render_Device(driver, width, height, bitdepth, run_in_window, true);
 	AssetManager.Set_WW3D_Load_On_Demand(true);
@@ -165,7 +165,7 @@ void CSurrenderWnd::OnPaint()
 
 void CSurrenderWnd::RemoveSubclass() 
 {
-	::SetWindowLong(GetSafeHwnd(), GWL_WNDPROC, m_SubClass);
+	::SetWindowLongPtr(GetSafeHwnd(), GWLP_WNDPROC, m_SubClass);
 }
 
 void CSurrenderWnd::OnClose() 

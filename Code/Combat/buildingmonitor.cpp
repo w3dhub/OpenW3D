@@ -100,7 +100,7 @@ BuildingMonitorClass::Damaged (GameObject *game_obj, GameObject *killer, float a
 //
 ////////////////////////////////////////////////////////////////
 void
-BuildingMonitorClass::Custom (GameObject *game_obj, int type, int param, GameObject *sender)
+BuildingMonitorClass::Custom (GameObject *game_obj, int type, uintptr_t param, GameObject *sender)
 {
 	WWASSERT (Building != NULL);
 

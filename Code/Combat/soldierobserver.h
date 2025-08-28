@@ -69,7 +69,7 @@ public:
 	virtual	void	Destroyed( GameObject * obj );
 	virtual	void	Killed( GameObject * obj, GameObject * killer );
 	virtual	void	Damaged( GameObject * obj, GameObject * damager, float amount );
-	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender );
+	virtual	void	Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender );
 	virtual	void	Sound_Heard( GameObject * obj, const CombatSound & sound );
 	virtual	void	Enemy_Seen( GameObject * obj, GameObject * enemy );
 	virtual	void	Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason );

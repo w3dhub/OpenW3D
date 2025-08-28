@@ -57,6 +57,8 @@
 #include "iostruct.h"
 #endif
 
+#include <type_traits> // std::is_pointer_v
+
 
 /************************************************************************************
 
@@ -295,12 +297,21 @@ private:
 **	csave.End_Chunk();
 */
 #define WRITE_MICRO_CHUNK(csave,id,var) { \
+	static_assert(!std::is_pointer_v<decltype(var)>); \
 	csave.Begin_Micro_Chunk(id); \
 	csave.Write(&var,sizeof(var)); \
 	csave.End_Micro_Chunk(); }
 
+#define WRITE_MICRO_CHUNK_PTR(csave,id,var) { \
+	static_assert(std::is_pointer_v<decltype(var)>); \
+	csave.Begin_Micro_Chunk(id); \
+	const uint32 _id_##var = SaveLoadSystemClass::Serialize_Pointer(var); \
+	csave.Write(&_id_##var,sizeof(uint32)); \
+	csave.End_Micro_Chunk(); }
+
 #define WRITE_SAFE_MICRO_CHUNK(csave,id,var,type) { \
 	csave.Begin_Micro_Chunk(id);		\
+	static_assert(!std::is_pointer_v<decltype(var)>); \
 	type data = (type)var;				\
 	csave.Write(&data,sizeof(data)); \
 	csave.End_Micro_Chunk(); }
@@ -336,13 +347,20 @@ private:
 **	}
 */
 #define READ_MICRO_CHUNK(cload,id,var)						\
-	case (id):	cload.Read(&var,sizeof(var)); break;	\
+	case (id):	static_assert(!std::is_pointer_v<decltype(var)>); cload.Read(&(var),sizeof(var)); break;
+
+#define READ_MICRO_CHUNK_UNCHECKED(cload,id,var)						\
+	case (id):	cload.Read(&var,sizeof(var)); break;
+
+#define READ_MICRO_CHUNK_PTR(cload,id,var)						\
+	case (id):	static_assert(std::is_pointer_v<decltype(var)>); (var) = nullptr; cload.Read(&(var),sizeof(uint32)); break;
 
 /*
 ** Like READ_MICRO_CHUNK but reads items straight into the data safe.
 */
 #define READ_SAFE_MICRO_CHUNK(cload,id,var,type)								\
 	case (id):	{                                                     \
+		static_assert(!std::is_pointer_v<decltype(var)>);	           \
 		void *temp_read_buffer_on_the_stack = _alloca(sizeof(type));	\
 		cload.Read(temp_read_buffer_on_the_stack, sizeof(type));       \
 		var = *((type*)temp_read_buffer_on_the_stack);                 \

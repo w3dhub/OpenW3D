@@ -49,6 +49,7 @@
 
 #include "always.h"
 #include "vector.h"
+#include <unordered_map>
 
 class RefCountClass;
 
@@ -64,6 +65,8 @@ class PointerRemapClass
 		void		Process(void);
 
 		void		Register_Pointer (void *old_pointer, void *new_pointer);
+
+		uint32_t	Serialize_Pointer (void *pointer);
 
 #ifdef WWDEBUG
 		void		Request_Pointer_Remap (void **pointer_to_convert,const char * file,int line);
@@ -109,6 +112,9 @@ class PointerRemapClass
 		DynamicVectorClass<PtrPairStruct>	PointerPairTable;
 		DynamicVectorClass<PtrRemapStruct>	PointerRequestTable;
 		DynamicVectorClass<PtrRemapStruct>	RefCountRequestTable;
+
+		std::unordered_map<void*, uint32_t>	SerializedPointerIdTable;
+		uint32_t							NextSerializedPointerId;
 };
 
 

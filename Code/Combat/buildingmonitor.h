@@ -77,7 +77,7 @@ public:
 	const char *	Get_Name (void)	{ return "BuildingMonitorClass"; }
 	void				Killed (GameObject *game_obj, GameObject *killer);
 	void				Damaged (GameObject *game_obj, GameObject *damager, float amount );
-	void				Custom (GameObject *game_obj, int type, int param, GameObject *sender);
+	void				Custom (GameObject *game_obj, int type, uintptr_t param, GameObject *sender);
 	
 	//
 	//	Unused methods from the base class

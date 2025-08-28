@@ -549,7 +549,7 @@ AnimControlClass::~AnimControlClass( void )
 bool 	AnimControlClass::Save( ChunkSaveClass & csave )
 {
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_MODEL_PTR, Model );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_MODEL_PTR, Model );
 	csave.End_Chunk();
 
 	return true;
@@ -565,7 +565,7 @@ bool	AnimControlClass::Load( ChunkLoadClass &cload )
 				WWASSERT( Model == NULL );
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_MODEL_PTR, Model );
+						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_MODEL_PTR, Model );
 
 						default:
 							Debug_Say(( "Unrecognized AnimControl Variable chunkID\n" ));
