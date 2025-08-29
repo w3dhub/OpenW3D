@@ -22,7 +22,7 @@ MonoD::MonoD(void)
 {
 #ifdef _WIN32
   unsigned long retval;
-  handle = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL,
+  handle = CreateFileA("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL,
                         OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 
   if (handle != INVALID_HANDLE_VALUE)

@@ -254,7 +254,7 @@ bool Download::Start(void)
 
 	// Attempt to create the target path for the download file.
 	const char* localPath = GetLocalPath();
-	int dirCreated = CreateDirectory(localPath, NULL);
+	int dirCreated = CreateDirectoryA(localPath, NULL);
 
 	if (!dirCreated && (ERROR_ALREADY_EXISTS != GetLastError()))
 		{

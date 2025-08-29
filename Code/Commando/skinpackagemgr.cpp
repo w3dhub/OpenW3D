@@ -106,16 +106,16 @@ SkinPackageMgrClass::Shutdown (void)
 void
 SkinPackageMgrClass::Build_List (void)
 {
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find				= NULL;
 
 	//
 	//	Build a list of all the saved games we know about
 	//
-	for (file_find = ::FindFirstFile ("*.pkg", &find_info);
+	for (file_find = ::FindFirstFileA ("*.pkg", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info))
+		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{		
 		//
 		//	Create the package from the data in this mix file

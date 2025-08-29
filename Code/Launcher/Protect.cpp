@@ -73,7 +73,7 @@ Protect::Protect()
 	  mMappedFile(NULL)
 	{
 	// Secure launcher mutex
-	mLauncherMutex = CreateMutex(NULL, FALSE, LAUNCHER_GUID);
+	mLauncherMutex = CreateMutexA(NULL, FALSE, LAUNCHER_GUID);
 
 	if ((mLauncherMutex == NULL) ||
 			((mLauncherMutex != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
@@ -96,13 +96,13 @@ Protect::Protect()
 	security.lpSecurityDescriptor = NULL;
 	security.bInheritHandle = TRUE;
 
-	mMappedFile = CreateFileMapping(INVALID_HANDLE_VALUE, &security,
+	mMappedFile = CreateFileMappingA(INVALID_HANDLE_VALUE, &security,
 		PAGE_READWRITE, 0, fileSize, NULL);
 
 	if ((mMappedFile == NULL) ||
 			((mMappedFile != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
-		PrintWin32Error("***** CreateFileMapping() Failed!");
+		PrintWin32Error("***** CreateFileMappingA() Failed!");
 	  CloseHandle(mMappedFile);
 		mMappedFile = NULL;
 		return;
@@ -195,11 +195,11 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 
 	DebugPrint("Creating running notification event.\n");
 	const char* const protectGUID = "D6E7FC97-64F9-4d28-B52C-754EDF721C6F";
-	HANDLE event = CreateEvent(NULL, FALSE, FALSE, protectGUID);
+	HANDLE event = CreateEventA(NULL, FALSE, FALSE, protectGUID);
 
 	if ((event == NULL) || ((event != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
-		PrintWin32Error("CreateEvent() Failed!");
+		PrintWin32Error("CreateEventA() Failed!");
 		return;
 		}
 
@@ -267,18 +267,18 @@ RefPtr<UString> Protect::GetPassKey(void) const
 		HKEY hKey;
 		
 		/*
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER,
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER,
 			"Software\\Westwood\\Red Alert 2", 0, KEY_READ, &hKey);
 		*/
 
 #if	defined(FREEDEDICATEDSERVER)
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
 #elif defined(MULTIPLAYERDEMO)
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
 #elif defined(BETACLIENT)
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
 #else
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
 #endif
 
 		if (result != ERROR_SUCCESS)
@@ -292,7 +292,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			// Retrieve install path
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(installPath);
-			result = RegQueryValueEx(hKey, "InstallPath", NULL, &type, installPath, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "InstallPath", NULL, &type, installPath, &sizeOfBuffer);
 
 			if (result != ERROR_SUCCESS)
 				{
@@ -315,12 +315,12 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			DWORD volumeSerialNumber = 0;
 			DWORD maxComponentLength;
 			DWORD fileSystemFlags;
-			BOOL volInfoSuccess = GetVolumeInformation((const char*)drive, NULL, 0,
+			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, NULL, 0,
 				&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, NULL, 0);
 
 			if (volInfoSuccess == FALSE)
 				{
-				PrintWin32Error("GetVolumeInformation() Failed!");
+				PrintWin32Error("GetVolumeInformationA() Failed!");
 				}
 
 			DebugPrint("Drive Serial Number: %lx\n", volumeSerialNumber);
@@ -334,7 +334,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			unsigned char gameSerialNumber[64];
 			gameSerialNumber[0] = '\0';
 			sizeOfBuffer = sizeof(gameSerialNumber);
-			result = RegQueryValueEx(hKey, "Serial", NULL, &type, gameSerialNumber, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "Serial", NULL, &type, gameSerialNumber, &sizeOfBuffer);
 
 			if (result != ERROR_SUCCESS)
 				{
@@ -356,7 +356,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			}
 
 		// Obtain windows product ID
-		result = RegOpenKeyEx(HKEY_CURRENT_USER,
+		result = RegOpenKeyExA(HKEY_CURRENT_USER,
 			"Software\\Microsoft\\Windows\\CurrentVersion", 0, KEY_READ, &hKey);
 
 		if (result != ERROR_SUCCESS)
@@ -373,7 +373,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(winProductID);
-			result = RegQueryValueEx(hKey, "ProductID", NULL, &type, winProductID, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "ProductID", NULL, &type, winProductID, &sizeOfBuffer);
 
 			if (result != ERROR_SUCCESS)
 				{
@@ -415,7 +415,7 @@ void InitializeProtect(void)
 	mMappedFile = NULL;
 
 	// Secure launcher mutex
-	mLauncherMutex = CreateMutex(NULL, FALSE, LAUNCHER_GUID);
+	mLauncherMutex = CreateMutexA(NULL, FALSE, LAUNCHER_GUID);
 
 	if ((mLauncherMutex == NULL) || (mLauncherMutex && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
@@ -439,11 +439,11 @@ void InitializeProtect(void)
 	security.lpSecurityDescriptor = NULL;
 	security.bInheritHandle = TRUE;
 
-	mMappedFile = CreateFileMapping(INVALID_HANDLE_VALUE, &security, PAGE_READWRITE, 0, fileSize, NULL);
+	mMappedFile = CreateFileMappingA(INVALID_HANDLE_VALUE, &security, PAGE_READWRITE, 0, fileSize, NULL);
 
 	if ((mMappedFile == NULL) || (mMappedFile && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
-		PrintWin32Error("***** CreateFileMapping() Failed!");
+		PrintWin32Error("***** CreateFileMappingA() Failed!");
 	  CloseHandle(mMappedFile);
 		mMappedFile = NULL;
 		return;
@@ -491,20 +491,20 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 /*
 #ifdef FREEDEDICATEDSERVER
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
 #else  //FREEDEDICATEDSERVER
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
 #endif //FREEDEDICATEDSERVER
 */
 
 #if	defined(FREEDEDICATEDSERVER)
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeFDS", 0, KEY_READ, &hKey);
 #elif defined(MULTIPLAYERDEMO)
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeMPDemo", 0, KEY_READ, &hKey);
 #elif defined(BETACLIENT)
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\RenegadeBeta", 0, KEY_READ, &hKey);
 #else
-		LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
+		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Westwood\\Renegade", 0, KEY_READ, &hKey);
 #endif
 
 		assert((result == ERROR_SUCCESS) && "Failed to open game registry key");
@@ -515,7 +515,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			unsigned char installPath[MAX_PATH];
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(installPath);
-			result = RegQueryValueEx(hKey, "InstallPath", NULL, &type, installPath, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "InstallPath", NULL, &type, installPath, &sizeOfBuffer);
 
 			assert((result == ERROR_SUCCESS) && "Failed to obtain game install path!");
 			assert((strlen((const char*)installPath) > 0) && "Game install path invalid!");
@@ -529,12 +529,12 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			DWORD volumeSerialNumber = 0;
 			DWORD maxComponentLength;
 			DWORD fileSystemFlags;
-			BOOL volInfoSuccess = GetVolumeInformation((const char*)drive, NULL, 0,
+			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, NULL, 0,
 					&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, NULL, 0);
 
 			if (volInfoSuccess == FALSE)
 				{
-				PrintWin32Error("***** GetVolumeInformation() Failed!");
+				PrintWin32Error("***** GetVolumeInformationA() Failed!");
 				}
 
 			DebugPrint("Drive Serial Number: %lx\n", volumeSerialNumber);
@@ -548,7 +548,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			unsigned char gameSerialNumber[64];
 			gameSerialNumber[0] = '\0';
 			sizeOfBuffer = sizeof(gameSerialNumber);
-			result = RegQueryValueEx(hKey, "Serial", NULL, &type, gameSerialNumber, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "Serial", NULL, &type, gameSerialNumber, &sizeOfBuffer);
 
 			assert((result == ERROR_SUCCESS) && "Failed to obtain windows serial number!");
 			assert((strlen((const char*)gameSerialNumber) > 0) && "Game serial number invalid!");
@@ -561,7 +561,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			}
 
 		// Obtain windows product ID
-		result = RegOpenKeyEx(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion", 0, KEY_READ, &hKey);
+		result = RegOpenKeyExA(HKEY_CURRENT_USER, "Software\\Microsoft\\Windows\\CurrentVersion", 0, KEY_READ, &hKey);
 		assert((result == ERROR_SUCCESS) && "Failed to open windows registry key!");
 
 		if (result == ERROR_SUCCESS)
@@ -572,7 +572,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 			DWORD type;
 			DWORD sizeOfBuffer = sizeof(winProductID);
-			result = RegQueryValueEx(hKey, "ProductID", NULL, &type, winProductID, &sizeOfBuffer);
+			result = RegQueryValueExA(hKey, "ProductID", NULL, &type, winProductID, &sizeOfBuffer);
 
 			assert((result == ERROR_SUCCESS) && "Failed to obtain windows product ID!");
 			assert((strlen((const char*)winProductID) > 0) && "Invalid windows product ID");
@@ -607,11 +607,11 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 	DebugPrint("Creating running notification event.\n");
 	const char* const protectGUID = "D6E7FC97-64F9-4d28-B52C-754EDF721C6F";
-	HANDLE event = CreateEvent(NULL, FALSE, FALSE, protectGUID);
+	HANDLE event = CreateEventA(NULL, FALSE, FALSE, protectGUID);
 
 	if ((event == NULL) || (event && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
-		PrintWin32Error("***** CreateEvent() Failed!");
+		PrintWin32Error("***** CreateEventA() Failed!");
 		return;
 		}
 

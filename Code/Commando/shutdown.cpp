@@ -266,7 +266,7 @@ public:
 	void Thread_Function()
 	{
 		DWORD written;
-		HANDLE file = CreateFile(Filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+		HANDLE file = CreateFileA(Filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 				FILE_ATTRIBUTE_NORMAL, NULL);
 		if (INVALID_HANDLE_VALUE != file) {
 			WriteFile(file, String, strlen(String), &written, NULL);
@@ -287,11 +287,11 @@ static void Log_System_Information()
 
 	char name[MAX_COMPUTERNAME_LENGTH + 1];
 	DWORD size = sizeof(name);
-	::GetComputerName(name, &size);
+	::GetComputerNameA(name, &size);
 
 	char user[UNLEN+1];
 	DWORD userlen=sizeof(user);
-	::GetUserName(user, &userlen);
+	::GetUserNameA(user, &userlen);
 
 	StringClass string; // This will be a long string so don't allocate locally!
 	string.Format("Computer name: %s\r\nUser name: %s\r\n\r\n",name,user);
@@ -350,7 +350,7 @@ static void Log_System_Information()
 #endif
 
 	// Write log to local work folder
-	file = CreateFile("sysinfo.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+	file = CreateFileA("sysinfo.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL, NULL);
 	if (INVALID_HANDLE_VALUE != file) {
 		WriteFile(file, string, strlen(string), &written, NULL);

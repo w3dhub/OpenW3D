@@ -85,11 +85,11 @@ class MMSLockClass
 //
 //  Get_Filename_From_Path
 //
-__inline LPCTSTR
-Get_Filename_From_Path (LPCTSTR path)
+__inline const char*
+Get_Filename_From_Path (const char* path)
 {
 	// Find the last occurance of the directory deliminator
-	LPCTSTR filename = ::strrchr (path, '\\');
+	const char* filename = ::strrchr (path, '\\');
 	if (filename != NULL) {
 		// Increment past the directory deliminator
 		filename ++;

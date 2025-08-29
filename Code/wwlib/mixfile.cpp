@@ -364,8 +364,8 @@ MixFileFactoryClass::Flush_Changes (void)
 	//
 	//	Delete the old mix file and rename the new one
 	//
-	::DeleteFile (MixFilename);
-	::MoveFile (full_path, MixFilename);
+	::DeleteFileA (MixFilename);
+	::MoveFileA (full_path, MixFilename);
 
 	//
 	//	Reset the lists
@@ -392,7 +392,7 @@ MixFileFactoryClass::Get_Temp_Filename (const char *path, StringClass &full_path
 	//
 	for (int index = 0; index < 20; index ++) {
 		full_path.Format ("%s%.2d.dat", (const char *)temp_path, index + 1);
-		if (GetFileAttributes (full_path) == 0xFFFFFFFF) {
+		if (GetFileAttributesA (full_path) == 0xFFFFFFFF) {
 			retval = true;
 			break;
 		}
@@ -598,14 +598,14 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 {
 	BOOL bcontinue = TRUE;
 	HANDLE hfile_find;
-	WIN32_FIND_DATA find_info = {0};
+	WIN32_FIND_DATAA find_info = {0};
 	StringClass path;
 	path.Format( "data\\makemix\\%s*.*", dir );
 	WWDEBUG_SAY(( "Adding files from %s\n", path ));
 
-	for (hfile_find = ::FindFirstFile( path, &find_info);
+	for (hfile_find = ::FindFirstFileA( path, &find_info);
 		 (hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
-		  bcontinue = ::FindNextFile(hfile_find, &find_info)) {
+		  bcontinue = ::FindNextFileA(hfile_find, &find_info)) {
 		if ( find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) {
 			if ( find_info.cFileName[0] != '.' ) {
 				StringClass	path;

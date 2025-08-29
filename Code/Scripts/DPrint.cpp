@@ -87,7 +87,7 @@ void __cdecl DebugPrint(const char* string, ...)
 		else
 			{
 			// Send string to debugger
-			OutputDebugString(_buffer);
+			OutputDebugStringA(_buffer);
 			}
 
 #if 0
@@ -100,16 +100,16 @@ void __cdecl DebugPrint(const char* string, ...)
 			char drive[_MAX_DRIVE];
 			char dir[_MAX_DIR];
 
-			GetModuleFileName(GetModuleHandle(NULL), &path[0], sizeof(path));
+			GetModuleFileNameA(GetModuleHandleA(NULL), &path[0], sizeof(path));
 			_splitpath(path, drive, dir, NULL, NULL);
 			_makepath(_filename, drive, dir, LOGFILE_NAME, "txt");
 
-			file = CreateFile(_filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
+			file = CreateFileA(_filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 				FILE_ATTRIBUTE_NORMAL, NULL);
 			}
 		else
 			{
-			file = CreateFile(_filename, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
+			file = CreateFileA(_filename, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
 				FILE_ATTRIBUTE_NORMAL, NULL);
 			}
 		

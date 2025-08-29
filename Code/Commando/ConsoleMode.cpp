@@ -180,7 +180,7 @@ void ConsoleModeClass::Init(void)
 			/*
 			** Get an HWND for the console window.
 			*/
-			ConsoleWindow = FindWindow("ConsoleWindowClass", Title);
+			ConsoleWindow = FindWindowA("ConsoleWindowClass", Title);
 
 			/*
 			** Bring up the console window to the foreground.
@@ -228,7 +228,7 @@ void ConsoleModeClass::Init(void)
 HWND ConsoleModeClass::Get_Slave_Window_By_Title(char *name, char *settings)
 {
 	StringClass title = Compose_Window_Title(name, settings, true);
-	HWND window = FindWindow("ConsoleWindowClass", title.Peek_Buffer());
+	HWND window = FindWindowA("ConsoleWindowClass", title.Peek_Buffer());
 	return(window);
 }
 
@@ -291,7 +291,7 @@ void ConsoleModeClass::Set_Title(char *name, char *settings)
 	if (ConsoleOutputHandle) {
 		StringClass title = Compose_Window_Title(name, settings, SlaveMaster.Am_I_Slave());
 		strcpy(Title, title.Peek_Buffer());
-		SetConsoleTitle(Title);
+		SetConsoleTitleA(Title);
 	}
 }
 
@@ -419,7 +419,7 @@ void ConsoleModeClass::cprintf(char const * string, ...)
 
 		buffer[sizeof(buffer)-1] = 0;
 		va_start(va, string);
-		_vsnprintf(&buffer[0], sizeof(buffer)-1, string, va);
+		vsnprintf(&buffer[0], sizeof(buffer)-1, string, va);
 		va_end(va);
 
 		/*
@@ -469,13 +469,13 @@ const char *ConsoleModeClass::Get_Log_File_Name(void)
 			/*
 			** Find all log files.
 			*/
-  			WIN32_FIND_DATA find_data;
-			HANDLE find_handle = FindFirstFile("renlog_*.txt", &find_data);
+  			WIN32_FIND_DATAA find_data;
+			HANDLE find_handle = FindFirstFileA("renlog_*.txt", &find_data);
 			while (find_handle != INVALID_HANDLE_VALUE) {
 				if (CompareFileTime(&find_data.ftLastWriteTime, &file_time) == -1) {
-					DeleteFile(find_data.cFileName);
+					DeleteFileA(find_data.cFileName);
 				}
-				if (!FindNextFile(find_handle, &find_data)) {
+				if (!FindNextFileA(find_handle, &find_data)) {
 					break;
 				}
 			}
@@ -509,7 +509,7 @@ void ConsoleModeClass::Log_To_Disk(const char *string)
    		FILE *log_file = fopen(Get_Log_File_Name(), "at");
    		if (log_file != NULL) {
 				char timestr[256] = "?";
-				GetTimeFormat(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, NULL, "'['HH':'mm':'ss'] '", timestr, 255);
+				GetTimeFormatA(LOCALE_SYSTEM_DEFAULT, TIME_FORCE24HOURFORMAT, NULL, "'['HH':'mm':'ss'] '", timestr, 255);
 			   fwrite(timestr, 1, strlen(timestr), log_file);
 			   fwrite(string, 1, strlen(string), log_file);
 			   fclose(log_file);

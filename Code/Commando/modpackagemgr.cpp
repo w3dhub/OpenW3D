@@ -114,16 +114,16 @@ ModPackageMgrClass::Shutdown (void)
 void
 ModPackageMgrClass::Build_List (void)
 {
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find				= NULL;
 
 	//
 	//	Build a list of all the saved games we know about
 	//
-	for (file_find = ::FindFirstFile ("data\\*.pkg", &find_info);
+	for (file_find = ::FindFirstFileA ("data\\*.pkg", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info))
+		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{		
 		//
 		//	Create the package from the data in this mix file
@@ -343,7 +343,7 @@ ModPackageMgrClass::Find_Filename_From_CRC
 	bool retval = false;
 
 
-	WIN32_FIND_DATA find_info	= { 0 };
+	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= TRUE;
 	HANDLE file_find				= NULL;
 
@@ -355,9 +355,9 @@ ModPackageMgrClass::Find_Filename_From_CRC
 	//
 	//	Build a list of all the saved games we know about
 	//
-	for (file_find = ::FindFirstFile (full_search_mask, &find_info);
+	for (file_find = ::FindFirstFileA (full_search_mask, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
-		  keep_going = ::FindNextFile (file_find, &find_info))
+		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{
 		//
 		//	Is this the map we were looking for?

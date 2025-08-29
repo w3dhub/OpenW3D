@@ -678,7 +678,7 @@ void ServerSettingsClass::Encrypt_Serial(StringClass serial_in, StringClass &ser
 	/*
 	** See if the key file is available. If not, don't bother encrypting.
 	*/
-	HANDLE handle = CreateFile ("woldata.key", GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+	HANDLE handle = CreateFileA ("woldata.key", GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 	if (handle == INVALID_HANDLE_VALUE) {
 		delete [] s;
 		serial_out = serial_in;

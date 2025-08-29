@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
 	bool webInstalled = WebBrowser::InstallPrerequisites();
 
 	if (!webInstalled) {
-		::MessageBox(NULL, "Embedded browser prerequisites missing\n\nBrowser functionality questionable.\n\n(Please call Denzil @ 27272)",
+		::MessageBoxA(NULL, "Embedded browser prerequisites missing\n\nBrowser functionality questionable.\n\n(Please call Denzil @ 27272)",
 				"Renegade Warning!", MB_ICONWARNING|MB_OK);
 	}
 #endif // WWDEBUG
@@ -239,11 +239,11 @@ static bool Graphics_Settings_Trouble_Shooting()
 	if (progress) {
 		StringClass options="wwconfig.exe ";
 		char* opts=options.Peek_Buffer();
-		STARTUPINFO startup_info;
-		ZeroMemory(&startup_info,sizeof(STARTUPINFO));
-		startup_info.cb=sizeof(STARTUPINFO);
+		STARTUPINFOA startup_info;
+		ZeroMemory(&startup_info,sizeof(STARTUPINFOA));
+		startup_info.cb=sizeof(STARTUPINFOA);
 		PROCESS_INFORMATION process_info;
-		CreateProcess(
+		CreateProcessA(
 			NULL,
 			opts,
 			NULL,
@@ -290,7 +290,7 @@ static bool Video_Card_Driver_Check()
 	// Init D3D
 	Init_D3D_To_WW3_Conversion();
 
-	D3D8Lib = LoadLibrary("D3D9.DLL");
+	D3D8Lib = LoadLibraryA("D3D9.DLL");
 
 	if (D3D8Lib != NULL) {
 		Direct3DCreate8Ptr = (Direct3DCreate8Type) GetProcAddress(D3D8Lib, "Direct3DCreate9");
@@ -374,11 +374,11 @@ static bool Video_Card_Driver_Check()
 
 	StringClass options="wwconfig.exe -driverversion";
 	char* opts=options.Peek_Buffer();
-	STARTUPINFO startup_info;
-	ZeroMemory(&startup_info,sizeof(STARTUPINFO));
-	startup_info.cb=sizeof(STARTUPINFO);
+	STARTUPINFOA startup_info;
+	ZeroMemory(&startup_info,sizeof(STARTUPINFOA));
+	startup_info.cb=sizeof(STARTUPINFOA);
 	PROCESS_INFORMATION process_info;
-	if (!CreateProcess(
+	if (!CreateProcessA(
 		NULL,
 		opts,
 		NULL,
@@ -430,7 +430,7 @@ int Start_Application(void)
 		** Set the working directory.
 		*/
 		if (!Set_Working_Directory()) {
-			MessageBox(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
+			MessageBoxA(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
 			return 0;
 		}
 
@@ -439,14 +439,14 @@ int Start_Application(void)
 		//
 		char tmp_buffer[256];
 		char* tmp_ptr;
-		if (!SearchPath(
+		if (!SearchPathA(
 			"data",
 			"always.dat",
 			NULL,
 			sizeof(tmp_buffer),
 			tmp_buffer,
 			&tmp_ptr)) {
-			MessageBox(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
+			MessageBoxA(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
 			return 0;
 		}
 
@@ -703,10 +703,10 @@ long FAR PASCAL Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM
  *=============================================================================================*/
 static BOOL Create_Main_Window(void)
 {
-	WNDCLASS    wc;
+	WNDCLASSA    wc;
 	BOOL        rc;
 
-	ProgramInstance = (HINSTANCE)GetModuleHandle(NULL);
+	ProgramInstance = (HINSTANCE)GetModuleHandleA(NULL);
 
 	if (!ConsoleBox.Is_Exclusive()) {
 		wc.style			= CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
@@ -720,11 +720,11 @@ static BOOL Create_Main_Window(void)
 		wc.lpszMenuName	= NULL;
 		wc.lpszClassName	= SingletonInstanceKeeperClass::Get_GUID ();
 
-		rc = RegisterClass( &wc);
+		rc = RegisterClassA( &wc);
 		if (!rc ) return FALSE;
 
 		// Assume windowed mode
-		MainWindow = CreateWindowEx(0, SingletonInstanceKeeperClass::Get_GUID(), "Renegade",
+		MainWindow = CreateWindowExA(0, SingletonInstanceKeeperClass::Get_GUID(), "Renegade",
 			WS_SYSMENU|WS_CAPTION|WS_MINIMIZEBOX|WS_CLIPCHILDREN,
 				0, 0, 0, 0, NULL, NULL, ProgramInstance, NULL);
 
@@ -806,10 +806,10 @@ bool Set_Working_Directory(void)
 		char path_to_exe[256];
 		char drive[_MAX_DRIVE];
 		char dir[_MAX_DIR];
-		GetModuleFileName(NULL, path_to_exe, sizeof(path_to_exe));
+		GetModuleFileNameA(NULL, path_to_exe, sizeof(path_to_exe));
 		_splitpath(path_to_exe, drive, dir, NULL, NULL);
 		_makepath(path_buffer, drive, dir, NULL, NULL);
 		gamedir = path_buffer;
 	}
-	return !!SetCurrentDirectory(gamedir);
+	return !!SetCurrentDirectoryA(gamedir);
 }

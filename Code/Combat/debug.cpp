@@ -226,7 +226,7 @@ void	DebugManager::Display( char const *buffer )
 	}
 
 	if ( EnabledDevices & DEBUG_DEVICE_WINDOWS ) {
-		OutputDebugString( buffer );		// puts it in the MSVC debug window
+		OutputDebugStringA( buffer );		// puts it in the MSVC debug window
 	}
 }
 

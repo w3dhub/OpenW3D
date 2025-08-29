@@ -54,18 +54,18 @@ FrameGrabClass::FrameGrabClass(const char *filename, MODE mode, int width, int h
 		result = _access(file, 0);
 	} while(result != -1);
 
-	// Create new AVI file using AVIFileOpen. 
-    hr = AVIFileOpen(&AVIFile, file, OF_WRITE | OF_CREATE, NULL); 
+	// Create new AVI file using AVIFileOpenA. 
+    hr = AVIFileOpenA(&AVIFile, file, OF_WRITE | OF_CREATE, NULL); 
     if (hr != 0) {
 		char buf[256];
 		sprintf(buf, "Unable to open %s\n", Filename);
-		OutputDebugString(buf);
+		OutputDebugStringA(buf);
 		CleanupAVI();
 		return;
 	}
     
 
-    // Create a stream using AVIFileCreateStream. 
+    // Create a stream using AVIFileCreateStreamA. 
 	AVIStreamInfo.fccType = streamtypeVIDEO;
 	AVIStreamInfo.fccHandler = mmioFOURCC('M','S','V','C');
 	AVIStreamInfo.dwFlags = 0;
@@ -85,7 +85,7 @@ FrameGrabClass::FrameGrabClass(const char *filename, MODE mode, int width, int h
 	AVIStreamInfo.dwFormatChangeCount = 0;
 	sprintf(AVIStreamInfo.szName,"G");
 
-    hr = AVIFileCreateStream(AVIFile, &Stream, &AVIStreamInfo); 
+    hr = AVIFileCreateStreamA(AVIFile, &Stream, &AVIStreamInfo); 
     if (hr != 0) {   
 		CleanupAVI();
 		return;     
@@ -138,7 +138,7 @@ void FrameGrabClass::GrabAVI(void *BitmapPointer)
 	if(hr != 0) {
 		char buf[256];
 		sprintf(buf, "avi write error %x/%d\n", hr, hr);
-		OutputDebugString(buf);
+		OutputDebugStringA(buf);
 	} 
 }
 
