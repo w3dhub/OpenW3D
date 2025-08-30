@@ -65,8 +65,8 @@ public:
 	** vis-data support.
 	*/
 	virtual void		Add_Object(LightPhysClass * obj);
-	virtual void		Remove_Object(LightPhysClass * obj);
-	virtual void		Update_Culling(CullableClass * obj);
+	virtual void		Remove_Object(LightPhysClass * obj) override;
+	virtual void		Update_Culling(CullableClass * obj) override;
 
 	/*
 	** Visibility.  Each static light allocates a vis-sector which is used

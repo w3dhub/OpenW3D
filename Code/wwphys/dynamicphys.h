@@ -56,22 +56,22 @@ public:
 	
 	DynamicPhysClass(void);
 	~DynamicPhysClass(void);
-	virtual DynamicPhysClass *	As_DynamicPhysClass(void)									{ return this; }
+	virtual DynamicPhysClass *	As_DynamicPhysClass(void) override									{ return this; }
 	void Init(const DynamicPhysDefClass & definition);
 		
-	virtual void								Set_Model(RenderObjClass * model);
+	virtual void								Set_Model(RenderObjClass * model) override;
 	
 	/*
 	** Call this whenever the object moves to update its visibility status
 	*/
 	void											Update_Visibility_Status(void);
-	virtual int									Get_Vis_Object_ID(void);
+	virtual int									Get_Vis_Object_ID(void) override;
 
 	/*
 	** Simulation and rendering toggles for all dynamic physics objects
 	*/
-	virtual bool								Is_Simulation_Disabled(void)				{ return _DisableDynamicPhysSimulation; }
-	virtual bool								Is_Rendering_Disabled(void)				{ return _DisableDynamicPhysRendering; }
+	virtual bool								Is_Simulation_Disabled(void) override				{ return _DisableDynamicPhysSimulation; }
+	virtual bool								Is_Rendering_Disabled(void) override				{ return _DisableDynamicPhysRendering; }
 	static void									Disable_All_Simulation(bool onoff)		{ _DisableDynamicPhysSimulation = onoff; }
 	static void									Disable_All_Rendering(bool onoff)		{ _DisableDynamicPhysRendering = onoff; }
 	static bool									Is_All_Simulation_Disabled(void)			{ return _DisableDynamicPhysSimulation; }
@@ -80,9 +80,9 @@ public:
 	/*
 	** Save-Load System
 	*/
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load(void);
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load(void) override;
 
 protected:
 
@@ -117,15 +117,15 @@ public:
 	DynamicPhysDefClass(void);
 
 	// From PersistClass
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "DynamicPhysDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "DynamicPhysDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// Validation methods
-	virtual bool								Is_Valid_Config (StringClass &message);
+	virtual bool								Is_Valid_Config (StringClass &message) override;
 
 	//	Editable interface requirements
 	DECLARE_EDITABLE(DynamicPhysDefClass,PhysDefClass);

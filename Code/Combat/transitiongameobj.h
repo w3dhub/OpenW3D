@@ -58,11 +58,11 @@ public:
 	TransitionGameObjDef( void ) {};
 	virtual ~TransitionGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	TRANSITION_DATA_LIST *					Get_Transition_List( void ) { return &Transitions; }
 	const TRANSITION_DATA_LIST &			Get_Transition_List( void ) const { return Transitions; }
@@ -85,15 +85,15 @@ public:
 	~TransitionGameObj();
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const TransitionGameObjDef & definition );
 	const TransitionGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
-	virtual	void	On_Post_Load( void );
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
+	virtual	void	On_Post_Load( void ) override;
 
 	// Physics
 	void					Set_Transform(const Matrix3D & tm);

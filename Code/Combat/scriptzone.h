@@ -82,12 +82,12 @@ class ScriptZoneGameObjDef : public ScriptableGameObjDef
 public:
 	ScriptZoneGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual bool								Is_Valid_Config (StringClass &message) { return true; }
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual bool								Is_Valid_Config (StringClass &message) override { return true; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( ScriptZoneGameObjDef, ScriptableGameObjDef );
 
@@ -116,22 +116,22 @@ public:
 	virtual	~ScriptZoneGameObj();
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const ScriptZoneGameObjDef & definition );
 	const ScriptZoneGameObjDef & Get_Definition( void ) const;
 	
 	// RTTI
-	ScriptZoneGameObj	*As_ScriptZoneGameObj( void )	{ return this; };
+	ScriptZoneGameObj	*As_ScriptZoneGameObj( void ) override	{ return this; };
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 	//	Thinking
-	virtual	void		Think();
+	virtual	void		Think() override;
 
-	virtual	void		Get_Position(Vector3 * set_pos) const { *set_pos = BoundingBox.Center; }
+	virtual	void		Get_Position(Vector3 * set_pos) const override { *set_pos = BoundingBox.Center; }
 
 	// Bounding Box
 	void	Set_Bounding_Box( OBBoxClass & box )			{ BoundingBox = box; }

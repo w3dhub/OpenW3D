@@ -62,8 +62,8 @@ public:
 				 PersistentGameObjObserverClass( void );
 	virtual	~PersistentGameObjObserverClass( void );
 
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
 
 };
 

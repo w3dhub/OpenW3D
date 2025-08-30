@@ -78,24 +78,24 @@ public:
 	//	Initialization
 	//
 	virtual void		Initialize (StaticAnimPhysClass *phys_obj);
-	virtual void		Delete (void)	{}
+	virtual void		Delete (void) override	{}
 
 	//
 	//	Timestep support
 	//
-	virtual void		Network_Think (void);
+	virtual void		Network_Think (void) override;
 
 	//
 	//	Server-to-client state importing/exporting
 	//
-	virtual void		Import_Rare (BitStreamClass &packet);
-   virtual void		Export_Rare (BitStreamClass &packet);
+	virtual void		Import_Rare (BitStreamClass &packet) override;
+   virtual void		Export_Rare (BitStreamClass &packet) override;
 
 	//
 	//	Filtering support
 	//
-	virtual bool		Get_World_Position (Vector3 &pos) const;
-	virtual int			Get_Vis_ID (void);
+	virtual bool		Get_World_Position (Vector3 &pos) const override;
+	virtual int			Get_Vis_ID (void) override;
 	//virtual float		Compute_Object_Priority (int client_id, const Vector3 &client_pos);
 
 	//
@@ -165,29 +165,29 @@ public:
 	//
 	//	Intialization
 	//
-	virtual void		Initialize (StaticAnimPhysClass *phys_obj);
+	virtual void		Initialize (StaticAnimPhysClass *phys_obj) override;
 
 	//
 	//	Timestep support
 	//
-	virtual void		Network_Think (void);
+	virtual void		Network_Think (void) override;
 
 	//
 	//	Server-to-client state importing/exporting
 	//
-	virtual void		Import_Rare (BitStreamClass &packet);
-   virtual void		Export_Rare (BitStreamClass &packet);
+	virtual void		Import_Rare (BitStreamClass &packet) override;
+   virtual void		Export_Rare (BitStreamClass &packet) override;
 
 	// 
 	// Type identification
 	//
-	virtual  DoorNetworkObjectClass *			As_Door_Network_Object_Class( void )		{ return this; }
+	virtual  DoorNetworkObjectClass *			As_Door_Network_Object_Class( void ) override		{ return this; }
 
 	//
 	// Diagnostics
 	// 
 	//virtual bool		Is_Tagged(void)										{ return false; }
-	virtual void		Get_Description(StringClass & description);
+	virtual void		Get_Description(StringClass & description) override;
 
 private:
 
@@ -221,29 +221,29 @@ public:
 	//
 	//	Intialization
 	//
-	virtual void		Initialize (StaticAnimPhysClass *phys_obj);
+	virtual void		Initialize (StaticAnimPhysClass *phys_obj) override;
 
 	//
 	//	Timestep support
 	//
-	virtual void		Network_Think (void);
+	virtual void		Network_Think (void) override;
 
 	//
 	//	Server-to-client state importing/exporting
 	//
-	virtual void		Import_Rare (BitStreamClass &packet);
-   virtual void		Export_Rare (BitStreamClass &packet);
+	virtual void		Import_Rare (BitStreamClass &packet) override;
+   virtual void		Export_Rare (BitStreamClass &packet) override;
 
 	// 
 	// Type identification
 	//
-	virtual  ElevatorNetworkObjectClass *	As_Elevator_Network_Object_Class( void )	{ return this; }
+	virtual  ElevatorNetworkObjectClass *	As_Elevator_Network_Object_Class( void ) override	{ return this; }
 
 	//
 	// Diagnostics
 	// 
 	//virtual bool		Is_Tagged(void)										{ return true; }
-	virtual void		Get_Description(StringClass & description);
+	virtual void		Get_Description(StringClass & description) override;
 
 private:
 
@@ -281,23 +281,23 @@ public:
 	//
 	//	Initialization
 	//
-	virtual void		Initialize (StaticAnimPhysClass *phys_obj);
+	virtual void		Initialize (StaticAnimPhysClass *phys_obj) override;
 
 	//
 	//	Timestep support
 	//
-	virtual void		Network_Think (void);
+	virtual void		Network_Think (void) override;
 
 	//
 	//	Server-to-client state importing/exporting
 	//
-	virtual void		Import_Rare (BitStreamClass &packet);
-   virtual void		Export_Rare (BitStreamClass &packet);
+	virtual void		Import_Rare (BitStreamClass &packet) override;
+   virtual void		Export_Rare (BitStreamClass &packet) override;
 
 	// 
 	// Type identification
 	//
-	virtual				DSAPONetworkObjectClass *		As_DSAPO_Network_Object_Class( void )		{ return this; }
+	virtual				DSAPONetworkObjectClass *		As_DSAPO_Network_Object_Class( void ) override		{ return this; }
 
 private:
 

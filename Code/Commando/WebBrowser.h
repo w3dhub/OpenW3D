@@ -150,28 +150,28 @@ class WebBrowser :
 	// IUnknown methods
 	//---------------------------------------------------------------------------
 	public:
-		HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void** ppvObject);
-		ULONG STDMETHODCALLTYPE AddRef(void);
-		ULONG STDMETHODCALLTYPE Release(void);
+		HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void** ppvObject) override;
+		ULONG STDMETHODCALLTYPE AddRef(void) override;
+		ULONG STDMETHODCALLTYPE Release(void) override;
 
 	//---------------------------------------------------------------------------
 	// IWOLBrowserEvent methods
 	//---------------------------------------------------------------------------
 	private:
-		STDMETHOD(OnScriptQuit)(void);
-		STDMETHOD(OnBeforeNavigate)(const wchar_t* url, const wchar_t* targetFrame);
-		STDMETHOD(OnDocumentComplete)(const wchar_t* url, BOOL topFrame);
-		STDMETHOD(OnDownloadBegin)(void);
-		STDMETHOD(OnProgressChange)(LONG progress, LONG progressMax);
-		STDMETHOD(OnDownloadComplete)(void);
-		STDMETHOD(OnNavigateComplete)(const wchar_t* url);
-		STDMETHOD(OnStatusTextChange)(const wchar_t* statusText);
-		STDMETHOD(OnTitleChange)(const wchar_t* title);
-		STDMETHOD(OnNewWindow)(void);
-		STDMETHOD(OnShowMessage)(const wchar_t* text, const wchar_t* caption, ULONG type, LONG* result);
-		STDMETHOD(OnFailedPageCertification)(void);
-		STDMETHOD(OnErrorMsg)(const wchar_t* error);
-		STDMETHOD(OnRegisterLogin)(const wchar_t* nick, const wchar_t* pass);
+		STDMETHOD(OnScriptQuit)(void) override;
+		STDMETHOD(OnBeforeNavigate)(const wchar_t* url, const wchar_t* targetFrame) override;
+		STDMETHOD(OnDocumentComplete)(const wchar_t* url, BOOL topFrame) override;
+		STDMETHOD(OnDownloadBegin)(void) override;
+		STDMETHOD(OnProgressChange)(LONG progress, LONG progressMax) override;
+		STDMETHOD(OnDownloadComplete)(void) override;
+		STDMETHOD(OnNavigateComplete)(const wchar_t* url) override;
+		STDMETHOD(OnStatusTextChange)(const wchar_t* statusText) override;
+		STDMETHOD(OnTitleChange)(const wchar_t* title) override;
+		STDMETHOD(OnNewWindow)(void) override;
+		STDMETHOD(OnShowMessage)(const wchar_t* text, const wchar_t* caption, ULONG type, LONG* result) override;
+		STDMETHOD(OnFailedPageCertification)(void) override;
+		STDMETHOD(OnErrorMsg)(const wchar_t* error) override;
+		STDMETHOD(OnRegisterLogin)(const wchar_t* nick, const wchar_t* pass) override;
 	};
 
 #endif // __WEBBROWSER_H__

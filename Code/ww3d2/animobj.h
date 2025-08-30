@@ -71,40 +71,40 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Rendering
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Render(RenderInfoClass & rinfo);
-	virtual void					Special_Render(SpecialRenderInfoClass & rinfo);
+	virtual void					Render(RenderInfoClass & rinfo) override;
+	virtual void					Special_Render(SpecialRenderInfoClass & rinfo) override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - "Scene Graph"
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void 					Set_Transform(const Matrix3D &m);
-	virtual void 					Set_Position(const Vector3 &v);
+	virtual void 					Set_Transform(const Matrix3D &m) override;
+	virtual void 					Set_Position(const Vector3 &v) override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Hierarchical Animation
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Set_Animation(void);
+	virtual void					Set_Animation(void) override;
 	virtual void					Set_Animation( HAnimClass * motion,
-															float frame, int anim_mode = ANIM_MODE_MANUAL);
+															float frame, int anim_mode = ANIM_MODE_MANUAL) override;
 	virtual void					Set_Animation( HAnimClass * motion0,
 															float frame0,
 															HAnimClass * motion1,
 															float frame1,
-															float percentage);
-	virtual void					Set_Animation( HAnimComboClass * anim_combo);
+															float percentage) override;
+	virtual void					Set_Animation( HAnimComboClass * anim_combo) override;
 
-	virtual HAnimClass *			Peek_Animation( void );
+	virtual HAnimClass *			Peek_Animation( void ) override;
 	virtual bool					Is_Animation_Complete( void ) const;
-	virtual int						Get_Num_Bones(void);
-	virtual const char *			Get_Bone_Name(int bone_index);
-	virtual int						Get_Bone_Index(const char * bonename);
-	virtual const Matrix3D &	Get_Bone_Transform(const char * bonename);
-	virtual const Matrix3D &	Get_Bone_Transform(int boneindex);
-	virtual void					Capture_Bone(int boneindex);
-	virtual void					Release_Bone(int boneindex);
-	virtual bool					Is_Bone_Captured(int boneindex) const;
-	virtual void					Control_Bone(int bindex,const Matrix3D & objtm,bool world_space_translation = false);
-	virtual const HTreeClass *	Get_HTree(void) const { return HTree; }
+	virtual int						Get_Num_Bones(void) override;
+	virtual const char *			Get_Bone_Name(int bone_index) override;
+	virtual int						Get_Bone_Index(const char * bonename) override;
+	virtual const Matrix3D &	Get_Bone_Transform(const char * bonename) override;
+	virtual const Matrix3D &	Get_Bone_Transform(int boneindex) override;
+	virtual void					Capture_Bone(int boneindex) override;
+	virtual void					Release_Bone(int boneindex) override;
+	virtual bool					Is_Bone_Captured(int boneindex) const override;
+	virtual void					Control_Bone(int bindex,const Matrix3D & objtm,bool world_space_translation = false) override;
+	virtual const HTreeClass *	Get_HTree(void) const override { return HTree; }
 	
 	//
 	//	Simple bone evaluation methods for when the caller doesn't want
@@ -123,7 +123,7 @@ protected:
 	float								Compute_Current_Frame(void) const;
 
 	// Update the sub-object transforms according to the current anim state and root transform.
-	virtual	void					Update_Sub_Object_Transforms(void);
+	virtual	void					Update_Sub_Object_Transforms(void) override;
 
 	// Update the transforms using the base pose only
 	void								Base_Update(const Matrix3D & root);

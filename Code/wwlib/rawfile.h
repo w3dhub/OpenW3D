@@ -95,24 +95,24 @@ class RawFileClass : public FileClass
 		RawFileClass & operator = (RawFileClass const & f);
 		virtual ~RawFileClass(void);
 
-		virtual char const * File_Name(void) const;
-		virtual char const * Set_Name(char const *filename);
-		virtual int Create(void);
-		virtual int Delete(void);
-		virtual bool Is_Available(int forced=false);
-		virtual bool Is_Open(void) const;
-		virtual int Open(char const *filename, int rights=READ);
-		virtual int Open(int rights=READ);
-		virtual int Read(void *buffer, int size);
-		virtual int Seek(int pos, int dir=SEEK_CUR);
-		virtual int Size(void);
-		virtual int Write(void const *buffer, int size);
-		virtual void Close(void);
-		virtual unsigned long Get_Date_Time(void);
-		virtual bool Set_Date_Time(unsigned long datetime);
-		virtual void Error(int error, int canretry = false, char const * filename=NULL);
-		virtual void Bias(int start, int length=-1);
-		virtual void * Get_File_Handle(void) { return Handle; } 
+		virtual char const * File_Name(void) const override;
+		virtual char const * Set_Name(char const *filename) override;
+		virtual int Create(void) override;
+		virtual int Delete(void) override;
+		virtual bool Is_Available(int forced=false) override;
+		virtual bool Is_Open(void) const override;
+		virtual int Open(char const *filename, int rights=READ) override;
+		virtual int Open(int rights=READ) override;
+		virtual int Read(void *buffer, int size) override;
+		virtual int Seek(int pos, int dir=SEEK_CUR) override;
+		virtual int Size(void) override;
+		virtual int Write(void const *buffer, int size) override;
+		virtual void Close(void) override;
+		virtual unsigned long Get_Date_Time(void) override;
+		virtual bool Set_Date_Time(unsigned long datetime) override;
+		virtual void Error(int error, int canretry = false, char const * filename=NULL) override;
+		virtual void Bias(int start, int length=-1) override;
+		virtual void * Get_File_Handle(void) override { return Handle;  }
 
 		virtual void	Attach (void *handle, int rights=READ);
 		virtual void	Detach (void);		

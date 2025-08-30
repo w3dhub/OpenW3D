@@ -143,7 +143,7 @@ public:
 	//
 	void					Save (ChunkSaveClass &csave);
 	void					Load (ChunkLoadClass &cload);
-	void					On_Post_Load (void);
+	void					On_Post_Load (void) override;
 
 	//
 	// Distributed (multi-frame solve) methods

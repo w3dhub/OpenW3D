@@ -52,13 +52,13 @@ public:
 
 	void						Init(LPCSTR command);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_CSCONSOLECOMMANDEVENT;}
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_CSCONSOLECOMMANDEVENT;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	char						Command[500];
 };

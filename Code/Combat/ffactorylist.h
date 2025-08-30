@@ -69,8 +69,8 @@ public:
 	FileFactoryClass * Remove_Temp_FileFactory( void );
 	FileFactoryClass * Peek_Temp_FileFactory( void ) { return TempFactory; }
 
-	virtual FileClass * Get_File( char const *filename );
-	virtual void Return_File( FileClass *file );
+	virtual FileClass * Get_File( char const *filename ) override;
+	virtual void Return_File( FileClass *file ) override;
 
 	static FileFactoryListClass * Get_Instance( void )		{ return Instance; }
 

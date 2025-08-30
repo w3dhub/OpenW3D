@@ -60,18 +60,18 @@ public:
 
 	HumanPhysClass(void);
 	virtual ~HumanPhysClass(void);
-	virtual HumanPhysClass *	As_HumanPhysClass(void) { return this; }
+	virtual HumanPhysClass *	As_HumanPhysClass(void) override { return this; }
 
 	void								Init(const HumanPhysDefClass & def);
 
-	virtual void					Timestep(float dt); 
-	virtual void					Render(RenderInfoClass & rinfo);
+	virtual void					Timestep(float dt) override;
+	virtual void					Render(RenderInfoClass & rinfo) override;
 
 	/*
 	** Simulation and rendering toggles for all static physics objects
 	*/
-	virtual bool					Is_Simulation_Disabled(void)				{ return _DisableHumanSimulation || Phys3Class::Is_Simulation_Disabled(); }
-	virtual bool					Is_Rendering_Disabled(void)				{ return _DisableHumanRendering || Phys3Class::Is_Simulation_Disabled(); }
+	virtual bool					Is_Simulation_Disabled(void) override				{ return _DisableHumanSimulation || Phys3Class::Is_Simulation_Disabled(); }
+	virtual bool					Is_Rendering_Disabled(void) override				{ return _DisableHumanRendering || Phys3Class::Is_Simulation_Disabled(); }
 	static void						Disable_All_Simulation(bool onoff)		{ _DisableHumanSimulation = onoff; }
 	static void						Disable_All_Rendering(bool onoff)		{ _DisableHumanRendering = onoff; }
 	static bool						Is_All_Simulation_Disabled(void)			{ return _DisableHumanSimulation; }
@@ -80,19 +80,19 @@ public:
 	/*
 	** Save-Load system
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
 
 	bool								Has_Just_Jumped (void) const { return JustJumped; }
 	void								Jump_To_Point (const Vector3 &point);
 	
 protected:
 
-	virtual void					Check_Ground(const AABoxClass & box,GroundStateStruct * gs,float check_dist);
-	virtual bool					Ballistic_Move(float dt);
-	virtual bool					Normal_Move(const GroundStateStruct & gs,float dt);
-	virtual bool					Slide_Move(const GroundStateStruct & gs,float dt);
+	virtual void					Check_Ground(const AABoxClass & box,GroundStateStruct * gs,float check_dist) override;
+	virtual bool					Ballistic_Move(float dt) override;
+	virtual bool					Normal_Move(const GroundStateStruct & gs,float dt) override;
+	virtual bool					Slide_Move(const GroundStateStruct & gs,float dt) override;
 	void								Compute_Desired_Move_Vector(const GroundStateStruct & gs,float dt,Vector3 * set_move);
 
 	bool								JustJumped;			// character jumped and has not started coming down yet, dont snap him!
@@ -120,17 +120,17 @@ public:
 	HumanPhysDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "HumanPhysDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "HumanPhysDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	//	Editable interface requirements
 	DECLARE_EDITABLE(HumanPhysDefClass,Phys3DefClass);

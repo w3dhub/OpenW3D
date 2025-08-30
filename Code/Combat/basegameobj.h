@@ -69,8 +69,8 @@ class VehicleGameObj;
 class BaseGameObjDef : public DefinitionClass
 {
 public:
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
 };
 
 /*
@@ -89,8 +89,8 @@ public:
 	const BaseGameObjDef &		Get_Definition( void ) const ;
 
 	// Save / Load
-	virtual	bool					Save( ChunkSaveClass & csave );
-	virtual	bool					Load( ChunkLoadClass & cload );
+	virtual	bool					Save( ChunkSaveClass & csave ) override;
+	virtual	bool					Load( ChunkLoadClass & cload ) override;
 
 	//	Thinking
 	virtual	void					Think()				{ IsPostThinkAllowed = true; }
@@ -115,8 +115,8 @@ public:
 	virtual	ScriptableGameObj	*As_ScriptableGameObj( void )	{ return (ScriptableGameObj*)NULL; };
 
 	// Network support
-	virtual uint32					Get_Network_Class_ID( void ) const		{ return NETCLASSID_GAMEOBJ; }
-	virtual void					Delete (void)									{ delete this; }
+	virtual uint32					Get_Network_Class_ID( void ) const override		{ return NETCLASSID_GAMEOBJ; }
+	virtual void					Delete (void) override									{ delete this; }
 
 	bool								Is_Post_Think_Allowed( void )				{ return IsPostThinkAllowed; }
 

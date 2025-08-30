@@ -68,12 +68,12 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
-	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index);
-	void		On_ListCtrl_Column_Click (ListCtrlClass *list_ctrl, int ctrl_id, int col_index);
-	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index);
-	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index);
+	void		On_Init_Dialog (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
+	void		On_ListCtrl_Column_Click (ListCtrlClass *list_ctrl, int ctrl_id, int col_index) override;
+	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
+	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index) override;
 
 	void		Update_Button_State (void);
 
@@ -93,8 +93,8 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void		HandleNotification (DlgMsgBoxEvent &event);
-	void		On_Last_Menu_Ending (void);
+	void		HandleNotification (DlgMsgBoxEvent &event) override;
+	void		On_Last_Menu_Ending (void) override;
 
 private:
 

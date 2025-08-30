@@ -55,15 +55,15 @@ class PhysDynamicSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
 	
-	virtual uint32				Chunk_ID (void) const;
+	virtual uint32				Chunk_ID (void) const override;
 
 protected:
 
-	virtual bool				Contains_Data(void) const;
-	virtual bool				Save (ChunkSaveClass &csave);
-	virtual bool				Load (ChunkLoadClass &cload);
-	virtual const char*		Name() const { return "PhysDynamicSaveSystemClass"; }
-	virtual void				On_Post_Load(void);
+	virtual bool				Contains_Data(void) const override;
+	virtual bool				Save (ChunkSaveClass &csave) override;
+	virtual bool				Load (ChunkLoadClass &cload) override;
+	virtual const char*		Name() const override { return "PhysDynamicSaveSystemClass"; }
+	virtual void				On_Post_Load(void) override;
 
 	/*
 	** internal chunk id's

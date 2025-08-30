@@ -282,7 +282,7 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	RTTI
 	////////////////////////////////////////////////////////////////////
-	PathfindActionPortalClass *As_PathfindActionPortalClass (void) { return this; }
+	PathfindActionPortalClass *As_PathfindActionPortalClass (void) override { return this; }
 
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
@@ -291,7 +291,7 @@ public:
 	//
 	//	Action identification
 	//
-	PathClass::ACTION_ID	Get_Action_Type (void) const								{ return m_ActionID; }
+	PathClass::ACTION_ID	Get_Action_Type (void) const override								{ return m_ActionID; }
 	void						Set_Action_Type (PathClass::ACTION_ID action_id)	{ m_ActionID = action_id; }
 
 	//
@@ -327,8 +327,8 @@ public:
 	//
 	//	Serialization
 	//
-	bool						Save (ChunkSaveClass &chunk_save);
-	bool						Load (ChunkLoadClass &chunk_load);
+	bool						Save (ChunkSaveClass &chunk_save) override;
+	bool						Load (ChunkLoadClass &chunk_load) override;
 
 protected:
 
@@ -370,7 +370,7 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	RTTI
 	////////////////////////////////////////////////////////////////////
-	PathfindWaypathPortalClass *As_PathfindWaypathPortalClass (void) { return this; }
+	PathfindWaypathPortalClass *As_PathfindWaypathPortalClass (void) override { return this; }
 
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
@@ -379,7 +379,7 @@ public:
 	//
 	//	From PathfindPortalClass
 	//
-	bool					Does_Size_Matter (void) const	{ return false; }	
+	bool					Does_Size_Matter (void) const override	{ return false; }
 
 	//
 	//	Waypath information
@@ -390,8 +390,8 @@ public:
 	//
 	//	Serialization
 	//
-	bool					Save (ChunkSaveClass &chunk_save);
-	bool					Load (ChunkLoadClass &chunk_load);
+	bool					Save (ChunkSaveClass &chunk_save) override;
+	bool					Load (ChunkLoadClass &chunk_load) override;
 
 protected:
 

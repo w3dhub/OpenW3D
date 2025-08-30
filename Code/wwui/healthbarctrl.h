@@ -68,7 +68,7 @@ public:
 	//
 	//	Inherited
 	//
-	void				Render (void);
+	void				Render (void) override;
 
 	//
 	//	Configuration

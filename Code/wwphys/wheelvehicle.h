@@ -79,7 +79,7 @@ public:
 
 	WheeledVehicleClass(void);
 	virtual ~WheeledVehicleClass(void);
-	virtual WheeledVehicleClass * As_WheeledVehicleClass(void) { return this; }
+	virtual WheeledVehicleClass * As_WheeledVehicleClass(void) override { return this; }
 	const WheeledVehicleDefClass * Get_WheeledVehicleDef(void);
 
 	void											Init(const WheeledVehicleDefClass & def);
@@ -87,17 +87,17 @@ public:
 	/*
 	** Save-Load System
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
 
 protected:
 
-	virtual SuspensionElementClass *	Alloc_Suspension_Element(void);
+	virtual SuspensionElementClass *	Alloc_Suspension_Element(void) override;
 
-	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque);
-	virtual float					Get_Ideal_Drive_Axle_Angular_Velocity(void);
-	virtual bool					Drive_Wheels_In_Contact(void);
+	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque) override;
+	virtual float					Get_Ideal_Drive_Axle_Angular_Velocity(void) override;
+	virtual bool					Drive_Wheels_In_Contact(void) override;
 
 	float								SteeringAngle;
 
@@ -118,17 +118,17 @@ public:
 	WheeledVehicleDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)				{ return "WheeledVehicleDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override				{ return "WheeledVehicleDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	// Read/Write access to our variables
 	float											Get_Max_Steering_Angle(void) const	{ return MaxSteeringAngle; }

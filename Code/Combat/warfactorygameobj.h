@@ -72,11 +72,11 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	uint32								Get_Class_ID (void) const;
-	PersistClass *						Create (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const PersistFactoryClass &	Get_Factory (void) const;
+	uint32								Get_Class_ID (void) const override;
+	PersistClass *						Create (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const PersistFactoryClass &	Get_Factory (void) const override;
 
 	////////////////////////////////////////////////////////////////
 	//	Editable support
@@ -119,31 +119,31 @@ public:
 	//
 	// Definition support
 	//
-	virtual	void						Init( void );
+	virtual	void						Init( void ) override;
 	void									Init (const WarFactoryGameObjDef & definition);
 	const WarFactoryGameObjDef &	Get_Definition (void) const;
 
 	//
 	// RTTI
 	//
-	WarFactoryGameObj *				As_WarFactoryGameObj (void)	{ return this; }
+	WarFactoryGameObj *				As_WarFactoryGameObj (void) override	{ return this; }
 
 	//
 	// Persist support
 	//
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const	PersistFactoryClass &	Get_Factory (void) const;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const	PersistFactoryClass &	Get_Factory (void) const override;
 
 	//
 	//	From BuildingGameObj
 	//
-	void					CnC_Initialize (BaseControllerClass *base);
+	void					CnC_Initialize (BaseControllerClass *base) override;
 	
 	//
 	//	GameObj methods
 	//
-	void					Think (void);
+	void					Think (void) override;
 
 protected:
 
@@ -152,7 +152,7 @@ protected:
 	////////////////////////////////////////////////////////////////
 	void					Load_Variables (ChunkLoadClass &cload);
 	void					Play_Creation_Animation (bool onoff);
-	void					Begin_Generation (void);
+	void					Begin_Generation (void) override;
 
 
 	////////////////////////////////////////////////////////////////

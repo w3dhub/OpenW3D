@@ -61,30 +61,30 @@ public:
 	virtual ~CompositeRenderObjClass(void);
 	CompositeRenderObjClass & operator = (const CompositeRenderObjClass & that);
 
-	virtual void					Restart(void);
+	virtual void					Restart(void) override;
 
-	virtual const char *			Get_Name(void) const;
-	virtual void					Set_Name(const char * name);
-	virtual const char *			Get_Base_Model_Name (void) const { return NULL; } //BaseModelName.Is_Empty () ? NULL : BaseModelName; }
-	virtual void					Set_Base_Model_Name (const char *name);
-	virtual int						Get_Num_Polys(void) const;
-	virtual void					Notify_Added(SceneClass * scene);
-	virtual void					Notify_Removed(SceneClass * scene);
+	virtual const char *			Get_Name(void) const override;
+	virtual void					Set_Name(const char * name) override;
+	virtual const char *			Get_Base_Model_Name (void) const override { return NULL; } //BaseModelName.Is_Empty () ? NULL : BaseModelName; }
+	virtual void					Set_Base_Model_Name (const char *name) override;
+	virtual int						Get_Num_Polys(void) const override;
+	virtual void					Notify_Added(SceneClass * scene) override;
+	virtual void					Notify_Removed(SceneClass * scene) override;
 
-	virtual bool					Cast_Ray(RayCollisionTestClass & raytest);
-	virtual bool					Cast_AABox(AABoxCollisionTestClass & boxtest);
-	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & boxtest);
-	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest);
-	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest);
+	virtual bool					Cast_Ray(RayCollisionTestClass & raytest) override;
+	virtual bool					Cast_AABox(AABoxCollisionTestClass & boxtest) override;
+	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & boxtest) override;
+	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest) override;
+	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest) override;
 
-	virtual void					Create_Decal(DecalGeneratorClass * generator);
-	virtual void					Delete_Decal(uint32 decal_id);
+	virtual void					Create_Decal(DecalGeneratorClass * generator) override;
+	virtual void					Delete_Decal(uint32 decal_id) override;
 
-	virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass	& sphere) const { sphere = ObjSphere; }
-   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const { box = ObjBox; }
-	virtual void					Update_Obj_Space_Bounding_Volumes(void);
+	virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass	& sphere) const override { sphere = ObjSphere; }
+   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const override { box = ObjBox; }
+	virtual void					Update_Obj_Space_Bounding_Volumes(void) override;
 
-	virtual void					Set_User_Data(void *value, bool recursive = false);
+	virtual void					Set_User_Data(void *value, bool recursive = false) override;
 
 protected:
 

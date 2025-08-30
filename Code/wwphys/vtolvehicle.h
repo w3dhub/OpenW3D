@@ -82,30 +82,30 @@ class VTOLVehicleClass : public VehiclePhysClass
 public:
 	VTOLVehicleClass(void);
 	virtual ~VTOLVehicleClass(void);
-	virtual VTOLVehicleClass * As_VTOLVehicleClass(void) { return this; }
+	virtual VTOLVehicleClass * As_VTOLVehicleClass(void) override { return this; }
 	const VTOLVehicleDefClass * Get_VTOLVehicleDef(void) { return (VTOLVehicleDefClass *)Definition; }
 
 	void								Init(const VTOLVehicleDefClass & def);
 
-	virtual void					Render(RenderInfoClass & rinfo);
-	virtual void					Set_Model(RenderObjClass * model);
-	virtual void					Timestep(float dt);
+	virtual void					Render(RenderInfoClass & rinfo) override;
+	virtual void					Set_Model(RenderObjClass * model) override;
+	virtual void					Timestep(float dt) override;
 
 	/*
 	** Save-Load System
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load (void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load (void) override;
 
 protected:
 
 	virtual bool					Can_Go_To_Sleep(void) { return false; }
 
-	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque);
-	virtual SuspensionElementClass *	Alloc_Suspension_Element(void);
-	virtual float					Get_Normalized_Engine_Flame(void);
+	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque) override;
+	virtual SuspensionElementClass *	Alloc_Suspension_Element(void) override;
+	virtual float					Get_Normalized_Engine_Flame(void) override;
 
 	void								Release_Engine_Bones(void);
 	void								Update_Cached_Model_Parameters(void);
@@ -144,21 +144,21 @@ public:
 	/*
 	** From DefinitionClass
 	*/
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	/*
 	** From PhysDefClass
 	*/
-	virtual const char *						Get_Type_Name(void)				{ return "VTOLVehicleDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override				{ return "VTOLVehicleDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	/*
 	** From PersistClass
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	/*
 	** Editable interface requirements

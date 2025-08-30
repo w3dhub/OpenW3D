@@ -334,9 +334,9 @@ class ParticleEmitterPrototypeClass : public PrototypeClass
 		//
 		//	Public methods
 		//
-		virtual const char *						Get_Name (void) const					{ return m_pDefinition->Get_Name(); }
-		virtual int									Get_Class_ID (void) const				{ return RenderObjClass::CLASSID_PARTICLEEMITTER; }
-		virtual RenderObjClass *				Create (void);
+		virtual const char *						Get_Name (void) const override					{ return m_pDefinition->Get_Name(); }
+		virtual int									Get_Class_ID (void) const override				{ return RenderObjClass::CLASSID_PARTICLEEMITTER; }
+		virtual RenderObjClass *				Create (void) override;
 		virtual ParticleEmitterDefClass *	Get_Definition (void) const	{ return m_pDefinition; }
 
 	protected:
@@ -357,8 +357,8 @@ class ParticleEmitterLoaderClass : public PrototypeLoaderClass
 {
 	public:
 
-		virtual int						Chunk_Type (void)  { return W3D_CHUNK_EMITTER; }
-		virtual PrototypeClass *	Load_W3D (ChunkLoadClass &chunk_load);
+		virtual int						Chunk_Type (void) override  { return W3D_CHUNK_EMITTER; }
+		virtual PrototypeClass *	Load_W3D (ChunkLoadClass &chunk_load) override;
 };
 
 

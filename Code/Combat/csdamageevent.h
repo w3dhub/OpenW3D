@@ -51,11 +51,11 @@ public:
 
 	void						Init( int damager_go_id, int damagee_go_id, float damage, int warhead );
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_CSDAMAGEEVENT;}
-	virtual void			Delete(void)										{delete this;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_CSDAMAGEEVENT;}
+	virtual void			Delete(void) override										{delete this;}
 
 	static void				Set_Are_Clients_Trusted(bool flag)			{AreClientsTrusted = flag;}
 	static bool				Get_Are_Clients_Trusted(void)					{return AreClientsTrusted;}

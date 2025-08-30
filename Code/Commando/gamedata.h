@@ -316,7 +316,7 @@ class	cGameData :
 
 	protected:
 
-		void ReceiveSignal(MPChooseTeamSignal&);
+		void ReceiveSignal(MPChooseTeamSignal&) override;
 
 		static const StringClass	INI_SECTION_NAME;
 		static const float			LIMITS_X_POS;

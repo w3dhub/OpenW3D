@@ -107,12 +107,12 @@ class WOLLogonMgr :
 
 		DECLARE_NOTIFIER(WOLLogonAction)
 
-		void HandleNotification(DlgWOLLogonEvent&);
-		void HandleNotification(DlgWOLWaitEvent&);
-		void HandleNotification(DlgMsgBoxEvent&);
-		void HandleNotification(WWOnline::ServerError&);
-		void HandleNotification(WWOnline::ConnectionStatus&);
-		void HandleNotification(WWOnline::MessageOfTheDayEvent&);
+		void HandleNotification(DlgWOLLogonEvent&) override;
+		void HandleNotification(DlgWOLWaitEvent&) override;
+		void HandleNotification(DlgMsgBoxEvent&) override;
+		void HandleNotification(WWOnline::ServerError&) override;
+		void HandleNotification(WWOnline::ConnectionStatus&) override;
+		void HandleNotification(WWOnline::MessageOfTheDayEvent&) override;
 
 	private:
 		static bool mQuietMode;

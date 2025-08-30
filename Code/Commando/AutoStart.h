@@ -80,9 +80,9 @@ class AutoRestartClass : public Observer<WOLLogonAction>, public Observer<WWOnli
 		/*
 		** Callbacks.
 		*/
-		void HandleNotification(WOLLogonAction&);
-		void HandleNotification(WWOnline::ServerError& server_error);
-		void ReceiveSignal(WolGameModeClass&);
+		void HandleNotification(WOLLogonAction&) override;
+		void HandleNotification(WWOnline::ServerError& server_error) override;
+		void ReceiveSignal(WolGameModeClass&) override;
 
 		/*
 		** Enum of steps to go through to restart a game.

@@ -66,23 +66,23 @@ class Line3DClass : public RenderObjClass
 		Line3DClass(const Line3DClass & src);
 		Line3DClass & operator = (const Line3DClass & that);
 		virtual ~Line3DClass(void);
-		virtual RenderObjClass * Clone(void) const;
+		virtual RenderObjClass * Clone(void) const override;
 
 		// class id of this render object
-		virtual int Class_ID(void) const { return CLASSID_LINE3D; }
+		virtual int Class_ID(void) const override { return CLASSID_LINE3D; }
 	
-		virtual void		Render(RenderInfoClass & rfinfo);
+		virtual void		Render(RenderInfoClass & rfinfo) override;
 
 		// scale the 3D line symmetrically about its center.
-		virtual void		Scale(float scale);
-		virtual void		Scale(float scalex, float scaley, float scalez);
+		virtual void		Scale(float scale) override;
+		virtual void		Scale(float scalex, float scaley, float scalez) override;
 
 		// returns the number of polygons in the render object
-		virtual int Get_Num_Polys(void) const;
+		virtual int Get_Num_Polys(void) const override;
 
       // Get the object space bounding volumes
-      virtual void	Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const;
-      virtual void	Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
+      virtual void	Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const override;
+      virtual void	Get_Obj_Space_Bounding_Box(AABoxClass & box) const override;
 
 		// The following functions are unique to Line3DClass:
 

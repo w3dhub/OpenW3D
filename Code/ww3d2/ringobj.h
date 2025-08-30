@@ -117,24 +117,24 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface 
 	/////////////////////////////////////////////////////////////////////////////
-	virtual RenderObjClass *	Clone(void) const;
-	virtual int						Class_ID(void) const;
-	virtual void					Render(RenderInfoClass & rinfo);
-	virtual void					Special_Render(SpecialRenderInfoClass & rinfo);
-	virtual void 					Set_Transform(const Matrix3D &m); 
-	virtual void 					Set_Position(const Vector3 &v);
-   virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass	& sphere) const;
-   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
-	virtual void					Set_Hidden(int onoff)				{ RenderObjClass::Set_Hidden (onoff); Update_On_Visibilty (); }
-	virtual void					Set_Visible(int onoff)				{ RenderObjClass::Set_Visible (onoff); Update_On_Visibilty (); }
-	virtual void					Set_Animation_Hidden(int onoff)	{ RenderObjClass::Set_Animation_Hidden (onoff); Update_On_Visibilty (); }
-	virtual void					Set_Force_Visible(int onoff)		{ RenderObjClass::Set_Force_Visible (onoff); Update_On_Visibilty (); }
+	virtual RenderObjClass *	Clone(void) const override;
+	virtual int						Class_ID(void) const override;
+	virtual void					Render(RenderInfoClass & rinfo) override;
+	virtual void					Special_Render(SpecialRenderInfoClass & rinfo) override;
+	virtual void 					Set_Transform(const Matrix3D &m) override;
+	virtual void 					Set_Position(const Vector3 &v) override;
+   virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass	& sphere) const override;
+   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const override;
+	virtual void					Set_Hidden(int onoff) override				{ RenderObjClass::Set_Hidden (onoff); Update_On_Visibilty (); }
+	virtual void					Set_Visible(int onoff) override				{ RenderObjClass::Set_Visible (onoff); Update_On_Visibilty (); }
+	virtual void					Set_Animation_Hidden(int onoff) override	{ RenderObjClass::Set_Animation_Hidden (onoff); Update_On_Visibilty (); }
+	virtual void					Set_Force_Visible(int onoff) override		{ RenderObjClass::Set_Force_Visible (onoff); Update_On_Visibilty (); }
 
 	const	AABoxClass	&			Get_Box(void);
 
-	virtual int				  		Get_Num_Polys(void) const;
-	virtual const char		  *Get_Name(void) const;
-	virtual void					Set_Name(const char * name);
+	virtual int				  		Get_Num_Polys(void) const override;
+	virtual const char		  *Get_Name(void) const override;
+	virtual void					Set_Name(const char * name) override;
 
 	unsigned int					Get_Flags(void) {return Flags;}
 	void								Set_Flags(unsigned int flags) { Flags = flags; }
@@ -297,8 +297,8 @@ inline const AABoxClass & RingRenderObjClass::Get_Box(void)
 class RingLoaderClass : public PrototypeLoaderClass
 {
 public:
-	virtual int						Chunk_Type (void)  { return W3D_CHUNK_RING; }
-	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload);
+	virtual int						Chunk_Type (void) override  { return W3D_CHUNK_RING; }
+	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload) override;
 };
 
 /*
@@ -312,9 +312,9 @@ public:
 	RingPrototypeClass (RingRenderObjClass *ring);
 	~RingPrototypeClass (void);
 
-	virtual const char *			Get_Name(void) const;
-	virtual int						Get_Class_ID(void) const;
-	virtual RenderObjClass *	Create(void);
+	virtual const char *			Get_Name(void) const override;
+	virtual int						Get_Class_ID(void) const override;
+	virtual RenderObjClass *	Create(void) override;
 
 	bool								Load (ChunkLoadClass &cload);
 	bool								Save (ChunkSaveClass &csave);

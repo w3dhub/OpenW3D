@@ -61,7 +61,7 @@ public:
 	VehiclePhysClass(void);
 	virtual ~VehiclePhysClass(void);
 
-	virtual VehiclePhysClass *		As_VehiclePhysClass(void)		{ return this; }
+	virtual VehiclePhysClass *		As_VehiclePhysClass(void) override		{ return this; }
 	const VehiclePhysDefClass *	Get_VehiclePhysDef(void)		{ return (VehiclePhysDefClass*)Definition; }
 
 	void									Init(const VehiclePhysDefClass & def);
@@ -69,19 +69,19 @@ public:
 	/*
 	** DEBUGGING, re-initialize this object because our definition changed
 	*/
-	virtual void						Definition_Changed(void);
+	virtual void						Definition_Changed(void) override;
 
 	/*
 	** Rendering
 	*/
-	virtual void						Render(RenderInfoClass & rinfo);
-	virtual void						Set_Model(RenderObjClass * model);
+	virtual void						Render(RenderInfoClass & rinfo) override;
+	virtual void						Set_Model(RenderObjClass * model) override;
 	float									Compute_Approximate_Ride_Height(void);
 
 	/*
 	** Simulation
 	*/
-	virtual void						Timestep(float dt); 
+	virtual void						Timestep(float dt) override;
 
 	/*
 	** Gentlemen Start your Engines! 
@@ -113,8 +113,8 @@ public:
 	/*
 	** Simulation and rendering toggles for all vehicle physics objects
 	*/
-	virtual bool						Is_Simulation_Disabled(void)				{ return _DisableVehicleSimulation || RigidBodyClass::Is_Simulation_Disabled(); }
-	virtual bool						Is_Rendering_Disabled(void)				{ return _DisableVehicleRendering || RigidBodyClass::Is_Simulation_Disabled(); }
+	virtual bool						Is_Simulation_Disabled(void) override				{ return _DisableVehicleSimulation || RigidBodyClass::Is_Simulation_Disabled(); }
+	virtual bool						Is_Rendering_Disabled(void) override				{ return _DisableVehicleRendering || RigidBodyClass::Is_Simulation_Disabled(); }
 	static void							Disable_All_Simulation(bool onoff)		{ _DisableVehicleSimulation = onoff; }
 	static void							Disable_All_Rendering(bool onoff)		{ _DisableVehicleRendering = onoff; }
 	static bool							Is_All_Simulation_Disabled(void)			{ return _DisableVehicleSimulation; }
@@ -123,16 +123,16 @@ public:
 	/*
 	** Save-Load system
 	*/
-	virtual bool						Save(ChunkSaveClass &csave);
-	virtual bool						Load(ChunkLoadClass &cload);
+	virtual bool						Save(ChunkSaveClass &csave) override;
+	virtual bool						Load(ChunkLoadClass &cload) override;
 
 protected:
 	
 	/*
 	** Simulation
 	*/
-	virtual void						Compute_Force_And_Torque(Vector3 * force,Vector3 * torque);
-	virtual bool						Can_Go_To_Sleep(float dt);
+	virtual void						Compute_Force_And_Torque(Vector3 * force,Vector3 * torque) override;
+	virtual bool						Can_Go_To_Sleep(float dt) override;
 
 	/*
 	** Suspension initialization
@@ -201,11 +201,11 @@ public:
 	virtual ~VehiclePhysDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
+	virtual uint32								Get_Class_ID (void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)						{ return "VehiclePhysDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override						{ return "VehiclePhysDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// Read access to the constants
 	float											Get_Spring_Constant(void) const		{ return SpringConstant; }
@@ -226,9 +226,9 @@ public:
 
 
 	// Save/Load support from PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	//	Editable interface requirements
 	DECLARE_EDITABLE(VehiclePhysDefClass,RigidBodyDefClass);

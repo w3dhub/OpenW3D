@@ -89,9 +89,9 @@ public:
 	HModelPrototypeClass(HModelDefClass * def)				{ HModelDef = def; assert(HModelDef); }
 	virtual ~HModelPrototypeClass(void)							{ if (HModelDef) delete HModelDef; }						 
 
-	virtual const char *			Get_Name(void)	const			{ return HModelDef->Get_Name(); }	
-	virtual int						Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_HLOD; }
-	virtual RenderObjClass *	Create(void)					{ return NEW_REF( HLodClass, (*HModelDef) ); }	
+	virtual const char *			Get_Name(void)	const override			{ return HModelDef->Get_Name(); }
+	virtual int						Get_Class_ID(void) const override	{ return RenderObjClass::CLASSID_HLOD; }
+	virtual RenderObjClass *	Create(void) override					{ return NEW_REF( HLodClass, (*HModelDef) ); }
 	HModelDefClass *				HModelDef;
 };
 

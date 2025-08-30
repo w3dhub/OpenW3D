@@ -63,32 +63,32 @@ public:
 
 	Phys3Class(void);
 	virtual ~Phys3Class(void);
-	virtual Phys3Class *			As_Phys3Class(void) { return this; }
+	virtual Phys3Class *			As_Phys3Class(void) override { return this; }
 
 	void								Init(const Phys3DefClass & def);
 
 	virtual const AABoxClass & Get_Bounding_Box(void) const;
-	virtual const Matrix3D &	Get_Transform(void) const;
-	virtual void					Set_Transform(const Matrix3D & m);
+	virtual const Matrix3D &	Get_Transform(void) const override;
+	virtual void					Set_Transform(const Matrix3D & m) override;
 
 	virtual const AABoxClass &	Get_Collision_Box(void) const	{ return CollisionBox; }
 
-	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest);
-	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest);
-	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest);
-	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & test);
-	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & test);
-	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & test);
+	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest) override;
+	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest) override;
+	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest) override;
+	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & test) override;
+	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & test) override;
+	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & test) override;
 
-	virtual void					Set_Model(RenderObjClass * model);
+	virtual void					Set_Model(RenderObjClass * model) override;
 
-	virtual void					Get_Velocity(Vector3 * set_vel) const;
-	virtual void					Set_Velocity(const Vector3 & newvel);
+	virtual void					Get_Velocity(Vector3 * set_vel) const override;
+	virtual void					Set_Velocity(const Vector3 & newvel) override;
 
 	virtual void					Apply_Impulse(const Vector3 & imp);
 	virtual void					Apply_Impulse(const Vector3 & imp, const Vector3 & wpos);
 
-	virtual void					Timestep(float dt); 
+	virtual void					Timestep(float dt) override;
 	virtual bool 					Is_In_Contact(void) const { return OnGround; }
 
 	// Set_In_Contact needed for network state updates so we don't have to wait for Check_Ground
@@ -101,10 +101,10 @@ public:
 	/*
 	** Teleport support
 	*/
-	virtual bool					Can_Teleport(const Matrix3D &new_tm,bool check_dyn_only = false,NonRefPhysListClass * result_list = NULL);
-	virtual bool					Can_Teleport_And_Stand(const Matrix3D &new_tm, Matrix3D *out);
-	virtual bool					Find_Teleport_Location(const Vector3 &start, float radius, Vector3 *out);
-	virtual bool					Can_Move_To(const Matrix3D &new_tm);
+	virtual bool					Can_Teleport(const Matrix3D &new_tm,bool check_dyn_only = false,NonRefPhysListClass * result_list = NULL) override;
+	virtual bool					Can_Teleport_And_Stand(const Matrix3D &new_tm, Matrix3D *out) override;
+	virtual bool					Find_Teleport_Location(const Vector3 &start, float radius, Vector3 *out) override;
+	virtual bool					Can_Move_To(const Matrix3D &new_tm) override;
 
 	/*
 	** Phys3 movement controls
@@ -126,13 +126,13 @@ public:
 	/*
 	** Shadow support
 	*/
-	virtual void					Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box);
+	virtual void					Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box) override;
 	void								Get_Collision_Box(AABoxClass * set_box);
 
 	/*
 	** MoveablePhysClass Push interface.  Phys3's try to move when they are pushed.
 	*/
-	virtual bool					Push(const Vector3 & move);
+	virtual bool					Push(const Vector3 & move) override;
 	virtual bool					Collide(const Vector3 & move);
 
 	/*
@@ -155,10 +155,10 @@ public:
 	/*
 	** Save-Load system
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load(void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load(void) override;
 
 protected:
 
@@ -320,17 +320,17 @@ public:
 	Phys3DefClass(void);
 	
 	// From Definition
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "Phys3Def"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "Phys3Def"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 		//	Editable interface requirements
 	DECLARE_EDITABLE(Phys3DefClass,MoveablePhysDefClass);

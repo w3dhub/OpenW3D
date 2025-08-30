@@ -44,7 +44,7 @@ DECLARE_SCRIPT(Dr_Mobius_Script, "")
 	////////////////////////////////////////////////////////////////////
 	//	Created
 	////////////////////////////////////////////////////////////////////
-	void Created (GameObject *game_obj)
+	void Created (GameObject *game_obj) override
 	{
 		CurrentLeader = NULL;
 		Commands->Start_Timer (game_obj, this, 0.5F, 777);
@@ -54,7 +54,7 @@ DECLARE_SCRIPT(Dr_Mobius_Script, "")
 	////////////////////////////////////////////////////////////////////
 	//	Timer_Expired
 	////////////////////////////////////////////////////////////////////
-	void Timer_Expired (GameObject *game_obj, int timer_id)
+	void Timer_Expired (GameObject *game_obj, int timer_id) override
 	{
 		if (timer_id == 777) {
 			Commands->Innate_Disable (game_obj);

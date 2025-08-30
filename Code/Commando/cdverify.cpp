@@ -62,7 +62,7 @@ public:
 		Object (NULL),
 		PopupDialogClass (IDD_CDVERIFY) {}
 
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void	On_Command (int ctrl_id, int mesage_id, DWORD param) override;
 	void	Set_Object (CDVerifyClass *object)	{ Object = object; }
 
 private:

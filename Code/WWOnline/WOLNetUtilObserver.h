@@ -61,26 +61,26 @@ class NetUtilObserver :
 		//---------------------------------------------------------------------------
 		// IUnknown methods
 		//---------------------------------------------------------------------------
-		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv);
-		virtual ULONG STDMETHODCALLTYPE AddRef(void);
-		virtual ULONG STDMETHODCALLTYPE Release(void);
+		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv) override;
+		virtual ULONG STDMETHODCALLTYPE AddRef(void) override;
+		virtual ULONG STDMETHODCALLTYPE Release(void) override;
 
 		//---------------------------------------------------------------------------
 		// INetUtilEvent Methods
 		//---------------------------------------------------------------------------
-		STDMETHOD(OnPing)(HRESULT hr, int time, unsigned long ip, int handle);
+		STDMETHOD(OnPing)(HRESULT hr, int time, unsigned long ip, int handle) override;
         
-		STDMETHOD(OnLadderList)(HRESULT hr, WOL::Ladder* list, int count, long time, int keyRung);
+		STDMETHOD(OnLadderList)(HRESULT hr, WOL::Ladder* list, int count, long time, int keyRung) override;
        
-		STDMETHOD(OnGameresSent)(HRESULT hr);
+		STDMETHOD(OnGameresSent)(HRESULT hr) override;
       
-		STDMETHOD(OnNewNick)(HRESULT hr, LPCSTR message, LPCSTR nick, LPCSTR pass);
+		STDMETHOD(OnNewNick)(HRESULT hr, LPCSTR message, LPCSTR nick, LPCSTR pass) override;
         
-		STDMETHOD(OnAgeCheck)(HRESULT hr, int years, int consent);
+		STDMETHOD(OnAgeCheck)(HRESULT hr, int years, int consent) override;
    
-		STDMETHOD(OnWDTState)(HRESULT hr, unsigned char* state, int length);
+		STDMETHOD(OnWDTState)(HRESULT hr, unsigned char* state, int length) override;
 
-		STDMETHOD(OnHighscore)(HRESULT hr, WOL::Highscore* list, int count, long time, int keyRung);
+		STDMETHOD(OnHighscore)(HRESULT hr, WOL::Highscore* list, int count, long time, int keyRung) override;
 
 	protected:
 		virtual ~NetUtilObserver();

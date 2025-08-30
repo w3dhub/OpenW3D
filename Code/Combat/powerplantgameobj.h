@@ -69,11 +69,11 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	uint32								Get_Class_ID (void) const;
-	PersistClass *						Create (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const PersistFactoryClass &	Get_Factory (void) const;
+	uint32								Get_Class_ID (void) const override;
+	PersistClass *						Create (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const PersistFactoryClass &	Get_Factory (void) const override;
 
 	////////////////////////////////////////////////////////////////
 	//	Editable support
@@ -123,26 +123,26 @@ public:
 	//
 	// Definition support
 	//
-	virtual	void						Init( void );
+	virtual	void						Init( void ) override;
 	void									Init (const PowerPlantGameObjDef & definition);
 	const PowerPlantGameObjDef &	Get_Definition (void) const;
 
 	//
 	// RTTI
 	//
-	PowerPlantGameObj *				As_PowerPlantGameObj (void)	{ return this; }
+	PowerPlantGameObj *				As_PowerPlantGameObj (void) override	{ return this; }
 
 	//
 	// Persist support
 	//
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const	PersistFactoryClass &	Get_Factory (void) const;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const	PersistFactoryClass &	Get_Factory (void) const override;
 
 	//
 	//	From BuildingGameObj
 	//
-	void									On_Destroyed (void);
+	void									On_Destroyed (void) override;
 	
 
 private:

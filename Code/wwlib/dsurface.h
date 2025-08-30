@@ -82,33 +82,33 @@ class DSurface : public XSurface
 		/*
 		**	Copies regions from one surface to another.
 		*/
-		virtual bool Blit_From(Rect const & dcliprect, Rect const & destrect, Surface const & source, Rect const & scliprect, Rect const & sourcerect, bool trans=false);
-		virtual bool Blit_From(Rect const & destrect, Surface const & source, Rect const & sourcerect, bool trans=false);
-		virtual bool Blit_From(Surface const & source, bool trans=false) {return(XSurface::Blit_From(source, trans));}
+		virtual bool Blit_From(Rect const & dcliprect, Rect const & destrect, Surface const & source, Rect const & scliprect, Rect const & sourcerect, bool trans=false) override;
+		virtual bool Blit_From(Rect const & destrect, Surface const & source, Rect const & sourcerect, bool trans=false) override;
+		virtual bool Blit_From(Surface const & source, bool trans=false) override {return(XSurface::Blit_From(source, trans));}
 
 		/*
 		**	Fills a region with a constant color.
 		*/
-		virtual bool Fill_Rect(Rect const & rect, int color);
-		virtual bool Fill_Rect(Rect const & cliprect, Rect const & fillrect, int color);
+		virtual bool Fill_Rect(Rect const & rect, int color) override;
+		virtual bool Fill_Rect(Rect const & cliprect, Rect const & fillrect, int color) override;
 
 		/*
 		**	Gets and frees a direct pointer to the video memory.
 		*/
-		virtual void * Lock(Point2D point = Point2D(0, 0)) const;
-		virtual bool Unlock(void) const;
+		virtual void * Lock(Point2D point = Point2D(0, 0)) const override;
+		virtual bool Unlock(void) const override;
 
 		/*
 		**	Queries information about the surface.
 		*/
-		virtual int Bytes_Per_Pixel(void) const;
-		virtual int Stride(void) const;
+		virtual int Bytes_Per_Pixel(void) const override;
+		virtual int Stride(void) const override;
 		bool In_Video_Ram(void) const {return(IsVideoRam);}
 
 		/*
 		**	Verifies that this is a direct draw enabled surface.
 		*/
-		virtual bool Is_Direct_Draw(void) const {return(true);}
+		virtual bool Is_Direct_Draw(void) const override {return(true);}
 
 		static int Build_Hicolor_Pixel(int red, int green, int blue);
 		static void Build_Remap_Table(unsigned short * table, PaletteClass const & palette);

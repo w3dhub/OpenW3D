@@ -53,11 +53,11 @@ class SAMSiteGameObjDef : public SmartGameObjDef
 public:
 	SAMSiteGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( SAMSiteGameObjDef, SmartGameObjDef );
 
@@ -77,27 +77,27 @@ public:
 	virtual	~SAMSiteGameObj();
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const SAMSiteGameObjDef & definition );
 	const SAMSiteGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 	// Think
-	virtual	void	Think( void );
+	virtual	void	Think( void ) override;
 
 	// Control
-	virtual	void	Generate_Control( void );
+	virtual	void	Generate_Control( void ) override;
 
 	// Turret
-	virtual bool	Set_Targeting( const Vector3 & pos, bool do_tilt = true  );	// Set the targeting pos in world space
+	virtual bool	Set_Targeting( const Vector3 & pos, bool do_tilt = true  ) override;	// Set the targeting pos in world space
 
 	// State
-   virtual	void	Import_Frequent( BitStreamClass & packet );
-   virtual	void	Export_Frequent( BitStreamClass & packet );
+   virtual	void	Import_Frequent( BitStreamClass & packet ) override;
+   virtual	void	Export_Frequent( BitStreamClass & packet ) override;
 
 protected:
 

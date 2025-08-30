@@ -52,7 +52,7 @@ class CombatDazzleClass : public DazzleVisibilityClass
 {
 	float Compute_Dazzle_Visibility(	RenderInfoClass & rinfo,
 												DazzleRenderObjClass * dazzle,
-												const Vector3 & point) const;
+												const Vector3 & point) const override;
 };
 
 extern CombatDazzleClass _TheCombatDazzleHandler;

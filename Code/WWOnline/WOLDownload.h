@@ -143,19 +143,19 @@ class Download :
 	// IUnknown methods
 	//---------------------------------------------------------------------------
 	protected:
-		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv);
-		virtual ULONG STDMETHODCALLTYPE AddRef(void);
-		virtual ULONG STDMETHODCALLTYPE Release(void);
+		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv) override;
+		virtual ULONG STDMETHODCALLTYPE AddRef(void) override;
+		virtual ULONG STDMETHODCALLTYPE Release(void) override;
 
 	//---------------------------------------------------------------------------
 	// IDownloadEvent Methods
 	//---------------------------------------------------------------------------
 	protected:
-		STDMETHOD(OnEnd)(void);
-		STDMETHOD(OnError)(int error);
-		STDMETHOD(OnProgressUpdate)(int bytesRead, int totalSize, int timeElapsed, int timeRemaining);
-		STDMETHOD(OnQueryResume)(void);
-		STDMETHOD(OnStatusUpdate)(int status);
+		STDMETHOD(OnEnd)(void) override;
+		STDMETHOD(OnError)(int error) override;
+		STDMETHOD(OnProgressUpdate)(int bytesRead, int totalSize, int timeElapsed, int timeRemaining) override;
+		STDMETHOD(OnQueryResume)(void) override;
+		STDMETHOD(OnStatusUpdate)(int status) override;
 	};
 
 
@@ -209,11 +209,11 @@ class DownloadWait :
 	public:
 		static RefPtr<DownloadWait> Create(const DownloadList& files);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 		
-		WaitResult GetResult(void);
+		WaitResult GetResult(void) override;
 
-		void EndWait(WaitResult, const wchar_t*);
+		void EndWait(WaitResult, const wchar_t*) override;
 
 		void SetCallback(DownloadWaitCallback callback, unsigned long userdata);
 
@@ -233,7 +233,7 @@ class DownloadWait :
 
 		void DoCallback(DownloadEvent& event);
 
-		void HandleNotification(DownloadEvent&);
+		void HandleNotification(DownloadEvent&) override;
 
 	protected:
 		const DownloadList& mFiles;

@@ -73,11 +73,11 @@ public:
 	//	Public methods
 	////////////////////////////////////////////////////////////////
 
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
 
 	bool Is_Nuke(void) const {return (IsNuke != 0);}
 
@@ -147,27 +147,27 @@ public:
 	//
 	// Definition support
 	//
-	virtual	void					Init( void );
+	virtual	void					Init( void ) override;
 	void								Init (const BeaconGameObjDef & definition);
 	const BeaconGameObjDef &	Get_Definition (void) const;
 
 	//
 	// RTTI
 	//
-	virtual	BeaconGameObj * As_BeaconGameObj (void)	{ return this; }
+	virtual	BeaconGameObj * As_BeaconGameObj (void)	override { return this; }
 
 	//
 	// Save / Load / Construction Factory
 	//
-	bool				Save (ChunkSaveClass & csave);
-	bool				Load (ChunkLoadClass & cload);
-	const				PersistFactoryClass & Get_Factory (void) const;
+	bool				Save (ChunkSaveClass & csave) override;
+	bool				Load (ChunkLoadClass & cload) override;
+	const				PersistFactoryClass & Get_Factory (void) const override;
 
 	//
 	//	GameObj methods
 	//
-	void				Think (void);
-	void				Get_Information (StringClass &string);
+	void				Think (void) override;
+	void				Get_Information (StringClass &string) override;
 
 	//
 	//	Beacon initialization
@@ -182,10 +182,10 @@ public:
 	void				Begin_Arming (void);
 	void				On_Poked (ScriptableGameObj *poker);
 
-	virtual	void	Completely_Damaged( const OffenseObjectClass & damager );
+	virtual	void	Completely_Damaged( const OffenseObjectClass & damager ) override;
 
-	virtual void	Export_Rare( BitStreamClass &packet );
-	virtual void	Import_Rare( BitStreamClass &packet );
+	virtual void	Export_Rare( BitStreamClass &packet ) override;
+	virtual void	Import_Rare( BitStreamClass &packet ) override;
 
 	SoldierGameObj *			Get_Owner (void);
 

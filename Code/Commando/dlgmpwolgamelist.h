@@ -74,29 +74,29 @@ class MPWolGameListMenuClass :
 		MPWolGameListMenuClass(const MPWolGameListMenuClass&);
 		const MPWolGameListMenuClass& operator=(const MPWolGameListMenuClass&);
 	
-		void On_Init_Dialog(void);
-		void On_Command(int id, int mesage_id, DWORD param);
-		void On_Last_Menu_Ending(void);
-		bool On_Key_Down(uint32 key_id, uint32 key_data);
+		void On_Init_Dialog(void) override;
+		void On_Command(int id, int mesage_id, DWORD param) override;
+		void On_Last_Menu_Ending(void) override;
+		bool On_Key_Down(uint32 key_id, uint32 key_data) override;
 
 		void Join_Game(void);
-		void ReceiveSignal(DlgPasswordPrompt&);
+		void ReceiveSignal(DlgPasswordPrompt&) override;
 
 		void RequestGameList(void);
 		void SortGameChannels(int column, bool isAscending, unsigned long param);
 
-		void On_ListCtrl_Column_Click(ListCtrlClass* list, int id, int column);
-		void On_ListCtrl_DblClk(ListCtrlClass* list, int id, int index);
-		void On_ListCtrl_Delete_Entry(ListCtrlClass* list, int id, int index);
-		void On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int oldIndex, int newIndex);
+		void On_ListCtrl_Column_Click(ListCtrlClass* list, int id, int column) override;
+		void On_ListCtrl_DblClk(ListCtrlClass* list, int id, int index) override;
+		void On_ListCtrl_Delete_Entry(ListCtrlClass* list, int id, int index) override;
+		void On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int oldIndex, int newIndex) override;
 
 		void GetClanVSClanString(WOLGameInfo& gameInfo, WideStringClass& text);
 
-		void HandleNotification(WWOnline::ChannelListEvent&);
+		void HandleNotification(WWOnline::ChannelListEvent&) override;
 		void UpdateChannels(ListCtrlClass* list, const WWOnline::ChannelList& chanList);
 
-		void HandleNotification(WWOnline::ServerError&);
-		void HandleNotification(WWOnline::SquadEvent&);
+		void HandleNotification(WWOnline::ServerError&) override;
+		void HandleNotification(WWOnline::SquadEvent&) override;
 
 	protected:
 		static MPWolGameListMenuClass* _mInstance;

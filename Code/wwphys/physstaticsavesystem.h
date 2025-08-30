@@ -63,14 +63,14 @@ class PhysStaticDataSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
 	
-	virtual uint32				Chunk_ID (void) const;
+	virtual uint32				Chunk_ID (void) const override;
 
 protected:
 
-	virtual bool				Save (ChunkSaveClass &csave);
-	virtual bool				Load (ChunkLoadClass &cload);
-	virtual const char*		Name() const { return "PhysStaticSaveSystemClass"; }
-	virtual void				On_Post_Load(void);
+	virtual bool				Save (ChunkSaveClass &csave) override;
+	virtual bool				Load (ChunkLoadClass &cload) override;
+	virtual const char*		Name() const override { return "PhysStaticSaveSystemClass"; }
+	virtual void				On_Post_Load(void) override;
 
 	/*
 	** internal chunk id's
@@ -103,14 +103,14 @@ class PhysStaticObjectsSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
 	
-	virtual uint32				Chunk_ID (void) const;
+	virtual uint32				Chunk_ID (void) const override;
 
 protected:
 
-	virtual bool				Save (ChunkSaveClass &csave);
-	virtual bool				Load (ChunkLoadClass &cload);
-	virtual const char*		Name() const { return "PhysStaticObjectsSaveSystemClass"; }
-	virtual void				On_Post_Load (void);
+	virtual bool				Save (ChunkSaveClass &csave) override;
+	virtual bool				Load (ChunkLoadClass &cload) override;
+	virtual const char*		Name() const override { return "PhysStaticObjectsSaveSystemClass"; }
+	virtual void				On_Post_Load (void) override;
 
 	/*
 	** internal chunk id's

@@ -67,20 +67,20 @@ public:
 	virtual ~MoveablePhysClass(void);
 
 	void Init(const MoveablePhysDefClass & definition );
-	virtual MoveablePhysClass * As_MoveablePhysClass(void)								{ return this; }
+	virtual MoveablePhysClass * As_MoveablePhysClass(void) override								{ return this; }
 	const MoveablePhysDefClass * Get_MoveablePhysDef(void)								{ return (MoveablePhysDefClass*)Definition; }
 
 	/*
 	** DEBUGGING, re-initialize this object because our definition changed
 	*/
-	virtual void					Definition_Changed(void);
+	virtual void					Definition_Changed(void) override;
 
 	/*
 	** PhysClass interface.
 	** Post_Timestep_Process - moveable objects update their shadows in post-timestep...
 	*/
-	virtual bool					Needs_Timestep(void)											{ return true; }
-	virtual void					Post_Timestep_Process(void);
+	virtual bool					Needs_Timestep(void) override											{ return true; }
+	virtual void					Post_Timestep_Process(void) override;
 
 	/*
 	** Physical properites
@@ -113,9 +113,9 @@ public:
 	/*
 	** Save-Load system
 	*/
-	virtual bool					Save (ChunkSaveClass &csave);
-	virtual bool					Load (ChunkLoadClass &cload);
-	virtual void					On_Post_Load (void);
+	virtual bool					Save (ChunkSaveClass &csave) override;
+	virtual bool					Load (ChunkLoadClass &cload) override;
+	virtual void					On_Post_Load (void) override;
 	
 	/*
 	** Access to the state of the object
@@ -127,15 +127,15 @@ public:
 	** Shadow Casting. 
 	** Get_Blob_Shadow_Bounding_Box - Should return a tight object-space aabox; used for shadow blobs
 	*/
-	virtual void					Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box);
-	virtual bool					Is_Casting_Shadow(void)										{ return ShadowManager.Is_Casting_Shadow(); }
+	virtual void					Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box) override;
+	virtual bool					Is_Casting_Shadow(void) override										{ return ShadowManager.Is_Casting_Shadow(); }
 
 	/*
 	** Rider support.  All moveable objects can be riders.
 	*/
-	virtual void					Link_To_Carrier(PhysClass * carrier,RenderObjClass * carrier_sub_obj = NULL);
+	virtual void					Link_To_Carrier(PhysClass * carrier,RenderObjClass * carrier_sub_obj = NULL) override;
 	virtual PhysClass *			Peek_Carrier_Object(void); // TSS added 08-15-01
-	virtual RenderObjClass *	Peek_Carrier_Sub_Object(void);
+	virtual RenderObjClass *	Peek_Carrier_Sub_Object(void) override;
 
 protected:
 
@@ -175,12 +175,12 @@ public:
 	MoveablePhysDefClass(void);
 	
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "MoveablePhysDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "MoveablePhysDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	// In-Game Editing (DEBUGGING/TESTING ONLY)
 	float											Get_Mass(void)					{ return Mass; }

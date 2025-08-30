@@ -51,14 +51,14 @@ public:
 
 	void						Init(int team_choice, unsigned long clanID);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_BIOEVENT;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_BIOEVENT;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						SenderId;
 	WideStringClass		Nickname;

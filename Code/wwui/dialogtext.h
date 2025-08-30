@@ -67,19 +67,19 @@ public:
 	////////////////////////////////////////////////////////////////
 
 	// RTTI
-	DialogTextClass *As_DialogTextClass (void)		{ return (this); }
+	DialogTextClass *As_DialogTextClass (void) override		{ return (this); }
 
 	//
 	//	From DialogControlClass
 	//
-	void					Render (void);
+	void					Render (void) override;
 
 protected:
 
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void					On_Create (void);
+	void					On_Create (void) override;
 	void					Create_Text_Renderer (void);
 
 	////////////////////////////////////////////////////////////////

@@ -54,7 +54,7 @@ class BufferStraw : public Straw
 	public:
 		BufferStraw(Buffer const & buffer) : BufferPtr(buffer), Index(0) {}
 		BufferStraw(void const * buffer, int length) : BufferPtr((void*)buffer, length), Index(0) {}
-		virtual int Get(void * source, int slen);
+		virtual int Get(void * source, int slen) override;
 
 	private:
 		Buffer BufferPtr;
@@ -77,7 +77,7 @@ class FileStraw : public Straw
 		FileStraw(FileClass * file) : File(file), HasOpened(false) {}
 		FileStraw(FileClass & file) : File(&file), HasOpened(false) {}
 		virtual ~FileStraw(void);
-		virtual int Get(void * source, int slen);
+		virtual int Get(void * source, int slen) override;
 
 	private:
 		FileClass * File;

@@ -101,7 +101,7 @@ class BandwidthCheckerClass
 		static class BandwidthCheckerThreadClass : public ThreadClass {
 			public:
 				BandwidthCheckerThreadClass(const char *thread_name = "Bandwidth checker thread") : ThreadClass(thread_name, &Exception_Handler) {}
-				void Thread_Function(void) {BandwidthCheckerClass::Check();};
+				void Thread_Function(void) override {BandwidthCheckerClass::Check();};
 		} Thread;
 		friend BandwidthCheckerThreadClass;
 
@@ -136,8 +136,8 @@ class BandwidthDetectWait : public SingleWait
 	public:
 		static RefPtr<BandwidthDetectWait> Create(void);
 
-		void WaitBeginning(void);
-		WaitResult GetResult(void);
+		void WaitBeginning(void) override;
+		WaitResult GetResult(void) override;
 
 
 	protected:

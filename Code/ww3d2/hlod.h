@@ -97,9 +97,9 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Cloning and Identification
 	/////////////////////////////////////////////////////////////////////////////
-	virtual RenderObjClass *	Clone(void) const;
-	virtual int						Class_ID(void) const										{ return CLASSID_HLOD; }
-	virtual int						Get_Num_Polys(void) const;
+	virtual RenderObjClass *	Clone(void) const override;
+	virtual int						Class_ID(void) const override										{ return CLASSID_HLOD; }
+	virtual int						Get_Num_Polys(void) const override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// HLod Interface - Editing and information
@@ -129,101 +129,101 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Rendering
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Render(RenderInfoClass & rinfo);
-	virtual void					Special_Render(SpecialRenderInfoClass & rinfo);
+	virtual void					Render(RenderInfoClass & rinfo) override;
+	virtual void					Special_Render(SpecialRenderInfoClass & rinfo) override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - "Scene Graph"
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void 					Set_Transform(const Matrix3D &m);
-	virtual void 					Set_Position(const Vector3 &v);
+	virtual void 					Set_Transform(const Matrix3D &m) override;
+	virtual void 					Set_Position(const Vector3 &v) override;
 
-	virtual void					Notify_Added(SceneClass * scene);
-	virtual void					Notify_Removed(SceneClass * scene);
+	virtual void					Notify_Added(SceneClass * scene) override;
+	virtual void					Notify_Removed(SceneClass * scene) override;
 
-	virtual int						Get_Num_Sub_Objects(void) const; 					
-	virtual RenderObjClass *	Get_Sub_Object(int index) const;
-	virtual int						Add_Sub_Object(RenderObjClass * subobj);
-	virtual int						Remove_Sub_Object(RenderObjClass * robj);
+	virtual int						Get_Num_Sub_Objects(void) const override;
+	virtual RenderObjClass *	Get_Sub_Object(int index) const override;
+	virtual int						Add_Sub_Object(RenderObjClass * subobj) override;
+	virtual int						Remove_Sub_Object(RenderObjClass * robj) override;
 
-	virtual int						Get_Num_Sub_Objects_On_Bone(int boneindex) const;							
-	virtual RenderObjClass *	Get_Sub_Object_On_Bone(int index,int boneindex) const;
-	virtual int						Get_Sub_Object_Bone_Index(RenderObjClass * subobj) const;
-	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,int bone_index);
+	virtual int						Get_Num_Sub_Objects_On_Bone(int boneindex) const override;
+	virtual RenderObjClass *	Get_Sub_Object_On_Bone(int index,int boneindex) const override;
+	virtual int						Get_Sub_Object_Bone_Index(RenderObjClass * subobj) const override;
+	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,int bone_index) override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Hierarchical Animation
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Set_Animation(void);
+	virtual void					Set_Animation(void)override;
 	virtual void					Set_Animation( HAnimClass * motion,
-															float frame, int anim_mode = ANIM_MODE_MANUAL);
+															float frame, int anim_mode = ANIM_MODE_MANUAL) override;
 	virtual void					Set_Animation( HAnimClass * motion0,
 															float frame0,
 															HAnimClass * motion1,
 															float frame1,
-															float percentage);
-	virtual void					Set_Animation( HAnimComboClass * anim_combo);
+															float percentage) override;
+	virtual void					Set_Animation( HAnimComboClass * anim_combo) override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Collision Detection, Ray Tracing
 	/////////////////////////////////////////////////////////////////////////////
-	virtual bool					Cast_Ray(RayCollisionTestClass & raytest);
-	virtual bool					Cast_AABox(AABoxCollisionTestClass & boxtest);
-	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & boxtest);
-	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest);
-	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest);
+	virtual bool					Cast_Ray(RayCollisionTestClass & raytest) override;
+	virtual bool					Cast_AABox(AABoxCollisionTestClass & boxtest) override;
+	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & boxtest) override;
+	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest) override;
+	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest) override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Predictive LOD
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Prepare_LOD(CameraClass &camera);
-   virtual void					Recalculate_Static_LOD_Factors(void);
-	virtual void					Increment_LOD(void);
-	virtual void					Decrement_LOD(void);
-	virtual float					Get_Cost(void) const;
-	virtual float					Get_Value(void) const;
-	virtual float					Get_Post_Increment_Value(void) const;
-	virtual void					Set_LOD_Level(int lod);
-	virtual int						Get_LOD_Level(void) const;
-	virtual int						Get_LOD_Count(void) const;
-	virtual void					Set_LOD_Bias(float bias);
-	virtual int						Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const;
-	virtual RenderObjClass *	Get_Current_LOD(void);
+	virtual void					Prepare_LOD(CameraClass &camera) override;
+   virtual void					Recalculate_Static_LOD_Factors(void) override;
+	virtual void					Increment_LOD(void) override;
+	virtual void					Decrement_LOD(void) override;
+	virtual float					Get_Cost(void) const override;
+	virtual float					Get_Value(void) const override;
+	virtual float					Get_Post_Increment_Value(void) const override;
+	virtual void					Set_LOD_Level(int lod) override;
+	virtual int						Get_LOD_Level(void) const override;
+	virtual int						Get_LOD_Count(void) const override;
+	virtual void					Set_LOD_Bias(float bias) override;
+	virtual int						Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const override;
+	virtual RenderObjClass *	Get_Current_LOD(void) override;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Bounding Volumes
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	virtual const SphereClass &	Get_Bounding_Sphere(void) const;
-	virtual const AABoxClass &		Get_Bounding_Box(void) const;
-	virtual void						Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const;
-	virtual void						Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
+	virtual const SphereClass &	Get_Bounding_Sphere(void) const override;
+	virtual const AABoxClass &		Get_Bounding_Box(void) const override;
+	virtual void						Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const override;
+	virtual void						Get_Obj_Space_Bounding_Box(AABoxClass & box) const override;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Decals
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	virtual void					Create_Decal(DecalGeneratorClass * generator);
-	virtual void					Delete_Decal(uint32 decal_id);
+	virtual void					Create_Decal(DecalGeneratorClass * generator) override;
+	virtual void					Delete_Decal(uint32 decal_id) override;
 	
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Attributes, Options, Properties, etc
 	/////////////////////////////////////////////////////////////////////////////
 //   virtual void					Set_Texture_Reduction_Factor(float trf);
-	virtual void					Scale(float scale);
-	virtual void					Scale(float scalex, float scaley, float scalez)	{ }
-	virtual int						Get_Num_Snap_Points(void);
-	virtual void					Get_Snap_Point(int index,Vector3 * set);
-	virtual void					Set_Hidden(int onoff);
+	virtual void					Scale(float scale) override;
+	virtual void					Scale(float scalex, float scaley, float scalez)	override { }
+	virtual int						Get_Num_Snap_Points(void) override;
+	virtual void					Get_Snap_Point(int index,Vector3 * set) override;
+	virtual void					Set_Hidden(int onoff) override;
 
 	// (gth) TESTING DYNAMICALLY SWAPPING SKELETONS!
-	virtual void					Set_HTree(HTreeClass * htree);
+	virtual void					Set_HTree(HTreeClass * htree) override;
 
 protected:
 
 	HLodClass(void);
 
 	void								Free(void);
-	virtual void					Update_Sub_Object_Transforms(void);
-	virtual void					Update_Obj_Space_Bounding_Volumes(void);
+	virtual void					Update_Sub_Object_Transforms(void) override;
+	virtual void					Update_Obj_Space_Bounding_Volumes(void) override;
 	void								add_lod_model(int lod,RenderObjClass * robj,int boneindex);
 
 protected:
@@ -288,8 +288,8 @@ protected:
 class HLodLoaderClass : public PrototypeLoaderClass
 {
 public:
-	virtual int						Chunk_Type (void)  { return W3D_CHUNK_HLOD; }
-	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload);
+	virtual int						Chunk_Type (void) override  { return W3D_CHUNK_HLOD; }
+	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload) override;
 };
 
 
@@ -369,9 +369,9 @@ public:
 	HLodPrototypeClass( HLodDefClass *def )					{ Definition = def; }
 	virtual ~HLodPrototypeClass(void)							{ delete Definition; }
 	
-	virtual const char *			Get_Name(void) const			{ return Definition->Get_Name(); }
-	virtual int						Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_HLOD; }
-	virtual RenderObjClass *	Create(void);
+	virtual const char *			Get_Name(void) const override			{ return Definition->Get_Name(); }
+	virtual int						Get_Class_ID(void) const override	{ return RenderObjClass::CLASSID_HLOD; }
+	virtual RenderObjClass *	Create(void) override;
 	
 	HLodDefClass *					Get_Definition(void) const	{ return Definition; }
 

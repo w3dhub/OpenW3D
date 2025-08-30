@@ -71,12 +71,12 @@ public:
 	//
 	//	Inherited
 	//
-	void		On_Init_Dialog (void);
-	void		On_Destroy (void);
-	void		Render (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
-	void		On_Menu_Activate (bool onoff);
-	void		On_Frame_Update (void);
+	void		On_Init_Dialog (void) override;
+	void		On_Destroy (void) override;
+	void		Render (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Menu_Activate (bool onoff) override;
+	void		On_Frame_Update (void) override;
 
 	//
 	//	Control population control

@@ -60,16 +60,16 @@ class DlgWebPage :
 		bool FinalizeCreate(void);
 
 		// Handle web browser events
-		void HandleNotification(WebEvent& event);
+		void HandleNotification(WebEvent& event) override;
 
 		// Handle message box dialog events
-		void HandleNotification(DlgMsgBoxEvent& event);
+		void HandleNotification(DlgMsgBoxEvent& event) override;
 
 	// DialogBassClass methods
 	protected:
-		void Start_Dialog(void);
-		void End_Dialog(void);
-		void On_Frame_Update(void);
+		void Start_Dialog(void) override;
+		void End_Dialog(void) override;
+		void On_Frame_Update(void) override;
 
 	private:
 		// Declare private to prevent copy and assignment

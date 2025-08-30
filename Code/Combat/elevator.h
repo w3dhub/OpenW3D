@@ -71,13 +71,13 @@ class ElevatorPhysDefClass : public AccessiblePhysDefClass
 public:
 	ElevatorPhysDefClass(void);
 	
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual const char *						Get_Type_Name(void)				{ return "ElevatorPhysDef"; }
-	virtual bool								Is_Type(const char *);
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual const char *						Get_Type_Name(void) override				{ return "ElevatorPhysDef"; }
+	virtual bool								Is_Type(const char *) override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	const OBBoxClass &						Get_Zone (ELEVATOR_ZONE id) const	{ return CallZones[id]; }
 
@@ -114,22 +114,22 @@ public:
 	virtual ~ElevatorPhysClass( void );
 
 	// RTTI
-	virtual ElevatorPhysClass *	As_ElevatorPhysClass(void)	{ return this; }
+	virtual ElevatorPhysClass *	As_ElevatorPhysClass(void) override	{ return this; }
 
 	// Definitions
 	void	Init( const ElevatorPhysDefClass & definition );
 	const ElevatorPhysDefClass * Get_ElevatorPhysDef( void ) const { WWASSERT( Definition ); return (ElevatorPhysDefClass *)Definition; }
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
-	virtual	void	Save_State( ChunkSaveClass & csave );
-	virtual	void	Load_State( ChunkLoadClass & cload );
+	virtual	void	Save_State( ChunkSaveClass & csave ) override;
+	virtual	void	Load_State( ChunkLoadClass & cload ) override;
 
 	// Timestep
-	virtual void	Timestep( float dt ); 
+	virtual void	Timestep( float dt ) override;
 
 	// State import/export
 	static void		Set_Precision(void);

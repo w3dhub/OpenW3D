@@ -69,10 +69,10 @@ class PathDebugPlotterClass : public RenderObjClass
 		/////////////////////////////////////////////////////////////////////////
 		// RenderObjClass required methods
 		/////////////////////////////////////////////////////////////////////////
-		RenderObjClass *Clone (void) const { return NULL; }
-		int				Class_ID (void) const	{ return CLASSID_LAST + 104L; }
-		void				Render (RenderInfoClass &rinfo);
-		const AABoxClass &Get_Bounding_Box(void) const { return m_BoundingBox; }
+		RenderObjClass *Clone (void) const override { return NULL; }
+		int				Class_ID (void) const override	{ return CLASSID_LAST + 104L; }
+		void				Render (RenderInfoClass &rinfo) override;
+		const AABoxClass &Get_Bounding_Box(void) const override { return m_BoundingBox; }
 		
 		/////////////////////////////////////////////////////////////////////////
 		// Public methods

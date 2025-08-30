@@ -494,10 +494,10 @@ class DynamicVectorClass : public VectorClass<T>
 		bool operator!= (const DynamicVectorClass &src)	{ return true; }
 
 		// Change maximum size of vector.
-		virtual bool Resize(int newsize, T const * array=0);
+		virtual bool Resize(int newsize, T const * array=0) override;
 
 		// Resets and frees the vector array.
-		virtual void Clear(void) {ActiveCount = 0;VectorClass<T>::Clear();};
+		virtual void Clear(void) override {ActiveCount = 0;VectorClass<T>::Clear();};
 
 		// retains the memory but zeros the active count
 		void Reset_Active(void)		{ ActiveCount = 0; }
@@ -526,8 +526,8 @@ class DynamicVectorClass : public VectorClass<T>
 		// Fetch current growth step rate.
 		int Growth_Step(void) {return GrowthStep;};
 
-		virtual int ID(T const * ptr) {return(VectorClass<T>::ID(ptr));};
-		virtual int ID(T const & ptr);
+		virtual int ID(T const * ptr) override {return(VectorClass<T>::ID(ptr));};
+		virtual int ID(T const & ptr) override;
 
 		DynamicVectorClass<T> & operator =(DynamicVectorClass<T> const & rvalue) {
 			VectorClass<T>::operator = (rvalue);

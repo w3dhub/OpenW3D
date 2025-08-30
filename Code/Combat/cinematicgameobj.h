@@ -55,11 +55,11 @@ class CinematicGameObjDef : public ArmedGameObjDef
 public:
 	CinematicGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( CinematicGameObjDef, ArmedGameObjDef );
 
@@ -85,30 +85,30 @@ public:
 	virtual	~CinematicGameObj();
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const CinematicGameObjDef & definition );
 	const CinematicGameObjDef & Get_Definition( void ) const ;
 	void	Cinematic_Init( void );
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	void	On_Post_Load( void );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	void	On_Post_Load( void ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 	// Think
-	virtual	void	Think( void );
-	virtual	void	Post_Think( void );
+	virtual	void	Think( void ) override;
+	virtual	void	Post_Think( void ) override;
 
 	// Type Identification
-	virtual	CinematicGameObj		*As_CinematicGameObj( void )	{ return this; }
+	virtual	CinematicGameObj		*As_CinematicGameObj( void ) override	{ return this; }
 
 	// Sound
 	void				Set_Sound( int	sound_def_id, const char * bone_name = ""  );
 
 	// Damage
-	virtual	bool	Takes_Explosion_Damage( void )						{ return false; }
-	virtual	void	Completely_Damaged( const OffenseObjectClass & damager );
+	virtual	bool	Takes_Explosion_Damage( void ) override						{ return false; }
+	virtual	void	Completely_Damaged( const OffenseObjectClass & damager ) override;
 
 	// Information
 	float				Get_Animation_Length( void );
@@ -118,8 +118,8 @@ public:
 	//virtual	void	Import_Creation( BitStreamClass &packet );
 
 	// Network support
-	virtual void	Export_Rare( BitStreamClass &packet );
-	virtual void	Import_Rare( BitStreamClass &packet );
+	virtual void	Export_Rare( BitStreamClass &packet ) override;
+	virtual void	Import_Rare( BitStreamClass &packet ) override;
 
 protected:
 	AudibleSoundClass		*Sound;

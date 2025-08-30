@@ -60,11 +60,11 @@ class C4GameObjDef : public SimpleGameObjDef
 public:
 	C4GameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( C4GameObjDef, SimpleGameObjDef );
 
@@ -86,31 +86,31 @@ public:
 	virtual	~C4GameObj();
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const C4GameObjDef & definition );
 	const C4GameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
-	virtual  C4GameObj * As_C4GameObj( void )	      { return this; }
+	virtual  C4GameObj * As_C4GameObj( void ) override	      { return this; }
 
 	void		Init_C4( const AmmoDefinitionClass * def, SoldierGameObj *owner, int detonation_mode, const Matrix3D & tm );
-	virtual CollisionReactionType		Collision_Occurred( const CollisionEventClass & event );
+	virtual CollisionReactionType		Collision_Occurred( const CollisionEventClass & event ) override;
 
-	virtual void	Think();
-	virtual void	Post_Think();
+	virtual void	Think() override;
+	virtual void	Post_Think() override;
 
-	virtual void	Get_Information( StringClass & string );
+	virtual void	Get_Information( StringClass & string ) override;
 
-	virtual void	Export_Rare( BitStreamClass &packet );
-	virtual void	Import_Rare( BitStreamClass &packet );
+	virtual void	Export_Rare( BitStreamClass &packet ) override;
+	virtual void	Import_Rare( BitStreamClass &packet ) override;
 
 	ScriptableGameObj * Get_Stuck_Object(void) { return StuckObject.Get_Ptr(); }
 
-	virtual	void	Completely_Damaged( const OffenseObjectClass & damager );
+	virtual	void	Completely_Damaged( const OffenseObjectClass & damager ) override;
 
 	SoldierGameObj *Get_Owner( void ) const { return (SoldierGameObj *)Owner.Get_Ptr(); }
 	void				Defuse( void );

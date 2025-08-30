@@ -55,8 +55,8 @@ class DamageableGameObjDef : public ScriptableGameObjDef
 public:
 	DamageableGameObjDef( void );
 
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
 
 	DECLARE_EDITABLE( DamageableGameObjDef, ScriptableGameObjDef );
 
@@ -111,8 +111,8 @@ public:
 	const DamageableGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
 
 	DefenseObjectClass *	Get_Defense_Object( void )						{ return &DefenseObject; }
 	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 );
@@ -128,7 +128,7 @@ public:
 	virtual	void			Set_Is_Health_Bar_Displayed( bool state ) { IsHealthBarDisplayed = state; }
 
 	// Type identification
-	virtual	DamageableGameObj	*As_DamageableGameObj( void )	{ return this; }
+	virtual	DamageableGameObj	*As_DamageableGameObj( void ) override	{ return this; }
 
 
 	// Teams / Playertypes
@@ -143,8 +143,8 @@ public:
 	//
 	// Network support
 	//
-	virtual	void								Import_Occasional( BitStreamClass &packet );
-	virtual	void								Export_Occasional( BitStreamClass &packet );
+	virtual	void								Import_Occasional( BitStreamClass &packet ) override;
+	virtual	void								Export_Occasional( BitStreamClass &packet ) override;
 
 protected:
 

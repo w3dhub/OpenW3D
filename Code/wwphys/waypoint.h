@@ -117,9 +117,9 @@ public:
 	//
 	//	Serialization methods (from PersistClass)
 	//
-	const PersistFactoryClass &	Get_Factory (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
+	const PersistFactoryClass &	Get_Factory (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
 
 protected:
 

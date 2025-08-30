@@ -263,7 +263,7 @@ public:
 		:
 		ThreadClass("SysInfoCopyThread", &Exception_Handler) {}
 
-	void Thread_Function()
+	void Thread_Function() override
 	{
 		DWORD written;
 		HANDLE file = CreateFileA(Filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,

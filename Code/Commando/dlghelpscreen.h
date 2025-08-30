@@ -65,11 +65,11 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
-	void		On_Menu_Activate (bool onoff);
-	void		On_Destroy (void);
-	bool		On_Key_Down (uint32 key_id, uint32 key_data);
+	void		On_Init_Dialog (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Menu_Activate (bool onoff) override;
+	void		On_Destroy (void) override;
+	bool		On_Key_Down (uint32 key_id, uint32 key_data) override;
 
 	//
 	//	Singleton access

@@ -48,8 +48,8 @@ class	RAMFileFactoryClass : public FileFactoryClass {
 		 RAMFileFactoryClass();
 		~RAMFileFactoryClass();
 
-		FileClass *Get_File (const char *filename);
-		void		  Return_File (FileClass *file);
+		FileClass *Get_File (const char *filename) override;
+		void		  Return_File (FileClass *file) override;
 
 	protected:
 		unsigned char *FileBuffer;

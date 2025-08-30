@@ -52,9 +52,9 @@ class SlaveServerDialogClass : public MenuDialogClass
 
 		SlaveServerDialogClass(void);
 
-		void On_Init_Dialog(void);
-		void On_Command(int ctrl_id, int mesage_id, DWORD param);
-		void On_Destroy(void);
+		void On_Init_Dialog(void) override;
+		void On_Command(int ctrl_id, int mesage_id, DWORD param) override;
+		void On_Destroy(void) override;
 		void Load_Settings(int slavenum);
 		static void Set_Slave_Settings(StringClass *file_name);
 		static void Set_Slave_Button(int slavenum);

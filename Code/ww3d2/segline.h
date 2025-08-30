@@ -122,33 +122,33 @@ class SegmentedLineClass : public RenderObjClass
 		/////////////////////////////////////////////////////////////////////////////
 		// Render Object Interface - Cloning and Identification
 		/////////////////////////////////////////////////////////////////////////////
-		virtual RenderObjClass *	Clone(void) const;		
-		virtual int						Class_ID(void)	const { return CLASSID_SEGLINE; }
-		virtual int						Get_Num_Polys(void) const;
+		virtual RenderObjClass *	Clone(void) const override;
+		virtual int						Class_ID(void)	const override { return CLASSID_SEGLINE; }
+		virtual int						Get_Num_Polys(void) const override;
 
 		/////////////////////////////////////////////////////////////////////////////
 		// Render Object Interface - Rendering
 		/////////////////////////////////////////////////////////////////////////////
-		virtual void					Render(RenderInfoClass & rinfo);
+		virtual void					Render(RenderInfoClass & rinfo) override;
 
 		/////////////////////////////////////////////////////////////////////////////
 		// Render Object Interface - Bounding Volumes
 		/////////////////////////////////////////////////////////////////////////////
-		virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const;
-		virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
+		virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const override;
+		virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const override;
 
 		/////////////////////////////////////////////////////////////////////////////
 		// Render Object Interface - Predictive LOD
 		/////////////////////////////////////////////////////////////////////////////
-		virtual void					Prepare_LOD(CameraClass &camera);
-		virtual void					Increment_LOD(void);
-		virtual void					Decrement_LOD(void);
-		virtual float					Get_Cost(void) const;
-		virtual float					Get_Value(void) const;
-		virtual float					Get_Post_Increment_Value(void) const;
-		virtual void					Set_LOD_Level(int lod);
-		virtual int						Get_LOD_Level(void) const;
-		virtual int						Get_LOD_Count(void) const;
+		virtual void					Prepare_LOD(CameraClass &camera) override;
+		virtual void					Increment_LOD(void) override;
+		virtual void					Decrement_LOD(void) override;
+		virtual float					Get_Cost(void) const override;
+		virtual float					Get_Value(void) const override;
+		virtual float					Get_Post_Increment_Value(void) const override;
+		virtual void					Set_LOD_Level(int lod) override;
+		virtual int						Get_LOD_Level(void) const override;
+		virtual int						Get_LOD_Count(void) const override;
 
 		/////////////////////////////////////////////////////////////////////////////
 		// Render Object Interface - Attributes, Options, Properties, etc
@@ -158,7 +158,7 @@ class SegmentedLineClass : public RenderObjClass
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// Render Object Interface - Collision Detection
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		virtual bool					Cast_Ray(RayCollisionTestClass & raytest);
+		virtual bool					Cast_Ray(RayCollisionTestClass & raytest) override;
 
 	protected:
 

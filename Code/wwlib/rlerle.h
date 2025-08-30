@@ -83,7 +83,7 @@ class RLEBlitTransXlat : public RLEBlitter {
 	public:
 		RLEBlitTransXlat(T const * translator) : TranslateTable(translator) {assert(TranslateTable != NULL);}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			T * dptr = (T *)dest;
@@ -128,7 +128,7 @@ class RLEBlitTransRemapXlat : public RLEBlitter {
 	public:
 		RLEBlitTransRemapXlat(unsigned char const * remapper, T const * translator) : RemapTable(remapper), TranslateTable(translator) {assert(TranslateTable != NULL);assert(RemapTable != NULL);}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			T * dptr = (T *)dest;
@@ -176,7 +176,7 @@ class RLEBlitTransZRemapXlat : public RLEBlitter {
 	public:
 		RLEBlitTransZRemapXlat(unsigned char const * const * remapper, T const * translator) : RemapTable(remapper), TranslateTable(translator) {assert(TranslateTable != NULL);assert(RemapTable != NULL);}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			unsigned char const * remapper = *RemapTable;
@@ -224,7 +224,7 @@ class RLEBlitTransRemapDest : public RLEBlitter {
 	public:
 		RLEBlitTransRemapDest(T const * remap) : RemapTable(remap) {}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			T * dptr = (T *)dest;
@@ -272,7 +272,7 @@ class RLEBlitTransDarken : public RLEBlitter {
 	public:
 		RLEBlitTransDarken(T mask) : Mask(mask) {}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			T * dptr = (T *)dest;
@@ -319,7 +319,7 @@ class RLEBlitTransLucent50 : public RLEBlitter {
 	public:
 		RLEBlitTransLucent50(T const * translator, T mask) : TranslateTable(translator), Mask(mask) {}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			T * dptr = (T *)dest;
@@ -366,7 +366,7 @@ class RLEBlitTransLucent25 : public RLEBlitter {
 	public:
 		RLEBlitTransLucent25(T const * translator, T mask) : TranslateTable(translator), Mask(mask) {}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			T * dptr = (T *)dest;
@@ -415,7 +415,7 @@ class RLEBlitTransLucent75 : public RLEBlitter {
 	public:
 		RLEBlitTransLucent75(T const * translator, T mask) : TranslateTable(translator), Mask(mask) {}
 
-		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const
+		virtual void Blit(void * dest, void const * source, int length, int leadskip=0) const override
 		{
 			unsigned char const * sptr = (unsigned char const *)source;
 			T * dptr = (T *)dest;

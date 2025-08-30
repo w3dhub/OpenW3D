@@ -91,11 +91,11 @@ public:
 
 	MotorVehicleClass(void);	
 	virtual ~MotorVehicleClass(void);
-	virtual MotorVehicleClass * As_MotorVehicleClass(void) { return this; }
+	virtual MotorVehicleClass * As_MotorVehicleClass(void) override { return this; }
 
 	void					Init(const MotorVehicleDefClass & def);
 	
-	virtual void		Timestep(float dt);
+	virtual void		Timestep(float dt) override;
 
 	// Accessors for the current state
 	float					Get_Engine_Angular_Velocity(void)							{ return EngineAngularVelocity; }
@@ -113,8 +113,8 @@ public:
 	float					Get_Max_Engine_Torque(void);
 
 	// Save-Load system
-	virtual bool		Save(ChunkSaveClass &csave);
-	virtual bool		Load(ChunkLoadClass &cload);
+	virtual bool		Save(ChunkSaveClass &csave) override;
+	virtual bool		Load(ChunkLoadClass &cload) override;
 
 protected:
 
@@ -123,7 +123,7 @@ protected:
 	virtual bool		Drive_Wheels_In_Contact(void) = 0;
 
 	// Integration system
-	virtual int			Set_State(const StateVectorClass & new_state,int start_index);
+	virtual int			Set_State(const StateVectorClass & new_state,int start_index) override;
 	
 	// Internal engine simulation methods	
 	float					Compute_Engine_Angular_Acceleration(void);
@@ -167,16 +167,16 @@ public:
 	virtual ~MotorVehicleDefClass(void);
 	
 	// From PersistClass
-	virtual uint32								Get_Class_ID (void) const;
+	virtual uint32								Get_Class_ID (void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "MotorVehicleDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "MotorVehicleDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	// Read/Write access (DEBUGGING/TESTING ONLY)
 	float				Get_Max_Engine_Torque(void) const					{ return MaxEngineTorque; }

@@ -68,11 +68,11 @@ class	SpawnerDefClass : public DefinitionClass {
 public:
 	SpawnerDefClass( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( SpawnerDefClass, DefinitionClass );
 
@@ -128,9 +128,9 @@ public:
 	const SpawnerDefClass & Get_Definition( void ) const { WWASSERT( Definition ); return *Definition; }
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 	// Parameters
 	SpawnPointListType * Get_Spawn_Point_List( void )	{ return &SpawnPointList; }

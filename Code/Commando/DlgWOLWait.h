@@ -103,11 +103,11 @@ class DlgWOLWait :
 
 		void CheckCondition(void);
 
-		void On_Init_Dialog(void);
-		void On_Destroy(void);
-		void On_Periodic(void);
-		void On_Command(int ctrl, int message, DWORD param);
-		void Render(void);
+		void On_Init_Dialog(void) override;
+		void On_Destroy(void) override;
+		void On_Periodic(void) override;
+		void On_Command(int ctrl, int message, DWORD param) override;
+		void Render(void) override;
 
 		DECLARE_NOTIFIER(DlgWOLWaitEvent)
 

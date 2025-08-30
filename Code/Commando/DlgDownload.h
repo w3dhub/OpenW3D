@@ -56,9 +56,9 @@ class DlgDownload :
 
 		bool FinalizeCreate(const WWOnline::DownloadList& files);
 
-		void On_Init_Dialog(void);
-		void On_Command(int ctrl, int message, DWORD param);
-		void On_Periodic(void);
+		void On_Init_Dialog(void) override;
+		void On_Command(int ctrl, int message, DWORD param) override;
+		void On_Periodic(void) override;
 
 		void UpdateProgress(WWOnline::DownloadEvent& event);
 		static void HandleCallback(WWOnline::DownloadEvent& event, unsigned long userdata);

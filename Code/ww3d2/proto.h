@@ -111,9 +111,9 @@ public:
 	PrimitivePrototypeClass(RenderObjClass * proto);
 	virtual ~PrimitivePrototypeClass(void);
 
-	virtual const char *			Get_Name(void) const;
-	virtual int						Get_Class_ID(void) const;
-	virtual RenderObjClass *	Create(void);
+	virtual const char *			Get_Name(void) const override;
+	virtual int						Get_Class_ID(void) const override;
+	virtual RenderObjClass *	Create(void) override;
 	RenderObjClass *				Proto;
 };
 
@@ -150,16 +150,16 @@ class MeshLoaderClass : public PrototypeLoaderClass
 {
 public:
 
-	virtual int						Chunk_Type(void) { return W3D_CHUNK_MESH; }
-	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload);
+	virtual int						Chunk_Type(void) override { return W3D_CHUNK_MESH; }
+	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload) override;
 };
 
 class HModelLoaderClass : public PrototypeLoaderClass
 {
 public:
 
-	virtual int						Chunk_Type(void) { return W3D_CHUNK_HMODEL; }
-	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload);
+	virtual int						Chunk_Type(void) override { return W3D_CHUNK_HMODEL; }
+	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload) override;
 };
 
 
