@@ -67,17 +67,17 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	void		On_Destroy (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
-	bool		On_Key_Down(uint32 key_id, uint32 key_data);
+	void		On_Init_Dialog (void) override;
+	void		On_Destroy (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	bool		On_Key_Down(uint32 key_id, uint32 key_data) override;
 	
 	static void	Set_Update_Nickname(void)						{ UpdateNickname = true; }
 
 	
-	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index);
-	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index);
-	void		On_EditCtrl_Change(EditCtrlClass* edit, int id);
+	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
+	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
+	void		On_EditCtrl_Change(EditCtrlClass* edit, int id) override;
 
 	//
 	//	Singleton access
@@ -94,12 +94,12 @@ protected:
 	//
 	//	Inherited
 	//
-	void		On_Last_Menu_Ending (void);
-	void		On_Frame_Update (void);
+	void		On_Last_Menu_Ending (void) override;
+	void		On_Frame_Update (void) override;
 
 	void		Update_Game_List (void);
 	void		Join_Game (void);
-	void		ReceiveSignal(DlgPasswordPrompt&);
+	void		ReceiveSignal(DlgPasswordPrompt&) override;
 	void		Connect_To_Server (void);
 
 	////////////////////////////////////////////////////////////////

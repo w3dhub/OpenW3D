@@ -81,12 +81,12 @@ public:
 	////////////////////////////////////////////////////////////////
 
 	// RTTI.
-	ViewerCtrlClass *As_ViewerCtrlClass (void)		{ return this; }	
+	ViewerCtrlClass *As_ViewerCtrlClass (void) override		{ return this; }
 
 	//
 	//	From DialogControlClass
 	//
-	void				Render (void);
+	void				Render (void) override;
 
 	//
 	// Configuation
@@ -111,11 +111,11 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void				On_LButton_Down (const Vector2 &mouse_pos);
-	void				On_LButton_Up (const Vector2 &mouse_pos);
-	void				On_Set_Cursor (const Vector2 &mouse_pos);
-	void				On_Frame_Update (void);
-	void				Update_Client_Rect (void);
+	void				On_LButton_Down (const Vector2 &mouse_pos) override;
+	void				On_LButton_Up (const Vector2 &mouse_pos) override;
+	void				On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void				On_Frame_Update (void) override;
+	void				Update_Client_Rect (void) override;
 
 	void				Create_Control_Renderer (void);
 	void				Free_Model (void);

@@ -54,14 +54,14 @@ public:
 
 	void						Init(WideStringClass & text, TextMessageEnum type, int sender_id, int recipient);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_CSTEXTOBJ;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_CSTEXTOBJ;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						SenderId;
 	TextMessageEnum		Type;

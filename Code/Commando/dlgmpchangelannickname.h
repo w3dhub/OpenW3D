@@ -44,10 +44,10 @@ protected:
 	DlgMpChangeLanNickname();
 	~DlgMpChangeLanNickname();
 
-	void On_Init_Dialog(void);
-	void On_Command(int ctrlID, int mesage, DWORD param);
-	void On_EditCtrl_Change(EditCtrlClass* edit, int id);
-	void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id);
+	void On_Init_Dialog(void) override;
+	void On_Command(int ctrlID, int mesage, DWORD param) override;
+	void On_EditCtrl_Change(EditCtrlClass* edit, int id) override;
+	void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id) override;
 
 	static int DialogCount;
 };

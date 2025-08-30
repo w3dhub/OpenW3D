@@ -89,7 +89,7 @@ public:
 	//
 	void		Initialize ( int player_type );
 	void		Shutdown (void);
-	void		Delete (void) {};
+	void		Delete (void) override {};
 
 	//
 	// Networking.
@@ -99,7 +99,7 @@ public:
 	// The base controllers persist between levels so they should never be marked for deletion. They will be deleted
 	// when needed by their owner, the game mode
 	//
-	virtual void Set_Delete_Pending (void) {};
+	virtual void Set_Delete_Pending (void) override {};
 
 	//
 	//	Building access
@@ -187,8 +187,8 @@ public:
 	//
 	//	Network support
 	//
-	void		Import_Occasional (BitStreamClass &packet);
-   void		Export_Occasional (BitStreamClass &packet);
+	void		Import_Occasional (BitStreamClass &packet) override;
+   void		Export_Occasional (BitStreamClass &packet) override;
 
 	//
 	//	Component lookup

@@ -51,13 +51,13 @@ public:
 
 	void						Init(int winner, int loser, bool is_cycle_over);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_WIN;}
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_WIN;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						HostedGameNumber;
 	int						Winner;

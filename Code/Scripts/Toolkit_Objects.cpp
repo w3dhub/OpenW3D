@@ -57,7 +57,7 @@ DECLARE_SCRIPT(M00_Object_Create_RMV, "Start_Now=0:int, Receive_Type:int, Receiv
 		SAVE_VARIABLE(debug_mode, 1);
 	}
 
-	void Created(GameObject* obj)
+	void Created(GameObject* obj) override
 	{
 	/*	debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 
@@ -68,7 +68,7 @@ DECLARE_SCRIPT(M00_Object_Create_RMV, "Start_Now=0:int, Receive_Type:int, Receiv
 		}  */
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{
@@ -107,13 +107,13 @@ DECLARE_SCRIPT(M00_Object_Destroy_RMV, "Receive_Type_Activate:int, Debug_Mode=0:
 		SAVE_VARIABLE(debug_mode, 2);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		r_type = Get_Int_Parameter("Receive_Type_Activate");
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (debug_mode)
 			Commands->Debug_Message("M00_Destroy_Object_RMV received custom of type %d and param %d.\n", type, param);
@@ -137,7 +137,7 @@ DECLARE_SCRIPT(M00_Object_Create_Attach_Script_RMV, "Start_Now=0:int, Receive_Ty
 {
 	bool debug_mode;
 
-	void Created(GameObject* obj)
+	void Created(GameObject* obj) override
 	{
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 
@@ -151,7 +151,7 @@ DECLARE_SCRIPT(M00_Object_Create_Attach_Script_RMV, "Start_Now=0:int, Receive_Ty
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{
@@ -219,7 +219,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_Self_RMV, "Start_Now=1:int, Receive_Type=3:int
 		SAVE_VARIABLE(receive_param_activate, 6);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		active = (Get_Int_Parameter("Start_Now") == 1) ? true : false;
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
@@ -229,7 +229,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_Self_RMV, "Start_Now=1:int, Receive_Type=3:int
 		receive_param_activate = Get_Int_Parameter("Receive_Param_Activate");
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (debug_mode)
 			Commands->Debug_Message("M00_Trigger_Destroy_Self_RMV received custom, type %d and param %d.\n", type, param);
@@ -272,7 +272,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_Self_RMV, "Start_Now=1:int, Receive_Type=3:int
 DECLARE_SCRIPT(M00_PowerUp_Create_When_Killed_JDG, "Preset_Name:string,Drop_Percentage=100:float,Create_At_Death_Pos=1:int,Position:vector3,Z_Offset=0.75:float,Spawn_Effect=0:int")
 {
 
-	void Killed( GameObject * obj, GameObject * killer ) 
+	void Killed( GameObject * obj, GameObject * killer ) override
 	{
 
 		const char *preset_name;
@@ -334,7 +334,7 @@ DECLARE_SCRIPT(M00_PowerUp_Create_When_Killed_JDG, "Preset_Name:string,Drop_Perc
 DECLARE_SCRIPT(M00_Create_Anim_Effect_DAY, "Effect_Model:string")
 {
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 			ActionParamsStruct params;
 			params.Set_Basic(this, 99, 1 );
@@ -342,7 +342,7 @@ DECLARE_SCRIPT(M00_Create_Anim_Effect_DAY, "Effect_Model:string")
 			Commands->Action_Play_Animation( obj, params );
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if ( obj )
 		{
@@ -374,13 +374,13 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 		SAVE_VARIABLE( initial_health, 2 );
 	}
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		ignore_next_dmg = false;
 		
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_FALLING_DAMAGE)
 		{
@@ -390,7 +390,7 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 		
 	}
 
-	void Damaged( GameObject * obj, GameObject *damager, float amount)
+	void Damaged( GameObject * obj, GameObject *damager, float amount) override
 	{
 		if (ignore_next_dmg && damager == NULL)
 		{			
@@ -420,12 +420,12 @@ DECLARE_SCRIPT(M00_Permanent_No_Falling_Damage_IML, "")
 		SAVE_VARIABLE( initial_health, 1 );
 	}
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		initial_health = Commands->Get_Health(obj);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_FALLING_DAMAGE)
 		{
@@ -433,7 +433,7 @@ DECLARE_SCRIPT(M00_Permanent_No_Falling_Damage_IML, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject *damager, float amount)
+	void Damaged( GameObject * obj, GameObject *damager, float amount) override
 	{
 		if (damager == NULL)
 		{
@@ -444,7 +444,7 @@ DECLARE_SCRIPT(M00_Permanent_No_Falling_Damage_IML, "")
 
 DECLARE_SCRIPT (M00_Disable_Transition, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Vehicle_Transitions (obj, false);
 	}
@@ -465,7 +465,7 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 
 	bool firsttime; // prevents an infinante loop each time obj is damaged by DeathType.
 
-	void Damaged ( GameObject *obj, GameObject *damager, float amount )
+	void Damaged ( GameObject *obj, GameObject *damager, float amount ) override
 	{
 		float bleah = Get_Float_Parameter( "HealthThreshhold" );
 
@@ -500,7 +500,7 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 		}
 	}
 
-	void Killed ( GameObject * obj, GameObject * killer )
+	void Killed ( GameObject * obj, GameObject * killer ) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic( this, 99, 1 );
@@ -520,12 +520,12 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 		Commands->Action_Play_Animation( obj, params );
 	}
 
-	void Created ( GameObject *obj )
+	void Created ( GameObject *obj ) override
 	{
 		firsttime = true;
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if((action_id == 1) && (reason == ACTION_COMPLETE_NORMAL))
 		{
@@ -546,12 +546,12 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 
 DECLARE_SCRIPT(M00_Vehicle_Regen_DAK, "" )
 {
-	void Created ( GameObject *obj )
+	void Created ( GameObject *obj ) override
 	{
 		Commands->Send_Custom_Event ( obj, obj, 0, 0, 0 );
 	}
 
-	void Custom (GameObject* obj, int type, int param, GameObject* sender) 
+	void Custom (GameObject* obj, int type, int param, GameObject* sender)  override
 	{
 		if ( type == 0 ) // regenerate health.
 		{
@@ -568,7 +568,7 @@ DECLARE_SCRIPT(M00_Vehicle_Regen_DAK, "" )
 
 DECLARE_SCRIPT(M00_PCT_Pokable_DAK, "" )
 {
-	void Created ( GameObject *obj )
+	void Created ( GameObject *obj ) override
 	{
 		Commands->Enable_HUD_Pokable_Indicator( obj, true );
 		Commands->Display_Health_Bar( obj, false );
@@ -586,7 +586,7 @@ DECLARE_SCRIPT(M00_Send_Object_ID, "Receiver_ID:int, Param=0:int, Delay=1.0f:int
 		SAVE_VARIABLE(debug_mode, 2);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		// Send Custom and Parameter to Receiver object
 		int receiver_id = Get_Int_Parameter("Receiver_ID");

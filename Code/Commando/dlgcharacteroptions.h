@@ -68,9 +68,9 @@ public:
 	//
 	//	Inherited
 	//
-	void		On_Init_Dialog (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
-	void		On_ComboBoxCtrl_Sel_Change (ComboBoxCtrlClass *combo_ctrl, int ctrl_id, int old_sel, int new_sel);
+	void		On_Init_Dialog (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_ComboBoxCtrl_Sel_Change (ComboBoxCtrlClass *combo_ctrl, int ctrl_id, int old_sel, int new_sel) override;
 
 private:
 

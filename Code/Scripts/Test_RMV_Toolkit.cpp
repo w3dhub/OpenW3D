@@ -48,7 +48,7 @@ enum {
 
 DECLARE_SCRIPT(RMV_Trigger_Zone, "TargetID:int, Type:int, Param:int")
 {
-	void Entered(GameObject * obj, GameObject * enterer)
+	void Entered(GameObject * obj, GameObject * enterer) override
 	{
 		if (Commands->Is_A_Star(enterer))
 		{
@@ -65,7 +65,7 @@ DECLARE_SCRIPT(RMV_Trigger_Zone, "TargetID:int, Type:int, Param:int")
 
 DECLARE_SCRIPT(RMV_Trigger_Zone_2, "TargetID:int, Type:int, Param:int")
 {
-	void Entered(GameObject * obj, GameObject * enterer)
+	void Entered(GameObject * obj, GameObject * enterer) override
 	{
 		if (Commands->Is_A_Star(enterer))
 		{
@@ -80,7 +80,7 @@ DECLARE_SCRIPT(RMV_Trigger_Zone_2, "TargetID:int, Type:int, Param:int")
 
 DECLARE_SCRIPT(RMV_Trigger_Poked, "Target_ID:int, Type:int, Param:int")
 {
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		int type = Get_Int_Parameter("Type");
 		int param = Get_Int_Parameter("Param");
@@ -119,7 +119,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		SAVE_VARIABLE(evacuating, 9);
 	}
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		busy = emergency = always_run = evacuating = false;
 		c_type = Get_Int_Parameter("Custom_Type");
@@ -127,7 +127,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		c_param_2 = Get_Int_Parameter("Custom_Param_2");
 	}
 
-	void Sound_Heard(GameObject * obj, const CombatSound & sound)
+	void Sound_Heard(GameObject * obj, const CombatSound & sound) override
 	{
 		if (evacuating)
 		{
@@ -201,7 +201,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if (action_id == TECHNICIAN_MOVEMENT)
 		{
@@ -303,12 +303,12 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 		SAVE_VARIABLE(sent_75, 3);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		sent_25 = sent_50 = sent_75 = false;
 	}
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{		
 		if (type == CUSTOM_EVENT_BUILDING_DAMAGED)
 		{
@@ -415,7 +415,7 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 		}
 	}
 
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		Vector3 mypos = Commands->Get_Position(obj);
 		Commands->Create_Logical_Sound(obj, M00_SOUND_BUILDING_DESTROYED + Get_Int_Parameter("Building_Number"), mypos, Get_Float_Parameter("Killed_Broadcast_Radius"));
@@ -441,7 +441,7 @@ DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:str
 		SAVE_VARIABLE(active, 6);
 	}
 		
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		active = false;
 	//	Commands->Enable_Hibernation(obj, false);
@@ -452,7 +452,7 @@ DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:str
 		c_param_2 = Get_Int_Parameter("Custom_Param_2");
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if ((timer_id == ENGINEER_WANDER_TIMER) && (!i_am_occupied) && active)
 		{
@@ -461,7 +461,7 @@ DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:str
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == 1000 && param == 1000)
 		{
@@ -491,7 +491,7 @@ DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:str
 
 DECLARE_SCRIPT(RMV_MCT_Switcher, "")
 {
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		GameObject *temp;
 		temp = Commands->Create_Object("NOD MCT Off", Commands->Get_Position(obj));
@@ -504,7 +504,7 @@ DECLARE_SCRIPT(RMV_MCT_Switcher, "")
 
 DECLARE_SCRIPT(M00_Play_Sound, "Sound_Preset:string, Is_3D=1:int, Offset:vector3, Offset_Randomness:vector3, Frequency_Min=-1:float, Frequency_Max:float")
 {
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		if (Get_Int_Parameter("Frequency_Min") == -1)
 		{
@@ -517,7 +517,7 @@ DECLARE_SCRIPT(M00_Play_Sound, "Sound_Preset:string, Is_3D=1:int, Offset:vector3
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		const char * sound = Get_Parameter("Sound_Preset");
 		bool is_3d = (Get_Int_Parameter("Is_3D") == 1) ? true : false;
@@ -543,7 +543,7 @@ DECLARE_SCRIPT(M00_Play_Sound, "Sound_Preset:string, Is_3D=1:int, Offset:vector3
 		Commands->Monitor_Sound(obj, id);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED)
 		{

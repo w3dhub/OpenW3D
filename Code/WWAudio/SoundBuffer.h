@@ -150,25 +150,25 @@ class StreamSoundBufferClass : public SoundBufferClass
 		//////////////////////////////////////////////////////////////////////
 		//	File methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool			Load_From_File (const char *filename);
-		virtual bool			Load_From_File (FileClass &file);
+		virtual bool			Load_From_File (const char *filename) override;
+		virtual bool			Load_From_File (FileClass &file) override;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Memory methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool			Load_From_Memory (unsigned char *mem_buffer, unsigned long size) { return false; }
+		virtual bool			Load_From_Memory (unsigned char *mem_buffer, unsigned long size) override { return false;  }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Type methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool			Is_Streaming (void) const		{ return true; }
+		virtual bool			Is_Streaming (void) const override		{ return true; }
 
 	protected:
 
 		//////////////////////////////////////////////////////////////////////
 		//	Protected methods
 		//////////////////////////////////////////////////////////////////////
-		virtual void			Free_Buffer (void);
+		virtual void			Free_Buffer (void) override;
 		virtual bool			Load_From_File (HANDLE hfile, unsigned long size, unsigned long offset);
 
 		//////////////////////////////////////////////////////////////////////

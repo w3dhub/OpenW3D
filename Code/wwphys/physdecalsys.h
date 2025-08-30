@@ -91,13 +91,13 @@ public:
 	** want to track them (e.g. if you want to cap the maximum number of active decals and
 	** kill the old ones...)
 	*/
-	virtual void							Unlock_Decal_Generator(DecalGeneratorClass * generator);
+	virtual void							Unlock_Decal_Generator(DecalGeneratorClass * generator) override;
 
 	/*
 	** When a decal-mesh is destroyed, it must inform the DecalSystem.  Otherwise, systems 
 	** which track decals can get dangling pointers.
 	*/
-	virtual void							Decal_Mesh_Destroyed(uint32 decal_id,DecalMeshClass * mesh);
+	virtual void							Decal_Mesh_Destroyed(uint32 decal_id,DecalMeshClass * mesh) override;
 
 	/*
 	** Control over the size of the temporary decal array.  When this array is filled, the
@@ -108,7 +108,7 @@ public:
 
 protected:
 
-	virtual uint32							Generate_Decal_Id(void);
+	virtual uint32							Generate_Decal_Id(void) override;
 	bool										is_decal_id_permanent(uint32 id);
 	bool										internal_remove_decal(uint32 id,MeshClass * mesh);
 

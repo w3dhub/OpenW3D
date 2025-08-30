@@ -44,7 +44,7 @@ DECLARE_SCRIPT(M00_Siege_Zone_RAD, "Start_Now=1:int, Receive_Type:int, Receive_P
 	bool script_active;
 	bool debug_mode;
 	
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		float rnd_value;
 
@@ -66,7 +66,7 @@ DECLARE_SCRIPT(M00_Siege_Zone_RAD, "Start_Now=1:int, Receive_Type:int, Receive_P
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		float		rnd_value;
 		GameObject*	actor_obj;
@@ -105,7 +105,7 @@ DECLARE_SCRIPT(M00_Siege_Zone_RAD, "Start_Now=1:int, Receive_Type:int, Receive_P
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Siege_Zone_RAD has received a custom of type %d, param %d.\n", type, param));
 
@@ -172,7 +172,7 @@ DECLARE_SCRIPT(M00_Siege_Actor_RAD, "Start_Now=1:int, Receive_Type:int, Receive_
 	bool	script_active;
 	bool	debug_mode;
 
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		registered_zone = 0;
 		my_group_id = Get_Int_Parameter("My_Group_ID");
@@ -189,7 +189,7 @@ DECLARE_SCRIPT(M00_Siege_Actor_RAD, "Start_Now=1:int, Receive_Type:int, Receive_
 		}
 	}
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		if (script_active)
 		{
@@ -201,7 +201,7 @@ DECLARE_SCRIPT(M00_Siege_Actor_RAD, "Start_Now=1:int, Receive_Type:int, Receive_
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		int my_id;
 
@@ -242,7 +242,7 @@ DECLARE_SCRIPT(M00_Siege_Actor_RAD, "Start_Now=1:int, Receive_Type:int, Receive_
 		}
 	}
 
-	void Destroyed (GameObject* obj)
+	void Destroyed (GameObject* obj) override
 	{
 		int my_id;
 		GameObject* zone_obj;

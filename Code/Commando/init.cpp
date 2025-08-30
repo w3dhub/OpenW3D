@@ -376,7 +376,7 @@ void _stdcall AudioTextCallback(AudibleSoundClass *sound_obj, const StringClass 
 */
 class LoggingFileFactoryClass : public SimpleFileFactoryClass {
 public:
-	virtual FileClass * Get_File( const char * filename ) {
+	virtual FileClass * Get_File( const char * filename ) override {
 		FileClass * file = BaseFactory->Get_File( filename );
 		Debug_Say(( "FILE_LOG : %s %s\n", filename, ((file==NULL||!file->Is_Available())?"MISSING":"") ));
 		return file;
@@ -391,7 +391,7 @@ private:
 */
 class StrippingFileFactoryClass : public SimpleFileFactoryClass {
 public:
-	virtual FileClass * Get_File( const char * filename ) {
+	virtual FileClass * Get_File( const char * filename ) override {
 		StringClass stripped(true);
 		Strip_Path_From_Filename( stripped, filename );
 		return BaseFactory->Get_File( stripped );
@@ -535,7 +535,7 @@ public:
 		Version(0),
 		ThreadClass("LogCopyThread", &Exception_Handler) {}
 
-	void Thread_Function()
+	void Thread_Function() override
 	{
 		// Write log to network folder
 

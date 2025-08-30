@@ -65,8 +65,8 @@ class cPlayer : public PlayerDataClass, public NetworkObjectClass {
    public:
       friend class cPlayerManager; // so that only cPlayerManager can call ~cPlayer
 
-		virtual uint32		Get_Network_Class_ID(void) const		{return NETCLASSID_PLAYER;}
-		virtual void		Delete(void);
+		virtual uint32		Get_Network_Class_ID(void) const override		{return NETCLASSID_PLAYER;}
+		virtual void		Delete(void) override;
 
 		void Init(void);
 		void Mark_As_Modified(void);
@@ -85,11 +85,11 @@ class cPlayer : public PlayerDataClass, public NetworkObjectClass {
 		void Set_Name(const WideStringClass & name);
       const WideStringClass & Get_Name(void) const {return Name;}
 
-		virtual void Set_Score(float score);
-		virtual void Increment_Score(float add);
+		virtual void Set_Score(float score) override;
+		virtual void Increment_Score(float add) override;
 
-		virtual void Set_Money(float money);
-		virtual void Increment_Money(float add);
+		virtual void Set_Money(float money) override;
+		virtual void Increment_Money(float add) override;
 
 		int Get_Ladder_Points(void) const {return (int)LadderPoints;}
       void Set_Ladder_Points(int points);
@@ -152,7 +152,7 @@ class cPlayer : public PlayerDataClass, public NetworkObjectClass {
 
 		bool Is_Human(void) const {return Id >= 0;}
 
-      virtual	void Reset_Player(void);
+      virtual	void Reset_Player(void) override;
 
 		void			Set_Is_In_Game(bool state);
 		cBoolean &	Get_Is_In_Game(void) {return IsInGame;}
@@ -175,13 +175,13 @@ class cPlayer : public PlayerDataClass, public NetworkObjectClass {
 		//
 		//	Server-to-client data importing/exporting
 		//
-		virtual void		Import_Creation(BitStreamClass &packet);
-		virtual void		Import_Rare(BitStreamClass &packet);
-		virtual void		Import_Occasional(BitStreamClass &packet);
+		virtual void		Import_Creation(BitStreamClass &packet) override;
+		virtual void		Import_Rare(BitStreamClass &packet) override;
+		virtual void		Import_Occasional(BitStreamClass &packet) override;
 
-		virtual void		Export_Creation(BitStreamClass &packet);
-		virtual void		Export_Rare(BitStreamClass &packet);
-		virtual void		Export_Occasional(BitStreamClass &packet);
+		virtual void		Export_Creation(BitStreamClass &packet) override;
+		virtual void		Export_Rare(BitStreamClass &packet) override;
+		virtual void		Export_Occasional(BitStreamClass &packet) override;
 
 		enum					{NUM_NEWBIE_GAMES = 5};
 		void					Set_Num_Wol_Games(int num_games);

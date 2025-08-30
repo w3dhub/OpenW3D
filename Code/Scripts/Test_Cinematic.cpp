@@ -43,7 +43,7 @@
 DECLARE_SCRIPT (M00_Cinematic_Attack_Command_DLS, "AttackDuration=1.0:float")
 {
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		float facing = Commands->Get_Facing(Owner());
 		Vector3 target = Commands->Get_Position(Owner());
@@ -60,7 +60,7 @@ DECLARE_SCRIPT (M00_Cinematic_Attack_Command_DLS, "AttackDuration=1.0:float")
 		Commands->Send_Custom_Event( obj, obj, 1, 1, Get_Float_Parameter("AttackDuration") );
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		Commands->Action_Reset( obj, 100 );
 
@@ -80,12 +80,12 @@ DECLARE_SCRIPT(Test_Cinematic_Primary_Killed, "CallbackID=:int")
 		SAVE_VARIABLE( custom_sent, 1 );
 	}
 
-	virtual	void Created (GameObject *game_obj)
+	virtual	void Created (GameObject *game_obj) override
 	{
 		custom_sent = false;
 	}
 
-	virtual	void	Killed( GameObject * obj, GameObject * killer ) 
+	virtual	void	Killed( GameObject * obj, GameObject * killer ) override
 	{
 		if (!custom_sent)
 		{
@@ -100,7 +100,7 @@ DECLARE_SCRIPT(Test_Cinematic_Primary_Killed, "CallbackID=:int")
 		}
 	}
 
-	virtual	void	Destroyed( GameObject * obj ) 
+	virtual	void	Destroyed( GameObject * obj ) override
 	{
 		if (!custom_sent)
 		{
@@ -310,7 +310,7 @@ public:
 	/*
 	**
 	*/
-	void Save(ScriptSaver& saver)
+	void Save(ScriptSaver& saver) override
 	{
 //		Commands->Debug_Message( "Cinematic Saving\n" );
 //		Commands->Debug_Message("Sync time is %d.\n", Commands->Get_Sync_Time());
@@ -350,7 +350,7 @@ public:
 
 	}
 
-	void Load(ScriptLoader& loader)
+	void Load(ScriptLoader& loader) override
 	{
 		Controls = NULL;
 		NextParameter = NULL;
@@ -993,7 +993,7 @@ public:
 	/*
 	**
 	*/
-	void Created(GameObject* obj)
+	void Created(GameObject* obj) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 
@@ -1011,13 +1011,13 @@ public:
 		Parse_Commands( obj );
 	}
 
-	void Timer_Expired (GameObject* obj, int Timer_ID)
+	void Timer_Expired (GameObject* obj, int Timer_ID) override
 	{
 //		Commands->Debug_Message("In Timer_Expired Get_Sync_Time is %d.\n", Commands->Get_Sync_Time());
 		Parse_Commands(obj);
 	}
 
-	void	Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if ( type == M00_CUSTOM_CINEMATIC_PRIMARY_KILLED ) {
 			if ( !PrimaryKilled ) {		// Prevent loops

@@ -61,11 +61,11 @@
 class	MovieGameModeClass : public GameMajorModeClass, public Observer<CDVerifyEvent>
 {
 public:
-	virtual	const char *Name()	{ return "Movie"; }	// the name of this mode
-	virtual	void	Init();		 	// called when the mode is activated
-	virtual	void 	Shutdown(); 	// called when the mode is deactivated
-	virtual	void 	Think();			// called each time through the main loop
-	virtual	void 	Render();			// called each time through the main loop
+	virtual	const char *Name() override	{ return "Movie"; }	// the name of this mode
+	virtual	void	Init() override;		 	// called when the mode is activated
+	virtual	void 	Shutdown() override; 	// called when the mode is deactivated
+	virtual	void 	Think() override;			// called each time through the main loop
+	virtual	void 	Render() override;			// called each time through the main loop
 
 	void	Start_Movie( const char * filename );
 
@@ -75,7 +75,7 @@ public:
 	//
 	//	Notification
 	//
-	void		HandleNotification (CDVerifyEvent &event);
+	void		HandleNotification (CDVerifyEvent &event) override;
 
 protected:
 	void	Play_Movie( const char * filename );

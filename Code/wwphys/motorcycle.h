@@ -63,7 +63,7 @@ public:
 
 	MotorcycleClass(void);
 	virtual ~MotorcycleClass(void);
-	virtual MotorcycleClass *	As_MotorcycleClass(void)	{ return this; }
+	virtual MotorcycleClass *	As_MotorcycleClass(void) override	{ return this; }
 
 	void								Init(const MotorcycleDefClass & def);
 
@@ -71,9 +71,9 @@ public:
 	float								Get_Lean_Value(void)			{ return LeanValue; }
 	
 	// Save-Load system
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
 
 protected:
 
@@ -81,8 +81,8 @@ protected:
 	float								LeanK1;
 	float								LeanValue;	// how much the character should be leaning to balance the bike
 
-	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque);
-	virtual void					Compute_Inertia(void);
+	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque) override;
+	virtual void					Compute_Inertia(void) override;
 
 private:
 
@@ -103,17 +103,17 @@ public:
 	MotorcycleDefClass (void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "MotorcycleDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "MotorcycleDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	//	Editable interface requirements
 	DECLARE_EDITABLE(MotorcycleDefClass,WheeledVehicleDefClass);

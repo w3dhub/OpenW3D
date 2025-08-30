@@ -125,8 +125,8 @@ public:
 	//
 	// From SaveLoadSubSystemClass
 	//
-	virtual uint32					Chunk_ID (void) const;
-	virtual const char *			Name (void) const							{ return "TranslateDBClass"; }
+	virtual uint32					Chunk_ID (void) const override;
+	virtual const char *			Name (void) const override							{ return "TranslateDBClass"; }
 
 	//
 	//	C style header file support
@@ -195,9 +195,9 @@ protected:
 	//
 	//	Save/load stuff
 	//
-	virtual bool				Contains_Data(void) const;
-	virtual bool				Save (ChunkSaveClass &csave);
-	virtual bool				Load (ChunkLoadClass &cload);
+	virtual bool				Contains_Data(void) const override;
+	virtual bool				Save (ChunkSaveClass &csave) override;
+	virtual bool				Load (ChunkLoadClass &cload) override;
 
 	bool							Load_Variables (ChunkLoadClass &cload);
 	bool							Load_Objects (ChunkLoadClass &cload);

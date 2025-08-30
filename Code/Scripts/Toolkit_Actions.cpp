@@ -83,7 +83,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 	Vector3		current_attack_location;
 	Vector3		empty_vector;
 
-	void Created(GameObject* obj)
+	void Created(GameObject* obj) override
 	{
 		ActionParamsStruct params;
 		script_active = false;
@@ -170,7 +170,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Action received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -260,7 +260,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 	}
 }
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if (script_active)
 		{
@@ -312,7 +312,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 
 DECLARE_SCRIPT(M00_Action_Set_Home_Location, "Start_Now=1:int, Receive_Type:int, Receive_Param_On:int, Home_Location:vector3, Wander_Distance=99999.0:float")
 {
-	void Created(GameObject* obj)
+	void Created(GameObject* obj) override
 	{
 		if (Get_Int_Parameter("Start_Now"))
 		{
@@ -320,7 +320,7 @@ DECLARE_SCRIPT(M00_Action_Set_Home_Location, "Start_Now=1:int, Receive_Type:int,
 		}
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{
@@ -340,17 +340,17 @@ DECLARE_SCRIPT(M00_Action_Set_Home_Location, "Start_Now=1:int, Receive_Type:int,
 DECLARE_SCRIPT (M00_Action_Innate_Follow_Waypath, "Waypath_ID:int")
 {
 
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		Perform_Action (obj);
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		//Commands->Start_Timer (obj, this, 3.0f, 32);
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 32)
 		{
@@ -373,12 +373,12 @@ DECLARE_SCRIPT (M00_Action_Innate_Follow_Waypath, "Waypath_ID:int")
 
 DECLARE_SCRIPT (M00_Action_Innate_Follow_Player, "")
 {
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		Commands->Start_Timer (obj, this, 1.0f, 33);
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id)
+	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		if (timer_id == 33)
 		{

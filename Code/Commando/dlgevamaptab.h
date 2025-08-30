@@ -64,15 +64,15 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_MapCtrl_Marker_Hilighted (MapCtrlClass *map_ctrl, int ctrl_id, int marker_index);
-	void		On_MapCtrl_Pos_Clicked (MapCtrlClass *map_ctrl, int ctrl_id, const Vector3 &pos);
+	void		On_MapCtrl_Marker_Hilighted (MapCtrlClass *map_ctrl, int ctrl_id, int marker_index) override;
+	void		On_MapCtrl_Pos_Clicked (MapCtrlClass *map_ctrl, int ctrl_id, const Vector3 &pos) override;
 	
 protected:
 
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
+	void		On_Init_Dialog (void) override;
 
 
 	////////////////////////////////////////////////////////////////

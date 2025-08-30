@@ -76,12 +76,12 @@ public:
 	//
 	//	From DialogControlClass
 	//
-	const WCHAR *	Get_Text (void) const;
-	void				Set_Text (const WCHAR *title);
-	void				Set_Window_Pos (const Vector2 &pos);
-	void				Render (void);
+	const WCHAR *	Get_Text (void) const override;
+	void				Set_Text (const WCHAR *title) override;
+	void				Set_Window_Pos (const Vector2 &pos) override;
+	void				Render (void) override;
 
-	void Set_Style(DWORD style);
+	void Set_Style(DWORD style) override;
 
 	//
 	//	Content control
@@ -110,17 +110,17 @@ protected:
 	////////////////////////////////////////////////////////////////
 	void Set_Sel (int index, bool notify);
 
-	void				On_LButton_Down (const Vector2 &mouse_pos);
-	void				On_LButton_Up (const Vector2 &mouse_pos);
-	void				On_Mouse_Move (const Vector2 &mouse_pos);
-	void				On_Set_Cursor (const Vector2 &mouse_pos);
-	void				On_Set_Focus (void);
-	void				On_Kill_Focus (DialogControlClass *focus);
-	void				On_Mouse_Wheel (int direction);
-	bool				On_Key_Down (uint32 key_id, uint32 key_data);
-	void				On_Create (void);
-	void				On_Destroy (void);
-	void				Update_Client_Rect (void);
+	void				On_LButton_Down (const Vector2 &mouse_pos) override;
+	void				On_LButton_Up (const Vector2 &mouse_pos) override;
+	void				On_Mouse_Move (const Vector2 &mouse_pos) override;
+	void				On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void				On_Set_Focus (void) override;
+	void				On_Kill_Focus (DialogControlClass *focus) override;
+	void				On_Mouse_Wheel (int direction) override;
+	bool				On_Key_Down (uint32 key_id, uint32 key_data) override;
+	void				On_Create (void) override;
+	void				On_Destroy (void) override;
+	void				Update_Client_Rect (void) override;
 
 	void				Create_Control_Renderers (void);
 	void				Create_Text_Renderers (void);
@@ -130,8 +130,8 @@ protected:
 	//	Notifications
 	//
 	void				On_Drop_Down_End (int curr_sel);
-	void				On_EditCtrl_Change(EditCtrlClass* edit_ctrl, int ctrl_id);
-	bool				On_EditCtrl_Key_Down(EditCtrlClass* edit_ctrl, uint32 key_id, uint32 key_data);
+	void				On_EditCtrl_Change(EditCtrlClass* edit_ctrl, int ctrl_id) override;
+	bool				On_EditCtrl_Key_Down(EditCtrlClass* edit_ctrl, uint32 key_id, uint32 key_data) override;
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data

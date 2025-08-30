@@ -63,25 +63,25 @@ public:
 	RenderObjPhysClass(void);
 	~RenderObjPhysClass(void);
 
-	virtual void					Timestep(float dt)											{ } 
-	virtual void					Set_Model(RenderObjClass * model);
-	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest);
-	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest);
-	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest);
+	virtual void					Timestep(float dt) override											{ }
+	virtual void					Set_Model(RenderObjClass * model) override;
+	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest) override;
+	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest) override;
+	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest) override;
 
 	virtual const AABoxClass & Get_Bounding_Box(void) const;
-	virtual const Matrix3D &	Get_Transform(void) const;
-	virtual void					Set_Transform(const Matrix3D & m);
+	virtual const Matrix3D &	Get_Transform(void) const override;
+	virtual void					Set_Transform(const Matrix3D & m) override;
 
-	virtual RenderObjPhysClass *	As_RenderObjPhysClass(void)							{ return this; }
+	virtual RenderObjPhysClass *	As_RenderObjPhysClass(void) override							{ return this; }
 
 	/*
 	** Save-Load 
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load (void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load (void) override;
 
 
 private:

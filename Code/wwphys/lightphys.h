@@ -58,9 +58,9 @@ class LightPhysClass : public DecorationPhysClass
 public:
 	
 	LightPhysClass(bool auto_allocate_light = false);
-	virtual LightPhysClass *				As_LightPhysClass(void)		{ return this; }
+	virtual LightPhysClass *				As_LightPhysClass(void) override		{ return this; }
 
-	void											Set_Model(RenderObjClass * model);
+	void											Set_Model(RenderObjClass * model) override;
 
 	/*
 	** Visibility ID's.  Static lights can store a vis SECTOR id so that they
@@ -86,10 +86,10 @@ public:
 	/*
 	** Save-Load system
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load(void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load(void) override;
 
 private:
 

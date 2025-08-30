@@ -130,22 +130,22 @@ class WOLNATInterfaceClass :	public Observer<WWOnline::UserEvent>,
 		/*
 		** User event notification.
 		*/
-		void HandleNotification(WWOnline::UserEvent&);
+		void HandleNotification(WWOnline::UserEvent&) override;
 
 		/*
 		** Game options notificaton.
 		*/
-		void HandleNotification(WWOnline::GameOptionsMessage&);
+		void HandleNotification(WWOnline::GameOptionsMessage&) override;
 
 		/*
 		** Server connection notification.
 		*/
-		void HandleNotification(WWOnline::ConnectionStatus&);
+		void HandleNotification(WWOnline::ConnectionStatus&) override;
 
 		/*
 		** User IP event.
 		*/
-		void HandleNotification(WWOnline::UserIPEvent&);
+		void HandleNotification(WWOnline::UserIPEvent&) override;
 
 		/*
 		** Server query.

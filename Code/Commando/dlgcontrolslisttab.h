@@ -75,9 +75,9 @@ public:
 	//
 	//	Inherited
 	//
-	void		On_Init_Dialog (void);
-	void		On_Reload (void);
-	bool		On_InputCtrl_Get_Key_Info (InputCtrlClass *viewer_ctrl, int ctrl_id, int vkey_id, WideStringClass &key_name, int *game_key_id);
+	void		On_Init_Dialog (void) override;
+	void		On_Reload (void) override;
+	bool		On_InputCtrl_Get_Key_Info (InputCtrlClass *viewer_ctrl, int ctrl_id, int vkey_id, WideStringClass &key_name, int *game_key_id) override;
 
 	//
 	//	Configuration
@@ -87,7 +87,7 @@ public:
 	//
 	//	Notifications
 	//
-	void		HandleNotification (DlgMsgBoxEvent &event);
+	void		HandleNotification (DlgMsgBoxEvent &event) override;
 
 protected:
 

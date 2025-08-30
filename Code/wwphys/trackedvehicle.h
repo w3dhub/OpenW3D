@@ -59,13 +59,13 @@ public:
 
 	TrackedVehicleClass(void);
 	virtual ~TrackedVehicleClass(void);
-	virtual TrackedVehicleClass * As_TrackedVehicleClass(void) { return this; }
+	virtual TrackedVehicleClass * As_TrackedVehicleClass(void) override { return this; }
 	const TrackedVehicleDefClass * Get_TrackedVehicleDef(void) { return (TrackedVehicleDefClass *)Definition; }
 
 	void								Init(const TrackedVehicleDefClass & def);
 
-	virtual void					Render(RenderInfoClass & rinfo);
-	virtual void					Set_Model(RenderObjClass * model);
+	virtual void					Render(RenderInfoClass & rinfo) override;
+	virtual void					Set_Model(RenderObjClass * model) override;
 
 	/*
 	** Tracked vehicles, left side and right side movement.  
@@ -76,17 +76,17 @@ public:
 	/*
 	** Save-Load System
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load (void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load (void) override;
 
 	enum { LEFT_TRACK = 0, RIGHT_TRACK = 1 };
 
 protected:
 
-	virtual SuspensionElementClass *	Alloc_Suspension_Element(void);
-	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque);
+	virtual SuspensionElementClass *	Alloc_Suspension_Element(void) override;
+	virtual void					Compute_Force_And_Torque(Vector3 * force,Vector3 * torque) override;
 	void								Update_Cached_Model_Parameters(void);
 	void								Grab_Track_Mappers(RenderObjClass * model);
 	void								Add_Track_Mappers(MeshClass * mesh,int track_type);
@@ -126,17 +126,17 @@ public:
 	TrackedVehicleDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)				{ return "TrackedVehicleDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override				{ return "TrackedVehicleDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	// Read access to the constants
 	float											Get_Max_Engine_Torque(void) const { return MaxEngineTorque; }

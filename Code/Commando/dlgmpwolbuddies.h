@@ -68,18 +68,18 @@ protected:
 	MPWolBuddiesMenuClass(const MPWolBuddiesMenuClass&);
 	const MPWolBuddiesMenuClass& operator=(const MPWolBuddiesMenuClass&);
 
-	void On_Init_Dialog(void);
-	void On_Command(int ctrl_id, int mesage_id, DWORD param);
-	void On_Frame_Update(void);
+	void On_Init_Dialog(void) override;
+	void On_Command(int ctrl_id, int mesage_id, DWORD param) override;
+	void On_Frame_Update(void) override;
 
 	void Adjust_Buttons_For_Buddy_Location(int location);
 
 	// Notifications
-	void HandleNotification(WOLBuddyMgrEvent &event);
-	void HandleNotification(DlgMsgBoxEvent &event);
-	void On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int id, int oldsel, int newsel);
-	void On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int oldsel, int newsel);
-	void On_ListCtrl_DblClk(ListCtrlClass *list_ctrl, int ctrl_id, int item_index);
+	void HandleNotification(WOLBuddyMgrEvent &event) override;
+	void HandleNotification(DlgMsgBoxEvent &event) override;
+	void On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int id, int oldsel, int newsel) override;
+	void On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int oldsel, int newsel) override;
+	void On_ListCtrl_DblClk(ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
 
 	void Update_Buddy_Info(int index, const RefPtr<WWOnline::UserData>& user);
 	void Update_Buddy_Ranking(int index, const RefPtr<WWOnline::UserData>& user);

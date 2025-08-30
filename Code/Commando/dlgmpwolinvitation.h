@@ -58,8 +58,8 @@ public:
 	MPWolInvitationPopupClass(const RefPtr<WWOnline::UserData>&, const WCHAR*);
 	~MPWolInvitationPopupClass();
 
-	void On_Init_Dialog(void);
-	void On_Command(int ctrl_id, int mesage_id, DWORD param);
+	void On_Init_Dialog(void) override;
+	void On_Command(int ctrl_id, int mesage_id, DWORD param) override;
 
 protected:
 	RefPtr<WWOnline::UserData> mHost;

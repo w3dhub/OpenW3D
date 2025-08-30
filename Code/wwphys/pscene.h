@@ -620,8 +620,8 @@ public:
 	int							Get_Lighting_Mode(void)										{ return LightingMode; }
 	void							Set_Lighting_Mode(int mode)								{ LightingMode = mode; }	
 
-	virtual void				Set_Ambient_Light(const Vector3 & color)				{ SceneAmbientLight = color; }
-	virtual const Vector3 &	Get_Ambient_Light(void)										{ return SceneAmbientLight; }
+	virtual void				Set_Ambient_Light(const Vector3 & color) override				{ SceneAmbientLight = color; }
+	virtual const Vector3 &	Get_Ambient_Light(void)	override									{ return SceneAmbientLight; }
 
 	void							Set_Lighting_LOD_Cutoff(float intensity);
 	float							Get_Lighting_LOD_Cutoff(void);
@@ -954,12 +954,12 @@ public:
 	** add other render objects to the scene like particle emitters.
 	** Still don't support the iterator interface... maybe will some day...
 	*/
-	virtual void				Add_Render_Object(RenderObjClass * obj);
-	virtual void				Remove_Render_Object(RenderObjClass * obj);
-	virtual SceneIterator *	Create_Iterator(bool /*onlyvisible = false*/)	{ assert(0); return NULL; }
-	virtual void				Destroy_Iterator(SceneIterator * /*it*/)			{ assert(0); }
-	virtual void				Register(RenderObjClass * obj,RegType for_what);
-	virtual void				Unregister(RenderObjClass * obj,RegType for_what);	
+	virtual void				Add_Render_Object(RenderObjClass * obj) override;
+	virtual void				Remove_Render_Object(RenderObjClass * obj) override;
+	virtual SceneIterator *	Create_Iterator(bool /*onlyvisible = false*/) override	{ assert(0); return NULL; }
+	virtual void				Destroy_Iterator(SceneIterator * /*it*/) override			{ assert(0); }
+	virtual void				Register(RenderObjClass * obj,RegType for_what) override;
+	virtual void				Unregister(RenderObjClass * obj,RegType for_what) override;
 
 
 	/*
@@ -1005,7 +1005,7 @@ protected:
 	/*
 	** Rendering functions
 	*/
-	virtual void				Customized_Render(RenderInfoClass & rinfo);
+	virtual void				Customized_Render(RenderInfoClass & rinfo) override;
 	void							Render_Objects(RenderInfoClass& rinfo,RefPhysListClass * static_ws_list,RefPhysListClass * static_list,RefPhysListClass * dyn_list);
 	void							Render_Object(RenderInfoClass & context,PhysClass * obj);
 	void							Render_Backface_Occluders(RenderInfoClass & context,RefPhysListClass *  static_ws_list,RefPhysListClass * static_list);

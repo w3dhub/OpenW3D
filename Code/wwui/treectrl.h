@@ -93,7 +93,7 @@ public:
 	~TreeCtrlClass (void);
 
 	// RTTI.
-	virtual TreeCtrlClass *				As_TreeCtrlClass (void)			{ return this; }
+	virtual TreeCtrlClass *				As_TreeCtrlClass (void) override			{ return this; }
 
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
@@ -102,8 +102,8 @@ public:
 	//
 	//	Inherited
 	//	
-	void				Render (void);
-	void				On_VScroll (ScrollBarCtrlClass *, int, int new_position);
+	void				Render (void) override;
+	void				On_VScroll (ScrollBarCtrlClass *, int, int new_position) override;
 
 	//
 	//	Content control
@@ -132,16 +132,16 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void				On_LButton_Down (const Vector2 &mouse_pos);
-	void				On_LButton_DblClk (const Vector2 &mouse_pos);
-	void				On_LButton_Up (const Vector2 &mouse_pos);
-	void				On_Mouse_Wheel (int direction);
-	void				On_Set_Cursor (const Vector2 &mouse_pos);
-	void				On_Set_Focus (void);
-	void				On_Kill_Focus (DialogControlClass *focus);
-	bool				On_Key_Down (uint32 key_id, uint32 key_data);
-	void				On_Create (void);
-	void				Update_Client_Rect (void);
+	void				On_LButton_Down (const Vector2 &mouse_pos) override;
+	void				On_LButton_DblClk (const Vector2 &mouse_pos) override;
+	void				On_LButton_Up (const Vector2 &mouse_pos) override;
+	void				On_Mouse_Wheel (int direction) override;
+	void				On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void				On_Set_Focus (void) override;
+	void				On_Kill_Focus (DialogControlClass *focus) override;
+	bool				On_Key_Down (uint32 key_id, uint32 key_data) override;
+	void				On_Create (void) override;
+	void				Update_Client_Rect (void) override;
 	void				On_Expanded (TreeItemClass *item);
 
 	void				Create_Control_Renderers (void);

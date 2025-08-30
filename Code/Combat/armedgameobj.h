@@ -64,10 +64,10 @@ class ArmedGameObjDef : public PhysicalGameObjDef
 public:
 	ArmedGameObjDef( void );
 
-//	virtual uint32								Get_Class_ID( void ) const;
-//	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
+//	virtual uint32								Get_Class_ID (void) const override;
+//	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
 
 //	virtual const PersistFactoryClass &	Get_Factory( void ) const;
 
@@ -107,19 +107,19 @@ public:
 	const	ArmedGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load
-	virtual	bool				Save( ChunkSaveClass & csave );
-	virtual	bool				Load( ChunkLoadClass & cload );
-	virtual	void				On_Post_Load( void );
+	virtual	bool				Save( ChunkSaveClass & csave ) override;
+	virtual	bool				Load( ChunkLoadClass & cload ) override;
+	virtual	void				On_Post_Load( void ) override;
 
 	// State import/export
-   virtual	void				Import_Frequent( BitStreamClass & packet );
-   virtual	void				Export_Frequent( BitStreamClass & packet );
+   virtual	void				Import_Frequent( BitStreamClass & packet ) override;
+   virtual	void				Export_Frequent( BitStreamClass & packet ) override;
 
    virtual	void				Import_State_Cs( BitStreamClass & packet );
    virtual	void				Export_State_Cs( BitStreamClass & packet );
 
 	//	Thinking
-	virtual	void				Post_Think();
+	virtual	void				Post_Think() override;
 
 	// Weapon
 	WeaponClass	*				Get_Weapon( void );
@@ -134,7 +134,7 @@ public:
    virtual bool				Set_Targeting( const Vector3 & pos, bool do_tilt = true );
 
 	// Type identification
-	virtual	ArmedGameObj	*As_ArmedGameObj( void )					{ return this; }
+	virtual	ArmedGameObj	*As_ArmedGameObj( void ) override					{ return this; }
 
 protected:
 	WeaponBagClass *			WeaponBag;				// Weapon & Ammo collection

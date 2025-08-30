@@ -63,29 +63,29 @@ class DecorationPhysClass : public DynamicPhysClass
 public:
 
 	DecorationPhysClass(void);
-	virtual DecorationPhysClass *	As_DecorationPhysClass(void)							{ return this; }
+	virtual DecorationPhysClass *	As_DecorationPhysClass(void) override							{ return this; }
 	
 	void									Init(const DecorationPhysDefClass & def);
-	virtual void						Timestep(float dt)										{ } 
-	virtual void						Set_Model(RenderObjClass * model);
+	virtual void						Timestep(float dt) override										{ }
+	virtual void						Set_Model(RenderObjClass * model) override;
 	
-	virtual bool						Cast_Ray(PhysRayCollisionTestClass & raytest);
-	virtual bool						Cast_AABox(PhysAABoxCollisionTestClass & boxtest);
-	virtual bool						Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest);
+	virtual bool						Cast_Ray(PhysRayCollisionTestClass & raytest) override;
+	virtual bool						Cast_AABox(PhysAABoxCollisionTestClass & boxtest) override;
+	virtual bool						Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest) override;
 
-	virtual bool						Intersection_Test(PhysAABoxIntersectionTestClass & test);
-	virtual bool						Intersection_Test(PhysOBBoxIntersectionTestClass & test);
+	virtual bool						Intersection_Test(PhysAABoxIntersectionTestClass & test) override;
+	virtual bool						Intersection_Test(PhysOBBoxIntersectionTestClass & test) override;
 
 	virtual const AABoxClass &		Get_Bounding_Box(void) const;
-	virtual const Matrix3D &		Get_Transform(void) const;
-	virtual void						Set_Transform(const Matrix3D & m);
-	virtual void						Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box);
+	virtual const Matrix3D &		Get_Transform(void) const override;
+	virtual void						Set_Transform(const Matrix3D & m) override;
+	virtual void						Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box) override;
 
 	// save-load system
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);		
-	virtual void								On_Post_Load(void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load(void) override;
 
 private:
 
@@ -108,17 +108,17 @@ public:
 	DecorationPhysDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void);
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override;
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	//	Editable interface requirements
 	DECLARE_EDITABLE(DecorationPhysDefClass,DynamicPhysDefClass);

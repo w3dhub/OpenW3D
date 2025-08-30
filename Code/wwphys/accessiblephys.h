@@ -74,7 +74,7 @@ public:
 	//
 	//	RTTI
 	//
-	AccessiblePhysClass *			As_AccessiblePhysClass (void)	{ return this; }
+	AccessiblePhysClass *			As_AccessiblePhysClass (void) override	{ return this; }
 
 	//
 	//	Definition support
@@ -85,9 +85,9 @@ public:
 	//
 	// Save-Load Support
 	//
-	const PersistFactoryClass &	Get_Factory (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
+	const PersistFactoryClass &	Get_Factory (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
 
 	//
 	//	Lock support
@@ -129,21 +129,21 @@ public:
 	//
 	// From DefinitionClass
 	//
-	uint32								Get_Class_ID (void) const;
-	PersistClass *						Create (void) const;
+	uint32								Get_Class_ID (void) const override;
+	PersistClass *						Create (void) const override;
 
 	//
 	// From PhysDefClass
 	//
-	const char *						Get_Type_Name (void)			{ return "AccessiblePhysDefClass"; }
-	bool									Is_Type (const char *);
+	const char *						Get_Type_Name (void) override			{ return "AccessiblePhysDefClass"; }
+	bool									Is_Type (const char *) override;
 
 	//
 	// From PersistClass
 	//
-	const PersistFactoryClass &	Get_Factory (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
+	const PersistFactoryClass &	Get_Factory (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
 
 	//
 	//	Editable interface requirements

@@ -36,7 +36,7 @@
 DECLARE_SCRIPT(M00_Screenshot_Poser_DAY, "Anim_Name:string" )
 {
 	
-	void Created( GameObject *obj )
+	void Created( GameObject *obj ) override
 	{
 		Commands->Set_Loiters_Allowed( obj, false );
 		Commands->Innate_Disable( obj );
@@ -52,7 +52,7 @@ DECLARE_SCRIPT(M00_Screenshot_Poser_DAY, "Anim_Name:string" )
 		Commands->Action_Play_Animation( obj, params );
 	}
 	
-	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason )
+	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override
 	{
 		if ( action_id == 0 )
 		{
@@ -70,7 +70,7 @@ DECLARE_SCRIPT (DAY_TestScriptOne, "")
 
 	int action;
 
-	void Created ( GameObject * obj )
+	void Created ( GameObject * obj ) override
 	{
 		action = 1;
 		ActionParamsStruct params;
@@ -83,7 +83,7 @@ DECLARE_SCRIPT (DAY_TestScriptOne, "")
 		Commands->Send_Custom_Event( obj, obj, 0, 0, 5.0f );
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender)
+	void Custom( GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if ( action == 1 )
 		{
@@ -117,7 +117,7 @@ DECLARE_SCRIPT (DAY_TestScriptOne, "")
 
 DECLARE_SCRIPT (DAY_TestScriptTwo, "")
 {
-	void Created( GameObject *obj )
+	void Created( GameObject *obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -126,7 +126,7 @@ DECLARE_SCRIPT (DAY_TestScriptTwo, "")
 
 DECLARE_SCRIPT (DAY_TestScriptThree, "")
 {
-	void Created( GameObject *obj )
+	void Created( GameObject *obj ) override
 	{
 		Commands->Create_Explosion( "Explosion_Rocket_Gunboat_M01", Commands->Get_Position(obj), obj);
 	}
@@ -156,11 +156,11 @@ DECLARE_SCRIPT (DAY_VTOL_CircleAttack, "")
 		return targetlocation;
 	}
 	
-	void Created( GameObject *obj )
+	void Created( GameObject *obj ) override
 	{
 	}
 
-	void Damaged( GameObject *obj , GameObject *damager, float amount )
+	void Damaged( GameObject *obj , GameObject *damager, float amount ) override
 	{
 		if ( damager )
 		{
@@ -169,7 +169,7 @@ DECLARE_SCRIPT (DAY_VTOL_CircleAttack, "")
 		Commands->Send_Custom_Event( obj, obj, 1, 1, 0.0f );
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if ( type == 1 )
 		{
@@ -195,7 +195,7 @@ DECLARE_SCRIPT (DAY_VTOL_CircleAttack, "")
 DECLARE_SCRIPT (M00_GrantPowerup_Created, "WeaponDef:string")
 {
 
-	void Created( GameObject *obj)
+	void Created( GameObject *obj) override
 	{
 		const char *Weapon = Get_Parameter( "WeaponDef" );
 		Commands->Give_PowerUp( obj, Weapon, false );
@@ -206,13 +206,13 @@ DECLARE_SCRIPT (M00_GrantPowerup_Created, "WeaponDef:string")
 
 DECLARE_SCRIPT (M00_VisceroidInnate_DAY, "")
 {
-	void Created( GameObject *obj )
+	void Created( GameObject *obj ) override
 	{	
 		Commands->Set_Loiters_Allowed( obj, false );
 		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid", true, NULL, 0.0f, -1.0f, false );
 	}
 
-	void Killed( GameObject *obj, GameObject *killer )
+	void Killed( GameObject *obj, GameObject *killer ) override
 	{
 		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid_Die", false, NULL, 0.0f, -1.0f, false );
 	}
@@ -225,7 +225,7 @@ DECLARE_SCRIPT (M00_VisceroidInnate_DAY, "")
 DECLARE_SCRIPT (M00_DestroyedStateObject_DAY, "OriginalModelFacing:float,DestroyedModelPreset:string")
 {
 
-	void Destroyed( GameObject *obj )
+	void Destroyed( GameObject *obj ) override
 	{
 		Vector3 object_pos = Commands->Get_Position(obj);
 		GameObject *DestroyedModel;
@@ -239,7 +239,7 @@ DECLARE_SCRIPT (M00_DestroyedStateObject_DAY, "OriginalModelFacing:float,Destroy
 // For playing ambient sounds on characters - DAY
 DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_Min=-1.0:float, Frequency_Max:float")
 {
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		if (Get_Int_Parameter("Frequency_Min") == -1)
 		{
@@ -252,7 +252,7 @@ DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_M
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		const char * sound = Get_Parameter("Sound_Preset");
 		Vector3 pos = Commands->Get_Position(obj);
@@ -266,7 +266,7 @@ DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_M
 		Commands->Monitor_Sound(obj, id);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED)
 		{
@@ -283,13 +283,13 @@ DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_M
 DECLARE_SCRIPT (M00_PlayAnimation_DestroyObject_DAY, "AnimationName:string")
 {
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		const char * animname = Get_Parameter("AnimationName");
 		Commands->Set_Animation( obj, animname, 0, NULL, 0.0f, -1.0f, false );
 	}
 
-	void Animation_Complete( GameObject * obj, const char * animation_name )
+	void Animation_Complete( GameObject * obj, const char * animation_name ) override
 	{
 		Commands->Destroy_Object(obj);
 	}
@@ -300,12 +300,12 @@ DECLARE_SCRIPT (M00_PlayAnimation_DestroyObject_DAY, "AnimationName:string")
 DECLARE_SCRIPT (M00_Disable_Loiter_DAY, "")
 {
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Loiters_Allowed( obj , false );
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if ( type == M00_LOITER_ENABLE_TOGGLE )
 		{
@@ -318,7 +318,7 @@ DECLARE_SCRIPT (M00_Disable_Loiter_DAY, "")
 DECLARE_SCRIPT (M00_Cinematic_Kill_Object_DAY, "")
 {
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		Commands->Apply_Damage( obj, 10000.0f, "BlamoKiller", NULL );
 	}
@@ -328,7 +328,7 @@ DECLARE_SCRIPT (M00_Cinematic_Kill_Object_DAY, "")
 DECLARE_SCRIPT (M00_Set_Background_Music_DAY, "MusicFile:string")
 {
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Background_Music( Get_Parameter("MusicFile") );
 	}

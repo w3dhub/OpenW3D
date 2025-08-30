@@ -57,8 +57,8 @@ class FirewallDetectWait :
 	public:
 		static RefPtr<FirewallDetectWait> Create(void);
 
-		void WaitBeginning(void);
-		WaitResult GetResult(void);
+		void WaitBeginning(void) override;
+		WaitResult GetResult(void) override;
 
 	protected:
 		FirewallDetectWait();
@@ -86,9 +86,9 @@ class FirewallConnectWait :
 	public:
 		static RefPtr<FirewallConnectWait> Create(void);
 
-		void WaitBeginning(void);
-		WaitResult GetResult(void);
-		virtual void EndWait(WaitResult, const wchar_t* endText);
+		void WaitBeginning(void) override;
+		WaitResult GetResult(void) override;
+		virtual void EndWait(WaitResult, const wchar_t* endText) override;
 
 	protected:
 		FirewallConnectWait();

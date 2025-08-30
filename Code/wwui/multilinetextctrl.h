@@ -69,22 +69,22 @@ public:
 	//
 	//	Inherited
 	//
-	void				Render (void);
-	void				Set_Text (const WCHAR *title);
+	void				Render (void) override;
+	void				Set_Text (const WCHAR *title) override;
 
 	//
 	//	Advise-sink callbacks
 	//
-	void				On_VScroll (ScrollBarCtrlClass *scrollbar, int ctrl_id, int new_position);
+	void				On_VScroll (ScrollBarCtrlClass *scrollbar, int ctrl_id, int new_position) override;
 
 protected:
 	
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
-	void				Update_Client_Rect (void);
-	bool				On_Key_Down (uint32 key_id, uint32 key_data);
-	void				On_Mouse_Wheel (int direction);
+	void				Update_Client_Rect (void) override;
+	bool				On_Key_Down (uint32 key_id, uint32 key_data) override;
+	void				On_Mouse_Wheel (int direction) override;
 
 	void				Create_Control_Renderer (void);
 	void				Create_Text_Renderer (void);

@@ -59,9 +59,9 @@ class DlgQuickMatch :
 
 		bool FinalizeCreate(void);
 
-		void On_Init_Dialog(void);
-		void On_Frame_Update(void);
-		void On_Command(int ctrl, int message, DWORD param);
+		void On_Init_Dialog(void) override;
+		void On_Frame_Update(void) override;
+		void On_Command(int ctrl, int message, DWORD param) override;
 
 		void Connect(void);
 		void SendMatchingInfo(void);
@@ -69,8 +69,8 @@ class DlgQuickMatch :
 		void OutputMessage(int messageID);
 		void OutputMessage(const WCHAR* message);
 
-		void HandleNotification(QuickMatchEvent&);
-		void HandleNotification(DlgMsgBoxEvent&);
+		void HandleNotification(QuickMatchEvent&) override;
+		void HandleNotification(DlgMsgBoxEvent&) override;
 
 	private:
 		DlgQuickMatch(const DlgQuickMatch&);

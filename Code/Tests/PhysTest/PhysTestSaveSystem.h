@@ -55,7 +55,7 @@ class PhysTestSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
 	
-	virtual uint32				Chunk_ID (void) const;
+	virtual uint32				Chunk_ID (void) const override;
 
 protected:
 

@@ -72,11 +72,11 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	uint32								Get_Class_ID (void) const;
-	PersistClass *						Create (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const PersistFactoryClass &	Get_Factory (void) const;	
+	uint32								Get_Class_ID (void) const override;
+	PersistClass *						Create (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const PersistFactoryClass &	Get_Factory (void) const override;
 
 protected:
 
@@ -125,28 +125,28 @@ public:
 	//
 	// Definitions
 	//
-	virtual	void						Init( void );
+	virtual	void						Init( void ) override;
 	void									Init (const SakuraBossGameObjDef &definition);
 	const SakuraBossGameObjDef &	Get_Definition (void) const;
 
 	//
 	// From save/load
 	//
-	bool									Save (ChunkSaveClass & csave);
-	bool									Load (ChunkLoadClass & cload);
-	void									On_Post_Load (void);
-	const	PersistFactoryClass &	Get_Factory (void) const;
+	bool									Save (ChunkSaveClass & csave) override;
+	bool									Load (ChunkLoadClass & cload) override;
+	void									On_Post_Load (void) override;
+	const	PersistFactoryClass &	Get_Factory (void) const override;
 
 	//
 	// Think
 	//
-	void									Think (void);
-	void									Apply_Control (void);
+	void									Think (void) override;
+	void									Apply_Control (void) override;
 
 	//
 	//	Muzzle override
 	//
-	const Matrix3D &					Get_Muzzle (int index = 0);
+	const Matrix3D &					Get_Muzzle (int index = 0) override;
 
 	//
 	// Damage
@@ -154,12 +154,12 @@ public:
    virtual	void						Apply_Damage_Extended( const OffenseObjectClass & offense, 
 														float scale = 1.0f, 
 														const	Vector3 & direction = Vector3( 0,0,0 ), 
-														const char * collision_box_name = NULL );
+														const char * collision_box_name = NULL ) override;
 	
 	//
 	//	Occupant control
 	//
-	bool									Is_Entry_Permitted (SoldierGameObj * /*p_soldier*/)	{ return false; }	
+	bool									Is_Entry_Permitted (SoldierGameObj * /*p_soldier*/) override	{ return false; }
 
 	//
 	// Network support

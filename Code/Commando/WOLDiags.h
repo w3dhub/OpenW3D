@@ -39,12 +39,12 @@
 
 class WOLConsoleFunctionClass : public ConsoleFunctionClass {
 public:
-	const char* Get_Name(void)
+	const char* Get_Name(void) override
 		{return ("wol");}
 
-	const char* Get_Help(void);
+	const char* Get_Help(void) override;
 	
-	void Activate(const char* input);
+	void Activate(const char* input) override;
 };
 
 #endif // __WOLDIAGS_H__

@@ -66,8 +66,8 @@ public:
 	//
 	//	Inherited
 	//
-	void	Enable_Cheat (int cheat, bool onoff);
-	void	Apply_Cheats (void);
+	void	Enable_Cheat (int cheat, bool onoff) override;
+	void	Apply_Cheats (void) override;
 	
 protected:
 	

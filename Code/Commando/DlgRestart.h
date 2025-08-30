@@ -49,8 +49,8 @@ class DlgRestart :
 		DlgRestart();
 		virtual ~DlgRestart();
 
-		void On_Init_Dialog(void);
-		void On_Command(int ctrl, int message, DWORD param);
+		void On_Init_Dialog(void) override;
+		void On_Command(int ctrl, int message, DWORD param) override;
 
 	private:
 		// Prevent copy and assignment

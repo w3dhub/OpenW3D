@@ -93,11 +93,11 @@ public:
 	//
 	//	From Curve3DClass
 	//	
-	void			Evaluate (float time, Vector3 *set_val);
-	void			Set_Key (int i,const Vector3 & point);
-	int			Add_Key (const Vector3 & point,float t);
-	void			Remove_Key (int i);
-	void			Clear_Keys (void);
+	void			Evaluate (float time, Vector3 *set_val) override;
+	void			Set_Key (int i,const Vector3 & point) override;
+	int			Add_Key (const Vector3 & point,float t) override;
+	void			Remove_Key (int i) override;
+	void			Clear_Keys (void) override;
 
 	//
 	//	Vehicle curve specific
@@ -108,9 +108,9 @@ public:
 	//
 	// Save-load support
 	//
-	virtual const PersistFactoryClass &	Get_Factory(void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory(void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 protected:
 	

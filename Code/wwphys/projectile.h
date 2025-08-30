@@ -79,19 +79,19 @@ public:
 
 	ProjectileClass(void);
 	virtual ~ProjectileClass(void);
-	virtual ProjectileClass *	As_ProjectileClass(void)											{ return this; }
+	virtual ProjectileClass *	As_ProjectileClass(void) override											{ return this; }
 
 	void								Init(const ProjectileDefClass & def);
 
-	virtual void					Timestep(float dt);
-	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest);
+	virtual void					Timestep(float dt) override;
+	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest) override;
 	virtual const AABoxClass & Get_Bounding_Box(void) const;
-	virtual const Matrix3D &	Get_Transform(void) const;
-	virtual void					Set_Transform(const Matrix3D & m);
+	virtual const Matrix3D &	Get_Transform(void) const override;
+	virtual void					Set_Transform(const Matrix3D & m) override;
 
-	virtual void	 				Get_Velocity(Vector3 * set_vel) const;
+	virtual void	 				Get_Velocity(Vector3 * set_vel) const override;
 	virtual void	 				Get_Angular_Velocity(Vector3 * set_avel) const;
-	virtual void					Set_Velocity(const Vector3 & newvel);
+	virtual void					Set_Velocity(const Vector3 & newvel) override;
 	virtual void					Set_Angular_Velocity(const Vector3 & newavel);
 
 	virtual void					Set_Lifetime( float time );
@@ -122,9 +122,9 @@ public:
 	/*
 	** Save-Load system
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
 
 protected:
 
@@ -262,17 +262,17 @@ public:
 	ProjectileDefClass(void);
 	
 	// From Definition
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "ProjectileDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "ProjectileDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 		//	Editable interface requirements
 	DECLARE_EDITABLE(ProjectileDefClass,MoveablePhysDefClass);

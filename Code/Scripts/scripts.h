@@ -79,20 +79,20 @@ public:
 	virtual ~ScriptImpClass();
 
 	// Retrieve the name of the script.
-	const char* Get_Name(void);
+	const char* Get_Name(void) override;
 
 	// Retrieve owner object of the script.
-	GameObject* Owner()
+	GameObject* Owner() override
 		{return mOwner;}
 
-	GameObject** Get_Owner_Ptr()
+	GameObject** Get_Owner_Ptr() override
 		{return &mOwner;}
 
 	// Set the scripts parameter string.
-	void Set_Parameters_String(const char* params);
+	void Set_Parameters_String(const char* params) override;
 
 	// Retrieve the scripts parameter string.
-	void Get_Parameters_String(char* buffer, unsigned int size);
+	void Get_Parameters_String(char* buffer, unsigned int size) override;
 
 	// Retrieve the parameter count.
 	int Get_Parameter_Count(void)
@@ -138,19 +138,19 @@ public:
 	 * Scripts can choose to override any of these functions,
 	 * otherwise the following empty functions will be called
 	 */
-	virtual	void	Created( GameObject * obj ) {}
-	virtual	void	Destroyed( GameObject * obj ) {}
-	virtual	void	Killed( GameObject * obj, GameObject * killer ) {}
-	virtual	void	Damaged( GameObject * obj, GameObject * damager, float amount ) {}
-	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) {}
-	virtual	void	Sound_Heard( GameObject * obj, const CombatSound & sound ) {}
-	virtual	void	Enemy_Seen( GameObject * obj, GameObject * enemy ) {}
-	virtual	void	Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason )	{}
-	virtual	void	Timer_Expired( GameObject * obj, int timer_id ) {}
-	virtual	void	Animation_Complete( GameObject * obj, const char * animation_name ) {}
-	virtual	void	Poked( GameObject * obj, GameObject * poker ) {}
-	virtual	void	Entered( GameObject * obj, GameObject * enterer ) {}		
-	virtual	void	Exited( GameObject * obj, GameObject * exiter ) {}		
+	virtual	void	Created( GameObject * obj ) override {}
+	virtual	void	Destroyed( GameObject * obj ) override {}
+	virtual	void	Killed( GameObject * obj, GameObject * killer ) override {}
+	virtual	void	Damaged( GameObject * obj, GameObject * damager, float amount ) override {}
+	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) override {}
+	virtual	void	Sound_Heard( GameObject * obj, const CombatSound & sound ) override {}
+	virtual	void	Enemy_Seen( GameObject * obj, GameObject * enemy ) override {}
+	virtual	void	Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override	{}
+	virtual	void	Timer_Expired( GameObject * obj, int timer_id ) override {}
+	virtual	void	Animation_Complete( GameObject * obj, const char * animation_name ) override {}
+	virtual	void	Poked( GameObject * obj, GameObject * poker ) override {}
+	virtual	void	Entered( GameObject * obj, GameObject * enterer ) override {}
+	virtual	void	Exited( GameObject * obj, GameObject * exiter ) override {}
 
 	// Save and Load specific script
 	virtual void Save_Data(ScriptSaver& saver) {}
@@ -163,11 +163,11 @@ public:
 protected:
 	void Destroy_Script(void);
 
-	void Attach(GameObject* obj);
-	void Detach(GameObject* obj);
+	void Attach(GameObject* obj) override;
+	void Detach(GameObject* obj) override;
 
-	virtual void Save(ScriptSaver& saver);
-	virtual void Load(ScriptLoader& loader);
+	virtual void Save(ScriptSaver& saver) override;
+	virtual void Load(ScriptLoader& loader) override;
 
 private:
 	static void (*Request_Destroy_Script)(ScriptClass*);
@@ -226,7 +226,7 @@ private:
 #define LOAD_STRING(id, var) LOAD_DATA(id, var)
 
 // Auto Variable Save/Load
-#define REGISTER_VARIABLES()			public: void Register_Auto_Save_Variables( void )
+#define REGISTER_VARIABLES()			public: void Register_Auto_Save_Variables( void ) override
 #define SAVE_VARIABLE( x, id )		Auto_Save_Variable( &x, sizeof( x ), id )
 
 extern ScriptCommands* Commands;

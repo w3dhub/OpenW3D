@@ -83,7 +83,7 @@ public:
 	virtual const char *		Get_Name(void) const = 0;
 	virtual const char *		Get_HName(void) const = 0;
 
-	virtual const char *		Get_Key( void )						{ return Get_Name(); }
+	virtual const char *		Get_Key( void ) override						{ return Get_Name(); }
 
 	virtual int					Get_Num_Frames(void) = 0;
 	virtual float				Get_Frame_Rate() = 0;
@@ -141,7 +141,7 @@ class NamedPivotMapClass : public PivotMapClass
 public:
 	~NamedPivotMapClass(void);
 
-	virtual NamedPivotMapClass * As_Named_Pivot_Map() { return this; }
+	virtual NamedPivotMapClass * As_Named_Pivot_Map() override { return this; }
 
 	// add a name & weight to the arrays
 	void Add(const char *Name, float Weight);

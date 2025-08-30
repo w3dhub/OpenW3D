@@ -57,18 +57,18 @@ public:
 	TimedDecorationPhysClass(void);
 	
 	void									Init(const TimedDecorationPhysDefClass & def);
-	virtual bool						Needs_Timestep(void)										{ return true; }
-	virtual void						Timestep(float dt);
+	virtual bool						Needs_Timestep(void) override										{ return true; }
+	virtual void						Timestep(float dt) override;
 
 	virtual void						Set_Lifetime( float time );
 	virtual float						Get_Lifetime( void );
 
-	virtual TimedDecorationPhysClass *	As_TimedDecorationPhysClass(void)			{ return this; }
+	virtual TimedDecorationPhysClass *	As_TimedDecorationPhysClass(void) override			{ return this; }
 
 	// save-load system
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);		
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
 
 private:
 
@@ -92,17 +92,17 @@ public:
 	TimedDecorationPhysDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void);
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override;
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	// accessors
 	float											Get_Lifetime(void) { return Lifetime; }

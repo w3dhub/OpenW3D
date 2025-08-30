@@ -52,14 +52,14 @@ public:
 
 	void						Init(int killer_id, int victim_id);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_PLAYERKILL;}
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_PLAYERKILL;}
 	//virtual void			Delete (void)										{delete this;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						KillerId;
 	int						VictimId;

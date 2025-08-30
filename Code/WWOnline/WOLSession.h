@@ -444,7 +444,7 @@ class Session :
 		Session(const Session&);
 		const Session& operator=(const Session&);
 
-		virtual void ReleaseReference(void);
+		virtual void ReleaseReference(void) override;
 		bool FinalizeCreate(void);
 
 		void UpdatePingServerTime(const char* name, int time);

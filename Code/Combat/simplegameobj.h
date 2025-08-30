@@ -56,11 +56,11 @@ class SimpleGameObjDef : public PhysicalGameObjDef
 public:
 	SimpleGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( SimpleGameObjDef, PhysicalGameObjDef );
 
@@ -90,24 +90,24 @@ public:
 	virtual	~SimpleGameObj();
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const SimpleGameObjDef & definition );
 	const SimpleGameObjDef & Get_Definition( void ) const ;
 
 	//	RTTI
-	virtual	SimpleGameObj	*As_SimpleGameObj( void )		{ return this; }
+	virtual	SimpleGameObj	*As_SimpleGameObj( void ) override		{ return this; }
 
 	// SimpleGameObj interface
 	bool Is_Hidden_Object(void)									{ return Get_Definition().IsHiddenObject; }
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
-	virtual	void	On_Post_Load( void );
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
+	virtual	void	On_Post_Load( void ) override;
 
 	// Network support - TSS091901
-	virtual	bool	Is_Always_Dirty( void )						{ return false; }
+	virtual	bool	Is_Always_Dirty( void ) override						{ return false; }
 };
 
 #endif	//	SIMPLEGAMEOBJ_H

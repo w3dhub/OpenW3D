@@ -57,7 +57,7 @@ class PingProfileWait :
 	public:
 		static RefPtr<PingProfileWait> Create(void);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		PingProfileWait();
@@ -66,7 +66,7 @@ class PingProfileWait :
 		PingProfileWait(const PingProfileWait&);
 		const PingProfileWait& operator=(const PingProfileWait&);
 
-		void HandleNotification(WWOnline::RawPing& ping);
+		void HandleNotification(WWOnline::RawPing& ping) override;
 
 	private:
 		RefPtr<WWOnline::Session> mWOLSession;

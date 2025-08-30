@@ -54,7 +54,7 @@ class RandomStraw : public Straw
 		RandomStraw(void);
 		virtual ~RandomStraw(void);
 
-		virtual int Get(void * source, int slen);
+		virtual int Get(void * source, int slen) override;
 
 		void Reset(void);
 		void Seed_Bit(int seed);

@@ -71,9 +71,9 @@ public:
 	//
 	//	Inherited
 	//
-	void		On_Init_Dialog (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
-	void		On_Frame_Update (void);
+	void		On_Init_Dialog (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Frame_Update (void) override;
 
 	//
 	//	Debug methods
@@ -97,15 +97,15 @@ protected:
 	//
 	//	Inherited
 	//
-	void		On_Activate(bool onoff);
-	void		On_Last_Menu_Ending (void);
+	void		On_Activate(bool onoff) override;
+	void		On_Last_Menu_Ending (void) override;
 	
 	void		Update_Login_Profile(void);
 	void		Build_Persona_Combobox (void);
 	void		Build_Server_Combobox (void);
 
-	void HandleNotification(WOLLogonAction&);
-	void HandleNotification(DlgMsgBoxEvent&);
+	void HandleNotification(WOLLogonAction&) override;
+	void HandleNotification(DlgMsgBoxEvent&) override;
 
 	int mPendingCmd;
 

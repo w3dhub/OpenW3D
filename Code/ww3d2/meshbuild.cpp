@@ -104,7 +104,7 @@ class FaceHasherClass : public HashCalculatorClass<MeshBuilderClass::FaceClass>
 {
 public:
 
-	virtual bool	Items_Match(const MeshBuilderClass::FaceClass & a, const MeshBuilderClass::FaceClass & b) 
+	virtual bool	Items_Match(const MeshBuilderClass::FaceClass & a, const MeshBuilderClass::FaceClass & b) override
 	{
 		// Note: if we want this to detect duplicates that are "rotated", must change
 		// both this function and the Compute_Hash function...
@@ -116,22 +116,22 @@ public:
 		);
 	}
 
-	virtual void	Compute_Hash(const MeshBuilderClass::FaceClass & item)
+	virtual void	Compute_Hash(const MeshBuilderClass::FaceClass & item) override
 	{
 		HashVal = (int)(item.VertIdx[0]*12345.6f + item.VertIdx[1]*1714.38484f + item.VertIdx[2]*27561.3f)&1023; 
 	}
 
-	virtual int		Num_Hash_Bits(void) 
+	virtual int		Num_Hash_Bits(void) override
 	{ 
 		return 10;  
 	}
 	
-	virtual int		Num_Hash_Values(void)
+	virtual int		Num_Hash_Values(void) override
 	{
 		return 1;	
 	}
 	
-	virtual int		Get_Hash_Value(int /*index*/)
+	virtual int		Get_Hash_Value(int /*index*/) override
 	{
 		return HashVal;
 	}

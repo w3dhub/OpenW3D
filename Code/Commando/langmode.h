@@ -55,11 +55,11 @@ class	LanGameModeClass :
 	public:
 		static cLanChat * Get_Lan_Interface(void);
 
-		virtual	const char *Name(void)	{ return "LAN"; }	// the name of this mode
-		virtual	void	Init(void);		 	// called when the mode is activated
-		virtual	void 	Shutdown(void); 	// called when the mode is deactivated
-		virtual	void 	Think(void);		// called each time through the main loop
-		virtual	void 	Render(void) {};		// called each time through the main loop
+		virtual	const char *Name(void) override	{ return "LAN"; }	// the name of this mode
+		virtual	void	Init(void) override;		 	// called when the mode is activated
+		virtual	void 	Shutdown(void) override; 	// called when the mode is deactivated
+		virtual	void 	Think(void) override;		// called each time through the main loop
+		virtual	void 	Render(void) override {};		// called each time through the main loop
 
 	private:
 		static cLanChat * PLanChat;

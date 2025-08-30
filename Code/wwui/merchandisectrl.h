@@ -67,7 +67,7 @@ public:
 	//
 	//	From DialogControlClass
 	//
-	void				Render (void);
+	void				Render (void) override;
 
 	//
 	//	Configuration
@@ -93,10 +93,10 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void				On_LButton_Down (const Vector2 &mouse_pos);
-	void				On_LButton_DblClk (const Vector2 &mouse_pos);
-	void				On_Set_Cursor (const Vector2 &mouse_pos);
-	void				Update_Client_Rect (void);
+	void				On_LButton_Down (const Vector2 &mouse_pos) override;
+	void				On_LButton_DblClk (const Vector2 &mouse_pos) override;
+	void				On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void				Update_Client_Rect (void) override;
 
 	void				Create_Control_Renderer (void);
 	void				Create_Text_Renderer (void);

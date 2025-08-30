@@ -91,7 +91,7 @@ class TagBlockFile : protected RawFileClass
 			return(Find_Block(tagname) != NULL);
 		}						
 		
-		virtual unsigned long Get_Date_Time(void)  {
+		virtual unsigned long Get_Date_Time(void) override {
 			return(FileTime);
 		}
 

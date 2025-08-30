@@ -80,9 +80,9 @@ class WOLJoinGame :
 		bool StartServerConnect(void);
 		void ConnectToServer(void);
 
-		void HandleNotification(WWOnline::ChannelEvent&);
-		void HandleNotification(DlgWOLWaitEvent&);
-		void ReceiveSignal(MPChooseTeamSignal&);
+		void HandleNotification(WWOnline::ChannelEvent&) override;
+		void HandleNotification(DlgWOLWaitEvent&) override;
+		void ReceiveSignal(MPChooseTeamSignal&) override;
 
 	private:
 		RefPtr<WWOnline::Session> mWOLSession;

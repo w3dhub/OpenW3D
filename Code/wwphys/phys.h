@@ -588,8 +588,8 @@ public:
 	/*
 	** Persistant object save/load system
 	*/
-	virtual bool						Save (ChunkSaveClass &csave);
-	virtual bool						Load (ChunkLoadClass &cload);
+	virtual bool						Save (ChunkSaveClass &csave) override;
+	virtual bool						Load (ChunkLoadClass &cload) override;
 
 	/*
 	** Debug rendering of vectors, points, boxes, etc etc.  These functions actually add debug
@@ -795,15 +795,15 @@ public:
 	PhysDefClass(void);
 	
 	// From PersistClass
-	virtual bool					Save(ChunkSaveClass &csave);
-	virtual bool					Load(ChunkLoadClass &cload);
+	virtual bool					Save(ChunkSaveClass &csave) override;
+	virtual bool					Load(ChunkLoadClass &cload) override;
 	
 	// PhysDef type filtering mechanism
 	virtual const char *			Get_Type_Name(void)				{ return "PhysDef"; }
 	virtual bool					Is_Type(const char *);
 
 	// Validation methods
-	virtual bool					Is_Valid_Config (StringClass &message);
+	virtual bool					Is_Valid_Config (StringClass &message) override;
 
 	// accessors
 	const StringClass &			Get_Model_Name()					{ return ModelName; }

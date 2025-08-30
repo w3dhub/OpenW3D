@@ -67,8 +67,8 @@ public:
 	//
 	//	Inherited
 	//
-	void			On_Init_Dialog (void);
-	void			On_Destroy (void);
+	void			On_Init_Dialog (void) override;
+	void			On_Destroy (void) override;
 
 	//
 	//	Message support

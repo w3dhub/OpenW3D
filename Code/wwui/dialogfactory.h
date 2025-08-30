@@ -73,7 +73,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void	Do_Dialog (void)	{ T *dialog = new T; dialog->Start_Dialog (); REF_PTR_RELEASE (dialog); }
+	void	Do_Dialog (void) override	{ T *dialog = new T; dialog->Start_Dialog (); REF_PTR_RELEASE (dialog); }
 };
 
 

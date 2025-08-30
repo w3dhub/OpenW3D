@@ -273,15 +273,15 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface 
 	/////////////////////////////////////////////////////////////////////////////
-	virtual RenderObjClass *	Clone(void) const;
-	virtual int						Class_ID(void)	const { return CLASSID_DAZZLE; }
+	virtual RenderObjClass *	Clone(void) const override;
+	virtual int						Class_ID(void)	const override { return CLASSID_DAZZLE; }
 	
-	virtual void					Render(RenderInfoClass & rinfo);
-	virtual void Special_Render(SpecialRenderInfoClass & rinfo);
-	virtual void 					Set_Transform(const Matrix3D &m); 
-   virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const;
-   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
-	virtual void					Scale(float scale) 															{ radius*=scale; };	
+	virtual void					Render(RenderInfoClass & rinfo) override;
+	virtual void Special_Render(SpecialRenderInfoClass & rinfo) override;
+	virtual void 					Set_Transform(const Matrix3D &m) override;
+   virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const override;
+   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const override;
+	virtual void					Scale(float scale) override 															{ radius*=scale; };
 
 	void Set_Dazzle_Color(const Vector3& col) { dazzle_color=col; }
 	void Set_Halo_Color(const Vector3& col) { halo_color=col; }
@@ -302,7 +302,7 @@ public:
 
 	// Persistant object save-load interface
 	// Dazzles save their "dazzle-type" and transform
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
 
 	// Set the static "current layer" variable. This variable is used in the
 	// Render() call so that the dazzle knows which list to add itself to if
@@ -361,9 +361,9 @@ public:
 	DazzlePrototypeClass(void) : DazzleType(0)				{ }
 	virtual ~DazzlePrototypeClass(void)							{ }
 	
-	virtual const char *			Get_Name(void) const			{ return Name; }
-	virtual int						Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_DAZZLE; }
-	virtual RenderObjClass *	Create(void);
+	virtual const char *			Get_Name(void) const override			{ return Name; }
+	virtual int						Get_Class_ID(void) const override	{ return RenderObjClass::CLASSID_DAZZLE; }
+	virtual RenderObjClass *	Create(void) override;
 
 	WW3DErrorType					Load_W3D(ChunkLoadClass & cload);
 	
@@ -385,8 +385,8 @@ public:
 	DazzleLoaderClass(void)														{ }
 	~DazzleLoaderClass(void)													{ }
 
-	virtual int						Chunk_Type(void)							{ return W3D_CHUNK_DAZZLE; }
-	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload);
+	virtual int						Chunk_Type(void) override							{ return W3D_CHUNK_DAZZLE; }
+	virtual PrototypeClass *	Load_W3D(ChunkLoadClass & cload) override;
 };
 
 extern DazzleLoaderClass		_DazzleLoader;

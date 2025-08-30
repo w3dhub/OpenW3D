@@ -58,8 +58,8 @@ class DlgMPConnect :
 		DlgMPConnect(int teamChoice, unsigned long clanID);
 		virtual ~DlgMPConnect();
 
-		void On_Command(int ctrl, int message, DWORD param);
-		void On_Periodic(void);
+		void On_Command(int ctrl, int message, DWORD param) override;
+		void On_Periodic(void) override;
 
 	private:
 		// Prevent copy and assignment

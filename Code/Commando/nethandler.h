@@ -58,11 +58,11 @@
 class	GameCombatNetworkHandlerClass : public CombatNetworkHandlerClass
 {
 public:
-	bool	Can_Damage(ArmedGameObj * p_armed_damager, PhysicalGameObj * p_phys_victim);
-	float	Get_Damage_Factor(ArmedGameObj * p_armed_damager, PhysicalGameObj * p_phys_victim);
-	bool	Is_Gameplay_Permitted(void);
-	void	On_Soldier_Kill(SoldierGameObj * p_soldier, SoldierGameObj * p_victim);
-	void	On_Soldier_Death(SoldierGameObj * p_soldier);
+	bool	Can_Damage(ArmedGameObj * p_armed_damager, PhysicalGameObj * p_phys_victim) override;
+	float	Get_Damage_Factor(ArmedGameObj * p_armed_damager, PhysicalGameObj * p_phys_victim) override;
+	bool	Is_Gameplay_Permitted(void) override;
+	void	On_Soldier_Kill(SoldierGameObj * p_soldier, SoldierGameObj * p_victim) override;
+	void	On_Soldier_Death(SoldierGameObj * p_soldier) override;
 };
 
 #endif // NETHANDLER_H

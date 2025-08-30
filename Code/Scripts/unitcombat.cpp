@@ -82,7 +82,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 ** Script Events
 ************************************************************************************************/
 
-	void Animation_Complete( GameObject * obj, const char * anim )
+	void Animation_Complete( GameObject * obj, const char * anim ) override
 	{
 		if ( script_override > 0 )
 		{
@@ -120,7 +120,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 	}
 
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		anim_script = NULL;
 		self_id = Commands->Get_ID( obj );
@@ -188,7 +188,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 		}
 	}
 
-	void Custom ( GameObject * obj, int type, int param, GameObject *sender )
+	void Custom ( GameObject * obj, int type, int param, GameObject *sender ) override
 	{
 		if ( type == OV_OVERRIDE )
 		{
@@ -253,7 +253,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject *damager)
+	void Damaged( GameObject * obj, GameObject *damager) override
 	{
 //  Not using score system
 //		Score_Hit_Tally( obj );
@@ -302,7 +302,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 		}
 	}
 
-	void Destroyed(GameObject * obj )
+	void Destroyed(GameObject * obj ) override
 	{
 		if ( script_override > 0 )
 		{
@@ -318,7 +318,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 */
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		if ( script_override > 0 )
 		{
@@ -370,7 +370,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 		}
 	}
 
-	void Movement_Complete( GameObject* obj, MovementCompleteReason reason)
+	void Movement_Complete( GameObject* obj, MovementCompleteReason reason) override
 //	void Goto_Failed( GameObject * me, GotoFailedReason reason )
 	{
 		if ( script_override > 0 )
@@ -481,7 +481,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 		}
 	}
 
-	void Killed(GameObject * obj, GameObject *killer )
+	void Killed(GameObject * obj, GameObject *killer ) override
 	{
 		GameObject *scoreboard = Commands->Find_Object(scoreboard_id);
 		if ( scoreboard )
@@ -592,7 +592,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 		}
 	}
 	
-	void Timer_Expired(GameObject * obj, int timer )
+	void Timer_Expired(GameObject * obj, int timer ) override
 	{
 		if ( script_override > 0 )
 		{

@@ -216,9 +216,9 @@ class AggregatePrototypeClass : public PrototypeClass
 		//
 		//	Public methods
 		//
-		virtual const char *				Get_Name(void) const			{ return m_pDefinition->Get_Name (); }
-		virtual int							Get_Class_ID(void) const	{ return m_pDefinition->Class_ID (); }
-		virtual RenderObjClass *		Create (void)					{ return m_pDefinition->Create (); }
+		virtual const char *				Get_Name(void) const override			{ return m_pDefinition->Get_Name (); }
+		virtual int							Get_Class_ID(void) const override	{ return m_pDefinition->Class_ID (); }
+		virtual RenderObjClass *		Create (void) override					{ return m_pDefinition->Create (); }
 		virtual AggregateDefClass	*	Get_Definition (void) const { return m_pDefinition; }
 		virtual void						Set_Definition (AggregateDefClass *pdef) { m_pDefinition = pdef; }
 
@@ -240,8 +240,8 @@ class AggregateLoaderClass : public PrototypeLoaderClass
 {
 	public:
 
-		virtual int						Chunk_Type (void)  { return W3D_CHUNK_AGGREGATE; }
-		virtual PrototypeClass *	Load_W3D (ChunkLoadClass &chunk_load);
+		virtual int						Chunk_Type (void) override  { return W3D_CHUNK_AGGREGATE; }
+		virtual PrototypeClass *	Load_W3D (ChunkLoadClass &chunk_load) override;
 };
 
 

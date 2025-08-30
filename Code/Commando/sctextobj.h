@@ -63,13 +63,13 @@ public:
 
 	void						Init(const WideStringClass & text, TextMessageEnum type, bool is_host_admin_message, int sender_id, int recipient_id = -1);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_SCTEXTOBJ;}
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_SCTEXTOBJ;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 	void						Set_Dirty_Bit_For_Team(DIRTY_BIT bit, int team);
 
 	int						SenderId;

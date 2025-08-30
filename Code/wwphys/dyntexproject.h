@@ -64,7 +64,7 @@ public:
 	/*
 	** TexProjectClass interface
 	*/
-	virtual void		Pre_Render_Update(const Matrix3D & camera);
+	virtual void		Pre_Render_Update(const Matrix3D & camera) override;
 
 	/*
 	** DynTexProjectClass interface
@@ -77,7 +77,7 @@ public:
 	*/
 	void					Set_Projection_Object(PhysClass * obj);
 	PhysClass *			Peek_Projection_Object(void) const;
-	virtual void *		Get_Projection_Object_ID(void) const			{ return ProjectionObject; }
+	virtual void *		Get_Projection_Object_ID(void) const override			{ return ProjectionObject; }
 
 	void					Set_Light_Source_ID(uint32 id);
 	uint32				Get_Light_Source_ID(void);

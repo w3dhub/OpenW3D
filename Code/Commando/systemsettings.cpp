@@ -108,9 +108,9 @@ void	SystemSettings::Add_Console_Functions( DynamicVectorClass<ConsoleFunctionCl
 class ConsoleFunctionSettingBool : public ConsoleFunctionClass {
 public:
 	ConsoleFunctionSettingBool( SystemSettingEntryBool	* entry ) : Entry( entry ) {}
-	virtual	const char * Get_Name( void )	{ return Entry->Get_Name(); }
-	virtual	const char * Get_Help( void )	{ return Entry->Get_Help(); }
-	virtual	void Activate( const char * input ) {
+	virtual	const char * Get_Name( void ) override	{ return Entry->Get_Name(); }
+	virtual	const char * Get_Help( void ) override	{ return Entry->Get_Help(); }
+	virtual	void Activate( const char * input ) override {
 		Entry->Set_State( !Entry->Get_State() );
 		Print( "%s %s\n", Entry->Get_Name(), Entry->Get_State() ? "ON" : "OFF" );
 	}
@@ -162,9 +162,9 @@ void	SystemSettingEntryBool::Set_State( bool state )
 class ConsoleFunctionSettingSlider : public ConsoleFunctionClass {
 public:
 	ConsoleFunctionSettingSlider( SystemSettingEntrySlider	* entry ) : Entry( entry ) {}
-	virtual	const char * Get_Name( void )	{ return Entry->Get_Name(); }
-	virtual	const char * Get_Help( void )	{ return Entry->Get_Help(); }
-	virtual	void Activate( const char * input ) {
+	virtual	const char * Get_Name( void ) override	{ return Entry->Get_Name(); }
+	virtual	const char * Get_Help( void ) override	{ return Entry->Get_Help(); }
+	virtual	void Activate( const char * input ) override {
 		Entry->Set_Value( atoi( input ) );
 		Print( "%s = %d\n", Entry->Get_Name(), Entry->Get_Value() );
 	}
@@ -217,9 +217,9 @@ void	SystemSettingEntrySlider::Set_Value( int value )
 class ConsoleFunctionSettingEnum : public ConsoleFunctionClass {
 public:
 	ConsoleFunctionSettingEnum( SystemSettingEntryEnum	* entry ) : Entry( entry ) {}
-	virtual	const char * Get_Name( void )	{ return Entry->Get_Name(); }
-	virtual	const char * Get_Help( void )	{ return Entry->Get_Help(); }
-	virtual	void Activate( const char * input ) {
+	virtual	const char * Get_Name( void ) override	{ return Entry->Get_Name(); }
+	virtual	const char * Get_Help( void ) override	{ return Entry->Get_Help(); }
+	virtual	void Activate( const char * input ) override {
 		Entry->Set_Selection( input );
 		Print( "%s = %s\n", Entry->Get_Name(), Entry->Get_Enum_Name( Entry->Get_Selection() ) );
 	}
@@ -283,40 +283,40 @@ void	SystemSettingEntryEnum::Set_Selection( const char * name )
 
 class	SystemSettingEntryStaticProjectors : public SystemSettingEntryBool {
 public:
-	const char * Get_Name( void )	{ return "Static_Projectors"; }
-	const char * Get_Help( void )	{ return "STATIC_PROJECTORS - toggles static projectors."; }
-	virtual bool Get_Bool( void )			{ if ( COMBAT_SCENE ) return COMBAT_SCENE->Are_Static_Projectors_Enabled(); return State; }
-	virtual void Set_Bool( bool state )	{ if ( COMBAT_SCENE ) COMBAT_SCENE->Enable_Static_Projectors( state ); }
+	const char * Get_Name( void ) override	{ return "Static_Projectors"; }
+	const char * Get_Help( void ) override	{ return "STATIC_PROJECTORS - toggles static projectors."; }
+	virtual bool Get_Bool( void ) override			{ if ( COMBAT_SCENE ) return COMBAT_SCENE->Are_Static_Projectors_Enabled(); return State; }
+	virtual void Set_Bool( bool state ) override	{ if ( COMBAT_SCENE ) COMBAT_SCENE->Enable_Static_Projectors( state ); }
 };
 
 /***********************************************************************************************/
 
 class	SystemSettingEntryDynamicProjectors : public SystemSettingEntryBool {
 public:
-	const char * Get_Name( void )	{ return "Dynamic_Projectors"; }
-	const char * Get_Help( void )	{ return "DYNAMIC_PROJECTORS - toggles dynamic projectors."; }
-	virtual bool Get_Bool( void )			{ if ( COMBAT_SCENE ) return COMBAT_SCENE->Are_Dynamic_Projectors_Enabled(); return State; }
-	virtual void Set_Bool( bool state )	{ if ( COMBAT_SCENE ) COMBAT_SCENE->Enable_Dynamic_Projectors( state ); }
+	const char * Get_Name( void ) override	{ return "Dynamic_Projectors"; }
+	const char * Get_Help( void ) override	{ return "DYNAMIC_PROJECTORS - toggles dynamic projectors."; }
+	virtual bool Get_Bool( void ) override			{ if ( COMBAT_SCENE ) return COMBAT_SCENE->Are_Dynamic_Projectors_Enabled(); return State; }
+	virtual void Set_Bool( bool state ) override	{ if ( COMBAT_SCENE ) COMBAT_SCENE->Enable_Dynamic_Projectors( state ); }
 };
 
 /***********************************************************************************************/
 
 class	SystemSettingEntryWeaponHelp : public SystemSettingEntryBool {
 public:
-	const char * Get_Name( void )	{ return "Enable_Weapon_Help"; }
-	const char * Get_Help( void )	{ return "ENABLE_WEAPON_HELP - toggles weapon aiming help."; }
-	virtual bool Get_Bool( void )			{ if ( COMBAT_CAMERA ) return COMBAT_CAMERA->Is_Weapon_Help_Enabled(); return State; }
-	virtual void Set_Bool( bool state )	{ if ( COMBAT_CAMERA ) COMBAT_CAMERA->Enable_Weapon_Help( state ); }
+	const char * Get_Name( void ) override	{ return "Enable_Weapon_Help"; }
+	const char * Get_Help( void ) override	{ return "ENABLE_WEAPON_HELP - toggles weapon aiming help."; }
+	virtual bool Get_Bool( void ) override			{ if ( COMBAT_CAMERA ) return COMBAT_CAMERA->Is_Weapon_Help_Enabled(); return State; }
+	virtual void Set_Bool( bool state ) override	{ if ( COMBAT_CAMERA ) COMBAT_CAMERA->Enable_Weapon_Help( state ); }
 };
 
 /***********************************************************************************************/
 
 class	SystemSettingEntryAutoTransitions : public SystemSettingEntryBool {
 public:
-	const char * Get_Name( void )	{ return "Enable_Auto_Transitions"; }
-	const char * Get_Help( void )	{ return "ENABLE_AUTO_TRANSITIONS - toggles automatic doors and transitions."; }
-	virtual bool Get_Bool( void )			{ return CombatManager::Are_Transitions_Automatic(); }
-	virtual void Set_Bool( bool state )	{ CombatManager::Set_Transitions_Automatic( state ); }
+	const char * Get_Name( void ) override	{ return "Enable_Auto_Transitions"; }
+	const char * Get_Help( void ) override	{ return "ENABLE_AUTO_TRANSITIONS - toggles automatic doors and transitions."; }
+	virtual bool Get_Bool( void ) override			{ return CombatManager::Are_Transitions_Automatic(); }
+	virtual void Set_Bool( bool state ) override	{ CombatManager::Set_Transitions_Automatic( state ); }
 };
 
 /***********************************************************************************************/
@@ -328,12 +328,12 @@ public:
 		Set_Step_Size( 1 );
 		Set_Value( GAMMA_SLIDER_DEFAULT );
 	}
-	const char * Get_Name( void )	{ return "Gamma_Correction"; }
-	const char * Get_Help( void )	{ formatstring.Format ("GAMMA_CORRECTION [%d..%d] - Adjusts gamma correction curve for the display.", GAMMA_SLIDER_MIN, GAMMA_SLIDER_MAX); return (formatstring); }
+	const char * Get_Name( void ) override	{ return "Gamma_Correction"; }
+	const char * Get_Help( void ) override	{ formatstring.Format ("GAMMA_CORRECTION [%d..%d] - Adjusts gamma correction curve for the display.", GAMMA_SLIDER_MIN, GAMMA_SLIDER_MAX); return (formatstring); }
 	
-	int	Get_Slider( void )		{ Value = DlgConfigVideoTabClass::Get_Gamma (); return Value; }
-	void	Set_Slider( int value )	{ DlgConfigVideoTabClass::Set_Gamma (value); }
-	void	Registry_Save				( RegistryClass & registry ) { registry.Set_Int (Get_Name (), Get_Slider ()); }
+	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Gamma (); return Value; }
+	void	Set_Slider( int value ) override	{ DlgConfigVideoTabClass::Set_Gamma (value); }
+	void	Registry_Save				( RegistryClass & registry ) override { registry.Set_Int (Get_Name (), Get_Slider ()); }
 
 protected:
 	StringClass formatstring;
@@ -349,12 +349,12 @@ public:
 		Set_Step_Size( 1 );
 		Set_Value( BRIGHTNESS_SLIDER_DEFAULT );
 	}
-	const char * Get_Name( void )	{ return "Brightness"; }
-	const char * Get_Help( void )	{ formatstring.Format ("BRIGHTNESS [%d..%d] - Adjusts brightness for the display.", BRIGHTNESS_SLIDER_MIN, BRIGHTNESS_SLIDER_MAX); return (formatstring); }
+	const char * Get_Name( void ) override	{ return "Brightness"; }
+	const char * Get_Help( void ) override	{ formatstring.Format ("BRIGHTNESS [%d..%d] - Adjusts brightness for the display.", BRIGHTNESS_SLIDER_MIN, BRIGHTNESS_SLIDER_MAX); return (formatstring); }
 	
-	int	Get_Slider( void )		{ Value = DlgConfigVideoTabClass::Get_Brightness (); return Value; }
-	void	Set_Slider( int value )	{ DlgConfigVideoTabClass::Set_Brightness (value); }
-	void	Registry_Save				( RegistryClass & registry ) { registry.Set_Int (Get_Name (), Get_Slider ()); }
+	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Brightness (); return Value; }
+	void	Set_Slider( int value ) override	{ DlgConfigVideoTabClass::Set_Brightness (value); }
+	void	Registry_Save				( RegistryClass & registry ) override { registry.Set_Int (Get_Name (), Get_Slider ()); }
 
 protected:
 	StringClass formatstring;
@@ -369,12 +369,12 @@ public:
 		Set_Step_Size( 1 );
 		Set_Value( CONTRAST_SLIDER_DEFAULT );
 	}
-	const char * Get_Name( void )	{ return "Contrast"; }
-	const char * Get_Help( void )	{ formatstring.Format ("CONTRAST [%d..%d] - Adjusts contrast for the display.", CONTRAST_SLIDER_MIN, CONTRAST_SLIDER_MAX); return (formatstring); }
+	const char * Get_Name( void ) override	{ return "Contrast"; }
+	const char * Get_Help( void ) override	{ formatstring.Format ("CONTRAST [%d..%d] - Adjusts contrast for the display.", CONTRAST_SLIDER_MIN, CONTRAST_SLIDER_MAX); return (formatstring); }
 
-	int	Get_Slider( void )		{ Value = DlgConfigVideoTabClass::Get_Contrast (); return Value; }
-	void	Set_Slider( int value )	{ DlgConfigVideoTabClass::Set_Contrast (value); }
-	void	Registry_Save				( RegistryClass & registry ) { registry.Set_Int (Get_Name (), Get_Slider ()); }
+	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Contrast (); return Value; }
+	void	Set_Slider( int value ) override	{ DlgConfigVideoTabClass::Set_Contrast (value); }
+	void	Registry_Save				( RegistryClass & registry ) override { registry.Set_Int (Get_Name (), Get_Slider ()); }
 
 protected:
 	StringClass formatstring;
@@ -390,10 +390,10 @@ public:
 		Set_Step_Size( 1 );
 		Set_Value( 0 );
 	}
-	const char * Get_Name( void )	{ return "Texture_Resolution"; }
-	const char * Get_Help( void )	{ return "TEXTURE_RESOLUTION [0..7] - sets the texture resolution."; }
-	virtual int Get_Slider( void )			{ return WW3D::Get_Texture_Reduction(); }
-	virtual void Set_Slider( int value )	{ if ( WW3D::Get_Texture_Reduction() != value ) { WW3D::Set_Texture_Reduction( value ); } }
+	const char * Get_Name( void ) override	{ return "Texture_Resolution"; }
+	const char * Get_Help( void ) override	{ return "TEXTURE_RESOLUTION [0..7] - sets the texture resolution."; }
+	virtual int Get_Slider( void ) override			{ return WW3D::Get_Texture_Reduction(); }
+	virtual void Set_Slider( int value ) override	{ if ( WW3D::Get_Texture_Reduction() != value ) { WW3D::Set_Texture_Reduction( value ); } }
 
 };
 
@@ -407,16 +407,16 @@ public:
 		Set_Step_Size( 100 );
 		Set_Value( 10000 );
 	}
-	const char * Get_Name( void )	{ return "Dynamic_LOD_Budget"; }
-	const char * Get_Help( void )	{ return "DYNAMIC_LOD_BUDGET <n> - sets the Dynamic LOD Budget."; }
-	virtual int Get_Slider( void )	{
+	const char * Get_Name( void ) override	{ return "Dynamic_LOD_Budget"; }
+	const char * Get_Help( void ) override	{ return "DYNAMIC_LOD_BUDGET <n> - sets the Dynamic LOD Budget."; }
+	virtual int Get_Slider( void ) override	{
 		int scount,dcount = Value;
 		if ( PhysicsSceneClass::Get_Instance() ) {
 			PhysicsSceneClass::Get_Instance()->Get_Polygon_Budgets(&scount,&dcount);
 		}
 		return dcount;
 	}
-	virtual void Set_Slider( int value ) {
+	virtual void Set_Slider( int value ) override {
 		if ( PhysicsSceneClass::Get_Instance() ) {
 			int scount,dcount;
 			PhysicsSceneClass::Get_Instance()->Get_Polygon_Budgets(&scount,&dcount);
@@ -434,16 +434,16 @@ public:
 		Set_Step_Size( 100 );
 		Set_Value( 3000 );
 	}
-	const char * Get_Name( void )	{ return "Static_LOD_Budget"; }
-	const char * Get_Help( void )	{ return "STATIC_LOD_BUDGET <n> - sets the Static LOD Budget."; }
-	virtual int Get_Slider( void )	{
+	const char * Get_Name( void ) override	{ return "Static_LOD_Budget"; }
+	const char * Get_Help( void ) override	{ return "STATIC_LOD_BUDGET <n> - sets the Static LOD Budget."; }
+	virtual int Get_Slider( void ) override	{
 		int dcount,scount = Value;
 		if ( PhysicsSceneClass::Get_Instance() ) {
 			PhysicsSceneClass::Get_Instance()->Get_Polygon_Budgets(&scount,&dcount);
 		}
 		return scount;
 	}
-	virtual void Set_Slider( int value ) {
+	virtual void Set_Slider( int value ) override {
 		if ( PhysicsSceneClass::Get_Instance() ) {
 			int scount,dcount;
 			PhysicsSceneClass::Get_Instance()->Get_Polygon_Budgets(&scount,&dcount);
@@ -456,12 +456,12 @@ public:
 
 class	SystemSettingEntryShadowMode : public SystemSettingEntryEnum {
 public:
-	const char * Get_Name( void )	{ return "Shadow_Mode"; }
-	const char * Get_Help( void )	{ return "SHADOW_MODE <mode> - 0=none 1=blobs 2=blobs+ 3=projected textures"; }
-	virtual	int Get_Enum( void ) { if (COMBAT_SCENE) return COMBAT_SCENE->Get_Shadow_Mode(); return Selection; }
-	virtual	void Set_Enum( int selection ) { if (COMBAT_SCENE) COMBAT_SCENE->Set_Shadow_Mode( (PhysicsSceneClass::ShadowEnum)selection ); }
-	virtual	int Get_Enum_Count( void ) { return 4; }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	const char * Get_Name( void ) override	{ return "Shadow_Mode"; }
+	const char * Get_Help( void ) override	{ return "SHADOW_MODE <mode> - 0=none 1=blobs 2=blobs+ 3=projected textures"; }
+	virtual	int Get_Enum( void ) override { if (COMBAT_SCENE) return COMBAT_SCENE->Get_Shadow_Mode(); return Selection; }
+	virtual	void Set_Enum( int selection ) override { if (COMBAT_SCENE) COMBAT_SCENE->Set_Shadow_Mode( (PhysicsSceneClass::ShadowEnum)selection ); }
+	virtual	int Get_Enum_Count( void ) override { return 4; }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		static const char * names[ 4 ] = { "None", "Blobs", "Blobs+", "Projections" };
 		return names[ selection ];
 	}
@@ -471,12 +471,12 @@ public:
 
 class	SystemSettingEntrySurfaceEffectDetail: public SystemSettingEntryEnum {
 public:
-	const char * Get_Name( void )	{ return "Surface_Effect_Detail"; }
-	const char * Get_Help( void )	{ return "SURFACE_EFFECT_DETAIL <level> - 0=off 1=no emitters 2=full"; }
-	virtual	int Get_Enum( void ) { return SurfaceEffectsManager::Get_Mode (); }
-	virtual	void Set_Enum( int value ) { SurfaceEffectsManager::Set_Mode ((SurfaceEffectsManager::MODE)value); }
-	virtual	int Get_Enum_Count( void ) { return 3; }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	const char * Get_Name( void ) override	{ return "Surface_Effect_Detail"; }
+	const char * Get_Help( void ) override	{ return "SURFACE_EFFECT_DETAIL <level> - 0=off 1=no emitters 2=full"; }
+	virtual	int Get_Enum( void ) override { return SurfaceEffectsManager::Get_Mode (); }
+	virtual	void Set_Enum( int value ) override { SurfaceEffectsManager::Set_Mode ((SurfaceEffectsManager::MODE)value); }
+	virtual	int Get_Enum_Count( void ) override { return 3; }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		static const char * names[ 3 ] = { "Off", "No Emitters", "Full" };
 		return names[ selection ];
 	}
@@ -487,14 +487,14 @@ public:
 class	SystemSettingEntryMeshDrawMode : public SystemSettingEntryEnum {
 	static const char * names[7];
 public:
-	const char * Get_Name( void )	{ return "Mesh_Draw_Mode"; }
-	const char * Get_Help( void )	{ return "MESH_DRAW_MODE <mode> - 0=old 1=new 2=debug 3=debug clip 4=box 5=none 6=dx8 only"; }
-	virtual	int Get_Enum( void ) { return WW3D::Get_Mesh_Draw_Mode(); }
-	virtual	void Set_Enum( int selection ) {
+	const char * Get_Name( void ) override	{ return "Mesh_Draw_Mode"; }
+	const char * Get_Help( void ) override	{ return "MESH_DRAW_MODE <mode> - 0=old 1=new 2=debug 3=debug clip 4=box 5=none 6=dx8 only"; }
+	virtual	int Get_Enum( void ) override { return WW3D::Get_Mesh_Draw_Mode(); }
+	virtual	void Set_Enum( int selection ) override {
 		WW3D::Set_Mesh_Draw_Mode( (WW3D::MeshDrawModeEnum) selection );
 	}
-	virtual	int Get_Enum_Count( void ) { return sizeof(names)/sizeof(char*); }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	virtual	int Get_Enum_Count( void ) override { return sizeof(names)/sizeof(char*); }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		WWASSERT(selection>=0 && selection<sizeof(names)/sizeof(char*));
 		return names[ selection ];
 	}
@@ -506,14 +506,14 @@ const char * SystemSettingEntryMeshDrawMode::names[] = { "Old", "New", "Debug Dr
 class	SystemSettingEntryNPatchGapFillingMode : public SystemSettingEntryEnum {
 	static const char * names[3];
 public:
-	const char * Get_Name( void )	{ return "NPatches_Gap_Filling_Mode"; }
-	const char * Get_Help( void )	{ return "NPATCHES_GAP_FILLING_MODE <mode> - 0=disabled 1=enabled 2=force"; }
-	virtual	int Get_Enum( void ) { return WW3D::Get_NPatches_Gap_Filling_Mode(); }
-	virtual	void Set_Enum( int selection ) {
+	const char * Get_Name( void ) override	{ return "NPatches_Gap_Filling_Mode"; }
+	const char * Get_Help( void ) override	{ return "NPATCHES_GAP_FILLING_MODE <mode> - 0=disabled 1=enabled 2=force"; }
+	virtual	int Get_Enum( void ) override { return WW3D::Get_NPatches_Gap_Filling_Mode(); }
+	virtual	void Set_Enum( int selection ) override {
 		WW3D::Set_NPatches_Gap_Filling_Mode( (WW3D::NPatchesGapFillingModeEnum) selection );
 	}
-	virtual	int Get_Enum_Count( void ) { return sizeof(names)/sizeof(char*); }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	virtual	int Get_Enum_Count( void ) override { return sizeof(names)/sizeof(char*); }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		WWASSERT(selection>=0 && selection<sizeof(names)/sizeof(char*));
 		return names[ selection ];
 	}
@@ -531,17 +531,17 @@ public:
 		Name="NPatches";
 	}
 	virtual ~SystemSettingEntryNPatches(void){};
-	const char * Get_Name( void )	{ return Name; }
-	const char * Get_Help( void )	{ return "NPatches <level> - 1=default, 8=max"; }
-	virtual	int Get_Enum( void ) { return WW3D::Get_NPatches_Level(); }
-	virtual	void Set_Enum( int selection ) {
+	const char * Get_Name( void ) override	{ return Name; }
+	const char * Get_Help( void ) override	{ return "NPatches <level> - 1=default, 8=max"; }
+	virtual	int Get_Enum( void ) override { return WW3D::Get_NPatches_Level(); }
+	virtual	void Set_Enum( int selection ) override {
 		WW3D::Set_NPatches_Level( selection );
 		if (DX8Wrapper::Get_Current_Caps() && !DX8Wrapper::Get_Current_Caps()->Support_NPatches()) {
 			Name="NPatches (NOT SUPPORTED BY HARDWARE)";
 		}
 	}
-	virtual	int Get_Enum_Count( void ) { return sizeof(names)/sizeof(char*); }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	virtual	int Get_Enum_Count( void ) override { return sizeof(names)/sizeof(char*); }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		WWASSERT(selection>=0 && selection<sizeof(names)/sizeof(char*));
 		return names[ selection ];
 	}
@@ -562,16 +562,16 @@ const char * SystemSettingEntryNPatches::names[] = {
 
 class	SystemSettingEntryPrelitMode : public SystemSettingEntryEnum {
 public:
-	const char * Get_Name( void )	{ return "Prelit_Mode"; }
-	const char * Get_Help( void )	{ return "PRELIT_MODE <mode> - 0=vertex 1=multi-pass 2=multi-texture."; }
-	virtual	int Get_Enum( void ) { return WW3D::Get_Prelit_Mode(); }
-	virtual	void Set_Enum( int selection ) {
+	const char * Get_Name( void ) override	{ return "Prelit_Mode"; }
+	const char * Get_Help( void ) override	{ return "PRELIT_MODE <mode> - 0=vertex 1=multi-pass 2=multi-texture."; }
+	virtual	int Get_Enum( void ) override { return WW3D::Get_Prelit_Mode(); }
+	virtual	void Set_Enum( int selection ) override {
 		if ( WW3D::Supports_Prelit_Mode( (WW3D::PrelitModeEnum) selection ) ) {
 			WW3D::Set_Prelit_Mode( (WW3D::PrelitModeEnum) selection );
 		}
 	}
-	virtual	int Get_Enum_Count( void ) { return 3; }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	virtual	int Get_Enum_Count( void ) override { return 3; }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		static const char * names[ 3 ] = { "Vertex", "Multi-pass", "Multi-texture" };
 		return names[ selection ];
 	}
@@ -581,14 +581,14 @@ public:
 
 class	SystemSettingEntryTextureFilterMode : public SystemSettingEntryEnum {
 public:
-	const char * Get_Name( void )	{ return "Texture_Filter_Mode"; }
-	const char * Get_Help( void )	{ return "TEXTURE_FILTER_MODE <mode> - 0=bilinear 1=trilinear 2=anisotropic."; }
-	virtual	int Get_Enum( void ) { return WW3D::Get_Texture_Filter(); }
-	virtual	void Set_Enum( int selection ) {
+	const char * Get_Name( void ) override	{ return "Texture_Filter_Mode"; }
+	const char * Get_Help( void ) override	{ return "TEXTURE_FILTER_MODE <mode> - 0=bilinear 1=trilinear 2=anisotropic."; }
+	virtual	int Get_Enum( void ) override { return WW3D::Get_Texture_Filter(); }
+	virtual	void Set_Enum( int selection ) override {
 		WW3D::Set_Texture_Filter( selection );
 	}
-	virtual	int Get_Enum_Count( void ) { return 3; }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	virtual	int Get_Enum_Count( void ) override { return 3; }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		static const char * names[ 3 ] = { "Bilinear", "Trilinear", "Anisotropic" };
 		return names[ selection ];
 	}
@@ -599,12 +599,12 @@ public:
 class	SystemSettingEntryDifficulty : public SystemSettingEntryEnum {
 public:
 	SystemSettingEntryDifficulty( void ) {	Selection = Get_Enum(); }
-	const char * Get_Name( void )	{ return "Difficulty"; }
-	const char * Get_Help( void )	{ return "DIFFICULTY [0..2] - sets the difficulty level."; }
-	virtual int Get_Enum( void )			{ return CombatManager::Get_Difficulty_Level(); }
-	virtual void Set_Enum( int value )	{ CombatManager::Set_Difficulty_Level( value ); }
-	virtual	int Get_Enum_Count( void ) { return 3; }
-	virtual	const char * Get_Enum_Name( int selection ) {
+	const char * Get_Name( void ) override	{ return "Difficulty"; }
+	const char * Get_Help( void ) override	{ return "DIFFICULTY [0..2] - sets the difficulty level."; }
+	virtual int Get_Enum( void ) override			{ return CombatManager::Get_Difficulty_Level(); }
+	virtual void Set_Enum( int value ) override	{ CombatManager::Set_Difficulty_Level( value ); }
+	virtual	int Get_Enum_Count( void ) override { return 3; }
+	virtual	const char * Get_Enum_Name( int selection ) override {
 		static const char * names[ 3 ] = { "Easy", "Average", "Difficult" };
 		return names[ selection ];
 	}
