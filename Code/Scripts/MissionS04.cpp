@@ -48,7 +48,7 @@
 
 DECLARE_SCRIPT(MS04_Gunboat_Waypath_Movement, "")
 {
-	void Created( GameObject * obj ) 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic( this, 45, 999 );

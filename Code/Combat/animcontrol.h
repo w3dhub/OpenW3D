@@ -224,24 +224,24 @@ public:
 	SimpleAnimControlClass( void );
 	~SimpleAnimControlClass( void );
 
-	virtual	bool 	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
+	virtual	bool 	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
 
 	// Set Animation
-	virtual	void	Set_Animation( const char *name, float blendtime = 0.0f, float start_frame = 0.0f  );
-	virtual	void	Set_Animation( const HAnimClass * anim, float blendtime = 0.0f, float start_frame = 0.0f  );
-	virtual	void	Set_Mode( AnimMode mode, float frame = -1 )	{ Channel.Set_Mode( mode, frame ); }
-	virtual	AnimMode	Get_Mode( void )									{ return Channel.Get_Mode(); }
-	virtual	bool	Is_Complete( void )									{ return Channel.Is_Complete(); }
-	virtual	const char *Get_Animation_Name( void )					{ return Channel.Get_Animation_Name(); }
+	virtual	void	Set_Animation( const char *name, float blendtime = 0.0f, float start_frame = 0.0f  ) override;
+	virtual	void	Set_Animation( const HAnimClass * anim, float blendtime = 0.0f, float start_frame = 0.0f  ) override;
+	virtual	void	Set_Mode( AnimMode mode, float frame = -1 )	override { Channel.Set_Mode( mode, frame ); }
+	virtual	AnimMode	Get_Mode( void ) override									{ return Channel.Get_Mode(); }
+	virtual	bool	Is_Complete( void ) override									{ return Channel.Is_Complete(); }
+	virtual	const char *Get_Animation_Name( void ) override					{ return Channel.Get_Animation_Name(); }
 
-	virtual	void	Set_Target_Frame( float frame )					{ Channel.Set_Target_Frame( frame ); }
-	virtual	float	Get_Target_Frame( void )							{ return Channel.Get_Target_Frame(); }
-	virtual	float	Get_Current_Frame( void )							{ return Channel.Get_Frame(); }
+	virtual	void	Set_Target_Frame( float frame ) override					{ Channel.Set_Target_Frame( frame ); }
+	virtual	float	Get_Target_Frame( void ) override							{ return Channel.Get_Target_Frame(); }
+	virtual	float	Get_Current_Frame( void ) override							{ return Channel.Get_Frame(); }
 
 
 	// Update the animation
-	virtual	void	Update( float dtime );
+	virtual	void	Update( float dtime ) override;
 
 private:
 	BlendableAnimChannelClass	Channel;
@@ -259,32 +259,32 @@ public:
 	HumanAnimControlClass( void );
 	~HumanAnimControlClass( void );
 
-	virtual	bool 	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
+	virtual	bool 	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
 
-	virtual	void	Set_Model( RenderObjClass	*anim_model );
+	virtual	void	Set_Model( RenderObjClass	*anim_model ) override;
 
 	// Set Animation
-	virtual	void	Set_Animation( const char *name, float	blendtime = 0.0f, float start_frame = 0.0f  );
-	virtual	void	Set_Animation( const HAnimClass * anim, float blendtime = 0.0f, float start_frame = 0.0f  );
+	virtual	void	Set_Animation( const char *name, float	blendtime = 0.0f, float start_frame = 0.0f  ) override;
+	virtual	void	Set_Animation( const HAnimClass * anim, float blendtime = 0.0f, float start_frame = 0.0f  ) override;
 	virtual	void	Set_Animation( const char *name1, const char * name2, float ratio, float blendtime = 0.0f );
-	virtual	void	Set_Mode( AnimMode mode, float frame = -1 );
-	virtual	AnimMode	Get_Mode( void )					{ return Channel1.Get_Mode(); }
+	virtual	void	Set_Mode( AnimMode mode, float frame = -1 ) override;
+	virtual	AnimMode	Get_Mode( void ) override					{ return Channel1.Get_Mode(); }
 
-	virtual	bool	Is_Complete( void )					{ return Channel1.Is_Complete(); }
-	virtual	const char *Get_Animation_Name( void )	{ return Channel1.Get_Animation_Name(); }
+	virtual	bool	Is_Complete( void )	override				{ return Channel1.Is_Complete(); }
+	virtual	const char *Get_Animation_Name( void ) override	{ return Channel1.Get_Animation_Name(); }
 	virtual	float	Get_Frame( void )						{ return Channel1.Get_Frame(); }
 	virtual	float	Get_Progress( void )					{ return Channel1.Get_Progress(); }
 
-	virtual	void	Set_Target_Frame( float frame )	{ Channel1.Set_Target_Frame( frame ); }
-	virtual	float	Get_Target_Frame( void )			{ return Channel1.Get_Target_Frame(); }
-	virtual	float	Get_Current_Frame( void )			{ return Channel1.Get_Frame(); }
+	virtual	void	Set_Target_Frame( float frame )	override { Channel1.Set_Target_Frame( frame ); }
+	virtual	float	Get_Target_Frame( void ) override			{ return Channel1.Get_Target_Frame(); }
+	virtual	float	Get_Current_Frame( void ) override			{ return Channel1.Get_Frame(); }
 
 	virtual	void	Set_Anim_Speed_Scale( float speed )		{ AnimSpeedScale = speed; }
 
-	virtual	void	Update( float dtime );
+	virtual	void	Update( float dtime ) override;
 
-	virtual HAnimClass *	Peek_Animation( void )		{ return Channel1.Peek_Animation(); }
+	virtual HAnimClass *	Peek_Animation( void ) override		{ return Channel1.Peek_Animation(); }
 
 	void				Get_Information( StringClass & string );
 

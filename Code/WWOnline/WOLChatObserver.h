@@ -60,108 +60,108 @@ class ChatObserver :
 		//---------------------------------------------------------------------------
 		// IUnknown methods
 		//---------------------------------------------------------------------------
-		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv);
-		virtual ULONG STDMETHODCALLTYPE AddRef(void);
-		virtual ULONG STDMETHODCALLTYPE Release(void);
+		virtual HRESULT STDMETHODCALLTYPE QueryInterface(const IID& iid, void** ppv) override;
+		virtual ULONG STDMETHODCALLTYPE AddRef(void) override;
+		virtual ULONG STDMETHODCALLTYPE Release(void) override;
 
 		//---------------------------------------------------------------------------
 		// IChatEvent Methods
 		//---------------------------------------------------------------------------
-		STDMETHOD(OnServerList)(HRESULT hr, WOL::Server* servers);
+		STDMETHOD(OnServerList)(HRESULT hr, WOL::Server* servers) override;
         
-		STDMETHOD(OnUpdateList)(HRESULT hr, WOL::Update* updates);
+		STDMETHOD(OnUpdateList)(HRESULT hr, WOL::Update* updates) override;
     
-		STDMETHOD(OnServerError)(HRESULT hr, LPCSTR ircmsg);
+		STDMETHOD(OnServerError)(HRESULT hr, LPCSTR ircmsg) override;
     
-		STDMETHOD(OnConnection)(HRESULT hr, LPCSTR motd);
+		STDMETHOD(OnConnection)(HRESULT hr, LPCSTR motd) override;
     
-		STDMETHOD(OnMessageOfTheDay)(HRESULT hr, LPCSTR motd);
+		STDMETHOD(OnMessageOfTheDay)(HRESULT hr, LPCSTR motd) override;
     
-		STDMETHOD(OnChannelList)(HRESULT hr, WOL::Channel* channels);
+		STDMETHOD(OnChannelList)(HRESULT hr, WOL::Channel* channels) override;
     
-		STDMETHOD(OnChannelCreate)(HRESULT hr, WOL::Channel* channel);
+		STDMETHOD(OnChannelCreate)(HRESULT hr, WOL::Channel* channel) override;
     
-		STDMETHOD(OnChannelJoin)(HRESULT hr, WOL::Channel* channel, WOL::User* user);
+		STDMETHOD(OnChannelJoin)(HRESULT hr, WOL::Channel* channel, WOL::User* user) override;
     
-		STDMETHOD(OnChannelLeave)(HRESULT hr, WOL::Channel* channel, WOL::User* user);
+		STDMETHOD(OnChannelLeave)(HRESULT hr, WOL::Channel* channel, WOL::User* user) override;
     
-		STDMETHOD(OnChannelTopic)(HRESULT hr, WOL::Channel* channel, LPCSTR topic);
+		STDMETHOD(OnChannelTopic)(HRESULT hr, WOL::Channel* channel, LPCSTR topic) override;
     
-		STDMETHOD(OnPrivateAction)(HRESULT hr, WOL::User* user, LPCSTR action);
+		STDMETHOD(OnPrivateAction)(HRESULT hr, WOL::User* user, LPCSTR action) override;
     
-		STDMETHOD(OnPublicAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR action);
+		STDMETHOD(OnPublicAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR action) override;
     
-		STDMETHOD(OnUserList)(HRESULT hr, WOL::Channel* channel, WOL::User* users);
+		STDMETHOD(OnUserList)(HRESULT hr, WOL::Channel* channel, WOL::User* users) override;
     
-		STDMETHOD(OnPublicMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR message);
+		STDMETHOD(OnPublicMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR message) override;
     
-		STDMETHOD(OnPrivateMessage)(HRESULT hr, WOL::User* user, LPCSTR message);
+		STDMETHOD(OnPrivateMessage)(HRESULT hr, WOL::User* user, LPCSTR message) override;
     
-		STDMETHOD(OnSystemMessage)(HRESULT hr, LPCSTR message);
+		STDMETHOD(OnSystemMessage)(HRESULT hr, LPCSTR message) override;
     
-		STDMETHOD(OnNetStatus)(HRESULT hr);
+		STDMETHOD(OnNetStatus)(HRESULT hr) override;
     
-		STDMETHOD(OnLogout)(HRESULT status, WOL::User* user);
+		STDMETHOD(OnLogout)(HRESULT status, WOL::User* user) override;
     
-		STDMETHOD(OnPrivateGameOptions)(HRESULT hr, WOL::User* user, LPCSTR options);
+		STDMETHOD(OnPrivateGameOptions)(HRESULT hr, WOL::User* user, LPCSTR options) override;
     
-		STDMETHOD(OnPublicGameOptions)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR options);
+		STDMETHOD(OnPublicGameOptions)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR options) override;
     
-		STDMETHOD(OnGameStart)(HRESULT hr, WOL::Channel* channel, WOL::User* users, int gameid);
+		STDMETHOD(OnGameStart)(HRESULT hr, WOL::Channel* channel, WOL::User* users, int gameid) override;
     
-		STDMETHOD(OnUserKick)(HRESULT hr, WOL::Channel* channel, WOL::User* kicked, WOL::User* kicker);
+		STDMETHOD(OnUserKick)(HRESULT hr, WOL::Channel* channel, WOL::User* kicked, WOL::User* kicker) override;
     
-		STDMETHOD(OnUserIP)(HRESULT hr, WOL::User* user);
+		STDMETHOD(OnUserIP)(HRESULT hr, WOL::User* user) override;
     
-		STDMETHOD(OnFind)(HRESULT hr, WOL::Channel* chan);
+		STDMETHOD(OnFind)(HRESULT hr, WOL::Channel* chan) override;
     
-		STDMETHOD(OnPageSend)(HRESULT hr);
+		STDMETHOD(OnPageSend)(HRESULT hr) override;
     
-		STDMETHOD(OnPaged)(HRESULT hr, WOL::User* user, LPCSTR message);
+		STDMETHOD(OnPaged)(HRESULT hr, WOL::User* user, LPCSTR message) override;
     
-		STDMETHOD(OnServerBannedYou)(HRESULT hr, WOL::time_t bannedTill);
+		STDMETHOD(OnServerBannedYou)(HRESULT hr, WOL::time_t bannedTill) override;
     
-		STDMETHOD(OnUserFlags)(HRESULT hr, LPCSTR name, unsigned int flags, unsigned int mask);
+		STDMETHOD(OnUserFlags)(HRESULT hr, LPCSTR name, unsigned int flags, unsigned int mask) override;
     
-		STDMETHOD(OnChannelBan)(HRESULT hr, LPCSTR name, int banned);
+		STDMETHOD(OnChannelBan)(HRESULT hr, LPCSTR name, int banned) override;
     
-		STDMETHOD(OnSquadInfo)(HRESULT hr, unsigned long id, WOL::Squad* squad);
+		STDMETHOD(OnSquadInfo)(HRESULT hr, unsigned long id, WOL::Squad* squad) override;
     
-		STDMETHOD(OnUserLocale)(HRESULT hr, WOL::User* users);
+		STDMETHOD(OnUserLocale)(HRESULT hr, WOL::User* users) override;
     
-		STDMETHOD(OnUserTeam)(HRESULT hr, WOL::User* users);
+		STDMETHOD(OnUserTeam)(HRESULT hr, WOL::User* users) override;
     
-		STDMETHOD(OnSetLocale)(HRESULT hr, WOL::Locale newlocale);
+		STDMETHOD(OnSetLocale)(HRESULT hr, WOL::Locale newlocale) override;
     
-		STDMETHOD(OnSetTeam)(HRESULT hr, int newteam);
+		STDMETHOD(OnSetTeam)(HRESULT hr, int newteam) override;
 
-		STDMETHOD(OnBuddyList)(HRESULT hr, WOL::User* buddyList);
+		STDMETHOD(OnBuddyList)(HRESULT hr, WOL::User* buddyList) override;
         
-		STDMETHOD(OnBuddyAdd)(HRESULT hr, WOL::User* buddyAdded);
+		STDMETHOD(OnBuddyAdd)(HRESULT hr, WOL::User* buddyAdded) override;
         
-		STDMETHOD(OnBuddyDelete)(HRESULT hr, WOL::User* buddyDeleted);
+		STDMETHOD(OnBuddyDelete)(HRESULT hr, WOL::User* buddyDeleted) override;
 
-		STDMETHOD(OnPublicUnicodeMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* message);
+		STDMETHOD(OnPublicUnicodeMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* message) override;
         
-		STDMETHOD(OnPrivateUnicodeMessage)(HRESULT hr, WOL::User* user, const unsigned short* message);
+		STDMETHOD(OnPrivateUnicodeMessage)(HRESULT hr, WOL::User* user, const unsigned short* message) override;
         
-		STDMETHOD(OnPrivateUnicodeAction)(HRESULT hr, WOL::User* user, const unsigned short* action);
+		STDMETHOD(OnPrivateUnicodeAction)(HRESULT hr, WOL::User* user, const unsigned short* action) override;
         
-		STDMETHOD(OnPublicUnicodeAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* action);
+		STDMETHOD(OnPublicUnicodeAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* action) override;
         
-		STDMETHOD(OnPagedUnicode)(HRESULT hr, WOL::User* user, const unsigned short* message);
+		STDMETHOD(OnPagedUnicode)(HRESULT hr, WOL::User* user, const unsigned short* message) override;
         
-		STDMETHOD(OnServerTime)(HRESULT hr, WOL::time_t stime);
+		STDMETHOD(OnServerTime)(HRESULT hr, WOL::time_t stime) override;
         
-		STDMETHOD(OnInsiderStatus)(HRESULT hr, WOL::User* users);
+		STDMETHOD(OnInsiderStatus)(HRESULT hr, WOL::User* users) override;
         
-		STDMETHOD(OnSetLocalIP)(HRESULT hr, LPCSTR message);
+		STDMETHOD(OnSetLocalIP)(HRESULT hr, LPCSTR message) override;
 
-		STDMETHOD(OnChannelListBegin)(HRESULT hr);
+		STDMETHOD(OnChannelListBegin)(HRESULT hr) override;
         
-		STDMETHOD(OnChannelListEntry)(HRESULT hr, WOL::Channel* channel);
+		STDMETHOD(OnChannelListEntry)(HRESULT hr, WOL::Channel* channel) override;
         
-		STDMETHOD(OnChannelListEnd)(HRESULT hr);
+		STDMETHOD(OnChannelListEnd)(HRESULT hr) override;
 
 	protected:
 		virtual ~ChatObserver();

@@ -52,13 +52,13 @@ public:
 
 	void						Init(StringClass & challenge_string);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_GAMESPYCSCHALLENGERESPONSEEVENT;}
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_GAMESPYCSCHALLENGERESPONSEEVENT;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						ClientId;
 	enum						{MAX_CHALLENGE_RESPONSE_STRING_LENGTH = 256};

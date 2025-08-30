@@ -73,8 +73,8 @@ class	Render2DTextClass;
 */
 class	TextDebugDisplayHandlerClass : public DebugDisplayHandlerClass {
 public:
-	virtual	void	Display_Text( const char * string, const Vector4 & color = Vector4( 1,1,1,1 ) );
-	virtual	void	Display_Text( const WideStringClass & string, const Vector4 & color = Vector4( 1,1,1,1 ) );
+	virtual	void	Display_Text( const char * string, const Vector4 & color = Vector4( 1,1,1,1 ) ) override;
+	virtual	void	Display_Text( const WideStringClass & string, const Vector4 & color = Vector4( 1,1,1,1 ) ) override;
 };
 
 /*
@@ -101,11 +101,11 @@ public:
 
 class	TextDisplayGameModeClass : public GameModeClass {
 public:
-	virtual	const char *Name()	{ return "TextDisplay"; }	// the name of this mode
-	virtual	void	Init();		 	// called when the mode is activated
-	virtual	void 	Shutdown(); 	// called when the mode is deactivated
-	virtual	void 	Think();			// called each time through the main loop
-	virtual	void 	Render();		// called each time through the main loop
+	virtual	const char *Name() override	{ return "TextDisplay"; }	// the name of this mode
+	virtual	void	Init() override;		 	// called when the mode is activated
+	virtual	void 	Shutdown() override; 	// called when the mode is deactivated
+	virtual	void 	Think() override;			// called each time through the main loop
+	virtual	void 	Render() override;		// called each time through the main loop
 
 	static	TextDisplayGameModeClass * Get_Instance() { return Instance; }
 

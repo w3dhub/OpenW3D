@@ -87,8 +87,8 @@ class ScriptableGameObjDef : public BaseGameObjDef
 public:
 	ScriptableGameObjDef( void );
 
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
 
 	DECLARE_EDITABLE( ScriptableGameObjDef, BaseGameObjDef );
 
@@ -116,16 +116,16 @@ public:
 	void	Re_Init( const ScriptableGameObjDef & definition );
 	virtual void	Post_Re_Init( void );
 	const ScriptableGameObjDef & Get_Definition( void ) const ;
-	virtual void	Set_Delete_Pending (void);
+	virtual void	Set_Delete_Pending (void) override;
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	void	On_Post_Load( void );
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	void	On_Post_Load( void ) override;
 
 	//	Thinking
-	virtual	void	Think();
-	virtual	void	Post_Think();
+	virtual	void	Think() override;
+	virtual	void	Post_Think() override;
 
 	virtual	void		Get_Position(Vector3 * set_pos) const		= 0;
 
@@ -146,7 +146,7 @@ public:
 	void	Start_Custom_Timer( ScriptableGameObj * from, float delay, int type, int param );
 
 	// Type identification
-	virtual	ScriptableGameObj	*As_ScriptableGameObj( void )	{ return this; };
+	virtual	ScriptableGameObj	*As_ScriptableGameObj( void ) override	{ return this; };
 	virtual	DamageableGameObj	*As_DamageableGameObj( void )	{ return NULL; };
 	virtual	BuildingGameObj	*As_BuildingGameObj( void )	{ return NULL; };
 	virtual	SoldierGameObj		*As_SoldierGameObj( void )		{ return NULL; };
@@ -156,13 +156,13 @@ public:
 	virtual	void	Get_Information( StringClass & string );
 
 	// From AudioCallbackClass
-	virtual void	On_Sound_Ended( SoundSceneObjClass *sound_obj );
+	virtual void	On_Sound_Ended( SoundSceneObjClass *sound_obj ) override;
 
 	// Network support
 	virtual bool	Is_Always_Dirty( void )				{ return true; }
 	//virtual bool	Exists_On_Client( void ) const	{ return true; }
-	virtual void	Export_Creation( BitStreamClass &packet );
-	virtual void	Import_Creation( BitStreamClass &packet );
+	virtual void	Export_Creation( BitStreamClass &packet ) override;
+	virtual void	Import_Creation( BitStreamClass &packet ) override;
 
 protected:
 	bool															ObserverCreatedPending;

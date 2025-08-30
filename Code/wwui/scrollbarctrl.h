@@ -70,8 +70,8 @@ public:
 	//
 	//	From DialogControlClass
 	//
-	void				Render (void);
-	bool				Wants_Tooltip (void) const	{ return false; }
+	void				Render (void) override;
+	bool				Wants_Tooltip (void) const override	{ return false; }
 
 	//
 	//	Selection management
@@ -91,15 +91,15 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void				On_LButton_Down (const Vector2 &mouse_pos);
-	void				On_LButton_Up (const Vector2 &mouse_pos);
-	void				On_Mouse_Move (const Vector2 &mouse_pos);
-	void				On_Set_Cursor (const Vector2 &mouse_pos);
-	void				On_Set_Focus (void);
-	void				On_Kill_Focus (DialogControlClass *focus);
-	bool				On_Key_Down (uint32 key_id, uint32 key_data);
-	void				On_Create (void);
-	void				Update_Client_Rect (void);
+	void				On_LButton_Down (const Vector2 &mouse_pos) override;
+	void				On_LButton_Up (const Vector2 &mouse_pos) override;
+	void				On_Mouse_Move (const Vector2 &mouse_pos) override;
+	void				On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void				On_Set_Focus (void) override;
+	void				On_Kill_Focus (DialogControlClass *focus) override;
+	bool				On_Key_Down (uint32 key_id, uint32 key_data) override;
+	void				On_Create (void) override;
+	void				Update_Client_Rect (void) override;
 
 	void				Create_Control_Renderers (void);
 	void				Create_Button_Renderer (void);

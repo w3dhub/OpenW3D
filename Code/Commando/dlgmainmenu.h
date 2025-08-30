@@ -74,13 +74,13 @@ public:
 	//
 	//	Notifications
 	//
-	void			On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void			On_Command (int ctrl_id, int mesage_id, DWORD param) override;
 
 	//
 	//	Transition support
 	//
-	DialogTransitionClass *	Get_Transition_In (DialogBaseClass *prev_dlg);
-	DialogTransitionClass *	Get_Transition_Out (DialogBaseClass *next_dlg);
+	DialogTransitionClass *	Get_Transition_In (DialogBaseClass *prev_dlg) override;
+	DialogTransitionClass *	Get_Transition_Out (DialogBaseClass *next_dlg) override;
 
 	//
 	//	Singleton access
@@ -93,8 +93,8 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void			On_Init_Dialog (void);
-	void			On_Menu_Activate (bool onoff);
+	void			On_Init_Dialog (void) override;
+	void			On_Menu_Activate (bool onoff) override;
 	void			Update_Version_Number (void);
 	StringClass	Choose_Skirmish_Map (void);
 

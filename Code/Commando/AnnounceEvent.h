@@ -56,17 +56,17 @@ class	CSAnnouncement :
 
 		void Init(int to_id, int announcementID, AnnouncementEnum type, int radio_cmd_id = -1);
 
-		virtual void Export_Creation(BitStreamClass& packet);
-		virtual void Import_Creation(BitStreamClass& packet);
+		virtual void Export_Creation(BitStreamClass& packet) override;
+		virtual void Import_Creation(BitStreamClass& packet) override;
 
-		virtual uint32 Get_Network_Class_ID(void) const
+		virtual uint32 Get_Network_Class_ID(void) const override
 			{return NETCLASSID_CSANNOUNCEMENT;}
 
 	protected:
 		CSAnnouncement(const CSAnnouncement&);
 		const CSAnnouncement& operator=(const CSAnnouncement&);
 
-		virtual void Act(void);
+		virtual void Act(void) override;
 
 		int mToID;
 		int mFromID;
@@ -85,17 +85,17 @@ class	SCAnnouncement :
 
 		void Init(int to_id, int from_id, int announcementID, AnnouncementEnum type, int radio_cmd_id = -1);
 
-		virtual void Export_Creation(BitStreamClass& packet);
-		virtual void Import_Creation(BitStreamClass& packet);
+		virtual void Export_Creation(BitStreamClass& packet) override;
+		virtual void Import_Creation(BitStreamClass& packet) override;
 
-		virtual uint32 Get_Network_Class_ID(void) const
+		virtual uint32 Get_Network_Class_ID(void) const override
 			{return NETCLASSID_SCANNOUNCEMENT;}
 
 	protected:
 		SCAnnouncement(const SCAnnouncement&);
 		const SCAnnouncement& operator=(const SCAnnouncement&);
 
-		virtual void Act(void);
+		virtual void Act(void) override;
 		void Set_Dirty_Bit_For_Team(DIRTY_BIT bit, int team);
 
 		int mToID;

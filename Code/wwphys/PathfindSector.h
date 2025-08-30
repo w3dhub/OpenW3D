@@ -204,8 +204,8 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	RTTI
 	////////////////////////////////////////////////////////////////////
-	PathfindWaypathSectorClass *			As_PathfindWaypathSectorClass (void)			{ return this; }
-	const PathfindWaypathSectorClass *	As_PathfindWaypathSectorClass (void) const	{ return this; }
+	PathfindWaypathSectorClass *			As_PathfindWaypathSectorClass (void) override			{ return this; }
+	const PathfindWaypathSectorClass *	As_PathfindWaypathSectorClass (void) const override	{ return this; }
 
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
@@ -220,9 +220,9 @@ public:
 	//
 	//	From PathfindSectorClass
 	//
-	bool					Can_Access_Portal (PathfindPortalClass *last_portal, PathfindPortalClass *test_portal);
-	bool					Save (ChunkSaveClass &csave);
-	bool					Load (ChunkLoadClass &cload);		
+	bool					Can_Access_Portal (PathfindPortalClass *last_portal, PathfindPortalClass *test_portal) override;
+	bool					Save (ChunkSaveClass &csave) override;
+	bool					Load (ChunkLoadClass &cload) override;
 
 protected:
 

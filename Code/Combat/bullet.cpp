@@ -89,7 +89,7 @@ public:
 	** PhysObserver Interface - whenever a beam expires, we put it into a list so we can
 	** recycle it next time we need a beam effect
 	*/
-	virtual void					Object_Removed_From_Scene(PhysClass * observed_obj);
+	virtual void					Object_Removed_From_Scene(PhysClass * observed_obj) override;
 
 
 private:
@@ -467,12 +467,12 @@ public:
 	// Save / Load
 	virtual	bool	Save( ChunkSaveClass & csave );
 	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	void	On_Post_Load(void);
+	virtual	void	On_Post_Load(void) override;
 	bool	Is_Valid( void )	{ return BulletData.AmmoDefinition != NULL; }
 
 	// Collision
-	virtual CollisionReactionType		Collision_Occurred( const CollisionEventClass & event );
-	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj );
+	virtual CollisionReactionType		Collision_Occurred( const CollisionEventClass & event ) override;
+	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj ) override;
 
 private:
 	BulletDataClass				BulletData;

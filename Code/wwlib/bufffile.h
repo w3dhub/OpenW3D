@@ -63,10 +63,10 @@ class BufferedFileClass : public RawFileClass
 		BufferedFileClass & operator = (BufferedFileClass const & f);
 		virtual ~BufferedFileClass(void);
 
-		virtual int Read(void *buffer, int size);
-		virtual int Seek(int pos, int dir=SEEK_CUR);
-		virtual int Write(void const *buffer, int size);
-		virtual void Close(void);
+		virtual int Read(void *buffer, int size) override;
+		virtual int Seek(int pos, int dir=SEEK_CUR) override;
+		virtual int Write(void const *buffer, int size) override;
+		virtual void Close(void) override;
 
 	protected:
 

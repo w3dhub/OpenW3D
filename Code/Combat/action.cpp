@@ -105,7 +105,7 @@ public:
 		CHUNKID_PARENT									=	1031001350,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			PersistClass::Save( csave );
@@ -113,7 +113,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -199,7 +199,7 @@ SimplePersistFactoryClass<FollowInputActionCodeClass, CHUNKID_ACTION_CODE_FOLLOW
 
 class	FollowInputActionCodeClass : public ActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _FollowInputActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _FollowInputActionCodeClassFactory; }
 
 	/*
 	** Save / Load
@@ -208,7 +208,7 @@ public:
 		CHUNKID_PARENT									=	1031001349,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			ActionCodeClass::Save( csave );
@@ -216,7 +216,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -234,7 +234,7 @@ public:
 		return true;
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		float amount;
 		SmartGameObj *	obj = Action->Get_Action_Obj();
@@ -318,7 +318,7 @@ SimplePersistFactoryClass<StandActionCodeClass, CHUNKID_ACTION_CODE_STAND>	_Stan
 
 class	StandActionCodeClass : public ActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _StandActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _StandActionCodeClassFactory; }
 
 	/*
 	** Save / Load
@@ -327,7 +327,7 @@ public:
 		CHUNKID_PARENT									=	1031001348,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			ActionCodeClass::Save( csave );
@@ -335,7 +335,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -353,7 +353,7 @@ public:
 		return true;
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		return ACTION_IN_PROGRESS;
 	}
@@ -368,7 +368,7 @@ SimplePersistFactoryClass<PlayAnimationActionCodeClass, CHUNKID_ACTION_CODE_PLAY
 
 class	PlayAnimationActionCodeClass : public ActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _PlayAnimationActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _PlayAnimationActionCodeClassFactory; }
 
 	/*
 	** Save / Load
@@ -377,7 +377,7 @@ public:
 		CHUNKID_PARENT									=	1031001347,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			ActionCodeClass::Save( csave );
@@ -385,7 +385,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -403,9 +403,9 @@ public:
 		return true;
 	}
 
-	virtual	bool	Is_Animating( void )					{ return true; }
+	virtual	bool	Is_Animating( void ) override					{ return true; }
 
-	virtual	void	Init( ActionClass * action )
+	virtual	void	Init( ActionClass * action ) override
 	{
 		ActionCodeClass::Init( action );
 
@@ -415,7 +415,7 @@ public:
 		obj->Set_Animation( action->Get_Parameters().SafeAnimationName, action->Get_Parameters().AnimationLooping );
 	}
 
-	virtual	void	Shutdown( void )
+	virtual	void	Shutdown( void ) override
 	{
 		SmartGameObj *	obj = Action->Get_Action_Obj();
 		WWASSERT( obj->Get_Anim_Control() != NULL );
@@ -424,7 +424,7 @@ public:
 		ActionCodeClass::Shutdown();
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		SmartGameObj *	obj = Action->Get_Action_Obj();
 		WWASSERT( obj->Get_Anim_Control() != NULL );
@@ -482,7 +482,7 @@ public:
 		MICROCHUNKID_IS_MOVING						=	2,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			ActionCodeClass::Save( csave );
@@ -504,7 +504,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -742,7 +742,7 @@ SimplePersistFactoryClass<GotoActionCodeClass, CHUNKID_ACTION_CODE_GOTO>	_GotoAc
 class	GotoActionCodeClass : public BaseActionCodeClass {
 public:
 
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _GotoActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _GotoActionCodeClassFactory; }
 
 	GotoActionCodeClass( void ) :
 		UseMoveObject( false ),
@@ -773,7 +773,7 @@ public:
 		MICROCHUNKID_PATH_SOLVE_PTR				=	4,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			BaseActionCodeClass::Save( csave );
@@ -799,7 +799,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -851,7 +851,7 @@ public:
 		return true;
 	}
 
-	virtual void	Begin_Hibernation( void )
+	virtual void	Begin_Hibernation( void ) override
 	{
 		BaseActionCodeClass::Begin_Hibernation();
 		FirstCall = true;
@@ -868,7 +868,7 @@ public:
 	}
 
 
-	virtual	void	Init( ActionClass * action )
+	virtual	void	Init( ActionClass * action ) override
 	{
 		BaseActionCodeClass::Init( action );
 		FirstCall = true;
@@ -881,7 +881,7 @@ public:
 		UseMoveObject = (Action->Get_Parameters().MoveObjectRef.Get_Ptr() != NULL);
 	}
 
-	virtual void	Shutdown( void )
+	virtual void	Shutdown( void ) override
 	{
 		//
 		//	Return the path we got from the manager
@@ -916,7 +916,7 @@ public:
 		return ;
 	}
 
-	virtual	bool	Is_Busy( void )
+	virtual	bool	Is_Busy( void ) override
 	{
 		return ( PathAction.Get_State () != PathActionClass::STATE_FINISHED );
 	}
@@ -1460,7 +1460,7 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 		return act_result;
 	}
 
-	virtual float	Get_Distance_From_Goal (void)
+	virtual float	Get_Distance_From_Goal (void) override
 	{
 		float dist_to_goal = 0;
 
@@ -1525,7 +1525,7 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 		}
 	}
 
-	virtual	ActResult	Act()
+	virtual	ActResult	Act() override
 	{
 		WWPROFILE( "Goto Act" );
 		SoldierGameObj * soldier = Action->Get_Action_Obj()->As_SoldierGameObj();
@@ -1591,7 +1591,7 @@ SimplePersistFactoryClass<EnterExitActionCodeClass, CHUNKID_ACTION_CODE_ENTER_EX
 
 class	EnterExitActionCodeClass : public BaseActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _EnterExitActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _EnterExitActionCodeClassFactory; }
 
 	/*
 	** Save / Load
@@ -1600,7 +1600,7 @@ public:
 		CHUNKID_PARENT									=	1031001312,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			BaseActionCodeClass::Save( csave );
@@ -1608,7 +1608,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -1626,7 +1626,7 @@ public:
 		return true;
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		SoldierGameObj	* obj = Action->Get_Action_Obj()->As_SoldierGameObj();
 		WWASSERT( obj );
@@ -1645,7 +1645,7 @@ SimplePersistFactoryClass<DiveActionCodeClass, CHUNKID_ACTION_CODE_DIVE>	_DiveAc
 
 class	DiveActionCodeClass : public BaseActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _DiveActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _DiveActionCodeClassFactory; }
 
 	/*
 	** Save / Load
@@ -1654,7 +1654,7 @@ public:
 		CHUNKID_PARENT									=	1031001310,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			BaseActionCodeClass::Save( csave );
@@ -1662,7 +1662,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -1680,7 +1680,7 @@ public:
 		return true;
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		SoldierGameObj	* obj = Action->Get_Action_Obj()->As_SoldierGameObj();
 		WWASSERT( obj );
@@ -1716,7 +1716,7 @@ SimplePersistFactoryClass<AttackActionCodeClass, CHUNKID_ACTION_CODE_ATTACK>	_At
 
 class	AttackActionCodeClass : public GotoActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _AttackActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _AttackActionCodeClassFactory; }
 
 	AttackActionCodeClass( void ) :
 		UseAttackObject( false ),
@@ -1740,7 +1740,7 @@ public:
 		MICROCHUNKID_CHECK_BLOCKED_TIMER			=	3,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			GotoActionCodeClass::Save( csave );
@@ -1755,7 +1755,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -1788,7 +1788,7 @@ public:
 		return true;
 	}
 
-	virtual	void	Init( ActionClass * action )
+	virtual	void	Init( ActionClass * action ) override
 	{
 		GotoActionCodeClass::Init( action );
 		UseAttackObject = (Action->Get_Parameters().AttackObjectRef.Get_Ptr() != NULL);
@@ -1797,7 +1797,7 @@ public:
 		WanderPos = Vector3(0,0,0);
 	}
 
-	virtual	ActResult	Arrived()
+	virtual	ActResult	Arrived() override
 	{
 		if ( !HasArrived ) {
 //			Debug_Say(( "Attack Arrived %d\n", HasArrived ));
@@ -1934,7 +1934,7 @@ public:
 		}
 	}
 
-	virtual	void	Modify_Parameters( const SafeActionParamsStruct & parameters, bool modify_move, bool modify_attack )
+	virtual	void	Modify_Parameters( const SafeActionParamsStruct & parameters, bool modify_move, bool modify_attack ) override
 	{
 		//
 		//	Copy the parameters that are safe to change in the middle of an action
@@ -1976,7 +1976,7 @@ public:
 		return ;
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		WWPROFILE( "Attack Act" );
 		//
@@ -2138,7 +2138,7 @@ SimplePersistFactoryClass<FaceLocationActionCodeClass, CHUNKID_ACTION_CODE_FACE_
 
 class	FaceLocationActionCodeClass : public BaseActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _FaceLocationActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _FaceLocationActionCodeClassFactory; }
 
 	FaceLocationActionCodeClass( void )	:
 		EndTime( 0 )
@@ -2155,7 +2155,7 @@ public:
 		MICROCHUNKID_END_TIME						=	1,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			BaseActionCodeClass::Save( csave );
@@ -2168,7 +2168,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -2199,7 +2199,7 @@ public:
 		return true;
 	}
 
-	virtual	void	Init( ActionClass * action )
+	virtual	void	Init( ActionClass * action ) override
 	{
 		BaseActionCodeClass::Init( action );
 
@@ -2212,7 +2212,7 @@ public:
 			MAX(action->Get_Parameters().FaceDuration, Action->Get_Parameters().LookDuration);
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		BaseActionCodeClass::Act();
 
@@ -2266,7 +2266,7 @@ SimplePersistFactoryClass<ConversationActionCodeClass, CHUNKID_ACTION_CODE_CONVE
 
 class	ConversationActionCodeClass : public GotoActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _ConversationActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _ConversationActionCodeClassFactory; }
 
 	enum
 	{
@@ -2299,7 +2299,7 @@ public:
 		MICROCHUNKID_CONVERSATION_PTR				=	3,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			GotoActionCodeClass::Save( csave );
@@ -2329,7 +2329,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -2374,7 +2374,7 @@ public:
 		return true;
 	}
 
-	virtual void	Begin_Hibernation( void )
+	virtual void	Begin_Hibernation( void ) override
 	{
 		//
 		//	Stop this action.  Note:  The following call may cause the
@@ -2387,7 +2387,7 @@ public:
 		return ;
 	}
 
-	virtual	void	Init( ActionClass * action )
+	virtual	void	Init( ActionClass * action ) override
 	{
 		State = STATE_WALKING_TO_START_POS;
 		REF_PTR_RELEASE( Conversation );
@@ -2450,7 +2450,7 @@ public:
 		return ;
 	}
 
-	virtual	void	Shutdown( void )
+	virtual	void	Shutdown( void ) override
 	{
 		//
 		//	Release our hold on the conversation (but don't terminate it)
@@ -2464,7 +2464,7 @@ public:
 		return ;
 	}
 
-	virtual	ActResult	Act( void )
+	virtual	ActResult	Act( void ) override
 	{
 		SmartGameObj *obj = Action->Get_Action_Obj();
 		if ( obj != NULL ) {
@@ -2515,7 +2515,7 @@ public:
 		return result;
 	}
 
-	virtual	ActResult	Arrived (void)
+	virtual	ActResult	Arrived (void) override
 	{
 		if ( Conversation != NULL && State == STATE_WALKING_TO_START_POS ) {
 
@@ -2562,7 +2562,7 @@ SimplePersistFactoryClass<DockActionCodeClass, CHUNKID_ACTION_CODE_DOCK>	_DockAc
 
 class	DockActionCodeClass : public GotoActionCodeClass {
 public:
-	virtual const PersistFactoryClass &	Get_Factory( void ) const	{ return _DockActionCodeClassFactory; }
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override	{ return _DockActionCodeClassFactory; }
 
 	enum
 	{
@@ -2591,7 +2591,7 @@ public:
 		MICROCHUNKID_STATE							=	1,
 	};
 
-	virtual	bool	Save( ChunkSaveClass & csave )
+	virtual	bool	Save( ChunkSaveClass & csave ) override
 	{
 		csave.Begin_Chunk( CHUNKID_PARENT );
 			GotoActionCodeClass::Save( csave );
@@ -2604,7 +2604,7 @@ public:
 		return true;
 	}
 
-	virtual	bool	Load( ChunkLoadClass & cload )
+	virtual	bool	Load( ChunkLoadClass & cload ) override
 	{
 		while (cload.Open_Chunk()) {
 			switch(cload.Cur_Chunk_ID()) {
@@ -2638,7 +2638,7 @@ public:
 	}
 
 
-	virtual	void	Init( ActionClass * action )
+	virtual	void	Init( ActionClass * action ) override
 	{
 		State = STATE_DRIVING_TO_ENTRANCE;
 
@@ -2672,7 +2672,7 @@ public:
 		return ;
 	}
 
-	virtual	ActResult	Arrived (void)
+	virtual	ActResult	Arrived (void) override
 	{
 		SafeActionParamsStruct &params	= Action->Get_Parameters();
 		ActResult result						= ACTION_IN_PROGRESS;

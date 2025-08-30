@@ -81,9 +81,9 @@ public:
 	//
 	//	Inherited
 	//
-	void On_Init_Dialog (void);
-	void On_Destroy (void);
-	void On_SliderCtrl_Pos_Changed (SliderCtrlClass *slider_ctrl, int ctrl_id, int new_pos);
+	void On_Init_Dialog (void) override;
+	void On_Destroy (void) override;
+	void On_SliderCtrl_Pos_Changed (SliderCtrlClass *slider_ctrl, int ctrl_id, int new_pos) override;
 
 	//
 	//	Gamma adjustments

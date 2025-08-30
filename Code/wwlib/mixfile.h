@@ -65,8 +65,8 @@ public:
 	//
 	//	Inherited
 	//
-	virtual FileClass * Get_File( char const *filename );
-	virtual void Return_File( FileClass *file );
+	virtual FileClass * Get_File( char const *filename ) override;
+	virtual void Return_File( FileClass *file )override;
 
 	//
 	//	Filename access

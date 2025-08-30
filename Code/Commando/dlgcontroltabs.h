@@ -98,9 +98,9 @@ class ControlsLookTabClass : public ControlsListTabClass
 public:
 	ControlsLookTabClass (void);
 
-	void			On_Init_Dialog (void);
-	bool			On_Apply (void);
-	void			On_Reload (void);
+	void			On_Init_Dialog (void) override;
+	bool			On_Apply (void) override;
+	void			On_Reload (void) override;
 
 private:
 	void			Load_Controls (void);
@@ -129,9 +129,9 @@ class ControlsAttackTabClass : public ControlsListTabClass
 public:
 	ControlsAttackTabClass (void);
 
-	void			On_Init_Dialog (void);
-	bool			On_Apply (void);
-	void			On_Reload (void);
+	void			On_Init_Dialog (void) override;
+	bool			On_Apply (void) override;
+	void			On_Reload (void) override;
 
 private:
 	void			Load_Controls (void);

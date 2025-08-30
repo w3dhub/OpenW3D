@@ -77,9 +77,9 @@ public:
 	** NOTE: the objects added should be derived from StaticPhysClass's.  This is
 	** asserted internally.
 	*/
-	virtual void		Add_Object(PhysClass * obj,int cull_node_id = -1);
-	virtual void		Remove_Object(PhysClass * obj);
-	virtual void		Update_Culling(CullableClass * obj);
+	virtual void		Add_Object(PhysClass * obj,int cull_node_id = -1) override;
+	virtual void		Remove_Object(PhysClass * obj) override;
+	virtual void		Update_Culling(CullableClass * obj) override;
 
 	/*
 	** PhysAABTreeCullClass adds a new collect function which takes the pvs data

@@ -74,26 +74,26 @@ public:
 	//
 	//	From GameObjObeserverClass
 	//
-	const char *	Get_Name (void)	{ return "BuildingMonitorClass"; }
-	void				Killed (GameObject *game_obj, GameObject *killer);
-	void				Damaged (GameObject *game_obj, GameObject *damager, float amount );
-	void				Custom (GameObject *game_obj, int type, int param, GameObject *sender);
+	const char *	Get_Name (void) override	{ return "BuildingMonitorClass"; }
+	void				Killed (GameObject *game_obj, GameObject *killer) override;
+	void				Damaged (GameObject *game_obj, GameObject *damager, float amount ) override;
+	void				Custom (GameObject *game_obj, int type, int param, GameObject *sender) override;
 	
 	//
 	//	Unused methods from the base class
 	//
-	void				Attach (GameObject *)		{}
-	void				Detach (GameObject *)		{}
-	void				Created (GameObject *)		{}
-	void				Destroyed (GameObject *)	{}
-	void				Sound_Heard (GameObject *, const CombatSound &)	{}
-	void				Enemy_Seen (GameObject *, GameObject *)			{}
-	void				Action_Complete (GameObject *, int, ActionCompleteReason)	{}
-	void				Timer_Expired (GameObject *, int)					{}
-	void				Animation_Complete (GameObject *, const char *)	{}
-	void				Poked (GameObject *, GameObject *)					{}
-	void				Entered (GameObject *, GameObject *)				{}
-	void				Exited (GameObject *, GameObject *)					{}
+	void				Attach (GameObject *) override		{}
+	void				Detach (GameObject *) override		{}
+	void				Created (GameObject *) override		{}
+	void				Destroyed (GameObject *) override	{}
+	void				Sound_Heard (GameObject *, const CombatSound &)	override {}
+	void				Enemy_Seen (GameObject *, GameObject *) override			{}
+	void				Action_Complete (GameObject *, int, ActionCompleteReason) override	{}
+	void				Timer_Expired (GameObject *, int) override					{}
+	void				Animation_Complete (GameObject *, const char *) override	{}
+	void				Poked (GameObject *, GameObject *) override					{}
+	void				Entered (GameObject *, GameObject *) override				{}
+	void				Exited (GameObject *, GameObject *) override					{}
 
 private:
 

@@ -80,9 +80,9 @@ class PhysicalGameObjDef : public DamageableGameObjDef
 public:
 	PhysicalGameObjDef( void );
 
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual bool								Is_Valid_Config (StringClass &message);
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual bool								Is_Valid_Config (StringClass &message) override;
 
 	int		Get_Phys_Def_ID( void ) const	{ return PhysDefID; }
 	int		Get_Orator_Type( void ) const	{ return OratorType; }
@@ -121,9 +121,9 @@ public:
 	const PhysicalGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	void	On_Post_Load(void);
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	void	On_Post_Load(void) override;
 
 	virtual	void	Startup( void )	{}	
 
@@ -136,7 +136,7 @@ public:
 
 	void					Set_Transform(const Matrix3D & tm);
 	const Matrix3D &	Get_Transform(void) const;
-	virtual	void		Get_Position(Vector3 * set_pos) const;
+	virtual	void		Get_Position(Vector3 * set_pos) const override;
 	void					Set_Position(const Vector3 & pos);
 	float					Get_Facing(void) const;
 
@@ -153,13 +153,13 @@ public:
 	float		Get_Bullseye_Offset_Z( void ) const 		{ return Get_Definition().BullseyeOffsetZ; }
 	virtual	Vector3	Get_Bullseye_Position( void );
 
-	virtual	void	Get_Information( StringClass & string );
+	virtual	void	Get_Information( StringClass & string ) override;
 
 	// Damage
-	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 );
+	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 ) override;
    virtual	void	Apply_Damage_Extended( const OffenseObjectClass & offense, float scale = 1.0f,
 			const	Vector3 & direction = Vector3( 0,0,0 ), const char * collision_box_name = NULL );
-	virtual	void	Completely_Damaged( const OffenseObjectClass & damager );
+	virtual	void	Completely_Damaged( const OffenseObjectClass & damager ) override;
 	bool	Is_Soft( void );
 	virtual	bool	Takes_Explosion_Damage( void )						{ return true; }
 
@@ -167,18 +167,18 @@ public:
 	int	Get_Type()	const		{ return Get_Definition().Type; }
 
 	//	Thinking
-	virtual	void	Post_Think();
+	virtual	void	Post_Think() override;
 
 	// Collision
 	void		Set_Collision_Group( int group );
-	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj ) { Set_Delete_Pending(); return EXPIRATION_APPROVED; }
+	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj ) override { Set_Delete_Pending(); return EXPIRATION_APPROVED; }
 
 	// Type identification
-	virtual	PhysicalGameObj		*As_PhysicalGameObj( void )	{ return this; }
-	virtual	DamageableGameObj		*As_DamageableGameObj( void )	{ return this; }		// Re-implement for CombatPhysObserverClass
-	virtual	SoldierGameObj			*As_SoldierGameObj( void )		{ return (SoldierGameObj *)NULL; }
+	virtual	PhysicalGameObj		*As_PhysicalGameObj( void )	override { return this; }
+	virtual	DamageableGameObj		*As_DamageableGameObj( void ) override	{ return this; }		// Re-implement for CombatPhysObserverClass
+	virtual	SoldierGameObj			*As_SoldierGameObj( void ) override		{ return (SoldierGameObj *)NULL; }
 	virtual	PowerUpGameObj			*As_PowerUpGameObj( void )		{ return (PowerUpGameObj *)NULL; }
-	virtual  VehicleGameObj		   *As_VehicleGameObj( void )		{ return (VehicleGameObj *)NULL; }
+	virtual  VehicleGameObj		   *As_VehicleGameObj( void ) override		{ return (VehicleGameObj *)NULL; }
 	virtual  C4GameObj		      *As_C4GameObj( void )	      { return (C4GameObj *)NULL; }
 	virtual	BeaconGameObj			*As_BeaconGameObj (void)		{ return (BeaconGameObj *)NULL; }
 	virtual	ArmedGameObj			*As_ArmedGameObj( void )		{ return (ArmedGameObj *)NULL; }
@@ -198,7 +198,7 @@ public:
 	*/
 
 	// Hibernation
-	virtual	bool	Is_Hibernating( void )					{ return HibernationTimer <= 0; }
+	virtual	bool	Is_Hibernating( void ) override					{ return HibernationTimer <= 0; }
 	void				Enable_Hibernation( bool enable )	{ HibernationEnable = enable; if ( Is_Hibernating() ) HibernationTimer = 1;}
 	void				Reset_Hibernating( void );
 	void				Do_Not_Hibernate( void )				{ if ( HibernationTimer < 1 ) HibernationTimer = 1; }
@@ -216,15 +216,15 @@ public:
 	void				Set_Radar_Blip_Intensity( float value )		{ RadarBlipIntensity = value; }
 
 	// Network support
-	virtual void	Export_Creation( BitStreamClass &packet );
-	virtual void	Import_Creation( BitStreamClass &packet );
-	virtual void	Export_Rare( BitStreamClass &packet );
-	virtual void	Import_Rare( BitStreamClass &packet );
-	virtual void	Export_Frequent( BitStreamClass &packet );
-	virtual void	Import_Frequent( BitStreamClass &packet );
+	virtual void	Export_Creation( BitStreamClass &packet ) override;
+	virtual void	Import_Creation( BitStreamClass &packet ) override;
+	virtual void	Export_Rare( BitStreamClass &packet ) override;
+	virtual void	Import_Rare( BitStreamClass &packet ) override;
+	virtual void	Export_Frequent( BitStreamClass &packet ) override;
+	virtual void	Import_Frequent( BitStreamClass &packet ) override;
 
-	virtual int		Get_Vis_ID(void);
-	virtual bool	Get_World_Position (Vector3 &pos) const		{ Get_Position (&pos); return true; }
+	virtual int		Get_Vis_ID(void) override;
+	virtual bool	Get_World_Position (Vector3 &pos) const override		{ Get_Position (&pos); return true; }
 
 	//
 	//	Conversation support
@@ -239,12 +239,12 @@ public:
 	void				Enable_HUD_Pokable_Indicator( bool enable );
 	bool				Is_HUD_Pokable_Indicator_Enabled( void )		{ return HUDPokableIndicatorEnabled; } 
 
-	virtual void		Set_Player_Type(int type);
+	virtual void		Set_Player_Type(int type) override;
 
 	//
 	// Phys Observer support
 	//
-	virtual void	Object_Shattered_Something(PhysClass * observed_obj, PhysClass * shattered_obj, int surface_type);
+	virtual void	Object_Shattered_Something(PhysClass * observed_obj, PhysClass * shattered_obj, int surface_type) override;
 
 protected:
 

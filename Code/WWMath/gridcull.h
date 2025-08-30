@@ -90,13 +90,13 @@ public:
 	GridCullSystemClass(void);
 	~GridCullSystemClass(void);
 	
-	virtual void		Collect_Objects(const Vector3 & point);
-	virtual void		Collect_Objects(const AABoxClass & box);
-	virtual void		Collect_Objects(const OBBoxClass & box);
-	virtual void		Collect_Objects(const FrustumClass & frustum);
+	virtual void		Collect_Objects(const Vector3 & point) override;
+	virtual void		Collect_Objects(const AABoxClass & box) override;
+	virtual void		Collect_Objects(const OBBoxClass & box) override;
+	virtual void		Collect_Objects(const FrustumClass & frustum) override;
 	
 	virtual void		Re_Partition(const Vector3 & min,const Vector3 & max,float objdim);
-	virtual void		Update_Culling(CullableClass * obj);
+	virtual void		Update_Culling(CullableClass * obj) override;
 
 	virtual void		Load(ChunkLoadClass & cload);
 	virtual void		Save(ChunkSaveClass & csave);

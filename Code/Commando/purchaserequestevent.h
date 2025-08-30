@@ -53,14 +53,14 @@ public:
 
 	void						Init(VendorClass::PURCHASE_TYPE type, int item_index, int alt_skin_index);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_PURCHASEREQUESTEVENT;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_PURCHASEREQUESTEVENT;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int		SenderId;
 	int		PurchaseType;

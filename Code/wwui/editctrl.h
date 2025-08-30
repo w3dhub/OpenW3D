@@ -74,13 +74,13 @@ public:
 	//
 	//	RTTI
 	//	
-	EditCtrlClass *	As_EditCtrlClass (void)	{ return this; }
+	EditCtrlClass *	As_EditCtrlClass (void)	override { return this; }
 
 	//
 	//	From DialogControlClass
 	//
-	void					Render (void);
-	virtual void		Set_Text (const WCHAR *title);
+	void					Render (void) override;
+	virtual void		Set_Text (const WCHAR *title) override;
 
 	int					Get_Text_Length (void) const;
 
@@ -108,15 +108,15 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void					On_LButton_Down (const Vector2 &mouse_pos);
-	void					On_LButton_Up (const Vector2 &mouse_pos);
-	void					On_Mouse_Move (const Vector2 &mouse_pos);
-	void					On_Set_Cursor (const Vector2 &mouse_pos);
-	void					On_Set_Focus (void);
-	void					On_Kill_Focus (DialogControlClass *focus);
-	bool					On_Key_Down (uint32 key_id, uint32 key_data);
-	void					On_Create (void);
-	void					Update_Client_Rect (void);
+	void					On_LButton_Down (const Vector2 &mouse_pos) override;
+	void					On_LButton_Up (const Vector2 &mouse_pos) override;
+	void					On_Mouse_Move (const Vector2 &mouse_pos) override;
+	void					On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void					On_Set_Focus (void) override;
+	void					On_Kill_Focus (DialogControlClass *focus) override;
+	bool					On_Key_Down (uint32 key_id, uint32 key_data) override;
+	void					On_Create (void) override;
+	void					Update_Client_Rect (void) override;
 
 	void					Create_Control_Renderers (void);
 	void					Create_Text_Renderers (void);
@@ -126,7 +126,7 @@ protected:
 	int					Character_From_Pos (const Vector2 &mouse_pos);
 	float					Pos_From_Character (int char_index);
 
-	void					On_Unicode_Char (WCHAR unicode);
+	void					On_Unicode_Char (WCHAR unicode) override;
 	void					Insert_String (const WCHAR *string);
 
 	void					Update_Hilight (int new_pos, int anchor_pos);
@@ -142,8 +142,8 @@ protected:
 
 	void					Get_Display_Text (WideStringClass &text);
 
-	void					HandleNotification(IME::CompositionEvent&);
-	void					HandleNotification(IME::CandidateEvent&);
+	void					HandleNotification(IME::CompositionEvent&) override;
+	void					HandleNotification(IME::CandidateEvent&) override;
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data

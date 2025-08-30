@@ -59,7 +59,7 @@ class BSurface : public XSurface
 		/*
 		**	Gets and frees a direct pointer to the buffer.
 		*/
-		virtual void * Lock(Point2D point = Point2D(0, 0)) const 
+		virtual void * Lock(Point2D point = Point2D(0, 0)) const override
 		{
 			XSurface::Lock();
 			return(((char*)Buff.Get_Buffer()) + point.Y * Stride() + point.X * Bytes_Per_Pixel());
@@ -68,8 +68,8 @@ class BSurface : public XSurface
 		/*
 		**	Queries information about the surface.
 		*/
-		virtual int Bytes_Per_Pixel(void) const {return(BBP);}
-		virtual int Stride(void) const {return(Get_Width() * BBP);}
+		virtual int Bytes_Per_Pixel(void) const override {return(BBP);}
+		virtual int Stride(void) const override {return(Get_Width() * BBP);}
 
 	protected:
 

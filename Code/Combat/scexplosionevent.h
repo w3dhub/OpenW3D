@@ -50,11 +50,11 @@ class	cScExplosionEvent : public NetworkObjectClass
 public:
    cScExplosionEvent(void);
 	void						Init(int def_id, const Vector3 & position, int owner_id, int victim_id );
-	virtual void			Delete(void)										{delete this;}
+	virtual void			Delete(void) override										{delete this;}
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_SCEXPLOSIONEVENT;}
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_SCEXPLOSIONEVENT;}
 
 private:
 

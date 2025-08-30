@@ -87,46 +87,46 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface 
 	/////////////////////////////////////////////////////////////////////////////
-	virtual RenderObjClass *	Clone(void) const;
-	virtual int						Class_ID(void) const { return CLASSID_MESH; }
-	virtual const char *			Get_Name(void) const;
-	virtual void					Set_Name(const char * name);
-	virtual int						Get_Num_Polys(void) const;
-	virtual void					Render(RenderInfoClass & rinfo);
+	virtual RenderObjClass *	Clone(void) const override;
+	virtual int						Class_ID(void) const override { return CLASSID_MESH; }
+	virtual const char *			Get_Name(void) const override;
+	virtual void					Set_Name(const char * name) override;
+	virtual int						Get_Num_Polys(void) const override;
+	virtual void					Render(RenderInfoClass & rinfo) override;
 	void								Render_Material_Pass(MaterialPassClass * pass,IndexBufferClass * ib);
-	virtual void					Special_Render(SpecialRenderInfoClass & rinfo);
+	virtual void					Special_Render(SpecialRenderInfoClass & rinfo) override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Collision Detection
 	/////////////////////////////////////////////////////////////////////////////	
-	virtual bool					Cast_Ray(RayCollisionTestClass & raytest);
-	virtual bool					Cast_AABox(AABoxCollisionTestClass & boxtest);
-	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & boxtest);
-	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest);
-	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest);
+	virtual bool					Cast_Ray(RayCollisionTestClass & raytest) override;
+	virtual bool					Cast_AABox(AABoxCollisionTestClass & boxtest) override;
+	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & boxtest) override;
+	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest) override;
+	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest) override;
    
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Bounding Volumes
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const;
-   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
+	virtual void					Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const override;
+   virtual void					Get_Obj_Space_Bounding_Box(AABoxClass & box) const override;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Attributes, Options, Properties, etc
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Scale(float scale);
-	virtual void					Scale(float scalex, float scaley, float scalez);
-	virtual MaterialInfoClass * Get_Material_Info(void);
+	virtual void					Scale(float scale) override;
+	virtual void					Scale(float scalex, float scaley, float scalez) override;
+	virtual MaterialInfoClass * Get_Material_Info(void) override;
 	
-   virtual int						Get_Sort_Level(void) const;
-   virtual void					Set_Sort_Level(int level);	
+   virtual int						Get_Sort_Level(void) const override;
+   virtual void					Set_Sort_Level(int level) override;
 
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Decals
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void					Create_Decal(DecalGeneratorClass * generator);
-	virtual void					Delete_Decal(uint32 decal_id);
+	virtual void					Create_Decal(DecalGeneratorClass * generator) override;
+	virtual void					Delete_Decal(uint32 decal_id) override;
 	
 	/////////////////////////////////////////////////////////////////////////////
 	// MeshClass Interface
@@ -176,15 +176,15 @@ public:
 	void								Install_User_Lighting_Array(Vector4 * lighting);
 	unsigned int *					Get_User_Lighting_Array(bool alloc = false);
 
-	virtual void					Save_User_Lighting (ChunkSaveClass & csave);
-	virtual void					Load_User_Lighting (ChunkLoadClass & cload);
+	virtual void					Save_User_Lighting (ChunkSaveClass & csave) override;
+	virtual void					Load_User_Lighting (ChunkLoadClass & cload) override;
 
 protected:
 
 	void								Free(void);
 
-	virtual void					Add_Dependencies_To_List (DynamicVectorClass<StringClass> &file_list, bool textures_only = false);
-	virtual void					Update_Cached_Bounding_Volumes(void) const;
+	virtual void					Add_Dependencies_To_List (DynamicVectorClass<StringClass> &file_list, bool textures_only = false) override;
+	virtual void					Update_Cached_Bounding_Volumes(void) const override;
 	DX8FVFCategoryContainer*	Peek_FVF_Category_Container(void);
 
 	void								install_materials(MeshLoadInfoClass * loadinfo);

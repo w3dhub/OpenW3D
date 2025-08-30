@@ -69,13 +69,13 @@ class DoorPhysDefClass : public AccessiblePhysDefClass
 public:
 	DoorPhysDefClass(void);
 	
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual const char *						Get_Type_Name(void)				{ return "DoorPhysDef"; }
-	virtual bool								Is_Type(const char *);
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual const char *						Get_Type_Name(void) override				{ return "DoorPhysDef"; }
+	virtual bool								Is_Type(const char *) override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( DoorPhysDefClass, AccessiblePhysDefClass );
 
@@ -112,7 +112,7 @@ public:
 	virtual ~DoorPhysClass( void );
 
 	// RTTI
-	virtual DoorPhysClass *	As_DoorPhysClass(void)	{ return this; }
+	virtual DoorPhysClass *	As_DoorPhysClass(void) override	{ return this; }
 
 	// Definitions
 	void	Init( const DoorPhysDefClass & definition );
@@ -122,15 +122,15 @@ public:
 	static void		Set_Precision(void);
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
-	virtual	void	Save_State( ChunkSaveClass & csave );
-	virtual	void	Load_State( ChunkLoadClass & cload );
+	virtual	void	Save_State( ChunkSaveClass & csave ) override;
+	virtual	void	Load_State( ChunkLoadClass & cload ) override;
 
 	// Timestep
-	virtual void	Timestep( float dt ); 
+	virtual void	Timestep( float dt ) override;
 
 	// State access
 	bool				Is_Door_Open( void ) const;

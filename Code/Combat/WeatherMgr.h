@@ -131,16 +131,16 @@ class WeatherSystemClass : public RenderObjClass
 									bool prime);
 
 		~WeatherSystemClass();
-		RenderObjClass *Clone() const
+		RenderObjClass *Clone() const override
 		{
 			WWASSERT (false);
 			return (0);
 		}
 
 		void Set_Density (float density);
-		void Render (RenderInfoClass &rinfo);
-		void Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const;
-		void Get_Obj_Space_Bounding_Box (AABoxClass &box) const;
+		void Render (RenderInfoClass &rinfo) override;
+		void Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const override;
+		void Get_Obj_Space_Bounding_Box (AABoxClass &box) const override;
 
 		virtual bool Update (WindClass *wind, const Vector3 &cameraposition);
 
@@ -244,7 +244,7 @@ class RainSystemClass : public WeatherSystemClass
 					RainSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass *wind, SoundEnvironmentClass *soundenvironment, bool prime);
 		virtual ~RainSystemClass();
 
-		bool Update (WindClass *wind, const Vector3 &cameraposition);
+		bool Update (WindClass *wind, const Vector3 &cameraposition) override;
 
 	protected:
 
@@ -263,7 +263,7 @@ class SnowSystemClass : public WeatherSystemClass
 
 		SnowSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass *wind, bool prime);
 
-		bool Update (WindClass *wind, const Vector3 &cameraposition);
+		bool Update (WindClass *wind, const Vector3 &cameraposition) override;
 
 	protected:
 
@@ -279,7 +279,7 @@ class AshSystemClass : public WeatherSystemClass
 
 		AshSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass *wind, bool prime);
 
-		bool Update (WindClass *wind, const Vector3 &cameraposition);
+		bool Update (WindClass *wind, const Vector3 &cameraposition) override;
 
 	protected:
 
@@ -331,16 +331,16 @@ class	WeatherMgrClass : public SaveLoadSubSystemClass, public NetworkObjectClass
 		 WeatherMgrClass();
 		~WeatherMgrClass() {}
 
-		uint32		Chunk_ID() const	{return (CHUNKID_WEATHER_MGR);}
-		const char *Name() const		{return ("WeatherMgrClass");}
-		void Delete (void)				{}
-		virtual void Set_Delete_Pending (void) {};
+		uint32		Chunk_ID() const override	{return (CHUNKID_WEATHER_MGR);}
+		const char *Name() const override		{return ("WeatherMgrClass");}
+		void Delete (void) override				{}
+		virtual void Set_Delete_Pending (void) override {};
 
-		bool Save (ChunkSaveClass &csave);
-		bool Load (ChunkLoadClass &cload);
+		bool Save (ChunkSaveClass &csave) override;
+		bool Load (ChunkLoadClass &cload) override;
 		bool Load_Micro_Chunks (ChunkLoadClass &cload);
-		void Export_Rare (BitStreamClass &packet);
-		void Import_Rare (BitStreamClass &packet);
+		void Export_Rare (BitStreamClass &packet) override;
+		void Import_Rare (BitStreamClass &packet) override;
 
 		static void Init (SoundEnvironmentClass *soundenvironment);
 		static void	Reset();

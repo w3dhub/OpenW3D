@@ -72,39 +72,39 @@ public:
 
 	RigidBodyClass(void);
 	virtual ~RigidBodyClass(void);
-	virtual RigidBodyClass *	As_RigidBodyClass(void) { return this; }
+	virtual RigidBodyClass *	As_RigidBodyClass(void) override { return this; }
 	RigidBodyDefClass *			Get_RigidBodyDef(void) { return (RigidBodyDefClass *)Definition; }
 
 	void								Init(const RigidBodyDefClass & definition);
 
 	virtual const AABoxClass & Get_Bounding_Box(void) const;
-	virtual const Matrix3D &	Get_Transform(void) const;
-	virtual void					Set_Transform(const Matrix3D & m);
+	virtual const Matrix3D &	Get_Transform(void) const override;
+	virtual void					Set_Transform(const Matrix3D & m) override;
 
-	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest);
-	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest);
-	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest);
-	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & test);
-	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & test);
-	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & test);
+	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest) override;
+	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest) override;
+	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest) override;
+	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & test) override;
+	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & test) override;
+	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & test) override;
 
 	/*
 	** Teleport support
 	*/
-	virtual bool					Can_Teleport(const Matrix3D &new_tm, bool check_dyn_only = false,NonRefPhysListClass * result_list = NULL);
-	virtual bool					Can_Teleport_And_Stand(const Matrix3D &new_tm, Matrix3D *out);
+	virtual bool					Can_Teleport(const Matrix3D &new_tm, bool check_dyn_only = false,NonRefPhysListClass * result_list = NULL) override;
+	virtual bool					Can_Teleport_And_Stand(const Matrix3D &new_tm, Matrix3D *out) override;
 
 	/*
 	** State
 	*/
 	void								Get_Orientation(Quaternion * set_q) const { *set_q = State.Orientation; }
-	virtual void					Get_Velocity(Vector3 * set_vel) const;
+	virtual void					Get_Velocity(Vector3 * set_vel) const override;
 	virtual void					Get_Angular_Velocity(Vector3 * set_avel) const;
-	virtual void					Set_Velocity(const Vector3 & newvel);
+	virtual void					Set_Velocity(const Vector3 & newvel) override;
 	virtual void					Set_Angular_Velocity(const Vector3 & newavel);
 	virtual void					Apply_Impulse(const Vector3 & imp);
 	virtual void					Apply_Impulse(const Vector3 & imp, const Vector3 & wpos);
-	virtual void					Timestep(float dt); 
+	virtual void					Timestep(float dt) override;
 	void								Compute_Point_Velocity(const Vector3 & p,Vector3 * pdot);
 	float								Get_Last_Timestep(void)		{ return LastTimestep; }
 
@@ -130,9 +130,9 @@ public:
 	/*
 	** Properties
 	*/
-	virtual void					Set_Model(RenderObjClass * model);
-	virtual void					Set_Mass(float mass);
-	virtual void					Get_Inertia_Inv(Matrix3 * set_I_inv);
+	virtual void					Set_Model(RenderObjClass * model) override;
+	virtual void					Set_Mass(float mass) override;
+	virtual void					Get_Inertia_Inv(Matrix3 * set_I_inv) override;
 	void								Set_Inertia(const Matrix3 & I);
 	void								Get_Inertia(Matrix3 * I);
 	void								Set_Contact_Parameters(float length);
@@ -142,30 +142,30 @@ public:
 	/*
 	** Shadow support
 	*/
-	virtual void					Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box);
+	virtual void					Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box) override;
 
 	/*
 	** MoveablePhysClass Push interface.  RigidBody's try to move when they are pushed.
 	*/
-	virtual bool					Push(const Vector3 & move);
+	virtual bool					Push(const Vector3 & move) override;
 
 	/*
 	** Save-Load System
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load(void);	
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load(void) override;
 
 protected:
 
 	/*
 	** Integration system
 	*/
-	virtual void					Get_State(StateVectorClass & set_state);
-	virtual int						Set_State(const StateVectorClass & new_state,int start_index);
+	virtual void					Get_State(StateVectorClass & set_state) override;
+	virtual int						Set_State(const StateVectorClass & new_state,int start_index) override;
 	void								Set_State(const RigidBodyStateStruct & new_state);
-	virtual int						Compute_Derivatives(float t,StateVectorClass * test_state,StateVectorClass * set_derivs,int start_index);
+	virtual int						Compute_Derivatives(float t,StateVectorClass * test_state,StateVectorClass * set_derivs,int start_index) override;
 
 	void								Integrate(float time);
 
@@ -329,17 +329,17 @@ public:
 	RigidBodyDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void)			{ return "RigidBodyDef"; }
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override			{ return "RigidBodyDef"; }
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	// In-Game Editing (DEBUGGING/TESTING ONLY)
 	float											Get_Aerodynamic_Drag(void)	{ return AerodynamicDragCoefficient; }

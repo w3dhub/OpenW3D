@@ -56,7 +56,7 @@ DECLARE_SCRIPT(M02_Objective_Controller, "")
 		SAVE_VARIABLE (count_dead_09, 3);
 	}
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Reveal_Encyclopedia_Character (37);
 		Commands->Reveal_Encyclopedia_Character (4);
@@ -101,7 +101,7 @@ DECLARE_SCRIPT(M02_Objective_Controller, "")
 	// Param 2 = Fail this objective (Failed)
 	// Param 3 = Convoy truck special - counting
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type > 199)
 		{
@@ -201,7 +201,7 @@ DECLARE_SCRIPT(M02_Objective_Controller, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		int id = 0;
 		Commands->Stop_All_Conversations ();
@@ -527,7 +527,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 		SAVE_VARIABLE (gave_secure_warning, 4);
 	}
 
-	void Created(GameObject *obj)
+	void Created(GameObject *obj) override
 	{
 		gave_secure_warning = false;
 		mendoza_id = 0;
@@ -535,7 +535,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 		enemies_defeated = false;
 	}
 
-	void Entered(GameObject *obj, GameObject *enterer)
+	void Entered(GameObject *obj, GameObject *enterer) override
 	{
 		// Send customs to activate the appropriate objectives
 
@@ -1796,7 +1796,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 		Commands->Start_Timer(obj, this, 1.0f, timer_id);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 3)
 		{
@@ -1962,7 +1962,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		// Custom received from living units in an area. 
 
@@ -2183,7 +2183,7 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 		SAVE_VARIABLE( destroyed_silo, 11);
 	}
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		int counter;
 		counter = 0;
@@ -2340,7 +2340,7 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 2)
 		{
@@ -3131,7 +3131,7 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender)
+	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if (type == 101)
 		{
@@ -3354,7 +3354,7 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 
 DECLARE_SCRIPT (M02_Reset_Spawn, "Area_ID:int,Spawn_Type:int")
 {
-	void Destroyed (GameObject *obj)
+	void Destroyed (GameObject *obj) override
 	{
 		GameObject * object = Commands->Find_Object(M02_OBJCONTROLLER);
 
@@ -3389,7 +3389,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		SAVE_VARIABLE (enemy_seen, 6);
 	}
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		officeranimcounter = 0;
 		no_return_home = false;
@@ -3443,12 +3443,12 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		enemy_seen = true;
 	}
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		// If an objective shouts, respond to it, letting it know the area is not cleared.
 
@@ -3479,7 +3479,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Timer_Expired (GameObject *obj, int timer_id)
+	void Timer_Expired (GameObject *obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -3754,7 +3754,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Killed (GameObject *obj, GameObject *killer)
+	void Killed (GameObject *obj, GameObject *killer) override
 	{
 		// Tell the respawn controller I am dead.
 
@@ -3779,7 +3779,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender)
+	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		int specific_id = Commands->Get_ID (obj);
 		if (specific_id == 400276)
@@ -3870,7 +3870,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject *damager, float amount)
+	void Damaged( GameObject * obj, GameObject *damager, float amount) override
 	{
 		if (!initial_damage && damager == NULL)
 		{
@@ -3885,12 +3885,12 @@ DECLARE_SCRIPT(M02_Obelisk, "")
 {
 	bool info_given;
 
-	void Created(GameObject*obj)
+	void Created(GameObject*obj) override
 	{
 		info_given = false;
 	}
 
-	void Damaged(GameObject * obj, GameObject * damager, float amount)
+	void Damaged(GameObject * obj, GameObject * damager, float amount) override
 	{
 		if (Commands->Get_Building_Power (obj))
 		{
@@ -3924,7 +3924,7 @@ DECLARE_SCRIPT(M02_Obelisk, "")
 		}
 	}
 
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		if (Commands->Get_Building_Power (obj))
 		{
@@ -3947,7 +3947,7 @@ DECLARE_SCRIPT(M02_Obelisk, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender)
+	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if (type == 1)
 		{
@@ -3961,12 +3961,12 @@ DECLARE_SCRIPT (M02_Power_Plant, "")
 {
 	bool info_given;
 
-	void Created(GameObject*obj)
+	void Created(GameObject*obj) override
 	{
 		info_given = false;
 	}
 
-	void Damaged(GameObject * obj, GameObject * damager, float amount)
+	void Damaged(GameObject * obj, GameObject * damager, float amount) override
 	{
 		// Check if the engineer is alive
 
@@ -3997,7 +3997,7 @@ DECLARE_SCRIPT (M02_Power_Plant, "")
 		}
 	}
 
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		GameObject * object = Commands->Find_Object(M02_OBJCONTROLLER);
 
@@ -4033,7 +4033,7 @@ DECLARE_SCRIPT (M02_Power_Plant, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender)
+	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if (type == 1)
 		{
@@ -4052,12 +4052,12 @@ DECLARE_SCRIPT (M02_Dam_MCT, "")
 		SAVE_VARIABLE (destroyed, 1);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		destroyed = false;
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		float health = Commands->Get_Health(obj);
 		if (health < 1.0f)
@@ -4081,7 +4081,7 @@ DECLARE_SCRIPT (M02_Dam_MCT, "")
 
 DECLARE_SCRIPT (M02_Helipad, "")
 {
-	void Killed(GameObject *obj, GameObject *killer)
+	void Killed(GameObject *obj, GameObject *killer) override
 	{
 		GameObject * object = Commands->Find_Object(M02_OBJCONTROLLER);
 
@@ -4095,7 +4095,7 @@ DECLARE_SCRIPT (M02_Helipad, "")
 
 DECLARE_SCRIPT (M02_Destroy_Objective, "Objective_ID:int")
 {
-	void Killed(GameObject *obj, GameObject *killer)
+	void Killed(GameObject *obj, GameObject *killer) override
 	{
 		int objective_id;
 		objective_id = Get_Int_Parameter ("Objective_ID");
@@ -4147,7 +4147,7 @@ DECLARE_SCRIPT (M02_Destroy_Objective, "Objective_ID:int")
 		}
 	}
 
-	void Damaged(GameObject *obj, GameObject *damager, float amount)
+	void Damaged(GameObject *obj, GameObject *damager, float amount) override
 	{
 		int objective_id;
 		objective_id = Get_Int_Parameter ("Objective_ID");
@@ -4165,7 +4165,7 @@ DECLARE_SCRIPT (M02_Destroy_Objective, "Objective_ID:int")
 
 DECLARE_SCRIPT (M02_Nod_Convoy_Truck, "")
 {
-	void Killed(GameObject *obj, GameObject *killer)
+	void Killed(GameObject *obj, GameObject *killer) override
 	{
 		GameObject * object = Commands->Find_Object(M02_OBJCONTROLLER);
 
@@ -4203,7 +4203,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		SAVE_VARIABLE (shout_count, 3);
 	}
 
-	void Created(GameObject* obj)
+	void Created(GameObject* obj) override
 	{
 		Commands->Enable_Hibernation(obj, false);
 		stop_following = false;
@@ -4231,7 +4231,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -4320,7 +4320,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Poked (GameObject * obj, GameObject * poker)
+	void Poked (GameObject * obj, GameObject * poker) override
 	{
 		int soldier_type = Get_Int_Parameter ("Soldier_Type");
 		if ((soldier_type == 2) && (!said_message))
@@ -4333,7 +4333,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		if ((sound.Type > 1099) && (sound.Type < 1199))
 		{
@@ -4364,7 +4364,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender)
+	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -4374,7 +4374,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		int area_id = Get_Int_Parameter("Area_ID");
 		if (area_id == 0)
@@ -4395,7 +4395,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if ((action_id == 1) && (complete_reason == ACTION_COMPLETE_NORMAL))
 		{
@@ -4436,7 +4436,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 
 DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 {
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		int area_id;
 		area_id = Get_Int_Parameter("Area_ID");
@@ -4452,7 +4452,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		int area_id = Get_Int_Parameter ("Area_ID");
 		int my_id = Commands->Get_ID (obj);
@@ -4479,7 +4479,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		int area_id;
 		area_id = Get_Int_Parameter("Area_ID");
@@ -4494,7 +4494,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		// If an objective shouts, respond to it, letting it know the area is not cleared.
 
@@ -4511,7 +4511,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender)
+	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -4521,7 +4521,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -4544,7 +4544,7 @@ DECLARE_SCRIPT (M02_Nod_Apache, "Area_ID:int")
 		SAVE_VARIABLE( waypath_id, 1);
 	}
 
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		int area_id = Get_Int_Parameter("Area_ID");
 		float timer_len = 1.0f;
@@ -4578,7 +4578,7 @@ DECLARE_SCRIPT (M02_Nod_Apache, "Area_ID:int")
 		Commands->Start_Timer(obj, this, 15.0f, 3);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -4692,7 +4692,7 @@ DECLARE_SCRIPT (M02_Nod_Apache, "Area_ID:int")
 
 	// If an objective shouts, respond to it, letting it know the area is not cleared.
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		if (sound.Type == 1000)
 		{
@@ -4707,7 +4707,7 @@ DECLARE_SCRIPT (M02_Nod_Apache, "Area_ID:int")
 
 DECLARE_SCRIPT (M02_Nod_Vehicle, "Area_ID:int")
 {
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		Commands->Enable_Enemy_Seen (obj, true);
 		Commands->Enable_Engine(obj, true);
@@ -4757,7 +4757,7 @@ DECLARE_SCRIPT (M02_Nod_Vehicle, "Area_ID:int")
 
 	// If an objective shouts, respond to it, letting it know the area is not cleared.
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		if (sound.Type == 1000)
 		{
@@ -4768,7 +4768,7 @@ DECLARE_SCRIPT (M02_Nod_Vehicle, "Area_ID:int")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -4803,7 +4803,7 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 		SAVE_VARIABLE(entered_me, 1);
 	}
 
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		entered_me = false;
 		Commands->Enable_Vehicle_Transitions (obj, true);
@@ -4813,7 +4813,7 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 		Send_Custom_To_SAM_Sites (obj, M00_CUSTOM_SAM_SITE_IGNORE, unitid);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -4836,7 +4836,7 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 		}
 	}
 
-	void Destroyed (GameObject* obj)
+	void Destroyed (GameObject* obj) override
 	{
 		int area_id = Get_Int_Parameter ("Area_ID");
 		GameObject* controller = Commands->Find_Object(M02_OBJCONTROLLER);
@@ -4850,7 +4850,7 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
 		{
@@ -4878,7 +4878,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 		SAVE_VARIABLE(onmywayout, 1);
 	}
 
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		onmywayout = false;
 		int waypath_id = 400397;
@@ -4899,7 +4899,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 		Commands->Start_Timer(obj, this, 10.0f, 3);
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic(this, 92, 2);
@@ -4908,7 +4908,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -4948,7 +4948,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 
 	// If an objective shouts, respond to it, letting it know the area is not cleared.
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		if (sound.Type == 1000)
 		{
@@ -4965,7 +4965,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 
 DECLARE_SCRIPT (M02_Approach_Vehicle, "Area_ID:int")
 {
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -5001,7 +5001,7 @@ DECLARE_SCRIPT (M02_Approach_Vehicle, "Area_ID:int")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		Commands->Apply_Damage(obj, 10000.0f, "Blamokiller", NULL);
 	}
@@ -5012,14 +5012,14 @@ DECLARE_SCRIPT (M02_Approach_Vehicle, "Area_ID:int")
 
 DECLARE_SCRIPT (M02_Destroy_Vehicle, "")
 {
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		Commands->Enable_Engine(obj, true);
 		Commands->Disable_Physical_Collisions(obj);
 		Commands->Start_Timer(obj, this, 4.0f, 1);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -5037,7 +5037,7 @@ DECLARE_SCRIPT (M02_Destroy_Vehicle, "")
 		}
 	}
 
-	void Damaged (GameObject* obj, GameObject* damager, float amount)
+	void Damaged (GameObject* obj, GameObject* damager, float amount) override
 	{
 		if (damager != STAR)
 		{
@@ -5045,7 +5045,7 @@ DECLARE_SCRIPT (M02_Destroy_Vehicle, "")
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic(this, 90, 1);
@@ -5073,7 +5073,7 @@ DECLARE_SCRIPT (M02_Mendoza, "")
 		SAVE_VARIABLE (move_toggle, 5);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		start_health = Commands->Get_Health (obj);
 		last_armor = Commands->Get_Shield_Strength (obj);
@@ -5091,7 +5091,7 @@ DECLARE_SCRIPT (M02_Mendoza, "")
 		Commands->Start_Timer (obj, this, 2.0f, 1);
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		Commands->Set_Health (obj, start_health);
 		last_armor -= 2.0f;
@@ -5110,7 +5110,7 @@ DECLARE_SCRIPT (M02_Mendoza, "")
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (action_id == 1)
 		{
@@ -5137,7 +5137,7 @@ DECLARE_SCRIPT (M02_Mendoza, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if ((timer_id == 1) && (!calling_extraction))
 		{
@@ -5239,7 +5239,7 @@ DECLARE_SCRIPT (M02_Mendoza, "")
 
 DECLARE_SCRIPT (M02_Nod_Jet, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Engine (obj, true);
 		Commands->Disable_Physical_Collisions (obj);
@@ -5250,7 +5250,7 @@ DECLARE_SCRIPT (M02_Nod_Jet, "")
 		Commands->Action_Goto(obj, params);
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (action_id == 1)
 		{
@@ -5262,7 +5262,7 @@ DECLARE_SCRIPT (M02_Nod_Jet, "")
 
 DECLARE_SCRIPT (M02_Nod_Jet_Waypath, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Engine (obj, true);
 		Commands->Disable_Physical_Collisions (obj);
@@ -5274,7 +5274,7 @@ DECLARE_SCRIPT (M02_Nod_Jet_Waypath, "")
 		Commands->Action_Goto(obj, params);
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (action_id == 1)
 		{
@@ -5286,7 +5286,7 @@ DECLARE_SCRIPT (M02_Nod_Jet_Waypath, "")
 
 DECLARE_SCRIPT (M02_GDI_Helicopter, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Engine (obj, true);
 		Commands->Disable_Physical_Collisions (obj);
@@ -5296,7 +5296,7 @@ DECLARE_SCRIPT (M02_GDI_Helicopter, "")
 		Commands->Action_Goto(obj, params);
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (action_id == 1)
 		{
@@ -5308,7 +5308,7 @@ DECLARE_SCRIPT (M02_GDI_Helicopter, "")
 
 DECLARE_SCRIPT (M02_Commando_Start, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Give_PowerUp (obj, "POW_MineRemote_Player", false);
 		Commands->Give_PowerUp (obj, "POW_Chaingun_Player", false);
@@ -5319,7 +5319,7 @@ DECLARE_SCRIPT (M02_Commando_Start, "")
 
 DECLARE_SCRIPT (M02_Data_Disk, "Disk_ID:int")
 {
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED) 
 		{
@@ -5356,7 +5356,7 @@ DECLARE_SCRIPT (M02_Data_Disk, "Disk_ID:int")
 
 DECLARE_SCRIPT (M02_Encyclopedia_Reveal, "Disk_ID:int")
 {
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED) 
 		{

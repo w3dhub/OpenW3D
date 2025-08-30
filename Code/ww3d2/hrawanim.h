@@ -73,28 +73,28 @@ public:
 
 	int							Load_W3D(ChunkLoadClass & cload);
 
-	const char *				Get_Name(void) const { return Name; }
-	const char *				Get_HName(void) const { return HierarchyName; }
-	int							Get_Num_Frames(void) { return NumFrames; }
-	float							Get_Frame_Rate() { return FrameRate; }
-	float							Get_Total_Time() { return (float)NumFrames / FrameRate; }
+	const char *				Get_Name(void) const override { return Name; }
+	const char *				Get_HName(void) const override { return HierarchyName; }
+	int							Get_Num_Frames(void) override { return NumFrames; }
+	float							Get_Frame_Rate() override { return FrameRate; }
+	float							Get_Total_Time() override { return (float)NumFrames / FrameRate; }
 
 //	Vector3						Get_Translation(int pividx,float frame);
 //	Quaternion					Get_Orientation(int pividx,float frame);
-	void							Get_Translation(Vector3& translation, int pividx,float frame) const;
-	void							Get_Orientation(Quaternion& orientation, int pividx,float frame) const;
-	void							Get_Transform(Matrix3D& transform, int pividx,float frame) const;
-	bool							Get_Visibility(int pividx,float frame);
+	void							Get_Translation(Vector3& translation, int pividx,float frame) const override;
+	void							Get_Orientation(Quaternion& orientation, int pividx,float frame) const override;
+	void							Get_Transform(Matrix3D& transform, int pividx,float frame) const override;
+	bool							Get_Visibility(int pividx,float frame) override;
 
-	bool							Is_Node_Motion_Present(int pividx);
-	int							Get_Num_Pivots(void) const { return NumNodes; }
+	bool							Is_Node_Motion_Present(int pividx) override;
+	int							Get_Num_Pivots(void) const override { return NumNodes;  }
 
 	// Methods that test the presence of a certain motion channel.
-	bool							Has_X_Translation (int pividx);
-	bool							Has_Y_Translation (int pividx);
-	bool							Has_Z_Translation (int pividx);
-	bool							Has_Rotation (int pividx);
-	bool							Has_Visibility (int pividx);
+	bool							Has_X_Translation (int pividx) override;
+	bool							Has_Y_Translation (int pividx) override;
+	bool							Has_Z_Translation (int pividx) override;
+	bool							Has_Rotation (int pividx) override;
+	bool							Has_Visibility (int pividx) override;
 
 private:
 

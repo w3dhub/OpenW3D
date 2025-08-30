@@ -113,8 +113,8 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
-	virtual NetworkObjectClass *	Create (cPacket &packet) const;
-	virtual uint32						Get_Class_ID (void) const;
+	virtual NetworkObjectClass *	Create (cPacket &packet) const override;
+	virtual uint32						Get_Class_ID (void) const override;
 };
 
 template<class T, int class_id>

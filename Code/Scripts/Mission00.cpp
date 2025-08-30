@@ -92,7 +92,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 		SAVE_VARIABLE (officer_count, 22);
 	}
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		sydney_restart = true;
 		mobius_restart = true;
@@ -165,7 +165,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		Vector3 powerup_loc = Vector3(-36.504f,75.985f,1.006f);
 
@@ -309,7 +309,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		Vector3 powerup_loc = Vector3(-36.504f,75.985f,1.006f);
 
@@ -1259,7 +1259,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		SAVE_VARIABLE (logan_wait_infantry, 19);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		engineer_id = 0;
 		gunner_range_state = MTU_RANGE_STATE_DEFAULT;
@@ -1286,7 +1286,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		logan_wait_infantry = false;
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		switch (type)
 		{
@@ -1692,7 +1692,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		switch (timer_id)
 		{
@@ -2309,7 +2309,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		Commands->Action_Goto(obj, params);
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if ((complete_reason == ACTION_COMPLETE_CONVERSATION_ENDED)	|| (complete_reason == ACTION_COMPLETE_CONVERSATION_INTERRUPTED) || (complete_reason == ACTION_COMPLETE_CONVERSATION_UNABLE_TO_INIT))
 		{
@@ -2729,7 +2729,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		}
 	}
 
-	void Sound_Heard (GameObject * obj, const CombatSound & sound)
+	void Sound_Heard (GameObject * obj, const CombatSound & sound) override
 	{
 		int my_id = Commands->Get_ID (obj);
 
@@ -2744,7 +2744,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		float maxhealth = Commands->Get_Max_Health (obj);
 		Commands->Set_Health (obj, maxhealth);
@@ -2765,13 +2765,13 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 		SAVE_VARIABLE (gave_elevator_help, 2);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		gave_elevator_help = false;
 		trigger_once = true;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		int zone_id = Commands->Get_ID (obj);
 		bool destroy_zone = false;
@@ -3200,7 +3200,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_SYDNEY_IS_RESET)
 		{
@@ -3233,7 +3233,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		SAVE_VARIABLE(gate_guard_opened, 1);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Hibernation (obj, false);
 		Commands->Set_Loiters_Allowed (obj, false);
@@ -3247,7 +3247,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == MTU_TIMER_GDI_CONVERSATION)
 		{
@@ -3279,7 +3279,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Poked (GameObject * obj, GameObject * poker)
+	void Poked (GameObject * obj, GameObject * poker) override
 	{
 		int my_id = Commands->Get_ID (obj);
 		if ((my_id == MTU_GATE_GUARD) && (!gate_guard_opened))
@@ -3288,7 +3288,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (complete_reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
@@ -3318,7 +3318,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_GDI_SOLDIER_PATROL)
 		{
@@ -3328,7 +3328,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		int my_id = Commands->Get_ID (obj);
 		if (my_id == MTU_GATE_GUARD)
@@ -3351,14 +3351,14 @@ DECLARE_SCRIPT (MTU_Commando, "")
 		SAVE_VARIABLE(sydney_shot, 1);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Reveal_Encyclopedia_Weapon (14);
 		Commands->Select_Weapon (obj, NULL);
 		sydney_shot = false;
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_STAR)
 		{
@@ -3411,7 +3411,7 @@ DECLARE_SCRIPT (MTU_Commando, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == MTU_TIMER_COMMANDO_CAMERA_01)
 		{
@@ -3423,7 +3423,7 @@ DECLARE_SCRIPT (MTU_Commando, "")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		float commandohealth = Commands->Get_Health (STAR);
 		float commandomax = (Commands->Get_Max_Health (STAR) / 4.0f);
@@ -3454,7 +3454,7 @@ DECLARE_SCRIPT (MTU_Commando, "")
 
 DECLARE_SCRIPT (MTU_Commando_Startup, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Attach_Script (obj, "MTU_Commando", "");
 	}
@@ -3463,7 +3463,7 @@ DECLARE_SCRIPT (MTU_Commando_Startup, "")
 
 DECLARE_SCRIPT (MTU_PowerUp_Health, "")
 {
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3484,7 +3484,7 @@ DECLARE_SCRIPT (MTU_PowerUp_Health, "")
 
 DECLARE_SCRIPT (MTU_PowerUp_Armor, "")
 {
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3505,7 +3505,7 @@ DECLARE_SCRIPT (MTU_PowerUp_Armor, "")
 
 DECLARE_SCRIPT (MTU_Nod_Apache, "Apache_ID:int")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Disable_Physical_Collisions (obj);
 		ActionParamsStruct params;
@@ -3522,7 +3522,7 @@ DECLARE_SCRIPT (MTU_Nod_Apache, "Apache_ID:int")
 		Commands->Start_Timer(obj, this, 10.0f, MTU_TIMER_APACHE_DESTROY);
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == MTU_TIMER_APACHE_DESTROY)
 		{
@@ -3542,13 +3542,13 @@ DECLARE_SCRIPT (MTU_Nod_Apache, "Apache_ID:int")
 
 DECLARE_SCRIPT (MTU_Range_Target, "Target_ID:int")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Attach_Script (obj, "M00_Soldier_Powerup_Disable", "");
 		Commands->Innate_Disable (obj);
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		Vector3 myloc = Commands->Get_Position (obj);
 		GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
@@ -3563,7 +3563,7 @@ DECLARE_SCRIPT (MTU_Range_Target, "Target_ID:int")
 
 DECLARE_SCRIPT (MTU_Range_Target_Path_Mid, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic(this, 100, 1);
@@ -3576,7 +3576,7 @@ DECLARE_SCRIPT (MTU_Range_Target_Path_Mid, "")
 
 DECLARE_SCRIPT (MTU_Range_Target_Path_Right, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic(this, 100, 1);
@@ -3589,7 +3589,7 @@ DECLARE_SCRIPT (MTU_Range_Target_Path_Right, "")
 
 DECLARE_SCRIPT (MTU_Range_Target_Path_Left, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic(this, 100, 1);
@@ -3602,12 +3602,12 @@ DECLARE_SCRIPT (MTU_Range_Target_Path_Left, "")
 
 DECLARE_SCRIPT (MTU_Range_Target_Miss_Commando, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Enemy_Seen (obj, true);
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		if (enemy == STAR)
 		{
@@ -3622,7 +3622,7 @@ DECLARE_SCRIPT (MTU_Range_Target_Miss_Commando, "")
 
 DECLARE_SCRIPT (MTU_Range_Powerup, "Powerup_ID:int")
 {
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3646,13 +3646,13 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 		SAVE_VARIABLE(entered_me, 1);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Player_Type (obj, SCRIPT_PLAYERTYPE_NEUTRAL);
 		entered_me = false;
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 		GameObject * hotwire_obj = Commands->Find_Object (MTU_HOTWIRE);
@@ -3670,7 +3670,7 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
 		{
@@ -3728,12 +3728,12 @@ DECLARE_SCRIPT (MTU_Building_Controller, "Building_ID:int")
 {
 	bool can_be_damaged;
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		can_be_damaged = false;
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		int id = Commands->Get_ID (obj);
 		if ((id == MTU_BARRACKS) || (id == MTU_POWERPLANT))
@@ -3746,7 +3746,7 @@ DECLARE_SCRIPT (MTU_Building_Controller, "Building_ID:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_BUILDING_DAMAGEABLE)
 		{
@@ -3771,7 +3771,7 @@ DECLARE_SCRIPT (MTU_Building_Controller, "Building_ID:int")
 
 DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Grant_Key (obj, 1, true);
 		int soldier_id = Get_Int_Parameter ("Soldier_ID");
@@ -3793,7 +3793,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		int soldier_id = Get_Int_Parameter ("Soldier_ID");
 		if ((damager != STAR) && (soldier_id == 2))
@@ -3802,7 +3802,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		int soldier_id = Get_Int_Parameter ("Soldier_ID");
 		if (!soldier_id)
@@ -3823,7 +3823,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == MTU_TIMER_NOD_SOLDIER_REMOVAL)
 		{
@@ -3835,7 +3835,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 
 DECLARE_SCRIPT (MTU_Flyover, "Vehicle_ID:int")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		int vehicle_id = Get_Int_Parameter ("Vehicle_ID");
 		ActionParamsStruct params;
@@ -3852,7 +3852,7 @@ DECLARE_SCRIPT (MTU_Flyover, "Vehicle_ID:int")
 		Commands->Action_Goto(obj, params);
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		Commands->Destroy_Object (obj);
 	}
@@ -3867,7 +3867,7 @@ DECLARE_SCRIPT (MTU_Flyover, "Vehicle_ID:int")
 
 DECLARE_SCRIPT (MSK_Controller, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		int conversation = Commands->Create_Conversation ("MSK_MP_STARTUP_DESC", 100.0f, 300.0f, false);
 		Commands->Join_Conversation(obj, conversation, false, false, false);
@@ -3909,7 +3909,7 @@ DECLARE_SCRIPT (MSK_Controller, "")
 		Commands->Trigger_Spawner(MSK_NOD_ATK_03);
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == MSK_SOLDIER_DEAD)
 		{
@@ -3926,7 +3926,7 @@ DECLARE_SCRIPT (MSK_Soldier, "Spawner_ID:int")
 {
 	int spawner_id;
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		spawner_id = Get_Int_Parameter ("Spawner_ID");
 		Commands->Start_Timer (obj, this, 2.0f, MSK_TIMER_02);
@@ -3934,7 +3934,7 @@ DECLARE_SCRIPT (MSK_Soldier, "Spawner_ID:int")
 		Commands->Enable_Hibernation (obj, false);
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == MSK_TIMER_02)
 		{
@@ -4114,7 +4114,7 @@ DECLARE_SCRIPT (MSK_Soldier, "Spawner_ID:int")
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if ((action_id == 2) && (complete_reason == ACTION_COMPLETE_NORMAL))
 		{
@@ -4126,7 +4126,7 @@ DECLARE_SCRIPT (MSK_Soldier, "Spawner_ID:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		GameObject * controller = Commands->Find_Object (MSK_CONTROLLER);
 		if (controller)
@@ -4135,7 +4135,7 @@ DECLARE_SCRIPT (MSK_Soldier, "Spawner_ID:int")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		int	player_type = Commands->Get_Player_Type (obj);
 		int	damager_type = Commands->Get_Player_Type (damager);
@@ -4156,13 +4156,13 @@ DECLARE_SCRIPT (MSK_Info_Zone, "")
 	bool was_entered;
 	bool first_message;
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		was_entered = false;
 		first_message = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if (!was_entered)
 		{

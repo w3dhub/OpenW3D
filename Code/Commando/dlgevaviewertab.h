@@ -158,15 +158,15 @@ public:
 	//
 	//	Notifications
 	//
-	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index);
-	void		On_ViewerCtrl_Model_Loaded (ViewerCtrlClass *viewer_ctrl, int ctrl_id, RenderObjClass *model);
+	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index) override;
+	void		On_ViewerCtrl_Model_Loaded (ViewerCtrlClass *viewer_ctrl, int ctrl_id, RenderObjClass *model) override;
 	
 protected:
 
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);	
+	void		On_Init_Dialog (void) override;
 	void		On_Destroy_Dialog (void);	
 	void		View_Entry (int entry_index);
 

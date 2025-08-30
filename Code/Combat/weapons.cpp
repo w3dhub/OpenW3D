@@ -93,7 +93,7 @@
 class EjectCasingObserverClass : public CombatPhysObserverClass
 {
 public:
-	virtual CollisionReactionType		Collision_Occurred(const CollisionEventClass & event)
+	virtual CollisionReactionType		Collision_Occurred(const CollisionEventClass & event) override
 	{
 /*
 		SurfaceEffectsManager::Apply_Effect(event.CollisionResult->SurfaceType,

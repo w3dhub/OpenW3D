@@ -58,7 +58,7 @@ class ProgressCtrlClass :
 		ProgressCtrlClass* As_ProgressCtrlClass(void)
 			{return this;}
 
-		void Render(void);
+		void Render(void) override;
 
 		// Sets the minimum and maximum values for the progress bar and redraws
 		// the bar to reflect the new range. 
@@ -87,7 +87,7 @@ class ProgressCtrlClass :
 	protected:
 		void Create_Control_Renderers(void);
 		float Calculate_Bar_Width(unsigned int position);
-		void Update_Client_Rect(void);
+		void Update_Client_Rect(void) override;
 
 	protected:
 		Render2DClass mControlRenderer;

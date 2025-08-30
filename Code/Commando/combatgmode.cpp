@@ -134,8 +134,8 @@ static bool				PendingCampaignContinue						= false;
 */
 class	CombatGameMiscHandlerClass : public CombatMiscHandlerClass {
 public:
-	virtual	void	Mission_Complete( bool success );
-	virtual	void	Star_Killed( void );
+	virtual	void	Mission_Complete( bool success ) override;
+	virtual	void	Star_Killed( void ) override;
 };
 
 CombatGameMiscHandlerClass		GameMiscHandler;

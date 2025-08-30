@@ -75,14 +75,14 @@ public:
 	bool				Is_MCT(void);
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
 
-	virtual	void	Save_State( ChunkSaveClass & csave );
-	virtual	void	Load_State( ChunkLoadClass & cload );
+	virtual	void	Save_State( ChunkSaveClass & csave ) override;
+	virtual	void	Load_State( ChunkLoadClass & cload ) override;
 
-	virtual	void	On_Post_Load( void );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	void	On_Post_Load( void ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 protected:
 	
@@ -107,13 +107,13 @@ class BuildingAggregateDefClass : public StaticAnimPhysDefClass
 public:
 	BuildingAggregateDefClass(void);
 	
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual const char *						Get_Type_Name(void)				{ return "BuildingAggregateDef"; }
-	virtual bool								Is_Type(const char *);
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual const char *						Get_Type_Name(void) override				{ return "BuildingAggregateDef"; }
+	virtual bool								Is_Type(const char *) override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( BuildingAggregateDefClass, StaticAnimPhysDefClass );
 

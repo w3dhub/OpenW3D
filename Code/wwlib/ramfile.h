@@ -46,23 +46,23 @@ class RAMFileClass : public FileClass
 		RAMFileClass(void * buffer, int len);
 		virtual ~RAMFileClass(void);
 
-		virtual char const * File_Name(void) const {return("UNKNOWN");}
-		virtual char const * Set_Name(char const * ) {return(File_Name());}
-		virtual int Create(void);
-		virtual int Delete(void);
-		virtual bool Is_Available(int forced=false);
-		virtual bool Is_Open(void) const;
-		virtual int Open(char const * filename, int access=READ);
-		virtual int Open(int access=READ);
-		virtual int Read(void * buffer, int size);
-		virtual int Seek(int pos, int dir=SEEK_CUR);
-		virtual int Size(void);
-		virtual int Write(void const * buffer, int size);
-		virtual void Close(void);
-		virtual unsigned long Get_Date_Time(void) {return(0);}
-		virtual bool Set_Date_Time(unsigned long ) {return(true);}
-		virtual void Error(int , int = false, char const * =NULL) {}
-		virtual void Bias(int start, int length=-1);
+		virtual char const * File_Name(void) const override {return("UNKNOWN");}
+		virtual char const * Set_Name(char const * ) override {return(File_Name());}
+		virtual int Create(void) override;
+		virtual int Delete(void) override;
+		virtual bool Is_Available(int forced=false) override;
+		virtual bool Is_Open(void) const override;
+		virtual int Open(char const * filename, int access=READ) override;
+		virtual int Open(int access=READ) override;
+		virtual int Read(void * buffer, int size) override;
+		virtual int Seek(int pos, int dir=SEEK_CUR) override;
+		virtual int Size(void) override;
+		virtual int Write(void const * buffer, int size) override;
+		virtual void Close(void) override;
+		virtual unsigned long Get_Date_Time(void) override {return(0);}
+		virtual bool Set_Date_Time(unsigned long ) override {return(true);}
+		virtual void Error(int , int = false, char const * =NULL) override {}
+		virtual void Bias(int start, int length=-1) override;
 
 		operator char const * () {return File_Name();}
 

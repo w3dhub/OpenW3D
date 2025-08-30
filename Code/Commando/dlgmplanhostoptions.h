@@ -79,9 +79,9 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	void		On_Periodic(void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void		On_Init_Dialog (void) override;
+	void		On_Periodic(void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
 
 	void		Enable_Mod_Selection (bool onoff);
 
@@ -90,7 +90,7 @@ private:
 	////////////////////////////////////////////////////////////////
 	//	Private methods
 	////////////////////////////////////////////////////////////////
-	void ReceiveSignal(WolGameModeClass&);
+	void ReceiveSignal(WolGameModeClass&) override;
 	void Start_Game(cGameData* theGame);
 
 	////////////////////////////////////////////////////////////////
@@ -124,12 +124,12 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	bool		On_Apply (void);
+	void		On_Init_Dialog (void) override;
+	bool		On_Apply (void) override;
 
 protected:
 	void InitSideChoiceCombo(int sidePref);
-	void On_EditCtrl_Change(EditCtrlClass* edit, int ctrlID);
+	void On_EditCtrl_Change(EditCtrlClass* edit, int ctrlID) override;
 
 private:
 
@@ -162,13 +162,13 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	bool		On_Apply (void);
-	void		On_Command (int ctrl_id, int message_id, DWORD param);
-	void		HandleNotification(DlgMsgBoxEvent&);
+	void		On_Init_Dialog (void) override;
+	bool		On_Apply (void) override;
+	void		On_Command (int ctrl_id, int message_id, DWORD param) override;
+	void		HandleNotification(DlgMsgBoxEvent&) override;
 
 protected:
-	void ReceiveSignal(bool&);
+	void ReceiveSignal(bool&) override;
 	void ConfigureWOLControls(void);
 	bool IsHostAClanMember(void) const;
 
@@ -205,11 +205,11 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	bool		On_Apply (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
-	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index);
-	void		On_ComboBoxCtrl_Sel_Change (ComboBoxCtrlClass *combo_ctrl, int ctrl_id, int old_sel, int new_sel);
+	void		On_Init_Dialog (void) override;
+	bool		On_Apply (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
+	void		On_ComboBoxCtrl_Sel_Change (ComboBoxCtrlClass *combo_ctrl, int ctrl_id, int old_sel, int new_sel) override;
 
 	void		Enable_Mod_Selection (bool onoff);
 
@@ -253,9 +253,9 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	bool		On_Apply (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void		On_Init_Dialog (void) override;
+	bool		On_Apply (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
 
 private:
 
@@ -312,8 +312,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	bool		On_Apply (void);
+	void		On_Init_Dialog (void) override;
+	bool		On_Apply (void) override;
 };
 
 

@@ -61,13 +61,13 @@ class MPWolAddIgnoreEntry :
 		MPWolAddIgnoreEntry(const MPWolAddIgnoreEntry&);
 		const MPWolAddIgnoreEntry& operator=(const MPWolAddIgnoreEntry&);
 
-		void On_Init_Dialog (void);
-		void On_Command (int ctrl_id, int mesage_id, DWORD param);
+		void On_Init_Dialog (void) override;
+		void On_Command (int ctrl_id, int mesage_id, DWORD param) override;
 
 		void Add_Ignore_Entry (void);
 
-		void On_EditCtrl_Change(EditCtrlClass* edit, int id);
-		void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id);
+		void On_EditCtrl_Change(EditCtrlClass* edit, int id) override;
+		void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id) override;
 
 		WideStringClass mDefaultUser;
 	};

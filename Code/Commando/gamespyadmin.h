@@ -61,7 +61,7 @@ public:
 	static WideStringClass & Get_Password_Attempt(void)								{return PasswordAttempt;}
 
 private:
-	void						HandleNotification(DlgWOLWaitEvent& event);
+	void						HandleNotification(DlgWOLWaitEvent& event) override;
 	static void					Join_Server(void);
 	static void					Connect_To_Game_Server(void);
 

@@ -136,14 +136,14 @@ void	Stop_Main_Loop (int);
 class RenegadeUIInputClass : public WWUIInputClass
 {
 	const Vector3 &
-	Get_Mouse_Pos (void) const
+	Get_Mouse_Pos (void) const override
 	{
 		DirectInput::Get_Cursor_Pos (&MousePos);
 		return MousePos;
 	}
 
 	void
-	Set_Mouse_Pos (const Vector3 &pos)
+	Set_Mouse_Pos (const Vector3 &pos) override
 	{
 		MousePos = pos;
 		DirectInput::Reset_Cursor_Pos (Vector2 (pos.X, pos.Y));
@@ -151,7 +151,7 @@ class RenegadeUIInputClass : public WWUIInputClass
 	}
 
 	bool
-	Is_Button_Down (int vk_mouse_button_id)
+	Is_Button_Down (int vk_mouse_button_id) override
 	{
 		bool retval = false;
 		switch (vk_mouse_button_id)
@@ -173,14 +173,14 @@ class RenegadeUIInputClass : public WWUIInputClass
 	}
 
 	void
-	Enter_Menu_Mode (void)
+	Enter_Menu_Mode (void) override
 	{
 		Input::Menu_Enable (true);
 		return ;
 	}
 
 	void
-	Exit_Menu_Mode (void)
+	Exit_Menu_Mode (void) override
 	{
 		Input::Menu_Enable (false);
 		DirectInput::Eat_Mouse_Held_States ();

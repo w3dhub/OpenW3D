@@ -114,8 +114,8 @@ class DlgMsgBox :
 		virtual ~DlgMsgBox();
 
 		void SetResourceType(DlgMsgBox::Type type);
-		void End_Dialog(void);
-		void On_Command(int ctrl, int message, DWORD param);
+		void End_Dialog(void) override;
+		void On_Command(int ctrl, int message, DWORD param) override;
 
 		DECLARE_NOTIFIER(DlgMsgBoxEvent)
 

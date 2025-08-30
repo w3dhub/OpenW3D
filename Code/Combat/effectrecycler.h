@@ -79,7 +79,7 @@ public:
 	** PhysObserver Interface - whenever an effect expires, we can re-use the model and
 	** physics object.  
 	*/
-	virtual void		Object_Removed_From_Scene(PhysClass * observed_obj);
+	virtual void		Object_Removed_From_Scene(PhysClass * observed_obj) override;
 
 private:
 

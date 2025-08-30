@@ -65,8 +65,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void		On_Init_Dialog (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
 
 protected:
 
@@ -76,7 +76,7 @@ protected:
 	void		Refresh_List (void);
 
 	void		Get_Selected_Entry(WideStringClass& user_name);
-	void HandleNotification(WOLBuddyMgrEvent&);
+	void HandleNotification(WOLBuddyMgrEvent&) override;
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data

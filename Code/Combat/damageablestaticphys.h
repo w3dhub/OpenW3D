@@ -59,10 +59,10 @@ public:
 	DamageableStaticPhysClass( void );
 	virtual ~DamageableStaticPhysClass( void );
 
-	virtual void			Timestep(float dt); 
+	virtual void			Timestep(float dt) override;
 
 	// RTTI
-	virtual DamageableStaticPhysClass *	As_DamageableStaticPhysClass (void)	{ return this; }
+	virtual DamageableStaticPhysClass *	As_DamageableStaticPhysClass (void) override	{ return this; }
 
 	// Definitions
 	void	Init(const DamageableStaticPhysDefClass & definition);
@@ -74,9 +74,9 @@ public:
 	void	Reset_Health(void);
 
 	// Save / Load
-	virtual	bool	Save(ChunkSaveClass & csave);
-	virtual	bool	Load(ChunkLoadClass & cload);
-	virtual	const	PersistFactoryClass & Get_Factory(void) const;
+	virtual	bool	Save(ChunkSaveClass & csave) override;
+	virtual	bool	Load(ChunkLoadClass & cload) override;
+	virtual	const	PersistFactoryClass & Get_Factory(void) const override;
 
 protected:
 
@@ -112,13 +112,13 @@ class DamageableStaticPhysDefClass : public StaticAnimPhysDefClass
 public:
 	DamageableStaticPhysDefClass(void);
 	
-	virtual uint32								Get_Class_ID(void) const;
-	virtual const char *						Get_Type_Name(void)				{ return "DamageableStaticPhysDef"; }
-	virtual bool								Is_Type(const char *);
-	virtual PersistClass *					Create(void) const ;
-	virtual bool								Save(ChunkSaveClass & csave);
-	virtual bool								Load(ChunkLoadClass & cload);
-	virtual const PersistFactoryClass &	Get_Factory(void) const;
+	virtual uint32								Get_Class_ID(void) const override;
+	virtual const char *						Get_Type_Name(void) override				{ return "DamageableStaticPhysDef"; }
+	virtual bool								Is_Type(const char *) override;
+	virtual PersistClass *					Create(void) const override;
+	virtual bool								Save(ChunkSaveClass & csave) override;
+	virtual bool								Load(ChunkLoadClass & cload) override;
+	virtual const PersistFactoryClass &	Get_Factory(void) const override;
 
 	DECLARE_EDITABLE( DamageableStaticPhysDefClass, StaticAnimPhysDefClass );
 

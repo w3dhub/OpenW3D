@@ -80,7 +80,7 @@ public:
 	//
 	//	RTTI
 	//
-	virtual MenuDialogClass *	As_MenuDialogClass (void)	{ return this; }
+	virtual MenuDialogClass *	As_MenuDialogClass (void) override	{ return this; }
 
 	//
 	//	Configuration methods
@@ -96,9 +96,9 @@ public:
 	//
 	//	From DialogBaseClass
 	//
-	virtual void			Start_Dialog (void);
-	virtual void			Render (void);
-	virtual void			End_Dialog (void);
+	virtual void			Start_Dialog (void) override;
+	virtual void			Render (void) override;
+	virtual void			End_Dialog (void) override;
 
 protected:
 
@@ -109,7 +109,7 @@ protected:
 	//
 	//	From DialogBaseClass
 	//
-	virtual void			On_Activate (bool onoff);
+	virtual void			On_Activate (bool onoff) override;
 
 	//
 	//	New notifications

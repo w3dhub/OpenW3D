@@ -50,10 +50,10 @@ public:
 
 	void						Init(void);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
-	virtual uint32			Get_Network_Class_ID(void) const				= 0;
-	virtual void			Delete(void)										{delete this;}
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
+	virtual uint32			Get_Network_Class_ID(void) const override				= 0;
+	virtual void			Delete(void) override										{delete this;}
 
 	//void						Send_Immediately(void);//TSS2001e
 

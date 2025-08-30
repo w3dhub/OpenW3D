@@ -79,7 +79,7 @@ DECLARE_SCRIPT(M00_Soldier_Powerup_Grant, "")
 		SAVE_VARIABLE( Disabled, 1 );
 	}
 
-	void Created(GameObject* obj)
+	void Created(GameObject* obj) override
 	{
 		Disabled = false;		// Default to enabled
 	}
@@ -98,7 +98,7 @@ DECLARE_SCRIPT(M00_Soldier_Powerup_Grant, "")
 	}
 
 	// When killed, drop a powerup
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		// We only drop a powerup if our killer is a star
 		// 100% for Easy
@@ -174,7 +174,7 @@ DECLARE_SCRIPT(M00_Soldier_Powerup_Grant, "")
 	}
 
 	// Custom to disable this script
-	void	Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if ( type == M00_CUSTOM_POWERUP_GRANT_DISABLE ) {
 			Disabled = true;
@@ -187,12 +187,12 @@ DECLARE_SCRIPT(M00_Soldier_Powerup_Grant, "")
 // DAY - Attach to disable powerup manager on an instance or preset
 DECLARE_SCRIPT(M00_Soldier_Powerup_Disable, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 1.0f, 1);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -206,14 +206,14 @@ DECLARE_SCRIPT(M00_Soldier_Powerup_Disable, "")
 DECLARE_SCRIPT(M00_Powerup_Destroy, "")
 {
 		
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		float lifespan = (30.0f - (Commands->Get_Difficulty_Level() * 10));
 		Commands->Start_Timer (obj, this, lifespan, 10);
 		
 	}
 	
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if(timer_id == 10)
 		{
@@ -232,7 +232,7 @@ DECLARE_SCRIPT(M00_Powerup_Destroy, "")
 // DAY - Reveals a Building entry in the Encyclopedia.  Param is the Encyclopedia ID listed in the Buildings.ini file.
 DECLARE_SCRIPT (M00_Reveal_Enc_Building_DAY, "BuildingEncyclopediaID:int")
 {
-	void Custom(GameObject *obj, int type, int param, GameObject *sender)
+	void Custom(GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
@@ -250,7 +250,7 @@ DECLARE_SCRIPT (M00_Reveal_Enc_Building_DAY, "BuildingEncyclopediaID:int")
 // DAY - Reveals a Character entry in the Encyclopedia.  Param is the Encyclopedia ID listed in the Characters.ini file.
 DECLARE_SCRIPT (M00_Reveal_Enc_Character_DAY, "CharacterEncyclopediaID:int")
 {
-	void Custom(GameObject *obj, int type, int param, GameObject *sender)
+	void Custom(GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
@@ -268,7 +268,7 @@ DECLARE_SCRIPT (M00_Reveal_Enc_Character_DAY, "CharacterEncyclopediaID:int")
 // DAY - Reveals a Vehicle entry in the Encyclopedia.  Param is the Encyclopedia ID listed in the Vehicles.ini file.
 DECLARE_SCRIPT (M00_Reveal_Enc_Vehicle_DAY, "VehicleEncyclopediaID:int")
 {
-	void Custom(GameObject *obj, int type, int param, GameObject *sender)
+	void Custom(GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
@@ -287,7 +287,7 @@ DECLARE_SCRIPT (M00_Reveal_Enc_Vehicle_DAY, "VehicleEncyclopediaID:int")
 //			Normally not necessary as picking up weapon will reveal entry.
 DECLARE_SCRIPT (M00_Reveal_Enc_Weapon_DAY, "WeaponEncyclopediaID:int")
 {
-	void Custom(GameObject *obj, int type, int param, GameObject *sender)
+	void Custom(GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
@@ -315,7 +315,7 @@ DECLARE_SCRIPT (M00_Reveal_Enc_Weapon_DAY, "WeaponEncyclopediaID:int")
 DECLARE_SCRIPT (M00_GrantScore_Powerup, "ScoreAmount:float,Entire_Team=0:int,Randomizer=1:int")
 {
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 
 		float score;
@@ -346,7 +346,7 @@ DECLARE_SCRIPT (M00_GrantScore_Powerup, "ScoreAmount:float,Entire_Team=0:int,Ran
 DECLARE_SCRIPT (M00_GrantMoney_Powerup, "ScoreAmount:float,Entire_Team=0:int,Randomizer=1:int")
 {
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 
 		float score;
@@ -379,12 +379,12 @@ DECLARE_SCRIPT (M00_GrantMoney_Powerup, "ScoreAmount:float,Entire_Team=0:int,Ran
 
 DECLARE_SCRIPT (M00_Tiberium_Refinery, "MoneyAmount:int,TimerLength:int")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Start_Timer (obj, this, Get_Int_Parameter("TimerLength"), 1);
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -401,7 +401,7 @@ DECLARE_SCRIPT (M00_Tiberium_Refinery, "MoneyAmount:int,TimerLength:int")
 
 DECLARE_SCRIPT (M00_CNC_Crate, "")
 {
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ((type == CUSTOM_EVENT_POWERUP_GRANTED) && (sender))
 		{
@@ -413,7 +413,7 @@ DECLARE_SCRIPT (M00_CNC_Crate, "")
 
 DECLARE_SCRIPT (M00_Death_Powerup, "")
 {
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ((type == CUSTOM_EVENT_POWERUP_GRANTED) && (sender))
 		{

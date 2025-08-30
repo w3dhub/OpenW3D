@@ -64,14 +64,14 @@ class DlgWOLPageReply :
 
 		bool FinalizeCreate(void);
 
-		void On_Init_Dialog(void);
-		void On_Command(int ctrl_id, int mesage_id, DWORD param);	
+		void On_Init_Dialog(void) override;
+		void On_Command(int ctrl_id, int mesage_id, DWORD param) override;
 
 		void Send_Reply(void);
 		void Add_Message(const WCHAR* username, const WCHAR* message);
 
-		void HandleNotification(WOLPagedEvent&);
-		void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int ID);
+		void HandleNotification(WOLPagedEvent&) override;
+		void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int ID) override;
 
 	protected:
 		WOLBuddyMgr* mBuddyMgr;

@@ -53,22 +53,22 @@ class IMECandidateCtrl :
 
 	// DialogControlClass methods
 	public:
-		const RectClass& Get_Window_Rect(void) const
+		const RectClass& Get_Window_Rect(void) const override
 			{return mFullRect;}
 
 	protected:
-		void Render(void);
-		void Update_Client_Rect(void);
+		void Render(void) override;
+		void Update_Client_Rect(void) override;
 
-		void On_Set_Cursor(const Vector2& mousePos);
-		void On_LButton_Down(const Vector2& mousePos);
-		void On_LButton_Up(const Vector2& mousePos);
-		void On_Add_To_Dialog(void);
-		void On_Remove_From_Dialog(void);
+		void On_Set_Cursor(const Vector2& mousePos) override;
+		void On_LButton_Down(const Vector2& mousePos) override;
+		void On_LButton_Up(const Vector2& mousePos) override;
+		void On_Add_To_Dialog(void) override;
+		void On_Remove_From_Dialog(void) override;
 
 	// ControlAdviseSinkClass methods
 	protected:
-		void On_VScroll(ScrollBarCtrlClass*, int, int);
+		void On_VScroll(ScrollBarCtrlClass*, int, int) override;
 
 	// Data members
 	protected:

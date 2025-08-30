@@ -100,20 +100,20 @@ public:
 	//
 	//	From RenderObjClass
 	//
-	RenderObjClass *	Clone (void) const					{ return new SoundRenderObjClass (*this); }
-	int					Class_ID (void) const				{ return CLASSID_SOUND; }
-	const char *		Get_Name (void) const				{ return Name; }
-	void					Set_Name (const char *name)		{ Name = name; }
-	void					Render (RenderInfoClass &rinfo)	{ }
-	void					On_Frame_Update (void);
-	void					Set_Hidden (int onoff);
-	void					Set_Visible (int onoff);
-	void					Set_Animation_Hidden (int onoff);
-	void					Set_Force_Visible (int onoff);
-	void					Notify_Added (SceneClass *scene);
-	void					Notify_Removed (SceneClass *scene);
-	void 					Set_Transform(const Matrix3D &m);
-	void 					Set_Position(const Vector3 &v);
+	RenderObjClass *	Clone (void) const override					{ return new SoundRenderObjClass (*this); }
+	int					Class_ID (void) const override				{ return CLASSID_SOUND; }
+	const char *		Get_Name (void) const override				{ return Name; }
+	void					Set_Name (const char *name) override		{ Name = name; }
+	void					Render (RenderInfoClass &rinfo)	override { }
+	void					On_Frame_Update (void) override;
+	void					Set_Hidden (int onoff) override;
+	void					Set_Visible (int onoff) override;
+	void					Set_Animation_Hidden (int onoff) override;
+	void					Set_Force_Visible (int onoff) override;
+	void					Notify_Added (SceneClass *scene) override;
+	void					Notify_Removed (SceneClass *scene) override;
+	void 					Set_Transform(const Matrix3D &m) override;
+	void 					Set_Position(const Vector3 &v) override;
 
 	//
 	//	SoundRenderObjClass specific
@@ -236,9 +236,9 @@ public:
 	///////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////
-	const char *					Get_Name(void) const					{ return Definition->Get_Name (); }
-	int								Get_Class_ID(void) const			{ return RenderObjClass::CLASSID_SOUND; }
-	RenderObjClass *				Create (void)							{ return Definition->Create (); }
+	const char *					Get_Name(void) const override					{ return Definition->Get_Name (); }
+	int								Get_Class_ID(void) const override			{ return RenderObjClass::CLASSID_SOUND; }
+	RenderObjClass *				Create (void) override							{ return Definition->Create (); }
 	
 	SoundRenderObjDefClass	*	Peek_Definition (void) const						{ return Definition; }
 	void								Set_Definition (SoundRenderObjDefClass *def)	{ REF_PTR_SET (Definition, def); }
@@ -260,8 +260,8 @@ private:
 class SoundRenderObjLoaderClass : public PrototypeLoaderClass
 {
 public:
-	virtual int						Chunk_Type (void)		{ return W3D_CHUNK_SOUNDROBJ; }
-	virtual PrototypeClass *	Load_W3D (ChunkLoadClass &cload);
+	virtual int						Chunk_Type (void) override		{ return W3D_CHUNK_SOUNDROBJ; }
+	virtual PrototypeClass *	Load_W3D (ChunkLoadClass &cload) override;
 };
 
 

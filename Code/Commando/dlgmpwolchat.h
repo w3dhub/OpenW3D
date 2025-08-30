@@ -76,10 +76,10 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog(void);
-	void		On_Destroy(void);
-	void		On_Frame_Update(void);
-	void		On_Last_Menu_Ending(void);
+	void		On_Init_Dialog(void) override;
+	void		On_Destroy(void) override;
+	void		On_Frame_Update(void) override;
+	void		On_Last_Menu_Ending(void) override;
 
 	void		Refresh_Lobby_List(void);
 	void		SelectLobbyFromChannel(const RefPtr<WWOnline::ChannelData>& channel);
@@ -100,13 +100,13 @@ protected:
 
 	void		Set_Focus_To_Chat_Edit_Ctrl(void);
 
-	void		On_Command(int ctrl_id, int mesage_id, DWORD param);
-	void		On_ListCtrl_Sel_Change(ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index);
-	void		On_ListCtrl_Mouse_Over(ListCtrlClass *list_ctrl, int ctrl_id, int index);
-	void		On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id);
+	void		On_Command(int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_ListCtrl_Sel_Change(ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index) override;
+	void		On_ListCtrl_Mouse_Over(ListCtrlClass *list_ctrl, int ctrl_id, int index) override;
+	void		On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id) override;
 
-	void HandleNotification(WOLChatMgrEvent&);
-	void HandleNotification(WWOnline::UserEvent&);
+	void HandleNotification(WOLChatMgrEvent&) override;
+	void HandleNotification(WWOnline::UserEvent&) override;
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data

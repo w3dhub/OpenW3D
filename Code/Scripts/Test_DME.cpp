@@ -45,7 +45,7 @@ DECLARE_SCRIPT (DME_Test_Powerup, "")
 	}
 
 
-	void Killed( GameObject * obj, GameObject * killer ) 
+	void Killed( GameObject * obj, GameObject * killer ) override
 	{
 		
 		Commands->Trigger_Spawner ( 100022 );
@@ -197,13 +197,13 @@ DECLARE_SCRIPT (DME_Test_Powerup, "")
 
 DECLARE_SCRIPT (DME_Destroy_Item, "timer_length: float")
 {
-	void Created( GameObject * obj ) 
+	void Created( GameObject * obj ) override
 	{
 		float timer_length = Get_Float_Parameter("timer_length");
 		Commands->Start_Timer(obj, this, timer_length, 10);
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) 
+	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		if (timer_id ==10)
 		{
@@ -215,7 +215,7 @@ DECLARE_SCRIPT (DME_Destroy_Item, "timer_length: float")
 
 DECLARE_SCRIPT (DME_Waypath_test, "")
 {
-	void Created ( GameObject * obj )
+	void Created ( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 
@@ -232,7 +232,7 @@ DECLARE_SCRIPT (DME_Waypath_test, "")
 
 DECLARE_SCRIPT (DME_Test_Ejected_Soldier, "")
 {
-	void Killed ( GameObject * obj, GameObject * killer ) 
+	void Killed ( GameObject * obj, GameObject * killer ) override
 	{
 		Vector3 spawn_loc = Commands->Get_Position ( obj );
 		spawn_loc.Z -= 30.0f;
@@ -250,7 +250,7 @@ DECLARE_SCRIPT (DME_Test_Ejected_Soldier, "")
 
 DECLARE_SCRIPT (DME_Test_Paradrop, "")
 {
-	void Created ( GameObject * obj )
+	void Created ( GameObject * obj ) override
 	{		
 		/*Vector3 loc = Commands->Get_Position ( obj );
 		GameObject *para1;
@@ -280,7 +280,7 @@ DECLARE_SCRIPT (DME_Test_Paradrop, "")
 
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) 
+	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		if (timer_id == 10)
 		{
@@ -326,8 +326,8 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Custom (GameObject* obj, int type, int param, GameObject* sender)	//recieves custom from dave's arrow as to if the location is occupied or not.
-	{																		//100 not occupied, 200 is occupied.
+	void Custom (GameObject* obj, int type, int param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
+	{																				//100 not occupied, 200 is occupied.
 		if (type == DME_OCCUPIED && param == 100)
 		{
 			Commands->Send_Custom_Event(obj, sender, 70, 70, 0.0f);				//if not occupied, sends custom to set status to occupied.
@@ -376,8 +376,8 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason )	//this is called when the servant reaches the destination location.
-	{																								//the purpose of this function is to have the servant perform their destination animation.
+	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override	//this is called when the servant reaches the destination location.
+	{																										//the purpose of this function is to have the servant perform their destination animation.
 		
 		Vector3 current_loc = Commands->Get_Position ( obj );
 		float distance = Commands->Get_Distance ( current_loc, location );
@@ -400,7 +400,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			
 	}
 
-	void Created ( GameObject * obj )		//this is the created function for the servant, it sets up most of the variables.
+	void Created ( GameObject * obj ) override		//this is the created function for the servant, it sets up most of the variables.
 	{
 		int work_area = Get_Int_Parameter("Work_Area");
 		Commands->Set_Player_Type( obj, 0 );
@@ -466,7 +466,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		Worker_Loop (obj);
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) 
+	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		if (timer_id == 500)			//this timer resets the servant from his animation loop and calls Worker_Loop to send him to a new location.
 		{
@@ -512,7 +512,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Enemy_Seen (GameObject* obj, GameObject* enemy)	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
+	void Enemy_Seen (GameObject* obj, GameObject* enemy) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
 	{
 		if (star_seen == false)
 		{
@@ -540,7 +540,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Poked(GameObject * obj, GameObject * poker)  //function runs from a pre-defined random poke_choice.
+	void Poked(GameObject * obj, GameObject * poker) override  //function runs from a pre-defined random poke_choice.
 	{
 		if (poked == !true)
 		{
@@ -668,16 +668,16 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 	
 };
 
-DECLARE_SCRIPT (DME_Test_Work_Area, "")		//this script needs to be placed on all daves arrows.
-{											//the script takes and returns customs to tell servants if a location is occupied.
-	bool occupied;							//type & param info:
-											//50 - is destination occupied?
-	void Created( GameObject * obj )		//  100 - no
-	{										//  200 - yes
-		occupied = false;					//70 - change occupied status to true
-	}										//90 - change occupied status to false
+DECLARE_SCRIPT (DME_Test_Work_Area, "")			//this script needs to be placed on all daves arrows.
+{												//the script takes and returns customs to tell servants if a location is occupied.
+	bool occupied;								//type & param info:
+												//50 - is destination occupied?
+	void Created( GameObject * obj ) override	//  100 - no
+	{											//  200 - yes
+		occupied = false;						//70 - change occupied status to true
+	}											//90 - change occupied status to false
 	
-	void Custom (GameObject* obj, int type, int param, GameObject* sender) 
+	void Custom (GameObject* obj, int type, int param, GameObject* sender) override
 	{
 		if (type == 50 && param == 50)
 		{
@@ -713,12 +713,12 @@ DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")
 {
 	bool entered;
 
-	void Created ( GameObject * obj)
+	void Created ( GameObject * obj) override
 	{
 		entered = false;
 	}
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (entered == false)
 		{
@@ -754,14 +754,14 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 		SAVE_VARIABLE( attacking, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Enemy_Seen( obj, true);
 		attacking = false;
 		first = true;
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		ActionParamsStruct params;
 
@@ -797,7 +797,7 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 		}
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id)
+	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		ActionParamsStruct params;
 
@@ -835,8 +835,8 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		
 	}
 
-	void Custom (GameObject* obj, int type, int param, GameObject* sender)	//recieves custom from dave's arrow as to if the location is occupied or not.
-	{																		//100 not occupied, 200 is occupied.
+	void Custom (GameObject* obj, int type, int param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
+	{																				//100 not occupied, 200 is occupied.
 		if (type == DME_OCCUPIED && param == 100)
 		{
 			Commands->Send_Custom_Event(obj, sender, 70, 70, 0.0f);				//if not occupied, sends custom to set status to occupied.
@@ -885,8 +885,8 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		
 	}
 
-	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason )	//this is called when the servant reaches the destination location.
-	{																								//the purpose of this function is to have the servant perform their destination animation.
+	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override	//this is called when the servant reaches the destination location.
+	{																										//the purpose of this function is to have the servant perform their destination animation.
 		
 		Vector3 current_loc = Commands->Get_Position ( obj );
 		float distance = Commands->Get_Distance ( current_loc, location );
@@ -909,7 +909,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 			
 	}
 
-	void Created ( GameObject * obj )		//this is the created function for the servant, it sets up most of the variables.
+	void Created ( GameObject * obj ) override		//this is the created function for the servant, it sets up most of the variables.
 	{
 		int work_area = Get_Int_Parameter("Work_Area");
 		Commands->Set_Player_Type( obj, 0 );
@@ -943,7 +943,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		Worker_Loop (obj);
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) 
+	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		if (timer_id == 500)			//this timer resets the servant from his animation loop and calls Worker_Loop to send him to a new location.
 		{
@@ -973,7 +973,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		}		
 	}
 
-	void Enemy_Seen (GameObject* obj, GameObject* enemy)	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
+	void Enemy_Seen (GameObject* obj, GameObject* enemy) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
 	{
 		if (star_seen == false)
 		{
@@ -1002,7 +1002,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 
 DECLARE_SCRIPT (test_Ssm_Trigger, "")
 {
-	void Damaged( GameObject * obj, GameObject * damager, float amount )
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 		if (damager == STAR)
 		{
@@ -1013,7 +1013,7 @@ DECLARE_SCRIPT (test_Ssm_Trigger, "")
 
 DECLARE_SCRIPT(DME_Cinematic_Test, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 	/*	Commands->Enable_Hibernation(obj, false);
 		Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1021,7 +1021,7 @@ DECLARE_SCRIPT(DME_Cinematic_Test, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 	/*	GameObject * chinook_obj0 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj0, 0.0f);

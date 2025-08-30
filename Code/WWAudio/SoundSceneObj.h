@@ -184,8 +184,8 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 		//////////////////////////////////////////////////////////////////////
 		//	From PersistClass
 		//////////////////////////////////////////////////////////////////////				
-		bool						Save (ChunkSaveClass &csave);
-		bool						Load (ChunkLoadClass &cload);
+		bool						Save (ChunkSaveClass &csave) override;
+		bool						Load (ChunkLoadClass &cload) override;
 
 	protected:
 

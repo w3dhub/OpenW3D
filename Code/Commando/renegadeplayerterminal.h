@@ -67,8 +67,8 @@ public:
 	//
 	//	Inherited
 	//
-	void				Display_Terminal (SoldierGameObj *player, TYPE type);
-	void				Display_Default_Terminal_For_Player (SoldierGameObj *player);
+	void				Display_Terminal (SoldierGameObj *player, TYPE type) override;
+	void				Display_Default_Terminal_For_Player (SoldierGameObj *player) override;
 
 private:
 

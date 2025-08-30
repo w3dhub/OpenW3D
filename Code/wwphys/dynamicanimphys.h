@@ -66,15 +66,15 @@ public:
 	DynamicAnimPhysClass(void);
 	virtual ~DynamicAnimPhysClass(void);
 
-	virtual DynamicAnimPhysClass *		As_DynamicAnimPhysClass(void)								{ return this; }
+	virtual DynamicAnimPhysClass *		As_DynamicAnimPhysClass(void) override								{ return this; }
 	const DynamicAnimPhysDefClass *		Get_DynamicAnimPhysDef(void);
 	
 	void											Init(const DynamicAnimPhysDefClass & def);
-	virtual void								Set_Model(RenderObjClass * model);
+	virtual void								Set_Model(RenderObjClass * model) override;
 
-	virtual bool								Needs_Timestep(void)											{ return true; }
-	virtual void								Timestep(float dt);
-	virtual void								Post_Timestep_Process(void);
+	virtual bool								Needs_Timestep(void) override											{ return true; }
+	virtual void								Timestep(float dt) override;
+	virtual void								Post_Timestep_Process(void) override;
 
 	/*
 	** State Import/Export and Save/Load
@@ -84,10 +84,10 @@ public:
 	/*
 	** save-load system
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);		
-	virtual void								On_Post_Load(void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load(void) override;
 
 	/*
 	** Animation and animated collision control
@@ -122,17 +122,17 @@ public:
 	DynamicAnimPhysDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void);
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override;
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	//	Editable interface requirements
 	DECLARE_EDITABLE(DynamicAnimPhysDefClass,DecorationPhysDefClass);

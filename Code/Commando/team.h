@@ -61,8 +61,8 @@ class cTeam : public NetworkObjectClass {
 
 		cTeam(void);
 
-		virtual uint32		Get_Network_Class_ID(void) const					{return NETCLASSID_TEAM;}
-		virtual void		Delete(void)											{delete this;}
+		virtual uint32		Get_Network_Class_ID(void) const override					{return NETCLASSID_TEAM;}
+		virtual void		Delete(void) override											{delete this;}
 
 		//
       // Server only
@@ -102,15 +102,15 @@ class cTeam : public NetworkObjectClass {
 		//
 		//	Server-to-client data importing/exporting
 		//
-		virtual void		Import_Creation(BitStreamClass &packet);
-		virtual void		Import_Rare(BitStreamClass &packet);
-		virtual void		Import_Occasional(BitStreamClass &packet);
-		virtual void		Import_Frequent(BitStreamClass &packet);
+		virtual void		Import_Creation(BitStreamClass &packet) override;
+		virtual void		Import_Rare(BitStreamClass &packet) override;
+		virtual void		Import_Occasional(BitStreamClass &packet) override;
+		virtual void		Import_Frequent(BitStreamClass &packet) override;
 
-		virtual void		Export_Creation(BitStreamClass &packet);
-		virtual void		Export_Rare(BitStreamClass &packet);
-		virtual void		Export_Occasional(BitStreamClass &packet);
-		virtual void		Export_Frequent(BitStreamClass &packet);
+		virtual void		Export_Creation(BitStreamClass &packet) override;
+		virtual void		Export_Rare(BitStreamClass &packet) override;
+		virtual void		Export_Occasional(BitStreamClass &packet) override;
+		virtual void		Export_Frequent(BitStreamClass &packet) override;
 
    private:
 	   ~cTeam(void); // only the cTeamManager can destroy...

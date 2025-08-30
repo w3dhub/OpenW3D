@@ -123,9 +123,9 @@ public:
 	CollectionPrototypeClass(CollectionDefClass * def)		{ ColDef = def; WWASSERT(ColDef); }
 	virtual ~CollectionPrototypeClass(void)					{ delete ColDef; }						 
 
-	virtual const char *			Get_Name(void) const			{ return ColDef->Get_Name(); }	
-	virtual int						Get_Class_ID(void) const	{ return RenderObjClass::CLASSID_COLLECTION; }
-	virtual RenderObjClass *	Create(void)					{ return NEW_REF( CollectionClass, (*ColDef)); }	
+	virtual const char *			Get_Name(void) const override			{ return ColDef->Get_Name(); }
+	virtual int						Get_Class_ID(void) const override	{ return RenderObjClass::CLASSID_COLLECTION; }
+	virtual RenderObjClass *	Create(void) override					{ return NEW_REF( CollectionClass, (*ColDef)); }
 	CollectionDefClass *			ColDef;
 };
 

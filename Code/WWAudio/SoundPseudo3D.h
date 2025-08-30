@@ -73,24 +73,24 @@ class SoundPseudo3DClass : public Sound3DClass
 		//////////////////////////////////////////////////////////////////////
 		//	Identification methods
 		//////////////////////////////////////////////////////////////////////
-		virtual SOUND_CLASSID	Get_Class_ID (void) const	{ return CLASSID_PSEUDO3D; }
+		virtual SOUND_CLASSID	Get_Class_ID (void) const override	{ return CLASSID_PSEUDO3D; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Conversion methods
 		//////////////////////////////////////////////////////////////////////		
-		virtual SoundPseudo3DClass *	As_SoundPseudo3DClass (void) { return this; }
+		virtual SoundPseudo3DClass *	As_SoundPseudo3DClass (void) override { return this; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Volume control
 		//////////////////////////////////////////////////////////////////////
-		virtual void			Update_Volume (void)									{ Update_Pseudo_Volume (); }
+		virtual void			Update_Volume (void) override									{ Update_Pseudo_Volume (); }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Position/direction methods
 		//////////////////////////////////////////////////////////////////////		
-		virtual void			Set_Listener_Transform (const Matrix3D &tm)	{ m_ListenerTransform = tm; }
-		virtual void			Set_Position (const Vector3 &position)			{ Set_Dirty (); m_Transform.Set_Translation (position); }
-		virtual void			Set_Transform (const Matrix3D &transform)		{ Set_Dirty (); m_Transform = transform; }
+		virtual void			Set_Listener_Transform (const Matrix3D &tm) override	{ m_ListenerTransform = tm; }
+		virtual void			Set_Position (const Vector3 &position) override			{ Set_Dirty (); m_Transform.Set_Translation (position); }
+		virtual void			Set_Transform (const Matrix3D &transform) override		{ Set_Dirty (); m_Transform = transform; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Velocity methods
@@ -99,7 +99,7 @@ class SoundPseudo3DClass : public Sound3DClass
 		//
 		// The velocity settings are in meters per millisecond.
 		//
-		virtual void			Set_Velocity (const Vector3 &velocity)			{ }
+		virtual void			Set_Velocity (const Vector3 &velocity) override			{ }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Attenuation settings
@@ -112,14 +112,14 @@ class SoundPseudo3DClass : public Sound3DClass
 		// distance. For some objects (like an airplane) the max-vol distance is
 		// not 0, but would be 100 or so meters away.
 		//
-		virtual void			Set_Max_Vol_Radius (float radius = 0)			{ m_MaxVolRadius = radius; }
-		virtual float			Get_Max_Vol_Radius (void) const					{ return m_MaxVolRadius; }
+		virtual void			Set_Max_Vol_Radius (float radius = 0) override			{ m_MaxVolRadius = radius; }
+		virtual float			Get_Max_Vol_Radius (void) const override					{ return m_MaxVolRadius; }
 
 		//
 		//	This is the distance where the sound can not be heard any longer.  (its vol is 0)
 		//
-		virtual void			Set_DropOff_Radius (float radius = 1)			{ m_DropOffRadius = radius; }
-		virtual float			Get_DropOff_Radius (void) const					{ return m_DropOffRadius; }
+		virtual void			Set_DropOff_Radius (float radius = 1) override			{ m_DropOffRadius = radius; }
+		virtual float			Get_DropOff_Radius (void) const override					{ return m_DropOffRadius; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Volume control
@@ -133,24 +133,24 @@ class SoundPseudo3DClass : public Sound3DClass
 		virtual void			Update_Pseudo_Pan (void);
 
 		// From PersistClass
-		const PersistFactoryClass &	Get_Factory (void) const;
+		const PersistFactoryClass &	Get_Factory (void) const override;
 
 	protected:
 
 		//////////////////////////////////////////////////////////////////////
 		//	Update methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool			On_Frame_Update (unsigned int milliseconds = 0);
+		virtual bool			On_Frame_Update (unsigned int milliseconds = 0) override;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Handle information
 		//////////////////////////////////////////////////////////////////////				
-		virtual void			Set_Miles_Handle (MILES_HANDLE handle);
-		virtual void			Initialize_Miles_Handle (void);
-		virtual void			Allocate_Miles_Handle (void);
-		virtual void			Free_Miles_Handle (void);
+		virtual void			Set_Miles_Handle (MILES_HANDLE handle) override;
+		virtual void			Initialize_Miles_Handle (void) override;
+		virtual void			Allocate_Miles_Handle (void) override;
+		virtual void			Free_Miles_Handle (void) override;
 
-		virtual void			On_Loop_End (void) { Sound3DClass::On_Loop_End (); }
+		virtual void			On_Loop_End (void) override { Sound3DClass::On_Loop_End (); }
 
 	private:
 

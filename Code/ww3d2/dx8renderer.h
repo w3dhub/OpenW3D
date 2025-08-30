@@ -238,18 +238,18 @@ public:
 	DX8RigidFVFCategoryContainer(unsigned FVF,bool sorting);
 	~DX8RigidFVFCategoryContainer();
 
-	void Add_Mesh(MeshClass* mmc);
-	void Log(bool only_visible);
-	bool Check_If_Mesh_Fits(MeshModelClass* mmc);
+	void Add_Mesh(MeshClass* mmc) override;
+	void Log(bool only_visible) override;
+	bool Check_If_Mesh_Fits(MeshModelClass* mmc) override;
 
-	void Render(void);	// Generic render function
+	void Render(void) override;	// Generic render function
 
 	/* 
 	** This method adds a material pass which must be rendered after all of the other rendering is complete. 
 	** This is needed whenever a mesh turns off its base passes and renders a translucent pass on its geometry.
 	*/
-	virtual void Add_Delayed_Visible_Material_Pass(MaterialPassClass * pass, MeshClass * mesh);
-	virtual void Render_Delayed_Procedural_Material_Passes(void);
+	virtual void Add_Delayed_Visible_Material_Pass(MaterialPassClass * pass, MeshClass * mesh) override;
+	virtual void Render_Delayed_Procedural_Material_Passes(void) override;
 
 protected:
 
@@ -273,10 +273,10 @@ public:
 	DX8SkinFVFCategoryContainer(bool sorting);
 	~DX8SkinFVFCategoryContainer();
 
-	void Render(void);
-	void Add_Mesh(MeshClass* mmc);
-	void Log(bool only_visible);
-	bool Check_If_Mesh_Fits(MeshModelClass* mmc);
+	void Render(void) override;
+	void Add_Mesh(MeshClass* mmc) override;
+	void Log(bool only_visible) override;
+	bool Check_If_Mesh_Fits(MeshModelClass* mmc) override;
 
 	void Add_Visible_Skin(MeshClass * mesh);
 
@@ -284,8 +284,8 @@ public:
 	** Since skins are already rendered after the rigid meshes, the Add_Delayed_Material_Pass function simply
 	** routes into the Add_Visible_Material_Pass method and no extra overhead is added.
 	*/
-	virtual void Add_Delayed_Visible_Material_Pass(MaterialPassClass * pass, MeshClass * mesh) { Add_Visible_Material_Pass(pass,mesh); }
-	virtual void Render_Delayed_Procedural_Material_Passes(void) { }
+	virtual void Add_Delayed_Visible_Material_Pass(MaterialPassClass * pass, MeshClass * mesh) override { Add_Visible_Material_Pass(pass,mesh); }
+	virtual void Render_Delayed_Procedural_Material_Passes(void) override { }
 
 private:
 

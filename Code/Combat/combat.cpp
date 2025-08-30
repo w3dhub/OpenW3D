@@ -357,7 +357,7 @@ static class LoadThreadClass : public ThreadClass
 public:
 	LoadThreadClass(const char *thread_name = "Game loader thread") : ThreadClass(thread_name, &Exception_Handler) {}
 
-	void Thread_Function() {
+	void Thread_Function() override {
 
 		CombatManager::Set_Load_Progress( 0 );
 

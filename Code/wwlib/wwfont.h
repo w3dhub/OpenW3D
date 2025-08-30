@@ -80,14 +80,14 @@ class WWFontClass : public FontClass
 			return(Converter);
 		}							 
 
-		virtual int Char_Pixel_Width(char c) const;
-		virtual int String_Pixel_Width(char const * string) const;
-		virtual int Get_Width(void) const;
-		virtual int Get_Height(void) const;
-		virtual Point2D Print(char const * string, Surface & surface, Rect const & cliprect, Point2D const & point, ConvertClass const & converter, unsigned char const * remap=NULL) const;
+		virtual int Char_Pixel_Width(char c) const override;
+		virtual int String_Pixel_Width(char const * string) const override;
+		virtual int Get_Width(void) const override;
+		virtual int Get_Height(void) const override;
+		virtual Point2D Print(char const * string, Surface & surface, Rect const & cliprect, Point2D const & point, ConvertClass const & converter, unsigned char const * remap=NULL) const override;
 
-		virtual int Set_XSpacing(int x);
-		virtual int Set_YSpacing(int y);
+		virtual int Set_XSpacing(int x) override;
+		virtual int Set_YSpacing(int y) override;
 
 	private:
 

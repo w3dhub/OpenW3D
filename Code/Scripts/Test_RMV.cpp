@@ -46,7 +46,7 @@
 
 DECLARE_SCRIPT(RMV_Test_Script, "")
 {
-	void Sound_Heard(GameObject * obj, const CombatSound & sound)
+	void Sound_Heard(GameObject * obj, const CombatSound & sound) override
 	{
 		Commands->Debug_Message("Sound heard.\n");
 	}
@@ -56,7 +56,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 {
 	enum {M00_TIMER_DROP_OBJECT_RMV};
 	
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Animation ( obj, "V_NOD_C-130E3.M_cargo-drop", 0 , NULL, 0.0f, -1.0f, false);
 		int drop_frame;
@@ -66,12 +66,12 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 		Commands->Start_Timer( obj, this, drop_time, M00_TIMER_DROP_OBJECT_RMV );
 	}
 
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		Commands->Create_Explosion_At_Bone("C-130 Explosion 01", obj, "BODYMAIN", killer);
 	}
 
-	void Timer_Expired ( GameObject* obj, int Timer_ID )
+	void Timer_Expired ( GameObject* obj, int Timer_ID ) override
 	{
 		if ( Timer_ID == M00_TIMER_DROP_OBJECT_RMV )
 		{
@@ -84,7 +84,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 		}
 	}
 
-	void Animation_Complete(GameObject * obj, const char *anim)
+	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
 		Commands->Destroy_Object(obj);
 	}
@@ -92,7 +92,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 
 DECLARE_SCRIPT(M00_Commando_Death_Taunt, "")
 {
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		if (Commands->Is_A_Star(killer))
 		{
@@ -121,12 +121,12 @@ DECLARE_SCRIPT(M00_Damaged_Warning, "")
 		SAVE_VARIABLE( just_sent, 1 );
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		just_sent = false;
 	}
 	
-	void Damaged(GameObject * obj, GameObject * damager, float amount)
+	void Damaged(GameObject * obj, GameObject * damager, float amount) override
 	{
 		if ((Commands->Get_Health(obj) <= 25.0f) && (!just_sent))
 		{
@@ -139,7 +139,7 @@ DECLARE_SCRIPT(M00_Damaged_Warning, "")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		just_sent = false;
 	}
@@ -149,12 +149,12 @@ DECLARE_SCRIPT(M00_Put_Script_On_Commando, "")
 {
 	enum {SCRIPT_ON_COMMANDO_TIMER};
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 0.2f, SCRIPT_ON_COMMANDO_TIMER);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == SCRIPT_ON_COMMANDO_TIMER)
 		{
@@ -171,7 +171,7 @@ DECLARE_SCRIPT(M00_Put_Script_On_Commando, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ((type == 12176) && (param == 12176))
 		{
@@ -182,7 +182,7 @@ DECLARE_SCRIPT(M00_Put_Script_On_Commando, "")
 
 DECLARE_SCRIPT(RMV_Hostage_Rescue_Point, "")
 {
-	void Entered(GameObject * obj, GameObject * enterer)
+	void Entered(GameObject * obj, GameObject * enterer) override
 	{
 		if (!Commands->Is_A_Star(enterer))
 		{
@@ -193,7 +193,7 @@ DECLARE_SCRIPT(RMV_Hostage_Rescue_Point, "")
 
 DECLARE_SCRIPT(RMV_Trigger_Killed, "ID:int, Type:int, Param:int")
 {
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 	//	if (Commands->Is_A_Star(killer))
 		{
@@ -207,7 +207,7 @@ DECLARE_SCRIPT(RMV_Trigger_Killed, "ID:int, Type:int, Param:int")
 
 DECLARE_SCRIPT(RMV_Home_Point, "Radius:float")
 {
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), Get_Float_Parameter("Radius"));
 	}
@@ -215,7 +215,7 @@ DECLARE_SCRIPT(RMV_Home_Point, "Radius:float")
 
 DECLARE_SCRIPT(RMV_Test_Facing, "")
 {
-	void Damaged(GameObject * obj, GameObject * damager, float amount)
+	void Damaged(GameObject * obj, GameObject * damager, float amount) override
 	{
 		Vector3 my_pos = Commands->Get_Position(obj);
 		Vector3 target_pos = Commands->Get_Position(damager);
@@ -293,7 +293,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		return target;
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		switcher = enemy_id = sound_id = 0;
 		is_gun = (Get_Int_Parameter("Is_Gun") == 1) ? true : false;
@@ -354,7 +354,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		Commands->Start_Timer(Owner(), this, 3.0f, 10);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 10)
 		{
@@ -399,7 +399,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if (reason != ACTION_COMPLETE_NORMAL)
 		{
@@ -415,7 +415,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		}
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject * enemy)
+	void Enemy_Seen(GameObject * obj, GameObject * enemy) override
 	{
 		if (!enemy_seen && !attacking)
 		{
@@ -437,7 +437,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		}
 	}
 
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		Commands->Stop_Sound(sound_id, true);
 	}
@@ -445,12 +445,12 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 
 DECLARE_SCRIPT(RMV_Cinematic_Position, "Bone:string")
 {
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 1.0f, 0);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		const char * bone = Get_Parameter("Bone");
 		if (bone)
@@ -464,7 +464,7 @@ DECLARE_SCRIPT(RMV_Cinematic_Position, "Bone:string")
 
 DECLARE_SCRIPT(M00_Destroyed_Turret, "")
 {
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		Vector3 my_pos = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
@@ -482,14 +482,14 @@ DECLARE_SCRIPT(RMV_Engine_Sound, "Preset:string, Bone:string")
 		SAVE_VARIABLE(sound_id, 1);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		const char * sound = Get_Parameter("Preset");
 		const char * bone = Get_Parameter("Bone");
 		sound_id = Commands->Create_3D_Sound_At_Bone(sound, obj, bone);
 	}
 
-	void Destroyed(GameObject * obj)
+	void Destroyed(GameObject * obj) override
 	{
 		Commands->Stop_Sound(sound_id, true);
 	}
@@ -509,7 +509,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		SAVE_VARIABLE(trans_id, 4);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		number = Get_Int_Parameter("Number");
 		int nod = Get_Int_Parameter("Nod");
@@ -534,7 +534,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		trans_id = Commands->Get_ID(transport);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		GameObject * traj = Commands->Find_Object(traj_id);
 		GameObject * transport = Commands->Find_Object(trans_id);
@@ -582,7 +582,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		loading_complete = true;
 	}
@@ -590,7 +590,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 
 DECLARE_SCRIPT(Poke_And_Play_Cinematic, "Text_File:string, Location=0 0 0:vector3")
 {
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		Vector3 pos = Get_Vector3_Parameter("Location");
 		const char * file = Get_Parameter("Text_File");
@@ -601,7 +601,7 @@ DECLARE_SCRIPT(Poke_And_Play_Cinematic, "Text_File:string, Location=0 0 0:vector
 
 DECLARE_SCRIPT(M00_Ion_Cannon_Sound, "Number=0:int")
 {
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		int num = Get_Int_Parameter(0);
 		Vector3 pos = Commands->Get_Position(obj);
@@ -611,7 +611,7 @@ DECLARE_SCRIPT(M00_Ion_Cannon_Sound, "Number=0:int")
 
 DECLARE_SCRIPT(RMV_Trigger_Poked_2, "Target:int, Type:int, Param:int")
 {
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		GameObject * target = Commands->Find_Object(Get_Int_Parameter("Target"));
 		if (target)
@@ -628,14 +628,14 @@ DECLARE_SCRIPT(RMV_Test_Damage, "")
 	float max_shield;
 	int count;
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		total_damage = 0.0f;
 		count = 0;
 		max_shield = Commands->Get_Shield_Strength(obj);
 	}
 	
-	void Damaged(GameObject * obj, GameObject * damager, float amount)
+	void Damaged(GameObject * obj, GameObject * damager, float amount) override
 	{
 		count++;
 		float damage = Commands->Get_Max_Health(obj) - Commands->Get_Health(obj);
@@ -653,7 +653,7 @@ DECLARE_SCRIPT(RMV_Test_Damage, "")
 		Commands->Debug_Message("Object took %3.2f points of damage%s.\n", damage, maxed ? " or more" : "");
 	}
 
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		Commands->Debug_Message("Cumulative damage was %3.2f from %d sources.\n", total_damage, count);
 		total_damage = 0.0f;
@@ -664,7 +664,7 @@ DECLARE_SCRIPT(RMV_Test_Damage, "")
 
 DECLARE_SCRIPT(RMV_Test_Stealth, "")
 {
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Enable_Stealth(obj, true);
 	}

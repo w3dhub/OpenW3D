@@ -73,11 +73,11 @@ public:
 	//
 	//	Inherited
 	//
-	void		On_Init_Dialog (void);
-	void		On_Command (int ctrl_id, int message_id, DWORD param);
-	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index);
-	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int	ctrl_id, int old_index, int	new_index);
-	void		On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id);
+	void		On_Init_Dialog (void) override;
+	void		On_Command (int ctrl_id, int message_id, DWORD param) override;
+	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
+	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int	ctrl_id, int old_index, int	new_index) override;
+	void		On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id) override;
 
 private:	
 
@@ -93,7 +93,7 @@ private:
 	void		Load_Config (void);
 	void		Save_Config (bool prompt);
 	int		Insert_Configuration (const InputConfigClass &config);
-	void		HandleNotification (DlgMsgBoxEvent &event);
+	void		HandleNotification (DlgMsgBoxEvent &event) override;
 };
 
 

@@ -87,28 +87,28 @@ class LogicalSoundClass : public SoundSceneObjClass
 		//////////////////////////////////////////////////////////////////////
 		//	Update methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool			On_Frame_Update (unsigned int milliseconds = 0);
+		virtual bool			On_Frame_Update (unsigned int milliseconds = 0) override;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Position/direction methods
 		//////////////////////////////////////////////////////////////////////		
-		virtual void			Set_Position (const Vector3 &position)		{ m_Position = position; }
-		virtual Vector3		Get_Position (void) const						{ return m_Position; }
+		virtual void			Set_Position (const Vector3 &position) override		{ m_Position = position; }
+		virtual Vector3		Get_Position (void) const override						{ return m_Position; }
 
-		virtual void			Set_Transform (const Matrix3D &transform) { m_Position = transform.Get_Translation (); }
-		virtual Matrix3D		Get_Transform (void) const						{ Matrix3D tm(1); tm.Set_Translation (m_Position); return tm; }
+		virtual void			Set_Transform (const Matrix3D &transform) override { m_Position = transform.Get_Translation (); }
+		virtual Matrix3D		Get_Transform (void) const override						{ Matrix3D tm(1); tm.Set_Translation (m_Position); return tm; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Culling methods
 		//////////////////////////////////////////////////////////////////////
-		virtual void			Cull_Sound (bool culled = true)	{ };
-		virtual bool			Is_Sound_Culled (void) const		{ return false; };
+		virtual void			Cull_Sound (bool culled = true) override { };
+		virtual bool			Is_Sound_Culled (void) const override		{ return false; };
 
 		//////////////////////////////////////////////////////////////////////
 		//	Scene integration
 		//////////////////////////////////////////////////////////////////////
-		virtual void			Add_To_Scene (bool start_playing = true);
-		virtual void			Remove_From_Scene (void);
+		virtual void			Add_To_Scene (bool start_playing = true) override;
+		virtual void			Remove_From_Scene (void) override;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Attenuation settings
@@ -117,15 +117,15 @@ class LogicalSoundClass : public SoundSceneObjClass
 		//
 		//	This is the distance where the sound can not be heard any longer.  (its vol is 0)
 		//
-		virtual void			Set_DropOff_Radius (float radius = 1)	{ m_DropOffRadius = radius; }
-		virtual float			Get_DropOff_Radius (void) const			{ return m_DropOffRadius; }
+		virtual void			Set_DropOff_Radius (float radius = 1) override	{ m_DropOffRadius = radius; }
+		virtual float			Get_DropOff_Radius (void) const override			{ return m_DropOffRadius; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	From PersistClass
 		//////////////////////////////////////////////////////////////////////				
-		bool									Save (ChunkSaveClass &csave);
-		bool									Load (ChunkLoadClass &cload);
-		const PersistFactoryClass &	Get_Factory (void) const;
+		bool									Save (ChunkSaveClass &csave) override;
+		bool									Load (ChunkLoadClass &cload) override;
+		const PersistFactoryClass &	Get_Factory (void) const override;
 
 	protected:
 

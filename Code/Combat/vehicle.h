@@ -95,11 +95,11 @@ public:
 	VehicleGameObjDef( void );
 	virtual ~VehicleGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( VehicleGameObjDef, SmartGameObjDef );
 
@@ -150,41 +150,41 @@ public:
 	virtual	~VehicleGameObj();
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const VehicleGameObjDef & definition );
 	const VehicleGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	void	On_Post_Load( void );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	void	On_Post_Load( void ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
-	virtual	void	Startup( void );
+	virtual	void	Startup( void ) override;
 
 	// Physics
 	VehiclePhysClass * Peek_Vehicle_Phys( void ) const;
 
 	// Think
-	virtual	void	Think( void );
-	virtual	void	Post_Think( void );
+	virtual	void	Think( void ) override;
+	virtual	void	Post_Think( void ) override;
 
 	// Control
-	virtual	void	Apply_Control( void );
-   virtual	int	Get_Weapon_Control_Owner(void);
+	virtual	void	Apply_Control( void ) override;
+   virtual	int	Get_Weapon_Control_Owner(void) override;
 
 	// Weapon
-	virtual bool		Set_Targeting( const Vector3 & pos, bool do_tilt = true );
+	virtual bool		Set_Targeting( const Vector3 & pos, bool do_tilt = true ) override;
 	virtual bool		Use_2D_Aiming( void ) 				{ return Get_Definition().Aim2D; }
-	virtual Matrix3D	Get_Look_Transform(void);
+	virtual Matrix3D	Get_Look_Transform(void) override;
 	bool					Has_Turret( void)						{ return TurretBone != 0; }
 
 	// Type ID
-	virtual VehicleGameObj		*As_VehicleGameObj()		{ return this; }
+	virtual VehicleGameObj		*As_VehicleGameObj() override		{ return this; }
 	virtual	bool	Is_Aircraft( void )						{ return Get_Definition().Type == VEHICLE_TYPE_FLYING; }
 	virtual  bool  Is_Turret( void )							{ return Get_Definition().Type == VEHICLE_TYPE_TURRET; }
 
-   virtual int Get_Player_Type(void) const;
+   virtual int Get_Player_Type(void) const override;
 
 
 	// Occupants
@@ -205,24 +205,24 @@ public:
 	void Set_Vehicle_Delivered(void);
 
 	// State
-	virtual	void	Export_Creation( BitStreamClass & packet );
-	virtual	void	Import_Creation( BitStreamClass & packet );
-   virtual	void	Export_Rare( BitStreamClass &packet );
-	virtual	void	Import_Rare( BitStreamClass &packet );
-	virtual	void	Import_Frequent( BitStreamClass & packet );
-   virtual	void	Export_Frequent( BitStreamClass & packet );
-   virtual	void	Import_State_Cs( BitStreamClass & packet );
-   virtual	void	Export_State_Cs( BitStreamClass & packet );
+	virtual	void	Export_Creation( BitStreamClass & packet ) override;
+	virtual	void	Import_Creation( BitStreamClass & packet ) override;
+   virtual	void	Export_Rare( BitStreamClass &packet ) override;
+	virtual	void	Import_Rare( BitStreamClass &packet ) override;
+	virtual	void	Import_Frequent( BitStreamClass & packet ) override;
+   virtual	void	Export_Frequent( BitStreamClass & packet ) override;
+   virtual	void	Import_State_Cs( BitStreamClass & packet ) override;
+   virtual	void	Export_State_Cs( BitStreamClass & packet ) override;
 
 	// Profile
 	const char *Get_Profile( void )						{ return Get_Definition().Profile; }
 
 	// Velocity
-	void Get_Velocity(Vector3 & vel);
+	void Get_Velocity(Vector3 & vel) override;
 	void Set_Velocity(Vector3 & vel);
 
 	//virtual	void	Get_Extended_Information( StringClass & description );
-	virtual	void	Get_Description( StringClass & description );
+	virtual	void	Get_Description( StringClass & description ) override;
 
 	// Pathfinding
 	float Get_Turn_Radius (void) const	{ return Get_Definition ().TurnRadius; }
@@ -237,7 +237,7 @@ public:
 	void	Update_Wheel_Effects( void );
 
 	// Damage
-	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 );
+	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 ) override;
 	void	Update_Damage_Meshes( void );
 	float	Get_Squish_Velocity( void) { return Get_Definition().SquishVelocity; }
 
@@ -253,7 +253,7 @@ public:
 	const WCHAR *		Get_Vehicle_Name( void );
 
 	// Vehicles expire when they are flipped.
-	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj );
+	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj ) override;
 
 	// Vehicle locking.  In network games, a vehicle can be locked for all but the
 	// owner for a certain amount of time.
@@ -271,9 +271,9 @@ public:
 	static bool	Get_Camera_Locked_To_Turret(void)			{return CameraLockedToTurret;}
 
 	// Stealth
-	virtual float		Get_Stealth_Fade_Distance(void) const;
+	virtual float		Get_Stealth_Fade_Distance(void) const override;
 
-	virtual float		Get_Filter_Distance(void) const;
+	virtual float		Get_Filter_Distance(void) const override;
 
 	// Ignore occupants for raycasts
 	void					Ignore_Occupants( void );

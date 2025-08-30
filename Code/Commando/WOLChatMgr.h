@@ -125,12 +125,12 @@ class WOLChatMgr :
 		void AddMessage(const wchar_t* sender, const wchar_t* message, bool isPrivate, bool isAction);
 		bool PassesFilters(const WWOnline::ChatMessage& msg);
 
-		void HandleNotification(WWOnline::ServerError&);
-		void HandleNotification(WWOnline::ChannelListEvent&);
-		void HandleNotification(WWOnline::ChannelEvent&);
-		void HandleNotification(WWOnline::UserEvent&);
-		void HandleNotification(WWOnline::UserList&);
-		void HandleNotification(WWOnline::ChatMessage&);
+		void HandleNotification(WWOnline::ServerError&) override;
+		void HandleNotification(WWOnline::ChannelListEvent&) override;
+		void HandleNotification(WWOnline::ChannelEvent&) override;
+		void HandleNotification(WWOnline::UserEvent&) override;
+		void HandleNotification(WWOnline::UserList&) override;
+		void HandleNotification(WWOnline::ChatMessage&) override;
 
 		bool ProcessCommand(const wchar_t* message);
 

@@ -91,8 +91,8 @@ public:
 	virtual bool						Is_Valid_Config (StringClass &message);
 
 	// From PersistClass
-	virtual bool						Save (ChunkSaveClass &csave);
-	virtual bool						Load (ChunkLoadClass &cload);
+	virtual bool						Save (ChunkSaveClass &csave) override;
+	virtual bool						Load (ChunkLoadClass &cload) override;
 
 	// User data support
 	uint32								Get_User_Data (void) const		{ return m_GenericUserData; }

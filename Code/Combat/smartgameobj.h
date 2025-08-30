@@ -82,8 +82,8 @@ class SmartGameObjDef : public ArmedGameObjDef
 public:
 	SmartGameObjDef( void );
 
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
 
 	DECLARE_EDITABLE( SmartGameObjDef, ArmedGameObjDef );
 
@@ -114,9 +114,9 @@ public:
 	const SmartGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual void On_Post_Load(void);
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual void On_Post_Load(void) override;
 
 	// Commands
 	void	Clear_Control( void )						{ Control.Clear_Control(); }
@@ -155,11 +155,11 @@ public:
 	virtual	void	Apply_Control( void );
 
 	//	Thinking
-	virtual	void		Think();
-	virtual	void		Post_Think();
+	virtual	void		Think() override;
+	virtual	void		Post_Think() override;
 
 	// Damage
-	virtual	void		Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 );
+	virtual	void		Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 ) override;
 
 	// Object Motion
 	virtual float		Get_Max_Speed( void )		{ return 10; }
@@ -169,15 +169,15 @@ public:
 	ActionClass			*Get_Action( void )						{ return &Action; }
 
 	// Type identification
-	virtual SmartGameObj			*As_SmartGameObj()		{ return this; };
+	virtual SmartGameObj			*As_SmartGameObj() override		{ return this; };
 
 	// State import/export
-   virtual	void	Import_Frequent( BitStreamClass & packet );
-   virtual	void	Export_Frequent( BitStreamClass & packet );
-   virtual	void	Import_State_Cs( BitStreamClass & packet );
-   virtual	void	Export_State_Cs( BitStreamClass & packet );
-	virtual	void	Export_Creation( BitStreamClass & packet );
-	virtual	void	Import_Creation( BitStreamClass & packet );
+   virtual	void	Import_Frequent( BitStreamClass & packet ) override;
+   virtual	void	Export_Frequent( BitStreamClass & packet ) override;
+   virtual	void	Import_State_Cs( BitStreamClass & packet ) override;
+   virtual	void	Export_State_Cs( BitStreamClass & packet ) override;
+	virtual	void	Export_Creation( BitStreamClass & packet ) override;
+	virtual	void	Import_Creation( BitStreamClass & packet ) override;
 
 
    bool Is_Control_Data_Dirty(cPacket & packet);
@@ -192,12 +192,12 @@ public:
 
 	virtual	bool	Is_Visible( void )						{ return true; }
 
-	virtual void	On_Logical_Heard (LogicalListenerClass *listener, LogicalSoundClass *sound_obj);
+	virtual void	On_Logical_Heard (LogicalListenerClass *listener, LogicalSoundClass *sound_obj) override;
 
-	virtual	void	Begin_Hibernation( void );
-	virtual	void	End_Hibernation( void );
+	virtual	void	Begin_Hibernation( void ) override;
+	virtual	void	End_Hibernation( void ) override;
 
-	virtual	void	Get_Information( StringClass & string );
+	virtual	void	Get_Information( StringClass & string ) override;
 
 	// 
 	// Stealth interface

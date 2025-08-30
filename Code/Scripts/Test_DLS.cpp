@@ -34,13 +34,13 @@ DECLARE_SCRIPT (DLS_SpawnTest, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Spawner(100002, false);
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -60,7 +60,7 @@ DECLARE_SCRIPT (DLS_Spawner, "")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Spawner(Commands->Get_ID(obj), false);
 	}
@@ -77,7 +77,7 @@ DECLARE_SCRIPT (DLS_Two_Way, "")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 
@@ -86,7 +86,7 @@ DECLARE_SCRIPT (DLS_Two_Way, "")
 		Commands->Action_Goto( obj, params );
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
 
@@ -123,7 +123,7 @@ DECLARE_SCRIPT(DLS_Invulnerable_Test, "")
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Health( obj, 2);
 		Commands->Apply_Damage( obj, 50000.0f, "STEEL", NULL);
@@ -147,13 +147,13 @@ DECLARE_SCRIPT(DLS_InnateIsStationary_Test, "")
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 		
 	}
 	
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		ActionParamsStruct params;
 
@@ -188,7 +188,7 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 
@@ -210,7 +210,7 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
 
@@ -239,7 +239,7 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -254,7 +254,7 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 		
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		ActionParamsStruct params;
 
@@ -304,7 +304,7 @@ DECLARE_SCRIPT(DLS_Gun_Test, "Debug_Mode=0:int")
 
 	
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
 
@@ -314,7 +314,7 @@ DECLARE_SCRIPT(DLS_Gun_Test, "Debug_Mode=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender)override
 	{
 		ActionParamsStruct params;
 
@@ -343,12 +343,12 @@ DECLARE_SCRIPT(DLS_Test_NULL, "Debug_Mode=0:int")
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		
 	}
 
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		const char *conv_name = ("IDS_M06_D05");
 		int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
@@ -377,7 +377,7 @@ DECLARE_SCRIPT(DLS_Rappelling_Activate, "Debug_Mode=0:int")
 	}
 
 	
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(controller, 0.000f);
@@ -401,7 +401,7 @@ DECLARE_SCRIPT(DLS_Tank_Path_Test, "Debug_Mode=0:int")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		
 		Commands->Start_Timer (obj, this, 2.0f, STAR_VISIBLE);
@@ -409,7 +409,7 @@ DECLARE_SCRIPT(DLS_Tank_Path_Test, "Debug_Mode=0:int")
 		
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 		ActionParamsStruct params;
 		
@@ -419,7 +419,7 @@ DECLARE_SCRIPT(DLS_Tank_Path_Test, "Debug_Mode=0:int")
 		Commands->Action_Attack (obj, params);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -452,7 +452,7 @@ DECLARE_SCRIPT(DLS_Vehicle_Follow, "Debug_Mode=0:int")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 			
 		Commands->Start_Timer (obj, this, 2.0f, STAR_VISIBLE);
@@ -461,7 +461,7 @@ DECLARE_SCRIPT(DLS_Vehicle_Follow, "Debug_Mode=0:int")
 
 	
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -492,14 +492,14 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		destroyed_state = false;
 
 		Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 0);
 	}
 	
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		if(!destroyed_state)
 		{
@@ -517,7 +517,7 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 		}
 	}
 	
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -572,7 +572,7 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		Commands->Create_Explosion("Small Crate Explosion", Commands->Get_Position(obj), obj);
 	}
@@ -595,7 +595,7 @@ DECLARE_SCRIPT(DLS_Waypath_Test, "Debug_Mode=0:int")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 		
@@ -609,7 +609,7 @@ DECLARE_SCRIPT(DLS_Waypath_Test, "Debug_Mode=0:int")
 		Commands->Action_Attack( obj, params );
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
 
@@ -710,7 +710,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		return target;
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		switcher = enemy_id = 0;
 		enemy_seen = timer_expired = alert = false;
@@ -742,7 +742,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		enemy_seen = timer_expired = alert = false;
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -772,7 +772,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		}
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject * enemy)
+	void Enemy_Seen(GameObject * obj, GameObject * enemy) override
 	{
 		if (!enemy_seen)
 		{
@@ -812,14 +812,14 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 	}
 
 		
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Start_Timer (obj, this, 0.0f, TROOP_PICKUP1);
 		already_entered = false;
 	}
 
 	
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -845,7 +845,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 		
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -853,7 +853,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -879,7 +879,7 @@ DECLARE_SCRIPT (DLS_Flame_Tank_Test, "")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 
@@ -897,12 +897,12 @@ DECLARE_SCRIPT (DLS_Innate_Force_State, "")
 {
 	enum {BULLET_HEARD, FOOTSTEPS_HEARD, GUNSHOTS_HEARD, ENEMY_SEEN};
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Start_Timer (obj, this, 8.0f, FOOTSTEPS_HEARD);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		Vector3 pos = Commands->Get_Position(obj);
 
@@ -948,7 +948,7 @@ DECLARE_SCRIPT (DLS_Cargo_Plane_Test, "")
 		
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Commands->Get_Position(obj));
 		Commands->Set_Facing(chinook_obj, 0.0f);
@@ -972,7 +972,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		SAVE_VARIABLE(out, 3);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Vector3 loc = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
@@ -1008,7 +1008,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		Vector3 loc = Commands->Get_Position(obj);
 		const char * preset = Get_Parameter("Preset");
@@ -1127,7 +1127,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == 23000 && param == 23000)
 		{
@@ -1145,12 +1145,12 @@ DECLARE_SCRIPT(M00_Reinforcement_C130, "Controller_ID:int")
 		SAVE_VARIABLE(sound_id, 1);
 	}
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		sound_id = Commands->Create_3D_Sound_At_Bone("C130_Idle_01", obj, "BODYMAIN");
 	}
 	
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		GameObject * con = Commands->Find_Object(Get_Int_Parameter(0));
 		Commands->Send_Custom_Event(obj, con, 23000, 23000, 0.0f);
@@ -1162,12 +1162,12 @@ DECLARE_SCRIPT(DLS_Test_Conversation, "Debug_Mode=0:int")
 {
 	bool debug_mode;
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
 	
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 	
 		const char *conv_name = ("IDS_M00_Test");
@@ -1179,7 +1179,7 @@ DECLARE_SCRIPT(DLS_Test_Conversation, "Debug_Mode=0:int")
 		
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("Action_Complete action_id %d reason %d.\n", action_id, reason));	
 		
@@ -1193,7 +1193,7 @@ DECLARE_SCRIPT(DLS_Test_Zone_Timer, "Debug_Mode=0:int")
 	
 	
 		
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("DLS_Test_Zone_Timer Created.\n"));
 
@@ -1202,7 +1202,7 @@ DECLARE_SCRIPT(DLS_Test_Zone_Timer, "Debug_Mode=0:int")
 	}
 
 	
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("Timer_Expired on DLS_Test_Zone_Timer timer_id: %d.\n", timer_id));
 
@@ -1216,7 +1216,7 @@ DECLARE_SCRIPT(DLS_Drop_Unit, "Box_ID:int")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		int box_id = Get_Int_Parameter("Box_ID");
 		switch(box_id)
@@ -1246,7 +1246,7 @@ DECLARE_SCRIPT(DLS_CNC_Sound, "Box_ID:int")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		Commands->Create_Sound ( "CnC_Healer_Sound", Commands->Get_Position(obj), obj );
 
@@ -1259,7 +1259,7 @@ DECLARE_SCRIPT(DLS_Spawn_Engineer, "")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		Commands->Set_Health(obj, Commands->Get_Max_Health(obj));
 		Commands->Enable_Spawner(100001, true);
@@ -1273,7 +1273,7 @@ DECLARE_SCRIPT(DLS_Spawn_Engineer2, "")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		Commands->Set_Health(obj, Commands->Get_Max_Health(obj));
 		Commands->Enable_Spawner(100001, false);
@@ -1284,7 +1284,7 @@ DECLARE_SCRIPT(DLS_Spawn_Engineer2, "")
 
 DECLARE_SCRIPT(DLS_Test_Homepoint, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 2.0f);
 	}
@@ -1294,7 +1294,7 @@ DECLARE_SCRIPT (DLS_Test_Apache, "")
 {
 	
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		ActionParamsStruct params;
 
@@ -1310,7 +1310,7 @@ DECLARE_SCRIPT (DLS_Test_Tank, "")
 {
 	
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		ActionParamsStruct params;
 
@@ -1326,7 +1326,7 @@ DECLARE_SCRIPT (DLS_Goto_Unit, "")
 {
 	enum{GO_STAR};
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		ActionParamsStruct params;
 
@@ -1334,7 +1334,7 @@ DECLARE_SCRIPT (DLS_Goto_Unit, "")
 	
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -1351,12 +1351,12 @@ DECLARE_SCRIPT (DLS_Goto_Unit, "")
 DECLARE_SCRIPT (DLS_Playertype, "")
 {
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		
 	}
 
-	void Poked(GameObject * obj, GameObject * poker)
+	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		Commands->Set_Player_Type(obj, SCRIPT_PLAYERTYPE_GDI );
 		Commands->Give_PowerUp(obj, "MG Weapon 1 Clip PowerUp", false);
@@ -1368,7 +1368,7 @@ DECLARE_SCRIPT (DLS_Playertype, "")
 DECLARE_SCRIPT (DLS_No_Innate, "")
 {
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -1381,7 +1381,7 @@ DECLARE_SCRIPT(DLS_ActionComplete_Test, "")
 {
 
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 		
@@ -1391,7 +1391,7 @@ DECLARE_SCRIPT(DLS_ActionComplete_Test, "")
 		Commands->Action_Goto( obj, params );
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		Commands->Debug_Message("Action_Complete %d %d. \n", action_id, reason);
 	}
@@ -1410,7 +1410,7 @@ DECLARE_SCRIPT(DLS_Artillery_Test, "")
 //		SAVE_VARIABLE( poke_id, 1 );
 	}
 
-	void Created (GameObject *game_obj)
+	void Created (GameObject *game_obj) override
 	{
 		artillery_loc[0] = 100600;
 		artillery_loc[1] = 100601;
@@ -1419,7 +1419,7 @@ DECLARE_SCRIPT(DLS_Artillery_Test, "")
 	}
 
 
-	void Timer_Expired (GameObject *game_obj, int timer_id)
+	void Timer_Expired (GameObject *game_obj, int timer_id) override
 	{
 		if (timer_id == ARTILLERY_DROP) 
 		{
@@ -1432,7 +1432,7 @@ DECLARE_SCRIPT(DLS_Artillery_Test, "")
 
 DECLARE_SCRIPT(DLS_Cinematic_Test, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 	/*	Commands->Enable_Hibernation(obj, false);
 		Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1440,7 +1440,7 @@ DECLARE_SCRIPT(DLS_Cinematic_Test, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 	/*	GameObject * chinook_obj0 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj0, 0.0f);
@@ -1475,7 +1475,7 @@ DECLARE_SCRIPT(DLS_SSM_Test, "")
 {
 	int ssm_missile_id;
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		GameObject * ssm_missile = Commands->Create_Object_At_Bone(obj, "Invisible_Object", "V_LAUNCHER");
 		Commands->Set_Model(ssm_missile, "V_AG_NOD_SSM_MS");
@@ -1483,7 +1483,7 @@ DECLARE_SCRIPT(DLS_SSM_Test, "")
 		ssm_missile_id = Commands->Get_ID(ssm_missile);
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager )
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 		Commands->Set_Animation(obj, "V_NOD_SSM.V_NOD_SSM", 0, NULL, 0.0f, -1.0f, false);
 		Commands->Set_Animation(Commands->Find_Object(ssm_missile_id), "v_nod_ssm_Missl.v_nod_ssm_Missl", 0, NULL, 0.0f, -1.0f, false);
@@ -1496,7 +1496,7 @@ DECLARE_SCRIPT(DLS_SSM_Test, "")
 
 DECLARE_SCRIPT(DLS_Cinematic_Test2, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 	/*	Commands->Enable_Hibernation(obj, false);
 		Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1504,7 +1504,7 @@ DECLARE_SCRIPT(DLS_Cinematic_Test2, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 	/*	GameObject * chinook_obj0 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj0, 0.0f);
@@ -1539,7 +1539,7 @@ DECLARE_SCRIPT(DLS_Where_Am_I, "")
 //		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Vector3 pos = Commands->Get_Position(obj);
 		const char * preset_name = Commands->Get_Preset_Name( obj );
@@ -1550,7 +1550,7 @@ DECLARE_SCRIPT(DLS_Where_Am_I, "")
 		
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -1580,7 +1580,7 @@ DECLARE_SCRIPT(DLS_Test_Flyovers, "")
 //		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		
 		Commands->Start_Timer (obj, this, 17.0f, WHERE_AM_I);
@@ -1588,7 +1588,7 @@ DECLARE_SCRIPT(DLS_Test_Flyovers, "")
 		
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -1626,7 +1626,7 @@ DECLARE_SCRIPT(DLS_Test_Hand_Over_Head, "")
 //		SAVE_VARIABLE( poked, 1 );
 	}
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		ActionParamsStruct params;
 
@@ -1642,7 +1642,7 @@ DECLARE_SCRIPT(DLS_Test_Hand_Over_Head, "")
 
 DECLARE_SCRIPT(DLS_Created_Too_Early, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 	//	Commands->Enable_Hibernation(obj, false);
 	//	Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1650,7 +1650,7 @@ DECLARE_SCRIPT(DLS_Created_Too_Early, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 		GameObject * chinook_obj3 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj3, 0.0f);
@@ -1660,7 +1660,7 @@ DECLARE_SCRIPT(DLS_Created_Too_Early, "")
 
 DECLARE_SCRIPT(DLS_Blink, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 	//	Commands->Enable_Hibernation(obj, false);
 	//	Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1668,7 +1668,7 @@ DECLARE_SCRIPT(DLS_Blink, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 		GameObject * chinook_obj3 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj3, 0.0f);
@@ -1678,7 +1678,7 @@ DECLARE_SCRIPT(DLS_Blink, "")
 
 DECLARE_SCRIPT(DLS_Math, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Vector3 pos = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
@@ -1700,7 +1700,7 @@ DECLARE_SCRIPT(DLS_Test_Evac, "")  // Deadeye2
 //		SAVE_VARIABLE( nuke_blast, 1 );
 	}
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Set_Animation ( obj, "S_A_Human.XG_EV5_troop", true, NULL, 0.0f, -1.0f, false );
 		Commands->Enable_Hibernation(obj, false);
@@ -1712,7 +1712,7 @@ DECLARE_SCRIPT(DLS_Test_Evac, "")  // Deadeye2
 		Commands->Action_Goto( obj, params );
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if (action_id == WAYPATH)
 		{
@@ -1726,7 +1726,7 @@ DECLARE_SCRIPT(DLS_Test_Evac, "")  // Deadeye2
 
 DECLARE_SCRIPT(DLS_Innate_Disable, "")  // Deadeye2
 {
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -1863,7 +1863,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		SAVE_VARIABLE( say_need_here, 25 );
 	}
 
-	void Created( GameObject * obj )
+	void Created( GameObject * obj ) override
 	{
 		star_area = 0;
 		area4_activated = false;
@@ -1879,7 +1879,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		say_need_here = false;
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if(type == MX0_DESTROY_OBELISK)
 		{
@@ -2060,7 +2060,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		Commands->Start_Conversation (conv_id, 10);
 		conv_num++;
 	}
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -2442,12 +2442,12 @@ DECLARE_SCRIPT (MX0_Area4_Zone_DLS, "Area=0:int")
 		SAVE_VARIABLE( first_time, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		first_time = true;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if(Commands->Is_A_Star(enterer) && first_time )
 		{
@@ -2477,7 +2477,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		SAVE_VARIABLE( speed, 3 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Enemy_Seen( obj, true);
 		Commands->Enable_Engine(obj, true);
@@ -2497,7 +2497,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		Commands->Debug_Message("ID %d sees Enemy ID %d \n", Commands->Get_ID(obj), Commands->Get_ID(enemy));
 		ActionParamsStruct params;
@@ -2511,7 +2511,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -2550,7 +2550,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if((action_id == CON001) && (reason == ACTION_COMPLETE_CONVERSATION_ENDED))
 		{
@@ -2598,7 +2598,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		SAVE_VARIABLE (medium_tank_blasted_id, 6);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		powerup_effect_id = 0;
 		current_target = 0;
@@ -2617,7 +2617,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if(type == MX0_OBELISK_HUMVEE)
 		{
@@ -2704,7 +2704,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -2749,7 +2749,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if(action_id == 0)
 		{
@@ -2769,7 +2769,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		}
 	}
 
-	void Destroyed(GameObject * obj )
+	void Destroyed(GameObject * obj ) override
 	{
 		if (powerup_effect_id)
 		{
@@ -2791,12 +2791,12 @@ DECLARE_SCRIPT (MX0_GDI_Killed_DLS, "Unit_ID=0:int")
 //		SAVE_VARIABLE( attack_loc, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		// If damaged by the Obelisk Weapon
 		if((damager == Commands->Find_Object(1500020)) && (Commands->Find_Object(1500020)))
@@ -2805,7 +2805,7 @@ DECLARE_SCRIPT (MX0_GDI_Killed_DLS, "Unit_ID=0:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		switch(unit_id)
@@ -2858,7 +2858,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		SAVE_VARIABLE( mx0_soldier_move_attempts, 4 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Enemy_Seen( obj, true);
 		Commands->Enable_Engine(obj, true);
@@ -2878,7 +2878,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		Commands->Debug_Message("ID %d sees Enemy ID %d \n", Commands->Get_ID(obj), Commands->Get_ID(enemy));
 		ActionParamsStruct params;
@@ -2892,7 +2892,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender )
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -2998,7 +2998,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -3011,7 +3011,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		// If action fails, reattempt
 		if((action_id == MX0_SOLDIER_MOVE) && (reason != ACTION_COMPLETE_NORMAL) && (mx0_soldier_move_attempts < 4))
@@ -3041,12 +3041,12 @@ DECLARE_SCRIPT (MX0_Gun_Emplacement_DLS, "Left_Point=0:int, Right_Point=0:int")
 		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		left = true;
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3057,7 +3057,7 @@ DECLARE_SCRIPT (MX0_Gun_Emplacement_DLS, "Left_Point=0:int, Right_Point=0:int")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
 
@@ -3097,7 +3097,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 //		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 
@@ -3108,7 +3108,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3122,7 +3122,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
 
@@ -3132,7 +3132,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 		}
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
@@ -3152,13 +3152,13 @@ DECLARE_SCRIPT (MX0_SAM_DLS, "")
 //		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3183,13 +3183,13 @@ DECLARE_SCRIPT (MX0_Nod_Bunker_DLS, "")
 //		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
@@ -3210,7 +3210,7 @@ DECLARE_SCRIPT (MX0_Plant_Ion_Beacon_DLS, "")
 //		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
 
@@ -3235,12 +3235,12 @@ DECLARE_SCRIPT (DLS_Star_No_Fall, "")
 //		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Start_Timer (obj, this, 1.0f, ATTACH_SCRIPT);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id )
+	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		if(timer_id == ATTACH_SCRIPT)
 		{
@@ -3266,17 +3266,17 @@ DECLARE_SCRIPT (MX0_Explosive_Barrels_DLS, "Logical_Sound=0:int, Radius:float")
 //		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		
 	}
 
-	void Sound_Heard( GameObject * obj, const CombatSound & sound )
+	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
 		if(sound.Type == Get_Int_Parameter("Logical_Sound"))
 		{
@@ -3284,7 +3284,7 @@ DECLARE_SCRIPT (MX0_Explosive_Barrels_DLS, "Logical_Sound=0:int, Radius:float")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		float radius = Get_Float_Parameter("Radius");
 		Commands->Create_Explosion("Air Explosions Twiddler", Commands->Get_Position(obj), obj);

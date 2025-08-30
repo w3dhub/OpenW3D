@@ -63,9 +63,9 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	void		On_Init_Dialog (void);
-	void		On_Destroy (void);
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void		On_Init_Dialog (void) override;
+	void		On_Destroy (void) override;
+	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
 
 private:
 

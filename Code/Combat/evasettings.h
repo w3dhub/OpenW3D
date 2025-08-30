@@ -65,11 +65,11 @@ public:
 	//
 	//	From DefinitionClass
 	//
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create (void) const ;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual const PersistFactoryClass &	Get_Factory (void) const;	
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
 
 	static EvaSettingsDefClass *			Get_Instance (void)	{ return EvaSettings; }	
 

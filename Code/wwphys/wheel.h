@@ -244,15 +244,15 @@ public:
 	WheelClass(void);
 	virtual ~WheelClass(void);
 
-	virtual void	Init(VehiclePhysClass * obj,int postion_bone,int rotation_bone=-1,int fork_bone=-1,int axis_bone=-1);
-	virtual void	Compute_Force_And_Torque(Vector3 * force,Vector3 * torque);
+	virtual void	Init(VehiclePhysClass * obj,int postion_bone,int rotation_bone=-1,int fork_bone=-1,int axis_bone=-1) override;
+	virtual void	Compute_Force_And_Torque(Vector3 * force,Vector3 * torque) override;
 
 	/*
 	** Accessors
 	*/
 	bool				Is_Drive_Wheel(void)								{ return (Get_Flag(ENGINE)||Get_Flag(LEFT_TRACK)||Get_Flag(RIGHT_TRACK)); }
-	float				Get_Slip_Factor(void) const					{ return SlipFactor; }
-	float				Get_Rotation_Delta(void) const				{ return RotationDelta; }
+	float				Get_Slip_Factor(void) const override					{ return SlipFactor; }
+	float				Get_Rotation_Delta(void) const override				{ return RotationDelta; }
 	float				Get_Ideal_Drive_Wheel_Angular_Velocity(float max_avel);
 	float				Get_Radius(void) const							{ return Radius; }
 
@@ -315,12 +315,12 @@ public:
 	WVWheelClass(void)						{ }
 	virtual ~WVWheelClass(void)			{ }
 
-	virtual void	Update_Model(void);
-	virtual void	Non_Physical_Update(float suspension_fraction,float rotation);
+	virtual void	Update_Model(void) override;
+	virtual void	Non_Physical_Update(float suspension_fraction,float rotation) override;
 
 protected:
 
-	virtual void	Compute_Traction_Forces(const Vector3 & local_pdot,float normal_force,float * set_lateral_force,float * set_tractive_force);
+	virtual void	Compute_Traction_Forces(const Vector3 & local_pdot,float normal_force,float * set_lateral_force,float * set_tractive_force) override;
 	void				Roll_Wheel(void);
 };
 
@@ -338,12 +338,12 @@ public:
 	TrackWheelClass(void)						{ }
 	virtual ~TrackWheelClass(void)			{ }
 
-	virtual void	Update_Model(void);
-	virtual void	Non_Physical_Update(float suspension_fraction,float rotation);
+	virtual void	Update_Model(void) override;
+	virtual void	Non_Physical_Update(float suspension_fraction,float rotation) override;
 
 protected:
 
-	virtual void	Compute_Traction_Forces(const Vector3 & local_pdot,float normal_force,float * set_lateral_force,float * set_tractive_force);
+	virtual void	Compute_Traction_Forces(const Vector3 & local_pdot,float normal_force,float * set_lateral_force,float * set_tractive_force) override;
 	void				Roll_Wheel(void);
 
 };
@@ -360,12 +360,12 @@ public:
 	VTOLWheelClass(void)						{ }
 	virtual ~VTOLWheelClass(void)			{ }
 
-	virtual void	Update_Model(void);
-	virtual void	Non_Physical_Update(float suspension_fraction,float rotation);
+	virtual void	Update_Model(void) override;
+	virtual void	Non_Physical_Update(float suspension_fraction,float rotation) override;
 
 protected:
 
-	virtual void	Compute_Traction_Forces(const Vector3 & local_pdot,float normal_force,float * set_lateral_force,float * set_tractive_force);
+	virtual void	Compute_Traction_Forces(const Vector3 & local_pdot,float normal_force,float * set_lateral_force,float * set_tractive_force) override;
 	void				Roll_Wheel(void);
 
 };

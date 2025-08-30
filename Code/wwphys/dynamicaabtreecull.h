@@ -81,7 +81,7 @@ public:
 	** uses custom logic for determining which cell an object should end up in.
 	*/
 	virtual void		Add_Object(PhysClass * obj);
-	virtual void		Update_Culling(CullableClass * obj);
+	virtual void		Update_Culling(CullableClass * obj) override;
 
 	/*
 	** Objects will request the visibility ID from this system.  

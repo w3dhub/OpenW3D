@@ -51,10 +51,10 @@ public:
 	void						Set_Fps(int fps);
 	int						Get_Fps(void)								{return Fps;}
 
-	void						Delete (void)								{}
-	virtual void			Export_Frequent(BitStreamClass &packet);
-	virtual void			Import_Frequent(BitStreamClass &packet);
-	virtual void			Set_Delete_Pending (void) {};		// Never needs deletion since it persists during a game session.
+	void						Delete (void) override								{}
+	virtual void			Export_Frequent(BitStreamClass &packet) override;
+	virtual void			Import_Frequent(BitStreamClass &packet) override;
+	virtual void			Set_Delete_Pending (void) override {};		// Never needs deletion since it persists during a game session.
 
 	//
 	// Static methods for the global singleton instance

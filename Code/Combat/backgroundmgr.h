@@ -277,7 +277,7 @@ class LightningBoltClass : public VisibilityClass, public SegmentedLineClass
 
 				  void Configure (Vector3 &color);
 		virtual void Set_Transform (Matrix3D &t);
-		virtual void Render (RenderInfoClass &rinfo);
+		virtual void Render (RenderInfoClass &rinfo) override;
 
 		void Set_Visibility (bool visible, bool recurse);
 
@@ -350,7 +350,7 @@ class	SkyClass : public RenderObjClass
 		 SkyClass (SoundEnvironmentClass *soundenvironment);
 		~SkyClass();
 
-		RenderObjClass *Clone() const
+		RenderObjClass *Clone() const override
 		{
 			WWASSERT (false);
 			return (0);
@@ -385,10 +385,10 @@ class	SkyClass : public RenderObjClass
 		}
 
 		void Update (SceneClass *mainscene, const Vector3 &cameraposition);
-		void Render (RenderInfoClass &rinfo);
+		void Render (RenderInfoClass &rinfo) override;
 
-		void Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const;
-		void Get_Obj_Space_Bounding_Box (AABoxClass &box) const;
+		void Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const override;
+		void Get_Obj_Space_Bounding_Box (AABoxClass &box) const override;
 
 	protected:
 
@@ -470,16 +470,16 @@ class	BackgroundMgrClass : public SaveLoadSubSystemClass, public NetworkObjectCl
 		 BackgroundMgrClass();
 		~BackgroundMgrClass() {}
 
-		uint32		Chunk_ID() const	{return (CHUNKID_BACKGROUND_MGR);}
-		const char *Name() const		{return ("BackgroundMgrClass");}
-		void			Delete (void)		{}
-		virtual void Set_Delete_Pending (void) {};
+		uint32		Chunk_ID() const override	{return (CHUNKID_BACKGROUND_MGR);}
+		const char *Name() const override		{return ("BackgroundMgrClass");}
+		void			Delete (void) override		{}
+		virtual void Set_Delete_Pending (void) override {};
 
-		bool Save (ChunkSaveClass &csave);
-		bool Load (ChunkLoadClass &cload);
+		bool Save (ChunkSaveClass &csave) override;
+		bool Load (ChunkLoadClass &cload) override;
 		bool Load_Micro_Chunks (ChunkLoadClass &cload);
-		void Export_Rare (BitStreamClass &packet);
-		void Import_Rare (BitStreamClass &packet);
+		void Export_Rare (BitStreamClass &packet) override;
+		void Import_Rare (BitStreamClass &packet) override;
 
 		static void Init (SimpleSceneClass *renderscene, SoundEnvironmentClass *soundenvironment, bool render_available = true);
 		static void Reset();

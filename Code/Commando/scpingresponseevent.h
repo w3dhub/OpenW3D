@@ -51,14 +51,14 @@ public:
 
 	void						Init(int sender_id, int ping_number);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_SCPINGRESPONSEEVENT;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_SCPINGRESPONSEEVENT;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						PingNumber;
 };

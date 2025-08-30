@@ -51,16 +51,16 @@ public:
 
 	void						Init(int amount, int	recipient_id);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_DONATEEVENT;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_DONATEEVENT;}
 
 	static const int		Get_Minimum_Acceptable_Donation(void)		{return MinimumAcceptableDonation;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						SenderId;
 	int						Amount;

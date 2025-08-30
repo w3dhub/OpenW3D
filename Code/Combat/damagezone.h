@@ -58,11 +58,11 @@ class DamageZoneGameObjDef : public BaseGameObjDef
 public:
 	DamageZoneGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( DamageZoneGameObjDef, BaseGameObjDef );
 
@@ -87,19 +87,19 @@ public:
 									DamageZoneGameObj( void );
 	virtual						~DamageZoneGameObj( void );
 
-	virtual	void				Init( void );
+	virtual	void				Init( void ) override;
 	void							Init( const DamageZoneGameObjDef & definition );
 	const DamageZoneGameObjDef &	Get_Definition( void ) const;
 
-	virtual bool				Save( ChunkSaveClass & csave );
-	virtual bool				Load( ChunkLoadClass & cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual bool				Save( ChunkSaveClass & csave ) override;
+	virtual bool				Load( ChunkLoadClass & cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	// Bounding Box
 	void	Set_Bounding_Box( OBBoxClass & box )			{ BoundingBox = box; }
 	const OBBoxClass & Get_Bounding_Box(void)				{ return BoundingBox; }
 
-	virtual void				Think( void );
+	virtual void				Think( void ) override;
 
 	// Network support
 	//virtual bool				Exists_On_Client( void ) const	{ return false; }

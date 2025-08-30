@@ -44,7 +44,7 @@
 #if 0
 DECLARE_SCRIPT(DEL_VehicleEnterTest, "X:float,Y:float,Z:float")
 	{
-	void Created(GameObject* object)
+	void Created(GameObject* object) override
 		{
 		float x = Get_Float_Parameter("X");
 		float y = Get_Float_Parameter("Y");

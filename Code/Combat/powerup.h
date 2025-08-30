@@ -57,11 +57,11 @@ class PowerUpGameObjDef : public SimpleGameObjDef
 public:
 	PowerUpGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *					Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( PowerUpGameObjDef, SimpleGameObjDef );
 
@@ -105,29 +105,29 @@ public:
 	virtual ~PowerUpGameObj( void );
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const PowerUpGameObjDef & definition );
 	const PowerUpGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load / Construction Factory
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	void	On_Post_Load( void );		// MOVED
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	void	On_Post_Load( void ) override;		// MOVED
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 	// Think
-	virtual	void	Think( void );
+	virtual	void	Think( void ) override;
 	void	Grant( SmartGameObj * obj );
 
 	// Type identification
-	virtual PowerUpGameObj		*As_PowerUpGameObj()		{ return this; }
+	virtual PowerUpGameObj		*As_PowerUpGameObj() override		{ return this; }
 
 	static	PowerUpGameObj *	Create_Backpack( ArmedGameObj * provider );
 
 	// Network support
-	virtual	bool	Is_Always_Dirty( void )					{ return false; }
+	virtual	bool	Is_Always_Dirty( void ) override					{ return false; }
 	//virtual	void	Get_Extended_Information( StringClass & description );
-	virtual	void	Get_Description( StringClass & description );
+	virtual	void	Get_Description( StringClass & description ) override;
 
 	void	Expire( void );
 

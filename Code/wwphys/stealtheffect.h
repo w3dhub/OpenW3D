@@ -64,9 +64,9 @@ public:
 	StealthEffectClass(void);
 	~StealthEffectClass(void);
 	
-	virtual void		Timestep(float dt);
-	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj);
-	virtual void		Render_Pop(RenderInfoClass & rinfo);
+	virtual void		Timestep(float dt) override;
+	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj) override;
+	virtual void		Render_Pop(RenderInfoClass & rinfo) override;
 
 	void					Enable_Stealth(bool onoff);
 	void					Set_Friendly(bool onoff);

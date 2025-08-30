@@ -68,8 +68,8 @@ public:
 	//
 	//	Inherited
 	//
-	void				Render (void);
-	void				Set_Text (const WCHAR *title);
+	void				Render (void) override;
+	void				Set_Text (const WCHAR *title) override;
 
 	//
 	//	Configuration
@@ -103,8 +103,8 @@ protected:
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
-	void				Update_Client_Rect (void);
-	void				On_Frame_Update (void);
+	void				Update_Client_Rect (void) override;
+	void				On_Frame_Update (void) override;
 
 	void				Create_Control_Renderer (void);
 	void				Create_Text_Renderer (void);

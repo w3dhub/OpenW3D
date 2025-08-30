@@ -63,7 +63,7 @@ public:
 	PhysGridCullClass(PhysicsSceneClass * scene);
 	virtual ~PhysGridCullClass(void);
 	
-	void	Re_Partition(const Vector3 & min,const Vector3 & max,float objdim);
+	void	Re_Partition(const Vector3 & min,const Vector3 & max,float objdim) override;
 	
 	bool	Cast_Ray(PhysRayCollisionTestClass & raytest);
 	bool	Cast_AABox(PhysAABoxCollisionTestClass & boxtest);

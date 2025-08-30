@@ -84,8 +84,8 @@ public:
 	float					Get_End_Time(void);
 
 	// persistant object support
-	virtual bool		Save (ChunkSaveClass &csave);
-	virtual bool		Load (ChunkLoadClass &cload);
+	virtual bool		Save (ChunkSaveClass &csave) override;
+	virtual bool		Load (ChunkLoadClass &cload) override;
 
 protected:
 	
@@ -108,12 +108,12 @@ protected:
 class LinearCurve3DClass : public Curve3DClass
 {
 public:
-	virtual void		Evaluate(float time,Vector3 * set_val);
+	virtual void		Evaluate(float time,Vector3 * set_val) override;
 
 	// persistant object support
-	virtual const PersistFactoryClass &	Get_Factory(void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory(void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 };
 
 
@@ -142,8 +142,8 @@ public:
 	float					Get_End_Time(void);
 
 	// persistant object support
-	virtual bool		Save (ChunkSaveClass &csave);
-	virtual bool		Load (ChunkLoadClass &cload);
+	virtual bool		Save (ChunkSaveClass &csave) override;
+	virtual bool		Load (ChunkLoadClass &cload) override;
 
 protected:
 	
@@ -167,12 +167,12 @@ protected:
 class LinearCurve1DClass : public Curve1DClass
 {
 public:
-	virtual void		Evaluate(float time,float * set_val);
+	virtual void		Evaluate(float time,float * set_val) override;
 
 	// persistant object support
-	virtual const PersistFactoryClass &	Get_Factory(void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory(void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 };
 
 

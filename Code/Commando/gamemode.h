@@ -104,8 +104,8 @@ public:
 class	GameMajorModeClass : public GameModeClass {
 
 public:
-	virtual void Activate();		// Override Activate and Deactivate to count
-	virtual void Deactivate();	
+	virtual void Activate() override;		// Override Activate and Deactivate to count
+	virtual void Deactivate() override;
 
 private:
 	static int NumActiveMajorModes;

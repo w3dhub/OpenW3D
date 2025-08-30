@@ -69,12 +69,12 @@ public:
 	//
 	//	RTTI
 	//	
-	CheckBoxCtrlClass *		As_CheckBoxCtrlClass (void)	{ return this; }
+	CheckBoxCtrlClass *		As_CheckBoxCtrlClass (void) override	{ return this; }
 
 	//
 	//	From DialogControlClass
 	//	
-	void				Render (void);
+	void				Render (void) override;
 
 	//
 	//	Selection management
@@ -89,14 +89,14 @@ protected:
 	////////////////////////////////////////////////////////////////
 	void				Internal_Set_Check(bool onoff, bool notify);
 
-	void				On_LButton_Down (const Vector2 &mouse_pos);
-	void				On_LButton_Up (const Vector2 &mouse_pos);
-	void				On_Set_Cursor (const Vector2 &mouse_pos);
-	void				On_Set_Focus (void);
-	void				On_Kill_Focus (DialogControlClass *focus);
-	bool				On_Key_Down (uint32 key_id, uint32 key_data);
-	void				On_Create (void);
-	void				Update_Client_Rect (void);
+	void				On_LButton_Down (const Vector2 &mouse_pos) override;
+	void				On_LButton_Up (const Vector2 &mouse_pos) override;
+	void				On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void				On_Set_Focus (void) override;
+	void				On_Kill_Focus (DialogControlClass *focus) override;
+	bool				On_Key_Down (uint32 key_id, uint32 key_data) override;
+	void				On_Create (void) override;
+	void				Update_Client_Rect (void) override;
 
 	void				Create_Control_Renderers (void);
 	void				Create_Text_Renderers (void);

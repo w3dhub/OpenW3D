@@ -76,8 +76,8 @@
 template<class T>
 class BlitPlain : public Blitter {
 	public:
-		virtual void BlitForward(void * dest, void const * source, int length) const {memcpy(dest, source, length*sizeof(T));}
-		virtual void BlitBackward(void * dest, void const * source, int length) const {memmove(dest, source, length*sizeof(T));}
+		virtual void BlitForward(void * dest, void const * source, int length) const override {memcpy(dest, source, length*sizeof(T));}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {memmove(dest, source, length*sizeof(T));}
 };
 
 
@@ -88,7 +88,7 @@ class BlitPlain : public Blitter {
 template<class T>
 class BlitTrans : public Blitter {
 	public:
-		virtual void BlitForward(void * dest, void const * source, int len) const
+		virtual void BlitForward(void * dest, void const * source, int len) const override
 		{
 			for (int index = 0; index < len; index++) {
 				T color = *(T const *)source;
@@ -103,7 +103,7 @@ class BlitTrans : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 };
 
 
@@ -116,7 +116,7 @@ template<class T>
 class BlitPlainXlat : public Blitter {
 	public:
 		BlitPlainXlat(T const * translator) : TranslateTable(translator) {assert(TranslateTable != NULL);}
-		virtual void BlitForward(void * dest, void const * source, int len) const
+		virtual void BlitForward(void * dest, void const * source, int len) const override
 		{
 			for (int index = 0; index < len; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -131,7 +131,7 @@ class BlitPlainXlat : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		T const * TranslateTable;
@@ -147,7 +147,7 @@ template<class T>
 class BlitTransXlat : public Blitter {
 	public:
 		BlitTransXlat(T const * translator) : TranslateTable(translator) {assert(TranslateTable != NULL);}
-		virtual void BlitForward(void * dest, void const * source, int len) const
+		virtual void BlitForward(void * dest, void const * source, int len) const override
 		{
 			for (int index = 0; index < len; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -164,7 +164,7 @@ class BlitTransXlat : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		T const * TranslateTable;
@@ -181,7 +181,7 @@ template<class T>
 class BlitTransRemapXlat : public Blitter {
 	public:
 		BlitTransRemapXlat(unsigned char const * remapper, T const * translator) : RemapTable(remapper), TranslateTable(translator) {assert(RemapTable != NULL);assert(TranslateTable != NULL);}
-		virtual void BlitForward(void * dest, void const * source, int length) const
+		virtual void BlitForward(void * dest, void const * source, int length) const override
 		{
 			for (int index = 0; index < length; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -198,7 +198,7 @@ class BlitTransRemapXlat : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		unsigned char const * RemapTable;
@@ -217,7 +217,7 @@ template<class T>
 class BlitTransZRemapXlat : public Blitter {
 	public:
 		BlitTransZRemapXlat(unsigned char const * const * remapper, T const * translator) : RemapTable(remapper), TranslateTable(translator) {assert(RemapTable != NULL);assert(TranslateTable != NULL);}
-		virtual void BlitForward(void * dest, void const * source, int length) const
+		virtual void BlitForward(void * dest, void const * source, int length) const override
 		{
 			unsigned char const * rtable = *RemapTable;
 			for (int index = 0; index < length; index++) {
@@ -235,7 +235,7 @@ class BlitTransZRemapXlat : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		unsigned char const * const * RemapTable;
@@ -253,7 +253,7 @@ template<class T>
 class BlitTransDarken : public Blitter {
 	public:
 		BlitTransDarken(T mask) : Mask(mask) {}
-		virtual void BlitForward(void * dest, void const * source, int length) const
+		virtual void BlitForward(void * dest, void const * source, int length) const override
 		{
 			for (int index = 0; index < length; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -270,7 +270,7 @@ class BlitTransDarken : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		T Mask;
@@ -286,7 +286,7 @@ template<class T>
 class BlitTransRemapDest : public Blitter {
 	public:
 		BlitTransRemapDest(T const * remap) : RemapTable(remap) {}
-		virtual void BlitForward(void * dest, void const * source, int length) const
+		virtual void BlitForward(void * dest, void const * source, int length) const override
 		{
 			for (int index = 0; index < length; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -303,7 +303,7 @@ class BlitTransRemapDest : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		T const * RemapTable;
@@ -348,7 +348,7 @@ template<class T>
 class BlitTransLucent50 : public Blitter {
 	public:
 		BlitTransLucent50(T const * translator, T mask) : TranslateTable(translator), Mask(mask) {assert(TranslateTable != NULL);}
-		virtual void BlitForward(void * dest, void const * source, int length) const
+		virtual void BlitForward(void * dest, void const * source, int length) const override
 		{
 			for (int index = 0; index < length; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -365,7 +365,7 @@ class BlitTransLucent50 : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		T const * TranslateTable;
@@ -381,7 +381,7 @@ template<class T>
 class BlitTransLucent25 : public Blitter {
 	public:
 		BlitTransLucent25(T const * translator, T mask) : TranslateTable(translator), Mask(mask) {assert(TranslateTable != NULL);}
-		virtual void BlitForward(void * dest, void const * source, int length) const
+		virtual void BlitForward(void * dest, void const * source, int length) const override
 		{
 			for (int index = 0; index < length; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -400,7 +400,7 @@ class BlitTransLucent25 : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		T const * TranslateTable;
@@ -417,7 +417,7 @@ template<class T>
 class BlitTransLucent75 : public Blitter {
 	public:
 		BlitTransLucent75(T const * translator, T mask) : TranslateTable(translator), Mask(mask) {assert(TranslateTable != NULL);}
-		virtual void BlitForward(void * dest, void const * source, int length) const
+		virtual void BlitForward(void * dest, void const * source, int length) const override
 		{
 			for (int index = 0; index < length; index++) {
 				unsigned char color = *(unsigned char const *)source;
@@ -436,7 +436,7 @@ class BlitTransLucent75 : public Blitter {
 		**	Implement in terms of the forward copying method until the need for this
 		**	version arrises.
 		*/
-		virtual void BlitBackward(void * dest, void const * source, int length) const {BlitForward(dest, source, length);}
+		virtual void BlitBackward(void * dest, void const * source, int length) const override {BlitForward(dest, source, length);}
 
 	private:
 		T const * TranslateTable;

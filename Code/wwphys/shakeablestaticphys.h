@@ -67,9 +67,9 @@ public:
 	void	Play_Animation(void);
 
 	// Save / Load
-	virtual	bool	Save(ChunkSaveClass & csave);
-	virtual	bool	Load(ChunkLoadClass & cload);
-	virtual	const	PersistFactoryClass & Get_Factory(void) const;
+	virtual	bool	Save(ChunkSaveClass & csave) override;
+	virtual	bool	Load(ChunkLoadClass & cload) override;
+	virtual	const	PersistFactoryClass & Get_Factory(void) const override;
 
 };
 
@@ -82,13 +82,13 @@ class ShakeableStaticPhysDefClass : public StaticAnimPhysDefClass
 public:
 	ShakeableStaticPhysDefClass(void);
 	
-	virtual uint32								Get_Class_ID(void) const;
-	virtual const char *						Get_Type_Name(void)				{ return "ShakeableStaticPhysDef"; }
-	virtual bool								Is_Type(const char *);
-	virtual PersistClass *					Create(void) const ;
-	virtual bool								Save(ChunkSaveClass & csave);
-	virtual bool								Load(ChunkLoadClass & cload);
-	virtual const PersistFactoryClass &	Get_Factory(void) const;
+	virtual uint32								Get_Class_ID(void) const override;
+	virtual const char *						Get_Type_Name(void) override				{ return "ShakeableStaticPhysDef"; }
+	virtual bool								Is_Type(const char *) override;
+	virtual PersistClass *					Create(void) const override;
+	virtual bool								Save(ChunkSaveClass & csave) override;
+	virtual bool								Load(ChunkLoadClass & cload) override;
+	virtual const PersistFactoryClass &	Get_Factory(void) const override;
 
 	DECLARE_EDITABLE( ShakeableStaticPhysDefClass, StaticAnimPhysDefClass );
 

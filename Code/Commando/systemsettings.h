@@ -118,14 +118,14 @@ class	SystemSettingEntryBool : public SystemSettingEntry {
 public:
 	SystemSettingEntryBool( void );
 
-	virtual	void					Apply( void );
+	virtual	void					Apply( void ) override;
 
-	virtual	void					Registry_Save( RegistryClass & registry );
-	virtual	void					Registry_Load( RegistryClass & registry );
+	virtual	void					Registry_Save( RegistryClass & registry ) override;
+	virtual	void					Registry_Load( RegistryClass & registry ) override;
 
 	//DEADMENU virtual	MenuEntryClass	*	Create_Menu_Entry( void );
 
-	virtual	ConsoleFunctionClass *	Create_Console_Function();
+	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
 				bool					Get_State( void );
 				void					Set_State( bool state );
@@ -146,14 +146,14 @@ class	SystemSettingEntrySlider : public SystemSettingEntry {
 public:
 	SystemSettingEntrySlider( void );
 
-	virtual	void					Apply( void );
+	virtual	void					Apply( void ) override;
 
-	virtual	void					Registry_Save( RegistryClass & registry );
-	virtual	void					Registry_Load( RegistryClass & registry );
+	virtual	void					Registry_Save( RegistryClass & registry ) override;
+	virtual	void					Registry_Load( RegistryClass & registry ) override;
 
 	//DEADMENU virtual	MenuEntryClass	*	Create_Menu_Entry( void );
 
-	virtual	ConsoleFunctionClass *	Create_Console_Function();
+	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
 				int					Get_Value( void );
 				void					Set_Value( int value );
@@ -183,14 +183,14 @@ public:
 	SystemSettingEntryEnum( void );
 	virtual ~SystemSettingEntryEnum(void){};
 
-	virtual	void					Apply( void );
+	virtual	void					Apply( void ) override;
 
-	virtual	void					Registry_Save( RegistryClass & registry );
-	virtual	void					Registry_Load( RegistryClass & registry );
+	virtual	void					Registry_Save( RegistryClass & registry ) override;
+	virtual	void					Registry_Load( RegistryClass & registry ) override;
 
 	//DEADMENU virtual	MenuEntryClass	*	Create_Menu_Entry( void );
 
-	virtual	ConsoleFunctionClass *	Create_Console_Function();
+	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
 				int					Get_Selection( void );
 				void					Set_Selection( int selection );

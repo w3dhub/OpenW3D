@@ -58,7 +58,7 @@ class ServerListWait :
 	public:
 		static RefPtr<ServerListWait> Create(const RefPtr<Session>& session);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		ServerListWait(const RefPtr<Session>&);
@@ -67,8 +67,8 @@ class ServerListWait :
 		ServerListWait(const ServerListWait&);
 		const ServerListWait& operator=(const ServerListWait&);
 
-		void HandleNotification(ServerError& serverError);
-		void HandleNotification(IRCServerList& serverList);
+		void HandleNotification(ServerError& serverError) override;
+		void HandleNotification(IRCServerList& serverList) override;
 
 		RefPtr<Session> mSession;
 	};
@@ -85,8 +85,8 @@ class DisconnectWait :
 	public:
 		static RefPtr<DisconnectWait> Create(const RefPtr<Session>& session);
 
-		void WaitBeginning(void);
-		void EndWait(WaitResult, const wchar_t*);
+		void WaitBeginning(void) override;
+		void EndWait(WaitResult, const wchar_t*) override;
 
 	protected:
 		DisconnectWait(const RefPtr<Session>& session);
@@ -95,8 +95,8 @@ class DisconnectWait :
 		DisconnectWait(const DisconnectWait&);
 		const DisconnectWait& operator=(const DisconnectWait&);
 
-		void HandleNotification(ServerError& serverError);
-		void HandleNotification(ConnectionStatus& status);
+		void HandleNotification(ServerError& serverError) override;
+		void HandleNotification(ConnectionStatus& status) override;
 
 		RefPtr<Session> mSession;
 	};
@@ -114,8 +114,8 @@ class ConnectWait :
 		static RefPtr<ConnectWait> Create(const RefPtr<Session>& session,
 				const RefPtr<ServerData>& server, const RefPtr<LoginInfo>& login);
 
-		void WaitBeginning(void);
-		void EndWait(WaitResult, const wchar_t*);
+		void WaitBeginning(void) override;
+		void EndWait(WaitResult, const wchar_t*) override;
 
 	protected:
 		ConnectWait(const RefPtr<Session>& session, const RefPtr<ServerData>& server,
@@ -126,8 +126,8 @@ class ConnectWait :
 		ConnectWait(const ConnectWait&);
 		const ConnectWait& operator=(const ConnectWait&);
 
-		void HandleNotification(ServerError& serverError);
-		void HandleNotification(ConnectionStatus& status);
+		void HandleNotification(ServerError& serverError) override;
+		void HandleNotification(ConnectionStatus& status) override;
 
 		RefPtr<Session> mSession;
 		RefPtr<ServerData> mServer;
@@ -146,7 +146,7 @@ class ChannelListWait :
 	{
 	public:
 		static RefPtr<ChannelListWait> Create(const RefPtr<Session>& session, int type);
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		ChannelListWait(const RefPtr<Session>& session, int type);
@@ -155,9 +155,9 @@ class ChannelListWait :
 		ChannelListWait(const ChannelListWait&);
 		const ChannelListWait& operator=(const ChannelListWait&);
 
-		void HandleNotification(ServerError& serverError);
-		void HandleNotification(ConnectionStatus& status);
-		void HandleNotification(ChannelListEvent& event);
+		void HandleNotification(ServerError& serverError) override;
+		void HandleNotification(ConnectionStatus& status) override;
+		void HandleNotification(ChannelListEvent& event) override;
 
 		RefPtr<Session> mSession;
 		int mType;
@@ -176,7 +176,7 @@ class LeaveChannelWait :
 	public:
 		static RefPtr<LeaveChannelWait> Create(const RefPtr<Session>& session);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		LeaveChannelWait(const RefPtr<Session>& session);
@@ -185,9 +185,9 @@ class LeaveChannelWait :
 		LeaveChannelWait(const LeaveChannelWait&);
 		const LeaveChannelWait& operator=(const LeaveChannelWait&);
 
-		void HandleNotification(ServerError& serverError);
-		void HandleNotification(ConnectionStatus& status);
-		void HandleNotification(ChannelEvent& status);
+		void HandleNotification(ServerError& serverError) override;
+		void HandleNotification(ConnectionStatus& status) override;
+		void HandleNotification(ChannelEvent& status) override;
 
 		RefPtr<Session> mSession;
 	};
@@ -209,7 +209,7 @@ class JoinChannelWait :
 		static RefPtr<JoinChannelWait> Create(const RefPtr<Session>& session,
 				const wchar_t* channelName, const wchar_t* password, int type);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		JoinChannelWait(const RefPtr<Session>& session, const RefPtr<ChannelData>& channel,
@@ -223,9 +223,9 @@ class JoinChannelWait :
 		JoinChannelWait(const JoinChannelWait&);
 		const JoinChannelWait& operator=(const JoinChannelWait&);
 
-		void HandleNotification(ServerError& serverError);
-		void HandleNotification(ConnectionStatus& status);
-		void HandleNotification(ChannelEvent& status);
+		void HandleNotification(ServerError& serverError) override;
+		void HandleNotification(ConnectionStatus& status) override;
+		void HandleNotification(ChannelEvent& status) override;
 
 		RefPtr<Session> mSession;
 		RefPtr<ChannelData> mChannel;
@@ -249,7 +249,7 @@ class CreateChannelWait :
 		static RefPtr<CreateChannelWait> Create(const RefPtr<Session>& session,
 				const RefPtr<ChannelData>& channel, const wchar_t* password);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		CreateChannelWait(const RefPtr<Session>& session, const RefPtr<ChannelData>& channel,
@@ -260,9 +260,9 @@ class CreateChannelWait :
 		CreateChannelWait(const CreateChannelWait&);
 		const CreateChannelWait& operator=(const CreateChannelWait&);
 
-		void HandleNotification(ServerError& serverError);
-		void HandleNotification(ConnectionStatus& status);
-		void HandleNotification(ChannelEvent& status);
+		void HandleNotification(ServerError& serverError) override;
+		void HandleNotification(ConnectionStatus& status) override;
+		void HandleNotification(ChannelEvent& status) override;
 
 		RefPtr<Session> mSession;
 		RefPtr<ChannelData> mChannel;
@@ -281,7 +281,7 @@ class UserListWait :
 	public:
 		static RefPtr<UserListWait> Create(const RefPtr<Session>& session);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		UserListWait(const RefPtr<Session>& session);
@@ -290,8 +290,8 @@ class UserListWait :
 		UserListWait(const UserListWait&);
 		const UserListWait& operator=(const UserListWait&);
 
-		void HandleNotification(ServerError&);
-		void HandleNotification(UserList&);
+		void HandleNotification(ServerError&) override;
+		void HandleNotification(UserList&) override;
 
 		RefPtr<Session> mSession;
 	};
@@ -306,8 +306,8 @@ class GetUserWait :
 	public:
 		static RefPtr<GetUserWait> Create(const RefPtr<Session>& session, const wchar_t* userName);
 
-		void WaitBeginning(void);
-		WaitResult GetResult(void);
+		void WaitBeginning(void) override;
+		WaitResult GetResult(void) override;
 
 	protected:
 		GetUserWait(const RefPtr<Session>& session, const wchar_t* userName);
@@ -332,7 +332,7 @@ class LocateUserWait :
 	public:
 		static RefPtr<LocateUserWait> Create(const RefPtr<Session>& session, const wchar_t* userName);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		LocateUserWait(const RefPtr<Session>& session, const wchar_t* userName);
@@ -341,8 +341,8 @@ class LocateUserWait :
 		LocateUserWait(const LocateUserWait&);
 		const LocateUserWait& operator=(const LocateUserWait&);
 
-		void HandleNotification(ServerError&);
-		void HandleNotification(UserEvent&);
+		void HandleNotification(ServerError&) override;
+		void HandleNotification(UserEvent&) override;
 
 		RefPtr<Session> mSession;
 		WideStringClass mUserName;
@@ -358,7 +358,7 @@ class SendMsgWait :
 	public:
 		static RefPtr<SendMsgWait> Create(const RefPtr<Session>& session, ChatMessage& message);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		SendMsgWait(const RefPtr<Session>& session, ChatMessage& message);

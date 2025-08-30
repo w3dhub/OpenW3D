@@ -55,7 +55,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_RMV, "Start_Now=0:int, Create_At_Obj=0:int, 
 	int		parameter;
 	bool	debug_mode;
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 		if (Get_Int_Parameter("Create_At_Obj"))
@@ -75,7 +75,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_RMV, "Start_Now=0:int, Create_At_Obj=0:int, 
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Explosion_Create_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == custom_type) && (param == parameter))
@@ -105,7 +105,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_At_Bone_RMV, "Start_Now=0:int, Receive_Type:
 	int		parameter;
 	bool	debug_mode;
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 		custom_type = Get_Int_Parameter("Receive_Type");
@@ -119,7 +119,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_At_Bone_RMV, "Start_Now=0:int, Receive_Type:
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Explosion_Create_At_Bone_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == custom_type) && (param == parameter))
@@ -151,7 +151,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 		SAVE_VARIABLE( last, 3 );
 	}
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		loc_id[0] = Get_Int_Parameter("Loc_ID0");
 		loc_id[1] = Get_Int_Parameter("Loc_ID1");
@@ -169,7 +169,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 		last = 0;
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		
 		if(type == M00_CREATE_RANDOM_EXPLOSION && param == 1)
@@ -185,7 +185,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 
 	}
 
-	void Timer_Expired(GameObject* obj, int timer_id)
+	void Timer_Expired(GameObject* obj, int timer_id) override
 	{
 		if(timer_id == EXPLODE && active)
 		{
@@ -207,7 +207,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 DECLARE_SCRIPT( M00_NukeStrike_Anim, "")
 {
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		Commands->Send_Custom_Event( obj, obj, 0, 1, 206/30 );
 		Commands->Send_Custom_Event( obj, obj, 0, 2, 250/30 );
@@ -223,7 +223,7 @@ DECLARE_SCRIPT( M00_NukeStrike_Anim, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ( type == 1 )
 		{

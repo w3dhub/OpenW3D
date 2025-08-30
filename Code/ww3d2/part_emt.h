@@ -128,39 +128,39 @@ class ParticleEmitterClass : public RenderObjClass
 		virtual ~ParticleEmitterClass(void);				
 		
 		// Creation/serialization methods
-		virtual RenderObjClass *		Clone(void) const;
+		virtual RenderObjClass *		Clone(void) const override;
 		static ParticleEmitterClass * Create_From_Definition (const ParticleEmitterDefClass &definition);
 		ParticleEmitterDefClass *		Build_Definition (void) const;
 		WW3DErrorType						Save (ChunkSaveClass &chunk_save) const;
 
 		// Identification methods
-		virtual int				Class_ID (void) const { return CLASSID_PARTICLEEMITTER; }
-		virtual const char *	Get_Name (void) const { return NameString; }
-		virtual void			Set_Name (const char *pname);
+		virtual int				Class_ID (void) const override { return CLASSID_PARTICLEEMITTER; }
+		virtual const char *	Get_Name (void) const override { return NameString; }
+		virtual void			Set_Name (const char *pname) override;
 
-		virtual void			Notify_Added(SceneClass * scene);
-		virtual void			Notify_Removed(SceneClass * scene);
+		virtual void			Notify_Added(SceneClass * scene) override;
+		virtual void			Notify_Removed(SceneClass * scene) override;
 
 		// Update particle state and draw the particles.
-		virtual void			Render(RenderInfoClass & rinfo) { }
-		virtual void			Restart(void);
+		virtual void			Render(RenderInfoClass & rinfo) override { }
+		virtual void			Restart(void) override;
 
 		// Scales the size of all particles and effects positions/velocities of
 		// particles emitted after the Scale() call (but not before)
-		virtual void			Scale(float scale);
+		virtual void			Scale(float scale) override;
 
 		// Put particle buffer in scene if this is the first time (clunky code
 		// - hopefully can be rewritten more cleanly in future)...
-		virtual void			On_Frame_Update(void);
+		virtual void			On_Frame_Update(void) override;
 
-      virtual void			Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const { sphere.Center.Set(0,0,0); sphere.Radius = 0; }
-      virtual void			Get_Obj_Space_Bounding_Box(AABoxClass & box) const { box.Center.Set(0,0,0); box.Extent.Set(0,0,0); }
-		virtual void			Set_Hidden(int onoff)				{ RenderObjClass::Set_Hidden (onoff); Update_On_Visibilty (); }
-		virtual void			Set_Visible(int onoff)				{ RenderObjClass::Set_Visible (onoff); Update_On_Visibilty (); }
-		virtual void			Set_Animation_Hidden(int onoff)	{ RenderObjClass::Set_Animation_Hidden (onoff); Update_On_Visibilty (); }
-		virtual void			Set_Force_Visible(int onoff)		{ RenderObjClass::Set_Force_Visible (onoff); Update_On_Visibilty (); }
+      virtual void			Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const override { sphere.Center.Set(0,0,0); sphere.Radius = 0; }
+      virtual void			Get_Obj_Space_Bounding_Box(AABoxClass & box) const override { box.Center.Set(0,0,0); box.Extent.Set(0,0,0); }
+		virtual void			Set_Hidden(int onoff) override				{ RenderObjClass::Set_Hidden (onoff); Update_On_Visibilty (); }
+		virtual void			Set_Visible(int onoff) override				{ RenderObjClass::Set_Visible (onoff); Update_On_Visibilty (); }
+		virtual void			Set_Animation_Hidden(int onoff) override	{ RenderObjClass::Set_Animation_Hidden (onoff); Update_On_Visibilty (); }
+		virtual void			Set_Force_Visible(int onoff) override		{ RenderObjClass::Set_Force_Visible (onoff); Update_On_Visibilty (); }
 
-		virtual void				Set_LOD_Bias(float bias)			{ if (Buffer) Buffer->Set_LOD_Bias(bias); }
+		virtual void				Set_LOD_Bias(float bias) override			{ if (Buffer) Buffer->Set_LOD_Bias(bias); }
 
 
 		// These are not part of the renderobject interface:
@@ -206,7 +206,7 @@ class ParticleEmitterClass : public RenderObjClass
 		void						Remove_Buffer_From_Scene (void)	{ Buffer->Remove (); FirstTime = true; BufferSceneNeeded = true; }
 
 		// from RenderObj...
-      virtual bool			Is_Complete(void)							{ return IsComplete; }
+      virtual bool			Is_Complete(void) override							{ return IsComplete; }
 		
 		// Auto deletion behavior controls
 		bool						Is_Remove_On_Complete_Enabled(void)				{ return RemoveOnComplete; }
@@ -278,7 +278,7 @@ class ParticleEmitterClass : public RenderObjClass
 	protected:
 
 		// Used to build a list of filenames this emitter is dependent on
-		virtual void			Add_Dependencies_To_List (DynamicVectorClass<StringClass> &file_list, bool textures_only = false);
+		virtual void			Add_Dependencies_To_List (DynamicVectorClass<StringClass> &file_list, bool textures_only = false) override;
 		
 		// This method is called each time the visiblity state of the emitter changes.
 		virtual void			Update_On_Visibilty (void);
@@ -288,7 +288,7 @@ class ParticleEmitterClass : public RenderObjClass
 		// Collision sphere is a point - emitter emits also when not visible,
       // so this is only important to avoid affecting the collision spheres
       // of heirarchy objects into which the emitter is inserted.
-		virtual void Update_Cached_Bounding_Volumes(void) const;
+		virtual void Update_Cached_Bounding_Volumes(void) const override;
 
       // Create new particles and pass them to the particle buffer. Receives
       // the end-of-interval quaternion and origin and interpolates between

@@ -112,8 +112,8 @@ private:
 */
 class	RawFileFactoryClass : public FileFactoryClass {
 public:
-	virtual FileClass * Get_File( char const *filename );
-	virtual void Return_File( FileClass *file );
+	virtual FileClass * Get_File( char const *filename ) override;
+	virtual void Return_File( FileClass *file ) override;
 };
 
 
@@ -130,8 +130,8 @@ public:
 	SimpleFileFactoryClass( void );
 	~SimpleFileFactoryClass( void )	{}
 
-	virtual FileClass *	Get_File( char const *filename );
-	virtual void			Return_File( FileClass *file );
+	virtual FileClass *	Get_File( char const *filename ) override;
+	virtual void			Return_File( FileClass *file ) override;
 
 	// sub_directory may be a semicolon seperated search path.  New files will always
 	//   go in the last dir in the path.

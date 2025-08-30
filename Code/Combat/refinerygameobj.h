@@ -71,11 +71,11 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	uint32								Get_Class_ID (void) const;
-	PersistClass *						Create (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const PersistFactoryClass &	Get_Factory (void) const;
+	uint32								Get_Class_ID (void) const override;
+	PersistClass *						Create (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const PersistFactoryClass &	Get_Factory (void) const override;
 
 	////////////////////////////////////////////////////////////////
 	//	Editable support
@@ -126,32 +126,32 @@ public:
 	//
 	// Definition support
 	//
-	virtual	void					Init( void );
+	virtual	void					Init( void ) override;
 	void								Init (const RefineryGameObjDef & definition);
 	const RefineryGameObjDef &	Get_Definition (void) const;
 
 	//
 	// RTTI
 	//
-	RefineryGameObj *				As_RefineryGameObj (void)	{ return this; }
+	RefineryGameObj *				As_RefineryGameObj (void) override	{ return this; }
 
 	//
 	// Persist support
 	//
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const	PersistFactoryClass &	Get_Factory (void) const;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const	PersistFactoryClass &	Get_Factory (void) const override;
 
 	//
 	//	From BuildingGameObj
 	//
-	void					CnC_Initialize (BaseControllerClass *base);
-	void					On_Destroyed (void);
+	void					CnC_Initialize (BaseControllerClass *base) override;
+	void					On_Destroyed (void) override;
 	
 	//
 	//	GameObj methods
 	//
-	void					Think (void);
+	void					Think (void) override;
 	void					Manage_Money_Trickle_Sound (void);
 
 	//
@@ -192,8 +192,8 @@ public:
 	//
 	// Network support
 	//
-   virtual	void		Export_Rare (BitStreamClass &packet);
-   virtual	void		Import_Rare (BitStreamClass &packet);
+   virtual	void		Export_Rare (BitStreamClass &packet) override;
+   virtual	void		Import_Rare (BitStreamClass &packet) override;
 
 private:
 

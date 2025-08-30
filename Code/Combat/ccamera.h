@@ -68,8 +68,8 @@ public:
 	static	void	Shutdown( void );
 
 	// Save and Load
-	virtual	bool	Save( ChunkSaveClass &csave );
-	virtual	bool	Load( ChunkLoadClass &cload );
+	virtual	bool	Save( ChunkSaveClass &csave ) override;
+	virtual	bool	Load( ChunkLoadClass &cload ) override;
 
 	// Function to update the camera's parameters each frame.
 	virtual void	Update();

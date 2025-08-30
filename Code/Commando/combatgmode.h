@@ -62,13 +62,13 @@ class PhysicsSceneClass;
 */
 class	CombatGameModeClass : public GameMajorModeClass {
 public:
-	virtual	const char *Name()	{ return "Combat"; }	// the name of this mode
-	virtual	void	Init();		 	// called when the mode is activated
-	virtual	void 	Shutdown(); 	// called when the mode is deactivated
-	virtual	void 	Think();			// called each time through the main loop to think when non-inactive
-	virtual	void 	Render();		// called each time through the main loop to draw when non-inactive
-	virtual	void	Resume();		// activates the mode
-	virtual	void	Suspend();		// deactivates the mode (don't shutdown until safe)
+	virtual	const char *Name() override	{ return "Combat"; }	// the name of this mode
+	virtual	void	Init() override;		 	// called when the mode is activated
+	virtual	void 	Shutdown() override; 	// called when the mode is deactivated
+	virtual	void 	Think() override;			// called each time through the main loop to think when non-inactive
+	virtual	void 	Render() override;		// called each time through the main loop to draw when non-inactive
+	virtual	void	Resume() override;		// activates the mode
+	virtual	void	Suspend() override;		// deactivates the mode (don't shutdown until safe)
 
 				void	Load_Level();
 				void 	Core_Shutdown();

@@ -114,18 +114,18 @@ class SingleWait :
 	public:
 		static RefPtr<SingleWait> Create(const wchar_t* waitText, unsigned long timeout = 30000);
 
-		virtual void WaitBeginning(void);
-		virtual WaitResult GetResult(void);
+		virtual void WaitBeginning(void) override;
+		virtual WaitResult GetResult(void) override;
 		
-		virtual void EndWait(WaitResult, const wchar_t*);
+		virtual void EndWait(WaitResult, const wchar_t*) override;
 
-		virtual const wchar_t* GetResultText(void) const;
+		virtual const wchar_t* GetResultText(void) const override;
 		
-		virtual const wchar_t* GetWaitText(void) const;
+		virtual const wchar_t* GetWaitText(void) const override;
 		
 		virtual void SetWaitText(const wchar_t* waitText);
 	
-		virtual unsigned long GetTimeout(void) const;
+		virtual unsigned long GetTimeout(void) const override;
 
 	protected:
 		SingleWait(const wchar_t* waitText, unsigned long timeout = 30000);
@@ -155,17 +155,17 @@ class SerialWait :
 
 		int RemainingWaits(void) const;
 
-		virtual void WaitBeginning(void);
+		virtual void WaitBeginning(void) override;
 		
-		virtual WaitResult GetResult(void);
+		virtual WaitResult GetResult(void) override;
 		
-		virtual void EndWait(WaitResult, const wchar_t*);
+		virtual void EndWait(WaitResult, const wchar_t*) override;
 
-		virtual const wchar_t* GetResultText(void) const;
+		virtual const wchar_t* GetResultText(void) const override;
 
-		virtual const wchar_t* GetWaitText(void) const;
+		virtual const wchar_t* GetWaitText(void) const override;
 
-		virtual unsigned long GetTimeout(void) const;
+		virtual unsigned long GetTimeout(void) const override;
 
 	protected:
 		SerialWait();
@@ -196,17 +196,17 @@ class ANDWait :
 
 		void Add(const RefPtr<WaitCondition>&);
 
-		virtual void WaitBeginning(void);
+		virtual void WaitBeginning(void) override;
 
-		virtual WaitResult GetResult(void);
+		virtual WaitResult GetResult(void) override;
 		
-		virtual void EndWait(WaitResult, const wchar_t*);
+		virtual void EndWait(WaitResult, const wchar_t*) override;
 
-		virtual const wchar_t* GetResultText(void) const;
+		virtual const wchar_t* GetResultText(void) const override;
 		
-		virtual const wchar_t* GetWaitText(void) const;
+		virtual const wchar_t* GetWaitText(void) const override;
 
-		virtual unsigned long GetTimeout(void) const;
+		virtual unsigned long GetTimeout(void) const override;
 
 	protected:
 		ANDWait(const wchar_t*);
@@ -236,17 +236,17 @@ class ORWait :
 
 		void Add(const RefPtr<WaitCondition>&);
 
-		virtual void WaitBeginning(void);
+		virtual void WaitBeginning(void) override;
 
-		virtual WaitResult GetResult(void);
+		virtual WaitResult GetResult(void) override;
 		
-		virtual void EndWait(WaitResult, const wchar_t*);
+		virtual void EndWait(WaitResult, const wchar_t*) override;
 
-		virtual const wchar_t* GetResultText(void) const;
+		virtual const wchar_t* GetResultText(void) const override;
 		
-		virtual const wchar_t* GetWaitText(void) const;
+		virtual const wchar_t* GetWaitText(void) const override;
 
-		virtual unsigned long GetTimeout(void) const
+		virtual unsigned long GetTimeout(void) const override
 			{return mMaxTimeout;}
 
 	protected:
@@ -314,7 +314,7 @@ template<typename Event> class EventValueWait :
 			return wait;
 			}
 
-		virtual void HandleNotification(Event& event)
+		virtual void HandleNotification(Event& event) override
 			{
 			if (mEndResult == Waiting)
 				{

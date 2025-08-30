@@ -117,7 +117,7 @@ public:
 	//
 	//	From SaveLoadSubSystemClass
 	//
-	uint32						Chunk_ID (void) const			{ return CHUNKID_MAPMGR; }
+	uint32						Chunk_ID (void) const override			{ return CHUNKID_MAPMGR; }
 
 	//
 	//	Title support
@@ -136,10 +136,10 @@ protected:
 	//
 	//	From SaveLoadSubSystemClass
 	//
-	bool							Save (ChunkSaveClass &csave);
-	bool							Load (ChunkLoadClass &cload);
-	void							On_Post_Load (void);
-	const char *				Name (void) const					{ return "MapMgrClass"; }	
+	bool							Save (ChunkSaveClass &csave) override;
+	bool							Load (ChunkLoadClass &cload) override;
+	void							On_Post_Load (void) override;
+	const char *				Name (void) const override					{ return "MapMgrClass"; }
 
 	//
 	//	Save load support

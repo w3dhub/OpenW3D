@@ -153,7 +153,7 @@ public:
 	//
 	//	From SaveLoadSubSystemClass
 	//
-	uint32									Chunk_ID (void) const;
+	uint32									Chunk_ID (void) const override;
 
 protected:
 
@@ -167,10 +167,10 @@ protected:
 	//
 	//	From SaveLoadSubSystemClass
 	//
-	bool						Contains_Data (void) const			{ return true; }
-	const char *			Name (void) const						{ return "ConversationMgrClass"; }
-	bool						Save (ChunkSaveClass &csave);
-	bool						Load (ChunkLoadClass &cload);
+	bool						Contains_Data (void) const override			{ return true; }
+	const char *			Name (void) const override						{ return "ConversationMgrClass"; }
+	bool						Save (ChunkSaveClass &csave) override;
+	bool						Load (ChunkLoadClass &cload) override;
 	void						Load_Variables (ChunkLoadClass &cload);
 	bool						Load_Conversations (ChunkLoadClass &cload, int category_id);
 

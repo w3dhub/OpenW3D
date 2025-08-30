@@ -51,14 +51,14 @@ public:
 
 	void						Init(int bbo);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_CLIENTBBOEVENT;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_CLIENTBBOEVENT;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						SenderId;
 	int						Bbo;

@@ -56,8 +56,8 @@ public:
 	MPIngameTeamChatPopupClass (void)	:
 		PopupDialogClass (IDD_MULTIPLAY_INGAME_TEAM_CHAT)	{}
 
-	void	On_Init_Dialog (void);
-	bool	On_Key_Down (uint32 key_id, uint32 key_data);
+	void	On_Init_Dialog (void) override;
+	bool	On_Key_Down (uint32 key_id, uint32 key_data) override;
 
 private:
 };

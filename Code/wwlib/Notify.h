@@ -172,11 +172,11 @@ template<typename Event> class Notifier
 
 
 #define DECLARE_NOTIFIER(Event) \
-	virtual void NotifyObservers(Event& event) \
+	virtual void NotifyObservers(Event& event) override \
 		{Notifier<Event>::NotifyObservers(event);} \
-	virtual void AddObserver(Observer<Event>& observer) \
+	virtual void AddObserver(Observer<Event>& observer) override \
 		{Notifier<Event>::AddObserver(observer);} \
-	virtual void RemoveObserver(Observer<Event>& observer) \
+	virtual void RemoveObserver(Observer<Event>& observer) override \
 		{Notifier<Event>::RemoveObserver(observer);} 
 
 

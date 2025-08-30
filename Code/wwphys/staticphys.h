@@ -64,32 +64,32 @@ public:
 	
 	StaticPhysClass(void);
 	~StaticPhysClass(void);
-	virtual StaticPhysClass *	As_StaticPhysClass(void)									{ return this; }
+	virtual StaticPhysClass *	As_StaticPhysClass(void) override									{ return this; }
 	StaticPhysDefClass *			Get_StaticPhysDef(void)										{ return (StaticPhysDefClass *)Definition; }
 	
 	void								Init(const StaticPhysDefClass & def);
-	virtual bool					Needs_Timestep(void)											{ return false; }
-	virtual void					Timestep(float dt)											{ }; 
-	virtual void					Set_Model(RenderObjClass * model);
-	virtual void					Render_Vis_Meshes(RenderInfoClass & rinfo);
+	virtual bool					Needs_Timestep(void) override											{ return false; }
+	virtual void					Timestep(float dt) override											{ };
+	virtual void					Set_Model(RenderObjClass * model) override;
+	virtual void					Render_Vis_Meshes(RenderInfoClass & rinfo) override;
 		
 	/*
 	** Collision detection - all collideable objects provide the following collision detection
 	** functions so that other objects do not pass through them.  These functions should test
 	** the given primitive against this object's geometric representation.
 	*/
-	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest);
-	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest);
-	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest);
+	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest) override;
+	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest) override;
+	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest) override;
 
-	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & test);
-	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & test);
-	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & test);
+	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & test) override;
+	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & test) override;
+	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & test) override;
 	bool								Intersects(const OBBoxClass & obbox);
 
 	virtual const AABoxClass & Get_Bounding_Box(void) const;
-	virtual const Matrix3D &	Get_Transform(void) const;
-	virtual void					Set_Transform(const Matrix3D & m);
+	virtual const Matrix3D &	Get_Transform(void) const override;
+	virtual void					Set_Transform(const Matrix3D & m) override;
 
 	/*
 	** Classify this object for the visibility culling system.  If the rendered
@@ -118,8 +118,8 @@ public:
 	/*
 	** Simulation and rendering toggles for all static physics objects
 	*/
-	virtual bool					Is_Simulation_Disabled(void)				{ return _DisableStaticPhysSimulation; }
-	virtual bool					Is_Rendering_Disabled(void)				{ return _DisableStaticPhysRendering; }
+	virtual bool					Is_Simulation_Disabled(void) override				{ return _DisableStaticPhysSimulation; }
+	virtual bool					Is_Rendering_Disabled(void) override				{ return _DisableStaticPhysRendering; }
 	static void						Disable_All_Simulation(bool onoff)		{ _DisableStaticPhysSimulation = onoff; }
 	static void						Disable_All_Rendering(bool onoff)		{ _DisableStaticPhysRendering = onoff; }
 	static bool						Is_All_Simulation_Disabled(void)			{ return _DisableStaticPhysSimulation; }
@@ -138,17 +138,17 @@ public:
 	/*
 	** Save-Load System
 	*/
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save (ChunkSaveClass &csave);
-	virtual bool								Load (ChunkLoadClass &cload);
-	virtual void								On_Post_Load(void);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save (ChunkSaveClass &csave) override;
+	virtual bool								Load (ChunkLoadClass &cload) override;
+	virtual void								On_Post_Load(void) override;
 
 float	Compute_Vis_Mesh_Ram(RenderObjClass * model = NULL);
 
 protected:
 
 	void								Update_Cached_Model_Parameters(void);
-	virtual void					Update_Sun_Status(void);
+	virtual void					Update_Sun_Status(void) override;
 
 protected:
 
@@ -177,17 +177,17 @@ public:
 	StaticPhysDefClass(void);
 	
 	// From DefinitionClass
-	virtual uint32								Get_Class_ID (void) const;
-	virtual PersistClass *					Create(void) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *					Create(void) const override;
 
 	// From PhysDefClass
-	virtual const char *						Get_Type_Name(void);
-	virtual bool								Is_Type(const char *);
+	virtual const char *						Get_Type_Name(void) override;
+	virtual bool								Is_Type(const char *) override;
 
 	// From PersistClass
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool								Save(ChunkSaveClass &csave);
-	virtual bool								Load(ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool								Save(ChunkSaveClass &csave) override;
+	virtual bool								Load(ChunkLoadClass &cload) override;
 
 	//	Editable interface requirements
 	DECLARE_EDITABLE(StaticPhysDefClass,PhysDefClass);

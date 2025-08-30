@@ -73,10 +73,10 @@ class DlgMPTeamSelect :
 
 		bool FinalizeCreate(void);
 
-		void On_Init_Dialog(void);
-		void On_Frame_Update(void);
-		void On_Command(int ctrlID, int message, DWORD param);
-		void On_Last_Menu_Ending(void);
+		void On_Init_Dialog(void) override;
+		void On_Frame_Update(void) override;
+		void On_Command(int ctrlID, int message, DWORD param) override;
+		void On_Last_Menu_Ending(void) override;
 
 		void InitSideChoice(int sidePref);
 		void SelectSideChoice(int side);
@@ -87,10 +87,10 @@ class DlgMPTeamSelect :
 		void ShowTimeRemaining(float remainingSecond);
 		bool FindPlayerInListCtrl(const WCHAR* name, ListCtrlClass*& outList, int& outIndex);
 
-		void HandleNotification(WWOnline::ChannelEvent&);
-		void HandleNotification(WWOnline::UserEvent&);
-		void HandleNotification(WWOnline::GameOptionsMessage&);
-		void HandleNotification(PlayerMgrEvent&);
+		void HandleNotification(WWOnline::ChannelEvent&) override;
+		void HandleNotification(WWOnline::UserEvent&) override;
+		void HandleNotification(WWOnline::GameOptionsMessage&) override;
+		void HandleNotification(PlayerMgrEvent&) override;
 
 		static void ProcessWOLGameInfo(DlgMPTeamSelect& dialog, const char* data);
 		static void ProcessWOLTeamInfo(DlgMPTeamSelect& dialog, const char* data);

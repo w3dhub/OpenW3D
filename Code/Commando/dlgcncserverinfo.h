@@ -73,8 +73,8 @@ public:
 	//
 	//	Inherited
 	//
-	void		On_Init_Dialog (void);
-	void		On_Frame_Update (void);
+	void		On_Init_Dialog (void) override;
+	void		On_Frame_Update (void) override;
 	
 private:
 	

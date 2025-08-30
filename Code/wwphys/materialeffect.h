@@ -124,8 +124,8 @@ public:
 	SimpleEffectClass(MaterialPassClass * matpass);
 	~SimpleEffectClass(void);
 
-	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj);
-	virtual void		Render_Pop(RenderInfoClass & rinfo);
+	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj) override;
+	virtual void		Render_Pop(RenderInfoClass & rinfo) override;
 
 private:
 

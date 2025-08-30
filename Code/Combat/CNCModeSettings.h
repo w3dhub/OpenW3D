@@ -49,14 +49,14 @@ class CNCModeSettingsDef :
 		CNCModeSettingsDef(void);
 		virtual ~CNCModeSettingsDef(void);
 
-		virtual uint32 Get_Class_ID(void) const;
+		virtual uint32 Get_Class_ID(void) const override;
 
-		virtual PersistClass* Create(void) const;
+		virtual PersistClass* Create(void) const override;
 		
-		virtual bool Save(ChunkSaveClass& csave);
-		virtual bool Load(ChunkLoadClass& cload);
+		virtual bool Save(ChunkSaveClass& csave) override;
+		virtual bool Load(ChunkLoadClass& cload) override;
 
-		virtual const PersistFactoryClass& Get_Factory(void) const;	
+		virtual const PersistFactoryClass& Get_Factory(void) const override;
 
 		static CNCModeSettingsDef* Get_Instance(void)
 			{return _mInstance;}	

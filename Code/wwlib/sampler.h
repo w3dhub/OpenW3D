@@ -78,8 +78,8 @@ class RandomSamplingClass : public SamplingClass
 {
 public:
 	RandomSamplingClass(unsigned int dimensions, unsigned char divisions=0);
-	virtual void Reset() {};
-	virtual void Sample(float *target);	
+	virtual void Reset() override {};
+	virtual void Sample(float *target) override;
 };
 
 // samples over a regular hypergrid
@@ -88,8 +88,8 @@ class RegularSamplingClass : public SamplingClass
 {
 public:
 	RegularSamplingClass(unsigned int dimensions, unsigned char divisions=3);
-	virtual void Reset();
-	virtual void Sample(float *target);
+	virtual void Reset() override;
+	virtual void Sample(float *target) override;
 	virtual ~RegularSamplingClass();
 protected:
 	unsigned char *index;
@@ -101,8 +101,8 @@ class StratifiedSamplingClass : public SamplingClass
 {
 public:
 	StratifiedSamplingClass(unsigned int dimensions, unsigned char divisions=3);
-	virtual void Reset();
-	virtual void Sample(float *target);
+	virtual void Reset() override;
+	virtual void Sample(float *target) override;
 	virtual ~StratifiedSamplingClass();
 protected:
 	unsigned char *index;
@@ -116,8 +116,8 @@ class QMCSamplingClass : public SamplingClass
 {
 public:
 	QMCSamplingClass(unsigned int dimensions, unsigned char divisions=0);
-	virtual void Reset() {index=0;};
-	virtual void Sample(float *target);
+	virtual void Reset() override {index=0;};
+	virtual void Sample(float *target) override;
 	void Set_Offset(unsigned int offset) { index=offset; }
 protected:
 	unsigned int index;

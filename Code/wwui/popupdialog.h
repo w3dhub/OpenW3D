@@ -77,12 +77,12 @@ public:
 	//
 	//	RTTI
 	//
-	virtual PopupDialogClass *	As_PopupDialogClass (void)	{ return this; }
+	virtual PopupDialogClass *	As_PopupDialogClass (void) override	{ return this; }
 
 	//
 	//	Display methods
 	//
-	virtual void				Render (void);
+	virtual void				Render (void) override;
 
 	virtual void Set_Title(const WCHAR* title);
 
@@ -101,7 +101,7 @@ protected:
 	//
 	//	From DialogBaseClass
 	//
-	void				On_Init_Dialog (void);	
+	void				On_Init_Dialog (void) override;
 
 
 	////////////////////////////////////////////////////////////////

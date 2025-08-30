@@ -91,7 +91,7 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 		return reasons[(int)reason];
 	}
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		current_time = time(NULL);
 		desc = Get_Parameter("Description");
@@ -101,42 +101,42 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 		fprintf(file, "%s [ID %d] created.\n", desc, Commands->Get_ID(obj));
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		current_time = time(NULL);
 		fprintf(file, "%s [ID %d] received custom event of type %d and param %d.  Sender was object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), type, param, Commands->Get_ID(sender), difftime(current_time, start_time));
 	}
 
-	void Damaged(GameObject * obj, GameObject * damager, float amount)
+	void Damaged(GameObject * obj, GameObject * damager, float amount) override
 	{
 		current_time = time(NULL);
 		fprintf(file, "%s [ID %d] damaged by object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), Commands->Get_ID(damager), difftime(current_time, start_time));
 	}
 
-	void Sound_Heard( GameObject * obj, const CombatSound & sound )
+	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
 	//	fprintf(file, "%s [ID %d] heard a sound.   %3.1f sec.\n", desc, Commands->Get_ID(obj), current_time);
 	}
 	
-	void Enemy_Seen( GameObject * obj, GameObject * enemy)
+	void Enemy_Seen( GameObject * obj, GameObject * enemy) override
 	{
 		current_time = time(NULL);
 		fprintf(file, "%s [ID %d] saw enemy: object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), Commands->Get_ID(enemy), difftime(current_time, start_time));
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason)
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		current_time = time(NULL);
 		fprintf(file, "Action %d complete on %s [ID %d] -- Reason: %s.   %3.1f sec.\n", action_id, desc, Commands->Get_ID(obj), Reason_Lookup(reason), difftime(current_time, start_time));
 	}
 
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		current_time = time(NULL);
 		fprintf(file, "%s [ID %d] killed by object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), Commands->Get_ID(killer), difftime(current_time, start_time));
 	}
 
-	void Destroyed(GameObject * obj)
+	void Destroyed(GameObject * obj) override
 	{
 		fclose(file);
 	}
@@ -160,7 +160,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Object_On_Frame_RMV, "Frame:int, Primary_W
 	int target_id;
 	GameObject *target;
 
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		frame = (float)Get_Int_Parameter("Frame");
 		primary = (Get_Int_Parameter("Primary_Weapon") == 1) ? true : false;
@@ -200,7 +200,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Object_On_Timer_RMV, "Delay:float, Primary
 	int target_id;
 	GameObject *target;
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		time = Get_Float_Parameter("Delay");
 		primary = (Get_Int_Parameter("Primary_Weapon") == 1) ? true : false;
@@ -239,7 +239,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Location_On_Frame_RMV, "Frame:int, Primary
 	int stop_id;
 	Vector3 target;
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		frame = (float)Get_Int_Parameter("Frame");
 		primary = (Get_Int_Parameter("Primary_Weapon") == 1) ? true : false;
@@ -273,7 +273,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Location_On_Timer_RMV, "Delay:float, Prima
 	int stop_id;
 	Vector3 target;
 	
-	void Created(GameObject * obj)
+	void Created(GameObject * obj) override
 	{
 		time = Get_Float_Parameter("Delay");
 		primary = (Get_Int_Parameter("Primary_Weapon") == 1) ? true : false;
@@ -284,7 +284,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Location_On_Timer_RMV, "Delay:float, Prima
 		Commands->Start_Timer(obj, this, time, start_id);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == start_id)
 		{
@@ -302,7 +302,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Location_On_Timer_RMV, "Delay:float, Prima
 
 DECLARE_SCRIPT(M00_Disable_Physical_Collision_JDG, "")
 {
-	void Created( GameObject * obj ) 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Disable_Physical_Collisions ( obj );
 	}
@@ -310,7 +310,7 @@ DECLARE_SCRIPT(M00_Disable_Physical_Collision_JDG, "")
 
 DECLARE_SCRIPT(M00_Enable_Physical_Collision_JDG, "")
 {
-	void Created( GameObject * obj ) 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Collisions ( obj );
 	}
@@ -318,7 +318,7 @@ DECLARE_SCRIPT(M00_Enable_Physical_Collision_JDG, "")
 
 DECLARE_SCRIPT(M00_C130_Explosion, "")
 {
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		Commands->Create_Explosion_At_Bone("Explosion_Cargo_Plane", obj, "BODYMAIN", NULL);
 		//JDG updated this script due to explosion preset name change--07/27/2001
@@ -341,13 +341,13 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		object_detached = false;
 		attached_object_id = 0;
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 		if(type == M00_CUSTOM_OBJECT_ATTACHED_PRIMARY)
@@ -358,7 +358,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id)
+	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == OBJECT_DETACHED)
 		{
@@ -367,7 +367,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		if(!object_detached)
 		{
@@ -433,7 +433,7 @@ DECLARE_SCRIPT(M00_5MetalBarrels_ChainRxn_Controller_JDG, "Barrel01_Location:vec
 		SAVE_VARIABLE(barrel_05_facing, 20);
 	}
 
-	void Created( GameObject * obj ) 
+	void Created( GameObject * obj ) override
 	{
 		barrel_01_location = Get_Vector3_Parameter("Barrel01_Location");
 		barrel_02_location = Get_Vector3_Parameter("Barrel02_Location");
@@ -515,7 +515,7 @@ DECLARE_SCRIPT(M00_5MetalBarrels_ChainRxn_Controller_JDG, "Barrel01_Location:vec
 		Commands->Attach_Script(barrel_05, "M00_ChainRxn_Barrel_JDG", controller);
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) 
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -615,13 +615,13 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 		SAVE_VARIABLE(deadYet, 2);
 	}
 
-	void Created( GameObject * obj ) 
+	void Created( GameObject * obj ) override
 	{
 		deadYet = false;
 		controller_id = Get_Int_Parameter("Controller_ID");
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 		if (obj && deadYet == false && damager == STAR)
 		{
@@ -640,7 +640,7 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) 
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if (param == M01_MODIFY_YOUR_ACTION_JDG && deadYet == false)//you've been ordered to blow up--DO IT!
 		{
@@ -722,7 +722,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		SAVE_VARIABLE(can_fire, 6);
 	}
 
-	void Created (GameObject* obj)
+	void Created (GameObject* obj) override
 	{
 		can_fire = true;
 		Commands->Enable_Hibernation (obj, false);
@@ -793,7 +793,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		Commands->Start_Timer (obj, this, 1.0f, 2);
 	}
 
-	void Killed( GameObject * obj, GameObject * killer ) 
+	void Killed( GameObject * obj, GameObject * killer ) override
 	{
 		//telling AGT guns that AGT has been killed (2/12/2002 JDG)
 		GameObject * gun_01 = Commands->Find_Object (gun_01_id);
@@ -822,7 +822,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		GameObject * gun_01 = Commands->Find_Object (gun_01_id);
 		GameObject * gun_02 = Commands->Find_Object (gun_02_id);
@@ -893,7 +893,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		GameObject * gun_01 = Commands->Find_Object (gun_01_id);
 		GameObject * gun_02 = Commands->Find_Object (gun_02_id);
@@ -955,7 +955,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Gun, "")
 		SAVE_VARIABLE(agt_is_dead, 2);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Shield_Type (obj, "Blamo");
 		Commands->Enable_Hibernation (obj, false);
@@ -965,7 +965,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Gun, "")
 		agt_is_dead = false;
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		if (agt_is_dead == false)
 		{
@@ -990,7 +990,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Gun, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -998,7 +998,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Gun, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1029,14 +1029,14 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Missile, "")
 {
 	bool firing;
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Is_Rendered (obj, false);
 		Commands->Enable_Hibernation (obj, false);
 		firing = false;
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1063,7 +1063,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Missile, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -1076,7 +1076,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Missile, "")
 
 DECLARE_SCRIPT (M00_Purchase_Terminal_GDI, "")
 {
-	void Poked (GameObject * obj, GameObject * poker)
+	void Poked (GameObject * obj, GameObject * poker) override
 	{
 		Commands->Display_GDI_Player_Terminal ();
 	}
@@ -1084,7 +1084,7 @@ DECLARE_SCRIPT (M00_Purchase_Terminal_GDI, "")
 
 DECLARE_SCRIPT (M00_Purchase_Terminal_NOD, "")
 {
-	void Poked (GameObject * obj, GameObject * poker)
+	void Poked (GameObject * obj, GameObject * poker) override
 	{
 		Commands->Display_NOD_Player_Terminal ();
 	}
@@ -1093,7 +1093,7 @@ DECLARE_SCRIPT (M00_Purchase_Terminal_NOD, "")
 
 DECLARE_SCRIPT (M00_Purchase_Terminal_Mutant, "")
 {
-	void Poked (GameObject * obj, GameObject * poker)
+	void Poked (GameObject * obj, GameObject * poker) override
 	{
 		Commands->Display_Mutant_Player_Terminal ();
 	}
@@ -1113,7 +1113,7 @@ DECLARE_SCRIPT (M00_Nod_Turret, "")
 		SAVE_VARIABLE (token_03_id, 3);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Hibernation (obj, false);
 		Commands->Innate_Enable (obj);
@@ -1153,7 +1153,7 @@ DECLARE_SCRIPT (M00_Nod_Turret, "")
 		Commands->Start_Timer (obj, this, 10.0f, 1);
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -1204,7 +1204,7 @@ DECLARE_SCRIPT (M00_Nod_Turret, "")
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		Vector3 target_pos = Commands->Get_Position (enemy);
 
@@ -1218,7 +1218,7 @@ DECLARE_SCRIPT (M00_Nod_Turret, "")
 		Commands->Start_Timer (obj, this, 2.0f, 2);
 	}
 
-	void Killed(GameObject * obj, GameObject * killer)
+	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		Vector3 myPositon = Commands->Get_Position ( obj );
 		float myFacing  = Commands->Get_Facing ( obj );
@@ -1227,7 +1227,7 @@ DECLARE_SCRIPT (M00_Nod_Turret, "")
 		Commands->Set_Facing ( destroyedTurret, myFacing );
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (action_id == 2)
 		{
@@ -1246,7 +1246,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk_CNC, "Controller_ID=0:int")
 		SAVE_VARIABLE (obelisk_id, 1);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		obelisk_id = 0;
 		Vector3 my_location = Commands->Get_Position (obj);
@@ -1262,7 +1262,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk_CNC, "Controller_ID=0:int")
 		}
 	}
 
-	void Killed( GameObject * obj, GameObject * killer ) 
+	void Killed( GameObject * obj, GameObject * killer ) override
 	{
 		GameObject * obelisk = Commands->Find_Object(obelisk_id);
 		if (obelisk != NULL)
@@ -1271,7 +1271,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk_CNC, "Controller_ID=0:int")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -1297,7 +1297,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk_CNC, "Controller_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ((type == 1) && (param == 1))
 		{
@@ -1331,7 +1331,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 		SAVE_VARIABLE (obelisk_is_dead, 5);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		obelisk_is_dead = false;
 		range = 150.0f;
@@ -1352,7 +1352,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 		}
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		if (obelisk_is_dead == false)//adding extra safety check here -- 02/12/2002 JDG
 		{
@@ -1361,7 +1361,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1428,7 +1428,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (obelisk_is_dead == false)//adding extra safety check here -- 02/12/2002 JDG
 		{
@@ -1497,7 +1497,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk, "Controller_ID=0:int")
 		SAVE_VARIABLE (obelisk_id, 1);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		obelisk_id = 0;
 		Vector3 my_location = Commands->Get_Position (obj);
@@ -1514,7 +1514,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk, "Controller_ID=0:int")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -1540,7 +1540,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk, "Controller_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ((type == 1) && (param == 1))
 		{
@@ -1569,7 +1569,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 		SAVE_VARIABLE (powerup_effect_id, 3);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		powerup_effect_id = 0;
 		current_target = 0;
@@ -1588,13 +1588,13 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 		}
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy )
+	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		int enemy_id = Commands->Get_ID (enemy);
 		Commands->Send_Custom_Event (obj, obj, 2, enemy_id, 0.0f);
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1651,7 +1651,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -1710,7 +1710,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 DECLARE_SCRIPT (M00_Select_Empty_Hands, "On_Created=1:int")
 {
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		bool on_created = (Get_Int_Parameter("On_Created") == 1) ? true : false;
 		if(on_created)
@@ -1719,7 +1719,7 @@ DECLARE_SCRIPT (M00_Select_Empty_Hands, "On_Created=1:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if(type == M00_SELECT_EMPTY_HANDS)
 		{
@@ -1730,7 +1730,7 @@ DECLARE_SCRIPT (M00_Select_Empty_Hands, "On_Created=1:int")
 
 DECLARE_SCRIPT(M00_ArmorMedal_TextMessage_JDG, "")
 {
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) 
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -1741,7 +1741,7 @@ DECLARE_SCRIPT(M00_ArmorMedal_TextMessage_JDG, "")
 
 DECLARE_SCRIPT(M00_HealthMedal_TextMessage_JDG, "")
 {
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) 
+	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -1752,7 +1752,7 @@ DECLARE_SCRIPT(M00_HealthMedal_TextMessage_JDG, "")
 
 DECLARE_SCRIPT(M00_Change_L3Mutant_RadarMarker_JDG, "")
 {
-	void Created( GameObject * obj ) 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Obj_Radar_Blip_Color ( obj, RADAR_BLIP_COLOR_MUTANT );
 	}
@@ -1771,7 +1771,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		SAVE_VARIABLE( launched, 2 );
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		launched = false;
 
@@ -1781,7 +1781,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		ssm_missile_id = Commands->Get_ID(ssm_missile);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if(type == M00_LAUNCH_SSM)
 		{
@@ -1792,7 +1792,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		}
 	}
 
-	void Timer_Expired (GameObject *obj, int Timer_ID)
+	void Timer_Expired (GameObject *obj, int Timer_ID) override
 	{
 		if (Timer_ID == 66000)
 		{
@@ -1800,7 +1800,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		}
 	}
 
-	void Killed (GameObject *obj, GameObject *killer)
+	void Killed (GameObject *obj, GameObject *killer) override
 	{
 		if (!launched)
 		{
@@ -1812,7 +1812,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 
 DECLARE_SCRIPT(M00_Generic_Conv_DME, "ConvName:string")
 {
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		int id = Commands->Create_Conversation(Get_Parameter( "ConvName" ), 99, 2000, false);
 		Commands->Join_Conversation(obj, id, true, true, true);
@@ -1840,7 +1840,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 		SAVE_VARIABLE( mod_on, 8 );
 	}
 
-	void Created (GameObject *obj)
+	void Created (GameObject *obj) override
 	{
 		mod_on = true;
 		last_health = Commands->Get_Health (obj);
@@ -1851,7 +1851,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 		notStar_modifier = Get_Int_Parameter("NotStar_Modifier");
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender)
+	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
 	{
 		if (type == M00_ENABLE_DAMAGE_MOD)
 		{
@@ -1866,7 +1866,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 		}
 	}		
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
 	{
 		if (mod_on)
 		{
@@ -1935,7 +1935,7 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		SAVE_VARIABLE (player_type, 4);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		// find out what my team preset is.
 		player_type = Commands->Get_Player_Type( obj );
@@ -1980,7 +1980,7 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		Commands->Start_Timer (obj, this, 10.0f, 1);
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == 1)
 		{
@@ -2031,7 +2031,7 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 
 		Vector3 my_loc = Commands->Get_Position (obj);
@@ -2048,7 +2048,7 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (action_id == 2)
 		{
@@ -2056,7 +2056,7 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		}
 	}
 
-	void Exited (GameObject* obj, GameObject* exiter) 
+	void Exited (GameObject* obj, GameObject* exiter) override
 	{
 		// set team back to my preset.
 		Commands->Set_Player_Type( obj, player_type );

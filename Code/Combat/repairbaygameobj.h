@@ -75,11 +75,11 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	uint32								Get_Class_ID (void) const;
-	PersistClass *						Create (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const PersistFactoryClass &	Get_Factory (void) const;
+	uint32								Get_Class_ID (void) const override;
+	PersistClass *						Create (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const PersistFactoryClass &	Get_Factory (void) const override;
 
 	////////////////////////////////////////////////////////////////
 	//	Editable support
@@ -123,37 +123,37 @@ public:
 	//
 	// Definition support
 	//
-	virtual	void						Init( void );
+	virtual	void						Init( void ) override;
 	void									Init (const RepairBayGameObjDef & definition);
 	const RepairBayGameObjDef &	Get_Definition (void) const;
 
 	//
 	// RTTI
 	//
-	RepairBayGameObj *				As_RepairBayGameObj (void)	{ return this; }
+	RepairBayGameObj *				As_RepairBayGameObj (void) override	{ return this; }
 
 	//
 	// Persist support
 	//
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const	PersistFactoryClass &	Get_Factory (void) const;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const	PersistFactoryClass &	Get_Factory (void) const override;
 
 	//
 	//	From BuildingGameObj
 	//
-	void					CnC_Initialize (BaseControllerClass *base);
+	void					CnC_Initialize (BaseControllerClass *base) override;
 	
 	//
 	//	GameObj methods
 	//
-	void					Think (void);
+	void					Think (void) override;
 
 	//
 	// Network support
 	//
-	void								Export_Creation (BitStreamClass &packet);
-	void								Import_Creation (BitStreamClass &packet);
+	void								Export_Creation (BitStreamClass &packet) override;
+	void								Import_Creation (BitStreamClass &packet) override;
 
 private:
 

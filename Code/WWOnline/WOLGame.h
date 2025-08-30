@@ -89,7 +89,7 @@ class GameStartWait :
 	public:
 		static RefPtr<GameStartWait> Create(const UserList& players, void(*callback)(void) = NULL);
 
-		void WaitBeginning(void);
+		void WaitBeginning(void) override;
 
 	protected:
 		GameStartWait(const UserList& players, void(*callback)(void) = NULL);
@@ -99,8 +99,8 @@ class GameStartWait :
 		GameStartWait(const GameStartWait&);
 		const GameStartWait& operator=(const GameStartWait&);
 
-		void HandleNotification(GameStartEvent&);
-		void EndWait(WaitResult result, const wchar_t* endText);
+		void HandleNotification(GameStartEvent&) override;
+		void EndWait(WaitResult result, const wchar_t* endText) override;
 
 		void (*mTimeoutCallback)(void);
 		NativeWOLUserList mPlayers;

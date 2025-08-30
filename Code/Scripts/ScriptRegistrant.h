@@ -48,7 +48,7 @@ class	ScriptRegistrant : public ScriptFactory
 			: ScriptFactory(name, param)
 			{}
 
-		virtual ScriptImpClass* Create(void)
+		virtual ScriptImpClass* Create(void) override
 			{
 			T* script = new T;
 			assert(script != NULL);

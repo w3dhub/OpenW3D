@@ -72,11 +72,11 @@ public:
 	//////////////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////////////
-	uint32								Get_Class_ID (void) const;
-	PersistClass *						Create (void) const;
-	bool									Save (ChunkSaveClass &csave);
-	bool									Load (ChunkLoadClass &cload);
-	const PersistFactoryClass &	Get_Factory (void) const;	
+	uint32								Get_Class_ID (void) const override;
+	PersistClass *						Create (void) const override;
+	bool									Save (ChunkSaveClass &csave) override;
+	bool									Load (ChunkLoadClass &cload) override;
+	const PersistFactoryClass &	Get_Factory (void) const override;
 
 protected:
 
@@ -119,34 +119,34 @@ public:
 	//
 	// Definitions
 	//
-	virtual	void								Init (void);
+	virtual	void								Init (void) override;
 	void											Init (const MendozaBossGameObjDefClass &definition);
 	const MendozaBossGameObjDefClass &	Get_Definition (void) const;
 
 	//
 	// From save/load
 	//
-	bool									Save (ChunkSaveClass & csave);
-	bool									Load (ChunkLoadClass & cload);
-	void									On_Post_Load (void);
-	const	PersistFactoryClass &	Get_Factory (void) const;
+	bool									Save (ChunkSaveClass & csave) override;
+	bool									Load (ChunkLoadClass & cload) override;
+	void									On_Post_Load (void) override;
+	const	PersistFactoryClass &	Get_Factory (void) const override;
 
 	//
 	//	Inherited
 	//
-	bool									Wants_Powerups (void)						{ return true; }
-	bool									Allow_Special_Damage_State_Lock (void)	{ return false; }
+	bool									Wants_Powerups (void) override						{ return true; }
+	bool									Allow_Special_Damage_State_Lock (void) override	{ return false; }
 
 	//
 	// Think
 	//
-	void									Think (void);
-	void									Apply_Control (void);
+	void									Think (void) override;
+	void									Apply_Control (void) override;
 
 	//
 	// Damage
 	//
-   virtual	void						Apply_Damage_Extended (const OffenseObjectClass &offense, float scale = 1.0f, const	Vector3 & direction = Vector3 (0, 0, 0), const char *collision_box_name = NULL);
+   virtual	void						Apply_Damage_Extended (const OffenseObjectClass &offense, float scale = 1.0f, const	Vector3 & direction = Vector3 (0, 0, 0), const char *collision_box_name = NULL) override;
 
 protected:
 	

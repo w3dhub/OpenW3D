@@ -59,7 +59,7 @@ public:
 	MissingAnimClass( const char * name ) : Name( name ) {}
 	virtual	~MissingAnimClass( void ) {}
 
-	virtual	const char * Get_Key( void )	{ return Name;	}
+	virtual	const char * Get_Key( void ) override	{ return Name;	}
 
 private:
 	StringClass	Name;

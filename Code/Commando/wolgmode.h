@@ -86,13 +86,13 @@ class	WolGameModeClass :
 		WolGameModeClass();
 		~WolGameModeClass();
 
-		inline const char* Name(void)
+		inline const char* Name(void) override
 			{return "WOL";}
 
-		void Init(void);
-		void Shutdown(void);
-		void Think(void);
-		void Render(void) {}
+		void Init(void) override;
+		void Shutdown(void) override;
+		void Think(void) override;
+		void Render(void) override {}
 
 		void Create_Game(cGameData*);
 		void Leave_Game(void);
@@ -142,15 +142,15 @@ class	WolGameModeClass :
 
 		void Game_Start_Timed_Out(void);
 
-		void HandleNotification(DlgWOLWaitEvent&);
-		void HandleNotification(WWOnline::GameStartEvent&);
-		void HandleNotification(WWOnline::GameOptionsMessage&);
-		void HandleNotification(WWOnline::ChannelEvent&);
-		void HandleNotification(WWOnline::UserEvent&);
-		void HandleNotification(WWOnline::LadderInfoEvent&);
-		void HandleNotification(WOLPagedEvent&);
-		void HandleNotification(WWOnline::ServerError&);
-		void HandleNotification(WWOnline::ConnectionStatus&);
+		void HandleNotification(DlgWOLWaitEvent&) override;
+		void HandleNotification(WWOnline::GameStartEvent&) override;
+		void HandleNotification(WWOnline::GameOptionsMessage&) override;
+		void HandleNotification(WWOnline::ChannelEvent&) override;
+		void HandleNotification(WWOnline::UserEvent&) override;
+		void HandleNotification(WWOnline::LadderInfoEvent&) override;
+		void HandleNotification(WOLPagedEvent&) override;
+		void HandleNotification(WWOnline::ServerError&) override;
+		void HandleNotification(WWOnline::ConnectionStatus&) override;
 
 	private:
 		RefPtr<WWOnline::Session> mWOLSession;

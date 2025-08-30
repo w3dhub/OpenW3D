@@ -115,29 +115,29 @@ public:
 	//
 	//	Save/load support
 	//	
-	bool					Save (ChunkSaveClass &csave);
-	bool					Load (ChunkLoadClass &cload);
+	bool					Save (ChunkSaveClass &csave) override;
+	bool					Load (ChunkLoadClass &cload) override;
 	void					Load_Variables (ChunkLoadClass &cload);
 	void					Load_Materials (ChunkLoadClass &cload);
-	const PersistFactoryClass &	Get_Factory (void) const;
+	const PersistFactoryClass &	Get_Factory (void) const override;
 
 	//
 	//	Inherited
 	//
-	RenderObjClass *	Clone (void) const							{ return new RenegadeTerrainPatchClass (*this); }
-	int					Class_ID (void) const						{ return CLASSID_RENEGADE_TERRAIN; }
-	void					Render (RenderInfoClass &rinfo);
-	void		 			Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const;
-	void					Get_Obj_Space_Bounding_Box (AABoxClass &box) const;
+	RenderObjClass *	Clone (void) const override							{ return new RenegadeTerrainPatchClass (*this); }
+	int					Class_ID (void) const override						{ return CLASSID_RENEGADE_TERRAIN; }
+	void					Render (RenderInfoClass &rinfo) override;
+	void		 			Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const override;
+	void					Get_Obj_Space_Bounding_Box (AABoxClass &box) const override;
 	
 	//
 	//	Inherited collision detection
 	//
-	bool					Cast_Ray (RayCollisionTestClass &raytest);
-	bool					Cast_AABox (AABoxCollisionTestClass &boxtest);
-	bool					Cast_OBBox (OBBoxCollisionTestClass &boxtest);
-	bool					Intersect_AABox (AABoxIntersectionTestClass &boxtest);
-	bool					Intersect_OBBox (OBBoxIntersectionTestClass &boxtest);
+	bool					Cast_Ray (RayCollisionTestClass &raytest) override;
+	bool					Cast_AABox (AABoxCollisionTestClass &boxtest) override;
+	bool					Cast_OBBox (OBBoxCollisionTestClass &boxtest) override;
+	bool					Intersect_AABox (AABoxIntersectionTestClass &boxtest) override;
+	bool					Intersect_OBBox (OBBoxIntersectionTestClass &boxtest) override;
 
 	//
 	//	Material access

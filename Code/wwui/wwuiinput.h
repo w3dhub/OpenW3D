@@ -104,8 +104,8 @@ public:
 	IME::IMEManager* GetIME(void) const;
 		
 	protected:
-		void HandleNotification(IME::UnicodeChar& unicode);
-		void HandleNotification(IME::IMEEvent&);
+		void HandleNotification(IME::UnicodeChar& unicode) override;
+		void HandleNotification(IME::IMEEvent&) override;
 
 	private:
 		IME::IMEManager* mIMEManager;

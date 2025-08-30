@@ -80,29 +80,29 @@ public:
 	//
 	//	RTTI
 	//
-	StringTwiddlerClass *		As_StringTwiddlerClass (void)		{ return this; }
+	StringTwiddlerClass *		As_StringTwiddlerClass (void) override		{ return this; }
 	
 	//
 	// From PersistClass
 	//
-	const PersistFactoryClass &Get_Factory (void) const;
-	bool								Save (ChunkSaveClass &csave);
-	bool								Load (ChunkLoadClass &cload);
+	const PersistFactoryClass &Get_Factory (void) const override;
+	bool								Save (ChunkSaveClass &csave) override;
+	bool								Load (ChunkLoadClass &cload) override;
 
 	//
 	// Copy methods
 	//
-	TDBObjClass *					Clone (void) const					{ return new StringTwiddlerClass (*this); }
+	TDBObjClass *					Clone (void) const override					{ return new StringTwiddlerClass (*this); }
 
 	//
 	// Inherited
 	//
-	const WideStringClass &		Get_String (uint32 lang_id);
-	const StringClass &			Get_English_String (void)		{ Randomize (); return TDBObjClass::Get_English_String (); }
-	const StringClass &			Get_ID_Desc (void)				{ Randomize (); return TDBObjClass::Get_ID_Desc (); }
-	uint32							Get_Sound_ID (void)				{ Randomize (); return TDBObjClass::Get_Sound_ID (); }
-	const StringClass &			Get_Animation_Name (void)		{ Randomize (); return TDBObjClass::Get_Animation_Name (); }
-	uint32							Get_Category_ID (void)			{ Randomize (); return TDBObjClass::Get_Category_ID (); }
+	const WideStringClass &		Get_String (uint32 lang_id) override;
+	const StringClass &			Get_English_String (void) override		{ Randomize (); return TDBObjClass::Get_English_String (); }
+	const StringClass &			Get_ID_Desc (void) override				{ Randomize (); return TDBObjClass::Get_ID_Desc (); }
+	uint32							Get_Sound_ID (void) override				{ Randomize (); return TDBObjClass::Get_Sound_ID (); }
+	const StringClass &			Get_Animation_Name (void) override		{ Randomize (); return TDBObjClass::Get_Animation_Name (); }
+	uint32							Get_Category_ID (void) override			{ Randomize (); return TDBObjClass::Get_Category_ID (); }
 
 	//
 	//	String list access

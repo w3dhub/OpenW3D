@@ -191,7 +191,7 @@ class WOLBuddyMgr :
 		
 		void ProcessPendingJoin(void);
 		void GotoPendingJoinLocation(const wchar_t* password);
-		void ReceiveSignal(DlgPasswordPrompt&);
+		void ReceiveSignal(DlgPasswordPrompt&) override;
 
 		bool IsInvitation(const WCHAR* message);
 		void InvitationReceived(WWOnline::PageMessage& page);
@@ -200,10 +200,10 @@ class WOLBuddyMgr :
 		bool IsInvitationDeclined(const WCHAR* message);
 		void InvitationDeclined(const WCHAR* username, DECLINE_REASON reaon);
 
-		void HandleNotification(WWOnline::BuddyEvent&);
-		void HandleNotification(WWOnline::UserEvent&);
-		void HandleNotification(WWOnline::PageMessage&);
-		void HandleNotification(WWOnline::PageSendStatus&);
+		void HandleNotification(WWOnline::BuddyEvent&) override;
+		void HandleNotification(WWOnline::UserEvent&) override;
+		void HandleNotification(WWOnline::PageMessage&) override;
+		void HandleNotification(WWOnline::PageSendStatus&) override;
 
 		DECLARE_NOTIFIER(WOLBuddyMgrEvent)
 		DECLARE_NOTIFIER(WOLPagedEvent)

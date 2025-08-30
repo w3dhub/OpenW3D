@@ -79,7 +79,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 		SAVE_VARIABLE (ran_startup, 25);
 	}
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		ran_startup = false;
 		pre_ambient_on = false;
@@ -117,7 +117,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		switch (type)
 		{
@@ -884,7 +884,7 @@ DECLARE_SCRIPT (MX0_A02_Controller, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		switch (timer_id)
 		{
@@ -1296,7 +1296,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 	// On Created, place unit in Default State
 	// Random crouch walk or run between two points and fire at targets
 	
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Attach_Script (obj, "M00_Soldier_Powerup_Disable", "");
 		active_actor = true;
@@ -1404,7 +1404,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		if (active_actor)
 		{
@@ -1500,7 +1500,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		if (active_actor)
 		{
@@ -1527,7 +1527,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (active_actor)
 		{
@@ -2011,7 +2011,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason)
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
 	{
 		if (active_actor)
 		{
@@ -2349,7 +2349,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic(this, MX0_A02_PRIORITY_DEFAULT_SHOOT, MX0_A02_ACTION_DEFAULT);
@@ -2359,7 +2359,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 		Commands->Action_Attack (obj, params);
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (active_actor)
 		{
@@ -2921,12 +2921,12 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 
 DECLARE_SCRIPT (MX0_A02_GDI_VEHICLE, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Set_Health (obj, 10.0f);
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		Commands->Set_Health (obj, 10.0f);
 	}
@@ -2944,17 +2944,17 @@ DECLARE_SCRIPT (MX0_A02_GDI_MEDTANK, "")
 		SAVE_VARIABLE (entered, 1);
 	}
 	
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		entered = false;
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		Commands->Set_Health (obj, Commands->Get_Max_Health (obj));
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if ((type == CUSTOM_EVENT_VEHICLE_ENTERED) && (!entered))
 		{
@@ -2976,12 +2976,12 @@ DECLARE_SCRIPT (MX0_A02_GDI_APC, "")
 {
 	bool can_damage;
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		can_damage = false;
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		if (!can_damage)
 		{
@@ -2989,7 +2989,7 @@ DECLARE_SCRIPT (MX0_A02_GDI_APC, "")
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy)
+	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic(this, MX0_A02_PRIORITY_DEFAULT_SHOOT, MX0_A02_ACTION_DEFAULT);
@@ -2998,7 +2998,7 @@ DECLARE_SCRIPT (MX0_A02_GDI_APC, "")
 		Commands->Action_Attack (obj, params);
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		if (type == MX0_A02_CUSTOM_TYPE_DESTROY_APC)
 		{
@@ -3018,7 +3018,7 @@ DECLARE_SCRIPT (MX0_A02_GDI_APC, "")
 
 DECLARE_SCRIPT (MX0_A02_ZONE_STARTUP, "")
 {
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 		if (controller)
@@ -3034,7 +3034,7 @@ DECLARE_SCRIPT (MX0_A02_ZONE_STARTUP, "")
 
 DECLARE_SCRIPT (MX0_A02_HELICOPTER, "ActorID=0:int")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		int actor_id = Get_Int_Parameter ("ActorID");
 		if (actor_id)
@@ -3043,7 +3043,7 @@ DECLARE_SCRIPT (MX0_A02_HELICOPTER, "ActorID=0:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer)
+	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		int actor_id = Get_Int_Parameter ("ActorID");
 		if (!actor_id)
@@ -3064,7 +3064,7 @@ DECLARE_SCRIPT (MX0_A02_HELICOPTER, "ActorID=0:int")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id)
+	void Timer_Expired (GameObject * obj, int timer_id) override
 	{
 		if (timer_id == MX0_A02_TIMER_DESTROY_HELI_02)
 		{
@@ -3078,12 +3078,12 @@ DECLARE_SCRIPT (MX0_A02_HELICOPTER, "ActorID=0:int")
 
 DECLARE_SCRIPT (MX0_A02_DEFAULT_OFF, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		Commands->Innate_Disable (obj);
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount)
+	void Damaged (GameObject * obj, GameObject * damager, float amount) override
 	{
 		if (damager != STAR)
 		{
@@ -3094,7 +3094,7 @@ DECLARE_SCRIPT (MX0_A02_DEFAULT_OFF, "")
 
 DECLARE_SCRIPT (MX0_A02_ZONE_DEFAULT_ON, "")
 {
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		GameObject * controller = Commands->Find_Object (MX0_A02_CONTROLLER_ID);
 		if (controller)
@@ -3137,13 +3137,13 @@ DECLARE_SCRIPT (M03_A05_Evac_Zone, "")
 	bool script_active;
 	bool spawn_set;
 
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		script_active = true;
 		spawn_set = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer)
+	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		int count;
 
@@ -3181,7 +3181,7 @@ DECLARE_SCRIPT (M03_A05_Evac_Zone, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender)
+	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
 	{
 		Vector3 spawn_set_location;
 
@@ -3211,7 +3211,7 @@ DECLARE_SCRIPT (M03_A05_Evac_Zone, "")
 
 DECLARE_SCRIPT (M00_Test_Sound_RAD, "")
 {
-	void Created (GameObject * obj)
+	void Created (GameObject * obj) override
 	{
 		int id = Commands->Create_Conversation("M00_TEST_CONVERSATION", 100, 300, true);
 		Commands->Stop_All_Conversations (); /// <--- This cancels the following conversation!

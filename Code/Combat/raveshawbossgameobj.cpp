@@ -108,7 +108,7 @@ public:
 	//
 	//	Inherited
 	//
-	void			Timestep (float dt)
+	void			Timestep (float dt) override
 	{
 		//
 		//	Stolen from base class

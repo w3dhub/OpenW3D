@@ -93,8 +93,8 @@ class WOLQuickMatch :
 
 		void ParseResponse(const wchar_t* message);
 
-		void HandleNotification(WWOnline::ServerError&);
-		void HandleNotification(WWOnline::ChatMessage&);
+		void HandleNotification(WWOnline::ServerError&) override;
+		void HandleNotification(WWOnline::ChatMessage&) override;
 
 	private:
 		// Prevent copy and assignment

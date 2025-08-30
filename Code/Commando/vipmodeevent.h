@@ -51,14 +51,14 @@ public:
 
 	void						Init(StringClass & password);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_VIPMODEEVENT;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_VIPMODEEVENT;}
 
 private:
 
-	virtual void			Act(void);
+	virtual void			Act(void) override;
 
 	int						SenderId;
 	StringClass				Password;

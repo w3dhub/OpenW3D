@@ -118,7 +118,7 @@ public:
 	//
 	//	Inherited
 	//
-	uint32				Chunk_ID (void) const			{ return CHUNKID_ENCYCLOPEDIAMGR; }
+	uint32				Chunk_ID (void) const override			{ return CHUNKID_ENCYCLOPEDIAMGR; }
 	
 private:
 	
@@ -129,9 +129,9 @@ private:
 	//
 	//	Inherited
 	//
-	bool					Save (ChunkSaveClass &csave);
-	bool					Load (ChunkLoadClass &cload);
-	const char *		Name (void) const					{ return "EncyclopediaMgrClass"; }
+	bool					Save (ChunkSaveClass &csave) override;
+	bool					Load (ChunkLoadClass &cload) override;
+	const char *		Name (void) const override					{ return "EncyclopediaMgrClass"; }
 								
 	//							
 	//	Save load support	

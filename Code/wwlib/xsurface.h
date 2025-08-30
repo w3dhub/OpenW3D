@@ -57,54 +57,54 @@ class XSurface : public Surface
 		/*
 		**	Copies regions from one surface to another.
 		*/
-		virtual bool Blit_From(Rect const & dcliprect, Rect const & destrect, Surface const & source, Rect const & scliprect, Rect const & sourcerect, bool trans=false);
-		virtual bool Blit_From(Rect const & destrect, Surface const & source, Rect const & sourcerect, bool trans=false);
-		virtual bool Blit_From(Surface const & source, bool trans=false);
+		virtual bool Blit_From(Rect const & dcliprect, Rect const & destrect, Surface const & source, Rect const & scliprect, Rect const & sourcerect, bool trans=false) override;
+		virtual bool Blit_From(Rect const & destrect, Surface const & source, Rect const & sourcerect, bool trans=false) override;
+		virtual bool Blit_From(Surface const & source, bool trans=false) override;
 
 		/*
 		**	Fills a region with a constant color.
 		*/
-		virtual bool Fill_Rect(Rect const & rect, int color);
-		virtual bool Fill_Rect(Rect const & cliprect, Rect const & fillrect, int color);
-		virtual bool Fill(int color);
+		virtual bool Fill_Rect(Rect const & rect, int color) override;
+		virtual bool Fill_Rect(Rect const & cliprect, Rect const & fillrect, int color) override;
+		virtual bool Fill(int color) override;
 
 		/*
 		**	Fetches and stores a pixel to the display (pixel is in surface format).
 		*/
-		virtual bool Put_Pixel(Point2D const & point, int color);
-		virtual int Get_Pixel(Point2D const & point) const;
+		virtual bool Put_Pixel(Point2D const & point, int color) override;
+		virtual int Get_Pixel(Point2D const & point) const override;
 
 		/*
 		**	Draws lines onto the surface.
 		*/
-		virtual bool Draw_Line(Point2D const & startpoint, Point2D const & endpoint, int color);
-		virtual bool Draw_Line(Rect const & cliprect, Point2D const & startpoint, Point2D const & endpoint, int color);
+		virtual bool Draw_Line(Point2D const & startpoint, Point2D const & endpoint, int color) override;
+		virtual bool Draw_Line(Rect const & cliprect, Point2D const & startpoint, Point2D const & endpoint, int color) override;
 		
 		/*
 		**	Draws rectangles onto the surface.
 		*/
-		virtual bool Draw_Rect(Rect const & rect, int color);
-		virtual bool Draw_Rect(Rect const & cliprect, Rect const & rect, int color);
+		virtual bool Draw_Rect(Rect const & rect, int color) override;
+		virtual bool Draw_Rect(Rect const & cliprect, Rect const & rect, int color) override;
 
 		/*
 		**	Gets and frees a direct pointer to the video memory.
 		*/
-		virtual void * Lock(Point2D = Point2D(0, 0)) const {LockCount++;return(NULL);}
-		virtual bool Unlock(void) const {LockCount--;return(true);}
-		virtual bool Is_Locked(void) const {return(LockCount != 0);}
+		virtual void * Lock(Point2D = Point2D(0, 0)) const override {LockCount++;return(NULL);}
+		virtual bool Unlock(void) const override {LockCount--;return(true);}
+		virtual bool Is_Locked(void) const override {return(LockCount != 0);}
 
 		/*
 		**	Queries information about the surface.
 		*/
-		virtual int Bytes_Per_Pixel(void) const = 0;
-		virtual int Stride(void) const = 0;
+		virtual int Bytes_Per_Pixel(void) const override = 0;
+		virtual int Stride(void) const override = 0;
 		
 		/*
 		**	Hack function to serve the purpose that RTTI was invented for, but since
 		**	the Watcom compiler doesn't support RTTI, we must resort to using this
 		**	alternative.
 		*/
-		virtual bool Is_Direct_Draw(void) const {return(false);}
+		virtual bool Is_Direct_Draw(void) const override {return(false);}
 
 		/*
 		**	This routine is handy for preparing to perform some kind of manual blit

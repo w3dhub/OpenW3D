@@ -58,9 +58,9 @@ class DlgWOLSettings :
 
 		bool FinalizeCreate(void);
 
-		void On_Init_Dialog(void);
-		void On_Destroy(void);
-		void On_Command(int ctrl, int message, DWORD param);
+		void On_Init_Dialog(void) override;
+		void On_Destroy(void) override;
+		void On_Command(int ctrl, int message, DWORD param) override;
 
 		bool SaveSettings(void);
 
@@ -80,9 +80,9 @@ class DlgWOLSettings :
 
 		void InitConnectionSpeedCombo(void);
 
-		void On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int ctrl, int oldSel, int newSel);
+		void On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int ctrl, int oldSel, int newSel) override;
 
-		void HandleNotification(DlgWOLWaitEvent&);
+		void HandleNotification(DlgWOLWaitEvent&) override;
 
 		LoginProfile* GetLoginProfile(void);
 

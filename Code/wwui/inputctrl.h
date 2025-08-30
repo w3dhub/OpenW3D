@@ -76,7 +76,7 @@ public:
 	//
 	//	From DialogControlClass
 	//
-	void				Render (void);
+	void				Render (void) override;
 
 	//
 	//	Key assignment access
@@ -95,17 +95,17 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void				On_LButton_Down (const Vector2 &mouse_pos);
-	void				On_RButton_Down (const Vector2 &mouse_pos);
-	void				On_MButton_Down (const Vector2 &mouse_pos);
-	void				On_LButton_Up (const Vector2 &mouse_pos);
-	void				On_Set_Cursor (const Vector2 &mouse_pos);
-	void				On_Set_Focus (void);
-	void				On_Kill_Focus (DialogControlClass *focus);
-	bool				On_Key_Down (uint32 key_id, uint32 key_data);
-	void				On_Create (void);
-	void				On_Mouse_Wheel (int direction);
-	void				Update_Client_Rect (void);
+	void				On_LButton_Down (const Vector2 &mouse_pos) override;
+	void				On_RButton_Down (const Vector2 &mouse_pos) override;
+	void				On_MButton_Down (const Vector2 &mouse_pos) override;
+	void				On_LButton_Up (const Vector2 &mouse_pos) override;
+	void				On_Set_Cursor (const Vector2 &mouse_pos) override;
+	void				On_Set_Focus (void) override;
+	void				On_Kill_Focus (DialogControlClass *focus) override;
+	bool				On_Key_Down (uint32 key_id, uint32 key_data) override;
+	void				On_Create (void) override;
+	void				On_Mouse_Wheel (int direction) override;
+	void				Update_Client_Rect (void) override;
 	
 	void				On_New_Key (int vkey_id);
 

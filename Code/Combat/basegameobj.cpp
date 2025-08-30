@@ -54,9 +54,9 @@
 class NetworkGameObjectFactoryClass : public NetworkObjectFactoryClass
 {
 public:
-	virtual NetworkObjectClass *	Create (cPacket &packet) const;
-	virtual void						Prep_Packet (NetworkObjectClass *object, cPacket &packet) const;
-	virtual uint32						Get_Class_ID (void) const { return NETCLASSID_GAMEOBJ; }
+	virtual NetworkObjectClass *	Create (cPacket &packet) const override;
+	virtual void						Prep_Packet (NetworkObjectClass *object, cPacket &packet) const override;
+	virtual uint32						Get_Class_ID (void) const override { return NETCLASSID_GAMEOBJ; }
 };
 
 //////////////////////////////////////////////////////////////

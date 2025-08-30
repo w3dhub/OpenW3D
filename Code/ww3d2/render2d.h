@@ -198,7 +198,7 @@ public:
 	Render2DTextClass(Font3DInstanceClass *font=NULL);
 	~Render2DTextClass();
 
-	virtual	void	Reset(void);
+	virtual	void	Reset(void) override;
 
 	Font3DInstanceClass *	Peek_Font( void )				{ return Font; }
 	void	Set_Font( Font3DInstanceClass *font );

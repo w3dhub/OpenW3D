@@ -88,7 +88,7 @@ public:
 	/*
 	** Re-insert an object into the tree
 	*/
-	virtual void		Update_Culling(CullableClass * obj);
+	virtual void		Update_Culling(CullableClass * obj) override;
 
 	/*
 	** Statistics about the AAB-Tree
@@ -100,10 +100,10 @@ public:
 	/*
 	** Collect objects which overlap the given primitive
 	*/
-	virtual void		Collect_Objects(const Vector3 & point);
-	virtual void		Collect_Objects(const AABoxClass & box);
-	virtual void		Collect_Objects(const OBBoxClass & box);
-	virtual void		Collect_Objects(const FrustumClass & frustum);
+	virtual void		Collect_Objects(const Vector3 & point) override;
+	virtual void		Collect_Objects(const AABoxClass & box) override;
+	virtual void		Collect_Objects(const OBBoxClass & box) override;
+	virtual void		Collect_Objects(const FrustumClass & frustum) override;
 	virtual void		Collect_Objects(const SphereClass & sphere);
 
 	/*

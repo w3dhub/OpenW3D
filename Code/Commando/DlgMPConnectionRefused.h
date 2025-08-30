@@ -35,13 +35,13 @@ class DlgMPConnectionRefused :
 	{
 	public:
 		static bool DoDialog(const WCHAR * text, bool show_splash_screen);
-		void On_Init_Dialog(void);
+		void On_Init_Dialog(void) override;
 
 	protected:
 		DlgMPConnectionRefused(const WCHAR * text, bool show_splash_screen);
 		virtual ~DlgMPConnectionRefused();
 
-		void On_Command(int ctrl, int message, DWORD param);
+		void On_Command(int ctrl, int message, DWORD param) override;
 
 	private:
 		// Prevent copy and assignment

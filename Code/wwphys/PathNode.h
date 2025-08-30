@@ -116,9 +116,9 @@ class PathNodeClass : public RefCountClass, public HeapNodeClass<float>, public 
 		void							Disconnect_From_Portal (void);
 
 		// From HeapNodeClass
-		uint32						Get_Heap_Location (void) const;
-		void							Set_Heap_Location (uint32 location);
-		float							Heap_Key (void) const;
+		uint32						Get_Heap_Location (void) const override;
+		void							Set_Heap_Location (uint32 location) override;
+		float							Heap_Key (void) const override;
 
 	protected:
 		

@@ -82,18 +82,18 @@ class DlgWOLLogon :
 
 		bool FinalizeCreate(const wchar_t* login);
 
-		void On_Init_Dialog(void);
-		void On_Command(int ctrl, int message, DWORD param);
+		void On_Init_Dialog(void) override;
+		void On_Command(int ctrl, int message, DWORD param) override;
 
 		void UpdatePersonas(void);
 		void SelectPersona(const wchar_t* name);
 		void AutoComplete(const wchar_t* name);
 
 		// Notifications
-		void On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int id, int oldsel, int newsel);
-		void On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* combo, int id);
-		void On_EditCtrl_Change(EditCtrlClass* edit, int id);
-		void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id);
+		void On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int id, int oldsel, int newsel) override;
+		void On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* combo, int id) override;
+		void On_EditCtrl_Change(EditCtrlClass* edit, int id) override;
+		void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id) override;
 
 		DECLARE_NOTIFIER(DlgWOLLogonEvent)
 

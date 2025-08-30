@@ -73,14 +73,14 @@ public:
 	//
 	//	RTTI
 	//
-	virtual ChildDialogClass *	As_ChildDialogClass (void)	{ return this; }
+	virtual ChildDialogClass *	As_ChildDialogClass (void) override	{ return this; }
 
 	//
 	//	From DialogBaseClass
 	//
-	virtual void			Render (void);
-	virtual bool			Is_Active (void);
-	virtual bool			Wants_Activation (void)	{ return false; }
+	virtual void			Render (void) override;
+	virtual bool			Is_Active (void) override;
+	virtual bool			Wants_Activation (void) override	{ return false; }
 
 	//
 	//	Parent dialog access
@@ -108,7 +108,7 @@ protected:
 	//
 	//	From DialogBaseClass
 	//
-	virtual void			On_Init_Dialog (void);
+	virtual void			On_Init_Dialog (void) override;
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data

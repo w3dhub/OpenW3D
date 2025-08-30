@@ -106,26 +106,26 @@ public:
 	//
 	//	From GameObjObeserverClass
 	//
-	const char *	Get_Name (void)	{ return "HarvesterClass"; }
-	void				Action_Complete (GameObject *obj, int action_id, ActionCompleteReason complete_reason);
-	void				Animation_Complete (GameObject *obj, const char * animation_name);
-	void				Custom (GameObject *game_obj, int type, int param, GameObject *sender);
-	void				Attach (GameObject *game_obj);
-	void				Detach (GameObject *game_obj);
+	const char *	Get_Name (void) override	{ return "HarvesterClass"; }
+	void				Action_Complete (GameObject *obj, int action_id, ActionCompleteReason complete_reason) override;
+	void				Animation_Complete (GameObject *obj, const char * animation_name) override;
+	void				Custom (GameObject *game_obj, int type, int param, GameObject *sender) override;
+	void				Attach (GameObject *game_obj) override;
+	void				Detach (GameObject *game_obj) override;
 	
 	//
 	//	Unused methods from the base class
 	//
-	void				Killed (GameObject *, GameObject *)					{}
-	void				Damaged (GameObject *, GameObject *, float amount);
-	void				Created (GameObject *)		{}
-	void				Destroyed (GameObject *);
-	void				Sound_Heard (GameObject *, const CombatSound &)	{}
-	void				Enemy_Seen (GameObject *, GameObject *)			{}	
-	void				Timer_Expired (GameObject *, int)					{}	
-	void				Poked (GameObject *, GameObject *)					{}
-	void				Entered (GameObject *, GameObject *)				{}
-	void				Exited (GameObject *, GameObject *)					{}
+	void				Killed (GameObject *, GameObject *) override					{}
+	void				Damaged (GameObject *, GameObject *, float amount) override;
+	void				Created (GameObject *) override		{}
+	void				Destroyed (GameObject *) override;
+	void				Sound_Heard (GameObject *, const CombatSound &) override	{}
+	void				Enemy_Seen (GameObject *, GameObject *) override			{}
+	void				Timer_Expired (GameObject *, int) override					{}
+	void				Poked (GameObject *, GameObject *) override					{}
+	void				Entered (GameObject *, GameObject *) override				{}
+	void				Exited (GameObject *, GameObject *) override					{}
 
 private:
 

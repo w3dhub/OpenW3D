@@ -62,9 +62,9 @@ public:
 	TransitionEffectClass(void);
 	~TransitionEffectClass(void);
 	
-	virtual void		Timestep(float dt);
-	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj);
-	virtual void		Render_Pop(RenderInfoClass & rinfo);
+	virtual void		Timestep(float dt) override;
+	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj) override;
+	virtual void		Render_Pop(RenderInfoClass & rinfo) override;
 
 	/*
 	** Initialization

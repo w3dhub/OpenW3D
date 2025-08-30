@@ -51,14 +51,14 @@ public:
 
 	void						Init(void);
 
-	virtual void			Export_Creation(BitStreamClass &packet);
-	virtual void			Import_Creation(BitStreamClass &packet);
+	virtual void			Export_Creation(BitStreamClass &packet) override;
+	virtual void			Import_Creation(BitStreamClass &packet) override;
 
-	virtual uint32			Get_Network_Class_ID(void) const				{return NETCLASSID_SUICIDEEVENT;}
+	virtual uint32			Get_Network_Class_ID(void) const override				{return NETCLASSID_SUICIDEEVENT;}
 
 private:
 
-	virtual void			Act(void);// const;
+	virtual void			Act(void) override;// const;
 
 	int						SenderId;
 };

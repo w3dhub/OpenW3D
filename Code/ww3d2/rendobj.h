@@ -417,9 +417,9 @@ public:
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Persistant object save-load interface
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	virtual bool					Save (ChunkSaveClass &csave);
-	virtual bool					Load (ChunkLoadClass &cload);
+	virtual const PersistFactoryClass &	Get_Factory (void) const override;
+	virtual bool					Save (ChunkSaveClass &csave) override;
+	virtual bool					Load (ChunkLoadClass &cload) override;
 
 	virtual void					Save_User_Lighting (ChunkSaveClass & csave);
 	virtual void					Load_User_Lighting (ChunkLoadClass & cload);

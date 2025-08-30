@@ -69,7 +69,7 @@ public:
 	// Inherited from MeshGeometryClass
 	virtual void	Compute_Plane_Equations(void);
 	virtual void	Compute_Vertex_Normals(void);
-	virtual void	Compute_Bounds(Vector3 * verts);
+	virtual void	Compute_Bounds(Vector3 * verts) override;
 
 	// Reset mesh (with existing max polygon and max vertex counts)
 	void	Reset(void);
@@ -143,28 +143,28 @@ public:
 	virtual ~DynamicMeshClass( void);
 
 	// Inherited from RenderObjClass:
-	virtual RenderObjClass * 		Clone(void) const;
-	virtual int							Class_ID(void) const					{ return CLASSID_DYNAMESH; }
-	virtual void						Render(RenderInfoClass & rinfo);
+	virtual RenderObjClass * 		Clone(void) const override;
+	virtual int							Class_ID(void) const override					{ return CLASSID_DYNAMESH; }
+	virtual void						Render(RenderInfoClass & rinfo) override;
 
 	virtual MaterialInfoClass		*Peek_Material_Info(void)			{ return Model->Peek_Material_Info(); }
-	virtual MaterialInfoClass		*Get_Material_Info(void)			{ return Model->Get_Material_Info(); }
+	virtual MaterialInfoClass		*Get_Material_Info(void) override			{ return Model->Get_Material_Info(); }
 	virtual void Set_Material_Info(MaterialInfoClass *mat_info)		{ Model->Set_Material_Info(mat_info); }
 
 	// all render objects should be able to tell you how many polygons were
 	// used in the making of the render object.
-	virtual int Get_Num_Polys(void) const { return PolyCount; }
+	virtual int Get_Num_Polys(void) const override { return PolyCount; }
 
 	// return the number of vertices used by this renderobject
 	virtual int Get_Num_Vertices(void) const { return VertCount; }
 
 	// Get and set static sort level
-   virtual int		Get_Sort_Level(void) const		{ return SortLevel; }
-  	virtual void	Set_Sort_Level(int level)		{ SortLevel = level; if(level != SORT_LEVEL_NONE) Disable_Sort();}
+   virtual int		Get_Sort_Level(void) const override		{ return SortLevel; }
+  	virtual void	Set_Sort_Level(int level) override		{ SortLevel = level; if(level != SORT_LEVEL_NONE) Disable_Sort();}
 
 	// object space bounding volumes
-	virtual inline void Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const;
-	virtual inline void Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
+	virtual inline void Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const override;
+	virtual inline void Get_Obj_Space_Bounding_Box(AABoxClass & box) const override;
 
 	// Set the vertex material for the current triangle
 	int	Set_Vertex_Material( int idx, int pass = 0);
@@ -549,21 +549,21 @@ public:
 	virtual ~DynamicScreenMeshClass( void) {}
 
 	// function to clone a dynamic screen mesh class
-	virtual RenderObjClass * 		Clone(void) const	{ return NEW_REF( DynamicScreenMeshClass, (*this)); }
+	virtual RenderObjClass * 		Clone(void) const override	{ return NEW_REF( DynamicScreenMeshClass, (*this)); }
 
 	// class id of this render object
-	virtual int	Class_ID(void) const	{ return CLASSID_DYNASCREENMESH; }
+	virtual int	Class_ID(void) const override	{ return CLASSID_DYNASCREENMESH; }
 
 	// Remap locations to match a screen
-	virtual void Location( float x, float y, float z = 0.0f);
+	virtual void Location( float x, float y, float z = 0.0f) override;
 
 	// For moving a vertex after the DynaMesh has already been created.
-   virtual void Move_Vertex(int index, float x, float y, float z = 0.0f);
+   virtual void Move_Vertex(int index, float x, float y, float z = 0.0f) override;
 
 	// Set position
-	virtual void Set_Position(const Vector3 &v);
+	virtual void Set_Position(const Vector3 &v) override;
 
-	virtual void Reset( void);
+	virtual void Reset( void) override;
 
 	virtual void Set_Aspect(float aspect) { Aspect=aspect; };
 
@@ -575,7 +575,7 @@ protected:
 	float		Aspect;
 
 	// tells when the triangle needs to be back flipped
-	virtual	bool	Flip_Face( void) { return !DynamicMeshClass::Flip_Face(); }
+	virtual	bool	Flip_Face(void) override { return !DynamicMeshClass::Flip_Face(); }
 };
 
 #endif	// DYNAMESH

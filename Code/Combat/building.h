@@ -109,11 +109,11 @@ public:
 
 	BuildingGameObjDef( void );
 
-	virtual uint32								Get_Class_ID( void ) const;
-	virtual PersistClass *						Create( void ) const ;
-	virtual bool								Save( ChunkSaveClass &csave );
-	virtual bool								Load( ChunkLoadClass &cload );
-	virtual const PersistFactoryClass &	Get_Factory( void ) const;
+	virtual uint32								Get_Class_ID (void) const override;
+	virtual PersistClass *						Create( void ) const override;
+	virtual bool								Save( ChunkSaveClass &csave ) override;
+	virtual bool								Load( ChunkLoadClass &cload ) override;
+	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( BuildingGameObjDef, DamageableGameObjDef );
 	
@@ -169,18 +169,18 @@ public:
 	virtual	~BuildingGameObj( void );
 
 	// Definitions
-	virtual	void	Init( void );
+	virtual	void	Init( void ) override;
 	void	Init( const BuildingGameObjDef & definition );
 	const BuildingGameObjDef & Get_Definition( void ) const ;
 
 	// Save / Load
-	virtual	bool	Save( ChunkSaveClass & csave );
-	virtual	bool	Load( ChunkLoadClass & cload );
-	virtual	const	PersistFactoryClass & Get_Factory( void ) const;
+	virtual	bool	Save( ChunkSaveClass & csave ) override;
+	virtual	bool	Load( ChunkLoadClass & cload ) override;
+	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 	// Type identification
-	virtual	BuildingGameObj	*		As_BuildingGameObj( void )			{ return this; }
-	virtual	DamageableGameObj	*		As_DamageableGameObj( void )		{ return this; }
+	virtual	BuildingGameObj	*		As_BuildingGameObj( void ) override			{ return this; }
+	virtual	DamageableGameObj	*		As_DamageableGameObj( void ) override		{ return this; }
 	virtual	PowerPlantGameObj *		As_PowerPlantGameObj (void)		{ return NULL; }
 	virtual	SoldierFactoryGameObj *	As_SoldierFactoryGameObj (void)	{ return NULL; }
 	virtual	VehicleFactoryGameObj *	As_VehicleFactoryGameObj (void)	{ return NULL; }
@@ -197,7 +197,7 @@ public:
 	** and other components are automatically assigned to this building.  When there are two
 	** BuildingGameObj's that can accept a particular component, the closest one wins.
 	*/
-	void											Get_Position(Vector3 * pos) const		{ *pos = Position; }
+	void											Get_Position(Vector3 * pos) const override		{ *pos = Position; }
 	void											Set_Position(const Vector3 & pos)		{ Position = pos; CollectionSphere.Center = pos; }
 
 	/*
@@ -205,7 +205,7 @@ public:
 	*/
 	virtual	void								Apply_Damage( const OffenseObjectClass & damager, 
 																	  float scale = 1.0f, 
-																	  int alternate_skin = -1 );
+																	  int alternate_skin = -1 ) override;
 	void											Apply_Damage_Building(	const OffenseObjectClass & offense,
 																				StaticPhysClass * component ); 
 	void											Apply_Damage_Building(	const OffenseObjectClass & offense,
@@ -253,16 +253,16 @@ public:
 	/*
 	** Network support
 	*/
-   virtual	void								Import_Rare (BitStreamClass &packet);
-   virtual	void								Export_Rare (BitStreamClass &packet);
-	virtual	void								Export_Creation (BitStreamClass &packet);
-	virtual	void								Import_Creation (BitStreamClass &packet);
+   virtual	void								Import_Rare (BitStreamClass &packet) override;
+   virtual	void								Export_Rare (BitStreamClass &packet) override;
+	virtual	void								Export_Creation (BitStreamClass &packet) override;
+	virtual	void								Import_Creation (BitStreamClass &packet) override;
 	static void									Set_Precision (void);
-	virtual bool								Get_World_Position (Vector3 &pos) const	{ pos = Position; return true; }
+	virtual bool								Get_World_Position (Vector3 &pos) const	override { pos = Position; return true; }
 	//virtual float								Compute_Object_Priority (int client_id, const Vector3 &client_pos);
 	//virtual	void								Get_Extended_Information( StringClass & description );
-	virtual	void								Get_Description( StringClass & description );
-	virtual bool								Is_Tagged(void)									{ return false; }
+	virtual	void								Get_Description( StringClass & description ) override;
+	virtual bool								Is_Tagged(void) override									{ return false; }
 
 
 	/*

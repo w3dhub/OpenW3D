@@ -77,9 +77,9 @@ public:
 	//
 	//	From DialogTransitionClass
 	//
-	void	On_Frame_Update (void);
-	void	Set_Type (TYPE type);
-	bool	Is_Complete (void)					{ return (CurrentFrame >= TargetFrame); }
+	void	On_Frame_Update (void) override;
+	void	Set_Type (TYPE type) override;
+	bool	Is_Complete (void) override					{ return (CurrentFrame >= TargetFrame); }
 
 	//
 	//	Configuration
