@@ -30,6 +30,8 @@
 #include "formconv.h"
 #include "locale_api.h"
 #include "wwconfig_ids.h"
+#include "openw3d.h"
+#include "ini.h"
 
 
 extern int GlobalExitValue;
@@ -148,9 +150,11 @@ void CheckDriverVersion()
 	//	Attempt to open the registry key 
 	//
 	RegistryClass render_registry(RENEGADE_SUB_KEY_NAME_RENDER);
+	INIClass ini(W3D_CONF_FILE);
 	if (!render_registry.Is_Valid()) return;
 
 	int disabled=render_registry.Get_Int( "DriverVersionCheckDisabled" );
+	disabled = ini.Get_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", disabled);
 	if (disabled>=87) return;
 
 	IDirect3D9* d3d=NULL;
@@ -274,6 +278,8 @@ void CheckDriverVersion()
 	}
 */
 	render_registry.Set_Int( "DriverVersionCheckDisabled", 87 );	// Disable checking if driver version is good
+	ini.Put_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 87);
+	ini.Save(W3D_CONF_FILE);
 	GlobalExitValue=0;
 
 // IML: Disable driver warning message.
@@ -304,8 +310,13 @@ void DriverVersionWarning::OnDisableDriverVersionDialogCheckbox()
 	
 	int is_disabled = SendDlgItemMessage (IDC_DISABLE_DRIVER_VERSION_DIALOG_CHECKBOX, BM_GETCHECK);
 	RegistryClass render_registry(RENEGADE_SUB_KEY_NAME_RENDER);
+	INIClass ini(W3D_CONF_FILE);
+	
 	if (!render_registry.Is_Valid()) return;
 	render_registry.Set_Int( "DriverVersionCheckDisabled", is_disabled ? 87 : 0 );
+	ini.Put_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 87);
+	ini.Save(W3D_CONF_FILE);
+		
 }
 
 INT_PTR DriverVersionWarning::DoModal()

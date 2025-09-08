@@ -75,6 +75,8 @@
 #include "formconv.h"
 #include "dx8texman.h"
 #include "bound.h"
+#include "ini.h"
+#include "openw3d.h"
 
 const int DEFAULT_RESOLUTION_WIDTH = 800;
 const int DEFAULT_RESOLUTION_HEIGHT = 600;
@@ -1061,6 +1063,7 @@ bool DX8Wrapper::Registry_Save_Render_Device( const char * sub_key )
 
 bool DX8Wrapper::Registry_Save_Render_Device( const char *sub_key, int device, int width, int height, int depth, bool windowed, int texture_depth)
 {
+	INIClass ini(W3D_CONF_FILE);
 	RegistryClass * registry = new RegistryClass( sub_key );
 	WWASSERT( registry );
 
@@ -1079,6 +1082,14 @@ bool DX8Wrapper::Registry_Save_Render_Device( const char *sub_key, int device, i
 	registry->Set_Int( VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH, texture_depth );
 
 	delete registry;
+
+	ini.Put_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, _RenderDeviceShortNameTable[device]);
+	ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WIDTH, width);
+	ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_HEIGHT, height);
+	ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_DEPTH, depth);
+	ini.Put_Bool(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WINDOWED, windowed != 0);
+	ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_TEXTURE_DEPTH, texture_depth);
+	ini.Save(W3D_CONF_FILE);
 	return true;
 }
 
@@ -1176,8 +1187,18 @@ bool DX8Wrapper::Registry_Load_Render_Device( const char * sub_key, bool resize_
 bool DX8Wrapper::Registry_Load_Render_Device( const char * sub_key, char *device, int device_len, int &width, int &height, int &depth, int &windowed, int &texture_depth)
 {
 	RegistryClass registry( sub_key );
+	INIClass ini(W3D_CONF_FILE);
 
-	if ( registry.Is_Valid() ) {
+	if (ini.Is_Present(W3D_SECTION_RENDER)) {
+		ini.Get_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, "", device, device_len);
+
+		width =	ini.Get_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WIDTH, -1);
+		height = ini.Get_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_HEIGHT, -1);
+		depth =	ini.Get_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_DEPTH, -1);
+		windowed = ini.Get_Bool(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WINDOWED, false);
+		texture_depth = ini.Get_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_TEXTURE_DEPTH, -1);
+		return true;
+	} else if ( registry.Is_Valid() ) {
 		registry.Get_String( VALUE_NAME_RENDER_DEVICE_NAME,
 			device, device_len);
 

@@ -70,6 +70,13 @@
 #define	VALUE_NAME_RENDER_DEVICE_WINDOWED			"RenderDeviceWindowed"
 #define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"RenderDeviceTextureDepth"
 
+#define	VALUE_INI_RENDER_DEVICE_NAME					"Name"
+#define	VALUE_INI_RENDER_DEVICE_WIDTH				"Width"
+#define	VALUE_INI_RENDER_DEVICE_HEIGHT				"Height"
+#define	VALUE_INI_RENDER_DEVICE_DEPTH				"Depth"
+#define	VALUE_INI_RENDER_DEVICE_WINDOWED			"Windowed"
+#define	VALUE_INI_RENDER_DEVICE_TEXTURE_DEPTH		"TextureDepth"
+
 const unsigned MAX_TEXTURE_STAGES=2;
 
 enum {

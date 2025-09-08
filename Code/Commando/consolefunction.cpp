@@ -160,6 +160,7 @@
 #include "specialbuilds.h"
 #include "lightsolve.h"
 #include "lightsolvecontext.h"
+#include "openw3d.h"
 
 
 
@@ -1041,7 +1042,8 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "tom"; }
 	virtual	const char * Get_Help( void ) override	{ return "TOM - Annoyance-reduction registry tweaks customized by Tom."; }
 	virtual	void Activate( const char * input ) override {
-
+		
+		INIClass ini(W3D_CONF_FILE);
 		//
 		// Enable a good level of diagnostics - all devices and types except
 		// screen and netprolific
@@ -1090,6 +1092,9 @@ public:
 		registry.Set_Int(VALUE_NAME_RENDER_DEVICE_WIDTH, 800);
 		registry.Set_Int(VALUE_NAME_RENDER_DEVICE_HEIGHT, 600);
 		registry.Set_Int(VALUE_NAME_RENDER_DEVICE_WINDOWED, true);
+		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WIDTH, 800);
+		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_HEIGHT, 600);
+		ini.Put_Bool(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WINDOWED, true);
 		}
 
 		/*
@@ -1134,13 +1139,18 @@ public:
 		//
 		// Set gamma etc so that they don't screw up debugging
 		//
-		{
+		{		
 		RegistryClass registry(APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS);
 		WWASSERT(registry.Is_Valid());
 		registry.Set_Int("Gamma",			1);
 		registry.Set_Int("Brightness",	0);
 		registry.Set_Int("Contrast",		1);
+		ini.Put_Int(W3D_SECTION_SYSTEM, "Gamma", 1);
+		ini.Put_Int(W3D_SECTION_SYSTEM, "Brightness", 0);
+		ini.Put_Int(W3D_SECTION_SYSTEM, "Contrast", 1);
 		}
+
+		ini.Save(W3D_CONF_FILE);
 	}
 };
 
