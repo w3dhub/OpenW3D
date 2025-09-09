@@ -30,6 +30,10 @@ add_feature_info(RenegadeHeadless RENEGADE_FDS "Build Renegade headless server")
 option(RENEGADE_TOOLS "Build additional tools." ON)
 add_feature_info(RenegadeTools RENEGADE_TOOLS "Build Renegade Mod Tools")
 
+# Do we want to build extra SDK stuff or just the game binary?
+option(OPENW3D_NO_REG "Build without registry dependency." ON)
+add_feature_info(OpenW3DNoReg OPENW3D_NO_REG "Build OpenW3D without registry dependency")
+
 option(SYNTAX_CHECK_ONLY "Syntax check the files only?" OFF)
 add_feature_info(SyntaxCheck SYNTAX_CHECK_ONLY "Syntax check files only")
 if(SYNTAX_CHECK_ONLY)

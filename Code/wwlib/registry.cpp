@@ -44,9 +44,31 @@
 
 bool RegistryClass::IsLocked = false;
 
+#ifdef OPENW3D_NO_REGISTRY
+static constexpr const char REGISTRY_CONFIG_FILE[] = "registry.dat";
+
+INIClass &RegistryClass::Get_INI()
+{
+	static INIClass _ini(REGISTRY_CONFIG_FILE);
+	return _ini;
+}
+
+void RegistryClass::Flush_Registry()
+{
+	Get_INI().Save(REGISTRY_CONFIG_FILE);
+}
+#else
+void RegistryClass::Flush_Registry()
+{
+
+}
+#endif
 
 bool RegistryClass::Exists(const char* sub_key)
 {
+#ifdef OPENW3D_NO_REGISTRY
+	return Get_INI().Is_Present(sub_key);
+#else
 	HKEY hKey;
 	LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, sub_key, 0, KEY_READ, &hKey);
 
@@ -56,6 +78,7 @@ bool RegistryClass::Exists(const char* sub_key)
 	}
 
 	return false;
+#endif
 }
 
 /*
@@ -64,6 +87,9 @@ bool RegistryClass::Exists(const char* sub_key)
 RegistryClass::RegistryClass( const char * sub_key, bool create ) :
 	IsValid( false )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	SubKey = sub_key;
+#else
 	HKEY key;
 	assert( sizeof(HKEY) == sizeof(int) );
 
@@ -81,19 +107,25 @@ RegistryClass::RegistryClass( const char * sub_key, bool create ) :
 		IsValid = true;
 		Key = (int)key;
 	}
+#endif
 }
 
 RegistryClass::~RegistryClass( void )
 {
+#ifndef OPENW3D_NO_REGISTRY
 	if ( IsValid ) {
 		if (::RegCloseKey( (HKEY)Key ) != ERROR_SUCCESS) {		// Close the reg key
 		}
 		IsValid = false;
 	}
+#endif
 }
 
 int	RegistryClass::Get_Int( const char * name, int def_value )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	return Get_INI().Get_Int(SubKey, name, def_value);
+#else
 	assert( IsValid );
 	DWORD type, data = 0, data_len = sizeof( data );
 	if (( ::RegQueryValueExA( (HKEY)Key, name, NULL, &type, (LPBYTE)&data, &data_len ) ==
@@ -102,10 +134,14 @@ int	RegistryClass::Get_Int( const char * name, int def_value )
 		data = def_value;
 	}
 	return data;
+#endif
 }
 
 void	RegistryClass::Set_Int( const char * name, int value )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Put_Int(SubKey, name, value);
+#else
 	assert( IsValid );
 	if (IsLocked) {
 		return;
@@ -113,22 +149,34 @@ void	RegistryClass::Set_Int( const char * name, int value )
 	if (::RegSetValueExA( (HKEY)Key, name, 0, REG_DWORD, (LPBYTE)&value, sizeof( DWORD ) ) !=
 			ERROR_SUCCESS) {
 	}
+#endif
 }
 
 
 bool	RegistryClass::Get_Bool( const char * name, bool def_value )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	return Get_INI().Get_Bool(SubKey, name, def_value);
+#else
 	return (Get_Int( name, def_value ) != 0);
+#endif
 }
 
 void	RegistryClass::Set_Bool( const char * name, bool value )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Put_Bool(SubKey, name, value);
+#else
 	Set_Int( name, value ? 1 : 0 );
+#endif
 }
 
 
 float	RegistryClass::Get_Float( const char * name, float def_value )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	return Get_INI().Get_Float(SubKey, name, def_value);
+#else
 	assert( IsValid );
 	float data = 0;
 	DWORD type, data_len = sizeof( data );
@@ -138,10 +186,14 @@ float	RegistryClass::Get_Float( const char * name, float def_value )
 		data = def_value;
 	}
 	return data;
+#endif
 }
 
 void	RegistryClass::Set_Float( const char * name, float value )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Put_Float(SubKey, name, value);
+#else
 	assert( IsValid );
 	if (IsLocked) {
 		return;
@@ -149,20 +201,28 @@ void	RegistryClass::Set_Float( const char * name, float value )
 	if (::RegSetValueExA( (HKEY)Key, name, 0, REG_DWORD, (LPBYTE)&value, sizeof( DWORD ) ) !=
 			ERROR_SUCCESS) {
 	}
+#endif
 }
 
 int RegistryClass::Get_Bin_Size( const char * name )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	return 0;
+#else
 	assert( IsValid );
 
 	unsigned long size = 0;
 	::RegQueryValueExA( (HKEY)Key, name, NULL, NULL, NULL, &size );
 	return size;
+#endif
 }
 
 
 void RegistryClass::Get_Bin( const char * name, void *buffer, int buffer_size )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Get_UUBlock(SubKey, name, buffer, buffer_size);
+#else
 	assert( IsValid );
 	assert( buffer != NULL );
 	assert( buffer_size > 0 );
@@ -170,10 +230,14 @@ void RegistryClass::Get_Bin( const char * name, void *buffer, int buffer_size )
 	unsigned long size = buffer_size;
 	::RegQueryValueExA( (HKEY)Key, name, NULL, NULL, (LPBYTE)buffer, &size );
 	return ;
+#endif
 }
 
 void	RegistryClass::Set_Bin( const char * name, const void *buffer, int buffer_size )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Put_UUBlock(SubKey, name, buffer, buffer_size);
+#else
 	assert( IsValid );
 	assert( buffer != NULL );
 	assert( buffer_size > 0 );
@@ -183,10 +247,14 @@ void	RegistryClass::Set_Bin( const char * name, const void *buffer, int buffer_s
 	}
 	::RegSetValueExA( (HKEY)Key, name, 0, REG_BINARY, (LPBYTE)buffer, buffer_size );
 	return ;
+#endif
 }
 
 void	RegistryClass::Get_String( const char * name, StringClass &string, const char *default_string )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Get_String(string, SubKey, name, (default_string == NULL) ? "" : default_string);
+#else
 	assert( IsValid );
 	string = (default_string == NULL) ? "" : default_string;
 
@@ -206,12 +274,17 @@ void	RegistryClass::Get_String( const char * name, StringClass &string, const ch
 	}
 
 	return ;
+#endif
 }
 
 
 char *RegistryClass::Get_String( const char * name, char *value, int value_size,
    const char * default_string )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Get_String(SubKey, name, default_string, value, value_size);
+	return value;
+#else
 	assert( IsValid );
 	DWORD type = 0;
 	if (( ::RegQueryValueExA( (HKEY)Key, name, NULL, &type, (LPBYTE)value, (DWORD*)&value_size ) ==
@@ -227,10 +300,14 @@ char *RegistryClass::Get_String( const char * name, char *value, int value_size,
       }
 	}
 	return value;
+#endif
 }
 
 void	RegistryClass::Set_String( const char * name, const char *value )
 {
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Put_String(SubKey, name, value);
+#else
 	assert( IsValid );
    int size = strlen( value ) + 1; // must include NULL
 	if (IsLocked) {
@@ -239,12 +316,21 @@ void	RegistryClass::Set_String( const char * name, const char *value )
 	if (::RegSetValueExA( (HKEY)Key, name, 0, REG_SZ, (LPBYTE)value, size ) !=
 		ERROR_SUCCESS ) {
 	}
+#endif
 }
 
 void	RegistryClass::Get_Value_List( DynamicVectorClass<StringClass> &list )
 {
 	char value_name[128];
+#ifdef OPENW3D_NO_REGISTRY
+	int entries = Get_INI().Entry_Count(SubKey);
 
+	for (int i = 0; i < entries; ++i) {
+		const char *entry = Get_INI().Get_Entry(SubKey, i);
+		Get_INI().Get_String(SubKey, entry, "", value_name, sizeof(value_name));
+		list.Add(value_name);
+	}
+#else
 	//
 	//	Simply enumerate all the values in this key
 	//
@@ -262,6 +348,7 @@ void	RegistryClass::Get_Value_List( DynamicVectorClass<StringClass> &list )
 	}
 
 	return ;
+#endif
 }
 
 void	RegistryClass::Delete_Value( const char * name)
@@ -269,8 +356,12 @@ void	RegistryClass::Delete_Value( const char * name)
 	if (IsLocked) {
 		return;
 	}
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Clear(SubKey, name);
+#else
 	::RegDeleteValueA( (HKEY)Key, name );
 	return ;
+#endif
 }
 
 void	RegistryClass::Deleta_All_Values( void )
@@ -278,6 +369,9 @@ void	RegistryClass::Deleta_All_Values( void )
 	if (IsLocked) {
 		return;
 	}
+#ifdef OPENW3D_NO_REGISTRY
+	Get_INI().Clear(SubKey);
+#else
 	//
 	//	Build a list of the values in this key
 	//
@@ -292,61 +386,10 @@ void	RegistryClass::Deleta_All_Values( void )
 	}
 
 	return ;
+#endif
 }
 
-
-void	RegistryClass::Get_String( const WCHAR * name, WideStringClass &string, const WCHAR *default_string )
-{
-	assert( IsValid );
-	string = (default_string == NULL) ? L"" : default_string;
-
-	//
-	//	Get the size of the entry
-	//
-	DWORD data_size = 0;
-	DWORD type = 0;
-	LONG result = ::RegQueryValueExW ((HKEY)Key, name, NULL, &type, NULL, &data_size);
-	if (result == ERROR_SUCCESS && type == REG_SZ) {
-
-		//
-		//	Read the entry from the registry
-		//
-		::RegQueryValueExW ((HKEY)Key, name, NULL, &type,
-			(LPBYTE)string.Get_Buffer ((data_size / 2) + 1), &data_size);
-	}
-
-	return ;
-}
-
-
-void	RegistryClass::Set_String( const WCHAR * name, const WCHAR *value )
-{
-	assert( IsValid );
-
-   //
-	//	Determine the size
-	//
-	int size = wcslen( value ) + 1;
-	size		= size * 2;
-
-	//
-	//	Set the registry key
-	//
-	if (IsLocked) {
-		return;
-	}
-	::RegSetValueExW ( (HKEY)Key, name, 0, REG_SZ, (LPBYTE)value, size );
-	return ;
-}
-
-
-
-
-
-
-
-
-
+#ifndef OPENW3D_NO_REGISTRY
 /***********************************************************************************************
  * RegistryClass::Save_Registry_Values -- Save values in a key to an .ini file                 *
  *                                                                                             *
@@ -499,10 +542,7 @@ void RegistryClass::Save_Registry_Tree(char *path, INIClass *ini)
 		RegCloseKey(base_key);
 	}
 }
-
-
-
-
+#endif
 
 /***********************************************************************************************
  * RegistryClass::Save_Registry -- Save a chunk of registry to an .ini file.                   *
@@ -521,13 +561,13 @@ void RegistryClass::Save_Registry_Tree(char *path, INIClass *ini)
  *=============================================================================================*/
 void RegistryClass::Save_Registry(const char *filename, char *path)
 {
+#ifndef OPENW3D_NO_REGISTRY
 	RawFileClass file(filename);
 	INIClass ini;
 	Save_Registry_Tree(path, &ini);
 	ini.Save(file);
+#endif
 }
-
-
 
 /***********************************************************************************************
  * RegistryClass::Load_Registry -- Load a chunk of registry from an .INI file                  *
@@ -545,6 +585,7 @@ void RegistryClass::Save_Registry(const char *filename, char *path)
  *=============================================================================================*/
 void RegistryClass::Load_Registry(const char *filename, char *old_path, char *new_path)
 {
+#ifndef OPENW3D_NO_REGISTRY
 	if (!IsLocked) {
 		RawFileClass file(filename);
 		INIClass ini;
@@ -604,13 +645,10 @@ void RegistryClass::Load_Registry(const char *filename, char *old_path, char *ne
 			}
 		}
 	}
+#endif
 }
 
-
-
-
-
-
+#ifndef OPENW3D_NO_REGISTRY
 /***********************************************************************************************
  * RegistryClass::Delete_Registry_Values -- Delete all values under the given key              *
  *                                                                                             *
@@ -644,9 +682,7 @@ void RegistryClass::Delete_Registry_Values(HKEY key)
 		}
 	}
 }
-
-
-
+#endif
 
 /***********************************************************************************************
  * RegistryClass::Delete_Registry_Tree -- Delete all values and sub keys of a registry key     *
@@ -664,6 +700,7 @@ void RegistryClass::Delete_Registry_Values(HKEY key)
  *=============================================================================================*/
 void RegistryClass::Delete_Registry_Tree(char *path)
 {
+#ifndef OPENW3D_NO_REGISTRY
 	if (!IsLocked) {
 		HKEY base_key;
 		HKEY sub_key;
@@ -730,17 +767,5 @@ void RegistryClass::Delete_Registry_Tree(char *path)
 			RegDeleteKeyA(HKEY_CURRENT_USER, path);
 		}
 	}
+#endif
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
