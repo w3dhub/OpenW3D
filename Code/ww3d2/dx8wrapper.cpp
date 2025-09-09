@@ -3403,7 +3403,7 @@ void DX8Wrapper::Set_DX8_ZBias(int zbias)
 	}
 	else {
 		//float ZBias_float = zbias / 8.0f;
-		Set_DX8_Render_State (D3DRS_DEPTHBIAS, ZBias;
+		Set_DX8_Render_State (D3DRS_DEPTHBIAS, ZBias);
 		Set_DX8_Render_State (D3DRS_SLOPESCALEDEPTHBIAS, ZBias);
 	}
 }
