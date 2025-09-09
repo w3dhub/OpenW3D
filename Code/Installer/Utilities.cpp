@@ -46,8 +46,8 @@
 
 
 // Private prototypes.
-static bool	  Create_Directory (const WCHAR *drive, const WCHAR *directory, WCHAR *subdirectory, bool remove, DynamicVectorClass <StringClass> *log);
-static WCHAR *Standardize_Path (const WideStringClass &path, WideStringClass &standardpath);
+static bool	  Create_Directory (const wchar_t *drive, const wchar_t *directory, wchar_t *subdirectory, bool remove, DynamicVectorClass <StringClass> *log);
+static wchar_t *Standardize_Path (const WideStringClass &path, WideStringClass &standardpath);
 static bool	  Validate_Install_CD (const char driveletter, const WideStringClass &installvolumename);
 
 
@@ -231,7 +231,7 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
 		if (((path [0] >= L'A') && (path [0] <= L'Z')) || ((path [0] >= L'a') && (path [0] <= L'z'))) {
 			if ((path [1] == L':') && ((path [2] == L'\\') || (path [2] == L'/'))) {
 
-				const WCHAR *c = ((WideStringClass) path).Peek_Buffer() + _MAX_DRIVE;
+				const wchar_t *c = ((WideStringClass) path).Peek_Buffer() + _MAX_DRIVE;
 	
 				while	(*c != L'\0') {
 					if ((*c == L'\\') || (*c == L'/')) {
@@ -248,7 +248,7 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
 					// Check that path does not contain any illegal characters.
 					if (wcscspn (((WideStringClass) path).Peek_Buffer(), L"*?<>|") == (size_t) path.Get_Length()) {
 
-						WCHAR				 drive [_MAX_DRIVE + 1];
+						wchar_t				 drive [_MAX_DRIVE + 1];
 						WideStringClass directory;
 
 						wcsncpy (drive, path, _MAX_DRIVE);
@@ -300,7 +300,7 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
  *=============================================================================================*/
 bool Create_Directory (const WideStringClass &path, DynamicVectorClass <StringClass> *log)
 {
-	WCHAR				 drive [_MAX_DRIVE + 1];
+	wchar_t				 drive [_MAX_DRIVE + 1];
 	WideStringClass directory;
 
 	// NOTE: Assumes that path is a full path. If not, an error may be thrown.
@@ -324,10 +324,10 @@ bool Create_Directory (const WideStringClass &path, DynamicVectorClass <StringCl
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool Create_Directory (const WCHAR *drive, const WCHAR *directory, WCHAR *subdirectory, bool remove, DynamicVectorClass <StringClass> *log)
+bool Create_Directory (const wchar_t *drive, const wchar_t *directory, wchar_t *subdirectory, bool remove, DynamicVectorClass <StringClass> *log)
 {
 	bool				  valid;
-	WCHAR				 *c, replacement;
+	wchar_t				 *c, replacement;
 	WideStringClass  path;
 	StringClass		  multibytepath;
 	DWORD				  errorcode;
@@ -465,7 +465,7 @@ bool Is_Sub_Path (const WideStringClass &path0, const WideStringClass &path1, bo
 		
 		} else {
 	
-			WCHAR c;
+			wchar_t c;
 
 			c = path0copy [path1copy.Get_Length()];
 			if ((c == L'\\') || (c == L'/')) return (true);
@@ -488,7 +488,7 @@ bool Is_Sub_Path (const WideStringClass &path0, const WideStringClass &path1, bo
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-WCHAR *Standardize_Path (const WideStringClass &path, WideStringClass &standardpath)
+wchar_t *Standardize_Path (const WideStringClass &path, WideStringClass &standardpath)
 {
 	WideStringClass t (path);
 	int				 i, c;
@@ -532,7 +532,7 @@ WCHAR *Standardize_Path (const WideStringClass &path, WideStringClass &standardp
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-WCHAR *Remove_Trailing_Name (WideStringClass &path)
+wchar_t *Remove_Trailing_Name (WideStringClass &path)
 {
 	int i, c;
 
@@ -558,7 +558,7 @@ WCHAR *Remove_Trailing_Name (WideStringClass &path)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-WCHAR *Extract_Suffix_Root (WideStringClass &path, const WideStringClass &prefixpath)
+wchar_t *Extract_Suffix_Root (WideStringClass &path, const WideStringClass &prefixpath)
 {
 	if (wcsstr (path, prefixpath) == path) {
 
@@ -593,7 +593,7 @@ WCHAR *Extract_Suffix_Root (WideStringClass &path, const WideStringClass &prefix
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-WCHAR *Extract_Trailing_Name (WideStringClass &path)
+wchar_t *Extract_Trailing_Name (WideStringClass &path)
 {
 	int i;
 

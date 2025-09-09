@@ -116,28 +116,28 @@ class WOLBuddyMgr :
 			{return mWOLSession->GetBuddyList();}
 		
 		// Get a user from our buddy list
-		const RefPtr<WWOnline::UserData> FindBuddy(const WCHAR* name) const;
+		const RefPtr<WWOnline::UserData> FindBuddy(const wchar_t* name) const;
 
 		// Add a user to our buddy list
-		void AddBuddy(const WCHAR* name);
+		void AddBuddy(const wchar_t* name);
 
 		// Remove a user from our buddy list
-		void RemoveBuddy(const WCHAR* name);
+		void RemoveBuddy(const wchar_t* name);
 
 		// Check if a user is in our buddy list
-		bool IsBuddy(const WCHAR* name) const;
+		bool IsBuddy(const wchar_t* name) const;
 
 		// Request update to the location of our buddies.
 		void RefreshBuddyInfo(void);
 
 		// Add a user to the ignore list
-		void AddIgnore(const WCHAR* name);
+		void AddIgnore(const wchar_t* name);
 
 		// Remove a user from the ignore list.
-		void RemoveIgnore(const WCHAR* name);
+		void RemoveIgnore(const wchar_t* name);
 
 		// Check if a user is in the ignore list.
-		bool IsIgnored(const WCHAR* name) const;
+		bool IsIgnored(const wchar_t* name) const;
 
 		// Get a list of usernames we are ignoring
 		const IgnoreList& GetIngoreList(void) const
@@ -160,11 +160,11 @@ class WOLBuddyMgr :
 		void ClearPageList(void);
 
 		// Get the name of the last user who we received a page from.
-		const WCHAR* GetLastPagersName(void) const
+		const wchar_t* GetLastPagersName(void) const
 			{return mLastPagersName;}
 
 		// Send a page message to user
-		void PageUser(const WCHAR* name, const WCHAR* message);
+		void PageUser(const wchar_t* name, const wchar_t* message);
 
 		// Join a user at his location
 		void JoinUser(const RefPtr<WWOnline::UserData>& user);
@@ -173,10 +173,10 @@ class WOLBuddyMgr :
 		bool CanInviteUsers(void) const;
 
 		// Invite a user to our location
-		void InviteUser(const WCHAR* username, const WCHAR* message);	
+		void InviteUser(const wchar_t* username, const wchar_t* message);	
 
 		// Decline an invitation to join a user.
-		void DeclineInvitation(const WCHAR* username, DECLINE_REASON reason = DECLINE_BYUSER);
+		void DeclineInvitation(const wchar_t* username, DECLINE_REASON reason = DECLINE_BYUSER);
 
 	protected:
 		WOLBuddyMgr();
@@ -187,18 +187,18 @@ class WOLBuddyMgr :
 		void LoadIgnoreList(void);
 		void SaveIgnoreList(void);
 
-		bool IsCommand(const WCHAR* message);
+		bool IsCommand(const wchar_t* message);
 		
 		void ProcessPendingJoin(void);
 		void GotoPendingJoinLocation(const wchar_t* password);
 		void ReceiveSignal(DlgPasswordPrompt&) override;
 
-		bool IsInvitation(const WCHAR* message);
+		bool IsInvitation(const wchar_t* message);
 		void InvitationReceived(WWOnline::PageMessage& page);
-		void DisplayInvitation(const RefPtr<WWOnline::UserData>& user, const WCHAR* message);
+		void DisplayInvitation(const RefPtr<WWOnline::UserData>& user, const wchar_t* message);
 
-		bool IsInvitationDeclined(const WCHAR* message);
-		void InvitationDeclined(const WCHAR* username, DECLINE_REASON reaon);
+		bool IsInvitationDeclined(const wchar_t* message);
+		void InvitationDeclined(const wchar_t* username, DECLINE_REASON reaon);
 
 		void HandleNotification(WWOnline::BuddyEvent&) override;
 		void HandleNotification(WWOnline::UserEvent&) override;

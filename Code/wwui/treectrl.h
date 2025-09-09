@@ -108,7 +108,7 @@ public:
 	//
 	//	Content control
 	//
-	TreeItemClass *	Insert_Item (const WCHAR *name, const char *icon_name, const char *selected_icon_name, TreeItemClass *parent);
+	TreeItemClass *	Insert_Item (const wchar_t *name, const char *icon_name, const char *selected_icon_name, TreeItemClass *parent);
 	void					Delete_Item (TreeItemClass *item);
 	void					Delete_All_Items (void);
 
@@ -217,8 +217,8 @@ public:
 	//
 	//	Name access
 	//
-	void				Set_Name (const WCHAR *name);
-	const WCHAR *	Get_Name (void) const				{ return Name; }
+	void				Set_Name (const wchar_t *name);
+	const wchar_t *	Get_Name (void) const				{ return Name; }
 
 	//
 	//	Icon access

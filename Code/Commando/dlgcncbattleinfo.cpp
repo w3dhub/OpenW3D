@@ -365,7 +365,7 @@ CNCBattleInfoDialogClass::Populate_Player_List (ListCtrlClass *list_ctrl, int te
 			if (item_index >= 0) {
 				WideStringClass displayName(0, true);
 				Build_Player_Display_Name(player, displayName);
-				list_ctrl->Set_Entry_Text(item_index, COL_NAME, (const WCHAR*)displayName);
+				list_ctrl->Set_Entry_Text(item_index, COL_NAME, (const wchar_t*)displayName);
 
 				list_ctrl->Set_Entry_Int (item_index, COL_RANK,			player->Get_Rung ());
 				list_ctrl->Set_Entry_Int (item_index, COL_SCORE,		player->Get_Score ());

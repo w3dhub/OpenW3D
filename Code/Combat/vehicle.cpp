@@ -2321,7 +2321,7 @@ Matrix3D VehicleGameObj::Get_Look_Transform(void)
 	return SmartGameObj::Get_Look_Transform();
 }
 
-const WCHAR *	VehicleGameObj::Get_Vehicle_Name( void )
+const wchar_t *	VehicleGameObj::Get_Vehicle_Name( void )
 {
 	if ( Get_Definition().VehicleNameID != 0 ) {
 		return TranslateDBClass::Get_String( Get_Definition().VehicleNameID );

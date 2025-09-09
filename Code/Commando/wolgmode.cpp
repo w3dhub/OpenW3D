@@ -99,7 +99,7 @@ const wchar_t* __cdecl Translate_WOLString(const char* token)
 	if (token) {
 		StringClass desc(80, true);
 		desc.Format("IDS_%s", token);
-		const WCHAR* text = TRANSLATE_BY_DESC(desc);
+		const wchar_t* text = TRANSLATE_BY_DESC(desc);
 
 		#ifdef WWDEBUG
 		if (STRING_NOT_FOUND == text) {
@@ -521,7 +521,7 @@ void WolGameModeClass::Create_Game(cGameData* theGame)
 		//-------------------------------------------------------------------------
 		const WideStringClass& name = theGame->Get_Owner();
 		const wchar_t* password = theGame->Get_Password();
-		WWDEBUG_SAY(("Creating game channel '%S' Password: '%S'\n", (const WCHAR*)name, password));
+		WWDEBUG_SAY(("Creating game channel '%S' Password: '%S'\n", (const wchar_t*)name, password));
 
 		RefPtrConst<Product> product = Product::Current();
 		WWASSERT(product.IsValid());
@@ -862,7 +862,7 @@ void WolGameModeClass::Evaluate_Clans(cGameData* theGame)
 				unsigned long hostClanID = host->GetSquadID();
 				theGame->Set_Clan(0, hostClanID);
 
-				WWDEBUG_SAY(("CLANS: Assigning slot 0 to '%S' (host) clan #%lu\n", (const WCHAR*)host->GetName(), hostClanID));
+				WWDEBUG_SAY(("CLANS: Assigning slot 0 to '%S' (host) clan #%lu\n", (const wchar_t*)host->GetName(), hostClanID));
 			}
 
 			// Determine which clans are in the game.
@@ -1062,7 +1062,7 @@ void WolGameModeClass::Page_WOL_User(const wchar_t* name, const wchar_t* msg)
 void WolGameModeClass::Reply_Last_Page(const wchar_t* msg)
 {
 	if (msg && (wcslen(msg) > 0)) {
-		const WCHAR* pager = mWOLBuddyMgr->GetLastPagersName();
+		const wchar_t* pager = mWOLBuddyMgr->GetLastPagersName();
 
 		if (pager && (wcslen(pager) > 0)) {
 			mWOLBuddyMgr->PageUser(pager, msg);
@@ -1504,7 +1504,7 @@ void WolGameModeClass::HandleNotification(UserEvent& event)
 
 							if (slot != -1) {
 								WWDEBUG_SAY(("CLANS: Slot %d filled by '%S' Clan #%lu\n", slot,
-									(const WCHAR*)user->GetName(), userClanID));
+									(const wchar_t*)user->GetName(), userClanID));
 
 								mTheGame->Set_Clan(slot, userClanID);
 							}
@@ -1519,7 +1519,7 @@ void WolGameModeClass::HandleNotification(UserEvent& event)
 						// competing clans then kick him.
 						if (!mTheGame->Is_Clan_Competing(userClanID)) {
 							WWDEBUG_SAY(("CLANS: Game closed. Kicking user '%S'\n",
-								(const WCHAR*)user->GetName()));
+								(const wchar_t*)user->GetName()));
 
 							mWOLSession->KickUser(user->GetName());
 							requestDetails = false;
@@ -1702,7 +1702,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 					int score = player->Get_Score();
 
 					// PINFO string format: Name fps,type,rank,kills,deaths
-					info.Format("PINFO:%S %d %d %d %d %d", (const WCHAR*)name, type, rung, kills, deaths, score);
+					info.Format("PINFO:%S %d %d %d %d %d", (const wchar_t*)name, type, rung, kills, deaths, score);
 
 					mWOLSession->SendPrivateGameOptions(requestor, info);
 				}

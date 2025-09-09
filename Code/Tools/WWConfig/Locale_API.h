@@ -53,8 +53,8 @@ extern	CHAR	LanguageFile[];
 int				Locale_Init	( int language, const CHAR *file );
 void			Locale_Restore ( void );
 const CHAR	*	Locale_GetString( int StringID, CHAR *String );
-const WCHAR	*	Locale_GetString( int StringID, WCHAR *String );
-const WCHAR	*	Locale_GetString( int StringID );
+const wchar_t	*	Locale_GetString( int StringID, wchar_t *String );
+const wchar_t	*	Locale_GetString( int StringID );
 bool			Locale_Use_Multi_Language_Files	( void );
 
 #endif

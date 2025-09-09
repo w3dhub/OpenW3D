@@ -93,7 +93,7 @@ class DlgMsgBox :
 			YesNo,    // Yes/No message box
 			} Type;
 
-		static bool DoDialog(const WCHAR* title, const WCHAR* text,
+		static bool DoDialog(const wchar_t* title, const wchar_t* text,
 			DlgMsgBox::Type type = DlgMsgBox::Okay, Observer<DlgMsgBoxEvent>* observer = NULL,
 			unsigned long user_data = 0);
 

@@ -95,7 +95,7 @@ cGameDataSkirmish& cGameDataSkirmish::operator=(const cGameDataSkirmish& rhs)
 }
 
 //-----------------------------------------------------------------------------
-const WCHAR* cGameDataSkirmish::Get_Static_Game_Name(void)
+const wchar_t* cGameDataSkirmish::Get_Static_Game_Name(void)
 {
 	return TRANSLATION(IDS_MP_GAME_TYPE_SKIRMISH);
 }

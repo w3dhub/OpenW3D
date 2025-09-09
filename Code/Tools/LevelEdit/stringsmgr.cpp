@@ -758,13 +758,13 @@ StringsMgrClass::Apply_Characteristics
 		//
 		//	Check to see if the english string is commented out
 		///
-		const WCHAR *buffer = english_string;			
+		const wchar_t *buffer = english_string;			
 		if (buffer[0] == L'/' && buffer[1] == L'/') {
 			
 			//
 			//	Do we need to comment out the translated string as well?
 			//
-			const WCHAR *trans_buffer = translated_string;
+			const wchar_t *trans_buffer = translated_string;
 			if (trans_buffer[0] != L'/' || trans_buffer[1] != L'/') {
 				
 				//
@@ -782,9 +782,9 @@ StringsMgrClass::Apply_Characteristics
 	//	Concatenate a '\n' onto the end of the translated string, if
 	// there's one at the end of the english string
 	//
-	const WCHAR *buffer = english_string;
+	const wchar_t *buffer = english_string;
 	if (buffer[english_len - 1] == L'\n') {
-		const WCHAR *trans_buffer = translated_string;
+		const wchar_t *trans_buffer = translated_string;
 		if (trans_buffer[trans_len - 1] != L'\n') {
 			translated_string += L"\n";
 		}

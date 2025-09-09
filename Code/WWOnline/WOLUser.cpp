@@ -115,7 +115,7 @@ UserData::UserData(const WOL::User& user) :
 		mUserName((char*)user.name),
 		mLocation(USERLOCATION_UNKNOWN)
 	{
-	WWDEBUG_SAY(("WOL: Instantiating UserData '%S'\n", (const WCHAR*)mUserName));
+	WWDEBUG_SAY(("WOL: Instantiating UserData '%S'\n", (const wchar_t*)mUserName));
 	memcpy(&mData, &user, sizeof(mData));
 	mKickTimer = 0;
 	mData.next = NULL;
@@ -140,7 +140,7 @@ UserData::UserData(const WOL::User& user) :
 
 UserData::~UserData()
 	{
-	WWDEBUG_SAY(("WOL: Destructing UserData '%S'\n", (const WCHAR*)mUserName));
+	WWDEBUG_SAY(("WOL: Destructing UserData '%S'\n", (const wchar_t*)mUserName));
 	}
 
 

@@ -113,7 +113,7 @@ void DlgMpChangeLanNickname::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 {
 	if (IDC_NICKNAME_EDIT == id)
 	{
-		const WCHAR* text = edit->Get_Text();
+		const wchar_t* text = edit->Get_Text();
 		bool enableok = (text && (wcslen(text) > 0));
 		Enable_Dlg_Item(IDOK, enableok);
 	}

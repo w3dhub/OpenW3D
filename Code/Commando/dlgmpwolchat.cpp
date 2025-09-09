@@ -494,13 +494,13 @@ void MPWolChatMenuClass::Refresh_Message_List(void)
 			WideStringClass text(255, true);
 
 			const WideStringClass& sender = message.GetSendersName();
-			const WCHAR* msg = message.GetMessage();
+			const wchar_t* msg = message.GetMessage();
 
 			if (sender.Is_Empty() == false) {
 				if (message.IsAction()) {
-					text.Format(L"%s %s", (const WCHAR*)sender, msg);
+					text.Format(L"%s %s", (const wchar_t*)sender, msg);
 				} else {
-					text.Format(L"%s: %s", (const WCHAR*)sender, msg);
+					text.Format(L"%s: %s", (const wchar_t*)sender, msg);
 				}
 
 				msg = text;
@@ -543,7 +543,7 @@ void MPWolChatMenuClass::Refresh_Message_List(void)
 //	Add_Message
 //
 ////////////////////////////////////////////////////////////////
-void MPWolChatMenuClass::Add_Message(const WCHAR* text)
+void MPWolChatMenuClass::Add_Message(const wchar_t* text)
 {
 	ListCtrlClass* list = (ListCtrlClass*)Get_Dlg_Item(IDC_MESSAGE_LIST_CTRL);
 
@@ -614,7 +614,7 @@ void MPWolChatMenuClass::On_ListCtrl_Mouse_Over(ListCtrlClass* list, int id, int
 		WideStringClass userinfo(0, true);
 
 		if (index >= 0) {
-			const WCHAR* name = list->Get_Entry_Text(index, 1);
+			const wchar_t* name = list->Get_Entry_Text(index, 1);
 			userinfo += name;
 
 			const RefPtr<UserData> user =	mChatMgr->FindUser(name);
@@ -707,7 +707,7 @@ void MPWolChatMenuClass::Send_Message(bool is_emot)
 		int index = list_ctrl->Get_First_Selected();
 		
 		while (index != -1) {
-			const WCHAR* name = list_ctrl->Get_Entry_Text(index, 1);
+			const wchar_t* name = list_ctrl->Get_Entry_Text(index, 1);
 			const RefPtr<UserData> user = mChatMgr->FindUser(name);
 
 			if (user.IsValid()) {
@@ -742,7 +742,7 @@ void MPWolChatMenuClass::Toggle_Squelch(void)
 		int index = list->Get_First_Selected();
 
 		while (index != -1) {
-			const WCHAR* userName = list->Get_Entry_Text(index, 1);
+			const wchar_t* userName = list->Get_Entry_Text(index, 1);
 			const RefPtr<UserData>& user = mChatMgr->FindUser(userName);
 
 			// If the user is valid and it is not a channel owner and it is

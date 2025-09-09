@@ -260,7 +260,7 @@ void IMECandidateCtrl::CreateTextRenderer(void)
 				}
 
 			// Draw the text
-			const WCHAR* text = mCandidate->GetCandidate(index);
+			const wchar_t* text = mCandidate->GetCandidate(index);
 
 			WideStringClass entry(0, true);
 			entry.Format(L"%d. %s", ((index - mScrollPos) + selIndexBias), text);
@@ -513,7 +513,7 @@ void IMECandidateCtrl::CalculateCandidatePageExtent(Vector2& outExtent, Vector2&
 		for (unsigned long index = 0; index < candidateCount; ++index)
 			{
 			// Get the extent of the current entry
-			const WCHAR* text = mCandidate->GetCandidate(index);
+			const wchar_t* text = mCandidate->GetCandidate(index);
 			Vector2 textExtent = mTextRenderer.Get_Text_Extents(text);
 
 			if (textExtent.X > maxCandWidth)

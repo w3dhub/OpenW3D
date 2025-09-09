@@ -59,7 +59,7 @@ class DirectoryDialogClass : public InstallMenuDialogClass
 
 		void			 On_Command (int ctrl_id, int message_id, DWORD param);
 		void			 Callback (int id, PopupDialogClass *popup);
-		const WCHAR *Get_Path (WideStringClass &path);
+		const wchar_t *Get_Path (WideStringClass &path);
 
 	protected:
 
@@ -69,14 +69,14 @@ class DirectoryDialogClass : public InstallMenuDialogClass
 		void	 On_Activate (bool onoff);
 		void	 On_Frame_Update (void);
 
-		WCHAR *Megabyte_Format (int64_t bytecount, WideStringClass &outputstring);
+		wchar_t *Megabyte_Format (int64_t bytecount, WideStringClass &outputstring);
 
 		virtual int64_t Get_Disk_Space_Needed() = 0;
 		virtual bool	 Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace) = 0;
 
 		DirectoryBrowserClass *Browser;
 		MessageBoxClass		 *OverwriteDialog;
-		WCHAR						  DriveLetter;	
+		wchar_t						  DriveLetter;	
 };
 
 

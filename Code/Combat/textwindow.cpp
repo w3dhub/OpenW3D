@@ -382,7 +382,7 @@ TextWindowClass::On_Frame_Update (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-TextWindowClass::Add_Column (const WCHAR *column_name, float width, const Vector3 &color)
+TextWindowClass::Add_Column (const wchar_t *column_name, float width, const Vector3 &color)
 {
 	//
 	//	Create a new column and add it to the list
@@ -496,7 +496,7 @@ TextWindowClass::Delete_Item (int index)
 //
 ////////////////////////////////////////////////////////////////
 int
-TextWindowClass::Insert_Item (int index, const WCHAR *text)
+TextWindowClass::Insert_Item (int index, const wchar_t *text)
 {	
 	if (Columns.Count () <= 0) {
 		return -1;
@@ -526,7 +526,7 @@ TextWindowClass::Insert_Item (int index, const WCHAR *text)
 //
 ////////////////////////////////////////////////////////////////
 bool
-TextWindowClass::Set_Item_Text (int index, int col_index, const WCHAR *text)
+TextWindowClass::Set_Item_Text (int index, int col_index, const wchar_t *text)
 {
 	if (col_index < 0 || col_index >= Columns.Count ()) {
 		return false;
@@ -779,7 +779,7 @@ TextWindowClass::Update_Row
 		//
 		//	Determine what text we should display
 		//		
-		const WCHAR *text	= L"";
+		const wchar_t *text	= L"";
 		Vector3 color (0 ,0, 0);		
 		text		= column->Get_Item_Text (item_index);
 		color		= column->Get_Item_Color (item_index);
@@ -952,7 +952,7 @@ TextColumnClass::Reset_Contents (void)
 //
 ////////////////////////////////////////////////////////////////
 int
-TextColumnClass::Insert_Item (int index, const WCHAR *item_name)
+TextColumnClass::Insert_Item (int index, const wchar_t *item_name)
 {
 	TextItemClass *item = new TextItemClass (item_name);
 	

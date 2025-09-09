@@ -685,7 +685,7 @@ Return Value:
 --*/
 void MonoUnload(PDRIVER_OBJECT DriverObject)
 {
-//	WCHAR                  deviceLinkBuffer[]  = L"\\DosDevices\\MONO";
+//	wchar_t                  deviceLinkBuffer[]  = L"\\DosDevices\\MONO";
 	UNICODE_STRING         deviceLinkUnicodeString;
 
 	//

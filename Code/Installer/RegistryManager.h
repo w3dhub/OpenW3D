@@ -106,7 +106,7 @@ class RegistryManagerClass {
 		
 		bool __cdecl Get_String (HKEY rootkey, WideStringClass *string, ...);
 		bool __cdecl Get_Value (HKEY rootkey, DWORD *value, ...);
-		bool __cdecl Set_String (HKEY rootkey, const WCHAR *string, ...);
+		bool __cdecl Set_String (HKEY rootkey, const wchar_t *string, ...);
 		bool __cdecl Set_Value (HKEY rootkey, DWORD value, ...);
 		bool __cdecl Get_Key (HKEY rootkey, DWORD keyindex, StringClass *keyname, ...);
 

@@ -71,11 +71,11 @@ class CopyThreadClass : public ThreadClass
 		void					 Add_Bytes_Copied (unsigned bytecount);
 		float					 Get_Fraction_Complete();
 		void					 Set_Target_Path (const WideStringClass &targetpath);
-		WCHAR					*Get_Target_Path (WideStringClass &targetpath);
+		wchar_t					*Get_Target_Path (WideStringClass &targetpath);
 		void					 Set_Status_Message (const WideStringClass &targetpath);
-		WCHAR					*Get_Status_Message (WideStringClass &targetpath);
+		wchar_t					*Get_Status_Message (WideStringClass &targetpath);
 		void					 Set_Error_Message (const WideStringClass &errormessage);
-		WCHAR					*Get_Error_Message (WideStringClass &errormessage);
+		wchar_t					*Get_Error_Message (WideStringClass &errormessage);
 		void					 Set_Status (StatusEnum status);
 		StatusEnum			 Get_Status();
 		bool					 Retry();

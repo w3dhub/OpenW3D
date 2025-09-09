@@ -551,7 +551,7 @@ void DlgWOLSettings::DeleteSelectedPersona(void)
 
 		if (sel >= 0)
 			{
-			const WCHAR* name = combo->Get_Text();
+			const wchar_t* name = combo->Get_Text();
 
 			// Delete this login from our local cache and purge it from disk.
 			RefPtr<LoginInfo> login = LoginInfo::Find(name);

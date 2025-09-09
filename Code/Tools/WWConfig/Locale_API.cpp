@@ -67,7 +67,7 @@ int		LanguageID		= 0;
 /****************************************************************************/
 /* LOCALE API                                                               */
 /****************************************************************************/
-WCHAR *		Remove_Quotes_Around_String ( WCHAR *old_string );
+wchar_t *		Remove_Quotes_Around_String ( wchar_t *old_string );
 void *	 	Load_File ( const CHAR *filename, long *filesize );
 
 //=============================================================================
@@ -321,15 +321,15 @@ void Locale_Restore ( void )
 const CHAR* Locale_GetString( int StringID, CHAR *String )
 {
 	static	CHAR		buffer[ _MAX_PATH ];
-	static	WCHAR		wide_buffer[ _MAX_PATH ];
+	static	wchar_t		wide_buffer[ _MAX_PATH ];
 
 	memset( buffer,		 '\0', _MAX_PATH );
 	memset(	wide_buffer, '\0', _MAX_PATH );
 
 	#if( USE_MULTI_FILE_FORMAT )
-		wcscpy( wide_buffer, (WCHAR *)LOCALE_getstring( StringID ));
+		wcscpy( wide_buffer, (wchar_t *)LOCALE_getstring( StringID ));
 	#else									  
-		wcscpy( wide_buffer, (WCHAR *)LOCALE_getstr( LocaleFile, StringID ));
+		wcscpy( wide_buffer, (wchar_t *)LOCALE_getstr( LocaleFile, StringID ));
 	#endif
 
 	Remove_Quotes_Around_String( wide_buffer );
@@ -347,7 +347,7 @@ const CHAR* Locale_GetString( int StringID, CHAR *String )
  *		Get a string usine Resource ID and a buffer.							*
  *																				*
  * INPUT:   int StringID  -- The resource number of the string.					*
- *          WCHAR *String  -- The buffer to place the text in.					*
+ *          wchar_t *String  -- The buffer to place the text in.					*
  *																				*
  * OUTPUT:  Returns with a pointer to the buffer.								*
  *																				*
@@ -357,16 +357,16 @@ const CHAR* Locale_GetString( int StringID, CHAR *String )
  *   12/10/2001  MML : Created.													*
  *==============================================================================*/
 
-const WCHAR* Locale_GetString( int StringID, WCHAR *String )
+const wchar_t* Locale_GetString( int StringID, wchar_t *String )
 {
-	static WCHAR wide_buffer[ _MAX_PATH ];
+	static wchar_t wide_buffer[ _MAX_PATH ];
 
 	memset(	wide_buffer, '\0', _MAX_PATH );
 
 	#if( USE_MULTI_FILE_FORMAT )
-		wcscpy( wide_buffer, (WCHAR *)LOCALE_getstring( StringID ));
+		wcscpy( wide_buffer, (wchar_t *)LOCALE_getstring( StringID ));
 	#else									  
-		wcscpy( wide_buffer, (WCHAR *)LOCALE_getstr( LocaleFile, StringID ));
+		wcscpy( wide_buffer, (wchar_t *)LOCALE_getstr( LocaleFile, StringID ));
 	#endif
 
 	Remove_Quotes_Around_String( wide_buffer );
@@ -392,16 +392,16 @@ const WCHAR* Locale_GetString( int StringID, WCHAR *String )
  *   12/10/2001  MML : Created.													*
  *==============================================================================*/
 
-const WCHAR* Locale_GetString( int StringID )
+const wchar_t* Locale_GetString( int StringID )
 {
-	static WCHAR wide_buffer[ _MAX_PATH ];
+	static wchar_t wide_buffer[ _MAX_PATH ];
 
 	memset(	wide_buffer, '\0', _MAX_PATH );
 
 	#if( USE_MULTI_FILE_FORMAT )
-		wcscpy( wide_buffer, (WCHAR *)LOCALE_getstring( StringID ));
+		wcscpy( wide_buffer, (wchar_t *)LOCALE_getstring( StringID ));
 	#else									  
-		wcscpy( wide_buffer, (WCHAR *)LOCALE_getstr( LocaleFile, StringID ));
+		wcscpy( wide_buffer, (wchar_t *)LOCALE_getstr( LocaleFile, StringID ));
 	#endif
 
 	Remove_Quotes_Around_String( wide_buffer );
@@ -414,10 +414,10 @@ const WCHAR* Locale_GetString( int StringID )
 /* formating strings   														*/
 /****************************************************************************/
 
-WCHAR *Remove_Quotes_Around_String ( WCHAR *old_string )
+wchar_t *Remove_Quotes_Around_String ( wchar_t *old_string )
 {
-	WCHAR	wide_buffer[ _MAX_PATH * 3 ];
-	WCHAR * letter = old_string;
+	wchar_t	wide_buffer[ _MAX_PATH * 3 ];
+	wchar_t * letter = old_string;
 	int		length;
 
 	//----------------------------------------------------------------------

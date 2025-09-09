@@ -387,10 +387,10 @@ PurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 //	Get_Name
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
-const WCHAR *
+const wchar_t *
 PurchaseSettingsDefClass::Get_Name (int index)
 {
-	const WCHAR *retval = NULL;
+	const wchar_t *retval = NULL;
 
 	//
 	//	Return the translated string...

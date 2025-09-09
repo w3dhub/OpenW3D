@@ -44,7 +44,7 @@ class DlgDownload :
 		public PopupDialogClass
 	{
 	public:
-		static bool DoDialog(const WCHAR* title, const WWOnline::DownloadList& files, bool quiet = false);
+		static bool DoDialog(const wchar_t* title, const WWOnline::DownloadList& files, bool quiet = false);
 
 	protected:
 		DlgDownload();

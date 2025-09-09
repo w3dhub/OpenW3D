@@ -226,7 +226,7 @@ void WOLGameInfo::ImportFromGame(const cGameData& theGame)
 	mClanID1 = theGame.Get_Clan(0);
 	mClanID2 = theGame.Get_Clan(1);
 
-	const WCHAR* password = theGame.Get_Password();
+	const wchar_t* password = theGame.Get_Password();
 	mIsPassworded = ((password != NULL) && (wcslen(password) > 0));
 	mIsLaddered   = theGame.IsLaddered.Get();
 	mIsQuickmatch = theGame.Is_QuickMatch_Server();

@@ -116,7 +116,7 @@ DropDownCtrlClass::Create_Text_Renderer (void)
 		//
 		//	Get the width and height of the current entry
 		//
-		const WCHAR *text		= EntryList[index].text;
+		const wchar_t *text		= EntryList[index].text;
 		Vector2 text_extent	= TextRenderer.Get_Text_Extents (text);
 
 		//
@@ -435,7 +435,7 @@ DropDownCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //
 ////////////////////////////////////////////////////////////////
 int
-DropDownCtrlClass::Add_String (const WCHAR* string)
+DropDownCtrlClass::Add_String (const wchar_t* string)
 {
 	if (string == NULL) {
 		return -1;
@@ -484,7 +484,7 @@ DropDownCtrlClass::Delete_String (int index)
 //
 ////////////////////////////////////////////////////////////////
 int
-DropDownCtrlClass::Find_String (const WCHAR* string)
+DropDownCtrlClass::Find_String (const wchar_t* string)
 {
 	int retval = -1;
 
@@ -506,7 +506,7 @@ DropDownCtrlClass::Find_String (const WCHAR* string)
 }
 
 
-int DropDownCtrlClass::Find_Closest_String(const WCHAR* string)
+int DropDownCtrlClass::Find_Closest_String(const wchar_t* string)
 {
 	int retval = -1;
 
@@ -683,10 +683,10 @@ DropDownCtrlClass::Get_String (int index, WideStringClass &string) const
 //	Get_String
 //
 ////////////////////////////////////////////////////////////////
-const WCHAR *
+const wchar_t *
 DropDownCtrlClass::Get_String (int index) const
 {
-	const WCHAR *retval = NULL;
+	const wchar_t *retval = NULL;
 
 	if (index >= 0 && index < EntryList.Count ()) {
 		

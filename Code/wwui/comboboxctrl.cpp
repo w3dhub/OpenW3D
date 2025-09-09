@@ -642,7 +642,7 @@ ComboBoxCtrlClass::On_Mouse_Wheel (int direction)
 //
 ////////////////////////////////////////////////////////////////
 int
-ComboBoxCtrlClass::Select_String (const WCHAR* string)
+ComboBoxCtrlClass::Select_String (const wchar_t* string)
 {
 	int index = Find_String (string);
 	if (index >= 0) {
@@ -715,7 +715,7 @@ ComboBoxCtrlClass::Set_Sel (int index, bool notify)
 //	Get_Text
 //
 ////////////////////////////////////////////////////////////////
-const WCHAR*
+const wchar_t*
 ComboBoxCtrlClass::Get_Text(void) const
 {
 	if ((Style & 0x0F) == CBS_DROPDOWN) {
@@ -732,7 +732,7 @@ ComboBoxCtrlClass::Get_Text(void) const
 //
 ////////////////////////////////////////////////////////////////
 void
-ComboBoxCtrlClass::Set_Text (const WCHAR *title)
+ComboBoxCtrlClass::Set_Text (const wchar_t *title)
 {
 	if ((Style & 0x0F) == CBS_DROPDOWN) {
 		EditControl.Set_Text (title);

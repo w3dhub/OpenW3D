@@ -498,10 +498,10 @@ DialogBaseClass::Get_Dlg_Item (int id) const
 //	Get_Dlg_Item_Text
 //
 ////////////////////////////////////////////////////////////////
-const WCHAR *
+const wchar_t *
 DialogBaseClass::Get_Dlg_Item_Text (int id) const
 {
-	const WCHAR *retval = NULL;
+	const wchar_t *retval = NULL;
 
 	//
 	//	Find the control
@@ -525,7 +525,7 @@ DialogBaseClass::Get_Dlg_Item_Text (int id) const
 //
 ////////////////////////////////////////////////////////////////
 void
-DialogBaseClass::Set_Dlg_Item_Text (int id, const WCHAR *text)
+DialogBaseClass::Set_Dlg_Item_Text (int id, const wchar_t *text)
 {
 	//
 	//	Find the control
@@ -562,7 +562,7 @@ DialogBaseClass::Get_Dlg_Item_Int (int id) const
 		//
 		//	Get the text from the control
 		//
-		const WCHAR *text = control->Get_Text ();
+		const wchar_t *text = control->Get_Text ();
 
 		//
 		//	Convert the text to an integer
@@ -623,7 +623,7 @@ DialogBaseClass::Get_Dlg_Item_Float (int id) const
 		//
 		//	Get the text from the control
 		//
-		const WCHAR *text = control->Get_Text ();
+		const wchar_t *text = control->Get_Text ();
 
 		//
 		//	Convert the text to an float

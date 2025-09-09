@@ -897,14 +897,14 @@ void MPWolGameListMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id,
 // Denzil 02/14/02 The version encoded in the channel is NOT the printable version.
 // Just show the EXE version until we can work this out.
 #if(0)
-					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const WCHAR*)channel->GetName(),
+					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const wchar_t*)channel->GetName(),
 							mSelectedGame.Title(), HIWORD(mSelectedGame.Version()), LOWORD(mSelectedGame.Version()));
 #else
 					unsigned long verMajor = 0;
 					unsigned long verMinor = 0;
 					Get_Version_Number(&verMajor,&verMinor);
 
-					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const WCHAR*)channel->GetName(),
+					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const wchar_t*)channel->GetName(),
 							mSelectedGame.Title(), HIWORD(verMajor), LOWORD(verMajor));
 #endif
 					detailsList->Insert_Entry(0, text);
@@ -1369,8 +1369,8 @@ int CALLBACK FlagsSortCallback(ListCtrlClass* list, int index1, int index2, uint
 			return 1;
 			}
 
-		const WCHAR* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
-		const WCHAR* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
+		const wchar_t* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
+		const wchar_t* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
 		return wcsicmp(name1, name2);
 		}
 
@@ -1439,8 +1439,8 @@ int CALLBACK NumericSortCallback(ListCtrlClass* list, int index1, int index2, ui
 
 		if (retval == 0)
 			{
-			const WCHAR* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
-			const WCHAR* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
+			const wchar_t* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
+			const wchar_t* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
 			retval = wcsicmp(name1, name2);
 			}
 		}
@@ -1482,8 +1482,8 @@ int CALLBACK AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint
 	// Sort by numeric value stored in entry data field
 	int	column = LOWORD(param);
 
-	const WCHAR* text1 = list->Get_Entry_Text(index1, column);
-	const WCHAR* text2 = list->Get_Entry_Text(index2, column);
+	const wchar_t* text1 = list->Get_Entry_Text(index1, column);
+	const wchar_t* text2 = list->Get_Entry_Text(index2, column);
 	int retval = wcsicmp(text1, text2);
 
 	// If the strings match then secondary sort by ping time.

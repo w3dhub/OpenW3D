@@ -392,7 +392,7 @@ TDBObjClass::Get_String (uint32 lang_id)
 //
 /////////////////////////////////////////////////////////////////
 void
-TDBObjClass::Set_String (uint32 lang_id, const WCHAR *string)
+TDBObjClass::Set_String (uint32 lang_id, const wchar_t *string)
 {
 	//
 	//	Grow the translated strings array until we have enough

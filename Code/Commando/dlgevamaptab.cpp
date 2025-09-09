@@ -188,7 +188,7 @@ EvaMapTabClass::On_MapCtrl_Marker_Hilighted
 
 			WideStringClass name = TRANSLATE (objective->ShortDescriptionID);
 			WideStringClass string;
-			string.Format (TRANSLATE (IDS_MENU_NAME_FORMAT), (const WCHAR *)name);
+			string.Format (TRANSLATE (IDS_MENU_NAME_FORMAT), (const wchar_t *)name);
 			list_ctrl->Insert_Entry (0, string);
 
 			string.Format (TRANSLATE (IDS_MENU_PRIORITY_FORMAT), objective->Type_To_Name ());

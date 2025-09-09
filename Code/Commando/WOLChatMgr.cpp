@@ -856,7 +856,7 @@ bool WOLChatMgr::PassesFilters(const ChatMessage& msg)
 	if (msg.IsSenderSquelched())
 		{
 		WWDEBUG_SAY(("WOLChatMgr: Filtered squelched message from %S\n",
-				(const WCHAR*)msg.GetSendersName()));
+				(const wchar_t*)msg.GetSendersName()));
 		return false;
 		}
 
@@ -1548,7 +1548,7 @@ const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass
 
 	if (length > 0)
 		{
-		WCHAR* buffer = param.Get_Buffer(length + 1);
+		wchar_t* buffer = param.Get_Buffer(length + 1);
 		wcsncpy(buffer, command, length);
 		buffer[length - 1] = 0;
 		}

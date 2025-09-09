@@ -562,7 +562,7 @@ void cGameData::Set_Intermission_Time_Seconds(int time)
 }
 
 //-----------------------------------------------------------------------------
-void cGameData::Set_Motd(const WCHAR * motd)
+void cGameData::Set_Motd(const wchar_t * motd)
 {
 	WWASSERT(motd != NULL);
 
@@ -1342,7 +1342,7 @@ int cGameData::Choose_Player_Type(cPlayer* player, int team_choice, bool is_grun
 			int team = Choose_Smallest_Team();
 
 			WWDEBUG_SAY(("CLANS: Bot '%S' assigned to smallest team (%d)\n",
-				(const WCHAR*)player->Get_Name(), team));
+				(const wchar_t*)player->Get_Name(), team));
 
 			return team;
 		}
@@ -1355,14 +1355,14 @@ int cGameData::Choose_Player_Type(cPlayer* player, int team_choice, bool is_grun
 			int team = clanMate->Get_Player_Type();
 
 			WWDEBUG_SAY(("CLANS: Player '%S' assigned to team with clanmates (%d)\n",
-				(const WCHAR*)player->Get_Name(), team));
+				(const wchar_t*)player->Get_Name(), team));
 
 			return team;
 		} else {
 			int team = Choose_Available_Team(team_choice);
 
 			WWDEBUG_SAY(("CLANS: Player '%S' assigned to available team (%d)\n",
-				(const WCHAR*)player->Get_Name(), team));
+				(const wchar_t*)player->Get_Name(), team));
 
 			return team;
 		}

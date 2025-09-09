@@ -369,7 +369,7 @@ void DlgQuickMatch::SendMatchingInfo(void)
 
 void DlgQuickMatch::OutputMessage(int messageID)
 	{
-	const WCHAR* message = TranslateDBClass::Get_String(messageID);
+	const wchar_t* message = TranslateDBClass::Get_String(messageID);
 	OutputMessage(message);
 	}
 
@@ -389,7 +389,7 @@ void DlgQuickMatch::OutputMessage(int messageID)
 *
 ******************************************************************************/
 
-void DlgQuickMatch::OutputMessage(const WCHAR* message)
+void DlgQuickMatch::OutputMessage(const wchar_t* message)
 	{
 	WWDEBUG_SAY(("QM: %S\n", message));
 
@@ -428,7 +428,7 @@ void DlgQuickMatch::OutputMessage(const WCHAR* message)
 void DlgQuickMatch::HandleNotification(QuickMatchEvent& status)
 	{
 	QuickMatchEvent::Event event = status.GetEvent();
-	const WCHAR* msg = (const WCHAR*)status.Subject();
+	const wchar_t* msg = (const wchar_t*)status.Subject();
 
 	if (QuickMatchEvent::QMERROR == event)
 		{
@@ -458,7 +458,7 @@ void DlgQuickMatch::HandleNotification(QuickMatchEvent& status)
 		GameInitMgrClass::Set_WOL_Return_Dialog(RenegadeDialogMgrClass::LOC_INTERNET_MAIN);
 
 		// Join the game
-		const WCHAR* gameName = (const WCHAR*)status.Subject();
+		const wchar_t* gameName = (const wchar_t*)status.Subject();
 		WOLJoinGame::JoinTheGame(gameName, L"", false);
 		return;
 		}

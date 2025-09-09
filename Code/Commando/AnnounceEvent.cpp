@@ -277,7 +277,7 @@ void SCAnnouncement::Act(void)
 		if (translateObj)
 			{
 			// Display the text on the screen
-			const WCHAR* string = translateObj->Get_String();
+			const wchar_t* string = translateObj->Get_String();
 
 			if (string)
 				{

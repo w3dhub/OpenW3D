@@ -51,7 +51,7 @@
 *
 ******************************************************************************/
 
-bool DlgMPConnectionRefused::DoDialog(const WCHAR * text, bool show_splash_screen)
+bool DlgMPConnectionRefused::DoDialog(const wchar_t * text, bool show_splash_screen)
 	{	
 	DlgMPConnectionRefused* popup = new DlgMPConnectionRefused(text, show_splash_screen);
 
@@ -81,7 +81,7 @@ bool DlgMPConnectionRefused::DoDialog(const WCHAR * text, bool show_splash_scree
 *
 ******************************************************************************/
 
-DlgMPConnectionRefused::DlgMPConnectionRefused(const WCHAR * text, bool show_splash_screen) :
+DlgMPConnectionRefused::DlgMPConnectionRefused(const wchar_t * text, bool show_splash_screen) :
 		PopupDialogClass(IDD_MULTIPLAY_CONNECTION_REFUSED)
 	{
 	WWDEBUG_SAY(("DlgMPConnectionRefused: Instantiated\n"));

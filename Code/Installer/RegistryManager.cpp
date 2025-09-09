@@ -219,7 +219,7 @@ bool RegistryManagerClass::Get_Target_Game_Folder (WideStringClass &folder)
 {
 	bool				  success = false;
 	WideStringClass  path, folderpath;
-	WCHAR				 *suffixroot;
+	wchar_t				 *suffixroot;
 
 	if (Get_String (HKEY_CURRENT_USER, &path, SOFTWARE_KEY, WESTWOOD_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), FOLDER_PATH_KEY, NULL)) {
 		Get_Folder_Path (folderpath);
@@ -297,7 +297,7 @@ bool RegistryManagerClass::Get_Target_WOL_Folder (WOLComponentEnum wolcomponent,
 {
 	bool				  success = false;
 	WideStringClass  path, folderpath;
-	WCHAR				 *suffixroot;
+	wchar_t				 *suffixroot;
 
 	if (Get_String (HKEY_CURRENT_USER, &path, SOFTWARE_KEY, WESTWOOD_KEY, WOLKeys [wolcomponent], FOLDER_PATH_KEY, NULL)) {
 		Get_Folder_Path (folderpath);
@@ -794,7 +794,7 @@ bool RegistryManagerClass::Get_Value (HKEY rootkey, DWORD *value, ...)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool __cdecl RegistryManagerClass::Set_String (HKEY rootkey, const WCHAR *string, ...)
+bool __cdecl RegistryManagerClass::Set_String (HKEY rootkey, const wchar_t *string, ...)
 {
 	HKEY	   key;
 	DWORD	   disposition;

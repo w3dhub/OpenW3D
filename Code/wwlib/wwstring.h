@@ -79,7 +79,7 @@ public:
 	StringClass (const StringClass &string, bool hint_temporary = false);
 	StringClass (const char *string, bool hint_temporary = false);
 	StringClass (char ch, bool hint_temporary = false);
-	StringClass (const WCHAR *string, bool hint_temporary = false);
+	StringClass (const wchar_t *string, bool hint_temporary = false);
 	~StringClass (void);
 
 	////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ public:
 	inline const StringClass &operator= (const StringClass &string);
 	inline const StringClass &operator= (const char *string);
 	inline const StringClass &operator= (char ch);
-	inline const StringClass &operator= (const WCHAR *string);
+	inline const StringClass &operator= (const wchar_t *string);
 
 	const StringClass &operator+= (const StringClass &string);
 	const StringClass &operator+= (const char *string);
@@ -130,7 +130,7 @@ public:
 	char *		Peek_Buffer (void);
 	const char * Peek_Buffer (void) const;
 
-	bool Copy_Wide (const WCHAR *source);
+	bool Copy_Wide (const wchar_t *source);
 
 	////////////////////////////////////////////////////////////
 	//	Static methods
@@ -231,7 +231,7 @@ StringClass::operator= (const char *string)
 //	operator=
 ///////////////////////////////////////////////////////////////////
 inline const StringClass &
-StringClass::operator= (const WCHAR *string)
+StringClass::operator= (const wchar_t *string)
 {
 	if (string != 0) {
 		Copy_Wide (string);
@@ -329,7 +329,7 @@ StringClass::StringClass (const char *string, bool hint_temporary)
 //	StringClass
 ///////////////////////////////////////////////////////////////////
 inline
-StringClass::StringClass (const WCHAR *string, bool hint_temporary)
+StringClass::StringClass (const wchar_t *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
 	int len = string ? wcslen (string) : 0;

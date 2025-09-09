@@ -332,8 +332,8 @@ bool WOLQuickMatch::SendClientInfo(void)
 	clientMsg.Format(L"CINFO VER=%lu CPU=%lu MEM=%lu TPOINTS=%ld PLAYED=%lu PINGS=%S",
 		ver, speed, memory, tpoints, played, pseudoPings);
 
-	WWDEBUG_SAY(("WOLQuickMatch: '%S'\n", (const WCHAR*)clientMsg));
-	return mWOLSession->SendPrivateMessage(QUICKMATCH_BOTNAME, (const WCHAR*)clientMsg);
+	WWDEBUG_SAY(("WOLQuickMatch: '%S'\n", (const wchar_t*)clientMsg));
+	return mWOLSession->SendPrivateMessage(QUICKMATCH_BOTNAME, (const wchar_t*)clientMsg);
 	}
 
 
@@ -364,7 +364,7 @@ void WOLQuickMatch::SendServerInfo(const char* exInfo, const char* topic)
 		// a way as to imitate the IRC topic string that WOLAPI produces.
 		WideStringClass botMsg(0, true);
 		botMsg.Format(L"SINFO %S%S", exInfo, topic);
-		WWDEBUG_SAY(("WOLQuickMatch: '%S'\n", (const WCHAR*)botMsg));
+		WWDEBUG_SAY(("WOLQuickMatch: '%S'\n", (const wchar_t*)botMsg));
 
 		mWOLSession->SendPrivateMessage(QUICKMATCH_BOTNAME, botMsg);
 		}

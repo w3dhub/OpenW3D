@@ -53,7 +53,7 @@
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-MessageBoxClass *MessageBoxClass::Create_Dialog (const WCHAR *title, const WCHAR *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject)
+MessageBoxClass *MessageBoxClass::Create_Dialog (const wchar_t *title, const wchar_t *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject)
 {
 	MessageBoxClass *popup;
 		
@@ -93,7 +93,7 @@ MessageBoxClass *MessageBoxClass::Create_Dialog (const WCHAR *title, const WCHAR
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-void MessageBoxClass::Do_Dialog (const WCHAR *title, const WCHAR *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject)
+void MessageBoxClass::Do_Dialog (const wchar_t *title, const wchar_t *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject)
 {
 	MessageBoxClass *popup;
 		

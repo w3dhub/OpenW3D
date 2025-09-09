@@ -246,7 +246,7 @@ void DlgWOLPageReply::On_Command(int ctrlID, int message, DWORD param)
 
 			if (dialog)
 				{
-				const WCHAR* pagersName = mBuddyMgr->GetLastPagersName();
+				const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
 				dialog->Set_Default_User_Name(pagersName);
 				dialog->Start_Dialog();
 				dialog->Release_Ref();
@@ -256,14 +256,14 @@ void DlgWOLPageReply::On_Command(int ctrlID, int message, DWORD param)
 
 		case IDC_IGNORE_PLAYER_BUTTON:
 			{
-			const WCHAR* pagersName = mBuddyMgr->GetLastPagersName();
+			const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
 			MPWolAddIgnoreEntry::DoDialog(pagersName);
 			}
 			break;
 
 		case IDC_INVITE_BUDDY_BUTTON:
 			{
-			const WCHAR* pagersName = mBuddyMgr->GetLastPagersName();
+			const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
 			mBuddyMgr->InviteUser(pagersName, Get_Dlg_Item_Text(IDC_REPLY_EDIT));
 			End_Dialog();
 			}
@@ -297,7 +297,7 @@ void DlgWOLPageReply::On_Command(int ctrlID, int message, DWORD param)
 
 void DlgWOLPageReply::Send_Reply(void)
 	{
-	const WCHAR* pagersName = mBuddyMgr->GetLastPagersName();
+	const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
 
 	if (pagersName && (wcslen(pagersName) > 0))
 		{
@@ -338,7 +338,7 @@ void DlgWOLPageReply::Send_Reply(void)
 *
 ******************************************************************************/
 
-void DlgWOLPageReply::Add_Message(const WCHAR* username, const WCHAR* message)
+void DlgWOLPageReply::Add_Message(const wchar_t* username, const wchar_t* message)
 	{
 	ListCtrlClass* list = (ListCtrlClass*)Get_Dlg_Item(IDC_MESSAGE_LIST);
 
@@ -380,7 +380,7 @@ void DlgWOLPageReply::HandleNotification(WOLPagedEvent& event)
 	WWOnline::PageMessage* page = event.Subject();
 	WWASSERT(page && "NULL page in WOLPagedEvent");
 
-	const WCHAR* pager = NULL;
+	const wchar_t* pager = NULL;
 	if (!ConsoleBox.Is_Exclusive())
 		{
 		if (PAGE_RECEIVED == event.GetAction())

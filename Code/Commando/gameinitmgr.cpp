@@ -184,7 +184,7 @@ GameInitMgrClass::Start_Game (const char *map_name, int teamChoice, unsigned lon
 	WideStringClass outMsg;
 	
 	if (!The_Game()->Is_Valid_Settings(outMsg)) {
-		WWDEBUG_SAY(("ERROR: %S\n", (const WCHAR*)outMsg));
+		WWDEBUG_SAY(("ERROR: %S\n", (const wchar_t*)outMsg));
 		WWASSERT("The_Game()->Is_Valid_Settings()");
 	}
 	#endif

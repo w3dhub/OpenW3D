@@ -2629,7 +2629,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 
 		if (squad.IsValid())
 			{
-			WWDEBUG_SAY(("WOL: Squad %s found for %S\n", squad->GetAbbr(), (const WCHAR*)pending));
+			WWDEBUG_SAY(("WOL: Squad %s found for %S\n", squad->GetAbbr(), (const wchar_t*)pending));
 
 			// First character of user names cannot be numbers. Therefore if it is a number
 			// then process the request by ID. Otherwise process the request by name.
@@ -2667,7 +2667,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 			}
 		else
 			{
-			WWDEBUG_SAY(("WOL: Squad not found for '%S'\n", (const WCHAR*)pending));
+			WWDEBUG_SAY(("WOL: Squad not found for '%S'\n", (const wchar_t*)pending));
 			}
 
 		Session::SquadRequestColl::iterator first = mOuter->mSquadPending.begin();

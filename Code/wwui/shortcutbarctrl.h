@@ -81,7 +81,7 @@ public:
 	//
 	//	Configuration
 	//
-	void				Add_Button (int ctrl_id, const WCHAR *text);
+	void				Add_Button (int ctrl_id, const wchar_t *text);
 	void				Remove_Button (int ctrl_id);
 
 	void				Display (bool onoff)	{ IsHiddenState = !onoff; Set_Dirty (); }
@@ -123,7 +123,7 @@ protected:
 	struct ShortcutInfoStruct
 	{
 		ShortcutInfoStruct (void) : ctrl_id (0) {}
-		ShortcutInfoStruct (int _id, const WCHAR *_text) :
+		ShortcutInfoStruct (int _id, const wchar_t *_text) :
 			ctrl_id (_id), text (_text) {}
 
 		int					ctrl_id;

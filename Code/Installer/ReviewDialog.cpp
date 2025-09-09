@@ -77,7 +77,7 @@ void ReviewDialogClass::On_Activate (bool onoff)
 {
 	if (onoff) {
 
-		const WCHAR *formatstring = L"�%s: %s";
+		const wchar_t *formatstring = L"�%s: %s";
 
 		WideStringClass reviewtext, substring;
 		WideStringClass t;

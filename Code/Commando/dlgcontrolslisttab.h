@@ -99,7 +99,7 @@ protected:
 	void				Remap_Key (int ctrl_id, int function_id, int input_id);
 	void				Clear_Key (int key_id, bool clear_zoom);
 	void				Prompt_User (void);
-	const WCHAR *	Get_Function_Name (int function_id);
+	const wchar_t *	Get_Function_Name (int function_id);
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data

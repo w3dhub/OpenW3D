@@ -52,7 +52,7 @@
 #include "string_ids.h"
 
 
-static const WCHAR* Get_Parameter_From_String(const WCHAR* command, WideStringClass& param);
+static const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass& param);
 
 ////////////////////////////////////////////////////////////////
 //
@@ -177,13 +177,13 @@ void MPChatChildDialogClass::Send_Message(WideStringClass& message, TextMessageE
 // Process Commands
 //
 ////////////////////////////////////////////////////////////////
-bool MPChatChildDialogClass::Process_Commands(const WCHAR* message)
+bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
 {
 	// Does this look like a command?
 	if (message && message[0] == L'/') {
 		// Separate the parameters into individual strings
 		WideStringClass command(255, true);
-		const WCHAR* curr_pos = Get_Parameter_From_String(&message[1], command);
+		const wchar_t* curr_pos = Get_Parameter_From_String(&message[1], command);
 
 		if (command.Get_Length() > 0 && curr_pos[0] != 0) {
 
@@ -324,7 +324,7 @@ bool MPChatChildDialogClass::Process_Commands(const WCHAR* message)
 //
 ////////////////////////////////////////////////////////////////
 
-const WCHAR* Get_Parameter_From_String(const WCHAR* command, WideStringClass& param)
+const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass& param)
 {
 	#define LOCAL_STRIP_WHITESPACE(str)	\
 		while (str[0] != 0 && str[0] == L' ') {++str;}
@@ -332,7 +332,7 @@ const WCHAR* Get_Parameter_From_String(const WCHAR* command, WideStringClass& pa
 	//	Strip off whitespace
 	LOCAL_STRIP_WHITESPACE(command);
 
-	const WCHAR* curr_pos = command;
+	const wchar_t* curr_pos = command;
 
 	//	Look for the first whitespace break
 	while (curr_pos[0] != 0 && curr_pos[0] != L' ') {
@@ -343,7 +343,7 @@ const WCHAR* Get_Parameter_From_String(const WCHAR* command, WideStringClass& pa
 	int length = ((curr_pos + 1) - command);
 
 	if (length > 0) {
-		WCHAR* buffer = param.Get_Buffer(length + 1);
+		wchar_t* buffer = param.Get_Buffer(length + 1);
 		wcsncpy(buffer, command, length);
 		buffer[length - 1] = 0;
 	}
@@ -392,7 +392,7 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 				//
 				//	Try to find the start of the name
 				//
-				const WCHAR *name_start = message.Peek_Buffer () + cmd_start_index;					
+				const wchar_t *name_start = message.Peek_Buffer () + cmd_start_index;					
 
 				//
 				//	Make a copy of the first part of the message before the command
@@ -463,7 +463,7 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 //
 //////////////////////////////////////////////////////////////////////
 void	
-MPChatChildDialogClass::Complete_Player_Name (const WCHAR *typed_name, WideStringClass &completed_name)
+MPChatChildDialogClass::Complete_Player_Name (const wchar_t *typed_name, WideStringClass &completed_name)
 {
 	int typed_len = ::wcslen (typed_name);
 	
@@ -489,7 +489,7 @@ MPChatChildDialogClass::Complete_Player_Name (const WCHAR *typed_name, WideStrin
 			continue;
 		}
 
-		const WCHAR *player_name = player->Get_Name ();
+		const wchar_t *player_name = player->Get_Name ();
 
 		//
 		//	Is this the best match so far?
@@ -580,7 +580,7 @@ MPChatChildDialogClass::On_EditCtrl_Change (EditCtrlClass *edit_ctrl, int ctrl_i
 //
 //////////////////////////////////////////////////////////////////////
 bool
-MPChatChildDialogClass::Find_Current_Command(const WCHAR* message, int& start_index, int& end_index)
+MPChatChildDialogClass::Find_Current_Command(const wchar_t* message, int& start_index, int& end_index)
 {
 	EditCtrlClass *edit_ctrl = (EditCtrlClass *)Get_Dlg_Item (IDC_MESSAGE_EDIT);
 	if (edit_ctrl == NULL) {
@@ -599,7 +599,7 @@ MPChatChildDialogClass::Find_Current_Command(const WCHAR* message, int& start_in
 		//
 		//	Look to see if there is a command designator preceding the caret.
 		//
-		const WCHAR *command_start = ::wcsrchr (message, L'/');
+		const wchar_t *command_start = ::wcsrchr (message, L'/');
 		if (command_start != NULL) {
 			start_index = command_start - message;
 			command_start ++;
@@ -608,7 +608,7 @@ MPChatChildDialogClass::Find_Current_Command(const WCHAR* message, int& start_in
 			//	Check to ensure there isn't a space between the designator
 			// and the caret
 			//
-			const WCHAR *first_space = ::wcschr (command_start, L' ');
+			const wchar_t *first_space = ::wcschr (command_start, L' ');
 			if (first_space == NULL) {
 				end_index = ::wcslen (message);
 				retval = true;

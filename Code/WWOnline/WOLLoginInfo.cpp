@@ -250,7 +250,7 @@ LoginInfo::LoginInfo(const wchar_t* nickname, const wchar_t* password, bool isEn
 		mIsPasswordEncrypted(isEncrypted),
 		mIsStored(false)
 	{
-	WWDEBUG_SAY(("WOL: Instantiating LoginInfo %S\n", (const WCHAR*)mNickname));
+	WWDEBUG_SAY(("WOL: Instantiating LoginInfo %S\n", (const wchar_t*)mNickname));
 
 	if (mNickname.Get_Length() > 9)
 		{
@@ -275,7 +275,7 @@ LoginInfo::LoginInfo(const wchar_t* nickname, const wchar_t* password, bool isEn
 
 LoginInfo::~LoginInfo()
 	{
-	WWDEBUG_SAY(("WOL: Destructing LoginInfo %S\n", (const WCHAR*)mNickname));
+	WWDEBUG_SAY(("WOL: Destructing LoginInfo %S\n", (const wchar_t*)mNickname));
 	}
 
 
