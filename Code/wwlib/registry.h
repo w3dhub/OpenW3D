@@ -81,10 +81,6 @@ public:
 	void	Get_String( const char * name, StringClass &string, const char *default_string = NULL);
 	void	Set_String( const char * name, const char *value );
 
-	// Wide string data type access
-	void	Get_String( const WCHAR * name, WideStringClass &string, const WCHAR *default_string = NULL);
-	void	Set_String( const WCHAR * name, const WCHAR *value );
-
 	// Binary data type access
 	void	Get_Bin( const char * name, void *buffer, int buffer_size );
 	int	Get_Bin_Size( const char * name );
@@ -106,16 +102,22 @@ public:
 	static void Delete_Registry_Tree(char *path);
 	static void Load_Registry(const char *filename, char *old_path, char *new_path);
 	static void Save_Registry(const char *filename, char *path);
-
+	
+	static void Flush_Registry();
 
 private:
+#ifdef OPENW3D_NO_REGISTRY
+	static INIClass &Get_INI();
 
+	StringClass SubKey;
+#else
 	static void Delete_Registry_Values(HKEY key);
 	static void Save_Registry_Tree(char *path, INIClass *ini);
 	static void Save_Registry_Values(HKEY key, char *path, INIClass *ini);
-
-
+	
 	int	Key;
+#endif
+
 	bool	IsValid;
 
 	//

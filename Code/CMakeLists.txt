@@ -15,6 +15,10 @@ target_compile_definitions(wwcommon INTERFACE
     $<$<CONFIG:Debug>:WWDEBUG>
 )
 
+if(OPENW3D_NO_REG)
+    target_compile_definitions(wwcommon INTERFACE OPENW3D_NO_REGISTRY)
+endif()
+
 target_compile_options(wwcommon INTERFACE
     ${WARNING_FLAGS}
 )

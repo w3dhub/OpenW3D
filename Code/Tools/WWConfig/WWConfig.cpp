@@ -25,6 +25,7 @@
 #include "argv.h"
 #include "locale_api.h"
 #include "wwconfig_ids.h"
+#include "registry.h"
 
 
 
@@ -144,7 +145,7 @@ BOOL CWWConfigApp::InitInstance()
 int CWWConfigApp::ExitInstance() 
 {
 	// TODO: Add your specialized code here and/or call the base class
-	
+	RegistryClass::Flush_Registry();
 	CWinApp::ExitInstance();
 	return GlobalExitValue;
 }
