@@ -684,7 +684,7 @@ SoundRenderObjDefClass::Write_Header (ChunkSaveClass &csave)
 		header.Version	= W3D_CURRENT_AGGREGATE_VERSION;
 		header.Flags	= Flags;
 		::strncpy (header.Name, (const char *)Name, sizeof (header.Name));
-		header.Name[sizeof (header.Name) - 1] = 0;
+		header.Name[sizeof (header.Name) - 1] = '\0';
 
 		//
 		// Write the header out to the chunk

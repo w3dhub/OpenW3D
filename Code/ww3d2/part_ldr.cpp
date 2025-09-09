@@ -310,7 +310,8 @@ ParticleEmitterDefClass::Set_Name (const char *pname)
 void							
 ParticleEmitterDefClass::Set_Texture_Filename (const char *pname)	
 { 
-	::strcpy (m_Info.TextureFilename, pname); 
+	::strncpy (m_Info.TextureFilename, pname, sizeof (m_Info.TextureFilename));
+	m_Info.TextureFilename[sizeof (m_Info.TextureFilename) - 1] = '\0';
 	Normalize_Filename (); 
 	return ;
 }
@@ -324,7 +325,8 @@ void
 ParticleEmitterDefClass::Normalize_Filename (void)
 {	
 	char path[MAX_PATH];
-	::strcpy (path, m_Info.TextureFilename);
+	::strncpy (path, m_Info.TextureFilename, sizeof (path));
+	path[sizeof (path) - 1] = '\0';
 
 	// Find the last occurance of the directory deliminator
 	const char* filename = ::strrchr (path, '\\');
@@ -334,7 +336,8 @@ ParticleEmitterDefClass::Normalize_Filename (void)
 		filename ++;
 
 		// Now copy the filename protion of the path to the structure
-		::strcpy (m_Info.TextureFilename, filename);
+		::strncpy (m_Info.TextureFilename, filename, sizeof (m_Info.TextureFilename));
+		m_Info.TextureFilename[sizeof (m_Info.TextureFilename) - 1] = '\0';
 	}
 
 	return ;
