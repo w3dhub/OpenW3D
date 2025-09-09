@@ -387,7 +387,8 @@ AggregateDefClass::Initialize (RenderObjClass &base_model)
 	orig_model_name = (orig_model_name == NULL) ? base_model.Get_Name () : orig_model_name;
 
 	// Record information about this base model
-	::strcpy (m_Info.BaseModelName, orig_model_name);
+	::strncpy (m_Info.BaseModelName, orig_model_name, sizeof (m_Info.BaseModelName) - 1);
+	m_Info.BaseModelName[sizeof (m_Info.BaseModelName) - 1] = '\0';
 	m_Info.SubobjectCount = 0;
 	m_MiscInfo.OriginalClassID = base_model.Class_ID ();
 	m_MiscInfo.Flags = 0;	
@@ -467,8 +468,10 @@ AggregateDefClass::Build_Subobject_List
 					 (Is_Object_In_List (prototype_name, orig_node_list) == false)) {
 					
 					// Add this subobject to our list
-					::strcpy (subobj_info.SubobjectName, prototype_name);
-					::strcpy (subobj_info.BoneName, pbone_name);
+					::strncpy (subobj_info.SubobjectName, prototype_name, sizeof (subobj_info.SubobjectName));
+					subobj_info.SubobjectName[sizeof (subobj_info.SubobjectName) - 1] = '\0';
+					::strncpy (subobj_info.BoneName, pbone_name, sizeof (subobj_info.BoneName));
+					subobj_info.BoneName[sizeof (subobj_info.BoneName) - 1] = '\0';
 					Add_Subobject (subobj_info);
 					m_Info.SubobjectCount ++;
 
@@ -672,8 +675,10 @@ AggregateDefClass::Add_Subobject (const W3dAggregateSubobjectStruct &subobj_info
 {
 	// Create a new structure and copy the contents of the src
 	W3dAggregateSubobjectStruct *pnew_entry = new W3dAggregateSubobjectStruct;
-	::strcpy (pnew_entry->SubobjectName, subobj_info.SubobjectName);
-	::strcpy (pnew_entry->BoneName, subobj_info.BoneName);
+	::strncpy (pnew_entry->SubobjectName, subobj_info.SubobjectName, sizeof (pnew_entry->SubobjectName));
+	pnew_entry->SubobjectName[sizeof (pnew_entry->SubobjectName) - 1] = '\0';
+	::strncpy (pnew_entry->BoneName, subobj_info.BoneName, sizeof (pnew_entry->BoneName));
+	pnew_entry->BoneName[sizeof (pnew_entry->BoneName)] = '\0';
 
 	// Add this new entry to the list
 	m_SubobjectList.Add (pnew_entry);

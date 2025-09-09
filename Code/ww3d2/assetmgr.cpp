@@ -692,8 +692,10 @@ RenderObjClass * WW3DAssetManager::Create_Render_Obj(const char * name)
 		char filename [MAX_PATH];
 		char *mesh_name = (char *)::strchr (name, '.');
 		if (mesh_name != NULL) {
-			::strncpy (filename, name, ((int)mesh_name) - ((int)name) + 1);
-			::strcat (filename, ".w3d");
+			::strncpy (filename, name, mesh_name - name);
+			filename[mesh_name - name] = '\0';
+			::strncat (filename, ".w3d", sizeof(filename) - (mesh_name - name));
+			filename[sizeof(filename) - 1] = '\0';
 		} else {
 			sprintf( filename, "%s.w3d", name);
 		}
