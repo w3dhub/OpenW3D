@@ -70,51 +70,51 @@ public:
 	////////////////////////////////////////////////////////////
 	WideStringClass (int initial_len = 0,				bool hint_temporary = false);
 	WideStringClass (const WideStringClass &string,	bool hint_temporary = false);
-	WideStringClass (const WCHAR *string,				bool hint_temporary = false);
-	WideStringClass (WCHAR ch,								bool hint_temporary = false);
+	WideStringClass (const wchar_t *string,				bool hint_temporary = false);
+	WideStringClass (wchar_t ch,								bool hint_temporary = false);
 	WideStringClass (const char *string,				bool hint_temporary = false);
 	~WideStringClass (void);
 
 	////////////////////////////////////////////////////////////
 	//	Public operators
 	////////////////////////////////////////////////////////////	
-	bool operator== (const WCHAR *rvalue) const;
-	bool operator!= (const WCHAR *rvalue) const;
+	bool operator== (const wchar_t *rvalue) const;
+	bool operator!= (const wchar_t *rvalue) const;
 
 	inline const WideStringClass &operator= (const WideStringClass &string);
-	inline const WideStringClass &operator= (const WCHAR *string);
-	inline const WideStringClass &operator= (WCHAR ch);
+	inline const WideStringClass &operator= (const wchar_t *string);
+	inline const WideStringClass &operator= (wchar_t ch);
 	inline const WideStringClass &operator= (const char *string);
 
 	const WideStringClass &operator+= (const WideStringClass &string);
-	const WideStringClass &operator+= (const WCHAR *string);
-	const WideStringClass &operator+= (WCHAR ch);
+	const WideStringClass &operator+= (const wchar_t *string);
+	const WideStringClass &operator+= (wchar_t ch);
 
 	friend WideStringClass operator+ (const WideStringClass &string1, const WideStringClass &string2);
-	friend WideStringClass operator+ (const WCHAR *string1, const WideStringClass &string2);
-	friend WideStringClass operator+ (const WideStringClass &string1, const WCHAR *string2);
+	friend WideStringClass operator+ (const wchar_t *string1, const WideStringClass &string2);
+	friend WideStringClass operator+ (const WideStringClass &string1, const wchar_t *string2);
 
-	bool operator < (const WCHAR *string) const;
-	bool operator <= (const WCHAR *string) const;
-	bool operator > (const WCHAR *string) const;
-	bool operator >= (const WCHAR *string) const;
+	bool operator < (const wchar_t *string) const;
+	bool operator <= (const wchar_t *string) const;
+	bool operator > (const wchar_t *string) const;
+	bool operator >= (const wchar_t *string) const;
 
-	WCHAR operator[] (int index) const;
-	WCHAR& operator[] (int index);
-	operator const WCHAR * (void) const;
+	wchar_t operator[] (int index) const;
+	wchar_t& operator[] (int index);
+	operator const wchar_t * (void) const;
 
 	////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////
-	int			Compare (const WCHAR *string) const;
-	int			Compare_No_Case (const WCHAR *string) const;
+	int			Compare (const wchar_t *string) const;
+	int			Compare_No_Case (const wchar_t *string) const;
 	
 	inline int	Get_Length (void) const;
 	bool			Is_Empty (void) const;
 
 	void			Erase (int start_index, int char_count);
-	int __cdecl  Format (const WCHAR *format, ...);
-	int __cdecl  Format_Args (const WCHAR *format, const va_list & arg_list );
+	int __cdecl  Format (const wchar_t *format, ...);
+	int __cdecl  Format_Args (const wchar_t *format, const va_list & arg_list );
 	bool			Convert_From (const char *text);
 	bool			Convert_To (StringClass &string);
 	bool			Convert_To (StringClass &string) const;
@@ -125,8 +125,8 @@ public:
 	// Check if the string is composed of ANSI range characters. (0-255)
 	bool Is_ANSI(void);
 
-	WCHAR *		Get_Buffer (int new_length);
-	WCHAR *		Peek_Buffer (void);
+	wchar_t *		Get_Buffer (int new_length);
+	wchar_t *		Peek_Buffer (void);
 
 	////////////////////////////////////////////////////////////
 	//	Static methods
@@ -151,14 +151,14 @@ private:
 	{
 		MAX_TEMP_STRING	= 4,
 		MAX_TEMP_LEN		= 256,
-		MAX_TEMP_BYTES		= (MAX_TEMP_LEN * sizeof (WCHAR)) + sizeof (HEADER),
+		MAX_TEMP_BYTES		= (MAX_TEMP_LEN * sizeof (wchar_t)) + sizeof (HEADER),
 	};
 
 	////////////////////////////////////////////////////////////
 	//	Private methods
 	////////////////////////////////////////////////////////////
 	void			Get_String (int length, bool is_temp);
-	WCHAR *		Allocate_Buffer (int length);
+	wchar_t *		Allocate_Buffer (int length);
 	void			Resize (int size);
 	void			Uninitialised_Grow (int length);
 	void			Free_String (void);
@@ -168,12 +168,12 @@ private:
 	inline HEADER * Get_Header (void) const;
 	int			Get_Allocated_Length (void) const;
 
-	void			Set_Buffer_And_Allocated_Length (WCHAR *buffer, int length);
+	void			Set_Buffer_And_Allocated_Length (wchar_t *buffer, int length);
 
 	////////////////////////////////////////////////////////////
 	//	Private member data
 	////////////////////////////////////////////////////////////
-	WCHAR *		m_Buffer;
+	wchar_t *		m_Buffer;
 
 	////////////////////////////////////////////////////////////
 	//	Static member data
@@ -182,14 +182,14 @@ private:
 	static char		m_TempString2[MAX_TEMP_BYTES];
 	static char		m_TempString3[MAX_TEMP_BYTES];
 	static char		m_TempString4[MAX_TEMP_BYTES];
-	static WCHAR *	m_FreeTempPtr[MAX_TEMP_STRING];
-	static WCHAR *	m_ResTempPtr[MAX_TEMP_STRING];
+	static wchar_t *	m_FreeTempPtr[MAX_TEMP_STRING];
+	static wchar_t *	m_ResTempPtr[MAX_TEMP_STRING];
 
 	static int		m_UsedTempStringCount;
 	static FastCriticalSectionClass m_TempMutex;
 
-	static WCHAR	m_NullChar;
-	static WCHAR *	m_EmptyString;
+	static wchar_t	m_NullChar;
+	static wchar_t *	m_EmptyString;
 };
 
 ///////////////////////////////////////////////////////////////////
@@ -209,7 +209,7 @@ WideStringClass::WideStringClass (int initial_len, bool hint_temporary)
 //	WideStringClass
 ///////////////////////////////////////////////////////////////////
 inline
-WideStringClass::WideStringClass (WCHAR ch, bool hint_temporary)
+WideStringClass::WideStringClass (wchar_t ch, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
 	Get_String (2, hint_temporary);
@@ -236,7 +236,7 @@ WideStringClass::WideStringClass (const WideStringClass &string, bool hint_tempo
 //	WideStringClass
 ///////////////////////////////////////////////////////////////////
 inline
-WideStringClass::WideStringClass (const WCHAR *string, bool hint_temporary)
+WideStringClass::WideStringClass (const wchar_t *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
 	int len=string ? wcslen(string) : 0;
@@ -288,7 +288,7 @@ WideStringClass::Is_Empty (void) const
 //	Compare
 ///////////////////////////////////////////////////////////////////
 inline int
-WideStringClass::Compare (const WCHAR *string) const
+WideStringClass::Compare (const wchar_t *string) const
 {
 	if (string) {
 		return wcscmp (m_Buffer, string);
@@ -301,7 +301,7 @@ WideStringClass::Compare (const WCHAR *string) const
 //	Compare_No_Case
 ///////////////////////////////////////////////////////////////////
 inline int
-WideStringClass::Compare_No_Case (const WCHAR *string) const
+WideStringClass::Compare_No_Case (const wchar_t *string) const
 {
 	if (string) {
 		return _wcsicmp (m_Buffer, string);
@@ -313,14 +313,14 @@ WideStringClass::Compare_No_Case (const WCHAR *string) const
 ///////////////////////////////////////////////////////////////////
 //	operator[]
 ///////////////////////////////////////////////////////////////////
-inline WCHAR
+inline wchar_t
 WideStringClass::operator[] (int index) const
 {
 	WWASSERT (index >= 0 && index < Get_Length ());
 	return m_Buffer[index];
 }
 
-inline WCHAR&
+inline wchar_t&
 WideStringClass::operator[] (int index)
 {
 	WWASSERT (index >= 0 && index < Get_Length ());
@@ -328,10 +328,10 @@ WideStringClass::operator[] (int index)
 }
 
 ///////////////////////////////////////////////////////////////////
-//	operator const WCHAR *
+//	operator const wchar_t *
 ///////////////////////////////////////////////////////////////////
 inline
-WideStringClass::operator const WCHAR * (void) const
+WideStringClass::operator const wchar_t * (void) const
 {
 	return m_Buffer;
 }
@@ -340,7 +340,7 @@ WideStringClass::operator const WCHAR * (void) const
 //	operator==
 ///////////////////////////////////////////////////////////////////
 inline bool
-WideStringClass::operator== (const WCHAR *rvalue) const
+WideStringClass::operator== (const wchar_t *rvalue) const
 {
 	return (Compare (rvalue) == 0);
 }
@@ -349,7 +349,7 @@ WideStringClass::operator== (const WCHAR *rvalue) const
 //	operator!=
 ///////////////////////////////////////////////////////////////////
 inline bool
-WideStringClass::operator!= (const WCHAR *rvalue) const
+WideStringClass::operator!= (const wchar_t *rvalue) const
 {
 	return (Compare (rvalue) != 0);
 }
@@ -360,14 +360,14 @@ WideStringClass::operator!= (const WCHAR *rvalue) const
 inline const WideStringClass &
 WideStringClass::operator= (const WideStringClass &string)
 {	
-	return operator= ((const WCHAR *)string);
+	return operator= ((const wchar_t *)string);
 }
 
 ///////////////////////////////////////////////////////////////////
 //	operator <
 ///////////////////////////////////////////////////////////////////
 inline bool
-WideStringClass::operator < (const WCHAR *string) const
+WideStringClass::operator < (const wchar_t *string) const
 {
 	if (string) {
 		return (wcscmp (m_Buffer, string) < 0);
@@ -380,7 +380,7 @@ WideStringClass::operator < (const WCHAR *string) const
 //	operator <=
 ///////////////////////////////////////////////////////////////////
 inline bool
-WideStringClass::operator <= (const WCHAR *string) const
+WideStringClass::operator <= (const wchar_t *string) const
 {
 	if (string) {
 		return (wcscmp (m_Buffer, string) <= 0);
@@ -393,7 +393,7 @@ WideStringClass::operator <= (const WCHAR *string) const
 //	operator >
 ///////////////////////////////////////////////////////////////////
 inline bool
-WideStringClass::operator > (const WCHAR *string) const
+WideStringClass::operator > (const wchar_t *string) const
 {
 	if (string) {
 		return (wcscmp (m_Buffer, string) > 0);
@@ -406,7 +406,7 @@ WideStringClass::operator > (const WCHAR *string) const
 //	operator >=
 ///////////////////////////////////////////////////////////////////
 inline bool
-WideStringClass::operator >= (const WCHAR *string) const
+WideStringClass::operator >= (const wchar_t *string) const
 {
 	if (string) {
 		return (wcscmp (m_Buffer, string) >= 0);
@@ -432,7 +432,7 @@ WideStringClass::Erase (int start_index, int char_count)
 
 		::memmove (	&m_Buffer[start_index],
 						&m_Buffer[start_index + char_count],
-						(len - (start_index + char_count) + 1) * sizeof (WCHAR));
+						(len - (start_index + char_count) + 1) * sizeof (wchar_t));
 
 		Store_Length( wcslen(m_Buffer) );
 	}
@@ -455,14 +455,14 @@ inline void WideStringClass::Trim(void)
 //	operator=
 ///////////////////////////////////////////////////////////////////
 inline const WideStringClass &
-WideStringClass::operator= (const WCHAR *string)
+WideStringClass::operator= (const wchar_t *string)
 {
 	if (string) {
 		int len = wcslen (string);
 		Uninitialised_Grow (len + 1);
 		Store_Length (len);
 
-		::memcpy (m_Buffer, string, (len + 1) * sizeof (WCHAR));		
+		::memcpy (m_Buffer, string, (len + 1) * sizeof (wchar_t));		
 	}
 
 	return (*this);
@@ -482,7 +482,7 @@ WideStringClass::operator= (const char *string)
 //	operator=
 ///////////////////////////////////////////////////////////////////
 inline const WideStringClass &
-WideStringClass::operator= (WCHAR ch)
+WideStringClass::operator= (wchar_t ch)
 {
 	Uninitialised_Grow (2);
 
@@ -497,7 +497,7 @@ WideStringClass::operator= (WCHAR ch)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline const WideStringClass &
-WideStringClass::operator+= (const WCHAR *string)
+WideStringClass::operator+= (const wchar_t *string)
 {
 	if (string) {
 		int cur_len = Get_Length ();
@@ -513,7 +513,7 @@ WideStringClass::operator+= (const WCHAR *string)
 		//
 		//	Copy the new string onto our the end of our existing buffer
 		//
-		::memcpy (&m_Buffer[cur_len], string, (src_len + 1) * sizeof (WCHAR));
+		::memcpy (&m_Buffer[cur_len], string, (src_len + 1) * sizeof (wchar_t));
 	}
 
 	return (*this);
@@ -523,7 +523,7 @@ WideStringClass::operator+= (const WCHAR *string)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline const WideStringClass &
-WideStringClass::operator+= (WCHAR ch)
+WideStringClass::operator+= (wchar_t ch)
 {
 	int cur_len = Get_Length ();
 	Resize (cur_len + 2);
@@ -541,7 +541,7 @@ WideStringClass::operator+= (WCHAR ch)
 ///////////////////////////////////////////////////////////////////
 //	Get_Buffer
 ///////////////////////////////////////////////////////////////////
-inline WCHAR *
+inline wchar_t *
 WideStringClass::Get_Buffer (int new_length)
 {
 	Uninitialised_Grow (new_length);
@@ -552,7 +552,7 @@ WideStringClass::Get_Buffer (int new_length)
 ///////////////////////////////////////////////////////////////////
 //	Peek_Buffer
 ///////////////////////////////////////////////////////////////////
-inline WCHAR *
+inline wchar_t *
 WideStringClass::Peek_Buffer (void)
 {
 	return m_Buffer;
@@ -578,7 +578,7 @@ WideStringClass::operator+= (const WideStringClass &string)
 		//
 		//	Copy the new string onto our the end of our existing buffer
 		//
-		::memcpy (&m_Buffer[cur_len], (const WCHAR *)string, (src_len + 1) * sizeof (WCHAR));				
+		::memcpy (&m_Buffer[cur_len], (const wchar_t *)string, (src_len + 1) * sizeof (wchar_t));				
 	}
 
 	return (*this);
@@ -599,7 +599,7 @@ operator+ (const WideStringClass &string1, const WideStringClass &string2)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline WideStringClass
-operator+ (const WCHAR *string1, const WideStringClass &string2)
+operator+ (const wchar_t *string1, const WideStringClass &string2)
 {
 	WideStringClass new_string(string1, true);
 	new_string += string2;
@@ -610,7 +610,7 @@ operator+ (const WCHAR *string1, const WideStringClass &string2)
 //	operator+=
 ///////////////////////////////////////////////////////////////////
 inline WideStringClass
-operator+ (const WideStringClass &string1, const WCHAR *string2)
+operator+ (const WideStringClass &string1, const wchar_t *string2)
 {
 	WideStringClass new_string(string1, true);
 	new_string += string2;
@@ -679,7 +679,7 @@ WideStringClass::Get_Length (void) const
 // as the contents of the new buffer are not necessarily defined.
 ///////////////////////////////////////////////////////////////////
 inline void
-WideStringClass::Set_Buffer_And_Allocated_Length (WCHAR *buffer, int length)
+WideStringClass::Set_Buffer_And_Allocated_Length (wchar_t *buffer, int length)
 {
 	Free_String ();
 	m_Buffer = buffer;
@@ -700,14 +700,14 @@ WideStringClass::Set_Buffer_And_Allocated_Length (WCHAR *buffer, int length)
 ///////////////////////////////////////////////////////////////////
 // Allocate_Buffer
 ///////////////////////////////////////////////////////////////////
-inline WCHAR *
+inline wchar_t *
 WideStringClass::Allocate_Buffer (int length)
 {
 	//
 	//	Allocate a buffer that is 'length' characters long, plus the
 	// bytes required to hold the header.
 	//
-	char *buffer = new char[(sizeof (WCHAR) * length) + sizeof (WideStringClass::_HEADER)];
+	char *buffer = new char[(sizeof (wchar_t) * length) + sizeof (WideStringClass::_HEADER)];
 	
 	//
 	//	Fill in the fields of the header
@@ -717,9 +717,9 @@ WideStringClass::Allocate_Buffer (int length)
 	header->allocated_length	= length;
 
 	//
-	//	Return the buffer as if it was a WCHAR pointer
+	//	Return the buffer as if it was a wchar_t pointer
 	//
-	return reinterpret_cast<WCHAR *>(buffer + sizeof (WideStringClass::_HEADER));
+	return reinterpret_cast<wchar_t *>(buffer + sizeof (WideStringClass::_HEADER));
 }
 
 ///////////////////////////////////////////////////////////////////

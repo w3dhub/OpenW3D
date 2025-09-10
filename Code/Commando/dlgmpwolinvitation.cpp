@@ -46,7 +46,7 @@
 //	MPWolInvitationPopupClass
 //
 ////////////////////////////////////////////////////////////////
-MPWolInvitationPopupClass::MPWolInvitationPopupClass(const RefPtr<WWOnline::UserData>& host, const WCHAR* invite) :
+MPWolInvitationPopupClass::MPWolInvitationPopupClass(const RefPtr<WWOnline::UserData>& host, const wchar_t* invite) :
 		PopupDialogClass(IDD_MP_WOL_INVITATION_REPLY),
 		mHost(host),
 		mInviteMessage(invite)

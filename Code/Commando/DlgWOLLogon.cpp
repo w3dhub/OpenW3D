@@ -239,7 +239,7 @@ void DlgWOLLogon::On_Command(int ctrl, int message, DWORD param)
 		case IDC_DELETE_ACCOUNT_BUTTON:
 			{
 			// Delete this login from our local cache and purge it from storage.
-			const WCHAR* nickname = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
+			const wchar_t* nickname = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
 			RefPtr<LoginInfo> login = LoginInfo::Find(nickname);
 
 			if (login.IsValid())
@@ -482,7 +482,7 @@ void DlgWOLLogon::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int id, i
 	{
 	if (IDC_PERSONA_COMBO == id)
 		{
-		const WCHAR* text = combo->Get_Text();
+		const wchar_t* text = combo->Get_Text();
 		AutoComplete(text);
 		}
 	}
@@ -510,7 +510,7 @@ void DlgWOLLogon::On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* combo, int id)
 	{
 	if (IDC_PERSONA_COMBO == id)
 		{
-		const WCHAR* text = combo->Get_Text();
+		const wchar_t* text = combo->Get_Text();
 		AutoComplete(text);
 		}
 	}
@@ -572,7 +572,7 @@ void DlgWOLLogon::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
 
 	if (passwordEdit)
 		{
-		const WCHAR* name = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
+		const wchar_t* name = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
 		bool nameOK = (name && (wcslen(name) > 0));
 		bool passOK = (passwordEdit->Get_Text_Length() == 8);
 

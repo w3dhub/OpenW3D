@@ -556,7 +556,7 @@ bool InstallerClass::Check_Source()
  *=============================================================================================*/
 void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsigned &filecount, int64_t &filesize)
 {
-	const WCHAR *wildcardname = L"*.*";
+	const wchar_t *wildcardname = L"*.*";
 
 	WideStringClass sourcepathname (sourcepath);
 	StringClass		 multibytesourcewolpath;	
@@ -589,9 +589,9 @@ void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsi
 
 			} else {
 				
-				const WCHAR *cabextension = L".cab";
+				const wchar_t *cabextension = L".cab";
 
-  				WCHAR extension [_MAX_EXT];
+  				wchar_t extension [_MAX_EXT];
 
 				// Filter out CAB files.
 				_wsplitpath (filename, NULL, NULL, NULL, extension);
@@ -997,25 +997,25 @@ bool InstallerClass::Install_Game_Shortcut()
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-const WCHAR *InstallerClass::Get_Target_Game_Path (WideStringClass &path)
+const wchar_t *InstallerClass::Get_Target_Game_Path (WideStringClass &path)
 {
 	WWASSERT (GameDirectoryDialog != NULL);
 	return (GameDirectoryDialog->Get_Path (path));
 }
 
-const WCHAR *InstallerClass::Get_Target_WOL_Path (WideStringClass &path)
+const wchar_t *InstallerClass::Get_Target_WOL_Path (WideStringClass &path)
 {
 	WWASSERT (WOLDirectoryDialog != NULL);
 	return (WOLDirectoryDialog->Get_Path (path));
 }
 
-const WCHAR *InstallerClass::Get_Target_Game_Folder (WideStringClass &folder)
+const wchar_t *InstallerClass::Get_Target_Game_Folder (WideStringClass &folder)
 {
 	WWASSERT (GameFolderDialog != NULL);
 	return (GameFolderDialog->Get_Folder (folder));
 }
 
-const WCHAR *InstallerClass::Get_Target_WOL_Folder (WideStringClass &folder)
+const wchar_t *InstallerClass::Get_Target_WOL_Folder (WideStringClass &folder)
 {
 	WWASSERT (WOLFolderDialog != NULL);
 	return (WOLFolderDialog->Get_Folder (folder));
@@ -2578,12 +2578,12 @@ void InstallerClass::Run_Game()
 void InstallerClass::Display_Readme()
 {
 	const unsigned  applicationcount								= 3;
-	const WCHAR		*winwordprogramname							= L"WINWORD.EXE";
-	const WCHAR		*wordprocessornames [applicationcount] = {L"Wordpad.exe", L"Notepad.exe", L"Write.exe"};
+	const wchar_t		*winwordprogramname							= L"WINWORD.EXE";
+	const wchar_t		*wordprocessornames [applicationcount] = {L"Wordpad.exe", L"Notepad.exe", L"Write.exe"};
 
 	WideStringClass		pathname;
-	WCHAR						docapppathname [_MAX_PATH];
-	WCHAR					  *t;
+	wchar_t						docapppathname [_MAX_PATH];
+	wchar_t					  *t;
 	unsigned				   i;	
 	PROCESS_INFORMATION  processinfo; 
 	STARTUPINFO			   startupinfo;

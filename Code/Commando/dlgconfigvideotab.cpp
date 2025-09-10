@@ -181,7 +181,7 @@ DlgConfigVideoTabClass::On_SliderCtrl_Pos_Changed
 	int					new_pos
 )
 {
-	const WCHAR *formatstring = L"%.2f";
+	const wchar_t *formatstring = L"%.2f";
 		
 	WideStringClass settingstring;
 

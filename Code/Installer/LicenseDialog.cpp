@@ -99,15 +99,15 @@ void LicenseDialogClass::Load_License (const char *licensefilename)
 		if (!GetFileInformationByHandle (file, &fileinformation)) FATAL_SYSTEM_ERROR;
 
 		// Does header exist?
-		if ((fileinformation.nFileSizeHigh == 0) && (fileinformation.nFileSizeLow >= sizeof (WCHAR))) {
+		if ((fileinformation.nFileSizeHigh == 0) && (fileinformation.nFileSizeLow >= sizeof (wchar_t))) {
 
 			int	 			length;
 			unsigned long  bytesreadcount;
-			WCHAR			  *buffer;
+			wchar_t			  *buffer;
 
-			length = fileinformation.nFileSizeLow / sizeof (WCHAR);
-			buffer = new WCHAR [length + 1];
-			if (ReadFile (file, buffer, length * sizeof (WCHAR), &bytesreadcount, NULL)) {
+			length = fileinformation.nFileSizeLow / sizeof (wchar_t);
+			buffer = new wchar_t [length + 1];
+			if (ReadFile (file, buffer, length * sizeof (wchar_t), &bytesreadcount, NULL)) {
 
 				unsigned s, d;
 

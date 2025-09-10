@@ -295,7 +295,7 @@ void	RegistryClass::Deleta_All_Values( void )
 }
 
 
-void	RegistryClass::Get_String( const WCHAR * name, WideStringClass &string, const WCHAR *default_string )
+void	RegistryClass::Get_String( const wchar_t * name, WideStringClass &string, const wchar_t *default_string )
 {
 	assert( IsValid );
 	string = (default_string == NULL) ? L"" : default_string;
@@ -319,7 +319,7 @@ void	RegistryClass::Get_String( const WCHAR * name, WideStringClass &string, con
 }
 
 
-void	RegistryClass::Set_String( const WCHAR * name, const WCHAR *value )
+void	RegistryClass::Set_String( const wchar_t * name, const wchar_t *value )
 {
 	assert( IsValid );
 

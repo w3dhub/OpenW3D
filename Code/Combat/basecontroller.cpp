@@ -1149,7 +1149,7 @@ void BaseControllerClass::Play_Announcement(int text_id)
 
 	if (translate_obj) {
 		// Display the text on the screen
-		const WCHAR* string = translate_obj->Get_String();
+		const wchar_t* string = translate_obj->Get_String();
 
 		if (string) {
 			CombatManager::Get_Message_Window()->Add_Message(string, Vector3(1, 1, 1));

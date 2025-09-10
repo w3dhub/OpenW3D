@@ -83,8 +83,8 @@ MPWolMOTDDialogClass::On_Init_Dialog (void)
 		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
 
 		WideStringClass temp_copy (Message, true);
-		WCHAR *message			= temp_copy.Peek_Buffer ();
-		WCHAR *entry_text		= message;
+		wchar_t *message			= temp_copy.Peek_Buffer ();
+		wchar_t *entry_text		= message;
 
 		//
 		//	Keep going until we run out of text

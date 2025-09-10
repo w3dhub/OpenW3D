@@ -88,7 +88,7 @@ cGameDataCnc& cGameDataCnc::operator=(const cGameDataCnc& rhs)
 }
 
 //-----------------------------------------------------------------------------
-const WCHAR* cGameDataCnc::Get_Static_Game_Name(void)
+const wchar_t* cGameDataCnc::Get_Static_Game_Name(void)
 {
 	return TRANSLATION(IDS_MP_GAME_TYPE_CNC);
 }

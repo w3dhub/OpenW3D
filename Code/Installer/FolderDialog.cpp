@@ -65,7 +65,7 @@ void FolderDialogClass::On_Init_Dialog (void)
 	// Set-up the folder list control with available folders.
 	if (_RegistryManager.Get_Folder_Path (wildcardfolderpath)) {
 
-		const WCHAR *wildcardname = L"*.*";
+		const wchar_t *wildcardname = L"*.*";
 
 		ListCtrlClass  *listctrl;
 		unsigned			 i;
@@ -119,7 +119,7 @@ void FolderDialogClass::On_Init_Dialog (void)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-const WCHAR *FolderDialogClass::Get_Folder (WideStringClass &folder)
+const wchar_t *FolderDialogClass::Get_Folder (WideStringClass &folder)
 {														  
 	folder = Get_Dlg_Item_Text (IDC_FOLDER_EDIT);
 	return (folder);

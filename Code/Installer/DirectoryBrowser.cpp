@@ -205,7 +205,7 @@ void DirectoryBrowserClass::Build_Pathname (TreeItemClass *treenode, WideStringC
  *=============================================================================================*/
 bool DirectoryBrowserClass::Add_Folders (bool recurse, const WideStringClass &path, TreeCtrlClass *treectrl, TreeItemClass *treenode)
 {
-	const WCHAR *wildcardname = L"*.*";
+	const wchar_t *wildcardname = L"*.*";
 
 	WideStringClass pathname (path);
 	StringClass		 multibytepathname;	

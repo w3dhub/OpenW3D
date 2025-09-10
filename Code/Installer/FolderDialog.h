@@ -54,7 +54,7 @@ class FolderDialogClass : public InstallMenuDialogClass
 
 		void			 On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index);
 		void			 On_Command (int ctrl_id, int message_id, DWORD param);
-		const WCHAR *Get_Folder (WideStringClass &folder);
+		const wchar_t *Get_Folder (WideStringClass &folder);
 
 	protected:
 		void On_Init_Dialog (void);

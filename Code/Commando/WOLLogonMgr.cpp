@@ -850,7 +850,7 @@ void WOLLogonMgr::InitiateLogon(bool forced)
 	//---------------------------------------------------------------------------
 	// Logon to WWOnline server
 	//---------------------------------------------------------------------------
-	WWDEBUG_SAY(("WOLLogonMgr: Connecting user '%S' to server '%s'\n", (const WCHAR*)mLoginName, server->GetName()));
+	WWDEBUG_SAY(("WOLLogonMgr: Connecting user '%S' to server '%s'\n", (const wchar_t*)mLoginName, server->GetName()));
 
 	RefPtr<LoginInfo> login = LoginInfo::Find(mLoginName);
 
@@ -1280,21 +1280,21 @@ void WOLLogonMgr::HandleNotification(MessageOfTheDayEvent &event)
 	// Get the name of the current server and the text of the message
 	WideStringClass& message = event.Subject();
 
-	const WCHAR* TAG_NEWS_START = L"<news>";
-	const WCHAR* TAG_NEWS_END = L"</news>";
+	const wchar_t* TAG_NEWS_START = L"<news>";
+	const wchar_t* TAG_NEWS_END = L"</news>";
 	const int TAG_NEWS_START_LEN = ::wcslen(TAG_NEWS_START);
 
 	bool display_motd = false;
 
 	// Does this message have the embedded news tag?
-	const WCHAR* news = ::wcsstr(message, TAG_NEWS_START);
+	const wchar_t* news = ::wcsstr(message, TAG_NEWS_START);
 
 	if (news)
 		{
 		// Get the text of the news section
 		WideStringClass news_body(0, true);
 		news_body = news + TAG_NEWS_START_LEN;
-		WCHAR* news_end = (WCHAR*)::wcsstr(news_body, TAG_NEWS_END);
+		wchar_t* news_end = (wchar_t*)::wcsstr(news_body, TAG_NEWS_END);
 
 		if (news_end)
 			{

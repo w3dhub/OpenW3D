@@ -234,7 +234,7 @@ MPLanHostOptionsMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
 							}
 						} else {
 							WideStringClass errorMsg(0, true);
-							errorMsg.Format(L"%s\n\n%s", TRANSLATE(IDS_MENU_TEXT330), (const WCHAR*)outMsg);
+							errorMsg.Format(L"%s\n\n%s", TRANSLATE(IDS_MENU_TEXT330), (const wchar_t*)outMsg);
 							DlgMsgBox::DoDialog(TRANSLATE(IDS_MENU_TEXT329), errorMsg);
 						}
 					}
@@ -583,7 +583,7 @@ MPLanHostBasicOptionsTabClass::On_EditCtrl_Change (EditCtrlClass *edit, int ctrl
 		//
 		// Flag the game as passworded if the user enters text into the password edit.
 		//
-		const WCHAR* text = edit->Get_Text ();
+		const wchar_t* text = edit->Get_Text ();
 		bool hasPassword = (text && (wcslen (text) > 0));
 		SendSignal (hasPassword);
 

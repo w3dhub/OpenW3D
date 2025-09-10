@@ -984,7 +984,7 @@ CNCPurchaseMainMenuClass::Refresh_Message_Log (void)
 			//
 			//	Get the message to display
 			//
-			const WCHAR *message = message_window->Get_Log_Entry (index);
+			const wchar_t *message = message_window->Get_Log_Entry (index);
 			const Vector3 &color	= message_window->Get_Log_Color (index);
 			WideStringClass temp_string (message, true);
 			int len = temp_string.Get_Length ();

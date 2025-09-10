@@ -562,7 +562,7 @@ MPWolBuddiesMenuClass::On_ListCtrl_DblClk(ListCtrlClass* list_ctrl, int ctrl_id,
 					if (mPendingJoin.IsValid()) {
 						// Ask the user if they want to join this buddy
 						WideStringClass message(0, true);
-						message.Format(TRANSLATE (IDS_MENU_JOIN_REQUEST_MESSAGE), (const WCHAR*)buddyName);
+						message.Format(TRANSLATE (IDS_MENU_JOIN_REQUEST_MESSAGE), (const wchar_t*)buddyName);
 						DlgMsgBox::DoDialog(0, message, DlgMsgBox::YesNo, this);
 					}
 					break;
@@ -588,7 +588,7 @@ void MPWolBuddiesMenuClass::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* , int 
 			int count = list->Get_Entry_Count();
 
 			for (int index = 0; index < count; ++index) {
-				const WCHAR* name = list->Get_Entry_Text(index, COL_NAME);
+				const wchar_t* name = list->Get_Entry_Text(index, COL_NAME);
 				RefPtr<WWOnline::UserData> buddy = mBuddyMgr->FindBuddy(name);
 
 				if (buddy.IsValid()) {

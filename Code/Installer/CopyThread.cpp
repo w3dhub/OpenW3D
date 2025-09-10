@@ -531,7 +531,7 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 	// WARNING: Do not call SetCurrentDirectory() from this thread because it will affect
 	//				file access for the entire process.
 
-	const WCHAR *wildcardname = L"*.*";
+	const wchar_t *wildcardname = L"*.*";
 
 	HFDI				 hfdi;
 	ERF				 erf;
@@ -593,9 +593,9 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 
   			} else {
 					
-  				const WCHAR *cabextension = L".cab";
+  				const wchar_t *cabextension = L".cab";
 
-  				WCHAR extension [_MAX_EXT];
+  				wchar_t extension [_MAX_EXT];
 
    			// Is it a CAB file?
   				_wsplitpath (filename, NULL, NULL, NULL, extension);
@@ -986,7 +986,7 @@ void CopyThreadClass::Set_Target_Path (const WideStringClass &targetpath)
 	TargetPath = targetpath;
 }
 
-WCHAR *CopyThreadClass::Get_Target_Path (WideStringClass &targetpath)
+wchar_t *CopyThreadClass::Get_Target_Path (WideStringClass &targetpath)
 {
 	FastCriticalSectionClass::LockClass cs (SectionTargetPath);
 	
@@ -1014,7 +1014,7 @@ void CopyThreadClass::Set_Status_Message (const WideStringClass &statusmessage)
 	StatusMessage = statusmessage;
 }
 
-WCHAR *CopyThreadClass::Get_Status_Message (WideStringClass &statusmessage)
+wchar_t *CopyThreadClass::Get_Status_Message (WideStringClass &statusmessage)
 {
 	FastCriticalSectionClass::LockClass cs (SectionStatusMessage);
 	
@@ -1042,7 +1042,7 @@ void CopyThreadClass::Set_Error_Message (const WideStringClass &errormessage)
 	ErrorMessage = errormessage;
 }
 
-WCHAR *CopyThreadClass::Get_Error_Message (WideStringClass &errormessage)
+wchar_t *CopyThreadClass::Get_Error_Message (WideStringClass &errormessage)
 {
 	FastCriticalSectionClass::LockClass cs (SectionErrorMessage);
 	

@@ -805,7 +805,7 @@ void cNetwork::Connection_Status_Change_Feedback(void)
 	static unsigned long _print_good_soon = 0;
 
 	unsigned long time = TIMEGETTIME();
-	const WCHAR *string = NULL;
+	const wchar_t *string = NULL;
 	if (LastServerConnectionStateBad) {
 		if (_last_print_bad && time - _last_print < 4000) {
 			return;

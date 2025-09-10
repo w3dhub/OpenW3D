@@ -281,7 +281,7 @@ LoginProfile::LoginProfile() :
 
 LoginProfile::~LoginProfile()
 	{
-	WWDEBUG_SAY(("LoginProfile destroyed (%S)\n", (const WCHAR*)mName));
+	WWDEBUG_SAY(("LoginProfile destroyed (%S)\n", (const wchar_t*)mName));
 	}
 
 

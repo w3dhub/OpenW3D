@@ -522,9 +522,9 @@ MainMenuDialogClass::Update_Version_Number (void)
 
 
 				//TRANSLATE_ME
-				//const WCHAR * title	= L"Unable to initialize LAN";
+				//const wchar_t * title	= L"Unable to initialize LAN";
 				//IDS_MP_UNABLE_INITIALIZE_LAN
-				//const WCHAR * text	= L"No LAN IP addresses found.";
+				//const wchar_t * text	= L"No LAN IP addresses found.";
 				//IDS_MP_NO_LAN_IP_ADDRESSES_FOUND
 
 				//DlgMsgBox::DoDialog(title, text);

@@ -49,8 +49,8 @@ int		WideStringClass::m_UsedTempStringCount	= 0;
 
 FastCriticalSectionClass WideStringClass::m_TempMutex;
 
-WCHAR		WideStringClass::m_NullChar				= 0;
-WCHAR *	WideStringClass::m_EmptyString			= &m_NullChar;
+wchar_t		WideStringClass::m_NullChar				= 0;
+wchar_t *	WideStringClass::m_EmptyString			= &m_NullChar;
 
 //
 // A trick to optimize strings that are allocated from the stack and used only temporarily
@@ -60,14 +60,14 @@ char		WideStringClass::m_TempString2[WideStringClass::MAX_TEMP_BYTES];
 char		WideStringClass::m_TempString3[WideStringClass::MAX_TEMP_BYTES];
 char		WideStringClass::m_TempString4[WideStringClass::MAX_TEMP_BYTES];
 
-WCHAR *	WideStringClass::m_FreeTempPtr[MAX_TEMP_STRING] = {
-	reinterpret_cast<WCHAR *> (m_TempString1 + sizeof (WideStringClass::_HEADER)),
-	reinterpret_cast<WCHAR *> (m_TempString2 + sizeof (WideStringClass::_HEADER)),
-	reinterpret_cast<WCHAR *> (m_TempString3 + sizeof (WideStringClass::_HEADER)),
-	reinterpret_cast<WCHAR *> (m_TempString4 + sizeof (WideStringClass::_HEADER))
+wchar_t *	WideStringClass::m_FreeTempPtr[MAX_TEMP_STRING] = {
+	reinterpret_cast<wchar_t *> (m_TempString1 + sizeof (WideStringClass::_HEADER)),
+	reinterpret_cast<wchar_t *> (m_TempString2 + sizeof (WideStringClass::_HEADER)),
+	reinterpret_cast<wchar_t *> (m_TempString3 + sizeof (WideStringClass::_HEADER)),
+	reinterpret_cast<wchar_t *> (m_TempString4 + sizeof (WideStringClass::_HEADER))
 };
 
-WCHAR *	WideStringClass::m_ResTempPtr[MAX_TEMP_STRING] = {
+wchar_t *	WideStringClass::m_ResTempPtr[MAX_TEMP_STRING] = {
 	NULL,
 	NULL,
 	NULL,
@@ -87,7 +87,7 @@ WideStringClass::Get_String (int length, bool is_temp)
 		m_Buffer = m_EmptyString;
 	} else {
 
-		WCHAR *string = NULL;
+		wchar_t *string = NULL;
 
 		//
 		//	Should we attempt to use a temp buffer for this string?
@@ -147,7 +147,7 @@ WideStringClass::Resize (int new_len)
 		//	Allocate the new buffer and copy the contents of our current
 		// string.
 		//
-		WCHAR *new_buffer = Allocate_Buffer (new_len);
+		wchar_t *new_buffer = Allocate_Buffer (new_len);
 		wcscpy (new_buffer, m_Buffer);
 
 		//
@@ -174,7 +174,7 @@ WideStringClass::Uninitialised_Grow (int new_len)
 		//
 		//	Switch to a newly allocated buffer
 		//
-		WCHAR *new_buffer = Allocate_Buffer (new_len);
+		wchar_t *new_buffer = Allocate_Buffer (new_len);
 		Set_Buffer_And_Allocated_Length (new_buffer, new_len);	
 	}
 
@@ -244,7 +244,7 @@ WideStringClass::Free_String (void)
 //
 ///////////////////////////////////////////////////////////////////
 int __cdecl
-WideStringClass::Format_Args (const WCHAR *format, const va_list & arg_list )
+WideStringClass::Format_Args (const wchar_t *format, const va_list & arg_list )
 {
 	if (format == NULL) {
 		return 0;
@@ -253,7 +253,7 @@ WideStringClass::Format_Args (const WCHAR *format, const va_list & arg_list )
 	//
 	// Make a guess at the maximum length of the resulting string
 	//
-	WCHAR temp_buffer[512] = { 0 };
+	wchar_t temp_buffer[512] = { 0 };
 
 	//
 	//	Format the string
@@ -275,7 +275,7 @@ WideStringClass::Format_Args (const WCHAR *format, const va_list & arg_list )
 //
 ///////////////////////////////////////////////////////////////////
 int __cdecl
-WideStringClass::Format (const WCHAR *format, ...)
+WideStringClass::Format (const wchar_t *format, ...)
 {
 	if (format == NULL) {
 		return 0;
@@ -287,7 +287,7 @@ WideStringClass::Format (const WCHAR *format, ...)
 	//
 	// Make a guess at the maximum length of the resulting string
 	//
-	WCHAR temp_buffer[512] = { 0 };
+	wchar_t temp_buffer[512] = { 0 };
 
 	//
 	//	Format the string

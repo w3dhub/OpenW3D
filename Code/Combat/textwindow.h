@@ -98,7 +98,7 @@ public:
 	//
 	//	Column support
 	//
-	void				Add_Column (const WCHAR *column_name, float width, const Vector3 &color);
+	void				Add_Column (const wchar_t *column_name, float width, const Vector3 &color);
 	bool				Remove_Column (int index);
 	void				Delete_All_Columns (void);
 	bool				Are_Columns_Displayed (void) const	{ return AreColumnsDisplayed; }
@@ -107,8 +107,8 @@ public:
 	//
 	//	Content control
 	//
-	int				Insert_Item (int index, const WCHAR *text);	
-	bool				Set_Item_Text (int index, int col_index, const WCHAR *text);
+	int				Insert_Item (int index, const wchar_t *text);	
+	bool				Set_Item_Text (int index, int col_index, const wchar_t *text);
 	bool				Set_Item_Color (int index, int col_index, const Vector3 &color);
 	bool				Set_Item_Data (int index, uint32 user_data);
 	uint32			Get_Item_Data (int index);
@@ -203,7 +203,7 @@ public:
 		Color (1, 1, 1),
 		UserData (0)	{}
 
-	TextItemClass (const WCHAR *name) :
+	TextItemClass (const wchar_t *name) :
 		Name (name),
 		Color (1, 1, 1),
 		UserData (0)	{}
@@ -217,8 +217,8 @@ public:
 	//
 	//	Name access
 	//
-	const WCHAR *		Get_Name (void) const			{ return Name; }
-	void					Set_Name (const WCHAR *name)	{ Name = name; }
+	const wchar_t *		Get_Name (void) const			{ return Name; }
+	void					Set_Name (const wchar_t *name)	{ Name = name; }
 
 	//
 	//	Color access
@@ -267,8 +267,8 @@ public:
 	//
 	//	Name access
 	//
-	const WCHAR *		Get_Name (void) const			{ return Header.Get_Name (); }
-	void					Set_Name (const WCHAR *name)	{ Header.Set_Name (name); }
+	const wchar_t *		Get_Name (void) const			{ return Header.Get_Name (); }
+	void					Set_Name (const wchar_t *name)	{ Header.Set_Name (name); }
 
 	//
 	//	Width access
@@ -285,13 +285,13 @@ public:
 	//
 	//	Item access
 	//
-	int					Insert_Item (int index, const WCHAR *item_name);
+	int					Insert_Item (int index, const wchar_t *item_name);
 	int					Get_Item_Count (void) const								{ return Items.Count (); }
 	bool					Delete_Item (int index);
 	void					Delete_All_Items (void);
 	
-	void					Set_Item_Text (int index, const WCHAR *text)			{ Items[index]->Set_Name (text); }
-	const WCHAR *		Get_Item_Text (int index) const							{ return Items[index]->Get_Name (); }	
+	void					Set_Item_Text (int index, const wchar_t *text)			{ Items[index]->Set_Name (text); }
+	const wchar_t *		Get_Item_Text (int index) const							{ return Items[index]->Get_Name (); }	
 	
 	void					Set_Item_Color (int index, const Vector3 &color)	{ Items[index]->Set_Color (color); }
 	const Vector3 &	Get_Item_Color (int index) const							{ return Items[index]->Get_Color (); }

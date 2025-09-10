@@ -995,7 +995,7 @@ bool Session::RequestChannelJoin(const RefPtr<ChannelData>& channel, const wchar
 	{
 	if (channel.IsValid() && password)
 		{
-		WWDEBUG_SAY(("WOL: RequestChannelJoin C:%S P:%S\n", (const WCHAR*)channel->GetName(), password));
+		WWDEBUG_SAY(("WOL: RequestChannelJoin C:%S P:%S\n", (const wchar_t*)channel->GetName(), password));
 		mPendingChannel = channel;
 
 		WOL::Channel& wolChannel = channel->GetData();
@@ -1294,7 +1294,7 @@ RefPtr<WaitCondition> Session::CreateChannel(const RefPtr<ChannelData>& channel,
 		const wchar_t* password)
 	{
 	WWASSERT(channel.IsValid());
-	WWDEBUG_SAY(("WOL: CreateChannel '%S'\n", (const WCHAR*)channel->GetName()));
+	WWDEBUG_SAY(("WOL: CreateChannel '%S'\n", (const wchar_t*)channel->GetName()));
 
 	if (mCurrentConnectionStatus != ConnectionConnected)
 		{
@@ -1631,7 +1631,7 @@ bool Session::SquelchUser(const RefPtr<UserData>& user, bool onoff)
 	{
 	if (user.IsValid())
 		{
-		WWDEBUG_SAY(("WOL: SquelchUser '%S'\n", (const WCHAR *)user->GetName()));
+		WWDEBUG_SAY(("WOL: SquelchUser '%S'\n", (const wchar_t *)user->GetName()));
 		HRESULT hr = mChat->SetSquelch(&user->GetData(), onoff);
 
 		if (SUCCEEDED(hr))
@@ -1672,7 +1672,7 @@ bool Session::KickUser(const wchar_t* username)
 
 		if (user.IsValid())
 			{
-			WWDEBUG_SAY(("WOL: KickUser '%S'\n", (const WCHAR *)user->GetName()));
+			WWDEBUG_SAY(("WOL: KickUser '%S'\n", (const wchar_t *)user->GetName()));
 			HRESULT hr = mChat->RequestUserKick(&user->GetData());
 
 			if (SUCCEEDED(hr))
@@ -1946,7 +1946,7 @@ void Session::MakeLocaleRequests(void)
 			for (unsigned int index = 0; index < count; ++index)
 				{
 				WideStringClass& username = mLocaleRequests[index];
-				WWDEBUG_SAY(("WOL: Requesting locale for '%S'\n", (const WCHAR*)username));
+				WWDEBUG_SAY(("WOL: Requesting locale for '%S'\n", (const wchar_t*)username));
 
 				WOL::User& user = users[index];
 				wcstombs((char*)user.name, username, sizeof(user.name));
@@ -2281,7 +2281,7 @@ void Session::RequestLadderInfo(const wchar_t* name, unsigned long type)
 			pending++;
 			}
 
-		WWDEBUG_SAY(("WOL: LadderInfo request added '%S'.\n", (const WCHAR *)request));
+		WWDEBUG_SAY(("WOL: LadderInfo request added '%S'.\n", (const wchar_t *)request));
 		mLadderRequests.push_back(request);
 		}
 	}
@@ -2335,7 +2335,7 @@ void Session::MakeLadderRequests(void)
 					}
 
 				// The request name follows the type
-				const WCHAR* widename = wcschr(*request, L':');
+				const wchar_t* widename = wcschr(*request, L':');
 				WWASSERT(widename != NULL && "Invalid Ladder Request");
 				widename++;
 

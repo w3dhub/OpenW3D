@@ -134,7 +134,7 @@ DlgPasswordPrompt::~DlgPasswordPrompt()
 *
 ******************************************************************************/
 
-const WCHAR* DlgPasswordPrompt::GetPassword(void) const
+const wchar_t* DlgPasswordPrompt::GetPassword(void) const
 	{
 	return Get_Dlg_Item_Text(IDC_PASSWORD_EDIT);
 	}
@@ -223,7 +223,7 @@ void DlgPasswordPrompt::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 	{
 	if (IDC_PASSWORD_EDIT == id)
 		{
-		const WCHAR* text = edit->Get_Text();
+		const wchar_t* text = edit->Get_Text();
 		bool enableJoin = (text && (wcslen(text) > 0));
 		Enable_Dlg_Item(IDC_JOIN_GAME_BUTTON, enableJoin);
 		}

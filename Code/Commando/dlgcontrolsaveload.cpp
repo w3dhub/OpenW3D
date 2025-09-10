@@ -312,7 +312,7 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 				//
 				//	Get the new display name for this configuration
 				//
-				const WCHAR *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);			
+				const wchar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);			
 				if (display_name[0] != 0) {
 
 					//
@@ -355,7 +355,7 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 			//
 			//	Get the new display name for this configuration
 			//
-			const WCHAR *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
+			const wchar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
 			if (display_name[0] != 0) {
 
 				//

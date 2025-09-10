@@ -411,7 +411,7 @@ bool SaveGameManager::Peek_Description
 	//
 	if (mission_name_id == 0) {
 		mission_name.Convert_From ( map_filename );
-		WCHAR *extension = (WCHAR *)::wcsrchr (mission_name, L'.');
+		wchar_t *extension = (wchar_t *)::wcsrchr (mission_name, L'.');
 		if (extension != NULL) {
 			extension[0] = 0;
 		}

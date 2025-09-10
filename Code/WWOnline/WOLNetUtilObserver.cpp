@@ -396,7 +396,7 @@ void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, long timeStamp
 		while (wolLadder)
 			{
 			// Get the name of the user we requested information for.
-			const WCHAR* requestName = wcschr(*request, L':');
+			const wchar_t* requestName = wcschr(*request, L':');
 			WWASSERT(requestName != NULL && "Invalid ladder request");
 			requestName++;
 

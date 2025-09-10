@@ -206,8 +206,8 @@ ObjectivesViewerClass::Update (void)
 	for (index = 0; index < objective_count; index ++){
 		Objective *objective = sorted_list[index];
 		
-		const WCHAR *text				= TranslateDBClass::Get_String (objective->ShortDescriptionID);
-		const WCHAR *status_text	= objective->Status_To_Name ();
+		const wchar_t *text				= TranslateDBClass::Get_String (objective->ShortDescriptionID);
+		const wchar_t *status_text	= objective->Status_To_Name ();
 		
 		//
 		//	Insert an item for this objective
@@ -328,8 +328,8 @@ ObjectivesViewerClass::fnCompareObjectivesCallback
 		//
 		//	Sort alphabetically if the types are the same
 		//
-		const WCHAR *text1 = TranslateDBClass::Get_String (objective1->ShortDescriptionID);
-		const WCHAR *text2 = TranslateDBClass::Get_String (objective2->ShortDescriptionID);
+		const wchar_t *text1 = TranslateDBClass::Get_String (objective1->ShortDescriptionID);
+		const wchar_t *text2 = TranslateDBClass::Get_String (objective2->ShortDescriptionID);
 		result = ::wcsicmp (text1, text2);
 	}
 

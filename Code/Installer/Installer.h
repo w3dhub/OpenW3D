@@ -159,8 +159,8 @@ class InstallerClass
 		void On_Prog_End();
 
   		// Main interface.
-		const WCHAR			*Get_Source_Game_Path (WideStringClass &path)		{path = SourceGamePath; return (path);}
-		const WCHAR			*Get_Source_WOL_Path (WideStringClass &path) 		{path = SourceWOLPath; return (path);}
+		const wchar_t			*Get_Source_Game_Path (WideStringClass &path)		{path = SourceGamePath; return (path);}
+		const wchar_t			*Get_Source_WOL_Path (WideStringClass &path) 		{path = SourceWOLPath; return (path);}
 		bool					 Install_Game();
 		bool					 Install_WOL();
 		bool					 Install_Game_Shortcut();
@@ -170,11 +170,11 @@ class InstallerClass
 		bool					 Get_Game_Space_Available (const WideStringClass &path, int64_t &diskspace) {return (Get_Disk_Space_Available (path, diskspace));}
 		bool					 Get_WOL_Space_Available (const WideStringClass &path, int64_t &diskspace);
 		const char			*Get_Serial_Number (StringClass &serialnumber);
-		const WCHAR			*Get_Target_Game_Path (WideStringClass &path);
+		const wchar_t			*Get_Target_Game_Path (WideStringClass &path);
 		bool					 Get_Target_Sub_Path (unsigned index, WideStringClass &subdirectoryname);
-		const WCHAR			*Get_Target_WOL_Path (WideStringClass &path);
-		const WCHAR			*Get_Target_Game_Folder (WideStringClass &folder);
-		const WCHAR			*Get_Target_WOL_Folder (WideStringClass &folder);
+		const wchar_t			*Get_Target_WOL_Path (WideStringClass &path);
+		const wchar_t			*Get_Target_Game_Folder (WideStringClass &folder);
+		const wchar_t			*Get_Target_WOL_Folder (WideStringClass &folder);
 		bool					 Is_Fresh_Game_Install()									{return (FreshGameInstall);}				
 		bool					 Is_Fresh_WOL_Install()										{return (FreshWOLInstall);}
 		bool					 Is_Target_WOL_Older_Than_Source()						{return (TargetWOLOlder);}

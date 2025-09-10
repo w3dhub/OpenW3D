@@ -94,7 +94,7 @@ enum
 	VARID_LANGUAGE_ID
 };
 
-const WCHAR *	STRING_NOT_FOUND				= L"TDBERR";
+const wchar_t *	STRING_NOT_FOUND				= L"TDBERR";
 const char *	ENGLISH_STRING_NOT_FOUND	= "TDBERR";
 
 ///////////////////////////////////////////////////////////////////////

@@ -219,8 +219,8 @@ SaveGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_inde
 			//
 			//	Sort by name
 			//
-			const WCHAR *name1 = list_ctrl->Get_Entry_Text (item_index1, 2);
-			const WCHAR *name2 = list_ctrl->Get_Entry_Text (item_index2, 2);
+			const wchar_t *name1 = list_ctrl->Get_Entry_Text (item_index1, 2);
+			const wchar_t *name2 = list_ctrl->Get_Entry_Text (item_index2, 2);
 			retval = ::wcsicmp (name1, name2);
 		}
 

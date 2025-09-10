@@ -588,8 +588,8 @@ void DlgMPTeamSelect::ShowTimeRemaining(float remainingSeconds)
 	timeString.Format(L"%02d:%02d:%02d", hours, mins, seconds);
 	
 	WideStringClass text(0, true);
-	text.Format(L"%s: %s", TRANSLATION(IDS_MP_TIME_REMAINING), (const WCHAR*)timeString);
-	Set_Dlg_Item_Text(IDC_TIME_REMAINING_TEXT, (const WCHAR*)text);
+	text.Format(L"%s: %s", TRANSLATION(IDS_MP_TIME_REMAINING), (const wchar_t*)timeString);
+	Set_Dlg_Item_Text(IDC_TIME_REMAINING_TEXT, (const wchar_t*)text);
 	}
 
 
@@ -611,7 +611,7 @@ void DlgMPTeamSelect::ShowTimeRemaining(float remainingSeconds)
 *
 ******************************************************************************/
 
-bool DlgMPTeamSelect::FindPlayerInListCtrl(const WCHAR* name, ListCtrlClass*& outList, int& outIndex)
+bool DlgMPTeamSelect::FindPlayerInListCtrl(const wchar_t* name, ListCtrlClass*& outList, int& outIndex)
 	{
 	// Check in GDI player list
 	ListCtrlClass* list = (ListCtrlClass*)Get_Dlg_Item(IDC_GDI_LIST_CTRL);

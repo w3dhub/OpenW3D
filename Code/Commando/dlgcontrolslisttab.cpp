@@ -316,7 +316,7 @@ ControlsListTabClass::Prompt_User (void)
 
 	WideStringClass message (0, true);
 	message.Format (TRANSLATE (IDS_CONTROL_REMAP_WARNING),
-				(const WCHAR *)key_name, (const WCHAR *)function_name);
+				(const wchar_t *)key_name, (const wchar_t *)function_name);
 
 	//
 	//	Display the message box
@@ -542,10 +542,10 @@ ControlsListTabClass::Clear_Key (int dik_id, bool clear_zoom)
 //	Get_Function_Name
 //
 ////////////////////////////////////////////////////////////////
-const WCHAR *
+const wchar_t *
 ControlsListTabClass::Get_Function_Name (int function_id)
 {
-	const WCHAR *retval = NULL;
+	const wchar_t *retval = NULL;
 	for (int index = 0; index < INPUT_NAME_COUNT; index ++) {
 		
 		//

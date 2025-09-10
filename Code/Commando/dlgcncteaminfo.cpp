@@ -326,7 +326,7 @@ CNCTeamInfoDialogClass::Populate_Player_List (void)
 			if (item_index >= 0) {
 				WideStringClass displayName(0, true);
 				Build_Player_Display_Name(player, displayName);
-				list_ctrl->Set_Entry_Text (item_index, COL_NAME,		(const WCHAR*)displayName);
+				list_ctrl->Set_Entry_Text (item_index, COL_NAME,		(const wchar_t*)displayName);
 
 				list_ctrl->Set_Entry_Int (item_index, COL_RANK,			player->Get_Rung ());
 				list_ctrl->Set_Entry_Int (item_index, COL_CREDITS,		(int) player->Get_Money ());
@@ -341,7 +341,7 @@ CNCTeamInfoDialogClass::Populate_Player_List (void)
 					//::Strip_Path_From_Filename (tga_filename, game_obj->Get_Definition ().Get_Icon_Filename ());
 					//list_ctrl->Add_Icon (item_index, COL_CHARACTER,	tga_filename);
 
-					const WCHAR *name = TRANSLATE (game_obj->Get_Translated_Name_ID ());
+					const wchar_t *name = TRANSLATE (game_obj->Get_Translated_Name_ID ());
 					list_ctrl->Set_Entry_Text (item_index, COL_CHARACTER, name);
 					
 					//

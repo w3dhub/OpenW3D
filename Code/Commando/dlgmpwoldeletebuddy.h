@@ -70,7 +70,7 @@ public:
 	//
 	//	Content control
 	//
-	void		Set_User_Name (const WCHAR *user_name)	{ UserName = user_name; }
+	void		Set_User_Name (const wchar_t *user_name)	{ UserName = user_name; }
 
 protected:
 

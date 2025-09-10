@@ -67,7 +67,7 @@
 #include "stylemgr.h"
 
 
-static void Generate_WChar_Text_From_Number(WCHAR* text,int digits,int min_digits,int value)
+static void Generate_WChar_Text_From_Number(wchar_t* text,int digits,int min_digits,int value)
 {
 	text[digits]=0;
 	while (digits) {
@@ -79,7 +79,7 @@ static void Generate_WChar_Text_From_Number(WCHAR* text,int digits,int min_digit
 	}
 	if ((min_digits==0) && digits) {
 		int i=0;
-		while (WCHAR c=text[digits++]) {
+		while (wchar_t c=text[digits++]) {
 			text[i++]=c;
 		}
 		text[i]=0;
@@ -344,7 +344,7 @@ static	void	Powerup_Shutdown( void )
 	RightPowerupIconList.Delete_All();
 }
 
-static	void	Powerup_Add( const WCHAR * name, int number, const char * texture_name, const RectClass & uv, const Vector2 & offset, bool right_list = true )
+static	void	Powerup_Add( const wchar_t * name, int number, const char * texture_name, const RectClass & uv, const Vector2 & offset, bool right_list = true )
 {
 	PowerupIconStruct * data = new PowerupIconStruct();
 	data->Renderer = new Render2DClass();
@@ -796,7 +796,7 @@ static	void	Weapon_Update( void )
 	if ( weapon != NULL ) {
 //		StringClass	text;
 //		text.Format( "%03d", weapon->Get_Clip_Rounds() );
-		WCHAR tmp_text[5];
+		wchar_t tmp_text[5];
 		if ( weapon->Get_Clip_Rounds() == -1 ) {
 			//text.Format( "999", weapon->Get_Total_Rounds() );
 			tmp_text[0]='9';
@@ -1830,7 +1830,7 @@ static	void	Score_Update( void )
 		int score = COMBAT_STAR->Get_Player_Data()->Get_Score();
 //		WideStringClass	scorestring;
 //		scorestring.Format( L"%d", score );
-		WCHAR score_string[12];	// 12 digits ought to be enough...
+		wchar_t score_string[12];	// 12 digits ought to be enough...
 		Generate_WChar_Text_From_Number(score_string,sizeof(score_string),false,score);
 
 		Vector2 position = Render2DClass::Get_Screen_Resolution().Center();
@@ -2431,7 +2431,7 @@ static	void	Info_Update_Health_Shield( void )
 	}
 	//text.Format( "%03d", (int)health );
 	long lhealth=WWMath::Float_To_Long(health);
-	WCHAR tmp_text[5];
+	wchar_t tmp_text[5];
 	Generate_WChar_Text_From_Number(tmp_text,4,3,lhealth);
 
 	InfoHealthCountRenderer->Set_Location( draw.Upper_Right() + Vector2( 4,4) );
@@ -2503,7 +2503,7 @@ static	void	Info_Update_Health_Shield( void )
 //		StringClass	text;
 //		text.Format( "%03d", (int)shield );
 		long lshield=WWMath::Float_To_Long(shield);
-		WCHAR tmp_text[5];
+		wchar_t tmp_text[5];
 		Generate_WChar_Text_From_Number(tmp_text,4,3,lshield);
 		InfoShieldCountRenderer->Set_Location( draw.Upper_Left() + Vector2( 4,4) );
 		InfoShieldCountRenderer->Draw_Text( tmp_text );

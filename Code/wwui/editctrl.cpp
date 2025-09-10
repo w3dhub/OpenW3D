@@ -118,7 +118,7 @@ EditCtrlClass::Create_Text_Renderers (void)
 	//
 	//	Index into the text buffer
 	//
-	const WCHAR* text = display_string.Peek_Buffer();
+	const wchar_t* text = display_string.Peek_Buffer();
 
 	if (ScrollPos >= 0 && ScrollPos < display_string.Get_Length()) {
 		text += ScrollPos;
@@ -506,7 +506,7 @@ EditCtrlClass::Create_Caret_Renderer (void)
 	WideStringClass temp_copy(0, true);
 	Get_Display_Text(temp_copy);
 
-	WCHAR *text = temp_copy.Peek_Buffer();
+	wchar_t *text = temp_copy.Peek_Buffer();
 	int caretPos = Get_Caret_Pos();
 	text[caretPos] = 0;
 	text = &text[ScrollPos];
@@ -550,7 +550,7 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 	//
 	//	Index into the buffer
 	//
-	const WCHAR *text		= display_text.Peek_Buffer () + ScrollPos;	
+	const wchar_t *text		= display_text.Peek_Buffer () + ScrollPos;	
 	int char_index			= display_text.Get_Length ();
 
 	float x_pos				= mouse_pos.X - ClientRect.Left;
@@ -566,7 +566,7 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 		//
 		//	Get the width of the character
 		//
-		WCHAR char_string[2] = { text[index], 0 };
+		wchar_t char_string[2] = { text[index], 0 };
 		float char_width = TextRenderer.Get_Text_Extents (char_string).X;
 		
 		//
@@ -608,7 +608,7 @@ EditCtrlClass::Pos_From_Character (int char_index)
 	//
 	WideStringClass temp_copy(0, true);
 	Get_Display_Text (temp_copy);
-	WCHAR *text						= temp_copy.Peek_Buffer ();
+	wchar_t *text						= temp_copy.Peek_Buffer ();
 	text[char_index]				= 0;
 	text								= &text[ScrollPos];
 	float width						= TextRenderer.Get_Text_Extents (text).X;
@@ -841,7 +841,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 }
 
 
-void EditCtrlClass::On_Unicode_Char(WCHAR unicode)
+void EditCtrlClass::On_Unicode_Char(wchar_t unicode)
 {
 	if (unicode >= 32) {
 		//	Delete the old selection
@@ -875,7 +875,7 @@ void EditCtrlClass::On_Unicode_Char(WCHAR unicode)
 }
 
 
-void EditCtrlClass::Insert_String(const WCHAR* string)
+void EditCtrlClass::Insert_String(const wchar_t* string)
 {
 	int count = wcslen(string);
 
@@ -1094,7 +1094,7 @@ EditCtrlClass::Update_Scroll_Pos (void)
 		//
 		WideStringClass temp_string(0, true);
 		Get_Display_Text(temp_string);
-		WCHAR *text = temp_string.Peek_Buffer();
+		wchar_t *text = temp_string.Peek_Buffer();
 		text[caretPos] = 0;
 
 		//
@@ -1161,7 +1161,7 @@ EditCtrlClass::Set_Int (int value)
 //
 ////////////////////////////////////////////////////////////////
 void
-EditCtrlClass::Set_Text (const WCHAR *title)
+EditCtrlClass::Set_Text (const wchar_t *title)
 {
 	int count = wcslen(title);
 

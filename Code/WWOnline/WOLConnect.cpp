@@ -529,8 +529,8 @@ void ConnectWait::WaitBeginning(void)
 	WOL::Server& server = mServer->GetData();
 
 	WWASSERT(mLogin.IsValid() && "ConnectWait");
-	wcstombs((char*)server.login, (const WCHAR*)mLogin->GetNickname(), sizeof(server.login));
-	wcstombs((char*)server.password, (const WCHAR*)mLogin->GetPassword(), sizeof(server.password));
+	wcstombs((char*)server.login, (const wchar_t*)mLogin->GetNickname(), sizeof(server.login));
+	wcstombs((char*)server.password, (const wchar_t*)mLogin->GetPassword(), sizeof(server.password));
 
 	WWASSERT((mSession->GetChatObject() != NULL) && "ConnectWait");
 	HRESULT hr = mSession->GetChatObject()->RequestConnection(&server, 20, !mLogin->IsPasswordEncrypted());
@@ -1410,7 +1410,7 @@ void CreateChannelWait::WaitBeginning(void)
 
 	WWASSERT(mChannel.IsValid() && "CreateChannelWait");
 	WOL::Channel& channel = mChannel->GetData();
-	wcstombs((char*)channel.key, (const WCHAR*)mPassword, sizeof(channel.key));
+	wcstombs((char*)channel.key, (const wchar_t*)mPassword, sizeof(channel.key));
 
 	WWASSERT((mSession->GetChatObject() != NULL) && "CreateChannelWait");
 	HRESULT hr = mSession->GetChatObject()->RequestChannelCreate(&channel);
@@ -1897,7 +1897,7 @@ LocateUserWait::~LocateUserWait()
 
 void LocateUserWait::WaitBeginning(void)
 	{
-	WWDEBUG_SAY(("WOL: LocateUserWait Begin '%S'\n", (const WCHAR*)mUserName));
+	WWDEBUG_SAY(("WOL: LocateUserWait Begin '%S'\n", (const wchar_t*)mUserName));
 	WWASSERT(mSession.IsValid() && "LocateUserWait");
 
 	RefPtr<UserData> user = mSession->FindUser(mUserName);

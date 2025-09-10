@@ -50,7 +50,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //	Local prototypes
 //////////////////////////////////////////////////////////////////////////////
-WORD *Skip_Dlg_Field (WORD *src, WCHAR *buffer = NULL, int buffer_len = 0, WORD *ctrl_type = NULL);
+WORD *Skip_Dlg_Field (WORD *src, wchar_t *buffer = NULL, int buffer_len = 0, WORD *ctrl_type = NULL);
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ WORD *Skip_Dlg_Field (WORD *src, WCHAR *buffer = NULL, int buffer_len = 0, WORD 
 //
 //////////////////////////////////////////////////////////////////////////////
 WORD *
-Skip_Dlg_Field (WORD *src, WCHAR *buffer, int buffer_len, WORD *ctrl_type)
+Skip_Dlg_Field (WORD *src, wchar_t *buffer, int buffer_len, WORD *ctrl_type)
 {
 	//
 	//	These fields always start on the next word boundary, so align
@@ -72,7 +72,7 @@ Skip_Dlg_Field (WORD *src, WCHAR *buffer, int buffer_len, WORD *ctrl_type)
 	//
 	//		0xFFFF		- The following WORD is an ordinal value of a system class.
 	//		0x0000		- Empty field
-	//		Otherwise	- The remaining data is a NULL terminated WCHAR string.
+	//		Otherwise	- The remaining data is a NULL terminated wchar_t string.
 	//
 	if (*retval == 0xFFFF) {
 		
@@ -191,7 +191,7 @@ DialogParserClass::Parse_Template
 		//
 		buffer = Skip_Dlg_Field (buffer, dlg_title->Get_Buffer (96), 96);
 
-		WCHAR *string_id = ::wcsstr (dlg_title->Peek_Buffer (), L"IDS_");
+		wchar_t *string_id = ::wcsstr (dlg_title->Peek_Buffer (), L"IDS_");
 		if (string_id != NULL) {
 			WideStringClass wide_string_id = string_id;				
 			StringClass ascii_string_id;
@@ -221,7 +221,7 @@ DialogParserClass::Parse_Template
 			//
 			//	Read the ctrl type
 			//
-			WCHAR text_buffer[256]	= { 0 };
+			wchar_t text_buffer[256]	= { 0 };
 			WORD ctrl_type				= 0x0000;
 			buffer = Skip_Dlg_Field (buffer, text_buffer, 256, &ctrl_type);
 			
@@ -261,7 +261,7 @@ DialogParserClass::Parse_Template
 			//			
 			buffer = Skip_Dlg_Field (buffer, text_buffer, 256);
 
-			WCHAR *string_id = ::wcsstr (text_buffer, L"IDS_");
+			wchar_t *string_id = ::wcsstr (text_buffer, L"IDS_");
 			if (string_id != NULL) {
 				WideStringClass wide_string_id = string_id;				
 				StringClass ascii_string_id;

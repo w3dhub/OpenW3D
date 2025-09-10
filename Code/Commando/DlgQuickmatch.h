@@ -67,7 +67,7 @@ class DlgQuickMatch :
 		void SendMatchingInfo(void);
 
 		void OutputMessage(int messageID);
-		void OutputMessage(const WCHAR* message);
+		void OutputMessage(const wchar_t* message);
 
 		void HandleNotification(QuickMatchEvent&) override;
 		void HandleNotification(DlgMsgBoxEvent&) override;

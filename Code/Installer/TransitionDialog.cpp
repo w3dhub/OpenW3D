@@ -275,7 +275,7 @@ void TransitionDialogClass::On_Frame_Update (void)
 			if (Time < digitdecaytime) {
 
 				const unsigned  randomness = 32;
-				const WCHAR		*text [2]	= {L"0", L"1"};
+				const wchar_t		*text [2]	= {L"0", L"1"};
 				
 				Render2DSentenceClass *digit;
 				int						  w, h, bits;

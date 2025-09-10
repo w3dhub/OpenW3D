@@ -124,12 +124,12 @@ Alloc_Sys_String (LPCTSTR string)
 	if (string != NULL) {
 		
 		// Copy the ascii format string to a wide-character string
-		WCHAR *pwide_string = new WCHAR [::lstrlen (string) + 1];
-		WCHAR *ptemp_string = pwide_string;
+		wchar_t *pwide_string = new wchar_t [::lstrlen (string) + 1];
+		wchar_t *ptemp_string = pwide_string;
 		while (*string) {
-			*ptemp_string++ = (WCHAR)*string++;
+			*ptemp_string++ = (wchar_t)*string++;
 		}
-		*ptemp_string = WCHAR('\0');
+		*ptemp_string = wchar_t('\0');
 
 		// Allocate a system-string (COM-safe) from the wide-character string.
 		sys_string = ::SysAllocString (pwide_string);

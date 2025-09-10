@@ -453,7 +453,7 @@ Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int mesage_id, DWORD p
 
 //
 // Called as follows: If IDS_TEST is the string you wish to load and
-// WCHAR Buffer[128] is your buffer, the call would be
+// wchar_t Buffer[128] is your buffer, the call would be
 // MyLoadStringW(IDS_TEST,Buffer,128);
 // If it succeeds, the function returns the number of characters copied
 // into the buffer, not including the NULL terminating character, or

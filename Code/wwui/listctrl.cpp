@@ -410,7 +410,7 @@ ListCtrlClass::Render_Entry (const RectClass &clip_rect, int col_index, int row_
 	//
 	//	Get the text
 	//
-	const WCHAR *text = ColList[col_index]->Get_Entry_Text (row_index);
+	const wchar_t *text = ColList[col_index]->Get_Entry_Text (row_index);
 	int text_color		= VRGB_TO_INT32 (ColList[col_index]->Get_Entry_Color (row_index));
 				
 	//
@@ -496,8 +496,8 @@ ListCtrlClass::Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1,
 	//
 	//	Sort by name
 	//
-	const WCHAR *name1 = list_ctrl->Get_Entry_Text (item_index1, sort_col_index);
-	const WCHAR *name2 = list_ctrl->Get_Entry_Text (item_index2, sort_col_index);
+	const wchar_t *name1 = list_ctrl->Get_Entry_Text (item_index1, sort_col_index);
+	const wchar_t *name2 = list_ctrl->Get_Entry_Text (item_index2, sort_col_index);
 
 	int retval = ::CompareStringW (LOCALE_USER_DEFAULT, NORM_IGNORECASE, name1, -1, name2, -1);
 
@@ -1412,7 +1412,7 @@ ListCtrlClass::Reset_Icons (int index, int col_index)
 //
 ////////////////////////////////////////////////////////////////
 void
-ListCtrlClass::Add_Column (const WCHAR *column_name, float width, const Vector3 &color)
+ListCtrlClass::Add_Column (const wchar_t *column_name, float width, const Vector3 &color)
 {
 	//
 	//	Create a new column and add it to the list
@@ -1576,7 +1576,7 @@ ListCtrlClass::Delete_Entry (int index)
 //	Find_Entry
 //
 ////////////////////////////////////////////////////////////////
-int ListCtrlClass::Find_Entry(int col_index, const WCHAR* text)
+int ListCtrlClass::Find_Entry(int col_index, const wchar_t* text)
 {
 	int count = ColList.Count();
 
@@ -1585,7 +1585,7 @@ int ListCtrlClass::Find_Entry(int col_index, const WCHAR* text)
 		count = list->Get_Entry_Count();
 
 		for (int index = 0; index < count; index++) {
-			const WCHAR* entryText = list->Get_Entry_Text(index);
+			const wchar_t* entryText = list->Get_Entry_Text(index);
 
 			if (wcscmp(entryText, text) == 0) {
 				return index;
@@ -1603,7 +1603,7 @@ int ListCtrlClass::Find_Entry(int col_index, const WCHAR* text)
 //
 ////////////////////////////////////////////////////////////////
 int
-ListCtrlClass::Insert_Entry (int index, const WCHAR *text)
+ListCtrlClass::Insert_Entry (int index, const wchar_t *text)
 {
 	if (ColList.Count () <= 0) {
 		return -1;
@@ -1690,7 +1690,7 @@ ListCtrlClass::Update_Row_Height (int row_index)
 		//
 		//	Calculate the height of this text
 		//
-		const WCHAR *text = ColList[index]->Get_Entry_Text (row_index);
+		const wchar_t *text = ColList[index]->Get_Entry_Text (row_index);
 		Vector2 extents = TextRenderer.Get_Formatted_Text_Extents (text);
 		height = max (height, extents.Y + border_height);
 
@@ -1806,7 +1806,7 @@ ListCtrlClass::Is_Entry_Selected (int index)
 //
 ////////////////////////////////////////////////////////////////
 bool
-ListCtrlClass::Set_Entry_Text (int index, int col_index, const WCHAR *text)
+ListCtrlClass::Set_Entry_Text (int index, int col_index, const wchar_t *text)
 {
 	if (col_index < 0 || col_index >= ColList.Count ()) {
 		return false;
@@ -1921,7 +1921,7 @@ ListCtrlClass::Get_Entry_Data (int index, int col_index)
 //	Get_Entry_Text
 //
 ////////////////////////////////////////////////////////////////
-const WCHAR *
+const wchar_t *
 ListCtrlClass::Get_Entry_Text (int index, int col_index)
 {
 	//
@@ -2406,7 +2406,7 @@ ListColumnClass::Reset_Contents (void)
 //
 ////////////////////////////////////////////////////////////////
 int
-ListColumnClass::Insert_Entry (int index, const WCHAR *entry_name)
+ListColumnClass::Insert_Entry (int index, const wchar_t *entry_name)
 {
 	ListEntryClass *entry = new ListEntryClass (entry_name);
 

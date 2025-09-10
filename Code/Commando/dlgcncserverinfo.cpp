@@ -123,10 +123,10 @@ CNCServerInfoDialogClass::On_Init_Dialog (void)
 		//
 		WideStringClass description;
 		The_Game ()->Get_Description (description);
-		const WCHAR *buffer = description.Peek_Buffer ();
+		const wchar_t *buffer = description.Peek_Buffer ();
 
-		const WCHAR DELIMITER	= L'\t';
-		const WCHAR NEWLINE		= L'\n';
+		const wchar_t DELIMITER	= L'\t';
+		const wchar_t NEWLINE		= L'\n';
 
 		//
 		//	Fill the settings into the list control

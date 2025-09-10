@@ -308,7 +308,7 @@ StringClass::Release_Resources (void)
 // Copy_Wide
 //
 ///////////////////////////////////////////////////////////////////
-bool StringClass::Copy_Wide (const WCHAR *source)
+bool StringClass::Copy_Wide (const wchar_t *source)
 {
 	if (source != NULL) {
 

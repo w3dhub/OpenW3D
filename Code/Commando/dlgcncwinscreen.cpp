@@ -229,7 +229,7 @@ CNCWinScreenMenuClass::On_Init_Dialog (void)
 	//	Display the MVP's name and num times consecutive as MVP
 	//
 	WideStringClass mvp_text;
-	mvp_text.Format (TRANSLATE (IDS_MENU_MVP_FORMAT), (const WCHAR *)The_Game ()->Get_Mvp_Name ());
+	mvp_text.Format (TRANSLATE (IDS_MENU_MVP_FORMAT), (const wchar_t *)The_Game ()->Get_Mvp_Name ());
 	if (!The_Game()->Get_Mvp_Name().Is_Empty() && The_Game()->Get_Mvp_Count() > 1) {
 		WideStringClass consecutives_text;
 		consecutives_text.Format(L" * %d", The_Game()->Get_Mvp_Count());
@@ -572,7 +572,7 @@ CNCWinScreenMenuClass::Populate_Player_Lists (int team_id, int list_ctrl1_id)
 			//
 			WideStringClass displayName(0, true);
 			Build_Player_Display_Name(player, displayName);
-			list_ctrl->Set_Entry_Text (item_index, COL_NAME,		(const WCHAR*)displayName);
+			list_ctrl->Set_Entry_Text (item_index, COL_NAME,		(const wchar_t*)displayName);
 
 			//
 			//	Fill in information about the player

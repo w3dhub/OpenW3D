@@ -41,7 +41,7 @@
 #include <wwdebug/wwdebug.h>
 
 
-bool MPWolAddIgnoreEntry::DoDialog(const WCHAR* defaultUser)
+bool MPWolAddIgnoreEntry::DoDialog(const wchar_t* defaultUser)
 {
 	MPWolAddIgnoreEntry* dialog = new MPWolAddIgnoreEntry(defaultUser);
 
@@ -59,7 +59,7 @@ bool MPWolAddIgnoreEntry::DoDialog(const WCHAR* defaultUser)
 //	MPWolAddIgnoreEntryPopupClass
 //
 ////////////////////////////////////////////////////////////////
-MPWolAddIgnoreEntry::MPWolAddIgnoreEntry(const WCHAR* defaultUser) :
+MPWolAddIgnoreEntry::MPWolAddIgnoreEntry(const wchar_t* defaultUser) :
 		PopupDialogClass(IDD_MP_WOL_ADD_IGNORE_ENTRY),
 		mDefaultUser(defaultUser)
 {
@@ -120,7 +120,7 @@ void MPWolAddIgnoreEntry::Add_Ignore_Entry (void)
 	WOLBuddyMgr* buddyMgr = WOLBuddyMgr::GetInstance(false);
 
 	if (buddyMgr) {
-		const WCHAR* name = Get_Dlg_Item_Text(IDC_IGNORE_USER_EDIT);
+		const wchar_t* name = Get_Dlg_Item_Text(IDC_IGNORE_USER_EDIT);
 		buddyMgr->AddIgnore(name);
 		buddyMgr->Release_Ref();
 	}

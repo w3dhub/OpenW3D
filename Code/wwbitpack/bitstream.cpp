@@ -167,7 +167,7 @@ void BitStreamClass::Get_Terminated_String(char * buffer, USHORT buffer_size, bo
 
 
 //-----------------------------------------------------------------------------
-void BitStreamClass::Add_Wide_Terminated_String(const WCHAR *string, bool permit_empty)
+void BitStreamClass::Add_Wide_Terminated_String(const wchar_t *string, bool permit_empty)
 {
 	WWASSERT(string != NULL);
 
@@ -186,7 +186,7 @@ void BitStreamClass::Add_Wide_Terminated_String(const WCHAR *string, bool permit
 }
 
 //-----------------------------------------------------------------------------
-void BitStreamClass::Get_Wide_Terminated_String(WCHAR *buffer, USHORT buffer_len, bool permit_empty)
+void BitStreamClass::Get_Wide_Terminated_String(wchar_t *buffer, USHORT buffer_len, bool permit_empty)
 {
 	WWASSERT(buffer != NULL);
 	WWASSERT(buffer_len > 0);
@@ -198,7 +198,7 @@ void BitStreamClass::Get_Wide_Terminated_String(WCHAR *buffer, USHORT buffer_len
 		WWASSERT(len > 0 && "Empty string not permitted");
 	}
 
-	WCHAR temp = L'?';
+	wchar_t temp = L'?';
 	int i = 0;
 	for (i = 0; i < len; i++) {
 		Get(temp);

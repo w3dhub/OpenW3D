@@ -221,9 +221,9 @@ EvaViewerTabClass::Build_Object_List (void)
 			//
 			//	Translate the data
 			//
-			const WCHAR *name				= TRANSLATE_BY_DESC(name_id);
-			const WCHAR *description	= TRANSLATE_BY_DESC(description_id);
-			const WCHAR *affiliation	= TRANSLATE_BY_DESC(affiliation_id);
+			const wchar_t *name				= TRANSLATE_BY_DESC(name_id);
+			const wchar_t *description	= TRANSLATE_BY_DESC(description_id);
+			const wchar_t *affiliation	= TRANSLATE_BY_DESC(affiliation_id);
 
 			//
 			//	Configure an object that will hold this data for us

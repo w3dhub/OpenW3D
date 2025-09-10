@@ -111,7 +111,7 @@ void DirectoryDialogClass::Update (bool lazyupdate)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-WCHAR *DirectoryDialogClass::Megabyte_Format (int64_t bytecount, WideStringClass &outputstring)
+wchar_t *DirectoryDialogClass::Megabyte_Format (int64_t bytecount, WideStringClass &outputstring)
 {
 	char	 buffer [32];
 	double size;
@@ -324,7 +324,7 @@ void DirectoryDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-const WCHAR *DirectoryDialogClass::Get_Path (WideStringClass &path)
+const wchar_t *DirectoryDialogClass::Get_Path (WideStringClass &path)
 {																			  
 	path = Get_Dlg_Item_Text (IDC_DIRECTORY_EDIT);
 	return (path);

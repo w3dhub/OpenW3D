@@ -107,7 +107,7 @@ MovieOptionsMenuClass::On_Init_Dialog (void)
 				//
 				//	Add an entry for this movie
 				//
-				const WCHAR *wide_desc = TRANSLATE_BY_DESC(string_id_des);
+				const wchar_t *wide_desc = TRANSLATE_BY_DESC(string_id_des);
 				int item_index = list_ctrl->Insert_Entry (0xFF, wide_desc);
 				if (item_index != -1) {
 					list_ctrl->Set_Entry_Data (item_index, 0, (DWORD)new StringClass (list[index]));

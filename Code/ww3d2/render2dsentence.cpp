@@ -279,7 +279,7 @@ Render2DSentenceClass::Set_Tabstop(float stop)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 Vector2
-Render2DSentenceClass::Get_Text_Extents (const WCHAR *text)
+Render2DSentenceClass::Get_Text_Extents (const wchar_t *text)
 {
 	if (!DX8Wrapper::Is_Initted()) {
 		Vector2 temp(0,0);
@@ -289,9 +289,9 @@ Render2DSentenceClass::Get_Text_Extents (const WCHAR *text)
 	Vector2 extent (0, Font->Get_Char_Height());
 
 	while (*text) {
-		WCHAR ch = *text++;
+		wchar_t ch = *text++;
 
-		if ( ch != (WCHAR)'\n' ) {
+		if ( ch != (wchar_t)'\n' ) {
 			extent.X += Font->Get_Char_Spacing( ch );
 		}
 	}
@@ -305,8 +305,8 @@ Render2DSentenceClass::Get_Text_Extents (const WCHAR *text)
 //	Find_Row_Start
 //
 ////////////////////////////////////////////////////////////////////////////////////
-const WCHAR *
-Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
+const wchar_t *
+Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 {
 	if (row_index == 0) {
 		return text;
@@ -316,7 +316,7 @@ Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
 		return text;
 	}
 
-	const WCHAR *retval = NULL;
+	const wchar_t *retval = NULL;
 
 	float max_x_pos	= 0;
 	float x_pos			= 0;
@@ -325,7 +325,7 @@ Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
 	int row_counter = 0;
 
 	while (*text) {
-		WCHAR ch = *text++;
+		wchar_t ch = *text++;
 
 		bool is_wrapped = false;
 
@@ -337,7 +337,7 @@ Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
 			//
 			//	Find the width of the next word
 			//
-			const WCHAR *word	= text;
+			const wchar_t *word	= text;
 			float word_width = Font->Get_Char_Spacing (ch);
 			while ((*word != 0) && ((*word > L' ') && !IS_BREAK_CHAR (*word))) {
 				word_width += Font->Get_Char_Spacing (*word++);
@@ -372,7 +372,7 @@ Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
 			}
 		}
 
-		if (ch != (WCHAR)'\n') {
+		if (ch != (wchar_t)'\n') {
 			x_pos += Font->Get_Char_Spacing (ch);
 		}
 	}
@@ -387,7 +387,7 @@ Render2DSentenceClass::Find_Row_Start( const WCHAR * text, int row_index )
 //
 ////////////////////////////////////////////////////////////////////////////////////
 Vector2
-Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_count)
+Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row_count)
 {
 	if (!DX8Wrapper::Is_Initted()) {
 		Vector2 temp(0,0);
@@ -401,7 +401,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_c
 	int row_counter = 0;
 
 	while (*text) {
-		WCHAR ch = *text++;
+		wchar_t ch = *text++;
 
 		bool is_wrapped = false;
 
@@ -413,7 +413,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_c
 			//
 			//	Find the width of the next word
 			//
-			const WCHAR *word	= text;
+			const wchar_t *word	= text;
 			float word_width = Font->Get_Char_Spacing (ch);
 			while ((*word != 0) && ((*word > L' ') && !IS_BREAK_CHAR (*word))) {
 				word_width += Font->Get_Char_Spacing (*word++);
@@ -440,7 +440,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text, int *row_c
 			row_counter ++;
 		}
 
-		if (ch != (WCHAR)'\n') {
+		if (ch != (wchar_t)'\n') {
 			x_pos += Font->Get_Char_Spacing (ch);
 		}
 	}
@@ -778,7 +778,7 @@ Render2DSentenceClass::Record_Sentence_Chunk (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-Render2DSentenceClass::Allocate_New_Surface (const WCHAR *text)
+Render2DSentenceClass::Allocate_New_Surface (const wchar_t *text)
 {
 	//
 	//	Unlock the last surface (if necessary)
@@ -871,7 +871,7 @@ Render2DSentenceClass::Allocate_New_Surface (const WCHAR *text)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-Render2DSentenceClass::Build_Sentence (const WCHAR *text)
+Render2DSentenceClass::Build_Sentence (const wchar_t *text)
 {
 	if (text == NULL) {
 		return ;
@@ -900,7 +900,7 @@ Render2DSentenceClass::Build_Sentence (const WCHAR *text)
 	//	Loop over all the characters in the string
 	//
 	while (text != NULL) {
-		WCHAR ch = *text++;
+		wchar_t ch = *text++;
 
 		//
 		//	Determine how much horizontal space this character requires
@@ -939,7 +939,7 @@ Render2DSentenceClass::Build_Sentence (const WCHAR *text)
 					//
 					//	Find the length of the next word
 					//
-					const WCHAR *word	= text;
+					const wchar_t *word	= text;
 					float word_width	= (ch == L' ') ? 0 : char_spacing;
 					while ((*word != 0) && ((*word > L' ') && !IS_BREAK_CHAR (*word))) {
 						word_width += Font->Get_Char_Spacing (*word++);
@@ -1071,7 +1071,7 @@ FontCharsClass::~FontCharsClass (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 const FontCharsClass::CharDataStruct *
-FontCharsClass::Get_Char_Data (WCHAR ch)
+FontCharsClass::Get_Char_Data (wchar_t ch)
 {
 	const CharDataStruct *retval = NULL;
 
@@ -1100,7 +1100,7 @@ FontCharsClass::Get_Char_Data (WCHAR ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 int
-FontCharsClass::Get_Char_Width (WCHAR ch)
+FontCharsClass::Get_Char_Width (wchar_t ch)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != NULL ) {
@@ -1117,7 +1117,7 @@ FontCharsClass::Get_Char_Width (WCHAR ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 int
-FontCharsClass::Get_Char_Spacing (WCHAR ch)
+FontCharsClass::Get_Char_Spacing (wchar_t ch)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != NULL ) {
@@ -1136,7 +1136,7 @@ FontCharsClass::Get_Char_Spacing (WCHAR ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-FontCharsClass::Blit_Char (WCHAR ch, uint16 *dest_ptr, int dest_stride, int x, int y)
+FontCharsClass::Blit_Char (wchar_t ch, uint16 *dest_ptr, int dest_stride, int x, int y)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != NULL && data->Width != 0 ) {
@@ -1169,7 +1169,7 @@ FontCharsClass::Blit_Char (WCHAR ch, uint16 *dest_ptr, int dest_stride, int x, i
 //
 ////////////////////////////////////////////////////////////////////////////////////
 const FontCharsClass::CharDataStruct *
-FontCharsClass::Store_GDI_Char (WCHAR ch)
+FontCharsClass::Store_GDI_Char (wchar_t ch)
 {
 	int width	= PointSize * 2;
 	int height	= PointSize * 2;
@@ -1508,7 +1508,7 @@ FontCharsClass::Is_Font (const char *font_name, int point_size, bool is_bold)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-FontCharsClass::Grow_Unicode_Array (WCHAR ch)
+FontCharsClass::Grow_Unicode_Array (wchar_t ch)
 {
 	//
 	//	Don't do anything if character is in the ASCII range

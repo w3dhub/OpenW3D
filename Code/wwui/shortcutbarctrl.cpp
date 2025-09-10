@@ -139,7 +139,7 @@ ShortcutBarCtrlClass::Create_Text_Renderers (void)
 		//
 		//	Get a pointer to the text for this entry
 		//
-		const WCHAR *text = ShortcutList[index].text;
+		const wchar_t *text = ShortcutList[index].text;
 
 		//
 		//	Is this the hilighted button?
@@ -607,7 +607,7 @@ ShortcutBarCtrlClass::Set_Hidden_State (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-ShortcutBarCtrlClass::Add_Button (int ctrl_id, const WCHAR *text)
+ShortcutBarCtrlClass::Add_Button (int ctrl_id, const wchar_t *text)
 {
 	ShortcutList.Add (ShortcutInfoStruct (ctrl_id, text));
 	Set_Dirty ();
