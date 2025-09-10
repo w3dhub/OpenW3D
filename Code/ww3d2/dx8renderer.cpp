@@ -39,6 +39,7 @@
 //#define ENABLE_CATEGORY_LOG
 //#define ENABLE_STRIPING
 
+#include <bit>
 #include "dx8renderer.h"
 #include "dx8wrapper.h"
 #include "dx8polygonrenderer.h"
@@ -2034,22 +2035,25 @@ void DX8MeshRendererClass::Add_To_Render_List(DecalMeshClass * decalmesh)
 	visible_decal_meshes = decalmesh;
 }
 
-void DX8MeshRendererClass::Render_Decal_Meshes(void)
+static inline DWORD Float2Unsigned(float f) {
+	return std::bit_cast<DWORD>(f);
+
+}
+void DX8MeshRendererClass::Render_Decal_Meshes()
 {
-	float depthbias = -0.02f;
-	float slopedscalebias = 1.0f;
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS,*reinterpret_cast<unsigned*>(&depthbias));
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS,*reinterpret_cast<unsigned*>(&slopedscalebias));
+	const float slope_scale = 0.0f;    
+	const float const_bias = -0.001f; 
 
-	DecalMeshClass * decal_mesh = visible_decal_meshes;
-	while (decal_mesh != NULL) {
-		decal_mesh->Render();
-		decal_mesh = decal_mesh->Peek_Next_Visible();
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS, Float2Unsigned(slope_scale));
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS, Float2Unsigned(const_bias));
+
+	for (DecalMeshClass* d = visible_decal_meshes; d; d = d->Peek_Next_Visible()) {
+		d->Render();
 	}
-	visible_decal_meshes = NULL;
+	visible_decal_meshes = nullptr;
 
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS,0);
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS,0);
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS, 0);
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_DEPTHBIAS, 0);
 }
 
 // ----------------------------------------------------------------------------
