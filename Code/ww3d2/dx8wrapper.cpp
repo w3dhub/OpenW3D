@@ -351,6 +351,7 @@ void DX8Wrapper::Set_Default_Global_Render_States(void)
 	Set_DX8_Render_State(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
 	Set_DX8_Render_State(D3DRS_COLORVERTEX, TRUE);
 	Set_DX8_Render_State(D3DRS_DEPTHBIAS,0);
+	Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS,0);
 	Set_DX8_Texture_Stage_State(1, D3DTSS_BUMPENVLSCALE, F2DW(1.0f));
 	Set_DX8_Texture_Stage_State(1, D3DTSS_BUMPENVLOFFSET, F2DW(0.0f));
 	Set_DX8_Texture_Stage_State(0, D3DTSS_BUMPENVMAT00,F2DW(1.0f));
@@ -3401,8 +3402,9 @@ void DX8Wrapper::Set_DX8_ZBias(int zbias)
 		DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&tmp));
 	}
 	else {
-		float ZBias_float = zbias / 8.0f;
-		Set_DX8_Render_State (D3DRS_DEPTHBIAS, *reinterpret_cast<DWORD*>(&ZBias_float));
+		//float ZBias_float = zbias / 8.0f;
+		Set_DX8_Render_State (D3DRS_DEPTHBIAS, ZBias);
+		Set_DX8_Render_State (D3DRS_SLOPESCALEDEPTHBIAS, ZBias);
 	}
 }
 
