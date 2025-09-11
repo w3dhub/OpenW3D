@@ -154,11 +154,7 @@ protected:
 		_ENTRY (void)	:
 			user_data (0) {}
 
-<<<<<<< HEAD
-		_ENTRY (const wchar_t *_text, uint32 _data)	:
-=======
-		_ENTRY (const WCHAR *_text, uintptr_t _data)	:
->>>>>>> 1e7f52a (Store userdata in 64-bit compatible way)
+		_ENTRY (const wchar_t *_text, uintptr_t _data)	:
 			text (_text), user_data (_data) {}
 
 	} ENTRY;
