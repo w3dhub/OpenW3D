@@ -39,6 +39,7 @@
 #include <string.h>
 #include "Toolkit.h"
 #include "Mission1.h"
+#include "wwlib/wwstring.h"
 
 namespace M01Vars
 {
@@ -2530,7 +2531,7 @@ DECLARE_SCRIPT(M01_HON_Medlab_DropOff_Guy_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.H_A_TroopDrop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.H_A_TroopDrop") == 0)
 		{
 			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_WALKING_WAYPATH_01_JDG);
@@ -8054,7 +8055,7 @@ DECLARE_SCRIPT(M01_TurretBeach_GDI_Guy_01_JDG, "")//
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.H_A_X1E_Run") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.H_A_X1E_Run") == 0)
 		{
 			ActionParamsStruct params;
 
@@ -8101,7 +8102,7 @@ DECLARE_SCRIPT(M01_TurretBeach_GDI_Guy_02_JDG, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.H_A_X1E_Run") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.H_A_X1E_Run") == 0)
 		{
 			ActionParamsStruct params;
 
@@ -8309,12 +8310,12 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Waypath_JDG, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathA") == 0)
+		if (openw3d::stricmp(anim, "XG_TransprtBone.XG_EV1_PathA") == 0)
 		{
 			Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_Pathloop", true , NULL, 0.0f, -1.0f, false);
 		}
 
-		else if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathZ") == 0)
+		else if (openw3d::stricmp(anim, "XG_TransprtBone.XG_EV1_PathZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -8351,7 +8352,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Chopper_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsA") == 0)
+		if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsA") == 0)
 		{
 			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsloop", true, NULL, 0.0f, -1.0f, false );
 
@@ -8377,7 +8378,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Chopper_JDG, "")
 			}
 		}
 
-		else if (stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsz") == 0)
+		else if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsz") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -8476,12 +8477,12 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Waypath_JDG, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathA") == 0)
+		if (openw3d::stricmp(anim, "XG_TransprtBone.XG_EV1_PathA") == 0)
 		{
 			Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_Pathloop", true, NULL, 0.0f, -1.0f, false );
 		}
 
-		else if (stricmp(anim, "XG_TransprtBone.XG_EV1_PathZ") == 0)
+		else if (openw3d::stricmp(anim, "XG_TransprtBone.XG_EV1_PathZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -8518,7 +8519,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Chopper_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsA") == 0)
+		if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsA") == 0)
 		{
 			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsloop", true, NULL, 0.0f, -1.0f, false );
 
@@ -8544,7 +8545,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Chopper_JDG, "")
 			}
 		}
 
-		else if (stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsz") == 0)
+		else if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV1_trnsz") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -8595,7 +8596,7 @@ DECLARE_SCRIPT(M01_Nod_Chinook_Reinforcement_Guy_JDG, "")//
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			Vector3 offset;
 			offset.X = Commands->Get_Random(1, 3);
@@ -8809,7 +8810,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_03_GDI_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			Vector3 myHomeSpot(-209.853f, 505.532f, 4.017f);//going to hand of nod backside
 			ActionParamsStruct params;
@@ -8861,7 +8862,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_04_GDI_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			Vector3 myHomeSpot(-204.157f, 508.650f, 4.017f);//going to hand of nod backside
 			ActionParamsStruct params;
@@ -9382,7 +9383,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_WALKING_WAYPATH_01_JDG);
@@ -9668,7 +9669,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, 0 );
 		}
@@ -9935,7 +9936,7 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, 0 );
 		}
@@ -11931,7 +11932,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Rope_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -11965,7 +11966,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Waypath_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12011,7 +12012,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
+		if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
@@ -12039,7 +12040,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_DO_END_MISSION_CHECK_JDG, 2 );
 		}
 
-		else if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
+		else if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12180,7 +12181,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12357,7 +12358,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12501,7 +12502,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12584,7 +12585,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Rope_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12618,7 +12619,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Waypath_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12683,7 +12684,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Chopper_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
+		if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
@@ -12711,7 +12712,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Chopper_JDG, "")
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_DO_END_MISSION_CHECK_JDG, 2 );
 		}
 
-		else if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
+		else if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -12858,7 +12859,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_01_JDG, "")//this guys ID is M01_BARN_PRISONER_
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13015,7 +13016,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_02_JDG, "")//this guys ID is M01_BARN_PRISONER_
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13122,7 +13123,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13282,7 +13283,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Rope_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13318,7 +13319,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Waypath_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13349,7 +13350,7 @@ DECLARE_SCRIPT(M01_Evac_TroopBone_JDG, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_troopBN.XG_EV5_troopBN") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_troopBN.XG_EV5_troopBN") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13372,7 +13373,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Waypath_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13407,7 +13408,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Rope_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
+		if (openw3d::stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -13571,7 +13572,7 @@ DECLARE_SCRIPT(M01_GDIBase_FirstChinookFlamethrowerGuy_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.h_a_troopdrop") == 0)
 		{
 			Vector3 myHomeSpot (-22.604f, 25.125f, 1.605f);
 			ActionParamsStruct params;
@@ -13606,7 +13607,7 @@ DECLARE_SCRIPT(M01_GDIBase_SecondChinookMinigunnerGuy_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.h_a_troopdrop") == 0)
 		{
 			Vector3 myHomeSpot (-16.144f, 19.274f, 2.312f);
 			ActionParamsStruct params;
@@ -15298,7 +15299,7 @@ DECLARE_SCRIPT(M01_Sinking_Gunboat_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "V_GDI_GBOAT.XG_GBOAT_SINK") == 0)
+		if (openw3d::stricmp(anim, "V_GDI_GBOAT.XG_GBOAT_SINK") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -16085,7 +16086,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{ 
 			GameObject *turret01 = Commands->Find_Object ( M01_TURRETBEACH_TURRET_01_ID );
 			GameObject *turret02 = Commands->Find_Object ( M01_TURRETBEACH_TURRET_02_ID );
@@ -17496,7 +17497,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Chopper_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
+		if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
@@ -17523,7 +17524,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Chopper_JDG, "")
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_DO_END_MISSION_CHECK_JDG, 2 );
 		}
 
-		else if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
+		else if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -17891,7 +17892,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Chopper_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
+		if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
 		{
 			Commands->Debug_Message ( "**********************chopper has finished entry anim\n" );
 			Vector3 evacLocation = Commands->Get_Position ( obj );
@@ -17913,7 +17914,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Chopper_JDG, "")
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_DO_END_MISSION_CHECK_JDG, 2 );
 		}
 
-		else if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
+		else if (openw3d::stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -17979,7 +17980,7 @@ DECLARE_SCRIPT(M01_ConYard_Dropoff_Dude_JDG, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.H_A_TroopDrop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.H_A_TroopDrop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -17990,17 +17991,17 @@ DECLARE_SCRIPT(M01_C130_Dropoff_Dude_JDG, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_a_Human.H_A_X5D_ParaT_1") == 0)
+		if (openw3d::stricmp(anim, "S_a_Human.H_A_X5D_ParaT_1") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
 
-		else if (stricmp(anim, "S_a_Human.H_A_X5D_ParaT_2") == 0)
+		else if (openw3d::stricmp(anim, "S_a_Human.H_A_X5D_ParaT_2") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
 
-		else if (stricmp(anim, "S_a_Human.H_A_X5D_ParaT_3") == 0)
+		else if (openw3d::stricmp(anim, "S_a_Human.H_A_X5D_ParaT_3") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -18837,7 +18838,7 @@ DECLARE_SCRIPT(M01_GDIBase_BaseCommander_JDG, "")//106050 Capt Duncan
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			if (gaveIonBeacon == false)
 			{
@@ -18916,7 +18917,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Grenadier_JDG, "")//116383
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -19334,7 +19335,7 @@ DECLARE_SCRIPT(M01_Base_POW01_JDG, "")//116386
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -19463,7 +19464,7 @@ DECLARE_SCRIPT(M01_Base_POW02_JDG, "")//116385
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -20198,7 +20199,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_01_GDI_JDG, "")
 	//Vector3 myGotoLocation (-187.848f, 526.480f, 3.518f);
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)	
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)	
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_WALKING_WAYPATH_01_JDG, 0 );
 			Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 5 );
@@ -20402,7 +20403,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_02_GDI_JDG, "")
 	//Vector3 myGotoLocation (-188.670f, 530.083f, 3.518f);
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)	
+		if (openw3d::stricmp(anim, "s_a_human.h_a_troopdrop") == 0)	
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_WALKING_WAYPATH_01_JDG, 0 );
 		}
@@ -21629,7 +21630,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.XG_EV5_troop") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}

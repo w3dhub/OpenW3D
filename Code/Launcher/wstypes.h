@@ -76,7 +76,7 @@ typedef unsigned int       uint32;
 
 #ifdef _WIN32
 #define strncasecmp _strnicmp
-#define strcasecmp  _stricmp
+#define strcasecmp  _openw3d::stricmp
 #endif  
 
 #endif

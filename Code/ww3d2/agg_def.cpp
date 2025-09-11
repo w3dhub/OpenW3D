@@ -256,7 +256,7 @@ AggregateDefClass::Find_Subobject
 				
 				// Is this the subobject we were looking for?
 				RenderObjClass *ptemp_obj = parent_model->Get_Sub_Object_On_Bone (subobj_index, bone_index);
-				if (::stricmp (ptemp_obj->Get_Name (), mesh_path[index]) == 0) {
+				if (::openw3d::stricmp (ptemp_obj->Get_Name (), mesh_path[index]) == 0) {
 					sub_obj = ptemp_obj;
 				} else {
 					REF_PTR_RELEASE (ptemp_obj);
@@ -519,7 +519,7 @@ AggregateDefClass::Is_Object_In_List
 		
 		// Is this the render object we were looking for?
 		if (prender_obj != NULL &&
-		    ::stricmp (prender_obj->Get_Name (), passet_name) == 0) {
+		    ::openw3d::stricmp (prender_obj->Get_Name (), passet_name) == 0) {
 			retval = true;
 		}
 	}	

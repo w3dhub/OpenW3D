@@ -285,7 +285,7 @@ void
 ParticleEmitterDefClass::Set_User_String (const char *pstring)		
 { 
 	SAFE_FREE (m_pUserString); 
-	m_pUserString = ::_strdup (pstring); 
+    m_pUserString = ::strdup (pstring);
 	return ;
 }
 
@@ -298,7 +298,7 @@ void
 ParticleEmitterDefClass::Set_Name (const char *pname)			
 { 
 	SAFE_FREE (m_pName); 
-	m_pName = ::_strdup (pname); 
+    m_pName = ::strdup (pname);
 	return ;
 }
 
@@ -540,7 +540,7 @@ ParticleEmitterDefClass::Read_Header (ChunkLoadClass &chunk_load)
 		if (chunk_load.Read (&header, sizeof (header)) == sizeof (header)) {
 
 			// Copy the name from the header structure
-			m_pName = ::_strdup (header.Name);
+            m_pName = ::strdup (header.Name);
 			m_Version = header.Version;
 
 			// Success!

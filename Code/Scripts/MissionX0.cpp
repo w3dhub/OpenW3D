@@ -37,6 +37,7 @@
 
 #include "scripts.h"
 #include "MissionX0.h"
+#include "wwlib/wwstring.h"
 
 
 DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
@@ -611,7 +612,7 @@ DECLARE_SCRIPT (MX0_Engineer1, "Damage_multiplier:float")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "H_A_J21C") == 0)
+		if (openw3d::stricmp(anim, "H_A_J21C") == 0)
 		{
 			doing_anim = false;			
 		}
@@ -885,7 +886,7 @@ DECLARE_SCRIPT (MX0_Engineer2, "Damage_multiplier:float")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "H_A_J21C") == 0)
+		if (openw3d::stricmp(anim, "H_A_J21C") == 0)
 		{
 			doing_anim = false;			
 		}
@@ -1550,7 +1551,7 @@ DECLARE_SCRIPT(MX0_NOD_INFANTRY, "troop_num:int")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.H_A_TroopDrop") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.H_A_TroopDrop") == 0)
 		{
 			Commands->Send_Custom_Event( obj, obj, 1, 0, 0.33f );
 		}

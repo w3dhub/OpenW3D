@@ -39,6 +39,7 @@
 #include "strtrim.h"
 #include <string.h>
 #include <stdio.h>
+#include "wwlib/wwstring.h"
 
 #define	CHUNKID_SCRIPTHEADER				'shdr'
 #define	CHUNKID_SCRIPTDATA				'sdat'
@@ -560,7 +561,7 @@ int ScriptImpClass::Get_Parameter_Index(const char* parameterName)
 		// Check for specified parameter
 		strtrim(param_ptr);
 
-		if (stricmp(param_ptr, parameterName) == 0) {
+		if (openw3d::stricmp(param_ptr, parameterName) == 0) {
 			return index;
 		}
 

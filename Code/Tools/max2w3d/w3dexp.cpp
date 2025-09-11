@@ -1132,7 +1132,7 @@ static bool dupe_check(const INodeListClass & list)
 		*/
 		if (!Is_Aggregate(list[i])) {
 			for (unsigned j = i+1; j<list.Num_Nodes(); j++) {
-				if (stricmp(list[i]->GetName(),list[j]->GetName()) == 0) {
+				if (openw3d::stricmp(list[i]->GetName(),list[j]->GetName()) == 0) {
 					char buf[256];
 					sprintf(buf,"Geometry Nodes with duplicated names found!\nDuplicated Name: %s\n",list[i]->GetName());
 					MessageBox(NULL,buf,"Error",MB_OK | MB_SETFOREGROUND);

@@ -1807,7 +1807,7 @@ int INIClass::Get_List_Index(char const * section, char const * entry, int const
 	}
 
 	for (int lp = 0; list[lp]; lp++) {
-		if (stricmp(entryptr->Value, list[lp]) == 0) {
+		if (openw3d::stricmp(entryptr->Value, list[lp]) == 0) {
 			return lp;
 		}
 		assert(lp < 1000);
@@ -1833,7 +1833,7 @@ int INIClass::Get_Int_Bitfield(char const * section, char const * entry, int def
 		for (lp = 0; list[lp]; lp++) {
 			// if this list entry matches our string token then we need
 			// to set this bit.
-			if (stricmp(token, list[lp]) == 0) {
+			if (openw3d::stricmp(token, list[lp]) == 0) {
 				retval |= (1 << lp);
 				break;
 			}

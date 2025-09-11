@@ -216,7 +216,7 @@ void CCameraProfileClass::Init( void )
 
 //			ProfileList.Add_Tail( profile );
 			// Convert to lower case
-			_strlwr(name.Peek_Buffer());
+            name.To_Lower();
 			ProfileHash.Insert(name,profile);
 		}
 
@@ -279,14 +279,14 @@ CCameraProfileClass	*	CCameraProfileClass::Find( const char * name )
 	char tmp[256];
 	strncpy(tmp,name,sizeof(tmp));
 	
-	_strlwr(tmp);
+    openw3d::tolower(tmp);
 	StringClass tmp_string(tmp,true);
 	CCameraProfileClass* profile = ProfileHash.Get(tmp_string);
 	return profile;
 
 //	SLNode<CCameraProfileClass> *node;
 //	for (	node = ProfileList.Head(); node; node = node->Next()) {
-//		if ( !stricmp( node->Data()->Name, name ) ) {
+//		if ( !openw3d::stricmp( node->Data()->Name, name ) ) {
 //			return node->Data();
 //		}
 //	}
@@ -1277,7 +1277,7 @@ void	CCameraClass::Use_Profile( const char * name )
 {
 	if ( name ) {
 		// quick reject if the same
-		if ( CurrentProfile && !stricmp( CurrentProfileName, name ) ) {
+		if ( CurrentProfile && !openw3d::stricmp( CurrentProfileName, name ) ) {
 			return;
 		}
 

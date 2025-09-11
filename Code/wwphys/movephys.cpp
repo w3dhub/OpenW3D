@@ -619,7 +619,7 @@ bool MoveablePhysDefClass::Load(ChunkLoadClass &cload)
 
 bool MoveablePhysDefClass::Is_Type(const char * type_name)
 {
-	if (stricmp(type_name,MoveablePhysDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::stricmp(type_name,MoveablePhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return DynamicPhysDefClass::Is_Type(type_name);

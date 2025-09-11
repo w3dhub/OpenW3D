@@ -539,7 +539,7 @@ WWAudioClass::Find_Cached_Buffer (const char *string_id)
 			// Is this the sound buffer we were looking for?
 			//
 			CACHE_ENTRY_STRUCT &info = m_CachedBuffers[hash_index][index];
-			if (::stricmp (info.string_id, string_id) == 0) {
+			if (::openw3d::stricmp (info.string_id, string_id) == 0) {
 				sound_buffer = info.buffer;
 				sound_buffer->Add_Ref ();
 				break;
@@ -1894,7 +1894,7 @@ WWAudioClass::Select_3D_Device (const char *device_name)
 			//
 			//	Is this the device we were looking for?
 			//
-			if (::stricmp (info->name, device_name) == 0) {
+			if (::openw3d::stricmp (info->name, device_name) == 0) {
 				retval = Select_3D_Device (device_name, info->driver);
 				break;
 			}
@@ -1931,7 +1931,7 @@ WWAudioClass::Select_3D_Device (const char *device_name, HPROVIDER provider)
 			//	Adjust the effects level to 1.0 if this is an EAX based driver
 			//
 			StringClass lower_name = device_name;
-			::strlwr (lower_name.Peek_Buffer ());
+            lower_name.To_Lower();
 			if (::strstr (device_name, "eax") != 0) {
 				m_EffectsLevel = 1.0F;
 			} else {

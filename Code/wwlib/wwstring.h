@@ -53,6 +53,43 @@
 #endif
 
 
+namespace openw3d{
+#ifdef _WIN32
+inline int stricmp(const char* str1, const char* str2){
+    return ::stricmp(str1, str2);
+}
+inline int strnicmp(const char* str1, const char* str2, size_t len){
+    return ::strnicmp(str1, str2, len);
+}
+#else
+inline int stricmp(const char* str1, const char* str2){
+    return strcasecmp(str1, str2);
+}
+
+inline int strnicmp(const char* str1, const char* str2, size_t len){
+    return strncasecmp(str1, str2, len);
+}
+#endif
+
+inline char* tolower(char* str1){
+    int x = 0;
+    while(str1[x] != '\0'){
+        str1[x] = ::tolower(str1[x]);
+        x++;
+    }
+    return str1;
+}
+
+inline char* toupper(char* str1){
+    int x = 0;
+    while(str1[x] != '\0'){
+        str1[x] = ::toupper(str1[x]);
+        x++;
+    }
+    return str1;
+}
+
+}
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -131,6 +168,9 @@ public:
 	const char * Peek_Buffer (void) const;
 
 	bool Copy_Wide (const wchar_t *source);
+
+    void To_Lower();
+    void To_Upper();
 
 	////////////////////////////////////////////////////////////
 	//	Static methods
@@ -376,7 +416,7 @@ StringClass::Compare (const char *string) const
 inline int
 StringClass::Compare_No_Case (const char *string) const
 {
-	return stricmp (m_Buffer, string);
+	return openw3d::stricmp (m_Buffer, string);
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -777,6 +817,18 @@ StringClass::Store_Length (int length)
 	}
 
 	return ;
+}
+
+inline void
+StringClass::To_Lower()
+{
+    openw3d::tolower(m_Buffer);
+}
+
+inline void
+StringClass::To_Upper()
+{
+    openw3d::toupper(m_Buffer);
 }
 
 #endif //__WWSTRING_H

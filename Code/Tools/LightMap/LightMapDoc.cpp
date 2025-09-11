@@ -1659,7 +1659,7 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 
 		// If the filename of the current document and the save document do not match
 		// or the document has been modified then the document must be saved.
-		if (IsModified() || stricmp (W3dFile->File_Name(), pathname) != 0) {
+		if (IsModified() || openw3d::stricmp (W3dFile->File_Name(), pathname) != 0) {
 
 			char				 drivename [_MAX_DRIVE];
 			char				 directoryname [_MAX_DIR];
@@ -1936,7 +1936,7 @@ void LightMapDoc::Rename_Lightmaps (ChunkLoadClass &loadchunk, ChunkSaveClass &s
 					// Otherwise leave it unmodified.
 					// NOTE: Ignore case sensitivity in the directory name comparison.
 					savechunk.Begin_Chunk (loadpathchunk->ChunkType);
-					if ((strlen (loaddrivename) == 0) && (stricmp (loaddirectoryname, LightscapeSolve::Asset_Directory()) == 0)) {
+					if ((strlen (loaddrivename) == 0) && (openw3d::stricmp (loaddirectoryname, LightscapeSolve::Asset_Directory()) == 0)) {
 						strcpy (pathname, LightscapeSolve::Asset_Directory (lightmapdirectory));
 						strcat (pathname, loadfilename);
 						strcat (pathname, loadextname);

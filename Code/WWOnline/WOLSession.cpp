@@ -831,7 +831,7 @@ RefPtr<ChannelData> Session::FindChannel(const char* channelName)
 		{
 		WOL::Channel& wolChannel = mCurrentChannel->GetData();
 
-		if (stricmp(channelName, (const char*)wolChannel.name) == 0)
+		if (openw3d::stricmp(channelName, (const char*)wolChannel.name) == 0)
 			{
 			return mCurrentChannel;
 			}
@@ -3077,7 +3077,7 @@ void Session::RequestPing(const char* address, int timeout)
 
 		while (iter != mPingRequests.end())
 			{
-			if (stricmp(iter->GetHostAddress(), address) == 0)
+			if (openw3d::stricmp(iter->GetHostAddress(), address) == 0)
 				{
 //				WWDEBUG_SAY(("WOLWARNING: Ping request already pending %s\n", address));
 				return;
@@ -3163,7 +3163,7 @@ void Session::UpdatePingServerTime(const char* name, int time)
 			{
 			const char* pinger = pingers[index]->GetHostAddress();
 
-			if (stricmp(name, pinger) == 0)
+			if (openw3d::stricmp(name, pinger) == 0)
 				{
 				if (time < 0)
 					{

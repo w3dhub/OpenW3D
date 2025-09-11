@@ -874,7 +874,7 @@ bool SlaveMasterClass::Shutdown_Slave(char *slave_login)
 		reg.Get_String(SERVER_CONTROL_PASSWORD_KEY, password, sizeof(password), password);
 
 		for (int i=0 ; i<NumSlaveServers ; i++) {
-			if (SlaveServers[i].IsRunning && stricmp(slave_login, SlaveServers[i].NickName) == 0) {
+			if (SlaveServers[i].IsRunning && openw3d::stricmp(slave_login, SlaveServers[i].NickName) == 0) {
 
 				/*
 				** In case the slave was restarted - we won't know it's new process ID.

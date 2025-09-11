@@ -120,7 +120,7 @@ void WOLConsoleFunctionClass::Activate(const char* input)
 
 	while (cmd != NULL)
 		{
-		if (stricmp(cmd, input) == 0)
+		if (openw3d::stricmp(cmd, input) == 0)
 			{
 			_dispatch[index].Func(session);
 			return;

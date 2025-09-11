@@ -115,7 +115,7 @@ ModPackageClass::Build_Level_List (DynamicVectorClass<StringClass> &list) const
 	for (int file_index = 0; file_index < files_in_mix.Count (); file_index ++) {
 		const char *filename = files_in_mix[file_index];
 		StringClass temp_str (filename, true);
-		::strlwr (temp_str.Peek_Buffer ());
+        temp_str.To_Lower();
 
 		//
 		//	Add this file to our list if it matches the mask

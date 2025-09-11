@@ -40,6 +40,7 @@
 #include "Toolkit.h"
 #include "Mission1.h"
 #include "Mission11.h"
+#include "wwlib/wwstring.h"
 
 DECLARE_SCRIPT(M04_Objective_Controller_JDG, "")//this guys ID number is M04_OBJECTIVE_CONTROLLER_JDG 100424
 {
@@ -7318,7 +7319,7 @@ DECLARE_SCRIPT(M04_TibHold_Mutant_NoThreat_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_C_Human.H_C_Tubedie") == 0)
+		if (openw3d::stricmp(anim, "S_C_Human.H_C_Tubedie") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -9567,7 +9568,7 @@ DECLARE_SCRIPT(M04_TorpedoRoom_Target01_JDG, "")//DSP_L4TORPEDO
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "DSP_L4TORPEDO.DSP_L4TORPEDO") == 0)
+		if (openw3d::stricmp(anim, "DSP_L4TORPEDO.DSP_L4TORPEDO") == 0)
 		{
 			animationCount++;
 			if (animationCount >= 2)
@@ -9633,7 +9634,7 @@ DECLARE_SCRIPT(M04_TorpedoRoom_Target02_JDG, "")//DSP_L4TORPEDOR
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "DSP_L4TORPEDOR.DSP_L4TORPEDOR") == 0)
+		if (openw3d::stricmp(anim, "DSP_L4TORPEDOR.DSP_L4TORPEDOR") == 0)
 		{
 			animationCount++;
 			if (animationCount >= 2)
