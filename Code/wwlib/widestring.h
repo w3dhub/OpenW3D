@@ -53,6 +53,24 @@
 #include "osdep.h"
 #endif
 
+namespace openw3d{
+inline int wcsnicmp(const wchar_t* str1, const wchar_t* str2, size_t len){
+#if _WIN32
+    return ::wcsnicmp(str1, str2, len);
+#else
+    return wcsncasecmp(str1, str2, len);
+#endif
+}
+
+inline int wcsicmp(const wchar_t* str1, const wchar_t* str2){
+#if _WIN32
+    return ::wcsicmp(str1, str2);
+#else
+    return wcscasecmp(str1, str2);
+#endif
+}
+}
+
 //////////////////////////////////////////////////////////////////////
 //
 //	WideStringClass
@@ -304,7 +322,11 @@ inline int
 WideStringClass::Compare_No_Case (const wchar_t *string) const
 {
 	if (string) {
+#if _WIN32
 		return _wcsicmp (m_Buffer, string);
+#else
+        return wcscasecmp(m_Buffer, string);
+#endif
 	}
 
 	return -1;

@@ -268,7 +268,7 @@ AccessiblePhysDefClass::Is_Type (const char *type_name)
 {
 	bool retval = false;
 
-	if (::stricmp (type_name, AccessiblePhysDefClass::Get_Type_Name ()) == 0) {
+	if (::openw3d::stricmp (type_name, AccessiblePhysDefClass::Get_Type_Name ()) == 0) {
 		retval = true;
 	} else {
 		retval = StaticAnimPhysDefClass::Is_Type (type_name);

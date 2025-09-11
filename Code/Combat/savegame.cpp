@@ -60,6 +60,7 @@
 #include "wwprofile.h"
 #include <stdlib.h>
 #include "specialbuilds.h"
+#include "wwlib/wwstring.h"
 
 /*
 **
@@ -175,7 +176,7 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	//	Is this a mix file?
 	//
-	if (::strcmpi (extension, ".mix") == 0) {
+    if (openw3d::stricmp (extension, ".mix") == 0) {
 		
 		StringClass thumb_filename(root_name,true);
 		thumb_filename+=".thu";
@@ -190,13 +191,13 @@ void	SaveGameManager::Pre_Load_Game
 		//
 		//	HACK HACK - Put the level 9 mix file first...
 		//
-		if (	::stricmp (filename, "M09.mix") == 0 &&
+		if (	::openw3d::stricmp (filename, "M09.mix") == 0 &&
 				FileFactoryListClass::Get_Instance () != NULL)
 		{
 			FileFactoryListClass::Get_Instance ()->Set_Search_Start(filename);
 		}
 
-	} else if (::strcmpi (extension, ".lsd") == 0) {		
+    } else if (openw3d::stricmp (extension, ".lsd") == 0) {
 		lsd_filename = filename;
 		filename_to_load.Format ("%s.ldd", root_name);
 	} else {
@@ -220,7 +221,7 @@ void	SaveGameManager::Pre_Load_Game
 			//
 			//	HACK HACK - Put the level 9 mix file first...
 			//
-			if (	::stricmp (mix_filename, "M09.mix") == 0 &&
+			if (	::openw3d::stricmp (mix_filename, "M09.mix") == 0 &&
 					FileFactoryListClass::Get_Instance () != NULL)
 			{
 				FileFactoryListClass::Get_Instance ()->Set_Search_Start(mix_filename);
@@ -325,7 +326,7 @@ bool	SaveGameManager::Smart_Peek_Description
 	//	Is this a mix file?
 	//
 	FileFactoryClass * mix_factory = NULL;
-	if (::strcmpi (extension, ".mix") == 0) {		
+    if (openw3d::stricmp (extension, ".mix") == 0) {
 		
 		//
 		// Configure a mix file factory for this mix file

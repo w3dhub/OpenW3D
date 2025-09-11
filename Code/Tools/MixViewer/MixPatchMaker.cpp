@@ -120,7 +120,7 @@ void MixPatchMakerClass::Thread_Make(void)
 				strupr(name);
 				bool copy = false;
 
-				if (stricmp(name, "STRINGS.TDB") == 0) {
+				if (openw3d::stricmp(name, "STRINGS.TDB") == 0) {
 					continue;
 				}
 
@@ -130,7 +130,7 @@ void MixPatchMakerClass::Thread_Make(void)
 				bool found = false;
 				for (int j=0 ; j<old_filename_list.Count() ; j++) {
 					strcpy(name_compare, old_filename_list[j].Peek_Buffer());
-					if (stricmp(name, name_compare) == 0) {
+					if (openw3d::stricmp(name, name_compare) == 0) {
 						found = true;
 
 						/*

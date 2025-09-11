@@ -92,7 +92,7 @@ uint32 ShakeableStaticPhysDefClass::Get_Class_ID(void) const
 
 bool ShakeableStaticPhysDefClass::Is_Type(const char * type_name)
 {
-	if (stricmp(type_name,ShakeableStaticPhysDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::stricmp(type_name,ShakeableStaticPhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return StaticAnimPhysDefClass::Is_Type(type_name);

@@ -512,7 +512,7 @@ RenderObjClass * RenderObjClass::Get_Sub_Object_By_Name(const char * name) const
 	for (i=0; i<Get_Num_Sub_Objects(); i++) {
 		RenderObjClass * robj = Get_Sub_Object(i);
 		if (robj) {
-			if (stricmp(robj->Get_Name(),name) == 0) {
+			if (openw3d::stricmp(robj->Get_Name(),name) == 0) {
 				return robj;
 			} else {
 				robj->Release_Ref();
@@ -532,7 +532,7 @@ RenderObjClass * RenderObjClass::Get_Sub_Object_By_Name(const char * name) const
 				subobjname = subobjname+1;
 			}
 
-			if (stricmp(subobjname,name) == 0) {
+			if (openw3d::stricmp(subobjname,name) == 0) {
 				return robj;
 			} else {
 				robj->Release_Ref();
@@ -1105,7 +1105,7 @@ void RenderObjClass::Add_Dependencies_To_List
 		const HTreeClass *phtree = Get_HTree ();
 		if (phtree != NULL) {
 			const char *htree_name = phtree->Get_Name ();
-			if (::stricmp (htree_name, model_name) != 0) {
+			if (::openw3d::stricmp (htree_name, model_name) != 0) {
 								
 				//
 				// Add this file to the list
@@ -1397,7 +1397,7 @@ void RenderObjClass::Load_Sub_Object_User_Lighting(ChunkLoadClass & cload)
 	int bone_obj_count = Get_Num_Sub_Objects_On_Bone(bone_index);
 	for (int obj_index=0; (obj_index<bone_obj_count) && (obj == NULL); obj_index++) {
 		RenderObjClass * sub_obj = Get_Sub_Object_On_Bone(obj_index,bone_index);
-		if (stricmp(sub_obj->Get_Name(), tmp_string) == 0) {
+		if (openw3d::stricmp(sub_obj->Get_Name(), tmp_string) == 0) {
 			obj = sub_obj;
 		}
 		REF_PTR_RELEASE(sub_obj);

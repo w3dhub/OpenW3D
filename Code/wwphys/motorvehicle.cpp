@@ -477,7 +477,7 @@ bool MotorVehicleDefClass::Load(ChunkLoadClass &cload)
 
 bool MotorVehicleDefClass::Is_Type(const char * type_name)
 {
-	if (stricmp(type_name,MotorVehicleDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::stricmp(type_name,MotorVehicleDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return VehiclePhysDefClass::Is_Type(type_name);

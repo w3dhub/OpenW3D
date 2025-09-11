@@ -236,15 +236,15 @@ int VehicleDazzleClass::Determine_Type(RenderObjClass * obj)
 		DazzleRenderObjClass * dazzle = (DazzleRenderObjClass *)obj;
 		const char * type_name = DazzleRenderObjClass::Get_Type_Name(dazzle->Get_Dazzle_Type());
 		
-		if (strnicmp(type_name,HEADLIGHT_NAME_PREFIX,strlen(HEADLIGHT_NAME_PREFIX)) == 0) {
+        if (openw3d::strnicmp(type_name,HEADLIGHT_NAME_PREFIX,strlen(HEADLIGHT_NAME_PREFIX)) == 0) {
 			return HEADLIGHT_TYPE;
 		}
 		
-		if (strnicmp(type_name,BRAKELIGHT_NAME_PREFIX,strlen(BRAKELIGHT_NAME_PREFIX)) == 0) {
+        if (openw3d::strnicmp(type_name,BRAKELIGHT_NAME_PREFIX,strlen(BRAKELIGHT_NAME_PREFIX)) == 0) {
 			return BRAKELIGHT_TYPE;
 		}
 
-		if (strnicmp(type_name,BLINKLIGHT_NAME_PREFIX,strlen(BLINKLIGHT_NAME_PREFIX)) == 0) {
+        if (openw3d::strnicmp(type_name,BLINKLIGHT_NAME_PREFIX,strlen(BLINKLIGHT_NAME_PREFIX)) == 0) {
 			return BLINKLIGHT_TYPE;
 		}
 

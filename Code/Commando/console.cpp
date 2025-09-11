@@ -1259,15 +1259,15 @@ void ConsoleGameModeClass::Update_Suggestion(char * cmd,bool go_to_next)
 void	ConsoleGameModeClass::Profile_Command( const char * command )
 {
 	if ( ProfileIterator != NULL ) {
-		if ( stricmp( command, "log" ) == 0 ) {
+		if ( openw3d::stricmp( command, "log" ) == 0 ) {
 			if (profile_log_active) End_Profile_Log();
 			else Begin_Profile_Log();
-		} else if ( stricmp( command, "off" ) == 0 ) {
+		} else if ( openw3d::stricmp( command, "off" ) == 0 ) {
 			WWProfileManager::Release_Iterator( ProfileIterator );
 			ProfileIterator = NULL;
-		} else	if ( stricmp( command, "reset" ) == 0 ) {
+		} else	if ( openw3d::stricmp( command, "reset" ) == 0 ) {
 			WWProfileManager::Reset();
-		} else	if ( stricmp( command, "up" ) == 0 ) {
+		} else	if ( openw3d::stricmp( command, "up" ) == 0 ) {
 			ProfileIterator->Enter_Parent();
 		} else {
 			int index = atoi( command );
@@ -1278,7 +1278,7 @@ void	ConsoleGameModeClass::Profile_Command( const char * command )
 	}
 
 	if ( ProfileIterator == NULL ) {
-		if ( stricmp( command, "on" ) == 0 ) {
+		if ( openw3d::stricmp( command, "on" ) == 0 ) {
 			ProfileIterator = WWProfileManager::Get_Iterator();
 		}
 	}

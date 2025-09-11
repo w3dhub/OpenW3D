@@ -38,6 +38,7 @@
 #include "Mission5.h"
 #include "Toolkit.h"
 #include "scripts.h"
+#include "wwlib/wwstring.h"
 
 
 // M05C
@@ -7604,7 +7605,7 @@ DECLARE_SCRIPT(M05_APC_Deploy_Soldier, "APC_ID=0:int")
 	
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "S_A_Human.H_A_XG_NAPC_OUT") == 0)
+		if (openw3d::stricmp(anim, "S_A_Human.H_A_XG_NAPC_OUT") == 0)
 		{
 			GameObject * apc = Commands->Find_Object(Get_Int_Parameter("APC_ID"));
 			Commands->Attach_To_Object_Bone(obj, NULL, NULL);

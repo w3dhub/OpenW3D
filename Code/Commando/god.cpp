@@ -442,7 +442,7 @@ void cGod::Reinitialize_Ai_On_Star(void)
 		//
 		const GameObjObserverList & observer_list = p_my_soldier->Get_Observers();
 		for (int index = 0; index < observer_list.Count(); index++) {
-			if (!stricmp(observer_list[index]->Get_Name(), "Innate Soldier")) {
+			if (!openw3d::stricmp(observer_list[index]->Get_Name(), "Innate Soldier")) {
 				p_my_soldier->Remove_Observer(observer_list[index]);
 				break; // probably not safe to continue
 			}

@@ -447,7 +447,7 @@ void	StatisticsDisplayManager::Set_Display( const char * title )
 
 bool StatisticsDisplayManager::Is_Current_Display( const char* title) // Returns true if "title" is currently active
 {
-	return !stricmp( _StatsTitle, title );
+	return !openw3d::stricmp( _StatsTitle, title );
 }
 
 void	StatisticsDisplayManager::Set_Stat( const char * title, const char * text, unsigned long color, const Vector2& location )

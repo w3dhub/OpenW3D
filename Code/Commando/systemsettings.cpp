@@ -268,7 +268,7 @@ void	SystemSettingEntryEnum::Set_Selection( const char * name )
 {
 	bool found = false;
 	for ( int i = 0; i < Get_Enum_Count(); i++ ) {
-		if ( stricmp( name, Get_Enum_Name( i ) ) == 0 ) {
+		if ( openw3d::stricmp( name, Get_Enum_Name( i ) ) == 0 ) {
 			Set_Selection( i );
 			found = true;
 		}
@@ -672,7 +672,7 @@ void SystemSettings::Shutdown( void )
 MenuEntryClass	* SystemSettings::Create_Menu_Entry( const char * setting_name )
 {
 	for ( int index = 0; index < SettingList.Count(); index++ ) {
-		if ( !stricmp( SettingList[ index ]->Get_Name(), setting_name ) ) {
+		if ( !openw3d::stricmp( SettingList[ index ]->Get_Name(), setting_name ) ) {
 			MenuEntryClass	* entry = SettingList[ index ]->Create_Menu_Entry();
 			if ( entry ) {
 				entry->Set_Name( setting_name );

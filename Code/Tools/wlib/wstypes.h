@@ -112,7 +112,7 @@ typedef double             float64;
 
 #ifdef _WINDOWS
 #define strncasecmp _strnicmp
-#define strcasecmp  _stricmp
+#define strcasecmp  _openw3d::stricmp
 #endif  
 
 #endif

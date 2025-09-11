@@ -158,7 +158,7 @@ ParticleEmitterClass::ParticleEmitterClass(const ParticleEmitterClass & src) :
 	FirstTime = true;
 	IsComplete = false;
 
-	NameString = ::_strdup (src.NameString);
+    NameString = ::strdup (src.NameString);
 }
 
 
@@ -840,7 +840,7 @@ ParticleEmitterClass::Set_Name (const char *pname)
 	}
 
 	// Copy the provided name
-	NameString = ::_strdup (pname);
+    NameString = ::strdup (pname);
 	return ;
 }
 

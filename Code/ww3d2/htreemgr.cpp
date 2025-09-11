@@ -172,7 +172,7 @@ int HTreeManagerClass::Load_Tree(ChunkLoadClass & cload)
 
 		// Insert to hash table for fast name based search
 		StringClass lower_case_name(newtree->Get_Name(),true);
-		_strlwr(lower_case_name.Peek_Buffer());
+        lower_case_name.To_Lower();
 		TreeHash.Insert(lower_case_name,newtree);
 	}
 
@@ -199,7 +199,7 @@ Error:
 int HTreeManagerClass::Get_Tree_ID(const char * name)
 {
 	for (int i=0; i<NumTrees; i++) {
-		if (TreePtr[i] && (stricmp(name,TreePtr[i]->Get_Name()) == 0)) {
+		if (TreePtr[i] && (openw3d::stricmp(name,TreePtr[i]->Get_Name()) == 0)) {
 			return i;
 		}
 	}
@@ -246,11 +246,11 @@ char *HTreeManagerClass::Get_Tree_Name(const int idx)
 HTreeClass * HTreeManagerClass::Get_Tree(const char * name)
 {
 	StringClass lower_case_name(name,true);
-	_strlwr(lower_case_name.Peek_Buffer());
+    lower_case_name.To_Lower();
 	return TreeHash.Get(lower_case_name);
 
 //	for (int i=0; i<NumTrees; i++) {
-//		if (TreePtr[i] && (stricmp(name,TreePtr[i]->Get_Name()) == 0)) {
+//		if (TreePtr[i] && (openw3d::stricmp(name,TreePtr[i]->Get_Name()) == 0)) {
 //
 //			return TreePtr[i];
 //		}
