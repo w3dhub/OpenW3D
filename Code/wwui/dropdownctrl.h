@@ -86,8 +86,8 @@ public:
 	void					Delete_String (int index);
 	int					Find_String (const wchar_t* string);
 	int					Find_Closest_String(const wchar_t* string);
-	void					Set_Item_Data (int index, uint32 data);
-	uint32				Get_Item_Data (int index);
+	void					Set_Item_Data (int index, uintptr_t data);
+	uintptr_t				Get_Item_Data (int index);
 	void					Reset_Content (void);
 	
 	//
@@ -146,7 +146,7 @@ protected:
 	typedef struct _ENTRY
 	{
 		WideStringClass	text;
-		uint32				user_data;
+		uintptr_t				user_data;
 
 		bool operator== (const _ENTRY &src)	{ return false; }
 		bool operator!= (const _ENTRY &src)	{ return true; }
@@ -154,7 +154,7 @@ protected:
 		_ENTRY (void)	:
 			user_data (0) {}
 
-		_ENTRY (const wchar_t *_text, uint32 _data)	:
+		_ENTRY (const wchar_t *_text, uintptr_t _data)	:
 			text (_text), user_data (_data) {}
 
 	} ENTRY;

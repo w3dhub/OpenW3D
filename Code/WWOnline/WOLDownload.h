@@ -200,7 +200,7 @@ class DownloadEvent
 	};
 
 
-typedef void (*DownloadWaitCallback)(DownloadEvent& event, unsigned long userdata);
+typedef void (*DownloadWaitCallback)(DownloadEvent& event, void *userdata);
 
 class DownloadWait :
 		public SingleWait,
@@ -215,7 +215,7 @@ class DownloadWait :
 
 		void EndWait(WaitResult, const wchar_t*) override;
 
-		void SetCallback(DownloadWaitCallback callback, unsigned long userdata);
+		void SetCallback(DownloadWaitCallback callback, void *userdata);
 
 		unsigned int GetDownloadCount(void) const
 			{return mFiles.size();}
@@ -242,7 +242,7 @@ class DownloadWait :
 		RefPtr<Download> mCurrentDownload;
 
 		DownloadWaitCallback mCallback;
-		unsigned long mUserdata;
+		void *mUserdata;
 	};
 
 } // namespace WWOnline

@@ -118,7 +118,7 @@ fnEditToFloatProc
 void
 Make_Edit_Float_Ctrl (HWND edit_wnd)
 {
-	LONG old_proc = ::SetWindowLong (edit_wnd, GWL_WNDPROC, (LONG)fnEditToFloatProc);
+	LONG_PTR old_proc = ::SetWindowLong (edit_wnd, GWLP_WNDPROC, (LONG_PTR)fnEditToFloatProc);
 	SetProp (edit_wnd, "OLD_WND_PROC", (HANDLE)old_proc);
 	return ;
 }

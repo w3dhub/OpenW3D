@@ -176,7 +176,7 @@ DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == SNIPER1KILLED)
 		{
@@ -617,7 +617,7 @@ DECLARE_SCRIPT (MX0_Engineer1, "Damage_multiplier:float")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == CROUCH_WANDER)
 		{
@@ -891,7 +891,7 @@ DECLARE_SCRIPT (MX0_Engineer2, "Damage_multiplier:float")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == CROUCH_WANDER)
 		{
@@ -995,7 +995,7 @@ DECLARE_SCRIPT(MX0_Engineer_Goto, "GotoDest1:int, GotoDest2:int, Count:int")
 		already_entered = false;
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == RETURN_ENGINEER1)
 		{
@@ -1040,7 +1040,7 @@ DECLARE_SCRIPT(MX0_Engineer_Goto2, "GotoDest1:int, GotoDest2:int, Count:int")
 		already_entered = false;
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == RETURN_ENGINEER1)
 		{
@@ -1209,7 +1209,7 @@ DECLARE_SCRIPT (MX0_AmbientBattle, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == battle_sound)
 		{
@@ -1235,7 +1235,7 @@ DECLARE_SCRIPT (MX0_SniperAction, "FaceObj:int")
 		Commands->Innate_Disable (obj);
 	}
 
-	void Custom (GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if(type == START_SNIPER)
 		{
@@ -1302,7 +1302,7 @@ DECLARE_SCRIPT (MX0_KillNotify, "")
 	}
 
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if(type == START_SNIPER)
 		{
@@ -1397,7 +1397,7 @@ DECLARE_SCRIPT(MX0_A03_NOD_PLACED_MINIGUNNER, "" )
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if (type == MX0_A03_CUSTOM_NOD_PLACED_MINIGUNNER_INNATE_ENABLE )
 		{
@@ -1472,7 +1472,7 @@ DECLARE_SCRIPT(MX0_GDI_ORCA, "" )
 		}
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == 1 )
 		{
@@ -1564,7 +1564,7 @@ DECLARE_SCRIPT(MX0_NOD_INFANTRY, "troop_num:int")
 		}
 	}
 
-	void Custom ( GameObject *obj, int type, int param, GameObject *target ) override
+	void Custom ( GameObject *obj, int type, uintptr_t param, GameObject *target ) override
 	{
 		if (type == 0) // GDI troop is attacking you! attack back!
 		{
@@ -1698,7 +1698,7 @@ DECLARE_SCRIPT(MX0_A03_GDI_INFANTRY, "troop_num:int" )
 		}
 	}
 
-	void Custom ( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom ( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == 0 ) // Rocket troop attack
 		{			
@@ -1823,7 +1823,7 @@ DECLARE_SCRIPT (MX0_A03_CONTROLLER_DAK, "" )
 		zone_not_finished = true;
 	}
 
-	void Custom ( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom ( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == 0 )
 		{
@@ -2162,7 +2162,7 @@ DECLARE_SCRIPT ( MX0_A03_HUMVEE, "" ) // moves humvee
 		}
 	}
 
-	void Custom ( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom ( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == 1 ) // halt fire for 1 - 3 seconds.
 		{
@@ -2249,7 +2249,7 @@ DECLARE_SCRIPT ( MX0_A03_TANK, "" ) // moves tank
 		}
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == 0 ) // attack Target_Id[target]
 		{
@@ -2272,7 +2272,7 @@ DECLARE_SCRIPT ( MX0_A03_NOD_BUGGIE, "" )
 	{
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == 1 )
 		{
@@ -2320,7 +2320,7 @@ DECLARE_SCRIPT ( MX0_A03_NOD_TROOPER_TIB_DEATH, "" )
 		}
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == M00_SEND_OBJECT_ID )
 		{
@@ -2396,7 +2396,7 @@ DECLARE_SCRIPT ( MX0_A03_NOD_HARVESTER, "" )
 	{
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == MX0_A03_CUSTOM_NOD_HARVESTER_DMG_SELF )
 		{
@@ -2444,7 +2444,7 @@ DECLARE_SCRIPT( MX0_A03_GDI_TROOPER_ONE, "" )
 		}
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{		
 		if (type == 0) // move along MX0_A03_WAYPATH_GDI_TROOPER_ONE_B_ID 
 		{
@@ -2523,7 +2523,7 @@ DECLARE_SCRIPT( MX0_A03_HAVOC_TANK, "" )
 		SAVE_VARIABLE(first_time, 1);
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if (type == CUSTOM_EVENT_VEHICLE_ENTERED )
 		{
@@ -2583,7 +2583,7 @@ DECLARE_SCRIPT( MX0_A03_FIRST_PLAYER_ZONE, "" )
 		}
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender ) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
 	{
 		if ( type == M00_SEND_OBJECT_ID )
 		{
@@ -2663,7 +2663,7 @@ DECLARE_SCRIPT ( MX0_A03_END_ZONE, "" )
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == MX0_A03_CUSTOM_LOCK_END_ZONE )
 		{

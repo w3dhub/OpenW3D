@@ -145,7 +145,7 @@ WaypointClass::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 				
 		WaypointClass *this_ptr = this;
-		WRITE_MICRO_CHUNK (csave, VARID_OLD_PTR,		this_ptr);
+		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR,		this_ptr);
 		WRITE_MICRO_CHUNK (csave, VARID_FLAGS,			m_Flags);		
 		WRITE_MICRO_CHUNK (csave, VARID_POSITION,		m_Position);		
 		WRITE_MICRO_CHUNK (csave, VARID_ID,				m_ID);
@@ -205,7 +205,7 @@ WaypointClass::Load_Variables (ChunkLoadClass &cload)
 				// to the remapping system.
 				//				
 				WaypointClass *old_ptr = NULL;
-				cload.Read (&old_ptr, sizeof (old_ptr));
+				cload.Read (&old_ptr, sizeof (int));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 			}
 			break;

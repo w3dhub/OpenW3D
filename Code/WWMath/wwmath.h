@@ -313,7 +313,7 @@ WWINLINE long WWMath::Float_To_Long(float f)
 #else 
 WWINLINE long WWMath::Float_To_Long(float f)
 {
-	return (long) f;
+	return (long) (f + 0.5f);
 }
 #endif
 

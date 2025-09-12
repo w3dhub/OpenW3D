@@ -90,8 +90,8 @@ public:
 	void				Delete_String (int index);
 	int				Find_String (const wchar_t* string)		{ return DropDownCtrl.Find_String (string); }
 	int				Select_String (const wchar_t* string);
-	void				Set_Item_Data (int index, uint32 data)				{ DropDownCtrl.Set_Item_Data (index, data); Set_Dirty();}
-	uint32			Get_Item_Data (int index)								{ return DropDownCtrl.Get_Item_Data (index); }
+	void				Set_Item_Data (int index, uintptr_t data)				{ DropDownCtrl.Set_Item_Data (index, data); Set_Dirty();}
+	uintptr_t			Get_Item_Data (int index)								{ return DropDownCtrl.Get_Item_Data (index); }
 	void				Reset_Content (void)										{ DropDownCtrl.Reset_Content (); }
 	bool				Get_String (int index, WideStringClass &string)	{ return DropDownCtrl.Get_String (index, string); }
 	

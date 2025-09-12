@@ -66,6 +66,8 @@
 #include "gametype.h"
 #include "stylemgr.h"
 
+#define INVALID_HUD_WEAPON ((WeaponClass *)(uintptr_t)-1)
+
 
 static void Generate_WChar_Text_From_Number(wchar_t* text,int digits,int min_digits,int value)
 {
@@ -774,7 +776,7 @@ const char * _Seat_Textures[3] = {
 
 static	void	Weapon_Reset( void ) 
 {
-	_LastHUDWeapon = (WeaponClass *)0xFFFFFFFF;		// force weapon to re-draw next
+	_LastHUDWeapon = INVALID_HUD_WEAPON;		// force weapon to re-draw next
 	_LastVehicleSeat = -1;	// force vehicle seat to re-draw next
 }
 
@@ -864,7 +866,7 @@ static	void	Weapon_Update( void )
 
 		if ( _LastVehicleSeat != seat ) {
 			_LastVehicleSeat = seat;
-			_LastHUDWeapon = (WeaponClass *)0xFFFFFFFF;		// force weapon to re-draw next
+			_LastHUDWeapon = INVALID_HUD_WEAPON;		// force weapon to re-draw next
 
 			WeaponImageRenderer->Reset();
 			StringClass filename = _Seat_Textures[seat];

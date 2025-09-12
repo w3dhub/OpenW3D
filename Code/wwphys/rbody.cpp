@@ -2099,7 +2099,7 @@ bool RigidBodyClass::Save (ChunkSaveClass &csave)
 	
 	ODESystemClass * ode_ptr = (ODESystemClass *)this;
 	csave.Begin_Chunk(RBODY_CHUNK_VARIABLES);
-	WRITE_MICRO_CHUNK(csave,RBODY_VARIABLE_ODESYSTEM_PTR,ode_ptr);
+	WRITE_MICRO_CHUNK_PTR(csave,RBODY_VARIABLE_ODESYSTEM_PTR,ode_ptr);
 	WRITE_MICRO_CHUNK(csave,RBODY_VARIABLE_IBODY,IBody);
 	WRITE_MICRO_CHUNK(csave,RBODY_VARIABLE_IBODYINV,IBodyInv);
 	WRITE_MICRO_CHUNK(csave,RBODY_VARIABLE_STATE_POSITION,State.Position);
@@ -2127,7 +2127,7 @@ bool RigidBodyClass::Load (ChunkLoadClass &cload)
 			
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK(cload,RBODY_VARIABLE_ODESYSTEM_PTR,odesys);
+						READ_MICRO_CHUNK_PTR(cload,RBODY_VARIABLE_ODESYSTEM_PTR,odesys);
 						READ_MICRO_CHUNK(cload,RBODY_VARIABLE_IBODY,IBody);
 						READ_MICRO_CHUNK(cload,RBODY_VARIABLE_IBODYINV,IBodyInv);
 						READ_MICRO_CHUNK(cload,RBODY_VARIABLE_STATE_POSITION,State.Position);

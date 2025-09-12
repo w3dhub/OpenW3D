@@ -180,14 +180,14 @@ fnColorPickerProc
 
 				WNDPROC *pOldWndProc = pwnd->GetSuperWndProcAddr ();
 				if (pOldWndProc) {
-					WNDPROC pold_proc = (WNDPROC)::SetWindowLong (hwnd, GWL_WNDPROC, (DWORD)::AfxGetAfxWndProc ());
+					WNDPROC pold_proc = (WNDPROC)::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)::AfxGetAfxWndProc ());
 					ASSERT (pold_proc != NULL);
 					(*pOldWndProc) = pold_proc;
 				}
 
 				// Store some information in the window handle
-				::SetProp (hwnd, "CLASSPOINTER", (HANDLE)pwnd);
-				::SetProp (hwnd, "CREATED", (HANDLE)created);
+				::SetProp (hwnd, "CLASSPOINTER", (HANDLE)(LONG_PTR)pwnd);
+				::SetProp (hwnd, "CREATED", (HANDLE)(LONG_PTR)created);
 			}
 		}
 		break;			
@@ -198,7 +198,7 @@ fnColorPickerProc
 
 			WNDPROC *pOldWndProc = pwnd->GetSuperWndProcAddr ();
 			if (pOldWndProc) {
-				::SetWindowLong (hwnd, GWL_WNDPROC, (DWORD)(*pOldWndProc));
+				::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)(*pOldWndProc));
 				(*pOldWndProc) = NULL;
 			}
 
@@ -209,14 +209,14 @@ fnColorPickerProc
 
 			// Get the creation information from the window handle
 			ColorPickerClass *pwnd = (ColorPickerClass *)::GetProp (hwnd, "CLASSPOINTER");
-			BOOL created = (BOOL)::GetProp (hwnd, "CREATED");
+			BOOL created = (BOOL)(LONG_PTR)::GetProp (hwnd, "CREATED");
 
 			if (pwnd != NULL) {
 				pwnd->Detach ();
 
 				WNDPROC *pOldWndProc = pwnd->GetSuperWndProcAddr ();
 				if (pOldWndProc) {
-					::SetWindowLong (hwnd, GWL_WNDPROC, (DWORD)(*pOldWndProc));
+					::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)(*pOldWndProc));
 					(*pOldWndProc) = NULL;
 				}
 
@@ -278,7 +278,7 @@ ColorPickerClass::Create
 										 rect.right - rect.left,
 										 rect.bottom - rect.top,
 										 hparent_wnd,
-										 (HMENU)nID,
+										 (HMENU)(LONG_PTR)nID,
 										 ::AfxGetInstanceHandle (),
 										 this);
 

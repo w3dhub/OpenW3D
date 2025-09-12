@@ -287,8 +287,8 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 			if (src_end == NULL) {						\
 				dest = src_start;							\
 			} else {											\
-				uint32 bytes	= ((uint32)src_end - (uint32)src_start);	\
-				uint32 len		= bytes / sizeof (wchar_t);						\
+				size_t bytes	= src_end - src_start;	\
+				size_t len		= bytes / sizeof (wchar_t);						\
 				::memcpy (dest.Get_Buffer (len + 1), src_start, bytes);	\
 				dest.Peek_Buffer ()[len] = 0;										\
 			}

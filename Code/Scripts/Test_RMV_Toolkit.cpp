@@ -185,15 +185,12 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender)
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender)
 	{
 		if (type == c_type)
 		{
 			busy = true;
 			terminal_id = Commands->Get_ID(sender);
-			char *anim;
-			anim = (char *)param;
-			int_anim = (int)anim;
 			ActionParamsStruct params;
 			params.Set_Basic(this, 70, TECHNICIAN_MOVEMENT);
 			params.Set_Movement(sender, emergency ? RUN : WALK, 0.75f);
@@ -216,7 +213,6 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 			}
 			//#CFE_TODO uhh....
 			const char *anim;
-			anim = (char *)int_anim;
 			anim = "s_a_human.h_a_con2";
 			ActionParamsStruct params;
 			params.Set_Basic(this, 70, TECHNICIAN_ANIMATION);
@@ -308,7 +304,7 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 		sent_25 = sent_50 = sent_75 = false;
 	}
 	
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{		
 		if (type == CUSTOM_EVENT_BUILDING_DAMAGED)
 		{
@@ -461,7 +457,7 @@ DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:str
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == 1000 && param == 1000)
 		{
@@ -479,7 +475,7 @@ DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:str
 			i_am_occupied = true;
 			const char *anim;
 			anim = Get_Parameter("Animation_Name");
-			Commands->Send_Custom_Event(obj, sender, c_type, (int)anim, 0.0f);
+			Commands->Send_Custom_Event(obj, sender, c_type, (uintptr_t)anim, 0.0f);
 		}
 		if ((type == c_type) && (param == c_param_2) && (i_am_occupied))
 		{
@@ -543,7 +539,7 @@ DECLARE_SCRIPT(M00_Play_Sound, "Sound_Preset:string, Is_3D=1:int, Offset:vector3
 		Commands->Monitor_Sound(obj, id);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED)
 		{
