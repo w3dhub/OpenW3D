@@ -58,7 +58,7 @@ Font3DDataClass::Font3DDataClass( const char *filename )
 	Texture = NULL;
 	Load_Font_Image( filename);
 	Name = strdup( filename);
-    Name = openw3d::toupper( Name);
+    Name = openw3d::string_to_upper( Name);
 }
 
 

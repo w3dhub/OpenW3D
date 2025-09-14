@@ -279,7 +279,7 @@ CCameraProfileClass	*	CCameraProfileClass::Find( const char * name )
 	char tmp[256];
 	strncpy(tmp,name,sizeof(tmp));
 	
-    openw3d::tolower(tmp);
+    openw3d::string_to_lower(tmp);
 	StringClass tmp_string(tmp,true);
 	CCameraProfileClass* profile = ProfileHash.Get(tmp_string);
 	return profile;

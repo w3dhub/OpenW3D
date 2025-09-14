@@ -136,7 +136,7 @@ int VisemeManager::Get_Visemes(const char *word, int *visemelist, int maxvisemes
 	// make a local copy of the word in lower case
 	strncpy(local_buf, word, sizeof(local_buf)-1);
 	local_buf[sizeof(local_buf)-1] = 0;
-    openw3d::tolower(local_buf);
+    openw3d::string_to_lower(local_buf);
 
 	const char *pchar = local_buf;
 	while ( *pchar ) {

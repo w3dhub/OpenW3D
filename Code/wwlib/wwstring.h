@@ -71,7 +71,7 @@ inline int strnicmp(const char* str1, const char* str2, size_t len){
 }
 #endif
 
-inline char* tolower(char* str1){
+inline char* string_to_lower(char* str1){
     int x = 0;
     while(str1[x] != '\0'){
         str1[x] = ::tolower(str1[x]);
@@ -80,7 +80,7 @@ inline char* tolower(char* str1){
     return str1;
 }
 
-inline char* toupper(char* str1){
+inline char* string_to_upper(char* str1){
     int x = 0;
     while(str1[x] != '\0'){
         str1[x] = ::toupper(str1[x]);
@@ -822,13 +822,13 @@ StringClass::Store_Length (int length)
 inline void
 StringClass::To_Lower()
 {
-    openw3d::tolower(m_Buffer);
+    openw3d::string_to_lower(m_Buffer);
 }
 
 inline void
 StringClass::To_Upper()
 {
-    openw3d::toupper(m_Buffer);
+    openw3d::string_to_upper(m_Buffer);
 }
 
 #endif //__WWSTRING_H
