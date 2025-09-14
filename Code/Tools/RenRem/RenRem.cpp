@@ -49,6 +49,8 @@
 
 #include <timeapi.h>
 
+#include "wwlib/wwstring.h"
+
 #define RENREM_PORT 1234
 #define PROMPT ">"
 
