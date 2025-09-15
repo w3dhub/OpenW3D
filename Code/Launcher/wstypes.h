@@ -75,8 +75,8 @@ typedef unsigned int       uint32;
 #define MAX_SINT8   0x7F   
 
 #ifdef _WIN32
-#define strncasecmp strnicmp
-#define strcasecmp  openw3d::stricmp
+#define strncasecmp _strnicmp
+#define strcasecmp  _stricmp
 #endif  
 
 #endif
