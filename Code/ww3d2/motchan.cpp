@@ -51,7 +51,7 @@
 #include "wwmath.h"
 #include "quat.h"
 #include "wwmath.h"
-#include <math.h>
+#include <cmath>
 //#include <stdio.h>
 //#include <windows.h>
 // Static Table, for Adaptive Delta Decompressor
