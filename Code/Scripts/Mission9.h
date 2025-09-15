@@ -43,7 +43,7 @@
 
 #include "Toolkit.h"
 
-#define check		10000
+constexpr int  MISSION09_CHECK =	10000;
 
 
 // Predefined Constants
