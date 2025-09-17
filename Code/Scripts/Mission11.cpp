@@ -1548,17 +1548,17 @@ DECLARE_SCRIPT(M11_C130_Dropoff_Dude_JDG, "")//also have M01_Hunt_The_Player_JDG
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "S_a_Human.H_A_X5D_ParaT_1") == 0)
+		if (openw3d::string_compare(anim, "S_a_Human.H_A_X5D_ParaT_1") == 0)
 		{
 			Commands->Attach_Script(obj, "M01_Hunt_The_Player_JDG","");	
 		}
 
-		else if (openw3d::stricmp(anim, "S_a_Human.H_A_X5D_ParaT_2") == 0)
+		else if (openw3d::string_compare(anim, "S_a_Human.H_A_X5D_ParaT_2") == 0)
 		{
 			Commands->Attach_Script(obj, "M01_Hunt_The_Player_JDG","");	
 		}
 
-		else if (openw3d::stricmp(anim, "S_a_Human.H_A_X5D_ParaT_3") == 0)
+		else if (openw3d::string_compare(anim, "S_a_Human.H_A_X5D_ParaT_3") == 0)
 		{
 			Commands->Attach_Script(obj, "M01_Hunt_The_Player_JDG","");	
 		}
@@ -3383,7 +3383,7 @@ DECLARE_SCRIPT(M11_Mutant_TrajectoryBone_JDG, "")//
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "X11E_Trajectory.X11E_Trajectory") == 0)
+		if (openw3d::string_compare(anim, "X11E_Trajectory.X11E_Trajectory") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -3401,7 +3401,7 @@ DECLARE_SCRIPT(M11_Mutant_ShatterGlass_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "X11E_Shatter.X11E_Shatter") == 0)
+		if (openw3d::string_compare(anim, "X11E_Shatter.X11E_Shatter") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -5437,7 +5437,7 @@ DECLARE_SCRIPT(M11_CeilingRepeller_JDG, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "S_a_Human.H_a_X11D_repel") == 0)
+		if (openw3d::string_compare(anim, "S_a_Human.H_a_X11D_repel") == 0)
 		{
 			Commands->Attach_Script(obj, "M01_Hunt_The_Player_JDG","");	
 		}
@@ -7088,22 +7088,22 @@ DECLARE_SCRIPT(M11_SimpleSydney_Script_JDG, "")//M11_SIMPLE_SYDNEY_MOBIUS_JDG	10
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "S_B_HUMAN.H_B_X11C_SYD_A") == 0)
+		if (openw3d::string_compare(anim, "S_B_HUMAN.H_B_X11C_SYD_A") == 0)
 		{
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 0 );
 		}
 
-		else if (openw3d::stricmp(anim, "S_B_HUMAN.H_B_X11C_SYD_B") == 0)
+		else if (openw3d::string_compare(anim, "S_B_HUMAN.H_B_X11C_SYD_B") == 0)
 		{
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 0 );
 		}
 
-		else if (openw3d::stricmp(anim, "S_B_HUMAN.H_B_X11C_SYD_C") == 0)
+		else if (openw3d::string_compare(anim, "S_B_HUMAN.H_B_X11C_SYD_C") == 0)
 		{
 			Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 		}
 
-		else if (openw3d::stricmp(anim, "S_B_HUMAN.H_B_X11C_SYD_D") == 0)
+		else if (openw3d::string_compare(anim, "S_B_HUMAN.H_B_X11C_SYD_D") == 0)
 		{
 			//Commands->Send_Custom_Event ( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 		}
@@ -8614,7 +8614,7 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "S_C_Human.H_C_X11E_Escape") == 0)
+		if (openw3d::string_compare(anim, "S_C_Human.H_C_X11E_Escape") == 0)
 		{
 			Commands->Enable_Hibernation(obj, true );
 
@@ -8628,7 +8628,7 @@ DECLARE_SCRIPT(M11_LabMutant_Simple_JDG, "")
 			Commands->Action_Attack (  obj, params );
 		}
 
-		else if (openw3d::stricmp(anim, "S_C_Human.H_C_Tubedie") == 0)
+		else if (openw3d::string_compare(anim, "S_C_Human.H_C_Tubedie") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -11246,7 +11246,7 @@ DECLARE_SCRIPT(M11_CeilingRepeller2_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "S_a_Human.H_a_X11D_repel") == 0)
+		if (openw3d::string_compare(anim, "S_a_Human.H_a_X11D_repel") == 0)
 		{
 			Commands->Attach_Script(obj, "M01_Hunt_The_Player_JDG","");	
 		}

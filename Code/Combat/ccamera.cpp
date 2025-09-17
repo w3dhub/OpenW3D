@@ -1277,7 +1277,7 @@ void	CCameraClass::Use_Profile( const char * name )
 {
 	if ( name ) {
 		// quick reject if the same
-		if ( CurrentProfile && !openw3d::stricmp( CurrentProfileName, name ) ) {
+		if ( CurrentProfile && !openw3d::string_compare( CurrentProfileName, name ) ) {
 			return;
 		}
 

@@ -137,7 +137,7 @@ ScriptImpClass* ScriptRegistrar::CreateScript(const char* scriptName)
 		ScriptFactory* factory = mScriptFactories;
 
 		while (factory != NULL) {
-			if (openw3d::stricmp(factory->GetName(), scriptName) == 0) {
+			if (openw3d::string_compare(factory->GetName(), scriptName) == 0) {
 //				DebugPrint("Creating Script '%s'\n", factory->GetName());
 				return factory->Create();
 			}
@@ -175,7 +175,7 @@ ScriptFactory* ScriptRegistrar::GetScriptFactory(const char* name)
 		ScriptFactory* factory = mScriptFactories;
 
 		while (factory != NULL) {
-			if (openw3d::stricmp(factory->GetName(), name) == 0) {
+			if (openw3d::string_compare(factory->GetName(), name) == 0) {
 				return factory;
 			}
 

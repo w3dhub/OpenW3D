@@ -100,7 +100,7 @@ DefinitionFactoryMgrClass::Find_Factory (const char *name)
 		//
 		//	Is this the factory we were looking for?
 		//
-        if (openw3d::stricmp (curr_factory->Get_Name (), name) == 0) {
+        if (openw3d::string_compare (curr_factory->Get_Name (), name) == 0) {
 			factory = curr_factory;
 		}
 	}

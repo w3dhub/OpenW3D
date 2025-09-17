@@ -193,7 +193,7 @@ DefinitionMgrClass::Find_Named_Definition (const char *name, bool twiddle)
 		//
 		//	Is this the definition we were looking for?
 		//
-		if (curr_def != NULL && ::openw3d::stricmp (curr_def->Get_Name (), name) == 0) {
+		if (curr_def != NULL && ::openw3d::string_compare (curr_def->Get_Name (), name) == 0) {
 			definition = curr_def;
 			break;
 		}
@@ -280,7 +280,7 @@ DefinitionMgrClass::Find_Typed_Definition (const char *name, uint32 class_id, bo
 					//
 					//	Is this the definition we were looking for?
 					//
-					if (::openw3d::stricmp (curr_def->Get_Name (), name) == 0) {
+					if (::openw3d::string_compare (curr_def->Get_Name (), name) == 0) {
 						definition = curr_def;
 						// Add the definition to the hash table, so that it can be quickly accessed the next time it is needed.
 						if (!defs) {

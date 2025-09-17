@@ -1153,7 +1153,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Animation_Complete_RMV, "Start_Now=1:int, Receiv
 			if (target)
 			{
 				SCRIPT_DEBUG_MESSAGE(("M00_Trigger_When_Animation_Complete_RMV found its target object.\n"));
-				if (openw3d::stricmp(anim, name))
+				if (openw3d::string_compare(anim, name))
 				{
 					M00_Controller_Trigger_RMV(obj, target, time_low, time_up, type, param);
 				}

@@ -899,7 +899,7 @@ public:
 	*/
 	bool	Title_Match( char ** command, const char * title ) 
 	{
-        if ( openw3d::strnicmp( *command, title, strlen( title ) ) == 0 ) {
+        if ( openw3d::string_len_compare( *command, title, strlen( title ) ) == 0 ) {
 			*command += strlen( title );
 
 			while ( **command && **command != ',' ) {

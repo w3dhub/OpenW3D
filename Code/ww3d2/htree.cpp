@@ -798,7 +798,7 @@ void HTreeClass::Combo_Update
 int HTreeClass::Get_Bone_Index(const char * name) const
 {
 	for (int i=0; i < NumPivots; i++) {
-		if (openw3d::stricmp(Pivot[i].Name,name) == 0) {
+		if (openw3d::string_compare(Pivot[i].Name,name) == 0) {
 			return i;
 		}
 	}

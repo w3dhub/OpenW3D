@@ -3422,7 +3422,7 @@ void HLodClass::Update_Obj_Space_Bounding_Volumes(void)
 			//
 			//	Does the name match the designator we are looking for?
 			//
-			if (::openw3d::stricmp (name, "BOUNDINGBOX") == 0) {				
+			if (::openw3d::string_compare (name, "BOUNDINGBOX") == 0) {				
 				BoundingBoxIndex = index;
 			}
 		}

@@ -55,18 +55,18 @@
 
 namespace openw3d{
 #ifdef _WIN32
-inline int stricmp(const char* str1, const char* str2){
+inline int string_compare(const char* str1, const char* str2){
     return ::stricmp(str1, str2);
 }
-inline int strnicmp(const char* str1, const char* str2, size_t len){
+inline int string_len_compare(const char* str1, const char* str2, size_t len){
     return ::strnicmp(str1, str2, len);
 }
 #else
-inline int stricmp(const char* str1, const char* str2){
+inline int string_compare(const char* str1, const char* str2){
     return strcasecmp(str1, str2);
 }
 
-inline int strnicmp(const char* str1, const char* str2, size_t len){
+inline int string_len_compare(const char* str1, const char* str2, size_t len){
     return strncasecmp(str1, str2, len);
 }
 #endif
@@ -416,7 +416,7 @@ StringClass::Compare (const char *string) const
 inline int
 StringClass::Compare_No_Case (const char *string) const
 {
-	return openw3d::stricmp (m_Buffer, string);
+    return openw3d::string_compare (m_Buffer, string);
 }
 
 ///////////////////////////////////////////////////////////////////

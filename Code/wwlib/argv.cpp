@@ -122,7 +122,7 @@ const char *ArgvClass::Find_Again(const char *arg)
 			if (Is_Exact_Size()) {
 				// Note case sensitive, Exact Size.
 				for (; CurrentPos < Argc; CurrentPos++) {
-					if (!openw3d::stricmp(arg, Argv[CurrentPos])) {
+					if (!openw3d::string_compare(arg, Argv[CurrentPos])) {
 						return Argv[CurrentPos];
 					}
 				}
@@ -130,7 +130,7 @@ const char *ArgvClass::Find_Again(const char *arg)
 				// Note case sensitive, Match first strlen(arg).
 				int len = strlen(arg);
 				for (; CurrentPos < Argc; CurrentPos++) {
-                    if (!openw3d::strnicmp(arg, Argv[CurrentPos], len)) {
+                    if (!openw3d::string_len_compare(arg, Argv[CurrentPos], len)) {
 						return Argv[CurrentPos];
 					}
 				}

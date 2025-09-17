@@ -1208,7 +1208,7 @@ Font3DDataClass * WW3DAssetManager::Get_Font3DData( const char *name )
 	// loop through and see if the Font3D we are looking for has already been
 	// allocated and thus we can just return it.
 	for (	SLNode<Font3DDataClass> *node = Font3DDatas.Head(); node; node = node->Next()) {
-		if (!openw3d::stricmp(name, node->Data()->Name)) {
+		if (!openw3d::string_compare(name, node->Data()->Name)) {
 			node->Data()->Add_Ref();
 			return node->Data();
 		}
@@ -1456,7 +1456,7 @@ void WW3DAssetManager::Remove_Prototype(PrototypeClass *proto)
 			  test = test->NextHash) {
 			
 			// Is this the prototype?
-			if (::openw3d::stricmp (test->Get_Name(), pname) == 0) {
+			if (::openw3d::string_compare (test->Get_Name(), pname) == 0) {
 				
 				// Remove this prototype from the linked list for this hash index.
 				if (prev == NULL) {
@@ -1528,7 +1528,7 @@ void WW3DAssetManager::Remove_Prototype(const char *name)
 PrototypeClass * WW3DAssetManager::Find_Prototype(const char * name)
 {
 	// Special case Null render object.  So we always have it...
-	if (openw3d::stricmp(name,"NULL") == 0) {
+	if (openw3d::string_compare(name,"NULL") == 0) {
 		return &(_NullPrototype);
 	}
 	
@@ -1537,7 +1537,7 @@ PrototypeClass * WW3DAssetManager::Find_Prototype(const char * name)
 	PrototypeClass * test = PrototypeHashTable[hash];
 
 	while (test != NULL) {
-		if (openw3d::stricmp(test->Get_Name(),name) == 0) {
+		if (openw3d::string_compare(test->Get_Name(),name) == 0) {
 			return test;
 		}
 		test = test->NextHash;

@@ -471,7 +471,7 @@ TagBlockIndex *TagBlockFile::Find_Block(const char *tagname)
 			// Is it a match?
          assert(name != NULL);
          assert(tagname != NULL);
-            if (!openw3d::stricmp(name, tagname)) {
+            if (!openw3d::string_compare(name, tagname)) {
 				return(cur);
 			}
 		}

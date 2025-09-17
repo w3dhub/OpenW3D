@@ -366,7 +366,7 @@ void VTOLVehicleClass::Update_Cached_Model_Parameters(void)
 
 	for (ibone=0; (ibone < Model->Get_Num_Bones()) && (engine_bone_count < MAX_CAPTURED_BONE_COUNT); ibone++) {
 		const char * bone_name = Model->Get_Bone_Name(ibone);
-        if (openw3d::strnicmp(bone_name,ENGINE_ANGLE_BONE_NAME,strlen(ENGINE_ANGLE_BONE_NAME)) == 0) {
+        if (openw3d::string_len_compare(bone_name,ENGINE_ANGLE_BONE_NAME,strlen(ENGINE_ANGLE_BONE_NAME)) == 0) {
 			
 			EngineAngleBones[engine_bone_count] = ibone;
 			Model->Capture_Bone(ibone);
@@ -377,7 +377,7 @@ void VTOLVehicleClass::Update_Cached_Model_Parameters(void)
 	// search through the model for bones names ROTORxxx
 	for (ibone=0; (ibone < Model->Get_Num_Bones()) && (rotor_bone_count < MAX_CAPTURED_BONE_COUNT); ibone++) {
 		const char * bone_name = Model->Get_Bone_Name(ibone);
-        if (openw3d::strnicmp(bone_name,ROTOR_BONE_NAME,strlen(ROTOR_BONE_NAME)) == 0) {
+        if (openw3d::string_len_compare(bone_name,ROTOR_BONE_NAME,strlen(ROTOR_BONE_NAME)) == 0) {
 			
 			RotorAngleBones[rotor_bone_count] = ibone;
 			Model->Capture_Bone(ibone);
@@ -589,7 +589,7 @@ bool VTOLVehicleDefClass::Load(ChunkLoadClass &cload)
 
 bool VTOLVehicleDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::stricmp(type_name,VTOLVehicleDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::string_compare(type_name,VTOLVehicleDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return VehiclePhysDefClass::Is_Type(type_name);

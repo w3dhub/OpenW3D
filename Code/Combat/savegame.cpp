@@ -191,7 +191,7 @@ void	SaveGameManager::Pre_Load_Game
 		//
 		//	HACK HACK - Put the level 9 mix file first...
 		//
-		if (	::openw3d::stricmp (filename, "M09.mix") == 0 &&
+		if (	::openw3d::string_compare (filename, "M09.mix") == 0 &&
 				FileFactoryListClass::Get_Instance () != NULL)
 		{
 			FileFactoryListClass::Get_Instance ()->Set_Search_Start(filename);
@@ -221,7 +221,7 @@ void	SaveGameManager::Pre_Load_Game
 			//
 			//	HACK HACK - Put the level 9 mix file first...
 			//
-			if (	::openw3d::stricmp (mix_filename, "M09.mix") == 0 &&
+			if (	::openw3d::string_compare (mix_filename, "M09.mix") == 0 &&
 					FileFactoryListClass::Get_Instance () != NULL)
 			{
 				FileFactoryListClass::Get_Instance ()->Set_Search_Start(mix_filename);

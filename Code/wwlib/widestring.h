@@ -54,7 +54,7 @@
 #endif
 
 namespace openw3d{
-inline int wcsnicmp(const wchar_t* str1, const wchar_t* str2, size_t len){
+inline int widestring_len_compare_case(const wchar_t* str1, const wchar_t* str2, size_t len){
 #if _WIN32
     return ::wcsnicmp(str1, str2, len);
 #else
@@ -62,7 +62,7 @@ inline int wcsnicmp(const wchar_t* str1, const wchar_t* str2, size_t len){
 #endif
 }
 
-inline int wcsicmp(const wchar_t* str1, const wchar_t* str2){
+inline int widestring_compare_case(const wchar_t* str1, const wchar_t* str2){
 #if _WIN32
     return ::wcsicmp(str1, str2);
 #else
