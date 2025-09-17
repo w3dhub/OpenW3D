@@ -83,7 +83,7 @@ DECLARE_SCRIPT (DAY_TestScriptOne, "")
 		Commands->Send_Custom_Event( obj, obj, 0, 0, 5.0f );
 	}
 
-	void Custom( GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom( GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if ( action == 1 )
 		{
@@ -169,7 +169,7 @@ DECLARE_SCRIPT (DAY_VTOL_CircleAttack, "")
 		Commands->Send_Custom_Event( obj, obj, 1, 1, 0.0f );
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if ( type == 1 )
 		{
@@ -266,7 +266,7 @@ DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_M
 		Commands->Monitor_Sound(obj, id);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED)
 		{
@@ -305,7 +305,7 @@ DECLARE_SCRIPT (M00_Disable_Loiter_DAY, "")
 		Commands->Set_Loiters_Allowed( obj , false );
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if ( type == M00_LOITER_ENABLE_TOGGLE )
 		{

@@ -622,7 +622,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 						{
 						ChannelData* rawChannel = channel.ReferencedObject();
 						rawChannel->AddReference();
-						list->Set_Entry_Data(itemIndex, COL_HOST_NAME, (unsigned long)rawChannel);
+						list->Set_Entry_Data(itemIndex, COL_HOST_NAME, (uintptr_t)rawChannel);
 
 						// Show the game channel name
 						list->Set_Entry_Text(itemIndex, COL_HOST_NAME, channel->GetName());

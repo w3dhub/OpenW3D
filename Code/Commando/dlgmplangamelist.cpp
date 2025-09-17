@@ -418,7 +418,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 			//
 			//	Associate the channel data inside with the entry
 			//
-			list_ctrl->Set_Entry_Data (item_index, 0, (uint32)channel);
+			list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)channel);
 			channel->Add_Ref ();
 
 			//
@@ -579,7 +579,7 @@ MPLanGameListMenuClass::On_ListCtrl_Delete_Entry
 	//	Get the channel data from this entry
 	//
 	cGameChannel *channel = (cGameChannel *)list_ctrl->Get_Entry_Data (item_index, 0);
-	list_ctrl->Set_Entry_Data (item_index, 0, NULL);
+	list_ctrl->Set_Entry_Data (item_index, 0, 0);
 	
 	if (channel != NULL) {
 		channel->Release_Ref ();

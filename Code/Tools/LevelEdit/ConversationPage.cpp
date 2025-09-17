@@ -404,7 +404,7 @@ ConversationPageClass::Insert_Entry (ConversationClass *conversation, bool sort_
 		//
 		//	Associate the conversation with the entry in the tree
 		//
-		m_TreeCtrl.SetItemData (tree_item, (DWORD)conversation);
+		m_TreeCtrl.SetItemData (tree_item, (DWORD_PTR)conversation);
 
 		//
 		//	Sort the items

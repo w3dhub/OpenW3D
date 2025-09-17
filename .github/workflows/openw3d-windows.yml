@@ -8,16 +8,19 @@ concurrency:
 
 jobs:
   job:
-    name: ${{ matrix.os }}-${{ matrix.cxx }}-build-and-test
+    name: ${{ matrix.name }} Build
     runs-on: ${{ matrix.os }}
     timeout-minutes: 38
     strategy:
       fail-fast: false
       matrix:
-        name: [windows-2022]
         include:
-          - name: windows-2022
+          - name: windows-2022 Win32
             os: windows-2022
+            arch: Win32
+          - name: windows-2022 x64
+            os: windows-2022
+            arch: x64
 
     steps:
     - uses: actions/checkout@v4
@@ -30,7 +33,7 @@ jobs:
       run: |
         $THISDIR=Get-Location
         cd main
-        cmake -A Win32 -B build .
+        cmake -A ${{ matrix.arch }} -B build .
         cmake --build build --parallel
 
 

@@ -454,6 +454,7 @@ class BlitTransLucent75 : public Blitter {
 
 inline void BlitTrans<unsigned char>::BlitForward(void * dest, void const * source, int len) const
 {
+#if defined(_M_IX86)
 	__asm {
 		mov	esi,[source]
 		mov	edi,[dest]
@@ -474,6 +475,19 @@ again:
 		jmp	again
 	}
 fini:;
+#else
+	const unsigned char *ptr_source = reinterpret_cast<const unsigned char *>(source);
+	unsigned char *ptr_dest = reinterpret_cast<unsigned char *>(dest);
+	while (len != 0) {
+		unsigned char p = *ptr_source;
+		if (p != 0) {
+			*ptr_dest = p;
+		}
+		ptr_source++;
+		ptr_dest++;
+		len--;
+	}
+#endif
 }
 
 
@@ -481,6 +495,7 @@ inline void BlitTransXlat<unsigned short>::BlitForward(void * dest, void const *
 {
 	unsigned short const * xlator = TranslateTable;
 
+#if defined(_M_IX86)
 	__asm {
 		mov	ebx,[xlator]
 		mov	ecx,[len]
@@ -504,6 +519,19 @@ again:
 		jmp	again
 	}
 over:;
+#else
+	const unsigned char *ptr_source = reinterpret_cast<const unsigned char *>(source);
+	unsigned short *ptr_dest = reinterpret_cast<unsigned short *>(dest);
+	while (len != 0) {
+		unsigned char p = *ptr_source;
+		if (p != 0) {
+			*ptr_dest = xlator[p];
+		}
+		ptr_source++;
+		ptr_dest++;
+		len--;
+	}
+#endif
 }
 
 
@@ -512,6 +540,7 @@ inline void BlitTransRemapXlat<unsigned short>::BlitForward(void * dest, void co
 	unsigned short const * translator = TranslateTable;
 	unsigned char const * remapper = RemapTable;
 
+#if defined(_M_IX86)
 	__asm {
 		mov	ecx,[len]
 		mov	edi,[dest]
@@ -541,6 +570,19 @@ again:
 		jmp	again
 	}
 over:;
+#else
+	const unsigned char *ptr_source = reinterpret_cast<const unsigned char *>(source);
+	unsigned short *ptr_dest = reinterpret_cast<unsigned short *>(dest);
+	while (len != 0) {
+		unsigned char p = *ptr_source;
+		if (p != 0) {
+			*ptr_dest = translator[remapper[p]];
+		}
+		ptr_source++;
+		ptr_dest++;
+		len--;
+	}
+#endif
 }
 
 
@@ -549,6 +591,7 @@ inline void BlitTransZRemapXlat<unsigned short>::BlitForward(void * dest, void c
 	unsigned short const * translator = TranslateTable;
 	unsigned char const * remapper = *RemapTable;
 
+#if defined(_M_IX86)
 	__asm {
 		mov	ecx,[len]
 		mov	edi,[dest]
@@ -578,12 +621,27 @@ again:
 		jmp	again
 	}
 over:;
+#else
+    const unsigned char *ptr_source = reinterpret_cast<const unsigned char *>(source);
+	unsigned short *ptr_dest = reinterpret_cast<unsigned short *>(dest);
+	while (len != 0) {
+		unsigned char p = *ptr_source;
+		if (p != 0) {
+			*ptr_dest = translator[remapper[p]];
+		}
+		ptr_source++;
+		ptr_dest++;
+		len--;
+	}
+#endif
 }
 
 
 inline void BlitPlainXlat<unsigned short>::BlitForward(void * dest, void const * source, int len) const
 {
 	unsigned short const * remapper = TranslateTable;
+
+#if defined(_M_IX86)
 	__asm {
 		mov	ebx,[remapper]
 		mov	ecx,[len]
@@ -605,6 +663,19 @@ again:
 		dec	ecx
 		jnz	again
 	}
+#else
+	const unsigned char *ptr_source = reinterpret_cast<const unsigned char *>(source);
+	unsigned short *ptr_dest = reinterpret_cast<unsigned short *>(dest);
+	while (len != 0) {
+		unsigned char p = *ptr_source;
+		if (p != 0) {
+			*ptr_dest = remapper[p];
+		}
+		ptr_source++;
+		ptr_dest++;
+		len--;
+	}
+#endif
 }
 
 

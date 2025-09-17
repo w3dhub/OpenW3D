@@ -107,6 +107,8 @@ void __cdecl SaveGameManager::Save_Game( const char * filename, ... )
 
 	ChunkSaveClass csave(file);
 
+    SaveLoadSystemClass::ResetPointerRemapper();
+
 	csave.Begin_Chunk( CHUNKID_LEVEL_INFO );
 		WRITE_MICRO_CHUNK_WWSTRING( csave,		MICROCHUNKID_MAP_FILENAME,			MapFilename );
 		WRITE_MICRO_CHUNK_WIDESTRING( csave,	MICROCHUNKID_DESCRIPTION,			Description );

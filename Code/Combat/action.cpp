@@ -789,7 +789,7 @@ public:
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_FIRST_CALL,			FirstCall		);
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_USE_MOVE_OBJECT,	UseMoveObject	);
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_TARGET_PREV_POS,	TargetPrevPos	);
-			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_PATH_SOLVE_PTR,	PathSolver		);
+			WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PATH_SOLVE_PTR,	PathSolver		);
 		csave.End_Chunk();
 
 		csave.Begin_Chunk( CHUNKID_PATH_ACTION );
@@ -2319,7 +2319,7 @@ public:
 					//
 					//	Save the conversation pointer
 					//
-					WRITE_MICRO_CHUNK( csave, MICROCHUNKID_CONVERSATION_PTR, Conversation );
+					WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_CONVERSATION_PTR, Conversation );
 					REF_PTR_RELEASE( conv );
 				}
 			}

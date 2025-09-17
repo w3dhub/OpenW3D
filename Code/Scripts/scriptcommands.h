@@ -175,7 +175,7 @@ typedef struct {
 	void	( * Select_Weapon )( GameObject * obj, const char * weapon_name );
 
 	// Custom Script
-	void	( * Send_Custom_Event )( GameObject * from, GameObject * to, int type/* = 0 */, int param/* = 0 */, float delay/* = 0 */ );
+	void	( * Send_Custom_Event )( GameObject * from, GameObject * to, int type/* = 0 */, uintptr_t param/* = 0 */, float delay/* = 0 */ );
 	void	( * Send_Damaged_Event )( GameObject * object, GameObject * damager );
 
 	// Random Numbers
@@ -413,9 +413,9 @@ typedef struct {
 	void	(*Cinematic_Sniper_Control)	(bool enabled, float zoom);
 
 	// File Access
-	int	(*Text_File_Open)			( const char * filename );
-	bool	(*Text_File_Get_String)	( int handle, char * buffer, int size );
-	void	(*Text_File_Close)		( int handle );
+	void *	(*Text_File_Open)			( const char * filename );
+	bool	(*Text_File_Get_String)	( void *handle, char * buffer, int size );
+	void	(*Text_File_Close)		( void *handle );
 
 	// Vehicle Transitions
 	void	(*Enable_Vehicle_Transitions)	( GameObject * object, bool enable );

@@ -1442,7 +1442,7 @@ PersistClass *	DazzlePersistFactoryClass::Load(ChunkLoadClass & cload) const
 
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK(cload,DAZZLEFACTORY_VARIABLE_OBJPOINTER,old_obj);
+						READ_MICRO_CHUNK_PTR(cload,DAZZLEFACTORY_VARIABLE_OBJPOINTER,old_obj);
 						READ_MICRO_CHUNK(cload,DAZZLEFACTORY_VARIABLE_TRANSFORM,tm);
 						READ_MICRO_CHUNK_STRING(cload,DAZZLEFACTORY_VARIABLE_TYPENAME,dazzle_type,sizeof(dazzle_type));
 					}
@@ -1498,7 +1498,7 @@ void DazzlePersistFactoryClass::Save(ChunkSaveClass & csave,PersistClass * obj)	
 	Matrix3D tm = robj->Get_Transform();
 
 	csave.Begin_Chunk(DAZZLEFACTORY_CHUNKID_VARIABLES);
-	WRITE_MICRO_CHUNK(csave,DAZZLEFACTORY_VARIABLE_OBJPOINTER,robj);
+	WRITE_MICRO_CHUNK_PTR(csave,DAZZLEFACTORY_VARIABLE_OBJPOINTER,robj);
 	WRITE_MICRO_CHUNK(csave,DAZZLEFACTORY_VARIABLE_TRANSFORM,tm);
 	WRITE_MICRO_CHUNK_STRING(csave,DAZZLEFACTORY_VARIABLE_TYPENAME,dazzle_type_name);
 

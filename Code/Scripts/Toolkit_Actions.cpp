@@ -170,7 +170,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Action received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -320,7 +320,7 @@ DECLARE_SCRIPT(M00_Action_Set_Home_Location, "Start_Now=1:int, Receive_Type:int,
 		}
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{

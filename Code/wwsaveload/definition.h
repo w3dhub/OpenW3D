@@ -95,8 +95,8 @@ public:
 	virtual bool						Load (ChunkLoadClass &cload) override;
 
 	// User data support
-	uint32								Get_User_Data (void) const		{ return m_GenericUserData; }
-	void									Set_User_Data (uint32 data)	{ m_GenericUserData = data; }
+	uintptr_t								Get_User_Data (void) const		{ return m_GenericUserData; }
+	void									Set_User_Data (uintptr_t data)	{ m_GenericUserData = data; }
 
 	// Save support
 	bool									Is_Save_Enabled (void) const	{ return m_SaveEnabled; }
@@ -122,7 +122,7 @@ private:
 	/////////////////////////////////////////////////////////////////////
 	StringClass				m_Name;
 	uint32					m_ID;
-	uint32					m_GenericUserData;
+	uintptr_t					m_GenericUserData;
 	bool						m_SaveEnabled;
 
 	/////////////////////////////////////////////////////////////////////

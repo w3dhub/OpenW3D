@@ -61,7 +61,7 @@ class DlgDownload :
 		void On_Periodic(void) override;
 
 		void UpdateProgress(WWOnline::DownloadEvent& event);
-		static void HandleCallback(WWOnline::DownloadEvent& event, unsigned long userdata);
+		static void HandleCallback(WWOnline::DownloadEvent& event, void *userdata);
 
 	private:
 		RefPtr<WWOnline::DownloadWait> mWait;

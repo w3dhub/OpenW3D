@@ -349,9 +349,9 @@ bool								Get_Collision_Box (RenderObjClass *render_obj, AABoxClass &aabox, OB
 //	Thread routines
 //
 typedef UINT (*MY_THREADPROC) (DWORD dwparam1, DWORD dwparam2, DWORD dwparam3, HRESULT *presult);
-typedef UINT (*MY_UITHREADPROC) (DWORD dwparam1, DWORD dwparam2, DWORD dwparam3, HRESULT *presult, HWND *phmain_wnd);
+typedef UINT (*MY_UITHREADPROC) (DWORD_PTR dwparam1, DWORD_PTR dwparam2, DWORD_PTR dwparam3, HRESULT *presult, HWND *phmain_wnd);
 void								Create_Worker_Thread (MY_THREADPROC fnthread_proc, DWORD dwparam1, DWORD dwparam2, DWORD dwparam3, HRESULT *presult);
-void								Create_UI_Thread (MY_UITHREADPROC fnthread_proc, DWORD dwparam1, DWORD dwparam2, DWORD dwparam3, HRESULT *presult, HWND *phmain_wnd);
+void								Create_UI_Thread (MY_UITHREADPROC fnthread_proc, DWORD_PTR dwparam1, DWORD_PTR dwparam2, DWORD_PTR dwparam3, HRESULT *presult, HWND *phmain_wnd);
 
 
 /////////////////////////////////////////////////////////////////////////////

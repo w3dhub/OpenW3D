@@ -179,7 +179,7 @@ CMixViewerView::Reload (const char *filename)
 		for (int index = 0; index < FilenameList.Count (); index ++) {
 			int item_index = GetListCtrl ().InsertItem (index, FilenameList[index]);
 			if (item_index != -1) {
-				GetListCtrl ().SetItemData (item_index, (DWORD)new StringClass (FilenameList[index]));
+				GetListCtrl ().SetItemData (item_index, (DWORD_PTR)new StringClass (FilenameList[index]));
 			}
 		}
 

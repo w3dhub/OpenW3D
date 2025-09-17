@@ -60,7 +60,7 @@ DECLARE_SCRIPT (M00_Cinematic_Attack_Command_DLS, "AttackDuration=1.0:float")
 		Commands->Send_Custom_Event( obj, obj, 1, 1, Get_Float_Parameter("AttackDuration") );
 	}
 
-	void Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		Commands->Action_Reset( obj, 100 );
 
@@ -203,8 +203,8 @@ public:
 		char full_filename[80];
 		snprintf( full_filename, sizeof(full_filename), "DATA\\%s", filename );
 //		FILE * in = fopen( full_filename, "rt" );
-		int handle = Commands->Text_File_Open( filename );
-		if ( handle == 0 ) {
+		void *handle = Commands->Text_File_Open( filename );
+		if ( handle == nullptr ) {
 			Commands->Debug_Message( "Failed to open %s\n", full_filename );
 			return;
 		}
@@ -1017,7 +1017,7 @@ public:
 		Parse_Commands(obj);
 	}
 
-	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) override
+	void	Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
 	{
 		if ( type == M00_CUSTOM_CINEMATIC_PRIMARY_KILLED ) {
 			if ( !PrimaryKilled ) {		// Prevent loops

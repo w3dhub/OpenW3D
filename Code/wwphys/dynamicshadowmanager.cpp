@@ -161,7 +161,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 		*/
 		LightClass * sun = scene->Get_Sun_Light();
 		Shadow->Enable_Perspective(false);
-		Shadow->Set_Light_Source_ID((uint32)sun);
+		Shadow->Set_Light_Source_ID((uintptr_t)sun);
 		Shadow->Set_Light_Vector(sunlight);
 		sun->Release_Ref();
 		found_light = true;
@@ -196,12 +196,12 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 
 #if TRUE_PERSPECTIVE_SHADOWS		// This code uses true perspective projection for local light sources
 				Shadow->Enable_Perspective(true);
-				Shadow->Set_Light_Source_ID((uint32)best_light);
+				Shadow->Set_Light_Source_ID((uintptr_t)best_light);
 				Shadow->Set_Light_Vector(best_light->Get_Position());
 
 #else			// This code uses an orthographic approximation 
 				Shadow->Enable_Perspective(false);
-				Shadow->Set_Light_Source_ID((uint32)best_light);
+				Shadow->Set_Light_Source_ID((uintptr_t)best_light);
 				
 				Vector3 direction;
 				Get_Position(&direction);

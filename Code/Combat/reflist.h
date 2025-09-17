@@ -156,7 +156,7 @@ bool	ReferenceableClass<T>::Save( ChunkSaveClass & csave )
 {
 	csave.Begin_Chunk( CHUNKID_REF_VARIABLES );
 		void * ptr = this;
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_PTR, ptr );
+		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PTR, ptr );
 	csave.End_Chunk();
 	return true;
 }
@@ -173,7 +173,7 @@ bool	ReferenceableClass<T>::Load( ChunkLoadClass & cload )
 	while (cload.Open_Micro_Chunk()) {
 		switch(cload.Cur_Micro_Chunk_ID()) {
 			case MICROCHUNKID_PTR:
-				cload.Read(&old_ptr,sizeof(void*));
+				cload.Read(&old_ptr,sizeof(int));
 				SaveLoadSystemClass::Register_Pointer(old_ptr, this);
 				break;
 

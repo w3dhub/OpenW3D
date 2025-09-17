@@ -44,7 +44,7 @@
 ///////////////////////////////////////////////////////////////////////
 //	Forward declarations
 ///////////////////////////////////////////////////////////////////////
-UINT fnSplashScreenThread (DWORD, DWORD, DWORD, HRESULT *, HWND *phmain_wnd);
+UINT fnSplashScreenThread (DWORD_PTR, DWORD_PTR, DWORD_PTR, HRESULT *, HWND *phmain_wnd);
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -147,9 +147,9 @@ SplashClass::Close (void)
 UINT
 fnSplashScreenThread
 (
-	DWORD /*dwparam1*/,
-	DWORD /*dwparam2*/,
-	DWORD /*dwparam3*/,
+	DWORD_PTR /*dwparam1*/,
+	DWORD_PTR /*dwparam2*/,
+	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,
 	HWND* phmain_wnd
 )

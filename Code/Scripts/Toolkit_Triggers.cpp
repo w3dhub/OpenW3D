@@ -150,7 +150,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Killed_RMV, "Start_Now=1:int, Receive_Type=1:int
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("M00_Trigger_When_Killed_RMV received custom type %d, param %d.\n", type, param));
 
@@ -231,7 +231,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Destroyed_RMV, "Start_Now=1:int, Receive_Type=2:
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("M00_Trigger_When_Destroyed_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_DESTROYED) || (type == Get_Int_Parameter("Receive_Type")))
@@ -425,7 +425,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_RMV, "Start_Now=1:int, Receive_Type=3:in
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_ZONE_ENTERED) || (type == Get_Int_Parameter("Receive_Type")))
@@ -575,7 +575,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Exited_RMV, "Start_Now=1:int, Receive_Type=4:int
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Exited_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_ZONE_ENTERED) || (type == Get_Int_Parameter("Receive_Type")))
@@ -789,7 +789,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_Or_Exited_RMV, "Start_Now=1:int, Receive
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_Or_Exited_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_ZONE_ENTERED) || (type == Get_Int_Parameter("Receive_Type")))
@@ -880,7 +880,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Enemy_Seen_RMV, "Start_Now=1:int, Receive_Type=6
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("M00_Trigger_When_Enemy_Seen_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_ENEMY_SEEN) || (type == Get_Int_Parameter("Receive_Type")))
@@ -973,7 +973,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Damaged_RMV, "Start_Now=1:int, Receive_Type=7:in
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("M00_Trigger_When_Damaged_RMV received custom type %d,param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_DAMAGED) || (type == Get_Int_Parameter("Receive_Type")))
@@ -1068,7 +1068,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Action_Complete_RMV, "Start_Now=1:int, Receive_T
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Trigger_When_Action_Complete_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_ACTION_COMPLETE) || (type == Get_Int_Parameter("Receive_Type")))
@@ -1164,7 +1164,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Animation_Complete_RMV, "Start_Now=1:int, Receiv
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Trigger_When_Animation_Complete_RMV received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_ACTIVATE_ANIMATION_COMPLETE) || (type == Get_Int_Parameter("Receive_Type")))
@@ -1288,7 +1288,7 @@ DECLARE_SCRIPT(M00_Trigger_Timer_Expired_RAD, "Start_Now=0:int, Receive_Type=15:
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Trigger_Timer_Expired_RAD received custom type %d, param %d.\n", type, param));
 		if ((type == M00_CUSTOM_TRIGGER_ACTIVATE_ALL) || (type == M00_CUSTOM_TRIGGER_TIMER_EXPIRED) || (type == Get_Int_Parameter("Receive_Type")))
@@ -1335,7 +1335,7 @@ DECLARE_SCRIPT(M00_Trigger_State_Sequence_RAD, "Start_Now=0:int, Receive_Type:in
 		}
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Trigger_State_Sequence_RAD received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))

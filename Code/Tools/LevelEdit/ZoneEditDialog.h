@@ -108,7 +108,7 @@ protected:
 	void						Load_Object (void);
 	void						Render_View (void);
 	void						Insert_Zone (void);
-	static void CALLBACK fnUpdateTimer (UINT, UINT, DWORD, DWORD, DWORD);
+	static void CALLBACK fnUpdateTimer (UINT, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR);
 
 	void						Update_Status (void);
 

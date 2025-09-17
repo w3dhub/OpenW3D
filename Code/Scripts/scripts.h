@@ -41,7 +41,6 @@
 #include "scriptcommands.h"
 #include "ScriptRegistrant.h"
 #include "string_ids.h"
-#include <stdlib.h>
 
 class CombatSound;
 class ScriptFactory;
@@ -142,7 +141,7 @@ public:
 	virtual	void	Destroyed( GameObject * obj ) override {}
 	virtual	void	Killed( GameObject * obj, GameObject * killer ) override {}
 	virtual	void	Damaged( GameObject * obj, GameObject * damager, float amount ) override {}
-	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) override {}
+	virtual	void	Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override {}
 	virtual	void	Sound_Heard( GameObject * obj, const CombatSound & sound ) override {}
 	virtual	void	Enemy_Seen( GameObject * obj, GameObject * enemy ) override {}
 	virtual	void	Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override	{}

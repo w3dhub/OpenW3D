@@ -483,7 +483,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if (type == 101)
 		{
@@ -1110,7 +1110,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -1323,7 +1323,7 @@ DECLARE_SCRIPT (MDD_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -1421,7 +1421,7 @@ DECLARE_SCRIPT (MDD_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, int param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -1815,7 +1815,7 @@ DECLARE_SCRIPT (MDD_Havoc_Unit, "")
 		Commands->Action_Goto(obj, params);
 	}
 
-	void Custom(GameObject * obj, int type, int param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
 	{
 		if ((type == 100) && (param == 0))
 		{
