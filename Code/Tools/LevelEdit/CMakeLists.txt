@@ -191,7 +191,7 @@ set(LEVELEDIT_SRC
     VisStatsDialog.cpp
     VisualOptionsDialog.cpp
     VisWindowDialog.cpp
-    VSSClass.cpp
+    #VSSClass.cpp
     WaypathDefinition.cpp
     WaypathInfoPage.cpp
     WaypathNode.cpp
@@ -408,7 +408,7 @@ set(LEVELEDIT_SRC
     VisStatsDialog.h
     VisualOptionsDialog.h
     VisWindowDialog.h
-    VSSClass.h
+    #VSSClass.h
     WaypathDefinition.h
     WaypathInfoPage.h
     WaypathNode.h
@@ -419,7 +419,10 @@ set(LEVELEDIT_SRC
     ZoneEditDialog.h
     ZoneInfoPage.h
     ZoneNode.h
+    LevelEdit.rc
 )
+
+include(crunch)
 
 # Targets to build.
 add_executable(leveledit WIN32)
@@ -434,6 +437,7 @@ target_include_directories(leveledit PRIVATE
 )
 
 target_link_libraries(leveledit PRIVATE
+    crnlib
     winmm
     wsock32
     shlwapi
@@ -457,18 +461,5 @@ target_link_libraries(leveledit PRIVATE
     wwphyse
     combate
 )
-
-if(WIN32)
-    target_link_options(leveledit PRIVATE /NODEFAULTLIB:libci.lib /NODEFAULTLIB:libc.lib)
-    add_custom_command(
-        OUTPUT VSS.h VSS_i.c
-        COMMAND midl.exe "${CMAKE_CURRENT_SOURCE_DIR}\\VSS.IDL" /header VSS.h
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        DEPENDS "${CMAKE_CURRENT_LIST_DIR}/VSS.IDL"
-        VERBATIM
-    )
-
-    target_sources(leveledit PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/VSS_i.c LevelEdit.rc)
-endif()
 
 target_sources(leveledit PRIVATE ${LEVELEDIT_SRC})
