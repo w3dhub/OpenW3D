@@ -12,8 +12,10 @@ endif()
 
 project(commando LANGUAGES C CXX)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+
 # This file handles extra settings wanted/needed for different compilers.
-include(cmake/compilers.cmake)
+include(compilers)
 
 # Set where the build results will end up
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}" CACHE PATH "Where to output archives")
@@ -48,13 +50,13 @@ include(FetchContent)
 # Only 32bit Windows can make use of these APIs as the libraries shipped with the game.
 if(WIN32)
     if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-        include(cmake/miles.cmake)
-        include(cmake/bink.cmake)
+        include(miles)
+        include(bink)
     endif()
-    include(cmake/dx9.cmake)
+    include(dx9)
 endif()
 
-include(cmake/gamespy.cmake)
+include(gamespy)
 
 # Add main build targets
 add_subdirectory(Code)

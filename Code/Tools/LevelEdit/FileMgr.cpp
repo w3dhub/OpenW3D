@@ -56,12 +56,14 @@
 #include "presetmgr.h"
 #include "spawnernode.h"
 #include "wwstring.h"
-#include "vssclass.h"
 #include "assetdatabase.h"
 #include "editorbuild.h"
 #include "assetpackagemgr.h"
 #include "mixfiledatabase.h"
 
+#ifndef PUBLIC_EDITOR_VER
+#include "vssclass.h"
+#endif
 
 
 ////////////////////////////////////////////////////////////////////////
