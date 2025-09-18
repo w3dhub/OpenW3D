@@ -53,7 +53,7 @@
 // built with the public "mod" functionality or the in-house tool
 // functionality.
 //
-//#define PUBLIC_EDITOR_VER
+#define PUBLIC_EDITOR_VER
 
 
 

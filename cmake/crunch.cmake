@@ -1,0 +1,94 @@
+FetchContent_Populate(
+    crunch
+    GIT_REPOSITORY https://github.com/BinomialLLC/crunch.git
+    GIT_TAG        36479bc697be19168daafbf15f47f3c60ccec004
+)
+
+set(CRNLIB_SOURCES
+    ${crunch_SOURCE_DIR}/crnlib/crn_arealist.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_assert.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_checksum.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_colorized_console.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_command_line_params.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_comp.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_console.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_core.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_data_stream.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dds_comp.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_decomp.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt1.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt5a.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt_endpoint_refiner.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt_fast.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt_hc.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt_hc_common.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dxt_image.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_dynamic_string.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_etc.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_file_utils.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_find_files.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_hash.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_hash_map.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_huffman_codes.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_image_utils.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_jpgd.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_jpge.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_ktx_texture.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_lzma_codec.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_math.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_mem.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_miniz.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_mipmapped_texture.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_pixel_format.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_platform.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_prefix_coding.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_qdxt1.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_qdxt5.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_rand.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_resample_filters.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_resampler.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_rg_etc1.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_ryg_dxt.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_sparse_bit_array.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_stb_image.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_strutils.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_symbol_codec.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_texture_comp.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_texture_conversion.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_texture_file_types.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_threaded_resampler.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_threading_pthreads.cpp
+    $<$<PLATFORM_ID:Windows>:${crunch_SOURCE_DIR}/crnlib/crn_threading_win32.cpp>
+    ${crunch_SOURCE_DIR}/crnlib/crn_timer.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_utils.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_value.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_vector.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crn_zeng.cpp
+    ${crunch_SOURCE_DIR}/crnlib/crnlib.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_7zBuf.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_7zBuf2.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_7zCrc.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_7zFile.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_7zStream.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_Alloc.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_Bcj2.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_Bra.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_Bra86.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_BraIA64.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_LzFind.cpp
+    $<$<PLATFORM_ID:Windows>:${crunch_SOURCE_DIR}/crnlib/lzma_LzFindMt.cpp>
+    ${crunch_SOURCE_DIR}/crnlib/lzma_LzmaDec.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_LzmaEnc.cpp
+    ${crunch_SOURCE_DIR}/crnlib/lzma_LzmaLib.cpp
+    $<$<PLATFORM_ID:Windows>:${crunch_SOURCE_DIR}/crnlib/lzma_Threads.cpp>
+)
+
+add_library(crnlib STATIC ${CRNLIB_SOURCES})
+target_include_directories(crnlib
+    PUBLIC
+        $<BUILD_INTERFACE:
+             ${crunch_SOURCE_DIR}/crnlib
+             ${crunch_SOURCE_DIR}/inc
+        >
+)
