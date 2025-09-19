@@ -96,7 +96,6 @@ set(WW3D2_SRC
     texture.cpp
     textureloader.cpp
     texturethumbnail.cpp
-    txt.cpp
     vertmaterial.cpp
     visrasterizer.cpp
     w3d_dep.cpp
@@ -207,7 +206,6 @@ set(WW3D2_SRC
     texture.h
     textureloader.h
     texturethumbnail.h
-    txt.h
     vertmaterial.h
     visrasterizer.h
     w3d_dep.h
