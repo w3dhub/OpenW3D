@@ -71,8 +71,6 @@
 
 #include "rendobj.h"
 #include "assetmgr.h"
-#include "_mono.h"
-#include "bsurface.h"
 #include "pot.h"
 #include "scene.h"
 #include "colmath.h"

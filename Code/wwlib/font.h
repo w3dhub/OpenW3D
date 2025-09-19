@@ -40,7 +40,6 @@
 #ifndef FONT_H
 #define FONT_H
 
-#include	"convert.h"
 #include	"point.h"
 #include	"trect.h"
 #include	<stddef.h>

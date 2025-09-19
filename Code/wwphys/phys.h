@@ -64,7 +64,6 @@
 
 class	CullSystemClass;
 class	CullLinkClass;
-class MonoClass;
 class AABoxClass;
 class CameraClass;
 class srScene;

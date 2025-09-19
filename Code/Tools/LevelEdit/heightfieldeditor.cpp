@@ -43,7 +43,6 @@
 #include "editableheightfield.h"
 #include "MouseMgr.h"
 #include "texture.h"
-#include "surface.h"
 #include "terrainmaterial.h"
 #include "heightfieldpage.h"
 #include "textureloader.h"

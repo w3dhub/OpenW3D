@@ -44,8 +44,6 @@
 #include <wwlib/cpudetect.h>
 #include <wwlib/verchk.h>
 #include <wwlib/cpudetect.h>
-#include <wwlib/global.h>
-#include <wwlib/md5.h>
 #include <ww3d2/dx8wrapper.h>
 #include <windows.h>
 
