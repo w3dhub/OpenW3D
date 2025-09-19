@@ -47,6 +47,8 @@
 #include "specialbuilds.h"
 #include "stylemgr.h"
 #include "render2dsentence.h"
+#include "ffactory.h"
+#include "wwfile.h"
 
 enum {
 	STARTUP_MOVIE_OFF,
@@ -150,7 +152,8 @@ void	MovieGameModeClass::Start_Movie( const char * filename )
 	//
 	//	Play the movie (if it exists locally)
 	//
-	if ( ::GetFileAttributesA ( filename ) != 0xFFFFFFFF ) {
+	FileClass *file = _TheFileFactory->Get_File(filename);
+	if (file->Is_Available()) {
 		Play_Movie ( filename );
 	} else {
 
@@ -250,7 +253,7 @@ void	MovieGameModeClass::Startup_Movies( void )
 		MovieGameModeClass::Movie_Done();
 	} else {
 		MovieStartupMode = STARTUP_MOVIE_EA;
-		Start_Movie( "DATA\\MOVIES\\EA_WW.BIK" );		// Play WW/EA movie
+		Start_Movie( "MOVIES\\EA_WW.BIK" );		// Play WW/EA movie
 	}
 }
 
@@ -264,7 +267,7 @@ void	MovieGameModeClass::Movie_Done( void )
 
 	if ( MovieStartupMode == STARTUP_MOVIE_EA ) {
 		MovieStartupMode = STARTUP_MOVIE_INTRO;
-		Start_Movie( "DATA\\MOVIES\\R_INTRO.BIK" );		// Play Renegade intro movie
+		Start_Movie( "MOVIES\\R_INTRO.BIK" );		// Play Renegade intro movie
 	} else if ( MovieStartupMode == STARTUP_MOVIE_INTRO ) {
 		MovieStartupMode = STARTUP_MOVIE_OFF;
 		// Goto main menu
