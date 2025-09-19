@@ -250,7 +250,7 @@ FileMgrClass::Is_Empty_Path (LPCTSTR path)
 		::Delimit_Path (temp1);
 		::Delimit_Path (temp2);
 
-		retval = bool(::openw3d::stricmp (temp1, temp2) ==  0);
+		retval = bool(::openw3d::string_compare (temp1, temp2) ==  0);
 	}
 
 	return retval;

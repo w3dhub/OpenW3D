@@ -539,7 +539,7 @@ WWAudioClass::Find_Cached_Buffer (const char *string_id)
 			// Is this the sound buffer we were looking for?
 			//
 			CACHE_ENTRY_STRUCT &info = m_CachedBuffers[hash_index][index];
-			if (::openw3d::stricmp (info.string_id, string_id) == 0) {
+			if (::openw3d::string_compare (info.string_id, string_id) == 0) {
 				sound_buffer = info.buffer;
 				sound_buffer->Add_Ref ();
 				break;
@@ -1894,7 +1894,7 @@ WWAudioClass::Select_3D_Device (const char *device_name)
 			//
 			//	Is this the device we were looking for?
 			//
-			if (::openw3d::stricmp (info->name, device_name) == 0) {
+			if (::openw3d::string_compare (info->name, device_name) == 0) {
 				retval = Select_3D_Device (device_name, info->driver);
 				break;
 			}

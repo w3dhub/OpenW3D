@@ -333,7 +333,7 @@ GameModeClass	*GameModeManager::Find( const char * name )
 			game_mode_node = game_mode_node->Next()) {
 		GameModeClass *mode = game_mode_node->Data();
 
-		if ( !openw3d::stricmp( name, mode->Name() ) ) {
+		if ( !openw3d::string_compare( name, mode->Name() ) ) {
 			return mode;
 		}
 	}

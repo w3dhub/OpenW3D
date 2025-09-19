@@ -59,7 +59,7 @@ DECLARE_FORCE_LINK(rbody);
 
 
 #define RBODY_DEBUGGING					0
-#define RBODY_DEBUG_FILTER				(openw3d::stricmp(Model->Get_Name(),"V_GDI_ORCA_M") == 0) && (PhysicsSceneClass::Get_Instance()->Is_Debug_Display_Enabled())
+#define RBODY_DEBUG_FILTER				(openw3d::string_compare(Model->Get_Name(),"V_GDI_ORCA_M") == 0) && (PhysicsSceneClass::Get_Instance()->Is_Debug_Display_Enabled())
 
 #define JITTER_ELIMINATION_CODE		0
 
@@ -2267,7 +2267,7 @@ bool RigidBodyDefClass::Load(ChunkLoadClass &cload)
 
 bool RigidBodyDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::stricmp(type_name,RigidBodyDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::string_compare(type_name,RigidBodyDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return MoveablePhysDefClass::Is_Type(type_name);

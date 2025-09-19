@@ -551,7 +551,7 @@ uint32 BuildingAggregateDefClass::Get_Class_ID(void) const
 
 bool BuildingAggregateDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::stricmp(type_name,BuildingAggregateDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::string_compare(type_name,BuildingAggregateDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return StaticAnimPhysDefClass::Is_Type(type_name);

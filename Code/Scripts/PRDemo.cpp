@@ -434,7 +434,7 @@ DECLARE_SCRIPT(MPR_A01_Chinook_Evac_Civies_PMP,"")
 
 	void Animation_Complete(GameObject* obj, const char* name)
 	{
-		if (openw3d::stricmp (name,"V_GDI_CHINOOKE3.m_ch_evacland") ==0 )
+		if (openw3d::string_compare (name,"V_GDI_CHINOOKE3.m_ch_evacland") ==0 )
 		{
 			Commands->Set_Animation( obj, "V_GDI_CHINOOKE3.m_ch_evacloiter", true);
 			Commands->Start_Timer(obj, 13, MPR_TIMER_EVAC_PMP );
@@ -1141,7 +1141,7 @@ DECLARE_SCRIPT(MPR_ApacheController, "")
 		const char* animName = strrchr(finishedAnim, '.');
 		animName++;
 
-		if (openw3d::stricmp(animName, transition.TransitionAnim) == 0)
+		if (openw3d::string_compare(animName, transition.TransitionAnim) == 0)
 		{
 			// Arrived at desired position
 
@@ -2879,14 +2879,14 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 
 		//S_A_HUMAN.H_A_J07C is animation for rag on cadet
 
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_J07C", name) == 0) && (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)))
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_J07C", name) == 0) && (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Animation_Complete\n");
 		
 			DI_Goes_To_New_Position ();
 		}
 
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_DIV1", name) == 0) && (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)) && (state == DI_INNATE))
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_DIV1", name) == 0) && (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)) && (state == DI_INNATE))
 		{
 			Commands->Action_Attack_Object (obj, (Commands->Get_The_Star()), 1.0f, 50.0f);
 
@@ -3204,27 +3204,27 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_1_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J13A", 0);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_1_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J43B", 1);
 		}
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_1_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J14C", 1);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_1_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
@@ -3232,7 +3232,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		}
 
 		//S_A_HUMAN.H_A_A0A0 is animation for come to attention
-		if ((openw3d::stricmp (name,"S_A_HUMAN.H_A_A0A0") ==0 ) && (state != CADET_1_INNATE))
+		if ((openw3d::string_compare (name,"S_A_HUMAN.H_A_A0A0") ==0 ) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Animation_Complete, Come to Attention\n");
 		
@@ -3241,7 +3241,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 	 
 
 		//S_A_HUMAN.H_A_J09C is animation for make mistake
-		if ((openw3d::stricmp (name, "S_A_HUMAN.H_A_J09C") == 0 ) && (state != CADET_1_INNATE))
+		if ((openw3d::string_compare (name, "S_A_HUMAN.H_A_J09C") == 0 ) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Animation_Complete, Make Mistake\n");
 		
@@ -3386,28 +3386,28 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_2_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J13A", 0);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_2_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J43B", 1);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_2_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J14C", 1);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_2_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
@@ -3415,7 +3415,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		}
 
 		//S_A_HUMAN.H_A_A0A0 is animation for come to attention
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_A0A0") == 0) && (state != CADET_2_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_A0A0") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Animation_Complete, Come to Attention\n");
 		
@@ -3423,7 +3423,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		}
 
 		//S_A_HUMAN.H_A_J09C is animation for make mistake
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J09C") == 0) && (state != CADET_2_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J09C") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Animation_Complete, Make Mistake\n");
 		
@@ -3568,28 +3568,28 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_3_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J13A", 0);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_3_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J43B", 1);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_3_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J14C", 1);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_3_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
 		
@@ -3597,7 +3597,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		}
 
 		//S_A_HUMAN.H_A_A0A0 is animation for come to attention
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_A0A0") == 0) && (state != CADET_3_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_A0A0") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Animation_Complete, Come to Attention\n");
 		
@@ -3605,7 +3605,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		}
 
 		//S_A_HUMAN.H_A_J09C is animation for make mistake
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J09C") == 0) && (state != CADET_3_INNATE))
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J09C") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Animation_Complete, Make Mistake\n");
 		
@@ -3813,17 +3813,17 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_1_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J33C") == 0)) 
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J33C") == 0)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J15C", 0);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J15C") == 0)) 
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J15C") == 0)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J03C", 0);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J03C") == 0)) 
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J03C") == 0)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J33C", 0);
 		}
@@ -3942,17 +3942,17 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_2_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J09C") == 0)) 
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J09C") == 0)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J10C", 0);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J10C") == 0)) 
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J10C") == 0)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J11C", 0);
 		}
 
-		if ((openw3d::stricmp(name, "S_A_HUMAN.H_A_J11C") == 0)) 
+		if ((openw3d::string_compare(name, "S_A_HUMAN.H_A_J11C") == 0)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J09C", 0);
 		}
@@ -4456,28 +4456,28 @@ DECLARE_SCRIPT(MPR_A03_Helicopter_Injured_NOD_Pilot_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_H11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STANDING_UP)) 
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_H11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STANDING_UP)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_611A", 0);
 
 			state = MPR_A03_PILOT_STAMMERING;
 		}
 
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_611A", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STAMMERING)) 
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_611A", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STAMMERING)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J11C", 0);
 
 			state = MPR_A03_PILOT_LOOKING_BACK;
 		}
 
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_J11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_LOOKING_BACK)) 
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_J11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_LOOKING_BACK)) 
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J22C", 0);
 
 			state = MPR_A03_PILOT_ADJUSTING_KEVLAR;
 		}
 
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_J22C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_ADJUSTING_KEVLAR)) 
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_J22C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_ADJUSTING_KEVLAR)) 
 		{
 			Commands->Action_Movement_Set_Forward_Speed (obj, 0.5f);
 
@@ -4618,7 +4618,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_J12C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_PLACING_BOMB)) 
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_J12C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_PLACING_BOMB)) 
 		{
 
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J18C", 0);
@@ -4627,7 +4627,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 			state = MPR_A03_BRIDGESCENE_ENGINEER_WAVING;
 		}
 		
-		if ((openw3d::stricmp("S_A_HUMAN.H_A_J18C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_WAVING)) 
+		if ((openw3d::string_compare("S_A_HUMAN.H_A_J18C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_WAVING)) 
 		{
 			//DebugPrint("JDG, MPRA03, BridgeScene, Engineer, Finished waving\n");
 	

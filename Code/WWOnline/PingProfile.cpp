@@ -393,7 +393,7 @@ void PingProfileWait::HandleNotification(RawPing& ping)
 			{
 			const char* pinger = pingers[index]->GetHostAddress();
 
-			if (openw3d::stricmp(address, pinger) == 0)
+			if (openw3d::string_compare(address, pinger) == 0)
 				{
 				WWDEBUG_SAY(("WOL: PingProfileWait received ping for '%s'\n", pingers[index]->GetData().name));
 				mCount--;

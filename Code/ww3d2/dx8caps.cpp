@@ -757,14 +757,14 @@ void DX8Caps::Check_Driver_Version_Status()
 		DriverVersionStatus=DRIVER_STATUS_BAD;
 		break;
 	case VENDOR_NVIDIA:
-		if (!openw3d::stricmp(DriverDLL,"nv4.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"nv4.dll")) {
 			switch (DriverBuildVersion) {
 			case 327:	// 5.00.2165.327
 				DriverVersionStatus=DRIVER_STATUS_BAD;
 			}
 		}
 
-		if (!openw3d::stricmp(DriverDLL,"nv4_disp.dll") || !openw3d::stricmp(DriverDLL,"nvdd32.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"nv4_disp.dll") || !openw3d::string_compare(DriverDLL,"nvdd32.dll")) {
 			switch (DriverBuildVersion) {
 			// 23.11 Is known to be very unstable
 			case 2311:
@@ -826,7 +826,7 @@ void DX8Caps::Check_Driver_Version_Status()
 			}
 		}
 		// Elsa OEM drivers?
-		if (!openw3d::stricmp(DriverDLL,"egdad.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"egdad.dll")) {
 			// We know of version 5.9.0.312 (asked MShelling if he the drivers seem ok)
 			switch (DriverBuildVersion) {
 			default:
@@ -837,7 +837,7 @@ void DX8Caps::Check_Driver_Version_Status()
 		}
 
 		// Elsa GLoria
-		if (!openw3d::stricmp(DriverDLL,"egliid.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"egliid.dll")) {
 			switch (DriverBuildVersion) {
 			default:
 				DriverVersionStatus=DRIVER_STATUS_UNKNOWN;
@@ -848,12 +848,12 @@ void DX8Caps::Check_Driver_Version_Status()
 		}
 
 		// ASUS OEM drivers?
-		if (!openw3d::stricmp(DriverDLL,"v66_disp.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"v66_disp.dll")) {
 		// TOMSS1: 5.0.2195.379
 		}
 		break;
 	case VENDOR_ATI:
-		if (!openw3d::stricmp(DriverDLL,"ati2dvag.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"ati2dvag.dll")) {
 			switch (DriverBuildVersion) {
 			case 3287:
 				DriverVersionStatus=DRIVER_STATUS_UNKNOWN;
@@ -872,13 +872,13 @@ void DX8Caps::Check_Driver_Version_Status()
 				break;
 			}
 		}
-		if (!openw3d::stricmp(DriverDLL,"atid32ae.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"atid32ae.dll")) {
 			switch (DriverBuildVersion) {
 			case 1010:
 				DriverVersionStatus=DRIVER_STATUS_OK;
 			}
 		}
-		if (!openw3d::stricmp(DriverDLL,"ati3drai.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"ati3drai.dll")) {
 			switch (DriverBuildVersion) {
 			case 1119:
 				DriverVersionStatus=DRIVER_STATUS_UNKNOWN;
@@ -886,7 +886,7 @@ void DX8Caps::Check_Driver_Version_Status()
 		}
 		break;
 	case VENDOR_POWERVR:
-		if (!openw3d::stricmp(DriverDLL,"pmx2hal.dll")) {
+		if (!openw3d::string_compare(DriverDLL,"pmx2hal.dll")) {
 			switch (DriverBuildVersion) {
 			case 3111:	// Michael Ruppert - TESTIBM104
 			default: DriverVersionStatus=DRIVER_STATUS_UNKNOWN;

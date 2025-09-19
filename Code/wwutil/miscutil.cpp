@@ -77,7 +77,7 @@ bool cMiscUtil::Is_String_Same(LPCSTR str1, LPCSTR str2)
    WWASSERT(str1 != NULL);
    WWASSERT(str2 != NULL);
 
-   return(::openw3d::stricmp(str1, str2) == 0);
+   return(::openw3d::string_compare(str1, str2) == 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -86,7 +86,7 @@ bool cMiscUtil::Is_String_Different(LPCSTR str1, LPCSTR str2)
    WWASSERT(str1 != NULL);
    WWASSERT(str2 != NULL);
 
-   return(::openw3d::stricmp(str1, str2) != 0);
+   return(::openw3d::string_compare(str1, str2) != 0);
 }
 
 //-----------------------------------------------------------------------------

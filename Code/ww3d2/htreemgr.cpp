@@ -250,7 +250,7 @@ HTreeClass * HTreeManagerClass::Get_Tree(const char * name)
 	return TreeHash.Get(lower_case_name);
 
 //	for (int i=0; i<NumTrees; i++) {
-//		if (TreePtr[i] && (openw3d::stricmp(name,TreePtr[i]->Get_Name()) == 0)) {
+//		if (TreePtr[i] && (openw3d::string_compare(name,TreePtr[i]->Get_Name()) == 0)) {
 //
 //			return TreePtr[i];
 //		}

@@ -1345,8 +1345,8 @@ void PhysicalGameObj::Set_Player_Type(int id)
 		//
 		// Handle tinting for soldiers, pedestals, flags
 		//
-		if (	openw3d::stricmp( Get_Definition().Get_Name(), "CtfFlag" ) == 0 ||
-				openw3d::stricmp( Get_Definition().Get_Name(), "CtfPedestal" ) == 0)
+		if (	openw3d::string_compare( Get_Definition().Get_Name(), "CtfFlag" ) == 0 ||
+				openw3d::string_compare( Get_Definition().Get_Name(), "CtfPedestal" ) == 0)
 		{
 			Set_Tint( Get_Team_Color() );
 		}

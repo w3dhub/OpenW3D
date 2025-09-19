@@ -55,7 +55,7 @@ char 		*ArgvClass::Argv[MAX_ARGC];
  * CurrentPos -- Create an instance to parse argv with.                                        * 
  *                                                                                             * 
  * INPUT:                                                                                      * 
- *    	bool case_sensitive - Do you want to perform a case sensitive search (openw3d::stricmp)?		  *
+ *    	bool case_sensitive - Do you want to perform a case sensitive search (openw3d::string_compare)?		  *
  *			bool exact_size     - Do you want string of same lenght (strncmp) ?						  *
  *                                                                                             * 
  * OUTPUT:                                                                                     * 

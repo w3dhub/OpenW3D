@@ -781,7 +781,7 @@ bool HumanPhysDefClass::Load(ChunkLoadClass &cload)
 
 bool HumanPhysDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::stricmp(type_name,HumanPhysDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::string_compare(type_name,HumanPhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return Phys3DefClass::Is_Type(type_name);

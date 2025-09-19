@@ -211,19 +211,19 @@ void	ArmorWarheadManager::Init( void )
 			StringClass	special_damage_type(0,true);
 			armorINI->Get_String(special_damage_type,	SECTION_SPECIAL_DAMAGE_TYPE, WarheadNames[warhead_num] );
 			if ( !special_damage_type.Is_Empty() ) {
-				if ( !openw3d::stricmp( special_damage_type, "FIRE" ) ) {
+				if ( !openw3d::string_compare( special_damage_type, "FIRE" ) ) {
 					SpecialDamageTypes[warhead_num] = SPECIAL_DAMAGE_TYPE_FIRE;
 				}
-				if ( !openw3d::stricmp( special_damage_type, "CHEM" ) ) {
+				if ( !openw3d::string_compare( special_damage_type, "CHEM" ) ) {
 					SpecialDamageTypes[warhead_num] = SPECIAL_DAMAGE_TYPE_CHEM;
 				}
-				if ( !openw3d::stricmp( special_damage_type, "CNC_FIRE" ) ) {
+				if ( !openw3d::string_compare( special_damage_type, "CNC_FIRE" ) ) {
 					SpecialDamageTypes[warhead_num] = SPECIAL_DAMAGE_TYPE_CNC_FIRE;
 				}
-				if ( !openw3d::stricmp( special_damage_type, "CNC_CHEM" ) ) {
+				if ( !openw3d::string_compare( special_damage_type, "CNC_CHEM" ) ) {
 					SpecialDamageTypes[warhead_num] = SPECIAL_DAMAGE_TYPE_CNC_CHEM;
 				}
-				if ( !openw3d::stricmp( special_damage_type, "ELECTRIC" ) ) {
+				if ( !openw3d::string_compare( special_damage_type, "ELECTRIC" ) ) {
 					SpecialDamageTypes[warhead_num] = SPECIAL_DAMAGE_TYPE_ELECTRIC;
 				}
 			}
@@ -345,7 +345,7 @@ int			 	ArmorWarheadManager::Get_Num_Warhead_Types( void )
 ArmorType		ArmorWarheadManager::Get_Armor_Type( const char *name )
 {
 	for (	int index = 0; index < ArmorNames.Count(); index++ ) {
-		if ( !openw3d::stricmp( ArmorNames[index], name ) ) {
+		if ( !openw3d::string_compare( ArmorNames[index], name ) ) {
 			return index;
 		}
 	}
@@ -357,7 +357,7 @@ ArmorType		ArmorWarheadManager::Get_Armor_Type( const char *name )
 WarheadType		ArmorWarheadManager::Get_Warhead_Type( const char *name )
 {
 	for (	int index = 0; index < WarheadNames.Count(); index++ ) {
-		if ( !openw3d::stricmp( WarheadNames[index], name ) ) {
+		if ( !openw3d::string_compare( WarheadNames[index], name ) ) {
 			return index;
 		}
 	}

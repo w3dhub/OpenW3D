@@ -46,7 +46,7 @@ static int anim_name_compare (const void *arg1, const void *arg2)
 	ASSERT(arg2 != NULL);
 	HAnimClass *a1 = *(HAnimClass**)arg1;
 	HAnimClass *a2 = *(HAnimClass**)arg2;
-	return openw3d::stricmp( a1->Get_Name(), a2->Get_Name() );
+	return openw3d::string_compare( a1->Get_Name(), a2->Get_Name() );
 }
 
 
@@ -157,7 +157,7 @@ void CAdvancedAnimSheet::LoadAnims (void)
 			if (pHierarchyAnim)
 			{
 				// Does this animation apply to the current model's HTree?
-				if (openw3d::stricmp(htree_name, pHierarchyAnim->Get_HName()) == 0)
+				if (openw3d::string_compare(htree_name, pHierarchyAnim->Get_HName()) == 0)
 				{
 					// Add this Anims pointer to the array.
 					if (AnimCount < MAX_REPORT_ANIMS)

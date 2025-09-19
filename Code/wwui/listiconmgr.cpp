@@ -210,7 +210,7 @@ ListIconMgrClass::Find_Texture (const char *texture_name)
 	//	Try to find a texture with this name in our list
 	//
 	for (int index = 0; index < TextureNames.Count (); index ++) {
-		if (::openw3d::stricmp (texture_name, TextureNames[index]) == 0) {
+		if (::openw3d::string_compare (texture_name, TextureNames[index]) == 0) {
 			retval = index;
 			break;
 		}

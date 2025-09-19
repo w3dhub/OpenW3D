@@ -743,7 +743,7 @@ const char * StaticPhysDefClass::Get_Type_Name(void)
 
 bool StaticPhysDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::stricmp(type_name,StaticPhysDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::string_compare(type_name,StaticPhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return PhysDefClass::Is_Type(type_name);

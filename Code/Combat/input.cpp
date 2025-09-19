@@ -1110,7 +1110,7 @@ short	Input::Get_Function( const char *name )
 	if ( name && name[0] ) {
 		// find function
 		for ( int function = 0; function < NUM_FUNCTIONS; function++ ) {
-			if ( !openw3d::stricmp( name, Functions[function].Name ) ) {
+			if ( !openw3d::string_compare( name, Functions[function].Name ) ) {
 				return Functions[function].ID;
 			}
 		}
@@ -1160,7 +1160,7 @@ short	Input::Get_Key( const char *name )
 		//
 		int index;
 		for (index = 0; index < NUM_BUTTON_NAMES; index ++) {
-			if (::openw3d::stricmp (name, ButtonNames[index].Name) == 0) {
+			if (::openw3d::string_compare (name, ButtonNames[index].Name) == 0) {
 				return ButtonNames[index].ID;
 			}
 		}
@@ -1169,7 +1169,7 @@ short	Input::Get_Key( const char *name )
 		// Check each slider name
 		//
 		for (index = 0; index < NUM_SLIDER_NAMES; index ++) {
-			if (::openw3d::stricmp (name, SliderNames[index].Name) == 0) {
+			if (::openw3d::string_compare (name, SliderNames[index].Name) == 0) {
 				return SliderNames[index].ID;
 			}
 		}

@@ -176,7 +176,7 @@ void	SaveGameManager::Pre_Load_Game
 	//
 	//	Is this a mix file?
 	//
-    if (openw3d::stricmp (extension, ".mix") == 0) {
+    if (openw3d::string_compare (extension, ".mix") == 0) {
 		
 		StringClass thumb_filename(root_name,true);
 		thumb_filename+=".thu";
@@ -197,7 +197,7 @@ void	SaveGameManager::Pre_Load_Game
 			FileFactoryListClass::Get_Instance ()->Set_Search_Start(filename);
 		}
 
-    } else if (openw3d::stricmp (extension, ".lsd") == 0) {
+    } else if (openw3d::string_compare (extension, ".lsd") == 0) {
 		lsd_filename = filename;
 		filename_to_load.Format ("%s.ldd", root_name);
 	} else {
@@ -326,7 +326,7 @@ bool	SaveGameManager::Smart_Peek_Description
 	//	Is this a mix file?
 	//
 	FileFactoryClass * mix_factory = NULL;
-    if (openw3d::stricmp (extension, ".mix") == 0) {
+    if (openw3d::string_compare (extension, ".mix") == 0) {
 		
 		//
 		// Configure a mix file factory for this mix file

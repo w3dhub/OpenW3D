@@ -314,7 +314,7 @@ InputConfigMgrClass::Find_Configuration (const char *filename)
 		//
 		//	Is this the entry we're looking for?
 		//
-		if (::openw3d::stricmp (ConfigList[index].Get_Filename (), filename) == 0) {
+		if (::openw3d::string_compare (ConfigList[index].Get_Filename (), filename) == 0) {
 			retval = index;
 			break;
 		}

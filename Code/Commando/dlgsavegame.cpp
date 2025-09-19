@@ -590,7 +590,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 			//	Select this entry if its the default
 			//
 			if (	current_filename != NULL && 
-					::openw3d::stricmp (current_filename, find_info.cFileName) == 0)
+					::openw3d::string_compare (current_filename, find_info.cFileName) == 0)
 			{
 				list_ctrl->Set_Curr_Sel (item_index);
 			}

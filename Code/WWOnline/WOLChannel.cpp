@@ -464,7 +464,7 @@ ChannelList::iterator FindChannelNode(ChannelList& list, const char* name)
 		{
 		WOL::Channel& wolChannel = (*node)->GetData();
 
-		if (openw3d::stricmp(name, (const char*)wolChannel.name) == 0)
+		if (openw3d::string_compare(name, (const char*)wolChannel.name) == 0)
 			{
 			break;
 			}
@@ -487,7 +487,7 @@ RefPtr<ChannelData> FindChannelInList(ChannelList& list, const char* name)
 			{
 			WOL::Channel& wolChannel = (*node)->GetData();
 
-			if (openw3d::stricmp(name, (const char*)wolChannel.name) == 0)
+			if (openw3d::string_compare(name, (const char*)wolChannel.name) == 0)
 				{
 				return *node;
 				}

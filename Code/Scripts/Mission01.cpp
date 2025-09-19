@@ -13572,7 +13572,7 @@ DECLARE_SCRIPT(M01_GDIBase_FirstChinookFlamethrowerGuy_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "S_A_Human.h_a_troopdrop") == 0)
+		if (openw3d::string_compare(anim, "S_A_Human.h_a_troopdrop") == 0)
 		{
 			Vector3 myHomeSpot (-22.604f, 25.125f, 1.605f);
 			ActionParamsStruct params;
@@ -13607,7 +13607,7 @@ DECLARE_SCRIPT(M01_GDIBase_SecondChinookMinigunnerGuy_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::stricmp(anim, "S_A_Human.h_a_troopdrop") == 0)
+		if (openw3d::string_compare(anim, "S_A_Human.h_a_troopdrop") == 0)
 		{
 			Vector3 myHomeSpot (-16.144f, 19.274f, 2.312f);
 			ActionParamsStruct params;

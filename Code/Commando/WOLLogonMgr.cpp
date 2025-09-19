@@ -558,7 +558,7 @@ RefPtr<IRCServerData> WOLLogonMgr::GetPreferredServer(const wchar_t* login)
 		const char* name = thisServer->GetName();
 		WWASSERT(name != NULL && "NULL server name");
 
-		if (preferred && (openw3d::stricmp(preferred, name) == 0))
+		if (preferred && (openw3d::string_compare(preferred, name) == 0))
 			{
 			server = thisServer;
 			break;

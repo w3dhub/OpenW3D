@@ -495,7 +495,7 @@ const PersistFactoryClass & StaticAnimPhysDefClass::Get_Factory (void) const
 
 bool StaticAnimPhysDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::stricmp(type_name,StaticAnimPhysDefClass::Get_Type_Name()) == 0) {
+	if (openw3d::string_compare(type_name,StaticAnimPhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return StaticPhysDefClass::Is_Type(type_name);

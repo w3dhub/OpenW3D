@@ -1334,7 +1334,7 @@ bool WolGameModeClass::Is_Banned(const char *player_name, unsigned long ip)
 	}
 
 	for (i=0 ; i<KickNameList.Count() ; i++) {
-		if (openw3d::stricmp(player_name, KickNameList[i].Peek_Buffer()) == 0) {
+		if (openw3d::string_compare(player_name, KickNameList[i].Peek_Buffer()) == 0) {
 			return(true);
 		}
 	}
@@ -1845,7 +1845,7 @@ void WolGameModeClass::HandleNotification(LadderInfoEvent& ladderEvent)
 			if (user.IsValid()) {
 				RefPtr<SquadData> squad = user->GetSquad();
 
-				if (squad.IsValid() && (openw3d::stricmp(squad->GetAbbr(), ladderEvent.GetReceivedName()) == 0)) {
+				if (squad.IsValid() && (openw3d::string_compare(squad->GetAbbr(), ladderEvent.GetReceivedName()) == 0)) {
 					LoginProfile* profile = LoginProfile::Get(user->GetName(), false);
 
 					if (profile) {
