@@ -51,6 +51,7 @@
 #include "wwmath.h"
 #include "quat.h"
 #include "wwmath.h"
+#include <cmath>
 //#include <stdio.h>
 //#include <windows.h>
 // Static Table, for Adaptive Delta Decompressor
@@ -1283,7 +1284,7 @@ return;
 	int i;
 	for (i=0;i<count;i++) {
 		float value=Data[i];
-		if (_isnan(value)) value=0.0f;
+        if (std::isnan(value)) value=0.0f;
 		if (value>100000.0f) value=0.0f;
 		if (value<-100000.0f) value=0.0f;
 		Data[i]=value;
