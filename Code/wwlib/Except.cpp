@@ -65,6 +65,7 @@
 #include	<imagehlp.h>
 #include <crtdbg.h>
 #include	<stdio.h>
+#include <inttypes.h>
 
 #if defined(_M_IX86) || defined(__i386__)
 #define ARCH_REG_IP Eip
@@ -461,7 +462,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	** For access violations, print out the violation address and if it was read or write.
 	*/
 	if (e_info->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION) {
-		sprintf(scrap, "Access address:%08X ", access_address);
+		sprintf(scrap, "Access address:%08lX ", access_address);
 		Add_Txt(scrap);
 		if (access_read_write) {
 			Add_Txt("was written to.\r\n");
@@ -483,7 +484,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 
 	if (!IsBadCodePtr((FARPROC)context->ARCH_REG_IP)) {
 		if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr (GetCurrentProcess(), context->ARCH_REG_IP, &displacement, symptr)) {
-			sprintf (scrap, "Exception occurred at %p - %s + %I08X\r\n", (FARPROC)context->ARCH_REG_IP, symptr->Name, displacement);
+			sprintf (scrap, "Exception occurred at %p - %s + %08" PRIXPTR "\r\n", (FARPROC)context->ARCH_REG_IP, symptr->Name, displacement);
 		} else {
 			DebugString ("Exception Handler: Failed to get symbol for " STR(ARCH_REG_IP) "\r\n");
 			if (_SymGetSymFromAddr != NULL) {
@@ -523,12 +524,12 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 
 				if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr (GetCurrentProcess(), (DWORD_ARCH)temp_addr, &displacement, symptr)) {
 					char symbuf[256];
-					sprintf(symbuf, "%s + %I08X\r\n", symptr->Name, displacement);
+					sprintf(symbuf, "%s + %08" PRIXPTR "\r\n", symptr->Name, displacement);
 					Add_Txt(symbuf);
 				}
 			} else {
 				char symbuf[256];
-				sprintf(symbuf, "%I08x\r\n", temp_addr);
+				sprintf(symbuf, "%08" PRIXPTR "\r\n", (DWORD_ARCH)temp_addr);
 				Add_Txt(symbuf);
 			}
 		}
@@ -780,7 +781,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 
 					if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr (GetCurrentProcess(), *stackptr, &displacement, symptr)) {
 						char symbuf[256];
-						sprintf(symbuf, " - %s + %I08X", symptr->Name, displacement);
+						sprintf(symbuf, " - %s + %08" PRIXPTR, symptr->Name, displacement);
 						strcat(scrap, symbuf);
 					}
 				} else {
