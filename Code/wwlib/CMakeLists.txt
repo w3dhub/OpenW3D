@@ -143,6 +143,7 @@ set(WWLIB_SRC
     Notify.h
     nstrdup.h
     ntree.h
+    openw3d.h
     palette.h
     pcx.h
     pipe.h

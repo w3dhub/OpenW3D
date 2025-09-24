@@ -57,6 +57,7 @@
 #include "wwmemlog.h"
 #include "wwprofile.h"
 #include "ini.h"
+#include "openw3d.h"
 
 
 #ifdef G_CODE_BASE
@@ -87,6 +88,20 @@ const char *VALUE_NAME_SOUND_VOL				= "sound volume";
 const char *VALUE_NAME_DIALOG_VOL			= "dialog volume";
 const char *VALUE_NAME_CINEMATIC_VOL		= "cinematic volume";
 const char *VALUE_NAME_SPEAKER_TYPE			= "speaker type";
+
+const char *VALUE_INI_IS_STEREO				= "Stereo";
+const char *VALUE_INI_BITS					= "Bits";
+const char *VALUE_INI_HERTZ					= "Hertz";
+const char *VALUE_INI_DEVICE_NAME			= "DeviceName";
+const char *VALUE_INI_MUSIC_ENABLED		= "MusicEnabled";
+const char *VALUE_INI_SOUND_ENABLED		= "SoundEnabled";
+const char *VALUE_INI_DIALOG_ENABLED		= "DialogEnabled";
+const char *VALUE_INI_CINEMATIC_ENABLED	= "CinematicEnabled";
+const char *VALUE_INI_MUSIC_VOL				= "MusicVolume";
+const char *VALUE_INI_SOUND_VOL				= "SoundVolume";
+const char *VALUE_INI_DIALOG_VOL			= "DialogVolume";
+const char *VALUE_INI_CINEMATIC_VOL		= "CinematicVolume";
+const char *VALUE_INI_SPEAKER_TYPE			= "SpeakerType";
 
 const int	MAX_VIRTUAL_CHANNELS				= 100;
 
@@ -3079,15 +3094,55 @@ WWAudioClass::Load_From_Registry
 )
 {
 	bool retval = false;
+	int defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume;
+	Load_Default_Volume (defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume);
 
 	//
 	//	Attempt to open the registry key
 	//
 	RegistryClass registry (subkey_name);
-	if (registry.Is_Valid ()) {
+	INIClass ini(OPENW3D_CONF_FILE);
 
-		int defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume;
+	if(ini.Is_Present(OPENW3D_SECTION_SOUND)) {
+		
+		//
+		//	Read the device name into a string object
+		//
+		char temp_buffer[256] = { 0 };
+		ini.Get_String (OPENW3D_SECTION_SOUND, VALUE_INI_DEVICE_NAME, "", temp_buffer, sizeof (temp_buffer));
+		device_name = temp_buffer;
 
+		//
+		//	Read the 2D settings
+		//
+		is_stereo	= ini.Get_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_IS_STEREO, true);
+		bits			= ini.Get_Int (OPENW3D_SECTION_SOUND, VALUE_INI_BITS, 16);
+		hertz			= ini.Get_Int (OPENW3D_SECTION_SOUND, VALUE_INI_HERTZ, 44100);
+
+		//
+		//	Read the sound/music enabled settings
+		//
+		music_enabled		= ini.Get_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_MUSIC_ENABLED, true);
+		sound_enabled		= ini.Get_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_SOUND_ENABLED, true);
+		dialog_enabled		= ini.Get_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_DIALOG_ENABLED, true);
+		cinematic_enabled = ini.Get_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_CINEMATIC_ENABLED, true);
+
+		
+		//
+		//	Read the volume information
+		//
+		music_volume		= ini.Get_Float (OPENW3D_SECTION_SOUND, VALUE_INI_MUSIC_VOL, defaultmusicvolume / 100.0F);
+		sound_volume		= ini.Get_Float (OPENW3D_SECTION_SOUND, VALUE_INI_SOUND_VOL, defaultsoundvolume / 100.0F);
+		dialog_volume		= ini.Get_Float (OPENW3D_SECTION_SOUND, VALUE_INI_DIALOG_VOL, defaultdialogvolume / 100.0F);
+		cinematic_volume	= ini.Get_Float (OPENW3D_SECTION_SOUND, VALUE_INI_CINEMATIC_VOL, defaultcinematicvolume / 100.0F);
+
+		//
+		//	Misc
+		//
+		speaker_type		= ini.Get_Int (OPENW3D_SECTION_SOUND, VALUE_INI_SPEAKER_TYPE, 0);
+
+		retval		= true;
+	} else if (registry.Is_Valid ()) {
 		//
 		//	Read the device name into a string object
 		//
@@ -3110,8 +3165,7 @@ WWAudioClass::Load_From_Registry
 		dialog_enabled		= (registry.Get_Int (VALUE_NAME_DIALOG_ENABLED, 1) == 1);
 		cinematic_enabled = (registry.Get_Int (VALUE_NAME_CINEMATIC_ENABLED, 1) == 1);
 
-		Load_Default_Volume (defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume);
-
+		
 		//
 		//	Read the volume information
 		//
@@ -3119,10 +3173,6 @@ WWAudioClass::Load_From_Registry
 		sound_volume		= registry.Get_Int (VALUE_NAME_SOUND_VOL, defaultsoundvolume) / 100.0F;
 		dialog_volume		= registry.Get_Int (VALUE_NAME_DIALOG_VOL, defaultdialogvolume) / 100.0F;
 		cinematic_volume	= registry.Get_Int (VALUE_NAME_CINEMATIC_VOL, defaultcinematicvolume) / 100.0F;
-		music_volume		= WWMath::Clamp (music_volume, 0, 1.0F);
-		sound_volume		= WWMath::Clamp (sound_volume, 0, 1.0F);
-		dialog_volume		= WWMath::Clamp (dialog_volume, 0, 1.0F);
-		cinematic_volume	= WWMath::Clamp (cinematic_volume, 0, 1.0F);
 
 		//
 		//	Misc
@@ -3131,6 +3181,11 @@ WWAudioClass::Load_From_Registry
 
 		retval		= true;
 	}
+
+	music_volume		= WWMath::Clamp (music_volume, 0, 1.0F);
+	sound_volume		= WWMath::Clamp (sound_volume, 0, 1.0F);
+	dialog_volume		= WWMath::Clamp (dialog_volume, 0, 1.0F);
+	cinematic_volume	= WWMath::Clamp (cinematic_volume, 0, 1.0F);
 
 	return retval;
 }
@@ -3200,6 +3255,23 @@ WWAudioClass::Save_To_Registry
 	//	Attempt to open the registry key
 	//
 	RegistryClass registry (subkey_name);
+	INIClass ini(OPENW3D_CONF_FILE);
+
+	ini.Put_String (OPENW3D_SECTION_SOUND, VALUE_INI_DEVICE_NAME, device_name);
+	ini.Put_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_IS_STEREO, is_stereo);
+	ini.Put_Int (OPENW3D_SECTION_SOUND, VALUE_INI_BITS, bits);
+	ini.Put_Int (OPENW3D_SECTION_SOUND, VALUE_INI_HERTZ, hertz);
+	ini.Put_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_MUSIC_ENABLED,		music_enabled);
+	ini.Put_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_SOUND_ENABLED,		sound_enabled);
+	ini.Put_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_DIALOG_ENABLED,		dialog_enabled);
+	ini.Put_Bool (OPENW3D_SECTION_SOUND, VALUE_INI_CINEMATIC_ENABLED,	cinematic_enabled);
+	ini.Put_Float (OPENW3D_SECTION_SOUND, VALUE_INI_MUSIC_VOL,			music_volume);
+	ini.Put_Float (OPENW3D_SECTION_SOUND, VALUE_INI_SOUND_VOL,			sound_volume);
+	ini.Put_Float (OPENW3D_SECTION_SOUND, VALUE_INI_DIALOG_VOL,			dialog_volume);
+	ini.Put_Float (OPENW3D_SECTION_SOUND, VALUE_INI_CINEMATIC_VOL,		cinematic_volume);
+	ini.Put_Int (OPENW3D_SECTION_SOUND, VALUE_INI_SPEAKER_TYPE,		speaker_type);
+	retval = ini.Save(OPENW3D_CONF_FILE) != 0;
+	
 	if (registry.Is_Valid ()) {
 
 		//
