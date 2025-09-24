@@ -69,7 +69,6 @@
 //	Static member initialization
 ////////////////////////////////////////////////////////////////////////////////////////////////
 WWAudioClass *WWAudioClass::_theInstance = NULL;
-HANDLE WWAudioClass::_TimerSyncEvent = NULL;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -174,8 +173,6 @@ WWAudioClass::WWAudioClass (bool lite)
 	  m_CachedAreSoundEffectsEnabled (true),
 	  AudioIni (NULL)
 {
-	::InitializeCriticalSection (&MMSLockClass::_MSSLockCriticalSection);
-
 	m_ForceDisable = lite;
 
 	//
@@ -185,7 +182,6 @@ WWAudioClass::WWAudioClass (bool lite)
 		AIL_startup ();
 	}
 	_theInstance = this;
-	_TimerSyncEvent = ::CreateEventA (NULL, true, false, "WWAUDIO_TIMER_SYNC");
 
 	//
 	// Set some default values
@@ -231,10 +227,6 @@ WWAudioClass::~WWAudioClass (void)
 
 	Shutdown ();
 	_theInstance = NULL;
-	::CloseHandle(_TimerSyncEvent);
-	_TimerSyncEvent = NULL;
-
-	::DeleteCriticalSection (&MMSLockClass::_MSSLockCriticalSection);
 
 	//
 	//	Free the list of logical "types".
@@ -2501,11 +2493,6 @@ WWAudioClass::Shutdown (void)
 		::AIL_stop_timer (m_UpdateTimer);
 		::AIL_release_timer_handle (m_UpdateTimer);
 		m_UpdateTimer = -1;
-
-		// Wait for the timer callback function to end
-		::WaitForSingleObject (_TimerSyncEvent, 20000);
-		::CloseHandle (_TimerSyncEvent);
-		_TimerSyncEvent = NULL;
 	}
 
 	//

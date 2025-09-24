@@ -35,6 +35,3 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "Utils.h"
-
-
-CRITICAL_SECTION MMSLockClass::_MSSLockCriticalSection;
