@@ -66,10 +66,10 @@ class StringClass;
 // Callback declarations.  These functions are called when a registered event occurs
 // in the sound library/
 //
-typedef void (__stdcall  *LPFNSOSCALLBACK)		(SoundSceneObjClass *sound_obj, uint32 user_param);
-typedef void (__stdcall  *LPFNEOSCALLBACK)		(SoundSceneObjClass *sound_obj, uint32 user_param);
-typedef void (__stdcall  *LPFNHEARDCALLBACK)	(LogicalListenerClass *listener, LogicalSoundClass *sound_obj, uint32 user_param);
-typedef void (__stdcall  *LPFNTEXTCALLBACK)	(AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param);
+typedef void (*LPFNSOSCALLBACK)		(SoundSceneObjClass *sound_obj, uint32 user_param);
+typedef void (*LPFNEOSCALLBACK)		(SoundSceneObjClass *sound_obj, uint32 user_param);
+typedef void (*LPFNHEARDCALLBACK)	(LogicalListenerClass *listener, LogicalSoundClass *sound_obj, uint32 user_param);
+typedef void (*LPFNTEXTCALLBACK)	(AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param);
 
 
 /////////////////////////////////////////////////////////////////////////////////
