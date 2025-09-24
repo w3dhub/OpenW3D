@@ -35,11 +35,11 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
-//#include "NvDXTLib.h"
 #include "Targa.h"
 #include "TGAToDXT.H"
+#include <crnlib.h>
 #include <io.h>
-#include	<stdlib.h>
+#include <stdlib.h>
 
 // Singletons.
 TGAToDXTClass _TGAToDXTConverter;
@@ -52,11 +52,10 @@ TGAToDXTClass _TGAToDXTConverter;
 ///////////////////////////////////////////////////////////////////////////////
 TGAToDXTClass::TGAToDXTClass()
 	: WriteTimePtr (NULL),
+		Buffer(NULL),
 	  BufferSize (1024),
 	  BufferCount (0)
 {
-	Buffer = new unsigned char [BufferSize];
-	ASSERT (Buffer != NULL);
 }
 
 
@@ -67,8 +66,6 @@ TGAToDXTClass::TGAToDXTClass()
 ///////////////////////////////////////////////////////////////////////////////
 TGAToDXTClass::~TGAToDXTClass()
 {
-	// Clean-up.
-	delete [] Buffer;
 }
 
 
@@ -102,64 +99,31 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 		validsize	  = (targa.Header.Width >= 4) && (targa.Header.Height >= 4);
 		validaspect	  = ((float) MAX (targa.Header.Width, targa.Header.Height)) / ((float) MIN (targa.Header.Width, targa.Header.Height)) <= 8.0f; 
 		if (validbitdepth && validsize && validaspect) {
-			
-			unsigned char *byte;
-			HRESULT			errorcode;
+			crn_comp_params comp_params;
+      comp_params.m_width = targa.Header.Width;
+      comp_params.m_height = targa.Header.Height;
+      comp_params.set_flag(cCRNCompFlagHierarchical, false);
+      comp_params.m_file_type = cCRNFileTypeDDS;
+      comp_params.m_format = targa.Header.PixelDepth == 32 ? cCRNFmtDXT5 : cCRNFmtDXT1;
 
 			targa.YFlip();
+      comp_params.m_pImages[0][0] = reinterpret_cast<crn_uint32 *>(targa.GetImage());
 
-			// If TGA has an alpha channel...
-			if (targa.Header.PixelDepth == 32) {
-				
-				// Analyse the alpha channel and ignore it if it contains redundant data (ie. is either all black or all white).
-				byte = (unsigned char*) targa.GetImage();
-				if ((*(byte + 3) == 0x00) || (*(byte + 3) == 0xff)) {
+      crn_mipmap_params mip_params;
+      // mip_params.m_gamma_filtering = true;
+      mip_params.m_mode = cCRNMipModeGenerateMips;
+      mip_params.m_min_mip_size = 4;
 
-					const unsigned char alpha = *(byte + 3);
-
-					redundantalpha = true;
-					for (unsigned p = 0; p < ((unsigned) targa.Header.Width) * ((unsigned) targa.Header.Height); p++) {
-						redundantalpha &= (*(byte + 3) == alpha);
-						byte += 4;
-					}
-				}
-
-				if (!redundantalpha) {
-					errorcode = E_NOTIMPL;
-					//errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT5, true, false, 4);
-
-				} else {
-
-					unsigned char *nonalphaimage, *nonalphabyte;
-
-					// Remove the alpha channel and swizel the pixel data.
-					nonalphaimage = new unsigned char [3 * ((unsigned) targa.Header.Width) * ((unsigned) targa.Header.Height)];
-					nonalphabyte  = nonalphaimage;
-					
-					byte = (unsigned char*) targa.GetImage();
-					for (unsigned p = 0; p < ((unsigned) targa.Header.Width) * ((unsigned) targa.Header.Height); p++) {
-
-						*(nonalphabyte + 0) = *(byte + 0);
-						*(nonalphabyte + 1) = *(byte + 1);
-						*(nonalphabyte + 2) = *(byte + 2);
-						nonalphabyte += 3;
-						byte += 4;
-					}
-
-					errorcode = E_NOTIMPL;
-					//errorcode = ::nvDXTcompress (nonalphaimage, targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
-					delete [] nonalphaimage;
-				}
-
-			} else {
-				errorcode = E_NOTIMPL;
-				//errorcode = ::nvDXTcompress ((unsigned char*) targa.GetImage(), targa.Header.Width, targa.Header.Height, TF_DXT1, true, false, 3);
-			}
-
+			crn_uint32 output_file_size;
+			void *output_file_data = crn_compress(comp_params, mip_params, output_file_size);
 			// Was the image compressed successfully?
 			// NOTE: Any image that does not have power of 2 dimensions will not be compressed.
-			if (errorcode >= 0) {
+			if (output_file_data) {
+				Buffer = static_cast<unsigned char *>(output_file_data);
+				BufferCount = output_file_size;
 				Write (outputpathname);
+				Buffer = NULL;
+				crn_free_block(output_file_data);
 				success = true;
 			}
 		}
@@ -176,10 +140,14 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 ///////////////////////////////////////////////////////////////////////////////
 void TGAToDXTClass::Write (const char *outputpathname)
 {
+	if (!Buffer) {
+		return;
+	}
+	
 	HANDLE hfile;
 	DWORD  bytecountwritten;
 	
-	hfile = ::CreateFile (outputpathname, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, 0L, NULL);
+	hfile = ::CreateFileA (outputpathname, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, 0L, NULL);
 	if (hfile != INVALID_HANDLE_VALUE) {
       LockFile (hfile, 0, 0, BufferCount, 0); 
       WriteFile (hfile, Buffer, BufferCount, &bytecountwritten, NULL);
