@@ -724,7 +724,7 @@ CMainFrame::OnFinalRelease (void)
 }
 
 
-void CALLBACK
+void
 PatsTextCallback (AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param)
 {
 	CString message;

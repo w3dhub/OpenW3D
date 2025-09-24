@@ -364,7 +364,7 @@ void Commando_Assert_Handler(const char * message)
 /*
 **
 */
-void __stdcall AudioTextCallback(AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param)
+void AudioTextCallback(AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param)
 {
 	Vector3 red = Vector3( 1, 0.5f, 0.5f );
 	StringClass str;
