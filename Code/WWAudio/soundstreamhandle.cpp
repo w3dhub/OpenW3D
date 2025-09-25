@@ -160,7 +160,7 @@ SoundStreamHandleClass::End_Sample (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_Pan (S32 pan)
+SoundStreamHandleClass::Set_Sample_Pan (int pan)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		::AIL_set_stream_pan (StreamHandle, pan);
@@ -174,10 +174,10 @@ SoundStreamHandleClass::Set_Sample_Pan (S32 pan)
 //	Get_Sample_Pan
 //
 //////////////////////////////////////////////////////////////////////
-S32
+int
 SoundStreamHandleClass::Get_Sample_Pan (void)
 {
-	S32 retval = 0;
+	int retval = 0;
 
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		retval = ::AIL_stream_pan (StreamHandle);
@@ -193,7 +193,7 @@ SoundStreamHandleClass::Get_Sample_Pan (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_Volume (S32 volume)
+SoundStreamHandleClass::Set_Sample_Volume (int volume)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		::AIL_set_stream_volume (StreamHandle, volume);
@@ -207,10 +207,10 @@ SoundStreamHandleClass::Set_Sample_Volume (S32 volume)
 //	Get_Sample_Volume
 //
 //////////////////////////////////////////////////////////////////////
-S32
+int
 SoundStreamHandleClass::Get_Sample_Volume (void)
 {
-	S32 retval = 0;
+	int retval = 0;
 
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		retval = ::AIL_stream_volume (StreamHandle);
@@ -226,7 +226,7 @@ SoundStreamHandleClass::Get_Sample_Volume (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_Loop_Count (U32 count)
+SoundStreamHandleClass::Set_Sample_Loop_Count (unsigned count)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		::AIL_set_stream_loop_block (StreamHandle, 0, -1);
@@ -241,10 +241,10 @@ SoundStreamHandleClass::Set_Sample_Loop_Count (U32 count)
 //	Get_Sample_Loop_Count
 //
 //////////////////////////////////////////////////////////////////////
-U32
+unsigned
 SoundStreamHandleClass::Get_Sample_Loop_Count (void)
 {
-	U32 retval = 0;
+	unsigned retval = 0;
 
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		::AIL_stream_loop_count (StreamHandle);
@@ -260,7 +260,7 @@ SoundStreamHandleClass::Get_Sample_Loop_Count (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_MS_Position (U32 ms)
+SoundStreamHandleClass::Set_Sample_MS_Position (unsigned ms)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		::AIL_set_stream_ms_position (StreamHandle, ms);
@@ -275,7 +275,7 @@ SoundStreamHandleClass::Set_Sample_MS_Position (U32 ms)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Get_Sample_MS_Position (S32 *len, S32 *pos)
+SoundStreamHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		::AIL_stream_ms_position (StreamHandle, len, pos);
@@ -291,7 +291,7 @@ SoundStreamHandleClass::Get_Sample_MS_Position (S32 *len, S32 *pos)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_User_Data (S32 i, void *val)
+SoundStreamHandleClass::Set_Sample_User_Data (int i, void *val)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_user_data (SampleHandle, i, val);
@@ -307,7 +307,7 @@ SoundStreamHandleClass::Set_Sample_User_Data (S32 i, void *val)
 //
 //////////////////////////////////////////////////////////////////////
 void *
-SoundStreamHandleClass::Get_Sample_User_Data (S32 i)
+SoundStreamHandleClass::Get_Sample_User_Data (int i)
 {
 	void *retval = nullptr;
 
@@ -324,10 +324,10 @@ SoundStreamHandleClass::Get_Sample_User_Data (S32 i)
 //	Get_Sample_Playback_Rate
 //
 //////////////////////////////////////////////////////////////////////
-S32
+int
 SoundStreamHandleClass::Get_Sample_Playback_Rate (void)
 {	
-	S32 retval = 0;
+	int retval = 0;
 	
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		retval = ::AIL_stream_playback_rate (StreamHandle);
@@ -343,7 +343,7 @@ SoundStreamHandleClass::Get_Sample_Playback_Rate (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_Playback_Rate (S32 rate)
+SoundStreamHandleClass::Set_Sample_Playback_Rate (int rate)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		::AIL_set_stream_playback_rate (StreamHandle, rate);

@@ -100,18 +100,18 @@ public:
 	virtual void	Stop_Sample (void) = 0;
 	virtual void	Resume_Sample (void) = 0;
 	virtual void	End_Sample (void) = 0;
-	virtual void	Set_Sample_Pan (S32 pan) = 0;
-	virtual S32		Get_Sample_Pan (void) = 0;
-	virtual void	Set_Sample_Volume (S32 volume) = 0;
-	virtual S32		Get_Sample_Volume (void) = 0;
-	virtual void	Set_Sample_Loop_Count (U32 count) = 0;
-	virtual U32		Get_Sample_Loop_Count (void) = 0;
-	virtual void	Set_Sample_MS_Position (U32 ms) = 0;
-	virtual void	Get_Sample_MS_Position (S32 *len, S32 *pos) = 0;
-	virtual void	Set_Sample_User_Data (S32 i, void *val) = 0;
-	virtual void *	Get_Sample_User_Data (S32 i) = 0;
-	virtual S32		Get_Sample_Playback_Rate (void) = 0;
-	virtual void	Set_Sample_Playback_Rate (S32 rate) = 0;
+	virtual void	Set_Sample_Pan (int pan) = 0;
+	virtual int		Get_Sample_Pan (void) = 0;
+	virtual void	Set_Sample_Volume (int volume) = 0;
+	virtual int		Get_Sample_Volume (void) = 0;
+	virtual void	Set_Sample_Loop_Count (unsigned count) = 0;
+	virtual unsigned		Get_Sample_Loop_Count (void) = 0;
+	virtual void	Set_Sample_MS_Position (unsigned ms) = 0;
+	virtual void	Get_Sample_MS_Position (int *len, int *pos) = 0;
+	virtual void	Set_Sample_User_Data (int i, void *val) = 0;
+	virtual void *	Get_Sample_User_Data (int i) = 0;
+	virtual int		Get_Sample_Playback_Rate (void) = 0;
+	virtual void	Set_Sample_Playback_Rate (int rate) = 0;
 	
 protected:
 	

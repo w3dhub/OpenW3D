@@ -230,7 +230,7 @@ SoundPseudo3DClass::Update_Pseudo_Pan (void)
 		//
 		// Pass the pan on
 		//
-		m_SoundHandle->Set_Sample_Pan (S32(pan * 127.0F));
+		m_SoundHandle->Set_Sample_Pan (int(pan * 127.0F));
 	}
 
 	return ;
