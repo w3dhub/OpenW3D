@@ -164,7 +164,7 @@ Sound2DHandleClass::End_Sample (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_Pan (S32 pan)
+Sound2DHandleClass::Set_Sample_Pan (int pan)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_pan (SampleHandle, pan);
@@ -179,10 +179,10 @@ Sound2DHandleClass::Set_Sample_Pan (S32 pan)
 //	Get_Sample_Pan
 //
 //////////////////////////////////////////////////////////////////////
-S32
+int
 Sound2DHandleClass::Get_Sample_Pan (void)
 {
-	S32 retval = 0;
+	int retval = 0;
 
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_pan (SampleHandle);
@@ -198,7 +198,7 @@ Sound2DHandleClass::Get_Sample_Pan (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_Volume (S32 volume)
+Sound2DHandleClass::Set_Sample_Volume (int volume)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_volume (SampleHandle, volume);
@@ -212,10 +212,10 @@ Sound2DHandleClass::Set_Sample_Volume (S32 volume)
 //	Get_Sample_Volume
 //
 //////////////////////////////////////////////////////////////////////
-S32
+int
 Sound2DHandleClass::Get_Sample_Volume (void)
 {
-	S32 retval = 0;
+	int retval = 0;
 
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_volume (SampleHandle);
@@ -231,7 +231,7 @@ Sound2DHandleClass::Get_Sample_Volume (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_Loop_Count (U32 count)
+Sound2DHandleClass::Set_Sample_Loop_Count (unsigned count)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_loop_count (SampleHandle, count);
@@ -246,10 +246,10 @@ Sound2DHandleClass::Set_Sample_Loop_Count (U32 count)
 //	Get_Sample_Loop_Count
 //
 //////////////////////////////////////////////////////////////////////
-U32
+unsigned
 Sound2DHandleClass::Get_Sample_Loop_Count (void)
 {
-	U32 retval = 0;
+	unsigned retval = 0;
 
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_loop_count (SampleHandle);
@@ -265,7 +265,7 @@ Sound2DHandleClass::Get_Sample_Loop_Count (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_MS_Position (U32 ms)
+Sound2DHandleClass::Set_Sample_MS_Position (unsigned ms)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_ms_position (SampleHandle, ms);
@@ -281,7 +281,7 @@ Sound2DHandleClass::Set_Sample_MS_Position (U32 ms)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Get_Sample_MS_Position (S32 *len, S32 *pos)
+Sound2DHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_sample_ms_position (SampleHandle, len, pos);
@@ -297,7 +297,7 @@ Sound2DHandleClass::Get_Sample_MS_Position (S32 *len, S32 *pos)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_User_Data (S32 i, void *val)
+Sound2DHandleClass::Set_Sample_User_Data (int i, void *val)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_user_data (SampleHandle, i, val);
@@ -313,7 +313,7 @@ Sound2DHandleClass::Set_Sample_User_Data (S32 i, void *val)
 //
 //////////////////////////////////////////////////////////////////////
 void *
-Sound2DHandleClass::Get_Sample_User_Data (S32 i)
+Sound2DHandleClass::Get_Sample_User_Data (int i)
 {
 	void * retval = nullptr;
 
@@ -330,10 +330,10 @@ Sound2DHandleClass::Get_Sample_User_Data (S32 i)
 //	Get_Sample_Playback_Rate
 //
 //////////////////////////////////////////////////////////////////////
-S32
+int
 Sound2DHandleClass::Get_Sample_Playback_Rate (void)
 {	
-	S32 retval = 0;
+	int retval = 0;
 
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_playback_rate (SampleHandle);
@@ -349,7 +349,7 @@ Sound2DHandleClass::Get_Sample_Playback_Rate (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_Playback_Rate (S32 rate)
+Sound2DHandleClass::Set_Sample_Playback_Rate (int rate)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_playback_rate (SampleHandle, rate);

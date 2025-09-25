@@ -76,16 +76,16 @@ public:
 	void							Stop_Sample (void) override									{ }
 	void							Resume_Sample (void) override									{ }
 	void							End_Sample (void) override										{ }
-	void							Set_Sample_Volume (S32 volume) override					{ }
-	S32							Get_Sample_Volume (void) override							{ return 0; }
-	void							Set_Sample_Pan (S32 pan) override							{ }
-	S32							Get_Sample_Pan (void) override								{ return 64; }
-	void							Set_Sample_Loop_Count (U32 count) override				{ }
-	U32							Get_Sample_Loop_Count (void) override						{ return 0; }
-	void							Set_Sample_MS_Position (U32 ms) override					{ }
-	void							Get_Sample_MS_Position (S32 *len, S32 *pos) override	{ }
-	S32							Get_Sample_Playback_Rate (void) override					{ return 0; }
-	void							Set_Sample_Playback_Rate (S32 rate) override				{ }
+	void							Set_Sample_Volume (int volume) override					{ }
+	int							Get_Sample_Volume (void) override							{ return 0; }
+	void							Set_Sample_Pan (int pan) override							{ }
+	int							Get_Sample_Pan (void) override								{ return 64; }
+	void							Set_Sample_Loop_Count (unsigned count) override				{ }
+	unsigned							Get_Sample_Loop_Count (void) override						{ return 0; }
+	void							Set_Sample_MS_Position (unsigned ms) override					{ }
+	void							Get_Sample_MS_Position (int *len, int *pos) override	{ }
+	int							Get_Sample_Playback_Rate (void) override					{ return 0; }
+	void							Set_Sample_Playback_Rate (int rate) override				{ }
 	
 protected:
 	
