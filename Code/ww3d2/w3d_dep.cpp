@@ -53,6 +53,7 @@
 #include <assert.h>
 #include <chunkio.h>
 #include "ffactory.h"
+#include "wwlib/wwstring.h"
 
 
 /*
@@ -524,7 +525,7 @@ static void Get_W3D_Name (const char *filename, char *w3d_name)
 	memset(w3d_name, 0, W3D_NAME_LEN);	// blank out the buffer
 	int num_chars = end - start;
 	strncpy(w3d_name, start, num_chars < W3D_NAME_LEN ? num_chars : W3D_NAME_LEN-1);
-	strupr(w3d_name);
+    openw3d::string_to_upper(w3d_name);
 }
 
 
@@ -558,7 +559,7 @@ static const char * Make_W3D_Filename (const char *w3d_name)
 	char *dot = strchr(buffer, '.');
 	if (dot)
 		*dot = 0;
-	strlwr(buffer);
+    openw3d::string_to_lower(buffer);
 	strcat(buffer, ".w3d");
 	return buffer;
 }

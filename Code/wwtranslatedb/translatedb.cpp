@@ -897,7 +897,7 @@ TranslateDBClass::Add_Object (TDBObjClass *new_obj)
 
 		// Insert object to the hash table as well...
 		StringClass lower_case_name(new_obj->Get_ID_Desc(),true);
-		_strlwr(lower_case_name.Peek_Buffer());
+        lower_case_name.To_Lower();
 		m_ObjectHash.Insert(lower_case_name,new_obj);
 
 		retval = true;
