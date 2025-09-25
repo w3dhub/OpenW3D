@@ -822,7 +822,7 @@ CMainFrame::OnCreateClient
 	// Start up the audio system
 	//
 	ProgressUIMgrClass::Set_Status_Text ("Initializing Audio Device...");
-	_pTheAudioManager = new WWAudioClass;
+	_pTheAudioManager = WWAudioClass::Create_Instance();
 	_pTheAudioManager->Initialize ();	
 	_pTheAudioManager->Register_Text_Callback (PatsTextCallback, 1115);
 

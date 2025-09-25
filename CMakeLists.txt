@@ -58,10 +58,6 @@ if(W3D_BUILD_OPTION_FFMPEG)
     include(ffmpeg)
 endif()
 
-# Find/Add build dependencies and stubs.
-# Only 32bit Windows can make use of these APIs as the libraries shipped with the game.
-# Linux needs miles headers to compile, until miles is removed
-include(miles)
 if(WIN32)
     # Do we want to build with bink for video decoding?
     option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
@@ -70,6 +66,14 @@ if(WIN32)
     if(W3D_BUILD_OPTION_BINK)
         include(bink)
         target_compile_definitions(binkstub INTERFACE W3D_HAS_BINK)
+    endif()
+    
+    # Do we want to build with miles for audio playback?
+    option(W3D_BUILD_OPTION_MILES "Build with miles." ON)
+    add_feature_info(MilesBuild W3D_BUILD_OPTION_MILES "Build Renegade with Miles Audio")
+
+    if(W3D_BUILD_OPTION_MILES)
+        include(miles)
     endif()
 
     include(dx9)

@@ -185,7 +185,6 @@ target_link_libraries(w3dview PRIVATE
     d3d9lib
     version
     winmm
-    milesstub
     wwcommon
     wwdebug
     wwlib

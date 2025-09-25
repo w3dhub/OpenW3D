@@ -717,7 +717,7 @@ void InstallerClass::Initialize()
 	if (!WW3D_Initialize()) FATAL_APP_ERROR (IDS_CANNOT_INITIALIZE_ANY_D3D_DEVICE);
 
 	// Initialize the music.
-	AudioSystem = new WWAudioClass();
+	AudioSystem = WWAudioClass::Create_Instance();
 	WWAudioClass::Get_Instance()->Initialize();
 	WWAudioClass::Get_Instance()->Set_File_Factory (_TheFileFactory);
 	TransitionMusic = WWAudioClass::Get_Instance()->Create_Sound_Effect (transitionmusicfilename);

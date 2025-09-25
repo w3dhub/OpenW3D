@@ -35,13 +35,13 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
-#include "SoundBuffer.h"
-#include "rawfile.h"
+#include "MilesSoundBuffer.h"
 #include "wwdebug.h"
 #include "Utils.h"
 #include "ffactory.h"
-#include "win.h"
 #include "wwprofile.h"
+#include "wwfile.h"
+#include <mss.h>
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -64,9 +64,9 @@ static DynamicVectorClass<FileMappingClass> MappingList;
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//	SoundBufferClass
+//	SingleSoundBufferClass
 //
-SoundBufferClass::SoundBufferClass (void)
+SingleSoundBufferClass::SingleSoundBufferClass (void)
 	: m_Buffer (NULL),
 	  m_Length (0),
 	  m_Filename (NULL),
@@ -82,9 +82,9 @@ SoundBufferClass::SoundBufferClass (void)
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//	~SoundBufferClass
+//	~SingleSoundBufferClass
 //
-SoundBufferClass::~SoundBufferClass (void)
+SingleSoundBufferClass::~SingleSoundBufferClass (void)
 {
 	SAFE_FREE (m_Filename);
 	Free_Buffer ();
@@ -97,7 +97,7 @@ SoundBufferClass::~SoundBufferClass (void)
 //	Free_Buffer
 //
 void
-SoundBufferClass::Free_Buffer (void)
+SingleSoundBufferClass::Free_Buffer (void)
 {
 	// Free the buffer's memory
 	if (m_Buffer != NULL) {
@@ -116,7 +116,7 @@ SoundBufferClass::Free_Buffer (void)
 //	Determine_Stats
 //
 void
-SoundBufferClass::Determine_Stats (unsigned char *buffer)
+SingleSoundBufferClass::Determine_Stats (unsigned char *buffer)
 {
 	WWPROFILE ("Determine_Stats");
 
@@ -142,7 +142,6 @@ SoundBufferClass::Determine_Stats (unsigned char *buffer)
 		float bytes_sec = float((m_Channels * m_Rate * m_Bits) >> 3);
 		m_Duration = (unsigned int)((((float)m_Length) / bytes_sec) * 1000.0F);
 	}
-
 	return ;
 }
 
@@ -152,7 +151,7 @@ SoundBufferClass::Determine_Stats (unsigned char *buffer)
 //	Set_Filename
 //
 void
-SoundBufferClass::Set_Filename (const char *name)
+SingleSoundBufferClass::Set_Filename (const char *name)
 {
 	SAFE_FREE (m_Filename);
 	if (name != NULL) {
@@ -168,9 +167,9 @@ SoundBufferClass::Set_Filename (const char *name)
 //	Load_From_File
 //
 bool
-SoundBufferClass::Load_From_File (const char *filename)
+SingleSoundBufferClass::Load_From_File (const char *filename)
 {
-	WWPROFILE ("SoundBufferClass::Load_From_File");
+	WWPROFILE ("SingleSoundBufferClass::Load_From_File");
 	WWDEBUG_SAY(( "Loading sound file %s.\r\n", filename));
 
 	// Assume failure
@@ -199,9 +198,9 @@ SoundBufferClass::Load_From_File (const char *filename)
 //	Load_From_File
 //
 bool
-SoundBufferClass::Load_From_File (FileClass &file)
+SingleSoundBufferClass::Load_From_File (FileClass &file)
 {
-	WWPROFILE ("SoundBufferClass::Load_From_File");
+	WWPROFILE ("SingleSoundBufferClass::Load_From_File");
 
 	MMSLockClass lock;
 
@@ -215,7 +214,7 @@ SoundBufferClass::Load_From_File (FileClass &file)
 	// Open the file if necessary
 	bool we_opened = false;
 	if (file.Is_Open () == false) {
-		we_opened = (file.Open () == true);
+		we_opened = (file.Open () != 0);
 	}
 
 	// Determine the size of the buffer
@@ -250,7 +249,7 @@ SoundBufferClass::Load_From_File (FileClass &file)
 //	Load_From_Memory
 //
 bool
-SoundBufferClass::Load_From_Memory
+SingleSoundBufferClass::Load_From_Memory
 (
 	unsigned char *mem_buffer,
 	unsigned int size
@@ -294,7 +293,7 @@ SoundBufferClass::Load_From_Memory
 //	StreamSoundBufferClass
 //
 StreamSoundBufferClass::StreamSoundBufferClass (void)	:
-	  SoundBufferClass ()
+	  SingleSoundBufferClass ()
 {
 	return ;
 }
@@ -318,24 +317,6 @@ void
 StreamSoundBufferClass::Free_Buffer (void)
 {
 	return ;
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////
-//
-//	Load_From_File
-//
-/////////////////////////////////////////////////////////////////////////////////
-bool
-StreamSoundBufferClass::Load_From_File
-(
-	HANDLE			/*hfile*/,
-	unsigned int	/*size*/,
-	unsigned int	/*offset*/
-)
-{
-	WWPROFILE ("StreamSoundBufferClass::Load_From_File");
-	return true;
 }
 
 
@@ -371,7 +352,7 @@ StreamSoundBufferClass::Load_From_File (FileClass &file)
 	// Open the file if necessary
 	bool we_opened = false;
 	if (file.Is_Open () == false) {
-		we_opened = (file.Open () == true);
+		we_opened = (file.Open () != 0);
 	}
 
 	m_Length = file.Size ();

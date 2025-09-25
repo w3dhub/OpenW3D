@@ -44,8 +44,8 @@
 //	Sound2DHandleClass
 //
 //////////////////////////////////////////////////////////////////////
-Sound2DHandleClass::Sound2DHandleClass (void)	:
-	SampleHandle ((HSAMPLE)INVALID_MILES_HANDLE)
+Sound2DHandleClass::Sound2DHandleClass (void)
+	: SampleHandle ((HSAMPLE)INVALID_MILES_HANDLE)
 {
 	return ;
 }
@@ -89,7 +89,6 @@ Sound2DHandleClass::Initialize (SoundBufferClass *buffer)
 					Buffer->Get_Raw_Buffer (), Buffer->Get_Raw_Length (), 0);
 		}
 	}
-
 	return ;
 }
 
@@ -105,7 +104,6 @@ Sound2DHandleClass::Start_Sample (void)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_start_sample (SampleHandle);
 	}
-
 	return ;
 }
 
@@ -121,7 +119,6 @@ Sound2DHandleClass::Stop_Sample (void)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_stop_sample (SampleHandle);
 	}
-
 	return ;
 }
 
@@ -137,7 +134,6 @@ Sound2DHandleClass::Resume_Sample (void)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_resume_sample (SampleHandle);
 	}
-
 	return ;
 }
 
@@ -153,7 +149,6 @@ Sound2DHandleClass::End_Sample (void)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_end_sample (SampleHandle);
 	}
-
 	return ;
 }
 
@@ -164,12 +159,11 @@ Sound2DHandleClass::End_Sample (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_Pan (int pan)
+Sound2DHandleClass::Set_Sample_Pan (float pan)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
-		::AIL_set_sample_pan (SampleHandle, pan);
+		::AIL_set_sample_pan (SampleHandle, int(pan * 127.0F));
 	}
-
 	return ;
 }
 
@@ -179,15 +173,14 @@ Sound2DHandleClass::Set_Sample_Pan (int pan)
 //	Get_Sample_Pan
 //
 //////////////////////////////////////////////////////////////////////
-int
+float
 Sound2DHandleClass::Get_Sample_Pan (void)
 {
-	int retval = 0;
+	float retval = 0;
 
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
-		retval = ::AIL_sample_pan (SampleHandle);
+		retval = ::AIL_sample_pan (SampleHandle) / 127.0F;
 	}
-
 	return retval;
 }
 
@@ -198,10 +191,10 @@ Sound2DHandleClass::Get_Sample_Pan (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound2DHandleClass::Set_Sample_Volume (int volume)
+Sound2DHandleClass::Set_Sample_Volume (float volume)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
-		::AIL_set_sample_volume (SampleHandle, volume);
+		::AIL_set_sample_volume (SampleHandle, int(volume * 127.0F));
 	}
 	return ;
 }
@@ -212,15 +205,14 @@ Sound2DHandleClass::Set_Sample_Volume (int volume)
 //	Get_Sample_Volume
 //
 //////////////////////////////////////////////////////////////////////
-int
+float
 Sound2DHandleClass::Get_Sample_Volume (void)
 {
-	int retval = 0;
+	float retval = 0;
 
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
-		retval = ::AIL_sample_volume (SampleHandle);
+		retval = ::AIL_sample_volume (SampleHandle) / 127.0F;
 	}
-
 	return retval;
 }
 
@@ -236,7 +228,6 @@ Sound2DHandleClass::Set_Sample_Loop_Count (unsigned count)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_loop_count (SampleHandle, count);
 	}
-
 	return ;
 }
 
@@ -254,7 +245,6 @@ Sound2DHandleClass::Get_Sample_Loop_Count (void)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_loop_count (SampleHandle);
 	}
-
 	return retval;
 }
 
@@ -270,7 +260,6 @@ Sound2DHandleClass::Set_Sample_MS_Position (unsigned ms)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_ms_position (SampleHandle, ms);
 	}
-
 	return ;
 }
 
@@ -284,9 +273,18 @@ void
 Sound2DHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 {
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
-		::AIL_sample_ms_position (SampleHandle, len, pos);
-	}
+		S32 total_ms;
+		S32 current_ms;
+		::AIL_sample_ms_position (SampleHandle, &total_ms, &current_ms);
+		
+		if (len != NULL) {
+			*len = int(total_ms);
+		}
 
+		if (pos != NULL) {
+			*pos = int(current_ms);
+		}
+	}
 	return ;
 }
 
@@ -302,7 +300,6 @@ Sound2DHandleClass::Set_Sample_User_Data (int i, void *val)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_user_data (SampleHandle, i, val);
 	}
-
 	return ;
 }
 
@@ -320,7 +317,6 @@ Sound2DHandleClass::Get_Sample_User_Data (int i)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_user_data (SampleHandle, i);
 	}
-
 	return retval;
 }
 
@@ -338,7 +334,6 @@ Sound2DHandleClass::Get_Sample_Playback_Rate (void)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_sample_playback_rate (SampleHandle);
 	}
-
 	return retval;
 }
 
@@ -354,7 +349,38 @@ Sound2DHandleClass::Set_Sample_Playback_Rate (int rate)
 	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_sample_playback_rate (SampleHandle, rate);
 	}
+	return ;
+}
 
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Get_Sample_Pitch
+//
+//////////////////////////////////////////////////////////////////////
+float
+Sound2DHandleClass::Get_Sample_Pitch (void)
+{	
+	float retval = 0;
+
+	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
+		retval = ::AIL_sample_playback_rate (SampleHandle) / float(Buffer->Get_Rate ());
+	}
+	return retval;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Sample_Pitch
+//
+//////////////////////////////////////////////////////////////////////
+void
+Sound2DHandleClass::Set_Sample_Pitch (float pitch)
+{
+	if (SampleHandle != (HSAMPLE)INVALID_MILES_HANDLE) {
+		::AIL_set_sample_playback_rate (SampleHandle,  int(Buffer->Get_Rate () * pitch));
+	}
 	return ;
 }
 
@@ -368,5 +394,47 @@ void
 Sound2DHandleClass::Set_Miles_Handle (void *handle)
 {
 	SampleHandle = (HSAMPLE)handle;
+	return ;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Initialize_Reverb
+//
+//////////////////////////////////////////////////////////////////////
+void
+Sound2DHandleClass::Initialize_Reverb ()
+{
+	//
+	//	Grab the first (and only) filter for use with our 'tinny' effect.
+	//
+	HPROVIDER filter;
+	HPROENUM next = HPROENUM_FIRST;
+	char *name = NULL;
+	if (::AIL_enumerate_filters (&next, &filter, &name) == 0) {
+		//
+		//	Pass the filter onto the sample
+		//
+		::AIL_set_sample_processor (SampleHandle, DP_FILTER, filter);
+
+		//
+		//	Change the reverb's settings to simulate a 'tinny' effect.
+		//
+		F32 reverb_level   = 0.3F;
+		F32 reverb_reflect = 0.01F;
+		F32 reverb_decay   = 0.535F;
+		::AIL_set_filter_sample_preference (SampleHandle,
+														"Reverb level",
+														&reverb_level);
+
+		::AIL_set_filter_sample_preference (SampleHandle,
+														"Reverb reflect time",
+														&reverb_reflect);
+
+		::AIL_set_filter_sample_preference (SampleHandle,
+														"Reverb decay time",
+														&reverb_decay);
+	}
 	return ;
 }

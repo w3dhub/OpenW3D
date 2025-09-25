@@ -312,19 +312,19 @@ DlgConfigAudioTabClass::Configure_Speaker_Combobox (void)
 	switch (type)
 	{
 		default:
-		case AIL_3D_2_SPEAKER:
+		case W3D_3D_2_SPEAKER:
 			combo_box->Set_Curr_Sel (0);
 			break;
 
-		case AIL_3D_HEADPHONE:
+		case W3D_3D_HEADPHONE:
 			combo_box->Set_Curr_Sel (1);
 			break;
 
-		case AIL_3D_SURROUND:
+		case W3D_3D_SURROUND:
 			combo_box->Set_Curr_Sel (2);
 			break;
 
-		case AIL_3D_4_SPEAKER:
+		case W3D_3D_4_SPEAKER:
 			combo_box->Set_Curr_Sel (3);
 			break;
 	}
@@ -433,23 +433,23 @@ DlgConfigAudioTabClass::Configure_Driver_List (void)
 		//
 		//	Get information about this sound driver
 		//
-		WWAudioClass::DRIVER_INFO_STRUCT *driver_info = NULL;
+		const char *driver_info = NULL;
 		if (WWAudioClass::Get_Instance ()->Get_3D_Device (index, &driver_info)) {
 
 			WideStringClass wide_driver_name;
-			wide_driver_name.Convert_From (driver_info->name);
+			wide_driver_name.Convert_From (driver_info);
 
 			//
 			//	Add an entry to the list for this driver
 			//
 			int item_index = list_ctrl->Insert_Entry (index, wide_driver_name);
 			if (item_index >= 0) {
-				list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)driver_info->driver);
+				list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)0);
 
 				//
 				//	Select this entry if its the default
 				//
-				if (::stricmp (device_name, driver_info->name) == 0) {
+				if (::stricmp (device_name, driver_info) == 0) {
 					list_ctrl->Set_Curr_Sel (item_index);
 					selected_default = true;
 				}

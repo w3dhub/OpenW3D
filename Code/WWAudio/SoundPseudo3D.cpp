@@ -103,19 +103,6 @@ SoundPseudo3DClass::operator= (const SoundPseudo3DClass &src)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//	Set_Miles_Handle
-//
-////////////////////////////////////////////////////////////////////////////////////////////////
-void
-SoundPseudo3DClass::Set_Miles_Handle (MILES_HANDLE handle)
-{
-	AudibleSoundClass::Set_Miles_Handle (handle);
-	return ;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
 //	Initialize_Miles_Handle
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -162,7 +149,7 @@ SoundPseudo3DClass::Update_Pseudo_Volume (float distance)
 		//
 		// Pass the volume on
 		//
-		m_SoundHandle->Set_Sample_Volume (int(volume * 127.0F));
+		m_SoundHandle->Set_Sample_Volume (volume);
 	}
 
 	return ;
@@ -230,7 +217,7 @@ SoundPseudo3DClass::Update_Pseudo_Pan (void)
 		//
 		// Pass the pan on
 		//
-		m_SoundHandle->Set_Sample_Pan (int(pan * 127.0F));
+		m_SoundHandle->Set_Sample_Pan (pan * 127.0F);
 	}
 
 	return ;

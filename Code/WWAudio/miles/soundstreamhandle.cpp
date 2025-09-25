@@ -36,6 +36,7 @@
 
 #include "soundstreamhandle.h"
 #include "AudibleSound.h"
+#include "miles/MilesAudio.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -43,8 +44,8 @@
 //	SoundStreamHandleClass
 //
 //////////////////////////////////////////////////////////////////////
-SoundStreamHandleClass::SoundStreamHandleClass (void)	:
-	SampleHandle ((HSAMPLE)INVALID_MILES_HANDLE),
+SoundStreamHandleClass::SoundStreamHandleClass (void)
+	: SampleHandle ((HSAMPLE)INVALID_MILES_HANDLE),
 	StreamHandle ((HSTREAM)INVALID_MILES_HANDLE)
 {
 	return ;
@@ -73,15 +74,12 @@ SoundStreamHandleClass::Initialize (SoundBufferClass *buffer)
 	SoundHandleClass::Initialize (buffer);
 
 	if (Buffer != NULL) {
-
 		//
 		//	Create a stream from the sample handle
 		//
-		StreamHandle = ::AIL_open_stream_by_sample (WWAudioClass::Get_Instance ()->Get_2D_Driver (),
+		auto inst = reinterpret_cast<MilesAudioClass *>(WWAudioClass::Get_Instance ());
+		StreamHandle = ::AIL_open_stream_by_sample (inst->Get_2D_Driver (),
 								SampleHandle, buffer->Get_Filename (), 0);
-
-		/*StreamHandle = ::AIL_open_stream (WWAudioClass::Get_Instance ()->Get_2D_Driver (),
-								buffer->Get_Filename (), 0);*/
 	}
 
 	return ;
@@ -160,10 +158,10 @@ SoundStreamHandleClass::End_Sample (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_Pan (int pan)
+SoundStreamHandleClass::Set_Sample_Pan (float pan)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
-		::AIL_set_stream_pan (StreamHandle, pan);
+		::AIL_set_stream_pan (StreamHandle, int(pan * 127.0F));
 	}
 	return ;
 }
@@ -174,13 +172,13 @@ SoundStreamHandleClass::Set_Sample_Pan (int pan)
 //	Get_Sample_Pan
 //
 //////////////////////////////////////////////////////////////////////
-int
+float
 SoundStreamHandleClass::Get_Sample_Pan (void)
 {
-	int retval = 0;
+	float retval = 0;
 
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
-		retval = ::AIL_stream_pan (StreamHandle);
+		retval = ::AIL_stream_pan (StreamHandle) / 127.0F;
 	}
 
 	return retval;
@@ -193,10 +191,10 @@ SoundStreamHandleClass::Get_Sample_Pan (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-SoundStreamHandleClass::Set_Sample_Volume (int volume)
+SoundStreamHandleClass::Set_Sample_Volume (float volume)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
-		::AIL_set_stream_volume (StreamHandle, volume);
+		::AIL_set_stream_volume (StreamHandle, int(volume * 127.0F));
 	}
 	return ;
 }
@@ -207,13 +205,13 @@ SoundStreamHandleClass::Set_Sample_Volume (int volume)
 //	Get_Sample_Volume
 //
 //////////////////////////////////////////////////////////////////////
-int
+float
 SoundStreamHandleClass::Get_Sample_Volume (void)
 {
-	int retval = 0;
+	float retval = 0;
 
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
-		retval = ::AIL_stream_volume (StreamHandle);
+		retval = ::AIL_stream_volume (StreamHandle) / 127.0F;
 	}
 
 	return retval;
@@ -278,7 +276,17 @@ void
 SoundStreamHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 {
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
-		::AIL_stream_ms_position (StreamHandle, len, pos);
+		S32 total_ms;
+		S32 current_ms;
+		::AIL_stream_ms_position (StreamHandle, &total_ms, &current_ms);
+		
+		if (len != NULL) {
+			*len = int(total_ms);
+		}
+
+		if (pos != NULL) {
+			*pos = int(current_ms);
+		}
 	}
 
 	return ;
@@ -355,6 +363,40 @@ SoundStreamHandleClass::Set_Sample_Playback_Rate (int rate)
 
 //////////////////////////////////////////////////////////////////////
 //
+//	Get_Sample_Pitch
+//
+//////////////////////////////////////////////////////////////////////
+float
+SoundStreamHandleClass::Get_Sample_Pitch (void)
+{	
+	float retval = 0;
+	
+	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
+		retval = ::AIL_stream_playback_rate (StreamHandle) / float(Buffer->Get_Rate ());
+	}
+
+	return retval;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Sample_Pitch
+//
+//////////////////////////////////////////////////////////////////////
+void
+SoundStreamHandleClass::Set_Sample_Pitch (float pitch)
+{
+	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
+		::AIL_set_stream_playback_rate (StreamHandle, int(Buffer->Get_Rate () * pitch));
+	}
+
+	return ;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
 //	Set_Miles_Handle
 //
 //////////////////////////////////////////////////////////////////////
@@ -362,5 +404,47 @@ void
 SoundStreamHandleClass::Set_Miles_Handle (void *handle)
 {
 	SampleHandle = (HSAMPLE)handle;
+	return ;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Initialize_Reverb
+//
+//////////////////////////////////////////////////////////////////////
+void
+SoundStreamHandleClass::Initialize_Reverb ()
+{
+	//
+	//	Grab the first (and only) filter for use with our 'tinny' effect.
+	//
+	HPROVIDER filter;
+	HPROENUM next = HPROENUM_FIRST;
+	char *name = NULL;
+	if (::AIL_enumerate_filters (&next, &filter, &name) == 0) {
+		//
+		//	Pass the filter onto the sample
+		//
+		::AIL_set_sample_processor (SampleHandle, DP_FILTER, filter);
+
+		//
+		//	Change the reverb's settings to simulate a 'tinny' effect.
+		//
+		F32 reverb_level   = 0.3F;
+		F32 reverb_reflect = 0.01F;
+		F32 reverb_decay   = 0.535F;
+		::AIL_set_filter_sample_preference (SampleHandle,
+														"Reverb level",
+														&reverb_level);
+
+		::AIL_set_filter_sample_preference (SampleHandle,
+														"Reverb reflect time",
+														&reverb_reflect);
+
+		::AIL_set_filter_sample_preference (SampleHandle,
+														"Reverb decay time",
+														&reverb_decay);
+	}
 	return ;
 }

@@ -43,7 +43,7 @@
 #include "SoundChunkIDs.h"
 #include "persistfactory.h"
 #include "chunkio.h"
-#include "sound3dhandle.h"
+#include "soundhandle.h"
 #include "systimer.h"
 
 
@@ -359,21 +359,14 @@ Sound3DClass::Update_Miles_Transform (void)
 		// Pass the sound's position onto miles
 		//
 		Vector3 position = listener_space_tm.Get_Translation ();
-		::AIL_set_3D_position (m_SoundHandle->Get_H3DSAMPLE (), -position.Y, position.Z, position.X);
-
+		m_SoundHandle->Set_Position(position);
+		
 		//
 		// Pass the sound's orientation (facing) onto miles
 		//
 		Vector3 facing	= listener_space_tm.Get_X_Vector ();
 		Vector3 up		= listener_space_tm.Get_Z_Vector ();
-
-		::AIL_set_3D_orientation (m_SoundHandle->Get_H3DSAMPLE (),
-										  -facing.Y,
-										  facing.Z,
-										  facing.X,
-										  -up.Y,
-										  up.Z,
-										  up.X);
+		m_SoundHandle->Set_Orientation(facing, up);
 	}
 
 	return ;
@@ -420,8 +413,7 @@ Sound3DClass::Set_Position (const Vector3 &position)
 			//
 			//	Update the object's position inside of Miles
 			//
-			::AIL_set_3D_position (m_SoundHandle->Get_H3DSAMPLE (), -listener_space_pos.Y,
-					listener_space_pos.Z, listener_space_pos.X);
+			m_SoundHandle->Set_Position(listener_space_pos);
 		}
 	}
 
@@ -446,12 +438,7 @@ Sound3DClass::Set_Velocity (const Vector3 &velocity)
 	// Pass the sound's velocity onto miles
 	//
 	if (m_SoundHandle != NULL) {
-
-		//WWDEBUG_SAY (("Current Velocity: %.2f %.2f %.2f\n", m_CurrentVelocity.X, m_CurrentVelocity.Y, m_CurrentVelocity.Z));
-		::AIL_set_3D_velocity_vector (m_SoundHandle->Get_H3DSAMPLE (),
-												-m_CurrentVelocity.Y,
-												m_CurrentVelocity.Z,
-												m_CurrentVelocity.X);
+		m_SoundHandle->Set_Velocity(m_CurrentVelocity);
 	}
 
 	return ;
@@ -473,9 +460,7 @@ Sound3DClass::Set_DropOff_Radius (float radius)
 
 	// Pass attenuation settings onto miles
 	if (m_SoundHandle != NULL) {
-		::AIL_set_3D_sample_distances (	m_SoundHandle->Get_H3DSAMPLE (),
-													m_DropOffRadius,
-													(m_MaxVolRadius > 1.0F) ? m_MaxVolRadius : 1.0F);
+		m_SoundHandle->Set_Dropoff(m_DropOffRadius, m_MaxVolRadius);
 	}
 
 	return ;
@@ -495,9 +480,7 @@ Sound3DClass::Set_Max_Vol_Radius (float radius)
 
 	// Pass attenuation settings onto miles
 	if (m_SoundHandle != NULL) {
-		::AIL_set_3D_sample_distances (	m_SoundHandle->Get_H3DSAMPLE (),
-													m_DropOffRadius,
-													(m_MaxVolRadius > 1.0F) ? m_MaxVolRadius : 1.0F);
+		m_SoundHandle->Set_Dropoff(m_DropOffRadius, m_MaxVolRadius);
 	}
 
 	return ;
@@ -538,24 +521,20 @@ Sound3DClass::Initialize_Miles_Handle (void)
 		// Pass our cached settings onto miles
 		//
 		float real_volume = Determine_Real_Volume ();
-		m_SoundHandle->Set_Sample_Volume (int(real_volume * 127.0F));
-		m_SoundHandle->Set_Sample_Pan (int(m_Pan * 127.0F));
+		m_SoundHandle->Set_Sample_Volume (real_volume);
+		m_SoundHandle->Set_Sample_Pan (m_Pan);
 		m_SoundHandle->Set_Sample_Loop_Count (m_LoopCount);
 
 		//
 		// Pass attenuation settings onto miles
 		//
-		::AIL_set_3D_sample_distances (	m_SoundHandle->Get_H3DSAMPLE (),
-													m_DropOffRadius,
-													(m_MaxVolRadius > 1.0F) ? m_MaxVolRadius : 1.0F);
-
+		m_SoundHandle->Set_Dropoff(m_DropOffRadius, m_MaxVolRadius);
 
 		//
 		//	Assign the 3D effects level accordingly (for reverb, etc)
 		//
-		::AIL_set_3D_sample_effects_level (m_SoundHandle->Get_H3DSAMPLE (),
-				WWAudioClass::Get_Instance ()->Get_Effects_Level ());
-
+		m_SoundHandle->Set_Effect_Level(WWAudioClass::Get_Instance ()->Get_Effects_Level ());
+		
 		//
 		//	Pass the sound's position and orientation onto Miles
 		//
@@ -604,8 +583,9 @@ Sound3DClass::Allocate_Miles_Handle (void)
 	//
 	// If we need to, get a play-handle from the audio system
 	//
-	if (m_SoundHandle == NULL) {
-		Set_Miles_Handle ((MILES_HANDLE)WWAudioClass::Get_Instance ()->Get_3D_Sample (*this));
+	if (m_SoundHandle == NULL && m_Buffer != NULL) {
+		m_SoundHandle = WWAudioClass::Get_Instance ()->Get_3D_Handle(*this);
+		Initialize_Miles_Handle();
 	}
 
 	return ;
@@ -753,36 +733,3 @@ Sound3DClass::Load (ChunkLoadClass &cload)
 	return true;
 }
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//	Set_Miles_Handle
-//
-////////////////////////////////////////////////////////////////////////////////////////////////
-void
-Sound3DClass::Set_Miles_Handle (MILES_HANDLE handle)
-{
-	//
-	// Start fresh
-	//
-	Free_Miles_Handle ();
-
-	//
-	//	Is our data valid?
-	//
-	if (handle != INVALID_MILES_HANDLE && m_Buffer != NULL) {
-
-		//
-		//	Configure the sound handle
-		//
-		m_SoundHandle = new Sound3DHandleClass;
-		m_SoundHandle->Set_Miles_Handle (handle);
-
-		//
-		//	Use this new handle
-		//
-		Initialize_Miles_Handle ();
-	}
-
-	return ;
-}

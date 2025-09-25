@@ -22,11 +22,11 @@
  *                                                                                             *
  *                 Project Name : WWAudio                                                      *
  *                                                                                             *
- *                     $Archive:: /Commando/Code/WWAudio/Listener.h         $*
+ *                     $Archive:: /Commando/Code/WWAudio/SoundBuffer.h                        $*
  *                                                                                             *
  *                       Author:: Patrick Smith                                                *
  *                                                                                             *
- *                     $Modtime:: 2/07/01 6:10p                                               $*
+ *                     $Modtime:: 8/17/01 11:12a                                              $*
  *                                                                                             *
  *                    $Revision:: 7                                                           $*
  *                                                                                             *
@@ -39,109 +39,130 @@
 #pragma once
 #endif
 
-#ifndef __LISTENER_H
-#define __LISTENER_H
+#ifndef __MILESSOUNDBUFFER_H
+#define __MILESSOUNDBUFFER_H
+
+#include "SoundBuffer.h"
 
 
-#include "Sound3D.h"
-
+// Forward declarations
+class FileClass;
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//	Listener3DClass
+//	SingleSoundBufferClass
 //
-//	Class defining the 'listeners' 3D position/velocity in the world.  This should
-// only be used by the SoundSceneClass.
+//	A sound buffer manages the raw sound data for any of the SoundObj types
+// except for the StreamSoundClass object.
 //
-class Listener3DClass : public Sound3DClass
+class SingleSoundBufferClass : public SoundBufferClass
 {
 	public:
 
 		//////////////////////////////////////////////////////////////////////
-		//	Friend classes
-		//////////////////////////////////////////////////////////////////////
-		friend class SoundSceneClass;
-
-		//////////////////////////////////////////////////////////////////////
 		//	Public constructors/destructors
 		//////////////////////////////////////////////////////////////////////
-		Listener3DClass (void);
-		virtual ~Listener3DClass (void);
+		SingleSoundBufferClass (void);
+		~SingleSoundBufferClass (void) override;
 
 		//////////////////////////////////////////////////////////////////////
-		//	Identification methods
+		//	File methods
 		//////////////////////////////////////////////////////////////////////
-		virtual SOUND_CLASSID	Get_Class_ID (void) const override	{ return CLASSID_LISTENER; }
+		bool				Load_From_File (const char *filename) override;
+		bool				Load_From_File (FileClass &file) override;
 
 		//////////////////////////////////////////////////////////////////////
-		//	Conversion methods
+		//	Memory methods
+		//////////////////////////////////////////////////////////////////////
+		bool				Load_From_Memory (unsigned char *mem_buffer, unsigned int size) override;
+
+		//////////////////////////////////////////////////////////////////////
+		//	Buffer access
 		//////////////////////////////////////////////////////////////////////		
-		virtual Listener3DClass *	As_Listener3DClass (void) override 	{ return this; }
+		unsigned char *	Get_Raw_Buffer (void) const override	{ return m_Buffer; }
+		unsigned int	Get_Raw_Length (void) const override	{ return m_Length; }
 
 		//////////////////////////////////////////////////////////////////////
-		//	Initialization methods
-		//////////////////////////////////////////////////////////////////////				
-		virtual void			On_Added_To_Scene (void);
-		virtual void			On_Removed_From_Scene (void);
+		//	Information methods
+		//////////////////////////////////////////////////////////////////////
+		const char *		Get_Filename (void) const override{ return m_Filename; }
+		void				Set_Filename (const char *name) override;
+		unsigned int	Get_Duration (void) const override{ return m_Duration; }
+		unsigned int	Get_Rate (void) const override { return m_Rate; }
+		unsigned int	Get_Bits (void) const override { return m_Bits; }
+		unsigned int	Get_Channels (void) const override { return m_Channels; }
+		unsigned int	Get_Type (void) const override{ return m_Type; }
 
 		//////////////////////////////////////////////////////////////////////
-		//	State control methods
+		//	Type methods
 		//////////////////////////////////////////////////////////////////////
-		//virtual bool			Play (void)		{ return false; }
-		virtual bool			Pause (void) override	{ return false; }
-		virtual bool			Resume (void) override	{ return false; }
-		virtual bool			Stop (bool /*remove*/) override		{ return false; }
-		virtual void			Seek (unsigned int milliseconds) override { }
-		virtual SOUND_STATE	Get_State (void) const override	{ return STATE_STOPPED; }
-
-
-		//////////////////////////////////////////////////////////////////////
-		//	Attenuation settings
-		//////////////////////////////////////////////////////////////////////
-		virtual void			Set_Max_Vol_Radius (float radius = 0) override			{ }
-		virtual float			Get_Max_Vol_Radius (void) const override					{ return 0; }
-		virtual void			Set_DropOff_Radius (float radius = 1) override			{ }
-		virtual float			Get_DropOff_Radius (void) const override					{ return 0; }
-
-		//////////////////////////////////////////////////////////////////////
-		//	Velocity methods
-		//////////////////////////////////////////////////////////////////////				
-		virtual void			Set_Velocity (const Vector3 &velocity) override { }
-
+		bool				Is_Streaming (void) const override	{ return false; }
 
 	protected:
 
 		//////////////////////////////////////////////////////////////////////
-		//	Internal representations
+		//	Protected methods
 		//////////////////////////////////////////////////////////////////////
-		virtual void			Start_Sample (void)							{ }
-		virtual void			Stop_Sample (void)							{ }
-		virtual void			Resume_Sample (void)							{ }
-		virtual void			End_Sample (void)								{ }
-		virtual void			Set_Sample_Volume (float volume)			{ }
-		virtual float			Get_Sample_Volume (void)					{ return 0.0F; }
-		virtual void			Set_Sample_Pan (float pan)					{ }
-		virtual float			Get_Sample_Pan (void)						{ return 0.5F; }
-		virtual void			Set_Sample_Loop_Count (unsigned count)		{ }
-		virtual unsigned				Get_Sample_Loop_Count (void)				{ return 0; }
-		virtual void			Set_Sample_MS_Position (unsigned ms)			{ }
-		virtual void			Get_Sample_MS_Position (int *len, int *pos) { }
-		virtual int				Get_Sample_Playback_Rate (void)			{ return 0; }
-		virtual void			Set_Sample_Playback_Rate (int rate)		{ }
+		void			Free_Buffer (void) override;
+		void			Determine_Stats (unsigned char *buffer) override;
 
 		//////////////////////////////////////////////////////////////////////
-		//	Handle information
-		//////////////////////////////////////////////////////////////////////				
-		virtual void			Initialize_Miles_Handle (void) override;
-		virtual void			Allocate_Miles_Handle (void) override;
-		virtual void			Free_Miles_Handle (void) override;
+		//	Protected member data
+		//////////////////////////////////////////////////////////////////////		
+		unsigned char *		m_Buffer;
+		unsigned int			m_Length;
+		char *					m_Filename;
+		unsigned int			m_Duration;
+		unsigned int			m_Rate;
+		unsigned int			m_Bits;
+		unsigned int			m_Channels;
+		unsigned int			m_Type;
+};
 
-	private:
+/////////////////////////////////////////////////////////////////////////////////
+//
+//	StreamSoundBufferClass
+//
+//	A sound buffer manages the raw sound data for any of the SoundObj types
+// except for the StreamSoundClass object.
+//
+class StreamSoundBufferClass : public SingleSoundBufferClass
+{
+	public:
 
 		//////////////////////////////////////////////////////////////////////
-		//	Private member data
+		//	Public constructors/destructors
 		//////////////////////////////////////////////////////////////////////
+		StreamSoundBufferClass (void);
+		~StreamSoundBufferClass (void);
+
+		//////////////////////////////////////////////////////////////////////
+		//	File methods
+		//////////////////////////////////////////////////////////////////////
+		bool			Load_From_File (const char *filename) override;
+		bool			Load_From_File (FileClass &file) override;
+
+		//////////////////////////////////////////////////////////////////////
+		//	Memory methods
+		//////////////////////////////////////////////////////////////////////
+		bool			Load_From_Memory (unsigned char *mem_buffer, unsigned int size) override { return false;  }
+
+		//////////////////////////////////////////////////////////////////////
+		//	Type methods
+		//////////////////////////////////////////////////////////////////////
+		bool			Is_Streaming (void) const override		{ return true; }
+
+	protected:
+
+		//////////////////////////////////////////////////////////////////////
+		//	Protected methods
+		//////////////////////////////////////////////////////////////////////
+		void			Free_Buffer (void) override;
+
+		//////////////////////////////////////////////////////////////////////
+		//	Protected member data
+		//////////////////////////////////////////////////////////////////////		
 };
 
 
-#endif //__LISTENER_H
+#endif //__MILESSOUNDBUFFER_H

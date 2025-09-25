@@ -44,8 +44,8 @@
 //	Sound3DHandleClass
 //
 //////////////////////////////////////////////////////////////////////
-Sound3DHandleClass::Sound3DHandleClass (void)	:
-	SampleHandle ((H3DSAMPLE)INVALID_MILES_HANDLE)
+Sound3DHandleClass::Sound3DHandleClass (void)
+	: SampleHandle ((H3DSAMPLE)INVALID_MILES_HANDLE)
 {
 	return ;
 }
@@ -79,7 +79,7 @@ Sound3DHandleClass::Initialize (SoundBufferClass *buffer)
 		//
 		//	Configure the 3D sample
 		//
-		U32 success = ::AIL_set_3D_sample_file (SampleHandle, Buffer->Get_Raw_Buffer ());
+		unsigned success = ::AIL_set_3D_sample_file (SampleHandle, Buffer->Get_Raw_Buffer ());
 
 		int test1 = 0;
 		int test2 = 0;
@@ -94,7 +94,6 @@ Sound3DHandleClass::Initialize (SoundBufferClass *buffer)
 		}
 
 	}
-
 	return ;
 }
 
@@ -125,7 +124,6 @@ Sound3DHandleClass::Stop_Sample (void)
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_stop_3D_sample (SampleHandle);
 	}
-
 	return ;
 }
 
@@ -156,7 +154,6 @@ Sound3DHandleClass::End_Sample (void)
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_end_3D_sample (SampleHandle);
 	}
-
 	return ;
 }
 
@@ -167,7 +164,7 @@ Sound3DHandleClass::End_Sample (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound3DHandleClass::Set_Sample_Pan (int /*pan*/)
+Sound3DHandleClass::Set_Sample_Pan (float /*pan*/)
 {
 	return ;
 }
@@ -178,10 +175,10 @@ Sound3DHandleClass::Set_Sample_Pan (int /*pan*/)
 //	Get_Sample_Pan
 //
 //////////////////////////////////////////////////////////////////////
-int
+float
 Sound3DHandleClass::Get_Sample_Pan (void)
 {
-	return 64;
+	return 0.5f;
 }
 
 
@@ -191,12 +188,11 @@ Sound3DHandleClass::Get_Sample_Pan (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-Sound3DHandleClass::Set_Sample_Volume (int volume)
+Sound3DHandleClass::Set_Sample_Volume (float volume)
 {
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
-		::AIL_set_3D_sample_volume (SampleHandle, volume);
+		::AIL_set_3D_sample_volume (SampleHandle, int(volume * 127.0F));
 	}
-
 	return ;
 }
 
@@ -206,15 +202,14 @@ Sound3DHandleClass::Set_Sample_Volume (int volume)
 //	Get_Sample_Volume
 //
 //////////////////////////////////////////////////////////////////////
-int
+float
 Sound3DHandleClass::Get_Sample_Volume (void)
 {
-	int retval = 0;
+	float retval = 0;
 
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
-		retval = ::AIL_3D_sample_volume (SampleHandle);
+		retval = ::AIL_3D_sample_volume (SampleHandle) / 127.0F;
 	}
-
 	return retval;
 }
 
@@ -230,7 +225,6 @@ Sound3DHandleClass::Set_Sample_Loop_Count (unsigned count)
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_3D_sample_loop_count (SampleHandle, count);
 	}
-
 	return ;
 }
 
@@ -248,7 +242,6 @@ Sound3DHandleClass::Get_Sample_Loop_Count (void)
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_3D_sample_loop_count (SampleHandle);
 	}
-
 	return retval;
 }
 
@@ -269,7 +262,6 @@ Sound3DHandleClass::Set_Sample_MS_Position (unsigned ms)
 		bytes += (bytes & 1);
 		::AIL_set_3D_sample_offset (SampleHandle, bytes);
 	}
-
 	return ;
 }
 
@@ -299,7 +291,6 @@ Sound3DHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 			(*len) = ms;
 		}
 	}
-
 	return ;
 }
 
@@ -332,7 +323,6 @@ Sound3DHandleClass::Get_Sample_User_Data (int i)
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 		retval = AIL_3D_object_user_data (SampleHandle, i);
 	}
-
 	return retval;
 }
 
@@ -350,7 +340,6 @@ Sound3DHandleClass::Get_Sample_Playback_Rate (void)
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 		retval = ::AIL_3D_sample_playback_rate (SampleHandle);
 	}
-
 	return retval;
 }
 
@@ -366,7 +355,38 @@ Sound3DHandleClass::Set_Sample_Playback_Rate (int rate)
 	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
 		::AIL_set_3D_sample_playback_rate (SampleHandle, rate);
 	}
+	return ;
+}
 
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Get_Sample_Pitch
+//
+//////////////////////////////////////////////////////////////////////
+float
+Sound3DHandleClass::Get_Sample_Pitch (void)
+{	
+	float retval = 0;
+
+	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
+		retval = ::AIL_3D_sample_playback_rate (SampleHandle) / float(Buffer->Get_Rate ());
+	}
+	return retval;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Sample_Pitch
+//
+//////////////////////////////////////////////////////////////////////
+void
+Sound3DHandleClass::Set_Sample_Pitch (float pitch)
+{
+	if (SampleHandle != (H3DSAMPLE)INVALID_MILES_HANDLE) {
+		::AIL_set_3D_sample_playback_rate (SampleHandle, int(Buffer->Get_Rate () * pitch));
+	}
 	return ;
 }
 
@@ -383,4 +403,65 @@ Sound3DHandleClass::Set_Miles_Handle (void *handle)
 
 	SampleHandle = (H3DSAMPLE)handle;
 	return ;
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Position
+//
+//////////////////////////////////////////////////////////////////////
+void Sound3DHandleClass::Set_Position(const Vector3 &position)
+{
+	::AIL_set_3D_position (SampleHandle, -position.Y, position.Z, position.X);
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Orientation
+//
+//////////////////////////////////////////////////////////////////////
+void Sound3DHandleClass::Set_Orientation(const Vector3 &facing, const Vector3 &up)
+{
+	::AIL_set_3D_orientation (SampleHandle,
+										  -facing.Y,
+										  facing.Z,
+										  facing.X,
+										  -up.Y,
+										  up.Z,
+										  up.X);
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Velocity
+//
+//////////////////////////////////////////////////////////////////////
+void Sound3DHandleClass::Set_Velocity(const Vector3 &velocity)
+{
+	::AIL_set_3D_velocity_vector (SampleHandle, -velocity.Y, velocity.Z, velocity.X);
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Dropoff
+//
+//////////////////////////////////////////////////////////////////////
+void Sound3DHandleClass::Set_Dropoff(float max, float min)
+{
+	::AIL_set_3D_sample_distances (SampleHandle, max, (min > 1.0F) ? min : 1.0F);
+}
+
+
+//////////////////////////////////////////////////////////////////////
+//
+//	Set_Dropoff
+//
+//////////////////////////////////////////////////////////////////////
+void Sound3DHandleClass::Set_Effect_Level(float level)
+{
+	::AIL_set_3D_sample_effects_level (SampleHandle, level);
 }

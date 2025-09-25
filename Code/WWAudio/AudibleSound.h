@@ -41,8 +41,6 @@
 #ifndef __SOUNDOBJ_H
 #define __SOUNDOBJ_H
 
-#include "mss.h"
-
 //#include <malloc.h>
 #include "vector3.h"
 #include "matrix3d.h"
@@ -105,6 +103,7 @@ class AudibleSoundClass : public SoundSceneObjClass
 		//	Friend classes
 		//////////////////////////////////////////////////////////////////////
 		friend class WWAudioClass;
+		friend class MilesAudioClass;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Public data types
@@ -223,9 +222,6 @@ class AudibleSoundClass : public SoundSceneObjClass
 		//////////////////////////////////////////////////////////////////////
 		//	Playback rate control
 		//////////////////////////////////////////////////////////////////////
-		virtual int					Get_Playback_Rate (void);
-		virtual void				Set_Playback_Rate (int rate_in_hz);
-		
 		virtual float				Get_Pitch_Factor (void)						{ return m_PitchFactor; }
 		virtual void				Set_Pitch_Factor (float factor);
 
@@ -319,7 +315,6 @@ class AudibleSoundClass : public SoundSceneObjClass
 		//	Handle information
 		//////////////////////////////////////////////////////////////////////
 		virtual SoundHandleClass *	Get_Miles_Handle (void) const			{ return m_SoundHandle; }
-		virtual void				Set_Miles_Handle (MILES_HANDLE handle = INVALID_MILES_HANDLE);
 		virtual void				Free_Miles_Handle (void);
 		virtual void				Initialize_Miles_Handle (void);
 		virtual void				Allocate_Miles_Handle (void);
