@@ -50,6 +50,7 @@
 #include "Commando/natter.h"
 #include "packetmgr.h"
 #include "BWBalance.h"
+#include "socket_wrapper.h"
 
 #ifdef WWDEBUG
 #include "Combat/crandom.h"
@@ -88,6 +89,9 @@ static const int		INVALID_RHOST_ID			= -1;
  *=============================================================================================*/
 
 #if defined(_WIN32) && (!defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0600)
+#ifndef INET_ADDRSTRLEN
+#define INET_ADDRSTRLEN 16
+#endif
 static const char* inet_ntop(int af, const void* src, char* dst, size_t size) {
 	if (af == AF_INET) {
 		auto a = static_cast<const in_addr*>(src);

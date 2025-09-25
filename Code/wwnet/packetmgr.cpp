@@ -47,6 +47,7 @@
 #include "crc.h"
 #include "wwprofile.h"
 #include "connect.h"
+#include "socket_wrapper.h"
 
 /*
 ** Single instance of PacketManagerClass.
