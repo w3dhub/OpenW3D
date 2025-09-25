@@ -42,6 +42,7 @@
 #define __SOUND3DHANDLE_H
 
 #include "soundhandle.h"
+#include <mss.h>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -69,12 +70,6 @@ public:
 	Sound3DHandleClass *		As_Sound3DHandleClass (void) override	{ return this; }
 
 	//
-	//	Handle access
-	//
-	H3DSAMPLE					Get_H3DSAMPLE (void) override		{ return SampleHandle; }
-
-
-	//
 	//	Inherited
 	//
 	void							Set_Miles_Handle (void *handle) override;
@@ -83,10 +78,10 @@ public:
 	void							Stop_Sample (void) override;
 	void							Resume_Sample (void) override;
 	void							End_Sample (void) override;
-	void							Set_Sample_Pan (int pan) override;
-	int							Get_Sample_Pan (void) override;
-	void							Set_Sample_Volume (int volume) override;
-	int							Get_Sample_Volume (void) override;
+	void							Set_Sample_Pan (float pan) override;
+	float							Get_Sample_Pan (void) override;
+	void							Set_Sample_Volume (float volume) override;
+	float							Get_Sample_Volume (void) override;
 	void							Set_Sample_Loop_Count (unsigned count) override;
 	unsigned							Get_Sample_Loop_Count (void) override;
 	void							Set_Sample_MS_Position (unsigned ms) override;
@@ -95,7 +90,15 @@ public:
 	void *							Get_Sample_User_Data (int i) override;
 	int							Get_Sample_Playback_Rate (void) override;
 	void							Set_Sample_Playback_Rate (int rate) override;
+	float 					Get_Sample_Pitch (void) override;
+	void						Set_Sample_Pitch (float pitch) override;
 	
+	void Set_Position(const Vector3 &position) override;
+	void Set_Orientation(const Vector3 &facing, const Vector3 &up) override;
+	void Set_Velocity(const Vector3 &velocity) override;
+	void Set_Dropoff(float max, float min) override;
+	void Set_Effect_Level(float level) override;
+
 protected:
 	
 	///////////////////////////////////////////////////////////////////

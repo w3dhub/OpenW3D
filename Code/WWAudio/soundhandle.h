@@ -50,7 +50,7 @@ class Sound3DHandleClass;
 class Sound2DHandleClass;
 class SoundStreamHandleClass;
 class SoundBufferClass;
-class ListenerHandleClass;
+class Vector3;
 
 
 //////////////////////////////////////////////////////////////////////
@@ -78,14 +78,6 @@ public:
 	virtual Sound3DHandleClass *		As_Sound3DHandleClass (void)		{ return NULL; }
 	virtual Sound2DHandleClass *		As_Sound2DHandleClass (void)		{ return NULL; }
 	virtual SoundStreamHandleClass *	As_SoundStreamHandleClass (void)	{ return NULL; }
-	virtual ListenerHandleClass *		As_ListenerHandleClass (void)		{ return NULL; }
-
-	//
-	//	Handle access
-	//
-	virtual H3DSAMPLE		Get_H3DSAMPLE (void)		{ return NULL; }
-	virtual HSAMPLE		Get_HSAMPLE (void)		{ return NULL; }
-	virtual HSTREAM		Get_HSTREAM (void)		{ return NULL; }
 
 	//
 	//	Initialization
@@ -100,10 +92,10 @@ public:
 	virtual void	Stop_Sample (void) = 0;
 	virtual void	Resume_Sample (void) = 0;
 	virtual void	End_Sample (void) = 0;
-	virtual void	Set_Sample_Pan (int pan) = 0;
-	virtual int		Get_Sample_Pan (void) = 0;
-	virtual void	Set_Sample_Volume (int volume) = 0;
-	virtual int		Get_Sample_Volume (void) = 0;
+	virtual void	Set_Sample_Pan (float pan) = 0;
+	virtual float	Get_Sample_Pan (void) = 0;
+	virtual void	Set_Sample_Volume (float volume) = 0;
+	virtual float	Get_Sample_Volume (void) = 0;
 	virtual void	Set_Sample_Loop_Count (unsigned count) = 0;
 	virtual unsigned		Get_Sample_Loop_Count (void) = 0;
 	virtual void	Set_Sample_MS_Position (unsigned ms) = 0;
@@ -112,7 +104,17 @@ public:
 	virtual void *	Get_Sample_User_Data (int i) = 0;
 	virtual int		Get_Sample_Playback_Rate (void) = 0;
 	virtual void	Set_Sample_Playback_Rate (int rate) = 0;
-	
+	virtual float Get_Sample_Pitch (void) = 0;
+	virtual void	Set_Sample_Pitch (float pitch) = 0;
+
+	// These are only used for 3D samples.
+	virtual void Set_Position(const Vector3 &position) {}
+	virtual void Set_Orientation(const Vector3 &facing, const Vector3 &up) {}
+	virtual void Set_Velocity(const Vector3 &velocity) {}
+	virtual void Set_Dropoff(float max, float min) {}
+	virtual void Set_Effect_Level(float level) {}
+
+	virtual void Initialize_Reverb() {}
 protected:
 	
 	///////////////////////////////////////////////////////////////////

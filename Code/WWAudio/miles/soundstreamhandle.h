@@ -22,7 +22,7 @@
  *                                                                                             *
  *                 Project Name : wwaudio                                                      *
  *                                                                                             *
- *                     $Archive:: /Commando/Code/WWAudio/sound2dhandle.h                      $*
+ *                     $Archive:: /Commando/Code/WWAudio/soundstreamhandle.h                  $*
  *                                                                                             *
  *                       Author:: Patrick Smith                                                *
  *                                                                                             *
@@ -38,40 +38,37 @@
 #pragma once
 #endif
 
-#ifndef __SOUND2DHANDLE_H
-#define __SOUND2DHANDLE_H
+#ifndef __SOUNDSTREAMHANDLE_H
+#define __SOUNDSTREAMHANDLE_H
+
 
 #include "soundhandle.h"
+#include <mss.h>
 
 
 //////////////////////////////////////////////////////////////////////
 //
-//	Sound2DHandleClass
+//	SoundStreamHandleClass
 //
 //////////////////////////////////////////////////////////////////////
-class Sound2DHandleClass : public SoundHandleClass
+class SoundStreamHandleClass	: public SoundHandleClass
 {
 public:
 
 	///////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	///////////////////////////////////////////////////////////////////
-	Sound2DHandleClass (void);
-	~Sound2DHandleClass (void);
+	SoundStreamHandleClass  (void);
+	~SoundStreamHandleClass (void);
 
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-
+	
 	//
 	//	RTTI
 	//
-	Sound2DHandleClass *		As_Sound2DHandleClass (void) override	{ return this; }
-
-	//
-	//	Handle access
-	//
-	HSAMPLE						Get_HSAMPLE (void) override		{ return SampleHandle; }
+	SoundStreamHandleClass *	As_SoundStreamHandleClass (void) override	{ return this; }
 
 	//
 	//	Inherited
@@ -82,10 +79,10 @@ public:
 	void							Stop_Sample (void) override;
 	void							Resume_Sample (void) override;
 	void							End_Sample (void) override;
-	void							Set_Sample_Pan (int pan) override;
-	int							Get_Sample_Pan (void) override;
-	void							Set_Sample_Volume (int volume) override;
-	int							Get_Sample_Volume (void) override;
+	void							Set_Sample_Pan (float pan) override;
+	float							Get_Sample_Pan (void) override;
+	void							Set_Sample_Volume (float volume) override;
+	float							Get_Sample_Volume (void) override;
 	void							Set_Sample_Loop_Count (unsigned count) override;
 	unsigned							Get_Sample_Loop_Count (void) override;
 	void							Set_Sample_MS_Position (unsigned ms) override;
@@ -94,14 +91,22 @@ public:
 	void *							Get_Sample_User_Data (int i) override;
 	int							Get_Sample_Playback_Rate (void) override;
 	void							Set_Sample_Playback_Rate (int rate) override;
-	
+	float 					Get_Sample_Pitch (void) override;
+	void						Set_Sample_Pitch (float pitch) override;
+
+	void 						Initialize_Reverb() override;
 protected:
+	
+	///////////////////////////////////////////////////////////////////
+	//	Protected methods
+	///////////////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////
 	HSAMPLE		SampleHandle;
+	HSTREAM		StreamHandle;
 };
 
 
-#endif //__SOUND2DHANDLE_H
+#endif //__SOUNDSTREAMHANDLE_H

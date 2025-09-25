@@ -145,7 +145,6 @@ class SoundPseudo3DClass : public Sound3DClass
 		//////////////////////////////////////////////////////////////////////
 		//	Handle information
 		//////////////////////////////////////////////////////////////////////				
-		virtual void			Set_Miles_Handle (MILES_HANDLE handle) override;
 		virtual void			Initialize_Miles_Handle (void) override;
 		virtual void			Allocate_Miles_Handle (void) override;
 		virtual void			Free_Miles_Handle (void) override;

@@ -1,6 +1,6 @@
 /*
 **	Command & Conquer Renegade(tm)
-**	Copyright 2025 Electronic Arts Inc.
+**	Copyright 2025 OpenW3D Contributors.
 **
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
@@ -15,26 +15,6 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-/***********************************************************************************************
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
- ***********************************************************************************************
- *                                                                                             *
- *                 Project Name : WWAudio                                                      *
- *                                                                                             *
- *                     $Archive:: /Commando/Code/WWAudio/SoundBuffer.h                        $*
- *                                                                                             *
- *                       Author:: Patrick Smith                                                *
- *                                                                                             *
- *                     $Modtime:: 8/17/01 11:12a                                              $*
- *                                                                                             *
- *                    $Revision:: 7                                                           $*
- *                                                                                             *
- *---------------------------------------------------------------------------------------------*
- * Functions:                                                                                  *
- * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-
-
 #if defined(_MSC_VER)
 #pragma once
 #endif
@@ -42,14 +22,11 @@
 #ifndef __SOUNDBUFFER_H
 #define __SOUNDBUFFER_H
 
-#include "mss.h"
-
 #include "refcount.h"
 
 
 // Forward declarations
 class FileClass;
-
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -65,8 +42,7 @@ class SoundBufferClass : public RefCountClass
 		//////////////////////////////////////////////////////////////////////
 		//	Public constructors/destructors
 		//////////////////////////////////////////////////////////////////////
-		SoundBufferClass (void);
-		virtual ~SoundBufferClass (void);
+		virtual ~SoundBufferClass (void) {}
 
 		//////////////////////////////////////////////////////////////////////
 		//	Public operators
@@ -76,103 +52,43 @@ class SoundBufferClass : public RefCountClass
 		//////////////////////////////////////////////////////////////////////
 		//	File methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool				Load_From_File (const char *filename);
-		virtual bool				Load_From_File (FileClass &file);
+		virtual bool				Load_From_File (const char *filename) = 0;
+		virtual bool				Load_From_File (FileClass &file) = 0;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Memory methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool				Load_From_Memory (unsigned char *mem_buffer, unsigned int size);
+		virtual bool				Load_From_Memory (unsigned char *mem_buffer, unsigned int size) = 0;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Buffer access
 		//////////////////////////////////////////////////////////////////////		
-		virtual unsigned char *	Get_Raw_Buffer (void) const	{ return m_Buffer; }
-		virtual unsigned int	Get_Raw_Length (void) const	{ return m_Length; }
+		virtual unsigned char *	Get_Raw_Buffer (void) const = 0;
+		virtual unsigned int	Get_Raw_Length (void) const = 0;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Information methods
 		//////////////////////////////////////////////////////////////////////
-		virtual const char *		Get_Filename (void) const		{ return m_Filename; }
-		virtual void				Set_Filename (const char *name);
-		virtual unsigned int	Get_Duration (void) const		{ return m_Duration; }
-		virtual unsigned int	Get_Rate (void) const			{ return m_Rate; }
-		virtual unsigned int	Get_Bits (void) const			{ return m_Bits; }
-		virtual unsigned int	Get_Channels (void) const		{ return m_Channels; }
-		virtual unsigned int	Get_Type (void) const			{ return m_Type; }
+		virtual const char *		Get_Filename (void) const = 0;
+		virtual void				Set_Filename (const char *name) = 0;
+		virtual unsigned int	Get_Duration (void) const = 0;
+		virtual unsigned int	Get_Rate (void) const = 0;
+		virtual unsigned int	Get_Bits (void) const = 0;
+		virtual unsigned int	Get_Channels (void) const = 0;
+		virtual unsigned int	Get_Type (void) const = 0;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Type methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool				Is_Streaming (void) const		{ return false; }
+		virtual bool				Is_Streaming (void) const = 0;
 
 	protected:
 
 		//////////////////////////////////////////////////////////////////////
 		//	Protected methods
 		//////////////////////////////////////////////////////////////////////
-		virtual void			Free_Buffer (void);
-		virtual void			Determine_Stats (unsigned char *buffer);
-
-		//////////////////////////////////////////////////////////////////////
-		//	Protected member data
-		//////////////////////////////////////////////////////////////////////		
-		unsigned char *		m_Buffer;
-		unsigned int			m_Length;
-		char *					m_Filename;
-		unsigned int			m_Duration;
-		unsigned int			m_Rate;
-		unsigned int			m_Bits;
-		unsigned int			m_Channels;
-		unsigned int			m_Type;
+		virtual void			Free_Buffer (void) = 0;
+		virtual void			Determine_Stats (unsigned char *buffer) = 0;
 };
-
-
-/////////////////////////////////////////////////////////////////////////////////
-//
-//	StreamSoundBufferClass
-//
-//	A sound buffer manages the raw sound data for any of the SoundObj types
-// except for the StreamSoundClass object.
-//
-class StreamSoundBufferClass : public SoundBufferClass
-{
-	public:
-
-		//////////////////////////////////////////////////////////////////////
-		//	Public constructors/destructors
-		//////////////////////////////////////////////////////////////////////
-		StreamSoundBufferClass (void);
-		virtual ~StreamSoundBufferClass (void);
-
-		//////////////////////////////////////////////////////////////////////
-		//	File methods
-		//////////////////////////////////////////////////////////////////////
-		virtual bool			Load_From_File (const char *filename) override;
-		virtual bool			Load_From_File (FileClass &file) override;
-
-		//////////////////////////////////////////////////////////////////////
-		//	Memory methods
-		//////////////////////////////////////////////////////////////////////
-		virtual bool			Load_From_Memory (unsigned char *mem_buffer, unsigned int size) override { return false;  }
-
-		//////////////////////////////////////////////////////////////////////
-		//	Type methods
-		//////////////////////////////////////////////////////////////////////
-		virtual bool			Is_Streaming (void) const override		{ return true; }
-
-	protected:
-
-		//////////////////////////////////////////////////////////////////////
-		//	Protected methods
-		//////////////////////////////////////////////////////////////////////
-		virtual void			Free_Buffer (void) override;
-		virtual bool			Load_From_File (HANDLE hfile, unsigned int size, unsigned int offset);
-
-		//////////////////////////////////////////////////////////////////////
-		//	Protected member data
-		//////////////////////////////////////////////////////////////////////		
-};
-
 
 #endif //__SOUNDBUFFER_H

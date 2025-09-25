@@ -57,7 +57,6 @@ SimplePersistFactoryClass<FilteredSoundClass, CHUNKID_FILTERED_SOUND> _FilteredS
 //
 /////////////////////////////////////////////////////////////////////////////////
 FilteredSoundClass::FilteredSoundClass (void)
-	:	m_hFilter ((HPROVIDER)INVALID_MILES_HANDLE)
 {
 	return ;
 }
@@ -69,7 +68,7 @@ FilteredSoundClass::FilteredSoundClass (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 FilteredSoundClass::FilteredSoundClass (const FilteredSoundClass &src)
-	:	m_hFilter ((HPROVIDER)INVALID_MILES_HANDLE),
+	:
 		SoundPseudo3DClass (src)
 {
 	(*this) = src;
@@ -111,32 +110,10 @@ void
 FilteredSoundClass::Initialize_Miles_Handle (void)
 {
 	SoundPseudo3DClass::Initialize_Miles_Handle ();
-	m_hFilter = WWAudioClass::Get_Instance ()->Get_Reverb_Filter ();
-	if ((m_SoundHandle != NULL) &&
-		 (m_hFilter != (HPROVIDER)INVALID_MILES_HANDLE)) {
 
-		//
-		//	Pass the filter onto the sample
-		//
-		::AIL_set_sample_processor (m_SoundHandle->Get_HSAMPLE (), DP_FILTER, m_hFilter);
-
-		//
-		//	Change the reverb's settings to simulate a 'tinny' effect.
-		//
-		F32 reverb_level   = 0.3F;
-		F32 reverb_reflect = 0.01F;
-		F32 reverb_decay   = 0.535F;
-		::AIL_set_filter_sample_preference (m_SoundHandle->Get_HSAMPLE (),
-														"Reverb level",
-														&reverb_level);
-
-		::AIL_set_filter_sample_preference (m_SoundHandle->Get_HSAMPLE (),
-														"Reverb reflect time",
-														&reverb_reflect);
-
-		::AIL_set_filter_sample_preference (m_SoundHandle->Get_HSAMPLE (),
-														"Reverb decay time",
-														&reverb_decay);
+	// Initialise reverb filters if supported by backend.
+	if (m_SoundHandle != NULL) {
+		m_SoundHandle->Initialize_Reverb();
 	}
 
 	Update_Volume ();

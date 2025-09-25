@@ -88,6 +88,7 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 		friend class SoundSceneClass;
 		friend class WWAudioClass;
 		friend class HandleMgrClass;
+		friend class MilesAudioClass;
 
 		//////////////////////////////////////////////////////////////////////
 		//	Public constructors/destructors

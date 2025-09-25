@@ -22,11 +22,11 @@
  *                                                                                             *
  *                 Project Name : wwaudio                                                      *
  *                                                                                             *
- *                     $Archive:: /Commando/Code/WWAudio/listenerhandle.h                     $*
+ *                     $Archive:: /Commando/Code/WWAudio/sound2dhandle.h                      $*
  *                                                                                             *
  *                       Author:: Patrick Smith                                                *
  *                                                                                             *
- *                     $Modtime:: 8/13/01 11:54a                                              $*
+ *                     $Modtime:: 8/13/01 3:10p                                               $*
  *                                                                                             *
  *                    $Revision:: 1                                                           $*
  *                                                                                             *
@@ -38,26 +38,27 @@
 #pragma once
 #endif
 
-#ifndef __LISTENERHANDLE_H
-#define __LISTENERHANDLE_H
+#ifndef __SOUND2DHANDLE_H
+#define __SOUND2DHANDLE_H
 
-#include "sound3dhandle.h"
+#include "soundhandle.h"
+#include <mss.h>
 
 
 //////////////////////////////////////////////////////////////////////
 //
-//	ListenerHandleClass
+//	Sound2DHandleClass
 //
 //////////////////////////////////////////////////////////////////////
-class ListenerHandleClass : public Sound3DHandleClass
+class Sound2DHandleClass : public SoundHandleClass
 {
 public:
 
 	///////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	///////////////////////////////////////////////////////////////////
-	ListenerHandleClass  (void);
-	~ListenerHandleClass (void);
+	Sound2DHandleClass (void);
+	~Sound2DHandleClass (void);
 
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
@@ -66,37 +67,41 @@ public:
 	//
 	//	RTTI
 	//
-	ListenerHandleClass *	As_ListenerHandleClass (void) override		{ return this; }
+	Sound2DHandleClass *		As_Sound2DHandleClass (void) override	{ return this; }
 
 	//
 	//	Inherited
 	//
+	void							Set_Miles_Handle (void *handle) override;
 	void							Initialize (SoundBufferClass *buffer) override;
-	void							Start_Sample (void) override									{ }
-	void							Stop_Sample (void) override									{ }
-	void							Resume_Sample (void) override									{ }
-	void							End_Sample (void) override										{ }
-	void							Set_Sample_Volume (int volume) override					{ }
-	int							Get_Sample_Volume (void) override							{ return 0; }
-	void							Set_Sample_Pan (int pan) override							{ }
-	int							Get_Sample_Pan (void) override								{ return 64; }
-	void							Set_Sample_Loop_Count (unsigned count) override				{ }
-	unsigned							Get_Sample_Loop_Count (void) override						{ return 0; }
-	void							Set_Sample_MS_Position (unsigned ms) override					{ }
-	void							Get_Sample_MS_Position (int *len, int *pos) override	{ }
-	int							Get_Sample_Playback_Rate (void) override					{ return 0; }
-	void							Set_Sample_Playback_Rate (int rate) override				{ }
+	void							Start_Sample (void) override;
+	void							Stop_Sample (void) override;
+	void							Resume_Sample (void) override;
+	void							End_Sample (void) override;
+	void							Set_Sample_Pan (float pan) override;
+	float							Get_Sample_Pan (void) override;
+	void							Set_Sample_Volume (float volume) override;
+	float							Get_Sample_Volume (void) override;
+	void							Set_Sample_Loop_Count (unsigned count) override;
+	unsigned							Get_Sample_Loop_Count (void) override;
+	void							Set_Sample_MS_Position (unsigned ms) override;
+	void							Get_Sample_MS_Position (int *len, int *pos) override;
+	void							Set_Sample_User_Data (int i, void *val) override;
+	void *							Get_Sample_User_Data (int i) override;
+	int							Get_Sample_Playback_Rate (void) override;
+	void							Set_Sample_Playback_Rate (int rate) override;
+	float 					Get_Sample_Pitch (void) override;
+	void						Set_Sample_Pitch (float pitch) override;
 	
+	void 						Initialize_Reverb() override;
+
 protected:
-	
-	///////////////////////////////////////////////////////////////////
-	//	Protected methods
-	///////////////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////
+	HSAMPLE		SampleHandle;
 };
 
 
-#endif //__LISTENERHANDLE_H
+#endif //__SOUND2DHANDLE_H

@@ -166,7 +166,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 	//
 	//	Startup the audio library
 	//
-	new WWAudioClass;
+	WWAudioClass::Create_Instance();
 	WWAudioClass::Get_Instance ()->Initialize ();
 	
 	//
@@ -304,20 +304,20 @@ AudioConfigDialogClass::OnInitDialog (void)
 		//
 		//	Get information about this sound driver
 		//
-		WWAudioClass::DRIVER_INFO_STRUCT *driver_info = NULL;
+		const char *driver_info = NULL;
 		if (WWAudioClass::Get_Instance ()->Get_3D_Device (index, &driver_info)) {
 			
 			//
 			//	Add an entry to the list for this driver
 			//
-			int item_index = m_ListCtrl.InsertItem (0xFF, driver_info->name);
+			int item_index = m_ListCtrl.InsertItem (0xFF, driver_info);
 			if (item_index >= 0) {
-				m_ListCtrl.SetItemData (item_index, (DWORD_PTR)driver_info->driver);
+				m_ListCtrl.SetItemData (item_index, NULL);
 
 				//
 				//	Select this entry if its the default
 				//
-				if (::lstrcmpi (device_name, driver_info->name) == 0) {
+				if (::lstrcmpi (device_name, driver_info) == 0) {
 					m_ListCtrl.SetItemState (item_index, LVIS_SELECTED, LVIS_SELECTED);
 					selected_default = true;
 				}

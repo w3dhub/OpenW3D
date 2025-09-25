@@ -794,7 +794,7 @@ bool Game_Init(void)
 	//
 	// Create an instance of the sound library
 	//
-	new WWAudioClass(ConsoleBox.Is_Exclusive());
+	WWAudioClass::Create_Instance(ConsoleBox.Is_Exclusive());
 	WWAudioClass::Get_Instance()->Initialize( APPLICATION_SUB_KEY_NAME_SOUND );
 	WWAudioClass::Get_Instance()->Set_File_Factory( &AudioFileFactory );
 	// Install text callback

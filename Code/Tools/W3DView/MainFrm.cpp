@@ -501,7 +501,7 @@ CMainFrame::OnCreateClient
 	//
 	// Start up the audio system
 	//
-	WWAudioClass *audio_mgr = new WWAudioClass;
+	WWAudioClass *audio_mgr = WWAudioClass::Create_Instance();
 	audio_mgr->Initialize ();
 
 	// Create the main splitter window for the application
