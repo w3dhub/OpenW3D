@@ -568,7 +568,7 @@ bool Is_Base_Origin(INode * node)
 	// which would include "origin.00" "origin.000", etc.).
 	bool is_base_origin = false;
 	char *name = node->GetName();
-	if (openw3d::string_compare(name, "origin.") == 0)
+	if (stricmp(name, "origin.") == 0)
 		is_base_origin = true;
 	else if (strlen(name) > strlen("origin."))
 	{

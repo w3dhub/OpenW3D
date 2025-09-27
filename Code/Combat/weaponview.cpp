@@ -376,7 +376,7 @@ void 	WeaponViewClass::Think()
 	}
 
 	// If we need to change the assets,
-	if ( openw3d::string_compare( cur_weapon_model_name,new_weapon_model_name)!=0) {
+	if ( stricmp( cur_weapon_model_name,new_weapon_model_name)!=0) {
 //	if ( cur_weapon_model_name.Compare_No_Case( new_weapon_model_name ) != 0 ) {
 
 		// If we don't have a weapon, switch!

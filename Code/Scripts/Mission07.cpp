@@ -6069,7 +6069,7 @@ DECLARE_SCRIPT(M07_Inn_Evac_Climb, "Dead6_ID=0:int")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "XG_EV5_troopBN.XG_EV5_troopBN") == 0)
+		if (stricmp(anim, "XG_EV5_troopBN.XG_EV5_troopBN") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -6107,12 +6107,12 @@ DECLARE_SCRIPT(M07_Inn_Evac_Rope, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "XG_EV5_rope.XG_EV5_ropeA") == 0)
+		if (stricmp(anim, "XG_EV5_rope.XG_EV5_ropeA") == 0)
 		{
 			Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeL", true, NULL, 0.0f, -1.0f, false );
 		}
 
-		else if (openw3d::string_compare(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
+		else if (stricmp(anim, "XG_EV5_rope.XG_EV5_ropeZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -6135,12 +6135,12 @@ DECLARE_SCRIPT(M07_Inn_Evac_Trajectory, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "XG_EV5_Path.XG_EV5_PathA") == 0)
+		if (stricmp(anim, "XG_EV5_Path.XG_EV5_PathA") == 0)
 		{
 			Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathL", true, NULL, 0.0f, -1.0f, false );
 		}
 
-		else if (openw3d::string_compare(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
+		else if (stricmp(anim, "XG_EV5_Path.XG_EV5_PathZ") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -6170,7 +6170,7 @@ DECLARE_SCRIPT(M07_Inn_Evac_Helicopter, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
+		if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsA") == 0)
 		{
 			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true, NULL, 0.0f, -1.0f, false );
 			Commands->Enable_Collisions ( obj );
@@ -6178,7 +6178,7 @@ DECLARE_SCRIPT(M07_Inn_Evac_Helicopter, "")
 			
 		}
 
-		else if (openw3d::string_compare(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
+		else if (stricmp(anim, "v_GDI_trnspt.XG_EV5_trnsz") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}

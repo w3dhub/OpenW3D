@@ -1667,7 +1667,7 @@ DynamicVectorClass<PrivateGameOptionsTrackingClass*> OptionsTracking;
 
 bool PrivateGameOptionsTrackingClass::operator == (PrivateGameOptionsTrackingClass const &whatever)
 {
-	if (openw3d::string_compare(UserName, whatever.UserName) == 0) {
+	if (stricmp(UserName, whatever.UserName) == 0) {
 		return(true);
 	}
 	return(false);
@@ -1675,7 +1675,7 @@ bool PrivateGameOptionsTrackingClass::operator == (PrivateGameOptionsTrackingCla
 
 bool PrivateGameOptionsTrackingClass::operator != (PrivateGameOptionsTrackingClass const &whatever)
 {
-	if (openw3d::string_compare(UserName, whatever.UserName) == 0) {
+	if (stricmp(UserName, whatever.UserName) == 0) {
 		return(false);
 	}
 	return(true);
@@ -1687,7 +1687,7 @@ bool Is_Options_Spammer(char *user_name, int &count)
 	int index = -1;
 	count = 0;
 	for (int i=0 ; i<OptionsTracking.Count() ; i++) {
-		if (openw3d::string_compare(OptionsTracking[i]->UserName, user_name) == 0) {
+		if (stricmp(OptionsTracking[i]->UserName, user_name) == 0) {
 			index = i;
 			break;
 		}
@@ -1765,7 +1765,7 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 		const RefPtr<UserData>& user = user_list[index];
 		if (user.IsValid()) {
 			WOL::User userdata = user->GetData();
-			if (openw3d::string_compare((char*)wol_user->name, (char*)userdata.name) == 0) {
+			if (stricmp((char*)wol_user->name, (char*)userdata.name) == 0) {
 				ip = userdata.ipaddr;
 				break;
 			}

@@ -638,7 +638,7 @@ bool ProjectileDefClass::Load(ChunkLoadClass &cload)
 
 bool ProjectileDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,ProjectileDefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,ProjectileDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return MoveablePhysDefClass::Is_Type(type_name);

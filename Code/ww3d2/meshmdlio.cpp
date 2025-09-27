@@ -2036,7 +2036,7 @@ void MeshLoadContextClass::Add_Legacy_Material(ShaderClass shader,VertexMaterial
 		int ti;
 		for (ti=0; ti<Textures.Count(); ti++) {
 			if (Textures[ti] == tex) break;
-			if (openw3d::string_compare(Textures[ti]->Get_Texture_Name(),tex->Get_Texture_Name()) == 0) break;
+			if (stricmp(Textures[ti]->Get_Texture_Name(),tex->Get_Texture_Name()) == 0) break;
 		}
 		if (ti == Textures.Count()) {
 			mat->TextureIdx = Add_Texture(tex);

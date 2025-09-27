@@ -213,15 +213,15 @@ void CPUDetectClass::Init_Processor_Manufacturer()
 
 	ProcessorManufacturer = MANUFACTURER_UNKNOWN;
 
-	if (openw3d::string_compare(VendorID, "GenuineIntel") == 0) ProcessorManufacturer = MANUFACTURER_INTEL;
-	else if (openw3d::string_compare(VendorID, "AuthenticAMD") == 0) ProcessorManufacturer = MANUFACTURER_AMD;
-	else if (openw3d::string_compare(VendorID, "AMD ISBETTER") == 0) ProcessorManufacturer = MANUFACTURER_AMD;
-	else if (openw3d::string_compare(VendorID, "UMC UMC UMC") == 0) ProcessorManufacturer = MANUFACTURER_UMC;
-	else if (openw3d::string_compare(VendorID, "CyrixInstead") == 0) ProcessorManufacturer = MANUFACTURER_CYRIX;
-	else if (openw3d::string_compare(VendorID, "NexGenDriven") == 0) ProcessorManufacturer = MANUFACTURER_NEXTGEN;
-	else if (openw3d::string_compare(VendorID, "CentaurHauls") == 0) ProcessorManufacturer = MANUFACTURER_VIA;
-	else if (openw3d::string_compare(VendorID, "RiseRiseRise") == 0) ProcessorManufacturer = MANUFACTURER_RISE;
-	else if (openw3d::string_compare(VendorID, "GenuineTMx86") == 0) ProcessorManufacturer = MANUFACTURER_TRANSMETA;
+	if (stricmp(VendorID, "GenuineIntel") == 0) ProcessorManufacturer = MANUFACTURER_INTEL;
+	else if (stricmp(VendorID, "AuthenticAMD") == 0) ProcessorManufacturer = MANUFACTURER_AMD;
+	else if (stricmp(VendorID, "AMD ISBETTER") == 0) ProcessorManufacturer = MANUFACTURER_AMD;
+	else if (stricmp(VendorID, "UMC UMC UMC") == 0) ProcessorManufacturer = MANUFACTURER_UMC;
+	else if (stricmp(VendorID, "CyrixInstead") == 0) ProcessorManufacturer = MANUFACTURER_CYRIX;
+	else if (stricmp(VendorID, "NexGenDriven") == 0) ProcessorManufacturer = MANUFACTURER_NEXTGEN;
+	else if (stricmp(VendorID, "CentaurHauls") == 0) ProcessorManufacturer = MANUFACTURER_VIA;
+	else if (stricmp(VendorID, "RiseRiseRise") == 0) ProcessorManufacturer = MANUFACTURER_RISE;
+	else if (stricmp(VendorID, "GenuineTMx86") == 0) ProcessorManufacturer = MANUFACTURER_TRANSMETA;
 }
 
 void CPUDetectClass::Process_Cache_Info(unsigned value)
@@ -1074,7 +1074,7 @@ void CPUDetectClass::Init_Compact_Log()
 	Get_OS_Info(os_info,OSVersionPlatformId,OSVersionNumberMajor,OSVersionNumberMinor,OSVersionBuildNumber);
 	COMPACTLOG(("%s\t",os_info.Code));
 
-	if (!openw3d::string_compare(os_info.SubCode,"UNKNOWN")) {
+	if (!stricmp(os_info.SubCode,"UNKNOWN")) {
 		COMPACTLOG(("%d\t",OSVersionBuildNumber&0xffff));
 	}
 	else {

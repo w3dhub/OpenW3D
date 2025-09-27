@@ -286,7 +286,7 @@ CCameraProfileClass	*	CCameraProfileClass::Find( const char * name )
 
 //	SLNode<CCameraProfileClass> *node;
 //	for (	node = ProfileList.Head(); node; node = node->Next()) {
-//		if ( !openw3d::string_compare( node->Data()->Name, name ) ) {
+//		if ( !stricmp( node->Data()->Name, name ) ) {
 //			return node->Data();
 //		}
 //	}
@@ -1277,7 +1277,7 @@ void	CCameraClass::Use_Profile( const char * name )
 {
 	if ( name ) {
 		// quick reject if the same
-		if ( CurrentProfile && !openw3d::string_compare( CurrentProfileName, name ) ) {
+		if ( CurrentProfile && !stricmp( CurrentProfileName, name ) ) {
 			return;
 		}
 

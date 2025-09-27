@@ -124,7 +124,7 @@ uint32	ElevatorPhysDefClass::Get_Class_ID (void) const
 
 bool ElevatorPhysDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,ElevatorPhysDefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,ElevatorPhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return AccessiblePhysDefClass::Is_Type(type_name);

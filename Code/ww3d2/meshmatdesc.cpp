@@ -948,7 +948,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 	{
 		if (strstr(parent->Get_Name(),"B_WIRE")) {
 			TextureClass * tex = Peek_Single_Texture(0,0);
-			if (tex && openw3d::string_compare(tex->Get_Texture_Name(),"razorw.tga") == 0) {
+			if (tex && stricmp(tex->Get_Texture_Name(),"razorw.tga") == 0) {
 				ShaderClass	shader = Get_Single_Shader(0);
 				shader.Set_Alpha_Test(ShaderClass::ALPHATEST_ENABLE);
 				shader.Set_Dst_Blend_Func(ShaderClass::DSTBLEND_ZERO);

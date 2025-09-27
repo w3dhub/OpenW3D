@@ -431,7 +431,7 @@ DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "h_a_a0a0_l26da") == 0)
+		if (stricmp(anim, "h_a_a0a0_l26da") == 0)
 		{
 			GameObject *mobius = Commands->Find_Object (2000010);
 
@@ -3952,7 +3952,7 @@ DECLARE_SCRIPT(M09_Evac_Bone, "")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "XG_TransprtBone.XG_EV2_PathA") == 0)
+		if (stricmp(anim, "XG_TransprtBone.XG_EV2_PathA") == 0)
 		{
 			Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV2_Pathloop", true , NULL, 0.0f, -1.0f, false);
 		}
@@ -3964,7 +3964,7 @@ DECLARE_SCRIPT(M09_Evac_Helicopter, "Gunner:int")
 {
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "v_GDI_trnspt.XG_EV2_trnsA") == 0)
+		if (stricmp(anim, "v_GDI_trnspt.XG_EV2_trnsA") == 0)
 		{
 			int gunner_id = Get_Int_Parameter("Gunner");
 

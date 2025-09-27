@@ -338,7 +338,7 @@ void cGameSpyBanList::LoadBans(void) {
 			break;
 		}
 
-		BanEntry *t = new BanEntry(nickname, ip, hashid, ipmask, openw3d::string_compare(ruletype, "Allow") == 0);
+		BanEntry *t = new BanEntry(nickname, ip, hashid, ipmask, stricmp(ruletype, "Allow") == 0);
 		BanList->Add_Tail(t);
 	}
 	fclose(outf);

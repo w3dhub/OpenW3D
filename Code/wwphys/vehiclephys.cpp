@@ -453,7 +453,7 @@ void VehiclePhysClass::Create_Wheels(void)
 
 		// search for bones named WheelP
 		const char * bonename = model->Get_Bone_Name(ibone);
-        if (openw3d::string_len_compare(bonename,WHEELP_BONE_NAME,strlen(WHEELP_BONE_NAME)) == 0) {
+        if (strnicmp(bonename,WHEELP_BONE_NAME,strlen(WHEELP_BONE_NAME)) == 0) {
 			wheelcount++;
 		}
 	}
@@ -473,7 +473,7 @@ void VehiclePhysClass::Create_Wheels(void)
 
 		// for each bone named WheelP
 		const char * wpname = model->Get_Bone_Name(ibone);
-        if (openw3d::string_len_compare(wpname,WHEELP_BONE_NAME,strlen(WHEELP_BONE_NAME)) == 0) {
+        if (strnicmp(wpname,WHEELP_BONE_NAME,strlen(WHEELP_BONE_NAME)) == 0) {
 
 			int position_bone = ibone;
 			int rotation_bone = Find_Rotation_Bone(model,wpname);
@@ -537,7 +537,7 @@ int VehiclePhysClass::Find_Fork_Bone(RenderObjClass * model,const char * wpname)
 	for (int ibone=0; ibone < model->Get_Num_Bones(); ibone++) {
 				
 		const char * wfname = model->Get_Bone_Name(ibone);
-        if (	(openw3d::string_len_compare(wfname,WHEELF_BONE_NAME,strlen(WHEELF_BONE_NAME)) == 0) &&
+        if (	(strnicmp(wfname,WHEELF_BONE_NAME,strlen(WHEELF_BONE_NAME)) == 0) &&
 				(wfname[WHEEL_INDEX_CHAR0] == wpname[WHEEL_INDEX_CHAR0]) &&
 				(wfname[WHEEL_INDEX_CHAR1] == wpname[WHEEL_INDEX_CHAR1]))
 		{
@@ -552,7 +552,7 @@ int VehiclePhysClass::Find_Rotation_Bone(RenderObjClass * model,const char * wpn
 	for (int ibone=0; ibone < model->Get_Num_Bones(); ibone++) {
 				
 		const char * wcname = model->Get_Bone_Name(ibone);
-        if (	(openw3d::string_len_compare(wcname,WHEELC_BONE_NAME,strlen(WHEELC_BONE_NAME)) == 0) &&
+        if (	(strnicmp(wcname,WHEELC_BONE_NAME,strlen(WHEELC_BONE_NAME)) == 0) &&
 				(wcname[WHEEL_INDEX_CHAR0] == wpname[WHEEL_INDEX_CHAR0]) &&
 				(wcname[WHEEL_INDEX_CHAR1] == wpname[WHEEL_INDEX_CHAR1]))
 		{
@@ -567,7 +567,7 @@ int VehiclePhysClass::Find_Translation_Bone(RenderObjClass * model,const char * 
 	for (int ibone=0; ibone < model->Get_Num_Bones(); ibone++) {
 				
 		const char * wtname = model->Get_Bone_Name(ibone);
-        if (	(openw3d::string_len_compare(wtname,WHEELT_BONE_NAME,strlen(WHEELT_BONE_NAME)) == 0) &&
+        if (	(strnicmp(wtname,WHEELT_BONE_NAME,strlen(WHEELT_BONE_NAME)) == 0) &&
 				(wtname[WHEEL_INDEX_CHAR0] == wpname[WHEEL_INDEX_CHAR0]) &&
 				(wtname[WHEEL_INDEX_CHAR1] == wpname[WHEEL_INDEX_CHAR1]))
 		{
@@ -598,7 +598,7 @@ void VehiclePhysClass::Capture_Auxiliary_Bones(void)
 
 	for (ibone=0; (ibone < Model->Get_Num_Bones()) && (engine_bone_count < MAX_CAPTURED_BONE_COUNT); ibone++) {
 		const char * bone_name = Model->Get_Bone_Name(ibone);
-        if (openw3d::string_len_compare(bone_name,ENGINE_FLAME_BONE_NAME,strlen(ENGINE_FLAME_BONE_NAME)) == 0) {
+        if (strnicmp(bone_name,ENGINE_FLAME_BONE_NAME,strlen(ENGINE_FLAME_BONE_NAME)) == 0) {
 			
 			EngineFlameBones[engine_bone_count] = ibone;
 			Model->Capture_Bone(ibone);
@@ -870,7 +870,7 @@ bool VehiclePhysDefClass::Load(ChunkLoadClass &cload)
 
 bool VehiclePhysDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,VehiclePhysDefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,VehiclePhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return RigidBodyDefClass::Is_Type(type_name);

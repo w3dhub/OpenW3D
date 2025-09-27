@@ -55,7 +55,7 @@ char 		*ArgvClass::Argv[MAX_ARGC];
  * CurrentPos -- Create an instance to parse argv with.                                        * 
  *                                                                                             * 
  * INPUT:                                                                                      * 
- *    	bool case_sensitive - Do you want to perform a case sensitive search (openw3d::string_compare)?		  *
+ *    	bool case_sensitive - Do you want to perform a case sensitive search (stricmp)?		  *
  *			bool exact_size     - Do you want string of same lenght (strncmp) ?						  *
  *                                                                                             * 
  * OUTPUT:                                                                                     * 
@@ -122,7 +122,7 @@ const char *ArgvClass::Find_Again(const char *arg)
 			if (Is_Exact_Size()) {
 				// Note case sensitive, Exact Size.
 				for (; CurrentPos < Argc; CurrentPos++) {
-					if (!openw3d::string_compare(arg, Argv[CurrentPos])) {
+					if (!stricmp(arg, Argv[CurrentPos])) {
 						return Argv[CurrentPos];
 					}
 				}
@@ -130,7 +130,7 @@ const char *ArgvClass::Find_Again(const char *arg)
 				// Note case sensitive, Match first strlen(arg).
 				int len = strlen(arg);
 				for (; CurrentPos < Argc; CurrentPos++) {
-                    if (!openw3d::string_len_compare(arg, Argv[CurrentPos], len)) {
+                    if (!strnicmp(arg, Argv[CurrentPos], len)) {
 						return Argv[CurrentPos];
 					}
 				}

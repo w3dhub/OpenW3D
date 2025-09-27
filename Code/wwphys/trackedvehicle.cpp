@@ -517,7 +517,7 @@ bool TrackedVehicleDefClass::Load(ChunkLoadClass &cload)
 
 bool TrackedVehicleDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,TrackedVehicleDefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,TrackedVehicleDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return VehiclePhysDefClass::Is_Type(type_name);

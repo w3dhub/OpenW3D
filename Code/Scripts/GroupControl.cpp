@@ -209,7 +209,7 @@ Group* GroupController::FindGroup(const char* groupName)
 		// If there is a group with a matching name then return with that group.
 		const char* name = group->GetName();
 
-		if (openw3d::string_compare(groupName, name) == 0)
+		if (stricmp(groupName, name) == 0)
 			{
 			return group;
 			}

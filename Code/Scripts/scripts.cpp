@@ -561,7 +561,7 @@ int ScriptImpClass::Get_Parameter_Index(const char* parameterName)
 		// Check for specified parameter
 		strtrim(param_ptr);
 
-		if (openw3d::string_compare(param_ptr, parameterName) == 0) {
+		if (stricmp(param_ptr, parameterName) == 0) {
 			return index;
 		}
 

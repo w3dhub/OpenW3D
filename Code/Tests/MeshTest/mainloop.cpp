@@ -391,7 +391,7 @@ void Time_Step(void)
 		if (matinfo) {
 			MaterialClass * mtl = matinfo->Get_Material(0);
 			
-			if (mtl && (openw3d::string_compare(mtl->Get_Name(),"Explosion Material") == 0)) {
+			if (mtl && (stricmp(mtl->Get_Name(),"Explosion Material") == 0)) {
 			
 #if 1
 				int curframe = mtl->Get_Channel_Anim_Frame(MaterialClass::DIFFUSE_COLOR);

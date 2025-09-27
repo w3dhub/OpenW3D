@@ -110,7 +110,7 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 				//
 				//	Is this the movies CD?
 				//
-                if (openw3d::string_len_compare (volume_name, RENEGADE_MOVIES_VOLUME, cmp_len) == 0) {
+                if (strnicmp (volume_name, RENEGADE_MOVIES_VOLUME, cmp_len) == 0) {
 					retval		= true;
 					drive_path	= drive_root_name;
 					break;

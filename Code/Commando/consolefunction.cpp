@@ -295,7 +295,7 @@ public:
 		// Parameter '*' means ALL meshes
 		char string[200];
 		sscanf(input, "%s", string);
-		if (!openw3d::string_compare("*",string)) {
+		if (!stricmp("*",string)) {
 			DX8RendererDebugger::Enable_All();
 		}
 		else {
@@ -317,7 +317,7 @@ public:
 		// Parameter '*' means ALL meshes
 		char string[200];
 		sscanf(input, "%s", string);
-		if (!openw3d::string_compare("*",string)) {
+		if (!stricmp("*",string)) {
 			DX8RendererDebugger::Disable_All();
 		}
 		else {
@@ -886,9 +886,9 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "OPEN [regedit|logfile|ini ininame] - open specified object."; }
 	virtual	void Activate( const char * input ) override {
 
-		if (!openw3d::string_compare(input, "regedit")) {
+		if (!stricmp(input, "regedit")) {
 			cNetwork::Shell_Command("regedit");
-		} else if (!openw3d::string_compare(input, "logfile")) {
+		} else if (!stricmp(input, "logfile")) {
 			cNetwork::Shell_Command(DebugManager::Logfile_Name());
 		} else if (strstr(input, "ini")) {
 			char filename[200];
@@ -1385,13 +1385,13 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "RENDER_MODE [0 fill | 1 lines | 2 points] - set the current render mode."; }
 	virtual	void Activate( const char * input ) override {
 		if (COMBAT_SCENE != NULL) {
-			if ((openw3d::string_compare(input,"points") == 0) || (openw3d::string_compare(input,"2") == 0)) {
+			if ((stricmp(input,"points") == 0) || (stricmp(input,"2") == 0)) {
 				COMBAT_SCENE->Set_Polygon_Mode(SceneClass::POINT);
 				Print("Polygon mode set to POINT\n");
-			} else if ((openw3d::string_compare(input,"lines") == 0) || (openw3d::string_compare(input,"1") == 0)) {
+			} else if ((stricmp(input,"lines") == 0) || (stricmp(input,"1") == 0)) {
 				COMBAT_SCENE->Set_Polygon_Mode(SceneClass::LINE);
 				Print("Polygon mode set to LINE\n");
-			} else if ((openw3d::string_compare(input,"fill") == 0) || (openw3d::string_compare(input,"0") == 0)) {
+			} else if ((stricmp(input,"fill") == 0) || (stricmp(input,"0") == 0)) {
 				COMBAT_SCENE->Set_Polygon_Mode(SceneClass::FILL);
 				Print("Polygon mode set to FILL\n");
 			}
@@ -1406,13 +1406,13 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "RENDER_MODE_EXTRA_PASS [0 disable | 1 lines | 2 zbuffered]"; }
 	virtual	void Activate( const char * input ) override {
 		if (COMBAT_SCENE != NULL) {
-			if ((openw3d::string_compare(input,"disable") == 0) || (openw3d::string_compare(input,"0") == 0)) {
+			if ((stricmp(input,"disable") == 0) || (stricmp(input,"0") == 0)) {
 				COMBAT_SCENE->Set_Extra_Pass_Polygon_Mode(SceneClass::EXTRA_PASS_DISABLE);
 				Print("Extra pass polygon mode set to DISABLE\n");
-			} else if ((openw3d::string_compare(input,"lines") == 0) || (openw3d::string_compare(input,"1") == 0)) {
+			} else if ((stricmp(input,"lines") == 0) || (stricmp(input,"1") == 0)) {
 				COMBAT_SCENE->Set_Extra_Pass_Polygon_Mode(SceneClass::EXTRA_PASS_LINE);
 				Print("Extra pass polygon mode set to LINE\n");
-			} else if ((openw3d::string_compare(input,"zbuffered") == 0) || (openw3d::string_compare(input,"2") == 0)) {
+			} else if ((stricmp(input,"zbuffered") == 0) || (stricmp(input,"2") == 0)) {
 				COMBAT_SCENE->Set_Extra_Pass_Polygon_Mode(SceneClass::EXTRA_PASS_CLEAR_LINE);
 				Print("Extra pass polygon mode set to ZBUFFERED\n");
 			}
@@ -1425,19 +1425,19 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "texture_filter_mode"; }
 	virtual	const char * Get_Help( void ) override	{ return "TEXTURE_FILTER_MODE [none|fast|best] - set texture filter and mipmap modes."; }
 	virtual	void Activate( const char * input ) override {
-		if (openw3d::string_compare(input,"none") == 0) {
+		if (stricmp(input,"none") == 0) {
 			TextureClass::_Set_Default_Min_Filter(TextureClass::FILTER_TYPE_FAST);
 			TextureClass::_Set_Default_Mag_Filter(TextureClass::FILTER_TYPE_FAST);
 			TextureClass::_Set_Default_Mip_Filter(TextureClass::FILTER_TYPE_NONE);
 			Print("Texture filter mode changed to: none\n");
 		}
-		else if (openw3d::string_compare(input,"fast") == 0) {
+		else if (stricmp(input,"fast") == 0) {
 			TextureClass::_Set_Default_Min_Filter(TextureClass::FILTER_TYPE_FAST);
 			TextureClass::_Set_Default_Mag_Filter(TextureClass::FILTER_TYPE_FAST);
 			TextureClass::_Set_Default_Mip_Filter(TextureClass::FILTER_TYPE_FAST);
 			Print("Texture filter mode changed to: fast\n");
 		}
-		if (openw3d::string_compare(input,"best") == 0) {
+		if (stricmp(input,"best") == 0) {
 			TextureClass::_Set_Default_Min_Filter(TextureClass::FILTER_TYPE_BEST);
 			TextureClass::_Set_Default_Mag_Filter(TextureClass::FILTER_TYPE_BEST);
 			TextureClass::_Set_Default_Mip_Filter(TextureClass::FILTER_TYPE_BEST);
@@ -1454,17 +1454,17 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "enable_triangle_render"; }
 	virtual	const char * Get_Help( void ) override	{ return "ENABLE_TRIANGLE_RENDER [none|opaque|sorting|all] - enable/disable triangle rendering."; }
 	virtual	void Activate( const char * input ) override {
-		if (openw3d::string_compare(input,"none") == 0) {
+		if (stricmp(input,"none") == 0) {
 			DX8Wrapper::_Enable_Triangle_Draw(false);
 			SortingRendererClass::_Enable_Triangle_Draw(false);
 			Print("All polygon rendering disabled\n");
 		}
-		else if (openw3d::string_compare(input,"opaque") == 0) {
+		else if (stricmp(input,"opaque") == 0) {
 			DX8Wrapper::_Enable_Triangle_Draw(true);
 			SortingRendererClass::_Enable_Triangle_Draw(false);
 			Print("Only opaque polygons enabled\n");
 		}
-		else if (openw3d::string_compare(input,"sorting") == 0) {
+		else if (stricmp(input,"sorting") == 0) {
 			DX8Wrapper::_Enable_Triangle_Draw(false);
 			SortingRendererClass::_Enable_Triangle_Draw(true);
 			Print("Only sorting polygons enabled\n");
@@ -1576,36 +1576,36 @@ public:
 	virtual	void Activate( const char * input ) override {
 		char str[128];
 		sprintf(str,"ERROR (%s)\n", input );
-		if (openw3d::string_compare(input,"info") == 0) {
+		if (stricmp(input,"info") == 0) {
 			DebugManager::Toggle_Type_Enabled( DebugManager::DEBUG_TYPE_INFORMATION );
 			sprintf(str, "Information Debug %s\n", DebugManager::Is_Type_Enabled( DebugManager::DEBUG_TYPE_INFORMATION ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"warning") == 0) {
+		} else if (stricmp(input,"warning") == 0) {
 			DebugManager::Toggle_Type_Enabled( DebugManager::DEBUG_TYPE_WARNING );
 			sprintf(str, "Warning Debug %s\n", DebugManager::Is_Type_Enabled( DebugManager::DEBUG_TYPE_WARNING ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"error") == 0) {
+		} else if (stricmp(input,"error") == 0) {
 			DebugManager::Toggle_Type_Enabled( DebugManager::DEBUG_TYPE_ERROR );
 			sprintf(str, "Error Debug %s\n", DebugManager::Is_Type_Enabled( DebugManager::DEBUG_TYPE_ERROR ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"script") == 0) {
+		} else if (stricmp(input,"script") == 0) {
 			DebugManager::Toggle_Type_Enabled( DebugManager::DEBUG_TYPE_SCRIPT );
 			sprintf(str, "Script Debug %s\n", DebugManager::Is_Type_Enabled( DebugManager::DEBUG_TYPE_SCRIPT ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"netadmin") == 0) {
+		} else if (stricmp(input,"netadmin") == 0) {
 			DebugManager::Toggle_Type_Enabled( DebugManager::DEBUG_TYPE_NETWORK_ADMIN );
 			sprintf(str, "Network Admin Debug %s\n", DebugManager::Is_Type_Enabled( DebugManager::DEBUG_TYPE_NETWORK_ADMIN ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"netbasic") == 0) {
+		} else if (stricmp(input,"netbasic") == 0) {
 			DebugManager::Toggle_Type_Enabled( DebugManager::DEBUG_TYPE_NETWORK_BASIC );
 			sprintf(str, "Network Basic Debug %s\n", DebugManager::Is_Type_Enabled( DebugManager::DEBUG_TYPE_NETWORK_BASIC ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"netprolific") == 0) {
+		} else if (stricmp(input,"netprolific") == 0) {
 			DebugManager::Toggle_Type_Enabled( DebugManager::DEBUG_TYPE_NETWORK_PROLIFIC );
 			sprintf(str, "Network Prolific Debug %s\n", DebugManager::Is_Type_Enabled( DebugManager::DEBUG_TYPE_NETWORK_PROLIFIC ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"net") == 0) {
+		} else if (stricmp(input,"net") == 0) {
          DebugManager::Disable_Type( DebugManager::DEBUG_TYPE_NETWORK_ADMIN );
          DebugManager::Disable_Type( DebugManager::DEBUG_TYPE_NETWORK_BASIC );
          DebugManager::Disable_Type( DebugManager::DEBUG_TYPE_NETWORK_PROLIFIC );
 			sprintf(str, "All network debug types DISABLED\n");
-		} else if (openw3d::string_compare(input,"on") == 0) {
+		} else if (stricmp(input,"on") == 0) {
 			DebugManager::Enable_Type( (DebugManager::DebugType)-1 );
 			sprintf(str, "All Debug Types Enabled\n" );
-		} else if (openw3d::string_compare(input,"off") == 0) {
+		} else if (stricmp(input,"off") == 0) {
 			DebugManager::Disable_Type( (DebugManager::DebugType)-1 );
 			sprintf(str, "All Debug Types Disabled\n" );
 		}
@@ -1801,9 +1801,9 @@ public:
 	virtual const char * Get_Name(void) override {return "mission";}
 	virtual const char * Get_Help(void) override {return "MISSION <success/failure> end mission with given status.";}
 	virtual void Activate(const char * input) override {
-		if (!openw3d::string_compare(input, "success")) {
+		if (!stricmp(input, "success")) {
 			CombatManager::Mission_Complete(true);
-		} else if (!openw3d::string_compare(input, "failure")) {
+		} else if (!stricmp(input, "failure")) {
 			CombatManager::Mission_Complete(false);
 		} else {
 		   Print(Get_Help());
@@ -3459,25 +3459,25 @@ public:
 	virtual	void Activate( const char * input ) override {
 		char str[128];
 		sprintf(str,"ERROR (%s)\n", input );
-		if (openw3d::string_compare(input,"screen") == 0) {
+		if (stricmp(input,"screen") == 0) {
 			DebugManager::Toggle_Device_Enabled( DebugManager::DEBUG_DEVICE_SCREEN );
 			sprintf(str, "Screen Debug %s\n", DebugManager::Is_Device_Enabled( DebugManager::DEBUG_DEVICE_SCREEN ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"mono") == 0) {
+		} else if (stricmp(input,"mono") == 0) {
 			DebugManager::Toggle_Device_Enabled( DebugManager::DEBUG_DEVICE_MONO );
 			sprintf(str, "Mono Debug %s\n", DebugManager::Is_Device_Enabled( DebugManager::DEBUG_DEVICE_MONO ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"dbwin32") == 0) {
+		} else if (stricmp(input,"dbwin32") == 0) {
 			DebugManager::Toggle_Device_Enabled( DebugManager::DEBUG_DEVICE_DBWIN32 );
 			sprintf(str, "DBWin32 Debug %s\n", DebugManager::Is_Device_Enabled( DebugManager::DEBUG_DEVICE_DBWIN32 ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"log") == 0) {
+		} else if (stricmp(input,"log") == 0) {
 			DebugManager::Toggle_Device_Enabled( DebugManager::DEBUG_DEVICE_LOG );
 			sprintf(str, "Log File Debug %s\n", DebugManager::Is_Device_Enabled( DebugManager::DEBUG_DEVICE_LOG ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"windows") == 0) {
+		} else if (stricmp(input,"windows") == 0) {
 			DebugManager::Toggle_Device_Enabled( DebugManager::DEBUG_DEVICE_WINDOWS );
 			sprintf(str, "Windows Debug %s\n", DebugManager::Is_Device_Enabled( DebugManager::DEBUG_DEVICE_WINDOWS ) ? "Enabled" : "Disabled" );
-		} else if (openw3d::string_compare(input,"on") == 0) {
+		} else if (stricmp(input,"on") == 0) {
 			DebugManager::Enable_Device( (DebugManager::DebugDevice)-1 );
 			sprintf(str, "All Debug Devices Enabled\n" );
-		} else if (openw3d::string_compare(input,"off") == 0) {
+		} else if (stricmp(input,"off") == 0) {
 			DebugManager::Disable_Device( (DebugManager::DebugDevice)-1 );
 			sprintf(str, "All Debug Devices Disabled\n" );
 		}
@@ -4091,7 +4091,7 @@ public:
 				if (player->Get_Is_Active().Is_False() || !player->Is_Human()) {
 					continue;
 				}
-				if (openw3d::string_compare(StringClass(user_name), StringClass(player->Get_Name())) == 0) {
+				if (stricmp(StringClass(user_name), StringClass(player->Get_Name())) == 0) {
 					KickGameSpyUser(player->Get_Id());
 					return true;
 				}
@@ -4159,7 +4159,7 @@ public:
 				if (player->Get_Is_Active().Is_False() || !player->Is_Human()) {
 					continue;
 				}
-				if (openw3d::string_compare(StringClass(input), StringClass(player->Get_Name())) == 0) {
+				if (stricmp(StringClass(input), StringClass(player->Get_Name())) == 0) {
 					if (is_wol) {
 						((WolGameModeClass*)wolgame)->Ban_Player(player->Get_Name(), player->Get_Ip_Address());
 					} else {
@@ -4423,7 +4423,7 @@ public:
 	virtual	const char * Get_Help (void) override	{return ("COPY_LOGS <on/off> - enable/disable error logging to network.");}
 	virtual	void Activate (const char *input) override {
 
-		if (!::openw3d::string_compare(input, "on")) {
+		if (!::stricmp(input, "on")) {
 
 			RegistryClass registry(APPLICATION_SUB_KEY_NAME_DEBUG);
 			WWASSERT(registry.Is_Valid());
@@ -4432,7 +4432,7 @@ public:
 
 			Print("Log copying is ON.");
 
-		} else if (!::openw3d::string_compare(input, "off")) {
+		} else if (!::stricmp(input, "off")) {
 
 			RegistryClass registry(APPLICATION_SUB_KEY_NAME_DEBUG);
 			WWASSERT(registry.Is_Valid());
@@ -5207,7 +5207,7 @@ void	ConsoleFunctionManager::Sort_Function_List( void )
 		done = true;
 		count--;
 		for (	int index = 0; index < count; index++) {
-			if ( openw3d::string_compare(	FunctionList[index]->Get_Name(),
+			if ( stricmp(	FunctionList[index]->Get_Name(),
 								FunctionList[index+1]->Get_Name() ) > 0 ) {
 				ConsoleFunctionClass * temp = FunctionList[index];
 				FunctionList[index] = FunctionList[index+1];
@@ -5249,7 +5249,7 @@ void	ConsoleFunctionManager::Help(	const char * function_name )
 		// Show help for a certian function
 		for (	int index = 0; index < FunctionList.Count(); index++) {
 			ConsoleFunctionClass * function = FunctionList[index];
-			if ( !openw3d::string_compare( function->Get_Name(), function_name ) ) {
+			if ( !stricmp( function->Get_Name(), function_name ) ) {
 		      Print( function->Get_Help() );
 				return;
 			}
@@ -5454,7 +5454,7 @@ int ConsoleFunctionManager::Find_Function_Node(const char * name)
 {
 	for (	int index = 0; index < FunctionList.Count(); index++) {
 		ConsoleFunctionClass * function = FunctionList[index];
-		if (openw3d::string_compare(name,function->Get_Name()) == 0) {
+		if (stricmp(name,function->Get_Name()) == 0) {
 			return index;
 		}
 	}

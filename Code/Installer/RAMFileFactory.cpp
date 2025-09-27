@@ -94,7 +94,7 @@ FileClass *RAMFileFactoryClass::Get_File (const char *filename)
 	RAMFileClass *ramfile;
 
 	// If file buffer has not been read then do it now.
-	if ((FileBuffer == NULL) || (openw3d::string_compare (filename, FileName) != 0)) {
+	if ((FileBuffer == NULL) || (stricmp (filename, FileName) != 0)) {
 	
 		BufferedFileClass *bufferfile;
 

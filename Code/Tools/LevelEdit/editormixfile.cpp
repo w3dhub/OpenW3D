@@ -133,7 +133,7 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 
 		// Is this file a .TGA? If so use a compressed (.DDS) version stored in the texture cache.
 		_splitpath (fullpath, NULL, NULL, filename, extension);
-		if (openw3d::string_compare (extension, ".tga") == 0) {
+		if (stricmp (extension, ".tga") == 0) {
 
 			const char *exclusionstring0 = "bump_";
 			const char *exclusionstring1 = "font";

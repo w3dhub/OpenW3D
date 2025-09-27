@@ -83,7 +83,7 @@ int MaterialInfoClass::Add_Texture(TextureClass * tex)
 int MaterialInfoClass::Get_Texture_Index(const char * name)
 {
 	for (int i=0; i<Textures.Count(); i++) {
-		if (openw3d::string_compare(name,Textures[i]->Get_Texture_Name()) == 0) {
+		if (stricmp(name,Textures[i]->Get_Texture_Name()) == 0) {
 			return i;
 		}
 	}

@@ -277,7 +277,7 @@ int VisemeManager::Lookup(const char *pchar, const char * /*word*/, int viseme[]
 	VisemeTableItem *pI = &gsVisemeTable[pR->StartIndex + pR->Count - 1];
 	for (int i=0; i<pR->Count; i++,pI--) {
 		length = strlen(pI->LetterCombination);
-        if ( openw3d::string_len_compare(pchar, pI->LetterCombination, length) == 0 )
+        if ( strnicmp(pchar, pI->LetterCombination, length) == 0 )
 		{
 			// found!
 			viseme[0] = pI->Visemes[0];

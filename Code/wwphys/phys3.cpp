@@ -2724,7 +2724,7 @@ bool Phys3DefClass::Load(ChunkLoadClass &cload)
 
 bool Phys3DefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,Phys3DefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,Phys3DefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return MoveablePhysDefClass::Is_Type(type_name);

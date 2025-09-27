@@ -301,7 +301,7 @@ bool MotorcycleDefClass::Load(ChunkLoadClass &cload)
 
 bool MotorcycleDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,MotorcycleDefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,MotorcycleDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return WheeledVehicleDefClass::Is_Type(type_name);

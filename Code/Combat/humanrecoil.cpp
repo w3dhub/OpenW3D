@@ -138,7 +138,7 @@ void HumanRecoilClass::Initialize(RenderObjClass * model)
 		
 		for (int model_bone = 0; model_bone < tree->Num_Pivots(); model_bone++) {
 			
-			if (openw3d::string_compare(_RecoilData[recoil_bone].BoneName, tree->Get_Bone_Name(model_bone)) == 0) {
+			if (stricmp(_RecoilData[recoil_bone].BoneName, tree->Get_Bone_Name(model_bone)) == 0) {
 				_RecoilData[recoil_bone].BoneIndex = model_bone;
 				model_bone = tree->Num_Pivots();
 			}

@@ -904,10 +904,10 @@ int cPlayerManager::Player_Compare(const void * elem1, const void * elem2)
 							//
 							// Sort lexicographically on name
 							//
-							//if (openw3d::string_compare(p_player1->Get_Name(), p_player2->Get_Name()) < 0) {
+							//if (stricmp(p_player1->Get_Name(), p_player2->Get_Name()) < 0) {
 							if (p_player1->Get_Name() < p_player2->Get_Name()) {
 								result = -1;
-							//} else if (openw3d::string_compare(p_player1->Get_Name(), p_player2->Get_Name()) == 0) {
+							//} else if (stricmp(p_player1->Get_Name(), p_player2->Get_Name()) == 0) {
 							} else if (p_player1->Get_Name() == p_player2->Get_Name()) {
 								//
 								// Enough!

@@ -795,7 +795,7 @@ bool PhysDefClass::Load(ChunkLoadClass &cload)
 
 bool PhysDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,PhysDefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,PhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return false;

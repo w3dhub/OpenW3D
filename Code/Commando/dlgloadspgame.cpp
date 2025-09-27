@@ -274,13 +274,13 @@ LoadSPGameMenuClass::Is_Game_Allowed
 	// Determine if this game is valid to present in the load game menu
 
 	// All save games (.SAV) are allowed
-	if ( ::strlen( filename ) > 4 && ::openw3d::string_compare( filename + (::strlen( filename ) - 4), ".SAV" ) == 0 ) {
+	if ( ::strlen( filename ) > 4 && ::stricmp( filename + (::strlen( filename ) - 4), ".SAV" ) == 0 ) {
 		return true;
 	}
 
 	// All save games not in the form Mxx.MIX are allowed
 	if ( ( ::strlen( filename ) != 7 ) ||
-		 ( ::openw3d::string_compare( filename + (::strlen( filename ) - 4), ".MIX" ) != 0 ) ||
+		 ( ::stricmp( filename + (::strlen( filename ) - 4), ".MIX" ) != 0 ) ||
 		 ( ::toupper( *filename ) != 'M' ) ) {
 		return true;
 	}
@@ -639,7 +639,7 @@ LoadSPGameMenuClass::Update_Button_State (void)
 			//	Check to see if this is a saved game or a level file.
 			//
 			int len = filename.Get_Length ();
-			if (len >= 4 && ::openw3d::string_compare ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
+			if (len >= 4 && ::stricmp ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
 				enable = true;
 			}
 		}
@@ -702,7 +702,7 @@ LoadSPGameMenuClass::Delete_Game (bool prompt)
 
 			// Never delete .MIX files
 			int len = filename.Get_Length ();
-			if (len >= 4 && ::openw3d::string_compare ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
+			if (len >= 4 && ::stricmp ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
 
 				if (prompt) {
 

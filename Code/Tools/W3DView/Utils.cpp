@@ -324,7 +324,7 @@ Enable_Dialog_Controls (HWND dlg,bool onoff)
 	for (HWND child = ::GetWindow(dlg,GW_CHILD) ; child != NULL ; child = ::GetWindow(child,GW_HWNDNEXT)) {
 		char buf[64];
 		::GetClassName(child,buf,sizeof(buf));
-		if (openw3d::string_compare(buf,"STATIC") != 0) {
+		if (stricmp(buf,"STATIC") != 0) {
 			::EnableWindow(child,onoff);
 		}
 	}

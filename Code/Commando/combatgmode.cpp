@@ -1138,7 +1138,7 @@ void CombatGameModeClass::Core_Restart(void)
 
 		// convert .LSD to .MIX
 		if ( new_name.Get_Length() > 4 &&
-			::openw3d::string_compare( &new_name[new_name.Get_Length() - 4], ".LSD" ) == 0 ) {
+			::stricmp( &new_name[new_name.Get_Length() - 4], ".LSD" ) == 0 ) {
 			new_name.Erase( new_name.Get_Length() - 4, 4 );
 			new_name += ".MIX";
 		}

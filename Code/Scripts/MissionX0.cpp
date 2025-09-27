@@ -612,7 +612,7 @@ DECLARE_SCRIPT (MX0_Engineer1, "Damage_multiplier:float")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "H_A_J21C") == 0)
+		if (stricmp(anim, "H_A_J21C") == 0)
 		{
 			doing_anim = false;			
 		}
@@ -886,7 +886,7 @@ DECLARE_SCRIPT (MX0_Engineer2, "Damage_multiplier:float")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "H_A_J21C") == 0)
+		if (stricmp(anim, "H_A_J21C") == 0)
 		{
 			doing_anim = false;			
 		}
@@ -1551,7 +1551,7 @@ DECLARE_SCRIPT(MX0_NOD_INFANTRY, "troop_num:int")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "S_A_Human.H_A_TroopDrop") == 0)
+		if (stricmp(anim, "S_A_Human.H_A_TroopDrop") == 0)
 		{
 			Commands->Send_Custom_Event( obj, obj, 1, 0, 0.33f );
 		}

@@ -89,7 +89,7 @@ uint32	DoorPhysDefClass::Get_Class_ID (void) const
 
 bool DoorPhysDefClass::Is_Type(const char * type_name)
 {
-	if (openw3d::string_compare(type_name,DoorPhysDefClass::Get_Type_Name()) == 0) {
+	if (stricmp(type_name,DoorPhysDefClass::Get_Type_Name()) == 0) {
 		return true;
 	} else {
 		return AccessiblePhysDefClass::Is_Type(type_name);

@@ -168,7 +168,7 @@ cBioEvent::Act(void)
 				// If the new player has the old map loaded (which can happen if the intermission starts after the client has
 				// started loading the old map) then send him a wineven so he knows to load the next map.
 				//
-				if (openw3d::string_compare(MapName, The_Game()->Get_Map_Name().Peek_Buffer()) != 0) {
+				if (stricmp(MapName, The_Game()->Get_Map_Name().Peek_Buffer()) != 0) {
 					cWinEvent * p_win = new cWinEvent;
 					p_win->Init(The_Game()->Get_Winner_ID(), SenderId, The_Game()->Is_Map_Cycle_Over());
 					cNetwork::Send_Object_Update(p_win, SenderId);

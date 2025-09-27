@@ -717,7 +717,7 @@ GameObject *Find_Random_Simple_Object ( const char *preset_name )
 				//
 				//	Is this one of the objects we can choose from?
 				//
-				if ( ::openw3d::string_compare ( simple_obj->Get_Definition ().Get_Name (), preset_name ) == 0 ) {
+				if ( ::stricmp ( simple_obj->Get_Definition ().Get_Name (), preset_name ) == 0 ) {
 					obj_list.Add (simple_obj);
 				}
 			}
@@ -2917,7 +2917,7 @@ GameObject * Find_Nearest_Building_To_Pos( const Vector3 & position, const char 
 			//	Is this the type of building we're looking for?
 			//
 			const char *name_prefix = building->Get_Name_Prefix();
-			if (::openw3d::string_compare( mesh_prefix, name_prefix ) == 0) {
+			if (::stricmp( mesh_prefix, name_prefix ) == 0) {
 
 				//
 				//	Is this the closest building we've found yet?

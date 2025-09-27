@@ -218,7 +218,7 @@ int main(int argc, char **argv)
 						** Verify quit command.
 						*/
 						bool send = true;
-						if (openw3d::string_compare(&CommandBuffer[1], "quit") == 0) {
+						if (stricmp(&CommandBuffer[1], "quit") == 0) {
 							cprintf("\r\n Press 'Y' to shutdown server...");
 							int key = _getch();
 							if ((key & 0xff) != 'Y' && (key & 0xff) != 'y') {

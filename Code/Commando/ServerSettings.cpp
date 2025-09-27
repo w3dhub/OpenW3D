@@ -189,12 +189,12 @@ bool ServerSettingsClass::Parse(bool apply)
 		if (cGameSpyAdmin::Get_Is_Server_Gamespy_Listed()) {
 			strcpy(game_type, "GameSpy");
 		}
-		if (openw3d::string_compare(game_type, "WOL") == 0) {
+		if (stricmp(game_type, "WOL") == 0) {
 			GameMode = MODE_WOL;
-		} else if (openw3d::string_compare(game_type, "LAN") == 0) {
+		} else if (stricmp(game_type, "LAN") == 0) {
 			wol = false;
 			GameMode = MODE_LAN;
-		} else if (openw3d::string_compare(game_type, "GameSpy") == 0) {
+		} else if (stricmp(game_type, "GameSpy") == 0) {
 			wol = false;
 			cGameSpyAdmin::Set_Is_Server_Gamespy_Listed(true);
 			GameSpyQnR.Enable_Reporting(true);

@@ -7319,7 +7319,7 @@ DECLARE_SCRIPT(M04_TibHold_Mutant_NoThreat_JDG, "")
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "S_C_Human.H_C_Tubedie") == 0)
+		if (stricmp(anim, "S_C_Human.H_C_Tubedie") == 0)
 		{
 			Commands->Destroy_Object ( obj );
 		}
@@ -9568,7 +9568,7 @@ DECLARE_SCRIPT(M04_TorpedoRoom_Target01_JDG, "")//DSP_L4TORPEDO
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "DSP_L4TORPEDO.DSP_L4TORPEDO") == 0)
+		if (stricmp(anim, "DSP_L4TORPEDO.DSP_L4TORPEDO") == 0)
 		{
 			animationCount++;
 			if (animationCount >= 2)
@@ -9634,7 +9634,7 @@ DECLARE_SCRIPT(M04_TorpedoRoom_Target02_JDG, "")//DSP_L4TORPEDOR
 
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (openw3d::string_compare(anim, "DSP_L4TORPEDOR.DSP_L4TORPEDOR") == 0)
+		if (stricmp(anim, "DSP_L4TORPEDOR.DSP_L4TORPEDOR") == 0)
 		{
 			animationCount++;
 			if (animationCount >= 2)
