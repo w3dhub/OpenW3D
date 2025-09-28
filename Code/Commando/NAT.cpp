@@ -295,9 +295,13 @@ unsigned int __stdcall FirewallHelperClass::NAT_Thread_Start(void *thisptr)
 
 	Register_Thread_ID(GetCurrentThreadId(), "Firewall thread");
 
+#ifdef _MSC_VER
 	__try {
+#endif
 		thread_exit_code = ((FirewallHelperClass*)thisptr)->NAT_Thread_Main_Loop();
+#ifdef _MSC_VER
 	} __except(Exception_Handler(GetExceptionCode(), GetExceptionInformation())) {};
+#endif
 
 	Unregister_Thread_ID(GetCurrentThreadId(), "Firewall thread");
 
