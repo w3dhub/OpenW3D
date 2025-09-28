@@ -148,4 +148,4 @@ class WOLChatMgr :
 		WWOnline::ChatMessageList mMessageList;
 	};
 
-#endif __WOLCHATMGR_H__
+#endif //__WOLCHATMGR_H__
