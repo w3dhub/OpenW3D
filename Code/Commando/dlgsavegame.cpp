@@ -720,7 +720,7 @@ SaveGameMenuClass::Check_HD_Space (void)
 	GetSystemDirectoryA (kernelpathname.Get_Buffer (_MAX_PATH), _MAX_PATH);
 	kernelpathname += "\\";
 	kernelpathname += "Kernel32.dll";
-	getfreediskspaceex = (int (_stdcall*) (const char*, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER)) GetProcAddress (GetModuleHandleA (kernelpathname.Peek_Buffer()), "GetDiskFreeSpaceExA");
+	getfreediskspaceex = (int (__stdcall*) (LPCTSTR, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER)) GetProcAddress (GetModuleHandle (kernelpathname.Peek_Buffer()), "GetDiskFreeSpaceExA");
 	if (getfreediskspaceex != NULL) {
 
 		if (!getfreediskspaceex (NULL, &freebytecount, &totalbytecount, NULL)) return (false);
