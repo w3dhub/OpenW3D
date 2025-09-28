@@ -60,7 +60,6 @@
 #include "chunkio.h"
 #include "w3d_file.h"
 #include "wwmemlog.h"
-#include "wwlib/wwstring.h"
 
 
 /*********************************************************************************************** 

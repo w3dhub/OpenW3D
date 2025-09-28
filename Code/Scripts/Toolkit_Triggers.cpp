@@ -36,7 +36,6 @@
 ******************************************************************************/
 
 #include "Toolkit.h"
-#include "wwlib/wwstring.h"
 
 /*
 Associated Custom Types:

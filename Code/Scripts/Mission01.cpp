@@ -39,7 +39,6 @@
 #include <string.h>
 #include "Toolkit.h"
 #include "Mission1.h"
-#include "wwlib/wwstring.h"
 
 namespace M01Vars
 {

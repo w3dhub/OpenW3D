@@ -38,7 +38,6 @@
 #include "scripts.h"
 #include "Toolkit.h"
 #include "Mission7.h"
-#include "wwlib/wwstring.h"
 
 // M07B 
 // Objective Controller

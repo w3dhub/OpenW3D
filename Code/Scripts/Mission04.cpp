@@ -40,7 +40,6 @@
 #include "Toolkit.h"
 #include "Mission1.h"
 #include "Mission11.h"
-#include "wwlib/wwstring.h"
 
 DECLARE_SCRIPT(M04_Objective_Controller_JDG, "")//this guys ID number is M04_OBJECTIVE_CONTROLLER_JDG 100424
 {

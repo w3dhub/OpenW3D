@@ -43,7 +43,6 @@
 #endif
 
 #include <string.h>
-#include "wwlib/wwstring.h"
 
 /*
 ** HashTableClass

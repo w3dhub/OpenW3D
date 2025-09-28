@@ -40,7 +40,6 @@
 #include <string.h>
 #include <stdio.h>
 #include "Toolkit.h"
-#include "wwlib/wwstring.h"
 
 enum {
 	TECHNICIAN_MOVEMENT,

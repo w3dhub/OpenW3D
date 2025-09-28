@@ -38,7 +38,6 @@
 #include "Mission5.h"
 #include "Toolkit.h"
 #include "scripts.h"
-#include "wwlib/wwstring.h"
 
 
 // M05C

@@ -39,7 +39,6 @@
 #include "DPrint.h"
 #include <string.h>
 #include <assert.h>
-#include "wwlib/wwstring.h"
 
 // ScriptFactory list
 ScriptFactory* ScriptRegistrar::mScriptFactories = NULL;

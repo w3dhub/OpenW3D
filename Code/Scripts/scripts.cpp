@@ -39,7 +39,6 @@
 #include "strtrim.h"
 #include <string.h>
 #include <stdio.h>
-#include "wwlib/wwstring.h"
 
 #define	CHUNKID_SCRIPTHEADER				'shdr'
 #define	CHUNKID_SCRIPTDATA				'sdat'

@@ -42,7 +42,6 @@
 #include "rendobj.h"
 #include "htree.h"
 #include <string.h>
-#include "wwlib/wwstring.h"
 
 
 /*

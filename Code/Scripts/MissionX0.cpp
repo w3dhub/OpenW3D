@@ -37,7 +37,6 @@
 
 #include "scripts.h"
 #include "MissionX0.h"
-#include "wwlib/wwstring.h"
 
 
 DECLARE_SCRIPT(MX0_MissionStart_DME, "") //1200001
