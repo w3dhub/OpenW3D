@@ -425,7 +425,7 @@ void ConsoleModeClass::cprintf(char const * string, ...)
 		/*
 		** Have to use '%s' here or we end up doing the formatting twice.
 		*/
-		::cprintf("%s", buffer);
+		::_cprintf("%s", buffer);
 		GameSideServerControlClass::Print("%s", buffer);
 	}
 }
