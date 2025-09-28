@@ -261,7 +261,7 @@ static int Build_List_From_String
 			//
 			// Move past the current delimiter (if necessary)
 			//
-			if ((::strnicmp (entry, delimiter, delim_len) == 0) && (count > 0)) {
+            if ((strnicmp (entry, delimiter, delim_len) == 0) && (count > 0)) {
 				entry += delim_len;
 			}
 
@@ -288,7 +288,7 @@ static int Build_List_From_String
 				//
 				// Move past the current delimiter (if necessary)
 				//
-				if ((::strnicmp (entry, delimiter, delim_len) == 0) && (count > 0)) {
+                if ((strnicmp (entry, delimiter, delim_len) == 0) && (count > 0)) {
 					entry += delim_len;
 				}
 
@@ -328,7 +328,7 @@ bool Is_Number (const char *str)
 {
 	bool retval = true;
 
-	while (retval && str[0] != NULL){
+    while (retval && str[0] != '\0'){
 		retval = ((str[0] >= '0' && str[0] <= '9') || str[0] == '-' || str[0] == '.'); 
 		str ++;
 	}

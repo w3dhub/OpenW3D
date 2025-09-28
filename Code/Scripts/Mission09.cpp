@@ -41,6 +41,7 @@
 #include "Mission9.h"
 #include <string.h>
 #include <stdio.h>
+#include "wwlib/wwstring.h"
 
 
 DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
@@ -234,7 +235,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 			Commands->Start_Timer (obj, this, 4.0f, 40);
 		}
 
-		if (type == check && param == check)
+        if (type == MISSION09_CHECK && param == MISSION09_CHECK)
 		{
 			Commands->Send_Custom_Event (obj, sender, 901, objective [0], 0.0f);
 			Commands->Send_Custom_Event (obj, sender, 902, objective [1], 0.0f);
@@ -973,7 +974,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 
 	void Killed(GameObject * obj, GameObject *killer ) override
 	{
-		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), check, check, 0.0f);
+        Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), MISSION09_CHECK, MISSION09_CHECK, 0.0f);
 		
 		if (objective_901 == false)
 		{

@@ -53,6 +53,27 @@
 #endif
 
 
+namespace openw3d{
+
+inline char* string_to_lower(char* str1){
+    int x = 0;
+    while(str1[x] != '\0'){
+        str1[x] = ::tolower(str1[x]);
+        x++;
+    }
+    return str1;
+}
+
+inline char* string_to_upper(char* str1){
+    int x = 0;
+    while(str1[x] != '\0'){
+        str1[x] = ::toupper(str1[x]);
+        x++;
+    }
+    return str1;
+}
+
+}
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -131,6 +152,9 @@ public:
 	const char * Peek_Buffer (void) const;
 
 	bool Copy_Wide (const wchar_t *source);
+
+    void To_Lower();
+    void To_Upper();
 
 	////////////////////////////////////////////////////////////
 	//	Static methods
@@ -376,7 +400,7 @@ StringClass::Compare (const char *string) const
 inline int
 StringClass::Compare_No_Case (const char *string) const
 {
-	return stricmp (m_Buffer, string);
+    return stricmp (m_Buffer, string);
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -777,6 +801,18 @@ StringClass::Store_Length (int length)
 	}
 
 	return ;
+}
+
+inline void
+StringClass::To_Lower()
+{
+    openw3d::string_to_lower(m_Buffer);
+}
+
+inline void
+StringClass::To_Upper()
+{
+    openw3d::string_to_upper(m_Buffer);
 }
 
 #endif //__WWSTRING_H

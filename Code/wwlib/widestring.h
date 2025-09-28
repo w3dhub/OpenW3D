@@ -304,7 +304,11 @@ inline int
 WideStringClass::Compare_No_Case (const wchar_t *string) const
 {
 	if (string) {
+#if _WIN32
 		return _wcsicmp (m_Buffer, string);
+#else
+        return wcscasecmp(m_Buffer, string);
+#endif
 	}
 
 	return -1;

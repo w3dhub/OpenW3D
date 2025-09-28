@@ -42,6 +42,7 @@
 #include "surfaceclass.h"
 #include "texture.h"
 #include "vector2i.h"
+#include "wwlib/wwstring.h"
 
 static	SurfaceClass	*_surface;
 
@@ -57,7 +58,7 @@ Font3DDataClass::Font3DDataClass( const char *filename )
 	Texture = NULL;
 	Load_Font_Image( filename);
 	Name = strdup( filename);
-	Name = strupr( Name);
+    Name = openw3d::string_to_upper( Name);
 }
 
 

@@ -1931,7 +1931,7 @@ WWAudioClass::Select_3D_Device (const char *device_name, HPROVIDER provider)
 			//	Adjust the effects level to 1.0 if this is an EAX based driver
 			//
 			StringClass lower_name = device_name;
-			::strlwr (lower_name.Peek_Buffer ());
+            lower_name.To_Lower();
 			if (::strstr (device_name, "eax") != 0) {
 				m_EffectsLevel = 1.0F;
 			} else {

@@ -972,7 +972,7 @@ TextureClass * WW3DAssetManager::Get_Texture(
 	}
 
 	StringClass lower_case_name(filename,true);
-	_strlwr(lower_case_name.Peek_Buffer());
+    lower_case_name.To_Lower();
 
 	/*
 	** See if the texture has already been loaded.

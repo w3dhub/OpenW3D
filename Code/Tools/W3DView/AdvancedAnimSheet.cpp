@@ -46,7 +46,7 @@ static int anim_name_compare (const void *arg1, const void *arg2)
 	ASSERT(arg2 != NULL);
 	HAnimClass *a1 = *(HAnimClass**)arg1;
 	HAnimClass *a2 = *(HAnimClass**)arg2;
-	return _stricmp( a1->Get_Name(), a2->Get_Name() );
+	return stricmp( a1->Get_Name(), a2->Get_Name() );
 }
 
 

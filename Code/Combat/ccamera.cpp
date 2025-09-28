@@ -216,7 +216,7 @@ void CCameraProfileClass::Init( void )
 
 //			ProfileList.Add_Tail( profile );
 			// Convert to lower case
-			_strlwr(name.Peek_Buffer());
+            name.To_Lower();
 			ProfileHash.Insert(name,profile);
 		}
 
@@ -279,7 +279,7 @@ CCameraProfileClass	*	CCameraProfileClass::Find( const char * name )
 	char tmp[256];
 	strncpy(tmp,name,sizeof(tmp));
 	
-	_strlwr(tmp);
+    openw3d::string_to_lower(tmp);
 	StringClass tmp_string(tmp,true);
 	CCameraProfileClass* profile = ProfileHash.Get(tmp_string);
 	return profile;

@@ -21,6 +21,7 @@
 #include <wwdebug.h>
 #include "viseme.h"
 #include <ctype.h>
+#include "wwlib/wwstring.h"
 
 #define IS_VOWEL(x)			( x && (x=='a' || x=='e' || x=='i' || x=='o' || x=='u') )
 #define IS_CONSONANT(x)		( x && !IS_VOWEL(x) )
@@ -135,7 +136,7 @@ int VisemeManager::Get_Visemes(const char *word, int *visemelist, int maxvisemes
 	// make a local copy of the word in lower case
 	strncpy(local_buf, word, sizeof(local_buf)-1);
 	local_buf[sizeof(local_buf)-1] = 0;
-	_strlwr(local_buf);
+    openw3d::string_to_lower(local_buf);
 
 	const char *pchar = local_buf;
 	while ( *pchar ) {
@@ -276,7 +277,7 @@ int VisemeManager::Lookup(const char *pchar, const char * /*word*/, int viseme[]
 	VisemeTableItem *pI = &gsVisemeTable[pR->StartIndex + pR->Count - 1];
 	for (int i=0; i<pR->Count; i++,pI--) {
 		length = strlen(pI->LetterCombination);
-		if ( strnicmp(pchar, pI->LetterCombination, length) == 0 )
+        if ( strnicmp(pchar, pI->LetterCombination, length) == 0 )
 		{
 			// found!
 			viseme[0] = pI->Visemes[0];

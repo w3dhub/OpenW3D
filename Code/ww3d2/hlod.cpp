@@ -657,7 +657,7 @@ bool HLodDefClass::read_header(ChunkLoadClass & cload)
 	cload.Close_Chunk();
 
 	// Copy the name into our internal variable
-	Name = ::_strdup(header.Name);
+    Name = ::strdup(header.Name);
 	HierarchyTreeName = ::strdup(header.HierarchyName);
 	LodCount = header.LodCount;
 	Lod = new SubObjectArrayClass[LodCount];

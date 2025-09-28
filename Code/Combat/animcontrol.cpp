@@ -760,13 +760,13 @@ void HumanAnimControlClass::Build_Skeleton_Anim_Name( StringClass& new_name, con
 	}
 
 	// If the anim doesn't start with "S_A_HUMAN.", add it
-	if ( ::strnicmp( name, "S_", 2 ) != 0 ) {
+    if ( strnicmp( name, "S_", 2 ) != 0 ) {
 		new_name.Format( "S_%c_HUMAN.%s", Skeleton, name );
 	}
 
 	// If the anim name is "S_A_HUMAN.H_A_*", and the Skeleton is not 'A', use
 	// the other skeleton anim, if found
-	if ( new_name.Get_Length() > 14 && Skeleton != 'A' && ::strnicmp( new_name, "S_A_HUMAN.H_A_", 14 ) == 0 ) {
+    if ( new_name.Get_Length() > 14 && Skeleton != 'A' && strnicmp( new_name, "S_A_HUMAN.H_A_", 14 ) == 0 ) {
 		StringClass	mod_name(new_name,true);
 		mod_name[2] = Skeleton;
 		mod_name[12] = Skeleton;

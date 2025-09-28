@@ -37,6 +37,7 @@
 #include "Toolkit.h"
 #include <stdio.h>
 #include <string.h>
+#include "wwlib/wwstring.h"
 
 #define		LAST_VALID_TIMESTAMP		999000.0f
 
@@ -898,7 +899,7 @@ public:
 	*/
 	bool	Title_Match( char ** command, const char * title ) 
 	{
-		if ( ::strnicmp( *command, title, strlen( title ) ) == 0 ) {
+        if ( strnicmp( *command, title, strlen( title ) ) == 0 ) {
 			*command += strlen( title );
 
 			while ( **command && **command != ',' ) {

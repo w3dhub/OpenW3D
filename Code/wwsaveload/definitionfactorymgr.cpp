@@ -38,6 +38,7 @@
 #include "definitionfactory.h"
 #include "wwdebug.h"
 #include <string.h>
+#include "wwlib/wwstring.h"
 #ifdef _UNIX
 #include "osdep.h"
 #endif
@@ -99,7 +100,7 @@ DefinitionFactoryMgrClass::Find_Factory (const char *name)
 		//
 		//	Is this the factory we were looking for?
 		//
-		if (::stricmp (curr_factory->Get_Name (), name) == 0) {
+        if (stricmp (curr_factory->Get_Name (), name) == 0) {
 			factory = curr_factory;
 		}
 	}

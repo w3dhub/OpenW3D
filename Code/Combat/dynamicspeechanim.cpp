@@ -90,7 +90,7 @@ DynamicSpeechAnimClass::DynamicSpeechAnimClass (const char *skeleton_name)
 	//	Determine which animations to load
 	//
 	StringClass upper_skel_name = skeleton_name;
-	::strupr (upper_skel_name.Peek_Buffer ());
+    upper_skel_name.To_Upper();
 	if (::strstr (upper_skel_name, "S_A_") != NULL) {
 		anim0_name.Format ("%s.S_A_MOUTH",			skeleton_name);
 		anim1_name.Format ("%s.S_A_EXPRESSION",	skeleton_name);
