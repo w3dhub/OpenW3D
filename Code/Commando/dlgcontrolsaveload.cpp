@@ -512,7 +512,7 @@ ControlSaveLoadMenuClass::ListSortCallback
 
 	if (list_ctrl->Get_Entry_Data (item_index1, 0) == 0) {
 		retval = 1;
-	} else if (list_ctrl->Get_Entry_Data (item_index2, 0) == NULL) {
+	} else if (list_ctrl->Get_Entry_Data (item_index2, 0) == 0) {
 		retval = -1;
 	} else {
 
