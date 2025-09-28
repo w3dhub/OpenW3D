@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-
+#include <stdint.h>
 #include "scripts.h"
 #include <string.h>
 #include <stdio.h>

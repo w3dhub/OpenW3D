@@ -22,6 +22,7 @@
 #include "Mission5.h"
 #include <stdio.h>
 #include <time.h>
+#include <stdint.h>
 
 DECLARE_SCRIPT (DLS_SpawnTest, "")
 {

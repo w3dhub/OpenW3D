@@ -35,6 +35,7 @@
 *
 ******************************************************************************/
 
+#include <stdint.h>
 #include "scripts.h"
 #include "Toolkit.h"
 #include "wwmath.h"
