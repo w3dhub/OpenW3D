@@ -797,7 +797,7 @@ bool Game_Init(void)
 	WWAudioClass::Get_Instance()->Initialize( APPLICATION_SUB_KEY_NAME_SOUND );
 	WWAudioClass::Get_Instance()->Set_File_Factory( &AudioFileFactory );
 	// Install text callback
-	WWAudioClass::Get_Instance()->Register_Text_Callback(AudioTextCallback,0);
+	WWAudioClass::Get_Instance()->Register_Text_Callback(AudioTextCallback, 0);
 
 	//
 	//	Load the multiplayer settings
