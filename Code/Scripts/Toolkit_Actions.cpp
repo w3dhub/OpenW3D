@@ -35,6 +35,7 @@
 *
 ******************************************************************************/
 
+#include <stdint.h>
 #include "Toolkit.h"
 
 /*Editor Script - M00_Action
