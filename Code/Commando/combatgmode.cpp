@@ -525,7 +525,7 @@ public:
 
 				backdrop.Set_Model(desc);
 				StringClass anim_name;
-				anim_name.Format( "%s.%s", desc, desc );
+				anim_name.Format( "%s.%s", static_cast<const char*>(desc), static_cast<const char*>(desc) );
 				backdrop.Set_Animation( anim_name );
 				backdrop.Set_Animation_Percentage( 0 );
 			}
