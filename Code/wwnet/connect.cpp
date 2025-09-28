@@ -1135,7 +1135,7 @@ if (last_packet_len == (int)packet.Get_Compressed_Size_Bytes()) {
 }
 last_packet_len = (int)packet.Get_Compressed_Size_Bytes();
 memcpy(last_packet, packet.Get_Data(), last_packet_len);
-#endif (0)
+#endif //(0)
 
    if (cSinglePlayerData::Is_Single_Player()) {
 	   ret_code = Single_Player_sendto(packet);

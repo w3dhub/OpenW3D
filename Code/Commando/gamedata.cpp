@@ -1074,7 +1074,7 @@ void cGameData::Load_From_Server_Config(LPCSTR config_file)
 	b = p_ini->Get_Bool(	INI_SECTION_NAME, "IsClanGame",					IsClanGame.Get());
 #ifndef FREEDEDICATEDSERVER
 	b = ((IsQuickMatchServer.Get() == true) ? false : b);
-#endif /FREEDEDICATEDSERVER
+#endif //FREEDEDICATEDSERVER
 	IsClanGame.Set(b);
 
 	b = p_ini->Get_Bool(	INI_SECTION_NAME, "RemixTeams",					RemixTeams.Get());
