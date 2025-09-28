@@ -62,16 +62,16 @@ endif()
 # Only 32bit Windows can make use of these APIs as the libraries shipped with the game.
 if(WIN32)
     include(miles)
-    
+
     # Do we want to build with bink for video decoding?
     option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
     add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build Renegade with Bink")
-    
+
     if(W3D_BUILD_OPTION_BINK)
-    include(bink)
+        include(bink)
         target_compile_definitions(binkstub INTERFACE W3D_HAS_BINK)
     endif()
-    
+
     include(dx9)
 endif()
 
