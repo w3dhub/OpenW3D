@@ -76,9 +76,9 @@ class	ScriptClass : public GameObjObserverClass
 */
 #ifdef _WINDOWS
 #ifdef BUILDING_DLL
-	#define	SCRIPT_DLL_FUNCT extern "C" _declspec(dllexport)
+	#define	SCRIPT_DLL_FUNCT extern "C" __declspec(dllexport)
 #else
-	#define	SCRIPT_DLL_FUNCT _declspec(dllimport)
+	#define	SCRIPT_DLL_FUNCT __declspec(dllimport)
 #endif
 #else
 #define SCRIPT_DLL_FUNCT extern "C"
