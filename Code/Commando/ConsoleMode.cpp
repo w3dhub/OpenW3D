@@ -460,9 +460,9 @@ const char *ConsoleModeClass::Get_Log_File_Name(void)
 
 		FILETIME file_time;
 		if (SystemTimeToFileTime(&time, &file_time)) {
-			_int64 int_file_time;
+			int64_t int_file_time;
 			memcpy(&int_file_time, &file_time, sizeof(int_file_time));
-			_int64 time_diff = ((_int64)10000000) * ((_int64)60*60*24*ServerSettingsClass::Get_Disk_Log_Size());
+			int64_t time_diff = ((int64_t)10000000) * ((int64_t)60*60*24*ServerSettingsClass::Get_Disk_Log_Size());
 			int_file_time -= time_diff;
 			memcpy(&file_time, &int_file_time, sizeof(file_time));
 
