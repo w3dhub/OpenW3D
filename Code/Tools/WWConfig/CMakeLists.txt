@@ -45,6 +45,6 @@ target_link_libraries(wwconfig PRIVATE
 
 target_sources(wwconfig PRIVATE ${WWCONFIG_SRC})
 
-if(WIN32)
+if(MSVC)
     target_link_options(wwconfig PRIVATE "/NODEFAULTLIB:libci.lib")
 endif()

@@ -450,9 +450,10 @@ target_link_libraries(commando INTERFACE
     combat
 )
 
-if(WIN32)
+if(MSVC)
     target_link_options(commando INTERFACE "/NODEFAULTLIB:libci.lib")
-
+endif()
+if(WIN32)
     list(APPEND COMMANDO_SRC
         chat.rc
         ../WOLBrowser/WOLBrowser_i.c
@@ -462,22 +463,19 @@ endif()
 
 # Targets to build.
 if(RENEGADE_CLIENT) # Full game client
-    add_executable(renegade WIN32)
+    add_executable(renegade WIN32 ${COMMANDO_SRC})
 
     target_link_libraries(renegade PRIVATE
         commando
     )
-
-    target_sources(renegade PRIVATE ${COMMANDO_SRC})
 endif()
 
 if(RENEGADE_FDS) # Dedicated headless server
-    add_executable(renegadeserver WIN32)
+    add_executable(renegadeserver WIN32 ${COMMANDO_SRC})
 
     target_link_libraries(renegadeserver PRIVATE
         commando
     )
 
-    target_sources(renegadeserver PRIVATE ${COMMANDO_SRC})
     target_compile_definitions(renegadeserver PRIVATE FREEDEDICATEDSERVER)
 endif()
