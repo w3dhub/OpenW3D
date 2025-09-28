@@ -43,7 +43,6 @@
 
 #include "always.h"
 #include <wwlib/vector.h>
-#include "wwstring.h"
 #include <windows.h>
 #include "render2dsentence.h"
 
