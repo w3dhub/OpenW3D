@@ -744,7 +744,7 @@ unsigned short FirewallHelperClass::Get_Mangler_Response(unsigned long packet_id
 					** Remove the packet from the queue.
 					*/
 					result = socket_handler->Read(packet_buf, packet_size, &temp_address, &temp_port, peek_packet);
-					fw_assert(result != NULL);
+					fw_assert(result != 0);
 					return(mangled_port);
 				}
 			}

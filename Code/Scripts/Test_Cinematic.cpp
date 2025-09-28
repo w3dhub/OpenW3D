@@ -211,7 +211,7 @@ public:
 		}
 
 		char *line,line_data[200];
-		while ( Commands->Text_File_Get_String( handle, line_data, sizeof( line_data )-1 ) != NULL ) {
+		while ( Commands->Text_File_Get_String( handle, line_data, sizeof( line_data )-1 ) ) {
 			line = line_data;
 			// Convert tabs to spaces
 			for ( char * l = line; *l; l++ ) {

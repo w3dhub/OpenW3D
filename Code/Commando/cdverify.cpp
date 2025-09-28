@@ -100,9 +100,9 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 			//
 			//	Get the name of this volume
 			//
-			char volume_name[256] = { 0 };			
+			char volume_name[256] = { 0 };
 			if (::GetVolumeInformationA (drive_root_name, volume_name, sizeof (volume_name),
-						NULL, NULL, NULL, NULL, NULL))
+						NULL, NULL, NULL, NULL, 0))
 			{
 				int cmp_len	= ::strlen (volume_name);
 				cmp_len		= max (cmp_len, 11);

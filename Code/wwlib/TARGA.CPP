@@ -357,7 +357,7 @@ long Targa::Load(const char* name, char* palette, char* image,bool invert_image)
 	long error = 0;
 
 	/* Open the Targa */
-	if (Open(name, TGA_READMODE) == NULL) {
+	if (Open(name, TGA_READMODE) == 0) {
 
 		/* Process ColorMap (palette) */
 		if (Header.ColorMapType == 1) {
@@ -419,7 +419,7 @@ long Targa::Load(const char* name, char* palette, char* image,bool invert_image)
 					break;
 
 				case TGA_TRUECOLOR_ENCODED:
-					if ((error = DecodeImage()) == NULL) {
+					if ((error = DecodeImage()) == 0) {
 						if (invert_image) InvertImage();
 					}
 					break;
@@ -595,7 +595,7 @@ long Targa::Save(const char* name, long flags, bool addextension)
 	TGA2Footer footer;
 
 	/* Open the Targa for write. */
-	if (Open(name, TGA_WRITEMODE) == NULL)
+	if (Open(name, TGA_WRITEMODE) == 0)
 		{
 		Header.IDLength = 0;
 

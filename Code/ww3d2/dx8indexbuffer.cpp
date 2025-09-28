@@ -245,7 +245,7 @@ IndexBufferClass::AppendLockClass::AppendLockClass(IndexBufferClass* index_buffe
 			start_index*sizeof(unsigned short),
 			index_range*sizeof(unsigned short),
 			(void**)&indices,
-			NULL));	// Optional pointer to receive the buffer size
+			0));	// Optional pointer to receive the buffer size
 		break;
 	case BUFFER_TYPE_SORTING:
 		indices=static_cast<SortingIndexBufferClass*>(index_buffer)->index_buffer+start_index;
