@@ -794,10 +794,10 @@ WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
 {
-#if defined(_M_IX86)
 	const float scale = 255.0;
 	unsigned int col;
 
+#if defined(_MSC_VER) && defined(_M_IX86)
 	// Multiply r, g, b and a components (0.0,...,1.0) by 255 and convert to integer. Or the integer values togerher
 	// such that 32 bit ingeger has AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB.
 	__asm
@@ -863,10 +863,10 @@ not_changed:
 		mov	col,eax
 	}
 #else
-	unsigned r = (int)(Vector.x * 255.f) & 0xff;
-	unsigned g = (int)(Vector.g * 255.f) & 0xff;
-	unsigned b = (int)(Vector.b * 255.f) & 0xff;
-	unsigned a = (int)(alpha * 255.f) & 0xff;
+	unsigned r = (int)(color.X * scale) & 0xff;
+	unsigned g = (int)(color.Y * scale) & 0xff;
+	unsigned b = (int)(color.Z * scale) & 0xff;
+	unsigned a = (int)(alpha * scale) & 0xff;
 	col = (a << 24) | (r << 16) | (g << 8) | (b << 0);
 #endif
 	return col;
@@ -880,7 +880,7 @@ not_changed:
 
 WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 {
-#if defined(_M_IX86)
+#if defined(_MSC_VER) && defined(_M_IX86)
 	if (!CPUDetectClass::Has_CMOV_Instruction()) {
 #endif
 		for (int i=0;i<4;++i) {
@@ -888,7 +888,7 @@ WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 			color[i]=(f>1.0f) ? 1.0f : f;
 		}
 		return;
-#if defined(_M_IX86)
+#if defined(_MSC_VER) && defined(_M_IX86)
 	}
 
 	__asm
