@@ -314,28 +314,28 @@ public:
 #define	DEFENSEOBJECTDEF_EDITABLE_PARAMS( class_name, member_name )																				\
 																																										\
 	int param_counter;																																			\
-	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name ## .Health,		"Health");								\
-	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name ## .HealthMax, "HealthMax");							\
+	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name.Health,		"Health");								\
+	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name.HealthMax, "HealthMax");							\
 																																										\
-	EnumParameterClass * skin_param = new EnumParameterClass( (int*)& member_name ## .Skin );												\
+	EnumParameterClass * skin_param = new EnumParameterClass( (int*)& member_name  .Skin );												\
 	skin_param->Set_Name("Skin");																																\
 	for ( param_counter = 0; param_counter < ArmorWarheadManager::Get_Num_Armor_Types(); param_counter++ ) {							\
 		skin_param->Add_Value(ArmorWarheadManager::Get_Armor_Name(param_counter), param_counter);											\
 	}																																									\
 	GENERIC_EDITABLE_PARAM(class_name,skin_param)																										\
 																																										\
-	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name ## .ShieldStrength,    "ShieldStrength" );		\
-	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name ## .ShieldStrengthMax, "ShieldStrengthMax" );	\
+	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name.ShieldStrength,    "ShieldStrength" );		\
+	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name.ShieldStrengthMax, "ShieldStrengthMax" );	\
 																																										\
-	EnumParameterClass * shield_param = new EnumParameterClass( (int *)& member_name ## .ShieldType );									\
+	EnumParameterClass * shield_param = new EnumParameterClass( (int *)& member_name.ShieldType );									\
 	shield_param->Set_Name ("Shield Type");																												\
 	for ( param_counter = 0; param_counter < ArmorWarheadManager::Get_Num_Armor_Types(); param_counter++ ) {							\
 		shield_param->Add_Value(ArmorWarheadManager::Get_Armor_Name(param_counter),param_counter);										\
 	}																																									\
 	GENERIC_EDITABLE_PARAM(class_name,shield_param)																										\
 																																										\
-	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name ## .DamagePoints,		"DamagePoints");				\
-	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name ## .DeathPoints,		"DeathPoints");
+	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name.DamagePoints,		"DamagePoints");				\
+	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_FLOAT,	member_name.DeathPoints,		"DeathPoints");
 
 #else
 
