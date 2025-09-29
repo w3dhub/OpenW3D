@@ -326,7 +326,7 @@ class GapFillerClass
 	ShaderClass* ShaderArray[MeshMatDescClass::MAX_PASSES];
 	MeshModelClass* mmc;
 
-	GapFillerClass& operator = (const GapFillerClass & that) {}
+	GapFillerClass& operator = (const GapFillerClass & that) = delete;
 public:
 	GapFillerClass(MeshModelClass* mmc);
 	GapFillerClass(const GapFillerClass& that);
