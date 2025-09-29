@@ -1718,7 +1718,7 @@ void DataSafeClass<T>::Delete_Entry(DataSafeHandleClass handle)
 		}
 		Remove_From_List(list, entry_ptr);
 		Free_Handle_ID(list, id);
-		delete [] (void*) entry_ptr;
+		delete [] (char*) entry_ptr;
 		return;
 	}
 

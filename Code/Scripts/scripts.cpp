@@ -367,7 +367,7 @@ void ScriptImpClass::Clear_Parameters(void)
 			}
 		}
 
-		delete (void*)mArgV;
+		delete[] mArgV;
 	}
 
 	mArgC = 0;
@@ -396,7 +396,7 @@ void ScriptImpClass::Set_Parameter(int index, const char* str)
 {
 	// Release old parameter
 	if (mArgV[index] != NULL) {
-		free((void*)mArgV[index]);
+		free(mArgV[index]);
 	}
 
 	mArgV[index] = strdup(str);
