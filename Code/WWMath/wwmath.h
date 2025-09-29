@@ -64,9 +64,9 @@
 // (DRM 05/07/01) Temporarily eliminated _fastcall
 // on non-Microsoft compatible compilers. Jani
 // should be replacing this soon.
-#ifndef _MSC_VER
+#ifndef _WIN32
 #define __fastcall
-#endif // _MSC_VER
+#endif // _WIN32
 
 /* 
 **	Macros to convert between degrees and radians

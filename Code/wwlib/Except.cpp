@@ -47,7 +47,7 @@
  * Exception_Handler -- Exception handler filter function                                      *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
 #include	"always.h"
 #include <windows.h>

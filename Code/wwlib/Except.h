@@ -39,7 +39,7 @@
 #ifndef EXCEPT_H
 #define EXCEPT_H
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 
 #include "win.h"
 /*
