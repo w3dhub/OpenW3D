@@ -39,6 +39,7 @@
 #include	"win.h"
 #include	"mpu.h"
 #include "math.h"
+#include <intrin.h>
 #include <cassert>
 #include <cstdint>
 
@@ -49,7 +50,6 @@ typedef union {
 		unsigned long HighPart;
 	} QuadPart;
 } QuadValue;
-
 
 /***********************************************************************************************
  * Get_CPU_Rate -- Fetch the rate of CPU ticks per second.                                     *
@@ -89,7 +89,7 @@ unsigned long Get_CPU_Clock(unsigned long & high)
 {
 	int h;
 	int l;
-	_int64 tsc = __rdtsc();
+	int64_t tsc = __rdtsc();
 	h = tsc >> 8;
 	l = tsc;
 	return(l);
