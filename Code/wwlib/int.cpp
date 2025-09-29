@@ -50,7 +50,6 @@ bignum bignum::Remainder = 0;
 
 
 
-//BigInt Gcd(const BigInt & a, const BigInt & n);
 #ifdef _MSC_VER
 BigInt Generate_Prime(RandomNumberGenerator & rng, int pbits, BigInt const * dummy);
 #endif
