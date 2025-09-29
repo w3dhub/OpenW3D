@@ -44,6 +44,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "bittype.h"
+#include <cstring>
 
 /*=============================================================================================*/
 // Defines.
