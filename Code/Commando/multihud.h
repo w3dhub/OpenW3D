@@ -60,7 +60,7 @@ enum PlayerlistFormatEnum
 };
 
 //-----------------------------------------------------------------------------
-class	MultiHUDClass : public GameModeClass {
+class	MultiHUDClass {
 public:
 	static void		Init(void);
 	static void		Shutdown(void);
