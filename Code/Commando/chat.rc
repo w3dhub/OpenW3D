@@ -3342,6 +3342,8 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
+#if !defined(__MINGW32__)
+// FIXME: MinGW resource compiler does not understand DLGINIT-style dialogs
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -3506,6 +3508,7 @@ BEGIN
     0
 END
 
+#endif // _MSC_VER
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
