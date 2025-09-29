@@ -1815,7 +1815,7 @@ unsigned short FirewallHelperClass::Get_Next_Mangled_Source_Port(unsigned short 
 
 	WWDEBUG_SAY(("FirewallHelper - Returning next mangled port as %d\n", return_port));
 
-	return(unsigned short(return_port));
+	return static_cast<unsigned short>(return_port);
 }
 
 
