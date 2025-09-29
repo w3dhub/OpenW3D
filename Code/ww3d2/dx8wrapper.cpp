@@ -67,7 +67,7 @@
 #include "thread.h"
 #include <stdio.h>
 #include <d3dx9core.h>
-#include <dxerr.h>
+#include "dxerr_compat.h"
 #include "pot.h"
 #include "wwprofile.h"
 #include "ffactory.h"
