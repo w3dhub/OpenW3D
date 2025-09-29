@@ -822,7 +822,7 @@ void CPUDetectClass::Init_CPUID_Instruction()
    // because CodeWarrior seems to have problems with
    // the command (huh?)
 
-#ifdef _M_IX86
+#if defined(_MC_VER) && defined(_M_IX86)
    __asm
    {
 		mov cpuid_available,0	// clear flag
