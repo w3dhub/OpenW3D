@@ -49,6 +49,7 @@
 #include "binheap.h"
 #include "refcount.h"
 #include "postloadable.h"
+#include <cstdint>
 
 
 /////////////////////////////////////////////////////////////////////////
