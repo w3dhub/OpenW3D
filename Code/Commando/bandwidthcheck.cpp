@@ -63,6 +63,7 @@
 
 #include <WWOnline/WOLSession.h>
 #include <cstdio>
+#include <winsock2.h>
 
 /*
 ** Class statics.
