@@ -51,12 +51,6 @@
 #endif
 
 template<class T> struct RemainderTable;
-template<class T> T Gcd(const T & a, const T & n);
-#ifdef _UNIX
- #define FN_TEMPLATE <>
-#else
- #define FN_TEMPLATE
-#endif
 
 
 template<int PRECISION>
@@ -180,10 +174,6 @@ class Int {
 		int DEREncode(unsigned char * output) const {return(XMP_DER_Encode(&reg[0], output, PRECISION));}
 		void DERDecode(const unsigned char *input) {XMP_DER_Decode(&reg[0], input, PRECISION);}
 
-		// Friend helper functions.
-		friend Int<PRECISION> Gcd FN_TEMPLATE (const Int<PRECISION> &, const Int<PRECISION> &);
-
-
 		static int Error;
 
 		// Carry result from last addition.
@@ -241,22 +231,6 @@ struct RemainderTable
 	bool HasZeroEntry;
 	unsigned short table[3511];
 };
-
-
-
-template<class T>
-T Gcd(const T & a, const T & n)
-{
-	T g[3]={n, a, 0UL};
-
-	unsigned int i = 1;
-	while (!!g[i%3]) {
-		g[(i+1)%3] = g[(i-1)%3] % g[i%3];
-		i++;
-	}
-	return g[(i-1)%3];
-}
-
 
 
 #if defined(__WATCOMC__)
