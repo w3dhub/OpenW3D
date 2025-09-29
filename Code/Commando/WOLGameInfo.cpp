@@ -40,6 +40,7 @@
 #include <WWOnline/PingProfile.h>
 #include <wwlib/realcrc.h>
 #include "modpackagemgr.h"
+#include <cstdio>
 
 using namespace WWOnline;
 

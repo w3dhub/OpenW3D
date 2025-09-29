@@ -85,6 +85,7 @@
 #include "slavemaster.h"
 #include "sctextobj.h"
 #include "mainloop.h"
+#include <cstdio>
 
 using namespace WWOnline;
 

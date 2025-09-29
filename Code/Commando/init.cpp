@@ -111,6 +111,7 @@
 #include "gamespyadmin.h"
 #include "shutdown.h"
 #include "specialbuilds.h"
+#include <cstdio>
 
 extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
 

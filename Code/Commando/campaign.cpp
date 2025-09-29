@@ -54,6 +54,7 @@
 #include "god.h"
 #include "dlgloadspgame.h"
 #include "ccamera.h"
+#include <cstdio>
 
 /*
 **

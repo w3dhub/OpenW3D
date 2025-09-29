@@ -62,6 +62,7 @@
 #include "gamespyadmin.h"
 
 #include <WWOnline/WOLSession.h>
+#include <cstdio>
 
 /*
 ** Class statics.

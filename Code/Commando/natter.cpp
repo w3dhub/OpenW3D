@@ -66,6 +66,7 @@
 #include "../WWOnline/WOLLoginInfo.h"
 #include "../WWOnline/WOLProduct.h"
 #include "../WWOnline/WOLServer.h"
+#include <cstdio>
 
 
 WOLNATInterfaceClass WOLNATInterface;

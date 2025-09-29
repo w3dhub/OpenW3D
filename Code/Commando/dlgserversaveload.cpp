@@ -48,6 +48,7 @@
 #include "dlgmplanhostoptions.h"
 #include "renegadedialogmgr.h"
 #include "dlgmpslaveservers.h"
+#include <cstdio>
 
 
 DynamicVectorClass<ServerSettingsClass*> ServerSettingsManagerClass::ServerSettingsList;
