@@ -49,6 +49,8 @@
 	#include "actionparams.h"
 #endif
 
+#include <stdint.h>
+
 
 /*
 ** DLL import/export macros

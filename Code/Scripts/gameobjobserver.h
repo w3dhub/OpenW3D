@@ -42,6 +42,7 @@
 #endif
 
 #include <stdlib.h>
+#include <stdint.h>
 
 class		ScriptableGameObj;
 typedef	ScriptableGameObj	 GameObject;

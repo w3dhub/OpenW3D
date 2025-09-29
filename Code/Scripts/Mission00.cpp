@@ -37,6 +37,7 @@
 
 #include "scripts.h"
 #include "Mission00.h"
+#include <stdint.h>
 
 
 // MTU_Tutorial_Controller - This script handles all mission objectives and state switches for Tutorial.
