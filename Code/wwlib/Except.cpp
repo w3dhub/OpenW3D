@@ -665,6 +665,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 		/*
 		** Convert FP dump from temporary real value (10 bytes) to double (8 bytes).
 		*/
+#ifdef _MSC_VER
 		_asm {
 			push	eax
 			mov	eax,fp_data_ptr
@@ -672,6 +673,16 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 			fstp	qword ptr [fp_value]
 			pop	eax
 		}
+#else
+        __asm__("mov %1, %%eax\n\t"
+            "fldt 0(%%eax)\n\t"
+            "mov %0, %%eax\n\t"
+            "fstpl 0(%%eax)\n\t"
+            : "=m"(fp_value)
+            : "m"(fp_data_ptr)
+            : "memory", "eax"
+        );
+#endif
 		sprintf(scrap, "   %+#.17e\r\n", fp_value);
 		Add_Txt(scrap);
 	}
