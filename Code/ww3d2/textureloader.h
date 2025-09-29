@@ -29,6 +29,7 @@
 class StringClass;
 struct IDirect3DTexture9;
 class TextureLoadTaskClass;
+class TextureLoadTaskListClass;
 
 class TextureLoader
 {

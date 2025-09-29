@@ -63,6 +63,7 @@ class	PrivateTimerClass;
 class DynamicSpeechAnimClass;
 class	TransitionEffectClass;
 class PersistantSurfaceEmitterClass;
+class	SoldierObserverClass;
 
 //const int NO_FLAG = -1;
 
