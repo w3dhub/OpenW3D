@@ -49,9 +49,9 @@
 */
 //#define STEVES_NEW_CATCHER
 #ifdef _DEBUG
-#ifdef _MSC_VER
 #ifdef STEVES_NEW_CATCHER
 
+#ifdef _MSC_VER
 #include	<crtdbg.h>
 #include <stdlib.h>
 #include <malloc.h>
@@ -62,11 +62,15 @@
 #define   _expand(p, s)     _expand_dbg(p, s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   free(p)           _free_dbg(p, _NORMAL_BLOCK)
 #define   _msize(p)         _msize_dbg(p, _NORMAL_BLOCK)
+#endif	//_MSC_VER
 
-void* __cdecl operator new(unsigned int s);
+#include <new>
+
+void* operator new(size_t s);
+
+void operator delete(void *ptr) noexcept;
 
 #endif	//STEVES_NEW_CATCHER
-#endif	//_MSC_VER
 #endif	//_DEBUG
 
 

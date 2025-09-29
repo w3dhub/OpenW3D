@@ -455,8 +455,9 @@ void DebugManager::Write_To_File(LPCSTR str)
 //}
 //}
 
+#include <new>
 
-void * ::operator new (size_t size)
+void * operator new (size_t size)
 {
 	void* memory=NULL;
 #ifdef LOG_MEMORY
@@ -471,7 +472,7 @@ void * ::operator new (size_t size)
 	return memory;
 }
 
-void ::operator delete (void *ptr)
+void operator delete (void *ptr) noexcept
 {
 #ifdef LOG_MEMORY
 	#ifdef WWDEBUG
@@ -530,7 +531,7 @@ void *NewMutex = NULL;
 #ifdef _DEBUG
 #ifdef STEVES_NEW_CATCHER
 
-extern _CRTIMP void * __cdecl operator new(unsigned int, int, const char *, int);
+extern _CRTIMP void * __cdecl operator new(size_t, int, const char *, int);
 
 /*
 ** List of addresses to 'watch'. You can stuff them in here and compile or manually poke them in with the debugger at run time.
@@ -566,7 +567,7 @@ NewCallerStruct NewAddressList[16384];
  * HISTORY:                                                                                    *
  *   6/12/2001 4:31PM ST : Created                                                             *
  *=============================================================================================*/
-void* __cdecl operator new(unsigned int s)
+void* operator new(size_t s)
 {
 	static char _localstr[32];
 	static unsigned long _return_addr;
