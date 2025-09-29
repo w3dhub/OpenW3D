@@ -49,6 +49,7 @@
 #include <cstdio>
 #include <algorithm>
 
+
 using namespace WWOnline;
 
 static void AddPlayerStats(GameResPacket& stats, cPlayer* player, WOL::Locale locale,

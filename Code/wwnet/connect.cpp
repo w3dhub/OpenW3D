@@ -50,6 +50,7 @@
 #include <cstdio>
 #include <algorithm>
 #include "socket_wrapper.h"
+#include <cstdio>
 
 #ifdef WWDEBUG
 #include "Combat/crandom.h"
