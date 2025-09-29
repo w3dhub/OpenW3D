@@ -53,7 +53,7 @@
 	#include "wwstring.h"
 #endif
 
-#ifndef	__DIALOGUE_HE
+#ifndef	__DIALOGUE_H
 	#include "dialogue.h"
 #endif
 
