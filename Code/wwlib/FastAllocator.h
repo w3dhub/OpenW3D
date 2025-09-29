@@ -545,9 +545,9 @@ extern FastAllocatorGeneral* generalAllocator;
 
       T*            address(T& t)       const             { return (&t); } //These two are slightly strange but 
       const  T*     address(const T& t) const             { return (&t); } //required functions. Just do it.
-      static T*     allocate(size_t n, const void* =NULL) { return (T*)generalAllocator.Alloc(n*sizeof(T)); }
+      static T*     allocate(size_t n, const void* =NULL) { return (T*)generalAllocator->Alloc(n*sizeof(T)); }
       static void   construct(T* ptr, const T& value)     { new(ptr) T(value); }
-      static void   deallocate(void* ptr, size_t /*n*/)   { generalAllocator.Free(ptr); }
+      static void   deallocate(void* ptr, size_t /*n*/)   { generalAllocator->Free(ptr); }
       static void   destroy(T* ptr)                       { ptr->~T(); }
       static size_t max_size()                            { return (size_t)-1; }
 
@@ -558,7 +558,7 @@ extern FastAllocatorGeneral* generalAllocator;
       //random objects through this function but delete them through 
       //the above delallocate() function. So your version of deallocate
       //should *not* assume that it will only be given T objects to delete.
-      char* _Charalloc(size_t n){ return (char*)::generalAllocator.Alloc(n*sizeof(char)); }
+      char* _Charalloc(size_t n){ return (char*)::generalAllocator->Alloc(n*sizeof(char)); }
    };
 #else
    //This is a C++ language standard allocator. Most C++ compilers after 1999 
@@ -587,8 +587,8 @@ extern FastAllocatorGeneral* generalAllocator;
      pointer address(reference x) const             { return &x; }
      const_pointer address(const_reference x) const { return &x; }
 
-     T* allocate(size_type n, const void* = NULL) { return n != 0 ? static_cast<T*>(generalAllocator.Alloc(n*sizeof(T))) : NULL; }
-     void deallocate(pointer p, size_type n)      { generalAllocator.Free(p); }
+     T* allocate(size_type n, const void* = NULL) { return n != 0 ? static_cast<T*>(generalAllocator->Alloc(n*sizeof(T))) : NULL; }
+     void deallocate(pointer p, size_type n)      { generalAllocator->Free(p); }
      size_type max_size() const                   { return size_t(-1) / sizeof(T); }
      void construct(pointer p, const T& val)      { new(p) T(val); }
      void destroy(pointer p)                      { p->~T(); }
