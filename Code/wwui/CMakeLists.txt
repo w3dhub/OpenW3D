@@ -98,6 +98,7 @@ target_compile_definitions(wwui PRIVATE
 
 target_link_libraries(wwui PRIVATE
     wwcommon
+    imm32
 )
 
 target_sources(wwui PRIVATE ${WWUI_SRC})
