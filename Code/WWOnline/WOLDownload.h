@@ -36,7 +36,7 @@
 #ifndef __WOLDOWNLOAD_H__
 #define __WOLDOWNLOAD_H__
 
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include "RefCounted.h"
 #include "RefPtr.h"
 #include "WaitCondition.h"

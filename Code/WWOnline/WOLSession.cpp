@@ -36,7 +36,7 @@
 *
 ******************************************************************************/
 
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include "WOLSession.h"
 #include "WOLChatObserver.h"
 #include "WOLNetUtilObserver.h"

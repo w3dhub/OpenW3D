@@ -32,7 +32,6 @@
 *     $Modtime: 1/12/02 9:26p $
 *
 ******************************************************************************/
-#include <atlbase.h>
 
 #include <wwlib/always.h>
 #include "WOLDownload.h"
