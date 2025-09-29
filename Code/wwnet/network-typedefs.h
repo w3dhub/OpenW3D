@@ -1,7 +1,7 @@
 #ifndef NETWORKTYPEDEFS_H
 #define NETWORKTYPEDEFS_H
 
-#ifdef _WINDOWS
+#ifdef _WIN32
 #include <winsock2.h>
 #else
 #include <arpa/inet.h>

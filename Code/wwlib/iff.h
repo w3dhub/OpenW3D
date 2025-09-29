@@ -40,7 +40,7 @@
 #ifndef IFF_H
 #define IFF_H
 
-#ifndef _WINDOWS
+#ifndef _WIN32
 #define __cdecl
 #endif
 
