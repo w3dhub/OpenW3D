@@ -253,7 +253,11 @@ DialogParserClass::Parse_Template
 					ctrl_type = PROGRESS_BAR;
 				} else if (::wcsstr (text_buffer, L"HEALTHBAR") != 0) {
 					ctrl_type = HEALTH_BAR;
-				}						
+				} else if (::wcsstr (text_buffer, L"BUTTON") != 0) {
+					ctrl_type = BUTTON;
+				} else if (::wcsstr (text_buffer, L"STATIC") != 0) {
+					ctrl_type = STATIC;
+				}
 			}
 
 			//
