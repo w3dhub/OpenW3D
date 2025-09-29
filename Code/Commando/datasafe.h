@@ -830,11 +830,11 @@ class DataSafeClass : public GenericDataSafeClass
 **
 */
 #define DECLARE_DATA_SAFE(type) 																\
-	DataSafeClass<type> DataSafe##type;														\
-	int DataSafeClass<type>::Type;															\
-	char DataSafeClass<type>::ReturnList[MAX_OBJECT_COPIES][sizeof(type)];		\
-	int DataSafeClass<type>::ReturnIndex;													\
-	int DataSafeClass<type>::MinSlop;
+	DataSafeClass<type> DataSafe##type = {};														\
+	template<> int DataSafeClass<type>::Type = 0;															\
+	template<> char DataSafeClass<type>::ReturnList[MAX_OBJECT_COPIES][sizeof(type)] = {};		\
+	template<> int DataSafeClass<type>::ReturnIndex = 0;													\
+	template<> int DataSafeClass<type>::MinSlop = 0;
 
 
 
