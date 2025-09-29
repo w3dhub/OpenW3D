@@ -258,7 +258,7 @@ public:
 
 #define	ANIMCOLLISIONMANAGERDEF_EDITABLE_PARAMS( class_name, member_name )												\
   	PARAM_SEPARATOR( class_name, "Animation Settings");																						\
-	EnumParameterClass *collision_param = new EnumParameterClass(& member_name ## .CollisionMode);					\
+	EnumParameterClass *collision_param = new EnumParameterClass(& member_name .CollisionMode);					\
 	collision_param->Set_Name ("CollisionMode");																						\
 	collision_param->Add_Value("NONE",AnimCollisionManagerClass::COLLIDE_NONE);											\
 	collision_param->Add_Value("STOP",AnimCollisionManagerClass::COLLIDE_STOP);											\
@@ -266,14 +266,14 @@ public:
 	collision_param->Add_Value("KILL",AnimCollisionManagerClass::COLLIDE_KILL);											\
 	GENERIC_EDITABLE_PARAM( class_name , collision_param);																		\
 																																					\
-	EnumParameterClass *anim_param = new EnumParameterClass(& member_name ## .AnimationMode);							\
+	EnumParameterClass *anim_param = new EnumParameterClass(& member_name .AnimationMode);							\
 	anim_param->Set_Name ("AnimationMode");																							\
 	anim_param->Add_Value("LOOP",AnimCollisionManagerClass::ANIMATE_LOOP);													\
 	anim_param->Add_Value("TARGET",AnimCollisionManagerClass::ANIMATE_TARGET);												\
 	anim_param->Add_Value("MANUAL",AnimCollisionManagerClass::ANIMATE_MANUAL);												\
 	GENERIC_EDITABLE_PARAM( class_name , anim_param);																				\
 																																					\
-	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_STRING, member_name ## .AnimationName,"AnimationName"); \
+	NAMED_EDITABLE_PARAM( class_name, ParameterClass::TYPE_STRING, member_name .AnimationName,"AnimationName"); \
 
 #else
 
