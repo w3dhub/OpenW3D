@@ -53,6 +53,7 @@
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
 #include <wwdebug/wwdebug.h>
+#include <cstdio>
 
 using namespace WWOnline;
 

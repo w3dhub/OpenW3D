@@ -56,6 +56,7 @@
 #include "AutoStart.h"
 #include "GameSpy_QnR.h"
 #include "bandwidthcheck.h"
+#include <cstdio>
 
 
 

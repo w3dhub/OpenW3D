@@ -60,6 +60,7 @@
 #include "slavemaster.h"
 
 #include	"gamedata.h"
+#include <cstdio>
 
 /*
 ** Set this flag in the debugger to cause the client to fail to connect.

@@ -50,6 +50,7 @@
 #include "Commando/natter.h"
 #include "packetmgr.h"
 #include "BWBalance.h"
+#include <cstdio>
 
 #ifdef WWDEBUG
 #include "Combat/crandom.h"

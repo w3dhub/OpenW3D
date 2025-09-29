@@ -113,6 +113,7 @@
 #include "dialogtests.h"
 #include "dialogmgr.h"
 #include "GameSpy_QnR.h"
+#include <cstdio>
 
 /*
 **

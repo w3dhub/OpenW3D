@@ -42,6 +42,7 @@
 #include <wwdebug/wwdebug.h>
 #include "win.h"
 #include "_globals.h"
+#include <cstdio>
 
 #include <shellapi.h>
 

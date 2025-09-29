@@ -54,6 +54,7 @@
 #include "sctextobj.h"
 #include "ConsoleMode.h"
 #include "gamesideservercontrol.h"
+#include <cstdio>
 
 
 cGameSpyBanList GameSpyBanList;
