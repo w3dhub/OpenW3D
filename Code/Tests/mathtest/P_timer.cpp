@@ -36,13 +36,11 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "p_timer.h"
+#include <intrin.h>
 
 #ifndef __WATCOMC__
 unsigned Get_CPU_Clock ( void )
 {
-    __asm {
-        _emit 0x0f
-		_emit 0x31
-    }
+	return __rdtsc();
 }
 #endif
