@@ -39,7 +39,7 @@
 
 #include "WOLBrowser/WOLBrowser.h"
 #include <wwlib/Notify.h>
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include <windows.h>
 
 class WebBrowser;

@@ -38,7 +38,7 @@
 #define __DLGWEBPAGE_H__
 
 #include "dialogbase.h"
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include <wwlib/Notify.h>
 
 class WebBrowser;
