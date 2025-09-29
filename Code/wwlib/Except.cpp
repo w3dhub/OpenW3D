@@ -815,7 +815,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 
 		if (symload) {
 			if (_SymUnloadModule != NULL) {
-				_SymUnloadModule(GetCurrentProcess(), NULL);
+				_SymUnloadModule(GetCurrentProcess(), (DWORD_ARCH)NULL);
 			}
 		}
 
