@@ -244,7 +244,7 @@ GameResField::GameResField(const char *id, void *data, int length)
 
 GameResField::~GameResField()
 	{
-  delete[](mData);
+  delete[]((char*)mData);
 	}
 
 
