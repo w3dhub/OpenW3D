@@ -32,6 +32,10 @@ add_feature_info(RenegadeHeadless RENEGADE_FDS "Build Renegade headless server")
 option(RENEGADE_TOOLS "Build additional tools." ON)
 add_feature_info(RenegadeTools RENEGADE_TOOLS "Build Renegade Mod Tools")
 
+# Do we want to embed git information into the binary?
+option(W3D_EMBED_GIT_INFO "Embed information from git." OFF)
+add_feature_info(W3DEmbedGit W3D_EMBED_GIT_INFO "Embed information from git")
+
 option(SYNTAX_CHECK_ONLY "Syntax check the files only?" OFF)
 add_feature_info(SyntaxCheck SYNTAX_CHECK_ONLY "Syntax check files only")
 if(SYNTAX_CHECK_ONLY)

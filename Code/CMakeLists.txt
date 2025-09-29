@@ -52,6 +52,7 @@ if(TARGET ffmpeg)
 endif()
 
 # Module static libraries
+add_subdirectory(GitInfo)
 add_subdirectory(BinkMovie)
 add_subdirectory(Combat)
 add_subdirectory(SControl)
