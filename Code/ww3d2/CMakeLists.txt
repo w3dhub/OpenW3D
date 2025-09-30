@@ -224,6 +224,8 @@ add_library(ww3d2 STATIC)
 
 target_link_libraries(ww3d2 PRIVATE
     wwcommon
+    wwlib
+    wwmath
     vfw32
     winmm
 )

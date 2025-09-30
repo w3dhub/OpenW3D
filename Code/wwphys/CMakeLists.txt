@@ -200,6 +200,7 @@ add_library(wwphys STATIC)
 
 target_link_libraries(wwphys PRIVATE
     wwcommon
+    ww3d2
 )
 
 target_sources(wwphys PRIVATE ${WWPHYS_SRC})
