@@ -113,7 +113,7 @@ class StaticSoundCullObjClass : public TileClass
 };
 
 
-__inline const Matrix3D &
+inline const Matrix3D &
 StaticSoundCullObjClass::Get_Transform (void) const
 {
 	// Determine the transform to use
@@ -126,7 +126,7 @@ StaticSoundCullObjClass::Get_Transform (void) const
 }
 
 
-__inline void
+inline void
 StaticSoundCullObjClass::Set_Transform (const Matrix3D &transform)
 {
 	m_Transform = transform;
@@ -140,7 +140,7 @@ StaticSoundCullObjClass::Set_Transform (const Matrix3D &transform)
 }
 
 
-__inline Sound3DClass *		
+inline Sound3DClass *		
 StaticSoundCullObjClass::Get_Sound_Obj (void) const
 {
 	if (m_SoundObj != NULL) {
@@ -152,7 +152,7 @@ StaticSoundCullObjClass::Get_Sound_Obj (void) const
 }
 
 
-__inline void
+inline void
 StaticSoundCullObjClass::Set_Sound_Obj (Sound3DClass *sound_obj)
 {
 	// Start using this sound object
@@ -165,7 +165,7 @@ StaticSoundCullObjClass::Set_Sound_Obj (Sound3DClass *sound_obj)
 }
 
 
-__inline const AABoxClass &
+inline const AABoxClass &
 StaticSoundCullObjClass::Get_Bounding_Box (void) const
 {
 	// Get the 'real' values from the 
