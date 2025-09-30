@@ -68,6 +68,8 @@ void* operator new(size_t s);
 
 void operator delete(void *ptr) noexcept;
 
+void operator delete(void *p, size_t size) noexcept;
+
 #endif	//STEVES_NEW_CATCHER
 #endif	//_MSC_VER
 #endif	//_DEBUG

@@ -485,6 +485,11 @@ void operator delete (void *ptr) noexcept
 #endif
 }
 
+void operator delete(void *p, size_t size) noexcept
+{
+    operator delete(p);
+}
+
 #endif //STEVES_NEW_CATCHER
 #endif //PARAM_EDITING_ON
 #endif //!_CRTDBG_MAP_ALLOC
