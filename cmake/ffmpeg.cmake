@@ -1,7 +1,4 @@
-find_package(FFMPEG REQUIRED)
+find_package(FFmpeg REQUIRED COMPONENTS AVCODEC AVFORMAT AVUTIL SWSCALE)
 
 add_library(ffmpeg INTERFACE)
-target_include_directories(ffmpeg INTERFACE ${FFMPEG_INCLUDE_DIRS})
-target_link_directories(ffmpeg INTERFACE ${FFMPEG_LIBRARY_DIRS})
-target_link_libraries(ffmpeg INTERFACE ${FFMPEG_LIBRARIES})
-target_compile_definitions(ffmpeg INTERFACE W3D_HAS_FFMPEG)
+target_link_libraries(ffmpeg INTERFACE FFmpeg::AVCODEC FFmpeg::AVFORMAT FFmpeg::AVUTIL FFmpeg::SWSCALE)
