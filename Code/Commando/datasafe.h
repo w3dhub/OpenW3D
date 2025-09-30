@@ -1389,7 +1389,7 @@ uintptr_t DataSafeClass<T>::Get_Type_Code(void)
 	*/
 	static uintptr_t instruction_pointer;
 	instruction_pointer = 0;
-#ifdef _M_IX86
+#if defined(_MSC_VER) && defined(_M_IX86)
 	__asm {
 here:
 		lea	eax,here
