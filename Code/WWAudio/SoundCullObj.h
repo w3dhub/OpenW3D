@@ -108,7 +108,7 @@ class SoundCullObjClass : public MultiListObjectClass, public CullableClass
 };
 
 
-__inline const Matrix3D &
+inline const Matrix3D &
 SoundCullObjClass::Get_Transform (void) const
 {
 	// Determine the transform to use
@@ -121,7 +121,7 @@ SoundCullObjClass::Get_Transform (void) const
 }
 
 
-__inline void
+inline void
 SoundCullObjClass::Set_Transform (const Matrix3D &transform)
 {
 	m_Transform = transform;
@@ -136,7 +136,7 @@ SoundCullObjClass::Set_Transform (const Matrix3D &transform)
 }
 
 
-__inline void
+inline void
 SoundCullObjClass::Set_Sound_Obj (SoundSceneObjClass *sound_obj)
 {
 	// Start using this sound object
@@ -151,7 +151,7 @@ SoundCullObjClass::Set_Sound_Obj (SoundSceneObjClass *sound_obj)
 }
 
 
-__inline const AABoxClass &
+inline const AABoxClass &
 SoundCullObjClass::Get_Bounding_Box (void) const
 {
 	// Get the 'real' values from the 
