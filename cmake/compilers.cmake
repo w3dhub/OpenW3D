@@ -21,3 +21,6 @@ endif()
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)  # Ensures only ISO features are used
+
+# C&C Renegade does not use import modules
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
