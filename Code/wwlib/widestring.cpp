@@ -81,7 +81,7 @@ wchar_t *	WideStringClass::m_ResTempPtr[MAX_TEMP_STRING] = {
 //
 ///////////////////////////////////////////////////////////////////
 void
-WideStringClass::Get_String (int length, bool is_temp)
+WideStringClass::Get_String (size_t length, bool is_temp)
 {
 	if (!is_temp && length <= 1) {
 		m_Buffer = m_EmptyString;
@@ -112,7 +112,7 @@ WideStringClass::Get_String (int length, bool is_temp)
 					string					= m_FreeTempPtr[index];
 					m_ResTempPtr[index]	= m_FreeTempPtr[index];
 					m_FreeTempPtr[index]	= NULL;					
-					Set_Buffer_And_Allocated_Length (string, MAX_TEMP_LEN);
+					Set_Buffer_And_Allocated_Length (string, static_cast<size_t>(MAX_TEMP_LEN));
 
 					//
 					//	Increment the count of used buffers
@@ -138,9 +138,9 @@ WideStringClass::Get_String (int length, bool is_temp)
 //
 ///////////////////////////////////////////////////////////////////
 void
-WideStringClass::Resize (int new_len)
+WideStringClass::Resize (size_t new_len)
 {
-	int allocated_len = Get_Allocated_Length ();
+	size_t allocated_len = Get_Allocated_Length ();
 	if (new_len > allocated_len) {
 
 		//
@@ -166,9 +166,9 @@ WideStringClass::Resize (int new_len)
 //
 ///////////////////////////////////////////////////////////////////
 void
-WideStringClass::Uninitialised_Grow (int new_len)
+WideStringClass::Uninitialised_Grow (size_t new_len)
 {
-	int allocated_len = Get_Allocated_Length ();
+	size_t allocated_len = Get_Allocated_Length ();
 	if (new_len > allocated_len) {
 		
 		//
@@ -327,8 +327,9 @@ bool WideStringClass::Convert_From (const char *text)
 		length = MultiByteToWideChar (CP_ACP, 0, text, -1, NULL, 0);
 		if (length > 0) {
 
-			Uninitialised_Grow (length);
-			Store_Length (length - 1);
+			size_t wide_length = static_cast<size_t>(length);
+			Uninitialised_Grow(wide_length);
+			Store_Length(wide_length - 1);
 
 			// Convert.
 			MultiByteToWideChar (CP_ACP, 0, text, -1, m_Buffer, length);
