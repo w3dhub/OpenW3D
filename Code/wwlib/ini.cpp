@@ -1039,7 +1039,7 @@ bool INIClass::Put_Wide_String(char const * section, char const * entry, const w
 	}
 
 	WideStringClass temp_string(string, true);
-	int len = temp_string.Get_Length();
+	size_t len = temp_string.Get_Length();
 
 	if (len == 0) {
 		Put_String(section, entry, "");
@@ -1047,7 +1047,7 @@ bool INIClass::Put_Wide_String(char const * section, char const * entry, const w
 
 		char *buffer = (char*) _alloca((len * 8) + 32);
 
-		BufferStraw straw(string, (len*2) + 2);		// Convert from shorts to bytes, plus 2 for terminator.
+		BufferStraw straw(string, static_cast<int>((len * 2) + 2));		// Convert from shorts to bytes, plus 2 for terminator.
 		Base64Straw bstraw(Base64Straw::ENCODE);
 		bstraw.Get_From(straw);
 

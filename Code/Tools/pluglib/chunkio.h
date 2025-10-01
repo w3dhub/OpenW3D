@@ -252,12 +252,12 @@ private:
 */
 #define WRITE_WWSTRING_CHUNK(csave,id,var) { \
 	csave.Begin_Chunk(id); \
-	csave.Write((const TCHAR *)var, var.Get_Length () + 1); \
+	csave.Write((const TCHAR *)var, static_cast<int>(var.Get_Length () + 1)); \
 	csave.End_Chunk(); }
 
 #define WRITE_WIDESTRING_CHUNK(csave,id,var) { \
 	csave.Begin_Chunk(id); \
-	csave.Write((const wchar_t *)var, (var.Get_Length () + 1) * 2); \
+	csave.Write((const wchar_t *)var, static_cast<int>((var.Get_Length () + 1) * 2)); \
 	csave.End_Chunk(); }
 
 
@@ -277,10 +277,10 @@ private:
 **
 */
 #define READ_WWSTRING_CHUNK(cload,id,var)		\
-	case (id):	cload.Read(var.Get_Buffer(cload.Cur_Chunk_Length()),cload.Cur_Chunk_Length()); break;	\
+	case (id):	cload.Read(var.Get_Buffer(static_cast<size_t>(cload.Cur_Chunk_Length())),cload.Cur_Chunk_Length()); break;	\
 
 #define READ_WIDESTRING_CHUNK(cload,id,var)		\
-	case (id):	cload.Read(var.Get_Buffer((cload.Cur_Chunk_Length()+1)/2),cload.Cur_Chunk_Length()); break;	\
+	case (id):	cload.Read(var.Get_Buffer(static_cast<size_t>((cload.Cur_Chunk_Length()+1)/2)),cload.Cur_Chunk_Length()); break;	\
 
 
 /*
@@ -317,7 +317,7 @@ private:
 
 #define WRITE_MICRO_CHUNK_WIDESTRING(csave,id,var) { \
 	csave.Begin_Micro_Chunk(id); \
-	csave.Write((const wchar_t *)var, (var.Get_Length () + 1) * 2); \
+	csave.Write((const wchar_t *)var, static_cast<int>((var.Get_Length () + 1) * 2)); \
 	csave.End_Micro_Chunk(); }
 
 
@@ -353,10 +353,10 @@ private:
 	case (id):	WWASSERT(cload.Cur_Micro_Chunk_Length() <= size); cload.Read(var,cload.Cur_Micro_Chunk_Length()); break;	\
 
 #define READ_MICRO_CHUNK_WWSTRING(cload,id,var)		\
-	case (id):	cload.Read(var.Get_Buffer(cload.Cur_Micro_Chunk_Length()),cload.Cur_Micro_Chunk_Length()); break;	\
+	case (id):	cload.Read(var.Get_Buffer(static_cast<size_t>(cload.Cur_Micro_Chunk_Length())),cload.Cur_Micro_Chunk_Length()); break;	\
 
 #define READ_MICRO_CHUNK_WIDESTRING(cload,id,var)		\
-	case (id):	cload.Read(var.Get_Buffer((cload.Cur_Micro_Chunk_Length()+1)/2),cload.Cur_Micro_Chunk_Length()); break;	\
+	case (id):	cload.Read(var.Get_Buffer(static_cast<size_t>((cload.Cur_Micro_Chunk_Length()+1)/2)),cload.Cur_Micro_Chunk_Length()); break;	\
 
 /*
 ** These load macros make it easier to add extra code to a specifc case
@@ -365,10 +365,10 @@ private:
 	cload.Read(&var,sizeof(var)); \
 
 #define LOAD_MICRO_CHUNK_WWSTRING(cload,var)		\
-	cload.Read(var.Get_Buffer(cload.Cur_Micro_Chunk_Length()),cload.Cur_Micro_Chunk_Length());	\
+	cload.Read(var.Get_Buffer(static_cast<size_t>(cload.Cur_Micro_Chunk_Length())),cload.Cur_Micro_Chunk_Length());	\
 
 #define LOAD_MICRO_CHUNK_WIDESTRING(cload,var)		\
-	cload.Read(var.Get_Buffer((cload.Cur_Micro_Chunk_Length()+1)/2),cload.Cur_Micro_Chunk_Length());	\
+	cload.Read(var.Get_Buffer(static_cast<size_t>((cload.Cur_Micro_Chunk_Length()+1)/2)),cload.Cur_Micro_Chunk_Length());	\
 
 
 /*

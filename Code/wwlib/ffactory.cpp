@@ -197,8 +197,8 @@ void SimpleFileFactoryClass::Append_Sub_Directory( const char * sub_directory )
 	CriticalSectionClass::LockClass lock(Mutex);
 
 	// Ensure a trailing semicolon is present, unless the directory list is empty
-	int len = SubDirectory.Get_Length();
-	if (len && SubDirectory[len - 1] != ';') {
+	size_t len = SubDirectory.Get_Length();
+	if (len && SubDirectory[static_cast<int>(len - 1)] != ';') {
 		SubDirectory += ';';
 	}
 

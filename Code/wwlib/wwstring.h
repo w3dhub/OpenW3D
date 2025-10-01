@@ -75,11 +75,18 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////
 	StringClass (bool hint_temporary);
-	StringClass (int initial_len = 0, bool hint_temporary = false);
+	StringClass (size_t initial_len = 0, bool hint_temporary = false);
 	StringClass (const StringClass &string, bool hint_temporary = false);
 	StringClass (const char *string, bool hint_temporary = false);
 	StringClass (char ch, bool hint_temporary = false);
 	StringClass (const wchar_t *string, bool hint_temporary = false);
+	StringClass(int initial_len, bool hint_temporary = false)
+		: StringClass(static_cast<size_t>(initial_len), hint_temporary) {
+	}
+
+	StringClass(unsigned initial_len, bool hint_temporary = false)
+		: StringClass(static_cast<size_t>(initial_len), hint_temporary) {
+	}
 	~StringClass (void);
 
 	////////////////////////////////////////////////////////////
@@ -116,17 +123,17 @@ public:
 	int			Compare (const char *string) const;
 	int			Compare_No_Case (const char *string) const;
 	
-	inline int	Get_Length (void) const;
+	inline size_t	Get_Length (void) const;
 	bool			Is_Empty (void) const;
 
-	void			Erase (int start_index, int char_count);
+	void			Erase (size_t start_index, size_t char_count);
 	int __cdecl  Format (const char *format, ...);
 	int __cdecl  Format_Args (const char *format, const va_list & arg_list );
 
 	// Trim leading and trailing whitespace characters (values <= 32)
 	void Trim(void);
 
-	char *		Get_Buffer (int new_length);
+	char *		Get_Buffer (size_t new_length);
 	char *		Peek_Buffer (void);
 	const char * Peek_Buffer (void) const;
 
@@ -163,18 +170,18 @@ private:
 	////////////////////////////////////////////////////////////
 	//	Private methods
 	////////////////////////////////////////////////////////////
-	void			Get_String (int length, bool is_temp);
-	char *		Allocate_Buffer (int length);
-	void			Resize (int size);
-	void			Uninitialised_Grow (int length);
+	void			Get_String (size_t length, bool is_temp);
+	char *		Allocate_Buffer (size_t length);
+	void			Resize (size_t size);
+	void			Uninitialised_Grow (size_t length);
 	void			Free_String (void);
 
-	inline void	Store_Length (int length);
-	inline void	Store_Allocated_Length (int allocated_length);
+	inline void	Store_Length (size_t length);
+	inline void	Store_Allocated_Length (size_t allocated_length);
 	inline HEADER * Get_Header (void) const;
-	int			Get_Allocated_Length (void) const;
+	size_t			Get_Allocated_Length (void) const;
 
-	void			Set_Buffer_And_Allocated_Length (char *buffer, int length);
+	void			Set_Buffer_And_Allocated_Length (char *buffer, size_t length);
 
 	////////////////////////////////////////////////////////////
 	//	Private member data
@@ -199,7 +206,7 @@ private:
 inline const StringClass &
 StringClass::operator= (const StringClass &string)
 {	
-	int len = string.Get_Length();
+	size_t len = string.Get_Length();
 	Uninitialised_Grow(len+1);
 	Store_Length(len);
 
@@ -216,7 +223,7 @@ StringClass::operator= (const char *string)
 {
 	if (string != 0) {
 
-		int len = strlen (string);
+		size_t len = strlen (string);
 		Uninitialised_Grow (len+1);
 		Store_Length (len);
 
@@ -273,7 +280,7 @@ StringClass::StringClass (bool hint_temporary)
 //	StringClass
 ///////////////////////////////////////////////////////////////////
 inline
-StringClass::StringClass (int initial_len, bool hint_temporary)
+StringClass::StringClass (size_t initial_len, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
 	Get_String (initial_len, hint_temporary);
@@ -316,7 +323,7 @@ inline
 StringClass::StringClass (const char *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
-	int len=string ? strlen(string) : 0;
+	size_t len=string ? strlen(string) : 0;
 	if (hint_temporary || len>0) {
 		Get_String (len+1, hint_temporary);
 	}
@@ -332,7 +339,7 @@ inline
 StringClass::StringClass (const wchar_t *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
-	int len = string ? wcslen (string) : 0;
+	size_t len = string ? wcslen (string) : 0;
 	if (hint_temporary || len > 0) {
 		Get_String (len + 1, hint_temporary);
 	}
@@ -385,7 +392,7 @@ StringClass::Compare_No_Case (const char *string) const
 inline const char &
 StringClass::operator[] (int index) const
 {
-	WWASSERT (index >= 0 && index < Get_Length ());
+	WWASSERT(index >= 0 && static_cast<size_t>(index) < Get_Length());
 	return m_Buffer[index];
 }
 
@@ -395,7 +402,7 @@ StringClass::operator[] (int index) const
 inline char &
 StringClass::operator[] (int index)
 {
-	WWASSERT (index >= 0 && index < Get_Length ());
+	WWASSERT(index >= 0 && static_cast<size_t>(index) < Get_Length());
 	return m_Buffer[index];
 }
 
@@ -467,19 +474,19 @@ StringClass::operator >= (const char *string) const
 //	Erase
 ///////////////////////////////////////////////////////////////////
 inline void
-StringClass::Erase (int start_index, int char_count)
+StringClass::Erase(size_t start_index, size_t char_count)
 {
-	int len = Get_Length ();
+	size_t len = Get_Length ();
 
 	if (start_index < len) {
 		
-		if (start_index + char_count > len) {
+		if (char_count > (len - start_index)) {
 			char_count = len - start_index;
 		}
 
 		::memmove (	&m_Buffer[start_index],
 						&m_Buffer[start_index + char_count],
-						(len - (start_index + char_count) + 1) * sizeof (char));
+						(len - start_index - char_count + 1) * sizeof(char));
 
 		Store_Length( len - char_count );
 	}
@@ -505,9 +512,9 @@ StringClass::operator+= (const char *string)
 {
 	WWASSERT (string != NULL);
 
-	int cur_len = Get_Length ();
-	int src_len = strlen (string);
-	int new_len = cur_len + src_len;
+	size_t cur_len = Get_Length ();
+	size_t src_len = strlen (string);
+	size_t new_len = cur_len + src_len;
 
 	//
 	//	Make sure our buffer is large enough to hold the new string
@@ -528,7 +535,7 @@ StringClass::operator+= (const char *string)
 inline const StringClass &
 StringClass::operator+= (char ch)
 {
-	int cur_len = Get_Length ();
+	size_t cur_len = Get_Length ();
 	Resize (cur_len + 2);
 
 	m_Buffer[cur_len]			= ch;
@@ -545,7 +552,7 @@ StringClass::operator+= (char ch)
 //	Get_Buffer
 ///////////////////////////////////////////////////////////////////
 inline char *
-StringClass::Get_Buffer (int new_length)
+StringClass::Get_Buffer (size_t new_length)
 {
 	Uninitialised_Grow (new_length);
 
@@ -576,10 +583,10 @@ StringClass::Peek_Buffer (void) const
 inline const StringClass &
 StringClass::operator+= (const StringClass &string)
 {
-	int src_len = string.Get_Length();
+	size_t src_len = string.Get_Length();
 	if (src_len > 0) {
-		int cur_len = Get_Length ();
-		int new_len = cur_len + src_len;
+		size_t cur_len = Get_Length ();
+		size_t new_len = cur_len + src_len;
 
 		//
 		//	Make sure our buffer is large enough to hold the new string
@@ -635,10 +642,10 @@ operator+ (const StringClass &string1, const char *string2)
 //
 //	Return allocated size of the string buffer
 ///////////////////////////////////////////////////////////////////
-inline int
+inline size_t
 StringClass::Get_Allocated_Length (void) const
 {
-	int allocated_length = 0;
+	size_t allocated_length = 0;
 
 	//
 	//	Read the allocated length from the header
@@ -659,10 +666,10 @@ StringClass::Get_Allocated_Length (void) const
 // quite a lot cpu time if a lot of string combining operations are
 // performed.
 ///////////////////////////////////////////////////////////////////
-inline int
+inline size_t
 StringClass::Get_Length (void) const
 {
-	int length = 0;
+	size_t length = 0;
 
 	if (m_Buffer != m_EmptyString) {
 		
@@ -692,7 +699,7 @@ StringClass::Get_Length (void) const
 // as the contents of the new buffer are not necessarily defined.
 ///////////////////////////////////////////////////////////////////
 inline void
-StringClass::Set_Buffer_And_Allocated_Length (char *buffer, int length)
+StringClass::Set_Buffer_And_Allocated_Length (char *buffer, size_t length)
 {
 	Free_String ();
 	m_Buffer = buffer;
@@ -714,7 +721,7 @@ StringClass::Set_Buffer_And_Allocated_Length (char *buffer, int length)
 // Allocate_Buffer
 ///////////////////////////////////////////////////////////////////
 inline char *
-StringClass::Allocate_Buffer (int length)
+StringClass::Allocate_Buffer (size_t length)
 {
 	//
 	//	Allocate a buffer that is 'length' characters long, plus the
@@ -748,7 +755,7 @@ StringClass::Get_Header (void) const
 // Store_Allocated_Length
 ///////////////////////////////////////////////////////////////////
 inline void
-StringClass::Store_Allocated_Length (int allocated_length)
+StringClass::Store_Allocated_Length (size_t allocated_length)
 {
 	if (m_Buffer != m_EmptyString) {
 		HEADER *header					= Get_Header ();
@@ -767,7 +774,7 @@ StringClass::Store_Allocated_Length (int allocated_length)
 // be sure that the len is correct.
 ///////////////////////////////////////////////////////////////////
 inline void
-StringClass::Store_Length (int length)
+StringClass::Store_Length (size_t length)
 {
 	if (m_Buffer != m_EmptyString) {
 		HEADER *header		= Get_Header ();
