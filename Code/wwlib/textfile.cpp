@@ -133,7 +133,7 @@ TextFileClass::Read_Line (StringClass &string)
 	bool retval = (string.Get_Length () > 0);
 	if (retval) {
 		
-		int len				= string.Get_Length ();
+		size_t len				= string.Get_Length ();
 		char *raw_string	= string.Peek_Buffer ();
 		
 		//
@@ -165,13 +165,13 @@ TextFileClass::Write_Line (const StringClass &string)
 	//
 	// Write the line of text out to the file
 	//
-	int len = string.Get_Length ();
-	int size = Write ((const char *)string, len);
+	size_t len = string.Get_Length ();
+	int size = Write((const char*)string, static_cast<int>(len));
 
 	//
 	// Now append a CR\LF pair to the end of the line
 	//
-	if (size == len) {
+	if (size == static_cast<int>(len)) {
 		retval = (Write ("\r\n", 2) == 2);
 	}
 

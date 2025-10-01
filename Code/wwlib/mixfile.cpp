@@ -469,11 +469,11 @@ MixFileCreator::~MixFileCreator( void )
 		// Save file info
 		for ( i = 0; i < num_files; i++ ) {
 			const char * filename = FileInfo[i].Filename;
-			int size = FileInfo[i].Filename.Get_Length()+1;
+			size_t size = FileInfo[i].Filename.Get_Length()+1;
 			WWASSERT( size < 255 );
-			unsigned char csize = size;
+			unsigned char csize = static_cast<unsigned char>(size);
 			MixFile->Write( &csize, 1 );
-			MixFile->Write( filename, size );
+			MixFile->Write(filename, static_cast<int>(size));
 		}
 
 		// ---------------------------------------
