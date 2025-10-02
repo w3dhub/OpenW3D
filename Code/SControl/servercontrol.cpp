@@ -40,6 +40,7 @@
 #include	<stdlib.h>
 #include	"servercontrol.h"
 #include "systimer.h"
+#include <limits>
 
 /*
 ** Single instance of server control.
@@ -485,12 +486,15 @@ void ServerControlClass::Reset_Timeout(unsigned long ip, unsigned short port)
  *=============================================================================================*/
 void ServerControlClass::Send_Message(const char *text, unsigned long ip, unsigned short port)
 {
-	ControlMessageStruct message;
-	message.Type = CONTROL_REQUEST;
-	strcpy(message.Message, text);
+	        ControlMessageStruct message;
+        message.Type = CONTROL_REQUEST;
+        strcpy(message.Message, text);
 
-	Comms.Write(&message, sizeof(message.Type) + strlen(text) + 1, &ip, port);
-	Comms.Service();
+        const size_t message_length = ::strlen(text);
+        const size_t total_length = sizeof(message.Type) + message_length + 1;
+        assert(total_length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+        Comms.Write(&message, static_cast<int>(total_length), &ip, port);
+        Comms.Service();
 }
 
 
@@ -517,23 +521,27 @@ void ServerControlClass::Respond(const char *text, unsigned long ip, unsigned sh
 
 	ControlMessageStruct message;
 
-	const char *outmsg = text;
-	while (strlen(outmsg)) {
+	const char* outmsg = text;
+	while (*outmsg != '\0') {
 		message.Type = CONTROL_RESPONSE;
-		strncpy(message.Message, outmsg, sizeof(message.Message)-1);
-		message.Message[sizeof(message.Message)-1] = 0;
-		int outlen = 0;
+		strncpy(message.Message, outmsg, sizeof(message.Message) - 1);
+		message.Message[sizeof(message.Message) - 1] = 0;
+		size_t outlen = 0;
 
-		if (strlen(outmsg) > sizeof(message.Message)-1) {
-			outlen = sizeof(message.Message)-1;
-			outmsg += (sizeof(message.Message)-1);
-		} else {
-			outlen = strlen(outmsg);
+		const size_t remaining_length = ::strlen(outmsg);
+		if (remaining_length > sizeof(message.Message) - 1) {
+			outlen = sizeof(message.Message) - 1;
+			outmsg += outlen;
+		}
+		else {
+			outlen = remaining_length;
 			outmsg += outlen;
 		}
 
 
-		Comms.Write(&message, sizeof(message.Type) + outlen + 1, &ip, port);
+		const size_t total_length = sizeof(message.Type) + outlen + 1;
+		assert(total_length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		Comms.Write(&message, static_cast<int>(total_length), &ip, port);
 		Comms.Service();
 	}
 }
