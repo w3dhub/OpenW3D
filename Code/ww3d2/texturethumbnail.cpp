@@ -28,6 +28,7 @@
 #include "rawfile.h"
 #include "mixfile.h"
 #include <windows.h>
+#include <climits>
 
 DLListClass<ThumbnailManagerClass> ThumbnailManagerClass::ThumbnailManagerList;
 static bool message_box_displayed=false;
@@ -399,7 +400,9 @@ void ThumbnailManagerClass::Save(bool force)
 		total_header_length+=4;	// int original format
 		total_header_length+=4;	// int name string length
 
-		total_header_length+=strlen(thumb->Get_Name());
+		size_t name_length = strlen(thumb->Get_Name());
+		WWASSERT(name_length <= static_cast<size_t>(INT_MAX));
+		total_header_length += static_cast<int>(name_length);
 		total_data_length+=thumb->Get_Width()*thumb->Get_Height()*2;
 		total_thumb_count++;
 	}
@@ -421,7 +424,9 @@ void ThumbnailManagerClass::Save(bool force)
 	for (ite.First();!ite.Is_Done();ite.Next()) {
 		ThumbnailClass* thumb=ite.Peek_Value();
 		const char* name=thumb->Get_Name();
-		int name_len=strlen(name);
+		size_t name_length = strlen(name);
+		WWASSERT(name_length <= static_cast<size_t>(INT_MAX));
+		int name_len = static_cast<int>(name_length);
 		int width=thumb->Get_Width();
 		int height=thumb->Get_Height();
 		int original_width=thumb->Get_Original_Texture_Width();

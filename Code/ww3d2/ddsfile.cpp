@@ -42,7 +42,8 @@ DDSFileClass::DDSFileClass(const char* name,unsigned reduction_factor)
 {
 	strncpy(Name,name,sizeof(Name));
 	// The name could be given in .tga or .dds format, so ensure we're opening .dds...
-	int len=strlen(Name);
+	size_t len = strlen(Name);
+	WWASSERT(len >= 3);
 	Name[len-3]='d';
 	Name[len-2]='d';
 	Name[len-1]='s';

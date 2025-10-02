@@ -40,6 +40,9 @@
 #include "win.h"		// for strcpy, can this be improved?
 #include "assetmgr.h"
 #include "texture.h"
+#include "wwdebug.h"
+#include <algorithm>
+#include <limits>
 #include <algorithm>
 
 #ifndef SAFE_DELETE
@@ -1216,12 +1219,14 @@ ParticleEmitterDefClass::Save_User_Data (ChunkSaveClass &chunk_save)
 	// Begin a chunk that contains user information
 	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_USER_DATA) == true) {
 		
-		DWORD string_len = m_pUserString ? (::strlen (m_pUserString) + 1) : 0;
+		const size_t string_len = m_pUserString ? (::strlen(m_pUserString) + 1) : 0;
 
 		// Fill the header structure
 		W3dEmitterUserInfoStruct user_info = { 0 };
 		user_info.Type = m_iUserType;
-		user_info.SizeofStringParam = string_len;
+		WWASSERT(string_len <= static_cast<size_t>(std::numeric_limits<DWORD>::max()));
+		const DWORD clamped_string_len = static_cast<DWORD>(std::min(string_len, static_cast<size_t>(std::numeric_limits<DWORD>::max())));
+		user_info.SizeofStringParam = clamped_string_len;
 
 		// Write the user information structure out to the chunk
 		if (chunk_save.Write (&user_info, sizeof (user_info)) == sizeof (user_info))
@@ -1231,10 +1236,11 @@ ParticleEmitterDefClass::Save_User_Data (ChunkSaveClass &chunk_save)
 
 			// Do we need to write the user string to the file?
 			if (m_pUserString != NULL) {
-				
+				const size_t bytes_to_write = static_cast<size_t>(clamped_string_len);
+
 				// Now write the user string param to the file
-				if (chunk_save.Write (m_pUserString, string_len) != string_len) {
-					
+				if (chunk_save.Write(m_pUserString, bytes_to_write) != clamped_string_len) {
+
 					// Something went wrong
 					ret_val = WW3D_ERROR_SAVE_FAILED;
 				}

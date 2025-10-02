@@ -247,7 +247,7 @@ static int Build_List_From_String
 		 (delimiter != NULL) &&
 		 (string_list != NULL))
 	{
-		int delim_len = ::strlen (delimiter);
+		size_t delim_len = ::strlen (delimiter);
 
 		//
 		// Determine how many entries there will be in the list
