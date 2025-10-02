@@ -258,7 +258,7 @@ WW3DErrorType MeshModelClass::Load_W3D(ChunkLoadClass & cload)
 	** Process the header
 	*/
 	char *	tmpname;
-	int		namelen;
+	size_t		namelen;
 	
 	Reset(context->Header.NumTris,context->Header.NumVertices,1);
 	

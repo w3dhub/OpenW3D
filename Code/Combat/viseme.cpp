@@ -18,6 +18,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <climits>
 #include <wwdebug.h>
 #include "viseme.h"
 #include <ctype.h>
@@ -261,7 +262,7 @@ int VisemeManager::Get_Visemes(const char *word, int *visemelist, int maxvisemes
 //
 int VisemeManager::Lookup(const char *pchar, const char * /*word*/, int viseme[]) const
 {
-	int length = 0;
+	size_t length = 0;
 
 	char ch = (char)tolower(*pchar);
 	int index = ch - 'a';
@@ -276,12 +277,13 @@ int VisemeManager::Lookup(const char *pchar, const char * /*word*/, int viseme[]
 	VisemeTableItem *pI = &gsVisemeTable[pR->StartIndex + pR->Count - 1];
 	for (int i=0; i<pR->Count; i++,pI--) {
 		length = strlen(pI->LetterCombination);
-		if ( strnicmp(pchar, pI->LetterCombination, length) == 0 )
+		if (strnicmp(pchar, pI->LetterCombination, length) == 0)
 		{
 			// found!
 			viseme[0] = pI->Visemes[0];
 			viseme[1] = pI->Visemes[1];
-			return length;
+			WWASSERT(length <= static_cast<size_t>(INT_MAX));
+			return static_cast<int>(length);
 		}
 	}
 
