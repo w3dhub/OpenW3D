@@ -3840,7 +3840,7 @@ DECLARE_SCRIPT (MTU_Flyover, "Vehicle_ID:int")
 		int vehicle_id = Get_Int_Parameter ("Vehicle_ID");
 		ActionParamsStruct params;
 		params.Set_Basic(this, 100, 0);
-		params.WaypathID = NULL;
+		params.WaypathID = 0;
 		if (vehicle_id)
 		{
 			params.Set_Movement(Vector3 (-185.13f,3.50f,51.21f), RUN, 5.0f);
