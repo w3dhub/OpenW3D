@@ -713,31 +713,10 @@ SaveGameMenuClass::Check_HD_Space (void)
 	StringClass		kernelpathname;
 	int64_t			diskspace;
 
-	int (__stdcall *getfreediskspaceex) (const char*, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER);
-
-	//	Get the free disk space on the drive.
-	// NOTE IML: For Win'95, must query for support for GetDiskFreeSpaceEx before using it - otherwise use GetDiskFreeSpace().
-	GetSystemDirectoryA (kernelpathname.Get_Buffer (_MAX_PATH), _MAX_PATH);
-	kernelpathname += "\\";
-	kernelpathname += "Kernel32.dll";
-	getfreediskspaceex = (int (__stdcall*) (LPCTSTR, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER)) GetProcAddress (GetModuleHandle (kernelpathname.Peek_Buffer()), "GetDiskFreeSpaceExA");
-	if (getfreediskspaceex != NULL) {
-
-		if (!getfreediskspaceex (NULL, &freebytecount, &totalbytecount, NULL)) return (false);
-	
-		// Convert to a 64-bit integer.
-		diskspace = freebytecount.QuadPart;
-	
-	} else {
-
-		DWORD sectorspercluster, bytespersector, freeclustercount, totalclustercount;
-		
-		// The Ex version is not available. Use the Win'95 version.
-		// QUESTION: SDK docs say that values returned by this function are erroneous if partition > 2Gb.
-		//				 Does that mean that the partition is guaranteed to be <= 2Gb if Ex is not available?
-		if (!GetDiskFreeSpace (NULL, &sectorspercluster, &bytespersector, &freeclustercount, &totalclustercount)) return (false); 
-		diskspace = sectorspercluster * bytespersector * freeclustercount;
+	if (!GetDiskFreeSpaceExA (NULL, &freebytecount, &totalbytecount, NULL)) {
+		return false;
 	}
+	diskspace = freebytecount.QuadPart;
 	
 	//
 	//	Is there at least 2 megs of disk space available?
