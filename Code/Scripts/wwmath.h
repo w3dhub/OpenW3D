@@ -121,15 +121,13 @@ static WWINLINE int Float_To_Int_Chop(const float& f);
 static WWINLINE int Float_To_Int_Floor(const float& f);
 
 static WWINLINE long Float_To_Long(float f);
-
-#if defined(_MSC_VER) && defined(_M_IX86)
 static WWINLINE float Cos(float val);
 static WWINLINE float Sin(float val);
+
+#if defined(_MSC_VER) && defined(_M_IX86)
 static WWINLINE float Sqrt(float val);
 static float __fastcall Inv_Sqrt(float a);	// Some 30% faster inverse square root than regular C++ compiled, from Intel's math library
 #else
-static float Cos(float val);
-static float Sin(float val);
 static float Sqrt(float val);
 static float Inv_Sqrt(float a);
 #endif
@@ -313,45 +311,20 @@ WWINLINE long WWMath::Float_To_Long(double f)
 // Cos
 // ----------------------------------------------------------------------------
 
-#if defined(_MSC_VER) && defined(_M_IX86)
-WWINLINE float WWMath::Cos(float val)
-{
-	float retval;
-	__asm {
-		fld [val]
-		fcos
-		fstp [retval]
-	}
-	return retval;
-}
-#else
+
 WWINLINE float WWMath::Cos(float val)
 {
 	return cosf(val);
 }
-#endif
 
 // ----------------------------------------------------------------------------
 // Sin
 // ----------------------------------------------------------------------------
 
-#if defined(_MSC_VER) && defined(_M_IX86)
-WWINLINE float WWMath::Sin(float val)
-{
-	float retval;
-	__asm {
-		fld [val]
-		fsin
-		fstp [retval]
-	}
-	return retval;
-}
-#else
 WWINLINE float WWMath::Sin(float val)
 {
 	return sinf(val);
 }
-#endif
 
 // ----------------------------------------------------------------------------
 // Fast, table based sin
