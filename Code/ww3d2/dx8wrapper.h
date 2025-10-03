@@ -813,60 +813,10 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha
 
 WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
 {
-#if defined(_MSC_VER) && defined(_M_IX86)
-	if (!CPUDetectClass::Has_CMOV_Instruction()) {
-#endif
-		for (int i=0;i<4;++i) {
-			float f=(color[i]<0.0f) ? 0.0f : color[i];
-			color[i]=(f>1.0f) ? 1.0f : f;
-		}
-		return;
-#if defined(_MSC_VER) && defined(_M_IX86)
+	for (int i=0;i<4;++i) {
+		float f=(color[i]<0.0f) ? 0.0f : color[i];
+		color[i]=(f>1.0f) ? 1.0f : f;
 	}
-
-	__asm
-	{
-		mov	esi,dword ptr color
-
-		mov edx,0x3f800000
-
-		mov edi,dword ptr[esi]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi],edi
-
-		mov edi,dword ptr[esi+4]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+4],edi
-
-		mov edi,dword ptr[esi+8]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+8],edi
-
-		mov edi,dword ptr[esi+12]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+12],edi
-	}
-#endif
 }
 
 // ----------------------------------------------------------------------------
