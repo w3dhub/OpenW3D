@@ -120,18 +120,18 @@ static WWINLINE float Fabs(float val)
 static WWINLINE int Float_To_Int_Chop(const float& f);
 static WWINLINE int Float_To_Int_Floor(const float& f);
 
+static WWINLINE long Float_To_Long(float f);
+
 #if defined(_MSC_VER) && defined(_M_IX86)
 static WWINLINE float Cos(float val);
 static WWINLINE float Sin(float val);
 static WWINLINE float Sqrt(float val);
 static float __fastcall Inv_Sqrt(float a);	// Some 30% faster inverse square root than regular C++ compiled, from Intel's math library
-static WWINLINE long	 Float_To_Long(float f);
 #else
 static float Cos(float val);
 static float Sin(float val);
 static float Sqrt(float val);
 static float Inv_Sqrt(float a);
-static long	Float_To_Long(float f);
 #endif
 
 
@@ -298,35 +298,15 @@ WWINLINE bool WWMath::Is_Valid_Double(double x)
 // Float to long
 // ----------------------------------------------------------------------------
 
-#if defined(_MSC_VER) && defined(_M_IX86)
-WWINLINE long WWMath::Float_To_Long(float f)
-{
-	long i;
 
-	__asm {
-		fld [f]
-		fistp [i]
-	}
-
-	return i;
-}
-#else 
 WWINLINE long WWMath::Float_To_Long(float f)
 {
 	return (long) f;
 }
-#endif
 
 WWINLINE long WWMath::Float_To_Long(double f)	
 {
-#if defined(_MSC_VER) && defined(_M_IX86)
-	long retval;
-	__asm fld	qword ptr [f]
-	__asm fistp dword ptr [retval]
-	return retval;
-#else 
 	return (long) f;
-#endif
 }
 
 // ----------------------------------------------------------------------------
