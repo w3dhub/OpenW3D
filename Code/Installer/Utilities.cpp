@@ -183,28 +183,12 @@ bool Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace)
 	// NOTE 1: _splitpath() automatically handles multi-byte character strings.
 	_splitpath (multibytepath, drive, NULL, NULL, NULL);
 
-	GetSystemDirectory (kernelpathname.Get_Buffer (_MAX_PATH), _MAX_PATH);
-	kernelpathname += "\\";
-	kernelpathname += "Kernel32.dll";
-	getfreediskspaceex = (int (_stdcall*) (LPCTSTR, PULARGE_INTEGER, PULARGE_INTEGER, PULARGE_INTEGER)) GetProcAddress (GetModuleHandle (kernelpathname.Peek_Buffer()), "GetDiskFreeSpaceExA");
-	if (getfreediskspaceex != NULL) {
-
-		// NOTE: This function uses GetDiskFreeSpaceEx() and therefore assumes Win '95 OSR2 or greater.
-		if (!getfreediskspaceex (drive, &freebytecount, &totalbytecount, NULL)) return (false);
-	
-		// Convert to a 64-bit integer.
-		diskspace = freebytecount.QuadPart;
-	
-	} else {
-
-		DWORD sectorspercluster, bytespersector, freeclustercount, totalclustercount;
-		
-		// The Ex version is not available. Use the Win'95 version.
-		// QUESTION: SDK docs say that values returned by this function are erroneous if partition > 2Gb.
-		//				 Does that mean that the partition is guaranteed to be <= 2Gb if Ex is not available?
-		if (!GetDiskFreeSpace (drive, &sectorspercluster, &bytespersector, &freeclustercount, &totalclustercount)) return (false); 
-		diskspace = sectorspercluster * bytespersector * freeclustercount;
+	if (!GetDiskFreeSpaceExA (drive, &freebytecount, &totalbytecount, NULL)) {
+		return (false);
 	}
+
+	// Convert to a 64-bit integer.
+	diskspace = freebytecount.QuadPart;
 
 	return (true);
 }
