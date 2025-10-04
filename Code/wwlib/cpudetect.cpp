@@ -24,7 +24,16 @@
 #pragma warning (disable : 4201)	// Nonstandard extension - nameless struct
 #include <windows.h>
 #include "systimer.h"
+
+#if CPU_X86 || CPU_X86_64
 #include <intrin.h>
+#endif
+
+#if CPU_X86 || CPU_X86_64
+#define READ_TSC() __rdtsc()
+#else
+#error "READ_TSC() unimplemented for current cpu"
+#endif
 
 struct OSInfoStruct {
 	const char* Code;
@@ -150,12 +159,12 @@ static unsigned Calculate_Processor_Speed(int64_t& ticks_per_second)
 		int64_t timer1;
 	} Time;
 
-	Time.timer0 = __rdtsc();
+	Time.timer0 = READ_TSC();
 
 	unsigned start=TIMEGETTIME();
 	unsigned elapsed;
 	while ((elapsed=TIMEGETTIME()-start)<200) {
-		Time.timer1 = __rdtsc();
+		Time.timer1 = READ_TSC();
 	}
 
 	int64_t t=Time.timer1-Time.timer0;
@@ -926,8 +935,10 @@ bool CPUDetectClass::CPUID(
 	unsigned& u_edx_,
 	unsigned cpuid_type)
 {
-	if (!Has_CPUID_Instruction()) return false;	// Most processors since 486 have CPUID...
-
+#if CPU_X86 || CPU_X86_64
+	if (!Has_CPUID_Instruction()) {
+		return false;	// Most processors since 486 have CPUID...
+	}
 	int cpuInfo[4];
 	__cpuid(cpuInfo, cpuid_type);
 
@@ -937,6 +948,9 @@ bool CPUDetectClass::CPUID(
 	u_edx_=cpuInfo[3];
 
 	return true;
+#else
+	return false
+#endif
 }
 
 #define SYSLOG(n) work.Format n ; CPUDetectClass::ProcessorLog+=work;
