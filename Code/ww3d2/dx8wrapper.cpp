@@ -67,7 +67,7 @@
 #include "thread.h"
 #include <stdio.h>
 #include <d3dx9core.h>
-#include <dxerr.h>
+#include "dxerr_compat.h"
 #include "pot.h"
 #include "wwprofile.h"
 #include "ffactory.h"
@@ -825,7 +825,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 
 	}
 
-#ifdef _WINDOWS
+#ifdef _WIN32
 	// PWG 4/13/2000 - changed so that if you say to resize the window it resizes
 	// regardless of whether its windowed or not as OpenGL resizes its self around
 	// the caption and edges of the window type you provide, so its important to
@@ -2078,7 +2078,7 @@ IDirect3DTexture9 * DX8Wrapper::_Create_DX8_Texture(
 	IDirect3DTexture9 *texture = NULL;
 
 	// Paletted textures not supported!
-	WWASSERT(format!=D3DFMT_P8);
+	WWASSERT(format!=WW3D_FORMAT_P8);
 
 	// NOTE: If 'format' is not supported as a texture format, this function will find the closest
 	// format that is supported and use that instead.
@@ -2267,7 +2267,7 @@ IDirect3DSurface9 * DX8Wrapper::_Create_DX8_Surface(unsigned int width, unsigned
 	IDirect3DSurface9 *surface = NULL;
 
 	// Paletted surfaces not supported!
-	WWASSERT(format!=D3DFMT_P8);
+	WWASSERT(format!=WW3D_FORMAT_P8);
 
 	DX8CALL(CreateOffscreenPlainSurface(width, height, WW3DFormat_To_D3DFormat(format), pool, &surface, NULL));
 

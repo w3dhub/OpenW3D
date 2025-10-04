@@ -40,9 +40,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#define	CHUNKID_SCRIPTHEADER				'shdr'
-#define	CHUNKID_SCRIPTDATA				'sdat'
-#define	CHUNKID_SCRIPT_AUTO_VARIABLES	'csav'
+#define FOURCC(A,B,C,D) (((A) << 0) | ((B) << 8) | ((C) << 16) | ((D) << 24))
+
+#define	CHUNKID_SCRIPTHEADER			FOURCC('s','h','d','r')
+#define	CHUNKID_SCRIPTDATA				FOURCC('s','d','a','t')
+#define	CHUNKID_SCRIPT_AUTO_VARIABLES	FOURCC('c','s','a','v')
 
 enum {
 	DATAID_PARAMETER_STRING = 1,
@@ -365,7 +367,7 @@ void ScriptImpClass::Clear_Parameters(void)
 			}
 		}
 
-		delete (void*)mArgV;
+		delete[] mArgV;
 	}
 
 	mArgC = 0;
@@ -394,7 +396,7 @@ void ScriptImpClass::Set_Parameter(int index, const char* str)
 {
 	// Release old parameter
 	if (mArgV[index] != NULL) {
-		free((void*)mArgV[index]);
+		free(mArgV[index]);
 	}
 
 	mArgV[index] = strdup(str);

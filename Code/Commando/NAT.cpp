@@ -60,6 +60,7 @@
 #include "slavemaster.h"
 
 #include	"gamedata.h"
+#include <cstdio>
 
 /*
 ** Set this flag in the debugger to cause the client to fail to connect.
@@ -295,9 +296,13 @@ unsigned int __stdcall FirewallHelperClass::NAT_Thread_Start(void *thisptr)
 
 	Register_Thread_ID(GetCurrentThreadId(), "Firewall thread");
 
+#ifdef _MSC_VER
 	__try {
+#endif
 		thread_exit_code = ((FirewallHelperClass*)thisptr)->NAT_Thread_Main_Loop();
+#ifdef _MSC_VER
 	} __except(Exception_Handler(GetExceptionCode(), GetExceptionInformation())) {};
+#endif
 
 	Unregister_Thread_ID(GetCurrentThreadId(), "Firewall thread");
 
@@ -740,7 +745,7 @@ unsigned short FirewallHelperClass::Get_Mangler_Response(unsigned long packet_id
 					** Remove the packet from the queue.
 					*/
 					result = socket_handler->Read(packet_buf, packet_size, &temp_address, &temp_port, peek_packet);
-					fw_assert(result != NULL);
+					fw_assert(result != 0);
 					return(mangled_port);
 				}
 			}
@@ -1810,7 +1815,7 @@ unsigned short FirewallHelperClass::Get_Next_Mangled_Source_Port(unsigned short 
 
 	WWDEBUG_SAY(("FirewallHelper - Returning next mangled port as %d\n", return_port));
 
-	return(unsigned short(return_port));
+	return static_cast<unsigned short>(return_port);
 }
 
 

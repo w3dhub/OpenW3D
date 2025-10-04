@@ -16,7 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "binkmovie.h"
+#include "BINKMovie.h"
 #include "NullMoviePlayer.h"
 
 #if defined W3D_HAS_FFMPEG

@@ -89,4 +89,4 @@ class GameResField {
 
 } // namespace WWOnline
 
-#endif __GAMERESFIELD_H__
+#endif //__GAMERESFIELD_H__

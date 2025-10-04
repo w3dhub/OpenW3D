@@ -222,4 +222,4 @@ class WOLBuddyMgr :
 		RefPtr<WWOnline::UserData> mPendingJoin;
 		};
 
-#endif __WOLBUDDYMGR_H__
+#endif //__WOLBUDDYMGR_H__

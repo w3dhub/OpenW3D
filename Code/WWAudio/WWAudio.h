@@ -336,7 +336,7 @@ public:
 	//////////////////////////////////////////////////////////////////////
 	//	Callback methods
 	//////////////////////////////////////////////////////////////////////
-	void					Register_EOS_Callback (LPFNEOSCALLBACK callback, DWORD user_param);
+	void					Register_EOS_Callback (LPFNEOSCALLBACK callback, uint32 user_param);
 	void					UnRegister_EOS_Callback (LPFNEOSCALLBACK callback);
 
 	void					Register_Text_Callback (LPFNTEXTCALLBACK callback, DWORD user_param);
@@ -421,12 +421,12 @@ public:
 	//
 	//	Sound creation methods
 	//
-	int						Create_Instant_Sound (int definition_id, const Matrix3D &tm, RefCountClass *user_obj = NULL, uint32 user_data = 0, int classid_hint = CLASSID_3D);
-	int						Create_Instant_Sound (const char *def_name, const Matrix3D &tm, RefCountClass *user_obj = NULL, uint32 user_data = 0, int classid_hint = CLASSID_3D);
-	AudibleSoundClass *	Create_Continuous_Sound (int definition_id, RefCountClass *user_obj = NULL, uint32 user_data = 0, int classid_hint = CLASSID_3D);
-	AudibleSoundClass *	Create_Continuous_Sound (const char *def_name, RefCountClass *user_obj = NULL, uint32 user_data = 0, int classid_hint = CLASSID_3D);
-	AudibleSoundClass *	Create_Sound (int definition_id, RefCountClass *user_obj = NULL, uint32 user_data = 0, int classid_hint = CLASSID_3D);
-	AudibleSoundClass *	Create_Sound (const char *def_name, RefCountClass *user_obj = NULL, uint32 user_data = 0, int classid_hint = CLASSID_3D);
+	int						Create_Instant_Sound (int definition_id, const Matrix3D &tm, RefCountClass *user_obj = nullptr, uint32 user_data = 0, int classid_hint = CLASSID_3D);
+	int						Create_Instant_Sound (const char *def_name, const Matrix3D &tm, RefCountClass *user_obj = nullptr, uint32 user_data = 0, int classid_hint = CLASSID_3D);
+	AudibleSoundClass *	Create_Continuous_Sound (int definition_id, RefCountClass *user_obj = nullptr, uint32 user_data = 0, int classid_hint = CLASSID_3D);
+	AudibleSoundClass *	Create_Continuous_Sound (const char *def_name, RefCountClass *user_obj = nullptr, uint32 user_data = 0, int classid_hint = CLASSID_3D);
+	AudibleSoundClass *	Create_Sound (int definition_id, RefCountClass *user_obj = nullptr, uint32 user_data = 0, int classid_hint = CLASSID_3D);
+	AudibleSoundClass *	Create_Sound (const char *def_name, RefCountClass *user_obj = nullptr, uint32 user_data = 0, int classid_hint = CLASSID_3D);
 
 	//////////////////////////////////////////////////////////////////////
 	//	Sound object lookup
@@ -446,7 +446,7 @@ public:
 	// Note:  The cache sizes are in kilo-bytes.  The default
 	// is currently set to 1MB.
 	//
-	bool					Set_Cache_Size (int kbytes = DEF_CACHE_SIZE)	{ m_MaxCacheSize = (kbytes * 1024); }
+	void					Set_Cache_Size (int kbytes = DEF_CACHE_SIZE)	{ m_MaxCacheSize = (kbytes * 1024); }
 	int					Get_Cache_Size (void) const						{ return m_MaxCacheSize / 1024; }
 	int					Get_Current_Cache_Size (void) const				{ return m_CurrentCacheSize; }
 	void					Flush_Cache (void);
@@ -498,7 +498,7 @@ public:
 	// when the secondary page is active.
 	//
 	void					Set_Active_Sound_Page (SOUND_PAGE page);
-	SOUND_PAGE			Get_Active_Sound_Page (void)					{ m_CurrPage; }
+	SOUND_PAGE			Get_Active_Sound_Page (void)					{ return m_CurrPage; }
 
 	void					Push_Active_Sound_Page (SOUND_PAGE page);
 	void					Pop_Active_Sound_Page (void);

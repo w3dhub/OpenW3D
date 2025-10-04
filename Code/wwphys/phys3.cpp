@@ -164,7 +164,7 @@ private:
 	public:
 		StateSnapshotClass(void) : Position(0,0,0), Velocity(0,0,0), Age(0) { }
 		StateSnapshotClass(const Vector3 & pos,const Vector3 & vel, float age) : Position(pos), Velocity(vel), Age(age) { }
-		StateSnapshotClass & operator = (const StateSnapshotClass & that) { Position = that.Position; Velocity = that.Velocity; Age = that.Age; }
+		StateSnapshotClass & operator = (const StateSnapshotClass & that) { Position = that.Position; Velocity = that.Velocity; Age = that.Age; return *this; }
 
 		void					Lerp(const StateSnapshotClass & a, const StateSnapshotClass & b, float fraction);
 		void					Update_Age(float dt) { Age += dt; }

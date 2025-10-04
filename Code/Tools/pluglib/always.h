@@ -55,6 +55,7 @@
 #include	<crtdbg.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <new>
 
 #define   malloc(s)         _malloc_dbg(s, _NORMAL_BLOCK, __FILE__, __LINE__)
 #define   calloc(c, s)      _calloc_dbg(c, s, _NORMAL_BLOCK, __FILE__, __LINE__)
@@ -63,7 +64,11 @@
 #define   free(p)           _free_dbg(p, _NORMAL_BLOCK)
 #define   _msize(p)         _msize_dbg(p, _NORMAL_BLOCK)
 
-void* __cdecl operator new(unsigned int s);
+void* operator new(size_t s);
+
+void operator delete(void *ptr) noexcept;
+
+void operator delete(void *p, size_t size) noexcept;
 
 #endif	//STEVES_NEW_CATCHER
 #endif	//_MSC_VER
@@ -144,11 +149,6 @@ template <class T> T max(T a,T b)
 #if defined(_MSC_VER)
 #include	"visualc.h"
 #endif
-
-#if defined(__WATCOMC__)
-#include	"watcom.h"
-#endif
-
 
 #ifndef	NULL
 	#define	NULL		0

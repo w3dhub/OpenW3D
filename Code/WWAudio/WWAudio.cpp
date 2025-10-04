@@ -1286,7 +1286,7 @@ WWAudioClass::Free_Completed_Sounds (void)
 		//
 		for (int index = 0; index < m_CompletedSounds.Count (); index ++) {
 			AudibleSoundClass *sound_obj = m_CompletedSounds[index];
-         WWASSERT(sound_obj != NULL); //TSS 05/24/99
+			WWASSERT(sound_obj != NULL); //TSS 05/24/99
 
 			//
 			//	Be careful not to remove the sound from the playlist unless
@@ -1423,7 +1423,7 @@ WWAudioClass::Remove_From_Playlist (AudibleSoundClass *sound_obj)
 		//
 		if (sound_obj->Get_Loop_Count () != INFINITE_LOOPS) {
 			for (int index = 0; index < m_EOSCallbackList.Count (); index ++) {
-				uint32 user_data				= NULL;
+				uint32 user_data				= 0;
 				LPFNEOSCALLBACK callback	= m_EOSCallbackList.Get_Callback (index, &user_data);
 				if (callback != NULL) {
 					(*callback) (sound_obj, user_data);
@@ -1931,7 +1931,7 @@ WWAudioClass::Select_3D_Device (const char *device_name, HPROVIDER provider)
 			//	Adjust the effects level to 1.0 if this is an EAX based driver
 			//
 			StringClass lower_name = device_name;
-            lower_name.To_Lower();
+			lower_name.To_Lower();
 			if (::strstr (device_name, "eax") != 0) {
 				m_EffectsLevel = 1.0F;
 			} else {
@@ -2550,7 +2550,7 @@ WWAudioClass::Shutdown (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 void
-WWAudioClass::Register_EOS_Callback (LPFNEOSCALLBACK callback, DWORD user_param)
+WWAudioClass::Register_EOS_Callback (LPFNEOSCALLBACK callback, uint32 user_param)
 {
 	m_EOSCallbackList.Add_Callback (callback, user_param);
 	return;
@@ -2610,7 +2610,7 @@ WWAudioClass::Fire_Text_Callback (AudibleSoundClass *sound_obj, const StringClas
 		//	Loop over all the text-callbacks that have been registered
 		//
 		for (int index = 0; index < m_TextCallbackList.Count (); index ++) {
-			uint32 user_data				= 0L;
+			uint32 user_data				= 0;
 			LPFNTEXTCALLBACK callback	= m_TextCallbackList.Get_Callback (index, &user_data);
 			if (callback != NULL) {
 

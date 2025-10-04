@@ -245,7 +245,7 @@ template<typename Type> class RefPtr :
 		friend RefPtr<Type> Dynamic_Cast(RefPtrBase&);
 		friend RefPtr<Type> Reinterpret_Cast(RefPtrBase&);
 #endif
-		friend RefPtr<Type> Const_Cast(RefPtrConst<Type>&);
+		friend RefPtr<Type> Const_Cast<Type>(RefPtrConst<Type>&);
 	};
 
 

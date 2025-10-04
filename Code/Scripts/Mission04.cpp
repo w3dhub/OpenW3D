@@ -6370,9 +6370,9 @@ DECLARE_SCRIPT(M04_Hunter_Controller_JDG, "")//M04_ENGINEROOM_HUNTING_CONTROLLER
 
 	void Created( GameObject * obj ) override 
 	{
-		hunter_01_id = NULL;
-		hunter_02_id = NULL;
-		hunter_03_id = NULL;
+		hunter_01_id = 0;
+		hunter_02_id = 0;
+		hunter_03_id = 0;
 		messagePlayed = false;
 	}
 
@@ -8397,7 +8397,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Second_EntryZone_TopFloor_JDG, "")//105011 105012
 
 	void Created( GameObject * obj ) override 
 	{
-		apache_id = NULL;
+		apache_id = 0;
 		commandClearance = false;
 	}
 
@@ -8483,7 +8483,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Second_EntryZone_MiddleFloor_JDG, "")//105081 1050
 
 	void Created( GameObject * obj ) override 
 	{
-		apache_id = NULL;
+		apache_id = 0;
 		commandClearance = false;
 	}
 
@@ -8569,7 +8569,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Second_EntryZone_BottomFloor_JDG, "")//105083 1050
 
 	void Created( GameObject * obj ) override 
 	{
-		apache_id = NULL;
+		apache_id = 0;
 		commandClearance = false;
 	}
 
@@ -8654,7 +8654,7 @@ DECLARE_SCRIPT(M04_Apache_GoBackToHangar_EntryZone_JDG, "")//105085
 
 	void Created( GameObject * obj ) override 
 	{
-		apache_id = NULL;
+		apache_id = 0;
 	}
 
 	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override

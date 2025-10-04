@@ -49,6 +49,7 @@
 
 #include "always.h"
 #include "vector.h"
+#include <cstdint>
 #include <unordered_map>
 
 class RefCountClass;

@@ -39,7 +39,7 @@
 #pragma warning(disable : 4530)
 
 #include <windows.h>
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include "RefCounted.h"
 #include "RefPtr.h"
 #include <wwlib/Notify.h>

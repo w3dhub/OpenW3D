@@ -351,9 +351,6 @@ unsigned MPEXPORT XMP_Encode_Bounded(unsigned char * to, unsigned tobytes, digit
  * HISTORY:                                                                                    *
  *   07/01/1996 JLB : Created.                                                                 *
  *=============================================================================================*/
-#ifdef __WATCOMC__
-#pragma warning 364 9
-#endif
 unsigned MPEXPORT XMP_Encode(unsigned char * to, digit const * from, int precision)
 {
 	assert(to != NULL);

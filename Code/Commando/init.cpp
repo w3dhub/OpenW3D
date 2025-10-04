@@ -111,6 +111,7 @@
 #include "gamespyadmin.h"
 #include "shutdown.h"
 #include "specialbuilds.h"
+#include <cstdio>
 
 extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
 
@@ -363,7 +364,7 @@ void Commando_Assert_Handler(const char * message)
 /*
 **
 */
-void _stdcall AudioTextCallback(AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param)
+void __stdcall AudioTextCallback(AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param)
 {
 	Vector3 red = Vector3( 1, 0.5f, 0.5f );
 	StringClass str;
@@ -797,7 +798,7 @@ bool Game_Init(void)
 	WWAudioClass::Get_Instance()->Initialize( APPLICATION_SUB_KEY_NAME_SOUND );
 	WWAudioClass::Get_Instance()->Set_File_Factory( &AudioFileFactory );
 	// Install text callback
-	WWAudioClass::Get_Instance()->Register_Text_Callback(AudioTextCallback,0);
+	WWAudioClass::Get_Instance()->Register_Text_Callback(AudioTextCallback, 0);
 
 	//
 	//	Load the multiplayer settings

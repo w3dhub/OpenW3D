@@ -39,14 +39,17 @@
 #include	"mpmath.h"
 #include	"rng.h"
 
+template <>
 int bignum::Error = 0;
+template <>
 bool bignum::Carry = false;
+template <>
 bool bignum::Borrow = false;
-bignum bignum::Remainder;
+template <>
+bignum bignum::Remainder = 0;
 
 
 
-//BigInt Gcd(const BigInt & a, const BigInt & n);
 #ifdef _MSC_VER
 BigInt Generate_Prime(RandomNumberGenerator & rng, int pbits, BigInt const * dummy);
 #endif

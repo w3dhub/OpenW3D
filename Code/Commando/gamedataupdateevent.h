@@ -56,6 +56,8 @@ public:
 
 private:
 
+	void					Reset(void);
+
 	virtual void			Act(void) override;
 
 	int						TimeRemainingSeconds;

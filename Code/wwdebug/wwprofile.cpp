@@ -60,6 +60,7 @@
 #include "ffactory.h"
 #include "simplevec.h"
 #include "cpudetect.h"
+#include <stdint.h>
 
 static SimpleDynVecClass<WWProfileHierachyNodeClass*> ProfileCollectVector;
 static double TotalFrameTimes;
@@ -82,26 +83,9 @@ unsigned WWProfile_Get_System_Time()
  * HISTORY:                                                                                    *
  *   9/24/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-inline void WWProfile_Get_Ticks(_int64 * ticks)
+inline void WWProfile_Get_Ticks(int64_t * ticks)
 {
-#if !defined(_M_IX86)
 	*ticks = TIMEGETTIME();
-#else
-	__asm
-	{
-		push edx;
-		push ecx;
-		push eax;
-		mov ecx,ticks;
-		_emit 0Fh
-		_emit 31h
-		mov [ecx],eax;
-		mov [ecx+4],edx;
-		pop eax;
-		pop ecx;
-		pop edx;
-	}
-#endif
 }
 
 

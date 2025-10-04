@@ -239,7 +239,7 @@ void DX8TextureCategoryClass::Add_Polygon_Renderer(DX8PolygonRendererClass* p_re
 
 	if (add_after_this != NULL) {
 		bool res = PolygonRendererList.Add_After(p_renderer,add_after_this,false);
-		WWASSERT(res != NULL);
+		WWASSERT(res != false);
 	} else {
 		PolygonRendererList.Add(p_renderer);
 	}
@@ -1482,7 +1482,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 		if (index_buffer->Type()==BUFFER_TYPE_SORTING || index_buffer->Type()==BUFFER_TYPE_DYNAMIC_SORTING) {
 			stripify=false;
 		}
-#endif;
+#endif
 		const TriIndex* src_indices=(const TriIndex*)split_table.Get_Polygon_Array(pass);//mmc->Get_Polygon_Array();
 
 		if (stripify) {
@@ -1536,7 +1536,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 					for (unsigned i=0;i<index_count;++i) {
 						unsigned short idx;
 
-						idx=unsigned short(strip[i+1]);
+						idx=static_cast<unsigned short>(strip[i+1]);
 						vmin=MIN(vmin,idx);
 						vmax=MAX(vmax,idx);
 						*dst_indices++=idx;
@@ -1582,19 +1582,19 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 				if (all_textures_same && Equal_Material(mat,material) && shd==shader) {
 					unsigned short idx;
 
-					idx=unsigned short(src_indices[i][0]+vertex_offset);
+					idx=static_cast<unsigned short>(src_indices[i][0]+vertex_offset);
 					vmin=MIN(vmin,idx);
 					vmax=MAX(vmax,idx);
 					*dst_indices++=idx;
 //					WWDEBUG_SAY(("%d, ",idx));
 
-					idx=unsigned short(src_indices[i][1]+vertex_offset);
+					idx=static_cast<unsigned short>(src_indices[i][1]+vertex_offset);
 					vmin=MIN(vmin,idx);
 					vmax=MAX(vmax,idx);
 					*dst_indices++=idx;
 //					WWDEBUG_SAY(("%d, ",idx));
 
-					idx=unsigned short(src_indices[i][2]+vertex_offset);
+					idx=static_cast<unsigned short>(src_indices[i][2]+vertex_offset);
 					vmin=MIN(vmin,idx);
 					vmax=MAX(vmax,idx);
 					*dst_indices++=idx;
@@ -1608,7 +1608,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 			** Remember the min and max vertex indices that these polygons used (for optimization)
 			*/
 			p_renderer->Set_Vertex_Index_Range(vmin,vmax-vmin+1);
-			WWASSERT(index_count<=unsigned(split_table.Get_Polygon_Count()*3));
+			WWASSERT(index_count<=static_cast<unsigned>(split_table.Get_Polygon_Count()*3));
 		}
 	}
 

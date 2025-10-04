@@ -43,6 +43,7 @@
 #include "rawfile.h"
 #include "ini.h"
 #include "assets.h"
+#include <cstdio>
 
 
 

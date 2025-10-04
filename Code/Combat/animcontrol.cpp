@@ -749,7 +749,7 @@ bool	HumanAnimControlClass::Load( ChunkLoadClass &cload )
 void HumanAnimControlClass::Build_Skeleton_Anim_Name( StringClass& new_name, const char * name )
 {
 	if (name == NULL) return;
-	if (*name == NULL) {
+	if (*name == '\0') {
 		Debug_Say(( "No name in Build_Skeleton_Anim_Name\n" ));
 		return;
 	}

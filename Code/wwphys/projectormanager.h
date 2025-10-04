@@ -133,19 +133,19 @@ public:
 */
 #define	PROJECTORMANAGERDEF_EDITABLE_PARAMS( class_name , member_name )																						\
    PARAM_SEPARATOR( class_name, "Texture Projector Settings");																										\
-	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		member_name ## .IsEnabled, "EnableProjector");								\
-	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		member_name ## .IsPerspective, "Perspective Projection" );				\
-	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		member_name ## .IsAdditive, "Projector Is Additive" );					\
-	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		member_name ## .IsAnimated, "Projector Is Animated" );					\
-	NAMED_FLOAT_UNITS_PARAM( class_name , member_name ## .OrthoWidth , 0.01f , 1000.0f, "meters","Ortho Width" );									\
-	NAMED_FLOAT_UNITS_PARAM( class_name , member_name ## .OrthoHeight , 0.01f , 1000.0f, "meters","Ortho Height" );								\
-	NAMED_ANGLE_EDITABLE_PARAM( class_name , member_name ## .HorizontalFOV, DEG_TO_RADF(0.01f), DEG_TO_RADF(89.99f), "Horizontal FOV" );	\
-	NAMED_ANGLE_EDITABLE_PARAM( class_name , member_name ## .VerticalFOV, DEG_TO_RADF(0.01f), DEG_TO_RADF(89.99f), "Vertical FOV" );			\
-	NAMED_FLOAT_UNITS_PARAM( class_name , member_name ## .NearZ , 0.01f , 1000.0f, "meters","NearZ" );													\
-	NAMED_FLOAT_UNITS_PARAM( class_name , member_name ## .FarZ , 0.01f , 1000.0f, "meters","FarZ" );													\
-	NAMED_FLOAT_UNITS_PARAM( class_name , member_name ## .Intensity , 0.01f , 1.0f, "","Intensity" );													\
-	FILENAME_PARAM ( class_name , member_name ## .TextureName, "Texture files", ".tga");																	\
-	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_STRING,	member_name ## .BoneName, "BoneName" );		
+	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		(member_name).IsEnabled, "EnableProjector");								\
+	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		(member_name).IsPerspective, "Perspective Projection" );				\
+	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		(member_name).IsAdditive, "Projector Is Additive" );					\
+	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_BOOL,		(member_name).IsAnimated, "Projector Is Animated" );					\
+	NAMED_FLOAT_UNITS_PARAM( class_name , (member_name).OrthoWidth , 0.01f , 1000.0f, "meters","Ortho Width" );									\
+	NAMED_FLOAT_UNITS_PARAM( class_name , (member_name).OrthoHeight , 0.01f , 1000.0f, "meters","Ortho Height" );								\
+	NAMED_ANGLE_EDITABLE_PARAM( class_name , (member_name).HorizontalFOV, DEG_TO_RADF(0.01f), DEG_TO_RADF(89.99f), "Horizontal FOV" );	\
+	NAMED_ANGLE_EDITABLE_PARAM( class_name , (member_name).VerticalFOV, DEG_TO_RADF(0.01f), DEG_TO_RADF(89.99f), "Vertical FOV" );			\
+	NAMED_FLOAT_UNITS_PARAM( class_name , (member_name).NearZ , 0.01f , 1000.0f, "meters","NearZ" );													\
+	NAMED_FLOAT_UNITS_PARAM( class_name , (member_name).FarZ , 0.01f , 1000.0f, "meters","FarZ" );													\
+	NAMED_FLOAT_UNITS_PARAM( class_name , (member_name).Intensity , 0.01f , 1.0f, "","Intensity" );													\
+	FILENAME_PARAM ( class_name , (member_name).TextureName, "Texture files", ".tga");																	\
+	NAMED_EDITABLE_PARAM( class_name , ParameterClass::TYPE_STRING,	(member_name).BoneName, "BoneName" );
 
 
 #endif

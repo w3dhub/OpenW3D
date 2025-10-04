@@ -206,7 +206,7 @@ void *
 //	:::operator delete
 //
 void
-::operator delete (void *ptr)
+operator delete (void *ptr) noexcept
 {
 	if (ptr) {
 

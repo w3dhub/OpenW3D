@@ -55,6 +55,9 @@
 #pragma once
 #endif
 
+#ifndef GRIDCULL_H
+#define GRIDCULL_H
+
 #include "cullsys.h"
 #include "mempool.h"
 #include "frustum.h"
@@ -704,3 +707,5 @@ WWINLINE void GridCullSystemClass::VolumeStruct::Split(VolumeStruct & v0,VolumeS
 
 	v0.Max[split_axis] = v1.Min[split_axis] = Min[split_axis] + (delta[split_axis] >> 1);
 }
+
+#endif //GRIDCULL_H

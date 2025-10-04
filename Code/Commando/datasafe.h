@@ -830,11 +830,11 @@ class DataSafeClass : public GenericDataSafeClass
 **
 */
 #define DECLARE_DATA_SAFE(type) 																\
-	DataSafeClass<type> DataSafe##type;														\
-	int DataSafeClass<type>::Type;															\
-	char DataSafeClass<type>::ReturnList[MAX_OBJECT_COPIES][sizeof(type)];		\
-	int DataSafeClass<type>::ReturnIndex;													\
-	int DataSafeClass<type>::MinSlop;
+	DataSafeClass<type> DataSafe##type = {};														\
+	template<> int DataSafeClass<type>::Type = 0;															\
+	template<> char DataSafeClass<type>::ReturnList[MAX_OBJECT_COPIES][sizeof(type)] = {};		\
+	template<> int DataSafeClass<type>::ReturnIndex = 0;													\
+	template<> int DataSafeClass<type>::MinSlop = 0;
 
 
 
@@ -1389,7 +1389,7 @@ uintptr_t DataSafeClass<T>::Get_Type_Code(void)
 	*/
 	static uintptr_t instruction_pointer;
 	instruction_pointer = 0;
-#ifdef _M_IX86
+#if defined(_MSC_VER) && defined(_M_IX86)
 	__asm {
 here:
 		lea	eax,here
@@ -1718,7 +1718,7 @@ void DataSafeClass<T>::Delete_Entry(DataSafeHandleClass handle)
 		}
 		Remove_From_List(list, entry_ptr);
 		Free_Handle_ID(list, id);
-		delete [] (void*) entry_ptr;
+		delete [] (char*) entry_ptr;
 		return;
 	}
 

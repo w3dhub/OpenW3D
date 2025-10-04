@@ -126,12 +126,12 @@ void cBitPacker::Add_Bits(ULONG value, UINT num_bits)
 	// Write the rest of the data as bytes
 	if (num_bits>8) {
 		for (unsigned a=0;a<num_bits;a+=8) {
-			Buffer[byte_num++]=unsigned char(value>>24);
+			Buffer[byte_num++]=static_cast<unsigned char>(value>>24);
 			value<<=8;
 		}
 	}
 	else {
-		Buffer[byte_num]=unsigned char(value>>24);
+		Buffer[byte_num]=static_cast<unsigned char>(value>>24);
 	}
 #endif
 }

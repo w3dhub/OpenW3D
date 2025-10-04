@@ -5,6 +5,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 include(FeatureSummary)
 include(CMakeDependentOption)
 
+# C&C Renegade does not use import modules
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
+
 # We don't support in tree builds, so help people make the right choice.
 if (CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
     message(FATAL_ERROR "Building in-source is not supported! Create a build dir and remove ${CMAKE_SOURCE_DIR}/CMakeCache.txt")
@@ -62,16 +65,16 @@ endif()
 # Only 32bit Windows can make use of these APIs as the libraries shipped with the game.
 if(WIN32)
     include(miles)
-    
+
     # Do we want to build with bink for video decoding?
     option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
     add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build Renegade with Bink")
-    
+
     if(W3D_BUILD_OPTION_BINK)
-    include(bink)
+        include(bink)
         target_compile_definitions(binkstub INTERFACE W3D_HAS_BINK)
     endif()
-    
+
     include(dx9)
 endif()
 

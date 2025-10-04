@@ -46,6 +46,7 @@
 #include <wwlib/cpudetect.h>
 #include <ww3d2/dx8wrapper.h>
 #include <windows.h>
+#include <cstdio>
 
 using namespace WWOnline;
 

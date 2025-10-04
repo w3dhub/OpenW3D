@@ -6022,7 +6022,7 @@ DECLARE_SCRIPT (M08_Mobile_Vehicle, "CheckBlocked=1:int, Attack_Loc0=0:int, Atta
 
 			for (int x = 0; x <= 10; x++)
 			{
-				if(attack_loc[x] != NULL)
+				if(attack_loc[x] != 0)
 				{				
 					float dist = Commands->Get_Distance(star_loc, Commands->Get_Position (Commands->Find_Object (attack_loc [x])));
 					

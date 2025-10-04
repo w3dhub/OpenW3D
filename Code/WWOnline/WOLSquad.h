@@ -172,4 +172,4 @@ class SquadEvent
 
 }
 
-#endif __WOLSQUAD_H__
+#endif //__WOLSQUAD_H__

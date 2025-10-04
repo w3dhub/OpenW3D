@@ -53,7 +53,7 @@
 	#include "wwstring.h"
 #endif
 
-#ifndef	__DIALOGUE_HE
+#ifndef	__DIALOGUE_H
 	#include "dialogue.h"
 #endif
 
@@ -63,6 +63,7 @@ class	PrivateTimerClass;
 class DynamicSpeechAnimClass;
 class	TransitionEffectClass;
 class PersistantSurfaceEmitterClass;
+class	SoldierObserverClass;
 
 //const int NO_FLAG = -1;
 

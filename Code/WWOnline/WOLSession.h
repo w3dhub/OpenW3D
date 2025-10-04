@@ -40,7 +40,7 @@
 #define __WOLSESSION_H__
 
 #include <windows.h>
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include "WOLLoginInfo.h"
 #include "WOLUser.h"
 #include "WOLChannel.h"

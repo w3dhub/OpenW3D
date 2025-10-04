@@ -140,7 +140,6 @@ set(WWLIB_SRC
     vector.h
     verchk.h
     visualc.h
-    watcom.h
     widestring.h
     win.h
     WWCOMUtil.h
@@ -160,6 +159,7 @@ add_library(wwlib STATIC)
 
 target_link_libraries(wwlib PRIVATE
     wwcommon
+    version
 )
 
 target_sources(wwlib PRIVATE ${WWLIB_SRC})

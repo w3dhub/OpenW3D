@@ -64,7 +64,7 @@ GameOptionsMessage::GameOptionsMessage(const WOL::User* user, const WOL::Channel
 
 	if (channel)
 		{
-		memcpy(&mChannel, &channel, sizeof(mChannel));
+		memcpy(&mChannel, channel, sizeof(mChannel));
 		}
 	else
 		{

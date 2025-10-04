@@ -11,29 +11,55 @@ jobs:
     name: ${{ matrix.name }} Build
     runs-on: ${{ matrix.os }}
     timeout-minutes: 38
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
     strategy:
       fail-fast: false
       matrix:
         include:
-          - name: windows-2022 Win32
-            os: windows-2022
-            arch: Win32
-          - name: windows-2022 x64
-            os: windows-2022
-            arch: x64
+          - name: MSVC x86
+            os: windows-latest
+            cmake-args: -A Win32
+            shell: pwsh
+          - name: MSVC x64
+            os: windows-latest
+            cmake-args: -A x64
+            shell: pwsh
+          - name: MinGW x86
+            os: windows-latest
+            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja
+            build-args: --target combat combate renegade renegadeserver ww3d2e wwaudioe wwphyse
+            msys2: true
+            msys2-msystem: mingw32
+            msys2-env: mingw-w64-i686
+            shell: msys2 {0}
+          - name: MinGW x64
+            os: windows-latest
+            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja
+            build-args: --target combat combate renegade renegadeserver ww3d2e wwaudioe wwphyse
+            msys2: true
+            msys2-msystem: mingw64
+            msys2-env: mingw-w64-x86_64
+            shell: msys2 {0}
 
     steps:
-    - uses: actions/checkout@v4
+
+    - name: 'Set up MSYS2'
+      if: ${{ !!matrix.msys2 }}
+      uses: msys2/setup-msys2@v2
       with:
-        persist-credentials: false # do not persist auth token in the local git config
-        path: main
-
-    - name: 'run cmake'
-      shell: pwsh
+        msystem: ${{ matrix.msys2-msystem }}
+        install: >-
+          ${{ matrix.msys2-env }}-cc
+          ${{ matrix.msys2-env }}-cmake
+          ${{ matrix.msys2-env }}-ffmpeg
+          ${{ matrix.msys2-env }}-ninja
+          ${{ matrix.msys2-env }}-pkg-config
+    - uses: actions/checkout@v5
+    - name: 'CMake (configure)'
       run: |
-        $THISDIR=Get-Location
-        cd main
-        cmake -A ${{ matrix.arch }} -B build .
-        cmake --build build --parallel
-
-
+        cmake -S . -B build ${{ matrix.cmake-args }}
+    - name: 'CMake (build)'
+      run: |
+        cmake --build build --parallel ${{ matrix.build-args }}

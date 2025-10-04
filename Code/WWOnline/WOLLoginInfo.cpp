@@ -34,7 +34,7 @@
 *
 ******************************************************************************/
 
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include "WOLLoginInfo.h"
 #include "WOLSession.h"
 #include <wwlib/wwstring.h>

@@ -63,6 +63,7 @@
 #include "bandwidth.h"
 #include "gamespyadmin.h"
 #include "specialbuilds.h"
+#include <cstdio>
 
 /*
 ** Single instance of restart class.

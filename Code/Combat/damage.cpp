@@ -958,7 +958,7 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 		}
 		float points = damage;
 		float armor = Get_Shield_Strength();
-	   DIAG_LOG(( "DRCV", "%s; %d; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f", weapon_name, hitter_id, points, armor, (float &)Health, pos.X, pos.Y, pos.Z ));
+	   DIAG_LOG(( "DRCV", "%s; %d; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f", weapon_name, hitter_id, points, armor, static_cast<float>(Health), pos.X, pos.Y, pos.Z ));
 	}
 
 	if (( smart == COMBAT_STAR ) && ( smart != NULL )) {
@@ -980,7 +980,7 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 		}
 		float points = damage;
 		float armor = Get_Shield_Strength();
-	   DIAG_LOG(( "DEFC", "%1.2f; %1.2f; %1.2f; %s; %d; %d; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f; %s ", pos.X, pos.Y, pos.Z, weapon_name, ammo, hittee_id, points, armor, (float &)Health, victim_pos.X, victim_pos.Y, victim_pos.Z, team_name ));
+	   DIAG_LOG(( "DEFC", "%1.2f; %1.2f; %1.2f; %s; %d; %d; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f; %1.2f; %s ", pos.X, pos.Y, pos.Z, weapon_name, ammo, hittee_id, points, armor, static_cast<float>(Health), victim_pos.X, victim_pos.Y, victim_pos.Z, team_name ));
 	}
 
 	// Clamp Health to Max

@@ -1,5 +1,4 @@
-# Set source files
-set(BINKMOVIE_SRC
+add_library(binkmovie STATIC
     BINKMovie.cpp
     subtitle.cpp
     subtitlemanager.cpp
@@ -12,28 +11,22 @@ set(BINKMOVIE_SRC
 )
 
 if(W3D_BUILD_OPTION_FFMPEG)
-    list(APPEND BINKMOVIE_SRC
+    target_compile_definitions(binkmovie PRIVATE W3D_HAS_FFMPEG)
+    target_sources(binkmovie PRIVATE
         FFMpegPlayer.cpp
         FFMpegPlayer.h
     )
 elseif(W3D_BUILD_OPTION_BINK)
-    list(APPEND BINKMOVIE_SRC
+    target_sources(binkmovie PRIVATE
         BinkPlayer.cpp
         BinkPlayer.h
     )
-endif()
-
-# Targets to build.
-add_library(binkmovie STATIC)
-
-target_link_libraries(binkmovie PRIVATE
-    wwcommon
-)
-
-if(W3D_BUILD_OPTION_BINK)
+    target_compile_definitions(binkmovie PRIVATE W3D_HAS_BINK)
     target_link_libraries(binkmovie PRIVATE
         binkstub
     )
 endif()
 
-target_sources(binkmovie PRIVATE ${BINKMOVIE_SRC})
+target_link_libraries(binkmovie PRIVATE
+    wwcommon
+)

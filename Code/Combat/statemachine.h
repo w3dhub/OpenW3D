@@ -62,10 +62,10 @@
 
 #define ADD_STATE_TO_MACHINE(base, machine, state)		\
 		machine.Add_State (								\
-			&base## ::On_##state##_Think,							\
-			&base## ::On_##state##_Request_End,					\
-			&base## ::On_##state##_Begin,							\
-			&base## ::On_##state##_End);
+			&base::On_##state##_Think,							\
+			&base::On_##state##_Request_End,					\
+			&base::On_##state##_Begin,							\
+			&base::On_##state##_End);
 
 
 		//machine.Add_State (On_##state_Think, On_##state_Request_End, On_##state_Begin, On_##state_End);
@@ -160,7 +160,7 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	///////////////////////////////////////////////////////////////////
-	StateClass<T> (void)	:
+	StateClass (void)	:
 		Think (NULL),
 		RequestEnd (NULL),
 		Begin (NULL),

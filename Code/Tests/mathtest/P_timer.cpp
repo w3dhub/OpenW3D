@@ -37,12 +37,14 @@
 
 #include "p_timer.h"
 
-#ifndef __WATCOMC__
+#include <windows.h>
+
 unsigned Get_CPU_Clock ( void )
 {
-    __asm {
-        _emit 0x0f
-		_emit 0x31
-    }
+	LARGE_INTEGER LargeInt;
+
+	if (QueryPerformanceFrequency(&LargeInt)) {
+		return(LargeInt.LowPart);
+	}
+	return 0;
 }
-#endif

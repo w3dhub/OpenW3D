@@ -45,6 +45,7 @@
 #include "vector.h"
 #include "vector3.h"
 #include "bittype.h"
+#include <cstdint>
 
 
 /////////////////////////////////////////////////////////////////////////

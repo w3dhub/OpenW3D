@@ -53,6 +53,7 @@
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
 #include <wwdebug/wwdebug.h>
+#include <cstdio>
 
 using namespace WWOnline;
 
@@ -1422,7 +1423,7 @@ void WOLBuddyMgr::HandleNotification(PageMessage& page)
 				DECLINE_REASON reason = DECLINE_BYUSER;
 
 				// Grab the reason code
-				const wchar_t* codeString = message + DECLINE_CMD_LEN;
+				const wchar_t* codeString = static_cast<const wchar_t *>(message) + DECLINE_CMD_LEN;
 				int code = _wtoi(codeString);
 
 				if (code > DECLINE_MIN && code < DECLINE_MAX)

@@ -67,8 +67,7 @@ class RefCounted
 				mRefCount(0)
 			{}
 
-		inline const RefCounted& operator=(const RefCounted&)
-			{}
+		inline const RefCounted& operator=(const RefCounted&) = delete;
 
 		virtual ~RefCounted()
 			{assert(mRefCount == 0);}

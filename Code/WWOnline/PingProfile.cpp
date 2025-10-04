@@ -41,6 +41,7 @@
 #include <wwdebug/wwdebug.h>
 #include <limits.h>
 #include <math.h>
+#include <cstdio>
 
 using namespace WWOnline;
 

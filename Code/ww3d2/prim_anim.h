@@ -88,7 +88,7 @@ public:
 		const T &	Get_Value (void) const		{ return m_Value; }
 		T &			Get_Value (void)				{ return m_Value; }
 
-		float			Set_Time (float time)		{ m_Time = time; }
+		void			Set_Time (float time)		{ m_Time = time; }
 		void			Set_Value (const T &value)	{ m_Value = value; }
 
 	private:
@@ -361,8 +361,8 @@ LERPAnimationChannelClass<T>::Evaluate (float time)
 			m_LastIndex = 0;
 		}
 
-		KeyClass *key1 = &m_Data[m_LastIndex];
-		KeyClass *key2 = &m_Data[key_count - 1];
+		auto *key1 = &m_Data[m_LastIndex];
+		auto *key2 = &m_Data[key_count - 1];
 
 		//
 		// Search, using last_key as our starting point

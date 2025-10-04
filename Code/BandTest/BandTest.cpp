@@ -1208,7 +1208,7 @@ void Ping_Profile(struct sockaddr_in *router_addr, unsigned long my_ip)
 	*/
 	for (i=0 ; i<30 ; i++) {
 		DebugString(temp_graph[i]);
-		cprintf(temp_graph[i]);
+		_cprintf(temp_graph[i]);
 	}
 }
 

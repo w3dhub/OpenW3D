@@ -45,6 +45,12 @@ DECLARE_NETWORKOBJECT_FACTORY(cGameDataUpdateEvent, NETCLASSID_GAMEDATAUPDATEEVE
 //-----------------------------------------------------------------------------
 cGameDataUpdateEvent::cGameDataUpdateEvent(void)
 {
+	Reset();
+}
+
+//-----------------------------------------------------------------------------
+void cGameDataUpdateEvent::Reset(void)
+{
 	Set_App_Packet_Type(APPPACKETTYPE_GAMEDATAUPDATEEVENT);
 	TimeRemainingSeconds = 0;
 	//ServerIsGameplayPermitted = true;
@@ -57,7 +63,7 @@ cGameDataUpdateEvent::Init(int client_id)
 	WWASSERT(cNetwork::I_Am_Server());
 	//WWASSERT(client_id >= 0);
 
-	cGameDataUpdateEvent::cGameDataUpdateEvent();
+	Reset();
 
 	WWASSERT(The_Game() != NULL);
 	TimeRemainingSeconds = (int) The_Game()->Get_Time_Remaining_Seconds();

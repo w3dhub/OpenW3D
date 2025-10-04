@@ -285,7 +285,7 @@ template<typename Event> class EventWait :
 			}
 
 		virtual void HandleNotification(Event&)
-			{if (mEndResult == Waiting) {EndWait(ConditionMet);}}
+			{if (mEndResult == Waiting) {this->EndWait(ConditionMet, L"");}}
 
 	protected:
 		EventWait(const wchar_t* waitText) :

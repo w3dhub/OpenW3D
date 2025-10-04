@@ -50,7 +50,7 @@ void __cdecl ThreadClass::Internal_Thread_Function(void* params)
 	tc->running=true;
 	tc->ThreadID = GetCurrentThreadId();
 
-#ifdef _WIN32
+#ifdef _MSC_VER
 	Register_Thread_ID(tc->ThreadID, tc->ThreadName);
 
 	if (tc->ExceptionHandler != NULL) {

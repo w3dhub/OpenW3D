@@ -142,14 +142,14 @@ void IndexBufferClass::Copy(unsigned int* indices,unsigned first_index,unsigned 
 		DX8IndexBufferClass::AppendLockClass l(this,first_index,count);
 		unsigned short* inds=l.Get_Index_Array();
 		for (unsigned v=0;v<count;++v) {
-			*inds++=unsigned short(*indices++);
+			*inds++=static_cast<unsigned short>(*indices++);
 		}
 	}
 	else {
 		DX8IndexBufferClass::WriteLockClass l(this);
 		unsigned short* inds=l.Get_Index_Array();
 		for (unsigned v=0;v<count;++v) {
-			*inds++=unsigned short(*indices++);
+			*inds++=static_cast<unsigned short>(*indices++);
 		}
 	}
 }
@@ -245,7 +245,7 @@ IndexBufferClass::AppendLockClass::AppendLockClass(IndexBufferClass* index_buffe
 			start_index*sizeof(unsigned short),
 			index_range*sizeof(unsigned short),
 			(void**)&indices,
-			NULL));	// Optional pointer to receive the buffer size
+			0));	// Optional pointer to receive the buffer size
 		break;
 	case BUFFER_TYPE_SORTING:
 		indices=static_cast<SortingIndexBufferClass*>(index_buffer)->index_buffer+start_index;

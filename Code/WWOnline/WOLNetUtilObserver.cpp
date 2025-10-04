@@ -33,7 +33,7 @@
 ******************************************************************************/
 
 #include <windows.h>
-#include <atlbase.h>
+#include "atlbase_compat.h"
 #include "WOLNetUtilObserver.h"
 #include "WOLSession.h"
 #include "WOLLadder.h"

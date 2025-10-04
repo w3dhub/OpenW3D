@@ -101,4 +101,4 @@ class WOLJoinGame :
 		unsigned long mClanID;
 	};
 
-#endif __WOLJOINGAME_H__
+#endif //__WOLJOINGAME_H__

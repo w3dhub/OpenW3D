@@ -51,6 +51,7 @@
 #include <wwtranslatedb/translatedb.h>
 #include "modpackagemgr.h"
 #include "gameinitmgr.h"
+#include <cstdio>
 
 
 using namespace WWOnline;

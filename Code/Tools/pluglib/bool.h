@@ -37,7 +37,7 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#if !defined(TRUE_FALSE_DEFINED) && !defined(__BORLANDC__) && (_MSC_VER < 1100) && !defined(__WATCOMC__)
+#if !defined(TRUE_FALSE_DEFINED) && !defined(__BORLANDC__) && (_MSC_VER < 1100)
 #define TRUE_FALSE_DEFINED
 
 /**********************************************************************
