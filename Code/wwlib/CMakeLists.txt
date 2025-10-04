@@ -140,7 +140,6 @@ set(WWLIB_SRC
     vector.h
     verchk.h
     visualc.h
-    watcom.h
     widestring.h
     win.h
     WWCOMUtil.h

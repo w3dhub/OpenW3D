@@ -150,11 +150,6 @@ template <class T> T max(T a,T b)
 #include	"visualc.h"
 #endif
 
-#if defined(__WATCOMC__)
-#include	"watcom.h"
-#endif
-
-
 #ifndef	NULL
 	#define	NULL		0
 #endif

@@ -233,12 +233,6 @@ struct RemainderTable
 };
 
 
-#if defined(__WATCOMC__)
-#pragma warning 604 9
-#pragma warning 595 9
-#endif
-
-
 template<class T>
 T Generate_Prime(Straw & rng, int pbits, T const *)
 {

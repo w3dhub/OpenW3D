@@ -43,12 +43,4 @@ extern "C" unsigned Get_CPU_Clock ( void );
 
 unsigned Get_CPU_Clock ( void );
 
-#ifdef __WATCOMC__
-
-#pragma aux Get_CPU_Clock \
-        modify [edx] \
-        value [eax] = \
-        "db 0fh,031h"
-#endif
-
 #endif
