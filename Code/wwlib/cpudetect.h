@@ -46,6 +46,18 @@
 #include "always.h"
 #include "wwstring.h"
 
+#if defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) ||defined( __i386) || defined(_M_IX86)
+#define CPU_X86 1
+#else
+#define CPU_X86 0
+#endif
+
+#if defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__x86_64) || defined(_M_X64) || defined(_M_AMD64)
+#define CPU_X86_64 1
+#else
+#define CPU_X86_64 0
+#endif
+
 class CPUDetectInitClass;
 
 class CPUDetectClass
