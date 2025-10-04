@@ -38,9 +38,7 @@
 #include "p_timer.h"
 #include <intrin.h>
 
-#ifndef __WATCOMC__
 unsigned Get_CPU_Clock ( void )
 {
 	return __rdtsc();
 }
-#endif
