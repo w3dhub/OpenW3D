@@ -36,9 +36,15 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "p_timer.h"
-#include <intrin.h>
+
+#include <windows.h>
 
 unsigned Get_CPU_Clock ( void )
 {
-	return __rdtsc();
+	LARGE_INTEGER LargeInt;
+
+	if (QueryPerformanceFrequency(&LargeInt)) {
+		return(LargeInt.LowPart);
+	}
+	return 0;
 }

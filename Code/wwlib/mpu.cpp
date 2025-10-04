@@ -39,17 +39,8 @@
 #include	"win.h"
 #include	"mpu.h"
 #include "math.h"
-#include <intrin.h>
 #include <cassert>
 #include <cstdint>
-
-typedef union {
-	LARGE_INTEGER LargeInt;
-	struct QuadPart {
-		unsigned long LowPart;
-		unsigned long HighPart;
-	} QuadPart;
-} QuadValue;
 
 /***********************************************************************************************
  * Get_CPU_Rate -- Fetch the rate of CPU ticks per second.                                     *
@@ -68,17 +59,11 @@ typedef union {
  *=============================================================================================*/
 unsigned long Get_CPU_Rate(unsigned long & high)
 {
-	union {
-		LARGE_INTEGER LargeInt;
-		struct {
-			unsigned long LowPart;
-			unsigned long HighPart;
-		} QuadPart;
-	} value;
+	LARGE_INTEGER LargeInt;
 
-	if (QueryPerformanceFrequency(&value.LargeInt)) {
-		high = value.QuadPart.HighPart;
-		return(value.QuadPart.LowPart);
+	if (QueryPerformanceFrequency(&LargeInt)) {
+		high = LargeInt.HighPart;
+		return(LargeInt.LowPart);
 	}
 	high = 0;
 	return(0);
@@ -87,12 +72,13 @@ unsigned long Get_CPU_Rate(unsigned long & high)
 
 unsigned long Get_CPU_Clock(unsigned long & high)
 {
-	int h;
-	int l;
-	int64_t tsc = __rdtsc();
-	h = tsc >> 8;
-	l = tsc;
-	return(l);
+	LARGE_INTEGER LargeInt;
+	if (QueryPerformanceCounter(&LargeInt)) {
+		high = LargeInt.HighPart;
+		return(LargeInt.LowPart);
+	}
+	high = 0;
+	return(0);
 }
 
 
@@ -116,7 +102,7 @@ int Get_RDTSC_CPU_Speed(void)
 	int	tries=0;						// Number of times a calculation has been
 												// made on this call
 	DWORD	total_cycles=0, cycles;	// Clock cycles elapsed during test
-	int64_t	stamp0, stamp1;			// Time Stamp for beginning and end of test
+	LARGE_INTEGER	stamp0, stamp1;			// Time Stamp for beginning and end of test
 	DWORD	total_ticks=0, ticks;	// Microseconds elapsed during test
 // DWORD	current = 0;				// Elapsed time during loop
 	LARGE_INTEGER count_freq;			// Hi-Res Performance Counter frequency
@@ -168,7 +154,7 @@ int Get_RDTSC_CPU_Speed(void)
 			QueryPerformanceCounter(&t1);
 		}
 
-		stamp0 = __rdtsc();
+		QueryPerformanceCounter(&stamp0);
 
 		t0.LowPart = t1.LowPart;		// Reset Initial Time
 		t0.HighPart = t1.HighPart;
@@ -181,10 +167,10 @@ int Get_RDTSC_CPU_Speed(void)
 			QueryPerformanceCounter(&t1);
 		}
 
-		stamp1 = __rdtsc();
+		QueryPerformanceCounter(&stamp1);
 
 
-		cycles = stamp1 - stamp0;					// # of cycles passed between reads
+		cycles = stamp1.QuadPart - stamp0.QuadPart;					// # of cycles passed between reads
 
 		double bigticks = (double)((DWORD)t1.LowPart - (DWORD)t0.LowPart);
 		assert((bigticks * 100000.0) > bigticks);
