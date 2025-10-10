@@ -22,7 +22,7 @@
  *                                                                                             * 
  *                 Project Name : Commando                                                     * 
  *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/scripts.h                             $* 
+ *                     $Archive:: /Commando/Code/Combat/scriptman.h                             $* 
  *                                                                                             * 
  *                      $Author:: Byon_g                                                      $* 
  *                                                                                             * 
@@ -34,8 +34,8 @@
  * Functions:                                                                                  * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#ifndef	SCRIPTS_H
-#define	SCRIPTS_H
+#ifndef	SCRIPTMAN_H
+#define	SCRIPTMAN_H
 
 #ifndef	ALWAYS_H
 	#include "always.h"
@@ -111,4 +111,4 @@ private:
 	static bool	EnableScriptCreation;
 };
 
-#endif		// SCRIPTS_H
+#endif		// SCRIPTMAN_H

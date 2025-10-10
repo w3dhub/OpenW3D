@@ -93,7 +93,7 @@ set(COMBAT_SRC
     screenfademanager.cpp
     scriptablegameobj.cpp
     scriptcommands.cpp
-    scripts.cpp
+    scriptman.cpp
     scriptzone.cpp
     simplegameobj.cpp
     smartgameobj.cpp
@@ -222,7 +222,7 @@ set(COMBAT_SRC
     scriptablegameobj.h
     scriptcommands.h
     scriptevents.h
-    scripts.h
+    scriptman.h
     scriptzone.h
     simplegameobj.h
     smartgameobj.h

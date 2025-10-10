@@ -41,7 +41,7 @@
 #include "debug.h"
 #include "spawn.h"
 #include "timemgr.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "persistentgameobjobserver.h"
 #include "wwmemlog.h"
 #include "cover.h"

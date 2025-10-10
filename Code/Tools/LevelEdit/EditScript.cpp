@@ -36,8 +36,7 @@
 
 #include "StdAfx.h"
 #include "EditScript.h"
-#include "../../Scripts/scriptevents.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "chunkio.h"
 #include "scriptmgr.h"
 

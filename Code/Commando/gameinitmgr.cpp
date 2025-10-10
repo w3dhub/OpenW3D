@@ -87,7 +87,7 @@
 #include "ffactory.h"
 #include "ini.h"
 #include "dazzle.h"
-#include "scripts.h"
+#include "scriptman.h"
 
 
 

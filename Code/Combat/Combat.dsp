@@ -1072,7 +1072,7 @@ SOURCE=.\scriptevents.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\scripts.h
+SOURCE=.\scriptman.h
 # End Source File
 # Begin Source File
 

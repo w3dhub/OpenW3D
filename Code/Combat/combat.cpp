@@ -40,7 +40,7 @@
 #include "input.h"
 #include "weaponmanager.h"
 #include "wwprofile.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "pscene.h"
 #include "damage.h"
 #include "ww3d.h"

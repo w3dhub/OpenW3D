@@ -36,7 +36,7 @@
 
 #include "scriptzone.h"
 #include "gameobjmanager.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "colmath.h"
 #include "colmathinlines.h"
 #include "debug.h"

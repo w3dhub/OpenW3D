@@ -416,7 +416,7 @@ bool	ObjectiveManager::Load( ChunkLoadClass &cload )
 /*
 **
 */
-void	ObjectiveManager::Add_Objective( int id, int type, int status, int short_description_id, int long_description_id, char * description_sound_filename )
+void	ObjectiveManager::Add_Objective( int id, int type, int status, int short_description_id, int long_description_id, const char * description_sound_filename )
 {
 	if ( Find_Objective( id ) != NULL ) {
 		Debug_Say(( "Adding a duplicate Objective ID\n" ));

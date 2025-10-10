@@ -48,7 +48,7 @@
 #include "wwpacket.h"
 #include "assets.h"
 #include "debug.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "pscene.h"
 #include "physcoltest.h"
 #include "chunkio.h"

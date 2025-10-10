@@ -36,7 +36,7 @@
 
 #include "physicalgameobj.h"
 #include "damage.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "debug.h"
 #include "explosion.h"
 #include "assets.h"

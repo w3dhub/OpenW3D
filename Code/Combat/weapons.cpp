@@ -48,7 +48,7 @@
 #include "quat.h"
 #include "combatsound.h"
 #include "slnode.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "WWAudio.h"
 #include "Sound3D.h"
 #include "chunkio.h"

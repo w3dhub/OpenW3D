@@ -36,7 +36,7 @@
 #include "dialogtests.h"
 #include "combatgmode.h"
 #include "gameinitmgr.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "debug.h"
 #include "renegadedialogmgr.h"
 #include "cheatmgr.h"
