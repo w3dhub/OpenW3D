@@ -40,7 +40,7 @@
 #include "timemgr.h"
 #include "gameobjmanager.h"
 #include "gameobjobserver.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "backgroundmgr.h"
 #include "dazzle.h"
 #include "phys.h"

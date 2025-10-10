@@ -51,7 +51,7 @@
 #include "assets.h"
 #include "objlibrary.h"
 #include "movephys.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "wwmemlog.h"
 #include "gametype.h"
 #include "combatmaterialeffectmanager.h"

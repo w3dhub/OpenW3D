@@ -121,7 +121,7 @@ public:
 	static	bool	Save( ChunkSaveClass &csave );
 	static	bool	Load( ChunkLoadClass &cload );
 
-	static	void	Add_Objective( int id, int type, int status, int short_description_id, int long_description_id, char * description_sound_filename );
+	static	void	Add_Objective( int id, int type, int status, int short_description_id, int long_description_id, const char * description_sound_filename );
 	static	void	Remove_Objective( int id );
 	static	void	Set_Objective_Status( int id, int status );
 	static	void	Change_Objective_Type( int id, int type );

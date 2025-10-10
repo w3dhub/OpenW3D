@@ -1,27 +1,17 @@
 set(SCRIPTS_SRC
-    always.h
-    bool.h
-    combatsound.h
     CustomEvents.h
     DLLmain.cpp
     DPrint.cpp
     DPrint.h
     DrMobius.cpp
-    gameobjobserver.h
-    scriptevents.h
     ScriptFactory.cpp
     ScriptFactory.h
     ScriptNode.h
     ScriptRegistrant.h
     ScriptRegistrar.cpp
     ScriptRegistrar.h
-    slist.h
     strtrim.cpp
     strtrim.h
-    vector.h
-    vector3.h
-    visualc.h
-    wwmath.h
     Test_BMG.cpp
     Test_Cinematic.cpp
     Test_DAK.cpp
@@ -74,11 +64,8 @@ set(SCRIPTS_SRC
     MissionDemo.cpp
     MissionX0.cpp
     MissionX0.h
-    actionparams.h
-    scriptcommands.h
     scripts.cpp
     scripts.h
-    string_ids.h
 )
 
 # Targets to build.

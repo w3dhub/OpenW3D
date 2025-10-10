@@ -62,7 +62,7 @@
 #include "backgroundmgr.h"
 #include "WeatherMgr.h"
 #include "gameobjmanager.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "SoundEnvironment.h"
 #include "soldier.h"
 #include "editorbuild.h"

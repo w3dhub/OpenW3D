@@ -44,7 +44,7 @@
 #include "physdynamicsavesystem.h"
 #include "AudioSaveLoad.h"
 #include "matrix3d.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "combat.h"
 #include "backgroundmgr.h"
 #include "conversationmgr.h"

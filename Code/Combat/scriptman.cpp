@@ -34,7 +34,7 @@
  * Functions:                                                                                  * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "scripts.h"
+#include "scriptman.h"
 #include "debug.h"
 #include "scriptcommands.h"
 #include "physicalgameobj.h"

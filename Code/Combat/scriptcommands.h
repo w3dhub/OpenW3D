@@ -125,7 +125,7 @@ typedef struct {
 	unsigned int Version;
 
 	// Debug messages
-	void (*	Debug_Message )( char *format, ... );
+	void (*	Debug_Message )( const char *format, ... );
 
 	// Action Commands
 	void ( * Action_Reset )( GameObject * obj, float priority );
@@ -321,14 +321,14 @@ typedef struct {
 	unsigned int (* Get_Sync_Time)( void );
 
 	// Objectives
-	void	(* Add_Objective)( int id, int type, int status, int short_description_id, char * description_sound_filename/*  = NULL */, int long_description_id/* = 0 */ );
+	void	(* Add_Objective)( int id, int type, int status, int short_description_id, const char* description_sound_filename/*  = NULL */, int long_description_id/* = 0 */ );
 	void	(* Remove_Objective)( int id );
 	void	(* Set_Objective_Status)( int id, int status );
 	void	(* Change_Objective_Type)( int id, int type );
 	void	(* Set_Objective_Radar_Blip)( int id, const Vector3 & position );
 	void	(* Set_Objective_Radar_Blip_Object)( int id, ScriptableGameObj * unit );
 	void	(* Set_Objective_HUD_Info)( int id, float priority, const char * texture_name, int message_id );
-	void	(* Set_Objective_HUD_Info_Position)( int id, float priority, const char * texture_name, int message_id, const Vector3 & position );
+	void	(* Set_Objective_HUD_Info_Position)( int id, float priority, const char* texture_name, int message_id, const Vector3 & position );
 
 	// Camaera Shakes
 	void	(* Shake_Camera)( const Vector3 & pos, float radius /* = 25 */, float intensity /*  = 0.25f */, float duration /*  = 1.5f */ );

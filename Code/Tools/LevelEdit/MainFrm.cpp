@@ -85,7 +85,7 @@
 #include "export.h"
 #include "timemgr.h"
 #include "scriptmgr.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "gameobjmanager.h"
 #include "nodemgr.h"
 #include "editorsaveload.h"

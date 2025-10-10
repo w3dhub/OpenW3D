@@ -42,7 +42,7 @@
 #include "persistfactory.h"
 #include "debug.h"
 #include "combat.h"
-#include "scripts.h"
+#include "scriptman.h"
 #include "soldier.h"
 #include "building.h"
 #include "wwphysids.h"

@@ -44,7 +44,7 @@
 #include "combat.h"
 #include "ccamera.h"
 #include "gameobjmanager.h"		// hack???
-#include "scripts.h"
+#include "scriptman.h"
 #include "hanim.h"
 #include "slist.h"
 #include "vehicle.h"
