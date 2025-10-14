@@ -4561,7 +4561,7 @@ DECLARE_SCRIPT (M09_Innate_Activate, "Target0=0:int, Target1=0:int, Target2=0:in
 		{
 			already_entered = true;
 
-			for (int x = 0; x < 10; x++)
+			for (int x = 0; x < ARRAY_SIZE(target); x++)
 			{
 				if (target [x] != 0)
 				{
@@ -4604,7 +4604,7 @@ DECLARE_SCRIPT (M09_Camera_Activate, "Camera0=0:int, Camera1=0:int, Camera2=0:in
 		{
 			already_entered = true;
 
-			for (int x = 0; x < 10; x++)
+			for (int x = 0; x < ARRAY_SIZE(camera); x++)
 			{
 				if (camera [x] != 0)
 				{
