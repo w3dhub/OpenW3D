@@ -44,17 +44,8 @@
 #include "wwstring.h"
 #include "vector.h"
 #include "widestring.h"
-
-#if defined(_MSC_VER)
-#pragma warning(push, 3)
-#endif
-
 #include <vector>
 #include <map>
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 ////////////////////////////////////////////////////////////////
 //	Forward declarations

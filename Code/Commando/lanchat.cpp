@@ -31,8 +31,6 @@
 
 //-----------------------------------------------------------------------------
 #include "lanchat.h"
-
-#pragma warning(disable : 4201)
 #include "systimer.h"
 
 #include "wwdebug.h"

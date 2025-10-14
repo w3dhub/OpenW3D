@@ -93,16 +93,7 @@
 
 //#include "dlgmpingamechat.h"
 
-
-#if (_MSC_VER >= 1200)
-#pragma warning(push,1)
-#endif
-
 #include <sstream>
-
-#if (_MSC_VER >= 1200)
-#pragma warning(pop)
-#endif
 
 static bool profile_log_active;
 static StringClass* profile_log_names;

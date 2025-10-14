@@ -34,8 +34,6 @@
 *
 ******************************************************************************/
 
-#pragma warning (disable : 4530)
-
 #include "atlbase_compat.h"
 #include "WOLChatObserver.h"
 #include "WOLSession.h"

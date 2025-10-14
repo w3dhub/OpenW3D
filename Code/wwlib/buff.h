@@ -40,15 +40,6 @@
 #ifndef CCBUFF_H
 #define CCBUFF_H
 
-
-/*
-**	The "bool" integral type was defined by the C++ committee in
-**	November of '94. Until the compiler supports this, use the following
-**	definition.
-*/
-#include	"bool.h"
-
-
 /*
 **	A general purpose buffer pointer handler object. It holds not only the pointer to the
 **	buffer, but its size as well. By using this class instead of separate pointer and size

@@ -47,16 +47,7 @@
 #include <wwlib/Notify.h>
 #include <wwlib/CallbackHook.h>
 #include <wwlib/widestring.h>
-
-#if defined(_MSC_VER)
-#pragma warning(push, 3)
-#endif
-
 #include <vector>
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 class CallbackHook;
 

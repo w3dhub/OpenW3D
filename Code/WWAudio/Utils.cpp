@@ -34,8 +34,6 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#pragma warning (disable : 4514)
-
 #include "Utils.h"
 
 

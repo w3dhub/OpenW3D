@@ -841,12 +841,6 @@ void ConsoleModeClass::Apply_Attributes(void)
 	}
 }
 
-
-
-// unrecognized character escape sequence
-#pragma warning(disable : 4129)
-
-
 /***********************************************************************************************
  * ConsoleModeClass::Update_Profile -- Print the profile text                                  *
  *                                                                                             *

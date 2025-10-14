@@ -38,18 +38,7 @@
 #include "Notify.h"
 #include "win.h"
 #include <imm.h>
-
-#pragma warning(disable : 4514)
-
-#if defined(_MSC_VER)
-#pragma warning(push, 3)
-#endif
-
 #include <vector>
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 namespace IME {
 

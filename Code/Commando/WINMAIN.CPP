@@ -86,19 +86,9 @@
 #ifdef _DEBUG
 #include	<crtdbg.h>
 #endif //_DEBUG
-
-#if (_MSC_VER >= 1200)
-#pragma warning(push,1)
-#endif
-
 #include <iostream>
 #include "singletoninstancekeeper.h"
 #include "packetmgr.h"
-
-
-#if (_MSC_VER >= 1200)
-#pragma warning(pop)
-#endif
 
 //----------------------------------------------------------------------------
 //	Globals

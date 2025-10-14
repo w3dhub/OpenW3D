@@ -35,8 +35,6 @@
 #ifndef __WOLLADDER_H__
 #define __WOLLADDER_H__
 
-#pragma warning(disable : 4711)
-
 #include "RefCounted.h"
 #include "RefPtr.h"
 

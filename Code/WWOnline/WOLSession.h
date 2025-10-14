@@ -57,15 +57,7 @@ namespace WOL
 #include <wolapi/WOLAPI.h>
 }
 
-#if defined(_MSC_VER)
-#pragma warning(push, 3)
-#endif
-
 #include <vector>
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 class WaitCondition;
 

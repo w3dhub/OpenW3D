@@ -41,17 +41,7 @@
 #include "natter.h"
 #include <WWOnline/WOLSession.h>
 #include <wwdebug/wwdebug.h>
-
-#ifdef _MSC_VER
-#pragma warning (push,3)
-#endif
-
 #include "systimer.h"
-
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif
-
 
 /*
 ** Wait code for firewall/NAT detection.

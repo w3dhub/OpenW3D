@@ -30,9 +30,6 @@
 #ifndef PLAYERTYPE_H
 #define PLAYERTYPE_H
 
-// 4514: unreferenced inline function has been removed.
-#pragma warning(disable : 4514)
-
 //-----------------------------------------------------------------------------
 typedef enum {
 

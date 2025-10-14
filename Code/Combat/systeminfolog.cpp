@@ -26,8 +26,6 @@
 #include "objectives.h"
 #include "ffactory.h"
 #include "savegame.h"
-//#pragma warning (disable : 4201) // nonstandard extension - nameless struct
-//#include "systimer.h"
 #include "systimer.h"
 #include "specialbuilds.h"
 

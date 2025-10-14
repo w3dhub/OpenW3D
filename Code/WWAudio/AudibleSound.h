@@ -41,9 +41,7 @@
 #ifndef __SOUNDOBJ_H
 #define __SOUNDOBJ_H
 
-#pragma warning (push, 3)
 #include "mss.h"
-#pragma warning (pop)
 
 //#include <malloc.h>
 #include "vector3.h"

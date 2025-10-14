@@ -31,9 +31,6 @@
 #include "always.h"
 #include "bittype.h"
 
-
-#pragma warning(disable:4514)
-
 static const int MAX_BITS = 32;
 
 // 1400 is too big. Minimum MTU allowable on the internet is 576. IP Header is 20 bytes. UDP header is 8 bytes

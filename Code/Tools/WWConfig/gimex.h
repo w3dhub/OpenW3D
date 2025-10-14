@@ -197,11 +197,6 @@ typedef struct
 #endif
 #endif
 
-/* disable unreferenced parameters warnings */
-#if defined(_MSC_VER)
-#pragma warning(disable : 4100)
-#endif
-
 #if 0
 /****************************************************************************/
 /* Gimex Module Example Prototypes                                          */

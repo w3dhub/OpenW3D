@@ -64,10 +64,6 @@
 #include <new>
 #include <cstdint>
 
-#ifdef _MSC_VER
-#pragma warning (disable : 4702) // unreachable code, happens with some uses of these templates
-#endif
-
 class	NoInitClass;
 
 /**************************************************************************
@@ -80,10 +76,6 @@ class	NoInitClass;
 **	This efficiency can be implemented by deriving an integral vector template
 **	from this one in order to supply more efficient routines.
 */
-
-// Why, oh why does Visual C need this!!! It's bugged. <sigh>
-#pragma warning(disable : 4505)
-
 
 template<class T>
 class VectorClass
@@ -1087,9 +1079,5 @@ bool Pointer_Vector_Remove(T const * ptr, VectorClass<T *> & vec)
 	}
 	return(false);
 }
-
-#ifdef _MSC_VER
-#pragma warning (default : 4702) // unreachable code, happens with some uses of these templates
-#endif
 
 #endif
