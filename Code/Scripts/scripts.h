@@ -41,7 +41,7 @@
 #include "scriptcommands.h"
 #include "ScriptRegistrant.h"
 #include "string_ids.h"
-#include <stdint.h>
+#include <cstdint>
 
 class CombatSound;
 class ScriptFactory;

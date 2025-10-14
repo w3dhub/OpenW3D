@@ -45,7 +45,7 @@
 
 #include "wwstring.h"
 
-#include <stdint.h>
+#include <cstdint>
 
 // enable profiling by default in debug mode.
 #ifdef WWDEBUG

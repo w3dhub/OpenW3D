@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include <stdint.h>
+#include <cstdint>
 #include "Toolkit.h"
 
 DECLARE_SCRIPT(M00_Siege_Zone_RAD, "Start_Now=1:int, Receive_Type:int, Receive_Param_On=1:int, Receive_Param_Off=0:int, Wander_Distance=3.0:float, My_Group_ID=0:int, Attraction_Radius=20.0:float, Debug_Mode=0:int")

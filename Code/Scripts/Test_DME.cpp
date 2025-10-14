@@ -30,7 +30,7 @@
 *
 ******************************************************************************/
 
-#include <stdint.h>
+#include <cstdint>
 #include "Toolkit.h"
 
 #define DME_OCCUPIED	13000

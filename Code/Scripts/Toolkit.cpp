@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 
-#include <stdint.h>
+#include <cstdint>
 #include "Toolkit.h"
 #include "Mission1.h"
 

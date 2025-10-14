@@ -33,7 +33,7 @@
 *
 ******************************************************************************/
 
-#include <stdint.h>
+#include <cstdint>
 #include "scripts.h"
 #include "DPrint.h"
 
