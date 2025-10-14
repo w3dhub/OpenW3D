@@ -432,6 +432,9 @@ target_link_libraries(commando INTERFACE
     version
     wwcommon
     bandtest
+)
+
+set(W3D_GROUP_LIBS
     wwdebug
     wwlib
     wwbitpack
@@ -449,6 +452,12 @@ target_link_libraries(commando INTERFACE
     wwphys
     combat
 )
+
+if(CMAKE_LINK_GROUP_USING_RESCAN_SUPPORTED OR CMAKE_CXX_LINK_GROUP_USING_RESCAN_SUPPORTED)
+    target_link_libraries(commando INTERFACE "$<LINK_GROUP:RESCAN,${W3D_GROUP_LIBS}>")
+else()
+    target_link_libraries(commando INTERFACE ${W3D_GROUP_LIBS})
+endif()
 
 if(MSVC)
     target_link_options(commando INTERFACE "/NODEFAULTLIB:libci.lib")

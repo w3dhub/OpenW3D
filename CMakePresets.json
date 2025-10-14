@@ -24,7 +24,7 @@
             "hidden": false,
             "displayName": "Windows builds",
             "cacheVariables": {
-                "WARNING_FLAGS": "/W3"
+                "W3D_COMPILER_FLAGS": "/W3"
             }
         }
     ],

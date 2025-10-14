@@ -15,8 +15,13 @@ target_compile_definitions(wwcommon INTERFACE
     $<$<CONFIG:Debug>:WWDEBUG>
 )
 
+# Grab custom compiler flags from the environment if they aren't already defined in CMake options.
+if(NOT W3D_COMPILER_FLAGS)
+    set(W3D_COMPILER_FLAGS $ENV{W3D_COMPILER_FLAGS})
+endif()
+
 target_compile_options(wwcommon INTERFACE
-    ${WARNING_FLAGS}
+    ${W3D_COMPILER_FLAGS}
 )
 
 target_include_directories(wwcommon INTERFACE
