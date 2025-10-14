@@ -30,6 +30,7 @@
 *
 ******************************************************************************/
 
+#include <cstdint>
 #include "Toolkit.h"
 
 DECLARE_SCRIPT (DAK_TestScriptOne, "")

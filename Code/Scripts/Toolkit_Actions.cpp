@@ -35,6 +35,7 @@
 *
 ******************************************************************************/
 
+#include <cstdint>
 #include "Toolkit.h"
 
 /*Editor Script - M00_Action

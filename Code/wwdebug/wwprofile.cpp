@@ -60,7 +60,7 @@
 #include "ffactory.h"
 #include "simplevec.h"
 #include "cpudetect.h"
-#include <stdint.h>
+#include <cstdint>
 
 static SimpleDynVecClass<WWProfileHierachyNodeClass*> ProfileCollectVector;
 static double TotalFrameTimes;

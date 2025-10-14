@@ -35,6 +35,7 @@
 *
 ******************************************************************************/
 
+#include <cstdint>
 #include "Toolkit.h"
 
 // The Soldier Powerup Tables contains three columns.
