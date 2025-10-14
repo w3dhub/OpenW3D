@@ -32,8 +32,7 @@
 
 #include "miscutil.h"
 #include "wwdebug.h"
-#include "win.h"
-#include "mmsys.h"
+#include <windows.h>
 #include "gamespyadmin.h"
 #include "useroptions.h"
 

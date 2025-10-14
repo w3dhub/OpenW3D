@@ -38,10 +38,10 @@
 #define SYSTIMER_H
 
 #include "always.h"
-#ifdef _WINDOWS
+#ifdef _WIN32
 #include <windows.h>
+#include <mmsystem.h>
 #endif
-#include "mmsys.h"
 
 #define TIMEGETTIME SystemTime.Get
 

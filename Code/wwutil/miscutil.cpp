@@ -30,8 +30,7 @@
 
 #include "rawfile.h"
 #include "wwdebug.h"
-#include "win.h"
-#include "mmsys.h"
+#include <windows.h>
 #include "ffactory.h"
 
 //

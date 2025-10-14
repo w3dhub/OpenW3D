@@ -123,7 +123,6 @@ set(WWLIB_SRC
     simplevec.h
     slist.h
     slnode.h
-    stl.h
     straw.h
     systimer.h
     tagblock.h
