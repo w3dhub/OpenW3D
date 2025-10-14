@@ -57,7 +57,7 @@ class BuildInfoClass
 		/*
 		** Gets the 32 bit build number.
 		*/
-		static unsigned long Get_Build_Number(void);
+		static unsigned Get_Build_Number(void);
 
 		/*
 		** Gets the 32 bit build number as a human readable string.
@@ -75,14 +75,19 @@ class BuildInfoClass
 		static const char *Get_Build_Date_String(void);
 
 		/*
-		** Gets the initials of the person who built this executable.
-		*/
-		static const char *Get_Builder_Initials(void);
-
-		/*
 		** Get a composite build number string with the works.
 		*/
 		static const char *Get_Build_Version_String(void);
+
+		/*
+		** Get a git hash string.
+		*/
+		static const char *Get_Build_Commit_String(bool short_str = true);
+
+		/*
+		** Is build tree modified since commit?
+		*/
+		static bool Is_Build_Dirty(void);
 
 		/*
 		** Get build type.
@@ -99,14 +104,4 @@ class BuildInfoClass
 		** Lots of build info together.
 		*/
 		static const char *Composite_Build_Info(void);
-
-
-
-
-	private:
-		static char BuildNumber [64];
-		static char BuildDate   [64];
 };
-
-
-

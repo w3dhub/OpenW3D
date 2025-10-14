@@ -190,15 +190,12 @@ void ConsoleModeClass::Init(void)
 			/*
 			** Print up version info.
 			*/
-			DWORD version_major = 1;
-			DWORD version_minor = 0;
-			Get_Version_Number(&version_major, &version_minor);
 #ifdef FREEDEDICATEDSERVER
 			Print("Renegade Free Dedicated Server ");
 #else  //FREEDEDICATEDSERVER
 			Print("Renegade ");
 #endif //FREEDEDICATEDSERVER
-			Print("v%d.%.3d %s-%s %s\n", (version_major >> 16), (version_major & 0xFFFF), BuildInfoClass::Get_Builder_Initials(), BuildInfoClass::Get_Build_Number_String(), BuildInfoClass::Get_Build_Date_String());
+			Print("v%s %s-%s %s\n", BuildInfoClass::Get_Build_Version_String(), BuildInfoClass::Get_Build_Commit_String(), BuildInfoClass::Get_Build_Number_String(), BuildInfoClass::Get_Build_Date_String());
 			Print("Console mode active\n");
 
 			LastKeypressTime = 0;
