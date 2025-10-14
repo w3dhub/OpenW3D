@@ -271,12 +271,7 @@ set(COMBAT_SRC
 add_library(combat STATIC)
 
 target_link_libraries(combat PRIVATE
-    ww3d2
-    wwaudio
     wwcommon
-    wwmath
-    wwphys
-    wwutil
     dinput8
     dxguid
 )

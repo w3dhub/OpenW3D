@@ -181,10 +181,6 @@ target_include_directories(w3dview PRIVATE
     ../..
 )
 
-target_compile_options(w3dview PRIVATE
-    ${WARNING_FLAGS}
-)
-
 target_link_libraries(w3dview PRIVATE
     d3d9lib
     version
