@@ -40,18 +40,8 @@
 #include <mbctype.h>
 #include <mbstring.h>
 
-#if defined(_MSC_VER)
-#pragma warning(push, 3)
-#endif
-
 #include <algorithm>
 #include <memory>
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
-
-#pragma comment(lib, "imm32.lib")
 
 namespace IME {
 

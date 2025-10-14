@@ -49,11 +49,6 @@
 **	4069, 4200, 4237, 4103, 4001, 4035, 4164. Makes you wonder, eh?
 */
 
-// When including windows, lets just bump the warning level back to 3...
-#if (_MSC_VER >= 1200)
-#pragma warning(push, 3)
-#endif
-
 #ifdef _WIN32
 #include	<windows.h>
 #endif
@@ -61,10 +56,6 @@
 //#include	<windowsx.h>
 //#include	<winnt.h>
 //#include	<winuser.h>
-
-#if (_MSC_VER >= 1200)
-#pragma warning(pop)
-#endif
 
 #ifdef _WIN32
 extern HINSTANCE	ProgramInstance;

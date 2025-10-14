@@ -64,8 +64,6 @@ set(WWLIB_SRC
     base64.h
     binheap.h
     bittype.h
-    bool.h
-    borlandc.h
     bound.h
     bsearch.h
     buff.h
@@ -139,7 +137,6 @@ set(WWLIB_SRC
     uarray.h
     vector.h
     verchk.h
-    visualc.h
     widestring.h
     win.h
     WWCOMUtil.h

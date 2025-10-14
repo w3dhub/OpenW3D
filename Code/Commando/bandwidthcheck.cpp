@@ -39,12 +39,6 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-
-/*
-** Disable warning about exception handling not being enabled.
-*/
-#pragma warning(disable : 4530)
-
 #include	"always.h"
 #include	<windows.h>
 #include "systimer.h"

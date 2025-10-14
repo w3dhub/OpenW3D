@@ -42,9 +42,7 @@
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#pragma warning(disable:4201)
 #include <mmsystem.h>
-#pragma warning(default:4201)
 #include <conio.h>
 #endif
 
@@ -58,9 +56,6 @@
 #include "../Combat/specialbuilds.h"
 
 #include <algorithm>
-
-// warning C4711: function 'xxx' selected for automatic inline expansion
-#pragma warning(disable:4711)
 
 /***********************************************************************************************
 ** Data structures

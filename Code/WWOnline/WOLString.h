@@ -39,9 +39,6 @@
 
 namespace WWOnline {
 
-// warning C4514: unreferenced inline function has been removed
-#pragma warning(disable : 4514)
-
 typedef const wchar_t* (*WOLStringLookupFunc)(const char* token);
 
 class WOLString

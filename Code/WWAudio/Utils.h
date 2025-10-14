@@ -38,9 +38,7 @@
 #ifndef __UTILS_H
 #define __UTILS_H
 
-#pragma warning (push, 3)
 #include "mss.h"
-#pragma warning (pop)
 
 /////////////////////////////////////////////////////////////////////////////
 //

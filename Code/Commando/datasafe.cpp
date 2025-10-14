@@ -55,19 +55,6 @@
 #include "string_ids.h"
 #include "translatedb.h"
 
-
-/*
-** Unreferenced local variable.
-*/
-#ifndef WWDEBUG
-#pragma warning(disable : 4101)
-#endif
-
-/*
-** warning C4073: initializers put in library initialization area
-*/
-//#pragma warning(disable : 4073)
-
 /*
 ** Put this data in the lib init area so it gets initialised first.
 */

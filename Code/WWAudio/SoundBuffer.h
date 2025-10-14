@@ -42,9 +42,7 @@
 #ifndef __SOUNDBUFFER_H
 #define __SOUNDBUFFER_H
 
-#pragma warning (push, 3)
 #include "mss.h"
-#pragma warning (pop)
 
 #include "refcount.h"
 

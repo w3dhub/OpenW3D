@@ -43,16 +43,7 @@
 #include <wwlib/Notify.h>
 #include <wwlib/Signaler.h>
 #include <wwlib/widestring.h>
-
-#if defined(_MSC_VER)
-#pragma warning(push, 3)
-#endif
-
 #include <vector>
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif
 
 class DlgPasswordPrompt;
 class WOLBuddyMgr;

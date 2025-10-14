@@ -40,9 +40,6 @@
 #ifndef ALWAYS_H
 #define ALWAYS_H
 
-// Disable warning about exception handling not being enabled. It's used as part of STL - in a part of STL we don't use.
-#pragma warning(disable : 4530)
-
 /*
 ** Define for debug memory allocation to include __FILE__ and __LINE__ for every memory allocation.
 ** This helps find leaks.
@@ -74,17 +71,6 @@ void operator delete(void *p, size_t size) noexcept;
 
 #endif	//STEVES_NEW_CATCHER
 #endif	//_DEBUG
-
-
-// Jani: Intel's C++ compiler issues too many warnings in WW libraries when using warning level 4
-#if defined (__ICL)    // Detect Intel compiler
-#pragma warning (3)
-#pragma warning ( disable: 981 ) // parameters defined in unspecified order
-#pragma warning ( disable: 279 ) // controlling expressaion is constant
-#pragma warning ( disable: 271 ) // trailing comma is nonstandard
-#pragma warning ( disable: 171 ) // invalid type conversion
-#pragma warning ( disable: 1 ) // last line of file ends without a newline
-#endif
 
 // Jani: MSVC doesn't necessarily inline code with inline keyword. Using __forceinline results better inlining
 // and also prints out a warning if inlining wasn't possible. __forceinline is MSVC specific.
@@ -136,18 +122,12 @@ template <class T> T max(T a,T b)
 	}
 }
 
-
-/*
-**	This includes the minimum set of compiler defines and pragmas in order to bring the
-**	various compilers to a common behavior such that the C&C engine will compile without
-**	error or warning.
-*/
-#if defined(__BORLANDC__)
-#include	"borlandc.h"
-#endif
-
 #if defined(_MSC_VER)
-#include	"visualc.h"
+/*
+**	Turn off some unneeded warnings.
+*/
+// "conversion from 'double' to 'float', possible loss of data" Yea, so what?
+#pragma warning(disable : 4244)
 #endif
 
 #ifndef	NULL

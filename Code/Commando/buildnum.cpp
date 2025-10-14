@@ -49,11 +49,6 @@
 char BuildInfoClass::BuildNumber [64] = {"Insert1Build2Number3Here4   xxxx                               "};
 char BuildInfoClass::BuildDate   [64] = {"Insert1Build2Date3Here4     xxxx                               "};
 
-/*
-** Unreachable code warning.
-*/
-#pragma warning(disable : 4702)
-
 /***********************************************************************************************
  * BuildInfoClass::Get_Build_Number -- Gets the 32 bit build number.                           *
  *                                                                                             *

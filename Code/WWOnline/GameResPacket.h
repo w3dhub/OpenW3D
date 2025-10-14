@@ -37,8 +37,6 @@
 #ifndef __GAMERESPACKET_H__
 #define __GAMERESPACKET_H__
 
-#pragma warning(disable : 4711)
-
 #include "GameResField.h"
 
 namespace WWOnline {

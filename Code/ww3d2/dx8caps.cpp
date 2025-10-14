@@ -40,7 +40,6 @@
 #include "dx8caps.h"
 #include "dx8wrapper.h"
 #include "formconv.h"
-#pragma warning (disable : 4201)		// nonstandard extension - nameless struct
 #include <windows.h>
 #include <mmsystem.h>
 

@@ -48,10 +48,7 @@
 
 #ifndef HASHLIST_H
 #define HASHLIST_H  
-
-#pragma warning (push)
-#pragma warning (disable: 4786)
-																  
+									  
 #include "listnode.h"
 #include <memory.h>
 
@@ -273,9 +270,7 @@ class HashNodeClass : public DataNode<HashNodeClass<T,U> *>, public U
 // (I could not figure out how) to tell HashNodeClass to be a friend 
 // to all creations of HashListClass<T,N> since HashNodeClass
 // does not need the NumHashValues parameter.
-#pragma warning(push)
-#pragma warning(disable : 4786) // identifier was truncated to 255 chars in debug information.
- 
+
 template<class T, class U>
 class HashNodeFriendClass
 {		  
@@ -298,8 +293,6 @@ class HashNodeFriendClass
 		
 		void Unlink(HashNodeClass<T,U> *ptr)  {ptr->Unlink();}
 };
-
-#pragma warning(pop)
 
 // The sole purpose of using NumHashValues as a template is to make it easier to
 // view in a debugger.  If it were an allocated array of pointers, the debugger does
@@ -627,26 +620,7 @@ void HashListClass<T, U, NumHashValues>::Move_To(HashListClass<T,U> *newlist)
 		}
 		node = next;
 	}
-}	
-
-#pragma warning (pop)
+}
 
 #endif // HASHLIST_H
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  

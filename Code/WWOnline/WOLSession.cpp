@@ -48,15 +48,7 @@
 #include <wwdebug/wwdebug.h>
 #include <stdlib.h>
 
-#ifdef _MSC_VER
-#pragma warning (push,3)
-#endif
-
 #include "systimer.h"
-
-#ifdef _MSC_VER
-#pragma warning (pop)
-#endif
 
 namespace WWOnline {
 

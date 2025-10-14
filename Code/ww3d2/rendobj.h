@@ -78,9 +78,6 @@ class RenderObjProxyClass;
 class StringClass;
 template<class T> class DynamicVectorClass;
 
-// "unreferenced formal parameter" 
-#pragma warning(disable : 4100)
-
 //////////////////////////////////////////////////////////////////////////////////
 // RenderObjClass
 // This is the interface for all objects that get rendered by WW3D.

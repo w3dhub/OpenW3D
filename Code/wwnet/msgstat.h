@@ -31,8 +31,6 @@
 #ifndef MSGSTAT_H
 #define MSGSTAT_H
 
-#pragma warning(disable:4514)
-
 #include "bittype.h"
 
 #ifndef NULL

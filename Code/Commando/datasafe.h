@@ -174,12 +174,7 @@
 #ifndef DEBUG
 #undef ds_assert
 #define ds_assert(x)
-#pragma warning(disable : 4189)
 #endif //DEBUG
-
-#ifndef WWDEBUG
-#pragma warning(disable : 4101)
-#endif
 
 
 /*
@@ -266,14 +261,6 @@
 #if TICKS_PER_SECOND != 1000
 #error Code assumes TICKS_PER_SECOND == 1000
 #endif
-
-
-/*
-** We want to inline functions within inline functions to make the code harder to hack by having multiple copies of it.
-*/
-#pragma inline_recursion(on)
-#pragma inline_depth(4)
-#pragma warning(disable : 4714)
 
 /*
 ** Data safe handle.
@@ -641,14 +628,14 @@ class GenericDataSafeClass
 		class ThreadLockClass
 		{
 			public:
-#ifdef WWDEBUG
 				__forceinline ThreadLockClass(void) {
+#ifdef WWDEBUG
 					if (GenericDataSafeClass::PreferredThread != GetCurrentThreadId()) {
 						WWDEBUG_SAY(("DATASAFE.H - PreferredThread = %08X, GetCurrentThreadId() == %08X\n", GenericDataSafeClass::PreferredThread, GetCurrentThreadId()));
 					}
 					ds_assert(GenericDataSafeClass::PreferredThread == GetCurrentThreadId());
-				};
 #endif //WWDEBUG
+				};
 		};
 
 		static unsigned int PreferredThread;
@@ -1904,9 +1891,6 @@ inline SafeDataClass<T>::SafeDataClass(T data)
  * HISTORY:                                                                                    *
  *   7/3/2001 11:50AM ST : Created                                                             *
  *=============================================================================================*/
-//warning C4700: local variable 'data' used without having been initialized
-//#pragma warning(push, 0)
-//#pragma warning(disable : 4700)
 template <class T>
 SafeDataClass<T>::SafeDataClass(void)
 {
@@ -1931,7 +1915,6 @@ SafeDataClass<T>::SafeDataClass(void)
 #endif //WWDEBUG
 
 }
-//#pragma warning(pop)
 
 
 /***********************************************************************************************
@@ -4444,11 +4427,6 @@ inline bool SafeDataClass<T>::Commit(T *data_ptr) const
 	}
 	return(false);
 }
-
-
-
-#pragma warning(default : 4189)
-#pragma warning(default : 4101)
 
 
 #endif //_DATASAFE_H

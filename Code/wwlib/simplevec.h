@@ -58,12 +58,6 @@
 #include <assert.h>
 #include <string.h>		// for memmove
 
-
-#if (_MSC_VER >= 1200)
-#pragma warning (push)
-#pragma warning (disable:4702)	// disabling the "unreachable code" warning.
-#endif
-
 /** 
 ** SimpleVecClass
 ** This is a template similar to VectorClass (found in Vector.h) except that it is designed
@@ -637,9 +631,4 @@ inline int SimpleDynVecClass<T>::Find_Index(T const & object)
 	return(-1);
 }
 
-#if (_MSC_VER >= 1200)
-#pragma warning (pop)
-#endif
-
 #endif // SIMPLEVEC_H
-
