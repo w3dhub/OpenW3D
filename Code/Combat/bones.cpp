@@ -38,7 +38,7 @@
 #include "debug.h"
 #include "assets.h"
 #include "wwstring.h"
-#include "stl.h"
+#include <map>
 
 
 static bool _BonesMangerInitted = false;
