@@ -92,6 +92,7 @@
 #include <wwui/dialogmgr.h>
 #include "ffactory.h"
 #include "realcrc.h"
+#include <algorithm>
 
 extern bool g_is_loading;
 
@@ -479,7 +480,7 @@ int cNetwork::Get_Data_Files_CRC(void)
 				file->Open();
 				while ( size > 0 ) {
 					unsigned char buffer[ 4096 ];
-					int amount = min( (int)size, (int)sizeof(buffer) );
+					int amount = std::min( (int)size, (int)sizeof(buffer) );
 					amount = file->Read( buffer, amount );
 					crc = CRC_Memory( buffer, amount, crc );
 					size -= amount;

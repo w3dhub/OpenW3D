@@ -68,6 +68,7 @@
 #include "systimer.h"
 
 #include <dinput.h>
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -1141,7 +1142,7 @@ DialogBaseClass::Find_Next_Control
 	//
 	//	Find the index of the control
 	//
-	int focus_index		= max (control_list.ID (control), 0);
+	int focus_index		= std::max (control_list.ID (control), 0);
 	int new_focus_index	= -1;
 	int inc					= (direction < 0) ? -1 : 1;
 
@@ -1210,7 +1211,7 @@ DialogBaseClass::Find_Next_Group_Control
 	//
 	//	Find the index of the control
 	//
-	int curr_index		= max (control_list.ID (control), 0);
+	int curr_index		= std::max (control_list.ID (control), 0);
 	int new_index		= -1;
 
 	if (direction < 0) {

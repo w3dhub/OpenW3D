@@ -43,6 +43,7 @@
 #include "dialogbase.h"
 #include "stylemgr.h"
 #include "texture.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -675,7 +676,7 @@ ScrollBarCtrlClass::Set_Range (int range_min, int range_max)
 	}*/
 
 	MinPos = range_min;
-	MaxPos = max (range_min, range_max);
+	MaxPos = std::max (range_min, range_max);
 	Update_Thumb_Rect ();
 	Set_Dirty ();
 	return ;

@@ -40,6 +40,7 @@
 #include "wwprofile.h"
 #include "wwmemlog.h"
 #include "dx8wrapper.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -358,7 +359,7 @@ Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 		//	Handle line wrapping
 		//
 		if (is_wrapped) {
-			max_x_pos = max (max_x_pos, x_pos);
+			max_x_pos = std::max (max_x_pos, x_pos);
 			x_pos = 0;
 			y_pos += Font->Get_Char_Height ();
 
@@ -434,7 +435,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row
 		//	Handle line wrapping
 		//
 		if (is_wrapped) {
-			max_x_pos = max (max_x_pos, x_pos);
+			max_x_pos = std::max (max_x_pos, x_pos);
 			x_pos = 0;
 			y_pos += Font->Get_Char_Height ();
 			row_counter ++;
@@ -449,7 +450,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row
 	//	Build a Vector2 out of our extents
 	//
 	Vector2 extent;
-	extent.X = max (max_x_pos, x_pos);
+	extent.X = std::max (max_x_pos, x_pos);
 	extent.Y = y_pos;
 
 	//
@@ -683,10 +684,10 @@ Render2DSentenceClass::Draw_Sentence (uint32 color)
 				//	Clip the polygons to the specified area
 				//
 				RectClass clipped_rect;
-				clipped_rect.Left		= max (screen_rect.Left, ClipRect.Left);
-				clipped_rect.Right	= min (screen_rect.Right, ClipRect.Right);
-				clipped_rect.Top		= max (screen_rect.Top, ClipRect.Top);
-				clipped_rect.Bottom	= min (screen_rect.Bottom, ClipRect.Bottom);
+				clipped_rect.Left		= std::max (screen_rect.Left, ClipRect.Left);
+				clipped_rect.Right	= std::min (screen_rect.Right, ClipRect.Right);
+				clipped_rect.Top		= std::max (screen_rect.Top, ClipRect.Top);
+				clipped_rect.Bottom	= std::min (screen_rect.Bottom, ClipRect.Bottom);
 
 				//
 				//	Clip the texture to the specified area
@@ -819,7 +820,7 @@ Render2DSentenceClass::Allocate_New_Surface (const wchar_t *text)
 			// the remaining text?
 			//
 			int texture_count	= row_count / rows_per_texture;
-			texture_count		= max (texture_count, 1);
+			texture_count		= std::max (texture_count, 1);
 
 			//
 			//	Is this the best usage of texture memory we've found yet?
@@ -835,7 +836,7 @@ Render2DSentenceClass::Allocate_New_Surface (const wchar_t *text)
 	//
 	//	Use whichever is larger, the hint or the calculated size
 	//
-	CurrTextureSize = max (TextureSizeHint, CurrTextureSize);
+	CurrTextureSize = std::max (TextureSizeHint, CurrTextureSize);
 
 	//
 	//	Release our extra hold on the old surface
@@ -1524,8 +1525,8 @@ FontCharsClass::Grow_Unicode_Array (wchar_t ch)
 		return ;
 	}
 
-	uint16 first_index	= min( FirstUnicodeChar, ch );
-	uint16 last_index		= max( LastUnicodeChar, ch );
+	uint16 first_index	= std::min( FirstUnicodeChar, ch );
+	uint16 last_index		= std::max( LastUnicodeChar, ch );
 	uint16 count			= (last_index - first_index) + 1;
 
 	//

@@ -54,6 +54,7 @@
 #include "devoptions.h"
 #include "string_ids.h"
 #include "translatedb.h"
+#include <algorithm>
 
 /*
 ** Put this data in the lib init area so it gets initialised first.
@@ -1034,7 +1035,7 @@ void GenericDataSafeClass::Shuffle(bool forced)
 		for (i=0 ; i<NumLists ; i++) {
 			ds_assert(Safe[i] != NULL);
 			if (Safe[i] != NULL && Safe[i]->EntryCount > 1) {
-				for (j=0 ; j < max(Safe[i]->EntryCount / 3, 1) ; j++) {
+				for (j=0 ; j < std::max(Safe[i]->EntryCount / 3, 1) ; j++) {
 
 					/*
 					** This code has been replaced by the simplified version below to avoid a compiler bug in release mode.

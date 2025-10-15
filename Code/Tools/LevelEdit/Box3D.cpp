@@ -69,6 +69,7 @@
 #include "leveleditdoc.h"
 #include "cameramgr.h"
 #include "camera.h"
+#include <algorithm>
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -491,12 +492,12 @@ Box3DClass::Make_Box
 	// and upper right points of the box
 	Vector3 bottom_left;
 	Vector3 upper_right;
-	bottom_left.X = max (obj_point1.X, obj_point2.X);
-	bottom_left.Y = min (obj_point1.Y, obj_point2.Y);
-	bottom_left.Z = min (obj_point1.Z, obj_point2.Z);
-	upper_right.X = min (obj_point1.X, obj_point2.X);
-	upper_right.Y = max (obj_point1.Y, obj_point2.Y);
-	upper_right.Z = max (obj_point1.Z, obj_point2.Z);
+	bottom_left.X = std::max (obj_point1.X, obj_point2.X);
+	bottom_left.Y = std::min (obj_point1.Y, obj_point2.Y);
+	bottom_left.Z = std::min (obj_point1.Z, obj_point2.Z);
+	upper_right.X = std::min (obj_point1.X, obj_point2.X);
+	upper_right.Y = std::max (obj_point1.Y, obj_point2.Y);
+	upper_right.Z = std::max (obj_point1.Z, obj_point2.Z);
 
 	// Given the bottom left and upper right coords, determine
 	// what each of the 8 verticies are...
@@ -758,7 +759,7 @@ Box3DClass::Drag_VertexZ (int vertex_index, POINT point, const Vector3 &locked_v
 
 	// If we calculated a valid fraction, then use it
 	// to determine the new vertex position.
-	if (min (deltax, deltay) != 0.0F) {
+	if (std::min (deltax, deltay) != 0.0F) {
 
 		// Now calcuate the 2nd point based on this fraction.
 		// To do this we use the parameterized form of a line equation:

@@ -30,6 +30,7 @@
 #include "Utils.h"
 #include "preset.h"
 #include "persistfactory.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -308,7 +309,7 @@ PresetListDialogClass::OnRemove (void)
 			if (index >= (count-1)) {
 				index --;
 			}
-			index = max (index, 0);
+			index = std::max (index, 0);
 			m_PresetListCtrl.SetItemState (index, LVNI_SELECTED, LVNI_SELECTED);
 		}
 

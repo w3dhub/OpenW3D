@@ -37,6 +37,7 @@
 #include "vissectorsampler.h"
 #include "visgenprogress.h"
 #include "collisiongroups.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -195,7 +196,7 @@ GeneratingVisDialogClass::Build_Node_List (NODE_LIST &node_list)
 
 		int starting_node	= (int)::floor (nodes_per_processor * (float)m_ProcessorIndex);
 		int ending_node	= (int)::ceil (nodes_per_processor * (float)(m_ProcessorIndex+1));
-		ending_node = min (ending_node, nodes);
+		ending_node = std::min (ending_node, nodes);
 
 		//
 		//	Copy the nodes from the total list into a temporary list

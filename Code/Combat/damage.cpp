@@ -57,6 +57,7 @@
 #include "bitpackids.h"
 #include "gametype.h"
 #include "csdamageevent.h"
+#include <algorithm>
 
 #ifdef WWDEBUG
 bool	DefenseObjectClass::OneShotKills	= false;
@@ -940,7 +941,7 @@ float	DefenseObjectClass::Do_Damage( const OffenseObjectClass & offense, float s
 		//	Don't allow this object to die (if necessary)
 		//
 		if ( CanObjectDie == false ) {
-			Health = max ( (float)Health, 1.0F );
+			Health = std::max ( (float)Health, 1.0F );
 		}
 	}
 

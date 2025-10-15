@@ -41,6 +41,7 @@
 #include "crc.h"
 #include "ffactory.h"
 #include "wwfile.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -194,7 +195,7 @@ ModPackageClass::Compute_CRC (void)
 				//
 				//	Read the data from the source file
 				//
-				int bytes			= min (file_size, (int)sizeof (buffer));
+				int bytes			= std::min (file_size, (int)sizeof (buffer));
 				int copied_size	= file->Read (buffer, bytes);
 				file_size			-= copied_size;
 				if (copied_size <= 0) {

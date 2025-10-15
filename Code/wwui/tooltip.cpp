@@ -39,6 +39,7 @@
 #include "refcount.h"
 #include "font3d.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 ////////////////////////////////////////////////////////////////
 //
@@ -127,9 +128,9 @@ ToolTipClass::Create_Background_Renderer (void)
 	//	Make a hilight color by brightening the background color
 	//
 	Vector3 temp = BkColor * 2;
-	temp.X = min (255.0F, temp.X);
-	temp.Y = min (255.0F, temp.Y);
-	temp.Z = min (255.0F, temp.Z);
+	temp.X = std::min (255.0F, temp.X);
+	temp.Y = std::min (255.0F, temp.Y);
+	temp.Z = std::min (255.0F, temp.Z);
 
 	//
 	//	Make two int's representing the hilight and shadow colors

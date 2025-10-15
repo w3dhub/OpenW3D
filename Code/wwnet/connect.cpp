@@ -48,6 +48,7 @@
 #include "packetmgr.h"
 #include "BWBalance.h"
 #include <cstdio>
+#include <algorithm>
 
 #ifdef WWDEBUG
 #include "Combat/crandom.h"
@@ -2097,7 +2098,7 @@ void cConnection::Set_Bandwidth_Budget_Out(ULONG bw_budget)
 		if (Sock != INVALID_SOCKET) {
 			// make the buffers big enough for 3 seconds of data.
 			int new_buffer_size = (bw_budget / 8) * 3;
-			new_buffer_size = min(new_buffer_size, 250000);
+			new_buffer_size = std::min(new_buffer_size, 250000);
 			cNetUtil::Set_Socket_Buffer_Sizes(Sock, new_buffer_size);
 		}
 	}
@@ -2567,7 +2568,7 @@ bool cConnection::Is_Time_To_Resend_Packet_To_Remote_Host(const cPacket *packet,
 	//
 	// Max resend timeout of 3 secs.
 	//
-	total_timeout = min(total_timeout, 3000.0f);
+	total_timeout = std::min(total_timeout, 3000.0f);
 
 	if (ThisFrameTimeMs - packet->Get_Send_Time() >= (unsigned long)total_timeout) {
 		//WWDEBUG_SAY(("Time to resend packet %d, age = %d, timeout = %d, resend count = %d\n", packet->Get_Id(), (int)(ThisFrameTimeMs - packet->Get_Send_Time()), (int)total_timeout, packet->Get_Resend_Count()));

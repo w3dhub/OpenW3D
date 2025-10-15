@@ -44,6 +44,7 @@
 #include "dialogmgr.h"
 #include "stylemgr.h"
 #include "dialogbase.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -448,8 +449,8 @@ EditCtrlClass::On_Mouse_Move (const Vector2 &mouse_pos)
 			//	Calculate the new caret and hilight positions
 			//
 			Set_Caret_Pos (new_caret_pos);
-			HilightStartPos	= min (HilightAnchorPos, CaretPos);
-			HilightEndPos		= max (HilightAnchorPos, CaretPos);
+			HilightStartPos	= std::min (HilightAnchorPos, CaretPos);
+			HilightEndPos		= std::max (HilightAnchorPos, CaretPos);
 
 			//
 			//	Force a repaint
@@ -523,7 +524,7 @@ EditCtrlClass::Create_Caret_Renderer (void)
 	RectClass rect;
 	rect.Left	= int(ClientRect.Left + text_extent.X);
 	rect.Top		= int(ClientRect.Top + 1);
-	rect.Right	= int(rect.Left + max (space_extent, 1.0F));
+	rect.Right	= int(rect.Left + std::max (space_extent, 1.0F));
 	rect.Bottom	= int(ClientRect.Bottom - 1);
 
 	//
@@ -601,7 +602,7 @@ EditCtrlClass::Pos_From_Character (int char_index)
 	//
 	//	Ensure the character isn't scrolled off the screen
 	//
-	char_index = max (ScrollPos, char_index);
+	char_index = std::max (ScrollPos, char_index);
 
 	//
 	//	Get the width of the string up to this character index
@@ -616,7 +617,7 @@ EditCtrlClass::Pos_From_Character (int char_index)
 	//
 	//	Clip the position to the right side of the control
 	//
-	float position = min (ClientRect.Left + width, ClientRect.Right);
+	float position = std::min (ClientRect.Left + width, ClientRect.Right);
 	return position;
 }
 
@@ -771,7 +772,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 			if (DialogMgrClass::Get_VKey_State (VK_CONTROL) & VKEY_PRESSED) {
 				Set_Caret_Pos (Find_Word_Start (CaretPos, -1));
 			} else {
-				Set_Caret_Pos (max (0, CaretPos - 1));
+				Set_Caret_Pos (std::max (0, CaretPos - 1));
 			}
 			break;
 
@@ -783,7 +784,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 			if (DialogMgrClass::Get_VKey_State (VK_CONTROL) & VKEY_PRESSED) {
 				Set_Caret_Pos (Find_Word_Start (CaretPos, 1));
 			} else {
-				Set_Caret_Pos (min (Title.Get_Length (), CaretPos + 1));
+				Set_Caret_Pos (std::min (Title.Get_Length (), CaretPos + 1));
 			}
 			break;
 
@@ -1016,8 +1017,8 @@ void
 EditCtrlClass::Update_Hilight (int new_pos, int anchor_pos)
 {
 	HilightAnchorPos	= (HilightAnchorPos >= 0) ? HilightAnchorPos : anchor_pos;
-	HilightStartPos	= min (new_pos, HilightAnchorPos);
-	HilightEndPos		= max (new_pos, HilightAnchorPos);
+	HilightStartPos	= std::min (new_pos, HilightAnchorPos);
+	HilightEndPos		= std::max (new_pos, HilightAnchorPos);
 	return ;
 }
 
@@ -1114,8 +1115,8 @@ EditCtrlClass::Update_Scroll_Pos (void)
 	//
 	//	Adjust the scroll range to stay within our boundaries
 	//	
-	ScrollPos = min (ScrollPos, Title.Get_Length () - 1);
-	ScrollPos = max (ScrollPos, 0);
+	ScrollPos = std::min (ScrollPos, Title.Get_Length () - 1);
+	ScrollPos = std::max (ScrollPos, 0);
 
 	//
 	//	Repaint if necessary

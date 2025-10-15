@@ -50,6 +50,7 @@
 #include "definition.h"
 #include "definitionmgr.h"
 #include "definitionclassids.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -793,7 +794,7 @@ TranslateDBClass::Add_Category (TDBCategoryClass *new_category, bool assign_id)
 			uint32 new_id = 1;
 			for (int index = 0; index < m_CategoryList.Count (); index ++) {
 				uint32 curr_id = m_CategoryList[index]->Get_ID ();
-				new_id = max (curr_id + 1, new_id);
+				new_id = std::max (curr_id + 1, new_id);
 			}
 			new_category->Set_ID (new_id);
 		}

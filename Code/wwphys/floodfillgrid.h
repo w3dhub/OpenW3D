@@ -47,6 +47,7 @@
 #include "vector3.h"
 #include "floodfillbox.h"
 #include "wwdebug.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -163,10 +164,10 @@ FloodfillGridClass::Point_To_Cell (const Vector3 &pos, int *cell_x, int *cell_y)
 	//
 	//	Clamp the cells to the bounds
 	//
-	(*cell_x) = max ((*cell_x), 0);
-	(*cell_y) = max ((*cell_y), 0);
-	(*cell_x) = min ((*cell_x), m_CellsX - 1);
-	(*cell_y) = min ((*cell_y), m_CellsY - 1);
+	(*cell_x) = std::max ((*cell_x), 0);
+	(*cell_y) = std::max ((*cell_y), 0);
+	(*cell_x) = std::min ((*cell_x), m_CellsX - 1);
+	(*cell_y) = std::min ((*cell_y), m_CellsY - 1);
 	return;
 }
 

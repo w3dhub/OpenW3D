@@ -43,6 +43,7 @@
 #include "ini.h"
 #include "ffactory.h"
 #include "WWAudio.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -254,7 +255,7 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 			//
 			//	Remove bold from "small" fonts if they're scaled down
 			//
-			point_size = max (point_size, 8.0F);
+			point_size = std::max (point_size, 8.0F);
 			if (point_size < 10.0F && ScaleY < 1.0F) {
 				is_bold = false;
 			}
@@ -1043,14 +1044,14 @@ StyleMgrClass::Render_Glow
 	//	Figure out how many passes we should do to get the
 	// desired result
 	//
-	float max_radius	= max (radius_x, radius_y);
+	float max_radius	= std::max (radius_x, radius_y);
 	int pass_count		= 4;//max_radius / 3;
-	//pass_count			= min (pass_count, 5);
-	//pass_count			= max (pass_count, 3);
+	//pass_count			= std::min (pass_count, 5);
+	//pass_count			= std::max (pass_count, 3);
 
 	int step_count		= 7;//max_radius;
-	//step_count			= min (step_count, 10);
-	//step_count			= max (step_count, 4);
+	//step_count			= std::min (step_count, 10);
+	//step_count			= std::max (step_count, 4);
 	float angle_inc	= DEG_TO_RADF (360) / step_count;
 
 	float x_inc = radius_x / pass_count;

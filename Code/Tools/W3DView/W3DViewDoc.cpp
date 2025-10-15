@@ -60,6 +60,7 @@
 #include "mmsystem.h"
 #include "soundrobj.h"
 #include "dazzle.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -1212,9 +1213,9 @@ CW3DViewDoc::GenerateLOD
 				if (Is_Model_Part_of_LOD (pszItemName, pszLODBaseName, type)) {
 					lod_count ++;
 					if (type == TYPE_COMMANDO) {
-						iStartingIndex = min (iStartingIndex, ::atoi (&pszItemName[::lstrlen (pszItemName)-1]));
+						iStartingIndex = std::min (iStartingIndex, ::atoi (&pszItemName[::lstrlen (pszItemName)-1]));
 					} else {
-						starting_char = min (starting_char, (char)::toupper (pszItemName[::lstrlen (pszItemName)-1]));
+						starting_char = std::min (starting_char, (char)::toupper (pszItemName[::lstrlen (pszItemName)-1]));
 					}
 				}
 			}

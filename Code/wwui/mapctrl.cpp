@@ -46,6 +46,7 @@
 #include "dialogbase.h"
 #include "stylemgr.h"
 #include "ffactory.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -259,10 +260,10 @@ MapCtrlClass::Create_Control_Renderers (void)
 			//	Clip the rectangle as necessary
 			//
 			RectClass clipped_rect;
-			clipped_rect.Left		= max (screen_rect.Left, Rect.Left);
-			clipped_rect.Right	= min (screen_rect.Right, Rect.Right);
-			clipped_rect.Top		= max (screen_rect.Top, Rect.Top);
-			clipped_rect.Bottom	= min (screen_rect.Bottom, Rect.Bottom);
+			clipped_rect.Left		= std::max (screen_rect.Left, Rect.Left);
+			clipped_rect.Right	= std::min (screen_rect.Right, Rect.Right);
+			clipped_rect.Top		= std::max (screen_rect.Top, Rect.Top);
+			clipped_rect.Bottom	= std::min (screen_rect.Bottom, Rect.Bottom);
 
 			//
 			//	Clip the texture to the specified area
@@ -385,10 +386,10 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 			//
 			//	Clip the rectangle
 			//
-			cloud_rect.Left	= max (cloud_rect.Left, Rect.Left);
-			cloud_rect.Top		= max (cloud_rect.Top, Rect.Top);
-			cloud_rect.Right	= min (cloud_rect.Right, Rect.Right);
-			cloud_rect.Bottom	= min (cloud_rect.Bottom, Rect.Bottom);
+			cloud_rect.Left	= std::max (cloud_rect.Left, Rect.Left);
+			cloud_rect.Top		= std::max (cloud_rect.Top, Rect.Top);
+			cloud_rect.Right	= std::min (cloud_rect.Right, Rect.Right);
+			cloud_rect.Bottom	= std::min (cloud_rect.Bottom, Rect.Bottom);
 			
 			//
 			//	Don't render anything if this cell is completely clipped.

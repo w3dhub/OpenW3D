@@ -55,6 +55,7 @@
 #include "colorspace.h"
 #include "bound.h"
 #include <d3dx9.h>
+#include <algorithm>
 
 /***********************************************************************************************
  * PixelSize -- Helper Function to find the size in bytes of a pixel                           *
@@ -723,8 +724,8 @@ void SurfaceClass::Get_Pixel(Vector3 &rgb, int x,int y)
 	SurfaceDescription sd;
 	Get_Description(sd);
 
-	x = min(x,(int)sd.Width - 1);
-	y = min(y,(int)sd.Height - 1);
+	x = std::min(x,(int)sd.Width - 1);
+	y = std::min(y,(int)sd.Height - 1);
 
 	D3DLOCKED_RECT lock_rect;
 	::ZeroMemory(&lock_rect, sizeof(D3DLOCKED_RECT));

@@ -28,6 +28,7 @@
 #include "CameraMgr.h"
 #include "phys.h"
 #include "rendobj.h"
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -402,8 +403,8 @@ VisErrorReportDialogClass::OnMouseMove (UINT nFlags, CPoint point)
 {
 	if (m_bTrackingSel) {		 
 		 int new_pixel = point.x - m_GraphArea.left;
-		 new_pixel = max (new_pixel, 0);
-		 new_pixel = min<int> (new_pixel, m_GraphArea.right-1);
+		 new_pixel = std::max (new_pixel, 0);
+		 new_pixel = std::min<int> (new_pixel, m_GraphArea.right-1);
 		 m_Graph.Set_Selection (m_TrackPixel, new_pixel);
 		 Refresh_View ();
 		 On_Graph_Sel_Changed ();
@@ -464,7 +465,7 @@ VisErrorReportDialogClass::Add_Point (const VisSampleClass &point)
 {
 	int start		= 0;
 	int end			= m_PointList.Count ();
-	end				= max (end, 0);
+	end				= std::max (end, 0);
 	float fraction = point.Get_Biggest_Fraction ();
 
 	int index = end;
@@ -550,7 +551,7 @@ VisErrorReportDialogClass::Find_Value_Index (float fraction)
 
 	int start		= 0;
 	int end			= m_PointList.Count ();
-	end				= max (end, 0);
+	end				= std::max (end, 0);
 
 	int index = end;
 	while (end > start)
@@ -603,7 +604,7 @@ VisErrorReportDialogClass::On_Graph_Sel_Changed (void)
 	} else {
 		m_SelStartIndex	= 0;
 		m_SelEndIndex		= m_PointList.Count () - 1;
-		m_SelEndIndex		= max (m_SelEndIndex, 0);
+		m_SelEndIndex		= std::max (m_SelEndIndex, 0);
 	}
 
 	m_CurrentPoint = m_SelStartIndex - 1;
@@ -645,7 +646,7 @@ VisErrorReportDialogClass::OnPrevError (void)
 		m_CurrentPoint = m_SelEndIndex;
 	} else {
 		m_CurrentPoint --;
-		m_CurrentPoint = max (m_CurrentPoint, 0);
+		m_CurrentPoint = std::max (m_CurrentPoint, 0);
 	}
 	
 	//
@@ -680,7 +681,7 @@ VisErrorReportDialogClass::OnNextError (void)
 		m_CurrentPoint = m_SelStartIndex;
 	} else {
 		m_CurrentPoint ++;
-		m_CurrentPoint = min (m_CurrentPoint, m_PointList.Count () - 1);
+		m_CurrentPoint = std::min (m_CurrentPoint, m_PointList.Count () - 1);
 	}
 
 	//
@@ -714,7 +715,7 @@ VisErrorReportDialogClass::Update_Current_Point_Text (void)
 	//
 	//	Update the point-range static text control
 	//
-	int current_point = max ((m_CurrentPoint - m_SelStartIndex) + 1, 0);
+	int current_point = std::max ((m_CurrentPoint - m_SelStartIndex) + 1, 0);
 	CString message;
 	message.Format ("%d of %d", current_point, m_SelEndIndex - m_SelStartIndex);
 	SetDlgItemText (IDC_CURRENT_POINT, message);

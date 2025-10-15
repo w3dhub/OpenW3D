@@ -41,6 +41,7 @@
 #include <wwlib/realcrc.h>
 #include "modpackagemgr.h"
 #include <cstdio>
+#include <algorithm>
 
 using namespace WWOnline;
 
@@ -411,7 +412,7 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 	// Extract game title from topic
 	unsigned int titleLength = (topic[0] - 0x20);
 	WWASSERT(titleLength <= 32);
-	titleLength = min<unsigned int>(titleLength, 32);
+	titleLength = std::min<unsigned int>(titleLength, 32);
 	++topic;
 
 	strncpy(mTitle, topic, titleLength);
@@ -421,7 +422,7 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 
 	unsigned int mapLength = (topic[0] - 0x20);
 	WWASSERT(mapLength <= 16);
-	mapLength = min<unsigned int>(mapLength, 16);
+	mapLength = std::min<unsigned int>(mapLength, 16);
 	++topic;
 
 	if (!got_map_name) {
@@ -520,7 +521,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 		//-------------------------------------------------------------------------
 		// Encode topic
 		//-------------------------------------------------------------------------
-		unsigned int titleLength = min<unsigned int>(strlen(mTitle), 32);
+		unsigned int titleLength = std::min<unsigned int>(strlen(mTitle), 32);
 		titleLength += 0x20;
 
 		// WARNING: The channels topic field has a maximum size of 80 bytes.
@@ -533,7 +534,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 		//
 		// Only using 61 max right now. Room for a map name maybe? ST - 10/31/2002 2:55PM
 		//
-		unsigned int mapLength = min<unsigned int>(strlen(mMapName), 16);
+		unsigned int mapLength = std::min<unsigned int>(strlen(mMapName), 16);
 		mapLength += 0x20;
 
 		// WARNING: The channels topic field has a maximum size of 80 bytes.

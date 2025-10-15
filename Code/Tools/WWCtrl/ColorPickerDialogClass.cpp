@@ -24,6 +24,7 @@
 #include "ColorBar.H"
 #include "ColorPicker.H"
 #include "WWCtrl.H"
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -389,8 +390,8 @@ ColorPickerDialogClass::Update_Whiteness_Bar (void)
 	//
 	//	Given the current color, determine the 'whiteness' and update
 	//
-	float whiteness = min (m_CurrentRed, m_CurrentGreen);	
-	whiteness = min (whiteness, m_CurrentBlue);
+	float whiteness = std::min (m_CurrentRed, m_CurrentGreen);	
+	whiteness = std::min (whiteness, m_CurrentBlue);
 	float percent = whiteness / 255;
 	m_WhitenessColorBar->Set_Selection_Pos (whiteness);
 

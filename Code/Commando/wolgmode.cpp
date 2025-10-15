@@ -86,6 +86,7 @@
 #include "sctextobj.h"
 #include "mainloop.h"
 #include <cstdio>
+#include <algorithm>
 
 using namespace WWOnline;
 
@@ -928,17 +929,17 @@ void WolGameModeClass::Update_Channel_Settings(cGameData* theGame, const RefPtr<
 			// Get average FPS of game (Capped at 255 fps)
 			//---------------------------------------------------------------------------
 			unsigned long fps = TimeManager::Get_Average_Frame_Rate();
-			fps = min<unsigned long>(fps, 255);
+			fps = std::min<unsigned long>(fps, 255);
 
 			int numPlayers = theGame->Get_Current_Players();
 
 			int avgPing = cPlayerManager::Get_Average_Ping();
-			avgPing = min<int>(avgPing, UCHAR_MAX);
+			avgPing = std::min<int>(avgPing, UCHAR_MAX);
 
 			unsigned short avgPoints = cPlayerManager::Get_Average_WOL_Points();
 
 			int avgPlayed = cPlayerManager::Get_Average_Games_Played();
-			avgPlayed = min<int>(avgPlayed, USHRT_MAX);
+			avgPlayed = std::min<int>(avgPlayed, USHRT_MAX);
 
 			// Quickmatch settings format is: |fps,mode,avg_ping,avg_rank,num_players
 			const char* topic = channel->GetTopic();

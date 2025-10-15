@@ -48,6 +48,7 @@
 #include "VisPointNode.h"
 #include "nodemgr.h"
 #include "staticphys.h"
+#include <algorithm>
 
 
 
@@ -110,7 +111,7 @@ VisPointGeneratorClass::VisPointGeneratorClass (float granularity)
 	//
 	float y_dim = znear * ::tan (hfov / 2);
 	float z_dim = znear * ::tan (vfov / 2);
-	float max_dim = max (y_dim, z_dim);
+	float max_dim = std::max (y_dim, z_dim);
 	max_dim += 0.001F;
 	
 	m_ViewPlaneExtent.Set (max_dim, max_dim, max_dim);
@@ -252,8 +253,7 @@ VisPointGeneratorClass::Determine_Granularity (MeshClass &mesh)
 			//
 			//	Ensure the bias is inside an exceptable range
 			//
-			m_Granularity = max (m_Granularity, 0.1F);
-			m_Granularity = min (m_Granularity, 100.0F);
+			m_Granularity = std::clamp (m_Granularity, 0.1F, 100.0F);
 		}
 	}
 
@@ -751,12 +751,6 @@ VisPointGeneratorClass::Submit_Point
 	grid_pos.X = WWMath::Clamp (grid_pos.X, 0, (float)(m_Grid.Get_Cells_X () - 1));
 	grid_pos.Y = WWMath::Clamp (grid_pos.Y, 0, (float)(m_Grid.Get_Cells_Y () - 1));
 	grid_pos.Z = WWMath::Clamp (grid_pos.Z, 0, (float)(m_Grid.Get_Cells_Z () - 1));
-	/*grid_pos.X = max (0.0F, grid_pos.X);
-	grid_pos.Y = max (0.0F, grid_pos.Y);
-	grid_pos.Z = max (0.0F, grid_pos.Z);
-	grid_pos.X = min (0.0F, grid_pos.X);
-	grid_pos.Y = min (0.0F, grid_pos.Y);
-	grid_pos.Z = min (0.0F, grid_pos.Z);*/
 
 	float half_gran = m_Granularity / 2;
 	Vector3 cell_center ((grid_pos.X * m_Granularity) + half_gran,

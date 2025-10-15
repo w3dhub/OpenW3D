@@ -38,6 +38,7 @@
 #include "PathfindSector.h"
 #include "PathfindPortal.h"
 #include "Pathfind.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -176,8 +177,8 @@ FloodfillBoxClass::Make_Portal
 		float min_z2 = box_to.Center.Z - box_to.Extent.Z;
 		float max_z1 = box_from.Center.Z + box_from.Extent.Z;
 		float max_z2 = box_to.Center.Z + box_to.Extent.Z;
-		min_point.Z = max (min_z1, min_z2);
-		max_point.Z = min (max_z1, max_z2);
+		min_point.Z = std::max (min_z1, min_z2);
+		max_point.Z = std::min (max_z1, max_z2);
 	}
 
 
@@ -194,19 +195,19 @@ FloodfillBoxClass::Make_Portal
 		Vector3 position = curr_box->Get_Position ();
 		position += offset;
 
-		min_point.X = min (min_point.X, position.X);
-		min_point.Y = min (min_point.Y, position.Y);
-		min_point.X = min (min_point.X, position.X + thickness.X);
-		min_point.Y = min (min_point.Y, position.Y + thickness.Y);
-		min_point.X = min (min_point.X, position.X - thickness.X);
-		min_point.Y = min (min_point.Y, position.Y - thickness.Y);
+		min_point.X = std::min (min_point.X, position.X);
+		min_point.Y = std::min (min_point.Y, position.Y);
+		min_point.X = std::min (min_point.X, position.X + thickness.X);
+		min_point.Y = std::min (min_point.Y, position.Y + thickness.Y);
+		min_point.X = std::min (min_point.X, position.X - thickness.X);
+		min_point.Y = std::min (min_point.Y, position.Y - thickness.Y);
 
-		max_point.X = max (max_point.X, position.X);
-		max_point.Y = max (max_point.Y, position.Y);
-		max_point.X = max (max_point.X, position.X + thickness.X);
-		max_point.Y = max (max_point.Y, position.Y + thickness.Y);
-		max_point.X = max (max_point.X, position.X - thickness.X);
-		max_point.Y = max (max_point.Y, position.Y - thickness.Y);
+		max_point.X = std::max (max_point.X, position.X);
+		max_point.Y = std::max (max_point.Y, position.Y);
+		max_point.X = std::max (max_point.X, position.X + thickness.X);
+		max_point.Y = std::max (max_point.Y, position.Y + thickness.Y);
+		max_point.X = std::max (max_point.X, position.X - thickness.X);
+		max_point.Y = std::max (max_point.Y, position.Y - thickness.Y);
 
 		//
 		//	Should we keep going?
@@ -231,19 +232,19 @@ FloodfillBoxClass::Make_Portal
 		Vector3 position = curr_box->Get_Position ();
 		position += offset;
 
-		min_point.X = min (min_point.X, position.X);
-		min_point.Y = min (min_point.Y, position.Y);
-		min_point.X = min (min_point.X, position.X + thickness.X);
-		min_point.Y = min (min_point.Y, position.Y + thickness.Y);
-		min_point.X = min (min_point.X, position.X - thickness.X);
-		min_point.Y = min (min_point.Y, position.Y - thickness.Y);
+		min_point.X = std::min (min_point.X, position.X);
+		min_point.Y = std::min (min_point.Y, position.Y);
+		min_point.X = std::min (min_point.X, position.X + thickness.X);
+		min_point.Y = std::min (min_point.Y, position.Y + thickness.Y);
+		min_point.X = std::min (min_point.X, position.X - thickness.X);
+		min_point.Y = std::min (min_point.Y, position.Y - thickness.Y);
 
-		max_point.X = max (max_point.X, position.X);
-		max_point.Y = max (max_point.Y, position.Y);
-		max_point.X = max (max_point.X, position.X + thickness.X);
-		max_point.Y = max (max_point.Y, position.Y + thickness.Y);
-		max_point.X = max (max_point.X, position.X - thickness.X);
-		max_point.Y = max (max_point.Y, position.Y - thickness.Y);
+		max_point.X = std::max (max_point.X, position.X);
+		max_point.Y = std::max (max_point.Y, position.Y);
+		max_point.X = std::max (max_point.X, position.X + thickness.X);
+		max_point.Y = std::max (max_point.Y, position.Y + thickness.Y);
+		max_point.X = std::max (max_point.X, position.X - thickness.X);
+		max_point.Y = std::max (max_point.Y, position.Y - thickness.Y);
 	}
 
 	PathfindPortalClass *portal = NULL;
@@ -253,7 +254,7 @@ FloodfillBoxClass::Make_Portal
 	//
 	float test1 = (max_point.X - min_point.X);
 	float test2 = (max_point.Y - min_point.Y);
-	float test_value = max (test1, test2);	
+	float test_value = std::max (test1, test2);	
 
 	//
 	//	Is this portal large enough?

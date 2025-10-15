@@ -32,6 +32,7 @@
 
 #include "StdAfx.h"
 #include "HistogramCtl.H"
+#include <algorithm>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -269,7 +270,7 @@ HistogramCtlClass::Paint_DIB (void)
 		for (int x_pos = 0; x_pos < m_BMPWidth; x_pos ++) {
 			if (x_vector[x_pos] > 0) {
 				int height	= int(((float)(x_vector[x_pos]) / y_range) * (float)m_BMPHeight);
-				height		= min (height, m_BMPHeight);
+				height		= std::min (height, m_BMPHeight);
 				int y_pos	= m_BMPHeight - height;
 
 				//
@@ -331,7 +332,7 @@ HistogramCtlClass::Add_Data_Point (float value)
 {
 	int start		= 0;
 	int end			= m_ValueList.Count ();
-	end				= max (end, 0);
+	end				= std::max (end, 0);
 
 	bool found = false;
 	int index = end;
@@ -411,7 +412,7 @@ HistogramCtlClass::Find_Value_Index (float value)
 
 	int start		= 0;
 	int end			= m_ValueList.Count ();
-	end				= max (end, 0);
+	end				= std::max (end, 0);
 
 	int index = end;
 	while (end > start)

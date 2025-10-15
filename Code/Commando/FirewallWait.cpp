@@ -42,6 +42,7 @@
 #include <WWOnline/WOLSession.h>
 #include <wwdebug/wwdebug.h>
 #include "systimer.h"
+#include <algorithm>
 
 /*
 ** Wait code for firewall/NAT detection.
@@ -238,7 +239,7 @@ WaitCondition::WaitResult FirewallConnectWait::GetResult(void)
 					WideStringClass text(temp, true);
 					SetWaitText(text);
 					mLastQueueCount = mQueueCount;
-					mTimeout = max((unsigned)32000, ((mQueueCount * 32000) + 32000));
+					mTimeout = std::max((unsigned)32000, ((mQueueCount * 32000) + 32000));
 					mStartTime = TIMEGETTIME();
 					}
 

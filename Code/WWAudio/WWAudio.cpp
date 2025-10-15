@@ -57,6 +57,7 @@
 #include "wwmemlog.h"
 #include "wwprofile.h"
 #include "ini.h"
+#include <algorithm>
 
 
 #ifdef G_CODE_BASE
@@ -2237,8 +2238,8 @@ void
 WWAudioClass::Set_Dialog_Volume (float volume)
 {
 	m_DialogVolume = volume;
-	m_DialogVolume = min (1.0F, m_DialogVolume);
-	m_DialogVolume = max (0.0F, m_DialogVolume);
+	m_DialogVolume = std::min (1.0F, m_DialogVolume);
+	m_DialogVolume = std::max (0.0F, m_DialogVolume);
 
 	// Update all the currently playing 'Dialog' to
 	// reflect this new volume
@@ -2262,8 +2263,8 @@ void
 WWAudioClass::Set_Cinematic_Volume (float volume)
 {
 	m_CinematicVolume = volume;
-	m_CinematicVolume = min (1.0F, m_CinematicVolume);
-	m_CinematicVolume = max (0.0F, m_CinematicVolume);
+	m_CinematicVolume = std::min (1.0F, m_CinematicVolume);
+	m_CinematicVolume = std::max (0.0F, m_CinematicVolume);
 
 	//
 	// Update all the currently playing cinematic-counds to
@@ -2289,8 +2290,8 @@ void
 WWAudioClass::Set_Sound_Effects_Volume (float volume)
 {
 	m_RealSoundVolume = volume;
-	m_RealSoundVolume = min (1.0F, m_RealSoundVolume);
-	m_RealSoundVolume = max (0.0F, m_RealSoundVolume);
+	m_RealSoundVolume = std::min (1.0F, m_RealSoundVolume);
+	m_RealSoundVolume = std::max (0.0F, m_RealSoundVolume);
 
 	Internal_Set_Sound_Effects_Volume (m_RealSoundVolume);
 	return ;
@@ -2306,8 +2307,8 @@ void
 WWAudioClass::Set_Music_Volume (float volume)
 {
 	m_RealMusicVolume = volume;
-	m_RealMusicVolume = min (1.0F, m_RealMusicVolume);
-	m_RealMusicVolume = max (0.0F, m_RealMusicVolume);
+	m_RealMusicVolume = std::min (1.0F, m_RealMusicVolume);
+	m_RealMusicVolume = std::max (0.0F, m_RealMusicVolume);
 
 	Internal_Set_Music_Volume (m_RealMusicVolume);
 	return;
@@ -2323,8 +2324,8 @@ void
 WWAudioClass::Internal_Set_Sound_Effects_Volume (float volume)
 {
 	m_SoundVolume = volume;
-	m_SoundVolume = min (1.0F, m_SoundVolume);
-	m_SoundVolume = max (0.0F, m_SoundVolume);
+	m_SoundVolume = std::min (1.0F, m_SoundVolume);
+	m_SoundVolume = std::max (0.0F, m_SoundVolume);
 
 	// Update all the currently playing 'Sound Effects' to
 	// reflect this new volume
@@ -2348,8 +2349,8 @@ void
 WWAudioClass::Internal_Set_Music_Volume (float volume)
 {
 	m_MusicVolume = volume;
-	m_MusicVolume = min (1.0F, m_MusicVolume);
-	m_MusicVolume = max (0.0F, m_MusicVolume);
+	m_MusicVolume = std::min (1.0F, m_MusicVolume);
+	m_MusicVolume = std::max (0.0F, m_MusicVolume);
 
 	// Update all currently playing music to
 	// reflect this new volume
@@ -3509,7 +3510,7 @@ WWAudioClass::Update_Fade (void)
 	}
 
 	m_FadeTimer -= (WW3D::Get_Frame_Time () / 1000.0F);
-	m_FadeTimer = max (m_FadeTimer, 0.0F);
+	m_FadeTimer = std::max (m_FadeTimer, 0.0F);
 
 	//
 	//	Determine what percent we should ramp up or down to...

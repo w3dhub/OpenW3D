@@ -44,6 +44,7 @@
 #include "dialogmgr.h"
 #include "dialogbase.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -104,7 +105,7 @@ CheckBoxCtrlClass::Create_Text_Renderers (void)
 	//	Resize the text area to fit the text
 	//
 	TextRect.Right = TextRect.Left + width;
-	TextRect.Right = min (TextRect.Right, MaxRect.Right);
+	TextRect.Right = std::min (TextRect.Right, MaxRect.Right);
 	Rect.Right		= TextRect.Right;
 
 	//

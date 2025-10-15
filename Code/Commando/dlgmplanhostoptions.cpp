@@ -63,6 +63,7 @@
 
 #include "gamespyadmin.h"
 #include "specialbuilds.h"
+#include <algorithm>
 
 ////////////////////////////////////////////////////////////////
 //
@@ -214,7 +215,7 @@ MPLanHostOptionsMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
 								if (The_Game()->Get_Max_Players() > 2) {
 									int available_bw = cUserOptions::BandwidthBps.Get();
 									int required_bw = The_Game()->Get_Max_Players() * 64000;
-									int set_bw = min(required_bw, available_bw);
+									int set_bw = std::min(required_bw, available_bw);
 									WWDEBUG_SAY(("MPLanHostOptionsMenuClass::On_Command - Setting BandwidthBps to %d\n", set_bw));
 									cUserOptions::BandwidthBps.Set(set_bw);
 								}
@@ -369,10 +370,10 @@ MPLanHostBasicOptionsTabClass::On_Init_Dialog (void)
 			}
 		}
 //		Enable_Dlg_Item(IDC_NUM_PLAYERS_EDIT, false);
-		int max_players = min(The_Game ()->Get_Max_Players (), BandTestMaxPlayers);
-		Set_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT, min(max_players, NetworkObjectClass::MAX_CLIENT_COUNT-1));
+		int max_players = std::min(The_Game ()->Get_Max_Players (), BandTestMaxPlayers);
+		Set_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT, std::min(max_players, NetworkObjectClass::MAX_CLIENT_COUNT-1));
 	} else {
-		Set_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT, min(The_Game ()->Get_Max_Players (), NetworkObjectClass::MAX_CLIENT_COUNT-1));
+		Set_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT, std::min(The_Game ()->Get_Max_Players (), NetworkObjectClass::MAX_CLIENT_COUNT-1));
 	}
 
 	//
@@ -510,7 +511,7 @@ MPLanHostBasicOptionsTabClass::On_Apply (void)
 	The_Game ()->Set_Game_Title (Get_Dlg_Item_Text (IDC_GAME_NAME_EDIT));
 	The_Game ()->Set_Password (password);
 	// Has to be -1 since we use the last client as a reference for refreshing dirty bits.
-	The_Game ()->Set_Max_Players (min(Get_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT), NetworkObjectClass::MAX_CLIENT_COUNT - 1));
+	The_Game ()->Set_Max_Players (std::min(Get_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT), NetworkObjectClass::MAX_CLIENT_COUNT - 1));
 
 	// Quickmatch games can not have passwords
 	if (The_Game()->IsPassworded.Is_True()) {
@@ -589,15 +590,15 @@ MPLanHostBasicOptionsTabClass::On_EditCtrl_Change (EditCtrlClass *edit, int ctrl
 
 	} else if (ctrlID == IDC_NUM_PLAYERS_EDIT) {
 
-		int max_players = min(BandTestMaxPlayers, NetworkObjectClass::MAX_CLIENT_COUNT-1);
+		int max_players = std::min(BandTestMaxPlayers, NetworkObjectClass::MAX_CLIENT_COUNT-1);
 
 		//
 		//	Check to ensure the player count is within bounds...
 		//
 		int player_count = Get_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT);
 		if (player_count < 0 || player_count > NetworkObjectClass::MAX_CLIENT_COUNT-1) {
-			player_count = min (player_count, NetworkObjectClass::MAX_CLIENT_COUNT-1);
-			player_count = max (player_count, 0);
+			player_count = std::min (player_count, NetworkObjectClass::MAX_CLIENT_COUNT-1);
+			player_count = std::max (player_count, 0);
 			Set_Dlg_Item_Int (IDC_NUM_PLAYERS_EDIT, player_count);
 		}
 		bool wol_game = GameModeManager::Find("WOL")->Is_Active();

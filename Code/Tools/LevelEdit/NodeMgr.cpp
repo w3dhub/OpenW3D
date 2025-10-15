@@ -53,6 +53,7 @@
 #include "presetmgr.h"
 #include "presetremapdialog.h"
 #include "heightfieldmgr.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -1108,7 +1109,7 @@ NodeMgrClass::Get_Max_Used_ID (void)
 	//
 	for (int index = 0; index < full_node_list.Count (); index ++) {
 		NodeClass *node = full_node_list[index];
-		max_used = max (node->Get_ID (), max_used);
+		max_used = std::max (node->Get_ID (), max_used);
 	}
 
 	return max_used;
@@ -1365,7 +1366,7 @@ NodeMgrClass::Find_Max_Used_ID (NODE_TYPE type)
 			//
 			uint32 curr_id = node->Get_ID ();
 			if (curr_id >= min_id && curr_id < max_id) {
-				largest_id = max (largest_id, curr_id);
+				largest_id = std::max (largest_id, curr_id);
 			}
 		}
 	}

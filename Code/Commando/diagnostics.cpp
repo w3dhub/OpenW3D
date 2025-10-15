@@ -58,6 +58,7 @@
 #include "specialbuilds.h"
 #include "ConsoleMode.h"
 #include "gametype.h"
+#include <algorithm>
 
 static int RendererFps;
 static int RendererSFps;
@@ -276,7 +277,7 @@ void cDiagnostics::Render(void)
 
 			if (cNetwork::PClientConnection && cNetwork::PClientConnection->Get_Remote_Host(0)) {
 				StringClass ping_time;
-				ping_time.Format(", PING = %4d", min(9999, RendererPing));
+				ping_time.Format(", PING = %4d", std::min(9999, RendererPing));
 				fps_text += ping_time;
 			}
 

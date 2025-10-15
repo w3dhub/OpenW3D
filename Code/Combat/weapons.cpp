@@ -74,6 +74,7 @@
 #include "diaglog.h"
 #include "playerdata.h"
 #include "cheatmgr.h"
+#include <algorithm>
 
 
 /*
@@ -1437,7 +1438,7 @@ void	WeaponClass::Update_State( float pending_time )
 			}
 		}
 
-		float	useable_time = min( StateTimer, pending_time );
+		float	useable_time = std::min( StateTimer, pending_time );
 		StateTimer -= useable_time;
 		pending_time -= useable_time;
 

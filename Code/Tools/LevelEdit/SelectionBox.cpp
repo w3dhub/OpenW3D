@@ -30,6 +30,7 @@
 #include "sceneeditor.h"
 #include "rendobj.h"
 #include "node.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -160,9 +161,9 @@ SelectionBoxClass::Display_Around_Node (const RenderObjClass &render_obj)
 	//
 	// Determine the new size for each grab handle
 	//
-	float largest_dim = max (extent.X, extent.Y);
-	largest_dim			= max (largest_dim, extent.Z);
-	float width			= max (largest_dim / 55.0F, 0.02F);
+	float largest_dim = std::max (extent.X, extent.Y);
+	largest_dim			= std::max (largest_dim, extent.Z);
+	float width			= std::max (largest_dim / 55.0F, 0.02F);
 
 	//
 	//	Set the positions of the line segments that make up the box

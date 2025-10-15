@@ -59,6 +59,7 @@
 #include "simpledefinitionfactory.h"
 #include "wwhack.h"
 #include "wwprofile.h"
+#include <algorithm>
 
 DECLARE_FORCE_LINK(humanphys);
 
@@ -292,7 +293,7 @@ bool HumanPhysClass::Ballistic_Move(float dt)
 	// analytical velocity unless the character hits a roof.
 	State.Velocity.Z = start_vel.Z + accel * dt;
 #if 0
-	State.Velocity.Z = min((State.Position.Z - start_pos.Z) / dt,start_vel.Z + accel * dt);
+	State.Velocity.Z = std::min((State.Position.Z - start_pos.Z) / dt,start_vel.Z + accel * dt);
 #endif
 	
 	// Now let the user adjust the movement a little

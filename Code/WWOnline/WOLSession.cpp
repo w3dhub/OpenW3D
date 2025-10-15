@@ -47,6 +47,7 @@
 #include "WOLErrorUtil.h"
 #include <wwdebug/wwdebug.h>
 #include <stdlib.h>
+#include <algorithm>
 
 #include "systimer.h"
 
@@ -1929,7 +1930,7 @@ void Session::MakeLocaleRequests(void)
 	{
 	if (!mLocaleRequests.empty())
 		{
-		const unsigned int count = min<unsigned int>(10, mLocaleRequests.size());
+		const unsigned int count = std::min<unsigned int>(10, mLocaleRequests.size());
 		WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 
@@ -2070,7 +2071,7 @@ void Session::MakeSquadRequests(void)
 	if (!mSquadRequests.empty() && mSquadPending.empty())
 		{
 		// Send up to ten requests at a time.
-		unsigned int count = min<unsigned int>(10, mSquadRequests.size());
+		unsigned int count = std::min<unsigned int>(10, mSquadRequests.size());
 
 		// Send each request in turn,
 		unsigned int index;
@@ -2169,7 +2170,7 @@ void Session::MakeTeamRequests(void)
 		{
 		WWDEBUG_SAY(("WOL: Requesting team information\n"));
 
-		unsigned int count = min<unsigned int>(10, mTeamRequests.size());
+		unsigned int count = std::min<unsigned int>(10, mTeamRequests.size());
 		WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 

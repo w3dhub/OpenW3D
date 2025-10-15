@@ -39,6 +39,7 @@
 #include "persistfactory.h"
 #include "SoundChunkIDs.h"
 #include "Utils.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -327,7 +328,7 @@ SoundSceneObjClass::Load (ChunkLoadClass &cload)
 	//
 	//	Max sure the next available ID is the largest ID in existence
 	//
-	m_NextAvailableID = max (m_NextAvailableID, m_ID + 1);
+	m_NextAvailableID = std::max (m_NextAvailableID, m_ID + 1);
 
 	//
 	//	We need to 'swizzle' the attached object pointer.  We saved the pointer's

@@ -27,6 +27,7 @@
 #include "LevelEditView.h"
 #include "rendobj.h"
 #include "phys.h"
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -150,7 +151,7 @@ GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lP
 		
 		m_FirstLight	= (int)::floor (lights_per_processor * (float)m_ProcessorIndex);
 		m_LastLight		= (int)::ceil (lights_per_processor * (float)(m_ProcessorIndex+1));
-		m_LastLight		= min (light_count, m_LastLight);
+		m_LastLight		= std::min (light_count, m_LastLight);
 
 		/*
 		** Prepare to do the actual vis sampling

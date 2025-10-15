@@ -96,32 +96,6 @@ void operator delete(void *p, size_t size) noexcept;
 #define MIN(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 
-#ifdef min
-#undef min
-#endif
-
-#ifdef max
-#undef max
-#endif
-
-template <class T> T min(T a,T b)
-{
-	if (a<b) {
-		return a;
-	} else {
-		return b;
-	}
-}
-
-template <class T> T max(T a,T b)
-{
-	if (a>b) {
-		return a;
-	} else {
-		return b;
-	}
-}
-
 #if defined(_MSC_VER)
 /*
 **	Turn off some unneeded warnings.

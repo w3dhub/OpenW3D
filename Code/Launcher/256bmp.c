@@ -127,7 +127,7 @@ BYTE huge * ReadDib (char * szFileName)
 
 	while (dwDibSize > 0)
 	{
-		wDibRead = (WORD) min (32768ul, dwDibSize) ;
+		wDibRead = (WORD) std::min (32768ul, dwDibSize) ;
 
 		if (wDibRead != _lread (hFile, (LPSTR) (lpDib + dwOffset), wDibRead))
 		{

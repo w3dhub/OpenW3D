@@ -44,6 +44,7 @@
 #include "dialogbase.h"
 #include "stylemgr.h"
 #include <commctrl.h>
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -364,8 +365,8 @@ ListCtrlClass::Create_Text_Renderers (void)
 		//
 		if (Is_Entry_Selected (row_index)) {
 			RectClass row_rect	= TextRect;
-			row_rect.Top			= (int)max (TextRect.Top, (float)y_pos);
-			row_rect.Bottom		= (int)min (TextRect.Bottom, (float)(y_pos + row_height));
+			row_rect.Top			= (int)std::max (TextRect.Top, (float)y_pos);
+			row_rect.Bottom		= (int)std::min (TextRect.Bottom, (float)(y_pos + row_height));
 			StyleMgrClass::Render_Hilight (&HilightRenderer, row_rect);
 		}
 
@@ -749,7 +750,7 @@ ListCtrlClass::Update_Scroll_Bar_Visibility (void)
 	//	Configure the scroll bar's position
 	//
 	if (ScrollBarCtrl.Get_Pos () > LastPageTopEntryIndex) {
-		int new_pos = max (LastPageTopEntryIndex, 0);
+		int new_pos = std::max (LastPageTopEntryIndex, 0);
 		ScrollBarCtrl.Set_Pos (new_pos);
 	}
 
@@ -1141,7 +1142,7 @@ ListCtrlClass::Quick_Sort
 	//	Determine our ranges
 	//
 	int pivot_index	= start_index;
-	int min_index		= min (start_index + 1, end_index);
+	int min_index		= std::min (start_index + 1, end_index);
 	int max_index		= end_index;
 
 	//
@@ -1319,7 +1320,7 @@ ListCtrlClass::Auto_Size_Columns_Include_Contents (float col_spacing)
 		int count = ColList[index]->Get_Entry_Count ();
 		for (int row = 0; row < count; row ++) {
 			float width = TextRenderer.Get_Text_Extents (ColList[index]->Get_Entry_Text (row)).X;
-			max_width = max (width, max_width);
+			max_width = std::max (width, max_width);
 
 			//
 			//	Add the width of all the icons to this row's total
@@ -1692,7 +1693,7 @@ ListCtrlClass::Update_Row_Height (int row_index)
 		//
 		const wchar_t *text = ColList[index]->Get_Entry_Text (row_index);
 		Vector2 extents = TextRenderer.Get_Formatted_Text_Extents (text);
-		height = max (height, extents.Y + border_height);
+		height = std::max (height, extents.Y + border_height);
 
 		//
 		//	Increment the x-position
@@ -1704,7 +1705,7 @@ ListCtrlClass::Update_Row_Height (int row_index)
 	//	Make sure the row is AT LEST MinRowHeight units high
 	//
 	float min_height	= MinRowHeight * StyleMgrClass::Get_Y_Scale ();
-	height				= max (min_height, height);
+	height				= std::max (min_height, height);
 	
 	//
 	//	Store the row height
@@ -1993,7 +1994,7 @@ ListCtrlClass::Scroll_To_End (void)
 	//	Force scroll to the end
 	//
 	ScrollPos = LastPageTopEntryIndex;
-	ScrollPos = max (ScrollPos, 0);
+	ScrollPos = std::max (ScrollPos, 0);
 
 	//
 	//	Update the scrollbar
@@ -2050,8 +2051,8 @@ ListCtrlClass::Set_Sel (int new_sel, bool notify)
 			//	Bound the selection index
 			//
 			int count = Get_Entry_Count ();
-			CurrSel = max (new_sel, 0);
-			CurrSel = min (CurrSel, count - 1);
+			CurrSel = std::max (new_sel, 0);
+			CurrSel = std::min (CurrSel, count - 1);
 
 			//
 			//	Select the new entry
@@ -2288,7 +2289,7 @@ ListCtrlClass::Scroll_Page (int direction)
 		//
 		if (height < 0) {
 			ScrollPos = (index - direction);
-			ScrollPos = min (ScrollPos, LastPageTopEntryIndex);
+			ScrollPos = std::min (ScrollPos, LastPageTopEntryIndex);
 			ScrollBarCtrl.Set_Pos (ScrollPos, false);
 			Set_Dirty ();
 			found = true;

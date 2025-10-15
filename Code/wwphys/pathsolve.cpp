@@ -48,6 +48,7 @@
 #include "pathmgr.h"
 #include "wwmemlog.h"
 #include "systimer.h"
+#include <algorithm>
 
 
 
@@ -132,12 +133,12 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 	//
 	//	Clip the temporary point
 	//
-	temp_point.X = max (temp_point.X, box.Center.X - box.Extent.X);
-	temp_point.Y = max (temp_point.Y, box.Center.Y - box.Extent.Y);
-	temp_point.Z = max (temp_point.Z, box.Center.Z - box.Extent.Z);
-	temp_point.X = min (temp_point.X, box.Center.X + box.Extent.X);
-	temp_point.Y = min (temp_point.Y, box.Center.Y + box.Extent.Y);
-	temp_point.Z = min (temp_point.Z, box.Center.Z + box.Extent.Z);
+	temp_point.X = std::max (temp_point.X, box.Center.X - box.Extent.X);
+	temp_point.Y = std::max (temp_point.Y, box.Center.Y - box.Extent.Y);
+	temp_point.Z = std::max (temp_point.Z, box.Center.Z - box.Extent.Z);
+	temp_point.X = std::min (temp_point.X, box.Center.X + box.Extent.X);
+	temp_point.Y = std::min (temp_point.Y, box.Center.Y + box.Extent.Y);
+	temp_point.Z = std::min (temp_point.Z, box.Center.Z + box.Extent.Z);
 
 	//
 	//	Did the clip change the point?
@@ -181,12 +182,12 @@ Clip_Point (Vector3 *point, const AABoxClass &box, float edge_dist)
 	//
 	//	Clip the temporary point
 	//
-	temp_point.X = max (temp_point.X, clip_box.Center.X - clip_box.Extent.X);
-	temp_point.Y = max (temp_point.Y, clip_box.Center.Y - clip_box.Extent.Y);
-	temp_point.Z = max (temp_point.Z, clip_box.Center.Z - clip_box.Extent.Z);
-	temp_point.X = min (temp_point.X, clip_box.Center.X + clip_box.Extent.X);
-	temp_point.Y = min (temp_point.Y, clip_box.Center.Y + clip_box.Extent.Y);
-	temp_point.Z = min (temp_point.Z, clip_box.Center.Z + clip_box.Extent.Z);
+	temp_point.X = std::max (temp_point.X, clip_box.Center.X - clip_box.Extent.X);
+	temp_point.Y = std::max (temp_point.Y, clip_box.Center.Y - clip_box.Extent.Y);
+	temp_point.Z = std::max (temp_point.Z, clip_box.Center.Z - clip_box.Extent.Z);
+	temp_point.X = std::min (temp_point.X, clip_box.Center.X + clip_box.Extent.X);
+	temp_point.Y = std::min (temp_point.Y, clip_box.Center.Y + clip_box.Extent.Y);
+	temp_point.Z = std::min (temp_point.Z, clip_box.Center.Z + clip_box.Extent.Z);
 
 	//
 	//	Pass the new point back to the caller
@@ -976,13 +977,13 @@ Can_Object_Enter_Portal
 		//
 		//	Determine the new axis-aligned extents from this rotated box
 		//
-		float max_x = max (WWMath::Fabs (v1.X), WWMath::Fabs (v2.X));
-		max_x = max (max_x, WWMath::Fabs (v3.X));
-		max_x = max (max_x, WWMath::Fabs (v4.X));
+		float max_x = std::max (WWMath::Fabs (v1.X), WWMath::Fabs (v2.X));
+		max_x = std::max (max_x, WWMath::Fabs (v3.X));
+		max_x = std::max (max_x, WWMath::Fabs (v4.X));
 
-		float max_y = max (WWMath::Fabs (v1.Y), WWMath::Fabs (v2.Y));
-		max_y = max (max_y, WWMath::Fabs (v3.Y));
-		max_y = max (max_y, WWMath::Fabs (v4.Y));
+		float max_y = std::max (WWMath::Fabs (v1.Y), WWMath::Fabs (v2.Y));
+		max_y = std::max (max_y, WWMath::Fabs (v3.Y));
+		max_y = std::max (max_y, WWMath::Fabs (v4.Y));
 
 		obj_box.Extent.X = max_x / 2;
 		obj_box.Extent.Y = max_y / 2;
@@ -1106,8 +1107,8 @@ Calculate_Heuristic_Cost
 
 		float	object_area			= 50.0F;
 		float factor = (object_area / sector_area);
-		factor = max (factor, 0.01F);
-		factor = min (factor, 100.0F);
+		factor = std::max (factor, 0.01F);
+		factor = std::min (factor, 100.0F);
 
 		cost = cost * factor;
 	}
@@ -1424,14 +1425,14 @@ Check_Line
 
 				(*result) = pos;
 				result->X = (sector.Center.X + sector.Extent.X) - width;
-				result->X = max (result->X, sector.Center.X);
+				result->X = std::max (result->X, sector.Center.X);
 				retval = true;
 
 			} else if (pos.X - width < (sector.Center.X - sector.Extent.X)) {
 
 				(*result) = pos;
 				result->X = (sector.Center.X - sector.Extent.X) + width;
-				result->X = min (result->X, sector.Center.X);
+				result->X = std::min (result->X, sector.Center.X);
 				retval = true;
 			}
 		}
@@ -1467,14 +1468,14 @@ Check_Line
 
 				(*result) = pos;
 				result->Y = (sector.Center.Y + sector.Extent.Y) - width;
-				result->Y = max (result->Y, sector.Center.Y);
+				result->Y = std::max (result->Y, sector.Center.Y);
 				retval = true;
 
 			} else if (pos.Y - width < (sector.Center.Y - sector.Extent.Y)) {
 
 				(*result) = pos;
 				result->Y = (sector.Center.Y - sector.Extent.Y) + width;
-				result->Y = min (result->Y, sector.Center.Y);
+				result->Y = std::min (result->Y, sector.Center.Y);
 				retval = true;
 			}
 		}
@@ -1821,8 +1822,8 @@ PathSolveClass::Get_Volumes
 		//	Add the box from the sector to the list
 		//
 		AABoxClass *box = new AABoxClass (node->Peek_Sector ()->Get_Bounding_Box ());
-		//box->Extent.X = max (0.0F, (box->Extent.X - m_PathObject.Get_Width () * 3));
-		//box->Extent.Y = max (0.0F, (box->Extent.Y - m_PathObject.Get_Width () * 3));
+		//box->Extent.X = std::max (0.0F, (box->Extent.X - m_PathObject.Get_Width () * 3));
+		//box->Extent.Y = std::max (0.0F, (box->Extent.Y - m_PathObject.Get_Width () * 3));
 		sector_list.Add (box);
 
 		//

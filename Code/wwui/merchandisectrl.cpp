@@ -41,6 +41,7 @@
 #include "texture.h"
 #include "dialogbase.h"
 #include "vector4.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -305,8 +306,8 @@ MerchandiseCtrlClass::Create_Control_Renderer (void)
 	//
 	//	Clip the backdrop to the bounding rectangle
 	//
-	text_rect.Right = min (text_rect.Right, Rect.Right);
-	cost_rect.Right = min (cost_rect.Right, Rect.Right);
+	text_rect.Right = std::min (text_rect.Right, Rect.Right);
+	cost_rect.Right = std::min (cost_rect.Right, Rect.Right);
 	
 	//
 	//	Render the text backdrops
@@ -328,7 +329,7 @@ MerchandiseCtrlClass::Create_Control_Renderer (void)
 void
 MerchandiseCtrlClass::Create_Texture_Renderer (void)
 {
-	/*float smallest_dim = min (TextureRect.Width (), TextureRect.Height ());
+	/*float smallest_dim = std::min (TextureRect.Width (), TextureRect.Height ());
 
 	RectClass rect;
 	rect.Left	= int(TextureRect.Left + (TextureRect.Width () * 0.5F) - (smallest_dim * 0.5F));

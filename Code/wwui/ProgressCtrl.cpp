@@ -36,6 +36,7 @@
 
 #include "ProgressCtrl.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 #define BAR_INSET 3
 
@@ -312,8 +313,8 @@ void ProgressCtrlClass::Get_Range(unsigned int& min, unsigned int& max)
 void ProgressCtrlClass::Set_Position(unsigned int position)
 	{
 	unsigned int oldPosition = mPosition;
-	mPosition = min<unsigned int>(mMaxLimit, position);
-	mPosition = max<unsigned int>(mMinLimit, mPosition);
+	mPosition = std::min<unsigned int>(mMaxLimit, position);
+	mPosition = std::max<unsigned int>(mMinLimit, mPosition);
 
 	if (oldPosition != mPosition)
 		{
@@ -387,8 +388,8 @@ unsigned int ProgressCtrlClass::Get_Position(void) const
 
 void ProgressCtrlClass::Set_Step(unsigned int step)
 	{
-	mStep = min<unsigned int>((mMaxLimit - mMinLimit), step);
-	mStep = max<unsigned int>(1, mStep);
+	mStep = std::min<unsigned int>((mMaxLimit - mMinLimit), step);
+	mStep = std::max<unsigned int>(1, mStep);
 	}
 
 

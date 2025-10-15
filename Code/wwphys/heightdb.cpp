@@ -42,6 +42,7 @@
 #include "mesh.h"
 #include "meshmdl.h"
 #include "chunkio.h"
+#include <algorithm>
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -293,17 +294,17 @@ HeightDBClass::Generate (void)
 			// 9 entries
 			//
 			float edge_avg = average * 0.98F;
-			*z_val1 = max (*z_val1, edge_avg);
-			*z_val2 = max (*z_val2, edge_avg);
-			*z_val3 = max (*z_val3, edge_avg);
+			*z_val1 = std::max (*z_val1, edge_avg);
+			*z_val2 = std::max (*z_val2, edge_avg);
+			*z_val3 = std::max (*z_val3, edge_avg);
 
-			*z_val4 = max (*z_val4, edge_avg);
-			*z_val5 = max (*z_val5, average);
-			*z_val6 = max (*z_val6, edge_avg);
+			*z_val4 = std::max (*z_val4, edge_avg);
+			*z_val5 = std::max (*z_val5, average);
+			*z_val6 = std::max (*z_val6, edge_avg);
 
-			*z_val7 = max (*z_val7, edge_avg);
-			*z_val8 = max (*z_val8, edge_avg);
-			*z_val9 = max (*z_val9, edge_avg);
+			*z_val7 = std::max (*z_val7, edge_avg);
+			*z_val8 = std::max (*z_val8, edge_avg);
+			*z_val9 = std::max (*z_val9, edge_avg);
 		}
 	}
 
@@ -489,10 +490,10 @@ HeightDBClass::Submit_Mesh (MeshClass &mesh)
 				//
 				//	Now, move each of the corner entries up to this new z-value if necessary
 				//
-				(*ul_entry) = max (*ul_entry, vertex.Z + HEIGHT_OFFSET);
-				(*ur_entry) = max (*ur_entry, vertex.Z + HEIGHT_OFFSET);
-				(*lr_entry) = max (*lr_entry, vertex.Z + HEIGHT_OFFSET);
-				(*ll_entry) = max (*ll_entry, vertex.Z + HEIGHT_OFFSET);
+				(*ul_entry) = std::max (*ul_entry, vertex.Z + HEIGHT_OFFSET);
+				(*ur_entry) = std::max (*ur_entry, vertex.Z + HEIGHT_OFFSET);
+				(*lr_entry) = std::max (*lr_entry, vertex.Z + HEIGHT_OFFSET);
+				(*ll_entry) = std::max (*ll_entry, vertex.Z + HEIGHT_OFFSET);
 			}
 		}
 	}

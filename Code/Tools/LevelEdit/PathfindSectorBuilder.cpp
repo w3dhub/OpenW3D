@@ -57,6 +57,7 @@
 #include "soldier.h"
 #include "humanphys.h"
 #include "combatchunkid.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -76,12 +77,9 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 	//
 	//	Clip the temporary point
 	//
-	temp_point.X = max (temp_point.X, box.Center.X - box.Extent.X);
-	temp_point.Y = max (temp_point.Y, box.Center.Y - box.Extent.Y);
-	temp_point.Z = max (temp_point.Z, box.Center.Z - box.Extent.Z);
-	temp_point.X = min (temp_point.X, box.Center.X + box.Extent.X);
-	temp_point.Y = min (temp_point.Y, box.Center.Y + box.Extent.Y);
-	temp_point.Z = min (temp_point.Z, box.Center.Z + box.Extent.Z);
+	temp_point.X = std::clamp (temp_point.X, box.Center.X - box.Extent.X, box.Center.X + box.Extent.X);
+	temp_point.Y = std::clamp (temp_point.Y, box.Center.Y - box.Extent.Y, box.Center.Y + box.Extent.Y);
+	temp_point.Z = std::clamp (temp_point.Z, box.Center.Z - box.Extent.Z, box.Center.Z + box.Extent.Z);
 
 	//
 	//	Did the clip change the point?
@@ -1227,8 +1225,8 @@ PathfindSectorBuilderClass::Determine_Height
 	/*float delta_up		= (*max_z_pos) - box.Center.Z;
 	float delta_down	= box.Center.Z - (*min_z_pos);
 
-	delta_up		= max (delta_up / 2.0F, (z_extent + WWMATH_EPSILON));
-	delta_down	= max (delta_down / 2.0F, (z_extent + WWMATH_EPSILON));
+	delta_up		= std::max (delta_up / 2.0F, (z_extent + WWMATH_EPSILON));
+	delta_down	= std::max (delta_down / 2.0F, (z_extent + WWMATH_EPSILON));
 
 	(*max_z_pos) = box.Center.Z + delta_up;
 	(*min_z_pos) = box.Center.Z - delta_down;*/
@@ -1525,7 +1523,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 	//
 	//	Determine what the maximum number of cells in a given direction can be
 	//
-	int max_dim = m_MaxSectorDim / max (m_SimBoundingBox.X, m_SimBoundingBox.Y);
+	int max_dim = m_MaxSectorDim / std::max (m_SimBoundingBox.X, m_SimBoundingBox.Y);
 
 	//
 	//	Create an object that will allow us to break the sector if
@@ -1709,7 +1707,7 @@ PathfindSectorBuilderClass::Compress_Sectors (DynamicVectorClass<AABoxClass> *bo
 		if (width > 2 || height > 2) {
 			
 			int skipped_count = start_box->Get_Compress_Skipped_Count ();
-			int min_dim			= min (width, height);
+			int min_dim			= std::min (width, height);
 
 			//
 			//	Should we skip this box in hopes that we find a better sector later?
@@ -1975,13 +1973,13 @@ PathfindSectorBuilderClass::Build_Sector
 			
 			AABoxClass bounding_box = Get_Body_Box_Bounds (down_obj);
 			
-			min_point.X = min (min_point.X, bounding_box.Center.X - bounding_box.Extent.X);
-			min_point.Y = min (min_point.Y, bounding_box.Center.Y - bounding_box.Extent.Y);
-			min_point.Z = min (min_point.Z, bounding_box.Center.Z - bounding_box.Extent.Z);
+			min_point.X = std::min (min_point.X, bounding_box.Center.X - bounding_box.Extent.X);
+			min_point.Y = std::min (min_point.Y, bounding_box.Center.Y - bounding_box.Extent.Y);
+			min_point.Z = std::min (min_point.Z, bounding_box.Center.Z - bounding_box.Extent.Z);
 
-			max_point.X = max (max_point.X, bounding_box.Center.X + bounding_box.Extent.X);
-			max_point.Y = max (max_point.Y, bounding_box.Center.Y + bounding_box.Extent.Y);
-			max_point.Z = max (max_point.Z, bounding_box.Center.Z + bounding_box.Extent.Z);
+			max_point.X = std::max (max_point.X, bounding_box.Center.X + bounding_box.Extent.X);
+			max_point.Y = std::max (max_point.Y, bounding_box.Center.Y + bounding_box.Extent.Y);
+			max_point.Z = std::max (max_point.Z, bounding_box.Center.Z + bounding_box.Extent.Z);
 			
 			WWASSERT (down_obj->Is_Taken () == false);
 			if (is_valid) {
@@ -2623,7 +2621,7 @@ PathfindSectorBuilderClass::Find_Transition
 				//
 				float curr_z_min = zone.Center.Z - zone.Extent.Z;
 				float curr_z_max = zone.Center.Z + zone.Extent.Z;
-				float curr_delta = min (WWMath::Fabs (start_z - curr_z_min), WWMath::Fabs (start_z - curr_z_max));
+				float curr_delta = std::min (WWMath::Fabs (start_z - curr_z_min), WWMath::Fabs (start_z - curr_z_max));
 				
 				//
 				//	Is this transition zone the one we are looking for?

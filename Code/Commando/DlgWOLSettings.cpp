@@ -53,6 +53,7 @@
 #include "resource.h"
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
+#include <algorithm>
 
 using namespace WWOnline;
 
@@ -295,7 +296,7 @@ void DlgWOLSettings::On_Command(int ctrl, int message, DWORD param)
 
 				if (sel >= 0)
 					{
-					BANDWIDTH_TYPE_ENUM bandwidth = min<BANDWIDTH_TYPE_ENUM>((BANDWIDTH_TYPE_ENUM)(sel + BANDWIDTH_FIRST), BANDWIDTH_LAST);
+					BANDWIDTH_TYPE_ENUM bandwidth = std::min<BANDWIDTH_TYPE_ENUM>((BANDWIDTH_TYPE_ENUM)(sel + BANDWIDTH_FIRST), BANDWIDTH_LAST);
 
 					if (bandwidth == BANDWIDTH_AUTO)
 						{
@@ -418,7 +419,7 @@ bool DlgWOLSettings::SaveSettings(void)
 
 		if (sel >= 0)
 			{
-			BANDWIDTH_TYPE_ENUM bandwidth = min<BANDWIDTH_TYPE_ENUM>((BANDWIDTH_TYPE_ENUM)(sel + BANDWIDTH_FIRST), BANDWIDTH_LAST);
+			BANDWIDTH_TYPE_ENUM bandwidth = std::min<BANDWIDTH_TYPE_ENUM>((BANDWIDTH_TYPE_ENUM)(sel + BANDWIDTH_FIRST), BANDWIDTH_LAST);
 			cUserOptions::Set_Bandwidth_Type(bandwidth);
 			}
 		}

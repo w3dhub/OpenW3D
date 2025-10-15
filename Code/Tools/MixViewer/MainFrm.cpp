@@ -33,6 +33,7 @@
 #include "mixfile.h"
 #include "mixviewerdoc.h"
 #include "makemixfiledialog.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -352,7 +353,7 @@ CMainFrame::OnExportFiles (void)
 						unsigned char file_buffer[4096];
 
 						while ( length > 0 ) {
-							int amount = min ( (int)length, (int)sizeof( file_buffer ) );
+							int amount = std::min ( (int)length, (int)sizeof( file_buffer ) );
 							if ( source_file->Read( &(file_buffer[0]), amount ) != amount ) {
 								read_error = true;
 								length = 0;

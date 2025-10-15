@@ -30,6 +30,7 @@
 #include "Utils.h"
 #include "stringlibrarydialog.h"
 #include "stringtwiddler.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -528,7 +529,7 @@ StringsCategoryViewDialogClass::Insert_New_Entry (TDBObjClass *object)
 	//
 	//	Insert an item into the list control to represent this string
 	//
-	int last_index = max (m_ListCtrl.GetItemCount () - 1, 0);
+	int last_index = std::max (m_ListCtrl.GetItemCount () - 1, 0);
 	int item_index = m_ListCtrl.InsertItem (last_index, object->Get_ID_Desc ());
 	if (item_index >= 0) {
 

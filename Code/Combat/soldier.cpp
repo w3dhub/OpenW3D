@@ -99,6 +99,7 @@
 #include "ffactory.h"
 #include "realcrc.h"
 #include "colmathaabox.h" // Agressive inlining causes linker issues if this isn't here.
+#include <algorithm>
 
 /*
 **
@@ -1420,7 +1421,7 @@ tm.Pre_Rotate_Y( 0.4f );
 tm.Pre_Rotate_Z( 0.5f );
 				while ( size > 0 ) {
 					unsigned char buffer[ 4096 ];
-					int amount = min( (int)size, (int)sizeof(buffer) );
+					int amount = std::min( (int)size, (int)sizeof(buffer) );
 tm.Translate_X( 3.1f );
 					amount = file->Read( buffer, amount );
 tm.Translate_Y( 4.6f );
@@ -3485,7 +3486,7 @@ float SoldierGameObj::Say_Dynamic_Dialogue
 		//	Display the text on the screen
 		//
 		if ( display_text && string != NULL && string[0] != 0 ) {
-			float message_duration = max( duration, 5.0F );
+			float message_duration = std::max( duration, 5.0F );
 			CombatManager::Get_Message_Window ()->Add_Message( string, Vector3 (1, 1, 1),
 																speaker, message_duration );
 		}

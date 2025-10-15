@@ -42,6 +42,7 @@
 #include <limits.h>
 #include <math.h>
 #include <cstdio>
+#include <algorithm>
 
 using namespace WWOnline;
 
@@ -72,7 +73,7 @@ bool RecalculatePingProfile(const RefPtr<Session>& session)
 		const PingServerList& pingers = session->GetPingServerList();
 
 		// The ping profile holds up to eight pings.
-		unsigned int count = min<unsigned int>(8, pingers.size());
+		unsigned int count = std::min<unsigned int>(8, pingers.size());
 
 		// If there aren't any ping servers then fail.
 		if (count > 0)
@@ -88,7 +89,7 @@ bool RecalculatePingProfile(const RefPtr<Session>& session)
 					}
 
 				// Clamp pings time to a maximum of 1000 ms
-				pingTime = min<int>(pingTime, 1000);
+				pingTime = std::min<int>(pingTime, 1000);
 
 				// Scale ping time to from 0-1000 to 0-255
 				gPingProfile.Pings[index] = (((unsigned long)pingTime * 255) / 1000);
@@ -151,7 +152,7 @@ long ComparePingProfile(const PingProfile& ping1, const PingProfile& ping2)
 		long b = ping2.Pings[index];
 		long weight = (a * a) + (b * b);
 
-		minWeight = min<long>(weight, minWeight);
+		minWeight = std::min<long>(weight, minWeight);
 		}
 
 	return minWeight;
@@ -334,7 +335,7 @@ void PingProfileWait::WaitBeginning(void)
 	const PingServerList& pingers = mWOLSession->GetPingServerList();
 
 	// Handle up to eight servers
-	mCount = min<unsigned int>(8, pingers.size());
+	mCount = std::min<unsigned int>(8, pingers.size());
 
 	if (mCount == 0)
 		{

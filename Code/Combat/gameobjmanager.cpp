@@ -53,6 +53,7 @@
 #include "vehicle.h"
 #include "persistentgameobjobserver.h"
 #include "weapons.h"
+#include <algorithm>
 
 /*
 ** Create an instance of the game object manager list.  Since all
@@ -549,7 +550,7 @@ void	GameObjManager::Update_Building_Collection_Spheres( void )
 					//	Minimize the collection radius for this building (if necessary)
 					//
 					float distance = (position - test_position).Length ();
-					max_radius = min (distance, max_radius);
+					max_radius = std::min (distance, max_radius);
 				}
 			}
 

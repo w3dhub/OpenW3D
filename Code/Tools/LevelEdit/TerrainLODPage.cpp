@@ -23,6 +23,7 @@
 #include "LevelEdit.h"
 #include "TerrainLODPage.h"
 #include "LODSettingsDialog.H"
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -220,7 +221,7 @@ TerrainLODPageClass::On_Count_Change (void)
 		//	Get the new count
 		//
 		int new_lod_count = GetDlgItemInt (IDC_LOD_COUNT_EDIT);
-		new_lod_count = max (0, new_lod_count);	
+		new_lod_count = std::max (0, new_lod_count);	
 		
 		//
 		//	Get the current count

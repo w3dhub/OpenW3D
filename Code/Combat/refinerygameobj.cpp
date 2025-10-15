@@ -52,6 +52,7 @@
 #include "soldier.h"
 #include "playertype.h"
 //#include "building.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -543,7 +544,7 @@ RefineryGameObj::Think (void)
 			//	Deposit the money in each team-member's account
 			//
 			int funds	= int(logical_seconds * FundsPerSecond);
-			funds			= min (funds, (int)TotalFunds);
+			funds			= std::min (funds, (int)TotalFunds);
 			if (funds > 0) {
 				TotalFunds -= (float)funds;
 				//

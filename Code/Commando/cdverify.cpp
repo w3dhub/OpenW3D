@@ -39,6 +39,7 @@
 #include "wwstring.h"
 #include "popupdialog.h"
 #include "resource.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -105,7 +106,7 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 						NULL, NULL, NULL, NULL, 0))
 			{
 				int cmp_len	= ::strlen (volume_name);
-				cmp_len		= max (cmp_len, 11);
+				cmp_len		= std::max (cmp_len, 11);
 
 				//
 				//	Is this the movies CD?

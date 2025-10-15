@@ -60,6 +60,7 @@
 #include "nodemgr.h"
 #include "actionparams.h"
 #include "soldier.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -1255,7 +1256,7 @@ CameraMgr::Update_Fly_To (void)
 
 	DWORD current_time = ::GetTickCount ();
 	float spline_time = float(current_time - m_FlyToStartTime) / fly_ticks;
-	spline_time = min (1.0F, spline_time);
+	spline_time = std::min (1.0F, spline_time);
 
 	if (m_FlyToStartTime + ((DWORD)fly_ticks) < current_time) {
 		m_pCamera->Set_Transform (m_FlyToEndTransform);

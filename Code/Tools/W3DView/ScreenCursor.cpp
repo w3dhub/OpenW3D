@@ -44,6 +44,7 @@
 #include "dx8vertexbuffer.h"
 #include "dx8indexbuffer.h"
 #include "sortingrenderer.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////
@@ -333,7 +334,7 @@ void
 ScreenCursorClass::Get_Obj_Space_Bounding_Sphere(SphereClass & sphere) const
 {
 	sphere.Center = Get_Transform().Get_Translation();	
-	sphere.Radius = max (m_Width, m_Height);
+	sphere.Radius = std::max (m_Width, m_Height);
 }
 
 

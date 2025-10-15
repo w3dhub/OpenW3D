@@ -44,6 +44,7 @@
 #include "soldier.h"
 #include "editorbuild.h"
 #include "mixfiledatabase.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -557,7 +558,7 @@ TransitionEditDialogClass::Load_Object (void)
 	//
 	SphereClass sphere	= m_RenderObj->Get_Bounding_Sphere ();
 	m_LookAtDist			= sphere.Radius * 1.5F;
-	m_LookAtDist			= max (m_LookAtDist, 4.0F);
+	m_LookAtDist			= std::max (m_LookAtDist, 4.0F);
 
 	//
 	//	Add the render object to the world at 0, 0, 0

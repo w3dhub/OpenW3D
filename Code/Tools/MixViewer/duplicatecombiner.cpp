@@ -42,6 +42,7 @@
 #include "rawfile.h"
 #include "bittype.h"
 #include "mixcombiningdialog.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////
@@ -263,7 +264,7 @@ DuplicateRemoverClass::Copy_File
 			//
 			//	Read the data from the source file
 			//
-			int bytes			= min (file_size, (int)sizeof (buffer));
+			int bytes			= std::min (file_size, (int)sizeof (buffer));
 			int copied_size	= src_file->Read (buffer, bytes);
 			file_size			-= copied_size;
 			if (copied_size <= 0) {

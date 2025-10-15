@@ -59,6 +59,7 @@
 #include "meshbuild.h"
 #include "camera.h"
 #include "sr.hpp"
+#include <algorithm>
 
 
 #define BPT_FRONT						0x01
@@ -1454,8 +1455,8 @@ BptNodeClass::Compute_Plane_Score(int numpolys,BptPolyClass * polys,const PlaneC
 	/*
 	** Compute the score
 	*/
-	float max_splits = min(MAX_SPLITS,numpolys);
-	float max_on = min(MAX_POLYS_ON_PLANE,numpolys);
+	float max_splits = std::min(MAX_SPLITS,numpolys);
+	float max_on = std::min(MAX_POLYS_ON_PLANE,numpolys);
 	
 	float split_score = (float)(max_splits - sc.SplitCount) / max_splits;
 	if (split_score < 0.0f) split_score = 0.0f;
@@ -1501,7 +1502,7 @@ doitagain:
 	/*
 	** Try putting axis-aligned planes through some random vertices
 	*/
-	for (int vertex_trys = 0; vertex_trys < min(NUM_VERTEX_TRYS,3*numpolys); vertex_trys++) {
+	for (int vertex_trys = 0; vertex_trys < std::min(NUM_VERTEX_TRYS,3*numpolys); vertex_trys++) {
 	
 		int poly_index = rand() % numpolys;
 		int vert_index = rand() % polys[poly_index].NumVerts;;

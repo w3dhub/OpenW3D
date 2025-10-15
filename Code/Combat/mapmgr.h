@@ -47,6 +47,7 @@
 #include "bittype.h"
 #include "saveloadsubsystem.h"
 #include "combatchunkid.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -187,10 +188,8 @@ MapMgrClass::Clear_Cloud_Cell (const Vector3 &pos)
 	//
 	//	Clamp the cells
 	//
-	cell_x = max (cell_x, 0);
-	cell_y = max (cell_y, 0);
-	cell_x = min (cell_x, CLOUD_WIDTH - 1);
-	cell_y = min (cell_y, CLOUD_HEIGHT - 1);
+	cell_x = std::clamp (cell_x, 0, CLOUD_WIDTH - 1);
+	cell_y = std::clamp (cell_y, 0, CLOUD_HEIGHT - 1);
 
 	//
 	//	Determine which bit we need to clear
@@ -220,10 +219,8 @@ MapMgrClass::Clear_Cloud_Cell (int x_pos, int y_pos)
 	//
 	//	Clamp the cells
 	//
-	int cell_x	= max (x_pos, 0);
-	int cell_y	= max (y_pos, 0);
-	cell_x		= min (x_pos, CLOUD_WIDTH - 1);
-	cell_y		= min (y_pos, CLOUD_HEIGHT - 1);
+	int cell_x	= std::clamp (x_pos, 0, CLOUD_WIDTH - 1);
+	int cell_y	= std::clamp (y_pos, 0, CLOUD_HEIGHT - 1);
 
 	//
 	//	Determine which bit we need to clear
@@ -259,10 +256,8 @@ MapMgrClass::Clear_Cloud_Cell_By_Pixel (int x_pos, int y_pos)
 	//
 	//	Clamp the cells
 	//
-	cell_x = max (cell_x, 0);
-	cell_y = max (cell_y, 0);
-	cell_x = min (cell_x, CLOUD_WIDTH - 1);
-	cell_y = min (cell_y, CLOUD_HEIGHT - 1);
+	cell_x = std::clamp (cell_x, 0, CLOUD_WIDTH - 1);
+	cell_y = std::clamp (cell_y, 0, CLOUD_HEIGHT - 1);
 
 	//
 	//	Determine which bit we need to clear

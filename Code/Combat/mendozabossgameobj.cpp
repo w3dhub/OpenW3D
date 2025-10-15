@@ -75,6 +75,7 @@
 #include "objlibrary.h"
 #include "hudinfo.h"
 #include "colmathaabox.h" // Agressive inlining causes linker issues if this isn't here.
+#include <algorithm>
 
 
 DECLARE_FORCE_LINK (MendozaBoss)
@@ -890,7 +891,7 @@ MendozaBossGameObjClass::Think (void)
 	float curr_health = DefenseObject.Get_Health ();
 	curr_health		-= 100.0F;
 	old_health_max	-= 100.0F;
-	DefenseObject.Set_Health (max (curr_health, 1.0F));
+	DefenseObject.Set_Health (std::max (curr_health, 1.0F));
 	DefenseObject.Set_Health_Max (old_health_max);	
 	return ;
 }

@@ -40,6 +40,7 @@
 #include "generatingedgesampledvisdialog.h"
 #include "visgenprogress.h"
 #include "Utils.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -239,7 +240,7 @@ GeneratingEdgeSampledVisDialogClass::Update_Stats (void)
 			//	Make a rough estimate of the time we have remaining
 			//
 			DWORD elapsed_ticks = ::GetTickCount () - m_StartTime;
-			DWORD avg_ticks = elapsed_ticks / max(processed,1);
+			DWORD avg_ticks = elapsed_ticks / std::max(processed,1);
 			DWORD remaining_ticks = avg_ticks * (total - processed);
 
 			float elapsed_minutes	= MINUTES_PER_TICK * (float)elapsed_ticks;

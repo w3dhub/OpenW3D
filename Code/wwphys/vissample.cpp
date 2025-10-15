@@ -39,6 +39,7 @@
 #include "wwdebug.h"
 #include "chunkio.h"
 #include <memory.h>
+#include <algorithm>
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -207,7 +208,7 @@ float VisSampleClass::Get_Biggest_Fraction(void) const
 {
 	float biggest_fraction = BackfaceFraction[0];
 	for (int direction = 1; direction < VIS_DIRECTIONS; direction ++) {
-		biggest_fraction = max (biggest_fraction, BackfaceFraction[direction]);
+		biggest_fraction = std::max (biggest_fraction, BackfaceFraction[direction]);
 	}
 
 	return biggest_fraction;

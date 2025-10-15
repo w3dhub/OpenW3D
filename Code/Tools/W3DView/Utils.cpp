@@ -35,6 +35,7 @@
 #include "HLod.H"
 #include <VFW.H>
 #include "RCFile.H"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -260,8 +261,7 @@ Update_Spinner_Buddy (CSpinButtonCtrl &ctrl, int delta)
 			ctrl.GetRange32 (int_min, int_max);
 			float float_min = ((float)int_min) / 100;
 			float float_max = ((float)int_max) / 100;
-			value = max (float_min, value);
-			value = min (float_max, value);
+			value = std::clamp (value, float_min, float_max);
 			
 			// Pass the value onto the buddy window
 			::SetWindowFloat (*buddy, value);
@@ -298,8 +298,7 @@ Update_Spinner_Buddy (HWND hspinner, int delta)
 			SendMessage (hspinner, UDM_GETRANGE32, (WPARAM)&int_min, (LPARAM)&int_max);
 			float float_min = ((float)int_min) / 100;
 			float float_max = ((float)int_max) / 100;
-			value = max (float_min, value);			
-			value = min (float_max, value);
+			value = std::clamp (value, float_min, float_max);
 
 			// Pass the value onto the buddy window
 			::SetWindowFloat (hbuddy_wnd, value);

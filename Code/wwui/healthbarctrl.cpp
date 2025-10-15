@@ -38,6 +38,7 @@
 #include "texture.h"
 #include "assetmgr.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -161,7 +162,7 @@ HealthBarCtrlClass::Create_Control_Renderer (void)
 	float remaining_width	= width;
 	float x_pos					= Rect.Left;
 	while (remaining_width > 0) {
-		size->X = min (remaining_width, size->X);
+		size->X = std::min (remaining_width, size->X);
 
 		//
 		//	Draw this section

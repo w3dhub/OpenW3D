@@ -53,6 +53,7 @@
 #include <dinput.h>
 
 #include <stdio.h>
+#include <algorithm>
 
 ////////////////////////////////////////////////////////////////
 //	Special virtual keys
@@ -889,7 +890,7 @@ void	Input::Update( void )
 				}
 			}
 
-			FunctionValue[index] = max (value1, value2);
+			FunctionValue[index] = std::max (value1, value2);
 		}
 
 		_StatsHelpScreen += Get_State( INPUT_FUNCTION_HELP_SCREEN ) ? 1 : 0;
@@ -931,8 +932,8 @@ void	Input::Update( void )
 		//	Special case the vehicle turning so it inherits the values
 		// of the strafe command
 		//
-		FunctionValue[INPUT_FUNCTION_VEHICLE_TURN_LEFT]		= max (FunctionValue[INPUT_FUNCTION_MOVE_LEFT], FunctionValue[INPUT_FUNCTION_TURN_LEFT]);
-		FunctionValue[INPUT_FUNCTION_VEHICLE_TURN_RIGHT]	= max (FunctionValue[INPUT_FUNCTION_MOVE_RIGHT], FunctionValue[INPUT_FUNCTION_TURN_RIGHT]);
+		FunctionValue[INPUT_FUNCTION_VEHICLE_TURN_LEFT]		= std::max (FunctionValue[INPUT_FUNCTION_MOVE_LEFT], FunctionValue[INPUT_FUNCTION_TURN_LEFT]);
+		FunctionValue[INPUT_FUNCTION_VEHICLE_TURN_RIGHT]	= std::max (FunctionValue[INPUT_FUNCTION_MOVE_RIGHT], FunctionValue[INPUT_FUNCTION_TURN_RIGHT]);
 
 		//
 		// Apply accelerated keys
@@ -973,7 +974,7 @@ void	Input::Update( void )
 		float value1 = Get_Value (index, FunctionPrimaryKeys[index], 1.0F);
 		float value2 = Get_Value (index, FunctionSecondaryKeys[index], 1.0F);
 
-		FunctionValue[index] = max (value1, value2);
+		FunctionValue[index] = std::max (value1, value2);
 	}
 
 	return ;

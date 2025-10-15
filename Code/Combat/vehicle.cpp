@@ -79,6 +79,7 @@
 #include "basecontroller.h"
 #include "string_ids.h"
 #include "specialbuilds.h"
+#include <algorithm>
 
 /*
 ** Local prototypes
@@ -2413,7 +2414,7 @@ float VehicleGameObj::Get_Filter_Distance(void) const
 		WeaponClass *weapon = ((VehicleGameObj*)this)->Get_Weapon();
 		float range = Get_Definition().SightRange;
 		if (weapon != NULL) {
-			range = min(weapon->Get_Range(), range);
+			range = std::min(weapon->Get_Range(), range);
 		}
 		return(range);
 	}

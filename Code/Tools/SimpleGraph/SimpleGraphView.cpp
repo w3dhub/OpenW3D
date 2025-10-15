@@ -25,6 +25,7 @@
 #include "SimpleGraphDoc.h"
 #include "SimpleGraphView.h"
 #include "vector3.h"
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -248,7 +249,7 @@ CSimpleGraphView::Render_Graph (CDC *dc)
 	spline.Get_Key (0, &foo, &start_time);
 	spline.Get_Key (spline.Key_Count () - 1, &foo, &end_time);
 	
-	start_time	= max (m_Min.X, start_time);
+	start_time	= std::max (m_Min.X, start_time);
 	end_time		= min (m_Max.X, end_time);		
 	
 	float start_value	= 0;
@@ -566,10 +567,8 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 		Vector2 new_value;
 		Point_To_Value (point, &new_value);
 
-		new_value.X = max (new_value.X, m_Min.X);
-		new_value.Y = max (new_value.Y, m_Min.Y);
-		new_value.X = min (new_value.X, m_Max.X);
-		new_value.Y = min (new_value.Y, m_Max.Y);
+		new_value.X = std::clamp (new_value.X, m_Min.X, m_Max.X);
+		new_value.Y = std::clamp (new_value.Y, m_Min.Y, m_Max.Y);
 
 		//
 		//	Make sure the new point is sorted correctly
@@ -599,10 +598,8 @@ CSimpleGraphView::Add_New_Point (CPoint &point)
 	Point_To_Value (point, &new_value);
 
 
-	new_value.X = max (new_value.X, m_Min.X);
-	new_value.Y = max (new_value.Y, m_Min.Y);
-	new_value.X = min (new_value.X, m_Max.X);
-	new_value.Y = min (new_value.Y, m_Max.Y);
+	new_value.X = std::clamp (new_value.X, m_Min.X, m_Max.X);
+	new_value.Y = std::clamp (new_value.Y, m_Min.Y, m_Max.Y);
 
 	float time = new_value.X;
 	float value = new_value.Y;
@@ -878,8 +875,8 @@ CSimpleGraphView::OnZoomExtents (void)
 			m_Min.X = min (m_Min.X, time);
 			m_Min.Y = min (m_Min.Y, value);
 
-			m_Max.X = max (m_Max.X, time);
-			m_Max.Y = max (m_Max.Y, value);			
+			m_Max.X = std::max (m_Max.X, time);
+			m_Max.Y = std::max (m_Max.Y, value);			
 
 			time += time_inc;
 		}

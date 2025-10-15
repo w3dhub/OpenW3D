@@ -45,6 +45,7 @@
 #include "ww3d.h"
 #include "font3d.h"
 #include "childdialog.h"
+#include <algorithm>
 
 
 
@@ -146,7 +147,7 @@ TabCtrlClass::Create_Text_Renderer (void)
 
 	float text_left	= ClientRect.Left + (TEXT_OFFSET * ScaleX);
 	float height		= ClientRect.Height ();
-	float tab_height	= height / max (TabList.Count (), 1);
+	float tab_height	= height / std::max (TabList.Count (), 1);
 
 	//
 	//	Setup some variables we can use to simulate a semi-circle for the text
@@ -400,7 +401,7 @@ TabCtrlClass::Create_Control_Renderer (void)
 	float total_height	= bar_bottom_rect.Top - y_pos;
 	while (total_height > 0) {
 		
-		float height = min (bar_tile_height, total_height);
+		float height = std::min (bar_tile_height, total_height);
 
 		//
 		//	Setup the UV rectangle
@@ -653,7 +654,7 @@ TabCtrlClass::Tab_From_Pos (const Vector2 &mouse_pos)
 	int retval = -1;
 
 	float height		= ClientRect.Height ();
-	float tab_height	= height / max (TabList.Count (), 1);
+	float tab_height	= height / std::max (TabList.Count (), 1);
 
 	//
 	//	Check each of the tabs
@@ -688,7 +689,7 @@ float
 TabCtrlClass::Pos_From_Tab (int index)
 {	
 	float height		= ClientRect.Height ();
-	float tab_height	= height / max (TabList.Count (), 1);
+	float tab_height	= height / std::max (TabList.Count (), 1);
 
 	//
 	//	Return the centered y-position
@@ -708,8 +709,8 @@ TabCtrlClass::Set_Curr_Tab (int index)
 	//
 	//	Bound the index
 	//
-	index = min (TabList.Count () - 1, index);
-	index = max (0, index);	
+	index = std::min (TabList.Count () - 1, index);
+	index = std::max (0, index);	
 
 	//
 	//	Did we change tabs?
@@ -801,19 +802,19 @@ TabCtrlClass::Update_Selector (void)
 	//
 	if (SelectorPos < end_pos) {
 		SelectorPos += dist;
-		SelectorPos = min (end_pos, SelectorPos);
+		SelectorPos = std::min (end_pos, SelectorPos);
 		Set_Dirty ();
 	} else if (SelectorPos > end_pos) {
 		SelectorPos -= dist;
-		SelectorPos = max (end_pos, SelectorPos);
+		SelectorPos = std::max (end_pos, SelectorPos);
 		Set_Dirty ();
 	}
 
 	//
 	//	Bound the selector position
 	//
-	SelectorPos = min (Pos_From_Tab (TabList.Count () - 1), SelectorPos);
-	SelectorPos = max (Pos_From_Tab (0), SelectorPos);
+	SelectorPos = std::min (Pos_From_Tab (TabList.Count () - 1), SelectorPos);
+	SelectorPos = std::max (Pos_From_Tab (0), SelectorPos);
 	return ;
 }
 

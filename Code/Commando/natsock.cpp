@@ -45,6 +45,7 @@
 #include	"natsock.h"
 #include "nataddr.h"
 #include "systimer.h"
+#include <algorithm>
 
 /*
 ** All instances are tracked here.
@@ -502,8 +503,8 @@ int SocketHandlerClass::Read(void *buffer, int buffer_len, void *address, unsign
 	/*
 	** Copy the data and the address it came from into the supplied buffers.
 	*/
-	int bytes = min(packet->BufferLen, (int)sizeof(packet->Buffer));
-	bytes = min(bytes, buffer_len);
+	int bytes = std::min(packet->BufferLen, (int)sizeof(packet->Buffer));
+	bytes = std::min(bytes, buffer_len);
 	memcpy(buffer, packet->Buffer, bytes);
 	memcpy(address, packet->Address, sizeof (packet->Address));
 	if (port) {
@@ -580,8 +581,8 @@ int SocketHandlerClass::Peek(void *buffer, int buffer_len, void *address, unsign
 	/*
 	** Copy the data and the address it came from into the supplied buffers.
 	*/
-	int bytes = min(packet->BufferLen, (int)sizeof(packet->Buffer));
-	bytes = min(bytes, buffer_len);
+	int bytes = std::min(packet->BufferLen, (int)sizeof(packet->Buffer));
+	bytes = std::min(bytes, buffer_len);
 	memcpy(buffer, packet->Buffer, bytes);
 	memcpy(address, packet->Address, sizeof (packet->Address));
 	if (port) {

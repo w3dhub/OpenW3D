@@ -77,6 +77,7 @@
 #include "stealtheffect.h"
 #include "damageablestaticphys.h"
 #include "boxrobj.h"
+#include <algorithm>
 
 
 DECLARE_FORCE_LINK (RaveshawBoss)
@@ -1069,7 +1070,7 @@ RaveshawBossGameObjClass::Think (void)
 	float curr_health = DefenseObject.Get_Health ();
 	curr_health		-= 100.0F;
 	old_health_max	-= 100.0F;
-	DefenseObject.Set_Health (max (curr_health, 1.0F));
+	DefenseObject.Set_Health (std::max (curr_health, 1.0F));
 	DefenseObject.Set_Health_Max (old_health_max);	
 	return ;
 }
