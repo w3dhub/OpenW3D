@@ -52,6 +52,7 @@
 #include "wwmemlog.h"
 #include "heightdb.h"
 #include "colmathaabox.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -693,12 +694,12 @@ static inline bool Clip_Point (Vector3 *point, const AABoxClass &box)
 	//
 	//	Clip the temporary point
 	//
-	temp_point.X = max (temp_point.X, box.Center.X - box.Extent.X);
-	temp_point.Y = max (temp_point.Y, box.Center.Y - box.Extent.Y);
-	temp_point.Z = max (temp_point.Z, box.Center.Z - box.Extent.Z);
-	temp_point.X = min (temp_point.X, box.Center.X + box.Extent.X);
-	temp_point.Y = min (temp_point.Y, box.Center.Y + box.Extent.Y);
-	temp_point.Z = min (temp_point.Z, box.Center.Z + box.Extent.Z);
+	temp_point.X = std::max (temp_point.X, box.Center.X - box.Extent.X);
+	temp_point.Y = std::max (temp_point.Y, box.Center.Y - box.Extent.Y);
+	temp_point.Z = std::max (temp_point.Z, box.Center.Z - box.Extent.Z);
+	temp_point.X = std::min (temp_point.X, box.Center.X + box.Extent.X);
+	temp_point.Y = std::min (temp_point.Y, box.Center.Y + box.Extent.Y);
+	temp_point.Z = std::min (temp_point.Z, box.Center.Z + box.Extent.Z);
 
 	//
 	//	Did the clip change the point?
@@ -1666,9 +1667,9 @@ PathfindClass::Add_Intersection_Portals_To_List
 		//
 		Vector3 extent = (pos2 - pos1) * 0.5F;
 		Vector3 center = pos1 + extent;
-		extent.X = max (WWMath::Fabs (extent.X), 1.0F);
-		extent.Y = max (WWMath::Fabs (extent.Y), 1.0F);
-		extent.Z = max (WWMath::Fabs (extent.Z), 1.0F);
+		extent.X = std::max (WWMath::Fabs (extent.X), 1.0F);
+		extent.Y = std::max (WWMath::Fabs (extent.Y), 1.0F);
+		extent.Z = std::max (WWMath::Fabs (extent.Z), 1.0F);
 		AABoxClass bounding_box (center, extent);
 		
 		//

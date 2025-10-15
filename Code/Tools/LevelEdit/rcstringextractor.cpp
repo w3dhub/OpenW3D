@@ -39,6 +39,7 @@
 #include "translatedb.h"
 #include "stringsmgr.h"
 #include "textfile.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -315,7 +316,7 @@ RCStringExtractorClass::Find_Starting_Index (void)
 				//
 				const char *suffix	= (string_desc.Peek_Buffer () + prefix_len);
 				int number				= ::atoi (suffix);
-				max_index				= max (number, max_index);
+				max_index				= std::max (number, max_index);
 			}
 		}
 	}

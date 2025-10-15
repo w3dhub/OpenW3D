@@ -684,8 +684,8 @@ RepairBayGameObj::Repair_Vehicle (void)
 					//
 					//	Avoid divide-by-zero
 					//
-					health_max = max (health_max, WWMATH_EPSILON);
-					shield_max = max (shield_max, WWMATH_EPSILON);
+					health_max = std::max (health_max, WWMATH_EPSILON);
+					shield_max = std::max (shield_max, WWMATH_EPSILON);
 
 					//
 					//	Calculate how much health and shield to restore and how much it will cost
@@ -694,7 +694,7 @@ RepairBayGameObj::Repair_Vehicle (void)
 
 					float repair_rate				= (Get_Definition ().RepairPerSec * 0.5F);
 					float total_damage			= (health_max - curr_health) + (shield_max - curr_shield);
-					int damage_points				= (int)min (repair_rate, total_damage);
+					int damage_points				= (int)std::min (repair_rate, total_damage);
 					float repair_cost_per_pt	= vehicle_cost / (health_max + shield_max);
 
 					//int available_funds			= 1000; //player_data->Get_Score ()
@@ -702,12 +702,12 @@ RepairBayGameObj::Repair_Vehicle (void)
 					int available_funds			= 1000; //player_data->Get_Money ()
 					
 					int points_restored			= int(available_funds / repair_cost_per_pt);
-					points_restored				= max (points_restored, 0);
-					points_restored				= min (points_restored, damage_points);
+					points_restored				= std::max (points_restored, 0);
+					points_restored				= std::min (points_restored, damage_points);
 					float total_cost			= points_restored * repair_cost_per_pt;
 
-					int health_restored			= min (int(health_max - curr_health), points_restored);
-					int shield_restored			= min (int(shield_max - curr_shield), (points_restored - health_restored));
+					int health_restored			= std::min (int(health_max - curr_health), points_restored);
+					int shield_restored			= std::min (int(shield_max - curr_shield), (points_restored - health_restored));
 
 					//
 					//	Debit the player's account

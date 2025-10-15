@@ -49,6 +49,7 @@
 #include "mesh.h"
 #include "meshmdl.h"
 #include "light.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -342,7 +343,7 @@ ViewerCtrlClass::Set_Model (RenderObjClass *new_model)
 		//	Force the high LOD
 		//
 		int count = Model->Get_LOD_Count ();
-		Model->Set_LOD_Level (max (count-1, 0));
+		Model->Set_LOD_Level (std::max (count-1, 0));
 		Model->Set_Transform (Matrix3D (1));
 
 		//
@@ -412,8 +413,8 @@ ViewerCtrlClass::Calculate_Camera_Position (void)
 	float test_z1		= znear + (zfar - znear) * percent1;
 	float test_z2		= znear + (zfar - znear) * percent2;
 
-	Distance				= (max (test_z1, test_z2) * 1.2F);
-	Distance				= max (MinCameraDist, Distance);
+	Distance				= (std::max (test_z1, test_z2) * 1.2F);
+	Distance				= std::max (MinCameraDist, Distance);
 
 	//
 	//	Reposition the camera to be looking at this position

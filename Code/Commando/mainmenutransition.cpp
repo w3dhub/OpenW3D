@@ -48,6 +48,7 @@
 #include "dialogbase.h"
 #include "resource.h"
 #include "WWAudio.h"
+#include <algorithm>
 
 ////////////////////////////////////////////////////////////////
 //	Local constants
@@ -171,7 +172,7 @@ MainMenuTransitionClass::On_Frame_Update (void)
 			// Adjust the current frame counter
 			//
 			CurrentFrame += (frame_rate * (WW3D::Get_Frame_Time () / 1000.0F));
-			CurrentFrame = min (CurrentFrame, TargetFrame);
+			CurrentFrame = std::min (CurrentFrame, TargetFrame);
 
 			//
 			//	Update the animation

@@ -42,6 +42,7 @@
 #include "boxrobj.h"
 #include "Pathfind.h"
 #include "systimer.h"
+#include <algorithm>
 
 //////////////////////////////////////////////////////////////////////////
 //	Static member initialization
@@ -165,8 +166,8 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 		//
 		//	Setup the culling system for the boxes.
 		//
-		float max_extent	= max (m_SimBoundingBox.X, m_SimBoundingBox.Y);
-		max_extent			= max (m_SimBoundingBox.Z, max_extent);
+		float max_extent	= std::max (m_SimBoundingBox.X, m_SimBoundingBox.Y);
+		max_extent			= std::max (m_SimBoundingBox.Z, max_extent);
 		Vector3 min;
 		Vector3 max;
 		PhysicsSceneClass::Get_Instance ()->Get_Level_Extents (min, max);
@@ -634,7 +635,7 @@ PathfindSectorBuilderClass::Compress_Sectors (void)
 			float max_z_pos				= pos.Z + (m_SimBoundingBox.Z * 1.5F);
 			while (neighbor != NULL)
 			{
-				curr_down = min (neighbor->Get_Count (DIR_BACKWARD, min_z_pos, max_z_pos) + 1, curr_down);
+				curr_down = std::min (neighbor->Get_Count (DIR_BACKWARD, min_z_pos, max_z_pos) + 1, curr_down);
 
 				//
 				//	Determine if this region (right x down) contains the
@@ -691,13 +692,13 @@ PathfindSectorBuilderClass::Compress_Sectors (void)
 				Matrix3D transform	= down_obj->Get_Transform ();
 				Vector3 position		= transform.Get_Translation ();
 
-				min_point.X = min (min_point.X, position.X - (m_SimBoundingBox.X / 2));
-				min_point.Y = min (min_point.Y, position.Y - (m_SimBoundingBox.Y / 2));
-				min_point.Z = min (min_point.Z, position.Z);
+				min_point.X = std::min (min_point.X, position.X - (m_SimBoundingBox.X / 2));
+				min_point.Y = std::min (min_point.Y, position.Y - (m_SimBoundingBox.Y / 2));
+				min_point.Z = std::min (min_point.Z, position.Z);
 
-				max_point.X = max (max_point.X, position.X + (m_SimBoundingBox.X / 2));
-				max_point.Y = max (max_point.Y, position.Y + (m_SimBoundingBox.Y / 2));
-				max_point.Z = max (max_point.Z, position.Z + m_SimBoundingBox.Z);
+				max_point.X = std::max (max_point.X, position.X + (m_SimBoundingBox.X / 2));
+				max_point.Y = std::max (max_point.Y, position.Y + (m_SimBoundingBox.Y / 2));
+				max_point.Z = std::max (max_point.Z, position.Z + m_SimBoundingBox.Z);
 
 				ASSERT (down_obj->Is_Taken () == false);
 				down_obj->Set_Sector (sector);

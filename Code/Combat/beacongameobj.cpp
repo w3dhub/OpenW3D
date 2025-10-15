@@ -67,6 +67,7 @@
 #include "persistentgameobjobserver.h"
 #include "apppackettypes.h"
 #include "weapons.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -790,7 +791,7 @@ BeaconGameObj::Set_State (int state)
 					base->On_Beacon_Armed(this);
 				}
 
-				PreDetonateTimer = max( Get_Definition ().PreDetonateCinematicDelay, 0.001f );
+				PreDetonateTimer = std::max( Get_Definition ().PreDetonateCinematicDelay, 0.001f );
 
 				IsArmed = true;
 			}
@@ -1133,7 +1134,7 @@ BeaconGameObj::Display_Message (int text_id)
 		//	Display the text on the screen
 		//
 		if (display_text && string != NULL) {
-			float message_duration = max (duration, 5.0F);
+			float message_duration = std::max (duration, 5.0F);
 			CombatManager::Get_Message_Window ()->Add_Message (string, Vector3 (1, 1, 1),
 																NULL, message_duration);
 		}

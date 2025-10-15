@@ -41,6 +41,7 @@
 #ifndef __HEIGHT_WATCHER_H
 #define __HEIGHT_WATCHER_H
 
+#include <algorithm>
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -99,7 +100,7 @@ HeightWatcherClass::Initialize (float min_z, float max_z, float curr_z)
 inline void
 HeightWatcherClass::Add_Upper_Bound (float z_pos)
 {
-	m_MaxZPos = min (m_MaxZPos, z_pos);
+	m_MaxZPos = std::min (m_MaxZPos, z_pos);
 	return ;
 }
 
@@ -109,7 +110,7 @@ HeightWatcherClass::Add_Upper_Bound (float z_pos)
 inline void
 HeightWatcherClass::Add_Lower_Bound (float z_pos)
 {
-	m_MinZPos = max (m_MinZPos, z_pos);
+	m_MinZPos = std::max (m_MinZPos, z_pos);
 	return ;
 }
 
@@ -119,8 +120,8 @@ HeightWatcherClass::Add_Lower_Bound (float z_pos)
 inline bool
 HeightWatcherClass::Is_Current_Pos_Valid (float curr_z_pos)
 {
-	m_CurrMaxZPos = max (curr_z_pos, m_CurrMaxZPos);
-	m_CurrMinZPos = min (curr_z_pos, m_CurrMinZPos);
+	m_CurrMaxZPos = std::max (curr_z_pos, m_CurrMaxZPos);
+	m_CurrMinZPos = std::min (curr_z_pos, m_CurrMinZPos);
 	return	(m_CurrMaxZPos >= m_MinZPos) && (m_CurrMaxZPos <= m_MaxZPos) &&
 				(m_CurrMinZPos >= m_MinZPos) && (m_CurrMinZPos <= m_MaxZPos);
 }

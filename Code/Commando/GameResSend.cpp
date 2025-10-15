@@ -47,6 +47,7 @@
 #include <ww3d2/dx8wrapper.h>
 #include <windows.h>
 #include <cstdio>
+#include <algorithm>
 
 using namespace WWOnline;
 
@@ -371,7 +372,7 @@ void AddPlayerStats(GameResPacket& stats, cPlayer* player, WOL::Locale locale,
 		stats.Add_Field("TEAM", team);
 
 		// Score and other information
-		unsigned long score = (unsigned long)max<int>(player->Get_Score(), 0);
+		unsigned long score = (unsigned long)std::max<int>(player->Get_Score(), 0);
 		stats.Add_Field("PSCR", score);
 
 		stats.Add_Field("PPTS",	(long)player->Get_Ladder_Points());
@@ -401,7 +402,7 @@ void AddPlayerStats(GameResPacket& stats, cPlayer* player, WOL::Locale locale,
 		stats.Add_Field("FLGC", (unsigned long)0);//no more CTF! (unsigned long)player->Get_Flag_Caps());
 
 		// Weapon usage
-		int numWeapons = min<int>(255, player->Get_Weapon_Fired_Count());
+		int numWeapons = std::min<int>(255, player->Get_Weapon_Fired_Count());
 
 		for (int wepIndex = 0; wepIndex < numWeapons; wepIndex++)
 			{

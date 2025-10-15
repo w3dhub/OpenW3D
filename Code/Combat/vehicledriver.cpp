@@ -46,6 +46,7 @@
 #include "combat.h"
 #include "chunkio.h"
 #include <windows.h>
+#include <algorithm>
 
 #include "vehiclecurve.h"
 
@@ -403,7 +404,7 @@ VehicleDriverClass::Drive_Wheeled (void)
 		//	Take into account the braking speed as we approach the goal
 		//
 		float brake_velocity = Calculate_Brake (dist_to_goal, expected_velocity, speed, max_speed);
-		expected_velocity		= min (brake_velocity, expected_velocity);
+		expected_velocity		= std::min (brake_velocity, expected_velocity);
 
 		//
 		//	Calculate how far off our last velocity request was
@@ -699,7 +700,7 @@ VehicleDriverClass::Drive_Tracked (void)
 			float percent				= WWMath::Clamp (dist_to_goal / (m_BrakingDist - m_ArrivedDist), -1.0F, 1.0F);
 			float braking_vel			= ((1.0F - percent) * end_velocity) + (percent * expected_velocity);
 
-			expected_velocity			= min (expected_velocity, braking_vel);
+			expected_velocity			= std::min (expected_velocity, braking_vel);
 		}
 
 		float forward_accel = expected_velocity - norm_speed;

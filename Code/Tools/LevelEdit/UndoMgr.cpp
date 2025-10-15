@@ -45,6 +45,7 @@
 #include "mover.h"
 #include "zonenode.h"
 #include "damagezonenode.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -201,7 +202,7 @@ void
 UndoMgrClass::Perform_Undo (int ilevels)
 {
 	// Loop through the undo levels and restore the world state at each...
-	int imin_index = ::max((m_iCurrentBuffer - ilevels), 0);
+	int imin_index = std::max((m_iCurrentBuffer - ilevels), 0);
 	for (int index = (m_iCurrentBuffer - 1); index >= imin_index; index --) {
 		
 		// Undo this level

@@ -41,6 +41,7 @@
 #include "mixfile.h"
 #include "rawfile.h"
 #include "shlwapi.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -273,7 +274,7 @@ MixFileDatabaseClass::Copy_File (FileClass *src_file, LPCTSTR local_filename)
 			//
 			//	Read the data from the source file
 			//
-			int bytes			= min (file_size, (int)sizeof (buffer));
+			int bytes			= std::min (file_size, (int)sizeof (buffer));
 			int copied_size	= src_file->Read (buffer, bytes);
 			file_size			-= copied_size;
 			if (copied_size <= 0) {

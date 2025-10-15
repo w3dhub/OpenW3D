@@ -41,6 +41,7 @@
 
 #include "vector.h"
 #include "vector3.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////
@@ -192,8 +193,8 @@ HistogramCtlClass::Set_Selection	(int min_pixel, int max_pixel)
 	for (int index = start_index; index <= end_index; index ++) {
 		VALUE &value		= m_ValueList[index];
 		int x_pos			= int((value.value / x_range) * (float)(m_BMPWidth-1));
-		x_vector[x_pos]	= min (x_vector[x_pos], value.value);
-		x_vector[x_pos*2]	= max (x_vector[x_pos*2], value.value);
+		x_vector[x_pos]	= std::min (x_vector[x_pos], value.value);
+		x_vector[x_pos*2]	= std::max (x_vector[x_pos*2], value.value);
 	}	
 	
 	//float value1	= ((float)(min_pixel * x_range) / ((float)m_BMPWidth));
@@ -211,22 +212,22 @@ HistogramCtlClass::Set_Selection	(int min_pixel, int max_pixel)
 	float value1	= m_XAxis.min + left;
 	float value2	= m_XAxis.min + right;
 
-	m_Selection.min = min (value1, value2);
-	m_Selection.max = max (value1, value2);
+	m_Selection.min = std::min (value1, value2);
+	m_Selection.max = std::max (value1, value2);
 	
 
 	/*if (min_pixel != -1) {
-		m_Selection.min = min (value1, value2);
+		m_Selection.min = std::min (value1, value2);
 	}
 
 	if (max_pixel != -1) {
-		m_Selection.max = max (value1, value2);
+		m_Selection.max = std::max (value1, value2);
 	}*/
 
-	/*float real_min = min (value1, value2);
-	float real_max = max (value1, value2);
-	m_Selection.min = min (m_Selection.min, real_min);
-	m_Selection.max = max (m_Selection.max, real_max);*/
+	/*float real_min = std::min (value1, value2);
+	float real_max = std::max (value1, value2);
+	m_Selection.min = std::min (m_Selection.min, real_min);
+	m_Selection.max = std::max (m_Selection.max, real_max);*/
 
 	Set_Dirty (true);
 	return ;

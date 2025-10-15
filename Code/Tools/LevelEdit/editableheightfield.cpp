@@ -55,6 +55,7 @@
 #include "sceneeditor.h"
 #include "filemgr.h"
 #include "nodemgr.h"
+#include <algorithm>
 
 ////////////////////////////////////////////////////////////////
 //	Local constants
@@ -220,8 +221,8 @@ EditableHeightfieldClass::Set_Dimensions (float width, float height, float meter
 	Density			= meters_per_point;
 	GridPointsX		= int(width / Density);
 	GridPointsY		= int(height / Density);
-	GridPointsX		= max (1, GridPointsX);
-	GridPointsY		= max (1, GridPointsY);	
+	GridPointsX		= std::max (1, GridPointsX);
+	GridPointsY		= std::max (1, GridPointsY);	
 	GridPointCount	= (GridPointsX * GridPointsY);
 	Width				= (GridPointsX * Density);
 	Height			= (GridPointsY * Density);
@@ -391,8 +392,8 @@ EditableHeightfieldClass::Update_Texture_Quad_List (int min_x, int min_y, int ma
 	int min_patch_y = min_y / (PatchGridPointsY - 1);
 	int max_patch_x = max_x / (PatchGridPointsX - 1);
 	int max_patch_y = max_y / (PatchGridPointsY - 1);
-	max_patch_x = min (max_patch_x, (PatchesX - 1));
-	max_patch_y = min (max_patch_y, (PatchesY - 1));
+	max_patch_x = std::min (max_patch_x, (PatchesX - 1));
+	max_patch_y = std::min (max_patch_y, (PatchesY - 1));
 
 	int row_count = GridPointsY - 1;
 	int col_count = GridPointsX - 1;
@@ -1850,9 +1851,9 @@ EditableHeightfieldClass::Create
 			} else {
 
 				int pixel_x0 = (int)pixel_x;
-				int pixel_x1 = min<int> (pixel_x0 + 1, bmp_info.bmWidth - 1);
+				int pixel_x1 = std::min<int> (pixel_x0 + 1, bmp_info.bmWidth - 1);
 				int pixel_y0 = (int)pixel_y;
-				int pixel_y1 = min<int> (pixel_y0 + 1, bmp_info.bmHeight - 1);
+				int pixel_y1 = std::min<int> (pixel_y0 + 1, bmp_info.bmHeight - 1);
 
 				//
 				//	Get the z-values of the four corners of the pixel
@@ -1929,8 +1930,8 @@ EditableHeightfieldClass::Allocate_Patches (void)
 	//
 	PatchesX = int(((float)GridPointsX / (float)PatchGridPointsX) + 0.5F);
 	PatchesY = int(((float)GridPointsY / (float)PatchGridPointsY) + 0.5F);
-	PatchesX = max (1, PatchesX);
-	PatchesY = max (1, PatchesY);
+	PatchesX = std::max (1, PatchesX);
+	PatchesY = std::max (1, PatchesY);
 
 	//
 	//	Allocate the grid of patches
@@ -2013,8 +2014,8 @@ EditableHeightfieldClass::Update_Patch_Pos_And_Normals
 	int min_patch_y = min_y / (PatchGridPointsY - 1);
 	int max_patch_x = max_x / (PatchGridPointsX - 1);
 	int max_patch_y = max_y / (PatchGridPointsY - 1);
-	max_patch_x = min (max_patch_x, (PatchesX - 1));
-	max_patch_y = min (max_patch_y, (PatchesY - 1));
+	max_patch_x = std::min (max_patch_x, (PatchesX - 1));
+	max_patch_y = std::min (max_patch_y, (PatchesY - 1));
 
 	//
 	//	Loop over all the patches (by rows)

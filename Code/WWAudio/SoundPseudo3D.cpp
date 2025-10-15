@@ -42,6 +42,7 @@
 #include "SoundChunkIDs.h"
 #include "persistfactory.h"
 #include "soundhandle.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -151,8 +152,8 @@ SoundPseudo3DClass::Update_Pseudo_Volume (float distance)
 		float volume = 1.0F;
 		if (distance > min_distance) {
 			volume = 1.0F - ((distance - min_distance) / delta);
-			volume = min (volume, 1.0F);
-			volume = max (volume, 0.0F);			
+			volume = std::min (volume, 1.0F);
+			volume = std::max (volume, 0.0F);			
 		}
 
 		// Multiply the 'max' volume with the calculated volume

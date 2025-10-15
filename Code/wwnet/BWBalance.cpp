@@ -39,6 +39,7 @@
 #include "connect.h"
 #include "packetmgr.h"
 #include "systimer.h"
+#include <algorithm>
 
 BandwidthBalancerClass BandwidthBalancer;
 
@@ -319,9 +320,9 @@ unsigned long BandwidthBalancerClass::Allocate_Bandwidth(float average_priority,
 		*/
 		int client_bbo_adjust = (pri - average_priority) * bbo_per_client;
 		if (client_bbo_adjust > 0) {
-			client_bbo_adjust = min(client_bbo_adjust, (int)bbo_per_client / 2);
+			client_bbo_adjust = std::min(client_bbo_adjust, (int)bbo_per_client / 2);
 		} else {
-			client_bbo_adjust = max(client_bbo_adjust, -((int)bbo_per_client / 2));
+			client_bbo_adjust = std::max(client_bbo_adjust, -((int)bbo_per_client / 2));
 		}
 		int new_client_bbo = bbo_per_client + client_bbo_adjust;
 		WWASSERT(new_client_bbo > 0);
@@ -340,7 +341,7 @@ unsigned long BandwidthBalancerClass::Allocate_Bandwidth(float average_priority,
 		double big_client_bbo = (double) new_client_bbo;
 		double big_bw_adjust = (double) bw_adjust;
 		big_client_bbo = (big_client_bbo * big_bw_adjust) / 100.0;
-		big_client_bbo = min(big_client_bbo, (double) 0x7fffffff);
+		big_client_bbo = std::min(big_client_bbo, (double) 0x7fffffff);
 		//new_client_bbo = (new_client_bbo * bw_adjust) / 100;
 		new_client_bbo = (int) big_client_bbo;
 
@@ -348,8 +349,8 @@ unsigned long BandwidthBalancerClass::Allocate_Bandwidth(float average_priority,
 		** OK, we have the bandwidth adjusted according to priority.
 		** Clamp it to the min allowed and the max the client can take.
 		*/
-		new_client_bbo = min(new_client_bbo, (int)client->MaxBpsDown);
-		new_client_bbo = max(new_client_bbo, MIN_ACCEPTABLE_BANDWIDTH);
+		new_client_bbo = std::min(new_client_bbo, (int)client->MaxBpsDown);
+		new_client_bbo = std::max(new_client_bbo, MIN_ACCEPTABLE_BANDWIDTH);
 
 		client->AllocatedBBO = (unsigned long) new_client_bbo;
 		total_bbo_allocated += (unsigned long) new_client_bbo;

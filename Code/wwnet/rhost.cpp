@@ -35,6 +35,7 @@
 #include "connect.h"
 #include "wwdebug.h"
 #include "packetmgr.h"
+#include <algorithm>
 
 bool cRemoteHost::AllowExtraModemBandwidthThrottling = true;
 int cRemoteHost::PriorityUpdateRate = 15;
@@ -672,11 +673,11 @@ void cRemoteHost::Adjust_Resend_Timeout(void)
 	if (NumInternalPings > 0) {
 
 		if (MaxInternalPingtimeMs && AverageInternalPingtimeMs) {
-			int candidate_resend_timeout_ms = min(3 * AverageInternalPingtimeMs, (int) (1.3f * (float)MaxInternalPingtimeMs));
+			int candidate_resend_timeout_ms = std::min(3 * AverageInternalPingtimeMs, (int) (1.3f * (float)MaxInternalPingtimeMs));
 
 			// Make sure it stays inside a reasonable range.
-			candidate_resend_timeout_ms = min(candidate_resend_timeout_ms, 3000);
-			candidate_resend_timeout_ms = max(candidate_resend_timeout_ms, 333);
+			candidate_resend_timeout_ms = std::min(candidate_resend_timeout_ms, 3000);
+			candidate_resend_timeout_ms = std::max(candidate_resend_timeout_ms, 333);
 
 			ResendTimeoutMs = (ResendTimeoutMs + candidate_resend_timeout_ms) / 2;
 			if (candidate_resend_timeout_ms < ResendTimeoutMs) {

@@ -41,6 +41,7 @@
 #include "mousemgr.h"
 #include "stylemgr.h"
 #include "dialogmgr.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -394,7 +395,7 @@ ButtonCtrlClass::Create_Component_Button (void)
 	float x_pos = Rect.Left + edge_width;
 	while (remaining_width > 0) {
 
-		horz_size.X = min (remaining_width, horz_size.X);
+		horz_size.X = std::min (remaining_width, horz_size.X);
 
 		::Blit_Section (ButtonRenderers[0], Vector2 (x_pos, Rect.Top), horz_top_pos,
 			horz_size, texture_dimensions);
@@ -418,7 +419,7 @@ ButtonCtrlClass::Create_Component_Button (void)
 	float y_pos = Rect.Top + height;
 	while (remaining_height > 0) {
 
-		vert_size.Y = min (remaining_height, vert_size.Y);
+		vert_size.Y = std::min (remaining_height, vert_size.Y);
 
 		::Blit_Section (ButtonRenderers[0], Vector2 (Rect.Left, y_pos), vert_left_pos,
 			vert_size, texture_dimensions);
@@ -450,8 +451,8 @@ ButtonCtrlClass::Create_Component_Button (void)
 		while (remaining_width > 0) {
 
 			Vector2 size (8, 8);
-			size.X = min (remaining_width, size.X);
-			size.Y = min (remaining_height, size.Y);
+			size.X = std::min (remaining_width, size.X);
+			size.Y = std::min (remaining_height, size.Y);
 
 			::Blit_Section (ButtonRenderers[0], Vector2 (x_pos, y_pos), Vector2 ((right / 2) - 4, (bottom / 2) - 4),
 				size, texture_dimensions);

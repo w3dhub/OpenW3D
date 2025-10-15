@@ -42,6 +42,7 @@
 #include "LevelEditView.h"
 #include "node.h"
 #include "phys3.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -57,12 +58,9 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 	//
 	//	Clip the temporary point
 	//
-	temp_point.X = max (temp_point.X, box.Center.X - box.Extent.X);
-	temp_point.Y = max (temp_point.Y, box.Center.Y - box.Extent.Y);
-	temp_point.Z = max (temp_point.Z, box.Center.Z - box.Extent.Z);
-	temp_point.X = min (temp_point.X, box.Center.X + box.Extent.X);
-	temp_point.Y = min (temp_point.Y, box.Center.Y + box.Extent.Y);
-	temp_point.Z = min (temp_point.Z, box.Center.Z + box.Extent.Z);
+	temp_point.X = std::clamp (temp_point.X, box.Center.X - box.Extent.X, box.Center.X + box.Extent.X);
+	temp_point.Y = std::clamp (temp_point.Y, box.Center.Y - box.Extent.Y, box.Center.Y + box.Extent.Y);
+	temp_point.Z = std::clamp (temp_point.Z, box.Center.Z - box.Extent.Z, box.Center.Z + box.Extent.Z);
 
 	//
 	//	Did the clip change the point?

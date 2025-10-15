@@ -118,6 +118,7 @@
 #include "phys3.h"
 
 #include "umbrasupport.h"
+#include <algorithm>
 
 
 #define STATISTICS_FRAMES  20					// number of frames to average statistics across
@@ -347,7 +348,7 @@ void PhysicsSceneClass::Update(float dt,int frameid)
 		
 		while (remaining > 0) {
 			
-			float step = min(remaining,MAX_TIMESTEP);
+			float step = std::min(remaining,MAX_TIMESTEP);
 
 			/*
 			** Loop through each object telling each to time-step itself.

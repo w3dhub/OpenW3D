@@ -44,6 +44,7 @@
 #include "globalsettings.h"
 #include "soldier.h"
 #include "gametype.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -152,7 +153,7 @@ EncyclopediaMgrClass::Build_Bit_Vector (TYPE type)
 			//	Read this object's data from the INI file
 			//
 			int id = ini_file->Get_Int (section->Section, "ID");
-			max_id = max (max_id, id);
+			max_id = std::max (max_id, id);
 		}
 
 		// ST - 9/6/2001 11:48PM
@@ -339,7 +340,7 @@ EncyclopediaMgrClass::Load (ChunkLoadClass &cload)
 				//
 				int size = cload.Cur_Chunk_Length ();
 				
-				int vector_size = max (size, KnownObjectVector[type_index].Get_Bit_Array().Length ());
+				int vector_size = std::max (size, KnownObjectVector[type_index].Get_Bit_Array().Length ());
 				//unsigned char *bit_vector = new unsigned char[vector_size];
 
 				//

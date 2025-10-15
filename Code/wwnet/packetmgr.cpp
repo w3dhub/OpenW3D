@@ -47,6 +47,7 @@
 #include "crc.h"
 #include "wwprofile.h"
 #include "connect.h"
+#include <algorithm>
 
 /*
 ** Single instance of PacketManagerClass.
@@ -1214,7 +1215,7 @@ WWPROFILE("Pmgr Get");
 		** right. Lordy. FIxed in CRC code now ST - 9/24/2001 3:36PM
 		*/
 		int size = (int)ReceiveBuffers[CurrentPacket].ReceivePacketLength;
-		memcpy(packet_buffer, &ReceiveBuffers[CurrentPacket].ReceiveHoldingBuffer[0], min(size, packet_buffer_size));
+		memcpy(packet_buffer, &ReceiveBuffers[CurrentPacket].ReceiveHoldingBuffer[0], std::min(size, packet_buffer_size));
 		//if (size < packet_buffer_size) {
 		//	memset(packet_buffer + size, 0, packet_buffer_size - size);
 		//}

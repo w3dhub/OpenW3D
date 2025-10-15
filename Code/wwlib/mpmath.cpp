@@ -90,6 +90,7 @@
 #include	<limits.h>
 #include	<stdlib.h>
 #include	<string.h>
+#include <algorithm>
 
 
 extern unsigned short primeTable[3511];
@@ -102,11 +103,6 @@ extern unsigned short primeTable[3511];
 
 #ifndef ARRAY_SIZE
 #define ARRAY_SIZE(a)	(sizeof(a)/sizeof(a[0]))
-#endif
-
-#ifndef __BORLANDC__
-#define	min(a, b)	(((a) < (b)) ? (a) : (b))
-#define	_USERENTRY
 #endif
 
 
@@ -321,8 +317,8 @@ unsigned MPEXPORT XMP_Encode_Bounded(unsigned char * to, unsigned tobytes, digit
 		*to++ = filler;
 	}
 
-	const unsigned char * fptr = ((const unsigned char *)from) + min(tobytes, frombytes);
-	for (index = 0; index < min(tobytes, frombytes); index++) {
+	const unsigned char * fptr = ((const unsigned char *)from) + std::min(tobytes, frombytes);
+	for (index = 0; index < std::min(tobytes, frombytes); index++) {
 		*to++ = *--fptr;
 	}
 
@@ -708,7 +704,7 @@ void MPEXPORT XMP_Shift_Right_Bits(digit * number, int bits, int precision)
 		number++;
 	}
 
-	for (index= 0; index < min(digits_to_shift, precision); index++) {
+	for (index= 0; index < std::min(digits_to_shift, precision); index++) {
 		*number++ = 0;
 	}
 }
@@ -792,7 +788,7 @@ void MPEXPORT XMP_Shift_Left_Bits(digit * number, int bits, int precision)
 		number--;
 	}
 
-	for (index = 0; index < min(digits_to_shift, precision); index++) {
+	for (index = 0; index < std::min(digits_to_shift, precision); index++) {
 		*number-- = 0;
 	}
 }
@@ -2112,7 +2108,7 @@ unsigned short mp_quo_digit(unsigned short * dividend)
 	q >>= _modulus_shift;
 
 	/*      Prevent overflow and then wipe out the intermediate results. */
-	return (unsigned short) min(q, (unsigned long)(1L << 16) - 1);
+	return (unsigned short) std::min(q, (unsigned long)(1L << 16) - 1);
 }
 
 
@@ -2232,7 +2228,7 @@ void memrev(char * buffer, size_t length)
 }
 
 
-int _USERENTRY pfunc(const void * pkey, const void * base)
+int pfunc(const void * pkey, const void * base)
 {
 	if (*(unsigned short *)pkey < *(unsigned short *)base) return(-1);
 	if (*(unsigned short *)pkey > *(unsigned short *)base) return(1);
@@ -2444,7 +2440,7 @@ void MPEXPORT XMP_Randomize(digit * result, Straw & rng, int total_bits, int pre
 {
 	assert(XMP_Bits_To_Digits(total_bits) <= MAX_UNIT_PRECISION);
 
-	total_bits = min(total_bits, precision * 32);
+	total_bits = std::min(total_bits, precision * 32);
 
 	unsigned nbytes = total_bits/8 + 1;
 

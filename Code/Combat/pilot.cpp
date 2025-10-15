@@ -46,6 +46,7 @@
 #include "soldier.h"
 #include "heightdb.h"
 #include "debug.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -462,7 +463,7 @@ PilotClass::Calculate_Lift_Speed (void)
 	//
 	if (curr_pos.Z < flight_floor) {
 		//float new_speed = WWMath::Clamp (1.0F - m_LiftSpeed, 0.5F, 1.0F);
-		//m_ForwardSpeed = min (m_ForwardSpeed, new_speed);
+		//m_ForwardSpeed = std::min (m_ForwardSpeed, new_speed);
 	}
 
 	return ;
@@ -490,7 +491,7 @@ PilotClass::Calculate_Turn_Sharpness (void)
 	//
 	if (m_FaceTarget || m_Mode == MODE_CIRCLE_POINT) {
 		m_TurnSharpness	*= 2.0F;
-		m_TurnSharpness	= min (m_TurnSharpness, 1.0F);
+		m_TurnSharpness	= std::min (m_TurnSharpness, 1.0F);
 	}
 
 	return ;
@@ -850,15 +851,15 @@ PilotClass::Determine_Preferred_Height (void)
 	//
 	//	Return the largest height to the caller
 	//
-	height	= max (height1, height2);
-	height	= max (height, height3);
-	height	= max (height, height4);
-	height	= max (height, height5);
-	height	= max (height, height6);
-	height	= max (height, height7);
-	height	= max (height, height8);
-	height	= max (height, height9);
-	height	= max (height, height10);
+	height	= std::max (height1, height2);
+	height	= std::max (height, height3);
+	height	= std::max (height, height4);
+	height	= std::max (height, height5);
+	height	= std::max (height, height6);
+	height	= std::max (height, height7);
+	height	= std::max (height, height8);
+	height	= std::max (height, height9);
+	height	= std::max (height, height10);
 	return height;
 }
 

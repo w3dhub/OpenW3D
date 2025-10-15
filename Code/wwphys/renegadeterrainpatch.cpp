@@ -51,6 +51,7 @@
 #include "wwhack.h"
 #include "inttest.h"
 #include "matpass.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -215,8 +216,8 @@ RenegadeTerrainPatchClass::Allocate (int points_x, int points_y, float meters_pe
 	Density			= meters_per_point;
 	GridPointsX		= points_x;
 	GridPointsY		= points_y;
-	GridPointsX		= max (1, GridPointsX);
-	GridPointsY		= max (1, GridPointsY);	
+	GridPointsX		= std::max (1, GridPointsX);
+	GridPointsY		= std::max (1, GridPointsY);	
 	GridPointCount	= (GridPointsX * GridPointsY);
 	BoundingBoxMin.Z	= 0.0F;
 	BoundingBoxMax.Z	= 0.0F;
@@ -868,8 +869,8 @@ RenegadeTerrainPatchClass::Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) c
 	//
 	//	Determine which radius to use as the largest delta
 	//
-	sphere.Radius = max (delta_x, delta_y);
-	sphere.Radius = max (sphere.Radius, delta_z);
+	sphere.Radius = std::max (delta_x, delta_y);
+	sphere.Radius = std::max (sphere.Radius, delta_z);
 	sphere.Radius += 1.0F;
 	//sphere.Radius *= 2.0F;
 

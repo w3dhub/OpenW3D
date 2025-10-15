@@ -39,6 +39,7 @@
 #include "stylemgr.h"
 #include "dialogbase.h"
 #include <winuser.h>
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -459,8 +460,8 @@ MultiLineTextCtrlClass::Set_Scroll_Pos (int new_position)
 {
 	if (ScrollPos != new_position) {
 		ScrollPos = new_position;
-		ScrollPos = min (ScrollPos, RowCount - RowsPerPage);
-		ScrollPos = max (ScrollPos, 0);
+		ScrollPos = std::min (ScrollPos, RowCount - RowsPerPage);
+		ScrollPos = std::max (ScrollPos, 0);
 		ScrollBarCtrl.Set_Pos (ScrollPos, false);		
 		Set_Dirty ();
 	}

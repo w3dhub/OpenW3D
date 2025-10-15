@@ -43,6 +43,7 @@
 #include "dialogbase.h"
 #include "stylemgr.h"
 #include "vector4.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -268,7 +269,7 @@ ShortcutBarCtrlClass::Render_Strip (const RectClass &screen_rect, bool flip_uvs)
 	while (height > 0) {
 
 		float tile_height = BAR_TILE_UVS.Height ();
-		tile_height = min (tile_height, height);
+		tile_height = std::min (tile_height, height);
 
 		//
 		//	Render this section of the bar

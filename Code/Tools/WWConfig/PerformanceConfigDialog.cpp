@@ -36,6 +36,7 @@
 #include "locale_api.h"
 #include "wwconfig_ids.h"
 #include "../../Combat/specialbuilds.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -404,8 +405,8 @@ PerformanceConfigDialogClass::Load_Values (void)
 		//
 		//	Set the slider's positions to reflect the loaded values
 		//
-		m_CharShadowsSlider.SetPos (min (shadow_mode, 3));
-		m_TextureDetailSlider.SetPos (max (2 - texture_red, 0));		
+		m_CharShadowsSlider.SetPos (std::min (shadow_mode, 3));
+		m_TextureDetailSlider.SetPos (std::max (2 - texture_red, 0));		
 		m_SurfaceEffectsSlider.SetPos (surface_effect);
 		m_ParticleSlider.SetPos (particle_detail);
 
@@ -490,7 +491,7 @@ PerformanceConfigDialogClass::Determine_Performance_Setting (void)
 	//
 	//	Set the slider's position
 	//
-	m_PerformanceSlider.SetPos (min (int(level_rating + 0.5F), MAX_EXPERT_OPTIONS - 1));
+	m_PerformanceSlider.SetPos (std::min (int(level_rating + 0.5F), MAX_EXPERT_OPTIONS - 1));
 	return ;
 }
 
@@ -686,7 +687,7 @@ PerformanceConfigDialogClass::Apply_Changes (void)
 		registry.Set_Int (VALUE_NAME_PRELIT_MODE, prelit_mode);
 		registry.Set_Int (VALUE_NAME_TEXTURE_FILTER, texture_filter);
 		registry.Set_Int (VALUE_NAME_SHADOW_MODE, shadow_mode);
-		registry.Set_Int (VALUE_NAME_TEXTURE_RES, max (2 - texture_red, 0));
+		registry.Set_Int (VALUE_NAME_TEXTURE_RES, std::max (2 - texture_red, 0));
 		registry.Set_Int (VALUE_NAME_SURFACE_EFFECT, surface_effect);
 		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, particle_detail);
 	}
@@ -745,7 +746,7 @@ void PerformanceConfigDialogClass::OnGraphicsAutoSetup()
 
 		registry.Set_Int (VALUE_NAME_PRELIT_MODE, prelit_mode);
 		registry.Set_Int (VALUE_NAME_SHADOW_MODE, shadow_mode);
-		registry.Set_Int (VALUE_NAME_TEXTURE_RES, max (2 - texture_red, 0));
+		registry.Set_Int (VALUE_NAME_TEXTURE_RES, std::max (2 - texture_red, 0));
 		registry.Set_Int (VALUE_NAME_SURFACE_EFFECT, surface_effect);
 		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, particle_detail);
 */

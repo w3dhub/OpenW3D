@@ -47,6 +47,7 @@
 #include "scene.h"
 #include "rendobj.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -276,8 +277,8 @@ TextWindowClass::Set_Backdrop
 		//
 		//	Calculate how many times we should vertically tile the text backdrop
 		//
-		int largest_height	= min (endcap_height, fadeout_height);
-		largest_height			= min (largest_height, textback_height);		
+		int largest_height	= std::min (endcap_height, fadeout_height);
+		largest_height			= std::min (largest_height, textback_height);		
 		int section_count		= (screen_rect.Height () / largest_height);
 
 		//
@@ -804,7 +805,7 @@ TextWindowClass::Update_Row
 		//	See if this is the 'tallest' column so far
 		//
 		RectClass extents = TextRenderers[1]->Get_Draw_Extents ();
-		(*row_height) = max ((*row_height), extents.Height ());
+		(*row_height) = std::max ((*row_height), extents.Height ());
 
 		//
 		//	Move to the next column
@@ -860,7 +861,7 @@ void
 TextWindowClass::Page_Up (void)
 {
 	FirstLineIndex -= CurrentDisplayCount;
-	FirstLineIndex = max (0, FirstLineIndex);
+	FirstLineIndex = std::max (0, FirstLineIndex);
 	Update_View ();
 	return ;
 }

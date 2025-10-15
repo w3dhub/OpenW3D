@@ -44,6 +44,7 @@
 #include	<stdlib.h>
 #include	"servercontrolsocket.h"
 #include "systimer.h"
+#include <algorithm>
 
 /*
 ** All instances are tracked here.
@@ -425,8 +426,8 @@ int ServerControlSocketClass::Read(void *buffer, int buffer_len, void *address, 
 	/*
 	** Copy the data and the address it came from into the supplied buffers.
 	*/
-	int bytes = min(packet->BufferLen, (int)sizeof(packet->Buffer));
-	bytes = min(bytes, buffer_len);
+	int bytes = std::min(packet->BufferLen, (int)sizeof(packet->Buffer));
+	bytes = std::min(bytes, buffer_len);
 	memcpy(buffer, packet->Buffer, bytes);
 	memcpy(address, packet->Address, sizeof (packet->Address));
 	if (port) {
@@ -503,8 +504,8 @@ int ServerControlSocketClass::Peek(void *buffer, int buffer_len, void *address, 
 	/*
 	** Copy the data and the address it came from into the supplied buffers.
 	*/
-	int bytes = min(packet->BufferLen, (int)sizeof(packet->Buffer));
-	bytes = min(bytes, buffer_len);
+	int bytes = std::min(packet->BufferLen, (int)sizeof(packet->Buffer));
+	bytes = std::min(bytes, buffer_len);
 	memcpy(buffer, packet->Buffer, bytes);
 	memcpy(address, packet->Address, sizeof (packet->Address));
 	if (port) {

@@ -74,6 +74,7 @@
 #include "wwmemlog.h"
 #include "ConsoleMode.h"
 #include "specialbuilds.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -489,7 +490,7 @@ int MyLoadStringW (UINT str_id, LPWSTR buffer, int buffer_len)
 		//
 		//	Copy the string to our buffer
 		//
-		length = min ((int)(buffer_len - 1), (int)(*res_string));
+		length = std::min ((int)(buffer_len - 1), (int)(*res_string));
 		::wcsncpy (buffer, res_string + 1, length);
 	}
 

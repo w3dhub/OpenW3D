@@ -44,6 +44,7 @@
 #include "ww3d.h"
 #include "dialogmgr.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -467,7 +468,7 @@ DropDownCtrlClass::Delete_String (int index)
 		//	Delete the entry
 		//
 		EntryList.Delete (index);
-		Set_Curr_Sel (min (CurrSel, EntryList.Count () - 1));
+		Set_Curr_Sel (std::min (CurrSel, EntryList.Count () - 1));
 		Set_Dirty ();
 	}
 
@@ -721,7 +722,7 @@ DropDownCtrlClass::Update_Scroll_Pos (void)
 		//
 		//	Scroll down so the current selection is in view
 		//
-		ScrollPos = max (CurrSel - (CountPerPage - 1), 0);
+		ScrollPos = std::max (CurrSel - (CountPerPage - 1), 0);
 		Set_Dirty ();
 	}
 

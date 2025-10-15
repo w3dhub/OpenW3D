@@ -45,6 +45,7 @@
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
 #include <stdio.h>
+#include <algorithm>
 
 using namespace WWOnline;
 
@@ -416,7 +417,7 @@ void LoginProfile::SetGamesPlayed(unsigned long played)
 
 void LoginProfile::SetLocale(WOL::Locale locale)
 	{
-	mLocale = max<WOL::Locale>(locale, WOL::LOC_UNKNOWN);
+	mLocale = std::max<WOL::Locale>(locale, WOL::LOC_UNKNOWN);
 	}
 
 

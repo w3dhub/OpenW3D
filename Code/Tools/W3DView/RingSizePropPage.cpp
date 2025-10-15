@@ -25,6 +25,7 @@
 #include "colorutils.h"
 #include "Utils.h"
 #include "scaledialog.h"
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -595,8 +596,8 @@ RingSizePropPageClass::Update_Inner_Scale_Array (void)
 			y_time = y_values[y_index].Get_Time ();
 		}
 
-		time = min (x_time, time);
-		time = min (y_time, time);
+		time = std::min (x_time, time);
+		time = std::min (y_time, time);
 
 		if (x_time == time) {
 			x_index ++;
@@ -694,8 +695,8 @@ RingSizePropPageClass::Update_Outer_Scale_Array (void)
 			y_time = y_values[y_index].Get_Time ();
 		}
 
-		time = min (x_time, time);
-		time = min (y_time, time);
+		time = std::min (x_time, time);
+		time = std::min (y_time, time);
 
 		if (x_time == time) {
 			x_index ++;

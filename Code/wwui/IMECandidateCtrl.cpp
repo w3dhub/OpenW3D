@@ -21,6 +21,7 @@
 #include "dialogbase.h"
 #include "stylemgr.h"
 #include "mousemgr.h"
+#include <algorithm>
 
 #define BORDER_WIDTH 2
 #define BORDER_HEIGHT 2
@@ -407,7 +408,7 @@ void IMECandidateCtrl::UpdateScrollPos(void)
 		else if (mCurrSel >= (int)(scrollPos + mCellsPerPage))
 			{
 			//	Scroll down so the current selection is in view
-			scrollPos = max<unsigned int>((unsigned int)mCurrSel - (mCellsPerPage - 1), 0);
+			scrollPos = std::max<unsigned int>((unsigned int)mCurrSel - (mCellsPerPage - 1), 0);
 			Set_Dirty();
 			}
 

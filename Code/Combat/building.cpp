@@ -56,6 +56,7 @@
 #include "encyclopediamgr.h"
 #include "apppackettypes.h"
 #include "wwprofile.h"
+#include <algorithm>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -854,7 +855,7 @@ BuildingGameObj::Play_Announcement(int text_id, bool broadcast)
 
 		//	Display the text on the screen
 		if (display_text && string) {
-			float message_duration = max(duration, 5.0F);
+			float message_duration = std::max(duration, 5.0F);
 			CombatManager::Get_Message_Window()->Add_Message(string, Vector3(1, 1, 1), NULL, message_duration);
 		}		
 	}
@@ -903,8 +904,8 @@ BuildingGameObj::Initialize_Building (void)
 	// announcement sound effects in
 	//
 	AnnouncementSphere.Center	= bounding_box.Center;
-	AnnouncementSphere.Radius	= max (bounding_box.Extent.X, bounding_box.Extent.Y);
-	AnnouncementSphere.Radius	= max (AnnouncementSphere.Radius, bounding_box.Extent.Z);
+	AnnouncementSphere.Radius	= std::max (bounding_box.Extent.X, bounding_box.Extent.Y);
+	AnnouncementSphere.Radius	= std::max (AnnouncementSphere.Radius, bounding_box.Extent.Z);
 	
 	//
 	//	If we can find a base for our team, then add ourselves to it.

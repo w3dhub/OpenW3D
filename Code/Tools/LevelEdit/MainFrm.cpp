@@ -134,6 +134,7 @@
 #include "mixfiledatabase.h"
 #include "assetpackagemgr.h"
 #include "lightsolveoptionsdialog.h"
+#include <algorithm>
 
 
 #ifdef _DEBUG
@@ -6201,7 +6202,7 @@ CMainFrame::OnCameraOrthographic (void)
 	PhysicsSceneClass::Get_Instance ()->Get_Level_Extents (world_min, world_max);
 
 	Vector3 delta = world_max - world_min;
-	float largest_dim = max (delta.X, delta.Y);
+	float largest_dim = std::max (delta.X, delta.Y);
 
 	Vector3 world_center = world_min + ((world_max - world_min) * 0.5F);
 	world_center.Z = world_max.Z + 100.0F;

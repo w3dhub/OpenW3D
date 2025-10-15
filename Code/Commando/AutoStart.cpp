@@ -64,6 +64,7 @@
 #include "gamespyadmin.h"
 #include "specialbuilds.h"
 #include <cstdio>
+#include <algorithm>
 
 /*
 ** Single instance of restart class.
@@ -459,8 +460,8 @@ void AutoRestartClass::Think(void)
 				last_game_type = registry.Get_Int(REG_VALUE_LAST_GAME_TYPE, last_game_type);
 			}
 
-			last_game_type = min(last_game_type, NUM_GAME_TYPE_MENU_ENTRIES-1);
-			last_game_type = max(last_game_type, 0);
+			last_game_type = std::min(last_game_type, NUM_GAME_TYPE_MENU_ENTRIES-1);
+			last_game_type = std::max(last_game_type, 0);
 
 			int game_type = MPLanGameTypeMenuClass::GameTypeList[last_game_type].GameType;
 			*/

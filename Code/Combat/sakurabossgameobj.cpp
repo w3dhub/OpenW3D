@@ -63,6 +63,7 @@
 #include "activeconversation.h"
 #include "conversation.h"
 #include "combat.h"
+#include <algorithm>
 
 
 DECLARE_FORCE_LINK (SakuraBoss)
@@ -1454,7 +1455,7 @@ SakuraBossGameObj::Update_Overall_State (void)
 					
 					destination.X += 10.0F;
 					destination.Y = TargetPos.Y + 1.0F;
-					destination.Y = min (destination.Y, 78.0F);
+					destination.Y = std::min (destination.Y, 78.0F);
 					destination.Z -= 20.0F;
 
 				} else {
@@ -1469,14 +1470,14 @@ SakuraBossGameObj::Update_Overall_State (void)
 					//					
 					if (TargetPos.Y > -6.0F) {
 						destination.Y = TargetPos.Y + 46.0F;
-						destination.Y = min (destination.Y, 78.0F);
+						destination.Y = std::min (destination.Y, 78.0F);
 					}
 				}
 
 				//
 				//	Don't let the commanche dip below the player's level
 				//
-				destination.Z = max (TargetPos.Z + 10.0F, destination.Z);
+				destination.Z = std::max (TargetPos.Z + 10.0F, destination.Z);
 
 				Pilot.Set_Destination (destination);
 				Pilot.Set_Mode (PilotClass::MODE_HOVER);
@@ -1516,7 +1517,7 @@ SakuraBossGameObj::Update_Overall_State (void)
 		case STATE_ATTACK_LIFT_AREA:
 		{
 			Vector3 destination (-161.78F, 79.03F, 18.88F);
-			destination.Z = max (TargetPos.Z + 7.0F, 18.88F);
+			destination.Z = std::max (TargetPos.Z + 7.0F, 18.88F);
 			Pilot.Set_Destination (destination);				
 
 			destination.X += 10;
@@ -1757,10 +1758,10 @@ SakuraBossGameObj::Update_Tilt (void)
 			//
 			if (TiltAngle < target_angle) {
 				TiltAngle += TimeManager::Get_Frame_Seconds () * TILT_RATE;
-				TiltAngle = min (TiltAngle, target_angle);
+				TiltAngle = std::min (TiltAngle, target_angle);
 			} else {
 				TiltAngle -= TimeManager::Get_Frame_Seconds () * TILT_RATE;
-				TiltAngle = max (TiltAngle, target_angle);
+				TiltAngle = std::max (TiltAngle, target_angle);
 			}
 
 			//
@@ -1777,7 +1778,7 @@ SakuraBossGameObj::Update_Tilt (void)
 			//	Decrease our tilt percent
 			//
 			TiltAngle -= (TimeManager::Get_Frame_Seconds () * TILT_RATE);
-			TiltAngle = max (TiltAngle, 0.0F);
+			TiltAngle = std::max (TiltAngle, 0.0F);
 
 			//
 			//	Check to see if we should release our control of the bone

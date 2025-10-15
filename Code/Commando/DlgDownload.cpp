@@ -45,6 +45,7 @@
 #include "mainloop.h"
 #include "ConsoleMode.h"
 #include "systimer.h"
+#include <algorithm>
 
 using namespace WWOnline;
 
@@ -519,7 +520,7 @@ void PrintableTime(unsigned long time, WideStringClass& printable)
 		}
 	else
 		{
-		seconds = max<unsigned long>(seconds, 1);
+		seconds = std::max<unsigned long>(seconds, 1);
 		printable.Format(TRANSLATE(IDS_MENU_TRANSFER_SEC_FORMAT), seconds);
 		}
 	}

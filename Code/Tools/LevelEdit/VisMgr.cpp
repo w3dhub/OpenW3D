@@ -49,6 +49,7 @@
 #include "camera.h"
 #include "VisPointNode.h"
 #include "groupmgr.h"
+#include <algorithm>
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -352,7 +353,7 @@ VisMgrClass::Render_Manual_Vis_Points
 
 		int starting_point	= (int)::floor (points_per_processor* (float)processor_index);
 		int ending_point		= (int)::ceil (points_per_processor * (float)(processor_index + 1));
-		ending_point = min (ending_point, points);
+		ending_point = std::min (ending_point, points);
 
 		//
 		//	Copy the points from the total list into a temporary list

@@ -42,6 +42,7 @@
 #include "hittestinfo.h"
 #include "Utils.h"
 #include "MouseMgr.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -223,9 +224,9 @@ GrabHandlesClass::Position_Around_Node (NodeClass *node)
 		//
 		// Determine the new size for each grab handle
 		//
-		float largest_dim = max (extent.X, extent.Y);
-		largest_dim			= max (largest_dim, extent.Z);
-		float size			= max (largest_dim / 25.0F, 0.1F);
+		float largest_dim = std::max (extent.X, extent.Y);
+		largest_dim			= std::max (largest_dim, extent.Z);
+		float size			= std::max (largest_dim / 25.0F, 0.1F);
 
 		// Calculate the positions of the eight verticies
 		Vector3 verticies[8];

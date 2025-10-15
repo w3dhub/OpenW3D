@@ -25,6 +25,7 @@
 #include "colorutils.h"
 #include "Utils.h"
 #include "scaledialog.h"
+#include <algorithm>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -507,9 +508,9 @@ SphereSizePropPageClass::Update_Scale_Array (void)
 			z_time = z_values[z_index].Get_Time ();
 		}
 
-		time = min (x_time, time);
-		time = min (y_time, time);
-		time = min (z_time, time);
+		time = std::min (x_time, time);
+		time = std::min (y_time, time);
+		time = std::min (z_time, time);
 
 		if (x_time == time) {
 			x_index ++;

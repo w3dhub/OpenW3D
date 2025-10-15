@@ -44,6 +44,7 @@
 #include "dialogmgr.h"
 #include "dialogbase.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -490,7 +491,7 @@ ComboBoxCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 
 		case VK_UP:
 		case VK_LEFT:
-			Set_Sel (max<int>(0, (DropDownCtrl.Get_Curr_Sel () - 1)), true);
+			Set_Sel (std::max<int>(0, (DropDownCtrl.Get_Curr_Sel () - 1)), true);
 			break;
 
 		case VK_DOWN:
@@ -626,7 +627,7 @@ void
 ComboBoxCtrlClass::On_Mouse_Wheel (int direction)
 {
 	if (direction < 0) {		
-		Set_Sel (max<int>(0, (DropDownCtrl.Get_Curr_Sel () - 1)), true);
+		Set_Sel (std::max<int>(0, (DropDownCtrl.Get_Curr_Sel () - 1)), true);
 	} else {
 		Set_Sel (DropDownCtrl.Get_Curr_Sel () + 1, true);
 	}
@@ -774,7 +775,7 @@ ComboBoxCtrlClass::On_EditCtrl_Key_Down (EditCtrlClass *edit, uint32 key_id, uin
 	switch (key_id)
 	{
 		case VK_UP:
-			Set_Sel (max<int>(0, (DropDownCtrl.Get_Curr_Sel () - 1)), true);
+			Set_Sel (std::max<int>(0, (DropDownCtrl.Get_Curr_Sel () - 1)), true);
 			break;
 
 		case VK_DOWN:

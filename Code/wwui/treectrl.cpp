@@ -43,6 +43,7 @@
 #include "dialogmgr.h"
 #include "dialogbase.h"
 #include "stylemgr.h"
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////
@@ -295,7 +296,7 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 	if (item->Is_Expanded ()) {
 
 		float start_y_pos		= y_pos;
-		int start_row_index	= max (row_index, ScrollPos);
+		int start_row_index	= std::max (row_index, ScrollPos);
 		int end_row_index		= start_row_index;
 
 		//
@@ -319,8 +320,8 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 			//
 			//	Clip the line start and end to the window
 			//
-			end_y_pos	= min (end_y_pos, ClientRect.Top + (RowsPerPage * RowHeight));
-			start_y_pos	= max (start_y_pos, ClientRect.Top);
+			end_y_pos	= std::min (end_y_pos, ClientRect.Top + (RowsPerPage * RowHeight));
+			start_y_pos	= std::max (start_y_pos, ClientRect.Top);
 
 			//
 			//	Render the line
@@ -350,8 +351,8 @@ TreeCtrlClass::Set_Scroll_Pos (int new_pos)
 	//	Ensure this scroll position doesn't extend out of bounds
 	//
 	int visible_rows	= Count_Visible_Rows ();
-	new_pos				= min (visible_rows - RowsPerPage, new_pos);
-	new_pos				= max (new_pos, 0);
+	new_pos				= std::min (visible_rows - RowsPerPage, new_pos);
+	new_pos				= std::max (new_pos, 0);
 
 	//
 	//	Did anything change?

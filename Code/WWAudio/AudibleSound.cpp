@@ -52,6 +52,7 @@
 #include "soundstreamhandle.h"
 #include "sound2dhandle.h"
 #include "systimer.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -360,7 +361,7 @@ void
 AudibleSoundClass::Update_Fade (void)
 {
 	m_FadeTimer -= WW3D::Get_Frame_Time ();
-	m_FadeTimer = max (m_FadeTimer, 0);
+	m_FadeTimer = std::max (m_FadeTimer, 0);
 
 	//
 	//	Determine what percent we should ramp up or down to...
@@ -900,8 +901,8 @@ AudibleSoundClass::Set_Pan (float pan)
 	//
 	// Cache the normalized pan value
 	//
-	m_Pan = min (pan, 1.0F);
-	m_Pan = max (m_Pan, 0.0F);
+	m_Pan = std::min (pan, 1.0F);
+	m_Pan = std::max (m_Pan, 0.0F);
 
 	//
 	// Do we have a valid sample handle from miles?
@@ -1019,8 +1020,8 @@ AudibleSoundClass::Internal_Set_Volume (float volume)
 	//
 	// Cache the normalized volume value
 	//
-	m_Volume = min (volume, 1.0F);
-	m_Volume = max (m_Volume, 0.0F);
+	m_Volume = std::min (volume, 1.0F);
+	m_Volume = std::max (m_Volume, 0.0F);
 
 	//
 	// Do we have a valid sample handle from miles?
@@ -1052,8 +1053,8 @@ AudibleSoundClass::Set_Volume (float volume)
 	//
 	// Cache the normalized volume value
 	//
-	m_RealVolume = min (volume, 1.0F);
-	m_RealVolume = max (m_RealVolume, 0.0F);
+	m_RealVolume = std::min (volume, 1.0F);
+	m_RealVolume = std::max (m_RealVolume, 0.0F);
 
 	//
 	//	Update the volume
@@ -1108,8 +1109,8 @@ AudibleSoundClass::Set_Priority (float priority)
 	MMSLockClass lock;
 
 	// Cache the normalized priority
-	m_Priority = min (priority, 1.0F);
-	m_Priority = max (m_Priority, 0.0F);
+	m_Priority = std::min (priority, 1.0F);
+	m_Priority = std::max (m_Priority, 0.0F);
 	return ;
 }
 

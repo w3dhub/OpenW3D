@@ -40,6 +40,7 @@
 #include "win.h"		// for strcpy, can this be improved?
 #include "assetmgr.h"
 #include "texture.h"
+#include <algorithm>
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(pointer) \

@@ -63,6 +63,7 @@
 #include "wwphysids.h"
 #include "buildingaggregate.h"
 #include "persistfactory.h"
+#include <algorithm>
 
 
 #define MIN_FOV				0.02f
@@ -1642,7 +1643,7 @@ void CCameraClass::Update_Sniper_Listener_Pos( void )
 		//	Calculate what point in world space the sniper is zoomed into
 		//
 		float dist = ::tan (1.45F + ((1.5672F - 1.45F) * SniperZoom));	
-		dist = min (dist, SniperDistance);
+		dist = std::min (dist, SniperDistance);
 		Vector3 pos = tm.Get_Translation() - (tm.Get_Z_Vector() * dist);
 
 		//

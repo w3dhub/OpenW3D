@@ -108,6 +108,7 @@
 #include "heightfieldeditor.h"
 #include "heightfieldmgr.h"
 #include "pathmgr.h"
+#include <algorithm>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -845,7 +846,7 @@ SceneEditorClass::Update_Toolbars (void)
 		// and output their names to the debug window...
 		//
 		CString selection_set = "Selection set: ";
-		int sel_count = min (m_SelectionMgr->Get_Count (), 4);
+		int sel_count = std::min (m_SelectionMgr->Get_Count (), 4);
 		for (int index = 0; index < sel_count; index ++) {
 			NodeClass *node	= m_SelectionMgr->Get_At (index);
 			selection_set		+= node->Get_Name ();

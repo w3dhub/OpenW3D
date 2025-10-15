@@ -50,6 +50,7 @@
 #include "_globals.h"
 #include "translatedb.h"
 #include "string_ids.h"
+#include <algorithm>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -336,8 +337,8 @@ DlgConfigPerformanceTabClass::Load_Values (void)
 		//
 		//	Set the slider's positions to reflect the loaded values
 		//
-		char_shadows_slider->Set_Pos (min (shadow_mode, 3));
-		texture_slider->Set_Pos (max (2 - texture_red, 0));
+		char_shadows_slider->Set_Pos (std::min (shadow_mode, 3));
+		texture_slider->Set_Pos (std::max (2 - texture_red, 0));
 		surface_effect_slider->Set_Pos (surface_effect);
 		particle_slider->Set_Pos (particle_detail);
 
@@ -414,7 +415,7 @@ DlgConfigPerformanceTabClass::Determine_Performance_Setting (void)
 	//	Set the slider's position
 	//
 	SliderCtrlClass *slider_ctrl	= (SliderCtrlClass *)Get_Dlg_Item (IDC_PERFORMANCE_SLIDER);
-	slider_ctrl->Set_Pos (min (int(level_rating + 0.4F), MAX_EXPERT_OPTIONS - 1), false);
+	slider_ctrl->Set_Pos (std::min (int(level_rating + 0.4F), MAX_EXPERT_OPTIONS - 1), false);
 	return ;
 }
 
@@ -613,7 +614,7 @@ DlgConfigPerformanceTabClass::On_Apply (void)
 		registry.Set_Int (VALUE_NAME_STATIC_SHADOWS, static_shadows);
 
 		registry.Set_Int (VALUE_NAME_SHADOW_MODE,		shadow_mode);
-		registry.Set_Int (VALUE_NAME_TEXTURE_RES,		max (2 - texture_red, 0));
+		registry.Set_Int (VALUE_NAME_TEXTURE_RES,		std::max (2 - texture_red, 0));
 		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, particle_detail);
 
 		if (DX8Wrapper::Get_Current_Caps() && DX8Wrapper::Get_Current_Caps()->Support_NPatches ()) {
@@ -634,7 +635,7 @@ DlgConfigPerformanceTabClass::On_Apply (void)
 			WW3D::_Invalidate_Textures();
 			COMBAT_SCENE->Set_Shadow_Mode ((PhysicsSceneClass::ShadowEnum)shadow_mode);
 		}
-		WW3D::Set_Texture_Reduction (max (2 - texture_red, 0));
+		WW3D::Set_Texture_Reduction (std::max (2 - texture_red, 0));
 		SurfaceEffectsManager::Set_Mode ((SurfaceEffectsManager::MODE)surface_effect);
 	}
 
