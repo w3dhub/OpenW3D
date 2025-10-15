@@ -86,10 +86,7 @@
 #include "sctextobj.h"
 #include "mainloop.h"
 #include <cstdio>
-<<<<<<< HEAD
 #include <algorithm>
-=======
->>>>>>> 8f771c1 (Add missing <cstdio> includes)
 
 using namespace WWOnline;
 

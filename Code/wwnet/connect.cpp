@@ -51,6 +51,7 @@
 #include <algorithm>
 #include "socket_wrapper.h"
 #include <cstdio>
+#include <algorithm>
 
 #ifdef WWDEBUG
 #include "Combat/crandom.h"

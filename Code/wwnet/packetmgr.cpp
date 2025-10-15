@@ -50,6 +50,7 @@
 #include "connect.h"
 #include <algorithm>
 #include "socket_wrapper.h"
+#include <algorithm>
 
 /*
 ** Single instance of PacketManagerClass.
