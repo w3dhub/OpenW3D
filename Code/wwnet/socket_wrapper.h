@@ -37,8 +37,8 @@ namespace wwnet {
 	int SocketGetLastError();
 	void SocketSetLastError(int err);
 	int SocketIoctl(SocketHandle s, long cmd, SocketIoctlParam* argp);
-	int SocketGetSockOpt(SocketHandle s, int level, int optname, char* optval, int* optlen);
-	int SocketSetSockOpt(SocketHandle s, int level, int optname, const char* optval, int optlen);
+	int SocketGetSockOpt(SocketHandle s, int level, int optname, char* optval, socklen_t* optlen);
+	int SocketSetSockOpt(SocketHandle s, int level, int optname, const char* optval, socklen_t optlen);
 	int SocketSendTo(SocketHandle s, const char* buf, size_t len, int flags, const struct sockaddr* to, socklen_t* tolen);
 	int SocketRecvFrom(SocketHandle s, char* buf, size_t len, int flags, struct sockaddr* from, socklen_t* fromlen);
 	int SocketGetHostName(char* name, int namelen);

@@ -34,14 +34,11 @@ namespace wwnet {
         return ::ioctl(s, cmd, argp);
     }
 
-    int SocketGetSockOpt(SocketHandle s, int level, int optname, char* optval, int* optlen) {
-        socklen_t len = static_cast<socklen_t>(*optlen);
-        int rc = ::getsockopt(s, level, optname, optval, &len);
-        *optlen = static_cast<int>(len);
-        return rc;
+    int SocketGetSockOpt(SocketHandle s, int level, int optname, char* optval, socklen_t* optlen) {
+        return ::getsockopt(s, level, optname, optval, optlen);
     }
 
-    int SocketSetSockOpt(SocketHandle s, int level, int optname, const char* optval, int optlen) {
+    int SocketSetSockOpt(SocketHandle s, int level, int optname, const char* optval, socklen_t optlen) {
         return ::setsockopt(s, level, optname, optval, optlen);
     }
 
