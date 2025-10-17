@@ -41,6 +41,7 @@
 //#include <winsock2.h>
 #include "systimer.h"
 #include <malloc.h>
+#include <thread>
 
 #include "netutil.h"
 #include "wwmemlog.h"
@@ -920,9 +921,8 @@ WWPROFILE("PMgr Flush");
 
 
 			if (result == SOCKET_ERROR){
-				if (WSAGetLastError() != WSAEWOULDBLOCK) {
-					int error_code = 0;
-					error_code = WSAGetLastError();// avoid release build compiler warning
+				int error_code = wwnet::SocketGetLastError();
+				if (error_code != WSAEWOULDBLOCK) {
 					WWDEBUG_SAY(("PacketManagerClass - sendto returned error code %d - %s\n", error_code, cNetUtil::Winsock_Error_Text(error_code)));
 					Clear_Socket_Error(socket);
 				} else {
@@ -931,7 +931,7 @@ WWPROFILE("PMgr Flush");
 					** No more room for outgoing packets. Unfortunately, this means we lose the lot.
 					*/
 					WWDEBUG_SAY(("PacketManagerClass - sendto returned WSAEWOULDBLOCK\n"));
-					Sleep(0);
+					std::this_thread::yield();
 					ErrorState = STATE_WS_BUFFERS_FULL;
 				}
 			}
@@ -1109,11 +1109,11 @@ bool PacketManagerClass::Break_Packet(unsigned char *packet, int original_packet
 void PacketManagerClass::Clear_Socket_Error(SOCKET socket)
 {
 	unsigned long error_code;
-	int length = 4;
+	socklen_t opt_len = static_cast<socklen_t>(sizeof(error_code));
 	assert(socket != INVALID_SOCKET);
 
 	if (socket != INVALID_SOCKET) {
-		getsockopt (socket, SOL_SOCKET, SO_ERROR, (char*)&error_code, &length);
+		wwnet::SocketGetSockOpt(socket, SOL_SOCKET, SO_ERROR, reinterpret_cast<char*>(&error_code), &opt_len);
 		WWDEBUG_SAY(("Per socket error is %d - %s\n", error_code, cNetUtil::Winsock_Error_Text(error_code)));
 	}
 }
@@ -1192,22 +1192,23 @@ WWPROFILE("Pmgr Get");
 #ifdef WRAPPER_CRC
 				}
 #endif //WRAPPER_CRC
-			} else {
-				if (bytes == SOCKET_ERROR && WSAGetLastError() != WSAEWOULDBLOCK) {
-					int error_code = 0;
-					error_code = WSAGetLastError();// avoid release build compiler warning
-					WWDEBUG_SAY(("PacketManagerClass - recvfrom failed with error %d - %s\n", error_code, cNetUtil::Winsock_Error_Text(error_code)));
-					Clear_Socket_Error(socket);
-					if (error_code == WSAECONNRESET) {
-						WWDEBUG_SAY(("PacketManagerClass - WSAECONNRESET from address %s\n", Addr_As_String(&addr)));
-						memcpy(ip_address, &addr.sin_addr.s_addr, 4);
-						port = addr.sin_port;
-						return(-1);
-					}
 				} else {
-					WWDEBUG_SAY(("PacketManagerClass - recvfrom failed with error WSAEWOULDBLOCK\n", WSAGetLastError()));
+					if (bytes == SOCKET_ERROR) {
+						int error_code = wwnet::SocketGetLastError();
+						if (error_code != WSAEWOULDBLOCK) {
+							WWDEBUG_SAY(("PacketManagerClass - recvfrom failed with error %d - %s\n", error_code, cNetUtil::Winsock_Error_Text(error_code)));
+							Clear_Socket_Error(socket);
+							if (error_code == WSAECONNRESET) {
+								WWDEBUG_SAY(("PacketManagerClass - WSAECONNRESET from address %s\n", Addr_As_String(&addr)));
+								memcpy(ip_address, &addr.sin_addr.s_addr, 4);
+								port = addr.sin_port;
+								return(-1);
+							}
+						} else {
+							WWDEBUG_SAY(("PacketManagerClass - recvfrom failed with error WSAEWOULDBLOCK\n"));
+						}
+					}
 				}
-			}
 		}
 	}
 

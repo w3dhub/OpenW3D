@@ -87,7 +87,8 @@ char cNetUtil::WorkingAddressBuffer[]					= "";
 
 void cNetUtil::Wsa_Error(LPCSTR sFile, unsigned uLine)
 {
-   WWDEBUG_SAY(("* %s:%d: WSA function returned error code: %s\n", sFile, uLine, Winsock_Error_Text(::WSAGetLastError())));
+   int err = wwnet::SocketGetLastError();
+   WWDEBUG_SAY(("* %s:%d: WSA function returned error code: %s\n", sFile, uLine, Winsock_Error_Text(err)));
    DIE;
 }
 
@@ -185,7 +186,7 @@ bool cNetUtil::Send_Resource_Failure(LPCSTR sFile, unsigned uLine, int ret_code)
 	bool return_code = false;
 
    if (ret_code == SOCKET_ERROR) {
-		int wsa_error = ::WSAGetLastError();
+		int wsa_error = wwnet::SocketGetLastError();
       if (wsa_error == WSAEWOULDBLOCK || wsa_error == WSAENOBUFS) {
 
 			/*
@@ -213,7 +214,7 @@ bool cNetUtil::Would_Block(LPCSTR sFile, unsigned uLine, int ret_code)
 	bool retcode = false;
 
    if (ret_code == SOCKET_ERROR) {
-      if (::WSAGetLastError() == WSAEWOULDBLOCK) {
+      if (wwnet::SocketGetLastError() == WSAEWOULDBLOCK) {
          retcode = true;
       } else {
          Wsa_Error(sFile, uLine);
@@ -330,7 +331,7 @@ bool cNetUtil::Is_Tcpip_Present(void)
 
    SOCKET test_socket = ::socket(AF_INET, SOCK_DGRAM, 0);
    if (test_socket == INVALID_SOCKET) {
-      if (::WSAGetLastError() == WSAEAFNOSUPPORT) {
+      if (wwnet::SocketGetLastError() == WSAEAFNOSUPPORT) {
          retcode = false;
       } else {
          WSA_ERROR;
@@ -349,10 +350,11 @@ void cNetUtil::Wsa_Init()
 	// winsock 1.1
 	//
 
-   WSADATA wsa_data;
-   if (::WSAStartup(MAKEWORD(1, 1), &wsa_data) != 0) {
-      DIE;
-   }
+	int rc = wwnet::SocketStartup();
+	if (rc != 0) {
+		wwnet::SocketSetLastError(rc);
+		DIE;
+	}
 }
 
 //-------------------------------------------------------------------------------
@@ -400,36 +402,36 @@ void cNetUtil::Set_Socket_Buffer_Sizes(SOCKET sock, int new_size)
    WWDEBUG_SAY(("cNetUtil::Set_Socket_Buffer_Sizes:\n"));
 
    int buffersize		= 0;
-   int len				= 0;
+   socklen_t opt_len	= 0;
 
 	buffersize = 0;
-	len = sizeof(int);
-   WSA_CHECK(::getsockopt(sock, SOL_SOCKET, SO_SNDBUF, (char *)&buffersize, &len));
+	opt_len = static_cast<socklen_t>(sizeof(buffersize));
+   WSA_CHECK(wwnet::SocketGetSockOpt(sock, SOL_SOCKET, SO_SNDBUF, reinterpret_cast<char *>(&buffersize), &opt_len));
    //WWDEBUG_SAY(("  SO_SNDBUF = %d\n", buffersize));
 
    buffersize = 0;
-   len = sizeof(int);
-   WSA_CHECK(::getsockopt(sock, SOL_SOCKET, SO_RCVBUF, (char *)&buffersize, &len));
+   opt_len = static_cast<socklen_t>(sizeof(buffersize));
+   WSA_CHECK(wwnet::SocketGetSockOpt(sock, SOL_SOCKET, SO_RCVBUF, reinterpret_cast<char *>(&buffersize), &opt_len));
    //WWDEBUG_SAY(("  SO_RCVBUF = %d\n", buffersize));
 
    buffersize = new_size;
-   len = sizeof(int);
-   WSA_CHECK(setsockopt(sock, SOL_SOCKET, SO_SNDBUF, (char *)&buffersize, len));
+   opt_len = static_cast<socklen_t>(sizeof(buffersize));
+   WSA_CHECK(wwnet::SocketSetSockOpt(sock, SOL_SOCKET, SO_SNDBUF, reinterpret_cast<const char *>(&buffersize), opt_len));
    //WWDEBUG_SAY(("  Attempting to set SO_SNDBUF = %d\n", buffersize));
 
    buffersize = new_size;
-   len = sizeof(int);
-   WSA_CHECK(setsockopt(sock, SOL_SOCKET, SO_RCVBUF, (char *)&buffersize, len));
+   opt_len = static_cast<socklen_t>(sizeof(buffersize));
+   WSA_CHECK(wwnet::SocketSetSockOpt(sock, SOL_SOCKET, SO_RCVBUF, reinterpret_cast<const char *>(&buffersize), opt_len));
    //WWDEBUG_SAY(("  Attempting to set SO_RCVBUF = %d\n", buffersize));
 
 	buffersize = 0;
-	len = sizeof(int);
-   WSA_CHECK(::getsockopt(sock, SOL_SOCKET, SO_SNDBUF, (char *)&buffersize, &len));
+	opt_len = static_cast<socklen_t>(sizeof(buffersize));
+   WSA_CHECK(wwnet::SocketGetSockOpt(sock, SOL_SOCKET, SO_SNDBUF, reinterpret_cast<char *>(&buffersize), &opt_len));
    //WWDEBUG_SAY(("  SO_SNDBUF = %d\n", buffersize));
 
 	buffersize = 0;
-	len = sizeof(int);
-   WSA_CHECK(::getsockopt(sock, SOL_SOCKET, SO_RCVBUF, (char *)&buffersize, &len));
+	opt_len = static_cast<socklen_t>(sizeof(buffersize));
+   WSA_CHECK(wwnet::SocketGetSockOpt(sock, SOL_SOCKET, SO_RCVBUF, reinterpret_cast<char *>(&buffersize), &opt_len));
    //WWDEBUG_SAY(("  SO_RCVBUF = %d\n", buffersize));
 }
 
@@ -557,7 +559,7 @@ bool cNetUtil::Create_Bound_Socket(SOCKET & sock, USHORT port, struct sockaddr_i
 		return true;
    } else {
       WWASSERT(result == SOCKET_ERROR);
-      //if (::WSAGetLastError() != WSAEADDRINUSE) {
+      //if (wwnet::SocketGetLastError() != WSAEADDRINUSE) {
          WSA_ERROR;
       //}
       return false;
@@ -646,13 +648,13 @@ void cNetUtil::Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback)
 		// If we appear to crash INSIDE recvfrom then this tends to indicate
 		// that net neighbourhood broke.
 		//
-	   retcode = wwnet::SocketRecvFrom(sock, packet.Get_Data(), packet.Get_Max_Size(),
-		   0, (sockaddr*)&packet.Get_From_Address_Wrapper()->FromAddress, &address_len);
+		   retcode = wwnet::SocketRecvFrom(sock, packet.Get_Data(), packet.Get_Max_Size(),
+			   0, (sockaddr*)&packet.Get_From_Address_Wrapper()->FromAddress, &address_len);
 
-		if (retcode == SOCKET_ERROR) {
-			if (::WSAGetLastError() != WSAEWOULDBLOCK) {
-				WSA_ERROR;
-			}
+			if (retcode == SOCKET_ERROR) {
+				if (wwnet::SocketGetLastError() != WSAEWOULDBLOCK) {
+					WSA_ERROR;
+				}
 		} else {
 			/*
 			//

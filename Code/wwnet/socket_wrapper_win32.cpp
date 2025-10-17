@@ -43,12 +43,17 @@ namespace wwnet {
         return ::ioctlsocket(s, cmd, argp);
     }
 
-    int SocketGetSockOpt(SocketHandle s, int level, int optname, char* optval, int* optlen) {
-        return ::getsockopt(s, level, optname, optval, optlen);
+    int SocketGetSockOpt(SocketHandle s, int level, int optname, char* optval, socklen_t* optlen) {
+        int len = optlen ? static_cast<int>(*optlen) : 0;
+        int rc = ::getsockopt(s, level, optname, optval, optlen ? &len : nullptr);
+        if (optlen) {
+            *optlen = static_cast<socklen_t>(len);
+        }
+        return rc;
     }
 
-    int SocketSetSockOpt(SocketHandle s, int level, int optname, const char* optval, int optlen) {
-        return ::setsockopt(s, level, optname, optval, optlen);
+    int SocketSetSockOpt(SocketHandle s, int level, int optname, const char* optval, socklen_t optlen) {
+        return ::setsockopt(s, level, optname, optval, static_cast<int>(optlen));
     }
 
     int SocketSendTo(SocketHandle s, const char* buf, size_t len, int flags, const struct sockaddr* to, socklen_t* tolen) {

@@ -98,8 +98,8 @@ static const char* inet_ntop(int af, const void* src, char* dst, size_t size) {
 		if (!s) return nullptr;
 		strncpy_s(dst, size, s, _TRUNCATE);
 		return dst;
-	}
-	::WSASetLastError(WSAEAFNOSUPPORT);
+		}
+	wwnet::SocketSetLastError(WSAEAFNOSUPPORT);
 	return nullptr;
 }
 #endif
@@ -398,7 +398,7 @@ bool cConnection::Bind(USHORT port, ULONG addr)
       //
       // Any excuse other than address/port already used, is fatal.
       //
-      if (::WSAGetLastError() != WSAEADDRINUSE) {
+      if (wwnet::SocketGetLastError() != WSAEADDRINUSE) {
 			WSA_ERROR;
       }
       return false;
@@ -592,7 +592,7 @@ int cConnection::Single_Player_recvfrom(char * data)
 
    SLNode<cPacket> * objnode = p_packet_list->Head();
    if (objnode == NULL) {
-      WSASetLastError(WSAEWOULDBLOCK);
+      wwnet::SocketSetLastError(WSAEWOULDBLOCK);
       ret_code = SOCKET_ERROR; // no data received
    } else {
 
@@ -1382,13 +1382,13 @@ void cConnection::Handle_Send_Resource_Failure(int rhost_id)
 		PRHost[rhost_id]->Get_Stats().StatSample[STAT_SendFailureCount]++;
    }
 
-   int orgbuffersize;
-   int newbuffersize;
-   int len;
+	int orgbuffersize;
+	int newbuffersize;
+	socklen_t opt_len;
 
-	len = sizeof(int);
-   WSA_CHECK(::getsockopt(Sock, SOL_SOCKET, SO_SNDBUF,
-      (char *)&orgbuffersize, &len));
+	opt_len = static_cast<socklen_t>(sizeof(orgbuffersize));
+   WSA_CHECK(wwnet::SocketGetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
+      reinterpret_cast<char *>(&orgbuffersize), &opt_len));
 
 	static int time_of_last_reset = 0;
 	int time_now = TIMEGETTIME();
@@ -1420,14 +1420,14 @@ void cConnection::Handle_Send_Resource_Failure(int rhost_id)
          // reduce bw out.
          //
 
-			newbuffersize = 4 * orgbuffersize;
-			len = sizeof(int);
-			WSA_CHECK(setsockopt(Sock, SOL_SOCKET, SO_SNDBUF,
-				(char *)&newbuffersize, len));
+				newbuffersize = 4 * orgbuffersize;
+				opt_len = static_cast<socklen_t>(sizeof(newbuffersize));
+				WSA_CHECK(wwnet::SocketSetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
+					reinterpret_cast<const char *>(&newbuffersize), opt_len));
 
-			len = sizeof(int);
-			WSA_CHECK(::getsockopt(Sock, SOL_SOCKET, SO_SNDBUF,
-				(char *)&newbuffersize, &len));
+				opt_len = static_cast<socklen_t>(sizeof(newbuffersize));
+				WSA_CHECK(wwnet::SocketGetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
+					reinterpret_cast<char *>(&newbuffersize), &opt_len));
 
 			WWDEBUG_SAY(("SO_SNDBUF %d -> %d\n",
 				orgbuffersize, newbuffersize));
