@@ -11,9 +11,6 @@ jobs:
     name: ${{ matrix.name }} Build
     runs-on: ${{ matrix.os }}
     timeout-minutes: 38
-    defaults:
-      run:
-        shell: ${{ matrix.shell }}
     strategy:
       fail-fast: false
       matrix:
