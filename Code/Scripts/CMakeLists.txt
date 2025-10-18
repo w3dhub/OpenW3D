@@ -1,6 +1,6 @@
 set(SCRIPTS_SRC
     CustomEvents.h
-    DLLmain.cpp
+    $<$<BOOL:${WIN32}>:DLLmain.cpp>
     DPrint.cpp
     DPrint.h
     DrMobius.cpp
