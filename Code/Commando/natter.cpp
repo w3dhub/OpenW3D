@@ -356,12 +356,12 @@ DynamicVectorClass<WOL::Server*> WOLNATInterfaceClass::Get_Mangler_Server_List(v
 	DynamicVectorClass<WOL::Server*> return_list;
 
 	const WWOnline::MGLServerList &server_list = SessionPtr->GetManglerServerList();
-	int num_servers = server_list.size();
+	const size_t num_servers = server_list.size();
 
 	/*
 	** Copy each server from the Session server list into our own vector.
 	*/
-	for (int i=0 ; i<num_servers ; i++) {
+	for (size_t i=0 ; i<num_servers ; i++) {
 		WOL::Server *server = new WOL::Server;
 		memcpy((void*)server, (void*)&(server_list[i]->GetData()), sizeof(*server));
 		return_list.Add(server);
@@ -390,7 +390,7 @@ DynamicVectorClass<WOL::Server*> WOLNATInterfaceClass::Get_Mangler_Server_List(v
 int WOLNATInterfaceClass::Get_Num_Mangler_Servers(void)
 {
 	const WWOnline::MGLServerList &server_list = SessionPtr->GetManglerServerList();
-	return(server_list.size());
+	return(static_cast<int>(server_list.size()));
 }
 
 
@@ -1655,4 +1655,3 @@ bool WOLNATInterfaceClass::Is_NAT_Thread_Busy(void)
 {
 	return(FirewallHelper.Is_Busy());
 }
-

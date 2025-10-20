@@ -4012,11 +4012,12 @@ public:
 																					(int)(addr->sin_addr.S_un.S_un_b.s_b3),
 																					(int)(addr->sin_addr.S_un.S_un_b.s_b4),
 																					unsigned int(ntohs(addr->sin_port)));
-							int addr_string_len = strlen(addr_string);
+							const size_t addr_string_len = ::strlen(addr_string);
 							char local_addr_string[128];
 							strcpy(local_addr_string, addr_string);
-							if (addr_string_len < 21) {
-								strncat(local_addr_string, "                         ", 21-addr_string_len);
+								if (addr_string_len < 21) {
+									const size_t padding = 21 - addr_string_len;
+									strncat(local_addr_string, "                         ", padding);
 							}
 
 							Vector3 color = playerptr->Get_Color();
@@ -5377,8 +5378,8 @@ void	ConsoleFunctionManager::Parse_Input( const char * string )
             char alias[100];
             WWASSERT(strlen(function->Get_Alias()) < sizeof(alias));
             strcpy(alias, function->Get_Alias());
-            int alias_len = strlen(alias);
-            int string_len = strlen(string);
+            const size_t alias_len = ::strlen(alias);
+            const size_t string_len = ::strlen(string);
             if (!strnicmp(string, alias, alias_len) &&
                (string_len == alias_len || string[alias_len] == ' ')) {
 				   string += alias_len;
@@ -5489,4 +5490,3 @@ void	ConsoleFunctionManager::Print( const char *format, ... )
 	ConsoleBox.Print(string.Peek_Buffer());
 	va_end (arg_list);
 }
-

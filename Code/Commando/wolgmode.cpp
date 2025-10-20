@@ -38,6 +38,7 @@
 #include "gamedata.h"
 #include "gamechanlist.h"
 #include "gamechannel.h"
+#include <limits>
 #include "gameinitmgr.h"
 #include "WOLChatMgr.h"
 #include "WOLBuddyMgr.h"
@@ -351,9 +352,9 @@ void WolGameModeClass::Think(void)
 			}
 
 			const UserList& userList = mWOLSession->GetUserList();
-			const unsigned int count = userList.size();
+			const size_t count = userList.size();
 
-			for (unsigned int index = 0; index < count; index++) {
+			for (size_t index = 0; index < count; index++) {
 				const RefPtr<UserData>& user = userList[index];
 				WWASSERT(user.IsValid());
 			
@@ -867,9 +868,9 @@ void WolGameModeClass::Evaluate_Clans(cGameData* theGame)
 
 			// Determine which clans are in the game.
 			const UserList& userList = mWOLSession->GetUserList();
-			const unsigned int count = userList.size();
+			const size_t count = userList.size();
 
-			for (unsigned int index = 0; index < count; ++index) {
+			for (size_t index = 0; index < count; ++index) {
 				const RefPtr<UserData>& user = userList[index];
 				WWASSERT(user.IsValid());
 
@@ -1729,8 +1730,8 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 				// Only copy the sysinfo if it isn't disabled in registry
 				if (sysinfo_log_disabled==0) {
 					const char* data = (request + strlen("SYSINFO:"));
-					int datalen=strlen(data);
-					if (!datalen) return;
+					const size_t datalen = ::strlen(data);
+					if (datalen == 0) return;
 					StringClass tmp(0,true);
 
 					StringClass requestor(0, true);
@@ -1780,7 +1781,9 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 							FILE_ATTRIBUTE_NORMAL, NULL);
 					if (INVALID_HANDLE_VALUE != file) {
 						SetFilePointer(file, 0, NULL, FILE_END);
-						WriteFile(file, datastring, strlen(datastring), &written, NULL);
+						const size_t data_length = ::strlen(datastring);
+						WWASSERT(data_length <= std::numeric_limits<DWORD>::max());
+						WriteFile(file, datastring, static_cast<DWORD>(data_length), &written, NULL);
 						CloseHandle(file);
 					}
 				}

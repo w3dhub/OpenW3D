@@ -151,9 +151,9 @@ RefPtr<LoginInfo> LoginInfo::Find(const wchar_t* name)
 	if (name)
 		{
 		const LoginInfoList& list = GetList();
-		const unsigned int count = list.size();
+		const size_t count = list.size();
 
-		for (unsigned int index = 0; index < count; ++index)
+		for (size_t index = 0; index < count; ++index)
 			{
 			RefPtr<LoginInfo> login = list[index];
 			WWASSERT(login.IsValid());

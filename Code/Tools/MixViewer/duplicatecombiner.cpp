@@ -486,7 +486,8 @@ DuplicateRemoverClass::Make_Path (LPCTSTR path, LPCTSTR filename)
 	//
 	//	Delimit the path if necessary
 	//
-	if (full_path[full_path.Get_Length () - 1] != '\\') {
+	const size_t path_length = full_path.Get_Length ();
+	if (path_length == 0 || full_path[static_cast<int>(path_length - 1)] != '\\') {
 		full_path += "\\";
 	}
 

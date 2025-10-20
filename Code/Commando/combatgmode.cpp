@@ -424,7 +424,13 @@ public:
 //			Debug_Say(( "Parse %s\n", read ));
 			StringClass desc = read;
 			while ( desc.Get_Length() && desc[0] <= ' ' ) desc.Erase( 0, 1 );
-			while ( desc.Get_Length() && desc[desc.Get_Length()-1]<=' ' ) desc.Erase(desc.Get_Length()-1, 1 );
+				while (desc.Get_Length()) {
+					const size_t tail_index = desc.Get_Length() - 1;
+					if (desc[static_cast<int>(tail_index)] > ' ') {
+						break;
+					}
+					desc.Erase(static_cast<int>(tail_index), 1);
+				}
 
 			// Parse Big Translated Text
 			if ( ::strnicmp( "Text2", desc, 5 ) == 0 ) {
@@ -1136,10 +1142,11 @@ void CombatGameModeClass::Core_Restart(void)
 
 		new_name = CombatManager::Get_Last_LSD_Name();
 
-		// convert .LSD to .MIX
-		if ( new_name.Get_Length() > 4 &&
-			::stricmp( &new_name[new_name.Get_Length() - 4], ".LSD" ) == 0 ) {
-			new_name.Erase( new_name.Get_Length() - 4, 4 );
+			// convert .LSD to .MIX
+			const size_t name_length = new_name.Get_Length();
+			if ( name_length > 4 &&
+				::stricmp( &new_name[static_cast<int>(name_length - 4)], ".LSD" ) == 0 ) {
+				new_name.Erase( static_cast<int>(name_length - 4), 4 );
 			new_name += ".MIX";
 		}
 

@@ -50,6 +50,7 @@
 #include <snmp.h>
 #include	<stddef.h>
 #include <process.h>
+#include <limits>
 
 
 #include "crandom.h"
@@ -3061,8 +3062,10 @@ int FirewallHelperClass::Negotiate_Port(void)
 
 			do {
 				if (resend_timer < TIMEGETTIME()) {
-					//if (!CrapFlag)
-					WOLNATInterface.Send_Game_Format_Packet_To(&PlayersFirewallAddress, packet, strlen(packet)+1, socket);
+						//if (!CrapFlag)
+						const size_t payload_size = ::strlen(packet) + 1;
+						WWASSERT(payload_size <= std::numeric_limits<int>::max());
+						WOLNATInterface.Send_Game_Format_Packet_To(&PlayersFirewallAddress, packet, static_cast<int>(payload_size), socket);
 					resend_timer = TIMEGETTIME() + (TIMER_SECOND / 2);
 				}
 

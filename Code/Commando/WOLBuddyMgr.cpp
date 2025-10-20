@@ -420,9 +420,9 @@ bool WOLBuddyMgr::IsBuddy(const wchar_t* name) const
 void WOLBuddyMgr::RefreshBuddyInfo(void)
 	{
 	const UserList& buddies = mWOLSession->GetBuddyList();
-	const unsigned int count = buddies.size();
+	const size_t count = buddies.size();
 
-	for (unsigned int index = 0; index < count; ++index)
+	for (size_t index = 0; index < count; ++index)
 		{
 		const RefPtr<UserData>& buddy = buddies[index];
 		mWOLSession->RequestLocateUser(buddy);
@@ -1226,10 +1226,10 @@ void WOLBuddyMgr::HandleNotification(BuddyEvent& event)
 
 	if ((event.GetEvent() == BuddyEvent::NewList) || (event.GetEvent() == BuddyEvent::Added))
 		{
-		const UserList& buddies = event.Subject();
-		unsigned int count = buddies.size();
+			const UserList& buddies = event.Subject();
+			const size_t count = buddies.size();
 
-		for (unsigned int index = 0; index < count; ++index)
+			for (size_t index = 0; index < count; ++index)
 			{
 			const RefPtr<UserData>& buddy = buddies[index];
 

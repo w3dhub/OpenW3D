@@ -38,6 +38,7 @@
 
 #include <shellapi.h>
 #include <stdio.h>
+#include <limits>
 
 #include "specialbuilds.h"
 
@@ -474,15 +475,21 @@ int cNetwork::Get_Data_Files_CRC(void)
 			while ( *n ) *n++ ^= 0x5;
 //			Debug_Say(( "		\"%s\",\n", name ));
 			FileClass * file = _TheFileFactory->Get_File( name );
-			if ( file && file->Is_Available() ) {
-				int size = file->Size();
+			if (file && file->Is_Available()) {
+				size_t size = file->Size();
 				file->Open();
-				while ( size > 0 ) {
-					unsigned char buffer[ 4096 ];
-					int amount = min( (int)size, (int)sizeof(buffer) );
-					amount = file->Read( buffer, amount );
-					crc = CRC_Memory( buffer, amount, crc );
-					size -= amount;
+				while (size > 0) {
+					unsigned char buffer[4096];
+					size_t chunk = size;
+					if (chunk > sizeof(buffer)) {
+						chunk = sizeof(buffer);
+					}
+					int amount = file->Read(buffer, static_cast<int>(chunk));
+					if (amount <= 0) {
+						break;
+					}
+					crc = CRC_Memory(buffer, amount, crc);
+					size -= static_cast<size_t>(amount);
 				}
 				file->Close();
 			} else {
@@ -516,7 +523,10 @@ void cNetwork::Compute_Exe_Key(void)
 	WWDEBUG_SAY(("File id string: %s\n", string));
 	key_string += string;
 	key_string += " ";
-	ExeCRC = CRCEngine()(string, strlen(string));
+	const char *exe_string = string;
+	const size_t exe_string_length = ::strlen(exe_string);
+	WWASSERT(exe_string_length <= std::numeric_limits<int>::max());
+	ExeCRC = CRCEngine()(exe_string, static_cast<int>(exe_string_length));
 
 	//
 	// TSS 09/07/01
@@ -535,7 +545,10 @@ void cNetwork::Compute_Exe_Key(void)
 	WWDEBUG_SAY(("File id string: %s\n", string));
 	key_string += string;
 	key_string += " ";
-	StringsCRC = CRCEngine()(string, strlen(string));
+	const char *tdb_string = string;
+	const size_t tdb_length = ::strlen(tdb_string);
+	WWASSERT(tdb_length <= std::numeric_limits<int>::max());
+	StringsCRC = CRCEngine()(tdb_string, static_cast<int>(tdb_length));
 
 	//
 	// TSS102401 - we can't match always.dbs either.
@@ -545,7 +558,10 @@ void cNetwork::Compute_Exe_Key(void)
 	//
 	// Use the crc of the keystring as the key
 	//
-	ExeKey = CRCEngine()(key_string, strlen(key_string));
+	const char *key_string_buffer = key_string;
+	const size_t key_length = ::strlen(key_string_buffer);
+	WWASSERT(key_length <= std::numeric_limits<int>::max());
+	ExeKey = CRCEngine()(key_string_buffer, static_cast<int>(key_length));
 
 	//
 	// Include data file crc

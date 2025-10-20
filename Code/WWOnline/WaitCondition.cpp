@@ -485,8 +485,8 @@ void SerialWait::Add(const RefPtr<WaitCondition>& wait)
 ******************************************************************************/
 
 int SerialWait::RemainingWaits(void) const
-	{
-	int count = mWaits.size();
+{
+	const int count = static_cast<int>(mWaits.size());
 
 	return (mCurrentWait == -1) ? count :
 		(mCurrentWait >= count) ? 0 : (count - mCurrentWait);
@@ -845,7 +845,7 @@ void ANDWait::Add(const RefPtr<WaitCondition>& wait)
 
 void ANDWait::WaitBeginning(void)
 	{
-	for (unsigned int index = 0; index < mWaits.size(); index++)
+	for (size_t index = 0; index < mWaits.size(); index++)
 		{
 		mWaits[index]->WaitBeginning();
 		}
@@ -871,12 +871,12 @@ WaitCondition::WaitResult ANDWait::GetResult(void)
 	{
 	if (mEndResult == Waiting)
 		{
-		unsigned int metConditions = 0;
-		unsigned int count = mWaits.size();
+		size_t metConditions = 0;
+		const size_t count = mWaits.size();
 
 		// Get the result of all the wait conditions being processed. If they are
 		// all finished then the entire wait finished.
-		for (unsigned int index = 0; index < count; ++index)
+		for (size_t index = 0; index < count; ++index)
 			{
 			RefPtr<WaitCondition>& wait = mWaits[index];
 			WaitResult result = wait->GetResult();

@@ -1388,7 +1388,7 @@ STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, W
 
 	if (channel.IsValid())
 		{
-		channel->GetData().currentUsers = userList.size();
+		channel->GetData().currentUsers = static_cast<unsigned int>(userList.size());
 		}
 
 	// Update the user list
@@ -1757,11 +1757,10 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 	** Get the IP of the spammer.
 	*/
 	const UserList& user_list = mOuter->GetUserList();
-	const unsigned int count = user_list.size();
+	const size_t count = user_list.size();
 	unsigned long ip = 0;
-	unsigned int index;
 
-	for (index = 0; index < count; index++) {
+	for (size_t index = 0; index < count; index++) {
 		const RefPtr<UserData>& user = user_list[index];
 		if (user.IsValid()) {
 			WOL::User userdata = user->GetData();
@@ -1775,7 +1774,7 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 	/*
 	** Ban em, ban em all.
 	*/
-	for (index = 0; index < count; index++) {
+	for (size_t index = 0; index < count; index++) {
 		const RefPtr<UserData>& user = user_list[index];
 		if (user.IsValid()) {
 			WOL::User userdata = user->GetData();
@@ -2601,9 +2600,9 @@ STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned long squadID, WO
 void ChatObserver::AssignSquadToUsers(const UserList& users, const RefPtr<SquadData>& squad)
 	{
 	// Assign the squad to users who are its members.
-	const unsigned int userCount = users.size();
+	const size_t userCount = users.size();
 
-	for (unsigned int index = 0; index < userCount; ++index)
+	for (size_t index = 0; index < userCount; ++index)
 		{
 		const RefPtr<UserData>& user = users[index];
 

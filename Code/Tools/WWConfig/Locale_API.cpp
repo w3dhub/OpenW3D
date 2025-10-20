@@ -418,7 +418,7 @@ wchar_t *Remove_Quotes_Around_String ( wchar_t *old_string )
 {
 	wchar_t	wide_buffer[ _MAX_PATH * 3 ];
 	wchar_t * letter = old_string;
-	int		length;
+	size_t		length;
 
 	//----------------------------------------------------------------------
 	// If string is not NULL...
@@ -430,8 +430,8 @@ wchar_t *Remove_Quotes_Around_String ( wchar_t *old_string )
 
 		length = wcslen( wide_buffer );
 
-		if ( wide_buffer[ wcslen( wide_buffer )-1 ] == '"' ) {
-			wide_buffer[ wcslen( wide_buffer )-1 ] = '\0';
+		if ( length > 0 && wide_buffer[ length - 1 ] == '"' ) {
+			wide_buffer[ length - 1 ] = '\0';
 		}
 		wcscpy( old_string, wide_buffer );
 	}

@@ -38,6 +38,7 @@
 #include "WebBrowser.h"
 #include <wwlib/WWCOMUtil.h>
 #include <ww3d2/ww3d.h>
+#include <limits>
 #include <WWOnline/WOLLoginInfo.h>
 #include <wwdebug/wwdebug.h>
 #include "win.h"
@@ -580,9 +581,9 @@ bool WebBrowser::RetrieveHTMLPath(char* path, int size)
 		return false;
 		}
 
-	int dirSize = (length + strlen("\\HTML\\"));
+	const size_t dirSize = static_cast<size_t>(length) + ::strlen("\\HTML\\");
 
-	if (dirSize > size)
+	if (dirSize > static_cast<size_t>(size))
 		{
 		return false;
 		}
@@ -1074,7 +1075,9 @@ bool WebBrowser::LaunchExternal(const char* url)
 	// Write generic contents
 	const char* contents = "<title>ViewHTML</title>";
 	DWORD written;
-	WriteFile(file, contents, strlen(contents), &written, NULL);
+	const size_t content_length = ::strlen(contents);
+	WWASSERT(content_length <= std::numeric_limits<DWORD>::max());
+	WriteFile(file, contents, static_cast<DWORD>(content_length), &written, NULL);
 	CloseHandle(file);
 
 	// Find the executable that can launch this file

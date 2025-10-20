@@ -38,6 +38,7 @@
 #include "cdverify.h"
 #include "wwstring.h"
 #include "popupdialog.h"
+#include <algorithm>
 #include "resource.h"
 
 
@@ -101,16 +102,16 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 			//	Get the name of this volume
 			//
 			char volume_name[256] = { 0 };			
-			if (::GetVolumeInformationA (drive_root_name, volume_name, sizeof (volume_name),
-						NULL, NULL, NULL, NULL, NULL))
-			{
-				int cmp_len	= ::strlen (volume_name);
-				cmp_len		= max (cmp_len, 11);
+				if (::GetVolumeInformationA (drive_root_name, volume_name, sizeof (volume_name),
+							NULL, NULL, NULL, NULL, NULL))
+				{
+					size_t cmp_len	= ::strlen (volume_name);
+					cmp_len		= std::max<size_t> (cmp_len, static_cast<size_t>(11));
 
 				//
 				//	Is this the movies CD?
 				//
-				if (::strnicmp (volume_name, RENEGADE_MOVIES_VOLUME, cmp_len) == 0) {
+					if (::strnicmp (volume_name, RENEGADE_MOVIES_VOLUME, cmp_len) == 0) {
 					retval		= true;
 					drive_path	= drive_root_name;
 					break;

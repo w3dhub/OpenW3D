@@ -60,6 +60,7 @@
 #include "thread.h"
 #include "wwdebug.h"
 #include "wwmemlog.h"
+#include <limits>
 
 #include	<conio.h>
 #include	<imagehlp.h>
@@ -607,18 +608,18 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	Add_Txt(scrap);
 	sprintf(scrap, "CS:%04x  SS:%04x  DS:%04x  ES:%04x  FS:%04x  GS:%04x\r\n", context->SegCs, context->SegSs, context->SegDs, context->SegEs, context->SegFs, context->SegGs);
 	Add_Txt(scrap);
-#elif defined(_M_AMD64) || defined(__x86_64__)
-	sprintf(scrap, "Rip:%I6408X\tRsp:%I6408X\tRbp:%I6408X\r\n", context->Rip, context->Rsp, context->Rbp);
+	#elif defined(_M_AMD64) || defined(__x86_64__)
+	sprintf(scrap, "Rip:%016llX\tRsp:%016llX\tRbp:%016llX\r\n", static_cast<unsigned long long>(context->Rip), static_cast<unsigned long long>(context->Rsp), static_cast<unsigned long long>(context->Rbp));
 	Add_Txt(scrap);
-	sprintf(scrap, "Eax:%I6408X\tEbx:%I6408X\tEcx:%I6408X\r\n", context->Rax, context->Rbx, context->Rcx);
+	sprintf(scrap, "Rax:%016llX\tRbx:%016llX\tRcx:%016llX\r\n", static_cast<unsigned long long>(context->Rax), static_cast<unsigned long long>(context->Rbx), static_cast<unsigned long long>(context->Rcx));
 	Add_Txt(scrap);
-	sprintf(scrap, "Edx:%I6408X\tEsi:%I6408X\tEdi:%I6408X\r\n", context->Rdx, context->Rsi, context->Rdi);
+	sprintf(scrap, "Rdx:%016llX\tRsi:%016llX\tRdi:%016llX\r\n", static_cast<unsigned long long>(context->Rdx), static_cast<unsigned long long>(context->Rsi), static_cast<unsigned long long>(context->Rdi));
 	Add_Txt(scrap);
-	sprintf(scrap, " R8:%I6408X\t R9:%I6408X\tR10:%I6408X\r\n", context->R8, context->R9, context->R10);
+	sprintf(scrap, " R8:%016llX\t R9:%016llX\tR10:%016llX\r\n", static_cast<unsigned long long>(context->R8), static_cast<unsigned long long>(context->R9), static_cast<unsigned long long>(context->R10));
 	Add_Txt(scrap);
-	sprintf(scrap, "R11:%I6408X\tR12:%I6408X\tR13:%I6408X\r\n", context->R11, context->R12, context->R13);
+	sprintf(scrap, "R11:%016llX\tR12:%016llX\tR13:%016llX\r\n", static_cast<unsigned long long>(context->R11), static_cast<unsigned long long>(context->R12), static_cast<unsigned long long>(context->R13));
 	Add_Txt(scrap);
-	sprintf(scrap, "R14:%I6408X\tR15:%I6408X\r\n", context->R14, context->R15);
+	sprintf(scrap, "R14:%016llX\tR15:%016llX\r\n", static_cast<unsigned long long>(context->R14), static_cast<unsigned long long>(context->R15));
 	Add_Txt(scrap);
 	sprintf(scrap, "EFlags:%08X \r\n", context->EFlags);
 	Add_Txt(scrap);
@@ -728,7 +729,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	sprintf(scrap, "\r\nBytes at CS:EIP (%08X)  : ", context->Eip);
 #elif defined(_M_AMD64) || defined(__x86_64__)
 	DebugString("RIP bytes dump...\n");
-	sprintf(scrap, "\r\nBytes at CS:RIP (%I6408X)  : ", context->Rip);
+	sprintf(scrap, "\r\nBytes at CS:RIP (%016llX)  : ", static_cast<unsigned long long>(context->Rip));
 #else
 #pragma error "Not implemented"
 #endif
@@ -897,8 +898,10 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 		HANDLE debug_file;
 		DWORD	actual;
 		debug_file = CreateFileA("_except.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-		if (debug_file != INVALID_HANDLE_VALUE){
-			WriteFile(debug_file, ExceptionText, strlen(ExceptionText), &actual, NULL);
+	if (debug_file != INVALID_HANDLE_VALUE){
+		const size_t text_length = ::strlen(ExceptionText);
+		WWASSERT(text_length <= std::numeric_limits<DWORD>::max());
+		WriteFile(debug_file, ExceptionText, static_cast<DWORD>(text_length), &actual, NULL);
 			CloseHandle (debug_file);
 
 #if (0)

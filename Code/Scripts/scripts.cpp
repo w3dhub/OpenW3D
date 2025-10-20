@@ -321,18 +321,19 @@ void ScriptImpClass::Get_Parameters_String(char* buffer, unsigned int size)
 	// Build parameter string (comma seperated)
 	int count = Get_Parameter_Count();
 	int i = 0;
-	unsigned int stringLen = 0;
+	size_t stringLen = 0;
+	const size_t buffer_size = size;
 
-	while ((i < count) && (stringLen < size)) {
+	while ((i < count) && (stringLen < buffer_size)) {
 		if (i > 0) {
 			stringLen++;
 			strcat(buffer, ",");
 		}
 
 		const char* param = Get_Parameter(i);
-		stringLen += strlen(param);
+		stringLen += ::strlen(param);
 
-		if (stringLen <= size) {
+		if (stringLen <= buffer_size) {
 			strcat(buffer, param);
 			i++;
 		}

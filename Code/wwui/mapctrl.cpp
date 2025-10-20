@@ -685,8 +685,8 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 	//	Try to find a texture to use as an overlay...
 	//
 	StringClass overlay_texture_name = filename;
-	int len = overlay_texture_name.Get_Length ();
-	overlay_texture_name.Erase (len - 4, 4);
+	const size_t len = overlay_texture_name.Get_Length ();
+	overlay_texture_name.Erase (static_cast<int>(len - 4), 4);
 	overlay_texture_name += "a.tga";
 
 	//
@@ -704,8 +704,8 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 		if (file->Is_Available () == false) {
 			is_valid = false;
 			_TheFileFactory->Return_File (file);
-			len = overlay_texture_name.Get_Length ();
-			overlay_texture_name.Erase (len - 3, 3);
+				const size_t overlay_len = overlay_texture_name.Get_Length ();
+				overlay_texture_name.Erase (static_cast<int>(overlay_len - 3), 3);
 			overlay_texture_name += "dds";
 			file = _TheFileFactory->Get_File (overlay_texture_name);
 			if (file != NULL && file->Is_Available ()) {

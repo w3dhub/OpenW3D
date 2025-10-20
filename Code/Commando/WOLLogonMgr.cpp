@@ -239,9 +239,9 @@ RefPtr<IRCServerData> WOLLogonMgr::GetDefaultServer(void)
 	const IRCServerList& serverList = wolSession->GetIRCServerList();
 	const PingServerList& pingers = wolSession->GetPingServerList();
 
-	const unsigned int numServers = serverList.size();
+	const size_t numServers = serverList.size();
 
-	for (unsigned int index = 0; index < numServers; ++index)
+	for (size_t index = 0; index < numServers; ++index)
 		{
 		const RefPtr<IRCServerData>& thisServer = serverList[index];
 
@@ -252,7 +252,7 @@ RefPtr<IRCServerData> WOLLogonMgr::GetDefaultServer(void)
 			float serverLat = thisServer->GetLattitude();
 
 			// Find the ping server with the best time.
-			for (unsigned int pingindex = 0; pingindex < pingers.size(); pingindex++)
+				for (size_t pingindex = 0; pingindex < pingers.size(); pingindex++)
 				{
 				const RefPtr<PingServerData>& thisPing = pingers[pingindex];
 				float pingLong = thisPing->GetLongitude();
@@ -685,9 +685,9 @@ bool WOLLogonMgr::HasValidPings(void)
 	{
 	const PingServerList& pingers = mWOLSession->GetPingServerList();
 
-	unsigned int count = pingers.size();
+	const size_t count = pingers.size();
 
-	for (unsigned int index = 0; index < count; ++index)
+	for (size_t index = 0; index < count; ++index)
 		{
 		int pingTime = pingers[index]->GetPingTime();
 
@@ -1282,7 +1282,7 @@ void WOLLogonMgr::HandleNotification(MessageOfTheDayEvent &event)
 
 	const wchar_t* TAG_NEWS_START = L"<news>";
 	const wchar_t* TAG_NEWS_END = L"</news>";
-	const int TAG_NEWS_START_LEN = ::wcslen(TAG_NEWS_START);
+	const size_t TAG_NEWS_START_LEN = ::wcslen(TAG_NEWS_START);
 
 	bool display_motd = false;
 
@@ -1292,9 +1292,9 @@ void WOLLogonMgr::HandleNotification(MessageOfTheDayEvent &event)
 	if (news)
 		{
 		// Get the text of the news section
-		WideStringClass news_body(0, true);
-		news_body = news + TAG_NEWS_START_LEN;
-		wchar_t* news_end = (wchar_t*)::wcsstr(news_body, TAG_NEWS_END);
+			WideStringClass news_body(0, true);
+			news_body = news + TAG_NEWS_START_LEN;
+			wchar_t* news_end = (wchar_t*)::wcsstr(news_body, TAG_NEWS_END);
 
 		if (news_end)
 			{
@@ -1311,10 +1311,11 @@ void WOLLogonMgr::HandleNotification(MessageOfTheDayEvent &event)
 		else
 			{
 			// Simply erase the tags from the message
-			int tag1_index = news - message.Peek_Buffer();
-			int tag2_index = tag1_index + (TAG_NEWS_START_LEN) + ::wcslen(news_body);
-			message.Erase(tag2_index, ::wcslen(TAG_NEWS_END));
-			message.Erase(tag1_index, ::wcslen(TAG_NEWS_START));
+				const size_t tag1_index = static_cast<size_t>(news - message.Peek_Buffer());
+				const size_t news_body_length = ::wcslen(news_body);
+				const size_t tag2_index = tag1_index + TAG_NEWS_START_LEN + news_body_length;
+				message.Erase(static_cast<int>(tag2_index), static_cast<int>(::wcslen(TAG_NEWS_END)));
+				message.Erase(static_cast<int>(tag1_index), static_cast<int>(::wcslen(TAG_NEWS_START)));
 			}
 
 		display_motd = true;
