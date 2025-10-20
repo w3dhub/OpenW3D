@@ -1414,20 +1414,30 @@ tm.Rotate_Z( 3.6f );
 //			Debug_Say(( "		\"%s\",\n", name ));
 			FileClass * file = _TheFileFactory->Get_File( name );
 tm.Pre_Rotate_X( 0.3f );
-			if ( file && file->Is_Available() ) {
-				int size = file->Size();
+			 if ( file && file->Is_Available() ) {
+				size_t size = file->Size();
 tm.Pre_Rotate_Y( 0.4f );
 				file->Open();
 tm.Pre_Rotate_Z( 0.5f );
 				while ( size > 0 ) {
-					unsigned char buffer[ 4096 ];
-					int amount = std::min( (int)size, (int)sizeof(buffer) );
+                                        unsigned char buffer[ 4096 ];
+                                        size_t chunk = std::min(size, sizeof(buffer));
+										const int amount = file->Read(buffer, static_cast<int>(chunk));
+										if (amount <= 0) {
+											break;
+										}
+										crc = CRC_Memory(buffer, amount, crc);
+										size -= static_cast<size_t>(amount);
+				}
 tm.Translate_X( 3.1f );
-					amount = file->Read( buffer, amount );
+				int amount = file->Read(buffer, static_cast<int>(chunk));
 tm.Translate_Y( 4.6f );
-					crc = CRC_Memory( buffer, amount, crc );
+if (amount <= 0) {
+	break;
+}
+crc = CRC_Memory(buffer, amount, crc);
 tm.Translate_Z( 8.2f );
-					size -= amount;
+				size -= static_cast<size_t>(amount);
 				}
 				file->Close();
 			} else {

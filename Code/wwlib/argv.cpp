@@ -103,22 +103,22 @@ const char *ArgvClass::Find_Again(const char *arg)
 	CurrentPos++;							  
 	if (CurrentPos < Argc) {
 		if (Is_Case_Sensitive()) {
-			if (Is_Exact_Size()) {
-				// Case Sensitive, Exact Size.
-				for (; CurrentPos < Argc; CurrentPos++) {
-					if (!strcmp(arg, Argv[CurrentPos])) {
-						return Argv[CurrentPos];
+				if (Is_Exact_Size()) {
+					// Case Sensitive, Exact Size.
+					for (; CurrentPos < Argc; CurrentPos++) {
+						if (!strcmp(arg, Argv[CurrentPos])) {
+							return Argv[CurrentPos];
+						}
+					}
+				} else {
+					// Case Sensitive, Match first strlen(arg).
+					const size_t len = ::strlen(arg);			   
+					for (; CurrentPos < Argc; CurrentPos++) {
+						if (!strncmp(arg, Argv[CurrentPos], len)) {
+							return Argv[CurrentPos];
+						}
 					}
 				}
-			} else {
-				// Case Sensitive, Match first strlen(arg).
-				int len = strlen(arg);			   
-				for (; CurrentPos < Argc; CurrentPos++) {
-					if (!strncmp(arg, Argv[CurrentPos], len)) {
-						return Argv[CurrentPos];
-					}
-				}
-			}
 		} else {
 			if (Is_Exact_Size()) {
 				// Note case sensitive, Exact Size.

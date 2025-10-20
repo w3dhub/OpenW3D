@@ -46,6 +46,7 @@
 #include "combat.h"
 #include "wwmemlog.h"
 #include "FastAllocator.h"
+#include <limits>
 
 #ifndef 	STEVES_NEW_CATCHER
 #define LOG_MEMORY 1		// enable this to turn on memory logging
@@ -464,10 +465,12 @@ void * operator new (size_t size)
 	#ifdef WWDEBUG
 		memory=WWMemoryLogClass::Allocate_Memory(size);
 	#else
-		memory=FastAllocatorGeneral::Get_Allocator()->Alloc(size);
+		WWASSERT(size <= std::numeric_limits<unsigned int>::max());
+		memory=FastAllocatorGeneral::Get_Allocator()->Alloc(static_cast<unsigned int>(size));
 	#endif
 #else
-	memory=FastAllocatorGeneral::Get_Allocator()->Alloc(size);
+	WWASSERT(size <= std::numeric_limits<unsigned int>::max());
+	memory=FastAllocatorGeneral::Get_Allocator()->Alloc(static_cast<unsigned int>(size));
 #endif
 	return memory;
 }

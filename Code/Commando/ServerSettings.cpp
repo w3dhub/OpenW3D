@@ -38,6 +38,7 @@
 #include "ServerSettings.h"
 #include "slavemaster.h"
 #include "wwdebug.h"
+#include <limits>
 #include "gamedata.h"
 #include "gdcnc.h"
 #include "ini.h"
@@ -392,7 +393,7 @@ bool ServerSettingsClass::Parse(bool apply)
 		RegistryClass reg_remote(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
 		if (allow_remote) {
 			ini.Get_String(MasterServerSection, "RemoteAdminPassword", "", remote_admin_pass, sizeof(remote_admin_pass));
-			int len = strlen(remote_admin_pass);
+				const size_t len = ::strlen(remote_admin_pass);
 			if (len == 0) {
 				ConsoleBox.Print("Error - Remote admin password must be specified - aborting\n");
 				ConsoleBox.Wait_For_Keypress();;
@@ -665,11 +666,11 @@ bool ServerSettingsClass::Parse(bool apply)
  *=============================================================================================*/
 void ServerSettingsClass::Encrypt_Serial(StringClass serial_in, StringClass &serial_out, bool encrypt)
 {
-	char *s;
-	int numberlength = serial_in.Get_Length();
-	unsigned long bytesread;
-	char stringbuffer[ENCRYPTION_STRING_LENGTH];
-	int p;
+		char *s;
+		const size_t numberlength = serial_in.Get_Length();
+		unsigned long bytesread;
+		char stringbuffer[ENCRYPTION_STRING_LENGTH];
+		size_t p;
 
 	WWASSERT(numberlength);
 
@@ -827,7 +828,11 @@ void ServerSettingsClass::Write_Server_List(const WWOnline::IRCServerList &serve
 					** Write out the first portion of the file unchanged.
 					*/
 					file.Open(FileClass::WRITE);
-					file.Write(file_buffer, (tag - file_buffer) + strlen(ServerListTag));
+					const ptrdiff_t prefix_len = tag - file_buffer;
+					WWASSERT(prefix_len >= 0 && prefix_len <= std::numeric_limits<int>::max());
+					const size_t tag_len = ::strlen(ServerListTag);
+					WWASSERT(tag_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+					file.Write(file_buffer, static_cast<int>(prefix_len + static_cast<ptrdiff_t>(tag_len)));
 
 					/*
 					** Insert the server list.
@@ -835,7 +840,7 @@ void ServerSettingsClass::Write_Server_List(const WWOnline::IRCServerList &serve
 					char *server_list_text = new char [8192];
 					strcpy(server_list_text, "\r\n;\r\n");
 
-					for (unsigned int i = 0; i < server_list.size(); i++)	{
+					for (size_t i = 0; i < server_list.size(); i++)	{
 						const RefPtr<WWOnline::IRCServerData> &server = server_list[i];
 						if (server->HasLanguageCode()) {
 							const char *server_name = server->GetName();
@@ -844,12 +849,16 @@ void ServerSettingsClass::Write_Server_List(const WWOnline::IRCServerList &serve
 						}
 					}
 					strcat(server_list_text, ";\r\n");
-					file.Write(server_list_text, strlen(server_list_text));
+					const size_t list_len = ::strlen(server_list_text);
+					WWASSERT(list_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+					file.Write(server_list_text, static_cast<int>(list_len));
 
 					/*
 					** Write out the post server list sections of the original file.
 					*/
-					file.Write(end_tag, (file_buffer + size) - end_tag);
+					const ptrdiff_t suffix_len = (file_buffer + size) - end_tag;
+					WWASSERT(suffix_len >= 0 && suffix_len <= std::numeric_limits<int>::max());
+					file.Write(end_tag, static_cast<int>(suffix_len));
 					file.Close();
 				}
 			}

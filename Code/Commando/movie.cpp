@@ -176,7 +176,8 @@ void	MovieGameModeClass::Start_Movie( const char * filename )
 			//	Build a full-path to the movie on the CD
 			//
 			StringClass full_path = cd_path;
-			if ( cd_path[cd_path.Get_Length () - 1] != '\\' ) {
+			const size_t path_length = cd_path.Get_Length ();
+			if (path_length == 0 || cd_path[static_cast<int>(path_length - 1)] != '\\') {
 				full_path += "\\";
 			}
 			full_path += filename_only;
@@ -219,10 +220,11 @@ void	MovieGameModeClass::HandleNotification (CDVerifyEvent &event)
 			//
 			//	Build a full-path to the movie on the CD
 			//
-			StringClass full_path = cd_path;
-			if ( cd_path[cd_path.Get_Length () - 1] != '\\' ) {
-				full_path += "\\";
-			}
+		StringClass full_path = cd_path;
+		const size_t path_length = cd_path.Get_Length ();
+		if (path_length == 0 || cd_path[static_cast<int>(path_length - 1)] != '\\') {
+			full_path += "\\";
+		}
 			full_path += PendingMovieFilename;
 			Play_Movie( full_path );
 		}		

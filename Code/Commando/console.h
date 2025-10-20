@@ -47,6 +47,7 @@
 
 #ifndef	BITTYPE_H
 	#include "bittype.h"
+#include <cstddef>
 #endif
 
 
@@ -120,7 +121,7 @@ private:
 
 	bool	PerformanceSamplingActive;
    DWORD ConsoleInputType;
-   int   PromptLength;
+   size_t   PromptLength;
    static const float LeftMargin;
 
 	static ConsoleGameModeClass * Instance;

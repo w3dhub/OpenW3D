@@ -38,6 +38,7 @@
 
 #include "atlbase_compat.h"
 #include "WOLSession.h"
+#include <algorithm>
 #include "WOLChatObserver.h"
 #include "WOLNetUtilObserver.h"
 #include "WOLProduct.h"
@@ -1895,9 +1896,9 @@ void Session::RequestUserLocale(const wchar_t* username)
 	if (username && (wcslen(username) > 0))
 		{
 		// Make sure the user is not already in the list.
-		const unsigned int count = mLocaleRequests.size();
+		const size_t count = mLocaleRequests.size();
 
-		for (unsigned int index = 0; index < count; ++index)
+		for (size_t index = 0; index < count; ++index)
 			{
 			if (mLocaleRequests[index].Compare_No_Case(username) == 0)
 				{
@@ -1930,8 +1931,8 @@ void Session::MakeLocaleRequests(void)
 	{
 	if (!mLocaleRequests.empty())
 		{
-		const unsigned int count = std::min<unsigned int>(10, mLocaleRequests.size());
-		WOL::User* users = new WOL::User[count];
+	const size_t count = std::min(static_cast<size_t>(10), mLocaleRequests.size());
+	WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 
 		if (users)
@@ -2001,9 +2002,9 @@ void Session::RequestSquadInfoByID(unsigned long squadID)
 		_itow(squadID, idString, 10);
 
 		// Only add a request that is not already pending.
-		const unsigned int count = mSquadRequests.size();
+		const size_t count = mSquadRequests.size();
 
-		for (unsigned int index = 0; index < count; ++index)
+		for (size_t index = 0; index < count; ++index)
 			{
 			if (mSquadRequests[index] == idString)
 				{
@@ -2037,7 +2038,7 @@ void Session::RequestSquadInfoByMemberName(const wchar_t* memberName)
 	if (memberName && (wcslen(memberName) > 0))
 		{
 		// Only add a request that is not already pending.
-		for (unsigned int index = 0; index < mSquadRequests.size(); index++)
+		for (size_t index = 0; index < mSquadRequests.size(); index++)
 			{
 			if (mSquadRequests[index].Compare_No_Case(memberName) == 0)
 				{
@@ -2070,12 +2071,12 @@ void Session::MakeSquadRequests(void)
 	{
 	if (!mSquadRequests.empty() && mSquadPending.empty())
 		{
-		// Send up to ten requests at a time.
-		unsigned int count = std::min<unsigned int>(10, mSquadRequests.size());
+	// Send up to ten requests at a time.
+	const size_t count = std::min(static_cast<size_t>(10), mSquadRequests.size());
 
-		// Send each request in turn,
-		unsigned int index;
-		for (index = 0; index < count; ++index)
+	// Send each request in turn,
+	size_t index = 0;
+	for (; index < count; ++index)
 			{
 			const WideStringClass& request = mSquadRequests[index];
 
@@ -2109,8 +2110,8 @@ void Session::MakeSquadRequests(void)
 			mSquadPending.push_back(request);
 			}
 
-		SquadRequestColl::iterator first = mSquadRequests.begin();
-		mSquadRequests.erase(first, first + index);
+	SquadRequestColl::iterator first = mSquadRequests.begin();
+	mSquadRequests.erase(first, first + static_cast<SquadRequestColl::difference_type>(index));
 		}
 	}
 
@@ -2170,13 +2171,13 @@ void Session::MakeTeamRequests(void)
 		{
 		WWDEBUG_SAY(("WOL: Requesting team information\n"));
 
-		unsigned int count = std::min<unsigned int>(10, mTeamRequests.size());
-		WOL::User* users = new WOL::User[count];
+	const size_t count = std::min(static_cast<size_t>(10), mTeamRequests.size());
+	WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 
 		if (users)
 			{
-			for (unsigned int index = 0; index < count; index++)
+		for (size_t index = 0; index < count; index++)
 				{
 				WOL::User& user = users[index];
 
@@ -2200,7 +2201,7 @@ void Session::MakeTeamRequests(void)
 			if (SUCCEEDED(hr))
 				{
 				TeamRequestColl::iterator first = mTeamRequests.begin();
-				mTeamRequests.erase(first, first + count);
+				mTeamRequests.erase(first, first + static_cast<TeamRequestColl::difference_type>(count));
 				}
 			else
 				{

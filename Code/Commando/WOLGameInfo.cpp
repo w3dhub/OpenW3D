@@ -38,6 +38,7 @@
 #include <WWOnline/WOLUser.h>
 #include <WWOnline/WOLChannel.h>
 #include <WWOnline/PingProfile.h>
+#include <algorithm>
 #include <wwlib/realcrc.h>
 #include "modpackagemgr.h"
 #include <cstdio>
@@ -529,7 +530,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 		// addition to the the game title. The combined maximum of ALL these
 		// entries MUST NEVER exceed 80 bytes.
 		char topic[81];
-		sprintf(topic, "%c%.32s", titleLength, mTitle);
+		sprintf(topic, "%c%.32s", encodedTitleLength, mTitle);
 		
 		//
 		// Only using 61 max right now. Room for a map name maybe? ST - 10/31/2002 2:55PM
@@ -542,7 +543,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 		// addition to the the game title. The combined maximum of ALL these
 		// entries MUST NEVER exceed 80 bytes.
 		char mapinfo[81];
-		sprintf(mapinfo, "%c%.16s", mapLength, mMapName);
+		sprintf(mapinfo, "%c%.16s", encodedMapLength, mMapName);
 		strcat(topic, mapinfo);
 
 		// Add our ping profile

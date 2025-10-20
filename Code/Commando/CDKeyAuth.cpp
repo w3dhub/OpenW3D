@@ -42,6 +42,7 @@
 #include <gamespy/nonport.h>
 #include <gamespy/md5.h>
 #include <stdlib.h>
+#include <limits>
 #include "wwdebug.h"
 #include "CDKeyAuth.h"
 #include "gamespyauthmgr.h"
@@ -149,7 +150,9 @@ void CCDKeyAuth::AuthSerial(const char *challenge, StringClass &resp) {
 	*outb = 0;
 
 	// MD5 Hash Here.
-	MD5Digest((BYTE *)cdkey, strlen(cdkey), md5hash);
+	const size_t key_length = ::strlen(cdkey);
+	WWASSERT(key_length <= std::numeric_limits<unsigned int>::max());
+	MD5Digest((BYTE *)cdkey, static_cast<unsigned int>(key_length), md5hash);
 
 	// hashserial, challenge, outbuf
 	gcd_compute_response(cdkey, (char *)challenge, response, CDResponseMethod_NEWAUTH);

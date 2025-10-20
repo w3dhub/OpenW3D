@@ -38,6 +38,7 @@
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLString.h>
 #include <wwlib/widestring.h>
+#include <algorithm>
 #include <wwdebug/wwdebug.h>
 #include <limits.h>
 #include <math.h>
@@ -73,12 +74,12 @@ bool RecalculatePingProfile(const RefPtr<Session>& session)
 		const PingServerList& pingers = session->GetPingServerList();
 
 		// The ping profile holds up to eight pings.
-		unsigned int count = std::min<unsigned int>(8, pingers.size());
+		const size_t count = std::min(static_cast<size_t>(8), pingers.size());
 
 		// If there aren't any ping servers then fail.
 		if (count > 0)
 			{
-			for (unsigned int index = 0; index < count; index++)
+			for (size_t index = 0; index < count; index++)
 				{
 				int pingTime = pingers[index]->GetPingTime();
 
@@ -332,10 +333,11 @@ void PingProfileWait::WaitBeginning(void)
 		return;
 		}
 
-	const PingServerList& pingers = mWOLSession->GetPingServerList();
+		const PingServerList& pingers = mWOLSession->GetPingServerList();
 
-	// Handle up to eight servers
-	mCount = std::min<unsigned int>(8, pingers.size());
+		// Handle up to eight servers
+		const size_t count = std::min(static_cast<size_t>(8), pingers.size());
+		mCount = static_cast<unsigned int>(count);
 
 	if (mCount == 0)
 		{

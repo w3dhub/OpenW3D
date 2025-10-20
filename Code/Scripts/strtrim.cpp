@@ -69,12 +69,14 @@ char* strtrim(char* buffer)
 			strcpy(buffer, source);
 
 		// Clip trailing white space from the string.
-		for (int index = strlen(buffer) - 1; index >= 0; index--)
+		for (size_t index = ::strlen(buffer); index > 0; )
 			{
-			if (isspace(buffer[index]))
-				buffer[index] = '\0';
+			const size_t char_index = index - 1;
+			if (isspace(static_cast<unsigned char>(buffer[char_index])))
+				buffer[char_index] = '\0';
 			else
 				break;
+			--index;
 			}
 		}
 

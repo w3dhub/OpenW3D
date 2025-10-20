@@ -246,7 +246,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 				//
 				//	Extract the parameters from the section
 				//
-				int len = value.Get_Length ();					
+				size_t len = value.Get_Length ();					
 				StringClass definition_name (len + 1, true);
 				int frame_start = 0;
 

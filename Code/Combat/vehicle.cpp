@@ -2256,9 +2256,9 @@ void	VehicleGameObj::Update_Damage_Meshes( void )
 			static const char *	DAMAGE25_BONE_NAME		= "DAMAGE25";
 			static const char *	DAMAGE50_BONE_NAME		= "DAMAGE50";
 			static const char *	DAMAGE75_BONE_NAME		= "DAMAGE75";
-			static int				DAMAGE25_BONE_NAME_LEN	= ::strlen( DAMAGE25_BONE_NAME );
-			static int				DAMAGE50_BONE_NAME_LEN	= ::strlen( DAMAGE50_BONE_NAME );
-			static int				DAMAGE75_BONE_NAME_LEN	= ::strlen( DAMAGE75_BONE_NAME );
+			static const size_t	DAMAGE25_BONE_NAME_LEN	= ::strlen( DAMAGE25_BONE_NAME );
+			static const size_t	DAMAGE50_BONE_NAME_LEN	= ::strlen( DAMAGE50_BONE_NAME );
+			static const size_t	DAMAGE75_BONE_NAME_LEN	= ::strlen( DAMAGE75_BONE_NAME );
 
 			//
 			//	Loop over all the bones in the model, showing and hiding any that represent
