@@ -120,6 +120,11 @@ const char* Addr_As_String(const sockaddr_in* addr)
 	std::snprintf(out, sizeof(out), "%s ; %u", ip[0] ? ip : "0.0.0.0", port);
 	return out;
 }
+
+char* Addr_As_String(sockaddr_in* addr)
+{
+	return const_cast<char*>(Addr_As_String(static_cast<const sockaddr_in*>(addr)));
+}
 //#endif //WWDEBUG
 
 

@@ -88,7 +88,8 @@ typedef REFUSAL_CODE (*Application_Acceptance_Handler)(cPacket & packet);
 typedef void (*Server_Packet_Handler)(cPacket & packet, int rhost_id);
 typedef void (*Client_Packet_Handler)(cPacket & packet);
 
-extern char * Addr_As_String(sockaddr_in *addr);
+extern const char* Addr_As_String(const sockaddr_in* addr);
+extern char* Addr_As_String(sockaddr_in* addr);
 
 //-----------------------------------------------------------------------------
 //
