@@ -45,6 +45,7 @@ jobs:
           - name: Linux x64
             os: ubuntu-latest
             build-args: --parallel --target scripts
+            shell: bash
 
     steps:
 
