@@ -1,4 +1,4 @@
-name: openw3d-windows
+name: openw3d
 
 on: [push, pull_request]
 
