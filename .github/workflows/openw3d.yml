@@ -42,6 +42,9 @@ jobs:
             msys2-msystem: mingw64
             msys2-env: mingw-w64-x86_64
             shell: msys2 {0}
+          - name: Linux x64
+            os: ubuntu-latest
+            build-args: --parallel --target scripts
 
     steps:
 
