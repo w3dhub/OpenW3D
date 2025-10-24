@@ -31,6 +31,7 @@
 #ifndef NETUTIL_H
 #define NETUTIL_H
 
+#include "socket_wrapper.h"
 #include "win.h"
 #include "network-typedefs.h"
 

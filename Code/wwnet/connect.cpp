@@ -49,6 +49,9 @@
 #include "BWBalance.h"
 #include <cstdio>
 #include <algorithm>
+#include "socket_wrapper.h"
+#include <cstdio>
+#include <algorithm>
 
 #ifdef WWDEBUG
 #include "Combat/crandom.h"
@@ -85,15 +88,42 @@ static const int		INVALID_RHOST_ID			= -1;
  * HISTORY:                                                                                    *
  *   8/31/2001 3:48PM ST : Created                                                             *
  *=============================================================================================*/
-char * Addr_As_String(sockaddr_in *addr)
+
+#if defined(_WIN32) && (!defined(_WIN32_WINNT) || _WIN32_WINNT < 0x0600)
+#ifndef INET_ADDRSTRLEN
+#define INET_ADDRSTRLEN 16
+#endif
+static const char* inet_ntop(int af, const void* src, char* dst, size_t size) {
+	if (af == AF_INET) {
+		auto a = static_cast<const in_addr*>(src);
+		const char* s = ::inet_ntoa(*a);
+		if (!s) return nullptr;
+		strncpy_s(dst, size, s, _TRUNCATE);
+		return dst;
+		}
+	wwnet::SocketSetLastError(WSAEAFNOSUPPORT);
+	return nullptr;
+}
+#endif
+
+
+const char* Addr_As_String(const sockaddr_in* addr)
 {
-	static char _string[128];
-	sprintf(_string, "%d.%d.%d.%d ; %d", 	(int)(addr->sin_addr.S_un.S_un_b.s_b1),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b2),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b3),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b4),
-														htonl((int)(addr->sin_port)));
-	return(_string);
+	static char out[128];
+	char ip[INET_ADDRSTRLEN] = { 0 };
+	if (!inet_ntop(AF_INET, &addr->sin_addr, ip, sizeof(ip))) {
+		const auto* bytes = reinterpret_cast<const uint8_t*>(&addr->sin_addr);
+		std::snprintf(ip, sizeof(ip), "%u.%u.%u.%u", bytes[0], bytes[1], bytes[2], bytes[3]);
+	}
+
+	const unsigned port = (unsigned)ntohs(addr->sin_port);
+	std::snprintf(out, sizeof(out), "%s ; %u", ip[0] ? ip : "0.0.0.0", port);
+	return out;
+}
+
+char* Addr_As_String(sockaddr_in* addr)
+{
+	return const_cast<char*>(Addr_As_String(static_cast<const sockaddr_in*>(addr)));
 }
 //#endif //WWDEBUG
 
@@ -146,8 +176,8 @@ cConnection::cConnection() :
       //
       // Make socket non-blocking
       //
-      u_long arg = 1L;
-      WSA_CHECK(ioctlsocket(Sock, FIONBIO, (u_long *) &arg));
+	  wwnet::SocketIoctlParam arg = 1L;
+	  WSA_CHECK(wwnet::SocketIoctl(Sock, FIONBIO, &arg));
 
       //
       // Increase the send and rcv buffer sizes a bit
@@ -375,7 +405,7 @@ bool cConnection::Bind(USHORT port, ULONG addr)
       //
       // Any excuse other than address/port already used, is fatal.
       //
-      if (::WSAGetLastError() != WSAEADDRINUSE) {
+      if (wwnet::SocketGetLastError() != WSAEADDRINUSE) {
 			WSA_ERROR;
       }
       return false;
@@ -569,7 +599,7 @@ int cConnection::Single_Player_recvfrom(char * data)
 
    SLNode<cPacket> * objnode = p_packet_list->Head();
    if (objnode == NULL) {
-      WSASetLastError(WSAEWOULDBLOCK);
+      wwnet::SocketSetLastError(WSAEWOULDBLOCK);
       ret_code = SOCKET_ERROR; // no data received
    } else {
 
@@ -1291,10 +1321,10 @@ int cConnection::Low_Level_Receive_Wrapper(cPacket & packet)
 		ret_code = bytes;
 
 #if (0)
-   	int address_size = sizeof(struct sockaddr_in);
-		ret_code = recvfrom(Sock, packet.Get_Data(),
+		socklen_t address_size = sizeof(struct sockaddr_in);
+		ret_code = wwnet::SocketRecvFrom(Sock, packet.Get_Data(),
 			packet.Get_Max_Size(), 0,
-	   	(LPSOCKADDR) &packet.Get_From_Address_Wrapper()->FromAddress, &address_size);
+			(LPSOCKADDR)&packet.Get_From_Address_Wrapper()->FromAddress, &address_size);
 
 		if (ret_code > 0) {
 			//WWDEBUG_SAY(("cConnection: recvfrom %s\n", Addr_As_String((struct sockaddr_in*) &packet.Get_From_Address_Wrapper()->FromAddress)));
@@ -1359,13 +1389,13 @@ void cConnection::Handle_Send_Resource_Failure(int rhost_id)
 		PRHost[rhost_id]->Get_Stats().StatSample[STAT_SendFailureCount]++;
    }
 
-   int orgbuffersize;
-   int newbuffersize;
-   int len;
+	int orgbuffersize;
+	int newbuffersize;
+	socklen_t opt_len;
 
-	len = sizeof(int);
-   WSA_CHECK(::getsockopt(Sock, SOL_SOCKET, SO_SNDBUF,
-      (char *)&orgbuffersize, &len));
+	opt_len = static_cast<socklen_t>(sizeof(orgbuffersize));
+   WSA_CHECK(wwnet::SocketGetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
+      reinterpret_cast<char *>(&orgbuffersize), &opt_len));
 
 	static int time_of_last_reset = 0;
 	int time_now = TIMEGETTIME();
@@ -1397,14 +1427,14 @@ void cConnection::Handle_Send_Resource_Failure(int rhost_id)
          // reduce bw out.
          //
 
-			newbuffersize = 4 * orgbuffersize;
-			len = sizeof(int);
-			WSA_CHECK(setsockopt(Sock, SOL_SOCKET, SO_SNDBUF,
-				(char *)&newbuffersize, len));
+				newbuffersize = 4 * orgbuffersize;
+				opt_len = static_cast<socklen_t>(sizeof(newbuffersize));
+				WSA_CHECK(wwnet::SocketSetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
+					reinterpret_cast<const char *>(&newbuffersize), opt_len));
 
-			len = sizeof(int);
-			WSA_CHECK(::getsockopt(Sock, SOL_SOCKET, SO_SNDBUF,
-				(char *)&newbuffersize, &len));
+				opt_len = static_cast<socklen_t>(sizeof(newbuffersize));
+				WSA_CHECK(wwnet::SocketGetSockOpt(Sock, SOL_SOCKET, SO_SNDBUF,
+					reinterpret_cast<char *>(&newbuffersize), &opt_len));
 
 			WWDEBUG_SAY(("SO_SNDBUF %d -> %d\n",
 				orgbuffersize, newbuffersize));
