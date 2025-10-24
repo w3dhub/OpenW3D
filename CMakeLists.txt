@@ -60,9 +60,9 @@ endif()
 
 # Find/Add build dependencies and stubs.
 # Only 32bit Windows can make use of these APIs as the libraries shipped with the game.
+# Linux needs miles headers to compile, until miles is removed
+include(miles)
 if(WIN32)
-    include(miles)
-
     # Do we want to build with bink for video decoding?
     option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
     add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build Renegade with Bink")

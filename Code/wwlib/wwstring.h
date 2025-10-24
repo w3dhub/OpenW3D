@@ -51,6 +51,7 @@
 #ifdef _UNIX
 #include "osdep.h"
 #endif
+#include <cctype>
 
 
 namespace openw3d{
