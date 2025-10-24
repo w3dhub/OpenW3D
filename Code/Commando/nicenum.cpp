@@ -25,7 +25,7 @@
 
 #include "nicenum.h"
 
-#include "network-typedefs.h"
+#include "socket_wrapper.h"
 #include <stdio.h>
 
 #include "wwdebug.h"

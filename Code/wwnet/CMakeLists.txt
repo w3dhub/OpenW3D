@@ -31,7 +31,6 @@ set(WWNET_SRC
   singlepl.h
   wwpacket.cpp
   wwpacket.h
-  network-typedefs.h
   socket_wrapper.h
 )
 
