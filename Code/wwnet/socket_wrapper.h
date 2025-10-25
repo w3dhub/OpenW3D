@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cstddef>
 #include <cstdint>
+#include <cstddef>
 
 #ifdef _WIN32
 #include <winsock2.h>
@@ -13,78 +13,13 @@ namespace wwnet {
 	using SocketIoctlParam = u_long;
 }
 #else
-#include <arpa/inet.h>
-#include <cerrno>
-#include <netdb.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
 #include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <arpa/inet.h>
+#include <netdb.h>
 #include <unistd.h>
-
-#ifndef SOCKET
-#define SOCKET int
-#endif
-#ifndef INVALID_SOCKET
-#define INVALID_SOCKET (-1)
-#endif
-#ifndef SOCKET_ERROR
-#define SOCKET_ERROR (-1)
-#endif
-#ifndef closesocket
-#define closesocket(x) ::close(x)
-#endif
-#ifndef ioctlsocket
-#define ioctlsocket(x, y, z) ::ioctl(x, y, z)
-#endif
-#ifndef LastSocketError
-#define LastSocketError (errno)
-#endif
-#ifndef WSAEISCONN
-#define WSAEISCONN EISCONN
-#endif
-#ifndef WSAEINPROGRESS
-#define WSAEINPROGRESS EINPROGRESS
-#endif
-#ifndef WSAEALREADY
-#define WSAEALREADY EALREADY
-#endif
-#ifndef WSAEADDRINUSE
-#define WSAEADDRINUSE EADDRINUSE
-#endif
-#ifndef WSAEADDRNOTAVAIL
-#define WSAEADDRNOTAVAIL EADDRNOTAVAIL
-#endif
-#ifndef WSAEAFNOSUPPORT
-#define WSAEAFNOSUPPORT EAFNOSUPPORT
-#endif
-#ifndef WSAEBADF
-#define WSAEBADF EBADF
-#endif
-#ifndef WSAECONNREFUSED
-#define WSAECONNREFUSED ECONNREFUSED
-#endif
-#ifndef WSAEINTR
-#define WSAEINTR EINTR
-#endif
-#ifndef WSAEACCES
-#define WSAEACCES EACCES
-#endif
-#ifndef WSAENOBUFS
-#define WSAENOBUFS ENOBUFS
-#endif
-#ifndef WSAENOTSOCK
-#define WSAENOTSOCK ENOTSOCK
-#endif
-#ifndef WSAEWOULDBLOCK
-#define WSAEWOULDBLOCK EWOULDBLOCK
-#endif
-#ifndef WSAEINVAL
-#define WSAEINVAL EINVAL
-#endif
-#ifndef WSAETIMEDOUT
-#define WSAETIMEDOUT ETIMEDOUT
-#endif
-
+#include <errno.h>
 namespace wwnet {
 	using SocketHandle = int;
 	constexpr SocketHandle INVALID_SOCKET_VALUE = -1;

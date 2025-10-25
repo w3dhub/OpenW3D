@@ -42,7 +42,7 @@
 #include	"assert.h"
 #include	"vector.h"
 
-#include	"socket_wrapper.h"
+#include	"network-typedefs.h"
 
 #ifndef DebugString
 #include	"wwdebug.h"

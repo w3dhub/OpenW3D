@@ -33,6 +33,7 @@
 
 #include "socket_wrapper.h"
 #include "win.h"
+#include "network-typedefs.h"
 
 #include "bittype.h"
 

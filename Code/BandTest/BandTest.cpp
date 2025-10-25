@@ -39,9 +39,9 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "socket_wrapper.h"
 #ifdef _WIN32
-#include <windows.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <mmsystem.h>
 #include <conio.h>
 #endif
@@ -446,7 +446,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 	temp_addr.sin_port = htons(source_port);
 	temp_addr.sin_family = AF_INET;
 	if (bind(RawSocket, (LPSOCKADDR) &temp_addr, sizeof(temp_addr)) == SOCKET_ERROR) {
-		DebugString("bind failed with error code %d\n", wwnet::SocketGetLastError());
+		DebugString("bind failed with error code %d\n", WSAGetLastError());
 		failure_code = BANDTEST_NO_UDP_SOCKET_BIND;
 		Close_Raw_Sockets();
 		return(0);
@@ -458,7 +458,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 #if (0)
 	temp_addr.sin_port = 0;
 	if (bind(ICMPRawSocket, (LPSOCKADDR) &temp_addr, sizeof(temp_addr)) == SOCKET_ERROR) {
-		DebugString("bind failed with error code %d\n", wwnet::SocketGetLastError());
+		DebugString("bind failed with error code %d\n", WSAGetLastError());
 		failure_code = BANDTEST_NO_UDP_SOCKET_BIND;
 		Close_Raw_Sockets();
 		return(0);
@@ -633,7 +633,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 	ttl = router_ttl + 1;
 	int result = setsockopt(test_socket, IPPROTO_IP, IP_TTL, (char*)&ttl, sizeof(ttl));
 	if (result == SOCKET_ERROR) {
-		DebugString("setsockopt failed to set IP_TTL = %d on test socket - error code %d\n", ttl, wwnet::SocketGetLastError());
+		DebugString("setsockopt failed to set IP_TTL = %d on test socket - error code %d\n", ttl, WSAGetLastError());
 		failure_code = BANDTEST_NO_TTL_SET;
 		Close_Raw_Sockets();
 		return(0);
@@ -645,7 +645,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 	int socket_transmit_buffer_size = 128000;
 	result = setsockopt(test_socket, SOL_SOCKET, SO_RCVBUF, (char*)&socket_transmit_buffer_size, 4);
 	if (result == SOCKET_ERROR) {
-		DebugString("setsockopt failed to set SO_RECVBUF with error code %d\n", wwnet::SocketGetLastError());
+		DebugString("setsockopt failed to set SO_RECVBUF with error code %d\n", WSAGetLastError());
 	}
 
 	/*
@@ -676,7 +676,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 			}
 			int result = setsockopt(test_socket, IPPROTO_IP, IP_TTL, (char*)&ttl, sizeof(ttl));
 			if (result == SOCKET_ERROR) {
-				DebugString("setsockopt failed to set IP_TTL = %d on test socket - error code %d\n", ttl, wwnet::SocketGetLastError());
+				DebugString("setsockopt failed to set IP_TTL = %d on test socket - error code %d\n", ttl, WSAGetLastError());
 				failure_code = BANDTEST_NO_TTL_SET;
 			}
 		}
@@ -705,7 +705,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 	ttl = 255;
 	result = setsockopt(ICMPRawSocket, IPPROTO_IP, IP_TTL, (char*)&ttl, sizeof(ttl));
 	if (result == SOCKET_ERROR) {
-		DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", ttl, wwnet::SocketGetLastError());
+		DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", ttl, WSAGetLastError());
 	}
 
 	/*
@@ -824,7 +824,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 			ttl = router_ttl + 1;
 			int result = setsockopt(RawSocket, IPPROTO_IP, IP_TTL, (char*)&ttl, sizeof(ttl));
 			if (result == SOCKET_ERROR) {
-				DebugString("setsockopt failed to set IP_TTL = %d on test socket - error code %d\n", ttl, wwnet::SocketGetLastError());
+				DebugString("setsockopt failed to set IP_TTL = %d on test socket - error code %d\n", ttl, WSAGetLastError());
 				failure_code = BANDTEST_NO_TTL_SET;
 				Close_Raw_Sockets();
 				return(0);
@@ -933,7 +933,7 @@ unsigned long Upstream_Detect(unsigned long server_ip, unsigned long my_ip, int 
 		int new_ttl = 255;
 		int result = setsockopt(ICMPRawSocket, IPPROTO_IP, IP_TTL, (char*)&new_ttl, sizeof(new_ttl));
 		if (result == SOCKET_ERROR) {
-			DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, wwnet::SocketGetLastError());
+			DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, WSAGetLastError());
 			failure_code = BANDTEST_NO_TTL_SET;
 			Close_Raw_Sockets();
 			return(upstream_bandwidth);
@@ -1118,7 +1118,7 @@ void Ping_Profile(struct sockaddr_in *router_addr, unsigned long my_ip)
 	int new_ttl = 255;
 	int result = setsockopt(ICMPRawSocket, IPPROTO_IP, IP_TTL, (char*)&new_ttl, sizeof(new_ttl));
 	if (result == SOCKET_ERROR) {
-		DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, wwnet::SocketGetLastError());
+		DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, WSAGetLastError());
 	}
 	int ping_number = 0;
 
@@ -1316,7 +1316,7 @@ int Get_Path_To_Server(unsigned long *path, unsigned long my_ip, unsigned long s
 		*/
 		int result = setsockopt(ICMPRawSocket, IPPROTO_IP, IP_TTL, (char*)&ttl, sizeof(ttl));
 		if (result == SOCKET_ERROR) {
-			DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", ttl, wwnet::SocketGetLastError());
+			DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", ttl, WSAGetLastError());
 			return(0);
 		}
 
@@ -1413,7 +1413,7 @@ int Ping_Host(unsigned long host_ip, unsigned long my_ip, int times, int payload
 	int new_ttl = 255;
 	int result = setsockopt(ICMPRawSocket, IPPROTO_IP, IP_TTL, (char*)&new_ttl, sizeof(new_ttl));
 	if (result == SOCKET_ERROR) {
-		DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, wwnet::SocketGetLastError());
+		DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, WSAGetLastError());
 		return(0);
 	}
 
@@ -1716,7 +1716,7 @@ bool Send_Raw_UDP(char *payload, int payload_size, SOCKET socket, struct sockadd
 	int result = sendto(socket, (char*)header, packet_size, 0, address, sizeof(*address));
 
 	if (result == SOCKET_ERROR) {
-		DebugString("Send_Raw_UDP - sendto failed with error code %d\n", wwnet::SocketGetLastError());
+		DebugString("Send_Raw_UDP - sendto failed with error code %d\n", WSAGetLastError());
 		return(false);
 	}
 
@@ -1800,7 +1800,7 @@ bool Send_Ping(char *payload, int payload_size, SOCKET socket, struct sockaddr *
 	//DebugString("returned from sendto\n");
 
 	if (result == SOCKET_ERROR) {
-		DebugString("sendto failed with error code %d\n", wwnet::SocketGetLastError());
+		DebugString("sendto failed with error code %d\n", WSAGetLastError());
 		return(false);
 	}
 
@@ -1866,7 +1866,7 @@ bool Get_Ping_Response(SOCKET socket, int &seq_id, struct sockaddr *address, uns
 			result = recvfrom(socket, recv_buffer, sizeof(recv_buffer), 0, (LPSOCKADDR)&addr, &addr_len);
 
 			if (result == SOCKET_ERROR) {
-				DebugString("recvfrom failed with error code %d\n", wwnet::SocketGetLastError());
+				DebugString("recvfrom failed with error code %d\n", WSAGetLastError());
 				return(false);
 			}
 
@@ -1977,14 +1977,14 @@ bool Get_Ping_Response(SOCKET socket, int &seq_id, struct sockaddr *address, uns
  *=============================================================================================*/
 bool Open_Raw_Sockets(int &failure_code)
 {
+	WSADATA wsa_data;
 	bool use_group = false;	//true;
 
 	/*
-	** We need Winsock 2 for raw sockets.
+	** We need Winsocl 2 for raw sockets.
 	*/
-	const int startup_result = wwnet::SocketStartup();
-	if (startup_result != 0) {
-		DebugString("SocketStartup failed: error code %d\n", startup_result);
+	if (WSAStartup(MAKEWORD(2,1), &wsa_data) != 0) {
+		DebugString("WSAStartup failed: error code %d\n", GetLastError());
 		failure_code = BANDTEST_NO_WINSOCK2;
 		return(false);
 	}
@@ -1992,28 +1992,23 @@ bool Open_Raw_Sockets(int &failure_code)
 	/*
 	** Create a socket for UDP packets.
 	*/
-#ifdef _WIN32
 	if (use_group) {
 		RawSocket = WSASocket(AF_INET, SOCK_RAW, IPPROTO_UDP, NULL, SG_UNCONSTRAINED_GROUP, 0);
 		if (RawSocket == INVALID_SOCKET) {
-			DebugString("Unable to create raw UDP socket with SG_UNCONSTRAINED_GROUP - error code \n", wwnet::SocketGetLastError());
+			DebugString("Unable to create raw UDP socket with SG_UNCONSTRAINED_GROUP - error code \n", WSAGetLastError());
 			use_group = false;
 		}
 	}
-#else
-	(void)use_group;
-#endif
 
 	if (!use_group) {
-		RawSocket = wwnet::SocketCreate(AF_INET, SOCK_RAW, IPPROTO_UDP);
+		RawSocket = socket(AF_INET, SOCK_RAW, IPPROTO_UDP);
 	}
 
 	if (RawSocket == INVALID_SOCKET) {
-		const int last_error = wwnet::SocketGetLastError();
-		DebugString("Unable to create raw UDP socket - error code \n", last_error);
-		wwnet::SocketCleanup();
+		DebugString("Unable to create raw UDP socket - error code \n", WSAGetLastError());
+		WSACleanup();
 
-		if (last_error == WSAEACCES) {
+		if (WSAGetLastError() == WSAEACCES) {
 			failure_code = BANDTEST_NO_RAW_SOCKET_PERMISSION;
 		} else {
 			failure_code = BANDTEST_NO_RAW_SOCKET_CREATE;
@@ -2024,37 +2019,32 @@ bool Open_Raw_Sockets(int &failure_code)
 	/*
 	** Get the group number.
 	*/
-#ifdef _WIN32
 	unsigned long group = 0;
 	int length = 4;
 
 	if (use_group) {
 		if (getsockopt (RawSocket, SOL_SOCKET, SO_GROUP_ID, (char*)&group, &length) == SOCKET_ERROR) {
-			DebugString("Unable to get group for raw socket - error code \n", wwnet::SocketGetLastError());
+			DebugString("Unable to get group for raw socket - error code \n", WSAGetLastError());
 			use_group = false;
 		}
 	}
-#endif
+
 
 	/*
 	** Create a socket for ICMP packets.
 	*/
-#ifdef _WIN32
 	if (use_group) {
 		ICMPRawSocket = WSASocket(AF_INET, SOCK_RAW, IPPROTO_ICMP, NULL, group, 0);
-	} else
-#endif
-	{
-		ICMPRawSocket = wwnet::SocketCreate(AF_INET, SOCK_RAW, IPPROTO_ICMP);
+	} else {
+		ICMPRawSocket = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	}
 
 	if (ICMPRawSocket == INVALID_SOCKET) {
-		const int last_error = wwnet::SocketGetLastError();
-		DebugString("Unable to create raw ICMP socket - error code \n", last_error);
-		wwnet::SocketClose(RawSocket);
-		wwnet::SocketCleanup();
+		DebugString("Unable to create raw ICMP socket - error code \n", WSAGetLastError());
+		closesocket(RawSocket);
+		WSACleanup();
 
-		if (last_error == WSAEACCES) {
+		if (WSAGetLastError() == WSAEACCES) {
 			failure_code = BANDTEST_NO_RAW_SOCKET_PERMISSION;
 		} else {
 			failure_code = BANDTEST_NO_RAW_SOCKET_CREATE;
@@ -2062,21 +2052,23 @@ bool Open_Raw_Sockets(int &failure_code)
 		return(false);
 	}
 
-#ifdef _WIN32
 	/*
 	** Set the priority for the sockets.
 	*/
+	//unsigned long priority;
+	//getsockopt (RawSocket, SOL_SOCKET, SO_GROUP_PRIORITY, (char*)&priority, &length);
+	//getsockopt (ICMPRawSocket, SOL_SOCKET, SO_GROUP_PRIORITY, (char*)&priority, &length);
+
 	unsigned long new_priority = 50;
 	int result = setsockopt(RawSocket, SOL_SOCKET, SO_GROUP_PRIORITY, (char*)&new_priority, sizeof(new_priority));
 	if (result != 0) {
-		DebugString("Unable to set priority on UDP socket - error code %d\n", wwnet::SocketGetLastError());
+		DebugString("Unable to set priority on UDP socket - error code %d\n", WSAGetLastError());
 	}
 	new_priority = 1;
 	result = setsockopt(ICMPRawSocket, SOL_SOCKET, SO_GROUP_PRIORITY, (char*)&new_priority, sizeof(new_priority));
 	if (result != 0) {
-		DebugString("Unable to set priority on ICMP socket - error code %d\n", wwnet::SocketGetLastError());
+		DebugString("Unable to set priority on ICMP socket - error code %d\n", WSAGetLastError());
 	}
-#endif
 
 	return(true);
 }
@@ -2101,16 +2093,14 @@ bool Open_Raw_Sockets(int &failure_code)
 void Close_Raw_Sockets(void)
 {
 	if (RawSocket != INVALID_SOCKET) {
-		wwnet::SocketClose(RawSocket);
-		RawSocket = INVALID_SOCKET;
+		closesocket(RawSocket);
 	}
 
-	if (ICMPRawSocket != INVALID_SOCKET) {
-		wwnet::SocketClose(ICMPRawSocket);
-		ICMPRawSocket = INVALID_SOCKET;
+	if (RawSocket != INVALID_SOCKET) {
+		closesocket(ICMPRawSocket);
 	}
 
-	wwnet::SocketCleanup();
+	WSACleanup();
 }
 
 
@@ -2345,7 +2335,7 @@ char * Addr_As_String(unsigned char *addr)
 			*/
 			int result = setsockopt(ICMPRawSocket, IPPROTO_IP, IP_TTL, (char*)&ttl, sizeof(ttl));
 			if (result == SOCKET_ERROR) {
-				DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", ttl, wwnet::SocketGetLastError());
+				DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", ttl, WSAGetLastError());
 				failure_code = BANDTEST_NO_TTL_SET;
 				Close_Raw_Sockets();
 				return(0);
@@ -2432,7 +2422,7 @@ char * Addr_As_String(unsigned char *addr)
 		int new_ttl = 255;
 		int result = setsockopt(ICMPRawSocket, IPPROTO_IP, IP_TTL, (char*)&new_ttl, sizeof(new_ttl));
 		if (result == SOCKET_ERROR) {
-			DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, wwnet::SocketGetLastError());
+			DebugString("setsockopt failed to set IP_TTL = %d - error code %d\n", new_ttl, WSAGetLastError());
 			failure_code = BANDTEST_NO_TTL_SET;
 			Close_Raw_Sockets();
 			return(0);

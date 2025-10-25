@@ -39,7 +39,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "socket_wrapper.h"
+#include "network-typedefs.h"
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
