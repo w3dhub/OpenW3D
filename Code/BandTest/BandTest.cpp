@@ -39,23 +39,80 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#ifdef _WIN32
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <mmsystem.h>
-#include <conio.h>
-#endif
-
-#include <malloc.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-
 #include "BandTest.h"
 
 #include "../Combat/specialbuilds.h"
+#include "../wwnet/network-typedefs.h"
+#include "../wwlib/systimer.h"
 
 #include <algorithm>
+#include <cassert>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <fstream>
+#include <mutex>
+#include <string>
+#include <unordered_map>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <ws2tcpip.h>
+#include <mmsystem.h>
+#include <conio.h>
+#else
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netinet/ip.h>
+#include <netinet/udp.h>
+#include <netinet/ip_icmp.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+#include <cerrno>
+#include <chrono>
+#include <filesystem>
+#include <thread>
+#include <alloca.h>
+#endif
+
+#ifndef _WIN32
+#ifndef LPSOCKADDR
+#define LPSOCKADDR sockaddr*
+#endif
+
+struct WSADATA { int dummy; };
+
+inline int WSAStartup(unsigned short, WSADATA*) { return 0; }
+inline int WSACleanup() { return 0; }
+inline int WSAGetLastError() { return errno; }
+#ifndef MAKEWORD
+#define MAKEWORD(low, high) (((low) & 0xff) | (((high) & 0xff) << 8))
+#endif
+inline int ioctlsocket(SOCKET sock, long cmd, unsigned long* argp) {
+	return ::ioctl(sock, cmd, argp);
+}
+inline void timeBeginPeriod(unsigned) {}
+inline void timeEndPeriod(unsigned) {}
+#ifndef _alloca
+#define _alloca(size) alloca(size)
+#endif
+inline void Sleep(unsigned long duration_ms) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(duration_ms));
+}
+#ifndef _cprintf
+#define _cprintf printf
+#endif
+#ifndef GetCurrentProcessId
+#define GetCurrentProcessId getpid
+#endif
+#endif // !_WIN32
+
+#ifdef _WIN32
+using socklen_t = int;
+#endif
 
 /***********************************************************************************************
 ** Data structures
@@ -142,10 +199,12 @@ typedef struct tUDPHeaderType {
 SOCKET RawSocket = INVALID_SOCKET;
 SOCKET ICMPRawSocket = INVALID_SOCKET;
 
+#ifdef _WIN32
 /*
-** Registry.
+** Registry handle (Windows).
 */
 static HKEY RegistryKey;
+#endif
 
 //static char BandTestRegistryLocation[64] = {"Software\\Westwood\\Renegade\\BandTest\\"};
 
@@ -161,6 +220,74 @@ static char BandTestRegistryLocation[64] = {"Software\\Westwood\\Renegade\\BandT
 
 
 static char RegistryPath[1024];
+
+#ifndef _WIN32
+namespace {
+
+std::unordered_map<std::string, int> g_registry_store;
+std::mutex g_registry_mutex;
+bool g_registry_loaded = false;
+std::filesystem::path g_registry_file_path;
+
+std::filesystem::path Get_Linux_Registry_Path()
+{
+	if (!g_registry_file_path.empty()) {
+		return g_registry_file_path;
+	}
+
+	const char* home = std::getenv("HOME");
+	std::filesystem::path base = (home && *home) ? std::filesystem::path(home) : std::filesystem::path(".");
+	base /= ".config";
+	base /= "OpenW3D";
+	std::error_code ec;
+	std::filesystem::create_directories(base, ec);
+	base /= "bandtest.cfg";
+	g_registry_file_path = base;
+	return g_registry_file_path;
+}
+
+void Load_Linux_Registry()
+{
+	if (g_registry_loaded) {
+		return;
+	}
+	g_registry_loaded = true;
+
+	std::ifstream input(Get_Linux_Registry_Path());
+	if (!input) {
+		return;
+	}
+
+	std::string line;
+	while (std::getline(input, line)) {
+		auto pos = line.find('=');
+		if (pos == std::string::npos) {
+			continue;
+		}
+		std::string key = line.substr(0, pos);
+		int value = std::strtol(line.c_str() + pos + 1, nullptr, 10);
+		g_registry_store[key] = value;
+	}
+}
+
+void Save_Linux_Registry()
+{
+	if (!g_registry_loaded) {
+		return;
+	}
+
+	std::ofstream output(Get_Linux_Registry_Path(), std::ios::trunc);
+	if (!output) {
+		return;
+	}
+
+	for (const auto& entry : g_registry_store) {
+		output << entry.first << '=' << entry.second << '\n';
+	}
+}
+
+} // namespace
+#endif
 
 /*
 ** Packet loss.
@@ -179,7 +306,7 @@ int NumPingsCheckedForConsistency = 0;
 */
 bool StatsValid = false;
 
-#ifdef _DEBUG
+#if defined(_WIN32) && defined(_DEBUG)
 HANDLE DebugFile = INVALID_HANDLE_VALUE;
 char DebugFileName[256];
 #endif //_DEBUG
@@ -240,6 +367,7 @@ BandtestSettingsStruct DefaultSettings = {
 
 
 
+#ifdef _WIN32
 /***********************************************************************************************
  * DllMain -- Dll entry point. Not used for much                                               *
  *                                                                                             *
@@ -258,7 +386,7 @@ bool APIENTRY DllMain(HANDLE, DWORD, void *)
 {
 	return(true);
 }
-
+#endif
 
 
 
@@ -1837,7 +1965,7 @@ bool Send_Ping(char *payload, int payload_size, SOCKET socket, struct sockaddr *
 bool Get_Ping_Response(SOCKET socket, int &seq_id, struct sockaddr *address, unsigned long validate_address, unsigned long &my_address)
 {
 	struct sockaddr_in addr;
-	int addr_len;
+	socklen_t addr_len;
 	char recv_buffer[1024];
 
 	unsigned long bytes;
@@ -1984,7 +2112,7 @@ bool Open_Raw_Sockets(int &failure_code)
 	** We need Winsocl 2 for raw sockets.
 	*/
 	if (WSAStartup(MAKEWORD(2,1), &wsa_data) != 0) {
-		DebugString("WSAStartup failed: error code %d\n", GetLastError());
+		DebugString("WSAStartup failed: error code %d\n", WSAGetLastError());
 		failure_code = BANDTEST_NO_WINSOCK2;
 		return(false);
 	}
@@ -1992,6 +2120,7 @@ bool Open_Raw_Sockets(int &failure_code)
 	/*
 	** Create a socket for UDP packets.
 	*/
+#ifdef _WIN32
 	if (use_group) {
 		RawSocket = WSASocket(AF_INET, SOCK_RAW, IPPROTO_UDP, NULL, SG_UNCONSTRAINED_GROUP, 0);
 		if (RawSocket == INVALID_SOCKET) {
@@ -1999,6 +2128,7 @@ bool Open_Raw_Sockets(int &failure_code)
 			use_group = false;
 		}
 	}
+#endif
 
 	if (!use_group) {
 		RawSocket = socket(AF_INET, SOCK_RAW, IPPROTO_UDP);
@@ -2019,6 +2149,7 @@ bool Open_Raw_Sockets(int &failure_code)
 	/*
 	** Get the group number.
 	*/
+#ifdef _WIN32
 	unsigned long group = 0;
 	int length = 4;
 
@@ -2028,14 +2159,18 @@ bool Open_Raw_Sockets(int &failure_code)
 			use_group = false;
 		}
 	}
+#endif
 
 
 	/*
 	** Create a socket for ICMP packets.
 	*/
+#ifdef _WIN32
 	if (use_group) {
 		ICMPRawSocket = WSASocket(AF_INET, SOCK_RAW, IPPROTO_ICMP, NULL, group, 0);
-	} else {
+	} else
+#endif
+	{
 		ICMPRawSocket = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 	}
 
@@ -2052,13 +2187,10 @@ bool Open_Raw_Sockets(int &failure_code)
 		return(false);
 	}
 
+#ifdef _WIN32
 	/*
 	** Set the priority for the sockets.
 	*/
-	//unsigned long priority;
-	//getsockopt (RawSocket, SOL_SOCKET, SO_GROUP_PRIORITY, (char*)&priority, &length);
-	//getsockopt (ICMPRawSocket, SOL_SOCKET, SO_GROUP_PRIORITY, (char*)&priority, &length);
-
 	unsigned long new_priority = 50;
 	int result = setsockopt(RawSocket, SOL_SOCKET, SO_GROUP_PRIORITY, (char*)&new_priority, sizeof(new_priority));
 	if (result != 0) {
@@ -2069,6 +2201,7 @@ bool Open_Raw_Sockets(int &failure_code)
 	if (result != 0) {
 		DebugString("Unable to set priority on ICMP socket - error code %d\n", WSAGetLastError());
 	}
+#endif
 
 	return(true);
 }
@@ -2151,12 +2284,24 @@ unsigned short Get_IP_Checksum(unsigned short *buffer, int size)
 
 bool Set_Registry_Int(const char *name, int value)
 {
+#ifdef _WIN32
 	int result = RegSetValueExA(RegistryKey, name, 0, REG_DWORD, (unsigned char*)&value, sizeof(value));
 	return((result == ERROR_SUCCESS) ? true : false);
+#else
+	if (name == nullptr) {
+		return false;
+	}
+	std::lock_guard<std::mutex> lock(g_registry_mutex);
+	Load_Linux_Registry();
+	g_registry_store[name] = value;
+	Save_Linux_Registry();
+	return true;
+#endif
 }
 
 int Get_Registry_Int(const char *name, int def_value)
 {
+#ifdef _WIN32
 	unsigned long type;
 	unsigned long data;
 	unsigned long data_size = sizeof(data);
@@ -2165,11 +2310,24 @@ int Get_Registry_Int(const char *name, int def_value)
 		return(data);
 	}
 	return(def_value);
+#else
+	if (name == nullptr) {
+		return def_value;
+	}
+	std::lock_guard<std::mutex> lock(g_registry_mutex);
+	Load_Linux_Registry();
+	auto it = g_registry_store.find(name);
+	if (it != g_registry_store.end()) {
+		return it->second;
+	}
+	return def_value;
+#endif
 }
 
 
 bool Open_Registry(void)
 {
+#ifdef _WIN32
 	HKEY key;
 	unsigned long disposition;
 	long result = RegCreateKeyExA(HKEY_CURRENT_USER, RegistryPath, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, &disposition);
@@ -2178,11 +2336,21 @@ bool Open_Registry(void)
 		return(true);
 	}
 	return(false);
+#else
+	std::lock_guard<std::mutex> lock(g_registry_mutex);
+	Load_Linux_Registry();
+	return true;
+#endif
 }
 
 void Close_Registry(void)
 {
+#ifdef _WIN32
 	RegCloseKey(RegistryKey);
+#else
+	std::lock_guard<std::mutex> lock(g_registry_mutex);
+	Save_Linux_Registry();
+#endif
 }
 
 
@@ -2208,6 +2376,7 @@ void Close_Registry(void)
  * HISTORY:                                                                                    *
  *   10/3/2001 11:36AM ST : Created                                                            *
  *=============================================================================================*/
+#if defined(_WIN32)
 void DebugString (char const * string, ...)
 {
 	static char buffer[1024];
@@ -2255,6 +2424,16 @@ void DebugString (char const * string, ...)
 		CloseHandle (DebugFile);
 	}
 }
+#else
+void DebugString (char const * string, ...)
+{
+	va_list	va;
+	va_start(va, string);
+	std::fprintf(stderr, "BandTest: ");
+	std::vfprintf(stderr, string, va);
+	va_end(va);
+}
+#endif
 
 
 
@@ -2275,11 +2454,13 @@ void DebugString (char const * string, ...)
 char * Addr_As_String2(struct sockaddr_in *addr)
 {
 	static char _string[128];
-	sprintf(_string, "%d.%d.%d.%d ; %d", 	(int)(addr->sin_addr.S_un.S_un_b.s_b1),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b2),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b3),
-														(int)(addr->sin_addr.S_un.S_un_b.s_b4),
-														(int)(addr->sin_port));
+	const auto *bytes = reinterpret_cast<const unsigned char*>(&addr->sin_addr);
+	std::snprintf(_string, sizeof(_string), "%u.%u.%u.%u ; %u",
+		(unsigned)bytes[0],
+		(unsigned)bytes[1],
+		(unsigned)bytes[2],
+		(unsigned)bytes[3],
+		(unsigned)ntohs(addr->sin_port));
 	return(_string);
 }
 
@@ -2301,7 +2482,8 @@ char * Addr_As_String2(struct sockaddr_in *addr)
 char * Addr_As_String(unsigned char *addr)
 {
 	static char _string[128];
-	sprintf(_string, "%d.%d.%d.%d", 	(int)(addr[0]), (int)(addr[1]), (int)(addr[2]), (int)(addr[3]));
+	std::snprintf(_string, sizeof(_string), "%u.%u.%u.%u",
+		(unsigned)addr[0], (unsigned)addr[1], (unsigned)addr[2], (unsigned)addr[3]);
 	return(_string);
 }
 

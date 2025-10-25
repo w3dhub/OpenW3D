@@ -5,16 +5,24 @@ target_compile_definitions(bandtest PRIVATE
 )
 
 target_link_libraries(bandtest PRIVATE
-    winmm
-    ws2_32
     wwcommon
 )
+
+if (WIN32)
+    target_link_libraries(bandtest PRIVATE
+        winmm
+        ws2_32
+    )
+endif()
 
 set(BANDTEST_SRC
     BandTest.cpp
     BandTest.h
-    BandTest.rc
 )
+
+if (WIN32)
+    list(APPEND BANDTEST_SRC BandTest.rc)
+endif()
 
 target_sources(bandtest PRIVATE
     ${BANDTEST_SRC}

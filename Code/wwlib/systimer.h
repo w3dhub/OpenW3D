@@ -41,6 +41,17 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <mmsystem.h>
+#else
+#include <chrono>
+
+// Provide a Windows-compatible timeGetTime() implementation backed by steady_clock.
+inline unsigned long timeGetTime()
+{
+	using namespace std::chrono;
+	static const auto start = steady_clock::now();
+	const auto now = steady_clock::now();
+	return static_cast<unsigned long>(duration_cast<milliseconds>(now - start).count());
+}
 #endif
 
 #define TIMEGETTIME SystemTime.Get

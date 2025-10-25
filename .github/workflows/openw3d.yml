@@ -44,7 +44,7 @@ jobs:
             shell: msys2 {0}
           - name: Linux x64
             os: ubuntu-latest
-            build-args: --parallel --target scripts --target bandtest
+            build-args: --parallel --target scripts  --target bandtest
             shell: bash
 
     steps:
