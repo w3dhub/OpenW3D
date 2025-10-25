@@ -7,6 +7,7 @@ target_compile_definitions(bandtest PRIVATE
 target_link_libraries(bandtest PRIVATE
     winmm
     ws2_32
+    wwnet
     wwcommon
 )
 

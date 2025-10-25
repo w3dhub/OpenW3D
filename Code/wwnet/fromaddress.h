@@ -32,7 +32,7 @@
 #define FROMADDRESS_H
 
 #include "win.h"
-#include "network-typedefs.h"
+#include "socket_wrapper.h"
 
 //
 // This trivial class exists solely to speed compile times.

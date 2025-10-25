@@ -38,7 +38,7 @@
 #include "wwdebug.h"
 
 #include "win.h"
-#include "network-typedefs.h"
+#include "socket_wrapper.h"
 
 //const USHORT MAX_MESSAGE_TYPES = 256;
 

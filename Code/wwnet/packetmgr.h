@@ -42,7 +42,7 @@
 #include "mutex.h"
 #include "wwdebug.h"
 #include "vector.h"
-#include "network-typedefs.h"
+#include "socket_wrapper.h"
 
 #ifdef WWASSERT
 #ifndef pm_assert

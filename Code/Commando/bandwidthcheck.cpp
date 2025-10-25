@@ -40,6 +40,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include	"always.h"
+#include "socket_wrapper.h"
 #include	<windows.h>
 #include "systimer.h"
 #include	<stddef.h>
@@ -57,7 +58,6 @@
 
 #include <WWOnline/WOLSession.h>
 #include <cstdio>
-#include <winsock2.h>
 
 
 /*
@@ -345,11 +345,11 @@ void BandwidthCheckerClass::Check(void)
 	}
 	WWDEBUG_SAY(("BandwidthCheckerClass::Check -- Trying server %s\n", host_name));
 
-	host = gethostbyname(host_name);
+	host = wwnet::SocketGetHostByName(host_name);
 	if (host == NULL) {
 		host_name = DefaultServerName;
 		WWDEBUG_SAY(("BandwidthCheckerClass::Check -- Trying server %s\n", host_name));
-		host = gethostbyname(host_name);
+		host = wwnet::SocketGetHostByName(host_name);
 	}
 
 	if (host == NULL) {

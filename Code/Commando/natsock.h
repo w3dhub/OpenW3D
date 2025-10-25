@@ -43,7 +43,7 @@
 #include	"assert.h"
 #include	"vector.h"
 
-#include	"network-typedefs.h"
+#include	"socket_wrapper.h"
 
 #ifndef DebugString
 #include	"wwdebug.h"
