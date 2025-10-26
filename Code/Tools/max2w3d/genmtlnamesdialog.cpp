@@ -124,7 +124,7 @@ bool GenMtlNamesDialogClass::Get_Options(OptionsStruct * options)
 							(LPARAM) this
 						);
 
-	if (result == TRUE) {
+	if (result == true) {
 		return true;
 	} else {
 		return false;
@@ -254,7 +254,7 @@ static BOOL CALLBACK _gen_mtl_names_dialog_proc(HWND hwnd,UINT message,WPARAM wp
 	if (dialog) {
 		return dialog->Dialog_Proc(hwnd, message, wparam, lparam);
 	} else {
-		return FALSE;
+		return false;
 	}
 }
 

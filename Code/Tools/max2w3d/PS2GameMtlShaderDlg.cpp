@@ -137,7 +137,7 @@ BOOL PS2GameMtlShaderDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam
 			{
 				IParams->RollupMouseMessage(dlg_wnd,message,wparam,lparam);
 			}
-			return FALSE;
+			return false;
 
 		case WM_COMMAND:
 			{
@@ -232,7 +232,7 @@ BOOL PS2GameMtlShaderDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam
 			}
 	}
 
-	return FALSE;
+	return false;
 }
 
 /***********************************************************************************************

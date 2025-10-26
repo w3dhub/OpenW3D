@@ -83,8 +83,8 @@ BOOL GammaDialogClass::OnInitDialog()
 	string+="E. Press OK to save settings";
 	SetDlgItemText(IDC_INSTRUCTIONS,string);
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 void GammaDialogClass::OnOK() 

@@ -185,7 +185,7 @@ WWAudioClass::WWAudioClass (bool lite)
 		AIL_startup ();
 	}
 	_theInstance = this;
-	_TimerSyncEvent = ::CreateEventA (NULL, TRUE, FALSE, "WWAUDIO_TIMER_SYNC");
+	_TimerSyncEvent = ::CreateEventA (NULL, true, false, "WWAUDIO_TIMER_SYNC");
 
 	//
 	// Set some default values
@@ -305,7 +305,7 @@ WWAudioClass::Open_2D_Device (LPWAVEFORMAT format)
 	AIL_set_preference (AIL_LOCK_PROTECTION, NO);
 
 	// Try to use DirectSound if possible
-	S32 success = ::AIL_set_preference (DIG_USE_WAVEOUT, FALSE);
+	S32 success = ::AIL_set_preference (DIG_USE_WAVEOUT, false);
 	//WWASSERT (success == AIL_NO_ERROR);		// This assert fires if there is no sound card.
 
 	// Open the driver
@@ -314,7 +314,7 @@ WWAudioClass::Open_2D_Device (LPWAVEFORMAT format)
 	// Do we need to switch from direct sound to waveout?
 	if ((success == AIL_NO_ERROR) &&
 		 (m_Driver2D != NULL) &&
-		 (m_Driver2D->emulated_ds == TRUE)) {
+		 (m_Driver2D->emulated_ds == true)) {
 		::AIL_waveOutClose (m_Driver2D);
 		success = 2;
 		WWDEBUG_SAY (("WWAudio: Detected 2D DirectSound emulation, switching to WaveOut.\r\n"));
@@ -325,7 +325,7 @@ WWAudioClass::Open_2D_Device (LPWAVEFORMAT format)
 	if (success != AIL_NO_ERROR) {
 
 		// Try to use the default wave out driver
-		success = ::AIL_set_preference (DIG_USE_WAVEOUT, TRUE);
+		success = ::AIL_set_preference (DIG_USE_WAVEOUT, true);
 		//WWASSERT (success == AIL_NO_ERROR);	// This assert fires if there is no sound card.
 
 		// Open the driver

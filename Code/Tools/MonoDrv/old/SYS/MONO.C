@@ -270,7 +270,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 	NTSTATUS               ntStatus;
 	UNICODE_STRING         deviceNameUnicodeString;
 	MonoGlobals * deviceExtension;
-	BOOLEAN                symbolicLinkCreated = FALSE;
+	BOOLEAN                symbolicLinkCreated = false;
 	UNICODE_STRING         deviceLinkUnicodeString;
 
 	//
@@ -304,7 +304,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 	// implement a more robust synchronization scheme than the event
 	// mechanism we utilize below.
 	//
-	ntStatus = IoCreateDevice(DriverObject, sizeof(MonoGlobals), &deviceNameUnicodeString, FILE_DEVICE_MONO, 0, FALSE, &deviceObject);
+	ntStatus = IoCreateDevice(DriverObject, sizeof(MonoGlobals), &deviceNameUnicodeString, FILE_DEVICE_MONO, 0, false, &deviceObject);
 
 	if (NT_SUCCESS(ntStatus)) {
 
@@ -316,7 +316,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 		// Initialize the dispatch event object. This allows us to
 		// synchronize access to the h/w registers...
 		//
-		KeInitializeEvent(&deviceExtension->SyncEvent, SynchronizationEvent, TRUE);
+		KeInitializeEvent(&deviceExtension->SyncEvent, SynchronizationEvent, true);
 
 		//
 		// Map all the required resources, save the addresses
@@ -353,7 +353,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 		ntStatus = IoCreateSymbolicLink(&deviceLinkUnicodeString, &deviceNameUnicodeString);
 		if (!NT_SUCCESS(ntStatus)) {
 		} else {
-			symbolicLinkCreated = TRUE;
+			symbolicLinkCreated = true;
 		}
 
 		//
@@ -478,7 +478,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	** Synchronize execution of the dispatch routine by acquiring the device
 	** event object. This ensures all request are serialized.
 	*/
-	KeWaitForSingleObject(&deviceExtension->SyncEvent, Executive, KernelMode, FALSE, NULL);
+	KeWaitForSingleObject(&deviceExtension->SyncEvent, Executive, KernelMode, false, NULL);
 
 	/*
 	**	Output goes to the context buffer associated with the file
@@ -629,7 +629,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 		Mono_Set_Cursor(deviceExtension, control->XPos, control->YPos);
 	}
 
-	KeSetEvent(&deviceExtension->SyncEvent, 0, FALSE);
+	KeSetEvent(&deviceExtension->SyncEvent, 0, false);
 
 	ntStatus = Irp->IoStatus.Status;
 
@@ -765,7 +765,7 @@ void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS address, unsigned long space, unsig
 		**	MmMapIoSpace is required. This is usually required for port addresses.
 		*/
 		if (space == 0) {
-			usable_ptr = MmMapIoSpace(translatedAddress, length, FALSE);
+			usable_ptr = MmMapIoSpace(translatedAddress, length, false);
 		} else {
 			usable_ptr = (void *)translatedAddress.LowPart;
 		}
@@ -786,7 +786,7 @@ void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS address, unsigned long space, unsig
 //       (not safe to do, but the easiest for this simple example); or, by
 //       editing the source file(s) of the appropriate miniport driver
 //       such that the VIDEO_ACCESS_RANGE.RangeSharable element is set to
-//       TRUE, and rebuilding the driver.
+//       true, and rebuilding the driver.
 //
 //       A real driver should *always* report it's resources.
 //
@@ -808,8 +808,8 @@ Arguments:
 
 Return Value:
 
-    TRUE if resources successfully report (and no conflicts),
-    FALSE otherwise.
+    true if resources successfully report (and no conflicts),
+    false otherwise.
 
 --*/
 BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE MonoResources, unsigned long NumberOfResources)
@@ -831,7 +831,7 @@ BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE Mon
 		resourceList = ExAllocatePool(PagedPool, sizeOfResourceList);
 
 		if (!resourceList) {
-			return FALSE;
+			return false;
 		}
 
 		RtlZeroMemory(resourceList, sizeOfResourceList);
@@ -879,19 +879,19 @@ BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE Mon
 
 	RtlInitUnicodeString(&className, L"LOADED MONO DRIVER RESOURCES");
 
-	IoReportResourceUsage(&className, DriverObject, resourceList, sizeOfResourceList, NULL, NULL, 0, FALSE, &conflictDetected);
+	IoReportResourceUsage(&className, DriverObject, resourceList, sizeOfResourceList, NULL, NULL, 0, false, &conflictDetected);
 
 	if (resourceList) {
 		ExFreePool(resourceList);
 
 		if (conflictDetected)  {
-			return FALSE;
+			return false;
 		} else {
-			return TRUE;
+			return true;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 

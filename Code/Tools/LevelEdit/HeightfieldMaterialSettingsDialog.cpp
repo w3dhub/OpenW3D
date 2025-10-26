@@ -107,7 +107,7 @@ HeightfieldMaterialSettingsDialogClass::OnInitDialog (void)
 		::SetDlgItemFloat (m_hWnd, IDC_METERS_PER_TILE_EDIT, 10.0F);
 	}
 		
-	return TRUE;
+	return true;
 }
 
 
@@ -192,7 +192,7 @@ HeightfieldMaterialSettingsDialogClass::OnBrowse (void)
 	CString texture_path;
 	GetDlgItemText (IDC_TEXTURE_FILENAME, texture_path);
 
-	CFileDialog dialog (TRUE, ".tga", texture_path,
+	CFileDialog dialog (true, ".tga", texture_path,
 		OFN_HIDEREADONLY | OFN_EXPLORER,
 		"Texture Files (*.tga)|*.tga||", ::AfxGetMainWnd ());
 

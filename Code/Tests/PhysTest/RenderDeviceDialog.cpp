@@ -71,7 +71,7 @@ BOOL CRenderDeviceDialog::OnInitDialog()
 	}
 	m_RenderDeviceCombo.SetCurSel(WW3D::Get_Render_Device());
 
-	return TRUE;
+	return true;
 }
 
 void CRenderDeviceDialog::OnOK() 

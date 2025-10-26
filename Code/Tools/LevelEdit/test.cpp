@@ -99,7 +99,7 @@ void *
 
 	if (_g_binit == false) {	
 		_g_binit = true;
-		::SymInitialize (::GetCurrentProcess (), NULL,  TRUE);	
+		::SymInitialize (::GetCurrentProcess (), NULL,  true);	
 	}
 
 
@@ -109,7 +109,7 @@ void *
 	::GetThreadContext (hthread, &context);
 
 	HANDLE hthread2 = NULL;
-	DuplicateHandle (::GetCurrentProcess (), hthread, ::GetCurrentProcess (), &hthread2, THREAD_ALL_ACCESS | THREAD_GET_CONTEXT, FALSE, 0);
+	DuplicateHandle (::GetCurrentProcess (), hthread, ::GetCurrentProcess (), &hthread2, THREAD_ALL_ACCESS | THREAD_GET_CONTEXT, false, 0);
 	context.ContextFlags = CONTEXT_FULL;
 	::GetThreadContext (hthread2, &context);
 	::CloseHandle (hthread2);

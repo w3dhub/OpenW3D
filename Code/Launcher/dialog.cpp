@@ -51,7 +51,7 @@ BOOL CALLBACK Patch_Window_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPar
       SendMessage(GetDlgItem(hwnd,IDC_PROGRESS2),PBM_SETSTEP,10,0);
 
       bmpLoader.init("launcher.bmp",GetDlgItem(hwnd,IDC_SPLASH));
-      return(TRUE);   // True means windows handles focus issues
+      return(true);   // True means windows handles focus issues
     break;
     
 		case WM_PAINT:
@@ -65,7 +65,7 @@ BOOL CALLBACK Patch_Window_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPar
         case IDCANCEL:
         {
           // do some stuff
-          return(TRUE);
+          return(true);
         }
         default:
         break;
@@ -79,5 +79,5 @@ BOOL CALLBACK Patch_Window_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPar
       exit(0);
     break;
   }
-  return(FALSE);
+  return(false);
 }

@@ -89,7 +89,7 @@ ExportPresetsDialogClass::OnInitDialog (void)
 	m_TreeCtrl.SetImageList (::Get_Global_Image_List (), TVSIL_NORMAL);
 	Fill_Tree ();
 	
-	return TRUE;
+	return true;
 }
 
 
@@ -101,7 +101,7 @@ ExportPresetsDialogClass::OnInitDialog (void)
 void
 ExportPresetsDialogClass::OnBrowse (void)
 {
-	CFileDialog dialog (FALSE, ".txt", "presets.txt",
+	CFileDialog dialog (false, ".txt", "presets.txt",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"Text Files (*.txt)|*.txt||", ::AfxGetMainWnd ());
 

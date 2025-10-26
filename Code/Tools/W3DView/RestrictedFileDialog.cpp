@@ -82,7 +82,7 @@ RestrictedFileDialogClass::OnFileNameOK (void)
 	path += m_ExpectedFilename;
 	::lstrcpy (m_ofn.lpstrFile, path);
 	::lstrcpy (m_ofn.lpstrFileTitle, m_ExpectedFilename);
-	return FALSE;
+	return false;
 }
 
 
@@ -94,7 +94,7 @@ void
 RestrictedFileDialogClass::OnInitDone (void)
 {
 	// Disable the controls we don't want the user to change
-	::EnableWindow (::GetDlgItem (::GetParent (m_hWnd), 0x480), FALSE);
-	::EnableWindow (::GetDlgItem (::GetParent (m_hWnd), 0x470), FALSE);
+	::EnableWindow (::GetDlgItem (::GetParent (m_hWnd), 0x480), false);
+	::EnableWindow (::GetDlgItem (::GetParent (m_hWnd), 0x470), false);
 	return ;
 }

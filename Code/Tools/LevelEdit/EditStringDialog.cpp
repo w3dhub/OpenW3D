@@ -141,7 +141,7 @@ EditStringDialogClass::OnInitDialog (void)
 		SendDlgItemMessage (IDC_CODEID_EDIT, EM_SETSEL, (WPARAM)0, (LPARAM)-1);
 	}
 	
-	return FALSE;
+	return false;
 }
 
 

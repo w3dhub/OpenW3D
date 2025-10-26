@@ -135,8 +135,8 @@ BOOL CW3DUpdateDlg::OnInitDialog()
 
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
-	SetIcon(m_hIcon, TRUE);			// Set big icon
-	SetIcon(m_hIcon, FALSE);		// Set small icon
+	SetIcon(m_hIcon, true);			// Set big icon
+	SetIcon(m_hIcon, false);		// Set small icon
 
 	//
 	//	Check/uncheck the applications by default
@@ -155,7 +155,7 @@ BOOL CW3DUpdateDlg::OnInitDialog()
 		//
 		if (::RegOpenKeyEx (HKEY_CURRENT_USER, reg_key_name, 0L, KEY_READ, &hreg_key) == ERROR_SUCCESS) {
 			//Moumine- 
-			//SendDlgItemMessage (app_info.ctrl_id, BM_SETCHECK, (WPARAM)TRUE);
+			//SendDlgItemMessage (app_info.ctrl_id, BM_SETCHECK, (WPARAM)true);
 			
 			//
 			//	Read the installation directory from the registry
@@ -183,11 +183,11 @@ BOOL CW3DUpdateDlg::OnInitDialog()
 		//	Check the clean option (by default) if necessary
 		//
 		if (app_info.clean_default && app_info.clean_ctrl_id != -1) {
-			SendDlgItemMessage (app_info.clean_ctrl_id, BM_SETCHECK, (WPARAM)TRUE);
+			SendDlgItemMessage (app_info.clean_ctrl_id, BM_SETCHECK, (WPARAM)true);
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 // If you add a minimize button to your dialog, you will need the code below
@@ -327,7 +327,7 @@ CW3DUpdateDlg::Get_Destination_Path (int app_id, CString &dest_path)
 	switch(app_id){
 		case APP_W3DSHELLEXT:{
 			//SHGetFolderPath(NULL,CSIDL_SYSTEM, NULL,SHGFP_TYPE_CURRENT,dest_path.GetBuffer(MAX_PATH) );
-			SHGetSpecialFolderPath(NULL,dest_path.GetBuffer(MAX_PATH), CSIDL_SYSTEM, TRUE);
+			SHGetSpecialFolderPath(NULL,dest_path.GetBuffer(MAX_PATH), CSIDL_SYSTEM, true);
 			dest_path.ReleaseBuffer();
 			break;
 		}
@@ -434,7 +434,7 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 		
 		// Convert the 'PIDL' into a string
 		char path[MAX_PATH];
-		ret_val = (::SHGetPathFromIDList (pidl, path) == TRUE);
+		ret_val = (::SHGetPathFromIDList (pidl, path) == true);
 		if (ret_val) {
 			folder = path;
 		}
@@ -448,8 +448,8 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 	}
 
 	
-	//CFileDialog dialog (TRUE, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
-	//CFileDialog dialog (TRUE, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_ENABLETEMPLATEHANDLE, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
+	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
+	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_ENABLETEMPLATEHANDLE, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
 	//dialog.m_ofn.lpTemplateName = MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG);
 	//dialog.m_ofn.hInstance = ::AfxGetInstanceHandle ();
 	//HRSRC resource = ::FindResource (::AfxGetInstanceHandle (), MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG), RT_DIALOG);	
@@ -521,7 +521,7 @@ Delete_File (LPCTSTR filename)
 		}
 
 		// Perform the delete operation!
-		ret_val = ::DeleteFile (filename) == TRUE;
+		ret_val = ::DeleteFile (filename) == true;
 	}
 
 	// Return the true/false result code
@@ -567,7 +567,7 @@ Copy_File
 
 		// Perform the copy operation!
 		if (allow_copy) {
-			ret_val = (::CopyFile (existing_filename, new_filename, FALSE) == TRUE);
+			ret_val = (::CopyFile (existing_filename, new_filename, false) == true);
 		}
 	}
 
@@ -596,7 +596,7 @@ Clean_Directory (LPCTSTR local_dir)
 			// If this file isn't a directory, add it to the list
 			if(!(find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
 				CString full_path = local_dir + CString ("\\") + find_info.cFileName;
-				if (::Delete_File (full_path) == FALSE) {
+				if (::Delete_File (full_path) == false) {
 					CString message;
 					message.Format ("Cannot delete %s.  This may result in an incomplete update.  Please make sure no applications are running before running the update.", full_path);
 					::MessageBox (NULL, message, "Delete Error", MB_SETFOREGROUND | MB_TOPMOST | MB_ICONEXCLAMATION | MB_OK);
@@ -662,7 +662,7 @@ fnUpdateAppDirectory (LPVOID pParam)
 					CString dest_path = info->dest_dir + CString ("\\") + find_info.cFileName;
 					::Create_Dir_If_Necessary (info->dest_dir);
 					//info->dialog->Set_Current_File (find_info.cFileName);
-					if (::Copy_File (src_path, dest_path, true) == FALSE) {
+					if (::Copy_File (src_path, dest_path, true) == false) {
 						CString message;
 						message.Format (IDS_COPYFAIL, src_path, dest_path);
 						::MessageBox (NULL, message, "Copy Error", MB_SETFOREGROUND | MB_TOPMOST | MB_ICONEXCLAMATION | MB_OK);

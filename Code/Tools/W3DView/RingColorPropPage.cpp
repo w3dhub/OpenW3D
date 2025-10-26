@@ -175,7 +175,7 @@ RingColorPropPageClass::OnInitDialog (void)
 	//
 	Update_Colors ();
 	Update_Opacities ();
-	return TRUE;
+	return true;
 }
 
 

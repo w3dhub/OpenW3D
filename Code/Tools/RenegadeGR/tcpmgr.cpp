@@ -38,7 +38,7 @@ bit8 TCPMgr::addListener(uint32 ip, uint16 port, bit8 reuseAddr)
 {
   SOCKET fd=createSocket(ip,port,reuseAddr);
   if (fd == INVALID_SOCKET)
-    return(FALSE);
+    return(false);
 
   listen(fd,64);  // Solaris needs lots of listen slots
 
@@ -49,7 +49,7 @@ bit8 TCPMgr::addListener(uint32 ip, uint16 port, bit8 reuseAddr)
 
   ListenArray_.addTail(lsock);
 
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -65,10 +65,10 @@ bit8 TCPMgr::removeListener(uint32 ip, uint16 port)
     {
       closesocket(lptr->fd);
       ListenArray_.remove(i);
-      return(TRUE);
+      return(true);
     }
   }
-  return(FALSE);
+  return(false);
 }
 
 //
@@ -83,10 +83,10 @@ bit8 TCPMgr::getListener(uint32 ip, uint16 port, OUT SOCKET &outsock)
     if ((lptr->ip == ip) && (lptr->port == port))
     {
       outsock=lptr->fd;
-      return(TRUE);
+      return(true);
     }
   }
-  return(FALSE);
+  return(false);
 }
 
 
@@ -113,7 +113,7 @@ bit8 TCPMgr::setBufferedWrites(TCPCon *con, bit8 enabled)
     con->setBufferedWrites(this, true);
     BufferedWriters_.addTail(con);
   }
-  return(TRUE);
+  return(true);
 }
 
 
@@ -162,8 +162,8 @@ bit8 TCPMgr::connect(char *host, uint16 port, OUT uint32 *handle)
 bit8 TCPMgr::connect(uint32 ip, uint16 port,OUT uint32 *handle)
 {
   PendingConn pConn;
-  if ((pConn.fd=createSocket((uint32) 0,(uint16) 0,FALSE)) == INVALID_SOCKET)
-    return(FALSE);
+  if ((pConn.fd=createSocket((uint32) 0,(uint16) 0,false)) == INVALID_SOCKET)
+    return(false);
   pConn.ip=0;
   pConn.port=0;
   pConn.remoteIp=ip;
@@ -171,12 +171,12 @@ bit8 TCPMgr::connect(uint32 ip, uint16 port,OUT uint32 *handle)
   pConn.startTime=time(NULL);
   pConn.handle=HandleSequence_++;
   pConn.state=CLOSED;
-  pConn.incoming=FALSE;   // outgoing connection
+  pConn.incoming=false;   // outgoing connection
 
   ConnectArray_.addTail(pConn);
 
   *handle=pConn.handle;
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -211,7 +211,7 @@ int TCPMgr::wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readM
   fd_set returnSet;
   fd_set backupSet;
   int    givenMax=0;
-  bit8   noTimeout=FALSE;
+  bit8   noTimeout=false;
   int    retval;
   uint32 i;
 
@@ -229,7 +229,7 @@ int TCPMgr::wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readM
   backupSet=givenSet;
  
   if ((sec==-1)||(usec==-1))
-    noTimeout=TRUE;
+    noTimeout=true;
  
   timeout.SetSec(sec);
   timeout.SetUsec(usec);
@@ -241,7 +241,7 @@ int TCPMgr::wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readM
       givenMax=sockets[i];
   }
  
-  bit8 done=FALSE;
+  bit8 done=false;
   while( ! done)
   {
     tvPtr=&tv;
@@ -258,22 +258,22 @@ int TCPMgr::wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readM
     DBGMSG("Select wake");
 
     if (retval>=0)
-      done=TRUE;
+      done=true;
     else if ((retval==SOCKET_ERROR)&&(getStatus()==INTR))  // in case of signal
     {
-      if (noTimeout==FALSE)
+      if (noTimeout==false)
       {
         timenow.Update();
         timeout=timethen-timenow;
       }
-      if ((noTimeout==FALSE)&&(timenow.GetSec()==0)&&(timenow.GetUsec()==0))
-        done=TRUE;
+      if ((noTimeout==false)&&(timenow.GetSec()==0)&&(timenow.GetUsec()==0))
+        done=true;
       else
         returnSet=backupSet;
     }
     else  // maybe out of memory?
     {
-      done=TRUE;
+      done=true;
     }
   }
   return(retval);
@@ -331,7 +331,7 @@ SOCKET TCPMgr::createSocket(uint32 ip, uint16 port, bit8 reuseAddr)
   if (fd==-1)
     return(INVALID_SOCKET);
 
-  if (setBlocking(fd,FALSE)==FALSE)
+  if (setBlocking(fd,false)==false)
     return(INVALID_SOCKET);
  
   if (reuseAddr)
@@ -364,21 +364,21 @@ bit8 TCPMgr::setBlocking(SOCKET fd, bit8 block)
   int retval;
   retval=ioctlsocket(fd,FIONBIO,&flag);
   if (retval==SOCKET_ERROR)
-    return(FALSE);
+    return(false);
   else
-    return(TRUE);
+    return(true);
  #else	// UNIX
   int flags = fcntl(fd, F_GETFL, 0);
-  if (block==FALSE)					// set nonblocking
+  if (block==false)					// set nonblocking
     flags |= O_NONBLOCK;
   else											 // set blocking
     flags &= ~(O_NONBLOCK);
 
   if (fcntl(fd, F_SETFL, flags) < 0)
   {
-    return(FALSE);
+    return(false);
   }
-  return(TRUE);
+  return(true);
  #endif
 }
 
@@ -404,9 +404,9 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
       ConnectArray_.getPointer(&connPtr,i);
       if (connPtr->state != CONNECTED)
         continue;
-      if (( ! ((int)dir & (int)INCOMING)) && (connPtr->incoming == TRUE))
+      if (( ! ((int)dir & (int)INCOMING)) && (connPtr->incoming == true))
         continue;
-      if (( ! ((int)dir & (int)OUTGOING)) && (connPtr->incoming == FALSE))
+      if (( ! ((int)dir & (int)OUTGOING)) && (connPtr->incoming == false))
         continue;
       if ((handle != INVALID_HANDLE) && (handle != connPtr->handle))
         continue;
@@ -414,20 +414,20 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
         continue;
       *conn=new TCPCon(connPtr->fd);
       ConnectArray_.remove(i);
-      return(TRUE);
+      return(true);
     }
     // Wait for socket activity for a bit
 	 #ifdef _WINDOWS
     Sleep(100);  // windows may be getting flooded with conn msgs, test this
 	 #endif
     sint32 remaining_wait=wait_secs - (time(NULL)-start);
-    if ((remaining_wait > 0) && (wait(remaining_wait,0,fdArray,ConnectArray_.length(),FALSE) > 0))
+    if ((remaining_wait > 0) && (wait(remaining_wait,0,fdArray,ConnectArray_.length(),false) > 0))
       continue;  // got something!
  
     if (remaining_wait <= 0)
       break;
   }
-  return(FALSE);
+  return(false);
 }
 
 
@@ -476,7 +476,7 @@ void TCPMgr::pumpConnections(void)
         {
            assert(0);
            closesocket(connPtr->fd);
-           connPtr->fd=createSocket(connPtr->ip, connPtr->port, FALSE);
+           connPtr->fd=createSocket(connPtr->ip, connPtr->port, false);
         }
       }
       if (retval==0)
@@ -500,7 +500,7 @@ void TCPMgr::pumpConnections(void)
       SOCKET newFD=accept(listenPtr->fd, (struct sockaddr *)&clientAddr, &addrlen);
       if (newFD != INVALID_SOCKET)
       {
-        setBlocking(newFD, FALSE);
+        setBlocking(newFD, false);
 
         DBGMSG("Connection accepted");
 
@@ -512,7 +512,7 @@ void TCPMgr::pumpConnections(void)
         newConn.remotePort=ntohs(clientAddr.sin_port);
         newConn.handle=HandleSequence_++;
         newConn.state=CONNECTED;
-        newConn.incoming=TRUE;
+        newConn.incoming=true;
         newConn.remoteIp=ntohl(clientAddr.sin_addr.s_addr);
         newConn.remotePort=ntohs(clientAddr.sin_port);
 

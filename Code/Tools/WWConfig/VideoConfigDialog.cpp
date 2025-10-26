@@ -251,7 +251,7 @@ VideoConfigDialogClass::OnInitDialog (void)
 	//
 	Update_Display_Settings ();	
 
-	return TRUE;
+	return true;
 }
 
 

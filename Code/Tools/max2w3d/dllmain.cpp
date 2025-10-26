@@ -64,7 +64,7 @@
 *****************************************************************************/
 
 HINSTANCE					AppInstance = NULL;
-static int					ControlsInit = FALSE;
+static int					ControlsInit = false;
 static W3dClassDesc		W3d_Export_Class_Descriptor;
 
 
@@ -87,7 +87,7 @@ BOOL WINAPI DllMain(HINSTANCE	hinstDLL,ULONG /*fdwReason*/,LPVOID /*lpvReserved*
 
 	if ( !ControlsInit )
 	{
-		ControlsInit = TRUE;
+		ControlsInit = true;
 		InitCustomControls(AppInstance);
 		InitCommonControls();
 
@@ -97,7 +97,7 @@ BOOL WINAPI DllMain(HINSTANCE	hinstDLL,ULONG /*fdwReason*/,LPVOID /*lpvReserved*
 		InitCommonControlsEx( &icc );
 	}
 
-	return  TRUE;
+	return  true;
 }
 
 

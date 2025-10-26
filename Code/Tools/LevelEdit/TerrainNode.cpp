@@ -949,7 +949,7 @@ TerrainSectionNodeClass::Create (RenderObjClass *render_obj)
 	//
 	m_PhysObj->Set_ID (Get_ID ());
 	Set_ID (NodeMgrClass::Get_Node_ID (Get_Type ()));
-	m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+	m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 
 	//
 	//	Give the new node a name

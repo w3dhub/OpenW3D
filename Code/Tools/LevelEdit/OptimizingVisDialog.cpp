@@ -94,7 +94,7 @@ OptimizingVisDialogClass::OnInitDialog (void)
 
 	m_ProgressBar.SetRange (0, 100);
 	SetTimer (777, 1000, NULL);
-	return TRUE;
+	return true;
 }
 
 
@@ -190,7 +190,7 @@ OptimizingVisDialogClass::Update_Stats (void)
 void
 OptimizingVisDialogClass::Set_Finished (void)
 {
-	::EnableWindow (::GetDlgItem (m_hWnd, IDCANCEL), TRUE);
+	::EnableWindow (::GetDlgItem (m_hWnd, IDCANCEL), true);
 	Update_Stats ();
 	m_ProgressBar.SetPos (100);
 	

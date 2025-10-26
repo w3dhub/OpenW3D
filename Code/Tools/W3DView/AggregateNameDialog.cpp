@@ -122,5 +122,5 @@ AggregateNameDialogClass::OnInitDialog (void)
 	// Restrict the amount of text a user can type into the control
 	SendDlgItemMessage (IDC_AGGREGATE_NAME, EM_LIMITTEXT, (WPARAM)W3D_NAME_LEN-1);
 	SetDlgItemText (IDC_AGGREGATE_NAME, m_Name);
-	return TRUE;
+	return true;
 }

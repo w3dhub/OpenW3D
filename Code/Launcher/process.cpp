@@ -44,9 +44,9 @@ bit8 Create_Process(Process &process)
     DBGMSG("PROCESS CMD="<<cmdargs<<"  DIR="<<process.directory);
 
 #ifndef COPY_PROTECT
-		retval=CreateProcessA(NULL,cmdargs,NULL,NULL,FALSE, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
+		retval=CreateProcessA(NULL,cmdargs,NULL,NULL,false, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
 #else
-		retval=CreateProcessA(NULL,cmdargs,NULL,NULL,TRUE, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
+		retval=CreateProcessA(NULL,cmdargs,NULL,NULL,true, 0  ,NULL, NULL/*process.directory*/,&si,&piProcess);
 #endif
 
     DBGMSG("("<<retval<<") New process:  HANDLE " << (void *)piProcess.hProcess << "   ID "
@@ -63,7 +63,7 @@ bit8 Create_Process(Process &process)
 		process.dwProcessID = piProcess.dwProcessId;
     process.hThread=piProcess.hThread;
 		process.dwThreadID = piProcess.dwThreadId;
-    return(TRUE);
+    return(true);
 }
 
 //
@@ -79,10 +79,10 @@ bit8 Wait_Process(Process &process, DWORD *exit_code)
   {
     if (exit_code != NULL)
       GetExitCodeProcess(process.hProcess,exit_code);
-    return(TRUE);
+    return(true);
   }
   else                        // can this happen?
-    return(FALSE);
+    return(false);
 }
 
 
@@ -97,10 +97,10 @@ bit8 Read_Process_Info(ConfigFile &config,OUT Process &info, IN char *key)
 	 keyStr = key;
 
  Wstring procinfo;
- if (config.getString(keyStr.get(), procinfo)==FALSE)
+ if (config.getString(keyStr.get(), procinfo)==false)
  {
    DBGMSG("Couldn't read the RUN line");
-   return(FALSE);
+   return(false);
  }
  int          offset=0;
  Wstring      dir;
@@ -118,7 +118,7 @@ bit8 Read_Process_Info(ConfigFile &config,OUT Process &info, IN char *key)
  strcpy(info.command,executable.get());
  strcpy(info.directory,dir.get());
  strcpy(info.args,args.get());
- return(TRUE);
+ return(true);
  
 
 /*********************************************************
@@ -128,7 +128,7 @@ bit8 Read_Process_Info(ConfigFile &config,OUT Process &info, IN char *key)
   int       i;
 
   if ((in=fopen(config,"r"))==NULL)
-    return(FALSE);
+    return(false);
 
   while(fgets(string,256,in))
   {
@@ -141,13 +141,13 @@ bit8 Read_Process_Info(ConfigFile &config,OUT Process &info, IN char *key)
       continue;
 
     strcpy(info.directory,string);
-    found_space=FALSE;
+    found_space=false;
     for (; i<int(strlen(string)); i++)
     {
       if (isspace(info.directory[i]))
       {
         info.directory[i]=0;
-        found_space=TRUE;
+        found_space=true;
       }
       else if (found_space)
         break;
@@ -164,6 +164,6 @@ bit8 Read_Process_Info(ConfigFile &config,OUT Process &info, IN char *key)
     break;
   }
   fclose(in);
-  return(TRUE);
+  return(true);
 **********************************************/
 }

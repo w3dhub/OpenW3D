@@ -171,7 +171,7 @@ EditConversationDialogClass::OnInitDialog (void)
 		//
 		icon = (HICON)::LoadImage (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDI_EYE2), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 		SendDlgItemMessage (ORATOR_CTRLS[index].check_id, BM_SETIMAGE, IMAGE_ICON, (LPARAM)icon);
-		SendDlgItemMessage (ORATOR_CTRLS[index].check_id, BM_SETCHECK, (WPARAM)TRUE);
+		SendDlgItemMessage (ORATOR_CTRLS[index].check_id, BM_SETCHECK, (WPARAM)true);
 
 		//
 		//	Configure the orator type combo-box
@@ -210,10 +210,10 @@ EditConversationDialogClass::OnInitDialog (void)
 		//
 		//	Check the checkbox control and enable the combobox control
 		//
-		SendDlgItemMessage (ORATOR_CTRLS[index].button_id, BM_SETCHECK, (WPARAM)TRUE);
+		SendDlgItemMessage (ORATOR_CTRLS[index].button_id, BM_SETCHECK, (WPARAM)true);
 		SendDlgItemMessage (ORATOR_CTRLS[index].check_id, BM_SETCHECK, (WPARAM)(!orator->Is_Invisible ()));
-		::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_CTRLS[index].combo_id), TRUE);
-		::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_CTRLS[index].check_id), TRUE);		
+		::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_CTRLS[index].combo_id), true);
+		::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_CTRLS[index].check_id), true);		
 		
 		//
 		//	Select the current orator type in the combobox
@@ -278,7 +278,7 @@ EditConversationDialogClass::OnInitDialog (void)
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 

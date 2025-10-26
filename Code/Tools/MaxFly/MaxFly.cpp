@@ -75,7 +75,7 @@ class MaxFlyClassDesc:public ClassDesc2
 {
 	public:
 	int 				IsPublic() {return 1;}
-	void *			Create(BOOL loading = FALSE) {return &theMaxFly;}
+	void *			Create(BOOL loading = false) {return &theMaxFly;}
 	const TCHAR *	ClassName() {return GetString(IDS_CLASS_NAME);}
 	SClass_ID		SuperClassID() {return UTILITY_CLASS_ID;}
 	Class_ID			ClassID() {return MAXFLY_CLASS_ID;}
@@ -119,9 +119,9 @@ static BOOL CALLBACK MaxFlyDlgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 			break;
 
 		default:
-			return FALSE;
+			return false;
 	}
-	return TRUE;
+	return true;
 }
 
 
@@ -185,10 +185,10 @@ void MaxFly::Pitch_Up(void)
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
 									AngAxis(Point3(1,0,0),-PITCH_SPEED),	// const AngAxis& val, 
-									TRUE,												// BOOL localOrigin=FALSE, 
-									TRUE,												// BOOL affectKids=TRUE, 
+									true,												// BOOL localOrigin=false, 
+									true,												// BOOL affectKids=true, 
 									PIV_NONE,										// int pivMode=PIV_NONE, 
-									TRUE												// BOOL ignoreLocks=FALSE
+									true												// BOOL ignoreLocks=false
 								);
 			}
 		}
@@ -207,10 +207,10 @@ void MaxFly::Pitch_Down(void)
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
 									AngAxis(Point3(1,0,0),PITCH_SPEED),		// const AngAxis& val, 
-									TRUE,												// BOOL localOrigin=FALSE, 
-									TRUE,												// BOOL affectKids=TRUE, 
+									true,												// BOOL localOrigin=false, 
+									true,												// BOOL affectKids=true, 
 									PIV_NONE,										// int pivMode=PIV_NONE, 
-									TRUE												// BOOL ignoreLocks=FALSE
+									true												// BOOL ignoreLocks=false
 								);
 			}
 		}
@@ -228,10 +228,10 @@ void MaxFly::Yaw_Left(void)
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
 									AngAxis(Point3(0,1,0),-YAW_SPEED),		// const AngAxis& val, 
-									TRUE,												// BOOL localOrigin=FALSE, 
-									TRUE,												// BOOL affectKids=TRUE, 
+									true,												// BOOL localOrigin=false, 
+									true,												// BOOL affectKids=true, 
 									PIV_NONE,										// int pivMode=PIV_NONE, 
-									TRUE												// BOOL ignoreLocks=FALSE
+									true												// BOOL ignoreLocks=false
 								);
 			}
 		}
@@ -249,10 +249,10 @@ void MaxFly::Yaw_Right(void)
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
 									AngAxis(Point3(0,1,0),+YAW_SPEED),		// const AngAxis& val, 
-									TRUE,												// BOOL localOrigin=FALSE, 
-									TRUE,												// BOOL affectKids=TRUE, 
+									true,												// BOOL localOrigin=false, 
+									true,												// BOOL affectKids=true, 
 									PIV_NONE,										// int pivMode=PIV_NONE, 
-									TRUE												// BOOL ignoreLocks=FALSE
+									true												// BOOL ignoreLocks=false
 								);
 			}
 		}
@@ -270,10 +270,10 @@ void MaxFly::Fly_Forward(void)
 				node->Move(		ip->GetTime(),									// TimeValue t, 
 									object_tm,										// const Matrix3& tmAxis, 
 									Point3(0.0f,0.0f,-FLY_SPEED),				// const Point3& val, 
-									TRUE,												// BOOL localOrigin=FALSE, 
-									TRUE,												// BOOL affectKids=TRUE, 
+									true,												// BOOL localOrigin=false, 
+									true,												// BOOL affectKids=true, 
 									PIV_NONE,										// int pivMode=PIV_NONE, 
-									TRUE												// BOOL ignoreLocks=FALSE
+									true												// BOOL ignoreLocks=false
 								);
 			}
 		}
@@ -291,10 +291,10 @@ void MaxFly::Fly_Backward(void)
 				node->Move(		ip->GetTime(),									// TimeValue t, 
 									object_tm,										// const Matrix3& tmAxis, 
 									Point3(0.0f,0.0f,FLY_SPEED),				// const Point3& val, 
-									TRUE,												// BOOL localOrigin=FALSE, 
-									TRUE,												// BOOL affectKids=TRUE, 
+									true,												// BOOL localOrigin=false, 
+									true,												// BOOL affectKids=true, 
 									PIV_NONE,										// int pivMode=PIV_NONE, 
-									TRUE												// BOOL ignoreLocks=FALSE
+									true												// BOOL ignoreLocks=false
 								);
 			}
 		}

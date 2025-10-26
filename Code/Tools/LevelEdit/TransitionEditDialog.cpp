@@ -236,9 +236,9 @@ TransitionEditDialogClass::OnInitDialog (void)
 	//
 	//	Select the default UI
 	//
-	SendDlgItemMessage (IDC_TOP, BM_SETCHECK, (WPARAM)TRUE);
-	SendDlgItemMessage (IDC_EDIT_ZONE, BM_SETCHECK, (WPARAM)TRUE);
-	SendDlgItemMessage (IDC_EDIT_CHAR, BM_SETCHECK, (WPARAM)TRUE);
+	SendDlgItemMessage (IDC_TOP, BM_SETCHECK, (WPARAM)true);
+	SendDlgItemMessage (IDC_EDIT_ZONE, BM_SETCHECK, (WPARAM)true);
+	SendDlgItemMessage (IDC_EDIT_CHAR, BM_SETCHECK, (WPARAM)true);
 	OnTop ();
 	OnEditZone ();
 	OnEditChar ();
@@ -251,7 +251,7 @@ TransitionEditDialogClass::OnInitDialog (void)
 											fnUpdateTimer,
 											(DWORD_PTR)m_hWnd,
 											TIME_PERIODIC);	
-	return TRUE;
+	return true;
 }
 
 
@@ -390,7 +390,7 @@ TransitionEditDialogClass::Render_View (void)
 		//	Render the scene
 		//
 		WW3D::Begin_Render (true, true, Vector3 (0.4F, 0.4F, 0.4F));
-		WW3D::Render (m_Scene, m_Camera, FALSE, FALSE);
+		WW3D::Render (m_Scene, m_Camera, false, false);
 		WW3D::End_Render ();
 
 		//

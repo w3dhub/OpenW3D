@@ -70,7 +70,7 @@ END_MESSAGE_MAP()
 BOOL LightSolveOptionsDialogClass::OnInitDialog() 
 {
 	CDialog::OnInitDialog();
-	return TRUE;
+	return true;
 }
 
 void LightSolveOptionsDialogClass::OnOK() 

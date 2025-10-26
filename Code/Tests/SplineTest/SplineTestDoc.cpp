@@ -75,12 +75,12 @@ CSplineTestDoc::~CSplineTestDoc()
 BOOL CSplineTestDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
-		return FALSE;
+		return false;
 
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////

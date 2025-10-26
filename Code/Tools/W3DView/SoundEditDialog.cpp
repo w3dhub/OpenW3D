@@ -213,7 +213,7 @@ SoundEditDialogClass::OnInitDialog (void)
 	//	Make sure the appropriate controls are enabled/disabled
 	//
 	Update_Enable_State ();
-	return TRUE;
+	return true;
 }
 
 
@@ -391,7 +391,7 @@ SoundEditDialogClass::OnBrowse (void)
 		path = ::Strip_Filename_From_Path (default_filename);
 	}
 
-	CFileDialog dialog (TRUE,
+	CFileDialog dialog (true,
 							  ".wav",
 							  default_filename,
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

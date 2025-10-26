@@ -86,7 +86,7 @@ sint32 UDP::Bind(uint32 IP,uint16 Port)
   myIP=ntohl(addr.sin_addr.s_addr);
   myPort=ntohs(addr.sin_port);
 
-  retval=SetBlocking(FALSE);
+  retval=SetBlocking(false);
   if (retval==-1)
     fprintf(stderr,"Couldn't set nonblocking mode!\n");
 
@@ -116,7 +116,7 @@ sint32 UDP::SetBlocking(bit8 block)
      return(OK);
   #else  // UNIX
    int flags = fcntl(fd, F_GETFL, 0);
-   if (block==FALSE)          // set nonblocking
+   if (block==false)          // set nonblocking
      flags |= O_NONBLOCK;
    else                       // set blocking
      flags &= ~(O_NONBLOCK);
@@ -242,14 +242,14 @@ int UDP::Wait(sint32 sec,sint32 usec,fd_set &givenSet,fd_set &returnSet)
   Wtime        timeout,timenow,timethen;
   fd_set       backupSet;
   int          retval=0,done,givenMax;
-  bit8         noTimeout=FALSE;
+  bit8         noTimeout=false;
   timeval      tv;
  
   returnSet=givenSet;
   backupSet=returnSet;
  
   if ((sec==-1)&&(usec==-1))
-    noTimeout=TRUE;
+    noTimeout=true;
  
   timeout.SetSec(sec);
   timeout.SetUsec(usec);
@@ -279,12 +279,12 @@ int UDP::Wait(sint32 sec,sint32 usec,fd_set &givenSet,fd_set &returnSet)
 
     else if ((retval==-1)&&(errno==EINTR))  // in case of signal
     {
-      if (noTimeout==FALSE)
+      if (noTimeout==false)
       {
         timenow.Update();
         timeout=timethen-timenow;
       }
-      if ((noTimeout==FALSE)&&(timenow.GetSec()==0)&&(timenow.GetUsec()==0))
+      if ((noTimeout==false)&&(timenow.GetSec()==0)&&(timenow.GetUsec()==0))
         done=1;
       else
         returnSet=backupSet;
@@ -316,11 +316,11 @@ bit8 UDP::SetInputBuffer(uint32 bytes)
    retval=setsockopt(fd,SOL_SOCKET,SO_RCVBUF,
      (char *)&arg,sizeof(int));
    if (retval==0)
-     return(TRUE);
+     return(true);
    else
-     return(FALSE);
+     return(false);
   #else
-    return(FALSE);
+    return(false);
   #endif
 }
 
@@ -334,11 +334,11 @@ bit8 UDP::SetOutputBuffer(uint32 bytes)
    retval=setsockopt(fd,SOL_SOCKET,SO_SNDBUF,
      (char *)&arg,sizeof(int));
    if (retval==0)
-     return(TRUE);
+     return(true);
    else
-     return(FALSE);
+     return(false);
   #else
-    return(FALSE);
+    return(false);
   #endif
 }
 

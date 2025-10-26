@@ -111,7 +111,7 @@ CheckinStyleDialogClass::OnCommand
 {
 	// Don't allow the user to cancel out of this dialog
 	if (LOWORD (wParam) == IDCANCEL) {
-		return FALSE;
+		return false;
 	}
 
 	// Allow the base class to process this message
@@ -156,6 +156,6 @@ CheckinStyleDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	// Check 'update now' by default
-	SendDlgItemMessage (IDC_UPDATE_NOW, BM_SETCHECK, (WPARAM)TRUE);
-	return TRUE;
+	SendDlgItemMessage (IDC_UPDATE_NOW, BM_SETCHECK, (WPARAM)true);
+	return true;
 }

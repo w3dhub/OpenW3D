@@ -82,7 +82,7 @@ WWAudioThreadsClass::Create_Delayed_Release_Thread (LPVOID param)
 	//	If the thread isn't already running, then
 	//
 	if (m_hDelayedReleaseThread == (HANDLE)-1) {
-		m_hDelayedReleaseEvent	= ::CreateEventA (NULL, FALSE, FALSE, NULL);
+		m_hDelayedReleaseEvent	= ::CreateEventA (NULL, false, false, NULL);
 		m_hDelayedReleaseThread = (HANDLE)::_beginthread (Delayed_Release_Thread_Proc, 0, param);
 	}
 

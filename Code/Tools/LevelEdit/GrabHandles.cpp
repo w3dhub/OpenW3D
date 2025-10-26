@@ -328,7 +328,7 @@ GrabHandlePhysClass::On_Click (void)
 void
 GrabHandlePhysClass::Initialize (void)
 {
-	Peek_Model ()->Set_User_Data (&m_HitTestInfo, FALSE);
+	Peek_Model ()->Set_User_Data (&m_HitTestInfo, false);
 	return ;
 }
 

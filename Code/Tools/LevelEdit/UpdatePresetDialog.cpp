@@ -111,7 +111,7 @@ UpdatePresetDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	SANITY_CHECK (m_Preset != NULL && m_Preset->Get_Definition () != NULL) {
-		return TRUE;
+		return true;
 	}
 	
 	//
@@ -158,7 +158,7 @@ UpdatePresetDialogClass::OnInitDialog (void)
 	CString comments;
 	comments.Format ("Modified preset: %s.", m_Preset->Get_Name ());
 	SetDlgItemText (IDC_COMMENTS_EDIT, comments);
-	return TRUE;
+	return true;
 }
 
 

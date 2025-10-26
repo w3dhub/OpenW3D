@@ -55,7 +55,7 @@ static BOOL CALLBACK _thunk_dialog_proc (HWND hWnd, UINT uMsg, WPARAM wParam, LP
 ExportAllDlg::ExportAllDlg (Interface *max_interface)
 {
 	m_Directory[0] = '\0';
-	m_Recursive = TRUE;
+	m_Recursive = true;
 	m_hWnd = NULL;
 	assert(max_interface != NULL);
 	m_MaxInterface = max_interface;
@@ -111,7 +111,7 @@ BOOL CALLBACK ExportAllDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPA
 		case WM_INITDIALOG:
 
 			OnInitDialog();
-			return TRUE;
+			return true;
 
 
 		/*******************************************************************
@@ -125,8 +125,8 @@ BOOL CALLBACK ExportAllDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPA
 			{
 				case IDOK:
 
-					if (OnOK() == FALSE)
-						return TRUE;
+					if (OnOK() == false)
+						return true;
 
 					SetCursor(LoadCursor(NULL, IDC_WAIT));
 					EndDialog(m_hWnd, 1);
@@ -138,14 +138,14 @@ BOOL CALLBACK ExportAllDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPA
 
 				case IDC_BROWSE:
 					OnBrowse();
-					return FALSE;
+					return false;
 
 			}
-			return TRUE;
+			return true;
 
 	}
 
-	return FALSE;
+	return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -205,15 +205,15 @@ BOOL ExportAllDlg::OnOK (void)
 		MessageBox(m_hWnd, "You must choose a directory to export",
 			"Invalid Directory", MB_OK);
 		SetFocus(edit);
-		return FALSE;
+		return false;
 	}
 
 	// TODO: Validate the directory as one that actually exists.
 
 	// Store the values from the dialog in our class members.
 	strcpy(m_Directory, dir);
-	m_Recursive = (IsDlgButtonChecked(m_hWnd, IDC_RECURSIVE) == BST_CHECKED) ? TRUE : FALSE;
+	m_Recursive = (IsDlgButtonChecked(m_hWnd, IDC_RECURSIVE) == BST_CHECKED) ? true : false;
 
-	return TRUE;
+	return true;
 }
 

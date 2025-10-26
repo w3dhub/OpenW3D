@@ -73,7 +73,7 @@ BOOL CCardinalDialog::OnInitDialog()
 	
 	SetDlgItemFloat(IDC_TIGHTNESS_EDIT,Curve->Get_Tightness(Key));
 	
-	return TRUE;
+	return true;
 }
 
 void CCardinalDialog::OnOK() 

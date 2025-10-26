@@ -98,7 +98,7 @@ ProfileSectionClass::Get_Next_Key
 		ret_val = true;
 	}
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return ret_val;
 }
 

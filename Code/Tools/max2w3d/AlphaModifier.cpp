@@ -225,7 +225,7 @@ void AlphaModifierClass::NotifyInputChanged(Interval changeInt, PartID partID, R
 
 class AlphaClassDesc : public ClassDesc2 {
 	public:
-	int 			IsPublic()					{ return TRUE; }
+	int 			IsPublic()					{ return true; }
 	void *			Create( BOOL loading )		{ return new AlphaModifierClass; }
 	const TCHAR *	ClassName()					{ return Get_String(IDS_ALPHA_MODIFIER_CLASS); }
 	SClass_ID		SuperClassID()				{ return OSM_CLASS_ID; }
@@ -259,9 +259,9 @@ static ParamBlockDesc2 alpha_param_blk
 		end,
 
 		DL_FIND_CHECK_BOX,	_T("1 Custom Data Value"),	TYPE_BOOL,	0,	IDS_ALPHA_MODIFIER_CLASS,
-		p_default,		FALSE,
+		p_default,		false,
 		p_ui,			TYPE_SINGLECHEKBOX, IDC_ALPHA_CHECKBOX,
-		p_enabled,		TRUE,
+		p_enabled,		true,
 		end,
 
 /*
@@ -326,7 +326,7 @@ BOOL AlphaModDlgProc::DlgProc(TimeValue t, IParamMap2 *map, HWND hWnd, UINT msg,
 
 
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -417,7 +417,7 @@ RefTargetHandle AlphaModifierClass::GetReference(int i)
 	{
 		case 0: return pblock;
 		default: 
-			assert(TRUE);
+			assert(true);
 			return NULL;
 	}
 }
@@ -428,7 +428,7 @@ void AlphaModifierClass::SetReference(int i, RefTargetHandle rtarg)
 	{
 		case 0: pblock = (IParamBlock2*)rtarg; break;
 		default:
-			assert(TRUE);
+			assert(true);
 			break;
 	}
 }

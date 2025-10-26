@@ -81,26 +81,26 @@ public:
 	BOOL Is_Visible( int x, int y )
 	{
 		if (x < 0 || x >= bitmap_width || y < 0 || y >= bitmap_height) {
-			return TRUE;
+			return true;
 		}
 
 		if (Solid[x][y] == 0) {
-			return TRUE;
+			return true;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 
 	BOOL Is_Solid( int x, int y )
 	{
 		if (x < 0 || x >= bitmap_width || y < 0 || y >= bitmap_height) {
-			return FALSE;
+			return false;
 		}
 
 		if (Solid[x][y] == VOXEL_SOLID) { 
-			return TRUE;
+			return true;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 

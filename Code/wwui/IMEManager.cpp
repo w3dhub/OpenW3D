@@ -226,7 +226,7 @@ void IMEManager::Activate(void)
 
 		if (!open)
 			{
-			ImmSetOpenStatus(imc, TRUE);
+			ImmSetOpenStatus(imc, true);
 
 			IMEEvent action(IME_ACTIVATED, this);
 			NotifyObservers(action);
@@ -264,7 +264,7 @@ void IMEManager::Deactivate(void)
 
 		if (open)
 			{
-			ImmSetOpenStatus(imc, FALSE);
+			ImmSetOpenStatus(imc, false);
 
 			IMEEvent action(IME_DEACTIVATED, this);
 			NotifyObservers(action);
@@ -441,7 +441,7 @@ bool IMEManager::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPara
 		// Input language has changed.
 		case WM_INPUTLANGCHANGE:
 			InputLanguageChanged((HKL)lParam);
-			outResult = TRUE;
+			outResult = true;
 			handled = false;
 			break;
 
@@ -493,7 +493,7 @@ bool IMEManager::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPara
 
 			if (handled)
 				{
-				outResult = TRUE;
+				outResult = true;
 				}
 			break;
 
@@ -502,7 +502,7 @@ bool IMEManager::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPara
 
 			if (handled)
 				{
-				outResult = TRUE;
+				outResult = true;
 				}
 			break;
 
@@ -793,7 +793,7 @@ LRESULT IMEManager::IMENotify(WPARAM wParam, LPARAM lParam)
 			break;
 		}
 	
-	return TRUE;
+	return true;
 	}
 
 
@@ -1518,7 +1518,7 @@ void IMEManager::GetTargetClause(unsigned long& start, unsigned long& end)
 
 bool IMEManager::GetCompositionFont(LPLOGFONT lpFont)
 	{
-	BOOL success = FALSE;
+	BOOL success = false;
 	HIMC imc = ImmGetContext(mHWND);
 
 	if (imc)
@@ -1527,7 +1527,7 @@ bool IMEManager::GetCompositionFont(LPLOGFONT lpFont)
 		ImmReleaseContext(mHWND, imc);
 		}
 
-	return (success == TRUE);
+	return (success == true);
 	}
 
 

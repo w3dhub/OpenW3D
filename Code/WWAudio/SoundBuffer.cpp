@@ -215,7 +215,7 @@ SoundBufferClass::Load_From_File (FileClass &file)
 	// Open the file if necessary
 	bool we_opened = false;
 	if (file.Is_Open () == false) {
-		we_opened = (file.Open () == TRUE);
+		we_opened = (file.Open () == true);
 	}
 
 	// Determine the size of the buffer
@@ -371,7 +371,7 @@ StreamSoundBufferClass::Load_From_File (FileClass &file)
 	// Open the file if necessary
 	bool we_opened = false;
 	if (file.Is_Open () == false) {
-		we_opened = (file.Open () == TRUE);
+		we_opened = (file.Open () == true);
 	}
 
 	m_Length = file.Size ();

@@ -65,7 +65,7 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
                                          UINT uFlags){
     UINT idCmd = idCmdFirst;
     char szMenuText[64];
-    BOOL bAppendItems=TRUE;
+    BOOL bAppendItems=true;
     if ((uFlags & 0x000F) == CMF_NORMAL){  //Check == here, since CMF_NORMAL=0
         lstrcpy(szMenuText, "&Convert to P3D");
     } else{
@@ -76,11 +76,11 @@ STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
 					lstrcpy(szMenuText, "&Convert to P3D");
 			  }else{
 				  if (uFlags & CMF_DEFAULTONLY){
-						bAppendItems = FALSE;
+						bAppendItems = false;
 				  }else{
 						char szTemp[32];
 						wsprintf(szTemp, "uFlags==>%d\r\n", uFlags);
-						bAppendItems = FALSE;
+						bAppendItems = false;
 				  }
 			  }
 		 }

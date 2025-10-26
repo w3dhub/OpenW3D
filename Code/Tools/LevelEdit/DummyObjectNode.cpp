@@ -133,7 +133,7 @@ DummyObjectNodeClass::Initialize (void)
 		m_DisplayObj = new DecorationPhysClass;
 		m_DisplayObj->Set_Model_By_Name ("DUMMY");
 		m_DisplayObj->Set_Collision_Group (EDITOR_COLLISION_GROUP);
-		m_DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+		m_DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		::Set_Model_Collision_Type (m_DisplayObj->Peek_Model (), COLLISION_TYPE_0);
 	}
 		

@@ -81,7 +81,7 @@ Dictionary(uint32 (*hashFn)(const K &key)) :
   tableBits--;
   size=1<<tableBits;  //Just in case MIN_TABLE_SIZE wasn't a power of 2
   entries=0;
-  keepSize=FALSE;
+  keepSize=false;
 
   //Table is a pointer to a list of pointers (the hash table)
   table=(DNode<K,V> **)new DNode<K,V>* [size];
@@ -163,7 +163,7 @@ void Dictionary<K,V>::clear()
   }
   entries=0;
 
-  while ((getSize()>(uint32)MIN_TABLE_SIZE)&&(keepSize==FALSE))
+  while ((getSize()>(uint32)MIN_TABLE_SIZE)&&(keepSize==false))
     shrink();
 }            
 
@@ -222,7 +222,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
 
   // index out of range
   if ((index<0)||(index >= (int)getSize()))
-    return(FALSE);
+    return(false);
 
   temp=table[index];
   while ((temp==NULL)&&((++index) < (int)getSize()))
@@ -232,7 +232,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
   }
 
   if (temp==NULL)   // no more slots with data
-    return(FALSE);
+    return(false);
 
   uint32 i=0;
   while ((temp!=NULL) && ((int)i < offset))
@@ -242,7 +242,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
   }
 
   if (temp==NULL)  // should never happen
-    return(FALSE);
+    return(false);
 
   value=temp->value;
   if (temp->hashNext==NULL)
@@ -253,7 +253,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
   else
     offset++;
 
-  return(TRUE);
+  return(true);
 }            
 
 
@@ -271,7 +271,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
  
   // index out of range
   if ((index<0)||(index >= (int)getSize()))
-    return(FALSE);
+    return(false);
  
   temp=table[index];
   while ((temp==NULL)&&((++index) < (int)getSize()))
@@ -281,7 +281,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
   }
  
   if (temp==NULL)   // no more slots with data
-    return(FALSE);
+    return(false);
  
   uint32 i=0;
   while ((temp!=NULL) && ((int)i < offset))
@@ -291,7 +291,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
   }
  
   if (temp==NULL)  // should never happen
-    return(FALSE);
+    return(false);
  
   value=temp->value;
   key=temp->key;
@@ -303,7 +303,7 @@ bit8 Dictionary<K,V>::iterate(INOUT int &index,INOUT int &offset,
   else
     offset++;
  
-  return(TRUE);
+  return(true);
 }
 
 
@@ -333,15 +333,15 @@ bit8 Dictionary<K,V>::contains(IN K &key) RO
   node=table[offset];
 
   if (node==NULL)
-  { return(FALSE); }  // can't find it
+  { return(false); }  // can't find it
 
   while(node!=NULL)
   {
     if ((node->key)==key)
-    { return(TRUE); }          
+    { return(true); }          
     node=node->hashNext;
   }
-  return(FALSE); 
+  return(false); 
 }
 
 
@@ -352,11 +352,11 @@ bit8 Dictionary<K,V>::updateValue(IN K &key,IN V &value)
   sint32 retval;
 
   retval=remove(key);
-  if (retval==FALSE)
-    return(FALSE);
+  if (retval==false)
+    return(false);
 
   add(key,value);
-  return(TRUE);
+  return(true);
 }           
 
 
@@ -406,7 +406,7 @@ bit8 Dictionary<K,V>::add(IN K &key,IN V &value)
   percent/=(float)getSize();
   if (percent>= EXPAND_THRESHOLD ) expand();
 
-  return(TRUE);
+  return(true);
 }
 
 // Remove an item from the dictionary
@@ -418,7 +418,7 @@ bit8 Dictionary<K,V>::remove(IN K &key,OUT V &value)
   float percent;
 
   if (entries==0)
-    return(FALSE);
+    return(false);
 
   percent=(float)(entries-1);
   percent/=(float)getSize();
@@ -428,7 +428,7 @@ bit8 Dictionary<K,V>::remove(IN K &key,OUT V &value)
 
   last=node;
   if (node==NULL) 
-    return(FALSE);
+    return(false);
 
   //special case table points to thing to delete
 
@@ -449,11 +449,11 @@ bit8 Dictionary<K,V>::remove(IN K &key,OUT V &value)
     entries--;
     if (percent <= SHRINK_THRESHOLD)
       shrink();
-    return(TRUE);
+    return(true);
   }
   node=node->hashNext;
 
-  bit8 retval=FALSE;  // wow, didn't add this for years... (DOH!)
+  bit8 retval=false;  // wow, didn't add this for years... (DOH!)
 
   //Now the case if the thing to delete is not the first
   while (node!=NULL)
@@ -472,7 +472,7 @@ bit8 Dictionary<K,V>::remove(IN K &key,OUT V &value)
       last->hashNext=node->hashNext;
       entries--;
       delete(node);
-      retval=TRUE;  // yes, we deleted something
+      retval=true;  // yes, we deleted something
       break;
     }
     last=node;
@@ -502,7 +502,7 @@ bit8 Dictionary<K,V>::removeAny(OUT K &key,OUT V &value)
   float percent;
 
   if (entries==0)
-    return(FALSE);
+    return(false);
 
   percent=(entries-1);
   percent/=(float)getSize();
@@ -517,7 +517,7 @@ bit8 Dictionary<K,V>::removeAny(OUT K &key,OUT V &value)
     } 
 
   if (offset==-1)    // Nothing there
-    return(FALSE);
+    return(false);
 
   node=table[offset];
   last=node;
@@ -539,7 +539,7 @@ bit8 Dictionary<K,V>::removeAny(OUT K &key,OUT V &value)
   entries--;
   if (percent <= SHRINK_THRESHOLD)
     shrink();
-  return(TRUE);
+  return(true);
 }
 
 
@@ -568,14 +568,14 @@ bool Dictionary<K,V>::getPointer(IN K &key,OUT V **valptr) RO
   DNode<K,V> *node;
 
   if (entries==0)
-    return(FALSE);
+    return(false);
 
   offset=keyHash(key);
 
   node=table[offset];
 
   if (node==NULL) 
-    return(FALSE);
+    return(false);
 
   #ifdef KEY_MEM_OPS
     while ((node!=NULL)&&(memcmp(&(node->key),&key,sizeof(K))))
@@ -585,11 +585,11 @@ bool Dictionary<K,V>::getPointer(IN K &key,OUT V **valptr) RO
   { node=node->hashNext; }
 
   if (node==NULL)
-  { return(FALSE); }
+  { return(false); }
 
   *valptr=&(node->value);
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -606,7 +606,7 @@ void Dictionary<K,V>::shrink(void)
   uint32 offset;
   DNode<K,V> **oldtable,*temp,*first,*next;
 
-  if ((size<=(uint32)MIN_TABLE_SIZE)||(keepSize==TRUE))
+  if ((size<=(uint32)MIN_TABLE_SIZE)||(keepSize==true))
     return;
 
   //fprintf(stderr,"Shrinking....\n");
@@ -645,7 +645,7 @@ void Dictionary<K,V>::expand(void)
   uint32 offset;
   DNode<K,V> **oldtable,*temp,*first,*next;
 
-  if (keepSize==TRUE)
+  if (keepSize==true)
     return;
 
   //fprintf(stderr,"Expanding...\n");

@@ -140,7 +140,7 @@ BuildingNodeClass::Initialize (void)
 		m_PhysObj = new DecorationPhysClass;
 		m_PhysObj->Set_Model (render_obj);
 		m_PhysObj->Set_Collision_Group (EDITOR_COLLISION_GROUP);
-		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);				
+		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);				
 		m_PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (m_PhysObj->Peek_Model (), COLLISION_TYPE_0);
 		render_obj->Release_Ref ();

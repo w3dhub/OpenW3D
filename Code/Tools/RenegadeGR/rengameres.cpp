@@ -190,12 +190,12 @@ int RenegadeGameRes::sendResults()
 	TCPCon*	tcpCon;
 	uint32 handle = -1;
 	result = tcpMgr.connect(_host, _port, &handle);
-	if( result == FALSE )
+	if( result == false )
 		sendlen = GR_ERROR_BIND_FAILED;
 	else
 	{
 		result = tcpMgr.getOutgoingConnection(&tcpCon, handle, 5);
-		if( result == FALSE )
+		if( result == false )
 			sendlen = GR_ERROR_CONNECT_FAILED;
 		else
 		{

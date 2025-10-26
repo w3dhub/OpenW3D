@@ -167,7 +167,7 @@ BOOL GameMtlVertexMaterialDlg::Dialog_Proc(HWND dlg_wnd, UINT message, WPARAM wp
 		case WM_MOUSEMOVE:
 		{
 			IParams->RollupMouseMessage(dlg_wnd,message,wparam,lparam);
-			return FALSE;
+			return false;
 		}
 
 		case WM_COMMAND: 
@@ -175,7 +175,7 @@ BOOL GameMtlVertexMaterialDlg::Dialog_Proc(HWND dlg_wnd, UINT message, WPARAM wp
 			switch (id) 
 			{
 				case IDC_COPY_SPECULAR_DIFFUSE:
-					TheMtl->Set_Copy_Specular_To_Diffuse(PassIndex,GetCheckBox(dlg_wnd, IDC_COPY_SPECULAR_DIFFUSE) == TRUE);
+					TheMtl->Set_Copy_Specular_To_Diffuse(PassIndex,GetCheckBox(dlg_wnd, IDC_COPY_SPECULAR_DIFFUSE) == true);
 					break;
 				
 				case IDC_MAPPING0_COMBO:
@@ -280,7 +280,7 @@ BOOL GameMtlVertexMaterialDlg::Dialog_Proc(HWND dlg_wnd, UINT message, WPARAM wp
 		}
 	
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -308,11 +308,11 @@ void GameMtlVertexMaterialDlg::ReloadDialog(void)
 	SpecularSwatch->InitColor(TheMtl->Get_Specular(PassIndex,IParams->GetTime()));
 	EmissiveSwatch->InitColor(TheMtl->Get_Emissive(PassIndex,IParams->GetTime()));
 	
-	ShininessSpin->SetValue(TheMtl->Get_Shininess(PassIndex,IParams->GetTime()),FALSE);
-	OpacitySpin->SetValue(TheMtl->Get_Opacity(PassIndex,IParams->GetTime()),FALSE);
-	TranslucencySpin->SetValue(TheMtl->Get_Translucency(PassIndex,IParams->GetTime()),FALSE);
+	ShininessSpin->SetValue(TheMtl->Get_Shininess(PassIndex,IParams->GetTime()),false);
+	OpacitySpin->SetValue(TheMtl->Get_Opacity(PassIndex,IParams->GetTime()),false);
+	TranslucencySpin->SetValue(TheMtl->Get_Translucency(PassIndex,IParams->GetTime()),false);
 	for (int i=0; i<MAX_STAGES; i++) {
-		UVChannelSpin[i]->SetValue(TheMtl->Get_Map_Channel(PassIndex,i),FALSE);
+		UVChannelSpin[i]->SetValue(TheMtl->Get_Map_Channel(PassIndex,i),false);
 	}
 
 	SetCheckBox(m_hWnd,IDC_COPY_SPECULAR_DIFFUSE, TheMtl->Get_Copy_Specular_To_Diffuse(PassIndex));

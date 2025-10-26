@@ -146,7 +146,7 @@ void CAdvancedAnimSheet::LoadAnims (void)
 	if (pAnimEnum)
 	{
 		// Loop through all the animations in the manager
-		for (pAnimEnum->First(); pAnimEnum->Is_Done() == FALSE; pAnimEnum->Next())
+		for (pAnimEnum->First(); pAnimEnum->Is_Done() == false; pAnimEnum->Next())
 		{
 			LPCTSTR pszAnimName = pAnimEnum->Current_Item_Name();
 

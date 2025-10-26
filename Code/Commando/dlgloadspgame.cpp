@@ -145,7 +145,7 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LOAD_GAME_LIST_CTRL);
 
 	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	HANDLE file_find			= NULL;
 
 	//

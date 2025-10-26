@@ -146,7 +146,7 @@ PresetListDialogClass::OnInitDialog (void)
 	m_PresetListCtrl.SetColumnWidth (1, (rect.Width () / 3) - 2);
 
 	Update_Button_State ();
-	return TRUE;
+	return true;
 }
 
 

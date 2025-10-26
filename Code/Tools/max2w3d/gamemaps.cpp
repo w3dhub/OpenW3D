@@ -133,7 +133,7 @@ Class_ID GameMapsClass::ClassID()
 BOOL GameMapsClass::AssignController(Animatable *control,int subAnim)
 {
 	ReplaceReference(SubNumToRefNum(subAnim),(ReferenceTarget *)control);
-	return TRUE;
+	return true;
 }
 
 /*********************************************************************************************** 

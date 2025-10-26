@@ -94,7 +94,7 @@ CLevelEditView::CLevelEditView (void)
 	: m_iDeviceIndex (-1),
 	  m_iBitsPerPixel (16),
 	  m_iWindowed (1),
-	  m_bRenderDeviceInitialized (FALSE),
+	  m_bRenderDeviceInitialized (false),
 	  m_pCameraMgr (NULL),
 	  m_pMouseMgr (NULL),
 	  m_bActive (false),
@@ -217,7 +217,7 @@ CLevelEditView::Initialize_Render_Device (void)
 	::EnterCriticalSection (&_CriticalSection);
 
 	// Assume failure
-	m_bRenderDeviceInitialized = FALSE;
+	m_bRenderDeviceInitialized = false;
 	
 	// Initialize the rendering engine with the information from
 	// this window.
@@ -329,7 +329,7 @@ CLevelEditView::Initialize_Render_Device (void)
 
 	LeaveCriticalSection (&_CriticalSection);
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return m_bRenderDeviceInitialized;
 }
 
@@ -658,7 +658,7 @@ CLevelEditView::OnCreate (LPCREATESTRUCT lpCreateStruct)
 	// Let the main window know we want to be the active view
 	CMainFrame *pwnd = (CMainFrame *)::AfxGetMainWnd ();
 	if (pwnd) {
-		pwnd->SetActiveView (this, FALSE);
+		pwnd->SetActiveView (this, false);
 	}
 
 	m_hMouseHook = ::SetWindowsHookEx (WH_MOUSE,

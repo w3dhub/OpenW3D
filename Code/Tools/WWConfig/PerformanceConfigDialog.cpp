@@ -270,7 +270,7 @@ PerformanceConfigDialogClass::OnInitDialog (void)
 	Build_Expert_Window_List ();
 	Display_Expert_Settings (false);	
 
-	return TRUE;
+	return true;
 }
 
 
@@ -578,7 +578,7 @@ PerformanceConfigDialogClass::Update_Expert_Controls (int level)
 			case IDC_TEXTURE_DETAIL_SLIDER:
 			case IDC_PARTICLE_DETAIL_SLIDER:
 			case IDC_SURFACE_DETAIL_SLIDER:
-				SendDlgItemMessage (ctrl_id, TBM_SETPOS, TRUE, _PerformanceLevels[level][index].value);
+				SendDlgItemMessage (ctrl_id, TBM_SETPOS, true, _PerformanceLevels[level][index].value);
 				break;
 
 			//

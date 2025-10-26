@@ -95,7 +95,7 @@ static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)
   {
     year=0;
     yday=days+1;  // 1 based
-    return(TRUE);
+    return(true);
   }
 
   y = 1;
@@ -120,7 +120,7 @@ static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)
   }
   year=y;
   yday=days+1;  // 1 based
-  return(TRUE);
+  return(true);
 }
 
 
@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
       for (day=1; day<=Max_Day(month,year); day++)
       {
         dayoffset=Get_Day(month,day,year);
-        assert (GetDateFromDay(dayoffset,yr,yday)==TRUE);
+        assert (GetDateFromDay(dayoffset,yr,yday)==true);
 
         //printf("Yday=%d YdayCount=%d\n",yday,ydaycount);
 
@@ -499,7 +499,7 @@ bit8 Xtime::FormatTime(char *out, char *format)
       strcpy(ampm, " PM");
     sprintf(out+strlen(out), "%s", ampm);
   }
-  return(TRUE);
+  return(true);
 }
  
 /**************************************
@@ -517,78 +517,78 @@ bit8 Xtime::ParseDate(char *in)
   struct tm t;
   char *ptr=in;
   while ((!isgraph(*ptr))&&(*ptr!=0)) ptr++;  // skip to start of string
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_wday_=-1;
   for (i=0; i<7; i++)  // parse day_ of week
     if (strncmp(ptr,DAYS[i],strlen(DAYS[i]))==0)
       t.tm_wday_=i;
   if (t.tm_wday_==-1)
-    return(FALSE);
+    return(false);
   while ((!isdigit(*ptr))&&(*ptr!=0)) ptr++;  // skip to day_ of month
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_mday_=atoi(ptr);
   while ((!isalpha(*ptr))&&(*ptr!=0)) ptr++;  // skip to month
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_mon=-1;
   for (i=0; i<12; i++)  // match month
     if (strncmp(ptr,MONTHS[i],strlen(MONTHS[i]))==0) t.tm_mon=i;
-  if (t.tm_mon==-1) return(FALSE);
+  if (t.tm_mon==-1) return(false);
   while ((!isdigit(*ptr))&&(*ptr!=0)) ptr++;
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_year=atoi(ptr);
   if (t.tm_year<70)  // if they specify a 2 digit year, we'll be nice
     t.tm_year+=2000;
   else if (t.tm_year<100)
     t.tm_year+=1900;
   if (t.tm_year>2200)  // I doubt my code will be around for another 203 years
-    return(FALSE);
+    return(false);
   while ((isdigit(*ptr))&&(*ptr!=0)) ptr++;  // skip to end of year
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
 
   while ((!isgraph(*ptr))&&(*ptr!=0)) ptr++;  // skip to start of time
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
 
   t.tm_hour=atoi(ptr);
   while ((*ptr!=':')&&(*ptr!=0)) ptr++;
   ptr++; // skip past colon
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_min=atoi(ptr);
   while ((*ptr!=':')&&(*ptr!=0)) ptr++;
   ptr++; // skip past colon
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_sec=atoi(ptr);
   t.tm_year%=100;   // 1996 is stored as 96, not 1996
   t.tm_isdst=-1;    // day_light savings info isn't available
 
   sec=(uint32)(mktime(&t));
   if ((sint32)sec==-1)
-    return(FALSE);
+    return(false);
 
 
   // The next part of the time is OPTIONAL (+minutes)
 
   // first skip past the seconds 
   while ((isdigit(*ptr))&&(*ptr!=0)) ptr++;
-  if (*ptr==0) return(TRUE);
+  if (*ptr==0) return(true);
 
   // skip past any spaces 
   while ((isspace(*ptr))&&(*ptr!=0)) ptr++;
   if (*ptr!='+')
   {
     //printf("\nNOPE ptr was '%s'\n",ptr);
-    return(TRUE);
+    return(true);
   }
   ptr++;
   if (*ptr==0)
   {
     //printf("\nPTR WAS 0\n");
-    return(TRUE);
+    return(true);
   }
  
   minOffset=atol(ptr);
   //printf("\n\nAdding %d minutes!\n\n",minOffset);
   sec+=minOffset*60;  // add the minutes as seconds
-  return(TRUE);
+  return(true);
 }
 
 
@@ -662,7 +662,7 @@ bit8 Xtime::getTimeval(struct timeval &tv)
 {
   // A timeval can only hold dates from 1970-2038
   if ((day_ < 719528) || (day_ >= 719528+24855))
-    return(FALSE);
+    return(false);
 
   // Compute seconds since Jan 1, 1970
   uint32 seconds=day_-719528;
@@ -671,7 +671,7 @@ bit8 Xtime::getTimeval(struct timeval &tv)
 
   tv.tv_sec=seconds;
   tv.tv_usec=(msec_%1000)*1000;
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -681,7 +681,7 @@ bit8 Xtime::setTime(int month, int mday, int year, int hour, int minute, int sec
 {
   day_=Get_Day(month,mday,year);
   msec_=(hour*1000*60*60)+(minute*1000*60)+(second*1000);
-  return(TRUE);
+  return(true);
 }
 
 
@@ -690,7 +690,7 @@ int Xtime::getYDay(void) const   // Day of Year  (1-366)  (366 = leap yr)
 {
 	int year;
 	sint32 dayofyear;
-	if (Get_Date_From_Day(day_,year,dayofyear)==FALSE)
+	if (Get_Date_From_Day(day_,year,dayofyear)==false)
 		return(-1);
 	return dayofyear;
 }
@@ -705,8 +705,8 @@ bit8 Xtime::getTime(int &month, int &mday, int &year, int &hour, int &minute, in
 {
   int i;
   sint32 dayofyear;
-  if (Get_Date_From_Day(day_,year,dayofyear)==FALSE)
-    return(FALSE);
+  if (Get_Date_From_Day(day_,year,dayofyear)==false)
+    return(false);
 
   static int DaysAtMonth[2][12] = {
         {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334},   // normal
@@ -731,7 +731,7 @@ bit8 Xtime::getTime(int &month, int &mday, int &year, int &hour, int &minute, in
   minute=(msec_/60000)%60;  // 1000*60 
   second=(msec_/ 1000)%60;  // 1000
 
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -787,7 +787,7 @@ bit8 Xtime::setSecond(sint32 sec)
   sint32 second=(msec_/ 1000)%60;
   msec_-=(second*1000);
   msec_+=(sec*1000);
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -798,7 +798,7 @@ bit8 Xtime::setMinute(sint32 min)
   sint32 minute=(msec_/60000)%60;  // 1000*60 
   msec_-=(minute*60000);
   msec_+=(min*60000);
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -809,7 +809,7 @@ bit8 Xtime::setHour(sint32 hour)
   hour=(msec_/3600000)%24;  // 1000*60*60
   msec_-=(hour*3600000);
   msec_+=(hour*3600000);
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -825,7 +825,7 @@ bit8 Xtime::setYear(sint32 _year)
   // modify & rebuild
   year=_year;
   day_=Get_Day(month,mday,year);
-  return(TRUE);
+  return(true);
 }
 
 //
@@ -840,7 +840,7 @@ bit8 Xtime::setMonth(sint32 _month)
   // modify & rebuild
   month=_month;
   day_=Get_Day(month,mday,year);
-  return(TRUE);
+  return(true);
 }
 
 
@@ -856,7 +856,7 @@ bit8 Xtime::setMDay(sint32 _mday)
   // modify & rebuild
   mday=_mday;
   day_=Get_Day(month,mday,year);
-  return(TRUE);
+  return(true);
 }
 
 
@@ -887,54 +887,54 @@ bit8 Xtime::operator == ( const Xtime &other ) const
 {
   bit8 retval=compare(other);
   if (retval==0)
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Xtime::operator != ( const Xtime &other ) const
 {
   bit8 retval=compare(other);
   if (retval==0)
-    return(FALSE);
+    return(false);
   else
-    return(TRUE);
+    return(true);
 }
 
 bit8 Xtime::operator < ( const Xtime &other ) const
 {
   int retval=compare(other);
   if (retval==-1)
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Xtime::operator > ( const Xtime &other ) const
 {
   int retval=compare(other);
   if (retval==1)
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Xtime::operator <= ( const Xtime &other ) const
 {
   int retval=compare(other);
   if ((retval==-1)||(retval==0))
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Xtime::operator >= ( const Xtime &other ) const
 {
   int retval=compare(other);
   if ((retval==1)||(retval==0))
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 

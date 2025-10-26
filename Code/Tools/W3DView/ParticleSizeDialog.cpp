@@ -83,7 +83,7 @@ ParticleSizeDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog();
 
 	Initialize_Spinner (m_SizeSpin, m_Size, 0, 10000);
-	return TRUE;
+	return true;
 }
 
 

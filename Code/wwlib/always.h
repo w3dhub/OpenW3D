@@ -74,7 +74,9 @@ void operator delete(void *p, size_t size) noexcept;
 
 // Provide a portable definition for __forceinline when not compiling with MSVC.
 #if !defined(_MSC_VER) && !defined(__forceinline)
-	#if defined(__GNUC__) || defined(__clang__)
+	#if defined(_WIN32) && (defined(__clang__) || defined(__GNUC__))
+		#define __forceinline inline [[msvc::forceinline]]
+	#elif defined(__GNUC__) || defined(__clang__)
 		#define __forceinline inline __attribute__((always_inline))
 	#else
 		#define __forceinline inline
@@ -131,16 +133,9 @@ void operator delete(void *p, size_t size) noexcept;
 
 
 #if !defined(_WIN32)
+#include <bit>
 #include <cstring>
 #include <alloca.h>
-
-#ifndef TRUE
-#define TRUE 1
-#endif
-
-#ifndef FALSE
-#define FALSE 0
-#endif
 
 #ifndef ZeroMemory
 #define ZeroMemory(Destination, Length) std::memset((Destination), 0, (Length))
@@ -153,8 +148,7 @@ void operator delete(void *p, size_t size) noexcept;
 #ifndef _rotl
 __forceinline unsigned long _rotl(unsigned long value, int shift)
 {
-	shift &= 31;
-	return (value << shift) | (value >> ((32 - shift) & 31));
+	return std::rotl(value, shift);
 }
 #endif
 

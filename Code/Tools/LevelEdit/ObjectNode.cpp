@@ -390,7 +390,7 @@ ObjectNodeClass::Create_Game_Obj (void)
 				PhysClass *phys_obj			= Peek_Physics_Obj ();			
 				RenderObjClass *render_obj	= phys_obj->Peek_Model ();
 				if (render_obj != NULL) {
-					render_obj->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+					render_obj->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 					::Set_Model_Collision_Type (render_obj, COLLISION_TYPE_6);
 				}
 

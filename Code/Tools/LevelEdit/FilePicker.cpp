@@ -77,7 +77,7 @@ FilePickerClass::On_Pick (void)
 		path = full_path;
 	}
 
-	CFileDialog dialog (TRUE,
+	CFileDialog dialog (true,
 							  m_ExtensionString,
 							  filename,
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

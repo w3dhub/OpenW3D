@@ -102,7 +102,7 @@ OpacitySettingsDialogClass::OnInitDialog (void)
 	m_OpacityBar->Modify_Point (0, 0, 0, 0, 0);
 	m_OpacityBar->Insert_Point (1, 1, 255, 255, 255);
 	m_OpacityBar->Set_Selection_Pos (m_Opacity);
-	return TRUE;
+	return true;
 }
 
 

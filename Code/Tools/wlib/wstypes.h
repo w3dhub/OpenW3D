@@ -57,12 +57,12 @@ Standard type definitions for the sake of portability and readability.
 
 #define adelete(X) (delete[](X))
 
-#ifndef TRUE
-#define TRUE               1
+#ifndef true
+#define true               1
 #endif
 
-#ifndef FALSE
-#define FALSE              0
+#ifndef false
+#define false              0
 #endif
 
 #ifndef MIN

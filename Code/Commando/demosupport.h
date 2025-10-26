@@ -73,7 +73,7 @@ cDemoSupport::Security_Check
 		// Hacked. Bail. Don't care how cleanly it exits.
 		//
 		extern bool g_client_quit;
-		g_client_quit = TRUE;
+		g_client_quit = true;
 
 		extern void Stop_Main_Loop(int exitcode);
 		Stop_Main_Loop(EXIT_SUCCESS);

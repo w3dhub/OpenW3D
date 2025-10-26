@@ -50,7 +50,7 @@
 // NOTE:	if USE_MULTI_FILE_FORMAT is "true", then a .lOC file must be in 
 //			the same directory as this file.
 //----------------------------------------------------------------------------
-#define		USE_MULTI_FILE_FORMAT		FALSE
+#define		USE_MULTI_FILE_FORMAT		false
 
 #define		LANGUAGE_IS_DBCS(l)	(((l)==IDL_JAPANESE)||((l)==IDL_KOREAN)||((l)==IDL_CHINESE))		// [OYO]
 #define		CODEPAGE_IS_DBCS(C)	((C==932)||(C==949)||(C==950))										// [OYO]

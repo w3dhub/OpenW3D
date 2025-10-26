@@ -135,7 +135,7 @@ PlaySoundDialogClass::OnInitDialog (void)
 		OnPlaySoundEffect ();
 	}
 	
-	return TRUE;
+	return true;
 }
 
 

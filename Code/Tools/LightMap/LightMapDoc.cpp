@@ -163,10 +163,10 @@ LightMapDoc::~LightMapDoc()
 BOOL LightMapDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument()) {
-		return (FALSE);
+		return (false);
 	}
 
-	return (TRUE);
+	return (true);
 }
 
 
@@ -215,7 +215,7 @@ BOOL LightMapDoc::OnOpenDocument (LPCTSTR pathname)
 				// Make a copy of the name of the file for later reference.
 				_splitpath (pathname, NULL, NULL, DocumentName, NULL);
 
-				return (TRUE);
+				return (true);
 
 			} else {
 
@@ -225,19 +225,19 @@ BOOL LightMapDoc::OnOpenDocument (LPCTSTR pathname)
 
 				// Return failure.
 				statusptr->SetPaneText (0, notopenedtext);
-				return (FALSE);
+				return (false);
 			}
 
 		} else {
 			
 			// Return failure.
-			return (FALSE);
+			return (false);
 		}
 	
 	} else {
 
 		// Return failure.
-		return (FALSE);
+		return (false);
 	}
 }
 
@@ -1616,7 +1616,7 @@ void LightMapDoc::OnFileSave()
  *=============================================================================================*/
 void LightMapDoc::OnFileSaveAs() 
 {
-	CFileDialog dialog (FALSE, LightMapApp::Document_File_Extension(), NULL, LightMapApp::File_Dialog_Flags(), LightMapApp::File_Dialog_Filter());
+	CFileDialog dialog (false, LightMapApp::Document_File_Extension(), NULL, LightMapApp::File_Dialog_Flags(), LightMapApp::File_Dialog_Filter());
 
 	if (dialog.DoModal() == IDOK) OnSaveDocument (dialog.GetPathName());
 }
@@ -1757,9 +1757,9 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 		}
 
 		// Return success.
-		SetModifiedFlag (FALSE);
+		SetModifiedFlag (false);
 		statusptr->SetPaneText (0, savedtext);
-		return (TRUE);
+		return (true);
 	
 	} catch (const char *message) {
 
@@ -1773,7 +1773,7 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 		
 		// Return failure.
 		statusptr->SetPaneText (0, notsavedtext);
-		return (FALSE);
+		return (false);
 	}
 }
 
@@ -2635,7 +2635,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 		W3dFile = solvefile;
 
 		// Flag that the document has been modified.
-		SetModifiedFlag (TRUE);
+		SetModifiedFlag (true);
 
 		// Increment no. of solves inserted so far.
 		SolveCount++;

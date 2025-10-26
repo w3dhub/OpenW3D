@@ -173,7 +173,7 @@ EmitterRotationPropPageClass::OnInitDialog()
 		m_RotationBar->Set_Graph_Percent (index + 1, Normalize_Rotation(m_Rotations.Values[index]));
 	}
 	
-	return TRUE;
+	return true;
 }
 
 

@@ -88,7 +88,7 @@ public:
 	void					ActivateDlg(BOOL onOff);
 
 	void					Invalidate(void);
-	void					Update_Display(void)	{GetCOREInterface()->ForceCompleteRedraw(TRUE);}
+	void					Update_Display(void)	{GetCOREInterface()->ForceCompleteRedraw(true);}
 	void					Reset(GameMtl* mtl);
 	void					Reinitialize(GameMtl* new_mtl, bool update_multimtl = true);
 	void					SetMultimaterial(Mtl* mtl){Game_multi_mtl = mtl; Current_Submtl_Index = 0;}

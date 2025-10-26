@@ -118,11 +118,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWnd::PreCreateWindow(cs) )
-		return FALSE;
+		return false;
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////

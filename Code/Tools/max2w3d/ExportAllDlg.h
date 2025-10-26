@@ -74,7 +74,7 @@ protected:
 	// Message Handlers
 	void OnInitDialog (void);
 	void OnBrowse (void);
-	BOOL OnOK (void);		// TRUE if ok to close dialog
+	BOOL OnOK (void);		// true if ok to close dialog
 };
 
 

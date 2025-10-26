@@ -79,7 +79,7 @@ MixCombiningDialogClass::OnInitDialog (void)
 
 	ProgressCtrl.SetPos (0);
 	ProgressCtrl.SetRange (0, 100);
-	return TRUE;
+	return true;
 }
 
 

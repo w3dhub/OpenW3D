@@ -84,7 +84,7 @@ CameraDistanceDialogClass::OnInitDialog (void)
 
 	::Initialize_Spinner (m_DistanceSpinCtrl, graphic_view->Get_Camera_Distance (), 0, 25000.0F);
 	::SetDlgItemFloat (m_hWnd, IDC_DISTANCE_EDIT, graphic_view->Get_Camera_Distance ());
-	return TRUE;
+	return true;
 }
 
 

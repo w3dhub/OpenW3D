@@ -64,7 +64,7 @@ UINT_PTR CALLBACK Browse_For_Folder_Hook_Proc
 		::SetDlgItemText (hdlg, 1152, "xxx.xxx");
 	}
 
-	return FALSE;
+	return false;
 }
 
 

@@ -164,7 +164,7 @@ LightNodeClass::Initialize (void)
 	//
 	m_LightPhysObj->Set_Model (light_obj);
 	m_DisplayObj->Set_Model_By_Name ("POINTLIGHT");
-	m_DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+	m_DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 	::Set_Model_Collision_Type (m_DisplayObj->Peek_Model (), COLLISION_TYPE_6);
 	
 	m_LightPhysObj->Set_Transform (m_Transform);

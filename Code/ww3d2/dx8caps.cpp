@@ -497,13 +497,13 @@ DX8Caps::DX8Caps(
 
 void DX8Caps::Init_Caps(IDirect3DDevice9* D3DDevice)
 {
-	D3DDevice->SetSoftwareVertexProcessing(TRUE);
+	D3DDevice->SetSoftwareVertexProcessing(true);
 	DX8CALL(GetDeviceCaps(&Caps));
 
 	if ((Caps.DevCaps&D3DDEVCAPS_HWTRANSFORMANDLIGHT)==D3DDEVCAPS_HWTRANSFORMANDLIGHT) {
 		SupportTnL=true;
 
-		D3DDevice->SetSoftwareVertexProcessing(FALSE);
+		D3DDevice->SetSoftwareVertexProcessing(false);
 		DX8CALL(GetDeviceCaps(&Caps));	
 	} else {
 		SupportTnL=false;			

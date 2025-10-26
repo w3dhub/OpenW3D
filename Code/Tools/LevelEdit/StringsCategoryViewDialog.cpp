@@ -229,14 +229,14 @@ StringsCategoryViewDialogClass::OnInitDialog (void)
 		//
 		if (item_index >= 0) {
 			m_ListCtrl.SetItemState (item_index, LVIS_SELECTED, LVIS_SELECTED);
-			m_ListCtrl.EnsureVisible (item_index, FALSE);
+			m_ListCtrl.EnsureVisible (item_index, false);
 		} else {
 			m_ListCtrl.SetItemState (0, LVIS_SELECTED, LVIS_SELECTED);
 		}
 	}
 
 	IsInitialized = true;
-	return TRUE;
+	return true;
 }
 
 
@@ -398,7 +398,7 @@ StringsCategoryViewDialogClass::OnDblclkStringList
 	//
 	//	Force a repaint
 	//
-	InvalidateRect (NULL, TRUE);
+	InvalidateRect (NULL, true);
 	UpdateWindow ();
 	return ;
 }
@@ -463,7 +463,7 @@ StringEntrySortCompareFn (LPARAM param1, LPARAM param2, LPARAM sort_info)
 	//
 	//	Invert the sort if necessary
 	//
-	if (ascending != TRUE) {
+	if (ascending != true) {
 		retval = -retval;
 	}
 

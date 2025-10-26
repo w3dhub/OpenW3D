@@ -100,7 +100,7 @@ public:
 	/*
 	** From Object		
 	*/
-	int DoOwnSelectHilite() { return TRUE; }
+	int DoOwnSelectHilite() { return true; }
 	CreateMouseCallBack * GetCreateMouseCallBack();
 
 	/*
@@ -272,7 +272,7 @@ public:
 	** the topology of its input is changed things will no longer work correctly.  Therefore,
 	** we tell max that we depend on the topology remaining the same.
 	*/
-	virtual BOOL DependOnTopology(ModContext &mc) { return TRUE; }
+	virtual BOOL DependOnTopology(ModContext &mc) { return true; }
 
 	/*
 	** What types of objects can we modify:  The skin modifier will only work with TRIOBJ's
@@ -298,7 +298,7 @@ public:
 	void ActivateSubobjSel(int level, XFormModes& modes);
 
 	int HitTest(TimeValue t, INode* inode, int type, int crossing, int flags, IPoint2 *p, ViewExp *vpt, ModContext* mc);
-	void SelectSubComponent(HitRecord *hitRec, BOOL selected, BOOL all, BOOL invert=FALSE);
+	void SelectSubComponent(HitRecord *hitRec, BOOL selected, BOOL all, BOOL invert=false);
 	void ClearSelection(int selLevel);//
 	void SelectAll(int selLevel);
 	void InvertSelection(int selLevel);
@@ -310,7 +310,7 @@ public:
 	** sub-object selection set drop down.
 	** The following methods implement named sub-obj selection sets 
 	*/
-	virtual BOOL SupportsNamedSubSels() { return TRUE; }
+	virtual BOOL SupportsNamedSubSels() { return true; }
 	virtual void ActivateSubSelSet(TSTR &setName);
 	virtual void NewSetFromCurSel(TSTR &setName);
 	virtual void RemoveSubSelSet(TSTR &setName);
@@ -329,7 +329,7 @@ public:
 	/*
 	** Auto-Attach vertices to nearest bone
 	*/
-	void Auto_Attach_Verts(BOOL all = FALSE);					
+	void Auto_Attach_Verts(BOOL all = false);					
 	
 	/*
 	** Unlink selected verts (links them to the root or origin)

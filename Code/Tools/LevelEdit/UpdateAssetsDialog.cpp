@@ -112,7 +112,7 @@ UpdateAssetsDialogClass::OnInitDialog (void)
 	SetDlgItemText (IDC_COMMENTS_EDIT, m_Comments);
 
 	// Check the 'Yes' radio button by default
-	SendDlgItemMessage (IDC_YES_RADIO, BM_SETCHECK, (WPARAM)TRUE);
+	SendDlgItemMessage (IDC_YES_RADIO, BM_SETCHECK, (WPARAM)true);
 
 	//
 	//	Simulate pressing the OK button
@@ -121,7 +121,7 @@ UpdateAssetsDialogClass::OnInitDialog (void)
 		PostMessage (WM_COMMAND, MAKELONG (IDOK, BN_CLICKED), 0L);
 	}
 
-	return TRUE;
+	return true;
 }
 
 

@@ -169,7 +169,7 @@ VisStatsDialogClass::OnInitDialog (void)
 		}
 	}	
 	
-	return TRUE;
+	return true;
 }
 
 
@@ -302,7 +302,7 @@ VisSectorSortCompareFn (LPARAM param1, LPARAM param2, LPARAM sort_info)
 	//
 	//	Invert the sort if necessary
 	//
-	if (ascending != TRUE) {
+	if (ascending != true) {
 		retval = -retval;
 	}
 

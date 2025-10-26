@@ -82,7 +82,7 @@ class SkinWSMObjectClassDesc:public ClassDesc
 public:
 
 	int 				IsPublic()								{ return 1; }
-	void *			Create(BOOL loading = FALSE)		{ return new SkinWSMObjectClass; }
+	void *			Create(BOOL loading = false)		{ return new SkinWSMObjectClass; }
 	const TCHAR *	ClassName()								{ return _T("WWSkin"); }
 	SClass_ID		SuperClassID()							{ return WSM_OBJECT_CLASS_ID; }
 	Class_ID			ClassID()								{ return SKIN_OBJ_CLASS_ID; }
@@ -103,7 +103,7 @@ class SkinModClassDesc:public ClassDesc
 public:
 
 	int 				IsPublic()								{ return 0; }
-	void *			Create(BOOL loading = FALSE)		{ return new SkinModifierClass; }
+	void *			Create(BOOL loading = false)		{ return new SkinModifierClass; }
 	const TCHAR *	ClassName()								{ return _T("WWSkin"); }
 	SClass_ID		SuperClassID()							{ return WSM_CLASS_ID; }
 	Class_ID			ClassID()								{ return SKIN_MOD_CLASS_ID; }
@@ -133,7 +133,7 @@ public:
 			mat.SetTrans(pos);
 			return CREATE_STOP;	
 		}
-		return TRUE;
+		return true;
 	}
 };
 
@@ -149,7 +149,7 @@ SkinWSMObjectClass::SkinWSMObjectClass()
 	/*
 	** Initialize class variables to default state!
 	*/
-	MeshBuilt = FALSE;
+	MeshBuilt = false;
 	BoneSelectionMode = BONE_SEL_MODE_NONE;
 	BoneTab.SetCount(0);
 	BasePoseFrame = 0;
@@ -361,7 +361,7 @@ void SkinWSMObjectClass::BuildMesh(TimeValue t)
 	}
 
 	mesh.InvalidateGeomCache();
-	MeshBuilt = TRUE;
+	MeshBuilt = true;
 }
 
 void SkinWSMObjectClass::Build_Tri(Face * f, int a,  int b, int c) 
@@ -1377,7 +1377,7 @@ void SkinModifierClass::ActivateSubSelSet(TSTR & setname)
 #endif
 				
 		if (skindata->VertSelSets[index].GetSize() != mesh->getNumVerts()) {
-			skindata->VertSelSets[index].SetSize(mesh->getNumVerts(),TRUE);
+			skindata->VertSelSets[index].SetSize(mesh->getNumVerts(),true);
 		}
 		mesh->vertSel  = skindata->VertSelSets[index];
 		skindata->VertSel = mesh->vertSel;
@@ -1639,12 +1639,12 @@ static BOOL CALLBACK _sot_dialog_proc(HWND hWnd,UINT message,WPARAM wParam,LPARA
 		case WM_LBUTTONUP:
 		case WM_MOUSEMOVE:
 			if (ip) ip->RollupMouseMessage(hWnd,message,wParam,lParam);
-			return FALSE;
+			return false;
 
 		default:
-			return FALSE;
+			return false;
 	}
-	return TRUE;
+	return true;
 }
 
 
@@ -1656,7 +1656,7 @@ static BOOL CALLBACK _sot_dialog_proc(HWND hWnd,UINT message,WPARAM wParam,LPARA
 static BOOL CALLBACK _skeleton_dialog_thunk(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
 {
 	SkinWSMObjectClass * skinobj = (SkinWSMObjectClass *)GetWindowLong(hWnd,GWL_USERDATA);
-	if (!skinobj && message != WM_INITDIALOG) return FALSE;
+	if (!skinobj && message != WM_INITDIALOG) return false;
 	
 	if (message == WM_INITDIALOG) {
 		skinobj = (SkinWSMObjectClass *)lParam;
@@ -1682,21 +1682,21 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			
 			AddBonesButton->SetType(CBT_CHECK);
 			AddBonesButton->SetHighlightColor(GREEN_WASH);
-			AddBonesButton->SetTooltip(TRUE, _T("Add bones by name"));
+			AddBonesButton->SetTooltip(true, _T("Add bones by name"));
 
 			RemoveBonesButton->SetType(CBT_CHECK);
 			RemoveBonesButton->SetHighlightColor(GREEN_WASH);
-			RemoveBonesButton->SetTooltip(TRUE, _T("Remove bones by name"));
+			RemoveBonesButton->SetTooltip(true, _T("Remove bones by name"));
 	
 			/*
 			** Initialize the "Base Pose Frame" spinner
 			*/
 			BasePoseSpin = GetISpinner(GetDlgItem(hWnd, IDC_BASE_POSE_SPIN));
-			BasePoseSpin->SetLimits(0,9999, FALSE);
-			BasePoseSpin->SetValue(0,FALSE);
+			BasePoseSpin->SetLimits(0,9999, false);
+			BasePoseSpin->SetValue(0,false);
 			BasePoseSpin->SetResetValue(0);
 			BasePoseSpin->LinkToEdit(GetDlgItem(hWnd,IDC_BASE_POSE_EDIT),EDITTYPE_INT);
-			return TRUE;
+			return true;
 
 		case WM_DESTROY:
 			ReleaseICustButton(AddBonesButton);
@@ -1708,7 +1708,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			BasePoseSpin = NULL;
 			BoneListHWND = NULL;
 			
-			return FALSE;
+			return false;
 	
 		case CC_SPINNER_CHANGE:
 			switch (LOWORD(wParam)) 
@@ -1719,19 +1719,19 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			}
 			NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 			InterfacePtr->RedrawViews(InterfacePtr->GetTime(),REDRAW_INTERACTIVE);
-			return TRUE;
+			return true;
 
 		case CC_SPINNER_BUTTONUP:
 			NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 			InterfacePtr->RedrawViews(InterfacePtr->GetTime(),REDRAW_END);
-			return TRUE;
+			return true;
 
 		
 		case WM_LBUTTONDOWN:
 		case WM_LBUTTONUP:
 		case WM_MOUSEMOVE:
 			InterfacePtr->RollupMouseMessage(hWnd,message,wParam,lParam);
-			return FALSE;
+			return false;
 
 		case WM_COMMAND:
 			switch (LOWORD(wParam)) 
@@ -1745,7 +1745,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 					break;
 
 				case IDC_REMOVE_BONES_BUTTON:
-					TheBonePicker.Set_User(this,FALSE,&(BoneTab));
+					TheBonePicker.Set_User(this,false,&(BoneTab));
 					Set_Bone_Selection_Mode(BONE_SEL_MODE_REMOVE_MANY);
 					InterfacePtr->DoHitByNameDialog(&TheBonePicker);
 					Set_Bone_Selection_Mode(BONE_SEL_MODE_NONE);
@@ -1753,7 +1753,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			}
 
 		default:
-			return FALSE;
+			return false;
 	}
 }
 
@@ -1765,7 +1765,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 static BOOL CALLBACK _bone_influence_dialog_thunk(HWND hWnd,UINT message,WPARAM wParam,LPARAM lParam)
 {
 	SkinModifierClass * skinmod = (SkinModifierClass *)GetWindowLong(hWnd,GWL_USERDATA);
-	if (!skinmod && message != WM_INITDIALOG) return FALSE;
+	if (!skinmod && message != WM_INITDIALOG) return false;
 	
 	if (message == WM_INITDIALOG) {
 			skinmod = (SkinModifierClass *)lParam;
@@ -1790,18 +1790,18 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 			UnLinkButton = GetICustButton(GetDlgItem(hWnd, IDC_UNLINK_BUTTON));
 			
 			LinkButton->SetType(CBT_PUSH);
-			LinkButton->SetTooltip(TRUE, _T("Link Vertices to a bone by selecting the bone"));
+			LinkButton->SetTooltip(true, _T("Link Vertices to a bone by selecting the bone"));
 
 			LinkByNameButton->SetType(CBT_PUSH);
-			LinkByNameButton->SetTooltip(TRUE, _T("Link Vertices to a bone by name"));
+			LinkByNameButton->SetTooltip(true, _T("Link Vertices to a bone by name"));
 			
 			AutoLinkButton->SetType(CBT_PUSH);
-			AutoLinkButton->SetTooltip(TRUE, _T("Link Vertices to nearest bone"));
+			AutoLinkButton->SetTooltip(true, _T("Link Vertices to nearest bone"));
 			
 			UnLinkButton->SetType(CBT_PUSH);
-			UnLinkButton->SetTooltip(TRUE, _T("Unlink selected vertices"));
+			UnLinkButton->SetTooltip(true, _T("Unlink selected vertices"));
 			
-			return TRUE;
+			return true;
 
 		case WM_DESTROY:
 			ReleaseICustButton(LinkButton);
@@ -1813,13 +1813,13 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 			LinkByNameButton = NULL;
 			AutoLinkButton = NULL;
 			UnLinkButton = NULL;
-			return FALSE;
+			return false;
 
 		case WM_LBUTTONDOWN:
 		case WM_LBUTTONUP:
 		case WM_MOUSEMOVE:
 			InterfacePtr->RollupMouseMessage(hWnd,message,wParam,lParam);
-			return FALSE;
+			return false;
 
 		case WM_COMMAND:
 			switch (LOWORD(wParam)) 
@@ -1831,7 +1831,7 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 					*/
 					assert(WSMObjectRef != NULL);
 					INodeTab * bonetab = &(WSMObjectRef->Get_Bone_List());
-					TheBonePicker.Set_User(this,TRUE,bonetab);
+					TheBonePicker.Set_User(this,true,bonetab);
 					InterfacePtr->SetPickMode(&TheBonePicker); 
 					break;
 				}
@@ -1843,7 +1843,7 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 					*/
 					assert(WSMObjectRef != NULL);
 					INodeTab * bonetab = &(WSMObjectRef->Get_Bone_List());
-					TheBonePicker.Set_User(this,TRUE,bonetab);
+					TheBonePicker.Set_User(this,true,bonetab);
 					InterfacePtr->DoHitByNameDialog(&TheBonePicker);
 					break;
 				}
@@ -1862,13 +1862,13 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 			}
 
 		default:
-			return FALSE;
+			return false;
 	}
 }
 
 static TriObject * Get_Tri_Object(TimeValue t,ObjectState & os,Interval & valid,BOOL & needsdel)
 {	
-	needsdel = FALSE;
+	needsdel = false;
 	valid &= os.Validity(t);
 	
 	if (os.obj->IsSubClassOf(triObjectClassID)) {

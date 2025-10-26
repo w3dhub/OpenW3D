@@ -92,7 +92,7 @@ StringPickerMainDialogClass::OnInitDialog (void)
 	StringPicker.Create (this);
 	StringPicker.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 	StringPicker.ShowWindow (SW_SHOW);
-	return TRUE;
+	return true;
 }
 
 

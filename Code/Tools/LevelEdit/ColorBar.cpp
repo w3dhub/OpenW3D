@@ -163,7 +163,7 @@ RegisterColorBar (HINSTANCE hinst)
 {
 	// Has the class already been registered?
 	WNDCLASS wndclass = { 0 };
-	if (::GetClassInfo (hinst, "WWCOLORBAR", &wndclass) == FALSE) {
+	if (::GetClassInfo (hinst, "WWCOLORBAR", &wndclass) == false) {
 		
 		wndclass.style = CS_GLOBALCLASS | CS_OWNDC | CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
 		wndclass.lpfnWndProc = fnColorBarProc;
@@ -202,10 +202,10 @@ fnColorBarProc
 
 				// Should we create a new class manager for this window?
 				ColorBarClass *pwnd = (ColorBarClass *)pcreate_info->lpCreateParams;
-				BOOL created = FALSE;
+				BOOL created = false;
 				if (pwnd == NULL) {
 					pwnd = new ColorBarClass;
-					created = TRUE;
+					created = true;
 				}
 
 				// Pull some hacks to get MFC to use the message map
@@ -1925,7 +1925,7 @@ ColorBarClass::Set_Redraw (bool redraw)
 void
 ColorBarClass::Repaint (void)
 {
-	InvalidateRect (NULL, FALSE);
+	InvalidateRect (NULL, false);
 	if (m_bRedraw) {		
 		UpdateWindow ();
 	}

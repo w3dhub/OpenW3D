@@ -98,7 +98,7 @@ CBackgroundObjectDialog::OnInitDialog (void)
     {
         // Loop through all the assets in the manager
         for (pObjEnum->First ();
-             pObjEnum->Is_Done () == FALSE;
+             pObjEnum->Is_Done () == false;
              pObjEnum->Next ())
         {
             LPCTSTR pszItemName = pObjEnum->Current_Item_Name ();
@@ -147,7 +147,7 @@ CBackgroundObjectDialog::OnInitDialog (void)
     // Size the columns so they are large enough to display their contents
     m_heirarchyListCtrl.SetColumnWidth (0, LVSCW_AUTOSIZE);
     //m_heirarchyListCtrl.SetColumnWidth (1, LVSCW_AUTOSIZE_USEHEADER);
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////

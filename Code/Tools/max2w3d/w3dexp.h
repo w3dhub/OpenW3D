@@ -68,7 +68,7 @@ public:
 	unsigned int	Version()				{ return 100; };				
 	
 	void				ShowAbout(HWND hWnd)	{};	
-	int				DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppressPrompts=FALSE, DWORD options=0);	// Export file
+	int				DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL suppressPrompts=false, DWORD options=0);	// Export file
 
 protected:
 
@@ -99,7 +99,7 @@ private:
 
 	HierarchySaveClass *	HierarchyTree;
 		
-	bool get_export_options(BOOL suppress_prompts = FALSE);
+	bool get_export_options(BOOL suppress_prompts = false);
 	INodeListClass * get_origin_list(void);
 	INodeListClass * get_damage_root_list(void);
 	HierarchySaveClass * get_hierarchy_tree(void);

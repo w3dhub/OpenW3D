@@ -325,8 +325,8 @@ ExcelClass::Initialize (void)
 			V_VT ( &solid ) = VT_I4;
 			V_VT ( &yellow ) = VT_I4;
 
-			V_BOOL ( &no ) = FALSE;
-			V_BOOL ( &yes ) = TRUE;
+			V_BOOL ( &no ) = false;
+			V_BOOL ( &yes ) = true;
 			V_I4 ( &dummy ) = 1;
 			V_I4 ( &dummy0 ) = 0;
 			V_BSTR ( &nullstring ) = SysAllocString ( OLESTR ("") );
@@ -537,7 +537,7 @@ ExcelClass::Close_Workbook (void)
 	//	Simply close and delete the workbook
 	//
 	if (WorkbookObj != NULL) {
-		WorkbookObj->SetSaved (TRUE);
+		WorkbookObj->SetSaved (true);
 		WorkbookObj->Close (no, nullstring, no);
 		SAFE_DELETE (WorkbookObj);
 	}

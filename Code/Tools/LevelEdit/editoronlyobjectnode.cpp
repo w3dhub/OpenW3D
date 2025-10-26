@@ -138,7 +138,7 @@ EditorOnlyObjectNodeClass::Initialize (void)
 			MEMBER_RELEASE (render_obj);
 
 			DisplayObj->Set_Collision_Group (GAME_COLLISION_GROUP);
-			DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+			DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 			::Set_Model_Collision_Type (DisplayObj->Peek_Model (), 15);
 		}		
 

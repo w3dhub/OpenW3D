@@ -651,9 +651,9 @@ CMainFrame::Create_Toolbars (void)
 	DockControlBar (&m_OutputToolbar, AFX_IDW_DOCKBAR_BOTTOM);		
 	
 	// Hide our floating dialog toolbars
-	ShowControlBar (&m_AmbientLightToolbar, FALSE, FALSE);
-	ShowControlBar (&m_CameraSettingsToolbar, FALSE, FALSE);
-	ShowControlBar (&m_AniToolbar, FALSE, FALSE);
+	ShowControlBar (&m_AmbientLightToolbar, false, false);
+	ShowControlBar (&m_CameraSettingsToolbar, false, false);
+	ShowControlBar (&m_AniToolbar, false, false);
 			
 
 	CRect window_rect;
@@ -798,7 +798,7 @@ CMainFrame::OnCreateClient
 		} else {
 			// Stop the application from running
 			PostMessage (WM_CLOSE);
-			retval = FALSE;
+			retval = false;
 		}
 	}
 
@@ -860,7 +860,7 @@ CMainFrame::OnCreateClient
 		sound_scene->Attach_Listener_To_Obj (::Get_Camera_Mgr ()->Get_Camera ());
 	}
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return retval;
 }
 
@@ -1407,7 +1407,7 @@ CMainFrame::OnLevelExport (void)
 		default_name += ".mix";
 	}
 
-	CFileDialog saveFileDialog (FALSE,
+	CFileDialog saveFileDialog (false,
 										 ".mix",
 										 default_name,
 										 OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -1463,7 +1463,7 @@ CMainFrame::OnViewAmbientLightDlg (void)
 {
 	// Toggle the visiblity state of the toolbar
 	BOOL show_dlg = !m_AmbientLightToolbar.IsWindowVisible ();	
-	ShowControlBar (&m_AmbientLightToolbar, show_dlg, FALSE);
+	ShowControlBar (&m_AmbientLightToolbar, show_dlg, false);
 	return ;
 }
 
@@ -1490,7 +1490,7 @@ CMainFrame::OnViewToolbarCameraSettings (void)
 {
 	// Toggle the visiblity state of the toolbar
 	BOOL show_dlg = !m_CameraSettingsToolbar.IsWindowVisible ();	
-	ShowControlBar (&m_CameraSettingsToolbar, show_dlg, FALSE);
+	ShowControlBar (&m_CameraSettingsToolbar, show_dlg, false);
 
 	// Get a pointer to the camera settings dialog
 	CameraSettingsFormClass *pform = (CameraSettingsFormClass *)m_CameraSettingsToolbar.Get_Form ();
@@ -1918,7 +1918,7 @@ CMainFrame::OnToggleVisWindow (void)
 void
 CMainFrame::Show_Ani_Toolbar (bool bshow) 
 {
-	ShowControlBar (&m_AniToolbar, (BOOL)bshow, FALSE);
+	ShowControlBar (&m_AniToolbar, (BOOL)bshow, false);
 	return ;
 }
 
@@ -2736,7 +2736,7 @@ CMainFrame::OnUpdateViewVisPoints (CCmdUI *pCmdUI)
 void
 CMainFrame::OnSpecifyAssetDatabase (void) 
 {
-	CFileDialog dialog (TRUE,
+	CFileDialog dialog (true,
 							  NULL,//"srcsafe.ini",
 							  "srcsafe.ini",
 							  OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_SHAREAWARE,
@@ -3168,7 +3168,7 @@ CMainFrame::OnExportPathfind (void)
 		default_name += ".pth";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".pth",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -3209,7 +3209,7 @@ CMainFrame::OnImportPathfind (void)
 		default_name += ".pth";
 	}
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".pth",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -3248,7 +3248,7 @@ CMainFrame::OnImportVis (void)
 		default_name += ".vis";
 	}
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".vis",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER | OFN_ALLOWMULTISELECT,
@@ -3314,7 +3314,7 @@ CMainFrame::OnExportVis (void)
 		default_name += ".vis";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".vis",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -3597,7 +3597,7 @@ CMainFrame::OnImportDynObjs (void)
 		default_name += ".dyn";
 	}
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".dyn",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -3629,7 +3629,7 @@ CMainFrame::OnExportDynObjs (void)
 		default_name += ".dyn";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".dyn",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -3685,7 +3685,7 @@ CMainFrame::OnImportStatic (void)
 		default_name += ".sta";
 	}
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".sta",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -3776,7 +3776,7 @@ CMainFrame::OnExportStatic (void)
 		default_name += ".sta";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								 ".sta",
 								 default_name,
 								 OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -4082,7 +4082,7 @@ CMainFrame::OnUpdateDebugScriptsMode (CCmdUI *pCmdUI)
 void
 CMainFrame::OnImportLights (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".wlt",
 								NULL,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT | OFN_EXPLORER,
@@ -4182,7 +4182,7 @@ CMainFrame::OnUpdateViewLightSpheres (CCmdUI *pCmdUI)
 void
 CMainFrame::OnImportSunlight (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".wlt",
 								NULL,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -4338,7 +4338,7 @@ CMainFrame::Adjust_Growth_Rate (void)
 void
 CMainFrame::OnRunJob (void) 
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".job",
 								"farm01.job",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -4485,7 +4485,7 @@ CMainFrame::OnImportVisRemapData (void)
 		default_name += ".vrt";
 	}
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".vrt",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -4548,7 +4548,7 @@ CMainFrame::OnExportVisRemapData (void)
 		default_name += ".vrt";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".vrt",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -4688,7 +4688,7 @@ CMainFrame::OnExportLights (void)
 		default_name += ".wlt";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".wlt",
 								NULL,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5376,7 +5376,7 @@ CMainFrame::OnMakeVisPoint (void)
 void
 CMainFrame::OnExportStringTable (void) 
 {
-	CFileDialog dialog (FALSE, ".txt", "strings_table.txt",
+	CFileDialog dialog (false, ".txt", "strings_table.txt",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"Text Files (*.txt)|*.txt||", ::AfxGetMainWnd ());
 
@@ -5437,7 +5437,7 @@ CMainFrame::OnExportPresets (void)
 void
 CMainFrame::OnImportPresets (void) 
 {
-	CFileDialog dialog (TRUE, ".txt", "presets.txt",
+	CFileDialog dialog (true, ".txt", "presets.txt",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"Text Files (*.txt)|*.txt||", ::AfxGetMainWnd ());
 
@@ -5466,7 +5466,7 @@ void
 CMainFrame::OnBatchExport (void)
 {
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".lvl",
 								NULL,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER | OFN_ALLOWMULTISELECT,
@@ -5635,7 +5635,7 @@ CMainFrame::OnExportPresetFileDependencies (void)
 	PresetsFormClass *presets_form = ::Get_Presets_Form ();
 	if (presets_form != NULL) {
 
-		CFileDialog dialog (	FALSE,
+		CFileDialog dialog (	false,
 									".txt",
 									"presets.txt",
 									OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5688,7 +5688,7 @@ CMainFrame::OnExportTileList (void)
 		default_name += ".txt";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".txt",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5838,7 +5838,7 @@ CMainFrame::OnEditLevelSettings (void)
 void
 CMainFrame::OnExportTranslationData (void)
 {
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".xls",
 								"strings.xls",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5867,7 +5867,7 @@ CMainFrame::OnExportTranslationData (void)
 void
 CMainFrame::OnImportTranslationData (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".xls",
 								"strings.xls",
 								OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_SHAREAWARE,
@@ -5923,7 +5923,7 @@ CMainFrame::OnUpdateCompressTextures (CCmdUI *pCmdUI)
 void
 CMainFrame::OnExportFileUsageReport (void)
 {
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".txt",
 								"files.txt",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5949,7 +5949,7 @@ CMainFrame::OnExportFileUsageReport (void)
 void
 CMainFrame::OnExportMissingTranslationReport (void)
 {
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".txt",
 								"files.txt",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5987,7 +5987,7 @@ CMainFrame::OnExportLanguage (void)
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".dbs",
 								"always.dbs",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -6087,7 +6087,7 @@ CMainFrame::OnExportInstallerLanguageVersion (void)
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".tdb",
 								"istrings.tdb",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -6121,7 +6121,7 @@ CMainFrame::OnExportInstallerLanguageVersion (void)
 void
 CMainFrame::OnExtractInstallerRcStrings (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".rc",
 								NULL,
 								OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_SHAREAWARE,
@@ -6151,7 +6151,7 @@ CMainFrame::OnExtractInstallerRcStrings (void)
 void
 CMainFrame::OnExtractRcStrings (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".rc",
 								NULL,
 								OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_FILEMUSTEXIST | OFN_SHAREAWARE,
@@ -6279,7 +6279,7 @@ CMainFrame::OnModExport (void)
 		default_name += ".pkg";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".pkg",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -6325,7 +6325,7 @@ CMainFrame::OnSaveLevel (void)
 		default_name += ".lvl";
 	}
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".lvl",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

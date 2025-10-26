@@ -1183,7 +1183,7 @@ void Load_Image_Helper(void)
 
 		int symload = 0;
 
-		if (_SymInitialize != NULL && _SymInitialize(GetCurrentProcess(), NULL, FALSE)) {
+		if (_SymInitialize != NULL && _SymInitialize(GetCurrentProcess(), NULL, false)) {
 
 			if (_SymSetOptions != NULL) {
 				_SymSetOptions(SYMOPT_DEFERRED_LOADS | SYMOPT_UNDNAME);

@@ -79,7 +79,7 @@ protected:
 
 	// Message Handlers
 	void OnInitDialog (void);
-	BOOL OnOK (void);		// TRUE if ok to close dialog
+	BOOL OnOK (void);		// true if ok to close dialog
 
 	// Protected Methods
 	void  SetEditInt   (int control_id, int value);

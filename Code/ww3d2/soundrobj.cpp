@@ -576,7 +576,7 @@ SoundRenderObjDefClass::Save_W3D (ChunkSaveClass &csave)
 	//
 	// Begin a chunk that identifies a sound render object
 	//
-	if (csave.Begin_Chunk (W3D_CHUNK_SOUNDROBJ) == TRUE) {
+	if (csave.Begin_Chunk (W3D_CHUNK_SOUNDROBJ) == true) {
 		
 		//
 		// Attempt to save the different sections of the aggregate definition
@@ -675,7 +675,7 @@ SoundRenderObjDefClass::Write_Header (ChunkSaveClass &csave)
 	//
 	// Begin a chunk that identifies the aggregate
 	//
-	if (csave.Begin_Chunk (W3D_CHUNK_SOUNDROBJ_HEADER) == TRUE) {
+	if (csave.Begin_Chunk (W3D_CHUNK_SOUNDROBJ_HEADER) == true) {
 		
 		//
 		// Fill the header structure
@@ -714,7 +714,7 @@ SoundRenderObjDefClass::Write_Definition (ChunkSaveClass &csave)
 	//
 	// Save the definition to its own chunk
 	//
-	if (csave.Begin_Chunk (W3D_CHUNK_SOUNDROBJ_DEFINITION) == TRUE) {		
+	if (csave.Begin_Chunk (W3D_CHUNK_SOUNDROBJ_DEFINITION) == true) {		
 		if (Definition.Save (csave)) {
 			retval = WW3D_ERROR_OK;
 		}

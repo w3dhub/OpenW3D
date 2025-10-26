@@ -102,14 +102,14 @@ CAmbientLightDialog::OnInitDialog (void)
         (m_initialRed == m_initialBlue))
     {
         // Check the grayscale checkbox
-        SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)TRUE);
+        SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)true);
     }
 
     // Set the initial slider position
     m_redSlider.SetPos (m_initialRed);
     m_greenSlider.SetPos (m_initialGreen);
     m_blueSlider.SetPos (m_initialBlue);
-	return TRUE;
+	return true;
 }
 
 //////////////////////////////////////////////////////////////

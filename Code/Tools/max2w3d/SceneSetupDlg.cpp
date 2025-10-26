@@ -169,7 +169,7 @@ BOOL CALLBACK SceneSetupDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LP
 		case WM_INITDIALOG:
 
 			OnInitDialog();
-			return TRUE;
+			return true;
 
 
 		/*******************************************************************
@@ -183,8 +183,8 @@ BOOL CALLBACK SceneSetupDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LP
 			{
 				case IDOK:
 
-					if (OnOK() == FALSE)
-						return TRUE;
+					if (OnOK() == false)
+						return true;
 
 					SetCursor(LoadCursor(NULL, IDC_WAIT));
 					EndDialog(m_hWnd, 1);
@@ -195,11 +195,11 @@ BOOL CALLBACK SceneSetupDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LP
 					break;
 
 			}
-			return TRUE;
+			return true;
 
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -251,14 +251,14 @@ BOOL SceneSetupDlg::OnOK()
 		MessageBox(m_hWnd, "You must enter a valid number for the LOD Offset.",
 			"Not a Number", MB_OK);
 		SetFocus(GetDlgItem(m_hWnd, IDC_LOD_OFFSET));
-		return FALSE;
+		return false;
 	}
 	if (!ValidateEditFloat(IDC_DAMAGE_OFFSET))
 	{
 		MessageBox(m_hWnd, "You must enter a valid number for the Damage Offset.",
 			"Not a Number", MB_OK);
 		SetFocus(GetDlgItem(m_hWnd, IDC_DAMAGE_OFFSET));
-		return FALSE;
+		return false;
 	}
 
 	// Get the clone procedure the user wants to use.
@@ -281,5 +281,5 @@ BOOL SceneSetupDlg::OnOK()
 	m_DamageCount = GetEditInt(IDC_DAMAGE_COUNT);
 	m_DamageOffset = GetEditFloat(IDC_DAMAGE_OFFSET);
 
-	return TRUE;
+	return true;
 }

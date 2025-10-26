@@ -400,7 +400,7 @@ void LightscapeSolve::Add_Texture_Name (unsigned patchindex, const char *materia
 	// If the material cannot be found then either the database has malfunctioned or the solve
 	// file is corrupt.
 	if (materialnameptr == NULL) {
-		ASSERT (FALSE);
+		ASSERT (false);
 		throw (materialnotfoundtext);
 	}
 
@@ -1640,7 +1640,7 @@ LtTBool LsInfoBuilder::Finish()
 	LightscapeSolve::Importer()->Set_Contrast (GetContrast());
 	
 	// Return success.
-	return (TRUE);
+	return (true);
 }
 
 
@@ -1682,7 +1682,7 @@ LtTBool LsParameterBuilder::Finish()
 	LightscapeSolve::Importer()->Set_Is_Exterior ((GetFlags() & LT_PROCESS_EXTERIOR) != 0); 
 
 	// Return success.
-	return (TRUE);
+	return (true);
 }
 
 
@@ -1723,7 +1723,7 @@ LtTBool LsMaterialBuilder::Finish()
 	LightscapeSolve::Importer()->Add_Material_Texture_Name (GetName(), GetTextureName());	
 	
 	// Return success.
-	return (TRUE);
+	return (true);
 }
 
 
@@ -1778,15 +1778,15 @@ LtTBool LsLampBuilder::Finish()
 
 	// If the light name begins with a '@' skip it - it is not intended for export.
 	if (LightscapeSolve::Importer()->Light_Exclusion_String() != NULL) {
-		if (strstr (GetName(), LightscapeSolve::Importer()->Light_Exclusion_String())) return (TRUE);
+		if (strstr (GetName(), LightscapeSolve::Importer()->Light_Exclusion_String())) return (true);
 	}
 
 	// Skip skylight - it cannot be meaningfully translated into a LightClass object.
-	if ((GetType() == LT_LAMP_DAYLIGHT) && (strcmp (GetName(), "Skylight") == 0)) return (TRUE);
+	if ((GetType() == LT_LAMP_DAYLIGHT) && (strcmp (GetName(), "Skylight") == 0)) return (true);
 
 	// If the lamp does not store direct illumination and has not been raytraced then
 	// it has not been included in the solve - skip it.
-	if ((GetFlags() & LT_LAMP_CAST_NO_DIRECT) && !(GetFlags() & LT_LAMP_RAY_TRACE_DIRECT)) return (TRUE);
+	if ((GetFlags() & LT_LAMP_CAST_NO_DIRECT) && !(GetFlags() & LT_LAMP_RAY_TRACE_DIRECT)) return (true);
 
 	// If this light has non-zero intensity then add the light to the solve database.
 	if (GetIntensity() > 0.0f) {
@@ -1868,7 +1868,7 @@ LtTBool LsLampBuilder::Finish()
 				break;
 
 			default:
-				ASSERT (FALSE);
+				ASSERT (false);
 				throw (unknownlighttext);
 				break;
 		}
@@ -1927,7 +1927,7 @@ LtTBool LsLampBuilder::Finish()
 	}
 
 	// Return success.
-	return (TRUE);
+	return (true);
 }
 
 
@@ -1970,7 +1970,7 @@ LtTBool LsMeshInquirer::Finish()
 	}
 
 	// Return success.
-	return (TRUE);
+	return (true);
 }
 
 
@@ -2355,7 +2355,7 @@ LtTBool LsMeshBuilder::Finish()
 	FactoryPtr->Patch_Increment();
 
 	// Return success.
-	return (TRUE);
+	return (true);
 }
 
 

@@ -136,7 +136,7 @@ TCP::TCP(int new_mode,sint16 socket)
   outputDelay=5;
 
 
-  retval=SetBlocking(FALSE,socket);      // set to NB mode
+  retval=SetBlocking(false,socket);      // set to NB mode
   //DBGMSG("Setblocking: "<<retval);
 
   connectionState=CLOSED;
@@ -182,7 +182,7 @@ sint32 TCP::SetBlocking(bit8 block,sint32 whichFD)
      return(0);
    #else
    int flags = fcntl(whichFD, F_GETFL, 0);
-   if (block==FALSE)          // set nonblocking
+   if (block==false)          // set nonblocking
      flags |= O_NONBLOCK;
    else                       // set blocking
      flags &= ~(O_NONBLOCK);  
@@ -214,16 +214,16 @@ sint32 TCP::Write(const uint8 *msg,uint32 len,sint32 whichFD)
   if (whichFD==0)
   {
     if (mode==SERVER)
-      assert(FALSE);
+      assert(false);
     whichFD=fd;
   }
-  SetBlocking(TRUE,whichFD); 
+  SetBlocking(true,whichFD); 
   retval=send(whichFD,(const char *)msg,len,0);
   #ifdef _WINDOWS
     if (retval==SOCKET_ERROR)
       retval=-1;
   #endif
-  SetBlocking(FALSE,whichFD);
+  SetBlocking(false,whichFD);
   return(retval);
 }
 
@@ -237,7 +237,7 @@ sint32 TCP::WriteNB(uint8 *msg,uint32 len,sint32 whichFD)
   if (whichFD==0)
   {
     if (mode==SERVER)
-      assert(FALSE);
+      assert(false);
     whichFD=fd;
   }
   retval=send(whichFD,(const char *)msg,len,0);
@@ -262,7 +262,7 @@ sint32 TCP::EncapsulatedWrite(uint8 *msg,uint32 len,sint32 whichFD)
 
   if (mode==CLIENT)
     whichFD=fd;
-  SetBlocking(TRUE,whichFD);
+  SetBlocking(true,whichFD);
   for (i=0; i<len; i++)
   {
     data=msg[i];
@@ -271,7 +271,7 @@ sint32 TCP::EncapsulatedWrite(uint8 *msg,uint32 len,sint32 whichFD)
       retval=send(whichFD,(char *)&data,1,0);
       if (retval<1)
       {
-        SetBlocking(FALSE,whichFD);
+        SetBlocking(false,whichFD);
         return(i);
       }
       bytesSent++;
@@ -281,7 +281,7 @@ sint32 TCP::EncapsulatedWrite(uint8 *msg,uint32 len,sint32 whichFD)
       retval=send(whichFD,(char *)&one,1,0);
       if (retval<1)
       {
-        SetBlocking(FALSE,whichFD);
+        SetBlocking(false,whichFD);
         return(i);
       }
       if (data==0)
@@ -294,13 +294,13 @@ sint32 TCP::EncapsulatedWrite(uint8 *msg,uint32 len,sint32 whichFD)
       retval=send(whichFD,(char *)&data,1,0);
       if (retval<1)
       {
-        SetBlocking(FALSE,whichFD);
+        SetBlocking(false,whichFD);
         return(i);
       }
       bytesSent+=2;
     }
   }
-  SetBlocking(FALSE,whichFD);
+  SetBlocking(false,whichFD);
   ///fprintf(stderr,"\n\nENCAP SENT %d\n\n",bytesSent);
   return(len);
 }
@@ -318,18 +318,18 @@ sint32 TCP::WriteString(char *msg,sint32 whichFD)
 
   if (mode==CLIENT)
   {
-    SetBlocking(TRUE,fd);
+    SetBlocking(true,fd);
     retval=send(fd,msg,strlen(msg),0);
-    SetBlocking(FALSE,fd);
+    SetBlocking(false,fd);
     return(retval);
   }
   else if (mode==SERVER)
   {
     if ((whichFD<=maxFD) && (FD_ISSET(whichFD,&clientList)))
     {
-      SetBlocking(TRUE,whichFD);
+      SetBlocking(true,whichFD);
       retval=send(whichFD,msg,strlen(msg),0);
-      SetBlocking(FALSE,whichFD);
+      SetBlocking(false,whichFD);
       return(retval);
     }
   }
@@ -353,18 +353,18 @@ sint32 TCP::Printf(sint32 whichFD,const char *format,...)
   WaitWrite(fd);
   if (mode==CLIENT)
   {
-    SetBlocking(TRUE,whichFD);
+    SetBlocking(true,whichFD);
     retval=send(fd,string,strlen(string),0);
-    SetBlocking(FALSE,whichFD);
+    SetBlocking(false,whichFD);
     return(retval);
   }
   else if (mode==SERVER)
   {
     if ((whichFD<=maxFD) && (FD_ISSET(whichFD,&clientList)))
     {
-      SetBlocking(TRUE,whichFD);
+      SetBlocking(true,whichFD);
       retval=send(whichFD,string,strlen(string),0);
-      SetBlocking(FALSE,whichFD);
+      SetBlocking(false,whichFD);
       return(retval);
     }
   }
@@ -427,9 +427,9 @@ bit8 TCP::IsConnected(sint32 whichFD)
   if (mode==CLIENT)
   {
     if (connectionState==CONNECTED)
-      return(TRUE);
+      return(true);
     if (connectionState==CLOSED)
-      return(FALSE);
+      return(false);
   }
 
   // only get here if state==CONNECTING
@@ -437,9 +437,9 @@ bit8 TCP::IsConnected(sint32 whichFD)
     if ( (sin.sin_addr.s_addr!=htonl(0)) && (CanWrite(whichFD)) )
     {
       connectionState=CONNECTED;
-      return(TRUE);
+      return(true);
     }
-  return(FALSE);
+  return(false);
 }
     
 
@@ -768,14 +768,14 @@ int TCP::Wait(sint32 sec,sint32 usec,fd_set &givenSet,fd_set &returnSet)
   Wtime        timethen;
   fd_set       backupSet;
   int          retval=0,done,givenMax;
-  bit8         noTimeout=FALSE;
+  bit8         noTimeout=false;
   timeval      tv;
 
   returnSet=givenSet;
   backupSet=returnSet;
 
   if ((sec==-1)&&(usec==-1))
-    noTimeout=TRUE;
+    noTimeout=true;
 
   timeout.SetSec(sec);
   timeout.SetUsec(usec);
@@ -804,12 +804,12 @@ int TCP::Wait(sint32 sec,sint32 usec,fd_set &givenSet,fd_set &returnSet)
 
     else if ((retval==-1)&&(errno==EINTR))  // in case of signal
     {
-      if (noTimeout==FALSE)
+      if (noTimeout==false)
       {
         timenow.Update();
         timeout=timethen-timenow;
       }
-      if ((noTimeout==FALSE)&&(timenow.GetSec()==0)&&(timenow.GetUsec()==0))
+      if ((noTimeout==false)&&(timenow.GetSec()==0)&&(timenow.GetUsec()==0))
         done=1;
       else
         returnSet=backupSet;
@@ -874,9 +874,9 @@ bit8 TCP::CanWrite(sint32 whichFD)
   timeout.GetTimevalMT(tv);
   retval=select(whichFD+1,0,&outputSet,0,&tv);
   if (retval>0)
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 
@@ -915,13 +915,13 @@ bit8 TCP::Bind(uint32 IP,uint16 Port,bit8 reuseAddr)
   addr.sin_addr.s_addr=IP;
   fd=socket(AF_INET,SOCK_STREAM,DEFAULT_PROTOCOL);
   if (fd==-1)
-    return(FALSE);
+    return(false);
 
-  retval=SetBlocking(FALSE,fd);
+  retval=SetBlocking(false,fd);
   if (retval==-1)
     ERRMSG("Couldn't set nonblocking mode!");
 
-  if (reuseAddr==TRUE)
+  if (reuseAddr==true)
   {
     uint32 opval;
 
@@ -951,7 +951,7 @@ bit8 TCP::Bind(uint32 IP,uint16 Port,bit8 reuseAddr)
   {
     status=GetStatus();
     DBGMSG("Bind failure (" << status << ") IP "<< IP <<" PORT "<< ntohs(Port));
-    return(FALSE);
+    return(false);
   }
   myIP=IP;
   myPort=Port;
@@ -960,7 +960,7 @@ bit8 TCP::Bind(uint32 IP,uint16 Port,bit8 reuseAddr)
   if (mode==SERVER)
     listen(fd,64);  //Solaris needs lots of listen slots for some reason
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -999,7 +999,7 @@ bit8 TCP::Connect(uint32 IP,uint16 Port)
   serverAddr.sin_addr.s_addr=IP;
 
   if (mode!=CLIENT)
-  {ERRMSG("Can't connect in server mode");return(FALSE);}
+  {ERRMSG("Can't connect in server mode");return(false);}
 
   tries=0;
   result=-1;
@@ -1043,10 +1043,10 @@ bit8 TCP::Connect(uint32 IP,uint16 Port)
 
   if (result == -1)
   {
-    return(FALSE);
+    return(false);
   }
   connectionState=CONNECTED;
-  return (TRUE);
+  return (true);
 }
 
 
@@ -1086,7 +1086,7 @@ bit8 TCP::ConnectAsync(uint32 IP,uint16 Port)
   serverAddr.sin_addr.s_addr=IP;
 
   if (mode!=CLIENT)
-    return(FALSE);
+    return(false);
 
   result=-1;
 
@@ -1096,10 +1096,10 @@ bit8 TCP::ConnectAsync(uint32 IP,uint16 Port)
     {
       DBGMSG("CONNECTION COMPLETE at point 1");
       connectionState=CONNECTED;
-      return(TRUE);
+      return(true);
     }
     else
-      return(TRUE);  // Still trying
+      return(true);  // Still trying
   }
 
   ClearStatus();
@@ -1139,19 +1139,19 @@ bit8 TCP::ConnectAsync(uint32 IP,uint16 Port)
       (status==WOULDBLOCK))
     {
       connectionState=CONNECTING;
-      return(TRUE);   // The socket's trying to connect
+      return(true);   // The socket's trying to connect
     }
     else  // Must be a "real" problem
     {
       Close();
       DBGMSG("Fail " << connectErrno << " " << status);
       connectionState=CLOSED;
-      return(FALSE);
+      return(false);
     }
   }
   //printf("Connected for real\n");
   connectionState=CONNECTED;
-  return(TRUE);
+  return(true);
 }
 
 

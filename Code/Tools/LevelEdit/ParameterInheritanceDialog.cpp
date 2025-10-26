@@ -160,8 +160,8 @@ ParameterInheritanceDialogClass::OnInitDialog (void)
 	LONG_PTR oldproc2 = ::SetWindowLongPtr (m_TreeCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
 	::SetProp (m_ListCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc1);
 	::SetProp (m_TreeCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc2);
-	::SetProp (m_ListCtrl, "IS_LIST_CTRL", (HANDLE)TRUE);
-	::SetProp (m_TreeCtrl, "IS_LIST_CTRL", (HANDLE)FALSE);
+	::SetProp (m_ListCtrl, "IS_LIST_CTRL", (HANDLE)true);
+	::SetProp (m_TreeCtrl, "IS_LIST_CTRL", (HANDLE)false);
 
 	//
 	//	Determine whether or not to enable the dialogue propogation controls
@@ -172,7 +172,7 @@ ParameterInheritanceDialogClass::OnInitDialog (void)
 	}
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_PROPOGATE_DIALOGUE), enable_dialogue_ctrls);
 		
-	return TRUE;
+	return true;
 }
 
 

@@ -250,7 +250,7 @@ SphereSizePropPageClass::OnInitDialog (void)
 	//	Ensure our initial 'current' values are up-to-date
 	//
 	Update_Scale_Array ();
-	return TRUE;
+	return true;
 }
 
 

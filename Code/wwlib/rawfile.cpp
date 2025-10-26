@@ -531,7 +531,7 @@ bool RawFileClass::Is_Available(int forced)
 	*/
 	int closeok;
 	#ifdef _UNIX
-		closeok=((fclose(Handle)==0)?TRUE:FALSE);
+		closeok=((fclose(Handle)==0)?true:false);
 	#else
 		closeok=CloseHandle(Handle);
 	#endif
@@ -572,7 +572,7 @@ void RawFileClass::Close(void)
 		*/
 		int closeok;
 		#ifdef _UNIX
-			closeok=(fclose(Handle)==0)?TRUE:FALSE;	
+			closeok=(fclose(Handle)==0)?true:false;	
 		#else
 			closeok=CloseHandle(Handle);
 		#endif
@@ -644,10 +644,10 @@ int RawFileClass::Read(void * buffer, int size)
 	while (size > 0) {
 		bytesread = 0;
 
-		int readok=TRUE;
+		int readok=true;
 
 		#ifdef _UNIX
-			readok=TRUE;
+			readok=true;
 			bytesread=fread(buffer,1,size,Handle);
 			if ((bytesread == 0)&&( ! feof(Handle)))
 				readok=ferror(Handle);
@@ -712,11 +712,11 @@ int RawFileClass::Write(void const * buffer, int size)
 		opened = true;
 	}
 
-   int writeok=TRUE;
+   int writeok=true;
    #ifdef _UNIX
 		byteswritten = fwrite(buffer, 1, size, Handle);
 		if (byteswritten != size)
-			writeok = FALSE;
+			writeok = false;
 	#else
 		writeok=WriteFile(Handle, buffer, size, &(unsigned long&)byteswritten, NULL);
 	#endif
@@ -987,7 +987,7 @@ int RawFileClass::Delete(void)
 
 		int deleteok;
 		#ifdef _UNIX
-			deleteok=(unlink(Filename)==0)?TRUE:FALSE;
+			deleteok=(unlink(Filename)==0)?true:false;
 		#else
 			deleteok=DeleteFileA(Filename);
 		#endif

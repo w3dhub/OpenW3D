@@ -139,8 +139,8 @@ BOOL CCommandoUpdateDlg::OnInitDialog()
 
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
-	SetIcon(m_hIcon, TRUE);			// Set big icon
-	SetIcon(m_hIcon, FALSE);		// Set small icon
+	SetIcon(m_hIcon, true);			// Set big icon
+	SetIcon(m_hIcon, false);		// Set small icon
 
 	//
 	//	Check/uncheck the applications by default
@@ -158,7 +158,7 @@ BOOL CCommandoUpdateDlg::OnInitDialog()
 		//	Is this application installed?
 		//
 		if (::RegOpenKeyEx (HKEY_CURRENT_USER, reg_key_name, 0L, KEY_READ, &hreg_key) == ERROR_SUCCESS) {
-			SendDlgItemMessage (app_info.ctrl_id, BM_SETCHECK, (WPARAM)TRUE);
+			SendDlgItemMessage (app_info.ctrl_id, BM_SETCHECK, (WPARAM)true);
 			
 			//
 			//	Read the installation directory from the registry
@@ -183,11 +183,11 @@ BOOL CCommandoUpdateDlg::OnInitDialog()
 		//	Check the clean option (by default) if necessary
 		//
 		if (app_info.clean_default) {
-			SendDlgItemMessage (app_info.clean_ctrl_id, BM_SETCHECK, (WPARAM)TRUE);
+			SendDlgItemMessage (app_info.clean_ctrl_id, BM_SETCHECK, (WPARAM)true);
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 // If you add a minimize button to your dialog, you will need the code below
@@ -363,7 +363,7 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 		
 		// Convert the 'PIDL' into a string
 		char path[MAX_PATH];
-		retval = (::SHGetPathFromIDList (pidl, path) == TRUE);
+		retval = (::SHGetPathFromIDList (pidl, path) == true);
 		if (retval) {
 			folder = path;
 		}
@@ -377,8 +377,8 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 	}
 
 	
-	//CFileDialog dialog (TRUE, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
-	//CFileDialog dialog (TRUE, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_ENABLETEMPLATEHANDLE, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
+	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
+	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_ENABLETEMPLATEHANDLE, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
 	//dialog.m_ofn.lpTemplateName = MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG);
 	//dialog.m_ofn.hInstance = ::AfxGetInstanceHandle ();
 	//HRSRC resource = ::FindResource (::AfxGetInstanceHandle (), MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG), RT_DIALOG);	
@@ -454,9 +454,9 @@ Delete_File (LPCTSTR filename)
 		if ((attributes != 0xFFFFFFFF) &&
 			 ((attributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY))
 		{
-			retval = ::RemoveDirectory (filename) == TRUE;
+			retval = ::RemoveDirectory (filename) == true;
 		} else {
-			retval = ::DeleteFile (filename) == TRUE;
+			retval = ::DeleteFile (filename) == true;
 		}
 		
 	}
@@ -504,7 +504,7 @@ Copy_File
 
 		// Perform the copy operation!
 		if (allow_copy) {
-			retval = (::CopyFile (existing_filename, new_filename, FALSE) == TRUE);
+			retval = (::CopyFile (existing_filename, new_filename, false) == true);
 		}
 	}
 
@@ -538,7 +538,7 @@ Clean_Directory (LPCTSTR local_dir, bool is_recursive)
 	// Loop through all the files in this directory and add them
 	// to our list
 	CStringList file_list;
-	BOOL bcontinue = TRUE;
+	BOOL bcontinue = true;
 	WIN32_FIND_DATA find_info = { 0 };
 	for (HANDLE hfind = ::FindFirstFile (search_mask, &find_info);
 		  (hfind != INVALID_HANDLE_VALUE) && bcontinue;
@@ -578,7 +578,7 @@ Clean_Directory (LPCTSTR local_dir, bool is_recursive)
 	for (POSITION pos = file_list.GetHeadPosition (); pos != NULL; ) {
 		CString &filename = file_list.GetNext (pos);
 		CString full_path = local_dir + CString ("\\") + filename;
-		if (::Delete_File (full_path) == FALSE) {
+		if (::Delete_File (full_path) == false) {
 			CString message;
 			message.Format ("Cannot delete %s.  This may result in an incomplete update.  Please make sure no applications are running before running the update.", full_path);
 			::MessageBox (NULL, message, "Delete Error", MB_SETFOREGROUND | MB_TOPMOST | MB_ICONEXCLAMATION | MB_OK);
@@ -619,7 +619,7 @@ Build_File_List (LPCTSTR search_path, CStringList &file_list)
 	// Loop through all the files in this directory and add them
 	// to our list
 	//
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	WIN32_FIND_DATA find_info	= { 0 };
 
 	for (HANDLE hfind = ::FindFirstFile (search_path, &find_info);
@@ -750,7 +750,7 @@ Update_App_Directory
 	// Loop through all the files in this directory and add them
 	// to our list
 	//
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	WIN32_FIND_DATA find_info	= { 0 };
 	CStringList file_list;
 
@@ -816,7 +816,7 @@ Update_App_Directory
 			//
 			//	Copy the file
 			//
-			if (::Copy_File (src_file, dest_file, true) == FALSE) {
+			if (::Copy_File (src_file, dest_file, true) == false) {
 				CString message;
 				message.Format ("Cannot copy %s to %s.  Please make sure no applications are running before running the update.", src_file, dest_file);
 				::MessageBox (NULL, message, "Copy Error", MB_SETFOREGROUND | MB_TOPMOST | MB_ICONEXCLAMATION | MB_OK);

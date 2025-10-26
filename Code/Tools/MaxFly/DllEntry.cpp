@@ -33,7 +33,7 @@
 extern ClassDesc2* GetMaxFlyDesc();
 
 HINSTANCE hInstance;
-int controlsInit = FALSE;
+int controlsInit = false;
 
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
@@ -41,12 +41,12 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
 	hInstance = hinstDLL;				// Hang on to this DLL's instance handle.
 
 	if (!controlsInit) {
-		controlsInit = TRUE;
+		controlsInit = true;
 		InitCustomControls(hInstance);	// Initialize MAX's custom controls
 		InitCommonControls();			// Initialize Win95 controls
 	}
 			
-	return (TRUE);
+	return (true);
 }
 
 __declspec( dllexport ) const TCHAR* LibDescription()

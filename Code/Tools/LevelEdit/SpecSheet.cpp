@@ -496,7 +496,7 @@ SpecSheetClass::Set_Scroll_Pos (int new_pos)
 	//	Update the scroll bar
 	//
 	int sb_pos = ((m_ScrollPos * 100) / m_MaxScrollPos);
-	SendDlgItemMessage (878, SBM_SETPOS, (WPARAM)sb_pos, (LPARAM)TRUE);
+	SendDlgItemMessage (878, SBM_SETPOS, (WPARAM)sb_pos, (LPARAM)true);
 	return ;
 }
 
@@ -514,11 +514,11 @@ SpecSheetClass::OnSetCursor
 	UINT		message
 )
 {
-	BOOL retval = FALSE;
+	BOOL retval = false;
 
 	if (nHitTest == HTCLIENT) {
 		::SetCursor (::LoadCursor (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDC_OBJ_MOVE)));
-		//retval = TRUE;
+		//retval = true;
 	} else {
 		retval = CWnd::OnSetCursor (pWnd, nHitTest, message);
 	}
@@ -727,13 +727,13 @@ SpecSheetClass::Scroll_Controls (int amount)
 		client_rect.top = client_rect.bottom + amount;
 	}
 
-	InvalidateRect (client_rect, TRUE);
+	InvalidateRect (client_rect, true);
 	UpdateWindow ();
 	
 	/*CRect client_rect;
 	GetClientRect (&client_rect);
 	client_rect.right -= ::GetSystemMetrics (SM_CXVSCROLL);
-	InvalidateRect (client_rect, TRUE);
+	InvalidateRect (client_rect, true);
 	UpdateWindow ();*/
 	return ;
 }

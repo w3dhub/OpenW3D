@@ -123,7 +123,7 @@ RegisterColorPicker (HINSTANCE hinst)
 {
 	// Has the class already been registered?
 	WNDCLASS wndclass = { 0 };
-	if (::GetClassInfo (hinst, "WWCOLORPICKER", &wndclass) == FALSE) {
+	if (::GetClassInfo (hinst, "WWCOLORPICKER", &wndclass) == false) {
 		
 		wndclass.style = CS_GLOBALCLASS | CS_OWNDC | CS_VREDRAW | CS_HREDRAW;
 		wndclass.lpfnWndProc = fnColorPickerProc;
@@ -167,10 +167,10 @@ fnColorPickerProc
 
 				// Should we create a new class manager for this window?
 				ColorPickerClass *pwnd = (ColorPickerClass *)pcreate_info->lpCreateParams;
-				BOOL created = FALSE;
+				BOOL created = false;
 				if (pwnd == NULL) {
 					pwnd = new ColorPickerClass;
-					created = TRUE;
+					created = true;
 				}
 
 				// Pull some hacks to get MFC to use the message map
@@ -738,7 +738,7 @@ ColorPickerClass::OnSize
 BOOL
 ColorPickerClass::OnEraseBkgnd (CDC * /*pDC*/)
 {
-	return TRUE;
+	return true;
 }
 
 
@@ -965,7 +965,7 @@ ColorPickerClass::Select_Color (int red, int green, int blue)
 	m_CurrentColor = Color_From_Point (m_CurrentPoint.x, m_CurrentPoint.y);
 
 	// Refresh the window
-	InvalidateRect (NULL, FALSE);
+	InvalidateRect (NULL, false);
 	UpdateWindow ();
 	return ;
 }

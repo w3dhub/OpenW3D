@@ -1918,7 +1918,7 @@ bool INIClass::Put_Bool(char const * section, char const * entry, bool value)
  *    one is found, the value is interpreted as a boolean value and then returned. In the case *
  *    of no matching entry, the default value will be returned instead. The boolean value      *
  *    is interpreted using the standard boolean conventions. e.g., "Yes", "Y", "1", "True",    *
- *    "T" are all consider to be a TRUE boolean value.                                         *
+ *    "T" are all consider to be a true boolean value.                                         *
  *                                                                                             *
  * INPUT:   section  -- The section to search under.                                           *
  *                                                                                             *

@@ -140,8 +140,8 @@ BOOL SkyPropPageClass::OnInitDialog()
 	CloudGloominessCtrl.SetRange (0, CLOUD_SLIDER_RESOLUTION);
 	CloudGloominessCtrl.SetPos (WWMath::Float_To_Long (gloominess * CLOUD_SLIDER_RESOLUTION));
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 void SkyPropPageClass::OnSkyLightSun() 

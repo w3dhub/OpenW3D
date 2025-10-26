@@ -163,7 +163,7 @@ TileNodeClass::Initialize (void)
 				//	Configure the physics object
 				//
 				if (m_PhysObj != NULL) {
-					m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+					m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 					m_PhysObj->Set_Transform (m_Transform);
 					m_PhysObj->Set_Collision_Group (GAME_COLLISION_GROUP);
 					m_PhysObj->Set_ID (Get_ID ());

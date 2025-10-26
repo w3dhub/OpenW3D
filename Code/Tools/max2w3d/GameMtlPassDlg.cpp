@@ -94,7 +94,7 @@ static BOOL CALLBACK PassDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM l
 		SetWindowLong(hwndDlg, GWL_USERDATA,lParam);
 	} else {
 		if ((theDlg = (GameMtlPassDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return FALSE; 
+			return false; 
 		}
 	}
 	return theDlg->DialogProc(hwndDlg,msg,wParam,lParam);
@@ -223,7 +223,7 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 			// Get the display rectangle of the tab control
 			RECT rect;
 			::GetWindowRect(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB),&rect);
-			TabCtrl_AdjustRect(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB),FALSE, &rect);
+			TabCtrl_AdjustRect(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB),false, &rect);
   
 			// Convert the display rectangle from screen to client coords
 			ScreenToClient(HwndPanel,(POINT *)(&rect));
@@ -253,16 +253,16 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 		{
 #if defined W3D_GMAXDEV
 			if (!Valid) {
-				Valid = TRUE;
+				Valid = true;
 			}
 			ReloadDialog();
 #else
 			if (!Valid) {
-				Valid = TRUE;
+				Valid = true;
 				ReloadDialog();
 			}
 #endif
-			return FALSE;
+			return false;
 		}
 		
 		case WM_NOTIFY:{
@@ -280,9 +280,9 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 				}
 #if defined W3D_GMAXDEV
 				case PSN_RESET:{
-					SetWindowLong(hDlg,DWL_MSGRESULT,FALSE);
+					SetWindowLong(hDlg,DWL_MSGRESULT,false);
 					::SendMessage(hDlg, WM_USER+140,0,0);
-					return FALSE;
+					return false;
 				}
 				case PSN_SETACTIVE:{
 					GMaxMaterialDialog->SetCurrentPage(PassIndex+1);
@@ -293,7 +293,7 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 						ShowWindow(GetDlgItem(hDlg,IDC_NEXTSIBLING),SW_HIDE);
 						ShowWindow(GetDlgItem(hDlg,IDC_PREVIOUSSIBLING),SW_HIDE);
 					}
-					return TRUE;
+					return true;
 				}
 #endif
 			}
@@ -302,7 +302,7 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 #if defined W3D_GMAXDEV
 		case WM_USER+140:{
 			ShowWindow(HwndEdit, SW_HIDE);
-			return FALSE;
+			return false;
 		}
 		case WM_COMMAND:{
 			switch(LOWORD(wParam)){
@@ -339,7 +339,7 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 		}
 #endif
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -357,7 +357,7 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
  *=============================================================================================*/
 void GameMtlPassDlg::Invalidate()
 {
-	Valid = FALSE;
+	Valid = false;
 	InvalidateRect(HwndPanel,NULL,0);
 }
 

@@ -134,8 +134,8 @@ public:
           TCP(int newMode);
           TCP(int newMode,sint16 socket);
          ~TCP();
-  bit8    Bind(uint32 IP,uint16 port,bit8 reuseAddr=FALSE);
-  bit8    Bind(char *Host,uint16 port,bit8 reuseAddr=FALSE);
+  bit8    Bind(uint32 IP,uint16 port,bit8 reuseAddr=false);
+  bit8    Bind(char *Host,uint16 port,bit8 reuseAddr=false);
 
   sint32  GetMaxFD(void);
 
@@ -191,8 +191,8 @@ public:
   // default input = 5, output = 5
   // this is new and not used everywhere
   //
-  bit8    SetInputDelay(sint32 delay) { inputDelay=delay; return(TRUE); };
-  bit8    SetOutputDelay(sint32 delay) { outputDelay=delay; return(TRUE); };
+  bit8    SetInputDelay(sint32 delay) { inputDelay=delay; return(true); };
+  bit8    SetOutputDelay(sint32 delay) { outputDelay=delay; return(true); };
 
 };
 

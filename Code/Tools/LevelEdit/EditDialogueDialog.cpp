@@ -154,7 +154,7 @@ EditDialogueDialogClass::OnInitDialog (void)
 	//	Update the enabled state of some of the controls on the dialog
 	//
 	Update_Enabled_State ();
-	return TRUE;
+	return true;
 }
 
 

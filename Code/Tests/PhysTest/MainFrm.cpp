@@ -171,11 +171,11 @@ CMainFrame::~CMainFrame()
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWnd::PreCreateWindow(cs) )
-		return FALSE;
+		return false;
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return TRUE;
+	return true;
 }
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -314,18 +314,18 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	// Create the main splitter window for the application
 	BOOL ok = Splitter.CreateStatic (this, 1, 2);
 	ASSERT(ok);
-	if (!ok) return FALSE;
+	if (!ok) return false;
 
 	// Create the two views
 	ok &= Splitter.CreateView(0,0,RUNTIME_CLASS(CDataView),CSize(200,10),pContext);
 	ok &= Splitter.CreateView(0,1,RUNTIME_CLASS(CGraphicView),CSize(340,10),pContext);
 
 	ASSERT(ok);
-	if (!ok) return FALSE;
+	if (!ok) return false;
 
 	CGraphicView * view = (CGraphicView *)Splitter.GetPane(0, 1);
 	ASSERT(view != NULL);
-	if (view == NULL) return FALSE;
+	if (view == NULL) return false;
 
 	// Set the current directory to the application's run directory.
 	TCHAR szFileName[MAX_PATH];
@@ -340,7 +340,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	// Initialize WW3D using the window handle for the graphic view
 	ok = (WW3D::Init((HWND)*view) == WW3D_ERROR_OK);
 	ASSERT(ok);
-	if (!ok) return FALSE;
+	if (!ok) return false;
 
 #if 0
 	// Show a dialog to the user asking them which
@@ -360,7 +360,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	} else {
 
 		// Stop the application from running
-		return FALSE;
+		return false;
 
 	}
 #else
@@ -370,7 +370,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	// Register any needed loaders
 	WW3DAssetManager::Get_Instance()->Register_Prototype_Loader (&_ParticleEmitterLoader);
 
-	return TRUE;
+	return true;
 }
 
 void CMainFrame::OnActivateApp(BOOL bActive, HTASK hTask) 
@@ -383,7 +383,7 @@ void CMainFrame::OnActivateApp(BOOL bActive, HTASK hTask)
 	if (view) {
 		// Let the view know whether or not to actively update
 		// its display (animation, etc)
-		view->Set_Active(bActive == TRUE);
+		view->Set_Active(bActive == true);
 	}
 
 	// Allow the base class to process this message
@@ -707,7 +707,7 @@ void CMainFrame::OnImpulsePosz()
 
 void CMainFrame::OnViewImpulsetoolbar() 
 {
-	ShowControlBar(&m_wndImpulseToolBar,!m_wndImpulseToolBar.IsWindowVisible(),FALSE);
+	ShowControlBar(&m_wndImpulseToolBar,!m_wndImpulseToolBar.IsWindowVisible(),false);
 }
 
 void CMainFrame::OnUpdateViewImpulsetoolbar(CCmdUI* pCmdUI) 
@@ -828,9 +828,9 @@ void CMainFrame::OnUpdateDebugObject(CCmdUI* pCmdUI)
 {
 	PhysClass * obj = Peek_Selected_Object();
 	if (obj == NULL) {
-		pCmdUI->Enable(FALSE);
+		pCmdUI->Enable(false);
 	} else {
-		pCmdUI->Enable(TRUE);
+		pCmdUI->Enable(true);
 		pCmdUI->SetCheck(obj->Is_Debug_Display_Enabled());
 	}
 }
@@ -970,7 +970,7 @@ void CMainFrame::OnUpdateOptionsRenderDevice(CCmdUI* pCmdUI)
 void CMainFrame::OnFileImportModel() 
 {
  	// show the file open dialong
-	CFileDialog file_dialog(	TRUE,    // bOpenFileDialog, 
+	CFileDialog file_dialog(	true,    // bOpenFileDialog, 
 										".W3D",	// LPCTSTR lpszDefExt = NULL, 
 										NULL,    // LPCTSTR lpszFileName = NULL, 
 										OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
@@ -986,7 +986,7 @@ void CMainFrame::OnFileImportModel()
 void CMainFrame::OnFileImportLev() 
 {
  	// show the file open dialong
-	CFileDialog file_dialog(	TRUE,    // bOpenFileDialog, 
+	CFileDialog file_dialog(	true,    // bOpenFileDialog, 
 										".LEV",	// LPCTSTR lpszDefExt = NULL, 
 										NULL,    // LPCTSTR lpszFileName = NULL, 
 										OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,

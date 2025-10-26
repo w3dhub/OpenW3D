@@ -256,7 +256,7 @@ CLevelEditApp::InitInstance (void)
 
 	// Enable DDE Execute open
 	EnableShellOpen();
-	RegisterShellFileTypes(TRUE);
+	RegisterShellFileTypes(true);
 
 	// Parse command line for standard shell commands, DDE, file open
 	CCommandLineInfo cmdInfo;
@@ -264,7 +264,7 @@ CLevelEditApp::InitInstance (void)
 
 	// Dispatch commands specified on the command line
 	if (!ProcessShellCommand(cmdInfo))
-		return FALSE;
+		return false;
 
 	// The one and only window has been initialized, so show and update it.
 	m_pMainWnd->ShowWindow(SW_SHOW);
@@ -316,7 +316,7 @@ CLevelEditApp::InitInstance (void)
 		m_pMainWnd->PostMessage (WM_CLOSE);
 	}
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -478,7 +478,7 @@ CLevelEditApp::ExitInstance (void)
 void
 CLevelEditApp::OnFileOpen (void) 
 {
-	CFileDialog dialog (TRUE,
+	CFileDialog dialog (true,
 							  ".lvl",
 							  NULL,
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

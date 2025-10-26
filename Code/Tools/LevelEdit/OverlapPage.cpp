@@ -233,7 +233,7 @@ OverlapPageClass::OnInitDialog (void)
 	SetProp (m_hWnd, "TRANS_ACCS", (HANDLE)1);
 
 	Reset_Tree ();
-	return TRUE;
+	return true;
 }
 
 

@@ -109,7 +109,7 @@ EditConversationListDialogClass::OnInitDialog (void)
 		Add_Conversation (conversation);
 	}
 	
-	return TRUE;
+	return true;
 }
 
 

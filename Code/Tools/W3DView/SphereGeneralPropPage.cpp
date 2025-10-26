@@ -181,7 +181,7 @@ SphereGeneralPropPageClass::OnInitDialog (void)
 	// Initialize the lifetime control
 	//
 	::Initialize_Spinner (m_LifetimeSpin, m_Lifetime, 0, 1000);
-	return TRUE;
+	return true;
 }
 
 
@@ -210,7 +210,7 @@ SphereGeneralPropPageClass::OnApply (void)
 	}
 
 	// Check to make sure the user entered a valid name for the object
-	BOOL retval = FALSE;
+	BOOL retval = false;
 	if (m_Name.GetLength () == 0) {
 		::MessageBox (m_hWnd, "Invalid sphere name.  Please enter a new name.", "Invalid settings", MB_ICONEXCLAMATION | MB_OK);
 		m_bValid = false;
@@ -240,7 +240,7 @@ SphereGeneralPropPageClass::OnApply (void)
 		m_bValid = true;
 	}
 	
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return retval;
 }
 
@@ -253,7 +253,7 @@ SphereGeneralPropPageClass::OnApply (void)
 void
 SphereGeneralPropPageClass::OnBrowseButton (void) 
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".tga",
 								NULL,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

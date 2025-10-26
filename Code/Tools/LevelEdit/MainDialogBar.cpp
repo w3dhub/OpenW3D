@@ -96,7 +96,7 @@ END_MESSAGE_MAP()
 BOOL
 MainDialogBarClass::OnInitDialog (void) 
 {
-	return TRUE;
+	return true;
 }
 
 
@@ -126,7 +126,7 @@ MainDialogBarClass::OnSize
 		// Get the display rectangle of the tab control
 		CRect rect;
 		m_TabCtrl.GetWindowRect (&rect);
-		m_TabCtrl.AdjustRect (FALSE, &rect);
+		m_TabCtrl.AdjustRect (false, &rect);
 
 		// Convert the display rectangle from screen to client coords
 		ScreenToClient (&rect);
@@ -200,7 +200,7 @@ MainDialogBarClass::OnSelchangeLibraryTab
 void
 MainDialogBarClass::Initialize (void)
 {
-	UpdateData (FALSE);
+	UpdateData (false);
 	
 	char presets_string[] = "Presets";
 	TC_ITEM tab_info = { 0 };

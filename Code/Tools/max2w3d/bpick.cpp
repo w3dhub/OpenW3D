@@ -67,16 +67,16 @@ BOOL BonePickerClass::Filter(INode *node)
 	if (BoneList == NULL) {
 		ObjectState os  = node->EvalWorldState(0);
 		if (os.obj) {
-			return TRUE;
+			return true;
 		}
 
 	} else {
 		for (int i=0; i<BoneList->Count(); i++) {
-			if ((*BoneList)[i] == node) return TRUE;
+			if ((*BoneList)[i] == node) return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 /*********************************************************************************************** 
@@ -94,9 +94,9 @@ BOOL BonePickerClass::Filter(INode *node)
 BOOL BonePickerClass::HitTest(IObjParam *ip,HWND hwnd,ViewExp *vpt,IPoint2 m,int flags)
 {
 	if (ip->PickNode(hwnd,m,GetFilter())) {
-		return TRUE;
+		return true;
 	} else {
-		return FALSE;
+		return false;
 	}
 }
 
@@ -132,7 +132,7 @@ BOOL BonePickerClass::Pick(IObjParam *ip,ViewExp *vpt)
 
 	}
 
-	return TRUE;
+	return true;
 }
 
 BOOL BonePickerClass::filter(INode * inode)

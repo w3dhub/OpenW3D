@@ -115,7 +115,7 @@ void LogDataDialogClass::printf(char * text, const va_list & args)
 	HWND ctrlHwnd = GetDlgItem(Hwnd, IDC_ANIM_LOG_RICHEDIT);
 
 	SendMessage(ctrlHwnd, EM_SETSEL, -1, -1 );
-	SendMessage(ctrlHwnd, EM_REPLACESEL, FALSE, (long)string_buffer);
+	SendMessage(ctrlHwnd, EM_REPLACESEL, false, (long)string_buffer);
 
 	last_buffer_index = buffer_index;
 	buffer_index+=strlen(string_buffer);
@@ -159,7 +159,7 @@ void LogDataDialogClass::rprintf(char *text, const va_list & args)
 	HWND ctrlHwnd = GetDlgItem(Hwnd, IDC_ANIM_LOG_RICHEDIT);
 
 	SendMessage(ctrlHwnd, EM_SETSEL, last_buffer_index, buffer_index );
-	SendMessage(ctrlHwnd, EM_REPLACESEL, FALSE, (long)string_buffer);
+	SendMessage(ctrlHwnd, EM_REPLACESEL, false, (long)string_buffer);
 
 	buffer_index = strlen(string_buffer) + last_buffer_index;
 
@@ -211,7 +211,7 @@ void	LogDataDialogClass::updatebar(float position, float total)
  *=============================================================================================*/
 void LogDataDialogClass::Wait_OK()
 {
-	::EnableWindow(GetDlgItem(Hwnd,IDOK),TRUE);
+	::EnableWindow(GetDlgItem(Hwnd,IDOK),true);
 	::SetForegroundWindow(Hwnd);
 
 	while (status < 2) {
@@ -255,7 +255,7 @@ bool LogDataDialogClass::Dialog_Proc
 		case WM_INITDIALOG:
 
 			Dialog_Init();
-			return TRUE;
+			return true;
 
 
 		/*******************************************************************
@@ -273,14 +273,14 @@ bool LogDataDialogClass::Dialog_Proc
 
 					EndDialog(Hwnd, 1);
 					Hwnd = NULL;
-					return TRUE;
+					return true;
 					break;
 
 			}
 			break;
 
 		//case WM_VSCROLL:
-		//	return TRUE;
+		//	return true;
 		//	break;
 
 		case WM_CLOSE:
@@ -290,11 +290,11 @@ bool LogDataDialogClass::Dialog_Proc
 				Hwnd = NULL;
 			}
 				
-			return TRUE;
+			return true;
 			break;
 
 	}
-	return FALSE; 
+	return false; 
    
 }	// Dialog_Proc
 
@@ -320,7 +320,7 @@ void LogDataDialogClass::Dialog_Init()
 	//SetWindowPos(Hwnd, HWND_TOPMOST, cx, cy, 0, 0, SWP_NOSIZE);
 	SetWindowPos(Hwnd, HWND_TOP, cx, cy, 0, 0, SWP_NOSIZE);
  
-	EnableWindow(GetDlgItem(Hwnd,IDOK),FALSE);
+	EnableWindow(GetDlgItem(Hwnd,IDOK),false);
 
 	status = 1;	// signal init
 
@@ -364,7 +364,7 @@ BOOL CALLBACK _logdata_dialog_proc
 	if (log) {
 		return log->Dialog_Proc(hwnd,message,wParam,lParam);
 	} else {
-		return FALSE;
+		return false;
 	}
 
 } // _logdata_dialog_proc

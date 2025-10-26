@@ -277,7 +277,7 @@ int main(int argc, char *argv[])
 	bit8 ok = config.readFile(in);
 	fclose(in);
 
-	if (ok == FALSE)
+	if (ok == false)
 	{
 		MessageBoxA(NULL,"File 'launcher.cfg' is corrupt","Error",MB_OK);
 		exit(-1);
@@ -342,7 +342,7 @@ int main(int argc, char *argv[])
 	if (hasSecondEXE)
 	{
 		Wstring timeStr;
-		if (config.getString("FLAG", timeStr)!=FALSE)
+		if (config.getString("FLAG", timeStr)!=false)
 		{
 			cutoffTime = atoi(timeStr.get());
 		}

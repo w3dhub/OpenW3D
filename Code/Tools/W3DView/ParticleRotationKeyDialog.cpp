@@ -80,8 +80,8 @@ ParticleRotationKeyDialogClass::OnInitDialog()
 	
 	Initialize_Spinner (m_RotationSpin, m_Rotation, -10000, 10000);
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 /////////////////////////////////////////////////////////////////////////////

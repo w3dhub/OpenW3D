@@ -88,7 +88,7 @@ BOOL CMotorVehicleDialog::OnInitDialog()
 	float mt = EditedObject->Get_Max_Engine_Torque();
 	m_TorqueSpin.SetPos(mt * 100);
 	SetDlgItemFloat(IDC_MVEHICLE_TORQUE_EDIT,mt);
-	return TRUE;
+	return true;
 }
 
 BOOL CMotorVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 

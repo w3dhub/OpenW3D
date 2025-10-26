@@ -112,7 +112,7 @@ class CFancyToolbar : public CControlBar
         //
         //  State management routines
         //
-        void SetButtonState (int iCommandID, STATE_INFO newState, BOOL bRepaint = TRUE);
+        void SetButtonState (int iCommandID, STATE_INFO newState, BOOL bRepaint = true);
         STATE_INFO GetButtonState (int iCommandID) const;
 
     protected:

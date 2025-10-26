@@ -720,7 +720,7 @@ AggregateDefClass::Save_W3D (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies an aggregate
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE) == true) {
 		
 		// Attempt to save the different sections of the aggregate definition
 		if ((Save_Header (chunk_save) == WW3D_ERROR_OK) &&
@@ -751,7 +751,7 @@ AggregateDefClass::Save_Header (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the aggregate
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE_HEADER) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE_HEADER) == true) {
 		
 		// Fill the header structure
 		W3dAggregateHeaderStruct header = { 0 };
@@ -785,7 +785,7 @@ AggregateDefClass::Save_Info (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the aggregate settings
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE_INFO) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE_INFO) == true) {
 		
 		// Write the settings structure out to the chunk
 		if (chunk_save.Write (&m_Info, sizeof (m_Info)) == sizeof (m_Info)) {
@@ -848,7 +848,7 @@ AggregateDefClass::Save_Class_Info (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the texture replacer header
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE_CLASS_INFO) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_AGGREGATE_CLASS_INFO) == true) {
 		
 		// Write the class information structure out to the chunk
 		if (chunk_save.Write (&m_MiscInfo, sizeof (m_MiscInfo)) == sizeof (m_MiscInfo)) {

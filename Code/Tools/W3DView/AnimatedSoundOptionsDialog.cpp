@@ -79,7 +79,7 @@ END_MESSAGE_MAP()
 void
 AnimatedSoundOptionsDialogClass::OnSoundDefinitionLibraryBrowseButton (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".ddb",
 								"20480.ddb",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -105,7 +105,7 @@ AnimatedSoundOptionsDialogClass::OnSoundDefinitionLibraryBrowseButton (void)
 void
 AnimatedSoundOptionsDialogClass::OnSoundIniBrowseButton (void) 
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".ini",
 								"w3danimsound.ini",
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -176,7 +176,7 @@ AnimatedSoundOptionsDialogClass::OnInitDialog (void)
 	SetDlgItemText (IDC_SOUND_INI_EDIT, sound_ini_path);
 	SetDlgItemText (IDC_SOUND_FILE_PATH_EDIT, sound_data_path);	
 
-	return TRUE;
+	return true;
 }
 
 
@@ -236,7 +236,7 @@ AnimatedSoundOptionsDialogClass::Load_Animated_Sound_Settings (void)
 void
 AnimatedSoundOptionsDialogClass::OnSoundPathBrowseButton (void) 
 {
-	RestrictedFileDialogClass dialog (	TRUE,
+	RestrictedFileDialogClass dialog (	true,
 													".wav",
 													"test.wav",
 													OFN_HIDEREADONLY | OFN_EXPLORER,

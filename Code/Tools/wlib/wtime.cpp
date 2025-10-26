@@ -109,78 +109,78 @@ bit8 Wtime::ParseDate(char *in)
   struct tm t;
   char *ptr=in;
   while ((!isgraph(*ptr))&&(*ptr!=0)) ptr++;  // skip to start of string
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_wday=-1;
   for (i=0; i<7; i++)  // parse day of week
     if (strncmp(ptr,DAYS[i],strlen(DAYS[i]))==0)
       t.tm_wday=i;
   if (t.tm_wday==-1)
-    return(FALSE);
+    return(false);
   while ((!isdigit(*ptr))&&(*ptr!=0)) ptr++;  // skip to day of month
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_mday=atoi(ptr);
   while ((!isalpha(*ptr))&&(*ptr!=0)) ptr++;  // skip to month
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_mon=-1;
   for (i=0; i<12; i++)  // match month
     if (strncmp(ptr,MONTHS[i],strlen(MONTHS[i]))==0) t.tm_mon=i;
-  if (t.tm_mon==-1) return(FALSE);
+  if (t.tm_mon==-1) return(false);
   while ((!isdigit(*ptr))&&(*ptr!=0)) ptr++;
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_year=atoi(ptr);
   if (t.tm_year<70)  // if they specify a 2 digit year, we'll be nice
     t.tm_year+=2000;
   else if (t.tm_year<100)
     t.tm_year+=1900;
   if (t.tm_year>2200)  // I doubt my code will be around for another 203 years
-    return(FALSE);
+    return(false);
   while ((isdigit(*ptr))&&(*ptr!=0)) ptr++;  // skip to end of year
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
 
   while ((!isgraph(*ptr))&&(*ptr!=0)) ptr++;  // skip to start of time
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
 
   t.tm_hour=atoi(ptr);
   while ((*ptr!=':')&&(*ptr!=0)) ptr++;
   ptr++; // skip past colon
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_min=atoi(ptr);
   while ((*ptr!=':')&&(*ptr!=0)) ptr++;
   ptr++; // skip past colon
-  if (*ptr==0) return(FALSE);
+  if (*ptr==0) return(false);
   t.tm_sec=atoi(ptr);
   t.tm_year%=100;   // 1996 is stored as 96, not 1996
   t.tm_isdst=-1;    // daylight savings info isn't available
 
   sec=(uint32)(mktime(&t));
   if ((sint32)sec==-1)
-    return(FALSE);
+    return(false);
 
 
   // The next part of the time is OPTIONAL (+minutes)
 
   // first skip past the seconds 
   while ((isdigit(*ptr))&&(*ptr!=0)) ptr++;
-  if (*ptr==0) return(TRUE);
+  if (*ptr==0) return(true);
 
   // skip past any spaces 
   while ((isspace(*ptr))&&(*ptr!=0)) ptr++;
   if (*ptr!='+')
   {
     //printf("\nNOPE ptr was '%s'\n",ptr);
-    return(TRUE);
+    return(true);
   }
   ptr++;
   if (*ptr==0)
   {
     //printf("\nPTR WAS 0\n");
-    return(TRUE);
+    return(true);
   }
  
   minOffset=atol(ptr);
   //printf("\n\nAdding %d minutes!\n\n",minOffset);
   sec+=minOffset*60;  // add the minutes as seconds
-  return(TRUE);
+  return(true);
 }
 
 
@@ -378,7 +378,7 @@ bit8 Wtime::FormatTime(char *out, char *format)
       strcpy(ampm, " PM");
     sprintf(out+strlen(out), "%s", ampm);
   }
-  return(TRUE);
+  return(true);
 }
 
 
@@ -555,54 +555,54 @@ bit8 Wtime::operator == ( const Wtime &other ) const
 {
   bit8 retval=Compare(other);
   if (retval==0)
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Wtime::operator != ( const Wtime &other ) const
 {
   bit8 retval=Compare(other);
   if (retval==0)
-    return(FALSE);
+    return(false);
   else
-    return(TRUE);
+    return(true);
 }
 
 bit8 Wtime::operator < ( const Wtime &other ) const
 {
   int retval=Compare(other);
   if (retval==-1)
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Wtime::operator > ( const Wtime &other ) const
 {
   int retval=Compare(other);
   if (retval==1)
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Wtime::operator <= ( const Wtime &other ) const
 {
   int retval=Compare(other);
   if ((retval==-1)||(retval==0))
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 bit8 Wtime::operator >= ( const Wtime &other ) const
 {
   int retval=Compare(other);
   if ((retval==1)||(retval==0))
-    return(TRUE);
+    return(true);
   else
-    return(FALSE);
+    return(false);
 }
 
 

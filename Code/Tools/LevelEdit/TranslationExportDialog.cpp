@@ -83,7 +83,7 @@ TranslationExportDialogClass::OnInitDialog (void)
 	//	Select english by default
 	//
 	SendDlgItemMessage (IDC_LANG_COMBO, CB_SETCURSEL, TranslateDBClass::LANGID_ENGLISH);	
-	return TRUE;
+	return true;
 }
 
 

@@ -139,7 +139,7 @@ IncludeFilesDialogClass::OnInitDialog (void)
 	m_IncludesTreeCtrl.SortChildren (m_hGlobalFolder);
 	m_IncludesTreeCtrl.SortChildren (m_hLevelFolder);
 	m_IncludesTreeCtrl.SelectItem (m_hGlobalFolder);
-	return TRUE;
+	return true;
 }
 
 

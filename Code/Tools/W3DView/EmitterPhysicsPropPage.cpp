@@ -154,7 +154,7 @@ EmitterPhysicsPropPageClass::OnInitDialog (void)
 	::Initialize_Spinner (m_AccelXSpin, m_Acceleration.X, -10000, 10000);
 	::Initialize_Spinner (m_AccelYSpin, m_Acceleration.Y, -10000, 10000);
 	::Initialize_Spinner (m_AccelZSpin, m_Acceleration.Z, -10000, 10000);		
-	return TRUE;
+	return true;
 }
 
 

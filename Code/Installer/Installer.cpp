@@ -937,7 +937,7 @@ void InstallerClass::Auto_Configure()
 							 "WWConfig.exe -autoconfig",	// Address of command line
 							 NULL,								// Address of process security attributes
 							 NULL,								// Address of thread security attributes
-							 FALSE,								// Does new process inherit handles?
+							 false,								// Does new process inherit handles?
 							 0,									// Creation flags
 							 NULL,								// Address of new environment block
 							 NULL,								// Address of current directory name
@@ -1991,7 +1991,7 @@ bool InstallerClass::Create_File_Link (const WideStringClass &linkpath, const Wi
 			if (psl->SetShowCmd (SW_NORMAL) != NOERROR) throw (IDS_COM_ERROR);
 			if (psl->SetHotkey (0) != NOERROR) throw (IDS_COM_ERROR);
 			if (psl->QueryInterface (IID_IPersistFile, (void**) &ppf) == S_OK) {
-				success = ppf->Save (linkpathname, TRUE) == S_OK;
+				success = ppf->Save (linkpathname, true) == S_OK;
 				ppf->Release();
 			}
 
@@ -2047,7 +2047,7 @@ bool InstallerClass::Create_URL_Link (const WideStringClass &linkpath, const Wid
 		if (success) {
 			success = purl->QueryInterface (IID_IPersistFile, (void**) &ppf) == S_OK;
 			if (success) {
-				success = ppf->Save (linkpathname, TRUE) == S_OK;
+				success = ppf->Save (linkpathname, true) == S_OK;
 				ppf->Release();
 			}
 		}
@@ -2551,7 +2551,7 @@ void InstallerClass::Run_Game()
 							  NULL,																// Address of command line
 							  NULL,																// Address of process security attributes
 							  NULL,																// Address of thread security attributes
-							  FALSE,																// Does new process inherit handles?
+							  false,																// Does new process inherit handles?
 							  CREATE_NEW_PROCESS_GROUP | NORMAL_PRIORITY_CLASS,	// Creation flags
 							  NULL,																// Address of new environment block
 							  multibytetargetgamepath.Peek_Buffer(),					// Address of current directory name
@@ -2616,7 +2616,7 @@ void InstallerClass::Display_Readme()
 										 multibytecommandline.Peek_Buffer(), 					// Address of command line               
 										 NULL,															// Address of process security attributes
 										 NULL,															// Address of thread security attributes
-										 FALSE,															// Does new process inherit handles?
+										 false,															// Does new process inherit handles?
 										 CREATE_NEW_PROCESS_GROUP | NORMAL_PRIORITY_CLASS, // Creation flags
 										 NULL,															// Address of new environment block
 										 NULL,															// Address of current directory name
@@ -2643,7 +2643,7 @@ void InstallerClass::Display_Readme()
 										 multibytecommandline.Peek_Buffer(),					// Address of command line
 										 NULL,															// Address of process security attributes
 										 NULL,															// Address of thread security attributes
-										 FALSE,															// Does new process inherit handles?
+										 false,															// Does new process inherit handles?
 										 CREATE_NEW_PROCESS_GROUP | NORMAL_PRIORITY_CLASS, // Creation flags
 										 NULL,															// Address of new environment block
 										 NULL,															// Address of current directory name

@@ -302,7 +302,7 @@ MainMenuDialogClass::Choose_Skirmish_Map (void)
 {
 	DynamicVectorClass<StringClass>	map_list;
 	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
 	StringClass file_filter;
 
@@ -310,7 +310,7 @@ MainMenuDialogClass::Choose_Skirmish_Map (void)
 	// Look for any skirmish maps.
 	//
 	file_filter.Format("data\\skirmish*.mix");
-	keep_going = TRUE;
+	keep_going = true;
 	for (file_find = ::FindFirstFileA (file_filter, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFileA (file_find, &find_info))
@@ -327,7 +327,7 @@ MainMenuDialogClass::Choose_Skirmish_Map (void)
 		// No skirmish maps found. Look for a C&C map.
 		//
 		file_filter.Format("data\\c&c_*.mix");
-		keep_going = TRUE;
+		keep_going = true;
 		for (file_find = ::FindFirstFileA (file_filter, &find_info);
 			 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 			  keep_going = ::FindNextFileA (file_find, &find_info))

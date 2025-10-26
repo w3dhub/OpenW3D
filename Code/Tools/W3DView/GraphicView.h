@@ -151,7 +151,7 @@ protected:
 		  void			Load_Default_Dat (void);
 
         void			UpdateDisplay (void);
-        void			RepaintView (BOOL bUpdateAnimation = TRUE, DWORD ticks_to_use = 0);
+        void			RepaintView (BOOL bUpdateAnimation = true, DWORD ticks_to_use = 0);
         void			SetActiveUpdate (BOOL bActive)
 								{ m_bActive = bActive;
 								  if (!m_bActive) { ::SetProp (m_hWnd, "Inactive", (HANDLE)1); }

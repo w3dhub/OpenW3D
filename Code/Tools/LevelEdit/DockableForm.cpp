@@ -83,12 +83,12 @@ DockableFormClass::Create
 	}
 	cs.style = dwRequestedStyle;
 	if (!PreCreateWindow(cs)) {
-		return FALSE;
+		return false;
 	}
 
 	// create a modeless dialog
 	if (!CreateDlg(MAKEINTRESOURCE (m_uiTemplateID), pParentWnd)) {
-		return FALSE;
+		return false;
 	}
 
 	ExecuteDlgInit(MAKEINTRESOURCE (m_uiTemplateID));
@@ -111,9 +111,9 @@ DockableFormClass::Create
 	}
 
 	// To support dynamic data exchange...
-	UpdateData (FALSE);
+	UpdateData (false);
 	HandleInitDialog ();
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////

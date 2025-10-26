@@ -150,7 +150,7 @@ SelectPresetDialogClass::OnInitDialog (void)
 	}
 
 
-	return TRUE;
+	return true;
 }
 
 

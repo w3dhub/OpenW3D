@@ -74,7 +74,7 @@ class SkinDataClass : public LocalModData
 
 public:
 
-	SkinDataClass(void) { Held = FALSE; Valid = FALSE; }
+	SkinDataClass(void) { Held = false; Valid = false; }
 
 	SkinDataClass(Mesh *mesh)
 	{
@@ -85,11 +85,11 @@ public:
 			VertData[i].BoneWeight[0] = 1.0f;
 			VertData[i].BoneWeight[1] = 0.0f;
 		}
-		Valid = TRUE;
-		Held = FALSE;
+		Valid = true;
+		Held = false;
 	}
 
-	void Invalidate() { Valid = FALSE; }
+	void Invalidate() { Valid = false; }
 
 	BOOL IsValid() { return Valid; }
 
@@ -99,7 +99,7 @@ public:
 		{
 			VertSel.SetSize(mesh->vertSel.GetSize(),1);
 			VertData.SetCount(mesh->getNumVerts());
-			Valid = TRUE;
+			Valid = true;
 		}
 	}
 

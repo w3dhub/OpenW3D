@@ -223,7 +223,7 @@ CRangeDialog::OnInitDialog (void)
 	SetDlgItemFloat (m_hWnd, IDC_MAX_X, range_max.X);
 	SetDlgItemFloat (m_hWnd, IDC_MAX_Y, range_max.Y);
 	
-	return TRUE;
+	return true;
 }
 
 
@@ -245,7 +245,7 @@ CRangeDialog::OnOK (void)
 	
 	CSimpleGraphView *view = (CSimpleGraphView *)((CMainFrame *)::AfxGetMainWnd ())->GetActiveView ();
 	view->Set_Ranges (range_min, range_max);
-	view->InvalidateRect (NULL, TRUE);
+	view->InvalidateRect (NULL, true);
 	view->UpdateWindow ();
 
 

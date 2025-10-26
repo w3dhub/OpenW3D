@@ -907,7 +907,7 @@ void BandwidthDetectWait::WaitBeginning(void)
 {
 	WWDEBUG_SAY(("BandwidthDetectWait: Beginning\n"));
 
-	mEvent = CreateEventA(NULL, TRUE, FALSE, NULL);
+	mEvent = CreateEventA(NULL, true, false, NULL);
 
 	if (mEvent == NULL) {
 		WWDEBUG_SAY(("BandwidthDetectWait: Can't create event\n"));

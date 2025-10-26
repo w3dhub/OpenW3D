@@ -47,7 +47,7 @@
 #include	"buff.h"
 #include	<stddef.h>
 
-#define LZW_SUPPORTED			FALSE
+#define LZW_SUPPORTED			false
 
 /*=========================================================================*/
 /* Iff and Load Picture system defines and enumerations							*/

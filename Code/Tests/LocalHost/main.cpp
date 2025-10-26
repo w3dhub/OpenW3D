@@ -49,7 +49,7 @@ void main(void)
 	}
 	assert(sock != INVALID_SOCKET);
    
-	ULONG is_nonblocking = TRUE;
+	ULONG is_nonblocking = true;
    int rc_ioctl = ::ioctlsocket(sock, FIONBIO, &is_nonblocking);
    assert(rc_ioctl == 0);
 	

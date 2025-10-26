@@ -141,7 +141,7 @@ class GridSnapModifierClassDesc:public ClassDesc2
 {
 public:
 	int 				IsPublic()											{ return 1; }
-	void *			Create(BOOL loading = FALSE)					{ return new GridSnapModifierClass; }
+	void *			Create(BOOL loading = false)					{ return new GridSnapModifierClass; }
 	const TCHAR *	ClassName()											{ return _T("Grid Snap Modifier"); }
 	SClass_ID		SuperClassID()										{ return OSM_CLASS_ID; }
 	Class_ID			ClassID()											{ return GRIDSNAPMOD_CLASSID; }

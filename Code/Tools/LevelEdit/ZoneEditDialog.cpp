@@ -191,8 +191,8 @@ ZoneEditDialogClass::OnInitDialog (void)
 	//
 	//	Select the default UI
 	//
-	SendDlgItemMessage (IDC_TOP, BM_SETCHECK, (WPARAM)TRUE);
-	SendDlgItemMessage (IDC_EDIT_ZONE, BM_SETCHECK, (WPARAM)TRUE);	
+	SendDlgItemMessage (IDC_TOP, BM_SETCHECK, (WPARAM)true);
+	SendDlgItemMessage (IDC_EDIT_ZONE, BM_SETCHECK, (WPARAM)true);	
 	OnTop ();
 	OnEditZone ();
 	Update_Status ();
@@ -219,7 +219,7 @@ ZoneEditDialogClass::OnInitDialog (void)
 											TIME_PERIODIC);	
 		
 	m_Initialized = true;
-	return TRUE;
+	return true;
 }
 
 
@@ -317,7 +317,7 @@ ZoneEditDialogClass::Render_View (void)
 		//	Render the scene
 		//
 		WW3D::Begin_Render (true, true, Vector3 (0.4F, 0.4F, 0.4F));
-		WW3D::Render (m_Scene, m_Camera, FALSE, FALSE);
+		WW3D::Render (m_Scene, m_Camera, false, false);
 		WW3D::End_Render ();
 
 		//
@@ -994,8 +994,8 @@ ZoneEditDialogClass::OnSizeZone (void)
 void
 ZoneEditDialogClass::OnLastFrame (void) 
 {
-	SendDlgItemMessage (IDC_FIRST_FRAME, BM_SETCHECK, (WPARAM)FALSE);
-	SendDlgItemMessage (IDC_LAST_FRAME, BM_SETCHECK, (WPARAM)TRUE);
+	SendDlgItemMessage (IDC_FIRST_FRAME, BM_SETCHECK, (WPARAM)false);
+	SendDlgItemMessage (IDC_LAST_FRAME, BM_SETCHECK, (WPARAM)true);
 
 	if (m_PhysObj == NULL) {
 		return ;
@@ -1029,8 +1029,8 @@ ZoneEditDialogClass::OnLastFrame (void)
 void
 ZoneEditDialogClass::OnFirstFrame (void)
 {
-	SendDlgItemMessage (IDC_FIRST_FRAME, BM_SETCHECK, (WPARAM)TRUE);
-	SendDlgItemMessage (IDC_LAST_FRAME, BM_SETCHECK, (WPARAM)FALSE);
+	SendDlgItemMessage (IDC_FIRST_FRAME, BM_SETCHECK, (WPARAM)true);
+	SendDlgItemMessage (IDC_LAST_FRAME, BM_SETCHECK, (WPARAM)false);
 
 	if (m_PhysObj == NULL) {
 		return ;

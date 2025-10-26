@@ -1016,7 +1016,7 @@ Browse_For_Folder
 		
 		// Convert the 'PIDL' into a string
 		char path[MAX_PATH];
-		retval = (::SHGetPathFromIDList (pidl, path) == TRUE);
+		retval = (::SHGetPathFromIDList (pidl, path) == true);
 		if (retval) {
 			folder = path;
 		}
@@ -1204,7 +1204,7 @@ Create_UI_Thread
 	pthread_params->dwparam3 = dwparam3;
 	pthread_params->presult = presult;
 	pthread_params->phmain_wnd = phmain_wnd;;
-	pthread_params->hevent = ::CreateEvent (NULL, FALSE, FALSE, NULL);
+	pthread_params->hevent = ::CreateEvent (NULL, false, false, NULL);
 
 	// Kick off our own thread proc
 	::AfxBeginThread (fnUIThread, (LPVOID)pthread_params);	
@@ -1212,7 +1212,7 @@ Create_UI_Thread
 	// Now pump messages until the thread has initialized
 	while (::MsgWaitForMultipleObjects (1,
 												  &(pthread_params->hevent),
-												  FALSE,
+												  false,
 												  INFINITE,
 												  QS_ALLINPUT | QS_ALLEVENTS | QS_ALLPOSTMESSAGE) != WAIT_OBJECT_0) {
 		
@@ -1587,7 +1587,7 @@ Copy_File
 
 		// Perform the copy operation!
 		if (allow_copy) {
-			retval = (::CopyFile (existing_filename, new_filename, FALSE) == TRUE);
+			retval = (::CopyFile (existing_filename, new_filename, false) == true);
 		}
 	}
 
@@ -1685,7 +1685,7 @@ Get_File_Time
 	if (hfile != INVALID_HANDLE_VALUE) {
 
 		// Get the mod times for this file
-		retval = (::GetFileTime (hfile, pcreation_time, paccess_time, pwrite_time) == TRUE);
+		retval = (::GetFileTime (hfile, pcreation_time, paccess_time, pwrite_time) == true);
 
 		// Close the file
 		SAFE_CLOSE (hfile);

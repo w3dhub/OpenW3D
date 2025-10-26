@@ -614,17 +614,17 @@ LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 		case WM_INITDIALOG:
-				return TRUE;
+				return true;
 
 		case WM_COMMAND:
 			if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL) 
 			{
 				EndDialog(hDlg, LOWORD(wParam));
-				return TRUE;
+				return true;
 			}
 			break;		
 	}
-    return FALSE;
+    return false;
 }
 
 

@@ -189,7 +189,7 @@ EditorPropSheetClass::OnSize
 		// Get the display rectangle of the tab control
 		CRect rect;
 		m_TabCtrl.GetWindowRect (&rect);
-		m_TabCtrl.AdjustRect (FALSE, &rect);
+		m_TabCtrl.AdjustRect (false, &rect);
 
 		// Convert the display rectangle from screen to client coords
 		ScreenToClient (&rect);
@@ -310,14 +310,14 @@ EditorPropSheetClass::OnInitDialog (void)
 
 		// Get the display rectangle of the tab control
 		CRect rect (0, 0, cx, cy);
-		m_TabCtrl.AdjustRect (TRUE, &rect);
+		m_TabCtrl.AdjustRect (true, &rect);
 
 		CRect button_rect;
 		::GetWindowRect (::GetDlgItem (m_hWnd, IDCANCEL), &button_rect);
 		ScreenToClient (&button_rect);		
 
 		// Find a rectangle large enough to hold the tab control
-		::AdjustWindowRectEx (&rect, ::GetWindowLong (m_hWnd, GWL_STYLE), FALSE, ::GetWindowLong (m_hWnd, GWL_EXSTYLE));
+		::AdjustWindowRectEx (&rect, ::GetWindowLong (m_hWnd, GWL_STYLE), false, ::GetWindowLong (m_hWnd, GWL_EXSTYLE));
 		rect.bottom += button_rect.Height () + BORDER_BUTTON_Y;
 		rect.InflateRect (BORDER_TAB_X, BORDER_TAB_Y);
 
@@ -330,7 +330,7 @@ EditorPropSheetClass::OnInitDialog (void)
 		SetDlgItemText (IDCANCEL, "Close");
 	}
 	
-	return FALSE;
+	return false;
 }
 
 
@@ -349,7 +349,7 @@ EditorPropSheetClass::OnCommand
 	// Did the user hit the enter button?
 	if (LOWORD (wParam) == IDOK) {
 		m_TabList[m_iCurrentTab]->SendMessage (WM_COMMAND, wParam, lParam);
-		return TRUE;
+		return true;
 	}
 	
 	// Allow the base class to process this message

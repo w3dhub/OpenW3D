@@ -2285,7 +2285,7 @@ void ChunkData::Add_Chunk(ChunkLoadClass & cload, ChunkItem *Parent)
 			char * data = (char *)item->Data;
 			
 			CString value;
-			if(existing.Lookup(data, value) == FALSE) {
+			if(existing.Lookup(data, value) == false) {
 
 				existing.SetAt(data, data);
 

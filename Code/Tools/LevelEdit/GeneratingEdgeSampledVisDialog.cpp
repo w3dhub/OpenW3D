@@ -153,7 +153,7 @@ GeneratingEdgeSampledVisDialogClass::OnInitDialog (void)
 	//
 	m_StartTime = ::GetTickCount ();
 	Update_Stats ();
-	return TRUE;
+	return true;
 }
 
 

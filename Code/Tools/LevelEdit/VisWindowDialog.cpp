@@ -134,8 +134,8 @@ BOOL VisWindowDialogClass::OnInitDialog()
 		TRACE("Error in creating ToolTip");
 	}
  	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 
@@ -256,7 +256,7 @@ VisWindowDialogClass::Create_DIB_Section (int width, int height)
 	//
 	RECT rect	= { 0, 0, width * 2, height * 2 };
 	LONG style	= ::GetWindowLong (m_hWnd, GWL_STYLE);
-	::AdjustWindowRect (&rect, style, FALSE);
+	::AdjustWindowRect (&rect, style, false);
 
 	//
 	//	Resize the window
@@ -476,11 +476,11 @@ void VisWindowDialogClass::OnMouseMove(UINT nFlags, CPoint point)
 
 		if ((vis_id == -1) || (vis_id != CurToolTipVisId)) {
 			// Use Activate() to hide the tooltip.
-			ToolTip.Activate(FALSE);        
+			ToolTip.Activate(false);        
 		}
 
 		if (vis_id != -1) {
-			ToolTip.Activate(TRUE);
+			ToolTip.Activate(true);
 
 			if (vis_id == BACKFACE_VIS_ID) {
 

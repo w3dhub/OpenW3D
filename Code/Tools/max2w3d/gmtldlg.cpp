@@ -107,9 +107,9 @@ GameMtlDlg::GameMtlDlg(HWND hwMtlEdit, IMtlParams *imp, GameMtl *m)
 	
 	TheMtl = m; 
 	IParams = imp;
-	Valid = FALSE;
+	Valid = false;
 	IsActive = 0;
-	InstCopy = FALSE;
+	InstCopy = false;
 	
 	DiffuseSwatch = NULL;
 	SpecularSwatch = NULL;
@@ -241,7 +241,7 @@ Class_ID GameMtlDlg::ClassID()
  *=============================================================================================*/
 void GameMtlDlg::Invalidate()
 {
-	Valid = FALSE;
+	Valid = false;
 	InvalidateRect(HwndPanel,NULL,0);
 	InvalidateRect(HwndPsx,NULL,0);
 	InvalidateRect(HwndHints,NULL,0);
@@ -264,7 +264,7 @@ void GameMtlDlg::ReloadDialog()
 {
 	Interval v;
 	TheMtl->Update(IParams->GetTime(),v);
-	LoadDialog(FALSE);
+	LoadDialog(false);
 }
 
 /*********************************************************************************************** 
@@ -285,7 +285,7 @@ void GameMtlDlg::SetTime(TimeValue t)
 		CurTime = t;
 		Interval v;
 		TheMtl->Update(IParams->GetTime(),v);
-		LoadDialog(TRUE);
+		LoadDialog(true);
 	}
 }
 
@@ -358,7 +358,7 @@ BOOL GameMtlDlg::PanelProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam 
 				SetWindowLongPtr( hw, GWLP_USERDATA, (LONG_PTR)oldp);
 				*/
 
-				return TRUE;
+				return true;
 			}
 			break;
 
@@ -516,7 +516,7 @@ BOOL GameMtlDlg::PanelProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam 
 			{
 				IParams->RollupMouseMessage(hwndDlg,msg,wParam,lParam);
 			}
-			return FALSE;
+			return false;
 
 		case CC_SPINNER_CHANGE:    
 			{
@@ -551,11 +551,11 @@ BOOL GameMtlDlg::PanelProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam 
 		case WM_PAINT: 
 			{
 				if (!Valid) {
-					Valid = TRUE;
+					Valid = true;
 					ReloadDialog();
 				}
 			}
-			return FALSE;
+			return false;
 
 		case WM_CLOSE:
 			break;       
@@ -598,7 +598,7 @@ BOOL GameMtlDlg::PanelProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam 
 
   	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -624,7 +624,7 @@ static BOOL CALLBACK PanelDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM 
 		SetWindowLong(hwndDlg, GWL_USERDATA,lParam);
 	} else {
 		if ((theDlg = (GameMtlDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return FALSE; 
+			return false; 
 		}
 	}
 
@@ -659,7 +659,7 @@ BOOL GameMtlDlg::NotesProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_MOUSEMOVE:
 		{
 			IParams->RollupMouseMessage(hwndDlg,msg,wParam,lParam);
-			return FALSE;
+			return false;
 		}
   	
 		case WM_COMMAND: 
@@ -669,7 +669,7 @@ BOOL GameMtlDlg::NotesProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -695,7 +695,7 @@ static BOOL CALLBACK NotesDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM 
 		SetWindowLong(hwndDlg, GWL_USERDATA,lParam);
 	} else {
 		if ((theDlg = (GameMtlDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return FALSE; 
+			return false; 
 		}
 	}
 
@@ -732,7 +732,7 @@ BOOL GameMtlDlg::HintsProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_MOUSEMOVE:
 		{
 			IParams->RollupMouseMessage(hwndDlg,msg,wParam,lParam);
-			return FALSE;
+			return false;
 		}
 
 		case WM_COMMAND: 
@@ -762,7 +762,7 @@ BOOL GameMtlDlg::HintsProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -788,7 +788,7 @@ static BOOL CALLBACK HintsDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM 
 		SetWindowLong(hwndDlg, GWL_USERDATA,lParam);
 	} else {
 		if ((theDlg = (GameMtlDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return FALSE; 
+			return false; 
 		}
 	}
 
@@ -824,7 +824,7 @@ BOOL GameMtlDlg::PsxProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 		case WM_MOUSEMOVE:
 		{
 			IParams->RollupMouseMessage(hwndDlg,msg,wParam,lParam);
-			return FALSE;
+			return false;
 		}
 
 		case WM_COMMAND: 
@@ -858,7 +858,7 @@ BOOL GameMtlDlg::PsxProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -884,7 +884,7 @@ static BOOL CALLBACK PsxDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lP
 		SetWindowLong(hwndDlg, GWL_USERDATA,lParam);
 	} else {
 		if ((theDlg = (GameMtlDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return FALSE; 
+			return false; 
 		}
 	}
 
@@ -964,23 +964,23 @@ void  GameMtlDlg::LoadDialog(BOOL draw)
 		/*
 		** Texture animation parameters
 		*/
-		DCTFramesSpin->SetValue(TheMtl->DCTFrames,FALSE);
-		DITFramesSpin->SetValue(TheMtl->DITFrames,FALSE);
-		SCTFramesSpin->SetValue(TheMtl->SCTFrames,FALSE);
-		SITFramesSpin->SetValue(TheMtl->SITFrames,FALSE);
+		DCTFramesSpin->SetValue(TheMtl->DCTFrames,false);
+		DITFramesSpin->SetValue(TheMtl->DITFrames,false);
+		SCTFramesSpin->SetValue(TheMtl->SCTFrames,false);
+		SITFramesSpin->SetValue(TheMtl->SITFrames,false);
 
-		DCTRateSpin->SetValue(TheMtl->DCTFrameRate,FALSE);
-		DITRateSpin->SetValue(TheMtl->DITFrameRate,FALSE);
-		SCTRateSpin->SetValue(TheMtl->SCTFrameRate,FALSE);
-		SITRateSpin->SetValue(TheMtl->SITFrameRate,FALSE);
+		DCTRateSpin->SetValue(TheMtl->DCTFrameRate,false);
+		DITRateSpin->SetValue(TheMtl->DITFrameRate,false);
+		SCTRateSpin->SetValue(TheMtl->SCTFrameRate,false);
+		SITRateSpin->SetValue(TheMtl->SITFrameRate,false);
 
 		/*
 		** Opacity, translucency, etc
 		*/
-		OpacitySpin->SetValue(TheMtl->Opacity,FALSE);
-		TranslucencySpin->SetValue(TheMtl->Translucency,FALSE);
-		ShininessSpin->SetValue(TheMtl->Shininess,FALSE);
-		FogSpin->SetValue(TheMtl->FogCoeff,FALSE);
+		OpacitySpin->SetValue(TheMtl->Opacity,false);
+		TranslucencySpin->SetValue(TheMtl->Translucency,false);
+		ShininessSpin->SetValue(TheMtl->Shininess,false);
+		FogSpin->SetValue(TheMtl->FogCoeff,false);
 
 		/*
 		** Init the Psx flags state
@@ -1109,7 +1109,7 @@ void GameMtlDlg::SetThing(ReferenceTarget *m)
 		TheMtl->ParamPanel = this;
 	}
 
-	LoadDialog(TRUE);
+	LoadDialog(true);
 
 	if (HwndPanel && DiffuseSwatch) {
 		DiffuseSwatch->InitColor(TheMtl->GetDiffuse());
@@ -1146,7 +1146,7 @@ void GameMtlDlg::SetThing(ReferenceTarget *m)
 void GameMtlDlg::BuildDialog() 
 {
 	if ((TheMtl->Flags&(GAMEMTL_ROLLUP_FLAGS))==0) { 
-		TheMtl->SetFlag(GAMEMTL_ROLLUP1_OPEN,TRUE);
+		TheMtl->SetFlag(GAMEMTL_ROLLUP1_OPEN,true);
 	}
 
 	HwndPanel = IParams->AddRollupPage( 

@@ -94,8 +94,8 @@ CWWConfigDlg::OnInitDialog (void)
 
 	// Set the icon for this dialog.  The framework does this automatically
 	//  when the application's main window is not a dialog
-	SetIcon (m_hIcon, TRUE);
-	SetIcon (m_hIcon, FALSE);
+	SetIcon (m_hIcon, true);
+	SetIcon (m_hIcon, false);
 
 	//
 	// Set Title of Dialog.
@@ -146,7 +146,7 @@ CWWConfigDlg::OnInitDialog (void)
 	//
 	CRect tab_rect;
 	m_TabCtrl.GetWindowRect (&tab_rect);
-	m_TabCtrl.AdjustRect (FALSE, &tab_rect);
+	m_TabCtrl.AdjustRect (false, &tab_rect);
 	ScreenToClient (&tab_rect);
 
 	VideoConfigDialogClass			*video_page = new VideoConfigDialogClass (this);
@@ -165,7 +165,7 @@ CWWConfigDlg::OnInitDialog (void)
 	//	Display the first category page
 	//
 	ConfigPages[0]->ShowWindow( SW_SHOW );
-	return TRUE;
+	return true;
 }
 
 

@@ -59,7 +59,7 @@ public:
 	float			Amount;
 	Texmap *		Map;
 
-	TexmapSlotClass() : MapOn(FALSE), Amount(1.0f), Map(NULL) {};
+	TexmapSlotClass() : MapOn(false), Amount(1.0f), Map(NULL) {};
 
 	RGBA		Eval(ShadeContext& sc)						{ return Map->EvalColor(sc); 	}
 	float		EvalMono(ShadeContext& sc) 				{ return Map->EvalMono(sc); }

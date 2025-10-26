@@ -117,7 +117,7 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 			point.Y = ((float)y - cy) / ey;
 			
 			::SendMessage(GetParent(hwnd),JOYSTICK_UPDATE_COMMAND,GetWindowLong(hwnd,GWL_ID),(long)&point);
-			::InvalidateRect(hwnd,NULL,FALSE);
+			::InvalidateRect(hwnd,NULL,false);
 			::UpdateWindow(hwnd);
 
 			SetProp(hwnd,"XCOORD",(HANDLE)x);
@@ -186,7 +186,7 @@ BOOL CVJoyDialog::OnInitDialog()
 	m_MoveZSlider.SetRange(0,SLIDER_RESOLUTION);
 	m_TurnZSlider.SetRange(0,SLIDER_RESOLUTION);
 
-	return TRUE;
+	return true;
 }
 
 

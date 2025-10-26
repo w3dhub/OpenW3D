@@ -124,7 +124,7 @@ CameraSettingsDialogClass::OnInitDialog (void)
 
 	OnFovCheck ();
 	OnClipPlaneCheck ();
-	return TRUE;
+	return true;
 }
 
 

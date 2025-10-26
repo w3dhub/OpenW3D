@@ -124,7 +124,7 @@ PresetExportOptionsDialogClass::Real_Message_Proc
 	//
 	//	Allow the instance to handle the call
 	//
-	BOOL retval = FALSE;
+	BOOL retval = false;
 	if (dialog_obj != NULL) {
 		retval = dialog_obj->Message_Proc (message, wparam, lparam);
 	}
@@ -170,7 +170,7 @@ PresetExportOptionsDialogClass::Settings_Pane_Message_Proc
 	//
 	//	Allow the instance to handle the call
 	//
-	BOOL retval = FALSE;
+	BOOL retval = false;
 	if (dialog_obj != NULL) {
 		retval = dialog_obj->Pane_Message_Proc (message, wparam, lparam);
 	}
@@ -199,7 +199,7 @@ PresetExportOptionsDialogClass::Pane_Message_Proc
 	LPARAM	lparam
 )
 {
-	BOOL retval = FALSE;
+	BOOL retval = false;
 
 	switch (message)
 	{
@@ -387,7 +387,7 @@ PresetExportOptionsDialogClass::Message_Proc
 	LPARAM	lparam
 )
 {
-	BOOL retval = FALSE;
+	BOOL retval = false;
 
 	switch (message)
 	{
@@ -414,7 +414,7 @@ PresetExportOptionsDialogClass::Message_Proc
 			Initialize_Controls ();
 			Update_Controls ();
 			Determine_Preset_Type ();
-			retval = TRUE;
+			retval = true;
 		}
 		break;
 
@@ -435,7 +435,7 @@ PresetExportOptionsDialogClass::Message_Proc
 BOOL
 PresetExportOptionsDialogClass::On_Command (WPARAM wparam, LPARAM lparam)
 {
-	BOOL retval = FALSE;
+	BOOL retval = false;
 
 	switch (LOWORD (wparam))
 	{
@@ -604,7 +604,7 @@ PresetExportOptionsDialogClass::Determine_Preset_Type (void)
 		//	Select the terrain UI
 		//
 		Show_Settings_Pane (PANE_TERRAIN);
-		SendDlgItemMessage (Wnd, IDC_TERRAIN_RADIO, BM_SETCHECK, (WPARAM)TRUE, 0L);
+		SendDlgItemMessage (Wnd, IDC_TERRAIN_RADIO, BM_SETCHECK, (WPARAM)true, 0L);
 
 	} else if (Options->ExportGeometry == false) {
 
@@ -614,14 +614,14 @@ PresetExportOptionsDialogClass::Determine_Preset_Type (void)
 			//	Select the skeleton UI
 			//
 			Show_Settings_Pane (PANE_SKELETON);
-			SendDlgItemMessage (Wnd, IDC_SKELETON_RADIO, BM_SETCHECK, (WPARAM)TRUE, 0L);
+			SendDlgItemMessage (Wnd, IDC_SKELETON_RADIO, BM_SETCHECK, (WPARAM)true, 0L);
 		} else {
 
 			//
 			//	Select the anim UI
 			//
 			Show_Settings_Pane (PANE_ANIM);
-			SendDlgItemMessage (Wnd, IDC_ANIM_RADIO, BM_SETCHECK, (WPARAM)TRUE, 0L);
+			SendDlgItemMessage (Wnd, IDC_ANIM_RADIO, BM_SETCHECK, (WPARAM)true, 0L);
 		}
 	
 	} else if (Options->ExportHierarchy == false && Options->LoadHierarchy == false) {
@@ -630,7 +630,7 @@ PresetExportOptionsDialogClass::Determine_Preset_Type (void)
 		//	Select the mesh UI
 		//
 		Show_Settings_Pane (PANE_MESH);
-		SendDlgItemMessage (Wnd, IDC_MESH_RADIO, BM_SETCHECK, (WPARAM)TRUE, 0L);
+		SendDlgItemMessage (Wnd, IDC_MESH_RADIO, BM_SETCHECK, (WPARAM)true, 0L);
 
 	} else if (Options->ExportAnimation == false) {
 
@@ -638,7 +638,7 @@ PresetExportOptionsDialogClass::Determine_Preset_Type (void)
 		//	Select the HLOD UI
 		//
 		Show_Settings_Pane (PANE_HLOD);
-		SendDlgItemMessage (Wnd, IDC_HLOD_RADIO, BM_SETCHECK, (WPARAM)TRUE, 0L);
+		SendDlgItemMessage (Wnd, IDC_HLOD_RADIO, BM_SETCHECK, (WPARAM)true, 0L);
 
 	} else {
 
@@ -646,7 +646,7 @@ PresetExportOptionsDialogClass::Determine_Preset_Type (void)
 		//	Select the HLOD anim UI
 		//
 		Show_Settings_Pane (PANE_ANIM_HLOD);
-		SendDlgItemMessage (Wnd, IDC_ANIM_HLOD_RADIO, BM_SETCHECK, (WPARAM)TRUE, 0L);	
+		SendDlgItemMessage (Wnd, IDC_ANIM_HLOD_RADIO, BM_SETCHECK, (WPARAM)true, 0L);	
 	}
 
 	return ;
@@ -791,8 +791,8 @@ PresetExportOptionsDialogClass::Update_Controls (void)
 			//
 			//	Update the spin controls
 			//
-			low_spin->SetValue (Options->StartFrame, FALSE);
-			high_spin->SetValue (Options->EndFrame, FALSE);
+			low_spin->SetValue (Options->StartFrame, false);
+			high_spin->SetValue (Options->EndFrame, false);
 		}
 	}
 

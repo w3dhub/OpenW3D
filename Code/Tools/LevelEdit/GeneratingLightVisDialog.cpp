@@ -115,7 +115,7 @@ GeneratingLightVisDialogClass::OnInitDialog()
 	ShowWindow (SW_SHOW);
 	PostMessage (WM_USER+101);
 	
-	return TRUE;
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -175,7 +175,7 @@ GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lP
 			scene_editor->Display_Vis_Points (true);
 		}
 		::Get_Main_View ()->Allow_Repaint (true);
-		EndDialog (TRUE);
+		EndDialog (true);
 
 	}
 

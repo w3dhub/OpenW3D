@@ -133,7 +133,7 @@ RingPropertySheetClass::WindowProc
 				/*case IDOK:
 				{
 					// If the apply button isn't enabled, then don't do the apply operation.
-					if (::IsWindowEnabled (::GetDlgItem (m_hWnd, ID_APPLY_NOW)) == FALSE) {
+					if (::IsWindowEnabled (::GetDlgItem (m_hWnd, ID_APPLY_NOW)) == false) {
 						break;
 					}
 				}*/

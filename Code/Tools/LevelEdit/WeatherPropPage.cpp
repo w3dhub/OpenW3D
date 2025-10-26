@@ -176,8 +176,8 @@ BOOL WeatherPropPageClass::OnInitDialog()
 	WindVariabilitySlider.SetPos (WWMath::Float_To_Long (windvariability * SLIDER_RESOLUTION));
 	Update_Wind_Values();
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 
@@ -210,7 +210,7 @@ void WeatherPropPageClass::OnFogColor()
 		FogColor.Set ((red + 0.5f) * ooucharmaxplusone, (green + 0.5f) * ooucharmaxplusone, (blue + 0.5f) * ooucharmaxplusone);
 
 		// Repaint the fog color button.
-		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_FOG_COLOR), NULL, TRUE);
+		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_FOG_COLOR), NULL, true);
 	}
 }
 

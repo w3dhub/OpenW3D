@@ -113,11 +113,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWnd::PreCreateWindow(cs) )
-		return FALSE;
+		return false;
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -198,7 +198,7 @@ Strip_Filename_From_Path (LPCTSTR path)
 void
 CMainFrame::OnCombineDuplicates (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".dat",
 								"always.dat",
 								OFN_HIDEREADONLY | OFN_EXPLORER,
@@ -217,7 +217,7 @@ CMainFrame::OnCombineDuplicates (void)
 		combiner.Set_Destination_File (full_path);
 
 		WIN32_FIND_DATA find_info	= { 0 };
-		BOOL keep_going				= TRUE;
+		BOOL keep_going				= true;
 
 		CString search_mask = static_cast<const char *>(directory + "\\*.mix");
 

@@ -144,7 +144,7 @@ ConversationPickerDialogClass::OnInitDialog (void)
 	m_TreeCtrl.Expand (GlobalsRoot, TVE_EXPAND);
 	m_TreeCtrl.Expand (LevelsRoot, TVE_EXPAND);
 
-	return TRUE;
+	return true;
 }
 
 

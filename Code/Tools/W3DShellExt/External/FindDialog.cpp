@@ -72,8 +72,8 @@ BOOL FindDialog::OnInitDialog()
 	((CEdit*) GetDlgItem (IDC_FIND_STRING))->SetLimitText (MAX_FIND_STRING_LENGTH);
 	GetDlgItem (IDC_FIND_STRING)->SetWindowText (_FindString);
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 

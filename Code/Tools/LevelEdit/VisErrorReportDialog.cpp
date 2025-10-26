@@ -216,7 +216,7 @@ VisErrorReportDialogClass::OnInitDialog (void)
 	
 	// Update the dialog with data from the scene
 	Re_Sync_Data ();
-	return TRUE;
+	return true;
 }
 
 
@@ -300,7 +300,7 @@ void
 VisErrorReportDialogClass::Refresh_View (void)
 {
 	if (m_hWnd != NULL) {
-		InvalidateRect (&m_GraphArea, FALSE);
+		InvalidateRect (&m_GraphArea, false);
 		UpdateWindow ();
 	}
 
@@ -894,7 +894,7 @@ VisErrorReportDialogClass::OnSetCursor
 	UINT		message
 )
 {
-	BOOL retval = FALSE;
+	BOOL retval = false;
 
 	//
 	//	Determine if the cursor is over a 'hot-spot' in the axis area.

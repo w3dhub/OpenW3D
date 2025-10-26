@@ -119,7 +119,7 @@ GotoLocationDialogClass::OnInitDialog (void)
 	::SetDlgItemFloat (m_hWnd, IDC_YPOS_EDIT, position.Y);
 	::SetDlgItemFloat (m_hWnd, IDC_ZPOS_EDIT, position.Z);
 	::SetDlgItemFloat (m_hWnd, IDC_FACING_EDIT, RAD_TO_DEG (facing));
-	return TRUE;
+	return true;
 }
 
 

@@ -65,7 +65,7 @@ CSimpleGraphDoc::~CSimpleGraphDoc()
 BOOL CSimpleGraphDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
-		return FALSE;
+		return false;
 
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
@@ -78,10 +78,10 @@ BOOL CSimpleGraphDoc::OnNewDocument()
 	POSITION pos = GetFirstViewPosition ();
 	CSimpleGraphView *view = (CSimpleGraphView *)GetNextView (pos);
 	view->Set_Ranges (Vector2 (0, 0), Vector2 (100, 100));
-	view->InvalidateRect (NULL, TRUE);
+	view->InvalidateRect (NULL, true);
 	view->UpdateWindow ();	
 
-	return TRUE;
+	return true;
 }
 
 

@@ -104,7 +104,7 @@ CW3DViewDoc::CW3DViewDoc (void)
 		m_pCAnimCombo (NULL),
 		m_pCBackgroundBMP (NULL),		
       m_CurrentFrame (0),
-      m_bAnimBlend (TRUE),
+      m_bAnimBlend (true),
 		m_bAnimateCamera (false),
 		m_bAutoCameraReset (true),
 		m_bOneTimeReset (true),
@@ -118,8 +118,8 @@ CW3DViewDoc::CW3DViewDoc (void)
 		m_bCompress_channel_Q(false)
 {
 	// Read the camera animation settings from the registry
-	m_bAnimateCamera = ((BOOL)theApp.GetProfileInt ("Config", "AnimateCamera", 0)) == TRUE;
-	m_bAutoCameraReset = ((BOOL)theApp.GetProfileInt ("Config", "ResetCamera", 1)) == TRUE;
+	m_bAnimateCamera = ((BOOL)theApp.GetProfileInt ("Config", "AnimateCamera", 0)) == true;
+	m_bAutoCameraReset = ((BOOL)theApp.GetProfileInt ("Config", "ResetCamera", 1)) == true;
 	return ;
 }
 
@@ -262,7 +262,7 @@ BOOL
 CW3DViewDoc::OnNewDocument (void)
 {
 	if (!CDocument::OnNewDocument())
-		return FALSE;
+		return false;
 		
 	_TheAssetMgr->Start_Tracking_Textures ();
 	m_LoadList.Delete_All ();
@@ -307,7 +307,7 @@ CW3DViewDoc::OnNewDocument (void)
     WW3DAssetManager::Get_Instance ()->Free_Assets ();
 	 WW3DAssetManager::Get_Instance ()->Load_Procedural_Textures();
 
-    return TRUE;
+    return true;
 }
 
 
@@ -478,7 +478,7 @@ BOOL
 CW3DViewDoc::OnOpenDocument (LPCTSTR lpszPathName) 
 {
 	if (!CDocument::OnOpenDocument(lpszPathName))
-		return FALSE;
+		return false;
 
 	//
 	//	Don't allow repaints while the load is going on
@@ -508,7 +508,7 @@ CW3DViewDoc::OnOpenDocument (LPCTSTR lpszPathName)
 		current_view->Allow_Update (true);
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -1202,7 +1202,7 @@ CW3DViewDoc::GenerateLOD
 		// Loop through all the assets in the manager looking for hierarchies that match the
 		// naming convention
 		for (pObjEnum->First ();
-			  pObjEnum->Is_Done () == FALSE;
+			  pObjEnum->Is_Done () == false;
 			  pObjEnum->Next ())	{
 			LPCTSTR pszItemName = pObjEnum->Current_Item_Name ();
 
@@ -1291,7 +1291,7 @@ CW3DViewDoc::SetBackgroundBMP (LPCTSTR pszBackgroundBMP)
             (m_stringBackgroundBMP.CompareNoCase (pszBackgroundBMP) != 0))
         {
 				// Create a new instance of the BMP object to use
-            m_pCBackgroundBMP = new Bitmap2DObjClass (pszBackgroundBMP, 0.5F, 0.5F, TRUE, FALSE);
+            m_pCBackgroundBMP = new Bitmap2DObjClass (pszBackgroundBMP, 0.5F, 0.5F, true, false);
 				        
             // Were we successful in creating the bitmap object?
             ASSERT (m_pCBackgroundBMP);
@@ -1319,7 +1319,7 @@ BOOL
 CW3DViewDoc::LoadSettings (LPCTSTR filename)
 {
 	// Assume failure
-	BOOL bReturn = FALSE;
+	BOOL bReturn = false;
 
 	// Params OK?
 	ASSERT (filename != NULL);
@@ -1470,7 +1470,7 @@ CW3DViewDoc::LoadSettings (LPCTSTR filename)
 		_TheFileFactory->Return_File (pini_file);
 	}
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return bReturn;
 }
 
@@ -1488,7 +1488,7 @@ CW3DViewDoc::SaveSettings
 )
 {
     // Assume failure
-    BOOL bReturn = FALSE;
+    BOOL bReturn = false;
     ASSERT (pszFilename);
     ASSERT (dwSettingsMask != 0L);
     ASSERT (m_pCScene);    
@@ -1703,10 +1703,10 @@ CW3DViewDoc::SaveSettings
         }
 
         // Success!
-        bReturn = TRUE;
+        bReturn = true;
     }
     
-    // Return the TRUE/FALSE result code
+    // Return the true/false result code
     return bReturn;
 }
 
@@ -1730,7 +1730,7 @@ CW3DViewDoc::Save_Selected_LOD (void)
 		CString default_filename = GetDataTreeView ()->GetCurrentSelectionName ();
 		default_filename += ".w3d";
 
-		RestrictedFileDialogClass dialog (FALSE,
+		RestrictedFileDialogClass dialog (false,
 												  ".w3d",
 												  (LPCTSTR)default_filename,
 												  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -1923,7 +1923,7 @@ CW3DViewDoc::Save_Selected_Primitive (void)
 		CString default_filename = GetDataTreeView ()->GetCurrentSelectionName ();
 		default_filename += ".w3d";
 
-		RestrictedFileDialogClass dialog (FALSE,
+		RestrictedFileDialogClass dialog (false,
 								  ".w3d",
 								  (LPCTSTR)default_filename,
 								  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -2058,7 +2058,7 @@ CW3DViewDoc::Save_Selected_Emitter (void)
 		CString default_filename = GetDataTreeView ()->GetCurrentSelectionName ();
 		default_filename += ".w3d";
 
-		RestrictedFileDialogClass dialog (FALSE,
+		RestrictedFileDialogClass dialog (false,
 								  ".w3d",
 								  (LPCTSTR)default_filename,
 								  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -2144,7 +2144,7 @@ CW3DViewDoc::Save_Selected_Sound_Object (void)
 		CString default_filename = GetDataTreeView ()->GetCurrentSelectionName ();
 		default_filename += ".w3d";
 
-		RestrictedFileDialogClass dialog (FALSE,
+		RestrictedFileDialogClass dialog (false,
 								  ".w3d",
 								  (LPCTSTR)default_filename,
 								  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -2278,7 +2278,7 @@ CW3DViewDoc::Save_Selected_Aggregate (void)
 		CString default_filename = GetDataTreeView ()->GetCurrentSelectionName ();
 		default_filename += ".w3d";
 
-		RestrictedFileDialogClass dialog (FALSE,
+		RestrictedFileDialogClass dialog (false,
 								  ".w3d",
 								  (LPCTSTR)default_filename,
 								  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -2436,7 +2436,7 @@ CW3DViewDoc::Make_Movie (void)
 		}
 		else
 			m_pCRenderObj->Set_Animation (m_pCAnimation, (int)0);
-		graphic_view->RepaintView (FALSE);
+		graphic_view->RepaintView (false);
 
 		// Begin our movie
 		WW3D::Pause_Movie (true);
@@ -2475,8 +2475,8 @@ CW3DViewDoc::Make_Movie (void)
 				}
 			}	
 			
-			graphic_view->RepaintView (FALSE, ticks);
-			graphic_view->RepaintView (FALSE, 1);
+			graphic_view->RepaintView (false, ticks);
+			graphic_view->RepaintView (false, 1);
 			WW3D::Update_Movie_Capture ();
 
 			if (::GetAsyncKeyState (VK_ESCAPE) < 0) {
@@ -3032,8 +3032,8 @@ CW3DViewDoc::Save_Camera_Settings (void)
 void
 CW3DViewDoc::Load_Camera_Settings (void)
 {
-	m_ManualFOV				= (theApp.GetProfileInt ("Config", "UseManualFOV", 0) == TRUE);
-	m_ManualClipPlanes	= (theApp.GetProfileInt ("Config", "UseManualClipPlanes", 0) == TRUE);
+	m_ManualFOV				= (theApp.GetProfileInt ("Config", "UseManualFOV", 0) == true);
+	m_ManualClipPlanes	= (theApp.GetProfileInt ("Config", "UseManualClipPlanes", 0) == true);
 
 	CGraphicView *graphic_view	= GetGraphicView ();
 	if (graphic_view != NULL) {

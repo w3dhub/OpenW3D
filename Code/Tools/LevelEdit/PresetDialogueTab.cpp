@@ -244,7 +244,7 @@ PresetDialogueTabClass::OnDblclkDialogueList
 		dialog.Set_Dialogue (&m_DialogueList[index]);				
 		if (dialog.DoModal () == IDOK) {
 			Update_Entry (index);
-			InvalidateRect (NULL, TRUE);
+			InvalidateRect (NULL, true);
 			//UpdateWindow ();
 		}
 	}

@@ -156,7 +156,7 @@ StringPickerDialogClass::Resize_Controls (void)
 	//
 	CRect tab_rect;
 	m_TabCtrl.GetWindowRect (&tab_rect);
-	m_TabCtrl.AdjustRect (FALSE, &tab_rect);
+	m_TabCtrl.AdjustRect (false, &tab_rect);
 	ScreenToClient (&tab_rect);
 
 	//
@@ -313,7 +313,7 @@ StringPickerDialogClass::OnInitDialog (void)
 	Update_Selected_String ();
 
 	IsInitialized = true;
-	return TRUE;
+	return true;
 }
 
 

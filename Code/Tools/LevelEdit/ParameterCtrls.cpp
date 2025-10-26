@@ -1734,7 +1734,7 @@ ColorParameterCtrlClass::On_Command
 			color.Z = ((float)blue) / 255.0F;
 			m_Parameter->Set_Value (color);
 			
-			::InvalidateRect (::GetDlgItem (parent_wnd, m_ButtonID), NULL, TRUE);
+			::InvalidateRect (::GetDlgItem (parent_wnd, m_ButtonID), NULL, true);
 			::UpdateWindow (::GetDlgItem (parent_wnd, m_ButtonID));
 		}
 

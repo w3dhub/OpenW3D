@@ -99,7 +99,7 @@ public:
 // DllMain
 //----------------------------------------------------------------------------
 
-static int         controlsInit = FALSE;
+static int         controlsInit = false;
 
 BOOL WINAPI        DllMain
 (
@@ -112,7 +112,7 @@ BOOL WINAPI        DllMain
 
 	if ( !controlsInit )
 	{
-		controlsInit = TRUE;
+		controlsInit = true;
 		InitCustomControls(hInstance);
 		InitCommonControls();
 	}
@@ -124,7 +124,7 @@ BOOL WINAPI        DllMain
 		case DLL_PROCESS_DETACH: break;
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -136,7 +136,7 @@ class AMC_ClassDesc : public ClassDesc
 {
 public:
 	int 			IsPublic()     { return 1; }
-	void *			Create(BOOL loading = FALSE) { return new AMC_Import; }
+	void *			Create(BOOL loading = false) { return new AMC_Import; }
 	const TCHAR *	ClassName()    { return GetString(IDS_SHORT_DESC); }
 	SClass_ID		SuperClassID() { return SCENE_IMPORT_CLASS_ID; }
 	Class_ID		ClassID()      { return Class_ID(0x5be11422, 0x6e0177f0); }

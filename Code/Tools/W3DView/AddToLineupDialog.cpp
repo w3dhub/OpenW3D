@@ -90,8 +90,8 @@ BOOL CAddToLineupDialog::OnInitDialog()
 		assets->Release_Render_Obj_Iterator(it);
 	}
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 void CAddToLineupDialog::OnOK() 

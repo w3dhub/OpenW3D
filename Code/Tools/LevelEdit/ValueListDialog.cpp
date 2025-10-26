@@ -100,5 +100,5 @@ ValueListDialogClass::OnInitDialog (void)
 	
 	// Put the initial text into the edit control
 	SetDlgItemText (IDC_LIST_EDIT, m_ListEntries);
-	return TRUE;
+	return true;
 }

@@ -388,7 +388,7 @@ bool WebBrowser::FinalizeCreate(HWND window)
 
 			// Initialize browser to cover dialog browser area
 			mWOLBrowser->Startup(window, &webRect);
-			mWOLBrowser->AllowPageCertification(TRUE);
+			mWOLBrowser->AllowPageCertification(true);
 			mWOLBrowser->SetUIFlags(UIFLAG_SCROLLBARS);
 			}
 		}
@@ -1101,7 +1101,7 @@ bool WebBrowser::LaunchExternal(const char* url)
 
 	memset(&mProcessInfo, 0, sizeof(mProcessInfo));
 
-	BOOL createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, FALSE,
+	BOOL createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, false,
 			0, NULL, NULL, &startupInfo, &mProcessInfo);
 
 	WWASSERT(createSuccess && "Failed to launch external WebBrowser.");
@@ -1111,7 +1111,7 @@ bool WebBrowser::LaunchExternal(const char* url)
 	  WaitForInputIdle(mProcessInfo.hProcess, 5000);
 		}
 
-	return (TRUE == createSuccess);
+	return (true == createSuccess);
 	}
 
 
@@ -1144,7 +1144,7 @@ bool WebBrowser::IsExternalBrowserRunning(void) const
 	BOOL success = GetExitCodeProcess(mProcessInfo.hProcess, &active);
 	WWASSERT_PRINT(success, "GetExitCodeProcess() Failed");
 
-	if (success == FALSE)
+	if (success == false)
 		{
 		Print_Win32Error(GetLastError());
 		}

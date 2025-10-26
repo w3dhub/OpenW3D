@@ -111,10 +111,10 @@ bool LaunchWebBrowser(const char* url)
 	startupInfo.cb = sizeof(startupInfo);
   
 	PROCESS_INFORMATION processInfo;
-	BOOL createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, FALSE,
+	BOOL createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, false,
 			0, NULL, NULL, &startupInfo, &processInfo);
 
 	assert(createSuccess && "Failed to launch default WebBrowser.");
 
-	return (TRUE == createSuccess);
+	return (true == createSuccess);
 	}

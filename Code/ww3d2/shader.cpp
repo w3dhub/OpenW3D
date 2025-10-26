@@ -452,17 +452,17 @@ void ShaderClass::Apply()
 			blendAlpha |= dstBlendLUT[ int(Get_Dst_Blend_Func()) ].useAlpha;
 		}
 
-		BOOL blendOn = FALSE;
+		BOOL blendOn = false;
 
 		if(sf != D3DBLEND_ONE || df != D3DBLEND_ZERO)
 		{
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_SRCBLEND,sf);
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_DESTBLEND,df);
-			blendOn = TRUE;
+			blendOn = true;
 		}
 		DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHABLENDENABLE,blendOn);
 
-		BOOL alphaTest = FALSE;
+		BOOL alphaTest = false;
 
 		if(Get_Alpha_Test() == ShaderClass::ALPHATEST_ENABLE)
 		{
@@ -479,7 +479,7 @@ void ShaderClass::Apply()
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHAFUNC,D3DCMP_GREATEREQUAL);
 			}
 			blendAlpha = true;
-			alphaTest = TRUE;
+			alphaTest = true;
 		}
 		DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHATESTENABLE,alphaTest);
 
@@ -494,24 +494,24 @@ void ShaderClass::Apply()
 		// can defer the "fog enabled" check inside the "fog settings changed" check.
 		if (DX8Wrapper::Get_Current_Caps()->Is_Fog_Allowed() && DX8Wrapper::Get_Fog_Enable()) {
 
-			BOOL fm = FALSE;
+			BOOL fm = false;
 			D3DCOLOR fogColor = DX8Wrapper::Get_Fog_Color();
 			
 			switch(Get_Fog_Func())
 			{
 			case ShaderClass::FOG_ENABLE:
-				fm = TRUE;
+				fm = true;
 				break;
 			case ShaderClass::FOG_SCALE_FRAGMENT:
 				fogColor = 0;	
-				fm = TRUE;
+				fm = true;
 				break;
 			case ShaderClass::FOG_WHITE:
 				fogColor = 0xffffff;
-				fm = TRUE;
+				fm = true;
 				break;
 			case ShaderClass::FOG_DISABLE:
-				fm = FALSE;
+				fm = false;
 				break;
 			}
 
@@ -523,7 +523,7 @@ void ShaderClass::Apply()
 			}
 
 		} else {
-			DX8Wrapper::Set_DX8_Render_State(D3DRS_FOGENABLE,FALSE);
+			DX8Wrapper::Set_DX8_Render_State(D3DRS_FOGENABLE,false);
 		}
 		
 		diff &= ~(ShaderClass::MASK_FOG);

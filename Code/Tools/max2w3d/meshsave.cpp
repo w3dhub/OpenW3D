@@ -240,18 +240,18 @@ MeshSaveClass::MeshSaveClass
 	Mtl *		   nodemtl = inode->GetMtl();
 	DWORD		   wirecolor = inode->GetWireColor();
 
-	PS2Material = FALSE;
+	PS2Material = false;
 
 	// Check to see if the mesh uses PS2 game materials.  If so, set a flag so
 	// that write_shaders will know to make a PS2 shader chunk.
 	if (nodemtl) {
 		if (nodemtl->ClassID() == PS2GameMaterialClassID) {
-			PS2Material = TRUE;
+			PS2Material = true;
 		} else if (nodemtl->IsMultiMtl()) {
 			for (int i = 0; i < nodemtl->NumSubMtls(); i++) {
 				Mtl *sub = nodemtl->GetSubMtl(i);
 				if (sub->ClassID() == PS2GameMaterialClassID) {
-					PS2Material = TRUE;
+					PS2Material = true;
 				}
 			}
 		}
@@ -867,7 +867,7 @@ int MeshSaveClass::Write_To_File(ChunkSaveClass & csave,bool export_aabtree)
 		return 1;
 	}
 	
-	if (PS2Material == TRUE) {
+	if (PS2Material == true) {
 
 		// The ps2 shaders must be written out first.
 		if (write_ps2_shaders(csave) != 0) {
@@ -1274,7 +1274,7 @@ int MeshSaveClass::write_shaders(ChunkSaveClass & csave)
 {
 	assert(MaterialDesc.Shader_Count() > 0);
 	
-	if (PS2Material == TRUE) {
+	if (PS2Material == true) {
 
 		// Make the PC shader as close to the PS2 shader as possible.
 		// This will allow for viewing in W3D View.

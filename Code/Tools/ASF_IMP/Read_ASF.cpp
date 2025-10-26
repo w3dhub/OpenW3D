@@ -173,9 +173,9 @@ void Skeleton_Class::parse_units_block ( ASF_Lexer & lexer )
 	match_token ( lexer, ":units" );
 	match_newline ( lexer );
 
-	BOOL mass_defined   = FALSE;
-	BOOL length_defined = FALSE;
-	BOOL angle_defined  = FALSE;
+	BOOL mass_defined   = false;
+	BOOL length_defined = false;
+	BOOL angle_defined  = false;
 
 	while (1)
 	{
@@ -190,7 +190,7 @@ void Skeleton_Class::parse_units_block ( ASF_Lexer & lexer )
 			skip_token ( lexer ); // Ignore the mass definition.
 			match_newline ( lexer );
 
-			mass_defined = TRUE;
+			mass_defined = true;
 		}
 		else if ( strcmp ( lexer.text (), "length" ) == 0 )
 		{
@@ -202,7 +202,7 @@ void Skeleton_Class::parse_units_block ( ASF_Lexer & lexer )
 			Length_multiplier = 1.0f / float_token ( lexer );
 			match_newline ( lexer );
 
-			length_defined = TRUE;
+			length_defined = true;
 		}
 		else if ( strcmp ( lexer.text (), "angle" ) == 0 )
 		{
@@ -222,7 +222,7 @@ void Skeleton_Class::parse_units_block ( ASF_Lexer & lexer )
 			lexer.advance ();
 			match_newline ( lexer );
 
-			angle_defined = TRUE;
+			angle_defined = true;
 		}
 		else
 		{
