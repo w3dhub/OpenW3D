@@ -75,7 +75,7 @@ class ThreadFactory
 {
  public:
   static bit8    startThread(void (*start_func)(void *), void *data);
-  static bit8    startThread(Runnable &runable, void *data, bit8 destroy=FALSE);
+  static bit8    startThread(Runnable &runable, void *data, bit8 destroy=false);
 };
 
 
@@ -104,7 +104,7 @@ class Runnable
 
    virtual void run(void *data)=0;       // Thread entry point
 
-           void startThread(void *data,bit8 destroy=FALSE)  // nice way to start a thread
+           void startThread(void *data,bit8 destroy=false)  // nice way to start a thread
            {
              ThreadFactory::startThread(*this,data,destroy);
            };

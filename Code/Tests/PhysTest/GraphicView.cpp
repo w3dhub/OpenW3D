@@ -170,9 +170,9 @@ BOOL CGraphicView::PreCreateWindow(CREATESTRUCT& cs)
 BOOL CGraphicView::Initialize_WW3D(int device,int bits)
 {
 	// Assume failure
-	BOOL ok = FALSE;
+	BOOL ok = false;
 	if (device < 0) {
-		return FALSE;
+		return false;
 	}
 	
 	// Initialize the rendering engine with the information from
@@ -269,8 +269,8 @@ BOOL CGraphicView::Initialize_WW3D(int device,int bits)
 
 	Initialized = true;
 
-	// Return the TRUE/FALSE result code
-	return TRUE;
+	// Return the true/false result code
+	return true;
 }
 
 void CGraphicView::Save(ChunkSaveClass & csave)
@@ -493,9 +493,9 @@ void CGraphicView::Repaint_View(void)
 		//WW3D::Sync(WW3D::Get_Sync_Time() + (ticks_elapsed * m_animationSpeed));
 
 		// Render the scenes
-		WW3D::Begin_Render(TRUE, TRUE, Vector3(0,0,0));
-		WW3D::Render(doc->Scene,Camera,FALSE,FALSE);
-		WW3D::Render(PipScene,PipCamera,FALSE,TRUE);
+		WW3D::Begin_Render(true, true, Vector3(0,0,0));
+		WW3D::Render(doc->Scene,Camera,false,false);
+		WW3D::Render(PipScene,PipCamera,false,true);
 		WW3D::End_Render();
 	}        
 
@@ -551,7 +551,7 @@ void CGraphicView::OnDestroy()
 		TimerID = 0;        
 	}
 
-	Initialized = FALSE;    
+	Initialized = false;    
 }
 
 
@@ -561,7 +561,7 @@ void CGraphicView::OnLButtonDown(UINT nFlags, CPoint point)
 	SetCapture();
 
 	// Left mouse button is down
-	LMouseDown = TRUE;
+	LMouseDown = true;
 	LastPoint = point;
 
 	// Allow the base class to process this message
@@ -587,7 +587,7 @@ void CGraphicView::OnRButtonDown(UINT nFlags, CPoint point)
 	SetCapture();
 
 	// Right mouse button is down
-	RMouseDown = TRUE;
+	RMouseDown = true;
 	LastPoint = point;
 	
 	CView::OnRButtonDown(nFlags, point);

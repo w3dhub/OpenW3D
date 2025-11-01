@@ -53,9 +53,9 @@ public:
 
 	virtual BOOL Accept_Node(INode * node, TimeValue time)
 	{
-		if (node == NULL) return FALSE;
+		if (node == NULL) return false;
 		Object * obj = node->EvalWorldState(time).obj;
-		if (obj == NULL) return FALSE;
+		if (obj == NULL) return false;
 		
 		if 
 		(
@@ -63,9 +63,9 @@ public:
 			!node->IsHidden()
 		) 
 		{
-			return TRUE;
+			return true;
 		} else {
-			return FALSE;
+			return false;
 		} 
 	}
 };

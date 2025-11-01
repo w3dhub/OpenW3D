@@ -143,7 +143,7 @@ BOOL CALLBACK InputDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
 		case WM_INITDIALOG:
 
 			OnInitDialog(wParam, lParam);
-			return TRUE;
+			return true;
 
 
 		/*******************************************************************
@@ -157,7 +157,7 @@ BOOL CALLBACK InputDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
 			{
 				case IDOK:
 					if (!OnOK())
-						return TRUE;
+						return true;
 
 					SetCursor(LoadCursor(NULL, IDC_WAIT));
 					EndDialog(m_hWnd, 1);
@@ -167,10 +167,10 @@ BOOL CALLBACK InputDlg::DialogProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM 
 					EndDialog(m_hWnd, 0);
 					break;
 			}
-			return TRUE;
+			return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -208,5 +208,5 @@ BOOL InputDlg::OnOK (void)
 	GetWindowText(hEdit, m_Value, sizeof(m_Value));
 
 	// The dialog can be dismissed.
-	return TRUE;
+	return true;
 }

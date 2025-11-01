@@ -90,7 +90,7 @@ BOOL CSimpleGraphApp::InitInstance()
 
 	// Enable DDE Execute open
 	EnableShellOpen();
-	RegisterShellFileTypes(TRUE);
+	RegisterShellFileTypes(true);
 
 	// Parse command line for standard shell commands, DDE, file open
 	CCommandLineInfo cmdInfo;
@@ -98,7 +98,7 @@ BOOL CSimpleGraphApp::InitInstance()
 
 	// Dispatch commands specified on the command line
 	if (!ProcessShellCommand(cmdInfo))
-		return FALSE;
+		return false;
 
 	// The one and only window has been initialized, so show and update it.
 	m_pMainWnd->ShowWindow(SW_SHOW);
@@ -106,7 +106,7 @@ BOOL CSimpleGraphApp::InitInstance()
 
 	// Enable drag/drop open
 	m_pMainWnd->DragAcceptFiles();
-	return TRUE;
+	return true;
 }
 
 

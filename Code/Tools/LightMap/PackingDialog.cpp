@@ -112,7 +112,7 @@ BOOL PackingDialog::OnInitDialog()
 		list->SetItemText (i, 1, LightmapPacker::Get_Statistic (i));
 	}
 
-	return (TRUE);
+	return (true);
 }
 
 

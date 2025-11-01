@@ -332,7 +332,7 @@ PresetsFormClass::OnInitDialog (void)
 
 	SetProp (m_TreeCtrl, "TRANS_ACCS", (HANDLE)1);
 	SetProp (m_hWnd, "TRANS_ACCS", (HANDLE)1);
-	return TRUE;
+	return true;
 }
 
 
@@ -344,7 +344,7 @@ PresetsFormClass::OnInitDialog (void)
 void
 PresetsFormClass::Reload_Presets (void)
 {
-	m_TreeCtrl.SetRedraw (FALSE);
+	m_TreeCtrl.SetRedraw (false);
 	m_TreeCtrl.SelectItem (NULL);
 	m_TreeCtrl.DeleteAllItems ();
 
@@ -395,7 +395,7 @@ PresetsFormClass::Reload_Presets (void)
 	}
 	
 	Sort_Nodes (TVI_ROOT);
-	m_TreeCtrl.SetRedraw (TRUE);
+	m_TreeCtrl.SetRedraw (true);
 	return ;
 }
 
@@ -906,10 +906,10 @@ PresetsFormClass::Modify_Preset (void)
 				//
 				//	Rename the item in the tree
 				//
-				m_TreeCtrl.SetRedraw (FALSE);
+				m_TreeCtrl.SetRedraw (false);
 				m_TreeCtrl.SetItemText (current_item, preset->Get_Name ());
-				m_TreeCtrl.SetRedraw (TRUE);
-				m_TreeCtrl.InvalidateRect (NULL, TRUE);
+				m_TreeCtrl.SetRedraw (true);
+				m_TreeCtrl.InvalidateRect (NULL, true);
 
 				//
 				//	Log the rename operation
@@ -1682,7 +1682,7 @@ PresetsFormClass::Add_New_Preset (LPCTSTR name, bool is_temp, bool sel_new)
 				m_TreeCtrl.SelectItem (new_item);				
 			}
 			m_TreeCtrl.SortChildren (current_item);
-			m_TreeCtrl.InvalidateRect (NULL, TRUE);
+			m_TreeCtrl.InvalidateRect (NULL, true);
 
 		} else {			
 			DefinitionClass *definition = new_preset->Get_Definition ();
@@ -2410,7 +2410,7 @@ PresetsFormClass::OnNotify
 
 		OnExtra ();
 		(*pResult) = TBDDRET_DEFAULT;
-		return TRUE;
+		return true;
 	}
 	
 	return CDialog::OnNotify(wParam, lParam, pResult);
@@ -2627,7 +2627,7 @@ PresetsFormClass::OnMeasureItem
 	Get_Menu_Text (lpMeasureItemStruct->itemID, text);
 
 	NONCLIENTMETRICS metrics = { sizeof (NONCLIENTMETRICS), 0 };
-	::SystemParametersInfo (SPI_GETNONCLIENTMETRICS, 0, &metrics, FALSE);
+	::SystemParametersInfo (SPI_GETNONCLIENTMETRICS, 0, &metrics, false);
 	
 	HDC mem_dc = ::CreateCompatibleDC (NULL);	
 	HFONT font = ::CreateFontIndirect (&metrics.lfMenuFont);
@@ -2707,7 +2707,7 @@ PresetsFormClass::OnConvert (void)
 					//	Force a re-paint
 					//
 					m_TreeCtrl.SelectItem (item);
-					m_TreeCtrl.InvalidateRect (NULL, TRUE);
+					m_TreeCtrl.InvalidateRect (NULL, true);
 				} else if (undo_check_out) {
 					MessageBox ("Unable to find preset.", "Preset Error", MB_ICONERROR | MB_OK);
 					PresetMgrClass::Undo_Database_Check_Out (class_id);
@@ -2972,7 +2972,7 @@ PresetsFormClass::Update_Embedded_Nodes (PresetClass *preset)
 void
 PresetsFormClass::OnBatchImportTerrain (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".w3d",
 								NULL,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT | OFN_EXPLORER,
@@ -3659,9 +3659,9 @@ PresetsFormClass::Sort_Items (uint32 class_id)
 		//
 		//	Sort all items under this root
 		//
-		m_TreeCtrl.SetRedraw (FALSE);
+		m_TreeCtrl.SetRedraw (false);
 		Sort_Nodes (root_item);
-		m_TreeCtrl.SetRedraw (TRUE);
+		m_TreeCtrl.SetRedraw (true);
 	}
 
 	return ;

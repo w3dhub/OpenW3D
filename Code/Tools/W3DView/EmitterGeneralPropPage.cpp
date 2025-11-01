@@ -194,7 +194,7 @@ EmitterGeneralPropPageClass::OnInitDialog (void)
 	//
 	m_RenderModeCombo.SetCurSel(m_pEmitterList->Get_Render_Mode());
 
-	return TRUE;
+	return true;
 }
 
 
@@ -225,7 +225,7 @@ EmitterGeneralPropPageClass::OnApply (void)
 	}
 
 	// Check to make sure the user entered a valid name for the emitter.
-	BOOL retval = FALSE;
+	BOOL retval = false;
 	if (m_EmitterName.GetLength () == 0) {
 		::MessageBox (m_hWnd, "Invalid emitter name.  Please enter a new name.", "Invalid settings", MB_ICONEXCLAMATION | MB_OK);
 		m_bValid = false;
@@ -245,7 +245,7 @@ EmitterGeneralPropPageClass::OnApply (void)
 		m_bValid = true;
 	}
 	
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return retval;
 }
 
@@ -257,7 +257,7 @@ EmitterGeneralPropPageClass::OnApply (void)
 void
 EmitterGeneralPropPageClass::OnBrowseButton (void) 
 {
-	CFileDialog openFileDialog (TRUE,
+	CFileDialog openFileDialog (true,
 										 ".tga",
 										 NULL,
 										 OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

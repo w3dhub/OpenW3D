@@ -70,12 +70,12 @@ IMPLEMENT_DYNCREATE(CGraphicView, CView)
 //
 ////////////////////////////////////////////////////////////////////////////
 CGraphicView::CGraphicView (void)
-    : m_bInitialized (FALSE),		
+    : m_bInitialized (false),		
       m_pCamera (NULL),
       m_TimerID (0),
-      m_bMouseDown (FALSE),
-      m_bRMouseDown (FALSE),
-      m_bActive (TRUE),
+      m_bMouseDown (false),
+      m_bRMouseDown (false),
+      m_bActive (true),
       m_animationSpeed (1.0F),
       m_dwLastFrameUpdate (0),
 		m_iWindowed (1),
@@ -184,12 +184,12 @@ BOOL
 CGraphicView::InitializeGraphicView (void)
 {
 	// Assume failure
-	BOOL bReturn = FALSE;
+	BOOL bReturn = false;
 	if (g_iDeviceIndex < 0) {
-		return FALSE;
+		return false;
 	}
 
-	m_bInitialized = FALSE;
+	m_bInitialized = false;
 
 	// Initialize the rendering engine with the information from
 	// this window.
@@ -267,7 +267,7 @@ CGraphicView::InitializeGraphicView (void)
 													 TIME_PERIODIC);
     }
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return bReturn;
 }
 
@@ -346,7 +346,7 @@ CGraphicView::OnDestroy (void)
 	theApp.WriteProfileString ("Config", "Windowed", temp_string);
 
 	// We are no longer initialized
-	m_bInitialized = FALSE;    
+	m_bInitialized = false;    
 	return ;
 }
 
@@ -469,14 +469,14 @@ CGraphicView::RepaintView
 
 		// Perform the object rotation if necessary
 		if ((m_objectRotation != NoRotation) &&
-			(bUpdateAnimation == TRUE))
+			(bUpdateAnimation == true))
 		{
 			Rotate_Object ();
 		}
 
 		// Perform the light rotation if necessary
 		if ((m_LightRotation != NoRotation) &&
-			(bUpdateAnimation == TRUE))
+			(bUpdateAnimation == true))
 		{
 			Rotate_Light ();
 		}
@@ -509,14 +509,14 @@ CGraphicView::RepaintView
 		//
 		//	Render the background BMP
 		//		
-		WW3D::Begin_Render (TRUE, TRUE, doc->GetBackgroundColor ());
-		WW3D::Render (doc->Get2DScene (), doc->Get2DCamera (), FALSE, FALSE);
+		WW3D::Begin_Render (true, true, doc->GetBackgroundColor ());
+		WW3D::Render (doc->Get2DScene (), doc->Get2DCamera (), false, false);
 
 		//
 		// Render the background scene
 		//
 		if (doc->GetBackgroundObjectName ().GetLength () > 0) {			
-			WW3D::Render (doc->GetBackObjectScene (), doc->GetBackObjectCamera (), FALSE, FALSE);
+			WW3D::Render (doc->GetBackObjectScene (), doc->GetBackObjectCamera (), false, false);
 		}
 
 		//
@@ -527,7 +527,7 @@ CGraphicView::RepaintView
 		// Wait for all previous rendering to complete before starting benchmark.
 		DWORD profile_time = ::Get_CPU_Clock (pt_high);
 
-		WW3D::Render (doc->GetScene (), m_pCamera, FALSE, FALSE);
+		WW3D::Render (doc->GetScene (), m_pCamera, false, false);
 		
 		// Wait for all rendering to complete before stopping benchmark.
 		DWORD milliseconds = (::Get_CPU_Clock (pt_high) - profile_time) / 1000;
@@ -535,7 +535,7 @@ CGraphicView::RepaintView
 		//
 		// Render the cursor
 		//
-		WW3D::Render (doc->GetCursorScene (), doc->Get2DCamera (), FALSE, FALSE);
+		WW3D::Render (doc->GetCursorScene (), doc->Get2DCamera (), false, false);
 
 		// Render the dazzles
 		doc->Render_Dazzles(m_pCamera);
@@ -596,8 +596,8 @@ CGraphicView::UpdateDisplay (void)
         }
 
 		// Render the current view inside the frame
-        WW3D::Begin_Render (TRUE, TRUE, Vector3 (0.2,0.4,0.6));
-		WW3D::Render (doc->GetScene (), m_pCamera, FALSE, FALSE);
+        WW3D::Begin_Render (true, true, Vector3 (0.2,0.4,0.6));
+		WW3D::Render (doc->GetScene (), m_pCamera, false, false);
 		WW3D::End_Render ();
     } */       
 
@@ -646,7 +646,7 @@ CGraphicView::WindowProc
 			}
 		}
 
-		RepaintView (FALSE);
+		RepaintView (false);
 		ValidateRect (NULL);
 		return 0;
 
@@ -722,7 +722,7 @@ CGraphicView::OnLButtonDown
 	SetCapture ();
 
 	// Mouse button is down
-	m_bMouseDown = TRUE;
+	m_bMouseDown = true;
 	m_lastPoint = point;
 
 	if (m_bRMouseDown) {
@@ -756,9 +756,9 @@ CGraphicView::OnLButtonUp
     }
 
     // Mouse button is up
-    m_bMouseDown = FALSE;    
+    m_bMouseDown = false;    
 
-    if (m_bRMouseDown == TRUE)
+    if (m_bRMouseDown == true)
     {
         ::SetCursor (::LoadCursor (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDC_CURSOR_ZOOM)));
 		  ((CW3DViewDoc *)GetDocument())->Set_Cursor ("zoom.tga");
@@ -1321,7 +1321,7 @@ CGraphicView::OnRButtonUp
 ) 
 {
 	// Mouse button is up
-	m_bRMouseDown = FALSE;
+	m_bRMouseDown = false;
 
 	if (m_bMouseDown) {
 		((CW3DViewDoc *)GetDocument())->Set_Cursor ("orbit.tga");		
@@ -1352,7 +1352,7 @@ CGraphicView::OnRButtonDown
     SetCapture ();
 
     // Mouse button is down
-    m_bRMouseDown = TRUE;
+    m_bRMouseDown = true;
     m_lastPoint = point;
 
     if (m_bMouseDown)

@@ -139,7 +139,7 @@ BuildingChildNodeClass::Initialize (void)
 		PhysObj->Set_Model (render_obj);
 		PhysObj->Set_Transform (Matrix3D (1));
 		PhysObj->Set_Collision_Group (EDITOR_COLLISION_GROUP);
-		PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+		PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (PhysObj->Peek_Model (), COLLISION_TYPE_0);
 		

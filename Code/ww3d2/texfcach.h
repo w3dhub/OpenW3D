@@ -61,7 +61,7 @@ class TextureFileCache
 
 		virtual void Reset_File();
 
-		// Find texture in the cache.  Returns TRUE if texture found inside of cache.
+		// Find texture in the cache.  Returns true if texture found inside of cache.
 		int Texture_Exists(const char *fname);
 
 		// Create the initial surface that is based off of the original texture.

@@ -344,7 +344,7 @@ ConversationPageClass::OnInitDialog (void)
 	SetProp (m_hWnd, "TRANS_ACCS", (HANDLE)1);
 
 	Reload_Data ();
-	return TRUE;
+	return true;
 }
 
 
@@ -410,7 +410,7 @@ ConversationPageClass::Insert_Entry (ConversationClass *conversation, bool sort_
 		//	Sort the items
 		//
 		if (sort_items) {			
-			m_TreeCtrl.InvalidateRect (NULL, TRUE);
+			m_TreeCtrl.InvalidateRect (NULL, true);
 			m_TreeCtrl.SortChildren (parent_item);
 		}
 	}
@@ -437,7 +437,7 @@ ConversationPageClass::Reload_Data (void)
 		Insert_Entry (ConversationMgrClass::Peek_Conversation (index), false);
 	}
 
-	m_TreeCtrl.InvalidateRect (NULL, TRUE);
+	m_TreeCtrl.InvalidateRect (NULL, true);
 	m_TreeCtrl.SortChildren (m_GlobalsRoot);
 	m_TreeCtrl.SortChildren (m_LevelsRoot);
 	return ;
@@ -875,7 +875,7 @@ ConversationPageClass::OnSwap (void)
 void
 ConversationPageClass::Reload_Tree (HTREEITEM *item_handle, ConversationClass **conversation_ptr)
 {
-	m_TreeCtrl.SetRedraw (FALSE);
+	m_TreeCtrl.SetRedraw (false);
 
 	//
 	//	Reload the database while capturing its state
@@ -890,7 +890,7 @@ ConversationPageClass::Reload_Tree (HTREEITEM *item_handle, ConversationClass **
 	m_TreeCtrl.Expand (m_GlobalsRoot, TVE_EXPAND);
 	m_TreeCtrl.Expand (m_LevelsRoot, TVE_EXPAND);
 
-	m_TreeCtrl.SetRedraw (TRUE);
+	m_TreeCtrl.SetRedraw (true);
 	return ;
 }
 

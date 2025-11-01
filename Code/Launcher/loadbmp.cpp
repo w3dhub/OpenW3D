@@ -67,7 +67,7 @@ bit8 LoadBmp::init(char *filename,HWND hwnd)
 
 	// Exit early if the file failed to open
   if (hBitmapFile==INVALID_HANDLE_VALUE)
-    return(FALSE);
+    return(false);
 
   // Retrieve the BITMAPFILEHEADER structure. 
   ReadFile(hBitmapFile, &bitmapHeader, sizeof(BITMAPFILEHEADER), &dwRead, 
@@ -138,16 +138,16 @@ bit8 LoadBmp::init(char *filename,HWND hwnd)
   hdc=GetDC(hwnd);
   select=SelectPalette(hdc,PalHandle_,0);
   if (select==NULL)
-    return(FALSE);
+    return(false);
   realize=RealizePalette(hdc);
   if (realize==GDI_ERROR)
-    return(FALSE);
+    return(false);
   BitmapHandle_=CreateDIBitmap(hdc, &bitmapInfoHeader, CBM_INIT, lpvBits, lpHeaderMem, DIB_RGB_COLORS); 
   ReleaseDC(hwnd,hdc);
 
 
   if (BitmapHandle_==NULL)
-    return(FALSE);
+    return(false);
  
   // Unlock the global memory objects and close the .BMP file.  
   GlobalUnlock(infoHeaderMem); 
@@ -155,14 +155,14 @@ bit8 LoadBmp::init(char *filename,HWND hwnd)
   CloseHandle(hBitmapFile); 
  
   if (BitmapHandle_==NULL) 
-    return(FALSE);
+    return(false);
  
   // Inform windows the window needs to be repainted
   GetClientRect(hwnd, &rect); 
-  InvalidateRect(hwnd, &rect, TRUE); 
+  InvalidateRect(hwnd, &rect, true); 
   UpdateWindow(hwnd); 
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -175,10 +175,10 @@ bit8 LoadBmp::drawBmp(void)
   char        string[128];
 
   if (BitmapHandle_ == NULL) {
-    return(FALSE);
+    return(false);
 	}
 
-  InvalidateRect(WindowHandle_,NULL,FALSE); // keep windows from screwing up the
+  InvalidateRect(WindowHandle_,NULL,false); // keep windows from screwing up the
                                            //  redrawing (as much).
   hdc=BeginPaint(WindowHandle_,&ps);
 
@@ -213,5 +213,5 @@ bit8 LoadBmp::drawBmp(void)
 
   DeleteDC(hdcMem); 
   EndPaint(WindowHandle_,&ps);
-  return(TRUE);
+  return(true);
 }

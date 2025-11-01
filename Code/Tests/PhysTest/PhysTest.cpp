@@ -138,8 +138,8 @@ BOOL CAboutDlg::OnInitDialog()
 	
 	// TODO: Add extra initialization here
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 // App command to run the dialog
@@ -191,7 +191,7 @@ BOOL CPhysTestApp::InitInstance()
 
 		// Dispatch commands specified on the command line
 		if (!ProcessShellCommand(cmdInfo))
-			return FALSE;
+			return false;
 
 		// The one and only window has been initialized, so show and update it.
 		m_pMainWnd->ShowWindow(SW_SHOW);
@@ -257,7 +257,7 @@ fnTopLevelWindowSearch
 	LPARAM lParam
 )
 {
-	BOOL bcontinue = TRUE;
+	BOOL bcontinue = true;
 
 	// Is this a viewer window?
 	if (::GetProp (hwnd, "WW3DVIEWER") != 0) {
@@ -265,7 +265,7 @@ fnTopLevelWindowSearch
 		(*((HWND *)lParam)) = hwnd;
 	}
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return bcontinue;
 }
 

@@ -157,7 +157,7 @@ CoverAttackPointNodeClass::Initialize (void)
 		m_PhysObj->Set_Model (render_obj);
 		m_PhysObj->Set_Transform (Matrix3D(1));
 		m_PhysObj->Set_Collision_Group (EDITOR_COLLISION_GROUP);
-		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		m_PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (m_PhysObj->Peek_Model (), COLLISION_TYPE_0);
 		

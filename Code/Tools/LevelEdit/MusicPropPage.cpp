@@ -84,8 +84,8 @@ BOOL MusicPropPageClass::OnInitDialog()
 		SetDlgItemText (IDC_MUSIC_PATHNAME, pathname);
 	}
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 
@@ -102,7 +102,7 @@ void MusicPropPageClass::OnBrowse()
 		pathname = ::Get_File_Mgr()->Get_Base_Path();
 	}
 
-	CFileDialog dialog (TRUE, ".wav", defaultpathname,	OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER, "All Sound Files|*.wav;*.mp3|WAV File (*.wav)|*.wav|MP3 File (*.mp3)|*.mp3||", this);
+	CFileDialog dialog (true, ".wav", defaultpathname,	OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER, "All Sound Files|*.wav;*.mp3|WAV File (*.wav)|*.wav|MP3 File (*.mp3)|*.mp3||", this);
 
 	// Set the pathname so it opens in the correct directory.
 	dialog.m_ofn.lpstrInitialDir = pathname;

@@ -55,7 +55,7 @@ class RCMenuClass : public RightClickMenu
 
 public:
 
-	RCMenuClass() {Installed=FALSE;}
+	RCMenuClass() {Installed=false;}
 	~RCMenuClass() {}
 
 	void Bind(Interface * ipi, W3DUtilityClass * eni) { InterfacePtr = ipi; UtilityPtr = eni; }

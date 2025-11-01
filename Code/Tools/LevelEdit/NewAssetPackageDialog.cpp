@@ -79,7 +79,7 @@ NewAssetPackageDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 	
-	return TRUE;
+	return true;
 }
 
 

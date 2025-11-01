@@ -173,7 +173,7 @@ EmitterSizePropPageClass::OnInitDialog (void)
 		m_SizeBar->Set_Graph_Percent (index + 1, m_OrigSizes.Values[index] / m_MaxSize);
 	}
 
-	return TRUE;
+	return true;
 }
 
 

@@ -20,7 +20,7 @@
 
 HINSTANCE hInstance;
 
-static BOOL controlsInit = FALSE;
+static BOOL controlsInit = false;
 
 #define DLLEXPORT __declspec(dllexport)
 
@@ -39,13 +39,13 @@ BOOL WINAPI DllMain
 
 	if ( ! controlsInit )
 	{
-		controlsInit = TRUE;
+		controlsInit = true;
 		
 		InitCustomControls(hInstance);		// jaguar controls
 		InitCommonControls();				// initialize Chicago controls
 	}
 			
-	return TRUE;
+	return true;
 }
 
 //----------------------------------------------------------------------------

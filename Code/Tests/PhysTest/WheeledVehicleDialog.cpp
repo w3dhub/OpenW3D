@@ -91,7 +91,7 @@ BOOL CWheeledVehicleDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_WVEHICLE_KD_EDIT,kd);
 	SetDlgItemFloat(IDC_WVEHICLE_LENGTH_EDIT,len);
 
-	return TRUE; 
+	return true; 
 }
 
 BOOL CWheeledVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 

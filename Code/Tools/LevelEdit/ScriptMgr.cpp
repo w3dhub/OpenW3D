@@ -97,7 +97,7 @@ ScriptMgrClass::Initialize (void)
 	// Find all files that match this wildcard
 	//
 	/*WIN32_FIND_DATA find_info = { 0 };
-	BOOL keep_going = TRUE;
+	BOOL keep_going = true;
 	for (HANDLE file_find = ::FindFirstFile (search_path, &find_info);
 		  (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (file_find, &find_info))

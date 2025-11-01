@@ -76,7 +76,7 @@ BOOL CTCBDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_CONTINUITY_EDIT,c);
 	SetDlgItemFloat(IDC_BIAS_EDIT,b);
 
-	return TRUE;  
+	return true;  
 }
 
 void CTCBDialog::OnOK() 

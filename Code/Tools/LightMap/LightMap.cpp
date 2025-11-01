@@ -210,14 +210,14 @@ BOOL LightMapApp::InitInstance()
 	ParseCommandLine (cmdInfo);
 
 	EnableShellOpen();
-	RegisterShellFileTypes (TRUE);
+	RegisterShellFileTypes (true);
 
 	// Dispatch commands specified on the command line.
-	if (!ProcessShellCommand (cmdInfo)) return (FALSE);
+	if (!ProcessShellCommand (cmdInfo)) return (false);
 	
 	m_pMainWnd->DragAcceptFiles();
 
-	return (TRUE);
+	return (true);
 }
 
 
@@ -270,11 +270,11 @@ void LightMapApp::Do_Version_Check()
  *=============================================================================================*/
 BOOL CALLBACK TopLevelWindowSearch (HWND hwnd, LPARAM lParam)
 {
-	BOOL bcontinue = TRUE;
+	BOOL bcontinue = true;
 
 	// Is this a viewer window?
 	if (::GetProp (hwnd, "LIGHTMAP") != 0) {
-		bcontinue = FALSE;
+		bcontinue = false;
 		(*((HWND*)lParam)) = hwnd;
 	}
 
@@ -341,7 +341,7 @@ void LightMapApp::OnAppAbout()
  *=============================================================================================*/
 void LightMapApp::OnFileOpen() 
 {
-	CFileDialog dialog (TRUE, NULL, NULL, File_Dialog_Flags(), File_Dialog_Filter());
+	CFileDialog dialog (true, NULL, NULL, File_Dialog_Flags(), File_Dialog_Filter());
 
 	if (dialog.DoModal() == IDOK) {
 		if (GetDoc()->OnOpenDocument (dialog.GetPathName())) {
@@ -417,6 +417,6 @@ BOOL CAboutDlg::OnInitDialog()
 	version_string.Format ("Version %d.%d", (theApp.Application_Version() >> 16), (theApp.Application_Version() & 0xffff));
 	GetDlgItem (IDC_VERSION_TEXT)->SetWindowText (version_string);
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }

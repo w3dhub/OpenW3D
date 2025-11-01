@@ -143,5 +143,5 @@ DialogToolbarClass::OnNeedToolTipText
 	}
 
 	(*pResult) = 0L;
-	return TRUE;
+	return true;
 }

@@ -45,7 +45,7 @@ UIThreadClass::~UIThreadClass()
 BOOL UIThreadClass::InitInstance()
 {
 	// TODO:  perform and per-thread initialization here
-	return TRUE;
+	return true;
 }
 
 int UIThreadClass::ExitInstance()

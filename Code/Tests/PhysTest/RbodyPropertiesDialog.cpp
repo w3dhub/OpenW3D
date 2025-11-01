@@ -146,7 +146,7 @@ BOOL CRbodyPropertiesDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_DAMPING_EDIT,damping);
 	SetDlgItemFloat(IDC_LENGTH_EDIT,length);
 
-	return TRUE; 
+	return true; 
 }
 
 float CRbodyPropertiesDialog::GetDlgItemFloat(int controlid)

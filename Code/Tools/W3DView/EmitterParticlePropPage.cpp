@@ -145,7 +145,7 @@ EmitterParticlePropPageClass::OnInitDialog (void)
 	SendDlgItemMessage (IDC_MAX_PARTICLES_CHECK, BM_SETCHECK, WPARAM(m_MaxParticles != 0));
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_MAX_PARTICLES_EDIT), m_MaxParticles != 0);
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_MAX_PARTICLES_SPIN), m_MaxParticles != 0);
-	return TRUE;
+	return true;
 }
 
 

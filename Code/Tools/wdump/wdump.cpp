@@ -159,7 +159,7 @@ BOOL CWdumpApp::InitInstance()
 			}
 */			
 
-			CWdumpDoc *doc = (CWdumpDoc *) pDocTemplate->OpenDocumentFile(cmdInfo.m_strFileName, FALSE);
+			CWdumpDoc *doc = (CWdumpDoc *) pDocTemplate->OpenDocumentFile(cmdInfo.m_strFileName, false);
 
 /*			if(info.hStdOutput == NULL) {
 				printf("Press return to close this window..");
@@ -168,15 +168,15 @@ BOOL CWdumpApp::InitInstance()
 			}
 */
 
-			CloseAllDocuments(TRUE);
+			CloseAllDocuments(true);
 			PostQuitMessage(0);
-			return TRUE;
+			return true;
 		}
 	}
 
 	// Dispatch commands specified on the command line
 	if (!ProcessShellCommand(cmdInfo))
-		return FALSE;
+		return false;
 
 
 	m_pMainWnd->ShowWindow(SW_SHOW);
@@ -186,7 +186,7 @@ BOOL CWdumpApp::InitInstance()
 	CWdumpDoc *doc = (CWdumpDoc *) pDocTemplate->GetNextDoc(p);
 	doc->UpdateAllViews(0);
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////

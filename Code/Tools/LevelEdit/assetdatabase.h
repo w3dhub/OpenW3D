@@ -121,7 +121,7 @@ public:
 		//
 		// User information
 		//
-		virtual BOOL				Is_Read_Only (void) const	{ return TRUE; }
+		virtual BOOL				Is_Read_Only (void) const	{ return true; }
 
 protected:
 	

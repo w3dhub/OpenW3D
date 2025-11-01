@@ -57,49 +57,49 @@ Wstring::~Wstring()
 bit8 Wstring::operator==(IN char *other)
 {
   if ((str==NULL)&&(other==NULL))
-    return(TRUE);
+    return(true);
   if(strcmp(str, other) != 0)
-    return(FALSE);
+    return(false);
   else
-   return(TRUE);
+   return(true);
 }
 
 bit8 Wstring::operator==(IN Wstring &other)
 {
  if((str == NULL) && (other.str == NULL))
-   return(TRUE);
+   return(true);
 
  if((str == NULL) || (other.str == NULL))
-   return(FALSE);
+   return(false);
 
  if(strcmp(str, other.str) != 0)
-   return(FALSE);
+   return(false);
  else
-   return(TRUE);
+   return(true);
 }
 
 
 bit8 Wstring::operator!=(IN char *other)
 {
  if(strcmp(str, other) != 0)
-   return(TRUE);
+   return(true);
  else
-   return(FALSE);
+   return(false);
 }
 
 
 bit8 Wstring::operator!=(IN Wstring &other)
 {
  if((str == NULL) && (other.str == NULL))
-   return(FALSE);
+   return(false);
 
  if((str == NULL) || (other.str == NULL))
-   return(TRUE);
+   return(true);
 
  if(strcmp(str, other.str) != 0)
-   return(TRUE);
+   return(true);
  else
-   return(FALSE);
+   return(false);
 }
 
 
@@ -126,7 +126,7 @@ bit8 Wstring::cat(IN char *s)
   uint32   len;
 
   if (s==NULL)   // it's OK to cat nothing
-    return(TRUE);
+    return(true);
 
   // Save the contents of the string.
   oldStr = str;
@@ -141,7 +141,7 @@ bit8 Wstring::cat(IN char *s)
   if(!(str = new char[(len * sizeof(char))]))
   {
     str = oldStr;
-    return(FALSE);
+    return(false);
   }
 
   // Copy the contents of the old string and concatenate the passed
@@ -155,7 +155,7 @@ bit8 Wstring::cat(IN char *s)
   if(oldStr)
     delete[](oldStr);
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -176,7 +176,7 @@ bit8 Wstring::cat(uint32 size, IN char *s)
   if(!(str = new char[(len * sizeof(char))]))
   {
     str = oldStr;
-    return(FALSE);
+    return(false);
   }
 
   // Copy the contents of the old string and concatenate the passed
@@ -192,7 +192,7 @@ bit8 Wstring::cat(uint32 size, IN char *s)
   if(oldStr)
     delete[](oldStr);
 
-  return(TRUE);
+  return(true);
 }
 
 bit8 Wstring::cat(IN Wstring &other)
@@ -229,8 +229,8 @@ Wstring Wstring::operator+(IN Wstring &s)
 //
 // This function deletes 'count' characters indexed by `pos' from the Wstring.
 // If `pos'+'count' is > the length of the array, the last 'count' characters
-// of the string are removed.  If an error occurs, FALSE is returned.
-// Otherwise, TRUE is returned.  Note: count has a default value of 1.
+// of the string are removed.  If an error occurs, false is returned.
+// Otherwise, true is returned.  Note: count has a default value of 1.
 //
 //
 char Wstring::remove(sint32 pos,sint32 count)
@@ -239,7 +239,7 @@ char Wstring::remove(sint32 pos,sint32 count)
   sint32   len;
 
   if (!str)
-    return(FALSE);
+    return(false);
 
   len = (sint32)strlen(str);
 
@@ -251,12 +251,12 @@ char Wstring::remove(sint32 pos,sint32 count)
     pos=0;
   }
   if (count<=0)
-    return(FALSE);
+    return(false);
 
   if(!(s = new char[len-count+1]))
   {
     //ErrorMessage(SET_EM, "Insufficient memory to modify Wstring.");
-    return(FALSE);
+    return(false);
   }
 
   ///////DBGMSG("Wstring::remove  POS: "<<pos<<"  LEN: "<<len);
@@ -270,7 +270,7 @@ char Wstring::remove(sint32 pos,sint32 count)
   delete[](str);
   str = s;
 
-  return(TRUE);
+  return(true);
 }
 
 // Remove all instances of a char from the string
@@ -278,10 +278,10 @@ bit8 Wstring::removeChar(char c)
 {
   int     len=0;
   char   *cptr=NULL;
-  bit8    removed=FALSE;
+  bit8    removed=false;
 
   if (str==NULL)
-    return(FALSE);
+    return(false);
 
   len=strlen(str);
   while ((cptr=strchr(str,c)) !=NULL)
@@ -289,7 +289,7 @@ bit8 Wstring::removeChar(char c)
     memmove(cptr,cptr+1,len-1-((int)(cptr-str)));
     len--;
     str[len]=0;
-    removed=TRUE;
+    removed=true;
   }
   if (removed)
   {
@@ -372,13 +372,13 @@ bit8 Wstring::insert(char *instring, uint32 pos)
   memmove(newstr+pos,instring,strlen(instring));
   delete[](str);
   str=newstr;
-  return(TRUE);
+  return(true);
 }
 
 // This function inserts the character specified by `k' into the string at the
 // position indexed by `pos'.  If `pos' is >= the length of the string, it is
-// appended to the string.  If an error occurs, FALSE is returned.  Otherwise,
-// TRUE is returned.
+// appended to the string.  If an error occurs, false is returned.  Otherwise,
+// true is returned.
 bit8 Wstring::insert(char k, uint32 pos)
 {
   char    *s;
@@ -400,7 +400,7 @@ bit8 Wstring::insert(char k, uint32 pos)
   if(!(s = (char *)new char[(len + 2)]))
   {
     //ErrorMessage(SET_EM, "Insufficient memory to modify Wstring.");
-    return(FALSE);
+    return(false);
   }
 
   c[0]     = str[pos];
@@ -414,13 +414,13 @@ bit8 Wstring::insert(char k, uint32 pos)
   delete[](str);
   str = s;
 
-  return(TRUE);
+  return(true);
 }
 
 
 // This function replaces any occurences of the string pointed to by
 // `replaceThis' with the string pointed to by `withThis'.  If an error
-// occurs, FALSE is returned.  Otherwise, TRUE is returned.
+// occurs, false is returned.  Otherwise, true is returned.
 bit8 Wstring::replace(char *replaceThis, char *withThis)
 {
   Wstring  dest;
@@ -437,16 +437,16 @@ bit8 Wstring::replace(char *replaceThis, char *withThis)
       if(len)
       {
         if(!dest.cat(len, src))
-          return(FALSE);
+          return(false);
       }
       if(!dest.cat(withThis))
-        return(FALSE);
+        return(false);
       src = foundStr + strlen(replaceThis);
     }
     else
     {
       if(!dest.cat(src))
-        return(FALSE);
+        return(false);
 
       src=NULL;
     }
@@ -466,22 +466,22 @@ bit8 Wstring::set(IN char *s)
  if(!(str = new char[len]))
  {
    //ErrorMessage(SET_EM, "Insufficient memory to set Wstring.");
-   return(FALSE);
+   return(false);
  }
  strcpy(str, s);
 
- return(TRUE);
+ return(true);
 }
 
 
 bit8 Wstring::set(char c, uint32 index)
 {
  if(index >= (uint32)strlen(str))
-   return FALSE;
+   return false;
 
  str[index] = c;
 
- return TRUE;
+ return true;
 }
 
 
@@ -495,14 +495,14 @@ char Wstring::set(uint32 size, IN char *string)
  if(!(str = new char[len]))
  {
    //ErrorMessage(SET_EM, "Insufficient memory to set Wstring.");
-   return(FALSE);
+   return(false);
  }
 
  // Copy the bytes in the string, and NULL-terminate it.
  strncpy(str, string, size);
  str[size] = 0;
 
- return(TRUE);
+ return(true);
 }
 
 
@@ -535,13 +535,13 @@ void Wstring::toUpper(void)
 
 
 //  This function truncates the string so its length will match the specified
-// `len'.  If an error occurs, FALSE is returned.  Otherwise, TRUE is returned.
+// `len'.  If an error occurs, false is returned.  Otherwise, true is returned.
 bit8 Wstring::truncate(uint32 len)
 {
   Wstring tmp;
   if(!tmp.set(len, get()) || !set(tmp.get()))
-    return(FALSE);
-  return(TRUE);
+    return(false);
+  return(true);
 }
 
 // Truncate the string after the character 'c' (gets rid of 'c' as well)
@@ -551,14 +551,14 @@ bit8 Wstring::truncate(char c)
   sint32  len;
  
   if (str==NULL)
-    return(FALSE);
+    return(false);
 
   char   *cptr=strchr(str,c);
   if (cptr==NULL)
-    return(FALSE);
+    return(false);
   len=(sint32)(cptr-str); 
   truncate((uint32)len);
-  return(TRUE);
+  return(true);
 }
 
 // Get a token from this string that's seperated by one or more

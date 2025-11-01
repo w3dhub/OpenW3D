@@ -68,7 +68,7 @@ BOOL APIENTRY DllMain(HINSTANCE hinst, DWORD reason, LPVOID)
 //		DebugPrint("\n========== Script.dll Unloaded ==========\n");
 	}
 
-	return TRUE;
+	return true;
 }
 
 

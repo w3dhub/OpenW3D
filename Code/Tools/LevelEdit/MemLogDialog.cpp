@@ -131,6 +131,6 @@ MemLogDialogClass::OnInitDialog (void)
 		}
 	}
 	
-	return TRUE;
+	return true;
 }
 

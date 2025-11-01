@@ -70,8 +70,8 @@ BOOL MakeMixFileDialogClass::OnInitDialog()
 	
 	// TODO: Add extra initialization here
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 /*
@@ -185,7 +185,7 @@ void MakeMixFileDialogClass::OnBrowseFile()
 	CString old_name;
 	GetDlgItemText( IDC_BROWSE_FILE_NAME, old_name );
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".mix",
 								old_name,
 								OFN_HIDEREADONLY | OFN_EXPLORER,
@@ -203,7 +203,7 @@ void MakeMixFileDialogClass::OnBrowseDir()
 	CString old_name;
 	GetDlgItemText( IDC_BROWSE_DIR_NAME, old_name );
 
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								NULL, //".",
 								old_name,
 								OFN_HIDEREADONLY | OFN_EXPLORER,

@@ -108,9 +108,9 @@ BOOL CMainFrame::OnCreateClient( LPCREATESTRUCT /*lpcs*/,
 	if (!m_SplitWnd.CreateStatic(this, 1,2) || 
 		!m_SplitWnd.CreateView(0, 0, RUNTIME_CLASS(CWDumpTreeView), CSize(300,0), pContext) || 
 		!m_SplitWnd.CreateView(0, 1, RUNTIME_CLASS(CWDumpListView), CSize(0,0), pContext)) {
-		return FALSE;
+		return false;
 	} else {
-		return TRUE;
+		return true;
 	}
 
 // return CFrameWnd::OnCreateClient(lpcs, pContext); }

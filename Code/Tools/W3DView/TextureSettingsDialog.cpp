@@ -154,11 +154,11 @@ TextureSettingsDialogClass::OnInitDialog (void)
 	// Enable or disable the 'restore' button based on whether or not we
 	// have an original texture to switch to...
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_RESTORE), (m_pOriginalTexture != NULL));
-	::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), FALSE);
+	::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), false);
 
 	// Fill the dialog controls with data from the texture
 	Load_Texture_Settings ();
-	return TRUE;
+	return true;
 }
 
 
@@ -213,7 +213,7 @@ TextureSettingsDialogClass::Fill_Controls (TextureClass *ptexture)
 		case ID_MANUAL_ANIM_TEXTURE_INSTANCE_CLASS:
 		case ID_TIME_ANIM_TEXTURE_INSTANCE_CLASS:
 		case ID_RESIZEABLE_TEXTURE_INSTANCE_CLASS:
-			SendDlgItemMessage (IDC_RESIZEABLE_CHECK, BM_SETCHECK, (WPARAM)TRUE);
+			SendDlgItemMessage (IDC_RESIZEABLE_CHECK, BM_SETCHECK, (WPARAM)true);
 			psource = ((ResizeableTextureInstanceClass *)ptexture)->Peek_Source();
 
 			// Fill the 'filename' edit control
@@ -395,7 +395,7 @@ TextureSettingsDialogClass::WindowProc
 			case IDC_FILENAME_EDIT:
 				if ((HIWORD (wParam) == EN_UPDATE) ||
 					 (HIWORD (wParam) == EN_CHANGE)) {
-					::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), TRUE);
+					::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), true);
 				}
 				break;
 
@@ -406,13 +406,13 @@ TextureSettingsDialogClass::WindowProc
 			case IDC_RESIZEABLE_CHECK:
 			case IDC_ANIMATION_CHECK:
 				if (HIWORD (wParam) == BN_CLICKED) {
-					::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), TRUE);
+					::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), true);
 				}
 				break;
 
 			case IDC_TYPE_COMBO:
 				if (HIWORD (wParam) == CBN_SELCHANGE) {
-					::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), TRUE);
+					::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), true);
 				}
 				break;
 		}
@@ -452,7 +452,7 @@ TextureSettingsDialogClass::OnBrowseButton (void)
 	CString filename;
 	GetDlgItemText (IDC_FILENAME_EDIT, filename);
 
-	CFileDialog dialog (TRUE,
+	CFileDialog dialog (true,
 							  ".tga",
 							  filename,
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -468,7 +468,7 @@ TextureSettingsDialogClass::OnBrowseButton (void)
 		SendDlgItemMessage (IDC_FILENAME_EDIT, EM_SETSEL, (WPARAM)0, (LPARAM)-1);
 
 		// Enable the apply button
-		::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), TRUE);
+		::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), true);
 	}
 
 	return ;	
@@ -534,7 +534,7 @@ TextureSettingsDialogClass::OnRestore (void)
 		Load_Texture_Settings ();
 
 		// Disable the apply button because we just did...
-		::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), FALSE);
+		::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), false);
 	}
 
 	return ;
@@ -554,7 +554,7 @@ TextureSettingsDialogClass::OnApply (void)
 
 	// Determine some of the texture settings
 	TextureClass *pnew_texture = new TimeAnimTextureInstanceClass;
-	bool resizeable = (SendDlgItemMessage (IDC_RESIZEABLE_CHECK, BM_GETCHECK) == TRUE);
+	bool resizeable = (SendDlgItemMessage (IDC_RESIZEABLE_CHECK, BM_GETCHECK) == true);
 	int frame_count = GetDlgItemInt (IDC_FRAME_COUNT_EDIT);
 	int frame_rate = GetDlgItemInt (IDC_FPS_EDIT);
 
@@ -644,7 +644,7 @@ TextureSettingsDialogClass::OnApply (void)
 	}
 
 	// Disable the apply button because we just did...
-	::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), FALSE);
+	::EnableWindow (::GetDlgItem (m_hWnd, IDC_APPLY), false);
 	return ;
 }
 

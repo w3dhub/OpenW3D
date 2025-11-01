@@ -139,7 +139,7 @@ BOOL EmitterLinePropPageClass::OnInitDialog()
 	bool enable = (m_pEmitterList->Get_Render_Mode() == W3D_EMITTER_RENDER_MODE_LINE);
 	::Enable_Dialog_Controls(m_hWnd,enable);
 	
-	return TRUE;
+	return true;
 }
 
 BOOL EmitterLinePropPageClass::OnApply() 

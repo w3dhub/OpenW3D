@@ -121,12 +121,12 @@ class TCPMgr {
   void      pumpWriters(void);  // pump the buffered writer connections
 
   // Static methods
-  static int       wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readMode=TRUE);
+  static int       wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readMode=true);
   static STATUS    getStatus(void);
 
  private:
 
-  SOCKET    createSocket(uint32 ip, uint16 port, bit8 reuseAddr=TRUE);
+  SOCKET    createSocket(uint32 ip, uint16 port, bit8 reuseAddr=true);
   bit8      setBlocking(SOCKET fd, bit8 block);
   bit8      getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wait_secs, DIRECTION dir);
   void      pumpConnections(void);

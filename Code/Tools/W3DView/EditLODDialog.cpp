@@ -159,7 +159,7 @@ CEditLODDialog::OnInitDialog (void)
         }
     }
 	
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////
@@ -313,13 +313,13 @@ CEditLODDialog::OnItemChangedHierarchyList
             if (m_hierarchyListCtrl.GetNextItem (-1, LVNI_ALL | LVNI_SELECTED) == -1)
             {
                 // Disabled the edit and spin controls
-                EnableControls (FALSE);                
+                EnableControls (false);                
             }
         }
         else
         {
             // Enable the edit and spin controls
-            EnableControls (TRUE);
+            EnableControls (true);
 
             // Load the control with data for the selected item.            
             ResetControls (pNMListView->iItem);            

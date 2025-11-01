@@ -83,7 +83,7 @@ GenerateVisDialogClass::OnInitDialog (void)
 
 	bool bcheck = ::Get_Scene_Editor ()->Is_Vis_Quick_And_Dirty();
 	SendDlgItemMessage (IDC_IGNORE_TRANSPARENCY_CHECK, BM_SETCHECK, (WPARAM)bcheck);
-	return TRUE;
+	return true;
 }
 
 
@@ -121,7 +121,7 @@ GenerateVisDialogClass::OnOK (void)
 	//	Enable quick and dirty mode (if necessary)
 	//
 	BOOL is_quick_and_dirty = SendDlgItemMessage (IDC_IGNORE_TRANSPARENCY_CHECK, BM_GETCHECK);
-	scene->Set_Vis_Quick_And_Dirty (is_quick_and_dirty == TRUE);	
+	scene->Set_Vis_Quick_And_Dirty (is_quick_and_dirty == true);	
 
 	//
 	//	Read the settings from the dialog
@@ -139,7 +139,7 @@ GenerateVisDialogClass::OnOK (void)
 	//
 	// Reset the vis data (which also causes the culling systems to re-partition)
 	//
-	if (selection_only != TRUE) {
+	if (selection_only != true) {
 		scene->Reset_Vis(true);
 	}
 	
@@ -147,12 +147,12 @@ GenerateVisDialogClass::OnOK (void)
 	//	Kick off the vis
 	//
 	if (SendDlgItemMessage (IDC_USE_EDGE_SAMPLING, BM_GETCHECK) != 0) {
-		scene->Generate_Edge_Sampled_Vis (granularity, (ignore_bias == TRUE));
+		scene->Generate_Edge_Sampled_Vis (granularity, (ignore_bias == true));
 	} else {
-		scene->Generate_Uniform_Sampled_Vis (granularity, sample_height, (ignore_bias == TRUE), (selection_only == TRUE));
+		scene->Generate_Uniform_Sampled_Vis (granularity, sample_height, (ignore_bias == true), (selection_only == true));
 	}
 
-	if (selection_only != TRUE) {
+	if (selection_only != true) {
 		
 		// 
 		// Now do the manual vis points ();

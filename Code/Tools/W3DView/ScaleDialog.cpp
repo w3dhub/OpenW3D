@@ -88,7 +88,7 @@ ScaleDialogClass::OnInitDialog (void)
 	if (!m_Prompt.IsEmpty())
 		SetDlgItemText(IDC_PROMPT, m_Prompt);
 
-	return TRUE;
+	return true;
 }
 
 

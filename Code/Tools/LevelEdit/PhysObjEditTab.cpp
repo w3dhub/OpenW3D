@@ -151,7 +151,7 @@ PhysObjEditTabClass::HandleInitDialog (void)
 	}
 
 	if (m_ReadOnly) {
-		m_ObjTypeCombo.EnableWindow (FALSE);
+		m_ObjTypeCombo.EnableWindow (false);
 	}
 
 	// Update the spec sheet based on the current object type
@@ -292,7 +292,7 @@ PhysObjEditTabClass::OnSelChangeTypeCombo (void)
 		}
 
 		SetRedraw (true);
-		InvalidateRect (NULL, FALSE);
+		InvalidateRect (NULL, false);
 		UpdateWindow ();
 	}
 

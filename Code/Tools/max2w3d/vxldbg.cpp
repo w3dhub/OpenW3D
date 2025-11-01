@@ -250,7 +250,7 @@ BOOL CALLBACK _dialog_proc
 	if (window) {
 		return window->Dialog_Proc(hWnd, message, wParam, lParam);
 	} else {
-		return FALSE;
+		return false;
 	}
 }
 

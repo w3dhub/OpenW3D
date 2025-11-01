@@ -816,7 +816,7 @@ Get_File_Time
 	if (hfile != INVALID_HANDLE_VALUE) {
 
 		// Get the mod times for this file
-		retval = (::GetFileTime (hfile, pcreation_time, paccess_time, pwrite_time) == TRUE);
+		retval = (::GetFileTime (hfile, pcreation_time, paccess_time, pwrite_time) == true);
 
 		// Close the file
 		SAFE_CLOSE (hfile);
@@ -944,7 +944,7 @@ Copy_File
 
 	// Perform the copy operation!
 	if (allow_copy) {
-		retval = (::CopyFile (existing_filename, new_filename, FALSE) == TRUE);
+		retval = (::CopyFile (existing_filename, new_filename, false) == true);
 	}
 
 	// Return the true/false result code

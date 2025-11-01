@@ -109,7 +109,7 @@ SunlightDialogClass::OnInitDialog (void)
 
 	::SetDlgItemFloat (m_hWnd, IDC_YAW_EDIT, (float)m_YawSlider.GetPos ());
 	::SetDlgItemFloat (m_hWnd, IDC_PITCH_EDIT, (float)m_PitchSlider.GetPos ());
-	return TRUE;
+	return true;
 }
 
 
@@ -183,7 +183,7 @@ SunlightDialogClass::OnColor (void)
 		//
 		// Repaint the views
 		//
-		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_BK_COLOR), NULL, TRUE);
+		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_BK_COLOR), NULL, true);
 		::Get_Scene_Editor ()->Update_Lighting ();
 		::Refresh_Main_View ();
 	}

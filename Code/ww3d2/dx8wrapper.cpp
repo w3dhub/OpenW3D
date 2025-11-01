@@ -284,7 +284,7 @@ void DX8Wrapper::Shutdown(void)
 			_PresentParameters.MultiSampleType = D3DMULTISAMPLE_NONE;
 			_PresentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
 			_PresentParameters.Windowed = IsWindowed;
-			_PresentParameters.EnableAutoDepthStencil = FALSE;
+			_PresentParameters.EnableAutoDepthStencil = false;
 			_PresentParameters.Flags=0;
 			_PresentParameters.BackBufferFormat = DesktopMode.Format;
 			Reset_Device();
@@ -345,11 +345,11 @@ void DX8Wrapper::Set_Default_Global_Render_States(void)
 	DX8_THREAD_ASSERT();
 	const D3DCAPS9 &caps = Get_Current_Caps()->Get_DX8_Caps();
 
-	Set_DX8_Render_State(D3DRS_RANGEFOGENABLE, (caps.RasterCaps & D3DPRASTERCAPS_FOGRANGE) ? TRUE : FALSE);
+	Set_DX8_Render_State(D3DRS_RANGEFOGENABLE, (caps.RasterCaps & D3DPRASTERCAPS_FOGRANGE) ? true : false);
 	Set_DX8_Render_State(D3DRS_FOGTABLEMODE, D3DFOG_NONE);
 	Set_DX8_Render_State(D3DRS_FOGVERTEXMODE, D3DFOG_LINEAR);
 	Set_DX8_Render_State(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
-	Set_DX8_Render_State(D3DRS_COLORVERTEX, TRUE);
+	Set_DX8_Render_State(D3DRS_COLORVERTEX, true);
 	Set_DX8_Render_State(D3DRS_DEPTHBIAS,0);
 	Set_DX8_Render_State(D3DRS_SLOPESCALEDEPTHBIAS,0);
 	Set_DX8_Texture_Stage_State(1, D3DTSS_BUMPENVLSCALE, F2DW(1.0f));
@@ -728,7 +728,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 	_PresentParameters.hDeviceWindow = _Hwnd;
 	_PresentParameters.Windowed = IsWindowed;
 
-	_PresentParameters.EnableAutoDepthStencil = TRUE;				// Driver will attempt to match Z-buffer depth
+	_PresentParameters.EnableAutoDepthStencil = true;				// Driver will attempt to match Z-buffer depth
 	_PresentParameters.Flags=0;											// We're not going to lock the backbuffer
 
 	_PresentParameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
@@ -850,7 +850,7 @@ bool DX8Wrapper::Set_Render_Device(int dev, int width, int height, int bits, int
 			rect.bottom = ResolutionHeight;
 			DWORD dwstyle = ::GetWindowLong (_Hwnd, GWL_STYLE);
 
-			AdjustWindowRect (&rect, dwstyle, FALSE);
+			AdjustWindowRect (&rect, dwstyle, false);
 
 			// Resize the window to fit this resolution
 			::SetWindowPos (_Hwnd,
@@ -2689,8 +2689,8 @@ DX8Wrapper::Create_Additional_Swap_Chain (HWND render_window)
 	params.MultiSampleType						= D3DMULTISAMPLE_NONE;
 	params.SwapEffect								= D3DSWAPEFFECT_FLIP; /* or D3DSWAPEFFECT_COPY?  */
 	params.hDeviceWindow							= render_window;
-	params.Windowed								= TRUE;
-	params.EnableAutoDepthStencil				= TRUE;
+	params.Windowed								= true;
+	params.EnableAutoDepthStencil				= true;
 	params.AutoDepthStencilFormat				= _PresentParameters.AutoDepthStencilFormat;
 	params.Flags									= 0;
 	params.FullScreen_RefreshRateInHz			= D3DPRESENT_RATE_DEFAULT;
@@ -2969,7 +2969,7 @@ void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTA
 	case D3DRS_POINTSCALEENABLE:
 	case D3DRS_MULTISAMPLEANTIALIAS:
 	case D3DRS_INDEXEDVERTEXBLENDENABLE:
-		name=value ? "TRUE" : "FALSE";
+		name=value ? "true" : "false";
 		break;
 
 	case D3DRS_SRCBLEND:

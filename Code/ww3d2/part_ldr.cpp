@@ -1142,7 +1142,7 @@ ParticleEmitterDefClass::Save_W3D (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies an emitter
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER) == true) {
 		
 		// Attempt to save the different sections of the emitter definition
 		if ((Save_Header (chunk_save) == WW3D_ERROR_OK) &&
@@ -1179,7 +1179,7 @@ ParticleEmitterDefClass::Save_Header (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the emitter
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_HEADER) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_HEADER) == true) {
 		
 		// Fill the header structure
 		W3dEmitterHeaderStruct header = { 0 };
@@ -1214,7 +1214,7 @@ ParticleEmitterDefClass::Save_User_Data (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that contains user information
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_USER_DATA) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_USER_DATA) == true) {
 		
 		DWORD string_len = m_pUserString ? (::strlen (m_pUserString) + 1) : 0;
 
@@ -1261,7 +1261,7 @@ ParticleEmitterDefClass::Save_Info (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the generic emitter settings
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_INFO) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_INFO) == true) {
 		
 		// Write the settings structure out to the chunk
 		if (chunk_save.Write (&m_Info, sizeof (m_Info)) == sizeof (m_Info))
@@ -1290,7 +1290,7 @@ ParticleEmitterDefClass::Save_InfoV2 (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the generic emitter settings
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_INFOV2) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_INFOV2) == true) {
 		
 		// Write the settings structure out to the chunk
 		if (chunk_save.Write (&m_InfoV2, sizeof (m_InfoV2)) == sizeof (m_InfoV2))
@@ -1319,7 +1319,7 @@ ParticleEmitterDefClass::Save_Props (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the generic emitter settings
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_PROPS) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_PROPS) == true) {
 		
 		//
 		//	Fill in the property struct
@@ -1478,7 +1478,7 @@ ParticleEmitterDefClass::Save_Line_Properties (ChunkSaveClass &chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the line properties
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_LINE_PROPERTIES) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_LINE_PROPERTIES) == true) {
 		
 		// Write the line properties structure out to the chunk
 		if (chunk_save.Write (&m_LineProperties, sizeof (m_LineProperties)) == sizeof (m_LineProperties))
@@ -1508,7 +1508,7 @@ ParticleEmitterDefClass::Save_Rotation_Keyframes (ChunkSaveClass & chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the rotation keyframes
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_ROTATION_KEYFRAMES) == true) {
 
 		// Write the header
 		W3dEmitterRotationHeaderStruct header;
@@ -1557,7 +1557,7 @@ ParticleEmitterDefClass::Save_Frame_Keyframes (ChunkSaveClass & chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 	
 	// Begin a chunk that identifies the rotation keyframes
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_FRAME_KEYFRAMES) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_FRAME_KEYFRAMES) == true) {
 
 		// Write the header
 		W3dEmitterFrameHeaderStruct header;
@@ -1604,7 +1604,7 @@ ParticleEmitterDefClass::Save_Blur_Time_Keyframes (ChunkSaveClass & chunk_save)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 	
 	// Begin a chunk that identifies the rotation keyframes
-	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES) == TRUE) {
+	if (chunk_save.Begin_Chunk (W3D_CHUNK_EMITTER_BLUR_TIME_KEYFRAMES) == true) {
 
 		// Write the header
 		W3dEmitterBlurTimeHeaderStruct header;

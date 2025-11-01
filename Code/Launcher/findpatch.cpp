@@ -20,8 +20,8 @@
 
 //
 // Locate a patch file
-//  If a patch can be found then TRUE is returned and the name is filled in,
-//  otherwise FALSE is returned.
+//  If a patch can be found then true is returned and the name is filled in,
+//  otherwise false is returned.
 //
 // Patch Types:
 //   - *.rtp = RTPatch file that can be applied right now
@@ -52,7 +52,7 @@ int Find_Patch(OUT char *filename,int maxlen, ConfigFile &config)
     //
     skuIndex++;
     ok=Get_App_Dir(gamePath,MAX_PATH,config,skuIndex);
-    if (ok==FALSE)
+    if (ok==false)
       break;
     
     i=0;
@@ -73,14 +73,14 @@ int Find_Patch(OUT char *filename,int maxlen, ConfigFile &config)
       }
     }
   }
-  return(FALSE);
+  return(false);
 }
 
 
 //
 // Get the directory for the N'th application in the config file
 //
-// Returns FALSE if not in the config file or invalid for some reason.
+// Returns false if not in the config file or invalid for some reason.
 //
 bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
 {
@@ -95,8 +95,8 @@ bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
   sprintf(string,"SKU%d",index);
 
   // Can't find this product
-  if (config.getString(string,key)==FALSE)
-    return(FALSE);
+  if (config.getString(string,key)==false)
+    return(false);
 
  
   DBGMSG("KEY = "<<key.get());
@@ -117,7 +117,7 @@ bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
   if (regRetval!=ERROR_SUCCESS)
   {
     DBGMSG("RegOpenKey failed");
-    return(FALSE);
+    return(false);
   }
   DWORD  type;
   DWORD  length=MAX_PATH;
@@ -127,7 +127,7 @@ bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
   if ((regRetval!=ERROR_SUCCESS)||(type!=REG_SZ))
   {
     DBGMSG("Reg failure");
-    return(FALSE);
+    return(false);
   }
 
   // Find the last '\\' in a string and put a 0 after it
@@ -143,7 +143,7 @@ bit8 Get_App_Dir(OUT char *filename,int maxlen, ConfigFile &config,int index)
   DBGMSG("Game path = "<<gamePath);
   strncpy(filename,gamePath,maxlen);
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -165,7 +165,7 @@ void Delete_Patches(ConfigFile &config)
   //
   // Loop through all the application directories in the config file
   //
-  while (Get_App_Dir(dir,MAX_PATH,config,i++)==TRUE)
+  while (Get_App_Dir(dir,MAX_PATH,config,i++)==true)
   {
     // Make sure path is at least 3 for "c:\".  I really hope nobody's
     //   dumb enough to install a game to the root directory. (It's OK though

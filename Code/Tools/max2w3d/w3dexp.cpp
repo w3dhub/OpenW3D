@@ -124,9 +124,9 @@ public:
 			&& Is_Geometry(node)
 		)
 		{
-			return TRUE;
+			return true;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 };
@@ -182,11 +182,11 @@ public:
 
 	virtual BOOL Accept_Node(INode * node, TimeValue time)
 	{
-		if (!Is_Bone(node)) return FALSE;
+		if (!Is_Bone(node)) return false;
 
 		// Check it's damage region ID (if it has one).
 		AppDataChunk * appdata = node->GetAppDataChunk(W3DUtilityClassID,UTILITY_CLASS_ID,1);
-		if (!appdata) return FALSE;
+		if (!appdata) return false;
 		W3DAppData1Struct *wdata = (W3DAppData1Struct*)(appdata->data);
 		return wdata->DamageRegion == RegionId;
 	}
@@ -247,7 +247,7 @@ int W3dExportClass::DoExport
 		sprintf(CurrentExportPath, "%s%s", drivename, dirname);
 
 		/*
-		** The batch export process (suppressPrompt == TRUE) needs to know the directory of the
+		** The batch export process (suppressPrompt == true) needs to know the directory of the
 		** MAX file being exported. This is so that it can use the old relative pathname of the
 		** W3D file containing the hierarchy.
 		*/
@@ -1046,7 +1046,7 @@ bool W3dExportClass::get_export_options(BOOL suppress_prompts)
 	options->EnableOptimizeMeshData = false;
 
 	bool retval = true;
-	if (suppress_prompts == FALSE)
+	if (suppress_prompts == false)
 	{
 		W3dOptionsDialogClass dialog(MaxInterface,ExportInterface);
 		retval = dialog.Get_Export_Options(options);
@@ -1056,7 +1056,7 @@ bool W3dExportClass::get_export_options(BOOL suppress_prompts)
 
 		ExportOptions = *options;
 
-		if ( (suppress_prompts == TRUE) && (options->RelativeHierarchyFilename[0] != 0) )
+		if ( (suppress_prompts == true) && (options->RelativeHierarchyFilename[0] != 0) )
 		{
 			// Use the relative pathname WRT the max scene's directory to
 			// figure out the absolute directory where the hierarchy file
@@ -1100,7 +1100,7 @@ void W3dExportClass::Start_Progress_Bar(void)
 {
 	MaxInterface->ProgressStart(
 		"Processing Triangle Mesh", 
-		TRUE, 
+		true, 
 		progress_callback, 
 		NULL);
 }

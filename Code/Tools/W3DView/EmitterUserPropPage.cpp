@@ -127,7 +127,7 @@ EmitterUserPropPageClass::OnInitDialog (void)
 		
 	// Fill in the user-box
 	SetDlgItemText (IDC_PROGRAMMER_SETTINGS_EDIT, m_UserString);
-	return TRUE;
+	return true;
 }
 
 

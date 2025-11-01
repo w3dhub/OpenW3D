@@ -165,7 +165,7 @@ ResolutionDialogClass::OnInitDialog (void)
 		m_ListCtrl.SetItemState (0, LVIS_SELECTED, LVIS_SELECTED);
 	}
 
-	return TRUE;
+	return true;
 }
 
 

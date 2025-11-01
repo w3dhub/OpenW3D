@@ -82,7 +82,7 @@ class AlphaModifierClass : public Modifier
 		ChannelMask ChannelsUsed()  {return PART_GEOM|PART_TOPO|PART_SELECT|PART_SUBSEL_TYPE;}
 		ChannelMask ChannelsChanged() {return PART_GEOM|PART_TOPO|PART_SELECT|PART_SUBSEL_TYPE;}
 		Class_ID InputType() { return triObjectClassID;}
-		BOOL ChangeTopology() {return FALSE;}
+		BOOL ChangeTopology() {return false;}
 
 
 		// Calculate the local validity from the parameters

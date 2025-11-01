@@ -82,7 +82,7 @@ void CWDumpEditView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	CEdit &edit = GetEditCtrl();
-	edit.SetReadOnly(TRUE);
+	edit.SetReadOnly(true);
 	CWdumpDoc *doc= (CWdumpDoc *) GetDocument();
 	ChunkItem *item = doc->m_ChunkItem;
 

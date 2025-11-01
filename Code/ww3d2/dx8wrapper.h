@@ -381,7 +381,7 @@ public:
 	**	DX8Wrapper::Set_Render_Target (swap_chain_ptr);
 	**
 	**	WW3D::Begin_Render (true, true, Vector3 (0, 0, 0));
-	**	WW3D::Render (scene, camera, FALSE, FALSE);
+	**	WW3D::Render (scene, camera, false, false);
 	**	WW3D::End_Render ();
 	**
 	**	swap_chain_ptr->Present (NULL, NULL, NULL, NULL);
@@ -642,14 +642,14 @@ WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT9* light)
 	if (light) {
 		DX8_RECORD_LIGHT_CHANGE();
 		DX8CALL(SetLight(index,light));
-		DX8CALL(LightEnable(index,TRUE));
+		DX8CALL(LightEnable(index,true));
 		CurrentDX8LightEnables[index]=true;
 		SNAPSHOT_SAY(("DX8 - SetLight\n"));
 	}
 	else if (CurrentDX8LightEnables[index]) {
 		DX8_RECORD_LIGHT_CHANGE();
 		CurrentDX8LightEnables[index]=false;
-		DX8CALL(LightEnable(index,FALSE));
+		DX8CALL(LightEnable(index,false));
 		SNAPSHOT_SAY(("DX8 - DisableLight\n"));
 	}
 }

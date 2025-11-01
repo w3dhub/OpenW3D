@@ -1089,7 +1089,7 @@ public:
 		WWASSERT(registry.Is_Valid());
 		registry.Set_Int(VALUE_NAME_RENDER_DEVICE_WIDTH, 800);
 		registry.Set_Int(VALUE_NAME_RENDER_DEVICE_HEIGHT, 600);
-		registry.Set_Int(VALUE_NAME_RENDER_DEVICE_WINDOWED, TRUE);
+		registry.Set_Int(VALUE_NAME_RENDER_DEVICE_WINDOWED, true);
 		}
 
 		/*
@@ -1099,8 +1099,8 @@ public:
 		{
 		RegistryClass registry(APPLICATION_SUB_KEY_NAME_DEBUG);
 		WWASSERT(registry.Is_Valid());
-		registry.Set_Int("SystemInfoLogDisable", TRUE);
-		registry.Set_Int("DisableLogCopying", TRUE);
+		registry.Set_Int("SystemInfoLogDisable", true);
+		registry.Set_Int("DisableLogCopying", true);
 		}
 		*/
 
@@ -1110,7 +1110,7 @@ public:
 		{
 		RegistryClass registry(APPLICATION_SUB_KEY_NAME_OPTIONS);
 		WWASSERT(registry.Is_Valid());
-		registry.Set_Int("DefaultToFirstPerson", FALSE);
+		registry.Set_Int("DefaultToFirstPerson", false);
 		}
 
 		//
@@ -1119,7 +1119,7 @@ public:
 		{
 		RegistryClass registry(APPLICATION_SUB_KEY_NAME_OPTIONS);
 		WWASSERT(registry.Is_Valid());
-		registry.Set_Int("SkipAllIntroMovies", TRUE);
+		registry.Set_Int("SkipAllIntroMovies", true);
 		}
 
 		//
@@ -1128,7 +1128,7 @@ public:
 		{
 		RegistryClass registry(APPLICATION_SUB_KEY_NAME_DEBUG);
 		WWASSERT(registry.Is_Valid());
-		registry.Set_Int("DisableCDCheck", TRUE);
+		registry.Set_Int("DisableCDCheck", true);
 		}
 
 		//
@@ -4427,8 +4427,8 @@ public:
 
 			RegistryClass registry(APPLICATION_SUB_KEY_NAME_DEBUG);
 			WWASSERT(registry.Is_Valid());
-			registry.Set_Int("SystemInfoLogDisable", FALSE);
-			registry.Set_Int("DisableLogCopying", FALSE);
+			registry.Set_Int("SystemInfoLogDisable", false);
+			registry.Set_Int("DisableLogCopying", false);
 
 			Print("Log copying is ON.");
 
@@ -4436,8 +4436,8 @@ public:
 
 			RegistryClass registry(APPLICATION_SUB_KEY_NAME_DEBUG);
 			WWASSERT(registry.Is_Valid());
-			registry.Set_Int("SystemInfoLogDisable", TRUE);
-			registry.Set_Int("DisableLogCopying", TRUE);
+			registry.Set_Int("SystemInfoLogDisable", true);
+			registry.Set_Int("DisableLogCopying", true);
 
 			Print("Log copying is OFF.");
 

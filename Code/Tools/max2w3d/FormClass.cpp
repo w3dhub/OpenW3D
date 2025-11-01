@@ -120,7 +120,7 @@ FormClass::fnFormProc
 		::RemoveProp (dlg_wnd, "FORMCLASS");
 	}
 
-	BOOL retval = FALSE;
+	BOOL retval = false;
 	if (pform) {
 		retval = pform->Dialog_Proc (dlg_wnd, message, wparam, lparam);
 	}
@@ -158,7 +158,7 @@ BOOL FormClass::ExecuteDlgInit(LPCTSTR lpszResourceName)
 			// load it
 			hResource = LoadResource(hInst, hDlgInit);
 			if (hResource == NULL)
-				return FALSE;
+				return false;
 			// lock it
 			lpResource = LockResource(hResource);
 			assert(lpResource != NULL);
@@ -194,7 +194,7 @@ BOOL FormClass::ExecuteDlgInit(LPCTSTR lpszResourceName)
  *=============================================================================================*/
 BOOL FormClass::ExecuteDlgInit(LPVOID lpResource)
 {
-	BOOL bSuccess = TRUE;
+	BOOL bSuccess = true;
 	if (lpResource != NULL)
 	{
 		UNALIGNED WORD* lpnRes = (WORD*)lpResource;
@@ -222,7 +222,7 @@ BOOL FormClass::ExecuteDlgInit(LPVOID lpResource)
 			{
 				// List/Combobox returns -1 for error
 				if (::SendDlgItemMessageA(m_hWnd, nIDC, nMsg, 0, (LONG)lpnRes) == -1)
-					bSuccess = FALSE;
+					bSuccess = false;
 			}
 
 			// skip past data

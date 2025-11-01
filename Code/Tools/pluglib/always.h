@@ -85,6 +85,17 @@ void operator delete(void *p, size_t size) noexcept;
 #pragma warning ( disable: 1 ) // last line of file ends without a newline
 #endif
 
+// Provide a portable definition for __forceinline when not compiling with MSVC.
+#if !defined(_MSC_VER) && !defined(__forceinline)
+	#if defined(_WIN32) && (defined(__clang__) || defined(__GNUC__))
+		#define __forceinline inline [[msvc::forceinline]]
+	#elif defined(__GNUC__) || defined(__clang__)
+		#define __forceinline inline __attribute__((always_inline))
+	#else
+		#define __forceinline inline
+	#endif
+#endif
+
 // Jani: MSVC doesn't necessarily inline code with inline keyword. Using __forceinline results better inlining
 // and also prints out a warning if inlining wasn't possible. __forceinline is MSVC specific.
 #if defined(_MSC_VER)

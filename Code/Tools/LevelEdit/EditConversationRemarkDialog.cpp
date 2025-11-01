@@ -116,14 +116,14 @@ EditConversationRemarkDialogClass::OnInitDialog (void)
 		//	Disable this button if the user hasn't configured the orator
 		//
 		if ((m_OratorBitmask & (1 << index)) == false) {
-			::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_BUTTONS[index].button_id), FALSE);
+			::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_BUTTONS[index].button_id), false);
 		}
 	}
 
 	//
 	//	Select the current orator
 	//
-	SendDlgItemMessage (ORATOR_BUTTONS[Remark.Get_Orator_ID ()].button_id, BM_SETCHECK, TRUE);
+	SendDlgItemMessage (ORATOR_BUTTONS[Remark.Get_Orator_ID ()].button_id, BM_SETCHECK, true);
 
 	//
 	//	Put the animation name into the text field
@@ -144,7 +144,7 @@ EditConversationRemarkDialogClass::OnInitDialog (void)
 	StringPicker.Create (this);
 	StringPicker.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 	StringPicker.ShowWindow (SW_SHOW);
-	return TRUE;
+	return true;
 }
 
 

@@ -109,7 +109,7 @@ PickerClass::Create_Picker
 	}
 
 	// Return the true/false result code
-	return bool(success == TRUE);
+	return bool(success == true);
 }
 
 
@@ -394,7 +394,7 @@ PickerClass::OnEraseBkgnd (CDC *pDC)
 	//	Erase the background
 	//
 	::FillRect (*pDC, &rect, brush);
-	return TRUE;
+	return true;
 }
 
 
@@ -409,8 +409,8 @@ PickerClass::OnPaint (void)
 	//
 	//	Force the child windows to be repainted
 	//
-	::InvalidateRect (m_EditCtrl, NULL, TRUE);
-	::InvalidateRect (m_BrowseButton, NULL, TRUE);
+	::InvalidateRect (m_EditCtrl, NULL, true);
+	::InvalidateRect (m_BrowseButton, NULL, true);
 
 	CPaintDC dc (this);
 	return ;

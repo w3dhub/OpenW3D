@@ -482,7 +482,7 @@ FileMgrClass::Add_Files_To_Database (void)
 			//	Copy the file to the asset tree
 			//
 			if (::Quick_Compare_Files (full_path, local_path) != 0) {
-				::Copy_File (full_path, local_path, FALSE);
+				::Copy_File (full_path, local_path, false);
 			}
 			
 			full_path = local_path;
@@ -593,7 +593,7 @@ FileMgrClass::Update_Texture_Cache
 				if (::Quick_Compare_Files (texture_file, cache_path) > 0) {
 					
 					// Everything is in order, so copy the texture file to the cache
-					retval &= ::Copy_File (texture_file, cache_path, FALSE);
+					retval &= ::Copy_File (texture_file, cache_path, false);
 				}
 			}
 		}
@@ -780,7 +780,7 @@ FileMgrClass::Initialize_VSS
 																		  username ? username : "User",
 																		  password ? password : "");
 		
-		m_bReadOnlyVSS = (m_DatabaseInterface->Is_Read_Only () == TRUE);
+		m_bReadOnlyVSS = (m_DatabaseInterface->Is_Read_Only () == true);
 
 		//
 		//	Is this a special user?  A special user is someone who doesn't
@@ -1079,7 +1079,7 @@ FileMgrClass::Find_Files
 
 	// Find all files that match this wildcard
 	WIN32_FIND_DATA find_info = { 0 };
-	BOOL bcontinue = TRUE;
+	BOOL bcontinue = true;
 	HANDLE hfile_find = ::FindFirstFile (file_spec, &find_info);
 	for (;(hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
 		  bcontinue = ::FindNextFile (hfile_find, &find_info)) {
@@ -1101,7 +1101,7 @@ FileMgrClass::Find_Files
 	
 		// Process all the subdirs
 		file_spec = path + "*.*";
-		bcontinue = TRUE;
+		bcontinue = true;
 		for (hfile_find = ::FindFirstFile (file_spec, &find_info);
 			  (hfile_find != INVALID_HANDLE_VALUE) && bcontinue;
 			  bcontinue = ::FindNextFile (hfile_find, &find_info)) {

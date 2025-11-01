@@ -71,7 +71,7 @@ FileCopyDialogClass::WindowProc
 )
 {	
 	if (message == WM_USER + 101) {
-		EndDialog (TRUE);
+		EndDialog (true);
 	}
 	
 	return CDialog::WindowProc(message, wParam, lParam);
@@ -94,6 +94,6 @@ FileCopyDialogClass::OnInitDialog (void)
 
 	m_AnimateCtrl.Open (IDR_FILECOPY_AVI);	
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }

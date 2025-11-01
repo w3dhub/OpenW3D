@@ -43,16 +43,16 @@ UINT CALLBACK W3DPageCallback(HWND hWnd,
                 LPPROPSHEETPAGE  ppsp){
     switch(uMessage){
         case PSPCB_CREATE:
-            return TRUE;
+            return true;
 
         case PSPCB_RELEASE:{
             if (ppsp->lParam){
                ((LPCSHELLEXT)(ppsp->lParam))->Release();
             }
-            return TRUE; 
+            return true; 
 			}
     }
-    return TRUE;
+    return true;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void ShowHideControls(HWND hDlg, bool show){
@@ -110,11 +110,11 @@ BOOL CALLBACK AnimPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
 					//So far assuming only one animation per file
 					SetDlgItemText(hDlg, IDC_ANIMNAME, pAnim->Name);
 					SetDlgItemText(hDlg, IDC_HNAME, pAnim->HierarchyName);
-					SetDlgItemInt(hDlg, IDC_NUMFRAMES, pAnim->NumFrames,FALSE);
+					SetDlgItemInt(hDlg, IDC_NUMFRAMES, pAnim->NumFrames,false);
 					//FrameRate
-					sprintf(buf,"%i fps",pAnim->FrameRate,FALSE);
+					sprintf(buf,"%i fps",pAnim->FrameRate,false);
 					SetDlgItemText(hDlg, IDC_FRAMERATE, buf);
-					//SetDlgItemInt(hDlg, IDC_FRAMERATE, pAnim->FrameRate,FALSE);
+					//SetDlgItemInt(hDlg, IDC_FRAMERATE, pAnim->FrameRate,false);
 					//version
 					sprintf(buf,"%d.%d",W3D_GET_MAJOR_VERSION(pAnim->Version),W3D_GET_MINOR_VERSION(pAnim->Version));
 					SetDlgItemText(hDlg, IDC_ANIMVERSION, buf);
@@ -134,7 +134,7 @@ BOOL CALLBACK AnimPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
 				}
 				if(found_hierarchies){
 					SetDlgItemText(hDlg, IDC_HIERARCHYNAME, pHInfo->Name);
-					SetDlgItemInt(hDlg, IDC_NUMPIVOTS, pHInfo->NumPivots,FALSE);
+					SetDlgItemInt(hDlg, IDC_NUMPIVOTS, pHInfo->NumPivots,false);
 					sprintf(buf,"%d.%d",W3D_GET_MAJOR_VERSION(pHInfo->Version),W3D_GET_MINOR_VERSION(pHInfo->Version));
 					SetDlgItemText(hDlg, IDC_HIERARCHYVERSION, buf);
 					sprintf(buf, "(%.3f, %.3f, %.3f)", pHInfo->Center.X, pHInfo->Center.Y, pHInfo->Center.Z);
@@ -172,19 +172,19 @@ BOOL CALLBACK AnimPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
             }
             break;
         default:
-            return FALSE;
+            return false;
     }
-    return TRUE;
+    return true;
 }
 //=====================================================================================================
 void SetDlgMeshParams(HWND hDlg, W3dMeshHeader3Struct*pInfo){
 	SetDlgItemText(hDlg,IDC_MESHNAME,pInfo->MeshName);
 	SetDlgItemText(hDlg,IDC_CONTAINER,pInfo->ContainerName);
-	SetDlgItemInt(hDlg,IDC_NUM_MATERIALS, pInfo->NumMaterials,FALSE);
+	SetDlgItemInt(hDlg,IDC_NUM_MATERIALS, pInfo->NumMaterials,false);
 
-	SetDlgItemInt(hDlg,IDC_NUM_POLYS, pInfo->NumTris,FALSE);
-	SetDlgItemInt(hDlg,IDC_NUM_VERTICES, pInfo->NumVertices, FALSE);
-	SetDlgItemInt(hDlg,IDC_NUM_MATERIALS, pInfo->NumMaterials,FALSE);
+	SetDlgItemInt(hDlg,IDC_NUM_POLYS, pInfo->NumTris,false);
+	SetDlgItemInt(hDlg,IDC_NUM_VERTICES, pInfo->NumVertices, false);
+	SetDlgItemInt(hDlg,IDC_NUM_MATERIALS, pInfo->NumMaterials,false);
 	char msg[MAX_PATH];
 	sprintf(msg, "%.3f", pInfo->SphRadius);
 	SetDlgItemText(hDlg,IDC_SPHERERADIUS,msg);
@@ -230,7 +230,7 @@ BOOL CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
 					GetItemName(pItem, id_of_interest, (void*)(pInfo),sizeof_struct, lpcs->m_FoundMeshes );
 				}
 				if(lpcs->m_FoundMeshes){
-					SetDlgItemInt(hDlg,IDC_MESHNUMBER, 0,FALSE);
+					SetDlgItemInt(hDlg,IDC_MESHNUMBER, 0,false);
 					//Look for Textures
 					char pTextureInfo[MAX_TEXUTRE_NAME_LEN * MAX_MESH];
 					id_of_interest = W3D_CHUNK_TEXTURE_NAME;
@@ -248,7 +248,7 @@ BOOL CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
 							lpcs->m_Textures[lpcs->m_NumAdded-1].ReleaseBuffer();
 						}
 					}
-					SetDlgItemInt(hDlg,IDC_NUM_MESHES, lpcs->m_FoundMeshes,FALSE);
+					SetDlgItemInt(hDlg,IDC_NUM_MESHES, lpcs->m_FoundMeshes,false);
 					SetDlgMeshParams(hDlg, pInfo);
 					//Set Spin range
 					SendDlgItemMessage(hDlg, IDC_MESHSPIN, UDM_SETRANGE, (WPARAM)0L, (LPARAM)MAKELONG(lpcs->m_FoundMeshes-1,0));
@@ -293,9 +293,9 @@ BOOL CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
 			}
 		break;
 			default:
-		return FALSE;
+		return false;
     }
-    return TRUE;
+    return true;
 }
 
 /////////////////////////////////////////////////////////////
@@ -344,9 +344,9 @@ BOOL CALLBACK PreviewPageDlgProc(HWND hDlg, UINT uMessage, WPARAM wParam, LPARAM
             }
             break;
         default:
-            return FALSE;
+            return false;
     }
-    return TRUE;
+    return true;
 }
 
 

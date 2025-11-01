@@ -39,8 +39,8 @@ class TCPCon /// : OutputDevice
    sint32  printf(const char *format, ...);
    bit8    isConnected(void);
 
-   bit8    setInputDelay(sint32 delay) { InputDelay_=delay; return(TRUE); };
-   bit8    setOutputDelay(sint32 delay) { OutputDelay_=delay; return(TRUE); };
+   bit8    setInputDelay(sint32 delay) { InputDelay_=delay; return(true); };
+   bit8    setOutputDelay(sint32 delay) { OutputDelay_=delay; return(true); };
 
    // For OutputDevice
    /// virtual int print(IN char *str, int len); 

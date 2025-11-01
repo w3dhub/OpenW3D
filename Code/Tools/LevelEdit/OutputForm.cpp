@@ -196,7 +196,7 @@ OutputFormClass::Output_Message (LPCTSTR new_message)
 	//
 	// Turn off repainting
 	//
-	m_OutputEdit.SetRedraw (FALSE);
+	m_OutputEdit.SetRedraw (false);
 
 	// Get the text currently displayed in the window
 	TCHAR window_text[32768] = { 0 };
@@ -233,7 +233,7 @@ OutputFormClass::Output_Message (LPCTSTR new_message)
 	//
 	// Turn painting back on
 	//
-	m_OutputEdit.SetRedraw (TRUE);
+	m_OutputEdit.SetRedraw (true);
 
 	if (LogFile.Is_Open ()) {
 		LogFile.Write ((const char *)new_message, ::lstrlen (new_message));

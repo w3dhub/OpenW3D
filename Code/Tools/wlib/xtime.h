@@ -102,7 +102,7 @@ class Xtime
     int    getYWeek(void) const;  // Week of Year (1-53)
     int    getYear(void) const;   // Year (e.g. 1997)
 
-    // Modify the time components.  Return FALSE if fail
+    // Modify the time components.  Return false if fail
     bit8      setSecond(sint32 sec);
     bit8      setMinute(sint32 min);
     bit8      setHour(sint32 hour);

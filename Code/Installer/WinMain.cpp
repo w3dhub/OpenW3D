@@ -339,7 +339,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							SetForegroundWindow (hWnd);
 						}
 					}
-					return (TRUE);
+					return (true);
 				}
 			}
 			break;
@@ -368,7 +368,7 @@ LRESULT CALLBACK WndProc (HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
  *=============================================================================================*/
 bool Is_Autorun_Running()
 {
-	HANDLE autorunmutex = OpenMutex (MUTEX_ALL_ACCESS & SYNCHRONIZE, FALSE, AUTORUN_MUTEX_OBJECT);
+	HANDLE autorunmutex = OpenMutex (MUTEX_ALL_ACCESS & SYNCHRONIZE, false, AUTORUN_MUTEX_OBJECT);
 
 	if (autorunmutex != NULL) {
 
@@ -413,7 +413,7 @@ bool Is_Autorun_Running()
  *=============================================================================================*/
 bool Is_Application_Running()
 {
-	HANDLE appmutex = CreateMutex (NULL, FALSE, APPLICATION_MUTEX_OBJECT);
+	HANDLE appmutex = CreateMutex (NULL, false, APPLICATION_MUTEX_OBJECT);
 	if (appmutex == NULL) FATAL_SYSTEM_ERROR;
 
 	// See if the application was already running.
@@ -512,7 +512,7 @@ bool Running_As_Administrator()
 	SID_IDENTIFIER_AUTHORITY SystemSidAuthority = SECURITY_NT_AUTHORITY;
 
 	// Open a handle to the access token for this thread.
-	if (!OpenThreadToken (GetCurrentThread(), TOKEN_QUERY, FALSE, &hThread)) {
+	if (!OpenThreadToken (GetCurrentThread(), TOKEN_QUERY, false, &hThread)) {
 
 		if (GetLastError() == ERROR_NO_TOKEN) {
 
@@ -525,7 +525,7 @@ bool Running_As_Administrator()
 		}
 	}
 
-	// Query the size of the group information associated with the token. Note that we expect a FALSE result from GetTokenInformation
+	// Query the size of the group information associated with the token. Note that we expect a false result from GetTokenInformation
 	// because we've given it a NULL buffer. On exit cbTokenGroups will tell the size of the group information.
 	if (GetTokenInformation (hThread, TokenGroups, NULL, 0, &cbTokenGroups)) {
 		return (false);

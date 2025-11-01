@@ -130,11 +130,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWnd::PreCreateWindow(cs) )
-		return FALSE;
+		return false;
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -159,16 +159,16 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	BOOL ok = m_wndSplitter.CreateStatic (this, 1, 2);
 
 	ASSERT(ok);
-	if (!ok) return FALSE;
+	if (!ok) return false;
 	
 	// Create the two sub views 
 	ok &= m_wndSplitter.CreateView(0,0,RUNTIME_CLASS(CChunkTreeView),CSize(200,10),pContext);
 	ok &= m_wndSplitter.CreateView(0,1,RUNTIME_CLASS(CChunkDataView),CSize(340,10),pContext);
 	
 	ASSERT(ok);
-	if (!ok) return FALSE;
+	if (!ok) return false;
 
-	return TRUE;
+	return true;
 }
 
 CChunkDataView * CMainFrame::Get_Data_View(void)

@@ -143,14 +143,14 @@ BOOL OptionsDialog::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// Initialize.
-	SetDlgItemInt (IDC_SPATIAL_TOLERANCE, SpatialTolerance, FALSE);
+	SetDlgItemInt (IDC_SPATIAL_TOLERANCE, SpatialTolerance, false);
   	Initialize_Slider (IDC_SMOOTHING_ANGLE, 0, SMOOTHING_ANGLE_TICK_COUNT - 1, SmoothingAngle);
 	Set_Text (IDC_SMOOTHING_ANGLE_VALUE, "%d", (int) SmoothingAngle);
   	Initialize_Slider (IDC_FILTER_SHARPNESS, 0, PERCENT_SLIDER_TICK_COUNT - 1, FilterSharpness);
 	Set_Text (IDC_FILTER_SHARPNESS_VALUE, "%d", (int) FilterSharpness);
-	SetDlgItemInt (IDC_FILL_COLOR_RED,   FillColor.R, FALSE);
-	SetDlgItemInt (IDC_FILL_COLOR_GREEN, FillColor.G, FALSE);
-	SetDlgItemInt (IDC_FILL_COLOR_BLUE,  FillColor.B, FALSE);
+	SetDlgItemInt (IDC_FILL_COLOR_RED,   FillColor.R, false);
+	SetDlgItemInt (IDC_FILL_COLOR_GREEN, FillColor.G, false);
+	SetDlgItemInt (IDC_FILL_COLOR_BLUE,  FillColor.B, false);
 	Initialize_Spinner (IDC_SAMPLE_RATE, MIN_SAMPLE_RATE, MAX_SAMPLE_RATE, SampleRate); 
 	Set_Text (IDC_SAMPLE_RATE_VALUE, SAMPLE_RATE_VALUE_CONTROL_STRING, Get_Sample_Rate());
   	Initialize_Slider (IDC_FILTER_ERROR, 0, PERCENT_SLIDER_TICK_COUNT - 1, FilterError);
@@ -168,15 +168,15 @@ BOOL OptionsDialog::OnInitDialog()
 			break;
 			
 		default:
-			ASSERT (FALSE);
+			ASSERT (false);
 			break;
 	}
 	CheckDlgButton (IDC_LIGHT_EXPORT_SELECTIVE, LightExportSelective);
 	GetDlgItem (IDC_LIGHT_EXCLUSION_STRING)->SetWindowText (LightExclusionString);
 	GetDlgItem (IDC_LIGHT_EXCLUSION_STRING)->EnableWindow (LightExportSelective);
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 
@@ -228,15 +228,15 @@ int OptionsDialog::DoModal()
  *=============================================================================================*/
 void OptionsDialog::OnChangeSpatialTolerance() 
 {
-	SpatialTolerance = GetDlgItemInt (IDC_SPATIAL_TOLERANCE, NULL, FALSE);
+	SpatialTolerance = GetDlgItemInt (IDC_SPATIAL_TOLERANCE, NULL, false);
 }
 
 void OptionsDialog::OnUpdateSpatialTolerance() 
 {
 	const unsigned maxtolerance = 10000;
 
-	unsigned v = GetDlgItemInt (IDC_SPATIAL_TOLERANCE, NULL, FALSE);
-	if (v > maxtolerance) SetDlgItemInt (IDC_SPATIAL_TOLERANCE, maxtolerance, FALSE);
+	unsigned v = GetDlgItemInt (IDC_SPATIAL_TOLERANCE, NULL, false);
+	if (v > maxtolerance) SetDlgItemInt (IDC_SPATIAL_TOLERANCE, maxtolerance, false);
 }
 
 
@@ -254,13 +254,13 @@ void OptionsDialog::OnUpdateSpatialTolerance()
  *=============================================================================================*/
 void OptionsDialog::OnChangeFillColorRed() 
 {
-	FillColor.R = GetDlgItemInt (IDC_FILL_COLOR_RED, NULL, FALSE);
+	FillColor.R = GetDlgItemInt (IDC_FILL_COLOR_RED, NULL, false);
 }
 
 void OptionsDialog::OnUpdateFillColorRed() 
 {
-	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_RED, NULL, FALSE);
-	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_RED, _UI8_MAX, FALSE);
+	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_RED, NULL, false);
+	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_RED, _UI8_MAX, false);
 }
 
 
@@ -278,13 +278,13 @@ void OptionsDialog::OnUpdateFillColorRed()
  *=============================================================================================*/
 void OptionsDialog::OnChangeFillColorGreen() 
 {
-	FillColor.G = GetDlgItemInt (IDC_FILL_COLOR_GREEN, NULL, FALSE);
+	FillColor.G = GetDlgItemInt (IDC_FILL_COLOR_GREEN, NULL, false);
 }
 
 void OptionsDialog::OnUpdateFillColorGreen() 
 {
-	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_GREEN, NULL, FALSE);
-	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_GREEN, _UI8_MAX, FALSE);
+	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_GREEN, NULL, false);
+	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_GREEN, _UI8_MAX, false);
 }
 
 
@@ -303,13 +303,13 @@ void OptionsDialog::OnUpdateFillColorGreen()
  *=============================================================================================*/
 void OptionsDialog::OnChangeFillColorBlue() 
 {
-	FillColor.B = GetDlgItemInt (IDC_FILL_COLOR_BLUE, NULL, FALSE);
+	FillColor.B = GetDlgItemInt (IDC_FILL_COLOR_BLUE, NULL, false);
 }
 
 void OptionsDialog::OnUpdateFillColorBlue() 
 {
-	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_BLUE, NULL, FALSE);
-	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_BLUE, _UI8_MAX, FALSE);
+	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_BLUE, NULL, false);
+	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_BLUE, _UI8_MAX, false);
 }
 
 

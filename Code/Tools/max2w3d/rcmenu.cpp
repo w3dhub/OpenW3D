@@ -61,7 +61,7 @@ RCMenuClass TheRCMenu;
  *=============================================================================================*/
 void RCMenuClass::Init(RightClickMenuManager* manager, HWND hWnd, IPoint2 m)
 {
-	Installed=TRUE;
+	Installed=true;
 
 	SelNode = InterfacePtr->PickNode(hWnd,m);
 

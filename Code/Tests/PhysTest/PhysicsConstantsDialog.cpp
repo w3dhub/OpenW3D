@@ -86,7 +86,7 @@ BOOL CPhysicsConstantsDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_ADAMPING_EDIT,PhysicsConstants::AngularDamping);
 	SetDlgItemFloat(IDC_GRAVITYACCEL_EDIT,PhysicsConstants::GravityAcceleration.Z);
 
-	return TRUE;	
+	return true;	
 }
 
 BOOL CPhysicsConstantsDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 

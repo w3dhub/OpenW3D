@@ -1206,7 +1206,7 @@ void CombatGameModeClass::Load_Registry_Keys(void)
 
 		//TSS
 		DefaultToFirstPerson = registry->Get_Int( "DefaultToFirstPerson", DefaultToFirstPerson );
-		CombatManager::Set_First_Person_Default(DefaultToFirstPerson == TRUE);
+		CombatManager::Set_First_Person_Default(DefaultToFirstPerson == true);
 	}
 	delete registry;
 }

@@ -148,7 +148,7 @@ ScriptEditDialogClass::OnInitDialog (void)
 	
 	Fill_Param_Combo ();
 	Switch_Value_Control_Type ();
-	return TRUE;
+	return true;
 }
 
 

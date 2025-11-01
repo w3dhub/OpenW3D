@@ -85,14 +85,14 @@ extern "C"
 	{
 		MY_MANAGE_STATE ()
 
-		BOOL retval = FALSE;
+		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
 		if (dialog != NULL) {
 			(*red)	= dialog->Get_Red ();
 			(*green)	= dialog->Get_Green ();
 			(*blue)	= dialog->Get_Blue ();
-			retval = TRUE;
+			retval = true;
 		}
 
 		return retval;
@@ -106,12 +106,12 @@ extern "C"
 	{
 		MY_MANAGE_STATE ()
 
-		BOOL retval = FALSE;
+		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
 		if (dialog != NULL) {
 			dialog->Set_Color (red, green, blue);
-			retval = TRUE;
+			retval = true;
 		}
 
 		return retval;
@@ -125,12 +125,12 @@ extern "C"
 	{
 		MY_MANAGE_STATE ()
 
-		BOOL retval = FALSE;
+		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
 		if (dialog != NULL) {
 			dialog->Set_Original_Color (red, green, blue);
-			retval = TRUE;
+			retval = true;
 		}
 
 		return retval;
@@ -144,14 +144,14 @@ extern "C"
 	{
 		MY_MANAGE_STATE ()
 
-		BOOL retval = FALSE;
+		BOOL retval = false;
 
 		ColorPickerDialogClass dialog (*red, *green, *blue);
 		if (dialog.DoModal () == IDOK) {
 			(*red)	= dialog.Get_Red ();
 			(*green)	= dialog.Get_Green ();
 			(*blue)	= dialog.Get_Blue ();
-			retval = TRUE;
+			retval = true;
 		}
 
 		return retval;
@@ -165,12 +165,12 @@ extern "C"
 	{
 		MY_MANAGE_STATE()
 
-		BOOL retval = FALSE;
+		BOOL retval = false;
 
 		ColorPickerDialogClass *dialog = (ColorPickerDialogClass *)::GetProp (form_wnd, "COLORPICKERDLGCLASS");
 		if (dialog != NULL) {
 			dialog->Set_Update_Callback(callback, arg);
-			retval = TRUE;
+			retval = true;
 		}
 
 		return retval;
@@ -312,7 +312,7 @@ ColorPickerDialogClass::OnInitDialog (void)
 	Update_Blue_Bar ();
 	Update_Current_Color_Bar ();
 	Update_Whiteness_Bar ();
-	return TRUE;
+	return true;
 }
 
 

@@ -329,8 +329,8 @@ typedef enum
 ////////////////////////////////////////////////////////////////////////////
 CMainFrame::CMainFrame (void)
     : m_currentAssetType (TypeUnknown),
-      m_bShowAnimationBar (TRUE),
-		m_bInitialized (FALSE)
+      m_bShowAnimationBar (true),
+		m_bInitialized (false)
 {
 	return ;
 }
@@ -413,7 +413,7 @@ CMainFrame::OnCreate (LPCREATESTRUCT lpCreateStruct)
 
 	// Float the animation bar, but don't show it
 	FloatControlBar (&m_animationToolbar, CPoint(rect.left + 210, rect.bottom-100), CBRS_ALIGN_LEFT);
-	ShowControlBar (&m_animationToolbar, FALSE, FALSE);    
+	ShowControlBar (&m_animationToolbar, false, false);    
 
 	// Don't show anything in these panes for now
 	m_wndStatusBar.SetPaneText (PANE_POLYS, "");
@@ -436,7 +436,7 @@ CMainFrame::OnCreate (LPCREATESTRUCT lpCreateStruct)
 
 
 	Restore_Window_State ();
-	m_bInitialized = TRUE;
+	m_bInitialized = true;
 
 	return (g_iDeviceIndex != -1) ? 0 : -1;
 }
@@ -600,7 +600,7 @@ CMainFrame::OnCreateClient
 	}
 
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return bReturn;
 }
 
@@ -853,7 +853,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     m_bShowAnimationBar = m_animationToolbar.IsWindowVisible ();
 
                     // Hide the animation control bar
-                    ShowControlBar (&m_animationToolbar, FALSE, FALSE);
+                    ShowControlBar (&m_animationToolbar, false, false);
                 }
             }
             break;
@@ -879,7 +879,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
                     menuInfo.dwTypeData = animation_string;
-                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
+                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, true, &menuInfo);
 
                     // Redrew the menu
                     DrawMenuBar ();
@@ -909,7 +909,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
                     menuInfo.dwTypeData = hierachy_string;
-                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
+                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, true, &menuInfo);
 
                     // Redrew the menu
                     DrawMenuBar ();
@@ -933,7 +933,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
                     menuInfo.dwTypeData = aggregate_string;
-                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
+                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, true, &menuInfo);
 
                     // Redrew the menu
                     DrawMenuBar ();
@@ -957,7 +957,7 @@ CMainFrame::OnSelectionChanged (ASSET_TYPE newAssetType)
                     menuInfo.hSubMenu = hSubMenu;
                     menuInfo.fType = MFT_STRING;
                     menuInfo.dwTypeData = lod_string;
-                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, TRUE, &menuInfo);
+                    ::InsertMenuItem (*pMainMenu, SPECIAL_MENU_SLOT, true, &menuInfo);
 
                     // Redrew the menu
                     DrawMenuBar ();
@@ -1199,7 +1199,7 @@ CMainFrame::OnFileOpen (void)
 		return ;
 	}
 
-    CFileDialog openFileDialog (TRUE,
+    CFileDialog openFileDialog (true,
                                 ".w3d",
                                 NULL,
                                 OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT | OFN_EXPLORER,
@@ -1708,7 +1708,7 @@ CMainFrame::OnLoadSettings (void)
     CW3DViewDoc *pCDoc = (CW3DViewDoc *)GetActiveDocument ();
     if (pCDoc)
     {
-        CFileDialog openFileDialog (TRUE,
+        CFileDialog openFileDialog (true,
                                     ".dat",
                                     NULL,
                                     OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -1801,13 +1801,13 @@ CMainFrame::OnUpdateViewAnimationBar (CCmdUI* pCmdUI)
     if ((m_currentAssetType != TypeAnimation) || (m_currentAssetType != TypeCompressedAnimation))
     {
         // Disable the option and clear the check
-        pCmdUI->Enable (FALSE);
-        pCmdUI->SetCheck (FALSE);
+        pCmdUI->Enable (false);
+        pCmdUI->SetCheck (false);
     }
     else
     {
         // Enable the option and set the correct state of the check
-        pCmdUI->Enable (TRUE);
+        pCmdUI->Enable (true);
         pCmdUI->SetCheck (m_animationToolbar.IsWindowVisible ());
     }
 
@@ -1824,7 +1824,7 @@ void
 CMainFrame::OnUpdateViewObjectBar (CCmdUI* pCmdUI) 
 {
     // Enable the option and set the correct state of the check
-    pCmdUI->Enable (TRUE);
+    pCmdUI->Enable (true);
     pCmdUI->SetCheck (m_objectToolbar.IsWindowVisible ());
     return ;
 }
@@ -1838,21 +1838,21 @@ CMainFrame::OnUpdateViewObjectBar (CCmdUI* pCmdUI)
 void
 CMainFrame::OnViewAnimationBar (void)
 {
-    if (m_animationToolbar.IsWindowVisible () == FALSE)
+    if (m_animationToolbar.IsWindowVisible () == false)
     {
         // Show the animation control bar
-        ShowControlBar (&m_animationToolbar, TRUE, FALSE);
+        ShowControlBar (&m_animationToolbar, true, false);
 
         // Remember whether or not to auto show this toolbar
-        m_bShowAnimationBar = TRUE;
+        m_bShowAnimationBar = true;
     }
     else
     {
         // Hide the animation control bar
-        ShowControlBar (&m_animationToolbar, FALSE, FALSE);
+        ShowControlBar (&m_animationToolbar, false, false);
 
         // Remember whether or not to auto show this toolbar
-        m_bShowAnimationBar = FALSE;
+        m_bShowAnimationBar = false;
     }
 
     return ;
@@ -1867,15 +1867,15 @@ CMainFrame::OnViewAnimationBar (void)
 void
 CMainFrame::OnViewObjectBar (void)
 {
-    if (m_objectToolbar.IsWindowVisible () == FALSE)
+    if (m_objectToolbar.IsWindowVisible () == false)
     {
         // Show the object control bar
-        ShowControlBar (&m_objectToolbar, TRUE, FALSE);
+        ShowControlBar (&m_objectToolbar, true, false);
     }
     else
     {
         // Hide the object control bar
-        ShowControlBar (&m_objectToolbar, FALSE, FALSE);
+        ShowControlBar (&m_objectToolbar, false, false);
     }
 
     return ;
@@ -2967,7 +2967,7 @@ CMainFrame::OnCommand
 		TCHAR emitter_name[200];
 		info.dwTypeData = emitter_name;
 		info.cch = sizeof (emitter_name);
-		if (::GetMenuItemInfo (m_hEmittersSubMenu, LOWORD (wParam), FALSE, &info)) {
+		if (::GetMenuItemInfo (m_hEmittersSubMenu, LOWORD (wParam), false, &info)) {
 			
 			//
 			// Make a list of emitters with the given name
@@ -3006,8 +3006,8 @@ CMainFrame::OnCmdMsg
 	if (nCode == CN_UPDATE_COMMAND_UI) {
 		CCmdUI *pCmdUI = (CCmdUI *)pExtra;
 		if (pCmdUI != NULL && (pCmdUI->m_nID >= 1000) && (pCmdUI->m_nID < 1100)) {
-			pCmdUI->Enable (TRUE);
-			return TRUE;
+			pCmdUI->Enable (true);
+			return true;
 		}
 	}
 	
@@ -3313,7 +3313,7 @@ CMainFrame::Update_Emitters_List (void)
 			info.fType = MFT_STRING;
 			info.dwTypeData = (char *)(LPCTSTR)list[index];
 			info.wID = 1000 + index;
-			::InsertMenuItem (hsub_menu, index, TRUE, &info);
+			::InsertMenuItem (hsub_menu, index, true, &info);
 		}
 	}
 
@@ -3908,7 +3908,7 @@ CMainFrame::OnImportFacialAnims (void)
 	ASSERT (htree != NULL);
 	if (htree != NULL) {
 
-		CFileDialog dialog (	TRUE,
+		CFileDialog dialog (	true,
 									".txt",
 									NULL,
 									OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_ALLOWMULTISELECT | OFN_EXPLORER,

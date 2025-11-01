@@ -97,7 +97,7 @@ BOOL CMotorcycleDialog::OnInitDialog()
 	m_LeanK1Spin.SetPos(k * 100);
 	SetDlgItemFloat(IDC_LEAN_K1_EDIT,k);
 
-	return TRUE;
+	return true;
 }
 
 BOOL CMotorcycleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 

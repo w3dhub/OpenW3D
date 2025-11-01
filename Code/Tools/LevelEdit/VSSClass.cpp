@@ -270,7 +270,7 @@ VSSClass::Open_Database
 	// Assume failure
 	bool retval = false;
 
-	m_bReadOnly = TRUE;
+	m_bReadOnly = true;
 	ASSERT (m_pIVSSDatabase != NULL);
 	if (m_pIVSSDatabase != NULL) {
 		

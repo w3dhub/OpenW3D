@@ -70,7 +70,7 @@ public:
 class AnyINodeFilter	: public INodeFilterClass
 {
 public:
-	virtual BOOL Accept_Node(INode * node, TimeValue time) { return TRUE; }
+	virtual BOOL Accept_Node(INode * node, TimeValue time) { return true; }
 };
 
 

@@ -262,7 +262,7 @@ TextureMgrDialogClass::OnInitDialog (void)
 	// Build a list of mesh's and textures
 	Add_Subobjs_To_List (m_pBaseModel);
 	Fill_List_Ctrl_With_Meshes ();
-	return TRUE;
+	return true;
 }
 
 

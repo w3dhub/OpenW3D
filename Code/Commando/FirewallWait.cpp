@@ -84,7 +84,7 @@ void FirewallDetectWait::WaitBeginning(void)
 	{
 	WWDEBUG_SAY(("FirewallDetectWait: Beginning\n"));
 
-	mEvent = CreateEventA(NULL, TRUE, FALSE, NULL);
+	mEvent = CreateEventA(NULL, true, false, NULL);
 
 	if (mEvent == NULL)
 		{
@@ -186,8 +186,8 @@ void FirewallConnectWait::WaitBeginning(void)
 	{
 	WWDEBUG_SAY(("FirewallConnectWait: Beginning\n"));
 
-	mEvent = CreateEventA(NULL, TRUE, FALSE, NULL);
-	mCancelEvent = CreateEventA(NULL, TRUE, FALSE, NULL);
+	mEvent = CreateEventA(NULL, true, false, NULL);
+	mCancelEvent = CreateEventA(NULL, true, false, NULL);
 
 	if (mEvent == NULL)
 		{

@@ -315,7 +315,7 @@ RingSizePropPageClass::OnInitDialog (void)
 	//
 	Update_Inner_Scale_Array ();
 	Update_Outer_Scale_Array ();
-	return TRUE;
+	return true;
 }
 
 

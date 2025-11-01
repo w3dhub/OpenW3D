@@ -103,14 +103,14 @@ ColorSelectionDialogClass::OnInitDialog (void)
 	    (red_value == blue_value)) {
 
 		// Check the grayscale checkbox
-		SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)TRUE);
+		SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)true);
 	}
 
 	// Set the initial slider positions
 	m_RedSlider.SetPos (red_value);
 	m_GreenSlider.SetPos (green_value);
 	m_BlueSlider.SetPos (blue_value);
-	return TRUE;
+	return true;
 }
 
 

@@ -288,7 +288,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 		**	Creates the device object.
 		*/
 		RtlInitUnicodeString(&device_name, DEVICE_NAME);
-		error_flag = IoCreateDevice(DriverObject, sizeof(MonoGlobals), &device_name, FILE_DEVICE_MONO, 0, FALSE, &device_object);
+		error_flag = IoCreateDevice(DriverObject, sizeof(MonoGlobals), &device_name, FILE_DEVICE_MONO, 0, false, &device_object);
 		if (NT_SUCCESS(error_flag)) {
 			MonoGlobals * mono_globals = (MonoGlobals *)device_object->DeviceExtension;
 
@@ -301,7 +301,7 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
 			** Initialize the dispatch event object. This allows us to
 			** synchronize access to the h/w registers...
 			*/
-			KeInitializeEvent(&mono_globals->SyncEvent, SynchronizationEvent, TRUE);
+			KeInitializeEvent(&mono_globals->SyncEvent, SynchronizationEvent, true);
 
 			/*
 			** Map all the required resources, save the addresses
@@ -435,7 +435,7 @@ NTSTATUS Mono_Dispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	** Synchronize execution of the dispatch routine by acquiring the device
 	** event object. This ensures all request are serialized.
 	*/
-	KeWaitForSingleObject(&mono_globals->SyncEvent, Executive, KernelMode, FALSE, NULL);
+	KeWaitForSingleObject(&mono_globals->SyncEvent, Executive, KernelMode, false, NULL);
 
 	/*
 	**	Get a working pointer to the display page.
@@ -485,7 +485,7 @@ NTSTATUS Mono_Dispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 				} else {
 					BuffControl * newcon = &mono_globals->Control[avail];
 					Mono_Init_Buffer(newcon);
-					newcon->Allocated = TRUE;
+					newcon->Allocated = true;
 					Mono_Clear_Screen(newcon);
 					Mono_Bring_To_Top(mono_globals, newcon);
 					fileobject->FsContext = (void*)avail;
@@ -716,7 +716,7 @@ NTSTATUS Mono_Dispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 		Mono_Update_Cursor(mono_globals);
 	}
 
-	KeSetEvent(&mono_globals->SyncEvent, 0, FALSE);
+	KeSetEvent(&mono_globals->SyncEvent, 0, false);
 
 	ntStatus = Irp->IoStatus.Status;
 
@@ -789,18 +789,18 @@ BOOLEAN Mono_Detect_MGA_Adapter(void)
 		WRITE_PORT_UCHAR(crtc_registerss, 0x0F);
 		WRITE_PORT_UCHAR(crtc_registerss+1, 0x55);
 		if (READ_PORT_UCHAR(crtc_registerss+1) != 0x55) {
-			return(FALSE);
+			return(false);
 		}
 		WRITE_PORT_UCHAR(crtc_registerss+1, 0xAA);
 		if (READ_PORT_UCHAR(crtc_registerss+1) != 0xAA) {
-			return(FALSE);
+			return(false);
 		}
 
 		WRITE_PORT_UCHAR(crtc_registerss+1, 0x00);
-		return(TRUE);
+		return(true);
 	}
 
-	return(FALSE);
+	return(false);
 }
 
 
@@ -840,7 +840,7 @@ void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS address, unsigned long space, unsig
 		**	MmMapIoSpace is required. This is usually required for port addresses.
 		*/
 		if (space == 0) {
-			usable_ptr = MmMapIoSpace(logical_address, length, FALSE);
+			usable_ptr = MmMapIoSpace(logical_address, length, false);
 		} else {
 			usable_ptr = (void *)logical_address.LowPart;
 		}
@@ -928,13 +928,13 @@ BOOLEAN Mono_Claim_Resources(PDRIVER_OBJECT driver)
 		**	that have been claimed in the registry.
 		*/
 		RtlInitUnicodeString(&class_name, RESOURCE_NAME);
-		IoReportResourceUsage(&class_name, driver, resource_list, resource_list_size, NULL, NULL, 0, FALSE, &conflict_flag);
+		IoReportResourceUsage(&class_name, driver, resource_list, resource_list_size, NULL, NULL, 0, false, &conflict_flag);
 
 		ExFreePool(resource_list);
 		
-		return(conflict_flag == FALSE);
+		return(conflict_flag == false);
 	}
-	return(FALSE);
+	return(false);
 }
 
 
@@ -960,7 +960,7 @@ void Mono_Free_Resources(PDRIVER_OBJECT driver)
 	CM_RESOURCE_LIST resource_list =  {0};
 
 	RtlInitUnicodeString(&class_name, RESOURCE_NAME);
-	IoReportResourceUsage(&class_name, driver, &resource_list, sizeof(resource_list), NULL, NULL, 0, FALSE, &found_conflict);
+	IoReportResourceUsage(&class_name, driver, &resource_list, sizeof(resource_list), NULL, NULL, 0, false, &found_conflict);
 }
 
 
@@ -1598,7 +1598,7 @@ void Mono_Init_Buffer(BuffControl * buffer)
 	buffer->Attribute = DEFAULT_ATTRIBUTE;
 	buffer->LockPtr = NULL;
 	buffer->LockCount = 0;
-	buffer->Allocated = FALSE;
+	buffer->Allocated = false;
 	buffer->WinX = 0;
 	buffer->WinY = 0;
 	buffer->WinW = MONO_WIDTH;

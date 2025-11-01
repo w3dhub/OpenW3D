@@ -78,8 +78,8 @@ BOOL CAnimReportPage::OnInitDialog()
 {
 	CPropertyPage::OnInitDialog();
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 void CAnimReportPage::FillListControl()

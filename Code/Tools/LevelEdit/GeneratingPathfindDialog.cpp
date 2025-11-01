@@ -82,7 +82,7 @@ GeneratingPathfindDialogClass::OnInitDialog (void)
 
 	Set_State (STATE_FLOODFILL);
 	m_ProgressBar.SetRange (0, 100);
-	return TRUE;
+	return true;
 }
 
 
@@ -96,7 +96,7 @@ GeneratingPathfindDialogClass::OnCancel (void)
 {
 	m_Cancelled = true;
 
-	::EnableWindow (::GetDlgItem (m_hWnd, IDCANCEL), FALSE);
+	::EnableWindow (::GetDlgItem (m_hWnd, IDCANCEL), false);
 	CWaitCursor wait_cursor;
 
 	Set_Status ("Operation Cancelled!", -1);

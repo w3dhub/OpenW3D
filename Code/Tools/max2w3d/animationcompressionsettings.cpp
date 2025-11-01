@@ -114,7 +114,7 @@ AnimationCompressionSettingsDialogClass::Real_Message_Proc
 	//
 	//	Allow the instance to handle the call
 	//
-	BOOL retval = FALSE;
+	BOOL retval = false;
 	if (dialog_obj != NULL) {
 		retval = dialog_obj->Message_Proc (message, wparam, lparam);
 	}
@@ -143,7 +143,7 @@ AnimationCompressionSettingsDialogClass::Message_Proc
 	LPARAM	lparam
 )
 {
-	BOOL retval = FALSE;
+	BOOL retval = false;
 
 	switch (message)
 	{

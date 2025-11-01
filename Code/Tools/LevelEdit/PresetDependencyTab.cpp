@@ -206,7 +206,7 @@ PresetDependencyTabClass::Update_Button_State (void)
 void
 PresetDependencyTabClass::OnAdd (void)
 {
-	CFileDialog dialog (TRUE,
+	CFileDialog dialog (true,
 							  ".w3d",
 							  NULL,
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

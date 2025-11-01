@@ -80,11 +80,11 @@ BOOL CALLBACK UtilityDlgProc(HWND hDlg, UINT message, WPARAM wParam,LPARAM lPara
 		case WM_INITDIALOG:
 			// Initialize all our Custom Controls
 			TheUtility.OnInitDialog(hDlg, lParam);
-		 	return TRUE;
+		 	return true;
 
 		case WM_DESTROY:
 			// Release all our Custom Controls
-			return FALSE;
+			return false;
 
 		case WM_LBUTTONDOWN: case WM_LBUTTONUP:	case WM_MOUSEMOVE:
 			// Pass these messages on to the RollupMouseMessage method
@@ -95,12 +95,12 @@ BOOL CALLBACK UtilityDlgProc(HWND hDlg, UINT message, WPARAM wParam,LPARAM lPara
 
 		case WM_MOUSEACTIVATE:
 			to->ip->RealizeParamPanel();
-			return FALSE;
+			return false;
 
 		default:
 			break;
 	}
-	return FALSE;
+	return false;
 }
 
 

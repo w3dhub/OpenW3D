@@ -223,8 +223,8 @@ NodeScriptsPropPage::HandleInitDialog (void)
 	m_ListCtrl.SetColumnWidth (COL_PARAMS, ((rect.Width () * 2) / 3) - 2);
 
 	// Disable the 'add', 'delete' and 'modify' buttons
-	::EnableWindow (::GetDlgItem (m_hWnd, IDC_DELETE), FALSE);
-	::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY), FALSE);
+	::EnableWindow (::GetDlgItem (m_hWnd, IDC_DELETE), false);
+	::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY), false);
 	return ;
 }
 
@@ -254,14 +254,14 @@ NodeScriptsPropPage::OnItemChangedScriptList
 		if (index != -1) {
 
 			// Enable the 'delete' and 'modify' buttons
-			::EnableWindow (::GetDlgItem (m_hWnd, IDC_DELETE), TRUE);
-			::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY), TRUE);
+			::EnableWindow (::GetDlgItem (m_hWnd, IDC_DELETE), true);
+			::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY), true);
 
 		} else {
 
 			// Disable the 'delete' and 'modify' buttons
-			::EnableWindow (::GetDlgItem (m_hWnd, IDC_DELETE), FALSE);
-			::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY), FALSE);
+			::EnableWindow (::GetDlgItem (m_hWnd, IDC_DELETE), false);
+			::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY), false);
 		}
 	}
 	

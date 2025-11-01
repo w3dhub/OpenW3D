@@ -121,5 +121,5 @@ CAnimationPropPage::OnInitDialog (void)
 
     }
 	
-	return TRUE;
+	return true;
 }

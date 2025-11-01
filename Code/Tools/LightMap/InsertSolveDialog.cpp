@@ -114,8 +114,8 @@ BOOL InsertSolveDialog::OnInitDialog()
 	GetDlgItem (IDC_CONTAINING)->EnableWindow (ApplySelective);
 	GetDlgItem (IDC_NOT_CONTAINING)->EnableWindow (ApplySelective);
 
-	return (TRUE);	// return TRUE unless you set the focus to a control
-		            // EXCEPTION: OCX Property Pages should return FALSE
+	return (true);	// return true unless you set the focus to a control
+		            // EXCEPTION: OCX Property Pages should return false
 }
 
 
@@ -141,7 +141,7 @@ void InsertSolveDialog::OnBrowse()
 	char  initialpath [_MAX_PATH];
 
 	// Select one or more solve files.
-	CFileDialog dialog (TRUE, NULL, NULL, LightMapApp::File_Dialog_Flags() | OFN_ALLOWMULTISELECT, filefilter);
+	CFileDialog dialog (true, NULL, NULL, LightMapApp::File_Dialog_Flags() | OFN_ALLOWMULTISELECT, filefilter);
 		
 	// Allocate a buffer to contain the list of files selected.
 	// NOTE: Add one to buffer size in case an extra null must be added (see below).

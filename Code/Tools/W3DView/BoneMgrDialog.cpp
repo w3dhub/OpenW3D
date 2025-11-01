@@ -160,7 +160,7 @@ BoneMgrDialogClass::OnInitDialog (void)
 
 	// Select the first item in the tree
 	m_BoneTree.SelectItem (hfirst_item);
-	return TRUE;
+	return true;
 }
 
 
@@ -489,7 +489,7 @@ BoneMgrDialogClass::OnAttachButton (void)
 	}
 
 	// Refresh the UI state
-	m_BoneTree.InvalidateRect (NULL, TRUE);
+	m_BoneTree.InvalidateRect (NULL, true);
 	m_BoneTree.UpdateWindow ();
 	Update_Controls (hbone_item);
 	return ;

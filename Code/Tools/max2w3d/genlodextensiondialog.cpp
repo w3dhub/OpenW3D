@@ -119,7 +119,7 @@ bool GenLodExtensionDialogClass::Get_Options(OptionsStruct * options)
 							(LPARAM) this
 						);
 
-	if (result == TRUE) {
+	if (result == true) {
 		return true;
 	} else {
 		return false;
@@ -199,7 +199,7 @@ static BOOL CALLBACK _gen_lod_ext_dialog_proc(HWND hwnd,UINT message,WPARAM wpar
 	if (dialog) {
 		return dialog->Dialog_Proc(hwnd, message, wparam, lparam);
 	} else {
-		return FALSE;
+		return false;
 	}
 }
 

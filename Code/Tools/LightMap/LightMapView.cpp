@@ -433,7 +433,7 @@ BOOL MeshDialog::OnInitDialog()
 	string.Concatenate (" - Anomalies");
 	SetWindowText (string.String());
 	GetDlgItem (IDC_MESH_STATUS_TEXT)->SetWindowText (Anomalies);
-	return (TRUE);
+	return (true);
 }
 
 

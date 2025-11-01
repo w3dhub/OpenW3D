@@ -67,7 +67,7 @@ class VSSClass : public AssetDatabaseClass
 		//
 		VSSClass (void)
 			:	m_pIVSSDatabase (NULL),
-				m_bReadOnly (TRUE)				{ ::CoInitialize (NULL); }
+				m_bReadOnly (true)				{ ::CoInitialize (NULL); }
 		virtual ~VSSClass (void)				{ COM_RELEASE (m_pIVSSDatabase); ::CoUninitialize (); }
 
 

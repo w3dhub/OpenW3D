@@ -216,7 +216,7 @@ SphereColorPropPageClass::OnInitDialog (void)
 	CheckDlgButton (IDC_OPACITY_VECTOR_CHECK, (m_RenderObj->Get_Flags () & SphereRenderObjClass::USE_ALPHA_VECTOR) != 0);
 	CheckDlgButton (IDC_INVERT_VECTOR_CHECK, (m_RenderObj->Get_Flags () & SphereRenderObjClass::USE_INVERSE_ALPHA) != 0);	
 	OnOpacityVectorCheck ();
-	return TRUE;
+	return true;
 }
 
 

@@ -479,7 +479,7 @@ CLevelEditDoc::OnNewDocument (void)
 {
 	// Allow the base class to process this message
 	if (!CDocument::OnNewDocument())
-		return FALSE;
+		return false;
 
 	//
 	// Keep the view from refreshing
@@ -549,7 +549,7 @@ CLevelEditDoc::OnNewDocument (void)
 void
 CLevelEditDoc::Serialize (CArchive& ar)
 {
-	SetModifiedFlag (FALSE);
+	SetModifiedFlag (false);
 	return ;
 }
 
@@ -852,7 +852,7 @@ CLevelEditDoc::OnOpenDocument (LPCTSTR path)
 	::Output_Message (load_time_message);
 		
 	::Get_Main_View ()->Allow_Repaint (true);
-	return TRUE;
+	return true;
 }
 
 
@@ -883,7 +883,7 @@ CLevelEditDoc::OnSaveDocument (LPCTSTR path)
 
 	// Peform the save operation
 	EditorSaveLoadClass::Save_Level (path);
-	return TRUE;
+	return true;
 }
 
 
@@ -1015,7 +1015,7 @@ CLevelEditDoc::Pick_Save_Path (CString &save_path)
 		//default_name += ".lvl";
 	}
 
-	CFileDialog dialog (	FALSE,
+	CFileDialog dialog (	false,
 								".lvl",
 								default_name,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

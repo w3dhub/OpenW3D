@@ -73,7 +73,7 @@ Protect::Protect()
 	  mMappedFile(NULL)
 	{
 	// Secure launcher mutex
-	mLauncherMutex = CreateMutexA(NULL, FALSE, LAUNCHER_GUID);
+	mLauncherMutex = CreateMutexA(NULL, false, LAUNCHER_GUID);
 
 	if ((mLauncherMutex == NULL) ||
 			((mLauncherMutex != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
@@ -94,7 +94,7 @@ Protect::Protect()
 	SECURITY_ATTRIBUTES security;
 	security.nLength = sizeof(security);
 	security.lpSecurityDescriptor = NULL;
-	security.bInheritHandle = TRUE;
+	security.bInheritHandle = true;
 
 	mMappedFile = CreateFileMappingA(INVALID_HANDLE_VALUE, &security,
 		PAGE_READWRITE, 0, fileSize, NULL);
@@ -195,7 +195,7 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 
 	DebugPrint("Creating running notification event.\n");
 	const char* const protectGUID = "D6E7FC97-64F9-4d28-B52C-754EDF721C6F";
-	HANDLE event = CreateEventA(NULL, FALSE, FALSE, protectGUID);
+	HANDLE event = CreateEventA(NULL, false, false, protectGUID);
 
 	if ((event == NULL) || ((event != NULL) && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
@@ -212,7 +212,7 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 	HANDLE handles[2];
 	handles[0] = event;
 	handles[1] = process;
-	DWORD waitResult = WaitForMultipleObjects(2, &handles[0], FALSE, ((5 * 60) * 1000));
+	DWORD waitResult = WaitForMultipleObjects(2, &handles[0], false, ((5 * 60) * 1000));
 
 	#ifdef _DEBUG
 	unsigned long stop = timeGetTime();
@@ -226,7 +226,7 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 			{
 			DebugPrint("Sending game the beef. (%lx)\n", mMappedFile);
 			BOOL sent = PostThreadMessage(threadID, 0xBEEF, 0, (LPARAM)mMappedFile);
-			assert(sent == TRUE);
+			assert(sent == true);
 			}
 		}
 	else
@@ -318,7 +318,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, NULL, 0,
 				&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, NULL, 0);
 
-			if (volInfoSuccess == FALSE)
+			if (volInfoSuccess == false)
 				{
 				PrintWin32Error("GetVolumeInformationA() Failed!");
 				}
@@ -415,7 +415,7 @@ void InitializeProtect(void)
 	mMappedFile = NULL;
 
 	// Secure launcher mutex
-	mLauncherMutex = CreateMutexA(NULL, FALSE, LAUNCHER_GUID);
+	mLauncherMutex = CreateMutexA(NULL, false, LAUNCHER_GUID);
 
 	if ((mLauncherMutex == NULL) || (mLauncherMutex && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
@@ -437,7 +437,7 @@ void InitializeProtect(void)
 	SECURITY_ATTRIBUTES security;
 	security.nLength = sizeof(security);
 	security.lpSecurityDescriptor = NULL;
-	security.bInheritHandle = TRUE;
+	security.bInheritHandle = true;
 
 	mMappedFile = CreateFileMappingA(INVALID_HANDLE_VALUE, &security, PAGE_READWRITE, 0, fileSize, NULL);
 
@@ -532,7 +532,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			BOOL volInfoSuccess = GetVolumeInformationA((const char*)drive, NULL, 0,
 					&volumeSerialNumber, &maxComponentLength, &fileSystemFlags, NULL, 0);
 
-			if (volInfoSuccess == FALSE)
+			if (volInfoSuccess == false)
 				{
 				PrintWin32Error("***** GetVolumeInformationA() Failed!");
 				}
@@ -607,7 +607,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 
 	DebugPrint("Creating running notification event.\n");
 	const char* const protectGUID = "D6E7FC97-64F9-4d28-B52C-754EDF721C6F";
-	HANDLE event = CreateEventA(NULL, FALSE, FALSE, protectGUID);
+	HANDLE event = CreateEventA(NULL, false, false, protectGUID);
 
 	if ((event == NULL) || (event && (GetLastError() == ERROR_ALREADY_EXISTS)))
 		{
@@ -624,7 +624,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 	HANDLE handles[2];
 	handles[0] = event;
 	handles[1] = process;
-	DWORD waitResult = WaitForMultipleObjects(2, &handles[0], FALSE, ((5 * 60) * 1000));
+	DWORD waitResult = WaitForMultipleObjects(2, &handles[0], false, ((5 * 60) * 1000));
 
 	#ifdef _DEBUG
 	unsigned long stop = timeGetTime();
@@ -638,7 +638,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 			{
 			DebugPrint("Sending game the beef. (%lx)\n", mMappedFile);
 			BOOL sent = PostThreadMessage(threadID, 0xBEEF, 0, (LPARAM)mMappedFile);
-			assert(sent == TRUE);
+			assert(sent == true);
 			}
 		}
 	else

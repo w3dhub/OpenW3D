@@ -136,5 +136,5 @@ UpdatingDBDialogClass::OnInitDialog (void)
 	}
 
 	m_AnimationCtrl.Open (IDR_FILECOPY_ANI);	
-	return TRUE;
+	return true;
 }

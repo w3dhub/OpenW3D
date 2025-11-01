@@ -543,7 +543,7 @@ void compute_dimensions
 	Point3 max;
 	float surface_area = 0.0;
 
-	BOOL first = TRUE;
+	BOOL first = true;
 
 	for ( unsigned i = 0; i < meshlist.Num_Nodes() ; ++ i )
 	{
@@ -569,7 +569,7 @@ void compute_dimensions
 
 			if ( first )
 			{
-				first = FALSE;
+				first = false;
 				min = max = p;
 			}
 			else

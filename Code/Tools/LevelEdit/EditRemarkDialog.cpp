@@ -116,7 +116,7 @@ EditRemarkDialogClass::OnInitDialog (void)
 	m_WeightSpin.SetRange (0, 100);
 	m_WeightSpin.SetPos ((int)m_Remark->Get_Weight ());
 	SetDlgItemInt (IDC_WEIGHT_EDIT, (int)m_Remark->Get_Weight ());	
-	return TRUE;
+	return true;
 }
 
 

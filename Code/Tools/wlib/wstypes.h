@@ -57,14 +57,6 @@ Standard type definitions for the sake of portability and readability.
 
 #define adelete(X) (delete[](X))
 
-#ifndef TRUE
-#define TRUE               1
-#endif
-
-#ifndef FALSE
-#define FALSE              0
-#endif
-
 #ifndef MIN
 #define MIN(x,y) (((x)<(y))?(x):(y))
 #endif

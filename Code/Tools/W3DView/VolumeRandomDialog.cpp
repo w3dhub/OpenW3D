@@ -213,9 +213,9 @@ VolumeRandomDialogClass::OnInitDialog (void)
 	//
 	//	Check the appropriate radio
 	//
-	SendDlgItemMessage (initial_type, BM_SETCHECK, (WPARAM)TRUE);
+	SendDlgItemMessage (initial_type, BM_SETCHECK, (WPARAM)true);
 	Update_Enable_State ();
-	return TRUE;
+	return true;
 }
 
 

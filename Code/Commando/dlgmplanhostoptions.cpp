@@ -660,7 +660,7 @@ MPLanHostAdvancedOptionsTabClass::On_Init_Dialog (void)
 	Check_Dlg_Button(IDC_TEAM_CHANGE_CHECK, mChangeTeams);
 	Enable_Dlg_Item(IDC_TEAM_CHANGE_CHECK, canChangeTeams);
 
-	// Remix teams is ON if team change is FALSE and remix setting is true.
+	// Remix teams is ON if team change is false and remix setting is true.
 	mRemixTeams = The_Game()->IsTeamChangingAllowed.Is_False() && The_Game()->RemixTeams.Is_True();
 	Check_Dlg_Button(IDC_REMIX_TEAMS_CHECK, mRemixTeams);
 	Enable_Dlg_Item(IDC_REMIX_TEAMS_CHECK, The_Game()->IsTeamChangingAllowed.Is_False());
@@ -1541,7 +1541,7 @@ MPLanHostMapCycleOptionsTabClass::Build_Map_List (void)
 	MapList.Delete_All ();
 
 	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
 
 	//

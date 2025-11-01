@@ -441,7 +441,7 @@ WW3DErrorType HLodDefClass::Save(ChunkSaveClass & csave)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies an aggregate
-	if (csave.Begin_Chunk (W3D_CHUNK_HLOD) == TRUE) {
+	if (csave.Begin_Chunk (W3D_CHUNK_HLOD) == true) {
 		
 		// Attempt to save the different sections of the aggregate definition
 		if ((Save_Header (csave) == WW3D_ERROR_OK) &&
@@ -478,7 +478,7 @@ WW3DErrorType HLodDefClass::Save_Header(ChunkSaveClass &csave)
 	WW3DErrorType ret_val = WW3D_ERROR_SAVE_FAILED;
 
 	// Begin a chunk that identifies the aggregate
-	if (csave.Begin_Chunk (W3D_CHUNK_HLOD_HEADER) == TRUE) {
+	if (csave.Begin_Chunk (W3D_CHUNK_HLOD_HEADER) == true) {
 		
 		// Fill the header structure
 		W3dHLodHeaderStruct header = { 0 };
@@ -581,7 +581,7 @@ WW3DErrorType HLodDefClass::Load_W3D(ChunkLoadClass & cload)
 	*/
 	Free();
 
-	if (read_header(cload) == FALSE) {        
+	if (read_header(cload) == false) {        
 	  return WW3D_ERROR_LOAD_FAILED;
 	}
 
@@ -851,10 +851,10 @@ bool HLodDefClass::SubObjectArrayClass::Save_W3D(ChunkSaveClass &csave)
 	bool ret_val = false;	
 
 	// Begin a chunk that identifies the LOD array
-	if (csave.Begin_Chunk (W3D_CHUNK_HLOD_LOD_ARRAY) == TRUE) {
+	if (csave.Begin_Chunk (W3D_CHUNK_HLOD_LOD_ARRAY) == true) {
 
 		// Begin a chunk that identifies the LOD header
-		if (csave.Begin_Chunk (W3D_CHUNK_HLOD_SUB_OBJECT_ARRAY_HEADER) == TRUE) {
+		if (csave.Begin_Chunk (W3D_CHUNK_HLOD_SUB_OBJECT_ARRAY_HEADER) == true) {
 
 			W3dHLodArrayHeaderStruct header = { 0 };
 			header.ModelCount = ModelCount;
@@ -875,7 +875,7 @@ bool HLodDefClass::SubObjectArrayClass::Save_W3D(ChunkSaveClass &csave)
 				  index ++) {
 			
 				// Save this LOD sub-obj to the chunk
-				ret_val &= (csave.Begin_Chunk (W3D_CHUNK_HLOD_SUB_OBJECT) == TRUE);
+				ret_val &= (csave.Begin_Chunk (W3D_CHUNK_HLOD_SUB_OBJECT) == true);
 				if (ret_val) {
 					
 					W3dHLodSubObjectStruct info = { 0 };

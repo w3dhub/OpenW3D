@@ -645,7 +645,7 @@ InstancesPageClass::OnInitDialog (void)
 
 	SetProp (m_ListCtrl, "TRANS_ACCS", (HANDLE)1);
 	SetProp (m_hWnd, "TRANS_ACCS", (HANDLE)1);
-	return TRUE;
+	return true;
 }
 
 
@@ -684,7 +684,7 @@ InstancesPageClass::Insert_Factory (LPCTSTR name, int class_id)
 		item_data->class_id	= class_id;
 		item_data->name		= name;
 		m_ListCtrl.SetItemData (index, (DWORD_PTR)item_data);
-		m_ListCtrl.SetCheck (index, TRUE);
+		m_ListCtrl.SetCheck (index, true);
 	}
 	
 	return ;	
@@ -796,10 +796,10 @@ InstancesPageClass::Add_Node (NodeClass *node)
 			//	Should the node be inserted into the current view?
 			//
 			if (definition->Get_Class_ID () == m_ClassID) {
-				m_ListCtrl.SetRedraw (FALSE);
+				m_ListCtrl.SetRedraw (false);
 				Insert_Node (node);
 				m_ListCtrl.SortItems (InstancesListSortCallback, 0L);
-				m_ListCtrl.SetRedraw (TRUE);
+				m_ListCtrl.SetRedraw (true);
 			}			
 		}
 	}
@@ -909,7 +909,7 @@ InstancesPageClass::Reset_List (void)
 void
 InstancesPageClass::Populate_List (uint32 class_id)
 {
-	m_ListCtrl.SetRedraw (FALSE);
+	m_ListCtrl.SetRedraw (false);
 	m_ListCtrl.DeleteAllItems ();
 
 	if (class_id == 0) {
@@ -958,7 +958,7 @@ InstancesPageClass::Populate_List (uint32 class_id)
 		m_ListCtrl.SortItems (InstancesListSortCallback, 0L);
 	}
 
-	m_ListCtrl.SetRedraw (TRUE);
+	m_ListCtrl.SetRedraw (true);
 
 	//
 	//	Save this class ID for later
@@ -982,7 +982,7 @@ InstancesPageClass::Populate_List (uint32 class_id)
 void
 InstancesPageClass::Populate_List (NodeClass *node)
 {
-	m_ListCtrl.SetRedraw (FALSE);
+	m_ListCtrl.SetRedraw (false);
 	m_ListCtrl.DeleteAllItems ();
 
 	if (node != NULL) {
@@ -1007,7 +1007,7 @@ InstancesPageClass::Populate_List (NodeClass *node)
 	//	Sort all the items
 	//
 	m_ListCtrl.SortItems (InstancesListSortCallback, 0L);
-	m_ListCtrl.SetRedraw (TRUE);
+	m_ListCtrl.SetRedraw (true);
 
 	//
 	//	Make sure the toolbar is up to date

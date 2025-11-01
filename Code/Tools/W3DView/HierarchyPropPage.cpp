@@ -150,7 +150,7 @@ CHierarchyPropPage::OnInitDialog (void)
 
     GetParent ()->GetDlgItem (IDOK)->ShowWindow (SW_HIDE);
     GetParent ()->GetDlgItem (IDCANCEL)->SetWindowText ("Close");	
-    return TRUE;
+    return true;
 }
 
 ////////////////////////////////////////////////////////////////

@@ -163,7 +163,7 @@ BOOL GameMtlShaderDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, L
 			{
 				IParams->RollupMouseMessage(dlg_wnd,message,wparam,lparam);
 			}
-			return FALSE;
+			return false;
 
 		case WM_COMMAND:
 			{
@@ -243,7 +243,7 @@ BOOL GameMtlShaderDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, L
 			}
 	}
 
-	return FALSE;
+	return false;
 }
 
 

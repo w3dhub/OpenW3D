@@ -33,7 +33,7 @@ class RestrictedFileDialogClass : public CFileDialog
 	DECLARE_DYNAMIC(RestrictedFileDialogClass)
 
 public:
-	RestrictedFileDialogClass(BOOL bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
+	RestrictedFileDialogClass(BOOL bOpenFileDialog, // true for FileOpen, false for FileSaveAs
 		LPCTSTR lpszDefExt = NULL,
 		LPCTSTR lpszFileName = NULL,
 		DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,

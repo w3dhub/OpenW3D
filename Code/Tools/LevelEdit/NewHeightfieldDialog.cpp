@@ -128,7 +128,7 @@ NewHeightfieldDialogClass::OnInitDialog (void)
 	::SetDlgItemFloat (m_hWnd, IDC_DENSITY_EDIT, 2.0F);
 	::SetDlgItemFloat (m_hWnd, IDC_HEIGHT_SCALE_EDIT, 75.0F);
 
-	return TRUE;
+	return true;
 }
 
 
@@ -146,7 +146,7 @@ NewHeightfieldDialogClass::OnBrowse (void)
 	CString filename;
 	GetDlgItemText (IDC_BMP_FILENAME_EDIT, filename);
 
-	CFileDialog dialog (TRUE, ".bmp", filename,
+	CFileDialog dialog (true, ".bmp", filename,
 		OFN_HIDEREADONLY | OFN_EXPLORER,
 		"Windows Bitmap Files (*.bmp)|*.bmp||", ::AfxGetMainWnd ());
 

@@ -110,7 +110,7 @@ BOOL CALLBACK Update_Info_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPara
       return(1);
     break;
   }
-  return(FALSE);
+  return(false);
 }
 
 
@@ -166,7 +166,7 @@ DWORD CALLBACK ApplyPatchThread(LPVOID _file) {
     char patchArgs[200];
     sprintf(patchArgs,"\"%s\" .",patchfile);
 
-    rtpErrCode = patchFunc(patchArgs,PatchCallBack,TRUE);
+    rtpErrCode = patchFunc(patchArgs,PatchCallBack,true);
 
     FreeLibrary(hInst);     // unload the DLL
 	return 0;
@@ -247,7 +247,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
 
 	int dotcnt = 9;
 	DWORD last_time = GetTickCount();
-	BOOL forward = FALSE;
+	BOOL forward = false;
 	char worktext[256];
     LoadStringA(NULL,IDS_WORKING_TEXT,worktext,sizeof(worktext)-12);
 	int scnt = strlen(worktext)+1;
@@ -257,11 +257,11 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
 		if (GetTickCount() - last_time > 100) {
 			if (forward) {
 				worktext[scnt+dotcnt] = '.';
-				if (dotcnt == 9) forward = FALSE;
+				if (dotcnt == 9) forward = false;
 				else dotcnt++;
 			} else {
 				worktext[scnt+dotcnt] = 0;
-				if (dotcnt == 0) forward = TRUE;
+				if (dotcnt == 0) forward = true;
 				else dotcnt--;
 			}
 			SetWindowText(GetDlgItem(PatchDialog,IDC_WORKING_BOX),(char *)worktext);
@@ -306,7 +306,7 @@ void Apply_Patch(char *patchfile,ConfigFile &config,int skuIndex, bool show_dial
     Wstring   key;
     // Get the InstallPath from the specified registry key
     sprintf(string,"SKU%d",skuIndex);
-    if (config.getString(string,key)==FALSE)
+    if (config.getString(string,key)==false)
     {
       ERRMSG("SKU is missing from config file!");
       return;
@@ -402,7 +402,7 @@ void Shutdown_Computer_Now(void)
   tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 
   // Get the shutdown privilege for this process.
-  AdjustTokenPrivileges(hToken, FALSE, &tkp, 0,
+  AdjustTokenPrivileges(hToken, false, &tkp, 0,
         (PTOKEN_PRIVILEGES)NULL, 0);
 
   // Cannot test the return value of AdjustTokenPrivileges.
@@ -456,7 +456,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 //  }
 
   LPVOID RetVal="";
-  bit8 Abort=FALSE;
+  bit8 Abort=false;
 
   //// using the global Dialog pointer, set the current "error" code
   //g_DlgPtr->SetRTPErrCode(Id);
@@ -559,13 +559,13 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 	case 0xd:
 	  //// this one shouldn't happen (only occurs if the command line
 	  ////   doesn't have a patch file in it, and we insure that it does).
-	  //Abort = TRUE;
+	  //Abort = true;
 	  //*g_LogFile << "Incorrect (or none) patch file specified in command line." << std::endl;
 	break;
 
 	case 0xe:
 	  //// this one shouldn't happen either (same reason)
-	  //Abort = TRUE;
+	  //Abort = true;
 	  //*g_LogFile << "Incorrect (or none) path specified in command line." << std::endl;
 	break;
 
@@ -591,7 +591,7 @@ __declspec(dllexport) LPVOID CALLBACK PatchCallBack(UINT Id, LPVOID Param)
 
 	case 0x14:
 	  //// Location Dialog
-	  //Abort = TRUE;
+	  //Abort = true;
       //*g_LogFile << "Specified path is incorrect." << std::endl;
 	break;
 

@@ -107,7 +107,7 @@ WelcomeDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	// Check the 'yes' button by default
-	SendDlgItemMessage (IDC_YES_RADIO, BM_SETCHECK, (WPARAM)TRUE);	
+	SendDlgItemMessage (IDC_YES_RADIO, BM_SETCHECK, (WPARAM)true);	
 
 	// Put the base path in its dialog control
 	SetDlgItemText (IDC_ASSET_TREE_LOCATION, ::Get_File_Mgr()->Get_Base_Path ());
@@ -122,7 +122,7 @@ WelcomeDialogClass::OnInitDialog (void)
 		m_iHeight = bitmap.bmHeight;
 	}
 
-	return TRUE;
+	return true;
 }
 
 

@@ -167,7 +167,7 @@ OpacityVectorDialogClass::OnInitDialog (void)
 
 	m_SliderY.SetPos ((int)y_rot);
 	m_SliderZ.SetPos ((int)z_rot);
-	return TRUE;
+	return true;
 }
 
 

@@ -105,11 +105,11 @@ CAnimationSpeed::OnInitDialog (void)
 		  CheckDlgButton(IDC_COMPRESSQ, pCDoc->GetChannelQCompression());
 			CheckRadioButton(IDC_16BIT, IDC_8BIT, IDC_16BIT+2);//-pCDoc->GetChannelQnBytes());
 		  if(pCDoc->GetChannelQCompression()){
-				GetDlgItem(IDC_16BIT)->EnableWindow(TRUE);
-				GetDlgItem(IDC_8BIT)->EnableWindow(TRUE);
+				GetDlgItem(IDC_16BIT)->EnableWindow(true);
+				GetDlgItem(IDC_8BIT)->EnableWindow(true);
 		  }else{
-			  GetDlgItem(IDC_16BIT)->EnableWindow(FALSE);
-			  GetDlgItem(IDC_8BIT)->EnableWindow(FALSE);
+			  GetDlgItem(IDC_16BIT)->EnableWindow(false);
+			  GetDlgItem(IDC_8BIT)->EnableWindow(false);
 		  }
 	 }
 
@@ -134,7 +134,7 @@ CAnimationSpeed::OnInitDialog (void)
     
     // Set the initial pos of the slider control
     m_speedSlider.SetPos (m_iInitialPercent);
-    return TRUE;
+    return true;
 }
 
 //////////////////////////////////////////////////////////////
@@ -209,11 +209,11 @@ OnCompressq(){
 		pCDoc->SetChannelQCompression(b_compress);
 		//Enable/Disable
 		if(b_compress){
-				GetDlgItem(IDC_16BIT)->EnableWindow(TRUE);
-				GetDlgItem(IDC_8BIT)->EnableWindow(TRUE);
+				GetDlgItem(IDC_16BIT)->EnableWindow(true);
+				GetDlgItem(IDC_8BIT)->EnableWindow(true);
 		  }else{
-			  GetDlgItem(IDC_16BIT)->EnableWindow(FALSE);
-			  GetDlgItem(IDC_8BIT)->EnableWindow(FALSE);
+			  GetDlgItem(IDC_16BIT)->EnableWindow(false);
+			  GetDlgItem(IDC_8BIT)->EnableWindow(false);
 		  }
 		//Update
 		  if(b_compress != b_was_compressed){

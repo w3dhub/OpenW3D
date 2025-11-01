@@ -266,7 +266,7 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 		case WM_MOUSEMOVE:
 		{
 			IParams->RollupMouseMessage(dlg_wnd,message,wparam,lparam);
-			return FALSE;
+			return false;
 		}
 
 		case CC_SPINNER_CHANGE:    
@@ -306,7 +306,7 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 
 							BOOL disp = TheMtl->Get_Texture_Display(PassIndex,0);
 							if (disp) {
-								TheMtl->Set_Texture_Display(PassIndex,0,FALSE);
+								TheMtl->Set_Texture_Display(PassIndex,0,false);
 							}
 
 							texture->SetMapName((char *)bmi.Name());
@@ -316,7 +316,7 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 							TheMtl->Notify_Changed();
 
 							if (disp) {
-								TheMtl->Set_Texture_Display(PassIndex,0,TRUE);
+								TheMtl->Set_Texture_Display(PassIndex,0,true);
 								TheMtl->Notify_Changed();
 							}
 						}
@@ -334,7 +334,7 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 							
 							BOOL disp = TheMtl->Get_Texture_Display(PassIndex,1);
 							if (disp) {
-								TheMtl->Set_Texture_Display(PassIndex,1,FALSE);
+								TheMtl->Set_Texture_Display(PassIndex,1,false);
 							}
 
 							texture->SetMapName((char *)bmi.Name());
@@ -344,7 +344,7 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 							TheMtl->Notify_Changed();
 							
 							if (disp) {
-								TheMtl->Set_Texture_Display(PassIndex,1,TRUE);
+								TheMtl->Set_Texture_Display(PassIndex,1,true);
 								TheMtl->Notify_Changed();
 							}
 						}
@@ -354,13 +354,13 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 				case IDC_STAGE0_ENABLE:
 				{
 					int checkbox = GetCheckBox(dlg_wnd,IDC_STAGE0_ENABLE);
-					Enable_Stage(0,(checkbox == TRUE ? true : false) );
+					Enable_Stage(0,(checkbox == true ? true : false) );
 
 					// If the texture stage is turned off, turn off the Display button so that it won't
 					// show up in the viewport.
-					if (checkbox == FALSE) {
+					if (checkbox == false) {
 
-						TheMtl->Set_Texture_Display(PassIndex, 0, FALSE);
+						TheMtl->Set_Texture_Display(PassIndex, 0, false);
 						TheMtl->Notify_Changed();
 					}
 					break;
@@ -369,77 +369,77 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 				{
 					int checkbox = GetCheckBox(dlg_wnd,IDC_STAGE1_ENABLE);
 
-					Enable_Stage(1,(checkbox == TRUE ? true : false) );
+					Enable_Stage(1,(checkbox == true ? true : false) );
 
 					// If the texture stage is turned off, turn off the Display button so that it won't
 					// show up in the viewport.
-					if (checkbox == FALSE) {
+					if (checkbox == false) {
 
-						TheMtl->Set_Texture_Display(PassIndex, 1, FALSE);
+						TheMtl->Set_Texture_Display(PassIndex, 1, false);
 						TheMtl->Notify_Changed();
 					}
 					break;
 				}
 				case IDC_STAGE0_PUBLISH_BUTTON:
 				{
-					TheMtl->Set_Texture_Publish(PassIndex,0,(Stage0PublishButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Publish(PassIndex,0,(Stage0PublishButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE1_PUBLISH_BUTTON:
 				{
-					TheMtl->Set_Texture_Publish(PassIndex,1,(Stage1PublishButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Publish(PassIndex,1,(Stage1PublishButton->IsChecked() ? true : false));
 					break;
 				}
 
 				case IDC_STAGE0_CLAMP_U_BUTTON:
 				{
-					TheMtl->Set_Texture_Clamp_U(PassIndex,0,(Stage0ClampUButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Clamp_U(PassIndex,0,(Stage0ClampUButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE1_CLAMP_U_BUTTON:
 				{
-					TheMtl->Set_Texture_Clamp_U(PassIndex,1,(Stage1ClampUButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Clamp_U(PassIndex,1,(Stage1ClampUButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE0_CLAMP_V_BUTTON:
 				{
-					TheMtl->Set_Texture_Clamp_V(PassIndex,0,(Stage0ClampVButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Clamp_V(PassIndex,0,(Stage0ClampVButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE1_CLAMP_V_BUTTON:
 				{
-					TheMtl->Set_Texture_Clamp_V(PassIndex,1,(Stage1ClampVButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Clamp_V(PassIndex,1,(Stage1ClampVButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE0_NOLOD_BUTTON:
 				{
-					TheMtl->Set_Texture_No_LOD(PassIndex,0,(Stage0NoLODButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_No_LOD(PassIndex,0,(Stage0NoLODButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE1_NOLOD_BUTTON:
 				{
-					TheMtl->Set_Texture_No_LOD(PassIndex,1,(Stage1NoLODButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_No_LOD(PassIndex,1,(Stage1NoLODButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE0_ALPHA_BITMAP_BUTTON:
 				{
-					TheMtl->Set_Texture_Alpha_Bitmap(PassIndex,0,(Stage0AlphaBitmapButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Alpha_Bitmap(PassIndex,0,(Stage0AlphaBitmapButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE1_ALPHA_BITMAP_BUTTON:
 				{
-					TheMtl->Set_Texture_Alpha_Bitmap(PassIndex,1,(Stage0AlphaBitmapButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Alpha_Bitmap(PassIndex,1,(Stage0AlphaBitmapButton->IsChecked() ? true : false));
 					break;
 				}
 				case IDC_STAGE0_DISPLAY_BUTTON:
 				{
-					TheMtl->Set_Texture_Display(PassIndex,0,(Stage0DisplayButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Display(PassIndex,0,(Stage0DisplayButton->IsChecked() ? true : false));
 					TheMtl->Notify_Changed();
 					break;
 				}
 				case IDC_STAGE1_DISPLAY_BUTTON:
 				{
-					TheMtl->Set_Texture_Display(PassIndex,1,(Stage1DisplayButton->IsChecked() ? TRUE : FALSE));
+					TheMtl->Set_Texture_Display(PassIndex,1,(Stage1DisplayButton->IsChecked() ? true : false));
 					TheMtl->Notify_Changed();
 					break;
 				}
@@ -481,7 +481,7 @@ BOOL GameMtlTextureDlg::Dialog_Proc (HWND dlg_wnd, UINT message, WPARAM wparam, 
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -501,10 +501,10 @@ void GameMtlTextureDlg::ReloadDialog(void)
 {
 	DebugPrint("GameMtlTextureDlg::ReloadDialog\n");
 	assert(Stage0FramesSpin && Stage1FramesSpin && Stage0RateSpin && Stage1RateSpin);
-	Stage0FramesSpin->SetValue(TheMtl->Get_Texture_Frame_Count(PassIndex,0),FALSE);
-	Stage1FramesSpin->SetValue(TheMtl->Get_Texture_Frame_Count(PassIndex,1),FALSE);
-	Stage0RateSpin->SetValue(TheMtl->Get_Texture_Frame_Rate(PassIndex,0),FALSE);
-	Stage1RateSpin->SetValue(TheMtl->Get_Texture_Frame_Rate(PassIndex,1),FALSE);
+	Stage0FramesSpin->SetValue(TheMtl->Get_Texture_Frame_Count(PassIndex,0),false);
+	Stage1FramesSpin->SetValue(TheMtl->Get_Texture_Frame_Count(PassIndex,1),false);
+	Stage0RateSpin->SetValue(TheMtl->Get_Texture_Frame_Rate(PassIndex,0),false);
+	Stage1RateSpin->SetValue(TheMtl->Get_Texture_Frame_Rate(PassIndex,1),false);
 	
 	SendDlgItemMessage(	m_hWnd, 
 								IDC_STAGE0_ANIM_COMBO, 
@@ -582,7 +582,7 @@ void GameMtlTextureDlg::ActivateDlg(BOOL onOff)
 void GameMtlTextureDlg::Enable_Stage(int stage,BOOL onoff)
 {
 	assert((stage >= 0) && (stage < W3dMaterialClass::MAX_STAGES));
-	TheMtl->Set_Texture_Enable(PassIndex,stage,(onoff == TRUE ? true : false));
+	TheMtl->Set_Texture_Enable(PassIndex,stage,(onoff == true ? true : false));
 		
 	if (stage == 0) {
 		
@@ -597,11 +597,11 @@ void GameMtlTextureDlg::Enable_Stage(int stage,BOOL onoff)
 			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_FRAMES_EDIT), onoff);
 			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_ANIM_COMBO), onoff);
 		} else {
-			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_RATE_SPIN), FALSE);
-			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_RATE_EDIT), FALSE);
-			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_FRAMES_SPIN), FALSE);
-			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_FRAMES_EDIT), FALSE);
-			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_ANIM_COMBO), FALSE);
+			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_RATE_SPIN), false);
+			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_RATE_EDIT), false);
+			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_FRAMES_SPIN), false);
+			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_FRAMES_EDIT), false);
+			EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_ANIM_COMBO), false);
 		}
 
 		EnableWindow(GetDlgItem(m_hWnd,IDC_STAGE0_PUBLISH_BUTTON),onoff);

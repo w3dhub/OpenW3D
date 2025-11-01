@@ -43,8 +43,10 @@
 #include "crc.h"
 #include "msgstatlist.h"
 #include "wwprofile.h"
+#ifdef _WIN32
 #include "Commando/nat.h"
 #include "Commando/natter.h"
+#endif
 #include "packetmgr.h"
 #include "BWBalance.h"
 #include <cstdio>
@@ -376,7 +378,9 @@ void cConnection::Init_As_Server(USHORT server_port, int max_players,
       WWASSERT(num_tries < 50 && server_port <= MAX_SERVER_PORT);
 
 		// Tell the firewall code that we started a new local server.
+#ifdef _WIN32
 		WOLNATInterface.Set_Server(true);
+#endif
    }
 
 	InitDone = true;
@@ -703,6 +707,7 @@ bool cConnection::Receive_Packet()
 #endif //WWDEBUG
 	}
 
+#ifdef _WIN32
 	//
 	// Intercept packets intended for the firewall negotiation code.
 	//
@@ -712,6 +717,7 @@ bool cConnection::Receive_Packet()
       WWDEBUG_SAY(("cConnection:: Packet transferred to WOLNAT interface\n"));
 		return(true);
 	};
+#endif
 
 
 	//

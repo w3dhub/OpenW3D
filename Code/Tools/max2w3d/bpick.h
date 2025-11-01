@@ -65,14 +65,14 @@ class BonePickerClass : public PickNodeCallback, public PickModeCallback, public
 {
 public:
 	
-	BonePickerClass(void) : User(NULL), BoneList(NULL), SinglePick(FALSE) {}
+	BonePickerClass(void) : User(NULL), BoneList(NULL), SinglePick(false) {}
 
 	/*
 	** Tell this class who is using it and optionally the list
 	** of bones to allow the user to select from.
 	** Call this before giving this class to MAX...
 	*/
-	void Set_User(BonePickerUserClass * user,int singlepick = FALSE, INodeTab * bonelist = NULL) { User = user; SinglePick = singlepick; BoneList = bonelist; }
+	void Set_User(BonePickerUserClass * user,int singlepick = false, INodeTab * bonelist = NULL) { User = user; SinglePick = singlepick; BoneList = bonelist; }
 
 	/*
 	** From BonePickNodeCallback:
@@ -89,7 +89,7 @@ public:
 	void ExitMode(IObjParam *ip) { }
 
 	PickNodeCallback * GetFilter() {return this;}
-	BOOL RightClick(IObjParam *ip,ViewExp *vpt) { return TRUE; }
+	BOOL RightClick(IObjParam *ip,ViewExp *vpt) { return true; }
 	
 	/*
 	** From HitByNameDlgCallback
@@ -97,9 +97,9 @@ public:
 	virtual TCHAR * dialogTitle(void);
 	virtual TCHAR * buttonText(void);
 	virtual BOOL singleSelect(void) { return SinglePick; }
-	virtual BOOL useFilter(void) { return TRUE; }
-	virtual BOOL useProc(void) { return TRUE; }
-	virtual BOOL doCustomHilite(void) { return FALSE; }
+	virtual BOOL useFilter(void) { return true; }
+	virtual BOOL useProc(void) { return true; }
+	virtual BOOL doCustomHilite(void) { return false; }
 	virtual BOOL filter(INode * inode);
 	virtual void proc(INodeTab & nodeTab);
 

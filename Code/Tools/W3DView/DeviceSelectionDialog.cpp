@@ -115,7 +115,7 @@ CDeviceSelectionDialog::OnInitDialog (void)
 	}
 
 	// Check the '16bpp' radio by default
-	SendDlgItemMessage (IDC_COLORDEPTH_16, BM_SETCHECK, (WPARAM)TRUE);
+	SendDlgItemMessage (IDC_COLORDEPTH_16, BM_SETCHECK, (WPARAM)true);
 
 	// Force the first entry in the combobox to be selected.
 	//m_deviceListComboBox.SetCurSel (0);
@@ -123,7 +123,7 @@ CDeviceSelectionDialog::OnInitDialog (void)
 
 	// Update the static controls on the dialog to reflect the device
 	UpdateDeviceDescription ();
-	return TRUE;
+	return true;
 }
 
 
@@ -181,7 +181,7 @@ CDeviceSelectionDialog::OnOK (void)
 {
 	// Ask the combobox for its current selection 
 	m_iDeviceIndex = m_deviceListComboBox.GetItemData (m_deviceListComboBox.GetCurSel ());
-	m_iBitsPerPixel = (SendDlgItemMessage (IDC_COLORDEPTH_16, BM_GETCHECK) == TRUE) ? 16 : 24;
+	m_iBitsPerPixel = (SendDlgItemMessage (IDC_COLORDEPTH_16, BM_GETCHECK) == true) ? 16 : 24;
 
 	// Get the device name of the currently selected device
 	CString stringDeviceName;
@@ -205,7 +205,7 @@ CDeviceSelectionDialog::OnOK (void)
 INT_PTR
 CDeviceSelectionDialog::DoModal (void)
 {
-	BOOL bFoundDevice = FALSE;
+	BOOL bFoundDevice = false;
 	int iReturn = IDOK;
 
 	// Get the name of the last used device driver from the registry
@@ -233,13 +233,13 @@ CDeviceSelectionDialog::DoModal (void)
 				m_iBitsPerPixel = theApp.GetProfileInt ("Config", "DeviceBitsPerPix", 16);
 
 				// Found it!
-				bFoundDevice = TRUE;
+				bFoundDevice = true;
 			}
 		}
 	}
 
 	// Show the dialog and allow the user to select the device
-	if (bFoundDevice == FALSE) {        
+	if (bFoundDevice == false) {        
 		iReturn = CDialog::DoModal ();
 	}
 	

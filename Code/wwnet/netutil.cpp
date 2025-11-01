@@ -534,7 +534,7 @@ void cNetUtil::Create_Unbound_Socket(SOCKET & sock)
    //
    // Enable broadcasts
    //
-   int optval = TRUE;
+   int optval = true;
    WSA_CHECK(setsockopt(sock, SOL_SOCKET, SO_BROADCAST, (char *) &optval, sizeof(optval)));
 
    //

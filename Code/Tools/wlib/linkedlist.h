@@ -198,7 +198,7 @@ bit8 LinkedList<T>::add(IN T &node,sint32 pos, OUT T **newnodeptr)
     Entries++;
     Current=item;
     CurIndex=pos;
-    return(TRUE);
+    return(true);
   }
 
   // If control is here, we know the new node is not an endpoint
@@ -211,7 +211,7 @@ bit8 LinkedList<T>::add(IN T &node,sint32 pos, OUT T **newnodeptr)
     item->Prev->Next=item;
     Current=item;
     Entries++;
-    return(TRUE);
+    return(true);
   }
   // Check the other possible speedup (adding after CurIndex) 
   if (pos==CurIndex+1) {
@@ -222,7 +222,7 @@ bit8 LinkedList<T>::add(IN T &node,sint32 pos, OUT T **newnodeptr)
     Current=item;
     CurIndex++;
     Entries++;
-    return(TRUE);
+    return(true);
   }    
 
   // If control reaches here we have to scan the whole thing
@@ -239,7 +239,7 @@ bit8 LinkedList<T>::add(IN T &node,sint32 pos, OUT T **newnodeptr)
   CurIndex=pos;
   Entries++;
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -268,7 +268,7 @@ bit8 LinkedList<T>::remove(OUT T &node, sint32 pos)
   LNode<T> *item;
 
   if (Entries==0)
-    return(FALSE);
+    return(false);
 
   if (pos<0)
     pos=0;
@@ -303,7 +303,7 @@ bit8 LinkedList<T>::remove(OUT T &node, sint32 pos)
       assert(Head==NULL);
       assert(Tail==NULL);
     }
-    return(TRUE);
+    return(true);
   }     
   // If control is here, we know the target node is not an endpoint
 
@@ -317,7 +317,7 @@ bit8 LinkedList<T>::remove(OUT T &node, sint32 pos)
     node=item->Node;
     delete(item);
     Entries--;
-    return(TRUE);
+    return(true);
   }
 
   // Check the other possible speedup (removing after CurIndex)
@@ -330,7 +330,7 @@ bit8 LinkedList<T>::remove(OUT T &node, sint32 pos)
     node=item->Node;
     delete(item);
     Entries--;
-    return(TRUE);
+    return(true);
   }
 
 
@@ -349,7 +349,7 @@ bit8 LinkedList<T>::remove(OUT T &node, sint32 pos)
   delete(item);
   Entries--;
 
-  return(TRUE);  
+  return(true);  
 }
 
 
@@ -398,44 +398,44 @@ template <class T>
 bit8 LinkedList<T>::getPointer(OUT T **node,sint32 pos)
 {
   if ((node==0)||(Entries==0))
-    return(FALSE);
+    return(false);
 
   LNode<T> *item;
 
   if (pos<0)
   {
     //pos=0;
-    return(FALSE);
+    return(false);
   }
   if (pos>=Entries)
   {
     //pos=Entries-1;
-    return(FALSE);
+    return(false);
   }
 
   if (pos==0) {
     *node=&(Head->Node);
-    return(TRUE);
+    return(true);
   } else if (pos==Entries-1) {
     *node=&(Tail->Node);
-    return(TRUE);
+    return(true);
   }
   // If control reaches here, we know target is not an endpoint
 
   // Check for possible speedup, so we don't have to scan the list
   if (pos==CurIndex) {
     *node=&(Current->Node);
-    return(TRUE);
+    return(true);
   } else if (pos==CurIndex+1) {
     *node=&(Current->Next->Node);
     CurIndex++;
     Current=Current->Next;
-    return(TRUE);
+    return(true);
   } else if (pos==CurIndex-1) {
     *node=&(Current->Prev->Node);
     CurIndex--;
     Current=Current->Prev;
-    return(TRUE);
+    return(true);
   }
 
   // If control reaches here we have to scan the whole thing
@@ -448,7 +448,7 @@ bit8 LinkedList<T>::getPointer(OUT T **node,sint32 pos)
   CurIndex=pos;
   Current=item;
 
-  return(TRUE);  
+  return(true);  
 }
 
 

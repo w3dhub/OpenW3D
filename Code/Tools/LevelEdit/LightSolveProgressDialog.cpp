@@ -104,7 +104,7 @@ LightSolveProgressDialog::OnInitDialog()
 	ShowWindow (SW_SHOW);
 
 	PostMessage (WM_USER+101);
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -289,7 +289,7 @@ void
 CDataTreeView::LoadAssetsIntoTree (void) 
 {
 	// Turn off repainting
-	GetTreeCtrl ().SetRedraw (FALSE);
+	GetTreeCtrl ().SetRedraw (false);
 
 	DynamicVectorClass<CString> dist_lod_list;
 
@@ -301,14 +301,14 @@ CDataTreeView::LoadAssetsIntoTree (void)
 
 		// Loop through all the assets in the manager
 		for (pObjEnum->First ();
-			  pObjEnum->Is_Done () == FALSE;
+			  pObjEnum->Is_Done () == false;
 			  pObjEnum->Next ()) {
 
 			// Does this render obj really exist?
 			LPCTSTR pszItemName = pObjEnum->Current_Item_Name ();
 			if (WW3DAssetManager::Get_Instance()->Render_Obj_Exists (pszItemName)) {
 				
-				BOOL bInsert = FALSE;
+				BOOL bInsert = false;
 				HTREEITEM hParentNode = NULL;
 				ASSET_TYPE assetType = TypeUnknown;
 				int iIconIndex = -1;
@@ -318,7 +318,7 @@ CDataTreeView::LoadAssetsIntoTree (void)
 
 					case RenderObjClass::CLASSID_COLLECTION:						
 						// This is a 'mesh collection', we want to add this under the 'collection' node.
-						bInsert = TRUE;
+						bInsert = true;
 						hParentNode = m_hMeshCollectionRoot;
 						assetType = TypeMesh;
 						iIconIndex = m_iMeshIcon;
@@ -328,7 +328,7 @@ CDataTreeView::LoadAssetsIntoTree (void)
 					// This is a mesh render object, we want to add this under the mesh node.
 					//
 					case RenderObjClass::CLASSID_MESH:						
-						bInsert			= TRUE;
+						bInsert			= true;
 						hParentNode		= m_hMeshRoot;
 						assetType		= TypeMesh;
 						iIconIndex		= m_iMeshIcon;
@@ -338,7 +338,7 @@ CDataTreeView::LoadAssetsIntoTree (void)
 					// This is a sound render obj, we want to add this under the sound node.
 					//					
 					case RenderObjClass::CLASSID_SOUND:
-						bInsert			= TRUE;
+						bInsert			= true;
 						hParentNode		= m_hSoundRoot;
 						assetType		= TypeSound;
 						iIconIndex		= m_iSoundIcon;						
@@ -351,7 +351,7 @@ CDataTreeView::LoadAssetsIntoTree (void)
 
 					case RenderObjClass::CLASSID_PARTICLEEMITTER:							
 						// This is an 'emitter', we want to add this under the 'emitter' node.
-						bInsert = TRUE;
+						bInsert = true;
 						hParentNode = m_hEmitterRoot;
 						assetType = TypeEmitter;
 						iIconIndex = m_iEmitterIcon;
@@ -359,7 +359,7 @@ CDataTreeView::LoadAssetsIntoTree (void)
 
 					case RenderObjClass::CLASSID_SPHERE:
 					case RenderObjClass::CLASSID_RING:
-						bInsert		= TRUE;
+						bInsert		= true;
 						hParentNode = m_hPrimitivesRoot;
 						assetType	= TypePrimitives;
 						iIconIndex	= m_iPrimitivesIcon;
@@ -369,7 +369,7 @@ CDataTreeView::LoadAssetsIntoTree (void)
 						dist_lod_list.Add (pszItemName);
 					case RenderObjClass::CLASSID_HLOD:
 						// Assume this is a simple hierarchy LOD, we want to add this under the hierarchy node.
-						bInsert = TRUE;
+						bInsert = true;
 						hParentNode = m_hHierarchyRoot;
 						assetType = TypeHierarchy;
 						iIconIndex = m_iHierarchyIcon;
@@ -429,10 +429,10 @@ CDataTreeView::LoadAssetsIntoTree (void)
 	Load_Materials_Into_Tree ();
 
 	// Turn;repainting back on
-	GetTreeCtrl ().SetRedraw (TRUE);
+	GetTreeCtrl ().SetRedraw (true);
 
 	// Force the window to be repainted
-	Invalidate (FALSE);
+	Invalidate (false);
 	UpdateWindow ();
 	return ;
 }
@@ -452,7 +452,7 @@ CDataTreeView::LoadAnimationsIntoTree (void)
     {
         // Loop through all the animations in the manager
         for (pAnimEnum->First ();
-             (pAnimEnum->Is_Done () == FALSE);
+             (pAnimEnum->Is_Done () == false);
              pAnimEnum->Next ())
         {
             LPCTSTR pszAnimName = pAnimEnum->Current_Item_Name ();
@@ -553,7 +553,7 @@ CDataTreeView::LoadAnimationsIntoTree (HTREEITEM hItem)
     {
         // Loop through all the animations in the manager
         for (pAnimEnum->First ();
-             (pAnimEnum->Is_Done () == FALSE);
+             (pAnimEnum->Is_Done () == false);
              pAnimEnum->Next ())
         {
             LPCTSTR pszAnimName = pAnimEnum->Current_Item_Name ();
@@ -758,7 +758,7 @@ CDataTreeView::Add_Asset_To_Tree
 	if (name != NULL) {
 
 		// Turn off repainting
-		GetTreeCtrl ().SetRedraw (FALSE);
+		GetTreeCtrl ().SetRedraw (false);
 		
 		// Determime where this asset should go
 		HTREEITEM hparent = NULL;
@@ -796,10 +796,10 @@ CDataTreeView::Add_Asset_To_Tree
 		}
 
 		// Turn painting back on
-		GetTreeCtrl ().SetRedraw (TRUE);
+		GetTreeCtrl ().SetRedraw (true);
 
 		// Force the window to be repainted
-		Invalidate (FALSE);
+		Invalidate (false);
 		UpdateWindow ();
 	}
 
@@ -1333,7 +1333,7 @@ CDataTreeView::Refresh_Asset
 	if ((new_name != NULL) && (old_name != NULL)) {
 
 		// Turn off repainting
-		GetTreeCtrl ().SetRedraw (FALSE);
+		GetTreeCtrl ().SetRedraw (false);
 		
 		// Determime where this asset should go
 		HTREEITEM hparent = NULL;
@@ -1359,10 +1359,10 @@ CDataTreeView::Refresh_Asset
 		}
 
 		// Turn painting back on
-		GetTreeCtrl ().SetRedraw (TRUE);
+		GetTreeCtrl ().SetRedraw (true);
 
 		// Force the window to be repainted
-		Invalidate (FALSE);
+		Invalidate (false);
 		UpdateWindow ();	
 	}
 

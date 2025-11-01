@@ -149,8 +149,8 @@ BOOL EmitterLineGroupPropPageClass::OnInitDialog()
 		m_BlurTimeBar->Set_Graph_Percent (index + 1, Normalize_Blur_Time(m_BlurTimes.Values[index]));
 	}
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	return true;  // return true unless you set the focus to a control
+	              // EXCEPTION: OCX Property Pages should return false
 }
 
 /////////////////////////////////////////////////////////////

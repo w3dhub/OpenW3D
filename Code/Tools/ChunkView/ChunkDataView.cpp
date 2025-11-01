@@ -248,7 +248,7 @@ void CChunkDataView::Reset_Columns(void)
 {
 	CListCtrl &list = GetListCtrl();
 
-	BOOL hascolumns = TRUE;
+	BOOL hascolumns = true;
 	while (hascolumns) {
 		hascolumns = list.DeleteColumn(0);
 	}

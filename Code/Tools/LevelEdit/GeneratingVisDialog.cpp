@@ -128,7 +128,7 @@ GeneratingVisDialogClass::OnInitDialog (void)
 
 	ShowWindow (SW_SHOW);
 	PostMessage (WM_USER+101);
-	return TRUE;
+	return true;
 }
 
 
@@ -290,7 +290,7 @@ GeneratingVisDialogClass::WindowProc
 
 		// Close the dialog
 		::Get_Main_View ()->Allow_Repaint (true);
-		EndDialog (TRUE);
+		EndDialog (true);
 	}
 
 	// Allow the base class to process this message

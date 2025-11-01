@@ -746,7 +746,7 @@ bool Game_Init(void)
 	//	Search for all mix files in the data directory
 	//
 	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
 	for (file_find = ::FindFirstFileA ("data\\*.mix", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;

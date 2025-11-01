@@ -253,7 +253,7 @@ ChunkItem *CWDumpTreeView::FindChunkItem (ChunkItem *selectedchunkitem, ChunkIte
 
 			// This case should never occur at this point. As soon as it has been detected
 			// that the search has wrapped the stack should unwind immediately.
-			ASSERT (FALSE);
+			ASSERT (false);
 			return (NULL);
 			break;
 	}

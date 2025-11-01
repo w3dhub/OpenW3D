@@ -115,7 +115,7 @@ FormToolbarClass::Create
 		EnableDocking (CBRS_ALIGN_RIGHT | CBRS_ALIGN_LEFT);
 	}
 
-	// Return the TRUE/FALSE result code
+	// Return the true/false result code
 	return retval;
 }
 

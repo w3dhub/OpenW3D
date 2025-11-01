@@ -38,7 +38,7 @@ TCPCon::~TCPCon()
   WriteQueue_.clear();
 
   if ((BufferedWrites_) && (TCPMgrPtr_))
-    TCPMgrPtr_->setBufferedWrites(this, FALSE);
+    TCPMgrPtr_->setBufferedWrites(this, false);
 }
 
 SOCKET TCPCon::getFD(void)
@@ -86,12 +86,12 @@ sint32 TCPCon::write(IN uint8 *msg,uint32 len, sint32 wait_secs)
 void TCPCon::setBufferedWrites(TCPMgr *mgrptr, bit8 enabled)
 {
   if (enabled)
-    BufferedWrites_=TRUE;  
+    BufferedWrites_=true;  
   else
   {
     while(WriteQueue_.length())
       pumpWrites();
-    BufferedWrites_=FALSE;
+    BufferedWrites_=false;
   }
   TCPMgrPtr_=mgrptr;
 }
@@ -169,7 +169,7 @@ sint32 TCPCon::normalWrite(IN uint8 *msg,uint32 len, sint32 wait_secs)
       sendCount+=retval;
 
     sint32 remaining_wait=wait_secs - (time(NULL)-start);
-    if ((remaining_wait > 0) && (TCPMgr::wait(remaining_wait,0,&Socket_,1,FALSE) > 0))
+    if ((remaining_wait > 0) && (TCPMgr::wait(remaining_wait,0,&Socket_,1,false) > 0))
       continue;  // I can write now.... 
 
     if (remaining_wait <= 0)
@@ -251,7 +251,7 @@ sint32 TCPCon::read(OUT uint8 *msg,uint32 maxlen, sint32 wait_secs)
     }
  
     sint32 remaining_wait=wait_secs - (time(NULL)-start);
-    if ((remaining_wait > 0) && (TCPMgr::wait(remaining_wait,0,&Socket_,1,TRUE) > 0))
+    if ((remaining_wait > 0) && (TCPMgr::wait(remaining_wait,0,&Socket_,1,true) > 0))
       continue;  // I can read now.... 
 
     if (remaining_wait <= 0)
@@ -264,7 +264,7 @@ sint32 TCPCon::read(OUT uint8 *msg,uint32 maxlen, sint32 wait_secs)
 bit8 TCPCon::unread(uint8 *data, int length)
 {
   ReadQueue_.addMany(data, 0, length);
-  return(TRUE);
+  return(true);
 }
 
 
@@ -281,9 +281,9 @@ bit8 TCPCon::getRemoteAddr(uint32 *ip, uint16 *port)
       *ip=ntohl(sin.sin_addr.s_addr);
     if (port)
       *port=ntohs(sin.sin_port);
-    return(TRUE);
+    return(true);
   }
-  return(FALSE);
+  return(false);
 }
 
 //
@@ -309,15 +309,15 @@ bit8 TCPCon::isConnected(void)
   uint32 remoteIp;
   uint16 remotePort;
 
-  if (getRemoteAddr(&remoteIp,&remotePort)==TRUE)
+  if (getRemoteAddr(&remoteIp,&remotePort)==true)
   {
     State_=TCPMgr::CONNECTED;
-    return(TRUE);
+    return(true);
   }
   else
   {
     State_=TCPMgr::CLOSED;
-    return(FALSE);
+    return(false);
   }
 }
 

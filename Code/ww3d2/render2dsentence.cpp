@@ -1352,7 +1352,7 @@ FontCharsClass::Create_GDI_Font (const char *font_name)
 	}
 
 	GDIFont = ::CreateFontA (font_height, 0, 0, 0, bold, italic,
-									FALSE, FALSE, charset, OUT_DEFAULT_PRECIS,
+									false, false, charset, OUT_DEFAULT_PRECIS,
 									CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY,
 									VARIABLE_PITCH, font_name);
 

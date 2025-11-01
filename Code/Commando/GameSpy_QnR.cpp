@@ -131,7 +131,7 @@ void c_basic_callback(char *outbuf, int maxlen, void *userdata)
 /***********
 A simple game object. Consists of some data and a main loop function.
 ***********/
-CGameSpyQnR::CGameSpyQnR(void) : m_GSInit(FALSE), m_GSEnabled(FALSE)
+CGameSpyQnR::CGameSpyQnR(void) : m_GSInit(false), m_GSEnabled(false)
 {
 	// Secret keys removed per Security review requirements. LFeenanEA - 27th January 2025
 	
@@ -171,7 +171,7 @@ CGameSpyQnR::~CGameSpyQnR()
 
 void CGameSpyQnR::LaunchArcade(void) {
 	const char *akey = "Software\\GameSpy\\GameSpy Arcade";
-	BOOL launched = FALSE;
+	BOOL launched = false;
 	HKEY key = NULL;
 	int result = 0;
 
@@ -204,7 +204,7 @@ void CGameSpyQnR::LaunchArcade(void) {
 				StringClass params("+svc ");
 				params += gamename;
 				if (((uintptr_t)ShellExecuteA (NULL, "open", value, params, NULL, SW_SHOW)) > 32) {
-					launched = TRUE;
+					launched = true;
 				}
 			}
 		}
@@ -246,7 +246,7 @@ void CGameSpyQnR::Init(void) {
 	
 		ConsoleBox.Print("Initializing GameSpy Q&R\n");
 
-		BOOL test = FALSE;
+		BOOL test = false;
 		// Init the GameSpy QnR engine
 		extern ULONG g_ip_override;
 		char ipstr[32];
@@ -272,7 +272,7 @@ void CGameSpyQnR::Init(void) {
 		gcd_init_qr(query_reporting_rec, cdkey_id);
 
 		StartTime = time(NULL);
-		m_GSInit = TRUE;
+		m_GSInit = true;
 	}
 #endif
 }
@@ -589,7 +589,7 @@ BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key,
 
 	int clen = strlen(outbuf);
 
-	if (clen + strlen(key) + strlen(value) + 3 > (unsigned int)maxlen) return FALSE;
+	if (clen + strlen(key) + strlen(value) + 3 > (unsigned int)maxlen) return false;
 
 	char *s = new char[strlen(value)+1];
 	strcpy(s, value);
@@ -602,7 +602,7 @@ BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key,
 	sprintf(&outbuf[clen], "\\%s\\%s", key, t);
 	delete [] s;
 
-	return TRUE;
+	return true;
 }
 
 BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const WideStringClass &value) {

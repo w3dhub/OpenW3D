@@ -77,7 +77,7 @@ StringsCategoryNameDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	SetDlgItemText (IDC_NAME, Name);
-	return TRUE;
+	return true;
 }
 
 

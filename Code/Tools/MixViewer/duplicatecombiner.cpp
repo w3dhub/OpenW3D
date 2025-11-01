@@ -425,7 +425,7 @@ DuplicateRemoverClass::Clean_Directory (LPCTSTR local_dir)
 	// to our list
 	//
 	DynamicVectorClass<StringClass> file_list;
-	BOOL keep_going = TRUE;
+	BOOL keep_going = true;
 	WIN32_FIND_DATA find_info = { 0 };HANDLE hfind = ::FindFirstFile (search_mask, &find_info);
 	for (;(hfind != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (hfind, &find_info))
@@ -550,9 +550,9 @@ DuplicateRemoverClass::Delete_File (LPCTSTR filename)
 		if ((attributes != 0xFFFFFFFF) &&
 			 ((attributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY))
 		{
-			retval = (::RemoveDirectory (filename) == TRUE);
+			retval = (::RemoveDirectory (filename) == true);
 		} else {
-			retval = (::DeleteFile (filename) == TRUE);
+			retval = (::DeleteFile (filename) == true);
 		}
 	}
 

@@ -87,7 +87,7 @@ void NamedSelSetList::Reset(void)
 void NamedSelSetList::Set_Size(int size)
 {
 	for (int i=0; i<Sets.Count(); i++) {
-		Sets[i]->SetSize(size,TRUE);
+		Sets[i]->SetSize(size,true);
 	}
 }
 
@@ -170,8 +170,8 @@ IOResult NamedSelSetList::Load_Set(ILoad * iload)
 	BitArray set;
 	TCHAR * name;
 
-	BOOL gotset = FALSE;
-	BOOL gotname = FALSE;
+	BOOL gotset = false;
+	BOOL gotname = false;
 
 	res = iload->OpenChunk();
 		
@@ -182,14 +182,14 @@ IOResult NamedSelSetList::Load_Set(ILoad * iload)
 			case NAMED_SEL_BITS_CHUNK: 
 			{
 				res = set.Load(iload);
-				gotset = TRUE;
+				gotset = true;
 				break;
 			}
 
 			case NAMED_SEL_NAME_CHUNK:
 			{
 				res = iload->ReadWStringChunk(&name);
-				gotname = TRUE;
+				gotname = true;
 				break;
 			}
 		}

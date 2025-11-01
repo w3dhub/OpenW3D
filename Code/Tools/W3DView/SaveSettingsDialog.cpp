@@ -83,13 +83,13 @@ CSaveSettingsDialog::OnInitDialog (void)
     CDialog::OnInitDialog ();
 
     // Check everything by default
-    SendDlgItemMessage (IDC_LIGHTING_CHECKBOX, BM_SETCHECK, (WPARAM)TRUE);
-    SendDlgItemMessage (IDC_BACKGROUND_CHECKBOX, BM_SETCHECK, (WPARAM)TRUE);
-    SendDlgItemMessage (IDC_CAMERA_CHECKBOX, BM_SETCHECK, (WPARAM)TRUE);
+    SendDlgItemMessage (IDC_LIGHTING_CHECKBOX, BM_SETCHECK, (WPARAM)true);
+    SendDlgItemMessage (IDC_BACKGROUND_CHECKBOX, BM_SETCHECK, (WPARAM)true);
+    SendDlgItemMessage (IDC_CAMERA_CHECKBOX, BM_SETCHECK, (WPARAM)true);
 	
 	// Put the default filename into the edit control
     SetDlgItemText (IDC_FILENAME_EDIT, "Default.dat");
-    return TRUE;
+    return true;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -113,7 +113,7 @@ CSaveSettingsDialog::OnBrowseButton (void)
     CString stringCurrentFile;
     GetDlgItemText (IDC_FILENAME_EDIT, stringCurrentFile);
     
-    CFileDialog saveFileDialog (FALSE,
+    CFileDialog saveFileDialog (false,
                                 ".dat",
                                 stringCurrentFile,
                                 OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -151,7 +151,7 @@ void
 CSaveSettingsDialog::OnOK (void)
 {
     // Assume we want to allow the base class to process this message
-    BOOL bAllowDefaultProcessing = TRUE;
+    BOOL bAllowDefaultProcessing = true;
 
     // Get a pointer to the doc so we can get at the current scene
     // pointer.
@@ -240,12 +240,12 @@ CSaveSettingsDialog::FixOKEnableState (void)
         (::GetWindowTextLength (::GetDlgItem (m_hWnd, IDC_FILENAME_EDIT)) > 0))
     {
         // Enable the OK button
-        ::EnableWindow (::GetDlgItem (m_hWnd, IDOK), TRUE);
+        ::EnableWindow (::GetDlgItem (m_hWnd, IDOK), true);
     }
     else
     {
         // Disable the OK button
-        ::EnableWindow (::GetDlgItem (m_hWnd, IDOK), FALSE);
+        ::EnableWindow (::GetDlgItem (m_hWnd, IDOK), false);
     }
     
     return ;

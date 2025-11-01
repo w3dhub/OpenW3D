@@ -511,7 +511,7 @@ void GameSpyMainDialogClass::Host_Game(void) {
 	//  Enable GameSpy Code
 	//
 	cGameSpyAdmin::Set_Is_Server_Gamespy_Listed(true);
-	GameSpyQnR.Enable_Reporting(TRUE);
+	GameSpyQnR.Enable_Reporting(true);
 	
 	//
 	//	Create the new game data
@@ -940,7 +940,7 @@ MPMainMenuClass::On_Init_Dialog (void)
 Add_Folders (const char *path, TreeCtrlClass *tree_ctrl, TreeItemClass *parent_item)
 {
 	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
 	
 	StringClass full_path = path;

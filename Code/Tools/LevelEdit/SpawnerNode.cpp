@@ -165,7 +165,7 @@ SpawnerNodeClass::Initialize (void)
 			//
 			m_PhysObj = new DecorationPhysClass;					
 			m_PhysObj->Set_Model (model);
-			model->Set_User_Data ((PVOID)&m_HitTestInfo, FALSE);
+			model->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 			::Set_Model_Collision_Type (model, COLLISION_TYPE_6);
 			MEMBER_RELEASE (model);
 

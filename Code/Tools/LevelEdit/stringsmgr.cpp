@@ -192,7 +192,7 @@ StringsMgrClass::Load_Translation_Database (void)
 void
 StringsMgrClass::Import_Strings (void)
 {	
-	CFileDialog dialog (TRUE, ".txt", "strings.txt",
+	CFileDialog dialog (true, ".txt", "strings.txt",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"Text Files (*.txt)|*.txt||", ::AfxGetMainWnd ());
 
@@ -225,7 +225,7 @@ StringsMgrClass::Import_Strings (void)
 void
 StringsMgrClass::Import_IDs (void)
 {	
-	CFileDialog dialog (TRUE, ".h", "string_ids.h",
+	CFileDialog dialog (true, ".h", "string_ids.h",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"C Header Files (*.h)|*.h||", ::AfxGetMainWnd ());
 
@@ -256,7 +256,7 @@ StringsMgrClass::Import_IDs (void)
 void
 StringsMgrClass::Export_IDs (void)
 {	
-	CFileDialog dialog (FALSE, ".h", "string_ids.h",
+	CFileDialog dialog (false, ".h", "string_ids.h",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"C Header Files (*.h)|*.h||", ::AfxGetMainWnd ());
 

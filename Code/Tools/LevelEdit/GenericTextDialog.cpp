@@ -104,5 +104,5 @@ GenericTextDialogClass::OnInitDialog (void)
 		SendDlgItemMessage (IDC_GENERIC_ICON, STM_SETIMAGE, (WPARAM)IMAGE_ICON, (LPARAM)icon);
 	}
 
-	return TRUE;
+	return true;
 }

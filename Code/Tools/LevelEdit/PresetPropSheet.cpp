@@ -84,7 +84,7 @@ PresetPropSheetClass::OnInitDialog (void)
 	//	Disable the button if we are in read-only mode
 	//
 	if (Is_Read_Only ()) {
-		::EnableWindow (::GetDlgItem (m_hWnd, IDC_PROPAGATE), FALSE);
+		::EnableWindow (::GetDlgItem (m_hWnd, IDC_PROPAGATE), false);
 	}
 
 	return EditorPropSheetClass::OnInitDialog ();

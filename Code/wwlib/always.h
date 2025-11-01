@@ -72,6 +72,17 @@ void operator delete(void *p, size_t size) noexcept;
 #endif	//STEVES_NEW_CATCHER
 #endif	//_DEBUG
 
+// Provide a portable definition for __forceinline when not compiling with MSVC.
+#if !defined(_MSC_VER) && !defined(__forceinline)
+	#if defined(_WIN32) && (defined(__clang__) || defined(__GNUC__))
+		#define __forceinline inline [[msvc::forceinline]]
+	#elif defined(__GNUC__) || defined(__clang__)
+		#define __forceinline inline __attribute__((always_inline))
+	#else
+		#define __forceinline inline
+	#endif
+#endif
+
 // Jani: MSVC doesn't necessarily inline code with inline keyword. Using __forceinline results better inlining
 // and also prints out a warning if inlining wasn't possible. __forceinline is MSVC specific.
 #if defined(_MSC_VER)
@@ -120,5 +131,37 @@ void operator delete(void *p, size_t size) noexcept;
 #define size_of(typ,id) sizeof(((typ*)0)->id)
 #endif
 
+
+#if !defined(_WIN32)
+#include <bit>
+#include <cstring>
+#include <alloca.h>
+
+#ifndef ZeroMemory
+#define ZeroMemory(Destination, Length) std::memset((Destination), 0, (Length))
+#endif
+
+#ifndef CopyMemory
+#define CopyMemory(Destination, Source, Length) std::memcpy((Destination), (Source), (Length))
+#endif
+
+#ifndef _rotl
+__forceinline unsigned long _rotl(unsigned long value, int shift)
+{
+	return std::rotl(value, shift);
+}
+#endif
+
+#ifndef _byteswap_ulong
+__forceinline unsigned long _byteswap_ulong(unsigned long value)
+{
+	return __builtin_bswap32(value);
+}
+#endif
+
+#ifndef _alloca
+#define _alloca(size) alloca(size)
+#endif
+#endif // !_WIN32
 
 #endif

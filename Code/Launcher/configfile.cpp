@@ -80,7 +80,7 @@ bit8 ConfigFile::readFile(FILE *in)
     value.truncate('\n');
     dictionary.add(key,value);
   } 
-  return(TRUE);
+  return(true);
 }
 
 // Get a config entry as a string
@@ -102,10 +102,10 @@ bit8 ConfigFile::getInt(Wstring &key,sint32 &value)
 {
   Wstring svalue;
   bit8 retval=dictionary.getValue(key,svalue);
-  if (retval==FALSE)
-    return(FALSE);
+  if (retval==false)
+    return(false);
   value=atol(svalue.get());
-  return(TRUE);
+  return(true);
 }
 
 // Get a config entry as an integer
@@ -123,10 +123,10 @@ bit8 ConfigFile::getInt(Wstring &key,sint16 &value)
 {
   Wstring svalue;
   bit8 retval=dictionary.getValue(key,svalue);
-  if (retval==FALSE)
-    return(FALSE);
+  if (retval==false)
+    return(false);
   value=atoi(svalue.get());
-  return(TRUE);
+  return(true);
 }
  
 // Get a config entry as an integer

@@ -75,7 +75,7 @@ bit8 ThreadFactory::startThread(Runnable &runable, void *data, bit8 destroy)
 	uint32 stup1d;
     handle=_beginthreadex(NULL,0,  threadClassLauncher, tInfo, 0, &stup1d);
     if (handle!=NULL)
-      return(TRUE);
+      return(true);
     else
     {
       {
@@ -83,7 +83,7 @@ bit8 ThreadFactory::startThread(Runnable &runable, void *data, bit8 destroy)
         runable.ThreadCount_--;   // Ok, so it didn't really start
         runable.CritSec_.unlock();
       }
-      return(FALSE);
+      return(false);
     }
   #else // UNIX
     // Setup thread attributes for client threads
@@ -94,7 +94,7 @@ bit8 ThreadFactory::startThread(Runnable &runable, void *data, bit8 destroy)
     pthread_attr_setscope(&threadAttr,PTHREAD_SCOPE_SYSTEM);
     retval=pthread_create(NULL,&threadAttr, threadClassLauncher, tInfo);
     if (retval==0)
-      return(TRUE);
+      return(true);
     else
     {
       {
@@ -102,11 +102,11 @@ bit8 ThreadFactory::startThread(Runnable &runable, void *data, bit8 destroy)
         runable.ThreadCount_--;   // Ok, so it didn't really start
         runable.CritSec_.unlock();
       }
-      return(FALSE);
+      return(false);
     }
   #endif
 #else
-	return (FALSE);
+	return (false);
 #endif /* _REENTRANT */
 }
 
@@ -128,8 +128,8 @@ bit8 ThreadFactory::startThread(void (*start_func)(void *), void *data)
 	unsigned temp;
     handle=_beginthreadex(NULL,0,  threadFuncLauncher, tInfo, 0, &temp);
     if (handle!=NULL)
-      return(TRUE);
-    return(FALSE);
+      return(true);
+    return(false);
   #else // UNIX
     // Setup thread attributes for client threads
     int retval;
@@ -139,12 +139,12 @@ bit8 ThreadFactory::startThread(void (*start_func)(void *), void *data)
     pthread_attr_setscope(&threadAttr,PTHREAD_SCOPE_SYSTEM);
     retval=pthread_create(NULL,&threadAttr, threadFuncLauncher, tInfo);
     if (retval==0)
-      return(TRUE);
+      return(true);
     else
-      return(FALSE);
+      return(false);
   #endif
 #else
-	return(FALSE);
+	return(false);
 #endif /* REENTRANT */
 }
 
@@ -207,7 +207,7 @@ bit8 Runnable::isRunning(void)
 {
   // Don't need to lock a simple assignment
   int temp=ThreadCount_;
-  return((temp>0)?TRUE:FALSE);
+  return((temp>0)?true:false);
 }
 
 // How many threads are running in this class

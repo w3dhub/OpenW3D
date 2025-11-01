@@ -46,7 +46,7 @@ CSceneLightDialog::CSceneLightDialog(CWnd* pParent /*=NULL*/)
 	  m_InitialEndAtten (0),
 	  m_InitialDistance (0),
 	  m_InitialIntensity (0),
-	  m_InitialAttenOn (TRUE),
+	  m_InitialAttenOn (true),
 	  CDialog(CSceneLightDialog::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(CSceneLightDialog)
@@ -174,9 +174,9 @@ CSceneLightDialog::OnInitDialog (void)
 	}
 
 	// Check the 'Diffuse' channel by default
-	SendDlgItemMessage (IDC_CHANNEL_DIFFUSE_RADIO, BM_SETCHECK, (WPARAM)TRUE);
+	SendDlgItemMessage (IDC_CHANNEL_DIFFUSE_RADIO, BM_SETCHECK, (WPARAM)true);
 	Update_Attenuation_Controls ();
-	return TRUE;
+	return true;
 }
 
 
@@ -271,7 +271,7 @@ CSceneLightDialog::OnCancel (void)
 		// Restore the intensity, attenuation, and distance settings
 		pCDoc->GetSceneLight ()->Set_Intensity (m_InitialIntensity);
 		pCDoc->GetSceneLight ()->Set_Far_Attenuation_Range (m_InitialStartAtten, m_InitialEndAtten);
-		pCDoc->GetSceneLight ()->Set_Flag (LightClass::FAR_ATTENUATION, (m_InitialAttenOn == TRUE));
+		pCDoc->GetSceneLight ()->Set_Flag (LightClass::FAR_ATTENUATION, (m_InitialAttenOn == true));
 		Update_Distance (m_InitialDistance);		
 	}
 
@@ -461,9 +461,9 @@ CSceneLightDialog::Set_Color_Control_State (const Vector3 &color)
 	// Should we 'lock' the color sliders together?
 	if ((color.X == color.Y) &&
 		 (color.X == color.Z)) {
-		SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)TRUE);
+		SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)true);
 	} else {		
-		SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)FALSE);
+		SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_SETCHECK, (WPARAM)false);
 	}
 
 	// Set the color slider positions

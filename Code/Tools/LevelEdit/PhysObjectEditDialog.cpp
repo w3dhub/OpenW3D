@@ -104,7 +104,7 @@ PhysObjectEditDialogClass::OnInitDialog (void)
 	//
 	m_ObjectEditForm.Create (this, 101);
 	m_ObjectEditForm.SetWindowPos (NULL, rect.left, rect.top, rect.Width (), rect.Height (), 0);
-	return TRUE;
+	return true;
 }
 
 

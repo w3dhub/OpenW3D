@@ -203,11 +203,11 @@ HeightfieldPageClass::OnInitDialog (void)
 	//	Select the current default texture...
 	//
 	int curr_texture = HeightfieldEditorClass::Get_Current_Texture ();
-	SendDlgItemMessage (IDC_TEXTURE0_BUTTON + curr_texture, BM_SETCHECK, TRUE);
+	SendDlgItemMessage (IDC_TEXTURE0_BUTTON + curr_texture, BM_SETCHECK, true);
 
 	SetProp (m_hWnd, "TRANS_ACCS", (HANDLE)1);
 	IsInitialized = true;
-	return TRUE;
+	return true;
 }
 
 

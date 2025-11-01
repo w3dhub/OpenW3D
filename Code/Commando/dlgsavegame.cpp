@@ -541,7 +541,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 	}
 
 	WIN32_FIND_DATAA find_info	= { 0 };
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
 
 	//

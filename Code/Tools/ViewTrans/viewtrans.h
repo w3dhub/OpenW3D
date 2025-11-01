@@ -114,7 +114,7 @@ class UtilityClassDesc : public ClassDesc
 {
 public:
 	int 			IsPublic() {return 1;}
-	void *			Create(BOOL loading = FALSE) {return &TheUtility;}
+	void *			Create(BOOL loading = false) {return &TheUtility;}
 	const TCHAR *	ClassName() {return VIEWTRANS_CLASS_NAME;}
 	SClass_ID		SuperClassID() {return UTILITY_CLASS_ID;}
 	Class_ID		ClassID() {return VIEWTRANS_CLASS_ID;}

@@ -96,7 +96,7 @@ CBackgroundBMPDialog::OnInitDialog (void)
         SetDlgItemText (IDC_FILENAME_EDIT, pCDoc->GetBackgroundBMP ());
     }
 
-	return TRUE;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////
@@ -141,7 +141,7 @@ CBackgroundBMPDialog::OnBrowse (void)
     CW3DViewDoc *pCDoc = ::GetCurrentDocument ();
     if (pCDoc)
     {
-        CFileDialog openFileDialog (TRUE,
+        CFileDialog openFileDialog (true,
                                     ".tga",
                                     pCDoc->GetBackgroundBMP (),
                                     OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,

@@ -157,7 +157,7 @@ NodeInfoPageClass::Apply_Changes (void)
 	
 	// If the ID was changed then verify that it is unique before actually
 	// changing it for the object.
-	uint32 id = GetDlgItemInt(IDC_ID_EDIT, NULL, FALSE);	
+	uint32 id = GetDlgItemInt(IDC_ID_EDIT, NULL, false);	
 	if (m_pNode->Get_ID() != id) {
 
 		//

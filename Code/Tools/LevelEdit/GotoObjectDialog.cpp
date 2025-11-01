@@ -90,7 +90,7 @@ GotoObjectDialogClass::OnInitDialog (void)
 	
 	// Fill the 'object list' combobox with a complete list of all the objects in the level.	
 	::Fill_Node_Instance_Combo (::GetDlgItem (m_hWnd, IDC_OBJECT_LIST), m_pNode);	
-	return TRUE;
+	return true;
 }
 
 
@@ -160,7 +160,7 @@ void
 GotoObjectDialogClass::OnSelChangeObjectList (void)
 {
 	// Enable the OK button
-	::EnableWindow (::GetDlgItem (m_hWnd, IDOK), TRUE);
+	::EnableWindow (::GetDlgItem (m_hWnd, IDOK), true);
 	return ;
 }
 

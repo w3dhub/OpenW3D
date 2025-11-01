@@ -151,7 +151,7 @@ StringLibraryDialogClass::OnInitDialog (void)
 	Update_Mode ();
 
 	IsInitialized = true;
-	return TRUE;
+	return true;
 }
 
 
@@ -217,7 +217,7 @@ StringLibraryDialogClass::Resize_Controls (void)
 	//
 	CRect tab_rect;
 	m_TabCtrl.GetWindowRect (&tab_rect);
-	m_TabCtrl.AdjustRect (FALSE, &tab_rect);
+	m_TabCtrl.AdjustRect (false, &tab_rect);
 	ScreenToClient (&tab_rect);
 
 	//

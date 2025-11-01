@@ -87,7 +87,7 @@ BOOL CInertiaDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_IBODYY_EDIT,ibody[1][1]);
 	SetDlgItemFloat(IDC_IBODYZ_EDIT,ibody[2][2]);
 
-	return TRUE; 
+	return true; 
 }
 
 

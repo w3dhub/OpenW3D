@@ -337,7 +337,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 	//
 	Update_Slider_Enable_State ();	
 
-	return TRUE;
+	return true;
 }
 
 

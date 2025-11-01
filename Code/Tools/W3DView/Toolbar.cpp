@@ -96,7 +96,7 @@ CFancyToolbar::RegisterFancyToolbarClass (void)
     WNDCLASS classInfo = { 0 };
     if (::GetClassInfo (::AfxGetInstanceHandle (),
                         TOOLBAR_CLASS_NAME,
-                        &classInfo) != TRUE)
+                        &classInfo) != true)
     {
         classInfo.style = CS_PARENTDC;
         classInfo.lpfnWndProc = ::DefWindowProc;
@@ -149,7 +149,7 @@ CFancyToolbar::Create
         EnableDocking (CBRS_ALIGN_ANY);
     }
 
-    // Return the TRUE/FALSE result code
+    // Return the true/false result code
     return bReturn;
 }
 
@@ -206,7 +206,7 @@ CFancyToolbar::AddButton
     m_pButtonArray[iButton].iCommandID = iCommandID;
     m_pButtonArray[iButton].buttonType = buttonType;    
     m_pButtonArray[iButton].currentState = StateUp;
-    m_pButtonArray[iButton].bVisible = TRUE;
+    m_pButtonArray[iButton].bVisible = true;
     return ;
 }
 
@@ -454,11 +454,11 @@ CFancyToolbar::SetButtonState
     BOOL bRepaint
 )
 {
-    BOOL bFound = FALSE;
+    BOOL bFound = false;
 
     // Loop through all the buttons until we've found the one we're looking for
     for (int iButton = 0;
-         (iButton < m_iButtons) && (bFound == FALSE);
+         (iButton < m_iButtons) && (bFound == false);
          iButton ++)
     {
         if (m_pButtonArray[iButton].iCommandID == iCommandID)
@@ -475,7 +475,7 @@ CFancyToolbar::SetButtonState
             }
 
             // Found it!
-            bFound = TRUE;
+            bFound = true;
         }
     }
 
@@ -492,9 +492,9 @@ CFancyToolbar::GetButtonState (int iCommandID) const
     STATE_INFO stateInfo = StateUp;
 
     // Loop through all the buttons until we've found the one we're looking for
-    BOOL bFound = FALSE;
+    BOOL bFound = false;
     for (int iButton = 0;
-         (iButton < m_iButtons) && (bFound == FALSE);
+         (iButton < m_iButtons) && (bFound == false);
          iButton ++)
     {
         if (m_pButtonArray[iButton].iCommandID == iCommandID)
@@ -503,7 +503,7 @@ CFancyToolbar::GetButtonState (int iCommandID) const
             stateInfo = m_pButtonArray[iButton].currentState;
 
             // Found it!
-            bFound = TRUE;
+            bFound = true;
         }
     }
 

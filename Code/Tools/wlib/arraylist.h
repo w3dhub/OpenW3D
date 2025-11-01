@@ -248,7 +248,7 @@ bit8 ArrayList<T>::add(IN T &node,sint32 pos)
   //  want it at the 'pos' index into our array.
   new((void *)(Vector_+pos)) T((T &)node); // Trust me, this isn't a memory leak
   Entries_++;                         // one new entry
-  return(TRUE);
+  return(true);
 }
 
 
@@ -505,7 +505,7 @@ template <class T>
 bit8 ArrayList<T>::replace(IN T &node, sint32 pos)
 {
   if (Entries_==0)
-    return(FALSE);
+    return(false);
   if (pos<0)
     pos=0;
   if (pos >= Entries_)
@@ -517,7 +517,7 @@ bit8 ArrayList<T>::replace(IN T &node, sint32 pos)
   // Now put the replacement object in there...
   new((void *)(Vector_+pos)) T(node); // Trust me, this isn't a memory leak
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -528,7 +528,7 @@ template <class T>
 bit8 ArrayList<T>::remove(sint32 pos) 
 {
   if (Entries_==0)
-    return(FALSE);
+    return(false);
   if (pos<0)
     pos=0;
   if (pos >= Entries_)
@@ -545,7 +545,7 @@ bit8 ArrayList<T>::remove(sint32 pos)
   if ( (Entries_*3) <= Slots_)
     shrinkVector();
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -556,8 +556,8 @@ bit8 ArrayList<T>::remove(OUT T &node, sint32 pos)
 {
   bit8 retval;
   retval=get(node,pos);
-  if (retval==FALSE)
-    return(FALSE);
+  if (retval==false)
+    return(false);
   return(remove(pos));
 }
 
@@ -584,9 +584,9 @@ template <class T>
 bit8 ArrayList<T>::getPointer(OUT T **node,sint32 pos) RO 
 {
   if ((pos < 0)||(pos >= Entries_))
-    return(FALSE);
+    return(false);
   *node=&(Vector_[pos]);
-  return(TRUE);  
+  return(true);  
 }
   
 
@@ -595,9 +595,9 @@ template <class T>
 bit8 ArrayList<T>::get(OUT T &node,sint32 pos) RO 
 {
   if ((pos < 0)||(pos >= Entries_))
-    return(FALSE);
+    return(false);
   node=Vector_[pos];
-  return(TRUE);  
+  return(true);  
 }
 
 
@@ -640,7 +640,7 @@ template <class T>
 bit8 ArrayList<T>::growVector(void)
 {
   if (Entries_ < Slots_)   // Don't grow until we're at 100% usage
-    return(FALSE);
+    return(false);
 
   int   newSlots=Entries_*2;
   if(newSlots < INITIAL_SIZE)
@@ -665,7 +665,7 @@ bit8 ArrayList<T>::growVector(void)
   Vector_=newVector;
   Slots_=newSlots;
 
-  return(TRUE); 
+  return(true); 
 }
 
 
@@ -677,14 +677,14 @@ bit8 ArrayList<T>::shrinkVector(void)
 
   // Don't need to shrink until usage goes below 33%
   if ( (Entries_*3) > Slots_)
-    return(FALSE);
+    return(false);
 
   int   newSlots=Slots_/2;
   if(newSlots < INITIAL_SIZE) // never shrink past initial size
     newSlots=INITIAL_SIZE;
 
   if (newSlots >= Slots_)   // don't need to shrink
-    return(FALSE);
+    return(false);
 
   //fprintf(stderr,"Shrinking vector to: %d\n",newSlots);
  
@@ -704,7 +704,7 @@ bit8 ArrayList<T>::shrinkVector(void)
   Vector_=newVector;
   Slots_=newSlots;
  
-  return(TRUE);
+  return(true);
 }
 
 
@@ -715,7 +715,7 @@ template <class T>
 sint32 ArrayList<T>::removeMany(OUT T *outarray, sint32 pos, sint32 howmany)
 {
   if (Entries_==0)
-    return(FALSE);
+    return(false);
   if (pos<0)
     pos=0;
   if (pos>=Entries_)
@@ -768,7 +768,7 @@ bit8 ArrayList<T>::addMany(IN T *inarray, sint32 pos, sint32 howmany)
   }
 
   Entries_+=howmany;
-  return(TRUE);
+  return(true);
 }
 
 

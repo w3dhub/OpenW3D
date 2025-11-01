@@ -177,5 +177,5 @@ Vector3DialogClass::OnInitDialog (void)
 	::SetWindowFloat (m_XEdit, m_DefaultValue.X);
 	::SetWindowFloat (m_YEdit, m_DefaultValue.Y);
 	::SetWindowFloat (m_ZEdit, m_DefaultValue.Z);
-	return TRUE;
+	return true;
 }

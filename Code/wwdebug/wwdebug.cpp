@@ -463,7 +463,7 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     LPSTR lpszSharedMem;
 
     /* make sure DBWIN is open and waiting */
-    heventDBWIN = OpenEvent(EVENT_MODIFY_STATE, FALSE, "DBWIN_BUFFER_READY");
+    heventDBWIN = OpenEvent(EVENT_MODIFY_STATE, false, "DBWIN_BUFFER_READY");
     if ( !heventDBWIN )
     {
         //MessageBoxA(NULL, "DBWIN_BUFFER_READY nonexistent", NULL, MB_OK);
@@ -471,7 +471,7 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     }
 
     /* get a handle to the data synch object */
-    heventData = OpenEvent(EVENT_MODIFY_STATE, FALSE, "DBWIN_DATA_READY");
+    heventData = OpenEvent(EVENT_MODIFY_STATE, false, "DBWIN_DATA_READY");
     if ( !heventData )
     {
         // MessageBoxA(NULL, "DBWIN_DATA_READY nonexistent", NULL, MB_OK);

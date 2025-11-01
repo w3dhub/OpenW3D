@@ -44,7 +44,7 @@
 ** Globals
 */
 
-int controlsInit = FALSE;
+int controlsInit = false;
 
 
 /*********************************************************************************************** 
@@ -71,7 +71,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
 	hInstance = hinstDLL;
 
 	if (! controlsInit) {
-		controlsInit = TRUE;
+		controlsInit = true;
 		
 		// Initialize MAX's custom controls
 		InitCustomControls(hInstance);
@@ -80,7 +80,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
 		InitCommonControls();
 	}
 	
-	return(TRUE);
+	return(true);
 }
 
 __declspec(dllexport) const TCHAR *

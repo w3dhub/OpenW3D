@@ -228,7 +228,7 @@ EmitterColorPropPageClass::OnInitDialog (void)
 	m_CurrentOpacities.Rand = m_OrigOpacities.Rand;
 	Update_Colors ();
 	Update_Opacities ();
-	return TRUE;
+	return true;
 }
 
 

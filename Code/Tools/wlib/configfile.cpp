@@ -122,7 +122,7 @@ bit8 ConfigFile::readFile(FILE *in)
     Dictionary_.add(key,value);
     Critsec_.unlock();
   } 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -138,10 +138,10 @@ bit8 ConfigFile::enumerate(int &index, int &offset, Wstring &key, Wstring &value
   while(1)
   {
     Critsec_.lock();
-    if (Dictionary_.iterate(index,offset,key,value)==FALSE)   // out of keys?
+    if (Dictionary_.iterate(index,offset,key,value)==false)   // out of keys?
     {
       Critsec_.unlock();
-      return(FALSE);
+      return(false);
     }
     Critsec_.unlock();
 
@@ -157,7 +157,7 @@ bit8 ConfigFile::enumerate(int &index, int &offset, Wstring &key, Wstring &value
       break;
   }
   key.truncate('[');  // remove the section name
-  return(TRUE);
+  return(true);
 }
 
 
@@ -179,7 +179,7 @@ bit8 ConfigFile::getString(IN Wstring &_key, Wstring &value, IN char *section) c
   bit8 retval=Dictionary_.getValue(key,value);
   Critsec_.unlock();
 
-  if (retval==FALSE)
+  if (retval==false)
   { 
 	DBGMSG("Config entry missing: "<<key.get()); 
   }
@@ -213,13 +213,13 @@ bit8 ConfigFile::getInt(IN Wstring &_key,sint32 &value, IN char *section) const
   bit8 retval=Dictionary_.getValue(key,svalue);
   Critsec_.unlock();
 
-  if (retval==FALSE)
+  if (retval==false)
   { DBGMSG("Config entry missing: "<<key.get()); }
 
-  if (retval==FALSE)
-    return(FALSE);
+  if (retval==false)
+    return(false);
   value=atol(svalue.get());
-  return(TRUE);
+  return(true);
 }
 
 // Get a config entry as an integer
@@ -251,13 +251,13 @@ bit8 ConfigFile::getInt(IN Wstring &_key,sint16 &value, IN char *section) const
   bit8 retval=Dictionary_.getValue(key,svalue);
   Critsec_.unlock();
 
-  if (retval==FALSE)
+  if (retval==false)
   { DBGMSG("Config entry missing: "<<key.get()); }
 
-  if (retval==FALSE)
-    return(FALSE);
+  if (retval==false)
+    return(false);
   value=atoi(svalue.get());
-  return(TRUE);
+  return(true);
 }
  
 // Get a config entry as an integer
@@ -290,12 +290,12 @@ bit8 ConfigFile::removeEntry(IN Wstring &_key, IN char *section)
 	bit8 retval=Dictionary_.remove(key);
 	Critsec_.unlock();
 	
-	if (retval==FALSE)
+	if (retval==false)
 	{ DBGMSG("Config entry missing: "<<key.get()); }
 	
-	if (retval==FALSE)
-		return(FALSE);
-	return(TRUE);
+	if (retval==false)
+		return(false);
+	return(true);
 }
 
 // Remove an entry
@@ -345,7 +345,7 @@ bit8 ConfigFile::setString(IN Wstring &_key, IN Wstring &value, IN char *section
 	}
 	Critsec_.unlock();
 	
-	if (retval==FALSE)
+	if (retval==false)
 	{ 
 		DBGMSG("Config could not set entry: "<<key.get()); 
 	}
@@ -403,12 +403,12 @@ bit8 ConfigFile::setInt(IN Wstring &_key,IN sint32 &value, IN char *section)
 	}
 	Critsec_.unlock();
 	
-	if (retval==FALSE)
+	if (retval==false)
 	{ DBGMSG("Config could not set entry: "<<key.get()); }
 	
-	if (retval==FALSE)
-		return(FALSE);
-	return(TRUE);
+	if (retval==false)
+		return(false);
+	return(true);
 }
 
 // Set a config entry as an integer
@@ -426,7 +426,7 @@ bit8 ConfigFile::writeFile(FILE *config)
 	if (!config)
 	{
 		ERRMSG("No FP on config file write!");
-		return FALSE;
+		return false;
 	}
 	int index = 0;
 	int offset = 0;
@@ -442,13 +442,13 @@ bit8 ConfigFile::writeFile(FILE *config)
 		fprintf(config, "[%s]\n", section.get());
 		index = 0;
 		offset = 0;
-		while (enumerate(index, offset, key, value, section.get())!=FALSE)
+		while (enumerate(index, offset, key, value, section.get())!=false)
 		{
 			fprintf(config, "%s=%s\n", key.get(), value.get());
 		}
 		fprintf(config, "\n");
 	}
-	return TRUE;
+	return true;
 }
 
 

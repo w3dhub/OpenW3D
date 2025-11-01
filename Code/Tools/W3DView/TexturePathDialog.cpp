@@ -86,7 +86,7 @@ TexturePathDialogClass::OnInitDialog (void)
 		
 	SetDlgItemText (IDC_PATH1, doc->Get_Texture_Path1 ());
 	SetDlgItemText (IDC_PATH2, doc->Get_Texture_Path2 ());
-	return TRUE;
+	return true;
 }
 
 

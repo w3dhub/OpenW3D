@@ -138,7 +138,7 @@ public:
 			STE_PS2_SHADER,
 		};
 
-		GameMtl(BOOL loading = FALSE);
+		GameMtl(BOOL loading = false);
 		~GameMtl(void);
 		
 		Class_ID				ClassID();
@@ -163,12 +163,12 @@ public:
 		void					SetDiffuse(Color c, TimeValue t)							{ Set_Diffuse(0,t,c); }		
 		void					SetSpecular(Color c, TimeValue t)						{ Set_Specular(0,t,c); }
 		void					SetShininess(float v, TimeValue t)						{ Set_Shininess(0,t,v); }				
-		Color					GetAmbient(int mtlNum=0, BOOL backFace=FALSE)		{ return Get_Ambient(0,0); }
-		Color					GetDiffuse(int mtlNum=0, BOOL backFace=FALSE)		{ return Get_Diffuse(0,0); }
-		Color					GetSpecular(int mtlNum=0, BOOL backFace=FALSE)		{ return Get_Specular(0,0); }
-		float					GetXParency(int mtlNum=0, BOOL backFace=FALSE)		{ return 0.0f; }
-		float					GetShininess(int mtlNum=0, BOOL backFace=FALSE)		{ return Get_Shininess(0,0); }
-		float					GetShinStr(int mtlNum=0, BOOL backFace=FALSE)		{ return 1.0f; }
+		Color					GetAmbient(int mtlNum=0, BOOL backFace=false)		{ return Get_Ambient(0,0); }
+		Color					GetDiffuse(int mtlNum=0, BOOL backFace=false)		{ return Get_Diffuse(0,0); }
+		Color					GetSpecular(int mtlNum=0, BOOL backFace=false)		{ return Get_Specular(0,0); }
+		float					GetXParency(int mtlNum=0, BOOL backFace=false)		{ return 0.0f; }
+		float					GetShininess(int mtlNum=0, BOOL backFace=false)		{ return Get_Shininess(0,0); }
+		float					GetShinStr(int mtlNum=0, BOOL backFace=false)		{ return 1.0f; }
 		void					Reset(void);
 		void					Update(TimeValue t, Interval& validr);
 		Interval				Validity(TimeValue t);
@@ -323,7 +323,7 @@ public:
 		Mtl*					Substitute_Material()				{return (SubstituteMaterial);}
 		void					Set_Substitute_Material (Mtl *m) {SubstituteMaterial = m;}
 #if defined W3D_MAX4
-		//BOOL					SupportsMultiMapsInViewport(){return TRUE;}
+		//BOOL					SupportsMultiMapsInViewport(){return true;}
 		//virtual int			VPDisplaySubMtl(){return -1;}
 		//MtlBase				*MtlInSlotOne;
 #endif
@@ -385,7 +385,7 @@ class GameMtlActionCB : public ActionCallback {
 		GameMtl*		game_mtl;
 		GameMtlActionCB(GameMtl *var_mtl) { game_mtl = var_mtl; }
 		~GameMtlActionCB(){delete game_mtl;}
-		BOOL GameMtlActionCB::IsEnabled(int cmdID) { return TRUE;}
+		BOOL GameMtlActionCB::IsEnabled(int cmdID) { return true;}
 		BOOL	ExecuteAction(int id); 
 };
 #endif

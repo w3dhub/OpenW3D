@@ -180,7 +180,7 @@ void CPhysTestDoc::Dump(CDumpContext& dc) const
 BOOL CPhysTestDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
-		return FALSE;
+		return false;
 
 	if (Scene) {
 		Scene->Remove_All();
@@ -199,20 +199,20 @@ BOOL CPhysTestDoc::OnNewDocument()
 		Get_Data_View()->Rebuild_Tree();
 	}
 
-	return TRUE;
+	return true;
 }
 
 BOOL CPhysTestDoc::OnOpenDocument(LPCTSTR lpszPathName) 
 {
 	Load_PHY_File(lpszPathName); 
 	Get_Data_View()->Rebuild_Tree();
-	return TRUE;
+	return true;
 }
 
 BOOL CPhysTestDoc::OnSaveDocument(LPCTSTR lpszPathName) 
 {
 	Save_PHY_File(lpszPathName); 
-	return TRUE;
+	return true;
 }
 
 

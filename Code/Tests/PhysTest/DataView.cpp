@@ -57,7 +57,7 @@ CDataView::~CDataView()
 void CDataView::Rebuild_Tree(void)
 {
 	// Turn off repainting
-	GetTreeCtrl ().SetRedraw (FALSE);
+	GetTreeCtrl ().SetRedraw (false);
 
 	// wipe clean
 	GetTreeCtrl().DeleteItem(ModelsRoot);
@@ -116,8 +116,8 @@ void CDataView::Rebuild_Tree(void)
 	}
 	
 	// Turn;repainting back on and force a redraw
-	GetTreeCtrl().SetRedraw (TRUE);
-	Invalidate(FALSE);
+	GetTreeCtrl().SetRedraw (true);
+	Invalidate(false);
 	UpdateWindow();
 }
 

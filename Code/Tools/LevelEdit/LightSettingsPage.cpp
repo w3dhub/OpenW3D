@@ -414,7 +414,7 @@ LightSettingsPageClass::OnAmbientButton (void)
 		m_pLight->Update_Light ();
 
 		// Repaint the views
-		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_AMBIENT_BUTTON), NULL, TRUE);
+		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_AMBIENT_BUTTON), NULL, true);
 		::Refresh_Main_View ();
 	}
 
@@ -436,7 +436,7 @@ LightSettingsPageClass::OnDiffuseButton (void)
 		m_pLight->Update_Light ();
 
 		// Repaint the views
-		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_DIFFUSE_BUTTON), NULL, TRUE);
+		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_DIFFUSE_BUTTON), NULL, true);
 		::Refresh_Main_View ();
 	}
 
@@ -458,7 +458,7 @@ LightSettingsPageClass::OnSpecularButton (void)
 		m_pLight->Update_Light ();
 
 		// Repaint the views
-		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_SPECULAR_BUTTON), NULL, TRUE);
+		::InvalidateRect (::GetDlgItem (m_hWnd, IDC_SPECULAR_BUTTON), NULL, true);
 		::Refresh_Main_View ();
 	}
 

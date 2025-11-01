@@ -779,7 +779,7 @@ void LightmapPacker::Copy_Assets (const char *pathname)
 			strcat (loadpathname, fileinfo.name);
 			strcpy (savepathname, savepath);
 			strcat (savepathname, fileinfo.name);
-		  	CopyFile (loadpathname, savepathname, FALSE);
+		  	CopyFile (loadpathname, savepathname, false);
 		
 		} while (_findnext (handle, &fileinfo) == 0);
 	}
@@ -1710,11 +1710,11 @@ srPixelConvert::e_surfaceType TrueColorTarga::Pixel_Format (unsigned pixeldepth)
 			return (srPixelConvert::ARGB8888);
 
 		default:
-			ASSERT (FALSE);
+			ASSERT (false);
 			break;
 	}
 
-	ASSERT (FALSE);
+	ASSERT (false);
 	return (srPixelConvert::e_surfaceType (0));
 }
 

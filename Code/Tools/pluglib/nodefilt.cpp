@@ -72,11 +72,11 @@ BOOL HelperINodeFilter::Accept_Node(INode * node,TimeValue time)
 
 	if (obj && obj->SuperClassID() == HELPER_CLASS_ID) {
 		
-		return TRUE;
+		return true;
 
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -101,11 +101,11 @@ BOOL MeshINodeFilter::Accept_Node(INode * node,TimeValue time)
 		obj->SuperClassID() == GEOMOBJECT_CLASS_ID)
 	{
 
-		return TRUE;
+		return true;
 
 	} else {
 
-		return FALSE;
+		return false;
 
 	}
 }
@@ -142,11 +142,11 @@ BOOL VisibleMeshINodeFilter::Accept_Node(INode * node, TimeValue time)
 	)
 	{
 
-		return TRUE;
+		return true;
 
 	} else {
 
-		return FALSE;
+		return false;
 
 	}
 }
@@ -169,17 +169,17 @@ BOOL VisibleHelperINodeFilter::Accept_Node(INode * node, TimeValue time)
 
 	if ((!obj) || (node->IsHidden()) /*|| (node->GetVisibility(time) <= 0.0f)*/) {
 		
-		return FALSE;
+		return false;
 
 	}
 
 	if (obj->SuperClassID() == HELPER_CLASS_ID) {
 		
-		return TRUE;
+		return true;
 
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -201,23 +201,23 @@ BOOL VisibleMeshOrHelperINodeFilter::Accept_Node(INode * node, TimeValue time)
 
 	if ((!obj) || (node->IsHidden()) /*|| (node->GetVisibility(time) <= 0.0f)*/) {
 		
-		return FALSE;
+		return false;
 
 	}
 
 	if (obj->CanConvertToType(triObjectClassID) && obj->SuperClassID() == GEOMOBJECT_CLASS_ID) {
 
-		return TRUE;
+		return true;
 
 	}
 
 	if (obj->SuperClassID() == HELPER_CLASS_ID) {
 		
-		return TRUE;
+		return true;
 
 	}
 
-	return FALSE;
+	return false;
 }
 
 /*********************************************************************************************** 
@@ -256,10 +256,10 @@ BOOL AnimatedINodeFilter::Accept_Node(INode * node, TimeValue time)
 	}
 
 	if (obj && !node->IsHidden() && numkeys > 0) {
-		return TRUE;
+		return true;
 	}
 	
-	return FALSE;
+	return false;
 }
 
 
@@ -278,9 +278,9 @@ BOOL AnimatedINodeFilter::Accept_Node(INode * node, TimeValue time)
 BOOL VisibleSelectedINodeFilter::Accept_Node(INode * node, TimeValue time)
 {
 	if (!node->IsHidden() && node->Selected()) {
-		return TRUE;
+		return true;
 	} else {
-		return FALSE;
+		return false;
 	}
 }
 

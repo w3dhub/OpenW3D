@@ -74,49 +74,49 @@ bool Wstring::operator<(IN Wstring &other) RO
 bit8 Wstring::operator==(IN char *other) RO
 {
   if ((str==NULL)&&(other==NULL))
-    return(TRUE);
+    return(true);
   if(strcmp(str, other) != 0)
-    return(FALSE);
+    return(false);
   else
-   return(TRUE);
+   return(true);
 }
 
 bit8 Wstring::operator==(IN Wstring &other) RO
 {
  if((str == NULL) && (other.str == NULL))
-   return(TRUE);
+   return(true);
 
  if((str == NULL) || (other.str == NULL))
-   return(FALSE);
+   return(false);
 
  if(strcmp(str, other.str) != 0)
-   return(FALSE);
+   return(false);
  else
-   return(TRUE);
+   return(true);
 }
 
 
 bit8 Wstring::operator!=(IN char *other) RO
 {
  if(strcmp(str, other) != 0)
-   return(TRUE);
+   return(true);
  else
-   return(FALSE);
+   return(false);
 }
 
 
 bit8 Wstring::operator!=(IN Wstring &other) RO
 {
  if((str == NULL) && (other.str == NULL))
-   return(FALSE);
+   return(false);
 
  if((str == NULL) || (other.str == NULL))
-   return(TRUE);
+   return(true);
 
  if(strcmp(str, other.str) != 0)
-   return(TRUE);
+   return(true);
  else
-   return(FALSE);
+   return(false);
 }
 
 
@@ -142,7 +142,7 @@ bit8 Wstring::cat(IN char *s)
   uint32   len;
 
   if (s==NULL)   // it's OK to cat nothing
-    return(TRUE);
+    return(true);
 
   // Determine the length of the resultant string.
   len = strlen(s) + 1;
@@ -154,7 +154,7 @@ bit8 Wstring::cat(IN char *s)
 
   strcat(str, s);
 
-  return(TRUE);
+  return(true);
 }
 
 
@@ -173,7 +173,7 @@ bit8 Wstring::cat(uint32 size, IN char *s)
   strncat(str, s, size);
   str[len-1]=0;   // make sure null term'd
 
-  return(TRUE);
+  return(true);
 }
 
 bit8 Wstring::cat(IN Wstring &other)
@@ -210,8 +210,8 @@ Wstring Wstring::operator+(IN Wstring &s)
 //
 // This function deletes 'count' characters indexed by `pos' from the Wstring.
 // If `pos'+'count' is > the length of the array, the last 'count' characters
-// of the string are removed.  If an error occurs, FALSE is returned.
-// Otherwise, TRUE is returned.  Note: count has a default value of 1.
+// of the string are removed.  If an error occurs, false is returned.
+// Otherwise, true is returned.  Note: count has a default value of 1.
 //
 //
 char Wstring::remove(sint32 pos,sint32 count)
@@ -229,11 +229,11 @@ char Wstring::remove(sint32 pos,sint32 count)
     pos=0;
   }
   if (count<=0)
-    return(FALSE);
+    return(false);
 
   memmove(str+pos,str+pos+count,len-pos-count+1);
 
-  return(TRUE);
+  return(true);
 }
 
 // Remove all instances of a char from the string
@@ -241,10 +241,10 @@ bit8 Wstring::removeChar(char c)
 {
   int     len=0;
   char   *cptr=NULL;
-  bit8    removed=FALSE; 
+  bit8    removed=false; 
 
   if (str==NULL)
-    return(FALSE);
+    return(false);
 
   len=strlen(str);
   while ((cptr=strchr(str,c)) !=NULL)
@@ -252,7 +252,7 @@ bit8 Wstring::removeChar(char c)
     memmove(cptr,cptr+1,len-1-((int)(cptr-str)));
     len--;
     str[len]=0;
-    removed=TRUE;
+    removed=true;
   }
   return(removed);
 }
@@ -327,13 +327,13 @@ bit8 Wstring::insert(char *instring, uint32 pos)
   memmove(str+pos+strlen(instring),str+pos,strlen(str)-pos+1);
   memmove(str+pos,instring,strlen(instring));
 
-  return(TRUE);
+  return(true);
 }
 
 // This function inserts the character specified by `k' into the string at the
 // position indexed by `pos'.  If `pos' is >= the length of the string, it is
-// appended to the string.  If an error occurs, FALSE is returned.  Otherwise,
-// TRUE is returned.
+// appended to the string.  If an error occurs, false is returned.  Otherwise,
+// true is returned.
 bit8 Wstring::insert(char k, uint32 pos)
 {
   char temp[2];
@@ -364,13 +364,13 @@ bit8 Wstring::beautifyNumber()
 		accum = ( accum == 3 || accum == -1 ) ? 1 : accum + 1;
         }	
 
-	return(TRUE);
+	return(true);
 }
 
 
 // This function replaces any occurences of the string pointed to by
 // `replaceThis' with the string pointed to by `withThis'.  If an error
-// occurs, FALSE is returned.  Otherwise, TRUE is returned.
+// occurs, false is returned.  Otherwise, true is returned.
 bit8 Wstring::replace(IN char *replaceThis,IN char *withThis)
 {
   Wstring  dest;
@@ -387,16 +387,16 @@ bit8 Wstring::replace(IN char *replaceThis,IN char *withThis)
       if(len)
       {
         if(!dest.cat(len, src))
-          return(FALSE);
+          return(false);
       }
       if(!dest.cat(withThis))
-        return(FALSE);
+        return(false);
       src = foundStr + strlen(replaceThis);
     }
     else
     {
       if(!dest.cat(src))
-        return(FALSE);
+        return(false);
 
       src=NULL;
     }
@@ -412,18 +412,18 @@ bit8 Wstring::set(IN char *s)
  strgrow(strlen(s)+1);
  strcpy(str,s);
 
- return(TRUE);
+ return(true);
 }
 
 
 bit8 Wstring::set(char c, uint32 index)
 {
  if(index >= (uint32)strlen(str))
-   return FALSE;
+   return false;
 
  str[index] = c;
 
- return TRUE;
+ return true;
 }
 
 
@@ -435,7 +435,7 @@ char Wstring::set(uint32 size, IN char *string)
  strncpy(str,string,size);
  str[size]=0;
 
- return(TRUE);
+ return(true);
 }
 
 
@@ -446,7 +446,7 @@ char Wstring::set(uint32 size, IN char *string)
 // work in all cases, but this should be good enough for 99% of Wstring usage.
 char Wstring::setFormatted(IN char *msg, ...)
 {
-	if( msg == NULL || strlen(msg) <= 0 )  return FALSE;
+	if( msg == NULL || strlen(msg) <= 0 )  return false;
 
 	char*  string;
         va_list args;
@@ -458,7 +458,7 @@ char Wstring::setFormatted(IN char *msg, ...)
         va_end(args);
 	set(string);
 	delete[] string;
-	return(TRUE);
+	return(true);
 }
 
 
@@ -493,12 +493,12 @@ void Wstring::toUpper(void)
 
 
 //  This function truncates the string so its length will match the specified
-// `len'.  If an error occurs, FALSE is returned.  Otherwise, TRUE is returned.
+// `len'.  If an error occurs, false is returned.  Otherwise, true is returned.
 bit8 Wstring::truncate(uint32 len)
 {
   strgrow(len+1);
   str[len]=0;
-  return(TRUE);
+  return(true);
 }
 
 // Truncate the string after the character 'c' (gets rid of 'c' as well)
@@ -508,14 +508,14 @@ bit8 Wstring::truncate(char c)
   sint32  len;
  
   if (str==NULL)
-    return(FALSE);
+    return(false);
 
   char   *cptr=strchr(str,c);
   if (cptr==NULL)
-    return(FALSE);
+    return(false);
   len=(sint32)(cptr-str); 
   truncate((uint32)len);
-  return(TRUE);
+  return(true);
 }
 
 // Get a token from this string that's seperated by one or more

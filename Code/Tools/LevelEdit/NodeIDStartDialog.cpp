@@ -90,7 +90,7 @@ NodeIDStartDialogClass::OnInitDialog (void)
 	m_IDSpin.SetPos (start_id);
 	SetDlgItemInt (IDC_ID, start_id);
 		
-	return TRUE;
+	return true;
 }
 
 

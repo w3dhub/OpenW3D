@@ -317,7 +317,7 @@ class W3DUtilityClassDesc:public ClassDesc
 public:
 
 	int 				IsPublic()								{ return 1; }
-	void *			Create(BOOL loading = FALSE)		{ return &TheW3DUtility; }
+	void *			Create(BOOL loading = false)		{ return &TheW3DUtility; }
 	const TCHAR *	ClassName()								{ return Get_String(IDS_W3D_UTILITY_CLASS_NAME); }
 	SClass_ID		SuperClassID()							{ return UTILITY_CLASS_ID; }
 	Class_ID			ClassID()								{ return W3DUtilityClassID; }
@@ -378,7 +378,7 @@ void W3DUtilityClass::BeginEditParams(Interface *ip,IUtil *iu)
 
 //	TheRCMenu.Bind(TheW3DUtility.InterfacePtr,&TheW3DUtility);
 //	RightClickMenuManager *rcm = ip->GetRightClickMenuManager();
-//	if (TheRCMenu.Installed!=TRUE) { 
+//	if (TheRCMenu.Installed!=true) { 
 //		rcm->Register(&TheRCMenu);
 //	}
 
@@ -1109,7 +1109,7 @@ void W3DUtilityClass::descend_tree(INode * node,int func)
 
 void W3DUtilityClass::hide_node(INode * node) 
 {
-	if (!node->IsHidden()) node->Hide(TRUE);
+	if (!node->IsHidden()) node->Hide(true);
 	InterfacePtr->NodeInvalidateRect(node);
 }
 
@@ -1129,7 +1129,7 @@ void W3DUtilityClass::cs_remove_nu_scale(INode * node){
 		if( clsid == BIPSLAVE_CONTROL_CLASS_ID || clsid == FOOTPRINT_CLASS_ID || clsid == BIPBODY_CONTROL_CLASS_ID){
 			IBipedExport* ibipExport = (IBipedExport*) ctrl->GetInterface(I_BIPINTERFACE);
 			assert(ibipExport);
-			ibipExport->RemoveNonUniformScale(TRUE);
+			ibipExport->RemoveNonUniformScale(true);
 		}
 #endif
 	}
@@ -1396,12 +1396,12 @@ static BOOL CALLBACK _w3d_utility_cstools_dlg_proc(HWND hWnd, UINT msg, WPARAM w
 					break;
 				}
 			}
-			return TRUE;
+			return true;
 		}
 		default:
-			return FALSE;
+			return false;
 	}
-	return FALSE;
+	return false;
 }
 
 //End Moumine
@@ -1476,13 +1476,13 @@ static BOOL CALLBACK _w3d_utility_tools_dlg_proc(HWND hWnd, UINT msg, WPARAM wPa
 					TheW3DUtility.create_floater();
 					break;
 			}
-			return TRUE;
+			return true;
 		}
 
 		default:
-			return FALSE;
+			return false;
 	}
-	return TRUE;
+	return true;
 }
 
 
@@ -1509,7 +1509,7 @@ BOOL CALLBACK _settings_form_dlg_proc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM
 	if (form) {
 		return form->Dialog_Proc(hWnd,msg,wParam,lParam);
 	} else {
-		return FALSE;
+		return false;
 	}
 }
 
@@ -1815,7 +1815,7 @@ bool SettingsFormClass::Dialog_Proc(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 					break;
 
 			}
-			return TRUE;
+			return true;
 		}
 
 		/*
@@ -1855,9 +1855,9 @@ bool SettingsFormClass::Dialog_Proc(HWND hWnd,UINT message,WPARAM wParam,LPARAM 
 
 
 		default:
-			return FALSE;
+			return false;
 	}
-	return TRUE;
+	return true;
 }
 
 void SettingsFormClass::Selection_Changed(void)
@@ -1878,13 +1878,13 @@ void SettingsFormClass::Update_Controls(INodeListClass * node_list)
 	ICustEdit * edit_ctrl = GetICustEdit(GetDlgItem(Hwnd,IDC_OBJ_NAME));
 	if (edit_ctrl != NULL) {
 		if (node_list->Num_Nodes() == 0) {
-			edit_ctrl->Enable(FALSE);
+			edit_ctrl->Enable(false);
 			edit_ctrl->SetText(Get_String(IDS_NO_OBJECT));
 		} else if (node_list->Num_Nodes() == 1) {
-			edit_ctrl->Enable(TRUE);
+			edit_ctrl->Enable(true);
 			edit_ctrl->SetText((*node_list)[0]->GetName());
 		} else {
-			edit_ctrl->Enable(FALSE);
+			edit_ctrl->Enable(false);
 			edit_ctrl->SetText(Get_String(IDS_MULTIPLE_OBJECTS));
 		}
 
@@ -1902,59 +1902,59 @@ void SettingsFormClass::Update_Controls(INodeListClass * node_list)
 	/*
 	** Enable hierarchy and geometry checks since they are always available
 	*/
-	EnableWindow(GetDlgItem(Hwnd,IDC_HIERARCHY_CHECK),TRUE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CHECK),TRUE);
+	EnableWindow(GetDlgItem(Hwnd,IDC_HIERARCHY_CHECK),true);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CHECK),true);
 
 	/*
 	** Enable/Disable the geometry controls
 	*/
 	if (ns.ExportGeometry == 1) {
 
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ALIGNED),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ORIENTED),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NORMAL),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NULL),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AABOX),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_OBBOX),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AGGREGATE),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_DAZZLE),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_HIDE),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_TWO_SIDED),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_ZNORMALS),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_VERTEX_ALPHA),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAST_SHADOW),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_SHATTERABLE),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NPATCH),TRUE);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ALIGNED),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ORIENTED),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NORMAL),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NULL),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AABOX),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_OBBOX),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AGGREGATE),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_DAZZLE),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_HIDE),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_TWO_SIDED),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_ZNORMALS),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_VERTEX_ALPHA),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAST_SHADOW),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_SHATTERABLE),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NPATCH),true);
 
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PHYSICAL),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PROJECTILE),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VIS),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_CAMERA),TRUE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VEHICLE),TRUE);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PHYSICAL),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PROJECTILE),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VIS),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_CAMERA),true);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VEHICLE),true);
 
 	} else {
 
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ALIGNED),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ORIENTED),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NORMAL),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NULL),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AABOX),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_OBBOX),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AGGREGATE),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_DAZZLE),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_HIDE),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_TWO_SIDED),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_ZNORMALS),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_VERTEX_ALPHA),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAST_SHADOW),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_SHATTERABLE),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NPATCH),FALSE);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ALIGNED),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ORIENTED),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NORMAL),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NULL),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AABOX),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_OBBOX),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AGGREGATE),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_DAZZLE),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_HIDE),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_TWO_SIDED),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_ZNORMALS),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_VERTEX_ALPHA),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAST_SHADOW),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_SHATTERABLE),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NPATCH),false);
 
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PHYSICAL),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PROJECTILE),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VIS),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_CAMERA),FALSE);
-		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VEHICLE),FALSE);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PHYSICAL),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PROJECTILE),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VIS),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_CAMERA),false);
+		EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VEHICLE),false);
 	}
 
 	/*
@@ -1988,13 +1988,13 @@ void SettingsFormClass::Update_Controls(INodeListClass * node_list)
 		if (ns.DamageRegion != MAX_DAMAGE_REGIONS)
 		{
 			// Show the damage region in the spinner.
-			RegionSpin->SetIndeterminate(FALSE);
-			RegionSpin->SetValue(ns.DamageRegion, FALSE);
+			RegionSpin->SetIndeterminate(false);
+			RegionSpin->SetValue(ns.DamageRegion, false);
 		}
 		else
 		{
 			// The selected objects aren't all in the same region.
-			RegionSpin->SetIndeterminate(TRUE);
+			RegionSpin->SetIndeterminate(true);
 		}
 
 		spinner_enable = true;
@@ -2038,37 +2038,37 @@ void SettingsFormClass::Update_Controls(INodeListClass * node_list)
 
 void SettingsFormClass::Disable_Controls(void)
 {
-	EnableWindow(GetDlgItem(Hwnd,IDC_OBJ_NAME),FALSE);
+	EnableWindow(GetDlgItem(Hwnd,IDC_OBJ_NAME),false);
 
-	EnableWindow(GetDlgItem(Hwnd,IDC_HIERARCHY_CHECK),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CHECK),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_DAMREG_INDEX_EDIT),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_DAMREG_INDEX_SPIN),FALSE);
+	EnableWindow(GetDlgItem(Hwnd,IDC_HIERARCHY_CHECK),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CHECK),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_DAMREG_INDEX_EDIT),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_DAMREG_INDEX_SPIN),false);
 	
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NORMAL),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ALIGNED),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ORIENTED),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AABOX),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_OBBOX),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NULL),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AGGREGATE),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_DAZZLE),FALSE);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NORMAL),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ALIGNED),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAMERA_ORIENTED),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AABOX),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_OBBOX),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NULL),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_AGGREGATE),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_DAZZLE),false);
 
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_HIDE),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_TWO_SIDED),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_ZNORMALS),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_VERTEX_ALPHA),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAST_SHADOW),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_SHATTERABLE),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NPATCH),FALSE);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_HIDE),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_TWO_SIDED),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_ZNORMALS),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_VERTEX_ALPHA),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_CAST_SHADOW),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_SHATTERABLE),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_GEOMETRY_NPATCH),false);
 
-	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PHYSICAL),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PROJECTILE),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VIS),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_CAMERA),FALSE);
-	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VEHICLE),FALSE);
+	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PHYSICAL),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_PROJECTILE),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VIS),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_CAMERA),false);
+	EnableWindow(GetDlgItem(Hwnd,IDC_COLLISION_VEHICLE),false);
 
-	EnableWindow(GetDlgItem(Hwnd,IDC_DAZZLE_COMBO),FALSE);
+	EnableWindow(GetDlgItem(Hwnd,IDC_DAZZLE_COMBO),false);
 
 	CheckDlgButton(Hwnd,IDC_HIERARCHY_CHECK,BST_UNCHECKED);
 	CheckDlgButton(Hwnd,IDC_GEOMETRY_CHECK,BST_UNCHECKED);

@@ -32,7 +32,7 @@ class CDeviceSelectionDialog : public CDialog
 {
 // Construction
 public:
-	CDeviceSelectionDialog(BOOL bLookupCachedInfo = TRUE, CWnd* pParent = NULL);   // standard constructor
+	CDeviceSelectionDialog(BOOL bLookupCachedInfo = true, CWnd* pParent = NULL);   // standard constructor
 
 // Dialog Data
 	//{{AFX_DATA(CDeviceSelectionDialog)

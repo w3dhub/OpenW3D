@@ -101,7 +101,7 @@ BOOL
 CMixViewerDoc::OnNewDocument (void)
 {
 	if (!CDocument::OnNewDocument ()) {
-		return FALSE;
+		return false;
 	}
 
 	//
@@ -114,7 +114,7 @@ CMixViewerDoc::OnNewDocument (void)
 		view->Reset ();
    }
 
-	return TRUE;
+	return true;
 }
 
 
@@ -127,7 +127,7 @@ BOOL
 CMixViewerDoc::OnOpenDocument (LPCTSTR path)
 {
 	if (!CDocument::OnOpenDocument (path)) {
-		return FALSE;
+		return false;
 	}
 
 	//
@@ -145,7 +145,7 @@ CMixViewerDoc::OnOpenDocument (LPCTSTR path)
 		view->Reload (path);
 	}
 		
-	return TRUE;
+	return true;
 }
 
 

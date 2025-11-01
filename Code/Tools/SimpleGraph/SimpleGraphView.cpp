@@ -133,7 +133,7 @@ CSimpleGraphView::Repaint_Graph (void)
 	CRect rect;
 	Get_Graph_Rect (rect);
 
-	InvalidateRect (rect, TRUE);
+	InvalidateRect (rect, true);
 	UpdateWindow ();	
 	return ;
 }
@@ -534,7 +534,7 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 		m_Max.X += units_x;
 		m_Max.Y += units_y;
 
-		InvalidateRect (NULL, TRUE);
+		InvalidateRect (NULL, true);
 		UpdateWindow ();
 
 	} else if (m_IsZooming) {
@@ -555,7 +555,7 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 		m_Max.X = m_Max.X + (factor * delta_x);
 		m_Max.Y = m_Max.Y + (factor * delta_y);
 
-		InvalidateRect (NULL, TRUE);
+		InvalidateRect (NULL, true);
 		UpdateWindow ();
 
 	} else if (m_DraggingPt >= 0) {
@@ -773,9 +773,9 @@ CSimpleGraphView::OnInitialUpdate (void)
 										0,
 										0,
 										FW_REGULAR,
-										FALSE,
-										FALSE,
-										FALSE,
+										false,
+										false,
+										false,
 										ANSI_CHARSET,
 										OUT_DEFAULT_PRECIS,
 										CLIP_DEFAULT_PRECIS,
@@ -889,7 +889,7 @@ CSimpleGraphView::OnZoomExtents (void)
 		m_Max.X += (delta_x / 100.0F);
 		m_Max.Y += (delta_y / 100.0F);
 	
-		InvalidateRect (NULL, TRUE);
+		InvalidateRect (NULL, true);
 		UpdateWindow ();
 	}
 	

@@ -321,7 +321,7 @@ BOOL	GameMtlDlg::DisplacementMapProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 		
 		case WM_USER + 101:
 		{
-			SetDlgItemInt (hDlg, IDC_AMOUNT_EDIT, TheMtl->Get_Displacement_Amount () * 100, TRUE);
+			SetDlgItemInt (hDlg, IDC_AMOUNT_EDIT, TheMtl->Get_Displacement_Amount () * 100, true);
 			SetupIntSpinner(hDlg, IDC_AMOUNT_SPIN, IDC_AMOUNT_EDIT, -999, 999, TheMtl->Get_Displacement_Amount () * 100);
 
 			Texmap *map = TheMtl->Get_Displacement_Map ();
@@ -350,7 +350,7 @@ BOOL	GameMtlDlg::DisplacementMapProc(HWND hDlg, UINT message, WPARAM wParam, LPA
 			break;
 	}
 
-	return FALSE;
+	return false;
 }
 BOOL	GameMtlDlg::SurfaceTypeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -394,7 +394,7 @@ BOOL	GameMtlDlg::SurfaceTypeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
 			int sort_level = TheMtl->Get_Sort_Level();
 			ISpinnerControl *spinner = GetISpinner(::GetDlgItem(hDlg, IDC_SORT_LEVEL_SPIN));
 			assert(spinner);
-			spinner->SetValue(sort_level, FALSE);
+			spinner->SetValue(sort_level, false);
 			::SendDlgItemMessage(hDlg, IDC_ENABLE_SORT_LEVEL, BM_SETCHECK,
 				sort_level == SORT_LEVEL_NONE ? BST_UNCHECKED : BST_CHECKED, 0);
 			break;
@@ -419,7 +419,7 @@ BOOL	GameMtlDlg::SurfaceTypeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
 					assert(spinner);
 					if (state == BST_UNCHECKED)
 					{
-						spinner->SetValue(SORT_LEVEL_NONE, FALSE);
+						spinner->SetValue(SORT_LEVEL_NONE, false);
 						TheMtl->Set_Sort_Level(SORT_LEVEL_NONE);
 					}
 					else if (state == BST_CHECKED)
@@ -427,7 +427,7 @@ BOOL	GameMtlDlg::SurfaceTypeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
 						// Sort level was enabled, so set it's level to 1 if it was NONE before.
 						if (spinner->GetIVal() == SORT_LEVEL_NONE)
 						{
-							spinner->SetValue(1, FALSE);
+							spinner->SetValue(1, false);
 							TheMtl->Set_Sort_Level(1);
 						}
 					}
@@ -452,7 +452,7 @@ BOOL	GameMtlDlg::SurfaceTypeProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
 			break;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -476,7 +476,7 @@ BOOL	GameMtlDlg::PassCountProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lP
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 static BOOL CALLBACK DisplacementMapDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam,LPARAM lParam)
@@ -488,7 +488,7 @@ static BOOL CALLBACK DisplacementMapDlgProc(HWND hwndDlg, UINT msg, WPARAM wPara
 		SetWindowLong(hwndDlg, GWL_USERDATA,(LPARAM)theDlg);
 	} else {
 		if ((theDlg = (GameMtlDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return FALSE; 
+			return false; 
 		}
 	}
 
@@ -508,7 +508,7 @@ static BOOL CALLBACK SurfaceTypePanelDlgProc(HWND hwndDlg, UINT msg, WPARAM wPar
 		SetWindowLong(hwndDlg, GWL_USERDATA,(LPARAM)theDlg);
 	} else {
 		if ((theDlg = (GameMtlDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return FALSE; 
+			return false; 
 		}
 	}
 
@@ -527,11 +527,11 @@ static BOOL CALLBACK PassCountPanelDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam
 			theDlg = (GameMtlDlg*)lParam;
 			theDlg->HwndPassCount = hwndDlg;
 			SetWindowLong(hwndDlg, GWL_USERDATA,(LPARAM)theDlg);
-			return FALSE;
+			return false;
 		}
 	}
 	if ((theDlg = (GameMtlDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-		return FALSE; 
+		return false; 
 	}
 	theDlg->IsActive = 1;
 	BOOL res = theDlg->PassCountProc(hwndDlg,msg,wParam,lParam);
@@ -607,9 +607,9 @@ static BOOL CALLBACK PassCountDialogDlgProc(HWND hwndDlg, UINT msg, WPARAM wPara
 			break;
 
 		default:
-			return FALSE;
+			return false;
 	}
-	return TRUE;
+	return true;
 }
 
 
@@ -628,7 +628,7 @@ static BOOL CALLBACK PassCountDialogDlgProc(HWND hwndDlg, UINT msg, WPARAM wPara
 void GameMtlDlg::Build_Dialog(HWND hParent)// = NULL 
 {
 	if ((TheMtl->Flags&(GAMEMTL_ROLLUP_FLAGS))==0) { 
-		TheMtl->Set_Flag(GAMEMTL_PASS0_ROLLUP_OPEN,TRUE);
+		TheMtl->Set_Flag(GAMEMTL_PASS0_ROLLUP_OPEN,true);
 	}	
 
 	HwndSurfaceType = IParams->AddRollupPage( 

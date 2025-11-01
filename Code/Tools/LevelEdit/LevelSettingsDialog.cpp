@@ -156,7 +156,7 @@ LevelSettingsDialogClass::OnInitDialog (void)
 	::SetDlgItemFloat (m_hWnd, IDC_MAP_PIXEL_OFFSETY_EDIT,	MapMgrClass::Get_Map_Center ().Y);
 
 	SendDlgItemMessage (IDC_ALLOW_VTOL_CHECK, BM_SETCHECK, MapMgrClass::Are_VTOL_Vehicles_Enabled ());
-	return TRUE;
+	return true;
 }
 
 

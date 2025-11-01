@@ -558,7 +558,7 @@ ExporterClass::Find_Files (const char *search_mask, STRING_LIST &file_list)
 	// Find all files that match this wildcard
 	//
 	WIN32_FIND_DATA find_info = { 0 };
-	BOOL keep_going = TRUE;
+	BOOL keep_going = true;
 	HANDLE hfile_find = ::FindFirstFile (search_mask, &find_info);
 	for (;(hfile_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (hfile_find, &find_info))
@@ -586,7 +586,7 @@ ExporterClass::Find_Files (const char *search_mask, STRING_LIST &file_list)
 	//
 	// Now recurse into any sub-directories
 	//
-	keep_going = TRUE;
+	keep_going = true;
 	for (hfile_find = ::FindFirstFile (full_search_mask, &find_info);
 		  (hfile_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (hfile_find, &find_info))
@@ -693,9 +693,9 @@ ExporterClass::Delete_File (LPCTSTR filename)
 		if ((attributes != 0xFFFFFFFF) &&
 			 ((attributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY))
 		{
-			retval = (::RemoveDirectory (filename) == TRUE);
+			retval = (::RemoveDirectory (filename) == true);
 		} else {
-			retval = (::DeleteFile (filename) == TRUE);
+			retval = (::DeleteFile (filename) == true);
 		}
 	}
 
@@ -723,7 +723,7 @@ ExporterClass::Clean_Directory (LPCTSTR local_dir)
 	// to our list
 	//
 	DynamicVectorClass<CString> file_list;
-	BOOL keep_going = TRUE;
+	BOOL keep_going = true;
 	WIN32_FIND_DATA find_info = { 0 };
 	HANDLE hfind = ::FindFirstFile (search_mask, &find_info);
 	for (;(hfind != INVALID_HANDLE_VALUE) && keep_going;
@@ -911,7 +911,7 @@ ExporterClass::Add_Files_To_Mod_Package (LPCTSTR full_path)
 	//	Search for all the files in this directory
 	//
 	WIN32_FIND_DATA find_info	= { 0 };
-	BOOL keep_going				= TRUE;
+	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
 	for (file_find = ::FindFirstFile (search_path, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;

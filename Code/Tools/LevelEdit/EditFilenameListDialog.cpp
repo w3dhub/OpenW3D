@@ -80,7 +80,7 @@ END_MESSAGE_MAP()
 void
 EditFilenameListDialogClass::OnAdd (void)
 {
-	CFileDialog dialog (	TRUE,
+	CFileDialog dialog (	true,
 								".w3d",
 								NULL,
 								OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER | OFN_ALLOWMULTISELECT,
@@ -178,7 +178,7 @@ EditFilenameListDialogClass::OnInitDialog (void)
 		m_ListCtrl.InsertItem (0xFF, m_List[index]);
 	}
 
-	return TRUE;
+	return true;
 }
 
 

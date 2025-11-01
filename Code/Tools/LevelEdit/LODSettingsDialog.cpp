@@ -82,7 +82,7 @@ LODSettingsDialogClass::OnInitDialog (void)
 	//
 	m_DistanceSpin.SetRange (0, 10000);
 	m_DistanceSpin.SetPos (m_Distance);
-	return TRUE;
+	return true;
 }
 
 

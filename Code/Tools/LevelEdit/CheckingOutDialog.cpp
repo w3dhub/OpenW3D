@@ -91,7 +91,7 @@ CheckingOutDialogClass::OnCommand
 {
 	// Don't let the dialog be closed by hitting enter or escape
 	if (LOWORD (wParam) == IDOK || LOWORD (wParam) == IDCANCEL) {
-		return FALSE;
+		return false;
 	}
 	
 	// Allow the base class to process this message	
@@ -109,5 +109,5 @@ CheckingOutDialogClass::OnInitDialog (void)
 	// Allow the base class to process this message	
 	CDialog::OnInitDialog ();
 		
-	return TRUE;
+	return true;
 }
