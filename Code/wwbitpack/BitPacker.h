@@ -29,7 +29,7 @@
 
 
 #include "always.h"
-#include "bittype.h"
+#include <cstdint>
 
 static const int MAX_BITS = 32;
 
@@ -41,21 +41,21 @@ static const int MAX_BUFFER_SIZE = 548;
 class cBitPacker
 {
 	public:
-		//cBitPacker(UINT buffer_size);
+		//cBitPacker(uint32_t buffer_size);
 		cBitPacker();
 		virtual ~cBitPacker();
 
 		char * Get_Data() const {return (char *) Buffer;}
-		//UINT Get_Buffer_Size() const {return BufferSize;}
-		UINT Get_Buffer_Size() const {return MAX_BUFFER_SIZE;}
+		//uint32_t Get_Buffer_Size() const {return BufferSize;}
+		uint32_t Get_Buffer_Size() const {return MAX_BUFFER_SIZE;}
 		void Flush() {BitReadPosition = BitWritePosition;}
 		bool Is_Flushed() const {return (BitReadPosition == BitWritePosition);}
 
-		void Add_Bits(ULONG value, UINT num_bits);
-		void Get_Bits(ULONG & value, UINT num_bits);
+		void Add_Bits(uint32_t value, uint32_t num_bits);
+		void Get_Bits(uint32_t & value, uint32_t num_bits);
 
-		void Set_Bit_Write_Position(UINT position);
-		UINT Get_Bit_Write_Position() const {return BitWritePosition;}
+		void Set_Bit_Write_Position(uint32_t position);
+		uint32_t Get_Bit_Write_Position() const {return BitWritePosition;}
 
 	protected:
       cBitPacker& operator=(const cBitPacker& rhs);
@@ -64,11 +64,11 @@ class cBitPacker
 
       cBitPacker(const cBitPacker& source); // Disallow copy constructor
 
-		//BYTE * Buffer;
-		//const UINT BufferSize;
-		BYTE Buffer[MAX_BUFFER_SIZE];
-		UINT BitWritePosition;
-		UINT BitReadPosition;
+		//uint8_t * Buffer;
+		//const uint32_t BufferSize;
+		uint8_t Buffer[MAX_BUFFER_SIZE];
+		uint32_t BitWritePosition;
+		uint32_t BitReadPosition;
 };
 
 #endif // BITPACKER_H
@@ -78,7 +78,7 @@ class cBitPacker
 
 		/*
 		void Reset() {BitWritePosition = 0;}
-		UINT Get_Compressed_Size_Bytes() const;
+		uint32_t Get_Compressed_Size_Bytes() const;
 
 		void Flush() {NumBits = 0;}
 		bool Is_Flushed() const {return (NumBits < 8);}

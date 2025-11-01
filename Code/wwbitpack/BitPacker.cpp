@@ -31,7 +31,7 @@
 #include "wwdebug.h"
 
 //-----------------------------------------------------------------------------
-//cBitPacker::cBitPacker(UINT buffer_size) :
+//cBitPacker::cBitPacker(uint32_t buffer_size) :
 cBitPacker::cBitPacker() :
 	//BufferSize(buffer_size),
 	BitWritePosition(0),
@@ -39,7 +39,7 @@ cBitPacker::cBitPacker() :
 {
 	//WWASSERT(BufferSize > 0);
 
-	//Buffer = new BYTE[BufferSize];
+	//Buffer = new uint8_t[BufferSize];
 	//WWASSERT(Buffer != NULL);
 	//memset(Buffer, 0, BufferSize);
 	memset(Buffer, 0, MAX_BUFFER_SIZE);
@@ -73,7 +73,7 @@ cBitPacker& cBitPacker::operator=(const cBitPacker& rhs)
 // If you use optimized Add_Bits() you need to also use optimize Get_Bits().
 //
 
-void cBitPacker::Add_Bits(ULONG value, UINT num_bits)
+void cBitPacker::Add_Bits(uint32_t value, uint32_t num_bits)
 {
 	//
 	// N.B. Presently you cannot use this class with an atomic type of more 
@@ -83,14 +83,14 @@ void cBitPacker::Add_Bits(ULONG value, UINT num_bits)
 #if 0	// Old version
 	WWASSERT(num_bits > 0 && num_bits <= MAX_BITS);
 
-	ULONG mask = 1 << (num_bits - 1);
+	uint32_t mask = 1 << (num_bits - 1);
 	while (mask > 0) {
 
 		//WWASSERT(BitWritePosition < BufferSize * 8);
 		WWASSERT(BitWritePosition < MAX_BUFFER_SIZE * 8);
 
-		UINT byte_num = BitWritePosition / 8;
-		UINT bit_offset = BitWritePosition % 8;
+		uint32_t byte_num = BitWritePosition / 8;
+		uint32_t bit_offset = BitWritePosition % 8;
 		bool bit_value = (value & mask) != 0;
 		Buffer[byte_num] |= bit_value << bit_offset;
 
@@ -106,17 +106,17 @@ void cBitPacker::Add_Bits(ULONG value, UINT num_bits)
 	WWASSERT(BitWritePosition+num_bits <= MAX_BUFFER_SIZE * 8);
 
 	// Fill the remaining bits of the write byte first
-	UINT byte_num = BitWritePosition >> 3;
-	UINT bit_offset = BitWritePosition & 0x7;
+	uint32_t byte_num = BitWritePosition >> 3;
+	uint32_t bit_offset = BitWritePosition & 0x7;
 	BitWritePosition+=num_bits;		// Advance the write position
 
 	// If write buffer is not byte aligned, write the remaining bits first
 	value <<= 32-num_bits;
 	if (bit_offset) {
-		UINT bit_count = 8 - bit_offset;
+		uint32_t bit_count = 8 - bit_offset;
 		if (bit_count>num_bits) bit_count=num_bits;
 
-		ULONG bit_value = value;
+		uint32_t bit_value = value;
 		value <<= bit_count;					// Remove the copied bits
 		num_bits -= bit_count;
 		bit_value >>= (24+bit_offset);
@@ -141,7 +141,7 @@ void cBitPacker::Add_Bits(ULONG value, UINT num_bits)
 // This method needs optimization
 // 02-14-2002 Jani: Optimized. See Add_Bits() for notes.
 //
-void cBitPacker::Get_Bits(ULONG & value, UINT num_bits)
+void cBitPacker::Get_Bits(uint32_t & value, uint32_t num_bits)
 {
 #if 0	// Old version
 	WWASSERT(num_bits > 0 && num_bits <= MAX_BITS);
@@ -152,8 +152,8 @@ void cBitPacker::Get_Bits(ULONG & value, UINT num_bits)
 		//WWASSERT(BitReadPosition < BufferSize * 8);
 		WWASSERT(BitReadPosition < MAX_BUFFER_SIZE * 8);
 		WWASSERT(BitReadPosition < BitWritePosition);
-		UINT byte_num = BitReadPosition / 8;
-		UINT bit_offset = BitReadPosition % 8;
+		uint32_t byte_num = BitReadPosition / 8;
+		uint32_t bit_offset = BitReadPosition % 8;
 		bool b = (Buffer[byte_num] & (1 << bit_offset)) != 0;
 
 		value += (b << bit);	
@@ -167,14 +167,14 @@ void cBitPacker::Get_Bits(ULONG & value, UINT num_bits)
 	WWASSERT(BitReadPosition+num_bits <= MAX_BUFFER_SIZE * 8);
 	WWASSERT(BitReadPosition+num_bits <= BitWritePosition);
 
-	UINT read_len=num_bits;
-	UINT byte_num = BitReadPosition / 8;
-	UINT bit_offset = BitReadPosition % 8;
+	uint32_t read_len=num_bits;
+	uint32_t byte_num = BitReadPosition / 8;
+	uint32_t bit_offset = BitReadPosition % 8;
 	BitReadPosition += num_bits;
 
-	UINT bit_count = 8 - bit_offset;
+	uint32_t bit_count = 8 - bit_offset;
 	if (bit_count>num_bits) bit_count=num_bits;
-	value = (ULONG(Buffer[byte_num++]) << (bit_offset+24));
+	value = (uint32_t(Buffer[byte_num++]) << (bit_offset+24));
 	num_bits-=bit_count;
 
 	int shift;
@@ -190,7 +190,7 @@ void cBitPacker::Get_Bits(ULONG & value, UINT num_bits)
 // This method is only for use by a packet class when data is received.
 //
 
-void cBitPacker::Set_Bit_Write_Position(UINT position)
+void cBitPacker::Set_Bit_Write_Position(uint32_t position)
 {
 	//WWASSERT(position <= BufferSize * 8);
 	WWASSERT(position <= MAX_BUFFER_SIZE * 8);
@@ -219,7 +219,7 @@ void cBitPacker::Increment_Bit_Position(int num_bits)
 }
 
 //-----------------------------------------------------------------------------
-UINT cBitPacker::Get_Compressed_Size_Bytes() const 
+uint32_t cBitPacker::Get_Compressed_Size_Bytes() const 
 {
 	return (int) ceil(BitWritePosition / 8.0f);
 }
