@@ -4012,7 +4012,7 @@ public:
 																					(int)(addr->sin_addr.S_un.S_un_b.s_b3),
 																					(int)(addr->sin_addr.S_un.S_un_b.s_b4),
 																					static_cast<unsigned int>(ntohs(addr->sin_port)));
-							int addr_string_len = strlen(addr_string);
+							const size_t addr_string_len = ::strlen(addr_string);
 							char local_addr_string[128];
 							strcpy(local_addr_string, addr_string);
 								if (addr_string_len < 21) {

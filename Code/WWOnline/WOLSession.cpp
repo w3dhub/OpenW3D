@@ -1931,13 +1931,18 @@ void Session::MakeLocaleRequests(void)
 	{
 	if (!mLocaleRequests.empty())
 		{
-	const size_t count = std::min(static_cast<size_t>(10), mLocaleRequests.size());
-	WOL::User* users = new WOL::User[count];
+		const size_t count = std::min(static_cast<size_t>(10), mLocaleRequests.size());
+		if (count == 0)
+		{
+			return;
+		}
+
+		WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 
 		if (users)
 			{
-			for (unsigned int index = 0; index < count; ++index)
+			for (size_t index = 0; index < count; ++index)
 				{
 				WideStringClass& username = mLocaleRequests[index];
 				WWDEBUG_SAY(("WOL: Requesting locale for '%S'\n", (const wchar_t*)username));
@@ -1962,7 +1967,7 @@ void Session::MakeLocaleRequests(void)
 			if (SUCCEEDED(hr))
 				{
 				LocaleRequestColl::iterator first = mLocaleRequests.begin();
-				mLocaleRequests.erase(first, first + count);
+				mLocaleRequests.erase(first, first + static_cast<LocaleRequestColl::difference_type>(count));
 				}
 			else
 				{
@@ -2171,13 +2176,18 @@ void Session::MakeTeamRequests(void)
 		{
 		WWDEBUG_SAY(("WOL: Requesting team information\n"));
 
-	const size_t count = std::min(static_cast<size_t>(10), mTeamRequests.size());
-	WOL::User* users = new WOL::User[count];
+		const size_t count = std::min(static_cast<size_t>(10), mTeamRequests.size());
+		if (count == 0)
+		{
+			return;
+		}
+
+		WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 
 		if (users)
 			{
-		for (size_t index = 0; index < count; index++)
+			for (size_t index = 0; index < count; index++)
 				{
 				WOL::User& user = users[index];
 

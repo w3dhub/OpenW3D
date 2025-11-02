@@ -38,7 +38,6 @@
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLString.h>
 #include <wwlib/widestring.h>
-#include <algorithm>
 #include <wwdebug/wwdebug.h>
 #include <limits.h>
 #include <math.h>

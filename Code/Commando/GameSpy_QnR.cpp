@@ -591,7 +591,9 @@ BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key,
 	const size_t clen = ::strlen(outbuf);
 	const size_t required = clen + ::strlen(key) + ::strlen(value) + 3;
 
-	if (clen + strlen(key) + strlen(value) + 3 > (unsigned int)maxlen) return false;
+	if (required > static_cast<size_t>(maxlen)) {
+		return FALSE;
+	}
 
 	char *s = new char[strlen(value)+1];
 	strcpy(s, value);

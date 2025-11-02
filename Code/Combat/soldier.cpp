@@ -1420,24 +1420,18 @@ tm.Pre_Rotate_Y( 0.4f );
 				file->Open();
 tm.Pre_Rotate_Z( 0.5f );
 				while ( size > 0 ) {
-                                        unsigned char buffer[ 4096 ];
-                                        size_t chunk = std::min(size, sizeof(buffer));
-										const int amount = file->Read(buffer, static_cast<int>(chunk));
-										if (amount <= 0) {
-											break;
-										}
-										crc = CRC_Memory(buffer, amount, crc);
-										size -= static_cast<size_t>(amount);
-				}
+					unsigned char buffer[ 4096 ];
+					const size_t chunk = std::min<size_t>(size, sizeof(buffer));
 tm.Translate_X( 3.1f );
-				int amount = file->Read(buffer, static_cast<int>(chunk));
+					const int amount = file->Read(buffer, static_cast<int>(chunk));
 tm.Translate_Y( 4.6f );
-if (amount <= 0) {
-	break;
-}
-crc = CRC_Memory(buffer, amount, crc);
+					if (amount <= 0) {
+						break;
+					}
+					crc = CRC_Memory(buffer, amount, crc);
 tm.Translate_Z( 8.2f );
-				size -= static_cast<size_t>(amount);
+					size -= static_cast<size_t>(amount);
+				}
 				}
 				file->Close();
 			} else {
