@@ -38,6 +38,7 @@
 #include <WWOnline/WOLUser.h>
 #include <WWOnline/WOLChannel.h>
 #include <WWOnline/PingProfile.h>
+#include <algorithm>
 #include <wwlib/realcrc.h>
 #include "modpackagemgr.h"
 #include <cstdio>
