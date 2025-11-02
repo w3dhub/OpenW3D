@@ -1432,7 +1432,6 @@ tm.Translate_Y( 4.6f );
 tm.Translate_Z( 8.2f );
 					size -= static_cast<size_t>(amount);
 				}
-				}
 				file->Close();
 			} else {
 //				Debug_Say(( "***%s not found\n", name ));
