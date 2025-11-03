@@ -52,6 +52,7 @@
 #include "combatgmode.h"
 #include "useroptions.h"
 #include "lanchat.h"
+#include "netutil.h"
 #include "rendobj.h"
 #include "phys.h"
 #include "pscene.h"
@@ -543,11 +544,23 @@ GameInitMgrClass::Start_Client_Server (void)
 
 	assert(GameModeManager::Find("WOL"));
 	if (GameModeManager::Find("WOL")->Is_Active()) {
-		WWASSERT(PTheGameData != NULL);
-		The_Game()->Set_Port(WOLNATInterface.Get_Port_As_Server());
+		if (PTheGameData != NULL) {
+			const unsigned short wol_port = WOLNATInterface.Get_Port_As_Server();
+			if (wol_port >= MIN_SERVER_PORT && wol_port <= MAX_SERVER_PORT) {
+				The_Game()->Set_Port(wol_port);
+			} else {
+				WWDEBUG_SAY(("WOL port %hu outside valid range, keeping existing game port\n", wol_port));
+			}
+		}
 	} else if (GameModeManager::Find("LAN")->Is_Active() && cGameSpyAdmin::Is_Gamespy_Game()) {
-		WWASSERT(PTheGameData != NULL);
-		The_Game()->Set_Port(cUserOptions::GameSpyGamePort.Get());
+		if (PTheGameData != NULL) {
+			const int gamespy_port = cUserOptions::GameSpyGamePort.Get();
+			if (gamespy_port >= MIN_SERVER_PORT && gamespy_port <= MAX_SERVER_PORT) {
+				The_Game()->Set_Port(gamespy_port);
+			} else {
+				WWDEBUG_SAY(("GameSpy port %d outside valid range, keeping existing game port\n", gamespy_port));
+			}
+		}
 	}
 
 #ifdef WWDEBUG
@@ -589,7 +602,13 @@ GameInitMgrClass::Start_Client_Server (void)
 
 		assert(GameModeManager::Find("WOL"));
 		if (GameModeManager::Find("WOL")->Is_Active()) {
-			cNetwork::Init_Client(WOLNATInterface.Get_Port_As_Server_Client());
+			const unsigned short wol_client_port = WOLNATInterface.Get_Port_As_Server_Client();
+			if (wol_client_port >= MIN_SERVER_PORT && wol_client_port <= MAX_SERVER_PORT) {
+				cNetwork::Init_Client(wol_client_port);
+			} else {
+				WWDEBUG_SAY(("WOL client port %hu outside valid range, falling back to default client init\n", wol_client_port));
+				cNetwork::Init_Client();
+			}
 		} else {
 			cNetwork::Init_Client();
 		}

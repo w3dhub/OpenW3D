@@ -477,6 +477,18 @@ bool cConnection::Sender_Id_Tests(cPacket & packet)
    if (!cSinglePlayerData::Is_Single_Player() &&
       !cNetUtil::Is_Same_Address(&(PRHost[sender_id]->Get_Address()),
       &packet.Get_From_Address_Wrapper()->FromAddress)) {
+
+		//
+		// During LAN broadcast discovery we initially seed the server entry with the broadcast address.
+		// Once the server answers with a unicast address, refresh the stored sockaddr so the connection
+		// can proceed instead of dropping the packet.
+		//
+		sockaddr_in& current_addr = PRHost[sender_id]->Get_Address();
+		const sockaddr_in& incoming_addr = packet.Get_From_Address_Wrapper()->FromAddress;
+		if (current_addr.sin_addr.s_addr == INADDR_BROADCAST || current_addr.sin_addr.s_addr == 0) {
+			current_addr = incoming_addr;
+			return true;
+		}
       //
       // This can happen under 2 known conditions:
       // 1. A new player reuses an id and old packets from the previous player
@@ -826,10 +838,21 @@ bool cConnection::Receive_Packet()
          }
 
       case PACKETTYPE_ACCEPT_SC: {
-				//WWDEBUG_SAY(("cConnection::Receive_Packet : PACKETTYPE_ACCEPT_SC received\n"));
-				WWDEBUG_SAY(("CONNECT: PACKETTYPE_ACCEPT_SC received\n"));
+			//WWDEBUG_SAY(("cConnection::Receive_Packet : PACKETTYPE_ACCEPT_SC received\n"));
+			WWDEBUG_SAY(("CONNECT: PACKETTYPE_ACCEPT_SC received\n"));
 
             WWASSERT(!IsServer);
+
+			//
+			// On LAN discovery the client initially points the server rhost at the broadcast address.
+			// Refresh the stored address with the endpoint that actually replied so Sender_Id_Tests
+			// does not reject follow-up packets.
+			//
+			if (!cSinglePlayerData::Is_Single_Player() && p_sender_rhost != NULL) {
+				if (!cNetUtil::Is_Same_Address(&(p_sender_rhost->Get_Address()), p_from_address)) {
+					p_sender_rhost->Set_Address(*p_from_address);
+				}
+			}
 
             if (LocalId != ID_UNKNOWN) {
                //
