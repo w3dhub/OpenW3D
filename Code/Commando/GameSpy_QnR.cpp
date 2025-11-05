@@ -58,6 +58,7 @@
 #include "translatedb.h"
 #include "wolgmode.h"
 #include <WWOnline/WOLUser.h>
+#include "gamespyadmin.h"
 #include "string_ids.h"
 #include "mousemgr.h"
 #include "directinput.h"
@@ -264,7 +265,19 @@ void CGameSpyQnR::Init(void) {
 		}
 
 		if (!get_master_count()) {
-			GameSpyQnR.Parse_HeartBeat_List(Get_Default_HeartBeat_List());
+			if (!GameSpyQnR.Parse_HeartBeat_List(Get_Default_HeartBeat_List())) {
+				// Parsing the default list failed; disable GameSpy reporting for this session.
+				ConsoleBox.Print("GameSpy master servers unavailable; disabling GameSpy Q&R for this session.\n");
+				m_GSEnabled = false;
+				cGameSpyAdmin::Set_Is_Server_Gamespy_Listed(false);
+				return;
+			}
+		}
+		if (!get_master_count()) {
+			ConsoleBox.Print("No GameSpy master servers configured; disabling GameSpy Q&R for this session.\n");
+			m_GSEnabled = false;
+			cGameSpyAdmin::Set_Is_Server_Gamespy_Listed(false);
+			return;
 		}
 		test = qr_init(&query_reporting_rec, ip, cUserOptions::GameSpyQueryPort.Get(),
 			gamename, secret_key, c_basic_callback, c_info_callback, c_rules_callback, 
