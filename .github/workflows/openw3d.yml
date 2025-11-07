@@ -49,6 +49,7 @@ jobs:
                --target
                scripts
                bandtest
+               wwsaveload
                wwmath
                wwutil
                wwbitpack
