@@ -51,6 +51,7 @@ jobs:
                bandtest
                wwmath
                wwutil
+               wwdebug
                wwbitpack
             shell: bash
 

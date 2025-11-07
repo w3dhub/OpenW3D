@@ -92,10 +92,12 @@ bool					WWDebug_Check_Trigger(int trigger_num);
 void					WWDebug_Profile_Start( const char * title);
 void					WWDebug_Profile_Stop( const char * title);
 
+#ifdef _WIN32
 /*
 ** A message handler to display to DBWIN32
 */
 void					WWDebug_DBWin32_Message_Handler( const char * message);
+#endif /* WIN32 */
 #endif
 
 

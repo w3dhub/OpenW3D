@@ -43,7 +43,9 @@
 
 
 #include "wwdebug.h"
+#ifdef _WIN32
 #include <windows.h>
+#endif
 //#include "win.h" can use this if allowed to see wwlib
 #include <stdlib.h>
 #include <stdarg.h>
@@ -51,6 +53,7 @@
 #include <assert.h>
 #include <string.h>
 #include <signal.h>
+#include <errno.h>
 #include "Except.h"
 
 
@@ -65,7 +68,7 @@ static ProfileFunc		_CurProfileStopHandler = NULL;
 
 void Convert_System_Error_To_String(int id, char* buffer, int buf_len)
 {
-#ifndef _UNIX
+#ifndef __unix
 	FormatMessageA(
 		FORMAT_MESSAGE_FROM_SYSTEM,
 		NULL,
@@ -79,7 +82,11 @@ void Convert_System_Error_To_String(int id, char* buffer, int buf_len)
 
 int Get_Last_System_Error()
 {
+#ifndef __unix
 	return GetLastError();
+#else
+    return errno;
+#endif
 }
 
 /***********************************************************************************************
@@ -294,7 +301,7 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
 		_CurAssertHandler(buffer);
 
 	} else {
-
+#if _WIN32
 		/*
 		// If the exception handler is try to quit the game then don't show an assert.
 		*/
@@ -316,6 +323,11 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
 			__debugbreak();
       	return;
 		}
+#else
+        // TODO throw up a message box and/or trigger the debugger
+        // For now, we just abort so we can trigger the debugger
+        abort();
+#endif
    }
 }
 #endif
@@ -442,6 +454,7 @@ void WWDebug_Profile_Stop( const char * title)
 
 
 #ifdef WWDEBUG
+#ifdef _WIN32
 /***********************************************************************************************
  * WWDebug_DBWin32_Message_Handler --                                                          *
  *                                                                                             *
@@ -514,4 +527,5 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
 
     return;
 }
+#endif /* WIN32 */
 #endif // WWDEBUG
