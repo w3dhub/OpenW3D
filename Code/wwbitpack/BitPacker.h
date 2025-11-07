@@ -31,7 +31,7 @@
 #include "always.h"
 #include <cstdint>
 
-static const int MAX_BITS = 32;
+static constexpr int MAX_BITS = 8 * sizeof(uint32_t);
 
 // 1400 is too big. Minimum MTU allowable on the internet is 576. IP Header is 20 bytes. UDP header is 8 bytes
 // So our max packet size is 576 - 28 = 548

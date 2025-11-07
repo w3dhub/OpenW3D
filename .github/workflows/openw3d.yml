@@ -44,7 +44,14 @@ jobs:
             shell: msys2 {0}
           - name: Linux x64
             os: ubuntu-latest
-            build-args: --parallel --target scripts bandtest wwbitpack
+            build-args: >
+               --parallel
+               --target
+               scripts
+               bandtest
+               wwmath
+               wwutil
+               wwbitpack
             shell: bash
 
     steps:
