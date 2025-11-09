@@ -52,6 +52,7 @@ jobs:
                wwsaveload
                wwmath
                wwutil
+               wwdebug
                wwbitpack
                wwtranslatedb
             shell: bash
