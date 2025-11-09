@@ -106,9 +106,6 @@ public:
 		: StringClass(static_cast<size_t>(initial_len), hint_temporary) {
 	}
 
-	StringClass(unsigned initial_len, bool hint_temporary = false)
-		: StringClass(static_cast<size_t>(initial_len), hint_temporary) {
-	}
 	~StringClass (void);
 
 	////////////////////////////////////////////////////////////
