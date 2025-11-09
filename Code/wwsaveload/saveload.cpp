@@ -44,7 +44,6 @@
 #include "saveloadstatus.h"
 #include "wwhack.h"
 #include "wwprofile.h"
-#include <windows.h>
 #include "systimer.h"
 
 
