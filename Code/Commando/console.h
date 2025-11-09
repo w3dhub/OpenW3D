@@ -45,9 +45,10 @@
 	#include "gamemode.h"
 #endif
 
+#include <cstddef>
+
 #ifndef	BITTYPE_H
 	#include "bittype.h"
-#include <cstddef>
 #endif
 
 

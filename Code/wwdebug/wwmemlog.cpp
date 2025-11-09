@@ -631,7 +631,7 @@ void * WWMemoryLogClass::Allocate_Memory(size_t size)
 #if DISABLE_MEMLOG
 	AllocateCount++;
 	WWASSERT(size <= static_cast<size_t>(std::numeric_limits<unsigned int>::max()));
-	return ALLOC_MEMORY(static_cast<unsigned int>(size));
+	return ALLOC_MEMORY(size);
 #else
 
 	thread_local static bool reentrancy_test = false;
@@ -639,7 +639,7 @@ void * WWMemoryLogClass::Allocate_Memory(size_t size)
 
 		if (reentrancy_test) {
 			WWASSERT(size <= static_cast<size_t>(std::numeric_limits<unsigned int>::max()));
-			return ALLOC_MEMORY(static_cast<unsigned int>(size));
+			return ALLOC_MEMORY(size);
 	} else {
 		reentrancy_test = true;
 
@@ -647,7 +647,7 @@ void * WWMemoryLogClass::Allocate_Memory(size_t size)
 		** Allocate space for the requested buffer + our logging structure
 		*/
 		WWASSERT(size <= static_cast<size_t>(std::numeric_limits<unsigned int>::max() - sizeof(MemoryLogStruct)));
-		void * ptr = ALLOC_MEMORY(static_cast<unsigned int>(size + sizeof(MemoryLogStruct)));
+		void * ptr = ALLOC_MEMORY(size + sizeof(MemoryLogStruct));
 
 		if (ptr != NULL) {
 			/*

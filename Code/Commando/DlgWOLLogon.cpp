@@ -351,7 +351,7 @@ void DlgWOLLogon::UpdatePersonas(void)
 		combo->Reset_Content();
 
 		const LoginInfoList& personas = LoginInfo::GetList();
-			const size_t count = personas.size();
+		const size_t count = personas.size();
 
 			for (size_t index = 0; index < count; ++index)
 			{
