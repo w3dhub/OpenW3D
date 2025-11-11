@@ -37,7 +37,6 @@
 
 #include "translatedb.h"
 
-#include <windows.h>
 #include <string.h>
 
 #include "persist.h"
@@ -424,19 +423,9 @@ TranslateDBClass::Export_Table (const char *filename)
 	//
 	//	Create the file
 	//
-	HANDLE file = ::CreateFileA (filename,
-										  GENERIC_WRITE,
-										  0,
-										  NULL,
-										  CREATE_ALWAYS,
-										  0L,
-										  NULL);
-
-	WWASSERT (file != INVALID_HANDLE_VALUE);
-	if (file != INVALID_HANDLE_VALUE) {
-
-		TextFileClass file_obj;
-		file_obj.Attach (file);
+    TextFileClass file_obj;
+    file_obj.Open(filename, FileClass::WRITE);
+    if (file_obj.Is_Open()) {
 
 		//
 		//	Loop over all the translation objects and write a tab delimited
@@ -487,12 +476,6 @@ TranslateDBClass::Export_Table (const char *filename)
 				file_obj.Write_Line (text_entry);
 			}
 		}
-
-		//
-		//	Close the file
-		//
-		file_obj.Detach ();
-		::CloseHandle (file);
 	}
 	
 	return ;
@@ -510,19 +493,9 @@ TranslateDBClass::Export_C_Header (const char *filename)
 	//
 	//	Create the file
 	//
-	HANDLE file = ::CreateFileA (filename,
-										  GENERIC_WRITE,
-										  0,
-										  NULL,
-										  CREATE_ALWAYS,
-										  0L,
-										  NULL);
-
-	WWASSERT (file != INVALID_HANDLE_VALUE);
-	if (file != INVALID_HANDLE_VALUE) {
-
-		TextFileClass file_obj;
-		file_obj.Attach (file);
+    TextFileClass file_obj;
+    file_obj.Open(filename, FileClass::WRITE);
+    if (file_obj.Is_Open()) {
 
 		//
 		//	Wtite the 'C' style header framework
@@ -563,12 +536,6 @@ TranslateDBClass::Export_C_Header (const char *filename)
 		file_obj.Write_Line ("// TRANSLATEDB: End ID Block");
 		file_obj.Write_Line ("");
 		file_obj.Write_Line ("#endif //__STRING_IDS_H");
-
-		//
-		//	Close the file
-		//
-		file_obj.Detach ();
-		::CloseHandle (file);
 	}
 	
 	return ;
@@ -586,19 +553,9 @@ TranslateDBClass::Import_C_Header (const char *filename)
 	//
 	//	Create the file
 	//
-	HANDLE file = ::CreateFileA (filename,
-										  GENERIC_READ,
-										  FILE_SHARE_READ,
-										  NULL,
-										  OPEN_EXISTING,
-										  0L,
-										  NULL);
-
-	WWASSERT (file != INVALID_HANDLE_VALUE);
-	if (file != INVALID_HANDLE_VALUE) {
-
-		TextFileClass file_obj;
-		file_obj.Attach (file);
+    TextFileClass file_obj;
+    file_obj.Open(filename, FileClass::READ);
+    if (file_obj.Is_Open()) {
 
 		StringClass line;
 		bool found_id_block = false;
@@ -684,13 +641,7 @@ TranslateDBClass::Import_C_Header (const char *filename)
 					found_end_block = (line.Compare_No_Case ("// TRANSLATEDB: End ID Block") == 0);
 				}
 			}
-		}
-
-		//
-		//	Close the file
-		//
-		file_obj.Detach ();
-		::CloseHandle (file);
+        }
 	}
 	
 	return ;
@@ -931,7 +882,7 @@ TranslateDBClass::Remove_Object (int index)
 		if (object != NULL) {
 			// Remove the object from the hash table
 			StringClass lower_case_name(object->Get_ID_Desc(),true);
-			_strlwr(lower_case_name.Peek_Buffer());
+            lower_case_name.To_Lower();
 			m_ObjectHash.Remove(lower_case_name);
 			delete object;
 		}
@@ -1181,22 +1132,9 @@ TranslateDBClass::Import_Strings (const char *filename)
 	//
 	//	Open the file
 	//
-	HANDLE file = ::CreateFileA (	filename,
-											GENERIC_READ,
-											FILE_SHARE_READ,
-											NULL,
-											OPEN_EXISTING,
-											0L,
-											NULL);
-
-	WWASSERT (file != INVALID_HANDLE_VALUE);
-	if (file != INVALID_HANDLE_VALUE) {
-
-		//
-		//	Attach this file to a text file class for easier parsing
-		//
-		TextFileClass file_obj;
-		file_obj.Attach (file);
+    TextFileClass file_obj;
+    file_obj.Open(filename, FileClass::READ);
+    if (file_obj.Is_Open()) {
 
 		//
 		//	Keep reading data from the file until we've reached the end

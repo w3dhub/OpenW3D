@@ -77,24 +77,24 @@ class BitStreamClass : public cBitPacker
 		BitStreamClass();
       BitStreamClass& operator=(const BitStreamClass& rhs);
 
-		UINT Get_Uncompressed_Size_Bytes() const {return UncompressedSizeBytes;}
-		UINT Get_Compressed_Size_Bytes() const;
-		UINT Get_Compression_Pc() const;
+		uint32_t Get_Uncompressed_Size_Bytes() const {return UncompressedSizeBytes;}
+		uint32_t Get_Compressed_Size_Bytes() const;
+		uint32_t Get_Compression_Pc() const;
 
       //
       // For data which may include NULL's.
 		// Data will not be compressed.
       //
-      void Add_Raw_Data(LPCSTR data, USHORT data_size);
-		void Get_Raw_Data(char * buffer, USHORT buffer_size, USHORT data_size);
+      void Add_Raw_Data(const char * data, uint16_t data_size);
+		void Get_Raw_Data(char * buffer, uint16_t buffer_size, uint16_t data_size);
 
       //
       // For data terminated with NULL.
 		// Data will not be compressed.
 		// You may permit or disallow empty strings to be passed.
       //
-      void Add_Terminated_String(LPCSTR string, bool permit_empty = false);
-		void Get_Terminated_String(char * buffer, USHORT buffer_size, bool permit_empty = false);
+      void Add_Terminated_String(const char * string, bool permit_empty = false);
+		void Get_Terminated_String(char * buffer, uint16_t buffer_size, bool permit_empty = false);
 
       //
       // For data terminated with NULL.
@@ -102,7 +102,7 @@ class BitStreamClass : public cBitPacker
 		// You may permit or disallow empty strings to be passed.
       //
       void Add_Wide_Terminated_String(const wchar_t *string, bool permit_empty = false);
-		void Get_Wide_Terminated_String (wchar_t *buffer, USHORT buffer_len, bool permit_empty = false);		
+		void Get_Wide_Terminated_String (wchar_t *buffer, uint16_t buffer_len, bool permit_empty = false);		
 
 		//
 		// Bool is special-cased because we know that we can always 
@@ -117,10 +117,10 @@ class BitStreamClass : public cBitPacker
 		//
 		enum {NO_ENCODER = -1};
 
-		void		Add(BYTE val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
-		void		Add(USHORT val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
-		void		Add(UINT val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
-		void		Add(ULONG val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
+		void		Add(uint8_t val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
+		void		Add(uint16_t val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
+        void		Add(uint32_t val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
+        void		Add(unsigned long val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(char val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(int val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(float val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
@@ -128,10 +128,10 @@ class BitStreamClass : public cBitPacker
 		void		Add(wchar_t val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
 #endif
 
-		BYTE		Get(BYTE & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
-		USHORT	Get(USHORT & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
-		ULONG		Get(ULONG & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
-		UINT		Get(UINT & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
+		uint8_t		Get(uint8_t & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
+		uint16_t	Get(uint16_t & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
+        uint32_t		Get(uint32_t & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
+        unsigned long		Get(unsigned long & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
 		char		Get(char & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
 		int		Get(int & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
 		float		Get(float & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
@@ -161,7 +161,7 @@ class BitStreamClass : public cBitPacker
 				//
 				WWASSERT(entry.Is_Valid());
 
-				ULONG scaled_value;
+				uint32_t scaled_value;
 				bool is_in_range = entry.Scale(value, scaled_value);
 				if (!is_in_range) {
 					//WWDEBUG_SAY(("BitStreamClass::Add : Warning: out-of-range value clamped (type %d).\n",
@@ -172,10 +172,10 @@ class BitStreamClass : public cBitPacker
 				Add_Bits(scaled_value, entry.Get_Bit_Precision());
 
 			} else {
-				Add_Bits(*(reinterpret_cast<ULONG *>(&value)), BIT_DEPTH(T));
+				Add_Bits(*(reinterpret_cast<uint32_t *>(&value)), BIT_DEPTH(T));
 			}
 
-			UncompressedSizeBytes += BYTE_DEPTH(T);
+            UncompressedSizeBytes += BYTE_DEPTH(T);
 		}
 		
 		//------------------------------------------------------------------------------------
@@ -192,7 +192,7 @@ class BitStreamClass : public cBitPacker
 				//
 				WWASSERT(entry.Is_Valid());
 
-				ULONG u_value;
+				uint32_t u_value;
 				Get_Bits(u_value, entry.Get_Bit_Precision());
 
 				double f_value = entry.Unscale(u_value);
@@ -209,7 +209,7 @@ class BitStreamClass : public cBitPacker
 				WWASSERT(entry.Is_Value_In_Range(value));
 
 			} else {
-				ULONG u_value;
+				uint32_t u_value;
 				Get_Bits(u_value, BIT_DEPTH(T));
 
 				value = *(reinterpret_cast<T *>(&u_value));
@@ -220,7 +220,7 @@ class BitStreamClass : public cBitPacker
 		//------------------------------------------------------------------------------------
 #pragma auto_inline(on)
 
-		UINT UncompressedSizeBytes; // for statistics only
+		uint32_t UncompressedSizeBytes; // for statistics only
 };
 
 #endif // TYPEENCODER_H

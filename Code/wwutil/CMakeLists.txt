@@ -4,7 +4,8 @@ set(WWUTIL_SRC
     mathutil.h
     miscutil.cpp
     miscutil.h
-    stackdump.cpp
+    $<$<BOOL:${WIN32}>:stackdump-windows.cpp>
+    $<$<BOOL:${LINUX}>:stackdump-linux.cpp>
     stackdump.h
 )
 

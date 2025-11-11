@@ -44,8 +44,12 @@
 #include "wwdebug.h"
 #include "vector.h"
 #include "FastAllocator.h"
-#include <windows.h>
 #include <algorithm>
+#include <thread>
+
+#ifndef __unix
+#include <windows.h>
+#endif
 
 #define USE_FAST_ALLOCATOR
 
@@ -73,7 +77,11 @@
 ** method to use.
 */
 #define MEMLOG_USE_MUTEX					0
+#ifdef __unix
+#define MEMLOG_USE_CRITICALSECTION		0
+#else
 #define MEMLOG_USE_CRITICALSECTION		1
+#endif
 #define MEMLOG_USE_FASTCRITICALSECTION	0
 
 
@@ -145,7 +153,7 @@ class ActiveCategoryStackClass : public VectorClass<int>
 public:
 	ActiveCategoryStackClass(void) :
 		VectorClass<int>(MAX_CATEGORY_STACK_DEPTH),
-		ThreadID(-1),
+        ThreadID(),
 		Count(0)
 	{ }
 
@@ -156,9 +164,9 @@ public:
 	bool		operator == (const ActiveCategoryStackClass &)	{ return false; }
 	bool		operator != (const ActiveCategoryStackClass &)	{ return true; }
 
-	void		Init(int thread_id)										{ ThreadID = thread_id; Count = 0; Push(MEM_UNKNOWN); }
-	void		Set_Thread_ID(int id)									{ ThreadID = id; }
-	int		Get_Thread_ID(void)										{ return ThreadID; }
+    void		Init( std::thread::id thread_id)										{ ThreadID = thread_id; Count = 0; Push(MEM_UNKNOWN); }
+    void		Set_Thread_ID( std::thread::id id)									{ ThreadID = id; }
+     std::thread::id		Get_Thread_ID(void)										{ return ThreadID; }
 
 	void		Push(int active_category)								{ (*this)[Count] = active_category; Count++; }
 	void		Pop(void)													{ Count--; }
@@ -166,7 +174,7 @@ public:
 
 protected:
 
-	int		ThreadID;
+    std::thread::id		ThreadID;
 	int		Count;
 };
 
@@ -379,7 +387,7 @@ ActiveCategoryStackClass::operator = (const ActiveCategoryStackClass & that)
 ***************************************************************************************************/
 ActiveCategoryStackClass & ActiveCategoryClass::Get_Active_Stack(void)
 {
-	int current_thread = ::GetCurrentThreadId();
+     std::thread::id current_thread = std::this_thread::get_id();
 
 	/*
 	** If we already have an allocated category stack for the current thread,
