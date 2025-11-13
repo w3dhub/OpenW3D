@@ -5311,3 +5311,4 @@ void	SoldierGameObj::Update_Locked_Facing( void )
 	}
 	*/
 
+
