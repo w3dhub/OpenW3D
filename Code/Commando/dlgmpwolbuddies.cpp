@@ -408,10 +408,10 @@ void MPWolBuddiesMenuClass::Update_Buddy_List(void)
 		int currSel = list->Get_Curr_Sel();
 
 		//	Loop over all the buddies
-			const WWOnline::UserList& buddies = mBuddyMgr->GetBuddyList();
-			const size_t count = buddies.size();
+		const WWOnline::UserList& buddies = mBuddyMgr->GetBuddyList();
+		const size_t count = buddies.size();
 
-			for (size_t index = 0; index < count; ++index) {
+		for (size_t index = 0; index < count; ++index) {
 			const RefPtr<WWOnline::UserData>& buddy = buddies[index];
 
 			// Add the buddy to the list control

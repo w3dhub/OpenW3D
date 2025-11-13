@@ -608,7 +608,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	Add_Txt(scrap);
 	sprintf(scrap, "CS:%04x  SS:%04x  DS:%04x  ES:%04x  FS:%04x  GS:%04x\r\n", context->SegCs, context->SegSs, context->SegDs, context->SegEs, context->SegFs, context->SegGs);
 	Add_Txt(scrap);
-	#elif defined(_M_AMD64) || defined(__x86_64__)
+#elif defined(_M_AMD64) || defined(__x86_64__)
 	sprintf(scrap, "Rip:%016llX\tRsp:%016llX\tRbp:%016llX\r\n", static_cast<unsigned long long>(context->Rip), static_cast<unsigned long long>(context->Rsp), static_cast<unsigned long long>(context->Rbp));
 	Add_Txt(scrap);
 	sprintf(scrap, "Rax:%016llX\tRbx:%016llX\tRcx:%016llX\r\n", static_cast<unsigned long long>(context->Rax), static_cast<unsigned long long>(context->Rbx), static_cast<unsigned long long>(context->Rcx));

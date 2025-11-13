@@ -460,7 +460,7 @@ void DebugManager::Write_To_File(LPCSTR str)
 void * operator new (size_t size)
 {
 	void* memory=NULL;
-	#ifdef LOG_MEMORY
+#ifdef LOG_MEMORY
 	#ifdef WWDEBUG
 		memory=WWMemoryLogClass::Allocate_Memory(size);
 	#else
