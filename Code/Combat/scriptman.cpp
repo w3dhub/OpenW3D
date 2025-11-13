@@ -187,13 +187,20 @@ void ScriptManager::Load_Scripts(const char* dll_filename)
 
 				// Copy the dll from the PKG (mix) file into our temporary _scripts directory
 				static char buffer[16000];
-				int scripts_size = scripts_dll->Size();
-				int cur_pos = 0;
+				size_t scripts_size = scripts_dll->Size();
+				size_t cur_pos = 0;
 				while (cur_pos < scripts_size) {
-					int read_count = WWMath::Min(scripts_size - cur_pos,sizeof(buffer));
-					scripts_dll->Read(buffer,read_count);
-					unpacked_scripts.Write(buffer,read_count);
-					cur_pos += read_count;
+					size_t remaining = scripts_size - cur_pos;
+					size_t requested = remaining;
+					if (requested > sizeof(buffer)) {
+						requested = sizeof(buffer);
+					}
+					int read_count = scripts_dll->Read(buffer, static_cast<int>(requested));
+					if (read_count <= 0) {
+						break;
+					}
+					unpacked_scripts.Write(buffer, read_count);
+					cur_pos += static_cast<size_t>(read_count);
 				}
 
 

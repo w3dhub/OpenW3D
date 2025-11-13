@@ -320,7 +320,7 @@ void	CampaignManager::Continue( bool success )
 		//
 		//	Parse the parameters
 		//
-		int len = ::strlen( state_description );
+		const size_t len = ::strlen( state_description );
 		StringClass foo( len + 1, true );
 		StringClass filename( len + 1, true );
 		StringClass description( len + 1, true );

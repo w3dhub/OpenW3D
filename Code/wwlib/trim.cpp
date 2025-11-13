@@ -72,9 +72,11 @@ char* strtrim(char* buffer)
 		}
 
 		/* Clip trailing white space from the string. */
-		for (int index = strlen(buffer) - 1; index >= 0; --index) {
-			if ((*source != 0) && ((unsigned char)buffer[index] <= 32)) {
-				buffer[index] = '\0';
+		for (size_t index = ::strlen(buffer); index > 0; ) {
+			const size_t char_index = index - 1;
+			if ((*source != 0) && ((unsigned char)buffer[char_index] <= 32)) {
+				buffer[char_index] = '\0';
+				--index;
 			} else {
 				break;
 			}
@@ -100,9 +102,11 @@ wchar_t* wcstrim(wchar_t* buffer)
 		}
 
 		/* Clip trailing white space from the string. */
-		for (int index = wcslen(buffer) - 1; index >= 0; --index) {
-			if ((*source != 0) && ((unsigned int)buffer[index] <= 32)) {
-				buffer[index] = L'\0';
+		for (size_t index = ::wcslen(buffer); index > 0; ) {
+			const size_t char_index = index - 1;
+			if ((*source != 0) && ((unsigned int)buffer[char_index] <= 32)) {
+				buffer[char_index] = L'\0';
+				--index;
 			} else {
 				break;
 			}

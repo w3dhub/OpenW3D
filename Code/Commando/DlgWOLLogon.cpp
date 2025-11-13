@@ -351,9 +351,9 @@ void DlgWOLLogon::UpdatePersonas(void)
 		combo->Reset_Content();
 
 		const LoginInfoList& personas = LoginInfo::GetList();
-		const unsigned int count = personas.size();
+		const size_t count = personas.size();
 
-		for (unsigned int index = 0; index < count; ++index)
+		for (size_t index = 0; index < count; ++index)
 			{
 			const WideStringClass& name = personas[index]->GetNickname();
 			combo->Add_String(name);

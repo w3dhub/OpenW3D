@@ -295,7 +295,7 @@ RCStringExtractorClass::Find_Starting_Index (void)
 {
 	int max_index = 0;
 
-	int prefix_len = Prefix.Get_Length ();
+	size_t prefix_len = Prefix.Get_Length ();
 
 	//
 	//	Loop over all the objects in the translation database

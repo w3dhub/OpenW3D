@@ -414,16 +414,16 @@ template <class KeyType, class ValueType> inline HashTemplateClass<KeyType,Value
 
 template <> inline unsigned int HashTemplateKeyClass<StringClass>::Get_Hash_Value(const StringClass& s)
 {
-	unsigned int len=s.Get_Length();
+	size_t len=s.Get_Length();
 	unsigned char* buffer=(unsigned char*)s.Peek_Buffer();
 	if (len<8) {
 		unsigned int hval=0;
-		for (unsigned int a=0;a<len;++a) {
+		for (size_t a=0;a<len;++a) {
 			hval+=37*hval+buffer[a];
 		}
 		return hval;
 	}
-	unsigned int hval = *((const unsigned int*)(buffer+len-8));
+	unsigned int hval = *((const unsigned int*)(buffer + len - 8));
 	hval = hval + (hval>>5) + (hval>>10) + (hval >> 20);
 	return hval;
 }

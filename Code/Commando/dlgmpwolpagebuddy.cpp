@@ -42,6 +42,7 @@
 #include "renegadedialogmgr.h"
 //#include "WOLBuddyMgr.h"
 #include "comboboxctrl.h"
+#include <limits>
 
 
 ////////////////////////////////////////////////////////////////
@@ -83,7 +84,7 @@ MPWolPageBuddyPopupClass::On_Init_Dialog(void)
 
 		// Get the current buddy list
 		const WWOnline::UserList& list = mBuddyMgr->GetBuddyList();
-		const unsigned int count = list.size();
+		const size_t count = list.size();
 
 		if (count == 0) {
 			Observer<WOLBuddyMgrEvent>::NotifyMe (*mBuddyMgr);
@@ -95,7 +96,7 @@ MPWolPageBuddyPopupClass::On_Init_Dialog(void)
 			if (combo_box) {
 			
 				// Add each buddy to the combobox
-				for (unsigned int index = 0; index < count; ++index) {
+				for (size_t index = 0; index < count; ++index) {
 					const RefPtr<WWOnline::UserData>& user = list[index];
 
 					// Add this buddy if they are currently online
@@ -265,11 +266,11 @@ void MPWolPageBuddyPopupClass::HandleNotification(WOLBuddyMgrEvent &event)
 		if (combo_box) {
 			combo_box->Reset_Content();
 		
-			const WWOnline::UserList& buddies = mBuddyMgr->GetBuddyList();
-			const unsigned int count = buddies.size();
+		const WWOnline::UserList& buddies = mBuddyMgr->GetBuddyList();
+		const size_t count = buddies.size();
 
-			// Add each buddy to the combobox
-			for (unsigned int index = 0; index < count; ++index) {
+		// Add each buddy to the combobox
+		for (size_t index = 0; index < count; ++index) {
 				const RefPtr<WWOnline::UserData>& user = buddies[index];
 
 				if (user->GetLocation() != WWOnline::USERLOCATION_OFFLINE) {

@@ -112,9 +112,9 @@ template<typename Event> class Notifier
 
 		virtual ~Notifier()
 			{
-			for (int index = mObservers.size(); index--;)
+			for (size_t index = mObservers.size(); index > 0;)
 				{
-				mObservers[index]->NotificationEnded(*this);
+				mObservers[--index]->NotificationEnded(*this);
 				}
 			}
 

@@ -40,6 +40,7 @@
 #include "dialogbase.h"
 #include <winuser.h>
 #include <algorithm>
+#include <limits>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -147,7 +148,8 @@ MultiLineTextCtrlClass::Create_Text_Renderer (void)
 			} else {											\
 				size_t bytes	= ((char *)src_end - (char *)src_start);	\
 				size_t len		= bytes / sizeof (wchar_t);						\
-				::memcpy (dest.Get_Buffer (len + 1), src_start, bytes);	\
+				WWASSERT(len + 1 <= static_cast<size_t>(std::numeric_limits<int>::max())); \
+				::memcpy (dest.Get_Buffer (static_cast<int>(len + 1)), src_start, bytes);	\
 				dest.Peek_Buffer ()[len] = 0;										\
 			}
 

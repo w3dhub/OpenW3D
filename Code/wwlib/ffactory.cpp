@@ -135,7 +135,7 @@ void SimpleFileFactoryClass::Set_Sub_Directory( const char * sub_directory )
 
 void SimpleFileFactoryClass::Prepend_Sub_Directory( const char * sub_directory )
 {
-	int sub_len = strlen(sub_directory);
+	size_t sub_len = ::strlen(sub_directory);
 	// Overflow prevention
 	if (sub_len > 1021) {
 		WWASSERT(0);
@@ -170,7 +170,7 @@ void SimpleFileFactoryClass::Prepend_Sub_Directory( const char * sub_directory )
 
 void SimpleFileFactoryClass::Append_Sub_Directory( const char * sub_directory )
 {
-	int sub_len = strlen(sub_directory);
+	size_t sub_len = ::strlen(sub_directory);
 	// Overflow prevention
 	if (sub_len > 1022) {
 		WWASSERT(0);
@@ -197,8 +197,8 @@ void SimpleFileFactoryClass::Append_Sub_Directory( const char * sub_directory )
 	CriticalSectionClass::LockClass lock(Mutex);
 
 	// Ensure a trailing semicolon is present, unless the directory list is empty
-	int len = SubDirectory.Get_Length();
-	if (len && SubDirectory[len - 1] != ';') {
+	size_t len = SubDirectory.Get_Length();
+	if (len && SubDirectory[static_cast<int>(len - 1)] != ';') {
 		SubDirectory += ';';
 	}
 

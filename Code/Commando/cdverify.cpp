@@ -103,10 +103,10 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 			//
 			char volume_name[256] = { 0 };
 			if (::GetVolumeInformationA (drive_root_name, volume_name, sizeof (volume_name),
-						NULL, NULL, NULL, NULL, 0))
+						NULL, NULL, NULL, NULL, NULL))
 			{
-				int cmp_len	= ::strlen (volume_name);
-				cmp_len		= std::max (cmp_len, 11);
+				size_t cmp_len = ::strlen (volume_name);
+				cmp_len = std::max<size_t> (cmp_len, static_cast<size_t>(11));
 
 				//
 				//	Is this the movies CD?

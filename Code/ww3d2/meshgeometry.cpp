@@ -95,7 +95,10 @@
 #include "wwdebug.h"
 #include "wwmemlog.h"
 #include "w3d_file.h"
+#include <climits>
 #include "vp.h"
+
+#include <limits>
 
 
 #if (OPTIMIZE_PLANEEQ_RAM)
@@ -333,7 +336,9 @@ void MeshGeometryClass::Set_Name(const char * newname)
 		MeshName->Release_Ref();
 	}
 	if (newname) {
-		MeshName = NEW_REF(ShareBufferClass<char>,(strlen(newname)+1));
+		const size_t length = strlen(newname) + 1;
+		WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		MeshName = NEW_REF(ShareBufferClass<char>, (static_cast<int>(length)));
 		strcpy(MeshName->Get_Array(),newname);
 	}
 }
@@ -378,7 +383,11 @@ void MeshGeometryClass::Set_User_Text(char * usertext)
 		UserText->Release_Ref();
 	}
 	if (usertext) {
-		UserText = NEW_REF(ShareBufferClass<char>,(strlen(usertext)+1));
+		size_t text_length = strlen(usertext) + 1;
+		WWASSERT(text_length <= static_cast<size_t>(INT_MAX));
+		const size_t length = strlen(usertext) + 1;
+		WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		UserText = NEW_REF(ShareBufferClass<char>, (static_cast<int>(length)));
 		strcpy(UserText->Get_Array(),usertext);
 	}
 }
@@ -1589,7 +1598,7 @@ WW3DErrorType MeshGeometryClass::Load_W3D(ChunkLoadClass & cload)
 	** Process the header
 	*/
 	char *	tmpname;
-	int		namelen;
+	size_t	namelen;
 	
 	Reset_Geometry(header.NumTris,header.NumVertices);
 	

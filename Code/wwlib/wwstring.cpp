@@ -64,7 +64,7 @@ unsigned StringClass::ReservedMask=0;
 //
 ///////////////////////////////////////////////////////////////////
 void
-StringClass::Get_String (int length, bool is_temp)
+StringClass::Get_String (size_t length, bool is_temp)
 {
 	WWMEMLOG(MEM_STRINGS);
 
@@ -78,7 +78,7 @@ StringClass::Get_String (int length, bool is_temp)
 	//
 	//	Should we attempt to use a temp buffer for this string?
 	//
-	if (is_temp && length <= MAX_TEMP_LEN && ReservedMask!=ALL_TEMP_STRINGS_USED_MASK) {
+	if (is_temp && length <= static_cast<size_t>(MAX_TEMP_LEN) && ReservedMask != ALL_TEMP_STRINGS_USED_MASK) {
 
 		//
 		//	Make sure no one else is requesting a temp pointer
@@ -108,7 +108,7 @@ StringClass::Get_String (int length, bool is_temp)
 				temp_string+=sizeof(_HEADER);	// The buffer contains header as well, and it needs to be at the start
 				string=temp_string;
 
-				Set_Buffer_And_Allocated_Length (string, MAX_TEMP_LEN);
+				Set_Buffer_And_Allocated_Length(string, static_cast<size_t>(MAX_TEMP_LEN));
 				break;
 			}
 		}
@@ -134,11 +134,11 @@ StringClass::Get_String (int length, bool is_temp)
 //
 ///////////////////////////////////////////////////////////////////
 void
-StringClass::Resize (int new_len)
+StringClass::Resize (size_t new_len)
 {
 	WWMEMLOG(MEM_STRINGS);
 
-	int allocated_len = Get_Allocated_Length ();
+	size_t allocated_len = Get_Allocated_Length ();
 	if (new_len > allocated_len) {
 
 		//
@@ -164,11 +164,11 @@ StringClass::Resize (int new_len)
 //
 ///////////////////////////////////////////////////////////////////
 void
-StringClass::Uninitialised_Grow (int new_len)
+StringClass::Uninitialised_Grow (size_t new_len)
 {
 	WWMEMLOG(MEM_STRINGS);
 
-	int allocated_len = Get_Allocated_Length ();
+	size_t allocated_len = Get_Allocated_Length ();
 	if (new_len > allocated_len) {
 		
 		//
@@ -317,11 +317,13 @@ bool StringClass::Copy_Wide (const wchar_t *source)
 		length = WideCharToMultiByte (CP_ACP, 0 , source, -1, NULL, 0, NULL, &unmapped);
 		if (length > 0) {
 
+			size_t buffer_length = static_cast<size_t>(length);
+
 			// Convert.
-			WideCharToMultiByte (CP_ACP, 0, source, -1, Get_Buffer (length), length, NULL, NULL);
+			WideCharToMultiByte(CP_ACP, 0, source, -1, Get_Buffer(buffer_length), length, NULL, NULL);
 
 			// Update length.
-			Store_Length (length - 1);
+			Store_Length(buffer_length - 1);
 		}
 
 		// Were all characters successfully mapped?

@@ -1239,9 +1239,9 @@ void WOLChatMgr::HandleNotification(WWOnline::UserList& users)
 	mUserInList.clear();
 	mUserOutList.clear();
 
-	int count = users.size();
+	const size_t count = users.size();
 
-	for (int index = 0; index < count; index++)
+	for (size_t index = 0; index < count; index++)
 		{
 		mWOLSession->RequestUserDetails(users[index], (REQUEST_LOCALE|REQUEST_SQUADINFO));
 		mUserInList.push_back(users[index]);

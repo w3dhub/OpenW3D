@@ -44,6 +44,7 @@
 #include "dialogmgr.h"
 #include "stylemgr.h"
 #include "dialogbase.h"
+#include <limits>
 #include <algorithm>
 
 
@@ -324,21 +325,22 @@ EditCtrlClass::Render (void)
 void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 {
 	// Resize to accomodate entire string
-	int length = Title.Get_Length();
+	size_t length = Title.Get_Length();
 
 	if (mIME && mInComposition) {
 		const wchar_t* compString = mIME->GetCompositionString();
 
 		if (compString) {
-			length += wcslen(compString);
+			length += ::wcslen(compString);
 		}
 	}
-
-	text.Get_Buffer(length);
+	WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		const int buffer_length = static_cast<int>(length);
+		text.Get_Buffer(buffer_length);
 
 	// If password then replace text with astrisks
 	if ((Style & ES_PASSWORD) != 0) {
-		int len = Title.Get_Length();
+		int len = static_cast<int>(Title.Get_Length());
 		wchar_t* buffer = text.Peek_Buffer();
 		int index;
 
@@ -356,8 +358,8 @@ void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 		const wchar_t* compString = mIME->GetCompositionString();
 
 		if (compString) {
-			WideStringClass temp(length, true);
-			temp = (text.Peek_Buffer() + CaretPos);
+			WideStringClass temp(buffer_length, true);
+				temp = (text.Peek_Buffer() + CaretPos);
 
 			text.Erase(CaretPos, (text.Get_Length() - CaretPos));
 			text += compString;
@@ -552,7 +554,7 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 	//	Index into the buffer
 	//
 	const wchar_t *text		= display_text.Peek_Buffer () + ScrollPos;	
-	int char_index			= display_text.Get_Length ();
+	int char_index			= static_cast<int>(display_text.Get_Length ());
 
 	float x_pos				= mouse_pos.X - ClientRect.Left;
 	float curr_x_pos		= 0;
@@ -561,7 +563,7 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 	//	Loop over all the characters in the remainder of the string until
 	// we've moved past the x-position we we're looking for.
 	//
-	int count = ::wcslen (text);	
+	int count = static_cast<int>(::wcslen (text));	
 	for (int index = 0; index < count; index ++) {
 		
 		//
@@ -878,7 +880,7 @@ void EditCtrlClass::On_Unicode_Char(wchar_t unicode)
 
 void EditCtrlClass::Insert_String(const wchar_t* string)
 {
-	int count = wcslen(string);
+	int count = static_cast<int>(::wcslen(string));
 
 	if (count > 0) {
 		//	Delete the old selection
@@ -1164,7 +1166,7 @@ EditCtrlClass::Set_Int (int value)
 void
 EditCtrlClass::Set_Text (const wchar_t *title)
 {
-	int count = wcslen(title);
+	int count = static_cast<int>(::wcslen(title));
 
 	// If the string is too long then truncate it so that it will fit.
 	if (count > TextLimit) {

@@ -45,7 +45,10 @@
 #include "slist.h"
 #include "crc.h"
 #include "rawfile.h"
+#include "wwdebug.h"
 
+#include <algorithm>
+#include <limits>
 #include <string.h>
 
 class TagBlockHandle;
@@ -100,9 +103,18 @@ class TagBlockFile : protected RawFileClass
 		static int Calc_Tag_Offset(int blockoffset)  {
 			return(blockoffset + sizeof(BlockHeader));
 		}
-		static int Calc_Data_Offset(int blockoffset, const char *tagname)  {
-			return(Calc_Tag_Offset(blockoffset) + strlen(tagname) + 1);
-			
+		static int Calc_Data_Offset(int blockoffset, const char* tagname) {
+			WWASSERT(tagname != NULL);
+
+			const size_t base_offset = static_cast<size_t>(Calc_Tag_Offset(blockoffset));
+			const size_t tag_length = strlen(tagname);
+			const size_t total_offset = base_offset + tag_length + 1;
+
+			WWASSERT(total_offset <= static_cast<size_t>(std::numeric_limits<int>::max()));
+
+			const size_t clamped_offset = std::min(total_offset, static_cast<size_t>(std::numeric_limits<int>::max()));
+			return static_cast<int>(clamped_offset);
+
 		}
 	protected:
 		///////////////////////////////////////////////////////////////////////////////////////////

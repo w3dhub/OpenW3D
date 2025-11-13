@@ -49,6 +49,7 @@
 #include <ww3d2/render2d.h>
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
+#include <limits>
 
 using namespace WWOnline;
 
@@ -404,9 +405,10 @@ void MPWolChatMenuClass::Add_Users(void)
 	if (list) {
 		// Loop over all the users
 		const UserList& userList = mChatMgr->GetUserInList();
-		const unsigned int count = userList.size();
+		const size_t count = userList.size();
+		WWASSERT(count <= static_cast<size_t>(std::numeric_limits<int>::max()));
 
-		for (unsigned int index = 0; index < count; ++index) {
+		for (size_t index = 0; index < count; ++index) {
 			const RefPtr<UserData>& user = userList[index];
 
 			// Add the user to the list control
@@ -445,9 +447,9 @@ void MPWolChatMenuClass::Remove_Users(void)
 	if (list) {
 		// Loop over all the users
 		const UserList& userList = mChatMgr->GetUserOutList();
-		const unsigned int count = userList.size();
+		const size_t count = userList.size();
 
-		for (unsigned int index = 0; index < count; ++index) {
+		for (size_t index = 0; index < count; ++index) {
 			const RefPtr<UserData>& user = userList[index];
 			WWASSERT(user.IsValid() && "Invalid user in userlist from WOLChatMgr");
 
@@ -485,9 +487,10 @@ void MPWolChatMenuClass::Refresh_Message_List(void)
 		const ChatMessageList& messageList = mChatMgr->GetMessageList();
 
 		//	Loop over all the messages
-		int count = messageList.size();
+		const size_t count = messageList.size();
+		WWASSERT(count <= static_cast<size_t>(std::numeric_limits<int>::max()));
 
-		for (int index = 0; index < count; index ++) {
+		for (size_t index = 0; index < count; index ++) {
 			const ChatMessage& message = messageList[index];
 		
 			// Build the string
@@ -508,7 +511,8 @@ void MPWolChatMenuClass::Refresh_Message_List(void)
 
 			//	Add the message to the list control
 			int entryCount = list->Get_Entry_Count();
-			int itemIndex = list->Insert_Entry(entryCount + index, msg);
+			WWASSERT(index <= static_cast<size_t>(std::numeric_limits<int>::max() - entryCount));
+			int itemIndex = list->Insert_Entry(entryCount + static_cast<int>(index), msg);
 
 			if (itemIndex != -1) {
 				//	Now, color the message as necessary

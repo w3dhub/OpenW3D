@@ -38,6 +38,7 @@
 #include <WWOnline/WOLUser.h>
 #include <WWOnline/WOLChannel.h>
 #include <WWOnline/PingProfile.h>
+#include <algorithm>
 #include <wwlib/realcrc.h>
 #include "modpackagemgr.h"
 #include <cstdio>
@@ -521,28 +522,28 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 		//-------------------------------------------------------------------------
 		// Encode topic
 		//-------------------------------------------------------------------------
-		unsigned int titleLength = std::min<unsigned int>(strlen(mTitle), 32);
-		titleLength += 0x20;
+		const size_t titleLength = std::min(::strlen(mTitle), static_cast<size_t>(32));
+		const unsigned int encodedTitleLength = static_cast<unsigned int>(titleLength + 0x20);
 
 		// WARNING: The channels topic field has a maximum size of 80 bytes.
 		// Ping profile and quickmatch settings are encoded in the topic in
 		// addition to the the game title. The combined maximum of ALL these
 		// entries MUST NEVER exceed 80 bytes.
 		char topic[81];
-		sprintf(topic, "%c%.32s", titleLength, mTitle);
+		sprintf(topic, "%c%.32s", encodedTitleLength, mTitle);
 		
 		//
 		// Only using 61 max right now. Room for a map name maybe? ST - 10/31/2002 2:55PM
 		//
-		unsigned int mapLength = std::min<unsigned int>(strlen(mMapName), 16);
-		mapLength += 0x20;
+		const size_t mapLength = std::min(::strlen(mMapName), static_cast<size_t>(16));
+		const unsigned int encodedMapLength = static_cast<unsigned int>(mapLength + 0x20);
 
 		// WARNING: The channels topic field has a maximum size of 80 bytes.
 		// Ping profile and quickmatch settings are encoded in the topic in
 		// addition to the the game title. The combined maximum of ALL these
 		// entries MUST NEVER exceed 80 bytes.
 		char mapinfo[81];
-		sprintf(mapinfo, "%c%.16s", mapLength, mMapName);
+		sprintf(mapinfo, "%c%.16s", encodedMapLength, mMapName);
 		strcat(topic, mapinfo);
 
 		// Add our ping profile

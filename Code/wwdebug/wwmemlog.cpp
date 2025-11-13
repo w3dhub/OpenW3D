@@ -40,6 +40,7 @@
 
 #include "always.h"
 #include "wwmemlog.h"
+#include <limits>
 #include "wwdebug.h"
 #include "vector.h"
 #include "FastAllocator.h"
@@ -637,33 +638,37 @@ void * WWMemoryLogClass::Allocate_Memory(size_t size)
 {
 #if DISABLE_MEMLOG
 	AllocateCount++;
+	WWASSERT(size <= static_cast<size_t>(std::numeric_limits<unsigned int>::max()));
 	return ALLOC_MEMORY(size);
 #else
 
 	thread_local static bool reentrancy_test = false;
 	MemLogMutexLockClass lock;
 
-	if (reentrancy_test) {
-		return ALLOC_MEMORY(size);
+		if (reentrancy_test) {
+			WWASSERT(size <= static_cast<size_t>(std::numeric_limits<unsigned int>::max()));
+			return ALLOC_MEMORY(size);
 	} else {
 		reentrancy_test = true;
 
 		/*
 		** Allocate space for the requested buffer + our logging structure
 		*/
+		WWASSERT(size <= static_cast<size_t>(std::numeric_limits<unsigned int>::max() - sizeof(MemoryLogStruct)));
 		void * ptr = ALLOC_MEMORY(size + sizeof(MemoryLogStruct));
 
 		if (ptr != NULL) {
 			/*
 			** Record this allocation
 			*/
-			int active_category = WWMemoryLogClass::Register_Memory_Allocated(size);
+			WWASSERT(size <= static_cast<size_t>(std::numeric_limits<int>::max()));
+			int active_category = WWMemoryLogClass::Register_Memory_Allocated(static_cast<int>(size));
 
 			/*
 			** Write our logging structure into the beginning of the buffer.  I'm using
 			** placement new syntax to initialize the log structure right in the memory buffer
 			*/
-			new(ptr) MemoryLogStruct(active_category,size);
+			new(ptr) MemoryLogStruct(active_category, static_cast<int>(size));
 
 			/*
 			** Return the allocated memory to the user, skipping past our log structure.

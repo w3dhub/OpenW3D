@@ -57,6 +57,9 @@
 #include "iostruct.h"
 #endif
 
+#include <cassert>
+#include <cstddef>
+#include <limits>
 #include <type_traits> // std::is_pointer_v
 
 
@@ -93,17 +96,22 @@
 struct ChunkHeader
 {
 	// Functions.
-	ChunkHeader() : ChunkType(0), ChunkSize(0) {}
-	ChunkHeader(uint32 type, uint32 size) {ChunkType = type; ChunkSize = size;}
+		ChunkHeader() : ChunkType(0), ChunkSize(0) {}
+	ChunkHeader(uint32 type, uint32 size) { ChunkType = type; ChunkSize = size; }
 
 	// Use these accessors to ensure you correctly deal with the data in the chunk header
-	void		Set_Type(uint32 type)					{ ChunkType = type; }
-	uint32	Get_Type(void)								{ return ChunkType; }
-	void		Set_Size(uint32 size)					{ ChunkSize &= 0x80000000; ChunkSize |= (size & 0x7FFFFFFF); }
-	void		Add_Size(uint32 add)						{ Set_Size(Get_Size() + add); }
-	uint32	Get_Size(void)								{ return (ChunkSize & 0x7FFFFFFF); }
-	void		Set_Sub_Chunk_Flag(bool onoff)		{ if (onoff) { ChunkSize |= 0x80000000; } else { ChunkSize &= 0x7FFFFFFF; } }
-	int		Get_Sub_Chunk_Flag(void)				{ return (ChunkSize & 0x80000000); }
+	void            Set_Type(uint32 type) { ChunkType = type; }
+	uint32          Get_Type(void) { return ChunkType; }
+	void            Set_Size(uint32 size) { ChunkSize &= 0x80000000; ChunkSize |= (size & 0x7FFFFFFF); }
+	void            Add_Size(uint32 add) {
+	const uint32	current_size = Get_Size();
+	const uint32	max_size = 0x7FFFFFFF;
+	assert(add <= max_size - current_size);
+					Set_Size(current_size + add);
+	}
+	uint32          Get_Size(void) { return (ChunkSize & 0x7FFFFFFF); }
+	void            Set_Sub_Chunk_Flag(bool onoff) { if (onoff) { ChunkSize |= 0x80000000; } else { ChunkSize &= 0x7FFFFFFF; } }
+	int             Get_Sub_Chunk_Flag(void) { return (ChunkSize & 0x80000000); }
 
 	// Chunk type and size.
 	// Note: MSB of ChunkSize is used to indicate whether this chunk
@@ -117,14 +125,19 @@ struct MicroChunkHeader
 	MicroChunkHeader() {}
 	MicroChunkHeader(uint8 type, uint8 size) { ChunkType = type, ChunkSize = size; }
 
-	void		Set_Type(uint8 type)						{ ChunkType = type; }
-	uint8		Get_Type(void)								{ return ChunkType; }
-	void		Set_Size(uint8 size)						{ ChunkSize = size; }
-	void		Add_Size(uint8 add)						{ Set_Size(Get_Size() + add); }
-	uint8		Get_Size(void)								{ return ChunkSize; }
+	void            Set_Type(uint8 type) { ChunkType = type; }
+	uint8           Get_Type(void) { return ChunkType; }
+	void            Set_Size(uint8 size) { ChunkSize = size; }
+	void            Add_Size(uint8 add) {
+	const uint16	current_size = Get_Size();
+	const uint16	max_size = std::numeric_limits<uint8>::max();
+		assert(add <= max_size - current_size);
+					Set_Size(static_cast<uint8>(current_size + add));
+	}
+	uint8           Get_Size(void) { return ChunkSize; }
 
-	uint8	ChunkType;
-	uint8	ChunkSize;
+	uint8   ChunkType;
+	uint8   ChunkSize;
 };
 
 
@@ -150,7 +163,7 @@ public:
 	bool					End_Micro_Chunk();
 
 	// Write data into the file
-	uint32				Write(const void *buf, uint32 nbytes);
+	uint32				Write(const void *buf, size_t nbytes);
 	uint32				Write(const IOVector2Struct & v);
 	uint32				Write(const IOVector3Struct & v);
 	uint32				Write(const IOVector4Struct & v);
@@ -202,7 +215,7 @@ public:
 	uint32				Cur_Micro_Chunk_Length();
 
 	// Read a block of bytes from the output stream.
-	uint32				Read(void *buf, uint32 nbytes);
+	uint32				Read(void *buf, size_t nbytes);
 	uint32				Read(IOVector2Struct * v);
 	uint32				Read(IOVector3Struct * v);
 	uint32				Read(IOVector4Struct * v);
@@ -254,12 +267,12 @@ private:
 */
 #define WRITE_WWSTRING_CHUNK(csave,id,var) { \
 	csave.Begin_Chunk(id); \
-	csave.Write((const char *)var, var.Get_Length () + 1); \
+	csave.Write((const char *)var, static_cast<size_t>(var.Get_Length ()) + 1); \
 	csave.End_Chunk(); }
 
 #define WRITE_WIDESTRING_CHUNK(csave,id,var) { \
 	csave.Begin_Chunk(id); \
-	csave.Write((const wchar_t *)var, (var.Get_Length () + 1) * 2); \
+	csave.Write((const wchar_t *)var, (static_cast<size_t>(var.Get_Length ()) + 1) * 2); \
 	csave.End_Chunk(); }
 
 
@@ -279,10 +292,10 @@ private:
 **
 */
 #define READ_WWSTRING_CHUNK(cload,id,var)		\
-	case (id):	cload.Read(var.Get_Buffer(cload.Cur_Chunk_Length()),cload.Cur_Chunk_Length()); break;	\
+	case (id):	cload.Read(var.Get_Buffer(static_cast<size_t>(cload.Cur_Chunk_Length())),cload.Cur_Chunk_Length()); break;	\
 
 #define READ_WIDESTRING_CHUNK(cload,id,var)		\
-	case (id):	cload.Read(var.Get_Buffer((cload.Cur_Chunk_Length()+1)/2),cload.Cur_Chunk_Length()); break;	\
+	case (id):	cload.Read(var.Get_Buffer(static_cast<size_t>((cload.Cur_Chunk_Length()+1)/2)),cload.Cur_Chunk_Length()); break;	\
 
 
 /*
@@ -323,12 +336,12 @@ private:
 
 #define WRITE_MICRO_CHUNK_WWSTRING(csave,id,var) { \
 	csave.Begin_Micro_Chunk(id); \
-	csave.Write((const char *)var, var.Get_Length () + 1); \
+	csave.Write((const char *)var, static_cast<size_t>(var.Get_Length ()) + 1); \
 	csave.End_Micro_Chunk(); }
 
 #define WRITE_MICRO_CHUNK_WIDESTRING(csave,id,var) { \
 	csave.Begin_Micro_Chunk(id); \
-	csave.Write((const wchar_t *)var, (var.Get_Length () + 1) * 2); \
+	csave.Write((const wchar_t *)var, (static_cast<size_t>(var.Get_Length ()) + 1) * 2); \
 	csave.End_Micro_Chunk(); }
 
 

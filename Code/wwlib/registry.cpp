@@ -39,6 +39,7 @@
 #include "inisup.h"
 #include <assert.h>
 #include <windows.h>
+#include <limits>
 
 //#include "wwdebug.h"
 
@@ -231,11 +232,12 @@ char *RegistryClass::Get_String( const char * name, char *value, int value_size,
 void	RegistryClass::Set_String( const char * name, const char *value )
 {
 	assert( IsValid );
-   int size = strlen( value ) + 1; // must include NULL
+	const size_t size = ::strlen( value ) + 1; // must include NULL
 	if (IsLocked) {
 		return;
 	}
-	if (::RegSetValueExA( (HKEY)Key, name, 0, REG_SZ, (LPBYTE)value, size ) !=
+	WWASSERT(size <= std::numeric_limits<DWORD>::max());
+	if (::RegSetValueExA( (HKEY)Key, name, 0, REG_SZ, (LPBYTE)value, static_cast<DWORD>(size) ) !=
 		ERROR_SUCCESS ) {
 	}
 }
@@ -322,11 +324,10 @@ void	RegistryClass::Set_String( const wchar_t * name, const wchar_t *value )
 {
 	assert( IsValid );
 
-   //
+	//
 	//	Determine the size
 	//
-	int size = wcslen( value ) + 1;
-	size		= size * 2;
+	const size_t size = (::wcslen( value ) + 1) * sizeof(wchar_t);
 
 	//
 	//	Set the registry key
@@ -334,7 +335,8 @@ void	RegistryClass::Set_String( const wchar_t * name, const wchar_t *value )
 	if (IsLocked) {
 		return;
 	}
-	::RegSetValueExW ( (HKEY)Key, name, 0, REG_SZ, (LPBYTE)value, size );
+	WWASSERT(size <= std::numeric_limits<DWORD>::max());
+	::RegSetValueExW ( (HKEY)Key, name, 0, REG_SZ, (LPBYTE)value, static_cast<DWORD>(size) );
 	return ;
 }
 
@@ -549,7 +551,7 @@ void RegistryClass::Load_Registry(const char *filename, char *old_path, char *ne
 		INIClass ini;
 		ini.Load(file);
 
-		int old_path_len = strlen(old_path);
+		const size_t old_path_len = ::strlen(old_path);
 		char path[1024];
 		char string[1024];
 		unsigned char buffer[8192];

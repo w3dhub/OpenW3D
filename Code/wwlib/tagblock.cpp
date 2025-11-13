@@ -56,6 +56,7 @@
 #include "realcrc.h"
 
 #include <assert.h>
+#include <limits>
 
 int TagBlockHandle::_InDestructor = 0;
 
@@ -301,7 +302,9 @@ TagBlockHandle *TagBlockFile::Create_Tag(const char *tagname)
 	// Write out the block header and the tag.
 	Seek(index->Get_BlockOffset(), SEEK_SET);
 	Write(blockheader, sizeof(*blockheader));
-	Write(tagname, strlen(tagname) + 1);
+	const size_t tag_length = ::strlen(tagname) + 1;
+	WWASSERT(tag_length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+	Write(tagname, static_cast<int>(tag_length));
 
 	// Now that we have all that we need, create the 
 	CreateHandle = new TagBlockHandle(this, index, blockheader);

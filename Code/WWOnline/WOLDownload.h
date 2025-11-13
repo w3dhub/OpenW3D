@@ -217,7 +217,7 @@ class DownloadWait :
 
 		void SetCallback(DownloadWaitCallback callback, void *userdata);
 
-		unsigned int GetDownloadCount(void) const
+		size_t GetDownloadCount(void) const
 			{return mFiles.size();}
 
 		const RefPtr<Download>& GetCurrentDownload(void) const

@@ -36,6 +36,7 @@
 #include <shellapi.h>
 #include <stdio.h>
 #include <assert.h>
+#include <limits>
 
 /******************************************************************************
 *
@@ -86,7 +87,9 @@ bool LaunchWebBrowser(const char* url)
 	// Write generic contents
 	const char* contents = "<title>ViewHTML</title>";
 	DWORD written;
-	WriteFile(file, contents, strlen(contents), &written, NULL);
+	const size_t content_length = ::strlen(contents);
+	assert(content_length <= std::numeric_limits<DWORD>::max());
+	WriteFile(file, contents, static_cast<DWORD>(content_length), &written, NULL);
 	CloseHandle(file);
 
 	// Find the executable that can launch this file

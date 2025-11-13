@@ -38,6 +38,7 @@
 #include "shutdown.h"
 #include "wwmath.h"
 #include "wwsaveload.h"
+#include <limits>
 #include "ww3d.h"
 #include "WWAudio.h"
 #include "wwphys.h"
@@ -269,7 +270,9 @@ public:
 		HANDLE file = CreateFileA(Filename, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 				FILE_ATTRIBUTE_NORMAL, NULL);
 		if (INVALID_HANDLE_VALUE != file) {
-			WriteFile(file, String, strlen(String), &written, NULL);
+			const size_t message_length = ::strlen(String);
+			WWASSERT(message_length <= std::numeric_limits<DWORD>::max());
+			WriteFile(file, String, static_cast<DWORD>(message_length), &written, NULL);
 			CloseHandle(file);
 		}
 	}
@@ -353,7 +356,9 @@ static void Log_System_Information()
 	file = CreateFileA("sysinfo.txt", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS,
 			FILE_ATTRIBUTE_NORMAL, NULL);
 	if (INVALID_HANDLE_VALUE != file) {
-		WriteFile(file, string, strlen(string), &written, NULL);
+		const size_t log_length = ::strlen(string);
+		WWASSERT(log_length <= static_cast<size_t>(std::numeric_limits<DWORD>::max()));
+		WriteFile(file, string, static_cast<DWORD>(log_length), &written, NULL);
 		CloseHandle(file);
 	}
 }

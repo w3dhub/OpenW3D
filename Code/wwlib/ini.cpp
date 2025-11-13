@@ -94,6 +94,7 @@
 #include	"win.h"
 #include	"xpipe.h"
 #include	"xstraw.h"
+#include <limits>
 #include	<stdio.h>
 #include <malloc.h>
 #ifdef _UNIX
@@ -654,6 +655,9 @@ int INIClass::Save(Pipe & pipe) const
 	#else
 		const char *EOL="\r\n";
 	#endif
+	const size_t eol_len_size = ::strlen(EOL);
+	WWASSERT(eol_len_size <= static_cast<size_t>(std::numeric_limits<int>::max()));
+	const int eol_len = static_cast<int>(eol_len_size);
 
 	INISection * secptr = SectionList->First();
 	while (secptr && secptr->Is_Valid()) {
@@ -662,19 +666,25 @@ int INIClass::Save(Pipe & pipe) const
 		**	Output the section identifier.
 		*/
 		total += pipe.Put("[", 1);
-		total += pipe.Put(secptr->Section, strlen(secptr->Section));
+		const size_t section_len = ::strlen(secptr->Section);
+		WWASSERT(section_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		total += pipe.Put(secptr->Section, static_cast<int>(section_len));
 		total += pipe.Put("]", 1);
-		total += pipe.Put(EOL, strlen(EOL));
+		total += pipe.Put(EOL, eol_len);
 
 		/*
 		**	Output all the entries and values in this section.
 		*/
 		INIEntry * entryptr = secptr->EntryList.First();
 		while (entryptr && entryptr->Is_Valid()) {
-			total += pipe.Put(entryptr->Entry, strlen(entryptr->Entry));
+			const size_t entry_len = ::strlen(entryptr->Entry);
+			WWASSERT(entry_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+			total += pipe.Put(entryptr->Entry, static_cast<int>(entry_len));
 			total += pipe.Put("=", 1);
-			total += pipe.Put(entryptr->Value, strlen(entryptr->Value));
-			total += pipe.Put(EOL, strlen(EOL));
+			const size_t value_len = ::strlen(entryptr->Value);
+			WWASSERT(value_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+			total += pipe.Put(entryptr->Value, static_cast<int>(value_len));
+			total += pipe.Put(EOL, eol_len);
 
 			entryptr = entryptr->Next();
 		}
@@ -683,7 +693,7 @@ int INIClass::Save(Pipe & pipe) const
 		**	After the last entry in this section, output an extra
 		**	blank line for readability purposes.
 		*/
-		total += pipe.Put(EOL, strlen(EOL));
+		total += pipe.Put(EOL, eol_len);
 
 		secptr = secptr->Next();
 	}
@@ -1034,7 +1044,7 @@ bool INIClass::Put_Wide_String(char const * section, char const * entry, const w
 	}
 
 	WideStringClass temp_string(string, true);
-	int len = temp_string.Get_Length();
+	size_t len = temp_string.Get_Length();
 
 	if (len == 0) {
 		Put_String(section, entry, "");
@@ -1042,7 +1052,7 @@ bool INIClass::Put_Wide_String(char const * section, char const * entry, const w
 
 		char *buffer = (char*) _alloca((len * 8) + 32);
 
-		BufferStraw straw(string, (len*2) + 2);		// Convert from shorts to bytes, plus 2 for terminator.
+		BufferStraw straw(string, static_cast<int>((len * 2) + 2));		// Convert from shorts to bytes, plus 2 for terminator.
 		Base64Straw bstraw(Base64Straw::ENCODE);
 		bstraw.Get_From(straw);
 
@@ -1153,7 +1163,7 @@ bool INIClass::Put_TextBlock(char const * section, char const * text)
 		/*
 		**	Scan backward looking for a good break position.
 		*/
-		int count = strlen(buffer);
+		int count = static_cast<int>(::strlen(buffer));
 		if (count > 0) {
 			if (count >= 75) {
 				while (count) {
@@ -1227,7 +1237,7 @@ int INIClass::Get_TextBlock(char const * section, char * buffer, int len) const
 
 		Get_String(section, Get_Entry(section, index), "", buffer, len);
 
-		int partial = strlen(buffer);
+		int partial = static_cast<int>(::strlen(buffer));
 		total += partial;
 		buffer += partial;
 		len -= partial;
@@ -1715,7 +1725,7 @@ int INIClass::Get_String(char const * section, char const * entry, char const * 
 		strncpy(buffer, defvalue, size);
 		buffer[size-1] = '\0';
 		strtrim(buffer);
-		return(strlen(buffer));
+		return static_cast<int>(::strlen(buffer));
 	}
 }
 

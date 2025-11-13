@@ -224,7 +224,7 @@ void 	ConsoleGameModeClass::Think()
 
       if (enable_console) {
 		   InputActive = true;
-         PromptLength = strlen(InputLine);
+         PromptLength = ::strlen(InputLine);
 		   Input::Console_Enable();
 			Clear_Suggestion();
       }
@@ -242,14 +242,14 @@ WWPROFILE( "Input Active" );
 
 		while ( key ) {
 
-			int len = strlen( InputLine ) ;
+			size_t len = ::strlen( InputLine );
 
 			switch( key ) {
 
 				case ENTER_KEY:
 					if (ConsoleInputType == INPUT_FUNCTION_BEGIN_CONSOLE) {
 						Accept_Suggestion(InputLine + PromptLength);
-						len = strlen(InputLine);
+						len = ::strlen(InputLine);
 						Clear_Suggestion();
 					}
 					//Parse_Input( InputLine );
@@ -283,11 +283,11 @@ WWPROFILE( "Input Active" );
 					// Accept any suggested command line completion and fall through to default
 					if (ConsoleInputType == INPUT_FUNCTION_BEGIN_CONSOLE) {
 						Accept_Suggestion(InputLine + PromptLength);
-						len = strlen(InputLine);
+						len = ::strlen(InputLine);
 					}
 
 				default:
-					if ( len + 1 < MAX_INPUT_LINE_LENGTH) {
+					if ( len + 1 < static_cast<size_t>(MAX_INPUT_LINE_LENGTH)) {
 						InputLine[ len++ ] = key;
 						InputLine[ len ] = 0;
 
