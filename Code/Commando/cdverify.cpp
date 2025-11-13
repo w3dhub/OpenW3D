@@ -41,7 +41,6 @@
 #include <algorithm>
 #include "resource.h"
 
- // NOTE: Test to force CRLF
 
 //////////////////////////////////////////////////////////////////////
 //	Local constants
@@ -194,3 +193,4 @@ CDVerifyDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 	PopupDialogClass::On_Command (ctrl_id, message_id, param);
 	return ;
 }
+
