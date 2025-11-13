@@ -486,7 +486,7 @@ void ServerControlClass::Reset_Timeout(unsigned long ip, unsigned short port)
  *=============================================================================================*/
 void ServerControlClass::Send_Message(const char *text, unsigned long ip, unsigned short port)
 {
-	        ControlMessageStruct message;
+	    ControlMessageStruct message;
         message.Type = CONTROL_REQUEST;
         strcpy(message.Message, text);
 

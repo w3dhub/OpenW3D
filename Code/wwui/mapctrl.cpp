@@ -705,8 +705,8 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 		if (file->Is_Available () == false) {
 			is_valid = false;
 			_TheFileFactory->Return_File (file);
-				const size_t overlay_len = overlay_texture_name.Get_Length ();
-				overlay_texture_name.Erase (static_cast<int>(overlay_len - 3), 3);
+			const size_t overlay_len = overlay_texture_name.Get_Length ();
+			overlay_texture_name.Erase (static_cast<int>(overlay_len - 3), 3);
 			overlay_texture_name += "dds";
 			file = _TheFileFactory->Get_File (overlay_texture_name);
 			if (file != NULL && file->Is_Available ()) {

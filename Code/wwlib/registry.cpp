@@ -551,7 +551,7 @@ void RegistryClass::Load_Registry(const char *filename, char *old_path, char *ne
 		INIClass ini;
 		ini.Load(file);
 
-	const size_t old_path_len = ::strlen(old_path);
+		const size_t old_path_len = ::strlen(old_path);
 		char path[1024];
 		char string[1024];
 		unsigned char buffer[8192];

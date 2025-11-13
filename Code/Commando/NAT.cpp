@@ -3059,7 +3059,7 @@ int FirewallHelperClass::Negotiate_Port(void)
 			WWDEBUG_SAY(("FirewallHelper: Sending PACKETTYPE_FIREWALL_PROBE packet to %s at port %d\n", PlayersName, PlayersMangledPort));
 			timeout = TIMEGETTIME() + (TIMER_SECOND * 6);
 			resend_timer = 0;
-
+			//TODO: Check double indentation.
 			do {
 				if (resend_timer < TIMEGETTIME()) {
 						//if (!CrapFlag)

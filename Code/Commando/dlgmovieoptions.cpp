@@ -249,7 +249,7 @@ MovieOptionsMenuClass::Begin_Play_Movie (void)
 				//	Build a full-path to the movie on the CD
 				//
 				StringClass full_path = cd_path;
-					const size_t path_length = cd_path.Get_Length ();
+				const size_t path_length = cd_path.Get_Length ();
 					if (path_length == 0 || cd_path[static_cast<int>(path_length - 1)] != '\\') {
 						full_path += "\\";
 					}
@@ -379,7 +379,7 @@ MovieOptionsMenuClass::HandleNotification (CDVerifyEvent &event)
 			//	Build a full-path to the movie on the CD
 			//
 			StringClass full_path = cd_path;
-				const size_t path_length = cd_path.Get_Length ();
+			const size_t path_length = cd_path.Get_Length ();
 				if (path_length == 0 || cd_path[static_cast<int>(path_length - 1)] != '\\') {
 					full_path += "\\";
 				}

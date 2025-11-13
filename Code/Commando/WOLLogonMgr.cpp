@@ -252,7 +252,7 @@ RefPtr<IRCServerData> WOLLogonMgr::GetDefaultServer(void)
 			float serverLat = thisServer->GetLattitude();
 
 			// Find the ping server with the best time.
-				for (size_t pingindex = 0; pingindex < pingers.size(); pingindex++)
+			for (size_t pingindex = 0; pingindex < pingers.size(); pingindex++)
 				{
 				const RefPtr<PingServerData>& thisPing = pingers[pingindex];
 				float pingLong = thisPing->GetLongitude();
@@ -1292,9 +1292,9 @@ void WOLLogonMgr::HandleNotification(MessageOfTheDayEvent &event)
 	if (news)
 		{
 		// Get the text of the news section
-			WideStringClass news_body(0, true);
-			news_body = news + TAG_NEWS_START_LEN;
-			wchar_t* news_end = (wchar_t*)::wcsstr(news_body, TAG_NEWS_END);
+		WideStringClass news_body(0, true);
+		news_body = news + TAG_NEWS_START_LEN;
+		wchar_t* news_end = (wchar_t*)::wcsstr(news_body, TAG_NEWS_END);
 
 		if (news_end)
 			{

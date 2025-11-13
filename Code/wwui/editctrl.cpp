@@ -327,12 +327,12 @@ void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 	// Resize to accomodate entire string
 	size_t length = Title.Get_Length();
 
-		if (mIME && mInComposition) {
-			const wchar_t* compString = mIME->GetCompositionString();
+	if (mIME && mInComposition) {
+		const wchar_t* compString = mIME->GetCompositionString();
 
-			if (compString) {
-				length += ::wcslen(compString);
-			}
+		if (compString) {
+			length += ::wcslen(compString);
+		}
 	}
 	WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
 		const int buffer_length = static_cast<int>(length);
@@ -355,10 +355,10 @@ void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 
 	// Insert IME composition at cursor position
 	if (mIME && mInComposition) {
-			const wchar_t* compString = mIME->GetCompositionString();
+		const wchar_t* compString = mIME->GetCompositionString();
 
-			if (compString) {
-				WideStringClass temp(buffer_length, true);
+		if (compString) {
+			WideStringClass temp(buffer_length, true);
 				temp = (text.Peek_Buffer() + CaretPos);
 
 			text.Erase(CaretPos, (text.Get_Length() - CaretPos));

@@ -1227,10 +1227,10 @@ void WOLBuddyMgr::HandleNotification(BuddyEvent& event)
 
 	if ((event.GetEvent() == BuddyEvent::NewList) || (event.GetEvent() == BuddyEvent::Added))
 		{
-			const UserList& buddies = event.Subject();
-			const size_t count = buddies.size();
+		const UserList& buddies = event.Subject();
+		const size_t count = buddies.size();
 
-			for (size_t index = 0; index < count; ++index)
+		for (size_t index = 0; index < count; ++index)
 			{
 			const RefPtr<UserData>& buddy = buddies[index];
 

@@ -393,7 +393,7 @@ bool ServerSettingsClass::Parse(bool apply)
 		RegistryClass reg_remote(APPLICATION_SUB_KEY_NAME_NET_SERVER_CONTROL);
 		if (allow_remote) {
 			ini.Get_String(MasterServerSection, "RemoteAdminPassword", "", remote_admin_pass, sizeof(remote_admin_pass));
-				const size_t len = ::strlen(remote_admin_pass);
+			const size_t len = ::strlen(remote_admin_pass);
 			if (len == 0) {
 				ConsoleBox.Print("Error - Remote admin password must be specified - aborting\n");
 				ConsoleBox.Wait_For_Keypress();;
@@ -666,11 +666,11 @@ bool ServerSettingsClass::Parse(bool apply)
  *=============================================================================================*/
 void ServerSettingsClass::Encrypt_Serial(StringClass serial_in, StringClass &serial_out, bool encrypt)
 {
-		char *s;
-		const size_t numberlength = serial_in.Get_Length();
-		unsigned long bytesread;
-		char stringbuffer[ENCRYPTION_STRING_LENGTH];
-		size_t p;
+	char *s;
+	const size_t numberlength = serial_in.Get_Length();
+	unsigned long bytesread;
+	char stringbuffer[ENCRYPTION_STRING_LENGTH];
+	size_t p;
 
 	WWASSERT(numberlength);
 

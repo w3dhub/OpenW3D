@@ -609,8 +609,8 @@ MPChatChildDialogClass::Find_Current_Command(const wchar_t* message, int& start_
 			// and the caret
 			//
 			const wchar_t *first_space = ::wcschr (command_start, L' ');
-				if (first_space == NULL) {
-					end_index = static_cast<int>(::wcslen (message));
+			if (first_space == NULL) {
+				end_index = static_cast<int>(::wcslen (message));
 				retval = true;
 			} else if (caret_pos <= (first_space - message)) {
 				end_index = (first_space - message);
