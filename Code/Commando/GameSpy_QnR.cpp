@@ -75,7 +75,6 @@
 #include <gamespy/pt/pt.h>
 #include <gamespy/gcdkey/gcdkeys.h>
 
- // NOTE: Test to force CRLF
 CGameSpyQnR GameSpyQnR;
 
 #if defined(MULTIPLAYERDEMO)
@@ -193,9 +192,9 @@ void CGameSpyQnR::LaunchArcade(void) {
 			::RegQueryValueExA ((HKEY)key, "InstDir", NULL, &type,
 				(LPBYTE)value.Get_Buffer(data_size), &data_size);
 		}
-			if (!value.Is_Empty()) {
-				const size_t length = value.Get_Length();
-				if (value[static_cast<int>(length - 1)] == '\\') {
+		if (!value.Is_Empty()) {
+			const size_t length = value.Get_Length();
+			if (value[static_cast<int>(length - 1)] == '\\') {
 				value += "Aphex.exe";
 			} else {
 				value += "\\Aphex.exe";

@@ -63,7 +63,6 @@
 #include <cstdint>
 #include <thread>
 
-// NOTE: Test to force CRLF
 static SimpleDynVecClass<WWProfileHierachyNodeClass*> ProfileCollectVector;
 static double TotalFrameTimes;
 static bool ProfileCollecting;
@@ -165,9 +164,9 @@ void WWProfileHierachyNodeClass::Write_To_File(FileClass* file,int recursion)
 		int i;
 		StringClass string;
 		StringClass work;
-		for (i = 0; i < recursion; ++i) { string += "\t"; }
-		work.Format("%s\t%d\t%f\r\n", Name, TotalCalls, TotalTime * 1000.0f);
-		string += work;
+		for (i=0;i<recursion;++i) { string+="\t"; }
+		work.Format("%s\t%d\t%f\r\n",Name,TotalCalls,TotalTime*1000.0f);
+		string+=work;
 		const size_t length = string.Get_Length();
 		WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
 		file->Write(string.Peek_Buffer(), static_cast<int>(length));

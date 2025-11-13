@@ -161,7 +161,6 @@
 #include "lightsolve.h"
 #include "lightsolvecontext.h"
 
-// NOTE: Test to force CRLF
 
 
 void	ConsoleFunctionClass::Print( const char *format, ... )
@@ -4016,9 +4015,9 @@ public:
 							const size_t addr_string_len = ::strlen(addr_string);
 							char local_addr_string[128];
 							strcpy(local_addr_string, addr_string);
-								if (addr_string_len < 21) {
-									const size_t padding = 21 - addr_string_len;
-									strncat(local_addr_string, "                         ", padding);
+							if (addr_string_len < 21) {
+								const size_t padding = 21 - addr_string_len;
+								strncat(local_addr_string, "                         ", padding);
 							}
 
 							Vector3 color = playerptr->Get_Color();
@@ -5491,3 +5490,4 @@ void	ConsoleFunctionManager::Print( const char *format, ... )
 	ConsoleBox.Print(string.Peek_Buffer());
 	va_end (arg_list);
 }
+

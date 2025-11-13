@@ -38,14 +38,12 @@
 #include <WWOnline/WOLServer.h>
 #include <WWOnline/WOLString.h>
 #include <wwlib/widestring.h>
-#include <algorithm>
 #include <wwdebug/wwdebug.h>
 #include <limits.h>
 #include <math.h>
 #include <cstdio>
 #include <algorithm>
 
-// NOTE: Test to force CRLF
 using namespace WWOnline;
 
 static PingProfile gPingProfile;
@@ -334,11 +332,11 @@ void PingProfileWait::WaitBeginning(void)
 		return;
 		}
 
-		const PingServerList& pingers = mWOLSession->GetPingServerList();
+	const PingServerList& pingers = mWOLSession->GetPingServerList();
 
-		// Handle up to eight servers
-		const size_t count = std::min(static_cast<size_t>(8), pingers.size());
-		mCount = static_cast<unsigned int>(count);
+	// Handle up to eight servers
+	const size_t count = std::min(static_cast<size_t>(8), pingers.size());
+	mCount = static_cast<unsigned int>(count);
 
 	if (mCount == 0)
 		{

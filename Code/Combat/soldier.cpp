@@ -101,7 +101,6 @@
 #include "colmathaabox.h" // Agressive inlining causes linker issues if this isn't here.
 #include <algorithm>
 
-// NOTE: Test to force CRLF
 /*
 **
 */
@@ -1415,7 +1414,7 @@ tm.Rotate_Z( 3.6f );
 //			Debug_Say(( "		\"%s\",\n", name ));
 			FileClass * file = _TheFileFactory->Get_File( name );
 tm.Pre_Rotate_X( 0.3f );
-			 if ( file && file->Is_Available() ) {
+			if ( file && file->Is_Available() ) {
 				size_t size = file->Size();
 tm.Pre_Rotate_Y( 0.4f );
 				file->Open();
@@ -1426,10 +1425,10 @@ tm.Pre_Rotate_Z( 0.5f );
 tm.Translate_X( 3.1f );
 					const int amount = file->Read(buffer, static_cast<int>(chunk));
 tm.Translate_Y( 4.6f );
-					if (amount <= 0) {
-						break;
+			if (amount <= 0) {
+				break;
 					}
-					crc = CRC_Memory(buffer, amount, crc);
+					crc = CRC_Memory( buffer, amount, crc );
 tm.Translate_Z( 8.2f );
 					size -= static_cast<size_t>(amount);
 				}

@@ -38,7 +38,6 @@
 
 #include "atlbase_compat.h"
 #include "WOLSession.h"
-#include <algorithm>
 #include "WOLChatObserver.h"
 #include "WOLNetUtilObserver.h"
 #include "WOLProduct.h"
@@ -52,7 +51,6 @@
 
 #include "systimer.h"
 
-// NOTE: Test to force CRLF
 namespace WWOnline {
 
 RefPtr<Session> Session::_mInstance;
@@ -1937,7 +1935,6 @@ void Session::MakeLocaleRequests(void)
 		{
 			return;
 		}
-
 		WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 
@@ -2077,12 +2074,12 @@ void Session::MakeSquadRequests(void)
 	{
 	if (!mSquadRequests.empty() && mSquadPending.empty())
 		{
-	// Send up to ten requests at a time.
-	const size_t count = std::min(static_cast<size_t>(10), mSquadRequests.size());
+		// Send up to ten requests at a time.
+		const size_t count = std::min(static_cast<size_t>(10), mSquadRequests.size());
 
-	// Send each request in turn,
-	size_t index = 0;
-	for (; index < count; ++index)
+		// Send each request in turn,
+		size_t index = 0;
+		for (; index < count; ++index)
 			{
 			const WideStringClass& request = mSquadRequests[index];
 
@@ -2112,12 +2109,12 @@ void Session::MakeSquadRequests(void)
 				WWDEBUG_SAY(("WOLERROR: RequestSquadInfo() HRESULT = %s\n", GetChatErrorString(hr)));
 				break;
 				}
-
-			mSquadPending.push_back(request);
+			SquadRequestColl::iterator first = mSquadRequests.begin();
+			mSquadRequests.erase(first, first + static_cast<SquadRequestColl::difference_type>(index));
 			}
 
-	SquadRequestColl::iterator first = mSquadRequests.begin();
-	mSquadRequests.erase(first, first + static_cast<SquadRequestColl::difference_type>(index));
+		SquadRequestColl::iterator first = mSquadRequests.begin();
+		mSquadRequests.erase(first, first + index);
 		}
 	}
 
@@ -2182,7 +2179,6 @@ void Session::MakeTeamRequests(void)
 		{
 			return;
 		}
-
 		WOL::User* users = new WOL::User[count];
 		WWASSERT(users && "Failed to create temporary users array");
 
