@@ -101,7 +101,6 @@
 #include "colmathaabox.h" // Agressive inlining causes linker issues if this isn't here.
 #include <algorithm>
 
-// NOTE: Test to force CRLF
 /*
 **
 */
@@ -5311,4 +5310,5 @@ void	SoldierGameObj::Update_Locked_Facing( void )
 		CombatManager::Soldier_Dies(this);
 	}
 	*/
+
 
