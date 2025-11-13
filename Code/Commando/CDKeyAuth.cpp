@@ -52,6 +52,7 @@
 #include "GameSpy_QnR.h"
 #include "ServerSettings.h"
 
+ // NOTE: Test to force CRLF
 // static void c_auth_callback(int localid, int authenticated, char *errmsg, void *instance)
 // {
 //	((CCDKeyAuth *)instance)->auth_callback(localid, authenticated, errmsg);

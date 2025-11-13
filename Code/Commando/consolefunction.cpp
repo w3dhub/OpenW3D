@@ -161,6 +161,7 @@
 #include "lightsolve.h"
 #include "lightsolvecontext.h"
 
+// NOTE: Test to force CRLF
 
 
 void	ConsoleFunctionClass::Print( const char *format, ... )

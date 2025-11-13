@@ -41,6 +41,7 @@
 #include <algorithm>
 #include "resource.h"
 
+ // NOTE: Test to force CRLF
 
 //////////////////////////////////////////////////////////////////////
 //	Local constants

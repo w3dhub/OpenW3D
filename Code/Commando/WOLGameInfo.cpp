@@ -44,6 +44,7 @@
 #include <cstdio>
 #include <algorithm>
 
+// NOTE: Test to force CRLF
 using namespace WWOnline;
 
 /******************************************************************************

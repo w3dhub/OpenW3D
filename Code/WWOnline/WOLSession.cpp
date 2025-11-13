@@ -52,6 +52,7 @@
 
 #include "systimer.h"
 
+// NOTE: Test to force CRLF
 namespace WWOnline {
 
 RefPtr<Session> Session::_mInstance;

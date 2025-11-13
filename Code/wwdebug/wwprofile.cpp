@@ -63,6 +63,7 @@
 #include <cstdint>
 #include <thread>
 
+// NOTE: Test to force CRLF
 static SimpleDynVecClass<WWProfileHierachyNodeClass*> ProfileCollectVector;
 static double TotalFrameTimes;
 static bool ProfileCollecting;

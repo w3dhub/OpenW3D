@@ -75,6 +75,7 @@
 #include <gamespy/pt/pt.h>
 #include <gamespy/gcdkey/gcdkeys.h>
 
+ // NOTE: Test to force CRLF
 CGameSpyQnR GameSpyQnR;
 
 #if defined(MULTIPLAYERDEMO)
