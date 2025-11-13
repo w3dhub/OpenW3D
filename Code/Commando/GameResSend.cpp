@@ -339,15 +339,18 @@ void AddPlayerStats(GameResPacket& stats, cPlayer* player, WOL::Locale locale,
 	{
 	if (player->Is_Human())
 		{
-		// Players WOL name TODO: Check Bracing
+		// Players WOL name
 		const WideStringClass& playerName = player->Get_Name();
 		char name[10];
 		const size_t len = wcstombs(name, (const wchar_t*)playerName, sizeof(name) - 1);
-			if (len == static_cast<size_t>(-1)) {
-				name[0] = 0;
-			} else {
-				name[len] = 0;
-			}
+		if (len == static_cast<size_t>(-1))
+		{
+			name[0] = 0;
+		}
+		else
+		{
+			name[len] = 0;
+		}
 
 		stats.Add_Field("PNAM", name);
 		stats.Add_Field("PLOC", (unsigned long)locale);

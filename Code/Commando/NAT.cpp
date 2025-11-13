@@ -3059,13 +3059,13 @@ int FirewallHelperClass::Negotiate_Port(void)
 			WWDEBUG_SAY(("FirewallHelper: Sending PACKETTYPE_FIREWALL_PROBE packet to %s at port %d\n", PlayersName, PlayersMangledPort));
 			timeout = TIMEGETTIME() + (TIMER_SECOND * 6);
 			resend_timer = 0;
-			//TODO: Check double indentation.
+
 			do {
 				if (resend_timer < TIMEGETTIME()) {
-						//if (!CrapFlag)
-						const size_t payload_size = ::strlen(packet) + 1;
-						WWASSERT(payload_size <= std::numeric_limits<int>::max());
-						WOLNATInterface.Send_Game_Format_Packet_To(&PlayersFirewallAddress, packet, static_cast<int>(payload_size), socket);
+					//if (!CrapFlag)
+					const size_t payload_size = ::strlen(packet) + 1;
+					WWASSERT(payload_size <= std::numeric_limits<int>::max());
+					WOLNATInterface.Send_Game_Format_Packet_To(&PlayersFirewallAddress, packet, static_cast<int>(payload_size), socket);
 					resend_timer = TIMEGETTIME() + (TIMER_SECOND / 2);
 				}
 
