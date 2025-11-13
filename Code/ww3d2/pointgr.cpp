@@ -720,7 +720,7 @@ int PointGroupClass::Get_Polygon_Count(void)
  *   12/10/1998 NH  : Created.                                            * 
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
-static SimpleVecClass<unsigned long> remap;
+static SimpleVecClass<unsigned int> remap;
 void PointGroupClass::Render(RenderInfoClass &rinfo)
 {
 	// NB: the winding for pointgroups is wrong, but we

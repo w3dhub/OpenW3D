@@ -108,8 +108,8 @@ class RawFileClass : public FileClass
 		virtual int Size(void) override;
 		virtual int Write(void const *buffer, int size) override;
 		virtual void Close(void) override;
-		virtual unsigned long Get_Date_Time(void) override;
-		virtual bool Set_Date_Time(unsigned long datetime) override;
+		virtual unsigned int Get_Date_Time(void) override;
+		virtual bool Set_Date_Time(unsigned int datetime) override;
 		virtual void Error(int error, int canretry = false, char const * filename=NULL) override;
 		virtual void Bias(int start, int length=-1) override;
 		virtual void * Get_File_Handle(void) override { return Handle;  }

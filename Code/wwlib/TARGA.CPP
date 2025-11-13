@@ -153,7 +153,7 @@ Targa::~Targa(void)
 * SYNOPSIS
 *     Error = Open(Name, Mode)
 *
-*     long Open(char *, long);
+*     int Open(char *, int);
 *
 * FUNCTION
 *     Open a Targa image file and read in its header. The file stream will
@@ -168,11 +168,11 @@ Targa::~Targa(void)
 *
 ****************************************************************************/
 
-long Targa::Open(const char* name, long mode)
+int Targa::Open(const char* name, int mode)
 {
 	TGA2Footer	footer;
-	long			size;
-	long			error = 0;
+	int			size;
+	int			error = 0;
 
 	/* File already open? */
 	if (Is_File_Open() && (mAccess == mode)) {
@@ -334,7 +334,7 @@ void Targa::Close(void)
 * SYNOPSIS
 *     Error = Load(Name, Palette, ImageBuffer)
 *
-*     long Load(char *, char *, char *);
+*     int Load(char *, char *, char *);
 *
 * FUNCTION
 *     Open and load the Targa into the specified buffers. If either buffer
@@ -350,11 +350,11 @@ void Targa::Close(void)
 *
 ****************************************************************************/
 
-long Targa::Load(const char* name, char* palette, char* image,bool invert_image)
+int Targa::Load(const char* name, char* palette, char* image,bool invert_image)
 {
-	long size;
-	long depth;
-	long error = 0;
+	int size;
+	int depth;
+	int error = 0;
 
 	/* Open the Targa */
 	if (Open(name, TGA_READMODE) == 0) {
@@ -470,7 +470,7 @@ long Targa::Load(const char* name, char* palette, char* image,bool invert_image)
 * SYNOPSIS
 *     Error = Load(Name, Flags)
 *
-*     long Load(char, long);
+*     int Load(char, int);
 *
 * FUNCTION
 *     Open and load the Targa into buffers allocated by this function.
@@ -484,10 +484,10 @@ long Targa::Load(const char* name, char* palette, char* image,bool invert_image)
 *
 ****************************************************************************/
 
-long Targa::Load(const char* name, long flags, bool invert_image)
+int Targa::Load(const char* name, int flags, bool invert_image)
 {
-	long size;
-	long error = 0;
+	int size;
+	int error = 0;
 
 	/* Open the file to get the header. */
 	if (Open(name, TGA_READMODE) == 0) {
@@ -569,7 +569,7 @@ long Targa::Load(const char* name, long flags, bool invert_image)
 * SYNOPSIS
 *     Error = Save(Name, Flags)
 *
-*     long Save(char *, long);
+*     int Save(char *, int);
 *
 * FUNCTION
 *
@@ -582,16 +582,16 @@ long Targa::Load(const char* name, long flags, bool invert_image)
 *
 ****************************************************************************/
 
-long Targa::Save(const char* name, long flags, bool addextension)
+int Targa::Save(const char* name, int flags, bool addextension)
 	{
-	long size;
-	long depth;
+	int size;
+	int depth;
 	char *palette;
 	char *temppal;
 	char *ptr;
-	//long i,n;
+	//int i,n;
 	//char c;
-	long error = 0;
+	int error = 0;
 	TGA2Footer footer;
 
 	/* Open the Targa for write. */
@@ -774,7 +774,7 @@ long Targa::Save(const char* name, long flags, bool addextension)
 void Targa::XFlip(void)
 	{
 	char *ptr,*ptr1;
-	long  x,y,d;
+	int  x,y,d;
 	char  v,v1;
 	char  depth;
 
@@ -827,7 +827,7 @@ void Targa::XFlip(void)
 void Targa::YFlip(void)
 	{
 	char *ptr,*ptr1;
-	long  x,y;
+	int  x,y;
 	char  v,v1;
 	char  depth;
 
@@ -990,7 +990,7 @@ TGA2Extension *Targa::GetExtension(void)
 * SYNOPSIS
 *     Error = DecodeImage()
 *
-*     long DecodeImage();
+*     int DecodeImage();
 *
 * FUNCTION
 *     Decode the RLE compressed image data into the specified buffer from
@@ -1004,16 +1004,16 @@ TGA2Extension *Targa::GetExtension(void)
 *
 ****************************************************************************/
 
-long Targa::DecodeImage()
+int Targa::DecodeImage()
 	{
 	char          *image;
 	char          *color;
 	unsigned char count;
 	unsigned char depth;
-	unsigned long pixel_count;
-	unsigned long size;
-	unsigned long c,i;
-	long          error = 0;
+	unsigned int pixel_count;
+	unsigned int size;
+	unsigned int c,i;
+	int          error = 0;
 
 	/* Initialize */
 	image = mImage;
@@ -1096,18 +1096,18 @@ long Targa::DecodeImage()
 *
 ****************************************************************************/
 
-long Targa::EncodeImage()
+int Targa::EncodeImage()
 	{
 	char *packet;
-	long packet_index;
+	int packet_index;
 	char *start;
 	char *end;
-	long depth;
-	long pixels;
-	long count;
-	long match;
-	long i;
-	long error = 0;
+	int depth;
+	int pixels;
+	int count;
+	int match;
+	int i;
+	int error = 0;
 
 	/* Initialize variables. */
 	depth = TGA_BytesPerPixel(Header.PixelDepth);
@@ -1242,9 +1242,9 @@ long Targa::EncodeImage()
 void Targa::InvertImage(void)
 	{
 	char *buffer;
-	long depth;
-	long pixel_count;
-	long i;
+	int depth;
+	int pixel_count;
+	int i;
 	char c;
 
 	/* Initialize */
@@ -1368,7 +1368,7 @@ int Targa::File_Write(void *buffer, int size)
 //
 // ----------------------------------------------------------------------------
 
-long Targa_Error_Handler(long load_err,const char* filename)
+int Targa_Error_Handler(int load_err,const char* filename)
 {
 	switch (load_err) {
 	case 0:

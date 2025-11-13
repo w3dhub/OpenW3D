@@ -107,7 +107,7 @@ class TextureFileCache
 		struct TextureBlockHeader 
 		{
 			// Time data stamp of file.
-			unsigned long 								FileTime;
+			unsigned int 								FileTime;
 
 			// Number of mip maps in texture (including first one).
 			int											NumMipMaps;

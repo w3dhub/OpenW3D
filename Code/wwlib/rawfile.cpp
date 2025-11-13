@@ -613,7 +613,7 @@ void RawFileClass::Close(void)
  *=============================================================================================*/
 int RawFileClass::Read(void * buffer, int size)
 {
-	long	bytesread = 0;			// Running count of the number of bytes read into the buffer.
+	int	bytesread = 0;			// Running count of the number of bytes read into the buffer.
 	int	opened = false;		// Was the file opened by this routine?
 
 	/*
@@ -640,7 +640,7 @@ int RawFileClass::Read(void * buffer, int size)
 		size = size < remainder ? size : remainder;
 	}
 
-	long total = 0;
+	int total = 0;
 	while (size > 0) {
 		bytesread = 0;
 
@@ -652,7 +652,7 @@ int RawFileClass::Read(void * buffer, int size)
 			if ((bytesread == 0)&&( ! feof(Handle)))
 				readok=ferror(Handle);
 		#else
-			readok=ReadFile(Handle, buffer, size, &(unsigned long&)bytesread, NULL);
+			readok=ReadFile(Handle, buffer, size, &(DWORD&)bytesread, NULL);
 		#endif
 			
 
@@ -697,7 +697,7 @@ int RawFileClass::Read(void * buffer, int size)
  *=============================================================================================*/
 int RawFileClass::Write(void const * buffer, int size)
 {
-	long	byteswritten = 0;
+	int	byteswritten = 0;
 	int	opened = false;		// Was the file manually opened?
 
 	/*
@@ -718,7 +718,7 @@ int RawFileClass::Write(void const * buffer, int size)
 		if (byteswritten != size)
 			writeok = false;
 	#else
-		writeok=WriteFile(Handle, buffer, size, &(unsigned long&)byteswritten, NULL);
+		writeok=WriteFile(Handle, buffer, size, &(DWORD&)byteswritten, NULL);
 	#endif
 
 	if (! writeok) {
@@ -801,7 +801,7 @@ int RawFileClass::Seek(int pos, int dir)
 		/*
 		**	Perform the modified raw seek into the file.
 		*/
-		long newpos = Raw_Seek(pos, dir) - BiasStart;
+		int newpos = Raw_Seek(pos, dir) - BiasStart;
 
 		/*
 		**	Perform a final double check to make sure the file position fits with the bias range.
@@ -1013,8 +1013,8 @@ int RawFileClass::Delete(void)
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns with the file date and time as a long.                                     *
- *          Use the YEAR(long), MONTH(),....                                                   *
+ * OUTPUT:  Returns with the file date and time as a int.                                     *
+ *          Use the YEAR(int), MONTH(),....                                                   *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *
@@ -1022,7 +1022,7 @@ int RawFileClass::Delete(void)
  *   11/14/1995 DRD : Created.                                                                 *
  *   07/13/1996 JLB : Handles win32 method.                                                    *
  *=============================================================================================*/
-unsigned long RawFileClass::Get_Date_Time(void)
+unsigned int RawFileClass::Get_Date_Time(void)
 {
 #ifdef _UNIX
 	struct stat statbuf;
@@ -1047,7 +1047,7 @@ unsigned long RawFileClass::Get_Date_Time(void)
  *                                                                                             *
  *    Use this routine to set the date and time of the file.                                   *
  *                                                                                             *
- * INPUT:   the file date and time as a long                                                   *
+ * INPUT:   the file date and time as a int                                                   *
  *                                                                                             *
  * OUTPUT:  successful or not if the file date and time was changed.                           *
  *                                                                                             *
@@ -1057,7 +1057,7 @@ unsigned long RawFileClass::Get_Date_Time(void)
  *   11/14/1995 DRD : Created.                                                                 *
  *   07/13/1996 JLB : Handles win 32 method                                                    *
  *=============================================================================================*/
-bool RawFileClass::Set_Date_Time(unsigned long datetime)
+bool RawFileClass::Set_Date_Time(unsigned int datetime)
 {
 #ifdef _UNIX
 	assert(0);

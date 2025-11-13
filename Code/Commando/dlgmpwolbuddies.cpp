@@ -206,7 +206,7 @@ void MPWolBuddiesMenuClass::On_Frame_Update(void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolBuddiesMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPWolBuddiesMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id) {
 		case IDC_MP_WOL_BUDDIES_PAGE_BUTTON:

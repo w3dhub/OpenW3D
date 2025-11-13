@@ -197,7 +197,7 @@ int LightMapView::OnCreate (LPCREATESTRUCT lpCreateStruct)
 	static LV_COLUMN _lightmapsolve	= {LVCF_TEXT | LVCF_FMT, LVCFMT_LEFT, 0, "Lightmap Solve", 0, 0};
 
 	CListCtrl &list = GetListCtrl();
-	long		 flags = list.GetStyle();
+	int		 flags = list.GetStyle();
 
 	if (CListView::OnCreate(lpCreateStruct) == -1) return (-1);
 

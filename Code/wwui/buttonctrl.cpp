@@ -751,12 +751,12 @@ ButtonCtrlClass::Update_Pulse (bool is_mouse_over)
 	//	Update the color vector arrays
 	//
 	int index;
-	DynamicVectorClass<unsigned long> &color_array = ButtonRenderers[0].Get_Color_Array ();
+	DynamicVectorClass<unsigned int> &color_array = ButtonRenderers[0].Get_Color_Array ();
 	for (index = 0; index < color_array.Count (); index ++) {
 		color_array[index] = color;
 	}
 
-	DynamicVectorClass<unsigned long> &color_array2 = ButtonRenderers[1].Get_Color_Array ();
+	DynamicVectorClass<unsigned int> &color_array2 = ButtonRenderers[1].Get_Color_Array ();
 	for (index = 0; index < color_array2.Count (); index ++) {
 		color_array2[index] = color;
 	}

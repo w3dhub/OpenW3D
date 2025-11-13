@@ -108,7 +108,7 @@ void CChunkDataView::OnInitialUpdate()
 	CListView::OnInitialUpdate();
 	
 	CListCtrl &list = GetListCtrl();
-	long flags = list.GetStyle();
+	int flags = list.GetStyle();
 	flags |= LVS_REPORT;
 	SetWindowLong(list.GetSafeHwnd(), GWL_STYLE, flags);
 

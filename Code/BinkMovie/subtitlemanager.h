@@ -65,7 +65,7 @@ public:
 	void Reset(void);
 
 	// Process subtitles
-	bool Process(unsigned long movieTime);
+	bool Process(unsigned int movieTime);
 	void Render();
 
 private:

@@ -147,7 +147,7 @@ GameResField::GameResField(const char *id, unsigned short data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(const char *id, long data)
+GameResField::GameResField(const char *id, int data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_LONG;
@@ -170,7 +170,7 @@ GameResField::GameResField(const char *id, long data)
 *
 ******************************************************************************/
 
-GameResField::GameResField(const char *id, unsigned long data)
+GameResField::GameResField(const char *id, unsigned int data)
 	{
 	strncpy(mID, id, sizeof(mID));
 	mDataType = TYPE_UNSIGNED_LONG;
@@ -273,7 +273,7 @@ void GameResField::Host_To_Net(void)
 
 		case TYPE_LONG:
 		case TYPE_UNSIGNED_LONG:
-			*((unsigned long *)mData) = htonl(*((unsigned long *)mData));
+			*((unsigned int *)mData) = htonl(*((unsigned int *)mData));
 			break;
 
 		// Might be good to insert some type of error message here for unknown
@@ -323,7 +323,7 @@ void GameResField::Net_To_Host(void)
 
 		case TYPE_LONG:
 		case TYPE_UNSIGNED_LONG:
-			*((unsigned long *)mData) = ntohl(*((unsigned long *)mData));
+			*((unsigned int *)mData) = ntohl(*((unsigned int *)mData));
 			break;
 
 		// Might be good to insert some type of error message here for unknown
@@ -375,7 +375,7 @@ void GameResField::DebugDump(void)
 			break;
 
 		case TYPE_LONG:
-			WWDEBUG_SAY(("[%4s] %ld\n", id, *((long*)mData)));
+			WWDEBUG_SAY(("[%4s] %ld\n", id, *((int*)mData)));
 			break;
 
 		case TYPE_UNSIGNED_SHORT:
@@ -383,7 +383,7 @@ void GameResField::DebugDump(void)
 			break;
 
 		case TYPE_UNSIGNED_LONG:
-			WWDEBUG_SAY(("[%4s] %lu\n", id, *((unsigned long*)mData)));
+			WWDEBUG_SAY(("[%4s] %lu\n", id, *((unsigned int*)mData)));
 			break;
 
 		case TYPE_STRING:

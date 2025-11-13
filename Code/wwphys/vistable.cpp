@@ -215,7 +215,7 @@ void VisTableClass::Delete_Bit(int delete_index)
 	int i;
 
 	/*
-	** first handle the long that the deleted bit is in
+	** first handle the int that the deleted bit is in
 	*/
 	int first_long = delete_index >> 5;
 	int start_bits = WWMath::Min((first_long + 1)<<5,BitCount-1);
@@ -226,9 +226,9 @@ void VisTableClass::Delete_Bit(int delete_index)
 	
 	/*
 	** handle the reset of the buffer.  There are two cases here, if the deleted
-	** bit was in the last long of the buffer, we simply have to clear the trailing
+	** bit was in the last int of the buffer, we simply have to clear the trailing
 	** bit.  Otherwise we need to shift the rest of the longs in the buffer right
-	** by one bit and or in the MSB from the following long.
+	** by one bit and or in the MSB from the following int.
 	*/
 	int long_count = Get_Long_Count();
 	if (first_long == long_count-1) {
@@ -483,7 +483,7 @@ void CompressedVisTableClass::Load (void* hfile)
 		/*
 		** Read the buffer size
 		*/
-		uint32 dwbytes_read = 0L;
+		DWORD dwbytes_read = 0;
 		::ReadFile ((HANDLE)hfile, &BufferSize, sizeof (BufferSize), &dwbytes_read, NULL);
 
 		/*
@@ -503,7 +503,7 @@ void CompressedVisTableClass::Save (void* hfile)
 		/*
 		** Write the buffer size
 		*/
-		uint32 dwbytes_written = 0L;
+		DWORD dwbytes_written = 0;
 		::WriteFile ((HANDLE)hfile, &BufferSize, sizeof (BufferSize), &dwbytes_written, NULL);
 
 		/*

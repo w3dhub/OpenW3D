@@ -172,7 +172,7 @@ class FirewallHelperClass {
 		/*
 		** Talking to the manglers.
 		*/
-		int Build_Mangler_Packet(unsigned char *buffer, unsigned short port, unsigned long packet_id = 0, bool blitzme = false);
+		int Build_Mangler_Packet(unsigned char *buffer, unsigned short port, unsigned int packet_id = 0, bool blitzme = false);
 
 		/*
 		** Port management.
@@ -185,16 +185,16 @@ class FirewallHelperClass {
 		/*
 		** Firewall info import and export.
 		*/
-		void Set_Firewall_Info(unsigned long last_behavior, int last_delta, unsigned short port_pool, bool send_delay, int confidence);
-		void Get_Firewall_Info(unsigned long &last_behavior, int &last_delta, unsigned short &port_pool, bool &send_delay, int &confidence) const;
+		void Set_Firewall_Info(unsigned int last_behavior, int last_delta, unsigned short port_pool, bool send_delay, int confidence);
+		void Get_Firewall_Info(unsigned int &last_behavior, int &last_delta, unsigned short &port_pool, bool &send_delay, int &confidence) const;
 		void Set_Send_Delay(bool send_delay) {SendDelay = send_delay;};
 		bool Get_Send_Delay(void) {return(SendDelay);};
 
 		/*
 		** Communications functions.
 		*/
-		bool Send_To_Mangler(IPAddressClass *address, SocketHandlerClass *socket_handler, unsigned long packet_id, bool blitzme = false);
-		unsigned short Get_Mangler_Response(unsigned long packet_id, SocketHandlerClass *socket_handler, int time = 0, bool all_service = false);
+		bool Send_To_Mangler(IPAddressClass *address, SocketHandlerClass *socket_handler, unsigned int packet_id, bool blitzme = false);
+		unsigned short Get_Mangler_Response(unsigned int packet_id, SocketHandlerClass *socket_handler, int time = 0, bool all_service = false);
 
 		/*
 		** Server connection negotiation functions.
@@ -212,7 +212,7 @@ class FirewallHelperClass {
 		** Get the local chat connection address.
 		*/
 		bool Get_Local_Chat_Connection_Address(void);
-		unsigned long Get_Local_Address(void);
+		unsigned int Get_Local_Address(void);
 		IPAddressClass &Get_External_Address(void) {return(ExternalAddress);}
 		void Set_External_Address(IPAddressClass &addr) {ExternalAddress = addr;}
 
@@ -260,7 +260,7 @@ class FirewallHelperClass {
 		/*
 		** Exposing the thread ID for the exception handler.
 		*/
-		unsigned long Get_Thread_ID(void) {return(ThreadID);};
+		unsigned int Get_Thread_ID(void) {return(ThreadID);};
 
 		/*
 		** Connection results reported back to the dialog wait object.
@@ -301,7 +301,7 @@ class FirewallHelperClass {
 		** Threading.
 		*/
 		static unsigned int __stdcall NAT_Thread_Start(void *param);
-		unsigned long NAT_Thread_Main_Loop(void);
+		unsigned int NAT_Thread_Main_Loop(void);
 		void Add_Thread_Action(int thread_action, HANDLE thread_event);
 		void Set_Thread_Event(void);
 
@@ -478,7 +478,7 @@ class FirewallHelperClass {
 		/*
 		** When we last heard from the client.
 		*/
-		unsigned long LastOptionsFromClient;
+		unsigned int LastOptionsFromClient;
 
 		/*
 		** Name of player who has cancelled out of our game channel before connecting.
@@ -523,7 +523,7 @@ class FirewallHelperClass {
 		**
 		*/
 		HANDLE ThreadHandle;
-		unsigned long ThreadID;
+		unsigned int ThreadID;
 		HANDLE NATThreadMutex;
 		HANDLE NATDataMutex;
 		bool ThreadActive;
@@ -580,7 +580,7 @@ class FirewallHelperClass {
 				/*
 				** Constructor. Grabs the mutex.
 				*/
-				inline ThreadLockClass(FirewallHelperClass *fwptr, unsigned long timeout = 10 * 1000) {
+				inline ThreadLockClass(FirewallHelperClass *fwptr, unsigned int timeout = 10 * 1000) {
 					FWPtr = fwptr;
 
 					/*
@@ -648,7 +648,7 @@ class FirewallHelperClass {
 				unsigned char ForwardTo;			//  = 0
 				unsigned char ForwardFrom;
 			};
-			unsigned long PacketID;					// Dont care.
+			unsigned int PacketID;					// Dont care.
 			unsigned char ForwardAddress[4];
 			unsigned short ForwardPort;
 		};

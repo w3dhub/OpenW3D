@@ -124,7 +124,7 @@ ServerControlSocketClass::~ServerControlSocketClass(void)
  * HISTORY:                                                                                    *
  *   2/24/00 12:41PM ST : Created                                                              *
  *=============================================================================================*/
-bool ServerControlSocketClass::Open(int port, bool loopback, unsigned long ip)
+bool ServerControlSocketClass::Open(int port, bool loopback, unsigned int ip)
 {
 	struct sockaddr_in addr;
 	static int socket_transmit_buffer_size = SERVER_CONTROL_SOCKET_BUFFER_SIZE;
@@ -190,7 +190,7 @@ bool ServerControlSocketClass::Open(int port, bool loopback, unsigned long ip)
 	/*
 	** Set the blocking mode of the socket to non-blocking.
 	*/
-	unsigned long nonblocking = true;
+	u_long nonblocking = true;
 	err = ioctlsocket(Socket, FIONBIO, &nonblocking);
 	if (err) {
 		DebugString(("ServerControlSocketClass - Failed to set socket to non-blocking - error code %d.\n", LAST_ERROR));
@@ -314,7 +314,7 @@ void ServerControlSocketClass::Discard_Out_Buffers(void)
  *=============================================================================================*/
 void ServerControlSocketClass::Clear_Socket_Error(void)
 {
-	unsigned long error_code;
+	unsigned int error_code;
 	int length = 4;
 
 	if (Socket != INVALID_SOCKET) {
@@ -540,8 +540,8 @@ void ServerControlSocketClass::Build_Packet_CRC(WinsockBufferType *packet)
 
 	packet->CRC = 0;
 
-	unsigned long *crc_ptr = &(packet->CRC);
-	unsigned long *packetptr = (unsigned long*) &(packet->Buffer[0]);
+	unsigned int *crc_ptr = &(packet->CRC);
+	unsigned int *packetptr = (unsigned int*) &(packet->Buffer[0]);
 
 	for (int i=0 ; i<packet->BufferLen/4 ; i++) {
 		Add_CRC (crc_ptr, *packetptr++);
@@ -549,7 +549,7 @@ void ServerControlSocketClass::Build_Packet_CRC(WinsockBufferType *packet)
 
 	int leftover = packet->BufferLen & 3;
 	if (leftover) {
-		unsigned long val = *packetptr;
+		unsigned int val = *packetptr;
 		val = val & (0xffffffff >> ((4-leftover) << 3));
 		Add_CRC (crc_ptr, val);
 	}
@@ -579,10 +579,10 @@ bool ServerControlSocketClass::Passes_CRC_Check(WinsockBufferType *packet)
 		return (false);
 	}
 
-	unsigned long crc = 0;
+	unsigned int crc = 0;
 
-	unsigned long *crc_ptr = &crc;
-	unsigned long *packetptr = (unsigned long*) &(packet->Buffer[0]);
+	unsigned int *crc_ptr = &crc;
+	unsigned int *packetptr = (unsigned int*) &(packet->Buffer[0]);
 
 	for (int i=0 ; i<packet->BufferLen/4 ; i++) {
 		Add_CRC (crc_ptr, *packetptr++);
@@ -590,7 +590,7 @@ bool ServerControlSocketClass::Passes_CRC_Check(WinsockBufferType *packet)
 
 	int leftover = packet->BufferLen & 3;
 	if (leftover) {
-		unsigned long val = *packetptr;
+		unsigned int val = *packetptr;
 		val = val & (0xffffffff >> ((4-leftover) << 3));
 		Add_CRC (crc_ptr, val);
 	}
@@ -731,12 +731,12 @@ void *ServerControlSocketClass::Get_New_In_Buffer(void)
  *=============================================================================================*/
 void ServerControlSocketClass::Service(void)
 {
-	unsigned long bytes;
+	u_long bytes;
 	struct sockaddr_in addr;
 	int addr_len;
 	WinsockBufferType *packet;
 	int result;
-	unsigned long timeout_check = TIMEGETTIME();
+	unsigned int timeout_check = TIMEGETTIME();
 	int times = 0;
 
 	for (;;) {
@@ -800,7 +800,7 @@ void ServerControlSocketClass::Service(void)
 					** result is the number of bytes read.
 					*/
 					packet->BufferLen = result - sizeof(packet->CRC);
-					packet->CRC = *((unsigned long*) (&ReceiveBuffer[0]));
+					packet->CRC = *((unsigned int*) (&ReceiveBuffer[0]));
 					memcpy (packet->Buffer, ReceiveBuffer + sizeof(packet->CRC), packet->BufferLen);
 
 					/*
@@ -933,7 +933,7 @@ void ServerControlSocketClass::Service(void)
  * HISTORY:                                                                                    *
  *   05/09/1995 BRR : Created                                                                  *
  *=============================================================================================*/
-void ServerControlSocketClass::Add_CRC(unsigned long *crc, unsigned long val)
+void ServerControlSocketClass::Add_CRC(unsigned int *crc, unsigned int val)
 {
 	int hibit;
 

@@ -33,20 +33,20 @@ class cNicEnum
 {
 public:
 	static void			Init(void);
-	static USHORT		Get_Num_Nics(void)			{return NumNics;}
-	static ULONG *		Get_Nics(void)					{return NicList;}
-	static USHORT		Get_Num_GameSpy_Nics(void)	{return NumGSNics;}
-	static ULONG *		Get_GameSpy_Nics(void)		{return GSNicList;}
+	static unsigned short		Get_Num_Nics(void)			{return NumNics;}
+	static unsigned int *		Get_Nics(void)					{return NicList;}
+	static unsigned short		Get_Num_GameSpy_Nics(void)	{return NumGSNics;}
+	static unsigned int *		Get_GameSpy_Nics(void)		{return GSNicList;}
 
 	enum					{MAX_NICS = 10};
 
 private:
-	static ULONG		Enumerate_Nics(ULONG * addresses, ULONG max_addresses);
+	static unsigned int		Enumerate_Nics(unsigned int * addresses, unsigned int max_addresses);
 
-	static ULONG		NicList[MAX_NICS];
-	static ULONG		GSNicList[MAX_NICS];
-	static USHORT		NumNics;
-	static USHORT		NumGSNics;
+	static unsigned int		NicList[MAX_NICS];
+	static unsigned int		GSNicList[MAX_NICS];
+	static unsigned short		NumNics;
+	static unsigned short		NumGSNics;
 };
 
 //-----------------------------------------------------------------------------

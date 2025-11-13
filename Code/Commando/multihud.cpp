@@ -150,7 +150,7 @@ void MultiHUDClass::Shutdown(void)
 }
 
 //-----------------------------------------------------------------------------
-void MultiHUDClass::Render_Text(WideStringClass & text, float x, float y, ULONG color)
+void MultiHUDClass::Render_Text(WideStringClass & text, float x, float y, unsigned int color)
 {
 	if (NameRenderer) {
 		//
@@ -440,7 +440,7 @@ void MultiHUDClass::Show_Player_Names(void)
 
 #ifdef WWDEBUG
 //-----------------------------------------------------------------------------
-void MultiHUDClass::Render_Debug_Text(LPCSTR text, float x, float y, ULONG color)
+void MultiHUDClass::Render_Debug_Text(const char *text, float x, float y, unsigned int color)
 {
 	//
 	// Text comes out blurry with the new text system if the text position
@@ -695,7 +695,7 @@ void MultiHUDClass::Show_Player_Rhost_Data(SmartGameObj * smart_obj)
 			sub_string.Format( "Rs:%05d ", p_rhost->Get_Total_Resends());
 			text += sub_string;
 
-			unsigned long time = TIMEGETTIME() - p_rhost->Get_Creation_Time();
+			unsigned int time = TIMEGETTIME() - p_rhost->Get_Creation_Time();
 			time = time / 1000;
 			sub_string.Format( " Con: %03d.%02d.%02d", time / (60*60), (time / 60) % 60, time % 60);
 			text += sub_string;

@@ -69,7 +69,7 @@ public:
 	//	Public methods
 	////////////////////////////////////////////////////////////////
 	void		On_Init_Dialog (void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
 	void		On_ListCtrl_Column_Click (ListCtrlClass *list_ctrl, int ctrl_id, int col_index) override;
 	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;

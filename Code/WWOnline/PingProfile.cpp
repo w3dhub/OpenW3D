@@ -92,7 +92,7 @@ bool RecalculatePingProfile(const RefPtr<Session>& session)
 				pingTime = std::min<int>(pingTime, 1000);
 
 				// Scale ping time to from 0-1000 to 0-255
-				gPingProfile.Pings[index] = (((unsigned long)pingTime * 255) / 1000);
+				gPingProfile.Pings[index] = (((unsigned int)pingTime * 255) / 1000);
 				}
 
 			return true;
@@ -142,17 +142,17 @@ const PingProfile& GetLocalPingProfile(void)
 *
 ******************************************************************************/
 
-long ComparePingProfile(const PingProfile& ping1, const PingProfile& ping2)
+int ComparePingProfile(const PingProfile& ping1, const PingProfile& ping2)
 	{
-	long minWeight = LONG_MAX;
+	int minWeight = LONG_MAX;
 
 	for (int index = 0; index < 8; index++)
 		{
-		long a = ping1.Pings[index];
-		long b = ping2.Pings[index];
-		long weight = (a * a) + (b * b);
+		int a = ping1.Pings[index];
+		int b = ping2.Pings[index];
+		int weight = (a * a) + (b * b);
 
-		minWeight = std::min<long>(weight, minWeight);
+		minWeight = std::min<int>(weight, minWeight);
 		}
 
 	return minWeight;
@@ -218,7 +218,7 @@ void DecodePingProfile(const char* buffer, PingProfile& pings)
 	{
 	if (buffer)
 		{
-		unsigned long ping[8];
+		unsigned int ping[8];
 
 		sscanf(buffer, "%02X%02X%02X%02X%02X%02X%02X%02X",
 			&ping[0], &ping[1], &ping[2], &ping[3], &ping[4], &ping[5], &ping[6], &ping[7]);

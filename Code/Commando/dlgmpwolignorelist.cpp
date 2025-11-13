@@ -97,7 +97,7 @@ MPWolIgnoreListPopupClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolIgnoreListPopupClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPWolIgnoreListPopupClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id) {
 		case IDC_ADD_BUTTON:

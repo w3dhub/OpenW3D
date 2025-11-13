@@ -127,7 +127,7 @@ HelpScreenDialogClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-HelpScreenDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+HelpScreenDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

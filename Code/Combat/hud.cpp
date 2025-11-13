@@ -258,7 +258,7 @@ int							HUDHelpTextState = HUD_HELP_TEXT_DISPLAYING;
 /*
 **
 */
-unsigned long COLOR( float alpha, unsigned long color = 0x00FFFFFF )
+unsigned int COLOR( float alpha, unsigned int color = 0x00FFFFFF )
 {
 	alpha = WWMath::Clamp( alpha, 0, 1 ) * 255.0f;
 	color &= 0x00FFFFFF;
@@ -266,7 +266,7 @@ unsigned long COLOR( float alpha, unsigned long color = 0x00FFFFFF )
 	return color;
 }
 
-unsigned long Get_Health_Color( float percent )
+unsigned int Get_Health_Color( float percent )
 {
 	Vector3	color = HUDGlobalSettingsDef::Get_Instance()->Get_Health_High_Color();
 	if ( percent <= 0.5f ) {
@@ -1152,7 +1152,7 @@ static	void	Weapon_Chart_Update( void )
 					continue;
 				}
 
-				long color = 0x000FF00;		// Dim
+				int color = 0x000FF00;		// Dim
 				if ( weapon_bag->Get_Index() == i ) {
 					color = 0x0000FF00;			// Bright
 				}
@@ -1261,8 +1261,8 @@ static	void	Damage_Add_Indicator( int index, float start_x, float start_y, float
 	}
 	uv.Scale( INFO_UV_SCALE );
 
-	unsigned long color_bits = (int)(DamageIndicatorIntensity[index] * 255) & 0x000000FF;
-  	unsigned long color = color_bits | color_bits<<8 | color_bits<<16;
+	unsigned int color_bits = (int)(DamageIndicatorIntensity[index] * 255) & 0x000000FF;
+  	unsigned int color = color_bits | color_bits<<8 | color_bits<<16;
 
 	switch (index) {
 		case 3:
@@ -2432,7 +2432,7 @@ static	void	Info_Update_Health_Shield( void )
 		health = 1;
 	}
 	//text.Format( "%03d", (int)health );
-	long lhealth=WWMath::Float_To_Long(health);
+	int lhealth=WWMath::Float_To_Long(health);
 	wchar_t tmp_text[5];
 	Generate_WChar_Text_From_Number(tmp_text,4,3,lhealth);
 
@@ -2504,7 +2504,7 @@ static	void	Info_Update_Health_Shield( void )
 		InfoShieldCountRenderer->Reset();
 //		StringClass	text;
 //		text.Format( "%03d", (int)shield );
-		long lshield=WWMath::Float_To_Long(shield);
+		int lshield=WWMath::Float_To_Long(shield);
 		wchar_t tmp_text[5];
 		Generate_WChar_Text_From_Number(tmp_text,4,3,lshield);
 		InfoShieldCountRenderer->Set_Location( draw.Upper_Left() + Vector2( 4,4) );
@@ -2969,7 +2969,7 @@ void 	HUDClass::Think()
 	Vector2	radar_center = InfoBase + RADAR_CENTER_OFFSET;
 	RadarManager::Update( tm, radar_center );
 
-	unsigned long reticle_color = HUDGlobalSettingsDef::Get_Instance()->Get_No_Relation_Color().Convert_To_ARGB();
+	unsigned int reticle_color = HUDGlobalSettingsDef::Get_Instance()->Get_No_Relation_Color().Convert_To_ARGB();
 
 	if ( HUDInfo::Get_Weapon_Target_Object() != NULL ) {
 		reticle_color = HUDGlobalSettingsDef::Get_Instance()->Get_Friendly_Color().Convert_To_ARGB();

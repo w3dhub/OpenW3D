@@ -85,7 +85,7 @@ class ServerControlClass
 		/*
 		** Init, shutdown.
 		*/
-		bool Start_Listening(unsigned short port, char *password, const char*(*app_request_callback)(char*), void(*app_response_callback)(char*), bool loopback = false, unsigned long ip = 0);
+		bool Start_Listening(unsigned short port, char *password, const char*(*app_request_callback)(char*), void(*app_response_callback)(char*), bool loopback = false, unsigned int ip = 0);
 		void Stop_Listening(void);
 		void Set_Welcome_Message(char *message);
 
@@ -94,7 +94,7 @@ class ServerControlClass
 		/*
 		** Send/receive etc.
 		*/
-		void Send_Message(const char *text, unsigned long ip, unsigned short port);
+		void Send_Message(const char *text, unsigned int ip, unsigned short port);
 
 		/*
 		** Service.
@@ -103,12 +103,12 @@ class ServerControlClass
 
 	private:
 
-		void Parse_Message(void *buffer, int len, unsigned long address, unsigned short port);
-		void Add_Remote_Control(unsigned long ip, unsigned short port);
-		void Remove_Remote_Control(unsigned long ip, unsigned short port);
-		bool Is_Authenticated(unsigned long address, unsigned short port);
-		void Reset_Timeout(unsigned long address, unsigned short port);
-		void Respond(const char *message, unsigned long ip, unsigned short port);
+		void Parse_Message(void *buffer, int len, unsigned int address, unsigned short port);
+		void Add_Remote_Control(unsigned int ip, unsigned short port);
+		void Remove_Remote_Control(unsigned int ip, unsigned short port);
+		bool Is_Authenticated(unsigned int address, unsigned short port);
+		void Reset_Timeout(unsigned int address, unsigned short port);
+		void Respond(const char *message, unsigned int ip, unsigned short port);
 
 
 		/*
@@ -162,12 +162,12 @@ class ServerControlClass
 		*/
 		typedef struct tRemoteControlStruct{
 			unsigned short Port;
-			unsigned long IP;
+			unsigned int IP;
 			bool Secure;
-			unsigned long Time;
+			unsigned int Time;
 		} RemoteControlStruct;
 
-		RemoteControlStruct *Get_Controller(unsigned long ip, unsigned short port);
+		RemoteControlStruct *Get_Controller(unsigned int ip, unsigned short port);
 
 		/*
 		** List of remote controllers we know about.

@@ -82,24 +82,24 @@ class SoundBufferClass : public RefCountClass
 		//////////////////////////////////////////////////////////////////////
 		//	Memory methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool				Load_From_Memory (unsigned char *mem_buffer, unsigned long size);
+		virtual bool				Load_From_Memory (unsigned char *mem_buffer, unsigned int size);
 
 		//////////////////////////////////////////////////////////////////////
 		//	Buffer access
 		//////////////////////////////////////////////////////////////////////		
 		virtual unsigned char *	Get_Raw_Buffer (void) const	{ return m_Buffer; }
-		virtual unsigned long	Get_Raw_Length (void) const	{ return m_Length; }
+		virtual unsigned int	Get_Raw_Length (void) const	{ return m_Length; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Information methods
 		//////////////////////////////////////////////////////////////////////
 		virtual const char *		Get_Filename (void) const		{ return m_Filename; }
 		virtual void				Set_Filename (const char *name);
-		virtual unsigned long	Get_Duration (void) const		{ return m_Duration; }
-		virtual unsigned long	Get_Rate (void) const			{ return m_Rate; }
-		virtual unsigned long	Get_Bits (void) const			{ return m_Bits; }
-		virtual unsigned long	Get_Channels (void) const		{ return m_Channels; }
-		virtual unsigned long	Get_Type (void) const			{ return m_Type; }
+		virtual unsigned int	Get_Duration (void) const		{ return m_Duration; }
+		virtual unsigned int	Get_Rate (void) const			{ return m_Rate; }
+		virtual unsigned int	Get_Bits (void) const			{ return m_Bits; }
+		virtual unsigned int	Get_Channels (void) const		{ return m_Channels; }
+		virtual unsigned int	Get_Type (void) const			{ return m_Type; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Type methods
@@ -118,13 +118,13 @@ class SoundBufferClass : public RefCountClass
 		//	Protected member data
 		//////////////////////////////////////////////////////////////////////		
 		unsigned char *		m_Buffer;
-		unsigned long			m_Length;
+		unsigned int			m_Length;
 		char *					m_Filename;
-		unsigned long			m_Duration;
-		unsigned long			m_Rate;
-		unsigned long			m_Bits;
-		unsigned long			m_Channels;
-		unsigned long			m_Type;
+		unsigned int			m_Duration;
+		unsigned int			m_Rate;
+		unsigned int			m_Bits;
+		unsigned int			m_Channels;
+		unsigned int			m_Type;
 };
 
 
@@ -154,7 +154,7 @@ class StreamSoundBufferClass : public SoundBufferClass
 		//////////////////////////////////////////////////////////////////////
 		//	Memory methods
 		//////////////////////////////////////////////////////////////////////
-		virtual bool			Load_From_Memory (unsigned char *mem_buffer, unsigned long size) override { return false;  }
+		virtual bool			Load_From_Memory (unsigned char *mem_buffer, unsigned int size) override { return false;  }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Type methods
@@ -167,7 +167,7 @@ class StreamSoundBufferClass : public SoundBufferClass
 		//	Protected methods
 		//////////////////////////////////////////////////////////////////////
 		virtual void			Free_Buffer (void) override;
-		virtual bool			Load_From_File (HANDLE hfile, unsigned long size, unsigned long offset);
+		virtual bool			Load_From_File (HANDLE hfile, unsigned int size, unsigned int offset);
 
 		//////////////////////////////////////////////////////////////////////
 		//	Protected member data

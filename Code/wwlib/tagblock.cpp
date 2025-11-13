@@ -89,7 +89,7 @@ private:
 
 	// The index file is sorted by the CRC of the file name for
 	// quicker retrieval.  The filename is saved in the texture file.
-	unsigned long	CRC;
+	unsigned int	CRC;
 
 	// Start of the block - this is the start of TagBlockFile::BlockHeader.
 	int				BlockOffset;
@@ -453,7 +453,7 @@ TagBlockIndex *TagBlockFile::Find_Block(const char *tagname)
 		return(NULL);
 	}
 
-	unsigned long crc = CRC_Stringi(tagname);
+	unsigned int crc = CRC_Stringi(tagname);
 
 	SLNode<TagBlockIndex> *node = IndexList.Head();
 	while (node) {

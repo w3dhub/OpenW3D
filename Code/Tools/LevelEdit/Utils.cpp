@@ -1840,15 +1840,15 @@ fnEditToFloatProc
 	if (message == WM_SETTEXT) {
 		
 		//
-		//	Convert the textual value to a long, convert
-		// the long to a float, and conver the float to
+		//	Convert the textual value to a int, convert
+		// the int to a float, and conver the float to
 		// a string.
 		//
 		LPCTSTR string		= (LPCTSTR)lparam;
 		if (::strchr (string, '.') != 0) {
 			result = ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);
 		} else {
-			long value			= ::atol ((LPCTSTR)lparam);
+			int value			= ::atol ((LPCTSTR)lparam);
 			float float_value	= value / 100.0F;
 			CString new_text;
 			new_text.Format ("%.3f", float_value);
@@ -1860,17 +1860,17 @@ fnEditToFloatProc
 		//
 		//	Get the value (as text) from the control,
 		// convert it to a float, convert the float
-		// to a long, then convert the long back to
+		// to a int, then convert the int back to
 		// a string.
 		//
 		result				= ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);		
 		LPCTSTR string		= (LPCTSTR)lparam;
 		if (::strchr (string, '.') != 0) {
 			float float_value	= ::atof (string);
-			long int_value		= long(float_value * 100);
+			int int_value		= int(float_value * 100);
 			::itoa (int_value, (LPTSTR)lparam, 10);			
 		} else {
-			long int_value		= ::atol (string) * 100;
+			int int_value		= ::atol (string) * 100;
 			::itoa (int_value, (LPTSTR)lparam, 10);						
 		}
 

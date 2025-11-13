@@ -188,7 +188,7 @@ SplashIntroMenuDialogClass::On_Frame_Update (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-SplashIntroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
+SplashIntroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
 {
 	return ;
 }
@@ -278,7 +278,7 @@ extern void Stop_Main_Loop (int);
 //
 ////////////////////////////////////////////////////////////////
 void
-SplashOutroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
+SplashOutroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -456,7 +456,7 @@ void GameSpyMainDialogClass::HandleNotification(DlgWOLWaitEvent& event)
 //
 ////////////////////////////////////////////////////////////////
 void
-GameSpyMainDialogClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
+GameSpyMainDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -650,7 +650,7 @@ GameSpyOptionsDialogClass::On_Last_Menu_Ending (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-GameSpyOptionsDialogClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
+GameSpyOptionsDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -774,7 +774,7 @@ InternetMainDialogClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-InternetMainDialogClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
+InternetMainDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -864,7 +864,7 @@ MPLanMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPLanMenuClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
+MPLanMenuClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
 {
 	//
 	//	Shutdown the LAN interface (if necessary)
@@ -1039,7 +1039,7 @@ StartSPGameDialogClass::On_TreeCtrl_Needs_Children (TreeCtrlClass *tree_ctrl, in
 //
 ////////////////////////////////////////////////////////////////
 void
-StartSPGameDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+StartSPGameDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {	
 
 	//
@@ -1148,7 +1148,7 @@ MPServerStartMenuClass::Start_Game (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPServerStartMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPServerStartMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	//if (ctrl_id == IDC_MP_PASSWORD_VALID_COMMAND) {
 	//	Start_Game ();
@@ -1228,7 +1228,7 @@ MPJoinMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPJoinMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPJoinMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	if (ctrl_id == IDC_MENU_MP_JOING_BUTTON) {
 		ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_GAME_LIST);
@@ -1467,7 +1467,7 @@ DifficultyMenuClass::On_Menu_Activate (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-DifficultyMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+DifficultyMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -1536,7 +1536,7 @@ DeathOptionsPopupClass::On_Init_Dialog ( void )
 //
 ////////////////////////////////////////////////////////////////
 void
-DeathOptionsPopupClass::On_Command (int ctrl_id, int message_id, DWORD param)
+DeathOptionsPopupClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	bool do_default = true;
 
@@ -1606,7 +1606,7 @@ FailedOptionsPopupClass::On_Init_Dialog ( void )
 //
 ////////////////////////////////////////////////////////////////
 void
-FailedOptionsPopupClass::On_Command (int ctrl_id, int message_id, DWORD param)
+FailedOptionsPopupClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	bool allow_default_processing = true;
 
@@ -1721,7 +1721,7 @@ EditWheeledVehicleDialogClass::On_Init_Dialog (void)
 }
 
 void	
-EditWheeledVehicleDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+EditWheeledVehicleDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -1817,7 +1817,7 @@ EditTrackedVehicleDialogClass::On_Init_Dialog (void)
 }
 
 void	
-EditTrackedVehicleDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+EditTrackedVehicleDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -1865,7 +1865,7 @@ EditTrackedVehicleDialogClass::On_Command (int ctrl_id, int message_id, DWORD pa
 //
 ////////////////////////////////////////////////////////////////
 void
-MultiplayOptionsMainMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MultiplayOptionsMainMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

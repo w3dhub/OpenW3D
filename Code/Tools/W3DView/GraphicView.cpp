@@ -522,15 +522,15 @@ CGraphicView::RepaintView
 		//
 		// Render the main scene
 		//
-		DWORD pt_high = 0L;
+		unsigned int pt_high = 0L;
 
 		// Wait for all previous rendering to complete before starting benchmark.
-		DWORD profile_time = ::Get_CPU_Clock (pt_high);
+		unsigned int profile_time = ::Get_CPU_Clock (pt_high);
 
 		WW3D::Render (doc->GetScene (), m_pCamera, false, false);
 		
 		// Wait for all rendering to complete before stopping benchmark.
-		DWORD milliseconds = (::Get_CPU_Clock (pt_high) - profile_time) / 1000;
+		unsigned int milliseconds = (::Get_CPU_Clock (pt_high) - profile_time) / 1000;
 
 		//
 		// Render the cursor

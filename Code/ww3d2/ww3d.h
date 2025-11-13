@@ -189,8 +189,8 @@ public:
 	** Set_Ext_Swap_Interval - how many vertical retraces to wait before flipping frames
 	** Get_Ext_Swap_Interval - what is our current setting for the swap interval?
 	*/
-	static void             Set_Ext_Swap_Interval(long swap);
-   static long             Get_Ext_Swap_Interval(void);
+	static void             Set_Ext_Swap_Interval(int swap);
+   static int             Get_Ext_Swap_Interval(void);
 
 	/*
 	** Texture Reduction - all currently loaded textures can be de-resed on the fly
@@ -280,9 +280,9 @@ public:
 
 	// These clock all the time under user control, and are used to update
    // Stats.UserStat* when performance sampling is enabled.
-   static long             UserStat0;
-   static long             UserStat1;
-   static long             UserStat2;
+   static int             UserStat0;
+   static int             UserStat1;
+   static int             UserStat2;
 
 private:
 
@@ -412,17 +412,17 @@ struct RenderStatistics
 		double	PixelsRejected;
 
 		// Surface cache statistics
-		long		Hits;
-		long		Misses;
-		long		Insertions;
-		long		Removals;
-		long		MemUsed;
-		long		MaxMemory;
+		int		Hits;
+		int		Misses;
+		int		Insertions;
+		int		Removals;
+		int		MemUsed;
+		int		MaxMemory;
 
       // User stats (can be used to see how often a function is called, etc.)
-      long     UserStat0;
-      long     UserStat1;
-      long     UserStat2;
+      int     UserStat0;
+      int     UserStat1;
+      int     UserStat2;
 };
 
 

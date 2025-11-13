@@ -453,7 +453,7 @@ protected:
 	unsigned int ShaderBits;
 
 	static bool ShaderDirty;
-	static unsigned long CurrentShader;
+	static unsigned int CurrentShader;
 };
 
 inline void ShaderClass::Reset()

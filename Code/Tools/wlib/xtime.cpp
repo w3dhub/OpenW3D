@@ -87,8 +87,8 @@ static sint32 Get_Day(int month, int day, int year)
 //
 static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)
 {
-  //register long int rem;
-  long int y;
+  //register int rem;
+  int y;
   //register const unsigned short int *ip;
  
   if (days <= 365)
@@ -110,7 +110,7 @@ static bit8 Get_Date_From_Day(sint32 days, OUT sint32 &year, OUT sint32 &yday)
   while (days < 0 || days >= (IS_LEAP (y) ? 366 : 365))
   {
     /* Guess a corrected year, assuming 365 days per year.  */
-    long int yg = y + days / 365 - (days % 365 < 0);
+    int yg = y + days / 365 - (days % 365 < 0);
  
     /* Adjust DAYS and Y to match the guessed year.  */
     days -= ((yg - y) * 365

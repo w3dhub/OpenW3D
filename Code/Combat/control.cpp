@@ -163,7 +163,7 @@ enum {
 void	ControlClass::Import_Cs( BitStreamClass & packet )
 { 
 	// Or in the new one time bits
-	ULONG otb_bits = packet.Get(otb_bits, BITPACK_ONE_TIME_BOOLEAN_BITS);
+	uint32_t otb_bits = packet.Get(otb_bits, BITPACK_ONE_TIME_BOOLEAN_BITS);
 	OneTimeBooleanBits |= otb_bits;
 
 	packet.Get(ContinuousBooleanBits, BITPACK_CONTINUOUS_BOOLEAN_BITS);

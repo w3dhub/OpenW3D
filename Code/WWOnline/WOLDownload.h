@@ -64,10 +64,10 @@ class Download :
 		bool IsDone(void) const;
 		void Process(void);
 
-		unsigned long GetSKU(void) const
+		unsigned int GetSKU(void) const
 			{return mWOLUpdate.SKU;}
 
-		unsigned long GetVersion(void) const
+		unsigned int GetVersion(void) const
 			{return mWOLUpdate.version;}
 
 		bool IsRequired(void) const
@@ -124,7 +124,7 @@ class Download :
 		WOL::Update mWOLUpdate;
 
 		CComPtr<WOL::IDownload> mDownloadObject;
-		unsigned long mDownloadCookie;
+		DWORD mDownloadCookie;
 
 		DLState mState;
 

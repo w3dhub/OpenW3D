@@ -157,7 +157,7 @@ void ConsoleModeClass::Init(void)
 			coord.X=80;
 			coord.Y=4192;
 			SetConsoleScreenBufferSize(ConsoleOutputHandle, coord);
-			unsigned long written = 0;
+			DWORD written = 0;
 			coord.X=0;
 			coord.Y=0;
 
@@ -190,8 +190,8 @@ void ConsoleModeClass::Init(void)
 			/*
 			** Print up version info.
 			*/
-			DWORD version_major = 1;
-			DWORD version_minor = 0;
+			unsigned int version_major = 1;
+			unsigned int version_minor = 0;
 			Get_Version_Number(&version_major, &version_minor);
 #ifdef FREEDEDICATEDSERVER
 			Print("Renegade Free Dedicated Server ");
@@ -543,7 +543,7 @@ void ConsoleModeClass::Think(void)
 	static char last_suggestion[256] = "";
 	static char help[256] = "";
 	static char suggestion_stub[256];
-	static unsigned long last_info_time = 0;
+	static unsigned int last_info_time = 0;
 	static int num_players = -1;	//eh?
 
 	static int delay = 100;
@@ -703,7 +703,7 @@ void ConsoleModeClass::Think(void)
 		delay--;
 		if (delay <= 0) {
 			delay = 100;
-			unsigned long time = TIMEGETTIME();
+			unsigned int time = TIMEGETTIME();
 
 			/*
 			** Handle timer reset.
@@ -831,7 +831,7 @@ void ConsoleModeClass::Apply_Attributes(void)
 
 	if (ok) {
 		COORD pos = info.dwCursorPosition;
-		unsigned long written = 0;
+		DWORD written = 0;
 
 		if (!SlaveMaster.Am_I_Slave()) {
 			FillConsoleOutputAttribute(ConsoleOutputHandle, MASTER_COLORS, 5*80, pos, &written);
@@ -865,7 +865,7 @@ void ConsoleModeClass::Update_Profile(StringClass profile_string)
 		/*
 		** Get a checksum of the profile string.
 		*/
-		unsigned long crc = CRC::Memory((unsigned char*)profile_string.Peek_Buffer(), profile_string.Get_Length());
+		unsigned int crc = CRC::Memory((unsigned char*)profile_string.Peek_Buffer(), profile_string.Get_Length());
 		if (crc != LastProfileCRC) {
 
 
@@ -901,7 +901,7 @@ void ConsoleModeClass::Update_Profile(StringClass profile_string)
 			** Fill the console with spaces.
 			*/
 			if (ok) {
-				unsigned long num_written = 0;
+				DWORD num_written = 0;
 				FillConsoleOutputCharacter(ConsoleOutputHandle, ' ', 206*80, pos, &num_written);
 
 				/*

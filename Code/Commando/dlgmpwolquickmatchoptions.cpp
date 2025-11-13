@@ -119,7 +119,7 @@ MPWolQuickMatchOptionsMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolQuickMatchOptionsMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPWolQuickMatchOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	if (ctrl_id == IDOK) {
 		if (Save_Settings()) {

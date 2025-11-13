@@ -51,7 +51,7 @@ class cDiagnostics
 
    private:
 		static void		Show_Object_Tally(void);
-		static void		Add_Diagnostic(LPCSTR format, ...);
+		static void		Add_Diagnostic(const char *format, ...);
 
 		static Render2DTextClass	*	PRenderer;
 		static Font3DInstanceClass *	PFont;

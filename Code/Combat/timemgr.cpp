@@ -122,7 +122,7 @@ void FrameTimeHistogramClass::Reset()
 // Place the time of current frame to a correct slot.
 void FrameTimeHistogramClass::Add(float frame_time)
 {
-	unsigned long slot=WWMath::Float_To_Long(frame_time*(1000.0f/Step));
+	unsigned int slot=WWMath::Float_To_Long(frame_time*(1000.0f/Step));
 	if (slot>=SlotCount) slot=SlotCount-1;
 	Counts[slot]++;
 }

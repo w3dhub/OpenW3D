@@ -65,7 +65,7 @@ cBioEvent::cBioEvent(void) :
 
 //-----------------------------------------------------------------------------
 void
-cBioEvent::Init(int teamChoice, unsigned long clanID)
+cBioEvent::Init(int teamChoice, unsigned int clanID)
 {
 	WWASSERT(cNetwork::I_Am_Client());
 

@@ -3080,7 +3080,7 @@ MendozaBossGameObjClass::STATE_IMPL_BEGIN(SYDNEY_STATE_BOLTING) (void)
 	//	Make Sydney bolt to her "end" position
 	//
 	ActionParamsStruct params;
-	params.Set_Basic ((long)0, 100, 777);
+	params.Set_Basic ((int)0, 100, 777);
 	params.Set_Movement (SYDNEY_END_POS, 1.0F, 0.5F);
 	Sydney.Get_Ptr ()->As_PhysicalGameObj ()->As_SoldierGameObj ()->Get_Action ()->Goto (params);
 	return ;
@@ -3327,7 +3327,7 @@ MendozaBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_CHASE_SYDNEY) (void)
 	// either chasing Sydney or cutting her off...
 	//
 	ActionParamsStruct params;
-	params.Set_Basic ((long)0, 100, 777);
+	params.Set_Basic ((int)0, 100, 777);
 	params.Set_Movement (MENDOZA_END_POS, 0.75F, 0.5F);
 	Get_Action ()->Goto (params);
 	return ;
@@ -3399,7 +3399,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_GET_CLOSE_TO_PLAYER) (void)
 		//
 		if (COMBAT_STAR != NULL && (StarPos.X > -70.0F)) {
 			ActionParamsStruct params;
-			params.Set_Basic ((long)0, 100, 777);
+			params.Set_Basic ((int)0, 100, 777);
 			params.Set_Movement (COMBAT_STAR, 1.0F, 1.0F);
 			params.MoveFollow		= true;
 			Get_Action ()->Goto (params);
@@ -3481,7 +3481,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_ATTACK_PATTERN1) (void)
 				//	Move to this random spot, but use a random speed as well
 				//
 				ActionParamsStruct params;
-				params.Set_Basic ((long)0, 100, 777);
+				params.Set_Basic ((int)0, 100, 777);
 				params.Set_Movement (position, speed, 1.0F);
 				params.IgnoreFacing = true;
 				Get_Action ()->Goto (params);			
@@ -3557,7 +3557,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_ATTACK_PATTERN2) (void)
 				//	Move to this random spot, but use a random speed as well
 				//
 				ActionParamsStruct params;
-				params.Set_Basic ((long)0, 100, 777);
+				params.Set_Basic ((int)0, 100, 777);
 				params.Set_Movement (position, speed, 1.0F);
 				params.IgnoreFacing = true;
 				Get_Action ()->Goto (params);
@@ -3590,7 +3590,7 @@ MendozaBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_GOTO_HELIPAD) (void)
 	//	Move to the center of the helipad (with all haste)
 	//
 	ActionParamsStruct params;
-	params.Set_Basic ((long)0, 100, 777);
+	params.Set_Basic ((int)0, 100, 777);
 	params.Set_Movement (HELIPAD_CENTER_POS, 1.0F, 0.5F);
 	Get_Action ()->Goto (params);
 	return ;
@@ -3660,7 +3660,7 @@ MendozaBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_RUN_TO_HEALTH) (void)
 		//	Now, move to the spot where the powerup is (at all haste)
 		//
 		ActionParamsStruct params;
-		params.Set_Basic ((long)0, 100, 777);
+		params.Set_Basic ((int)0, 100, 777);
 		params.Set_Movement (position, 1.0F, 0.125F);
 		Get_Action ()->Goto (params);
 	}

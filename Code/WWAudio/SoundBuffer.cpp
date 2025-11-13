@@ -140,7 +140,7 @@ SoundBufferClass::Determine_Stats (unsigned char *buffer)
 
 		// Determine how long this sound will play for
 		float bytes_sec = float((m_Channels * m_Rate * m_Bits) >> 3);
-		m_Duration = (unsigned long)((((float)m_Length) / bytes_sec) * 1000.0F);
+		m_Duration = (unsigned int)((((float)m_Length) / bytes_sec) * 1000.0F);
 	}
 
 	return ;
@@ -253,7 +253,7 @@ bool
 SoundBufferClass::Load_From_Memory
 (
 	unsigned char *mem_buffer,
-	unsigned long size
+	unsigned int size
 )
 {
 	MMSLockClass lock;
@@ -330,8 +330,8 @@ bool
 StreamSoundBufferClass::Load_From_File
 (
 	HANDLE			/*hfile*/,
-	unsigned long	/*size*/,
-	unsigned long	/*offset*/
+	unsigned int	/*size*/,
+	unsigned int	/*offset*/
 )
 {
 	WWPROFILE ("StreamSoundBufferClass::Load_From_File");

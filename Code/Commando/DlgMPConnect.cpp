@@ -65,7 +65,7 @@
 *
 ******************************************************************************/
 
-bool DlgMPConnect::DoDialog(int teamChoice, unsigned long clanID)
+bool DlgMPConnect::DoDialog(int teamChoice, unsigned int clanID)
 	{
 	DlgMPConnect* popup = new DlgMPConnect(teamChoice, clanID);
 
@@ -95,7 +95,7 @@ bool DlgMPConnect::DoDialog(int teamChoice, unsigned long clanID)
 *
 ******************************************************************************/
 
-DlgMPConnect::DlgMPConnect(int teamChoice, unsigned long clanID) :
+DlgMPConnect::DlgMPConnect(int teamChoice, unsigned int clanID) :
 		PopupDialogClass(IDD_MULTIPLAY_CONNECTING),
 		mTeamChoice(teamChoice),
 		mClanID(clanID),
@@ -190,7 +190,7 @@ void DlgMPConnect::Failed_To_Connect(void)
 *
 ******************************************************************************/
 
-void DlgMPConnect::On_Command(int ctrlID, int message, DWORD param)
+void DlgMPConnect::On_Command(int ctrlID, int message, unsigned int param)
 	{
 	if ((IDCANCEL == ctrlID) && (1 != param))
 		{

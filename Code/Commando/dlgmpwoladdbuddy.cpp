@@ -115,7 +115,7 @@ void MPWolAddBuddyPopupClass::On_Activate (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolAddBuddyPopupClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPWolAddBuddyPopupClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

@@ -176,9 +176,9 @@ typedef struct MonoGlobals
 typedef struct _MONO_RESOURCE
 {
     PHYSICAL_ADDRESS  PhysicalAddress;
-    unsigned long             Length;
-    unsigned long             AddressSpace;
-    unsigned long             RangeSharable;
+    unsigned int             Length;
+    unsigned int             AddressSpace;
+    unsigned int             RangeSharable;
 }   MONO_RESOURCE, *PMONO_RESOURCE;
 
 
@@ -198,7 +198,7 @@ MonoGlobals * GlobalDeviceExtension = NULL;
 // MonoDbgPrint.
 //
 
-unsigned long MonoDbgLevel = 3;
+unsigned int MonoDbgLevel = 3;
 
 
 
@@ -242,18 +242,18 @@ typedef struct CellType {
 
 NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp);
 void MonoUnload(PDRIVER_OBJECT DriverObject);
-BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE MonoResources, unsigned long NumberOfResources);
+BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE MonoResources, unsigned int NumberOfResources);
 //NTSTATUS MapMemMapTheMemory(PDEVICE_OBJECT DeviceObject,PVOID IoBuffer, ULONG OutputBufferLength);
 
-void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS PhysicalAddress, unsigned long AddressSpace, unsigned long NumberOfBytes);
+void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS PhysicalAddress, unsigned int AddressSpace, unsigned int NumberOfBytes);
 void Mono_Set_View_Pos(MonoGlobals * device, int pos);
 NTSTATUS Mono_Detect_MGA_Adapter(void);
 void * Mono_Fetch_Ptr(PDEVICE_OBJECT DeviceObject);
 void Mono_Printf(BuffControl * control, char const * DbgMessage, ...);
 void Mono_Clear_Screen(BuffControl * control);
-void Mono_Print_Raw(BuffControl * control, unsigned char * string, unsigned long length);
+void Mono_Print_Raw(BuffControl * control, unsigned char * string, unsigned int length);
 void Mono_Scroll(BuffControl * control);
-void Mono_Print(BuffControl * control, unsigned char * string, unsigned long length);
+void Mono_Print(BuffControl * control, unsigned char * string, unsigned int length);
 void Mono_Bring_To_Top(MonoGlobals * device, int index);
 void Mono_Pan(BuffControl * control);
 void Display_Signon_Banner(BuffControl * control);
@@ -454,9 +454,9 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	PIO_STACK_LOCATION irpStack;
 	MonoGlobals *  deviceExtension;
 	void * ioBuffer;
-	unsigned long inputBufferLength;
-	unsigned long outputBufferLength;
-	unsigned long ioControlCode;
+	unsigned int inputBufferLength;
+	unsigned int outputBufferLength;
+	unsigned int ioControlCode;
 	NTSTATUS ntStatus;
 	FILE_OBJECT * fileobject = NULL;
 	BuffControl * control = NULL;
@@ -484,7 +484,7 @@ NTSTATUS MonoDispatch(PDEVICE_OBJECT DeviceObject, PIRP Irp)
 	*/
 	fileobject = irpStack->FileObject;
 	if (fileobject != NULL)  {
-		currentindex = (long)fileobject->FsContext;
+		currentindex = (int)fileobject->FsContext;
 	}
 
 	/*
@@ -779,7 +779,7 @@ NTSTATUS Mono_Detect_MGA_Adapter(void)
  * HISTORY:                                                                                    *
  *   01/05/1997 JLB : Created.                                                                 *
  *=============================================================================================*/
-void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS address, unsigned long space, unsigned long length)
+void * Mono_Get_Address_Ptr(PHYSICAL_ADDRESS address, unsigned int space, unsigned int length)
 {
 	PHYSICAL_ADDRESS translatedAddress;
 	void * usable_ptr = NULL;
@@ -841,12 +841,12 @@ Return Value:
     false otherwise.
 
 --*/
-BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE MonoResources, unsigned long NumberOfResources)
+BOOLEAN pMonoReportResourceUsage(PDRIVER_OBJECT DriverObject, PMONO_RESOURCE MonoResources, unsigned int NumberOfResources)
 {
-	unsigned long                           sizeOfResourceList = 0;
+	unsigned int                           sizeOfResourceList = 0;
 	PCM_RESOURCE_LIST               resourceList       = NULL;
 	PCM_PARTIAL_RESOURCE_DESCRIPTOR partial;
-	unsigned long                           i;
+	unsigned int                           i;
 	UNICODE_STRING                  className;
 	BOOLEAN                         conflictDetected;
 
@@ -956,7 +956,7 @@ void Mono_Update_Cursor(MonoGlobals * device)
  * HISTORY:                                                                                    *
  *   01/04/1997 JLB : Created.                                                                 *
  *=============================================================================================*/
-void Mono_Print(BuffControl * control, unsigned char * string, unsigned long length)
+void Mono_Print(BuffControl * control, unsigned char * string, unsigned int length)
 {
 	if (control != NULL)  {
 		int x,y;
@@ -1171,12 +1171,12 @@ void Mono_Pan(BuffControl * control)
  * HISTORY:                                                                                    *
  *   01/04/1997 JLB : Created.                                                                 *
  *=============================================================================================*/
-void Mono_Print_Raw(BuffControl * control, unsigned char * string, unsigned long length)
+void Mono_Print_Raw(BuffControl * control, unsigned char * string, unsigned int length)
 {
 	if (control != NULL)  {
 		unsigned short * vidmem;
 		int x,y;
-		unsigned long i;
+		unsigned int i;
 
 		vidmem = control->Buffer;
 		x = control->XPos;

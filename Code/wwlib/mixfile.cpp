@@ -49,14 +49,14 @@
 typedef struct
 {
 	char	signature[4];
-	long	header_offset;
-	long	names_offset;
+	int	header_offset;
+	int	names_offset;
 
 } MIXFILE_HEADER;
 
 typedef struct
 {
-	long	file_count;
+	int	file_count;
 
 } MIXFILE_DATA_HEADER;
 
@@ -216,7 +216,7 @@ FileClass * MixFileFactoryClass::Get_File( char const *filename )
 	RawFileClass *file = NULL;
 
 	//	Create the key block that will be used to binary search for the file.
-	unsigned long crc = CRC_Stringi( filename );
+	unsigned int crc = CRC_Stringi( filename );
 
 	//	Binary search for the file in this mixfile. If it is found, then create the file
 	FileInfoStruct * info = NULL;
@@ -415,11 +415,11 @@ MixFileCreator::MixFileCreator( const char * filename )
 	if ( MixFile != NULL ) {
 		MixFile->Open( FileClass::WRITE );
 		MixFile->Write( "MIX1", 4 );
-		long	header_offset = 0;
+		int	header_offset = 0;
 		MixFile->Write( &header_offset, sizeof( header_offset ) );
-		long	names_offset = 0;
+		int	names_offset = 0;
 		MixFile->Write( &names_offset, sizeof( names_offset ) );
-		long	unused = 0;
+		int	unused = 0;
 		MixFile->Write( &unused, sizeof( unused ) );
 	}
 }

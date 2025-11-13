@@ -58,7 +58,7 @@ int PASCAL	InitJoystick(LPCDIDEVICEINSTANCE pdinst, LPVOID pvRef);
 
 char						DirectInput::DIKeyboardButtons[NUM_KEYBOARD_BUTTONS];
 char						DirectInput::DIMouseButtons[NUM_MOUSE_BUTTONS];
-long						DirectInput::DIMouseAxis[NUM_MOUSE_AXIS];
+int						DirectInput::DIMouseAxis[NUM_MOUSE_AXIS];
 char						DirectInput::DIJoystickButtons[NUM_MOUSE_BUTTONS];
 float						DirectInput::ButtonLastHitTime[NUM_KEYBOARD_BUTTONS];
 Vector3					DirectInput::CursorPos (0, 0, 0);
@@ -722,9 +722,9 @@ void DirectInput::Eat_Mouse_Held_States (void)
 /*
 **
 */
-long	DirectInput::Get_Joystick_Axis_State( JoystickAxis axis )
+int	DirectInput::Get_Joystick_Axis_State( JoystickAxis axis )
 {
-	return ((long*)&DIJoystickState.lX)[axis];
+	return ((int*)&DIJoystickState.lX)[axis];
 }
 
 

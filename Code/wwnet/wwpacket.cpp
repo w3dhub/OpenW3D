@@ -50,7 +50,7 @@ const USHORT	cPacket::PACKET_HEADER_SIZE	= 11;
 #endif //WRAPPER_CRC
 int				cPacket::RefCount					= 0;
 bool				cPacket::EncoderInit				= true;
-const unsigned long cPacket::DefSendTime		= 0xffffffff;
+const unsigned int cPacket::DefSendTime		= 0xffffffff;
 
 //------------------------------------------------------------------------------------
 cPacket::cPacket() :
@@ -168,7 +168,7 @@ void cPacket::Set_Sender_Id(int sender_id)
 //------------------------------------------------------------------------------------
 void cPacket::Set_Send_Time()
 {
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 	if (SendTime == DefSendTime) {
 		FirstSendTime = time;
 	}

@@ -550,7 +550,7 @@ EXTERN_C const IID IID_IWOLBrowser;
         
         virtual HRESULT STDMETHODCALLTYPE Navigate( 
             const wchar_t __RPC_FAR *url,
-            long flags,
+            int flags,
             const wchar_t __RPC_FAR *targetFrame) = 0;
         
         virtual HRESULT STDMETHODCALLTYPE Stop( void) = 0;
@@ -650,7 +650,7 @@ EXTERN_C const IID IID_IWOLBrowser;
         HRESULT ( STDMETHODCALLTYPE __RPC_FAR *Navigate )( 
             IWOLBrowser __RPC_FAR * This,
             const wchar_t __RPC_FAR *url,
-            long flags,
+            int flags,
             const wchar_t __RPC_FAR *targetFrame);
         
         HRESULT ( STDMETHODCALLTYPE __RPC_FAR *Stop )( 
@@ -939,7 +939,7 @@ void __RPC_STUB IWOLBrowser_AllowPageCertification_Stub(
 HRESULT STDMETHODCALLTYPE IWOLBrowser_Navigate_Proxy( 
     IWOLBrowser __RPC_FAR * This,
     const wchar_t __RPC_FAR *url,
-    long flags,
+    int flags,
     const wchar_t __RPC_FAR *targetFrame);
 
 

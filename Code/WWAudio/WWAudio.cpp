@@ -728,7 +728,7 @@ SoundBufferClass *
 WWAudioClass::Create_Sound_Buffer
 (
 	unsigned char *	file_image,
-	unsigned long		bytes,
+	unsigned int		bytes,
 	const char *		string_id,
 	bool					is_3d
 )
@@ -831,7 +831,7 @@ WWAudioClass::Create_Sound_Effect
 (
 	const char *	string_id,
 	unsigned char *raw_wave_data,
-	unsigned long	bytes
+	unsigned int	bytes
 )
 {
 	WWPROFILE ("Create_Sound_Effect");
@@ -958,7 +958,7 @@ WWAudioClass::Create_3D_Sound
 (
 	const char *		string_id,
 	unsigned char *	raw_wave_data,
-	unsigned long		bytes,
+	unsigned int		bytes,
 	int					classid_hint
 )
 {

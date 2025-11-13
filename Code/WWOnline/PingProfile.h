@@ -46,7 +46,7 @@ class Session;
 typedef struct {unsigned char Pings[8];} PingProfile;
 
 const PingProfile& GetLocalPingProfile(void);
-long ComparePingProfile(const PingProfile& ping1, const PingProfile& ping2);
+int ComparePingProfile(const PingProfile& ping1, const PingProfile& ping2);
 int EncodePingProfile(const PingProfile& pings, char* buffer);
 void DecodePingProfile(const char* buffer, PingProfile& pings);
 

@@ -151,7 +151,7 @@ public:
 	ShaderClass	Get_Shader (void) const						{ return Shader; }
 	void			Set_Shader (ShaderClass shader);
 
-//	void	Draw_Block( const RectClass & screen, unsigned long color = 0xFFFFFFFF );
+//	void	Draw_Block( const RectClass & screen, unsigned int color = 0xFFFFFFFF );
 
 	const RectClass & Get_Draw_Extents( void )			{ return DrawExtents; }
 //	const RectClass & Get_Total_Extents( void )			{ return TotalExtents; }

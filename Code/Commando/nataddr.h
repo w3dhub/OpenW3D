@@ -62,20 +62,20 @@ class IPAddressClass
 		*/
 		IPAddressClass(void);
 		IPAddressClass(unsigned char *address, unsigned short port = 0);
-		IPAddressClass(unsigned long address, unsigned short port = 0);
+		IPAddressClass(unsigned int address, unsigned short port = 0);
 
 		/*
 		**	Set the address from explicit variables.
 		*/
 		void Set_Address(unsigned char *address, unsigned short port = 0);
-		void Set_Address(unsigned long address, unsigned short port = 0);
+		void Set_Address(unsigned int address, unsigned short port = 0);
 		void Set_Port(unsigned short port) {Port = port;};
 
 		/*
 		**	Get the address values explicitly.
 		*/
 		void Get_Address(unsigned char *address, unsigned short *port = 0);
-		unsigned long Get_Address(void);
+		unsigned int Get_Address(void);
 		unsigned short Get_Port(void);
 
 		/*
@@ -117,7 +117,7 @@ class IPAddressClass
 		** Actual xxx.xxx.xxx.xxx IP address.
 		*/
 		union  {
-			unsigned long WholeAddress;
+			unsigned int WholeAddress;
 			unsigned char Address[4];
 		};
 

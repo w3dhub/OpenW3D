@@ -90,7 +90,7 @@ MPWolLocaleNagDialogClass::On_Init_Dialog (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-MPWolLocaleNagDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPWolLocaleNagDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	if (ctrl_id == IDOK) {
 		

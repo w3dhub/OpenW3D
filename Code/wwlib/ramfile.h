@@ -59,8 +59,8 @@ class RAMFileClass : public FileClass
 		virtual int Size(void) override;
 		virtual int Write(void const * buffer, int size) override;
 		virtual void Close(void) override;
-		virtual unsigned long Get_Date_Time(void) override {return(0);}
-		virtual bool Set_Date_Time(unsigned long ) override {return(true);}
+		virtual unsigned int Get_Date_Time(void) override {return(0);}
+		virtual bool Set_Date_Time(unsigned int ) override {return(true);}
 		virtual void Error(int , int = false, char const * =NULL) override {}
 		virtual void Bias(int start, int length=-1) override;
 

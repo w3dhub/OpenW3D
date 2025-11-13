@@ -43,7 +43,7 @@
 // If you wish to display loading error messages call targa functions inside of
 // the following macro - for example TARGA_ERROR_HANDLER(targa.Open(filename, TGA_READMODE));
 // The error code is returned back from the handler so it can be used in an expression.
-long Targa_Error_Handler(long error_code,const char* filename);
+int Targa_Error_Handler(int error_code,const char* filename);
 #define TARGA_ERROR_HANDLER(call,filename) Targa_Error_Handler(call,filename)
 
 /*---------------------------------------------------------------------------
@@ -133,8 +133,8 @@ typedef struct _TGAHeader
  */
 typedef struct _TGA2Footer
 	{
-	long Extension;
-	long Developer;
+	int Extension;
+	int Developer;
 	char Signature[16];
 	char RsvdChar;
 	char BZST;
@@ -224,12 +224,12 @@ typedef struct _TGA2Extension
 	TGA2TimeStamp JobTime;
 	char          SoftID[41];
 	TGA2SoftVer   SoftVer;
-	long          KeyColor;
+	int          KeyColor;
 	TGA2Ratio     Aspect;
 	TGA2Ratio     Gamma;
-	long          ColorCor;
-	long          PostStamp;
-	long          ScanLine;
+	int          ColorCor;
+	int          PostStamp;
+	int          ScanLine;
 	char          Attributes;
 	} TGA2Extension;
 
@@ -264,12 +264,12 @@ class Targa
 		~Targa();
 
 		/* Function prototypes. */
-		long Open(const char* name, long mode);
+		int Open(const char* name, int mode);
 		void Close(void);
 
-		long Load(const char* name, char* palette, char* image,bool invert_image=true);
-		long Load(const char* name, long flags, bool invert_image=true);
-		long Save(const char* name, long flags, bool addextension = false);
+		int Load(const char* name, char* palette, char* image,bool invert_image=true);
+		int Load(const char* name, int flags, bool invert_image=true);
+		int Save(const char* name, int flags, bool addextension = false);
 		
 		void XFlip(void);
 		void YFlip(void);
@@ -290,18 +290,18 @@ class Targa
 #ifdef TGA_USES_WWLIB_FILE_CLASSES
 		FileClass *TGAFile;
 #else
-		long mFH;
+		int mFH;
 #endif
-		long mAccess;
-		long mFlags;
+		int mAccess;
+		int mFlags;
 		char* mImage;
 		char* mPalette;
 		TGA2Extension mExtension;
 
 	private:
 		// Utility functions
-		long DecodeImage(void);
-		long EncodeImage(void);
+		int DecodeImage(void);
+		int EncodeImage(void);
 		void InvertImage(void);
 
 		// These functions are for ease of ifdef'ing between standard io calls

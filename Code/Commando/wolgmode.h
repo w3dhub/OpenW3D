@@ -115,8 +115,8 @@ class	WolGameModeClass :
 		void Join_WOL_User(const wchar_t* name);
 
 		bool Kick_Player(const wchar_t* name);
-		void Ban_Player(const wchar_t* name, unsigned long ip);
-		bool Is_Banned(const char *player_name, unsigned long ip);
+		void Ban_Player(const wchar_t* name, unsigned int ip);
+		bool Is_Banned(const char *player_name, unsigned int ip);
 		void Read_Kick_List(void);
 		void Auto_Kick(void);
 
@@ -159,13 +159,13 @@ class	WolGameModeClass :
 		WOLQuickMatch* mQuickMatch;
 
 		cGameData* mTheGame;
-		unsigned long mGameID;
+		unsigned int mGameID;
 		bool mGameInProgress;
-		unsigned long mSendServerInfoTime;
+		unsigned int mSendServerInfoTime;
 		bool mQuietMode;
 		bool mConnected;
-		unsigned long mLastPatchCheckTime;
-		unsigned long mStartQuitProcessTime;
+		unsigned int mLastPatchCheckTime;
+		unsigned int mStartQuitProcessTime;
 		bool mPatchAvailable;
 		bool mMonitorConnection;
 
@@ -174,7 +174,7 @@ class	WolGameModeClass :
 		bool mChannelCreateSuccessFlag;
 
 		DynamicVectorClass<StringClass> KickNameList;
-		DynamicVectorClass<unsigned long> KickIPList;
+		DynamicVectorClass<unsigned int> KickIPList;
 
 
 		DynamicVectorClass<StringClass> IdleKickNameList;

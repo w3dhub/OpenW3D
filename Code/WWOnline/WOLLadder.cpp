@@ -54,7 +54,7 @@ namespace WWOnline {
 *
 ******************************************************************************/
 
-RefPtr<LadderData> LadderData::Create(const WOL::Ladder& ladder, long time)
+RefPtr<LadderData> LadderData::Create(const WOL::Ladder& ladder, int time)
 	{
 	return new LadderData(ladder, time);
 	}
@@ -76,7 +76,7 @@ RefPtr<LadderData> LadderData::Create(const WOL::Ladder& ladder, long time)
 *
 ******************************************************************************/
 
-LadderData::LadderData(const WOL::Ladder& ladder, long time) :
+LadderData::LadderData(const WOL::Ladder& ladder, int time) :
 		mTimeStamp(time)
 	{
 //	WWDEBUG_SAY(("WOL: Instantiating LadderData\n"));
@@ -123,7 +123,7 @@ LadderData::~LadderData()
 *
 ******************************************************************************/
 
-bool LadderData::UpdateData(const WOL::Ladder& ladder, long time)
+bool LadderData::UpdateData(const WOL::Ladder& ladder, int time)
 	{
 	if (time > mTimeStamp)
 		{
@@ -149,7 +149,7 @@ bool LadderData::UpdateData(const WOL::Ladder& ladder, long time)
 *
 ******************************************************************************/
 
-LadderInfoEvent::LadderInfoEvent(const wchar_t* requested, const WOL::Ladder& ladder, long time) :
+LadderInfoEvent::LadderInfoEvent(const wchar_t* requested, const WOL::Ladder& ladder, int time) :
 		mRequestedName(requested),
 		mWOLLadder(ladder),
 		mTimeStamp(time)

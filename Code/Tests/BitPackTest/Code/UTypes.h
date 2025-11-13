@@ -57,10 +57,10 @@ typedef short Int16;
 typedef unsigned short UInt16;
 
 //! Signed 32bit value
-typedef long Int32;
+typedef int Int32;
 
 //! Unsigned 32bit value
-typedef unsigned long UInt32;
+typedef unsigned int UInt32;
 
 //! Signed character
 typedef char Char;

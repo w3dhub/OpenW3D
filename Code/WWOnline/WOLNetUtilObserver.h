@@ -68,9 +68,9 @@ class NetUtilObserver :
 		//---------------------------------------------------------------------------
 		// INetUtilEvent Methods
 		//---------------------------------------------------------------------------
-		STDMETHOD(OnPing)(HRESULT hr, int time, unsigned long ip, int handle) override;
+		STDMETHOD(OnPing)(HRESULT hr, int time, unsigned int ip, int handle) override;
         
-		STDMETHOD(OnLadderList)(HRESULT hr, WOL::Ladder* list, int count, long time, int keyRung) override;
+		STDMETHOD(OnLadderList)(HRESULT hr, WOL::Ladder* list, int count, int time, int keyRung) override;
        
 		STDMETHOD(OnGameresSent)(HRESULT hr) override;
       
@@ -80,7 +80,7 @@ class NetUtilObserver :
    
 		STDMETHOD(OnWDTState)(HRESULT hr, unsigned char* state, int length) override;
 
-		STDMETHOD(OnHighscore)(HRESULT hr, WOL::Highscore* list, int count, long time, int keyRung) override;
+		STDMETHOD(OnHighscore)(HRESULT hr, WOL::Highscore* list, int count, int time, int keyRung) override;
 
 	protected:
 		virtual ~NetUtilObserver();
@@ -88,7 +88,7 @@ class NetUtilObserver :
 		NetUtilObserver(const NetUtilObserver&);
 		const NetUtilObserver& operator=(const NetUtilObserver&);
 
-		void ProcessLadderListResults(WOL::Ladder* list, long timeStamp);
+		void ProcessLadderListResults(WOL::Ladder* list, int timeStamp);
 		void NotifyClanLadderUpdate(const UserList& users, const RefPtr<SquadData>& squad);
 
 	private:

@@ -47,11 +47,11 @@
 // Class statics
 //
 int		cClientPingManager::PingNumber						= 0;
-DWORD		cClientPingManager::TimeSentMs						= 0;
-DWORD		cClientPingManager::LastRoundTripPingMs			= 0;
-DWORD		cClientPingManager::AvgRoundTripPingMs				= 0;
+unsigned int		cClientPingManager::TimeSentMs						= 0;
+unsigned int		cClientPingManager::LastRoundTripPingMs			= 0;
+unsigned int		cClientPingManager::AvgRoundTripPingMs				= 0;
 bool		cClientPingManager::IsAwaitingResponse				= false;
-DWORD		cClientPingManager::RoundTripPingSamplesMs[];
+unsigned int		cClientPingManager::RoundTripPingSamplesMs[];
 
 //-----------------------------------------------------------------------------
 void
@@ -83,7 +83,7 @@ cClientPingManager::Think
 	{
 		if (!IsAwaitingResponse)
 		{
-			DWORD time_now_ms = TIMEGETTIME();
+			unsigned int time_now_ms = TIMEGETTIME();
 			if (time_now_ms - TimeSentMs >= MIN_PING_DELAY_MS)
 			{
 				PingNumber++;
@@ -104,7 +104,7 @@ cClientPingManager::Think
 }
 
 //-----------------------------------------------------------------------------
-DWORD
+unsigned int
 cClientPingManager::Get_Last_Round_Trip_Ping_Ms
 (
 	void
@@ -114,7 +114,7 @@ cClientPingManager::Get_Last_Round_Trip_Ping_Ms
 }
 
 //-----------------------------------------------------------------------------
-DWORD
+unsigned int
 cClientPingManager::Get_Avg_Round_Trip_Ping_Ms
 (
 	void
@@ -136,8 +136,8 @@ cClientPingManager::Compute_Average_Round_Trip_Ping_Ms
 
 	AvgRoundTripPingMs = 0;
 
-	DWORD num_pings = 0;
-	DWORD total_ping = 0;
+	unsigned int num_pings = 0;
+	unsigned int total_ping = 0;
 
 	for (int i = 0; i < MAX_SAMPLES; i++)
 	{
@@ -150,7 +150,7 @@ cClientPingManager::Compute_Average_Round_Trip_Ping_Ms
 
 	if (num_pings > 0)
 	{
-		AvgRoundTripPingMs = (DWORD)(total_ping / (float) num_pings);
+		AvgRoundTripPingMs = (unsigned int)(total_ping / (float) num_pings);
 	}
 }
 

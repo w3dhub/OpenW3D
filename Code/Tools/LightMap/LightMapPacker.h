@@ -133,8 +133,8 @@ class TrueColorTarga : public Targa
 
 			// Equality operator.
 			bool operator == (const UnpackedTexelStruct &t) {
-				ASSERT (sizeof (unsigned long) == sizeof (Byte));
-				return (*((unsigned long*) Byte) == *((unsigned long*) t.Byte));
+				ASSERT (sizeof (unsigned int) == sizeof (Byte));
+				return (*((unsigned int*) Byte) == *((unsigned int*) t.Byte));
 			}
 
 			// Inequality operator.

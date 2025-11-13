@@ -51,7 +51,7 @@ class CRCPipe : public Pipe
 		virtual int Put(void const * source, int slen);
 
 		// Fetch the CRC value.
-		long Result(void) const;
+		int Result(void) const;
 
 	protected:
 		CRCEngine CRC;

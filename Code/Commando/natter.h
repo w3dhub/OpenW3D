@@ -181,7 +181,7 @@ class WOLNATInterfaceClass :	public Observer<WWOnline::UserEvent>,
 		unsigned short Get_Mangler_Port_By_Index(int index);
 		bool Get_Mangler_Name_By_Index(int index, char *mangler_name);
 		int Get_Num_Mangler_Servers(void);
-		unsigned long Get_Local_Address(void) {
+		unsigned int Get_Local_Address(void) {
 			return(0);//return(FirewallHelper.Get_Local_Address());
 		};
 		void Tell_Server_That_Client_Is_In_Channel(void);
@@ -201,10 +201,10 @@ class WOLNATInterfaceClass :	public Observer<WWOnline::UserEvent>,
 		void Get_Config(RegistryClass *reg, int &port_number, bool &send_delay);
 		void Set_Config(RegistryClass *reg, int port_number, bool send_delay);
 		void Save_Firewall_Info_To_Registry(void);
-		unsigned long Get_Reg_External_IP(void) {return(RegExternalIP);}
-		unsigned long Get_Reg_External_Port(void) {return(RegExternalPort);}
+		unsigned int Get_Reg_External_IP(void) {return(RegExternalIP);}
+		unsigned int Get_Reg_External_Port(void) {return(RegExternalPort);}
 		void Get_Compact_Log(StringClass &log_string);
-		unsigned long Get_Chat_External_IP(void) {return(ChatExternalIP);}
+		unsigned int Get_Chat_External_IP(void) {return(ChatExternalIP);}
 
 
 		/*
@@ -320,13 +320,13 @@ class WOLNATInterfaceClass :	public Observer<WWOnline::UserEvent>,
 		/*
 		** External IP and port from the registry.
 		*/
-		unsigned long RegExternalIP;
+		unsigned int RegExternalIP;
 		unsigned short RegExternalPort;
 
 		/*
 		** Our IP according to westwood chat.
 		*/
-		unsigned long ChatExternalIP;
+		unsigned int ChatExternalIP;
 
 		/*
 		** Bloat pointer to the Session class.

@@ -36,7 +36,7 @@
 class cRegistryBool
 {
 	public:
-      cRegistryBool(LPCSTR registry_location, LPCSTR key_name, 
+      cRegistryBool(const char *registry_location, const char *key_name, 
 			bool initial_value = false);
 
       bool Toggle(void);

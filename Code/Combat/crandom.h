@@ -60,13 +60,13 @@ public:
 	CRandom( void )		{}
 	~CRandom( void )		{}
 
-	// Get a random 32 bit long integer
+	// Get a random 32 bit int integer
 	inline int Get_Int( void )		{ return Generator(); }
 
-	// Get a random 32 bit long integer less than max
+	// Get a random 32 bit int integer less than max
 	inline int Get_Int( int max )	{	WWASSERT( max > 0 );	return (Generator() & 0x7FFFFFFF) % max;	}
 
-	// Get a random 32 bit long between min and max (both inclusive)
+	// Get a random 32 bit int between min and max (both inclusive)
 	inline int Get_Int( int min, int max );
 
 	// Get a random float between 0 and 1 (both inclusive)
@@ -83,7 +83,7 @@ private:
 };
 
 
-// Get a random 32 bit long between min and max (both inclusive)
+// Get a random 32 bit int between min and max (both inclusive)
 inline int CRandom::Get_Int( int min, int max )
 {
 	// make sure we have a valid range

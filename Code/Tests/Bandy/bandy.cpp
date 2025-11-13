@@ -63,7 +63,7 @@ char *ErrorList[13] = {
 
 #define NUM_BANDS 12
 
-unsigned long Bandwidths [NUM_BANDS * 2] = {
+unsigned int Bandwidths [NUM_BANDS * 2] = {
 	 12000,	14400,
 	 25000,	28800,
 	 33600,	33600,
@@ -161,7 +161,7 @@ char * Addr_As_String(unsigned char *addr)
 int main(int argc, char **argv)
 {
 
-	unsigned long my_addresses[8];
+	unsigned int my_addresses[8];
 	int use_addr = -1;
 	int retries = 3;
 	int failure_code = BANDTEST_OK;
@@ -280,8 +280,8 @@ int main(int argc, char **argv)
 	memcpy(&(address.sin_addr), host->h_addr, host->h_length);
 	printf("Detecting bandwidth - please wait\n");
 
-	unsigned long downstream = 0;
-	unsigned long bw = Detect_Bandwidth(ntohl(address.sin_addr.s_addr), (use_addr == -1) ? 0 : ntohl(my_addresses[use_addr]), retries, failure_code, downstream, BANDTEST_API_VERSION, settings);
+	unsigned int downstream = 0;
+	unsigned int bw = Detect_Bandwidth(ntohl(address.sin_addr.s_addr), (use_addr == -1) ? 0 : ntohl(my_addresses[use_addr]), retries, failure_code, downstream, BANDTEST_API_VERSION, settings);
 
 	if (bw == 0) {
 		printf("Failed to get bandwidth - error code %s\n", ErrorList[failure_code]);

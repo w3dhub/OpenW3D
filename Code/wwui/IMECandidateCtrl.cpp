@@ -128,9 +128,9 @@ void IMECandidateCtrl::Changed(IME::IMECandidate* candidate)
 		{
 		mScrollPos = candidate->GetPageStart();
 
-		unsigned long candSel = candidate->GetSelection();
+		unsigned int candSel = candidate->GetSelection();
 
-		if (candSel != (unsigned long)mCurrSel)
+		if (candSel != (unsigned int)mCurrSel)
 			{
 			mCurrSel = candSel;
 			UpdateScrollPos();
@@ -243,9 +243,9 @@ void IMECandidateCtrl::CreateTextRenderer(void)
 		const unsigned int selIndexBias = (mCandidate->IsStartFrom1() ? 1 : 0);
 
 		float currYPos = ClientRect.Top;
-		const unsigned long candidateCount = mCandidate->GetCount();
+		const unsigned int candidateCount = mCandidate->GetCount();
 
-		for (unsigned long index = mScrollPos; index < candidateCount; ++index)
+		for (unsigned int index = mScrollPos; index < candidateCount; ++index)
 			{
 			// Build the rectangle we will draw the text into
 			RectClass textRect;
@@ -330,7 +330,7 @@ void IMECandidateCtrl::SetCurrSel(int index)
 	{
 	if (mCandidate)
 		{
-		if ((index != mCurrSel) && (index == -1) || ((index >= 0) && (unsigned long)index < mCandidate->GetCount()))
+		if ((index != mCurrSel) && (index == -1) || ((index >= 0) && (unsigned int)index < mCandidate->GetCount()))
 			{
 			mCurrSel = index;
 			Set_Dirty();
@@ -359,9 +359,9 @@ int IMECandidateCtrl::EntryFromPos(const Vector2& mousePos)
 		// Loop over all the entries in our current view
 		float currYPos = ClientRect.Top;
 
-		const unsigned long candidateCount = mCandidate->GetCount();
+		const unsigned int candidateCount = mCandidate->GetCount();
 
-		for (unsigned long index = mScrollPos; index < candidateCount; ++index)
+		for (unsigned int index = mScrollPos; index < candidateCount; ++index)
 			{
 			// Is ths mouse over this entry?
 			if ((mousePos.Y >= currYPos && mousePos.Y <= (currYPos + mCellSize.Y))
@@ -463,9 +463,9 @@ void IMECandidateCtrl::Update_Client_Rect(void)
 		WWASSERT(mCandidate->GetPageSize() <= mCellsPerPage);
 
 		//	Do we need to show a scroll bar?
-		const unsigned long candidateCount = mCandidate->GetCount();
+		const unsigned int candidateCount = mCandidate->GetCount();
 
-		if ((unsigned long)mCellsPerPage < candidateCount)
+		if ((unsigned int)mCellsPerPage < candidateCount)
 			{
 			// Position the scrollbar to the right of the list
 			RectClass scrollRect;
@@ -509,9 +509,9 @@ void IMECandidateCtrl::CalculateCandidatePageExtent(Vector2& outExtent, Vector2&
 		{
 		// Get the size of the widest candidate string.
 		float maxCandWidth = 0.0f;
-		const unsigned long candidateCount = mCandidate->GetCount();
+		const unsigned int candidateCount = mCandidate->GetCount();
 
-		for (unsigned long index = 0; index < candidateCount; ++index)
+		for (unsigned int index = 0; index < candidateCount; ++index)
 			{
 			// Get the extent of the current entry
 			const wchar_t* text = mCandidate->GetCandidate(index);
@@ -611,7 +611,7 @@ void IMECandidateCtrl::On_LButton_Up(const Vector2& mousePos)
 		{
 		const wchar_t* string = mCandidate->GetCandidate(sel);
 		WWDEBUG_SAY(("*** Selected Candidate: %d %04x\n", sel, *string));
-		mCandidate->SelectCandidate((unsigned long)sel);
+		mCandidate->SelectCandidate((unsigned int)sel);
 		}
 	}
 

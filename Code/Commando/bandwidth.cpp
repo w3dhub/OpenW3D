@@ -45,7 +45,7 @@
 #include "bandwidthcheck.h"
 
 //-----------------------------------------------------------------------------
-ULONG cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type)
+unsigned int cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type)
 {
 	/*
 	WWASSERT(bandwidth_type >= BANDWIDTH_FIRST &&
@@ -71,7 +71,7 @@ ULONG cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type
 			return 2000000;
 		case BANDWIDTH_AUTO:
 		{
-			ULONG bps = BandwidthCheckerClass::Get_Upstream_Bandwidth();
+			unsigned int bps = BandwidthCheckerClass::Get_Upstream_Bandwidth();
 //			WWASSERT(bps > 0);
 			return bps;
 		}
@@ -121,7 +121,7 @@ const wchar_t *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM ba
 }
 
 //-----------------------------------------------------------------------------
-BANDWIDTH_TYPE_ENUM cBandwidth::Get_Bandwidth_Type_From_String(LPCSTR bandwidth_string)
+BANDWIDTH_TYPE_ENUM cBandwidth::Get_Bandwidth_Type_From_String(const char *bandwidth_string)
 {
 	WWASSERT(bandwidth_string != NULL);
 

@@ -215,10 +215,10 @@ private:
 	int								Add_Vertex_Material(W3dVertexMaterialStruct * vmat,const char *mapper_args0,const char *mapper_args1,int pass,const char * name);
 	int								Add_Shader(const W3dShaderStruct & shader,int pass);
 	int								Add_Texture(W3dMapClass * map,int pass,int stage);
-	unsigned long					Compute_Crc(const W3dVertexMaterialStruct & vmat,const char *mapper_args0,const char *mapper_args1);
-	unsigned long					Compute_Crc(const W3dShaderStruct & shader);
-	unsigned long					Compute_Crc(const W3dMapClass & map);
-	unsigned long					Add_String_To_Crc(const char *str, unsigned long crc);
+	unsigned int					Compute_Crc(const W3dVertexMaterialStruct & vmat,const char *mapper_args0,const char *mapper_args1);
+	unsigned int					Compute_Crc(const W3dShaderStruct & shader);
+	unsigned int					Compute_Crc(const W3dMapClass & map);
+	unsigned int					Add_String_To_Crc(const char *str, unsigned int crc);
 
 	/*
 	** MaterialRemapClass

@@ -198,7 +198,7 @@ CnCReferenceMenuClass::On_Destroy (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-CnCReferenceMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+CnCReferenceMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	bool allow_default_processing = true;
 

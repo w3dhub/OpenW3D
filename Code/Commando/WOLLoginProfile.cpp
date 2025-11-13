@@ -393,7 +393,7 @@ void LoginProfile::SetSidePreference(int side)
 *
 ******************************************************************************/
 
-void LoginProfile::SetGamesPlayed(unsigned long played)
+void LoginProfile::SetGamesPlayed(unsigned int played)
 	{
 	mGamesPlayed = played;
 	}

@@ -37,7 +37,7 @@ bool GameInFocus = false;
  *   6/21/01    DEL : Created.                                                                 *
  *=============================================================================================*/
 #ifdef _DEBUG
-void __cdecl Print_Win32Error(unsigned long win32Error)
+void __cdecl Print_Win32Error(unsigned int win32Error)
 {
 	LPVOID lpMsgBuf;
 	FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |

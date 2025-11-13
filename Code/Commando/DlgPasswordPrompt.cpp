@@ -190,7 +190,7 @@ void DlgPasswordPrompt::On_Init_Dialog(void)
 *
 ******************************************************************************/
 
-void DlgPasswordPrompt::On_Command(int ctrlID, int message, DWORD param)
+void DlgPasswordPrompt::On_Command(int ctrlID, int message, unsigned int param)
 	{
 	if (IDC_JOIN_GAME_BUTTON == ctrlID)
 		{

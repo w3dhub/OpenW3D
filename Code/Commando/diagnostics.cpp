@@ -134,7 +134,7 @@ void cDiagnostics::Show_Object_Tally(void)
 }
 
 //-----------------------------------------------------------------------------
-void cDiagnostics::Add_Diagnostic(LPCSTR format, ...)
+void cDiagnostics::Add_Diagnostic(const char *format, ...)
 {
 	if (PRenderer) {
 		va_list va;

@@ -426,7 +426,7 @@ DlgConfigPerformanceTabClass::Determine_Performance_Setting (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-DlgConfigPerformanceTabClass::On_Command (int ctrl_id, int message_id, DWORD param)
+DlgConfigPerformanceTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

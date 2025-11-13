@@ -113,7 +113,7 @@ static WWINLINE float Fabs(float val)
 static WWINLINE int Float_To_Int_Chop(const float& f);
 static WWINLINE int Float_To_Int_Floor(const float& f);
 
-static WWINLINE long Float_To_Long(float f);
+static WWINLINE int Float_To_Long(float f);
 static WWINLINE float Cos(float val);
 static WWINLINE float Sin(float val);
 static WWINLINE float Sqrt(float val);
@@ -151,7 +151,7 @@ static float		Max(float a, float b);
 static float		Lerp(float a, float b, float lerp );
 static double		Lerp(double a, double b, float lerp );
 
-static long			Float_To_Long(double f);
+static int			Float_To_Long(double f);
 
 static unsigned char Unit_Float_To_Byte(float f) { return (unsigned char)(f*255.0f); }
 static float			Byte_To_Unit_Float(unsigned char byte) { return ((float)byte) / 255.0f; }
@@ -257,8 +257,8 @@ WWINLINE double WWMath::Lerp(double a, double b, float lerp )
 
 WWINLINE bool WWMath::Is_Valid_Float(float x)
 {
-	unsigned long * plong = (unsigned long *)(&x);
-	unsigned long exponent = ((*plong) & 0x7F800000) >> (32-9);
+	unsigned int * plong = (unsigned int *)(&x);
+	unsigned int exponent = ((*plong) & 0x7F800000) >> (32-9);
 
 	// if exponent is 0xFF, this is a NAN 
 	if (exponent == 0xFF) {
@@ -269,8 +269,8 @@ WWINLINE bool WWMath::Is_Valid_Float(float x)
 
 WWINLINE bool WWMath::Is_Valid_Double(double x)
 {
-	unsigned long * plong = (unsigned long *)(&x) + 1;
-	unsigned long exponent = ((*plong) & 0x7FF00000) >> (32-12);
+	unsigned int * plong = (unsigned int *)(&x) + 1;
+	unsigned int exponent = ((*plong) & 0x7FF00000) >> (32-12);
 
 	// if exponent is 0x7FF, this is a NAN 
 	if (exponent == 0x7FF) {
@@ -280,17 +280,17 @@ WWINLINE bool WWMath::Is_Valid_Double(double x)
 }
 
 // ----------------------------------------------------------------------------
-// Float to long
+// Float to int
 // ----------------------------------------------------------------------------
 
-WWINLINE long WWMath::Float_To_Long(float f)
+WWINLINE int WWMath::Float_To_Long(float f)
 {
-	return (long) (f + 0.5f);
+	return (int) (f + 0.5f);
 }
 
-WWINLINE long WWMath::Float_To_Long(double f)	
+WWINLINE int WWMath::Float_To_Long(double f)	
 {
-	return (long) f;
+	return (int) f;
 }
 
 // ----------------------------------------------------------------------------

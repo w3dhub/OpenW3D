@@ -80,13 +80,13 @@ FieldClass::FieldClass(char *id, unsigned short data)
   Set(id,data);
 }
  
-FieldClass::FieldClass(char *id, long data)
+FieldClass::FieldClass(char *id, int data)
 {
   Data=NULL;
   Set(id,data);
 }
  
-FieldClass::FieldClass(char *id, unsigned long data)
+FieldClass::FieldClass(char *id, unsigned int data)
 {
   Data=NULL;
   Set(id,data);
@@ -153,7 +153,7 @@ void FieldClass::Set(char *id, unsigned short data)
   Next    = Nextsave;
 }
 
-void FieldClass::Set(char *id, long data)
+void FieldClass::Set(char *id, int data)
 {
   FieldClass     *Nextsave=Next;
   Clear();
@@ -165,7 +165,7 @@ void FieldClass::Set(char *id, long data)
   Next    = Nextsave;
 }
 
-void FieldClass::Set(char *id, unsigned long data)
+void FieldClass::Set(char *id, unsigned int data)
 {
   FieldClass     *Nextsave=Next;
   Clear();
@@ -253,7 +253,7 @@ void FieldClass::Host_To_Net(void)
 
     case TYPE_LONG:
     case TYPE_UNSIGNED_LONG:
-      *((unsigned long *)Data) = htonl(*((unsigned long *)Data));
+      *((unsigned int *)Data) = htonl(*((unsigned int *)Data));
       break;
 
     //
@@ -305,7 +305,7 @@ void FieldClass::Net_To_Host(void)
 
     case TYPE_LONG:
     case TYPE_UNSIGNED_LONG:
-      *((unsigned long *)Data) = ntohl(*((unsigned long *)Data));
+      *((unsigned int *)Data) = ntohl(*((unsigned int *)Data));
       break;
 
     //

@@ -66,7 +66,7 @@ DlgWOLWait* DlgWOLWait::mTheInstance = NULL;
 ******************************************************************************/
 
 bool DlgWOLWait::DoDialog(const wchar_t* title, RefPtr<WaitCondition>& wait,
-			Observer<DlgWOLWaitEvent>* observer, unsigned long timeout, unsigned long dialog_timeout)
+			Observer<DlgWOLWaitEvent>* observer, unsigned int timeout, unsigned int dialog_timeout)
 	{
 	if (wait.IsValid())
 		{
@@ -111,7 +111,7 @@ bool DlgWOLWait::DoDialog(const wchar_t* title, RefPtr<WaitCondition>& wait,
 ******************************************************************************/
 
 bool DlgWOLWait::DoDialog(const wchar_t* title, const wchar_t* button_text, RefPtr<WaitCondition>& wait,
-			Observer<DlgWOLWaitEvent>* observer, unsigned long timeout, unsigned long dialog_timeout)
+			Observer<DlgWOLWaitEvent>* observer, unsigned int timeout, unsigned int dialog_timeout)
 	{
 	if (wait.IsValid())
 		{
@@ -157,7 +157,7 @@ bool DlgWOLWait::DoDialog(const wchar_t* title, const wchar_t* button_text, RefP
 ******************************************************************************/
 
 bool DlgWOLWait::DoDialog(int titleID, RefPtr<WaitCondition>& wait,
-			Observer<DlgWOLWaitEvent>* observer, unsigned long timeout, unsigned long dialog_timeout)
+			Observer<DlgWOLWaitEvent>* observer, unsigned int timeout, unsigned int dialog_timeout)
 	{
 	const wchar_t* title = TranslateDBClass::Get_String(titleID);
 	return DoDialog(title, wait, observer, timeout, dialog_timeout);
@@ -180,7 +180,7 @@ bool DlgWOLWait::DoDialog(int titleID, RefPtr<WaitCondition>& wait,
 *
 ******************************************************************************/
 
-DlgWOLWait::DlgWOLWait(RefPtr<WaitCondition>& wait, unsigned long timeout, unsigned long dialog_timeout) :
+DlgWOLWait::DlgWOLWait(RefPtr<WaitCondition>& wait, unsigned int timeout, unsigned int dialog_timeout) :
 		PopupDialogClass(IDD_WOL_WAIT),
 		mWait(wait),
 		mStartTime(0),
@@ -371,9 +371,9 @@ void DlgWOLWait::CheckCondition(void)
 		}
 
 	// Watch for timeout
-	unsigned long currTime = TIMEGETTIME();
-	unsigned long timeout = mTimeout;
-	unsigned long dialog_timeout = mDialogTimeout;
+	unsigned int currTime = TIMEGETTIME();
+	unsigned int timeout = mTimeout;
+	unsigned int dialog_timeout = mDialogTimeout;
 
 	if (dialog_timeout == 0)
 		{
@@ -422,7 +422,7 @@ void DlgWOLWait::CheckCondition(void)
 *
 ******************************************************************************/
 
-void DlgWOLWait::On_Command(int ctrl, int message, DWORD param)
+void DlgWOLWait::On_Command(int ctrl, int message, unsigned int param)
 	{
 	if ((ctrl == IDCANCEL) && mWait.IsValid())
 		{

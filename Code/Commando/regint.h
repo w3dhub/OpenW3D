@@ -36,7 +36,7 @@
 class cRegistryInt
 {
 	public:
-      cRegistryInt(LPCSTR registry_location, LPCSTR key_name, int initial_value);
+      cRegistryInt(const char *registry_location, const char *key_name, int initial_value);
 
       void Set(int value);
       int Get(void) const {return Value;}

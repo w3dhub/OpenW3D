@@ -58,9 +58,9 @@ class LadderData :
 		public RefCounted
 	{
 	public:
-		static RefPtr<LadderData> Create(const WOL::Ladder& ladder, long time);
+		static RefPtr<LadderData> Create(const WOL::Ladder& ladder, int time);
 
-		bool UpdateData(const WOL::Ladder& ladder, long time);
+		bool UpdateData(const WOL::Ladder& ladder, int time);
 
 		const char* GetName(void) const
 			{return (const char*)mData.login_name;}
@@ -86,24 +86,24 @@ class LadderData :
 		unsigned int GetReserved2(void) const
 			{return mData.reserved2;}
 
-		long GetTimeStamp(void) const
+		int GetTimeStamp(void) const
 			{return mTimeStamp;}
 
 		WOL::Ladder& GetData()
 			{return mData;}
 
 	protected:
-		LadderData(const WOL::Ladder& ladder, long time);
+		LadderData(const WOL::Ladder& ladder, int time);
 		virtual ~LadderData();
 
 		WOL::Ladder mData;
-		long mTimeStamp;
+		int mTimeStamp;
 	};
 
 class LadderInfoEvent
 	{
 	public:
-		LadderInfoEvent(const wchar_t* requested, const WOL::Ladder& ladder, long time);
+		LadderInfoEvent(const wchar_t* requested, const WOL::Ladder& ladder, int time);
 
 		virtual ~LadderInfoEvent()
 			{}
@@ -121,7 +121,7 @@ class LadderInfoEvent
 		const WOL::Ladder& GetWOLLadder(void) const
 			{return mWOLLadder;}
 
-		long GetTimeStamp(void) const
+		int GetTimeStamp(void) const
 			{return mTimeStamp;}
 
 	protected:
@@ -131,7 +131,7 @@ class LadderInfoEvent
 
 		const wchar_t* mRequestedName;
 		const WOL::Ladder& mWOLLadder;
-		long mTimeStamp;
+		int mTimeStamp;
 	};
 
 }

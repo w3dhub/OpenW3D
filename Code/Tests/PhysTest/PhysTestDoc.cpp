@@ -231,7 +231,7 @@ void CPhysTestDoc::Load_LEV_File(LPCTSTR lpszPathName)
 	//
 	if (::strrchr (lpszPathName, '\\')) {
 		CString stringTemp = lpszPathName;
-		stringTemp = stringTemp.Left ((long)::strrchr (lpszPathName, '\\') - (long)lpszPathName);
+		stringTemp = stringTemp.Left ((int)::strrchr (lpszPathName, '\\') - (int)lpszPathName);
 		::SetCurrentDirectory (stringTemp);
 		WW3D::Add_Search_Path (stringTemp);
 	}

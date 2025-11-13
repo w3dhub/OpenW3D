@@ -35,7 +35,7 @@
 //
 
 //-----------------------------------------------------------------------------
-cRegistryFloat::cRegistryFloat(LPCSTR registry_location, LPCSTR key_name, float default_value)
+cRegistryFloat::cRegistryFloat(const char *registry_location, const char *key_name, float default_value)
 {
    WWMEMLOG(MEM_GAMEDATA);
 	if (registry_location == NULL) {

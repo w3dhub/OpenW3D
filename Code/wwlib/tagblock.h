@@ -91,7 +91,7 @@ class TagBlockFile : protected RawFileClass
 			return(Find_Block(tagname) != NULL);
 		}						
 		
-		virtual unsigned long Get_Date_Time(void) override {
+		virtual unsigned int Get_Date_Time(void) override {
 			return(FileTime);
 		}
 
@@ -171,7 +171,7 @@ class TagBlockFile : protected RawFileClass
 		int					NumOpenHandles;
 										  
 		// Last time file was written to before we opened it.
-		unsigned long 		FileTime;
+		unsigned int 		FileTime;
 
 		// Keep list of all blocks in file.  This list is sorted by CRC value.
 		// TagBlockIndex is defined in TagBlock.cpp.

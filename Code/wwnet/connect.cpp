@@ -61,7 +61,7 @@
 int cConnection::LatencyAddLow = 0;
 int cConnection::LatencyAddHigh = 0;
 int cConnection::CurrentLatencyAdd = 0;
-unsigned long cConnection::LastLatencyChange = 0;
+unsigned int cConnection::LastLatencyChange = 0;
 
 #endif //WWDEBUG
 
@@ -640,7 +640,7 @@ bool cConnection::Receive_Packet()
 	// See if there are any old packets with simulated lag whos time has come.
 	//
 	if (LaggedPacketTimes.Count()) {
-		unsigned long time_now = TIMEGETTIME();
+		unsigned int time_now = TIMEGETTIME();
 		for (int p=0 ; p<LaggedPacketTimes.Count() ; p++) {
 			if (LaggedPacketTimes[p] <= time_now) {
 				packet = *LaggedPackets[p];
@@ -685,7 +685,7 @@ bool cConnection::Receive_Packet()
 		if (LatencyAddLow || LatencyAddHigh) {
 			cPacket *new_packet = new cPacket;
 			*new_packet = packet;
-			unsigned long time = TIMEGETTIME();
+			unsigned int time = TIMEGETTIME();
 
 			const int latency_adjust_delay = 1000 * 10;
 			if (time - LastLatencyChange > latency_adjust_delay) {
@@ -1196,7 +1196,7 @@ memcpy(last_packet, packet.Get_Data(), last_packet_len);
 			}
 		}
 
-			//unsigned long bytes;
+			//unsigned int bytes;
 			//int result = ioctlsocket(Sock, FIONREAD, &bytes);
 			//if (result == 0 && bytes != 0) {
 			//	WWDEBUG_SAY(("ioctlsocket - bytes left to read = %d\n", bytes));
@@ -1746,7 +1746,7 @@ void cConnection::Send_Ack(struct sockaddr_in* p_address, int packet_id)
       PRHost[addressee]->Get_Stats().StatSample[STAT_UByteSent] += packet.Get_Compressed_Size_Bytes();
    }
 
-	//unsigned long time = TIMEGETTIME() / 1000;
+	//unsigned int time = TIMEGETTIME() / 1000;
 	//WWDEBUG_SAY(("Sending ack at %d\n", time));
 
    Send_Packet_To_Address(packet, p_address);
@@ -2036,7 +2036,7 @@ void cConnection::Service_Read()
 
 			//broken PRHost[rhost_id]->Set_List_Packet_Size(UNRELIABLE_RCV_LIST, 0);
 
-			unsigned long list_processing_start = TIMEGETTIME();
+			unsigned int list_processing_start = TIMEGETTIME();
 
 	      for (SLNode<cPacket> * objnode = PRHost[rhost_id]->Get_Packet_List(UNRELIABLE_RCV_LIST).Head();
             objnode != NULL; objnode = objnode->Next()) {
@@ -2575,7 +2575,7 @@ bool cConnection::Is_Time_To_Resend_Packet_To_Remote_Host(const cPacket *packet,
 		return(false);
 	}
 
-	unsigned long last_send_time = packet->Get_Send_Time();
+	unsigned int last_send_time = packet->Get_Send_Time();
 	if (last_send_time == cPacket::Get_Default_Send_Time()) {
 		return(true);
 	}
@@ -2606,7 +2606,7 @@ bool cConnection::Is_Time_To_Resend_Packet_To_Remote_Host(const cPacket *packet,
 	//
 	total_timeout = std::min(total_timeout, 3000.0f);
 
-	if (ThisFrameTimeMs - packet->Get_Send_Time() >= (unsigned long)total_timeout) {
+	if (ThisFrameTimeMs - packet->Get_Send_Time() >= (unsigned int)total_timeout) {
 		//WWDEBUG_SAY(("Time to resend packet %d, age = %d, timeout = %d, resend count = %d\n", packet->Get_Id(), (int)(ThisFrameTimeMs - packet->Get_Send_Time()), (int)total_timeout, packet->Get_Resend_Count()));
 		return(true);
 	}
@@ -2630,7 +2630,7 @@ bool cConnection::Is_Packet_Too_Old(const cPacket *packet, cRemoteHost *rhost)
 		return(false);
 	}
 
-	unsigned long timeout = 0;
+	unsigned int timeout = 0;
 
 	if (IsServer) {
 

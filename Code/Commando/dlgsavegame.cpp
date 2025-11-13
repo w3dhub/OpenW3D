@@ -243,7 +243,7 @@ SaveGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_inde
 //
 ////////////////////////////////////////////////////////////////
 void
-SaveGameMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+SaveGameMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

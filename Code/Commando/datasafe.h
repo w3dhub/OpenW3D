@@ -233,8 +233,8 @@
 #define safe_int int
 #define safe_unsigned_int unsigned int
 
-#define safe_long long
-#define safe_unsigned_long unsigned long
+#define safe_long int
+#define safe_unsigned_long unsigned int
 
 #define safe_float float
 
@@ -380,7 +380,7 @@ class DataSafeEntryClass
 		/*
 		** Size of data.
 		*/
-		unsigned long Size;
+		unsigned int Size;
 
 		/*
 		** Is this a slop (fake, to allow swapping with only 1 real entry) entry?
@@ -472,7 +472,7 @@ class DataSafeEntryTypeClass
 		/*
 		** A unique number used to match and assign type IDs. This can come from anywhere as long as it's different for every type.
 		*/
-		unsigned long TypeCode;
+		unsigned int TypeCode;
 
 		/*
 		** This is the user friendly ID that is stored along with entries in the data safe and returned in the handle that's
@@ -568,8 +568,8 @@ class GenericDataSafeClass
 		*/
 		static void Shuffle(bool forced = false);
 		static void Swap_Entries(DataSafeEntryClass *first, DataSafeEntryClass *second, int type);
-		static void Encrypt(void *data, int size, unsigned long key = SimpleKey, bool do_checksum = true);
-		static void Decrypt(void *data, int size, unsigned long key = SimpleKey, bool do_checksum = true);
+		static void Encrypt(void *data, int size, unsigned int key = SimpleKey, bool do_checksum = true);
+		static void Decrypt(void *data, int size, unsigned int key = SimpleKey, bool do_checksum = true);
 		static void Mem_Copy_Encrypt(void *dest, void *src, int size, bool do_checksum);
 		static void Mem_Copy_Decrypt(void *dest, void *src, int size, bool do_checksum);
 		static __forceinline void Security_Check(void);
@@ -653,12 +653,12 @@ class GenericDataSafeClass
 		/*
 		** Simple key value used for xoring.
 		*/
-		static unsigned long SimpleKey;
+		static unsigned int SimpleKey;
 
 		/*
 		** Key used for encrypting handles.
 		*/
-		static unsigned long HandleKey;
+		static unsigned int HandleKey;
 
 		/*
 		** Number of valid entries in the Safe list.
@@ -675,17 +675,17 @@ class GenericDataSafeClass
 		/*
 		** Integrity check.
 		*/
-		static unsigned long Checksum;
+		static unsigned int Checksum;
 
 		/*
 		** Shuffle delay.
 		*/
-		static unsigned long ShuffleDelay;
+		static unsigned int ShuffleDelay;
 
 		/*
 		** Security check delay.
 		*/
-		static unsigned long SecurityCheckDelay;
+		static unsigned int SecurityCheckDelay;
 
 		/*
 		** List of types that are stored in the data safe.
@@ -716,7 +716,7 @@ class GenericDataSafeClass
 		** Statistics - debug only.
 		*/
 #ifdef WWDEBUG
-		static unsigned long LastDump;
+		static unsigned int LastDump;
 		static int NumSwaps;
 		static int NumFetches;
 		static int SlopCount;
@@ -752,7 +752,7 @@ class DataSafeClass : public GenericDataSafeClass
 			if (ptr) {
 				void *temp = (void*)ptr;
 				if (temp >= &ReturnList[0][0] && temp < &ReturnList[MAX_OBJECT_COPIES][0]) {
-					if (((unsigned long) temp - (unsigned long)(&ReturnList[0][0])) % sizeof(T) == 0) {
+					if (((unsigned int) temp - (unsigned int)(&ReturnList[0][0])) % sizeof(T) == 0) {
 						return(true);
 					}
 				}
@@ -782,7 +782,7 @@ class DataSafeClass : public GenericDataSafeClass
 		/*
 		** Type identification.
 		*/
-		static int Get_Type_ID(unsigned long type_code, int size);
+		static int Get_Type_ID(unsigned int type_code, int size);
 		static uintptr_t Get_Type_Code(void);
 
 		/*
@@ -872,8 +872,6 @@ class SafeDataClass
 
 		inline operator int(void) const;
 		inline operator unsigned int(void) const;
-		inline operator long(void) const;
-		inline operator unsigned long(void) const;
 		inline operator float(void) const;
 		inline operator double(void) const;
 
@@ -1073,7 +1071,7 @@ __forceinline void GenericDataSafeClass::Security_Check(void)
 	/*
 	** Only check the time every n calls.
 	*/
-	static unsigned long _calls = 0;
+	static unsigned int _calls = 0;
 	_calls++;
 	if (_calls < DATASAFE_TIME_CHECK_CALLS) {
 		return;
@@ -1103,7 +1101,7 @@ __forceinline void GenericDataSafeClass::Security_Check(void)
 	** Since we are going through the whole safe here, we might as well make a note of where slop
 	** needs to be added or removed and count how many total slop entries we have.
 	*/
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 	if (time < SecurityCheckDelay || (time | SecurityCheckDelay) == 0 || (time - SecurityCheckDelay) > SECURITY_CHECK_TIME) {
 
 #ifdef WWDEBUG
@@ -1119,7 +1117,7 @@ __forceinline void GenericDataSafeClass::Security_Check(void)
 			_checking = true;
 			//WWDEBUG_SAY(("Data Safe: Performing security check\n"));
 			SecurityCheckDelay = time;
-			unsigned long checkey = ~SimpleKey;
+			unsigned int checkey = ~SimpleKey;
 
 			/*
 			** Loop through every list.
@@ -1132,7 +1130,7 @@ __forceinline void GenericDataSafeClass::Security_Check(void)
 					** Dereference stuff - make sure the list makes sense.
 					*/
 					DataSafeEntryClass *entry_ptr = Safe[i]->SafeList;
-					unsigned long *data = NULL;
+					unsigned int *data = NULL;
 					ds_assert(entry_ptr != NULL);
 					int data_size = entry_ptr->Size;
 					ds_assert((data_size & 3) == 0);
@@ -1160,7 +1158,7 @@ __forceinline void GenericDataSafeClass::Security_Check(void)
 							/*
 							** Add in the data.
 							*/
-							data = (unsigned long *) (((char*)entry_ptr) + sizeof(*entry_ptr));
+							data = (unsigned int *) (((char*)entry_ptr) + sizeof(*entry_ptr));
 							for (int z=0 ; z<data_size ; z++) {
 								checkey ^= *data++;
 							}
@@ -1411,7 +1409,7 @@ here:
  *   6/27/2001 12:44PM ST : Created                                                            *
  *=============================================================================================*/
 template <class T>
-int DataSafeClass<T>::Get_Type_ID(unsigned long type_code, int size)
+int DataSafeClass<T>::Get_Type_ID(unsigned int type_code, int size)
 {
 	int id = 0;
 
@@ -4116,115 +4114,6 @@ inline SafeDataClass<T>::operator unsigned int (void) const
 	** Error case. Need to return some valid value.
 	*/
 	static unsigned int oh_dear;
-	return(oh_dear);
-}
-
-
-
-/***********************************************************************************************
- * SafeDataClass::operator long -- Return the data for this class as a long                    *
- *                                                                                             *
- *                                                                                             *
- *                                                                                             *
- * INPUT:    Nothing                                                                           *
- *                                                                                             *
- * OUTPUT:   Data cast to long                                                                 *
- *                                                                                             *
- * WARNINGS: None                                                                              *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   7/6/2001 11:47AM ST : Created                                                             *
- *=============================================================================================*/
-template <class T>
-inline SafeDataClass<T>::operator long (void) const
-{
-	ds_assert(sizeof(T) == sizeof(long));
-
-	T *data_ptr = NULL;
-
-#ifdef WWDEBUG
-	/*
-	** Check that T is safe to return as a long
-	*/
-	T x = 0;
-	long y = (T)x;
-	ds_assert(x == y);
-#endif	//WWDEBUG
-
-	/*
-	** If the handle we have is valid then use it to get a pointer to a temporary copy of the data safe contents for this
-	** handle.
-	*/
-	if (Handle.Is_Valid()) {
-#ifdef WWDEBUG
-		bool ok =
-#endif //WWDEBUG
-			DataSafeClass<T>::Get(Handle, data_ptr);
-		ds_assert(ok);
-		if (data_ptr) {
-			return(*((long*)data_ptr));
-		}
-	}
-
-	/*
-	** Error case. Need to return some valid value.
-	*/
-	static long oh_dear;
-	return(oh_dear);
-}
-
-
-
-
-/***********************************************************************************************
- * SafeDataClass::operator int -- Return the data for this class as an unsigned long           *
- *                                                                                             *
- *                                                                                             *
- *                                                                                             *
- * INPUT:    Nothing                                                                           *
- *                                                                                             *
- * OUTPUT:   Data cast to unsigned long                                                        *
- *                                                                                             *
- * WARNINGS: None                                                                              *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   7/6/2001 11:47AM ST : Created                                                             *
- *=============================================================================================*/
-template <class T>
-inline SafeDataClass<T>::operator unsigned long (void) const
-{
-	ds_assert(sizeof(T) == sizeof(unsigned long));
-
-	T *data_ptr = NULL;
-
-#ifdef WWDEBUG
-	/*
-	** Check that T is safe to return as an unsigned long
-	*/
-	T x = 0;
-	unsigned long y = (T)x;
-	ds_assert(x == y);
-#endif	//WWDEBUG
-
-	/*
-	** If the handle we have is valid then use it to get a pointer to a temporary copy of the data safe contents for this
-	** handle.
-	*/
-	if (Handle.Is_Valid()) {
-#ifdef WWDEBUG
-		bool ok =
-#endif //WWDEBUG
-			DataSafeClass<T>::Get(Handle, data_ptr);
-		ds_assert(ok);
-		if (data_ptr) {
-			return(*((unsigned long*)data_ptr));
-		}
-	}
-
-	/*
-	** Error case. Need to return some valid value.
-	*/
-	static unsigned long oh_dear;
 	return(oh_dear);
 }
 

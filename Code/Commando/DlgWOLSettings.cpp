@@ -282,7 +282,7 @@ void DlgWOLSettings::On_Destroy(void)
 *
 ******************************************************************************/
 
-void DlgWOLSettings::On_Command(int ctrl, int message, DWORD param)
+void DlgWOLSettings::On_Command(int ctrl, int message, unsigned int param)
 	{
 	switch (ctrl)
 		{

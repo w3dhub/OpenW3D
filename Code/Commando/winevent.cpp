@@ -182,7 +182,7 @@ cWinEvent::Import_Creation(BitStreamClass & packet)
 	WWASSERT(cNetwork::I_Am_Only_Client());
 
 	int win_type = 0;
-	DWORD duration_s = 0;
+	unsigned int duration_s = 0;
 	WideStringClass mvp_name;
 	int mvp_count = 0;
 
@@ -222,8 +222,8 @@ cWinEvent::Import_Creation(BitStreamClass & packet)
 	The_Game()->Set_Mvp_Count(mvp_count);
 
 #ifndef MULTIPLAYERDEMO
-	ULONG mod_name_crc = packet.Get(mod_name_crc);
-	ULONG map_name_crc = packet.Get(map_name_crc);
+	unsigned int mod_name_crc = packet.Get(mod_name_crc);
+	unsigned int map_name_crc = packet.Get(map_name_crc);
 
 	//
 	//	Try to find the map from its CRC

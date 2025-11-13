@@ -93,7 +93,7 @@ void DlgMpChangeLanNickname::On_Init_Dialog(void)
 }
 
 //-----------------------------------------------------------------------------
-void DlgMpChangeLanNickname::On_Command(int ctrlID, int message, DWORD param)
+void DlgMpChangeLanNickname::On_Command(int ctrlID, int message, unsigned int param)
 {
 	if (IDOK == ctrlID)
 	{

@@ -1990,7 +1990,7 @@ void Session::MakeLocaleRequests(void)
 *
 ******************************************************************************/
 
-void Session::RequestSquadInfoByID(unsigned long squadID)
+void Session::RequestSquadInfoByID(unsigned int squadID)
 	{
 	if (squadID != 0)
 		{
@@ -2230,7 +2230,7 @@ void Session::MakeTeamRequests(void)
 *
 ******************************************************************************/
 
-void Session::RequestLadderInfo(const wchar_t* name, unsigned long type)
+void Session::RequestLadderInfo(const wchar_t* name, unsigned int type)
 	{
 	if (name && (wcslen(name) > 0) && (type & LADDERTYPE_MASK))
 		{
@@ -2347,7 +2347,7 @@ void Session::MakeLadderRequests(void)
 
 			const char* hostAddr = mLadderServer->GetHostAddress();
 			unsigned int port = mLadderServer->GetPort();
-			unsigned long sku = product->GetLadderSKU();
+			unsigned int sku = product->GetLadderSKU();
 
 			// Request individual ladder
 			if (firstRequest[0] == L'I')
@@ -2412,7 +2412,7 @@ void Session::MakeLadderRequests(void)
 *
 ******************************************************************************/
 
-void Session::RequestUserDetails(const RefPtr<UserData>& user, unsigned long requestFlags)
+void Session::RequestUserDetails(const RefPtr<UserData>& user, unsigned int requestFlags)
 	{
 	if (user.IsValid())
 		{
@@ -3001,7 +3001,7 @@ void Session::GetLocaleStrings(std::vector<WideStringClass>& localeStrings)
 *
 ******************************************************************************/
 
-bool Session::SendGameResults(unsigned char* packet, unsigned long length)
+bool Session::SendGameResults(unsigned char* packet, unsigned int length)
 	{
 	if (packet && mGameResultsServer.IsValid())
 		{

@@ -125,9 +125,9 @@ bool GameInitMgrClass::Is_Game_In_Progress(void)
 //
 ////////////////////////////////////////////////////////////////
 void
-GameInitMgrClass::Start_Game (const char *map_name, int teamChoice, unsigned long clanID)
+GameInitMgrClass::Start_Game (const char *map_name, int teamChoice, unsigned int clanID)
 {
-	unsigned long time;
+	unsigned int time;
 
 	WWASSERT(map_name != NULL);
    WWDEBUG_SAY (("GameInitMgrClass::Start_Game(%s)\n", map_name));
@@ -272,7 +272,7 @@ GameInitMgrClass::Start_Game (const char *map_name, int teamChoice, unsigned lon
 void
 GameInitMgrClass::End_Game (void)
 {
-	unsigned long time;
+	unsigned int time;
 
 	WWDEBUG_SAY (("GameInitMgrClass::End_Game\n"));
 
@@ -434,7 +434,7 @@ GameInitMgrClass::End_Game (void)
 void
 GameInitMgrClass::Continue_Game(void)
 {
-	unsigned long time;
+	unsigned int time;
 
 	// IML : First, allow a short period to process any outstanding sound effects that may have been started by the caller.
 	// NOTE: Multi-play does not need this fix because it does not sound page swap.
@@ -504,7 +504,7 @@ GameInitMgrClass::Display_End_Game_Menu (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-GameInitMgrClass::Transmit_Player_Data (int teamChoice, unsigned long clanID)
+GameInitMgrClass::Transmit_Player_Data (int teamChoice, unsigned int clanID)
 {
 	WWMEMLOG(MEM_NETWORK);
    WWDEBUG_SAY (("GameInitMgrClass::Transmit_Player_Data\n"));
@@ -599,7 +599,7 @@ GameInitMgrClass::Start_Client_Server (void)
 		//
 		WWDEBUG_SAY(("BEFORE GameInitMgrClass::Start_Client_Server tight update loop\n"));
 		WWDEBUG_SAY(("Game IP = %s\n", cNetUtil::Address_To_String(The_Game()->Get_Ip_Address())));
-		unsigned long time = TIMEGETTIME();
+		unsigned int time = TIMEGETTIME();
 		do {
 			cNetwork::Update ();
 			if (TIMEGETTIME() - time > 20*1000) {

@@ -53,19 +53,19 @@ class cMsgStatList
 		void		Increment_Num_Msg_Recd(		int message_type, int increment = 1);
 		void		Increment_Num_Byte_Recd(	int message_type, int increment);
 
-		DWORD		Get_Num_Msg_Sent(		int message_type) const;
-		DWORD		Get_Num_Byte_Sent(	int message_type) const;
-		DWORD		Get_Num_Msg_Recd(		int message_type) const;
-		DWORD		Get_Num_Byte_Recd(	int message_type) const;
+		unsigned int		Get_Num_Msg_Sent(		int message_type) const;
+		unsigned int		Get_Num_Byte_Sent(	int message_type) const;
+		unsigned int		Get_Num_Msg_Recd(		int message_type) const;
+		unsigned int		Get_Num_Byte_Recd(	int message_type) const;
 
-		DWORD		Compute_Avg_Num_Byte_Sent(	int message_type) const;
-		DWORD		Compute_Avg_Num_Byte_Recd(	int message_type) const;
+		unsigned int		Compute_Avg_Num_Byte_Sent(	int message_type) const;
+		unsigned int		Compute_Avg_Num_Byte_Recd(	int message_type) const;
 
 		cMsgStat & Get_Stat(int message_type);
 		int		Get_Num_Stats(void) const		{return NumStats;}
 
-		void		Set_Name(int message_type, LPCSTR name);
-		LPCSTR	Get_Name(int message_type) const;
+		void		Set_Name(int message_type, const char *name);
+		const char *Get_Name(int message_type) const;
 
 	private:
       cMsgStatList(const cMsgStatList& source);					// disallow

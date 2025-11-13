@@ -76,7 +76,7 @@ public:
 	//
 	void		On_Init_Dialog (void) override;
 	void		On_Destroy (void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void		On_Merchandise_Selected (MerchandiseCtrlClass *ctrl, int ctrl_id) override;
 	void		On_Merchandise_DblClk (MerchandiseCtrlClass *ctrl, int ctrl_id) override;
 	bool		On_Key_Down (uint32 key_id, uint32 key_data) override;

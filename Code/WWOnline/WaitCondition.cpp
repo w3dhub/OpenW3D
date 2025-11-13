@@ -106,7 +106,7 @@ WaitCondition::~WaitCondition()
 *
 ******************************************************************************/
 
-WaitCondition::WaitResult WaitCondition::WaitFor(CallbackHook& hook, unsigned long timeout)
+WaitCondition::WaitResult WaitCondition::WaitFor(CallbackHook& hook, unsigned int timeout)
 	{
 	WaitBeginning();
 
@@ -151,7 +151,7 @@ WaitCondition::WaitResult WaitCondition::WaitFor(CallbackHook& hook, unsigned lo
 *
 ******************************************************************************/
 
-RefPtr<SingleWait> SingleWait::Create(const wchar_t* text, unsigned long timeout)
+RefPtr<SingleWait> SingleWait::Create(const wchar_t* text, unsigned int timeout)
 	{
 	return new SingleWait(text, timeout);
 	}
@@ -176,7 +176,7 @@ RefPtr<SingleWait> SingleWait::Create(const wchar_t* text, unsigned long timeout
 *
 ******************************************************************************/
 
-SingleWait::SingleWait(const wchar_t* waitText, unsigned long timeout) :
+SingleWait::SingleWait(const wchar_t* waitText, unsigned int timeout) :
 	  mWaitText(waitText),
 	  mEndResult(Waiting),
 		mTimeout(timeout)
@@ -354,7 +354,7 @@ void SingleWait::SetWaitText(const wchar_t* waitText)
 *
 ******************************************************************************/
 
-unsigned long SingleWait::GetTimeout(void) const
+unsigned int SingleWait::GetTimeout(void) const
 	{
 	return mTimeout;
 	}
@@ -699,7 +699,7 @@ const wchar_t* SerialWait::GetWaitText(void) const
 *
 ******************************************************************************/
 
-unsigned long SerialWait::GetTimeout(void) const
+unsigned int SerialWait::GetTimeout(void) const
 	{
 	if ((mCurrentWait >= 0) && ((unsigned)mCurrentWait < mWaits.size()))
 		{
@@ -803,7 +803,7 @@ void ANDWait::Add(const RefPtr<WaitCondition>& wait)
 		mWaits.push_back(wait);
 
 		// The timeout should be the longest of the all the waits
-		unsigned long timeout = wait->GetTimeout();
+		unsigned int timeout = wait->GetTimeout();
 
 		if (timeout > mMaxTimeout)
 			{
@@ -977,7 +977,7 @@ const wchar_t* ANDWait::GetWaitText(void) const
 *
 ******************************************************************************/
 
-unsigned long ANDWait::GetTimeout(void) const
+unsigned int ANDWait::GetTimeout(void) const
 	{
 	return mMaxTimeout;
 	}
@@ -1074,7 +1074,7 @@ void ORWait::Add(const RefPtr<WaitCondition>& wait)
 		mWaits.push_back(wait);
 
 		// Use the longest timeout value.
-		unsigned long timeout = wait->GetTimeout();
+		unsigned int timeout = wait->GetTimeout();
 
 		if (timeout > mMaxTimeout)
 			{

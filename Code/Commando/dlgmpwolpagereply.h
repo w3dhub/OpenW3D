@@ -65,7 +65,7 @@ class DlgWOLPageReply :
 		bool FinalizeCreate(void);
 
 		void On_Init_Dialog(void) override;
-		void On_Command(int ctrl_id, int mesage_id, DWORD param) override;
+		void On_Command(int ctrl_id, int mesage_id, unsigned int param) override;
 
 		void Send_Reply(void);
 		void Add_Message(const wchar_t* username, const wchar_t* message);
