@@ -57,7 +57,7 @@
  * HISTORY:                                                                                    *
  *   05/20/1997 JLB : Created.                                                                 *
  *=============================================================================================*/
-unsigned long Get_CPU_Rate(unsigned long & high)
+unsigned int Get_CPU_Rate(unsigned int & high)
 {
 	LARGE_INTEGER LargeInt;
 
@@ -70,7 +70,7 @@ unsigned long Get_CPU_Rate(unsigned long & high)
 }
 
 
-unsigned long Get_CPU_Clock(unsigned long & high)
+unsigned int Get_CPU_Clock(unsigned int & high)
 {
 	LARGE_INTEGER LargeInt;
 	if (QueryPerformanceCounter(&LargeInt)) {

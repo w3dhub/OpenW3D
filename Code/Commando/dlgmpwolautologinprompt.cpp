@@ -82,7 +82,7 @@ MPWolAutoLoginPromptDialogClass::On_Init_Dialog (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-MPWolAutoLoginPromptDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPWolAutoLoginPromptDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	//
 	//	Remember the "don't show me this again" setting

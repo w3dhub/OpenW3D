@@ -113,7 +113,7 @@ class FirewallConnectWait :
 		*/
 		unsigned int mQueueCount;
 		unsigned int mLastQueueCount;
-		unsigned long mStartTime;
+		unsigned int mStartTime;
 	};
 
 #endif // __FIREWALLWAIT_H__

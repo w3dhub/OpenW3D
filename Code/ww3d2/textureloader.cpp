@@ -781,7 +781,7 @@ void TextureLoader::Flush_Pending_Load_Tasks(void)
 #include <mmsystem.h>
 #define UPDATE_NETWORK 											\
 	if (network_callback) {                            \
-		unsigned long time2 = timeGetTime();            \
+		unsigned int time2 = timeGetTime();            \
 		if (time2 - time > 20) {                        \
 			network_callback();                          \
 			time = time2;                                \
@@ -801,7 +801,7 @@ void TextureLoader::Update(void (*network_callback)(void))
 	// modifying texture tasks.
 	FastCriticalSectionClass::LockClass lock(_ForegroundCriticalSection);
 
-	unsigned long time = timeGetTime();
+	unsigned int time = timeGetTime();
 
 	// while we have tasks on the foreground queue
 	while (TextureLoadTaskClass *task = _ForegroundQueue.Pop_Front()) {

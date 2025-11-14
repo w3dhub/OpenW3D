@@ -127,7 +127,7 @@ MPWolPageBuddyPopupClass::On_Init_Dialog(void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolPageBuddyPopupClass::On_Command(int ctrl_id, int message_id, DWORD param)
+MPWolPageBuddyPopupClass::On_Command(int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id) {
 		case IDC_INVITE_BUDDY_BUTTON: {

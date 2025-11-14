@@ -58,8 +58,8 @@ unsigned char*	DecryptPacket(unsigned char* encbuf, int* size);
 // These are for munching the data
 unsigned char* PrepareEncryptedPacket(unsigned char* packet, int* size);
 void 		RLEncode(unsigned char* src, unsigned char* dst, int* size);
-float 		ran3(long* idnum);
-void 		GenerateKey(unsigned char* key, int len, long seed);
+float 		ran3(int* idnum);
+void 		GenerateKey(unsigned char* key, int len, int seed);
 unsigned char* 	SimpleEncrypt(const unsigned char* src, int* len);
 #ifndef __CLIENT__
 unsigned char* 	RLDecode(unsigned char* src, int* size);

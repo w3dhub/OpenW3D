@@ -74,7 +74,7 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		void				Set_Sender_Id(int sender_id);
       int				Get_Sender_Id() const				{return SenderId;}
 		void				Set_Send_Time(void);
-		unsigned long	Get_Send_Time() const				{return SendTime;}
+		unsigned int	Get_Send_Time() const				{return SendTime;}
 		void				Clear_Resend_Count()					{ResendCount = 0;}
 		void				Increment_Resend_Count()			{ResendCount++;}
       int				Get_Resend_Count() const			{return ResendCount;}
@@ -83,14 +83,14 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 #endif //WRAPPER_CRC
 		void				Set_Num_Sends(int num_sends);
 		int				Get_Num_Sends() const				{return NumSends;}
-		unsigned long	Get_First_Send_Time(void) const	{return FirstSendTime;}
+		unsigned int	Get_First_Send_Time(void) const	{return FirstSendTime;}
 		static void		Init_Encoder(void);
 		static int		Get_Ref_Count()						{return RefCount;}
 		static void		Construct_Full_Packet(cPacket & full_packet, cPacket & src_packet);
 		static void		Construct_App_Packet(cPacket & packet, cPacket & full_packet);
 		static USHORT	Get_Packet_Header_Size(void)		{return (PACKET_HEADER_SIZE);}
 		//BYTE				Peek_Message_Type() const;
-		static unsigned long Get_Default_Send_Time(void) {return(DefSendTime);}
+		static unsigned int Get_Default_Send_Time(void) {return(DefSendTime);}
 
 	private:
       cPacket(const cPacket& source); // Disallow
@@ -101,14 +101,14 @@ class cPacket : public BitStreamClass, public AutoPoolClass<cPacket, 256>
 		static const int		CRC_PLACEHOLDER;
 #endif //WRAPPER_CRC
 		static const USHORT	PACKET_HEADER_SIZE;
-		static const unsigned long DefSendTime;
+		static const unsigned int DefSendTime;
 
 		cFromAddress	PFromAddressWrapper;
 		BYTE				Type;
       int				Id;
       int				SenderId;
-      unsigned long	SendTime;
-		unsigned long	FirstSendTime;
+      unsigned int	SendTime;
+		unsigned int	FirstSendTime;
       int				ResendCount;
 #ifndef WRAPPER_CRC
 		bool				IsCrcCorrect;

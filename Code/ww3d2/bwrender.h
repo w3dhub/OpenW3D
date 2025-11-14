@@ -87,8 +87,8 @@ public:
 
 	void Fill(unsigned char c);
 	void Set_Vertex_Locations(Vector2* vertices,int count); // Warning! Contents are modified!
-	void Render_Triangles(const unsigned long* indices,int index_count);
-	void Render_Triangle_Strip(const unsigned long* indices,int index_count);
+	void Render_Triangles(const unsigned int* indices,int index_count);
+	void Render_Triangle_Strip(const unsigned int* indices,int index_count);
 };
 
 

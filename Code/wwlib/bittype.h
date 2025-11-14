@@ -43,24 +43,26 @@
 
 typedef unsigned char	uint8;
 typedef unsigned short	uint16;
-typedef unsigned long	uint32;
+typedef unsigned int	uint32;
 typedef unsigned int    uint;
 
 typedef signed char		sint8;
 typedef signed short		sint16;
-typedef signed long		sint32;
+typedef signed int		sint32;
 typedef signed int      sint;
 
 typedef float				float32;
 typedef double				float64;
 
-typedef unsigned long   DWORD;
+#ifndef _WIN32
+typedef unsigned int   DWORD;
 typedef unsigned short	WORD;
 typedef unsigned char   BYTE;
 typedef int             BOOL;
 typedef unsigned short	USHORT;
 typedef const char *		LPCSTR;
 typedef unsigned int    UINT;
-typedef unsigned long   ULONG;
+typedef unsigned int   ULONG;
+#endif
 
 #endif //BITTYPE_H

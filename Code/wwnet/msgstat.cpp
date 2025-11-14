@@ -84,29 +84,29 @@ void cMsgStat::Increment_Num_Byte_Recd(int increment)
 }
 
 //---------------- --------------------------------------------------------------------
-DWORD	cMsgStat::Compute_Avg_Num_Byte_Sent(void) const
+unsigned int	cMsgStat::Compute_Avg_Num_Byte_Sent(void) const
 {
-	DWORD avg = 0;
+	unsigned int avg = 0;
 	if (NumMsgSent > 0) {
-		avg = (DWORD) cMathUtil::Round(NumByteSent / (float) NumMsgSent);
+		avg = (unsigned int) cMathUtil::Round(NumByteSent / (float) NumMsgSent);
 	}
 
 	return avg;
 }
 
 //---------------- --------------------------------------------------------------------
-DWORD cMsgStat::Compute_Avg_Num_Byte_Recd(void) const
+unsigned int cMsgStat::Compute_Avg_Num_Byte_Recd(void) const
 {
-	DWORD avg = 0;
+	unsigned int avg = 0;
 	if (NumMsgRecd > 0) {
-		avg = (DWORD) cMathUtil::Round(NumByteRecd / (float) NumMsgRecd);
+		avg = (unsigned int) cMathUtil::Round(NumByteRecd / (float) NumMsgRecd);
 	}
 
 	return avg;
 }
 
 //---------------- --------------------------------------------------------------------
-void cMsgStat::Set_Name(LPCSTR name)
+void cMsgStat::Set_Name(const char *name)
 {
 	WWASSERT(name != NULL);
 	WWASSERT(::strlen(name) < sizeof(Name));

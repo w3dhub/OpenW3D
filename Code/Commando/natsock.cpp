@@ -193,7 +193,7 @@ bool SocketHandlerClass::Open(int inport, int outport)
 	** Add all local IP addresses to the list. This list will be used to discard any packets that
 	** we send to ourselves by mistake.
 	*/
-	unsigned long **addresses = (unsigned long**) (host_info->h_addr_list);
+	unsigned int **addresses = (unsigned int**) (host_info->h_addr_list);
 
 	for ( ;; ) {
 		if ( !*addresses ) break;
@@ -201,14 +201,14 @@ bool SocketHandlerClass::Open(int inport, int outport)
 		/*
 		** Read the next address
 		*/
-		unsigned long address = **addresses++;
+		unsigned int address = **addresses++;
 		DebugString(("SocketHandlerClass - Found local address: %d.%d.%d.%d\n", address & 0xff, (address & 0xff00) >> 8, (address & 0xff0000) >> 16, (address & 0xff000000) >> 24));
 
 		/*
 		** Add it to the local address list.
 		*/
 		unsigned char *a = new unsigned char [4];
-		* ((unsigned long*) a) = address;
+		* ((unsigned int*) a) = address;
 		LocalAddresses.Add (a);
 	}
 
@@ -245,7 +245,7 @@ bool SocketHandlerClass::Open(int inport, int outport)
 	/*
 	** Set the blocking mode of the socket to non-blocking.
 	*/
-	unsigned long nonblocking = true;
+	u_long nonblocking = true;
 	err = ioctlsocket(Socket, FIONBIO, &nonblocking);
 	if (err) {
 		DebugString(("SocketHandlerClass - Failed to set socket to non-blocking - error code %d.\n", LAST_ERROR));
@@ -379,7 +379,7 @@ void SocketHandlerClass::Discard_Out_Buffers(void)
  *=============================================================================================*/
 void SocketHandlerClass::Clear_Socket_Error(void)
 {
-	unsigned long error_code;
+	unsigned int error_code;
 	int length = 4;
 
 	if (Socket != INVALID_SOCKET) {
@@ -617,8 +617,8 @@ void SocketHandlerClass::Build_Packet_CRC(WinsockBufferType *packet)
 
 	packet->CRC = 0;
 
-	unsigned long *crc_ptr = &(packet->CRC);
-	unsigned long *packetptr = (unsigned long*) &(packet->Buffer[0]);
+	unsigned int *crc_ptr = &(packet->CRC);
+	unsigned int *packetptr = (unsigned int*) &(packet->Buffer[0]);
 
 	for (int i=0 ; i<packet->BufferLen/4 ; i++) {
 		Add_CRC (crc_ptr, *packetptr++);
@@ -626,7 +626,7 @@ void SocketHandlerClass::Build_Packet_CRC(WinsockBufferType *packet)
 
 	int leftover = packet->BufferLen & 3;
 	if (leftover) {
-		unsigned long val = *packetptr;
+		unsigned int val = *packetptr;
 		val = val & (0xffffffff >> ((4-leftover) << 3));
 		Add_CRC (crc_ptr, val);
 	}
@@ -656,10 +656,10 @@ bool SocketHandlerClass::Passes_CRC_Check(WinsockBufferType *packet)
 		return (false);
 	}
 
-	unsigned long crc = 0;
+	unsigned int crc = 0;
 
-	unsigned long *crc_ptr = &crc;
-	unsigned long *packetptr = (unsigned long*) &(packet->Buffer[0]);
+	unsigned int *crc_ptr = &crc;
+	unsigned int *packetptr = (unsigned int*) &(packet->Buffer[0]);
 
 	for (int i=0 ; i<packet->BufferLen/4 ; i++) {
 		Add_CRC (crc_ptr, *packetptr++);
@@ -667,7 +667,7 @@ bool SocketHandlerClass::Passes_CRC_Check(WinsockBufferType *packet)
 
 	int leftover = packet->BufferLen & 3;
 	if (leftover) {
-		unsigned long val = *packetptr;
+		unsigned int val = *packetptr;
 		val = val & (0xffffffff >> ((4-leftover) << 3));
 		Add_CRC (crc_ptr, val);
 	}
@@ -834,12 +834,12 @@ void SocketHandlerClass::Service_All(void)
  *=============================================================================================*/
 void SocketHandlerClass::Service(void)
 {
-	unsigned long bytes;
+	u_long bytes;
 	struct sockaddr_in addr;
 	int addr_len;
 	WinsockBufferType *packet;
 	int result;
-	unsigned long timeout_check = TIMEGETTIME();
+	unsigned int timeout_check = TIMEGETTIME();
 	int times = 0;
 
 	if (!CanService) {
@@ -925,7 +925,7 @@ void SocketHandlerClass::Service(void)
 					** result is the number of bytes read.
 					*/
 					packet->BufferLen = result - sizeof(packet->CRC);
-					packet->CRC = *((unsigned long*) (&ReceiveBuffer[0]));
+					packet->CRC = *((unsigned int*) (&ReceiveBuffer[0]));
 					memcpy (packet->Buffer, ReceiveBuffer + sizeof(packet->CRC), packet->BufferLen);
 
 					/*
@@ -1062,7 +1062,7 @@ void SocketHandlerClass::Service(void)
  * HISTORY:                                                                                    *
  *   05/09/1995 BRR : Created                                                                  *
  *=============================================================================================*/
-void SocketHandlerClass::Add_CRC(unsigned long *crc, unsigned long val)
+void SocketHandlerClass::Add_CRC(unsigned int *crc, unsigned int val)
 {
 	int hibit;
 

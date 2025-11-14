@@ -55,7 +55,7 @@
 static DynamicVectorClass<Vector3>	_TempVertexBuffer;
 static DynamicVectorClass<Vector3>	_TempNormalBuffer;
 static DynamicVectorClass<Vector4>	_TempTransformedVertexBuffer;
-static DynamicVectorClass<unsigned long> _TempClipFlagBuffer;
+static DynamicVectorClass<unsigned int> _TempClipFlagBuffer;
 
 
 /*
@@ -262,7 +262,7 @@ void MeshModelClass::Shadow_Render(SpecialRenderInfoClass & rinfo,const Matrix3D
 		for (int a=0;a<VertexCount;++a,++optr) *tptr++=Vector2((*optr)[0],-(*optr)[1]);
 
 		rinfo.BWRenderer->Set_Vertex_Locations(reinterpret_cast<Vector2*>(transf_ptr),VertexCount);
-		rinfo.BWRenderer->Render_Triangles(reinterpret_cast<const unsigned long*>(Poly->Get_Array()),PolyCount*3);
+		rinfo.BWRenderer->Render_Triangles(reinterpret_cast<const unsigned int*>(Poly->Get_Array()),PolyCount*3);
 		return;
 	}
 }

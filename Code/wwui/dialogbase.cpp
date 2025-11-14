@@ -920,7 +920,7 @@ DialogBaseClass::Update_Mouse_State (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-DialogBaseClass::On_Command (int ctrl_id, int message_id, DWORD param)
+DialogBaseClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	//
 	//	Allow the default handler to process this command

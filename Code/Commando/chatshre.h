@@ -57,7 +57,7 @@ enum ChatLocationEnum {
    LANLOC_INGAME,
 };
 
-LPCSTR Translate_Location(ChatLocationEnum location);
+const char *Translate_Location(ChatLocationEnum location);
 
 //-----------------------------------------------------------------------------
 

@@ -151,8 +151,8 @@ cGameOptionsEvent::Import_Creation(BitStreamClass & packet)
 	//
 	// TSS103001...n.b. need test that Find_Map_Name succeeds...
 	//
-	ULONG mod_name_crc = packet.Get(mod_name_crc);
-	ULONG map_name_crc = packet.Get(map_name_crc);
+	unsigned int mod_name_crc = packet.Get(mod_name_crc);
+	unsigned int map_name_crc = packet.Get(map_name_crc);
 
 	// Find the mod and map names from their CRC
 	StringClass mod_name(0, true);

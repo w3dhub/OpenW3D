@@ -270,7 +270,7 @@ bool ChatMessage::IsSenderSquelched(void) const
 *
 ******************************************************************************/
 
-bool ChatMessage::IsSenderInClan(unsigned long clanID) const
+bool ChatMessage::IsSenderInClan(unsigned int clanID) const
 	{
 	return (mSenderClanID == clanID);
 	}

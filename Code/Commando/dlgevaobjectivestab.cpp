@@ -108,7 +108,7 @@ EvaObjectivesTabClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-EvaObjectivesTabClass::On_Command (int ctrl_id, int message_id, DWORD param)
+EvaObjectivesTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	ChildDialogClass::On_Command (ctrl_id, message_id, param);
 	return ;

@@ -613,12 +613,12 @@ bool RestartNeeded = true;
  * HISTORY:                                                                                    *
  *   12/3/2001 11:26PM ST : Created                                                            *
  *=============================================================================================*/
-void Get_Version_Number(unsigned long *major, unsigned long *minor)
+void Get_Version_Number(unsigned int *major, unsigned int *minor)
 {
 	// Version info removed per Legal review requirements. LFeenanEA - 8th February 2025
 	
-	unsigned long version_major = 0;
-	unsigned long version_minor = 0;
+	unsigned int version_major = 0;
+	unsigned int version_minor = 0;
 }
 
 

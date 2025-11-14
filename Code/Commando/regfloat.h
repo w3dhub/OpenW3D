@@ -36,7 +36,7 @@
 class cRegistryFloat
 {
 	public:
-      cRegistryFloat(LPCSTR registry_location, LPCSTR key_name, float initial_value);
+      cRegistryFloat(const char *registry_location, const char *key_name, float initial_value);
 
       void Set(float value);
       float Get(void) const {return Value;}

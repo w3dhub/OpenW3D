@@ -110,7 +110,7 @@ FrameGrabClass::FrameGrabClass(const char *filename, MODE mode, int width, int h
 		return;     
 	}  
 
-    Bitmap = (long *) GlobalAllocPtr(GMEM_MOVEABLE, BitmapInfoHeader.biSizeImage); 
+    Bitmap = (int *) GlobalAllocPtr(GMEM_MOVEABLE, BitmapInfoHeader.biSizeImage); 
 }
 
 FrameGrabClass::~FrameGrabClass()
@@ -169,7 +169,7 @@ void FrameGrabClass::ConvertFrame(void *BitmapPointer)
 
 	int width = BitmapInfoHeader.biWidth;
 	int height = BitmapInfoHeader.biHeight;
-	long *image = (long *) BitmapPointer;
+	int *image = (int *) BitmapPointer;
 
 	// copy the data, doing a vertical flip & byte re-ordering of the pixel longwords
 	int y = height;
@@ -178,8 +178,8 @@ void FrameGrabClass::ConvertFrame(void *BitmapPointer)
 		int yoffset = y * width;
 		int yoffset2 = (height - y) * width;
 		while(x--) {
-			long *source = &image[yoffset + x];
-			long *dest = &Bitmap[yoffset2 + x];
+			int *source = &image[yoffset + x];
+			int *dest = &Bitmap[yoffset2 + x];
 			*dest = *source;
 			unsigned char *c = (unsigned char *) dest;
 			c[3] = c[0];

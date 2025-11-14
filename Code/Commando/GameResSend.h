@@ -40,7 +40,7 @@
 class cGameData;
 class cPlayer;
 
-void SendGameResults(unsigned long gameID, cGameData* theGame, SList<cPlayer>* players);
+void SendGameResults(unsigned int gameID, cGameData* theGame, SList<cPlayer>* players);
 
 #ifdef _DEBUG
 void SendTestGameResults(void);

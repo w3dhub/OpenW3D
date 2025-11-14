@@ -91,8 +91,8 @@ protected:
 	ChunkImageClass *					Child;
 	ChunkImageClass *					Sibling;
 	unsigned char *					Data;
-	unsigned long						ID;
-	unsigned long						Length;
+	unsigned int						ID;
+	unsigned int						Length;
 
 	friend class ChunkFileImageClass;
 };

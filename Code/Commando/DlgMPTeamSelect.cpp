@@ -393,7 +393,7 @@ void DlgMPTeamSelect::On_Frame_Update(void)
 *
 ******************************************************************************/
 
-void DlgMPTeamSelect::On_Command(int ctrlID, int message, DWORD param)
+void DlgMPTeamSelect::On_Command(int ctrlID, int message, unsigned int param)
 	{
 	switch (ctrlID)
 		{
@@ -842,7 +842,7 @@ void DlgMPTeamSelect::ProcessWOLGameInfo(DlgMPTeamSelect& dialog, const char* da
 		strncpy(info, data, 255);
 
 		// Get players name
-		unsigned long mapCRC = 0;
+		unsigned int mapCRC = 0;
 		PARSE_HEXDWORD(info, " ", mapCRC);
 
 		StringClass mapname(64, true);

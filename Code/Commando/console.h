@@ -119,7 +119,7 @@ private:
 	void		Update_Memory_Log( void );
 
 	bool	PerformanceSamplingActive;
-   DWORD ConsoleInputType;
+   unsigned int ConsoleInputType;
    int   PromptLength;
    static const float LeftMargin;
 

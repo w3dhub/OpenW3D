@@ -297,10 +297,10 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 	mIsDataValid = true;
 
 	// Extract ExInfo settings
-	unsigned long fileCRC = 0;
-	unsigned long version = 0;
-	unsigned long clanID1 = 0;
-	unsigned long clanID2 = 0;
+	unsigned int fileCRC = 0;
+	unsigned int version = 0;
+	unsigned int clanID1 = 0;
+	unsigned int clanID2 = 0;
 	unsigned char gameType = 0;
 	unsigned char gameFlags1 = 0;
 	unsigned char gameFlags2 = 0;
@@ -494,7 +494,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 
 		// The file CRC is either the map name or the mod name depending on if
 		// the mod flag is set.
-		unsigned long fileCRC = 0;
+		unsigned int fileCRC = 0;
 		unsigned char modMapIndex = 0;
 
 		if (mIsMod)
@@ -570,7 +570,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 bool WOLGameInfo::IsValidGameChannel(const RefPtr<ChannelData>& channel)
 	{
 	WOLGameInfo gameInfo(channel);
-	return (gameInfo.IsDataValid() && (gameInfo.mVersion == (unsigned long)cNetwork::Get_Exe_Key()));
+	return (gameInfo.IsDataValid() && (gameInfo.mVersion == (unsigned int)cNetwork::Get_Exe_Key()));
 	}
 
 
@@ -590,7 +590,7 @@ bool WOLGameInfo::IsValidGameChannel(const RefPtr<ChannelData>& channel)
 *
 ******************************************************************************/
 
-bool WOLGameInfo::IsClanCompeting(unsigned long clanID) const
+bool WOLGameInfo::IsClanCompeting(unsigned int clanID) const
 	{
 	return (mIsClanGame && (clanID != 0) && ((clanID == mClanID1) || (clanID == mClanID2)));
 	}
@@ -641,14 +641,14 @@ bool WOLGameInfo::CanUserJoin(const RefPtr<UserData>& user)
 		return false;
 		}
 
-	if (mVersion != (unsigned long)cNetwork::Get_Exe_Key())
+	if (mVersion != (unsigned int)cNetwork::Get_Exe_Key())
 		{
 		return false;
 		}
 
 	if (mIsClanGame)
 		{
-		unsigned long userClanID = user->GetSquadID();
+		unsigned int userClanID = user->GetSquadID();
 		return ((0 != userClanID) && (IsClanGameOpen() || IsClanCompeting(userClanID)));
 		}
 

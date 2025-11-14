@@ -113,9 +113,9 @@ void SubTitleClass::Set_RGB_Color(
 {
 	// Combine components as 8:8:8
 	mRGBColor = (
-		((unsigned long)red << 16) |
-		((unsigned long)green << 8) |
-		(unsigned long)blue);
+		((unsigned int)red << 16) |
+		((unsigned int)green << 8) |
+		(unsigned int)blue);
 }
 
 

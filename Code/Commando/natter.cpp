@@ -170,13 +170,13 @@ void WOLNATInterfaceClass::Init(void)
 		int force_port;
 		Get_Config(&reg, force_port, send_delay);
 		ForcePort = (unsigned short) force_port;
-		RegExternalIP = (unsigned long) reg.Get_Int("ExternalIP", RegExternalIP);
+		RegExternalIP = (unsigned int) reg.Get_Int("ExternalIP", RegExternalIP);
 		RegExternalPort = (unsigned short) reg.Get_Int("ExternalPort", RegExternalPort);
 
 		/*
 		** Set the values into the firewall helper.
 		*/
-		FirewallHelper.Set_Firewall_Info((unsigned long)last_behavior, last_source_port_allocation_delta, (unsigned short)source_port_pool, send_delay, confidence);
+		FirewallHelper.Set_Firewall_Info((unsigned int)last_behavior, last_source_port_allocation_delta, (unsigned short)source_port_pool, send_delay, confidence);
 
 		/*
 		** Read the local class values from the registry.
@@ -200,7 +200,7 @@ void WOLNATInterfaceClass::Init(void)
 	*/
 	bool got_port = false;
 	unsigned short start_port = PortBase;
-	unsigned long timeout = TIMEGETTIME() + TIMER_SECOND * 5;
+	unsigned int timeout = TIMEGETTIME() + TIMER_SECOND * 5;
 
 	do {
 		PortBase += 2;
@@ -548,7 +548,7 @@ void WOLNATInterfaceClass::Shutdown(void)
 		/*
 		** Read the FirewallHelper values from the class.
 		*/
-		unsigned long last_behavior = 0;
+		unsigned int last_behavior = 0;
 		int last_source_port_allocation_delta = 1;
 		unsigned short source_port_pool = PORT_POOL_MIN;
 		bool send_delay = false;
@@ -892,7 +892,7 @@ void WOLNATInterfaceClass::HandleNotification(WWOnline::UserIPEvent &ipevent)
 		char namebuf[32];
 		if (Get_My_Name(namebuf)) {
 			if (stricmp((char*)user.name, namebuf) == 0) {
-				unsigned long ip = user.ipaddr;
+				unsigned int ip = user.ipaddr;
 				WWDEBUG_SAY(("WOLNATInterfaceClass::HandleNotification(WWOnline::UserIPEvent &ipevent) : ip = %08x\n"));
 				ChatExternalIP = ip;
 				if (ForcePort || !FirewallHelper.Get_External_Address().Is_Valid() || FirewallHelper.Get_External_Address().Get_Address() == 0) {
@@ -1385,7 +1385,7 @@ void WOLNATInterfaceClass::Service_Receive_Queue(SocketHandlerClass *socket)
 		}
 
 #if (0)
-		unsigned long bytes = 0;
+		unsigned int bytes = 0;
 
 		int result = ioctlsocket(socket->Get_Socket(), FIONREAD, &bytes);
 
@@ -1492,7 +1492,7 @@ unsigned short WOLNATInterfaceClass::Get_Next_Client_Port(void)
 	*/
 	bool got_port = false;
 	unsigned short start_port = PortBase;
-	unsigned long timeout = TIMEGETTIME() + TIMER_SECOND * 5;
+	unsigned int timeout = TIMEGETTIME() + TIMER_SECOND * 5;
 
 	do {
 		PortBase++;
@@ -1549,7 +1549,7 @@ void WOLNATInterfaceClass::Set_Server_Negotiated_Address(IPAddressClass *server_
 	if (server_address && server_address->Is_Valid()) {
 		ServerNegotiatedAddress = *server_address;
 		WWASSERT(PTheGameData != NULL);
-		The_Game()->Set_Ip_Address((unsigned long)server_address->Get_Address());
+		The_Game()->Set_Ip_Address((unsigned int)server_address->Get_Address());
 		The_Game()->Set_Port(server_address->Get_Port());
 	}
 }
@@ -1620,11 +1620,11 @@ void WOLNATInterfaceClass::Get_Compact_Log(StringClass &log_string)
 			ForcePort,
 			FirewallHelper.Get_Send_Delay(),
 			ntohl(FirewallHelper.Get_Local_Address()),
-			(unsigned long) FirewallHelper.Get_External_Address().Get_Address(),
+			(unsigned int) FirewallHelper.Get_External_Address().Get_Address(),
 			(int) FirewallHelper.Get_Raw_Firewall_Behavior(),
 			(int) FirewallHelper.Get_Source_Port_Allocation_Delta(),
 			FirewallHelper.Get_Source_Port_Pool(),
-			(unsigned long) ServerNegotiatedAddress.Get_Address(),
+			(unsigned int) ServerNegotiatedAddress.Get_Address(),
 			(int) ServerNegotiatedAddress.Get_Port());
 
 	log_string = temp;

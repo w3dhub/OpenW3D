@@ -36,10 +36,10 @@
 class cRegistryString
 {
 	public:
-      cRegistryString(LPCSTR registry_location, LPCSTR key_name, LPCSTR initial_value);
+      cRegistryString(const char *registry_location, const char *key_name, const char *initial_value);
 
-      void Set(LPCSTR value);
-      LPCSTR Get(void) const {return Value;}
+      void Set(const char *value);
+      const char *Get(void) const {return Value;}
 
 	private:
 

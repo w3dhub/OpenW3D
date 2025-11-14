@@ -273,7 +273,7 @@ void SlaveMasterClass::Wait_For_Slave_Shutdown(void)
 {
 	if (!SlaveMode) {
 
-		unsigned long time = TIMEGETTIME();
+		unsigned int time = TIMEGETTIME();
 		int num_running = 0;
 		int last_num_running = 0;
 		bool forced = false;
@@ -288,7 +288,7 @@ void SlaveMasterClass::Wait_For_Slave_Shutdown(void)
 			for (int i=0 ; i<NumSlaveServers ; i++) {
 				if (SlaveServers[i].IsRunning) {
 					if (SlaveServers[i].ProcessInfo.hProcess) {
-						unsigned long code;
+						DWORD code;
 						int res = GetExitCodeProcess(SlaveServers[i].ProcessInfo.hProcess, &code);
 
 						if (res && code == STILL_ACTIVE) {
@@ -296,7 +296,7 @@ void SlaveMasterClass::Wait_For_Slave_Shutdown(void)
 						}
 					} else {
 						if (SlaveServers[i].ProcessInfo.dwProcessId) {
-							unsigned long ver = GetProcessVersion(SlaveServers[i].ProcessInfo.dwProcessId);
+							unsigned int ver = GetProcessVersion(SlaveServers[i].ProcessInfo.dwProcessId);
 							if (ver && ver == GetProcessVersion(GetCurrentProcessId())) {
 								num_running++;
 							}
@@ -320,7 +320,7 @@ void SlaveMasterClass::Wait_For_Slave_Shutdown(void)
 				forced = true;
 				for (int i=0 ; i<NumSlaveServers ; i++) {
 					if (SlaveServers[i].ProcessInfo.dwProcessId) {
-						unsigned long ver = GetProcessVersion(SlaveServers[i].ProcessInfo.dwProcessId);
+						unsigned int ver = GetProcessVersion(SlaveServers[i].ProcessInfo.dwProcessId);
 						if (ver && ver == GetProcessVersion(GetCurrentProcessId())) {
 
 							WWDEBUG_SAY(("Terminating process %d due to timeout\n", SlaveServers[i].ProcessInfo.dwProcessId));
@@ -609,7 +609,7 @@ bool SlaveMasterClass::Aquire_Slave(int index)
 	*/
 	if (proc_id) {
 
-		unsigned long ver = GetProcessVersion(proc_id);
+		unsigned int ver = GetProcessVersion(proc_id);
 		if (ver && ver == GetProcessVersion(GetCurrentProcessId())) {
 
 			/*
@@ -740,7 +740,7 @@ void SlaveMasterClass::Startup_Slaves(void)
 								** game process. Wait a few seconds until the slave sets his ID into his registry location.
 								*/
 								if (!slave_running) {
-									unsigned long time = TIMEGETTIME();
+									unsigned int time = TIMEGETTIME();
 									while (TIMEGETTIME() - time < 10000) {
 										if (!slave_reg.Is_Valid()) {
 											break;
@@ -1219,7 +1219,7 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 void SlaveMasterClass::Delete_Registry_Copies(void)
 {
 	HKEY base_key;
-	long result = RegOpenKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME, 0, KEY_ALL_ACCESS, &base_key);
+	LSTATUS result = RegOpenKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME, 0, KEY_ALL_ACCESS, &base_key);
 	WWASSERT(result == ERROR_SUCCESS);
 
 	if (result == ERROR_SUCCESS) {

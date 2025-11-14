@@ -113,7 +113,7 @@ bool Set_Working_Directory(void);
 //#include "packet.h"
 
 #if 1 //ndef _MSC_VER
-long Top_Level_Exception_Filter(EXCEPTION_POINTERS *e_info)
+int Top_Level_Exception_Filter(EXCEPTION_POINTERS *e_info)
 {
 	return(Exception_Handler(e_info->ExceptionRecord->ExceptionCode, e_info));
 }
@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
 	** Leak test
 	*/
 	//char *flibble = new char [1024];
-	//unsigned long *flibble2 = new unsigned long;
+	//unsigned int *flibble2 = new unsigned int;
 	//void *flibble3 = malloc(128);
 
 	//flibble = flibble;
@@ -245,7 +245,7 @@ static bool Graphics_Settings_Trouble_Shooting()
 			&startup_info,
 			&process_info);
 
-		unsigned long exit_code=STILL_ACTIVE;
+		DWORD exit_code=STILL_ACTIVE;
 		unsigned res=0;
 		do {
 			res=GetExitCodeProcess(process_info.hProcess,&exit_code);
@@ -382,7 +382,7 @@ static bool Video_Card_Driver_Check()
 		return true;
 	}
 
-	unsigned long exit_code=STILL_ACTIVE;
+	DWORD exit_code=STILL_ACTIVE;
 	unsigned res=0;
 	do {
 		res=GetExitCodeProcess(process_info.hProcess,&exit_code);

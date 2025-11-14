@@ -286,7 +286,7 @@ RefPtr<WaitCondition> WOLQuickMatch::Disconnect(void)
 
 bool WOLQuickMatch::SendClientInfo(void)
 	{
-	unsigned long ver = cNetwork::Get_Exe_Key();
+	unsigned int ver = cNetwork::Get_Exe_Key();
 
 	// Get CPU speed
 	int speed = CPUDetectClass::Get_Processor_Speed();
@@ -294,7 +294,7 @@ bool WOLQuickMatch::SendClientInfo(void)
 	// Get amount of physical memory
 	MEMORYSTATUS memStatus;
 	GlobalMemoryStatus(&memStatus);
-	unsigned long memory = (memStatus.dwTotalPhys / 1048576);
+	unsigned int memory = (memStatus.dwTotalPhys / 1048576);
 
 	//-------------------------------------------------------------------------
 	// Gather pings

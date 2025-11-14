@@ -214,7 +214,7 @@ bool SubTitleManagerClass::Load_Sub_Titles(const char* moviename, const char* su
 *
 ******************************************************************************/
 
-bool SubTitleManagerClass::Process(unsigned long movieTime)
+bool SubTitleManagerClass::Process(unsigned int movieTime)
 {
 	if (mSubTitles == NULL) {
 		return false;
@@ -234,7 +234,7 @@ bool SubTitleManagerClass::Process(unsigned long movieTime)
 
 		// Check the display time against the current movie time. If it is time
 		// to display the subtitle then send a subtitle event to the client.
-		unsigned long displayTime = subtitle->Get_Display_Time();
+		unsigned int displayTime = subtitle->Get_Display_Time();
 
 		// If its not time then we are done.
 		if (displayTime > movieTime) {
@@ -256,7 +256,7 @@ bool SubTitleManagerClass::Process(unsigned long movieTime)
 	// If the active subtitles duration has expired then remove it as being active.
 	if (mActiveSubTitle != NULL) {
 		SubTitleClass* subtitle = mActiveSubTitle;
-		unsigned long expireTime = subtitle->Get_Display_Time() + subtitle->Get_Display_Duration();
+		unsigned int expireTime = subtitle->Get_Display_Time() + subtitle->Get_Display_Duration();
 
 		if (movieTime >= expireTime) {
 			mActiveSubTitle = NULL;
@@ -339,7 +339,7 @@ void SubTitleManagerClass::Draw_Sub_Title(const SubTitleClass* subtitle)
 	Renderer.Build_Sentence(string);
 
 	// Set font color
-	unsigned long rgbColor = subtitle->Get_RGB_Color()|0xff000000;
+	unsigned int rgbColor = subtitle->Get_RGB_Color()|0xff000000;
 
 	Renderer.Draw_Sentence(rgbColor);
 }

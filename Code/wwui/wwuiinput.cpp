@@ -127,7 +127,7 @@ void WWUIInputClass::HandleNotification(IME::IMEEvent& event)
 	else if (IME::IME_GUIDELINE == event.GetAction())
 		{
 		wchar_t desc[255];
-		unsigned long level = event.Subject()->GetGuideline(desc, sizeof(desc));
+		unsigned int level = event.Subject()->GetGuideline(desc, sizeof(desc));
 
 		if (GL_LEVEL_NOGUIDELINE != level)
 			{

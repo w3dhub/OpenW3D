@@ -74,7 +74,7 @@ public:
 	//	Inherited
 	//
 	void		On_Init_Dialog (void) override;
-	void		On_Command (int ctrl_id, int message_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int message_id, unsigned int param) override;
 	bool		On_Apply (void) override;
 	void		On_Frame_Update (void) override;
 	void		On_SliderCtrl_Pos_Changed (SliderCtrlClass *slider_ctrl, int ctrl_id, int new_pos) override;

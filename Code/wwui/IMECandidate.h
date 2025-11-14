@@ -56,31 +56,31 @@ class IMECandidate
 
 		int GetIndex(void) const;
 
-		unsigned long GetStyle(void) const;
+		unsigned int GetStyle(void) const;
 
 		// Get the index of the first candidate in the page
-		unsigned long GetPageStart(void) const;
+		unsigned int GetPageStart(void) const;
 
 		// Set the page to start with the specified candidate index
-		void SetPageStart(unsigned long);
+		void SetPageStart(unsigned int);
 
 		// Get the number of candidates per page
-		unsigned long GetPageSize(void) const;
+		unsigned int GetPageSize(void) const;
 
 		// Get the total number of candidates in the list.
-		unsigned long GetCount(void) const;
+		unsigned int GetCount(void) const;
 
 		// Get the index of the current candidate selection
-		unsigned long GetSelection(void) const;
+		unsigned int GetSelection(void) const;
 
 		// Get the specified candidate string
-		const wchar_t* GetCandidate(unsigned long index);
+		const wchar_t* GetCandidate(unsigned int index);
 
 		// Select a candidate from the list.
-		void SelectCandidate(unsigned long index);
+		void SelectCandidate(unsigned int index);
 
 		// Set the candidate page view
-		void SetView(unsigned long topIndex, unsigned long bottomIndex);
+		void SetView(unsigned int topIndex, unsigned int bottomIndex);
 
 		// Check if the candidates should be displayed starting from 1 or 0
 		bool IsStartFrom1(void) const;
@@ -92,7 +92,7 @@ class IMECandidate
 		bool mUseUnicode;
 		bool mStartFrom1;
 
-		unsigned long mCandidateSize;
+		unsigned int mCandidateSize;
 		CANDIDATELIST* mCandidates;
 
 		// Multibyte -> Unicode string conversion buffer

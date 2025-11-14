@@ -146,26 +146,26 @@ class PacketManagerClass
 		*/
 		void Reset_Stats(void);
 		void Update_Stats(bool forced = false);
-		unsigned long Get_Total_Raw_Bandwidth_In(void);
-		unsigned long Get_Total_Raw_Bandwidth_Out(void);
-		unsigned long Get_Total_Compressed_Bandwidth_In(void);
-		unsigned long Get_Total_Compressed_Bandwidth_Out(void);
+		unsigned int Get_Total_Raw_Bandwidth_In(void);
+		unsigned int Get_Total_Raw_Bandwidth_Out(void);
+		unsigned int Get_Total_Compressed_Bandwidth_In(void);
+		unsigned int Get_Total_Compressed_Bandwidth_Out(void);
 
-		unsigned long Get_Raw_Bandwidth_In(struct sockaddr_in *address);
-		unsigned long Get_Raw_Bandwidth_Out(struct sockaddr_in *address);
-		unsigned long Get_Compressed_Bandwidth_In(struct sockaddr_in *address);
-		unsigned long Get_Compressed_Bandwidth_Out(struct sockaddr_in *address);
+		unsigned int Get_Raw_Bandwidth_In(struct sockaddr_in *address);
+		unsigned int Get_Raw_Bandwidth_Out(struct sockaddr_in *address);
+		unsigned int Get_Compressed_Bandwidth_In(struct sockaddr_in *address);
+		unsigned int Get_Compressed_Bandwidth_Out(struct sockaddr_in *address);
 
-		unsigned long Get_Raw_Bytes_Out(struct sockaddr_in *address);
+		unsigned int Get_Raw_Bytes_Out(struct sockaddr_in *address);
 
-		void Set_Stats_Sampling_Frequency_Delay(unsigned long time_ms);
-		unsigned long Get_Stats_Sampling_Frequency_Delay(void) {return(StatsFrequency);};
+		void Set_Stats_Sampling_Frequency_Delay(unsigned int time_ms);
+		unsigned int Get_Stats_Sampling_Frequency_Delay(void) {return(StatsFrequency);};
 
 
 		/*
 		** Class configuration.
 		*/
-		void Set_Flush_Frequency(unsigned long freq) {FlushFrequency = freq;};
+		void Set_Flush_Frequency(unsigned int freq) {FlushFrequency = freq;};
 		bool Toggle_Allow_Deltas(void) {
 			AllowDeltas = AllowDeltas ? false : true;
 			return(AllowDeltas);
@@ -179,7 +179,7 @@ class PacketManagerClass
 		//
 		// TSS added 09/25/01
 		//
-		unsigned long Get_Flush_Frequency(void)	{return FlushFrequency;}
+		unsigned int Get_Flush_Frequency(void)	{return FlushFrequency;}
 		bool Get_Allow_Deltas(void)					{return AllowDeltas;}
 		bool Get_Allow_Combos(void)					{return AllowCombos;}
 		void Disable_Optimizations(void);
@@ -220,23 +220,23 @@ class PacketManagerClass
 		** Stats management.
 		*/
 		struct BandwidthStatsStruct {
-			unsigned long	IPAddress;
+			unsigned int	IPAddress;
 			unsigned short	Port;
-			unsigned long	UncompressedBytesIn;
-			unsigned long	UncompressedBytesOut;
-			unsigned long	CompressedBytesIn;
-			unsigned long	CompressedBytesOut;
-			unsigned long	UncompressedBandwidthIn;
-			unsigned long	UncompressedBandwidthOut;
-			unsigned long	CompressedBandwidthIn;
-			unsigned long	CompressedBandwidthOut;
+			unsigned int	UncompressedBytesIn;
+			unsigned int	UncompressedBytesOut;
+			unsigned int	CompressedBytesIn;
+			unsigned int	CompressedBytesOut;
+			unsigned int	UncompressedBandwidthIn;
+			unsigned int	UncompressedBandwidthOut;
+			unsigned int	CompressedBandwidthIn;
+			unsigned int	CompressedBandwidthOut;
 
 			bool operator == (BandwidthStatsStruct const &stats);
 			bool operator != (BandwidthStatsStruct const &stats);
 		};
-		int Get_Stats_Index(unsigned long ip_address, unsigned short port, bool can_create = true);
-		void Register_Packet_In(unsigned char *ip_address, unsigned short port, unsigned long compressed_size, unsigned long uncompressed_size);
-		void Register_Packet_Out(unsigned char *ip_address, unsigned short port, unsigned long compressed_size, unsigned long uncompressed_size);
+		int Get_Stats_Index(unsigned int ip_address, unsigned short port, bool can_create = true);
+		void Register_Packet_In(unsigned char *ip_address, unsigned short port, unsigned int compressed_size, unsigned int uncompressed_size);
+		void Register_Packet_Out(unsigned char *ip_address, unsigned short port, unsigned int compressed_size, unsigned int uncompressed_size);
 
 		/*
 		** Send buffers.
@@ -298,14 +298,14 @@ class PacketManagerClass
 		class ReceiveBufferClass {
 			public:
 				unsigned char ReceiveHoldingBuffer[600];
-				unsigned long ReceivePacketLength;
+				unsigned int ReceivePacketLength;
 		};
 
 		int NumReceiveBuffers;
 		ReceiveBufferClass *ReceiveBuffers;
 
 		//unsigned char ReceiveHoldingBuffers[PACKET_MANAGER_RECEIVE_BUFFERS][600];
-		//unsigned long ReceivePacketLengths[PACKET_MANAGER_RECEIVE_BUFFERS];
+		//unsigned int ReceivePacketLengths[PACKET_MANAGER_RECEIVE_BUFFERS];
 		unsigned char ReceiveIPAddress[4];
 		unsigned short ReceivePort;
 		int NumReceivePackets;
@@ -315,19 +315,19 @@ class PacketManagerClass
 		/*
 		** Send timing.
 		*/
-		unsigned long LastSendTime;
-		unsigned long FlushFrequency;
+		unsigned int LastSendTime;
+		unsigned int FlushFrequency;
 
 		/*
 		** Bandwidth measurement.
 		*/
 		DynamicVectorClass<BandwidthStatsStruct> BandwidthList;
-		unsigned long TotalCompressedBandwidthIn;
-		unsigned long TotalCompressedBandwidthOut;
-		unsigned long TotalUncompressedBandwidthIn;
-		unsigned long TotalUncompressedBandwidthOut;
-		unsigned long StatsFrequency;
-		unsigned long LastStatsUpdate;
+		unsigned int TotalCompressedBandwidthIn;
+		unsigned int TotalCompressedBandwidthOut;
+		unsigned int TotalUncompressedBandwidthIn;
+		unsigned int TotalUncompressedBandwidthOut;
+		unsigned int StatsFrequency;
+		unsigned int LastStatsUpdate;
 		bool ResetStatsIn;
 		bool ResetStatsOut;
 

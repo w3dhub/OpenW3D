@@ -89,9 +89,9 @@ class LoginProfile :
 		int GetSidePreference(void) const
 			{return mSidePref;}
 
-		void SetGamesPlayed(unsigned long);
+		void SetGamesPlayed(unsigned int);
 
-		unsigned long GetGamesPlayed(void) const
+		unsigned int GetGamesPlayed(void) const
 			{return mGamesPlayed;}
 
 		// Get cached ranking
@@ -122,7 +122,7 @@ class LoginProfile :
 		StringClass mServer;
 		WOL::Locale mLocale;
 		int mSidePref;
-		unsigned long mGamesPlayed;
+		unsigned int mGamesPlayed;
 
 		Ranking mTeamRank;
 		Ranking mClanRank;

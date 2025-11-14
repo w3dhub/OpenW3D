@@ -217,7 +217,7 @@ cGameSpyAuthMgr::Evict_Player
 }
 
 //-----------------------------------------------------------------------------
-LPCSTR 
+const char * 
 cGameSpyAuthMgr::Describe_Auth_State
 (
 	GAMESPY_AUTH_STATE_ENUM state

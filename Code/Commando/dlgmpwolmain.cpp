@@ -142,8 +142,8 @@ bool MPWolMainMenuClass::CheckWOLVersion(void)
 	const LONG minVersion = MAKELONG(19,1);
 	const LONG minBuild = MAKELONG(0,3);
 
-	unsigned long wolVersion = 0;
-	unsigned long wolBuild = 0;
+	unsigned int wolVersion = 0;
+	unsigned int wolBuild = 0;
 	wolSession->GetChatObject()->GetVersion(&wolVersion);
 
 	WideStringClass wolText(255, true);
@@ -213,7 +213,7 @@ MPWolMainMenuClass::On_Frame_Update (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolMainMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPWolMainMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

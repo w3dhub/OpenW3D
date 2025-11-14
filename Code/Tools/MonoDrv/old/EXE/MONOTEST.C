@@ -36,7 +36,7 @@ int __cdecl main(int argc, char *argv[])
 
 	handle1 = CreateFile("\\\\.\\MONO", GENERIC_READ|GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (handle1 != INVALID_HANDLE_VALUE)  {
-		long retval;
+		int retval;
 
 		WriteFile(handle1, MESSAGE1, strlen(MESSAGE1), &retval, NULL);
 

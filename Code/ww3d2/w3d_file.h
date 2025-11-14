@@ -1388,7 +1388,7 @@ struct W3dAnimChannelStruct
 	uint16					Flags;					// channel type.
 	uint16					Pivot;					// pivot affected by this channel
 	uint16					pad;
-	float32					Data[1];				// will be (LastFrame - FirstFrame + 1) * VectorLen long
+	float32					Data[1];				// will be (LastFrame - FirstFrame + 1) * VectorLen int
 };
 
 enum 
@@ -1404,7 +1404,7 @@ struct W3dBitChannelStruct
 	uint16					Flags;					// channel type.
 	uint16					Pivot;					// pivot affected by this channel
 	uint8						DefaultVal;			// default state when outside valid range.
-	uint8						Data[1];				// will be (LastFrame - FirstFrame + 1) / 8 long
+	uint8						Data[1];				// will be (LastFrame - FirstFrame + 1) / 8 int
 };
 
 // End Classic Structures

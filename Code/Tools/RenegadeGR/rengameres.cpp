@@ -72,10 +72,10 @@ void RenegadeGameRes::setMapName(const char* val)
 }
 
 
-void RenegadeGameRes::addPlayer(const char* login, double score, long unsigned int clan_id,
-								long unsigned int duration, long unsigned int ip, 
-								long unsigned int deaths, long unsigned int kills, 
-								long unsigned int selfkills, long unsigned int damagepoints)
+void RenegadeGameRes::addPlayer(const char* login, double score, unsigned int clan_id,
+								unsigned int duration, unsigned int ip, 
+								unsigned int deaths, unsigned int kills, 
+								unsigned int selfkills, unsigned int damagepoints)
 {	
 	char** newstr = _addToArr(_logins, login);
 	delete[] _logins;
@@ -89,8 +89,8 @@ void RenegadeGameRes::addPlayer(const char* login, double score, long unsigned i
 	
 	// Expecting a score X such that -0.5 <= X <= 0.5
 	score += 0.5;	// So that it can be stored unsigned
-	long unsigned int convscore = (long unsigned int)(score * GR_SCORE_SCALE);
-	long unsigned int* newlui = _addToArr(_scores, convscore);
+	unsigned int convscore = (unsigned int)(score * GR_SCORE_SCALE);
+	unsigned int* newlui = _addToArr(_scores, convscore);
 	delete[] _scores;
 	_scores = newlui;
 
@@ -134,7 +134,7 @@ int RenegadeGameRes::sendResults()
 	// Build the packet
 	PacketClass rawPacket;
 	rawPacket.Add_Field(GR_GAME_ID, _game_id);
-	rawPacket.Add_Field(GR_PLAYER_COUNT, (long)_player_count);
+	rawPacket.Add_Field(GR_PLAYER_COUNT, (int)_player_count);
 	rawPacket.Add_Field(GR_CLAN_GAME, _clan_game);
 	rawPacket.Add_Field(GR_DURATION, _duration);
 	rawPacket.Add_Field(GR_MAP_NAME, _map_name);
@@ -266,16 +266,16 @@ char** RenegadeGameRes::_addToArr(char** arr, const char* item)
 | Takes a pointer to an array and a new item, constructs a new array and returns	|
 | a pointer to it.																	|
 `----------------------------------------------------------------------------------*/
-long unsigned int* RenegadeGameRes::_addToArr(long unsigned int* arr, long unsigned int item)
+unsigned int* RenegadeGameRes::_addToArr(unsigned int* arr, unsigned int item)
 {
-	long unsigned int* newarr = NULL;
+	unsigned int* newarr = NULL;
 
 
 	if( arr == NULL )
 	{
 		// Make a new array
 		assert( _myplayercount == 0 );
-		newarr = new long unsigned int[1];		
+		newarr = new unsigned int[1];		
 		// Add the new item
 		newarr[0] = item;
 	}
@@ -283,7 +283,7 @@ long unsigned int* RenegadeGameRes::_addToArr(long unsigned int* arr, long unsig
 	{
 		// Make a new array and copy all the old stuff over
 		assert( _myplayercount > 0 );
-		newarr = new long unsigned int[_myplayercount+1];
+		newarr = new unsigned int[_myplayercount+1];
 		for(int i = 0; i < _myplayercount; i++)
 			newarr[i] = arr[i];
 		// Add the new item

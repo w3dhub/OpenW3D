@@ -73,15 +73,15 @@ class ChatMessage
 		bool IsSenderMyself(void) const;
 		bool IsSenderChannelOwner(void) const;
 		bool IsSenderSquelched(void) const;
-		bool IsSenderInClan(unsigned long clanID) const;
+		bool IsSenderInClan(unsigned int clanID) const;
 
 	protected:
 		WideStringClass mSenderName;
 		WideStringClass mMessage;
 		bool mIsPrivate;
 		bool mIsAction;
-		unsigned long mSenderFlags;
-		unsigned long mSenderClanID;
+		unsigned int mSenderFlags;
+		unsigned int mSenderClanID;
 	};
 
 typedef std::vector<ChatMessage> ChatMessageList;

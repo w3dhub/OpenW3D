@@ -76,7 +76,7 @@ CheatOptionsMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-CheatOptionsMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+CheatOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	MenuDialogClass::On_Command (ctrl_id, message_id, param);
 	return ;

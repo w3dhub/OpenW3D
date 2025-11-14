@@ -115,7 +115,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
 				retcode = FAILURE;
 				break;
 			}
-			extern ULONG g_ip_override;
+			extern unsigned int g_ip_override;
 			g_ip_override = ::inet_addr(argval);
 			continue;
 		}
@@ -216,7 +216,7 @@ cUserOptions::ParseResult cUserOptions::Parse_Command_Line(int argc, char *argv[
             const char *tport = strchr(argval, ':');
 			if (tport) {
                 char *end_port = nullptr;
-                long arg_port = strtol(tport + 1, &end_port, 10);
+                int arg_port = strtol(tport + 1, &end_port, 10);
                 if (end_port != nullptr && *end_port != '\0') {
                     return FAILURE;
                 }
@@ -337,11 +337,11 @@ void cUserOptions::Set_Bandwidth_Type(BANDWIDTH_TYPE_ENUM bandwidth_type)
 
 	if (bandwidth_type != BANDWIDTH_CUSTOM) {
 		if (bandwidth_type == BANDWIDTH_AUTO && BandwidthCheckerClass::Got_Bandwidth()) {
-			ULONG bps = BandwidthCheckerClass::Get_Upstream_Bandwidth();
+			unsigned int bps = BandwidthCheckerClass::Get_Upstream_Bandwidth();
 			WWASSERT(bps > 0);
 			BandwidthBps.Set(bps);
 		} else {
-			ULONG bps = cBandwidth::Get_Bandwidth_Bps_From_Type(bandwidth_type);
+			unsigned int bps = cBandwidth::Get_Bandwidth_Bps_From_Type(bandwidth_type);
 			WWASSERT(bps > 0);
 			BandwidthBps.Set(bps);
 		}

@@ -118,7 +118,7 @@ bool cNetStats::Update_If_Sample_Done(int this_frame_time, bool force_update)
 
 		for (int statistic = 0; statistic < STAT_COUNT; statistic++) {
 			StatTotal[statistic]				+= StatSample[statistic];
-			StatAverage[statistic]			= (UINT) (StatTotal[statistic] / total_time);
+			StatAverage[statistic]			= (unsigned int) (StatTotal[statistic] / total_time);
 			StatSnapshot[statistic]			= StatSample[statistic];
 			StatMacroSample[statistic]		+= StatSample[statistic];
 			StatSample[statistic]			= 0;
@@ -165,12 +165,12 @@ bool cNetStats::Update_If_Sample_Done(int this_frame_time, bool force_update)
 		// These 2 stats are computed from others
 		//
 		if (StatSample[STAT_AppByteSent] > 0) {
-			StatSample[STAT_AppDataSentPc] = (UINT) (100 * StatSample[STAT_AppByteSent] /
+			StatSample[STAT_AppDataSentPc] = (unsigned int) (100 * StatSample[STAT_AppByteSent] /
 				(double) (StatSample[STAT_AppByteSent] + StatSample[STAT_HdrByteSent]));
 		}
 
 		if (StatSample[STAT_AppByteRcv] > 0) {
-			StatSample[STAT_AppDataRcvPc] = (UINT) (100 * StatSample[STAT_AppByteRcv] /
+			StatSample[STAT_AppDataRcvPc] = (unsigned int) (100 * StatSample[STAT_AppByteRcv] /
 				(double) (StatSample[STAT_AppByteRcv] + StatSample[STAT_HdrByteRcv]));
 		}
 		*/

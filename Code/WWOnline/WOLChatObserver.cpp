@@ -1655,7 +1655,7 @@ class PrivateGameOptionsTrackingClass
 {
 		public:
 			char UserName[256];
-			DynamicVectorClass<unsigned long> Times;
+			DynamicVectorClass<unsigned int> Times;
 
 			bool operator == (PrivateGameOptionsTrackingClass const &whatever);
 			bool operator != (PrivateGameOptionsTrackingClass const &whatever);
@@ -1713,10 +1713,10 @@ bool Is_Options_Spammer(char *user_name, int &count)
 		index = OptionsTracking.Count() - 1;
 	}
 
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 	OptionsTracking[index]->Times.Add(time);
 
-	unsigned long old_time = time - 4000;
+	unsigned int old_time = time - 4000;
 	if (old_time < time) {
 		
 		/*
@@ -1756,7 +1756,7 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 	*/
 	const UserList& user_list = mOuter->GetUserList();
 	const unsigned int count = user_list.size();
-	unsigned long ip = 0;
+	unsigned int ip = 0;
 	unsigned int index;
 
 	for (index = 0; index < count; index++) {
@@ -2525,7 +2525,7 @@ STDMETHODIMP ChatObserver::OnUserFlags(HRESULT result, LPCSTR username, unsigned
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned long squadID, WOL::Squad* inSquad)
+STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned int squadID, WOL::Squad* inSquad)
 	{
 	if (mOuter == NULL)
 		{

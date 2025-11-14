@@ -204,7 +204,7 @@ public:
 	/*
 	** CRC, used by the loading code to build a list of the unique materials
 	*/
-	inline unsigned long Get_CRC(void) const
+	inline unsigned int Get_CRC(void) const
 	{
 		if (CRCDirty) {
 			CRC=Compute_CRC();
@@ -246,7 +246,7 @@ protected:
 	unsigned int			UVSource[MeshBuilderClass::MAX_STAGES];
 	bool						UseLighting;
 	unsigned int			UniqueID;
-	mutable unsigned long CRC;
+	mutable unsigned int CRC;
 	mutable bool			CRCDirty;
 
 private:
@@ -258,7 +258,7 @@ private:
 	** Apply the render states corresponding to a NULL vetex material to D3D
 	*/
 	static void			Apply_Null(void);
-	unsigned long		Compute_CRC(void) const;
+	unsigned int		Compute_CRC(void) const;
 
 	static VertexMaterialClass *Presets[PRESET_COUNT];
 };

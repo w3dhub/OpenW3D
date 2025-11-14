@@ -50,7 +50,7 @@ class SmartPtr
 
 		operator T * (void) const {return(Pointer);}
 
-		operator long (void) const {return((long)Pointer);}
+		operator int (void) const {return((int)Pointer);}
 
 		bool Is_Valid(void) const {return(Pointer != 0);}
 

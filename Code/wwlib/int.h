@@ -61,7 +61,7 @@ class Int {
 		**	Constructors and initializers.
 		*/
 		Int(void) {XMP_Init(&reg[0], 0, PRECISION);}
-		Int(unsigned long value) {XMP_Init(&reg[0], value, PRECISION);}
+		Int(unsigned int value) {XMP_Init(&reg[0], value, PRECISION);}
 
 		void Randomize(Straw & rng, int bitcount) {XMP_Randomize(&reg[0], rng, bitcount, PRECISION);}
 		void Randomize(Straw & rng, const Int & minval, const Int & maxval) {XMP_Randomize_Bounded(&reg[0], rng, minval, maxval, PRECISION); reg[0] |= 1;}
@@ -94,7 +94,7 @@ class Int {
 		int ByteCount(void) const {return(XMP_Count_Bytes(&reg[0], PRECISION));}
 		int BitCount(void) const {return(XMP_Count_Bits(&reg[0], PRECISION));}
 		bool Is_Negative(void) const {return(XMP_Is_Negative(&reg[0], PRECISION));}
-		unsigned MaxBitPrecision() const {return PRECISION*(sizeof(unsigned long)*CHAR_BIT);}
+		unsigned MaxBitPrecision() const {return PRECISION*(sizeof(unsigned int)*CHAR_BIT);}
 		bool IsSmallPrime(void) const {return(XMP_Is_Small_Prime(&reg[0], PRECISION));}
 		bool SmallDivisorsTest(void) const {return(XMP_Small_Divisors_Test(&reg[0], PRECISION));}
 		bool FermatTest(unsigned rounds) const {return(XMP_Fermat_Test(&reg[0], rounds, PRECISION));}
@@ -122,10 +122,10 @@ class Int {
 		Int operator * (const Int & multiplier) const {Int result;Error=XMP_Signed_Mult(result, &reg[0], multiplier, PRECISION);return result;}
 		Int operator * (unsigned short b) const {Int result;Error=XMP_Unsigned_Mult_Int(result, &reg[0], b, PRECISION);return(result);}
 		Int operator / (const Int & divisor) const {Int quotient = *this;XMP_Signed_Div(Remainder, quotient, &reg[0], divisor, PRECISION);return (quotient);}
-		Int operator / (unsigned long b) const {return(*this / Int<PRECISION>(b));}
+		Int operator / (unsigned int b) const {return(*this / Int<PRECISION>(b));}
 		Int operator / (unsigned short divisor) const {Int quotient;Error=XMP_Unsigned_Div_Int(quotient, &reg[0], divisor, PRECISION);return(quotient);}
 		Int operator % (const Int & divisor) const {Int remainder;XMP_Signed_Div(remainder, Remainder, &reg[0], divisor, PRECISION);return(remainder);}
-		Int operator % (unsigned long b) const {return(*this % Int<PRECISION>(b));}
+		Int operator % (unsigned int b) const {return(*this % Int<PRECISION>(b));}
 		unsigned short operator % (unsigned short divisor) const {return(XMP_Unsigned_Div_Int(Remainder, &reg[0], divisor, PRECISION));}
 
 		/*

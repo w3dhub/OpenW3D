@@ -192,9 +192,9 @@ public:
 	//
 	unsigned char		Get_Frequent_Update_Export_Size(void)						{return(FrequentExportPacketSize);}
 	void					Set_Frequent_Update_Export_Size(unsigned char size)	{FrequentExportPacketSize = size;}
-	unsigned long		Get_Last_Update_Time(int client_id);
+	unsigned int		Get_Last_Update_Time(int client_id);
 	unsigned short		Get_Update_Rate(int client_id);
-	void					Set_Last_Update_Time(int client_id, unsigned long time);
+	void					Set_Last_Update_Time(int client_id, unsigned int time);
 	void					Set_Update_Rate(int client_id, unsigned short rate);
 
 	//
@@ -243,7 +243,7 @@ private:
 	// Per client update information. Bandwidth will be allocated per object, per client.
 	//
 	struct PerClientUpdateInfoStruct {
-		unsigned long	LastUpdateTime;
+		unsigned int	LastUpdateTime;
 		unsigned short	UpdateRate;
 		BYTE				ClientHintCount;
 	} UpdateInfo [MAX_CLIENT_COUNT];

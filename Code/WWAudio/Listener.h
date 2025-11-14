@@ -91,7 +91,7 @@ class Listener3DClass : public Sound3DClass
 		virtual bool			Pause (void) override	{ return false; }
 		virtual bool			Resume (void) override	{ return false; }
 		virtual bool			Stop (bool /*remove*/) override		{ return false; }
-		virtual void			Seek (unsigned long milliseconds) override { }
+		virtual void			Seek (unsigned int milliseconds) override { }
 		virtual SOUND_STATE	Get_State (void) const override	{ return STATE_STOPPED; }
 
 

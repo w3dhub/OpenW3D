@@ -51,7 +51,7 @@ class CRCStraw : public Straw
 		virtual int Get(void * source, int slen);
 
 		// Calculate and return the CRC value.
-		long Result(void) const;
+		int Result(void) const;
 
 	protected:
 		CRCEngine CRC;

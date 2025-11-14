@@ -59,7 +59,7 @@ namespace WWOnline {
 *
 ******************************************************************************/
 
-GameStartEvent::GameStartEvent(const RefPtr<ChannelData>& channel, const UserList& users, unsigned long gameID) :
+GameStartEvent::GameStartEvent(const RefPtr<ChannelData>& channel, const UserList& users, unsigned int gameID) :
 		mResult(S_OK),
 		mChannel(channel),
 		mGameID(gameID)

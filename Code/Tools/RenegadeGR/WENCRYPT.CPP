@@ -271,12 +271,12 @@ unsigned char* RLDecode(unsigned char* src, int* size)
 | FUNCTION:  ran3()                                                                     |
 | From 'Numerical Recipies In C', Chapter 7, 'Portable Random Number Generators'.       |
 `--------------------------------------------------------------------------------------*/
-float ran3(long* idnum)
+float ran3(int* idnum)
 {
         static int      inext, inextp;
-        static long     ma[66];
+        static int     ma[66];
         static int      iff = 0;
-        long            mj, mk;
+        int            mj, mk;
         int             i, ii, k;
  
  
@@ -321,11 +321,11 @@ float ran3(long* idnum)
 | Make a key the same length as the buffer.  Gameres packets are typically		|
 | < 600 bytes so period isn't a concern.										|
 `------------------------------------------------------------------------------*/
-void GenerateKey(unsigned char* key, int len, long seed)
+void GenerateKey(unsigned char* key, int len, int seed)
 {
 	int     i;
         float   running;
-	long	num;
+	int	num;
  
  
         if( seed > 0 )  seed *= -1;             // Initial val must be negative
@@ -333,7 +333,7 @@ void GenerateKey(unsigned char* key, int len, long seed)
  
         for(i = 0; i < len; i++)
         {
-                num = (long)(running * (float)255.0);
+                num = (int)(running * (float)255.0);
                 if( num < 0 )  num *= -1;
 		key[i] = (unsigned char)num;
                 running = ran3(&seed);
@@ -357,9 +357,9 @@ unsigned char* SimpleEncrypt(const unsigned char* src, int* len)
 	unsigned char*	key;
 	unsigned char*	dst;
 	unsigned char	offset = 0;
-	long		offsetseed = 0;
-	unsigned long	netseed;
-	long		seed;
+	int		offsetseed = 0;
+	unsigned int	netseed;
+	int		seed;
 	float		limit;
 
 
@@ -376,17 +376,17 @@ unsigned char* SimpleEncrypt(const unsigned char* src, int* len)
 	}
 	
 	// Generate the random stuff
-	seed = (long)time(NULL);
+	seed = (int)time(NULL);
 	if( seed > 0 )  seed *= -1;			// Don't check for seed == 0 because a ligit
 							// packet builder should never set a seed of
 							// 0 and it's another mistake a cracker could 
 							// possibly make.
-	netseed = htonl((unsigned long)seed);
+	netseed = htonl((unsigned int)seed);
 	GenerateKey(key, *len, seed);
 
 	// We want the offset to be somewhere between byte 10 and byte (255-14), or
 	// (*len - 4), whichever is smaller
-	offsetseed = (long)time(NULL);
+	offsetseed = (int)time(NULL);
 	if( offsetseed > 0 )  offsetseed *= -1;
 	limit = ((*len) < 241) ? (float)((*len)-14) : (float)241.0;
 	offset = (unsigned char)(ran3(&offsetseed) * limit);
@@ -427,8 +427,8 @@ unsigned char* SimpleDecrypt(unsigned char* src, int* len)
         unsigned char*  key;
         unsigned char*  dst;
         unsigned char   offset = 0;
-        unsigned long  	netseed;
-        long   		seed;
+        unsigned int  	netseed;
+        int   		seed;
 
 
 
@@ -449,7 +449,7 @@ unsigned char* SimpleDecrypt(unsigned char* src, int* len)
 	// Generate the key
 	offset = src[5];
 	memcpy(&netseed, &src[offset], 4);
-	seed = (long)ntohl(netseed);
+	seed = (int)ntohl(netseed);
 	if( seed > 0 )
 	{
 		*len = -3;

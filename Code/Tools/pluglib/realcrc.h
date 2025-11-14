@@ -41,9 +41,9 @@
 #define REALCRC_H
 
 
-unsigned long	CRC_Memory( const unsigned char *data, unsigned long length, unsigned long crc = 0 );
-unsigned long	CRC_String( const char *string, unsigned long crc = 0 );
-unsigned long	CRC_Stringi( const char *string, unsigned long crc = 0 );
+unsigned int	CRC_Memory( const unsigned char *data, unsigned int length, unsigned int crc = 0 );
+unsigned int	CRC_String( const char *string, unsigned int crc = 0 );
+unsigned int	CRC_Stringi( const char *string, unsigned int crc = 0 );
 
 
 #endif

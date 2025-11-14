@@ -183,8 +183,8 @@ public:
 	static void Lerp(const Vector3 & a, const Vector3 & b, float alpha,Vector3 * set_result);
 
 	// Color Conversion
-	WWINLINE unsigned	long	Convert_To_ABGR( void ) const;
-	WWINLINE unsigned	long	Convert_To_ARGB( void ) const;
+	WWINLINE unsigned	int	Convert_To_ABGR( void ) const;
+	WWINLINE unsigned	int	Convert_To_ARGB( void ) const;
 };
 
 
@@ -897,7 +897,7 @@ WWINLINE float Vector3::Quick_Distance(const Vector3 &p1, const Vector3 &p2)
  * HISTORY:                                                                                    *
  *   11/29/1999MLL: Created.                                                                   *
  *=============================================================================================*/
-WWINLINE unsigned long	Vector3::Convert_To_ABGR( void ) const 
+WWINLINE unsigned int	Vector3::Convert_To_ABGR( void ) const 
 {
 	return (unsigned(255)<<24) | 
 			 (unsigned(Z*255.0f)<<16) | 
@@ -914,7 +914,7 @@ WWINLINE unsigned long	Vector3::Convert_To_ABGR( void ) const
  * HISTORY:                                                                                    *
  *   11/29/1999MLL: Created.                                                                   *
  *=============================================================================================*/
-WWINLINE unsigned long	Vector3::Convert_To_ARGB( void ) const 
+WWINLINE unsigned int	Vector3::Convert_To_ARGB( void ) const 
 {
 	return (unsigned(255)<<24) | 
 			 (unsigned(X*255.0f)<<16) | 

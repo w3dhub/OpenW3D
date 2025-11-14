@@ -80,13 +80,13 @@ class DlgWOLWait :
 		enum {SHOW_NEVER = 0xFFFFFFFF};
 
 		static bool DoDialog(const wchar_t* title, const wchar_t* button_text, RefPtr<WaitCondition>& wait,
-				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned long timeout = 0, unsigned long dialog_timeout = 0);
+				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned int timeout = 0, unsigned int dialog_timeout = 0);
 
 		static bool DoDialog(const wchar_t* title, RefPtr<WaitCondition>& wait,
-				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned long timeout = 0, unsigned long dialog_timeout = 0);
+				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned int timeout = 0, unsigned int dialog_timeout = 0);
 
 		static bool DoDialog(int titleID, RefPtr<WaitCondition>& wait,
-				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned long timeout = 0, unsigned long dialog_timeout = 0);
+				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned int timeout = 0, unsigned int dialog_timeout = 0);
 
 		const RefPtr<WaitCondition>& GetWait(void)
 			{return mWait;}
@@ -94,7 +94,7 @@ class DlgWOLWait :
 		static DlgWOLWait *Get_Instance (void)	{ return mTheInstance; }
 
 	protected:
-		DlgWOLWait(RefPtr<WaitCondition>& wait, unsigned long timeout, unsigned long dialog_timeout = 0);
+		DlgWOLWait(RefPtr<WaitCondition>& wait, unsigned int timeout, unsigned int dialog_timeout = 0);
 		~DlgWOLWait();
 
 		// Prevent copy and assignment
@@ -106,7 +106,7 @@ class DlgWOLWait :
 		void On_Init_Dialog(void) override;
 		void On_Destroy(void) override;
 		void On_Periodic(void) override;
-		void On_Command(int ctrl, int message, DWORD param) override;
+		void On_Command(int ctrl, int message, unsigned int param) override;
 		void Render(void) override;
 
 		DECLARE_NOTIFIER(DlgWOLWaitEvent)
@@ -115,8 +115,8 @@ class DlgWOLWait :
 		RefPtr<WaitCondition> mWait;
 		RefPtr<WWOnline::Session> mWOLSession;
 		unsigned mStartTime;
-		unsigned long mTimeout;
-		unsigned long mDialogTimeout;
+		unsigned int mTimeout;
+		unsigned int mDialogTimeout;
 		bool mShowDialog;
 		static DlgWOLWait *	mTheInstance;
 	};

@@ -110,8 +110,8 @@ class cPlayer : public PlayerDataClass, public NetworkObjectClass {
       float Get_Kill_To_Death_Ratio(void) const;
       void Get_Player_String(int rank, WideStringClass & string, bool force_verbose = false);
 
-			unsigned long Get_WOL_ClanID(void) const {return ClanID;}
-			void Set_WOL_ClanID(unsigned long id) {ClanID = id;}
+			unsigned int Get_WOL_ClanID(void) const {return ClanID;}
+			void Set_WOL_ClanID(unsigned int id) {ClanID = id;}
 
       int Get_Wol_Rank(void) const {return (int)WolRank;}
       void Set_Wol_Rank(int wol_rank);
@@ -255,7 +255,7 @@ class cPlayer : public PlayerDataClass, public NetworkObjectClass {
 		cBoolean				IsInGame;
 		cBoolean				IsActive;
 
-		unsigned long ClanID;
+		unsigned int ClanID;
 };
 
 //-----------------------------------------------------------------------------

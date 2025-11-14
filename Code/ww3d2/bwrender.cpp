@@ -129,7 +129,7 @@ static inline bool Cull(
 	return true;
 }
 
-void BWRenderClass::Render_Triangle_Strip(const unsigned long* indices,int index_count)
+void BWRenderClass::Render_Triangle_Strip(const unsigned int* indices,int index_count)
 {
 	index_count-=2;
 	bool b=false;
@@ -159,7 +159,7 @@ void BWRenderClass::Render_Triangle_Strip(const unsigned long* indices,int index
 	}
 }
 
-void BWRenderClass::Render_Triangles(const unsigned long* indices,int index_count)
+void BWRenderClass::Render_Triangles(const unsigned int* indices,int index_count)
 {
 	index_count/=3;
 	for (int n=0;n<index_count;++n) {

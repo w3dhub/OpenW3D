@@ -34,20 +34,20 @@
  * Functions:                                                                                  * 
  *   BasicTimerClass<T>::BasicTimerClass -- Constructor for basic timer class.                 *
  *   BasicTimerClass<T>::operator () -- Function operator for timer object.                    *
- *   BasicTimerClass<T>::operator long -- Conversion to long operator.                         *
+ *   BasicTimerClass<T>::operator int -- Conversion to int operator.                         *
  *   BasicTimerClass<T>::~BasicTimerClass -- Destructor for basic timer object.                *
  *   TTimerClass<T>::Is_Active -- Checks to see if the timer is counting.                      *
  *   TTimerClass<T>::Start -- Starts (resumes) a stopped timer.                                *
  *   TTimerClass<T>::Stop -- Stops the current timer from incrementing.                        *
  *   TTimerClass<T>::TTimerClass -- Constructor for timer class object.                        *
  *   TTimerClass<T>::operator () -- Function operator for timer object.                        *
- *   TTimerClass<T>::operator long -- Conversion operator for timer object.                    *
+ *   TTimerClass<T>::operator int -- Conversion operator for timer object.                    *
  *   CDTimerClass<T>::CDTimerClass -- Constructor for count down timer.                        *
  *   CDTimerClass<T>::Is_Active -- Checks to see if the timer object is active.                *
  *   CDTimerClass<T>::Start -- Starts (resumes) the count down timer.                          *
  *   CDTimerClass<T>::Stop -- Stops (pauses) the count down timer.                             *
  *   CDTimerClass<T>::operator () -- Function operator for the count down timer.               *
- *   CDTimerClass<T>::operator long -- Conversion to long operator function.                   *
+ *   CDTimerClass<T>::operator int -- Conversion to int operator function.                   *
  *   CDTimerClass<T>::~CDTimerClass -- Destructor for the count down timer object.             *
  *   TTimerClass<T>::Value -- Returns with the current value of the timer.                     *
  *   CDTimerClass<T>::Value -- Fetches the current value of the countdown timer.               *
@@ -63,14 +63,14 @@
 **	type class) and provides basic timer functionality. It is possible to set the start value
 **	WITHOUT damaging or otherwise affecting any other timer that may be built upon the same
 **	specified timer class object. Treat an object of this type as if it were a "magic" integral
-**	long that automatically advances at the speed of the timer class object controlling it.
+**	int that automatically advances at the speed of the timer class object controlling it.
 */
 // Let lint know that non-virtual destructor is OK for this class.
 //lint -esym(1509,BasicTimerClass)
 template<class T>
 class BasicTimerClass {
  	public:
-		// Constructor allows assignment as if class was integral 'long' type.
+		// Constructor allows assignment as if class was integral 'int' type.
 		BasicTimerClass(int set=0);
 		BasicTimerClass(NoInitClass const & );
 
@@ -143,22 +143,22 @@ inline BasicTimerClass<T>::~BasicTimerClass(void)
 
 
 //template<class T>
-//inline unsigned long BasicTimerClass<T>::Value(void) const
+//inline unsigned int BasicTimerClass<T>::Value(void) const
 //{
 //	return(Timer()-Started);
 //}
 
 
 /***********************************************************************************************
- * BasicTimerClass<T>::operator long -- Conversion to long operator.                           *
+ * BasicTimerClass<T>::operator int -- Conversion to int operator.                           *
  *                                                                                             *
  *    This conversion operator allows the basic timer object to function in much the same      *
- *    manner as the integral "long" type. One can assign a long with a timer object and the    *
+ *    manner as the integral "int" type. One can assign a int with a timer object and the    *
  *    actual value of the timer is extracted from the object and used.                         *
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns with the timer value expressed as a long.                                  *
+ * OUTPUT:  Returns with the timer value expressed as a int.                                  *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *
@@ -181,7 +181,7 @@ inline BasicTimerClass<T>::operator int(void) const
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns the current timer value expressed as a long.                               *
+ * OUTPUT:  Returns the current timer value expressed as a int.                               *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *
@@ -204,7 +204,7 @@ inline int BasicTimerClass<T>::operator () (void) const
 template<class T>
 class TTimerClass : public BasicTimerClass<T> {
  	public:
-		// Constructor allows assignment as if class was integral 'long' type.
+		// Constructor allows assignment as if class was integral 'int' type.
 		TTimerClass(int set=0);
 		TTimerClass(NoInitClass const & x);
 
@@ -292,16 +292,16 @@ inline int TTimerClass<T>::Value(void) const
 
 
 /***********************************************************************************************
- * TTimerClass<T>::operator long -- Conversion operator for timer object.                      *
+ * TTimerClass<T>::operator int -- Conversion operator for timer object.                      *
  *                                                                                             *
- *    This conversion operator allows this timer object to function as an "rvalue" of a "long" *
- *    type. This is consistent with the integral "long" value. It is possible to assign a      *
- *    timer object to a long and have the long initialized with the current value of the       *
+ *    This conversion operator allows this timer object to function as an "rvalue" of a "int" *
+ *    type. This is consistent with the integral "int" value. It is possible to assign a      *
+ *    timer object to a int and have the int initialized with the current value of the       *
  *    timer.                                                                                   *
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns with the current time value expressed as a long.                           *
+ * OUTPUT:  Returns with the current time value expressed as a int.                           *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *
@@ -329,7 +329,7 @@ inline TTimerClass<T>::operator int(void) const
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns with the current time expressed as a long.                                 *
+ * OUTPUT:  Returns with the current time expressed as a int.                                 *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *
@@ -424,12 +424,12 @@ inline bool TTimerClass<T>::Is_Active(void) const
 **	The countdown rate is controlled by the timer object specified. This timer object can
 **	be started or stopped. It can also be tested to see if it has expired or not. An expired
 **	count down timer is one that has value of zero. You can treat this class object as if it
-**	were an integral "magic" long that automatically counts down toward zero.
+**	were an integral "magic" int that automatically counts down toward zero.
 */
 template<class T>
 class CDTimerClass : public BasicTimerClass<T> {
 	public:
-		// Constructor allows assignment as if class was integral 'long' type.
+		// Constructor allows assignment as if class was integral 'int' type.
 		CDTimerClass(int set=0);
 		CDTimerClass(NoInitClass const & x);
 
@@ -470,7 +470,7 @@ inline CDTimerClass<T>::CDTimerClass(NoInitClass const & x) :
  *                                                                                             *
  *    This is the constructor for the count down timer object. The optional starting value     *
  *    can be used to initiate the timer. Because of this constructor it is possible to assign  *
- *    a long to a count down timer object in order to begin the countdown process.             *
+ *    a int to a count down timer object in order to begin the countdown process.             *
  *                                                                                             *
  * INPUT:   set   -- The initial starting value for the countdown timer.                       *
  *                                                                                             *
@@ -542,15 +542,15 @@ inline int CDTimerClass<T>::Value(void) const
 
 
 /***********************************************************************************************
- * CDTimerClass<T>::operator long -- Conversion to long operator function.                     *
+ * CDTimerClass<T>::operator int -- Conversion to int operator function.                     *
  *                                                                                             *
  *    This conversion operator allows the count down timer object to be used as if it were     *
- *    a "magic" long that automatically counted downward at the controller class tick rate.    *
- *    The count down object can be used in any place that an rvalue long could be used.        *
+ *    a "magic" int that automatically counted downward at the controller class tick rate.    *
+ *    The count down object can be used in any place that an rvalue int could be used.        *
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns with the current count down time expressed in the form of a long value.    *
+ * OUTPUT:  Returns with the current count down time expressed in the form of a int value.    *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *
@@ -582,7 +582,7 @@ inline CDTimerClass<T>::operator int(void) const
  *                                                                                             *
  * INPUT:   none                                                                               *
  *                                                                                             *
- * OUTPUT:  Returns with the current count down time expressed in the form of a long.          *
+ * OUTPUT:  Returns with the current count down time expressed in the form of a int.          *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *

@@ -146,7 +146,7 @@ CharacterOptionsMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-CharacterOptionsMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+CharacterOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	MenuDialogClass::On_Command (ctrl_id, message_id, param);
 	return ;

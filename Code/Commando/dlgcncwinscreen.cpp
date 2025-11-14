@@ -419,7 +419,7 @@ CNCWinScreenMenuClass::Render (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-CNCWinScreenMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+CNCWinScreenMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

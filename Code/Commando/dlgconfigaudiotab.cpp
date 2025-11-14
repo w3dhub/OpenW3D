@@ -379,7 +379,7 @@ DlgConfigAudioTabClass::Configure_Quality_Combobox (void)
 //
 //////////////////////////////////////////////////////////////////////
 void	
-DlgConfigAudioTabClass::On_Command (int ctrl_id, int message_id, DWORD param)
+DlgConfigAudioTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

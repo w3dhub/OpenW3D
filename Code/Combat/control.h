@@ -124,7 +124,7 @@ public:
 	bool	Get_Boolean( BooleanControl control );
 
 	void	Clear_One_Time_Boolean( void )				{OneTimeBooleanBits = 0;}
-	unsigned	long Get_One_Time_Boolean_Bits(void)	{return OneTimeBooleanBits;}
+	unsigned	int Get_One_Time_Boolean_Bits(void)	{return OneTimeBooleanBits;}
 	unsigned	char Get_Continuous_Boolean_Bits(void) {return ContinuousBooleanBits;}
 
 	// Analog Controls
@@ -143,8 +143,8 @@ public:
 	static void Set_Precision(void);
 
 private:
-	unsigned		long	OneTimeBooleanBits;
-	unsigned		long	PendingOneTimeBooleanBits;
+	unsigned		int	OneTimeBooleanBits;
+	unsigned		int	PendingOneTimeBooleanBits;
 	unsigned		char	ContinuousBooleanBits;
 	unsigned		char	PendingContinuousBooleanBits;
 	float			AnalogValues[ ANALOG_CONTROL_COUNT ];

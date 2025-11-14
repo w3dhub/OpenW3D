@@ -456,7 +456,7 @@ protected:
 		DEFAULT_BITS =					COLLISION_TYPE_ALL | IS_NOT_HIDDEN | IS_NOT_ANIMATION_HIDDEN,
 	};
 
-	mutable unsigned long		Bits;
+	mutable unsigned int		Bits;
 	Matrix3D							Transform;
 	mutable SphereClass			CachedBoundingSphere;
 	mutable AABoxClass			CachedBoundingBox;

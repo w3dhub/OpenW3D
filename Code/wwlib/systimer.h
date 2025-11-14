@@ -45,12 +45,12 @@
 #include <chrono>
 
 // Provide a Windows-compatible timeGetTime() implementation backed by steady_clock.
-inline unsigned long timeGetTime()
+inline unsigned int timeGetTime()
 {
 	using namespace std::chrono;
 	static const auto start = steady_clock::now();
 	const auto now = steady_clock::now();
-	return static_cast<unsigned long>(duration_cast<milliseconds>(now - start).count());
+	return static_cast<unsigned int>(duration_cast<milliseconds>(now - start).count());
 }
 #endif
 
@@ -69,9 +69,9 @@ class SysTimeClass
 		/*
 		** Get. Use everywhere you would use timeGetTime
 		*/
-		__forceinline unsigned long Get(void);
-		__forceinline unsigned long operator () (void) {return(Get());}
-		__forceinline operator unsigned long(void) {return(Get());}
+		__forceinline unsigned int Get(void);
+		__forceinline unsigned int operator () (void) {return(Get());}
+		__forceinline operator unsigned int(void) {return(Get());}
 
 		/*
 		** Use periodically (like every few days!) to make sure the timer doesn't wrap.
@@ -88,12 +88,12 @@ class SysTimeClass
 		/*
 		** Time we were first called.
 		*/
-		unsigned long StartTime;
+		unsigned int StartTime;
 
 		/*
 		** Time to add after timer wraps.
 		*/
-		unsigned long WrapAdd;
+		unsigned int WrapAdd;
 
 };
 
@@ -114,7 +114,7 @@ extern SysTimeClass SystemTime;
  * HISTORY:                                                                                    *
  *   10/25/2001 1:38PM ST : Created                                                            *
  *=============================================================================================*/
-__forceinline unsigned long SysTimeClass::Get(void)
+__forceinline unsigned int SysTimeClass::Get(void)
 {
 	/*
 	** This has to be static here since we don't know if we will get called in a global constructor of another object before our
@@ -127,7 +127,7 @@ __forceinline unsigned long SysTimeClass::Get(void)
 		is_init = true;
 	}
 
-	unsigned long time = ::timeGetTime();
+	unsigned int time = ::timeGetTime();
 	if (time > StartTime) {
 		return(time - StartTime);
 	}

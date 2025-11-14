@@ -130,9 +130,9 @@ bool TryingToExit = false;
 ** Register dump variables. These are used to allow the game to restart from an arbitrary
 ** position after an exception occurs.
 */
-unsigned long ExceptionReturnStack = 0;
-unsigned long ExceptionReturnAddress = 0;
-unsigned long ExceptionReturnFrame = 0;
+unsigned int ExceptionReturnStack = 0;
+unsigned int ExceptionReturnAddress = 0;
+unsigned int ExceptionReturnFrame = 0;
 
 /*
 ** Number of times the exception handler has recursed. Recursions are bad.
@@ -434,7 +434,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	** The following are set for access violation only
 	*/
 	int access_read_write=-1;
-	unsigned long access_address = 0;
+	unsigned int access_address = 0;
 
 	if (e_info->ExceptionRecord->ExceptionCode == EXCEPTION_ACCESS_VIOLATION) {
 		DebugString("Exception Handler: Exception is access violation\n");
@@ -765,7 +765,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	*/
 	DebugString("Stack dump...\n");
 	Add_Txt("Stack dump (* indicates possible code address) :\r\n");
-	unsigned long *stackptr = (unsigned long*) context->ARCH_REG_STACK;
+	unsigned int *stackptr = (unsigned int*) context->ARCH_REG_STACK;
 
 	for (int j=0 ; j<2048 ; j++) {
 		if (IsBadReadPtr(stackptr, 4)) {
@@ -953,7 +953,7 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 #endif //_DEBUG
 		TryingToExit = true;
 
-		unsigned long id = Get_Main_Thread_ID();
+		unsigned int id = Get_Main_Thread_ID();
 		if (id != GetCurrentThreadId()) {
 			DebugString("Exiting due to exception in sub thread\n");
 			ExitProcess(EXIT_SUCCESS);
@@ -983,7 +983,7 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
  * HISTORY:                                                                                    *
  *   8/30/2001 3:04PM ST : Created                                                             *
  *=============================================================================================*/
-void Register_Thread_ID(unsigned long thread_id, const char *thread_name, bool main_thread)
+void Register_Thread_ID(unsigned int thread_id, const char *thread_name, bool main_thread)
 {
 	WWMEMLOG(MEM_GAMEDATA);
 	if (thread_name) {
@@ -1024,7 +1024,7 @@ void Register_Thread_ID(unsigned long thread_id, const char *thread_name, bool m
  * HISTORY:                                                                                    *
  *   2/6/2002 9:40PM ST : Created                                                              *
  *=============================================================================================*/
-bool Register_Thread_Handle(unsigned long thread_id, HANDLE thread_handle)
+bool Register_Thread_Handle(unsigned int thread_id, HANDLE thread_handle)
 {
 	for (int i=0 ; i<ThreadList.Count() ; i++) {
 		if (ThreadList[i]->ThreadID == thread_id) {
@@ -1095,7 +1095,7 @@ HANDLE Get_Thread_Handle(int thread_index)
  * HISTORY:                                                                                    *
  *   8/30/2001 3:10PM ST : Created                                                             *
  *=============================================================================================*/
-void Unregister_Thread_ID(unsigned long thread_id, const char *thread_name)
+void Unregister_Thread_ID(unsigned int thread_id, const char *thread_name)
 {
 	for (int i=0 ; i<ThreadList.Count() ; i++) {
 		if (strcmp(thread_name, ThreadList[i]->ThreadName) == 0) {
@@ -1123,7 +1123,7 @@ void Unregister_Thread_ID(unsigned long thread_id, const char *thread_name)
  * HISTORY:                                                                                    *
  *   12/6/2001 12:20PM ST : Created                                                            *
  *=============================================================================================*/
-unsigned long Get_Main_Thread_ID(void)
+unsigned int Get_Main_Thread_ID(void)
 {
 	for (int i=0 ; i<ThreadList.Count() ; i++) {
 		if (ThreadList[i]->Main) {

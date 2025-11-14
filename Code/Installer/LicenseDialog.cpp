@@ -102,7 +102,7 @@ void LicenseDialogClass::Load_License (const char *licensefilename)
 		if ((fileinformation.nFileSizeHigh == 0) && (fileinformation.nFileSizeLow >= sizeof (wchar_t))) {
 
 			int	 			length;
-			unsigned long  bytesreadcount;
+			unsigned int  bytesreadcount;
 			wchar_t			  *buffer;
 
 			length = fileinformation.nFileSizeLow / sizeof (wchar_t);

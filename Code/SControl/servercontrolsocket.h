@@ -103,7 +103,7 @@ class ServerControlSocketClass
 		/*
 		** Startup, shutdown.
 		*/
-		bool Open(int port, bool loopback = false, unsigned long ip = 0);
+		bool Open(int port, bool loopback = false, unsigned int ip = 0);
 		void Close(void);
 		void Discard_In_Buffers(void);
 		void Discard_Out_Buffers(void);
@@ -150,7 +150,7 @@ class ServerControlSocketClass
 			bool					InUse;			// Useage state of buffer
 			bool					IsAllocated;	// false means statically allocated.
 			unsigned short		Port;				// Override port. Send to this port if not 0. Save incoming port number.
-			unsigned long		CRC;				// CRC of packet for extra sanity.
+			unsigned int		CRC;				// CRC of packet for extra sanity.
 			unsigned char		Buffer[SERVER_CONTROL_RECEIVE_BUFFER_LEN];	// Buffer to store packet in.
 		};
 
@@ -163,7 +163,7 @@ class ServerControlSocketClass
 		/*
 		** Packet CRCs.
 		*/
-		void Add_CRC(unsigned long *crc, unsigned long val);
+		void Add_CRC(unsigned int *crc, unsigned int val);
 		virtual void Build_Packet_CRC(WinsockBufferType *packet);
 		virtual bool Passes_CRC_Check(WinsockBufferType *packet);
 

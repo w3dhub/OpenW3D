@@ -63,8 +63,8 @@ bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo) {
 	// Get the version information for this file
 	//
 	bool verok = true;
-	unsigned long dummy_var = 0;
-	unsigned long version_size = ::GetFileVersionInfoSizeA (filename, &dummy_var);
+	DWORD dummy_var = 0;
+	DWORD version_size = ::GetFileVersionInfoSizeA (filename, &dummy_var);
 	if (version_size > 0) {
 		//
 		// Get the file version block

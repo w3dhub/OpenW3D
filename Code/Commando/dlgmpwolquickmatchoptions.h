@@ -65,7 +65,7 @@ public:
 	//	Public methods
 	////////////////////////////////////////////////////////////////
 	void		On_Init_Dialog (void);	
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param);
 	void		On_SliderCtrl_Pos_Changed (SliderCtrlClass *slider_ctrl, int ctrl_id, int new_pos);
 	bool		Save_Settings (void);
 

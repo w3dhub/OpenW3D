@@ -123,7 +123,7 @@ WideStringClass			cGameData::WinText;
 //
 // hack
 //
-ULONG g_ip_override = INADDR_NONE;
+unsigned int g_ip_override = INADDR_NONE;
 
 //------------------------------------------------------------------------------------
 void cGameData::Onetime_Init(void)
@@ -492,7 +492,7 @@ void cGameData::Set_Ip_And_Port(void)
 	Set_Ip_Address(local_address.sin_addr.s_addr);
 	*/
 
-	ULONG ip = 0;
+	unsigned int ip = 0;
 	if (cGameSpyAdmin::Get_Is_Server_Gamespy_Listed()) {
 		ip = cUserOptions::PreferredGameSpyNic.Get();
 	} else {
@@ -509,7 +509,7 @@ void cGameData::Set_Ip_And_Port(void)
 	if (GameModeManager::Find("WOL")->Is_Active()) {
 
 		if (g_ip_override == INADDR_NONE || WOLNATInterface.Get_Force_Port() == 0) {
-			unsigned long temp = FirewallHelper.Get_Local_Address();
+			unsigned int temp = FirewallHelper.Get_Local_Address();
 			if (temp) {
 				//ip = temp;
 				ip = ::ntohl(temp);
@@ -601,7 +601,7 @@ void cGameData::Set_Owner(const WideStringClass & owner)
 }
 
 //-----------------------------------------------------------------------------
-void cGameData::Set_Ip_Address(ULONG ip_address)
+void cGameData::Set_Ip_Address(unsigned int ip_address)
 {
 	IpAddress = ip_address;
 }
@@ -841,7 +841,7 @@ void cGameData::Export_Tier_1_Data(cPacket & packet)
 //-----------------------------------------------------------------------------
 void cGameData::Import_Tier_1_Data(cPacket & packet)
 {
-	ULONG ip_address = packet.Get(ip_address);
+	unsigned int ip_address = packet.Get(ip_address);
    Set_Ip_Address(ip_address);
 
 	WideStringClass owner;
@@ -876,8 +876,8 @@ void cGameData::Import_Tier_1_Data(cPacket & packet)
 	//
 	//	Get the CRC of the map and the mod
 	//
-	ULONG map_name_crc =		packet.Get(map_name_crc);
-	ULONG mod_name_crc =		packet.Get(mod_name_crc);
+	unsigned int map_name_crc =		packet.Get(map_name_crc);
+	unsigned int mod_name_crc =		packet.Get(mod_name_crc);
 
 
 	//
@@ -1516,7 +1516,7 @@ bool cGameData::Is_Game_Over(void)
 //-----------------------------------------------------------------------------
 bool cGameData::Has_Config_File_Changed(void)
 {
-	unsigned long mod_time = Get_Config_File_Mod_Time();
+	unsigned int mod_time = Get_Config_File_Mod_Time();
 
 	if (LastServerConfigModTime != mod_time) {
 		return(true);
@@ -1527,7 +1527,7 @@ bool cGameData::Has_Config_File_Changed(void)
 
 
 //-----------------------------------------------------------------------------
-unsigned long cGameData::Get_Config_File_Mod_Time(void)
+unsigned int cGameData::Get_Config_File_Mod_Time(void)
 {
 	StringClass full_filename(IniFilename, true);
 	RawFileClass file(full_filename);
@@ -1539,7 +1539,7 @@ unsigned long cGameData::Get_Config_File_Mod_Time(void)
 
 	if (file.Is_Available()) {
 		file.Open();
-		unsigned long mod_time = file.Get_Date_Time();
+		unsigned int mod_time = file.Get_Date_Time();
 		file.Close();
 		return(mod_time);
 	}
@@ -1595,7 +1595,7 @@ void cGameData::Game_Over_Processing(void)
 	//
 	// Compute the game duration
 	//
-	DWORD duration_s = (int)((TIMEGETTIME() - GameStartTimeMs) / 1000.0f);
+	unsigned int duration_s = (int)((TIMEGETTIME() - GameStartTimeMs) / 1000.0f);
 	Set_Game_Duration_S(duration_s);
 
 	//
@@ -1650,14 +1650,14 @@ bool cGameData::Is_Gameplay_Permitted(void)
 	return permitted;
 }
 
-void cGameData::Set_Clan(int slot, unsigned long clanID)
+void cGameData::Set_Clan(int slot, unsigned int clanID)
 {
 	WWASSERT(slot >= 0 && slot < MAX_CLAN_SLOTS);
 	mClanSlots[slot] = clanID;
 }
 
 
-unsigned long cGameData::Get_Clan(int slot) const
+unsigned int cGameData::Get_Clan(int slot) const
 {
 	WWASSERT(slot >= 0 && slot < MAX_CLAN_SLOTS);
 	return mClanSlots[slot];
@@ -1686,7 +1686,7 @@ int cGameData::Find_Free_Clan_Slot(void) const
 }
 
 
-bool cGameData::Is_Clan_Competing(unsigned long clanID) const
+bool cGameData::Is_Clan_Competing(unsigned int clanID) const
 {
 	if (IsClanGame.Is_True() && (clanID != 0)) {
 		for (int slot = 0; slot < MAX_CLAN_SLOTS; ++slot) {
@@ -1981,7 +1981,7 @@ void cGameData::Think(void)
 			TimeRemainingSeconds = 0;
 		}
 
-		DWORD duration_s = (int)((TIMEGETTIME() - GameStartTimeMs) / 1000.0f);
+		unsigned int duration_s = (int)((TIMEGETTIME() - GameStartTimeMs) / 1000.0f);
 		Set_Game_Duration_S(duration_s);
 	}
 
@@ -2267,7 +2267,7 @@ void cGameData::Set_Win_Type(WinTypeEnum type)
 }
 
 //------------------------------------------------------------------------------------
-void cGameData::Set_Game_Duration_S(DWORD seconds)
+void cGameData::Set_Game_Duration_S(unsigned int seconds)
 {
 	GameDurationS = seconds;
 }

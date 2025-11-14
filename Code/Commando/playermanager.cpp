@@ -265,7 +265,7 @@ cPlayer * cPlayerManager::Find_Team_Mate(cPlayer * p_player1)
 cPlayer* cPlayerManager::Find_Clan_Mate(cPlayer* player)
 {
 	if (player != NULL) {
-		unsigned long clan = player->Get_WOL_ClanID();
+		unsigned int clan = player->Get_WOL_ClanID();
 		int playerID = player->Get_Id();
 
 		SLNode<cPlayer>* node = PlayerList.Head();
@@ -370,8 +370,8 @@ int cPlayerManager::Get_Average_Ladder_Points(void)
 //------------------------------------------------------------------------------------
 unsigned short cPlayerManager::Get_Average_WOL_Points(void)
 {
-	unsigned long numPlayers = 0;
-	unsigned long totalPoints = 0;
+	unsigned int numPlayers = 0;
+	unsigned int totalPoints = 0;
 
 	SList<cPlayer>* playerList = Get_Player_Object_List();
 	SLNode<cPlayer>* playerNode = playerList->Head();

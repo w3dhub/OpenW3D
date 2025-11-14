@@ -206,7 +206,7 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 	DebugPrint("Waiting for game (timeout in %.02f seconds)...\n", ((float)((5 * 60) * 1000) * 0.001));
 
 	#ifdef _DEBUG
-	unsigned long start = timeGetTime();
+	unsigned int start = timeGetTime();
 	#endif
 
 	HANDLE handles[2];
@@ -215,7 +215,7 @@ void Protect::SendMappedFileHandle(HANDLE process, DWORD threadID) const
 	DWORD waitResult = WaitForMultipleObjects(2, &handles[0], false, ((5 * 60) * 1000));
 
 	#ifdef _DEBUG
-	unsigned long stop = timeGetTime();
+	unsigned int stop = timeGetTime();
 	#endif
 
 	DebugPrint("WaitResult = %ld (WAIT_OBJECT_0 = %ld)\n", waitResult, WAIT_OBJECT_0);
@@ -618,7 +618,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 	DebugPrint("Waiting for game (timeout in %.02f seconds)...\n", ((float)((5 * 60) * 1000) * 0.001));
 
 	#ifdef _DEBUG
-	unsigned long start = timeGetTime();
+	unsigned int start = timeGetTime();
 	#endif
 
 	HANDLE handles[2];
@@ -627,7 +627,7 @@ void SendProtectMessage(HANDLE process, DWORD threadID)
 	DWORD waitResult = WaitForMultipleObjects(2, &handles[0], false, ((5 * 60) * 1000));
 
 	#ifdef _DEBUG
-	unsigned long stop = timeGetTime();
+	unsigned int stop = timeGetTime();
 	#endif
 
 	DebugPrint("WaitResult = %ld (WAIT_OBJECT_0 = %ld)\n", waitResult, WAIT_OBJECT_0);

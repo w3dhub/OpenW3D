@@ -61,7 +61,7 @@ class RandomClass {
 		};
 
 	protected:
-		unsigned long Seed;
+		unsigned int Seed;
 
 		/*
 		**	Internal working constants that are used to generate the next

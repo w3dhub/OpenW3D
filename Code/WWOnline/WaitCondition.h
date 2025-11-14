@@ -58,7 +58,7 @@ class WaitCondition :
 		enum WaitResult {Waiting, ConditionMet, UserCancel, TimeOut, Error};
 
 		// Wait for this condition
-		virtual WaitResult WaitFor(CallbackHook& hook, unsigned long timeout = 30000);
+		virtual WaitResult WaitFor(CallbackHook& hook, unsigned int timeout = 30000);
 
 		/* Wait_Beginning is called when the wait actually begins.
 	   * This useful if the activity being monitored should only begin after the
@@ -87,7 +87,7 @@ class WaitCondition :
 		virtual const wchar_t* GetWaitText(void) const = 0;
 
 		// Get the timeout in milliseconds for this wait condition
-		virtual unsigned long GetTimeout(void) const = 0;
+		virtual unsigned int GetTimeout(void) const = 0;
 
 	protected:
 		WaitCondition();
@@ -103,7 +103,7 @@ class SingleWait :
 		public WaitCondition
 	{
 	public:
-		static RefPtr<SingleWait> Create(const wchar_t* waitText, unsigned long timeout = 30000);
+		static RefPtr<SingleWait> Create(const wchar_t* waitText, unsigned int timeout = 30000);
 
 		virtual void WaitBeginning(void) override;
 		virtual WaitResult GetResult(void) override;
@@ -116,10 +116,10 @@ class SingleWait :
 		
 		virtual void SetWaitText(const wchar_t* waitText);
 	
-		virtual unsigned long GetTimeout(void) const override;
+		virtual unsigned int GetTimeout(void) const override;
 
 	protected:
-		SingleWait(const wchar_t* waitText, unsigned long timeout = 30000);
+		SingleWait(const wchar_t* waitText, unsigned int timeout = 30000);
 		virtual ~SingleWait();
 
 		SingleWait(const SingleWait&);
@@ -129,8 +129,8 @@ class SingleWait :
 		WideStringClass mEndText;
 		WideStringClass mWaitText;
 
-		unsigned long mTimeout;
-		unsigned long mStartTime;
+		unsigned int mTimeout;
+		unsigned int mStartTime;
 	};
 
 
@@ -156,7 +156,7 @@ class SerialWait :
 
 		virtual const wchar_t* GetWaitText(void) const override;
 
-		virtual unsigned long GetTimeout(void) const override;
+		virtual unsigned int GetTimeout(void) const override;
 
 	protected:
 		SerialWait();
@@ -171,8 +171,8 @@ class SerialWait :
 		mutable WaitResult mEndResult;
 		mutable WideStringClass mEndText;
 
-		unsigned long mMaxTimeout;
-		unsigned long mStartTime;
+		unsigned int mMaxTimeout;
+		unsigned int mStartTime;
 	};
 
 
@@ -197,7 +197,7 @@ class ANDWait :
 		
 		virtual const wchar_t* GetWaitText(void) const override;
 
-		virtual unsigned long GetTimeout(void) const override;
+		virtual unsigned int GetTimeout(void) const override;
 
 	protected:
 		ANDWait(const wchar_t*);
@@ -212,8 +212,8 @@ class ANDWait :
 		mutable WideStringClass mEndText;
 		WideStringClass mWaitText;
 
-		unsigned long mMaxTimeout;
-		unsigned long mStartTime;
+		unsigned int mMaxTimeout;
+		unsigned int mStartTime;
 	};
 
 
@@ -237,7 +237,7 @@ class ORWait :
 		
 		virtual const wchar_t* GetWaitText(void) const override;
 
-		virtual unsigned long GetTimeout(void) const override
+		virtual unsigned int GetTimeout(void) const override
 			{return mMaxTimeout;}
 
 	protected:
@@ -253,8 +253,8 @@ class ORWait :
 		mutable WideStringClass mEndText;
 		WideStringClass mWaitText;
 
-		unsigned long mMaxTimeout;
-		unsigned long mStartTime;
+		unsigned int mMaxTimeout;
+		unsigned int mStartTime;
 	};
 
 

@@ -65,11 +65,11 @@
 */
 BandwidthCheckerClass::BandwidthCheckerThreadClass BandwidthCheckerClass::Thread;
 HANDLE BandwidthCheckerClass::EventNotify = NULL;
-unsigned long BandwidthCheckerClass::UpstreamBandwidth = 0;
-unsigned long BandwidthCheckerClass::ReportedUpstreamBandwidth = 0;
+unsigned int BandwidthCheckerClass::UpstreamBandwidth = 0;
+unsigned int BandwidthCheckerClass::ReportedUpstreamBandwidth = 0;
 const wchar_t *BandwidthCheckerClass::UpstreamBandwidthString = NULL;
-unsigned long BandwidthCheckerClass::DownstreamBandwidth = 0;
-unsigned long BandwidthCheckerClass::ReportedDownstreamBandwidth = 0;
+unsigned int BandwidthCheckerClass::DownstreamBandwidth = 0;
+unsigned int BandwidthCheckerClass::ReportedDownstreamBandwidth = 0;
 const wchar_t *BandwidthCheckerClass::DownstreamBandwidthString = NULL;
 int BandwidthCheckerClass::FailureCode = BANDTEST_OK;
 bool BandwidthCheckerClass::GotBandwidth = false;
@@ -104,7 +104,7 @@ const char *BandwidthCheckerClass::ErrorList[13] = {
 /*
 ** Lower and upper limits for each level of bandwidth.
 */
-unsigned long BandwidthCheckerClass::Bandwidths[NUM_BANDS * 2] = {
+unsigned int BandwidthCheckerClass::Bandwidths[NUM_BANDS * 2] = {
 	 12000,	14400,
 	 28000,	28800,
 	 29999,	33600,
@@ -185,8 +185,8 @@ void BandwidthCheckerClass::Check_Now(HANDLE event)
 	** This will stall the dialogs but at least it won't crash.
 	*/
 	if (Thread.Is_Running()) {
-		unsigned long timeout = 10 * 1000;
-		unsigned long time = TIMEGETTIME();
+		unsigned int timeout = 10 * 1000;
+		unsigned int time = TIMEGETTIME();
 		while (Thread.Is_Running() && (TIMEGETTIME() - time) < timeout) {
 			Sleep(1);
 		}
@@ -232,14 +232,14 @@ const char *BandwidthCheckerClass::Get_Ping_Server_Name(void)
 		** Get average and lowest ping server ping time.
 		*/
 		int num_times = 0;
-		unsigned long total = 0;
+		unsigned int total = 0;
 		int lowest = 0xffff;
 		int lowest_index = -1;
 		int i;
 		for (i=0 ; i<list.Count() ; i++) {
 			int time = reg.Get_Int(list[i].Peek_Buffer(), 0);
 			if (time > 0 && time < 0xffff) {
-				total += (unsigned long) time;
+				total += (unsigned int) time;
 				num_times++;
 
 				if (time < lowest) {
@@ -572,7 +572,7 @@ void BandwidthCheckerClass::Force_Upstream_Bandwidth(unsigned int up)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:54PM ST : Created                                                            *
  *=============================================================================================*/
-unsigned long BandwidthCheckerClass::Get_Upstream_Bandwidth(void)
+unsigned int BandwidthCheckerClass::Get_Upstream_Bandwidth(void)
 {
 	return(UpstreamBandwidth);
 }
@@ -592,7 +592,7 @@ unsigned long BandwidthCheckerClass::Get_Upstream_Bandwidth(void)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:55PM ST : Created                                                            *
  *=============================================================================================*/
-unsigned long BandwidthCheckerClass::Get_Reported_Upstream_Bandwidth(void)
+unsigned int BandwidthCheckerClass::Get_Reported_Upstream_Bandwidth(void)
 {
 	return(ReportedUpstreamBandwidth);
 }
@@ -632,7 +632,7 @@ const wchar_t *BandwidthCheckerClass::Get_Upstream_Bandwidth_As_String(void)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:56PM ST : Created                                                            *
  *=============================================================================================*/
-unsigned long BandwidthCheckerClass::Get_Downstream_Bandwidth(void)
+unsigned int BandwidthCheckerClass::Get_Downstream_Bandwidth(void)
 {
 	return(DownstreamBandwidth);
 }
@@ -652,7 +652,7 @@ unsigned long BandwidthCheckerClass::Get_Downstream_Bandwidth(void)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:57PM ST : Created                                                            *
  *=============================================================================================*/
-unsigned long BandwidthCheckerClass::Get_Reported_Downstream_Bandwidth(void)
+unsigned int BandwidthCheckerClass::Get_Reported_Downstream_Bandwidth(void)
 {
 	return(ReportedDownstreamBandwidth);
 }
@@ -751,8 +751,8 @@ BandwidthCheckerClass::PackedBandwidthType BandwidthCheckerClass::Get_Packed_Ban
 	PackedBandwidthType bandwidth = {0,0};
 	assert(sizeof(bandwidth) == 1);
 
-	unsigned long bwu = ReportedUpstreamBandwidth;
-	unsigned long bwd = ReportedDownstreamBandwidth;
+	unsigned int bwu = ReportedUpstreamBandwidth;
+	unsigned int bwd = ReportedDownstreamBandwidth;
 	bool automode = true;
 
 	if (cUserOptions::Get_Bandwidth_Type() != BANDWIDTH_AUTO) {

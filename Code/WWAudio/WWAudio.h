@@ -369,7 +369,7 @@ public:
 	//
 	AudibleSoundClass *		Create_Sound_Effect (FileClass &file, const char *string_id);
 	AudibleSoundClass *		Create_Sound_Effect (const char *filename);
-	AudibleSoundClass *		Create_Sound_Effect (const char *string_id, unsigned char *raw_wave_data, unsigned long bytes);
+	AudibleSoundClass *		Create_Sound_Effect (const char *string_id, unsigned char *raw_wave_data, unsigned int bytes);
 
 	//
 	//	Note:  3D sound effects should be inserted into the SoundScene.
@@ -386,7 +386,7 @@ public:
 	//
 	Sound3DClass *		Create_3D_Sound (FileClass &file, const char *string_id, int classid_hint = CLASSID_3D);
 	Sound3DClass *		Create_3D_Sound (const char *filename, int classid_hint = CLASSID_3D);
-	Sound3DClass *		Create_3D_Sound (const char *string_id, unsigned char *raw_wave_data, unsigned long bytes, int classid_hint = CLASSID_3D);
+	Sound3DClass *		Create_3D_Sound (const char *string_id, unsigned char *raw_wave_data, unsigned int bytes, int classid_hint = CLASSID_3D);
 
 
 	//////////////////////////////////////////////////////////////////////
@@ -582,7 +582,7 @@ protected:
 	SoundBufferClass *	Get_Sound_Buffer (const char *filename, bool is_3d);
 	SoundBufferClass *	Find_Cached_Buffer (const char *string_id);
 	SoundBufferClass *	Create_Sound_Buffer (FileClass &file, const char *string_id, bool is_3d);
-	SoundBufferClass *	Create_Sound_Buffer (unsigned char *file_image, unsigned long bytes, const char *string_id, bool is_3d);
+	SoundBufferClass *	Create_Sound_Buffer (unsigned char *file_image, unsigned int bytes, const char *string_id, bool is_3d);
 	bool						Cache_Buffer (SoundBufferClass *buffer, const char *string_id);
 	bool						Free_Cache_Space (int bytes);
 

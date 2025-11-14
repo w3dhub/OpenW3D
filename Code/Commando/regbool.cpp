@@ -35,7 +35,7 @@
 //
 
 //-----------------------------------------------------------------------------
-cRegistryBool::cRegistryBool(LPCSTR registry_location, LPCSTR key_name, bool default_value)
+cRegistryBool::cRegistryBool(const char *registry_location, const char *key_name, bool default_value)
 {
 	WWMEMLOG(MEM_GAMEDATA);
 

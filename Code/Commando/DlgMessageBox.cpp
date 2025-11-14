@@ -62,7 +62,7 @@ int DlgMsgBox::CurrentCount	= 0;
 ******************************************************************************/
 
 bool DlgMsgBox::DoDialog(const wchar_t* title, const wchar_t* text,
-		DlgMsgBox::Type type, Observer<DlgMsgBoxEvent>* observer, unsigned long user_data)
+		DlgMsgBox::Type type, Observer<DlgMsgBoxEvent>* observer, unsigned int user_data)
 	{	
 	DlgMsgBox* popup = new DlgMsgBox;
 
@@ -105,7 +105,7 @@ bool DlgMsgBox::DoDialog(const wchar_t* title, const wchar_t* text,
 ******************************************************************************/
 
 bool DlgMsgBox::DoDialog(int titleID, int textID,
-		DlgMsgBox::Type type, Observer<DlgMsgBoxEvent>* observer, unsigned long user_data)
+		DlgMsgBox::Type type, Observer<DlgMsgBoxEvent>* observer, unsigned int user_data)
 	{
 	const wchar_t* title = TranslateDBClass::Get_String(titleID);
 	const wchar_t* text = TranslateDBClass::Get_String(textID);
@@ -230,7 +230,7 @@ void DlgMsgBox::End_Dialog(void)
 *
 ******************************************************************************/
 
-void DlgMsgBox::On_Command(int ctrl, int message, DWORD param)
+void DlgMsgBox::On_Command(int ctrl, int message, unsigned int param)
 	{
 	switch (ctrl)
 		{

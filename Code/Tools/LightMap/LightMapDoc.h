@@ -61,7 +61,7 @@ class LightMapDoc : public CDocument
 		};
 
 		// Flags for anomalies in a W3D model.
-		// WARNING: Do not exceed no. of bits in unsigned long.
+		// WARNING: Do not exceed no. of bits in unsigned int.
 		enum MeshFlagsEnum {
 				
 			// Unconditional errors.
@@ -178,7 +178,7 @@ class LightMapDoc : public CDocument
 
 				MeshAnomalyStruct (const MeshInfoStruct &meshinfo);
 
-				unsigned long MeshAnomalies;
+				unsigned int MeshAnomalies;
 		};
 
 		struct MeshStatusStruct {
@@ -195,7 +195,7 @@ class LightMapDoc : public CDocument
 
 			MeshStatusStruct() {}
 
-			MeshStatusStruct (const char *name, unsigned trianglecount, unsigned long meshanomalies)
+			MeshStatusStruct (const char *name, unsigned trianglecount, unsigned int meshanomalies)
 			{
 				strcpy (Name, name);
 				TriangleCount = trianglecount;
@@ -219,9 +219,9 @@ class LightMapDoc : public CDocument
 			bool Inserted_Multi_Pass_Solve()		{return ((InsertedFlags & W3D_MESH_FLAG_PRELIT_LIGHTMAP_MULTI_PASS) != 0);}
 			bool Inserted_Multi_Texture_Solve() {return ((InsertedFlags & W3D_MESH_FLAG_PRELIT_LIGHTMAP_MULTI_TEXTURE) != 0);}
 
-			unsigned long Prelit_Flags() {
+			unsigned int Prelit_Flags() {
 
-				unsigned long prelitflags;
+				unsigned int prelitflags;
 
 				// If a vertex solve cannot be inserted substitute an unlit solve.
 				if (Can_Insert_Vertex_Solve()) {
@@ -236,8 +236,8 @@ class LightMapDoc : public CDocument
 
 			char				 Name [W3D_NAME_LEN];
 			unsigned			 TriangleCount;	
-			unsigned long	 MeshAnomalies;
-			unsigned long	 InsertedFlags;			// Which prelit mode types were inserted with the most recent solve?
+			unsigned int	 MeshAnomalies;
+			unsigned int	 InsertedFlags;			// Which prelit mode types were inserted with the most recent solve?
 			SolveStatistics SolveStatistics;
 		};
 
@@ -298,7 +298,7 @@ class LightMapDoc : public CDocument
 		
 		void Save_Lights (const char *pathname);
 
- 		void Translate_Mesh_Header3 (ChunkLoadClass &w3dchunk, unsigned long prelitflags, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo);
+ 		void Translate_Mesh_Header3 (ChunkLoadClass &w3dchunk, unsigned int prelitflags, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo);
 		void Translate_Vertices (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo);
 		void Translate_Vertex_Normals (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo);
 		void Translate_Vertex_Influences (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo);

@@ -97,7 +97,7 @@ void MPWolAddIgnoreEntry::On_Init_Dialog(void)
 //	On_Command
 //
 ////////////////////////////////////////////////////////////////
-void MPWolAddIgnoreEntry::On_Command (int ctrl_id, int message_id, DWORD param)
+void MPWolAddIgnoreEntry::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id) {
 		case IDC_ADD_BUTTON:

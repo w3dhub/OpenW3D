@@ -64,10 +64,10 @@ class BitPacker
 		bool PutBit(int value);
 
 		// Retrieve a series of bits from the stream (Max = 32)
-		int GetBits(unsigned long& outBits, unsigned int numBits);
+		int GetBits(unsigned int& outBits, unsigned int numBits);
 
 		// Write a series of bits to the stream (Max = 32)
-		int PutBits(unsigned long bits, unsigned int numBits);
+		int PutBits(unsigned int bits, unsigned int numBits);
 
 	private:
 		unsigned char* mBuffer;

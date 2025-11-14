@@ -34,8 +34,8 @@
 //
 
 //-----------------------------------------------------------------------------
-cRegistryString::cRegistryString(LPCSTR registry_location, LPCSTR key_name, 
-	LPCSTR default_value)
+cRegistryString::cRegistryString(const char *registry_location, const char *key_name, 
+	const char *default_value)
 {
    WWASSERT(default_value != NULL);
 
@@ -60,7 +60,7 @@ cRegistryString::cRegistryString(LPCSTR registry_location, LPCSTR key_name,
 }
 
 //-----------------------------------------------------------------------------
-void cRegistryString::Set(LPCSTR value)
+void cRegistryString::Set(const char *value)
 {
    WWASSERT(value != NULL);
    WWASSERT(strlen(value) < sizeof(Value));

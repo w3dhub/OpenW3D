@@ -31,7 +31,7 @@
 //-----------------------------------------------------------------------------
 
 #define ADD_CASE(exp) case exp: return #exp; break;  
-LPCSTR Translate_Location(ChatLocationEnum location)
+const char *Translate_Location(ChatLocationEnum location)
 {
    switch (location) {
 		

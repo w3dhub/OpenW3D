@@ -162,14 +162,14 @@ class AudibleSoundClass : public SoundSceneObjClass
 		virtual bool				Pause (void);
 		virtual bool				Resume (void);
 		virtual bool				Stop (bool remove_from_playlist = true);
-		virtual void				Seek (unsigned long milliseconds);
+		virtual void				Seek (unsigned int milliseconds);
 		virtual SOUND_STATE		Get_State (void) const	{ return m_State; }
 
 		virtual void				Fade_Out (int time_in_ms);
 		virtual void				Fade_In (int time_in_ms);
 
 		// The timestamp represents when the sound started playing
-		virtual unsigned long	Get_Timestamp (void) const { return m_Timestamp; }
+		virtual unsigned int	Get_Timestamp (void) const { return m_Timestamp; }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Virtual channel support
@@ -238,10 +238,10 @@ class AudibleSoundClass : public SoundSceneObjClass
 		// can either be set as a normalized value from 0 to 1 or a millisecond
 		// offset from the start of the sound.
 		//
-		virtual unsigned long	Get_Duration (void) const								{ return m_Length; }
-		virtual unsigned long	Get_Play_Position (void) const						{ return m_CurrentPosition; }
+		virtual unsigned int	Get_Duration (void) const								{ return m_Length; }
+		virtual unsigned int	Get_Play_Position (void) const						{ return m_CurrentPosition; }
 		virtual void				Set_Play_Position (float position)					{ Seek (position * m_Length); }
-		virtual void				Set_Play_Position (unsigned long milliseconds)	{ Seek (milliseconds); }
+		virtual void				Set_Play_Position (unsigned int milliseconds)	{ Seek (milliseconds); }
 
 		virtual void				Set_Start_Offset (float offset)						{ m_StartOffset = offset; }
 		virtual float				Get_Start_Offset (void) const							{ return m_StartOffset; }
@@ -356,7 +356,7 @@ class AudibleSoundClass : public SoundSceneObjClass
 		//	Protected member data
 		//////////////////////////////////////////////////////////////////////
 		SoundHandleClass *	m_SoundHandle;
-		unsigned long			m_Timestamp;
+		unsigned int			m_Timestamp;
 		SOUND_STATE				m_State;
 		SOUND_TYPE				m_Type;
 		FADE_TYPE				m_FadeType;
@@ -377,8 +377,8 @@ class AudibleSoundClass : public SoundSceneObjClass
 		int						m_LoopsLeft;
 
 		// Offset and length information (in milliseconds)
-		unsigned long			m_Length;
-		unsigned long			m_CurrentPosition;
+		unsigned int			m_Length;
+		unsigned int			m_CurrentPosition;
 		float						m_StartOffset;
 		float						m_PitchFactor;
 

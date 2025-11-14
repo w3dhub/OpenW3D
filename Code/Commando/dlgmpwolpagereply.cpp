@@ -236,7 +236,7 @@ void DlgWOLPageReply::On_Init_Dialog(void)
 *
 ******************************************************************************/
 
-void DlgWOLPageReply::On_Command(int ctrlID, int message, DWORD param)
+void DlgWOLPageReply::On_Command(int ctrlID, int message, unsigned int param)
 	{
 	switch (ctrlID)
 		{

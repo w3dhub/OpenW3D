@@ -497,7 +497,7 @@ static int readheader( GSTREAM* g )
 		}
 
         /* alloc and read index chunk */
-        lx->pIndex[lx->BankIndex] = (LOCALEFILE_INDEXCHUNK *)galloc((long)IndexChunkSize );
+        lx->pIndex[lx->BankIndex] = (LOCALEFILE_INDEXCHUNK *)galloc((int)IndexChunkSize );
         if (lx->pIndex[lx->BankIndex]) {
 
 //			VERIFY(gseek(g, IndexChunkPos));
@@ -555,7 +555,7 @@ static int readstrings( GSTREAM* g, int LanguageID )
 	}   
 
     /* alloc and read language chunk */
-    lx->pBank[lx->BankIndex] = (LOCALEFILE_LANGUAGECHUNK *)galloc((long)LanguageChunkSize);
+    lx->pBank[lx->BankIndex] = (LOCALEFILE_LANGUAGECHUNK *)galloc((int)LanguageChunkSize);
     if (lx->pBank[lx->BankIndex]) {
 
 //		VERIFY(gseek(g, LanguageChunkPos));

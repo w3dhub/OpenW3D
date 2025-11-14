@@ -112,7 +112,7 @@ ServerControlClass::~ServerControlClass(void)
  * HISTORY:                                                                                    *
  *   11/16/2001 4:01PM ST : Created                                                            *
  *=============================================================================================*/
-bool ServerControlClass::Start_Listening(unsigned short port, char *password, const char*(*app_request_callback)(char*), void(*app_response_callback)(char*), bool loopback, unsigned long ip)
+bool ServerControlClass::Start_Listening(unsigned short port, char *password, const char*(*app_request_callback)(char*), void(*app_response_callback)(char*), bool loopback, unsigned int ip)
 {
 	LocalPort = port;
 	if (LocalPort != 0) {
@@ -190,7 +190,7 @@ void ServerControlClass::Service(void)
 
 		char buffer[1024];
 		int buffer_len = sizeof(buffer);
-		unsigned long address;
+		unsigned int address;
 		unsigned short port;
 
 		Comms.Service();
@@ -243,7 +243,7 @@ void ServerControlClass::Service(void)
  * HISTORY:                                                                                    *
  *   11/16/2001 4:03PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Parse_Message(void *buffer, int len, unsigned long address, unsigned short port)
+void ServerControlClass::Parse_Message(void *buffer, int len, unsigned int address, unsigned short port)
 {
 	ControlMessageStruct *message = (ControlMessageStruct*) buffer;
 	assert(len <= sizeof(ControlMessageStruct));
@@ -345,7 +345,7 @@ void ServerControlClass::Parse_Message(void *buffer, int len, unsigned long addr
  * HISTORY:                                                                                    *
  *   11/16/2001 4:06PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Add_Remote_Control(unsigned long ip, unsigned short port)
+void ServerControlClass::Add_Remote_Control(unsigned int ip, unsigned short port)
 {
 	RemoteControlStruct *control = Get_Controller(ip, port);
 
@@ -377,7 +377,7 @@ void ServerControlClass::Add_Remote_Control(unsigned long ip, unsigned short por
  * HISTORY:                                                                                    *
  *   11/16/2001 4:07PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Remove_Remote_Control(unsigned long ip, unsigned short port)
+void ServerControlClass::Remove_Remote_Control(unsigned int ip, unsigned short port)
 {
 	RemoteControlStruct *control;
 	for (int i=0 ; i<RemoteControllers.Count() ; i++) {
@@ -406,7 +406,7 @@ void ServerControlClass::Remove_Remote_Control(unsigned long ip, unsigned short 
  * HISTORY:                                                                                    *
  *   11/16/2001 4:07PM ST : Created                                                            *
  *=============================================================================================*/
-bool ServerControlClass::Is_Authenticated(unsigned long ip, unsigned short port)
+bool ServerControlClass::Is_Authenticated(unsigned int ip, unsigned short port)
 {
 	RemoteControlStruct *control = Get_Controller(ip, port);
 	if (control && control->Secure && TIMEGETTIME() - control->Time < CONTROL_TIMEOUT) {
@@ -431,7 +431,7 @@ bool ServerControlClass::Is_Authenticated(unsigned long ip, unsigned short port)
  * HISTORY:                                                                                    *
  *   11/16/2001 4:08PM ST : Created                                                            *
  *=============================================================================================*/
-ServerControlClass::RemoteControlStruct *ServerControlClass::Get_Controller(unsigned long ip, unsigned short port)
+ServerControlClass::RemoteControlStruct *ServerControlClass::Get_Controller(unsigned int ip, unsigned short port)
 {
 	RemoteControlStruct *control;
 	for (int i=0 ; i<RemoteControllers.Count() ; i++) {
@@ -458,7 +458,7 @@ ServerControlClass::RemoteControlStruct *ServerControlClass::Get_Controller(unsi
  * HISTORY:                                                                                    *
  *   11/16/2001 4:09PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Reset_Timeout(unsigned long ip, unsigned short port)
+void ServerControlClass::Reset_Timeout(unsigned int ip, unsigned short port)
 {
 	RemoteControlStruct *control = Get_Controller(ip, port);
 	if (control && control->Secure && TIMEGETTIME() - control->Time < CONTROL_TIMEOUT) {
@@ -483,7 +483,7 @@ void ServerControlClass::Reset_Timeout(unsigned long ip, unsigned short port)
  * HISTORY:                                                                                    *
  *   11/16/2001 4:09PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Send_Message(const char *text, unsigned long ip, unsigned short port)
+void ServerControlClass::Send_Message(const char *text, unsigned int ip, unsigned short port)
 {
 	ControlMessageStruct message;
 	message.Type = CONTROL_REQUEST;
@@ -512,7 +512,7 @@ void ServerControlClass::Send_Message(const char *text, unsigned long ip, unsign
  * HISTORY:                                                                                    *
  *   11/16/2001 4:10PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Respond(const char *text, unsigned long ip, unsigned short port)
+void ServerControlClass::Respond(const char *text, unsigned int ip, unsigned short port)
 {
 
 	ControlMessageStruct message;

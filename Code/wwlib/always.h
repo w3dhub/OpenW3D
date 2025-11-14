@@ -153,7 +153,7 @@ __forceinline unsigned long _rotl(unsigned long value, int shift)
 #endif
 
 #ifndef _byteswap_ulong
-__forceinline unsigned long _byteswap_ulong(unsigned long value)
+__forceinline unsigned int _byteswap_ulong(unsigned int value)
 {
 	return __builtin_bswap32(value);
 }

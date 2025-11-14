@@ -185,9 +185,9 @@ bool														WW3D::PauseRecord;
 bool														WW3D::RecordNextFrame;
 
 int														WW3D::FrameCount = 0;
-long														WW3D::UserStat0 = 0;
-long														WW3D::UserStat1 = 0;
-long														WW3D::UserStat2 = 0;
+int														WW3D::UserStat0 = 0;
+int														WW3D::UserStat1 = 0;
+int														WW3D::UserStat2 = 0;
 
 float														WW3D::DefaultNativeScreenSize = 1.0f;
 
@@ -1152,7 +1152,7 @@ void WW3D::Sync(unsigned int sync_time)
  * HISTORY:                                                                                    *
  *   5/07/98    NH : Created.                                                                  *
  *=============================================================================================*/
-void WW3D::Set_Ext_Swap_Interval(long swap)
+void WW3D::Set_Ext_Swap_Interval(int swap)
 {
 	DX8Wrapper::Set_Swap_Interval(swap);
 }
@@ -1170,7 +1170,7 @@ void WW3D::Set_Ext_Swap_Interval(long swap)
  * HISTORY:                                                                                    *
  *   5/07/98    NH : Created.                                                                  *
  *=============================================================================================*/
-long WW3D::Get_Ext_Swap_Interval(void)
+int WW3D::Get_Ext_Swap_Interval(void)
 {
 	return DX8Wrapper::Get_Swap_Interval();
 }

@@ -829,7 +829,7 @@ ShortcutBarCtrlClass::Update_Pulse (void)
 	//
 	//	Update the color vector array
 	//
-	DynamicVectorClass<unsigned long> &color_array = TexturedControlRenderer.Get_Color_Array ();
+	DynamicVectorClass<unsigned int> &color_array = TexturedControlRenderer.Get_Color_Array ();
 	for (int index = 0; index < color_array.Count (); index ++) {
 		color_array[index] = bar_color;
 	}

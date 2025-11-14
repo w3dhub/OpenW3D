@@ -131,7 +131,7 @@ void AutoRestartProgressDialogClass::On_Init_Dialog (void)
  * HISTORY:                                                                                    *
  *   11/6/2001 11:03AM ST : Created                                                            *
  *=============================================================================================*/
-void AutoRestartProgressDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+void AutoRestartProgressDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

@@ -58,7 +58,7 @@ class	cGameSpyAuthMgr
 public:
 	static void		Think(void);
 	static void		Initiate_Auth_Rejection(int player_id);
-	static LPCSTR	Describe_Auth_State(GAMESPY_AUTH_STATE_ENUM state);
+	static const char *Describe_Auth_State(GAMESPY_AUTH_STATE_ENUM state);
 
 private:
 	static void		Evict_Player(int player_id);

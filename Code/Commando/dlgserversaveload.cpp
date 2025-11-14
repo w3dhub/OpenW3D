@@ -130,7 +130,7 @@ ServerSaveLoadMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-ServerSaveLoadMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+ServerSaveLoadMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

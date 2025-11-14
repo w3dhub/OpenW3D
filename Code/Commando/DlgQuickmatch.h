@@ -61,7 +61,7 @@ class DlgQuickMatch :
 
 		void On_Init_Dialog(void) override;
 		void On_Frame_Update(void) override;
-		void On_Command(int ctrl, int message, DWORD param) override;
+		void On_Command(int ctrl, int message, unsigned int param) override;
 
 		void Connect(void);
 		void SendMatchingInfo(void);
@@ -78,8 +78,8 @@ class DlgQuickMatch :
 
 		WOLQuickMatch* mQuickMatch;
 		RefPtr<WaitCondition> mConnectWait;
-		DWORD mTimeoutTime;
-		DWORD mResendTime;
+		unsigned int mTimeoutTime;
+		unsigned int mResendTime;
 		};
 
 #endif // __DLGQUICKMATCH_H__

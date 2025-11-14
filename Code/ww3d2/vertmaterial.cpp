@@ -168,9 +168,9 @@ VertexMaterialClass & VertexMaterialClass::operator = (const VertexMaterialClass
 	return *this;
 }
 
-unsigned long VertexMaterialClass::Compute_CRC(void) const
+unsigned int VertexMaterialClass::Compute_CRC(void) const
 {
-	unsigned long crc = 0;
+	unsigned int crc = 0;
 	
 // don't include the name when determining whether two vertex materials match
 //	crc = CRC_Memory(reinterpret_cast<const unsigned char *>(Name.Peek_Buffer()),sizeof(char)*strlen(Name),crc);

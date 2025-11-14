@@ -39,7 +39,7 @@ namespace wwnet {
         ::WSASetLastError(err);
     }
 
-    int SocketIoctl(SocketHandle s, long cmd, SocketIoctlParam* argp) {
+    int SocketIoctl(SocketHandle s, int cmd, SocketIoctlParam* argp) {
         return ::ioctlsocket(s, cmd, argp);
     }
 

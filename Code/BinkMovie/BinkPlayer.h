@@ -34,7 +34,7 @@ class BINKMovieClass : public MovieClass
 		HBINK Bink;
 		bool FrameChanged;
 		unsigned TextureCount;
-		unsigned long TicksPerFrame;
+		unsigned int TicksPerFrame;
 
 		struct TextureInfoStruct {
 			TextureClass* Texture;

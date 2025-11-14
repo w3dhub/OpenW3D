@@ -156,7 +156,7 @@ void DlgMPConnectionRefused::On_Init_Dialog(void)
 *
 ******************************************************************************/
 
-void DlgMPConnectionRefused::On_Command(int ctrlID, int message, DWORD param)
+void DlgMPConnectionRefused::On_Command(int ctrlID, int message, unsigned int param)
 	{
 	if ((IDOK == ctrlID) && (1 != param))
 		{

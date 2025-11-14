@@ -1133,11 +1133,11 @@ int W3dMaterialDescClass::Add_Texture(W3dMapClass * map,int pass,int stage)
 	return ti;
 }
 
-unsigned long W3dMaterialDescClass::Compute_Crc(const W3dVertexMaterialStruct & vmat,
+unsigned int W3dMaterialDescClass::Compute_Crc(const W3dVertexMaterialStruct & vmat,
 																const char *mapper_args0,
 																const char *mapper_args1)
 {
-	unsigned long crc = 0;
+	unsigned int crc = 0;
 	crc = CRC_Memory((const unsigned char *)&vmat.Attributes,sizeof(vmat.Attributes),crc);
 	crc = CRC_Memory((const unsigned char *)&vmat.Ambient,sizeof(vmat.Ambient),crc);
 	crc = CRC_Memory((const unsigned char *)&vmat.Diffuse,sizeof(vmat.Diffuse),crc);
@@ -1156,16 +1156,16 @@ unsigned long W3dMaterialDescClass::Compute_Crc(const W3dVertexMaterialStruct & 
 	return crc;
 }
 
-unsigned long W3dMaterialDescClass::Compute_Crc(const W3dShaderStruct & shader)
+unsigned int W3dMaterialDescClass::Compute_Crc(const W3dShaderStruct & shader)
 {
-	unsigned long crc = 0;
+	unsigned int crc = 0;
 	crc = CRC_Memory((const unsigned char *)&shader,sizeof(shader),crc);
 	return crc;
 }
 
-unsigned long W3dMaterialDescClass::Compute_Crc(const W3dMapClass & map)
+unsigned int W3dMaterialDescClass::Compute_Crc(const W3dMapClass & map)
 {
-	unsigned long crc = 0;
+	unsigned int crc = 0;
 	if (map.AnimInfo != NULL) {
 		crc = CRC_Memory((const unsigned char *)&map.AnimInfo->Attributes,sizeof(map.AnimInfo->Attributes),crc);
 		crc = CRC_Memory((const unsigned char *)&map.AnimInfo->AnimType,sizeof(map.AnimInfo->AnimType),crc);
@@ -1176,9 +1176,9 @@ unsigned long W3dMaterialDescClass::Compute_Crc(const W3dMapClass & map)
 	return crc;
 }
 
-unsigned long W3dMaterialDescClass::Add_String_To_Crc(const char *str, unsigned long in_crc)
+unsigned int W3dMaterialDescClass::Add_String_To_Crc(const char *str, unsigned int in_crc)
 {
-	unsigned long out_crc = in_crc;
+	unsigned int out_crc = in_crc;
 	if (str) {
 		int len = strlen(str);
 		char *temp = new char[len + 1];

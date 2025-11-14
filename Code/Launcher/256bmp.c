@@ -148,7 +148,7 @@ BYTE huge * ReadDib (char * szFileName)
 	return lpDib ;
 }
 
-long FAR PASCAL _export MainWndProc(HWND hWnd,UINT message,UINT wParam,LONG lParam)
+int FAR PASCAL _export MainWndProc(HWND hWnd,UINT message,UINT wParam,LONG lParam)
 {
 	PAINTSTRUCT	ps;
 	HDC hdc;

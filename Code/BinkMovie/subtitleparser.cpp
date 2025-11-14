@@ -52,7 +52,7 @@
 #define COLOR_TOKEN      L"Color"
 #define TEXT_TOKEN       L"Text"
 
-unsigned long DecodeTimeString(wchar_t* string);
+unsigned int DecodeTimeString(wchar_t* string);
 void Parse_Time(wchar_t* string, SubTitleClass* subTitle);
 void Parse_Duration(wchar_t* string, SubTitleClass* subTitle);
 void Parse_Position(wchar_t* string, SubTitleClass* subTitle);
@@ -442,7 +442,7 @@ wchar_t* SubTitleParserClass::Get_Next_Line(void)
 
 
 // Convert a time string in the format hh:mm:ss:tt into 1/60 second ticks.
-unsigned long Decode_Time_String(wchar_t* string)
+unsigned int Decode_Time_String(wchar_t* string)
 {
 	#define TICKS_PER_SECOND 60
 	#define TICKS_PER_MINUTE (60 * TICKS_PER_SECOND)
@@ -460,27 +460,27 @@ unsigned long Decode_Time_String(wchar_t* string)
 	wchar_t* separator = wcschr(ptr, L':');
 	WWASSERT(separator != NULL);
 	*separator++ = 0;
-	unsigned long hours = wcstoul(ptr, NULL, 10);
+	unsigned int hours = wcstoul(ptr, NULL, 10);
 
 	// Isolate minutes part
 	ptr = separator;
 	separator = wcschr(ptr, L':');
 	WWASSERT(separator != NULL);
 	*separator++ = 0;
-	unsigned long minutes = wcstoul(ptr, NULL, 10);
+	unsigned int minutes = wcstoul(ptr, NULL, 10);
 
 	// Isolate seconds part
 	ptr = separator;
 	separator = wcschr(ptr, L':');
 	WWASSERT(separator != NULL);
 	*separator++ = 0;
-	unsigned long seconds = wcstoul(ptr, NULL, 10);
+	unsigned int seconds = wcstoul(ptr, NULL, 10);
 
 	// Isolate hundredth part (1/100th of a second)
 	ptr = separator;
-	unsigned long hundredth = wcstoul(ptr, NULL, 10);
+	unsigned int hundredth = wcstoul(ptr, NULL, 10);
 
-	unsigned long time = (hours * TICKS_PER_HOUR);
+	unsigned int time = (hours * TICKS_PER_HOUR);
 	time += (minutes * TICKS_PER_MINUTE);
 	time += (seconds * TICKS_PER_SECOND);
 	time += ((hundredth * TICKS_PER_SECOND) / 100);
@@ -493,7 +493,7 @@ void Parse_Time(wchar_t* param, SubTitleClass* subTitle)
 {
 	WWASSERT(param != NULL);
 	WWASSERT(subTitle != NULL);
-	unsigned long time = Decode_Time_String(param);
+	unsigned int time = Decode_Time_String(param);
 	subTitle->Set_Display_Time(time);
 }
 
@@ -502,7 +502,7 @@ void Parse_Duration(wchar_t* param, SubTitleClass* subTitle)
 {
 	WWASSERT(param != NULL);
 	WWASSERT(subTitle != NULL);
-	unsigned long time = Decode_Time_String(param);
+	unsigned int time = Decode_Time_String(param);
 
 	if (time > 0) {
 		subTitle->Set_Display_Duration(time);

@@ -52,15 +52,15 @@
 class SafeTimerClass
 {
 	public:
-		long operator () (void) const;
-		operator long (void) const;
+		int operator () (void) const;
+		operator int (void) const;
 
 	private:
 		static DWORD _StartTime;
 };
 
 
-inline long SafeTimerClass::operator () (void) const
+inline int SafeTimerClass::operator () (void) const
 {
 	DWORD time = timeGetTime();
 
@@ -73,7 +73,7 @@ inline long SafeTimerClass::operator () (void) const
 }
 
 
-inline SafeTimerClass::operator long (void) const
+inline SafeTimerClass::operator int (void) const
 {
 	DWORD time = timeGetTime();
 

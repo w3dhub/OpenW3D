@@ -51,7 +51,7 @@
 /*
 ** TextDisplayLine
 */
-TextDisplayLine::TextDisplayLine( const WideStringClass & text, unsigned long color ) :
+TextDisplayLine::TextDisplayLine( const WideStringClass & text, unsigned int color ) :
 	Time( 0 ),
 	LineCount( 0 ),
 	Text( text ),
@@ -321,7 +321,7 @@ void	TextDisplayGameModeClass::Print( const char * string, const Vector4 & color
 	if (Font == NULL) {
 		return;
 	}
-	unsigned long col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|(unsigned(color[3]*255.0f));
+	unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|(unsigned(color[3]*255.0f));
 	WideStringClass wide_string;
 	wide_string.Convert_From( string );
 	TextDisplayLine * line = new TextDisplayLine( wide_string, col );
@@ -333,7 +333,7 @@ void	TextDisplayGameModeClass::Print( const WideStringClass & string, const Vect
 	if (Font == NULL) {
 		return;
 	}
-	unsigned long col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|(unsigned(color[3]*255.0f));
+	unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|(unsigned(color[3]*255.0f));
 	TextDisplayLine * line = new TextDisplayLine( string, col );
    ScrollLines.Add_Tail( line );
 }
@@ -343,8 +343,8 @@ void	TextDisplayGameModeClass::Print( const char * string, const Vector3 & color
 	if (Font == NULL) {
 		return;
 	}
-	//TSS unsigned long col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|0xff;
-	unsigned long col=(unsigned(color[0]*255.0f)<<16)|(unsigned(color[1]*255.0f)<<8)|(unsigned(color[2]*255.0f))|0xFF000000;
+	//TSS unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|0xff;
+	unsigned int col=(unsigned(color[0]*255.0f)<<16)|(unsigned(color[1]*255.0f)<<8)|(unsigned(color[2]*255.0f))|0xFF000000;
 	WideStringClass wide_string;
 	wide_string.Convert_From( string );
 	TextDisplayLine * line = new TextDisplayLine( wide_string, col );
@@ -357,8 +357,8 @@ void	TextDisplayGameModeClass::Print( const WideStringClass & string, const Vect
 	if (Font == NULL) {
 		return;
 	}
-	//TSS unsigned long col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|0xff;
-	unsigned long col=(unsigned(color[0]*255.0f)<<16)|(unsigned(color[1]*255.0f)<<8)|(unsigned(color[2]*255.0f))|0xFF000000;
+	//TSS unsigned int col=(unsigned(color[0]*255.0f)<<24)|(unsigned(color[1]*255.0f)<<16)|(unsigned(color[2]*255.0f)<<8)|0xff;
+	unsigned int col=(unsigned(color[0]*255.0f)<<16)|(unsigned(color[1]*255.0f)<<8)|(unsigned(color[2]*255.0f))|0xFF000000;
 	TextDisplayLine * line = new TextDisplayLine( string, col );
    ScrollLines.Add_Tail( line );
 }
@@ -420,7 +420,7 @@ void	TextDebugDisplayHandlerClass::Display_Text( const WideStringClass & string,
 static float													_StatsScrollOffset = 0;
 static StringClass											_StatsTitle;
 static StringClass											_StatsText;
-static unsigned long											_StatsColor = 0xFFFFFFFF;
+static unsigned int											_StatsColor = 0xFFFFFFFF;
 static Vector2													_StatsLocation( 0,0 );
 
 void	StatisticsDisplayManager::Render(Render2DTextClass * renderer)
@@ -450,7 +450,7 @@ bool StatisticsDisplayManager::Is_Current_Display( const char* title) // Returns
 	return !stricmp( _StatsTitle, title );
 }
 
-void	StatisticsDisplayManager::Set_Stat( const char * title, const char * text, unsigned long color, const Vector2& location )
+void	StatisticsDisplayManager::Set_Stat( const char * title, const char * text, unsigned int color, const Vector2& location )
 {
 	if ( Is_Current_Display( title ) ) {
 		_StatsText = text;

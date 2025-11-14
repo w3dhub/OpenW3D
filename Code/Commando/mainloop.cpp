@@ -84,7 +84,7 @@ void _Game_Main_Loop_Loop(void)
 {
 	WWPROFILE( "Main Loop" );
 
-	unsigned long time1 = TIMEGETTIME();
+	unsigned int time1 = TIMEGETTIME();
 
    TimeManager::Update();
 
@@ -177,15 +177,15 @@ void _Game_Main_Loop_Loop(void)
 	** Sleep for a while if we are hogging the CPU.
 	*/
 	if (cNetwork::I_Am_Only_Server()) {
-		unsigned long time2 = TIMEGETTIME();
+		unsigned int time2 = TIMEGETTIME();
 		if (time2 >= time1) {
 
 			/*
 			** 16 (approx) for 60 fps. (1000/60)
 			*/
-			unsigned long diff = time2 - time1;
+			unsigned int diff = time2 - time1;
 			if (diff < 16) {
-				unsigned long sleep_time = 16 - (time2 - time1);
+				unsigned int sleep_time = 16 - (time2 - time1);
 				Sleep(sleep_time);
 			}
 		}
@@ -197,9 +197,9 @@ void _Game_Main_Loop_Loop(void)
 */
 int Game_Main_Loop(void)
 {
-	const unsigned long servicetime = 1000; // Time in milliseconds.
+	const unsigned int servicetime = 1000; // Time in milliseconds.
 
-	unsigned long time;
+	unsigned int time;
 
 	// Only run main loop if the init is succesful!
 	if (Game_Init()) {

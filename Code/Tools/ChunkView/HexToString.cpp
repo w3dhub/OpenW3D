@@ -171,7 +171,7 @@ CString HexToStringShortClass::Get_Next_Line(void)
 HexToStringLongClass::HexToStringLongClass(const uint8 * data,uint32 size) :
 	HexToStringClass(data,size)
 {
-	// Round size down to the nearest long
+	// Round size down to the nearest int
 	Size &= ~3;
 	Reset();
 }

@@ -70,7 +70,7 @@
  * HISTORY:                                                                                    *
  *   08/19/1995 JLB : Created.                                                                 *
  *=============================================================================================*/
-long Obfuscate(char const * string)
+int Obfuscate(char const * string)
 {
 	char buffer[128];
 
@@ -124,13 +124,13 @@ long Obfuscate(char const * string)
 	**	Transform the buffer into a number. This transformation is character
 	**	order dependant.
 	*/
-	long code = CRCEngine()(buffer, length);
+	int code = CRCEngine()(buffer, length);
 
 	/*
 	**	Record a copy of this initial transformation to be used in a later
 	**	self referential transformation.
 	*/
-	long copy = code;
+	int copy = code;
 
 	/*
 	**	Reverse the character string and combine with the previous transformation.
@@ -157,7 +157,7 @@ long Obfuscate(char const * string)
 		unsigned char temp = (unsigned char)code;
 		buffer[index2] ^= temp;
 		code >>= 8;
-		code |= (((long)temp)<<24);
+		code |= (((int)temp)<<24);
 	}
 
 	/*

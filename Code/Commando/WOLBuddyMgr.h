@@ -208,7 +208,7 @@ class WOLBuddyMgr :
 		PageList mPageList;
 		PageList mInvitations;
 		WideStringClass mLastPagersName;
-		unsigned long mHidePagedDialog;
+		unsigned int mHidePagedDialog;
 
 		RefPtr<WWOnline::UserData> mPendingJoin;
 		};

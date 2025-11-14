@@ -95,7 +95,7 @@ IPAddressClass::IPAddressClass(void)
  *=============================================================================================*/
 IPAddressClass::IPAddressClass(unsigned char *address, unsigned short port)
 {
-	WholeAddress = *((unsigned long*)address);
+	WholeAddress = *((unsigned int*)address);
 	Port = port;
 	IsValid = true;
 }
@@ -115,7 +115,7 @@ IPAddressClass::IPAddressClass(unsigned char *address, unsigned short port)
  * HISTORY:                                                                                    *
  *   3/9/00 1:00PM ST : Created                                                                *
  *=============================================================================================*/
-IPAddressClass::IPAddressClass(unsigned long address, unsigned short port)
+IPAddressClass::IPAddressClass(unsigned int address, unsigned short port)
 {
 	WholeAddress = address;
 	Port = port;
@@ -141,7 +141,7 @@ IPAddressClass::IPAddressClass(unsigned long address, unsigned short port)
  *=============================================================================================*/
 void IPAddressClass::Set_Address(unsigned char *address, unsigned short port)
 {
-	WholeAddress = *((unsigned long*)address);
+	WholeAddress = *((unsigned int*)address);
 	Port = port;
 	IsValid = true;
 }
@@ -162,7 +162,7 @@ void IPAddressClass::Set_Address(unsigned char *address, unsigned short port)
  * HISTORY:                                                                                    *
  *   3/9/00 1:01PM ST : Created                                                                *
  *=============================================================================================*/
-void IPAddressClass::Set_Address(unsigned long address, unsigned short port)
+void IPAddressClass::Set_Address(unsigned int address, unsigned short port)
 {
 	WholeAddress = address;
 	Port = port;
@@ -188,7 +188,7 @@ void IPAddressClass::Set_Address(unsigned long address, unsigned short port)
 void IPAddressClass::Get_Address(unsigned char *address, unsigned short *port)
 {
 	fw_assert(IsValid);
-	*((unsigned long*)address) = WholeAddress;
+	*((unsigned int*)address) = WholeAddress;
 	if (port) {
 		*port = Port;
 	}
@@ -211,7 +211,7 @@ void IPAddressClass::Get_Address(unsigned char *address, unsigned short *port)
  * HISTORY:                                                                                    *
  *   3/9/00 1:03PM ST : Created                                                                *
  *=============================================================================================*/
-unsigned long IPAddressClass::Get_Address(void)
+unsigned int IPAddressClass::Get_Address(void)
 {
 	fw_assert(IsValid);
 	return (WholeAddress);

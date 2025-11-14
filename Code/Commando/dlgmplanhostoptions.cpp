@@ -182,7 +182,7 @@ MPLanHostOptionsMenuClass::On_Periodic (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPLanHostOptionsMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPLanHostOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id) {
 		case IDC_MENU_MP_LAN_START_BUTTON:
@@ -383,9 +383,9 @@ MPLanHostBasicOptionsTabClass::On_Init_Dialog (void)
 
 	if (nic_combobox != NULL) {
 
-		ULONG * nics = NULL;
+		unsigned int * nics = NULL;
 		int nic_count = 0;
-		ULONG preferred_nick;
+		unsigned int preferred_nick;
 		if (!cGameSpyAdmin::Get_Is_Server_Gamespy_Listed()) {
 			 nics = cNicEnum::Get_Nics();
 			 nic_count = cNicEnum::Get_Num_Nics();
@@ -527,7 +527,7 @@ MPLanHostBasicOptionsTabClass::On_Apply (void)
 			int curr_sel = nic_combobox->Get_Curr_Sel ();
 			WWASSERT(curr_sel < cNicEnum::Get_Num_Nics());
 			if (curr_sel >= 0) {
-				ULONG * nics = cNicEnum::Get_Nics();
+				unsigned int * nics = cNicEnum::Get_Nics();
 				WWASSERT(nics != NULL);
 				cUserOptions::PreferredLanNic.Set(nics[curr_sel]);
 				The_Game()->Set_Ip_Address(nics[curr_sel]);
@@ -539,7 +539,7 @@ MPLanHostBasicOptionsTabClass::On_Apply (void)
 			int curr_sel = nic_combobox->Get_Curr_Sel ();
 			WWASSERT(curr_sel < cNicEnum::Get_Num_GameSpy_Nics());
 			if (curr_sel >= 0) {
-				ULONG * nics = cNicEnum::Get_GameSpy_Nics();
+				unsigned int * nics = cNicEnum::Get_GameSpy_Nics();
 				WWASSERT(nics != NULL);
 				cUserOptions::PreferredGameSpyNic.Set(nics[curr_sel]);
 				The_Game()->Set_Ip_Address(nics[curr_sel]);
@@ -551,7 +551,7 @@ MPLanHostBasicOptionsTabClass::On_Apply (void)
 			int curr_sel = nic_combobox->Get_Curr_Sel ();
 			WWASSERT(curr_sel < cNicEnum::Get_Num_GameSpy_Nics());
 			if (curr_sel >= 0) {
-				ULONG * nics = cNicEnum::Get_GameSpy_Nics();
+				unsigned int * nics = cNicEnum::Get_GameSpy_Nics();
 				WWASSERT(nics != NULL);
 				cUserOptions::PreferredGameSpyNic.Set(nics[curr_sel]);
 				The_Game()->Set_Ip_Address(nics[curr_sel]);
@@ -760,7 +760,7 @@ MPLanHostAdvancedOptionsTabClass::On_Apply (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPLanHostAdvancedOptionsTabClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPLanHostAdvancedOptionsTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	bool restart_enabled = true;
 
@@ -1308,7 +1308,7 @@ MPLanHostMapCycleOptionsTabClass::Remove_Map (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPLanHostMapCycleOptionsTabClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPLanHostMapCycleOptionsTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -1700,7 +1700,7 @@ MPLanHostVictoryOptionsTabClass::Update_Enable_State (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPLanHostVictoryOptionsTabClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPLanHostVictoryOptionsTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	/*
 	switch (ctrl_id)

@@ -96,7 +96,7 @@ void GameResPacket::Add_Field(GameResField *field)
 GameResPacket::GameResPacket(unsigned char* curbuf)
 	{
 	// Pull the size and packet ID out of the linear packet stream.
-	mSize = ntohl(*(unsigned long*)curbuf);
+	mSize = ntohl(*(unsigned int*)curbuf);
 	curbuf += sizeof(mSize);
 
 	mID = ntohs(*(unsigned short*)curbuf);
@@ -109,7 +109,7 @@ GameResPacket::GameResPacket(unsigned char* curbuf)
 
 	// Calculate the remaining size so that we can loop through the
 	// packets and extract them.
-	unsigned long remaining_size = (mSize - (sizeof(mSize) + sizeof(mID) + sizeof(mReserved)));
+	unsigned int remaining_size = (mSize - (sizeof(mSize) + sizeof(mID) + sizeof(mReserved)));
 
 	// Loop through the linear packet until we run out of room and
 	// create a field for each.
@@ -158,7 +158,7 @@ GameResPacket::GameResPacket(unsigned char* curbuf)
  * HISTORY:                                                               *
  *   04/22/1996 PWG : Created.                                            *
  *========================================================================*/
-unsigned char* GameResPacket::Create_Comms_Packet(unsigned long& size, char* sig_name, unsigned long& sig_offset)
+unsigned char* GameResPacket::Create_Comms_Packet(unsigned int& size, char* sig_name, unsigned int& sig_offset)
 	{
 	GameResField* current;
 	sig_offset = 0;
@@ -170,7 +170,7 @@ unsigned char* GameResPacket::Create_Comms_Packet(unsigned long& size, char* sig
 	// are building.
 	for (current = mHead; current; current = current->mNext)
 		{
-		size += (unsigned long)GAMERESFIELD_HEADER_SIZE;			// add in packet header size
+		size += (unsigned int)GAMERESFIELD_HEADER_SIZE;			// add in packet header size
 		size += current->mSize;				// add in data size
 		size += (4 - (current->mSize & 3)) & 3;		// add in pad value to dword align next packet
 		}
@@ -181,8 +181,8 @@ unsigned char* GameResPacket::Create_Comms_Packet(unsigned long& size, char* sig
 	unsigned char* curbuf = bufferStart;
 
 	// write the size into the packet header
-	*(unsigned long*)curbuf = htonl(size);
-	curbuf += sizeof(unsigned long);
+	*(unsigned int*)curbuf = htonl(size);
+	curbuf += sizeof(unsigned int);
 
 	*(unsigned short*)curbuf = htons(mID);
 	curbuf += sizeof(unsigned short);
@@ -372,7 +372,7 @@ bool GameResPacket::Get_Field(char *id, unsigned short &data)
  * GET_FIELD -- Find specified name and returns data                      *
  *                                                                        *
  * INPUT:      char *   - the id of the field that holds the data.        *
- *               long &   - the reference to store the data into          *
+ *               int &   - the reference to store the data into          *
  *                                                                        *
  * OUTPUT:      true if the field was found, false if it was not.         *
  *                                                                        *
@@ -382,13 +382,13 @@ bool GameResPacket::Get_Field(char *id, unsigned short &data)
  * HISTORY:                                                               *
  *   04/23/1996 PWG : Created.                                            *
  *========================================================================*/
-bool GameResPacket::Get_Field(char *id, long &data)
+bool GameResPacket::Get_Field(char *id, int &data)
 	{
 	GameResField *field = Find_Field(id);
 
 	if (field)
 		{
-		data = *((long *)field->mData);
+		data = *((int *)field->mData);
 		}
 
 	return((field) ? true : false);
@@ -428,7 +428,7 @@ bool GameResPacket::Get_Field(char *id, char *data)
  * GET_FIELD -- Find specified name and returns data                      *
  *                                                                        *
  * INPUT:    char *   - the id of the field that holds the data           *
- *           unsigned long &   - the reference to store the data into     *
+ *           unsigned int &   - the reference to store the data into     *
  *                                                                        *
  * OUTPUT:   true if the field was found, false if it was not.            *
  *                                                                        *
@@ -438,13 +438,13 @@ bool GameResPacket::Get_Field(char *id, char *data)
  * HISTORY:                                                               *
  *   04/23/1996 PWG : Created.                                            *
  *========================================================================*/
-bool GameResPacket::Get_Field(char *id, unsigned long &data)
+bool GameResPacket::Get_Field(char *id, unsigned int &data)
 	{
 	GameResField *field = Find_Field(id);
 
 	if (field)
 		{
-		data = *((unsigned long *)field->mData);
+		data = *((unsigned int *)field->mData);
 		}
 
 	return((field) ? true : false);

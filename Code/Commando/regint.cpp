@@ -35,7 +35,7 @@
 //
 
 //-----------------------------------------------------------------------------
-cRegistryInt::cRegistryInt(LPCSTR registry_location, LPCSTR key_name, int default_value)
+cRegistryInt::cRegistryInt(const char *registry_location, const char *key_name, int default_value)
 {
    WWMEMLOG(MEM_GAMEDATA);
 	if (registry_location == NULL) {

@@ -472,7 +472,7 @@ PresetListDialogClass::Add_Factories_To_Combo
 		item.iImage				= FOLDER_ICON;
 		item.iSelectedImage	= FOLDER_ICON;
 		item.iIndent			= indent;
-		item.lParam				= (long)class_id;
+		item.lParam				= (LPARAM)class_id;
 		item.iItem				= index ++;
 		int item_index			= m_ComboBox.InsertItem (&item);
 		

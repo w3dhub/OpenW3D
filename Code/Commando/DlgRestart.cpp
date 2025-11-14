@@ -157,7 +157,7 @@ void DlgRestart::On_Init_Dialog(void)
 *
 ******************************************************************************/
 
-void DlgRestart::On_Command(int ctrl, int message, DWORD param)
+void DlgRestart::On_Command(int ctrl, int message, unsigned int param)
 	{
 	if (IDOK == ctrl)
 		{

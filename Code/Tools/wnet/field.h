@@ -61,8 +61,8 @@ class FieldClass
    FieldClass(char *id, unsigned char data);
    FieldClass(char *id, short data);
    FieldClass(char *id, unsigned short data);
-   FieldClass(char *id, long data);
-   FieldClass(char *id, unsigned long data);
+   FieldClass(char *id, int data);
+   FieldClass(char *id, unsigned int data);
    FieldClass(char *id, char *data);
    FieldClass(char *id, void *data, int length);
 
@@ -73,8 +73,8 @@ class FieldClass
    void Set(char *id, unsigned char data);
    void Set(char *id, short data);
    void Set(char *id, unsigned short data);
-   void Set(char *id, long data);
-   void Set(char *id, unsigned long data);
+   void Set(char *id, int data);
+   void Set(char *id, unsigned int data);
    void Set(char *id, char *data);
    void Set(char *id, void *data, int length);
 

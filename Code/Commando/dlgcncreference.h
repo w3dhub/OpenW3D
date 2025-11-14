@@ -65,7 +65,7 @@ public:
 	///////////////////////////////////////////////////////////////////
 	void		On_Init_Dialog (void) override;
 	void		On_Destroy (void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void		On_Menu_Activate (bool onoff) override;
 	void		On_Frame_Update(void) override;
 

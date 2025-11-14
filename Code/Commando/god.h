@@ -45,7 +45,7 @@ class cGod
 	public:
 		static void					Think(void);
 		static cPlayer *			Create_Player(int client_id, const WideStringClass & name,
-														int team_choice, unsigned long clanID, bool is_invulnerable = false);
+														int team_choice, unsigned int clanID, bool is_invulnerable = false);
 
 		static void					Create_Ai_Player(void);
 		static void					Create_Grunt(Vector3 & pos);

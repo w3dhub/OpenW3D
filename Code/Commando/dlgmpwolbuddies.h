@@ -69,7 +69,7 @@ protected:
 	const MPWolBuddiesMenuClass& operator=(const MPWolBuddiesMenuClass&);
 
 	void On_Init_Dialog(void) override;
-	void On_Command(int ctrl_id, int mesage_id, DWORD param) override;
+	void On_Command(int ctrl_id, int mesage_id, unsigned int param) override;
 	void On_Frame_Update(void) override;
 
 	void Adjust_Buttons_For_Buddy_Location(int location);

@@ -117,7 +117,7 @@ sint32 Sem4::GetValue(int *sval) const
 #else
 	if (!sem)
 		return -1;
-	long prev;
+	int prev;
 	if (!ReleaseSemaphore(sem, 0, &prev))
 		return -1;
 	if (sval)

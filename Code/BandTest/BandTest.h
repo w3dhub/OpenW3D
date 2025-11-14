@@ -115,4 +115,4 @@ typedef struct tBandtestSettingsStruct {
 
 #define BANDTEST_API_VERSION 0x101
 
-BANDTEST_API unsigned long Detect_Bandwidth(unsigned long server_ip, unsigned long my_ip, int retries, int &failure_code, unsigned long &downstream, unsigned long api_version, BandtestSettingsStruct *settings = NULL, char *regpath = NULL);
+BANDTEST_API unsigned int Detect_Bandwidth(unsigned int server_ip, unsigned int my_ip, int retries, int &failure_code, unsigned int &downstream, unsigned int api_version, BandtestSettingsStruct *settings = NULL, char *regpath = NULL);

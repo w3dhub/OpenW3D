@@ -57,7 +57,7 @@ class BuildInfoClass
 		/*
 		** Gets the 32 bit build number.
 		*/
-		static unsigned long Get_Build_Number(void);
+		static unsigned int Get_Build_Number(void);
 
 		/*
 		** Gets the 32 bit build number as a human readable string.

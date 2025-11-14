@@ -210,7 +210,7 @@ void DlgWOLLogon::On_Init_Dialog(void)
 *
 ******************************************************************************/
 
-void DlgWOLLogon::On_Command(int ctrl, int message, DWORD param)
+void DlgWOLLogon::On_Command(int ctrl, int message, unsigned int param)
 	{
 	switch (ctrl)
 		{

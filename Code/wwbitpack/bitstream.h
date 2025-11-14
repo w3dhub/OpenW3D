@@ -120,7 +120,6 @@ class BitStreamClass : public cBitPacker
 		void		Add(uint8_t val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(uint16_t val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
         void		Add(uint32_t val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
-        void		Add(unsigned long val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(char val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(int val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(float val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
@@ -131,7 +130,6 @@ class BitStreamClass : public cBitPacker
 		uint8_t		Get(uint8_t & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
 		uint16_t	Get(uint16_t & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
         uint32_t		Get(uint32_t & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
-        unsigned long		Get(unsigned long & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
 		char		Get(char & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
 		int		Get(int & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
 		float		Get(float & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }

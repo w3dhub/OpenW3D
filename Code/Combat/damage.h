@@ -226,7 +226,7 @@ public:
 	float				Get_Shield_Strength_Max(void) const ;
 
 	void				Set_Shield_Type( ArmorType type );
-	unsigned long	Get_Shield_Type( void ) const 		{ return ShieldType; }
+	unsigned int	Get_Shield_Type( void ) const 		{ return ShieldType; }
 
 	// Apply Damage
 	float			Apply_Damage( const OffenseObjectClass	& offense, float scale = 1.0f, int alternate_skin = -1 );

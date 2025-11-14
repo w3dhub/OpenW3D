@@ -53,7 +53,7 @@
 /* Iff and Load Picture system defines and enumerations							*/
 /*=========================================================================*/
 
-#define 	MAKE_ID(a,b,c,d)			((long) ((long) d << 24) | ((long) c << 16) | ((long) b <<  8) | (long)(a))
+#define 	MAKE_ID(a,b,c,d)			((int) ((int) d << 24) | ((int) c << 16) | ((int) b <<  8) | (int)(a))
 #define	IFFize_WORD(a)			Reverse_Word(a)
 #define	IFFize_LONG(a)			Reverse_Long(a)
 
@@ -89,7 +89,7 @@ typedef enum {
 typedef struct {
 	char	Method;		// Compression method (CompressionType).
 	char	pad;			// Reserved pad byte (always 0).
-	long	Size;			// Size of the uncompressed data.
+	int	Size;			// Size of the uncompressed data.
 	short	Skip;			// Number of bytes to skip before data.
 } CompHeaderType;
 
@@ -100,9 +100,9 @@ typedef struct {
 
 int __cdecl Open_Iff_File(char const *filename);
 void __cdecl Close_Iff_File(int fh);
-unsigned long __cdecl Get_Iff_Chunk_Size(int fh, long id);
-unsigned long __cdecl Read_Iff_Chunk(int fh, long id, void *buffer, unsigned long maxsize);
-void __cdecl Write_Iff_Chunk(int file, long id, void *buffer, long length);
+unsigned int __cdecl Get_Iff_Chunk_Size(int fh, int id);
+unsigned int __cdecl Read_Iff_Chunk(int fh, int id, void *buffer, unsigned int maxsize);
+void __cdecl Write_Iff_Chunk(int file, int id, void *buffer, int length);
 
 
 /*=========================================================================*/
@@ -116,11 +116,11 @@ void __cdecl Write_Iff_Chunk(int file, long id, void *buffer, long length);
 /* The following prototypes are for the file: LOAD.CPP							*/
 /*=========================================================================*/
 
-unsigned long __cdecl Load_Data(char const *name, void *ptr, unsigned long size);
-unsigned long __cdecl Write_Data(char const *name, void *ptr, unsigned long size);
+unsigned int __cdecl Load_Data(char const *name, void *ptr, unsigned int size);
+unsigned int __cdecl Write_Data(char const *name, void *ptr, unsigned int size);
 //void * __cdecl Load_Alloc_Data(char const *name, MemoryFlagType flags);
-unsigned long __cdecl Load_Uncompress(char const *file, Buffer & uncomp_buff, Buffer & dest_buff, void *reserved_data=NULL);
-unsigned long __cdecl Uncompress_Data(void const *src, void *dst);
+unsigned int __cdecl Load_Uncompress(char const *file, Buffer & uncomp_buff, Buffer & dest_buff, void *reserved_data=NULL);
+unsigned int __cdecl Uncompress_Data(void const *src, void *dst);
 void __cdecl Set_Uncomp_Buffer(int buffer_segment, int size_of_buffer);
 
 /*=========================================================================*/
@@ -147,13 +147,13 @@ extern void __cdecl Pack_2_Plane(void *buffer, void * pageptr, int planebit);
 /* The following prototypes are for the file: LCWCOMP.ASM						*/
 /*=========================================================================*/
 
-extern unsigned long __cdecl LCW_Compress(void *source, void *dest, unsigned long length);
+extern unsigned int __cdecl LCW_Compress(void *source, void *dest, unsigned int length);
 
 /*=========================================================================*/
 /* The following prototypes are for the file: LCWUNCMP.ASM						*/
 /*=========================================================================*/
 
-extern unsigned long __cdecl LCW_Uncompress(void *source, void *dest, unsigned long length);
+extern unsigned int __cdecl LCW_Uncompress(void *source, void *dest, unsigned int length);
 
 #ifdef __cplusplus
 }

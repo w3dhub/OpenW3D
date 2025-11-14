@@ -184,7 +184,7 @@ void MPWolChatMenuClass::On_Init_Dialog(void)
 //	On_Command
 //
 ////////////////////////////////////////////////////////////////
-void MPWolChatMenuClass::On_Command(int ctrl_id, int message_id, DWORD param)
+void MPWolChatMenuClass::On_Command(int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id) {
 		case IDC_MENU_BACK_BUTTON:

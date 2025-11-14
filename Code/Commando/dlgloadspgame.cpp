@@ -486,7 +486,7 @@ LoadSPGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_in
 //
 ////////////////////////////////////////////////////////////////
 void
-LoadSPGameMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+LoadSPGameMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

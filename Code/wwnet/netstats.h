@@ -121,41 +121,41 @@ class cNetStats
 
 		void Increment_Unreliable_Count() {UnreliableCount++;}
 
-      UINT Get_Stat_Sample(int stat)	const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatSample[stat];}
-      UINT Get_Stat_Macro_Sample(int stat) const	{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatMacroSample[stat];}
-      UINT Get_Stat_Snapshot(int stat)	const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatSnapshot[stat];}
-      UINT Get_Stat_Macro_Snapshot(int stat)	const	{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatMacroSnapshot[stat];}
-      UINT Get_Stat_Total(int stat)		const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatTotal[stat];}
-      UINT Get_Stat_Average(int stat)	const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatAverage[stat];}
+      unsigned int Get_Stat_Sample(int stat)	const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatSample[stat];}
+      unsigned int Get_Stat_Macro_Sample(int stat) const	{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatMacroSample[stat];}
+      unsigned int Get_Stat_Snapshot(int stat)	const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatSnapshot[stat];}
+      unsigned int Get_Stat_Macro_Snapshot(int stat)	const	{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatMacroSnapshot[stat];}
+      unsigned int Get_Stat_Total(int stat)		const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatTotal[stat];}
+      unsigned int Get_Stat_Average(int stat)	const			{WWASSERT(stat >= 0 && stat < STAT_COUNT); return StatAverage[stat];}
 
-      void Increment_Stat_Sample(int stat, UINT increment)			{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatSample[stat] += increment;}
-      void Increment_Stat_Macro_Sample(int stat, UINT increment)	{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatMacroSample[stat] += increment;}
-      void Increment_Stat_Snapshot(int stat, UINT increment)		{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatSnapshot[stat] += increment;}
-      void Increment_Stat_Macro_Snapshot(int stat, UINT increment){WWASSERT(stat >= 0 && stat < STAT_COUNT); StatMacroSnapshot[stat] += increment;}
-      void Increment_Stat_Total(int stat, UINT increment)			{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatTotal[stat] += increment;}
-      void Increment_Stat_Average(int stat, UINT increment)			{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatAverage[stat] += increment;}
+      void Increment_Stat_Sample(int stat, unsigned int increment)			{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatSample[stat] += increment;}
+      void Increment_Stat_Macro_Sample(int stat, unsigned int increment)	{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatMacroSample[stat] += increment;}
+      void Increment_Stat_Snapshot(int stat, unsigned int increment)		{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatSnapshot[stat] += increment;}
+      void Increment_Stat_Macro_Snapshot(int stat, unsigned int increment){WWASSERT(stat >= 0 && stat < STAT_COUNT); StatMacroSnapshot[stat] += increment;}
+      void Increment_Stat_Total(int stat, unsigned int increment)			{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatTotal[stat] += increment;}
+      void Increment_Stat_Average(int stat, unsigned int increment)			{WWASSERT(stat >= 0 && stat < STAT_COUNT); StatAverage[stat] += increment;}
 
       //
 		// TSS - shift these down, and use above access operators
 		//
-		UINT StatSample[STAT_COUNT];
-		UINT StatMacroSample[STAT_COUNT];
-      UINT StatSnapshot[STAT_COUNT];
-      UINT StatMacroSnapshot[STAT_COUNT];
-      UINT StatTotal[STAT_COUNT];
-      UINT StatAverage[STAT_COUNT];
+		unsigned int StatSample[STAT_COUNT];
+		unsigned int StatMacroSample[STAT_COUNT];
+      unsigned int StatSnapshot[STAT_COUNT];
+      unsigned int StatMacroSnapshot[STAT_COUNT];
+      unsigned int StatTotal[STAT_COUNT];
+      unsigned int StatAverage[STAT_COUNT];
 
 	private:
       cNetStats(const cNetStats& source); // Disallow copy (compile/link time)
       cNetStats& operator=(const cNetStats& rhs); // Disallow assignment (compile/link time)
 
       //int PrevLastUnreliable;
-		unsigned long SampleStartTime;
+		unsigned int SampleStartTime;
       int LastUnreliablePacketId;
       int FreezePacketId;
       int UnreliableCount;
 
-		unsigned long StartTime;
+		unsigned int StartTime;
       double RemotePacketloss;
 		int RemoteServiceCount;
 };

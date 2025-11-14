@@ -42,7 +42,7 @@ namespace WWOnline {
 class RawPing
 	{
 	public:
-		RawPing(const char* host, unsigned long ip, int time) :
+		RawPing(const char* host, unsigned int ip, int time) :
 				mHostAddress(host),
 				mIP(ip),
 				mTime(time),
@@ -52,10 +52,10 @@ class RawPing
 		inline const char* GetHostAddress(void) const
 			{return mHostAddress.Peek_Buffer();}
 
-		inline void SetIPAddress(unsigned long ip)
+		inline void SetIPAddress(unsigned int ip)
 			{mIP = ip;}
 
-		inline unsigned long GetIPAddress(void) const
+		inline unsigned int GetIPAddress(void) const
 			{return mIP;}
 
 		inline void SetTime(int time)
@@ -72,7 +72,7 @@ class RawPing
 
 	private:
 		StringClass mHostAddress;
-		unsigned long mIP;
+		unsigned int mIP;
 		int mTime;
 		int mHandle;
 	};

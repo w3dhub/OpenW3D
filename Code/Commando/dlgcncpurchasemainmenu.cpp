@@ -298,7 +298,7 @@ CNCPurchaseMainMenuClass::Render (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-CNCPurchaseMainMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+CNCPurchaseMainMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	if (SecretsEnabled && The_Game()->IsLaddered.Is_True()) {
 		SecretsEnabled = false;

@@ -36,10 +36,10 @@
 //
 // Class statics
 //
-ULONG		cNicEnum::NicList[];
-USHORT	cNicEnum::NumNics			= 0;
-ULONG		cNicEnum::GSNicList[];	
-USHORT	cNicEnum::NumGSNics		= 0;
+unsigned int		cNicEnum::NicList[];
+unsigned short	cNicEnum::NumNics			= 0;
+unsigned int		cNicEnum::GSNicList[];	
+unsigned short	cNicEnum::NumGSNics		= 0;
 
 //----------------------------------------------------------------------------------
 void 
@@ -61,21 +61,21 @@ cNicEnum::Init
 	//
 	// Retrieve list of nic's
 	//
-	ULONG local_addresses[MAX_NICS];
-	ULONG num_addresses = Enumerate_Nics(local_addresses, MAX_NICS);
+	unsigned int local_addresses[MAX_NICS];
+	unsigned int num_addresses = Enumerate_Nics(local_addresses, MAX_NICS);
 	WWASSERT(num_addresses <= MAX_NICS);
 
 	WWDEBUG_SAY(("  Found %d NIC(s)\n", num_addresses));
 
-	USHORT index	= 0;
-	USHORT class_1	= 0;
-	USHORT class_2	= 0;
+	unsigned short index	= 0;
+	unsigned short class_1	= 0;
+	unsigned short class_2	= 0;
 
 	//
 	// First, extract the non-internet addressable nicks, ordered on general usage.
 	//
-	ULONG lan_addresses[MAX_NICS];
-	ULONG num_lan_addresses = 0;
+	unsigned int lan_addresses[MAX_NICS];
+	unsigned int num_lan_addresses = 0;
 
 	//
 	// First, scan for 10.*.*.* addresses
@@ -143,8 +143,8 @@ cNicEnum::Init
 	// addresses.
 	//
 
-	ULONG internet_addresses[MAX_NICS];
-	ULONG num_internet_addresses = 0;
+	unsigned int internet_addresses[MAX_NICS];
+	unsigned int num_internet_addresses = 0;
 
 	for (index = 0; index < num_addresses; index++)
 	{
@@ -196,7 +196,7 @@ cNicEnum::Init
 	bool is_nic_valid = false;
 	for (index = 0; index < NumNics; index++) 
 	{
-		if ((ULONG) cUserOptions::PreferredLanNic.Get() == NicList[index])
+		if ((unsigned int) cUserOptions::PreferredLanNic.Get() == NicList[index])
 		{
 			is_nic_valid = true;
 			break;
@@ -221,7 +221,7 @@ cNicEnum::Init
 	is_nic_valid = false;
 	for (index = 0; index < NumGSNics; index++) 
 	{
-		if ((ULONG) cUserOptions::PreferredGameSpyNic.Get() == GSNicList[index])
+		if ((unsigned int) cUserOptions::PreferredGameSpyNic.Get() == GSNicList[index])
 		{
 			is_nic_valid = true;
 			break;
@@ -241,11 +241,11 @@ cNicEnum::Init
 	}
 
 	WWDEBUG_SAY(("  PreferredLanNic is %u (%s)\n", 
-		(ULONG) cUserOptions::PreferredLanNic.Get(), 
+		(unsigned int) cUserOptions::PreferredLanNic.Get(), 
 		cNetUtil::Address_To_String(cUserOptions::PreferredLanNic.Get())));
 
 	WWDEBUG_SAY(("  PreferredGameSpyNic is %u (%s)\n", 
-		(ULONG) cUserOptions::PreferredGameSpyNic.Get(), 
+		(unsigned int) cUserOptions::PreferredGameSpyNic.Get(), 
 		cNetUtil::Address_To_String(cUserOptions::PreferredGameSpyNic.Get())));
 
 	int cleanup_rc = ::WSACleanup();
@@ -253,11 +253,11 @@ cNicEnum::Init
 }
 
 //---------------------------------------------------------------------------
-ULONG 
+unsigned int 
 cNicEnum::Enumerate_Nics
 (
-	ULONG *	addresses, 
-	ULONG		max_nics
+	unsigned int *	addresses, 
+	unsigned int		max_nics
 )
 {
 	WWASSERT(addresses != NULL);
@@ -282,7 +282,7 @@ cNicEnum::Enumerate_Nics
 		DIE;
 	}
 
-	ULONG num_addresses = 0;
+	unsigned int num_addresses = 0;
 	while (num_addresses < max_nics && p_hostent->h_addr_list[num_addresses] != NULL) 
 	{
 		IN_ADDR in_addr;
@@ -344,8 +344,8 @@ cNicEnum::Init
 	//
 	// Retrieve list of nic's
 	//
-	ULONG local_addresses[MAX_NICS];
-	ULONG num_addresses = Enumerate_Nics(local_addresses, MAX_NICS);
+	unsigned int local_addresses[MAX_NICS];
+	unsigned int num_addresses = Enumerate_Nics(local_addresses, MAX_NICS);
 	WWASSERT(num_addresses <= MAX_NICS);
 
 	WWDEBUG_SAY(("  Found %d NIC(s)\n", num_addresses));
@@ -359,9 +359,9 @@ cNicEnum::Init
 	// We will order these as above to promote the more common choice.
 	//
 
-	USHORT index	= 0;
-	USHORT class_1	= 0;
-	USHORT class_2	= 0;
+	unsigned short index	= 0;
+	unsigned short class_1	= 0;
+	unsigned short class_2	= 0;
 	NumNics			= 0;
 	NumGSNics 		= 0;
 
@@ -432,7 +432,7 @@ cNicEnum::Init
 	bool is_nic_valid = false;
 	for (index = 0; index < NumNics; index++) 
 	{
-		if ((ULONG) cUserOptions::PreferredLanNic.Get() == NicList[index])
+		if ((unsigned int) cUserOptions::PreferredLanNic.Get() == NicList[index])
 		{
 			is_nic_valid = true;
 			break;
@@ -454,7 +454,7 @@ cNicEnum::Init
 	is_nic_valid = false;
 	for (index = 0; index < NumGSNics; index++) 
 	{
-		if ((ULONG) cUserOptions::PreferredGameSpyNic.Get() == GSNicList[index])
+		if ((unsigned int) cUserOptions::PreferredGameSpyNic.Get() == GSNicList[index])
 		{
 			is_nic_valid = true;
 			break;
@@ -474,11 +474,11 @@ cNicEnum::Init
 	}
 
 	WWDEBUG_SAY(("  PreferredLanNic is %u (%s)\n", 
-		(ULONG) cUserOptions::PreferredLanNic.Get(), 
+		(unsigned int) cUserOptions::PreferredLanNic.Get(), 
 		cNetUtil::Address_To_String(cUserOptions::PreferredLanNic.Get())));
 
 	WWDEBUG_SAY(("  PreferredGameSpyNic is %u (%s)\n", 
-		(ULONG) cUserOptions::PreferredGameSpyNic.Get(), 
+		(unsigned int) cUserOptions::PreferredGameSpyNic.Get(), 
 		cNetUtil::Address_To_String(cUserOptions::PreferredGameSpyNic.Get())));
 
 	int cleanup_rc = ::WSACleanup();

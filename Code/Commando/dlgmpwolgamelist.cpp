@@ -84,7 +84,7 @@ enum
 #define FLAGSORT_CLAN       0x08
 
 static void SetGameTypeFlags(ListCtrlClass* list, int itemIndex, const WOLGameInfo& gameInfo);
-static void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, long pingTime);
+static void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, int pingTime);
 static int CALLBACK FlagsSortCallback(ListCtrlClass* list, int item1, int item2, uint32 param);
 static int CALLBACK NumericSortCallback(ListCtrlClass* list, int item1, int item2, uint32 param);
 static int CALLBACK AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param);
@@ -337,7 +337,7 @@ void MPWolGameListMenuClass::On_Init_Dialog(void)
 *
 ******************************************************************************/
 
-void MPWolGameListMenuClass::On_Command(int id, int msg, DWORD param)
+void MPWolGameListMenuClass::On_Command(int id, int msg, unsigned int param)
 	{
 	switch (id)
 		{
@@ -678,7 +678,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 						selIndex = itemIndex;
 						}
 
-					if (gameInfo.Version() != (unsigned long)cNetwork::Get_Exe_Key() || !gameInfo.IsMapValid())
+					if (gameInfo.Version() != (unsigned int)cNetwork::Get_Exe_Key() || !gameInfo.IsMapValid())
 						{
 						ChannelData* rawChannel = (ChannelData*)list->Get_Entry_Data(itemIndex, COL_HOST_NAME);
 
@@ -900,8 +900,8 @@ void MPWolGameListMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id,
 					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const wchar_t*)channel->GetName(),
 							mSelectedGame.Title(), HIWORD(mSelectedGame.Version()), LOWORD(mSelectedGame.Version()));
 #else
-					unsigned long verMajor = 0;
-					unsigned long verMinor = 0;
+					unsigned int verMajor = 0;
+					unsigned int verMinor = 0;
 					Get_Version_Number(&verMajor,&verMinor);
 
 					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const wchar_t*)channel->GetName(),
@@ -1131,7 +1131,7 @@ void MPWolGameListMenuClass::HandleNotification(WWOnline::SquadEvent& event)
 
 	if (squad.IsValid())
 		{
-		unsigned long squadID = squad->GetID();
+		unsigned int squadID = squad->GetID();
 
 		if (mSelectedGame.ClanID1() == squadID || mSelectedGame.ClanID2() == squadID)
 			{
@@ -1234,7 +1234,7 @@ void SetGameTypeFlags(ListCtrlClass* list, int itemIndex, const WOLGameInfo& gam
 *
 ******************************************************************************/
 
-void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, long pingTime)
+void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, int pingTime)
 	{
 	const char* pingIcon = NULL;
 
@@ -1254,7 +1254,7 @@ void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, long pingTime)
 	list->Reset_Icons(itemIndex, COL_PING);
 	list->Add_Icon(itemIndex, COL_PING, pingIcon);
 
-	unsigned long displayPing = (unsigned long)((1000.0 / 256.0) * (sqrt(double(pingTime))));
+	unsigned int displayPing = (unsigned int)((1000.0 / 256.0) * (sqrt(double(pingTime))));
 	list->Set_Entry_Data(itemIndex, COL_PING, displayPing);
 
 	WideStringClass text(32, true);
@@ -1281,7 +1281,7 @@ void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, long pingTime)
 *
 ******************************************************************************/
 
-void MPWolGameListMenuClass::SortGameChannels(int column, bool isAscending, unsigned long param)
+void MPWolGameListMenuClass::SortGameChannels(int column, bool isAscending, unsigned int param)
 	{
 	mSortColumn = column;
 	mIsSortAscending = isAscending;

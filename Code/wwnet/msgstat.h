@@ -49,25 +49,25 @@ class cMsgStat
 		void		Increment_Num_Msg_Recd(		int increment = 1);
 		void		Increment_Num_Byte_Recd(	int increment);
 
-		DWORD		Get_Num_Msg_Sent(void)	const	{return NumMsgSent;}
-		DWORD		Get_Num_Byte_Sent(void)	const	{return NumByteSent;}
-		DWORD		Get_Num_Msg_Recd(void)	const	{return NumMsgRecd;}
-		DWORD		Get_Num_Byte_Recd(void)	const	{return NumByteRecd;}
+		unsigned int		Get_Num_Msg_Sent(void)	const	{return NumMsgSent;}
+		unsigned int		Get_Num_Byte_Sent(void)	const	{return NumByteSent;}
+		unsigned int		Get_Num_Msg_Recd(void)	const	{return NumMsgRecd;}
+		unsigned int		Get_Num_Byte_Recd(void)	const	{return NumByteRecd;}
 
-		DWORD		Compute_Avg_Num_Byte_Sent(void) const;
-		DWORD		Compute_Avg_Num_Byte_Recd(void) const;
+		unsigned int		Compute_Avg_Num_Byte_Sent(void) const;
+		unsigned int		Compute_Avg_Num_Byte_Recd(void) const;
 
-		void		Set_Name(LPCSTR name);
-		LPCSTR	Get_Name(void) const				{return Name;}
+		void		Set_Name(const char *name);
+		const char *Get_Name(void) const				{return Name;}
 
 	private:
       cMsgStat(const cMsgStat& source);					// disallow
       cMsgStat& operator=(const cMsgStat& source);	// disallow
 
-		DWORD		NumMsgSent;
-		DWORD		NumByteSent;
-		DWORD		NumMsgRecd;
-		DWORD		NumByteRecd;
+		unsigned int		NumMsgSent;
+		unsigned int		NumByteSent;
+		unsigned int		NumMsgRecd;
+		unsigned int		NumByteRecd;
 
 		char		Name[30];
 };

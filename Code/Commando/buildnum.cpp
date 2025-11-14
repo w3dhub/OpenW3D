@@ -63,9 +63,9 @@ char BuildInfoClass::BuildDate   [64] = {"Insert1Build2Date3Here4     xxxx      
  * HISTORY:                                                                                    *
  *   10/29/2001 4:54PM ST : Created                                                            *
  *=============================================================================================*/
-unsigned long BuildInfoClass::Get_Build_Number(void)
+unsigned int BuildInfoClass::Get_Build_Number(void)
 {
-	return (*(unsigned long*)(&BuildNumber[28]));
+	return (*(unsigned int*)(&BuildNumber[28]));
 }
 
 
@@ -88,7 +88,7 @@ unsigned long BuildInfoClass::Get_Build_Number(void)
 const char *BuildInfoClass::Get_Build_Number_String(void)
 {
 	static char _buffer[16];
-	sprintf (_buffer, "%d", *(unsigned long*)(&BuildNumber[28]));
+	sprintf (_buffer, "%d", *(unsigned int*)(&BuildNumber[28]));
 	return (_buffer);
 }
 

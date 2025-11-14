@@ -75,7 +75,7 @@ class MPWolGameListMenuClass :
 		const MPWolGameListMenuClass& operator=(const MPWolGameListMenuClass&);
 	
 		void On_Init_Dialog(void) override;
-		void On_Command(int id, int mesage_id, DWORD param) override;
+		void On_Command(int id, int mesage_id, unsigned int param) override;
 		void On_Last_Menu_Ending(void) override;
 		bool On_Key_Down(uint32 key_id, uint32 key_data) override;
 
@@ -83,7 +83,7 @@ class MPWolGameListMenuClass :
 		void ReceiveSignal(DlgPasswordPrompt&) override;
 
 		void RequestGameList(void);
-		void SortGameChannels(int column, bool isAscending, unsigned long param);
+		void SortGameChannels(int column, bool isAscending, unsigned int param);
 
 		void On_ListCtrl_Column_Click(ListCtrlClass* list, int id, int column) override;
 		void On_ListCtrl_DblClk(ListCtrlClass* list, int id, int index) override;
@@ -108,7 +108,7 @@ class MPWolGameListMenuClass :
 
 		int mSortColumn;
 		bool mIsSortAscending;
-		unsigned long mSortFlags;
+		unsigned int mSortFlags;
 
 		WOLGameInfo mSelectedGame;
 

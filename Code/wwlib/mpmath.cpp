@@ -32,7 +32,7 @@
  *                                                                                             *
  *---------------------------------------------------------------------------------------------* 
  * Functions:                                                                                  * 
- *   _Byte_Precision -- Determines the number of bytes significant in long integer.            *
+ *   _Byte_Precision -- Determines the number of bytes significant in int integer.            *
  *   memrev -- Reverse the byte order of the buffer specified.                                 *
  *   XMP_Abs -- Perform an absolute value on the specified MP number.                          *
  *   XMP_Add -- Add two MP numbers with a carry option.                                        *
@@ -131,16 +131,16 @@ bool MPEXPORT XMP_Test_Eq_Int(digit const * r, int i, int p)
 
 
 /***********************************************************************************************
- * _Byte_Precision -- Determines the number of bytes significant in long integer.              *
+ * _Byte_Precision -- Determines the number of bytes significant in int integer.              *
  *                                                                                             *
- *    This utility routine will determine the number of precision bytes exist in the long      *
+ *    This utility routine will determine the number of precision bytes exist in the int      *
  *    integer specified. There are some optimizations that can occur if the byte precision     *
  *    is known.                                                                                *
  *                                                                                             *
- * INPUT:   value -- The value of the long integer that the byte precision will be calculated  *
+ * INPUT:   value -- The value of the int integer that the byte precision will be calculated  *
  *                   for.                                                                      *
  *                                                                                             *
- * OUTPUT:  Returns with the number of bytes that the long integer requires (at a minimum)     *
+ * OUTPUT:  Returns with the number of bytes that the int integer requires (at a minimum)     *
  *          to cover the precision of the integer. The minimum value will be 1, the maximum    *
  *          will be 4.                                                                         *
  *                                                                                             *
@@ -149,7 +149,7 @@ bool MPEXPORT XMP_Test_Eq_Int(digit const * r, int i, int p)
  * HISTORY:                                                                                    *
  *   07/01/1996 JLB : Created.                                                                 *
  *=============================================================================================*/
-static int _Byte_Precision(unsigned long value)
+static int _Byte_Precision(unsigned int value)
 {
 	int byte_count;
 	for (byte_count = sizeof(value); byte_count; byte_count--) {
@@ -179,7 +179,7 @@ static int _Byte_Precision(unsigned long value)
  * HISTORY:                                                                                    *
  *   07/01/1996 JLB : Created.                                                                 *
  *=============================================================================================*/
-int MPEXPORT XMP_DER_Length_Encode(unsigned long length, unsigned char * output)
+int MPEXPORT XMP_DER_Length_Encode(unsigned int length, unsigned char * output)
 {
 	assert(output != NULL);
 
@@ -1264,9 +1264,9 @@ int MPEXPORT XMP_Unsigned_Mult_Int(digit * prod, const digit * multiplicand, sho
 {
 	const unsigned short * m2 = (const unsigned short *)multiplicand;
 	unsigned short * pr = (unsigned short *)prod;
-	unsigned long carry = 0;
+	unsigned int carry = 0;
 	for (int i = 0; i < precision*2; ++i) {
-		unsigned long p = (((unsigned long)multiplier) * *m2) + carry;;
+		unsigned int p = (((unsigned int)multiplier) * *m2) + carry;;
 		*pr = (unsigned short) p;
 		carry = p >> 16;
 		m2++;
@@ -1806,9 +1806,9 @@ void MPEXPORT XMP_Decode_ASCII(char const * str, digit * mpn, int precision)
  *=============================================================================================*/
 void XMP_Hybrid_Mul(unsigned short * prod, unsigned short * multiplicand, unsigned short multiplier, int precision)
 {
-	unsigned long carry = 0;
+	unsigned int carry = 0;
 	for (int i = 0; i < precision; ++i) {
-		unsigned long p = (unsigned long)multiplier * *multiplicand++;
+		unsigned int p = (unsigned int)multiplier * *multiplicand++;
 		p += *prod + carry;
 		*prod++ = (unsigned short) p;
 		carry = p >> 16;
@@ -2013,7 +2013,7 @@ int MPEXPORT XMP_Mod_Mult(digit * prod, const digit * multiplicand, const digit 
 				*/
 				if (!(*dmph & SEMI_UPPER_MOST_BIT)) {
 					unsigned short * dmp = dmpl;
-					if (XMP_Sub((unsigned long *)dmp, (unsigned long *)dmp, _scratch_modulus, false, precision)) {
+					if (XMP_Sub((unsigned int *)dmp, (unsigned int *)dmp, _scratch_modulus, false, precision)) {
 						(*dmph)--;
 					}
 				}
@@ -2065,7 +2065,7 @@ void MPEXPORT XMP_Mod_Mult_Clear(int precision)
 ** "digit" (MULTUNIT-sized digit) by multiplying the three most
 ** significant MULTUNITs of the dividend by the two most significant
 ** MULTUNITs of the reciprocal of the modulus.  Note that this function
-** requires that 16 * 2 <= sizeof(unsigned long).
+** requires that 16 * 2 <= sizeof(unsigned int).
 **
 ** An important part of this technique is that the quotient never be
 ** too small, although it may occasionally be too large.  This was
@@ -2087,28 +2087,28 @@ void MPEXPORT XMP_Mod_Mult_Clear(int precision)
 */
 unsigned short mp_quo_digit(unsigned short * dividend)
 {
-	unsigned long q, q0, q1, q2;
+	unsigned int q, q0, q1, q2;
 
 	/*
 	* Compute the least significant product group.
 	* The last terms of q1 and q2 perform upward rounding, which is
 	* needed to guarantee that the result not be too small.
 	*/
-	q1 = (dividend[-2] ^ SEMI_MASK) * (unsigned long) _reciprical_high_digit + _reciprical_high_digit;
-	q2 = (dividend[-1] ^ SEMI_MASK) * (unsigned long) _reciprical_low_digit + (1L << 16);
+	q1 = (dividend[-2] ^ SEMI_MASK) * (unsigned int) _reciprical_high_digit + _reciprical_high_digit;
+	q2 = (dividend[-1] ^ SEMI_MASK) * (unsigned int) _reciprical_low_digit + (1L << 16);
 	q0 = (q1 >> 1) + (q2 >> 1) + 1;
 
 	/*      Compute the middle significant product group.   */
-	q1 = (dividend[-1] ^ SEMI_MASK) * (unsigned long) _reciprical_high_digit;
-	q2 = (dividend[0] ^ SEMI_MASK) * (unsigned long) _reciprical_low_digit;
+	q1 = (dividend[-1] ^ SEMI_MASK) * (unsigned int) _reciprical_high_digit;
+	q2 = (dividend[0] ^ SEMI_MASK) * (unsigned int) _reciprical_low_digit;
 	q = (q0 >> 16) + (q1 >> 1) + (q2 >> 1) + 1;
 
 	/*      Compute the most significant term and add in the others */
-	q = (q >> (16 - 2)) + (((dividend[0] ^ SEMI_MASK) * (unsigned long) _reciprical_high_digit) << 1);
+	q = (q >> (16 - 2)) + (((dividend[0] ^ SEMI_MASK) * (unsigned int) _reciprical_high_digit) << 1);
 	q >>= _modulus_shift;
 
 	/*      Prevent overflow and then wipe out the intermediate results. */
-	return (unsigned short) std::min(q, (unsigned long)(1L << 16) - 1);
+	return (unsigned short) std::min(q, (unsigned int)(1L << 16) - 1);
 }
 
 
@@ -2262,7 +2262,7 @@ bool MPEXPORT XMP_Is_Small_Prime(const digit * candidate, int precision)
 	if (XMP_Significance(candidate, precision) > 1) return(false);
 	if (*candidate > primeTable[ARRAY_SIZE(primeTable)-1]) return false;
 
-	unsigned long * ptr = (unsigned long *)bsearch(&candidate, &primeTable[0], ARRAY_SIZE(primeTable), sizeof(primeTable[0]), pfunc);
+	unsigned int * ptr = (unsigned int *)bsearch(&candidate, &primeTable[0], ARRAY_SIZE(primeTable), sizeof(primeTable[0]), pfunc);
 	return(ptr != NULL);
 }
 

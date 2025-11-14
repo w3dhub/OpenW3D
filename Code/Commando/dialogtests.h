@@ -74,7 +74,7 @@ public:
 	//
 	void		On_Init_Dialog (void) override;
 	void		On_Frame_Update (void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 
 	//
 	//	Static accessors
@@ -110,7 +110,7 @@ public:
 	//
 	void		On_Init_Dialog (void) override;
 	void		On_Frame_Update (void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 
 private:
 	////////////////////////////////////////////////////////////////
@@ -141,7 +141,7 @@ public:
 	//	Inherited
 	//
 	void		On_Init_Dialog(void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void		On_Last_Menu_Ending (void) override;
 	void		On_Frame_Update (void) override;
 
@@ -184,7 +184,7 @@ public:
 	//	Inherited
 	//
 	void		On_Init_Dialog(void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	//void		On_Last_Menu_Ending (void);
 
 	//
@@ -222,7 +222,7 @@ public:
 	//	Inherited
 	//
 	void		On_Init_Dialog(void) override;
-	void		On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	//void		On_Last_Menu_Ending (void);
 
 	//
@@ -255,7 +255,7 @@ public:
 	StartSPGameDialogClass (void);	
 	
 	void			On_Init_Dialog (void) override;
-	void			On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void			On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 
 	//void	On_TreeCtrl_Needs_Children (TreeCtrlClass *list_ctrl, int ctrl_id, TreeItemClass *parent_item);
 };
@@ -278,7 +278,7 @@ public:
 	//
 	//	Inherited
 	//
-	void					On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void					On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void					On_Menu_Activate (bool onoff) override;
 	void					On_Frame_Update (void) override;
 
@@ -305,7 +305,7 @@ public:
 	//
 	//	Inherited
 	//
-	void			On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void			On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 };
 
 
@@ -406,7 +406,7 @@ public:
 		MenuDialogClass (IDD_MULTIPLAY_CS_SEL)	{}
 
 	void	On_Init_Dialog (void) override;
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void	On_Destroy (void) override;
 };
 
@@ -436,7 +436,7 @@ public:
 	MPGameMenuClass (void)	:
 		MenuDialogClass (IDD_MULTIPLAY_GAME_TYPE)	{}
 
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param);
 };
 
 
@@ -452,7 +452,7 @@ public:
 		MenuDialogClass (IDD_MULTIPLAY_SERVER_CONFIG)	{}
 
 	void	On_Init_Dialog (void);
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param);
 };
 
 
@@ -470,7 +470,7 @@ public:
 			
 
 	void	On_Init_Dialog (void);
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param);
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param);
 	void	Start_Game (void);
 
 	//bool	IsServer;
@@ -490,7 +490,7 @@ public:
 		MenuDialogClass (IDD_MULTIPLAY_JOIN_GAME)	{}
 
 	void	On_Init_Dialog (void) override;
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void	Update_Game_List (void);
 	void	On_Frame_Update (void) override;
 };
@@ -512,7 +512,7 @@ public:
 		PopupDialogClass (IDD_DEATH_OPTIONS)	{}
 
 	void	On_Init_Dialog (void) override;
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 };
 
 ////////////////////////////////////////////////////////////////
@@ -531,7 +531,7 @@ public:
 		PopupDialogClass (IDD_FAILED_OPTIONS)	{}
 
 	void	On_Init_Dialog (void) override;
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 };
 
 
@@ -550,7 +550,7 @@ public:
 	~EditWheeledVehicleDialogClass(void);
 
 	void	On_Init_Dialog (void) override;
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 
 protected:
 
@@ -573,7 +573,7 @@ public:
 	~EditTrackedVehicleDialogClass(void);
 
 	void	On_Init_Dialog (void) override;
-	void	On_Command (int ctrl_id, int mesage_id, DWORD param) override;
+	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 
 protected:
 

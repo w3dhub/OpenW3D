@@ -83,13 +83,13 @@ public:
 class	TextDisplayLine {
 
 public:
-	TextDisplayLine( const WideStringClass & text, unsigned long color );
+	TextDisplayLine( const WideStringClass & text, unsigned int color );
 
 	float	Update_Time( float seconds )	{ Time += seconds; return Time; }
 	int	Get_Line_Count( void )			{ return LineCount; }
 
 	WideStringClass	Text;
-	unsigned long		Color;
+	unsigned int		Color;
 	float					Time;
 	int					LineCount;
 };
@@ -153,7 +153,7 @@ private:
 	Render2DTextClass	*		VerboseDisplay;
 	Render2DTextClass	*		StatisticsDisplay;
 	DynamicVectorClass<WideStringClass> RendererLines;
-	DynamicVectorClass<unsigned long> RendererColors;
+	DynamicVectorClass<unsigned int> RendererColors;
 	float							DisplayY;
 
 	SList<TextDisplayLine>	ScrollLines;
@@ -186,7 +186,7 @@ public:
 	static	void	Render( Render2DTextClass * renderer );
 	static	void	Set_Display( const char * title );
 	static	bool	Is_Current_Display( const char* title); // Returns true if "title" is currently active
-	static	void	Set_Stat( const char * title, const char * text, unsigned long color = 0xffffffff, const Vector2& location = Vector2( 0, -240 ) );
+	static	void	Set_Stat( const char * title, const char * text, unsigned int color = 0xffffffff, const Vector2& location = Vector2( 0, -240 ) );
 };
 
 #endif

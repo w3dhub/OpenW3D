@@ -116,7 +116,7 @@ class UserData :
 		void SetChannel(const RefPtr<ChannelData>& channel);
 
 		// Get user's clan ID
-		unsigned long GetSquadID(void) const
+		unsigned int GetSquadID(void) const
 			{return mData.squadID;}
 
 		// Get access user's Clan data (This is shared with all other users in the same clan)
@@ -158,7 +158,7 @@ class UserData :
 		void SetLadderFromType(const RefPtr<LadderData>& ladder, LadderType ladderType);
 		RefPtr<LadderData> GetLadderFromType(LadderType ladderType);
 
-		unsigned long mKickTimer;
+		unsigned int mKickTimer;
 
 	private:
 		UserData(const WOL::User&);

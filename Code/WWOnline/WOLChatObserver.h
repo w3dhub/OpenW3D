@@ -125,7 +125,7 @@ class ChatObserver :
     
 		STDMETHOD(OnChannelBan)(HRESULT hr, LPCSTR name, int banned) override;
     
-		STDMETHOD(OnSquadInfo)(HRESULT hr, unsigned long id, WOL::Squad* squad) override;
+		STDMETHOD(OnSquadInfo)(HRESULT hr, unsigned int id, WOL::Squad* squad) override;
     
 		STDMETHOD(OnUserLocale)(HRESULT hr, WOL::User* users) override;
     

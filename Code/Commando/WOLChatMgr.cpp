@@ -876,7 +876,7 @@ bool WOLChatMgr::PassesFilters(const ChatMessage& msg)
 		
 		if (user.IsValid())
 			{
-			unsigned long clanID = user->GetSquadID();
+			unsigned int clanID = user->GetSquadID();
 			passesClan = ((clanID == 0) || msg.IsSenderInClan(clanID));
 			}
 		}

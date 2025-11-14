@@ -322,8 +322,8 @@ int PacketManagerClass::Build_Delta_Packet_Patch(unsigned char *base_packet, uns
 
 			this_match = false;
 
-			if (*((long*)&base_packet[i]) == *((long*)&add_packet[i])) {
-				if (*((long*)&base_packet[i+4]) == *((long*)&add_packet[i+4])) {
+			if (*((int*)&base_packet[i]) == *((int*)&add_packet[i])) {
+				if (*((int*)&base_packet[i+4]) == *((int*)&add_packet[i+4])) {
 					chunks = true;
 					this_match = true;
 				}
@@ -479,7 +479,7 @@ int PacketManagerClass::Reconstruct_From_Delta(unsigned char *base_packet, unsig
 		}
 
 		/*
-		** If the packet isn't an even number of chunks long then pull out an extra bit and throw it away. It should always be 0.
+		** If the packet isn't an even number of chunks int then pull out an extra bit and throw it away. It should always be 0.
 		*/
 		if ((base_packet_size & 7) != 0) {
 //#ifdef WWDEBUG
@@ -665,7 +665,7 @@ WWPROFILE("PMgr Flush");
 	/*
 	** If it's not time to send packets yet then just return.
 	*/
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 	if (!forced && FlushFrequency != 0) {
 		if (time - LastSendTime < FlushFrequency) {
 			return;
@@ -749,7 +749,7 @@ WWPROFILE("PMgr Flush");
 						/*
 						** Is this packet for the same recipient?
 						*/
-						if (SendBuffers[base_index].Port == SendBuffers[index].Port && (*(unsigned long*)(&SendBuffers[index].IPAddress[0])) == (*(unsigned long*)(&SendBuffers[base_index].IPAddress[0]))) {
+						if (SendBuffers[base_index].Port == SendBuffers[index].Port && (*(unsigned int*)(&SendBuffers[index].IPAddress[0])) == (*(unsigned int*)(&SendBuffers[base_index].IPAddress[0]))) {
 
 							//WWDEBUG_SAY(("Found secondary packet %d\n", index));
 
@@ -854,7 +854,7 @@ WWPROFILE("PMgr Flush");
 				for (int j=i+1 ; j<NumSendBuffers ; j++) {
 					if (SendBuffers[j].PacketReady && SendBuffers[j].PacketSendSocket == socket) {
 						if (SendBuffers[i].PacketSendLength + SendBuffers[j].PacketSendLength < PACKET_MANAGER_MTU) {
-							if (SendBuffers[i].Port == SendBuffers[j].Port && (*(unsigned long*)(&SendBuffers[i].IPAddress[0])) == (*(unsigned long*)(&SendBuffers[j].IPAddress[0]))) {
+							if (SendBuffers[i].Port == SendBuffers[j].Port && (*(unsigned int*)(&SendBuffers[i].IPAddress[0])) == (*(unsigned int*)(&SendBuffers[j].IPAddress[0]))) {
 								unsigned char *dest_ptr = &SendBuffers[i].PacketBuffer->Buffer[current_len];
 								memcpy(dest_ptr, SendBuffers[j].PacketBuffer, SendBuffers[j].PacketSendLength);
 								current_header->MorePackets = 1;
@@ -898,7 +898,7 @@ WWPROFILE("PMgr Flush");
 
 #ifdef WRAPPER_CRC
 
-			unsigned long crc = CRC::Memory((unsigned char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength);
+			unsigned int crc = CRC::Memory((unsigned char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength);
 #if (1)
 			/*
 			** Reverse byte order to prevent the demo from having the same CRC as the game.
@@ -906,7 +906,7 @@ WWPROFILE("PMgr Flush");
 			crc = _byteswap_ulong(crc);
 #endif //(0)
 			char *crc_and_buffer = (char*)_alloca(SendBuffers[i].PacketSendLength + sizeof(crc));
-			*((unsigned long*) crc_and_buffer) = crc;
+			*((unsigned int*) crc_and_buffer) = crc;
 			memcpy(crc_and_buffer + sizeof(crc), (const char*)SendBuffers[i].PacketBuffer, SendBuffers[i].PacketSendLength);
 
 			Register_Packet_Out(&SendBuffers[i].IPAddress[0], SendBuffers[i].Port, SendBuffers[i].PacketSendLength + UDP_HEADER_SIZE + sizeof(crc), 0);
@@ -1109,7 +1109,7 @@ bool PacketManagerClass::Break_Packet(unsigned char *packet, int original_packet
  *=============================================================================================*/
 void PacketManagerClass::Clear_Socket_Error(SOCKET socket)
 {
-	unsigned long error_code;
+	unsigned int error_code;
 	socklen_t opt_len = static_cast<socklen_t>(sizeof(error_code));
 	assert(socket != INVALID_SOCKET);
 
@@ -1161,14 +1161,14 @@ WWPROFILE("Pmgr Get");
 #endif //WRAPPER_CRC
 
 #ifdef WRAPPER_CRC
-				unsigned long crc = CRC::Memory((unsigned char*)packet_buffer + 4, bytes - sizeof(crc));
+				unsigned int crc = CRC::Memory((unsigned char*)packet_buffer + 4, bytes - sizeof(crc));
 #if (1)
 				/*
 				** Reverse byte order to prevent the demo from having the same CRC as the game.
 				*/
 				crc = _byteswap_ulong(crc);
 #endif //(0)
-				if (crc != *((unsigned long*)packet_buffer)) {
+				if (crc != *((unsigned int*)packet_buffer)) {
 					WWDEBUG_SAY(("PMC::Get_Packet: Socket %d, received packet %d bytes long from %s\n", socket, bytes, Addr_As_String(&addr)));
 					WWDEBUG_SAY(("PMC::Get_Packet: *** PACKET WRAPPER CRC ERROR ***"));
 					NumReceivePackets = 0;
@@ -1285,7 +1285,7 @@ void PacketManagerClass::Reset_Stats(void)
  * HISTORY:                                                                                    *
  *   10/9/2001 8:54AM ST : Created                                                             *
  *=============================================================================================*/
-int PacketManagerClass::Get_Stats_Index(unsigned long ip_address, unsigned short port, bool can_create)
+int PacketManagerClass::Get_Stats_Index(unsigned int ip_address, unsigned short port, bool can_create)
 {
 	/*
 	** Find the stats struct entry for this ip/port.
@@ -1336,12 +1336,12 @@ int PacketManagerClass::Get_Stats_Index(unsigned long ip_address, unsigned short
  * HISTORY:                                                                                    *
  *   10/9/2001 8:56AM ST : Created                                                             *
  *=============================================================================================*/
-void PacketManagerClass::Register_Packet_In(unsigned char *ip_address, unsigned short port, unsigned long compressed_size, unsigned long uncompressed_size)
+void PacketManagerClass::Register_Packet_In(unsigned char *ip_address, unsigned short port, unsigned int compressed_size, unsigned int uncompressed_size)
 {
-	static unsigned long _last_ip = 0;
+	static unsigned int _last_ip = 0;
 	static unsigned short _last_port = 0;
 	static int _last_stats = -1;
-	unsigned long long_ip = *((unsigned long*)ip_address);
+	unsigned int long_ip = *((unsigned int*)ip_address);
 
 	if (ResetStatsIn) {
 		_last_ip = 0;
@@ -1387,12 +1387,12 @@ void PacketManagerClass::Register_Packet_In(unsigned char *ip_address, unsigned 
  * HISTORY:                                                                                    *
  *   10/9/2001 8:56AM ST : Created                                                             *
  *=============================================================================================*/
-void PacketManagerClass::Register_Packet_Out(unsigned char *ip_address, unsigned short port, unsigned long compressed_size, unsigned long uncompressed_size)
+void PacketManagerClass::Register_Packet_Out(unsigned char *ip_address, unsigned short port, unsigned int compressed_size, unsigned int uncompressed_size)
 {
-	static unsigned long _last_ip = 0;
+	static unsigned int _last_ip = 0;
 	static unsigned short _last_port = 0;
 	static int _last_stats = -1;
-	unsigned long long_ip = *((unsigned long*)ip_address);
+	unsigned int long_ip = *((unsigned int*)ip_address);
 
 	if (ResetStatsOut) {
 		_last_ip = 0;
@@ -1437,7 +1437,7 @@ void PacketManagerClass::Register_Packet_Out(unsigned char *ip_address, unsigned
 void PacketManagerClass::Update_Stats(bool forced)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 
 	/*
 	** Handle timer resetting.
@@ -1503,8 +1503,8 @@ void PacketManagerClass::Update_Stats(bool forced)
 		//WWDEBUG_SAY(("TotalCompressedBandwidthOut = %d bits per second\n", TotalCompressedBandwidthOut));
 		//WWDEBUG_SAY(("TotalUncompressedBandwidthIn = %d bits per second\n", TotalUncompressedBandwidthIn));
 		//WWDEBUG_SAY(("TotalCompressedBandwidthIn = %d bits per second\n", TotalCompressedBandwidthIn));
-		//unsigned long comp_out = 100 - ((100 * TotalCompressedBandwidthOut) / TotalUncompressedBandwidthOut);
-		//unsigned long comp_in = 100 - ((100 * TotalCompressedBandwidthIn) / TotalUncompressedBandwidthIn);
+		//unsigned int comp_out = 100 - ((100 * TotalCompressedBandwidthOut) / TotalUncompressedBandwidthOut);
+		//unsigned int comp_in = 100 - ((100 * TotalCompressedBandwidthIn) / TotalUncompressedBandwidthIn);
 		//WWDEBUG_SAY(("Compression out = %d percent\n", comp_out));
 		//WWDEBUG_SAY(("Compression in = %d percent\n", comp_in));
 	}
@@ -1527,7 +1527,7 @@ void PacketManagerClass::Update_Stats(bool forced)
  * HISTORY:                                                                                    *
  *   10/9/2001 8:59AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Total_Raw_Bandwidth_In(void)
+unsigned int PacketManagerClass::Get_Total_Raw_Bandwidth_In(void)
 {
 	return(TotalUncompressedBandwidthIn);
 }
@@ -1547,7 +1547,7 @@ unsigned long PacketManagerClass::Get_Total_Raw_Bandwidth_In(void)
  * HISTORY:                                                                                    *
  *   10/9/2001 8:59AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Total_Raw_Bandwidth_Out(void)
+unsigned int PacketManagerClass::Get_Total_Raw_Bandwidth_Out(void)
 {
 	return(TotalUncompressedBandwidthOut);
 
@@ -1568,7 +1568,7 @@ unsigned long PacketManagerClass::Get_Total_Raw_Bandwidth_Out(void)
  * HISTORY:                                                                                    *
  *   10/9/2001 8:59AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Total_Compressed_Bandwidth_In(void)
+unsigned int PacketManagerClass::Get_Total_Compressed_Bandwidth_In(void)
 {
 	return(TotalCompressedBandwidthIn);
 }
@@ -1588,7 +1588,7 @@ unsigned long PacketManagerClass::Get_Total_Compressed_Bandwidth_In(void)
  * HISTORY:                                                                                    *
  *   10/9/2001 8:59AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Total_Compressed_Bandwidth_Out(void)
+unsigned int PacketManagerClass::Get_Total_Compressed_Bandwidth_Out(void)
 {
 	return(TotalCompressedBandwidthOut);
 }
@@ -1608,14 +1608,14 @@ unsigned long PacketManagerClass::Get_Total_Compressed_Bandwidth_Out(void)
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Raw_Bandwidth_In(struct sockaddr_in *address)
+unsigned int PacketManagerClass::Get_Raw_Bandwidth_In(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
-	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
+	unsigned int ip = *((unsigned int*)&address->sin_addr.s_addr);
 	unsigned short port = address->sin_port;
 	int stats = Get_Stats_Index(ip, port, false);
 
-	unsigned long bw = 0;
+	unsigned int bw = 0;
 	if (stats != -1) {
 		bw = BandwidthList[stats].UncompressedBandwidthIn;
 	}
@@ -1637,14 +1637,14 @@ unsigned long PacketManagerClass::Get_Raw_Bandwidth_In(struct sockaddr_in *addre
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Raw_Bandwidth_Out(struct sockaddr_in *address)
+unsigned int PacketManagerClass::Get_Raw_Bandwidth_Out(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
-	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
+	unsigned int ip = *((unsigned int*)&address->sin_addr.s_addr);
 	unsigned short port = address->sin_port;
 	int stats = Get_Stats_Index(ip, port, false);
 
-	unsigned long bw = 0;
+	unsigned int bw = 0;
 	if (stats != -1) {
 		bw = BandwidthList[stats].UncompressedBandwidthOut;
 	}
@@ -1667,14 +1667,14 @@ unsigned long PacketManagerClass::Get_Raw_Bandwidth_Out(struct sockaddr_in *addr
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Raw_Bytes_Out(struct sockaddr_in *address)
+unsigned int PacketManagerClass::Get_Raw_Bytes_Out(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
-	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
+	unsigned int ip = *((unsigned int*)&address->sin_addr.s_addr);
 	unsigned short port = address->sin_port;
 	int stats = Get_Stats_Index(ip, port, false);
 
-	unsigned long bytes = 0;
+	unsigned int bytes = 0;
 	if (stats != -1) {
 		bytes = BandwidthList[stats].UncompressedBytesOut;
 	}
@@ -1698,14 +1698,14 @@ unsigned long PacketManagerClass::Get_Raw_Bytes_Out(struct sockaddr_in *address)
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Compressed_Bandwidth_In(struct sockaddr_in *address)
+unsigned int PacketManagerClass::Get_Compressed_Bandwidth_In(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
-	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
+	unsigned int ip = *((unsigned int*)&address->sin_addr.s_addr);
 	unsigned short port = address->sin_port;
 	int stats = Get_Stats_Index(ip, port, false);
 
-	unsigned long bw = 0;
+	unsigned int bw = 0;
 	if (stats != -1) {
 		bw = BandwidthList[stats].CompressedBandwidthIn;
 	}
@@ -1727,14 +1727,14 @@ unsigned long PacketManagerClass::Get_Compressed_Bandwidth_In(struct sockaddr_in
  * HISTORY:                                                                                    *
  *   10/9/2001 9:01AM ST : Created                                                             *
  *=============================================================================================*/
-unsigned long PacketManagerClass::Get_Compressed_Bandwidth_Out(struct sockaddr_in *address)
+unsigned int PacketManagerClass::Get_Compressed_Bandwidth_Out(struct sockaddr_in *address)
 {
 	CriticalSectionClass::LockClass lock(CriticalSection);
-	unsigned long ip = *((unsigned long*)&address->sin_addr.s_addr);
+	unsigned int ip = *((unsigned int*)&address->sin_addr.s_addr);
 	unsigned short port = address->sin_port;
 	int stats = Get_Stats_Index(ip, port, false);
 
-	unsigned long bw = 0;
+	unsigned int bw = 0;
 	if (stats != -1) {
 		bw = BandwidthList[stats].CompressedBandwidthOut;
 	}
@@ -1756,7 +1756,7 @@ unsigned long PacketManagerClass::Get_Compressed_Bandwidth_Out(struct sockaddr_i
  * HISTORY:                                                                                    *
  *   10/9/2001 9:58AM ST : Created                                                             *
  *=============================================================================================*/
-void PacketManagerClass::Set_Stats_Sampling_Frequency_Delay(unsigned long time_ms)
+void PacketManagerClass::Set_Stats_Sampling_Frequency_Delay(unsigned int time_ms)
 {
 	assert(time_ms > 0);
 	StatsFrequency = time_ms;

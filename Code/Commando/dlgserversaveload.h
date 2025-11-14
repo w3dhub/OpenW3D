@@ -76,7 +76,7 @@ public:
 	//	Inherited
 	//
 	void		On_Init_Dialog (void) override;
-	void		On_Command (int ctrl_id, int message_id, DWORD param) override;
+	void		On_Command (int ctrl_id, int message_id, unsigned int param) override;
 	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
 	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int	ctrl_id, int old_index, int	new_index) override;
 	void		On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id) override;

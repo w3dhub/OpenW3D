@@ -156,7 +156,7 @@ public:
 	int				Get_Crotch_Hit(void) const					{return StatCrotchHits;}
 
 	int				Get_Weapon_Fired_Count( void ) const;
-	bool				Get_Weapon_Fired( int index, unsigned long& weaponID, unsigned long& firedCount) const;
+	bool				Get_Weapon_Fired( int index, unsigned int& weaponID, unsigned int& firedCount) const;
 
 	float				Get_Punish_Timer( void )					{return PunishTimer;}
 	void				Inc_Punish_Timer( float amount )			{PunishTimer += amount;}

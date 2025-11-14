@@ -83,7 +83,7 @@ class DlgWOLLogon :
 		bool FinalizeCreate(const wchar_t* login);
 
 		void On_Init_Dialog(void) override;
-		void On_Command(int ctrl, int message, DWORD param) override;
+		void On_Command(int ctrl, int message, unsigned int param) override;
 
 		void UpdatePersonas(void);
 		void SelectPersona(const wchar_t* name);

@@ -59,22 +59,22 @@ class Product :
 		const char* GetRegistryPath(void) const
 			{return mRegistryPath;}
 
-		unsigned long GetSKU(void) const
+		unsigned int GetSKU(void) const
 			{return mProductSKU;}
 
-		unsigned long GetLanguageSKU(void) const
+		unsigned int GetLanguageSKU(void) const
 			{return mProductSKU | mLanguageCode;}
 
-		unsigned long GetLadderSKU(void) const
+		unsigned int GetLadderSKU(void) const
 			{return mLadderSKU;}
 
-		unsigned long GetLanguageCode(void) const
+		unsigned int GetLanguageCode(void) const
 			{return mLanguageCode;}
 
-		unsigned long GetVersion(void) const
+		unsigned int GetVersion(void) const
 			{return mProductVersion;}
 
-		long GetGameCode(void) const
+		int GetGameCode(void) const
 			{return mGameCode;}
 
 		const wchar_t* GetChannelPassword(void) const
@@ -83,22 +83,22 @@ class Product :
 		class Initializer
 			{
 			public:
-				Initializer(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned long ladderSKU);
+				Initializer(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned int ladderSKU);
 				~Initializer();
 			};
 
 	private:
 		friend class Initializer;
-		static RefPtr<Product> Create(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned long ladderSKU);
+		static RefPtr<Product> Create(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned int ladderSKU);
 
-		Product(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned long ladderSKU);
+		Product(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned int ladderSKU);
 
 		StringClass mRegistryPath;
-		unsigned long mProductSKU;
-		unsigned long mProductVersion;
-		unsigned long mLanguageCode;
-		unsigned long mLadderSKU;
-		long mGameCode;
+		unsigned int mProductSKU;
+		unsigned int mProductVersion;
+		unsigned int mLanguageCode;
+		unsigned int mLadderSKU;
+		int mGameCode;
 		WideStringClass mChannelPassword;
 	};
 

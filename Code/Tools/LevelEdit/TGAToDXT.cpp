@@ -78,7 +78,7 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 {
 	bool  success;
 	Targa targa;
-	long	error;
+	int	error;
 
 	WriteTimePtr = writetimeptr;
 	redundantalpha = false;
