@@ -180,7 +180,7 @@ cClientHintManager::Think
 	//
 	// Sort the object list. Lowest priority first.
 	//
-	qsort(object_list, num_objects, sizeof(unsigned long), (int (__cdecl *)(const void *,const void *)) &Priority_Compare);
+	qsort(object_list, num_objects, sizeof(unsigned int), (int (__cdecl *)(const void *,const void *)) &Priority_Compare);
 
 
 	//
@@ -190,7 +190,7 @@ cClientHintManager::Think
 	//
 	int most_broken_object_index = -1;
 	int worst_percentage = 0;
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 	for (int i=1 ; i<num_objects ; i++) {
 		int higher_priority_rate = object_list[i]->Get_Clientside_Update_Frequency();
 

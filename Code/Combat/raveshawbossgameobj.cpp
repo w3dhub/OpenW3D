@@ -1452,7 +1452,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_GOTO_TIBERIUM) (void)
 	//	Make the mutant move to that position
 	//
 	ActionParamsStruct params;
-	params.Set_Basic ((long)0, 100, 777);
+	params.Set_Basic ((int)0, 100, 777);
 	params.Set_Movement (CurrentDestPos, 0.6F, 0.5F);
 	Get_Action ()->Goto (params);
 	return ;
@@ -1508,7 +1508,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_GOTO_CATWALK) (void)
 	//	Make the mutant move into position
 	//
 	ActionParamsStruct params;
-	params.Set_Basic ((long)0, 100, 777);
+	params.Set_Basic ((int)0, 100, 777);
 	params.Set_Movement (CurrentDestPos, 0.6F, 0.5F);
 	Get_Action ()->Goto (params);
 	return ;
@@ -1690,7 +1690,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_CIRCLE_CATWALK) (void)
 			//	Now, simply make the mutant move to this position
 			//
 			ActionParamsStruct params;
-			params.Set_Basic ((long)0, 100, 777);
+			params.Set_Basic ((int)0, 100, 777);
 			params.Set_Movement (CurrentDestPos, 0.5F, 0.5F);
 			params.IgnoreFacing = true;
 			Get_Action ()->Goto (params);		
@@ -1713,7 +1713,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_GOTO_THROW_OBJECT) (void)
 	//	Walk to the position of the throw object
 	//
 	ActionParamsStruct params;
-	params.Set_Basic ((long)0, 100, 777);
+	params.Set_Basic ((int)0, 100, 777);
 	params.Set_Movement (ThrownObject, 0.5F, 1.25F);
 	Get_Action ()->Goto (params);		
 	return ;
@@ -1843,7 +1843,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_FOLLOW_STAR) (void)
 			//	Track down the player
 			//
 			ActionParamsStruct params;
-			params.Set_Basic ((long)0, 100, 777);
+			params.Set_Basic ((int)0, 100, 777);
 			params.Set_Movement (COMBAT_STAR, 1.0F, 1.0F);
 			params.MoveFollow		= true;
 			Get_Action ()->Goto (params);

@@ -433,7 +433,7 @@ void __RPC_STUB IRTPatcherEvent_OnTermination_Stub(
 /* interface IChat */
 /* [object][unique][helpstring][uuid] */ 
 
-typedef long time_t;
+typedef int time_t;
 
 typedef 
 enum Locale
@@ -535,8 +535,8 @@ struct  Channel
     unsigned int tournament;
     unsigned int ingame;
     unsigned int flags;
-    unsigned long reserved;
-    unsigned long ipaddr;
+    unsigned int reserved;
+    unsigned int ipaddr;
     int latency;
     int hidden;
     struct Channel __RPC_FAR *next;
@@ -550,12 +550,12 @@ struct  User
     {
     unsigned int flags;
     GroupID group;
-    unsigned long reserved;
-    unsigned long reserved2;
-    unsigned long reserved3;
-    unsigned long squadID;
-    unsigned long ipaddr;
-    unsigned long squad_icon;
+    unsigned int reserved;
+    unsigned int reserved2;
+    unsigned int reserved3;
+    unsigned int squadID;
+    unsigned int ipaddr;
+    unsigned int squad_icon;
     struct User __RPC_FAR *next;
     unsigned char name[ 10 ];
     unsigned char squadname[ 41 ];
@@ -573,7 +573,7 @@ struct  Group
     };
 struct  Squad
     {
-    unsigned long id;
+    unsigned int id;
     int sku;
     int members;
     int color1;
@@ -595,8 +595,8 @@ struct  Squad
     };
 struct  Update
     {
-    unsigned long SKU;
-    unsigned long version;
+    unsigned int SKU;
+    unsigned int version;
     int required;
     struct Update __RPC_FAR *next;
     unsigned char server[ 65 ];
@@ -634,8 +634,8 @@ EXTERN_C const IID IID_IChat;
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE PumpMessages( void) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestServerList( 
-            /* [in] */ unsigned long SKU,
-            /* [in] */ unsigned long current_version,
+            /* [in] */ unsigned int SKU,
+            /* [in] */ unsigned int current_version,
             /* [in] */ LPCSTR loginname,
             /* [in] */ LPCSTR password,
             /* [in] */ int timeout) = 0;
@@ -689,7 +689,7 @@ EXTERN_C const IID IID_IChat;
             /* [in] */ LPCSTR topic) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetVersion( 
-            /* [in] */ unsigned long __RPC_FAR *version) = 0;
+            /* [in] */ unsigned int __RPC_FAR *version) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestUserKick( 
             /* [in] */ User __RPC_FAR *user) = 0;
@@ -742,7 +742,7 @@ EXTERN_C const IID IID_IChat;
             LPCSTR __RPC_FAR *url) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetProductSKU( 
-            unsigned long SKU) = 0;
+            unsigned int SKU) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetNick( 
             int num,
@@ -775,7 +775,7 @@ EXTERN_C const IID IID_IChat;
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE StopAutoping( void) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestSquadInfo( 
-            unsigned long id) = 0;
+            unsigned int id) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestSetTeam( 
             int team) = 0;
@@ -805,7 +805,7 @@ EXTERN_C const IID IID_IChat;
             int __RPC_FAR *num) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetClientVersion( 
-            unsigned long version) = 0;
+            unsigned int version) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetCodepageFilter( 
             int filter) = 0;
@@ -874,8 +874,8 @@ EXTERN_C const IID IID_IChat;
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *RequestServerList )( 
             IChat __RPC_FAR * This,
-            /* [in] */ unsigned long SKU,
-            /* [in] */ unsigned long current_version,
+            /* [in] */ unsigned int SKU,
+            /* [in] */ unsigned int current_version,
             /* [in] */ LPCSTR loginname,
             /* [in] */ LPCSTR password,
             /* [in] */ int timeout);
@@ -945,7 +945,7 @@ EXTERN_C const IID IID_IChat;
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *GetVersion )( 
             IChat __RPC_FAR * This,
-            /* [in] */ unsigned long __RPC_FAR *version);
+            /* [in] */ unsigned int __RPC_FAR *version);
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *RequestUserKick )( 
             IChat __RPC_FAR * This,
@@ -1013,7 +1013,7 @@ EXTERN_C const IID IID_IChat;
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SetProductSKU )( 
             IChat __RPC_FAR * This,
-            unsigned long SKU);
+            unsigned int SKU);
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *GetNick )( 
             IChat __RPC_FAR * This,
@@ -1055,7 +1055,7 @@ EXTERN_C const IID IID_IChat;
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *RequestSquadInfo )( 
             IChat __RPC_FAR * This,
-            unsigned long id);
+            unsigned int id);
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *RequestSetTeam )( 
             IChat __RPC_FAR * This,
@@ -1094,7 +1094,7 @@ EXTERN_C const IID IID_IChat;
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SetClientVersion )( 
             IChat __RPC_FAR * This,
-            unsigned long version);
+            unsigned int version);
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SetCodepageFilter )( 
             IChat __RPC_FAR * This,
@@ -1391,8 +1391,8 @@ void __RPC_STUB IChat_PumpMessages_Stub(
 
 /* [helpstring] */ HRESULT STDMETHODCALLTYPE IChat_RequestServerList_Proxy( 
     IChat __RPC_FAR * This,
-    /* [in] */ unsigned long SKU,
-    /* [in] */ unsigned long current_version,
+    /* [in] */ unsigned int SKU,
+    /* [in] */ unsigned int current_version,
     /* [in] */ LPCSTR loginname,
     /* [in] */ LPCSTR password,
     /* [in] */ int timeout);
@@ -1590,7 +1590,7 @@ void __RPC_STUB IChat_RequestChannelTopic_Stub(
 
 /* [helpstring] */ HRESULT STDMETHODCALLTYPE IChat_GetVersion_Proxy( 
     IChat __RPC_FAR * This,
-    /* [in] */ unsigned long __RPC_FAR *version);
+    /* [in] */ unsigned int __RPC_FAR *version);
 
 
 void __RPC_STUB IChat_GetVersion_Stub(
@@ -1778,7 +1778,7 @@ void __RPC_STUB IChat_GetHelpURL_Stub(
 
 /* [helpstring] */ HRESULT STDMETHODCALLTYPE IChat_SetProductSKU_Proxy( 
     IChat __RPC_FAR * This,
-    unsigned long SKU);
+    unsigned int SKU);
 
 
 void __RPC_STUB IChat_SetProductSKU_Stub(
@@ -1892,7 +1892,7 @@ void __RPC_STUB IChat_StopAutoping_Stub(
 
 /* [helpstring] */ HRESULT STDMETHODCALLTYPE IChat_RequestSquadInfo_Proxy( 
     IChat __RPC_FAR * This,
-    unsigned long id);
+    unsigned int id);
 
 
 void __RPC_STUB IChat_RequestSquadInfo_Stub(
@@ -2003,7 +2003,7 @@ void __RPC_STUB IChat_GetLocaleCount_Stub(
 
 /* [helpstring] */ HRESULT STDMETHODCALLTYPE IChat_SetClientVersion_Proxy( 
     IChat __RPC_FAR * This,
-    unsigned long version);
+    unsigned int version);
 
 
 void __RPC_STUB IChat_SetClientVersion_Stub(
@@ -2338,7 +2338,7 @@ EXTERN_C const IID IID_IChatEvent;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnSquadInfo( 
             HRESULT res,
-            unsigned long id,
+            unsigned int id,
             Squad __RPC_FAR *squad) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE OnUserLocale( 
@@ -2604,7 +2604,7 @@ EXTERN_C const IID IID_IChatEvent;
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *OnSquadInfo )( 
             IChatEvent __RPC_FAR * This,
             HRESULT res,
-            unsigned long id,
+            unsigned int id,
             Squad __RPC_FAR *squad);
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *OnUserLocale )( 
@@ -3275,7 +3275,7 @@ void __RPC_STUB IChatEvent_OnChannelBan_Stub(
 /* [helpstring] */ HRESULT STDMETHODCALLTYPE IChatEvent_OnSquadInfo_Proxy( 
     IChatEvent __RPC_FAR * This,
     HRESULT res,
-    unsigned long id,
+    unsigned int id,
     Squad __RPC_FAR *squad);
 
 
@@ -3878,7 +3878,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR key,
-            unsigned long SKU,
+            unsigned int SKU,
             int team,
             int cond,
             int sort,
@@ -3889,7 +3889,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR keys,
-            unsigned long SKU,
+            unsigned int SKU,
             int team,
             int cond,
             int sort) = 0;
@@ -3902,7 +3902,7 @@ EXTERN_C const IID IID_INetUtil;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE PumpMessages( void) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE GetAvgPing( 
-            unsigned long ip,
+            unsigned int ip,
             int __RPC_FAR *avg) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE RequestNewNick( 
@@ -3928,7 +3928,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR keys,
-            unsigned long SKU,
+            unsigned int SKU,
             int team,
             int cond,
             int sort,
@@ -3938,7 +3938,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR key,
-            unsigned long sku,
+            unsigned int sku,
             int team,
             int cond,
             int sort,
@@ -3950,7 +3950,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR keys,
-            unsigned long SKU) = 0;
+            unsigned int SKU) = 0;
         
         virtual /* [helpstring] */ HRESULT STDMETHODCALLTYPE SetGameResMD5( 
             int flag) = 0;
@@ -3959,7 +3959,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             unsigned char __RPC_FAR *data,
-            unsigned long length) = 0;
+            unsigned int length) = 0;
         
     };
     
@@ -3992,7 +3992,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR key,
-            unsigned long SKU,
+            unsigned int SKU,
             int team,
             int cond,
             int sort,
@@ -4004,7 +4004,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR keys,
-            unsigned long SKU,
+            unsigned int SKU,
             int team,
             int cond,
             int sort);
@@ -4020,7 +4020,7 @@ EXTERN_C const IID IID_INetUtil;
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *GetAvgPing )( 
             INetUtil __RPC_FAR * This,
-            unsigned long ip,
+            unsigned int ip,
             int __RPC_FAR *avg);
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *RequestNewNick )( 
@@ -4050,7 +4050,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR keys,
-            unsigned long SKU,
+            unsigned int SKU,
             int team,
             int cond,
             int sort,
@@ -4061,7 +4061,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR key,
-            unsigned long sku,
+            unsigned int sku,
             int team,
             int cond,
             int sort,
@@ -4074,7 +4074,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             LPCSTR keys,
-            unsigned long SKU);
+            unsigned int SKU);
         
         /* [helpstring] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *SetGameResMD5 )( 
             INetUtil __RPC_FAR * This,
@@ -4085,7 +4085,7 @@ EXTERN_C const IID IID_INetUtil;
             LPCSTR host,
             int port,
             unsigned char __RPC_FAR *data,
-            unsigned long length);
+            unsigned int length);
         
         END_INTERFACE
     } INetUtilVtbl;
@@ -4179,7 +4179,7 @@ void __RPC_STUB INetUtil_RequestGameresSend_Stub(
     LPCSTR host,
     int port,
     LPCSTR key,
-    unsigned long SKU,
+    unsigned int SKU,
     int team,
     int cond,
     int sort,
@@ -4199,7 +4199,7 @@ void __RPC_STUB INetUtil_RequestLadderSearch_Stub(
     LPCSTR host,
     int port,
     LPCSTR keys,
-    unsigned long SKU,
+    unsigned int SKU,
     int team,
     int cond,
     int sort);
@@ -4239,7 +4239,7 @@ void __RPC_STUB INetUtil_PumpMessages_Stub(
 
 /* [helpstring] */ HRESULT STDMETHODCALLTYPE INetUtil_GetAvgPing_Proxy( 
     INetUtil __RPC_FAR * This,
-    unsigned long ip,
+    unsigned int ip,
     int __RPC_FAR *avg);
 
 
@@ -4301,7 +4301,7 @@ void __RPC_STUB INetUtil_RequestWDTState_Stub(
     LPCSTR host,
     int port,
     LPCSTR keys,
-    unsigned long SKU,
+    unsigned int SKU,
     int team,
     int cond,
     int sort,
@@ -4320,7 +4320,7 @@ void __RPC_STUB INetUtil_RequestLocaleLadderList_Stub(
     LPCSTR host,
     int port,
     LPCSTR key,
-    unsigned long sku,
+    unsigned int sku,
     int team,
     int cond,
     int sort,
@@ -4341,7 +4341,7 @@ void __RPC_STUB INetUtil_RequestLocaleLadderSearch_Stub(
     LPCSTR host,
     int port,
     LPCSTR keys,
-    unsigned long SKU);
+    unsigned int SKU);
 
 
 void __RPC_STUB INetUtil_RequestHighscore_Stub(
@@ -4368,7 +4368,7 @@ void __RPC_STUB INetUtil_SetGameResMD5_Stub(
     LPCSTR host,
     int port,
     unsigned char __RPC_FAR *data,
-    unsigned long length);
+    unsigned int length);
 
 
 void __RPC_STUB INetUtil_RequestLargeGameresSend_Stub(
@@ -4400,14 +4400,14 @@ EXTERN_C const IID IID_INetUtilEvent;
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE OnPing( 
             HRESULT res,
             int time,
-            unsigned long ip,
+            unsigned int ip,
             int handle) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE OnLadderList( 
             HRESULT res,
             /* [in] */ Ladder __RPC_FAR *list,
             int totalCount,
-            long timeStamp,
+            int timeStamp,
             int keyRung) = 0;
         
         virtual /* [helpstring][id] */ HRESULT STDMETHODCALLTYPE OnGameresSent( 
@@ -4433,7 +4433,7 @@ EXTERN_C const IID IID_INetUtilEvent;
             HRESULT res,
             /* [in] */ Highscore __RPC_FAR *list,
             int totalCount,
-            long timeStamp,
+            int timeStamp,
             int keyRung) = 0;
         
     };
@@ -4459,7 +4459,7 @@ EXTERN_C const IID IID_INetUtilEvent;
             INetUtilEvent __RPC_FAR * This,
             HRESULT res,
             int time,
-            unsigned long ip,
+            unsigned int ip,
             int handle);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *OnLadderList )( 
@@ -4467,7 +4467,7 @@ EXTERN_C const IID IID_INetUtilEvent;
             HRESULT res,
             /* [in] */ Ladder __RPC_FAR *list,
             int totalCount,
-            long timeStamp,
+            int timeStamp,
             int keyRung);
         
         /* [helpstring][id] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *OnGameresSent )( 
@@ -4498,7 +4498,7 @@ EXTERN_C const IID IID_INetUtilEvent;
             HRESULT res,
             /* [in] */ Highscore __RPC_FAR *list,
             int totalCount,
-            long timeStamp,
+            int timeStamp,
             int keyRung);
         
         END_INTERFACE
@@ -4556,7 +4556,7 @@ EXTERN_C const IID IID_INetUtilEvent;
     INetUtilEvent __RPC_FAR * This,
     HRESULT res,
     int time,
-    unsigned long ip,
+    unsigned int ip,
     int handle);
 
 
@@ -4572,7 +4572,7 @@ void __RPC_STUB INetUtilEvent_OnPing_Stub(
     HRESULT res,
     /* [in] */ Ladder __RPC_FAR *list,
     int totalCount,
-    long timeStamp,
+    int timeStamp,
     int keyRung);
 
 
@@ -4643,7 +4643,7 @@ void __RPC_STUB INetUtilEvent_OnWDTState_Stub(
     HRESULT res,
     /* [in] */ Highscore __RPC_FAR *list,
     int totalCount,
-    long timeStamp,
+    int timeStamp,
     int keyRung);
 
 
@@ -4664,7 +4664,7 @@ void __RPC_STUB INetUtilEvent_OnHighscore_Stub(
 /* interface IChat2 */
 /* [object][unique][helpstring][uuid] */ 
 
-typedef unsigned long GID;
+typedef unsigned int GID;
 
 
 enum GTYPE_

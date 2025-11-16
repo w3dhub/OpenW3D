@@ -159,12 +159,12 @@ EditCtrlClass::Create_Text_Renderers (void)
 			Vector2 stopPos(startPos);
 			stopPos.X += compSize.X;
 
-			unsigned long underlineColor = StyleMgrClass::Get_Disabled_Line_Color();
+			unsigned int underlineColor = StyleMgrClass::Get_Disabled_Line_Color();
 			ControlRenderer.Add_Line(startPos, stopPos, 1.0f, underlineColor);
 
 			// Hilight the conversion target
-			unsigned long start = 0;
-			unsigned long end = 0;
+			unsigned int start = 0;
+			unsigned int end = 0;
 			mIME->GetTargetClause(start, end);
 
 			if (end > 0) {
@@ -1389,8 +1389,8 @@ void EditCtrlClass::PositionCandidateList(void)
 		//-------------------------------------------------------------------------
 		// Position the candidate window under the edit control
 		//-------------------------------------------------------------------------
-		unsigned long start = 0;
-		unsigned long end = 0;
+		unsigned int start = 0;
+		unsigned int end = 0;
 		mIME->GetTargetClause(start, end);
 		int caretPos = CaretPos + start;
 

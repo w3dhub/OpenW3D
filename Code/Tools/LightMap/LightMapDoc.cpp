@@ -1020,7 +1020,7 @@ cannot be inserted.",
 ": mesh has vertex coloring. Is this what you intended?"
 }};
 	
-	unsigned long meshanomalies = MeshStatus [meshindex].MeshAnomalies;
+	unsigned int meshanomalies = MeshStatus [meshindex].MeshAnomalies;
 
 	if (verbose) {
 		string.Copy ("");
@@ -2445,7 +2445,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 				bool includemesh;
 
 				// Currently, nothing has been inserted.
-				unsigned long insertedflags = 0;
+				unsigned int insertedflags = 0;
 
 				// If this mesh name contains the inclusion character (if not null) and if a vertex solve and/or a lightmap solve can be inserted...
 				if (inclusionstring == NULL) {
@@ -2456,7 +2456,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 				}
 				if (includemesh && (MeshStatus [meshindex].Can_Insert_Vertex_Solve() || MeshStatus [meshindex].Can_Insert_Multi_Pass_Solve() || MeshStatus [meshindex].Can_Insert_Multi_Texture_Solve())) {
 				
-					unsigned long	fileposition;
+					unsigned int	fileposition;
 					ChunkLoadClass meshchunk (w3dchunk);
 
 					meshfilebuffer = new char [w3dchunk.Cur_Chunk_Length()];
@@ -2469,7 +2469,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 					MeshInfoStruct		    meshinfo (meshfile);
 					LightscapeMeshSolve   meshsolve (solve, *meshinfo.TriangleChunk, *meshinfo.VertexChunk);
 					SplitVertexInfoStruct splitvertexinfo (meshinfo, meshsolve);
-					unsigned long		    prelitflags;
+					unsigned int		    prelitflags;
 
 					// Update the status for this mesh.
 					// Analyze the mesh status to see if it is compatible with each solve type (vertex, lightmap or both).
@@ -2688,7 +2688,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
  * HISTORY:                                                                                    *
  *   6/1/99    IML : Created.                                                                  * 
  *=============================================================================================*/
-void LightMapDoc::Translate_Mesh_Header3 (ChunkLoadClass &w3dchunk, unsigned long prelitflags, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
+void LightMapDoc::Translate_Mesh_Header3 (ChunkLoadClass &w3dchunk, unsigned int prelitflags, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
 	W3dMeshHeader3Struct header;
 	

@@ -638,7 +638,7 @@ void cNetUtil::Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback)
 {
    int retcode;
 
-   unsigned long start_time = TIMEGETTIME();
+   unsigned int start_time = TIMEGETTIME();
 
    do {
 	   cPacket packet;
@@ -670,7 +670,7 @@ void cNetUtil::Lan_Servicing(SOCKET & sock, LanPacketHandlerCallback p_callback)
 		}
 	} while (retcode != SOCKET_ERROR); // this will indicate no more data
 
-   unsigned long time_spent = TIMEGETTIME() - start_time;
+   unsigned int time_spent = TIMEGETTIME() - start_time;
    if (time_spent > 100) {
       WWDEBUG_SAY(("*** cNetUtil::Lan_Servicing: Too much time (%d ms)) spent receiving lan packets.\n",
          time_spent));

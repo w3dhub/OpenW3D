@@ -117,7 +117,7 @@ class AggregateDefClass
 		//
 		//	Public accessors
 		//
-		ULONG							Class_ID (void) const					{ return m_MiscInfo.OriginalClassID; }
+		uint32							Class_ID (void) const					{ return m_MiscInfo.OriginalClassID; }
 
 		//
 		//	Initialization
@@ -189,7 +189,7 @@ class AggregateDefClass
 		//
 		//	Private member data
 		//
-		DWORD																m_Version;
+		unsigned int																m_Version;
 		DynamicVectorClass<W3dAggregateSubobjectStruct *>	m_SubobjectList;
 		W3dAggregateInfoStruct										m_Info;
 		W3dAggregateMiscInfo											m_MiscInfo;

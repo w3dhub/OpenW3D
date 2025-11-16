@@ -101,7 +101,7 @@ void GameSideServerControlClass::Init(void)
 				/*
 				** Get the bind IP from the registry.
 				*/
-				unsigned long ip = reg.Get_Int(SERVER_CONTROL_IP_KEY, 0);
+				unsigned int ip = reg.Get_Int(SERVER_CONTROL_IP_KEY, 0);
 
 				/*
 				** Get the password from the registry.
@@ -264,7 +264,7 @@ void GameSideServerControlClass::Print(const char *text, ...)
  * HISTORY:                                                                                    *
  *   11/16/2001 3:59PM ST : Created                                                            *
  *=============================================================================================*/
-void GameSideServerControlClass::Send_Message(const char *text, unsigned long ip, unsigned short port)
+void GameSideServerControlClass::Send_Message(const char *text, unsigned int ip, unsigned short port)
 {
 	if (Listening) {
 		ServerControl.Send_Message(text, ip, port);

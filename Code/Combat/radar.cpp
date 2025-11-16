@@ -56,7 +56,7 @@
 
 DynamicVectorClass<RadarMarkerClass>	RadarManager::Markers;
 Render2DClass						*	RadarManager::Renderer;
-unsigned long							RadarManager::BlipColors[ NUM_BLIP_COLOR_TYPES ];
+unsigned int							RadarManager::BlipColors[ NUM_BLIP_COLOR_TYPES ];
 const PhysicalGameObj				*	RadarManager::BracketObj = NULL;
 RectClass								RadarManager::BlipUV[ NUM_BLIP_TYPES ];
 bool										RadarManager::IsHidden = false;
@@ -311,7 +311,7 @@ bool	RadarManager::Load( ChunkLoadClass &cload )
 Vector2	OldRadarCenter(0.0f,0.0f);
 Vector2	RadarCenter(0.0f,0.0f);
 float	RadarIntensity;
-long	RadarColor;
+int	RadarColor;
 
 float	RadarManager::Add_Blip( const Vector3 & pos, int shape_type, int color_type, float intensity, bool bracket, bool altitude_fade ) 
 {

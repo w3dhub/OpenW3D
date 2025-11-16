@@ -134,7 +134,7 @@ void Write(HANDLE file,const char * format,...)
 	assert((strlen(_StringBuf) < sizeof(_StringBuf)));
 	va_end(va);
 
-	unsigned long byteswritten;
+	unsigned int byteswritten;
 	WriteFile(file,_StringBuf,strlen(_StringBuf),&byteswritten,NULL);
 }
 

@@ -354,7 +354,7 @@ NetworkObjectClass::Belongs_To_Client (int client_id)
 //
 //	10/16/2001 2:45PM ST
 ////////////////////////////////////////////////////////////////
-unsigned long
+unsigned int
 NetworkObjectClass::Get_Last_Update_Time(int client_id)
 {
 	// Is this assert right? ST - 10/16/2001 2:44PM
@@ -391,7 +391,7 @@ NetworkObjectClass::Get_Update_Rate(int client_id)
 //	10/16/2001 2:45PM ST
 ////////////////////////////////////////////////////////////////
 void
-NetworkObjectClass::Set_Last_Update_Time(int client_id, unsigned long time)
+NetworkObjectClass::Set_Last_Update_Time(int client_id, unsigned int time)
 {
 	// Is this assert right? ST - 10/16/2001 2:44PM
 	WWASSERT(client_id > 0 && client_id <= MAX_CLIENT_COUNT);
@@ -636,7 +636,7 @@ void NetworkObjectClass::Set_Last_Clientside_Update_Time (ULONG time)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int NetworkObjectClass::Get_Clientside_Update_Frequency(void)
 {
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 
 	if (time - ClientsideUpdateFrequencySampleStartTime > CLIENT_SIDE_UPDATE_FREQUENCY_SAMPLE_PERIOD) {
 		// Say 10 seconds if we don't know.

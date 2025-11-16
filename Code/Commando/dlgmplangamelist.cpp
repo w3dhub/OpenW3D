@@ -195,7 +195,7 @@ MPLanGameListMenuClass::On_Destroy (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPLanGameListMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPLanGameListMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id) {
 

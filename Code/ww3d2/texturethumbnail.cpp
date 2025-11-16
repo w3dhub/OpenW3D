@@ -77,7 +77,7 @@ ThumbnailClass::ThumbnailClass(
 	unsigned original_mip_level_count,
 	WW3DFormat original_format,
 	bool allocated,
-	unsigned long date_time)
+	unsigned int date_time)
 	:
 	Manager(manager),
 	Name(name),
@@ -328,8 +328,8 @@ void ThumbnailManagerClass::Load()
 					int original_mip_level_count;
 					WW3DFormat original_format;
 					int name_len;
-					unsigned long date_time;
-					thumb_file->Read(&date_time,sizeof(unsigned long));
+					unsigned int date_time;
+					thumb_file->Read(&date_time,sizeof(unsigned int));
 					thumb_file->Read(&offset,sizeof(int));
 					thumb_file->Read(&width,sizeof(int));
 					thumb_file->Read(&height,sizeof(int));
@@ -443,9 +443,9 @@ void ThumbnailManagerClass::Save(bool force)
 		int original_height=thumb->Get_Original_Texture_Height();
 		int original_mip_level_count=thumb->Get_Original_Texture_Mip_Level_Count();
 		WW3DFormat original_format=thumb->Get_Original_Texture_Format();
-		unsigned long date_time=thumb->Get_Date_Time();
+		unsigned int date_time=thumb->Get_Date_Time();
 
-		thumb_file->Write(&date_time,sizeof(unsigned long));
+		thumb_file->Write(&date_time,sizeof(unsigned int));
 		thumb_file->Write(&offset,sizeof(int));
 		thumb_file->Write(&width,sizeof(int));
 		thumb_file->Write(&height,sizeof(int));
@@ -603,9 +603,9 @@ void ThumbnailManagerClass::Update_Thumbnail_File(const char* mix_file_name,bool
 		return;
 	}
 
-	unsigned long mix_date_time=mix_file->Get_Date_Time();
+	unsigned int mix_date_time=mix_file->Get_Date_Time();
 	if (thumb_file->Is_Available()) {
-		unsigned long thumb_date_time=thumb_file->Get_Date_Time();
+		unsigned int thumb_date_time=thumb_file->Get_Date_Time();
 		if (mix_date_time!=thumb_date_time) {
 			thumb_file->Delete();
 		}

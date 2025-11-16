@@ -196,7 +196,7 @@ void cGod::Think(void)
 
 //-----------------------------------------------------------------------------
 cPlayer * cGod::Create_Player(int client_id, const WideStringClass & name,
-															int team_choice, unsigned long clanID, bool is_invulnerable)
+															int team_choice, unsigned int clanID, bool is_invulnerable)
 {
 	WWMEMLOG(MEM_NETWORK);
 	WWASSERT(cNetwork::I_Am_Server());

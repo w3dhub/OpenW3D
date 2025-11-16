@@ -167,7 +167,7 @@ class DDSFileClass
 	unsigned FullWidth;
 	unsigned FullHeight;
 	unsigned MipLevels;
-	unsigned long DateTime;
+	unsigned int DateTime;
 	unsigned ReductionFactor;
 	unsigned char* DDSMemory;
 	WW3DFormat Format;
@@ -188,7 +188,7 @@ public:
 	unsigned Get_Height(unsigned level) const;
 	unsigned Get_Full_Width() const { return FullWidth; }		// Get the width of level 0 of non-reduced texture
 	unsigned Get_Full_Height() const { return FullHeight; }		// Get the height of level 0 of non-reduced texture
-	unsigned long Get_Date_Time() const { return DateTime; }
+	unsigned int Get_Date_Time() const { return DateTime; }
 
 	unsigned Get_Mip_Level_Count() const { return MipLevels; }
 	const unsigned char* Get_Memory_Pointer(unsigned level) const;

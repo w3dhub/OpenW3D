@@ -207,7 +207,7 @@ ULONG STDMETHODCALLTYPE NetUtilObserver::Release(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP NetUtilObserver::OnPing(HRESULT result, int time, unsigned long ip, int handle)
+STDMETHODIMP NetUtilObserver::OnPing(HRESULT result, int time, unsigned int ip, int handle)
 	{
 	if (mOuter == NULL)
 		{
@@ -282,7 +282,7 @@ STDMETHODIMP NetUtilObserver::OnPing(HRESULT result, int time, unsigned long ip,
 ******************************************************************************/
 
 STDMETHODIMP NetUtilObserver::OnLadderList(HRESULT result, WOL::Ladder* list,
-			int rungCount, long timeStamp, int keyRung)
+			int rungCount, int timeStamp, int keyRung)
 	{
 	if (mOuter == NULL)
 		{
@@ -375,7 +375,7 @@ STDMETHODIMP NetUtilObserver::OnLadderList(HRESULT result, WOL::Ladder* list,
 *
 ******************************************************************************/
 
-void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, long timeStamp)
+void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, int timeStamp)
 	{
 	if (mOuter->mLadderPending)
 		{
@@ -640,7 +640,7 @@ STDMETHODIMP NetUtilObserver::OnWDTState(HRESULT result, unsigned char* , int )
 ******************************************************************************/
 
 STDMETHODIMP NetUtilObserver::OnHighscore(HRESULT result, WOL::Highscore* list,
-		int count, long time, int keyRung)
+		int count, int time, int keyRung)
 	{
 	WWDEBUG_SAY(("WOLWARNING: OnHighscore not implemented\n"));
 	return S_OK;

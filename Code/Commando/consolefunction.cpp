@@ -1906,7 +1906,7 @@ public:
 	virtual	void Activate( const char * input ) override {
       WWASSERT(input != NULL);
       int delay = atoi(input);
-		PacketManager.Set_Flush_Frequency((unsigned long) delay);
+		PacketManager.Set_Flush_Frequency((unsigned int) delay);
 		if (delay) {
 			Print("Packets will be sent no more than %d times per second.\n", 1000 / delay);
 		} else {
@@ -3916,10 +3916,10 @@ public:
 
 				if (active && The_Game()) {
 
-					unsigned long time = The_Game()->Get_Time_Remaining_Seconds();
-					unsigned long seconds = time % 60;
-					unsigned long minutes = (time / 60) % 60;
-					unsigned long hours = (time / (60*60));
+					unsigned int time = The_Game()->Get_Time_Remaining_Seconds();
+					unsigned int seconds = time % 60;
+					unsigned int minutes = (time / 60) % 60;
+					unsigned int hours = (time / (60*60));
 
 
 					if (The_Game()->Is_Gameplay_Permitted()) {
@@ -3972,8 +3972,8 @@ public:
 
 		if (cNetwork::I_Am_Server() && The_Game() && The_Game()->IsDedicated.Is_True() && cNetwork::PServerConnection != NULL) {
 
-			unsigned long time = TIMEGETTIME();
-			unsigned long bw = 0;
+			unsigned int time = TIMEGETTIME();
+			unsigned int bw = 0;
 
 			if (cNetwork::PServerConnection->Get_Num_RHosts() == 0) {
 				ConsoleBox.Print("No players\n");
@@ -3997,11 +3997,11 @@ public:
 							strcpy(temp_name, short_name.Peek_Buffer());
 							strncat(temp_name, "                    ", 14-len);
 
-							unsigned long dur = (time - client->Get_Creation_Time()) / 1000;
+							unsigned int dur = (time - client->Get_Creation_Time()) / 1000;
 
-							unsigned long seconds = dur % 60;
-							unsigned long minutes = (dur / 60) % 60;
-							unsigned long hours = (dur / (60*60));
+							unsigned int seconds = dur % 60;
+							unsigned int minutes = (dur / 60) % 60;
+							unsigned int hours = (dur / (60*60));
 
 							bw += PacketManager.Get_Compressed_Bandwidth_Out(&client->Get_Address());
 
@@ -4235,7 +4235,7 @@ public:
 	virtual	const char * Get_Help( void ) override	{ return "PAGE Nickname Message - Page a Westwood Online user."; }
 	virtual	void Activate( const char * input ) override {
 
-		static unsigned long last_page = 0;
+		static unsigned int last_page = 0;
 
 		GameModeClass* wolgame = GameModeManager::Find("WOL");
 		bool is_wol = false;
@@ -4247,7 +4247,7 @@ public:
 			RefPtr<WWOnline::Session> wol_session = WWOnline::Session::GetInstance(false);
 			if (wol_session.IsValid()) {
 				
-				unsigned long time = TIMEGETTIME();
+				unsigned int time = TIMEGETTIME();
 				if (time < last_page || time - last_page > 1000) {
 					last_page = time;
 

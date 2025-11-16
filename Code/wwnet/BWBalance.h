@@ -63,7 +63,7 @@ class BandwidthBalancerClass
 
 	private:
 
-		unsigned long Allocate_Bandwidth(float average_priority, int bw_adjust, unsigned long total_server_bbo);
+		unsigned int Allocate_Bandwidth(float average_priority, int bw_adjust, unsigned int total_server_bbo);
 		void Allocate_Client_Structs(int num_structs);
 		void Adjust_Connection_Budget(cConnection *connection);
 
@@ -73,10 +73,10 @@ class BandwidthBalancerClass
 		*/
 		struct ClientInfoStruct {
 			float AveragePriority;
-			unsigned long MaxBpsDown;
-			unsigned long AllocatedBBO;
+			unsigned int MaxBpsDown;
+			unsigned int AllocatedBBO;
 			bool IsLoading;
-			unsigned long ID;
+			unsigned int ID;
 			bool IsDone;
 		};
 

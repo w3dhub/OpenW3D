@@ -60,7 +60,7 @@ public:
 	//
 	//	Level init
 	//
-	static void		Start_Game (const char *map_name, int teamChoice, unsigned long clanID);
+	static void		Start_Game (const char *map_name, int teamChoice, unsigned int clanID);
 	static void		End_Game (void);
 	static void		Continue_Game (void);
 	static void		Display_End_Game_Menu (void);
@@ -126,7 +126,7 @@ private:
 	//	Private methods
 	////////////////////////////////////////////////////////////////
 	static void		Start_Client_Server (void);
-	static void		Transmit_Player_Data (int teamChoice, unsigned long clanID);
+	static void		Transmit_Player_Data (int teamChoice, unsigned int clanID);
 
 	////////////////////////////////////////////////////////////////
 	//	Private member data

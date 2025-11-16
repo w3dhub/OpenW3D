@@ -116,7 +116,7 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 			point.X = ((float)x - cx) / ex;
 			point.Y = ((float)y - cy) / ey;
 			
-			::SendMessage(GetParent(hwnd),JOYSTICK_UPDATE_COMMAND,GetWindowLong(hwnd,GWL_ID),(long)&point);
+			::SendMessage(GetParent(hwnd),JOYSTICK_UPDATE_COMMAND,GetWindowLong(hwnd,GWL_ID),(int)&point);
 			::InvalidateRect(hwnd,NULL,false);
 			::UpdateWindow(hwnd);
 

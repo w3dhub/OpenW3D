@@ -358,7 +358,7 @@ SOCKET TCPMgr::createSocket(uint32 ip, uint16 port, bit8 reuseAddr)
 bit8 TCPMgr::setBlocking(SOCKET fd, bit8 block)
 {
  #ifdef _WINDOWS
-  unsigned long flag=1;
+  unsigned int flag=1;
   if (block)
     flag=0;
   int retval;

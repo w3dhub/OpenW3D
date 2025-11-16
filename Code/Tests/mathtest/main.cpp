@@ -241,7 +241,7 @@ void test_vectors(void)
 
 	Vector3 c;
 
-	unsigned long op_cycles = Get_CPU_Clock();
+	unsigned int op_cycles = Get_CPU_Clock();
 	for (i=0; i<16000; i++) {
 		c = tab[0] + tab[i];
 	}
@@ -250,7 +250,7 @@ void test_vectors(void)
 	
 	printf("Vector3::operator + cycles: %d\n",op_cycles);
 
-	unsigned long add_cycles = Get_CPU_Clock();
+	unsigned int add_cycles = Get_CPU_Clock();
 	for (i=0; i<16000; i++) {
 		Vector3::Add(tab[0],tab[i],&c);
 	}
@@ -954,7 +954,7 @@ void test_sqrt_time(void)
 	time = 0;
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 20000.0f;
-		unsigned long cycles = Get_CPU_Clock();
+		unsigned int cycles = Get_CPU_Clock();
 		float val = sqrt(f);	
 		val+=sqrt(val);
 		time += Get_CPU_Clock() - cycles;
@@ -966,7 +966,7 @@ void test_sqrt_time(void)
 	time = 0;
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 6.28f;
-		unsigned long cycles = Get_CPU_Clock();
+		unsigned int cycles = Get_CPU_Clock();
 		float val = sin(f);	
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;
@@ -977,7 +977,7 @@ void test_sqrt_time(void)
 	time = 0;
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 6.28f;
-		unsigned long cycles = Get_CPU_Clock();
+		unsigned int cycles = Get_CPU_Clock();
 		float val = cos(f);	
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;

@@ -302,11 +302,11 @@ bool BitPacker::PutBit(int value)
 *
 ******************************************************************************/
 
-int BitPacker::GetBits(unsigned long& outBits, unsigned int numBits)
+int BitPacker::GetBits(unsigned int& outBits, unsigned int numBits)
 {
 	outBits = 0;
 
-	unsigned long mask = (1L << (numBits - 1));
+	unsigned int mask = (1L << (numBits - 1));
 
 	while (mask != 0) {
 		if (mBitMask == 0x80) {
@@ -348,9 +348,9 @@ int BitPacker::GetBits(unsigned long& outBits, unsigned int numBits)
 *
 ******************************************************************************/
 
-int BitPacker::PutBits(unsigned long bits, unsigned int numBits)
+int BitPacker::PutBits(unsigned int bits, unsigned int numBits)
 {
-	unsigned long mask = (1L << (numBits - 1));
+	unsigned int mask = (1L << (numBits - 1));
 
 	while (mask != 0) {
 		if (bits & mask) {

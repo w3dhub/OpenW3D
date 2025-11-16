@@ -75,8 +75,8 @@ extern "C" {
 
 typedef struct
 {
-    long signature;         /* signature of gimex ie 'tga ' (optional) */
-    long size;              /* size of GINFO structure */
+    int signature;         /* signature of gimex ie 'tga ' (optional) */
+    int size;              /* size of GINFO structure */
     int  version;           /* version number of GINFO structure (200) */
     int  framenum;          /* current frame */
     int  width;             /* width of bitmap in pixels */
@@ -113,8 +113,8 @@ typedef void GSTREAM;       /* handle used for file functions */
 
 typedef struct
 {
-    long signature;         /* signature of gimex ie 'tga ' (optional) */
-    long size;              /* size of GINSTANCE structure */
+    int signature;         /* signature of gimex ie 'tga ' (optional) */
+    int size;              /* size of GINSTANCE structure */
     int  frames;            /* Number of frames in file */
     int  framenum;          /* current frame (optional) */
     GSTREAM *gstream;       /* stream pointer for file */
@@ -135,8 +135,8 @@ typedef struct
 
 typedef struct
 {
-    long signature;                 /* signature of gimex ie 'tga ' (optional) */
-    long size;                      /* size of GABOUT structure */
+    int signature;                 /* signature of gimex ie 'tga ' (optional) */
+    int size;                      /* size of GABOUT structure */
     int  version;                   /* version number of GABOUT structure (200) */
     unsigned int canimport     :1;  /* supports importing */
     unsigned int canexport     :1;  /* supports exporting */
@@ -161,7 +161,7 @@ typedef struct
     int  maxcolours;                /* only use in 8 bit, 0 if module does not care */
     int  maxframename;              /* maximum characters in ginfo framename */
     int  defaultquality;            /* default pack quality */
-    long mactype[MAXMACTYPES];      /* mac file system types used */
+    int mactype[MAXMACTYPES];      /* mac file system types used */
     char extensions[MAXEXTENSIONS][GIMEX_EXTENSION_SIZE]; /* null terminated extensions with '.' */
     char authorstr[GIMEX_AUTHORSTR_SIZE];        /* name of gimex module author */
     char versionstr[GIMEX_VERSIONSTR_SIZE];      /* version number of gimex module ie 1.00 */
@@ -179,7 +179,7 @@ typedef struct
     int   rowbytes;
 } GBITMAP;
 
-#define GMAKEID(a,b,c,d) (((long)(a)<<24)|((long)(b)<<16)|((long)(c)<<8)|(long)(d))
+#define GMAKEID(a,b,c,d) (((int)(a)<<24)|((int)(b)<<16)|((int)(c)<<8)|(int)(d))
 
 #ifndef gmin
 #define gmin(a,b) ((a)<(b)?(a):(b))
@@ -231,20 +231,20 @@ int     GCALL wclosebmp(GINSTANCE *gx);
 GSTREAM * GCALL gopen(const char *pathname);
 GSTREAM * GCALL gwopen(const char *pathname);
 int       GCALL gclose(GSTREAM *g);
-int       GCALL gread(GSTREAM *g, void *buf, long size);
-int       GCALL gwrite(GSTREAM *g, void *buf, long size);
-int       GCALL gseek(GSTREAM *g, long offset);
-long      GCALL glen(GSTREAM *g);
-long      GCALL gtell(GSTREAM *g);
+int       GCALL gread(GSTREAM *g, void *buf, int size);
+int       GCALL gwrite(GSTREAM *g, void *buf, int size);
+int       GCALL gseek(GSTREAM *g, int offset);
+int      GCALL glen(GSTREAM *g);
+int      GCALL gtell(GSTREAM *g);
 
 /* Memory Functions */
 
-void *  GCALL galloc(long size);
+void *  GCALL galloc(int size);
 int     GCALL gfree(void *memptr);
-void          gputm(void *memptr, unsigned long val, int numbytes);
-void          gputi(void *memptr, unsigned long val, int numbytes);
-unsigned long ggetm(void *memptr, int numbytes);
-unsigned long ggeti(void *memptr, int numbytes);
+void          gputm(void *memptr, unsigned int val, int numbytes);
+void          gputi(void *memptr, unsigned int val, int numbytes);
+unsigned int ggetm(void *memptr, int numbytes);
+unsigned int ggeti(void *memptr, int numbytes);
 
 #ifdef __cplusplus
 }

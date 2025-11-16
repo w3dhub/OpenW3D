@@ -356,7 +356,7 @@ MainMenuDialogClass::Choose_Skirmish_Map (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MainMenuDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MainMenuDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	bool allow_default = true;
 
@@ -482,8 +482,8 @@ MainMenuDialogClass::Update_Version_Number (void)
 	//
 	// Version 1.0 by default
 	//
-	DWORD version_major = 1;
-	DWORD version_minor = 0;
+	unsigned int version_major = 1;
+	unsigned int version_minor = 0;
 	Get_Version_Number(&version_major, &version_minor);
 
 	//

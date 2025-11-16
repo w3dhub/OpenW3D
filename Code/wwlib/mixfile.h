@@ -99,9 +99,9 @@ private:
 		bool operator== (const FileInfoStruct &src)	{ return false; }
 		bool operator!= (const FileInfoStruct &src)	{ return true; }
 
-		unsigned long CRC;				// CRC code for embedded file.
-		unsigned long Offset;			// Offset from start of data section.
-		unsigned long Size;				// Size of data subfile.
+		unsigned int CRC;				// CRC code for embedded file.
+		unsigned int Offset;			// Offset from start of data section.
+		unsigned int Size;				// Size of data subfile.
 	};
 
 	struct AddInfoStruct {
@@ -146,9 +146,9 @@ private:
 		bool operator== (const FileInfoStruct &src)	{ return false; }
 		bool operator!= (const FileInfoStruct &src)	{ return true; }
 
-		unsigned long	CRC;				// CRC code for embedded file.
-		unsigned long	Offset;			// Offset from start of data section.
-		unsigned long	Size;				// Size of data subfile.
+		unsigned int	CRC;				// CRC code for embedded file.
+		unsigned int	Offset;			// Offset from start of data section.
+		unsigned int	Size;				// Size of data subfile.
 		StringClass		Filename;
 	};
 

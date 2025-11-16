@@ -249,7 +249,7 @@ void CGameSpyQnR::Init(void) {
 
 		BOOL test = false;
 		// Init the GameSpy QnR engine
-		extern ULONG g_ip_override;
+		extern unsigned int g_ip_override;
 		char ipstr[32];
 		char *ip = ipstr;
 

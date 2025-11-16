@@ -171,7 +171,7 @@ sint32 TCP::SetBlocking(bit8 block,sint32 whichFD)
      whichFD=fd;
 
    #ifdef _WINDOWS
-   unsigned long flag=1;
+   unsigned int flag=1;
    if (block)
      flag=0;
    int retval;

@@ -80,11 +80,11 @@ class BandwidthCheckerClass
 
 		static bool Got_Bandwidth(void) {return(GotBandwidth);};
 		static void Force_Upstream_Bandwidth(unsigned int up);
-		static unsigned long Get_Upstream_Bandwidth(void);
-		static unsigned long Get_Reported_Upstream_Bandwidth(void);
+		static unsigned int Get_Upstream_Bandwidth(void);
+		static unsigned int Get_Reported_Upstream_Bandwidth(void);
 		static const wchar_t *Get_Upstream_Bandwidth_As_String(void);
-		static unsigned long Get_Downstream_Bandwidth(void);
-		static unsigned long Get_Reported_Downstream_Bandwidth(void);
+		static unsigned int Get_Downstream_Bandwidth(void);
+		static unsigned int Get_Reported_Downstream_Bandwidth(void);
 		static const wchar_t *Get_Downstream_Bandwidth_As_String(void);
 		static const wchar_t *Get_Bandwidth_As_String(void);
 		static const wchar_t *Get_Bandwidth_As_String(PackedBandwidthType bandwidth);
@@ -106,17 +106,17 @@ class BandwidthCheckerClass
 		friend BandwidthCheckerThreadClass;
 
 		static HANDLE EventNotify;
-		static unsigned long UpstreamBandwidth;
-		static unsigned long ReportedUpstreamBandwidth;
-		static unsigned long DownstreamBandwidth;
-		static unsigned long ReportedDownstreamBandwidth;
+		static unsigned int UpstreamBandwidth;
+		static unsigned int ReportedUpstreamBandwidth;
+		static unsigned int DownstreamBandwidth;
+		static unsigned int ReportedDownstreamBandwidth;
 		static const wchar_t *UpstreamBandwidthString;
 		static const wchar_t *DownstreamBandwidthString;
 
 		#define NUM_BANDS 12
 
 		static const char *ErrorList[13];
-		static unsigned long Bandwidths[NUM_BANDS * 2];
+		static unsigned int Bandwidths[NUM_BANDS * 2];
 		static const wchar_t *BandwidthNames[NUM_BANDS + 1];
 		static int FailureCode;
 		static bool GotBandwidth;

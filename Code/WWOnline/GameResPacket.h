@@ -65,8 +65,8 @@ class GameResPacket {
 		void Add_Field(const char *field, unsigned char data) {Add_Field(new GameResField(field, data));};
 		void Add_Field(const char *field, short data) {Add_Field(new GameResField(field, data));};
 		void Add_Field(const char *field, unsigned short data) {Add_Field(new GameResField(field, data));};
-		void Add_Field(const char *field, long data) {Add_Field(new GameResField(field, data));};
-		void Add_Field(const char *field, unsigned long data) {Add_Field(new GameResField(field, data));};
+		void Add_Field(const char *field, int data) {Add_Field(new GameResField(field, data));};
+		void Add_Field(const char *field, unsigned int data) {Add_Field(new GameResField(field, data));};
 		void Add_Field(const char *field, const char *data) {Add_Field(new GameResField(field, data));};
 		void Add_Field(const char *field, void *data, int length) {Add_Field(new GameResField(field, data, length));};
 
@@ -79,15 +79,15 @@ class GameResPacket {
 		bool Get_Field(char *id, unsigned char &data);
 		bool Get_Field(char *id, short &data);
 		bool Get_Field(char *id, unsigned short &data);
-		bool Get_Field(char *id, long &data);
-		bool Get_Field(char *id, unsigned long &data);
+		bool Get_Field(char *id, int &data);
+		bool Get_Field(char *id, unsigned int &data);
 		bool Get_Field(char *id, char *data);
 		bool Get_Field(char *id, void *data, int &length);
 
-		unsigned char* Create_Comms_Packet(unsigned long& size, char* sig_name, unsigned long& sig_offset);
+		unsigned char* Create_Comms_Packet(unsigned int& size, char* sig_name, unsigned int& sig_offset);
 
 	private:
-		unsigned long mSize;
+		unsigned int mSize;
 		unsigned short mID;
 		unsigned short mReserved;
 

@@ -588,12 +588,12 @@ int jan_main(int argc, char* argv[])
 		float r0 = 0.0f;
 		float r1 = 0.0f; 
 		float r2 = 0.0f;
-		unsigned long acos_cycles = 0;
-		unsigned long bez_cycles = 0;
-		unsigned long table_cycles = 0;
-		unsigned long acos_sum = 0;
-		unsigned long bez_sum = 0;
-		unsigned long table_sum = 0;
+		unsigned int acos_cycles = 0;
+		unsigned int bez_cycles = 0;
+		unsigned int table_cycles = 0;
+		unsigned int acos_sum = 0;
+		unsigned int bez_sum = 0;
+		unsigned int table_sum = 0;
 		const int SAMPLE_COUNT = 20;
 
 		{

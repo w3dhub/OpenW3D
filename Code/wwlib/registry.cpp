@@ -155,7 +155,7 @@ int RegistryClass::Get_Bin_Size( const char * name )
 {
 	assert( IsValid );
 
-	unsigned long size = 0;
+	DWORD size = 0;
 	::RegQueryValueExA( (HKEY)Key, name, NULL, NULL, NULL, &size );
 	return size;
 }
@@ -167,7 +167,7 @@ void RegistryClass::Get_Bin( const char * name, void *buffer, int buffer_size )
 	assert( buffer != NULL );
 	assert( buffer_size > 0 );
 
-	unsigned long size = buffer_size;
+	DWORD size = buffer_size;
 	::RegQueryValueExA( (HKEY)Key, name, NULL, NULL, (LPBYTE)buffer, &size );
 	return ;
 }
@@ -250,7 +250,7 @@ void	RegistryClass::Get_Value_List( DynamicVectorClass<StringClass> &list )
 	//	Simply enumerate all the values in this key
 	//
 	int index = 0;
-	unsigned long sizeof_name = sizeof (value_name);
+	DWORD sizeof_name = sizeof (value_name);
 	while (::RegEnumValueA ((HKEY)Key, index ++,
 					value_name, &sizeof_name, 0, NULL, NULL, NULL) == ERROR_SUCCESS)
 	{
@@ -367,15 +367,15 @@ void	RegistryClass::Set_String( const wchar_t * name, const wchar_t *value )
 void RegistryClass::Save_Registry_Values(HKEY key, char *path, INIClass *ini)
 {
 	int index = 0;
-	long result = ERROR_SUCCESS;
+	LSTATUS result = ERROR_SUCCESS;
 	char save_name[512];
 
 	while (result == ERROR_SUCCESS) {
-		unsigned long type = 0;
+		DWORD type = 0;
 		unsigned char data[8192];
-		unsigned long data_size = sizeof(data);
+		DWORD data_size = sizeof(data);
 		char value_name[256];
-		unsigned long value_name_size = sizeof(value_name);
+		DWORD value_name_size = sizeof(value_name);
 
 		result = RegEnumValueA(key, index, value_name, &value_name_size, 0, &type, data, &data_size);
 
@@ -388,7 +388,7 @@ void RegistryClass::Save_Registry_Values(HKEY key, char *path, INIClass *ini)
 				case REG_DWORD:
 					strcpy(save_name, "DWORD_");
 					strcat(save_name, value_name);
-					ini->Put_Int(path, save_name, *((unsigned long*)data));
+					ini->Put_Int(path, save_name, *((unsigned int*)data));
 					break;
 
 				/*
@@ -446,14 +446,14 @@ void RegistryClass::Save_Registry_Tree(char *path, INIClass *ini)
 	HKEY sub_key;
 	int index = 0;
 	char name[256];
-	unsigned long name_size = sizeof(name);
+	DWORD name_size = sizeof(name);
 	char class_name[256];
-	unsigned long class_name_size = sizeof(class_name);
+	DWORD class_name_size = sizeof(class_name);
 	FILETIME file_time;
 	memset(&file_time, 0, sizeof(file_time));
 
 
-	long result = RegOpenKeyExA(HKEY_CURRENT_USER, path, 0, KEY_ALL_ACCESS, &base_key);
+	LSTATUS result = RegOpenKeyExA(HKEY_CURRENT_USER, path, 0, KEY_ALL_ACCESS, &base_key);
 
 	WWASSERT(result == ERROR_SUCCESS);
 
@@ -475,10 +475,10 @@ void RegistryClass::Save_Registry_Tree(char *path, INIClass *ini)
 				strcat(new_key_path, "\\");
 				strcat(new_key_path, name);
 
-				unsigned long num_subs = 0;
-				unsigned long num_values = 0;
+				DWORD num_subs = 0;
+				DWORD num_values = 0;
 
-				long new_result = RegOpenKeyExA(HKEY_CURRENT_USER, new_key_path, 0, KEY_ALL_ACCESS, &sub_key);
+				LSTATUS new_result = RegOpenKeyExA(HKEY_CURRENT_USER, new_key_path, 0, KEY_ALL_ACCESS, &sub_key);
 				if (new_result == ERROR_SUCCESS) {
 					new_result = RegQueryInfoKey(sub_key, NULL, NULL, 0, &num_subs, NULL, NULL, &num_values, NULL, NULL, NULL, NULL);
 
@@ -629,14 +629,14 @@ void RegistryClass::Load_Registry(const char *filename, char *old_path, char *ne
 void RegistryClass::Delete_Registry_Values(HKEY key)
 {
 	int index = 0;
-	long result = ERROR_SUCCESS;
+	LSTATUS result = ERROR_SUCCESS;
 
 	while (result == ERROR_SUCCESS) {
-		unsigned long type = 0;
+		DWORD type = 0;
 		unsigned char data[8192];
-		unsigned long data_size = sizeof(data);
+		DWORD data_size = sizeof(data);
 		char value_name[256];
-		unsigned long value_name_size = sizeof(value_name);
+		DWORD value_name_size = sizeof(value_name);
 
 		result = RegEnumValueA(key, index, value_name, &value_name_size, 0, &type, data, &data_size);
 
@@ -670,15 +670,15 @@ void RegistryClass::Delete_Registry_Tree(char *path)
 		HKEY sub_key;
 		int index = 0;
 		char name[256];
-		unsigned long name_size = sizeof(name);
+		DWORD name_size = sizeof(name);
 		char class_name[256];
-		unsigned long class_name_size = sizeof(class_name);
+		DWORD class_name_size = sizeof(class_name);
 		FILETIME file_time;
 		memset(&file_time, 0, sizeof(file_time));
 		int max_times = 1000;
 
 
-		long result = RegOpenKeyExA(HKEY_CURRENT_USER, path, 0, KEY_ALL_ACCESS, &base_key);
+		LSTATUS result = RegOpenKeyExA(HKEY_CURRENT_USER, path, 0, KEY_ALL_ACCESS, &base_key);
 
 		if (result == ERROR_SUCCESS) {
 			Delete_Registry_Values(base_key);
@@ -698,10 +698,10 @@ void RegistryClass::Delete_Registry_Tree(char *path)
 					strcat(new_key_path, "\\");
 					strcat(new_key_path, name);
 
-					unsigned long num_subs = 0;
-					unsigned long num_values = 0;
+					DWORD num_subs = 0;
+					DWORD num_values = 0;
 
-					long new_result = RegOpenKeyExA(HKEY_CURRENT_USER, new_key_path, 0, KEY_ALL_ACCESS, &sub_key);
+					LSTATUS new_result = RegOpenKeyExA(HKEY_CURRENT_USER, new_key_path, 0, KEY_ALL_ACCESS, &sub_key);
 					if (new_result == ERROR_SUCCESS) {
 						new_result = RegQueryInfoKey(sub_key, NULL, NULL, 0, &num_subs, NULL, NULL, &num_values, NULL, NULL, NULL, NULL);
 

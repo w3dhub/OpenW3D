@@ -801,7 +801,7 @@ STDMETHODIMP WebBrowser::OnDownloadBegin(void)
 *
 ******************************************************************************/
 
-STDMETHODIMP WebBrowser::OnProgressChange(long /* progress */, long /* progressMax */)
+STDMETHODIMP WebBrowser::OnProgressChange(LONG /* progress */, LONG /* progressMax */)
 	{
 	return S_OK;
 	}
@@ -931,7 +931,7 @@ STDMETHODIMP WebBrowser::OnNewWindow(void)
 ******************************************************************************/
 
 STDMETHODIMP WebBrowser::OnShowMessage(const wchar_t* /* text */, const wchar_t* /* caption */,
-		unsigned long /* type */, long* /* result */)
+		ULONG /* type */, LONG* /* result */)
 	{
 	return S_OK;
 	}

@@ -353,7 +353,7 @@ public:
 	static unsigned Get_Last_Frame_Texture_Stage_State_Changes();
 	static unsigned Get_Last_Frame_DX8_Calls();
 
-	static unsigned long Get_FrameCount(void);
+	static unsigned int Get_FrameCount(void);
 
 	// Needed by shader class
 	static bool						Get_Fog_Enable() { return FogEnable; }
@@ -537,7 +537,7 @@ protected:
 	static unsigned						sampler_state_changes;
 	static bool								CurrentDX8LightEnables[4];
 
-	static unsigned long FrameCount;
+	static unsigned int FrameCount;
 
 	static DX8Caps*						CurrentCaps;
 

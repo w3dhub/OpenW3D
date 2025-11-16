@@ -58,8 +58,8 @@
 class SystemTimerClass
 {
 	public:
-		long operator () (void) const;
-		operator long (void) const;
+		int operator () (void) const;
+		operator int (void) const;
 };
 
 #endif

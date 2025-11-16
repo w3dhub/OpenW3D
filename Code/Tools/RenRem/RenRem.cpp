@@ -60,7 +60,7 @@ bool GotResponse = false;
 bool Connected = false;
 bool DumpOutput = false;
 bool TruncateFile = true;
-unsigned long ResponseTime = 0;
+unsigned int ResponseTime = 0;
 
 
 
@@ -91,7 +91,7 @@ void App_Response_Callback(char *response)
 
 		if (file != INVALID_HANDLE_VALUE) {
 			SetFilePointer(file, 0, NULL, FILE_END);
-			unsigned long actual = 0;
+			DWORD actual = 0;
 			const size_t response_length = ::strlen(response);
 			assert(response_length <= std::numeric_limits<DWORD>::max());
 			WriteFile(file, response, static_cast<DWORD>(response_length), &actual, NULL);
@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 	}
 
 	int arg_offset = 0;
-	unsigned long quit_after_time = 0;
+	unsigned int quit_after_time = 0;
 	if ((strnicmp(argv[1], "-R=", 3) == 0) || (strnicmp(argv[1], "/R=", 3) == 0)) {
 		strcpy(RequestBuffer, argv[1]);
 		arg_offset++;
@@ -135,10 +135,10 @@ int main(int argc, char **argv)
 	/*
 	** Get the IP.
 	*/
-	unsigned long ip = inet_addr(argv[1+ arg_offset]);
-	unsigned long port = atoi(argv[2 + arg_offset]);
+	unsigned int ip = inet_addr(argv[1+ arg_offset]);
+	unsigned int port = atoi(argv[2 + arg_offset]);
 	char *password = argv[3 + arg_offset];
-	unsigned long local_port = RENREM_PORT;
+	unsigned int local_port = RENREM_PORT;
 
 	if (argc > (4 + arg_offset)) {
 		local_port = atoi(argv[4 + arg_offset]);

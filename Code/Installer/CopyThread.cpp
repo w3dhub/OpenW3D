@@ -133,7 +133,7 @@ FNREAD( file_read )
 	// Abort the copying process?
 	if (!CopyThreadClass::_ActiveCopyThread->Get_Abort (true)) {
 
-		unsigned long bytecount;
+		unsigned int bytecount;
 	  
 		while (!ReadFile ((void*) hf, pv, cb, &bytecount, NULL)) {
 			if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
@@ -158,7 +158,7 @@ FNWRITE( file_write )
 	// Abort the copying process?
 	if (!CopyThreadClass::_ActiveCopyThread->Get_Abort (true)) {
 
-		unsigned long bytecount;
+		unsigned int bytecount;
 		
 		while (!WriteFile ((void*) hf, pv, cb, &bytecount, NULL)) {
 			if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
@@ -194,11 +194,11 @@ FNCLOSE( file_close )
 
 
 /***************************************************************************
- * long FAR DIAMONDAPI file_seek( int hf, long dist, int seektype )
+ * int FAR DIAMONDAPI file_seek( int hf, int dist, int seektype )
  *=========================================================================*/
 FNSEEK( file_seek )
 {
-	long	result;
+	int	result;
 	DWORD movemethod;
 
 	// Map seek type to Win32.
@@ -254,7 +254,7 @@ FNFDINOTIFY( notification_function )
 			if (CopyThreadClass::Replace_File (_sourcefiletime, pfdin->cb, _targetpathname)) {
 
 				WideStringClass statusmessage;
-				long				 handle;
+				int				 handle;
 				WideStringClass targetpath;
 				WideStringClass filename;
 
@@ -783,7 +783,7 @@ bool CopyThreadClass::Replace_File (const FILETIME &sourcefiletime, DWORD source
 	StringClass		 multibytetargetpathname (targetpathname);	
 	WIN32_FIND_DATA targetdata;
 	HANDLE			 handle;
-	long				 t;	
+	int				 t;	
 
 	// Does the target file exist?
 	handle = FindFirstFile (multibytetargetpathname, &targetdata); 
@@ -818,7 +818,7 @@ bool CopyThreadClass::Replace_File (const WideStringClass &sourcepathname, const
 	WIN32_FIND_DATA	sourcedata, targetdata;
 	HANDLE				handle;
 	VS_FIXEDFILEINFO	sourceversion, targetversion;
-	long					t;	
+	int					t;	
 
 	// Find source file. It must exist.
 	while ((handle = FindFirstFile (multibytesourcepathname, &sourcedata)) == INVALID_HANDLE_VALUE) {

@@ -104,7 +104,7 @@ bool SaveLoadSystemClass::Load (ChunkLoadClass &cload,bool auto_post_load)
 // Nework update macro for post loader.
 #define UPDATE_NETWORK 											\
 	if (network_callback) {                            \
-		unsigned long time2 = TIMEGETTIME();            \
+		unsigned int time2 = TIMEGETTIME();            \
 		if (time2 - time > 20) {                        \
 			network_callback();                          \
 			time = time2;                                \
@@ -113,7 +113,7 @@ bool SaveLoadSystemClass::Load (ChunkLoadClass &cload,bool auto_post_load)
 
 bool SaveLoadSystemClass::Post_Load_Processing (void(*network_callback)(void))
 {
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 
 	// Call PostLoad on each PersistClass that wanted post-load
 	PostLoadableClass * obj = PostLoadList.Remove_Head();

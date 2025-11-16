@@ -79,7 +79,7 @@ class DlgWebPage :
 	private:
 		WebBrowser* mBrowser;
 		const char* mPage;
-		unsigned long mTimer;
+		unsigned int mTimer;
 	};
 
 #endif // __DLGWEBPAGE_H__

@@ -69,11 +69,11 @@ public:
 
 	static void		Toggle();
 	static bool		Is_On();
-	static void		Render_Text(WideStringClass & text, float x, float y, ULONG color = 0xFFFFFFFF);
+	static void		Render_Text(WideStringClass & text, float x, float y, unsigned int color = 0xFFFFFFFF);
    static void		Show_Player_Names(void);
 
 #ifdef WWDEBUG
-	static void		Render_Debug_Text(LPCSTR text, float x, float y, ULONG color = 0xFFFFFFFF);
+	static void		Render_Debug_Text(const char *text, float x, float y, unsigned int color = 0xFFFFFFFF);
 	static void		Show_Import_State_Counts(NetworkObjectClass *object);
 	static void		Show_Distance_And_Priority(NetworkObjectClass *object);
 	static void		Show_Player_Rhost_Data(SmartGameObj * smart_obj);

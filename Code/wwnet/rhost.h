@@ -127,8 +127,8 @@ class cRemoteHost
 		void Increment_Reliable_Packet_Rcv_Id()		{ReliablePacketRcvId++;}
 		void Increment_Unreliable_Packet_Rcv_Id()		{UnreliablePacketRcvId++;}
 
-		unsigned long Get_Last_Keepalive_Time_Ms() const	{return LastKeepaliveTimeMs;}
-		void Set_Last_Keepalive_Time_Ms(unsigned long time_ms)	{LastKeepaliveTimeMs = time_ms;}
+		unsigned int Get_Last_Keepalive_Time_Ms() const	{return LastKeepaliveTimeMs;}
+		void Set_Last_Keepalive_Time_Ms(unsigned int time_ms)	{LastKeepaliveTimeMs = time_ms;}
 
       SList<cPacket> & Get_Packet_List(int index)	{WWASSERT(index >= 0 && index < 4); return PacketList[index];}
 
@@ -143,13 +143,13 @@ class cRemoteHost
 
 		void Set_Is_Loading(bool state);
 		bool Get_Is_Loading(void)							{return(IsLoading);}
-		bool Was_Recently_Loading(unsigned long time = 0);
+		bool Was_Recently_Loading(unsigned int time = 0);
 
 		void Set_Flood(bool state);
 		bool Get_Flood(void)									{return(ExpectPacketFlood);}
 
-		unsigned long Get_Creation_Time(void)			{return(CreationTime);}
-		unsigned long Get_Total_Resends(void)			{return(TotalResends);}
+		unsigned int Get_Creation_Time(void)			{return(CreationTime);}
+		unsigned int Get_Total_Resends(void)			{return(TotalResends);}
 		void Increment_Resends(void)						{TotalResends++;}
 		void Set_Total_Resent_Packets_In_Queue (int resent_packets) {TotalResentPacketsInQueue = resent_packets;}
 
@@ -186,7 +186,7 @@ class cRemoteHost
       SList<cPacket>	PacketList[4];	// list of all player objects
       int				ListMax[4];
       int				ListProcessingTime[4];
-      unsigned long	LastKeepaliveTimeMs;
+      unsigned int	LastKeepaliveTimeMs;
       bool				MustEvict;
       BOOL				IsFlowControlEnabled;
 		int				LastServiceCount;
@@ -198,21 +198,21 @@ class cRemoteHost
 		float				AverageObjectPriority;
 		bool				IsLoading;
 		bool				ExpectPacketFlood;
-		unsigned long	FloodTimer;
-		unsigned long	WasLoading;
-		unsigned long	TotalResends;
-		unsigned long	CreationTime;
+		unsigned int	FloodTimer;
+		unsigned int	WasLoading;
+		unsigned int	TotalResends;
+		unsigned int	CreationTime;
 		int				PriorityUpdateCounter;
 
 		//
 		// Variables for detecting outgoing packet floods.
 		//
-		unsigned long	ExtendedAveragePingTime;
+		unsigned int	ExtendedAveragePingTime;
 		int				ExtendedAverageCount;
 		int				LastAveragePingTime;
 		bool				IsOutgoingFlooded;
 		int				TotalResentPacketsInQueue;
-		unsigned long	NextOutgoingFloodActionTime;
+		unsigned int	NextOutgoingFloodActionTime;
 		int				NumOutgoingFloods;
 
 		static bool		AllowExtraModemBandwidthThrottling;

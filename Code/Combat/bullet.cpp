@@ -481,7 +481,7 @@ private:
 	GameObjReference				TargetObject;
 	float								TrackingErrorTimer;
 	Vector3							TrackingError;
-	long								ModelNameCRC;
+	int								ModelNameCRC;
 
 	BulletClass( void );
 
@@ -1003,7 +1003,7 @@ void	BulletManager::Create_Bullet( const AmmoDefinitionClass * def, const Vector
 	BulletClass * bullet = NULL;
 
 	// Find a bullet
-	long crc = CRC_Stringi( def->ModelName );
+	int crc = CRC_Stringi( def->ModelName );
 	MultiListIterator<BulletClass> it( &DeadBulletList );;
 	while ( !it.Is_Done() && bullet == NULL ) {
 		BulletClass * test_bullet = it.Peek_Obj();

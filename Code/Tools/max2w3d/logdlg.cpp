@@ -115,7 +115,7 @@ void LogDataDialogClass::printf(char * text, const va_list & args)
 	HWND ctrlHwnd = GetDlgItem(Hwnd, IDC_ANIM_LOG_RICHEDIT);
 
 	SendMessage(ctrlHwnd, EM_SETSEL, -1, -1 );
-	SendMessage(ctrlHwnd, EM_REPLACESEL, false, (long)string_buffer);
+	SendMessage(ctrlHwnd, EM_REPLACESEL, false, (int)string_buffer);
 
 	last_buffer_index = buffer_index;
 	buffer_index+=strlen(string_buffer);
@@ -159,7 +159,7 @@ void LogDataDialogClass::rprintf(char *text, const va_list & args)
 	HWND ctrlHwnd = GetDlgItem(Hwnd, IDC_ANIM_LOG_RICHEDIT);
 
 	SendMessage(ctrlHwnd, EM_SETSEL, last_buffer_index, buffer_index );
-	SendMessage(ctrlHwnd, EM_REPLACESEL, false, (long)string_buffer);
+	SendMessage(ctrlHwnd, EM_REPLACESEL, false, (int)string_buffer);
 
 	buffer_index = strlen(string_buffer) + last_buffer_index;
 

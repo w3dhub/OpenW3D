@@ -230,7 +230,7 @@ void DlgQuickMatch::On_Frame_Update(void)
 			}
 		}
 
-	unsigned long theTime = TIMEGETTIME();
+	unsigned int theTime = TIMEGETTIME();
 
 	if ((mResendTime > 0) && (theTime >= mResendTime))
 		{
@@ -264,7 +264,7 @@ void DlgQuickMatch::On_Frame_Update(void)
 *
 ******************************************************************************/
 
-void DlgQuickMatch::On_Command(int ctrl, int message, DWORD param)
+void DlgQuickMatch::On_Command(int ctrl, int message, unsigned int param)
 	{
 	if (ctrl == IDC_MENU_BACK_BUTTON)
 		{

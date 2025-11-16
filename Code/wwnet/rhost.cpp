@@ -116,8 +116,8 @@ void cRemoteHost::Init_Stats()
 	//	}
 	//}
 
-	//WWDEBUG_SAY(("ResendTimeoutMs for rhost %d = %d\n", Id, (unsigned long)ResendTimeoutMs));
-	WWDEBUG_SAY(("ResendTimeoutMs for rhost = %d\n", (unsigned long)ResendTimeoutMs));
+	//WWDEBUG_SAY(("ResendTimeoutMs for rhost %d = %d\n", Id, (unsigned int)ResendTimeoutMs));
+	WWDEBUG_SAY(("ResendTimeoutMs for rhost = %d\n", (unsigned int)ResendTimeoutMs));
 
 	TotalInternalPingtimeMs = 0;
 	NumInternalPings = 0;
@@ -270,7 +270,7 @@ void cRemoteHost::Remove_Packet(int packet_id, BYTE list_type)
 				// the ACK to the first send just came in and if we just resent it then the ping time will look really low so we get
 				// biased towards a low resend timeout value on connections of variable quality. ST - 12/7/2001 12:48PM
 				if (p_packet->Get_Resend_Count() == 0 || NumInternalPings == 0) {
-					unsigned long time = TIMEGETTIME();
+					unsigned int time = TIMEGETTIME();
 					int ping_time = time - p_packet->Get_Send_Time();
 
 					if (p_packet->Get_Resend_Count() != 0) {
@@ -648,7 +648,7 @@ void cRemoteHost::Set_Is_Loading(bool state)
 
 
 //------------------------------------------------------------------------------------
-bool cRemoteHost::Was_Recently_Loading(unsigned long time)
+bool cRemoteHost::Was_Recently_Loading(unsigned int time)
 {
 	if (IsLoading) {
 		return(true);
@@ -686,7 +686,7 @@ void cRemoteHost::Adjust_Resend_Timeout(void)
 				//WWDEBUG_SAY((">> ResendTimeoutMs for rhost %d = %d\n", Id, ResendTimeoutMs));
 			}
 
-			//WWDEBUG_SAY(("ResendTimeoutMs for rhost = %d\n", (unsigned long)ResendTimeoutMs));
+			//WWDEBUG_SAY(("ResendTimeoutMs for rhost = %d\n", (unsigned int)ResendTimeoutMs));
 
 			//
 			// Keep track of the last average we calculated plus the average ping over the life of the connection.

@@ -725,8 +725,8 @@ int INIClass::Save(Pipe & pipe) const
 INISection * INIClass::Find_Section(char const * section) const
 {
 	if (section != NULL) {
-//		long crc = CRCEngine()(section, strlen(section));
-		long crc = CRC(section);
+//		int crc = CRCEngine()(section, strlen(section));
+		int crc = CRC(section);
 
 		if (SectionIndex->Is_Present(crc)) {
 			return((*SectionIndex)[crc]);

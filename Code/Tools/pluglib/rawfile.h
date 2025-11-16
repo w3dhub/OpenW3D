@@ -107,8 +107,8 @@ class RawFileClass : public FileClass
 		virtual int Size(void);
 		virtual int Write(void const *buffer, int size);
 		virtual void Close(void);
-		virtual unsigned long Get_Date_Time(void);
-		virtual bool Set_Date_Time(unsigned long datetime);
+		virtual unsigned int Get_Date_Time(void);
+		virtual bool Set_Date_Time(unsigned int datetime);
 		virtual void Error(int error, int canretry = false, char const * filename=NULL);
 		virtual void Bias(int start, int length=-1);
 		virtual void * Get_File_Handle(void) { return Handle; } 

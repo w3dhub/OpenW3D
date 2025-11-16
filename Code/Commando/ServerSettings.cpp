@@ -72,7 +72,7 @@ char ServerSettingsClass::SettingsFile[MAX_PATH];
 bool ServerSettingsClass::IsActive = false;
 char ServerSettingsClass::MasterPassword[128];
 ServerSettingsClass::GameModeTypeEnum ServerSettingsClass::GameMode = MODE_NONE;
-unsigned long ServerSettingsClass::MasterBandwidth = 0;
+unsigned int ServerSettingsClass::MasterBandwidth = 0;
 char ServerSettingsClass::PreferredLoginServer[256];
 int ServerSettingsClass::DiskLogSize = -1;
 
@@ -436,7 +436,7 @@ bool ServerSettingsClass::Parse(bool apply)
 			** There may be an IP override specified.
 			*/
 			ini.Get_String(MasterServerSection, "RemoteAdminIP", "0.0.0.0", remote_admin_ip, sizeof(remote_admin_ip));
-			unsigned long admin_ip_long = ntohl(inet_addr(remote_admin_ip));
+			unsigned int admin_ip_long = ntohl(inet_addr(remote_admin_ip));
 			reg_remote.Set_Int(SERVER_CONTROL_IP_KEY, admin_ip_long);
 
 		} else {
@@ -668,7 +668,7 @@ void ServerSettingsClass::Encrypt_Serial(StringClass serial_in, StringClass &ser
 {
 	char *s;
 	const size_t numberlength = serial_in.Get_Length();
-	unsigned long bytesread;
+	DWORD bytesread;
 	char stringbuffer[ENCRYPTION_STRING_LENGTH];
 	size_t p;
 
@@ -803,7 +803,7 @@ void ServerSettingsClass::Write_Server_List(const WWOnline::IRCServerList &serve
 		** the file back out with the server list in place.
 		*/
 		if (file.Is_Available()) {
-			unsigned long size = file.Size();
+			unsigned int size = file.Size();
 			if (size) {
 
 				/*
@@ -811,7 +811,7 @@ void ServerSettingsClass::Write_Server_List(const WWOnline::IRCServerList &serve
 				*/
 				char *file_buffer = new char[size + 8192];
 #ifdef WWDEBUG
-				unsigned long read_size =
+				unsigned int read_size =
 #endif //WWDEBUG
 				file.Read(file_buffer, size);
 				WWASSERT(read_size == size);

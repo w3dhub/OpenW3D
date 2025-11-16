@@ -181,7 +181,7 @@ private:
 	DynamicVectorClass < LegacyMaterialClass * >		LegacyMaterials;
 	DynamicVectorClass < ShaderClass >					Shaders;
 	DynamicVectorClass < VertexMaterialClass * >		VertexMaterials;
-	DynamicVectorClass < unsigned long >				VertexMaterialCrcs;
+	DynamicVectorClass < unsigned int >				VertexMaterialCrcs;
 	DynamicVectorClass < TextureClass * >				Textures;			
 
 	/*
@@ -2015,7 +2015,7 @@ void MeshLoadContextClass::Add_Legacy_Material(ShaderClass shader,VertexMaterial
 	if (vmat == NULL) {
 		mat->VertexMaterialIdx = -1;
 	} else {
-		unsigned long crc = vmat->Get_CRC();	
+		unsigned int crc = vmat->Get_CRC();	
 		int vi;
 		for (vi=0; vi<VertexMaterialCrcs.Count(); vi++) {
 			if (VertexMaterialCrcs[vi] == crc) break;

@@ -700,7 +700,7 @@ MPChatChildDialogClass::On_EditCtrl_Key_Down
 //
 ////////////////////////////////////////////////////////////////
 void
-MPChatChildDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPChatChildDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{
@@ -822,7 +822,7 @@ MPIngameChatPopupClass::Render (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPIngameChatPopupClass::On_Command (int ctrl_id, int message_id, DWORD param)
+MPIngameChatPopupClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	/*switch (ctrl_id)
 	{

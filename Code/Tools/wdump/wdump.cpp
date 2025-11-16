@@ -147,8 +147,8 @@ BOOL CWdumpApp::InitInstance()
 			} else {
 				int CrtInput;
 				int CrtOutput;
-				if ( (CrtInput  =_open_osfhandle((long) info.hStdInput, _O_RDONLY)) != -1) {
-					if ( (CrtOutput = _open_osfhandle((long) info.hStdOutput, _O_APPEND)) != -1) {
+				if ( (CrtInput  =_open_osfhandle((int) info.hStdInput, _O_RDONLY)) != -1) {
+					if ( (CrtOutput = _open_osfhandle((int) info.hStdOutput, _O_APPEND)) != -1) {
 						_dup2( CrtInput, 0);
 						_dup2( CrtOutput, 1);
 					}

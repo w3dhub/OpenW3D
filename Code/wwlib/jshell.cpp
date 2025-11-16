@@ -50,7 +50,7 @@
  * INPUT:   array -- Pointer to the bit array.                                                 *
  *                                                                                             *
  *          bit   -- The bit number to set. I.e., bit 32 is the first bit in the second        *
- *                   long word of memory.                                                      *
+ *                   int word of memory.                                                      *
  *                                                                                             *
  *          value -- The value to set the bit. The only values supported are 0 and 1.          *
  *                                                                                             *

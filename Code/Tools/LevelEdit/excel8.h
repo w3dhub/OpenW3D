@@ -58,16 +58,16 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	LPDISPATCH Add(const VARIANT& Template);
 	void Close();
-	long GetCount();
+	int GetCount();
 	LPDISPATCH GetItem(const VARIANT& Index);
 	LPUNKNOWN Get_NewEnum();
 	LPDISPATCH Open(LPCTSTR Filename, const VARIANT& UpdateLinks, const VARIANT& ReadOnly, const VARIANT& Format, const VARIANT& Password, const VARIANT& WriteResPassword, const VARIANT& IgnoreReadOnlyRecommended, const VARIANT& Origin, 
 		const VARIANT& Delimiter, const VARIANT& Editable, const VARIANT& Notify, const VARIANT& Converter, const VARIANT& AddToMru);
-	void OpenText(LPCTSTR Filename, const VARIANT& Origin, const VARIANT& StartRow, const VARIANT& DataType, long TextQualifier, const VARIANT& ConsecutiveDelimiter, const VARIANT& Tab, const VARIANT& Semicolon, const VARIANT& Comma, 
+	void OpenText(LPCTSTR Filename, const VARIANT& Origin, const VARIANT& StartRow, const VARIANT& DataType, int TextQualifier, const VARIANT& ConsecutiveDelimiter, const VARIANT& Tab, const VARIANT& Semicolon, const VARIANT& Comma, 
 		const VARIANT& Space, const VARIANT& Other, const VARIANT& OtherChar, const VARIANT& FieldInfo, const VARIANT& TextVisualLayout);
 	LPDISPATCH Get_Default(const VARIANT& Index);
 };
@@ -87,7 +87,7 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	LPDISPATCH GetActiveCell();
 	LPDISPATCH GetActiveChart();
@@ -103,12 +103,12 @@ public:
 	LPDISPATCH GetCharts();
 	LPDISPATCH GetColumns();
 	LPDISPATCH GetCommandBars();
-	long GetDDEAppReturnCode();
-	void DDEExecute(long Channel, LPCTSTR String);
-	long DDEInitiate(LPCTSTR App, LPCTSTR Topic);
-	void DDEPoke(long Channel, const VARIANT& Item, const VARIANT& Data);
-	VARIANT DDERequest(long Channel, LPCTSTR Item);
-	void DDETerminate(long Channel);
+	int GetDDEAppReturnCode();
+	void DDEExecute(int Channel, LPCTSTR String);
+	int DDEInitiate(LPCTSTR App, LPCTSTR Topic);
+	void DDEPoke(int Channel, const VARIANT& Item, const VARIANT& Data);
+	VARIANT DDERequest(int Channel, LPCTSTR Item);
+	void DDETerminate(int Channel);
 	VARIANT Evaluate(const VARIANT& Name);
 	VARIANT _Evaluate(const VARIANT& Name);
 	VARIANT ExecuteExcel4Macro(LPCTSTR String);
@@ -139,7 +139,7 @@ public:
 	LPDISPATCH GetWorksheets();
 	LPDISPATCH GetExcel4IntlMacroSheets();
 	LPDISPATCH GetExcel4MacroSheets();
-	void ActivateMicrosoftApp(long Index);
+	void ActivateMicrosoftApp(int Index);
 	void AddChartAutoFormat(const VARIANT& Chart, LPCTSTR Name, const VARIANT& Description);
 	void AddCustomList(const VARIANT& ListArray, const VARIANT& ByRow);
 	BOOL GetAlertBeforeOverwriting();
@@ -151,11 +151,11 @@ public:
 	BOOL GetEnableAnimations();
 	void SetEnableAnimations(BOOL bNewValue);
 	LPDISPATCH GetAutoCorrect();
-	long GetBuild();
+	int GetBuild();
 	BOOL GetCalculateBeforeSave();
 	void SetCalculateBeforeSave(BOOL bNewValue);
-	long GetCalculation();
-	void SetCalculation(long nNewValue);
+	int GetCalculation();
+	void SetCalculation(int nNewValue);
 	VARIANT GetCaller(const VARIANT& Index);
 	BOOL GetCanPlaySounds();
 	BOOL GetCanRecordSounds();
@@ -168,25 +168,25 @@ public:
 	VARIANT GetClipboardFormats(const VARIANT& Index);
 	BOOL GetDisplayClipboardWindow();
 	void SetDisplayClipboardWindow(BOOL bNewValue);
-	long GetCommandUnderlines();
-	void SetCommandUnderlines(long nNewValue);
+	int GetCommandUnderlines();
+	void SetCommandUnderlines(int nNewValue);
 	BOOL GetConstrainNumeric();
 	void SetConstrainNumeric(BOOL bNewValue);
-	VARIANT ConvertFormula(const VARIANT& Formula, long FromReferenceStyle, const VARIANT& ToReferenceStyle, const VARIANT& ToAbsolute, const VARIANT& RelativeTo);
+	VARIANT ConvertFormula(const VARIANT& Formula, int FromReferenceStyle, const VARIANT& ToReferenceStyle, const VARIANT& ToAbsolute, const VARIANT& RelativeTo);
 	BOOL GetCopyObjectsWithCells();
 	void SetCopyObjectsWithCells(BOOL bNewValue);
-	long GetCursor();
-	void SetCursor(long nNewValue);
-	long GetCustomListCount();
-	long GetCutCopyMode();
-	void SetCutCopyMode(long nNewValue);
-	long GetDataEntryMode();
-	void SetDataEntryMode(long nNewValue);
+	int GetCursor();
+	void SetCursor(int nNewValue);
+	int GetCustomListCount();
+	int GetCutCopyMode();
+	void SetCutCopyMode(int nNewValue);
+	int GetDataEntryMode();
+	void SetDataEntryMode(int nNewValue);
 	CString Get_Default();
 	CString GetDefaultFilePath();
 	void SetDefaultFilePath(LPCTSTR lpszNewValue);
 	void DeleteChartAutoFormat(LPCTSTR Name);
-	void DeleteCustomList(long ListNum);
+	void DeleteCustomList(int ListNum);
 	LPDISPATCH GetDialogs();
 	BOOL GetDisplayAlerts();
 	void SetDisplayAlerts(BOOL bNewValue);
@@ -196,8 +196,8 @@ public:
 	void SetDisplayFullScreen(BOOL bNewValue);
 	BOOL GetDisplayNoteIndicator();
 	void SetDisplayNoteIndicator(BOOL bNewValue);
-	long GetDisplayCommentIndicator();
-	void SetDisplayCommentIndicator(long nNewValue);
+	int GetDisplayCommentIndicator();
+	void SetDisplayCommentIndicator(int nNewValue);
 	BOOL GetDisplayExcel4Menus();
 	void SetDisplayExcel4Menus(BOOL bNewValue);
 	BOOL GetDisplayRecentFiles();
@@ -211,8 +211,8 @@ public:
 	void SetEditDirectlyInCell(BOOL bNewValue);
 	BOOL GetEnableAutoComplete();
 	void SetEnableAutoComplete(BOOL bNewValue);
-	long GetEnableCancelKey();
-	void SetEnableCancelKey(long nNewValue);
+	int GetEnableCancelKey();
+	void SetEnableCancelKey(int nNewValue);
 	BOOL GetEnableSound();
 	void SetEnableSound(BOOL bNewValue);
 	VARIANT GetFileConverters(const VARIANT& Index1, const VARIANT& Index2);
@@ -221,10 +221,10 @@ public:
 	void FindFile();
 	BOOL GetFixedDecimal();
 	void SetFixedDecimal(BOOL bNewValue);
-	long GetFixedDecimalPlaces();
-	void SetFixedDecimalPlaces(long nNewValue);
-	VARIANT GetCustomListContents(long ListNum);
-	long GetCustomListNum(const VARIANT& ListArray);
+	int GetFixedDecimalPlaces();
+	void SetFixedDecimalPlaces(int nNewValue);
+	VARIANT GetCustomListContents(int ListNum);
+	int GetCustomListNum(const VARIANT& ListArray);
 	VARIANT GetOpenFilename(const VARIANT& FileFilter, const VARIANT& FilterIndex, const VARIANT& Title, const VARIANT& ButtonText, const VARIANT& MultiSelect);
 	VARIANT GetSaveAsFilename(const VARIANT& InitialFilename, const VARIANT& FileFilter, const VARIANT& FilterIndex, const VARIANT& Title, const VARIANT& ButtonText);
 	void Goto(const VARIANT& Reference, const VARIANT& Scroll);
@@ -248,27 +248,27 @@ public:
 	void MailLogoff();
 	void MailLogon(const VARIANT& Name, const VARIANT& Password, const VARIANT& DownloadNewMail);
 	VARIANT GetMailSession();
-	long GetMailSystem();
+	int GetMailSystem();
 	BOOL GetMathCoprocessorAvailable();
 	double GetMaxChange();
 	void SetMaxChange(double newValue);
-	long GetMaxIterations();
-	void SetMaxIterations(long nNewValue);
-	long GetMemoryFree();
-	long GetMemoryTotal();
-	long GetMemoryUsed();
+	int GetMaxIterations();
+	void SetMaxIterations(int nNewValue);
+	int GetMemoryFree();
+	int GetMemoryTotal();
+	int GetMemoryUsed();
 	BOOL GetMouseAvailable();
 	BOOL GetMoveAfterReturn();
 	void SetMoveAfterReturn(BOOL bNewValue);
-	long GetMoveAfterReturnDirection();
-	void SetMoveAfterReturnDirection(long nNewValue);
+	int GetMoveAfterReturnDirection();
+	void SetMoveAfterReturnDirection(int nNewValue);
 	LPDISPATCH GetRecentFiles();
 	CString GetName();
 	LPDISPATCH NextLetter();
 	CString GetNetworkTemplatesPath();
 	LPDISPATCH GetODBCErrors();
-	long GetODBCTimeout();
-	void SetODBCTimeout(long nNewValue);
+	int GetODBCTimeout();
+	void SetODBCTimeout(int nNewValue);
 	void OnKey(LPCTSTR Key, const VARIANT& Procedure);
 	void OnRepeat(LPCTSTR Text, LPCTSTR Procedure);
 	void OnTime(const VARIANT& EarliestTime, LPCTSTR Procedure, const VARIANT& LatestTime, const VARIANT& Schedule);
@@ -287,8 +287,8 @@ public:
 	void Quit();
 	void RecordMacro(const VARIANT& BasicCode, const VARIANT& XlmCode);
 	BOOL GetRecordRelative();
-	long GetReferenceStyle();
-	void SetReferenceStyle(long nNewValue);
+	int GetReferenceStyle();
+	void SetReferenceStyle(int nNewValue);
 	VARIANT GetRegisteredFunctions(const VARIANT& Index1, const VARIANT& Index2);
 	BOOL RegisterXLL(LPCTSTR Filename);
 	void Repeat();
@@ -298,8 +298,8 @@ public:
 	BOOL GetScreenUpdating();
 	void SetScreenUpdating(BOOL bNewValue);
 	void SetDefaultChart(const VARIANT& FormatName, const VARIANT& Gallery);
-	long GetSheetsInNewWorkbook();
-	void SetSheetsInNewWorkbook(long nNewValue);
+	int GetSheetsInNewWorkbook();
+	void SetSheetsInNewWorkbook(int nNewValue);
 	BOOL GetShowChartTipNames();
 	void SetShowChartTipNames(BOOL bNewValue);
 	BOOL GetShowChartTipValues();
@@ -316,12 +316,12 @@ public:
 	void SetShowToolTips(BOOL bNewValue);
 	double GetTop();
 	void SetTop(double newValue);
-	long GetDefaultSaveFormat();
-	void SetDefaultSaveFormat(long nNewValue);
+	int GetDefaultSaveFormat();
+	void SetDefaultSaveFormat(int nNewValue);
 	CString GetTransitionMenuKey();
 	void SetTransitionMenuKey(LPCTSTR lpszNewValue);
-	long GetTransitionMenuKeyAction();
-	void SetTransitionMenuKeyAction(long nNewValue);
+	int GetTransitionMenuKeyAction();
+	void SetTransitionMenuKeyAction(int nNewValue);
 	BOOL GetTransitionNavigKeys();
 	void SetTransitionNavigKeys(BOOL bNewValue);
 	void Undo();
@@ -341,16 +341,16 @@ public:
 	double GetWidth();
 	void SetWidth(double newValue);
 	BOOL GetWindowsForPens();
-	long GetWindowState();
-	void SetWindowState(long nNewValue);
-	long GetUILanguage();
-	void SetUILanguage(long nNewValue);
-	long GetDefaultSheetDirection();
-	void SetDefaultSheetDirection(long nNewValue);
-	long GetCursorMovement();
-	void SetCursorMovement(long nNewValue);
-	long GetControlCharacters();
-	void SetControlCharacters(long nNewValue);
+	int GetWindowState();
+	void SetWindowState(int nNewValue);
+	int GetUILanguage();
+	void SetUILanguage(int nNewValue);
+	int GetDefaultSheetDirection();
+	void SetDefaultSheetDirection(int nNewValue);
+	int GetCursorMovement();
+	void SetCursorMovement(int nNewValue);
+	int GetControlCharacters();
+	void SetControlCharacters(int nNewValue);
 	BOOL GetEnableEvents();
 	void SetEnableEvents(BOOL bNewValue);
 };
@@ -370,22 +370,22 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	BOOL GetAcceptLabelsInFormulas();
 	void SetAcceptLabelsInFormulas(BOOL bNewValue);
 	void Activate();
 	LPDISPATCH GetActiveChart();
 	LPDISPATCH GetActiveSheet();
-	long GetAutoUpdateFrequency();
-	void SetAutoUpdateFrequency(long nNewValue);
+	int GetAutoUpdateFrequency();
+	void SetAutoUpdateFrequency(int nNewValue);
 	BOOL GetAutoUpdateSaveChanges();
 	void SetAutoUpdateSaveChanges(BOOL bNewValue);
-	long GetChangeHistoryDuration();
-	void SetChangeHistoryDuration(long nNewValue);
+	int GetChangeHistoryDuration();
+	void SetChangeHistoryDuration(int nNewValue);
 	LPDISPATCH GetBuiltinDocumentProperties();
-	void ChangeFileAccess(long Mode, const VARIANT& WritePassword, const VARIANT& Notify);
-	void ChangeLink(LPCTSTR Name, LPCTSTR NewName, long Type);
+	void ChangeFileAccess(int Mode, const VARIANT& WritePassword, const VARIANT& Notify);
+	void ChangeLink(LPCTSTR Name, LPCTSTR NewName, int Type);
 	LPDISPATCH GetCharts();
 	void Close(const VARIANT& SaveChanges, const VARIANT& Filename, const VARIANT& RouteWorkbook);
 	CString GetCodeName();
@@ -394,18 +394,18 @@ public:
 	VARIANT GetColors(const VARIANT& Index);
 	void SetColors(const VARIANT& Index, const VARIANT& newValue);
 	LPDISPATCH GetCommandBars();
-	long GetConflictResolution();
-	void SetConflictResolution(long nNewValue);
+	int GetConflictResolution();
+	void SetConflictResolution(int nNewValue);
 	LPDISPATCH GetContainer();
 	BOOL GetCreateBackup();
 	LPDISPATCH GetCustomDocumentProperties();
 	BOOL GetDate1904();
 	void SetDate1904(BOOL bNewValue);
 	void DeleteNumberFormat(LPCTSTR NumberFormat);
-	long GetDisplayDrawingObjects();
-	void SetDisplayDrawingObjects(long nNewValue);
+	int GetDisplayDrawingObjects();
+	void SetDisplayDrawingObjects(int nNewValue);
 	BOOL ExclusiveAccess();
-	long GetFileFormat();
+	int GetFileFormat();
 	void ForwardMailer();
 	CString GetFullName();
 	BOOL GetHasPassword();
@@ -413,7 +413,7 @@ public:
 	void SetHasRoutingSlip(BOOL bNewValue);
 	BOOL GetIsAddin();
 	void SetIsAddin(BOOL bNewValue);
-	VARIANT LinkInfo(LPCTSTR Name, long LinkInfo, const VARIANT& Type, const VARIANT& EditionRef);
+	VARIANT LinkInfo(LPCTSTR Name, int LinkInfo, const VARIANT& Type, const VARIANT& EditionRef);
 	VARIANT LinkSources(const VARIANT& Type);
 	LPDISPATCH GetMailer();
 	void MergeWorkbook(const VARIANT& Filename);
@@ -442,14 +442,14 @@ public:
 	void RefreshAll();
 	void Reply();
 	void ReplyAll();
-	void RemoveUser(long Index);
-	long GetRevisionNumber();
+	void RemoveUser(int Index);
+	int GetRevisionNumber();
 	void Route();
 	BOOL GetRouted();
 	LPDISPATCH GetRoutingSlip();
-	void RunAutoMacros(long Which);
+	void RunAutoMacros(int Which);
 	void Save();
-	void SaveAs(const VARIANT& Filename, const VARIANT& FileFormat, const VARIANT& Password, const VARIANT& WriteResPassword, const VARIANT& ReadOnlyRecommended, const VARIANT& CreateBackup, long AccessMode, const VARIANT& ConflictResolution, 
+	void SaveAs(const VARIANT& Filename, const VARIANT& FileFormat, const VARIANT& Password, const VARIANT& WriteResPassword, const VARIANT& ReadOnlyRecommended, const VARIANT& CreateBackup, int AccessMode, const VARIANT& ConflictResolution, 
 		const VARIANT& AddToMru, const VARIANT& TextCodepage, const VARIANT& TextVisualLayout);
 	void SaveCopyAs(const VARIANT& Filename);
 	BOOL GetSaved();
@@ -457,7 +457,7 @@ public:
 	BOOL GetSaveLinkValues();
 	void SetSaveLinkValues(BOOL bNewValue);
 	void SendMail(const VARIANT& Recipients, const VARIANT& Subject, const VARIANT& ReturnReceipt);
-	void SendMailer(const VARIANT& FileFormat, long Priority);
+	void SendMailer(const VARIANT& FileFormat, int Priority);
 	void SetLinkOnData(LPCTSTR Name, const VARIANT& Procedure);
 	LPDISPATCH GetSheets();
 	BOOL GetShowConflictHistory();
@@ -486,7 +486,7 @@ public:
 	void SetKeepChangeHistory(BOOL bNewValue);
 	BOOL GetListChangesOnNewSheet();
 	void SetListChangesOnNewSheet(BOOL bNewValue);
-	void PurgeChangeHistoryNow(long Days, const VARIANT& SharingPassword);
+	void PurgeChangeHistoryNow(int Days, const VARIANT& SharingPassword);
 	void AcceptAllChanges(const VARIANT& When, const VARIANT& Who, const VARIANT& Where);
 	void RejectAllChanges(const VARIANT& When, const VARIANT& Who, const VARIANT& Where);
 	void ResetColors();
@@ -511,7 +511,7 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	void Activate();
 	void Copy(const VARIANT& Before, const VARIANT& After);
@@ -519,7 +519,7 @@ public:
 	CString GetCodeName();
 	CString Get_CodeName();
 	void Set_CodeName(LPCTSTR lpszNewValue);
-	long GetIndex();
+	int GetIndex();
 	void Move(const VARIANT& Before, const VARIANT& After);
 	CString GetName();
 	void SetName(LPCTSTR lpszNewValue);
@@ -537,8 +537,8 @@ public:
 		const VARIANT& TextVisualLayout);
 	void Select(const VARIANT& Replace);
 	void Unprotect(const VARIANT& Password);
-	long GetVisible();
-	void SetVisible(long nNewValue);
+	int GetVisible();
+	void SetVisible(int nNewValue);
 	LPDISPATCH GetShapes();
 	BOOL GetTransitionExpEval();
 	void SetTransitionExpEval(BOOL bNewValue);
@@ -554,13 +554,13 @@ public:
 	LPDISPATCH GetCircularReference();
 	void ClearArrows();
 	LPDISPATCH GetColumns();
-	long GetConsolidationFunction();
+	int GetConsolidationFunction();
 	VARIANT GetConsolidationOptions();
 	VARIANT GetConsolidationSources();
 	BOOL GetEnableAutoFilter();
 	void SetEnableAutoFilter(BOOL bNewValue);
-	long GetEnableSelection();
-	void SetEnableSelection(long nNewValue);
+	int GetEnableSelection();
+	void SetEnableSelection(int nNewValue);
 	BOOL GetEnableOutlining();
 	void SetEnableOutlining(BOOL bNewValue);
 	BOOL GetEnablePivotTable();
@@ -590,7 +590,7 @@ public:
 	void SetStandardWidth(double newValue);
 	BOOL GetTransitionFormEntry();
 	void SetTransitionFormEntry(BOOL bNewValue);
-	long GetType();
+	int GetType();
 	LPDISPATCH GetUsedRange();
 	LPDISPATCH GetHPageBreaks();
 	LPDISPATCH GetVPageBreaks();
@@ -619,24 +619,24 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	void Activate();
 	VARIANT GetAddIndent();
 	void SetAddIndent(const VARIANT& newValue);
-	CString GetAddress(const VARIANT& RowAbsolute, const VARIANT& ColumnAbsolute, long ReferenceStyle, const VARIANT& External, const VARIANT& RelativeTo);
-	CString GetAddressLocal(const VARIANT& RowAbsolute, const VARIANT& ColumnAbsolute, long ReferenceStyle, const VARIANT& External, const VARIANT& RelativeTo);
-	void AdvancedFilter(long Action, const VARIANT& CriteriaRange, const VARIANT& CopyToRange, const VARIANT& Unique);
-	void ApplyNames(const VARIANT& Names, const VARIANT& IgnoreRelativeAbsolute, const VARIANT& UseRowColumnNames, const VARIANT& OmitColumn, const VARIANT& OmitRow, long Order, const VARIANT& AppendLast);
+	CString GetAddress(const VARIANT& RowAbsolute, const VARIANT& ColumnAbsolute, int ReferenceStyle, const VARIANT& External, const VARIANT& RelativeTo);
+	CString GetAddressLocal(const VARIANT& RowAbsolute, const VARIANT& ColumnAbsolute, int ReferenceStyle, const VARIANT& External, const VARIANT& RelativeTo);
+	void AdvancedFilter(int Action, const VARIANT& CriteriaRange, const VARIANT& CopyToRange, const VARIANT& Unique);
+	void ApplyNames(const VARIANT& Names, const VARIANT& IgnoreRelativeAbsolute, const VARIANT& UseRowColumnNames, const VARIANT& OmitColumn, const VARIANT& OmitRow, int Order, const VARIANT& AppendLast);
 	void ApplyOutlineStyles();
 	LPDISPATCH GetAreas();
 	CString AutoComplete(LPCTSTR String);
-	void AutoFill(LPDISPATCH Destination, long Type);
-	void AutoFilter(const VARIANT& Field, const VARIANT& Criteria1, long Operator, const VARIANT& Criteria2, const VARIANT& VisibleDropDown);
+	void AutoFill(LPDISPATCH Destination, int Type);
+	void AutoFilter(const VARIANT& Field, const VARIANT& Criteria1, int Operator, const VARIANT& Criteria2, const VARIANT& VisibleDropDown);
 	void AutoFit();
-	void AutoFormat(long Format, const VARIANT& Number, const VARIANT& Font, const VARIANT& Alignment, const VARIANT& Border, const VARIANT& Pattern, const VARIANT& Width);
+	void AutoFormat(int Format, const VARIANT& Number, const VARIANT& Font, const VARIANT& Alignment, const VARIANT& Border, const VARIANT& Pattern, const VARIANT& Width);
 	void AutoOutline();
-	void BorderAround(const VARIANT& LineStyle, long Weight, long ColorIndex, const VARIANT& Color);
+	void BorderAround(const VARIANT& LineStyle, int Weight, int ColorIndex, const VARIANT& Color);
 	LPDISPATCH GetBorders();
 	void Calculate();
 	LPDISPATCH GetCells();
@@ -647,22 +647,22 @@ public:
 	void ClearFormats();
 	void ClearNotes();
 	void ClearOutline();
-	long GetColumn();
+	int GetColumn();
 	LPDISPATCH ColumnDifferences(const VARIANT& Comparison);
 	LPDISPATCH GetColumns();
 	VARIANT GetColumnWidth();
 	void SetColumnWidth(const VARIANT& newValue);
 	void Consolidate(const VARIANT& Sources, const VARIANT& Function, const VARIANT& TopRow, const VARIANT& LeftColumn, const VARIANT& CreateLinks);
 	void Copy(const VARIANT& Destination);
-	long CopyFromRecordset(LPUNKNOWN Data, const VARIANT& MaxRows, const VARIANT& MaxColumns);
-	void CopyPicture(long Appearance, long Format);
-	long GetCount();
+	int CopyFromRecordset(LPUNKNOWN Data, const VARIANT& MaxRows, const VARIANT& MaxColumns);
+	void CopyPicture(int Appearance, int Format);
+	int GetCount();
 	void CreateNames(const VARIANT& Top, const VARIANT& Left, const VARIANT& Bottom, const VARIANT& Right);
-	void CreatePublisher(const VARIANT& Edition, long Appearance, const VARIANT& ContainsPICT, const VARIANT& ContainsBIFF, const VARIANT& ContainsRTF, const VARIANT& ContainsVALU);
+	void CreatePublisher(const VARIANT& Edition, int Appearance, const VARIANT& ContainsPICT, const VARIANT& ContainsBIFF, const VARIANT& ContainsRTF, const VARIANT& ContainsVALU);
 	LPDISPATCH GetCurrentArray();
 	LPDISPATCH GetCurrentRegion();
 	void Cut(const VARIANT& Destination);
-	void DataSeries(const VARIANT& Rowcol, long Type, long Date, const VARIANT& Step, const VARIANT& Stop, const VARIANT& Trend);
+	void DataSeries(const VARIANT& Rowcol, int Type, int Date, const VARIANT& Step, const VARIANT& Stop, const VARIANT& Trend);
 	VARIANT Get_Default(const VARIANT& RowIndex, const VARIANT& ColumnIndex);
 	void Set_Default(const VARIANT& RowIndex, const VARIANT& ColumnIndex, const VARIANT& newValue);
 	void Delete(const VARIANT& Shift);
@@ -670,15 +670,15 @@ public:
 	VARIANT DialogBox_();
 	LPDISPATCH GetDirectDependents();
 	LPDISPATCH GetDirectPrecedents();
-	VARIANT EditionOptions(long Type, long Option, const VARIANT& Name, const VARIANT& Reference, long Appearance, long ChartSize, const VARIANT& Format);
-	LPDISPATCH GetEnd(long Direction);
+	VARIANT EditionOptions(int Type, int Option, const VARIANT& Name, const VARIANT& Reference, int Appearance, int ChartSize, const VARIANT& Format);
+	LPDISPATCH GetEnd(int Direction);
 	LPDISPATCH GetEntireColumn();
 	LPDISPATCH GetEntireRow();
 	void FillDown();
 	void FillLeft();
 	void FillRight();
 	void FillUp();
-	LPDISPATCH Find(const VARIANT& What, const VARIANT& After, const VARIANT& LookIn, const VARIANT& LookAt, const VARIANT& SearchOrder, long SearchDirection, const VARIANT& MatchCase, const VARIANT& MatchByte, 
+	LPDISPATCH Find(const VARIANT& What, const VARIANT& After, const VARIANT& LookIn, const VARIANT& LookAt, const VARIANT& SearchOrder, int SearchDirection, const VARIANT& MatchCase, const VARIANT& MatchByte, 
 		const VARIANT& MatchControlCharacters, const VARIANT& MatchDiacritics, const VARIANT& MatchKashida, const VARIANT& MatchAlefHamza);
 	LPDISPATCH FindNext(const VARIANT& After);
 	LPDISPATCH FindPrevious(const VARIANT& After);
@@ -687,8 +687,8 @@ public:
 	void SetFormula(const VARIANT& newValue);
 	VARIANT GetFormulaArray();
 	void SetFormulaArray(const VARIANT& newValue);
-	long GetFormulaLabel();
-	void SetFormulaLabel(long nNewValue);
+	int GetFormulaLabel();
+	void SetFormulaLabel(int nNewValue);
 	VARIANT GetFormulaHidden();
 	void SetFormulaHidden(const VARIANT& newValue);
 	VARIANT GetFormulaLocal();
@@ -709,16 +709,16 @@ public:
 	void SetHorizontalAlignment(const VARIANT& newValue);
 	VARIANT GetIndentLevel();
 	void SetIndentLevel(const VARIANT& newValue);
-	void InsertIndent(long InsertAmount);
+	void InsertIndent(int InsertAmount);
 	void Insert(const VARIANT& Shift);
 	LPDISPATCH GetInterior();
 	VARIANT GetItem(const VARIANT& RowIndex, const VARIANT& ColumnIndex);
 	void SetItem(const VARIANT& RowIndex, const VARIANT& ColumnIndex, const VARIANT& newValue);
 	void Justify();
 	VARIANT GetLeft();
-	long GetListHeaderRows();
+	int GetListHeaderRows();
 	void ListNames();
-	long GetLocationInTable();
+	int GetLocationInTable();
 	VARIANT GetLocked();
 	void SetLocked(const VARIANT& newValue);
 	void Merge(const VARIANT& Across);
@@ -741,10 +741,10 @@ public:
 	void SetOrientation(const VARIANT& newValue);
 	VARIANT GetOutlineLevel();
 	void SetOutlineLevel(const VARIANT& newValue);
-	long GetPageBreak();
-	void SetPageBreak(long nNewValue);
+	int GetPageBreak();
+	void SetPageBreak(int nNewValue);
 	void Parse(const VARIANT& ParseLine, const VARIANT& Destination);
-	void PasteSpecial(long Paste, long Operation, const VARIANT& SkipBlanks, const VARIANT& Transpose);
+	void PasteSpecial(int Paste, int Operation, const VARIANT& SkipBlanks, const VARIANT& Transpose);
 	LPDISPATCH GetPivotField();
 	LPDISPATCH GetPivotItem();
 	LPDISPATCH GetPivotTable();
@@ -759,7 +759,7 @@ public:
 	BOOL Replace(const VARIANT& What, const VARIANT& Replacement, const VARIANT& LookAt, const VARIANT& SearchOrder, const VARIANT& MatchCase, const VARIANT& MatchByte, const VARIANT& MatchControlCharacters, const VARIANT& MatchDiacritics, 
 		const VARIANT& MatchKashida, const VARIANT& MatchAlefHamza);
 	LPDISPATCH GetResize(const VARIANT& RowSize, const VARIANT& ColumnSize);
-	long GetRow();
+	int GetRow();
 	LPDISPATCH RowDifferences(const VARIANT& Comparison);
 	VARIANT GetRowHeight();
 	void SetRowHeight(const VARIANT& newValue);
@@ -776,19 +776,19 @@ public:
 	void ShowPrecedents(const VARIANT& Remove);
 	VARIANT GetShrinkToFit();
 	void SetShrinkToFit(const VARIANT& newValue);
-	void Sort(const VARIANT& Key1, long Order1, const VARIANT& Key2, const VARIANT& Type, long Order2, const VARIANT& Key3, long Order3, long Header, const VARIANT& OrderCustom, const VARIANT& MatchCase, long Orientation, long SortMethod, 
+	void Sort(const VARIANT& Key1, int Order1, const VARIANT& Key2, const VARIANT& Type, int Order2, const VARIANT& Key3, int Order3, int Header, const VARIANT& OrderCustom, const VARIANT& MatchCase, int Orientation, int SortMethod, 
 		const VARIANT& IgnoreControlCharacters, const VARIANT& IgnoreDiacritics, const VARIANT& IgnoreKashida);
-	void SortSpecial(long SortMethod, const VARIANT& Key1, long Order1, const VARIANT& Type, const VARIANT& Key2, long Order2, const VARIANT& Key3, long Order3, long Header, const VARIANT& OrderCustom, const VARIANT& MatchCase, long Orientation);
+	void SortSpecial(int SortMethod, const VARIANT& Key1, int Order1, const VARIANT& Type, const VARIANT& Key2, int Order2, const VARIANT& Key3, int Order3, int Header, const VARIANT& OrderCustom, const VARIANT& MatchCase, int Orientation);
 	LPDISPATCH GetSoundNote();
-	LPDISPATCH SpecialCells(long Type, const VARIANT& Value);
+	LPDISPATCH SpecialCells(int Type, const VARIANT& Value);
 	VARIANT GetStyle();
 	void SetStyle(const VARIANT& newValue);
-	void SubscribeTo(LPCTSTR Edition, long Format);
-	void Subtotal(long GroupBy, long Function, const VARIANT& TotalList, const VARIANT& Replace, const VARIANT& PageBreaks, long SummaryBelowData);
+	void SubscribeTo(LPCTSTR Edition, int Format);
+	void Subtotal(int GroupBy, int Function, const VARIANT& TotalList, const VARIANT& Replace, const VARIANT& PageBreaks, int SummaryBelowData);
 	VARIANT GetSummary();
 	void Table(const VARIANT& RowInput, const VARIANT& ColumnInput);
 	VARIANT GetText();
-	void TextToColumns(const VARIANT& Destination, long DataType, long TextQualifier, const VARIANT& ConsecutiveDelimiter, const VARIANT& Tab, const VARIANT& Semicolon, const VARIANT& Comma, const VARIANT& Space, const VARIANT& Other, 
+	void TextToColumns(const VARIANT& Destination, int DataType, int TextQualifier, const VARIANT& ConsecutiveDelimiter, const VARIANT& Tab, const VARIANT& Semicolon, const VARIANT& Comma, const VARIANT& Space, const VARIANT& Other, 
 		const VARIANT& OtherChar, const VARIANT& FieldInfo);
 	VARIANT GetTop();
 	void Ungroup();
@@ -812,8 +812,8 @@ public:
 	void ClearComments();
 	LPDISPATCH GetPhonetic();
 	LPDISPATCH GetFormatConditions();
-	long GetReadingOrder();
-	void SetReadingOrder(long nNewValue);
+	int GetReadingOrder();
+	void SetReadingOrder(int nNewValue);
 	LPDISPATCH GetHyperlinks();
 };
 /////////////////////////////////////////////////////////////////////////////
@@ -832,7 +832,7 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	VARIANT GetColor();
 	void SetColor(const VARIANT& newValue);
@@ -859,14 +859,14 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	VARIANT GetColor();
 	void SetColor(const VARIANT& newValue);
 	VARIANT GetColorIndex();
 	void SetColorIndex(const VARIANT& newValue);
-	long GetCount();
-	LPDISPATCH GetItem(long Index);
+	int GetCount();
+	LPDISPATCH GetItem(int Index);
 	VARIANT GetLineStyle();
 	void SetLineStyle(const VARIANT& newValue);
 	LPUNKNOWN Get_NewEnum();
@@ -874,7 +874,7 @@ public:
 	void SetValue(const VARIANT& newValue);
 	VARIANT GetWeight();
 	void SetWeight(const VARIANT& newValue);
-	LPDISPATCH Get_Default(long Index);
+	LPDISPATCH Get_Default(int Index);
 };
 /////////////////////////////////////////////////////////////////////////////
 // Interior wrapper class
@@ -892,7 +892,7 @@ public:
 // Operations
 public:
 	LPDISPATCH GetApplication();
-	long GetCreator();
+	int GetCreator();
 	LPDISPATCH GetParent();
 	VARIANT GetColor();
 	void SetColor(const VARIANT& newValue);

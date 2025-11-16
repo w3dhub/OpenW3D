@@ -339,7 +339,7 @@ ScoreScreenDialogClass::On_Destroy (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-ScoreScreenDialogClass::On_Command (int ctrl_id, int mesage_id, DWORD param)
+ScoreScreenDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
 {
 	switch (ctrl_id)
 	{

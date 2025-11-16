@@ -705,7 +705,7 @@ const char *LightmapPacker::Asset_Directory (const char *filename)
 void LightmapPacker::Delete_Assets()
 {
 	char			pathname [_MAX_PATH];
-	long			handle;
+	int			handle;
 	_finddata_t	fileinfo;
 
 	// Attempt to delete every file in the asset directory.
@@ -755,7 +755,7 @@ void LightmapPacker::Copy_Assets (const char *pathname)
 	char			loadpathname [_MAX_PATH];
 	char			savepath [_MAX_PATH];
 	char			savepathname [_MAX_PATH];
-	long			handle;
+	int			handle;
 	_finddata_t	fileinfo;
 	
 	// Attempt to copy every file in the load directory to the save directory.
@@ -1769,7 +1769,7 @@ char *TrueColorTarga::Load (const char *pathname)
 
 	static char _messagebuffer [256];
 
-	long			   error;
+	int			   error;
 	bool			   valid;
 	StringBuilder  errormessage (_messagebuffer, sizeof (_messagebuffer));
 	
@@ -1811,7 +1811,7 @@ char *TrueColorTarga::Save (const char *pathname)
 
 	static char _messagebuffer [256];
 
-	long			   error;
+	int			   error;
 	StringBuilder  errormessage (_messagebuffer, sizeof (_messagebuffer));
 
 	error = Targa::Save (pathname, TGAF_IMAGE);

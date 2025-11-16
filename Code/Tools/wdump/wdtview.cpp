@@ -87,7 +87,7 @@ void CWDumpTreeView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	// add all the chunk items to the view
 	CTreeCtrl &tree = GetTreeCtrl();
 	tree.DeleteAllItems();
-	long flags = tree.GetStyle();
+	int flags = tree.GetStyle();
 	flags |= TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_DISABLEDRAGDROP;
 	SetWindowLong(tree.GetSafeHwnd(), GWL_STYLE, flags);
 
@@ -128,7 +128,7 @@ void CWDumpTreeView::InsertItem(ChunkItem * item, HTREEITEM Parent)
 
 	CTreeCtrl &tree = GetTreeCtrl();
 	HTREEITEM tree_item = tree.InsertItem(name, Parent);
-	tree.SetItem(tree_item, TVIF_PARAM,0,0,0,0,0, (long) item);
+	tree.SetItem(tree_item, TVIF_PARAM,0,0,0,0,0, (int) item);
 
 	POSITION p = item->Chunks.GetHeadPosition();
 	while(p != 0) {

@@ -48,17 +48,17 @@ class DlgMPConnect :
 		// Display connecting dialog.
 		//   TeamChoice - Team preference of connecting player
 		//   ClanID - ID of players clan (0 if not a clan game)
-		static bool DoDialog(int teamChoice, unsigned long clanID);
+		static bool DoDialog(int teamChoice, unsigned int clanID);
 
 		void Connected(cGameData* theGame);
 		void Failed_To_Connect(void);
 
 
 	protected:
-		DlgMPConnect(int teamChoice, unsigned long clanID);
+		DlgMPConnect(int teamChoice, unsigned int clanID);
 		virtual ~DlgMPConnect();
 
-		void On_Command(int ctrl, int message, DWORD param) override;
+		void On_Command(int ctrl, int message, unsigned int param) override;
 		void On_Periodic(void) override;
 
 	private:
@@ -67,7 +67,7 @@ class DlgMPConnect :
 		const DlgMPConnect& operator=(const DlgMPConnect&);
 
 		int mTeamChoice;
-		unsigned long mClanID;
+		unsigned int mClanID;
 
 		cGameData* mTheGame;
 		bool mFailed;

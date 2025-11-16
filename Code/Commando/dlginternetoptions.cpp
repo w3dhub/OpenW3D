@@ -108,7 +108,7 @@ InternetOptionsMenuClass::On_Init_Dialog (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-InternetOptionsMenuClass::On_Command (int ctrl_id, int message_id, DWORD param)
+InternetOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	MenuDialogClass::On_Command (ctrl_id, message_id, param);
 	return ;

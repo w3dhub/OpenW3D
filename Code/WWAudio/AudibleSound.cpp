@@ -692,7 +692,7 @@ AudibleSoundClass::Stop (bool remove_from_playlist)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 void
-AudibleSoundClass::Seek (unsigned long milliseconds)
+AudibleSoundClass::Seek (unsigned int milliseconds)
 {
 	MMSLockClass lock;
 
@@ -1164,7 +1164,7 @@ void
 AudibleSoundClass::Update_Play_Position (void)
 {
 	// Determine the current offset from the beginning of the sound buffer.
-	unsigned long play_time = TIMEGETTIME () - m_Timestamp;
+	unsigned int play_time = TIMEGETTIME () - m_Timestamp;
 	m_CurrentPosition = play_time;
 
 	// Have we gone past the end of a sounds play-time?

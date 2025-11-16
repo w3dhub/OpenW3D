@@ -68,7 +68,7 @@ int		LanguageID		= 0;
 /* LOCALE API                                                               */
 /****************************************************************************/
 wchar_t *		Remove_Quotes_Around_String ( wchar_t *old_string );
-void *	 	Load_File ( const CHAR *filename, long *filesize );
+void *	 	Load_File ( const CHAR *filename, int *filesize );
 
 //=============================================================================
 // These are wrapper functions around the LOCALE_ functions.  I made these to 
@@ -194,7 +194,7 @@ int Locale_Init	( int language, const char *file )
 		//---------------------------------------------------------------------
 		// Create a file buffer that holds all the strings in the file.
 		//---------------------------------------------------------------------
-		long		filesize;
+		int		filesize;
 		HRSRC 		hRsrc;
 		HGLOBAL		hGlobal;
 		int			PrimaryLanguage = LANG_NEUTRAL;
@@ -457,7 +457,7 @@ wchar_t *Remove_Quotes_Around_String ( wchar_t *old_string )
  *   10/17/1994 JLB : Created.													*
  *==============================================================================*/
 
-void * Load_File ( const char *filename, long *filesize )
+void * Load_File ( const char *filename, int *filesize )
 {
 	int					size, bytes_read;
 	void				*ptr = NULL;
@@ -507,7 +507,7 @@ void * Load_File ( const char *filename, long *filesize )
 	}
 
 	if ( filesize != NULL ) {
-		*filesize = (long)size;
+		*filesize = (int)size;
 	}
 	return( ptr );
 }

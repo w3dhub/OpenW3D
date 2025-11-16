@@ -254,7 +254,7 @@ void BINKMovieClass::Render()
 	}
 
 	if (SubTitleManager) {
-		unsigned long movieTime = (Bink->FrameNum * TicksPerFrame);
+		unsigned int movieTime = (Bink->FrameNum * TicksPerFrame);
 		SubTitleManager->Process(movieTime);
 		SubTitleManager->Render();
 	}

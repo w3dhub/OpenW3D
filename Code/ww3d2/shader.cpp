@@ -48,8 +48,8 @@
 
 
 bool ShaderClass::ShaderDirty=true;
-unsigned long ShaderClass::CurrentShader=0;
-unsigned long _PolygonCullMode = D3DCULL_CW;
+unsigned int ShaderClass::CurrentShader=0;
+unsigned int _PolygonCullMode = D3DCULL_CW;
 
 
 /*
@@ -408,7 +408,7 @@ const Blend dstBlendLUT[ShaderClass::DSTBLEND_MAX] =
  *=============================================================================================*/
 void ShaderClass::Apply()
 {
-	unsigned long diff;
+	unsigned int diff;
 
 	unsigned int TextureOpCaps=DX8Wrapper::Get_Current_Caps()->Get_DX8_Caps().TextureOpCaps;
 

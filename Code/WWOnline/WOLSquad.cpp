@@ -79,7 +79,7 @@ void SquadData::Reset(void)
 *
 ******************************************************************************/
 
-RefPtr<SquadData> SquadData::FindByID(unsigned long id)
+RefPtr<SquadData> SquadData::FindByID(unsigned int id)
 	{
 	const size_t count = _mSquadColl.size();
 

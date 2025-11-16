@@ -172,7 +172,7 @@ void cNetwork::Init_Client(unsigned short my_port)
 		The_Game()->Set_Password(cGameSpyAdmin::Get_Password_Attempt());
 	}
 
-	ULONG bbo = 0;
+	unsigned int bbo = 0;
 	//if (IS_SOLOPLAY || GameModeManager::Find("LAN")->Is_Active()) {
 	if (IS_SOLOPLAY || 
 		 (GameModeManager::Find("LAN")->Is_Active() && !cGameSpyAdmin::Is_Gamespy_Game())) {
@@ -361,7 +361,7 @@ void cNetwork::Refusal_Handler(REFUSAL_CODE refusal_code)
    // The server refused our connection request! At this stage this
    // is fatal. Later on we would have to re-init the connection etc.
    //
-	static const unsigned long _refusalStrings[] = {
+	static const unsigned int _refusalStrings[] = {
 		IDS_MP_CONNECTION_REFUSED_GAME_FULL,      // REFUSAL_GAME_FULL
 		IDS_MP_PASSWORD_WRONG, // REFUSAL_BAD_PASSWORD
 		IDS_MENU_VERSION_MISMATCH, // REFUSAL_VERSION_MISMATCH
@@ -369,7 +369,7 @@ void cNetwork::Refusal_Handler(REFUSAL_CODE refusal_code)
 		IDS_MP_CONNECTION_REFUSED_BY_APPLICATION  // REFUSAL_BY_APPLICATION
 		};
 
-	const unsigned long refusalMsg = _refusalStrings[refusal_code - 1];
+	const unsigned int refusalMsg = _refusalStrings[refusal_code - 1];
 
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
 		if (refusal_code == REFUSAL_VERSION_MISMATCH) {
@@ -669,7 +669,7 @@ void cNetwork::Init_Server(void)
 	} else {
 		//WWASSERT(GameModeManager::Find("WOL")->Is_Active());
 		WWASSERT(cUserOptions::BandwidthBps.Get() > 0);
-		unsigned long bw = cBandwidth::Get_Bandwidth_Bps_From_Type((BANDWIDTH_TYPE_ENUM)cUserOptions::Get_Bandwidth_Type());
+		unsigned int bw = cBandwidth::Get_Bandwidth_Bps_From_Type((BANDWIDTH_TYPE_ENUM)cUserOptions::Get_Bandwidth_Type());
 
 		/*
 		** Only use a portion of the bandwidth based on how many slave servers there are.
@@ -817,11 +817,11 @@ void cNetwork::Update_Fps(void)
 
 void cNetwork::Connection_Status_Change_Feedback(void)
 {
-	static unsigned long _last_print = TIMEGETTIME();
+	static unsigned int _last_print = TIMEGETTIME();
 	static bool _last_print_bad = false;
-	static unsigned long _print_good_soon = 0;
+	static unsigned int _print_good_soon = 0;
 
-	unsigned long time = TIMEGETTIME();
+	unsigned int time = TIMEGETTIME();
 	const wchar_t *string = NULL;
 	if (LastServerConnectionStateBad) {
 		if (_last_print_bad && time - _last_print < 4000) {

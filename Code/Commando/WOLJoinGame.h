@@ -98,7 +98,7 @@ class WOLJoinGame :
 		RefPtr<WWOnline::ChannelData> mTheChannel;
 
 		int mTeamChoice;
-		unsigned long mClanID;
+		unsigned int mClanID;
 	};
 
 #endif //__WOLJOINGAME_H__

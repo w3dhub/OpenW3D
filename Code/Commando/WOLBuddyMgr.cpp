@@ -61,8 +61,8 @@ static const int MAX_USERNAME_LEN = 64;
 
 static const wchar_t INVITE_CMD[] = L"<WWINVITE>";
 static const wchar_t DECLINE_CMD[] = L"<WWDECLINE>";
-static const unsigned long INVITE_CMD_LEN = ((sizeof(INVITE_CMD) / sizeof(wchar_t)) - 1);
-static const unsigned long DECLINE_CMD_LEN = ((sizeof(DECLINE_CMD) / sizeof(wchar_t)) - 1);
+static constexpr size_t INVITE_CMD_LEN = ((sizeof(INVITE_CMD) / sizeof(wchar_t)) - 1);
+static constexpr size_t DECLINE_CMD_LEN = ((sizeof(DECLINE_CMD) / sizeof(wchar_t)) - 1);
 
 WOLBuddyMgr* WOLBuddyMgr::_mInstance = NULL;
 
@@ -215,7 +215,7 @@ void WOLBuddyMgr::LoadIgnoreList(void)
 		{
 		// Build a list of users to ignore
 		char valueName[128];
-		unsigned long valueSize = sizeof(valueName);
+		DWORD valueSize = sizeof(valueName);
 		int index = 0;
 
 		while (RegEnumValueA(hKey, index, valueName, &valueSize, 0, NULL, NULL, NULL) == ERROR_SUCCESS)
