@@ -473,16 +473,16 @@ RefPtr<LadderData> UserData::GetLadderFromType(LadderType type)
 NativeWOLUserList::NativeWOLUserList(const UserList& users) :
 		mNativeList(NULL)
 	{
-	int count = users.size();
+	const size_t count = users.size();
 
 	if (count > 0)
-		{
+	{
 		mNativeList = new WOL::User[count];
 
 		if (mNativeList)
+		{
+			for (size_t index = 0; index < count; index++)
 			{
-			for (int index = 0; index < count; index++)
-				{
 				WOL::User* wolUser = &users[index]->GetData();
 				memcpy(&mNativeList[index], wolUser, sizeof(WOL::User));
 

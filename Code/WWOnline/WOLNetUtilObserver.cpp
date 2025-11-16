@@ -493,9 +493,9 @@ void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, long timeStamp
 
 void NetUtilObserver::NotifyClanLadderUpdate(const UserList& users, const RefPtr<SquadData>& squad)
 	{
-	const unsigned int userCount = users.size();
+	const size_t userCount = users.size();
 
-	for (unsigned int index = 0; index < userCount; ++index)
+	for (size_t index = 0; index < userCount; ++index)
 		{
 		const RefPtr<UserData>& user = users[index];
 

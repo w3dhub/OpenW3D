@@ -59,6 +59,7 @@
 #include "ffactory.h"
 #include "simplevec.h"
 #include "cpudetect.h"
+#include <limits>
 #include <cstdint>
 #include <thread>
 
@@ -166,7 +167,9 @@ void WWProfileHierachyNodeClass::Write_To_File(FileClass* file,int recursion)
 		for (i=0;i<recursion;++i) { string+="\t"; }
 		work.Format("%s\t%d\t%f\r\n",Name,TotalCalls,TotalTime*1000.0f);
 		string+=work;
-		file->Write(string.Peek_Buffer(),string.Get_Length());
+		const size_t length = string.Get_Length();
+		WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		file->Write(string.Peek_Buffer(), static_cast<int>(length));
 	}
 	if (Child) {
 		Child->Write_To_File(file,recursion+1);
@@ -520,12 +523,20 @@ void	WWProfileManager::End_Collecting(const char* filename)
 				"Total frames: %d, average frame time: %fms\r\n"
 				"All frames taking more than twice the average frame time are marked with keyword SPIKE.\r\n\r\n",
 				ProfileCollectVector.Count(),avg_frame_time*1000.0f);
-			file->Write(str.Peek_Buffer(),str.Get_Length());
+			{
+				const size_t length = str.Get_Length();
+				WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+				file->Write(str.Peek_Buffer(), static_cast<int>(length));
+			}
 
 			for (i=0;i<ProfileCollectVector.Count();++i) {
 				float frame_time=ProfileCollectVector[i]->Get_Total_Time();
 				str.Format("FRAME: %d %fms %s ---------------\r\n",i,frame_time*1000.0f,frame_time>avg_frame_time*2.0f ? "SPIKE" : "");
-				file->Write(str.Peek_Buffer(),str.Get_Length());
+				{
+					const size_t length = str.Get_Length();
+					WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
+					file->Write(str.Peek_Buffer(), static_cast<int>(length));
+				}
 				ProfileCollectVector[i]->Write_To_File(file,0);
 			}
 		

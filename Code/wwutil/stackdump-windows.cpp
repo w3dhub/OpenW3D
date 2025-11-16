@@ -140,7 +140,7 @@ cStackDump::Print_Call_Stack
 	int num_addresses = Stack_Walk(return_addresses, 256, NULL);
 	unsigned char symbol[256];
 	IMAGEHLP_SYMBOL * symptr = (IMAGEHLP_SYMBOL*) &symbol;
-	int symload = 0;
+	DWORD_ARCH symload = 0;
 	bool symbols_available = false;
 
 	if (_SymInitialize != NULL && _SymInitialize(::GetCurrentProcess(), NULL, false))	
@@ -158,7 +158,7 @@ cStackDump::Print_Call_Stack
 
 		if (_SymLoadModule != NULL) 
 		{
-			symload = _SymLoadModule(::GetCurrentProcess(), NULL, module_name, NULL, 0, 0);
+			symload = static_cast<DWORD_ARCH>(_SymLoadModule(::GetCurrentProcess(), NULL, module_name, NULL, 0, 0));
 		}
 
 		if (symload == 0 && GetLastError() != 0)

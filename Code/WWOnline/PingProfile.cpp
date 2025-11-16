@@ -73,12 +73,12 @@ bool RecalculatePingProfile(const RefPtr<Session>& session)
 		const PingServerList& pingers = session->GetPingServerList();
 
 		// The ping profile holds up to eight pings.
-		unsigned int count = std::min<unsigned int>(8, pingers.size());
+		const size_t count = std::min(static_cast<size_t>(8), pingers.size());
 
 		// If there aren't any ping servers then fail.
 		if (count > 0)
 			{
-			for (unsigned int index = 0; index < count; index++)
+			for (size_t index = 0; index < count; index++)
 				{
 				int pingTime = pingers[index]->GetPingTime();
 
@@ -335,7 +335,8 @@ void PingProfileWait::WaitBeginning(void)
 	const PingServerList& pingers = mWOLSession->GetPingServerList();
 
 	// Handle up to eight servers
-	mCount = std::min<unsigned int>(8, pingers.size());
+	const size_t count = std::min(static_cast<size_t>(8), pingers.size());
+	mCount = static_cast<unsigned int>(count);
 
 	if (mCount == 0)
 		{

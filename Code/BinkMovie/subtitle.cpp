@@ -145,7 +145,7 @@ void SubTitleClass::Set_Caption(wchar_t* string)
 
 	// Make a copy of caption
 	if (string != NULL) {
-		unsigned int length = wcslen(string);
+		size_t length = wcslen(string);
 		mCaption = new wchar_t[length + 1];
 		WWASSERT(mCaption != NULL);
 

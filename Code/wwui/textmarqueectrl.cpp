@@ -37,6 +37,7 @@
 #include "textmarqueectrl.h"
 #include "stylemgr.h"
 #include "dialogmgr.h"
+#include <limits>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -289,7 +290,8 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 			} else {											\
 				size_t bytes	= src_end - src_start;	\
 				size_t len		= bytes / sizeof (wchar_t);						\
-				::memcpy (dest.Get_Buffer (len + 1), src_start, bytes);	\
+				WWASSERT(len + 1 <= static_cast<size_t>(std::numeric_limits<int>::max())); \
+			::memcpy (dest.Get_Buffer (static_cast<int>(len + 1)), src_start, bytes);	\
 				dest.Peek_Buffer ()[len] = 0;										\
 			}
 
@@ -365,7 +367,7 @@ TextMarqueeCtrlClass::Read_Tag (const wchar_t *text, CREDIT_LINE &line)
 
 
 	if (text[0] == L'<') {
-		for (int index = 1; text[index] != 0; index ++) {
+		for (size_t index = 1; text[index] != 0; index ++) {
 			
 			//
 			//	Is this the 'end-tag' bracket?
@@ -381,22 +383,27 @@ TextMarqueeCtrlClass::Read_Tag (const wchar_t *text, CREDIT_LINE &line)
 					// We found the bold specifier
 					//
 					line.FontIndex = 1;
-					retval = index;
+					WWASSERT(index <= static_cast<size_t>(std::numeric_limits<int>::max()));
+					retval = static_cast<int>(index);
 				} else if (::_wcsnicmp (text+1, TAG_COLOR, ::wcslen (TAG_COLOR)) == 0) {
 					
 					//
 					//	We found the color specifier
 					//					
-					int tag_len = ::wcslen (TAG_COLOR)+1;
+					const size_t tag_len = ::wcslen (TAG_COLOR) + 1;
 					text += tag_len;
 
 					//
 					//	Copy the params to their own temp string
-					//
-					WideStringClass temp_buffer (index + 1, true);
+				//
+				WWASSERT(index + 1 <= static_cast<size_t>(std::numeric_limits<int>::max()));
+				WideStringClass temp_buffer (static_cast<int>(index + 1), true);
 //					::strncpyW (temp_buffer.Peek_Buffer (), text, (index + 1) - tag_len);
 			
-					int length = ((index + 1) - tag_len);
+					WWASSERT(index + 1 >= tag_len);
+					const size_t length_sz = (index + 1) - tag_len;
+					WWASSERT(length_sz > 0 && length_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
+					int length = static_cast<int>(length_sz);
 					wchar_t* tempPtr = temp_buffer.Peek_Buffer();
 					wcsncpy(tempPtr, text, length);
 					tempPtr[length - 1] = 0;

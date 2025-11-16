@@ -193,7 +193,8 @@ void CGameSpyQnR::LaunchArcade(void) {
 				(LPBYTE)value.Get_Buffer(data_size), &data_size);
 		}
 		if (!value.Is_Empty()) {
-			if (value[value.Get_Length()-1] == '\\') {
+			const size_t length = value.Get_Length();
+			if (value[static_cast<int>(length - 1)] == '\\') {
 				value += "Aphex.exe";
 			} else {
 				value += "\\Aphex.exe";
@@ -587,9 +588,12 @@ BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key,
 	WWASSERT(outbuf);
 	WWASSERT(key);
 
-	int clen = strlen(outbuf);
+	const size_t clen = ::strlen(outbuf);
+	const size_t required = clen + ::strlen(key) + ::strlen(value) + 3;
 
-	if (clen + strlen(key) + strlen(value) + 3 > (unsigned int)maxlen) return false;
+	if (required > static_cast<size_t>(maxlen)) {
+		return FALSE;
+	}
 
 	char *s = new char[strlen(value)+1];
 	strcpy(s, value);

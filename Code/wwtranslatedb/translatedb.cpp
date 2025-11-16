@@ -435,14 +435,14 @@ TranslateDBClass::Export_Table (const char *filename)
 			TDBObjClass *object = m_ObjectList[index];
 			if (object != NULL && object->As_StringTwiddlerClass () == NULL) {
 				
-				StringClass english_string = object->Get_English_String ();
+			StringClass english_string = object->Get_English_String ();
 
-				int length = english_string.Get_Length ();
-				for (int index = 0; index < length; index ++) {
-					if (english_string[index] == '\n') {
-						english_string[index] = ' ';
-					}
+			const size_t length = english_string.Get_Length ();
+			for (size_t index = 0; index < length; index ++) {
+				if (english_string[static_cast<int>(index)] == '\n') {
+					english_string[static_cast<int>(index)] = ' ';
 				}
+			}
 
 				//
 				//	Lookup the string's category
@@ -586,15 +586,15 @@ TranslateDBClass::Import_C_Header (const char *filename)
 					//
 					//	Find out where each word begins and ends
 					//
-					int count = line.Get_Length ();
-					for (int index = 8; curr_break < 4 && index < count; index ++) {						
+			const size_t count = line.Get_Length ();
+			for (size_t index = 8; curr_break < 4 && index < count; index ++) { 
 
-						bool is_whitespace = (line[index] == ' ' || line[index] == '\t');
-						
-						if (is_whitespace == (curr_break & 1) || index == count - 1) {
-							word_breaks[curr_break ++] = index;
-						}
-					}
+				bool is_whitespace = (line[static_cast<int>(index)] == ' ' || line[static_cast<int>(index)] == '\t');
+				
+				if (is_whitespace == (curr_break & 1) || index == count - 1) {
+					word_breaks[curr_break ++] = static_cast<int>(index);
+				}
+			}
 
 					//
 					//	Did we encounter the right number of words?
@@ -1101,18 +1101,18 @@ Convert_Chars_To_Newline (StringClass &string)
 {
 	StringClass retval;
 	
-	int count = string.Get_Length ();
+	const size_t count = string.Get_Length ();
 
 	//
 	//	Copy characters between the strings
 	//
-	for (int index = 0; index < count; index ++) {
-		
-		if (index + 1 < count && string[index] == '\\' && string[index + 1] == 'n') {
+	for (size_t index = 0; index < count; index ++) {
+
+		if (index + 1 < count && string[static_cast<int>(index)] == '\\' && string[static_cast<int>(index + 1)] == 'n') {
 			retval += '\n';
 			index ++;
 		} else {
-			retval += string[index];
+			retval += string[static_cast<int>(index)];
 		}
 	}
 
@@ -1226,7 +1226,7 @@ int Build_List_From_String
 		 (delimiter != NULL) &&
 		 (string_list != NULL))
 	{
-		int delim_len = ::strlen (delimiter);
+		const size_t delim_len = ::strlen (delimiter);
 
 		//
 		// Determine how many entries there will be in the list

@@ -159,9 +159,9 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 		//	Strip the search mask from the string
 		//
 		path_name	= search_string;
-		int len		= ::strlen (search_string);
-		int index	= search_dir - search_string;
-		path_name.Erase (index, len - index);
+		const size_t len		= ::strlen (search_string);
+		const size_t index_offset	= static_cast<size_t>(search_dir - search_string);
+		path_name.Erase (static_cast<int>(index_offset), static_cast<int>(len - index_offset));
 	}
 	
 	//
@@ -638,7 +638,7 @@ LoadSPGameMenuClass::Update_Button_State (void)
 			//
 			//	Check to see if this is a saved game or a level file.
 			//
-			int len = filename.Get_Length ();
+			const size_t len = filename.Get_Length ();
 			if (len >= 4 && ::stricmp ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
 				enable = true;
 			}
@@ -701,7 +701,7 @@ LoadSPGameMenuClass::Delete_Game (bool prompt)
 			StringClass filename = ((StringClass *)list_ctrl->Get_Entry_Data (item_index, 1))->Peek_Buffer ();
 
 			// Never delete .MIX files
-			int len = filename.Get_Length ();
+			const size_t len = filename.Get_Length ();
 			if (len >= 4 && ::stricmp ((filename.Peek_Buffer () + (len - 4)), ".mix") != 0) {
 
 				if (prompt) {
