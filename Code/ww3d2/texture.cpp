@@ -268,8 +268,8 @@ TextureClass::TextureClass(
 	}
 
 	WWASSERT_PRINT(name && name[0], "TextureClass CTor: NULL or empty texture name\n");
-	int len=strlen(name);
-	for (int i=0;i<len;++i) {
+	size_t len = strlen(name);
+	for (size_t i = 0; i < len; ++i) {
 		if (name[i]=='+') {
 			IsLightmap=true;
 

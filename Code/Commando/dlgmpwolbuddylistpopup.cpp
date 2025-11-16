@@ -39,6 +39,7 @@
 #include "dlgmpwolpagebuddy.h"
 #include "WOLBuddyMgr.h"
 #include "listctrl.h"
+#include <limits>
 
 
 ////////////////////////////////////////////////////////////////
@@ -76,13 +77,14 @@ MPWolBuddyListPopupClass::On_Init_Dialog (void)
 
 		if (buddyMgr) {
 			const WWOnline::UserList& list = buddyMgr->GetBuddyList();
-			const unsigned int count = list.size();
+			const size_t count = list.size();
+			WWASSERT(count <= static_cast<size_t>(std::numeric_limits<int>::max()));
 			
-			for (unsigned int index = 0; index < count; ++index) {
+			for (size_t index = 0; index < count; ++index) {
 				const RefPtr<WWOnline::UserData>& user = list[index];
 
 				if (user->GetLocation() != WWOnline::USERLOCATION_OFFLINE) {
-					list_ctrl->Insert_Entry(index, user->GetName());
+					list_ctrl->Insert_Entry(static_cast<int>(index), user->GetName());
 				}
 			}
 

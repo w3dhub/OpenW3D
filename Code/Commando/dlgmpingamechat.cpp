@@ -465,7 +465,7 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 void	
 MPChatChildDialogClass::Complete_Player_Name (const wchar_t *typed_name, WideStringClass &completed_name)
 {
-	int typed_len = ::wcslen (typed_name);
+	const size_t typed_len = ::wcslen (typed_name);
 	
 	//
 	//	Require more then one character for any name starting with "R'.  This is
@@ -610,7 +610,7 @@ MPChatChildDialogClass::Find_Current_Command(const wchar_t* message, int& start_
 			//
 			const wchar_t *first_space = ::wcschr (command_start, L' ');
 			if (first_space == NULL) {
-				end_index = ::wcslen (message);
+				end_index = static_cast<int>(::wcslen (message));
 				retval = true;
 			} else if (caret_pos <= (first_space - message)) {
 				end_index = (first_space - message);

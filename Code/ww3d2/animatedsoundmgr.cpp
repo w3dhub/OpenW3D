@@ -103,7 +103,7 @@ Build_List_From_String
 		 (delimiter != NULL) &&
 		 (string_list != NULL))
 	{
-		int delim_len = ::strlen (delimiter);
+		size_t delim_len = ::strlen (delimiter);
 
 		//
 		// Determine how many entries there will be in the list
@@ -246,7 +246,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 				//
 				//	Extract the parameters from the section
 				//
-				int len = value.Get_Length ();					
+				size_t len = value.Get_Length ();					
 				StringClass definition_name (len + 1, true);
 				int frame_start = 0;
 

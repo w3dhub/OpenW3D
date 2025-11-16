@@ -47,6 +47,7 @@
 #include "xstraw.h"
 #include "dx8wrapper.h"
 
+#include <limits>
 #include <stdio.h>
 #include <string.h>
 
@@ -433,8 +434,8 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 
 	char *mapping0_arg_buffer = NULL;
 	char *mapping1_arg_buffer = NULL;
-	unsigned int mapping0_arg_len = 0U;
-	unsigned int mapping1_arg_len = 0U;
+	size_t mapping0_arg_len = 0U;
+	size_t mapping1_arg_len = 0U;
 
 	while (cload.Open_Chunk()) {
 		switch (cload.Cur_Chunk_ID()) {
@@ -450,20 +451,28 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 				break;
 
 			case W3D_CHUNK_VERTEX_MAPPER_ARGS0:
-				mapping0_arg_len = cload.Cur_Chunk_Length();
+			{
+				const uint32 chunk_length = cload.Cur_Chunk_Length();
+				mapping0_arg_len = static_cast<size_t>(chunk_length);
+				WWASSERT(mapping0_arg_len == static_cast<size_t>(chunk_length));
 				mapping0_arg_buffer = new char[mapping0_arg_len];
-				if (cload.Read(mapping0_arg_buffer, mapping0_arg_len) != mapping0_arg_len) {
+				if (cload.Read(mapping0_arg_buffer, mapping0_arg_len) != chunk_length) {
 					return WW3D_ERROR_LOAD_FAILED;
 				}
 				break;
+			}
 
 			case W3D_CHUNK_VERTEX_MAPPER_ARGS1:
-				mapping1_arg_len = cload.Cur_Chunk_Length();
+			{
+				const uint32 chunk_length = cload.Cur_Chunk_Length();
+				mapping1_arg_len = static_cast<size_t>(chunk_length);
+				WWASSERT(mapping1_arg_len == static_cast<size_t>(chunk_length));
 				mapping1_arg_buffer = new char[mapping1_arg_len];
-				if (cload.Read(mapping1_arg_buffer, mapping1_arg_len) != mapping1_arg_len) {
+				if (cload.Read(mapping1_arg_buffer, mapping1_arg_len) != chunk_length) {
 					return WW3D_ERROR_LOAD_FAILED;
 				}
 				break;
+			}
 		};
 		cload.Close_Chunk();
 	}
@@ -477,14 +486,15 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 	INIClass mapping0_arg_ini;
 	if (mapping0_arg_buffer) {
 
-		char *extended_arg_buffer = new char[mapping0_arg_len + 10];
+		char* extended_arg_buffer = new char[mapping0_arg_len + 10];
 		sprintf(extended_arg_buffer, "[Args]\n%s", mapping0_arg_buffer);
 		mapping0_arg_len = strlen(extended_arg_buffer) + 1;
 
-		delete [] mapping0_arg_buffer;
+		delete[] mapping0_arg_buffer;
 		mapping0_arg_buffer = NULL;
 
-		BufferStraw map_arg_buf_straw((void *)extended_arg_buffer, mapping0_arg_len);
+		WWASSERT(mapping0_arg_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		BufferStraw map_arg_buf_straw((void*)extended_arg_buffer, static_cast<int>(mapping0_arg_len));
 
 		mapping0_arg_ini.Load(map_arg_buf_straw);
 
@@ -494,14 +504,15 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 	INIClass mapping1_arg_ini;
 	if (mapping1_arg_buffer) {
 
-		char *extended_arg_buffer = new char[mapping1_arg_len + 20];
+		char* extended_arg_buffer = new char[mapping1_arg_len + 20];
 		sprintf(extended_arg_buffer, "[Args]\n%s", mapping1_arg_buffer);
 		mapping1_arg_len = strlen(extended_arg_buffer) + 1;
 
-		delete [] mapping1_arg_buffer;
+		delete[] mapping1_arg_buffer;
 		mapping1_arg_buffer = NULL;
 
-		BufferStraw map_arg_buf_straw((void *)extended_arg_buffer, mapping1_arg_len);
+		WWASSERT(mapping1_arg_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		BufferStraw map_arg_buf_straw((void*)extended_arg_buffer, static_cast<int>(mapping1_arg_len));
 
 		mapping1_arg_ini.Load(map_arg_buf_straw);
 

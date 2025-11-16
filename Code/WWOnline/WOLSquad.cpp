@@ -81,9 +81,9 @@ void SquadData::Reset(void)
 
 RefPtr<SquadData> SquadData::FindByID(unsigned int id)
 	{
-	const unsigned int count = _mSquadColl.size();
+	const size_t count = _mSquadColl.size();
 
-	for (unsigned int index = 0; index < count; ++index)
+	for (size_t index = 0; index < count; ++index)
 		{
 		const RefPtr<SquadData>& squad = _mSquadColl[index];
 		WWASSERT(squad.IsValid());
@@ -122,9 +122,9 @@ RefPtr<SquadData> SquadData::FindByAbbr(const wchar_t* abbr)
 		wcstombs(squadAbbr, abbr, sizeof(squadAbbr));
 		squadAbbr[sizeof(squadAbbr) - 1] = 0;
 
-		const unsigned int count = _mSquadColl.size();
+		const size_t count = _mSquadColl.size();
 
-		for (unsigned int index = 0; index < count; ++index)
+		for (size_t index = 0; index < count; ++index)
 			{
 			const RefPtr<SquadData>& squad = _mSquadColl[index];
 			WWASSERT(squad.IsValid());

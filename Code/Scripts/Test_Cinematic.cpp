@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "wwlib/wwstring.h"
+#include <limits>
 
 #define		LAST_VALID_TIMESTAMP		999000.0f
 
@@ -220,7 +221,7 @@ public:
 
 			// Remove leading and trailing white space
 			while ( *line && *line <= ' ' )	line++;
-			int length = ::strlen( line );
+			size_t length = ::strlen( line );
 			while ( (length != 0) && (line[length-1] <= ' ') )	{
 				line[--length] = 0;
 			}
@@ -282,7 +283,7 @@ public:
 		}
 
 		// Remove trailing whitespace
-		int length = ::strlen( parameter );
+		size_t length = ::strlen( parameter );
 		while ( length && parameter[ length-1 ] <= ' ' ) {
 			parameter[ --length ] = 0;
 		}
@@ -341,7 +342,9 @@ public:
 		ControlLine * controls = Controls;
 		while ( controls != NULL ) {
 			Commands->Save_Data(saver, CHUNKID_CONTROL_TIME, sizeof( controls->Time ), &controls->Time );
-			int len = strlen( controls->Command ) + 1;
+			const size_t command_len = ::strlen( controls->Command ) + 1;
+			assert(command_len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+			int len = static_cast<int>(command_len);
 			Commands->Save_Data(saver, CHUNKID_CONTROL_COMMAND_SIZE, sizeof( len ), &len );
 			Commands->Save_Data(saver, CHUNKID_CONTROL_COMMAND, len, controls->Command );
 //Commands->Debug_Message( "Saving Command %f %s\n", controls->Time, controls->Command );

@@ -1460,7 +1460,7 @@ int IMEManager::ReadCursorPos(HIMC imc)
 	cursorPos = (cursorPos & 0x0000FFFF);
 
 	// Convert multibyte character position in unicode position.
-	return _mbsnccnt((unsigned char*)string, cursorPos);
+	return static_cast<long>(_mbsnccnt(reinterpret_cast<const unsigned char*>(string), cursorPos));
 	}
 
 
@@ -1482,7 +1482,7 @@ int IMEManager::ReadCursorPos(HIMC imc)
 void IMEManager::GetTargetClause(unsigned int& start, unsigned int& end)
 	{
 	int index = 0;
-	const unsigned int compLength = wcslen(mCompositionString);
+	const size_t compLength = ::wcslen(mCompositionString);
 
 	while (mCompositionClause[index] < compLength)
 		{
@@ -1834,7 +1834,7 @@ int IMEManager::ConvertClauseForUnicode(unsigned char* mbcs, int length, unsigne
 		}
 
 	// Terminate the unicode adjusted clause with the string length
-	clause[index] = _mbslen(mbcs);
+	clause[index] = static_cast<unsigned long>(_mbslen(mbcs));
 	++index;
 
 	return (&clause[index] - clause);

@@ -46,6 +46,7 @@
 #include <wwlib/cpudetect.h>
 #include <ww3d2/dx8wrapper.h>
 #include <windows.h>
+#include <cstdlib>
 #include <cstdio>
 #include <algorithm>
 
@@ -341,8 +342,15 @@ void AddPlayerStats(GameResPacket& stats, cPlayer* player, WOL::Locale locale,
 		// Players WOL name
 		const WideStringClass& playerName = player->Get_Name();
 		char name[10];
-		int len = wcstombs(name, (const wchar_t*)playerName, 10);
-		name[len] = 0;
+		const size_t len = wcstombs(name, (const wchar_t*)playerName, sizeof(name) - 1);
+		if (len == static_cast<size_t>(-1))
+		{
+			name[0] = 0;
+		}
+		else
+		{
+			name[len] = 0;
+		}
 
 		stats.Add_Field("PNAM", name);
 		stats.Add_Field("PLOC", (unsigned int)locale);

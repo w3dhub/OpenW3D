@@ -175,12 +175,12 @@ int GCALL gclose(GSTREAM *g)
 
 int GCALL gread(GSTREAM *g, void *buf, int size)
 {
-    return(fread(buf, (size_t) 1, (size_t) size, (FILE *) g));
+    return static_cast<int>(fread(buf, (size_t) 1, static_cast<size_t>(size), (FILE *) g));
 }
 
 int GCALL gwrite(GSTREAM *g, void *buf, int size)
 {
-    return(fwrite(buf, (size_t)1, (size_t)size, (FILE *) g));
+    return static_cast<int>(fwrite(buf, (size_t)1, static_cast<size_t>(size), (FILE *) g));
 }
 
 int GCALL gseek(GSTREAM *g, int offset)

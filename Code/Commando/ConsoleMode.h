@@ -36,6 +36,7 @@
 
 
 #include <win.h>
+#include <cstddef>
 
 class WideStringClass;
 class StringClass;
@@ -118,7 +119,7 @@ class ConsoleModeClass
 		** Input parsing variables.
 		*/
 		unsigned int LastKeypressTime;
-		int		Pos;
+		size_t		Pos;
 
 		/*
 		** Console title bar contents.

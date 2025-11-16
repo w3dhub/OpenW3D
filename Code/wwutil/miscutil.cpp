@@ -142,7 +142,7 @@ void cMiscUtil::Trim_Trailing_Whitespace(char * text)
 {	
    WWASSERT(text != NULL);
 
-	int length = ::strlen(text);
+	int length = static_cast<int>(::strlen(text));
 	while (length > 0 && Is_Whitespace(text[length - 1])) {
 		text[--length] = 0;
 	}

@@ -66,6 +66,8 @@
 #include "chunkio.h"
 #include <string.h>
 #include <assert.h>
+#include <algorithm>
+#include <limits>
 
 
 /*********************************************************************************************** 
@@ -262,7 +264,7 @@ bool ChunkSaveClass::End_Micro_Chunk(void)
  * HISTORY:                                                                                    * 
  *   07/17/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-uint32 ChunkSaveClass::Write(const void * buf, uint32 nbytes)
+uint32 ChunkSaveClass::Write(const void * buf, size_t nbytes)
 {
 	// If this assert hits, you mixed data and chunks within the same chunk NO NO!
 	assert(HeaderStack[StackIndex-1].Get_Sub_Chunk_Flag() == 0);
@@ -270,19 +272,28 @@ uint32 ChunkSaveClass::Write(const void * buf, uint32 nbytes)
 	// If this assert hits, you didnt open any chunks yet
 	assert(StackIndex > 0);
 
+	const size_t clamped_to_u32 = std::min(nbytes, static_cast<size_t>(std::numeric_limits<uint32>::max()));
+	assert(clamped_to_u32 == nbytes);
+	const uint32 nbytes32 = static_cast<uint32>(clamped_to_u32);
+
+	const size_t clamped_to_int = std::min(clamped_to_u32, static_cast<size_t>(std::numeric_limits<int>::max()));
+	assert(clamped_to_int == clamped_to_u32);
+	const int nbytes_int = static_cast<int>(clamped_to_int);
+
 	// write the bytes into the file
-	if (File->Write(buf,nbytes) != (int)nbytes) return 0;
+	if (File->Write(buf, nbytes_int) != nbytes_int) return 0;
 
 	// track them in the wrapping chunk
-	HeaderStack[StackIndex-1].Add_Size(nbytes);
+	HeaderStack[StackIndex - 1].Add_Size(nbytes32);
 	
 	// track them if you are using a micro-chunk too.
 	if (InMicroChunk) {
-		assert(MCHeader.Get_Size() < 255 - nbytes);	// micro chunks can only be 255 bytes
-		MCHeader.Add_Size(nbytes);
+		assert(nbytes32 <= std::numeric_limits<uint8>::max());	// micro chunks can only be 255 bytes
+		assert(static_cast<size_t>(MCHeader.Get_Size()) <= static_cast<size_t>(std::numeric_limits<uint8>::max()) - nbytes32);
+		MCHeader.Add_Size(static_cast<uint8>(nbytes32));
 	}
 
-	return nbytes;
+	return nbytes32;
 }
 
 
@@ -734,33 +745,48 @@ uint32 ChunkLoadClass::Seek(uint32 nbytes)
  * HISTORY:                                                                                    * 
  *   07/17/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-uint32 ChunkLoadClass::Read(void * buf,uint32 nbytes)
+uint32 ChunkLoadClass::Read(void * buf,size_t nbytes)
 {
 	assert(StackIndex >= 1);
 
 	// Don't read if we would go past the end of the current chunk
-	if (PositionStack[StackIndex-1] + nbytes > (int)HeaderStack[StackIndex-1].Get_Size()) {
+	const size_t clamped_to_u32 = std::min(nbytes, static_cast<size_t>(std::numeric_limits<uint32>::max()));
+	assert(clamped_to_u32 == nbytes);
+	const uint32 nbytes32 = static_cast<uint32>(clamped_to_u32);
+
+	const uint32 chunk_size = HeaderStack[StackIndex - 1].Get_Size();
+	const uint32 chunk_pos = PositionStack[StackIndex - 1];
+	if (chunk_pos + nbytes32 > chunk_size) {
 		return 0;
 	}
 
 	// Don't read if we are in a micro chunk and would go past the end of it
-	if (InMicroChunk && MicroChunkPosition + nbytes > MCHeader.Get_Size()) {
-		return 0;
+	if (InMicroChunk) {
+		assert(MicroChunkPosition >= 0);
+		const size_t micro_pos = static_cast<size_t>(MicroChunkPosition);
+		const size_t micro_size = MCHeader.Get_Size();
+		if (micro_pos + nbytes32 > micro_size) {
+			return 0;
+		}
 	}
 	
-	if (File->Read(buf,nbytes) != (int)nbytes) {
+	const size_t clamped_to_int = std::min(clamped_to_u32, static_cast<size_t>(std::numeric_limits<int>::max()));
+	assert(clamped_to_int == clamped_to_u32);
+	const int nbytes_int = static_cast<int>(clamped_to_int);
+
+	if (File->Read(buf, nbytes_int) != nbytes_int) {
 		return 0;
 	}
 
 	// Update our position in the chunk
-	PositionStack[StackIndex-1] += nbytes;
+	PositionStack[StackIndex - 1] += nbytes32;
 
 	// Update our position in the micro chunk if we are in one
 	if (InMicroChunk) {
-		MicroChunkPosition += nbytes;
+		MicroChunkPosition += static_cast<int>(nbytes32);
 	}
 
-	return nbytes;
+	return nbytes32;
 }
 
 
@@ -779,7 +805,7 @@ uint32 ChunkLoadClass::Read(void * buf,uint32 nbytes)
 uint32 ChunkLoadClass::Read(IOVector2Struct * v)
 {
 	assert(v != NULL);
-	return Read(v,sizeof(v));
+	return Read(v,sizeof(*v));
 }
 
 
@@ -798,7 +824,7 @@ uint32 ChunkLoadClass::Read(IOVector2Struct * v)
 uint32 ChunkLoadClass::Read(IOVector3Struct * v)
 {
 	assert(v != NULL);
-	return Read(v,sizeof(v));
+	return Read(v,sizeof(*v));
 }
 
 
@@ -817,7 +843,7 @@ uint32 ChunkLoadClass::Read(IOVector3Struct * v)
 uint32 ChunkLoadClass::Read(IOVector4Struct * v)
 {
 	assert(v != NULL);
-	return Read(v,sizeof(v));
+	return Read(v,sizeof(*v));
 }
 
 
@@ -836,6 +862,6 @@ uint32 ChunkLoadClass::Read(IOVector4Struct * v)
 uint32 ChunkLoadClass::Read(IOQuaternionStruct * q)
 {
 	assert(q != NULL);
-	return Read(q,sizeof(q));
+	return Read(q,sizeof(*q));
 }
 

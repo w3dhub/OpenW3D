@@ -82,12 +82,12 @@ CreditsMenuClass::On_Init_Dialog (void)
 			//
 			WideStringClass wide_text;
 			wchar_t *buffer		= wide_text.Get_Buffer (size + 1);
-			int dest_index		= 0;
+			size_t dest_index		= 0;
 
-			int len = ascii_text.Get_Length ();
-			for (int index = 0; index < len; index ++) {
-				if (ascii_text[index] != '\r') {
-					buffer[dest_index ++] = (unsigned char)ascii_text[index];
+			size_t len = ascii_text.Get_Length ();
+				for (size_t index = 0; index < len; index ++) {
+					if (ascii_text[static_cast<int>(index)] != '\r') {
+						buffer[dest_index ++] = static_cast<unsigned char>(ascii_text[static_cast<int>(index)]);
 				}
 			}
 			buffer[dest_index] = 0;

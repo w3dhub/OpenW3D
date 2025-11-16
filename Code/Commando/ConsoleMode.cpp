@@ -52,6 +52,7 @@
 #include "gamesideservercontrol.h"
 #include "specialbuilds.h"
 #include "ServerSettings.h"
+#include <limits>
 
 /*
 ** Single instance of console.
@@ -865,20 +866,23 @@ void ConsoleModeClass::Update_Profile(StringClass profile_string)
 		/*
 		** Get a checksum of the profile string.
 		*/
-		unsigned int crc = CRC::Memory((unsigned char*)profile_string.Peek_Buffer(), profile_string.Get_Length());
+		const size_t profile_length = profile_string.Get_Length();
+		WWASSERT(profile_length <= static_cast<size_t>(std::numeric_limits<unsigned long>::max()));
+    unsigned int crc = CRC::Memory((unsigned char*)profile_string.Peek_Buffer(), profile_length);
 		if (crc != LastProfileCRC) {
 
 
 			/*
 			** Create a copy of the string and scan it for '%'.
 			*/
-			int len = profile_string.Get_Length();
-			char *str = (char*) alloca(len * 2);
+			const size_t len = profile_string.Get_Length();
+			WWASSERT(len <= static_cast<size_t>(std::numeric_limits<int>::max()));
+			char *str = (char*) alloca(static_cast<size_t>(len) * 2);
 			char *src = profile_string.Peek_Buffer();
 			char *dst = str;
 			char c;
 
-			for (int i=0 ; i<len ; i++) {
+			for (size_t i=0 ; i<len ; i++) {
 				c = *src++;
 				/*
 				** % = 37. Double up % sign so it prints literally.

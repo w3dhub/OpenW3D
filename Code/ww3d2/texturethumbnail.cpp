@@ -28,6 +28,7 @@
 #include "rawfile.h"
 #include "mixfile.h"
 #include <windows.h>
+#include <climits>
 
 DLListClass<ThumbnailManagerClass> ThumbnailManagerClass::ThumbnailManagerList;
 static bool message_box_displayed=false;
@@ -37,7 +38,10 @@ const char* ThumbFileHeader="THU4";
 static void Create_Hash_Name(StringClass& name, const StringClass& thumb_name)
 {
 	name=thumb_name;
-	int len=name.Get_Length();
+	const size_t len_sz=name.Get_Length();
+	WWASSERT(len_sz >= 4);
+	WWASSERT(len_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
+	const int len = static_cast<int>(len_sz);
 	WWASSERT(!stricmp(&name[len-4],".tga") || !stricmp(&name[len-4],".dds"));
 	name[len-4]='\0';
 }
@@ -120,8 +124,10 @@ ThumbnailClass::ThumbnailClass(ThumbnailManagerClass* manager, const StringClass
 	if (dds_file.Is_Available() && dds_file.Load()) {
 		DateTime=dds_file.Get_Date_Time();
 
-		int len=Name.Get_Length();
-		WWASSERT(len>4);
+		const size_t len_sz=Name.Get_Length();
+		WWASSERT(len_sz>4);
+		WWASSERT(len_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		const int len = static_cast<int>(len_sz);
 		Name[len-3]='d';
 		Name[len-2]='d';
 		Name[len-1]='s';
@@ -218,8 +224,10 @@ ThumbnailClass::ThumbnailClass(ThumbnailManagerClass* manager, const StringClass
 
 		unsigned char* src_surface=(unsigned char*)targa.GetImage();
 
-		int len=Name.Get_Length();
-		WWASSERT(len>4);
+		const size_t len_sz=Name.Get_Length();
+		WWASSERT(len_sz>4);
+		WWASSERT(len_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		const int len = static_cast<int>(len_sz);
 		Name[len-3]='t';
 		Name[len-2]='g';
 		Name[len-1]='a';
@@ -265,9 +273,12 @@ void ThumbnailManagerClass::Create_Thumbnails()
 		DynamicVectorClass<StringClass> list;
 		list.Set_Growth_Step (1000);
 		mix.Build_Filename_List(list);
-		for (int i=0;i<list.Count();++i) {
-			int len=list[i].Get_Length();
-			if (!stricmp(&list[i][len-4],".tga") || !stricmp(&list[i][len-4],".dds")) {
+	for (int i=0;i<list.Count();++i) {
+		const size_t len_sz=list[i].Get_Length();
+		WWASSERT(len_sz >= 4);
+		WWASSERT(len_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
+		const int len = static_cast<int>(len_sz);
+		if (!stricmp(&list[i][len-4],".tga") || !stricmp(&list[i][len-4],".dds")) {
 				if (!Peek_Thumbnail_Instance(list[i])) {
 					new ThumbnailClass(this,list[i]);
 				}
@@ -399,7 +410,9 @@ void ThumbnailManagerClass::Save(bool force)
 		total_header_length+=4;	// int original format
 		total_header_length+=4;	// int name string length
 
-		total_header_length+=strlen(thumb->Get_Name());
+		size_t name_length = strlen(thumb->Get_Name());
+		WWASSERT(name_length <= static_cast<size_t>(INT_MAX));
+		total_header_length += static_cast<int>(name_length);
 		total_data_length+=thumb->Get_Width()*thumb->Get_Height()*2;
 		total_thumb_count++;
 	}
@@ -421,7 +434,9 @@ void ThumbnailManagerClass::Save(bool force)
 	for (ite.First();!ite.Is_Done();ite.Next()) {
 		ThumbnailClass* thumb=ite.Peek_Value();
 		const char* name=thumb->Get_Name();
-		int name_len=strlen(name);
+		size_t name_length = strlen(name);
+		WWASSERT(name_length <= static_cast<size_t>(INT_MAX));
+		int name_len = static_cast<int>(name_length);
 		int width=thumb->Get_Width();
 		int height=thumb->Get_Height();
 		int original_width=thumb->Get_Original_Texture_Width();
@@ -562,8 +577,10 @@ void ThumbnailManagerClass::Update_Thumbnail_File(const char* mix_file_name,bool
 	ff.Set_Sub_Directory("Data\\");
 
 	StringClass thumb_file_name(mix_file_name,true);
-	int len=thumb_file_name.Get_Length();
-	WWASSERT(len>4);
+	const size_t len_sz=thumb_file_name.Get_Length();
+	WWASSERT(len_sz>4);
+	WWASSERT(len_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
+	const int len = static_cast<int>(len_sz);
 	thumb_file_name[len-3]='t';
 	thumb_file_name[len-2]='h';
 	thumb_file_name[len-1]='u';

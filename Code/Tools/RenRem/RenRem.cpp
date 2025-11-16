@@ -42,6 +42,7 @@
 #include "network-typedefs.h"
 #include <assert.h>
 #include <stdio.h>
+#include <limits>
 #include <stdlib.h>
 #include <conio.h>
 
@@ -91,7 +92,9 @@ void App_Response_Callback(char *response)
 		if (file != INVALID_HANDLE_VALUE) {
 			SetFilePointer(file, 0, NULL, FILE_END);
 			DWORD actual = 0;
-			WriteFile(file, response, strlen(response), &actual, NULL);
+			const size_t response_length = ::strlen(response);
+			assert(response_length <= std::numeric_limits<DWORD>::max());
+			WriteFile(file, response, static_cast<DWORD>(response_length), &actual, NULL);
 			CloseHandle(file);
 		}
 	}

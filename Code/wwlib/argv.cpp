@@ -46,6 +46,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <climits>
 #include "ffactory.h"
 #include "rawfile.h"
 int   	 ArgvClass::Argc = 0;
@@ -102,22 +103,22 @@ const char *ArgvClass::Find_Again(const char *arg)
 	CurrentPos++;							  
 	if (CurrentPos < Argc) {
 		if (Is_Case_Sensitive()) {
-			if (Is_Exact_Size()) {
-				// Case Sensitive, Exact Size.
-				for (; CurrentPos < Argc; CurrentPos++) {
-					if (!strcmp(arg, Argv[CurrentPos])) {
-						return Argv[CurrentPos];
+				if (Is_Exact_Size()) {
+					// Case Sensitive, Exact Size.
+					for (; CurrentPos < Argc; CurrentPos++) {
+						if (!strcmp(arg, Argv[CurrentPos])) {
+							return Argv[CurrentPos];
+						}
+					}
+				} else {
+					// Case Sensitive, Match first strlen(arg).
+					const size_t len = ::strlen(arg);			   
+					for (; CurrentPos < Argc; CurrentPos++) {
+						if (!strncmp(arg, Argv[CurrentPos], len)) {
+							return Argv[CurrentPos];
+						}
 					}
 				}
-			} else {
-				// Case Sensitive, Match first strlen(arg).
-				int len = strlen(arg);			   
-				for (; CurrentPos < Argc; CurrentPos++) {
-					if (!strncmp(arg, Argv[CurrentPos], len)) {
-						return Argv[CurrentPos];
-					}
-				}
-			}
 		} else {
 			if (Is_Exact_Size()) {
 				// Note case sensitive, Exact Size.
@@ -128,7 +129,7 @@ const char *ArgvClass::Find_Again(const char *arg)
 				}
 			} else {
 				// Note case sensitive, Match first strlen(arg).
-				int len = strlen(arg);
+				size_t len = strlen(arg);
 				for (; CurrentPos < Argc; CurrentPos++) {
                     if (!strnicmp(arg, Argv[CurrentPos], len)) {
 						return Argv[CurrentPos];
@@ -167,7 +168,7 @@ int ArgvClass::Init(char *lpCmdLine, const char *fileprefix)
 		return 0;
 	}
 
-	int fp_cmp_len = (fileprefix) ? strlen(fileprefix) : 0;
+	size_t fp_cmp_len = (fileprefix) ? strlen(fileprefix) : 0;
 
 	// Save original Argc for return.
 	int origargc = Argc;
@@ -333,7 +334,9 @@ const char *ArgvClass::Find_Value(const char *arg)
 	if (arg && *arg) {
 		const char *ptr = Find(arg);
 		if (ptr) {
-			return(Get_Cur_Value(strlen(arg)));
+			size_t arg_length = strlen(arg);
+			assert(arg_length <= static_cast<size_t>(UINT_MAX));
+			return(Get_Cur_Value(static_cast<unsigned>(arg_length)));
 		}		  
 	}
 	return(NULL);
