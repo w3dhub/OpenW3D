@@ -596,7 +596,7 @@ AggregateDefClass::Read_Header (ChunkLoadClass &chunk_load)
 	if (chunk_load.Read (&header, sizeof (header)) == sizeof (header)) {
 
 		// Copy the name from the header structure
-		m_pName = ::_strdup (header.Name);
+		m_pName = ::strdup (header.Name);
 		m_Version = header.Version;
 
 		// Success!
