@@ -117,7 +117,7 @@ ParticleEmitterClass::ParticleEmitterClass(float emit_rate, unsigned int burst_s
 	SET_REF_OWNER( Buffer );
 	BufferSceneNeeded = true;
 
-	NameString = ::_strdup ("ParticleEmitter");
+	NameString = ::strdup ("ParticleEmitter");
 }
 
 
