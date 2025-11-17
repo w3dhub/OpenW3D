@@ -117,7 +117,7 @@ void MixPatchMakerClass::Thread_Make(void)
 			for (int i=0 ; i<new_filename_list.Count() ; i++) {
 
 				strcpy(name, new_filename_list[i].Peek_Buffer());
-				strupr(name);
+                openw3d::string_to_upper(name);
 				bool copy = false;
 
 				if (stricmp(name, "STRINGS.TDB") == 0) {

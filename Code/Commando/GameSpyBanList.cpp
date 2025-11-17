@@ -54,6 +54,7 @@
 #include "sctextobj.h"
 #include "ConsoleMode.h"
 #include "gamesideservercontrol.h"
+#include "wwstring.h"
 #include <cstdio>
 
 
@@ -212,7 +213,7 @@ bool cGameSpyBanList::Is_User_Banned(const char *nickname, const char *challenge
 			char *a = strdup(t->Get_Nick_Name());
 			char *b = strdup(nickname);
 
-			_strupr(a); _strupr(b);
+            openw3d::string_to_upper(a); openw3d::string_to_upper(b);
 
 			//
 			// This code means that you can put a BAN name in as

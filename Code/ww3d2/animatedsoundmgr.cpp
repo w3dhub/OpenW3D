@@ -223,7 +223,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 			//	Get the animation name from the section name
 			//
 			StringClass animation_name = section->Section;
-			::strupr (animation_name.Peek_Buffer ());
+            animation_name.To_Upper();
 
 			//
 			//	Allocate a sound list
@@ -354,7 +354,7 @@ AnimatedSoundMgrClass::Find_Sound_List (HAnimClass *anim)
 	//
 	//	Make the name uppercase
 	//
-	::strupr (full_name.Peek_Buffer ());
+    full_name.To_Upper();
 
 	//
 	//	Lookup the sound list for this animation
