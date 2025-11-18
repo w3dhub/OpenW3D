@@ -39,6 +39,7 @@
 #include "messagewindow.h"
 #include "translatedb.h"
 #include "string_ids.h"
+#include "systimer.h"
 
 
 //////////////////////////////////////////////////////////////////////
