@@ -579,7 +579,7 @@ CameraMgr::On_Frame (void)
 				//
 				static DWORD last_vis_gen = 0;
 				static DWORD last_static_anim_toggle = 0;
-				DWORD current_ticks = ::GetTickCount ();
+				DWORD current_ticks = ::TIMEGETTIME ();
 				if ((::GetAsyncKeyState (VK_RETURN) < 0) && (current_ticks - last_vis_gen) > 1000) {
 					Vector3 sample_point	= m_WalkThruObj->Get_Transform ().Get_Translation () + Vector3 (0, 0, 1);
 					::Get_Scene_Editor ()->Record_Vis_Info (m_pCamera->Get_Transform (), sample_point);
@@ -1233,7 +1233,7 @@ CameraMgr::Fly_To_Transform (const Matrix3D &transform)
 	index = m_FlyToSpline.Add_Key (end_point, 1);
 	m_FlyToSpline.Set_Tangents (index, looking_end, looking_end);
 
-	m_FlyToStartTime = ::GetTickCount ();
+	m_FlyToStartTime = ::TIMEGETTIME ();
 	Set_Camera_Mode (MODE_FLYTO);
 	return ;
 }
@@ -1254,7 +1254,7 @@ CameraMgr::Update_Fly_To (void)
 		fly_ticks = fly_ticks / m_SpeedModifier;
 	}
 
-	DWORD current_time = ::GetTickCount ();
+	DWORD current_time = ::TIMEGETTIME ();
 	float spline_time = float(current_time - m_FlyToStartTime) / fly_ticks;
 	spline_time = std::min (1.0F, spline_time);
 

@@ -141,7 +141,7 @@ GeneratingManualVisDialogClass::WindowProc
 		//
 		m_TotalPoints	= Get_Manual_Point_Count ();
 		m_CurrentPoint	= 0;
-		m_StartTime		= ::GetTickCount();
+		m_StartTime		= ::TIMEGETTIME();
 
 		//
 		//	Render the manual vis points
@@ -175,9 +175,9 @@ GeneratingManualVisDialogClass::On_Manual_Vis_Point_Render (DWORD milliseconds)
 	//	Process window's messages once a second
 	//
 	static DWORD last_message_pump = 0;	
-	if (::GetTickCount () - last_message_pump > 1000) {
+	if (::TIMEGETTIME () - last_message_pump > 1000) {
 		General_Pump_Messages ();
-		last_message_pump = ::GetTickCount ();
+		last_message_pump = ::TIMEGETTIME ();
 
 		//
 		//	Output our current status to the status file
@@ -250,7 +250,7 @@ GeneratingManualVisDialogClass::Update_Time (void)
 	//
 	// Compute the elapsed and estimated remaining time
 	//
-	DWORD cur_ticks = ::GetTickCount();
+	DWORD cur_ticks = ::TIMEGETTIME();
 	DWORD elapsed_ticks;
 	if (cur_ticks > m_StartTime) {
 		elapsed_ticks = cur_ticks - m_StartTime;

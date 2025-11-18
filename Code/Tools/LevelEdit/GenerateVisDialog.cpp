@@ -134,7 +134,7 @@ GenerateVisDialogClass::OnOK (void)
 	// 
 	// Record the time when the vis preprocessing is started
 	//
-	DWORD start_time = ::GetTickCount();
+	DWORD start_time = ::TIMEGETTIME();
 
 	//
 	// Reset the vis data (which also causes the culling systems to re-partition)
@@ -173,7 +173,7 @@ GenerateVisDialogClass::OnOK (void)
 	//
 	// Display the total elapsed time to the user
 	//
-	DWORD elapsed_time = ::GetTickCount() - start_time;
+	DWORD elapsed_time = ::TIMEGETTIME() - start_time;
 	int hours = elapsed_time / (1000 * 60 * 60);
 	elapsed_time -= hours * (1000 * 60 * 60);
 	int minutes = elapsed_time / (1000 * 60);

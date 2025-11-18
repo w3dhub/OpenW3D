@@ -396,7 +396,7 @@ void CGraphicView::Timestep(void)
 
 	// Compute the amount of time elapsed for this frame.
 	CPhysTestDoc * doc = (CPhysTestDoc *)GetDocument();
-	DWORD curtime = ::GetTickCount();
+	DWORD curtime = ::TIMEGETTIME();
 	DWORD elapsedtime = curtime - doc->LastTime;
 	if (elapsedtime > 100) {
 		elapsedtime = 100;
@@ -510,7 +510,7 @@ void CGraphicView::Set_Active(bool onoff)
 	} else { 
 		RemoveProp(m_hWnd,"Inactive"); 
 		CPhysTestDoc * doc = (CPhysTestDoc *)GetDocument();
-		doc->LastTime = ::GetTickCount();	
+		doc->LastTime = ::TIMEGETTIME();	
 	}
 }
 

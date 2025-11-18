@@ -754,7 +754,7 @@ int main(int argc, char* argv[])
 {
 	CGameSpyQnR mygame1("Test Game Server 1"), mygame2("Test Game Server 2");
 
-	srand( GetTickCount() );
+	srand( TIMEGETTIME() );
 	
 	printf("Press any key to quit\n");
 	while (!_kbhit())

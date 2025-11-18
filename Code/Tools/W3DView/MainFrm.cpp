@@ -1081,7 +1081,7 @@ CMainFrame::Update_Frame_Time (DWORD clocks)
 	frames ++;
 
 	//if (frames >= 20) {
-	if ((::GetTickCount () - last_update) >= 1000) {
+	if ((::TIMEGETTIME () - last_update) >= 1000) {
 		
 		//
 		//	Average the frame time
@@ -1097,7 +1097,7 @@ CMainFrame::Update_Frame_Time (DWORD clocks)
 
 		frames = 0;
 		total_clocks = 0;
-		last_update = ::GetTickCount ();
+		last_update = ::TIMEGETTIME ();
 	}
 			
 	// Update the resolution display
