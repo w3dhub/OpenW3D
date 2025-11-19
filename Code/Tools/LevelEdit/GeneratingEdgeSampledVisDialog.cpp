@@ -151,7 +151,7 @@ GeneratingEdgeSampledVisDialogClass::OnInitDialog (void)
 	//
 	//	Record the time at operation start
 	//
-	m_StartTime = ::TIMEGETTIME ();
+	m_StartTime = ::GetTickCount ();
 	Update_Stats ();
 	return true;
 }
@@ -239,7 +239,7 @@ GeneratingEdgeSampledVisDialogClass::Update_Stats (void)
 			//
 			//	Make a rough estimate of the time we have remaining
 			//
-			DWORD elapsed_ticks = ::TIMEGETTIME () - m_StartTime;
+			DWORD elapsed_ticks = ::GetTickCount () - m_StartTime;
 			DWORD avg_ticks = elapsed_ticks / std::max(processed,1);
 			DWORD remaining_ticks = avg_ticks * (total - processed);
 

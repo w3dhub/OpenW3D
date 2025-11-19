@@ -170,7 +170,7 @@ CGraphicView::OnCreate (LPCREATESTRUCT lpCreateStruct)
     if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-    m_dwLastFrameUpdate = timeGetTime ();//::TIMEGETTIME ();	
+    m_dwLastFrameUpdate = timeGetTime ();//::GetTickCount ();	
 	return 0;
 }
 

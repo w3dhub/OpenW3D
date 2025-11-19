@@ -2070,8 +2070,8 @@ CMainFrame::OnAniStop (void)
 void
 CMainFrame::Update_Poly_Count (void)
 {
-	static DWORD last_update = ::TIMEGETTIME ();
-	DWORD current_ticks = ::TIMEGETTIME ();
+	static DWORD last_update = ::GetTickCount ();
+	DWORD current_ticks = ::GetTickCount ();
 
 	if ((current_ticks - last_update) > 500) {
 		CString message;
@@ -2092,8 +2092,8 @@ CMainFrame::Update_Poly_Count (void)
 void
 CMainFrame::Update_Texture_Mem (void)
 {
-	static DWORD last_update = ::TIMEGETTIME ();
-	DWORD current_ticks = ::TIMEGETTIME ();
+	static DWORD last_update = ::GetTickCount ();
+	DWORD current_ticks = ::GetTickCount ();
 
 	if ((current_ticks - last_update) > 500) {
 
@@ -4311,7 +4311,7 @@ CMainFrame::OnUpdateDecreaseSphere (CCmdUI *pCmdUI)
 void
 CMainFrame::Adjust_Growth_Rate (void)
 {
-	DWORD curr_time = ::TIMEGETTIME ();
+	DWORD curr_time = ::GetTickCount ();
 	
 	//
 	//	Reset the growth rate if too much time has elapsed

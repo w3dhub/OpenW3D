@@ -372,7 +372,7 @@ VisMgrClass::Render_Manual_Vis_Points
 	//	
 	for (int index = 0; index < point_list.Count (); index ++)
 	{
-		DWORD before = ::TIMEGETTIME ();
+		DWORD before = ::GetTickCount ();
 		VisPointNodeClass *vis_point = point_list[index];
 
 		//	Set the camera up to use the same settings we used when
@@ -410,7 +410,7 @@ VisMgrClass::Render_Manual_Vis_Points
 		//	Notify the callback that we've renedered a point
 		//				
 		if (callback != NULL) {
-			DWORD after	= ::TIMEGETTIME ();		
+			DWORD after	= ::GetTickCount ();		
 			keep_going	= (*callback) (after - before, param);
 		}
 	}

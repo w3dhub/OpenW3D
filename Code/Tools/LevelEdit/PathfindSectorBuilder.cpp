@@ -487,13 +487,13 @@ PathfindSectorBuilderClass::Compress_Sectors_For_Pathfind (void)
 	//
 	//	Compress the sectors into the largest possible rectangular regions
 	//
-	DWORD before_ticks = ::TIMEGETTIME ();
+	DWORD before_ticks = ::GetTickCount ();
 	
 	Post_Process_Floodfill_For_Level_Features ();
 	Compress_Sectors ();
 	Generate_Portals ();
 
-	DWORD after_ticks = ::TIMEGETTIME ();
+	DWORD after_ticks = ::GetTickCount ();
 
 	WWDEBUG_SAY(("Time spent compressing: %d secs.\r\n", (after_ticks-before_ticks)/1000));
 	
@@ -1253,7 +1253,7 @@ PathfindSectorBuilderClass::Determine_Height
 int
 PathfindSectorBuilderClass::Build_Height_Values (void)
 {
-	int before_ticks = ::TIMEGETTIME ();
+	int before_ticks = ::GetTickCount ();
 	int total_box_count = 0;
 	int box_count = 0;
 
@@ -1276,7 +1276,7 @@ PathfindSectorBuilderClass::Build_Height_Values (void)
 		total_box_count ++;
 	}
 
-	int after_ticks = ::TIMEGETTIME ();
+	int after_ticks = ::GetTickCount ();
 	WWDEBUG_SAY(("Time spent generating z-values: %d secs.\r\n", (after_ticks-before_ticks)/1000));
 
 	return total_box_count;

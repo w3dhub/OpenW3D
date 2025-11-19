@@ -230,7 +230,7 @@ GeneratingVisDialogClass::WindowProc
 	if (message == WM_USER+101) {
 
 		::Get_Main_View ()->Allow_Repaint (false);
-		m_StartTime = ::TIMEGETTIME();
+		m_StartTime = ::GetTickCount();
 
 		//
 		//	Build a list of nodes we should use during the vis-generation
@@ -309,7 +309,7 @@ GeneratingVisDialogClass::Update_Time (void)
 	//
 	// Compute the elapsed and estimated remaining time
 	//
-	DWORD cur_ticks = ::TIMEGETTIME();
+	DWORD cur_ticks = ::GetTickCount();
 	DWORD elapsed_ticks;
 	if (cur_ticks > m_StartTime) {
 		elapsed_ticks = cur_ticks - m_StartTime;
@@ -448,7 +448,7 @@ GeneratingVisDialogClass::Generate_Points
 		SetDlgItemText (IDC_STATUS_TEXT, status_text);
 
 		CString elapsed_text;
-		elapsed_text.Format ("Elapsed Time: %.1f minutes.",(::TIMEGETTIME() - m_StartTime) / 60000.0f);
+		elapsed_text.Format ("Elapsed Time: %.1f minutes.",(::GetTickCount() - m_StartTime) / 60000.0f);
 		SetDlgItemText (IDC_ELAPSED_TIME_TEXT, elapsed_text);
 		
 		m_ProgressCtrl.SetPos ((index * 100) / count);

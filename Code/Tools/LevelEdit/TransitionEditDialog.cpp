@@ -1373,7 +1373,7 @@ void
 TransitionEditDialogClass::OnAniPlay (void)
 {
 	m_IsAnimating		= true;
-	m_LastAnimUpdate	= ::TIMEGETTIME ();
+	m_LastAnimUpdate	= ::GetTickCount ();
 	return ;
 }
 
@@ -1402,7 +1402,7 @@ void
 TransitionEditDialogClass::Update_Animation (void)
 {
 	if (m_IsAnimating) {
-		DWORD curr_ticks = ::TIMEGETTIME ();		
+		DWORD curr_ticks = ::GetTickCount ();		
 		
 		float seconds		= float((curr_ticks - m_LastAnimUpdate)/1000.0F);
 		float frame_inc	= seconds * m_Animation->Get_Frame_Rate ();

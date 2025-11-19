@@ -269,7 +269,7 @@ VisPointGeneratorClass::Determine_Granularity (MeshClass &mesh)
 void
 VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 {
-	DWORD start_ticks = ::TIMEGETTIME ();
+	DWORD start_ticks = ::GetTickCount ();
 
 	//
 	//	Make sure we use the right granularity for this mesh
@@ -366,7 +366,7 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 
 	MEMBER_RELEASE (model);
 	
-	//DWORD before_collection = ::TIMEGETTIME ();
+	//DWORD before_collection = ::GetTickCount ();
 
 	//
 	//	Add all the vis points from the grid to the global list.
@@ -409,7 +409,7 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 		}
 	}
 	
-	/*DWORD finished_ticks = ::TIMEGETTIME ();
+	/*DWORD finished_ticks = ::GetTickCount ();
 	
 	if (m_StatWindow != NULL) {
 		CString stats;

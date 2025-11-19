@@ -84,7 +84,7 @@ CSurrenderWnd::CSurrenderWnd(CWnd *cwnd, int driver, int width, int height, int 
 	m_RObj->Set_Transform(Matrix3D(1));
 
 	m_Motion = AssetManager.Get_HAnim("vidtest1.vidtest1");
-	m_MotionTime = TIMEGETTIME();
+	m_MotionTime = GetTickCount();
 
 //	m_RObj->Set_Animation(m_Motion, 0.0f, RenderObjClass::ANIM_MODE_MANUAL);
 	m_RObj->Add(m_Scene);
@@ -129,12 +129,12 @@ void CSurrenderWnd::OnPaint()
 {
 //	CPaintDC dc(this); // device context for painting
 	
-	WW3D::Sync(TIMEGETTIME());
+	WW3D::Sync(GetTickCount());
 
 	if (m_Motion && m_RObj) {
 		float rate			= m_Motion->Get_Frame_Rate();
 		// figure out what the current frame is
-		float currentframe	= (TIMEGETTIME() - m_MotionTime)  / (1000 / rate);
+		float currentframe	= (GetTickCount() - m_MotionTime)  / (1000 / rate);
 		float numframes		= m_Motion->Get_Num_Frames() - 1;
 		currentframe = fmod(currentframe, numframes);
 

@@ -141,7 +141,7 @@ GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lP
 
 		::Get_Main_View ()->Allow_Repaint (false);
 		SceneEditorClass *scene_editor = ::Get_Scene_Editor ();
-		m_StartTicks = ::TIMEGETTIME ();
+		m_StartTicks = ::GetTickCount ();
 
 		/*
 		** Generate the start and end index for the lights we're going to vis
@@ -204,7 +204,7 @@ GeneratingLightVisDialogClass::Update_Status (int cur_light)
 	//
 	// Update the elapsed and estimated remaining time
 	//
-	DWORD cur_ticks = ::TIMEGETTIME();
+	DWORD cur_ticks = ::GetTickCount();
 	DWORD elapsed_ticks;
 	if (cur_ticks > m_StartTicks) {
 		elapsed_ticks = cur_ticks - m_StartTicks;

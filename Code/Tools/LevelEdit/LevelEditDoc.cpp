@@ -823,7 +823,7 @@ CLevelEditDoc::OnOpenDocument (LPCTSTR path)
 {
 	::Get_Main_View ()->Allow_Repaint (false);
 
-	DWORD start_time = ::TIMEGETTIME ();
+	DWORD start_time = ::GetTickCount ();
 	
 	//
 	// Start a new document
@@ -848,7 +848,7 @@ CLevelEditDoc::OnOpenDocument (LPCTSTR path)
 	//	Load the level load time
 	//
 	CString load_time_message;
-	load_time_message.Format ("Level load took %d seconds\r\n", int((::TIMEGETTIME () - start_time) / 1000));
+	load_time_message.Format ("Level load took %d seconds\r\n", int((::GetTickCount () - start_time) / 1000));
 	::Output_Message (load_time_message);
 		
 	::Get_Main_View ()->Allow_Repaint (true);
