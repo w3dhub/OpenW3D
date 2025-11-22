@@ -39,6 +39,7 @@
 #include "messagewindow.h"
 #include "translatedb.h"
 #include "string_ids.h"
+#include "systimer.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -70,7 +71,7 @@ FloodProtectionMgrClass::Decay_Old_Entries (void)
 {
 	const int DECAY_TIME	= 15000;
 
-	uint32 curr_time = ::GetTickCount ();
+	uint32 curr_time = ::TIMEGETTIME ();
 
 	//
 	//	Loop over all the entries in the list
@@ -124,7 +125,7 @@ FloodProtectionMgrClass::Detect_Flooding (const wchar_t *text)
 		//	Add a new entry to the list
 		//
 		FLOOD_ENTRY entry;
-		entry.time		= ::GetTickCount ();
+		entry.time		= ::TIMEGETTIME ();
 		entry.text_len	= 0;
 		FloodList.Add (entry);
 	}

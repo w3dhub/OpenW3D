@@ -47,6 +47,7 @@
 #include "AudibleSound.h"
 #include "htree.h"
 #include "hanim.h"
+#include "systimer.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -408,7 +409,7 @@ AnimatedSoundMgrClass::Trigger_Sound
 					//
 					int def_id = (*sound_list)[index].SoundDefinitionID;
 					WWAudioClass::Get_Instance ()->Create_Instant_Sound (def_id, tm);
-					WWDEBUG_SAY (("Triggering Sound %d\n", GetTickCount ()));
+					WWDEBUG_SAY (("Triggering Sound %d\n", TIMEGETTIME ()));
 					retval = frame;
 				}
 			}
