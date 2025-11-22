@@ -41,6 +41,7 @@
 #include	"servercontrol.h"
 #include "systimer.h"
 #include <limits>
+#include "wwstring.h"
 
 /*
 ** Single instance of server control.
@@ -261,7 +262,7 @@ void ServerControlClass::Parse_Message(void *buffer, int len, unsigned int addre
 		char text[MAX_SERVER_CONTROL_MESSAGE_SIZE + 1];
 		memcpy(text, message->Message, MAX_SERVER_CONTROL_MESSAGE_SIZE);
 		text[MAX_SERVER_CONTROL_MESSAGE_SIZE] = 0;
-		strupr(text);
+        openw3d::string_to_upper(text);
 
 		switch (message->Type) {
 			/*

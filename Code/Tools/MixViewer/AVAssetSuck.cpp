@@ -102,7 +102,7 @@ void AVAssetSuckerClass::Thread_Suck(void)
 		for (int i=0 ; i<filename_list.Count() ; i++) {
 
 			strcpy(name, filename_list[i].Peek_Buffer());
-			strupr(name);
+            openw3d::string_to_upper(name);
 
 			if (strstr(name, ".WAV") == 0) {
 				if (strstr(name, ".TGA") == 0) {

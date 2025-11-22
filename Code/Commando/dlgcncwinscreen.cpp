@@ -307,7 +307,7 @@ CNCWinScreenMenuClass::On_Init_Dialog (void)
 		//
 		// Strip off the .mix if present.
 		//
-		strupr(map_name);
+        openw3d::string_to_upper(map_name);
 		char *dot = strstr(map_name, ".MIX");
 		strcpy(map_name, The_Game()->Get_Map_Name());
 		if (dot) {

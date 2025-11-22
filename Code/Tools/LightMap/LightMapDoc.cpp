@@ -1684,7 +1684,7 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 			strcpy (lightmapdirectory, filename);
 
 			// Convert filename to uppercase.
-			_strupr (filename);
+			openw3d::string_to_upper (filename);
 
 			W3dFile->Open (FileClass::READ);
 

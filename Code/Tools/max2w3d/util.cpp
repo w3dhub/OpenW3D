@@ -311,12 +311,12 @@ void Create_Relative_Path(char *rel_path,	const char *curr, const char *full_pat
 	int curr_len = strlen(curr);
 	char *up_curr = (char *)malloc(curr_len + 1);
 	strcpy(up_curr, curr);
-	_strupr(up_curr);
+	openw3d::string_to_upper(up_curr);
 
 	int full_len = strlen(full_path);
 	char *up_full = (char *)malloc(full_len + 1);
 	strcpy(up_full, full_path);
-	_strupr(up_full);
+	openw3d::string_to_upper(up_full);
 
 	char *rel_p = rel_path;
 
