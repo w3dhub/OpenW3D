@@ -3,6 +3,7 @@
 
 #ifdef _WIN32
 #include <winsock2.h>
+#define LastSocketError      (WSAGetLastError())
 #else
 #include <arpa/inet.h>
 #include <errno.h>

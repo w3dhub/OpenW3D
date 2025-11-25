@@ -60,12 +60,7 @@
 #define fw_assert assert
 #endif //WWASSERT
 
-#ifdef errno
-#undef errno
-#endif	//errno
-
-#define errno (WSAGetLastError())
-#define LAST_ERROR errno
+#define LAST_ERROR LastSocketError
 
 #define TIMER_SECOND 1000
 
