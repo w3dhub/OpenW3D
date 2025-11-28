@@ -40,6 +40,7 @@
 #include "playermanager.h"
 #include "cnetwork.h"
 #include "gamespyadmin.h"
+#include "GameSpy_QnR.h"
 #include "CDKeyAuth.h"
 #include "sctextobj.h"
 #include "translatedb.h"
@@ -75,6 +76,12 @@ cGameSpyAuthMgr::Think
 
 		if (!p_player->Is_Alive_And_Kicking())
 		{
+			continue;
+		}
+
+		if (GameSpyQnR.IsOffline()) {
+			// Without master/heartbeat servers, skip external auth and let players in.
+			p_player->Set_GameSpy_Auth_State(GAMESPY_AUTH_STATE_ACCEPTED);
 			continue;
 		}
 
