@@ -75,6 +75,17 @@
 #include "GameSpyBanList.h"
 #include <gamespy/pt/pt.h>
 #include <gamespy/gcdkey/gcdkeys.h>
+#include <atomic>
+#include <chrono>
+#include <cstdio>
+#include <memory>
+#include <thread>
+
+#ifdef _MSC_VER
+#ifdef snprintf
+#undef snprintf
+#endif
+#endif
 
 CGameSpyQnR GameSpyQnR;
 
@@ -163,6 +174,7 @@ CGameSpyQnR::CGameSpyQnR(void) : m_GSInit(false), m_GSEnabled(false)
 	secret_key[3] = '3';
 #endif
 
+	m_Offline = FALSE;
 }
 
 CGameSpyQnR::~CGameSpyQnR()
@@ -244,11 +256,13 @@ void CGameSpyQnR::Init(void) {
 
 #ifndef BETACLIENT
 
-	if (m_GSEnabled && !m_GSInit && The_Game() && The_Game()->Get_Game_Type() == cGameData::GAME_TYPE_CNC) {
-	
-		ConsoleBox.Print("Initializing GameSpy Q&R\n");
+		m_Offline = FALSE;
 
-		BOOL test = false;
+		if (m_GSEnabled && !m_GSInit && The_Game() && The_Game()->Get_Game_Type() == cGameData::GAME_TYPE_CNC) {
+		
+			ConsoleBox.Print("Initializing GameSpy Q&R\n");
+
+			BOOL test = false;
 		// Init the GameSpy QnR engine
 		extern unsigned int g_ip_override;
 		char ipstr[32];
@@ -264,26 +278,25 @@ void CGameSpyQnR::Init(void) {
 			strcpy(ip, cNetUtil::Address_To_String(g_ip_override));
 		}
 
+		static bool warned_no_masters = false;
+
 		if (!get_master_count()) {
-			if (!GameSpyQnR.Parse_HeartBeat_List(Get_Default_HeartBeat_List())) {
-				// Parsing the default list failed; disable GameSpy reporting for this session.
-				ConsoleBox.Print("GameSpy master servers unavailable; disabling GameSpy Q&R for this session.\n");
-				m_GSEnabled = false;
-				cGameSpyAdmin::Set_Is_Server_Gamespy_Listed(false);
-				return;
-			}
+			GameSpyQnR.Parse_HeartBeat_List(Get_Default_HeartBeat_List(), false);
 		}
-		if (!get_master_count()) {
-			ConsoleBox.Print("No GameSpy master servers configured; disabling GameSpy Q&R for this session.\n");
-			m_GSEnabled = false;
-			cGameSpyAdmin::Set_Is_Server_Gamespy_Listed(false);
-			return;
+		if (!get_master_count() && !warned_no_masters) {
+			ConsoleBox.Print("GameSpy master servers unavailable; continuing without heartbeats.\n");
+			warned_no_masters = true;
+			m_Offline = TRUE;
+		} else if (get_master_count()) {
+			m_Offline = FALSE;
 		}
 		test = qr_init(&query_reporting_rec, ip, cUserOptions::GameSpyQueryPort.Get(),
 			gamename, secret_key, c_basic_callback, c_info_callback, c_rules_callback, 
 			c_players_callback, this);
 		WWASSERT(!test);
-		gcd_init_qr(query_reporting_rec, cdkey_id);
+		if (!m_Offline) {
+			gcd_init_qr(query_reporting_rec, cdkey_id);
+		}
 
 		StartTime = time(NULL);
 		m_GSInit = true;
@@ -538,7 +551,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 
 		break;
 
-	}
+}
 
 #ifdef WWDEBUG
 	StringClass tstr(true);
@@ -549,7 +562,65 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 
 }
 
-BOOL CGameSpyQnR::Parse_HeartBeat_List(const char *list) {
+namespace {
+bool Resolve_Master_With_Timeout(const char *host, WORD port, sockaddr_in &out_addr, std::chrono::milliseconds timeout) {
+	// Fast path for dotted-quad literals so we never touch DNS.
+	unsigned long numeric = inet_addr(host);
+	if (numeric != INADDR_NONE) {
+		out_addr = {};
+		out_addr.sin_family = AF_INET;
+		out_addr.sin_addr.s_addr = numeric;
+		out_addr.sin_port = htons(port);
+		return true;
+	}
+
+	struct ResolveState {
+		std::atomic<bool> done{false};
+		bool resolved{false};
+		sockaddr_in addr{};
+	};
+	auto state = std::make_shared<ResolveState>();
+
+	std::thread resolver([state, host, port]() {
+		addrinfo hints{};
+		hints.ai_family = AF_INET;
+		hints.ai_socktype = SOCK_DGRAM;
+		hints.ai_protocol = IPPROTO_UDP;
+		char port_buf[8] = {};
+		std::snprintf(port_buf, sizeof(port_buf), "%u", static_cast<unsigned>(port));
+
+		addrinfo *info = nullptr;
+		if (::getaddrinfo(host, port_buf, &hints, &info) == 0 && info != nullptr) {
+			state->addr = *reinterpret_cast<sockaddr_in *>(info->ai_addr);
+			state->resolved = true;
+		}
+		if (info) {
+			::freeaddrinfo(info);
+		}
+		state->done.store(true, std::memory_order_release);
+	});
+
+	const auto deadline = std::chrono::steady_clock::now() + timeout;
+	while (!state->done.load(std::memory_order_acquire) && std::chrono::steady_clock::now() < deadline) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+
+	if (!state->done.load(std::memory_order_acquire)) {
+		resolver.detach(); // DNS is still in flight; carry on without blocking.
+		return false;
+	}
+
+	resolver.join();
+	if (state->resolved) {
+		state->addr.sin_port = htons(port);
+		out_addr = state->addr;
+		return true;
+	}
+	return false;
+}
+} // anonymous namespace
+
+BOOL CGameSpyQnR::Parse_HeartBeat_List(const char *list, bool log_on_error) {
 
 	BOOL master_added = false;
 
@@ -576,23 +647,23 @@ BOOL CGameSpyQnR::Parse_HeartBeat_List(const char *list) {
 		}
 		// skip white space
 		while (*t == ' ' || *t == '\t') t++;
-		// process the address
-		if (*t && get_sockaddrin(t, port, &taddr, NULL)) {
+		// process the address with a bounded DNS lookup to avoid hanging the server when offline
+		if (*t && Resolve_Master_With_Timeout(t, port, taddr, std::chrono::milliseconds(1000))) {
 			add_master(&taddr);
 			master_added = true;
+		} else if (*t && log_on_error) {
+			ConsoleBox.Print("Skipping HeartBeat master '%s' (unresolved)\n", t);
 		}
 		t = q;
 	}
 
 	delete [] str;
 
-	if (!master_added) {
+	if (!master_added && log_on_error) {
 		ConsoleBox.Print("Error processing HeartBeat List: <%s>\n", list);
-		ConsoleBox.Print("Assigning default HeartBeat List\n");
-		return false;
 	}
 
-	return true;
+	return master_added;
 }
 
 BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key, const char *value) {

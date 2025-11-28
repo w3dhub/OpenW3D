@@ -235,8 +235,12 @@ void AutoRestartClass::Think(void)
 				/*
 				** Force a new server list update. This will cause a complete WOLAPI reset too btw.
 				*/
-				RefPtr<WWOnline::Session> wol_session = WWOnline::Session::GetInstance(false);
-				wol_session->Reset();
+				RefPtr<WWOnline::Session> wol_session = WWOnline::Session::GetInstance(true);
+				if (wol_session.IsValid()) {
+					wol_session->Reset();
+				} else {
+					ConsoleBox.Print("Warning: WOL session not available to reset.\n");
+				}
 
 				/*
 				** Hide the page dialog - we don't want that sucker popping up when there's no-one around.
@@ -287,17 +291,22 @@ void AutoRestartClass::Think(void)
 						/*
 						** Logon to WOL.
 						*/
-						if (can_render) {
-							AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Logging on");
+							if (can_render) {
+								AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Logging on");
+							}
+							LogonAction = (WOLLogonAction) -1;
+							WOLLogonMgr::Set_Quiet_Mode(true);
+							RefPtr<WWOnline::Session> WOLSession = WWOnline::Session::GetInstance(true);
+							if (WOLSession.IsValid()) {
+								Observer<WWOnline::ServerError>::NotifyMe(*WOLSession);
+								WOLLogonMgr::Logon(this);
+								RestartState = STATE_LOGIN;
+							} else {
+								ConsoleBox.Print("Warning: WOL session unavailable; aborting auto-login.\n");
+								RestartState = STATE_CANCELLED;
+							}
+							break;
 						}
-						LogonAction = (WOLLogonAction) -1;
-						WOLLogonMgr::Set_Quiet_Mode(true);
-						RefPtr<WWOnline::Session> WOLSession = WWOnline::Session::GetInstance(false);
-						Observer<WWOnline::ServerError>::NotifyMe(*WOLSession);
-						WOLLogonMgr::Logon(this);
-						RestartState = STATE_LOGIN;
-						break;
-					}
 
 					/*
 					** It won't have initialzed above if a shutdown was already pending. Maybe we need to try again.
