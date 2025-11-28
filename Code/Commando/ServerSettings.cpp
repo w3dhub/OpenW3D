@@ -210,12 +210,10 @@ bool ServerSettingsClass::Parse(bool apply)
 
 		/*
 		** Parse the list of GameSpy Style Master servers from the HeartBeat List
-		*/
-		heartbeat_list[sizeof(heartbeat_list)-1] = 0;
-		ini.Get_String(MasterServerSection, "HeartBeatServers", GameSpyQnR.Get_Default_HeartBeat_List(), heartbeat_list, sizeof(heartbeat_list)-1);
-		if (!GameSpyQnR.Parse_HeartBeat_List(heartbeat_list)) {
-			GameSpyQnR.Parse_HeartBeat_List(GameSpyQnR.Get_Default_HeartBeat_List());
-		}
+	*/
+	heartbeat_list[sizeof(heartbeat_list)-1] = 0;
+	ini.Get_String(MasterServerSection, "HeartBeatServers", GameSpyQnR.Get_Default_HeartBeat_List(), heartbeat_list, sizeof(heartbeat_list)-1);
+	GameSpyQnR.Parse_HeartBeat_List(heartbeat_list, false);
 
 		/*
 		** Make sure the master server settings file is there.
@@ -345,6 +343,9 @@ bool ServerSettingsClass::Parse(bool apply)
 			return(false);
 		}
 		cUserOptions::GameSpyGamePort.Set(gsgport);
+		if (cGameSpyAdmin::Get_Is_Server_Gamespy_Listed()) {
+			ConsoleBox.Print("GameSpy ports: game=%d query=%d\n", gsgport, gsqport);
+		}
 
 		/*
 		** Get the bandwidth allowance.

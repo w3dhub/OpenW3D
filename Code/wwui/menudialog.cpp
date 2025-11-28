@@ -41,6 +41,7 @@
 #include "dialogmgr.h"
 #include "childdialog.h"
 #include "dialogcontrol.h"
+#include "ww3d.h"
 
 
 ////////////////////////////////////////////////////////////////
@@ -98,7 +99,7 @@ MenuDialogClass::~MenuDialogClass (void)
 void
 MenuDialogClass::Initialize (void)
 {	
-	BackDrop = new MenuBackDropClass;
+	Ensure_BackDrop();
 	return ;
 }
 
@@ -119,6 +120,19 @@ MenuDialogClass::Shutdown (void)
 	return ;
 }
 
+////////////////////////////////////////////////////////////////
+//
+//	Ensure_BackDrop
+//
+////////////////////////////////////////////////////////////////
+void
+MenuDialogClass::Ensure_BackDrop (void)
+{
+	if (BackDrop == NULL && WW3D::Is_Initted()) {
+		BackDrop = new MenuBackDropClass;
+	}
+}
+
 
 ////////////////////////////////////////////////////////////////
 //
@@ -136,7 +150,10 @@ MenuDialogClass::Render (void)
 		//
 		//	Render the background scene first
 		//
-		BackDrop->Render ();
+		Ensure_BackDrop();
+		if (BackDrop != NULL) {
+			BackDrop->Render ();
+		}
 
 		//
 		//	Now, let the dialog subsystem render the controls and

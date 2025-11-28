@@ -227,7 +227,9 @@ SplashOutroMenuDialogClass::~SplashOutroMenuDialogClass (void)
 void
 SplashOutroMenuDialogClass::On_Init_Dialog (void)
 {
-	MenuDialogClass::Get_BackDrop ()->Remove_Model ();
+	if (MenuBackDropClass *backdrop = MenuDialogClass::Get_BackDrop ()) {
+		backdrop->Remove_Model ();
+	}
 
 	MenuDialogClass::On_Init_Dialog ();
 

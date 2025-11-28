@@ -61,7 +61,19 @@ WideStringClass cNetInterface::Get_Nickname(void)
 		// If the gamespy nickname is blank, set it to "Unnamed"
 		//
 		if (!::strcmp(cUserOptions::GameSpyNickname.Get(), "")) {
-			cUserOptions::GameSpyNickname.Set("Unnamed");
+			char hostname[MAX_COMPUTERNAME_LENGTH + 1] = {0};
+			DWORD size = sizeof(hostname);
+			if (!::GetComputerNameA(hostname, &size) || hostname[0] == '\0') {
+				strcpy(hostname, "Unnamed");
+			}
+
+			// GameSpy nicknames are limited to 30 characters elsewhere.
+			const size_t max_gamespy_length = 30;
+			if (strlen(hostname) > max_gamespy_length) {
+				hostname[max_gamespy_length] = '\0';
+			}
+
+			cUserOptions::GameSpyNickname.Set(hostname);
 		}
 
 		WideStringClass wide_name;

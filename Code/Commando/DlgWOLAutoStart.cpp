@@ -87,9 +87,11 @@ void AutoRestartProgressDialogClass::On_Init_Dialog (void)
 	*/
 	RegistryClass reg(APPLICATION_SUB_KEY_NAME_OPTIONS);
 	if (reg.Get_Int("DisableMenuAnim", 0) == 0) {
-		if (Get_BackDrop ()->Peek_Model () == NULL) {
-			Get_BackDrop ()->Set_Model ("IF_BACK01");
-			Get_BackDrop ()->Set_Animation ("IF_BACK01.IF_BACK01");
+		if (MenuBackDropClass *backdrop = Get_BackDrop ()) {
+			if (backdrop->Peek_Model () == NULL) {
+				backdrop->Set_Model ("IF_BACK01");
+				backdrop->Set_Animation ("IF_BACK01.IF_BACK01");
+			}
 		}
 	}
 
