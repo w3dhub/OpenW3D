@@ -753,9 +753,10 @@ inline void
 WideStringClass::Store_Allocated_Length (size_t allocated_length)
 {
 	if (m_Buffer != m_EmptyString) {
-		HEADER *header					= Get_Header ();
+		HEADER* header = Get_Header();
 		WWASSERT(allocated_length <= static_cast<size_t>(std::numeric_limits<int>::max()));
 		header->allocated_length = static_cast<int>(allocated_length);
+	} else {
 		WWASSERT (allocated_length == 0);
 	}
 
