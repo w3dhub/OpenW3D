@@ -114,8 +114,7 @@ static void Get_Detail_String(StringClass& str)
 {
 	str="";
 	INIClass ini(W3D_CONF_FILE);
-	RegistryClass registry (APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS);
-
+	
 	int dynamic_lod		= 3000;
 	int static_lod			= 3000;
 	int dynamic_shadows	= 1;
@@ -126,22 +125,6 @@ static void Get_Detail_String(StringClass& str)
 	int texture_red		= 0;
 	int surface_effect	= 1;
 	int particle_detail	= 1;
-
-	if (registry.Is_Valid ()) {
-		//
-		//	Read the values from the registry
-		//
-		dynamic_lod		= registry.Get_Int (VALUE_NAME_DYN_LOD, dynamic_lod);
-		static_lod			= registry.Get_Int (VALUE_NAME_STATIC_LOD, static_lod);
-		dynamic_shadows	= registry.Get_Int (VALUE_NAME_DYN_SHADOWS, dynamic_shadows);
-		static_shadows	= registry.Get_Int (VALUE_NAME_STATIC_SHADOWS, static_shadows);
-		texture_filter	= registry.Get_Int (VALUE_NAME_TEXTURE_FILTER_MODE, texture_filter);
-		prelit_mode		= registry.Get_Int (VALUE_NAME_PRELIT_MODE, prelit_mode);
-		shadow_mode		= registry.Get_Int (VALUE_NAME_SHADOW_MODE, shadow_mode);
-		texture_red		= registry.Get_Int (VALUE_NAME_TEXTURE_RES, texture_red);
-		surface_effect	= registry.Get_Int (VALUE_NAME_SURFACE_EFFECT, surface_effect);
-		particle_detail	= registry.Get_Int (VALUE_NAME_PARTICLE_DETAIL, particle_detail);
-	}
 
 	if (ini.Is_Present(W3D_SECTION_SYSTEM)) {
 		//
@@ -231,13 +214,8 @@ static void Get_Detail_String(StringClass& str)
 
 	str+="\r\n";
 
-	static const char VALUE_NAME_SOUND_DEVICE_NAME[] = "device name";
 	static const char VALUE_INI_SOUND_DEVICE_NAME[] = "DeviceName";
-	RegistryClass registry_sound( APPLICATION_SUB_KEY_NAME_SOUND );
 	char temp_buffer[256] = { 0 };
-	if ( registry_sound.Is_Valid() ) {	
-		registry.Get_String (VALUE_NAME_SOUND_DEVICE_NAME, temp_buffer, sizeof (temp_buffer));
-	}
 
 	if (ini.Is_Present(W3D_SECTION_SOUND)) {
 		ini.Get_String(W3D_SECTION_SOUND, VALUE_INI_SOUND_DEVICE_NAME, temp_buffer, temp_buffer, sizeof(temp_buffer));
@@ -262,7 +240,6 @@ static void Get_Detail_String(StringClass& str)
 void Get_Compact_Detail_String(StringClass& str)
 {
 	str="";
-	RegistryClass registry (APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS);
 	INIClass ini(W3D_CONF_FILE);
 
 	int dynamic_lod		= 3000;
@@ -275,23 +252,6 @@ void Get_Compact_Detail_String(StringClass& str)
 	int texture_red		= 0;
 	int surface_effect	= 1;
 	int particle_detail	= 1;
-
-	if (registry.Is_Valid ()) {
-
-		//
-		//	Read the values from the registry
-		//
-		dynamic_lod		= registry.Get_Int (VALUE_NAME_DYN_LOD, 3000);
-		static_lod			= registry.Get_Int (VALUE_NAME_STATIC_LOD, 3000);
-		dynamic_shadows	= registry.Get_Int (VALUE_NAME_DYN_SHADOWS, 1);
-		static_shadows	= registry.Get_Int (VALUE_NAME_STATIC_SHADOWS, 1);
-		texture_filter	= registry.Get_Int (VALUE_NAME_TEXTURE_FILTER_MODE, TextureClass::TEXTURE_FILTER_BILINEAR);
-		prelit_mode		= registry.Get_Int (VALUE_NAME_PRELIT_MODE, WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
-		shadow_mode		= registry.Get_Int (VALUE_NAME_SHADOW_MODE, PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS);
-		texture_red		= registry.Get_Int (VALUE_NAME_TEXTURE_RES, 0);
-		surface_effect	= registry.Get_Int (VALUE_NAME_SURFACE_EFFECT, 1);
-		particle_detail	= registry.Get_Int (VALUE_NAME_PARTICLE_DETAIL, 1);
-	}
 
 	if (ini.Is_Present(W3D_SECTION_SYSTEM)) {
 		//

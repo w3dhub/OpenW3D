@@ -320,14 +320,13 @@ DlgConfigPerformanceTabClass::Load_Values (void)
 	SliderCtrlClass *particle_slider			= (SliderCtrlClass *)Get_Dlg_Item (IDC_PARTICLE_DETAIL_SLIDER);
 
 	//
-	//	Attempt to open the registry key
+	//	Attempt to open the config file
 	//
 	INIClass ini(W3D_CONF_FILE);
-	RegistryClass registry (APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS);
-	if (registry.Is_Valid () || ini.Is_Present(W3D_SECTION_SYSTEM)) {
+	if (ini.Is_Present(W3D_SECTION_SYSTEM)) {
 
 		//
-		//	Read the values from the registry
+		//	Read the values from the config file
 		//
 		int static_shadows = 1;
 		int shadow_mode = PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS;
@@ -335,22 +334,11 @@ DlgConfigPerformanceTabClass::Load_Values (void)
 		int particle_detail = 1;
 		int npatches = 0;
 
-		if (registry.Is_Valid ()){
-			static_shadows	= registry.Get_Int (VALUE_NAME_STATIC_SHADOWS, static_shadows);
-			shadow_mode		= registry.Get_Int (VALUE_NAME_SHADOW_MODE, shadow_mode);
-			texture_red		= registry.Get_Int (VALUE_NAME_TEXTURE_RES, texture_red);
-			particle_detail	= registry.Get_Int (VALUE_NAME_PARTICLE_DETAIL, particle_detail);
-			npatches			= registry.Get_Int (VALUE_NAME_NPATCHES, npatches);
-		}
-
-		if(ini.Is_Present(W3D_SECTION_SYSTEM))
-		{
-			static_shadows	= ini.Get_Bool (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, static_shadows != 0);
-			shadow_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, shadow_mode);
-			texture_red		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, texture_red);
-			particle_detail	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, particle_detail);
-			npatches			= ini.Get_Bool (W3D_SECTION_SYSTEM, VALUE_INI_NPATCHES, npatches);
-		}
+		static_shadows	= ini.Get_Bool (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, static_shadows != 0);
+		shadow_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, shadow_mode);
+		texture_red		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, texture_red);
+		particle_detail	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, particle_detail);
+		npatches		= ini.Get_Bool (W3D_SECTION_SYSTEM, VALUE_INI_NPATCHES, npatches);
 
 
 		//
@@ -607,9 +595,8 @@ DlgConfigPerformanceTabClass::On_Apply (void)
 	SliderCtrlClass *particle_slider			= (SliderCtrlClass *)Get_Dlg_Item (IDC_PARTICLE_DETAIL_SLIDER);
 	
 	//
-	//	Attempt to open the registry key
+	//	Attempt to open the config file
 	//
-	RegistryClass registry (APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS);	
 	INIClass ini(W3D_CONF_FILE);
 	
 	//
@@ -635,29 +622,8 @@ DlgConfigPerformanceTabClass::On_Apply (void)
 		lod_budget = MAX_LOD_HIGH;
 	}
 
-	if (registry.Is_Valid ()) {
-		//
-		//	Store the values in the registry
-		//
-		registry.Set_Int (VALUE_NAME_DYN_LOD, lod_budget);
-		registry.Set_Int (VALUE_NAME_STATIC_LOD, lod_budget);
-
-		registry.Set_Int (VALUE_NAME_DYN_SHADOWS, (shadow_mode != PhysicsSceneClass::SHADOW_MODE_NONE));
-		registry.Set_Int (VALUE_NAME_STATIC_SHADOWS, static_shadows);
-
-		registry.Set_Int (VALUE_NAME_SHADOW_MODE,		shadow_mode);
-		registry.Set_Int (VALUE_NAME_TEXTURE_RES,		std::max (2 - texture_red, 0));
-		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, particle_detail);
-
-
-
-		if (DX8Wrapper::Get_Current_Caps() && DX8Wrapper::Get_Current_Caps()->Support_NPatches ()) {
-			registry.Set_Int (VALUE_NAME_NPATCHES,	npatches);
-		}
-	}
-
 	//
-	//	Store the values in the registry
+	//	Store the values in the config file
 	//
 	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_DYN_LOD, lod_budget);
 	ini.Put_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_LOD, lod_budget);

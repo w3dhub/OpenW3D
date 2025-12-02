@@ -811,17 +811,6 @@ void PerformanceConfigDialogClass::OnGraphicsAutoSetup()
 void AutoConfigSettings() 
 {
 	INIClass ini(W3D_CONF_FILE);
-	//
-	//	Attempt to open the registry key 
-	//
-	RegistryClass registry (KEY_NAME_SETTINGS);
-	if (!registry.Is_Valid()) return;
-
-	// Access registry key "Render"
-	RegistryClass render_registry(RENEGADE_SUB_KEY_NAME_RENDER);
-	if ( !render_registry.Is_Valid() ) {
-		return;
-	}
 
 	IDirect3D9* d3d=NULL;
 	D3DCAPS9 tmp_caps;
@@ -832,7 +821,6 @@ void AutoConfigSettings()
 	VideoConfigDialogClass* video=VideoConfigDialogClass::Get_Instance();
 	if (video) {
 		WW3D::Set_Texture_Bitdepth(16);
-		render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH, 16 );
 		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_TEXTURE_DEPTH, 16);
 		d3d=DX8Wrapper::_Get_D3D8();
 		d3d->AddRef();
@@ -863,8 +851,6 @@ void AutoConfigSettings()
 		char device_name[256] = { 0 };
 		if (ini.Is_Present(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME)) {
 			ini.Get_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, "", device_name, sizeof(device_name));
-		} else {
-			render_registry.Get_String( VALUE_NAME_RENDER_DEVICE_NAME, device_name, sizeof(device_name));
 		}
 		
 		int adapter_count = d3d->GetAdapterCount();
@@ -899,16 +885,10 @@ void AutoConfigSettings()
 			return;
 		}
 
-		// Store device name in registry
-		render_registry.Set_String( VALUE_NAME_RENDER_DEVICE_NAME, adapter_id.Description);
+		// Store device name in config file
 		ini.Put_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, adapter_id.Description);
+		
 		// Set resolution to 800 x 600 x 16
-		render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_WIDTH, 800 );
-		render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_HEIGHT, 600 );
-		render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_DEPTH, 16 );
-		render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_WINDOWED, 0 );
-		render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH, 16 );
-
 		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WIDTH, 800);
 		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_HEIGHT, 600);
 		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_DEPTH, 16);
@@ -927,7 +907,6 @@ void AutoConfigSettings()
 			switch (tmp_caps.Get_Device()) {
 			default:
 				display_format=D3DFMT_A8R8G8B8;
-				render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_DEPTH, 32 );
 				ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_DEPTH, 32);
 				break;
 			case DX8Caps::DEVICE_NVIDIA_TNT2_ALADDIN:
@@ -962,7 +941,6 @@ void AutoConfigSettings()
 				break;
 			default:
 				display_format=D3DFMT_A8R8G8B8;
-				render_registry.Set_Int( VALUE_NAME_RENDER_DEVICE_DEPTH, 32 );
 				ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_DEPTH, 32);
 				break;
 			}
@@ -984,19 +962,15 @@ void AutoConfigSettings()
 	//	If no texture compression, default to texture resolution 1
 	// FIXME Should this be bool for the ini file version?
 	if (caps.Support_DXTC()) {
-		registry.Set_Int (VALUE_NAME_TEXTURE_RES, 0);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, 0);
 	}
 	else {
-		registry.Set_Int (VALUE_NAME_TEXTURE_RES, 1);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, 1);
 	}
 
 
 // High geometry detail on T&L cards, medium on fast processors and low on slow ones
 	if (caps.Support_TnL()) {
-		registry.Set_Int (VALUE_NAME_DYN_LOD, 10000);
-		registry.Set_Int (VALUE_NAME_STATIC_LOD, 10000);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_DYN_LOD, 10000);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_STATIC_LOD, 10000);
 	}
@@ -1004,14 +978,10 @@ void AutoConfigSettings()
 		// If T&L hardware present, set to medium or low. Set to medium if high end cpu.
 		// TODO: Set to medium if Athlon detected.
 		if (high_end_processor) {
-			registry.Set_Int (VALUE_NAME_DYN_LOD, 5000);
-			registry.Set_Int (VALUE_NAME_STATIC_LOD, 5000);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_DYN_LOD, 5000);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_STATIC_LOD, 5000);
 		}
 		else {
-			registry.Set_Int (VALUE_NAME_DYN_LOD, 0);
-			registry.Set_Int (VALUE_NAME_STATIC_LOD, 0);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_DYN_LOD, 0);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_STATIC_LOD, 0);
 		}
@@ -1022,64 +992,51 @@ void AutoConfigSettings()
 // Set low shadow detail if no render to texture is available
 	if (caps.Support_Render_To_Texture_Format(D3DFormat_To_WW3DFormat(display_format))) {
 		if (caps.Support_TnL()) {
-			registry.Set_Int (VALUE_NAME_SHADOW_MODE, 3);
-			registry.Set_Int (VALUE_NAME_STATIC_SHADOWS, 1);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, 3);
 			ini.Put_Bool(W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, true);
 		}
 		else {
-			registry.Set_Int (VALUE_NAME_SHADOW_MODE, 2);
-			registry.Set_Int (VALUE_NAME_STATIC_SHADOWS, 0);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, 2);
 			ini.Put_Bool(W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, false);
 		}
 	}
 	else {
-		registry.Set_Int (VALUE_NAME_STATIC_SHADOWS, 0);
 		ini.Put_Bool(W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, false);
 
 		// Set to medium if high end cpu detected.
 		// TODO: Set to medium if Athlon detected.
 		if (high_end_processor) {
-			registry.Set_Int (VALUE_NAME_SHADOW_MODE, 1);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, 1);
 		}
 		else {
-			registry.Set_Int (VALUE_NAME_SHADOW_MODE, 0);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, 0);
 		}
 	}
 
 // If a low end system turn surface effects off
 	if (caps.Support_TnL()) {
-		registry.Set_Int (VALUE_NAME_SURFACE_EFFECT, 2);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, 2);
 	}
 	else {
 		// Set to medium if high end cpu detected.
 		// TODO: Set to medium if Athlon detected.
 		if (high_end_processor) {
-			registry.Set_Int (VALUE_NAME_SURFACE_EFFECT, 1);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, 1);
 		}
 		else {
-			registry.Set_Int (VALUE_NAME_SURFACE_EFFECT, 0);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, 0);
 		}
 	}
 
 // If HWTL and high end cpu, use highest particle detail
 	if (caps.Support_TnL() && high_end_processor) {
-		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, 2);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, 2);
 	}
 	// If one or the other, use medium particle detail
 	else if (caps.Support_TnL() || high_end_processor) {
-		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, 1);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, 1);
 	}
 	else {
-		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, 0);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, 0);
 	}
 
@@ -1089,17 +1046,14 @@ void AutoConfigSettings()
 	// If card can't do multi pass (which is the case if we've seen z-fighting problems when multi-passing)
 	// select vertex solve.
 	if (!caps.Can_Do_Multi_Pass() || CPUDetectClass::Get_Total_Physical_Memory()<100*1024*1024) {
-		registry.Set_Int (VALUE_NAME_PRELIT_MODE, 0);
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, 0);
 	}
 	// Otherwise select multitexturing if card can do it, or multipass...
 	else {
 		if (caps.Get_Max_Textures_Per_Pass()>=2) {
-			registry.Set_Int (VALUE_NAME_PRELIT_MODE, 2);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, 2);
 		}
 		else {
-			registry.Set_Int (VALUE_NAME_PRELIT_MODE, 1);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, 1);
 		}
 	}
@@ -1113,7 +1067,6 @@ void AutoConfigSettings()
 
 	switch (caps.Get_Vendor()) {
 	default:
-		registry.Set_Int(VALUE_NAME_TEXTURE_FILTER,0);	// Most cards default to bilinear filtering
 		ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, 1);
 		break;
 	case DX8Caps::VENDOR_NVIDIA:
@@ -1127,11 +1080,9 @@ void AutoConfigSettings()
 		case DX8Caps::DEVICE_NVIDIA_RIVA_128:
 		case DX8Caps::DEVICE_NVIDIA_TNT_VANTA:
 		case DX8Caps::DEVICE_NVIDIA_NV1:
-			registry.Set_Int(VALUE_NAME_TEXTURE_FILTER,0);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, 0);
 			break;
 		default:
-			registry.Set_Int(VALUE_NAME_TEXTURE_FILTER,1);	// New NVidia cards default to trilinear
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, 1);
 		}
 		break;
@@ -1152,7 +1103,6 @@ void AutoConfigSettings()
 		case DX8Caps::DEVICE_ATI_RAGE_128_VR:
 		case DX8Caps::DEVICE_ATI_RAGE_PRO:
 		case DX8Caps::DEVICE_ATI_RAGE_PRO_MOBILITY:
-			registry.Set_Int(VALUE_NAME_TEXTURE_FILTER,0);
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, 0);
 
 			// It seems the bias needs to be adjusted on Rage128 as well...
@@ -1166,7 +1116,6 @@ void AutoConfigSettings()
 			}
 			break;
 		default:
-			registry.Set_Int(VALUE_NAME_TEXTURE_FILTER,1);	// New ATI cards default to trilinear
 			ini.Put_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, 1);
 			break;
 		}
@@ -1208,9 +1157,6 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 		//	Insert code here
 		//
 
-		RegistryClass registry (KEY_NAME_SETTINGS);
-		if (!registry.Is_Valid ()) return;
-
 		INIClass ini(W3D_CONF_FILE);
 
 		VideoConfigDialogClass* video=VideoConfigDialogClass::Get_Instance();
@@ -1245,8 +1191,6 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 				cur_sel_string[0]=0;
 				if (ini.Is_Present(W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE)) {
 					sel = ini.Get_Int(W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
-				} else {
-					sel=registry.Get_Int (VALUE_NAME_PRELIT_MODE, WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
 				}
 			}
 
@@ -1285,8 +1229,6 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 				
 				if (ini.Is_Present(W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE)) {
 					sel = ini.Get_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, TextureClass::TEXTURE_FILTER_BILINEAR);
-				} else {
-					sel=registry.Get_Int (VALUE_NAME_TEXTURE_FILTER, TextureClass::TEXTURE_FILTER_BILINEAR);
 				}
 			}
 			SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_RESETCONTENT, 0, 0);

@@ -268,13 +268,9 @@ static HMODULE D3D8Lib = NULL;
 
 static bool Video_Card_Driver_Check()
 {
-	RegistryClass render_registry(APPLICATION_SUB_KEY_NAME_RENDER);
 	INIClass ini(W3D_CONF_FILE);
 
-	if (!render_registry.Is_Valid()) return true;
-
-	int disabled=render_registry.Get_Int( "DriverVersionCheckDisabled" );
-	disabled = ini.Get_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", disabled);
+	int disabled=ini.Get_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 0);
 	if (disabled>=87) return true;
 
 	IDirect3D9* d3d=NULL;
@@ -311,8 +307,7 @@ static bool Video_Card_Driver_Check()
 	//	Load the render device settings from the registry
 	//
 	char device_name[256] = { 0 };
-	render_registry.Get_String( VALUE_NAME_RENDER_DEVICE_NAME, device_name, sizeof(device_name));
-	ini.Get_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, device_name, device_name, sizeof(device_name));
+	ini.Get_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, "", device_name, sizeof(device_name));
 	
 	int adapter_count = d3d->GetAdapterCount();
 	for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
@@ -361,7 +356,6 @@ static bool Video_Card_Driver_Check()
 	case DX8Caps::DRIVER_STATUS_GOOD:
 	case DX8Caps::DRIVER_STATUS_OK:
 	case DX8Caps::DRIVER_STATUS_UNKNOWN:
-		render_registry.Set_Int( "DriverVersionCheckDisabled",87 );
 		ini.Put_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 87);
 		ini.Save(W3D_CONF_FILE);
 		return true;

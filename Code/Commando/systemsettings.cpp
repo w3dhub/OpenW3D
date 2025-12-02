@@ -73,13 +73,7 @@ void	SystemSettings::Apply_All( void )
 */
 void	SystemSettings::Registry_Save( const char * sub_key )
 {
-	RegistryClass registry( sub_key );
 	INIClass ini(W3D_CONF_FILE);
-	if ( registry.Is_Valid() ) {
-		for ( int index = 0; index < SettingList.Count(); index++ ) {
-			SettingList[ index ]->Registry_Save( registry );
-		}
-	}
 
 	for ( int index = 0; index < SettingList.Count(); index++ ) {
 		SettingList[ index ]->INI_Save( ini );
@@ -89,13 +83,7 @@ void	SystemSettings::Registry_Save( const char * sub_key )
 
 void	SystemSettings::Registry_Load( const char * sub_key )
 {
-	RegistryClass registry( sub_key );
 	INIClass ini(W3D_CONF_FILE);
-	if ( registry.Is_Valid() ) {
-		for ( int index = 0; index < SettingList.Count(); index++ ) {
-			SettingList[ index ]->Registry_Load( registry );
-		}
-	}
 
 	if (ini.Is_Present(W3D_SECTION_SYSTEM)) {
 		for ( int index = 0; index < SettingList.Count(); index++ ) {

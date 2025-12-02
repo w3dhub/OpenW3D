@@ -50,22 +50,8 @@
 #include <algorithm>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-//	Registry value names
+//	Config value names
 ////////////////////////////////////////////////////////////////////////////////////////////////
-static const char VALUE_NAME_IS_STEREO[]			= "stereo";
-static const char VALUE_NAME_BITS[]					= "bits";
-static const char VALUE_NAME_HERTZ[]				= "hertz";
-static const char VALUE_NAME_DEVICE_NAME[]			= "device name";
-static const char VALUE_NAME_MUSIC_ENABLED[]		= "music enabled";
-static const char VALUE_NAME_SOUND_ENABLED[]		= "sound enabled";
-static const char VALUE_NAME_DIALOG_ENABLED[]		= "dialog enabled";
-static const char VALUE_NAME_CINEMATIC_ENABLED[]	= "cinematic enabled";
-static const char VALUE_NAME_MUSIC_VOL[]			= "music volume";
-static const char VALUE_NAME_SOUND_VOL[]			= "sound volume";
-static const char VALUE_NAME_DIALOG_VOL[]			= "dialog volume";
-static const char VALUE_NAME_CINEMATIC_VOL[]		= "cinematic volume";
-static const char VALUE_NAME_SPEAKER_TYPE[]			= "speaker type";
-
 static const char VALUE_INI_IS_STEREO[]			= "Stereo";
 static const char VALUE_INI_BITS[]				= "Bits";
 static const char VALUE_INI_HERTZ[]				= "Hertz";
@@ -1452,9 +1438,8 @@ WWAudioClass::Load_From_Registry
 	Load_Default_Volume (defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume);
 
 	//
-	//	Attempt to open the registry key
+	//	Attempt to open the config file
 	//
-	RegistryClass registry (subkey_name);
 	INIClass ini(W3D_CONF_FILE);
 
 	if(ini.Is_Present(W3D_SECTION_SOUND)) {
@@ -1496,54 +1481,12 @@ WWAudioClass::Load_From_Registry
 		speaker_type		= ini.Get_Int (W3D_SECTION_SOUND, VALUE_INI_SPEAKER_TYPE, 0);
 
 		retval		= true;
-	} else if (registry.Is_Valid ()) {
-		//
-		//	Read the device name into a string object
-		//
-		char temp_buffer[256] = { 0 };
-		registry.Get_String (VALUE_NAME_DEVICE_NAME, temp_buffer, sizeof (temp_buffer));
-		device_name = temp_buffer;
-
-		//
-		//	Read the 2D settings
-		//
-		is_stereo	= (registry.Get_Int (VALUE_NAME_IS_STEREO, true) == 1);
-		bits			= registry.Get_Int (VALUE_NAME_BITS, 16);
-		hertz			= registry.Get_Int (VALUE_NAME_HERTZ, 44100);
-
-		//
-		//	Read the sound/music enabled settings
-		//
-		music_enabled		= (registry.Get_Int (VALUE_NAME_MUSIC_ENABLED, 1) == 1);
-		sound_enabled		= (registry.Get_Int (VALUE_NAME_SOUND_ENABLED, 1) == 1);
-		dialog_enabled		= (registry.Get_Int (VALUE_NAME_DIALOG_ENABLED, 1) == 1);
-		cinematic_enabled = (registry.Get_Int (VALUE_NAME_CINEMATIC_ENABLED, 1) == 1);
-
-		
-		//
-		//	Read the volume information
-		//
-		music_volume		= registry.Get_Int (VALUE_NAME_MUSIC_VOL, defaultmusicvolume) / 100.0F;
-		sound_volume		= registry.Get_Int (VALUE_NAME_SOUND_VOL, defaultsoundvolume) / 100.0F;
-		dialog_volume		= registry.Get_Int (VALUE_NAME_DIALOG_VOL, defaultdialogvolume) / 100.0F;
-		cinematic_volume	= registry.Get_Int (VALUE_NAME_CINEMATIC_VOL, defaultcinematicvolume) / 100.0F;
-		music_volume		= std::clamp (music_volume, 0.0F, 1.0F);
-		sound_volume		= std::clamp (sound_volume, 0.0F, 1.0F);
-		dialog_volume		= std::clamp (dialog_volume, 0.0F, 1.0F);
-		cinematic_volume	= std::clamp (cinematic_volume, 0.0F, 1.0F);
-
-		//
-		//	Misc
-		//
-		speaker_type		= registry.Get_Int (VALUE_NAME_SPEAKER_TYPE, 0);
-
-		retval		= true;
 	}
 
-	music_volume		= WWMath::Clamp (music_volume, 0, 1.0F);
-	sound_volume		= WWMath::Clamp (sound_volume, 0, 1.0F);
-	dialog_volume		= WWMath::Clamp (dialog_volume, 0, 1.0F);
-	cinematic_volume	= WWMath::Clamp (cinematic_volume, 0, 1.0F);
+	music_volume		= std::clamp (music_volume, 0.0F, 1.0F);
+	sound_volume		= std::clamp (sound_volume, 0.0F, 1.0F);
+	dialog_volume		= std::clamp (dialog_volume, 0.0F, 1.0F);
+	cinematic_volume	= std::clamp (cinematic_volume, 0.0F, 1.0F);
 
 	return retval;
 }
@@ -1576,9 +1519,8 @@ WWAudioClass::Save_To_Registry
 	bool retval = false;
 
 	//
-	//	Attempt to open the registry key
+	//	Attempt to open the config file
 	//
-	RegistryClass registry (subkey_name);
 	INIClass ini(W3D_CONF_FILE);
 
 	ini.Put_String (W3D_SECTION_SOUND, VALUE_INI_DEVICE_NAME, device_name);
@@ -1595,28 +1537,6 @@ WWAudioClass::Save_To_Registry
 	ini.Put_Float (W3D_SECTION_SOUND, VALUE_INI_CINEMATIC_VOL,		cinematic_volume);
 	ini.Put_Int (W3D_SECTION_SOUND, VALUE_INI_SPEAKER_TYPE,		speaker_type);
 	retval = ini.Save(W3D_CONF_FILE) != 0;
-	
-	if (registry.Is_Valid ()) {
-
-		//
-		//	Save the settings to the registry
-		//
-		registry.Set_String (VALUE_NAME_DEVICE_NAME, device_name);
-		registry.Set_Int (VALUE_NAME_IS_STEREO, is_stereo);
-		registry.Set_Int (VALUE_NAME_BITS, bits);
-		registry.Set_Int (VALUE_NAME_HERTZ, hertz);
-		registry.Set_Int (VALUE_NAME_MUSIC_ENABLED,		music_enabled);
-		registry.Set_Int (VALUE_NAME_SOUND_ENABLED,		sound_enabled);
-		registry.Set_Int (VALUE_NAME_DIALOG_ENABLED,		dialog_enabled);
-		registry.Set_Int (VALUE_NAME_CINEMATIC_ENABLED,	cinematic_enabled);
-		registry.Set_Int (VALUE_NAME_MUSIC_VOL,			music_volume * 100);
-		registry.Set_Int (VALUE_NAME_SOUND_VOL,			sound_volume * 100);
-		registry.Set_Int (VALUE_NAME_DIALOG_VOL,			dialog_volume * 100);
-		registry.Set_Int (VALUE_NAME_CINEMATIC_VOL,		cinematic_volume * 100);
-		registry.Set_Int (VALUE_NAME_SPEAKER_TYPE,		speaker_type);
-
-		retval = true;
-	}
 
 	return retval;
 }
