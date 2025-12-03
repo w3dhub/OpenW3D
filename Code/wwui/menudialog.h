@@ -76,6 +76,7 @@ public:
 	//
 	static void						Initialize (void);
 	static void						Shutdown (void);
+	static void						Ensure_BackDrop (void);
 
 	//
 	//	RTTI
@@ -85,7 +86,7 @@ public:
 	//
 	//	Configuration methods
 	//
-	static MenuBackDropClass *	Get_BackDrop (void)		{ return BackDrop; }
+	static MenuBackDropClass *	Get_BackDrop (void)		{ Ensure_BackDrop(); return BackDrop; }
 	static MenuBackDropClass *	Replace_BackDrop (MenuBackDropClass *backdrop);
 
 	//
@@ -128,4 +129,3 @@ protected:
 
 
 #endif //__MENU_DIALOG_H
-

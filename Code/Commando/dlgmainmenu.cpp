@@ -146,15 +146,17 @@ void
 MainMenuDialogClass::On_Menu_Activate (bool onoff)
 {
 	if (TitleTransModel != NULL) {
-
+	
 		//
 		//	Either add or remove the logo from the scene
 		//
 		if (onoff) {
-
+	
 			// Put the logo pack into the scene when reactivated.
 			if (LogoModel && LogoModel->Peek_Scene() == NULL) {
-				Get_BackDrop()->Peek_Scene()->Add_Render_Object(LogoModel);
+				if (MenuBackDropClass *backdrop = Get_BackDrop()) {
+					backdrop->Peek_Scene()->Add_Render_Object(LogoModel);
+				}
 			}
 
 			//
@@ -223,14 +225,18 @@ MainMenuDialogClass::Get_Transition_In (DialogBaseClass *prev_dlg)
 	//	Add the transition model to the scene
 	//
 	if (TitleTransModel != NULL && TitleTransModel->Peek_Scene () == NULL) {
-		Get_BackDrop ()->Peek_Scene ()->Add_Render_Object (TitleTransModel);
+		if (MenuBackDropClass *backdrop = Get_BackDrop ()) {
+			backdrop->Peek_Scene ()->Add_Render_Object (TitleTransModel);
+		}
 	}
 
 	//
 	//	Add the logo to the screen
 	//
 	if (LogoModel != NULL && LogoModel->Peek_Scene () == NULL) {
-		Get_BackDrop ()->Peek_Scene ()->Add_Render_Object (LogoModel);
+		if (MenuBackDropClass *backdrop = Get_BackDrop ()) {
+			backdrop->Peek_Scene ()->Add_Render_Object (LogoModel);
+		}
 	}
 
 	//
@@ -242,7 +248,9 @@ MainMenuDialogClass::Get_Transition_In (DialogBaseClass *prev_dlg)
 	{
 		transition = new MainMenuTransitionClass;
 		transition->Set_Model (TitleTransModel);
-		transition->Set_Camera (Get_BackDrop ()->Peek_Camera ());
+		if (MenuBackDropClass *backdrop = Get_BackDrop ()) {
+			transition->Set_Camera (backdrop->Peek_Camera ());
+		}
 		transition->Set_Type (DialogTransitionClass::SCREEN_IN);
 		transition->Set_Dialogs (this, prev_dlg);
 
@@ -276,7 +284,9 @@ MainMenuDialogClass::Get_Transition_Out (DialogBaseClass *next_dlg)
 	{
 		transition = new MainMenuTransitionClass;
 		transition->Set_Model (TitleTransModel);
-		transition->Set_Camera (Get_BackDrop ()->Peek_Camera ());
+		if (MenuBackDropClass *backdrop = Get_BackDrop ()) {
+			transition->Set_Camera (backdrop->Peek_Camera ());
+		}
 		transition->Set_Type (DialogTransitionClass::SCREEN_OUT);
 		transition->Set_Dialogs (this, next_dlg);
 
@@ -444,14 +454,16 @@ MainMenuDialogClass::Display (void)
 		//
 		if (Animated) {
 
-			if (dialog->Get_BackDrop ()->Peek_Model () == NULL) {
-				dialog->Get_BackDrop ()->Set_Model ("IF_BACK01");
-				dialog->Get_BackDrop ()->Set_Animation ("IF_BACK01.IF_BACK01");
+			if (MenuBackDropClass *backdrop = dialog->Get_BackDrop ()) {
+				if (backdrop->Peek_Model () == NULL) {
+					backdrop->Set_Model ("IF_BACK01");
+					backdrop->Set_Animation ("IF_BACK01.IF_BACK01");
 
-				/*RenderObjClass *model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("IF_RENLOGO");
-				if (model != NULL) {
-					dialog->Get_BackDrop ()->Peek_Scene ()->Add_Render_Object(model);
-				}*/
+					/*RenderObjClass *model = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("IF_RENLOGO");
+					if (model != NULL) {
+						backdrop->Peek_Scene ()->Add_Render_Object(model);
+					}*/
+				}
 			}
 		}
 
