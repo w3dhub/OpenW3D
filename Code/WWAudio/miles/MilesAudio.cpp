@@ -122,13 +122,6 @@ MilesAudioClass::~MilesAudioClass (void)
 	WWAudioThreadsClass::End_Delayed_Release_Thread ();
 
 	Shutdown ();
-
-	//
-	//	Free the list of logical "types".
-	//
-	Reset_Logical_Types ();
-
-	return;
 }
 
 

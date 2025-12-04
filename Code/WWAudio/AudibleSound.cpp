@@ -1059,6 +1059,13 @@ AudibleSoundClass::On_Frame_Update (unsigned int /* milliseconds */)
 		m_LogicalSound->Set_Transform (m_Transform);
 	}
 
+	//
+	// OpenAL addition, attempt to queue audio if the handle buffer is streaming.
+	//
+	if (m_SoundHandle != NULL) {
+		m_SoundHandle->Queue_Audio();
+	}
+	
 	return true;
 }
 

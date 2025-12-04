@@ -65,11 +65,6 @@ public:
 	///////////////////////////////////////////////////////////////////
 
 	//
-	//	RTTI
-	//
-	Sound3DHandleClass *		As_Sound3DHandleClass (void) override	{ return this; }
-
-	//
 	//	Inherited
 	//
 	void							Set_Miles_Handle (void *handle) override;
