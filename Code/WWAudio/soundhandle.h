@@ -73,13 +73,6 @@ public:
 	///////////////////////////////////////////////////////////////////
 
 	//
-	//	RTTI
-	//
-	virtual Sound3DHandleClass *		As_Sound3DHandleClass (void)		{ return NULL; }
-	virtual Sound2DHandleClass *		As_Sound2DHandleClass (void)		{ return NULL; }
-	virtual SoundStreamHandleClass *	As_SoundStreamHandleClass (void)	{ return NULL; }
-
-	//
 	//	Initialization
 	//
 	virtual void	Set_Miles_Handle (void *handle) = 0;
@@ -113,6 +106,8 @@ public:
 	virtual void Set_Effect_Level(float /* level */) {}
 
 	virtual void Initialize_Reverb() {}
+	virtual void Queue_Audio() {}
+	
 protected:
 
 	///////////////////////////////////////////////////////////////////

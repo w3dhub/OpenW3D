@@ -41,18 +41,20 @@ class FFmpegFile
 public:
 	FFmpegFile();
 	// The constructur takes ownership of the file
-	explicit FFmpegFile(const char *file);
+	explicit FFmpegFile(const char *file, FileFactoryClass *fact = nullptr);
 	~FFmpegFile();
 
-	bool Open(const char *file);
+	bool Open(const char *file, FileFactoryClass *fact = nullptr);
 	void Close();
 	void Set_Frame_Callback(FFmpegFrameCallback callback) { FrameCallback = callback; }
 	void Set_User_Data(void *user_data) { UserData = user_data; }
 	// Read & decode a packet from the container. Note that we could/should split this step
 	bool Decode_Packet();
 	void Seek_Frame(int frame_idx);
+	void Rewind();
 	bool Has_Audio() const;
 	bool Has_Video() const;
+	int Get_Duration() const;
 
 	// Audio specific
 	int Get_Size_For_Samples(int numSamples) const;
@@ -79,6 +81,7 @@ private:
 	};
 
 	static int Read_Packet(void *opaque, uint8_t *buf, int buf_size);
+	static int64_t Seek_Packet(void* opaque, int64_t offset, int whence);
 	const FFmpegStream *Find_Match(int type) const;
 
 	FFmpegFrameCallback 		FrameCallback = nullptr; ///< Callback for frame processing

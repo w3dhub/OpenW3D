@@ -150,7 +150,7 @@ set(WWLIB_SRC
 )
 
 if(TARGET ffmpeg)
-    list(APPEND WWLIB_SRC FFMpegFile.cpp FFMpegFile.h)
+    list(APPEND WWLIB_SRC FFmpegFile.cpp FFmpegFile.h)
 endif()
 
 if(TARGET icu)

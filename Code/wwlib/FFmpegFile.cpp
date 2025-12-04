@@ -32,9 +32,9 @@ extern "C" {
 
 FFmpegFile::FFmpegFile() {}
 
-FFmpegFile::FFmpegFile(const char *file)
+FFmpegFile::FFmpegFile(const char *file, FileFactoryClass *fact)
 {
-	Open(file);
+	Open(file, fact);
 }
 
 FFmpegFile::~FFmpegFile()
@@ -42,7 +42,7 @@ FFmpegFile::~FFmpegFile()
 	Close();
 }
 
-bool FFmpegFile::Open(const char *file)
+bool FFmpegFile::Open(const char *file, FileFactoryClass *fact)
 {
 	WWASSERT_PRINT(File == nullptr, ("already open\n"));
 	WWASSERT_PRINT(file != nullptr, ("null file pointer\n"));
@@ -54,8 +54,8 @@ bool FFmpegFile::Open(const char *file)
 #if LIBAVFORMAT_VERSION_MAJOR < 58
 	av_register_all();
 #endif
-	Factory = _TheFileFactory;
-	File = _TheFileFactory->Get_File(file);
+	Factory = fact == nullptr ? _TheFileFactory : fact;
+	File = Factory->Get_File(file);
 	File->Open(FileClass::READ);
 
 	// FFmpeg setup
@@ -167,6 +167,25 @@ int FFmpegFile::Read_Packet(void *opaque, uint8_t *buf, int buf_size)
 }
 
 /**
+ * Seek an FFmpeg packet from file
+ */
+int64_t FFmpegFile::Seek_Packet(void* opaque, int64_t offset, int whence)
+{
+	FileClass* file = static_cast<FileClass*>(opaque);
+	if (whence & AVSEEK_FORCE) {
+		whence &= ~AVSEEK_FORCE;
+	}
+
+	if (whence == AVSEEK_SIZE) {
+		return file->Size();
+	}
+
+	const int seek = file->Seek(int(offset), whence);
+
+	return seek;
+}
+
+/**
  * close all the open FFmpeg handles for an open file.
  */
 void FFmpegFile::Close()
@@ -215,7 +234,7 @@ bool FFmpegFile::Decode_Packet()
 	}
 
 	const int stream_idx = Packet->stream_index;
-	WWASSERT_PRINT(Streams.size() > stream_idx, ("stream index out of bounds"));
+	WWASSERT_PRINT(Streams.size() > unsigned(stream_idx), ("stream index out of bounds"));
 
 	auto &stream = Streams[stream_idx];
 	AVCodecContext *codec_ctx = stream.codec_ctx;
@@ -274,6 +293,18 @@ void FFmpegFile::Seek_Frame(int frame_idx)
 	}
 }
 
+void FFmpegFile::Rewind()
+{
+	for (const auto& stream : Streams) {
+		int result = avformat_seek_file(FmtCtx, stream.stream_idx, 0, 0, 0, AVSEEK_FLAG_ANY);
+		if (result < 0) {
+			char error_buffer[1024];
+			av_strerror(result, error_buffer, sizeof(error_buffer));
+			WWDEBUG_SAY(("Failed 'avformat_seek_file': %s\n", error_buffer));
+		}
+	}
+}
+
 bool FFmpegFile::Has_Audio() const
 {
 	const FFmpegStream *stream = Find_Match(AVMEDIA_TYPE_AUDIO);
@@ -284,6 +315,12 @@ bool FFmpegFile::Has_Video() const
 {
 	const FFmpegStream *stream = Find_Match(AVMEDIA_TYPE_VIDEO);
 	return stream != nullptr;
+}
+
+int FFmpegFile::Get_Duration() const
+{
+	// Convert duration to ms.
+	return int((float(FmtCtx->duration) / float(AV_TIME_BASE)) * 1000.0F);
 }
 
 const FFmpegFile::FFmpegStream *FFmpegFile::Find_Match(int type) const

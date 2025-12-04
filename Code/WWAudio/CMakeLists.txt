@@ -35,7 +35,17 @@ set(WWAUDIO_SRC
     WWAudio.h
 )
 
-if(W3D_BUILD_OPTION_MILES)
+if(W3D_BUILD_OPTION_OPENAL)
+    list(APPEND WWAUDIO_SRC
+        openal/OpenALAudio.h
+        openal/OpenALAudio.cpp
+        openal/FFMpegBuffer.cpp
+        openal/FFMpegBuffer.h
+        openal/OpenALHandle.cpp
+        openal/OpenALHandle.h
+        null/NullUtils.cpp
+    )
+elseif(W3D_BUILD_OPTION_MILES)
     list(APPEND WWAUDIO_SRC
         miles/MilesAudio.h
         miles/MilesAudio.cpp
@@ -70,6 +80,10 @@ if(TARGET milesstub)
     target_link_libraries(wwaudio PRIVATE milesstub)
 endif()
 
+if(TARGET OpenAL::OpenAL)
+    target_link_libraries(wwaudio PRIVATE OpenAL::OpenAL)
+endif()
+
 # This module needs building differently for the level editor
 if (W3D_TOOLS)
     # Targets to build.
@@ -85,6 +99,10 @@ if (W3D_TOOLS)
 
     if(W3D_BUILD_OPTION_MILES)
         target_compile_definitions(wwaudioe PRIVATE W3D_HAS_MILES)
+    endif()
+
+    if(TARGET OpenAL::OpenAL)
+        target_link_libraries(wwaudioe PRIVATE OpenAL::OpenAL)
     endif()
 
     if(TARGET milesstub)

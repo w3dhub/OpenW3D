@@ -161,14 +161,14 @@ class SoundSceneClass
 		//	Debugging
 		//////////////////////////////////////////////////////////////////////
 		bool						Is_Sound_In_Scene (AudibleSoundClass *sound_obj, bool all = true);
-
+		
+		virtual void			Initialize (void);
 	protected:
 
 		//////////////////////////////////////////////////////////////////////
 		//	Protected methods
 		//////////////////////////////////////////////////////////////////////
 		virtual void			On_Frame_Update (unsigned int milliseconds = 0);
-		virtual void			Initialize (void);
 
 		virtual bool			Is_Logical_Sound_In_Scene (LogicalSoundClass *sound_obj, bool single_shot = false);
 

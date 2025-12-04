@@ -65,11 +65,6 @@ public:
 	///////////////////////////////////////////////////////////////////
 
 	//
-	//	RTTI
-	//
-	Sound2DHandleClass *		As_Sound2DHandleClass (void) override	{ return this; }
-
-	//
 	//	Inherited
 	//
 	void							Set_Miles_Handle (void *handle) override;

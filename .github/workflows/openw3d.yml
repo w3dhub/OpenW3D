@@ -100,6 +100,8 @@ jobs:
     - name: 'Set up DXVK for Linux'
       if: ${{ !!matrix.linux }}
       run: |
+        sudo apt update -qq > /dev/null
+        sudo apt install -qq libavcodec-dev libavformat-dev libavutil-dev libswresample-dev libswscale-dev libopenal-dev > /dev/null
         wget --no-verbose \
           -O /tmp/dxvk-native.tar.gz \
           "https://github.com/doitsujin/dxvk/releases/download/v2.7.1/dxvk-native-2.7.1-steamrt-sniper.tar.gz"

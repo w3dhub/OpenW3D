@@ -20,9 +20,11 @@
 #include "MoviePlayer.h"
 #include "rect.h"
 #include "render2dsentence.h"
-#include "wwstring.h"
 #include <memory>
 #include <vector>
+
+#include <AL/al.h>
+static constexpr int BINK_AL_BUFFER_COUNT = 32; 
 
 class FontCharsClass;
 class SubTitleManagerClass;
@@ -38,6 +40,9 @@ private:
 	std::unique_ptr<FFmpegFile> Bink;
 	AVFrame *CurrentFrame;
 	SwsContext *ScalingContext;
+	ALuint ALSource;
+	ALuint ALBuffers[BINK_AL_BUFFER_COUNT];
+	unsigned ALBufferIndex;
 	uint64_t StartTime;
 	bool GotFrame;
 	bool FrameChanged;

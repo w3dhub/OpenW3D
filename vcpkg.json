@@ -4,6 +4,7 @@
   "dependencies": [
     "ffmpeg",
     "icu",
+    "openal-soft",
     "sdl3",
     "qtbase",
     "qttools",
