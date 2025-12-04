@@ -23,6 +23,7 @@
 #include "WWConfig.h"
 #include "WWConfigDlg.h"
 #include "argv.h"
+#include "ffactory.h"
 #include "locale_api.h"
 #include "wwconfig_ids.h"
 
@@ -106,6 +107,11 @@ BOOL CWWConfigApp::InitInstance()
 	
 	Locale_Init( language, "WWConfig.loc" );
 
+	SimpleFileFactoryClass *ff = dynamic_cast<SimpleFileFactoryClass *>(_TheWritingFileFactory);
+	ff->Append_Sub_Directory("DATA\\");
+	ff = dynamic_cast<SimpleFileFactoryClass *>(_TheFileFactory);
+	ff->Append_Sub_Directory("DATA\\");
+	
 	//
 	//
 	//
