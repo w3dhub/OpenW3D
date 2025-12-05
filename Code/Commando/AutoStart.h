@@ -42,7 +42,6 @@
 #include <wwlib/Signaler.h>
 #include "wolgmode.h"
 #include "menudialog.h"
-#include "resource.h"
 #include <WWOnline/RefPtr.h>
 #include <WWOnline/WOLSession.h>
 

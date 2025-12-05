@@ -34,8 +34,8 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgcncbattleinfo.h"
-#include "resource.h"
 #include "listctrl.h"
 #include "imagectrl.h"
 #include "playertype.h"
@@ -51,7 +51,6 @@
 #include "building.h"
 #include "damage.h"
 #include "vehicle.h"
-#include "resource.h"
 #include "wolgmode.h"
 #include <WWOnline/WOLUser.h>
 #include "translatedb.h"
@@ -137,7 +136,7 @@ static const BUILDING_INFO NOD_BUILDING_CTRLS[BUILDING_SLOT_COUNT] =
 //
 ////////////////////////////////////////////////////////////////
 CNCBattleInfoDialogClass::CNCBattleInfoDialogClass (void)	:
-	MenuDialogClass (IDD_CNC_BATTLE_INFO)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_BATTLE_INFO))
 {
 	return ;
 }

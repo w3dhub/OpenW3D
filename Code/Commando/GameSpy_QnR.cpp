@@ -36,7 +36,6 @@
 
 #include "specialbuilds.h"
 #include "dlgcncteaminfo.h"
-#include "resource.h"
 #include "listctrl.h"
 #include "imagectrl.h"
 #include "playertype.h"

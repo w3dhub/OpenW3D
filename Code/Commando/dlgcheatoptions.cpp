@@ -37,6 +37,7 @@
 #include "dlgcheatoptions.h"
 #include "listctrl.h"
 #include "cheatmgr.h"
+#include "renegadedialog.h"
 
 
 ////////////////////////////////////////////////////////////////
@@ -45,7 +46,7 @@
 //
 ////////////////////////////////////////////////////////////////
 CheatOptionsMenuClass::CheatOptionsMenuClass (void)	:
-	MenuDialogClass (IDD_OPTIONS_CHEATS)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_OPTIONS_CHEATS))
 {
 	return ;
 }

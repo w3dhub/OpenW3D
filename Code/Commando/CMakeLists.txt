@@ -174,7 +174,8 @@ set(COMMANDO_SRC
     gdskirmish.h
     lanchat.cpp
     lanchat.h
-    dialogresource.h
+    renegadedialog.cpp
+    renegadedialog.h
     dialogtests.cpp
     dialogtests.h
     dlgcharacteroptions.cpp

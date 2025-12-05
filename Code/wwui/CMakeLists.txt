@@ -7,7 +7,6 @@ set(WWUI_SRC
     dialogbase.cpp
     dialogcontrol.cpp
     dialogmgr.cpp
-    dialogparser.cpp
     dialogtext.cpp
     dialogtransition.cpp
     dropdownctrl.cpp
@@ -50,7 +49,7 @@ set(WWUI_SRC
     dialogcontrol.h
     dialogfactory.h
     dialogmgr.h
-    dialogparser.h
+    dialogspec.h
     dialogtext.h
     dialogtransition.h
     dropdownctrl.h

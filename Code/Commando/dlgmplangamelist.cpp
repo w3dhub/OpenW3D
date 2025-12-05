@@ -45,7 +45,7 @@
 #include "dialogmgr.h"
 #include "cnetwork.h"
 #include "ww3d.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "renegadedialogmgr.h"
 #include "translatedb.h"
 #include "string_ids.h"
@@ -86,7 +86,7 @@ MPLanGameListMenuClass *	MPLanGameListMenuClass::_TheInstance	= NULL;
 ////////////////////////////////////////////////////////////////
 MPLanGameListMenuClass::MPLanGameListMenuClass (void)	:
 	UpdateTimer (0),
-	MenuDialogClass (IDD_MP_LAN_GAME_LIST)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_GAME_LIST))
 {
 	WWDEBUG_SAY(("MPLanGameListMenu instantiated\n"));
 }

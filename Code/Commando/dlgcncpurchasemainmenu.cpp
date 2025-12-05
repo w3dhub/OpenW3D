@@ -34,9 +34,9 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgcncpurchasemainmenu.h"
 #include "dlgcncpurchasemenu.h"
-#include "resource.h"
 #include "buttonctrl.h"
 #include "globalsettings.h"
 #include "combat.h"
@@ -83,7 +83,7 @@ CNCPurchaseMainMenuClass::CNCPurchaseMainMenuClass (void)	:
 	ChatModule (NULL),
 	RefreshTimer (0),
 	MessageLogLength (0),
-	MenuDialogClass (IDD_CNC_PURCHASE_MAIN_SCREEN)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_PURCHASE_MAIN_SCREEN))
 {
 	return ;
 }

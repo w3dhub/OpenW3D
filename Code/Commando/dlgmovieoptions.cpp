@@ -34,6 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgmovieoptions.h"
 #include "listctrl.h"
 #include "BINKMovie.h"
@@ -50,7 +51,7 @@
 ////////////////////////////////////////////////////////////////
 MovieOptionsMenuClass::MovieOptionsMenuClass (void)	:
 	IsPlaying (false),
-	MenuDialogClass (IDD_OPTIONS_MOVIES)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_OPTIONS_MOVIES))
 {
 	return ;
 }

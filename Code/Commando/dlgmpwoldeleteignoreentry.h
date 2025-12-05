@@ -42,7 +42,6 @@
 #define __DLG_MP_WOL_DELETE_IGNORE_ENTRY_H
 
 #include "popupdialog.h"
-#include "resource.h"
 #include "widestring.h"
 
 

@@ -35,10 +35,10 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwolpagereply.h"
+#include "renegadedialog.h"
 #include "dlgmpwoladdbuddy.h"
 #include "dlgmpwoladdignoreentry.h"
 #include "WOLLogonMgr.h"
-#include "resource.h"
 #include "ConsoleMode.h"
 #include <wwui/listctrl.h>
 
@@ -124,7 +124,7 @@ bool DlgWOLPageReply::IsOpen(void)
 ******************************************************************************/
 
 DlgWOLPageReply::DlgWOLPageReply(void) :
-		PopupDialogClass(IDD_MP_WOL_PAGE_REPLY),
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_PAGE_REPLY)),
 		mBuddyMgr(NULL)
 	{
 	WWDEBUG_SAY(("DlgWOLPageReply Instantiated\n"));

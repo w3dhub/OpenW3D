@@ -43,8 +43,8 @@
 
 
 #include "menudialog.h"
-#include "resource.h"
 #include "childdialog.h"
+#include "renegadedialog.h"
 #include <wwlib/vector.h>
 #include <wwlib/Signaler.h>
 
@@ -284,7 +284,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
 	MPLanHostCTFOptionsTabClass (void)	:
-		ChildDialogClass (IDD_MP_LAN_HOST_OPTIONS_CTF_SETTINGS)	{}
+		ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_HOST_OPTIONS_CTF_SETTINGS))	{}
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods
@@ -307,7 +307,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
 	MPLanHostCnCOptionsTabClass (void)	:
-		ChildDialogClass (IDD_MP_LAN_HOST_OPTIONS_CNC_SETTINGS)	{}
+		ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_HOST_OPTIONS_CNC_SETTINGS))	{}
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

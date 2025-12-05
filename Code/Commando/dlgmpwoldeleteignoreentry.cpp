@@ -36,6 +36,7 @@
 
 
 #include "dlgmpwoldeleteignoreentry.h"
+#include "renegadedialog.h"
 #include "WOLBuddyMgr.h"
 
 
@@ -45,7 +46,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPWolDeleteIgnoreEntryPopupClass::MPWolDeleteIgnoreEntryPopupClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_DELETE_IGNORE_ENTRY)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_DELETE_IGNORE_ENTRY))
 {
 	return ;
 }

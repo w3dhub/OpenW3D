@@ -42,11 +42,10 @@
 #include "hanim.h"
 #include "rendobj.h"
 #include "ww3d.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "render2d.h"
 #include "dialogcontrol.h"
 #include "dialogbase.h"
-#include "resource.h"
 #include "WWAudio.h"
 #include <algorithm>
 

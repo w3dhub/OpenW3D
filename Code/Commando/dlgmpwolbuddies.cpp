@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwolbuddies.h"
+#include "renegadedialog.h"
 #include "renegadedialogmgr.h"
 #include "WOLBuddyMgr.h"
 #include "dlgmpwolpagebuddy.h"
@@ -93,7 +94,7 @@ void MPWolBuddiesMenuClass::Display(void)
 //
 ////////////////////////////////////////////////////////////////
 MPWolBuddiesMenuClass::MPWolBuddiesMenuClass (void)	:
-	MenuDialogClass(IDD_MP_WOL_BUDDIES),
+	MenuDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_BUDDIES)),
 	mBuddyListChanged(false),
 	mBuddyInfoChanged(false)
 {

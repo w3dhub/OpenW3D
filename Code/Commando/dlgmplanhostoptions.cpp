@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmplanhostoptions.h"
+#include "renegadedialog.h"
 #include "tabctrl.h"
 #include "gamedata.h"
 #include "netutil.h"
@@ -71,7 +72,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPLanHostOptionsMenuClass::MPLanHostOptionsMenuClass (void)	:
-	MenuDialogClass (IDD_MP_LAN_HOST_OPTIONS),
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_HOST_OPTIONS)),
 	mStartTheGame (false),
 	mClanID (0),
 	MapCycleDialog (NULL)
@@ -317,7 +318,7 @@ MPLanHostBasicOptionsTabClass* MPLanHostBasicOptionsTabClass::Get_Instance(void)
 }
 
 MPLanHostBasicOptionsTabClass::MPLanHostBasicOptionsTabClass (void)	:
-	ChildDialogClass (IDD_MP_LAN_HOST_OPTIONS_BASIC_TAB)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_HOST_OPTIONS_BASIC_TAB))
 {
 	assert(_mInstance == NULL);
 	_mInstance = this;
@@ -619,7 +620,7 @@ MPLanHostBasicOptionsTabClass::On_EditCtrl_Change (EditCtrlClass *edit, int ctrl
 //
 ////////////////////////////////////////////////////////////////
 MPLanHostAdvancedOptionsTabClass::MPLanHostAdvancedOptionsTabClass (void)	:
-	ChildDialogClass (IDD_MP_LAN_HOST_OPTIONS_ADVANCED_TAB)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_HOST_OPTIONS_ADVANCED_TAB))
 {
 	return ;
 }
@@ -1005,7 +1006,7 @@ bool MPLanHostAdvancedOptionsTabClass::IsHostAClanMember(void) const
 //
 ////////////////////////////////////////////////////////////////
 MPLanHostMapCycleOptionsTabClass::MPLanHostMapCycleOptionsTabClass (void)	:
-	ChildDialogClass (IDD_MP_LAN_HOST_OPTIONS_MAP_TAB)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_HOST_OPTIONS_MAP_TAB))
 {
 	return ;
 }
@@ -1593,7 +1594,7 @@ MPLanHostMapCycleOptionsTabClass::Build_Map_List (void)
 //
 ////////////////////////////////////////////////////////////////
 MPLanHostVictoryOptionsTabClass::MPLanHostVictoryOptionsTabClass (void)	:
-	ChildDialogClass (IDD_MP_LAN_HOST_OPTIONS_VICTORY_TAB)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_LAN_HOST_OPTIONS_VICTORY_TAB))
 {
 	return ;
 }

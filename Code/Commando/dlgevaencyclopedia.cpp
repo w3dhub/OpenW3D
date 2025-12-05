@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgevaencyclopedia.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "tabctrl.h"
 #include "dlgevaobjectivestab.h"
 #include "dlgevamaptab.h"
@@ -74,7 +74,7 @@ int								EVAEncyclopediaMenuClass::_NextTabIndex = -4;
 //
 ////////////////////////////////////////////////////////////////
 EVAEncyclopediaMenuClass::EVAEncyclopediaMenuClass (void)	:
-	MenuDialogClass (IDD_MENU_EVA_ENCYCLOPEDIA)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_EVA_ENCYCLOPEDIA))
 {
 	_TheInstance = this;
 	return ;

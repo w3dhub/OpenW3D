@@ -42,7 +42,6 @@
 #define __DLG_MP_WOL_CHAT_H
 
 #include "menudialog.h"
-#include "resource.h"
 #include "WOLChatMgr.h"
 
 namespace WWOnline

@@ -42,8 +42,8 @@
 #define __DLG_SAVE_GAME_H
 
 
+#include "renegadedialog.h"
 #include "menudialog.h"
-#include "resource.h"
 #include "DlgMessageBox.h"
 
 
@@ -62,7 +62,7 @@ public:
 	SaveGameMenuClass (void)	:
 		CurrSortCol (1),
 		IsSortAscending (false),
-		MenuDialogClass (IDD_MENU_SAVE_GAME)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_SAVE_GAME))	{}
 
 
 	////////////////////////////////////////////////////////////////

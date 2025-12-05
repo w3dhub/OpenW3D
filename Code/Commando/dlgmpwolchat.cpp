@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwolchat.h"
+#include "renegadedialog.h"
 #include "renegadedialogmgr.h"
 #include "wollocalemgr.h"
 #include "DlgMessageBox.h"
@@ -73,7 +74,7 @@ MPWolChatMenuClass* MPWolChatMenuClass::_TheInstance = NULL;
 //
 ////////////////////////////////////////////////////////////////
 MPWolChatMenuClass::MPWolChatMenuClass (void)	:
-	MenuDialogClass (IDD_MP_WOL_CHAT),
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_CHAT)),
 	mChatMgr(NULL),
 	mLobbyListChanged(false),
 	mLobbyChanged(false),

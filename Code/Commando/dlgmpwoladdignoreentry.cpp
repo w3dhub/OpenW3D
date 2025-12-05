@@ -36,6 +36,7 @@
 
 
 #include "dlgmpwoladdignoreentry.h"
+#include "renegadedialog.h"
 #include "WOLBuddyMgr.h"
 #include <wwui/editctrl.h>
 #include <wwdebug/wwdebug.h>
@@ -60,7 +61,7 @@ bool MPWolAddIgnoreEntry::DoDialog(const wchar_t* defaultUser)
 //
 ////////////////////////////////////////////////////////////////
 MPWolAddIgnoreEntry::MPWolAddIgnoreEntry(const wchar_t* defaultUser) :
-		PopupDialogClass(IDD_MP_WOL_ADD_IGNORE_ENTRY),
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_ADD_IGNORE_ENTRY)),
 		mDefaultUser(defaultUser)
 {
 	WWDEBUG_SAY(("MPWolAddIgnoreEntry Instantiated\n"));

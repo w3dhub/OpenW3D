@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgtechoptions.h"
+#include "renegadedialog.h"
 #include "tabctrl.h"
 #include "dlgconfigaudiotab.h"
 #include "dlgconfigvideotab.h"
@@ -48,7 +49,7 @@
 //
 ////////////////////////////////////////////////////////////////
 TechOptionsMenuClass::TechOptionsMenuClass (void)	:
-	MenuDialogClass (IDD_OPTIONS_TECH)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_OPTIONS_TECH))
 {
 	return ;
 }

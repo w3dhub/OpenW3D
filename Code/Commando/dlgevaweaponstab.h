@@ -42,8 +42,8 @@
 #define __DLG_EVA_WEAPONS_TAB_H
 
 
+#include "renegadedialog.h"
 #include "dlgevaviewertab.h"
-#include "resource.h"
 
 
 ////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////	
 	EvaWeaponsTabClass (void)	:
-		EvaViewerTabClass (IDD_ENCYCLOPEDIA_WEAPONS_TAB)	{}
+		EvaViewerTabClass (GetRenegadeDialog(RenegadeDialogID::IDD_ENCYCLOPEDIA_WEAPONS_TAB))	{}
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

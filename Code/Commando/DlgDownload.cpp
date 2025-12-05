@@ -34,10 +34,10 @@
 *
 ******************************************************************************/
 
+#include "renegadedialog.h"
 #include "DlgDownload.h"
 #include "DlgMessageBox.h"
 #include "DlgRestart.h"
-#include "resource.h"
 #include <wwui/ProgressCtrl.h>
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
@@ -114,7 +114,7 @@ bool DlgDownload::DoDialog(const wchar_t* title, const DownloadList& files, bool
 ******************************************************************************/
 
 DlgDownload::DlgDownload() :
-		PopupDialogClass(IDD_WOL_DOWNLOAD),
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_WOL_DOWNLOAD)),
 		mDownloading(false)
 	{
 	WWDEBUG_SAY(("DlgDownload: Instantiated\n"));

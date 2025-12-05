@@ -39,6 +39,7 @@
 #include "cnetwork.h"
 #include "dialogcontrol.h"
 #include "dialogmgr.h"
+#include "renegadedialog.h"
 #include "gamedata.h"
 #include "cstextobj.h"
 #include "sctextobj.h"
@@ -63,7 +64,7 @@ MPChatChildDialogClass::MPChatChildDialogClass (void)	:
 	MessageType (TEXT_MESSAGE_PUBLIC),
 	TestForAutoCompletion (false),
 	EndDialogOnSend (true),
-	ChildDialogClass (IDD_CHAT_MODULE)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CHAT_MODULE))
 {
 	return ;
 }
@@ -728,7 +729,7 @@ MPChatChildDialogClass::On_Command (int ctrl_id, int message_id, unsigned int pa
 MPIngameChatPopupClass::MPIngameChatPopupClass (void)	:
 	DefaultType (TEXT_MESSAGE_PUBLIC),
 	ChatModule (NULL),
-	PopupDialogClass (IDD_MULTIPLAY_INGAME_CHAT)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_INGAME_CHAT))
 {
 	//
 	//	Configure the background renderer

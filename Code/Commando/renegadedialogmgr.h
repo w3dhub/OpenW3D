@@ -42,7 +42,7 @@
 #define __RENEGADE_DIALOG_MGR_H
 
 #include "dialogfactory.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "wwuiinput.h"
 #include "win.h"
 
@@ -115,7 +115,7 @@ public:
 	//
 	//	Dialog creation
 	//
-	static void		Do_Simple_Dialog (int dlg_res_id);
+	static void		Do_Simple_Dialog (const DialogResource *dialog_resource);
 
 	//
 	//	Menu traversal access

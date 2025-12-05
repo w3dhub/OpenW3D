@@ -57,8 +57,8 @@ DynamicVectorClass<MenuDialogClass *>	MenuDialogClass::MenuStack;
 //	MenuDialogClass
 //
 ////////////////////////////////////////////////////////////////
-MenuDialogClass::MenuDialogClass (int res_id)	:
-	DialogBaseClass (res_id)
+MenuDialogClass::MenuDialogClass (const DialogResource *dialog_resource)	:
+	DialogBaseClass (dialog_resource)
 {	
 	//
 	//	Add ourselves to the global stack of menus

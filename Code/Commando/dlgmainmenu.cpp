@@ -37,13 +37,14 @@
 
 #include "dlgmainmenu.h"
 #include "assetmgr.h"
+#include "renegadedialog.h"
 #include "rendobj.h"
 #include "hanim.h"
 #include "gameinitmgr.h"
 #include "mainmenutransition.h"
 #include "menubackdrop.h"
 #include "scene.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "mesh.h"
 #include "meshgeometry.h"
 #include "dialogmgr.h"
@@ -78,7 +79,7 @@ bool MainMenuDialogClass::Animated = true;
 //
 ////////////////////////////////////////////////////////////////
 MainMenuDialogClass::MainMenuDialogClass (void)	:
-	MenuDialogClass (IDD_MENU_MAIN),
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_MAIN)),
 	TitleTransModel (NULL),
 	LogoModel (NULL),
 	GizmoModel (NULL),

@@ -35,14 +35,13 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgcncwinscreen.h"
-#include "resource.h"
 #include "rendobj.h"
 #include "pscene.h"
 #include "combat.h"
 #include "gamedata.h"
 #include "playertype.h"
 #include "assetmgr.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "menubackdrop.h"
 #include "listctrl.h"
 #include "gamemode.h"
@@ -86,7 +85,7 @@ CNCWinScreenMenuClass::CNCWinScreenMenuClass (void)	:
 	HeaderModel (NULL),
 	UpdateTimer (UpdateIntervalS),
 	ShowLadderPoints(false),
-	MenuDialogClass (IDD_CNC_WINSCREEN)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_WINSCREEN))
 {
 	//
 	//	Configure the blackout renderer

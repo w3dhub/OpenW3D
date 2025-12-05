@@ -35,6 +35,7 @@
 ******************************************************************************/
 
 #include "DlgMPTeamSelect.h"
+#include "renegadedialog.h"
 #include "wolgmode.h"
 #include "gamedata.h"
 #include "WOLGameInfo.h"
@@ -46,7 +47,6 @@
 #include <wwui/listctrl.h>
 #include <wwui/comboboxctrl.h>
 #include <wwui/imagectrl.h>
-#include "resource.h"
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
 #include "modpackagemgr.h"
@@ -137,7 +137,7 @@ void DlgMPTeamSelect::DoDialog(Signaler<MPChooseTeamSignal>& target)
 ******************************************************************************/
 
 DlgMPTeamSelect::DlgMPTeamSelect(void) :
-		MenuDialogClass(IDD_MP_TEAM_SELECT),
+		MenuDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_TEAM_SELECT)),
 		mWOLGame(true),
 		mCanChoose(true),
 		mTimeRemaining(0.0f)
