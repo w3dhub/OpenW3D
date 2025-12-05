@@ -42,7 +42,6 @@
 #define __DLG_MP_WOL_INVITATION_H
 
 #include "popupdialog.h"
-#include "resource.h"
 #include <WWOnline/WOLUser.h>
 
 class WOLBuddyMgr;

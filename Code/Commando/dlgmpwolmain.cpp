@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwolmain.h"
+#include "renegadedialog.h"
 #include "shortcutbarctrl.h"
 #include "renegadedialogmgr.h"
 #include "translatedb.h"
@@ -64,7 +65,7 @@ MPWolMainMenuClass *	MPWolMainMenuClass::_TheInstance	= NULL;
 MPWolMainMenuClass::MPWolMainMenuClass (void)	:
 	IsSidebarHelpPending (true),
 	mPendingCmd(-1),
-	MenuDialogClass (IDD_MP_WOL_MAIN)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_MAIN))
 {
 	_TheInstance = this;
 	return ;

@@ -36,7 +36,7 @@
 
 #include "scorescreen.h"
 #include "campaign.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include "translatedb.h"
 #include "string_ids.h"
 #include "imagectrl.h"
@@ -150,7 +150,7 @@ void ScoreScreenGameModeClass::Save_Stats( void )
 //
 ////////////////////////////////////////////////////////////////
 ScoreScreenDialogClass::ScoreScreenDialogClass (void)	:
-	MenuDialogClass (IDD_SCORE_SCREEN)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_SCORE_SCREEN))
 {
 	ScoreScreenActive = true;
 	return ;

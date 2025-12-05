@@ -38,7 +38,7 @@
 #include "cdverify.h"
 #include "wwstring.h"
 #include "popupdialog.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include <algorithm>
 
 
@@ -61,7 +61,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	CDVerifyDialogClass (void)	:
 		Object (NULL),
-		PopupDialogClass (IDD_CDVERIFY) {}
+		PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CDVERIFY)) {}
 
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	void	Set_Object (CDVerifyClass *object)	{ Object = object; }
@@ -103,7 +103,7 @@ CDVerifyClass::Get_CD_Path (StringClass &drive_path)
 			//
 			char volume_name[256] = { 0 };
 			if (::GetVolumeInformationA (drive_root_name, volume_name, sizeof (volume_name),
-						NULL, NULL, NULL, NULL, NULL))
+						NULL, NULL, NULL, NULL, 0))
 			{
 				size_t cmp_len = ::strlen (volume_name);
 				cmp_len = std::max<size_t> (cmp_len, static_cast<size_t>(11));

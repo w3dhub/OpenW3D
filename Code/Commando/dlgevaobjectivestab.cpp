@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+#include "renegadedialog.h"
 #include "dlgevaobjectivestab.h"
 #include "listctrl.h"
 #include "string_ids.h"
@@ -67,7 +68,7 @@ extern int	CurrentObjectiveIndex;
 //
 ////////////////////////////////////////////////////////////////
 EvaObjectivesTabClass::EvaObjectivesTabClass (void)	:
-	ChildDialogClass (IDD_ENCYCLOPEDIA_OBJECTIVES_TAB)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_ENCYCLOPEDIA_OBJECTIVES_TAB))
 {
 	return ;
 }

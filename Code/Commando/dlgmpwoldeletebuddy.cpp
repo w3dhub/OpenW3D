@@ -36,6 +36,7 @@
 
 
 #include "dlgmpwoldeletebuddy.h"
+#include "renegadedialog.h"
 #include "WOLBuddyMgr.h"
 
 
@@ -45,7 +46,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPWolDeleteBuddyPopupClass::MPWolDeleteBuddyPopupClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_DELETE_BUDDY)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_DELETE_BUDDY))
 {
 	return ;
 }

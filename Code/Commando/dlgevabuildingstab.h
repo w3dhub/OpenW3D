@@ -43,7 +43,7 @@
 
 
 #include "dlgevaviewertab.h"
-#include "resource.h"
+#include "renegadedialog.h"
 
 
 ////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////	
 	EvaBuildingsTabClass (void)	:
-		EvaViewerTabClass (IDD_ENCYCLOPEDIA_BUILDINGS_TAB)	{}
+		EvaViewerTabClass (GetRenegadeDialog(RenegadeDialogID::IDD_ENCYCLOPEDIA_BUILDINGS_TAB))	{}
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

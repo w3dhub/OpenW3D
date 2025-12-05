@@ -43,7 +43,6 @@
 
 
 #include "popupdialog.h"
-#include "resource.h"
 #include "WOLBuddyMgr.h"
 
 ////////////////////////////////////////////////////////////////

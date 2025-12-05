@@ -47,6 +47,6 @@ target_sources(wwnet PRIVATE ${WWNET_SRC})
 target_link_libraries(wwnet PRIVATE wwcommon)
 
 if (WIN32)
-  target_link_libraries(wwnet PRIVATE Ws2_32)
+  target_link_libraries(wwnet PRIVATE ws2_32)
   target_compile_definitions(wwnet PRIVATE _WIN32_WINNT=0x0601 WINVER=0x0601)
 endif()

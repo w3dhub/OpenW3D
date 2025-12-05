@@ -41,8 +41,7 @@
 
 
 #include "menudialog.h"
-#include "resource.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "slavemaster.h"
 
 

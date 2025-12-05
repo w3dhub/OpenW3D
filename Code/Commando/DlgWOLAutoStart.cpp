@@ -36,6 +36,7 @@
 
 
 #include "always.h"
+#include "renegadedialog.h"
 #include "AutoStart.h"
 #include "win.h"
 #include "listctrl.h"
@@ -59,7 +60,7 @@
  *    11/6/2001 11:02AM ST : Created                                                           *
  *=============================================================================================*/
 AutoRestartProgressDialogClass::AutoRestartProgressDialogClass(void) :
-	MenuDialogClass (IDD_MP_AUTO_RESTART_PROGRESS)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_AUTO_RESTART_PROGRESS))
 {
 	Instance = this;
 	AddItemIndex = 0;

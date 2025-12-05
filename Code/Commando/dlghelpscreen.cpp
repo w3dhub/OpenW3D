@@ -34,6 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlghelpscreen.h"
 #if 0
 #include "dialogresource.h"
@@ -61,7 +62,7 @@
 //
 ////////////////////////////////////////////////////////////////
 HelpScreenDialogClass::HelpScreenDialogClass (void)	:
-	MenuDialogClass ( IDD_HELP_SCREEN )
+	MenuDialogClass ( GetRenegadeDialog(RenegadeDialogID::IDD_HELP_SCREEN) )
 {
 	return ;
 }

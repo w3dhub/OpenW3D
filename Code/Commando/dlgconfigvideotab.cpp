@@ -34,8 +34,8 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgconfigvideotab.h"
-#include "resource.h"
 #include "ww3d.h"
 #include "sliderctrl.h"
 #include "dx8wrapper.h"
@@ -57,7 +57,7 @@ int DlgConfigVideoTabClass::ContrastLevel	  = CONTRAST_SLIDER_DEFAULT;
 //
 ////////////////////////////////////////////////////////////////
 DlgConfigVideoTabClass::DlgConfigVideoTabClass (void)	:
-	ChildDialogClass (IDD_CONFIG_VIDEO),
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CONFIG_VIDEO)),
 	UpdateGamma (true)
 {
 	return ;

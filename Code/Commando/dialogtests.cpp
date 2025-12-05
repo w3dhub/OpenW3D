@@ -35,13 +35,12 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dialogtests.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "dialogcontrol.h"
 #include "tabctrl.h"
 #include "combatchunkid.h"
 #include "basecontroller.h"
 #include "building.h"
-#include "resource.h"
 #include "combat.h"
 #include "soldier.h"
 #include "playertype.h"
@@ -107,7 +106,7 @@ bool	SplashIntroMenuDialogClass::IsComplete = false;
 SplashIntroMenuDialogClass::SplashIntroMenuDialogClass (void)	:
 //	Timer (4.0F),
 	Timer (0.0F),
-	MenuDialogClass (IDD_MENU_SPLASH1)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_SPLASH1))
 {	
 	return ;
 }
@@ -202,7 +201,7 @@ SplashIntroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int
 ////////////////////////////////////////////////////////////////
 SplashOutroMenuDialogClass::SplashOutroMenuDialogClass (void)	:
 	Timer (5.0F),
-	MenuDialogClass (IDD_MENU_SPLASH2)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_SPLASH2))
 {	
 	return ;
 }
@@ -311,7 +310,7 @@ SplashOutroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int
 //
 ////////////////////////////////////////////////////////////////
 QuitVerificationDialogClass::QuitVerificationDialogClass (void)	:
-	PopupDialogClass (IDD_QUIT_TO_DESKTOP)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_QUIT_TO_DESKTOP))
 {
 	_TheInstance = this;
 
@@ -367,7 +366,7 @@ GameSpyMainDialogClass::On_Frame_Update (void)
 //
 ////////////////////////////////////////////////////////////////
 GameSpyMainDialogClass::GameSpyMainDialogClass (void)	:
-	MenuDialogClass (IDD_MENU_GAMESPY_MAIN)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_GAMESPY_MAIN))
 {
 	_TheInstance = this;
 	cGameSpyAdmin::Reset();
@@ -552,7 +551,7 @@ GameSpyOptionsDialogClass *	GameSpyOptionsDialogClass::_TheInstance	= NULL;
 //
 ////////////////////////////////////////////////////////////////
 GameSpyOptionsDialogClass::GameSpyOptionsDialogClass (void)	:
-	MenuDialogClass (IDD_MENU_GAMESPY_OPTIONS)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_GAMESPY_OPTIONS))
 {
 	_TheInstance = this;
 	return ;
@@ -716,7 +715,7 @@ InternetMainDialogClass *	InternetMainDialogClass::_TheInstance	= NULL;
 //
 ////////////////////////////////////////////////////////////////
 InternetMainDialogClass::InternetMainDialogClass (void)	:
-	MenuDialogClass (IDD_MENU_MAIN_MULTIPLAY)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_MAIN_MULTIPLAY))
 {
 	_TheInstance = this;
 
@@ -805,7 +804,7 @@ InternetMainDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int pa
 //
 ////////////////////////////////////////////////////////////////
 StartSPGameDialogClass::StartSPGameDialogClass (void)	:
-	MenuDialogClass (IDD_MENU_START_SP)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_START_SP))
 {
 	return ;
 }
@@ -819,7 +818,7 @@ StartSPGameDialogClass::StartSPGameDialogClass (void)	:
 ////////////////////////////////////////////////////////////////
 DifficultyMenuClass::DifficultyMenuClass (void)	:
 	CurrSel (-1),
-	MenuDialogClass (IDD_MENU_DIFFICULTY)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_DIFFICULTY))
 {
 	return ;
 }
@@ -1659,7 +1658,7 @@ FailedOptionsPopupClass::On_Command (int ctrl_id, int message_id, unsigned int p
 //
 ////////////////////////////////////////////////////////////////
 EditWheeledVehicleDialogClass::EditWheeledVehicleDialogClass(WheeledVehicleDefClass * def,float wheel_radius) :
-	PopupDialogClass(IDD_EDIT_WHEELED_VEHICLE),
+	PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_EDIT_WHEELED_VEHICLE)),
 	VehicleDef(def),
 	WheelRadius(wheel_radius)
 {
@@ -1779,7 +1778,7 @@ EditWheeledVehicleDialogClass::On_Command (int ctrl_id, int message_id, unsigned
 //
 ////////////////////////////////////////////////////////////////
 EditTrackedVehicleDialogClass::EditTrackedVehicleDialogClass(TrackedVehicleDefClass * def,float wheel_radius) :
-	PopupDialogClass(IDD_EDIT_TRACKED_VEHICLE),
+	PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_EDIT_TRACKED_VEHICLE)),
 	VehicleDef(def),
 	WheelRadius(wheel_radius)
 {

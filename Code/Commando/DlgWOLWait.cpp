@@ -34,8 +34,8 @@
 ******************************************************************************/
 
 #include "DlgWOLWait.h"
+#include "renegadedialog.h"
 #include "DlgMessageBox.h"
-#include "resource.h"
 #include "string_ids.h"
 #include <WWOnline/WOLSession.h>
 #include <wwui/mousemgr.h>
@@ -181,7 +181,7 @@ bool DlgWOLWait::DoDialog(int titleID, RefPtr<WaitCondition>& wait,
 ******************************************************************************/
 
 DlgWOLWait::DlgWOLWait(RefPtr<WaitCondition>& wait, unsigned int timeout, unsigned int dialog_timeout) :
-		PopupDialogClass(IDD_WOL_WAIT),
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_WOL_WAIT)),
 		mWait(wait),
 		mStartTime(0),
 		mTimeout(timeout),

@@ -35,7 +35,6 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgevamaptab.h"
-#include "resource.h"
 #include "mapctrl.h"
 #include "combat.h"
 #include "soldier.h"

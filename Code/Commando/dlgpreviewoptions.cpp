@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgpreviewoptions.h"
+#include "renegadedialog.h"
 #include "listctrl.h"
 
 
@@ -44,7 +45,7 @@
 //
 ////////////////////////////////////////////////////////////////
 PreviewOptionsMenuClass::PreviewOptionsMenuClass (void)	:
-	MenuDialogClass (IDD_OPTIONS_PREVIEW)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_OPTIONS_PREVIEW))
 {
 	return ;
 }

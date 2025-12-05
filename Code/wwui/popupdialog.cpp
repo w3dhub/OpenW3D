@@ -52,8 +52,8 @@ const int	TITLE_BORDER_HEIGHT	= 8;
 //	PopupDialogClass
 //
 ////////////////////////////////////////////////////////////////
-PopupDialogClass::PopupDialogClass (int res_id)	:
-	DialogBaseClass (res_id)
+PopupDialogClass::PopupDialogClass (const DialogResource *dialog_resource)	:
+	DialogBaseClass (dialog_resource)
 {
 	//
 	//	Configure the renderers

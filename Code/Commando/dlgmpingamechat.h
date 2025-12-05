@@ -43,7 +43,6 @@
 
 #include "popupdialog.h"
 #include "childdialog.h"
-#include "resource.h"
 #include "sctextobj.h"
 
 

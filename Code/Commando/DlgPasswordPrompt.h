@@ -33,7 +33,6 @@
 *
 ******************************************************************************/
 
-#include "resource.h"
 #include <wwui/popupdialog.h>
 #include <wwlib/Signaler.h>
 

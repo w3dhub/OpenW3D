@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgcncteaminfo.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include "listctrl.h"
 #include "imagectrl.h"
 #include "playertype.h"
@@ -80,7 +80,7 @@ enum
 //
 ////////////////////////////////////////////////////////////////
 CNCTeamInfoDialogClass::CNCTeamInfoDialogClass (void)	:
-	MenuDialogClass (IDD_CNC_TEAM_INFO)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_TEAM_INFO))
 {
 	return ;
 }

@@ -106,7 +106,6 @@
 #include "rddesc.h"
 #include "combatchunkid.h"
 #include "dialogtests.h"
-#include "resource.h"
 #include "dx8wrapper.h"
 #include "sortingrenderer.h"
 #include "WeatherMgr.h"

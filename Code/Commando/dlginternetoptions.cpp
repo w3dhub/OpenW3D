@@ -36,7 +36,7 @@
 
 #include "dlginternetoptions.h"
 #include "string_ids.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "shortcutbarctrl.h"
 #include "translatedb.h"
 

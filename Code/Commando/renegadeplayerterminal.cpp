@@ -35,11 +35,11 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "renegadeplayerterminal.h"
+#include "renegadedialog.h"
 #include "dlgcncpurchasemainmenu.h"
 #include "soldier.h"
 #include "playertype.h"
 #include "renegadedialogmgr.h"
-#include "resource.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ RenegadePlayerTerminalClass::Display_Terminal (SoldierGameObj *player, TYPE type
 		//
 		//	Display a dialog to the user telling them they don't have access to this terminal.
 		//
-		RenegadeDialogMgrClass::Do_Simple_Dialog (IDD_CNC_PURCHASE_ACCESS_DENIED);
+		RenegadeDialogMgrClass::Do_Simple_Dialog (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_PURCHASE_ACCESS_DENIED));
 	}
 
 	return ;

@@ -35,6 +35,7 @@
 ******************************************************************************/
 
 #include "DlgWOLSettings.h"
+#include "renegadedialog.h"
 #include "useroptions.h"
 #include "renegadedialogmgr.h"
 #include "mpsettingsmgr.h"
@@ -50,7 +51,6 @@
 #include <wwui/shortcutbarctrl.h>
 #include "bandwidthcheck.h"
 
-#include "resource.h"
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
 #include <algorithm>
@@ -108,7 +108,7 @@ bool DlgWOLSettings::DoDialog(void)
 ******************************************************************************/
 
 DlgWOLSettings::DlgWOLSettings() :
-		MenuDialogClass(IDD_WOL_SETTINGS),
+		MenuDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_WOL_SETTINGS)),
 		DetectingBandwidth(false),
 		WaitingToExitDialog(false)
 	{

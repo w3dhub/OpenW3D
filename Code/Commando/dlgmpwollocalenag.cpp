@@ -35,7 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwollocalenag.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include "wollocalemgr.h"
 #include "comboboxctrl.h"
 
@@ -46,7 +46,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 MPWolLocaleNagDialogClass::MPWolLocaleNagDialogClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_LOCALE_NAG)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_LOCALE_NAG))
 {
 	return ;
 }

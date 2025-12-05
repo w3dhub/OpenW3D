@@ -35,6 +35,7 @@
 ******************************************************************************/
 
 #include "DlgPasswordPrompt.h"
+#include "renegadedialog.h"
 #include <wwui/editctrl.h>
 
 /******************************************************************************
@@ -90,7 +91,7 @@ bool DlgPasswordPrompt::DoDialog(Signaler<DlgPasswordPrompt>* target)
 ******************************************************************************/
 
 DlgPasswordPrompt::DlgPasswordPrompt() :
-		PopupDialogClass(IDD_MP_JOIN_PASSWORD)
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_JOIN_PASSWORD))
 	{
 	WWDEBUG_SAY(("DlgPasswordPrompt Instantiated\n"));
 	}

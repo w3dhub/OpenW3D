@@ -36,9 +36,8 @@
 
 
 #include "dlgcontrolsaveload.h"
-#include "resource.h"
 #include "listctrl.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "inputconfigmgr.h"
 #include "string_ids.h"
 #include "translatedb.h"
@@ -59,7 +58,7 @@ enum
 //
 ////////////////////////////////////////////////////////////////
 ControlSaveLoadMenuClass::ControlSaveLoadMenuClass (void)	:
-	MenuDialogClass (IDD_MENU_CONTROL_SAVELOAD)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_CONTROL_SAVELOAD))
 {
 	return ;
 }

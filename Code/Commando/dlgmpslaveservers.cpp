@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "always.h"
+#include "renegadedialog.h"
 #include "dlgmpslaveservers.h"
 #include "menudialog.h"
 #include "_globals.h"
@@ -128,7 +129,7 @@ SlaveServerDialogClass *SlaveServerDialogClass::Instance = NULL;
 //
 ////////////////////////////////////////////////////////////////
 SlaveServerDialogClass::SlaveServerDialogClass(void) :
-	MenuDialogClass(IDD_MP_WOL_SLAVESERVER)
+	MenuDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_SLAVESERVER))
 {
 	Instance = this;
 }

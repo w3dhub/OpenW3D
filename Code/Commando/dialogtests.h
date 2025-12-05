@@ -44,7 +44,7 @@
 #include "popupdialog.h"
 #include "menudialog.h"
 #include "childdialog.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include "DlgWOLWait.h"
 #include <wwlib/Notify.h>
 #include <WWOnline/RefPtr.h>
@@ -299,7 +299,7 @@ class MultiplayOptionsMainMenuClass : public MenuDialogClass
 {
 public:
 	MultiplayOptionsMainMenuClass (void)	:
-		MenuDialogClass (IDD_MENU_OPTION_MAIN_MULTIPLAY) {}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_OPTION_MAIN_MULTIPLAY)) {}
 
 	
 	//
@@ -319,7 +319,7 @@ class CampaignScoreTabClass : public ChildDialogClass
 {
 public:
 	CampaignScoreTabClass (void)	:
-		ChildDialogClass (IDD_SCORE_CAMPAIGN_TAB)	{}
+		ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_SCORE_CAMPAIGN_TAB))	{}
 };
 
 
@@ -332,7 +332,7 @@ class MissionsScoreTabClass : public ChildDialogClass
 {
 public:
 	MissionsScoreTabClass (void)	:
-		ChildDialogClass (IDD_SCORE_MISSIONS_TAB)	{}
+		ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_SCORE_MISSIONS_TAB))	{}
 };
 
 
@@ -346,7 +346,7 @@ class OptionsMenuClass : public MenuDialogClass
 {
 public:
 	OptionsMenuClass (void)	:
-		MenuDialogClass (IDD_MENU_OPTIONS)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_OPTIONS))	{}
 };
 
 
@@ -388,7 +388,7 @@ class MPMainMenuClass : public MenuDialogClass
 {
 public:
 	MPMainMenuClass (void)	:
-		MenuDialogClass (IDD_MENU_MAIN_MULTIPLAY)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_MAIN_MULTIPLAY))	{}
 
 	void	On_Init_Dialog (void) override;
 };
@@ -403,7 +403,7 @@ class MPLanMenuClass : public MenuDialogClass
 {
 public:
 	MPLanMenuClass (void)	:
-		MenuDialogClass (IDD_MULTIPLAY_CS_SEL)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_CS_SEL))	{}
 
 	void	On_Init_Dialog (void) override;
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
@@ -420,7 +420,7 @@ class MPInternetCSMenuClass : public MenuDialogClass
 {
 public:
 	MPInternetCSMenuClass (void)	:
-		MenuDialogClass (IDD_MULTIPLAY_WWOL_CS_SEL)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_WWOL_CS_SEL))	{}
 };
 
 
@@ -434,7 +434,7 @@ class MPGameMenuClass : public MenuDialogClass
 {
 public:
 	MPGameMenuClass (void)	:
-		MenuDialogClass (IDD_MULTIPLAY_GAME_TYPE)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_GAME_TYPE))	{}
 
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param);
 };
@@ -449,7 +449,7 @@ class MPServerConfigClass : public MenuDialogClass
 {
 public:
 	MPServerConfigClass (void)	:
-		MenuDialogClass (IDD_MULTIPLAY_SERVER_CONFIG)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_SERVER_CONFIG))	{}
 
 	void	On_Init_Dialog (void);
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param);
@@ -466,7 +466,7 @@ class MPServerStartMenuClass : public MenuDialogClass
 public:
 	MPServerStartMenuClass (void)	:
 		//IsServer (true),
-		MenuDialogClass (IDD_MULTIPLAY_START_GAME)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_START_GAME))	{}
 			
 
 	void	On_Init_Dialog (void);
@@ -487,7 +487,7 @@ class MPJoinMenuClass : public MenuDialogClass
 {
 public:
 	MPJoinMenuClass (void)	:
-		MenuDialogClass (IDD_MULTIPLAY_JOIN_GAME)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_JOIN_GAME))	{}
 
 	void	On_Init_Dialog (void) override;
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
@@ -509,7 +509,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
 	DeathOptionsPopupClass (void)	:
-		PopupDialogClass (IDD_DEATH_OPTIONS)	{}
+		PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_DEATH_OPTIONS))	{}
 
 	void	On_Init_Dialog (void) override;
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
@@ -528,7 +528,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
 	FailedOptionsPopupClass (void)	:
-		PopupDialogClass (IDD_FAILED_OPTIONS)	{}
+		PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_FAILED_OPTIONS))	{}
 
 	void	On_Init_Dialog (void) override;
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param) override;

@@ -27,7 +27,7 @@
 
 #include "DlgMPConnectionRefused.h"
 #include "cnetwork.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include <wwdebug/wwdebug.h>
 #include "dlgmainmenu.h"
 #include "gamespyadmin.h"
@@ -82,7 +82,7 @@ bool DlgMPConnectionRefused::DoDialog(const wchar_t * text, bool show_splash_scr
 ******************************************************************************/
 
 DlgMPConnectionRefused::DlgMPConnectionRefused(const wchar_t * text, bool show_splash_screen) :
-		PopupDialogClass(IDD_MULTIPLAY_CONNECTION_REFUSED)
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_CONNECTION_REFUSED))
 	{
 	WWDEBUG_SAY(("DlgMPConnectionRefused: Instantiated\n"));
 

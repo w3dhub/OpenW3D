@@ -35,13 +35,13 @@
 ******************************************************************************/
 
 #include "DlgWebPage.h"
+#include "renegadedialog.h"
 #include "WebBrowser.h"
 #include <wwui/popupdialog.h>
 #include <wwui/dialogcontrol.h>
 #include <Combat/directinput.h>
 #include <ww3d2/ww3d.h>
 #include "DlgMessageBox.h"
-#include "resource.h"
 #include <Combat/string_ids.h>
 #include "wwdebug.h"
 
@@ -121,7 +121,7 @@ void DlgWebPage::DoDialog(const char* page)
 ******************************************************************************/
 
 DlgWebPage::DlgWebPage() :
-		DialogBaseClass(IDD_WEBPAGE),
+		DialogBaseClass(GetRenegadeDialog(RenegadeDialogID::IDD_WEBPAGE)),
 		mBrowser(NULL)
 	{
 	WWDEBUG_SAY(("Instantiating DlgWebPage\n"));

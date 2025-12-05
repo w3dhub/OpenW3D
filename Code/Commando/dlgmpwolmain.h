@@ -42,7 +42,6 @@
 #define __DLG_MP_WOL_MAIN_H
 
 #include "menudialog.h"
-#include "resource.h"
 #include "WOLLogonMgr.h"
 #include "DlgMessageBox.h"
 

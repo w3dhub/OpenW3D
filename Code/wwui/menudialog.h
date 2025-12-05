@@ -43,6 +43,7 @@
 
 
 #include "dialogbase.h"
+#include "dialogspec.h"
 #include "wwstring.h"
 
 
@@ -64,7 +65,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
-	MenuDialogClass (int res_id);
+	MenuDialogClass (const DialogResource *dialog_resource);
 	virtual ~MenuDialogClass (void);
 
 	////////////////////////////////////////////////////////////////

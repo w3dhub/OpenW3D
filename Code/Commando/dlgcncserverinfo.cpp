@@ -35,8 +35,8 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgcncserverinfo.h"
+#include "renegadedialog.h"
 #include "gamedata.h"
-#include "resource.h"
 #include "listctrl.h"
 #include "imagectrl.h"
 #include "playertype.h"
@@ -52,7 +52,6 @@
 #include "building.h"
 #include "damage.h"
 #include "vehicle.h"
-#include "resource.h"
 #include "wolgmode.h"
 #include <WWOnline/WOLUser.h>
 #include "translatedb.h"
@@ -77,7 +76,7 @@ enum
 //
 ////////////////////////////////////////////////////////////////
 CNCServerInfoDialogClass::CNCServerInfoDialogClass (void)	:
-	MenuDialogClass (IDD_CNC_SERVER_INFO)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_SERVER_INFO))
 {
 	return ;
 }

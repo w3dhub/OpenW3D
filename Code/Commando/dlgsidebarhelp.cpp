@@ -35,8 +35,8 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgsidebarhelp.h"
+#include "renegadedialog.h"
 #include "mpsettingsmgr.h"
-#include "resource.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 SidebarHelpDialogClass::SidebarHelpDialogClass (void)	:
-	PopupDialogClass (IDD_SIDEBAR_HELP_POPUP)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_SIDEBAR_HELP_POPUP))
 {
 	return ;
 }

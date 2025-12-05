@@ -43,6 +43,7 @@
 
 
 #include "dialogbase.h"
+#include "dialogspec.h"
 #include "rendobj.h"
 #include "wwstring.h"
 #include "render2dsentence.h"
@@ -67,7 +68,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
-	PopupDialogClass (int res_id);
+	PopupDialogClass (const DialogResource *dialog_resource);
 	virtual ~PopupDialogClass (void);
 
 	////////////////////////////////////////////////////////////////

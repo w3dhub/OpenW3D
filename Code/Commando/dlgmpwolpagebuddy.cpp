@@ -36,6 +36,7 @@
 
 
 #include "dlgmpwolpagebuddy.h"
+#include "renegadedialog.h"
 #include "dlgmpwolbuddies.h"
 #include "dlgmpwolpagereply.h"
 #include "dlgmpwolbuddylistpopup.h"
@@ -51,7 +52,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPWolPageBuddyPopupClass::MPWolPageBuddyPopupClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_PAGE_BUDDY),
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_PAGE_BUDDY)),
 	mBuddyMgr(NULL)
 {
 	mBuddyMgr = WOLBuddyMgr::GetInstance(false);

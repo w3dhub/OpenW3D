@@ -35,8 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgcncreference.h"
-#include "resource.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "gamedata.h"
 #include "cnetwork.h"
 #include "gamemode.h"
@@ -75,7 +74,7 @@ DWORD							CnCReferenceMenuClass::LastChangeTeamTimeMs	= 0;
 CnCReferenceMenuClass::CnCReferenceMenuClass (void)	:
 	OldBackdrop (NULL),
 	Timer (0.5F),
-	MenuDialogClass (IDD_MENU_CNC_REFERENCE)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_CNC_REFERENCE))
 {
 	_TheInstance = this;
 	return ;

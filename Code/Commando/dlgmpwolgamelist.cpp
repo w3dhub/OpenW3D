@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwolgamelist.h"
+#include "renegadedialog.h"
 #include "specialbuilds.h"
 #include "cnetwork.h"
 #include "bandwidthcheck.h"
@@ -149,7 +150,7 @@ void MPWolGameListMenuClass::DoDialog(void)
 ******************************************************************************/
 
 MPWolGameListMenuClass::MPWolGameListMenuClass(void) :
-		MenuDialogClass(IDD_MP_WOL_GAME_LIST),
+		MenuDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_GAME_LIST)),
 		mChannelListPending(false),
 		mSortColumn(COL_HOST_NAME),
 		mIsSortAscending(true),

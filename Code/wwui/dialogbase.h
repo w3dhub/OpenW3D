@@ -42,6 +42,7 @@
 #define __DIALOG_BASE_H
 
 
+#include "dialogspec.h"
 #include "vector.h"
 #include "vector3.h"
 #include "rect.h"
@@ -126,7 +127,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
-	DialogBaseClass (int res_id);
+	DialogBaseClass (const DialogResource *dialog_resource);
 	virtual ~DialogBaseClass (void);
 
 	////////////////////////////////////////////////////////////////
@@ -140,7 +141,7 @@ public:
 	virtual PopupDialogClass *	As_PopupDialogClass (void)	{ return NULL; }
 	virtual ChildDialogClass *	As_ChildDialogClass (void)	{ return NULL; }
 
-	int Get_Dlg_ID(void) const {return DialogResID;}
+	const DialogResource * Get_Dlg_Resource(void) const {return DialogResource_;}
 
 	//
 	//	Display methods
@@ -277,7 +278,7 @@ protected:
 	////////////////////////////////////////////////////////////////	
 	WideStringClass				Title;
 	RectClass						Rect;
-	int								DialogResID;
+	const DialogResource *				DialogResource_;
 	CONTROL_LIST					ControlList;
 	DIALOG_LIST						ChildDialogList;
 	DialogControlClass *			LastFocusControl;

@@ -35,8 +35,8 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwolautologinprompt.h"
+#include "renegadedialog.h"
 #include "mpsettingsmgr.h"
-#include "resource.h"
 
 
 //////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 MPWolAutoLoginPromptDialogClass::MPWolAutoLoginPromptDialogClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_AUTO_LOGIN_PROMPT)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_AUTO_LOGIN_PROMPT))
 {
 	return ;
 }

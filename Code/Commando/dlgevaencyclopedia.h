@@ -42,7 +42,6 @@
 #define __DLGEVAENCYCLOPEDIA_H
 
 #include "menudialog.h"
-#include "resource.h"
 #include "DlgMessageBox.h"
 
 

@@ -36,6 +36,7 @@
 ******************************************************************************/
 
 #include "DlgWOLLogon.h"
+#include "renegadedialog.h"
 #include "renegadedialogmgr.h"
 #include "mpsettingsmgr.h"
 #include "DlgMessageBox.h"
@@ -45,7 +46,6 @@
 #include <wwui/editctrl.h>
 #include "DlgWebPage.h"
 #include "string_ids.h"
-#include "resource.h"
 
 using namespace WWOnline;
 
@@ -105,7 +105,7 @@ bool DlgWOLLogon::DoDialog(const wchar_t* login, Observer<DlgWOLLogonEvent>* obs
 ******************************************************************************/
 
 DlgWOLLogon::DlgWOLLogon() :
-		PopupDialogClass(IDD_WOL_LOGON),
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_WOL_LOGON)),
 		mIsPasswordEncrypted(false)
 	{
 	WWDEBUG_SAY(("DlgWOLLogon: Instantiated\n"));

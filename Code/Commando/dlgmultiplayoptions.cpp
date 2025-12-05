@@ -40,7 +40,7 @@
 #include "vector3.h"
 #include "listctrl.h"
 #include "checkboxctrl.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "cnetwork.h"
 #include "gamemode.h"
 #include "netinterface.h"
@@ -56,7 +56,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MultiplayOptionsMenuClass::MultiplayOptionsMenuClass (void)	:
-	MenuDialogClass (IDD_MULTIPLAY_OPTIONS)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_OPTIONS))
 {
 	return ;
 }

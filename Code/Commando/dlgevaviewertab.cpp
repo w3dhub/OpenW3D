@@ -36,7 +36,6 @@
 
 #include "dlgevaviewertab.h"
 
-#include "resource.h"
 #include "mapctrl.h"
 #include "combat.h"
 #include "soldier.h"
@@ -60,13 +59,13 @@
 //	EvaViewerTabClass
 //
 ////////////////////////////////////////////////////////////////
-EvaViewerTabClass::EvaViewerTabClass (int resource_id)	:
+EvaViewerTabClass::EvaViewerTabClass (const DialogResource *dialog_resource)	:
 	ListCtrl (NULL),
 	DescriptionCtrl (NULL),
 	AffiliationCtrl (NULL),
 	ViewerCtrl (NULL),
 	EncyclopediaType (EncyclopediaMgrClass::TYPE_CHARACTER),
-	ChildDialogClass (resource_id)
+	ChildDialogClass (dialog_resource)
 {
 	return ;
 }
