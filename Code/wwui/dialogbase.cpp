@@ -17,21 +17,21 @@
 */
 
 /***********************************************************************************************
- ***	  C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S	   ***
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
  ***********************************************************************************************
- *							         *
- *	     Project Name : Combat																		  *
- *							         *
- *	         $Archive:: /Commando/Code/wwui/dialogbase.cpp	 $*
- *							         *
- *	           Author:: Patrick Smith				*
- *							         *
- *	         $Modtime:: 1/09/02 5:48p			           $*
- *							         *
- *	        $Revision:: 38				          $*
- *							         *
+ *                                                                                             *
+ *                 Project Name : Combat																		  *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwui/dialogbase.cpp             $*
+ *                                                                                             *
+ *                       Author:: Patrick Smith                                                *
+ *                                                                                             *
+ *                     $Modtime:: 1/09/02 5:48p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 38                                                          $*
+ *                                                                                             *
  *---------------------------------------------------------------------------------------------*
- * Functions:						          *
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dialogbase.h"
