@@ -43,7 +43,6 @@
 
 
 #include "childdialog.h"
-#include "resource.h"
 #include "vector.h"
 #include "DlgMessageBox.h"
 
@@ -66,7 +65,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////	
-	ControlsListTabClass (int res_id);
+	ControlsListTabClass (const DialogResource *dialog_resource);
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

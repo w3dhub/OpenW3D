@@ -35,11 +35,11 @@
 ******************************************************************************/
 
 #include "DlgMPConnect.h"
+#include "renegadedialog.h"
 #include "gamedata.h"
 #include "gameinitmgr.h"
 #include "campaign.h"
 #include "cnetwork.h"
-#include "resource.h"
 #include <wwdebug/wwdebug.h>
 #include "dlgmainmenu.h"
 #include "gamespyadmin.h"
@@ -96,7 +96,7 @@ bool DlgMPConnect::DoDialog(int teamChoice, unsigned int clanID)
 ******************************************************************************/
 
 DlgMPConnect::DlgMPConnect(int teamChoice, unsigned int clanID) :
-		PopupDialogClass(IDD_MULTIPLAY_CONNECTING),
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_CONNECTING)),
 		mTeamChoice(teamChoice),
 		mClanID(clanID),
 		mTheGame(NULL),

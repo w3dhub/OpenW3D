@@ -38,9 +38,8 @@
 #include "dlgcontrols.h"
 #include "dlgcontroltabs.h"
 #include "dlgcontrolsaveload.h"
-#include "resource.h"
 #include "tabctrl.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "inputconfigmgr.h"
 
 
@@ -56,7 +55,7 @@ ControlsMenuClass *	ControlsMenuClass::_TheInstance	= NULL;
 //
 ////////////////////////////////////////////////////////////////
 ControlsMenuClass::ControlsMenuClass (void)	:
-	MenuDialogClass (IDD_MENU_CONTROLS)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_CONTROLS))
 {
 	_TheInstance = this;
 	return ;

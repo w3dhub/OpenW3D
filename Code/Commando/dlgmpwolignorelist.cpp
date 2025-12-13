@@ -36,6 +36,7 @@
 
 
 #include "dlgmpwolignorelist.h"
+#include "renegadedialog.h"
 #include "dlgmpwoladdignoreentry.h"
 #include "listctrl.h"
 #include "dlgmpwoldeleteignoreentry.h"
@@ -47,7 +48,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPWolIgnoreListPopupClass::MPWolIgnoreListPopupClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_IGNORE_LIST)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_IGNORE_LIST))
 {
 	WWDEBUG_SAY(("MPWolIgnoreListPopupClass: Instantiated\n"));
 	mBuddyMgr = WOLBuddyMgr::GetInstance(false);

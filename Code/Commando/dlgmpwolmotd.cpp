@@ -35,8 +35,8 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwolmotd.h"
+#include "renegadedialog.h"
 #include "mpsettingsmgr.h"
-#include "resource.h"
 #include "listctrl.h"
 
 
@@ -46,7 +46,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 MPWolMOTDDialogClass::MPWolMOTDDialogClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_MOTD)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_MOTD))
 {
 	return ;
 }

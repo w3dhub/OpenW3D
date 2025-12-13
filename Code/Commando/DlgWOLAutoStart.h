@@ -39,7 +39,6 @@
 #define _DLGWOLAUTOSTART_H
 
 #include "menudialog.h"
-#include "resource.h"
 
 /*
 ** This dialog just shows progress during a server auto start.

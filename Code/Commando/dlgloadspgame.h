@@ -42,8 +42,8 @@
 #define __DLGLOADSPGAME_H
 
 
+#include "renegadedialog.h"
 #include "menudialog.h"
-#include "resource.h"
 #include "DlgMessageBox.h"
 
 
@@ -62,7 +62,7 @@ public:
 	LoadSPGameMenuClass (void)	:
 		CurrSortCol (1),
 		IsSortAscending (false),
-		MenuDialogClass (IDD_MENU_LOAD_SP_GAME)	{}
+		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_LOAD_SP_GAME))	{}
 
 
 	////////////////////////////////////////////////////////////////

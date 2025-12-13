@@ -37,7 +37,7 @@
 
 #include "WOLLoginProfile.h"
 #include "_globals.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include <WWOnline/WOLLoginInfo.h>
 #include <wwui/dialogbase.h>
 #include <wwui/listctrl.h>

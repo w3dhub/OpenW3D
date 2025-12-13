@@ -34,8 +34,8 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgconfigperformancetab.h"
-#include "resource.h"
 #include "registry.h"
 #include "comboboxctrl.h"
 #include "sliderctrl.h"
@@ -151,7 +151,7 @@ const int MAX_LOD_LOW	= 0;
 //
 ////////////////////////////////////////////////////////////////
 DlgConfigPerformanceTabClass::DlgConfigPerformanceTabClass (void)	:
-	ChildDialogClass (IDD_CONFIG_PERFORMANCE)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CONFIG_PERFORMANCE))
 {
 	return ;
 }

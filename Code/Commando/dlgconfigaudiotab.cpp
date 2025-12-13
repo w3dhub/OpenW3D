@@ -34,8 +34,8 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgconfigaudiotab.h"
-#include "resource.h"
 #include "sliderctrl.h"
 #include "WWAudio.h"
 #include "comboboxctrl.h"
@@ -65,7 +65,7 @@ DlgConfigAudioTabClass::DlgConfigAudioTabClass (void)	:
 	MusicVolumeTestSoundStartTime (0),
 	DialogVolumeTestSoundStartTime (0),
 	CinematicVolumeTestSoundStartTime (0),
-	ChildDialogClass (IDD_CONFIG_AUDIO)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CONFIG_AUDIO))
 {
 	SoundVolumeTestSound = WWAudioClass::Get_Instance ()->Create_Sound_Effect ("laser_rifle_fire_01.wav");
 	if (SoundVolumeTestSound != NULL) {

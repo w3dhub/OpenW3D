@@ -89,7 +89,6 @@
 #include "ServerSettings.h"
 #include "DlgMPConnectionRefused.h"
 
-#include "resource.h"
 #include <wwui/dialogmgr.h>
 #include "ffactory.h"
 #include "realcrc.h"
@@ -332,7 +331,7 @@ void cNetwork::Refusal_Handler(REFUSAL_CODE refusal_code)
    WWDEBUG_SAY(("cNetwork::Refusal_Handler\n"));
 
 	// Close connecting dialog as neccessary.
-	DialogBaseClass* dialog = DialogMgrClass::Find_Dialog(IDD_MULTIPLAY_CONNECTING);
+	DialogBaseClass* dialog = DialogMgrClass::Find_Dialog((int)RenegadeDialogID::IDD_MULTIPLAY_CONNECTING);
 
 	if (dialog != NULL) {
 		// Sending 1 as the parameter tells the dialog that it is being closed

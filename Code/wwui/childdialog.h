@@ -43,6 +43,7 @@
 
 
 #include "dialogbase.h"
+#include "dialogspec.h"
 #include "wwstring.h"
 
 
@@ -63,7 +64,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
-	ChildDialogClass (int res_id);
+	ChildDialogClass (const DialogResource *dialog_resource);
 	virtual ~ChildDialogClass (void);
 
 	////////////////////////////////////////////////////////////////

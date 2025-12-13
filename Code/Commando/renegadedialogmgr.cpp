@@ -39,7 +39,7 @@
 #include "dialogmgr.h"
 #include "dialogbase.h"
 #include "dialogtests.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "dlgloadspgame.h"
 #include "dlgevaencyclopedia.h"
 #include "dlgmultiplayoptions.h"
@@ -225,12 +225,12 @@ RenegadeDialogMgrClass::Initialize (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-RenegadeDialogMgrClass::Do_Simple_Dialog (int dlg_res_id)
+RenegadeDialogMgrClass::Do_Simple_Dialog (const DialogResource *dialog_resource)
 {
 	//
 	//	Show the dialog
 	//
-	PopupDialogClass *dialog = new PopupDialogClass (dlg_res_id);
+	PopupDialogClass *dialog = new PopupDialogClass (dialog_resource);
 	dialog->Start_Dialog ();
 	REF_PTR_RELEASE (dialog);
 	return ;

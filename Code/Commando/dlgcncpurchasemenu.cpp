@@ -34,9 +34,9 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgcncpurchasemenu.h"
 #include "dlgcncpurchasemainmenu.h"
-#include "resource.h"
 #include "purchasesettings.h"
 #include "vendor.h"
 #include "merchandisectrl.h"
@@ -95,7 +95,7 @@ CNCPurchaseMenuClass::CNCPurchaseMenuClass (void)	:
 	PurchaseType (PurchaseSettingsDefClass::TYPE_CLASSES),
 	HealthUpdateTimer (0),
 	EnabledStateUpdateTimer (0),
-	MenuDialogClass (IDD_CNC_PURCHASE_SCREEN)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_CNC_PURCHASE_SCREEN))
 {
 	return ;
 }

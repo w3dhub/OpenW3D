@@ -34,6 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgevadatatab.h"
 #include "string_ids.h"
 #include "translatedb.h"
@@ -54,7 +55,7 @@
 //
 ////////////////////////////////////////////////////////////////
 EvaDataTabClass::EvaDataTabClass (void)	:
-	ChildDialogClass (IDD_ENCYCLOPEDIA_DATA_TAB)
+	ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_ENCYCLOPEDIA_DATA_TAB))
 {
 	return ;
 }

@@ -35,7 +35,7 @@
 ******************************************************************************/
 
 #include "DlgRestart.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include "mainloop.h"
 #include "string_ids.h"
 #include <wwtranslatedb/translatedb.h>
@@ -88,7 +88,7 @@ bool DlgRestart::DoDialog(void)
 ******************************************************************************/
 
 DlgRestart::DlgRestart() :
-		PopupDialogClass(IDD_MESSAGEBOX_OK)
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MESSAGEBOX_OK))
 	{
 	WWDEBUG_SAY(("DlgRestart: Instantiated\n"));
 	}

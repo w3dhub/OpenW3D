@@ -34,6 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgcharacteroptions.h"
 #include "listctrl.h"
 #include "translatedb.h"
@@ -55,7 +56,7 @@
 ////////////////////////////////////////////////////////////////
 CharacterOptionsMenuClass::CharacterOptionsMenuClass (void)	:
 	UnloadDefs (false),
-	MenuDialogClass (IDD_OPTIONS_CHARACTER)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_OPTIONS_CHARACTER))
 {
 	SkinPackageMgrClass::Reset_List ();
 	SkinPackageMgrClass::Build_List ();

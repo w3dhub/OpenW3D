@@ -42,7 +42,6 @@
 #define __DLG_MP_WOL_GAME_LIST_H
 
 #include "menudialog.h"
-#include "resource.h"
 #include "WOLGameInfo.h"
 #include <WWOnline/WOLSession.h>
 #include <WWOnline/PingProfile.h>

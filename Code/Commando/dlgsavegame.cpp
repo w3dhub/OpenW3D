@@ -37,7 +37,7 @@
 
 #include "dlgsavegame.h"
 #include "listctrl.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "gamedata.h"
 #include "gamemode.h"
 #include "gameinitmgr.h"

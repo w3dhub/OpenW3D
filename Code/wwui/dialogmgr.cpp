@@ -915,7 +915,7 @@ DialogMgrClass::Set_Focus (DialogControlClass *control)
 DialogBaseClass* DialogMgrClass::Find_Dialog(int dialogID)
 {
 	for (int index = 0; index < DialogList.Count(); ++index) {
-		if (DialogList[index]->Get_Dlg_ID() == dialogID) {
+		if (DialogList[index]->Get_Dlg_Resource()->id == dialogID) {
 			return DialogList[index];
 		}
 	}

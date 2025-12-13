@@ -34,6 +34,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "renegadedialog.h"
 #include "dlgcredits.h"
 #include "wwfile.h"
 #include "ffactory.h"
@@ -45,7 +46,7 @@
 //
 ////////////////////////////////////////////////////////////////
 CreditsMenuClass::CreditsMenuClass (void)	:
-	MenuDialogClass (IDD_OPTIONS_CREDITS)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_OPTIONS_CREDITS))
 {
 	return ;
 }

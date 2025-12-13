@@ -35,6 +35,7 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "dlgmpwoladdbuddy.h"
+#include "renegadedialog.h"
 #include "WOLBuddyMgr.h"
 #include "WOLLogonMgr.h"
 #include "DlgMessageBox.h"
@@ -50,7 +51,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPWolAddBuddyPopupClass::MPWolAddBuddyPopupClass (void)	:
-	PopupDialogClass (IDD_MP_WOL_ADD_BUDDY)
+	PopupDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_ADD_BUDDY))
 {
 	WWDEBUG_SAY(("MPWolAddBuddyPopupClass: Instantiated\n"));
 	mBuddyMgr = WOLBuddyMgr::GetInstance(false);

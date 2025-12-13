@@ -43,7 +43,7 @@
 
 
 #include "childdialog.h"
-#include "resource.h"
+#include "renegadedialog.h"
 
 
 ////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ public:
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////	
 	EvaMapTabClass (void)	:
-		ChildDialogClass (IDD_ENCYCLOPEDIA_MAP_TAB)	{}
+		ChildDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_ENCYCLOPEDIA_MAP_TAB))	{}
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

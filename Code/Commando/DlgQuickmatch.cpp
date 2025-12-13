@@ -38,8 +38,7 @@
 #include "DlgWOLWait.h"
 #include "DlgMessageBox.h"
 #include "dlgmpwolquickmatchoptions.h"
-#include "resource.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "gameinitmgr.h"
 #include "WOLJoinGame.h"
 #include "string_ids.h"
@@ -100,7 +99,7 @@ bool DlgQuickMatch::DoDialog(void)
 ******************************************************************************/
 
 DlgQuickMatch::DlgQuickMatch() :
-		MenuDialogClass(IDD_MP_WOL_QUICKMATCH_CONNECT),
+		MenuDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_QUICKMATCH_CONNECT)),
 		mTimeoutTime(0),
 		mResendTime(0)
 	{

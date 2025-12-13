@@ -83,7 +83,6 @@
 #include "input.h"
 #include "menudialog.h"
 #include "popupdialog.h"
-#include "resource.h"
 #include "gameinitmgr.h"
 #include "menubackdrop.h"
 #include "dlgmainmenu.h"

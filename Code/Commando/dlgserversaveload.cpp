@@ -36,9 +36,8 @@
 
 
 #include "dlgserversaveload.h"
-#include "resource.h"
 #include "listctrl.h"
-#include "dialogresource.h"
+#include "renegadedialog.h"
 #include "inputconfigmgr.h"
 #include "string_ids.h"
 #include "rawfile.h"
@@ -63,7 +62,7 @@ const char *DEFAULT_SERVER_SETTINGS_FILE_NAME = "svrcfg_cnc_%04d.ini";
 //
 ////////////////////////////////////////////////////////////////
 ServerSaveLoadMenuClass::ServerSaveLoadMenuClass (void)	:
-	MenuDialogClass (IDD_MENU_SERVER_SETTINGS_SAVELOAD)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_SERVER_SETTINGS_SAVELOAD))
 {
 }
 
@@ -311,7 +310,7 @@ ServerSaveLoadMenuClass::Save_Config (bool prompt)
 					//
 					//	Let the user know the settings are not correct
 					//
-					RenegadeDialogMgrClass::Do_Simple_Dialog(IDD_MP_INVALID_SERVER_CONFIG);
+					RenegadeDialogMgrClass::Do_Simple_Dialog(GetRenegadeDialog(RenegadeDialogID::IDD_MP_INVALID_SERVER_CONFIG));
 #else
 					WideStringClass errorMsg(0, true);
 					errorMsg.Format(L"%s\n\n%s", TRANSLATE(IDS_MENU_TEXT330), (const wchar_t*)outMsg);

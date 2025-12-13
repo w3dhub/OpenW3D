@@ -34,8 +34,8 @@
 *
 ******************************************************************************/
 
+#include "renegadedialog.h"
 #include "DlgMessageBox.h"
-#include "resource.h"
 #include <wwtranslatedb/translatedb.h>
 #include "wwdebug.h"
 
@@ -131,7 +131,7 @@ bool DlgMsgBox::DoDialog(int titleID, int textID,
 
 DlgMsgBox::DlgMsgBox() :
 		mUserData(0),
-		PopupDialogClass(IDD_MESSAGEBOX_OK)
+		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MESSAGEBOX_OK))
 	{
 		CurrentCount++;
 	}
@@ -176,13 +176,14 @@ DlgMsgBox::~DlgMsgBox()
 
 void DlgMsgBox::SetResourceType(DlgMsgBox::Type type)
 	{
-	static UINT _types[] =
-		{
-		IDD_MESSAGEBOX_OK,
-		IDD_MESSAGEBOX_YESNO
-		};
-
-	DialogResID = _types[type];
+	switch (type) {
+		case DlgMsgBox::Type::Okay:
+			DialogResource_ = GetRenegadeDialog(RenegadeDialogID::IDD_MESSAGEBOX_OK);
+			break;
+		case DlgMsgBox::Type::YesNo:
+			DialogResource_ = GetRenegadeDialog(RenegadeDialogID::IDD_MESSAGEBOX_YESNO);
+			break;
+	}
 	}
 
 

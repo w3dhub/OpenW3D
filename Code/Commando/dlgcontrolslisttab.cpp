@@ -104,12 +104,12 @@ const int INPUT_NAME_COUNT	= sizeof (FUNCTION_NAMES) / sizeof (FUNCTION_NAMES[0]
 //	ControlsListTabClass
 //
 ////////////////////////////////////////////////////////////////
-ControlsListTabClass::ControlsListTabClass (int res_id)	:
+ControlsListTabClass::ControlsListTabClass (const DialogResource *dialog_resource)	:
 	PendingCtrlID (0),
 	PendingFunctionID (0),
 	PendingDIK_ID (0),
 	PendingOldFunctionID (0),
-	ChildDialogClass (res_id)
+	ChildDialogClass (dialog_resource)
 {
 	return ;
 }

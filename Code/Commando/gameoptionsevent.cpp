@@ -46,8 +46,7 @@
 #include "dialogbase.h"
 #include "dialogmgr.h"
 #include "DlgMPConnect.h"
-#include "dialogresource.h"
-#include "resource.h"
+#include "renegadedialog.h"
 #include "apppackettypes.h"
 #include "modpackagemgr.h"
 #include "specialbuilds.h"
@@ -88,7 +87,7 @@ cGameOptionsEvent::Act(void)
 	The_Game()->Set_Hosted_Game_Number(HostedGameNumber);
 
 	if (!IS_SOLOPLAY) {
-		DialogBaseClass* dialog = DialogMgrClass::Find_Dialog(IDD_MULTIPLAY_CONNECTING);
+		DialogBaseClass* dialog = DialogMgrClass::Find_Dialog((int)RenegadeDialogID::IDD_MULTIPLAY_CONNECTING);
 
 		if (dialog != NULL) {
 	 		((DlgMPConnect*)dialog)->Connected(The_Game());
@@ -163,7 +162,7 @@ cGameOptionsEvent::Import_Creation(BitStreamClass & packet)
 
 	if (!IS_SOLOPLAY) {
 		if (!The_Game()->Is_Map_Valid()) {
-			DialogBaseClass* dialog = DialogMgrClass::Find_Dialog(IDD_MULTIPLAY_CONNECTING);
+			DialogBaseClass* dialog = DialogMgrClass::Find_Dialog((int)RenegadeDialogID::IDD_MULTIPLAY_CONNECTING);
 
 			if (dialog != NULL) {
 	 			((DlgMPConnect*)dialog)->Failed_To_Connect();
