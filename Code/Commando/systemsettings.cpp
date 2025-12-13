@@ -49,6 +49,8 @@
 #include "surfaceeffects.h"
 #include "dlgconfigvideotab.h"
 #include	"wwstring.h"
+#include "ini.h"
+#include "openw3d.h"
 
 
 /*
@@ -71,20 +73,21 @@ void	SystemSettings::Apply_All( void )
 */
 void	SystemSettings::Registry_Save( const char * sub_key )
 {
-	RegistryClass registry( sub_key );
-	if ( registry.Is_Valid() ) {
-		for ( int index = 0; index < SettingList.Count(); index++ ) {
-			SettingList[ index ]->Registry_Save( registry );
-		}
+	INIClass ini(W3D_CONF_FILE);
+
+	for ( int index = 0; index < SettingList.Count(); index++ ) {
+		SettingList[ index ]->INI_Save( ini );
 	}
+	ini.Save(W3D_CONF_FILE);
 }
 
 void	SystemSettings::Registry_Load( const char * sub_key )
 {
-	RegistryClass registry( sub_key );
-	if ( registry.Is_Valid() ) {
+	INIClass ini(W3D_CONF_FILE);
+
+	if (ini.Is_Present(W3D_SECTION_SYSTEM)) {
 		for ( int index = 0; index < SettingList.Count(); index++ ) {
-			SettingList[ index ]->Registry_Load( registry );
+			SettingList[ index ]->INI_Load( ini );
 		}
 	}
 }
@@ -138,6 +141,18 @@ void	SystemSettingEntryBool::Registry_Load( RegistryClass & registry )
 	State = Get_Bool();
 	Set_State( registry.Get_Bool( Get_Name(), Get_State() ) );
 }
+
+void	SystemSettingEntryBool::INI_Save( INIClass & ini )
+{
+	ini.Put_Bool( W3D_SECTION_SYSTEM, Get_INI_Name(), Get_State() );
+}
+
+void	SystemSettingEntryBool::INI_Load( INIClass & ini )
+{
+	State = Get_Bool();
+	Set_State( ini.Get_Bool( W3D_SECTION_SYSTEM, Get_INI_Name(), Get_State() ) );
+}
+
 
 ConsoleFunctionClass *	SystemSettingEntryBool::Create_Console_Function()
 {
@@ -195,6 +210,16 @@ void	SystemSettingEntrySlider::Registry_Load( RegistryClass & registry )
 	Set_Value( registry.Get_Int( Get_Name(), Get_Value() ) );
 }
 
+void	SystemSettingEntrySlider::INI_Save( INIClass & ini )
+{
+	ini.Put_Int( W3D_SECTION_SYSTEM, Get_INI_Name(), Get_Value() );
+}
+
+void	SystemSettingEntrySlider::INI_Load( INIClass & ini )
+{
+	Set_Value( ini.Get_Int( W3D_SECTION_SYSTEM, Get_INI_Name(), Get_Value() ) );
+}
+
 ConsoleFunctionClass *	SystemSettingEntrySlider::Create_Console_Function()
 {
 	return new ConsoleFunctionSettingSlider( this );
@@ -247,6 +272,16 @@ void	SystemSettingEntryEnum::Registry_Load( RegistryClass & registry )
 	Set_Selection( registry.Get_Int( Get_Name(), Get_Selection() ) );
 }
 
+void	SystemSettingEntryEnum::INI_Save( INIClass & ini )
+{
+	ini.Put_Int( W3D_SECTION_SYSTEM, Get_INI_Name(), Get_Selection() );
+}
+
+void	SystemSettingEntryEnum::INI_Load( INIClass & ini )
+{
+	Set_Selection( ini.Get_Int( W3D_SECTION_SYSTEM, Get_INI_Name(), Get_Selection() ) );
+}
+
 ConsoleFunctionClass *	SystemSettingEntryEnum::Create_Console_Function()
 {
 	return new ConsoleFunctionSettingEnum( this );
@@ -284,6 +319,7 @@ void	SystemSettingEntryEnum::Set_Selection( const char * name )
 class	SystemSettingEntryStaticProjectors : public SystemSettingEntryBool {
 public:
 	const char * Get_Name( void ) override	{ return "Static_Projectors"; }
+	const char * Get_INI_Name( void ) override	{ return "StaticProjectors"; }
 	const char * Get_Help( void ) override	{ return "STATIC_PROJECTORS - toggles static projectors."; }
 	virtual bool Get_Bool( void ) override			{ if ( COMBAT_SCENE ) return COMBAT_SCENE->Are_Static_Projectors_Enabled(); return State; }
 	virtual void Set_Bool( bool state ) override	{ if ( COMBAT_SCENE ) COMBAT_SCENE->Enable_Static_Projectors( state ); }
@@ -294,6 +330,7 @@ public:
 class	SystemSettingEntryDynamicProjectors : public SystemSettingEntryBool {
 public:
 	const char * Get_Name( void ) override	{ return "Dynamic_Projectors"; }
+	const char * Get_INI_Name( void ) override	{ return "DynamicProjectors"; }
 	const char * Get_Help( void ) override	{ return "DYNAMIC_PROJECTORS - toggles dynamic projectors."; }
 	virtual bool Get_Bool( void ) override			{ if ( COMBAT_SCENE ) return COMBAT_SCENE->Are_Dynamic_Projectors_Enabled(); return State; }
 	virtual void Set_Bool( bool state ) override	{ if ( COMBAT_SCENE ) COMBAT_SCENE->Enable_Dynamic_Projectors( state ); }
@@ -304,6 +341,7 @@ public:
 class	SystemSettingEntryWeaponHelp : public SystemSettingEntryBool {
 public:
 	const char * Get_Name( void ) override	{ return "Enable_Weapon_Help"; }
+	const char * Get_INI_Name( void ) override	{ return "EnableWeaponHelp"; }
 	const char * Get_Help( void ) override	{ return "ENABLE_WEAPON_HELP - toggles weapon aiming help."; }
 	virtual bool Get_Bool( void ) override			{ if ( COMBAT_CAMERA ) return COMBAT_CAMERA->Is_Weapon_Help_Enabled(); return State; }
 	virtual void Set_Bool( bool state ) override	{ if ( COMBAT_CAMERA ) COMBAT_CAMERA->Enable_Weapon_Help( state ); }
@@ -314,6 +352,7 @@ public:
 class	SystemSettingEntryAutoTransitions : public SystemSettingEntryBool {
 public:
 	const char * Get_Name( void ) override	{ return "Enable_Auto_Transitions"; }
+	const char * Get_INI_Name( void ) override	{ return "EnableAutoTransitions"; }
 	const char * Get_Help( void ) override	{ return "ENABLE_AUTO_TRANSITIONS - toggles automatic doors and transitions."; }
 	virtual bool Get_Bool( void ) override			{ return CombatManager::Are_Transitions_Automatic(); }
 	virtual void Set_Bool( bool state ) override	{ CombatManager::Set_Transitions_Automatic( state ); }
@@ -329,6 +368,7 @@ public:
 		Set_Value( GAMMA_SLIDER_DEFAULT );
 	}
 	const char * Get_Name( void ) override	{ return "Gamma_Correction"; }
+	const char * Get_INI_Name( void ) override	{ return "GammaCorrection"; }
 	const char * Get_Help( void ) override	{ formatstring.Format ("GAMMA_CORRECTION [%d..%d] - Adjusts gamma correction curve for the display.", GAMMA_SLIDER_MIN, GAMMA_SLIDER_MAX); return (formatstring); }
 	
 	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Gamma (); return Value; }
@@ -350,6 +390,7 @@ public:
 		Set_Value( BRIGHTNESS_SLIDER_DEFAULT );
 	}
 	const char * Get_Name( void ) override	{ return "Brightness"; }
+	const char * Get_INI_Name( void ) override	{ return "Brightness"; }
 	const char * Get_Help( void ) override	{ formatstring.Format ("BRIGHTNESS [%d..%d] - Adjusts brightness for the display.", BRIGHTNESS_SLIDER_MIN, BRIGHTNESS_SLIDER_MAX); return (formatstring); }
 	
 	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Brightness (); return Value; }
@@ -370,6 +411,7 @@ public:
 		Set_Value( CONTRAST_SLIDER_DEFAULT );
 	}
 	const char * Get_Name( void ) override	{ return "Contrast"; }
+	const char * Get_INI_Name( void ) override	{ return "Contrast"; }
 	const char * Get_Help( void ) override	{ formatstring.Format ("CONTRAST [%d..%d] - Adjusts contrast for the display.", CONTRAST_SLIDER_MIN, CONTRAST_SLIDER_MAX); return (formatstring); }
 
 	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Contrast (); return Value; }
@@ -391,6 +433,7 @@ public:
 		Set_Value( 0 );
 	}
 	const char * Get_Name( void ) override	{ return "Texture_Resolution"; }
+	const char * Get_INI_Name( void ) override	{ return "TextureResolution"; }
 	const char * Get_Help( void ) override	{ return "TEXTURE_RESOLUTION [0..7] - sets the texture resolution."; }
 	virtual int Get_Slider( void ) override			{ return WW3D::Get_Texture_Reduction(); }
 	virtual void Set_Slider( int value ) override	{ if ( WW3D::Get_Texture_Reduction() != value ) { WW3D::Set_Texture_Reduction( value ); } }
@@ -408,6 +451,7 @@ public:
 		Set_Value( 10000 );
 	}
 	const char * Get_Name( void ) override	{ return "Dynamic_LOD_Budget"; }
+	const char * Get_INI_Name( void ) override	{ return "DynamicLODBudget"; }
 	const char * Get_Help( void ) override	{ return "DYNAMIC_LOD_BUDGET <n> - sets the Dynamic LOD Budget."; }
 	virtual int Get_Slider( void ) override	{
 		int scount,dcount = Value;
@@ -435,6 +479,7 @@ public:
 		Set_Value( 3000 );
 	}
 	const char * Get_Name( void ) override	{ return "Static_LOD_Budget"; }
+	const char * Get_INI_Name( void ) override	{ return "StaticLODBudget"; }
 	const char * Get_Help( void ) override	{ return "STATIC_LOD_BUDGET <n> - sets the Static LOD Budget."; }
 	virtual int Get_Slider( void ) override	{
 		int dcount,scount = Value;
@@ -457,6 +502,7 @@ public:
 class	SystemSettingEntryShadowMode : public SystemSettingEntryEnum {
 public:
 	const char * Get_Name( void ) override	{ return "Shadow_Mode"; }
+	const char * Get_INI_Name( void ) override	{ return "ShadowMode"; }
 	const char * Get_Help( void ) override	{ return "SHADOW_MODE <mode> - 0=none 1=blobs 2=blobs+ 3=projected textures"; }
 	virtual	int Get_Enum( void ) override { if (COMBAT_SCENE) return COMBAT_SCENE->Get_Shadow_Mode(); return Selection; }
 	virtual	void Set_Enum( int selection ) override { if (COMBAT_SCENE) COMBAT_SCENE->Set_Shadow_Mode( (PhysicsSceneClass::ShadowEnum)selection ); }
@@ -472,6 +518,7 @@ public:
 class	SystemSettingEntrySurfaceEffectDetail: public SystemSettingEntryEnum {
 public:
 	const char * Get_Name( void ) override	{ return "Surface_Effect_Detail"; }
+	const char * Get_INI_Name( void ) override	{ return "SurfaceEffectDetail"; }
 	const char * Get_Help( void ) override	{ return "SURFACE_EFFECT_DETAIL <level> - 0=off 1=no emitters 2=full"; }
 	virtual	int Get_Enum( void ) override { return SurfaceEffectsManager::Get_Mode (); }
 	virtual	void Set_Enum( int value ) override { SurfaceEffectsManager::Set_Mode ((SurfaceEffectsManager::MODE)value); }
@@ -488,6 +535,7 @@ class	SystemSettingEntryMeshDrawMode : public SystemSettingEntryEnum {
 	static const char * names[7];
 public:
 	const char * Get_Name( void ) override	{ return "Mesh_Draw_Mode"; }
+	const char * Get_INI_Name( void ) override	{ return "MeshDrawMode"; }
 	const char * Get_Help( void ) override	{ return "MESH_DRAW_MODE <mode> - 0=old 1=new 2=debug 3=debug clip 4=box 5=none 6=dx8 only"; }
 	virtual	int Get_Enum( void ) override { return WW3D::Get_Mesh_Draw_Mode(); }
 	virtual	void Set_Enum( int selection ) override {
@@ -507,6 +555,7 @@ class	SystemSettingEntryNPatchGapFillingMode : public SystemSettingEntryEnum {
 	static const char * names[3];
 public:
 	const char * Get_Name( void ) override	{ return "NPatches_Gap_Filling_Mode"; }
+	const char * Get_INI_Name( void ) override	{ return "NPatchesFillMode"; }
 	const char * Get_Help( void ) override	{ return "NPATCHES_GAP_FILLING_MODE <mode> - 0=disabled 1=enabled 2=force"; }
 	virtual	int Get_Enum( void ) override { return WW3D::Get_NPatches_Gap_Filling_Mode(); }
 	virtual	void Set_Enum( int selection ) override {
@@ -532,6 +581,7 @@ public:
 	}
 	virtual ~SystemSettingEntryNPatches(void){};
 	const char * Get_Name( void ) override	{ return Name; }
+	const char * Get_INI_Name( void ) override	{ return "NPatchesLevel"; }
 	const char * Get_Help( void ) override	{ return "NPatches <level> - 1=default, 8=max"; }
 	virtual	int Get_Enum( void ) override { return WW3D::Get_NPatches_Level(); }
 	virtual	void Set_Enum( int selection ) override {
@@ -563,6 +613,7 @@ const char * SystemSettingEntryNPatches::names[] = {
 class	SystemSettingEntryPrelitMode : public SystemSettingEntryEnum {
 public:
 	const char * Get_Name( void ) override	{ return "Prelit_Mode"; }
+	const char * Get_INI_Name( void ) override	{ return "PrelitMode"; }
 	const char * Get_Help( void ) override	{ return "PRELIT_MODE <mode> - 0=vertex 1=multi-pass 2=multi-texture."; }
 	virtual	int Get_Enum( void ) override { return WW3D::Get_Prelit_Mode(); }
 	virtual	void Set_Enum( int selection ) override {
@@ -582,6 +633,7 @@ public:
 class	SystemSettingEntryTextureFilterMode : public SystemSettingEntryEnum {
 public:
 	const char * Get_Name( void ) override	{ return "Texture_Filter_Mode"; }
+	const char * Get_INI_Name( void ) override	{ return "TextureFilterMode"; }
 	const char * Get_Help( void ) override	{ return "TEXTURE_FILTER_MODE <mode> - 0=bilinear 1=trilinear 2=anisotropic."; }
 	virtual	int Get_Enum( void ) override { return WW3D::Get_Texture_Filter(); }
 	virtual	void Set_Enum( int selection ) override {
@@ -600,6 +652,7 @@ class	SystemSettingEntryDifficulty : public SystemSettingEntryEnum {
 public:
 	SystemSettingEntryDifficulty( void ) {	Selection = Get_Enum(); }
 	const char * Get_Name( void ) override	{ return "Difficulty"; }
+	const char * Get_INI_Name( void ) override	{ return "Difficulty"; }
 	const char * Get_Help( void ) override	{ return "DIFFICULTY [0..2] - sets the difficulty level."; }
 	virtual int Get_Enum( void ) override			{ return CombatManager::Get_Difficulty_Level(); }
 	virtual void Set_Enum( int value ) override	{ CombatManager::Set_Difficulty_Level( value ); }

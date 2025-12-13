@@ -103,6 +103,7 @@ set(WWLIB_SRC
     Notify.h
     nstrdup.h
     ntree.h
+    openw3d.h
     pipe.h
     pk.h
     point.h

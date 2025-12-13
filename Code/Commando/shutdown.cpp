@@ -79,6 +79,7 @@
 #include "dx8caps.h"
 #include "registry.h"
 #include "specialbuilds.h"
+#include "openw3d.h"
 #include <windows.h>
 #include <lmcons.h>	// UNLEN
 extern SimpleFileFactoryClass RenegadeBaseFileFactory;
@@ -98,160 +99,190 @@ const char *VALUE_NAME_SURFACE_EFFECT	= "Surface_Effect_Detail";
 extern const char *VALUE_NAME_PARTICLE_DETAIL;
 const char *VALUE_NAME_TEXTURE_FILTER_MODE="Texture_Filter_Mode";
 
+extern const char *VALUE_INI_DYN_LOD;
+extern const char *VALUE_INI_STATIC_LOD;
+extern const char *VALUE_INI_DYN_SHADOWS;
+const char *VALUE_INI_PRELIT_MODE		= "PrelitMode";
+extern const char *VALUE_INI_SHADOW_MODE;
+extern const char *VALUE_INI_STATIC_SHADOWS;
+extern const char *VALUE_INI_TEXTURE_RES;
+const char *VALUE_INI_SURFACE_EFFECT	= "SurfaceEffectDetail";
+extern const char *VALUE_INI_PARTICLE_DETAIL;
+const char *VALUE_INI_TEXTURE_FILTER_MODE="TextureFilterMode";
+
 static void Get_Detail_String(StringClass& str)
 {
 	str="";
-	RegistryClass registry (APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS);
-	if (registry.Is_Valid ()) {
+	INIClass ini(W3D_CONF_FILE);
+	
+	int dynamic_lod		= 3000;
+	int static_lod			= 3000;
+	int dynamic_shadows	= 1;
+	int static_shadows	= 1;
+	int texture_filter	= TextureClass::TEXTURE_FILTER_BILINEAR;
+	int prelit_mode		= WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE;
+	int shadow_mode		= PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS;
+	int texture_red		= 0;
+	int surface_effect	= 1;
+	int particle_detail	= 1;
 
+	if (ini.Is_Present(W3D_SECTION_SYSTEM)) {
 		//
-		//	Read the values from the registry
+		//	Read the values from the config file
 		//
-		int dynamic_lod		= registry.Get_Int (VALUE_NAME_DYN_LOD, 3000);
-		int static_lod			= registry.Get_Int (VALUE_NAME_STATIC_LOD, 3000);
+		dynamic_lod		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_DYN_LOD, dynamic_lod);
+		static_lod			= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_LOD, static_lod);
+		dynamic_shadows	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_DYN_SHADOWS, dynamic_shadows);
+		static_shadows	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, static_shadows);
+		texture_filter	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER_MODE, texture_filter);
+		prelit_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, prelit_mode);
+		shadow_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, shadow_mode);
+		texture_red		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, texture_red);
+		surface_effect	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, surface_effect);
+		particle_detail	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, particle_detail);
+	}
+	
+	StringClass tmp;
+	tmp.Format("Dynamic LOD budget: %d\r\n",dynamic_lod);
+	str+=tmp;
+	tmp.Format("Static LOD budget: %d\r\n",static_lod);
+	str+=tmp;
 
-		int dynamic_shadows	= registry.Get_Int (VALUE_NAME_DYN_SHADOWS, 1);
-		int static_shadows	= registry.Get_Int (VALUE_NAME_STATIC_SHADOWS, 1);
+	str+="Shadow Mode: ";
+	switch (shadow_mode) {
+	case PhysicsSceneClass::SHADOW_MODE_NONE: str+="None\r\n"; break;
+	case PhysicsSceneClass::SHADOW_MODE_BLOBS: str+="Blobs\r\n"; break;
+	case PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS: str+="Blobs Plus\r\n"; break;
+	case PhysicsSceneClass::SHADOW_MODE_HARDWARE: str+="Hardware\r\n"; break;
+	default: str+="???\r\n"; break;
+	}
 
-		int texture_filter	= registry.Get_Int (VALUE_NAME_TEXTURE_FILTER_MODE, TextureClass::TEXTURE_FILTER_BILINEAR);
-		int prelit_mode		= registry.Get_Int (VALUE_NAME_PRELIT_MODE, WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
-		int shadow_mode		= registry.Get_Int (VALUE_NAME_SHADOW_MODE, PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS);
-		int texture_red		= registry.Get_Int (VALUE_NAME_TEXTURE_RES, 0);
-		int surface_effect	= registry.Get_Int (VALUE_NAME_SURFACE_EFFECT, 1);
-		int particle_detail	= registry.Get_Int (VALUE_NAME_PARTICLE_DETAIL, 1);
+	tmp.Format("Dynamic Shadows: %s\r\n",dynamic_shadows ? "On" : "Off");
+	str+=tmp;
+	tmp.Format("Static Shadows: %s\r\n",static_shadows ? "On" : "Off");
+	str+=tmp;
 
-		StringClass tmp;
-		tmp.Format("Dynamic LOD budget: %d\r\n",dynamic_lod);
-		str+=tmp;
-		tmp.Format("Static LOD budget: %d\r\n",static_lod);
-		str+=tmp;
+	str+="Prelit Mode: ";
+	switch (prelit_mode) {
+	case WW3D::PRELIT_MODE_VERTEX: str+="Vertex\r\n"; break;
+	case WW3D::PRELIT_MODE_LIGHTMAP_MULTI_PASS: str+="Multipass\r\n"; break;
+	case WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE: str+="Multitexture\r\n"; break;
+	default: str+="???\r\n"; break;
+	}
+	tmp.Format("Texture Resolution: %d\r\n",texture_red);
+	str+=tmp;
 
-		str+="Shadow Mode: ";
-		switch (shadow_mode) {
-		case PhysicsSceneClass::SHADOW_MODE_NONE: str+="None\r\n"; break;
-		case PhysicsSceneClass::SHADOW_MODE_BLOBS: str+="Blobs\r\n"; break;
-		case PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS: str+="Blobs Plus\r\n"; break;
-		case PhysicsSceneClass::SHADOW_MODE_HARDWARE: str+="Hardware\r\n"; break;
-		default: str+="???\r\n"; break;
-		}
+	tmp.Format("Surface Effects (0-2): %d\r\n",surface_effect);
+	str+=tmp;
 
-		tmp.Format("Dynamic Shadows: %s\r\n",dynamic_shadows ? "On" : "Off");
-		str+=tmp;
-		tmp.Format("Static Shadows: %s\r\n",static_shadows ? "On" : "Off");
-		str+=tmp;
+	tmp.Format("Particle Detail(0-2): %d\r\n",particle_detail);
+	str+=tmp;
 
-		str+="Prelit Mode: ";
-		switch (prelit_mode) {
-		case WW3D::PRELIT_MODE_VERTEX: str+="Vertex\r\n"; break;
-		case WW3D::PRELIT_MODE_LIGHTMAP_MULTI_PASS: str+="Multipass\r\n"; break;
-		case WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE: str+="Multitexture\r\n"; break;
-		default: str+="???\r\n"; break;
-		}
-		tmp.Format("Texture Resolution: %d\r\n",texture_red);
-		str+=tmp;
+	str+="Texture Filter Mode: ";
+	switch (texture_filter) {
+	case TextureClass::TEXTURE_FILTER_BILINEAR: str+="Bilinear\r\n"; break;
+	case TextureClass::TEXTURE_FILTER_TRILINEAR: str+="Trilinear\r\n"; break;
+	case TextureClass::TEXTURE_FILTER_ANISOTROPIC: str+="Anisotropic\r\n"; break;
+	default: str+="???\r\n"; break;
+	}
 
-		tmp.Format("Surface Effects (0-2): %d\r\n",surface_effect);
-		str+=tmp;
+	tmp.Format("Screen UV Bias: %s\r\n",WW3D::Is_Screen_UV_Biased() ? "Enabled" : "Disabled");
+	str+=tmp;
 
-		tmp.Format("Particle Detail(0-2): %d\r\n",particle_detail);
-		str+=tmp;
-
-		str+="Texture Filter Mode: ";
-		switch (texture_filter) {
-		case TextureClass::TEXTURE_FILTER_BILINEAR: str+="Bilinear\r\n"; break;
-		case TextureClass::TEXTURE_FILTER_TRILINEAR: str+="Trilinear\r\n"; break;
-		case TextureClass::TEXTURE_FILTER_ANISOTROPIC: str+="Anisotropic\r\n"; break;
-		default: str+="???\r\n"; break;
-		}
-
-		tmp.Format("Screen UV Bias: %s\r\n",WW3D::Is_Screen_UV_Biased() ? "Enabled" : "Disabled");
-		str+=tmp;
-
-		// NPatch level
-		str+="NPatch level: ";
-		if (DX8Wrapper::Get_Current_Caps() && DX8Wrapper::Get_Current_Caps()->Support_NPatches()) {
-			if (WW3D::Get_NPatches_Level()<=1) {
-				str+="Disabled\r\n";
-			}
-			else {
-				tmp.Format("%d\r\n",WW3D::Get_NPatches_Level());
-				str+=tmp;
-			}
+	// NPatch level
+	str+="NPatch level: ";
+	if (DX8Wrapper::Get_Current_Caps() && DX8Wrapper::Get_Current_Caps()->Support_NPatches()) {
+		if (WW3D::Get_NPatches_Level()<=1) {
+			str+="Disabled\r\n";
 		}
 		else {
-			str+="Not supported\r\n";
+			tmp.Format("%d\r\n",WW3D::Get_NPatches_Level());
+			str+=tmp;
 		}
+	}
+	else {
+		str+="Not supported\r\n";
+	}
 
-		int w;
-		int h;
-		int bits;
-		bool windowed;
-		WW3D::Get_Device_Resolution(w,h,bits,windowed);
-		tmp.Format("Display mode: %d * %d, %d bits %s\r\n", w,h,bits,windowed ? "Windowed" : "Fullscreen");
+	int w;
+	int h;
+	int bits;
+	bool windowed;
+	WW3D::Get_Device_Resolution(w,h,bits,windowed);
+	tmp.Format("Display mode: %d * %d, %d bits %s\r\n", w,h,bits,windowed ? "Windowed" : "Fullscreen");
+	str+=tmp;
+
+	str+="\r\n";
+
+	static const char VALUE_INI_SOUND_DEVICE_NAME[] = "DeviceName";
+	char temp_buffer[256] = { 0 };
+
+	if (ini.Is_Present(W3D_SECTION_SOUND)) {
+		ini.Get_String(W3D_SECTION_SOUND, VALUE_INI_SOUND_DEVICE_NAME, temp_buffer, temp_buffer, sizeof(temp_buffer));
+	}
+
+	tmp.Format("Sound device: %s\r\n",temp_buffer);
+	str+=tmp;
+
+	WWAudioClass* audio=WWAudioClass::Get_Instance();
+	if (audio) {
+		tmp.Format("Sound effects: %s\r\n",audio->Are_Sound_Effects_On() ? "Enabled" : "Disabled");
 		str+=tmp;
-
-		str+="\r\n";
-
-		const char *VALUE_NAME_SOUND_DEVICE_NAME = "device name";
-		RegistryClass registry_sound( APPLICATION_SUB_KEY_NAME_SOUND );
-		if ( registry_sound.Is_Valid() ) {
-			char temp_buffer[256] = { 0 };
-			registry.Get_String (VALUE_NAME_SOUND_DEVICE_NAME, temp_buffer, sizeof (temp_buffer));
-			tmp.Format("Sound device: %s\r\n",temp_buffer);
-			str+=tmp;
-		}
-
-		WWAudioClass* audio=WWAudioClass::Get_Instance();
-		if (audio) {
-			tmp.Format("Sound effects: %s\r\n",audio->Are_Sound_Effects_On() ? "Enabled" : "Disabled");
-			str+=tmp;
-			tmp.Format("Sound effects volume: %2.2f\r\n",audio->Get_Sound_Effects_Volume());
-			str+=tmp;
-			tmp.Format("Music: %s\r\n",audio->Is_Music_On() ? "Enabled" : "Disabled");
-			str+=tmp;
-			tmp.Format("Music volume: %2.2f\r\n",audio->Get_Music_Volume());
-			str+=tmp;
-		}
+		tmp.Format("Sound effects volume: %2.2f\r\n",audio->Get_Sound_Effects_Volume());
+		str+=tmp;
+		tmp.Format("Music: %s\r\n",audio->Is_Music_On() ? "Enabled" : "Disabled");
+		str+=tmp;
+		tmp.Format("Music volume: %2.2f\r\n",audio->Get_Music_Volume());
+		str+=tmp;
 	}
 }
 
 void Get_Compact_Detail_String(StringClass& str)
 {
 	str="";
-	RegistryClass registry (APPLICATION_SUB_KEY_NAME_SYSTEM_SETTINGS);
-	if (registry.Is_Valid ()) {
+	INIClass ini(W3D_CONF_FILE);
 
+	int dynamic_lod		= 3000;
+	int static_lod			= 3000;
+	int dynamic_shadows	= 1;
+	int static_shadows	= 1;
+	int texture_filter	= TextureClass::TEXTURE_FILTER_BILINEAR;
+	int prelit_mode		= WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE;
+	int shadow_mode		= PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS;
+	int texture_red		= 0;
+	int surface_effect	= 1;
+	int particle_detail	= 1;
+
+	if (ini.Is_Present(W3D_SECTION_SYSTEM)) {
 		//
-		//	Read the values from the registry
+		//	Read the values from the config file
 		//
-		int dynamic_lod		= registry.Get_Int (VALUE_NAME_DYN_LOD, 3000);
-		int static_lod			= registry.Get_Int (VALUE_NAME_STATIC_LOD, 3000);
-
-		int dynamic_shadows	= registry.Get_Int (VALUE_NAME_DYN_SHADOWS, 1);
-		int static_shadows	= registry.Get_Int (VALUE_NAME_STATIC_SHADOWS, 1);
-
-		int texture_filter	= registry.Get_Int (VALUE_NAME_TEXTURE_FILTER_MODE, TextureClass::TEXTURE_FILTER_BILINEAR);
-		int prelit_mode		= registry.Get_Int (VALUE_NAME_PRELIT_MODE, WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
-		int shadow_mode		= registry.Get_Int (VALUE_NAME_SHADOW_MODE, PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS);
-		int texture_red		= registry.Get_Int (VALUE_NAME_TEXTURE_RES, 0);
-		int surface_effect	= registry.Get_Int (VALUE_NAME_SURFACE_EFFECT, 1);
-		int particle_detail	= registry.Get_Int (VALUE_NAME_PARTICLE_DETAIL, 1);
-
-		StringClass tmp;
-		tmp.Format("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t",dynamic_lod,static_lod,shadow_mode,dynamic_shadows,static_shadows,prelit_mode,texture_red,surface_effect,particle_detail,texture_filter);
-		str+=tmp;
-
-		tmp.Format("%d\t",1);//WW3D::Get_Texture_Compression_Mode());
-		str+=tmp;
-
-		int w;
-		int h;
-		int bits;
-		bool windowed;
-		WW3D::Get_Device_Resolution(w,h,bits,windowed);
-		tmp.Format("%d\t%d\t%d\t%d\t",w,h,bits,windowed);
-		str+=tmp;
+		dynamic_lod		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_DYN_LOD, dynamic_lod);
+		static_lod			= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_LOD, static_lod);
+		dynamic_shadows	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_DYN_SHADOWS, dynamic_shadows);
+		static_shadows	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_STATIC_SHADOWS, static_shadows);
+		texture_filter	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER_MODE, texture_filter);
+		prelit_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, prelit_mode);
+		shadow_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, shadow_mode);
+		texture_red		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, texture_red);
+		surface_effect	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, surface_effect);
+		particle_detail	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, particle_detail);
 	}
+
+	StringClass tmp;
+	tmp.Format("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\t",dynamic_lod,static_lod,shadow_mode,dynamic_shadows,static_shadows,prelit_mode,texture_red,surface_effect,particle_detail,texture_filter);
+	str+=tmp;
+
+	tmp.Format("%d\t",1);//WW3D::Get_Texture_Compression_Mode());
+	str+=tmp;
+
+	int w;
+	int h;
+	int bits;
+	bool windowed;
+	WW3D::Get_Device_Resolution(w,h,bits,windowed);
+	tmp.Format("%d\t%d\t%d\t%d\t",w,h,bits,windowed);
+	str+=tmp;
 }
 
 static class SysInfoCopyThreadClass : public ThreadClass
