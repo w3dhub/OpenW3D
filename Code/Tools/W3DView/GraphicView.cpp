@@ -469,14 +469,14 @@ CGraphicView::RepaintView
 
 		// Perform the object rotation if necessary
 		if ((m_objectRotation != NoRotation) &&
-			(bUpdateAnimation == true))
+			(bUpdateAnimation != 0))
 		{
 			Rotate_Object ();
 		}
 
 		// Perform the light rotation if necessary
 		if ((m_LightRotation != NoRotation) &&
-			(bUpdateAnimation == true))
+			(bUpdateAnimation != 0))
 		{
 			Rotate_Light ();
 		}
@@ -756,9 +756,9 @@ CGraphicView::OnLButtonUp
     }
 
     // Mouse button is up
-    m_bMouseDown = false;    
+    m_bMouseDown = FALSE;    
 
-    if (m_bRMouseDown == true)
+    if (m_bRMouseDown == TRUE)
     {
         ::SetCursor (::LoadCursor (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDC_CURSOR_ZOOM)));
 		  ((CW3DViewDoc *)GetDocument())->Set_Cursor ("zoom.tga");

@@ -1527,7 +1527,7 @@ bool IMEManager::GetCompositionFont(LPLOGFONT lpFont)
 		ImmReleaseContext(mHWND, imc);
 		}
 
-	return (success == true);
+	return (success != 0);
 	}
 
 
