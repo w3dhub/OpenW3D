@@ -88,8 +88,6 @@ public:
 	void							Get_Sample_MS_Position (int *len, int *pos) override;
 	void							Set_Sample_User_Data (int i, void *val) override;
 	void *							Get_Sample_User_Data (int i) override;
-	int							Get_Sample_Playback_Rate (void) override;
-	void							Set_Sample_Playback_Rate (int rate) override;
 	float 					Get_Sample_Pitch (void) override;
 	void						Set_Sample_Pitch (float pitch) override;
 

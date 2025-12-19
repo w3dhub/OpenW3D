@@ -102,8 +102,6 @@ public:
 	virtual void	Get_Sample_MS_Position (int *len, int *pos) = 0;
 	virtual void	Set_Sample_User_Data (int i, void *val) = 0;
 	virtual void *	Get_Sample_User_Data (int i) = 0;
-	virtual int		Get_Sample_Playback_Rate (void) = 0;
-	virtual void	Set_Sample_Playback_Rate (int rate) = 0;
 	virtual float Get_Sample_Pitch (void) = 0;
 	virtual void	Set_Sample_Pitch (float pitch) = 0;
 
