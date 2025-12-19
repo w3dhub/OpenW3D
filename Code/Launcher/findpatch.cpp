@@ -165,7 +165,7 @@ void Delete_Patches(ConfigFile &config)
   //
   // Loop through all the application directories in the config file
   //
-  while (Get_App_Dir(dir,MAX_PATH,config,i++)==true)
+  while (Get_App_Dir(dir,MAX_PATH,config,i++)!=0)
   {
     // Make sure path is at least 3 for "c:\".  I really hope nobody's
     //   dumb enough to install a game to the root directory. (It's OK though

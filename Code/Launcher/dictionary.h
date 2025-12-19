@@ -88,7 +88,7 @@ class Dictionary
   uint32           size;       // size of table
   uint32           tableBits;  // table is 2^tableBits big
   uint32           log2Size;   // Junk variable
-  bit8             keepSize;   // If true don't shrink or expand
+  bool             keepSize;   // If true don't shrink or expand
 
   uint32           (* hashFunc)(K &key);   // User provided hash function
   uint32           keyHash(IN K &key);     // This will reduce to correct range

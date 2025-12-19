@@ -104,7 +104,7 @@ CW3DViewDoc::CW3DViewDoc (void)
 		m_pCAnimCombo (NULL),
 		m_pCBackgroundBMP (NULL),		
       m_CurrentFrame (0),
-      m_bAnimBlend (true),
+      m_bAnimBlend (TRUE),
 		m_bAnimateCamera (false),
 		m_bAutoCameraReset (true),
 		m_bOneTimeReset (true),
@@ -118,8 +118,8 @@ CW3DViewDoc::CW3DViewDoc (void)
 		m_bCompress_channel_Q(false)
 {
 	// Read the camera animation settings from the registry
-	m_bAnimateCamera = ((BOOL)theApp.GetProfileInt ("Config", "AnimateCamera", 0)) == true;
-	m_bAutoCameraReset = ((BOOL)theApp.GetProfileInt ("Config", "ResetCamera", 1)) == true;
+	m_bAnimateCamera = ((BOOL)theApp.GetProfileInt ("Config", "AnimateCamera", 0)) != 0;
+	m_bAutoCameraReset = ((BOOL)theApp.GetProfileInt ("Config", "ResetCamera", 1)) != 0;
 	return ;
 }
 
@@ -3032,8 +3032,8 @@ CW3DViewDoc::Save_Camera_Settings (void)
 void
 CW3DViewDoc::Load_Camera_Settings (void)
 {
-	m_ManualFOV				= (theApp.GetProfileInt ("Config", "UseManualFOV", 0) == true);
-	m_ManualClipPlanes	= (theApp.GetProfileInt ("Config", "UseManualClipPlanes", 0) == true);
+	m_ManualFOV				= (theApp.GetProfileInt ("Config", "UseManualFOV", 0) != 0);
+	m_ManualClipPlanes	= (theApp.GetProfileInt ("Config", "UseManualClipPlanes", 0) != 0);
 
 	CGraphicView *graphic_view	= GetGraphicView ();
 	if (graphic_view != NULL) {

@@ -271,7 +271,7 @@ CSceneLightDialog::OnCancel (void)
 		// Restore the intensity, attenuation, and distance settings
 		pCDoc->GetSceneLight ()->Set_Intensity (m_InitialIntensity);
 		pCDoc->GetSceneLight ()->Set_Far_Attenuation_Range (m_InitialStartAtten, m_InitialEndAtten);
-		pCDoc->GetSceneLight ()->Set_Flag (LightClass::FAR_ATTENUATION, (m_InitialAttenOn == true));
+		pCDoc->GetSceneLight ()->Set_Flag (LightClass::FAR_ATTENUATION, (m_InitialAttenOn != 0));
 		Update_Distance (m_InitialDistance);		
 	}
 

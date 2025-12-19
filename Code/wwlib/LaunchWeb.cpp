@@ -119,5 +119,5 @@ bool LaunchWebBrowser(const char* url)
 
 	assert(createSuccess && "Failed to launch default WebBrowser.");
 
-	return (true == createSuccess);
+	return (createSuccess != 0);
 	}

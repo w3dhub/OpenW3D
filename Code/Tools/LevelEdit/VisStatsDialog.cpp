@@ -281,7 +281,7 @@ VisSectorSortCompareFn (LPARAM param1, LPARAM param2, LPARAM sort_info)
 	VisSectorStatsClass *stats2 = (VisSectorStatsClass *)param2;
 
 	LONG column_id = LOWORD (sort_info);
-	BOOL ascending	= HIWORD (sort_info);
+	bool ascending	= HIWORD (sort_info) != 0;
 
 	if (stats1 != NULL && stats2 != NULL) {
 		
@@ -302,7 +302,7 @@ VisSectorSortCompareFn (LPARAM param1, LPARAM param2, LPARAM sort_info)
 	//
 	//	Invert the sort if necessary
 	//
-	if (ascending != true) {
+	if (!ascending) {
 		retval = -retval;
 	}
 
