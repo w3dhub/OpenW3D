@@ -46,7 +46,7 @@ target_link_libraries(wwsaveload PRIVATE
 target_sources(wwsaveload PRIVATE ${WWSAVELOAD_SRC})
 
 # This module needs building differently for the level editor
-if (RENEGADE_TOOLS)
+if (W3D_TOOLS)
     # Targets to build.
     add_library(wwsaveloade STATIC)
 

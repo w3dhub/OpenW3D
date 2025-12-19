@@ -79,6 +79,6 @@ add_subdirectory(Launcher)
 add_subdirectory(Scripts)
 add_subdirectory(Commando)
 
-if (RENEGADE_TOOLS)
+if (W3D_TOOLS)
     add_subdirectory(Tools)
 endif()

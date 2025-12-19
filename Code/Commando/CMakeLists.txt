@@ -472,7 +472,7 @@ if(WIN32)
 endif()
 
 # Targets to build.
-if(RENEGADE_CLIENT) # Full game client
+if(W3D_CLIENT) # Full game client
     add_executable(renegade WIN32 ${COMMANDO_SRC})
 
     target_link_libraries(renegade PRIVATE
@@ -480,7 +480,7 @@ if(RENEGADE_CLIENT) # Full game client
     )
 endif()
 
-if(RENEGADE_FDS) # Dedicated headless server
+if(W3D_FDS) # Dedicated headless server
     add_executable(renegadeserver WIN32 ${COMMANDO_SRC})
 
     target_link_libraries(renegadeserver PRIVATE

@@ -231,7 +231,7 @@ target_link_libraries(ww3d2 PRIVATE
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 
 # This module needs building differently for the level editor
-if (RENEGADE_TOOLS)
+if (W3D_TOOLS)
     # Targets to build.
     add_library(ww3d2e STATIC)
 
