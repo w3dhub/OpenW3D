@@ -28,7 +28,7 @@
 class NullAudioClass final : public WWAudioClass
 {
 public:
-	NullAudioClass(bool lite)
+	NullAudioClass(bool /* lite */)
 		:
 			WWAudioClass(true),
 			m_DriverName("NullAudio")
@@ -36,26 +36,26 @@ public:
 		_theInstance = this;
 	}
 	~NullAudioClass (void) override {}
-	void Initialize (bool stereo = true, int bits = 16, int hertz = 44100) override {}
-	void Initialize (const char *registry_subkey_name) override {}
+	void Initialize (bool /* stereo */ = true, int /* bits */ = 16, int /* hertz */ = 44100) override {}
+	void Initialize (const char */* registry_subkey_name */) override {}
 	void Shutdown (void) override {}
 	const StringClass & Get_3D_Driver_Name (void) const override { return m_DriverName; }
-	DRIVER_TYPE_2D Open_2D_Device (bool stereo, int bits, int hertz) override { return DRIVER2D_ERROR; }
+	DRIVER_TYPE_2D Open_2D_Device (bool /* stereo */, int /* bits */, int /* hertz */) override { return DRIVER2D_ERROR; }
 	int Get_3D_Device_Count (void) const override { return 0; }
-	bool Get_3D_Device (int index, const char **info) override   { (*info) = m_DriverName; return true; }
-	bool Select_3D_Device (const char *device_name) override { return false; }
-	void Set_Speaker_Type (int speaker_type) override {}
+	bool Get_3D_Device (int /* index */, const char **info) override   { (*info) = m_DriverName; return true; }
+	bool Select_3D_Device (const char */* device_name */) override { return false; }
+	void Set_Speaker_Type (int /* speaker_type */) override {}
 	int Get_Speaker_Type (void) const override { return W3D_3D_2_SPEAKER; }
 	float Get_Effects_Level (void) override { return 0.0F; }
 	void Flush_Cache (void) override {}
 	int Get_2D_Sample_Count (void) const override { return 0;}
 	int Get_3D_Sample_Count (void) const override { return 0;}
-	AudibleSoundClass *Peek_2D_Sample (int index) override { return nullptr;}
-	AudibleSoundClass *Peek_3D_Sample (int index) override { return nullptr;}
-	bool Validate_3D_Sound_Buffer (SoundBufferClass *buffer) override { return false; }
-	SoundHandleClass *Get_2D_Handle (const AudibleSoundClass &sound_obj, bool streaming) override { return nullptr; }
-	SoundHandleClass *Get_3D_Handle (const Sound3DClass &sound_obj) override { return nullptr; }
-	SoundBufferClass *Get_Sound_Buffer (const char *filename, bool is_3d) override { return nullptr; }
+	AudibleSoundClass *Peek_2D_Sample (int /* index */) override { return nullptr;}
+	AudibleSoundClass *Peek_3D_Sample (int /* index */) override { return nullptr;}
+	bool Validate_3D_Sound_Buffer (SoundBufferClass * /* buffer */) override { return false; }
+	SoundHandleClass *Get_2D_Handle (const AudibleSoundClass &/* sound_obj */, bool /* streaming */) override { return nullptr; }
+	SoundHandleClass *Get_3D_Handle (const Sound3DClass &/* sound_obj */) override { return nullptr; }
+	SoundBufferClass *Get_Sound_Buffer (const char * /* filename */, bool /* is_3d */) override { return nullptr; }
 
 private:
 	StringClass m_DriverName;

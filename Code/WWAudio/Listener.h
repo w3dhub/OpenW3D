@@ -126,8 +126,6 @@ class Listener3DClass : public Sound3DClass
 		virtual unsigned				Get_Sample_Loop_Count (void)				{ return 0; }
 		virtual void			Set_Sample_MS_Position (unsigned /* ms */)			{ }
 		virtual void			Get_Sample_MS_Position (int */* len */, int */* pos */) { }
-		virtual int				Get_Sample_Playback_Rate (void)			{ return 0; }
-		virtual void			Set_Sample_Playback_Rate (int /* rate */)		{ }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Handle information

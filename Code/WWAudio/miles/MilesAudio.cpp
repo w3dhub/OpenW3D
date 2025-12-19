@@ -420,53 +420,6 @@ MilesAudioClass::Find_Cached_Buffer (const char *string_id)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//	Free_Cache_Space
-//
-////////////////////////////////////////////////////////////////////////////////////////////////
-bool
-MilesAudioClass::Free_Cache_Space (int bytes)
-{
-	int bytes_freed = 0;
-
-	// Loop through all the hash indicies
-	for (int hash_index = 0;
-		  (hash_index < MAX_CACHE_HASH) && (bytes_freed < bytes);
-		  hash_index ++) {
-
-		// Loop through all the buffers at this hash index
-		for (int index = 0;
-			  (index < m_CachedBuffers[hash_index].Count ()) && (bytes_freed < bytes);
-			  index ++) {
-
-			// Can we free this cached buffer?
-			CACHE_ENTRY_STRUCT &info = m_CachedBuffers[hash_index][index];
-			if ((info.buffer != NULL) && (info.buffer->Num_Refs () == 1)) {
-
-				// Add the size of this buffer to our count of bytes freed
-				bytes_freed += info.buffer->Get_Raw_Length ();
-
-				// Free the buffer data
-				SAFE_FREE (info.string_id);
-				REF_PTR_RELEASE (info.buffer);
-
-				// Remove this entry from the hash table
-				m_CachedBuffers[hash_index].Delete (index);
-				index --;
-			}
-		}
-	}
-
-	// Make sure to recompute out current cache size
-	m_CurrentCacheSize -= bytes_freed;
-	WWASSERT (m_CurrentCacheSize >= 0);
-
-	// Return true if we freed enough bytes in the cache
-	return (bytes_freed >= bytes);
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-//
 //	Cache_Buffer
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -486,39 +439,25 @@ MilesAudioClass::Cache_Buffer
 	WWASSERT (buffer != NULL);
 	WWASSERT (string_id != NULL);
 	if ((buffer != NULL) && (string_id != NULL)) {
+		//
+		// Determine which index in our hash table to use
+		//
+		int hash_index = ::CRC_Stringi (string_id) & CACHE_HASH_MASK;
 
 		//
-		// Attempt to free space in the cache (if needed)
+		// Add this buffer to the hash table at the given index.
+		//	Note:  The assignment operator caused by the Add call
+		//			will add a reference to the sound buffer.
 		//
-		/*int space_needed = (m_CurrentCacheSize + buffer->Get_Raw_Length ()) - (int)m_MaxCacheSize;
-		if (space_needed > 0) {
-			Free_Cache_Space (space_needed);
-		}*/
+		CACHE_ENTRY_STRUCT info;
+		info.string_id = (char *)string_id;
+		info.buffer = buffer;
+		m_CachedBuffers[hash_index].Add (info);
 
-		// Do we have enough space in the cache for this buffer?
-		//space_needed = (m_CurrentCacheSize + buffer->Get_Raw_Length ()) - (int)m_MaxCacheSize;
-		//if (space_needed <= 0) {
-
-			//
-			// Determine which index in our hash table to use
-			//
-			int hash_index = ::CRC_Stringi (string_id) & CACHE_HASH_MASK;
-
-			//
-			// Add this buffer to the hash table at the given index.
-			//	Note:  The assignment operator caused by the Add call
-			//			will add a reference to the sound buffer.
-			//
-			CACHE_ENTRY_STRUCT info;
-			info.string_id = (char *)string_id;
-			info.buffer = buffer;
-			m_CachedBuffers[hash_index].Add (info);
-
-			// Update our current cache size
-			m_CurrentCacheSize += buffer->Get_Raw_Length ();
-			retval = true;
-		//}
-	}
+		// Update our current cache size
+		m_CurrentCacheSize += buffer->Get_Raw_Length ();
+		retval = true;
+}
 
 	if (!retval) {
 		WWDEBUG_SAY (("Unable to cache sound: %s.\r\n", string_id));

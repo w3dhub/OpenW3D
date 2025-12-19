@@ -246,50 +246,6 @@ SingleSoundBufferClass::Load_From_File (FileClass &file)
 
 /////////////////////////////////////////////////////////////////////////////////
 //
-//	Load_From_Memory
-//
-bool
-SingleSoundBufferClass::Load_From_Memory
-(
-	unsigned char *mem_buffer,
-	unsigned int size
-)
-{
-	MMSLockClass lock;
-
-	// Assume failure
-	bool retval = false;
-
-	// Start from scratch
-	Free_Buffer ();
-	Set_Filename ("unknown.wav");
-
-	// Params OK?
-	WWASSERT (mem_buffer != NULL);
-	WWASSERT (size > 0L);
-	if ((mem_buffer != NULL) && (size > 0L)) {
-
-		// Allocate a new buffer of the correct length and copy the contents
-		// into the buffer
-		m_Length = size;
-		m_Buffer = new unsigned char[m_Length];
-		::memcpy (m_Buffer, mem_buffer, size);
-		retval = true;
-
-		// If we failed, free the buffer
-		if (retval == false) {
-			Free_Buffer ();
-		}
-		Determine_Stats (m_Buffer);
-	}
-
-	// Return the true/false result code
-	return retval;
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////
-//
 //	StreamSoundBufferClass
 //
 StreamSoundBufferClass::StreamSoundBufferClass (void)	:
