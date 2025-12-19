@@ -22,15 +22,15 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}" CACHE PATH "Where to ou
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}" CACHE PATH "Where to output libraries")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}" CACHE PATH "Where to output binaries")
 
-option(RENEGADE_CLIENT "Build full game client." ON)
-add_feature_info(RenegadeClient RENEGADE_CLIENT "Build Renegade game client")
+option(W3D_CLIENT "Build full game client." ON)
+add_feature_info(OpenW3DClient W3D_CLIENT "Build OpenW3D game client")
 
-option(RENEGADE_FDS "Build as headless server." ON)
-add_feature_info(RenegadeHeadless RENEGADE_FDS "Build Renegade headless server")
+option(W3D_FDS "Build as headless server." ON)
+add_feature_info(OpenW3DHeadless W3D_FDS "Build OpenW3D headless server")
 
 # Do we want to build extra SDK stuff or just the game binary?
-option(RENEGADE_TOOLS "Build additional tools." ON)
-add_feature_info(RenegadeTools RENEGADE_TOOLS "Build Renegade Mod Tools")
+option(W3D_TOOLS "Build additional tools." ON)
+add_feature_info(OpenW3DTools W3D_TOOLS "Build OpenW3D Mod Tools")
 
 option(SYNTAX_CHECK_ONLY "Syntax check the files only?" OFF)
 add_feature_info(SyntaxCheck SYNTAX_CHECK_ONLY "Syntax check files only")
@@ -40,7 +40,7 @@ endif(SYNTAX_CHECK_ONLY)
 
 # Do we want to build with ffmpeg for audio/video decoding?
 option(W3D_BUILD_OPTION_FFMPEG "Build with ffmpeg." OFF)
-add_feature_info(FFMpegBuild W3D_BUILD_OPTION_FFMPEG "Build Renegade with FFMpeg")
+add_feature_info(FFMpegBuild W3D_BUILD_OPTION_FFMPEG "Build OpenW3D with FFMpeg")
 
 if(NOT WIN32)
     add_compile_definitions(__cdecl=)
@@ -61,7 +61,7 @@ endif()
 if(WIN32)
     # Do we want to build with bink for video decoding?
     option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
-    add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build Renegade with Bink")
+    add_feature_info(BinkBuild W3D_BUILD_OPTION_BINK "Build OpenW3D with Bink")
 
     if(W3D_BUILD_OPTION_BINK)
         include(bink)
@@ -70,7 +70,7 @@ if(WIN32)
     
     # Do we want to build with miles for audio playback?
     option(W3D_BUILD_OPTION_MILES "Build with miles." ON)
-    add_feature_info(MilesBuild W3D_BUILD_OPTION_MILES "Build Renegade with Miles Audio")
+    add_feature_info(MilesBuild W3D_BUILD_OPTION_MILES "Build OpenW3D with Miles Audio")
 
     if(W3D_BUILD_OPTION_MILES)
         include(miles)

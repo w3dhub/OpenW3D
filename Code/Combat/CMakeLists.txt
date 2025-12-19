@@ -279,7 +279,7 @@ target_link_libraries(combat PRIVATE
 target_sources(combat PRIVATE ${COMBAT_SRC})
 
 # This module needs building differently for the level editor
-if (RENEGADE_TOOLS)
+if (W3D_TOOLS)
     # Targets to build.
     add_library(combate STATIC)
 
