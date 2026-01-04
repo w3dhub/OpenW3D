@@ -114,12 +114,12 @@ RefPtr<SquadData> SquadData::FindByID(unsigned int id)
 *
 ******************************************************************************/
 
-RefPtr<SquadData> SquadData::FindByAbbr(const wchar_t* abbr)
+RefPtr<SquadData> SquadData::FindByAbbr(const unichar_t* abbr)
 	{
-	if (abbr && (wcslen(abbr) > 0))
+	if (abbr && (u_strlen(abbr) > 0))
 		{
 		char squadAbbr[64];
-		wcstombs(squadAbbr, abbr, sizeof(squadAbbr));
+		u_wstomb(squadAbbr, abbr, sizeof(squadAbbr));
 		squadAbbr[sizeof(squadAbbr) - 1] = 0;
 
 		const size_t count = _mSquadColl.size();

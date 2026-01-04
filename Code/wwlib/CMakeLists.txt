@@ -151,6 +151,12 @@ if(TARGET ffmpeg)
     list(APPEND WWLIB_SRC FFMpegFile.cpp FFMpegFile.h)
 endif()
 
+if(TARGET icu)
+    list(APPEND WWLIB_SRC icu/unichar.h)
+else()
+    list(APPEND WWLIB_SRC wchar/unichar.h)
+endif()
+
 # Targets to build.
 add_library(wwlib STATIC)
 

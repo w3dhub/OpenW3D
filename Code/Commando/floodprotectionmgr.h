@@ -68,7 +68,7 @@ public:
 	//
 	//	Flood determination
 	//
-	static bool		Detect_Flooding (const wchar_t *text);
+	static bool		Detect_Flooding (const unichar_t *text);
 	
 private:
 	

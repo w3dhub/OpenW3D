@@ -212,7 +212,7 @@ public:
 	void	Enable_Clipping( bool onoff )						{ IsClippedEnabled = onoff; }
 
 	void	Draw_Text( const char * text, unsigned int color = 0xFFFFFFFF );
-	void	Draw_Text( const wchar_t * text, unsigned int color = 0xFFFFFFFF );
+	void	Draw_Text( const unichar_t * text, unsigned int color = 0xFFFFFFFF );
 
 	void	Draw_Block( const RectClass & screen, unsigned int color = 0xFFFFFFFF );
 
@@ -220,7 +220,7 @@ public:
 	const RectClass & Get_Total_Extents( void )			{ return TotalExtents; }
 	const Vector2 & Get_Cursor( void )						{ return Cursor; }
 
-	Vector2	Get_Text_Extents( const wchar_t * text );
+	Vector2	Get_Text_Extents( const unichar_t * text );
 
 private:
 	Font3DInstanceClass* Font;
@@ -233,7 +233,7 @@ private:
 	RectClass				ClipRect;
 	bool						IsClippedEnabled;
 
-	void	Draw_Char( wchar_t ch, unsigned int color );
+	void	Draw_Char( unichar_t ch, unsigned int color );
 };
 
 #endif	// RENDER2D_H

@@ -54,7 +54,7 @@ class WOLBuddyMgr;
 class MPWolInvitationPopupClass : public PopupDialogClass
 {
 public:
-	MPWolInvitationPopupClass(const RefPtr<WWOnline::UserData>&, const wchar_t*);
+	MPWolInvitationPopupClass(const RefPtr<WWOnline::UserData>&, const unichar_t*);
 	~MPWolInvitationPopupClass();
 
 	void On_Init_Dialog(void) override;

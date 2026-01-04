@@ -206,7 +206,7 @@ DialogTextClass::On_Create (void)
 		//
 		//	Does this string have special formatting?
 		//
-		if (Title[0] == L'%' && Title[1] == L't') {
+		if (Title[0] == U_CHAR('%') && Title[1] == U_CHAR('t')) {
 			
 			//
 			//	Strip off the preceding format specifier
@@ -223,7 +223,7 @@ DialogTextClass::On_Create (void)
 
 			GlowRenderer.Build_Sentence (Title);
 
-		} else if (Title[0] == L'%' && Title[1] == L'h') {
+		} else if (Title[0] == U_CHAR('%') && Title[1] == U_CHAR('h')) {
 			
 			//
 			//	Support a "header" style font
@@ -236,7 +236,7 @@ DialogTextClass::On_Create (void)
 			WideStringClass text	= Title.Peek_Buffer () + 2;
 			Title						= text;
 		
-		} else if (Title[0] == L'%' && Title[1] == L's') {
+		} else if (Title[0] == U_CHAR('%') && Title[1] == U_CHAR('s')) {
 			
 			//
 			//	Support a "small" style font

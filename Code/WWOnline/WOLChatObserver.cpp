@@ -802,8 +802,8 @@ STDMETHODIMP ChatObserver::OnChannelCreate(HRESULT result, WOL::Channel* inChann
 		}
 
 	// Check if the created channel matches the pending one.
-	wchar_t channelName[64];
-	mbstowcs(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
+	unichar_t channelName[64];
+	u_mbtows(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
 	const WideStringClass& pendingName = mOuter->mPendingChannel->GetName();
 
 	if (pendingName.Compare_No_Case(channelName) != 0)
@@ -924,8 +924,8 @@ STDMETHODIMP ChatObserver::OnChannelJoin(HRESULT result, WOL::Channel* inChannel
 		}
 
 	// Get or create the user who is joining.
-	wchar_t inUsername[64];
-	mbstowcs(inUsername, (char*)inUser->name, sizeof(inUser->name));
+	unichar_t inUsername[64];
+	u_mbtows(inUsername, (char*)inUser->name, sizeof(inUser->name));
 	RefPtr<UserData> user = mOuter->GetUserOrBuddy(inUsername);
 
 	if (!user.IsValid())
@@ -944,8 +944,8 @@ STDMETHODIMP ChatObserver::OnChannelJoin(HRESULT result, WOL::Channel* inChannel
 		}
 
 	// Get channel name
-	wchar_t channelName[64];
-	mbstowcs(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
+	unichar_t channelName[64];
+	u_mbtows(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
 
 	// Is the logged in user joining this channel?
 	const WideStringClass& loginName = mOuter->mCurrentLogin->GetNickname();
@@ -1080,16 +1080,16 @@ STDMETHODIMP ChatObserver::OnChannelLeave(HRESULT result, WOL::Channel* inChanne
 	// necessary to check for this condition here. If the channel name is empty then
 	// we MUST ASSUME that the channel we are leaving is the one we are currently
 	// connected to.
-	wchar_t channelName[64];
+	unichar_t channelName[64];
 	const WideStringClass& curChannelName = mOuter->mCurrentChannel->GetName();
 
 	if (strlen((const char*)inChannel->name) == 0)
 		{
-		wcsncpy(channelName, curChannelName, (sizeof(channelName) / sizeof(wchar_t)));
+		u_strncpy(channelName, curChannelName, (sizeof(channelName) / sizeof(unichar_t)));
 		}
 	else
 		{
-		mbstowcs(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
+		u_mbtows(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
 		}
 
 	// If the leaving channel is not the channel we are connected to then ignore.
@@ -1104,8 +1104,8 @@ STDMETHODIMP ChatObserver::OnChannelLeave(HRESULT result, WOL::Channel* inChanne
 	mOuter->mCurrentChannel->GetData().currentUsers--;
 
 	// If current user is leaving then disconnect from the channel clear the user list.
-	wchar_t inUsername[64];
-	mbstowcs(inUsername, (char*)inUser->name, sizeof(inUser->name));
+	unichar_t inUsername[64];
+	u_mbtows(inUsername, (char*)inUser->name, sizeof(inUser->name));
 	const WideStringClass& nickname = mOuter->mCurrentLogin->GetNickname();
 
 	if (nickname.Compare_No_Case(inUsername) == 0)
@@ -1179,8 +1179,8 @@ STDMETHODIMP ChatObserver::OnChannelTopic(HRESULT result, WOL::Channel* inChanne
 	WWDEBUG_SAY(("WOL: Channel '%s' Topic changed.\nExInfo: %s\nTopic: %s\n",
 			(const char*)inChannel->name, (const char*)inChannel->exInfo, topic));
 
-	wchar_t channelName[64];
-	mbstowcs(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
+	unichar_t channelName[64];
+	u_mbtows(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
 
 	RefPtr<ChannelData> channel = mOuter->FindChannel(channelName);
 
@@ -1334,8 +1334,8 @@ STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, W
 		}
 
 	// Verify the channel the user list is for against the channel we are in.
-	wchar_t channelName[64];
-	mbstowcs(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
+	unichar_t channelName[64];
+	u_mbtows(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
 	const WideStringClass& curChannelName = mOuter->mCurrentChannel->GetName();
 
 	if (curChannelName.Compare_No_Case(channelName) != 0)
@@ -1351,8 +1351,8 @@ STDMETHODIMP ChatObserver::OnUserList(HRESULT result, WOL::Channel* inChannel, W
 
 	while (curUser)
 		{
-		wchar_t name[64];
-		mbstowcs(name, (const char*)curUser->name, sizeof(curUser->name));
+		unichar_t name[64];
+		u_mbtows(name, (const char*)curUser->name, sizeof(curUser->name));
 
 		// If the user is not already in our list then create them.
 		RefPtr<UserData> user = mOuter->GetUserOrBuddy(name);
@@ -1622,8 +1622,8 @@ STDMETHODIMP ChatObserver::OnLogout(HRESULT result, WOL::User* inUser)
 		{
 		WWDEBUG_SAY(("WOL: User '%s' logged out\n", (char*)inUser->name));
 
-		wchar_t name[64];
-		mbstowcs(name, (char*)inUser->name, sizeof(inUser->name));
+		unichar_t name[64];
+		u_mbtows(name, (char*)inUser->name, sizeof(inUser->name));
 
 		// If some other user is leaving then notify that he left the channel.
 		RefPtr<UserData> leavingUser = RemoveUserInList(name, mOuter->mUsers);
@@ -1781,7 +1781,7 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 
 				const RefPtr<LoginInfo>& login = mOuter->GetCurrentLogin();
 
-				WideStringClass myname(L"", true);
+				WideStringClass myname(U_CHAR(""), true);
 				if (login.IsValid()) {
 					myname = login->GetNickname();
 				}
@@ -1911,8 +1911,8 @@ STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inC
 		}
 
 	// Only acknowledge options for the channel we are in.
-	wchar_t inChannelName[64];
-	mbstowcs(inChannelName, (char*)inChannel->name, sizeof(inChannel->name));
+	unichar_t inChannelName[64];
+	u_mbtows(inChannelName, (char*)inChannel->name, sizeof(inChannel->name));
 	RefPtr<ChannelData> channel = mOuter->FindChannel(inChannelName);
 
 	if (!channel.IsValid() || (channel != mOuter->mCurrentChannel))
@@ -1922,8 +1922,8 @@ STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inC
 		}
 
 	// Make sure this is from a user we know about.
-	wchar_t inUsername[64];
-	mbstowcs(inUsername, (char*)inUser->name, sizeof(inUser->name));
+	unichar_t inUsername[64];
+	u_mbtows(inUsername, (char*)inUser->name, sizeof(inUser->name));
 	RefPtr<UserData> user = mOuter->FindUser(inUsername);
 
 	if (!user.IsValid())
@@ -2002,8 +2002,8 @@ STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 
 	if (mOuter->mCurrentChannel.IsValid())
 		{
-		wchar_t chanName[64];
-		mbstowcs(chanName, (const char*)inChannel->name, sizeof(inChannel->name));
+		unichar_t chanName[64];
+		u_mbtows(chanName, (const char*)inChannel->name, sizeof(inChannel->name));
 		const WideStringClass& name = mOuter->mCurrentChannel->GetName();
 		channelOkay = (name.Compare_No_Case(chanName) == 0);
 		}
@@ -2024,8 +2024,8 @@ STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 	while (curUser)
 		{
 		WWDEBUG_SAY(("WOL: OnGameStart Player '%s'\n", (char*)curUser->name));
-		wchar_t name[64];
-		mbstowcs(name, (const char*)curUser->name, sizeof(curUser->name));
+		unichar_t name[64];
+		u_mbtows(name, (const char*)curUser->name, sizeof(curUser->name));
 
 		// Get user from current list. If not in list then create new user.
 		RefPtr<UserData> user = mOuter->FindUser(name);
@@ -2102,8 +2102,8 @@ STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
 		}
 
 	// If the channel is not the channel we are connected to then ignore.
-	wchar_t channelName[64];
-	mbstowcs(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
+	unichar_t channelName[64];
+	u_mbtows(channelName, (const char*)inChannel->name, sizeof(inChannel->name));
 	const WideStringClass& curChannelName = mOuter->mCurrentChannel->GetName();
 
 	if (curChannelName.Compare_No_Case(channelName) != 0)
@@ -2136,8 +2136,8 @@ STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
 	else
 		{
 		// Remove kicked user from the userlist
-		wchar_t username[64];
-		mbstowcs(username, (char*)inUser->name, sizeof(inUser->name));
+		unichar_t username[64];
+		u_mbtows(username, (char*)inUser->name, sizeof(inUser->name));
 
 		RefPtr<UserData> kickedUser = RemoveUserInList(username, mOuter->mUsers);
 
@@ -2441,8 +2441,8 @@ STDMETHODIMP ChatObserver::OnChannelBan(HRESULT result, LPCSTR username, int ban
 
 	if (banned && username)
 		{
-		wchar_t name[64];
-		mbstowcs(name, username, 63);
+		unichar_t name[64];
+		u_mbtows(name, username, 63);
 
 		RefPtr<UserData> user = mOuter->GetUserOrBuddy(name);
 
@@ -2490,8 +2490,8 @@ STDMETHODIMP ChatObserver::OnUserFlags(HRESULT result, LPCSTR username, unsigned
 		}
 
 	// Find the user and update their flag settings
-	wchar_t name[64];
-	mbstowcs(name, username, 63);
+	unichar_t name[64];
+	u_mbtows(name, username, 63);
 	RefPtr<UserData> user = mOuter->GetUserOrBuddy(name);
 
 	if (user.IsValid())
@@ -2571,8 +2571,8 @@ STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned int squadID, WOL
 			// Automatically request ladder information for this squad.
 			if (squad.IsValid())
 				{
-				wchar_t abbr[64];
-				mbstowcs(abbr, squad->GetAbbr(), 64);
+				unichar_t abbr[64];
+				u_mbtows(abbr, squad->GetAbbr(), 64);
 				abbr[63] = 0;
 
 				mOuter->RequestLadderInfo(abbr, LadderType_Clan);
@@ -2626,15 +2626,16 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 
 		if (squad.IsValid())
 			{
-			WWDEBUG_SAY(("WOL: Squad %s found for %S\n", squad->GetAbbr(), (const wchar_t*)pending));
+			WWDEBUG_SAY(("WOL: Squad %s found for %S\n", squad->GetAbbr(), (const unichar_t*)pending));
 
 			// First character of user names cannot be numbers. Therefore if it is a number
 			// then process the request by ID. Otherwise process the request by name.
-			wchar_t firstChar = pending[0];
+			unichar_t firstChar = pending[0];
 
 			if (iswdigit(firstChar))
 				{
-				unsigned int pendingID = _wtoi(pending);
+				unsigned int pendingID;	
+				u_sscanf_u(pending, U_CHAR("%u"), &pendingID);
 
 				if (squad->GetID() == pendingID)
 					{
@@ -2664,7 +2665,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 			}
 		else
 			{
-			WWDEBUG_SAY(("WOL: Squad not found for '%S'\n", (const wchar_t*)pending));
+			WWDEBUG_SAY(("WOL: Squad not found for '%S'\n", (const unichar_t*)pending));
 			}
 
 		Session::SquadRequestColl::iterator first = mOuter->mSquadPending.begin();
@@ -2713,8 +2714,8 @@ STDMETHODIMP ChatObserver::OnUserLocale(HRESULT result, WOL::User* inUsers)
 		WWASSERT(locale >= WOL::LOC_UNKNOWN && locale <= WOL::LOC_TURKEY && "OnUserLocale Locale out of range!");
 
 		// Update the users locale.
-		wchar_t username[64];
-		mbstowcs(username, (const char*)wolUser->name, sizeof(wolUser->name));
+		unichar_t username[64];
+		u_mbtows(username, (const char*)wolUser->name, sizeof(wolUser->name));
 		RefPtr<UserData> user = mOuter->GetUserOrBuddy(username);
 
 		if (user.IsValid() && (user->GetLocale() != locale))
@@ -2844,8 +2845,8 @@ STDMETHODIMP ChatObserver::OnUserTeam(HRESULT result, WOL::User* inUsers)
 		WWDEBUG_SAY(("WOL: OnUserTeam '%s' %ld\n", wolUser->name, wolUser->locale));
 
 		// Update the users locale.
-		wchar_t username[64];
-		mbstowcs(username, (const char*)wolUser->name, sizeof(wolUser->name));
+		unichar_t username[64];
+		u_mbtows(username, (const char*)wolUser->name, sizeof(wolUser->name));
 		RefPtr<UserData> user = mOuter->GetUserOrBuddy(username);
 
 		if (user.IsValid())
@@ -3139,7 +3140,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeMessage(HRESULT result, WOL::Channel*,
 		}
 	else
 		{
-		ChatMessage msg(user, (const wchar_t *)message, false, false);
+		ChatMessage msg(user, (const unichar_t *)message, false, false);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3178,7 +3179,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeMessage(HRESULT result, WOL::User* us
 		}
 	else
 		{
-		ChatMessage msg(user, (const wchar_t *)message, true, false);
+		ChatMessage msg(user, (const unichar_t *)message, true, false);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3217,7 +3218,7 @@ STDMETHODIMP ChatObserver::OnPrivateUnicodeAction(HRESULT result, WOL::User* use
 		}
 	else
 		{
-		ChatMessage msg(user, (const wchar_t *)message, true, true);
+		ChatMessage msg(user, (const unichar_t *)message, true, true);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3256,7 +3257,7 @@ STDMETHODIMP ChatObserver::OnPublicUnicodeAction(HRESULT result, WOL::Channel*,
 		}
 	else
 		{
-		ChatMessage msg(user, (const wchar_t *)message, false, true);
+		ChatMessage msg(user, (const unichar_t *)message, false, true);
 		mOuter->NotifyObservers(msg);
 		}
 
@@ -3296,9 +3297,9 @@ STDMETHODIMP ChatObserver::OnPagedUnicode(HRESULT result, WOL::User* user, const
 
 	if (user && text)
 		{
-		wchar_t name[64];
-		mbstowcs(name, (const char*)&user->name[0], sizeof(user->name));
-		PageMessage page(name, (const wchar_t *)text);
+		unichar_t name[64];
+		u_mbtows(name, (const char*)&user->name[0], sizeof(user->name));
+		PageMessage page(name, (const unichar_t *)text);
 		mOuter->NotifyObservers(page);
 		}
 

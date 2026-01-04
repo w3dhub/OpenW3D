@@ -270,7 +270,7 @@ ComboBoxCtrlClass::Update_Client_Rect (void)
 	//
 	//	Determine what one character spacing would be
 	//
-	Vector2 char_size = TextRenderer.Get_Text_Extents (L"W");
+	Vector2 char_size = TextRenderer.Get_Text_Extents (U_CHAR("W"));
 
 	float border_width	= char_size.X + 2;
 	float border_height	= 2;
@@ -643,7 +643,7 @@ ComboBoxCtrlClass::On_Mouse_Wheel (int direction)
 //
 ////////////////////////////////////////////////////////////////
 int
-ComboBoxCtrlClass::Select_String (const wchar_t* string)
+ComboBoxCtrlClass::Select_String (const unichar_t* string)
 {
 	int index = Find_String (string);
 	if (index >= 0) {
@@ -696,7 +696,7 @@ ComboBoxCtrlClass::Set_Sel (int index, bool notify)
 					DropDownCtrl.Get_String(newSel, editString);
 					EditControl.Set_Text(editString);
 				} else {
-					EditControl.Set_Text(L"");
+					EditControl.Set_Text(U_CHAR(""));
 				}
 			}
 
@@ -716,7 +716,7 @@ ComboBoxCtrlClass::Set_Sel (int index, bool notify)
 //	Get_Text
 //
 ////////////////////////////////////////////////////////////////
-const wchar_t*
+const unichar_t*
 ComboBoxCtrlClass::Get_Text(void) const
 {
 	if ((Style & 0x0F) == CBS_DROPDOWN) {
@@ -733,7 +733,7 @@ ComboBoxCtrlClass::Get_Text(void) const
 //
 ////////////////////////////////////////////////////////////////
 void
-ComboBoxCtrlClass::Set_Text (const wchar_t *title)
+ComboBoxCtrlClass::Set_Text (const unichar_t *title)
 {
 	if ((Style & 0x0F) == CBS_DROPDOWN) {
 		EditControl.Set_Text (title);

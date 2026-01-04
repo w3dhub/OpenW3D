@@ -118,7 +118,7 @@ cPlayerKill::Act(void)
 
 		WideStringClass formatted_text;
 		formatted_text.Format(
-			L"%s %s %s\n", 
+			U_CHAR("%s %s %s\n"), 
          killer_name,
          TRANSLATION(IDS_MP_TREASON_PHRASE), 
          victim_name);
@@ -129,7 +129,7 @@ cPlayerKill::Act(void)
 
 		WideStringClass formatted_text;
 		formatted_text.Format(
-			L"%s %s %s\n", 
+			U_CHAR("%s %s %s\n"), 
          killer_name,
 			TRANSLATION(IDS_MP_DEFAULT_KILL_PHRASE),
          victim_name);
@@ -165,7 +165,7 @@ cPlayerKill::Act(void)
 		//	Display the message...
 		//
 		WideStringClass formatted_text;
-		formatted_text.Format(L"%s %s %s\n", killer_name.Peek_Buffer (), message.Peek_Buffer (), victim_name.Peek_Buffer ());
+		formatted_text.Format(U_CHAR("%s %s %s\n"), killer_name.Peek_Buffer (), message.Peek_Buffer (), victim_name.Peek_Buffer ());
 		CombatManager::Get_Message_Window ()->Add_Message (formatted_text, p_killer->Get_Color ());
 	}
 

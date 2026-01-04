@@ -67,10 +67,10 @@ BandwidthCheckerClass::BandwidthCheckerThreadClass BandwidthCheckerClass::Thread
 HANDLE BandwidthCheckerClass::EventNotify = NULL;
 unsigned int BandwidthCheckerClass::UpstreamBandwidth = 0;
 unsigned int BandwidthCheckerClass::ReportedUpstreamBandwidth = 0;
-const wchar_t *BandwidthCheckerClass::UpstreamBandwidthString = NULL;
+const unichar_t *BandwidthCheckerClass::UpstreamBandwidthString = NULL;
 unsigned int BandwidthCheckerClass::DownstreamBandwidth = 0;
 unsigned int BandwidthCheckerClass::ReportedDownstreamBandwidth = 0;
-const wchar_t *BandwidthCheckerClass::DownstreamBandwidthString = NULL;
+const unichar_t *BandwidthCheckerClass::DownstreamBandwidthString = NULL;
 int BandwidthCheckerClass::FailureCode = BANDTEST_OK;
 bool BandwidthCheckerClass::GotBandwidth = false;
 const char *BandwidthCheckerClass::DefaultServerName = "www.westwood.com";
@@ -122,20 +122,20 @@ unsigned int BandwidthCheckerClass::Bandwidths[NUM_BANDS * 2] = {
 /*
 ** Human readable names for each bandwidth level.
 */
-const wchar_t *BandwidthCheckerClass::BandwidthNames [NUM_BANDS+1] = {
-	L"14400",
-	L"28800",
-	L"33600",
-	L"57600",
-	L"67200",
-	L"115200",
-	L"128k",
-	L"256k",
-	L"512k",
-	L"1M",
-	L"2M",
-	L"4M",
-	L"> 4M"
+const unichar_t *BandwidthCheckerClass::BandwidthNames [NUM_BANDS+1] = {
+	U_CHAR("14400"),
+	U_CHAR("28800"),
+	U_CHAR("33600"),
+	U_CHAR("57600"),
+	U_CHAR("67200"),
+	U_CHAR("115200"),
+	U_CHAR("128k"),
+	U_CHAR("256k"),
+	U_CHAR("512k"),
+	U_CHAR("1M"),
+	U_CHAR("2M"),
+	U_CHAR("4M"),
+	U_CHAR("> 4M")
 };
 
 
@@ -612,7 +612,7 @@ unsigned int BandwidthCheckerClass::Get_Reported_Upstream_Bandwidth(void)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:56PM ST : Created                                                            *
  *=============================================================================================*/
-const wchar_t *BandwidthCheckerClass::Get_Upstream_Bandwidth_As_String(void)
+const unichar_t *BandwidthCheckerClass::Get_Upstream_Bandwidth_As_String(void)
 {
 	return(UpstreamBandwidthString);
 }
@@ -672,7 +672,7 @@ unsigned int BandwidthCheckerClass::Get_Reported_Downstream_Bandwidth(void)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:57PM ST : Created                                                            *
  *=============================================================================================*/
-const wchar_t *BandwidthCheckerClass::Get_Downstream_Bandwidth_As_String(void)
+const unichar_t *BandwidthCheckerClass::Get_Downstream_Bandwidth_As_String(void)
 {
 	return(DownstreamBandwidthString);
 }
@@ -692,15 +692,15 @@ const wchar_t *BandwidthCheckerClass::Get_Downstream_Bandwidth_As_String(void)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:58PM ST : Created                                                            *
  *=============================================================================================*/
-const wchar_t *BandwidthCheckerClass::Get_Bandwidth_As_String(void)
+const unichar_t *BandwidthCheckerClass::Get_Bandwidth_As_String(void)
 {
 
 	if (cUserOptions::Get_Bandwidth_Type() == BANDWIDTH_AUTO) {
-		static wchar_t _build_string[256];
-		swprintf(_build_string, sizeof(_build_string), L"%s,%s", DownstreamBandwidthString, UpstreamBandwidthString);
+		static unichar_t _build_string[256];
+		u_snprintf_u(_build_string, sizeof(_build_string), U_CHAR("%s,%s"), DownstreamBandwidthString, UpstreamBandwidthString);
 		return(_build_string);
 	} else {
-		return((wchar_t*)cBandwidth::Get_Bandwidth_String_From_Type(
+		return((unichar_t*)cBandwidth::Get_Bandwidth_String_From_Type(
 			(BANDWIDTH_TYPE_ENUM)cUserOptions::Get_Bandwidth_Type()));
 	}
 }
@@ -720,14 +720,14 @@ const wchar_t *BandwidthCheckerClass::Get_Bandwidth_As_String(void)
  * HISTORY:                                                                                    *
  *   11/21/2001 2:58PM ST : Created                                                            *
  *=============================================================================================*/
-const wchar_t *BandwidthCheckerClass::Get_Bandwidth_As_String(PackedBandwidthType bandwidth)
+const unichar_t *BandwidthCheckerClass::Get_Bandwidth_As_String(PackedBandwidthType bandwidth)
 {
-	static wchar_t _build_string[256];
+	static unichar_t _build_string[256];
 
 	assert(bandwidth.Bandwidth.Up < NUM_BANDS + 1);
 	assert(bandwidth.Bandwidth.Down < NUM_BANDS + 1);
 
-	swprintf(_build_string, sizeof(_build_string), L"%s,%s", BandwidthNames[bandwidth.Bandwidth.Down], BandwidthNames[bandwidth.Bandwidth.Up]);
+	u_snprintf_u(_build_string, sizeof(_build_string), U_CHAR("%s,%s"), BandwidthNames[bandwidth.Bandwidth.Down], BandwidthNames[bandwidth.Bandwidth.Up]);
 	return(_build_string);
 }
 

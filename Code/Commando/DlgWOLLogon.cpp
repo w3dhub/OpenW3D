@@ -65,7 +65,7 @@ using namespace WWOnline;
 *
 ******************************************************************************/
 
-bool DlgWOLLogon::DoDialog(const wchar_t* login, Observer<DlgWOLLogonEvent>* observer)
+bool DlgWOLLogon::DoDialog(const unichar_t* login, Observer<DlgWOLLogonEvent>* observer)
 	{
 	DlgWOLLogon* dialog = new DlgWOLLogon;
 
@@ -149,7 +149,7 @@ DlgWOLLogon::~DlgWOLLogon()
 *
 ******************************************************************************/
 
-bool DlgWOLLogon::FinalizeCreate(const wchar_t* login)
+bool DlgWOLLogon::FinalizeCreate(const unichar_t* login)
 	{
 	mLogin = login;
 	return true;
@@ -217,12 +217,12 @@ void DlgWOLLogon::On_Command(int ctrl, int message, unsigned int param)
 		case IDC_WOL_LOG_ON_BUTTON:
 			{
 			// If this login is not stored then always use the password typed by the user.
-			const wchar_t* name = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
+			const unichar_t* name = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
 			RefPtr<LoginInfo> login = LoginInfo::Find(name);
 			
 			if (login.IsValid() && !login->IsStored())
 				{
-				const wchar_t* password = Get_Dlg_Item_Text(IDC_PASSWORD_EDIT);
+				const unichar_t* password = Get_Dlg_Item_Text(IDC_PASSWORD_EDIT);
 				login->SetPassword(password, false);
 				mIsPasswordEncrypted = false;
 				}
@@ -239,7 +239,7 @@ void DlgWOLLogon::On_Command(int ctrl, int message, unsigned int param)
 		case IDC_DELETE_ACCOUNT_BUTTON:
 			{
 			// Delete this login from our local cache and purge it from storage.
-			const wchar_t* nickname = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
+			const unichar_t* nickname = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
 			RefPtr<LoginInfo> login = LoginInfo::Find(nickname);
 
 			if (login.IsValid())
@@ -287,7 +287,7 @@ void DlgWOLLogon::On_Command(int ctrl, int message, unsigned int param)
 *
 ******************************************************************************/
 
-void DlgWOLLogon::GetLogin(const wchar_t** name, const wchar_t** password,
+void DlgWOLLogon::GetLogin(const unichar_t** name, const unichar_t** password,
 		bool& encrypted)
 	{
 	if (name)
@@ -378,14 +378,14 @@ void DlgWOLLogon::UpdatePersonas(void)
 *
 ******************************************************************************/
 
-void DlgWOLLogon::SelectPersona(const wchar_t* name)
+void DlgWOLLogon::SelectPersona(const unichar_t* name)
 	{
 	ComboBoxCtrlClass* combo = (ComboBoxCtrlClass*)Get_Dlg_Item(IDC_PERSONA_COMBO);
 
 	if (combo)
 		{
 		// Select the specified persona or the first one in the list.
-		if (name && (wcslen(name) > 0))
+		if (name && (u_strlen(name) > 0))
 			{
 			int index = combo->Select_String(name);
 
@@ -422,7 +422,7 @@ void DlgWOLLogon::SelectPersona(const wchar_t* name)
 *
 ******************************************************************************/
 
-void DlgWOLLogon::AutoComplete(const wchar_t* name)
+void DlgWOLLogon::AutoComplete(const unichar_t* name)
 	{
 	// If the persona has a valid login then fill in the dialog with
 	// the login information. Otherwise use the provided persona name.
@@ -447,7 +447,7 @@ void DlgWOLLogon::AutoComplete(const wchar_t* name)
 	else
 		{
 		// Erase the password and enable the remember checkbox
-		Set_Dlg_Item_Text(IDC_PASSWORD_EDIT, L"");
+		Set_Dlg_Item_Text(IDC_PASSWORD_EDIT, U_CHAR(""));
 		mIsPasswordEncrypted = false;
 
 		Enable_Dlg_Item(IDC_PASSWORD_EDIT, true);
@@ -482,7 +482,7 @@ void DlgWOLLogon::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int id, i
 	{
 	if (IDC_PERSONA_COMBO == id)
 		{
-		const wchar_t* text = combo->Get_Text();
+		const unichar_t* text = combo->Get_Text();
 		AutoComplete(text);
 		}
 	}
@@ -510,7 +510,7 @@ void DlgWOLLogon::On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* combo, int id)
 	{
 	if (IDC_PERSONA_COMBO == id)
 		{
-		const wchar_t* text = combo->Get_Text();
+		const unichar_t* text = combo->Get_Text();
 		AutoComplete(text);
 		}
 	}
@@ -572,8 +572,8 @@ void DlgWOLLogon::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
 
 	if (passwordEdit)
 		{
-		const wchar_t* name = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
-		bool nameOK = (name && (wcslen(name) > 0));
+		const unichar_t* name = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
+		bool nameOK = (name && (u_strlen(name) > 0));
 		bool passOK = (passwordEdit->Get_Text_Length() == 8);
 
 		if (nameOK && passOK)

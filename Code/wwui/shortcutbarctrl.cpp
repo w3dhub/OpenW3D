@@ -137,7 +137,7 @@ ShortcutBarCtrlClass::Create_Text_Renderers (void)
 		//
 		//	Get a pointer to the text for this entry
 		//
-		const wchar_t *text = ShortcutList[index].text;
+		const unichar_t *text = ShortcutList[index].text;
 
 		//
 		//	Is this the hilighted button?
@@ -605,7 +605,7 @@ ShortcutBarCtrlClass::Set_Hidden_State (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-ShortcutBarCtrlClass::Add_Button (int ctrl_id, const wchar_t *text)
+ShortcutBarCtrlClass::Add_Button (int ctrl_id, const unichar_t *text)
 {
 	ShortcutList.Add (ShortcutInfoStruct (ctrl_id, text));
 	Set_Dirty ();
@@ -646,7 +646,7 @@ void
 ShortcutBarCtrlClass::Get_Entry_Rect (int index, RectClass &rect)
 {
 	float start_y_pos		= Rect.Top + BORDER_Y * StyleMgrClass::Get_Y_Scale ();
-	float entry_height	= TextRenderer.Get_Text_Extents (L"W").Y;
+	float entry_height	= TextRenderer.Get_Text_Extents (U_CHAR("W")).Y;
 	entry_height			+= TEXT_BORDER_Y * StyleMgrClass::Get_Y_Scale () * 2.0F;
 
 	//

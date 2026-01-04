@@ -165,13 +165,13 @@ public:
 	//
 	//	Text support
 	//
-	static void				Render_Text (const wchar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_clip = true, JUSTIFICATION justify = LEFT_JUSTIFY, bool is_vcentered = true);
-	static void				Render_Text (const wchar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_clip = true, JUSTIFICATION justify = LEFT_JUSTIFY, bool is_enabled = true, bool is_vcentered = true);
-	static void				Render_Title_Text (const wchar_t *text, Render2DSentenceClass *renderer, const RectClass &rect);
-	static void				Render_Wrapped_Text (const wchar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false);
-	static void				Render_Wrapped_Text (const wchar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, bool is_enabled = true);	
-	static void				Render_Wrapped_Text_Ex (const wchar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, bool is_enabled = true, JUSTIFICATION justify = LEFT_JUSTIFY);
-	static void				Render_Wrapped_Text_Ex (const wchar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, JUSTIFICATION justify = LEFT_JUSTIFY);
+	static void				Render_Text (const unichar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_clip = true, JUSTIFICATION justify = LEFT_JUSTIFY, bool is_vcentered = true);
+	static void				Render_Text (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_clip = true, JUSTIFICATION justify = LEFT_JUSTIFY, bool is_enabled = true, bool is_vcentered = true);
+	static void				Render_Title_Text (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect);
+	static void				Render_Wrapped_Text (const unichar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false);
+	static void				Render_Wrapped_Text (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, bool is_enabled = true);	
+	static void				Render_Wrapped_Text_Ex (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, bool is_enabled = true, JUSTIFICATION justify = LEFT_JUSTIFY);
+	static void				Render_Wrapped_Text_Ex (const unichar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, JUSTIFICATION justify = LEFT_JUSTIFY);
 
 	//
 	//	Hilight support
@@ -182,7 +182,7 @@ public:
 	//
 	//	Text "glow" support
 	//
-	static void				Render_Glow (const wchar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, int radius_x, int radius_y, int color, JUSTIFICATION justify = LEFT_JUSTIFY);
+	static void				Render_Glow (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, int radius_x, int radius_y, int color, JUSTIFICATION justify = LEFT_JUSTIFY);
 
 private:
 

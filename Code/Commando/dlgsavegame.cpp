@@ -219,9 +219,9 @@ SaveGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_inde
 			//
 			//	Sort by name
 			//
-			const wchar_t *name1 = list_ctrl->Get_Entry_Text (item_index1, 2);
-			const wchar_t *name2 = list_ctrl->Get_Entry_Text (item_index2, 2);
-			retval = ::wcsicmp (name1, name2);
+			const unichar_t *name1 = list_ctrl->Get_Entry_Text (item_index1, 2);
+			const unichar_t *name2 = list_ctrl->Get_Entry_Text (item_index2, 2);
+			retval = ::u_strcasecmp (name1, name2, U_COMPARE_CODE_POINT_ORDER);
 		}
 
 		//
@@ -413,11 +413,11 @@ SaveGameMenuClass::Update_Text_Field (void)
 		if (list_ctrl->Get_Entry_Data (curr_sel, 0) != 0) {
 			Set_Dlg_Item_Text (IDC_FILENAME_EDIT, list_ctrl->Get_Entry_Text (curr_sel, 2));
 		} else {
-			Set_Dlg_Item_Text (IDC_FILENAME_EDIT, L"");
+			Set_Dlg_Item_Text (IDC_FILENAME_EDIT, U_CHAR(""));
 		}
 
 	} else {
-		Set_Dlg_Item_Text (IDC_FILENAME_EDIT, L"");
+		Set_Dlg_Item_Text (IDC_FILENAME_EDIT, U_CHAR(""));
 	}
 
 	return ;
@@ -534,7 +534,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 	//
 	//	Create an empty slot entry
 	//
-	int item_index = list_ctrl->Insert_Entry (0, L"");
+	int item_index = list_ctrl->Insert_Entry (0, U_CHAR(""));
 	if (item_index >= 0) {
 		list_ctrl->Set_Entry_Text (item_index, 2, TRANSLATE (IDS_MENU_EMPTY_SLOT));
 		list_ctrl->Set_Curr_Sel (item_index);
@@ -572,8 +572,8 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 		//
 		WideStringClass time_string;
 		WideStringClass date_string;
-		time_string.Format (L"%d:%02d:%02d", system_time.wHour, system_time.wMinute, system_time.wSecond);
-		date_string.Format (L"%d/%d/%d", system_time.wMonth, system_time.wDay, system_time.wYear);
+		time_string.Format (U_CHAR("%d:%02d:%02d"), system_time.wHour, system_time.wMinute, system_time.wSecond);
+		date_string.Format (U_CHAR("%d/%d/%d"), system_time.wMonth, system_time.wDay, system_time.wYear);
 
 		//
 		//	Add this entry to the list control

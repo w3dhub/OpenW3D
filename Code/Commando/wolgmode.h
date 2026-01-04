@@ -105,17 +105,17 @@ class	WolGameModeClass :
 
 		void Init_WOL_Player(cPlayer* player);
 
-		RefPtr<WWOnline::UserData> Get_WOL_User_Data(const wchar_t* name);
+		RefPtr<WWOnline::UserData> Get_WOL_User_Data(const unichar_t* name);
 
-		void Page_WOL_User(const wchar_t* name, const wchar_t* msg);
-		void Reply_Last_Page(const wchar_t* msg);
+		void Page_WOL_User(const unichar_t* name, const unichar_t* msg);
+		void Reply_Last_Page(const unichar_t* msg);
 
-		void Locate_WOL_User(const wchar_t* name);
-		void Invite_WOL_User(const wchar_t* name, const wchar_t* msg);
-		void Join_WOL_User(const wchar_t* name);
+		void Locate_WOL_User(const unichar_t* name);
+		void Invite_WOL_User(const unichar_t* name, const unichar_t* msg);
+		void Join_WOL_User(const unichar_t* name);
 
-		bool Kick_Player(const wchar_t* name);
-		void Ban_Player(const wchar_t* name, unsigned int ip);
+		bool Kick_Player(const unichar_t* name);
+		void Ban_Player(const unichar_t* name, unsigned int ip);
 		bool Is_Banned(const char *player_name, unsigned int ip);
 		void Read_Kick_List(void);
 		void Auto_Kick(void);

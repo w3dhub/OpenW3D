@@ -93,7 +93,7 @@ public:
 	//
 	//	Configuration list support
 	//
-	static int		Add_Configuration (const wchar_t *display_name);
+	static int		Add_Configuration (const unichar_t *display_name);
 	static void		Delete_Configuration (const char *filename);
 	static void		Delete_Configuration (int index);
 	

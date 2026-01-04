@@ -123,14 +123,14 @@ public:
 	//
 	//	Simple property access
 	//
-	virtual const wchar_t *		Get_Text (void) const							{ return Title; }
+	virtual const unichar_t *		Get_Text (void) const							{ return Title; }
 	virtual const RectClass &	Get_Window_Rect (void) const		{ return Rect; }
 	Vector2				Get_Window_Pos (void) const					{ return Rect.Upper_Left (); }
 	const RectClass &	Get_Client_Rect (void) const					{ return ClientRect; }
 	DWORD					Get_Style (void) const							{ return Style; }
 	int					Get_ID (void) const								{ return ID; }
 
-	virtual void	Set_Text (const wchar_t *title)					{ Title = title; Set_Dirty ();  }
+	virtual void	Set_Text (const unichar_t *title)					{ Title = title; Set_Dirty ();  }
 	void					Set_Window_Rect (const RectClass &rect)	{ Rect = rect; Update_Client_Rect (); }
 	virtual void	Set_Window_Pos (const Vector2 &pos);
 	void					Set_Client_Rect (const RectClass &rect)	{ ClientRect = rect; }
@@ -186,7 +186,7 @@ public:
 	//
 	virtual bool		Wants_Tooltip (void) const						{ return (ToolTipText.Get_Length () > 0); }
 	virtual void		Get_Tooltip_Text (WideStringClass &text)	{ text = ToolTipText; }
-	virtual void		Set_Tooltip_Text (const wchar_t *text)		{ ToolTipText = text; }
+	virtual void		Set_Tooltip_Text (const unichar_t *text)		{ ToolTipText = text; }
 
 	//
 	//	Appearance control
@@ -221,7 +221,7 @@ protected:
 	virtual void			On_Mouse_Move (const Vector2 &mouse_pos)		{}
 	virtual bool			On_Key_Down (uint32 key_id, uint32 key_data)	{return false;}
 	virtual bool			On_Key_Up (uint32 key_id)							{return false;}
-	virtual void			On_Unicode_Char(wchar_t unicode) {}
+	virtual void			On_Unicode_Char(unichar_t unicode) {}
 	virtual void			On_Mouse_Wheel (int direction)					{}
 	virtual void			On_Set_Cursor (const Vector2 &mouse_pos);
 	virtual void			On_Create (void)										{}

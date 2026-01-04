@@ -53,11 +53,11 @@ public:
 
 	virtual bool	Is_Skirmish(void) const override							{return true;}
 	virtual cGameDataSkirmish *	As_Skirmish(void) override				{return this;}
-	static const wchar_t* Get_Static_Game_Name(void);
+	static const unichar_t* Get_Static_Game_Name(void);
 	virtual void	On_Game_Begin (void) override;
 	virtual void	On_Game_End (void) override;
 	virtual void	Soldier_Added (SoldierGameObj *soldier) override;
-	virtual const wchar_t* Get_Game_Name(void)				const override	{return this->Get_Static_Game_Name();}
+	virtual const unichar_t* Get_Game_Name(void)				const override	{return this->Get_Static_Game_Name();}
    virtual GameTypeEnum	Get_Game_Type(void)				const override	{return GAME_TYPE_SKIRMISH;}
 	virtual void	Think(void) override;
 	virtual void	Load_From_Server_Config(void) override;

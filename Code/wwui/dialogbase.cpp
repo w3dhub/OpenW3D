@@ -82,16 +82,16 @@ const float	RES_SCREEN_HEIGHT	= 300;
 ////////////////////////////////////////////////////////////////
 DEFAULT_DLG_CMD_HANDLER		DialogBaseClass::DefaultCmdHandler = NULL;
 
-static WideStringClass TranslateDialogString(const wchar_t *text)
+static WideStringClass TranslateDialogString(const unichar_t *text)
 {
 	WideStringClass result = text;
 	if (text) {
-		wchar_t *string_id = ::wcsstr(result.Peek_Buffer(), L"IDS_");
+		unichar_t *string_id = ::u_strstr(result.Peek_Buffer(), U_CHAR("IDS_"));
 		if (string_id) {
 			WideStringClass wide_string_id = string_id;
 			StringClass ascii_string_id;
 			wide_string_id.Convert_To(ascii_string_id);
-			const wchar_t *translation = TRANSLATE_BY_DESC(ascii_string_id);
+			const unichar_t *translation = TRANSLATE_BY_DESC(ascii_string_id);
 			result.Erase(string_id - result.Peek_Buffer(), result.Get_Length());
 			result += translation;
 		}
@@ -506,10 +506,10 @@ DialogBaseClass::Get_Dlg_Item (int id) const
 //	Get_Dlg_Item_Text
 //
 ////////////////////////////////////////////////////////////////
-const wchar_t *
+const unichar_t *
 DialogBaseClass::Get_Dlg_Item_Text (int id) const
 {
-	const wchar_t *retval = NULL;
+	const unichar_t *retval = NULL;
 
 	//
 	//	Find the control
@@ -533,7 +533,7 @@ DialogBaseClass::Get_Dlg_Item_Text (int id) const
 //
 ////////////////////////////////////////////////////////////////
 void
-DialogBaseClass::Set_Dlg_Item_Text (int id, const wchar_t *text)
+DialogBaseClass::Set_Dlg_Item_Text (int id, const unichar_t *text)
 {
 	//
 	//	Find the control
@@ -570,12 +570,12 @@ DialogBaseClass::Get_Dlg_Item_Int (int id) const
 		//
 		//	Get the text from the control
 		//
-		const wchar_t *text = control->Get_Text ();
+		const unichar_t *text = control->Get_Text ();
 
 		//
 		//	Convert the text to an integer
 		//
-		retval = _wtoi (text);
+		u_sscanf_u(text, U_CHAR("%d"), &retval);
 	}
 
 	return retval;
@@ -600,7 +600,7 @@ DialogBaseClass::Set_Dlg_Item_Int (int id, int value)
 		//	Convert the value to a string
 		//
 		WideStringClass text;
-		text.Format (L"%d", value);
+		text.Format (U_CHAR("%d"), value);
 
 		//
 		//	Set the text of this control
@@ -631,12 +631,12 @@ DialogBaseClass::Get_Dlg_Item_Float (int id) const
 		//
 		//	Get the text from the control
 		//
-		const wchar_t *text = control->Get_Text ();
+		const unichar_t *text = control->Get_Text ();
 
 		//
 		//	Convert the text to an float
 		//
-		swscanf (text, L"%f", &retval);
+		u_sscanf_u (text, U_CHAR("%f"), &retval);
 	}
 
 	return retval;
@@ -661,7 +661,7 @@ DialogBaseClass::Set_Dlg_Item_Float (int id, float value)
 		//	Convert the value to a string
 		//
 		WideStringClass text;
-		text.Format (L"%.2f", value);
+		text.Format (U_CHAR("%.2f"), value);
 
 		//
 		//	Set the text of this control

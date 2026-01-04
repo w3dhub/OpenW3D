@@ -95,7 +95,7 @@ cGameDataSkirmish& cGameDataSkirmish::operator=(const cGameDataSkirmish& rhs)
 }
 
 //-----------------------------------------------------------------------------
-const wchar_t* cGameDataSkirmish::Get_Static_Game_Name(void)
+const unichar_t* cGameDataSkirmish::Get_Static_Game_Name(void)
 {
 	return TRANSLATION(IDS_MP_GAME_TYPE_SKIRMISH);
 }
@@ -347,7 +347,7 @@ void cGameDataSkirmish::Show_My_Money(void)
 		cPlayer * p_player = cNetwork::Get_My_Player_Object();
 		if (p_player != NULL) {
 			WideStringClass text(0,true);
-			text.Format(L"%s: %d", 
+			text.Format(U_CHAR("%s: %d"), 
 				TRANSLATION(IDS_MP_MONEY), (int) p_player->Get_Money());
 			Add_Bottom_Text(text);
 		}
@@ -430,8 +430,8 @@ void cGameDataSkirmish::Get_Description(WideStringClass & description)
 	// 
 	cGameData::Get_Description(description);
 
-	const WideStringClass delimiter	= L"\t";
-	const WideStringClass newline		= L"\n";
+	const WideStringClass delimiter	= U_CHAR("\t");
+	const WideStringClass newline		= U_CHAR("\n");
 	const WideStringClass yes			= TRANSLATE(IDS_YES);
 	const WideStringClass no			= TRANSLATE(IDS_NO);
 
@@ -442,7 +442,7 @@ void cGameDataSkirmish::Get_Description(WideStringClass & description)
 	// Starting Credits
 	//
 	attribute = TRANSLATE(IDS_MENU_TEXT349);
-	value.Format(L"%d", StartingCredits);
+	value.Format(U_CHAR("%d"), StartingCredits);
 	description += (attribute + delimiter + value + newline);
 
 	//

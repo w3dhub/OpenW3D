@@ -59,10 +59,10 @@ using namespace WWOnline;
 
 static const int MAX_USERNAME_LEN = 64;
 
-static const wchar_t INVITE_CMD[] = L"<WWINVITE>";
-static const wchar_t DECLINE_CMD[] = L"<WWDECLINE>";
-static constexpr size_t INVITE_CMD_LEN = ((sizeof(INVITE_CMD) / sizeof(wchar_t)) - 1);
-static constexpr size_t DECLINE_CMD_LEN = ((sizeof(DECLINE_CMD) / sizeof(wchar_t)) - 1);
+static const unichar_t INVITE_CMD[] = U_CHAR("<WWINVITE>");
+static const unichar_t DECLINE_CMD[] = U_CHAR("<WWDECLINE>");
+static constexpr size_t INVITE_CMD_LEN = ((sizeof(INVITE_CMD) / sizeof(unichar_t)) - 1);
+static constexpr size_t DECLINE_CMD_LEN = ((sizeof(DECLINE_CMD) / sizeof(unichar_t)) - 1);
 
 WOLBuddyMgr* WOLBuddyMgr::_mInstance = NULL;
 
@@ -279,7 +279,7 @@ void WOLBuddyMgr::SaveIgnoreList(void)
 
 				const WideStringClass& buddy = mIgnoreList[index];
 				char name[MAX_USERNAME_LEN];
-				wcstombs(name, buddy, sizeof(name));
+				u_wstomb(name, buddy, sizeof(name));
 
 				reg.Set_String(valueName, (char*)name);
 				}
@@ -326,7 +326,7 @@ void WOLBuddyMgr::RefreshBuddyList(void)
 *
 ******************************************************************************/
 
-const RefPtr<WWOnline::UserData> WOLBuddyMgr::FindBuddy(const wchar_t* name) const
+const RefPtr<WWOnline::UserData> WOLBuddyMgr::FindBuddy(const unichar_t* name) const
 	{
 	return mWOLSession->FindBuddy(name);
 	}
@@ -348,7 +348,7 @@ const RefPtr<WWOnline::UserData> WOLBuddyMgr::FindBuddy(const wchar_t* name) con
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::AddBuddy(const wchar_t* name)
+void WOLBuddyMgr::AddBuddy(const unichar_t* name)
 	{
 	if (IsBuddy(name) == false)
 		{
@@ -373,7 +373,7 @@ void WOLBuddyMgr::AddBuddy(const wchar_t* name)
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::RemoveBuddy(const wchar_t* name)
+void WOLBuddyMgr::RemoveBuddy(const unichar_t* name)
 	{
 	mWOLSession->RemoveBuddy(name);
 	}
@@ -395,7 +395,7 @@ void WOLBuddyMgr::RemoveBuddy(const wchar_t* name)
 *
 ******************************************************************************/
 
-bool WOLBuddyMgr::IsBuddy(const wchar_t* name) const
+bool WOLBuddyMgr::IsBuddy(const unichar_t* name) const
 	{
 	RefPtr<UserData> user = mWOLSession->FindBuddy(name);
 	return user.IsValid();
@@ -439,7 +439,7 @@ void WOLBuddyMgr::RefreshBuddyInfo(void)
 			{
 			WideStringClass abbr(0, true);
 			abbr = squad->GetAbbr();
-			mWOLSession->RequestLadderInfo((const wchar_t*)abbr, LadderType_Clan);
+			mWOLSession->RequestLadderInfo((const unichar_t*)abbr, LadderType_Clan);
 			}
 		}
 	}
@@ -541,7 +541,7 @@ void WOLBuddyMgr::GetLocationDescription(const RefPtr<UserData>& user, WideStrin
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::AddIgnore(const wchar_t* name)
+void WOLBuddyMgr::AddIgnore(const unichar_t* name)
 	{
 	if (!IsIgnored(name))
 		{
@@ -581,7 +581,7 @@ void WOLBuddyMgr::AddIgnore(const wchar_t* name)
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::RemoveIgnore(const wchar_t* name)
+void WOLBuddyMgr::RemoveIgnore(const unichar_t* name)
 	{
 	IgnoreList::iterator iter = mIgnoreList.begin();
 
@@ -591,7 +591,7 @@ void WOLBuddyMgr::RemoveIgnore(const wchar_t* name)
 
 		if (ignore.Compare_No_Case(name) == 0)
 			{
-			WWDEBUG_SAY(("WOLBuddyMgr: Removing '%S' from ignore list.", (const wchar_t*)ignore));
+			WWDEBUG_SAY(("WOLBuddyMgr: Removing '%S' from ignore list.", (const unichar_t*)ignore));
 			mIgnoreList.erase(iter);
 
 			SaveIgnoreList();
@@ -624,7 +624,7 @@ void WOLBuddyMgr::RemoveIgnore(const wchar_t* name)
 *
 ******************************************************************************/
 
-bool WOLBuddyMgr::IsIgnored(const wchar_t* name) const
+bool WOLBuddyMgr::IsIgnored(const unichar_t* name) const
 	{
 	for (unsigned int index = 0; index < mIgnoreList.size(); index++)
 		{
@@ -657,7 +657,7 @@ bool WOLBuddyMgr::IsIgnored(const wchar_t* name) const
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::PageUser(const wchar_t* name, const wchar_t* message)
+void WOLBuddyMgr::PageUser(const unichar_t* name, const unichar_t* message)
 	{
 	mWOLSession->PageUser(name, message);
 	}
@@ -834,7 +834,7 @@ void WOLBuddyMgr::ProcessPendingJoin(void)
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::GotoPendingJoinLocation(const wchar_t* password)
+void WOLBuddyMgr::GotoPendingJoinLocation(const unichar_t* password)
 	{
 	const RefPtr<ChannelData>& channel = mPendingJoin->GetChannel();
 	WWASSERT(channel.IsValid() && "Pending join channel invalid");
@@ -920,7 +920,7 @@ bool WOLBuddyMgr::CanInviteUsers(void) const
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::InviteUser(const wchar_t* username, const wchar_t* message)
+void WOLBuddyMgr::InviteUser(const unichar_t* username, const unichar_t* message)
 	{
 	WideStringClass name(0, true);
 	name = username;
@@ -928,10 +928,10 @@ void WOLBuddyMgr::InviteUser(const wchar_t* username, const wchar_t* message)
 
 	if (name.Get_Length() > 0)
 		{
-		if (message && (wcslen(message) > 0))
+		if (message && (u_strlen(message) > 0))
 			{
 			WideStringClass invitation(0, true);
-			invitation.Format(L"%s%s", INVITE_CMD, message);
+			invitation.Format(U_CHAR("%s%s"), INVITE_CMD, message);
 			PageUser(name, invitation);
 			}
 		else
@@ -958,13 +958,13 @@ void WOLBuddyMgr::InviteUser(const wchar_t* username, const wchar_t* message)
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::DeclineInvitation(const wchar_t* username, DECLINE_REASON reason)
+void WOLBuddyMgr::DeclineInvitation(const unichar_t* username, DECLINE_REASON reason)
 	{
-	if (username && (wcslen(username) > 0))
+	if (username && (u_strlen(username) > 0))
 		{
 		// Build a decline "page"
 		WideStringClass response(0, true);
-		response.Format(L"%s%d", DECLINE_CMD, reason);
+		response.Format(U_CHAR("%s%d"), DECLINE_CMD, reason);
 
 		// Send the response
 		PageUser(username, response);
@@ -988,10 +988,10 @@ void WOLBuddyMgr::DeclineInvitation(const wchar_t* username, DECLINE_REASON reas
 *
 ******************************************************************************/
 
-bool WOLBuddyMgr::IsCommand(const wchar_t* message)
+bool WOLBuddyMgr::IsCommand(const unichar_t* message)
 	{
 	// All commands begin with "<WW"
-	return (message && (wcsstr(message, L"<WW") == message));
+	return (message && (u_strstr(message, U_CHAR("<WW")) == message));
 	}
 
 
@@ -1011,10 +1011,10 @@ bool WOLBuddyMgr::IsCommand(const wchar_t* message)
 *
 ******************************************************************************/
 
-bool WOLBuddyMgr::IsInvitation(const wchar_t* message)
+bool WOLBuddyMgr::IsInvitation(const unichar_t* message)
 	{
-	return (message && (wcslen(message) >= INVITE_CMD_LEN) &&
-			(wcsncmp(message, INVITE_CMD, INVITE_CMD_LEN) == 0));
+	return (message && (u_strlen(message) >= INVITE_CMD_LEN) &&
+			(u_strncmp(message, INVITE_CMD, INVITE_CMD_LEN) == 0));
 	}
 
 
@@ -1078,7 +1078,7 @@ void WOLBuddyMgr::InvitationReceived(PageMessage& page)
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::DisplayInvitation(const RefPtr<UserData>& user, const wchar_t* message)
+void WOLBuddyMgr::DisplayInvitation(const RefPtr<UserData>& user, const unichar_t* message)
 	{
 	if (user->GetLocation() != USERLOCATION_IN_CHANNEL)
 		{
@@ -1100,8 +1100,8 @@ void WOLBuddyMgr::DisplayInvitation(const RefPtr<UserData>& user, const wchar_t*
 
 		// Format the invitation message
 		WideStringClass inviteMsg(0, true);
-		inviteMsg.Format(TRANSLATE(IDS_MP_WOL_INVITATION_FORMAT), (const wchar_t*)name, (const wchar_t*)location);
-		inviteMsg += L"\n";
+		inviteMsg.Format(TRANSLATE(IDS_MP_WOL_INVITATION_FORMAT), (const unichar_t*)name, (const unichar_t*)location);
+		inviteMsg += U_CHAR("\n");
 		inviteMsg += message;
 
 		if (!mHidePagedDialog)
@@ -1142,10 +1142,10 @@ void WOLBuddyMgr::DisplayInvitation(const RefPtr<UserData>& user, const wchar_t*
 *
 ******************************************************************************/
 
-bool WOLBuddyMgr::IsInvitationDeclined(const wchar_t *message)
+bool WOLBuddyMgr::IsInvitationDeclined(const unichar_t *message)
 	{
-	return (message && (wcslen(message) >= DECLINE_CMD_LEN) &&
-			(wcsncmp(message, DECLINE_CMD, DECLINE_CMD_LEN) == 0));
+	return (message && (u_strlen(message) >= DECLINE_CMD_LEN) &&
+			(u_strncmp(message, DECLINE_CMD, DECLINE_CMD_LEN) == 0));
 	}
 
 
@@ -1166,7 +1166,7 @@ bool WOLBuddyMgr::IsInvitationDeclined(const wchar_t *message)
 *
 ******************************************************************************/
 
-void WOLBuddyMgr::InvitationDeclined(const wchar_t* username, DECLINE_REASON reason)
+void WOLBuddyMgr::InvitationDeclined(const unichar_t* username, DECLINE_REASON reason)
 	{
 	WideStringClass message(0, true);
 
@@ -1304,7 +1304,7 @@ void WOLBuddyMgr::HandleNotification(UserEvent& event)
 				// then display the invitation since we now know were they are.
 				if (username.Compare_No_Case((*iter).GetPagersName()) == 0)
 					{
-					const wchar_t* invite = (*iter).GetPageMessage();
+					const unichar_t* invite = (*iter).GetPageMessage();
 					DisplayInvitation(user, &invite[INVITE_CMD_LEN]);
 
 					mInvitations.erase(iter);
@@ -1382,11 +1382,11 @@ void WOLBuddyMgr::HandleNotification(PageMessage& page)
 
 		if (ConsoleBox.Is_Exclusive()) {
 			if (((WideStringClass*)&message)->Is_ANSI()) {
-				WideStringClass temp(L"[Page] ", true);
+				WideStringClass temp(U_CHAR("[Page] "), true);
 				temp += pager;
-				temp += L": ";
+				temp += U_CHAR(": ");
 				temp += message;
-				temp += L"\n";
+				temp += U_CHAR("\n");
 				Vector3 text_color(0.0f, 1.0f, 0.0f);
 				ConsoleBox.Add_Message(&temp, &text_color, true);
 			}
@@ -1423,8 +1423,9 @@ void WOLBuddyMgr::HandleNotification(PageMessage& page)
 				DECLINE_REASON reason = DECLINE_BYUSER;
 
 				// Grab the reason code
-				const wchar_t* codeString = static_cast<const wchar_t *>(message) + DECLINE_CMD_LEN;
-				int code = _wtoi(codeString);
+				const unichar_t* codeString = static_cast<const unichar_t *>(message) + DECLINE_CMD_LEN;
+				int code;
+				u_sscanf_u(codeString, U_CHAR("%d"), &code);
 
 				if (code > DECLINE_MIN && code < DECLINE_MAX)
 					{

@@ -48,9 +48,9 @@ class	cGameDataSinglePlayer : public cGameData {
 		bool	Is_Single_Player(void) const override						{return true;}
 		cGameDataSinglePlayer * As_Single_Player(void) override		{return this;}
 
-		static const wchar_t* Get_Static_Game_Name(void);
+		static const unichar_t* Get_Static_Game_Name(void);
 
-		virtual const wchar_t*	Get_Game_Name(void)					const override {return this->Get_Static_Game_Name();}
+		virtual const unichar_t*	Get_Game_Name(void)					const override {return this->Get_Static_Game_Name();}
       virtual GameTypeEnum	Get_Game_Type(void)					const override	{return GAME_TYPE_SINGLE_PLAYER;}
 		//virtual bool	Is_Team_Game(void)							const	{return true;}
 		virtual bool	Is_Limited(void)								const override	{return true;}

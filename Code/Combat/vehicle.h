@@ -250,7 +250,7 @@ public:
 	static void	Set_Target_Steering( bool onoff );
 	static bool Is_Target_Steering( void );
 
-	const wchar_t *		Get_Vehicle_Name( void );
+	const unichar_t *		Get_Vehicle_Name( void );
 
 	// Vehicles expire when they are flipped.
 	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj ) override;

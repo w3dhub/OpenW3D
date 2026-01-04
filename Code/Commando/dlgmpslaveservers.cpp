@@ -308,7 +308,7 @@ void SlaveServerDialogClass::Set_Slave_Button(int slavenum)
 		INIClass *ini = Get_INI(ServerSettingsFileNames[slavenum]);
 
 		if (ini) {
-			description = ini->Get_Wide_String(description, "Settings", "wConfigName", L"");
+			description = ini->Get_Wide_String(description, "Settings", "wConfigName", U_CHAR(""));
 			int size = description.Get_Length();
 			if (size == 0) {
 				size = ini->Get_String("Settings", "bConfigName", "", char_description, sizeof(char_description));

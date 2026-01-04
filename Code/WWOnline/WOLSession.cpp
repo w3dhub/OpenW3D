@@ -789,7 +789,7 @@ bool Session::RequestChannelList(int channelType, bool autoPing)
 *
 ******************************************************************************/
 
-RefPtr<ChannelData> Session::FindChannel(const wchar_t* channelName)
+RefPtr<ChannelData> Session::FindChannel(const unichar_t* channelName)
 	{
 	if (channelName == NULL)
 		{
@@ -862,7 +862,7 @@ RefPtr<ChannelData> Session::FindChannel(const char* channelName)
 ******************************************************************************/
 
 RefPtr<WaitCondition> Session::JoinChannel(const RefPtr<ChannelData>& channel,
-			const wchar_t* password)
+			const unichar_t* password)
 	{
 	// If we are not connected then we cannot join a channel.
 	if (mCurrentConnectionStatus != ConnectionConnected)
@@ -916,7 +916,7 @@ RefPtr<WaitCondition> Session::JoinChannel(const RefPtr<ChannelData>& channel,
 	}
 
 
-RefPtr<WaitCondition> Session::JoinChannel(const wchar_t* chanName, const wchar_t* password, int type)
+RefPtr<WaitCondition> Session::JoinChannel(const unichar_t* chanName, const unichar_t* password, int type)
 	{
 	// If we are not connected then we cannot join a channel.
 	if (mCurrentConnectionStatus != ConnectionConnected)
@@ -988,15 +988,15 @@ RefPtr<WaitCondition> Session::JoinChannel(const wchar_t* chanName, const wchar_
 *
 ******************************************************************************/
 
-bool Session::RequestChannelJoin(const RefPtr<ChannelData>& channel, const wchar_t* password)
+bool Session::RequestChannelJoin(const RefPtr<ChannelData>& channel, const unichar_t* password)
 	{
 	if (channel.IsValid() && password)
 		{
-		WWDEBUG_SAY(("WOL: RequestChannelJoin C:%S P:%S\n", (const wchar_t*)channel->GetName(), password));
+		WWDEBUG_SAY(("WOL: RequestChannelJoin C:%S P:%S\n", (const unichar_t*)channel->GetName(), password));
 		mPendingChannel = channel;
 
 		WOL::Channel& wolChannel = channel->GetData();
-		wcstombs((char*)wolChannel.key, password, sizeof(wolChannel.key));
+		u_wstomb((char*)wolChannel.key, password, sizeof(wolChannel.key));
 
 		// If the channel is not in the channel list then mark it as hidden.
 		RefPtr<ChannelData> inList = FindChannel(channel->GetName());
@@ -1104,7 +1104,7 @@ RefPtr<WaitCondition> Session::GetNewChatChannelList(void)
 *
 ******************************************************************************/
 
-RefPtr<ChannelData> Session::FindChatChannel(const wchar_t* channelName)
+RefPtr<ChannelData> Session::FindChatChannel(const unichar_t* channelName)
 	{
 	return FindChannelInList(mChatChannels, channelName);
 	}
@@ -1194,7 +1194,7 @@ bool Session::RequestGameChannelList(void)
 *
 ******************************************************************************/
 
-RefPtr<ChannelData> Session::FindGameChannel(const wchar_t* channelName)
+RefPtr<ChannelData> Session::FindGameChannel(const unichar_t* channelName)
 	{
 	return FindChannelInList(mGameChannels, channelName);
 	}
@@ -1223,7 +1223,7 @@ RefPtr<ChannelData> Session::FindGameChannel(const char* channelName)
 *
 ******************************************************************************/
 
-RefPtr<WaitCondition> Session::CreateChannel(const wchar_t* name, const wchar_t* password, int type)
+RefPtr<WaitCondition> Session::CreateChannel(const unichar_t* name, const unichar_t* password, int type)
 	{
 	WWDEBUG_SAY(("WOL: CreateChannel '%S' Type %ld\n", name, type));
 
@@ -1288,10 +1288,10 @@ RefPtr<WaitCondition> Session::CreateChannel(const wchar_t* name, const wchar_t*
 ******************************************************************************/
 
 RefPtr<WaitCondition> Session::CreateChannel(const RefPtr<ChannelData>& channel,
-		const wchar_t* password)
+		const unichar_t* password)
 	{
 	WWASSERT(channel.IsValid());
-	WWDEBUG_SAY(("WOL: CreateChannel '%S'\n", (const wchar_t*)channel->GetName()));
+	WWDEBUG_SAY(("WOL: CreateChannel '%S'\n", (const unichar_t*)channel->GetName()));
 
 	if (mCurrentConnectionStatus != ConnectionConnected)
 		{
@@ -1491,7 +1491,7 @@ bool Session::RequestUserList(void)
 *
 ******************************************************************************/
 
-RefPtr<UserData> Session::FindUser(const wchar_t* nickname)
+RefPtr<UserData> Session::FindUser(const unichar_t* nickname)
 	{
 	// Check the current user first.
 	if (mCurrentUser.IsValid())
@@ -1525,7 +1525,7 @@ RefPtr<UserData> Session::FindUser(const wchar_t* nickname)
 *
 ******************************************************************************/
 
-RefPtr<UserData> Session::GetUserOrBuddy(const wchar_t* name)
+RefPtr<UserData> Session::GetUserOrBuddy(const unichar_t* name)
 	{
 	RefPtr<UserData> user = FindUser(name);
 
@@ -1561,7 +1561,7 @@ bool Session::IsCurrentUser(const RefPtr<UserData>& user) const
 	}
 
 
-bool Session::IsCurrentUser(const wchar_t* username) const
+bool Session::IsCurrentUser(const unichar_t* username) const
 	{
 	if (username && mCurrentUser.IsValid())
 		{
@@ -1628,7 +1628,7 @@ bool Session::SquelchUser(const RefPtr<UserData>& user, bool onoff)
 	{
 	if (user.IsValid())
 		{
-		WWDEBUG_SAY(("WOL: SquelchUser '%S'\n", (const wchar_t *)user->GetName()));
+		WWDEBUG_SAY(("WOL: SquelchUser '%S'\n", (const unichar_t *)user->GetName()));
 		HRESULT hr = mChat->SetSquelch(&user->GetData(), onoff);
 
 		if (SUCCEEDED(hr))
@@ -1661,7 +1661,7 @@ bool Session::SquelchUser(const RefPtr<UserData>& user, bool onoff)
 *
 ******************************************************************************/
 
-bool Session::KickUser(const wchar_t* username)
+bool Session::KickUser(const unichar_t* username)
 	{
 	if (username)
 		{
@@ -1669,7 +1669,7 @@ bool Session::KickUser(const wchar_t* username)
 
 		if (user.IsValid())
 			{
-			WWDEBUG_SAY(("WOL: KickUser '%S'\n", (const wchar_t *)user->GetName()));
+			WWDEBUG_SAY(("WOL: KickUser '%S'\n", (const unichar_t *)user->GetName()));
 			HRESULT hr = mChat->RequestUserKick(&user->GetData());
 
 			if (SUCCEEDED(hr))
@@ -1703,14 +1703,14 @@ bool Session::KickUser(const wchar_t* username)
 *
 ******************************************************************************/
 
-bool Session::BanUser(const wchar_t* username, bool banned)
+bool Session::BanUser(const unichar_t* username, bool banned)
 	{
 	if (username)
 		{
 		WWDEBUG_SAY(("WOL: BanUser '%S'\n", username));
 
 		char ansiName[64];
-		wcstombs(ansiName, username, sizeof(ansiName));
+		u_wstomb(ansiName, username, sizeof(ansiName));
 
 		HRESULT hr = mChat->RequestChannelBan(ansiName, banned);
 
@@ -1743,19 +1743,19 @@ bool Session::BanUser(const wchar_t* username, bool banned)
 *
 ******************************************************************************/
 
-bool Session::PageUser(const wchar_t* username, const wchar_t* message)
+bool Session::PageUser(const unichar_t* username, const unichar_t* message)
 	{
-	if ((username && wcslen(username)) && (message && wcslen(message)))
+	if ((username && u_strlen(username)) && (message && u_strlen(message)))
 		{
 		WOL::User wolUser;
 		memset((void*)&wolUser, 0, sizeof(wolUser));
-		wcstombs((char*)&wolUser.name, username, sizeof(wolUser.name));
+		u_wstomb((char*)&wolUser.name, username, sizeof(wolUser.name));
 		wolUser.name[sizeof(wolUser.name) - 1] = 0;
 
 		if (IsAnsiText(message))
 			{
 			char ansiMessage[1024];
-			wcstombs(ansiMessage, message, sizeof(ansiMessage));
+			u_wstomb(ansiMessage, message, sizeof(ansiMessage));
 
 			HRESULT hr = mChat->RequestPage(&wolUser, ansiMessage);
 
@@ -1799,9 +1799,9 @@ bool Session::PageUser(const wchar_t* username, const wchar_t* message)
 *
 ******************************************************************************/
 
-void Session::RequestLocateUser(const wchar_t* name)
+void Session::RequestLocateUser(const unichar_t* name)
 	{
-	if (name && wcslen(name))
+	if (name && u_strlen(name))
 		{
 		// If we already have the user then submit it, otherwise create a new user entry.
 		RefPtr<UserData> user = GetUserOrBuddy(name);
@@ -1894,9 +1894,9 @@ void Session::MakeLocateUserRequests(void)
 *
 ******************************************************************************/
 
-void Session::RequestUserLocale(const wchar_t* username)
+void Session::RequestUserLocale(const unichar_t* username)
 	{
-	if (username && (wcslen(username) > 0))
+	if (username && (u_strlen(username) > 0))
 		{
 		// Make sure the user is not already in the list.
 		const size_t count = mLocaleRequests.size();
@@ -1947,10 +1947,10 @@ void Session::MakeLocaleRequests(void)
 			for (size_t index = 0; index < count; ++index)
 				{
 				WideStringClass& username = mLocaleRequests[index];
-				WWDEBUG_SAY(("WOL: Requesting locale for '%S'\n", (const wchar_t*)username));
+				WWDEBUG_SAY(("WOL: Requesting locale for '%S'\n", (const unichar_t*)username));
 
 				WOL::User& user = users[index];
-				wcstombs((char*)user.name, username, sizeof(user.name));
+				u_wstomb((char*)user.name, username, sizeof(user.name));
 				user.name[sizeof(user.name) - 1] = 0;
 
 				if (index == (count - 1))
@@ -2003,10 +2003,8 @@ void Session::RequestSquadInfoByID(unsigned int squadID)
 	if (squadID != 0)
 		{
 		// MAGICK NUMBER -- itoa handles up to 33 digit numbers
-		wchar_t idString[34];
-
-		// MAGICK NUMBER - 10 - squadID is base 10.
-		_itow(squadID, idString, 10);
+		unichar_t idString[34];
+		u_snprintf_u(idString, sizeof(idString), U_CHAR("%u"), squadID);
 
 		// Only add a request that is not already pending.
 		const size_t count = mSquadRequests.size();
@@ -2040,9 +2038,9 @@ void Session::RequestSquadInfoByID(unsigned int squadID)
 *
 ******************************************************************************/
 
-void Session::RequestSquadInfoByMemberName(const wchar_t* memberName)
+void Session::RequestSquadInfoByMemberName(const unichar_t* memberName)
 	{
-	if (memberName && (wcslen(memberName) > 0))
+	if (memberName && (u_strlen(memberName) > 0))
 		{
 		// Only add a request that is not already pending.
 		for (size_t index = 0; index < mSquadRequests.size(); index++)
@@ -2091,11 +2089,12 @@ void Session::MakeSquadRequests(void)
 
 			// Check to see if this is an ID or a name
 			// - names can't have the first character be a number so this works.
-			wchar_t firstChar = request[0];
+			unichar_t firstChar = request[0];
 
 			if (iswdigit(firstChar))
 				{
-				unsigned int squadID = _wtoi(request);
+				unsigned int squadID;
+				u_sscanf_u(request, U_CHAR("%u"), &squadID);
 				WWDEBUG_SAY(("WOL: SquadInfo requested for ID %ld\n", squadID));
 				hr = mChat->RequestSquadInfo(squadID);
 				}
@@ -2139,9 +2138,9 @@ void Session::MakeSquadRequests(void)
 *
 ******************************************************************************/
 
-void Session::RequestTeamInfo(const wchar_t* username)
+void Session::RequestTeamInfo(const unichar_t* username)
 	{
-	if (username && (wcslen(username) > 0))
+	if (username && (u_strlen(username) > 0))
 		{
 		for (unsigned int index = 0; index < mTeamRequests.size(); index++)
 			{
@@ -2193,7 +2192,7 @@ void Session::MakeTeamRequests(void)
 				WOL::User& user = users[index];
 
 				WideStringClass& username = mTeamRequests[index];
-				wcstombs((char*)user.name, username.Peek_Buffer(), sizeof(user.name));
+				u_wstomb((char*)user.name, username.Peek_Buffer(), sizeof(user.name));
 				user.name[sizeof(user.name) - 1] = 0;
 
 				if (index == count - 1)
@@ -2242,12 +2241,12 @@ void Session::MakeTeamRequests(void)
 *
 ******************************************************************************/
 
-void Session::RequestLadderInfo(const wchar_t* name, unsigned int type)
+void Session::RequestLadderInfo(const unichar_t* name, unsigned int type)
 	{
-	if (name && (wcslen(name) > 0) && (type & LADDERTYPE_MASK))
+	if (name && (u_strlen(name) > 0) && (type & LADDERTYPE_MASK))
 		{
 		WideStringClass request(64, true);
-		request = L"itc:";
+		request = U_CHAR("itc:");
 
 		// Clan ladder requests are mutually exclusive to other ladder requests
 		// because it requires the name of the clan, while the other requests use
@@ -2255,18 +2254,18 @@ void Session::RequestLadderInfo(const wchar_t* name, unsigned int type)
 		if (type & LadderType_Clan)
 			{
 			WWASSERT((type & (LadderType_Individual | LadderType_Team)) == 0);
-			request[2] = L'C';
+			request[2] = U_CHAR('C');
 			}
 		else
 			{
 			if (type & LadderType_Individual)
 				{
-				request[0] = L'I';
+				request[0] = U_CHAR('I');
 				}
 
 			if (type & LadderType_Team)
 				{
-				request[1] = L'T';
+				request[1] = U_CHAR('T');
 				}
 			}
 
@@ -2286,7 +2285,7 @@ void Session::RequestLadderInfo(const wchar_t* name, unsigned int type)
 			pending++;
 			}
 
-		WWDEBUG_SAY(("WOL: LadderInfo request added '%S'.\n", (const wchar_t *)request));
+		WWDEBUG_SAY(("WOL: LadderInfo request added '%S'.\n", (const unichar_t *)request));
 		mLadderRequests.push_back(request);
 		}
 	}
@@ -2328,7 +2327,7 @@ void Session::MakeLadderRequests(void)
 			while ((count < 10) && (request != mLadderRequests.end()))
 				{
 				// Stop appending requests as soon as we encounter a different type.
-				if (wcsncmp(firstRequest, *request, 3) != 0)
+				if (u_strncmp(firstRequest, *request, 3) != 0)
 					{
 					break;
 					}
@@ -2340,13 +2339,13 @@ void Session::MakeLadderRequests(void)
 					}
 
 				// The request name follows the type
-				const wchar_t* widename = wcschr(*request, L':');
+				const unichar_t* widename = u_strchr(*request, U_CHAR(':'));
 				WWASSERT(widename != NULL && "Invalid Ladder Request");
 				widename++;
 
 				// Add the request
 				char name[64];
-				wcstombs(name, widename, 64);
+				u_wstomb(name, widename, 64);
 				strcat(keys, name);
 
 				// Next request
@@ -2362,7 +2361,7 @@ void Session::MakeLadderRequests(void)
 			unsigned int sku = product->GetLadderSKU();
 
 			// Request individual ladder
-			if (firstRequest[0] == L'I')
+			if (firstRequest[0] == U_CHAR('I'))
 				{
 				HRESULT hr = mNetUtil->RequestLadderList(hostAddr, port, keys, sku, -1, 0, 0);
 
@@ -2376,7 +2375,7 @@ void Session::MakeLadderRequests(void)
 				}
 
 			// Request team ladder
-			if (firstRequest[1] == L'T')
+			if (firstRequest[1] == U_CHAR('T'))
 				{
 				HRESULT hr = mNetUtil->RequestLadderList(hostAddr, port, keys, (sku | LadderType_Team), -1, 0, 0);
 
@@ -2390,7 +2389,7 @@ void Session::MakeLadderRequests(void)
 				}
 
 			// Request clan ladder
-			if (firstRequest[2] == L'C')
+			if (firstRequest[2] == U_CHAR('C'))
 				{
 				HRESULT hr = mNetUtil->RequestLadderList(hostAddr, port, keys, (sku | LadderType_Clan), -1, 0, 0);
 
@@ -2542,11 +2541,11 @@ bool Session::RequestBuddyList(void)
 *
 ******************************************************************************/
 
-bool Session::AddBuddy(const wchar_t* buddyName)
+bool Session::AddBuddy(const unichar_t* buddyName)
 	{
 	WOL::User wolUser;
 	memset((void*)&wolUser, 0, sizeof(wolUser));
-	wcstombs((char*)&wolUser.name, buddyName, sizeof(wolUser.name));
+	u_wstomb((char*)&wolUser.name, buddyName, sizeof(wolUser.name));
 	wolUser.name[sizeof(wolUser.name) - 1] = 0;
 
 	HRESULT hr = mChat->RequestBuddyAdd(&wolUser);
@@ -2576,11 +2575,11 @@ bool Session::AddBuddy(const wchar_t* buddyName)
 *
 ******************************************************************************/
 
-bool Session::RemoveBuddy(const wchar_t* buddyName)
+bool Session::RemoveBuddy(const unichar_t* buddyName)
 	{
 	WOL::User wolUser;
 	memset((void*)&wolUser, 0, sizeof(wolUser));
-	wcstombs((char*)&wolUser.name, buddyName, sizeof(wolUser.name));
+	u_wstomb((char*)&wolUser.name, buddyName, sizeof(wolUser.name));
 	wolUser.name[sizeof(wolUser.name) - 1] = 0;
 
 	HRESULT hr = mChat->RequestBuddyDelete(&wolUser);
@@ -2680,14 +2679,14 @@ bool Session::SendPublicMessage(const char* message)
 	}
 
 
-bool Session::SendPublicMessage(const wchar_t* message)
+bool Session::SendPublicMessage(const unichar_t* message)
 	{
 	if (message)
 		{
 		if (IsAnsiText(message))
 			{
 			char ansiMessage[1024];
-			wcstombs(ansiMessage, message, sizeof(ansiMessage));
+			u_wstomb(ansiMessage, message, sizeof(ansiMessage));
 			return SUCCEEDED(mChat->RequestPublicMessage(ansiMessage));
 			}
 		else
@@ -2727,14 +2726,14 @@ bool Session::SendPublicAction(const char* action)
 	}
 
 
-bool Session::SendPublicAction(const wchar_t* action)
+bool Session::SendPublicAction(const unichar_t* action)
 	{
 	if (action)
 		{
 		if (IsAnsiText(action))
 			{
 			char ansiAction[1024];
-			wcstombs(ansiAction, action, sizeof(ansiAction));
+			u_wstomb(ansiAction, action, sizeof(ansiAction));
 			return SUCCEEDED(mChat->RequestPublicAction(ansiAction));
 			}
 		else
@@ -2764,19 +2763,19 @@ bool Session::SendPublicAction(const wchar_t* action)
 *
 ******************************************************************************/
 
-bool Session::SendPrivateMessage(const wchar_t* username, const wchar_t* message)
+bool Session::SendPrivateMessage(const unichar_t* username, const unichar_t* message)
 	{
 	if (username && message)
 		{
 		WOL::User user;
 		memset(&user, 0, sizeof(user));
-		wcstombs((char*)user.name, username, sizeof(user.name));
+		u_wstomb((char*)user.name, username, sizeof(user.name));
 		user.name[sizeof(user.name) - 1] = 0;
 
 		if (IsAnsiText(message))
 			{
 			char ansiMessage[512];
-			wcstombs(ansiMessage, message, sizeof(ansiMessage));
+			u_wstomb(ansiMessage, message, sizeof(ansiMessage));
 			return SUCCEEDED(mChat->RequestPrivateMessage(&user, ansiMessage));
 			}
 
@@ -2816,7 +2815,7 @@ bool Session::SendPrivateMessage(const UserList& users, const char* message)
 	}
 
 
-bool Session::SendPrivateMessage(const UserList& users, const wchar_t* message)
+bool Session::SendPrivateMessage(const UserList& users, const unichar_t* message)
 	{
 	if (!users.empty() && message)
 		{
@@ -2825,7 +2824,7 @@ bool Session::SendPrivateMessage(const UserList& users, const wchar_t* message)
 		if (IsAnsiText(message))
 			{
 			char ansiMessage[512];
-			wcstombs(ansiMessage, message, sizeof(ansiMessage));
+			u_wstomb(ansiMessage, message, sizeof(ansiMessage));
 			return SUCCEEDED(mChat->RequestPrivateMessage(wolUsers, ansiMessage));
 			}
 
@@ -2865,7 +2864,7 @@ bool Session::SendPrivateAction(const UserList& users, const char* action)
 	}
 
 
-bool Session::SendPrivateAction(const UserList& users, const wchar_t* action)
+bool Session::SendPrivateAction(const UserList& users, const unichar_t* action)
 	{
 	if (!users.empty() && action)
 		{
@@ -2874,7 +2873,7 @@ bool Session::SendPrivateAction(const UserList& users, const wchar_t* action)
 		if (IsAnsiText(action))
 			{
 			char ansiAction[1024];
-			wcstombs(ansiAction, action, sizeof(ansiAction));
+			u_wstomb(ansiAction, action, sizeof(ansiAction));
 			return SUCCEEDED(mChat->RequestPrivateAction(wolUsers, ansiAction));
 			}
 
@@ -2949,13 +2948,13 @@ bool Session::SendPrivateGameOptions(const UserList& users, const char* options)
 	}
 
 
-bool Session::SendPrivateGameOptions(const wchar_t* user, const char* options)
+bool Session::SendPrivateGameOptions(const unichar_t* user, const char* options)
 	{
 	if (user && options)
 		{
 		WOL::User wolUser;
 		memset(&wolUser, 0, sizeof(WOL::User));
-		wcstombs((char*)wolUser.name, user, sizeof(wolUser.name));
+		u_wstomb((char*)wolUser.name, user, sizeof(wolUser.name));
 		wolUser.name[sizeof(wolUser.name) - 1] = 0;
 
 		return SUCCEEDED(mChat->RequestPrivateGameOptions(&wolUser, options));

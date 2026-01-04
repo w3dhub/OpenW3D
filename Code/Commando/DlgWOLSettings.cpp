@@ -552,7 +552,7 @@ void DlgWOLSettings::DeleteSelectedPersona(void)
 
 		if (sel >= 0)
 			{
-			const wchar_t* name = combo->Get_Text();
+			const unichar_t* name = combo->Get_Text();
 
 			// Delete this login from our local cache and purge it from disk.
 			RefPtr<LoginInfo> login = LoginInfo::Find(name);
@@ -854,7 +854,7 @@ void DlgWOLSettings::InitSideCombo(void)
 	if (combo)
 		{
 		//(gth) Renegade day 120 Patch: re-translate these strings each time!
-		struct {const wchar_t* TeamName; int TeamID;} _teams[] =
+		struct {const unichar_t* TeamName; int TeamID;} _teams[] =
 			{
 			{TRANSLATE (IDS_MENU_RANDOM), -1},
 			{TRANSLATE (IDS_MENU_TEXT933), 1},

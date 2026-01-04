@@ -101,8 +101,8 @@ class BitStreamClass : public cBitPacker
 		// Data will not be compressed.
 		// You may permit or disallow empty strings to be passed.
       //
-      void Add_Wide_Terminated_String(const wchar_t *string, bool permit_empty = false);
-		void Get_Wide_Terminated_String (wchar_t *buffer, uint16_t buffer_len, bool permit_empty = false);		
+      void Add_Wide_Terminated_String(const unichar_t *string, bool permit_empty = false);
+		void Get_Wide_Terminated_String (unichar_t *buffer, uint16_t buffer_len, bool permit_empty = false);		
 
 		//
 		// Bool is special-cased because we know that we can always 
@@ -124,7 +124,7 @@ class BitStreamClass : public cBitPacker
 		void		Add(int val,int type = NO_ENCODER)							{ Internal_Add(val,type); }
 		void		Add(float val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
 #if !defined _MSC_VER || _MSC_VER > 1200
-		void		Add(wchar_t val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
+		void		Add(unichar_t val,int type = NO_ENCODER)						{ Internal_Add(val,type); }
 #endif
 
 		uint8_t		Get(uint8_t & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
@@ -134,7 +134,7 @@ class BitStreamClass : public cBitPacker
 		int		Get(int & set_val,int type = NO_ENCODER)					{ return Internal_Get(set_val,type); }
 		float		Get(float & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
 #if !defined _MSC_VER || _MSC_VER > 1200
-		wchar_t	Get(wchar_t & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
+		unichar_t	Get(unichar_t & set_val,int type = NO_ENCODER)				{ return Internal_Get(set_val,type); }
 #endif
 
 	private:

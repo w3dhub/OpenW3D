@@ -184,7 +184,7 @@ void DlgQuickMatch::On_Init_Dialog(void)
 
 	if (output)
 		{
-		output->Add_Column(L"", 1.0F, Vector3 (1, 1, 1));
+		output->Add_Column(U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 		}
 
 	Connect();
@@ -358,7 +358,7 @@ void DlgQuickMatch::SendMatchingInfo(void)
 
 void DlgQuickMatch::OutputMessage(int messageID)
 	{
-	const wchar_t* message = TranslateDBClass::Get_String(messageID);
+	const unichar_t* message = TranslateDBClass::Get_String(messageID);
 	OutputMessage(message);
 	}
 
@@ -378,7 +378,7 @@ void DlgQuickMatch::OutputMessage(int messageID)
 *
 ******************************************************************************/
 
-void DlgQuickMatch::OutputMessage(const wchar_t* message)
+void DlgQuickMatch::OutputMessage(const unichar_t* message)
 	{
 	WWDEBUG_SAY(("QM: %S\n", message));
 
@@ -417,14 +417,14 @@ void DlgQuickMatch::OutputMessage(const wchar_t* message)
 void DlgQuickMatch::HandleNotification(QuickMatchEvent& status)
 	{
 	QuickMatchEvent::Event event = status.GetEvent();
-	const wchar_t* msg = (const wchar_t*)status.Subject();
+	const unichar_t* msg = (const unichar_t*)status.Subject();
 
 	if (QuickMatchEvent::QMERROR == event)
 		{
 		const WideStringClass& statusMsg = status.Subject();
 
 		// If no match then resend the request in 10 seconds.
-		if (statusMsg.Compare_No_Case(L"QM:NoMatch") == 0)
+		if (statusMsg.Compare_No_Case(U_CHAR("QM:NoMatch")) == 0)
 			{
 			msg = TRANSLATE(IDS_QM_NOMATCH);
 			}
@@ -432,7 +432,7 @@ void DlgQuickMatch::HandleNotification(QuickMatchEvent& status)
 			{
 			#ifdef QUICKMATCH_OPTIONS
 			// Unable to match user because preferred modes are all zero.
-			if (statusMsg.Compare_No_Case(L"QM:NoModes") == 0)
+			if (statusMsg.Compare_No_Case(U_CHAR("QM:NoModes")) == 0)
 				{
 				DlgMsgBox::DoDialog(TRANSLATE (IDS_MENU_INVALID_QM_SETTINGS_TITLE), TRANSLATE (IDS_MENU_INVALID_QM_SETTINGS),
 						DlgMsgBox::Okay, this);
@@ -447,8 +447,8 @@ void DlgQuickMatch::HandleNotification(QuickMatchEvent& status)
 		GameInitMgrClass::Set_WOL_Return_Dialog(RenegadeDialogMgrClass::LOC_INTERNET_MAIN);
 
 		// Join the game
-		const wchar_t* gameName = (const wchar_t*)status.Subject();
-		WOLJoinGame::JoinTheGame(gameName, L"", false);
+		const unichar_t* gameName = (const unichar_t*)status.Subject();
+		WOLJoinGame::JoinTheGame(gameName, U_CHAR(""), false);
 		return;
 		}
 

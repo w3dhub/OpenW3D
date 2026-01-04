@@ -68,7 +68,7 @@ PreviewOptionsMenuClass::On_Init_Dialog (void)
 		//
 		//	Configure the list control
 		//
-		list_ctrl->Add_Column (L"Preview Title", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column (U_CHAR("Preview Title"), 1.0F, Vector3 (1, 1, 1));
 	}
 
 

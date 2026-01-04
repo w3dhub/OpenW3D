@@ -91,12 +91,12 @@ class WOLLogonMgr :
 		WOLLogonMgr(const WOLLogonMgr&);
 		const WOLLogonMgr& operator=(const WOLLogonMgr&);
 
-		RefPtr<WWOnline::IRCServerData> GetPreferredServer(const wchar_t* loginname);
+		RefPtr<WWOnline::IRCServerData> GetPreferredServer(const unichar_t* loginname);
 
 		// Check if the user is connected to a server.
-		bool IsConnectedToServer(const wchar_t* loginname, RefPtr<WWOnline::IRCServerData>& server);
-		bool IsUserLoggedIn(const wchar_t* loginname);
-		bool IsAutoLogin(const wchar_t* loginname);
+		bool IsConnectedToServer(const unichar_t* loginname, RefPtr<WWOnline::IRCServerData>& server);
+		bool IsUserLoggedIn(const unichar_t* loginname);
+		bool IsAutoLogin(const unichar_t* loginname);
 
 		bool HasServerList(void);
 		bool HasValidPings(void);

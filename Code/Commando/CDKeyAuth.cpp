@@ -36,7 +36,7 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <wchar.h>
+#include "unichar.h"
 #include <gamespy/gcdkey/gcdkeys.h>
 #include <gamespy/gcdkey/gcdkeyc.h>
 #include <gamespy/nonport.h>

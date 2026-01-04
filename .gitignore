@@ -58,4 +58,5 @@ IDL_*.loc
 /.cache
 .clang-format
 /.vscode
+/.vs
 /build*

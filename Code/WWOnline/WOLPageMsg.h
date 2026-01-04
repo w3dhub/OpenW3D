@@ -45,7 +45,7 @@ class PageMessage
 	{
 	public:
 		PageMessage(const char* pagersName, const char* message);
-		PageMessage(const wchar_t* pagersName, const wchar_t* message);
+		PageMessage(const unichar_t* pagersName, const unichar_t* message);
 		PageMessage(const PageMessage&);
 		virtual ~PageMessage();
 

@@ -296,49 +296,49 @@ void	RegistryClass::Deleta_All_Values( void )
 }
 
 
-void	RegistryClass::Get_String( const wchar_t * name, WideStringClass &string, const wchar_t *default_string )
-{
-	assert( IsValid );
-	string = (default_string == NULL) ? L"" : default_string;
-
-	//
-	//	Get the size of the entry
-	//
-	DWORD data_size = 0;
-	DWORD type = 0;
-	LONG result = ::RegQueryValueExW ((HKEY)Key, name, NULL, &type, NULL, &data_size);
-	if (result == ERROR_SUCCESS && type == REG_SZ) {
-
-		//
-		//	Read the entry from the registry
-		//
-		::RegQueryValueExW ((HKEY)Key, name, NULL, &type,
-			(LPBYTE)string.Get_Buffer ((data_size / 2) + 1), &data_size);
-	}
-
-	return ;
-}
-
-
-void	RegistryClass::Set_String( const wchar_t * name, const wchar_t *value )
-{
-	assert( IsValid );
-
-	//
-	//	Determine the size
-	//
-	const size_t size = (::wcslen( value ) + 1) * sizeof(wchar_t);
-
-	//
-	//	Set the registry key
-	//
-	if (IsLocked) {
-		return;
-	}
-	WWASSERT(size <= std::numeric_limits<DWORD>::max());
-	::RegSetValueExW ( (HKEY)Key, name, 0, REG_SZ, (LPBYTE)value, static_cast<DWORD>(size) );
-	return ;
-}
+//void	RegistryClass::Get_String( const unichar_t * name, WideStringClass &string, const unichar_t *default_string )
+//{
+//	assert( IsValid );
+//	string = (default_string == NULL) ? U_CHAR("") : default_string;
+//
+//	//
+//	//	Get the size of the entry
+//	//
+//	DWORD data_size = 0;
+//	DWORD type = 0;
+//	LONG result = ::RegQueryValueExW ((HKEY)Key, reinterpret_cast<LPCWSTR>(name), NULL, &type, NULL, &data_size);
+//	if (result == ERROR_SUCCESS && type == REG_SZ) {
+//
+//		//
+//		//	Read the entry from the registry
+//		//
+//		::RegQueryValueExW ((HKEY)Key, reinterpret_cast<LPCWSTR>(name), NULL, &type,
+//			(LPBYTE)string.Get_Buffer ((data_size / 2) + 1), &data_size);
+//	}
+//
+//	return ;
+//}
+//
+//
+//void	RegistryClass::Set_String( const unichar_t * name, const unichar_t *value )
+//{
+//	assert( IsValid );
+//
+//	//
+//	//	Determine the size
+//	//
+//	const size_t size = (::u_strlen( value ) + 1) * sizeof(unichar_t);
+//
+//	//
+//	//	Set the registry key
+//	//
+//	if (IsLocked) {
+//		return;
+//	}
+//	WWASSERT(size <= std::numeric_limits<DWORD>::max());
+//	::RegSetValueExW ( (HKEY)Key, reinterpret_cast<LPCWSTR>(name), 0, REG_SZ, (LPBYTE)value, static_cast<DWORD>(size) );
+//	return ;
+//}
 
 
 

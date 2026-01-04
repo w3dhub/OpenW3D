@@ -169,7 +169,7 @@ cGameOptionsEvent::Import_Creation(BitStreamClass & packet)
 				act = false;
 			}
 			WideStringClass tval;
-			tval.Format(L"%s  %s", TRANSLATE(IDS_MP_CONNECTION_REFUSED_BY_APPLICATION), 
+			tval.Format(U_CHAR("%s  %s"), TRANSLATE(IDS_MP_CONNECTION_REFUSED_BY_APPLICATION), 
 				TRANSLATE(IDS_MENU_MISSING_MAP));
 			DlgMPConnectionRefused::DoDialog(tval, false);
 		}

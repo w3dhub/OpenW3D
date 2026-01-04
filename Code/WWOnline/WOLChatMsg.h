@@ -51,8 +51,8 @@ class ChatMessage
 	{
 	public:
 		ChatMessage(const WOL::User* sender, const char* message, bool isPrivate, bool isAction);
-		ChatMessage(const WOL::User* sender, const wchar_t* message, bool isPrivate, bool isAction);
-		ChatMessage(const wchar_t* sender, const wchar_t* message, bool isPrivate, bool isAction);
+		ChatMessage(const WOL::User* sender, const unichar_t* message, bool isPrivate, bool isAction);
+		ChatMessage(const unichar_t* sender, const unichar_t* message, bool isPrivate, bool isAction);
 		ChatMessage(const ChatMessage&);
 		virtual ~ChatMessage();
 
@@ -86,7 +86,7 @@ class ChatMessage
 
 typedef std::vector<ChatMessage> ChatMessageList;
 
-bool IsAnsiText(const wchar_t* text);
+bool IsAnsiText(const unichar_t* text);
 
 } // namespace WWOnline
 

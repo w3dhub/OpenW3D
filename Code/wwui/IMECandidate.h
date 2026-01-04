@@ -37,6 +37,7 @@
 
 #include "Notify.h"
 #include "win.h"
+#include "unichar.h"
 #include <imm.h>
 #include <vector>
 
@@ -74,7 +75,7 @@ class IMECandidate
 		unsigned int GetSelection(void) const;
 
 		// Get the specified candidate string
-		const wchar_t* GetCandidate(unsigned int index);
+		const unichar_t* GetCandidate(unsigned int index);
 
 		// Select a candidate from the list.
 		void SelectCandidate(unsigned int index);

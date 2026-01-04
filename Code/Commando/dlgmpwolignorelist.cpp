@@ -82,7 +82,7 @@ MPWolIgnoreListPopupClass::On_Init_Dialog (void)
 
 	if (list_ctrl != NULL) {
 		//	Configure the columns
-		list_ctrl->Add_Column(L"", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column(U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 
 		//	Populate the list
 		Refresh_List ();

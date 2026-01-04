@@ -346,7 +346,7 @@ void	CombatManager::Pre_Load_Level( bool render_available )
 	ScreenFadeManager::Enable_Letterbox( 0, 0 );
 	ScreenFadeManager::Set_Screen_Overlay_Opacity( 0, 0 );
 
-	HUDInfo::Set_HUD_Help_Text( L"" );	// Clear text
+	HUDInfo::Set_HUD_Help_Text( U_CHAR("") );	// Clear text
 }
 
 bool	_preload_assets;

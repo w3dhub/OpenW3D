@@ -195,7 +195,7 @@ cGameSpyAuthMgr::Initiate_Auth_Rejection
 	if (p_player != NULL) 
 	{
 		cScTextObj * p_message = new cScTextObj;
-		//p_message->Init(L"CD Authentication failed. Please quit.", TEXT_MESSAGE_PRIVATE, true, HOST_TEXT_SENDER, player_id);
+		//p_message->Init(U_CHAR("CD Authentication failed. Please quit."), TEXT_MESSAGE_PRIVATE, true, HOST_TEXT_SENDER, player_id);
 		p_message->Init(TRANSLATE(IDS_MP_CD_AUTH_FAILED), TEXT_MESSAGE_PRIVATE, true, HOST_TEXT_SENDER, player_id);
 
 		p_player->Set_GameSpy_Auth_State(GAMESPY_AUTH_STATE_REJECTING);

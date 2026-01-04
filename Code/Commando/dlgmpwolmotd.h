@@ -73,7 +73,7 @@ public:
 	//
 	//	Message support
 	//
-	void			Set_Message (const wchar_t *message)	{ Message = message; }
+	void			Set_Message (const unichar_t *message)	{ Message = message; }
 	
 private:
 

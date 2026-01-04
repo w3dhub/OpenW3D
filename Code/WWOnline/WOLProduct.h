@@ -77,21 +77,21 @@ class Product :
 		int GetGameCode(void) const
 			{return mGameCode;}
 
-		const wchar_t* GetChannelPassword(void) const
+		const unichar_t* GetChannelPassword(void) const
 			{return mChannelPassword;}
 
 		class Initializer
 			{
 			public:
-				Initializer(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned int ladderSKU);
+				Initializer(const char* registryPath, int gameCode, const unichar_t* chanPass, unsigned int ladderSKU);
 				~Initializer();
 			};
 
 	private:
 		friend class Initializer;
-		static RefPtr<Product> Create(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned int ladderSKU);
+		static RefPtr<Product> Create(const char* registryPath, int gameCode, const unichar_t* chanPass, unsigned int ladderSKU);
 
-		Product(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned int ladderSKU);
+		Product(const char* registryPath, int gameCode, const unichar_t* chanPass, unsigned int ladderSKU);
 
 		StringClass mRegistryPath;
 		unsigned int mProductSKU;

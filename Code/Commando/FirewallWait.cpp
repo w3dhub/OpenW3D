@@ -234,8 +234,8 @@ WaitCondition::WaitResult FirewallConnectWait::GetResult(void)
 				// Maybe change the wait text if there are players queued in front of us.
 				if (mQueueCount != mLastQueueCount)
 					{
-					wchar_t temp[256];
-					swprintf(temp, sizeof(temp), TRANSLATION(IDS_FIREWALL_QUEUE_NOTIFICATION), mQueueCount);
+					unichar_t temp[256];
+					u_snprintf_u(temp, sizeof(temp), TRANSLATION(IDS_FIREWALL_QUEUE_NOTIFICATION), mQueueCount);
 					WideStringClass text(temp, true);
 					SetWaitText(text);
 					mLastQueueCount = mQueueCount;
@@ -281,7 +281,7 @@ WaitCondition::WaitResult FirewallConnectWait::GetResult(void)
 //
 // Override base class end wait to check for cancel being pressed.
 //
-void FirewallConnectWait::EndWait(WaitResult result, const wchar_t* endText)
+void FirewallConnectWait::EndWait(WaitResult result, const unichar_t* endText)
 	{
 	WWDEBUG_SAY(("FirewallConnectWait: EndWait\n"));
 

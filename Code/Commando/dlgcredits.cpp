@@ -82,7 +82,7 @@ CreditsMenuClass::On_Init_Dialog (void)
 			//	strip off any carriage-returns
 			//
 			WideStringClass wide_text;
-			wchar_t *buffer		= wide_text.Get_Buffer (size + 1);
+			unichar_t *buffer		= wide_text.Get_Buffer (size + 1);
 			size_t dest_index		= 0;
 
 			size_t len = ascii_text.Get_Length ();

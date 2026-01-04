@@ -99,7 +99,7 @@ public:
 	static IME::IMEManager* Get_IME(void)
 		{return Input->GetIME();}
 
-	static void Show_IME_Message(const wchar_t* message, uint32 duration);
+	static void Show_IME_Message(const unichar_t* message, uint32 duration);
 
 	//
 	//	Keyboard Input

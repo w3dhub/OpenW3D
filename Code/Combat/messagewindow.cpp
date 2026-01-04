@@ -159,7 +159,7 @@ MessageWindowClass::Initialize (void)
 	//
 	//	Configure the columns
 	//
-	TextWindow->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
+	TextWindow->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 	TextWindow->Display_Columns (false);
 
 	//
