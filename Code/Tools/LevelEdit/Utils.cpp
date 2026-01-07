@@ -1016,7 +1016,7 @@ Browse_For_Folder
 		
 		// Convert the 'PIDL' into a string
 		char path[MAX_PATH];
-		retval = (::SHGetPathFromIDList (pidl, path) == true);
+		retval = (::SHGetPathFromIDList (pidl, path) != 0);
 		if (retval) {
 			folder = path;
 		}
@@ -1587,7 +1587,7 @@ Copy_File
 
 		// Perform the copy operation!
 		if (allow_copy) {
-			retval = (::CopyFile (existing_filename, new_filename, false) == true);
+			retval = (::CopyFile (existing_filename, new_filename, false) != 0);
 		}
 	}
 
@@ -1685,7 +1685,7 @@ Get_File_Time
 	if (hfile != INVALID_HANDLE_VALUE) {
 
 		// Get the mod times for this file
-		retval = (::GetFileTime (hfile, pcreation_time, paccess_time, pwrite_time) == true);
+		retval = (::GetFileTime (hfile, pcreation_time, paccess_time, pwrite_time) != 0);
 
 		// Close the file
 		SAFE_CLOSE (hfile);

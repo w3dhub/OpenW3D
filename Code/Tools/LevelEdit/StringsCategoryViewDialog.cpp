@@ -446,7 +446,7 @@ StringEntrySortCompareFn (LPARAM param1, LPARAM param2, LPARAM sort_info)
 	TDBObjClass *object2	= (TDBObjClass *)param2;
 
 	LONG column_id = LOWORD (sort_info);
-	BOOL ascending	= HIWORD (sort_info);
+	bool ascending	= HIWORD (sort_info) != 0;
 
 	if (object1 != NULL && object2 != NULL) {
 		
@@ -463,7 +463,7 @@ StringEntrySortCompareFn (LPARAM param1, LPARAM param2, LPARAM sort_info)
 	//
 	//	Invert the sort if necessary
 	//
-	if (ascending != true) {
+	if (!ascending) {
 		retval = -retval;
 	}
 

@@ -114,7 +114,7 @@ public:
 	//
 	// User information
 	//
-	BOOL				Is_Read_Only (void) const	{ return false; }
+	bool				Is_Read_Only (void) const	{ return false; }
 
 	//
 	//	Misc information
