@@ -1374,15 +1374,7 @@ uintptr_t DataSafeClass<T>::Get_Type_Code(void)
 	*/
 	static uintptr_t instruction_pointer;
 	instruction_pointer = 0;
-#if defined(_MSC_VER) && defined(_M_IX86)
-	__asm {
-here:
-		lea	eax,here
-		mov	[instruction_pointer],eax
-	};
-#else
 	instruction_pointer = reinterpret_cast<uintptr_t>(DataSafeClass<T>::Get_Type_Code);
-#endif
 
 	ds_assert(instruction_pointer != 0);
 
