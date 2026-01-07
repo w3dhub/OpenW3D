@@ -533,7 +533,9 @@ bool IntersectionClass::Intersect_Screen_Object(	IntersectionResultClass *Final_
 											Vector4 &Area, 
 											RenderObjClass *obj)
 {
-	if(Final_Result->Intersects =  ((ScreenX >= Area[0]) && (ScreenX <= Area[2]) && (ScreenY >= Area[1]) && (ScreenY <= Area[3]))) {
+	Final_Result->Intersects = ((ScreenX >= Area[0]) && (ScreenX <= Area[2]) && (ScreenY >= Area[1]) && (ScreenY <= Area[3]));
+
+	if(Final_Result->Intersects) {
 		Final_Result->IntersectionType = IntersectionResultClass::GENERIC;
 		Final_Result->IntersectedRenderObject = obj;
 		Final_Result->Range = 0;
