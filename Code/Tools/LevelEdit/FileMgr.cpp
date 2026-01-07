@@ -780,7 +780,7 @@ FileMgrClass::Initialize_VSS
 																		  username ? username : "User",
 																		  password ? password : "");
 		
-		m_bReadOnlyVSS = (m_DatabaseInterface->Is_Read_Only () == true);
+		m_bReadOnlyVSS = (m_DatabaseInterface->Is_Read_Only ());
 
 		//
 		//	Is this a special user?  A special user is someone who doesn't

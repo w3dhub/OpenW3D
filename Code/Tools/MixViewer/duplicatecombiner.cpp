@@ -551,9 +551,9 @@ DuplicateRemoverClass::Delete_File (LPCTSTR filename)
 		if ((attributes != 0xFFFFFFFF) &&
 			 ((attributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY))
 		{
-			retval = (::RemoveDirectory (filename) == true);
+			retval = (::RemoveDirectory (filename) != 0);
 		} else {
-			retval = (::DeleteFile (filename) == true);
+			retval = (::DeleteFile (filename) != 0);
 		}
 	}
 

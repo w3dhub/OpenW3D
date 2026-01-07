@@ -97,19 +97,19 @@ PickerClass::Create_Picker
 	//
 	//	Create the outer window
 	//
-	BOOL success = CreateEx (	WS_EX_CLIENTEDGE,
+	bool success = CreateEx (	WS_EX_CLIENTEDGE,
 									  "STATIC",
 									  "",
 									  (style | SS_WHITERECT | WS_CLIPCHILDREN) & (~WS_BORDER),
 									  rect,
 									  parent,
-									  id);
+									  id) != 0;
 	if (success) {
 		Initialize_Control ();
 	}
 
 	// Return the true/false result code
-	return bool(success == true);
+	return success;
 }
 
 
