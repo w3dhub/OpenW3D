@@ -188,8 +188,8 @@ public:
 	//
 	//	Control text access
 	//
-	const wchar_t *			Get_Dlg_Item_Text (int id) const;
-	void						Set_Dlg_Item_Text (int id, const wchar_t *text);
+	const unichar_t *			Get_Dlg_Item_Text (int id) const;
+	void						Set_Dlg_Item_Text (int id, const unichar_t *text);
 
 	int						Get_Dlg_Item_Int (int id) const;
 	void						Set_Dlg_Item_Int (int id, int value);
@@ -213,7 +213,7 @@ public:
 	//	Title access
 	//
 	void						Get_Title (WideStringClass *title)	{ *title = Title; }
-	void						Set_Title (const wchar_t *title)		{ Title = title; }
+	void						Set_Title (const unichar_t *title)		{ Title = title; }
 
 	//
 	//	Activation access

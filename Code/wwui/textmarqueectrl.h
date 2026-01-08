@@ -69,7 +69,7 @@ public:
 	//	Inherited
 	//
 	void				Render (void) override;
-	void				Set_Text (const wchar_t *title) override;
+	void				Set_Text (const unichar_t *title) override;
 
 	//
 	//	Configuration
@@ -87,7 +87,7 @@ protected:
 		_CREDIT_LINE (void)	:
 			FontIndex (0), Color (0), Height (0)	{}
 
-		_CREDIT_LINE (const wchar_t *text, int font_index, int color)	:
+		_CREDIT_LINE (const unichar_t *text, int font_index, int color)	:
 			Text (text), FontIndex (font_index), Color (color)	{}
 
 		bool operator== (const _CREDIT_LINE &src)	{ return false; }
@@ -110,8 +110,8 @@ protected:
 	void				Create_Text_Renderer (void);
 	void				Calculate_Row_Count (void);
 
-	int				Read_Tag (const wchar_t *text, CREDIT_LINE &line);
-	const wchar_t *	Read_Line (const wchar_t *text, CREDIT_LINE &line);
+	int				Read_Tag (const unichar_t *text, CREDIT_LINE &line);
+	const unichar_t *	Read_Line (const unichar_t *text, CREDIT_LINE &line);
 	void				Build_Credit_Lines (void);
 
 	///////////////////////////////////////////////////////////////////

@@ -117,9 +117,9 @@ class	cGameData :
 
 		static cGameData * Create_Game_Of_Type(GameTypeEnum game_type);
 
-		void				Set_Game_Title(const wchar_t *title)		{ GameTitle = title; }
-		void				Set_Motd(const wchar_t * motd);
-		void				Set_Password(const wchar_t *password)		{ Password = password;}
+		void				Set_Game_Title(const unichar_t *title)		{ GameTitle = title; }
+		void				Set_Motd(const unichar_t * motd);
+		void				Set_Password(const unichar_t *password)		{ Password = password;}
 		void				Set_Map_Name(const StringClass & map_name);
 		void				Set_Mod_Name(const StringClass & mod_name);
 		void				Set_Map_Cycle(int map, const StringClass & map_name);
@@ -145,9 +145,9 @@ class	cGameData :
 		bool Is_Clan_Competing(unsigned int clanID) const;
 		bool Is_Clan_Game_Open(void) const;
 
-		const wchar_t *	Get_Game_Title(void)					const	{return GameTitle;}
-		const wchar_t *	Get_Motd(void)							const	{return Motd;}
-		const wchar_t *	Get_Password(void)					const	{return Password;}
+		const unichar_t *	Get_Game_Title(void)					const	{return GameTitle;}
+		const unichar_t *	Get_Motd(void)							const	{return Motd;}
+		const unichar_t *	Get_Password(void)					const	{return Password;}
 		const StringClass& Get_Mod_Name()					const	{return ModName;}
 		const StringClass& Get_Map_Name()					const	{return MapName;}
 		const StringClass& Get_Map_Cycle(int map);
@@ -162,7 +162,7 @@ class	cGameData :
 		int				Get_Port(void)							const	{return Port;}
 		RadarModeEnum	Get_Radar_Mode(void)					const	{return RadarMode;}
 
-		virtual const wchar_t* Get_Game_Name(void)			const	= 0;
+		virtual const unichar_t* Get_Game_Name(void)			const	= 0;
 		virtual GameTypeEnum	Get_Game_Type(void)			const	= 0;
 		const char *	Get_Game_Type_Name(void) const;
 		virtual int		Choose_Player_Type(cPlayer* player, int team_choice, bool is_grunt);

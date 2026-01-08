@@ -77,7 +77,7 @@ typedef enum
 typedef TypedActionPtr<CompositionAction, IMEManager> CompositionEvent;
 
 class UnicodeType;
-typedef TypedEvent<UnicodeType, wchar_t> UnicodeChar;
+typedef TypedEvent<UnicodeType, unichar_t> UnicodeChar;
 
 class IMEManager :
 		public RefCountClass,
@@ -97,7 +97,7 @@ class IMEManager :
 		void Enable(void);
 		bool IsDisabled(void) const;
 
-		const wchar_t* GetDescription(void) const
+		const unichar_t* GetDescription(void) const
 			{return mIMEDescription;}
 
 		WORD GetLanguageID(void) const
@@ -106,20 +106,20 @@ class IMEManager :
 		UINT GetCodePage(void) const
 			{return mCodePage;}
 
-		const wchar_t* GetResultString(void) const
+		const unichar_t* GetResultString(void) const
 			{return mResultString;}
 
-		const wchar_t* GetCompositionString(void) const
+		const unichar_t* GetCompositionString(void) const
 			{return mCompositionString;}
 
 		int GetCompositionCursorPos(void) const
 			{return mCompositionCursorPos;}
 
-		const wchar_t* GetReadingString(void) const
+		const unichar_t* GetReadingString(void) const
 			{return mReadingString;}
 
 		#ifdef SHOW_IME_TYPING
-		const wchar_t* GetTypingString(void) const
+		const unichar_t* GetTypingString(void) const
 			{return mTypingString;}
 		#endif
 
@@ -130,7 +130,7 @@ class IMEManager :
 		const IMECandidateCollection GetCandidateColl(void) const
 			{return mCandidateColl;}
 
-		unsigned int GetGuideline(wchar_t* outString, int length);
+		unsigned int GetGuideline(unichar_t* outString, int length);
 
 		bool ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LRESULT& result);
 
@@ -150,7 +150,7 @@ class IMEManager :
 		void DoComposition(unsigned int dbcsChar, int changeFlag);
 		void EndComposition(void);
 
-		bool ReadCompositionString(HIMC imc, unsigned int flag, wchar_t* buffer, int length);
+		bool ReadCompositionString(HIMC imc, unsigned int flag, unichar_t* buffer, int length);
 		int ReadReadingAttr(HIMC imc, unsigned char* attr, int length);
 		int ReadReadingClause(HIMC imc, unsigned int* clause, int length);
 		int ReadCompositionAttr(HIMC imc, unsigned char* attr, int length);
@@ -196,18 +196,18 @@ class IMEManager :
 		bool mInComposition;
 
 		#ifdef SHOW_IME_TYPING
-		wchar_t mTypingString[IME_MAX_TYPING_LEN];
+		unichar_t mTypingString[IME_MAX_TYPING_LEN];
 		int mTypingCursorPos;
 		#endif
 		
-		wchar_t mCompositionString[IME_MAX_STRING_LEN];
+		unichar_t mCompositionString[IME_MAX_STRING_LEN];
 		unsigned char mCompositionAttr[IME_MAX_STRING_LEN];
 		unsigned int mCompositionClause[IME_MAX_STRING_LEN / 2];
 
 		int mCompositionCursorPos;
 
-		wchar_t mReadingString[IME_MAX_STRING_LEN * 2];
-		wchar_t mResultString[IME_MAX_STRING_LEN];
+		unichar_t mReadingString[IME_MAX_STRING_LEN * 2];
+		unichar_t mResultString[IME_MAX_STRING_LEN];
 
 		IMECandidateCollection mCandidateColl;
 	};

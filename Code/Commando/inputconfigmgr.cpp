@@ -195,7 +195,7 @@ InputConfigMgrClass::Save_Current_Configuration (void)
 //
 ////////////////////////////////////////////////////////////////
 int
-InputConfigMgrClass::Add_Configuration (const wchar_t *display_name)
+InputConfigMgrClass::Add_Configuration (const unichar_t *display_name)
 {
 	//
 	//	Get a filename for the configuration

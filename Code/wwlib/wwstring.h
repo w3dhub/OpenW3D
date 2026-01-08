@@ -42,6 +42,7 @@
 #define __WWSTRING_H
 
 #include "always.h"
+#include "unichar.h"
 #include "mutex.h"
 #include "win.h"
 #include <string.h>
@@ -101,7 +102,7 @@ public:
 	StringClass (const StringClass &string, bool hint_temporary = false);
 	StringClass (const char *string, bool hint_temporary = false);
 	StringClass (char ch, bool hint_temporary = false);
-	StringClass (const wchar_t *string, bool hint_temporary = false);
+	StringClass (const unichar_t *string, bool hint_temporary = false);
 	StringClass(int initial_len, bool hint_temporary = false)
 		: StringClass(static_cast<size_t>(initial_len), hint_temporary) {
 	}
@@ -117,7 +118,7 @@ public:
 	inline const StringClass &operator= (const StringClass &string);
 	inline const StringClass &operator= (const char *string);
 	inline const StringClass &operator= (char ch);
-	inline const StringClass &operator= (const wchar_t *string);
+	inline const StringClass &operator= (const unichar_t *string);
 
 	const StringClass &operator+= (const StringClass &string);
 	const StringClass &operator+= (const char *string);
@@ -156,7 +157,7 @@ public:
 	char *		Peek_Buffer (void);
 	const char * Peek_Buffer (void) const;
 
-	bool Copy_Wide (const wchar_t *source);
+	bool Copy_Wide (const unichar_t *source);
 
     void To_Lower();
     void To_Upper();
@@ -260,7 +261,7 @@ StringClass::operator= (const char *string)
 //	operator=
 ///////////////////////////////////////////////////////////////////
 inline const StringClass &
-StringClass::operator= (const wchar_t *string)
+StringClass::operator= (const unichar_t *string)
 {
 	if (string != 0) {
 		Copy_Wide (string);
@@ -358,10 +359,10 @@ StringClass::StringClass (const char *string, bool hint_temporary)
 //	StringClass
 ///////////////////////////////////////////////////////////////////
 inline
-StringClass::StringClass (const wchar_t *string, bool hint_temporary)
+StringClass::StringClass (const unichar_t *string, bool hint_temporary)
 	:	m_Buffer (m_EmptyString)
 {
-	size_t len = string ? wcslen (string) : 0;
+	size_t len = string ? u_strlen (string) : 0;
 	if (hint_temporary || len > 0) {
 		Get_String (len + 1, hint_temporary);
 	}

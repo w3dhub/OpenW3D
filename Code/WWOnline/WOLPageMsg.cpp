@@ -82,7 +82,7 @@ PageMessage::PageMessage(const char* pagersName, const char* message) :
 *
 ******************************************************************************/
 
-PageMessage::PageMessage(const wchar_t* pagersName, const wchar_t* message) :
+PageMessage::PageMessage(const unichar_t* pagersName, const unichar_t* message) :
 		mPager(pagersName),
 		mMessage(message)
 	{

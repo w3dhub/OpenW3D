@@ -80,11 +80,11 @@ MPWolMOTDDialogClass::On_Init_Dialog (void)
 		//
 		//	Configure the column
 		//
-		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 
 		WideStringClass temp_copy (Message, true);
-		wchar_t *message			= temp_copy.Peek_Buffer ();
-		wchar_t *entry_text		= message;
+		unichar_t *message			= temp_copy.Peek_Buffer ();
+		unichar_t *entry_text		= message;
 
 		//
 		//	Keep going until we run out of text
@@ -94,12 +94,12 @@ MPWolMOTDDialogClass::On_Init_Dialog (void)
 			//
 			//	Do we need to insert a new entry into the control?
 			//
-			if (message[0] == L'\r' && message[1] == L'\n') {
+			if (message[0] == U_CHAR('\r') && message[1] == U_CHAR('\n')) {
 				message[0] = 0;			
 				list_ctrl->Insert_Entry (0xFFFF, entry_text);			
 				message ++;
 				entry_text = message + 1;
-			} else if (message[0] == L'\n') {
+			} else if (message[0] == U_CHAR('\n')) {
 				message[0] = 0;			
 				list_ctrl->Insert_Entry (0xFFFF, entry_text);
 				entry_text = message + 1;

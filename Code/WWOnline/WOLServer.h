@@ -235,7 +235,7 @@ class ServerError
 		inline int GetErrorCode(void)
 			{return mCode;}
 
-		inline const wchar_t* GetDescription(void) const
+		inline const unichar_t* GetDescription(void) const
 	 		{return WOLSTRING(mDescription);}
 
 		inline unsigned int GetData(void) const

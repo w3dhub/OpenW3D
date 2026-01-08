@@ -84,13 +84,13 @@ public:
 	//	Accessors
 	//
 	const Vector3 &	Get_Position (void) const				{ return Position; }
-	const wchar_t *		Get_Name (void) const					{ return Name; }
+	const unichar_t *		Get_Name (void) const					{ return Name; }
 	const RectClass &	Get_Rect (void) const					{ return UVRect; }
 	uintptr_t				Get_User_Data (void)	const				{ return UserData; }
 	uint32				Get_Color (void) const					{ return Color; }
 	
 	void					Set_Position (const Vector3 &pos)	{ Position = pos; }
-	void					Set_Name (const wchar_t *name)			{ Name = name; }
+	void					Set_Name (const unichar_t *name)			{ Name = name; }
 	void					Set_Rect (const RectClass &rect)		{ UVRect = rect; }
 	void					Set_User_Data (uintptr_t data)			{ UserData = data; }
 	void					Set_Color (uint32 color)				{ Color = color; }
@@ -161,7 +161,7 @@ public:
 	//
 	//	Marker control
 	//
-	int				Add_Marker (const wchar_t *name, const Vector3 &pos, const RectClass &uv_rect, int color = 0xFFFFFFFF);
+	int				Add_Marker (const unichar_t *name, const Vector3 &pos, const RectClass &uv_rect, int color = 0xFFFFFFFF);
 	uintptr_t			Get_Marker_Data (int index);
 	void				Set_Marker_Data (int index, uintptr_t user_data);
 	void				Remove_Marker (int index);

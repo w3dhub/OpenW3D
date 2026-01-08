@@ -396,17 +396,17 @@ void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, int timeStamp)
 		while (wolLadder)
 			{
 			// Get the name of the user we requested information for.
-			const wchar_t* requestName = wcschr(*request, L':');
+			const unichar_t* requestName = u_strchr(*request, U_CHAR(':'));
 			WWASSERT(requestName != NULL && "Invalid ladder request");
 			requestName++;
 
-			wchar_t ladderName[64];
-			mbstowcs(ladderName, (const char*)wolLadder->login_name, sizeof(wolLadder->login_name));
+			unichar_t ladderName[64];
+			u_mbtows(ladderName, (const char*)wolLadder->login_name, sizeof(wolLadder->login_name));
 
 			WWDEBUG_SAY(("WOL: LadderInfo [%08lX] Requested '%S', Received '%S'\n", type, requestName, ladderName));
 
 			// If the ladder name matches the requested name then there is ladder info available.
-			bool hasLadderData = (wcsicmp(requestName, ladderName) == 0);
+			bool hasLadderData = (u_strcasecmp(requestName, ladderName, U_COMPARE_CODE_POINT_ORDER) == 0);
 
 			if (type == LadderType_Clan)
 				{

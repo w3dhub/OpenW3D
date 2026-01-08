@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "unichar.h"
 #include <cstdlib>
 
 enum DialogResourceControlType {
@@ -49,7 +50,7 @@ typedef struct DialogResourceControl {
     int cy;
     int id;
     int style;
-    const wchar_t *text;
+    const unichar_t *text;
 } DialogResourceControl;
 
 typedef struct DialogResource {
@@ -58,7 +59,7 @@ typedef struct DialogResource {
     int y;
     int cx;
     int cy;
-    const wchar_t *caption;
+    const unichar_t *caption;
     const DialogResourceControl *controls;
     size_t count_controls;
 } DialogResource;

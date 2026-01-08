@@ -411,7 +411,7 @@ ListCtrlClass::Render_Entry (const RectClass &clip_rect, int col_index, int row_
 	//
 	//	Get the text
 	//
-	const wchar_t *text = ColList[col_index]->Get_Entry_Text (row_index);
+	const unichar_t *text = ColList[col_index]->Get_Entry_Text (row_index);
 	int text_color		= VRGB_TO_INT32 (ColList[col_index]->Get_Entry_Color (row_index));
 				
 	//
@@ -497,16 +497,10 @@ ListCtrlClass::Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1,
 	//
 	//	Sort by name
 	//
-	const wchar_t *name1 = list_ctrl->Get_Entry_Text (item_index1, sort_col_index);
-	const wchar_t *name2 = list_ctrl->Get_Entry_Text (item_index2, sort_col_index);
+	const unichar_t *name1 = list_ctrl->Get_Entry_Text (item_index1, sort_col_index);
+	const unichar_t *name2 = list_ctrl->Get_Entry_Text (item_index2, sort_col_index);
 
-	int retval = ::CompareStringW (LOCALE_USER_DEFAULT, NORM_IGNORECASE, name1, -1, name2, -1);
-
-	if (retval == 0) {
-		retval = wcsicmp(name1, name2);
-	} else {
-		retval -= 2;
-	}
+	int retval = u_strcasecmp(name1, name2, U_COMPARE_CODE_POINT_ORDER);
 
 	//
 	//	Invert the return value if we are sorting descendingly
@@ -527,7 +521,7 @@ ListCtrlClass::Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1,
 void
 ListCtrlClass::Update_Client_Rect (void)
 {
-	Vector2 header_size = HeaderRenderer.Get_Text_Extents (L"W");
+	Vector2 header_size = HeaderRenderer.Get_Text_Extents (U_CHAR("W"));
 
 	//
 	//	Set the client area
@@ -1413,7 +1407,7 @@ ListCtrlClass::Reset_Icons (int index, int col_index)
 //
 ////////////////////////////////////////////////////////////////
 void
-ListCtrlClass::Add_Column (const wchar_t *column_name, float width, const Vector3 &color)
+ListCtrlClass::Add_Column (const unichar_t *column_name, float width, const Vector3 &color)
 {
 	//
 	//	Create a new column and add it to the list
@@ -1577,7 +1571,7 @@ ListCtrlClass::Delete_Entry (int index)
 //	Find_Entry
 //
 ////////////////////////////////////////////////////////////////
-int ListCtrlClass::Find_Entry(int col_index, const wchar_t* text)
+int ListCtrlClass::Find_Entry(int col_index, const unichar_t* text)
 {
 	int count = ColList.Count();
 
@@ -1586,9 +1580,9 @@ int ListCtrlClass::Find_Entry(int col_index, const wchar_t* text)
 		count = list->Get_Entry_Count();
 
 		for (int index = 0; index < count; index++) {
-			const wchar_t* entryText = list->Get_Entry_Text(index);
+			const unichar_t* entryText = list->Get_Entry_Text(index);
 
-			if (wcscmp(entryText, text) == 0) {
+			if (u_strcmp(entryText, text) == 0) {
 				return index;
 			}
 		}
@@ -1604,7 +1598,7 @@ int ListCtrlClass::Find_Entry(int col_index, const wchar_t* text)
 //
 ////////////////////////////////////////////////////////////////
 int
-ListCtrlClass::Insert_Entry (int index, const wchar_t *text)
+ListCtrlClass::Insert_Entry (int index, const unichar_t *text)
 {
 	if (ColList.Count () <= 0) {
 		return -1;
@@ -1640,7 +1634,7 @@ ListCtrlClass::Insert_Entry (int index, const wchar_t *text)
 	//
 	for (int col_index = 1; col_index < ColList.Count (); col_index ++) {
 		ListColumnClass *column = ColList[col_index];
-		column->Insert_Entry (index, L"");		
+		column->Insert_Entry (index, U_CHAR(""));		
 		column->Set_Entry_Color (index, new_color);
 	}
 
@@ -1667,7 +1661,7 @@ void
 ListCtrlClass::Update_Row_Height (int row_index)
 {
 	int border_height		= (ROW_SPACING * StyleMgrClass::Get_Y_Scale ());
-	float height			= (TextRenderer.Get_Text_Extents (L"W").Y + border_height);
+	float height			= (TextRenderer.Get_Text_Extents (U_CHAR("W")).Y + border_height);
 
 	//
 	//	Render each column in this row
@@ -1691,7 +1685,7 @@ ListCtrlClass::Update_Row_Height (int row_index)
 		//
 		//	Calculate the height of this text
 		//
-		const wchar_t *text = ColList[index]->Get_Entry_Text (row_index);
+		const unichar_t *text = ColList[index]->Get_Entry_Text (row_index);
 		Vector2 extents = TextRenderer.Get_Formatted_Text_Extents (text);
 		height = std::max (height, extents.Y + border_height);
 
@@ -1807,7 +1801,7 @@ ListCtrlClass::Is_Entry_Selected (int index)
 //
 ////////////////////////////////////////////////////////////////
 bool
-ListCtrlClass::Set_Entry_Text (int index, int col_index, const wchar_t *text)
+ListCtrlClass::Set_Entry_Text (int index, int col_index, const unichar_t *text)
 {
 	if (col_index < 0 || col_index >= ColList.Count ()) {
 		return false;
@@ -1848,7 +1842,7 @@ ListCtrlClass::Set_Entry_Int (int index, int col_index, int value)
 	//	Convert the integer to a string
 	//
 	WideStringClass number_str;
-	number_str.Format (L"%d", value);
+	number_str.Format (U_CHAR("%d"), value);
 
 	//
 	//	Change the text entry in this cell
@@ -1922,7 +1916,7 @@ ListCtrlClass::Get_Entry_Data (int index, int col_index)
 //	Get_Entry_Text
 //
 ////////////////////////////////////////////////////////////////
-const wchar_t *
+const unichar_t *
 ListCtrlClass::Get_Entry_Text (int index, int col_index)
 {
 	//
@@ -2407,7 +2401,7 @@ ListColumnClass::Reset_Contents (void)
 //
 ////////////////////////////////////////////////////////////////
 int
-ListColumnClass::Insert_Entry (int index, const wchar_t *entry_name)
+ListColumnClass::Insert_Entry (int index, const unichar_t *entry_name)
 {
 	ListEntryClass *entry = new ListEntryClass (entry_name);
 

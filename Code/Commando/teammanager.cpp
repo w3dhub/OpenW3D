@@ -93,7 +93,7 @@ void cTeamManager::Onetime_Init(void)
    	WWASSERT(PTextRenderer != NULL);
 		PTextRenderer->Set_Coordinate_Range(Render2DClass::Get_Screen_Resolution());
 	}
-	renderer_team_heading=L"";
+	renderer_team_heading=U_CHAR("");
 	renderer_is_intermission_true=false;
 
 }
@@ -423,7 +423,7 @@ void cTeamManager::List_Print(WideStringClass & text, Vector3 color)
 //-----------------------------------------------------------------------------
 void cTeamManager::Construct_Heading(WideStringClass & string)
 {
-	string.Format(L"");
+	string.Format(U_CHAR(""));
 
 	WWASSERT(PTheGameData != NULL);
 	//bool is_verbose = The_Game()->IsIntermission.Get() || MultiHUDClass::Get_Verbose_Lists();
@@ -437,7 +437,7 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
    //
 	// Num Players
 	//
-	substring.Format(L"%-3s", L"");
+	substring.Format(U_CHAR("%-3s"), U_CHAR(""));
 	string += substring;
 
 	/*
@@ -445,7 +445,7 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	// Standing
 	//
    if (is_verbose) {
-		substring.Format(L"%-5s", L"");
+		substring.Format(U_CHAR("%-5s"), U_CHAR(""));
 		string += substring;
    }
 	*/
@@ -454,11 +454,11 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	// "Team" or "Clan"
 	//
 	//GAMESPY
-	//substring.Format(L"%-11s", The_Game()->Get_Team_Word());
+	//substring.Format(U_CHAR("%-11s"), The_Game()->Get_Team_Word());
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		substring.Format(L"%-36s", The_Game()->Get_Team_Word());
+		substring.Format(U_CHAR("%-36s"), The_Game()->Get_Team_Word());
 	} else {
-		substring.Format(L"%-11s", The_Game()->Get_Team_Word());
+		substring.Format(U_CHAR("%-11s"), The_Game()->Get_Team_Word());
 	}
 	string += substring;
 
@@ -466,7 +466,7 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	// Kills
 	//
    if (is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_KILLS));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_KILLS));
 		string += substring;
    }
 
@@ -474,7 +474,7 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	// Deaths
 	//
 	if (is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_DEATHS));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_DEATHS));
 		string += substring;
    }
 
@@ -482,7 +482,7 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	// Kill to Death ratio
 	//
    if (is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_KILL_TO_DEATH_RATIO));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_KILL_TO_DEATH_RATIO));
 		string += substring;
    }
 
@@ -491,7 +491,7 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	// Money
 	//
 	if ((The_Game()->Is_Cnc() || The_Game()->Is_Skirmish()) && is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_MONEY));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_MONEY));
 	   string += substring;
    }
 	/**/
@@ -499,7 +499,7 @@ void cTeamManager::Construct_Heading(WideStringClass & string)
 	//
 	// Score
 	//
-	substring.Format(L"%-8s", TRANSLATION(IDS_MP_SCORE));
+	substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_SCORE));
 	string += substring;
 }
 

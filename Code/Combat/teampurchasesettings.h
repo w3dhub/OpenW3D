@@ -88,16 +88,16 @@ public:
 	//
 	TEAM								Get_Team (void)							{ return Team; }
 
-	const wchar_t *					Get_Enlisted_Name (int index);
+	const unichar_t *					Get_Enlisted_Name (int index);
 	int								Get_Enlisted_Definition (int index)	{ return DefinitionList[index]; }
 	const StringClass &			Get_Enlisted_Texture (int index)		{ return TextureList[index]; }
 
-	const wchar_t *					Get_Beacon_Name (void)			{ return TRANSLATE (BeaconNameID); }
+	const unichar_t *					Get_Beacon_Name (void)			{ return TRANSLATE (BeaconNameID); }
 	int								Get_Beacon_Cost (void)			{ return BeaconCost; }
 	int								Get_Beacon_Definition (void)	{ return BeaconDefinitionID; }
 	const StringClass &			Get_Beacon_Texture (void)		{ return BeaconTextureName; }
 
-	const wchar_t *					Get_Supply_Name (void)			{ return TRANSLATE (SupplyNameID); }
+	const unichar_t *					Get_Supply_Name (void)			{ return TRANSLATE (SupplyNameID); }
 	const StringClass &			Get_Supply_Texture (void)		{ return SupplyTextureName; }
 
 	//

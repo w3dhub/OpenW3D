@@ -94,12 +94,12 @@ class Download :
 		int GetStatusCode(void) const
 			{return mStatusCode;}
 
-		const wchar_t* GetStatusText(void) const;
+		const unichar_t* GetStatusText(void) const;
 
 		int GetErrorCode(void) const
 			{return mErrorCode;}
 
-		const wchar_t* GetErrorText(void) const;
+		const unichar_t* GetErrorText(void) const;
 
 		void GetProgress(int& bytesRead, int& totalSize, int& timeElapsed, int& timeRemaining) const;
 
@@ -213,7 +213,7 @@ class DownloadWait :
 		
 		WaitResult GetResult(void) override;
 
-		void EndWait(WaitResult, const wchar_t*) override;
+		void EndWait(WaitResult, const unichar_t*) override;
 
 		void SetCallback(DownloadWaitCallback callback, void *userdata);
 

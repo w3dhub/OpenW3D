@@ -72,7 +72,7 @@ bool DlgDownload::mQuietMode = false;
 *
 ******************************************************************************/
 
-bool DlgDownload::DoDialog(const wchar_t* title, const DownloadList& files, bool quiet)
+bool DlgDownload::DoDialog(const unichar_t* title, const DownloadList& files, bool quiet)
 	{
 	if (!files.empty())
 		{
@@ -368,7 +368,7 @@ void DlgDownload::UpdateProgress(DownloadEvent& event)
 				PrintableSize(transferRate, sizetext);
 
 				WideStringClass text(0, true);
-				text.Format(TRANSLATE(IDS_MENU_TRANSFER_RATE_PER_SEC), (const wchar_t*)sizetext);
+				text.Format(TRANSLATE(IDS_MENU_TRANSFER_RATE_PER_SEC), (const unichar_t*)sizetext);
 				Set_Dlg_Item_Text(IDC_TRANSFERTEXT, text);
 
 				// Calculate estimated time based on the current transfer rate.
@@ -389,7 +389,7 @@ void DlgDownload::UpdateProgress(DownloadEvent& event)
 				PrintableSize(size, sizetext);
 
 				text.Format(TRANSLATE(IDS_MENU_TRANSFER_TIME_LEFT),
-					(const wchar_t*)timetext, (const wchar_t*)readtext, (const wchar_t*)sizetext);
+					(const unichar_t*)timetext, (const unichar_t*)readtext, (const unichar_t*)sizetext);
 
 				Set_Dlg_Item_Text(IDC_PROGRESSTEXT, text);
 				}

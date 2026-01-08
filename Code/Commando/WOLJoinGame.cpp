@@ -67,7 +67,7 @@ using namespace WWOnline;
 *
 ******************************************************************************/
 
-void WOLJoinGame::JoinTheGame(const wchar_t* gameName, const wchar_t* password, bool allowTeamSelect)
+void WOLJoinGame::JoinTheGame(const unichar_t* gameName, const unichar_t* password, bool allowTeamSelect)
 	{
 	WWASSERT(gameName != NULL && "Invalid parameter");
 
@@ -190,7 +190,7 @@ bool WOLJoinGame::FinalizeCreate(void)
 cGameData* WOLJoinGame::CreateGameFromChannel(const RefPtr<ChannelData>& channel)
 	{
 	WWASSERT(channel.IsValid() && "Invalid paramter");
-	WWDEBUG_SAY(("WOLJoinGame: Create game from channel '%S'\n", (const wchar_t*)channel->GetName()));
+	WWDEBUG_SAY(("WOLJoinGame: Create game from channel '%S'\n", (const unichar_t*)channel->GetName()));
 
 	// Extract game information from the channel
 	WOLGameInfo gameInfo(channel);
@@ -246,7 +246,7 @@ cGameData* WOLJoinGame::CreateGameFromChannel(const RefPtr<ChannelData>& channel
 *
 ******************************************************************************/
 
-bool WOLJoinGame::Join(const wchar_t* gameName, const wchar_t* password, bool allowTeamSelect)
+bool WOLJoinGame::Join(const unichar_t* gameName, const unichar_t* password, bool allowTeamSelect)
 	{
 	WWDEBUG_SAY(("WOLJoinGame: Joining game channel '%S' Password: '%S'\n", gameName, password));
 
@@ -288,7 +288,7 @@ bool WOLJoinGame::Join(const wchar_t* gameName, const wchar_t* password, bool al
 	message.Format(TRANSLATE(IDS_GAME_JOINCHANNEL), gameName);
 
 	mJoinState = JOINING_STATE;
-	return DlgWOLWait::DoDialog((const wchar_t*)message, wait, this);
+	return DlgWOLWait::DoDialog((const unichar_t*)message, wait, this);
 	}
 
 
@@ -505,7 +505,7 @@ void WOLJoinGame::HandleNotification(ChannelEvent& event)
 	
 		if (channelName.Compare_No_Case(mGameName) == 0)
 			{
-			WWDEBUG_SAY(("WOLJoinGame: Joined game channel '%S'\n", (const wchar_t*)channelName));
+			WWDEBUG_SAY(("WOLJoinGame: Joined game channel '%S'\n", (const unichar_t*)channelName));
 
 			// Keep a reference to the channel so we can create the game from it latter
 			mTheChannel = channel;
@@ -568,7 +568,7 @@ void WOLJoinGame::HandleNotification(DlgWOLWaitEvent& event)
 		// If the wait condition failed then report the reason for the failure and
 		// leave the channel.
 		const WideStringClass& text = event.Subject()->GetResultText();
-		WWDEBUG_SAY(("WOLJoinGame: Wait failed - %S\n", (const wchar_t*)text));
+		WWDEBUG_SAY(("WOLJoinGame: Wait failed - %S\n", (const unichar_t*)text));
 		
 		DlgMsgBox::DoDialog(TRANSLATE(IDS_WOL_ERROR), text);
 

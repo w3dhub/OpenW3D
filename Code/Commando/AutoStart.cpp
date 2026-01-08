@@ -201,7 +201,7 @@ void AutoRestartClass::Think(void)
 			*/
 			if (can_render) {
 				START_DIALOG(AutoRestartProgressDialogClass);
-				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Auto starting game. Type 'quit' at the console window to abort");
+				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Auto starting game. Type 'quit' at the console window to abort"));
 			}
 			ConsoleBox.Print("*** Auto starting game. Type 'quit' to abort ***\n");
 
@@ -215,7 +215,7 @@ void AutoRestartClass::Think(void)
 			*/
 			if (!GameMode) {
 				if (can_render) {
-					AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Initializing LAN Mode");
+					AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Initializing LAN Mode"));
 				}
 				if (cGameSpyAdmin::Get_Is_Server_Gamespy_Listed()) {
 					ConsoleBox.Print("Initializing GameSpy Mode\n");
@@ -226,7 +226,7 @@ void AutoRestartClass::Think(void)
 				RestartState = STATE_GAME_MODE_WAIT;
 			} else {
 				if (can_render) {
-					AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Initializing Westwood Online");
+					AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Initializing Westwood Online"));
 				}
 				ConsoleBox.Print("Initializing Westwood Online Mode\n");
 				GameInitMgrClass::Initialize_WOL();
@@ -292,7 +292,7 @@ void AutoRestartClass::Think(void)
 						** Logon to WOL.
 						*/
 							if (can_render) {
-								AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Logging on");
+								AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Logging on"));
 							}
 							LogonAction = (WOLLogonAction) -1;
 							WOLLogonMgr::Set_Quiet_Mode(true);
@@ -353,12 +353,12 @@ void AutoRestartClass::Think(void)
 						break;
 					}
 					if (can_render) {
-						AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Failed, retrying");
+						AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Failed, retrying"));
 					}
 					ConsoleBox.Print("Failed to log in, retrying\n");
 					LogonAction = (WOLLogonAction) -1;
 					if (can_render) {
-						AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Logging on");
+						AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Logging on"));
 					}
 					ConsoleBox.Print("Logging on....\n");
 					WOLLogonMgr::Logon(this);
@@ -375,7 +375,7 @@ void AutoRestartClass::Think(void)
 						break;
 					}
 					if (can_render) {
-						AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Logged on OK");
+						AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Logged on OK"));
 					}
 					ConsoleBox.Print("Logged on OK\n");
 					WOLLogonMgr::Set_Quiet_Mode(false);
@@ -459,7 +459,7 @@ void AutoRestartClass::Think(void)
 			** Work out what type of game to create.
 			*/
 			if (can_render) {
-				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Building game info");
+				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Building game info"));
 			}
 
 			/*
@@ -600,7 +600,7 @@ void AutoRestartClass::Think(void)
 				break;
 			}
 			if (can_render) {
-				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Creating game channel....");
+				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Creating game channel...."));
 			}
 			ConsoleBox.Print("Creating game channel...\n");
 
@@ -726,7 +726,7 @@ void AutoRestartClass::Think(void)
 			}
 
 			if (can_render) {
-				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Channel created OK");
+				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Channel created OK"));
 			}
 
 			ConsoleBox.Print("Channel created OK\n");
@@ -862,7 +862,7 @@ void AutoRestartClass::ReceiveSignal(WolGameModeClass &game_mode)
 		} else {
 			bool can_render = ConsoleBox.Is_Exclusive() ? false : true;
 			if (can_render) {
-				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(L"Failed, retrying");
+				AutoRestartProgressDialogClass::Get_Instance()->Add_Text(U_CHAR("Failed, retrying"));
 			}
 			ConsoleBox.Print("Failed to create channel\n");
 			RestartState = STATE_WAIT_CHANNEL_CREATE_RETRY;

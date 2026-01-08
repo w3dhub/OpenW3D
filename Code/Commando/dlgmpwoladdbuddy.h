@@ -65,7 +65,7 @@ public:
 	//
 	//	Content control
 	//
-	void		Set_Default_User_Name (const wchar_t* user_name)	{ DefaultUserName = user_name; }
+	void		Set_Default_User_Name (const unichar_t* user_name)	{ DefaultUserName = user_name; }
 
 protected:
 

@@ -108,12 +108,12 @@ cWinEvent::Act(void)
 
 	WideStringClass champ_text;
 	champ_text.Format(
-		L"%s %s",
+		U_CHAR("%s %s"),
 		The_Game()->Get_Team_Word(),
 		cTeamManager::Get_Team_Name(Winner));
 
 	win_text.Format(
-		L"%s %s",
+		U_CHAR("%s %s"),
 		champ_text,
 		TRANSLATION(IDS_MP_WIN_FORMATTING));
 
@@ -122,12 +122,12 @@ cWinEvent::Act(void)
 
 		if (Loser == PLAYER_ID_UNKNOWN) {
 			win_text.Format(
-				L"%s %s",
+				U_CHAR("%s %s"),
 				cPlayerManager::Get_Player_Name(Winner),
 				TRANSLATION(IDS_MP_WIN_FORMATTING));
 		} else {
 			win_text.Format(
-				L"%s %s %s",
+				U_CHAR("%s %s %s"),
 				cPlayerManager::Get_Player_Name(Winner),
 				TRANSLATION(IDS_MP_DEFEATS),
 				cPlayerManager::Get_Player_Name(Loser));

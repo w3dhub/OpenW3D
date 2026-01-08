@@ -77,15 +77,15 @@ class WOLChatMgr :
 		const LobbyList& GetLobbyList(void);
 		
 		const RefPtr<WWOnline::ChannelData>& GetCurrentLobby(void);
-		const RefPtr<WWOnline::ChannelData> FindLobby(const wchar_t* name);
+		const RefPtr<WWOnline::ChannelData> FindLobby(const unichar_t* name);
 
-		void CreateLobby(const wchar_t* name, const wchar_t* password);
+		void CreateLobby(const unichar_t* name, const unichar_t* password);
 		void JoinLobby(const RefPtr<WWOnline::ChannelData>& channel);
 		void LeaveLobby(void);
 		void GetLobbyDisplayName(const RefPtr<WWOnline::ChannelData>& lobby, WideStringClass& outName);
 
 		// User Methods
-		const RefPtr<WWOnline::UserData> FindUser(const wchar_t* name);
+		const RefPtr<WWOnline::UserData> FindUser(const unichar_t* name);
 
 		inline const WWOnline::UserList& GetUserInList(void)
 			{return mUserInList;}
@@ -98,7 +98,7 @@ class WOLChatMgr :
 		void ClearUserOutList(void);
 
 		bool SquelchUser(const RefPtr<WWOnline::UserData>& user, bool onoff);
-		void LocateUser(const wchar_t* name);
+		void LocateUser(const unichar_t* name);
 
 		// Message Methods
 		inline const WWOnline::ChatMessageList& GetMessageList(void)
@@ -106,9 +106,9 @@ class WOLChatMgr :
 
 		void ClearMessageList(void);
 
-		void SendPublicMessage(const wchar_t* message, bool isAction);
-		void SendPrivateMessage(const RefPtr<WWOnline::UserData>& user, const wchar_t* message, bool isAction);
-		void SendPrivateMessage(WWOnline::UserList& users, const wchar_t* message, bool isAction);
+		void SendPublicMessage(const unichar_t* message, bool isAction);
+		void SendPrivateMessage(const RefPtr<WWOnline::UserData>& user, const unichar_t* message, bool isAction);
+		void SendPrivateMessage(WWOnline::UserList& users, const unichar_t* message, bool isAction);
 
 	protected:
 		WOLChatMgr();
@@ -122,7 +122,7 @@ class WOLChatMgr :
 
 		bool IsLobbyValid(const RefPtr<WWOnline::ChannelData>& lobby);
 
-		void AddMessage(const wchar_t* sender, const wchar_t* message, bool isPrivate, bool isAction);
+		void AddMessage(const unichar_t* sender, const unichar_t* message, bool isPrivate, bool isAction);
 		bool PassesFilters(const WWOnline::ChatMessage& msg);
 
 		void HandleNotification(WWOnline::ServerError&) override;
@@ -132,7 +132,7 @@ class WOLChatMgr :
 		void HandleNotification(WWOnline::UserList&) override;
 		void HandleNotification(WWOnline::ChatMessage&) override;
 
-		bool ProcessCommand(const wchar_t* message);
+		bool ProcessCommand(const unichar_t* message);
 
 	private:
 		static WOLChatMgr* _mInstance;

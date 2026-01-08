@@ -75,7 +75,7 @@ public:
 	//
 	//	Accessors
 	//
-	const wchar_t *	Get_Selection (void)	{ return SelectedUserName; }
+	const unichar_t *	Get_Selection (void)	{ return SelectedUserName; }
 	void				Set_Observer (MPWolPageBuddyPopupClass *observer)	{ Observer = observer; }
 
 protected:

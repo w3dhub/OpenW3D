@@ -150,7 +150,7 @@ MPWolAddBuddyPopupClass::Add_Buddy (void)
 			mBuddyMgr->AddBuddy(buddy_name);
 			End_Dialog();
 		} else {
-			Set_Dlg_Item_Text(IDC_BUDDY_NAME_EDIT, L"");
+			Set_Dlg_Item_Text(IDC_BUDDY_NAME_EDIT, U_CHAR(""));
 			Enable_Dlg_Item(IDC_ADD_BUTTON, false);
 
 			DlgMsgBox::DoDialog(TRANSLATE (IDS_MENU_ERROR), TRANSLATE (IDS_MENU_CANT_ADD_AS_BUDDY_MESSAGE));

@@ -54,7 +54,7 @@ const int CHAR_BUFFER_LEN		= 32768;
 // NOTE 0: Word wrap logic does not apply to Han characters (Chinese, Japanese & Korean).
 //			  Therefore treat each of these characters as a word which can be preceeded by a line break.
 // NOTE 1: This is a simplification. Some Korean characters should not be line break characters.
-#define IS_BREAK_CHAR(ch) ((ch == L' ') || ((ch >= 0x3000) && (ch <= 0xdfff)))
+#define IS_BREAK_CHAR(ch) ((ch == U_CHAR(' ')) || ((ch >= 0x3000) && (ch <= 0xdfff)))
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -280,7 +280,7 @@ Render2DSentenceClass::Set_Tabstop(float stop)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 Vector2
-Render2DSentenceClass::Get_Text_Extents (const wchar_t *text)
+Render2DSentenceClass::Get_Text_Extents (const unichar_t *text)
 {
 	if (!DX8Wrapper::Is_Initted()) {
 		Vector2 temp(0,0);
@@ -290,9 +290,9 @@ Render2DSentenceClass::Get_Text_Extents (const wchar_t *text)
 	Vector2 extent (0, Font->Get_Char_Height());
 
 	while (*text) {
-		wchar_t ch = *text++;
+		unichar_t ch = *text++;
 
-		if ( ch != (wchar_t)'\n' ) {
+		if ( ch != (unichar_t)'\n' ) {
 			extent.X += Font->Get_Char_Spacing( ch );
 		}
 	}
@@ -306,8 +306,8 @@ Render2DSentenceClass::Get_Text_Extents (const wchar_t *text)
 //	Find_Row_Start
 //
 ////////////////////////////////////////////////////////////////////////////////////
-const wchar_t *
-Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
+const unichar_t *
+Render2DSentenceClass::Find_Row_Start( const unichar_t * text, int row_index )
 {
 	if (row_index == 0) {
 		return text;
@@ -317,7 +317,7 @@ Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 		return text;
 	}
 
-	const wchar_t *retval = NULL;
+	const unichar_t *retval = NULL;
 
 	float max_x_pos	= 0;
 	float x_pos			= 0;
@@ -326,7 +326,7 @@ Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 	int row_counter = 0;
 
 	while (*text) {
-		wchar_t ch = *text++;
+		unichar_t ch = *text++;
 
 		bool is_wrapped = false;
 
@@ -338,9 +338,9 @@ Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 			//
 			//	Find the width of the next word
 			//
-			const wchar_t *word	= text;
+			const unichar_t *word	= text;
 			float word_width = Font->Get_Char_Spacing (ch);
-			while ((*word != 0) && ((*word > L' ') && !IS_BREAK_CHAR (*word))) {
+			while ((*word != 0) && ((*word > U_CHAR(' ')) && !IS_BREAK_CHAR (*word))) {
 				word_width += Font->Get_Char_Spacing (*word++);
 			}
 
@@ -351,7 +351,7 @@ Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 				is_wrapped = true;
 			}
 
-		} else if (ch == L'\n') {
+		} else if (ch == U_CHAR('\n')) {
 			is_wrapped = true;
 		}
 
@@ -368,12 +368,12 @@ Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 			//
 			row_counter ++;
 			if (row_counter == row_index) {
-				retval = (ch == L' ' || ch == L'\n') ? text : text - 1;
+				retval = (ch == U_CHAR(' ') || ch == U_CHAR('\n')) ? text : text - 1;
 				break;
 			}
 		}
 
-		if (ch != (wchar_t)'\n') {
+		if (ch != (unichar_t)'\n') {
 			x_pos += Font->Get_Char_Spacing (ch);
 		}
 	}
@@ -388,7 +388,7 @@ Render2DSentenceClass::Find_Row_Start( const wchar_t * text, int row_index )
 //
 ////////////////////////////////////////////////////////////////////////////////////
 Vector2
-Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row_count)
+Render2DSentenceClass::Get_Formatted_Text_Extents (const unichar_t *text, int *row_count)
 {
 	if (!DX8Wrapper::Is_Initted()) {
 		Vector2 temp(0,0);
@@ -402,7 +402,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row
 	int row_counter = 0;
 
 	while (*text) {
-		wchar_t ch = *text++;
+		unichar_t ch = *text++;
 
 		bool is_wrapped = false;
 
@@ -414,9 +414,9 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row
 			//
 			//	Find the width of the next word
 			//
-			const wchar_t *word	= text;
+			const unichar_t *word	= text;
 			float word_width = Font->Get_Char_Spacing (ch);
-			while ((*word != 0) && ((*word > L' ') && !IS_BREAK_CHAR (*word))) {
+			while ((*word != 0) && ((*word > U_CHAR(' ')) && !IS_BREAK_CHAR (*word))) {
 				word_width += Font->Get_Char_Spacing (*word++);
 			}
 
@@ -427,7 +427,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row
 				is_wrapped = true;
 			}
 
-		} else if (ch == L'\n') {
+		} else if (ch == U_CHAR('\n')) {
 			is_wrapped = true;
 		}
 
@@ -441,7 +441,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const wchar_t *text, int *row
 			row_counter ++;
 		}
 
-		if (ch != (wchar_t)'\n') {
+		if (ch != (unichar_t)'\n') {
 			x_pos += Font->Get_Char_Spacing (ch);
 		}
 	}
@@ -779,7 +779,7 @@ Render2DSentenceClass::Record_Sentence_Chunk (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-Render2DSentenceClass::Allocate_New_Surface (const wchar_t *text)
+Render2DSentenceClass::Allocate_New_Surface (const unichar_t *text)
 {
 	//
 	//	Unlock the last surface (if necessary)
@@ -872,7 +872,7 @@ Render2DSentenceClass::Allocate_New_Surface (const wchar_t *text)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-Render2DSentenceClass::Build_Sentence (const wchar_t *text)
+Render2DSentenceClass::Build_Sentence (const unichar_t *text)
 {
 	if (text == NULL) {
 		return ;
@@ -901,7 +901,7 @@ Render2DSentenceClass::Build_Sentence (const wchar_t *text)
 	//	Loop over all the characters in the string
 	//
 	while (text != NULL) {
-		wchar_t ch = *text++;
+		unichar_t ch = *text++;
 
 		//
 		//	Determine how much horizontal space this character requires
@@ -909,7 +909,7 @@ Render2DSentenceClass::Build_Sentence (const wchar_t *text)
 		float char_spacing = Font->Get_Char_Spacing (ch);
 
 		bool exceeded_texture_width	= ((TextureOffset.I + char_spacing) >= CurrTextureSize);
-		bool encountered_break_char	= (IS_BREAK_CHAR (ch) || ch == L'\n' || ch == 0 || ch == L'\t');
+		bool encountered_break_char	= (IS_BREAK_CHAR (ch) || ch == U_CHAR('\n') || ch == 0 || ch == U_CHAR('\t'));
 
 		//
 		//	Do we need to record this portion of the sentence to its own chunk?
@@ -928,7 +928,7 @@ Render2DSentenceClass::Build_Sentence (const wchar_t *text)
 			//
 			if (IS_BREAK_CHAR (ch)) {
 
-				if (ch == L' ') {
+				if (ch == U_CHAR(' ')) {
 					Cursor.X += char_spacing;
 				}
 
@@ -940,9 +940,9 @@ Render2DSentenceClass::Build_Sentence (const wchar_t *text)
 					//
 					//	Find the length of the next word
 					//
-					const wchar_t *word	= text;
-					float word_width	= (ch == L' ') ? 0 : char_spacing;
-					while ((*word != 0) && ((*word > L' ') && !IS_BREAK_CHAR (*word))) {
+					const unichar_t *word	= text;
+					float word_width	= (ch == U_CHAR(' ')) ? 0 : char_spacing;
+					while ((*word != 0) && ((*word > U_CHAR(' ')) && !IS_BREAK_CHAR (*word))) {
 						word_width += Font->Get_Char_Spacing (*word++);
 					}
 
@@ -955,12 +955,12 @@ Render2DSentenceClass::Build_Sentence (const wchar_t *text)
 					}
 				}
 
-			} else if (ch == L'\n') {
+			} else if (ch == U_CHAR('\n')) {
 				Cursor.X = 0;
 				Cursor.Y += char_height;
 			} else if (ch == 0) {
 				break;
-			} else if (ch == L'\t') {
+			} else if (ch == U_CHAR('\t')) {
 				float tab_spacing = (char_spacing * TabStop);
 				float tab_pos = (floor(Cursor.X / tab_spacing) * tab_spacing);
 				Cursor.X = (tab_pos + tab_spacing);
@@ -983,7 +983,7 @@ Render2DSentenceClass::Build_Sentence (const wchar_t *text)
 			}
 		}
 
-		if (ch != L'\n' && ch != L' ' && ch != L'\t') {
+		if (ch != U_CHAR('\n') && ch != U_CHAR(' ') && ch != U_CHAR('\t')) {
 
 			//
 			//	Ensure the surface is locked
@@ -1072,7 +1072,7 @@ FontCharsClass::~FontCharsClass (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 const FontCharsClass::CharDataStruct *
-FontCharsClass::Get_Char_Data (wchar_t ch)
+FontCharsClass::Get_Char_Data (unichar_t ch)
 {
 	const CharDataStruct *retval = NULL;
 
@@ -1101,7 +1101,7 @@ FontCharsClass::Get_Char_Data (wchar_t ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 int
-FontCharsClass::Get_Char_Width (wchar_t ch)
+FontCharsClass::Get_Char_Width (unichar_t ch)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != NULL ) {
@@ -1118,7 +1118,7 @@ FontCharsClass::Get_Char_Width (wchar_t ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 int
-FontCharsClass::Get_Char_Spacing (wchar_t ch)
+FontCharsClass::Get_Char_Spacing (unichar_t ch)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != NULL ) {
@@ -1137,7 +1137,7 @@ FontCharsClass::Get_Char_Spacing (wchar_t ch)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-FontCharsClass::Blit_Char (wchar_t ch, uint16 *dest_ptr, int dest_stride, int x, int y)
+FontCharsClass::Blit_Char (unichar_t ch, uint16 *dest_ptr, int dest_stride, int x, int y)
 {
 	const CharDataStruct	* data = Get_Char_Data( ch );
 	if ( data != NULL && data->Width != 0 ) {
@@ -1170,7 +1170,7 @@ FontCharsClass::Blit_Char (wchar_t ch, uint16 *dest_ptr, int dest_stride, int x,
 //
 ////////////////////////////////////////////////////////////////////////////////////
 const FontCharsClass::CharDataStruct *
-FontCharsClass::Store_GDI_Char (wchar_t ch)
+FontCharsClass::Store_GDI_Char (unichar_t ch)
 {
 	int width	= PointSize * 2;
 	int height	= PointSize * 2;
@@ -1179,7 +1179,7 @@ FontCharsClass::Store_GDI_Char (wchar_t ch)
 	//	Get the size of the character we just drew
 	//
 	SIZE char_size = { 0 };
-	::GetTextExtentPoint32W( MemDC, &ch, 1, &char_size );
+	::GetTextExtentPoint32W( MemDC, reinterpret_cast<wchar_t *>(&ch), 1, &char_size );
 	int x_pos = 0;
 
 	//
@@ -1195,7 +1195,7 @@ FontCharsClass::Store_GDI_Char (wchar_t ch)
 	//	Draw the character into the memory DC
 	//
 	RECT rect = { 0, 0, width, height };
-	::ExtTextOutW( MemDC, x_pos, 0, ETO_OPAQUE, &rect, &ch, 1, NULL);
+	::ExtTextOutW( MemDC, x_pos, 0, ETO_OPAQUE, &rect, reinterpret_cast<wchar_t *>(&ch), 1, NULL);
 
 	//
 	//	Get a pointer to the surface that this character should use
@@ -1509,7 +1509,7 @@ FontCharsClass::Is_Font (const char *font_name, int point_size, bool is_bold)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 void
-FontCharsClass::Grow_Unicode_Array (wchar_t ch)
+FontCharsClass::Grow_Unicode_Array (unichar_t ch)
 {
 	//
 	//	Don't do anything if character is in the ASCII range

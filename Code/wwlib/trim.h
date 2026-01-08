@@ -40,9 +40,9 @@
 #ifndef TRIM_H
 #define TRIM_H
 
-#include <wchar.h>
+#include "unichar.h"
 
 char * strtrim(char * buffer);
-wchar_t * wcstrim(wchar_t * buffer);
+unichar_t * u_strtrim(unichar_t * buffer);
 
 #endif

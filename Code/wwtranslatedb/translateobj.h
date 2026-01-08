@@ -111,7 +111,7 @@ public:
 	virtual const StringClass &		Get_Animation_Name (void)			{ return AnimationName; }
 	virtual uint32							Get_Category_ID (void)				{ return CategoryID; }
 	
-	virtual void							Set_String (uint32 lang_id, const wchar_t *string);
+	virtual void							Set_String (uint32 lang_id, const unichar_t *string);
 	virtual void							Set_English_String (const char *string);
 	virtual void							Set_ID (uint32 id);
 	virtual void							Set_ID_Desc (const char *desc);

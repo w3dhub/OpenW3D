@@ -82,10 +82,10 @@ public:
 	//
 	//	Content control
 	//
-	int					Add_String (const wchar_t* string);
+	int					Add_String (const unichar_t* string);
 	void					Delete_String (int index);
-	int					Find_String (const wchar_t* string);
-	int					Find_Closest_String(const wchar_t* string);
+	int					Find_String (const unichar_t* string);
+	int					Find_Closest_String(const unichar_t* string);
 	void					Set_Item_Data (int index, uintptr_t data);
 	uintptr_t				Get_Item_Data (int index);
 	void					Reset_Content (void);
@@ -94,7 +94,7 @@ public:
 	//	Information accessors
 	//
 	bool					Get_String (int index, WideStringClass &string) const;
-	const wchar_t *		Get_String (int index) const;
+	const unichar_t *		Get_String (int index) const;
 	int					Get_Count (void)							{ return EntryList.Count (); }
 	
 	//
@@ -154,7 +154,7 @@ protected:
 		_ENTRY (void)	:
 			user_data (0) {}
 
-		_ENTRY (const wchar_t *_text, uintptr_t _data)	:
+		_ENTRY (const unichar_t *_text, uintptr_t _data)	:
 			text (_text), user_data (_data) {}
 
 	} ENTRY;

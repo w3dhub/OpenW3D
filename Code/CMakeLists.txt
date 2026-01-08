@@ -55,6 +55,17 @@ if(TARGET ffmpeg)
     target_link_libraries(wwcommon INTERFACE ffmpeg)
 endif()
 
+if(TARGET icu)
+    target_include_directories(wwcommon INTERFACE
+        wwlib/icu
+    )
+    target_link_libraries(wwcommon INTERFACE icu)
+else()
+    target_include_directories(wwcommon INTERFACE
+        wwlib/wchar
+    )
+endif()
+
 # Module static libraries
 add_subdirectory(BinkMovie)
 add_subdirectory(Combat)

@@ -68,7 +68,7 @@ class DlgWOLPageReply :
 		void On_Command(int ctrl_id, int mesage_id, unsigned int param) override;
 
 		void Send_Reply(void);
-		void Add_Message(const wchar_t* username, const wchar_t* message);
+		void Add_Message(const unichar_t* username, const unichar_t* message);
 
 		void HandleNotification(WOLPagedEvent&) override;
 		void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int ID) override;

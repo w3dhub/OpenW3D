@@ -141,14 +141,14 @@ void LoginProfile::SetCurrent(LoginProfile* profile)
 *
 ******************************************************************************/
 
-LoginProfile* LoginProfile::Get(const wchar_t* loginName, bool createOK)
+LoginProfile* LoginProfile::Get(const unichar_t* loginName, bool createOK)
 	{
-	if (loginName && wcslen(loginName))
+	if (loginName && u_strlen(loginName))
 		{
 		// Check the current profile first
 		if (_mCurrentProfile)
 			{
-			if (wcsicmp(_mCurrentProfile->GetName(), loginName) == 0)
+			if (u_strcasecmp(_mCurrentProfile->GetName(), loginName, U_COMPARE_CODE_POINT_ORDER) == 0)
 				{
 				_mCurrentProfile->Add_Ref();
 				return _mCurrentProfile;
@@ -184,11 +184,11 @@ LoginProfile* LoginProfile::Get(const wchar_t* loginName, bool createOK)
 *
 ******************************************************************************/
 
-LoginProfile* LoginProfile::Create(const wchar_t* loginName)
+LoginProfile* LoginProfile::Create(const unichar_t* loginName)
 	{
 	LoginProfile* profile = NULL;
 
-	if (loginName && wcslen(loginName))
+	if (loginName && u_strlen(loginName))
 		{
 		profile = new LoginProfile;
 
@@ -222,16 +222,16 @@ LoginProfile* LoginProfile::Create(const wchar_t* loginName)
 *
 ******************************************************************************/
 
-void LoginProfile::Delete(const wchar_t* loginName)
+void LoginProfile::Delete(const unichar_t* loginName)
 	{
-	if (loginName && wcslen(loginName))
+	if (loginName && u_strlen(loginName))
 		{
 		RegistryClass registry(APPLICATION_SUB_KEY_NAME_LOGINS, false);
 	
 		if (registry.Is_Valid())
 			{
 			char valueName[64];
-			wcstombs(valueName, loginName, sizeof(valueName));
+			u_wstomb(valueName, loginName, sizeof(valueName));
 			registry.Delete_Value(valueName);
 			}
 		}
@@ -282,7 +282,7 @@ LoginProfile::LoginProfile() :
 
 LoginProfile::~LoginProfile()
 	{
-	WWDEBUG_SAY(("LoginProfile destroyed (%S)\n", (const wchar_t*)mName));
+	WWDEBUG_SAY(("LoginProfile destroyed (%S)\n", (const unichar_t*)mName));
 	}
 
 
@@ -302,7 +302,7 @@ LoginProfile::~LoginProfile()
 *
 ******************************************************************************/
 
-bool LoginProfile::FinalizeCreate(const wchar_t* loginName)
+bool LoginProfile::FinalizeCreate(const unichar_t* loginName)
 	{
 	WWDEBUG_SAY(("LoginProfile created %S\n", loginName));
 	mName = loginName;
@@ -327,7 +327,7 @@ bool LoginProfile::FinalizeCreate(const wchar_t* loginName)
 *
 ******************************************************************************/
 
-const wchar_t* LoginProfile::GetName(void) const
+const unichar_t* LoginProfile::GetName(void) const
 	{
 	return mName;
 	}
@@ -680,7 +680,7 @@ void LoginProfile::SaveRank(const char* valueName, const LoginProfile::Ranking& 
 
 void ShowProfileRanking(DialogBaseClass* dialog, const LoginProfile* profile)
 	{
-	dialog->Set_Dlg_Item_Text(IDC_PROFILENAME, L"");
+	dialog->Set_Dlg_Item_Text(IDC_PROFILENAME, U_CHAR(""));
 
 	ListCtrlClass* list = (ListCtrlClass*)dialog->Get_Dlg_Item(IDC_PROFILERANK);
 
@@ -704,7 +704,7 @@ void ShowProfileRanking(DialogBaseClass* dialog, const LoginProfile* profile)
 			}
 
 		//(gth) Renegade day 120 Patch: re-translate these strings each time!
-		struct {const wchar_t* name; WWOnline::LadderType type;} _ladders[] =
+		struct {const unichar_t* name; WWOnline::LadderType type;} _ladders[] =
 			{
 			{TRANSLATE(IDS_MENU_INDIVIDUAL), WWOnline::LadderType_Team},
 			{TRANSLATE(IDS_MENU_CLAN), WWOnline::LadderType_Clan}
@@ -718,10 +718,10 @@ void ShowProfileRanking(DialogBaseClass* dialog, const LoginProfile* profile)
 			if (item != -1)
 				{
 				list->Set_Entry_Data(item, COL_LADDERNAME, _ladders[index].type);
-				list->Set_Entry_Text(item, COL_WINS, L"- / -");
-				list->Set_Entry_Text(item, COL_DEATHS, L"- / -");
-				list->Set_Entry_Text(item, COL_POINTS, L"-");
-				list->Set_Entry_Text(item, COL_RANK, L"-");
+				list->Set_Entry_Text(item, COL_WINS, U_CHAR("- / -"));
+				list->Set_Entry_Text(item, COL_DEATHS, U_CHAR("- / -"));
+				list->Set_Entry_Text(item, COL_POINTS, U_CHAR("-"));
+				list->Set_Entry_Text(item, COL_RANK, U_CHAR("-"));
 				}
 			}
 
@@ -771,42 +771,42 @@ void ShowRanking(ListCtrlClass* list, WWOnline::LadderType type, const LoginProf
 
 			if (rank->Wins != (unsigned)-1)
 				{
-				text.Format(L"%u / %u", rank->Wins, rank->Losses);
+				text.Format(U_CHAR("%u / %u"), rank->Wins, rank->Losses);
 				list->Set_Entry_Text(index, COL_WINS, text);
 				}
 			else
 				{
-				list->Set_Entry_Text(index, COL_WINS, L"- / -");
+				list->Set_Entry_Text(index, COL_WINS, U_CHAR("- / -"));
 				}
 
 			if ((rank->Deaths != (unsigned)-1) && (rank->Kills != (unsigned)-1))
 				{
-				text.Format(L"%u / %u", rank->Deaths, rank->Kills);
+				text.Format(U_CHAR("%u / %u"), rank->Deaths, rank->Kills);
 				list->Set_Entry_Text(index, COL_DEATHS, text);
 				}
 			else
 				{
-				list->Set_Entry_Text(index, COL_DEATHS, L"- / -");
+				list->Set_Entry_Text(index, COL_DEATHS, U_CHAR("- / -"));
 				}
 
 			if (rank->Points != (unsigned)-1)
 				{
-				text.Format(L"%u", rank->Points);
+				text.Format(U_CHAR("%u"), rank->Points);
 				list->Set_Entry_Text(index, COL_POINTS, text);
 				}
 			else
 				{
-				list->Set_Entry_Text(index, COL_POINTS, L"-");
+				list->Set_Entry_Text(index, COL_POINTS, U_CHAR("-"));
 				}
 
 			if (rank->Rank != (unsigned)-1)
 				{
-				text.Format(L"%u", rank->Rank);
+				text.Format(U_CHAR("%u"), rank->Rank);
 				list->Set_Entry_Text(index, COL_RANK, text);
 				}
 			else
 				{
-				list->Set_Entry_Text(index, COL_RANK, L"-");
+				list->Set_Entry_Text(index, COL_RANK, U_CHAR("-"));
 				}
 
 			break;

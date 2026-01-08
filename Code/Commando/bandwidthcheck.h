@@ -82,12 +82,12 @@ class BandwidthCheckerClass
 		static void Force_Upstream_Bandwidth(unsigned int up);
 		static unsigned int Get_Upstream_Bandwidth(void);
 		static unsigned int Get_Reported_Upstream_Bandwidth(void);
-		static const wchar_t *Get_Upstream_Bandwidth_As_String(void);
+		static const unichar_t *Get_Upstream_Bandwidth_As_String(void);
 		static unsigned int Get_Downstream_Bandwidth(void);
 		static unsigned int Get_Reported_Downstream_Bandwidth(void);
-		static const wchar_t *Get_Downstream_Bandwidth_As_String(void);
-		static const wchar_t *Get_Bandwidth_As_String(void);
-		static const wchar_t *Get_Bandwidth_As_String(PackedBandwidthType bandwidth);
+		static const unichar_t *Get_Downstream_Bandwidth_As_String(void);
+		static const unichar_t *Get_Bandwidth_As_String(void);
+		static const unichar_t *Get_Bandwidth_As_String(PackedBandwidthType bandwidth);
 		static PackedBandwidthType Get_Packed_Bandwidth(void);
 		static bool Failed_Due_To_No_Connection(void) {return(FailureCode == BANDTEST_NO_IP_DETECT);}
 		static void Get_Compact_Log(StringClass &log_string);
@@ -110,14 +110,14 @@ class BandwidthCheckerClass
 		static unsigned int ReportedUpstreamBandwidth;
 		static unsigned int DownstreamBandwidth;
 		static unsigned int ReportedDownstreamBandwidth;
-		static const wchar_t *UpstreamBandwidthString;
-		static const wchar_t *DownstreamBandwidthString;
+		static const unichar_t *UpstreamBandwidthString;
+		static const unichar_t *DownstreamBandwidthString;
 
 		#define NUM_BANDS 12
 
 		static const char *ErrorList[13];
 		static unsigned int Bandwidths[NUM_BANDS * 2];
-		static const wchar_t *BandwidthNames[NUM_BANDS + 1];
+		static const unichar_t *BandwidthNames[NUM_BANDS + 1];
 		static int FailureCode;
 		static bool GotBandwidth;
 		static const char *DefaultServerName;

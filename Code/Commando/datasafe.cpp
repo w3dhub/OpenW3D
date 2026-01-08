@@ -1218,7 +1218,7 @@ void GenericDataSafeClass::Say_Security_Fault(void)
 {
 	WideStringClass text(TRANSLATION(IDS_DATASAFE_DETECTED_TAMPERING), true);
 	if (cNetwork::I_Am_Server()) {
-		text += L"Host";
+		text += U_CHAR("Host");
 		cScTextObj *event_obj = new cScTextObj;
 		event_obj->Init(text, TEXT_MESSAGE_PUBLIC, false, HOST_TEXT_SENDER, -1);
 	} else {

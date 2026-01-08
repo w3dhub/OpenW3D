@@ -64,10 +64,10 @@ public:
 	const char * Get_Name( void )			{ return Name; }	
 
 	int	Get_Char_Height( void )			{ return CharHeight; }
-	int	Get_Char_Width( wchar_t ch );
-	int	Get_Char_Spacing( wchar_t ch );
+	int	Get_Char_Width( unichar_t ch );
+	int	Get_Char_Spacing( unichar_t ch );
 
-	void	Blit_Char( wchar_t ch, uint16 *dest_ptr, int dest_stride, int x, int y );
+	void	Blit_Char( unichar_t ch, uint16 *dest_ptr, int dest_stride, int x, int y );
 
 private:
 
@@ -75,7 +75,7 @@ private:
 	//	Private data structures
 	//
 	struct CharDataStruct {
-		wchar_t				Value;
+		unichar_t				Value;
 		short				Width;
 		uint16 *			Buffer;
 	};
@@ -85,11 +85,11 @@ private:
 	//
 	void							Create_GDI_Font( const char *font_name );
 	void							Free_GDI_Font( void );
-	const CharDataStruct *	Store_GDI_Char( wchar_t ch );
+	const CharDataStruct *	Store_GDI_Char( unichar_t ch );
 	void							Update_Current_Buffer( int char_width );
-	const CharDataStruct	*	Get_Char_Data( wchar_t ch );
+	const CharDataStruct	*	Get_Char_Data( unichar_t ch );
 
-	void							Grow_Unicode_Array( wchar_t ch );
+	void							Grow_Unicode_Array( unichar_t ch );
 	void							Free_Character_Arrays( void );
 
 	//
@@ -110,8 +110,8 @@ private:
 	HDC									MemDC;
 	CharDataStruct *					ASCIICharArray[256];
 	CharDataStruct **					UnicodeCharArray;
-	wchar_t								FirstUnicodeChar;
-	wchar_t								LastUnicodeChar;
+	unichar_t								FirstUnicodeChar;
+	unichar_t								LastUnicodeChar;
 	bool									IsBold;
 };
 
@@ -157,14 +157,14 @@ public:
 //	const RectClass & Get_Total_Extents( void )			{ return TotalExtents; }
 //	const Vector2 & Get_Cursor( void )						{ return Cursor; }
 
-	Vector2			Get_Text_Extents( const wchar_t * text );
-	Vector2			Get_Formatted_Text_Extents( const wchar_t * text, int *row_count = NULL );
-	const wchar_t *	Find_Row_Start( const wchar_t * text, int row_index );
+	Vector2			Get_Text_Extents( const unichar_t * text );
+	Vector2			Get_Formatted_Text_Extents( const unichar_t * text, int *row_count = NULL );
+	const unichar_t *	Find_Row_Start( const unichar_t * text, int row_index );
 
 	//
 	//	Sentence control
 	//
-	void	Build_Sentence (const wchar_t *text);
+	void	Build_Sentence (const unichar_t *text);
 	void	Draw_Sentence (uint32 color = 0xFFFFFFFF);
 
 	//
@@ -217,7 +217,7 @@ private:
 	void	Reset_Sentence_Data (void);
 	void	Build_Textures (void);
 	void	Record_Sentence_Chunk (void);
-	void	Allocate_New_Surface (const wchar_t *text);
+	void	Allocate_New_Surface (const unichar_t *text);
 	void	Release_Pending_Surfaces (void);
 		
 	//

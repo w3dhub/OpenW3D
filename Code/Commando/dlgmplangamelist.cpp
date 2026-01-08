@@ -350,7 +350,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 		//
 		//	Insert the entry
 		//
-		int item_index = list_ctrl->Insert_Entry (index ++, L"");
+		int item_index = list_ctrl->Insert_Entry (index ++, U_CHAR(""));
 		if (item_index >= 0) {
 
 			//
@@ -375,7 +375,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 			//	Build a string that represents the player count
 			//
 			WideStringClass players_string;
-			players_string.Format (L"%d/%d", player_count, player_count_max);
+			players_string.Format (U_CHAR("%d/%d"), player_count, player_count_max);
 
 			//
 			//	Build a string that represents the connection (ping) speed
@@ -383,7 +383,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 			int ping = 0;
 
 			WideStringClass ping_string;
-			ping_string.Format (L"%d", ping);
+			ping_string.Format (U_CHAR("%d"), ping);
 
 			//
 			//	If this is a mod'd game, then display the mod_name\map_name...
@@ -409,7 +409,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 			//
 			//	Update the pla
 			//
-			list_ctrl->Set_Entry_Text (item_index, COL_ICON,		L"");
+			list_ctrl->Set_Entry_Text (item_index, COL_ICON,		U_CHAR(""));
 			list_ctrl->Set_Entry_Text (item_index, COL_HOST_NAME,	wide_owner_name);
 			list_ctrl->Set_Entry_Text (item_index, COL_GAME_NAME,	wide_game_name);
 			list_ctrl->Set_Entry_Text (item_index, COL_GAME_MAP,	wide_map_name);

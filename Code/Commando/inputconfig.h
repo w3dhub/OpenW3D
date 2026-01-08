@@ -89,10 +89,10 @@ public:
 	//
 	//	Accessors
 	//
-	const wchar_t *	Get_Display_Name (void) const				{ return DisplayName; }
+	const unichar_t *	Get_Display_Name (void) const				{ return DisplayName; }
 	const char *	Get_Filename (void) const					{ return Filename; }
 
-	void				Set_Display_Name (const wchar_t *name)	{ DisplayName = name; }
+	void				Set_Display_Name (const unichar_t *name)	{ DisplayName = name; }
 	void				Set_Filename (const char *name)			{ Filename = name; }
 
 	//

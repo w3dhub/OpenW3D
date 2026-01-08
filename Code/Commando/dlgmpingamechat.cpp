@@ -53,7 +53,7 @@
 #include "string_ids.h"
 
 
-static const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass& param);
+static const unichar_t* Get_Parameter_From_String(const unichar_t* command, WideStringClass& param);
 
 ////////////////////////////////////////////////////////////////
 //
@@ -151,7 +151,7 @@ MPChatChildDialogClass::Process_Message (void)
 		//
 		//	Clear the edit control
 		//
-		Set_Dlg_Item_Text (IDC_MESSAGE_EDIT, L"");
+		Set_Dlg_Item_Text (IDC_MESSAGE_EDIT, U_CHAR(""));
 	}
 
 	return ;
@@ -178,18 +178,18 @@ void MPChatChildDialogClass::Send_Message(WideStringClass& message, TextMessageE
 // Process Commands
 //
 ////////////////////////////////////////////////////////////////
-bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
+bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 {
 	// Does this look like a command?
-	if (message && message[0] == L'/') {
+	if (message && message[0] == U_CHAR('/')) {
 		// Separate the parameters into individual strings
 		WideStringClass command(255, true);
-		const wchar_t* curr_pos = Get_Parameter_From_String(&message[1], command);
+		const unichar_t* curr_pos = Get_Parameter_From_String(&message[1], command);
 
 		if (command.Get_Length() > 0 && curr_pos[0] != 0) {
 
 			// Kick a player from the game
-			if (command.Compare_No_Case(L"kick") == 0) {
+			if (command.Compare_No_Case(U_CHAR("kick")) == 0) {
 				GameModeClass* gameMode = GameModeManager::Find("WOL");
 
 				if (gameMode && gameMode->Is_Active()) {
@@ -207,7 +207,7 @@ bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
 			}
 
 			// Page users outside of this game.
-			if (command.Compare_No_Case(L"page") == 0) {
+			if (command.Compare_No_Case(U_CHAR("page")) == 0) {
 				GameModeClass* gameMode = GameModeManager::Find("WOL");
 
 				if (gameMode && gameMode->Is_Active()) {
@@ -238,7 +238,7 @@ bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
 			}
 
 			// Reply to the last page
-			if (command.Compare_No_Case(L"r") == 0) {
+			if (command.Compare_No_Case(U_CHAR("r")) == 0) {
 				GameModeClass* gameMode = GameModeManager::Find("WOL");
 
 				if (gameMode && gameMode->Is_Active()) {
@@ -255,7 +255,7 @@ bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
 			}
 
 			// Locate a WOL user
-			if (command.Compare_No_Case(L"locate") == 0) {
+			if (command.Compare_No_Case(U_CHAR("locate")) == 0) {
 				GameModeClass* gameMode = GameModeManager::Find("WOL");
 
 				if (gameMode && gameMode->Is_Active()) {
@@ -273,7 +273,7 @@ bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
 			}
 
 			// Invite another WOL user to this game
-			if (command.Compare_No_Case(L"invite") == 0) {
+			if (command.Compare_No_Case(U_CHAR("invite")) == 0) {
 				GameModeClass* gameMode = GameModeManager::Find("WOL");
 
 				if (gameMode && gameMode->Is_Active()) {
@@ -296,7 +296,7 @@ bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
 			}
 
 			// Join another WOL user at their location
-			if (command.Compare_No_Case(L"join") == 0) {
+			if (command.Compare_No_Case(U_CHAR("join")) == 0) {
 				GameModeClass* gameMode = GameModeManager::Find("WOL");
 
 				if (gameMode && gameMode->Is_Active()) {
@@ -325,18 +325,18 @@ bool MPChatChildDialogClass::Process_Commands(const wchar_t* message)
 //
 ////////////////////////////////////////////////////////////////
 
-const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass& param)
+const unichar_t* Get_Parameter_From_String(const unichar_t* command, WideStringClass& param)
 {
 	#define LOCAL_STRIP_WHITESPACE(str)	\
-		while (str[0] != 0 && str[0] == L' ') {++str;}
+		while (str[0] != 0 && str[0] == U_CHAR(' ')) {++str;}
 
 	//	Strip off whitespace
 	LOCAL_STRIP_WHITESPACE(command);
 
-	const wchar_t* curr_pos = command;
+	const unichar_t* curr_pos = command;
 
 	//	Look for the first whitespace break
-	while (curr_pos[0] != 0 && curr_pos[0] != L' ') {
+	while (curr_pos[0] != 0 && curr_pos[0] != U_CHAR(' ')) {
 		++curr_pos;
 	}
 
@@ -344,8 +344,8 @@ const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass
 	int length = ((curr_pos + 1) - command);
 
 	if (length > 0) {
-		wchar_t* buffer = param.Get_Buffer(length + 1);
-		wcsncpy(buffer, command, length);
+		unichar_t* buffer = param.Get_Buffer(length + 1);
+		u_strncpy(buffer, command, length);
 		buffer[length - 1] = 0;
 	}
 
@@ -393,27 +393,27 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 				//
 				//	Try to find the start of the name
 				//
-				const wchar_t *name_start = message.Peek_Buffer () + cmd_start_index;					
+				const unichar_t *name_start = message.Peek_Buffer () + cmd_start_index;					
 
 				//
 				//	Make a copy of the first part of the message before the command
 				//
 				WideStringClass first_part (cmd_start_index + 1, true);
-				::wcsncpy (first_part.Peek_Buffer (), message, cmd_start_index);
+				::u_strncpy (first_part.Peek_Buffer (), message, cmd_start_index);
 				first_part.Peek_Buffer ()[cmd_start_index] = 0;
 
 				//
 				//	Make a copy of the remainder of the message after the command
 				//
 				WideStringClass last_part (message_len - cmd_end_index, true);
-				::wcscpy (last_part.Peek_Buffer (), message.Peek_Buffer () + cmd_end_index);					
+				::u_strcpy (last_part.Peek_Buffer (), message.Peek_Buffer () + cmd_end_index);					
 				
 				//
 				//	Copy the typed characters into their own buffer
 				//
 				int typed_len = caret_pos - cmd_start_index;
 				WideStringClass typed_name (typed_len + 1, true);
-				::wcsncpy (typed_name.Peek_Buffer (), name_start, typed_len);
+				::u_strncpy (typed_name.Peek_Buffer (), name_start, typed_len);
 				typed_name.Peek_Buffer ()[typed_len] = 0;
 
 				//
@@ -448,7 +448,7 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 					int hilight_end = caret_pos + (completed_name_len - typed_len);
 					edit_ctrl->Set_Sel (caret_pos, hilight_end);
 				} else {
-					CurrRecipientName = L"";
+					CurrRecipientName = U_CHAR("");
 				}
 			}
 		}	
@@ -464,15 +464,15 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 //
 //////////////////////////////////////////////////////////////////////
 void	
-MPChatChildDialogClass::Complete_Player_Name (const wchar_t *typed_name, WideStringClass &completed_name)
+MPChatChildDialogClass::Complete_Player_Name (const unichar_t *typed_name, WideStringClass &completed_name)
 {
-	const size_t typed_len = ::wcslen (typed_name);
+	const size_t typed_len = ::u_strlen (typed_name);
 	
 	//
 	//	Require more then one character for any name starting with "R'.  This is
 	// so that Denzil's "reply to last page" code will work...
 	//
-	if (typed_len == 1 && (typed_name[0] == L'r' || typed_name[0] == L'R')) {
+	if (typed_len == 1 && (typed_name[0] == U_CHAR('r') || typed_name[0] == U_CHAR('R'))) {
 		return ;
 	}
 
@@ -490,14 +490,14 @@ MPChatChildDialogClass::Complete_Player_Name (const wchar_t *typed_name, WideStr
 			continue;
 		}
 
-		const wchar_t *player_name = player->Get_Name ();
+		const unichar_t *player_name = player->Get_Name ();
 
 		//
 		//	Is this the best match so far?
 		//
-		if (::wcsnicmp (player_name, typed_name, typed_len) == 0) {
+		if (::u_strncasecmp (player_name, typed_name, typed_len, U_COMPARE_CODE_POINT_ORDER) == 0) {
 			if (	completed_name.Get_Length () == 0 ||
-					::wcsicmp (player_name, completed_name) < 0)
+					::u_strcasecmp (player_name, completed_name, U_COMPARE_CODE_POINT_ORDER) < 0)
 			{
 				completed_name = player_name;
 			}
@@ -581,7 +581,7 @@ MPChatChildDialogClass::On_EditCtrl_Change (EditCtrlClass *edit_ctrl, int ctrl_i
 //
 //////////////////////////////////////////////////////////////////////
 bool
-MPChatChildDialogClass::Find_Current_Command(const wchar_t* message, int& start_index, int& end_index)
+MPChatChildDialogClass::Find_Current_Command(const unichar_t* message, int& start_index, int& end_index)
 {
 	EditCtrlClass *edit_ctrl = (EditCtrlClass *)Get_Dlg_Item (IDC_MESSAGE_EDIT);
 	if (edit_ctrl == NULL) {
@@ -600,7 +600,7 @@ MPChatChildDialogClass::Find_Current_Command(const wchar_t* message, int& start_
 		//
 		//	Look to see if there is a command designator preceding the caret.
 		//
-		const wchar_t *command_start = ::wcsrchr (message, L'/');
+		const unichar_t *command_start = ::u_strrchr (message, U_CHAR('/'));
 		if (command_start != NULL) {
 			start_index = command_start - message;
 			command_start ++;
@@ -609,9 +609,9 @@ MPChatChildDialogClass::Find_Current_Command(const wchar_t* message, int& start_
 			//	Check to ensure there isn't a space between the designator
 			// and the caret
 			//
-			const wchar_t *first_space = ::wcschr (command_start, L' ');
+			const unichar_t *first_space = ::u_strchr (command_start, U_CHAR(' '));
 			if (first_space == NULL) {
-				end_index = static_cast<int>(::wcslen (message));
+				end_index = static_cast<int>(::u_strlen (message));
 				retval = true;
 			} else if (caret_pos <= (first_space - message)) {
 				end_index = (first_space - message);
@@ -676,7 +676,7 @@ MPChatChildDialogClass::On_EditCtrl_Key_Down
 					//	Update the dialog with the user's name...
 					//
 					WideStringClass heading_text(0, true);
-					heading_text.Format (L"%s:", CurrRecipientName.Peek_Buffer ());
+					heading_text.Format (U_CHAR("%s:"), CurrRecipientName.Peek_Buffer ());
 					Set_Dlg_Item_Text (IDC_TYPE_STATIC, heading_text);
 
 					//

@@ -151,7 +151,7 @@ WaitCondition::WaitResult WaitCondition::WaitFor(CallbackHook& hook, unsigned in
 *
 ******************************************************************************/
 
-RefPtr<SingleWait> SingleWait::Create(const wchar_t* text, unsigned int timeout)
+RefPtr<SingleWait> SingleWait::Create(const unichar_t* text, unsigned int timeout)
 	{
 	return new SingleWait(text, timeout);
 	}
@@ -176,7 +176,7 @@ RefPtr<SingleWait> SingleWait::Create(const wchar_t* text, unsigned int timeout)
 *
 ******************************************************************************/
 
-SingleWait::SingleWait(const wchar_t* waitText, unsigned int timeout) :
+SingleWait::SingleWait(const unichar_t* waitText, unsigned int timeout) :
 	  mWaitText(waitText),
 	  mEndResult(Waiting),
 		mTimeout(timeout)
@@ -264,7 +264,7 @@ WaitCondition::WaitResult SingleWait::GetResult(void)
 *
 ******************************************************************************/
 
-const wchar_t* SingleWait::GetResultText(void) const
+const unichar_t* SingleWait::GetResultText(void) const
 	{
 	return mEndText;
 	}
@@ -287,7 +287,7 @@ const wchar_t* SingleWait::GetResultText(void) const
 *
 ******************************************************************************/
 
-void SingleWait::EndWait(WaitResult result, const wchar_t* endText)
+void SingleWait::EndWait(WaitResult result, const unichar_t* endText)
 	{
 	mEndResult = result;
 	mEndText = endText;
@@ -310,7 +310,7 @@ void SingleWait::EndWait(WaitResult result, const wchar_t* endText)
 *
 ******************************************************************************/
 
-const wchar_t* SingleWait::GetWaitText(void) const
+const unichar_t* SingleWait::GetWaitText(void) const
 	{
 	return mWaitText;
 	}
@@ -332,7 +332,7 @@ const wchar_t* SingleWait::GetWaitText(void) const
 *
 ******************************************************************************/
 
-void SingleWait::SetWaitText(const wchar_t* waitText)
+void SingleWait::SetWaitText(const unichar_t* waitText)
 	{
 	mWaitText = waitText;
 	}
@@ -454,7 +454,7 @@ void SerialWait::Add(const RefPtr<WaitCondition>& wait)
 	else
 		{
 		assert(wait.IsValid() && "SerialWait: Invalid wait condition");
-		EndWait(Error, L"Invalid wait condition.");
+		EndWait(Error, U_CHAR("Invalid wait condition."));
 		}
 	}
 
@@ -622,7 +622,7 @@ WaitCondition::WaitResult SerialWait::GetResult(void)
 *
 ******************************************************************************/
 
-void SerialWait::EndWait(WaitResult result, const wchar_t* endText)
+void SerialWait::EndWait(WaitResult result, const unichar_t* endText)
 	{
 	mEndResult = result;
 	mEndText = endText;
@@ -651,7 +651,7 @@ void SerialWait::EndWait(WaitResult result, const wchar_t* endText)
 *
 ******************************************************************************/
 
-const wchar_t* SerialWait::GetResultText(void) const
+const unichar_t* SerialWait::GetResultText(void) const
 	{
 	return mEndText;
 	}
@@ -672,7 +672,7 @@ const wchar_t* SerialWait::GetResultText(void) const
 *
 ******************************************************************************/
 
-const wchar_t* SerialWait::GetWaitText(void) const
+const unichar_t* SerialWait::GetWaitText(void) const
 	{
 	if ((mCurrentWait >= 0) && ((unsigned)mCurrentWait < mWaits.size()))
 		{
@@ -729,7 +729,7 @@ unsigned int SerialWait::GetTimeout(void) const
 *
 ******************************************************************************/
 
-RefPtr<ANDWait> ANDWait::Create(const wchar_t* waitText)
+RefPtr<ANDWait> ANDWait::Create(const unichar_t* waitText)
 	{
 	return new ANDWait(waitText);
 	}
@@ -751,7 +751,7 @@ RefPtr<ANDWait> ANDWait::Create(const wchar_t* waitText)
 *
 ******************************************************************************/
 
-ANDWait::ANDWait(const wchar_t* waitText) :
+ANDWait::ANDWait(const unichar_t* waitText) :
 		mEndResult(Waiting),
 		mWaitText(waitText),
 		mMaxTimeout(0)
@@ -813,7 +813,7 @@ void ANDWait::Add(const RefPtr<WaitCondition>& wait)
 	else
 		{
 		assert(wait.IsValid() && "ORWait: Invalid wait condition");
-		EndWait(Error, L"Invalid wait condition.");
+		EndWait(Error, U_CHAR("Invalid wait condition."));
 		}
 	}
 
@@ -914,14 +914,14 @@ WaitCondition::WaitResult ANDWait::GetResult(void)
 *
 ******************************************************************************/
 
-void ANDWait::EndWait(WaitResult result, const wchar_t* endText)
+void ANDWait::EndWait(WaitResult result, const unichar_t* endText)
 	{
 	mEndResult = result;
 	mEndText = endText;
 
 	for (unsigned int index = 0; index < mWaits.size(); ++index)
 		{
-		mWaits[index]->EndWait(result, L"");
+		mWaits[index]->EndWait(result, U_CHAR(""));
 		}
 	}
 
@@ -939,7 +939,7 @@ void ANDWait::EndWait(WaitResult result, const wchar_t* endText)
 *
 ******************************************************************************/
 
-const wchar_t* ANDWait::GetResultText(void) const
+const unichar_t* ANDWait::GetResultText(void) const
 	{
 	return mEndText;
 	}
@@ -958,7 +958,7 @@ const wchar_t* ANDWait::GetResultText(void) const
 *
 ******************************************************************************/
 
-const wchar_t* ANDWait::GetWaitText(void) const
+const unichar_t* ANDWait::GetWaitText(void) const
 	{
 	return mWaitText;
 	}
@@ -1000,7 +1000,7 @@ unsigned int ANDWait::GetTimeout(void) const
 *
 ******************************************************************************/
 
-RefPtr<ORWait> ORWait::Create(const wchar_t* waitText)
+RefPtr<ORWait> ORWait::Create(const unichar_t* waitText)
 	{
 	return new ORWait(waitText);
 	}
@@ -1022,7 +1022,7 @@ RefPtr<ORWait> ORWait::Create(const wchar_t* waitText)
 *
 ******************************************************************************/
 
-ORWait::ORWait(const wchar_t* waitText) :
+ORWait::ORWait(const unichar_t* waitText) :
 	  mEndResult(Waiting),
 	  mWaitText(waitText),
 		mMaxTimeout(0)
@@ -1084,7 +1084,7 @@ void ORWait::Add(const RefPtr<WaitCondition>& wait)
 	else
 		{
 		assert(wait.IsValid() && "ORWait: Invalid wait condition");
-		EndWait(Error, L"Invalid wait condition.");
+		EndWait(Error, U_CHAR("Invalid wait condition."));
 		}
 	}
 
@@ -1166,14 +1166,14 @@ WaitCondition::WaitResult ORWait::GetResult(void)
 *
 ******************************************************************************/
 
-void ORWait::EndWait(WaitResult result, const wchar_t* endText)
+void ORWait::EndWait(WaitResult result, const unichar_t* endText)
 	{
 	mEndText = endText;
 	mEndResult = result;
 
 	for (unsigned int index = 0; index < mWaits.size(); ++index)
 		{
-		mWaits[index]->EndWait(result, L"");
+		mWaits[index]->EndWait(result, U_CHAR(""));
 		}
 	}
 
@@ -1192,7 +1192,7 @@ void ORWait::EndWait(WaitResult result, const wchar_t* endText)
 *
 ******************************************************************************/
 
-const wchar_t* ORWait::GetResultText(void) const
+const unichar_t* ORWait::GetResultText(void) const
 	{
 	return mEndText;
 	}
@@ -1212,7 +1212,7 @@ const wchar_t* ORWait::GetResultText(void) const
 *
 ******************************************************************************/
 
-const wchar_t* ORWait::GetWaitText(void) const
+const unichar_t* ORWait::GetWaitText(void) const
 	{
 	return mWaitText;
 	}

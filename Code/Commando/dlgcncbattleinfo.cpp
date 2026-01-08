@@ -360,11 +360,11 @@ CNCBattleInfoDialogClass::Populate_Player_List (ListCtrlClass *list_ctrl, int te
 			//
 			//	Make a new entry for this player
 			//			
-			int item_index = list_ctrl->Insert_Entry (index ++, L"");
+			int item_index = list_ctrl->Insert_Entry (index ++, U_CHAR(""));
 			if (item_index >= 0) {
 				WideStringClass displayName(0, true);
 				Build_Player_Display_Name(player, displayName);
-				list_ctrl->Set_Entry_Text(item_index, COL_NAME, (const wchar_t*)displayName);
+				list_ctrl->Set_Entry_Text(item_index, COL_NAME, (const unichar_t*)displayName);
 
 				list_ctrl->Set_Entry_Int (item_index, COL_RANK,			player->Get_Rung ());
 				list_ctrl->Set_Entry_Int (item_index, COL_SCORE,		player->Get_Score ());
@@ -386,9 +386,9 @@ CNCBattleInfoDialogClass::Populate_Player_List (ListCtrlClass *list_ctrl, int te
 				WideStringClass number_str;
 				float ktd_ratio = player->Get_Kill_To_Death_Ratio ();
 				if (ktd_ratio >= 0) {
-					number_str.Format(L"%-8.1f", ktd_ratio);
+					number_str.Format(U_CHAR("%-8.1f"), ktd_ratio);
 				} else {
-					number_str.Format(L"%-8s", L"-");
+					number_str.Format(U_CHAR("%-8s"), U_CHAR("-"));
 				}
 
 				list_ctrl->Set_Entry_Text (item_index, COL_KD, number_str);
@@ -469,7 +469,7 @@ void CNCBattleInfoDialogClass::Build_Player_Display_Name(const cPlayer* player, 
 			RefPtr<WWOnline::SquadData> clan = user->GetSquad();
 
 			if (clan.IsValid()) {
-				outName.Format(L"%s [%S]", player->Get_Name(), clan->GetAbbr());
+				outName.Format(U_CHAR("%s [%S]"), player->Get_Name(), clan->GetAbbr());
 				return;
 			}
 		}

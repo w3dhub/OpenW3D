@@ -85,7 +85,7 @@ public:
 	//
 	virtual void				Render (void) override;
 
-	virtual void Set_Title(const wchar_t* title);
+	virtual void Set_Title(const unichar_t* title);
 
 protected:
 

@@ -37,6 +37,7 @@
 
 #include "RefCounted.h"
 #include "RefPtr.h"
+#include "unichar.h"
 
 namespace WOL
 {
@@ -103,7 +104,7 @@ class LadderData :
 class LadderInfoEvent
 	{
 	public:
-		LadderInfoEvent(const wchar_t* requested, const WOL::Ladder& ladder, int time);
+		LadderInfoEvent(const unichar_t* requested, const WOL::Ladder& ladder, int time);
 
 		virtual ~LadderInfoEvent()
 			{}
@@ -112,7 +113,7 @@ class LadderInfoEvent
 
 		LadderType GetLadderType(void) const;
 
-		const wchar_t* GetRequestedName(void) const
+		const unichar_t* GetRequestedName(void) const
 			{return mRequestedName;}
 
 		const char* GetReceivedName(void) const
@@ -129,7 +130,7 @@ class LadderInfoEvent
 		LadderInfoEvent(const LadderInfoEvent&);
 		const LadderInfoEvent& operator=(const LadderInfoEvent&);
 
-		const wchar_t* mRequestedName;
+		const unichar_t* mRequestedName;
 		const WOL::Ladder& mWOLLadder;
 		int mTimeStamp;
 	};

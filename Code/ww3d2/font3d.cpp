@@ -405,7 +405,7 @@ void	Font3DInstanceClass::Build_Cached_Tables()
  * Finds the normalized screenspace width of a character string - useful for checking before   *
  * printing to avoid overflowing the screen.																	  *                                                                                             * 
  ***********************************************************************************************/
-float	Font3DInstanceClass::String_Width( const wchar_t *test_str )
+float	Font3DInstanceClass::String_Width( const unichar_t *test_str )
 {
 	float width = 0.0;
 	for (; *test_str; test_str++) {

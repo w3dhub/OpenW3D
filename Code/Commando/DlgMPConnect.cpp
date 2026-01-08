@@ -256,7 +256,7 @@ void DlgMPConnect::On_Periodic(void)
 			}
 		else
 			{
-			WWDEBUG_SAY(("ERROR: %s\n", (const wchar_t*)outMsg));
+			WWDEBUG_SAY(("ERROR: %s\n", (const unichar_t*)outMsg));
 			}
 
 		// Release the keep alive reference (this will delete this object)

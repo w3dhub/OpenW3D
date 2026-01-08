@@ -69,7 +69,7 @@
 #define INVALID_HUD_WEAPON ((WeaponClass *)(uintptr_t)-1)
 
 
-static void Generate_WChar_Text_From_Number(wchar_t* text,int digits,int min_digits,int value)
+static void Generate_WChar_Text_From_Number(unichar_t* text,int digits,int min_digits,int value)
 {
 	text[digits]=0;
 	while (digits) {
@@ -81,7 +81,7 @@ static void Generate_WChar_Text_From_Number(wchar_t* text,int digits,int min_dig
 	}
 	if ((min_digits==0) && digits) {
 		int i=0;
-		while (wchar_t c=text[digits++]) {
+		while (unichar_t c=text[digits++]) {
 			text[i++]=c;
 		}
 		text[i]=0;
@@ -346,7 +346,7 @@ static	void	Powerup_Shutdown( void )
 	RightPowerupIconList.Delete_All();
 }
 
-static	void	Powerup_Add( const wchar_t * name, int number, const char * texture_name, const RectClass & uv, const Vector2 & offset, bool right_list = true )
+static	void	Powerup_Add( const unichar_t * name, int number, const char * texture_name, const RectClass & uv, const Vector2 & offset, bool right_list = true )
 {
 	PowerupIconStruct * data = new PowerupIconStruct();
 	data->Renderer = new Render2DClass();
@@ -471,7 +471,7 @@ static	void	Powerup_Update( void )
 		// Draw powerup count
 		if ( LeftPowerupIconList[i]->Number != 0 ) {
 			WideStringClass num(0,true);
-			num.Format( L"%d", LeftPowerupIconList[i]->Number );
+			num.Format( U_CHAR("%d"), LeftPowerupIconList[i]->Number );
 			PowerupTextRenderer->Build_Sentence( num );
 			PowerupTextRenderer->Set_Location( Vector2( draw_box.Right - 12, draw_box.Top + 1 ) );
 			PowerupTextRenderer->Draw_Sentence( white );
@@ -531,7 +531,7 @@ static	void	Powerup_Update( void )
 		// Draw powerup count
 		if ( RightPowerupIconList[i]->Number != 0 ) {
 			WideStringClass num(0,true);
-			num.Format( L"%d", RightPowerupIconList[i]->Number );
+			num.Format( U_CHAR("%d"), RightPowerupIconList[i]->Number );
 			PowerupTextRenderer->Build_Sentence( num );
 			PowerupTextRenderer->Set_Location( Vector2( draw_box.Right - 12, draw_box.Top + 1 ) );
 			PowerupTextRenderer->Draw_Sentence( white );
@@ -680,7 +680,7 @@ static	void	HUD_Help_Text_Render( void )
 			//	Clear the text if necessary
 			//
 			if (HUDHelpTextState >= HUD_HELP_TEXT_DONE) {
-				HUDInfo::Set_HUD_Help_Text( L"" );
+				HUDInfo::Set_HUD_Help_Text( U_CHAR("") );
 				HUDHelpTextRenderer->Reset();
 			} else if (HUDHelpTextState == HUD_HELP_TEXT_FADING) {
 				HUDHelpTextTimer = HUD_HELP_TEXT_FADE_TIME;
@@ -798,7 +798,7 @@ static	void	Weapon_Update( void )
 	if ( weapon != NULL ) {
 //		StringClass	text;
 //		text.Format( "%03d", weapon->Get_Clip_Rounds() );
-		wchar_t tmp_text[5];
+		unichar_t tmp_text[5];
 		if ( weapon->Get_Clip_Rounds() == -1 ) {
 			//text.Format( "999", weapon->Get_Total_Rounds() );
 			tmp_text[0]='9';
@@ -945,7 +945,7 @@ static	void	Weapon_Update( void )
 
 			// Right justify Name
 
-			WideStringClass name(0,true); // = L"Rocket Launcher";
+			WideStringClass name(0,true); // = U_CHAR("Rocket Launcher");
 			name = TranslateDBClass::Get_String( def->IconNameID );
 			WeaponNameRenderer->Build_Sentence( name );
 			Vector2 text_size = WeaponNameRenderer->Get_Text_Extents( name ) + Vector2( 1, 0 );
@@ -1576,7 +1576,7 @@ static	void	Target_Update( void )
 				if ( health < 1 && health > 0 ) {
 					health = 1;
 				}
-				num.Format( L"%d", (int)health );
+				num.Format( U_CHAR("%d"), (int)health );
 				TargetNameRenderer->Build_Sentence( num );
 				Vector2 text_size = TargetNameRenderer->Get_Text_Extents( num );
 				text_size.U -= 1;
@@ -1831,8 +1831,8 @@ static	void	Score_Update( void )
 	if ( COMBAT_STAR && COMBAT_STAR->Get_Player_Data() ) {
 		int score = COMBAT_STAR->Get_Player_Data()->Get_Score();
 //		WideStringClass	scorestring;
-//		scorestring.Format( L"%d", score );
-		wchar_t score_string[12];	// 12 digits ought to be enough...
+//		scorestring.Format( U_CHAR("%d"), score );
+		unichar_t score_string[12];	// 12 digits ought to be enough...
 		Generate_WChar_Text_From_Number(score_string,sizeof(score_string),false,score);
 
 		Vector2 position = Render2DClass::Get_Screen_Resolution().Center();
@@ -2433,7 +2433,7 @@ static	void	Info_Update_Health_Shield( void )
 	}
 	//text.Format( "%03d", (int)health );
 	int lhealth=WWMath::Float_To_Long(health);
-	wchar_t tmp_text[5];
+	unichar_t tmp_text[5];
 	Generate_WChar_Text_From_Number(tmp_text,4,3,lhealth);
 
 	InfoHealthCountRenderer->Set_Location( draw.Upper_Right() + Vector2( 4,4) );
@@ -2505,7 +2505,7 @@ static	void	Info_Update_Health_Shield( void )
 //		StringClass	text;
 //		text.Format( "%03d", (int)shield );
 		int lshield=WWMath::Float_To_Long(shield);
-		wchar_t tmp_text[5];
+		unichar_t tmp_text[5];
 		Generate_WChar_Text_From_Number(tmp_text,4,3,lshield);
 		InfoShieldCountRenderer->Set_Location( draw.Upper_Left() + Vector2( 4,4) );
 		InfoShieldCountRenderer->Draw_Text( tmp_text );

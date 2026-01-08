@@ -43,7 +43,7 @@
 
 #include "always.h"
 #include "wwdebug.h"
-#include <wchar.h>
+#include "unichar.h"
 
 class SubTitleClass
 {
@@ -95,10 +95,10 @@ public:
 	Alignment Get_Alignment(void) const { return mAlignment; }
 
 	// Set the caption text
-	void Set_Caption(wchar_t* string);
+	void Set_Caption(unichar_t* string);
 
 	// Retrieve the caption text
-	const wchar_t* Get_Caption(void) const { return mCaption; }
+	const unichar_t* Get_Caption(void) const { return mCaption; }
 
 private:
 	unsigned int mTimeStamp;
@@ -106,7 +106,7 @@ private:
 	unsigned int mRGBColor;
 	int mLinePosition;
 	Alignment mAlignment;
-	wchar_t* mCaption;
+	unichar_t* mCaption;
 };
 
 #endif // _SUBTITLE_H_

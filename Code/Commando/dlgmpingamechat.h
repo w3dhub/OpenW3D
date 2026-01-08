@@ -86,14 +86,14 @@ protected:
 	////////////////////////////////////////////////////////////////	
 	void Process_Message(void);
 	void Send_Message(WideStringClass& message, TextMessageEnum type, int recipientID);
-	bool Process_Commands(const wchar_t* message);
+	bool Process_Commands(const unichar_t* message);
 
 	//
 	//	Auto completetion
 	//
 	void	Auto_Complete_Name (void);
-	void	Complete_Player_Name (const wchar_t *typed_name, WideStringClass &completed_name);
-	bool	Find_Current_Command (const wchar_t *	message, int &start_index, int &end_index);
+	void	Complete_Player_Name (const unichar_t *typed_name, WideStringClass &completed_name);
+	bool	Find_Current_Command (const unichar_t *	message, int &start_index, int &end_index);
 
 
 	////////////////////////////////////////////////////////////////

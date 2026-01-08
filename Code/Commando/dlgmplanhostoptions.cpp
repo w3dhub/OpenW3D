@@ -236,7 +236,7 @@ MPLanHostOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsigned int
 							}
 						} else {
 							WideStringClass errorMsg(0, true);
-							errorMsg.Format(L"%s\n\n%s", TRANSLATE(IDS_MENU_TEXT330), (const wchar_t*)outMsg);
+							errorMsg.Format(U_CHAR("%s\n\n%s"), TRANSLATE(IDS_MENU_TEXT330), (const unichar_t*)outMsg);
 							DlgMsgBox::DoDialog(TRANSLATE(IDS_MENU_TEXT329), errorMsg);
 						}
 					}
@@ -464,7 +464,7 @@ void MPLanHostBasicOptionsTabClass::InitSideChoiceCombo(int sidePref)
 
 	if (combo) {
 		//(gth) Renegade day 120 Patch: re-translate these strings each time!
-		struct {const wchar_t* TeamName; int TeamID;} _teams[] = {
+		struct {const unichar_t* TeamName; int TeamID;} _teams[] = {
 			{TRANSLATE (IDS_MENU_AUTO_TEAM), PLAYERTYPE_RENEGADE},
 			{TRANSLATE (IDS_MENU_TEXT933), PLAYERTYPE_GDI},
 			{TRANSLATE (IDS_MENU_TEXT934), PLAYERTYPE_NOD},
@@ -585,8 +585,8 @@ MPLanHostBasicOptionsTabClass::On_EditCtrl_Change (EditCtrlClass *edit, int ctrl
 		//
 		// Flag the game as passworded if the user enters text into the password edit.
 		//
-		const wchar_t* text = edit->Get_Text ();
-		bool hasPassword = (text && (wcslen (text) > 0));
+		const unichar_t* text = edit->Get_Text ();
+		bool hasPassword = (text && (u_strlen (text) > 0));
 		SendSignal (hasPassword);
 
 	} else if (ctrlID == IDC_NUM_PLAYERS_EDIT) {
@@ -1045,7 +1045,7 @@ MPLanHostMapCycleOptionsTabClass::On_Init_Dialog (void)
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_AVAILABLE_MAP_LIST_CTRL);
 	if (list_ctrl != NULL) {
-		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 	}
 
 	//
@@ -1053,7 +1053,7 @@ MPLanHostMapCycleOptionsTabClass::On_Init_Dialog (void)
 	//
 	list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_MAP_CYCLE_LIST_CTRL);
 	if (list_ctrl != NULL) {
-		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 	}
 
 	//
@@ -1208,7 +1208,7 @@ MPLanHostMapCycleOptionsTabClass::Build_Mod_Package_List (void)
 	//
 	//	Add a default entry to the list
 	//
-	combobx_ctrl->Add_String (L"<None>");
+	combobx_ctrl->Add_String (U_CHAR("<None>"));
 
 	//
 	//	Loop over and add all the mod packages to the combobox

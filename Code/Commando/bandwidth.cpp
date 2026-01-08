@@ -82,7 +82,7 @@ unsigned int cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_TYPE_ENUM bandwid
 }
 
 //-----------------------------------------------------------------------------
-const wchar_t *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type)
+const unichar_t *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type)
 {
 	static char _bandwidth_auto_txt[128];
 	static WideStringClass s;
@@ -105,7 +105,7 @@ const wchar_t *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM ba
 		case BANDWIDTH_LANT1:
 			return TRANSLATE(IDS_MP_CONNECTION_T1);		//"BANDWIDTH_LANT1";
 		case BANDWIDTH_CUSTOM:
-			return L"BANDWIDTH_CUSTOM";
+			return U_CHAR("BANDWIDTH_CUSTOM");
 		case BANDWIDTH_AUTO:
 		{
 			//sprintf(_bandwidth_auto_txt, "BANDWIDTH_AUTO (%s)", BandwidthCheckerClass::Get_Bandwidth_As_String());
@@ -116,7 +116,7 @@ const wchar_t *cBandwidth::Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM ba
 		}
 		default:
 			DIE;
-			return L"ERROR"; // to avoid compiler warning
+			return U_CHAR("ERROR"); // to avoid compiler warning
    }
 }
 

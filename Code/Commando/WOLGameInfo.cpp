@@ -219,7 +219,7 @@ void WOLGameInfo::ImportFromGame(const cGameData& theGame)
 	strncpy(mModName, theGame.Get_Mod_Name(), MAX_TEXT_LENGTH);
 	mModName[MAX_TEXT_LENGTH - 1] = 0;
 
-	wcstombs(mTitle, theGame.Get_Game_Title(), MAX_TEXT_LENGTH);
+	u_wstomb(mTitle, theGame.Get_Game_Title(), MAX_TEXT_LENGTH);
 	mTitle[MAX_TEXT_LENGTH - 1] = 0;
 
 	mMinPlayers = theGame.Get_Min_Players();
@@ -229,8 +229,8 @@ void WOLGameInfo::ImportFromGame(const cGameData& theGame)
 	mClanID1 = theGame.Get_Clan(0);
 	mClanID2 = theGame.Get_Clan(1);
 
-	const wchar_t* password = theGame.Get_Password();
-	mIsPassworded = ((password != NULL) && (wcslen(password) > 0));
+	const unichar_t* password = theGame.Get_Password();
+	mIsPassworded = ((password != NULL) && (u_strlen(password) > 0));
 	mIsLaddered   = theGame.IsLaddered.Get();
 	mIsQuickmatch = theGame.Is_QuickMatch_Server();
 	mIsDedicated  = theGame.IsDedicated.Get();
@@ -279,7 +279,7 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 		}
 					
 	//ST - Test code
-	//if (channel->GetName() != WideStringClass(L"ladtest07")) {
+	//if (channel->GetName() != WideStringClass(U_CHAR("ladtest07"))) {
 	//	mIsDataValid = false;
 	//	return;
 	//}

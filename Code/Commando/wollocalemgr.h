@@ -66,13 +66,13 @@ public:
 	//
 	//	Locale control
 	//
-	static WOL::Locale	Get_Locale (const wchar_t *login_name);
-	static void				Set_Locale (const wchar_t *login_name, WOL::Locale locale);
+	static WOL::Locale	Get_Locale (const unichar_t *login_name);
+	static void				Set_Locale (const unichar_t *login_name, WOL::Locale locale);
 
 	static WOL::Locale	Get_Current_Locale (void);
 	static void				Set_Current_Locale (WOL::Locale locale);
 
-	static const wchar_t* Get_Locale_String(WOL::Locale locale);
+	static const unichar_t* Get_Locale_String(WOL::Locale locale);
 
 	//
 	//	UI Support

@@ -1311,7 +1311,7 @@ bool cNetwork::Client_Think(void)
 		if (I_Am_Only_Client()) {
 			if ((DlgMsgBox::Get_Current_Count() == 0)
 					&& GameModeManager::Find("Combat") != NULL && GameModeManager::Find("Combat")->Is_Active()
-					&& The_Game() != NULL && ::wcslen(The_Game()->Get_Motd()) > 0) {
+					&& The_Game() != NULL && ::u_strlen(The_Game()->Get_Motd()) > 0) {
 
 				DlgMsgBox::DoDialog(TRANSLATE (IDS_MENU_MOTD), The_Game()->Get_Motd());
 				HaveDoneMotdDialog = true;

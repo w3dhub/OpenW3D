@@ -241,7 +241,7 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
    // Compose a string description of a team's stats for display
    //
    
-	string.Format(L"");
+	string.Format(U_CHAR(""));
 
 	WWASSERT(PTheGameData != NULL);
 	//bool is_verbose = The_Game()->IsIntermission.Get() || MultiHUDClass::Get_Verbose_Lists();
@@ -255,7 +255,7 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
    //
 	// Num Players
 	//
-	substring.Format(L"%-2d ", Tally_Size());
+	substring.Format(U_CHAR("%-2d "), Tally_Size());
 	string += substring;
 
    /*
@@ -263,7 +263,7 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
 	// Standing
 	//
 	if (is_verbose) {
-		substring.Format(L" %2d. ", rank);
+		substring.Format(U_CHAR(" %2d. "), rank);
 		string += substring;
 	}
 	*/
@@ -272,11 +272,11 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
 	// Name
 	//
 	//GAMESPY
-	//substring.Format(L"%-11s", Name);
+	//substring.Format(U_CHAR("%-11s"), Name);
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		substring.Format(L"%-36s", Name);
+		substring.Format(U_CHAR("%-36s"), Name);
 	} else {
-		substring.Format(L"%-11s", Name);
+		substring.Format(U_CHAR("%-11s"), Name);
 	}
    string += substring;
 
@@ -285,7 +285,7 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
 	// Kills
 	//
 	if (is_verbose) {
-      substring.Format(L"%-8d", Kills);
+      substring.Format(U_CHAR("%-8d"), Kills);
       string += substring;
    }
 
@@ -293,7 +293,7 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
 	// Deaths
 	//
 	if (is_verbose) {
-      substring.Format(L"%-8d", Deaths);
+      substring.Format(U_CHAR("%-8d"), Deaths);
       string += substring;
    }
 
@@ -303,9 +303,9 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
    if (is_verbose) {
 		float ktd = Get_Kill_To_Death_Ratio();
 		if (ktd >= 0) {
-			substring.Format(L"%-8.1f", ktd);
+			substring.Format(U_CHAR("%-8.1f"), ktd);
 		} else {
-			substring.Format(L"%-8s", "-");
+			substring.Format(U_CHAR("%-8s"), "-");
 		}
       string += substring;
    }
@@ -328,9 +328,9 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
 			  (cNetwork::Get_My_Team_Number() == TeamNumber));
 
 		if (show) {
-	      substring.Format(L"%-8d", Tally_Money());
+	      substring.Format(U_CHAR("%-8d"), Tally_Money());
 		} else {
-	      substring.Format(L"%-8s", "-");
+	      substring.Format(U_CHAR("%-8s"), "-");
 		}
       
       string += substring;
@@ -340,7 +340,7 @@ void cTeam::Get_Team_String(int rank, WideStringClass & string) const
 	//
 	// Score
 	//
-	substring.Format(L"%-8d", (int) Score);
+	substring.Format(U_CHAR("%-8d"), (int) Score);
 	string += substring;
 }
 

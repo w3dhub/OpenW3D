@@ -186,9 +186,9 @@ MPWolPageBuddyPopupClass::Send_Page(void)
 	if (message.Is_Empty() == false) {
 
 		//	Get the name of the user we'll be paging
-		const wchar_t* username = Get_Dlg_Item_Text(IDC_BUDDY_NAME_COMBO);
+		const unichar_t* username = Get_Dlg_Item_Text(IDC_BUDDY_NAME_COMBO);
 
-		if (wcslen(username) > 0) {
+		if (u_strlen(username) > 0) {
 
 			//	Send the page
 			if (mBuddyMgr) {
@@ -206,7 +206,7 @@ MPWolPageBuddyPopupClass::Send_Page(void)
 //	Set_Buddy_Name
 //
 ////////////////////////////////////////////////////////////////
-void MPWolPageBuddyPopupClass::Set_Buddy_Name(const wchar_t *user_name)
+void MPWolPageBuddyPopupClass::Set_Buddy_Name(const unichar_t *user_name)
 {
 	Set_Dlg_Item_Text(IDC_BUDDY_NAME_COMBO, user_name);
 }

@@ -61,7 +61,7 @@ extern class TranslateDBClass _TheTranslateDB;
 typedef DynamicVectorClass<TDBObjClass *>			TDB_OBJ_LIST;
 typedef DynamicVectorClass<TDBCategoryClass *>	TDB_CATEGORY_LIST;
 
-extern const wchar_t *	STRING_NOT_FOUND;
+extern const unichar_t *	STRING_NOT_FOUND;
 extern const char *	ENGLISH_STRING_NOT_FOUND;
 
 //////////////////////////////////////////////////////////////////////////
@@ -139,8 +139,8 @@ public:
 	//
 	//	Data access
 	//
-	static const wchar_t *			Get_String (uint32 id);
-	static const wchar_t *			Get_String (const char *id_desc);
+	static const unichar_t *			Get_String (uint32 id);
+	static const unichar_t *			Get_String (const char *id_desc);
 	static const char *			Get_English_String (uint32 id);
 	WWINLINE static TDBObjClass *	Find_Object (uint32 id);
 	WWINLINE static TDBObjClass * Find_Object (const char *id_desc);
@@ -243,7 +243,7 @@ private:
 //////////////////////////////////////////////////////////////
 //	Get_String
 //////////////////////////////////////////////////////////////
-inline const wchar_t *
+inline const unichar_t *
 TranslateDBClass::Get_String (uint32 id)
 {
 	// ID of 0 (zero) is a special case NULL string.
@@ -251,7 +251,7 @@ TranslateDBClass::Get_String (uint32 id)
 		return NULL;
 	}
 	
-	const wchar_t *string = STRING_NOT_FOUND;
+	const unichar_t *string = STRING_NOT_FOUND;
 
 	//
 	//	Check to make sure the database is loaded
@@ -291,7 +291,7 @@ TranslateDBClass::Get_String (uint32 id)
 //////////////////////////////////////////////////////////////
 //	Get_String
 //////////////////////////////////////////////////////////////
-inline const wchar_t *
+inline const unichar_t *
 TranslateDBClass::Get_String (const char *id_desc)
 {
 	// NULL description is a special case NULL string.
@@ -299,7 +299,7 @@ TranslateDBClass::Get_String (const char *id_desc)
 		return NULL;
 	}
 
-	const wchar_t *string = STRING_NOT_FOUND;
+	const unichar_t *string = STRING_NOT_FOUND;
 
 	//
 	//	Lookup the object based on its ID

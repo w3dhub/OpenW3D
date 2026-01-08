@@ -57,7 +57,7 @@ public:
 	MPWolPageBuddyPopupClass(void);
 	~MPWolPageBuddyPopupClass(void);
 
-	void Set_Buddy_Name(const wchar_t* user_name);
+	void Set_Buddy_Name(const unichar_t* user_name);
 
 protected:
 

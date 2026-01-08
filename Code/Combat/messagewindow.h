@@ -118,7 +118,7 @@ public:
 	//
 	void					Clear_Log (void)				{ MessageLog.Reset_Active (); MessageLogColor.Reset_Active (); }
 	int					Get_Log_Count (void)			{ return MessageLog.Count (); }
-	const wchar_t *		Get_Log_Entry (int index)	{ return MessageLog[index]; }
+	const unichar_t *		Get_Log_Entry (int index)	{ return MessageLog[index]; }
 	const Vector3 &	Get_Log_Color (int index)	{ return MessageLogColor[index]; }
 
 private:

@@ -51,7 +51,7 @@
 *
 ******************************************************************************/
 
-bool DlgMPConnectionRefused::DoDialog(const wchar_t * text, bool show_splash_screen)
+bool DlgMPConnectionRefused::DoDialog(const unichar_t * text, bool show_splash_screen)
 	{	
 	DlgMPConnectionRefused* popup = new DlgMPConnectionRefused(text, show_splash_screen);
 
@@ -81,7 +81,7 @@ bool DlgMPConnectionRefused::DoDialog(const wchar_t * text, bool show_splash_scr
 *
 ******************************************************************************/
 
-DlgMPConnectionRefused::DlgMPConnectionRefused(const wchar_t * text, bool show_splash_screen) :
+DlgMPConnectionRefused::DlgMPConnectionRefused(const unichar_t * text, bool show_splash_screen) :
 		PopupDialogClass(GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_CONNECTION_REFUSED))
 	{
 	WWDEBUG_SAY(("DlgMPConnectionRefused: Instantiated\n"));

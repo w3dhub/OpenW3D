@@ -185,7 +185,7 @@ void ServerListWait::HandleNotification(ServerError& serverError)
 	{
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = serverError.GetDescription();
+		const unichar_t* errorMsg = serverError.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: ServerListWait '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -348,7 +348,7 @@ void DisconnectWait::WaitBeginning(void)
 *
 ******************************************************************************/
 
-void DisconnectWait::EndWait(WaitResult result, const wchar_t* msg)
+void DisconnectWait::EndWait(WaitResult result, const unichar_t* msg)
 	{
 	SingleWait::EndWait(result, msg);
 
@@ -378,7 +378,7 @@ void DisconnectWait::HandleNotification(ServerError& serverError)
 	{
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = serverError.GetDescription();
+		const unichar_t* errorMsg = serverError.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: DisconnectWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -529,8 +529,8 @@ void ConnectWait::WaitBeginning(void)
 	WOL::Server& server = mServer->GetData();
 
 	WWASSERT(mLogin.IsValid() && "ConnectWait");
-	wcstombs((char*)server.login, (const wchar_t*)mLogin->GetNickname(), sizeof(server.login));
-	wcstombs((char*)server.password, (const wchar_t*)mLogin->GetPassword(), sizeof(server.password));
+	u_wstomb((char*)server.login, (const unichar_t*)mLogin->GetNickname(), sizeof(server.login));
+	u_wstomb((char*)server.password, (const unichar_t*)mLogin->GetPassword(), sizeof(server.password));
 
 	WWASSERT((mSession->GetChatObject() != NULL) && "ConnectWait");
 	HRESULT hr = mSession->GetChatObject()->RequestConnection(&server, 20, !mLogin->IsPasswordEncrypted());
@@ -561,7 +561,7 @@ void ConnectWait::WaitBeginning(void)
 *
 ******************************************************************************/
 
-void ConnectWait::EndWait(WaitResult result, const wchar_t* msg)
+void ConnectWait::EndWait(WaitResult result, const unichar_t* msg)
 	{
 	SingleWait::EndWait(result, msg);
 
@@ -592,7 +592,7 @@ void ConnectWait::HandleNotification(ServerError& serverError)
 		{
 		mSession->mCurrentConnectionStatus = ConnectionDisconnected;
 
-		const wchar_t* errorMsg = serverError.GetDescription();
+		const unichar_t* errorMsg = serverError.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: ConnectWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -759,7 +759,7 @@ void ChannelListWait::HandleNotification(ServerError& serverError)
 	{
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = serverError.GetDescription();
+		const unichar_t* errorMsg = serverError.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: ChannelListWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -962,7 +962,7 @@ void LeaveChannelWait::HandleNotification(ServerError& serverError)
 	// If we get a server error while leaving a channel then something is wrong.
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = serverError.GetDescription();
+		const unichar_t* errorMsg = serverError.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: LeaveChannelWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -1047,7 +1047,7 @@ void LeaveChannelWait::HandleNotification(ChannelEvent& event)
 ******************************************************************************/
 
 RefPtr<JoinChannelWait> JoinChannelWait::Create(const RefPtr<Session>& session,
-		const RefPtr<ChannelData>& channel, const wchar_t* password)
+		const RefPtr<ChannelData>& channel, const unichar_t* password)
 	{
 	WWASSERT(session.IsValid() && "JoinChannelWait");
 
@@ -1074,7 +1074,7 @@ RefPtr<JoinChannelWait> JoinChannelWait::Create(const RefPtr<Session>& session,
 ******************************************************************************/
 
 RefPtr<JoinChannelWait> JoinChannelWait::Create(const RefPtr<Session>& session,
-		const wchar_t* channelName, const wchar_t* password, int type)
+		const unichar_t* channelName, const unichar_t* password, int type)
 	{
 	WWASSERT(session.IsValid() && "JoinChannelWait");
 	WWASSERT(channelName && "JoinChannelWait");
@@ -1104,7 +1104,7 @@ RefPtr<JoinChannelWait> JoinChannelWait::Create(const RefPtr<Session>& session,
 ******************************************************************************/
 
 JoinChannelWait::JoinChannelWait(const RefPtr<Session>& session,
-			const RefPtr<ChannelData>& channel, const wchar_t* password) :
+			const RefPtr<ChannelData>& channel, const unichar_t* password) :
 		SingleWait(WOLSTRING("WOL_CHANNELJOIN")),
 		mSession(session),
 		mChannel(channel),
@@ -1131,7 +1131,7 @@ JoinChannelWait::JoinChannelWait(const RefPtr<Session>& session,
 ******************************************************************************/
 
 JoinChannelWait::JoinChannelWait(const RefPtr<Session>& session,
-			const wchar_t* channelName, const wchar_t* password, int type) :
+			const unichar_t* channelName, const unichar_t* password, int type) :
 		SingleWait(WOLSTRING("WOL_CHANNELJOIN")),
 		mSession(session),
 		mChannelName(channelName),
@@ -1237,7 +1237,7 @@ void JoinChannelWait::HandleNotification(ServerError& serverError)
 	// Join failed if we get a server error.
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = serverError.GetDescription();
+		const unichar_t* errorMsg = serverError.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: JoinChannelWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -1322,7 +1322,7 @@ void JoinChannelWait::HandleNotification(ChannelEvent& event)
 ******************************************************************************/
 
 RefPtr<CreateChannelWait> CreateChannelWait::Create(const RefPtr<Session>& session,
-		const RefPtr<ChannelData>& channel, const wchar_t* password)
+		const RefPtr<ChannelData>& channel, const unichar_t* password)
 	{
 	WWASSERT(session.IsValid() && "CreateChannelWait");
 
@@ -1351,7 +1351,7 @@ RefPtr<CreateChannelWait> CreateChannelWait::Create(const RefPtr<Session>& sessi
 ******************************************************************************/
 
 CreateChannelWait::CreateChannelWait(const RefPtr<Session>& session,
-			const RefPtr<ChannelData>& channel, const wchar_t* password) :
+			const RefPtr<ChannelData>& channel, const unichar_t* password) :
 		SingleWait(WOLSTRING("WOL_CHANNELCREATE")),
 		mSession(session),
 		mChannel(channel),
@@ -1410,7 +1410,7 @@ void CreateChannelWait::WaitBeginning(void)
 
 	WWASSERT(mChannel.IsValid() && "CreateChannelWait");
 	WOL::Channel& channel = mChannel->GetData();
-	wcstombs((char*)channel.key, (const wchar_t*)mPassword, sizeof(channel.key));
+	u_wstomb((char*)channel.key, (const unichar_t*)mPassword, sizeof(channel.key));
 
 	WWASSERT((mSession->GetChatObject() != NULL) && "CreateChannelWait");
 	HRESULT hr = mSession->GetChatObject()->RequestChannelCreate(&channel);
@@ -1441,7 +1441,7 @@ void CreateChannelWait::HandleNotification(ServerError& serverError)
 	{
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = serverError.GetDescription();
+		const unichar_t* errorMsg = serverError.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: CreateChannelWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -1623,7 +1623,7 @@ void UserListWait::HandleNotification(ServerError& error)
 	{
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = error.GetDescription();
+		const unichar_t* errorMsg = error.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: UserListWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}
@@ -1671,7 +1671,7 @@ void UserListWait::HandleNotification(UserList&)
 ******************************************************************************/
 
 RefPtr<GetUserWait> GetUserWait::Create(const RefPtr<Session>& session,
-		const wchar_t* userName)
+		const unichar_t* userName)
 	{
 	WWASSERT(session.IsValid() && "GetUserWait");
 	WWASSERT(userName && "GetUserWait");
@@ -1700,7 +1700,7 @@ RefPtr<GetUserWait> GetUserWait::Create(const RefPtr<Session>& session,
 *
 ******************************************************************************/
 
-GetUserWait::GetUserWait(const RefPtr<Session>& session, const wchar_t* userName) :
+GetUserWait::GetUserWait(const RefPtr<Session>& session, const unichar_t* userName) :
 		mSession(session),
 		mUserName(userName)
 	{
@@ -1820,7 +1820,7 @@ WaitCondition::WaitResult GetUserWait::GetResult(void)
 ******************************************************************************/
 
 RefPtr<LocateUserWait> LocateUserWait::Create(const RefPtr<Session>& session,
-		const wchar_t* userName)
+		const unichar_t* userName)
 	{
 	WWASSERT(session.IsValid() && "LocateUserWait");
 	WWASSERT(userName && "LocateUserWait");
@@ -1849,7 +1849,7 @@ RefPtr<LocateUserWait> LocateUserWait::Create(const RefPtr<Session>& session,
 *
 ******************************************************************************/
 
-LocateUserWait::LocateUserWait(const RefPtr<Session>& session, const wchar_t* userName) :
+LocateUserWait::LocateUserWait(const RefPtr<Session>& session, const unichar_t* userName) :
 		SingleWait(WOLSTRING("WOL_LOCATINGUSER")),
 		mSession(session),
 		mUserName(userName)
@@ -1897,7 +1897,7 @@ LocateUserWait::~LocateUserWait()
 
 void LocateUserWait::WaitBeginning(void)
 	{
-	WWDEBUG_SAY(("WOL: LocateUserWait Begin '%S'\n", (const wchar_t*)mUserName));
+	WWDEBUG_SAY(("WOL: LocateUserWait Begin '%S'\n", (const unichar_t*)mUserName));
 	WWASSERT(mSession.IsValid() && "LocateUserWait");
 
 	RefPtr<UserData> user = mSession->FindUser(mUserName);
@@ -1932,7 +1932,7 @@ void LocateUserWait::HandleNotification(ServerError& error)
 	{
 	if (mEndResult == Waiting)
 		{
-		const wchar_t* errorMsg = error.GetDescription();
+		const unichar_t* errorMsg = error.GetDescription();
 		WWDEBUG_SAY(("WOLERROR: LocateUserWait server error '%S'\n", errorMsg));
 		EndWait(Error, errorMsg);
 		}

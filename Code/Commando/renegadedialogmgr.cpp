@@ -454,13 +454,13 @@ Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int mesage_id, unsigne
 
 //
 // Called as follows: If IDS_TEST is the string you wish to load and
-// wchar_t Buffer[128] is your buffer, the call would be
+// unichar_t Buffer[128] is your buffer, the call would be
 // MyLoadStringW(IDS_TEST,Buffer,128);
 // If it succeeds, the function returns the number of characters copied
 // into the buffer, not including the NULL terminating character, or
 // zero if the string resource does not exist.
 //
-int MyLoadStringW (UINT str_id, LPWSTR buffer, int buffer_len)
+int MyLoadStringW (unsigned str_id, unichar_t *buffer, int buffer_len)
 {
 	//
 	//	Compute the block and offset
@@ -478,7 +478,7 @@ int MyLoadStringW (UINT str_id, LPWSTR buffer, int buffer_len)
 	//	Load the resource into memory
 	//
 	HGLOBAL hglobal	= ::LoadResource (NULL, resource);
-	LPWSTR res_string	= (LPWSTR)::LockResource (hglobal);
+	const unichar_t *res_string	= (const unichar_t *)::LockResource (hglobal);
 
 	int length = 0;
 	if (res_string != NULL) {
@@ -491,7 +491,7 @@ int MyLoadStringW (UINT str_id, LPWSTR buffer, int buffer_len)
 		//	Copy the string to our buffer
 		//
 		length = std::min ((int)(buffer_len - 1), (int)(*res_string));
-		::wcsncpy (buffer, res_string + 1, length);
+		::u_strncpy (buffer, res_string + 1, length);
 	}
 
 	//

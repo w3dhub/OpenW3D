@@ -972,7 +972,7 @@ int cPlayerManager::Compute_Fast_Sort_Key(cPlayer * player)
 //-----------------------------------------------------------------------------
 void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verbose)
 {
-	string.Format(L"");
+	string.Format(U_CHAR(""));
 
 	WWASSERT(PTheGameData != NULL);
 	//bool is_verbose = force_verbose || The_Game()->IsIntermission.Get() || MultiHUDClass::Get_Verbose_Lists();
@@ -986,18 +986,18 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	//
 	// Standing
 	//
-	substring.Format(L"%-5s", L"");
+	substring.Format(U_CHAR("%-5s"), U_CHAR(""));
    string += substring;
 
 	//
 	// Name
 	// 
 	//GAMESPY
-	//substring.Format(L"%-11s", TRANSLATION(IDS_MP_PLAYER));
+	//substring.Format(U_CHAR("%-11s"), TRANSLATION(IDS_MP_PLAYER));
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		substring.Format(L"%-36s", TRANSLATION(IDS_MP_PLAYER));
+		substring.Format(U_CHAR("%-36s"), TRANSLATION(IDS_MP_PLAYER));
 	} else {
-		substring.Format(L"%-11s", TRANSLATION(IDS_MP_PLAYER));
+		substring.Format(U_CHAR("%-11s"), TRANSLATION(IDS_MP_PLAYER));
 	}
    string += substring;
 
@@ -1005,7 +1005,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	// Kills
 	//
    if (is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_KILLS));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_KILLS));
 	   string += substring;
    }
 
@@ -1013,7 +1013,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	// Deaths
 	//
    if (is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_DEATHS));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_DEATHS));
 	   string += substring;
    }
 
@@ -1021,7 +1021,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	// Kill to Death ratio
 	//
    if (is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_KILL_TO_DEATH_RATIO));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_KILL_TO_DEATH_RATIO));
 	   string += substring;
    }
 
@@ -1029,21 +1029,21 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	// Money
 	//
    if ((The_Game()->Is_Cnc() || The_Game()->Is_Skirmish()) && is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_MONEY));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_MONEY));
 	   string += substring;
    }
 
 	//
 	// Score
 	//
-	substring.Format(L"%-8s", TRANSLATION(IDS_MP_SCORE));
+	substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_SCORE));
 	string += substring;
 
 	//
 	// Ladder Points
 	//
    if (force_verbose && The_Game()->IsLaddered.Is_True()) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_LADDER));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_LADDER));
 	   string += substring;
 	}
 
@@ -1051,7 +1051,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	// WOL rank
 	//
    if (GameModeManager::Find("WOL")->Is_Active() && is_verbose) {
-		substring.Format(L"%-8s", TRANSLATION(IDS_MP_RANK));
+		substring.Format(U_CHAR("%-8s"), TRANSLATION(IDS_MP_RANK));
 	   string += substring;
    }
 
@@ -1060,7 +1060,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
    // Ping
    //
    if (cDevOptions::ShowPing.Is_True()) {
-		substring.Format(L"%-8s", L"Ping");
+		substring.Format(U_CHAR("%-8s"), U_CHAR("Ping"));
 	   string += substring;
    }
 
@@ -1068,7 +1068,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
    // Player Id
    //
    if (cDevOptions::ShowId.Is_True()) {
-		substring.Format(L"%-8s", L"Id");
+		substring.Format(U_CHAR("%-8s"), U_CHAR("Id"));
 	   string += substring;
    }
 
@@ -1076,7 +1076,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
    // Fps
    //
    if (cNetwork::I_Am_Server() && cDevOptions::ShowClientFps.Is_True()) {
-		substring.Format(L"%-8s", L"Fps");
+		substring.Format(U_CHAR("%-8s"), U_CHAR("Fps"));
 	   string += substring;
    }
 
@@ -1085,7 +1085,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	//
    if (cNetwork::I_Am_Server() && cGameSpyAdmin::Is_Gamespy_Game() && 
 		cDevOptions::ShowGameSpyAuthState.Is_True()) {
-      substring.Format(L"%-12s", L"GS_AUTH");
+      substring.Format(U_CHAR("%-12s"), U_CHAR("GS_AUTH"));
       string += substring;
    }
 
@@ -1093,7 +1093,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	// IP Address
 	//
 	if (cNetwork::I_Am_Server() && cDevOptions::ShowIpAddresses.Is_True()) {
-		substring.Format(L"%-30s", L"IP Address");
+		substring.Format(U_CHAR("%-30s"), U_CHAR("IP Address"));
 	   string += substring;
 	}
 #endif // WWDEBUG

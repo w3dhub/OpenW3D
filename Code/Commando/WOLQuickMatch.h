@@ -89,9 +89,9 @@ class WOLQuickMatch :
 
 		bool FinalizeCreate(void);
 		
-		void SendStatus(const wchar_t* statusMsg);
+		void SendStatus(const unichar_t* statusMsg);
 
-		void ParseResponse(const wchar_t* message);
+		void ParseResponse(const unichar_t* message);
 
 		void HandleNotification(WWOnline::ServerError&) override;
 		void HandleNotification(WWOnline::ChatMessage&) override;
@@ -101,10 +101,10 @@ class WOLQuickMatch :
 		WOLQuickMatch(const WOLQuickMatch&);
 		const WOLQuickMatch& operator=(const WOLQuickMatch&);
 
-		static void ProcessInfo(WOLQuickMatch*, const wchar_t*);
-		static void ProcessError(WOLQuickMatch*, const wchar_t*);
-		static void ProcessStart(WOLQuickMatch*, const wchar_t*);
-		static void ProcessUnknown(WOLQuickMatch*, const wchar_t*);
+		static void ProcessInfo(WOLQuickMatch*, const unichar_t*);
+		static void ProcessError(WOLQuickMatch*, const unichar_t*);
+		static void ProcessStart(WOLQuickMatch*, const unichar_t*);
+		static void ProcessUnknown(WOLQuickMatch*, const unichar_t*);
 
 	protected:
 		RefPtr<WWOnline::Session> mWOLSession;

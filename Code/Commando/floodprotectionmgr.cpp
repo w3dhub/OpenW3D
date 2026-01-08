@@ -100,7 +100,7 @@ FloodProtectionMgrClass::Decay_Old_Entries (void)
 //
 //////////////////////////////////////////////////////////////////////
 bool
-FloodProtectionMgrClass::Detect_Flooding (const wchar_t *text)
+FloodProtectionMgrClass::Detect_Flooding (const unichar_t *text)
 {
 	//
 	//	First, remove any old entries

@@ -290,7 +290,7 @@ void MPWolBuddiesMenuClass::Update_Buddy_Info(int index, const RefPtr<WWOnline::
 		clanName = clan->GetAbbr();
 		list_ctrl->Set_Entry_Text(index, COL_CLAN, clanName);
 	} else {
-		list_ctrl->Set_Entry_Text(index, COL_CLAN, L"");
+		list_ctrl->Set_Entry_Text(index, COL_CLAN, U_CHAR(""));
 	}
 
 	//	Build a textual description of the user's location
@@ -322,24 +322,24 @@ void MPWolBuddiesMenuClass::Update_Buddy_Ranking(int index, const RefPtr<WWOnlin
 		RefPtr<WWOnline::LadderData> ladder = user->GetLadderFromType(ladderType);
 
 		if (ladder.IsValid()) {
-			wchar_t text[64];
+			unichar_t text[64];
 
-			swprintf(text, sizeof(text), L"%d", ladder->GetWins());
+			u_snprintf_u(text, sizeof(text), U_CHAR("%d"), ladder->GetWins());
 			list->Set_Entry_Text(index, COL_WINS, text);
 
-			swprintf(text, sizeof(text), L"%d / %d", ladder->GetReserved1(), ladder->GetKills());
+			u_snprintf_u(text, sizeof(text), U_CHAR("%d / %d"), ladder->GetReserved1(), ladder->GetKills());
 			list->Set_Entry_Text(index, COL_DEATHS, text);
 
-			swprintf(text, sizeof(text), L"%d", ladder->GetPoints());
+			u_snprintf_u(text, sizeof(text), U_CHAR("%d"), ladder->GetPoints());
 			list->Set_Entry_Text(index, COL_POINTS, text);
 
-			swprintf(text, sizeof(text), L"%d", ladder->GetRung());
+			u_snprintf_u(text, sizeof(text), U_CHAR("%d"), ladder->GetRung());
 			list->Set_Entry_Text(index, COL_RANK, text);
 		} else {
-			list->Set_Entry_Text(index, COL_WINS, L"-");
-			list->Set_Entry_Text(index, COL_DEATHS, L"- / -");
-			list->Set_Entry_Text(index, COL_POINTS, L"-");
-			list->Set_Entry_Text(index, COL_RANK, L"-");
+			list->Set_Entry_Text(index, COL_WINS, U_CHAR("-"));
+			list->Set_Entry_Text(index, COL_DEATHS, U_CHAR("- / -"));
+			list->Set_Entry_Text(index, COL_POINTS, U_CHAR("-"));
+			list->Set_Entry_Text(index, COL_RANK, U_CHAR("-"));
 		}
 	}
 }
@@ -376,7 +376,7 @@ MPWolBuddiesMenuClass::Refresh_Buddy_List (void)
 
 	for (size_t index = 0; index < count; ++index) {
 		//	Add the buddy to the list control
-		int item_index = list_ctrl->Insert_Entry(list_ctrl->Get_Entry_Count() , L"");
+		int item_index = list_ctrl->Insert_Entry(list_ctrl->Get_Entry_Count() , U_CHAR(""));
 		WWASSERT(item_index != -1);
 
 		if (item_index != -1) {
@@ -563,7 +563,7 @@ MPWolBuddiesMenuClass::On_ListCtrl_DblClk(ListCtrlClass* list_ctrl, int ctrl_id,
 					if (mPendingJoin.IsValid()) {
 						// Ask the user if they want to join this buddy
 						WideStringClass message(0, true);
-						message.Format(TRANSLATE (IDS_MENU_JOIN_REQUEST_MESSAGE), (const wchar_t*)buddyName);
+						message.Format(TRANSLATE (IDS_MENU_JOIN_REQUEST_MESSAGE), (const unichar_t*)buddyName);
 						DlgMsgBox::DoDialog(0, message, DlgMsgBox::YesNo, this);
 					}
 					break;
@@ -589,7 +589,7 @@ void MPWolBuddiesMenuClass::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* , int 
 			int count = list->Get_Entry_Count();
 
 			for (int index = 0; index < count; ++index) {
-				const wchar_t* name = list->Get_Entry_Text(index, COL_NAME);
+				const unichar_t* name = list->Get_Entry_Text(index, COL_NAME);
 				RefPtr<WWOnline::UserData> buddy = mBuddyMgr->FindBuddy(name);
 
 				if (buddy.IsValid()) {

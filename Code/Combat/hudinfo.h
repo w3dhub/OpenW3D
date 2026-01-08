@@ -80,7 +80,7 @@ public:
 	static	float	Get_Action_Status_Value( void )							{ return ActionStatusValue; }
 	static	void	Set_Action_Status_Value( float value )					{ ActionStatusValue = value; }
 
-	static	void	Set_HUD_Help_Text( const wchar_t *string, const Vector3 &color = Vector3 (1.0F, 1.0F, 1.0F)) { HUDHelpText = string; HUDHelpTextColor = color; IsHUDHelpTextDirty = true; }
+	static	void	Set_HUD_Help_Text( const unichar_t *string, const Vector3 &color = Vector3 (1.0F, 1.0F, 1.0F)) { HUDHelpText = string; HUDHelpTextColor = color; IsHUDHelpTextDirty = true; }
 	static	void	Set_Is_HUD_Help_Text_Dirty( bool onoff )				{ IsHUDHelpTextDirty = onoff; }
 	static	bool	Is_HUD_Help_Text_Dirty( void )							{ return IsHUDHelpTextDirty; }
 	static	const WideStringClass &Get_HUD_Help_Text( void )			{ return HUDHelpText; }

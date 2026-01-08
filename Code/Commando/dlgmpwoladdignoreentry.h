@@ -50,10 +50,10 @@ class MPWolAddIgnoreEntry :
 		public PopupDialogClass
 	{
 	public:
-		static bool DoDialog(const wchar_t* defaultUser);
+		static bool DoDialog(const unichar_t* defaultUser);
 
 	protected:
-		MPWolAddIgnoreEntry(const wchar_t* defaultUser);
+		MPWolAddIgnoreEntry(const unichar_t* defaultUser);
 		~MPWolAddIgnoreEntry();
 
 		// Prevent copy and assignment

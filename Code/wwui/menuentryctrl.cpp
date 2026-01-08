@@ -182,10 +182,10 @@ MenuEntryCtrlClass::On_Create (void)
 	//	Should we left justify?
 	//
 	if ((Style & 0xF00) == BS_LEFT) {
-		Rect.Right = Rect.Left + extents.X + TextRenderer.Get_Text_Extents (L"W").X;
+		Rect.Right = Rect.Left + extents.X + TextRenderer.Get_Text_Extents (U_CHAR("W")).X;
 	} else {	
 		Rect.Left	= int(Rect.Left + (Rect.Width () / 2) - (extents.X / 2));
-		Rect.Right	= Rect.Left + extents.X + TextRenderer.Get_Text_Extents (L"W").X;
+		Rect.Right	= Rect.Left + extents.X + TextRenderer.Get_Text_Extents (U_CHAR("W")).X;
 	}
 
 	return ;

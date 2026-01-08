@@ -87,7 +87,7 @@ PopupDialogClass::~PopupDialogClass (void)
 }
 
 
-void PopupDialogClass::Set_Title(const wchar_t* title)
+void PopupDialogClass::Set_Title(const unichar_t* title)
 	{
 	DialogBaseClass::Set_Title(title);
 	Build_Background_Renderers();

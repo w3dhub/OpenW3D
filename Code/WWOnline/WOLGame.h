@@ -100,7 +100,7 @@ class GameStartWait :
 		const GameStartWait& operator=(const GameStartWait&);
 
 		void HandleNotification(GameStartEvent&) override;
-		void EndWait(WaitResult result, const wchar_t* endText) override;
+		void EndWait(WaitResult result, const unichar_t* endText) override;
 
 		void (*mTimeoutCallback)(void);
 		NativeWOLUserList mPlayers;

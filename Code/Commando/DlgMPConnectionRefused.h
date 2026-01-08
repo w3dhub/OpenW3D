@@ -34,11 +34,11 @@ class DlgMPConnectionRefused :
 		public PopupDialogClass
 	{
 	public:
-		static bool DoDialog(const wchar_t * text, bool show_splash_screen);
+		static bool DoDialog(const unichar_t * text, bool show_splash_screen);
 		void On_Init_Dialog(void) override;
 
 	protected:
-		DlgMPConnectionRefused(const wchar_t * text, bool show_splash_screen);
+		DlgMPConnectionRefused(const unichar_t * text, bool show_splash_screen);
 		virtual ~DlgMPConnectionRefused();
 
 		void On_Command(int ctrl, int message, unsigned int param) override;

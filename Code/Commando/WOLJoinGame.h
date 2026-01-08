@@ -59,7 +59,7 @@ class WOLJoinGame :
 		public Signaler<MPChooseTeamSignal>
 	{
 	public:
-		static void JoinTheGame(const wchar_t* gameName, const wchar_t* password, bool allowTeamSelect);
+		static void JoinTheGame(const unichar_t* gameName, const unichar_t* password, bool allowTeamSelect);
 
 	protected:
 		WOLJoinGame();
@@ -73,7 +73,7 @@ class WOLJoinGame :
 
 		cGameData* CreateGameFromChannel(const RefPtr<WWOnline::ChannelData>& channel);
 		
-		bool Join(const wchar_t* gameName, const wchar_t* password, bool allowTeamSelect);
+		bool Join(const unichar_t* gameName, const unichar_t* password, bool allowTeamSelect);
 		void ProceedWithConnection(int teamChoice);
 		void Leave(void);
 

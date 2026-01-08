@@ -88,7 +88,7 @@ class FirewallConnectWait :
 
 		void WaitBeginning(void) override;
 		WaitResult GetResult(void) override;
-		virtual void EndWait(WaitResult, const wchar_t* endText) override;
+		virtual void EndWait(WaitResult, const unichar_t* endText) override;
 
 	protected:
 		FirewallConnectWait();

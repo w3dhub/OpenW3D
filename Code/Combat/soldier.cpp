@@ -3417,7 +3417,7 @@ float SoldierGameObj::Say_Dynamic_Dialogue
 	TDBObjClass *translate_obj = TranslateDBClass::Find_Object( text_id );
 	if (translate_obj != NULL) {
 		
-		const wchar_t *string		= translate_obj->Get_String ();
+		const unichar_t *string		= translate_obj->Get_String ();
 		int sound_def_id			= (int)translate_obj->Get_Sound_ID ();
 		const char *anim_name	= translate_obj->Get_Animation_Name ();
 
@@ -3480,7 +3480,7 @@ float SoldierGameObj::Say_Dynamic_Dialogue
 		//
 		//	Check to see if this string is commented out.
 		//
-		if( string != NULL && string[0] == L'/' && string[1] == L'/' ) {
+		if( string != NULL && string[0] == U_CHAR('/') && string[1] == U_CHAR('/') ) {
 			string			+= 2;
 			display_text	= false;
 		}

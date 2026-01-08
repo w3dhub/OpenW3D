@@ -362,10 +362,10 @@ TeamPurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 //	Get_Enlisted_Name
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
-const wchar_t *
+const unichar_t *
 TeamPurchaseSettingsDefClass::Get_Enlisted_Name (int index)
 {
-	const wchar_t *retval = NULL;
+	const unichar_t *retval = NULL;
 
 	//
 	//	Return the translated string...

@@ -953,7 +953,7 @@ DialogMgrClass::Rollback (DialogBaseClass *dialog)
 }
 
 
-void DialogMgrClass::Show_IME_Message(const wchar_t* message, uint32 duration)
+void DialogMgrClass::Show_IME_Message(const unichar_t* message, uint32 duration)
 {
 	if (mIMEMessage == NULL) {
 		mIMEMessage = new ToolTipClass;

@@ -155,7 +155,7 @@ bool MPWolMainMenuClass::CheckWOLVersion(void)
 	}
 
 	WideStringClass string(0, true);
-	string.Format(L"WOLAPI V%u.%u", HIWORD(wolVersion), LOWORD(wolVersion));
+	string.Format(U_CHAR("WOLAPI V%u.%u"), HIWORD(wolVersion), LOWORD(wolVersion));
 	wolText += string;
 
 	char buildString[32] = {0};
@@ -164,7 +164,7 @@ bool MPWolMainMenuClass::CheckWOLVersion(void)
 
 	if (SUCCEEDED(hr)) {
 		wolBuild = atol(buildString);
-		string.Format(L".%u", HIWORD(wolBuild));
+		string.Format(U_CHAR(".%u"), HIWORD(wolBuild));
 		wolText += string;
 	}
 

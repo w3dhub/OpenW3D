@@ -99,7 +99,7 @@ bool WWUIInputClass::ProcessMessage(HWND hwnd, UINT msg, WPARAM wParam, LPARAM l
 			break;
 
 		case WM_CHAR:
-			DialogMgrClass::On_Unicode_Char((wchar_t)wParam);
+			DialogMgrClass::On_Unicode_Char((unichar_t)wParam);
 			return true;
 			break;
 
@@ -121,12 +121,12 @@ void WWUIInputClass::HandleNotification(IME::IMEEvent& event)
 	{
 	if (IME::IME_LANGUAGECHANGED == event.GetAction())
 		{
-		const wchar_t* description = event.Subject()->GetDescription();
+		const unichar_t* description = event.Subject()->GetDescription();
 		DialogMgrClass::Show_IME_Message(description, 2500);
 		}
 	else if (IME::IME_GUIDELINE == event.GetAction())
 		{
-		wchar_t desc[255];
+		unichar_t desc[255];
 		unsigned int level = event.Subject()->GetGuideline(desc, sizeof(desc));
 
 		if (GL_LEVEL_NOGUIDELINE != level)

@@ -120,7 +120,7 @@ EditCtrlClass::Create_Text_Renderers (void)
 	//
 	//	Index into the text buffer
 	//
-	const wchar_t* text = display_string.Peek_Buffer();
+	const unichar_t* text = display_string.Peek_Buffer();
 
 	if (ScrollPos >= 0 && ScrollPos < display_string.Get_Length()) {
 		text += ScrollPos;
@@ -147,7 +147,7 @@ EditCtrlClass::Create_Text_Renderers (void)
 
 	// Draw the composition markers
 	if (mIME && mInComposition) {
-		const wchar_t* compString = mIME->GetCompositionString();
+		const unichar_t* compString = mIME->GetCompositionString();
 		Vector2 compSize = TextRenderer.Get_Text_Extents(compString);
 
 		if (compSize.X > 0.0f) {
@@ -262,7 +262,7 @@ EditCtrlClass::Update_Client_Rect (void)
 	//
 	//	Determine what one character spacing would be
 	//
-	float char_width = TextRenderer.Get_Text_Extents (L"I").X;
+	float char_width = TextRenderer.Get_Text_Extents (U_CHAR("I")).X;
 
 	//
 	//	Shrink the client area
@@ -328,10 +328,10 @@ void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 	size_t length = Title.Get_Length();
 
 	if (mIME && mInComposition) {
-		const wchar_t* compString = mIME->GetCompositionString();
+		const unichar_t* compString = mIME->GetCompositionString();
 
 		if (compString) {
-			length += ::wcslen(compString);
+			length += ::u_strlen(compString);
 		}
 	}
 	WWASSERT(length <= static_cast<size_t>(std::numeric_limits<int>::max()));
@@ -341,11 +341,11 @@ void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 	// If password then replace text with astrisks
 	if ((Style & ES_PASSWORD) != 0) {
 		int len = static_cast<int>(Title.Get_Length());
-		wchar_t* buffer = text.Peek_Buffer();
+		unichar_t* buffer = text.Peek_Buffer();
 		int index;
 
 		for (index = 0; index < len; ++index) {
-			buffer[index] = L'*';
+			buffer[index] = U_CHAR('*');
 		}
 
 		buffer[index] = 0;
@@ -355,7 +355,7 @@ void EditCtrlClass::Get_Display_Text(WideStringClass &text)
 
 	// Insert IME composition at cursor position
 	if (mIME && mInComposition) {
-		const wchar_t* compString = mIME->GetCompositionString();
+		const unichar_t* compString = mIME->GetCompositionString();
 
 		if (compString) {
 			WideStringClass temp(buffer_length, true);
@@ -509,7 +509,7 @@ EditCtrlClass::Create_Caret_Renderer (void)
 	WideStringClass temp_copy(0, true);
 	Get_Display_Text(temp_copy);
 
-	wchar_t *text = temp_copy.Peek_Buffer();
+	unichar_t *text = temp_copy.Peek_Buffer();
 	int caretPos = Get_Caret_Pos();
 	text[caretPos] = 0;
 	text = &text[ScrollPos];
@@ -553,7 +553,7 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 	//
 	//	Index into the buffer
 	//
-	const wchar_t *text		= display_text.Peek_Buffer () + ScrollPos;	
+	const unichar_t *text		= display_text.Peek_Buffer () + ScrollPos;	
 	int char_index			= static_cast<int>(display_text.Get_Length ());
 
 	float x_pos				= mouse_pos.X - ClientRect.Left;
@@ -563,13 +563,13 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 	//	Loop over all the characters in the remainder of the string until
 	// we've moved past the x-position we we're looking for.
 	//
-	int count = static_cast<int>(::wcslen (text));	
+	int count = static_cast<int>(::u_strlen (text));	
 	for (int index = 0; index < count; index ++) {
 		
 		//
 		//	Get the width of the character
 		//
-		wchar_t char_string[2] = { text[index], 0 };
+		unichar_t char_string[2] = { text[index], 0 };
 		float char_width = TextRenderer.Get_Text_Extents (char_string).X;
 		
 		//
@@ -611,7 +611,7 @@ EditCtrlClass::Pos_From_Character (int char_index)
 	//
 	WideStringClass temp_copy(0, true);
 	Get_Display_Text (temp_copy);
-	wchar_t *text						= temp_copy.Peek_Buffer ();
+	unichar_t *text						= temp_copy.Peek_Buffer ();
 	text[char_index]				= 0;
 	text								= &text[ScrollPos];
 	float width						= TextRenderer.Get_Text_Extents (text).X;
@@ -844,7 +844,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 }
 
 
-void EditCtrlClass::On_Unicode_Char(wchar_t unicode)
+void EditCtrlClass::On_Unicode_Char(unichar_t unicode)
 {
 	if (unicode >= 32) {
 		//	Delete the old selection
@@ -878,9 +878,9 @@ void EditCtrlClass::On_Unicode_Char(wchar_t unicode)
 }
 
 
-void EditCtrlClass::Insert_String(const wchar_t* string)
+void EditCtrlClass::Insert_String(const unichar_t* string)
 {
-	int count = static_cast<int>(::wcslen(string));
+	int count = static_cast<int>(::u_strlen(string));
 
 	if (count > 0) {
 		//	Delete the old selection
@@ -965,7 +965,7 @@ void
 EditCtrlClass::On_Create (void)
 {
 	//TextColor.Set (0.35F, 1.0F, 0.35F);
-	//Set_Text (L"This is a test...");	
+	//Set_Text (U_CHAR("This is a test..."));	
 	return ;
 }
 
@@ -1052,13 +1052,13 @@ EditCtrlClass::Find_Word_Start (int pos, int increment)
 		//
 		//	Is this a space character?
 		//
-		bool is_space	= (Title[index] == L' ');
+		bool is_space	= (Title[index] == U_CHAR(' '));
 
 		//
 		//	If we've already found the word break and this is the
 		// start of a new word, then return its index to the caller
 		//
-		if (!is_space && ((index == 0) || (Title[index - 1] == L' '))) {
+		if (!is_space && ((index == 0) || (Title[index - 1] == U_CHAR(' ')))) {
 			retval = index;
 			break;			
 		}		
@@ -1097,7 +1097,7 @@ EditCtrlClass::Update_Scroll_Pos (void)
 		//
 		WideStringClass temp_string(0, true);
 		Get_Display_Text(temp_string);
-		wchar_t *text = temp_string.Peek_Buffer();
+		unichar_t *text = temp_string.Peek_Buffer();
 		text[caretPos] = 0;
 
 		//
@@ -1139,7 +1139,9 @@ EditCtrlClass::Update_Scroll_Pos (void)
 int
 EditCtrlClass::Get_Int (void)
 {
-	return _wtoi (Get_Text ());
+	int retval;
+	u_sscanf_u(Get_Text (), U_CHAR("%d"), &retval);
+	return retval;
 }
 
 
@@ -1152,7 +1154,7 @@ void
 EditCtrlClass::Set_Int (int value)
 {
 	WideStringClass text(64, true);
-	text.Format (L"%d", value);
+	text.Format (U_CHAR("%d"), value);
 	Set_Text (text);
 	return ;
 }
@@ -1164,9 +1166,9 @@ EditCtrlClass::Set_Int (int value)
 //
 ////////////////////////////////////////////////////////////////
 void
-EditCtrlClass::Set_Text (const wchar_t *title)
+EditCtrlClass::Set_Text (const unichar_t *title)
 {
-	int count = static_cast<int>(::wcslen(title));
+	int count = static_cast<int>(::u_strlen(title));
 
 	// If the string is too long then truncate it so that it will fit.
 	if (count > TextLimit) {
@@ -1315,7 +1317,7 @@ bool EditCtrlClass::IsIMEAllowed(void) const
 
 void EditCtrlClass::Set_IME_Typing_Text_Pos(void)
 {
-	Vector2 charExtent = TextRenderer.Get_Text_Extents(L"W");
+	Vector2 charExtent = TextRenderer.Get_Text_Extents(U_CHAR("W"));
 	int caretPos = Get_Caret_Pos();
 
 	Vector2 pos;
@@ -1338,15 +1340,15 @@ void EditCtrlClass::Set_IME_Typing_Text_Pos(void)
 *
 ******************************************************************************/
 
-void EditCtrlClass::Show_IME_Typing_Text(const wchar_t* text)
+void EditCtrlClass::Show_IME_Typing_Text(const unichar_t* text)
 {
-	mShowIMETypingText = (text && wcslen(text) > 0);
+	mShowIMETypingText = (text && u_strlen(text) > 0);
 
 	if (mShowIMETypingText) {
 		Set_IME_Typing_Text_Pos();
 		mIMETypingTip.Set_Text(text);
 	} else {
-		mIMETypingTip.Set_Text(L"");
+		mIMETypingTip.Set_Text(U_CHAR(""));
 	}
 }
 
@@ -1366,7 +1368,7 @@ void EditCtrlClass::Show_IME_Typing_Text(const wchar_t* text)
 void EditCtrlClass::Hide_IME_Typing_Text(void)
 {
 	mShowIMETypingText = false;
-	mIMETypingTip.Set_Text(L"");
+	mIMETypingTip.Set_Text(U_CHAR(""));
 }
 #endif
 

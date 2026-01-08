@@ -71,23 +71,23 @@ class DlgWOLLogon :
 		public Notifier<DlgWOLLogonEvent>
 	{
 	public:
-		static bool DoDialog(const wchar_t* login, Observer<DlgWOLLogonEvent>* observer);
+		static bool DoDialog(const unichar_t* login, Observer<DlgWOLLogonEvent>* observer);
 
-		void GetLogin(const wchar_t** login, const wchar_t** password, bool& encrypted);
+		void GetLogin(const unichar_t** login, const unichar_t** password, bool& encrypted);
 		bool IsRememberLoginChecked(void);
 
 	protected:
 		DlgWOLLogon();
 		virtual ~DlgWOLLogon();
 
-		bool FinalizeCreate(const wchar_t* login);
+		bool FinalizeCreate(const unichar_t* login);
 
 		void On_Init_Dialog(void) override;
 		void On_Command(int ctrl, int message, unsigned int param) override;
 
 		void UpdatePersonas(void);
-		void SelectPersona(const wchar_t* name);
-		void AutoComplete(const wchar_t* name);
+		void SelectPersona(const unichar_t* name);
+		void AutoComplete(const unichar_t* name);
 
 		// Notifications
 		void On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int id, int oldsel, int newsel) override;

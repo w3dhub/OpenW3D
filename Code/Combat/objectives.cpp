@@ -107,7 +107,7 @@ const Vector3 & Objective::Type_To_Color( void )
 	return color;
 }
 
-const wchar_t * Objective::Type_To_Name( void ) 
+const unichar_t * Objective::Type_To_Name( void ) 
 {
 	switch ( Type ) {
 		case ObjectiveManager::TYPE_PRIMARY:		return TRANSLATE (IDS_MENU_TEXT145);
@@ -117,7 +117,7 @@ const wchar_t * Objective::Type_To_Name( void )
 	}
 }
 
-const wchar_t * Objective::Status_To_Name( void ) 
+const unichar_t * Objective::Status_To_Name( void ) 
 {
 	if ( Status == ObjectiveManager::STATUS_ACCOMPLISHED )	return TRANSLATE (IDS_MENU_OBJ_ACCOMPLISHED);
 	if ( Status == ObjectiveManager::STATUS_FAILED )			return TRANSLATE (IDS_MENU_OBJ_FAILED);
@@ -668,7 +668,7 @@ const char *	ObjectiveManager::Get_HUD_Objectives_Pog_Texture_Name( int index )
 	return ObjectiveList[index]->HUDPogTextureName;
 }
 
-const wchar_t *	ObjectiveManager::Get_HUD_Objectives_Message( int index )
+const unichar_t *	ObjectiveManager::Get_HUD_Objectives_Message( int index )
 {
 	return TranslateDBClass::Get_String( ObjectiveList[index]->HUDMessageStringID );
 }

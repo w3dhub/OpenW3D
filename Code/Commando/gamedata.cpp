@@ -179,9 +179,9 @@ cGameData::cGameData(void)	:
 	TimeLimitMinutes					= 0;
 	RadarMode							= RADAR_ALL;
 	IniFilename							= "";
-	Motd.Format(L"");
+	Motd.Format(U_CHAR(""));
 
-	Set_Password(						L"");
+	Set_Password(						U_CHAR(""));
    //Set_Owner(							"UNOWNED");
    Set_Owner(							cNetInterface::Get_Nickname());
 
@@ -362,7 +362,7 @@ void cGameData::Swap_Team_Sides(void)
 	// Inform the players
 	//
 	//WideStringClass text;
-	//text.Format(L"_TEAMS_SWAPPED_!_");
+	//text.Format(U_CHAR("_TEAMS_SWAPPED_!_"));
 	WideStringClass text = TRANSLATE(IDS_MP_TEAMS_SWAPPED);
 	cScTextObj * p_text_obj = new cScTextObj();
 	p_text_obj->Init(text, TEXT_MESSAGE_PUBLIC, false, HOST_TEXT_SENDER, -1);
@@ -408,7 +408,7 @@ void cGameData::Remix_Team_Sides(void)
 	// Inform the players
 	//
 	//WideStringClass text;
-	//text.Format(L"_TEAMS_REMIXED_!_");
+	//text.Format(U_CHAR("_TEAMS_REMIXED_!_"));
 	WideStringClass text = TRANSLATE(IDS_MP_TEAMS_REMIXED);
 	cScTextObj * p_text_obj = new cScTextObj();
 	p_text_obj->Init(text, TEXT_MESSAGE_PUBLIC, false, HOST_TEXT_SENDER, -1);
@@ -467,7 +467,7 @@ void cGameData::Rebalance_Team_Sides(void)
 		// Inform the players
 		//
 		//WideStringClass text;
-		//text.Format(L"_TEAMS_REBALANCED_!_");
+		//text.Format(U_CHAR("_TEAMS_REBALANCED_!_"));
 		WideStringClass text = TRANSLATE(IDS_MP_TEAMS_REBALANCED);
 		cScTextObj * p_text_obj = new cScTextObj();
 		p_text_obj->Init(text, TEXT_MESSAGE_PUBLIC, false, HOST_TEXT_SENDER, -1);
@@ -562,7 +562,7 @@ void cGameData::Set_Intermission_Time_Seconds(int time)
 }
 
 //-----------------------------------------------------------------------------
-void cGameData::Set_Motd(const wchar_t * motd)
+void cGameData::Set_Motd(const unichar_t * motd)
 {
 	WWASSERT(motd != NULL);
 
@@ -889,8 +889,8 @@ void cGameData::Import_Tier_1_Data(cPacket & packet)
 		Set_Mod_Name (mod_name);
 		Set_Map_Name (map_name);
 	} else {
-		ModName = L"";
-		MapName = L"";
+		ModName = U_CHAR("");
+		MapName = U_CHAR("");
 	}
 
 #endif // MULTIPLAYERDEMO
@@ -1342,7 +1342,7 @@ int cGameData::Choose_Player_Type(cPlayer* player, int team_choice, bool is_grun
 			int team = Choose_Smallest_Team();
 
 			WWDEBUG_SAY(("CLANS: Bot '%S' assigned to smallest team (%d)\n",
-				(const wchar_t*)player->Get_Name(), team));
+				(const unichar_t*)player->Get_Name(), team));
 
 			return team;
 		}
@@ -1355,14 +1355,14 @@ int cGameData::Choose_Player_Type(cPlayer* player, int team_choice, bool is_grun
 			int team = clanMate->Get_Player_Type();
 
 			WWDEBUG_SAY(("CLANS: Player '%S' assigned to team with clanmates (%d)\n",
-				(const wchar_t*)player->Get_Name(), team));
+				(const unichar_t*)player->Get_Name(), team));
 
 			return team;
 		} else {
 			int team = Choose_Available_Team(team_choice);
 
 			WWDEBUG_SAY(("CLANS: Player '%S' assigned to available team (%d)\n",
-				(const wchar_t*)player->Get_Name(), team));
+				(const unichar_t*)player->Get_Name(), team));
 
 			return team;
 		}
@@ -1747,7 +1747,7 @@ const char* cGameData::Get_Game_Type_Name(GameTypeEnum type)
 const char * cGameData::Get_Game_Type_Name(void) const
 {
 	WideStringClass wide_name;
-	wide_name.Format(L"%s", Get_Game_Name());
+	wide_name.Format(U_CHAR("%s"), Get_Game_Name());
 	StringClass name;
 	wide_name.Convert_To(name);
 
@@ -1946,7 +1946,7 @@ void cGameData::Get_Time_Limit_Text(WideStringClass& text)
    if (IsIntermission.Is_True()) {
 
       text.Format(
-			L"%s: %d",
+			U_CHAR("%s: %d"),
 			TRANSLATION(IDS_MP_NEXTGAME_COUNTDOWN),
 			cMathUtil::Round(Get_Intermission_Time_Remaining()));
 
@@ -1959,9 +1959,9 @@ void cGameData::Get_Time_Limit_Text(WideStringClass& text)
 		cMiscUtil::Seconds_To_Hms(TimeRemainingSeconds, hours, mins, seconds);
 
       WideStringClass time_string(0, true);
-      time_string.Format(L"%02d:%02d:%02d", hours, mins, seconds);
+      time_string.Format(U_CHAR("%02d:%02d:%02d"), hours, mins, seconds);
 
-		text.Format(L"%s: %s", TRANSLATION(IDS_MP_TIME_REMAINING), time_string);
+		text.Format(U_CHAR("%s: %s"), TRANSLATION(IDS_MP_TIME_REMAINING), time_string);
    }
 
 }
@@ -2029,7 +2029,7 @@ void cGameData::On_Game_Begin(void)
 	// Clear the MVP name
 	// Let MVP carry over into next game.
 	//
-	//MvpName.Format(L"");
+	//MvpName.Format(U_CHAR(""));
 	//MvpCount = 0;
 
 	//
@@ -2275,8 +2275,8 @@ void cGameData::Set_Game_Duration_S(unsigned int seconds)
 //-----------------------------------------------------------------------------
 void cGameData::Get_Description(WideStringClass & description)
 {
-	const WideStringClass delimiter	= L"\t";
-	const WideStringClass newline		= L"\n";
+	const WideStringClass delimiter	= U_CHAR("\t");
+	const WideStringClass newline		= U_CHAR("\n");
 	const WideStringClass yes			= TRANSLATE(IDS_YES);
 	const WideStringClass no			= TRANSLATE(IDS_NO);
 
@@ -2301,7 +2301,7 @@ void cGameData::Get_Description(WideStringClass & description)
 	// Map Name
 	//
 	if (ModName.Is_Empty () == false) {
-		attribute = L"Mod Name:";
+		attribute = U_CHAR("Mod Name:");
 		value = ModName;
 		description += (attribute + delimiter + value + newline);
 	}
@@ -2318,7 +2318,7 @@ void cGameData::Get_Description(WideStringClass & description)
 	//
 	attribute = TRANSLATE(IDS_MENU_TEXT298);
 	if (Is_Time_Limit()) {
-		value.Format(L"%d %s", TimeLimitMinutes, TRANSLATE(IDS_MP_MINUTES));
+		value.Format(U_CHAR("%d %s"), TimeLimitMinutes, TRANSLATE(IDS_MP_MINUTES));
 	} else {
 		value = TRANSLATE(IDS_MP_NONE);
 	}
@@ -2328,7 +2328,7 @@ void cGameData::Get_Description(WideStringClass & description)
 	// Max. Players
 	//
 	attribute = TRANSLATE(IDS_MENU_TEXT294);
-	value.Format(L"%d", MaxPlayers);
+	value.Format(U_CHAR("%d"), MaxPlayers);
 	description += (attribute + delimiter + value + newline);
 
 	//

@@ -89,7 +89,7 @@ ServerSaveLoadMenuClass::On_Init_Dialog (void)
 		//
 		//	Configure the column
 		//
-		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 
 		//
 		//	Loop over all the configurations
@@ -284,7 +284,7 @@ ServerSaveLoadMenuClass::Save_Config (bool prompt)
 					//
 					//	Get the new display name for this configuration
 					//
-					const wchar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
+					const unichar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
 					if (display_name[0] != 0) {
 
 						//
@@ -313,7 +313,7 @@ ServerSaveLoadMenuClass::Save_Config (bool prompt)
 					RenegadeDialogMgrClass::Do_Simple_Dialog(GetRenegadeDialog(RenegadeDialogID::IDD_MP_INVALID_SERVER_CONFIG));
 #else
 					WideStringClass errorMsg(0, true);
-					errorMsg.Format(L"%s\n\n%s", TRANSLATE(IDS_MENU_TEXT330), (const wchar_t*)outMsg);
+					errorMsg.Format(U_CHAR("%s\n\n%s"), TRANSLATE(IDS_MENU_TEXT330), (const unichar_t*)outMsg);
 					DlgMsgBox::DoDialog(TRANSLATE(IDS_MENU_TEXT329), errorMsg);
 #endif
 				}
@@ -324,7 +324,7 @@ ServerSaveLoadMenuClass::Save_Config (bool prompt)
 			//
 			//	Get the new display name for this configuration
 			//
-			const wchar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
+			const unichar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
 			if (display_name[0] != 0) {
 
 				//
@@ -454,7 +454,7 @@ ServerSaveLoadMenuClass::On_ListCtrl_Sel_Change
 		//
 		//	Clear the name of the current configuration
 		//
-		Set_Dlg_Item_Text (IDC_NAME_EDIT, L"");
+		Set_Dlg_Item_Text (IDC_NAME_EDIT, U_CHAR(""));
 	}
 
 	//
@@ -508,7 +508,7 @@ ServerSaveLoadMenuClass::ListSortCallback
 		}
 	}
 
-	return(wcsicmp(config1->ConfigName, config2->ConfigName));
+	return(u_strcasecmp(config1->ConfigName, config2->ConfigName, U_COMPARE_CODE_POINT_ORDER));
 }
 
 
@@ -581,7 +581,7 @@ void ServerSaveLoadMenuClass::Save_Now(void)
 					//
 					//	Get the new display name for this configuration
 					//
-					const wchar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
+					const unichar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
 
 					if (display_name[0] != 0) {
 						//
@@ -628,7 +628,7 @@ void ServerSaveLoadMenuClass::Save_Now(void)
  * HISTORY:                                                                                    *
  *   12/17/2001 5:11PM ST : Created                                                            *
  *=============================================================================================*/
-ServerSettingsClass::ServerSettingsClass(const char *filename, const wchar_t *configname, int file_number)
+ServerSettingsClass::ServerSettingsClass(const char *filename, const unichar_t *configname, int file_number)
 {
 	ConfigName = configname;	//"Default C&C Server Settings";
 	RawFileName = filename;		//"svrcfg_cnc.ini"
@@ -729,7 +729,7 @@ void ServerSettingsManagerClass::Scan(void)
 		if (file.Is_Available()) {
 			INIClass *ini = Get_INI(file_name);
 			if (ini) {
-				description = ini->Get_Wide_String(description, "Settings", "wConfigName", L"");	//(unsigned short *)TRANSLATE(IDS_SERVER_SAVELOAD_DEFAULT));
+				description = ini->Get_Wide_String(description, "Settings", "wConfigName", U_CHAR(""));	//(unsigned short *)TRANSLATE(IDS_SERVER_SAVELOAD_DEFAULT));
 				if (description.Get_Length()) {
 					ServerSettingsList.Add(new ServerSettingsClass(file_name, description.Peek_Buffer(), i));
 				} else {

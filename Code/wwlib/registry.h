@@ -82,8 +82,8 @@ public:
 	void	Set_String( const char * name, const char *value );
 
 	// Wide string data type access
-	void	Get_String( const wchar_t * name, WideStringClass &string, const wchar_t *default_string = NULL);
-	void	Set_String( const wchar_t * name, const wchar_t *value );
+	//void	Get_String( const unichar_t * name, WideStringClass &string, const unichar_t *default_string = NULL);
+	//void	Set_String( const unichar_t * name, const unichar_t *value );
 
 	// Binary data type access
 	void	Get_Bin( const char * name, void *buffer, int buffer_size );

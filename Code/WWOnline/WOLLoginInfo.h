@@ -60,10 +60,10 @@ class LoginInfo :
 		static const LoginInfoList& GetList(void);
 		static void ClearList(void);
 	
-		static RefPtr<LoginInfo> Find(const wchar_t* nickname);
+		static RefPtr<LoginInfo> Find(const unichar_t* nickname);
 		static RefPtr<LoginInfo> Find(const char* nickname);
 
-		static RefPtr<LoginInfo> Create(const wchar_t* nickname, const wchar_t* password, bool isEncrypted);
+		static RefPtr<LoginInfo> Create(const unichar_t* nickname, const unichar_t* password, bool isEncrypted);
 		static RefPtr<LoginInfo> Create(const char* nickname, const char* password, bool isEncrypted);
 
 		static void StoreLogin(const char* nickname, const char* password, bool isEncrypted,
@@ -75,7 +75,7 @@ class LoginInfo :
 		const WideStringClass& GetPassword(void) const
 			{return mPassword;}
 
-		void SetPassword(const wchar_t* password, bool isEncrypted);
+		void SetPassword(const unichar_t* password, bool isEncrypted);
 
 		bool IsPasswordEncrypted(void) const
 			{return mIsPasswordEncrypted;}
@@ -93,14 +93,14 @@ class LoginInfo :
 		void Forget(bool purge);
 
 	protected:
-		LoginInfo(const wchar_t* nickname, const wchar_t* password, bool isEncrypted);
+		LoginInfo(const unichar_t* nickname, const unichar_t* password, bool isEncrypted);
 		virtual ~LoginInfo();
 
 		// Prevent copy and assignment
 		LoginInfo(const LoginInfo&);
 		const LoginInfo& operator=(const LoginInfo&);
 
-		static int IndexOf(const wchar_t* nickname);
+		static int IndexOf(const unichar_t* nickname);
 		int IndexOf(void) const;
 
 	private:

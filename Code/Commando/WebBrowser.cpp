@@ -1012,7 +1012,7 @@ STDMETHODIMP WebBrowser::OnRegisterLogin(const wchar_t* nick , const wchar_t* pa
 	{
 	WWDEBUG_SAY(("WebBrowser: Register WWOnline login: '%S' - '%S'\n", nick, pass));
 
-	RefPtr<WWOnline::LoginInfo> login = WWOnline::LoginInfo::Create(nick, pass, false);
+	RefPtr<WWOnline::LoginInfo> login = WWOnline::LoginInfo::Create(reinterpret_cast<const unichar_t*>(nick), reinterpret_cast<const unichar_t*>(pass), false);
 
 	if (login.IsValid())
 		{

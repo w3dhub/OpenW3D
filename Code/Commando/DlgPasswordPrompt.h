@@ -43,7 +43,7 @@ class DlgPasswordPrompt :
 	public:
 		static bool DoDialog(Signaler<DlgPasswordPrompt>* target);
 
-		const wchar_t* GetPassword(void) const;
+		const unichar_t* GetPassword(void) const;
 
 	protected:
 		DlgPasswordPrompt();

@@ -416,7 +416,7 @@ WOLLogonMgr::~WOLLogonMgr()
 *
 ******************************************************************************/
 
-bool WOLLogonMgr::IsConnectedToServer(const wchar_t* login, RefPtr<IRCServerData>& server)
+bool WOLLogonMgr::IsConnectedToServer(const unichar_t* login, RefPtr<IRCServerData>& server)
 	{
 	if (!mWOLSession.IsValid())
 		{
@@ -458,7 +458,7 @@ bool WOLLogonMgr::IsConnectedToServer(const wchar_t* login, RefPtr<IRCServerData
 *
 ******************************************************************************/
 
-bool WOLLogonMgr::IsUserLoggedIn(const wchar_t* login)
+bool WOLLogonMgr::IsUserLoggedIn(const unichar_t* login)
 	{
 	if (!mWOLSession.IsValid())
 		{
@@ -501,7 +501,7 @@ bool WOLLogonMgr::IsUserLoggedIn(const wchar_t* login)
 *
 ******************************************************************************/
 
-bool WOLLogonMgr::IsAutoLogin(const wchar_t* login)
+bool WOLLogonMgr::IsAutoLogin(const unichar_t* login)
 	{
 	if (mWOLSession->IsAutoLoginAllowed())
 		{
@@ -530,7 +530,7 @@ bool WOLLogonMgr::IsAutoLogin(const wchar_t* login)
 *
 ******************************************************************************/
 
-RefPtr<IRCServerData> WOLLogonMgr::GetPreferredServer(const wchar_t* login)
+RefPtr<IRCServerData> WOLLogonMgr::GetPreferredServer(const unichar_t* login)
 	{
 	const char* preferred = "";
 
@@ -850,7 +850,7 @@ void WOLLogonMgr::InitiateLogon(bool forced)
 	//---------------------------------------------------------------------------
 	// Logon to WWOnline server
 	//---------------------------------------------------------------------------
-	WWDEBUG_SAY(("WOLLogonMgr: Connecting user '%S' to server '%s'\n", (const wchar_t*)mLoginName, server->GetName()));
+	WWDEBUG_SAY(("WOLLogonMgr: Connecting user '%S' to server '%s'\n", (const unichar_t*)mLoginName, server->GetName()));
 
 	RefPtr<LoginInfo> login = LoginInfo::Find(mLoginName);
 
@@ -960,13 +960,13 @@ void WOLLogonMgr::HandleNotification(DlgWOLWaitEvent& waitEvent)
 							}
 						else
 							{
-							//DlgMsgBox::DoDialog(L"IDS_WOL_LOGONFAILED", TRANSLATE (IDS_MENU_NO_INET_CONNECTION));
+							//DlgMsgBox::DoDialog(U_CHAR("IDS_WOL_LOGONFAILED"), TRANSLATE (IDS_MENU_NO_INET_CONNECTION));
 							// Text reads....
 							// 	Renegade is unable to detect your Internet connection speed\n.
 							// 	Defaulting connection speed to 56k.\n
 							// 	If this is incorrect, you can change it on the My Information page.
 							Add_Ref();
-							DlgMsgBox::DoDialog(L"", TRANSLATE (IDS_MENU_SET_CONNECTION_SPEED), DlgMsgBox::Okay, this);
+							DlgMsgBox::DoDialog(U_CHAR(""), TRANSLATE (IDS_MENU_SET_CONNECTION_SPEED), DlgMsgBox::Okay, this);
 							mState = WAITING_BANDWIDTH_DIALOG_OKAY;
 							}
 
@@ -1018,7 +1018,7 @@ void WOLLogonMgr::HandleNotification(DlgWOLWaitEvent& waitEvent)
 				}
 			else
 				{
-				const wchar_t* resultText = waitEvent.Subject()->GetResultText();
+				const unichar_t* resultText = waitEvent.Subject()->GetResultText();
 				WWDEBUG_SAY(("WOLLogonMgr: Serverlist error %S\n", resultText));
 
 				if (mQuietMode)
@@ -1148,8 +1148,8 @@ void WOLLogonMgr::HandleNotification(DlgWOLLogonEvent& event)
 		DlgWOLLogon& logonDialog = event.Subject();
 
 		// Get selected login
-		const wchar_t* name = NULL;
-		const wchar_t* password = NULL;
+		const unichar_t* name = NULL;
+		const unichar_t* password = NULL;
 		logonDialog.GetLogin(&name, &password, mPasswordEncrypted);
 
 		mLoginName = name;
@@ -1280,21 +1280,21 @@ void WOLLogonMgr::HandleNotification(MessageOfTheDayEvent &event)
 	// Get the name of the current server and the text of the message
 	WideStringClass& message = event.Subject();
 
-	const wchar_t* TAG_NEWS_START = L"<news>";
-	const wchar_t* TAG_NEWS_END = L"</news>";
-	const size_t TAG_NEWS_START_LEN = ::wcslen(TAG_NEWS_START);
+	const unichar_t* TAG_NEWS_START = U_CHAR("<news>");
+	const unichar_t* TAG_NEWS_END = U_CHAR("</news>");
+	const size_t TAG_NEWS_START_LEN = ::u_strlen(TAG_NEWS_START);
 
 	bool display_motd = false;
 
 	// Does this message have the embedded news tag?
-	const wchar_t* news = ::wcsstr(message, TAG_NEWS_START);
+	const unichar_t* news = ::u_strstr(message, TAG_NEWS_START);
 
 	if (news)
 		{
 		// Get the text of the news section
 		WideStringClass news_body(0, true);
 		news_body = news + TAG_NEWS_START_LEN;
-		wchar_t* news_end = (wchar_t*)::wcsstr(news_body, TAG_NEWS_END);
+		unichar_t* news_end = (unichar_t*)::u_strstr(news_body, TAG_NEWS_END);
 
 		if (news_end)
 			{
@@ -1312,10 +1312,10 @@ void WOLLogonMgr::HandleNotification(MessageOfTheDayEvent &event)
 			{
 			// Simply erase the tags from the message
 				const size_t tag1_index = static_cast<size_t>(news - message.Peek_Buffer());
-				const size_t news_body_length = ::wcslen(news_body);
+				const size_t news_body_length = ::u_strlen(news_body);
 				const size_t tag2_index = tag1_index + TAG_NEWS_START_LEN + news_body_length;
-				message.Erase(static_cast<int>(tag2_index), static_cast<int>(::wcslen(TAG_NEWS_END)));
-				message.Erase(static_cast<int>(tag1_index), static_cast<int>(::wcslen(TAG_NEWS_START)));
+				message.Erase(static_cast<int>(tag2_index), static_cast<int>(::u_strlen(TAG_NEWS_END)));
+				message.Erase(static_cast<int>(tag1_index), static_cast<int>(::u_strlen(TAG_NEWS_START)));
 			}
 
 		display_motd = true;
