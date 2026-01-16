@@ -46,7 +46,7 @@ VisWindowDialogClass::VisWindowDialogClass(CWnd* pParent /*=NULL*/)	:
 	Width (0),
 	Height (0),
 	MemDC (NULL),
-	CurToolTipVisId(-1),
+	CurToolTipVisId(unsigned(-1)),
 	CDialog(VisWindowDialogClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(VisWindowDialogClass)

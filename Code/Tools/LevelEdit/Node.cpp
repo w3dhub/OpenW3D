@@ -109,7 +109,7 @@ NodeClass::NodeClass (PresetClass *preset)
 		m_NeedsSave (true),
 		m_IsProxied (false),
 		m_Transform (1),
-		m_CullLink (-1),
+		m_CullLink (uint32(-1)),
 		m_ContainerPresetID (0)
 {
 	Set_Preset (preset);
@@ -138,7 +138,7 @@ NodeClass::NodeClass (const NodeClass &src)
 		m_NeedsSave (true),
 		m_IsProxied (false),
 		m_Transform (1),
-		m_CullLink (-1),
+		m_CullLink (uint32(-1)),
 		m_ContainerPresetID (0)
 {
 	*this = src;

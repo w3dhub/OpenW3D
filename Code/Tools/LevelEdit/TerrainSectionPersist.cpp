@@ -79,7 +79,7 @@ TerrainSectionPersistClass::TerrainSectionPersistClass (void)
 		m_InstanceID (0),
 		m_VisObjectID (0),
 		m_VisSectorID (0),
-		m_CullLink (-1)
+		m_CullLink (uint32(-1))
 {
 	return ;
 }
