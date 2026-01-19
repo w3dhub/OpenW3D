@@ -1074,14 +1074,14 @@ TranslateDBClass::Get_Next_Object (uint32 category_id, TDBObjClass *curr_obj)
 	// one that matches the given category ID
 	//	
 	for (int index = start_index; index < m_ObjectList.Count (); index ++) {
-		TDBObjClass *curr_obj = m_ObjectList[index];
-		if (curr_obj != NULL) {
+		TDBObjClass *check_obj = m_ObjectList[index];
+		if (check_obj != NULL) {
 
 			//
 			//	Does this object belong to the category we are enumerating?
 			//
-			if (curr_obj->Get_Category_ID () == category_id) {
-				object = curr_obj;
+			if (check_obj->Get_Category_ID () == category_id) {
+				object = check_obj;
 				break;
 			}
 		}

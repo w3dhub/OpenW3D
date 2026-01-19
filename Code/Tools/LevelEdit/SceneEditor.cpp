@@ -610,9 +610,9 @@ SceneEditorClass::Build_Group_List
 		// and add thier groups to this list
 		//
 		for (int index = 0; index < m_SelectionMgr->Get_Count (); index ++) {
-			NodeClass *node = m_SelectionMgr->Get_At (index);
-			if (node != NULL) {
-				Add_Groups_To_List (*node, group_list);
+			NodeClass *next_node = m_SelectionMgr->Get_At (index);
+			if (next_node != NULL) {
+				Add_Groups_To_List (*next_node, group_list);
 			}
 		}
 	}

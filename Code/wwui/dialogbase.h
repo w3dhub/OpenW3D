@@ -68,9 +68,9 @@ class DialogTransitionClass;
 //	Usefull Macros
 ////////////////////////////////////////////////////////////////
 #define	START_DIALOG(class_name)				\
-	{	class_name *dialog = new class_name;	\
-		dialog->Start_Dialog ();					\
-		REF_PTR_RELEASE (dialog);	}
+	{	class_name *macro_dialog = new class_name;	\
+		macro_dialog->Start_Dialog ();					\
+		REF_PTR_RELEASE (macro_dialog);	}
 
 
 ////////////////////////////////////////////////////////////////

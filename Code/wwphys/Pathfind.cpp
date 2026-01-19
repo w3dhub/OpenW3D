@@ -749,8 +749,8 @@ PathfindClass::Collect_Sectors
 			//
 			//	Ignore sectors that are 0 size
 			//
-			const AABoxClass &box = sector->Get_Bounding_Box ();
-			if (box.Extent.X != 0 && box.Extent.Y != 0 && box.Extent.Z != 0) {
+			const AABoxClass &bbox = sector->Get_Bounding_Box ();
+			if (bbox.Extent.X != 0 && bbox.Extent.Y != 0 && bbox.Extent.Z != 0) {
 				list.Add (sector);
 			}
 		}
