@@ -75,7 +75,7 @@ float ParticleBufferClass::LODMaxScreenSizes[17] = {
 };
 
 static Random4Class rand_gen;
-const float oo_intmax = 1.0f / (float)INT_MAX;
+static constexpr float oo_intmax = 1.0f / (float)INT_MAX;
 
 // Default Line Emitter Properties
 static const W3dEmitterLinePropertiesStruct _DefaultLineEmitterProps=
@@ -1820,8 +1820,7 @@ void ParticleBufferClass::Reset_Size(ParticlePropertyStruct<float> &new_props)
 void ParticleBufferClass::Reset_Rotations(ParticlePropertyStruct<float> &new_props, float orient_rnd)
 {
 
-	unsigned int i;	// Used in loops	
-   float oo_intmax = 1.0f / (float)INT_MAX;
+	unsigned int i;	// Used in loops
 	unsigned int ui_previous_key_time = 0;
 	unsigned int ui_current_key_time = 0;
 
@@ -2031,8 +2030,7 @@ void ParticleBufferClass::Reset_Rotations(ParticlePropertyStruct<float> &new_pro
 void ParticleBufferClass::Reset_Frames(ParticlePropertyStruct<float> &new_props)
 {
 
-	unsigned int i;	// Used in loops	
-   float oo_intmax = 1.0f / (float)INT_MAX;
+	unsigned int i;	// Used in loops
 	unsigned int ui_previous_key_time = 0;
 	unsigned int ui_current_key_time = 0;
 
@@ -2193,8 +2191,7 @@ void ParticleBufferClass::Reset_Frames(ParticlePropertyStruct<float> &new_props)
 void ParticleBufferClass::Reset_Blur_Times(ParticlePropertyStruct<float> &new_blur_times)
 {
 
-	unsigned int i;	// Used in loops	
-   float oo_intmax = 1.0f / (float)INT_MAX;
+	unsigned int i;	// Used in loops
 	unsigned int ui_previous_key_time = 0;
 	unsigned int ui_current_key_time = 0;
 
