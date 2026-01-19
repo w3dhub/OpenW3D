@@ -609,7 +609,7 @@ void IMECandidateCtrl::On_LButton_Up(const Vector2& mousePos)
 	// Process candidate selection here
 	if (mCandidate && (sel >= 0))
 		{
-		const wchar_t* string = mCandidate->GetCandidate(sel);
+		[[maybe_unused]] const wchar_t* string = mCandidate->GetCandidate(sel);
 		WWDEBUG_SAY(("*** Selected Candidate: %d %04x\n", sel, *string));
 		mCandidate->SelectCandidate((unsigned int)sel);
 		}

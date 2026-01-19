@@ -1433,10 +1433,10 @@ void	HumanStateClass::Begin_Jump( void )
 void	HumanStateClass::Complete_Jump( void )
 {
 	Vector3 fall = JumpTM.Get_Translation() - HumanPhys->Get_Transform().Get_Translation();
-	GlobalSettingsDef * settings = GlobalSettingsDef::Get_Global_Settings();
+	[[maybe_unused]] GlobalSettingsDef * settings = GlobalSettingsDef::Get_Global_Settings();
 //	Debug_Say(( "Fall Distance %f\n", fall.Z ));
 
-	bool add_portal = true;
+	[[maybe_unused]] bool add_portal = true;
 
 //
 //	Don't do this in the level editor

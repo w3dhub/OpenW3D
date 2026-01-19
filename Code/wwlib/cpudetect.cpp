@@ -824,13 +824,13 @@ void CPUDetectClass::Init_Processor_String()
 
 void CPUDetectClass::Init_CPUID_Instruction()
 {
+#if defined(_MC_VER) && defined(_M_IX86)
 	unsigned int cpuid_available=0;
 
    // The pushfd/popfd commands are done using emits
    // because CodeWarrior seems to have problems with
    // the command (huh?)
 
-#if defined(_MC_VER) && defined(_M_IX86)
    __asm
    {
 		mov cpuid_available,0	// clear flag

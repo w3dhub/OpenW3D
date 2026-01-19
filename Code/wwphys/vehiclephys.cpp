@@ -623,7 +623,7 @@ void VehiclePhysClass::Capture_Dazzles(void)
 	RenderObjClass * model = Peek_Model();
 	if (model == NULL) return;
 
-	const VehiclePhysDefClass * def = Get_VehiclePhysDef();
+	[[maybe_unused]] const VehiclePhysDefClass * def = Get_VehiclePhysDef();
 	WWASSERT(def != NULL);
 	
 	int imodel;

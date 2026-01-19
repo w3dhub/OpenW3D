@@ -87,7 +87,7 @@ char cNetUtil::WorkingAddressBuffer[]					= "";
 
 void cNetUtil::Wsa_Error(LPCSTR sFile, unsigned uLine)
 {
-   int err = wwnet::SocketGetLastError();
+   [[maybe_unused]] int err = wwnet::SocketGetLastError();
    WWDEBUG_SAY(("* %s:%d: WSA function returned error code: %s\n", sFile, uLine, Winsock_Error_Text(err)));
    DIE;
 }

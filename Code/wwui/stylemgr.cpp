@@ -1046,12 +1046,11 @@ StyleMgrClass::Render_Glow
 	//	Figure out how many passes we should do to get the
 	// desired result
 	//
-	float max_radius	= std::max (radius_x, radius_y);
-	int pass_count		= 4;//max_radius / 3;
+	int pass_count		= 4;
 	//pass_count			= std::min (pass_count, 5);
 	//pass_count			= std::max (pass_count, 3);
 
-	int step_count		= 7;//max_radius;
+	int step_count		= 7;
 	//step_count			= std::min (step_count, 10);
 	//step_count			= std::max (step_count, 4);
 	float angle_inc	= DEG_TO_RADF (360) / step_count;
