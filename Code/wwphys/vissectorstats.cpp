@@ -200,12 +200,12 @@ void VisSectorStatsClass::Compute_Stats(StaticPhysClass * obj,VisTableClass * vi
 		RefPhysListIterator it = PhysicsSceneClass::Get_Instance()->Get_Static_Object_Iterator();
 		for (it.First(); !it.Is_Done(); it.Next()) {
 			
-			StaticPhysClass * obj = it.Peek_Obj()->As_StaticPhysClass();
-			if (obj && vistable->Get_Bit(obj->Get_Vis_Object_ID())) {
+			StaticPhysClass * next_obj = it.Peek_Obj()->As_StaticPhysClass();
+			if (next_obj && vistable->Get_Bit(next_obj->Get_Vis_Object_ID())) {
 
-				PolygonCount += obj->Peek_Model()->Get_Num_Polys();
+				PolygonCount += next_obj->Peek_Model()->Get_Num_Polys();
 
-				Count_Textures(obj->Peek_Model());
+				Count_Textures(next_obj->Peek_Model());
 
 			}
 		}

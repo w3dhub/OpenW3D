@@ -106,14 +106,14 @@ ReportMgrClass::Export_File_Usage_Report (const char *filename)
 		//
 		int index;
 		for (index = 0; index < file_list.Count (); index ++) {			
-			StringClass filename (file_list[index], true);			
+			StringClass next_filename (file_list[index], true);			
 
 			//
 			//	If this is a W3D file, then enumerate its dependencies...
 			//
-			if (::Is_W3D_Filename (filename)) {
+			if (::Is_W3D_Filename (next_filename)) {
 				UniqueListClass<CString> dep_list;
-				::Get_File_Mgr ()->Build_Dependency_List (filename, dep_list);
+				::Get_File_Mgr ()->Build_Dependency_List (next_filename, dep_list);
 				for (int new_index = 0; new_index < dep_list.Count (); new_index ++) {
 					CString rel_path = ::Get_File_Mgr ()->Make_Relative_Path (dep_list[new_index]);
 					

@@ -799,13 +799,13 @@ DSAPONetworkObjectClass::Initialize (StaticAnimPhysClass *phys_obj)
 	//	Get a pointer to the object
 	//
 	if (PhysObj != NULL) {
-		DamageableStaticPhysClass *phys_obj = PhysObj->As_DamageableStaticPhysClass ();
-		if (phys_obj != NULL) {
+		DamageableStaticPhysClass *dsphys_obj = PhysObj->As_DamageableStaticPhysClass ();
+		if (dsphys_obj != NULL) {
 
 			//
 			//	Copy the object's state
 			//
-			Health = phys_obj->DefenseObject.Get_Health ();
+			Health = dsphys_obj->DefenseObject.Get_Health ();
 		}
 	}
 

@@ -1343,8 +1343,8 @@ EditableHeightfieldClass::Paint_Heightfield
 				//
 				//	Determine how much influence each of the other texture channel had
 				//
-				float amount					= TextureWeights[texture_index][curr_offset];
-				float old_remainder_amount	= 1.0F - amount;
+				float weight_amount					= TextureWeights[texture_index][curr_offset];
+				float old_remainder_amount	= 1.0F - weight_amount;
 
 				if (old_remainder_amount < 0 || old_remainder_amount > 1.0F) {
 					int test = 0;
@@ -1353,7 +1353,7 @@ EditableHeightfieldClass::Paint_Heightfield
 				//
 				//	Increment the amount of influence for this texture channel
 				//
-				float new_amount	= amount + delta_amount;
+				float new_amount	= weight_amount + delta_amount;
 				new_amount			= WWMath::Clamp (new_amount, 0.0F, 1.0F);
 
 				//

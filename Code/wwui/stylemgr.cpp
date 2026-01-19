@@ -219,14 +219,14 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 		int count = ini_file->Entry_Count (FONT_FILE_SECTION);
 		int index;
 		for (index = 0; index < count; index ++) {
-			StringClass	filename (0, true);
-			ini_file->Get_String (filename, FONT_FILE_SECTION, ini_file->Get_Entry (FONT_FILE_SECTION, index));
+			StringClass	font_filename (0, true);
+			ini_file->Get_String (font_filename, FONT_FILE_SECTION, ini_file->Get_Entry (FONT_FILE_SECTION, index));
 
 			//
 			//	Install the font into windows
 			//
-			::AddFontResourceA (filename);
-			FontFileList.Add (filename);
+			::AddFontResourceA (font_filename);
+			FontFileList.Add (font_filename);
 		}
 
 		//

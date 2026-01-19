@@ -92,9 +92,9 @@ void cNetInterface::Set_Nickname(WideStringClass & name)
 		if (wide_name.Get_Length() > 30) {
 			wide_name[30] = 0;
 		}
-		StringClass name;
-		wide_name.Convert_To(name);
-		cUserOptions::GameSpyNickname.Set(name.Peek_Buffer());
+		StringClass nickname;
+		wide_name.Convert_To(nickname);
+		cUserOptions::GameSpyNickname.Set(nickname.Peek_Buffer());
 	} else {
 		Nickname = name;
 
