@@ -1115,7 +1115,7 @@ void IMEManager::DoComposition(unsigned int dbcs, int compFlags)
 
 			if (compFlags & GCS_COMPATTR)
 				{
-				int size = ReadCompositionAttr(imc, mCompositionAttr, sizeof(mCompositionAttr));
+				[[maybe_unused]] int size = ReadCompositionAttr(imc, mCompositionAttr, sizeof(mCompositionAttr));
 
 #ifdef WWDEBUG
 				WWDEBUG_SAY(("CompAttr: "));
@@ -1132,7 +1132,7 @@ void IMEManager::DoComposition(unsigned int dbcs, int compFlags)
 			if (compFlags & GCS_COMPCLAUSE)
 				{
 				mCompositionClause[0] = 0;
-				int size = ReadCompositionClause(imc, mCompositionClause, sizeof(mCompositionClause));
+				[[maybe_unused]] int size = ReadCompositionClause(imc, mCompositionClause, sizeof(mCompositionClause));
 
 #ifdef WWDEBUG
 				WWDEBUG_SAY(("CompClause: "));

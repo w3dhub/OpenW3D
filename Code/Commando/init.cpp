@@ -616,9 +616,6 @@ bool RestartNeeded = true;
 void Get_Version_Number(unsigned int *major, unsigned int *minor)
 {
 	// Version info removed per Legal review requirements. LFeenanEA - 8th February 2025
-	
-	unsigned int version_major = 0;
-	unsigned int version_minor = 0;
 }
 
 
@@ -699,7 +696,7 @@ bool Game_Init(void)
 	RegistryClass registry( APPLICATION_SUB_KEY_NAME_DEBUG );
 	if ( registry.Is_Valid() ) {
 		registry.Set_Int( VALUE_NAME_GAME_INITIALIZATION_IN_PROGRESS, 1 );
-		unsigned crash_version=registry.Get_Int( VALUE_NAME_APPLICATION_CRASH_VERSION, 0 );
+		[[maybe_unused]] unsigned crash_version=registry.Get_Int( VALUE_NAME_APPLICATION_CRASH_VERSION, 0 );
 #ifdef WWDEBUG
 		if (crash_version) Copy_Logs(crash_version);
 #endif // WWDEBUG
@@ -782,14 +779,6 @@ bool Game_Init(void)
 	while ( count-- > 0 ) {
 		FreeRandom.Get_Int();
 	}
-
-	// Thumbnail manager pre init will ensure that thumbnail database
-	// is up-to-date.
-	bool show_thumbnail_pre_init_dialog = true;
-#ifdef WWDEBUG
-	show_thumbnail_pre_init_dialog = cDevOptions::ShowThumbnailPreInitDialog.Get();
-#endif // WWDEBUG
-//	ThumbnailManagerClass::Pre_Init(show_thumbnail_pre_init_dialog);
 
 	//
 	// Create an instance of the sound library

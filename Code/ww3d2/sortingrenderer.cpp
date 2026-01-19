@@ -323,7 +323,7 @@ void SortingRendererClass::Insert_Triangles(
 	state->min_vertex_index=min_vertex_index;
 	state->vertex_count=vertex_count;
 
-	SortingVertexBufferClass* vertex_buffer=static_cast<SortingVertexBufferClass*>(state->sorting_state.vertex_buffer);
+	[[maybe_unused]] SortingVertexBufferClass* vertex_buffer=static_cast<SortingVertexBufferClass*>(state->sorting_state.vertex_buffer);
 	WWASSERT(vertex_buffer);
 	WWASSERT(state->vertex_count<=vertex_buffer->Get_Vertex_Count());
 

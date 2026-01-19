@@ -163,7 +163,7 @@ void cLanChat::Init_Lan_Protocol_And_Socket(void)
 		cNetUtil::Close_Socket(Socket);
 	}
 
-   bool succeeded = cNetUtil::Create_Bound_Socket(Socket, LAN_PORT, LocalAddress);
+	[[maybe_unused]] bool succeeded = cNetUtil::Create_Bound_Socket(Socket, LAN_PORT, LocalAddress);
 	WWASSERT(succeeded);
 }
 

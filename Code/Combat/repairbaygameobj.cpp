@@ -674,8 +674,6 @@ RepairBayGameObj::Repair_Vehicle (void)
 				if (	driver != NULL && 
 						driver->Get_Player_Type () == BaseController->Get_Player_Type() )
 				{
-					PlayerDataClass *player_data = driver->Get_Player_Data ();
-
 					float shield_max	= vehicle->Get_Defense_Object ()->Get_Shield_Strength_Max ();
 					float health_max	= vehicle->Get_Defense_Object ()->Get_Health_Max ();
 					float curr_health	= vehicle->Get_Defense_Object ()->Get_Health ();
@@ -697,22 +695,16 @@ RepairBayGameObj::Repair_Vehicle (void)
 					int damage_points				= (int)std::min (repair_rate, total_damage);
 					float repair_cost_per_pt	= vehicle_cost / (health_max + shield_max);
 
-					//int available_funds			= 1000; //player_data->Get_Score ()
 // FIXME (TSS) available_funds			= 1000 looks suspect...
-					int available_funds			= 1000; //player_data->Get_Money ()
+					int available_funds			= 1000;
 					
 					int points_restored			= int(available_funds / repair_cost_per_pt);
 					points_restored				= std::max (points_restored, 0);
 					points_restored				= std::min (points_restored, damage_points);
-					float total_cost			= points_restored * repair_cost_per_pt;
 
 					int health_restored			= std::min (int(health_max - curr_health), points_restored);
 					int shield_restored			= std::min (int(shield_max - curr_shield), (points_restored - health_restored));
 
-					//
-					//	Debit the player's account
-					//
-					//player_data->Purchase_Item (total_cost);
 					is_repairing = true;
 
 					//

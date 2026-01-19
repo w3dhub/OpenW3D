@@ -525,7 +525,7 @@ void CompressedVisTableClass::Compress(uint8 * src_buffer,int src_size)
 	
 	uint8 * comp_buffer = new uint8[LZO_BUFFER_SIZE(src_size)];
 	lzo_uint comp_size;
-	int lzocode = LZOCompressor::Compress(src_buffer,src_size,comp_buffer,&comp_size);
+	[[maybe_unused]] int lzocode = LZOCompressor::Compress(src_buffer,src_size,comp_buffer,&comp_size);
 	WWASSERT(lzocode == LZO_E_OK);
 
 	BufferSize = comp_size;

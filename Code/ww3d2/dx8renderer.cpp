@@ -238,7 +238,7 @@ void DX8TextureCategoryClass::Add_Polygon_Renderer(DX8PolygonRendererClass* p_re
 	WWASSERT(!PolygonRendererList.Contains(p_renderer));
 
 	if (add_after_this != NULL) {
-		bool res = PolygonRendererList.Add_After(p_renderer,add_after_this,false);
+		[[maybe_unused]] bool res = PolygonRendererList.Add_After(p_renderer,add_after_this,false);
 		WWASSERT(res != false);
 	} else {
 		PolygonRendererList.Add(p_renderer);
@@ -988,7 +988,7 @@ public:
 
 void DX8RigidFVFCategoryContainer::Add_Mesh(MeshClass* mesh_)
 {
-	MeshModelClass * mmc_ = mesh_->Peek_Model();
+	[[maybe_unused]] MeshModelClass * mmc_ = mesh_->Peek_Model();
 	WWASSERT(Check_If_Mesh_Fits(mmc_));
 
 	Vertex_Split_Table split_table(mesh_);
@@ -1229,7 +1229,7 @@ void DX8FVFCategoryContainer::Generate_Texture_Categories(Vertex_Split_Table& sp
 			Insert_To_Texture_Category(split_table,textures,mat,shader,pass,vertex_offset);
 		}
 
-		int new_inds=used_indices-old_used_indices;
+		[[maybe_unused]] int new_inds=used_indices-old_used_indices;
 		WWASSERT(new_inds<=polygon_count*3);
 	}
 }
