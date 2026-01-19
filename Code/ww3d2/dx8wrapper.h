@@ -933,16 +933,18 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 		break;
 	case D3DTS_PROJECTION:
 		{
-			Matrix4 ProjectionMatrix=m.Transpose();
+			Matrix4 m2=m.Transpose();
 			ZFar=0.0f;
 			ZNear=0.0f;
-			DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&ProjectionMatrix));
+			DX8CALL(SetTransform(D3DTS_PROJECTION,(D3DMATRIX*)&m2));
 		}
 		break;
 	default:
-		DX8_RECORD_MATRIX_CHANGE();
-		Matrix4 m2=m.Transpose();
-		DX8CALL(SetTransform(transform,(D3DMATRIX*)&m2));
+		{
+			DX8_RECORD_MATRIX_CHANGE();
+			Matrix4 m2=m.Transpose();
+			DX8CALL(SetTransform(transform,(D3DMATRIX*)&m2));
+		}
 		break;
 	}
 }

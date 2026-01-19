@@ -602,10 +602,10 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 
 						
 						Vector3 pos = Commands->Get_Position(obj);				//specifies drop location and plays droping anim.
-						float facing = Commands->Get_Facing(obj);
+						float obj_facing = Commands->Get_Facing(obj);
 						Commands->Set_Animation( obj, "H_A_J12C", false, NULL, 0.0f, -1.0f, false );
-						float a = cos(DEG_TO_RADF(facing)) * 1.5;
-						float b = sin(DEG_TO_RADF(facing)) * 1.5;
+						float a = cos(DEG_TO_RADF(obj_facing)) * 1.5;
+						float b = sin(DEG_TO_RADF(obj_facing)) * 1.5;
 						Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 						
 						switch (reward_type)									//random reward type.

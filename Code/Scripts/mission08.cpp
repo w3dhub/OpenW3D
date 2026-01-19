@@ -5114,8 +5114,8 @@ DECLARE_SCRIPT(M08_Facility_Scientist_Inactive, "Point1_ID=0:int, Point2_ID=0:in
 
 	void Killed (GameObject * obj, GameObject * killer) override
 	{
-		int controller_id = Get_Int_Parameter("Controller_ID");
-		Commands->Send_Custom_Event(obj, Commands->Find_Object(controller_id), M08_SCIENTIST_KILLED, 1, 0.0f);
+		int controller_id_param = Get_Int_Parameter("Controller_ID");
+		Commands->Send_Custom_Event(obj, Commands->Find_Object(controller_id_param), M08_SCIENTIST_KILLED, 1, 0.0f);
 	}
 
 };
