@@ -162,9 +162,9 @@ static unsigned Calculate_Processor_Speed(int64_t& ticks_per_second)
 
 	unsigned start=TIMEGETTIME();
 	unsigned elapsed;
-	while ((elapsed=TIMEGETTIME()-start)<200) {
+	do {
 		Time.timer1 = READ_TSC();
-	}
+	} while ((elapsed=TIMEGETTIME()-start)<200);
 
 	int64_t t=Time.timer1-Time.timer0;
 	ticks_per_second=(1000/200)*t;	// Ticks per second
