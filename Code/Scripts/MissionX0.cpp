@@ -2134,13 +2134,13 @@ DECLARE_SCRIPT ( MX0_A03_HUMVEE, "" ) // moves humvee
 		{
 			// Commands->Debug_Message( "***** DAK ***** finding Object Buggie.\n" );
 			Current_Target = Target_Id[target];
-			GameObject *target = Commands->Find_Object( Current_Target );
+			GameObject *current_target = Commands->Find_Object( Current_Target );
 
-			if ( target ) 
+			if ( current_target ) 
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, INNATE_PRIORITY_ENEMY_SEEN, 1);
-				params.Set_Attack(target, 60.0f, 0.25f, true);
+				params.Set_Attack(current_target, 60.0f, 0.25f, true);
 				Commands->Action_Attack(obj, params);
 			}
 		}
@@ -2148,13 +2148,13 @@ DECLARE_SCRIPT ( MX0_A03_HUMVEE, "" ) // moves humvee
 		{
 			target = target + 1;
 			Current_Target = Target_Id[target];
-			GameObject *target = Commands->Find_Object( Current_Target );
+			GameObject *current_target = Commands->Find_Object( Current_Target );
 
-			if ( target )
+			if ( current_target )
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, INNATE_PRIORITY_ENEMY_SEEN, 1);
-				params.Set_Attack(target, 60.0f, 0.25f, true);
+				params.Set_Attack(current_target, 60.0f, 0.25f, true);
 				Commands->Action_Attack(obj, params);
 			}
 			else // no targets. attack whatever you can see.
@@ -2177,9 +2177,9 @@ DECLARE_SCRIPT ( MX0_A03_HUMVEE, "" ) // moves humvee
 
 		if ( type == 2 ) // resume fire on buggy. halt after 3 - 6 seconds.
 		{
-			GameObject *target = Commands->Find_Object( Current_Target );
+			GameObject *current_target = Commands->Find_Object( Current_Target );
 
-			if ( target )
+			if ( current_target )
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, INNATE_PRIORITY_ENEMY_SEEN, 1);
@@ -2254,12 +2254,12 @@ DECLARE_SCRIPT ( MX0_A03_TANK, "" ) // moves tank
 		if ( type == 0 ) // attack Target_Id[target]
 		{
 			Current_Target = Target_Id[target];
-			GameObject *target = Commands->Find_Object ( Current_Target );
-			if ( target )
+			GameObject *current_target = Commands->Find_Object ( Current_Target );
+			if ( current_target )
 			{
 				ActionParamsStruct params;
 				params.Set_Basic(this, INNATE_PRIORITY_ENEMY_SEEN, 0);
-				params.Set_Attack( target, 60.0f, 0.25f, true);
+				params.Set_Attack( current_target, 60.0f, 0.25f, true);
 				Commands->Action_Attack(obj, params);
 			}
 		}

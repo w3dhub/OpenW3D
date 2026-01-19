@@ -1445,7 +1445,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 	unsigned vertex_offset,
 	unsigned index_offset,
 	IndexBufferClass* index_buffer,
-	unsigned pass)
+	unsigned texpass)
 {
 	int poly_count=split_table.Get_Polygon_Count();
 
@@ -1459,10 +1459,10 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 	for (int i=0;i<poly_count;++i) {
 		bool all_textures_same = true;
 		for (unsigned int stage = 0; stage < MeshMatDescClass::MAX_TEX_STAGES; stage++) {
-			all_textures_same = all_textures_same && (split_table.Peek_Texture(i, pass, stage) == textures[stage]);
+			all_textures_same = all_textures_same && (split_table.Peek_Texture(i, texpass, stage) == textures[stage]);
 		}
-		VertexMaterialClass* mat=split_table.Peek_Material(i,pass);
-		ShaderClass shd=split_table.Peek_Shader(i,pass);
+		VertexMaterialClass* mat=split_table.Peek_Material(i,texpass);
+		ShaderClass shd=split_table.Peek_Shader(i,texpass);
 
 		if (all_textures_same && Equal_Material(mat,material) && shd==shader) {
 			polygons++;
@@ -1483,7 +1483,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 			stripify=false;
 		}
 #endif
-		const TriIndex* src_indices=(const TriIndex*)split_table.Get_Polygon_Array(pass);//mmc->Get_Polygon_Array();
+		const TriIndex* src_indices=(const TriIndex*)split_table.Get_Polygon_Array(texpass);//mmc->Get_Polygon_Array();
 
 		if (stripify) {
 			int* triangles=new int[index_count];
@@ -1491,10 +1491,10 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 			for (int i=0;i<poly_count;++i) {
 				bool all_textures_same = true;
 				for (unsigned int stage = 0; stage < MeshMatDescClass::MAX_TEX_STAGES; stage++) {
-					all_textures_same = all_textures_same && (split_table.Peek_Texture(i, pass, stage) == textures[stage]);
+					all_textures_same = all_textures_same && (split_table.Peek_Texture(i, texpass, stage) == textures[stage]);
 				}
-				VertexMaterialClass* mat=split_table.Peek_Material(i,pass);
-				ShaderClass shd=split_table.Peek_Shader(i,pass);
+				VertexMaterialClass* mat=split_table.Peek_Material(i,texpass);
+				ShaderClass shd=split_table.Peek_Shader(i,texpass);
 
 				if (all_textures_same && Equal_Material(mat,material) && shd==shader) {
 					triangles[triangle_index_count++]=src_indices[i][0]+vertex_offset;
@@ -1574,10 +1574,10 @@ unsigned DX8TextureCategoryClass::Add_Mesh(
 			for (int i=0;i<poly_count;++i) {
 				bool all_textures_same = true;
 				for (unsigned int stage = 0; stage < MeshMatDescClass::MAX_TEX_STAGES; stage++) {
-					all_textures_same = all_textures_same && (split_table.Peek_Texture(i, pass, stage) == textures[stage]);
+					all_textures_same = all_textures_same && (split_table.Peek_Texture(i, texpass, stage) == textures[stage]);
 				}
-				VertexMaterialClass* mat=split_table.Peek_Material(i,pass);
-				ShaderClass shd=split_table.Peek_Shader(i,pass);
+				VertexMaterialClass* mat=split_table.Peek_Material(i,texpass);
+				ShaderClass shd=split_table.Peek_Shader(i,texpass);
 
 				if (all_textures_same && Equal_Material(mat,material) && shd==shader) {
 					unsigned short idx;

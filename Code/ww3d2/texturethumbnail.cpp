@@ -270,17 +270,17 @@ void ThumbnailManagerClass::Create_Thumbnails()
 	FileFactoryClass* old_file_factory=_TheFileFactory;
 	_TheFileFactory=&mix;
 	if (mix.Is_Valid()) {
-		DynamicVectorClass<StringClass> list;
-		list.Set_Growth_Step (1000);
-		mix.Build_Filename_List(list);
-	for (int i=0;i<list.Count();++i) {
-		const size_t len_sz=list[i].Get_Length();
+		DynamicVectorClass<StringClass> file_list;
+		file_list.Set_Growth_Step (1000);
+		mix.Build_Filename_List(file_list);
+	for (int i=0;i<file_list.Count();++i) {
+		const size_t len_sz=file_list[i].Get_Length();
 		WWASSERT(len_sz >= 4);
 		WWASSERT(len_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
 		const int len = static_cast<int>(len_sz);
-		if (!stricmp(&list[i][len-4],".tga") || !stricmp(&list[i][len-4],".dds")) {
-				if (!Peek_Thumbnail_Instance(list[i])) {
-					new ThumbnailClass(this,list[i]);
+		if (!stricmp(&file_list[i][len-4],".tga") || !stricmp(&file_list[i][len-4],".dds")) {
+				if (!Peek_Thumbnail_Instance(file_list[i])) {
+					new ThumbnailClass(this,file_list[i]);
 				}
 			}
 		}
