@@ -213,7 +213,7 @@ DECLARE_SCRIPT(M07_Objective_Controller, "") // 100657
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		switch (param)
 		{
@@ -351,7 +351,7 @@ DECLARE_SCRIPT(M07_Havoc_DLS, "")
 		Commands->Give_PowerUp(obj, "POW_MineRemote_Player", false);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == M07_NUKE_BLAST ) 
 		{
@@ -426,7 +426,7 @@ DECLARE_SCRIPT(M07_Dead6_Minigunner, "")  // Deadeye
 		Commands->Enable_Hibernation(obj, false);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -547,7 +547,7 @@ DECLARE_SCRIPT(M07_Dead6_Rocket_Soldier, "")  // Gunner
 		Commands->Enable_Hibernation(obj, false);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -668,7 +668,7 @@ DECLARE_SCRIPT(M07_Dead6_Grenadier, "")  // Patch
 		Commands->Enable_Hibernation(obj, false);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1019,7 +1019,7 @@ DECLARE_SCRIPT(M07_Dead6_Engineer, "")  // Hotwire
 		shield = Commands->Get_Max_Shield_Strength(obj);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1292,7 +1292,7 @@ DECLARE_SCRIPT(M07_Sydney, "")
 		Commands->Select_Weapon(obj, "Weapon_Pistol_Ai" );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1405,7 +1405,7 @@ DECLARE_SCRIPT(M07_Cathedral_Controller, "")  // 100663
 		
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1575,7 +1575,7 @@ DECLARE_SCRIPT(M07_In_Nuke_Blast, "")
 		active = true;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == M07_NUKE_BLAST ) 
 		{
@@ -1638,7 +1638,7 @@ DECLARE_SCRIPT(M07_Out_Nuke_Blast, "")
 		active = true;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == M07_NUKE_BLAST ) 
 		{
@@ -1767,7 +1767,7 @@ DECLARE_SCRIPT(M07_Evac_Site_Controller, "")  // 100664
 		m07_evac_site_vehicle_killed = 0;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M07_EVAC_SITE_VEHICLE_KILLED)
 		{
@@ -1952,7 +1952,7 @@ DECLARE_SCRIPT(M07_Fancy_Inn_Sam, "")
 //		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -1986,7 +1986,7 @@ DECLARE_SCRIPT(M07_SAM_Truck_100680, "")
 		health = Commands->Get_Max_Health(obj);
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -2031,7 +2031,7 @@ DECLARE_SCRIPT(M07_SAM_Truck_100679, "")
 		health = Commands->Get_Max_Health(obj);
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -2081,7 +2081,7 @@ DECLARE_SCRIPT(M07_Fancy_Inn_Controller, "")
 		m07_sam_killed = 0;
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M07_SAM_CONVERTED)
 		{
@@ -2561,7 +2561,7 @@ DECLARE_SCRIPT(M07_SAM_Site_Logic, "")
 	//	Commands->Attach_Script(destroyedSam, "M07_Destroyed_SAM_Site", "");
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M00_CUSTOM_SAM_SITE_IGNORE && current < 10)
 		{
@@ -2738,7 +2738,7 @@ DECLARE_SCRIPT(M07_TownSquare_Controller, "")  //
 		m07_radar_killed = 0;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M07_TOWNSQUARE_CHINOOK)
 		{
@@ -3037,7 +3037,7 @@ DECLARE_SCRIPT(M07_Vehicle_Drop_Controller, "")
 		m07_player_vehicle_killed = 0;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M07_VEHICLE_DROP_ZONE)
 		{
@@ -3256,7 +3256,7 @@ DECLARE_SCRIPT(M07_Stockpile_Controller, "")
 		ssm_crate_killed = 0;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M07_SSM_CRATE_KILLED)
 		{
@@ -3335,7 +3335,7 @@ DECLARE_SCRIPT(M07_Park_Controller, "")
 		m07_artillery_killed = 0;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M07_ARTILLERY_KILLED)
 		{
@@ -3424,7 +3424,7 @@ DECLARE_SCRIPT(M07_Nod_Obelisk, "")
 		converted = false;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M07_PLAYERTYPE_CHANGE_OBELISK)
 		{
@@ -3484,7 +3484,7 @@ DECLARE_SCRIPT(M07_Nod_Obelisk_MCT, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M07_OBELISK_KILLED)
 		{
@@ -3590,7 +3590,7 @@ DECLARE_SCRIPT(M07_Activate_Encounter, "Spawner_ID1=0:int, Spawner_ID2=0:int, Sp
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M07_DEACTIVATE_ENCOUNTER)
 		{
@@ -3772,7 +3772,7 @@ DECLARE_SCRIPT(M07_V05_Controller, "")
 		reinforce = true;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M07_REINFORCEMENT_UNIT_KILLED)
 		{
@@ -4123,7 +4123,7 @@ DECLARE_SCRIPT(M07_Inn_APC, "")
 
 	
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -4303,7 +4303,7 @@ DECLARE_SCRIPT(M07_V01_Controller, "")
 		activated = false;	
 		m07_v01_unit_killed = 0;
 	}
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -4364,7 +4364,7 @@ DECLARE_SCRIPT(M07_V01_Destroyed_Flame_Tank, "")
 
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -4803,7 +4803,7 @@ DECLARE_SCRIPT(M07_Triangle_Controller, "")
 		civ_captive_killed = 0;
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M07_TRIANGLE_APC_KILLED)
 		{
@@ -4954,7 +4954,7 @@ DECLARE_SCRIPT(M07_Hostage_Controller, "")
 		Commands->Enable_Spawner(100795, true);
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M07_EXPLODE_BARRELS && destroy_stockpile == false)
 		{
@@ -5126,7 +5126,7 @@ DECLARE_SCRIPT(M07_APC_Dec, "")
 
 	
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -5288,7 +5288,7 @@ DECLARE_SCRIPT(M07_Activate_E10_Tank_Drop, "")
 		already_entered = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == M07_PLAYER_VEHICLE_ID ) 
 		{
@@ -5336,7 +5336,7 @@ DECLARE_SCRIPT(M07_E10_Tank, "")
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(101131), M07_E10_TANK_CREATED, 1, 0.0f);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == M07_PLAYER_VEHICLE_ID ) 
 		{
@@ -5422,7 +5422,7 @@ DECLARE_SCRIPT(M07_Para_Drop_Controller, "")
 		
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == M07_DEACTIVATE_PARADROP)
 		{
@@ -5785,7 +5785,7 @@ DECLARE_SCRIPT(M07_Move_To_Evac, "")
 		already_entered = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		
 	}
@@ -5923,7 +5923,7 @@ DECLARE_SCRIPT(M07_Inn_Evac, "")//104496
 		evac_rope_id = 0;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == M07_DEAD6_EVAC) //SAM sites captured, evac DEAD6 and Sydney
 		{
@@ -6117,7 +6117,7 @@ DECLARE_SCRIPT(M07_Inn_Evac_Rope, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		switch (type)
 		{
@@ -6145,7 +6145,7 @@ DECLARE_SCRIPT(M07_Inn_Evac_Trajectory, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		switch (type)
 		{
@@ -6183,7 +6183,7 @@ DECLARE_SCRIPT(M07_Inn_Evac_Helicopter, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		switch (type)
 		{
@@ -6271,7 +6271,7 @@ DECLARE_SCRIPT(M07_Alley_Vehicle, "Waypath_ID=0:int")
 		waypath_id = Get_Int_Parameter("Waypath_ID");
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -6543,7 +6543,7 @@ DECLARE_SCRIPT(M07_Obelisk_Unit, "")
 		Commands->Innate_Disable(obj);		
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M07_CUSTOM_ACTIVATE)
 		{
@@ -6612,7 +6612,7 @@ DECLARE_SCRIPT(M07_SSM_Crate, "")
 
 DECLARE_SCRIPT(M07_DataDisc_01_DLS, "")//
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -6624,7 +6624,7 @@ DECLARE_SCRIPT(M07_DataDisc_01_DLS, "")//
 
 DECLARE_SCRIPT(M07_DataDisc_02_DLS, "")//
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{

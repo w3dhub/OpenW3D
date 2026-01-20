@@ -102,7 +102,7 @@ DECLARE_SCRIPT(M00_Animation_Play_RMV, "Start_Now=0:int, Receive_Type:int, Recei
 		}
 	}
 	
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Animation_Play_RMV received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -165,7 +165,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_RMV, "Start_Now=0:int, Receive_Typ
 		}
 	}
 	
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		const char *anim = Get_Parameter("Animation");
 		int frame = Get_Int_Parameter("Drop_Frame");
@@ -235,7 +235,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_Attach_Script_RMV, "Start_Now=0:in
 		}
 	}
 	
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		const char *anim = Get_Parameter("Animation");
 		int frame = Get_Int_Parameter("Drop_Frame");

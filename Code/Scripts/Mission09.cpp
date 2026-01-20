@@ -195,7 +195,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == BLOCK_ON)
 		{
@@ -372,7 +372,7 @@ DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 		already_entered = false;			
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == 8888)
 		{
@@ -504,7 +504,7 @@ DECLARE_SCRIPT (M09_Surface_Objective, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == ENTERED && param ==	ENTERED)
 		{
@@ -684,7 +684,7 @@ DECLARE_SCRIPT (M09_LabRoom_Zones, "Mutant_Num:int, Mutant_Goto:int")
 		//Commands->Grant_Key ( STAR, 10, false);
 	}
 
-	void Custom(GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom(GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == ALREADY_ENTERED)
 		{
@@ -697,7 +697,7 @@ DECLARE_SCRIPT (M09_Animating_Mutant, "Animation=0:int")
 {
 	float face;
 
-	void Custom(GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom(GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == GOTO)
 		{
@@ -770,7 +770,7 @@ DECLARE_SCRIPT (M09_LabRoom_Controller, "")
 		mobius_ready = false;
 	}
 
-	void Custom(GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom(GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (!triggered && mobius_ready)
 		{
@@ -994,7 +994,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		Commands->Mission_Complete(false);
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == NO_FOLLOW)
 		{
@@ -1398,7 +1398,7 @@ DECLARE_SCRIPT (M09_Stationary, "Reward_override=0:int")
 		}
 	}*/
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CHANGE_PLAYERTYPE)
 		{
@@ -1451,7 +1451,7 @@ DECLARE_SCRIPT (M09_Stationary_Nod, "")
 		}
 	}*/
 	
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CHANGE_PLAYERTYPE)
 		{
@@ -1667,7 +1667,7 @@ DECLARE_SCRIPT (M09_Stationary_StealthTank, "")
 {
 	
 	
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == ATTACK && param == ATTACK)
 		{
@@ -1942,7 +1942,7 @@ DECLARE_SCRIPT (M09_Excavation_Tunnel_Encounter_Off, "")
 
 DECLARE_SCRIPT (M09_Excavation_Tunnel_Controller, "")  //2000406
 {
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == ACTIVATE && param == ACTIVATE)
 		{
@@ -2268,7 +2268,7 @@ DECLARE_SCRIPT (M09_CheckpointA_Controller, "") //2000969
 		count = 0;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == COUNTER && param == COUNTER)
 		{
@@ -2471,7 +2471,7 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == 23000 && param == 23000)
 		{
@@ -2705,7 +2705,7 @@ DECLARE_SCRIPT (M09_Sam_Controller, "") //2000331
 		count = 0;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == COUNTER && param == COUNTER)
 		{
@@ -2778,7 +2778,7 @@ DECLARE_SCRIPT (M09_Mutant_Excavation_Zone_01, "")
 
 DECLARE_SCRIPT (M09_Custom_Attack, "")
 {
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == ATTACK)
 		{
@@ -2919,7 +2919,7 @@ DECLARE_SCRIPT (M09_Lab_Key_Controller, "") //2000452
 		key_counter = 0;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == KEY_COUNTER ) 
 		{
@@ -2938,7 +2938,7 @@ DECLARE_SCRIPT (M09_Lab_Key_Controller, "") //2000452
 
 DECLARE_SCRIPT (M09_Containment_Key_1, "")
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -2958,7 +2958,7 @@ DECLARE_SCRIPT (M09_Containment_Key_1, "")
 
 DECLARE_SCRIPT (M09_Containment_Key_2, "")
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -3016,7 +3016,7 @@ DECLARE_SCRIPT (M09_Key_Controller_Zones, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == COUNT ) 
 		{
@@ -3069,7 +3069,7 @@ DECLARE_SCRIPT (M09_Key_Box, "")
 		}
 	}
 	
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == VERIFY ) 
 		{
@@ -3164,7 +3164,7 @@ DECLARE_SCRIPT (M09_MrShuman_Zone, "")
 		star_in_zone = false;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == LOCKBOX)
 		{
@@ -3233,7 +3233,7 @@ DECLARE_SCRIPT (M09_Invincible_MrShuman, "")
 		invincible = true;
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == CLARK_KENT)
 		{
@@ -3384,7 +3384,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Controller, "Waypoint_num:int, Elev_obj_num:int
 		}
 	}
 //
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		static constexpr const char *elevators[9] =
 		{
@@ -3644,7 +3644,7 @@ DECLARE_SCRIPT (M09_Waypath_Run, "Waypath_num:int, Attacker_num:int, Controller_
 		Commands->Send_Custom_Event(obj, (Commands->Find_Object (mutant_id)), ATTACK_STAR, 0, 0.0f);
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == ATTACKER_CHECK)
 		{
@@ -3679,7 +3679,7 @@ DECLARE_SCRIPT (M09_Mutant_Encounter_Controller, "")
 		SAVE_VARIABLE( attackee_id, 2 );		
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == MUTANT_ATTACKER)
 		{
@@ -3782,7 +3782,7 @@ DECLARE_SCRIPT (M09_Zone_Enabled_Mobius, "Waypath_id:int, Condition=0:int")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == GOAL)
 		{
@@ -3833,7 +3833,7 @@ DECLARE_SCRIPT (M09_Flyover_Controller, "")
 		last = 0;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{		
 		if (type == FLYOVER)
 		{
@@ -3999,7 +3999,7 @@ DECLARE_SCRIPT(M09_Gunner, "")
 		full_health = Commands->Get_Health (obj);
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == GO)
 		{
@@ -4083,7 +4083,7 @@ DECLARE_SCRIPT(M09_Innate_Disable, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == M09_INNATE_ENABLE )
 		{
@@ -4186,7 +4186,7 @@ DECLARE_SCRIPT(M09_Zone_Destroy, "")
 
 DECLARE_SCRIPT (M09_Lab_Powerup, "Target:int")
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -4406,7 +4406,7 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 		star_in_zone = false;
 	}
 	
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == INITIATION)
 		{
@@ -4697,7 +4697,7 @@ DECLARE_SCRIPT(M09_PSuitAnim, "")
 		Commands->Set_Animation ( obj, "S_A_HUMAN.H_A_X9C_SUIT", true, NULL, 0.0f, -1.0f, false );
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == 666)
 		{

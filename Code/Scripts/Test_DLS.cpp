@@ -315,7 +315,7 @@ DECLARE_SCRIPT(DLS_Gun_Test, "Debug_Mode=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender)override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender)override
 	{
 		ActionParamsStruct params;
 
@@ -854,7 +854,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -1128,7 +1128,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == 23000 && param == 23000)
 		{
@@ -1880,7 +1880,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		say_need_here = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if(type == MX0_DESTROY_OBELISK)
 		{
@@ -2512,7 +2512,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -2618,7 +2618,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == MX0_OBELISK_HUMVEE)
 		{
@@ -2893,7 +2893,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -3047,7 +3047,7 @@ DECLARE_SCRIPT (MX0_Gun_Emplacement_DLS, "Left_Point=0:int, Right_Point=0:int")
 		left = true;
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3109,7 +3109,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3159,7 +3159,7 @@ DECLARE_SCRIPT (MX0_SAM_DLS, "")
 
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3272,7 +3272,7 @@ DECLARE_SCRIPT (MX0_Explosive_Barrels_DLS, "Logical_Sound=0:int, Radius:float")
 		
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		
 	}

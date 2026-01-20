@@ -128,7 +128,7 @@ DECLARE_SCRIPT(DAK_Vehicle_Regen_DAK, "" )
 		Commands->Send_Custom_Event ( obj, obj, 0, 0, 0 );
 	}
 
-	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		if ( type == 0 ) // regenerate health.
 		{
@@ -156,7 +156,7 @@ DECLARE_SCRIPT(DAK_Electric_Death_DAK, "" )
 		Commands->Send_Custom_Event ( obj, obj, 1, 0, 1 ); // wait a second before applying next ammount of damage.
 	}
 
-	void Custom ( GameObject *obj, int type, uintptr_t param, GameObject *sender ) override
+	void Custom ( GameObject *obj, int type, intptr_t param, GameObject *sender ) override
 	{
 		if ( type == 0 ) // create next soldier, attach script, kill yourself with electric damage.
 		{

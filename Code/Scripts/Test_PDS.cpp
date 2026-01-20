@@ -214,7 +214,7 @@ DECLARE_SCRIPT(PDS_Test_Conversation, "Conversation Name=:string,Soldier1_ID=0:i
 	////////////////////////////////////////////////////////////////////
 	//	Custom
 	////////////////////////////////////////////////////////////////////
-	void Custom (GameObject *game_obj, int event, uintptr_t data, GameObject *sender) override
+	void Custom (GameObject *game_obj, int event, intptr_t param, GameObject *sender) override
 	{
 		if (event == CUSTOM_EVENT_CONVERSATION_BEGAN) {
 			int test = 0;
@@ -756,10 +756,10 @@ DECLARE_SCRIPT(PDS_Test_Inventory, "")
 	////////////////////////////////////////////////////////////////////
 	//	Custom
 	////////////////////////////////////////////////////////////////////
-	void Custom (GameObject *game_obj, int event, uintptr_t data, GameObject *sender)
+	void Custom (GameObject *game_obj, int event, intptr_t param, GameObject *sender) override
 	{
 		if (event == CUSTOM_HAS_MEDKIT) {
-			int *retval = (int *)data;
+			int *retval = (int *)param;
 			if (retval != NULL) {
 				(*retval) = 0;
 				
@@ -781,7 +781,7 @@ DECLARE_SCRIPT(PDS_Test_Inventory, "")
 			//
 			for (int index = 0; index < INVENTORY_MAX; index ++) {
 				if (Inventory[index] == INVENTORY_EMPTY) {
-					Inventory[index] = data;
+					Inventory[index] = param;
 					break;
 				}
 			}			
@@ -1004,9 +1004,9 @@ DECLARE_SCRIPT(PDS_Test_Sound, "")
 	////////////////////////////////////////////////////////////////////
 	//	Custom
 	////////////////////////////////////////////////////////////////////
-	void Custom (GameObject *game_obj, int event, uintptr_t data, GameObject *sender) override
+	void Custom (GameObject *game_obj, int event, intptr_t param, GameObject *sender) override
 	{
-		if (event == CUSTOM_EVENT_SOUND_ENDED && data == SoundID) {
+		if (event == CUSTOM_EVENT_SOUND_ENDED && param == SoundID) {
 			int test = 0;
 			test ++;
 		}
