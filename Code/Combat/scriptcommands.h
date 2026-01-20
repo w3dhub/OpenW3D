@@ -175,7 +175,7 @@ typedef struct {
 	void	( * Select_Weapon )( GameObject * obj, const char * weapon_name );
 
 	// Custom Script
-	void	( * Send_Custom_Event )( GameObject * from, GameObject * to, int type/* = 0 */, uintptr_t param/* = 0 */, float delay/* = 0 */ );
+	void	( * Send_Custom_Event )( GameObject * from, GameObject * to, int type/* = 0 */, intptr_t param/* = 0 */, float delay/* = 0 */ );
 	void	( * Send_Damaged_Event )( GameObject * object, GameObject * damager );
 
 	// Random Numbers

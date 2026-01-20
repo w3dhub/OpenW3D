@@ -91,7 +91,7 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 		enabled = false;
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == Get_Int_Parameter("Custom_Message")) {
 			enabled = (param==1);
@@ -727,7 +727,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 			

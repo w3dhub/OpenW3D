@@ -102,7 +102,7 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 		fprintf(file, "%s [ID %d] created.\n", desc, Commands->Get_ID(obj));
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		current_time = time(NULL);
 		fprintf(file, "%s [ID %d] received custom event of type %d and param %d.  Sender was object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), type, (int)param, Commands->Get_ID(sender), difftime(current_time, start_time));
@@ -348,7 +348,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		attached_object_id = 0;
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 		if(type == M00_CUSTOM_OBJECT_ATTACHED_PRIMARY)
@@ -516,7 +516,7 @@ DECLARE_SCRIPT(M00_5MetalBarrels_ChainRxn_Controller_JDG, "Barrel01_Location:vec
 		Commands->Attach_Script(barrel_05, "M00_ChainRxn_Barrel_JDG", controller);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -641,7 +641,7 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == M01_MODIFY_YOUR_ACTION_JDG && deadYet == false)//you've been ordered to blow up--DO IT!
 		{
@@ -894,7 +894,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		GameObject * gun_01 = Commands->Find_Object (gun_01_id);
 		GameObject * gun_02 = Commands->Find_Object (gun_02_id);
@@ -999,7 +999,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Gun, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1037,7 +1037,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Missile, "")
 		firing = false;
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1298,7 +1298,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk_CNC, "Controller_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if ((type == 1) && (param == 1))
 		{
@@ -1362,7 +1362,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1541,7 +1541,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk, "Controller_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if ((type == 1) && (param == 1))
 		{
@@ -1595,7 +1595,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 		Commands->Send_Custom_Event (obj, obj, 2, enemy_id, 0.0f);
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == 1)
 		{
@@ -1720,7 +1720,7 @@ DECLARE_SCRIPT (M00_Select_Empty_Hands, "On_Created=1:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M00_SELECT_EMPTY_HANDS)
 		{
@@ -1731,7 +1731,7 @@ DECLARE_SCRIPT (M00_Select_Empty_Hands, "On_Created=1:int")
 
 DECLARE_SCRIPT(M00_ArmorMedal_TextMessage_JDG, "")
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -1742,7 +1742,7 @@ DECLARE_SCRIPT(M00_ArmorMedal_TextMessage_JDG, "")
 
 DECLARE_SCRIPT(M00_HealthMedal_TextMessage_JDG, "")
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -1782,7 +1782,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		ssm_missile_id = Commands->Get_ID(ssm_missile);
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if(type == M00_LAUNCH_SSM)
 		{
@@ -1852,7 +1852,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 		notStar_modifier = Get_Int_Parameter("NotStar_Modifier");
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == M00_ENABLE_DAMAGE_MOD)
 		{

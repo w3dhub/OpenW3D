@@ -365,7 +365,7 @@ The following are the custom parameter number values used to control objectives 
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 /**********************************************************************************************************
 The following are params for when the individual objectives are activated and announced
@@ -1239,7 +1239,7 @@ DECLARE_SCRIPT(M04_CargoMissileRooms_Dude_Controller_JDG, "")//this guys ID numb
 		Commands->Enable_Hibernation( obj, false );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)
 		{
@@ -1395,7 +1395,7 @@ DECLARE_SCRIPT(M04_MissileRoom_UpperGuard_01_JDG, "")//left side
 		//Commands->Innate_Soldier_Enable_Actions ( obj, false );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1435,7 +1435,7 @@ DECLARE_SCRIPT(M04_MissileRoom_UpperGuard_02_JDG, "")//right side
 		//Commands->Innate_Soldier_Enable_Actions ( obj, false );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1483,7 +1483,7 @@ DECLARE_SCRIPT(M04_CargoHold_TalkGuy01_JDG, "")//M04_CARGO_TALKGUY_01_JDG  10146
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1566,7 +1566,7 @@ DECLARE_SCRIPT(M04_CargoHold_TalkGuy02_JDG, "")//M04_CARGO_TALKGUY_02_JDG  10146
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1659,7 +1659,7 @@ DECLARE_SCRIPT(M04_CargoHold_TalkGuy03_JDG, "")//M04_CARGO_TALKGUY_03_JDG  10146
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -1967,7 +1967,7 @@ DECLARE_SCRIPT(M04_CargoHold_Blackhand_01_JDG, "")//M04_CARGO_BLACKHAND_01_JDG 1
 		idle = true;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -2234,7 +2234,7 @@ DECLARE_SCRIPT(M04_EngineRoom_BuildingController_JDG, "")//M04_ENGINEROOM_BUILDI
 		engineroom_sound14 = Commands->Create_Sound ( "Roomtone_Industrial_04_verb", Vector3 (8.568f, -67.182f, -6.454f), obj );	
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -2383,7 +2383,7 @@ DECLARE_SCRIPT(M04_EngineRoom_ChiefEngineer_JDG, "")// M04_ENGINEROOM_CHIEF_ENGI
 		Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, 1 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -2880,7 +2880,7 @@ DECLARE_SCRIPT(M04_EngineRoom_Prison_Guard_01_JDG, "")//M04_ENGINEROOM_PRISONGUA
 		}
 	}
 
-	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		if (param == M01_START_ACTING_JDG && engineDestroyed == false)//controller is telling you to start acting
 		{
@@ -3011,7 +3011,7 @@ DECLARE_SCRIPT(M04_EngineRoom_Prison_Guard_02_JDG, "")//M04_ENGINEROOM_PRISONGUA
 		}
 	}
 
-	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3133,7 +3133,7 @@ DECLARE_SCRIPT(M04_EngineRoom_Prisoner_01_JDG, "")//this guys ID number is M04_P
 		}
 	}
 
-	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3330,7 +3330,7 @@ DECLARE_SCRIPT(M04_EngineRoom_Prisoner_02_JDG, "")//this guys ID number is M04_P
 		}
 	}
 
-	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3406,7 +3406,7 @@ DECLARE_SCRIPT(M04_EngineRoom_Prisoner_03_JDG, "")//this guys ID number is M04_P
 		}
 	}
 
-	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		ActionParamsStruct params;
 
@@ -3479,7 +3479,7 @@ DECLARE_SCRIPT(M04_Prison_CellDoor_Zone_JDG, "")
 		Commands->Static_Anim_Phys_Goto_Frame ( M04_PRISON_DOOR_JDG, 0, "SHP_DOORP01.SHP_DOORP01" );//182085
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -3635,7 +3635,7 @@ DECLARE_SCRIPT(M04_AftDeck_02_Controller_JDG, "")//this guys number is M04_AFT_D
 		prisoner_reinforcements = 0;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)//recieved custom from enter zone to start scenario
 		{
@@ -3968,7 +3968,7 @@ DECLARE_SCRIPT(M04_Aft_FirstMateBodyguard_JDG, "")
 		Commands->Innate_Disable( obj);
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)//here comes the player--goto innate
 		{
@@ -4442,7 +4442,7 @@ DECLARE_SCRIPT(M04_AftDeck_02_Blackhand_PatrolGuy_JDG, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)//recieved custom to goto next waypath
 		{
@@ -4608,7 +4608,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Controller_JDG, "")//this guys ID number is M04_AP
 		m04apache_ID = 0;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)//recieved custom from enter zones--here comes the player(s)
 		{
@@ -5005,7 +5005,7 @@ DECLARE_SCRIPT(M04_ForeDeck_Controller_JDG, "")//this guys ID number is M04_FORE
 		total_mess_reinforcements = 0;
 		total_BHmess_reinforcements = 0;
 	}
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)//recieved custom from enter zones--here comes the player(s)
 		{
@@ -5364,7 +5364,7 @@ DECLARE_SCRIPT(M04_BH_MessHall_Guy_JDG, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 600)//recieved custom from controller--you can react to gunshots now
 		{
@@ -5380,7 +5380,7 @@ DECLARE_SCRIPT(M04_ForeDeck_ClosetSurprise_Guy_JDG, "")
 		Commands->Innate_Disable( obj );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)//recieved custom from enter zones--here comes the player(s)
 		{
@@ -5496,7 +5496,7 @@ DECLARE_SCRIPT(M04_Firefight_Start_Battle_Music_JDG, "")
 		playerHasLevel3Keycard = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 100)//level 3 keycard acquired
 		{
@@ -5936,7 +5936,7 @@ DECLARE_SCRIPT(M04_RocketEmplacement_01_JDG, "")//103461
 		secondary_apache_spawned = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == M01_MODIFY_YOUR_ACTION_JDG)
 		{
@@ -6033,7 +6033,7 @@ DECLARE_SCRIPT(M04_RocketEmplacement_02_JDG, "")//103462
 		secondary_apache_spawned = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == M01_MODIFY_YOUR_ACTION_JDG)
 		{
@@ -6092,7 +6092,7 @@ DECLARE_SCRIPT(M04_EngineRoom_Stationary_Tech_JDG, "Console_ID :int")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -6376,7 +6376,7 @@ DECLARE_SCRIPT(M04_Hunter_Controller_JDG, "")//M04_ENGINEROOM_HUNTING_CONTROLLER
 		messagePlayed = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -6453,7 +6453,7 @@ DECLARE_SCRIPT(M04_Hunter_JDG, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -6553,7 +6553,7 @@ DECLARE_SCRIPT(M04_Hunter_JDG, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -6784,7 +6784,7 @@ DECLARE_SCRIPT(M04_TibHold_MutantChamber_JDG, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -6886,7 +6886,7 @@ DECLARE_SCRIPT(M04_TibHold_SimpleMutant_JDG, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == M01_START_ACTING_JDG)
 		{
@@ -7047,7 +7047,7 @@ DECLARE_SCRIPT(M04_TibHold_RealMutant_JDG, "")
 		
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (obj && param == M01_HUNT_THE_PLAYER_JDG)
 		{
@@ -7184,7 +7184,7 @@ DECLARE_SCRIPT(M04_TibHold_MutantChambers_Controller_JDG, "")//M04_TIBERIUM_CHAM
 		mutant04_id = Commands->Get_ID ( mutant04 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -7305,7 +7305,7 @@ DECLARE_SCRIPT(M04_TibHold_Mutant_NoThreat_JDG, "")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -7340,7 +7340,7 @@ DECLARE_SCRIPT(M04_Visceroid_JDG, "")
 		Commands->Start_Conversation( cargo_conv1,  cargo_conv1 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -7395,7 +7395,7 @@ DECLARE_SCRIPT(M04_Visceroid_Dude_01_JDG, "")//M04_TIBERIUM_HOLD_TECH01_JDG	 102
 		Commands->Innate_Soldier_Enable_Footsteps_Heard ( obj, false );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -7460,7 +7460,7 @@ DECLARE_SCRIPT(M04_Visceroid_Dude_02_JDG, "")//M04_TIBERIUM_HOLD_TECH02_JDG	 102
 		first_time_damaged = true;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -7527,7 +7527,7 @@ DECLARE_SCRIPT(M04_Keycard_01_Script_JDG, "")
 		Commands->Enable_Hibernation( obj, false );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -7543,7 +7543,7 @@ DECLARE_SCRIPT(M04_Keycard_02_Script_JDG, "")
 		Commands->Enable_Hibernation( obj, false );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -7585,7 +7585,7 @@ DECLARE_SCRIPT(M04_Keycard_03_Script_JDG, "")
 		Commands->Enable_Hibernation( obj, false );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -7702,7 +7702,7 @@ DECLARE_SCRIPT(M04_Prison_Warden_JDG, "")//this guys ID is M04_PRISON_WARDEN_JDG
 		}
 	}
 
-	void Custom (GameObject* obj, int type, uintptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		ActionParamsStruct params;
 
@@ -7745,7 +7745,7 @@ DECLARE_SCRIPT(M04_MedLab_Tech_JDG, "")//this guys ID is M04_MEDLAB_TECHNICIAN_J
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -7811,7 +7811,7 @@ The Following are all the scripts associated with the objectives...including con
 
 DECLARE_SCRIPT(M04_Prisoners_Rescued_Controller_JDG, "")
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -7936,7 +7936,7 @@ DECLARE_SCRIPT(M04_MissileRoom_Target01_JDG, "")//100420
 		Commands->Set_Animation_Frame ( obj, "DSP_L4MISSRACK.DSP_L4MISSRACK", 1 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED  )
 		{
@@ -8027,7 +8027,7 @@ DECLARE_SCRIPT(M04_MissileRoom_Target02_JDG, "")//100421
 		Commands->Set_Animation_Frame ( obj, "DSP_L4MISSRACK.DSP_L4MISSRACK", 1 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED  )
 		{
@@ -8118,7 +8118,7 @@ DECLARE_SCRIPT(M04_MissileRoom_Target03_JDG, "")//100422
 		Commands->Set_Animation_Frame ( obj, "DSP_L4MISSRACK.DSP_L4MISSRACK", 1 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED  )
 		{
@@ -8209,7 +8209,7 @@ DECLARE_SCRIPT(M04_MissileRoom_Target04_JDG, "")//100423
 		Commands->Set_Animation_Frame ( obj, "DSP_L4MISSRACK.DSP_L4MISSRACK", 1 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED  )
 		{
@@ -8401,7 +8401,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Second_EntryZone_TopFloor_JDG, "")//105011 105012
 		commandClearance = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -8487,7 +8487,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Second_EntryZone_MiddleFloor_JDG, "")//105081 1050
 		commandClearance = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -8573,7 +8573,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Second_EntryZone_BottomFloor_JDG, "")//105083 1050
 		commandClearance = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -8657,7 +8657,7 @@ DECLARE_SCRIPT(M04_Apache_GoBackToHangar_EntryZone_JDG, "")//105085
 		apache_id = 0;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -8791,7 +8791,7 @@ DECLARE_SCRIPT(M04_ApacheRoom_Apache_JDG, "")
 		Commands->Create_Object ( "POW_Chaingun_Player", spawnSpot_06 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		ActionParamsStruct params;
 
@@ -9055,7 +9055,7 @@ DECLARE_SCRIPT(M04_Firefight_Prisoner, "")
 		Commands->Send_Custom_Event( obj, Commands->Find_Object (M04_END_FIREFIGHT_CONTROLLER_JDG), 0, 10, 0 );//tell controller you've been killed
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -9139,7 +9139,7 @@ DECLARE_SCRIPT(M04_Firefight_Controller_JDG, "")//this guys ID number is M04_END
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (param == 1)//player has freed prisoners--give clearance for end firefight
 		{
@@ -9439,7 +9439,7 @@ DECLARE_SCRIPT(M04_Firefight_RallyZone, "")//this guys ID number is 101194
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 1)
 		{
@@ -9532,7 +9532,7 @@ DECLARE_SCRIPT(M04_Firefight_RallyZone, "")//this guys ID number is 101194
 
 DECLARE_SCRIPT(M04_Mutant_UpdateDisc_JDG, "")
 {
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -9739,7 +9739,7 @@ DECLARE_SCRIPT(M04_Pog_Controller_JDG, "")//104693
 		torpedo_target02_poked = false;
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == M01_ADD_OBJECTIVE_POG_JDG)
 		{
@@ -10182,7 +10182,7 @@ DECLARE_SCRIPT(M04_BigSam_EntryZone_JDG, "")//104942
 		}
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == 0)
 		{
@@ -10204,7 +10204,7 @@ DECLARE_SCRIPT(M04_BigSam_Script_JDG, "")//104873
 		Commands->Set_Animation_Frame ( obj, "DSP_L4GIANTGUN.DSP_L4GIANTGUN", 0 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED  )
 		{
@@ -10334,7 +10334,7 @@ DECLARE_SCRIPT(M04_Objective_Reminder_Controller_JDG, "")//105760
 		Commands->Send_Custom_Event( obj, obj, 1, 1, 90 );
 	}
 
-	void Custom( GameObject * obj, int type, uintptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
 		if (type == M01_ADD_OBJECTIVE_POG_JDG)
 		{

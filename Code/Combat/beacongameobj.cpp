@@ -634,7 +634,7 @@ BeaconGameObj::Think (void)
 				// sound.
 				//
 				WeaponClass	*curr_weapon = weapon_bag->Get_Weapon ();
-				if (curr_weapon != NULL && curr_weapon->Get_ID () == WeaponDefinition->Get_ID ()) {
+				if (curr_weapon != NULL && uint32(curr_weapon->Get_ID ()) == WeaponDefinition->Get_ID ()) {
 					curr_weapon->Stop_Firing_Sound ();
 				}
 			}

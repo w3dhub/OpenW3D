@@ -317,7 +317,7 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 		mIsDataValid = false;
 		}
 
-	if (version != cNetwork::Get_Exe_Key()) {
+	if (version != unsigned(cNetwork::Get_Exe_Key())) {
 		mIsDataValid = false;
 		return;
 	}

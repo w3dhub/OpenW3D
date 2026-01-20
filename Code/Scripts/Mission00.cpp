@@ -310,7 +310,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		Vector3 powerup_loc = Vector3(-36.504f,75.985f,1.006f);
 
@@ -1287,7 +1287,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		logan_wait_infantry = false;
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		switch (type)
 		{
@@ -3201,7 +3201,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_SYDNEY_IS_RESET)
 		{
@@ -3319,7 +3319,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_GDI_SOLDIER_PATROL)
 		{
@@ -3359,7 +3359,7 @@ DECLARE_SCRIPT (MTU_Commando, "")
 		sydney_shot = false;
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_STAR)
 		{
@@ -3464,7 +3464,7 @@ DECLARE_SCRIPT (MTU_Commando_Startup, "")
 
 DECLARE_SCRIPT (MTU_PowerUp_Health, "")
 {
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3485,7 +3485,7 @@ DECLARE_SCRIPT (MTU_PowerUp_Health, "")
 
 DECLARE_SCRIPT (MTU_PowerUp_Armor, "")
 {
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3623,7 +3623,7 @@ DECLARE_SCRIPT (MTU_Range_Target_Miss_Commando, "")
 
 DECLARE_SCRIPT (MTU_Range_Powerup, "Powerup_ID:int")
 {
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3671,7 +3671,7 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
 		{
@@ -3747,7 +3747,7 @@ DECLARE_SCRIPT (MTU_Building_Controller, "Building_ID:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == MTU_TYPE_BUILDING_DAMAGEABLE)
 		{
@@ -3910,7 +3910,7 @@ DECLARE_SCRIPT (MSK_Controller, "")
 		Commands->Trigger_Spawner(MSK_NOD_ATK_03);
 	}
 
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == MSK_SOLDIER_DEAD)
 		{

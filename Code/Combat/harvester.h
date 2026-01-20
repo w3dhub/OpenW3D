@@ -109,7 +109,7 @@ public:
 	const char *	Get_Name (void) override	{ return "HarvesterClass"; }
 	void				Action_Complete (GameObject *obj, int action_id, ActionCompleteReason complete_reason) override;
 	void				Animation_Complete (GameObject *obj, const char * animation_name) override;
-	void				Custom (GameObject *game_obj, int type, uintptr_t param, GameObject *sender) override;
+	void				Custom (GameObject *game_obj, int type, intptr_t param, GameObject *sender) override;
 	void				Attach (GameObject *game_obj) override;
 	void				Detach (GameObject *game_obj) override;
 	

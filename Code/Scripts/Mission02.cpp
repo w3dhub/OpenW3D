@@ -101,7 +101,7 @@ DECLARE_SCRIPT(M02_Objective_Controller, "")
 	// Param 2 = Fail this objective (Failed)
 	// Param 3 = Convoy truck special - counting
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type > 199)
 		{
@@ -1962,7 +1962,7 @@ DECLARE_SCRIPT(M02_Objective_Zone, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		// Custom received from living units in an area. 
 
@@ -3131,7 +3131,7 @@ DECLARE_SCRIPT (M02_Respawn_Controller, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == 101)
 		{
@@ -3779,7 +3779,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		int specific_id = Commands->Get_ID (obj);
 		if (specific_id == 400276)
@@ -3947,7 +3947,7 @@ DECLARE_SCRIPT(M02_Obelisk, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == 1)
 		{
@@ -4033,7 +4033,7 @@ DECLARE_SCRIPT (M02_Power_Plant, "")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if (type == 1)
 		{
@@ -4364,7 +4364,7 @@ DECLARE_SCRIPT (M02_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -4511,7 +4511,7 @@ DECLARE_SCRIPT (M02_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, uintptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -4850,7 +4850,7 @@ DECLARE_SCRIPT (M02_Player_Vehicle, "Area_ID:int")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
 		{
@@ -4965,7 +4965,7 @@ DECLARE_SCRIPT (M02_Nod_Sakura, "Area_ID:int")
 
 DECLARE_SCRIPT (M02_Approach_Vehicle, "Area_ID:int")
 {
-	void Custom(GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -5319,7 +5319,7 @@ DECLARE_SCRIPT (M02_Commando_Start, "")
 
 DECLARE_SCRIPT (M02_Data_Disk, "Disk_ID:int")
 {
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED) 
 		{
@@ -5356,7 +5356,7 @@ DECLARE_SCRIPT (M02_Data_Disk, "Disk_ID:int")
 
 DECLARE_SCRIPT (M02_Encyclopedia_Reveal, "Disk_ID:int")
 {
-	void Custom (GameObject * obj, int type, uintptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED) 
 		{
