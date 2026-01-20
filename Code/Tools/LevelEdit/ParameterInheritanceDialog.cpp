@@ -57,7 +57,7 @@ static const int ICON_PHYS_SETTING		= 1;
 /////////////////////////////////////////////////////////////////////////////
 //	Local prototypes
 /////////////////////////////////////////////////////////////////////////////
-static LRESULT CALLBACK CheckBoxSubclassProc (HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
+static LRESULT CALLBACK LocalCheckBoxSubclassProc (HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 static BOOL TreeView_CustomSetCheckState (HWND hwndTreeView, HTREEITEM hItem, BOOL fCheck);
 static bool Find_Parameter_In_List (DynamicVectorClass<DefinitionParameterClass *> &parameter_list, ParameterClass *parameter);
 
@@ -156,8 +156,8 @@ ParameterInheritanceDialogClass::OnInitDialog (void)
 	//
 	//	Subclass the list and tree controls so we can handle the checkstates
 	//
-	LONG_PTR oldproc1 = ::SetWindowLongPtr (m_ListCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
-	LONG_PTR oldproc2 = ::SetWindowLongPtr (m_TreeCtrl, GWLP_WNDPROC, (LONG_PTR)CheckBoxSubclassProc);
+	LONG_PTR oldproc1 = ::SetWindowLongPtr (m_ListCtrl, GWLP_WNDPROC, (LONG_PTR)LocalCheckBoxSubclassProc);
+	LONG_PTR oldproc2 = ::SetWindowLongPtr (m_TreeCtrl, GWLP_WNDPROC, (LONG_PTR)LocalCheckBoxSubclassProc);
 	::SetProp (m_ListCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc1);
 	::SetProp (m_TreeCtrl, "OLDPROC",		(HANDLE)(DWORD_PTR)oldproc2);
 	::SetProp (m_ListCtrl, "IS_LIST_CTRL", (HANDLE)true);
@@ -389,11 +389,11 @@ ParameterInheritanceDialogClass::OnDestroy (void)
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//  CheckBoxSubclassProc
+//  LocalCheckBoxSubclassProc
 //
 ////////////////////////////////////////////////////////////////////////////
 LRESULT CALLBACK
-CheckBoxSubclassProc
+LocalCheckBoxSubclassProc
 (
 	HWND		hwnd,
 	UINT		message,
