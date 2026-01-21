@@ -268,16 +268,6 @@ static unsigned * Get_Node_Id_Array(unsigned count)
 	return node_id_array;
 }
 
-static unsigned * Get_Sorted_Node_Id_Array(unsigned count)
-{
-	if (count>sorted_node_id_array_count) {
-		delete[] sorted_node_id_array;
-		sorted_node_id_array=new unsigned[count];
-		sorted_node_id_array_count=count;
-	}
-	return sorted_node_id_array;
-}
-
 static ShortVectorIStruct* Get_Polygon_Index_Array(unsigned count)
 {
 	if (count>polygon_index_array_count) {

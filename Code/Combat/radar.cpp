@@ -86,18 +86,6 @@ const char * RadarManager::Get_Blip_Shape_Type_Name( int index )
 	return names[index];
 }
 
-/*
-**
-*/
-static	const RectClass &	Scale_UV( const RectClass & uv, float texture_size )
-{
-	static RectClass new_uv;
-	new_uv = uv;
-	new_uv.Scale( 1/texture_size );
-	return new_uv;
-}
-
-
 void	RadarManager::Set_Hidden( bool onoff )	
 { 
 	if ( IsHidden != onoff ) {
@@ -167,18 +155,6 @@ void 	RadarManager::Init()
 		BlipColors[ BLIP_COLOR_TYPE_TERTIARY_OBJECTIVE ] =		HUDGlobalSettingsDef::Get_Instance()->Get_Tertiary_Objective_Color().Convert_To_ARGB(); 
 	}
 
-#if 0
-	const HUDGlobalSettingsDef * settings = HUDGlobalSettingsDef::Get_Instance();
-	float radar_texture_size = settings->RadarTextureSize;
-
-	BlipUV[ BLIP_SHAPE_TYPE_NONE ] =			RectClass( 0,0,0,0 );
-	BlipUV[ BLIP_SHAPE_TYPE_HUMAN ] =		Scale_UV( settings->RadarHumanBlipUV, radar_texture_size );
-	BlipUV[ BLIP_SHAPE_TYPE_VEHICLE ] =		Scale_UV( settings->RadarVehicleBlipUV, radar_texture_size );
-	BlipUV[ BLIP_SHAPE_TYPE_STATIONARY ] =	Scale_UV( settings->RadarStationaryBlipUV, radar_texture_size );
-	BlipUV[ BLIP_SHAPE_TYPE_OBJECTIVE ] =	Scale_UV( settings->RadarObjectiveBlipUV, radar_texture_size );
-	BlipUV[ BLIP_BRACKET ] =					Scale_UV( settings->RadarBlipBracketUV, radar_texture_size );
-	BlipUV[ BLIP_SWEEP ] =						Scale_UV( settings->RadarSweepUV, radar_texture_size );
-#else
 	BlipUV[ BLIP_SHAPE_TYPE_NONE ] =		RectClass( 0,0,0,0 );
 	BlipUV[ BLIP_SHAPE_TYPE_HUMAN ] =		RectClass( RADAR_CIRCLE_UV_UL, RADAR_CIRCLE_UV_LR );
 	BlipUV[ BLIP_SHAPE_TYPE_VEHICLE ] =		RectClass( RADAR_TRIANGLE_UV_UL, RADAR_TRIANGLE_UV_LR );
@@ -192,7 +168,6 @@ void 	RadarManager::Init()
 	BlipUV[ BLIP_SHAPE_TYPE_OBJECTIVE ].Scale( INFO_UV_SCALE );
 	BlipUV[ BLIP_BRACKET ].Scale( INFO_UV_SCALE );
 	BlipUV[ BLIP_SWEEP ].Scale( INFO_UV_SCALE );
-#endif
 
 	// Clear radar renderer pointers, these are initialized on demand
 	for (i=0;i<8;++i) {
@@ -446,22 +421,6 @@ void	RadarManager::Update( const Matrix3D & player_tm, const Vector2 & center )
 }
 #endif
 
-#if 0
-{WWPROFILE( "Compass" );
-	// Draw the compass
-	const HUDGlobalSettingsDef * settings = HUDGlobalSettingsDef::Get_Instance();
-	float radar_texture_size = settings->RadarTextureSize;
-	float	bering = WWMath::Wrap( (player_tm.Get_Z_Rotation() / DEG_TO_RAD( 360.0f )) + 0.25f, 0, 1 );
-	int frame = (int)((bering * 8.0f) + 0.5f);
-	RectClass compass( Vector2( 0, 0 ), settings->RadarCompassSize );
-//	compass += Render2DClass::Get_Screen_Resolution().Lower_Left() + settings->RadarCompassOffset;
-	compass += center + COMPASS_OFFSET;
-	RectClass compass_uv = Scale_UV( settings->RadarCompassBaseUV, radar_texture_size );
-	compass_uv += (settings->RadarCompassUVOffset/radar_texture_size) * (frame & 7);
-	Renderer->Add_Quad( compass, compass_uv, RadarColor );
-}
-
-#else
 	float	bering = WWMath::Wrap( (player_tm.Get_Z_Rotation() / DEG_TO_RAD( 360.0f )) + 0.25f, 0, 1 );
 	CurrentCompassRendererIndex = (int)((bering * 8.0f) + 0.5f);
 	CurrentCompassRendererIndex&=7;
@@ -498,8 +457,6 @@ void	RadarManager::Update( const Matrix3D & player_tm, const Vector2 & center )
 			CompassRenderers[CurrentCompassRendererIndex]->Draw_Sentence();
 		}
 	}
-
-#endif
 
 
 	// Now build the blips

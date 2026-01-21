@@ -233,14 +233,6 @@ static Vector3 * _get_temp_vertex_position_array(int count)
 	return &(TmpVertPositions[0]);
 }
 
-static Vector3 * _get_temp_vertex_normal_array(int count)
-{
-	if (TmpVertNormals.Length() < count) {
-		TmpVertNormals.Resize(count);
-	}
-	return &(TmpVertNormals[0]);
-}
-
 /***********************************************************************************************
 **
 ** MeshMtlParamsClass Implementation

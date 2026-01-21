@@ -2243,53 +2243,6 @@ static	void	Info_Editor_Init( void )
 #endif
 }
 
-static	void	Info_Editor_Update( void )
-{
-return;
-	bool changed = false;
-	static	int index = 0;
-
-	static float _move = 0;
-	float move = Input::Get_Amount( INPUT_FUNCTION_MOVE_LEFT ) - Input::Get_Amount( INPUT_FUNCTION_MOVE_RIGHT );
-	if ( _move != move ) {
-		_move = move;
-		index += (int)-move;
-		index = (int)WWMath::Wrap( index, (float)0, (float)(InfoEditorFieldList.Count()) );
-		if ( move != 0 ) {
-			changed = true;
-		}
-	}
-
-	float _forward = 0;
-	float forward = Input::Get_Amount( INPUT_FUNCTION_MOVE_FORWARD ) - Input::Get_Amount( INPUT_FUNCTION_MOVE_BACKWARD );
-	forward *= 10;
-	forward = WWMath::Clamp( forward, -1, 1 );
-	if ( _forward != forward ) {
-		_forward = forward;
-		InfoEditorFieldList[index].Value->V += forward;
-		if ( forward != 0 ) {
-			changed = true;
-		}
-	}
-
-	float _left = 0;
-	float left = Input::Get_Amount( INPUT_FUNCTION_TURN_LEFT ) - Input::Get_Amount( INPUT_FUNCTION_TURN_RIGHT );
-	left *= 10;
-	left = WWMath::Clamp( left, -1, 1 );
-	if ( _left != left ) {
-		_left = left;
-		InfoEditorFieldList[index].Value->U += left;
-		if ( left != 0 ) {
-			changed = true;
-		}
-	}
-
-	if ( changed ) {
-		Debug_Say(( "Vector2 %s( %d, %d );\n", InfoEditorFieldList[index].Name, (int)InfoEditorFieldList[index].Value->U, (int)InfoEditorFieldList[index].Value->V ));
-	}
-
-}
-
 static	void	Info_Editor_Shutdown( void )
 {
 	while ( InfoEditorFieldList.Count() > 0 ) {
@@ -2516,8 +2469,6 @@ static	void	Info_Update_Health_Shield( void )
 
 static	void	Info_Update( void )
 {
-//	Info_Editor_Update();
-
 	// Clear the renderer
 	InfoRenderer->Reset();
 

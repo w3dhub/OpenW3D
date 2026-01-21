@@ -188,60 +188,6 @@ VehicleDriverClass::Initialize (SmartGameObj *game_obj, PathClass *path)
 }
 
 
-///////////////////////////////////////////////////////////////////////////
-//
-//	Find_Tangent_Angle
-//
-///////////////////////////////////////////////////////////////////////////
-static float
-Find_Tangent_Angle
-(
-	const Vector2 &	center,
-	float					radius,
-	const Vector2 &	point,
-	bool					clockwise
-)
-{
-	float angle = 0;
-
-	//
-	//	Calculate the distance from the point to the center of the circle
-	//
-	float delta_x = point.X - center.X;
-	float delta_y = point.Y - center.Y;
-	float dist = ::sqrt (delta_x * delta_x + delta_y * delta_y);
-	if (dist == 0) {
-		dist = 0.0001F;
-	}
-
-	//
-	//	Determine the offset angle (from the line between the point and center)
-	// where the 2 tangent points lie.
-	//
-	float angle_offset	= WWMath::Fast_Acos (radius / dist);
-	float base_angle		= WWMath::Atan2 (delta_x, -delta_y);
-	base_angle = WWMath::Wrap (base_angle, 0, WWMATH_PI * 2);
-
-	//
-	//	Return which ever tangent point we would come across first, depending
-	// on our orientation
-	//
-	if (clockwise) {
-		angle = (WWMATH_PI * 3) - (base_angle + angle_offset);
-	} else {
-		angle = base_angle - angle_offset;
-	}
-
-	angle = WWMath::Wrap (angle, 0, WWMATH_PI * 2);
-
-	if (dist < radius) {
-		angle = DEG_TO_RADF (360.0F);
-	}
-
-	return angle;
-}
-
-
 ////////////////////////////////////////////////////////////////
 //
 //	Drive

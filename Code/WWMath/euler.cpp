@@ -120,10 +120,6 @@ int	EulerOrderZYZr = EULER_BUILD_ORDER(2, EULER_PARITY_ODD,  EULER_REPEAT_YES, E
 
 /* local functions */
 static void _euler_unpack_order(int order,int &i,int &j,int &k,int &h,int &n,int &s,int &f);
-static int _euler_axis_i(int order);
-static int _euler_axis_j(int order);
-static int _euler_axis_k(int order);
-static int _euler_axis_h(int order);
 
 
 /*********************************************************************************************** 
@@ -314,40 +310,6 @@ void EulerAnglesClass::To_Matrix(Matrix3D & M)
 
 static int _euler_safe[] = { 0,1,2,0 };
 static int _euler_next[] = { 1,2,0,1 };
-
-int _euler_axis_i(int order)
-{
-	return _euler_safe[ (order>>3) & 3 ];
-}
-
-int _euler_axis_j(int order)
-{
-	int index = _euler_axis_i(order);
-	if (EULER_PARITY(order) == 1) {
-		index++;
-	}
-
-	return _euler_next[ index ];
-}
-
-int _euler_axis_k(int order)
-{
-	int index = _euler_axis_i(order);
-	if (EULER_PARITY(order) != 1) {
-		index++;
-	}
-
-	return _euler_next[ index ];
-}
-
-int _euler_axis_h(int order)
-{
-	if (EULER_REPEAT(order) == 1) {
-		return _euler_axis_k(order);
-	} else {
-		return _euler_axis_i(order);
-	}
-}
 
 void _euler_unpack_order(int order,int &i,int &j,int &k,int &h,int &n,int &s,int &f)
 {
