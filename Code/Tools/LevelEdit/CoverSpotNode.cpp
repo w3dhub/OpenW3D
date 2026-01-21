@@ -440,7 +440,6 @@ CoverSpotNodeClass::Post_Export (void)
 		//	Pass the Post_Export call onto any attack points as well
 		//
 		for (int index = 0; index < m_AttackPointNodes.Count (); index ++) {
-			CoverAttackPointNodeClass *attack_point	= m_AttackPointNodes[index];
 			EditorLineClass *line							= m_AttackPointLines[index];
 			::Get_Scene_Editor ()->Add_Dynamic_Object (line);
 		}

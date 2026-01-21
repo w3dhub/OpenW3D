@@ -145,7 +145,6 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 				 (_strnicmp (filename, exclusionstring1, strlen (exclusionstring1)) != 0)) {
 
 				const char *ddsextension 	  = ".dds";
-				const char *failedtoopentext = "Failed to open %s\r\n";
 
 				char	  mangleddirectory [_MAX_DIR];
 				char	  mangledname [_MAX_FNAME];

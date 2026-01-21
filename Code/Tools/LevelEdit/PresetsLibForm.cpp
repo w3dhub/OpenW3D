@@ -302,7 +302,6 @@ PresetsFormClass::OnInitDialog (void)
 	m_Toolbar.GetToolBarCtrl ().SetExtendedStyle (TBSTYLE_EX_DRAWDDARROWS);
 	
 	TBBUTTONINFO button_info = { sizeof (TBBUTTONINFO), TBIF_STYLE, 0 };
-	int index = m_Toolbar.CommandToIndex (IDC_EXTRA);
 	m_Toolbar.GetToolBarCtrl ().GetButtonInfo (IDC_EXTRA, &button_info);
 	button_info.fsStyle |= TBSTYLE_DROPDOWN;
 	m_Toolbar.GetToolBarCtrl ().SetButtonInfo (IDC_EXTRA, &button_info);
@@ -385,7 +384,6 @@ PresetsFormClass::Reload_Presets (void)
 				//	Add this sub-factory and all its definitions to the tree
 				//
 				if (factory->Is_Displayed ()) {
-					LPCTSTR name = factory->Get_Name ();
 					HTREEITEM child_item = m_TreeCtrl.InsertItem (factory->Get_Name (), FOLDER_ICON, FOLDER_ICON, tree_item);
 					Set_Item_Data (child_item, factory);
 					Fill_In_Presets (child_item);
@@ -2066,7 +2064,6 @@ PresetsFormClass::Enable_Button (int cmd_id)
 void
 PresetsFormClass::OnSelchangedPresetsTree (NMHDR *pNMHDR, LRESULT *pResult)
 {
-	NM_TREEVIEW* pNMTreeView = (NM_TREEVIEW*)pNMHDR;
 	(*pResult) = 0;
 
 	//
@@ -2097,7 +2094,6 @@ PresetsFormClass::Propagate_Changes
 	CLevelEditView::Allow_Repaint (false);
 
 	PresetClass *preset				= Get_Item_Preset (modified_item);
-	DefinitionClass *definition	= preset->Get_Definition ();
 
 	//
 	//	Loop over the list of derived parameters that need to

@@ -160,8 +160,6 @@ TerrainNodeClass::Free_Sections (void)
 void
 TerrainNodeClass::Add_To_Scene (void)
 {
-	SceneEditorClass *scene = ::Get_Scene_Editor ();
-
 	//
 	//	Add all the sections to the scene
 	//

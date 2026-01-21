@@ -541,7 +541,6 @@ PathfindSectorBuilderClass::Generate_Sectors (void)
 	//
 	//	Process all the floodfill boxes that have been queued up
 	//
-	int compress_count = 0;	
 	while (m_FloodFillProcessList.Count () > 0) {				
 		
 		//
@@ -1255,7 +1254,6 @@ PathfindSectorBuilderClass::Build_Height_Values (void)
 {
 	int before_ticks = ::GetTickCount ();
 	int total_box_count = 0;
-	int box_count = 0;
 
 	//
 	//	Backup the body-box list to ensure we delete them all...

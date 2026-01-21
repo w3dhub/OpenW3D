@@ -1235,7 +1235,6 @@ ColorBarClass::Paint_Key_Frame (int x_pos, int y_pos)
 	// we take that into account.
 	int alignment_offset = (m_iMarkerWidth * 3) % 4;
 	alignment_offset = (alignment_offset != 0) ? (4 - alignment_offset) : 0;
-	int marker_scanline = (m_iMarkerWidth * 3) + alignment_offset;
 	int width_in_bytes = m_iMarkerWidth * 3;
 
 	if ((m_pBits != NULL) && (m_pKeyFrameBits != NULL)) {		
@@ -1791,10 +1790,6 @@ ColorBarClass::Get_Color
 	}
 
 	if (found) {
-		int start_pos = m_ColorPoints[key_index].StartPos;
-		int end_pos = m_ColorPoints[key_index].EndPos;
-
-		//float ticks = pixel_pos - start_pos) / float(end_pos - start_pos);
 		float ticks = float(pixel_pos) - float(m_ColorPoints[key_index].StartPos);
 
 		(*red) = m_ColorPoints[key_index].StartRed;

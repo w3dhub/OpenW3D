@@ -277,8 +277,6 @@ EditStringDialogClass::OnOK (void)
 bool
 EditStringDialogClass::Validate_ID (void)
 {
-	bool retval = false;
-
 	//
 	//	Get the string ID from the control
 	//

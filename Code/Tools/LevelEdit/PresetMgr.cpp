@@ -1114,7 +1114,6 @@ PresetMgrClass::Put_Presets_Back (PRESET_LIST &preset_list)
 	//	Simply loop over the presets and add them back to the manager
 	//
 	for (int index = 0; index < preset_list.Count (); index ++) {
-		PresetClass *preset = preset_list[index];
 		Add_Preset (preset_list[index]);
 	}
 

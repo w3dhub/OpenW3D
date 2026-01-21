@@ -305,7 +305,6 @@ ScriptEditDialogClass::Fill_Value_Control (LPCTSTR value)
 	{
 		case PARAM_TYPE_FLOAT:
 		{
-			float float_value = ::atof (value);
 			m_ValueNumberEdit.SetWindowText (value);
 			m_ValueNumberSpin.SetPos (::atol (value));
 			//m_ValueNumberSpin.SetPos (int(float_value * 100.00F));

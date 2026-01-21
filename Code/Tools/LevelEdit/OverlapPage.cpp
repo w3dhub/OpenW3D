@@ -249,7 +249,6 @@ OverlapPageClass::OnDeleteitemOverlapTree
 	LRESULT *pResult
 ) 
 {
-	NM_TREEVIEW* pNMTreeView = (NM_TREEVIEW*)pNMHDR;
 	(*pResult) = 0;
 	return ;
 }

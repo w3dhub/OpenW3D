@@ -475,7 +475,6 @@ EditDialogueDialogClass::OnDeltaposSelectedWeightSpin
 	LRESULT *pResult
 ) 
 {
-	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
 	(*pResult) = 0;
 
 	//Update_Current_Weight ();

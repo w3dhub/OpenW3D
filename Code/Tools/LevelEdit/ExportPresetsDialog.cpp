@@ -204,7 +204,6 @@ ExportPresetsDialogClass::Fill_Tree (void)
 				//	Add this sub-factory to the tree
 				//
 				if (factory->Is_Displayed ()) {
-					LPCTSTR name = factory->Get_Name ();
 					HTREEITEM child_item = m_TreeCtrl.InsertItem (factory->Get_Name (), FOLDER_ICON, FOLDER_ICON, tree_item);
 					m_TreeCtrl.SetItemData (child_item, (DWORD)factory->Get_Class_ID ());
 				}

@@ -995,7 +995,6 @@ SceneEditorClass::Execute_Function_At_Point (CPoint point)
 	//
 	// Determine if the user clicked on a 'function'
 	//
-	NodeClass *node = NULL;
 	if (physobj != NULL) {
 		
 		HITTESTINFO *hit_info = (HITTESTINFO *)physobj->Peek_Model ()->Get_User_Data ();

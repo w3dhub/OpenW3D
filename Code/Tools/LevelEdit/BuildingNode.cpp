@@ -331,7 +331,6 @@ BuildingNodeClass::Pre_Export (void)
 		//	Pass the Pre_Export call onto any child nodes as well
 		//
 		for (int index = 0; index < m_ChildNodes.Count (); index ++) {
-			NodeClass *child_node	= m_ChildNodes[index];
 			EditorLineClass *line	= m_ChildLines[index];
 
 			//
@@ -360,7 +359,6 @@ BuildingNodeClass::Post_Export (void)
 		//	Pass the Post_Export call onto any child nodes as well
 		//
 		for (int index = 0; index < m_ChildNodes.Count (); index ++) {
-			NodeClass *child_node	= m_ChildNodes[index];
 			EditorLineClass *line	= m_ChildLines[index];
 
 			//

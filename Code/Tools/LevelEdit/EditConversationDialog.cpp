@@ -603,7 +603,6 @@ EditConversationDialogClass::OnItemchangedRemarkList
 	LRESULT *	pResult
 )
 {
-	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	(*pResult) = 0;
 
 	Update_Button_States ();

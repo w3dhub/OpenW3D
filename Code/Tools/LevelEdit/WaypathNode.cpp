@@ -611,8 +611,6 @@ WaypathNodeClass::Free_Waypoints (void)
 void
 WaypathNodeClass::Add_To_Scene (void)
 {
-	SceneEditorClass *scene = ::Get_Scene_Editor ();
-
 	//
 	//	Add all the waypoints to the scene
 	//
@@ -1021,14 +1019,6 @@ WaypathNodeClass::Show_Settings_Dialog (void)
 void
 WaypathNodeClass::On_Delete (void)
 {
-	//
-	//	Apply the same operation to all the points along the path
-	//
-	for (int index = 0; index < m_PointList.Count (); index ++) {
-		WaypointNodeClass *waypoint = m_PointList[index];
-		//NodeMgrClass::Remove_Node (waypoint);
-	}
-		
 	return ;
 }
 
@@ -1041,14 +1031,6 @@ WaypathNodeClass::On_Delete (void)
 void
 WaypathNodeClass::On_Restore (void)
 {
-	//
-	//	Apply the same operation to all the points along the path
-	//
-	for (int index = 0; index < m_PointList.Count (); index ++) {
-		WaypointNodeClass *waypoint = m_PointList[index];
-		//NodeMgrClass::Add_Node (waypoint);
-	}
-		
 	return ;
 }
 
