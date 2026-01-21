@@ -511,7 +511,6 @@ ColorPickerClass::Point_From_Color (COLORREF color)
 	// we take that into account.
 	int alignment_offset = (m_iWidth * 3) % 4;
 	alignment_offset = (alignment_offset != 0) ? (4 - alignment_offset) : 0;
-	int scanline_size = (m_iWidth * 3) + alignment_offset;	
 
 	int red = GetRValue (color);
 	int green = GetGValue (color);

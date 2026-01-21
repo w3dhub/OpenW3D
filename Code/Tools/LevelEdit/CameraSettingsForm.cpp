@@ -197,17 +197,6 @@ CameraSettingsFormClass::OnUpdateDepthEdit (void)
 void
 CameraSettingsFormClass::Set_Depth (int new_depth)
 {
-	CameraMgr *pcamera_mgr = ::Get_Camera_Mgr ();
-	if (pcamera_mgr != NULL) {
-		
-		// Get the current 'near' clip plane
-		double near_plane = 0;
-		double far_plane = 0;
-		//pcamera_mgr->Get_Camera ()->Get_Clip_Planes (near_plane, far_plane);
-
-		// Set the new 'far' clip plane
-		//pcamera_mgr->Get_Camera ()->Set_Clip_Planes (near_plane, (double)new_depth);
-	}
 
 	return ;
 }

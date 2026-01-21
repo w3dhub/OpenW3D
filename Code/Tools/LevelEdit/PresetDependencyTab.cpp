@@ -288,7 +288,6 @@ PresetDependencyTabClass::OnItemchangedDepencyList
 	LRESULT* pResult
 )
 {
-	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	(*pResult) = 0;
 
 	Update_Button_State ();	

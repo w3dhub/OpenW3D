@@ -326,7 +326,6 @@ SelectPresetDialogClass::Generate_Tree (int class_id, HTREEITEM parent_item)
 			//	Add this sub-factory and all its definitions to the tree
 			//
 			if (factory->Is_Displayed ()) {
-				LPCTSTR name = factory->Get_Name ();
 				HTREEITEM child_item = m_TreeCtrl.InsertItem (factory->Get_Name (), FOLDER_ICON, FOLDER_ICON, parent_item);
 				Generate_Tree (factory->Get_Class_ID (), child_item);
 			}
@@ -366,7 +365,6 @@ SelectPresetDialogClass::OnSelchangedPresetTree
 	LRESULT *	pResult
 )
 {
-	NM_TREEVIEW* pNMTreeView = (NM_TREEVIEW*)pNMHDR;
 	(*pResult) = 0;
 
 	//

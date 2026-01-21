@@ -378,24 +378,9 @@ ColorPickerDialogClass::Update_Whiteness_Bar (void)
 	//
 	float whiteness = std::min (m_CurrentRed, m_CurrentGreen);	
 	whiteness = std::min (whiteness, m_CurrentBlue);
-	float percent = whiteness / 255;
 	m_WhitenessColorBar->Set_Selection_Pos (whiteness);
 
 	m_WhitenessColorBar->Modify_Point (0, 0, (float)red, (float)green, (float)blue);
-
-	// Can we extrapolate the starting color from the whiteness factor?
-	/*if (percent == 1) {
-		m_WhitenessColorBar->Modify_Point (0, 0, 0, 0, 0);
-	} else {
-		
-		//
-		//	Extrapolate the starting color
-		//
-		float start_red = (m_CurrentRed - whiteness) / (1 - percent);
-		float start_green = (m_CurrentGreen - whiteness) / (1 - percent);
-		float start_blue = (m_CurrentBlue - whiteness) / (1 - percent);
-		m_WhitenessColorBar->Modify_Point (0, 0, start_red, start_green, start_blue);
-	}*/
 
 	return ;
 }

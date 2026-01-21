@@ -369,7 +369,6 @@ PresetTransitionTabClass::OnItemChangedTransitionList
 	LRESULT*	pResult
 )
 {
-	NM_LISTVIEW *pNMListView = (NM_LISTVIEW *)pNMHDR;
 	(*pResult) = 0;
 
 	int index = m_ListCtrl.GetNextItem (-1, LVNI_ALL | LVNI_SELECTED);

@@ -269,8 +269,6 @@ VisPointGeneratorClass::Determine_Granularity (MeshClass &mesh)
 void
 VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 {
-	DWORD start_ticks = ::GetTickCount ();
-
 	//
 	//	Make sure we use the right granularity for this mesh
 	//
@@ -408,19 +406,6 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 			delete vis_point;
 		}
 	}
-	
-	/*DWORD finished_ticks = ::GetTickCount ();
-	
-	if (m_StatWindow != NULL) {
-		CString stats;
-		stats.Format ("Grid Size: %d, %d, %d.\nTotal Time: %d, Collection Time %d.",
-							m_Grid.Get_Cells_X (),
-							m_Grid.Get_Cells_Y (),
-							m_Grid.Get_Cells_Z (),
-							(finished_ticks - start_ticks),
-							(finished_ticks - before_collection));
-		SetWindowText (m_StatWindow, stats);
-	}*/
 
 	m_Grid.Free_Grid ();
 	return ;

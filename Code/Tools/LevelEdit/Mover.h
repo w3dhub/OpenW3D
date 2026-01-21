@@ -155,9 +155,7 @@ MoverClass::Cast_Ray
 	uint32				group,
 	uint32				type
 )
-{
-	bool retval = false;
-	
+{	
 	LineSegClass ray (start, end);
 	PhysRayCollisionTestClass raytest (ray, &result, group, type);
 	::Get_Scene_Editor ()->Cast_Ray (raytest);
@@ -188,8 +186,6 @@ MoverClass::Cast_Box
 	uint32					type
 )
 {
-	bool retval = false;
-
 	PhysAABoxCollisionTestClass boxtest (box, move, &result, group, type);
 	PhysicsSceneClass::Get_Instance()->Cast_AABox (boxtest);
 

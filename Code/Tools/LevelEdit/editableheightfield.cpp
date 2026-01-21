@@ -395,9 +395,6 @@ EditableHeightfieldClass::Update_Texture_Quad_List (int min_x, int min_y, int ma
 	max_patch_x = std::min (max_patch_x, (PatchesX - 1));
 	max_patch_y = std::min (max_patch_y, (PatchesY - 1));
 
-	int row_count = GridPointsY - 1;
-	int col_count = GridPointsX - 1;
-
 	int quads_per_patch_x = PatchGridPointsX - 1;
 	int quads_per_patch_y = PatchGridPointsY - 1;
 
@@ -656,11 +653,9 @@ EditableHeightfieldClass::Update_Normals (int min_x, int min_y, int max_x, int m
 			//
 			if (y_pos > 0 && x_pos < (GridPointsX - 1)) {
 				int q1_v0_index = vert_index - GridPointsX;
-				int q1_v1_index = (vert_index - GridPointsX) + 1;
 				int q1_v2_index = vert_index + 1;
 				int q1_v3_index = vert_index;
 				const Vector3 &q1_v0 = Grid[q1_v0_index];
-				const Vector3 &q1_v1 = Grid[q1_v1_index];
 				const Vector3 &q1_v2 = Grid[q1_v2_index];
 				const Vector3 &q1_v3 = Grid[q1_v3_index];
 				Vector3 q1_normal2 = Vector3::Cross_Product (q1_v3 - q1_v2, q1_v0 - q1_v2);
@@ -692,11 +687,9 @@ EditableHeightfieldClass::Update_Normals (int min_x, int min_y, int max_x, int m
 				int q3_v0_index = vert_index - 1;
 				int q3_v1_index = vert_index;
 				int q3_v2_index = vert_index + GridPointsX;
-				int q3_v3_index = vert_index + GridPointsX - 1;
 				const Vector3 &q3_v0 = Grid[q3_v0_index];
 				const Vector3 &q3_v1 = Grid[q3_v1_index];
 				const Vector3 &q3_v2 = Grid[q3_v2_index];
-				const Vector3 &q3_v3 = Grid[q3_v3_index];
 				Vector3 q3_normal1 = Vector3::Cross_Product (q3_v2 - q3_v1, q3_v0 - q3_v1);
 				GridNormals[vert_index] += q3_normal1;
 			}
@@ -1345,10 +1338,6 @@ EditableHeightfieldClass::Paint_Heightfield
 				//
 				float weight_amount					= TextureWeights[texture_index][curr_offset];
 				float old_remainder_amount	= 1.0F - weight_amount;
-
-				if (old_remainder_amount < 0 || old_remainder_amount > 1.0F) {
-					int test = 0;
-				}
 
 				//
 				//	Increment the amount of influence for this texture channel

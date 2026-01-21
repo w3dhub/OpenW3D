@@ -132,9 +132,6 @@ END_MESSAGE_MAP()
 void
 CGraphicView::OnDraw (CDC* pDC)
 {
-	// Get the document to display
-    CW3DViewDoc* doc = (CW3DViewDoc *)GetDocument();
-
     // Are we in a valid state?
     if (!pDC->IsPrinting ())
     {
@@ -578,30 +575,7 @@ CGraphicView::RepaintView
 void
 CGraphicView::UpdateDisplay (void)
 {
-	// Get the document to display
-    CW3DViewDoc* doc = (CW3DViewDoc *)GetDocument();
-
-    // Are we in a valid state?
-    /*if (m_bInitialized && doc->GetScene ())
-    {
-        RenderObjClass *pCRenderObj = doc->GetDisplayedObject ();
-        if (pCRenderObj)
-        {
-            Matrix3D transform = pCRenderObj->Get_Transform ();
-            transform.Rotate_X (0.05F);
-            transform.Rotate_Y (0.05F);
-            transform.Rotate_Z (0.05F);
-
-            pCRenderObj->Set_Transform (transform);
-        }
-
-		// Render the current view inside the frame
-        WW3D::Begin_Render (true, true, Vector3 (0.2,0.4,0.6));
-		WW3D::Render (doc->GetScene (), m_pCamera, false, false);
-		WW3D::End_Render ();
-    } */       
-
-    return ;
+	return ;
 }
 
 
@@ -661,7 +635,6 @@ CGraphicView::WindowProc
 	} else if (message == WM_KEYUP) {
 
 		if ((wParam == VK_CONTROL) && (m_bLightMeshInScene == true)) {
-			CW3DViewDoc* doc = (CW3DViewDoc *)GetDocument();
 			m_pLightMesh->Remove ();
 			m_bLightMeshInScene = false;			
 		}
@@ -791,7 +764,6 @@ CGraphicView::OnMouseMove
     CPoint point
 ) 
 {
-	int iDeltaX = m_lastPoint.x-point.x;
 	int iDeltaY = m_lastPoint.y-point.y;
 
 	// Get the document to display

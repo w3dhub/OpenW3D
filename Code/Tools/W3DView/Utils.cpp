@@ -835,6 +835,7 @@ Load_RC_Texture (LPCTSTR resource_name)
 {
 	TextureClass *texture = NULL;
 
+#ifdef WW3D_DX8
 	//
 	//	Load the cursor file image from this binaries resources
 	//
@@ -845,7 +846,6 @@ Load_RC_Texture (LPCTSTR resource_name)
 	//
 	//	Create a texture from the raw image data
 	//
-#ifdef WW3D_DX8
 	srBinIMStream stream (res_data, data_size);
 	srSurfaceIOManager::SurfaceImporter *importer = srCore.getSurfaceIOManager()->getImporter (".tga");
 	if (importer != NULL) {

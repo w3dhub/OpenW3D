@@ -437,10 +437,6 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 		m_Definition->Set_User_Data ((uintptr_t)this);
 	}
 
-	if (m_DefinitionID == 0 || m_Definition == NULL) {
-		int test = 0;
-	}
-
 	return true;
 }
 

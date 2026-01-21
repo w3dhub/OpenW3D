@@ -544,7 +544,6 @@ SpawnerNodeClass::Post_Export (void)
 		//	Process each spawn point
 		//
 		for (int index = 0; index < m_SpawnPointNodes.Count (); index ++) {
-			SpawnPointNodeClass *spawn_point	= m_SpawnPointNodes[index];
 			EditorLineClass *line				= m_SpawnPointLines[index];			
 			
 			//

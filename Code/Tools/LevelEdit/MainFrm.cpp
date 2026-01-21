@@ -1880,15 +1880,6 @@ CMainFrame::OnKeyDown
 void
 CMainFrame::OnGenVis (void)
 {
-	// Get a pointer to the mouse manager for the editor
-	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
-
-	// Were we succesful in getting the mouse manager?
-	/*ASSERT (pmousemgr != NULL);
-	if ((pmousemgr != NULL) &&
-	    (pmousemgr->Get_Mouse_Mode () == MouseMgrClass::MODE_CAMERA_WALK)) {		
-		::Get_Scene_Editor ()->Record_Vis_Info ();
-	}*/
 
 	return ;
 }
@@ -6202,7 +6193,6 @@ CMainFrame::OnCameraOrthographic (void)
 	PhysicsSceneClass::Get_Instance ()->Get_Level_Extents (world_min, world_max);
 
 	Vector3 delta = world_max - world_min;
-	float largest_dim = std::max (delta.X, delta.Y);
 
 	Vector3 world_center = world_min + ((world_max - world_min) * 0.5F);
 	world_center.Z = world_max.Z + 100.0F;
@@ -6221,7 +6211,6 @@ CMainFrame::OnCameraOrthographic (void)
 
 	Matrix3D tm (1);
 	tm.Translate(world_center);
-	//tm.Scale (1 / largest_dim);
 
 	camera->Set_Transform (tm);
 
