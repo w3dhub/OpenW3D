@@ -525,7 +525,7 @@ void cNetwork::Compute_Exe_Key(void)
 	key_string += " ";
 	const char *exe_string = string;
 	const size_t exe_string_length = ::strlen(exe_string);
-	WWASSERT(exe_string_length <= std::numeric_limits<int>::max());
+	WWASSERT(exe_string_length <= size_t(std::numeric_limits<int>::max()));
 	ExeCRC = CRCEngine()(exe_string, static_cast<int>(exe_string_length));
 
 	//
@@ -547,7 +547,7 @@ void cNetwork::Compute_Exe_Key(void)
 	key_string += " ";
 	const char *tdb_string = string;
 	const size_t tdb_length = ::strlen(tdb_string);
-	WWASSERT(tdb_length <= std::numeric_limits<int>::max());
+	WWASSERT(tdb_length <= size_t(std::numeric_limits<int>::max()));
 	StringsCRC = CRCEngine()(tdb_string, static_cast<int>(tdb_length));
 
 	//
@@ -560,7 +560,7 @@ void cNetwork::Compute_Exe_Key(void)
 	//
 	const char *key_string_buffer = key_string;
 	const size_t key_length = ::strlen(key_string_buffer);
-	WWASSERT(key_length <= std::numeric_limits<int>::max());
+	WWASSERT(key_length <= size_t(std::numeric_limits<int>::max()));
 	ExeKey = CRCEngine()(key_string_buffer, static_cast<int>(key_length));
 
 	//
