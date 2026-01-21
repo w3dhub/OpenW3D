@@ -94,7 +94,7 @@ static SymGetModuleBaseType			_SymGetModuleBase				= NULL;
 //
 
 //-----------------------------------------------------------------------------
-static char const * 
+[[maybe_unused]] static char const * 
 Last_Error_Text
 (
 	void

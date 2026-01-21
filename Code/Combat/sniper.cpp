@@ -279,29 +279,6 @@ void 	SniperHUDClass::Update( void )
 	draw += pos - draw.Center();
 	_Sniper2DRenderer->Add_Quad( draw, uv, tint );
 
-#if 0
-	// Add Scanline
-	static float _scan_line_offset = 0;
-	RectClass	scan_line = settings->SniperView;
-	scan_line.Bottom = scan_line.Top + 0.005f;
-	_scan_line_offset += TimeManager::Get_Frame_Seconds() * 0.1f;
-	if ( _scan_line_offset > settings->SniperView.Height() + 0.05f ) {
-		_scan_line_offset = -0.05f;
-	}
-	scan_line += Vector2( 0, _scan_line_offset );
-	_Sniper2DRenderer->Add_Quad( scan_line,	Scale_UV( settings->SniperScanLineUV, sniper_texture_size ) );
-
-	// Add Distance Graph
-	float dist = COMBAT_CAMERA->Get_Sniper_Distance();
-	float dist_ratio = WWMath::Clamp( dist / settings->SniperDistanceGraphMax, 0, 1 );
-	dist_ratio = WWMath::Sqrt( dist_ratio );
-	RectClass	dist_screen = settings->SniperDistanceGraph;
-	RectClass	dist_uv = Scale_UV( settings->SniperDistanceGraphUV, sniper_texture_size );
-	dist_screen.Top = dist_screen.Bottom - dist_screen.Height() * dist_ratio;
-	dist_uv.Top = dist_uv.Bottom - dist_uv.Height() * dist_ratio;
-	_Sniper2DRenderer->Add_Quad( dist_screen, dist_uv );
-#endif
-
 }
 
 /*
