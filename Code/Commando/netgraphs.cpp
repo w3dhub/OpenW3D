@@ -428,7 +428,7 @@ void cNetwork::Bandwidth_Graph(Render2DTextClass * renderer,
 	//
 	if (cNetwork::I_Am_Server())	{
 		int top = (int)(0.2 * screen_height);
-		int count = NetworkObjectMgrClass::Get_Object_Count();
+		int obj_count = NetworkObjectMgrClass::Get_Object_Count();
 
 		int x_pos = screen_width - 75;
 
@@ -456,7 +456,7 @@ void cNetwork::Bandwidth_Graph(Render2DTextClass * renderer,
 		renderer->Set_Location(Vector2(x_pos, 370));
 		renderer->Draw_Text("OTHER", COLOR_WHITE);
 
-		for (int index = 0; index < count; index ++) {
+		for (int index = 0; index < obj_count; index ++) {
 
 			NetworkObjectClass * p_object = NetworkObjectMgrClass::Get_Object(index);
 			WWASSERT(p_object != NULL);
