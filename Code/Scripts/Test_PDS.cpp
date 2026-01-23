@@ -199,7 +199,7 @@ DECLARE_SCRIPT(PDS_Test_Conversation, "Conversation Name=:string,Soldier1_ID=0:i
 	////////////////////////////////////////////////////////////////////
 	//	Timer_Expired
 	////////////////////////////////////////////////////////////////////
-	void Action_Complete (GameObject * game_obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * game_obj, int action_id, ActionCompleteReason /*complete_reason*/) override
 	{
 		//
 		//	Just for kicks, make the unit crouch
@@ -214,7 +214,7 @@ DECLARE_SCRIPT(PDS_Test_Conversation, "Conversation Name=:string,Soldier1_ID=0:i
 	////////////////////////////////////////////////////////////////////
 	//	Custom
 	////////////////////////////////////////////////////////////////////
-	void Custom (GameObject *game_obj, int event, intptr_t param, GameObject *sender) override
+	void Custom (GameObject * /*game_obj*/, int event, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (event == CUSTOM_EVENT_CONVERSATION_BEGAN) {
 			int test = 0;
@@ -333,7 +333,7 @@ DECLARE_SCRIPT(PDS_Get_In_Vehicle_Do_Waypath, "VehicleID=:int,WaypathID=:int,V3T
 	//	Movement_Complete
 	////////////////////////////////////////////////////////////////////
 //	void Movement_Complete (GameObject *game_obj, MovementCompleteReason /*reason*/)
-	void Action_Complete (GameObject * game_obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * game_obj, int /*action_id*/, ActionCompleteReason /*complete_reason*/) override
 	{
 		//
 		//	Now tell the object to follow the waypath
@@ -380,7 +380,7 @@ DECLARE_SCRIPT(PDS_Test_Goto_Player, "")
 		return ;
 	}
 
-	void Action_Complete (GameObject * game_obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * /*game_obj*/, int action_id, ActionCompleteReason /*complete_reason*/) override
 	{
 		if (action_id == 777) {
 			int test = 0;
@@ -449,7 +449,7 @@ DECLARE_SCRIPT(PDS_Test_Follow_Player, "")
 		return ;
 	}
 
-	void	Poked( GameObject * obj, GameObject * poker ) override
+	void	Poked( GameObject * obj, GameObject * /*poker*/ ) override
 	{
 		Commands->Grant_Key (obj, 1, true);
 		return ;
@@ -458,7 +458,7 @@ DECLARE_SCRIPT(PDS_Test_Follow_Player, "")
 	////////////////////////////////////////////////////////////////////
 	//	Timer_Expired
 	////////////////////////////////////////////////////////////////////
-	void Timer_Expired (GameObject *game_obj, int timer_id) override
+	void Timer_Expired (GameObject *game_obj, int /*timer_id*/) override
 	{
 		Commands->Innate_Disable (game_obj);
 //		Commands->Action_Movement_Follow_Object (game_obj, Commands->Get_The_Star (), 2.0F);
@@ -534,7 +534,7 @@ DECLARE_SCRIPT(PDS_Test_Follow_Waypath, "WaypathID=:int,WaypointStartID=:int,Way
 		}
 	}
 
-	void	Damaged( GameObject * game_obj, GameObject * damager, float amount ) override
+	void	Damaged( GameObject * game_obj, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic (this, 100, 777);
@@ -594,7 +594,7 @@ DECLARE_SCRIPT(PDS_Test_Harvester, "TiberiumID=:int,DriveToID=:int,EntranceID=:i
 	////////////////////////////////////////////////////////////////////
 	//	Timer_Expired
 	////////////////////////////////////////////////////////////////////
-	void Timer_Expired (GameObject *obj, int timer_id) override
+	void Timer_Expired (GameObject * /*obj*/, int timer_id) override
 	{
 		if (timer_id == 777) {
 			Next_State ();
@@ -607,7 +607,7 @@ DECLARE_SCRIPT(PDS_Test_Harvester, "TiberiumID=:int,DriveToID=:int,EntranceID=:i
 	//	Movement_Complete
 	////////////////////////////////////////////////////////////////////
 //	void Movement_Complete (GameObject *obj, MovementCompleteReason reason)
-	void Action_Complete (GameObject * game_obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * /*game_obj*/, int /*action_id*/, ActionCompleteReason /*complete_reason*/) override
 	{
 		Next_State ();
 		return ;
@@ -741,7 +741,7 @@ DECLARE_SCRIPT(PDS_Test_Inventory, "")
 	////////////////////////////////////////////////////////////////////
 	//	Created
 	////////////////////////////////////////////////////////////////////
-	void Created (GameObject *game_obj) override
+	void Created (GameObject * /*game_obj*/) override
 	{
 		//
 		//	Clear the inventory
@@ -756,7 +756,7 @@ DECLARE_SCRIPT(PDS_Test_Inventory, "")
 	////////////////////////////////////////////////////////////////////
 	//	Custom
 	////////////////////////////////////////////////////////////////////
-	void Custom (GameObject *game_obj, int event, intptr_t param, GameObject *sender) override
+	void Custom (GameObject * /*game_obj*/, int event, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (event == CUSTOM_HAS_MEDKIT) {
 			int *retval = (int *)param;
@@ -846,7 +846,7 @@ DECLARE_SCRIPT(PDS_Test_Controller, "")
 	////////////////////////////////////////////////////////////////////
 	//	Timer_Expired
 	////////////////////////////////////////////////////////////////////
-	void Timer_Expired (GameObject *game_obj, int timer_id) override
+	void Timer_Expired (GameObject * /*game_obj*/, int timer_id) override
 	{
 		if (timer_id == 777) {
 			GameObject *the_player = Commands->Get_The_Star ();
@@ -949,7 +949,7 @@ DECLARE_SCRIPT(PDS_Test_Gunboat, "")
 	////////////////////////////////////////////////////////////////////
 	//	Timer_Expired
 	////////////////////////////////////////////////////////////////////
-	void Timer_Expired (GameObject *game_obj, int timer_id) override
+	void Timer_Expired (GameObject * /*game_obj*/, int timer_id) override
 	{
 		if (timer_id == TIMER_ATTACK) {
 			GameObject *the_player = Commands->Get_The_Star ();
@@ -979,7 +979,7 @@ DECLARE_SCRIPT(PDS_Test_Sound, "")
 	int SoundID;
 	bool IsPlaying;
 
-	void Created (GameObject* game_obj) override
+	void Created (GameObject* /*game_obj*/) override
 	{
 		IsPlaying = true;
 		return ;
@@ -988,7 +988,7 @@ DECLARE_SCRIPT(PDS_Test_Sound, "")
 	////////////////////////////////////////////////////////////////////
 	//	Poked
 	////////////////////////////////////////////////////////////////////
-	void	Poked (GameObject * obj, GameObject * poker) override
+	void	Poked (GameObject * /*obj*/, GameObject * /*poker*/) override
 	{
 		if (IsPlaying) {
 			Commands->Stop_Sound (1700002, false);
@@ -1004,7 +1004,7 @@ DECLARE_SCRIPT(PDS_Test_Sound, "")
 	////////////////////////////////////////////////////////////////////
 	//	Custom
 	////////////////////////////////////////////////////////////////////
-	void Custom (GameObject *game_obj, int event, intptr_t param, GameObject *sender) override
+	void Custom (GameObject * /*game_obj*/, int event, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (event == CUSTOM_EVENT_SOUND_ENDED && param == SoundID) {
 			int test = 0;

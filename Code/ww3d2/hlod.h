@@ -209,7 +209,7 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 //   virtual void					Set_Texture_Reduction_Factor(float trf);
 	virtual void					Scale(float scale) override;
-	virtual void					Scale(float scalex, float scaley, float scalez)	override { }
+	virtual void					Scale(float /*scalex*/, float /*scaley*/, float /*scalez*/)	override { }
 	virtual int						Get_Num_Snap_Points(void) override;
 	virtual void					Get_Snap_Point(int index,Vector3 * set) override;
 	virtual void					Set_Hidden(int onoff) override;

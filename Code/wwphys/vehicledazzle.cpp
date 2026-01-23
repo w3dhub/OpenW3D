@@ -133,7 +133,7 @@ void VehicleDazzleClass::Set_Model(DazzleRenderObjClass * model)
  * HISTORY:                                                                                    *
  *   7/27/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-void VehicleDazzleClass::Set_Time_Of_Day(float time)
+void VehicleDazzleClass::Set_Time_Of_Day(float /* time */)
 {
 }
 

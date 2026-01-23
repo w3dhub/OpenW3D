@@ -78,7 +78,7 @@ static const unichar_t* Get_Parameter_From_String(const unichar_t* command_strin
 *
 ******************************************************************************/
 
-WOLChatMgr* WOLChatMgr::GetInstance(bool createOK)
+WOLChatMgr* WOLChatMgr::GetInstance(bool /* createOK */)
 	{
 	if (_mInstance == NULL)
 		{

@@ -222,8 +222,8 @@ protected:
 			dest_pos (0, 0, 0),
 			pos (0, 0, 0) {}
 
-		bool operator== (const _PATH_NODE &src)	{ return true; }
-		bool operator!= (const _PATH_NODE &src)	{ return false; }
+		bool operator== (const _PATH_NODE &/* src*/)	{ return true; }
+		bool operator!= (const _PATH_NODE &/* src*/)	{ return false; }
 
 	} PATH_NODE;
 

@@ -96,7 +96,7 @@ CMixViewerView::PreCreateWindow (CREATESTRUCT &cs)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-CMixViewerView::OnDraw (CDC *pDC)
+CMixViewerView::OnDraw (CDC * /* pDC */)
 {
 	CMixViewerDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -248,7 +248,7 @@ MixFilenamesListSortCallback
 (
 	LPARAM lParam1,
 	LPARAM lParam2,
-   LPARAM lParamSort
+   LPARAM /* lParamSort */
 )
 {
 	int retval = 0;

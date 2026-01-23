@@ -181,7 +181,7 @@ VisStatsDialogClass::OnInitDialog (void)
 void
 VisStatsDialogClass::OnDblclkSectorList
 (
-	NMHDR*	pNMHDR,
+	NMHDR*	/* pNMHDR */,
 	LRESULT* pResult
 )
 {

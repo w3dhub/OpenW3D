@@ -105,7 +105,7 @@ void BitStreamClass::Add_Raw_Data(const char * data, uint16_t data_size)
 }
 
 //-----------------------------------------------------------------------------
-void BitStreamClass::Get_Raw_Data(char * buffer, uint16_t buffer_size, uint16_t data_size)
+void BitStreamClass::Get_Raw_Data(char * buffer, [[maybe_unused]] uint16_t buffer_size, uint16_t data_size)
 {
 	WWASSERT(buffer != NULL);
 	WWASSERT(data_size >= 0);

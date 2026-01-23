@@ -579,7 +579,7 @@ void PhysGridCullClass::Load_Static_Data(ChunkLoadClass & cload)
 	}
 }
 
-void PhysGridCullClass::Load_Static_Variables(ChunkLoadClass & cload)
+void PhysGridCullClass::Load_Static_Variables(ChunkLoadClass & /* cload */)
 {
 /* (gth) no variables for now...
 	uint32 version;
@@ -605,7 +605,7 @@ void PhysGridCullClass::Save_Static_Data(ChunkSaveClass & csave)
 	csave.End_Chunk();
 }
 
-void PhysGridCullClass::Save_Static_Variables(ChunkSaveClass & csave)
+void PhysGridCullClass::Save_Static_Variables(ChunkSaveClass & /* csave */)
 {
 /* (gth) no variables for now...
 	uint32 version = PHYSGRID_CURRENT_VERSION;

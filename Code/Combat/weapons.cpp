@@ -94,7 +94,7 @@
 class EjectCasingObserverClass : public CombatPhysObserverClass
 {
 public:
-	virtual CollisionReactionType		Collision_Occurred(const CollisionEventClass & event) override
+	virtual CollisionReactionType		Collision_Occurred(const CollisionEventClass & /* event */) override
 	{
 /*
 		SurfaceEffectsManager::Apply_Effect(event.CollisionResult->SurfaceType,
@@ -386,7 +386,7 @@ void	WeaponClass::Set_Target_Object( PhysicalGameObj * obj )
 	TargetObject = obj;
 }
 
-PhysicalGameObj *	WeaponClass::Get_Target_Object( PhysicalGameObj * obj )
+PhysicalGameObj *	WeaponClass::Get_Target_Object( PhysicalGameObj * /* obj */ )
 {
 	return ( PhysicalGameObj * )TargetObject.Get_Ptr();
 }

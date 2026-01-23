@@ -73,7 +73,7 @@ public:
 	static	void	Init( void );
 	static	void	Shutdown( void );
 
-	static	void	Enable_Effects( bool enable )			{ Mode = MODE_FULL; }
+	static	void	Enable_Effects( bool /* enable */ )			{ Mode = MODE_FULL; }
 	static	bool	Are_Effects_Enabled( void )			{ return (Mode != MODE_OFF); }
 
 	static	void	Set_Mode( MODE mode )					{ Mode = mode; }

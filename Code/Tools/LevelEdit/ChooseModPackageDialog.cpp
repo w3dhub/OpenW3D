@@ -206,7 +206,7 @@ ChooseModPackageDialogClass::OnNewButton (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ChooseModPackageDialogClass::OnDblclkModListCtrl (NMHDR *pNMHDR, LRESULT *pResult)
+ChooseModPackageDialogClass::OnDblclkModListCtrl (NMHDR * /* pNMHDR */, LRESULT *pResult)
 {
 	(*pResult) = 0;
 	

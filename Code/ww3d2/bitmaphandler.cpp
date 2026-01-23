@@ -19,7 +19,7 @@
 #include "bitmaphandler.h"
 #include "wwdebug.h"
 
-void Bitmap_Assert(bool condition)
+void Bitmap_Assert([[maybe_unused]] bool condition)
 {
 	WWASSERT(condition);
 }

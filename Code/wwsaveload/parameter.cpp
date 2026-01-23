@@ -2152,7 +2152,7 @@ SeparatorParameterClass::operator= (const SeparatorParameterClass &src)
 //
 /////////////////////////////////////////////////////////////////////
 bool
-SeparatorParameterClass::operator== (const SeparatorParameterClass &src)
+SeparatorParameterClass::operator== (const SeparatorParameterClass &/* src*/)
 {
 	return true;
 }

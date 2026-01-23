@@ -119,7 +119,7 @@ protected:
 	float *					ZBuffer;		// actually a 1/z buffer...
 };
 
-inline const uint32 * IDBufferClass::Get_Pixel_Row(int y,int min_x,int max_x)
+inline const uint32 * IDBufferClass::Get_Pixel_Row(int y,int min_x,[[maybe_unused]] int max_x)
 {
 	WWASSERT(y>=0);
 	WWASSERT(y<ResHeight);

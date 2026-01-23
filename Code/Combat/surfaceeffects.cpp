@@ -695,7 +695,7 @@ bool	SurfaceEffectsManager::Does_Surface_Stop_Bullets( int surface_type )
 	return SurfaceStopsBullets[ surface_type ];
 }
 
-void	SurfaceEffectsManager::Apply_Damage( int surface_type, PhysicalGameObj * obj )
+void	SurfaceEffectsManager::Apply_Damage( [[maybe_unused]] int surface_type, [[maybe_unused]] PhysicalGameObj * obj )
 {
 
 #ifndef PARAM_EDITING_ON

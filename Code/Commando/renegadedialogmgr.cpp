@@ -353,7 +353,7 @@ RenegadeDialogMgrClass::Shutdown (void)
 //
 ////////////////////////////////////////////////////////////////
 bool
-Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int mesage_id, unsigned int param)
+Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int /* mesage_id */, unsigned int /* param */)
 {
 	bool handled = true;
 

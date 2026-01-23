@@ -282,7 +282,7 @@ STDMETHODIMP NetUtilObserver::OnPing(HRESULT result, int time, unsigned int ip, 
 ******************************************************************************/
 
 STDMETHODIMP NetUtilObserver::OnLadderList(HRESULT result, WOL::Ladder* list,
-			int rungCount, int timeStamp, int keyRung)
+			int /* rungCount */, int timeStamp, int keyRung)
 	{
 	if (mOuter == NULL)
 		{
@@ -619,7 +619,7 @@ STDMETHODIMP NetUtilObserver::OnAgeCheck(HRESULT result, int years, int consent)
 *
 ******************************************************************************/
 
-STDMETHODIMP NetUtilObserver::OnWDTState(HRESULT result, unsigned char* , int )
+STDMETHODIMP NetUtilObserver::OnWDTState(HRESULT /* result */, unsigned char* , int )
 	{
 	WWDEBUG_SAY(("WOLWARNING: OnWDTState not implemented\n"));
 	return S_OK;
@@ -639,8 +639,8 @@ STDMETHODIMP NetUtilObserver::OnWDTState(HRESULT result, unsigned char* , int )
 *
 ******************************************************************************/
 
-STDMETHODIMP NetUtilObserver::OnHighscore(HRESULT result, WOL::Highscore* list,
-		int count, int time, int keyRung)
+STDMETHODIMP NetUtilObserver::OnHighscore(HRESULT /* result */, WOL::Highscore* /* list */,
+		int /* count */, int /* time */, int /* keyRung */)
 	{
 	WWDEBUG_SAY(("WOLWARNING: OnHighscore not implemented\n"));
 	return S_OK;

@@ -194,7 +194,7 @@ HeightfieldMgrClass::Load (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 void
-HeightfieldMgrClass::Load_Variables (ChunkLoadClass &cload)
+HeightfieldMgrClass::Load_Variables (ChunkLoadClass &/* cload */)
 {
 	/*while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {

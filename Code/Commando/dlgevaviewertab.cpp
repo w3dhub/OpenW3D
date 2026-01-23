@@ -258,9 +258,9 @@ EvaViewerTabClass::Build_Object_List (void)
 void
 EvaViewerTabClass::On_ListCtrl_Sel_Change
 (
-	ListCtrlClass *	list_ctrl,
-	int					ctrl_id,
-	int					old_index,
+	ListCtrlClass *	/* list_ctrl */,
+	int					/* ctrl_id */,
+	int					/* old_index */,
 	int					new_index
 )
 {
@@ -385,8 +385,8 @@ EvaViewerTabClass::View_Entry (int entry_index)
 void
 EvaViewerTabClass::On_ViewerCtrl_Model_Loaded
 (
-	ViewerCtrlClass *	viewer_ctrl,
-	int					ctrl_id,
+	ViewerCtrlClass *	/* viewer_ctrl */,
+	int					/* ctrl_id */,
 	RenderObjClass *	model
 )
 {
@@ -450,7 +450,7 @@ EvaViewerTabClass::ListSortCallback
 	ListCtrlClass *	list_ctrl,
 	int					item_index1,
 	int					item_index2,
-	uint32				user_param
+	uint32				/* user_param */
 )
 {
 	//

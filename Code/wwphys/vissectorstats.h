@@ -78,8 +78,8 @@ public:
 	//
 	// For use with DynamicVectorClass
 	//
-	bool operator== (const VisSectorStatsClass &src)	{ return false; }
-	bool operator!= (const VisSectorStatsClass &src)	{ return true; }
+	bool operator== (const VisSectorStatsClass &/* src*/)	{ return false; }
+	bool operator!= (const VisSectorStatsClass &/* src*/)	{ return true; }
 
 protected:
 

@@ -2612,7 +2612,7 @@ SakuraBossGameObj::Are_Rocker_Launchers_Ready (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 void
-SakuraBossGameObj::Move_To_Location (const Vector3 &pos, float speed)
+SakuraBossGameObj::Move_To_Location (const Vector3 &pos, float /* speed */)
 {	
 	MoveToLocation = pos;
 	Set_Vehicle_State (VEHICLE_STATE_MOVING);

@@ -160,7 +160,7 @@ CHierarchyPropPage::OnInitDialog (void)
 void
 CHierarchyPropPage::OnDblclkSubObjectList
 (
-    NMHDR* pNMHDR,
+    NMHDR* /* pNMHDR */,
     LRESULT* pResult
 )
 {    

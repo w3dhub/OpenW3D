@@ -287,7 +287,7 @@ void IntersectionClass::Append_Hierarchy_Objects(
 	RenderObjClass **ObjectArray, 
 	RenderObjClass *Hierarchy,
 	bool Test_Bounding_Sphere,
-	bool Convex)
+	bool /*Convex*/)
 {
 	IntersectionResultClass result;
 

@@ -152,7 +152,7 @@ ButtonCtrlClass::On_Create (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-ButtonCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
+ButtonCtrlClass::On_LButton_Down (const Vector2 &/* mouse_pos */)
 {
 	Set_Capture ();
 	WasButtonPressedOnMe = true;
@@ -638,7 +638,7 @@ ButtonCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //
 ////////////////////////////////////////////////////////////////
 bool
-ButtonCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+ButtonCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	switch (key_id)
 	{

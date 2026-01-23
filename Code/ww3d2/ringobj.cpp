@@ -501,7 +501,7 @@ void RingRenderObjClass::Set_Name(const char * name)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-void RingRenderObjClass::render_ring(RenderInfoClass & rinfo,const Vector3 & center,const Vector3 & extent)
+void RingRenderObjClass::render_ring(RenderInfoClass & /*rinfo*/,const Vector3 & /*center*/,const Vector3 & /*extent*/)
 {
 	RingMeshClass & ring = RingMeshArray[ CurrentLOD ];
 
@@ -592,7 +592,7 @@ void RingRenderObjClass::render_ring(RenderInfoClass & rinfo,const Vector3 & cen
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-void RingRenderObjClass::vis_render_ring(SpecialRenderInfoClass & rinfo,const Vector3 & center,const Vector3 & extent)
+void RingRenderObjClass::vis_render_ring(SpecialRenderInfoClass & /*rinfo*/,const Vector3 & /*center*/,const Vector3 & /*extent*/)
 {
 	WWASSERT(0);
 }	// vis_render_ring

@@ -35,13 +35,13 @@ DECLARE_SCRIPT (DLS_SpawnTest, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		Commands->Enable_Spawner(100002, false);
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /*obj*/, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -154,7 +154,7 @@ DECLARE_SCRIPT(DLS_InnateIsStationary_Test, "")
 		
 	}
 	
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
 		ActionParamsStruct params;
 
@@ -305,7 +305,7 @@ DECLARE_SCRIPT(DLS_Gun_Test, "Debug_Mode=0:int")
 
 	
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * /*obj*/, int action_id, ActionCompleteReason /*reason*/) override
 	{
 		ActionParamsStruct params;
 
@@ -315,7 +315,7 @@ DECLARE_SCRIPT(DLS_Gun_Test, "Debug_Mode=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender)override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/)override
 	{
 		ActionParamsStruct params;
 
@@ -344,12 +344,12 @@ DECLARE_SCRIPT(DLS_Test_NULL, "Debug_Mode=0:int")
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		
 	}
 
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
 		const char *conv_name = ("IDS_M06_D05");
 		int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
@@ -378,7 +378,7 @@ DECLARE_SCRIPT(DLS_Rappelling_Activate, "Debug_Mode=0:int")
 	}
 
 	
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/) override
 	{
 		GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(controller, 0.000f);
@@ -410,7 +410,7 @@ DECLARE_SCRIPT(DLS_Tank_Path_Test, "Debug_Mode=0:int")
 		
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 		ActionParamsStruct params;
 		
@@ -500,7 +500,7 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 		Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 0);
 	}
 	
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		if(!destroyed_state)
 		{
@@ -573,7 +573,7 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Create_Explosion("Small Crate Explosion", Commands->Get_Position(obj), obj);
 	}
@@ -846,7 +846,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 		
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /*obj*/, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -854,7 +854,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
 
@@ -949,7 +949,7 @@ DECLARE_SCRIPT (DLS_Cargo_Plane_Test, "")
 		
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Commands->Get_Position(obj));
 		Commands->Set_Facing(chinook_obj, 0.0f);
@@ -1128,7 +1128,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == 23000 && param == 23000)
 		{
@@ -1151,7 +1151,7 @@ DECLARE_SCRIPT(M00_Reinforcement_C130, "Controller_ID:int")
 		sound_id = Commands->Create_3D_Sound_At_Bone("C130_Idle_01", obj, "BODYMAIN");
 	}
 	
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 		GameObject * con = Commands->Find_Object(Get_Int_Parameter(0));
 		Commands->Send_Custom_Event(obj, con, 23000, 23000, 0.0f);
@@ -1168,7 +1168,7 @@ DECLARE_SCRIPT(DLS_Test_Conversation, "Debug_Mode=0:int")
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
 	
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
 	
 		const char *conv_name = ("IDS_M00_Test");
@@ -1180,7 +1180,7 @@ DECLARE_SCRIPT(DLS_Test_Conversation, "Debug_Mode=0:int")
 		
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * /*obj*/, int /*action_id*/, ActionCompleteReason /*reason*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("Action_Complete action_id %d reason %d.\n", action_id, reason));	
 		
@@ -1203,7 +1203,7 @@ DECLARE_SCRIPT(DLS_Test_Zone_Timer, "Debug_Mode=0:int")
 	}
 
 	
-	void Timer_Expired(GameObject * obj, int timer_id ) override
+	void Timer_Expired(GameObject * obj, int /*timer_id*/ ) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("Timer_Expired on DLS_Test_Zone_Timer timer_id: %d.\n", timer_id));
 
@@ -1217,7 +1217,7 @@ DECLARE_SCRIPT(DLS_Drop_Unit, "Box_ID:int")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/) override
 	{
 		int box_id = Get_Int_Parameter("Box_ID");
 		switch(box_id)
@@ -1247,7 +1247,7 @@ DECLARE_SCRIPT(DLS_CNC_Sound, "Box_ID:int")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		Commands->Create_Sound ( "CnC_Healer_Sound", Commands->Get_Position(obj), obj );
 
@@ -1260,7 +1260,7 @@ DECLARE_SCRIPT(DLS_Spawn_Engineer, "")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		Commands->Set_Health(obj, Commands->Get_Max_Health(obj));
 		Commands->Enable_Spawner(100001, true);
@@ -1274,7 +1274,7 @@ DECLARE_SCRIPT(DLS_Spawn_Engineer2, "")
 		
 	
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		Commands->Set_Health(obj, Commands->Get_Max_Health(obj));
 		Commands->Enable_Spawner(100001, false);
@@ -1352,12 +1352,12 @@ DECLARE_SCRIPT (DLS_Goto_Unit, "")
 DECLARE_SCRIPT (DLS_Playertype, "")
 {
 
-	void Created (GameObject *obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		
 	}
 
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
 		Commands->Set_Player_Type(obj, SCRIPT_PLAYERTYPE_GDI );
 		Commands->Give_PowerUp(obj, "MG Weapon 1 Clip PowerUp", false);
@@ -1392,7 +1392,7 @@ DECLARE_SCRIPT(DLS_ActionComplete_Test, "")
 		Commands->Action_Goto( obj, params );
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * /*obj*/, int action_id, ActionCompleteReason reason) override
 	{
 		Commands->Debug_Message("Action_Complete %d %d. \n", action_id, reason);
 	}
@@ -1420,7 +1420,7 @@ DECLARE_SCRIPT(DLS_Artillery_Test, "")
 	}
 
 
-	void Timer_Expired (GameObject *game_obj, int timer_id) override
+	void Timer_Expired (GameObject * /*game_obj*/, int timer_id) override
 	{
 		if (timer_id == ARTILLERY_DROP) 
 		{
@@ -1433,7 +1433,7 @@ DECLARE_SCRIPT(DLS_Artillery_Test, "")
 
 DECLARE_SCRIPT(DLS_Cinematic_Test, "")
 {
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 	/*	Commands->Enable_Hibernation(obj, false);
 		Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1441,7 +1441,7 @@ DECLARE_SCRIPT(DLS_Cinematic_Test, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 	/*	GameObject * chinook_obj0 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj0, 0.0f);
@@ -1484,7 +1484,7 @@ DECLARE_SCRIPT(DLS_SSM_Test, "")
 		ssm_missile_id = Commands->Get_ID(ssm_missile);
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 		Commands->Set_Animation(obj, "V_NOD_SSM.V_NOD_SSM", 0, NULL, 0.0f, -1.0f, false);
 		Commands->Set_Animation(Commands->Find_Object(ssm_missile_id), "v_nod_ssm_Missl.v_nod_ssm_Missl", 0, NULL, 0.0f, -1.0f, false);
@@ -1497,7 +1497,7 @@ DECLARE_SCRIPT(DLS_SSM_Test, "")
 
 DECLARE_SCRIPT(DLS_Cinematic_Test2, "")
 {
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 	/*	Commands->Enable_Hibernation(obj, false);
 		Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1505,7 +1505,7 @@ DECLARE_SCRIPT(DLS_Cinematic_Test2, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 	/*	GameObject * chinook_obj0 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj0, 0.0f);
@@ -1643,7 +1643,7 @@ DECLARE_SCRIPT(DLS_Test_Hand_Over_Head, "")
 
 DECLARE_SCRIPT(DLS_Created_Too_Early, "")
 {
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 	//	Commands->Enable_Hibernation(obj, false);
 	//	Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1651,7 +1651,7 @@ DECLARE_SCRIPT(DLS_Created_Too_Early, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 		GameObject * chinook_obj3 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj3, 0.0f);
@@ -1661,7 +1661,7 @@ DECLARE_SCRIPT(DLS_Created_Too_Early, "")
 
 DECLARE_SCRIPT(DLS_Blink, "")
 {
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 	//	Commands->Enable_Hibernation(obj, false);
 	//	Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1669,7 +1669,7 @@ DECLARE_SCRIPT(DLS_Blink, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 		GameObject * chinook_obj3 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj3, 0.0f);
@@ -1713,7 +1713,7 @@ DECLARE_SCRIPT(DLS_Test_Evac, "")  // Deadeye2
 		Commands->Action_Goto( obj, params );
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason /*reason*/) override
 	{
 		if (action_id == WAYPATH)
 		{
@@ -1864,7 +1864,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		SAVE_VARIABLE( say_need_here, 25 );
 	}
 
-	void Created( GameObject * obj ) override
+	void Created( GameObject * /*obj*/ ) override
 	{
 		star_area = 0;
 		area4_activated = false;
@@ -2443,7 +2443,7 @@ DECLARE_SCRIPT (MX0_Area4_Zone_DLS, "Area=0:int")
 		SAVE_VARIABLE( first_time, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		first_time = true;
 	}
@@ -2512,7 +2512,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /*sender*/ ) override
 	{
 		ActionParamsStruct params;
 
@@ -2750,7 +2750,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * /*obj*/, int action_id, ActionCompleteReason /*reason*/) override
 	{
 		if(action_id == 0)
 		{
@@ -2770,7 +2770,7 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		}
 	}
 
-	void Destroyed(GameObject * obj ) override
+	void Destroyed(GameObject * /*obj*/ ) override
 	{
 		if (powerup_effect_id)
 		{
@@ -2792,12 +2792,12 @@ DECLARE_SCRIPT (MX0_GDI_Killed_DLS, "Unit_ID=0:int")
 //		SAVE_VARIABLE( attack_loc, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * damager, float /*amount*/) override
 	{
 		// If damaged by the Obelisk Weapon
 		if((damager == Commands->Find_Object(1500020)) && (Commands->Find_Object(1500020)))
@@ -2806,7 +2806,7 @@ DECLARE_SCRIPT (MX0_GDI_Killed_DLS, "Unit_ID=0:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		switch(unit_id)
@@ -2893,7 +2893,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		Commands->Action_Attack(obj, params);
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /*sender*/ ) override
 	{
 		ActionParamsStruct params;
 
@@ -3042,12 +3042,12 @@ DECLARE_SCRIPT (MX0_Gun_Emplacement_DLS, "Left_Point=0:int, Right_Point=0:int")
 		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		left = true;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
 
@@ -3109,7 +3109,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
 
@@ -3159,7 +3159,7 @@ DECLARE_SCRIPT (MX0_SAM_DLS, "")
 
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
 
@@ -3267,12 +3267,12 @@ DECLARE_SCRIPT (MX0_Explosive_Barrels_DLS, "Logical_Sound=0:int, Radius:float")
 //		SAVE_VARIABLE( left, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /*obj*/, int /*type*/, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		
 	}
@@ -3285,7 +3285,7 @@ DECLARE_SCRIPT (MX0_Explosive_Barrels_DLS, "Logical_Sound=0:int, Radius:float")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		float radius = Get_Float_Parameter("Radius");
 		Commands->Create_Explosion("Air Explosions Twiddler", Commands->Get_Position(obj), obj);

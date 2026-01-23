@@ -55,7 +55,7 @@ template<typename T> class Signaler
 		virtual void ReceiveSignal(T&)
 			{}
 
-		virtual void SignalDropped(Signaler<T>& signaler)
+		virtual void SignalDropped(Signaler<T>& /* signaler */)
 			{mConnection = NULL;}
 
 	protected:

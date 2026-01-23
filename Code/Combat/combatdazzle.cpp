@@ -67,7 +67,7 @@ CombatDazzleClass _TheCombatDazzleHandler;
 float CombatDazzleClass::Compute_Dazzle_Visibility
 (
 	RenderInfoClass & rinfo,
-	DazzleRenderObjClass * obj,	
+	DazzleRenderObjClass * /* obj */,	
 	const Vector3 & point
 ) const
 {

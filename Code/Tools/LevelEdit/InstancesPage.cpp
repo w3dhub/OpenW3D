@@ -447,7 +447,7 @@ CheckBoxSubclassProc
 void
 InstancesPageClass::OnDblclkInstanceList
 (
-	NMHDR *	pNMHDR,
+	NMHDR *	/* pNMHDR */,
 	LRESULT* pResult
 ) 
 {
@@ -871,8 +871,8 @@ InstancesPageClass::Get_Item_Node (int index)
 void
 InstancesPageClass::Set_Node_Check
 (
-	int	index,
-	bool	onoff
+	int	/* index */,
+	bool	/* onoff */
 )
 {
 	// First off, show/hide the node
@@ -1056,7 +1056,7 @@ InstancesListSortCallback
 (
 	LPARAM lParam1,
 	LPARAM lParam2,
-   LPARAM lParamSort
+   LPARAM /* lParamSort */
 )
 {
 	int retval = 0;

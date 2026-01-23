@@ -513,7 +513,7 @@ void SphereRenderObjClass::render_sphere()
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-void SphereRenderObjClass::vis_render_sphere(SpecialRenderInfoClass & rinfo,const Vector3 & center,const Vector3 & extent)
+void SphereRenderObjClass::vis_render_sphere(SpecialRenderInfoClass & /*rinfo*/,const Vector3 & /*center*/,const Vector3 & /*extent*/)
 {
 }	// vis_render_sphere
 

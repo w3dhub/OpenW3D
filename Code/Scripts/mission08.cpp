@@ -222,7 +222,7 @@ DECLARE_SCRIPT(M08_Objective_Controller, "")   // 100002
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		
 		switch (param)
@@ -297,7 +297,7 @@ DECLARE_SCRIPT(M08_Havoc_DLS, "")
 		Commands->Reveal_Encyclopedia_Vehicle(16);
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if(type == M08_RELOCATE)
 		{
@@ -322,7 +322,7 @@ DECLARE_SCRIPT(M08_Havoc_DLS, "")
 		}
 	}
 
-	void Destroyed(GameObject * obj) override
+	void Destroyed(GameObject * /* obj */) override
 	{
 //		Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 666, 666, 0.0f);
 		
@@ -343,7 +343,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_802, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -366,7 +366,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_802, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == 100 && param == 100)
@@ -402,7 +402,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_803, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -426,7 +426,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_803, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == 100 && param == 100)
@@ -462,7 +462,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_804, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -487,7 +487,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_804, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == 100 && param == 100)
@@ -522,7 +522,7 @@ DECLARE_SCRIPT(M08_Activate_Objective_806, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -569,12 +569,12 @@ DECLARE_SCRIPT(M08_Helipad, "")
 	
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 	
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Create_Logical_Sound(obj, M08_HELIPAD_DESTROYED, Vector3 (0,0,0), 2500.0f);
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100002), 804, 1, 0.0f);
@@ -597,12 +597,12 @@ DECLARE_SCRIPT(M08_Raveshaw, "")
 	
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 	
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		if(type == M08_RELOCATE)
 		{
@@ -615,7 +615,7 @@ DECLARE_SCRIPT(M08_Raveshaw, "")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100002), 805, 1, 0.0f);
 	}
@@ -767,7 +767,7 @@ DECLARE_SCRIPT(M08_Initial_Prisoner, "Reinforcment_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		
@@ -809,7 +809,7 @@ DECLARE_SCRIPT(M08_Initial_Prisoner, "Reinforcment_ID=0:int")
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		if(!enemy_seen)
 		{
@@ -831,12 +831,12 @@ DECLARE_SCRIPT(M08_Reinforcement_Prisoner, "")
 //		SAVE_VARIABLE( enemy_seen, 1 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 	
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * /* obj */, GameObject * /* killer */) override
 	{
 		
 	}
@@ -853,12 +853,12 @@ DECLARE_SCRIPT(M08_Nod_Prison_Unit, "")
 		SAVE_VARIABLE( prisoner_attack_id, 1 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		prisoner_attack_id = 0;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
@@ -874,7 +874,7 @@ DECLARE_SCRIPT(M08_Nod_Prison_Unit, "")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(prisoner_attack_id), M08_NOD_ATTACKEE_KILLED, 1, 0.0f);
 	}
@@ -933,7 +933,7 @@ DECLARE_SCRIPT(M08_Prison_Storage_Guard, "")
 
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Vector3 create_position = Commands->Get_Position( obj );
 		Commands->Create_Object( "Level_02_Keycard", create_position );
@@ -1031,7 +1031,7 @@ DECLARE_SCRIPT(M08_Nod_Gun_Emplacement, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -1048,7 +1048,7 @@ DECLARE_SCRIPT(M08_Nod_Gun_Emplacement, "")
 
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) override
+	void Timer_Expired (GameObject* /* obj */, int timer_id) override
 	{
 		ActionParamsStruct params;
 
@@ -1097,7 +1097,7 @@ DECLARE_SCRIPT(M08_Nod_Turret, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -1117,7 +1117,7 @@ DECLARE_SCRIPT(M08_Nod_Turret, "")
 
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) override
+	void Timer_Expired (GameObject* /* obj */, int timer_id) override
 	{
 		ActionParamsStruct params;
 
@@ -1217,7 +1217,7 @@ DECLARE_SCRIPT(M08_Prison_Apache, "")
 		
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason /* reason */) override
 	{
 		ActionParamsStruct params;
 
@@ -1267,7 +1267,7 @@ DECLARE_SCRIPT(M08_GDI_Free_Prison, "Soldier_ID=0:int")
 	}
 
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int soldier_id = Get_Int_Parameter("Soldier_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100246), M08_GDI_FREE_PRISON_KILLED, soldier_id, 0.0f);
@@ -1288,14 +1288,14 @@ DECLARE_SCRIPT(M08_Prison_Controller, "")  //100246
 	}
 
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		gdi1 = 0;
 		gdi2 = 0;
 
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_GDI_FREE_PRISON_KILLED)
@@ -1345,12 +1345,12 @@ DECLARE_SCRIPT(M08_APC_Soldier, "APC_ID=0:int")
 //		SAVE_VARIABLE( apc_id, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		apc_id = Get_Int_Parameter("APC_ID");	
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		if(Commands->Find_Object(apc_id))
 		{
@@ -1402,7 +1402,7 @@ DECLARE_SCRIPT(M08_PetraA21_Buggy, "")
 
 	
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -1435,7 +1435,7 @@ DECLARE_SCRIPT(M08_PetraA21_Buggy, "")
 	
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id ) override
+	void Timer_Expired(GameObject * /* obj */, int timer_id ) override
 	{
 		
 		if(timer_id == CHECK_ENEMY)
@@ -1459,7 +1459,7 @@ DECLARE_SCRIPT(M08_Activate_PetraA21, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -1496,12 +1496,12 @@ DECLARE_SCRIPT(M08_Activate_PetraA22, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -1529,7 +1529,7 @@ DECLARE_SCRIPT(M08_PetraA22_Stealth_Tank, "")
 		SAVE_VARIABLE( attacking, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		attacking = false;
 	}
@@ -1564,7 +1564,7 @@ DECLARE_SCRIPT(M08_PetraA22_Stealth_Tank, "")
 		
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -1590,13 +1590,13 @@ DECLARE_SCRIPT(M08_Petra_Convoy, "")
 //		SAVE_VARIABLE( attacking, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		
 	}
 
 	
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -1653,7 +1653,7 @@ DECLARE_SCRIPT(M08_Activate_Convoy, "Param=0:int")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -1700,7 +1700,7 @@ DECLARE_SCRIPT(M08_Activate_Stealth_Trap, "")
 		SAVE_VARIABLE( crate7_id, 8 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 
@@ -1790,7 +1790,7 @@ DECLARE_SCRIPT(M08_Activate_Stealth_Trap, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -1821,7 +1821,7 @@ DECLARE_SCRIPT(M08_Destroy_Stealth_Trap, "")
 		SAVE_VARIABLE( stealth_tank_id, 2 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 		stealth_tank_id = 0;
@@ -1838,7 +1838,7 @@ DECLARE_SCRIPT(M08_Destroy_Stealth_Trap, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -2048,7 +2048,7 @@ DECLARE_SCRIPT(M08_Archaelogical_Site_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vec
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100362), M08_ARCHAELOGICAL_KILLED, unit_id, 0.0f);
 
@@ -2090,7 +2090,7 @@ DECLARE_SCRIPT(M08_Archaelogical_Reinforcements, "Unit_ID=0:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100362), M08_ARCHAELOGICAL_KILLED, unit_id, 0.0f);
 
@@ -2113,14 +2113,14 @@ DECLARE_SCRIPT(M08_Archaelogical_Site_Controller, "")
 		SAVE_VARIABLE( unit2_killed, 3 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 		unit1_killed = 0;
 		unit2_killed = 0;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -2233,12 +2233,12 @@ DECLARE_SCRIPT(M08_Archaelogical_Site_Tomb, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -2264,13 +2264,13 @@ DECLARE_SCRIPT(M08_PetraA25_Controller, "")
 		SAVE_VARIABLE( unit2_killed, 2 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		unit1_killed = 0;
 		unit2_killed = 0;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -2375,7 +2375,7 @@ DECLARE_SCRIPT(M08_PetraA25_Tank, "")
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100436), M08_PETRAA25_KILLED, 1, 0.0f);
 
@@ -2457,7 +2457,7 @@ DECLARE_SCRIPT(M08_Excavation_Mechanism, "")
 //		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100002), 808, 1, 0.0f);
 	}
@@ -2478,7 +2478,7 @@ DECLARE_SCRIPT(M08_Tiberium_Cultivation_MCT, "")
 	{
 		Commands->Set_Animation_Frame(obj, "mct_nod.mct_nod", 0);
 	}
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), NULL); 
 
@@ -2508,7 +2508,7 @@ DECLARE_SCRIPT(M08_Research_Station_A, "")
 		Commands->Set_Animation_Frame(obj, "mct_nod.mct_nod", 0);
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), NULL); 
 
@@ -2538,7 +2538,7 @@ DECLARE_SCRIPT(M08_Research_Station_B, "")
 		Commands->Set_Animation_Frame(obj, "mct_nod.mct_nod", 0);
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Create_Explosion("Explosion_Mine_Remote_01", Commands->Get_Position(obj), NULL); 
 
@@ -2856,13 +2856,13 @@ DECLARE_SCRIPT(M08_Activate_Encounter, "Spawner_ID1=0:int, Spawner_ID2=0:int, Sp
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 		
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -2904,7 +2904,7 @@ DECLARE_SCRIPT(M08_Activate_Encounter, "Spawner_ID1=0:int, Spawner_ID2=0:int, Sp
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		if (type == M08_DEACTIVATE_ENCOUNTER)
 		{
@@ -2955,7 +2955,7 @@ DECLARE_SCRIPT(M08_Deactivate_Encounter, "Activate_Zone=0:int")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		
 	}
@@ -3069,7 +3069,7 @@ DECLARE_SCRIPT(M08_Warden_Announcement1, "")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 		
@@ -3106,7 +3106,7 @@ DECLARE_SCRIPT(M08_Warden_Announcement2, "")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 		
@@ -3128,7 +3128,7 @@ DECLARE_SCRIPT(M08_Warden_Announcement2, "")
 		}
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason /* reason */) override
 	{
 		ActionParamsStruct params;
 
@@ -3157,7 +3157,7 @@ DECLARE_SCRIPT(M08_Innate_Control, "")
 		Commands->Innate_Disable(obj);
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_INNATE_ON)
@@ -3182,7 +3182,7 @@ DECLARE_SCRIPT(M08_Activate_Innate, "Unit_ID1=0:int, Unit_ID2=0:int, Unit_ID3=0:
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 		
@@ -3238,7 +3238,7 @@ DECLARE_SCRIPT(M08_Basketball_Court_Controller, "")
 		SAVE_VARIABLE( m08_basketball_gun_emp_killed, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		m08_basketball_gun_emp_killed = 0;
 
@@ -3251,7 +3251,7 @@ DECLARE_SCRIPT(M08_Basketball_Court_Controller, "")
 		
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_BASKETBALL_GUN_EMP_KILLED)
@@ -3284,7 +3284,7 @@ DECLARE_SCRIPT(M08_Basketball_Court_Controller, "")
 
 DECLARE_SCRIPT(M08_Basketball_Gun_Emp, "")
 {
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100197), M08_BASKETBALL_GUN_EMP_KILLED, 1, 0.0f);
 	}
@@ -3336,7 +3336,7 @@ DECLARE_SCRIPT(M08_Nod_Buggy_Dec, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -3353,7 +3353,7 @@ DECLARE_SCRIPT(M08_Nod_Buggy_Dec, "")
 
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) override
+	void Timer_Expired (GameObject* /* obj */, int timer_id) override
 	{
 		ActionParamsStruct params;
 
@@ -3392,7 +3392,7 @@ DECLARE_SCRIPT(M08_Petra_A_Controller, "")  //100346
 		SAVE_VARIABLE( player_vehicle_id, 9 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		m08_petra_a1_unit = 0;
 		m08_petra_a2_unit = 0;
@@ -3603,7 +3603,7 @@ DECLARE_SCRIPT(M08_Petra_A_Unit, "Unit_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -3655,7 +3655,7 @@ DECLARE_SCRIPT(M08_Petra_A_Unit, "Unit_ID=0:int")
 	}
 
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100346), M08_PETRA_A_KILLED, unit_id, 0.0f);
@@ -3678,7 +3678,7 @@ DECLARE_SCRIPT(M08_Petra_A_Helo, "Unit_ID=0:int")
 		Commands->Enable_Hibernation(obj, false);
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100346), M08_PETRA_A_HELO_KILLED, unit_id, 0.0f);
@@ -3693,11 +3693,6 @@ DECLARE_SCRIPT(M08_Activate_Petra_A, "")
 	REGISTER_VARIABLES()
 	{
 //		SAVE_VARIABLE( already_entered, 1 );
-	}
-
-	void Created (GameObject * obj) override
-	{
-		
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -3719,11 +3714,6 @@ DECLARE_SCRIPT(M08_Deactivate_Petra_A, "")
 	REGISTER_VARIABLES()
 	{
 //		SAVE_VARIABLE( already_entered, 1 );
-	}
-
-	void Created (GameObject * obj) override
-	{
-		
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -3767,7 +3757,7 @@ DECLARE_SCRIPT(M08_Petra_B_Controller, "")  //100346
 		SAVE_VARIABLE( player_vehicle_id, 9 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		m08_petra_b1_unit = 0;
 		m08_petra_b2_unit = 0;
@@ -3992,7 +3982,7 @@ DECLARE_SCRIPT(M08_Petra_B_Unit, "Unit_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -4044,7 +4034,7 @@ DECLARE_SCRIPT(M08_Petra_B_Unit, "Unit_ID=0:int")
 	}
 
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100370), M08_PETRA_B_KILLED, unit_id, 0.0f);
@@ -4062,12 +4052,12 @@ DECLARE_SCRIPT(M08_Petra_B_Helo, "Unit_ID=0:int")
 //		SAVE_VARIABLE( m08_petra_a1_unit, 1 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100370), M08_PETRA_B_HELO_KILLED, unit_id, 0.0f);
@@ -4082,11 +4072,6 @@ DECLARE_SCRIPT(M08_Activate_Petra_B, "")
 	REGISTER_VARIABLES()
 	{
 //		SAVE_VARIABLE( already_entered, 1 );
-	}
-
-	void Created (GameObject * obj) override
-	{
-		
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -4109,7 +4094,7 @@ DECLARE_SCRIPT(M08_Deactivate_Petra_B, "")
 //		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		
 	}
@@ -4155,7 +4140,7 @@ DECLARE_SCRIPT(M08_Petra_C_Controller, "")  //100389
 		SAVE_VARIABLE( player_vehicle_id, 9 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		m08_petra_c1_unit = 0;
 		m08_petra_c2_unit = 0;
@@ -4370,7 +4355,7 @@ DECLARE_SCRIPT(M08_Petra_C_Unit, "Unit_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -4422,7 +4407,7 @@ DECLARE_SCRIPT(M08_Petra_C_Unit, "Unit_ID=0:int")
 	}
 
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100389), M08_PETRA_C_KILLED, unit_id, 0.0f);
@@ -4440,12 +4425,12 @@ DECLARE_SCRIPT(M08_Petra_C_Helo, "Unit_ID=0:int")
 //		SAVE_VARIABLE( m08_petra_a1_unit, 1 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int unit_id = Get_Int_Parameter("Unit_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100389), M08_PETRA_C_HELO_KILLED, unit_id, 0.0f);
@@ -4462,7 +4447,7 @@ DECLARE_SCRIPT(M08_Activate_Petra_C, "")
 //		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		
 	}
@@ -4487,7 +4472,7 @@ DECLARE_SCRIPT(M08_Deactivate_Petra_C, "")
 //		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		
 	}
@@ -4567,7 +4552,7 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 
 	
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -4599,7 +4584,7 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 	}
 
 	
-	void Timer_Expired(GameObject * obj, int timer_id ) override
+	void Timer_Expired(GameObject * /* obj */, int timer_id ) override
 	{
 		
 		if(timer_id == ATTACK_OVER)
@@ -4609,7 +4594,7 @@ DECLARE_SCRIPT(M08_Facility_APC, "")
 		
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /* damager */, float /* amount */) override
 	{
 		ActionParamsStruct params;
 
@@ -4654,12 +4639,6 @@ DECLARE_SCRIPT(M08_Patrol_Inactive, "Waypath_ID=0:int, Waypath_Loc:Vector3, Cont
 //		SAVE_VARIABLE( enemy_seen, 3 );
 	}
 
-	void Created (GameObject * obj) override
-	{
-
-		
-	}
-
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
@@ -4685,7 +4664,7 @@ DECLARE_SCRIPT(M08_Patrol_Inactive, "Waypath_ID=0:int, Waypath_Loc:Vector3, Cont
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_INNATE_ON)
@@ -4749,7 +4728,7 @@ DECLARE_SCRIPT(M08_Patrol_Inactive, "Waypath_ID=0:int, Waypath_Loc:Vector3, Cont
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int controller_id = Get_Int_Parameter("Controller_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(controller_id), M08_PATROL_KILLED, 1, 0.0f);
@@ -4767,13 +4746,7 @@ DECLARE_SCRIPT(M08_Scientist, "Controller_ID=0:int")
 //		SAVE_VARIABLE( waypath_id, 1 );
 	}
 
-	void Created (GameObject * obj) override
-	{
-
-		
-	}
-
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_INNATE_ON)
@@ -4783,7 +4756,7 @@ DECLARE_SCRIPT(M08_Scientist, "Controller_ID=0:int")
 
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int controller_id = Get_Int_Parameter("Controller_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(controller_id), M08_SCIENTIST_KILLED, 1, 0.0f);
@@ -4802,12 +4775,12 @@ DECLARE_SCRIPT(M08_Observatory_Dome_Controller, "")
 		SAVE_VARIABLE( reinforcements, 1 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		reinforcements = false;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_SCIENTIST_KILLED && reinforcements)
@@ -4837,11 +4810,6 @@ DECLARE_SCRIPT(M08_Reinforcements_Active, "Controller_ID=0:int")
 //		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
-	{
-		
-	}
-
 	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if (Commands->Is_A_Star(enterer))
@@ -4862,11 +4830,6 @@ DECLARE_SCRIPT(M08_Reinforcements_Inactive, "Controller_ID=0:int")
 	REGISTER_VARIABLES()
 	{
 //		SAVE_VARIABLE( already_entered, 1 );
-	}
-
-	void Created (GameObject * obj) override
-	{
-		
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -4895,7 +4858,7 @@ DECLARE_SCRIPT(M08_Activate_Cavern_Entrance_Truck, "")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 		
@@ -4927,12 +4890,7 @@ DECLARE_SCRIPT(M08_Cavern_Entrance_Truck, "")
 		
 	}
 
-	void Created (GameObject * obj) override
-	{
-		
-	}
-
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_CAVERN_ENTRANCE_TRUCK)
@@ -4976,14 +4934,7 @@ DECLARE_SCRIPT(M08_Facility_Scientist_Inactive, "Point1_ID=0:int, Point2_ID=0:in
 		SAVE_VARIABLE( enemy_seen, 5 );
 	}
 
-	void Created (GameObject * obj) override
-	{
-		
-
-		
-	}
-
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_INNATE_ON)
@@ -5112,7 +5063,7 @@ DECLARE_SCRIPT(M08_Facility_Scientist_Inactive, "Point1_ID=0:int, Point2_ID=0:in
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		int controller_id_param = Get_Int_Parameter("Controller_ID");
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(controller_id_param), M08_SCIENTIST_KILLED, 1, 0.0f);
@@ -5135,14 +5086,14 @@ DECLARE_SCRIPT(M08_Cavern_Controller, "")
 		SAVE_VARIABLE( first_apc, 2 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		cavern_unit = 6;
 		cavern_activated = false;
 		first_apc = true;
 	}
 	
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if (type == M08_DEACTIVATE_ENCOUNTER)
@@ -5210,7 +5161,7 @@ DECLARE_SCRIPT(M08_Custom_Activate, "Controller_ID=0:int")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -5322,7 +5273,7 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 
 	
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -5352,7 +5303,7 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 	}
 
 	
-	void Timer_Expired(GameObject * obj, int timer_id ) override
+	void Timer_Expired(GameObject * /* obj */, int timer_id ) override
 	{
 		
 		if(timer_id == ATTACK_OVER)
@@ -5362,7 +5313,7 @@ DECLARE_SCRIPT(M08_Cavern_Tunnel_APC, "")
 		
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /* damager */, float /* amount */) override
 	{
 		ActionParamsStruct params;
 
@@ -5429,7 +5380,7 @@ DECLARE_SCRIPT(M08_Cavern_Gun_Emplacement, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -5449,7 +5400,7 @@ DECLARE_SCRIPT(M08_Cavern_Gun_Emplacement, "")
 
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) override
+	void Timer_Expired (GameObject* /* obj */, int timer_id) override
 	{
 		ActionParamsStruct params;
 
@@ -5604,7 +5555,7 @@ DECLARE_SCRIPT(M08_Unarmed_Prisoner, "Exit_Cell_ID=0:int, Weapon_Loc_ID=0:int")
 		
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 
@@ -5635,7 +5586,7 @@ DECLARE_SCRIPT(M08_Unarmed_Prisoner, "Exit_Cell_ID=0:int, Weapon_Loc_ID=0:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * /* obj */, GameObject * /* killer */) override
 	{
 		
 	}
@@ -5653,7 +5604,7 @@ DECLARE_SCRIPT(M08_Free_Prisoners_Zone, "Prisoner1_ID=0:int, Prisoner2_ID=0:int,
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
@@ -5736,14 +5687,7 @@ DECLARE_SCRIPT(M08_Sakura, "")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id ) override
-	{
-		ActionParamsStruct params;
-		
-		
-	}
-
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_MOVE_SAKURA)
@@ -5766,7 +5710,7 @@ DECLARE_SCRIPT(M08_Sakura, "")
 		
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason /* reason */) override
 	{
 		ActionParamsStruct params;
 
@@ -5798,7 +5742,7 @@ DECLARE_SCRIPT(M08_Sakura, "")
 		
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -5835,12 +5779,12 @@ DECLARE_SCRIPT(M08_Activate_Sakura, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -5870,7 +5814,7 @@ DECLARE_SCRIPT(M08_Nod_Warden, "")
 		Commands->Innate_Disable(obj);
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_INNATE_ON)
@@ -5881,7 +5825,7 @@ DECLARE_SCRIPT(M08_Nod_Warden, "")
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Vector3 create_position = Commands->Get_Position( obj );
 		create_position.Z += 0.5f;
@@ -5904,7 +5848,7 @@ DECLARE_SCRIPT(M08_Move_Sakura, "Movement_Loc=0:int")
 		SAVE_VARIABLE( sakura_id, 2 );
 	}
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		sakura_id = 0;
 		already_entered = false;
@@ -5924,7 +5868,7 @@ DECLARE_SCRIPT(M08_Move_Sakura, "Movement_Loc=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_SAKURA_ID)
@@ -6067,7 +6011,7 @@ DECLARE_SCRIPT(M08_Flyover_Controller, "")
 		
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id) override
+	void Timer_Expired(GameObject * obj, int /* timer_id */) override
 	{
 		static constexpr const char *flyovers[8] =
 		{
@@ -6109,12 +6053,12 @@ DECLARE_SCRIPT(M08_Activate_Excavation, "")
 		SAVE_VARIABLE( already_entered, 1 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -6243,7 +6187,7 @@ DECLARE_SCRIPT(M08_Facility_Scientist, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:
 		}
 	}
 
-	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
+	void Enemy_Seen(GameObject * obj, GameObject * /* enemy */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -6265,7 +6209,7 @@ DECLARE_SCRIPT(M08_Facility_Scientist, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * /* obj */, GameObject * /* killer */) override
 	{
 		// Spawn stealth soldier to come after STAR
 		int spawner_id = Get_Int_Parameter("Spawner_ID");
@@ -6292,7 +6236,7 @@ DECLARE_SCRIPT(M08_Apache_Controller, "")
 		SAVE_VARIABLE(attacking_apache, 5);
 	}
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /* obj */) override
 	{
 		active = false;
 		attacking_apache = 0;
@@ -6383,7 +6327,7 @@ DECLARE_SCRIPT(M08_Apache_Controller, "")
 		}
 	}
 
-	void Attack_Player(int current_area)
+	void Attack_Player(int /* current_area */)
 	{
 		GameObject * apache = Commands->Find_Object(apache_id[area]);
 		if (apache)
@@ -6407,7 +6351,7 @@ DECLARE_SCRIPT(M08_Apache_Controller, "")
 		apache_id[current_area] = Commands->Get_ID(apache);
 	}
 	
-	void Timer_Expired(GameObject * obj, int timer_id) override
+	void Timer_Expired(GameObject * /* obj */, int timer_id) override
 	{
 		if (timer_id >= 10)
 		{
@@ -6457,7 +6401,7 @@ DECLARE_SCRIPT(M08_Apache, "Area:int")
 		my_area = Get_Int_Parameter("Area");
 	}
 	
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		if (type == 100 && param == 100)
 		{
@@ -6599,7 +6543,7 @@ DECLARE_SCRIPT(M08_Apache, "Area:int")
 		}
 	}
 
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * obj, GameObject * /* killer */) override
 	{
 		GameObject * controller = Commands->Find_Object(106339);
 		if (controller)
@@ -6745,7 +6689,7 @@ DECLARE_SCRIPT(M08_Mutant_Behavior, "")
 		freed = false;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
 		if(type == M08_INNATE_ON && !freed)
@@ -6779,7 +6723,7 @@ DECLARE_SCRIPT(M08_Free_Jailed_Mutants, "")
 		Commands->Enable_HUD_Pokable_Indicator( obj, true );
 	}
 
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /* poker */) override
 	{
 		Commands->Enable_HUD_Pokable_Indicator( obj, false );
 		Commands->Grant_Key (STAR, 10, true);
@@ -6804,12 +6748,12 @@ DECLARE_SCRIPT(M08_Activate_Midtro, "")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -6842,12 +6786,12 @@ DECLARE_SCRIPT(M08_Prisoner_Conversation, "Orator_ID=0:int, Captive=0:int")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -6881,7 +6825,7 @@ DECLARE_SCRIPT(M08_Prisoner_Conversation, "Orator_ID=0:int, Captive=0:int")
 
 DECLARE_SCRIPT (M08_Elevator_Movement_Zone, "Direction:int, Anim_num:int, Elev_obj_num:int")
 {
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		static constexpr const char *elevators[1] =
 		{
@@ -6929,7 +6873,7 @@ DECLARE_SCRIPT (M08_Immortal_Star_DLS, "")
 		immortal = true;
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */ ) override
 	{
 		if ( type == M08_STAR_IMMORTAL ) 
 		{
@@ -6937,7 +6881,7 @@ DECLARE_SCRIPT (M08_Immortal_Star_DLS, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
 	{
 		if(immortal)
 		{
@@ -7017,13 +6961,13 @@ DECLARE_SCRIPT(M08_Prisoner_Poke_Conversation, "")
 		SAVE_VARIABLE( conversation, 3 );
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		random = Commands->Get_Random_Int(0, PRISONER_CONV_TABLE_SIZE);
 		conversation = false;
 	}
 
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /* poker */) override
 	{
 		if(conversation)
 		{
@@ -7070,7 +7014,7 @@ DECLARE_SCRIPT(M08_Prisoner_Poke_Conversation, "")
 		Commands->Start_Conversation (conv_id, 0);
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * /* obj */, int /* action_id */, ActionCompleteReason reason) override
 	{
 		if(reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
@@ -7092,12 +7036,12 @@ DECLARE_SCRIPT(M08_Enable_KaneConversation, "")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -7158,7 +7102,7 @@ DECLARE_SCRIPT(M08_KaneHead, "")
 
 DECLARE_SCRIPT(M08_DataDisc_01_DLS, "")//
 {
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -7172,7 +7116,7 @@ DECLARE_SCRIPT(M08_DataDisc_01_DLS, "")//
 
 DECLARE_SCRIPT(M08_DataDisc_02_DLS, "")//
 {
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{

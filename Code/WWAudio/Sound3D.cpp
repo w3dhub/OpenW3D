@@ -147,7 +147,7 @@ Sound3DClass::operator= (const Sound3DClass &src)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 bool
-Sound3DClass::Play (bool alloc_handle)
+Sound3DClass::Play (bool /* alloc_handle */)
 {
 	// Record our first 'tick' if we just started playing
 	if (m_State != STATE_PLAYING) {
@@ -165,7 +165,7 @@ Sound3DClass::Play (bool alloc_handle)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 bool
-Sound3DClass::On_Frame_Update (unsigned int milliseconds)
+Sound3DClass::On_Frame_Update (unsigned int /* milliseconds */)
 {
 	Matrix3D prev_tm = m_PrevTransform;
 

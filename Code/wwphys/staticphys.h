@@ -69,7 +69,7 @@ public:
 	
 	void								Init(const StaticPhysDefClass & def);
 	virtual bool					Needs_Timestep(void) override											{ return false; }
-	virtual void					Timestep(float dt) override											{ };
+	virtual void					Timestep(float /* dt */) override											{ };
 	virtual void					Set_Model(RenderObjClass * model) override;
 	virtual void					Render_Vis_Meshes(RenderInfoClass & rinfo) override;
 		
@@ -131,8 +131,8 @@ public:
 	** instead, their state is restored.  
 	*/
 	virtual bool								Has_Dynamic_State(void)							{ return false; }
-	virtual void								Save_State(ChunkSaveClass & csave)			{ }
-	virtual void								Load_State(ChunkLoadClass & cload)			{ }
+	virtual void								Save_State(ChunkSaveClass & /* csave */)			{ }
+	virtual void								Load_State(ChunkLoadClass & /* cload */)			{ }
 
 	
 	/*
@@ -257,7 +257,7 @@ inline bool StaticPhysClass::Intersection_Test(PhysOBBoxIntersectionTestClass & 
 	return false;
 }
 
-inline bool StaticPhysClass::Intersection_Test(PhysMeshIntersectionTestClass & test)
+inline bool StaticPhysClass::Intersection_Test(PhysMeshIntersectionTestClass & /* test */)
 {
 	WWASSERT(0); // TODO: Mesh-Mesh intersection
 	return false;

@@ -213,7 +213,7 @@ void ScriptImpClass::Attach(GameObject* obj)
 *
 ******************************************************************************/
 
-void ScriptImpClass::Detach(GameObject* obj)
+void ScriptImpClass::Detach(GameObject* /* obj */)
 {
 	mOwner = NULL;
 	Destroy_Script();

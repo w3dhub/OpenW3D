@@ -530,7 +530,7 @@ bool WOLLogonMgr::IsAutoLogin(const unichar_t* login)
 *
 ******************************************************************************/
 
-RefPtr<IRCServerData> WOLLogonMgr::GetPreferredServer(const unichar_t* login)
+RefPtr<IRCServerData> WOLLogonMgr::GetPreferredServer([[maybe_unused]] const unichar_t* login)
 	{
 	const char* preferred = "";
 

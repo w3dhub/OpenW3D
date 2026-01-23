@@ -142,7 +142,7 @@ class ParticleEmitterClass : public RenderObjClass
 		virtual void			Notify_Removed(SceneClass * scene) override;
 
 		// Update particle state and draw the particles.
-		virtual void			Render(RenderInfoClass & rinfo) override { }
+		virtual void			Render(RenderInfoClass & /*rinfo*/) override { }
 		virtual void			Restart(void) override;
 
 		// Scales the size of all particles and effects positions/velocities of

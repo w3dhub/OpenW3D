@@ -98,8 +98,8 @@ protected:
 		~PVSInfoStruct(void);
 		const PVSInfoStruct & operator = (const PVSInfoStruct & that);
 
-		bool operator == (const PVSInfoStruct & that)				{ return false; }
-		bool operator != (const PVSInfoStruct & that)				{ return true; }
+		bool operator == (const PVSInfoStruct & )				{ return false; }
+		bool operator != (const PVSInfoStruct & )				{ return true; }
 
 		VisTableClass *		Table;
 		bool						UnUsed;

@@ -1065,7 +1065,7 @@ void DlgWOLSettings::InitConnectionSpeedCombo(void)
 ******************************************************************************/
 
 void DlgWOLSettings::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* combo, int ctrl,
-		int oldSel, int newSel)
+		int /* oldSel */, int newSel)
 	{
 	switch (ctrl)
 		{

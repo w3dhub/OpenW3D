@@ -74,7 +74,7 @@ char * CCDKeyAuth::GenChallenge(int nchars)
 If the client has been, then we send them a "welcome" string, representative of
 allowing them to "enter" the game. If they have not been authenticated, we dump
 them after sending an error message */
-void CCDKeyAuth::auth_callback(int gameid, int localid, int authenticated, char *errmsg, void *instance)
+void CCDKeyAuth::auth_callback(int /* gameid */, int localid, int authenticated, [[maybe_unused]] char *errmsg, void * /* instance */)
 {
 //	client_t *clients = (client_t *)instance;
 //	char outbuf[512];

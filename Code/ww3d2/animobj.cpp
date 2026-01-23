@@ -279,7 +279,7 @@ void Animatable3DObjClass::Release( void )
  * HISTORY:                                                                                    *
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-void Animatable3DObjClass::Render(RenderInfoClass & rinfo)
+void Animatable3DObjClass::Render(RenderInfoClass & /*rinfo*/)
 {
 	if (HTree == NULL) return;
 
@@ -310,7 +310,7 @@ void Animatable3DObjClass::Render(RenderInfoClass & rinfo)
  * HISTORY:                                                                                    *
  *   12/10/98   GTH : Created.                                                                 *
  *=============================================================================================*/
-void Animatable3DObjClass::Special_Render(SpecialRenderInfoClass & rinfo)
+void Animatable3DObjClass::Special_Render(SpecialRenderInfoClass & /* rinfo */)
 {
 	if (HTree == NULL) return;
 

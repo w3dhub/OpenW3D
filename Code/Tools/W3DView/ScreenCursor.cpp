@@ -255,7 +255,7 @@ ScreenCursorClass::On_Frame_Update (void)
 //
 ///////////////////////////////////////////////////////////////////
 void
-ScreenCursorClass::Render (RenderInfoClass &rinfo)
+ScreenCursorClass::Render (RenderInfoClass & /* rinfo */)
 {
 	const int VERTEX_COUNT = 4;
 	const int FACE_COUNT = 2;

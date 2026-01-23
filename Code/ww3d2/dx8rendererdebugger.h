@@ -63,7 +63,7 @@ public:
 #ifdef WWDEBUG
 	static void Add_Mesh(MeshClass* mesh);
 #else
-	static void Add_Mesh(MeshClass* mesh) {}
+	static void Add_Mesh(MeshClass* /* mesh */) {}
 #endif
 
 	static void Disable_Mesh(unsigned id);

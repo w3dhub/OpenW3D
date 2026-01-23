@@ -211,18 +211,18 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	virtual void			On_LButton_Down (const Vector2 &mouse_pos)	{}
-	virtual void			On_LButton_DblClk (const Vector2 &mouse_pos)	{}
-	virtual void			On_LButton_Up (const Vector2 &mouse_pos)		{}
-	virtual void			On_RButton_Down (const Vector2 &mouse_pos)	{}
-	virtual void			On_RButton_Up (const Vector2 &mouse_pos)		{}
-	virtual void			On_MButton_Down (const Vector2 &mouse_pos)	{}
-	virtual void			On_MButton_Up (const Vector2 &mouse_pos)		{}
-	virtual void			On_Mouse_Move (const Vector2 &mouse_pos)		{}
-	virtual bool			On_Key_Down (uint32 key_id, uint32 key_data)	{return false;}
-	virtual bool			On_Key_Up (uint32 key_id)							{return false;}
-	virtual void			On_Unicode_Char(unichar_t unicode) {}
-	virtual void			On_Mouse_Wheel (int direction)					{}
+	virtual void			On_LButton_Down (const Vector2 &/* mouse_pos */)	{}
+	virtual void			On_LButton_DblClk (const Vector2 &/* mouse_pos */)	{}
+	virtual void			On_LButton_Up (const Vector2 &/* mouse_pos */)		{}
+	virtual void			On_RButton_Down (const Vector2 &/* mouse_pos */)	{}
+	virtual void			On_RButton_Up (const Vector2 &/* mouse_pos */)		{}
+	virtual void			On_MButton_Down (const Vector2 &/* mouse_pos */)	{}
+	virtual void			On_MButton_Up (const Vector2 &/* mouse_pos */)		{}
+	virtual void			On_Mouse_Move (const Vector2 &/* mouse_pos */)		{}
+	virtual bool			On_Key_Down (uint32 /* key_id */, uint32 /* key_data */)	{return false;}
+	virtual bool			On_Key_Up (uint32 /* key_id */)							{return false;}
+	virtual void			On_Unicode_Char(unichar_t /* unicode */) {}
+	virtual void			On_Mouse_Wheel (int /* direction */)					{}
 	virtual void			On_Set_Cursor (const Vector2 &mouse_pos);
 	virtual void			On_Create (void)										{}
 	virtual void			On_Destroy (void)										{}

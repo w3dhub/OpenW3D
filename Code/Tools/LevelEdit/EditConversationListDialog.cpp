@@ -224,7 +224,7 @@ EditConversationListDialogClass::Update_Conversation (int index)
 void
 EditConversationListDialogClass::OnDblclkConversationList
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

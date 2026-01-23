@@ -1272,7 +1272,7 @@ void WeatherSystemClass::Get_Obj_Space_Bounding_Box (AABoxClass &box) const
  * HISTORY:                                                                                    *
  *   03/06/01    IML : Created.                                                                *
  *=============================================================================================*/
-RainSystemClass::RainSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass *wind, SoundEnvironmentClass *soundenvironment, bool prime)
+RainSystemClass::RainSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass * /* wind */, SoundEnvironmentClass *soundenvironment, bool prime)
 	: WeatherSystemClass (scene, 20.0f, 20.0f, particledensity, 0.2f, 0.15f, 0.45f, 15.0f, Vector2 (0.0f, 0.0f), Vector2 (1.0f, 0.5f), PAGE_COUNT, true, 0.1f, 0.2f, WeatherSystemClass::RENDER_MODE_AXIS_ALIGNED, false, prime),
 	  SoundEnvironment (soundenvironment)
 {
@@ -1355,7 +1355,7 @@ bool RainSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
  * HISTORY:                                                                                    *
  *   03/06/01    IML : Created.                                                                *
  *=============================================================================================*/
-SnowSystemClass::SnowSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass *wind, bool prime)
+SnowSystemClass::SnowSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass * /* wind */, bool prime)
 	: WeatherSystemClass (scene, 40.0f, 20.0f, particledensity, 0.1f, 0.32f, 0.32f, 3.5f, Vector2 (0.0f, 0.5f), Vector2 (1.0f, 0.25f), PAGE_COUNT, false, 1.0f, 2.0f, WeatherSystemClass::RENDER_MODE_CAMERA_ALIGNED, true, prime)
 {
 }
@@ -1392,7 +1392,7 @@ bool SnowSystemClass::Update (WindClass *wind, const Vector3 &cameraposition)
  * HISTORY:                                                                                    *
  *   03/06/01    IML : Created.                                                                *
  *=============================================================================================*/
-AshSystemClass::AshSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass *wind, bool prime)
+AshSystemClass::AshSystemClass (PhysicsSceneClass *scene, float particledensity, WindClass * /* wind */, bool prime)
 	: WeatherSystemClass (scene, 40.0f, 20.0f, particledensity, 0.1f, 0.32f, 0.32f, 3.0f, Vector2 (0.0f, 0.75f), Vector2 (1.0f, 0.25f), PAGE_COUNT, false, 1.0f, 2.0f, WeatherSystemClass::RENDER_MODE_CAMERA_ALIGNED, true, prime)
 {
 }

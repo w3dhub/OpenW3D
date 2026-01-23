@@ -158,7 +158,7 @@ MainDialogBarClass::OnSize
 void
 MainDialogBarClass::OnSelchangeLibraryTab
 (
-	NMHDR* pNMHDR,
+	NMHDR* /* pNMHDR */,
 	LRESULT* pResult
 ) 
 {

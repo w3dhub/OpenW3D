@@ -514,7 +514,7 @@ MPChatChildDialogClass::Complete_Player_Name (const unichar_t *typed_name, WideS
 //
 //////////////////////////////////////////////////////////////////////
 void
-MPChatChildDialogClass::On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id)
+MPChatChildDialogClass::On_EditCtrl_Enter_Pressed (EditCtrlClass * /* edit_ctrl */, int /* ctrl_id */)
 {
 	//
 	//	Send the message
@@ -538,7 +538,7 @@ MPChatChildDialogClass::On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int
 //
 //////////////////////////////////////////////////////////////////////
 void
-MPChatChildDialogClass::On_EditCtrl_Change (EditCtrlClass *edit_ctrl, int ctrl_id)
+MPChatChildDialogClass::On_EditCtrl_Change (EditCtrlClass *edit_ctrl, int /* ctrl_id */)
 {
 	if (TestForAutoCompletion == false) {
 		return ;
@@ -634,7 +634,7 @@ MPChatChildDialogClass::On_EditCtrl_Key_Down
 (
 	EditCtrlClass *	edit_ctrl,
 	uint32				key_id,
-	uint32				key_data
+	uint32				/* key_data */
 )
 {
 	bool retval					= false;

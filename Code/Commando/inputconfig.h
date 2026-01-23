@@ -77,8 +77,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public operators
 	////////////////////////////////////////////////////////////////
-	bool operator== (const InputConfigClass &src)	{ return false; }
-	bool operator!= (const InputConfigClass &src)	{ return true; }
+	bool operator== (const InputConfigClass &/* src*/)	{ return false; }
+	bool operator!= (const InputConfigClass &/* src*/)	{ return true; }
 
 	const InputConfigClass &operator= (const InputConfigClass &src);
 

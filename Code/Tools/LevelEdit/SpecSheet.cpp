@@ -396,7 +396,7 @@ SpecSheetClass::Get_Parameter (int index)
 //
 /////////////////////////////////////////////////////////////////////////////
 LRESULT
-SpecSheetClass::OnNcHitTest (CPoint point) 
+SpecSheetClass::OnNcHitTest (CPoint /* point */) 
 {
 	return HTCLIENT;
 }

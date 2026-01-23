@@ -542,7 +542,7 @@ void CompressedVisTableClass::Compress(uint8 * src_buffer,int src_size)
 	delete[] comp_buffer;
 }
 
-void CompressedVisTableClass::Decompress(uint8 * decomp_buffer,int decomp_size)
+void CompressedVisTableClass::Decompress(uint8 * decomp_buffer,[[maybe_unused]] int decomp_size)
 {
 	WWMEMLOG(MEM_VIS);
 	lzo_uint size;

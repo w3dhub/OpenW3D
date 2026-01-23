@@ -41,7 +41,7 @@
 #include "playerkill.h"
 
 //-----------------------------------------------------------------------------
-bool GameCombatNetworkHandlerClass::Can_Damage(ArmedGameObj * p_armed_damager, 
+bool GameCombatNetworkHandlerClass::Can_Damage(ArmedGameObj * /* p_armed_damager */, 
 	PhysicalGameObj * p_phys_victim)
 {
 	WWASSERT(p_phys_victim != NULL);
@@ -65,7 +65,7 @@ bool GameCombatNetworkHandlerClass::Can_Damage(ArmedGameObj * p_armed_damager,
 //-----------------------------------------------------------------------------
 float GameCombatNetworkHandlerClass::Get_Damage_Factor
 (
-	ArmedGameObj *		p_armed_damager, 
+	ArmedGameObj *		/* p_armed_damager */, 
 	PhysicalGameObj *	p_phys_victim
 )
 {

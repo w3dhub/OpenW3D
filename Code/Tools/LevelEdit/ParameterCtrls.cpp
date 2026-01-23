@@ -1705,7 +1705,7 @@ ColorParameterCtrlClass::On_Command
 (
 	HWND		parent_wnd,
 	WPARAM	wparam,
-	LPARAM	lparam
+	LPARAM	/* lparam */
 )
 {
 	bool retval = false;
@@ -1753,7 +1753,7 @@ ColorParameterCtrlClass::On_Command
 bool
 ColorParameterCtrlClass::On_DrawItem
 (
-	HWND		parent_wnd,
+	HWND		/* parent_wnd */,
 	WPARAM	wparam,
 	LPARAM	lparam
 )
@@ -1908,7 +1908,7 @@ PhysDefParameterCtrlClass::On_Command
 (
 	HWND		parent_wnd,
 	WPARAM	wparam,
-	LPARAM	lparam
+	LPARAM	/* lparam */
 )
 {
 	bool retval = false;
@@ -2195,7 +2195,7 @@ ScriptParameterCtrlClass::On_Command
 (
 	HWND		parent_wnd,
 	WPARAM	wparam,
-	LPARAM	lparam
+	LPARAM	/* lparam */
 )
 {
 	bool retval = false;
@@ -2368,7 +2368,7 @@ DefIDListParameterCtrlClass::On_Command
 (
 	HWND		parent_wnd,
 	WPARAM	wparam,
-	LPARAM	lparam
+	LPARAM	/* lparam */
 )
 {
 	bool retval = false;
@@ -2528,9 +2528,9 @@ ZoneParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 bool
 ZoneParameterCtrlClass::On_Command
 (
-	HWND		parent_wnd,
-	WPARAM	wparam,
-	LPARAM	lparam
+	HWND		/* parent_wnd */,
+	WPARAM	/* wparam */,
+	LPARAM	/* lparam */
 )
 {
 	bool retval = false;
@@ -2651,7 +2651,7 @@ FilenameListParameterCtrlClass::On_Command
 (
 	HWND		parent_wnd,
 	WPARAM	wparam,
-	LPARAM	lparam
+	LPARAM	/* lparam */
 )
 {
 	bool retval = false;

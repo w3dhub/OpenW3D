@@ -283,7 +283,7 @@ void	PlayerDataClass::Increment_Money( float add )
 /*
 **
 */
-void	PlayerDataClass::Apply_Damage_Points( float points, DamageableGameObj * victim )
+void	PlayerDataClass::Apply_Damage_Points( float points, DamageableGameObj * /* victim */ )
 {
 	//Increment_Score( ::fabs(points) );
 	Increment_Score( points );
@@ -295,7 +295,7 @@ void	PlayerDataClass::Apply_Damage_Points( float points, DamageableGameObj * vic
 
 }
 
-void	PlayerDataClass::Apply_Death_Points( float points, DamageableGameObj * victim )
+void	PlayerDataClass::Apply_Death_Points( float points, DamageableGameObj * /* victim */ )
 {
 	Increment_Score( points );
 

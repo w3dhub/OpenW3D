@@ -444,7 +444,7 @@ Vector3 cPlayer::Get_Color(void) const
 }
 
 //------------------------------------------------------------------------------------
-void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_verbose)
+void cPlayer::Get_Player_String(int /* rank */, WideStringClass & string, bool force_verbose)
 {
    //
    // Compose a string description of a player's stats for display

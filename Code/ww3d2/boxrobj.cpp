@@ -441,7 +441,7 @@ int BoxRenderObjClass::Get_Box_Display_Mask(void)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-void BoxRenderObjClass::render_box(RenderInfoClass & rinfo,const Vector3 & center,const Vector3 & extent)
+void BoxRenderObjClass::render_box(RenderInfoClass & /*rinfo*/,const Vector3 & center,const Vector3 & extent)
 {
 	if (!IsInitted) return;
 	if (DisplayMask & Get_Collision_Type()) {

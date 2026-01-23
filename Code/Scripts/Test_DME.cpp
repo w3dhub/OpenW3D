@@ -46,7 +46,7 @@ DECLARE_SCRIPT (DME_Test_Powerup, "")
 	}
 
 
-	void Killed( GameObject * obj, GameObject * killer ) override
+	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		
 		Commands->Trigger_Spawner ( 100022 );
@@ -233,7 +233,7 @@ DECLARE_SCRIPT (DME_Waypath_test, "")
 
 DECLARE_SCRIPT (DME_Test_Ejected_Soldier, "")
 {
-	void Killed ( GameObject * obj, GameObject * killer ) override
+	void Killed ( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		Vector3 spawn_loc = Commands->Get_Position ( obj );
 		spawn_loc.Z -= 30.0f;
@@ -377,7 +377,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override	//this is called when the servant reaches the destination location.
+	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/ ) override	//this is called when the servant reaches the destination location.
 	{																										//the purpose of this function is to have the servant perform their destination animation.
 		
 		Vector3 current_loc = Commands->Get_Position ( obj );
@@ -513,7 +513,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Enemy_Seen (GameObject* obj, GameObject* enemy) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
+	void Enemy_Seen (GameObject* obj, GameObject* /*enemy*/) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
 	{
 		if (star_seen == false)
 		{
@@ -541,7 +541,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		
 	}
 
-	void Poked(GameObject * obj, GameObject * poker) override  //function runs from a pre-defined random poke_choice.
+	void Poked(GameObject * obj, GameObject * /*poker*/) override  //function runs from a pre-defined random poke_choice.
 	{
 		if (poked == !true)
 		{
@@ -673,7 +673,7 @@ DECLARE_SCRIPT (DME_Test_Work_Area, "")			//this script needs to be placed on al
 {												//the script takes and returns customs to tell servants if a location is occupied.
 	bool occupied;								//type & param info:
 												//50 - is destination occupied?
-	void Created( GameObject * obj ) override	//  100 - no
+	void Created( GameObject * /*obj*/ ) override	//  100 - no
 	{											//  200 - yes
 		occupied = false;						//70 - change occupied status to true
 	}											//90 - change occupied status to false
@@ -714,12 +714,12 @@ DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")
 {
 	bool entered;
 
-	void Created ( GameObject * obj) override
+	void Created ( GameObject * /*obj*/) override
 	{
 		entered = false;
 	}
 	
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * sender) override
 	{
 		if (entered == false)
 		{
@@ -798,7 +798,7 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 		}
 	}
 
-	void Timer_Expired (GameObject* obj, int timer_id) override
+	void Timer_Expired (GameObject* /*obj*/, int timer_id) override
 	{
 		ActionParamsStruct params;
 
@@ -886,7 +886,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		
 	}
 
-	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override	//this is called when the servant reaches the destination location.
+	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/ ) override	//this is called when the servant reaches the destination location.
 	{																										//the purpose of this function is to have the servant perform their destination animation.
 		
 		Vector3 current_loc = Commands->Get_Position ( obj );
@@ -974,7 +974,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		}		
 	}
 
-	void Enemy_Seen (GameObject* obj, GameObject* enemy) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
+	void Enemy_Seen (GameObject* obj, GameObject* /*enemy*/) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
 	{
 		if (star_seen == false)
 		{
@@ -1003,7 +1003,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 
 DECLARE_SCRIPT (test_Ssm_Trigger, "")
 {
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override
 	{
 		if (damager == STAR)
 		{
@@ -1014,7 +1014,7 @@ DECLARE_SCRIPT (test_Ssm_Trigger, "")
 
 DECLARE_SCRIPT(DME_Cinematic_Test, "")
 {
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 	/*	Commands->Enable_Hibernation(obj, false);
 		Commands->Set_Player_Type(obj, PLAYERTYPE_NEUTRAL );
@@ -1022,7 +1022,7 @@ DECLARE_SCRIPT(DME_Cinematic_Test, "")
 	}
 
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 	/*	GameObject * chinook_obj0 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 		Commands->Set_Facing(chinook_obj0, 0.0f);

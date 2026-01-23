@@ -738,7 +738,7 @@ void PhysicsSceneClass::Vis_Render_And_Scan(VisRenderContextClass & context,VisS
 	*/
 	if (!vis_sample.Sample_Rejected()) {
 		context.VisRasterizer->Set_Render_Mode(IDBufferClass::NON_OCCLUDER_MODE);
-		StaticCullingSystem->Evaluate_Non_Occluder_Visibility(context,vis_sample);
+		StaticCullingSystem->Evaluate_Non_Occluder_Visibility(context);
 		DynamicObjVisSystem->Evaluate_Non_Occluder_Visibility(context);
 	}
 

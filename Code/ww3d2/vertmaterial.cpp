@@ -869,7 +869,7 @@ WW3DErrorType VertexMaterialClass::Load_W3D(ChunkLoadClass & cload)
 }
 
 
-WW3DErrorType VertexMaterialClass::Save_W3D(ChunkSaveClass & csave)
+WW3DErrorType VertexMaterialClass::Save_W3D(ChunkSaveClass & /* csave */)
 {
 	WWASSERT(0);
 	return WW3D_ERROR_OK;

@@ -173,7 +173,7 @@ DECLARE_SCRIPT(M00_Siege_Actor_RAD, "Start_Now=1:int, Receive_Type:int, Receive_
 	bool	script_active;
 	bool	debug_mode;
 
-	void Created (GameObject* obj) override
+	void Created (GameObject* /*obj*/) override
 	{
 		registered_zone = 0;
 		my_group_id = Get_Int_Parameter("My_Group_ID");

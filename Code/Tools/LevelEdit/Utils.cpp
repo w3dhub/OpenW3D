@@ -999,7 +999,7 @@ Browse_For_Folder
 (	
 	CString &folder,
 	HWND hparentwnd,
-	LPCTSTR default_path,
+	LPCTSTR /* default_path */,
 	LPCTSTR title,
 	UINT flags
 )

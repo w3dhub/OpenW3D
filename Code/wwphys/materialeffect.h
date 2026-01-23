@@ -94,7 +94,7 @@ public:
 	void					Enable_Suppress_Shadows(bool onoff)		{ SuppressShadows = onoff; }
 	bool					Are_Shadows_Suppressed(void)				{ return SuppressShadows; }
 
-	virtual void		Timestep(float dt)							{ }
+	virtual void		Timestep(float /* dt */)							{ }
 
 	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj)		= 0;
 	virtual void		Render_Pop(RenderInfoClass & rinfo)								= 0;

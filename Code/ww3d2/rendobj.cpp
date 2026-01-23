@@ -601,7 +601,7 @@ int RenderObjClass::Remove_Sub_Objects_From_Bone(const char * bname)
  * HISTORY:                                                                                    *
  *   3/11/99    NH : Created.                                                                  *
  *=============================================================================================*/
-void RenderObjClass::Prepare_LOD(CameraClass &camera)
+void RenderObjClass::Prepare_LOD(CameraClass &/*camera*/)
 {
 	// Since most RenderObjClass derivatives are not LOD-capable, the default
 	// implementation just sets the texture reduction factor and doesn't do any
@@ -659,7 +659,7 @@ float RenderObjClass::Get_Cost(void) const
  * HISTORY:                                                                                    *
  *   3/11/99    NH : Created.                                                                  *
  *=============================================================================================*/
-int RenderObjClass::Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const
+int RenderObjClass::Calculate_Cost_Value_Arrays(float /*screen_area*/, float *values, float *costs) const
 {
 	values[0] = AT_MIN_LOD;
 	values[1] = AT_MAX_LOD;
@@ -834,7 +834,7 @@ void RenderObjClass::Notify_Added(SceneClass * scene)
  * HISTORY:                                                                                    *
  *   2/25/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-void RenderObjClass::Notify_Removed(SceneClass * scene)
+void RenderObjClass::Notify_Removed(SceneClass * /*scene*/)
 {
 	Scene = NULL;
 }
@@ -1266,7 +1266,7 @@ const PersistFactoryClass & RenderObjClass::Get_Factory (void) const
 	return _RenderObjPersistFactory;	
 }
 
-bool RenderObjClass::Save (ChunkSaveClass &csave)
+bool RenderObjClass::Save (ChunkSaveClass &/*csave*/)
 {
 	// This should never hit with the persist factory we're using...
 	// Yes this looks like a design flaw but the way we're saving render objects is 
@@ -1277,7 +1277,7 @@ bool RenderObjClass::Save (ChunkSaveClass &csave)
 	return true;
 }
 
-bool RenderObjClass::Load (ChunkLoadClass &cload)
+bool RenderObjClass::Load (ChunkLoadClass &/*cload*/)
 {
 	WWASSERT(0); // this should never hit with the persist factory we're using.
 	return true;

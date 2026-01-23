@@ -653,11 +653,11 @@ CGraphicView::WindowProc
 void CALLBACK
 fnTimerCallback
 (
-	UINT uID,
-	UINT uMsg,
+	UINT /* uID */,
+	UINT /* uMsg */,
 	DWORD_PTR dwUser,
-	DWORD_PTR dw1,
-	DWORD_PTR dw2
+	DWORD_PTR /* dw1 */,
+	DWORD_PTR /* dw2 */
 )
 {
 	HWND hwnd = (HWND)dwUser;

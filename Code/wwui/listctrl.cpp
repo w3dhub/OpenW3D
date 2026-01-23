@@ -430,7 +430,7 @@ ListCtrlClass::Render_Entry (const RectClass &clip_rect, int col_index, int row_
 //
 ////////////////////////////////////////////////////////////////
 void
-ListCtrlClass::On_Set_Cursor (const Vector2 &mouse_pos)
+ListCtrlClass::On_Set_Cursor (const Vector2 &/* mouse_pos */)
 {
 	if (IsSelectionAllowed) {
 		//
@@ -960,7 +960,7 @@ ListCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-ListCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+ListCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	return ;
 }
@@ -1016,7 +1016,7 @@ ListCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //
 ////////////////////////////////////////////////////////////////
 bool
-ListCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+ListCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	bool handled = true;
 
@@ -2310,7 +2310,7 @@ ListCtrlClass::Scroll_Page (int direction)
 //
 ////////////////////////////////////////////////////////////////
 void
-ListCtrlClass::On_VScroll_Page (ScrollBarCtrlClass *scrollbar, int ctrl_id, int direction)
+ListCtrlClass::On_VScroll_Page (ScrollBarCtrlClass * /* scrollbar */, int /* ctrl_id */, int direction)
 {
 	Scroll_Page (direction);
 	return ;

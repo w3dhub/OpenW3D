@@ -512,7 +512,7 @@ MPWolBuddiesMenuClass::HandleNotification(WOLBuddyMgrEvent &event)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolBuddiesMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int oldsel, int newsel)
+MPWolBuddiesMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int /* oldsel */, int newsel)
 {
 	if (IDC_BUDDY_LIST_CTRL == id) {
 		if (newsel != -1) {
@@ -536,7 +536,7 @@ MPWolBuddiesMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int o
 //
 ////////////////////////////////////////////////////////////////
 void
-MPWolBuddiesMenuClass::On_ListCtrl_DblClk(ListCtrlClass* list_ctrl, int ctrl_id, int item_index)
+MPWolBuddiesMenuClass::On_ListCtrl_DblClk(ListCtrlClass* list_ctrl, int ctrl_id, int /* item_index */)
 {
 	if (IDC_BUDDY_LIST_CTRL == ctrl_id) {
 		//	Get the index of the currently selected user in the list control
@@ -580,7 +580,7 @@ MPWolBuddiesMenuClass::On_ListCtrl_DblClk(ListCtrlClass* list_ctrl, int ctrl_id,
 }
 
 
-void MPWolBuddiesMenuClass::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* , int id, int , int newsel)
+void MPWolBuddiesMenuClass::On_ComboBoxCtrl_Sel_Change(ComboBoxCtrlClass* , int id, int , int /* newsel */)
 {
 	if (id == IDC_RANKTYPE) {
 		ListCtrlClass* list = (ListCtrlClass*)Get_Dlg_Item(IDC_BUDDY_LIST_CTRL);

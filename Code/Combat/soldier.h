@@ -158,7 +158,7 @@ public:
 	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 ) override;
    virtual	void	Apply_Damage_Extended( const OffenseObjectClass & offense, float scale = 1.0f,
 			const	Vector3 & direction = Vector3( 0,0,0 ), const char * collision_box_name = NULL ) override;
-	virtual	void	Completely_Damaged( const OffenseObjectClass & damager ) override {}
+	virtual	void	Completely_Damaged( const OffenseObjectClass & /* damager */ ) override {}
 	virtual CollisionReactionType	Collision_Occurred( const CollisionEventClass & event ) override;
 	virtual	Vector3	Get_Bullseye_Position( void ) override;
 

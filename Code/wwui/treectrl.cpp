@@ -465,7 +465,7 @@ TreeCtrlClass::Create_Control_Renderers (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-TreeCtrlClass::On_Set_Cursor (const Vector2 &mouse_pos)
+TreeCtrlClass::On_Set_Cursor (const Vector2 &/* mouse_pos */)
 {
 	//
 	//	Change the mouse cursor
@@ -654,10 +654,10 @@ TreeCtrlClass::Sort_Callback (const void *elem1, const void *elem2)
 int
 TreeCtrlClass::Alphabetic_Sort_Callback
 (
-	TreeCtrlClass *	tree_ctrl,
+	TreeCtrlClass *	/* tree_ctrl */,
 	TreeItemClass *	item1,
 	TreeItemClass *	item2,
-	uint32				user_param
+	uint32				/* user_param */
 )
 {
 	//
@@ -856,7 +856,7 @@ TreeCtrlClass::On_LButton_DblClk (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-TreeCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+TreeCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	return ;
 }
@@ -917,7 +917,7 @@ TreeCtrlClass::On_Mouse_Wheel (int direction)
 //
 ////////////////////////////////////////////////////////////////
 bool
-TreeCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+TreeCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	bool handled = false;
 	bool is_dirty = true;

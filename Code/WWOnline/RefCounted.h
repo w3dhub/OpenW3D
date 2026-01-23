@@ -73,10 +73,10 @@ class RefCounted
 			{assert(mRefCount == 0);}
 
 		// Should not be allowed by default
-		inline virtual bool operator==(const RefCounted&) const
+		inline virtual bool operator==(const RefCounted&/* src*/) const
 			{return false;}
 
-		inline bool operator!=(const RefCounted&) const
+		inline bool operator!=(const RefCounted&/* src*/) const
 			{return false;}
 
 	private:

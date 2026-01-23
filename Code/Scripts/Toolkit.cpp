@@ -108,13 +108,13 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 		fprintf(file, "%s [ID %d] received custom event of type %d and param %d.  Sender was object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), type, (int)param, Commands->Get_ID(sender), difftime(current_time, start_time));
 	}
 
-	void Damaged(GameObject * obj, GameObject * damager, float amount) override
+	void Damaged(GameObject * obj, GameObject * damager, float /*amount*/) override
 	{
 		current_time = time(NULL);
 		fprintf(file, "%s [ID %d] damaged by object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), Commands->Get_ID(damager), difftime(current_time, start_time));
 	}
 
-	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
+	void Sound_Heard( GameObject * /*obj*/, const CombatSound & /*sound*/ ) override
 	{
 	//	fprintf(file, "%s [ID %d] heard a sound.   %3.1f sec.\n", desc, Commands->Get_ID(obj), current_time);
 	}
@@ -137,7 +137,7 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 		fprintf(file, "%s [ID %d] killed by object %d.   %3.1f sec.\n", desc, Commands->Get_ID(obj), Commands->Get_ID(killer), difftime(current_time, start_time));
 	}
 
-	void Destroyed(GameObject * obj) override
+	void Destroyed(GameObject * /*obj*/) override
 	{
 		fclose(file);
 	}
@@ -319,7 +319,7 @@ DECLARE_SCRIPT(M00_Enable_Physical_Collision_JDG, "")
 
 DECLARE_SCRIPT(M00_C130_Explosion, "")
 {
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Create_Explosion_At_Bone("Explosion_Cargo_Plane", obj, "BODYMAIN", NULL);
 		//JDG updated this script due to explosion preset name change--07/27/2001
@@ -342,7 +342,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		object_detached = false;
 		attached_object_id = 0;
@@ -359,7 +359,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id) override
+	void Timer_Expired(GameObject * /*obj*/, int timer_id) override
 	{
 		if (timer_id == OBJECT_DETACHED)
 		{
@@ -368,7 +368,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * /*obj*/, GameObject * /*killer*/) override
 	{
 		if(!object_detached)
 		{
@@ -616,13 +616,13 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 		SAVE_VARIABLE(deadYet, 2);
 	}
 
-	void Created( GameObject * obj ) override
+	void Created( GameObject * /*obj*/ ) override
 	{
 		deadYet = false;
 		controller_id = Get_Int_Parameter("Controller_ID");
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override
 	{
 		if (obj && deadYet == false && damager == STAR)
 		{
@@ -641,7 +641,7 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 		}
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /*sender*/ ) override
 	{
 		if (param == M01_MODIFY_YOUR_ACTION_JDG && deadYet == false)//you've been ordered to blow up--DO IT!
 		{
@@ -794,7 +794,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		Commands->Start_Timer (obj, this, 1.0f, 2);
 	}
 
-	void Killed( GameObject * obj, GameObject * killer ) override
+	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		//telling AGT guns that AGT has been killed (2/12/2002 JDG)
 		GameObject * gun_01 = Commands->Find_Object (gun_01_id);
@@ -894,7 +894,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		GameObject * gun_01 = Commands->Find_Object (gun_01_id);
 		GameObject * gun_02 = Commands->Find_Object (gun_02_id);
@@ -999,7 +999,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Gun, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == 1)
 		{
@@ -1037,7 +1037,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Missile, "")
 		firing = false;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == 1)
 		{
@@ -1077,7 +1077,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower_Missile, "")
 
 DECLARE_SCRIPT (M00_Purchase_Terminal_GDI, "")
 {
-	void Poked (GameObject * obj, GameObject * poker) override
+	void Poked (GameObject * /*obj*/, GameObject * /*poker*/) override
 	{
 		Commands->Display_GDI_Player_Terminal ();
 	}
@@ -1085,7 +1085,7 @@ DECLARE_SCRIPT (M00_Purchase_Terminal_GDI, "")
 
 DECLARE_SCRIPT (M00_Purchase_Terminal_NOD, "")
 {
-	void Poked (GameObject * obj, GameObject * poker) override
+	void Poked (GameObject * /*obj*/, GameObject * /*poker*/) override
 	{
 		Commands->Display_NOD_Player_Terminal ();
 	}
@@ -1094,7 +1094,7 @@ DECLARE_SCRIPT (M00_Purchase_Terminal_NOD, "")
 
 DECLARE_SCRIPT (M00_Purchase_Terminal_Mutant, "")
 {
-	void Poked (GameObject * obj, GameObject * poker) override
+	void Poked (GameObject * /*obj*/, GameObject * /*poker*/) override
 	{
 		Commands->Display_Mutant_Player_Terminal ();
 	}
@@ -1219,7 +1219,7 @@ DECLARE_SCRIPT (M00_Nod_Turret, "")
 		Commands->Start_Timer (obj, this, 2.0f, 2);
 	}
 
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 		Vector3 myPositon = Commands->Get_Position ( obj );
 		float myFacing  = Commands->Get_Facing ( obj );
@@ -1228,7 +1228,7 @@ DECLARE_SCRIPT (M00_Nod_Turret, "")
 		Commands->Set_Facing ( destroyedTurret, myFacing );
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/) override
 	{
 		if (action_id == 2)
 		{
@@ -1263,7 +1263,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk_CNC, "Controller_ID=0:int")
 		}
 	}
 
-	void Killed( GameObject * obj, GameObject * killer ) override
+	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		GameObject * obelisk = Commands->Find_Object(obelisk_id);
 		if (obelisk != NULL)
@@ -1298,7 +1298,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk_CNC, "Controller_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == 1) && (param == 1))
 		{
@@ -1362,7 +1362,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon_CNC, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == 1)
 		{
@@ -1541,7 +1541,7 @@ DECLARE_SCRIPT(M00_Nod_Obelisk, "Controller_ID=0:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == 1) && (param == 1))
 		{
@@ -1595,7 +1595,7 @@ DECLARE_SCRIPT (M00_Obelisk_Weapon, "")
 		Commands->Send_Custom_Event (obj, obj, 2, enemy_id, 0.0f);
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == 1)
 		{
@@ -1720,7 +1720,7 @@ DECLARE_SCRIPT (M00_Select_Empty_Hands, "On_Created=1:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if(type == M00_SELECT_EMPTY_HANDS)
 		{
@@ -1731,7 +1731,7 @@ DECLARE_SCRIPT (M00_Select_Empty_Hands, "On_Created=1:int")
 
 DECLARE_SCRIPT(M00_ArmorMedal_TextMessage_JDG, "")
 {
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -1742,7 +1742,7 @@ DECLARE_SCRIPT(M00_ArmorMedal_TextMessage_JDG, "")
 
 DECLARE_SCRIPT(M00_HealthMedal_TextMessage_JDG, "")
 {
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
 		{
@@ -1782,7 +1782,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		ssm_missile_id = Commands->Get_ID(ssm_missile);
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if(type == M00_LAUNCH_SSM)
 		{
@@ -1793,7 +1793,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		}
 	}
 
-	void Timer_Expired (GameObject *obj, int Timer_ID) override
+	void Timer_Expired (GameObject * /*obj*/, int Timer_ID) override
 	{
 		if (Timer_ID == 66000)
 		{
@@ -1801,7 +1801,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 		}
 	}
 
-	void Killed (GameObject *obj, GameObject *killer) override
+	void Killed (GameObject * /*obj*/, GameObject * /*killer*/) override
 	{
 		if (!launched)
 		{
@@ -1852,7 +1852,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 		notStar_modifier = Get_Int_Parameter("NotStar_Modifier");
 	}
 
-	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
+	void Custom (GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == M00_ENABLE_DAMAGE_MOD)
 		{
@@ -1867,7 +1867,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 		}
 	}		
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override
 	{
 		if (mod_on)
 		{
@@ -2049,7 +2049,7 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/) override
 	{
 		if (action_id == 2)
 		{
@@ -2057,7 +2057,7 @@ DECLARE_SCRIPT (M00_Base_Defense, "MinAttackDistance=0:int, MaxAttackDistance=30
 		}
 	}
 
-	void Exited (GameObject* obj, GameObject* exiter) override
+	void Exited (GameObject* obj, GameObject* /*exiter*/) override
 	{
 		// set team back to my preset.
 		Commands->Set_Player_Type( obj, player_type );

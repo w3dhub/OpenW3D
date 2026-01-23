@@ -349,8 +349,7 @@ void StaticAABTreeCullClass::Evaluate_Occluder_Visibility
 
 void StaticAABTreeCullClass::Evaluate_Non_Occluder_Visibility
 (
-	VisRenderContextClass &		context,
-	VisSampleClass &				sample
+	VisRenderContextClass &		context
 )
 {
 	/*
@@ -401,22 +400,6 @@ void StaticAABTreeCullClass::Evaluate_Non_Occluder_Visibility
 
 				if (context.VisRasterizer->Get_Pixel_Counter() > 0) {			// if any pixels passed, the obj is visible!
 					context.VisTable.Set_Bit(obj->Get_Vis_Object_ID(),true);
-
-#if 0
-					/*
-					** DEBUGGING!!! If _test_vis_id is visible, display the vis buffer!
-					** If you want to use this, disable the early exit above: 
-					** (context.VisTable.Get_Bit(obj->Get_Vis_Object_ID() == 0)
-					*/
-					static int _test_vis_id = -1;
-					if ((_test_vis_id != -1) && (obj->Get_Vis_Object_ID() == _test_vis_id)) {
-						context.Set_Vis_ID(0x00FFFFFF);	// set up a highly visible vis id
-						context.VisRasterizer->Set_Render_Mode(IDBufferClass::OCCLUDER_MODE);
-						obj->Vis_Render(context);
-						PhysicsSceneClass::Get_Instance()->On_Vis_Occluders_Rendered(context,sample);
-						context.VisRasterizer->Set_Render_Mode(IDBufferClass::NON_OCCLUDER_MODE);
-					}
-#endif
 				}
 			}
 		}

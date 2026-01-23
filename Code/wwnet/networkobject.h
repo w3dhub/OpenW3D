@@ -116,15 +116,15 @@ public:
 	//
 	//	Server-to-client data importing/exporting
 	//
-	virtual void		Import_Creation (BitStreamClass &packet)				{}
-	virtual void		Import_Rare (BitStreamClass &packet)					{}
-	virtual void		Import_Occasional (BitStreamClass &packet)			{}
-	virtual void		Import_Frequent (BitStreamClass &packet)				{}
+	virtual void		Import_Creation (BitStreamClass &/* packet */)				{}
+	virtual void		Import_Rare (BitStreamClass &/* packet */)					{}
+	virtual void		Import_Occasional (BitStreamClass &/* packet */)			{}
+	virtual void		Import_Frequent (BitStreamClass &/* packet */)				{}
 
-	virtual void		Export_Creation (BitStreamClass &packet)				{}
-	virtual void		Export_Rare (BitStreamClass &packet)					{}
-	virtual void		Export_Occasional (BitStreamClass &packet)			{}
-	virtual void		Export_Frequent (BitStreamClass &packet)				{}
+	virtual void		Export_Creation (BitStreamClass &/* packet */)				{}
+	virtual void		Export_Rare (BitStreamClass &/* packet */)					{}
+	virtual void		Export_Occasional (BitStreamClass &/* packet */)			{}
+	virtual void		Export_Frequent (BitStreamClass &/* packet */)				{}
 
 	//
 	//	Timestep support
@@ -163,7 +163,7 @@ public:
 	//	Filtering support
 	//
 	virtual int			Get_Vis_ID (void)																		{ return -1; }
-	virtual bool		Get_World_Position (Vector3 &pos) const										{ return false; }
+	virtual bool		Get_World_Position (Vector3 &/* pos */) const										{ return false; }
 	virtual float		Get_Filter_Distance(void) const													{ return 10000.0f; }
 
 	//
@@ -201,7 +201,7 @@ public:
 	//	Diagnostics
 	//
 	virtual bool		Is_Tagged(void)											{ return false; }
-	virtual void		Get_Description(StringClass & description)		{}
+	virtual void		Get_Description(StringClass & /* description */)		{}
 
 	void					Set_Unreliable_Override(bool flag)					{UnreliableOverride = flag;}
 	bool					Get_Unreliable_Override(void)							{return UnreliableOverride;}

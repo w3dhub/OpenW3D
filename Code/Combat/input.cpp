@@ -698,7 +698,7 @@ void	Input::Free_Mappings( void )
 }
 
 
-void	Input::Load_Registry( const char * key )
+void	Input::Load_Registry( const char * /* key */ )
 {
 	/*RegistryClass * registry = new RegistryClass( key );
 	WWASSERT( registry );
@@ -714,7 +714,7 @@ void	Input::Load_Registry( const char * key )
 
 }
 
-void	Input::Save_Registry( const char * key )
+void	Input::Save_Registry( const char * /* key */ )
 {
 	/*RegistryClass * registry = new RegistryClass( key );
 	WWASSERT( registry );
@@ -1021,7 +1021,7 @@ bool	Input::Is_Button_Down (int button_id)
 /*
 **
 */
-float	Input::Get_Value( int function_index, int input, float clamp )
+float	Input::Get_Value( int function_index, int input, float /* clamp */ )
 {
 	if (!UsingDirectInput) {
 		return(0.0f);

@@ -129,8 +129,8 @@ protected:
 		int					ctrl_id;
 		WideStringClass	text;
 		
-		bool operator== (const ShortcutInfoStruct &src)	{ return false; }
-		bool operator!= (const ShortcutInfoStruct &src)	{ return true; }
+		bool operator== (const ShortcutInfoStruct &/* src*/)	{ return false; }
+		bool operator!= (const ShortcutInfoStruct &/* src*/)	{ return true; }
 	};
 
 	////////////////////////////////////////////////////////////////

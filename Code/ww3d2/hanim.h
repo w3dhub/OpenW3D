@@ -92,8 +92,8 @@ public:
 //	virtual Vector3			Get_Translation(int pividx,float frame) = 0;
 //	virtual Quaternion		Get_Orientation(int pividx,float frame) = 0;
 	// Jani: Changed to pass in reference of destination to avoid copying
-	virtual void				Get_Translation(int pividx,float frame) {}	// todo: remove
-	virtual void				Get_Orientation(int pividx,float frame) {}	// todo: remove
+	//virtual void				Get_Translation(int pividx,float frame) {}	// todo: remove
+	//virtual void				Get_Orientation(int pividx,float frame) {}	// todo: remove
 	virtual void				Get_Translation(Vector3& translation, int pividx,float frame) const = 0;
 	virtual void				Get_Orientation(Quaternion& orientation, int pividx,float frame) const = 0;
 	virtual void				Get_Transform(Matrix3D&, int pividx, float frame) const = 0;
@@ -103,11 +103,11 @@ public:
 	virtual bool				Is_Node_Motion_Present(int pividx) = 0;
 
 	// Methods that test the presence of a certain motion channel.
-	virtual bool				Has_X_Translation (int pividx)	{ return true; }
-	virtual bool				Has_Y_Translation (int pividx)	{ return true; }
-	virtual bool				Has_Z_Translation (int pividx)	{ return true; }
-	virtual bool				Has_Rotation (int pividx)			{ return true; }
-	virtual bool				Has_Visibility (int pividx)		{ return true; }
+	virtual bool				Has_X_Translation (int /* pividx */)	{ return true; }
+	virtual bool				Has_Y_Translation (int /* pividx */)	{ return true; }
+	virtual bool				Has_Z_Translation (int /* pividx */)	{ return true; }
+	virtual bool				Has_Rotation (int /* pividx */)			{ return true; }
+	virtual bool				Has_Visibility (int /* pividx */)		{ return true; }
 
 	// Animated sound-triggering support
 	virtual bool				Has_Embedded_Sounds (void) const			{ return HasEmbeddedSounds; }

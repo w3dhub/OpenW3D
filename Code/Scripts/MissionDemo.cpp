@@ -183,20 +183,7 @@ DECLARE_SCRIPT (MDD_Respawn_Controller, "")
 		//DEMO
 	}
 
-	void Call_GDI_HummVee (int area_id)
-	{
-		Vector3 drop_loc = Vector3(-87.2f,-13.1f,-40.1f);
-		float facing = 102.9f;
-		GameObject * chinook_obj1 = Commands->Create_Object("Invisible_Object", drop_loc);
-
-		if (chinook_obj1)
-		{
-			Commands->Set_Facing(chinook_obj1, facing);
-			Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X2I_GDI_Drop_HummVee.txt");
-		}
-	}
-
-	void Call_GDI_PowerUp (int area_id)
+	void Call_GDI_PowerUp ()
 	{
 		Vector3 drop_loc = Vector3(511.3f,680.3f,-21.2f);
 		float facing = 146.6f;
@@ -297,7 +284,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 							{
 								area_spawn_heli_drop_01_active[area_id] = true;
 								tempcount += 3;
-								Use_Heli_Drop_01(area_id);
+								Use_Heli_Drop_01();
 							}
 						}
 						break;
@@ -310,7 +297,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 							{
 								area_spawn_heli_drop_02_active[area_id] = true;
 								tempcount += 2;
-								Use_Heli_Drop_02(area_id);
+								Use_Heli_Drop_02();
 							}
 						}
 						break;
@@ -322,7 +309,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 							if ((area_unit_max[area_id] - tempcount) > 2)
 							{
 								area_spawn_parachute_active[area_id] = true;
-								Use_Parachute_Drop(area_id);
+								Use_Parachute_Drop();
 								tempcount += 3;
 							}
 						}
@@ -336,7 +323,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 				if (spawner_buffer < 3)
 				{
 					tempcount ++;
-					Use_Spawners (area_id);
+					Use_Spawners ();
 				}
 				else
 				{
@@ -361,7 +348,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 
 	// This uses a helicopter to drop three units.
 
-	void Use_Heli_Drop_01 (int area_id)
+	void Use_Heli_Drop_01 ()
 	{
 		Vector3 drop_location;
 		float facing;
@@ -387,7 +374,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 
 	// This uses a different helicopter route to drop two units.
 
-	void Use_Heli_Drop_02 (int area_id)
+	void Use_Heli_Drop_02 ()
 	{
 		Vector3 drop_location;
 		float facing;
@@ -413,7 +400,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 
 	// This uses a cargo plane parachute drop to drop three units.
 
-	void Use_Parachute_Drop (int area_id)
+	void Use_Parachute_Drop ()
 	{
 		Vector3 drop_location;
 		float facing;
@@ -439,7 +426,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 
 	// This uses the regular spawners to generate one unit.
 
-	bool Use_Spawners (int area_id)
+	bool Use_Spawners ()
 	{
 		int spawner_id;
 		const char *spawner_params;
@@ -561,7 +548,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 		{
 			// A request has been made to call in a GDI power-up drop.
 
-			Call_GDI_PowerUp (3);
+			Call_GDI_PowerUp ();
 		}
 		else if (type == 114)
 		{
@@ -610,7 +597,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 	// Another object then sends a custom to check for new vehicle creation. If the flag for
 	// creating a new vehicle for this area is active, it is reset and the vehicle is delivered.
 
-	void Replacement_Vehicle (GameObject *obj, int area_id)
+	void Replacement_Vehicle (GameObject * /* obj */, int area_id)
 	{
 		Vector3 drop_loc = Vector3(0.0f,0.0f,0.0f);
 		float facing = 0.0f;
@@ -784,7 +771,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Enemy_Seen (GameObject * obj, GameObject * enemy) override
+	void Enemy_Seen (GameObject * /* obj */, GameObject * /* enemy */) override
 	{
 		enemy_seen = true;
 	}
@@ -1085,7 +1072,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Killed (GameObject *obj, GameObject *killer) override
+	void Killed (GameObject *obj, GameObject * /* killer */) override
 	{
 		// Tell the respawn controller I am dead.
 
@@ -1195,7 +1182,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject *damager, float amount) override
+	void Damaged( GameObject * obj, GameObject *damager, float /* amount */) override
 	{
 		if (!initial_damage && damager == NULL)
 		{
@@ -1323,7 +1310,7 @@ DECLARE_SCRIPT (MDD_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -1334,7 +1321,7 @@ DECLARE_SCRIPT (MDD_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 	}
 
 	//DEMO
-	void Destroyed (GameObject* obj) override
+	void Destroyed (GameObject* /* obj */) override
 	{
 		int type = Get_Int_Parameter("Soldier_Type");
 		switch (type)
@@ -1421,7 +1408,7 @@ DECLARE_SCRIPT (MDD_Stationary_Vehicle,"Area_ID:int")
 		}
 	}
 
-	void Custom (GameObject *obj, int type, intptr_t param, GameObject *sender) override
+	void Custom (GameObject *obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		if ((type == 0) && (param == 0))
 		{
@@ -1676,7 +1663,7 @@ DECLARE_SCRIPT (MDD_Nod_Stealth, "")
 		}
 	}
 
-	void Destroyed (GameObject* obj) override
+	void Destroyed (GameObject* /* obj */) override
 	{
 		GameObject * nodtank = Commands->Create_Object("Nod_Stealth_Tank", Vector3(598.777f,479.691f,-55.824f));
 		if (nodtank)

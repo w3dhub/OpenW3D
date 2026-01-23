@@ -100,8 +100,8 @@ public:
 	virtual void					Set_Bounce_Count(int count);
 	virtual int						Get_Bounce_Count(void);
 
-	virtual void					Apply_Impulse(const Vector3 & imp)								{ }
-	virtual void					Apply_Impulse(const Vector3 & imp,const Vector3 & wpos)	{ }
+	virtual void					Apply_Impulse(const Vector3 & /* imp */)								{ }
+	virtual void					Apply_Impulse(const Vector3 & /* imp */,const Vector3 & /* wpos */)	{ }
 
 	/*
 	** Collides on Move

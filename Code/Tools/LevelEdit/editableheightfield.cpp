@@ -161,7 +161,7 @@ EditableHeightfieldClass::~EditableHeightfieldClass (void)
 //
 //////////////////////////////////////////////////////////////////////
 const EditableHeightfieldClass &
-EditableHeightfieldClass::operator= (const EditableHeightfieldClass &src)
+EditableHeightfieldClass::operator= (const EditableHeightfieldClass &/* src */)
 {
 	return *this;
 }
@@ -894,7 +894,7 @@ void
 EditableHeightfieldClass::Smooth_Foundation_Heightfield
 (
 	const Vector3 &	world_space_center,
-	float					amount,
+	float					/* amount */,
 	float					inner_radius,
 	float					outter_radius
 )
@@ -1037,7 +1037,7 @@ void
 EditableHeightfieldClass::Smooth_Heightfield
 (
 	const Vector3 &	world_space_center,
-	float					amount,
+	float					/* amount */,
 	float					inner_radius,
 	float					outter_radius
 )

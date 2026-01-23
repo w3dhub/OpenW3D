@@ -1238,7 +1238,7 @@ PresetsFormClass::Save_Temp_Presets (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 bool
-PresetsFormClass::Save_Global_Presets (uint32 class_id)
+PresetsFormClass::Save_Global_Presets ([[maybe_unused]] uint32 class_id)
 {
 
 #ifndef PUBLIC_EDITOR_VER
@@ -1307,7 +1307,7 @@ PresetsFormClass::Build_DDB_File_List
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-PresetsFormClass::Save_Preset_Libraries (HTREEITEM parent_item)
+PresetsFormClass::Save_Preset_Libraries ([[maybe_unused]] HTREEITEM parent_item)
 {
 
 #ifdef PUBLIC_EDITOR_VER
@@ -2062,7 +2062,7 @@ PresetsFormClass::Enable_Button (int cmd_id)
 //
 ////////////////////////////////////////////////////////////////////////////
 void
-PresetsFormClass::OnSelchangedPresetsTree (NMHDR *pNMHDR, LRESULT *pResult)
+PresetsFormClass::OnSelchangedPresetsTree (NMHDR * /* pNMHDR */, LRESULT *pResult)
 {
 	(*pResult) = 0;
 
@@ -2615,7 +2615,7 @@ PresetsFormClass::OnDrawItem
 void
 PresetsFormClass::OnMeasureItem
 (
-	int						nIDCtl,
+	int						/* nIDCtl */,
 	LPMEASUREITEMSTRUCT	lpMeasureItemStruct
 ) 
 {

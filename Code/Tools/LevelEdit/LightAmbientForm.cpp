@@ -157,7 +157,7 @@ LightAmbientFormClass::Update_Settings (void)
 //
 //////////////////////////////////////////////////////////////
 void
-ColorUpdateCallback (int red, int green, int blue, void *arg)
+ColorUpdateCallback (int red, int green, int blue, void * /* arg */)
 {
 	//
 	//	Convert the settings to a vector3

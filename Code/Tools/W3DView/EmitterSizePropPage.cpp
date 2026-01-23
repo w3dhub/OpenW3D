@@ -43,7 +43,7 @@ IMPLEMENT_DYNCREATE(EmitterSizePropPageClass, CPropertyPage)
 //  EmitterSizePropPageClass
 //
 /////////////////////////////////////////////////////////////
-EmitterSizePropPageClass::EmitterSizePropPageClass (EmitterInstanceListClass *pemitter)
+EmitterSizePropPageClass::EmitterSizePropPageClass (EmitterInstanceListClass * /* pemitter */)
 	:	m_pEmitterList (NULL),
 		m_bValid (true),
 		m_SizeBar (NULL),

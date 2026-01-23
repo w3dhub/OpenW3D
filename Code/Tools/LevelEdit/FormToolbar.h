@@ -72,7 +72,7 @@ public:
         //  Required methods
         //
         CSize CalcFixedLayout (BOOL, BOOL) { return CSize (100, 100); }
-        CSize CalcDynamicLayout( int nLength, DWORD dwMode )
+        CSize CalcDynamicLayout( int /* nLength */, DWORD dwMode )
         {
             if (dwMode & LM_VERTDOCK)
             {                

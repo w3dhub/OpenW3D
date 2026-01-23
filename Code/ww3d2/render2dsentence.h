@@ -188,8 +188,8 @@ private:
 		RectClass			ScreenRect;
 		RectClass			UVRect;
 
-		bool operator== (const SentenceDataStruct &src)	{ return false; }
-		bool operator!= (const SentenceDataStruct &src)	{ return true; }
+		bool operator== (const SentenceDataStruct &/* src*/)	{ return false; }
+		bool operator!= (const SentenceDataStruct &/* src*/)	{ return true; }
 	};
 
 	struct PendingSurfaceStruct {
@@ -199,16 +199,16 @@ private:
 
 		PendingSurfaceStruct() : Renderers(sizeof(PreAllocatedRenderers)/sizeof(Render2DClass*),PreAllocatedRenderers) {}
 
-		bool operator== (const PendingSurfaceStruct &src)	{ return false; }
-		bool operator!= (const PendingSurfaceStruct &src)	{ return true; }
+		bool operator== (const PendingSurfaceStruct &/* src*/)	{ return false; }
+		bool operator!= (const PendingSurfaceStruct &/* src*/)	{ return true; }
 	};
 
 	struct RendererDataStruct {
 		Render2DClass *	Renderer;
 		SurfaceClass *		Surface;
 
-		bool operator== (const RendererDataStruct &src)	{ return false; }
-		bool operator!= (const RendererDataStruct &src)	{ return true; }
+		bool operator== (const RendererDataStruct &/* src*/)	{ return false; }
+		bool operator!= (const RendererDataStruct &/* src*/)	{ return true; }
 	};
 
 	//

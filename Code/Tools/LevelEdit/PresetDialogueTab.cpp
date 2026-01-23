@@ -225,7 +225,7 @@ PresetDialogueTabClass::Apply_Changes (void)
 void
 PresetDialogueTabClass::OnDblclkDialogueList
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

@@ -74,7 +74,7 @@ public:
 	//	Public methods
 	//////////////////////////////////////////////////////////////
 	virtual NetworkObjectClass *	Create (cPacket &packet) const = 0;
-	virtual void						Prep_Packet (NetworkObjectClass *object, cPacket &packet) const {};
+	virtual void						Prep_Packet (NetworkObjectClass */* object */, cPacket &/* packet */) const {};
 	virtual uint32						Get_Class_ID (void) const = 0;
 
 protected:

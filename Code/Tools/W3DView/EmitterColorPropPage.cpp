@@ -45,7 +45,7 @@ IMPLEMENT_DYNCREATE(EmitterColorPropPageClass, CPropertyPage)
 //  EmitterColorPropPageClass
 //
 /////////////////////////////////////////////////////////////
-EmitterColorPropPageClass::EmitterColorPropPageClass (EmitterInstanceListClass *pemitter)
+EmitterColorPropPageClass::EmitterColorPropPageClass (EmitterInstanceListClass * /* pemitter */)
 	: m_pEmitterList (NULL),
 	  m_bValid (true),
 	  m_ColorBar (NULL),
@@ -619,7 +619,7 @@ EmitterColorPropPageClass::OnCommand
 	return CPropertyPage::OnCommand (wParam, lParam);
 }
 
-void EmitterColorPropPageClass::OnDeltaposRedRandomSpin(NMHDR* pNMHDR, LRESULT* pResult) 
+void EmitterColorPropPageClass::OnDeltaposRedRandomSpin(NMHDR* /* pNMHDR */, LRESULT* pResult) 
 {
 	*pResult = 0;
 	return ;

@@ -579,7 +579,7 @@ void SimpleSceneClass::Customized_Render(RenderInfoClass & rinfo)
 	}
 }
 
-void SimpleSceneClass::Post_Render_Processing(RenderInfoClass& rinfo)
+void SimpleSceneClass::Post_Render_Processing(RenderInfoClass& /*rinfo*/)
 {
 	// process the 'Release' list.  These are objects that have notified us that they
 	// want to be released.  We have to walk this list twice, first un-linking the

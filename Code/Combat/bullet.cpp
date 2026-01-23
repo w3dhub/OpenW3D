@@ -742,7 +742,7 @@ CollisionReactionType BulletClass::Collision_Occurred( const CollisionEventClass
 	return result;
 }
 
-ExpirationReactionType	BulletClass::Object_Expired(PhysClass * observed_obj)
+ExpirationReactionType	BulletClass::Object_Expired(PhysClass * /* observed_obj */)
 {
 	// Copy the data from the Projectile
 	Projectile->Get_Velocity( &BulletData.Velocity );
@@ -838,7 +838,7 @@ void	BulletClass::Think( void )
 /*
 ** Instant Bullet Code
 */
-void	Simulate_Instant_Bullet( BulletDataClass & data, float progress_time )
+void	Simulate_Instant_Bullet( BulletDataClass & data, float /* progress_time */ )
 {
 	WWPROFILE("Simulate_Instant_Bullet");
 //	WWASSERT(data.Position.Is_Valid());

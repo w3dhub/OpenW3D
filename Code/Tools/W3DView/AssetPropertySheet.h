@@ -60,8 +60,8 @@ protected:
 
     private:
         // Private constructors (shouldn't be called)
-	    CAssetPropertySheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0) {}
-	    CAssetPropertySheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0) {}
+	    CAssetPropertySheet(UINT , CWnd*  = NULL, UINT  = 0) {}
+	    CAssetPropertySheet(LPCTSTR , CWnd*  = NULL, UINT  = 0) {}
 
         CPropertyPage *m_pCPropertyPage;
 };

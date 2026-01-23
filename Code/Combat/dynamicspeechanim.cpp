@@ -216,7 +216,7 @@ DynamicSpeechAnimClass::Generate_Animation (const char *text, float duration)
 //
 ////////////////////////////////////////////////////////////////
 void
-DynamicSpeechAnimClass::Generate_Eyebrows (float duration, float frequency)
+DynamicSpeechAnimClass::Generate_Eyebrows (float duration, float /* frequency */)
 {
 	if (ChannelCount <= 0) {
 		return ;

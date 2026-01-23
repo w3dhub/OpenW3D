@@ -1033,7 +1033,7 @@ BeaconGameObj::Get_Enemy_Base (void)
 //
 ////////////////////////////////////////////////////////////////
 bool
-BeaconGameObj::Can_Place_Here (const Vector3 &position)
+BeaconGameObj::Can_Place_Here (const Vector3 &/* position */)
 {
 	// always return true;
 	return true;
@@ -1315,7 +1315,7 @@ BeaconGameObj::Get_Owner (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-BeaconGameObj::Completely_Damaged (const OffenseObjectClass &damager)
+BeaconGameObj::Completely_Damaged (const OffenseObjectClass &/* damager */)
 {
 	if (!Is_Delete_Pending()) {
 		Set_State (STATE_DISARMED);

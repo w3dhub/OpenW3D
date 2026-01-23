@@ -33,7 +33,7 @@ static char THIS_FILE[] = __FILE__;
 // UpdatingDBDialogClass dialog
 
 
-UpdatingDBDialogClass::UpdatingDBDialogClass(HWND hparentwnd)
+UpdatingDBDialogClass::UpdatingDBDialogClass(HWND /* hparentwnd */)
 	: CDialog(UpdatingDBDialogClass::IDD, NULL)
 {
 	//{{AFX_DATA_INIT(UpdatingDBDialogClass)

@@ -82,7 +82,7 @@ public:
 	// Render Object Interface - Rendering
 	// Lights do not "Render" but they are vertex processors.
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void			Render(RenderInfoClass & rinfo) override							{ }
+	virtual void			Render(RenderInfoClass & /*rinfo*/) override							{ }
 	virtual bool			Is_Vertex_Processor(void)									{ return true; }
 	
 	/////////////////////////////////////////////////////////////////////////////

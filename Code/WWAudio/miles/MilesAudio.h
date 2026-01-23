@@ -256,8 +256,8 @@ private:
 			: string_id (0), buffer (NULL) {}
 
 		_CACHE_ENTRY_STRUCT &operator= (const _CACHE_ENTRY_STRUCT &src) { string_id = ::strdup (src.string_id); REF_PTR_SET (buffer, src.buffer); return *this; }
-		bool operator== (const _CACHE_ENTRY_STRUCT &src) { return false; }
-		bool operator!= (const _CACHE_ENTRY_STRUCT &src) { return true; }
+		bool operator== (const _CACHE_ENTRY_STRUCT &/* src*/) { return false; }
+		bool operator!= (const _CACHE_ENTRY_STRUCT &/* src*/) { return true; }
 	} CACHE_ENTRY_STRUCT;
 
 	//////////////////////////////////////////////////////////////////////

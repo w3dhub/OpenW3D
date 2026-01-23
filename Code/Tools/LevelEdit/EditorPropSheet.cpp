@@ -220,7 +220,7 @@ EditorPropSheetClass::OnSize
 void
 EditorPropSheetClass::OnSelchangeTabCtrl
 (
-	NMHDR* pNMHDR,
+	NMHDR* /* pNMHDR */,
 	LRESULT* pResult
 ) 
 {

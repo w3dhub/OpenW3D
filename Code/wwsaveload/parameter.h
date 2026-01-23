@@ -123,7 +123,7 @@ public:
 
 	// Type identification (see paramtypes.h in wwsaveload)
 	virtual Type				Get_Type (void) const = 0;
-	virtual bool				Is_Type (Type type) const { return false; }
+	virtual bool				Is_Type (Type /*type*/) const { return false; }
 	
 	// Modification
 	virtual bool				Is_Modifed (void) const				{ return IsModified; }
@@ -138,7 +138,7 @@ public:
 	virtual void				Set_Units_Name (const char *units_name);
 
 	// Copy methods
-	virtual void				Copy_Value (const ParameterClass &src) { };
+	virtual void				Copy_Value (const ParameterClass &/*src*/) { };
 
 	//////////////////////////////////////////////////////////////////////////////
 	//	Static methods
@@ -432,8 +432,8 @@ protected:
 		int				value;
 
 		_ENUM_VALUE (const char *_name=NULL, int _value=0) : name (_name), value (_value) {}
-		bool operator== (const _ENUM_VALUE &) { return false; }
-		bool operator!= (const _ENUM_VALUE &) { return true; }
+		bool operator== (const _ENUM_VALUE &/* src*/) { return false; }
+		bool operator!= (const _ENUM_VALUE &/* src*/) { return true; }
 	} ENUM_VALUE;
 
 	//////////////////////////////////////////////////////////////////////////////

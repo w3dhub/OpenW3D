@@ -107,7 +107,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Register_RAD, "Terminal_ID:int, Send_Attempts=3:
 		}
 	}
 
-	virtual void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
+	virtual void Custom (GameObject* obj, int type, intptr_t /*param*/, GameObject* /*sender*/) override
 	{
 		if (type == M00_CUSTOM_BROADCASTER_REGISTRY_ERROR)
 		{
@@ -173,7 +173,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 	bool	ready_for_objects;
 	bool	debug_mode;
 
-	void Created (GameObject* obj) override
+	void Created (GameObject* /*obj*/) override
 	{
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 		int object_count;
@@ -505,7 +505,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Activator_RAD, "Terminal_ID:int, Prompt_Value=0:
 	int prompt_value;
 	bool		debug_mode;
 
-	void Created (GameObject* obj) override
+	void Created (GameObject* /*obj*/) override
 	{
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 		terminal_id = Get_Int_Parameter ("Terminal_ID");
@@ -514,7 +514,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Activator_RAD, "Terminal_ID:int, Prompt_Value=0:
 		SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Activator_RAD ACTIVATED.\n"));
 	}
 
-	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* /*sender*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Activator_RAD received custom type %d, param %d.\n", type, param));
 

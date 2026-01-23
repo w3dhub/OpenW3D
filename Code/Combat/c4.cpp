@@ -653,7 +653,7 @@ void	C4GameObj::Detonate( void )
 	Set_Delete_Pending();
 }
 
-void	C4GameObj::Completely_Damaged( const OffenseObjectClass & damager )
+void	C4GameObj::Completely_Damaged( const OffenseObjectClass & /* damager */ )
 {
 	Defuse();
 }

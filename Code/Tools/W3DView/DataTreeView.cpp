@@ -131,7 +131,7 @@ END_MESSAGE_MAP()
 //  OnDraw
 //
 void
-CDataTreeView::OnDraw (CDC *pDC)
+CDataTreeView::OnDraw (CDC * /* pDC */)
 {
 	return ;
 }
@@ -1217,7 +1217,7 @@ CDataTreeView::GetCurrentSelectionType (void)
 void
 CDataTreeView::OnDblclk
 (
-    NMHDR* pNMHDR,
+    NMHDR* /* pNMHDR */,
     LRESULT* pResult
 )
 {

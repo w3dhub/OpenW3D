@@ -354,8 +354,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public operators
 	////////////////////////////////////////////////////////////////
-	bool					operator== (const ListColumnClass &src) const	{ return false; }
-	bool					operator!= (const ListColumnClass &src) const	{ return true; }
+	bool					operator== (const ListColumnClass &/* src*/) const	{ return false; }
+	bool					operator!= (const ListColumnClass &/* src*/) const	{ return true; }
 
 
 	////////////////////////////////////////////////////////////////
@@ -451,8 +451,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public operators
 	////////////////////////////////////////////////////////////////
-	bool					operator== (const ListRowClass &src) const	{ return false; }
-	bool					operator!= (const ListRowClass &src) const	{ return true; }
+	bool					operator== (const ListRowClass &/* src*/) const	{ return false; }
+	bool					operator!= (const ListRowClass &/* src*/) const	{ return true; }
 
 
 	////////////////////////////////////////////////////////////////

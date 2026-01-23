@@ -771,7 +771,7 @@ DefinitionMgrClass::Save_Objects
 //
 //////////////////////////////////////////////////////////////////////////////////
 bool
-DefinitionMgrClass::Save_Variables (ChunkSaveClass &csave)
+DefinitionMgrClass::Save_Variables (ChunkSaveClass &/* csave */)
 {
 	bool retval = true;
 	return retval;

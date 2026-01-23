@@ -102,7 +102,7 @@ bool	DamageModelDirection;		// HACK
 /*
 ** Debug messages
 */
-void	Debug_Message( const char *format, ... )
+void	Debug_Message( [[maybe_unused]] const char *format, ... )
 {
 #ifdef WWDEBUG
 	SCRIPT_PTR_CHECK( format );
@@ -1594,7 +1594,7 @@ void	Save_Data( ScriptSaver & saver, int id, int size, void * data )
 }
 
 
-void Save_Pointer(ScriptSaver& saver, int id, void* pointer)
+void Save_Pointer(ScriptSaver& saver, int /* id */, void* pointer)
 {
 	SCRIPT_PTR_CHECK(pointer);
     const uint32_t pointer_id = SaveLoadSystemClass::Serialize_Pointer(pointer);
@@ -1612,7 +1612,7 @@ bool	Load_Begin( ScriptLoader & loader, int * id )
 	return true;
 }
 
-void	Load_Data( ScriptLoader & loader, int size, void * data )
+void	Load_Data( ScriptLoader & loader, [[maybe_unused]] int size, void * data )
 {
 	SCRIPT_PTR_CHECK( data );
 	unsigned int chunkSize = loader.CLoad.Cur_Micro_Chunk_Length();
@@ -2999,21 +2999,21 @@ void Set_Wind (float heading, float speed, float variability, float ramptime)
 	}
 }
 
-void Set_Rain (float density, float ramptime, bool prime)
+void Set_Rain (float density, float ramptime, bool /* prime */)
 {
 	if (!WeatherMgrClass::Set_Precipitation (WeatherMgrClass::PRECIPITATION_RAIN, density, ramptime)) {
 		Debug_Say (("Cannot set rain\n"));
 	}
 }
 
-void Set_Snow (float density, float ramptime, bool prime)
+void Set_Snow (float density, float ramptime, bool /* prime */)
 {
 	if (!WeatherMgrClass::Set_Precipitation (WeatherMgrClass::PRECIPITATION_SNOW, density, ramptime)) {
 		Debug_Say (("Cannot set snow\n"));
 	}
 }
 
-void Set_Ash (float density, float ramptime, bool prime)
+void Set_Ash (float density, float ramptime, bool /* prime */)
 {
 	if (!WeatherMgrClass::Set_Precipitation (WeatherMgrClass::PRECIPITATION_ASH, density, ramptime)) {
 		Debug_Say (("Cannot set ash\n"));
@@ -3209,7 +3209,7 @@ void	Display_Encyclopedia_Event_UI( void )
 /*
 **
 */
-void	Scale_AI_Awareness( float sight_scale, float hearing_scale )
+void	Scale_AI_Awareness( float sight_scale, [[maybe_unused]] float hearing_scale )
 {
 	SCRIPT_TRACE((	"ST>Scale_AI_Awareness ( %f %f )\n", sight_scale, hearing_scale ));
 	SmartGameObj::Set_Global_Sight_Range_Scale( sight_scale );

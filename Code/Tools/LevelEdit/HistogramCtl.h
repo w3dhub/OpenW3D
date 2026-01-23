@@ -114,8 +114,8 @@ class HistogramCtlClass
 			//	For DynamicVectorClass
 			_VALUE (void)								: value (0), count (0)	{ }
 			_VALUE (float _value, DWORD _count) : value (_value), count (_count)	{ }
-			bool operator== (const _VALUE &src)			{ return false; }
-			bool operator!= (const _VALUE &src)			{ return true; }
+			bool operator== (const _VALUE &/* src*/)			{ return false; }
+			bool operator!= (const _VALUE &/* src*/)			{ return true; }
 		} VALUE;
 
 		typedef DynamicVectorClass<VALUE> VALUE_LIST;

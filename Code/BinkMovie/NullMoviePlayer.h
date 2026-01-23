@@ -24,7 +24,7 @@ class FontCharsClass;
 class NullMovieClass : public MovieClass
 {
 	public:
-		NullMovieClass(const char* filename, const char* subtitlename, FontCharsClass* font) {}
+		NullMovieClass(const char* /* filename */, const char* /* subtitlename */, FontCharsClass* /* font */) {}
 		~NullMovieClass() override {}
 
 		void Update() override {}

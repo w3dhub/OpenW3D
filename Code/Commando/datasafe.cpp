@@ -736,7 +736,7 @@ int GenericDataSafeClass::Create_Safe_List(int type)
  * HISTORY:                                                                                    *
  *   6/25/2001 12:34PM ST : Created                                                            *
  *=============================================================================================*/
-void GenericDataSafeClass::Random_Insertion(DataSafeEntryClass *entry_ptr, int list, int type, bool is_slop)
+void GenericDataSafeClass::Random_Insertion(DataSafeEntryClass *entry_ptr, int list, int /* type */, bool is_slop)
 {
 	ds_assert(Safe[list] != NULL);
 	ds_assert(Safe[list]->EntryCount < MAX_ENTRIES_PER_LIST);
@@ -1322,12 +1322,9 @@ void GenericDataSafeClass::Print_Safe_Stats_To_Debug_Output(void)
  * HISTORY:                                                                                    *
  *   7/16/2001 2:12PM ST : Created                                                             *
  *=============================================================================================*/
-void GenericDataSafeClass::Dump_Safe_Stats(char *dump_buffer, int buffer_size)
+void GenericDataSafeClass::Dump_Safe_Stats([[maybe_unused]] char *dump_buffer, [[maybe_unused]] int buffer_size)
 {
-#ifndef	WWDEBUG
-	dump_buffer = dump_buffer;
-	buffer_size = buffer_size;
-#else		//WWDEBUG
+#ifdef	WWDEBUG
 
 #define UPDATE_PTR									\
  	chars += strlen(dump_ptr);					\

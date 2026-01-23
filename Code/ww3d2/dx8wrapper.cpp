@@ -189,7 +189,7 @@ void Log_DX8_ErrorCode(HRESULT res)
 	WWASSERT(0);
 }
 
-void Non_Fatal_Log_DX8_ErrorCode(HRESULT res,const char * file,int line)
+void Non_Fatal_Log_DX8_ErrorCode(HRESULT res,[[maybe_unused]] const char * file,[[maybe_unused]] int line)
 {
 	const char *error_string = DXGetErrorStringA(res);
 
@@ -1004,7 +1004,7 @@ const char * DX8Wrapper::Get_Render_Device_Name(int device_index)
 	return _RenderDeviceShortNameTable[device_index];
 }
 
-bool DX8Wrapper::Set_Device_Resolution(int width,int height,int bits,int windowed, bool resize_window)
+bool DX8Wrapper::Set_Device_Resolution(int width,int height,int /*bits*/,int /*windowed*/, bool /*resize_window*/)
 {
 	if (D3DDevice != NULL) {
 
@@ -1061,7 +1061,7 @@ bool DX8Wrapper::Registry_Save_Render_Device( const char * sub_key )
 	return Registry_Save_Render_Device(sub_key, CurRenderDevice, ResolutionWidth, ResolutionHeight, BitDepth, IsWindowed, TextureBitDepth);
 }
 
-bool DX8Wrapper::Registry_Save_Render_Device( const char *sub_key, int device, int width, int height, int depth, bool windowed, int texture_depth)
+bool DX8Wrapper::Registry_Save_Render_Device( const char */*sub_key*/, int device, int width, int height, int depth, bool windowed, int texture_depth)
 {
 	INIClass ini(W3D_CONF_FILE);
 
@@ -1166,7 +1166,7 @@ bool DX8Wrapper::Registry_Load_Render_Device( const char * sub_key, bool resize_
 	return Set_Any_Render_Device();
 }
 
-bool DX8Wrapper::Registry_Load_Render_Device( const char * sub_key, char *device, int device_len, int &width, int &height, int &depth, int &windowed, int &texture_depth)
+bool DX8Wrapper::Registry_Load_Render_Device( const char * /*sub_key*/, char *device, int device_len, int &width, int &height, int &depth, int &windowed, int &texture_depth)
 {
 	INIClass ini(W3D_CONF_FILE);
 
@@ -1190,7 +1190,7 @@ bool DX8Wrapper::Registry_Load_Render_Device( const char * sub_key, char *device
 }
 
 
-bool DX8Wrapper::Find_Color_And_Z_Mode(int resx,int resy,int bitdepth,D3DFORMAT * set_colorbuffer,D3DFORMAT * set_zmode)
+bool DX8Wrapper::Find_Color_And_Z_Mode(int resx,int resy,int /*bitdepth*/,D3DFORMAT * set_colorbuffer,D3DFORMAT * set_zmode)
 {
 	static D3DFORMAT _formats16[] =
 	{

@@ -64,8 +64,8 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public operators
 	///////////////////////////////////////////////////////////////////
-	bool operator== (const ModPackageClass &)	{ return false; }
-	bool operator!= (const ModPackageClass &)	{ return true; }
+	bool operator== (const ModPackageClass &/* src*/)	{ return false; }
+	bool operator!= (const ModPackageClass &/* src*/)	{ return true; }
 
 	///////////////////////////////////////////////////////////////////
 	//	Public methods

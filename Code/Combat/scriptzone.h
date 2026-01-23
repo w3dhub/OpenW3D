@@ -86,7 +86,7 @@ public:
 	virtual PersistClass *					Create( void ) const override;
 	virtual bool								Save( ChunkSaveClass &csave ) override;
 	virtual bool								Load( ChunkLoadClass &cload ) override;
-	virtual bool								Is_Valid_Config (StringClass &message) override { return true; }
+	virtual bool								Is_Valid_Config (StringClass &/* message */) override { return true; }
 	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( ScriptZoneGameObjDef, ScriptableGameObjDef );

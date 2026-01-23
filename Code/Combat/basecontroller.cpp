@@ -300,7 +300,7 @@ BaseControllerClass::On_Vehicle_Generated (VehicleGameObj *vehicle)
 }
 
 
-void BaseControllerClass::On_Vehicle_Delivered(VehicleGameObj *vehicle)
+void BaseControllerClass::On_Vehicle_Delivered(VehicleGameObj * /* vehicle */)
 {
 	SoldierGameObj* thePlayer = COMBAT_STAR;
 	bool isAllied = (thePlayer && (thePlayer->Get_Player_Type() == PlayerType));
@@ -459,7 +459,7 @@ BaseControllerClass::Are_All_Buildings_Destroyed (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-BaseControllerClass::Notify_Team (Notification event, BuildingType type)
+BaseControllerClass::Notify_Team (Notification /* event */, BuildingType /* type */)
 {	
 	return ;
 }

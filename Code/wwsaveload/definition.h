@@ -185,7 +185,7 @@ DefinitionClass::Get_ID (void) const
 //	Is_Valid_Config
 //////////////////////////////////////////////////////////////////////////////////
 inline bool
-DefinitionClass::Is_Valid_Config (StringClass &message)
+DefinitionClass::Is_Valid_Config (StringClass &/*message*/)
 {
 	return true;
 }

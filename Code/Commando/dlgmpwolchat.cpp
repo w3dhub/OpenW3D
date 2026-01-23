@@ -591,7 +591,7 @@ void MPWolChatMenuClass::Set_Focus_To_Chat_Edit_Ctrl(void)
 //	On_ListCtrl_Sel_Change
 //
 ////////////////////////////////////////////////////////////////
-void MPWolChatMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int oldSel, int newSel)
+void MPWolChatMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int /* oldSel */, int newSel)
 {
 	if (IDC_LOBBY_LIST_CTRL == id) {
 		if (newSel >= 0) {
@@ -648,7 +648,7 @@ void MPWolChatMenuClass::On_ListCtrl_Mouse_Over(ListCtrlClass* list, int id, int
 //	On_EditCtrl_Enter_Pressed
 //
 ////////////////////////////////////////////////////////////////
-void MPWolChatMenuClass::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit_ctrl, int ctrl_id)
+void MPWolChatMenuClass::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit_ctrl */, int ctrl_id)
 {
 	if (IDC_CHAT_EDIT == ctrl_id) {
 		Send_Message(false);

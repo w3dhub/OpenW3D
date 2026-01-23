@@ -700,7 +700,7 @@ void DX8VertexBufferClass::Copy(const Vector3* loc, const Vector2* uv, const Vec
 //
 // ----------------------------------------------------------------------------
 
-DynamicVBAccessClass::DynamicVBAccessClass(unsigned t,unsigned fvf,unsigned short vertex_count_)
+DynamicVBAccessClass::DynamicVBAccessClass(unsigned t,[[maybe_unused]] unsigned fvf,unsigned short vertex_count_)
 	:
 	Type(t),
 	FVFInfo(_DynamicFVFInfo),

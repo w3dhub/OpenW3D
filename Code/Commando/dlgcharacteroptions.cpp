@@ -214,9 +214,9 @@ CharacterOptionsMenuClass::Fill_Character_Combobox (void)
 void
 CharacterOptionsMenuClass::On_ComboBoxCtrl_Sel_Change
 (
-	ComboBoxCtrlClass *	combo_ctrl,
+	ComboBoxCtrlClass *	/* combo_ctrl */,
 	int						ctrl_id,
-	int						old_sel,
+	int						/* old_sel */,
 	int						new_sel
 )
 {

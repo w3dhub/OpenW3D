@@ -131,7 +131,7 @@ DialogToolbarClass::OnInitialUpdate (void)
 BOOL
 DialogToolbarClass::OnNeedToolTipText
 (
-	UINT id,
+	UINT /* id */,
 	NMHDR *pTTTStruct,
 	LRESULT *pResult
 )

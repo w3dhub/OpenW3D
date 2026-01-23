@@ -410,7 +410,7 @@ void DlgWOLPageReply::HandleNotification(WOLPagedEvent& event)
 *
 ******************************************************************************/
 
-void DlgWOLPageReply::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
+void DlgWOLPageReply::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit */, int id)
 	{
 	if (IDC_REPLY_EDIT == id)
 		{

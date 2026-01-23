@@ -344,7 +344,7 @@ void DX8RigidFVFCategoryContainer::Render_Delayed_Procedural_Material_Passes(voi
 }
 
 
-void DX8TextureCategoryClass::Log(bool only_visible)
+void DX8TextureCategoryClass::Log([[maybe_unused]] bool only_visible)
 {
 #ifdef ENABLE_CATEGORY_LOG
 	StringClass work(255,true);
@@ -676,7 +676,7 @@ void DX8FVFCategoryContainer::Change_Polygon_Renderer_Material(
 
 // ----------------------------------------------------------------------------
 
-unsigned DX8FVFCategoryContainer::Define_FVF(MeshModelClass* mmc,unsigned int * user_lighting,bool enable_lighting)
+unsigned DX8FVFCategoryContainer::Define_FVF(MeshModelClass* mmc,unsigned int * user_lighting,bool /*enable_lighting*/)
 {
 	if ((!!mmc->Get_Flag(MeshGeometryClass::SORT)) && WW3D::Is_Sorting_Enabled()) {
 		return dynamic_fvf_type;
@@ -736,7 +736,7 @@ DX8RigidFVFCategoryContainer::~DX8RigidFVFCategoryContainer()
 
 // ----------------------------------------------------------------------------
 
-void DX8RigidFVFCategoryContainer::Log(bool only_visible)
+void DX8RigidFVFCategoryContainer::Log([[maybe_unused]] bool only_visible)
 {
 #ifdef ENABLE_CATEGORY_LOG
 	StringClass work(255,true);
@@ -978,7 +978,7 @@ public:
 		return mesh;
 	}
 
-	unsigned short* Get_Polygon_Array(unsigned pass)
+	unsigned short* Get_Polygon_Array(unsigned /*pass*/)
 	{
 		return (unsigned short*)polygon_array;
 	}
@@ -1252,7 +1252,7 @@ DX8SkinFVFCategoryContainer::~DX8SkinFVFCategoryContainer()
 
 // ----------------------------------------------------------------------------
 
-void DX8SkinFVFCategoryContainer::Log(bool only_visible)
+void DX8SkinFVFCategoryContainer::Log([[maybe_unused]] bool only_visible)
 {
 #ifdef ENABLE_CATEGORY_LOG
 	StringClass work(255,true);

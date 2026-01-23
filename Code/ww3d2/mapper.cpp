@@ -590,7 +590,7 @@ void ZigZagLinearOffsetTextureMapperClass::Reset(void)
 //
 // ----------------------------------------------------------------------------
 
-void ClassicEnvironmentMapperClass::Apply(int uv_array_index)
+void ClassicEnvironmentMapperClass::Apply(int /*uv_array_index*/)
 {
 	// The canonical environment map
 	// scale the normal by (.5,.5) and add (.5,.5) to move it to (0,1) range
@@ -609,7 +609,7 @@ void ClassicEnvironmentMapperClass::Apply(int uv_array_index)
 	
 }
 
-void EnvironmentMapperClass::Apply(int uv_array_index)
+void EnvironmentMapperClass::Apply(int /*uv_array_index*/)
 {
 	// The canonical environment map
 	// scale the normal by (.25,.25) and add (.5,.5) to move it to (0,1) range
@@ -659,7 +659,7 @@ EdgeMapperClass::EdgeMapperClass(const EdgeMapperClass & src):
 {
 }
 
-void EdgeMapperClass::Apply(int uv_array_index)
+void EdgeMapperClass::Apply(int /*uv_array_index*/)
 {
 	unsigned int now=WW3D::Get_Sync_Time();
 
@@ -694,7 +694,7 @@ void EdgeMapperClass::Reset(void)
 	VOffset = 0.0f;
 }
 
-void WSClassicEnvironmentMapperClass::Apply(int uv_array_index)
+void WSClassicEnvironmentMapperClass::Apply(int /*uv_array_index*/)
 {
 	// The canonical environment map
 	// scale the normal by (.5,.5) and add (.5,.5) to move it to (0,1) range
@@ -721,7 +721,7 @@ void WSClassicEnvironmentMapperClass::Apply(int uv_array_index)
 	
 }
 
-void WSEnvironmentMapperClass::Apply(int uv_array_index)
+void WSEnvironmentMapperClass::Apply(int /*uv_array_index*/)
 {
 	// The canonical environment map
 	// scale the normal by (.25,.25) and add (.5,.5) to move it to (0,1) range
@@ -749,7 +749,7 @@ void WSEnvironmentMapperClass::Apply(int uv_array_index)
 	
 }
 
-void ScreenMapperClass::Apply(int uv_array_index)
+void ScreenMapperClass::Apply(int /*uv_array_index*/)
 {
 	unsigned int delta = WW3D::Get_Sync_Time() - LastUsedSyncTime;
 	float del = (float)delta;
@@ -788,7 +788,7 @@ void ScreenMapperClass::Apply(int uv_array_index)
 
 }
 
-void GridClassicEnvironmentMapperClass::Apply(int uv_array_index)
+void GridClassicEnvironmentMapperClass::Apply(int /*uv_array_index*/)
 {
 	update_temporal_state();
 
@@ -810,7 +810,7 @@ void GridClassicEnvironmentMapperClass::Apply(int uv_array_index)
 	DX8Wrapper::Set_DX8_Texture_Stage_State(Stage,D3DTSS_TEXTURETRANSFORMFLAGS,D3DTTFF_COUNT2);
 }
 
-void GridEnvironmentMapperClass::Apply(int uv_array_index)
+void GridEnvironmentMapperClass::Apply(int /*uv_array_index*/)
 {
 	update_temporal_state();
 

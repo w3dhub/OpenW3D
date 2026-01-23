@@ -3373,7 +3373,7 @@ CMainFrame::OnAdvancedAnim()
 //
 ////////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateAdvancedAnim(CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateAdvancedAnim(CCmdUI* /* pCmdUI */) 
 {
 	
 }

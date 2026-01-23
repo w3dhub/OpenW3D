@@ -220,7 +220,7 @@ HarvesterClass::Harvest_Tiberium (void)
 void
 HarvesterClass::Action_Complete
 (
-	GameObject *				game_obj,
+	GameObject *				/* game_obj */,
 	int							action_id,
 	ActionCompleteReason		complete_reason
 )
@@ -260,8 +260,8 @@ HarvesterClass::Action_Complete
 void
 HarvesterClass::Animation_Complete
 (
-	GameObject *	game_obj,
-	const char *	animation_name
+	GameObject *	/* game_obj */,
+	const char *	/* animation_name */
 )
 {
 	return ;
@@ -421,10 +421,10 @@ HarvesterClass::Play_Harvest_Animation (bool onoff)
 void
 HarvesterClass::Custom
 (
-	GameObject *	game_obj,
+	GameObject *	/* game_obj */,
 	int				type,
-	intptr_t		param,
-	GameObject *	sender
+	intptr_t		/* param */,
+	GameObject *	/* sender */
 )
 {
 	//

@@ -122,7 +122,7 @@ EvaObjectivesTabClass::On_Command (int ctrl_id, int message_id, unsigned int par
 //
 ////////////////////////////////////////////////////////////////
 void
-EvaObjectivesTabClass::On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index)
+EvaObjectivesTabClass::On_ListCtrl_Sel_Change (ListCtrlClass * /* list_ctrl */, int ctrl_id, int /* old_index */, int /* new_index */)
 {
 	if (ctrl_id == IDC_OBJECTIVES_LIST_CTRL) {
 		Update_Curr_Objective_Controls ();
@@ -261,7 +261,7 @@ EvaObjectivesTabClass::ListSortCallback
 	ListCtrlClass *	list_ctrl,
 	int					item_index1,
 	int					item_index2,
-	uint32				user_param
+	uint32				/* user_param */
 )
 {
 	int count = list_ctrl->Get_Entry_Count ();

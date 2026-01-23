@@ -143,8 +143,8 @@ protected:
 				angle_in_delta (0),
 				angle_out_delta (0)	{ }
 
-		bool operator== (const _ArcInfoStruct &src)	{ return false; }
-		bool operator!= (const _ArcInfoStruct &src)	{ return true; }
+		bool operator== (const _ArcInfoStruct &/* src*/)	{ return false; }
+		bool operator!= (const _ArcInfoStruct &/* src*/)	{ return true; }
 
 	} ArcInfoStruct;
 

@@ -126,9 +126,9 @@ MPWolBuddyListPopupClass::On_Command (int ctrl_id, int message_id, unsigned int 
 void
 MPWolBuddyListPopupClass::On_ListCtrl_DblClk
 (
-	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
-	int				item_index
+	ListCtrlClass * /* list_ctrl */,
+	int				/* ctrl_id */,
+	int				/* item_index */
 )
 {
 	On_Select ();

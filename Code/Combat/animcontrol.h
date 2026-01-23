@@ -71,8 +71,8 @@ struct AnimationDataRecord {
 	float			Frame;
 	float			Weight;
 
-	bool operator == (AnimationDataRecord const & rec) const	{ return false; }
-	bool operator != (AnimationDataRecord const & rec) const	{ return true; }
+	bool operator == (AnimationDataRecord const & ) const	{ return false; }
+	bool operator != (AnimationDataRecord const & ) const	{ return true; }
 };
 
 typedef	DynamicVectorClass<AnimationDataRecord>	AnimationDataList;

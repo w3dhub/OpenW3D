@@ -63,7 +63,7 @@ public:
 	RenderObjPhysClass(void);
 	~RenderObjPhysClass(void);
 
-	virtual void					Timestep(float dt) override											{ }
+	virtual void					Timestep(float /* dt */) override											{ }
 	virtual void					Set_Model(RenderObjClass * model) override;
 	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest) override;
 	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest) override;

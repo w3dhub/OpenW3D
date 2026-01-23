@@ -328,7 +328,7 @@ PresetListDialogClass::OnRemove (void)
 void
 PresetListDialogClass::OnDblclkPresetList
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 ) 
 {
@@ -347,7 +347,7 @@ PresetListDialogClass::OnDblclkPresetList
 void
 PresetListDialogClass::OnDblclkPresetTree
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 ) 
 {
@@ -366,7 +366,7 @@ PresetListDialogClass::OnDblclkPresetTree
 void
 PresetListDialogClass::OnItemchangedPresetList
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 ) 
 {
@@ -385,7 +385,7 @@ PresetListDialogClass::OnItemchangedPresetList
 void
 PresetListDialogClass::OnSelchangedPresetTree
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 ) 
 {

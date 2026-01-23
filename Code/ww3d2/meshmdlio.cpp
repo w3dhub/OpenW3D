@@ -1325,7 +1325,7 @@ WW3DErrorType MeshModelClass::read_dig(ChunkLoadClass & cload,MeshLoadContextCla
  *   9/1/2000   gth : Added alternate material desc support                                    *
  *   2/9/2001   gth : new dx8 code no longer supports this chunk                               *
  *=============================================================================================*/
-WW3DErrorType MeshModelClass::read_scg(ChunkLoadClass & cload,MeshLoadContextClass * context)
+WW3DErrorType MeshModelClass::read_scg(ChunkLoadClass & /* cload */,MeshLoadContextClass * /* context */)
 {
 	return WW3D_ERROR_OK;
 }
@@ -1485,7 +1485,7 @@ WW3DErrorType MeshModelClass::read_stage_texcoords(ChunkLoadClass & cload,MeshLo
  *   02/02/99    IML : Created.                                                                *
  *   9/1/2000   gth : Added alternate material desc support                                    *
  *=============================================================================================*/
-WW3DErrorType MeshModelClass::read_per_face_texcoord_ids (ChunkLoadClass &cload, MeshLoadContextClass *context)
+WW3DErrorType MeshModelClass::read_per_face_texcoord_ids (ChunkLoadClass &cload, MeshLoadContextClass * /* context */)
 {
 	unsigned size;
 	

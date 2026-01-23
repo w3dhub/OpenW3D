@@ -321,13 +321,13 @@ public:
 	** functions so that other objects do not pass through them.  These functions should test
 	** the given primitive against this object's geometric representation.
 	*/
-	virtual bool					Cast_Ray(PhysRayCollisionTestClass & raytest)		{ return false; }
-	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest)	{ return false; }
-	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest)	{ return false; }
+	virtual bool					Cast_Ray(PhysRayCollisionTestClass & /* raytest */)		{ return false; }
+	virtual bool					Cast_AABox(PhysAABoxCollisionTestClass & /* boxtest */)	{ return false; }
+	virtual bool					Cast_OBBox(PhysOBBoxCollisionTestClass & /* boxtest */)	{ return false; }
 
-	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & test)		{ return false; }
-	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & test)		{ return false; }
-	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & test)		{ return false; }
+	virtual bool					Intersection_Test(PhysAABoxIntersectionTestClass & /* test */)		{ return false; }
+	virtual bool					Intersection_Test(PhysOBBoxIntersectionTestClass & /* test */)		{ return false; }
+	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & /* test */)		{ return false; }
 
 	/*
 	** Inter-Object Geometric Dependency.  These functions don't really perform any 
@@ -340,12 +340,12 @@ public:
 	** Internal_Link_Rider - an object is being attached to you, move him when you move
 	** Internal_Unlink_Rider - stop moving this object when you move.
 	*/
-	virtual void					Link_To_Carrier(PhysClass * carrier,RenderObjClass * carrier_sub_obj = NULL)	{ }
+	virtual void					Link_To_Carrier(PhysClass * /* carrier */,RenderObjClass * /* carrier_sub_obj */ = NULL)	{ }
 	virtual RenderObjClass *	Peek_Carrier_Sub_Object(void)											{ return NULL; }
-	virtual bool					Push(const Vector3 & move)												{ return false; }
+	virtual bool					Push(const Vector3 & /* move */)												{ return false; }
 	
-	virtual bool					Internal_Link_Rider(PhysClass * rider)								{ return false; }
-	virtual bool					Internal_Unlink_Rider(PhysClass * rider)							{ return false; }
+	virtual bool					Internal_Link_Rider(PhysClass * /* rider */)								{ return false; }
+	virtual bool					Internal_Unlink_Rider(PhysClass * /* rider */)							{ return false; }
 
 	/*
 	** Culling, this function updates the culling box used by the object.  The default implementation
@@ -399,7 +399,7 @@ public:
 	/*
 	** This is a debugging feature which causes all vis-sector meshes to be rendered
 	*/
-	virtual void					Render_Vis_Meshes(RenderInfoClass & rinfo)			{ }
+	virtual void					Render_Vis_Meshes(RenderInfoClass & /* rinfo */)			{ }
 
 	/*
 	** When rendering shadows in BLOB mode, this function defines the bounds of

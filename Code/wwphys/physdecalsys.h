@@ -127,8 +127,8 @@ protected:
 		LogicalDecalClass(void);
 		~LogicalDecalClass(void);
 
-		bool										operator == (const LogicalDecalClass & that) { return false; }
-		bool										operator != (const LogicalDecalClass & that) { return true; }
+		bool										operator == (const LogicalDecalClass & ) { return false; }
+		bool										operator != (const LogicalDecalClass & ) { return true; }
 
 		void										Reset(void);
 		void										Init(DecalGeneratorClass * gen);

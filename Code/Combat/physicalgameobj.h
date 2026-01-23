@@ -171,7 +171,7 @@ public:
 
 	// Collision
 	void		Set_Collision_Group( int group );
-	virtual ExpirationReactionType	Object_Expired( PhysClass * observed_obj ) override { Set_Delete_Pending(); return EXPIRATION_APPROVED; }
+	virtual ExpirationReactionType	Object_Expired( PhysClass * /* observed_obj */ ) override { Set_Delete_Pending(); return EXPIRATION_APPROVED; }
 
 	// Type identification
 	virtual	PhysicalGameObj		*As_PhysicalGameObj( void )	override { return this; }

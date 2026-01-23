@@ -99,7 +99,7 @@ class SoundPseudo3DClass : public Sound3DClass
 		//
 		// The velocity settings are in meters per millisecond.
 		//
-		virtual void			Set_Velocity (const Vector3 &velocity) override			{ }
+		virtual void			Set_Velocity (const Vector3 &/* velocity */) override			{ }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Attenuation settings

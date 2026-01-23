@@ -571,7 +571,7 @@ void
 MPLanGameListMenuClass::On_ListCtrl_Delete_Entry
 (
 	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
+	int				/* ctrl_id */,
 	int				item_index
 )
 {
@@ -597,9 +597,9 @@ MPLanGameListMenuClass::On_ListCtrl_Delete_Entry
 void
 MPLanGameListMenuClass::On_ListCtrl_DblClk
 (
-	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
-	int				item_index
+	ListCtrlClass * /* list_ctrl */,
+	int				/* ctrl_id */,
+	int				/* item_index */
 )
 {
 	Join_Game ();

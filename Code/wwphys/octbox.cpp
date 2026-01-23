@@ -209,7 +209,7 @@ OctBoxClass::Internal_Compute_Contacts(bool lock_to_centroids)
 }
 
 
-void OctBoxClass::Compute_Octant_Contact(int oi,bool lock_to_centroids)
+void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 {
 	static Vector3 _octant_offset[8] =
 	{

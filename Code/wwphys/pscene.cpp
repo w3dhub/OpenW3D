@@ -538,7 +538,7 @@ void PhysicsSceneClass::Internal_Add_Static_Object(StaticPhysClass * newtile)
  * HISTORY:                                                                                    *
  *   7/7/2000   gth : Created.                                                                 *
  *=============================================================================================*/
-void PhysicsSceneClass::Add_Static_Light(LightPhysClass * newlight,int cull_node_id/*=-1*/)
+void PhysicsSceneClass::Add_Static_Light(LightPhysClass * newlight,int /* cull_node_id */)
 {
 	WWASSERT(newlight != NULL);
 	WWASSERT(newlight->Peek_Model() != NULL);

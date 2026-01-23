@@ -195,7 +195,7 @@ CameraSettingsFormClass::OnUpdateDepthEdit (void)
 // Set_Depth
 //
 void
-CameraSettingsFormClass::Set_Depth (int new_depth)
+CameraSettingsFormClass::Set_Depth (int /* new_depth */)
 {
 
 	return ;

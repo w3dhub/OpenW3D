@@ -54,8 +54,8 @@ public:
 	HANDLE				FileMapping;
 	int					RefCount;	
 
-	bool operator== (const FileMappingClass &src)	{ return false; }
-	bool operator!= (const FileMappingClass &src)	{ return false; }
+	bool operator== (const FileMappingClass &/* src*/)	{ return false; }
+	bool operator!= (const FileMappingClass &/* src*/)	{ return false; }
 };
 
 static DynamicVectorClass<FileMappingClass> MappingList;
@@ -326,7 +326,7 @@ StreamSoundBufferClass::Free_Buffer (void)
 //
 /////////////////////////////////////////////////////////////////////////////////
 bool
-StreamSoundBufferClass::Load_From_File (const char *filename)
+StreamSoundBufferClass::Load_From_File (const char * /* filename */)
 {
 	WWPROFILE ("StreamSoundBufferClass::Load_From_File");
 	return true;

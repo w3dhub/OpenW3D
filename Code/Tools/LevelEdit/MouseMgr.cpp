@@ -281,7 +281,7 @@ MouseModeClass::Handle_RButton_Up
 void
 MouseModeClass::Handle_Mouse_Move
 (
-	UINT		flags,
+	UINT		/* flags */,
 	CPoint	point
 )
 {
@@ -777,8 +777,8 @@ MMWaypathEditClass::On_Mode_Exit (void)
 void
 MMWaypathEditClass::Handle_LButton_Down
 (
-	UINT		flags,
-	CPoint	point
+	UINT		/* flags */,
+	CPoint	/* point */
 )
 {
 	/*NodeClass *node = ::Get_Scene_Editor ()->Find_Node_At_Point (point);
@@ -799,7 +799,7 @@ void
 MMWaypathEditClass::Handle_LButton_Up
 (
 	UINT		flags,
-	CPoint	point
+	CPoint	/* point */
 )
 {
 	if (m_Waypath != NULL && m_CurrentPoint >= 0) {
@@ -837,8 +837,8 @@ MMWaypathEditClass::Handle_LButton_Up
 void
 MMWaypathEditClass::Handle_RButton_Down
 (
-	UINT		flags,
-	CPoint	point
+	UINT		/* flags */,
+	CPoint	/* point */
 )
 {
 	return ;
@@ -853,8 +853,8 @@ MMWaypathEditClass::Handle_RButton_Down
 void
 MMWaypathEditClass::Handle_RButton_Up
 (
-	UINT		flags,
-	CPoint	point
+	UINT		/* flags */,
+	CPoint	/* point */
 )
 {
 	return ;
@@ -869,7 +869,7 @@ MMWaypathEditClass::Handle_RButton_Up
 void
 MMWaypathEditClass::Handle_Mouse_Move
 (
-	UINT		flags,
+	UINT		/* flags */,
 	CPoint	point
 )
 {	
@@ -925,8 +925,8 @@ MMWaypathEditClass::On_Mode_Set (void)
 void
 MMGrabHandleDragClass::Handle_LButton_Up
 (
-	UINT		flags,
-	CPoint	point
+	UINT		/* flags */,
+	CPoint	/* point */
 )
 {
 	// Put the mouse mode back to what it was
@@ -949,7 +949,7 @@ MMGrabHandleDragClass::Handle_LButton_Up
 void
 MMGrabHandleDragClass::Handle_Mouse_Move
 (
-	UINT		flags,
+	UINT		/* flags */,
 	CPoint	point
 )
 {
@@ -1000,7 +1000,7 @@ MMGrabHandleDragClass::Set_Node_Info
 //
 ///////////////////////////////////////////////////////////////
 void
-MMHeightfieldEditClass::Handle_LButton_Down (UINT flags, CPoint point)
+MMHeightfieldEditClass::Handle_LButton_Down (UINT /* flags */, CPoint /* point */)
 {
 	return ;
 }
@@ -1012,7 +1012,7 @@ MMHeightfieldEditClass::Handle_LButton_Down (UINT flags, CPoint point)
 //
 ///////////////////////////////////////////////////////////////
 void
-MMHeightfieldEditClass::Handle_LButton_Up (UINT flags, CPoint point)
+MMHeightfieldEditClass::Handle_LButton_Up (UINT /* flags */, CPoint /* point */)
 {
 	return ;
 }
@@ -1024,7 +1024,7 @@ MMHeightfieldEditClass::Handle_LButton_Up (UINT flags, CPoint point)
 //
 ///////////////////////////////////////////////////////////////
 void
-MMHeightfieldEditClass::Handle_RButton_Down (UINT flags, CPoint point)
+MMHeightfieldEditClass::Handle_RButton_Down (UINT /* flags */, CPoint /* point */)
 {
 	return ;
 }
@@ -1036,7 +1036,7 @@ MMHeightfieldEditClass::Handle_RButton_Down (UINT flags, CPoint point)
 //
 ///////////////////////////////////////////////////////////////
 void
-MMHeightfieldEditClass::Handle_RButton_Up (UINT flags, CPoint point)
+MMHeightfieldEditClass::Handle_RButton_Up (UINT /* flags */, CPoint /* point */)
 {
 	return ;
 }

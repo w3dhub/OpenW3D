@@ -426,7 +426,7 @@ CFancyToolbar::OnLButtonUp
 //  OnDraw
 //
 void
-CFancyToolbar::OnDraw (CDC* pDC)
+CFancyToolbar::OnDraw (CDC* /* pDC */)
 {
     return ;
 }

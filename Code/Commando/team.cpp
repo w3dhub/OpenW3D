@@ -235,7 +235,7 @@ float cTeam::Get_Kill_To_Death_Ratio(void) const
 }
 
 //------------------------------------------------------------------------------------
-void cTeam::Get_Team_String(int rank, WideStringClass & string) const
+void cTeam::Get_Team_String(int /* rank */, WideStringClass & string) const
 {
    //
    // Compose a string description of a team's stats for display
@@ -435,12 +435,12 @@ void cTeam::Import_Occasional(BitStreamClass &packet)
 }
 
 //------------------------------------------------------------------------------------
-void cTeam::Export_Frequent(BitStreamClass &packet)
+void cTeam::Export_Frequent(BitStreamClass &/* packet */)
 {
 }
 
 //------------------------------------------------------------------------------------
-void cTeam::Import_Frequent(BitStreamClass &packet)
+void cTeam::Import_Frequent(BitStreamClass &/* packet */)
 {
 }
 

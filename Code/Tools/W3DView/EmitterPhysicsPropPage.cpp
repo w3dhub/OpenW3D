@@ -43,7 +43,7 @@ IMPLEMENT_DYNCREATE(EmitterPhysicsPropPageClass, CPropertyPage)
 //  EmitterPhysicsPropPageClass
 //
 /////////////////////////////////////////////////////////////
-EmitterPhysicsPropPageClass::EmitterPhysicsPropPageClass (EmitterInstanceListClass *pemitter)
+EmitterPhysicsPropPageClass::EmitterPhysicsPropPageClass (EmitterInstanceListClass * /* pemitter */)
 	: m_pEmitterList (NULL),
 	  m_bValid (true),
 	  m_Velocity (0, 0, 1),

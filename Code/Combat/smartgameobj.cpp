@@ -549,7 +549,7 @@ void SmartGameObj::Generate_Control(void)
 }
 
 //-----------------------------------------------------------------------------
-bool SmartGameObj::Is_Control_Data_Dirty(cPacket & packet)
+bool SmartGameObj::Is_Control_Data_Dirty(cPacket & /* packet */)
 {	
 	//
 	// future optimization
@@ -861,7 +861,7 @@ bool	SmartGameObj::Is_Obj_Visible( PhysicalGameObj *obj )
 /*
 **
 */
-void	SmartGameObj::On_Logical_Heard (LogicalListenerClass *listener, LogicalSoundClass *sound_obj) 
+void	SmartGameObj::On_Logical_Heard (LogicalListenerClass * /* listener */, LogicalSoundClass *sound_obj) 
 {
 	CombatSound sound;
 	sound.Type = (CombatSoundType)sound_obj->Get_Type_Mask();

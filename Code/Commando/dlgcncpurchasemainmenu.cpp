@@ -578,7 +578,7 @@ CNCPurchaseMainMenuClass::On_Merchandise_Selected (MerchandiseCtrlClass *ctrl, i
 //
 ////////////////////////////////////////////////////////////////
 void
-CNCPurchaseMainMenuClass::On_Merchandise_DblClk (MerchandiseCtrlClass *ctrl, int ctrl_id)
+CNCPurchaseMainMenuClass::On_Merchandise_DblClk (MerchandiseCtrlClass * /* ctrl */, int ctrl_id)
 {
 	Purchase_Item (ctrl_id);
 	return ;

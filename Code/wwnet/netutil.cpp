@@ -85,7 +85,7 @@ char cNetUtil::WorkingAddressBuffer[]					= "";
 //
 #define ADD_CASE(exp)    case exp: ::sprintf(error_msg, #exp);  break;
 
-void cNetUtil::Wsa_Error(LPCSTR sFile, unsigned uLine)
+void cNetUtil::Wsa_Error([[maybe_unused]] LPCSTR sFile, [[maybe_unused]] unsigned uLine)
 {
    [[maybe_unused]] int err = wwnet::SocketGetLastError();
    WWDEBUG_SAY(("* %s:%d: WSA function returned error code: %s\n", sFile, uLine, Winsock_Error_Text(err)));
@@ -277,7 +277,7 @@ bool cNetUtil::Is_Same_Address(struct sockaddr_in* p_address1, const struct sock
 }
 
 //-------------------------------------------------------------------------------
-void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, UINT len,
+void cNetUtil::Address_To_String(struct sockaddr_in* p_address, char * str, [[maybe_unused]] UINT len,
    USHORT & port)
 {
 	WWASSERT(p_address != NULL);

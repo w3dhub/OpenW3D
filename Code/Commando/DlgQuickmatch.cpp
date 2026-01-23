@@ -471,7 +471,7 @@ void DlgQuickMatch::HandleNotification(QuickMatchEvent& status)
 *
 ******************************************************************************/
 
-void DlgQuickMatch::HandleNotification(DlgMsgBoxEvent& msgbox)
+void DlgQuickMatch::HandleNotification([[maybe_unused]] DlgMsgBoxEvent& msgbox)
 	{
 #ifdef QUICKMATCH_OPTIONS
 	Add_Ref();

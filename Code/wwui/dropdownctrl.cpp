@@ -363,7 +363,7 @@ DropDownCtrlClass::On_Mouse_Move (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 bool
-DropDownCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+DropDownCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	bool handled = true;
 
@@ -414,7 +414,7 @@ DropDownCtrlClass::On_Create (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-DropDownCtrlClass::On_Kill_Focus (DialogControlClass *focus)
+DropDownCtrlClass::On_Kill_Focus (DialogControlClass * /* focus */)
 {
 	//
 	//	Noitify the combobox that we are done

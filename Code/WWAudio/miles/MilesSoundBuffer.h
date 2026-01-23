@@ -145,7 +145,7 @@ class StreamSoundBufferClass : public SingleSoundBufferClass
 		//////////////////////////////////////////////////////////////////////
 		//	Memory methods
 		//////////////////////////////////////////////////////////////////////
-		bool			Load_From_Memory (unsigned char *mem_buffer, unsigned int size) override { return false;  }
+		bool			Load_From_Memory (unsigned char * /* mem_buffer */, unsigned int /* size */) override { return false;  }
 
 		//////////////////////////////////////////////////////////////////////
 		//	Type methods

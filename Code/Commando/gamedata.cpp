@@ -1714,7 +1714,7 @@ bool cGameData::Is_Clan_Game_Open(void) const
 }
 
 //-----------------------------------------------------------------------------
-cGameData * cGameData::Create_Game_Of_Type(GameTypeEnum game_type)
+cGameData * cGameData::Create_Game_Of_Type([[maybe_unused]] GameTypeEnum game_type)
 {
 	/*
 	cGameData * p_game_data = NULL;

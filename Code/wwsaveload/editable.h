@@ -85,7 +85,7 @@ EditableClass::Get_Parameter_Count (void) const
 //	Get_Parameter
 /////////////////////////////////////////////////////////////////////
 inline ParameterClass *
-EditableClass::Lock_Parameter (int i)
+EditableClass::Lock_Parameter (int /*i*/)
 {
 	WWASSERT (0);
 	return NULL;
@@ -95,7 +95,7 @@ EditableClass::Lock_Parameter (int i)
 //	Set_Parameter
 /////////////////////////////////////////////////////////////////////
 inline void
-EditableClass::Unlock_Parameter (int i)
+EditableClass::Unlock_Parameter (int /*i*/)
 {
 	return ;
 }

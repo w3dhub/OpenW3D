@@ -1287,7 +1287,7 @@ PathfindSectorBuilderClass::Build_Height_Values (void)
 //
 //////////////////////////////////////////////////////////////////////////
 inline bool
-Can_Traverse (FloodfillBoxClass *cell, PATHFIND_DIR dir)
+Can_Traverse (FloodfillBoxClass *cell, PATHFIND_DIR /* dir */)
 {
 	//
 	//	Make sure the cell passes the basic 'traverse-requirements'
@@ -2580,7 +2580,7 @@ PathfindSectorBuilderClass::Find_Transition
 (
 	TransitionDataClass::StyleType	transition_type,
 	const Vector3 &						start_pos,
-	float										z_delta,
+	float										/* z_delta */,
 	TransitionNodeClass **				transition_node
 )
 {
@@ -2951,7 +2951,7 @@ PathfindSectorBuilderClass::Path_Across_Feature (LevelFeatureClass *level_featur
 UINT
 fnPathfindDialogThread
 (
-	DWORD_PTR dwparam1,
+	DWORD_PTR /* dwparam1 */,
 	DWORD_PTR dwparam2,
 	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,

@@ -72,8 +72,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public operators
 	////////////////////////////////////////////////////////////////
-	bool					operator== (const MapMarkerClass &src) const	{ return false; }
-	bool					operator!= (const MapMarkerClass &src)	const	{ return true; }
+	bool					operator== (const MapMarkerClass &/* src*/) const	{ return false; }
+	bool					operator!= (const MapMarkerClass &/* src*/)	const	{ return true; }
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

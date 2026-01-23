@@ -73,7 +73,7 @@ RenderObjClass * Null3DObjClass::Clone(void) const
 	return NEW_REF( Null3DObjClass, (*this)); 
 }
 
-void Null3DObjClass::Render(RenderInfoClass & rinfo)
+void Null3DObjClass::Render(RenderInfoClass & /*rinfo*/)
 { 
 }
 

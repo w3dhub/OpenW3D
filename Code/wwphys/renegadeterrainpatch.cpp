@@ -175,7 +175,7 @@ RenegadeTerrainPatchClass::~RenegadeTerrainPatchClass (void)
 //
 //////////////////////////////////////////////////////////////////////
 const RenegadeTerrainPatchClass &
-RenegadeTerrainPatchClass::operator= (const RenegadeTerrainPatchClass &src)
+RenegadeTerrainPatchClass::operator= (const RenegadeTerrainPatchClass &)
 {
 	return *this;
 }

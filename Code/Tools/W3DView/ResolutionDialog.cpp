@@ -227,7 +227,7 @@ ResolutionDialogClass::OnOK (void)
 void
 ResolutionDialogClass::OnDblclkResolutionListCtrl
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

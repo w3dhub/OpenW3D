@@ -1968,7 +1968,7 @@ void WolGameModeClass::Handle_Disconnect(void)
  * HISTORY:                                                                                    *
  *   11/8/2001 10:21PM ST : Created                                                            *
  *=============================================================================================*/
-void WolGameModeClass::HandleNotification(ServerError& server_error)
+void WolGameModeClass::HandleNotification(ServerError& /* server_error */)
 {
 /*
 ** This doesn't work because you can't get a server list without also doing a complete reset of wolapi.

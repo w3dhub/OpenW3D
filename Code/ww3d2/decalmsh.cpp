@@ -415,7 +415,7 @@ bool RigidDecalMeshClass::Create_Decal
 	DecalGeneratorClass *			generator,
 	const OBBoxClass &				localbox,
 	SimpleDynVecClass<uint32> &	apt,
-	const DynamicVectorClass<Vector3> * world_vertex_locs
+	[[maybe_unused]] const DynamicVectorClass<Vector3> * world_vertex_locs
 )
 {
 	// Since we can't rely on the hardware polygon offset function, I'm physically offsetting
@@ -910,7 +910,7 @@ int SkinDecalMeshClass::Process_Material_Run(int start_index)
  *   1/31/00    NH : Created.                                                                  *
  *=============================================================================================*/
 bool SkinDecalMeshClass::Create_Decal(DecalGeneratorClass * generator,
-	const OBBoxClass & localbox, SimpleDynVecClass<uint32> & apt,
+	const OBBoxClass & /*localbox*/, SimpleDynVecClass<uint32> & apt,
 	const DynamicVectorClass<Vector3> * world_vertex_locs)
 {
 	int i;

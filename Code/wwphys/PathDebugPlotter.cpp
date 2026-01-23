@@ -54,7 +54,7 @@ PathDebugPlotterClass *PathDebugPlotterClass::_ThePathDebugPlotter = NULL;
 void
 PathDebugPlotterClass::Render_Vector
 (
-	RenderInfoClass &	rinfo,
+	RenderInfoClass &	/* rinfo */,
 	const Vector3 &	pt,
 	const Vector3 &	vec,
 	const Vector3 &	color

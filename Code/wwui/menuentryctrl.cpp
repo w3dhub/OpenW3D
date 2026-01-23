@@ -678,7 +678,7 @@ MenuEntryCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //
 ////////////////////////////////////////////////////////////////
 bool
-MenuEntryCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+MenuEntryCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	bool handled = true;
 
@@ -731,7 +731,7 @@ MenuEntryCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 //
 ////////////////////////////////////////////////////////////////
 bool
-MenuEntryCtrlClass::On_Key_Up (uint32 key_id)
+MenuEntryCtrlClass::On_Key_Up (uint32 /* key_id */)
 {	
 	return false;
 }

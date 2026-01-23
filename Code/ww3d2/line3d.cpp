@@ -251,7 +251,7 @@ RenderObjClass * Line3DClass::Clone(void) const
  *	  02/16/2001 HY  : Ported to DX8													                       *
  *=============================================================================================*/
 
-void Line3DClass::Render(RenderInfoClass & rinfo)
+void Line3DClass::Render(RenderInfoClass & /*rinfo*/)
 {
 	if (Is_Not_Hidden_At_All() == false) {
 		return;

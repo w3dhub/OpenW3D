@@ -108,11 +108,11 @@ public:
 	virtual void	Set_Sample_Pitch (float pitch) = 0;
 
 	// These are only used for 3D samples.
-	virtual void Set_Position(const Vector3 &position) {}
-	virtual void Set_Orientation(const Vector3 &facing, const Vector3 &up) {}
-	virtual void Set_Velocity(const Vector3 &velocity) {}
-	virtual void Set_Dropoff(float max, float min) {}
-	virtual void Set_Effect_Level(float level) {}
+	virtual void Set_Position(const Vector3 &/* position */) {}
+	virtual void Set_Orientation(const Vector3 &/* facing */, const Vector3 &/* up */) {}
+	virtual void Set_Velocity(const Vector3 &/* velocity */) {}
+	virtual void Set_Dropoff(float /* max */, float /* min */) {}
+	virtual void Set_Effect_Level(float /* level */) {}
 
 	virtual void Initialize_Reverb() {}
 protected:

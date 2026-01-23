@@ -513,7 +513,7 @@ void TexProjectClass::Enable_Depth_Gradient(bool onoff)
  * HISTORY:                                                                                    *
  *   2/25/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-bool TexProjectClass::Is_Depth_Gradient_Enabled(bool onoff)
+bool TexProjectClass::Is_Depth_Gradient_Enabled(bool /*onoff*/)
 {
 	return Get_Flag(USE_DEPTH_GRADIENT);
 }

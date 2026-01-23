@@ -71,7 +71,7 @@ void	SystemSettings::Apply_All( void )
 /*
 **
 */
-void	SystemSettings::Registry_Save( const char * sub_key )
+void	SystemSettings::Registry_Save( const char * /* sub_key */ )
 {
 	INIClass ini(W3D_CONF_FILE);
 
@@ -81,7 +81,7 @@ void	SystemSettings::Registry_Save( const char * sub_key )
 	ini.Save(W3D_CONF_FILE);
 }
 
-void	SystemSettings::Registry_Load( const char * sub_key )
+void	SystemSettings::Registry_Load( const char * /* sub_key */ )
 {
 	INIClass ini(W3D_CONF_FILE);
 
@@ -96,7 +96,7 @@ void	SystemSettings::Registry_Load( const char * sub_key )
 /*
 **
 */
-void	SystemSettings::Add_Console_Functions( DynamicVectorClass<ConsoleFunctionClass *> & list )
+void	SystemSettings::Add_Console_Functions( [[maybe_unused]] DynamicVectorClass<ConsoleFunctionClass *> & list )
 {
 #ifdef WWDEBUG
 	for ( int index = 0; index < SettingList.Count(); index++ ) {
@@ -113,7 +113,7 @@ public:
 	ConsoleFunctionSettingBool( SystemSettingEntryBool	* entry ) : Entry( entry ) {}
 	virtual	const char * Get_Name( void ) override	{ return Entry->Get_Name(); }
 	virtual	const char * Get_Help( void ) override	{ return Entry->Get_Help(); }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		Entry->Set_State( !Entry->Get_State() );
 		Print( "%s %s\n", Entry->Get_Name(), Entry->Get_State() ? "ON" : "OFF" );
 	}

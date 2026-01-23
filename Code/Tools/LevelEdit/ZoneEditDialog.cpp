@@ -349,11 +349,11 @@ ZoneEditDialogClass::Render_View (void)
 void CALLBACK
 ZoneEditDialogClass::fnUpdateTimer
 (
-	UINT	uID,
-	UINT	uMsg,
+	UINT	/* uID */,
+	UINT	/* uMsg */,
 	DWORD_PTR	user_data,
-	DWORD_PTR	dw1,
-	DWORD_PTR	dw2
+	DWORD_PTR	/* dw1 */,
+	DWORD_PTR	/* dw2 */
 )
 {
 	HWND hwnd = (HWND)user_data;
@@ -796,7 +796,7 @@ ZoneEditDialogClass::fn3DWindow
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ZoneEditDialogClass::Handle_LBUTTON_DOWN (WPARAM wparam, LPARAM lparam)
+ZoneEditDialogClass::Handle_LBUTTON_DOWN (WPARAM /* wparam */, LPARAM lparam)
 {
 	if (m_Initialized == false) {
 		return ;
@@ -815,7 +815,7 @@ ZoneEditDialogClass::Handle_LBUTTON_DOWN (WPARAM wparam, LPARAM lparam)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ZoneEditDialogClass::Handle_LBUTTON_UP (WPARAM wparam, LPARAM lparam)
+ZoneEditDialogClass::Handle_LBUTTON_UP (WPARAM /* wparam */, LPARAM /* lparam */)
 {
 	::ReleaseCapture ();
 	return ;

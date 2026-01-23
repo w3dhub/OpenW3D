@@ -146,7 +146,7 @@ MoverClass::Get_Mouse_Ray
 void
 MoverClass::Get_LOS_Ray
 (
-	const POINT &	mouse_pos, 
+	const POINT &	/* mouse_pos */, 
 	float				length,
 	Vector3 &		start,
 	Vector3 &		end

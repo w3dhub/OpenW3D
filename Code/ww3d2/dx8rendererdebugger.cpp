@@ -25,7 +25,7 @@ static HashTemplateClass<unsigned, MeshClass*> MeshHash;
 
 bool DX8RendererDebugger::Enabled;
 
-void DX8RendererDebugger::Enable(bool enable)
+void DX8RendererDebugger::Enable(bool /*enable*/)
 {
 	Enabled=true;
 }

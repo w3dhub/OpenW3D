@@ -369,7 +369,7 @@ void PhysicsSceneClass::Load_Level_Dynamic_Data(ChunkLoadClass & cload)
 }
 
 
-void PhysicsSceneClass::Save_LDD_Variables(ChunkSaveClass & csave)
+void PhysicsSceneClass::Save_LDD_Variables(ChunkSaveClass & /* csave */)
 {
 }
 

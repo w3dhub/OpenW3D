@@ -79,8 +79,8 @@ enum RadarModeEnum {
 class			RadarMarkerClass {
 public:
 	RadarMarkerClass( void );
-	bool		operator == ( const RadarMarkerClass & other) const	{ return false; }
-	bool		operator != ( const RadarMarkerClass & other) const	{ return true; }
+	bool		operator == ( const RadarMarkerClass & ) const	{ return false; }
+	bool		operator != ( const RadarMarkerClass & ) const	{ return true; }
 
 	bool								Save( ChunkSaveClass &csave );
 	bool								Load( ChunkLoadClass &cload );

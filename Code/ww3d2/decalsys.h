@@ -102,7 +102,7 @@ public:
 	** When a decal-mesh is destroyed, it must inform the DecalSystem.  Otherwise, systems 
 	** which track decals can get dangling pointers.
 	*/
-	virtual void							Decal_Mesh_Destroyed(uint32 decal_id,DecalMeshClass * mesh)	{ }
+	virtual void							Decal_Mesh_Destroyed(uint32 /*decal_id*/,DecalMeshClass * /*mesh*/)	{ }
 
 protected:
 

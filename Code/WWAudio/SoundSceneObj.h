@@ -139,7 +139,7 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 		virtual void			Set_Position (const Vector3 &position)	= 0;
 		virtual Vector3		Get_Position (void) const = 0;
 
-		virtual void			Set_Listener_Transform (const Matrix3D &tm) {};
+		virtual void			Set_Listener_Transform (const Matrix3D &/*tm*/) {};
 		virtual void			Set_Transform (const Matrix3D &transform) = 0;
 		virtual Matrix3D		Get_Transform (void) const = 0;
 

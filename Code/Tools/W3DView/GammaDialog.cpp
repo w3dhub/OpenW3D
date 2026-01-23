@@ -99,7 +99,7 @@ void GammaDialogClass::OnOK()
 	CDialog::OnOK();
 }
 
-void GammaDialogClass::OnReleasedcaptureGammaSlider(NMHDR* pNMHDR, LRESULT* pResult) 
+void GammaDialogClass::OnReleasedcaptureGammaSlider(NMHDR* /* pNMHDR */, LRESULT* pResult) 
 {
 	// TODO: Add your control notification handler code here	
 	m_gamma=m_gammaslider.GetPos();

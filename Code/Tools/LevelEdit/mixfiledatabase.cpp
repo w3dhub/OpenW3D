@@ -106,9 +106,9 @@ MixFileDatabaseClass::~MixFileDatabaseClass (void)
 bool
 MixFileDatabaseClass::Open_Database
 (
-	LPCTSTR ini_filename,
-	LPCTSTR username,
-	LPCTSTR password
+	LPCTSTR /* ini_filename */,
+	LPCTSTR /* username */,
+	LPCTSTR /* password */
 )
 {
 	//

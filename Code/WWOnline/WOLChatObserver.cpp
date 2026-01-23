@@ -411,7 +411,7 @@ STDMETHODIMP ChatObserver::OnUpdateList(HRESULT result, WOL::Update* updates)
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnServerError(HRESULT result, LPCSTR errorText)
+STDMETHODIMP ChatObserver::OnServerError(HRESULT result, [[maybe_unused]] LPCSTR errorText)
 	{
 	if (mOuter == NULL)
 		{
@@ -2066,7 +2066,7 @@ STDMETHODIMP ChatObserver::OnGameStart(HRESULT result, WOL::Channel* inChannel,
 ******************************************************************************/
 
 STDMETHODIMP ChatObserver::OnUserKick(HRESULT result, WOL::Channel* inChannel,
-			WOL::User* inUser, WOL::User* kicker)
+			WOL::User* inUser, [[maybe_unused]] WOL::User* kicker)
 	{
 	if (mOuter == NULL)
 		{
@@ -2524,7 +2524,7 @@ STDMETHODIMP ChatObserver::OnUserFlags(HRESULT result, LPCSTR username, unsigned
 *
 ******************************************************************************/
 
-STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned int squadID, WOL::Squad* inSquad)
+STDMETHODIMP ChatObserver::OnSquadInfo(HRESULT result, unsigned int /* squadID */, WOL::Squad* inSquad)
 	{
 	if (mOuter == NULL)
 		{

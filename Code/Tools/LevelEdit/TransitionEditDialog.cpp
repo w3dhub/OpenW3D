@@ -422,11 +422,11 @@ TransitionEditDialogClass::Render_View (void)
 void CALLBACK
 TransitionEditDialogClass::fnUpdateTimer
 (
-	UINT	uID,
-	UINT	uMsg,
+	UINT	/* uID */,
+	UINT	/* uMsg */,
 	DWORD_PTR	user_data,
-	DWORD_PTR	dw1,
-	DWORD_PTR	dw2
+	DWORD_PTR	/* dw1 */,
+	DWORD_PTR	/* dw2 */
 )
 {
 	HWND hwnd = (HWND)user_data;
@@ -1123,7 +1123,7 @@ TransitionEditDialogClass::fn3DWindow
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-TransitionEditDialogClass::Handle_LBUTTON_DOWN (WPARAM wparam, LPARAM lparam)
+TransitionEditDialogClass::Handle_LBUTTON_DOWN (WPARAM /* wparam */, LPARAM lparam)
 {
 	::SetCapture (::GetDlgItem (m_hWnd, IDC_3D_WINDOW));
 	m_LastPoint.x = LOWORD (lparam);
@@ -1138,7 +1138,7 @@ TransitionEditDialogClass::Handle_LBUTTON_DOWN (WPARAM wparam, LPARAM lparam)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-TransitionEditDialogClass::Handle_LBUTTON_UP (WPARAM wparam, LPARAM lparam)
+TransitionEditDialogClass::Handle_LBUTTON_UP (WPARAM /* wparam */, LPARAM /* lparam */)
 {
 	::ReleaseCapture ();
 	return ;

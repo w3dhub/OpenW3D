@@ -567,7 +567,7 @@ DlgConfigPerformanceTabClass::Update_Expert_Controls (int level)
 void
 DlgConfigPerformanceTabClass::On_SliderCtrl_Pos_Changed
 (
-	SliderCtrlClass *	slider_ctrl,
+	SliderCtrlClass *	/* slider_ctrl */,
 	int					ctrl_id,
 	int					new_pos
 )

@@ -475,7 +475,7 @@ void	ArmedGameObj::Init_Muzzle_Bones( void )
 	}
 }
 
-bool	ArmedGameObj::Set_Targeting( const Vector3 & pos, bool do_tilt )
+bool	ArmedGameObj::Set_Targeting( const Vector3 & pos, bool /* do_tilt */ )
 {
 	TargetingPos = pos;
 	// Move the turret to match the target

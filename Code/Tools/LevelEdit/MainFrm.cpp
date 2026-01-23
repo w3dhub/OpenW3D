@@ -725,7 +725,7 @@ CMainFrame::OnFinalRelease (void)
 
 
 void
-PatsTextCallback (AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param)
+PatsTextCallback (AudibleSoundClass * /* sound_obj */, const StringClass &text, uint32 user_param)
 {
 	CString message;
 	message.Format ("Got text callback: %s\tUser = %d\r\n", (LPCTSTR)text, user_param);
@@ -2875,7 +2875,7 @@ CMainFrame::OnUseVisCamera (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateUseVisCamera (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateUseVisCamera (CCmdUI * /* pCmdUI */) 
 {
 	return ;
 }
@@ -3137,7 +3137,7 @@ CMainFrame::OnDisplayPathfindRawData (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateDisplayPathfindRawData (CCmdUI *pCmdUI)
+CMainFrame::OnUpdateDisplayPathfindRawData (CCmdUI * /* pCmdUI */)
 {
 	return ;
 }

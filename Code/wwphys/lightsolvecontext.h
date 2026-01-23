@@ -88,7 +88,7 @@ class LightSolveObserverClass
 {	
 public:
 	virtual ~LightSolveObserverClass(void) { };
-	virtual void Progress_Callback(LightSolveContextClass & context) { };
+	virtual void Progress_Callback(LightSolveContextClass & /* context */) { };
 };
 
 #endif //LIGHTSOLVECONTEXT_H

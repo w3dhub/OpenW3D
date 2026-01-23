@@ -146,7 +146,7 @@ void LightEnvironmentClass::InputLightStruct::Init_From_Point_Or_Spot_Light
 void LightEnvironmentClass::InputLightStruct::Init_From_Directional_Light
 (
 	const LightClass & light,
-	const Vector3 & object_center
+	const Vector3 & /*object_center*/
 )
 {
 	Direction = -light.Get_Transform().Get_Z_Vector();

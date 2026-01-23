@@ -895,7 +895,7 @@ void Phys3Class::Apply_Impulse(const Vector3 & impulse)
  * HISTORY:                                                                                    *
  *   9/16/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-void Phys3Class::Apply_Impulse(const Vector3 & impulse, const Vector3 & wpos)
+void Phys3Class::Apply_Impulse(const Vector3 & impulse, const Vector3 & /* wpos */)
 {
 	// Phys3 has only linear momentum so just apply the impulse to the CM...
 	Apply_Impulse(impulse);
@@ -1456,7 +1456,7 @@ bool Phys3Class::Slide_Move(const GroundStateStruct & gs,float dt)
  * HISTORY:                                                                                    *
  *   9/16/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-bool Phys3Class::Normal_Move(const GroundStateStruct & gs,float dt)
+bool Phys3Class::Normal_Move(const GroundStateStruct & /* gs */,float /* dt */)
 {
 	WWPROFILE("Phys3::Normal_Move");
 	VERBOSE_LOG(("Phys3::Normal_Move\r\n"));
@@ -1530,7 +1530,7 @@ bool Phys3Class::Apply_Move
 	float dt,
 	bool allow_sliding,
 	bool allow_stepping,
-	bool stop_on_walkable
+	bool /* stop_on_walkable */
 )
 {
 	WWPROFILE("Phys3::Apply_Move");

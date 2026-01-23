@@ -93,7 +93,7 @@ void WidgetSystem::Release_Debug_Widgets(void)
 #endif
 }
 
-RenderObjClass * WidgetSystem::Get_Debug_Widget(WidgetType id)
+RenderObjClass * WidgetSystem::Get_Debug_Widget([[maybe_unused]] WidgetType id)
 {
 #ifdef WWDEBUG
 	if (_WidgetDefs[id].RObj != NULL) {

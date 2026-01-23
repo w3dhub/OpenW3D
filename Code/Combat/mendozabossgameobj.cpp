@@ -289,7 +289,7 @@ MendozaBossGameObjDefClass::Load (ChunkLoadClass &cload)
 //
 ///////////////////////////////////////////////////////////////////////////
 void
-MendozaBossGameObjDefClass::Save_Variables (ChunkSaveClass &csave)
+MendozaBossGameObjDefClass::Save_Variables (ChunkSaveClass &/* csave */)
 {
 	return ;
 }
@@ -301,7 +301,7 @@ MendozaBossGameObjDefClass::Save_Variables (ChunkSaveClass &csave)
 //
 ///////////////////////////////////////////////////////////////////////////
 void
-MendozaBossGameObjDefClass::Load_Variables (ChunkLoadClass &cload)
+MendozaBossGameObjDefClass::Load_Variables (ChunkLoadClass &/* cload */)
 {
 	/*while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
@@ -1210,7 +1210,7 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_PACK_EXPLODING_Begin (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 bool
-MendozaBossGameObjClass::STATE_IMPL_REQUEST_END(MENDOZA_STATE_PACK_EXPLODING) (int state)
+MendozaBossGameObjClass::STATE_IMPL_REQUEST_END(MENDOZA_STATE_PACK_EXPLODING) (int /* state */)
 {
 	return false;
 }

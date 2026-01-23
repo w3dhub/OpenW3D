@@ -376,7 +376,7 @@ EncyclopediaMgrClass::Load (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 void
-EncyclopediaMgrClass::Load_Variables (ChunkLoadClass &cload)
+EncyclopediaMgrClass::Load_Variables (ChunkLoadClass &/* cload */)
 {
 	/*while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
