@@ -74,8 +74,8 @@ struct BackdropDescriptionStruct {
 	int State;
 	DynamicVectorClass<StringClass>	Lines;
 
-	bool operator == (BackdropDescriptionStruct const & rec) const	{ return false; }
-	bool operator != (BackdropDescriptionStruct const & rec) const	{ return true; }
+	bool operator == (BackdropDescriptionStruct const & ) const	{ return false; }
+	bool operator != (BackdropDescriptionStruct const & ) const	{ return true; }
 };
 
 DynamicVectorClass<BackdropDescriptionStruct>	BackdropDescriptions;
@@ -214,7 +214,7 @@ void	CampaignManager::Start_Campaign( int difficulty )
 /*
 **
 */
-void	CampaignManager::Continue( bool success )
+void	CampaignManager::Continue( bool /* success */ )
 {
 	BackdropIndex = 0;
 
@@ -400,7 +400,7 @@ void	CampaignManager::Select_Backdrop_Number( int state_number )
 	}
 }
 
-void	CampaignManager::Select_Backdrop_Number_By_MP_Type( int type )
+void	CampaignManager::Select_Backdrop_Number_By_MP_Type( [[maybe_unused]] int type )
 {
 	//
 	//	Setup Load Menu

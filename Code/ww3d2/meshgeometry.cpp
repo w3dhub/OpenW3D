@@ -1462,7 +1462,7 @@ const Vector3 * MeshGeometryClass::Get_Vertex_Normal_Array(void)
  * HISTORY:                                                                                    *
  *   6/14/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-Vector4 * MeshGeometryClass::get_planes(bool create)
+Vector4 * MeshGeometryClass::get_planes([[maybe_unused]] bool create)
 {
 #if (OPTIMIZE_PLANEEQ_RAM)
 	_PlaneEQArray.Uninitialised_Grow(PolyCount);

@@ -244,7 +244,7 @@ CWWConfigDlg::OnOK (void)
 void
 CWWConfigDlg::OnSelchangeTabCtrl
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

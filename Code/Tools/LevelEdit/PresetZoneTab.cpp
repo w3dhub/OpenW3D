@@ -265,7 +265,7 @@ PresetZoneTabClass::Create_Phys_Obj (void)
 void
 PresetZoneTabClass::OnDblclkZoneList
 (
-	NMHDR *	pNMHDR,
+	NMHDR *	/* pNMHDR */,
 	LRESULT *pResult
 )
 {

@@ -173,7 +173,7 @@ TerrainLODPageClass::Apply_Changes (void)
 void
 TerrainLODPageClass::OnDblclkLodList
 (
-	NMHDR *pNMHDR,
+	NMHDR * /* pNMHDR */,
 	LRESULT *pResult
 ) 
 {

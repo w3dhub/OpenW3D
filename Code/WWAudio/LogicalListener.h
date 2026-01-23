@@ -82,7 +82,7 @@ class LogicalListenerClass : public SoundSceneObjClass
 		//////////////////////////////////////////////////////////////////////
 		//	Culling methods (not used for listeners)
 		//////////////////////////////////////////////////////////////////////
-		virtual void			Cull_Sound (bool culled = true) override	{ };
+		virtual void			Cull_Sound (bool /* culled */ = true) override	{ };
 		virtual bool			Is_Sound_Culled (void) const override		{ return false; };
 
 		//////////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ class LogicalListenerClass : public SoundSceneObjClass
 		static float			Get_Global_Scale (void)				{ return m_GlobalScale; }
 		static void				Set_Global_Scale (float scale)	{ m_GlobalScale = scale; }
 
-		virtual void			Set_DropOff_Radius (float radius = 1) override	{}
+		virtual void			Set_DropOff_Radius (float /* radius */ = 1) override	{}
 		virtual float			Get_DropOff_Radius (void) const override			{ return 1.0F; }
 
 		//////////////////////////////////////////////////////////////////////

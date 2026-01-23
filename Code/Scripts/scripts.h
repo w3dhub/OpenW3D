@@ -138,23 +138,23 @@ public:
 	 * Scripts can choose to override any of these functions,
 	 * otherwise the following empty functions will be called
 	 */
-	virtual	void	Created( GameObject * obj ) override {}
-	virtual	void	Destroyed( GameObject * obj ) override {}
-	virtual	void	Killed( GameObject * obj, GameObject * killer ) override {}
-	virtual	void	Damaged( GameObject * obj, GameObject * damager, float amount ) override {}
-	virtual	void	Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override {}
-	virtual	void	Sound_Heard( GameObject * obj, const CombatSound & sound ) override {}
-	virtual	void	Enemy_Seen( GameObject * obj, GameObject * enemy ) override {}
-	virtual	void	Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override	{}
-	virtual	void	Timer_Expired( GameObject * obj, int timer_id ) override {}
-	virtual	void	Animation_Complete( GameObject * obj, const char * animation_name ) override {}
-	virtual	void	Poked( GameObject * obj, GameObject * poker ) override {}
-	virtual	void	Entered( GameObject * obj, GameObject * enterer ) override {}
-	virtual	void	Exited( GameObject * obj, GameObject * exiter ) override {}
+	virtual	void	Created( GameObject * /*obj*/ ) override {}
+	virtual	void	Destroyed( GameObject * /*obj*/ ) override {}
+	virtual	void	Killed( GameObject * /*obj*/, GameObject * /*killer*/ ) override {}
+	virtual	void	Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override {}
+	virtual	void	Custom( GameObject * /*obj*/, int /*type*/, intptr_t /*param*/, GameObject * /*sender*/ ) override {}
+	virtual	void	Sound_Heard( GameObject * /*obj*/, const CombatSound & /*sound*/ ) override {}
+	virtual	void	Enemy_Seen( GameObject * /*obj*/, GameObject * /*enemy*/ ) override {}
+	virtual	void	Action_Complete( GameObject * /*obj*/, int /*action_id*/, ActionCompleteReason /*complete_reason*/ ) override	{}
+	virtual	void	Timer_Expired( GameObject * /*obj*/, int /*timer_id*/ ) override {}
+	virtual	void	Animation_Complete( GameObject * /*obj*/, const char * /*animation_name*/ ) override {}
+	virtual	void	Poked( GameObject * /*obj*/, GameObject * /*poker*/ ) override {}
+	virtual	void	Entered( GameObject * /*obj*/, GameObject * /*enterer*/ ) override {}
+	virtual	void	Exited( GameObject * /*obj*/, GameObject * /*exiter*/ ) override {}
 
 	// Save and Load specific script
-	virtual void Save_Data(ScriptSaver& saver) {}
-	virtual void Load_Data(ScriptLoader& loader) {}
+	virtual void Save_Data(ScriptSaver& /*saver*/) {}
+	virtual void Load_Data(ScriptLoader& /*loader*/) {}
 
 	// Auto Variable Save and Load
 	virtual	void Register_Auto_Save_Variables( void )	{}

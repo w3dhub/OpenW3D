@@ -42,7 +42,7 @@
 #include "cpudetect.h"
 #include <memory.h>
 
-void VectorProcessorClass::Prefetch(void* address)
+void VectorProcessorClass::Prefetch(void* /* address */)
 {
 	/* FIXME: implement using intrinsics */
 }

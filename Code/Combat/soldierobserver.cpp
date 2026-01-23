@@ -290,7 +290,7 @@ bool	SoldierObserverClass::Load (ChunkLoadClass &cload)
 /*
 **
 */
-void	SoldierObserverClass::Attach( GameObject * obj )
+void	SoldierObserverClass::Attach( GameObject * /* obj */ )
 {
 	// Warning, Attach may not be called on loaded scripts
 }
@@ -356,7 +356,7 @@ void SoldierObserverClass::Created( GameObject* obj )
 }
 
 
-void SoldierObserverClass::Destroyed(GameObject* obj)
+void SoldierObserverClass::Destroyed(GameObject* /* obj */)
 {
 //	Debug_Say(("Innate soldier [%d] destroyed\n", obj->Get_ID()));
 
@@ -378,13 +378,13 @@ void SoldierObserverClass::Timer_Expired(GameObject* obj, int timer_id)
 }
 
 
-void SoldierObserverClass::Killed(GameObject* obj, GameObject* killer)
+void SoldierObserverClass::Killed(GameObject* /* obj */, GameObject* /* killer */)
 {
 //	Debug_Say(("Innate soldier [%d] killed by [%d]\n", obj->Get_ID(), killer ? killer->Get_ID() : -1));
 }
 
 
-void SoldierObserverClass::Damaged(GameObject* obj, GameObject* damager, float amount)
+void SoldierObserverClass::Damaged(GameObject* obj, GameObject* damager, float /* amount */)
 {
 //	Debug_Say(("Innate soldier [%d] damaged by [%d]\n", obj->Get_ID(), damager ? damager->Get_ID() : -1));
 	if ( obj->Is_Hibernating() ) {
@@ -559,14 +559,14 @@ void SoldierObserverClass::Enemy_Seen(GameObject* obj, GameObject* enemy)
 }
 
 
-void	SoldierObserverClass::Custom( GameObject * obj, int type, intptr_t param, GameObject * sender )
+void	SoldierObserverClass::Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ )
 {
 	if ( type == CUSTOM_EVENT_ATTACK_ARRIVED ) {
 //		Debug_Say(( "Attack Arrvied event %d\n", param ));
 	}
 }
 
-void SoldierObserverClass::Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason )
+void SoldierObserverClass::Action_Complete( GameObject * /* obj */, int action_id, ActionCompleteReason complete_reason )
 {
 	if ( action_id == INNATE_ACTION_ID ) {
 		SubStateString += "\nComplete";

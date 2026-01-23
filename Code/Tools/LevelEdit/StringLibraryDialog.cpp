@@ -285,7 +285,7 @@ StringLibraryDialogClass::OnOK (void)
 void
 StringLibraryDialogClass::OnSelchangeTabCtrl
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

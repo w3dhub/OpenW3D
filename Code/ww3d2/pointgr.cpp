@@ -721,7 +721,7 @@ int PointGroupClass::Get_Polygon_Count(void)
  *   02/08/2001 HY  : Upgraded to DX8                                     *
  *========================================================================*/
 static SimpleVecClass<unsigned int> remap;
-void PointGroupClass::Render(RenderInfoClass &rinfo)
+void PointGroupClass::Render(RenderInfoClass &/*rinfo*/)
 {
 	// NB: the winding for pointgroups is wrong, but we
 	// are disabling culling for particles anyway

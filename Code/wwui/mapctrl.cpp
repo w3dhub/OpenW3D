@@ -637,7 +637,7 @@ MapCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-MapCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+MapCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	Release_Capture ();
 

@@ -310,7 +310,7 @@ ConversationMgrClass::Save (ChunkSaveClass &csave)
 //
 ////////////////////////////////////////////////////////////////
 bool
-ConversationMgrClass::Load_Conversations (ChunkLoadClass &cload, int category_id)
+ConversationMgrClass::Load_Conversations (ChunkLoadClass &cload, [[maybe_unused]] int category_id)
 {
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {

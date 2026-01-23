@@ -90,8 +90,8 @@ protected:
 		_CREDIT_LINE (const unichar_t *text, int font_index, int color)	:
 			Text (text), FontIndex (font_index), Color (color)	{}
 
-		bool operator== (const _CREDIT_LINE &src)	{ return false; }
-		bool operator!= (const _CREDIT_LINE &src)	{ return true; }
+		bool operator== (const _CREDIT_LINE &/* src*/)	{ return false; }
+		bool operator!= (const _CREDIT_LINE &/* src*/)	{ return true; }
 			
 		WideStringClass	Text;
 		int					FontIndex;

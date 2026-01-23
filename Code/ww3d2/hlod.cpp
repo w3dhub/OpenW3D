@@ -159,7 +159,7 @@ public:
 		memset(Name,0,sizeof(Name));
 	}
 
-	bool					operator == (const ProxyRecordClass & that) { return false; }
+	bool					operator == (const ProxyRecordClass &) { return false; }
 	bool					operator != (const ProxyRecordClass & that) { return !(*this == that); }
 
 	void					Init(const W3dHLodSubObjectStruct & w3d_data)

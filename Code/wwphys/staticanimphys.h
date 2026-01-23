@@ -110,7 +110,6 @@ public:
 	*/
 	void											Set_Shadow(TexProjectClass * shadow);
 	virtual bool								Is_Casting_Shadow(void) override										{ return (ShadowProjector != NULL); }
-	void											Debug_Display_Shadow(const Vector2 & v0,const Vector2 & v1);
 
 	/*
 	** Save-Load Support

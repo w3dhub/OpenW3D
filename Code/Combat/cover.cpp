@@ -277,7 +277,7 @@ bool	CoverEntryClass::Load( ChunkLoadClass & cload )
 	return true;
 }
 
-Vector3 CoverEntryClass::Get_Attack_Position( Vector3 & enemy_pos )	
+Vector3 CoverEntryClass::Get_Attack_Position( Vector3 & /* enemy_pos */ )	
 { 
 	// Find a cover position that will allow attack of enemy_pos (not yet)
 

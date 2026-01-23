@@ -347,9 +347,9 @@ SaveGameMenuClass::Save_Game (bool prompt)
 void
 SaveGameMenuClass::On_ListCtrl_DblClk
 (
-	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
-	int				item_index
+	ListCtrlClass * /* list_ctrl */,
+	int				/* ctrl_id */,
+	int				/* item_index */
 )
 {
 	return ;
@@ -432,10 +432,10 @@ SaveGameMenuClass::Update_Text_Field (void)
 void
 SaveGameMenuClass::On_ListCtrl_Sel_Change
 (
-	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
-	int				old_index,
-	int				new_index
+	ListCtrlClass * /* list_ctrl */,
+	int				/* ctrl_id */,
+	int				/* old_index */,
+	int				/* new_index */
 )
 {
 	Update_Text_Field ();
@@ -672,7 +672,7 @@ SaveGameMenuClass::Update_Button_State (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-SaveGameMenuClass::On_EditCtrl_Change (EditCtrlClass *edit_ctrl, int ctrl_id)
+SaveGameMenuClass::On_EditCtrl_Change (EditCtrlClass * /* edit_ctrl */, int ctrl_id)
 {
 	if (ctrl_id == IDC_FILENAME_EDIT) {
 		Update_Button_State ();
@@ -688,7 +688,7 @@ SaveGameMenuClass::On_EditCtrl_Change (EditCtrlClass *edit_ctrl, int ctrl_id)
 //
 ////////////////////////////////////////////////////////////////
 void
-SaveGameMenuClass::On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id)
+SaveGameMenuClass::On_EditCtrl_Enter_Pressed (EditCtrlClass * /* edit_ctrl */, int ctrl_id)
 {
 	if (ctrl_id == IDC_FILENAME_EDIT) {
 		Save_Game (true);

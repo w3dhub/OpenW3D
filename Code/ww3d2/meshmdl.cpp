@@ -189,7 +189,7 @@ void MeshModelClass::Register_For_Rendering()
 	}
 }
 
-void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_texture)
+void MeshModelClass::Replace_Texture(TextureClass* /*texture*/,TextureClass* /*new_texture*/)
 {
 // FIXME gth - TEMPORARILY REMOVING Replace_Texture
 #if 0
@@ -220,7 +220,7 @@ void MeshModelClass::Replace_Texture(TextureClass* texture,TextureClass* new_tex
 #endif
 }
 
-void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* vmat,VertexMaterialClass* new_vmat)
+void MeshModelClass::Replace_VertexMaterial(VertexMaterialClass* /*vmat*/,VertexMaterialClass* /*new_vmat*/)
 {
 // FIXME gth - TEMPORARILY REMOVING Replace_Texture
 #if 0
@@ -317,7 +317,7 @@ void MeshModelClass::get_deformed_vertices(Vector3 *dst_vert, Vector3 *dst_norm,
 void MeshModelClass::compose_deformed_vertex_buffer(
 	VertexFormatXYZNDUV2* verts,
 	const Vector2* uv0,
-	const Vector2* uv1,
+	const Vector2* /*uv1*/,
 	const unsigned* diffuse,
 	const HTreeClass * htree)
 {
@@ -543,7 +543,7 @@ struct SideIndexInfo
 	unsigned short vidx2;
 	unsigned polygon_index;
 	SideIndexInfo() {}
-	SideIndexInfo(int i) { WWASSERT(0); }
+	SideIndexInfo(int /* i */) { WWASSERT(0); }
 };
 
 

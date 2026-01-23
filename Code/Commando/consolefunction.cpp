@@ -243,7 +243,7 @@ class HUDConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "hud"; }
 	virtual	const char * Get_Help( void ) override	{ return "HUD - toggles the HUD."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		HUDClass::Enable( !HUDClass::Is_Enabled() );
       Print( "HUD toggled\n" );
 	}
@@ -254,7 +254,7 @@ class PatsDebugConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "pat"; }
 	virtual	const char * Get_Help( void ) override	{ return "PAT - Pat's generic debug console function."; }
-	virtual	void Activate( const char * input ) override
+	virtual	void Activate( const char * /* input */ ) override
 	{
 		RenegadeDialogMgrClass::Goto_Location (RenegadeDialogMgrClass::LOC_INTERNET_MAIN);
 		return ;
@@ -336,7 +336,7 @@ class FlashTextureConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "flash_texture"; }
 	virtual	const char * Get_Help( void ) override	{ return "FLASH_TEXTURE <ID> <0/1> - sets texture flashing"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 #ifdef WW3D_DX8
 		int id,state;
 		int cnt=sscanf(input, "%d %d", &id, &state);
@@ -400,7 +400,7 @@ class FogToggleConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name (void) override	{ return "fog_toggle"; }
 	virtual	const char * Get_Help (void) override	{ return "FOG_TOGGLE - toggles fog on/off."; }
-	virtual	void Activate (const char *input) override {
+	virtual	void Activate (const char */* input */) override {
 
 		const char *_statusstring [2] = {"Fog disabled\n", "Fog enabled\n"};
 
@@ -438,7 +438,7 @@ class LightModeConsoleFunctionClass : public ConsoleFunctionClass {
 class LightDebugToggleConsoleFunctionClass : public ConsoleFunctionClass {
 	virtual	const char * Get_Name (void) override	{ return "light_debug"; }
 	virtual	const char * Get_Help (void) override	{ return "LIGHT_DEBUG - toggles lighting debugging on/off."; }
-	virtual	void Activate (const char *input) override {
+	virtual	void Activate (const char */* input */) override {
 		COMBAT_SCENE->Enable_Lighting_Debug_Display(!COMBAT_SCENE->Is_Lighting_Debug_Display_Enabled());
 		if (COMBAT_SCENE->Is_Lighting_Debug_Display_Enabled()) {
 			Print ("Lighting debug display ENABLED");
@@ -464,7 +464,7 @@ class LightCalcConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "light_calc"; }
 	virtual	const char * Get_Help( void ) override	{ return "LIGHT_CALC - computes a static vertex lighting solve"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if (COMBAT_SCENE) {
 			LightSolveContextClass context;
 			LightSolveClass::Generate_Static_Light_Solve(context);
@@ -491,7 +491,7 @@ class VisConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "vis_toggle"; }
 	virtual	const char * Get_Help( void ) override	{ return "VIS_TOGGLE - toggles vis culling."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		COMBAT_SCENE->Enable_Vis(!COMBAT_SCENE->Is_Vis_Enabled());
 		if (COMBAT_SCENE->Is_Vis_Enabled()) {
 			Print("vis enabled\n");
@@ -506,7 +506,7 @@ class VisInvertConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "vis_invert"; }
 	virtual	const char * Get_Help( void ) override	{ return "VIS_INVERT - toggles vis invert setting."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		COMBAT_SCENE->Invert_Vis(!COMBAT_SCENE->Is_Vis_Inverted());
 		if (COMBAT_SCENE->Is_Vis_Inverted()) {
@@ -588,7 +588,7 @@ class VisHierarchicalConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "vis_hierarchical"; }
 	virtual	const char * Get_Help( void ) override	{ return "VIS_HIERARCHICAL - toggles hierarchical vis culling."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		PhysAABTreeCullClass::Enable_Hierarchical_Vis_Culling(!PhysAABTreeCullClass::Is_Hierarchical_Vis_Culling_Enabled());
 		if (PhysAABTreeCullClass::Is_Hierarchical_Vis_Culling_Enabled()) {
@@ -604,7 +604,7 @@ class VisLockConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "vis_lock_sample_point"; }
 	virtual	const char * Get_Help( void ) override	{ return "VIS_LOCK_SAMPLE_POINT - locks/unlocks the current pvs."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		COMBAT_SCENE->Lock_Vis_Sample_Point(!COMBAT_SCENE->Is_Vis_Sample_Point_Locked());
 		if (COMBAT_SCENE->Is_Vis_Sample_Point_Locked()) {
@@ -620,7 +620,7 @@ class VisSectorDisplayConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "vis_sector_display"; }
 	virtual	const char * Get_Help( void ) override	{ return "VIS_SECTOR_DISPLAY - toggles diplay of the current vis sector."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		COMBAT_SCENE->Enable_Vis_Sector_Display(!COMBAT_SCENE->Is_Vis_Sector_Display_Enabled());
 		if (COMBAT_SCENE->Is_Vis_Sector_Display_Enabled()) {
@@ -636,7 +636,7 @@ class VisSectorHistoryConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "vis_sector_history"; }
 	virtual	const char * Get_Help( void ) override	{ return "VIS_SECTOR_HISTORY - toggles diplay of the previous 3 vis sectors."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		COMBAT_SCENE->Enable_Vis_Sector_History_Display(!COMBAT_SCENE->Is_Vis_Sector_History_Display_Enabled());
 		if (COMBAT_SCENE->Is_Vis_Sector_History_Display_Enabled()) {
@@ -653,7 +653,7 @@ class SuicideConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "suicide"; }
 	virtual	const char * Get_Help( void ) override	{ return "SUICIDE - kill your commando."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if (cNetwork::I_Am_Client()) {
          Print("Committing suicide.\n");
 
@@ -732,7 +732,7 @@ class ShadowPerPolyCullingConsoleFunctionClass : public ConsoleFunctionClass
 {
 	virtual	const char * Get_Name( void ) override	{ return "shadow_per_poly_culling"; }
 	virtual	const char * Get_Help( void ) override	{ return "SHADOW_PER_POLY_CULLING - toggles per poly shadow culling."; }
-	virtual	void Activate( const char * input ) override
+	virtual	void Activate( const char * /* input */ ) override
 	{
 		MaterialPassClass::Enable_Per_Polygon_Culling(!MaterialPassClass::Is_Per_Polygon_Culling_Enabled());
 		if (MaterialPassClass::Is_Per_Polygon_Culling_Enabled()) {
@@ -773,7 +773,7 @@ class PhysicsDebugConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "physics_debug"; }
 	virtual	const char * Get_Help( void ) override	{ return "PHYSICS_DEBUG - toggles physics debugging display."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		COMBAT_SCENE->Enable_Debug_Display(!COMBAT_SCENE->Is_Debug_Display_Enabled());
 		if (COMBAT_SCENE->Is_Debug_Display_Enabled()) {
@@ -823,7 +823,7 @@ class ProjectorDebugConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "projector_debug"; }
 	virtual	const char * Get_Help( void ) override	{ return "PROJECTOR_DEBUG - toggles projector debugging display."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		COMBAT_SCENE->Enable_Projector_Debug_Display(!COMBAT_SCENE->Is_Projector_Debug_Display_Enabled());
 		if (COMBAT_SCENE->Is_Projector_Debug_Display_Enabled()) {
@@ -839,7 +839,7 @@ class DirtyCullDebugConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "dirty_cull_debug"; }
 	virtual	const char * Get_Help( void ) override	{ return "DIRTY_CULL_DEBUG - toggles debugging of the dirty-cull-list."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		COMBAT_SCENE->Enable_Dirty_Cull_Debug_Display(!COMBAT_SCENE->Is_Dirty_Cull_Debug_Display_Enabled());
 		if (COMBAT_SCENE->Is_Dirty_Cull_Debug_Display_Enabled()) {
@@ -854,7 +854,7 @@ class NextRenderConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "next_render"; }
 	virtual	const char * Get_Help( void ) override	{ return "NEXT_RENDER - switches to the next render device."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3D::Set_Next_Render_Device();
 	}
 };
@@ -864,7 +864,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "one_shot_kills"; }
 	virtual	const char * Get_Alias( void ) override	{ return "osk"; }
 	virtual	const char * Get_Help( void ) override	{ return "ONE_SHOT_KILLS - kill or destroy with one shot. Server only."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		if (cNetwork::I_Am_Server()) {
          bool osk = false;
@@ -906,7 +906,7 @@ class InvalidateMeshCacheConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "invalidate_mesh_cache"; }
 	virtual	const char * Get_Help( void ) override	{ return "INVALIDATE_MESH_CACHE - invalidates all cached mesh data."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3D::_Invalidate_Mesh_Cache();
       Print( "Mesh cache invalidated." );
 	}
@@ -916,7 +916,7 @@ class InvalidateTexturesConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "invalidate_textures"; }
 	virtual	const char * Get_Help( void ) override	{ return "INVALIDATE_TEXTURES - invalidates all textures."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3D::_Invalidate_Textures();
       Print( "Textures invalidated." );
 	}
@@ -926,7 +926,7 @@ class TexturingEnableConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "texturing_enable"; }
 	virtual	const char * Get_Help( void ) override	{ return "TEXTURING_ENABLE toggle texturing."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3D::Enable_Texturing(!WW3D::Is_Texturing_Enabled());
 		Print( "Textures switched." );
 	}
@@ -936,7 +936,7 @@ class ExposePrelitConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "expose_prelit"; }
 	virtual	const char * Get_Help( void ) override	{ return "EXPOSE_PRELIT - expose precalculated lighting on meshes."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		static const char *_comment [2] = {
 			"Unexposed prelit meshes\n",
@@ -953,7 +953,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "player_position"; }
 	//virtual	const char * Get_Alias( void ) override	{ return "pp"; }
 	virtual	const char * Get_Help( void ) override	{ return "PLAYER_POSITION - toggles the players world position display."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		Get_Console()->Toggle_Player_Position();
 	}
 };
@@ -962,7 +962,7 @@ class ToggleAssetPreloadingConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "toggle_preloading"; }
 	virtual	const char * Get_Help( void ) override	{ return "TOGGLE_PRELOADING - toggles asset preloading."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		bool is_preloading = cDevOptions::PreloadAssets.Toggle();
       Print(is_preloading ? "Assets WILL preload.\n" : "Assets will NOT preload.\n" );
 	}
@@ -1040,7 +1040,7 @@ class TomConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "tom"; }
 	virtual	const char * Get_Help( void ) override	{ return "TOM - Annoyance-reduction registry tweaks customized by Tom."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		
 		INIClass ini(W3D_CONF_FILE);
 		//
@@ -1170,7 +1170,7 @@ class VblankSyncConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "vblank_sync"; }
 	virtual	const char * Get_Help( void ) override	{ return "VBLANK_SYNC - toggles vblank syncing"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		if (WW3D::Get_Ext_Swap_Interval() == 0) {
 			WW3D::Set_Ext_Swap_Interval(1);
@@ -1186,7 +1186,7 @@ class FrameTexturesConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "frame_textures"; }
 	virtual	const char * Get_Help( void ) override	{ return "FRAME_TEXTURES - measures the amoutn of textures needed for the next frame."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		DebugManager::Measure_Frame_Textures();
 	}
 };
@@ -1195,7 +1195,7 @@ class DebugObjectivesConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "objectives_debug"; }
 	virtual	const char * Get_Help( void ) override	{ return "OBJECTIVES_DEBUG - toggles Mission Objectives debug mode."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		bool enable_mode = !ObjectiveManager::Is_Objective_Debug_Mode_Enabled();
 		ObjectiveManager::Enable_Objective_Debug_Mode( enable_mode );
 		if (enable_mode) {
@@ -1211,7 +1211,7 @@ class FreeWeaponsConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "free_weapons"; }
 	virtual	const char * Get_Help( void ) override	{ return "FREE_WEAPONS - toggle free_weapons flag (server only)."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
       if (!cNetwork::I_Am_Server()) {
 			Print("Only the server can toggle free-weapons.\n");
       } else {
@@ -1260,7 +1260,7 @@ class SoldierGhostDebugDisplayConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "toggle_ghost_debug_display"; }
 	virtual	const char * Get_Help( void ) override	{ return "toggle_ghost_debug_display - Displays a box around soldiers that are in 'ghost' collision mode."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		bool enable = !SoldierGameObj::Is_Ghost_Collision_Debug_Display_Enabled ();
 		SoldierGameObj::Enable_Ghost_Collision_Debug_Display (enable);
@@ -1296,7 +1296,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "cnc"; }
 	//virtual	const char * Get_Help( void ) override	{ return "CnC [vehicle<def_name> | powerup<def_name> |char<class>[minigunner|rocket_soldier|grenadier|engineer|flame_thrower|mutant] <rank>[enlisted|officer|special_forces|boss] ] - Purchases a team vehicle, a player powerup or upgrades the player."; }
 	virtual	const char * Get_Help( void ) override	{ return "CnC - Displays CnC player console (for gods only)."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		if (cNetwork::I_Am_God()) {
 			PlayerTerminalClass::Get_Instance ()->Display_Default_Terminal_For_Player (COMBAT_STAR);
@@ -1311,7 +1311,7 @@ class DebugEncyRevealConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "reveal_encyclopedia"; }
 	virtual	const char * Get_Help( void ) override	{ return "reveal_encyclopedia - Shows all entries in the encyclopedia."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		EncyclopediaMgrClass::Reveal_All_Objects ();
 		return ;
@@ -1323,7 +1323,7 @@ class DebugShowMoveVectorConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "move_vectors"; }
 	virtual	const char * Get_Help( void ) override	{ return "move_vectors - Toggles the debug move vectors."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		bool displayed = PathClass::Are_Move_Vectors_Displayed ();
 		displayed = !displayed;
 		PathClass::Display_Move_Vectors (displayed);
@@ -1342,7 +1342,7 @@ class MapRevealConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "map_reveal"; }
 	virtual	const char * Get_Help( void ) override	{ return "map_reveal - Removes the cloud from the map."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		MapMgrClass::Clear_All_Cloud_Cells ();
 		Print( "Map is now visible.\n" );
 		return ;
@@ -1476,7 +1476,7 @@ class RunFastConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "run_fast"; }
 	virtual	const char * Get_Help( void ) override	{ return "RUN_FAST - set options for fast framerate."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		DebugManager::Option_Enable(DebugManager::DEBUG_DISABLE_LIGHTS, true);
 		WWASSERT(DebugManager::Option_Is_Enabled(DebugManager::DEBUG_DISABLE_LIGHTS));
@@ -1516,7 +1516,7 @@ class RenderBackfacesConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "render_backfaces"; }
 	virtual	const char * Get_Help( void ) override	{ return "RENDER_BACKFACES - toggles debug rendering of backfaced polys."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		/*
 		** This turns on WW3D backface rendering and also causes the Physics-Scene to
 		** stop rendering non-occluders so that we can get a better idea of what VIS
@@ -1555,7 +1555,7 @@ class ScriptTraceConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "script_trace"; }
 	virtual	const char * Get_Help( void ) override	{ return "SCRIPT_TRACE - toggles debug trace of all scipt events and commands."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
       ScriptTrace = !ScriptTrace;
 		Print( "ScriptTrace is %s\n", ScriptTrace ? "ON" : "OFF" );
 	}
@@ -1646,7 +1646,7 @@ class DefectConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "defect"; }
 	virtual	const char * Get_Help( void ) override	{ return "DEFECT - switch to the opposite team (gods only)."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		cPlayer * p_player = cNetwork::Get_My_Player_Object();
 
@@ -1664,7 +1664,7 @@ class RadarToggleConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "radar_toggle"; }
 	virtual	const char * Get_Help( void ) override	{ return "RADAR_TOGGLE - toggles the Radar."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		RadarManager::Set_Hidden( !RadarManager::Is_Hidden() );
       Print( "Radar toggled\n" );
 	}
@@ -1748,7 +1748,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "main_menu"; }
 	virtual	const char * Get_Alias( void ) override	{ return "mm"; }
 	virtual	const char * Get_Help( void ) override	{ return "MAIN_MENU - go back to the main menu."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		cDevOptions::GoToMainMenu.Set(true);
 		cDevOptions::QuickFullExit.Set(true);
 	}
@@ -1849,7 +1849,7 @@ class MultiHudConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "multihud"; }
 	virtual	const char * Get_Help( void ) override	{ return "MULTIHUD - toggle the multiplayer HUD."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
       CombatGameModeClass::Toggle_Multi_Hud();
       Print("MultiHud toggled\n");
 	}
@@ -1880,7 +1880,7 @@ public:
    virtual	const char * Get_Name( void ) override		{ return "toggle_sbbo"; }
 	virtual	const char * Get_Help( void ) override		{ return "TOGGLE_SBBO - toggle cSbboManager (server only)."; }
 
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		if (cNetwork::I_Am_Server()) {
 			bool is_enabled = cSbboManager::Toggle_Is_Enabled();
@@ -2309,7 +2309,7 @@ class BreakExecutionConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "break"; }
 	virtual	const char * Get_Help( void ) override	{ return "BREAK - break execution. Do not use this just for fun."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		Print("Breaking execution on demand.\n");
 		__debugbreak();
 	}
@@ -2320,7 +2320,7 @@ class CrashExecutionConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "crash"; }
 	virtual	const char * Get_Help( void ) override	{ return "CRASH - crash execution. Do not use this just for fun."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		Print("Bang....\n");
 		char *zero = NULL;
 		*zero = 0;
@@ -2332,7 +2332,7 @@ class GiveWeaponsConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "give_weapons"; }
 	virtual	const char * Get_Help( void ) override	{ return "GIVE_WEAPONS - give the commando all the weapons (single-player only)"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
       if (cNetwork::I_Am_Server()) {
 			if (IS_SOLOPLAY && COMBAT_STAR ) {
@@ -2376,7 +2376,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "ibelieveingod"; }
 	virtual	const char * Get_Help( void ) override	{ return "IBELIEVEINGOD - toggle philosophical standpoint on this issue.\n"; }
 
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		bool believe = cDevOptions::IBelieveInGod.Toggle();
 
@@ -2413,7 +2413,7 @@ class HideStarConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "hide_star"; }
 	virtual	const char * Get_Help( void ) override	{ return "HIDE_STAR - toggles display of the commando."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if ( COMBAT_STAR ) {
 			RenderObjClass	 *ro = COMBAT_STAR->Peek_Model();
 			ro->Set_Hidden( !ro->Is_Hidden() );
@@ -2426,7 +2426,7 @@ class FlyStarConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "fly_star"; }
 	virtual	const char * Get_Help( void ) override	{ return "FLY_STAR - toggles fly mode for the commando."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if ( COMBAT_STAR != NULL && (IS_SOLOPLAY || cNetwork::I_Am_God() )) {
 			COMBAT_STAR->Toggle_Fly_Mode();
 		}
@@ -2736,7 +2736,7 @@ class SurfaceEffectsDebugConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "surface_effects_debug"; }
 	virtual	const char * Get_Help( void ) override	{ return "SURFACE_EFFECTS_DEBUG - toggles display of surface effects debug info."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		SurfaceEffectsManager::Toggle_Debug();
 		Print( "Surface Effects Debug Toggled\n" );
 	}
@@ -2775,7 +2775,7 @@ class SwapTeamsConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "swap_teams"; }
 	virtual	const char * Get_Help( void ) override	{ return "SWAP_TEAMS - switch everyone to the opposite team (server only)."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if (cNetwork::I_Am_Server()) {
 			//if (The_Game() != NULL && The_Game()->Is_Team_Game()) {
 			if (The_Game() != NULL) {
@@ -3005,7 +3005,7 @@ class SkeletonSliderDemoConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "skeleton_slider_demo"; }
 	virtual	const char * Get_Help( void ) override	{ return "SKELETON_SLIDER_DEMO - toggles the Skeleton Slider Demo."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		CombatManager::Toggle_Skeleton_Slider_Demo();
 		Print( "Skeleton Slider Demo Toggles\n" );
 	}
@@ -3015,7 +3015,7 @@ class SkeletonStandersConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "skeleton_standers"; }
 	virtual	const char * Get_Help( void ) override	{ return "SKELETON_STANDERS - creates 4 skeleton demos."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		const char * skel_names[ 4 ] = {
 			"human_bt",
@@ -3047,7 +3047,7 @@ class GroupControllerTestConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "group_controller_test"; }
 	virtual	const char * Get_Help( void ) override	{ return "GROUP_CONTROLLER_TEST - tests group controller code."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 #if 0
 		GroupControllerClass * group = new TestGroupControllerClass();
@@ -3081,7 +3081,7 @@ class StarVisibilityConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "star_visibility"; }
 	virtual	const char * Get_Help( void ) override	{ return "STAR_VISIBILITY - toggles the logical visibility of the star."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if ( COMBAT_STAR ) {
 			COMBAT_STAR->Set_Is_Visible( !COMBAT_STAR->Is_Visible() );
 			Print( "Star is %svisible.\n", COMBAT_STAR->Is_Visible() ? "" : "in" );
@@ -3148,7 +3148,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "quick_stats"; }
 	virtual	const char * Get_Alias( void ) override{ return "qs"; }
 	virtual	const char * Get_Help( void ) override	{ return "QUICK_STATS - stats profile + profile on."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
       ConsoleFunctionManager::Parse_Input("stats profile");
 		Get_Console()->Profile_Command( "on" );
 		Get_Console()->Profile_Command( "1" );
@@ -3165,7 +3165,7 @@ class ProfileCollectBeginConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "profile_collect_begin"; }
 	virtual	const char * Get_Help( void ) override	{ return "PROFILE_COLLECT_BEGIN"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WWProfileManager::Begin_Collecting();
 	}
 };
@@ -3175,7 +3175,7 @@ class ProfileCollectEndConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "profile_collect_end"; }
 	virtual	const char * Get_Help( void ) override	{ return "PROFILE_COLLECT_END"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WWProfileManager::End_Collecting("profile_log.txt");
 	}
 };
@@ -3235,7 +3235,7 @@ class ParticleToggleConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "particle_toggle"; }
 	virtual	const char * Get_Help( void ) override	{ return "PARTICLE_TOGGLE - toggles particle emission on and off."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		ParticleEmitterClass::Disable_All_Emitters(!ParticleEmitterClass::Are_Emitters_Disabled());
 		if (ParticleEmitterClass::Are_Emitters_Disabled()) {
 			Print("Emitters disabled\n");
@@ -3250,7 +3250,7 @@ class TargetSteeringToggleConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "target_steering_toggle"; }
 	virtual	const char * Get_Help( void ) override	{ return "TARGET_STEERING_TOGGLE - toggles vehicle targetsteering."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		Print( "Target Steering %s\n", VehicleGameObj::Toggle_Target_Steering() ? "ON" : "OFF" );
 	}
 };
@@ -3260,7 +3260,7 @@ class DazzleReloadConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "dazzle_reload"; }
 	virtual	const char * Get_Help( void ) override	{ return "DAZZLE_RELOAD - reloads the dazzle ini file (DANGEROUS!)."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		FileClass * dazzle_ini_file = _TheFileFactory->Get_File("DAZZLE.INI");
 		if (dazzle_ini_file) {
@@ -3282,7 +3282,7 @@ class DataSafeStatsConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "safe_stats"; }
 	virtual	const char * Get_Help( void ) override	{ return "SAFE_STATS - Show data safe statistics"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		static char dump_buffer[1024];
 		GenericDataSafeClass::Dump_Safe_Stats(dump_buffer, 1024);
 		Print(dump_buffer);
@@ -3300,7 +3300,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "screen_uv_bias"; }
 	//virtual	const char * Get_Alias( void ) override	{ return "sub"; }
 	virtual	const char * Get_Help( void ) override	{ return "SCREEN_UV_BIAS - toggles the half pixel bias in screen text."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3D::Set_Screen_UV_Bias( !WW3D::Is_Screen_UV_Biased() );
       Print( "Screen UV Bias Switched\n" );
 	}
@@ -3355,7 +3355,7 @@ class GameOverConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "gameover"; }
 	virtual	const char * Get_Help( void ) override	{ return "GAMEOVER - end current game (server only)."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		bool print_help = false;
       if (IS_MISSION) {
@@ -3392,7 +3392,7 @@ class ToggleSortingConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "toggle_sorting"; }
 	virtual	const char * Get_Help( void ) override	{ return "TOGGLE_SORTING - toggles WW3D sorting."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3D::Enable_Sorting(!WW3D::Is_Sorting_Enabled());
       Print( WW3D::Is_Sorting_Enabled() ? "Sorting Enabled\n" : "Sorting Disabled\n" );
 	}
@@ -3402,7 +3402,7 @@ class ExtrasConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "extras"; }
 	virtual	const char * Get_Help( void ) override	{ return "EXTRAS <key>"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 #if 0
 		//int crc = CRC_String("quantifigon");//not any more, pw changed...
@@ -3633,7 +3633,7 @@ class ToggleSurfaceEffectsConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "toggle_surface_effects"; }
 	virtual	const char * Get_Help( void ) override	{ return "TOGGLE_SURFACE_EFFECTS - toggles surface effects."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		SurfaceEffectsManager::Enable_Effects(!SurfaceEffectsManager::Are_Effects_Enabled());
       Print( SurfaceEffectsManager::Are_Effects_Enabled() ? "Surface Effects Enabled\n" : "Surface Effects Disabled\n" );
 	}
@@ -3651,7 +3651,7 @@ class DisplayFindpathConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "display_findpath"; }
 	virtual	const char * Get_Help( void ) override	{ return "DISPLAY_FINDPATH - Toggles the display of findpath lines."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		Toggle_Display_Findpaths();
 	}
 };
@@ -3758,7 +3758,7 @@ public:
 			return ("QUIT - End game and restart slave server.\nTo exit without restarting use 'QUIT_SLAVE' on master server\n");
 		}
 	}
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		if (!IS_MISSION) {
 			if (AutoRestart.Is_Active()) {
@@ -4276,7 +4276,7 @@ class RestartConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "restart"; }
 	virtual	const char * Get_Help( void ) override	{ return "RESTART - Quit to desktop and restart process (dedicated server only)."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 
 		if (!IS_MISSION) {
 			if (AutoRestart.Is_Active()) {
@@ -4315,7 +4315,7 @@ class LogMeshStatsConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "log_mesh_stats"; }
 	virtual	const char * Get_Help( void ) override	{ return "LOG_MESH_STATS - log stats to debug window or file."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		TheDX8MeshRenderer.Request_Log_Statistics();
 	}
 };
@@ -4325,7 +4325,7 @@ class LogTexturesConsoleFunctionClass : public ConsoleFunctionClass
 public:
 	virtual	const char * Get_Name( void ) override	{ return "log_textures"; }
 	virtual	const char * Get_Help( void ) override	{ return "LOG_TEXTURES - log texture statistics to debug window or file."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3DAssetManager::Get_Instance()->Log_All_Textures();
 	}
 };
@@ -4334,7 +4334,7 @@ class DeviceInfoConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "device_info"; }
 	virtual	const char * Get_Help( void ) override	{ return "DEVICE_INFO - get device driver info."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		const RenderDeviceDescClass &	rddesc = WW3D::Get_Render_Device_Desc();
 		Print( "Render Device: %s\n", rddesc.Get_Device_Name() );
 		Print( "Graphics Hardware: %s\n",rddesc.Get_Hardware_Name() );
@@ -4349,7 +4349,7 @@ class NewTCADOConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "newtcado"; }
 	virtual	const char * Get_Help( void ) override	{ return "newtcado - Toggle new TCADO code"; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		bool is_new_tcado = cDevOptions::UseNewTCADO.Toggle();
       Print(is_new_tcado ? "Using new TCADO.\n" : "Using old TCADO.\n" );
 	}
@@ -4481,7 +4481,7 @@ class InfoDebugToggle : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "info_debug_toggle"; }
 	virtual	const char * Get_Help( void ) override	{ return "INFO_DEBUG_TOGGLE - Toggles display of debug info on object info."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		extern bool	InfoDebug;
 		InfoDebug = !InfoDebug;
 		Print( "Toggled Info Debug\n" );
@@ -4492,7 +4492,7 @@ class MeshRenderSnapshotFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "mesh_render_snapshot"; }
 	virtual	const char * Get_Help( void ) override	{ return "MESH_RENDER_SNAPSHOT - Logs one frame of mesh render system."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		WW3D::Activate_Snapshot(true);
 	}
 };
@@ -4501,7 +4501,7 @@ class UmbraToggleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual  const char * Get_Name(void) override { return "umbra_toggle"; }
 	virtual	const char * Get_Help(void) override { return "UMBRA_TOGGLE - toggles umbra culling (if compiled into this build)."; }
-	virtual  void Activate(const char * input) override {
+	virtual  void Activate(const char * /* input */) override {
 #if (UMBRASUPPORT)
 		UmbraSupport::Enable_Umbra(!UmbraSupport::Is_Umbra_Enabled());
 		Print("Umbra %s\n",(UmbraSupport::Is_Umbra_Enabled() ? "enabled." : "disabled."));
@@ -4516,7 +4516,7 @@ class UnusedSpawnerFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "unused_spawners"; }
 	virtual	const char * Get_Help( void ) override	{ return "UNUSED_SPAWNERS - Displays the ID of spawns which have spawned nothing."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		SpawnManager::Display_Unused_Spawners();
 	}
 };
@@ -4547,7 +4547,7 @@ class AllowKillingHibernatingSpawnFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "allow_killing_hibernating_spawn"; }
 	virtual	const char * Get_Help( void ) override	{ return "ALLOW_KILLING_HIBERNATING_SPAWN - Toggles the global ability for spawners to kill hibernating spawn."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if (	SpawnManager::Toggle_Allow_Killing_Hibernating_Spawn() ) {
 			Print("Killing Hibernating Spawn Allowed\n");
 		} else {
@@ -4560,7 +4560,7 @@ class DisplayHibernatingFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "display_hibernating"; }
 	virtual	const char * Get_Help( void ) override	{ return "DISPLAY_HIBERNATING - Toggles displaying of objects begining and ending hibernation."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 extern bool	_DisplayHibernating;
 		_DisplayHibernating = !_DisplayHibernating;
 		Print("Display Hibernating now %s\n", _DisplayHibernating ? "ON" : "OFF" );
@@ -4571,7 +4571,7 @@ class HideHUDPointsFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name( void ) override	{ return "hide_hud_points"; }
 	virtual	const char * Get_Help( void ) override	{ return "HIDE_HUD_POINTS - Toggles displaying of points on the HUD."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		Print("HUD points toggled\n" );
 		HUDClass::Toggle_Hide_Points();
 	}
@@ -4582,7 +4582,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "snap_shot_mode_toggle"; }
 	virtual	const char * Get_Alias( void ) override{ return "ssm"; }
 	virtual	const char * Get_Help( void ) override	{ return "SNAP_SHOT_MODE_TOGGLE - Toggles Snap Shot Mode."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		if ( COMBAT_CAMERA ) {
 			COMBAT_CAMERA->Set_Snap_Shot_Mode( !COMBAT_CAMERA->Is_Snap_Shot_Mode() );
 			Print( "Snap Shot Mode %s\n", COMBAT_CAMERA->Is_Snap_Shot_Mode() ? "ON" : "OFF" );
@@ -4809,7 +4809,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "app_packet_types_reset"; }
 	virtual	const char * Get_Alias( void ) override{ return "aptr"; }
 	virtual	const char * Get_Help( void ) override	{ return "APP_PACKET_TYPES_RESET - reset app packet stats."; }
-	virtual	void Activate( const char * input ) override {
+	virtual	void Activate( const char * /* input */ ) override {
 		cAppPacketStats::Reset();
 	}
 };
@@ -4853,7 +4853,7 @@ class CinematicFreezeConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name (void) override	{return ("cinematic_freeze");}
 	virtual	const char * Get_Help (void) override	{return ("CINEMATIC_FREEZE - Toggles Cinematic Freeze.");}
-	virtual	void Activate (const char *input) override {
+	virtual	void Activate (const char * /* input */) override {
 		GameObjManager::Toggle_Cinematic_Freeze();
 		Print( "Cinematic Freeze %s\n",
 			GameObjManager::Is_Cinematic_Freeze_Active() ? "ON" : "OFF" );
@@ -4866,7 +4866,7 @@ class EditVehicleConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name (void) override	{return ("edit_vehicle");}
 	virtual	const char * Get_Help (void) override	{return ("EDIT_VEHICLE - Edit the parameters of the currently driven vehicle.");}
-	virtual	void Activate (const char *input) override
+	virtual	void Activate (const char * /* input */) override
 	{
 		// Only do this in single player or 1-player multiplay games
       if (IS_SOLOPLAY || ((PTheGameData != NULL) && (PTheGameData->Get_Max_Players() == 1)) )
@@ -4923,7 +4923,7 @@ class ToggleUseLetencyInterpretConsoleFunctionClass : public ConsoleFunctionClas
 public:
 	virtual	const char * Get_Name (void) override	{return ("toggle_latency_interpret");}
 	virtual	const char * Get_Help (void) override	{return ("TOGGLE_LATENCY_INTERPRET - Toggles Latency Interpret logic.");}
-	virtual	void Activate (const char *input) override {
+	virtual	void Activate (const char * /* input */) override {
 		extern	bool	_UseLatencyInterpret;
 		_UseLatencyInterpret	= !_UseLatencyInterpret;
 		Print( "UseLetencyInterpret %s\n",
@@ -4938,7 +4938,7 @@ class ToggleHitReticleConsoleFunctionClass : public ConsoleFunctionClass {
 public:
 	virtual	const char * Get_Name (void) override	{return ("toggle_hit_reticle");}
 	virtual	const char * Get_Help (void) override	{return ("TOGGLE_HIT_RETICLE - Toggles the center reticle dot.");}
-	virtual	void Activate (const char *input) override {
+	virtual	void Activate (const char * /* input */) override {
 		CombatManager::Toggle_Hit_Reticle_Enabled();
 		Print( "Hit Reticle Toggled\n" );
 	}

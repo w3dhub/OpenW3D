@@ -248,7 +248,7 @@ void DlgPasswordPrompt::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 *
 ******************************************************************************/
 
-void DlgPasswordPrompt::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
+void DlgPasswordPrompt::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit */, int id)
 	{
 	if ((IDC_PASSWORD_EDIT == id) && Is_Dlg_Item_Enabled(IDC_JOIN_GAME_BUTTON))
 		{

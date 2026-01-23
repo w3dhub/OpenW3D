@@ -603,7 +603,7 @@ DlgConfigAudioTabClass::On_SliderCtrl_Pos_Changed
 (
 	SliderCtrlClass *	slider_ctrl,
 	int					ctrl_id,
-	int					new_pos
+	int					/* new_pos */
 )
 {
 	if (ctrl_id == IDC_SOUND_EFFECTS_SLIDER) {

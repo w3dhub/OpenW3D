@@ -252,7 +252,7 @@ static void Scan_Mesh_Header (ChunkLoadClass &cload, StringList &files, const ch
  * HISTORY:                                                                                    *
  *   4/3/00     AJA : Created.                                                                 *
  *=============================================================================================*/
-static void Scan_Mesh_Textures (ChunkLoadClass &cload, StringList &files, const char *w3d_name)
+static void Scan_Mesh_Textures (ChunkLoadClass &cload, StringList &files, const char * /* w3d_name */)
 {
 	// Let's see which textures are used by this mesh...
 	while (cload.Open_Chunk())
@@ -391,7 +391,7 @@ static void Scan_HModel (ChunkLoadClass &cload, StringList &files, const char *w
  *                                                                                             *
  * HISTORY:                                                                                    *
  *=============================================================================================*/
-static void Scan_Emitter (ChunkLoadClass &cload, StringList &files, const char *w3d_name)
+static void Scan_Emitter (ChunkLoadClass &cload, StringList &files, const char * /* w3d_name */)
 {
 	while (cload.Open_Chunk())
 	{

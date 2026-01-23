@@ -85,9 +85,9 @@ public:
 	virtual ParameterClass::Type	Get_Type (void) const = 0;
 	virtual int							Create (HWND parent_wnd, int id_start, LPRECT pos) = 0;
 	virtual void						Resize (const CRect &rect) = 0;
-	virtual void						Read_Data (HWND parent_wnd) { };
-	virtual bool						On_Command (HWND parent_wnd, WPARAM wparam, LPARAM lparam) { return false; }
-	virtual bool						On_DrawItem (HWND parent_wnd, WPARAM wparam, LPARAM lparam) { return false; }
+	virtual void						Read_Data (HWND /* parent_wnd */) { };
+	virtual bool						On_Command (HWND /* parent_wnd */, WPARAM /* wparam */, LPARAM /* lparam */) { return false; }
+	virtual bool						On_DrawItem (HWND /* parent_wnd */, WPARAM /* wparam */, LPARAM /* lparam */) { return false; }
 	virtual void						On_Destroy (void) { };
 
 	virtual ParameterClass *		Get_Parameter (void) const = 0;

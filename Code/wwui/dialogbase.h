@@ -224,8 +224,8 @@ public:
 	//
 	//	Transition control
 	//
-	virtual DialogTransitionClass *	Get_Transition_In (DialogBaseClass *prev_dlg)	{ return NULL; }
-	virtual DialogTransitionClass *	Get_Transition_Out (DialogBaseClass *next_dlg)	{ return NULL; }
+	virtual DialogTransitionClass *	Get_Transition_In (DialogBaseClass * /* prev_dlg */)	{ return NULL; }
+	virtual DialogTransitionClass *	Get_Transition_Out (DialogBaseClass * /* next_dlg */)	{ return NULL; }
 	
 	virtual void			Set_Controls_Hidden (bool onoff)			{ AreControlsHidden = onoff; }
 	virtual bool			Are_Controls_Hidden (void) const			{ return AreControlsHidden; }

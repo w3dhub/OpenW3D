@@ -422,7 +422,7 @@ void DlgWOLWait::CheckCondition(void)
 *
 ******************************************************************************/
 
-void DlgWOLWait::On_Command(int ctrl, int message, unsigned int param)
+void DlgWOLWait::On_Command(int ctrl, int /* message */, unsigned int /* param */)
 	{
 	if ((ctrl == IDCANCEL) && mWait.IsValid())
 		{

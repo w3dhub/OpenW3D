@@ -192,7 +192,7 @@ IncludeFilesDialogClass::OnOK (void)
 void
 IncludeFilesDialogClass::OnSelchangedIncludeTree
 (
-	NMHDR *pNMHDR,
+	NMHDR * /* pNMHDR */,
 	LRESULT *pResult
 )
 {

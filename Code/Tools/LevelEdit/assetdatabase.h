@@ -94,7 +94,7 @@ public:
 		virtual bool				Undo_Check_Out (LPCTSTR local_filename) = 0;
 		virtual bool				Get (LPCTSTR local_filename) = 0;
 		virtual bool				Get_Subproject (LPCTSTR local_filename) = 0;
-		virtual bool				Get_All (LPCTSTR dest_path, LPCTSTR search_mask) { return false; }
+		virtual bool				Get_All (LPCTSTR /* dest_path */, LPCTSTR /* search_mask */) { return false; }
 
 		virtual FileClass *		Get_File (LPCTSTR local_filename) = 0;
 

@@ -148,8 +148,8 @@ protected:
 		WideStringClass	text;
 		uintptr_t				user_data;
 
-		bool operator== (const _ENTRY &src)	{ return false; }
-		bool operator!= (const _ENTRY &src)	{ return true; }
+		bool operator== (const _ENTRY &/* src*/)	{ return false; }
+		bool operator!= (const _ENTRY &/* src*/)	{ return true; }
 
 		_ENTRY (void)	:
 			user_data (0) {}

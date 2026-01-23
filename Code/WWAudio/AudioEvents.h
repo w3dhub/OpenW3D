@@ -112,9 +112,9 @@ public:
 	/////////////////////////////////////////////////////////////////////////////////
 	//	Overrideables (callback-methods)
 	/////////////////////////////////////////////////////////////////////////////////
-	virtual void	On_Sound_Started (SoundSceneObjClass *sound_obj)	{ }
-	virtual void	On_Sound_Ended (SoundSceneObjClass *sound_obj)		{ }
-	virtual void	On_Logical_Heard (LogicalListenerClass *listener, LogicalSoundClass *sound_obj)	{ }
+	virtual void	On_Sound_Started (SoundSceneObjClass */*sound_obj*/)	{ }
+	virtual void	On_Sound_Ended (SoundSceneObjClass */*sound_obj*/)		{ }
+	virtual void	On_Logical_Heard (LogicalListenerClass */*listener*/, LogicalSoundClass */*sound_obj*/)	{ }
 
 	/////////////////////////////////////////////////////////////////////////////////
 	//	Housekeeping

@@ -97,10 +97,10 @@ public:
 	/*
 	** Teleport support
 	*/
-	virtual bool					Can_Teleport(const Matrix3D &new_tm, bool check_dyn_only = false,NonRefPhysListClass * result_list = NULL)	{ return false; }
+	virtual bool					Can_Teleport(const Matrix3D &/* new_tm */, bool /* check_dyn_only */ = false,NonRefPhysListClass * /* result_list */ = NULL)	{ return false; }
 	virtual bool					Can_Teleport_And_Stand(const Matrix3D &new_tm, Matrix3D *out)	{ *out = new_tm; return false; }
-	virtual bool					Find_Teleport_Location(const Vector3 &start, float radius, Vector3 *out)			{ return false; }
-	virtual bool					Can_Move_To(const Matrix3D &new_tm) { return false; }
+	virtual bool					Find_Teleport_Location(const Vector3 &/* start */, float /* radius */, Vector3 */* out */)			{ return false; }
+	virtual bool					Can_Move_To(const Matrix3D &/* new_tm */) { return false; }
 	virtual bool					Cinematic_Move_To(const Matrix3D & new_tm);
 
 	/*
@@ -121,7 +121,7 @@ public:
 	** Access to the state of the object
 	*/
 	virtual void					Get_Velocity(Vector3 * set_vel) const					= 0;
-	virtual void					Set_Velocity(const Vector3 & newvel)					{ }
+	virtual void					Set_Velocity(const Vector3 & /* newvel */)					{ }
 
 	/*
 	** Shadow Casting. 

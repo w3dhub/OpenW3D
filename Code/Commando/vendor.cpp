@@ -139,7 +139,7 @@ VendorClass::Purchase_Vehicle
 VendorClass::PURCHASE_ERROR
 VendorClass::Purchase_Powerup
 (
-	BaseControllerClass *	base, 
+	BaseControllerClass *	/* base */, 
 	SoldierGameObj *			player,
 	int							cost,
 	int							powerup_id

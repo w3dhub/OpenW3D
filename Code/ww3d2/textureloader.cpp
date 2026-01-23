@@ -219,7 +219,7 @@ public:
 IDirect3DTexture9* Load_Compressed_Texture(
 	const StringClass& filename,
 	unsigned reduction_factor,
-	TextureClass::MipCountType mip_level_count,
+	TextureClass::MipCountType /* mip_level_count */,
 	WW3DFormat dest_format)
 {
 	// If DDS file isn't available, use TGA file to convert to DDS.

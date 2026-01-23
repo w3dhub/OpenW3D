@@ -437,8 +437,8 @@ TerrainNodeClass::Get_Factory (void) const
 void
 TerrainNodeClass::Add_Vis_Points
 (
-	VisPointGeneratorClass &	generator,
-	RenderObjClass *				render_obj
+	VisPointGeneratorClass &	/* generator */,
+	RenderObjClass *				/* render_obj */
 )
 {
 	/*for (int index = 0; index < m_Sections.Count (); index ++) {

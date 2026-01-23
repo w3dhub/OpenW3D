@@ -50,7 +50,7 @@ UINT_PTR CALLBACK Browse_For_Folder_Hook_Proc
 	HWND		hdlg,
 	UINT		message,
 	WPARAM	wparam,
-	LPARAM	lparam
+	LPARAM	/* lparam */
 )
 {
 	//

@@ -409,7 +409,7 @@ EditCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-EditCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+EditCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	if (mInComposition) {
 		return;

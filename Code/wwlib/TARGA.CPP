@@ -1368,7 +1368,7 @@ int Targa::File_Write(void *buffer, int size)
 //
 // ----------------------------------------------------------------------------
 
-int Targa_Error_Handler(int load_err,const char* filename)
+int Targa_Error_Handler(int load_err,[[maybe_unused]] const char* filename)
 {
 	switch (load_err) {
 	case 0:

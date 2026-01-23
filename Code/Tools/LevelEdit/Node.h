@@ -187,15 +187,15 @@ public:
 	//	Attenuation methods
 	//
 	virtual bool					Is_Attenuation_Sphere_Shown (void)		{ return false; }
-	virtual void					Show_Attenuation_Spheres (bool onoff)	{ }
+	virtual void					Show_Attenuation_Spheres (bool /* onoff */)	{ }
 	virtual float					Get_Attenuation_Radius (void)				{ return 0.0F; }
-	virtual void					Set_Attenuation_Radius (float radius)	{ }
+	virtual void					Set_Attenuation_Radius (float /* radius */)	{ }
 
 	//
 	//	Editing methods
 	//
 	virtual bool					Show_Settings_Dialog (void);
-	virtual NodeClass *			Add_Child_Node (const Matrix3D &tm)		{ return NULL; }
+	virtual NodeClass *			Add_Child_Node (const Matrix3D &/* tm */)		{ return NULL; }
 	virtual NodeClass *			Get_Parent_Node (void) const				{ return NULL; }
 	virtual bool					Can_Add_Child_Nodes (void)	const			{ return false; }
 	virtual bool					Is_A_Child_Node (NodeClass *) const		{ return false; }
@@ -223,7 +223,7 @@ public:
 	//	Sub-node Enumeration
 	//
 	virtual int						Get_Sub_Node_Count (void) const	{ return 0; }
-	virtual NodeClass *			Get_Sub_Node (int index)			{ return NULL; }
+	virtual NodeClass *			Get_Sub_Node (int /* index */)			{ return NULL; }
 
 	//
 	//	From PersistClass
@@ -246,9 +246,9 @@ public:
 	//
 	//	Zone edit methods
 	//
-	virtual void					On_Vertex_Drag_Begin (int vertex_index)			{ }
-	virtual void					On_Vertex_Drag (int vertex_index, POINT point)	{ }
-	virtual void					On_Vertex_Drag_End (int vertex_index)				{ }
+	virtual void					On_Vertex_Drag_Begin (int /* vertex_index */)			{ }
+	virtual void					On_Vertex_Drag (int /* vertex_index */, POINT /* point */)	{ }
+	virtual void					On_Vertex_Drag_End (int /* vertex_index */)				{ }
 
 protected:
 

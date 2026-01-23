@@ -1023,7 +1023,7 @@ SoundSceneClass::Initialize (void)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 bool
-SoundSceneClass::Is_Sound_In_Scene (AudibleSoundClass *sound_obj, bool all)
+SoundSceneClass::Is_Sound_In_Scene (AudibleSoundClass *sound_obj, bool /* all */)
 {
 	bool retval = false;
 
@@ -1207,7 +1207,7 @@ SoundSceneClass::Load_Static (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 bool
-SoundSceneClass::Save_Dynamic (ChunkSaveClass &csave)
+SoundSceneClass::Save_Dynamic (ChunkSaveClass &/* csave */)
 {
 	return true;
 }
@@ -1219,7 +1219,7 @@ SoundSceneClass::Save_Dynamic (ChunkSaveClass &csave)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 bool
-SoundSceneClass::Load_Dynamic (ChunkLoadClass &cload)
+SoundSceneClass::Load_Dynamic (ChunkLoadClass &/* cload */)
 {
 	return true;
 }

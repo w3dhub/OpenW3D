@@ -128,7 +128,7 @@ bool												cNetwork::LastServerConnectionStateBad = false;
 bool												cNetwork::SensibleUpdates					= true;
 
 //-----------------------------------------------------------------------------
-void cNetwork::Init_Client(unsigned short my_port)
+void cNetwork::Init_Client([[maybe_unused]] unsigned short my_port)
 {
 	WWMEMLOG(MEM_NETWORK);
 
@@ -324,7 +324,7 @@ void cNetwork::Accept_Handler(void)
 }
 
 //-----------------------------------------------------------------------------
-void cNetwork::Refusal_Handler(REFUSAL_CODE refusal_code)
+void cNetwork::Refusal_Handler([[maybe_unused]] REFUSAL_CODE refusal_code)
 {
 #ifndef FREEDEDICATEDSERVER
 
@@ -992,7 +992,7 @@ void cNetwork::Update(void)
 }
 
 //-----------------------------------------------------------------------------
-void cNetwork::Client_Send_Packet(cPacket & packet, int mode)
+void cNetwork::Client_Send_Packet([[maybe_unused]] cPacket & packet, [[maybe_unused]] int mode)
 {
 #ifndef FREEDEDICATEDSERVER
 
@@ -1525,7 +1525,7 @@ void cNetwork::Connection_Handler(int new_rhost_id)
 
 
 //-----------------------------------------------------------------------------
-void cNetwork::Set_Desired_Frame_Sleep_Ms(int b)
+void cNetwork::Set_Desired_Frame_Sleep_Ms([[maybe_unused]] int b)
 {
    WWASSERT(b >= 0);
 
@@ -1594,7 +1594,7 @@ void cNetwork::Set_Simulated_Latency_Range_Ms(int lower, int upper)
 }
 
 //-----------------------------------------------------------------------------
-void cNetwork::Set_Spam_Count(int spam_count)
+void cNetwork::Set_Spam_Count([[maybe_unused]] int spam_count)
 {
    WWASSERT(spam_count >= 0);
 
@@ -1605,7 +1605,7 @@ void cNetwork::Set_Spam_Count(int spam_count)
 }
 
 //-----------------------------------------------------------------------------
-void cNetwork::Get_Simulated_Latency_Range_Ms(int & lower, int & upper)
+void cNetwork::Get_Simulated_Latency_Range_Ms([[maybe_unused]] int & lower, [[maybe_unused]] int & upper)
 {
 #ifdef WWDEBUG
 	lower = cDevOptions::SimulatedLatencyRangeMsLower.Get();

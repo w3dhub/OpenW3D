@@ -79,7 +79,7 @@ typedef void (*GameOptionsDispatchFunc)(DlgMPTeamSelect&, const char*);
 #define PARSE_STRING(s, d, v) {v = strtok(s, d);}
 
 
-static int ListSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param)
+static int ListSortCallback(ListCtrlClass* list, int index1, int index2, uint32 /* param */)
 	{
 	int rank1 = (int)list->Get_Entry_Data(index1, COL_RANK);
 	int rank2 = (int)list->Get_Entry_Data(index2, COL_RANK);

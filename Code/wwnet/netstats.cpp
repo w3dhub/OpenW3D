@@ -84,7 +84,7 @@ double cNetStats::Get_Pc_Packetloss_Received() const
 }
 
 //------------------------------------------------------------------------------------
-void cNetStats::Set_Pc_Packetloss_Sent(double packetloss_pc)
+void cNetStats::Set_Pc_Packetloss_Sent(double /* packetloss_pc */)
 {
    /*TSS102901
 	WWASSERT(packetloss_pc > -MISCUTIL_EPSILON && packetloss_pc < 100 + MISCUTIL_EPSILON);

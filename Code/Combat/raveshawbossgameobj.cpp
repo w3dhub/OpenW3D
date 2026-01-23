@@ -359,7 +359,7 @@ RaveshawBossGameObjDefClass::Load (ChunkLoadClass &cload)
 //
 ///////////////////////////////////////////////////////////////////////////
 void
-RaveshawBossGameObjDefClass::Save_Variables (ChunkSaveClass &csave)
+RaveshawBossGameObjDefClass::Save_Variables (ChunkSaveClass &/* csave */)
 {
 	return ;
 }
@@ -371,7 +371,7 @@ RaveshawBossGameObjDefClass::Save_Variables (ChunkSaveClass &csave)
 //
 ///////////////////////////////////////////////////////////////////////////
 void
-RaveshawBossGameObjDefClass::Load_Variables (ChunkLoadClass &cload)
+RaveshawBossGameObjDefClass::Load_Variables (ChunkLoadClass &/* cload */)
 {
 	/*while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {

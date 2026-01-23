@@ -310,7 +310,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		Vector3 powerup_loc = Vector3(-36.504f,75.985f,1.006f);
 
@@ -1287,7 +1287,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		logan_wait_infantry = false;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		switch (type)
 		{
@@ -2745,7 +2745,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		float maxhealth = Commands->Get_Max_Health (obj);
 		Commands->Set_Health (obj, maxhealth);
@@ -2766,7 +2766,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 		SAVE_VARIABLE (gave_elevator_help, 2);
 	}
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		gave_elevator_help = false;
 		trigger_once = true;
@@ -3201,7 +3201,7 @@ DECLARE_SCRIPT (MTU_Trigger_Zone, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == MTU_TYPE_SYDNEY_IS_RESET)
 		{
@@ -3280,7 +3280,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Poked (GameObject * obj, GameObject * poker) override
+	void Poked (GameObject * obj, GameObject * /*poker*/) override
 	{
 		int my_id = Commands->Get_ID (obj);
 		if ((my_id == MTU_GATE_GUARD) && (!gate_guard_opened))
@@ -3319,7 +3319,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == MTU_TYPE_GDI_SOLDIER_PATROL)
 		{
@@ -3329,7 +3329,7 @@ DECLARE_SCRIPT (MTU_GDI_Soldier, "")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		int my_id = Commands->Get_ID (obj);
 		if (my_id == MTU_GATE_GUARD)
@@ -3359,7 +3359,7 @@ DECLARE_SCRIPT (MTU_Commando, "")
 		sydney_shot = false;
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == MTU_TYPE_STAR)
 		{
@@ -3412,7 +3412,7 @@ DECLARE_SCRIPT (MTU_Commando, "")
 		}
 	}
 
-	void Timer_Expired (GameObject * obj, int timer_id) override
+	void Timer_Expired (GameObject * /*obj*/, int timer_id) override
 	{
 		if (timer_id == MTU_TIMER_COMMANDO_CAMERA_01)
 		{
@@ -3424,7 +3424,7 @@ DECLARE_SCRIPT (MTU_Commando, "")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * damager, float /*amount*/) override
 	{
 		float commandohealth = Commands->Get_Health (STAR);
 		float commandomax = (Commands->Get_Max_Health (STAR) / 4.0f);
@@ -3464,7 +3464,7 @@ DECLARE_SCRIPT (MTU_Commando_Startup, "")
 
 DECLARE_SCRIPT (MTU_PowerUp_Health, "")
 {
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3485,7 +3485,7 @@ DECLARE_SCRIPT (MTU_PowerUp_Health, "")
 
 DECLARE_SCRIPT (MTU_PowerUp_Armor, "")
 {
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3549,7 +3549,7 @@ DECLARE_SCRIPT (MTU_Range_Target, "Target_ID:int")
 		Commands->Innate_Disable (obj);
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Vector3 myloc = Commands->Get_Position (obj);
 		GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
@@ -3623,7 +3623,7 @@ DECLARE_SCRIPT (MTU_Range_Target_Miss_Commando, "")
 
 DECLARE_SCRIPT (MTU_Range_Powerup, "Powerup_ID:int")
 {
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == CUSTOM_EVENT_POWERUP_GRANTED)
 		{
@@ -3671,7 +3671,7 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
 		{
@@ -3729,12 +3729,12 @@ DECLARE_SCRIPT (MTU_Building_Controller, "Building_ID:int")
 {
 	bool can_be_damaged;
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		can_be_damaged = false;
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		int id = Commands->Get_ID (obj);
 		if ((id == MTU_BARRACKS) || (id == MTU_POWERPLANT))
@@ -3747,7 +3747,7 @@ DECLARE_SCRIPT (MTU_Building_Controller, "Building_ID:int")
 		}
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == MTU_TYPE_BUILDING_DAMAGEABLE)
 		{
@@ -3794,7 +3794,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * damager, float /*amount*/) override
 	{
 		int soldier_id = Get_Int_Parameter ("Soldier_ID");
 		if ((damager != STAR) && (soldier_id == 2))
@@ -3803,7 +3803,7 @@ DECLARE_SCRIPT (MTU_Nod_Soldier, "Soldier_ID:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		int soldier_id = Get_Int_Parameter ("Soldier_ID");
 		if (!soldier_id)
@@ -3853,7 +3853,7 @@ DECLARE_SCRIPT (MTU_Flyover, "Vehicle_ID:int")
 		Commands->Action_Goto(obj, params);
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * obj, int /*action_id*/, ActionCompleteReason /*complete_reason*/) override
 	{
 		Commands->Destroy_Object (obj);
 	}
@@ -3910,7 +3910,7 @@ DECLARE_SCRIPT (MSK_Controller, "")
 		Commands->Trigger_Spawner(MSK_NOD_ATK_03);
 	}
 
-	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom (GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == MSK_SOLDIER_DEAD)
 		{
@@ -4127,7 +4127,7 @@ DECLARE_SCRIPT (MSK_Soldier, "Spawner_ID:int")
 		}
 	}
 
-	void Killed (GameObject * obj, GameObject * killer) override
+	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		GameObject * controller = Commands->Find_Object (MSK_CONTROLLER);
 		if (controller)
@@ -4136,7 +4136,7 @@ DECLARE_SCRIPT (MSK_Soldier, "Spawner_ID:int")
 		}
 	}
 
-	void Damaged (GameObject * obj, GameObject * damager, float amount) override
+	void Damaged (GameObject * obj, GameObject * damager, float /*amount*/) override
 	{
 		int	player_type = Commands->Get_Player_Type (obj);
 		int	damager_type = Commands->Get_Player_Type (damager);
@@ -4157,13 +4157,13 @@ DECLARE_SCRIPT (MSK_Info_Zone, "")
 	bool was_entered;
 	bool first_message;
 
-	void Created (GameObject * obj) override
+	void Created (GameObject * /*obj*/) override
 	{
 		was_entered = false;
 		first_message = false;
 	}
 
-	void Entered (GameObject * obj, GameObject * enterer) override
+	void Entered (GameObject * obj, GameObject * /*enterer*/) override
 	{
 		if (!was_entered)
 		{

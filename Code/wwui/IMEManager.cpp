@@ -1004,7 +1004,7 @@ void IMEManager::StartComposition(void)
 *
 ******************************************************************************/
 
-void IMEManager::DoComposition(unsigned int dbcs, int compFlags)
+void IMEManager::DoComposition(unsigned int /* dbcs */, int compFlags)
 	{
 	WWDEBUG_SAY(("IMEManager: DoComposition\n"));
 

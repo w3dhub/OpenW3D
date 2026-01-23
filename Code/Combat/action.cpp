@@ -156,7 +156,7 @@ public:
 		}
 	}
 
-	virtual	void	Modify_Parameters( const SafeActionParamsStruct & parameters, bool modify_move, bool modify_attack ) {}
+	virtual	void	Modify_Parameters( const SafeActionParamsStruct & /* parameters */, bool /* modify_move */, bool /* modify_attack */ ) {}
 
 	virtual	void	Set_Action( ActionClass * action )	{ WWASSERT( action ); WWASSERT( Action == NULL ); Action = action; }
 	virtual	void	Shutdown( void )						{ Action = NULL; }

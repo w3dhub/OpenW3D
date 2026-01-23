@@ -174,7 +174,7 @@ ViewerCtrlClass::Create_Control_Renderer (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-ViewerCtrlClass::On_Set_Cursor (const Vector2 &mouse_pos)
+ViewerCtrlClass::On_Set_Cursor (const Vector2 &/* mouse_pos */)
 {
 	//
 	//	Change the mouse cursor
@@ -281,7 +281,7 @@ ViewerCtrlClass::Render (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-ViewerCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
+ViewerCtrlClass::On_LButton_Down (const Vector2 &/* mouse_pos */)
 {
 	// Put the viewer interface into virtual trackball mode.
 	Set_Interface_Mode (ViewerCtrlClass::VIRTUAL_TRACKBALL);
@@ -295,7 +295,7 @@ ViewerCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-ViewerCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+ViewerCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	return ;
 }

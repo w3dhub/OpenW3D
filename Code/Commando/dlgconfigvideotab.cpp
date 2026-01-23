@@ -178,7 +178,7 @@ DlgConfigVideoTabClass::On_SliderCtrl_Pos_Changed
 (
 	SliderCtrlClass *	slider_ctrl,
 	int					ctrl_id,
-	int					new_pos
+	int					/* new_pos */
 )
 {
 	const unichar_t *formatstring = U_CHAR("%.2f");

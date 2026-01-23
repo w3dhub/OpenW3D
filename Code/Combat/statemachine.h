@@ -105,7 +105,7 @@
 		void On_##state##_Begin (void) begin					\
 		void On_##state##_End (void) end							\
 		void On_##state##_Think (void) think					\
-		bool On_##state##_Request_End (int state) req_end
+		bool On_##state##_Request_End ([[maybe_unused]] int state) req_end
 
 #define DECLARE_STATE_HANDLER_BEGIN(state)			\
 		void On_##state##_Begin (void)

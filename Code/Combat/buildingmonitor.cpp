@@ -45,7 +45,7 @@
 //
 ////////////////////////////////////////////////////////////////
 void
-BuildingMonitorClass::Killed (GameObject *game_obj, GameObject *killer)
+BuildingMonitorClass::Killed (GameObject * /* game_obj */, GameObject * /* killer */)
 {
 	WWASSERT (Building != NULL);
 
@@ -63,7 +63,7 @@ BuildingMonitorClass::Killed (GameObject *game_obj, GameObject *killer)
 //
 ////////////////////////////////////////////////////////////////
 void
-BuildingMonitorClass::Damaged (GameObject *game_obj, GameObject *killer, float amount )
+BuildingMonitorClass::Damaged (GameObject * /* game_obj */, GameObject *killer, float amount )
 {
 	// Only report damage not heal
 	if (amount > 0.0f) {
@@ -100,7 +100,7 @@ BuildingMonitorClass::Damaged (GameObject *game_obj, GameObject *killer, float a
 //
 ////////////////////////////////////////////////////////////////
 void
-BuildingMonitorClass::Custom (GameObject *game_obj, int type, intptr_t param, GameObject *sender)
+BuildingMonitorClass::Custom (GameObject * /* game_obj */, int type, intptr_t /* param */, GameObject * /* sender */)
 {
 	WWASSERT (Building != NULL);
 

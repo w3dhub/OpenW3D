@@ -547,7 +547,7 @@ CLevelEditDoc::OnNewDocument (void)
 //
 ////////////////////////////////////////////////////////////
 void
-CLevelEditDoc::Serialize (CArchive& ar)
+CLevelEditDoc::Serialize (CArchive& /* ar */)
 {
 	SetModifiedFlag (false);
 	return ;
@@ -915,7 +915,7 @@ CLevelEditDoc::Repartition_If_Necessary (void)
 //
 ///////////////////////////////////////////////////////////////
 void
-CLevelEditDoc::PreCloseFrame (CFrameWnd *pFrame)
+CLevelEditDoc::PreCloseFrame (CFrameWnd * /* pFrame */)
 {
 	//
 	//	Cleanup any dangling embedded objects

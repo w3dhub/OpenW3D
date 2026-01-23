@@ -62,11 +62,11 @@ public:
 	//	Public methods
 	////////////////////////////////////////////////////////////////////
 
-	virtual void			Show (bool show)	{ }
+	virtual void			Show (bool /* show */)	{ }
 	virtual void			Close (void)		{ }
 
-	virtual void			Set_Status_Text (LPCTSTR text)			{ }
-	virtual void			Set_Progress_Percent (float percent)	{ }
+	virtual void			Set_Status_Text (LPCTSTR /* text */)			{ }
+	virtual void			Set_Progress_Percent (float /* percent */)	{ }
 };
 
 

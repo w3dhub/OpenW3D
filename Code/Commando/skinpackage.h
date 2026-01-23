@@ -70,8 +70,8 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public operators
 	///////////////////////////////////////////////////////////////////
-	bool operator== (const SkinPackageClass &)	{ return false; }
-	bool operator!= (const SkinPackageClass &)	{ return true; }
+	bool operator== (const SkinPackageClass &/* src*/)	{ return false; }
+	bool operator!= (const SkinPackageClass &/* src*/)	{ return true; }
 
 	///////////////////////////////////////////////////////////////////
 	//	Public methods

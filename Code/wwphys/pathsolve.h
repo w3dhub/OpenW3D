@@ -166,8 +166,8 @@ protected:
 		PathDataStruct (PathfindPortalClass *portal, const Vector3 &point)
 			:	m_Portal (portal), m_Point (point)	{ }
 
-		bool operator== (const PathDataStruct &src) { return false; }
-		bool operator!= (const PathDataStruct &src) { return true; }
+		bool operator== (const PathDataStruct &/* src*/) { return false; }
+		bool operator!= (const PathDataStruct &/* src*/) { return true; }
 
 		PathfindPortalClass *	m_Portal;
 		Vector3						m_Point;

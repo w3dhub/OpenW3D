@@ -363,7 +363,7 @@ void HazeClass::Render()
  * HISTORY:                                                                                    *
  *   10/18/00    IML : Created.                                                                *
  *=============================================================================================*/
-StarfieldClass::StarfieldClass (float extent, unsigned starcount)
+StarfieldClass::StarfieldClass (float /* extent */, unsigned starcount)
 {
 	const Vector3 white (1.0f, 1.0f, 1.0f);
 
@@ -2158,7 +2158,7 @@ bool WarBlitzClass::Update (Matrix3D &t, Vector3 &additivecolor)
  * HISTORY:                                                                                    *
  *   06/26/01    IML : Created.                                                                *
  *=============================================================================================*/
-void WarBlitzClass::Render (RenderInfoClass &rinfo)
+void WarBlitzClass::Render (RenderInfoClass &/* rinfo */)
 {
 	WarBlitzGlow->Render();
 }
@@ -3631,7 +3631,7 @@ bool BackgroundMgrClass::Set_War_Blitz (float intensity, float ramptime)
  * HISTORY:                                                                                    *
  *   09/15/00    IML : Created.                                                                *
  *=============================================================================================*/
-bool BackgroundMgrClass::Set_War_Blitz (float intensity, float startdistance, float enddistance, float heading, float distribution, float ramptime, bool override)
+bool BackgroundMgrClass::Set_War_Blitz (float intensity, float startdistance, float enddistance, float heading, float distribution, float ramptime, bool /* override */)
 {
 	if ((intensity >= 0.0f) && (intensity <= 1.0f) && (startdistance >= 0.0f) && (startdistance <= 1.0f) &&
 		 (enddistance >= 0.0f) && (enddistance <= 1.0f) && (heading >= 0.0f) && (heading <= 360.0f) &&

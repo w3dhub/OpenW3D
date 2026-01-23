@@ -98,7 +98,7 @@ class CFancyToolbar : public CControlBar
         CSize CalcFixedLayout (BOOL, BOOL)
             { return CSize (m_iButtons*BUTTON_WIDTH + BORDER_LEFT + BORDER_RIGHT, BUTTON_HEIGHT + BORDER_TOP + BORDER_BOTTOM); }
         
-        CSize CalcDynamicLayout( int nLength, DWORD dwMode )
+        CSize CalcDynamicLayout( int , DWORD  )
             { return CSize (m_iButtons*BUTTON_WIDTH + BORDER_LEFT + BORDER_RIGHT, BUTTON_HEIGHT + BORDER_TOP + BORDER_BOTTOM); }
 
         void OnUpdateCmdUI (class CFrameWnd*, int) {}

@@ -303,7 +303,7 @@ StringsCategoryViewDialogClass::Find_Entry (TDBObjClass *object)
 void
 StringsCategoryViewDialogClass::OnDblclkStringList
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 ) 
 {

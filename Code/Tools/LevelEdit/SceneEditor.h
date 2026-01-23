@@ -100,14 +100,14 @@ class SceneEditorClass : public PhysicsSceneClass
 		//	Cut/copy/paste/undo methods
 		//
 		virtual bool						Cut_Objects (void);
-		virtual bool						Cut_Object (NodeClass *pnode) { return false; }
+		virtual bool						Cut_Object (NodeClass * /* pnode */) { return false; }
 		virtual bool						Copy_Objects (void);
-		virtual bool						Copy_Object (NodeClass *pnode) { return false; }
+		virtual bool						Copy_Object (NodeClass * /* pnode */) { return false; }
 		virtual bool						Paste_Objects (void);
-		virtual bool						Paste_Object (NodeClass *pnode) { return false; }
+		virtual bool						Paste_Object (NodeClass * /* pnode */) { return false; }
 		virtual bool						Can_Paste (void);
 		virtual bool						Clone_Objects (void);
-		virtual bool						Clone_Object (NodeClass *pnode) { return false; }
+		virtual bool						Clone_Object (NodeClass * /* pnode */) { return false; }
 		virtual bool						Undo (void);
 		virtual void						Begin_Operation (OPERATION_TYPE type, NodeClass *node);
 		virtual void						Begin_Operation (OPERATION_TYPE type, NODE_LIST *affected_list = NULL);

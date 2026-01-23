@@ -290,7 +290,7 @@ EditConversationDialogClass::OnInitDialog (void)
 void
 EditConversationDialogClass::OnDblclkRemarkList
 (
-	NMHDR *	pNMHDR,
+	NMHDR *	/* pNMHDR */,
 	LRESULT* pResult
 )
 {
@@ -599,7 +599,7 @@ EditConversationDialogClass::OnInsert (void)
 void
 EditConversationDialogClass::OnItemchangedRemarkList
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

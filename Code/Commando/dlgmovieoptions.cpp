@@ -187,9 +187,9 @@ MovieOptionsMenuClass::On_ListCtrl_Delete_Entry
 void
 MovieOptionsMenuClass::On_ListCtrl_DblClk
 (
-	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
-	int				item_index
+	ListCtrlClass * /* list_ctrl */,
+	int				/* ctrl_id */,
+	int				/* item_index */
 )
 {
 	if (IsPlaying) {

@@ -594,10 +594,10 @@ LoadSPGameMenuClass::Load_Game (void)
 void
 LoadSPGameMenuClass::On_ListCtrl_Sel_Change
 (
-	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
-	int				old_index,
-	int				new_index
+	ListCtrlClass * /* list_ctrl */,
+	int				/* ctrl_id */,
+	int				/* old_index */,
+	int				/* new_index */
 )
 {
 	Update_Button_State ();
@@ -662,9 +662,9 @@ LoadSPGameMenuClass::Update_Button_State (void)
 void
 LoadSPGameMenuClass::On_ListCtrl_DblClk
 (
-	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
-	int				item_index
+	ListCtrlClass * /* list_ctrl */,
+	int				/* ctrl_id */,
+	int				/* item_index */
 )
 {
 	Load_Game ();

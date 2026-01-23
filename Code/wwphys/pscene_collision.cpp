@@ -624,7 +624,7 @@ void PhysicsSceneClass::Collect_Collideable_Objects
 void PhysicsSceneClass::Add_Collected_Lights_To_List
 (
 	bool static_lights,
-	bool dynamic_lights,
+	bool /* dynamic_lights */,
 	NonRefPhysListClass * list
 )
 {

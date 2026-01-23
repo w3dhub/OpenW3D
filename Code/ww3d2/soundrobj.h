@@ -104,7 +104,7 @@ public:
 	int					Class_ID (void) const override				{ return CLASSID_SOUND; }
 	const char *		Get_Name (void) const override				{ return Name; }
 	void					Set_Name (const char *name) override		{ Name = name; }
-	void					Render (RenderInfoClass &rinfo)	override { }
+	void					Render (RenderInfoClass &/*rinfo*/)	override { }
 	void					On_Frame_Update (void) override;
 	void					Set_Hidden (int onoff) override;
 	void					Set_Visible (int onoff) override;

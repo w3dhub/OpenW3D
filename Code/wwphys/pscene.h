@@ -752,7 +752,7 @@ public:
 	VisTableClass *			Get_Vis_Table(const CameraClass & camera);
 	VisTableClass *			Get_Vis_Table_For_Rendering(const CameraClass & camera);
 
-	virtual void				On_Vis_Occluders_Rendered(VisRenderContextClass & context,VisSampleClass & sample) {}
+	virtual void				On_Vis_Occluders_Rendered(VisRenderContextClass & /* context */,VisSampleClass & /* sample */) {}
 
 	/*
 	** Dynamic object visibility system debugging.  This system is no longer implemented

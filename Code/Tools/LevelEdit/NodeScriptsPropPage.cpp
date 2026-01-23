@@ -460,7 +460,7 @@ NodeScriptsPropPage::OnDeleteItemScriptList
 void
 NodeScriptsPropPage::OnDblclkScriptlist
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

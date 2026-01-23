@@ -2111,8 +2111,8 @@ static	void	Objective_Render( void )
 struct InfoEditorField {
 	const char * Name;
 	Vector2	*	 Value;
-	bool operator == (InfoEditorField const & rec) const	{ return false; }
-	bool operator != (InfoEditorField const & rec) const	{ return true; }
+	bool operator == (InfoEditorField const & ) const	{ return false; }
+	bool operator != (InfoEditorField const & ) const	{ return true; }
 };
 
 static	DynamicVectorClass<InfoEditorField>	InfoEditorFieldList;
@@ -3000,7 +3000,7 @@ void	HUDClass::Toggle_Hide_Points( void )
 //	_HUDHidePoints = !_HUDHidePoints;
 }
 
-void	HUDClass::Display_Points( float points )
+void	HUDClass::Display_Points( float /* points */ )
 {
 /*	if ( !_HUDHidePoints ) {
 		_HUDPoints = points;

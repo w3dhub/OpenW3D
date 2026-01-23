@@ -837,7 +837,7 @@ ColorBarClass::Get_Point
 // Insert_Point
 //
 bool
-ColorBarClass::Insert_Point (CPoint point, DWORD flags)
+ColorBarClass::Insert_Point (CPoint point, DWORD /* flags */)
 {
 	int new_index = 0;
 	int position = 0;

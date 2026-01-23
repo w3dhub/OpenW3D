@@ -23,7 +23,7 @@ jobs:
             cmake-args: -GNinja -DCMAKE_BUILD_TYPE=Release
             shell: pwsh
             arch: x86
-            options: "/W4;/WX;/wd4840;/wd4456;/wd4702;/wd4100"
+            options: "/W4;/WX;/wd4840;/wd4456;/wd4702"
           - name: MSVC x64
             os: windows-latest
             cmake-args: -GNinja -DCMAKE_BUILD_TYPE=Release

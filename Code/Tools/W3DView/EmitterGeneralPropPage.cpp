@@ -45,7 +45,7 @@ IMPLEMENT_DYNCREATE(EmitterGeneralPropPageClass, CPropertyPage)
 //
 //  EmitterGeneralPropPageClass
 //
-EmitterGeneralPropPageClass::EmitterGeneralPropPageClass (EmitterInstanceListClass *pemitter)
+EmitterGeneralPropPageClass::EmitterGeneralPropPageClass (EmitterInstanceListClass * /* pemitter */)
 	: m_pEmitterList (NULL),
 	  m_Parent (NULL),
 	  m_bValid (true),

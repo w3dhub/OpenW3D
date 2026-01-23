@@ -2687,7 +2687,7 @@ void	SoldierGameObj::Post_Think( void )
 }
 
 //------------------------------------------------------------------------------------
-const Matrix3D & SoldierGameObj::Get_Muzzle( int index )
+const Matrix3D & SoldierGameObj::Get_Muzzle( int /* index */ )
 {
 	static Matrix3D _muzzle(1);
 	if ( WeaponRenderModel != NULL ) {
@@ -2969,7 +2969,7 @@ void	SoldierGameObj::Set_Blended_Animation( const char *animation_name, bool loo
 
 
 //------------------------------------------------------------------------------------
-void	SoldierGameObj::Set_Animation( const char *animation_name, bool looping, float start_frame )
+void	SoldierGameObj::Set_Animation( const char *animation_name, bool looping, float /* start_frame */ )
 {
 	if ( animation_name == NULL ) {
 //		Debug_Say(( "Stoping Scripted Human Animation\n" ));
@@ -3091,7 +3091,7 @@ void SoldierGameObj::Set_Back_Weapon_Model( const char *model_name )
 }
 
 void SoldierGameObj::Set_Back_Flag_Model(const char *model_name,
-	const Vector3 & tint)
+	const Vector3 & /* tint */)
 {
 	if ( BackFlagRenderModel != NULL ) {		// remove old gun model
 		if (Peek_Model() != NULL ) {

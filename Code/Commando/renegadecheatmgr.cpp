@@ -95,7 +95,7 @@ RenegadeCheatMgrClass::~RenegadeCheatMgrClass (void)
 //
 //////////////////////////////////////////////////////////////////////
 void
-RenegadeCheatMgrClass::Enable_Cheat (int cheat, bool onoff)
+RenegadeCheatMgrClass::Enable_Cheat (int /* cheat */, bool /* onoff */)
 {
 #if 0
 

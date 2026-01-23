@@ -544,7 +544,7 @@ TabCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-TabCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+TabCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	return ;
 }
@@ -556,7 +556,7 @@ TabCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-TabCtrlClass::On_Mouse_Move (const Vector2 &mouse_pos)
+TabCtrlClass::On_Mouse_Move (const Vector2 &/* mouse_pos */)
 {
 	return ;
 }
@@ -598,7 +598,7 @@ TabCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //
 ////////////////////////////////////////////////////////////////
 bool
-TabCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+TabCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	bool handled = true;
 

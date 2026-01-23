@@ -53,7 +53,7 @@ DECLARE_SCRIPT(M00_Screenshot_Poser_DAY, "Anim_Name:string" )
 		Commands->Action_Play_Animation( obj, params );
 	}
 	
-	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override
+	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/ ) override
 	{
 		if ( action_id == 0 )
 		{
@@ -84,7 +84,7 @@ DECLARE_SCRIPT (DAY_TestScriptOne, "")
 		Commands->Send_Custom_Event( obj, obj, 0, 0, 5.0f );
 	}
 
-	void Custom( GameObject *obj, int type, intptr_t param, GameObject *sender) override
+	void Custom( GameObject *obj, int /*type*/, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if ( action == 1 )
 		{
@@ -157,11 +157,11 @@ DECLARE_SCRIPT (DAY_VTOL_CircleAttack, "")
 		return targetlocation;
 	}
 	
-	void Created( GameObject *obj ) override
+	void Created( GameObject * /*obj*/ ) override
 	{
 	}
 
-	void Damaged( GameObject *obj , GameObject *damager, float amount ) override
+	void Damaged( GameObject *obj , GameObject *damager, float /*amount*/ ) override
 	{
 		if ( damager )
 		{
@@ -170,7 +170,7 @@ DECLARE_SCRIPT (DAY_VTOL_CircleAttack, "")
 		Commands->Send_Custom_Event( obj, obj, 1, 1, 0.0f );
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /*sender*/ ) override
 	{
 		if ( type == 1 )
 		{
@@ -213,7 +213,7 @@ DECLARE_SCRIPT (M00_VisceroidInnate_DAY, "")
 		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid", true, NULL, 0.0f, -1.0f, false );
 	}
 
-	void Killed( GameObject *obj, GameObject *killer ) override
+	void Killed( GameObject *obj, GameObject * /*killer*/ ) override
 	{
 		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid_Die", false, NULL, 0.0f, -1.0f, false );
 	}
@@ -253,7 +253,7 @@ DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_M
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id) override
+	void Timer_Expired(GameObject * obj, int /*timer_id*/) override
 	{
 		const char * sound = Get_Parameter("Sound_Preset");
 		Vector3 pos = Commands->Get_Position(obj);
@@ -267,7 +267,7 @@ DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_M
 		Commands->Monitor_Sound(obj, id);
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED)
 		{
@@ -290,7 +290,7 @@ DECLARE_SCRIPT (M00_PlayAnimation_DestroyObject_DAY, "AnimationName:string")
 		Commands->Set_Animation( obj, animname, 0, NULL, 0.0f, -1.0f, false );
 	}
 
-	void Animation_Complete( GameObject * obj, const char * animation_name ) override
+	void Animation_Complete( GameObject * obj, const char * /*animation_name*/ ) override
 	{
 		Commands->Destroy_Object(obj);
 	}
@@ -306,7 +306,7 @@ DECLARE_SCRIPT (M00_Disable_Loiter_DAY, "")
 		Commands->Set_Loiters_Allowed( obj , false );
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
 	{
 		if ( type == M00_LOITER_ENABLE_TOGGLE )
 		{
@@ -329,7 +329,7 @@ DECLARE_SCRIPT (M00_Cinematic_Kill_Object_DAY, "")
 DECLARE_SCRIPT (M00_Set_Background_Music_DAY, "MusicFile:string")
 {
 
-	void Created( GameObject * obj ) override
+	void Created( GameObject * /*obj*/ ) override
 	{
 		Commands->Set_Background_Music( Get_Parameter("MusicFile") );
 	}

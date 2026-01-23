@@ -191,7 +191,7 @@ public:
 	/////////////////////////////////////////////////////////////////////////////
 	//	Public methods
 	/////////////////////////////////////////////////////////////////////////////
-	virtual void	On_Selection_Changed (int sel_object_id)	{}
+	virtual void	On_Selection_Changed (int /* sel_object_id */)	{}
 	virtual void	On_Cut (void)										{}
 	virtual void	On_Paste (void)									{}
 };

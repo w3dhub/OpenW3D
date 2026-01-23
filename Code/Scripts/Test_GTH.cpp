@@ -43,7 +43,7 @@
 */
 DECLARE_SCRIPT(GTH_Drop_Object_On_Death, "Drop_Object=:string,Drop_Height=0.25:float,Probability=100:int")
 {
-	void Killed( GameObject * obj, GameObject * killer ) override
+	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		const char * obj_name = Get_Parameter("Drop_Object");
 		
@@ -86,12 +86,12 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 		SAVE_VARIABLE(enabled, 1);
 	}
 
-	void Created( GameObject * obj ) override
+	void Created( GameObject * /*obj*/ ) override
 	{
 		enabled = false;
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == Get_Int_Parameter("Custom_Message")) {
 			enabled = (param==1);
@@ -99,7 +99,7 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 		}
 	}
 
-	void Killed( GameObject * obj, GameObject * killer ) override
+	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		GTH_DEBUG_INT(0,"GTH_Drop_Object_On_Death_Zone Killed callback\n");
 		if (!enabled) {
@@ -250,7 +250,7 @@ protected:
 		}
 	}
 
-	void Timer_Expired( GameObject * obj, int timer_id ) override
+	void Timer_Expired( GameObject * /*obj*/, int timer_id ) override
 	{
 		if (timer_id == TIMER_ID_REENABLE) {
 			script_enabled = true;
@@ -379,7 +379,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 */
 DECLARE_SCRIPT(GTH_On_Enter_Mission_Complete, "Success=1:int, Player_Type=2:int" )
 {
-	void Entered( GameObject * obj, GameObject * enterer ) override
+	void Entered( GameObject * /*obj*/, GameObject * enterer ) override
 	{
 		GTH_DEBUG_INT(0,"GTH_On_Enter_Mission_Complete::Entered\n");
 
@@ -420,7 +420,7 @@ DECLARE_SCRIPT(GTH_On_Enter_Mission_Complete, "Success=1:int, Player_Type=2:int"
 */
 DECLARE_SCRIPT(GTH_On_Killed_Mission_Complete, "Success=1:int, Player_Type=2:int" )
 {
-	void Killed( GameObject * obj, GameObject * killer ) override
+	void Killed( GameObject * /*obj*/, GameObject * killer ) override
 	{
 		GTH_DEBUG_INT(0,"GTH_On_Killed_Mission_Complete::Killed\n");
 	
@@ -476,10 +476,10 @@ DECLARE_SCRIPT(GTH_Create_Objective,"Creation_Type=0:int,Objective_ID=0:int,Obje
 		SAVE_VARIABLE(already_triggered, 1);
 	}
 
-	void	Created( GameObject * obj ) override							{ if (Get_Int_Parameter("Creation_Type") == 0) create_objective(); }
-	void	Entered( GameObject * obj, GameObject * enterer ) override	{ if (Get_Int_Parameter("Creation_Type") == 1) create_objective(); }
-	void	Poked( GameObject * obj, GameObject * poker ) override		{ if (Get_Int_Parameter("Creation_Type") == 2) create_objective(); }
-	void	Killed( GameObject * obj, GameObject * killer ) override		{ if (Get_Int_Parameter("Creation_Type") == 3) create_objective(); }
+	void	Created( GameObject * /*obj*/ ) override							{ if (Get_Int_Parameter("Creation_Type") == 0) create_objective(); }
+	void	Entered( GameObject * /*obj*/, GameObject * /*enterer*/ ) override	{ if (Get_Int_Parameter("Creation_Type") == 1) create_objective(); }
+	void	Poked( GameObject * /*obj*/, GameObject * /*poker*/ ) override		{ if (Get_Int_Parameter("Creation_Type") == 2) create_objective(); }
+	void	Killed( GameObject * /*obj*/, GameObject * /*killer*/ ) override		{ if (Get_Int_Parameter("Creation_Type") == 3) create_objective(); }
 
 	void create_objective(void) 
 	{
@@ -534,10 +534,10 @@ DECLARE_SCRIPT(GTH_Objective_Complete_Enter_Kill_Poke, "Objective_ID=0:int, Succ
 		SAVE_VARIABLE(already_triggered, 1);
 	}
 	
-	void	Created( GameObject * obj ) override							{ already_triggered = false; }
-	void	Poked( GameObject * obj, GameObject * poker ) override		{ trigger(poker); }
-	void	Killed( GameObject * obj, GameObject * killer ) override		{ trigger(killer); }
-	void	Entered( GameObject * obj, GameObject * enterer ) override	{ trigger(enterer); }
+	void	Created( GameObject * /*obj*/ ) override							{ already_triggered = false; }
+	void	Poked( GameObject * /*obj*/, GameObject * poker ) override		{ trigger(poker); }
+	void	Killed( GameObject * /*obj*/, GameObject * killer ) override		{ trigger(killer); }
+	void	Entered( GameObject * /*obj*/, GameObject * enterer ) override	{ trigger(enterer); }
 
 	
 	void trigger(GameObject * obj)
@@ -719,7 +719,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 		}
 	}
 
-	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete (GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/) override
 	{
 		if (action_id == 2)
 		{
@@ -727,7 +727,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
 			
@@ -799,7 +799,7 @@ DECLARE_SCRIPT(GTH_Credit_Trickle, "Credits=1:int,Delay=2.0:float")
 */
 DECLARE_SCRIPT(GTH_Enable_Spawner_On_Enter, "SpawnerID=0:int,Player_Type=2:int,Enable=1:int")
 {
-	void Entered( GameObject * obj, GameObject * enterer ) override
+	void Entered( GameObject * /*obj*/, GameObject * enterer ) override
 	{
 		// Check player type, if it doesn't match, just return
 		int our_player_type = Get_Int_Parameter("Player_Type");
@@ -910,7 +910,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 		Commands->Start_Timer (obj, this, Get_Float_Parameter("Update_Delay"), CTF_UPDATE_TIMER);
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) override
+	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override
 	{
 		Grab_Flag(obj,damager);
 	}

@@ -511,8 +511,8 @@ protected:
 		_LOGICAL_TYPE_STRUCT (int _id, const char* name)
 			:	display_name (name), id (_id) {}
 
-		bool operator== (const _LOGICAL_TYPE_STRUCT &src) { return false; }
-		bool operator!= (const _LOGICAL_TYPE_STRUCT &src) { return true; }
+		bool operator== (const _LOGICAL_TYPE_STRUCT &/* src*/) { return false; }
+		bool operator!= (const _LOGICAL_TYPE_STRUCT &/* src*/) { return true; }
 	} LOGICAL_TYPE_STRUCT;
 
 

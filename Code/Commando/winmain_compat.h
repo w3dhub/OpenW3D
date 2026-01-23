@@ -60,7 +60,7 @@ static char **CommandLineToArgvU(LPCWSTR lpCmdLine, int *pNumArgs)
 	return argv_u;
 }
 
-int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int __stdcall WinMain(HINSTANCE /* hInstance */, HINSTANCE /* hPrevInstance */, LPSTR /* lpCmdLine */, int /* nCmdShow */)
 {
 	// Get args as UTF-8
 	int argc;

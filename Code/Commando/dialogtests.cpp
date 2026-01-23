@@ -187,7 +187,7 @@ SplashIntroMenuDialogClass::On_Frame_Update (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-SplashIntroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
+SplashIntroMenuDialogClass::On_Command (int /* ctrl_id */, int /* mesage_id */, unsigned int /* param */)
 {
 	return ;
 }
@@ -279,7 +279,7 @@ extern void Stop_Main_Loop (int);
 //
 ////////////////////////////////////////////////////////////////
 void
-SplashOutroMenuDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int param)
+SplashOutroMenuDialogClass::On_Command (int ctrl_id, int /* mesage_id */, unsigned int /* param */)
 {
 	switch (ctrl_id)
 	{

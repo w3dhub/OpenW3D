@@ -116,7 +116,7 @@ public:
 
 	DefenseObjectClass *	Get_Defense_Object( void )						{ return &DefenseObject; }
 	virtual	void	Apply_Damage( const OffenseObjectClass & damager, float scale = 1.0f, int alternate_skin = -1 );
-	virtual	void	Completely_Damaged( const OffenseObjectClass & damager ) {};
+	virtual	void	Completely_Damaged( const OffenseObjectClass & /* damager */ ) {};
 
 	// Information settings
 	const StringClass & 	Get_Info_Icon_Texture_Filename( void )		{ return Get_Definition().InfoIconTextureFilename; }

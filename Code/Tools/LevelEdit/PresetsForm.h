@@ -52,8 +52,8 @@ typedef struct _DERIVED_PARAM_INFO
 	DynamicVectorClass<int>	inherited_param_list;
 
 	// For DyanmicVectorClass
-	bool operator== (const _DERIVED_PARAM_INFO &) { return false; }
-	bool operator!= (const _DERIVED_PARAM_INFO &) { return true; }
+	bool operator== (const _DERIVED_PARAM_INFO &/* src*/) { return false; }
+	bool operator!= (const _DERIVED_PARAM_INFO &/* src*/) { return true; }
 } DERIVED_PARAM_INFO;
 
 typedef DynamicVectorClass<DERIVED_PARAM_INFO> DERIVED_PARAM_LIST;

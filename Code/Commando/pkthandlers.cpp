@@ -252,7 +252,7 @@ void cNetwork::Server_Packet_Handler(cPacket & packet, int rhost_id)
 }
 
 //-----------------------------------------------------------------------------
-void cNetwork::Client_Packet_Handler(cPacket & packet)
+void cNetwork::Client_Packet_Handler([[maybe_unused]] cPacket & packet)
 {
 #ifndef FREEDEDICATEDSERVER
 

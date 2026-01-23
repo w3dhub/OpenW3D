@@ -386,7 +386,7 @@ void
 ControlSaveLoadMenuClass::On_ListCtrl_Delete_Entry
 (
 	ListCtrlClass *list_ctrl,
-	int				ctrl_id,
+	int				/* ctrl_id */,
 	int				item_index
 )
 {
@@ -453,8 +453,8 @@ void
 ControlSaveLoadMenuClass::On_ListCtrl_Sel_Change
 (
 	ListCtrlClass *	list_ctrl,
-	int					ctrl_id,
-	int					old_index,
+	int					/* ctrl_id */,
+	int					/* old_index */,
 	int					new_index
 )
 {
@@ -504,7 +504,7 @@ ControlSaveLoadMenuClass::ListSortCallback
 	ListCtrlClass *	list_ctrl,
 	int					item_index1,
 	int					item_index2,
-	uint32				user_param
+	uint32				/* user_param */
 )
 {
 	int retval = 0;
@@ -548,7 +548,7 @@ ControlSaveLoadMenuClass::ListSortCallback
 //
 ////////////////////////////////////////////////////////////////
 void
-ControlSaveLoadMenuClass::On_EditCtrl_Enter_Pressed (EditCtrlClass *edit_ctrl, int ctrl_id)
+ControlSaveLoadMenuClass::On_EditCtrl_Enter_Pressed (EditCtrlClass * /* edit_ctrl */, int ctrl_id)
 {
 	if (ctrl_id == IDC_NAME_EDIT) {
 		Save_Config (true);

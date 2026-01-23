@@ -568,7 +568,7 @@ static inline void aabtri_compute_contact_normal
 #endif
 }
 
-inline void VERIFY_CROSS(const Vector3 & a, const Vector3 & b,const Vector3 & cross)
+inline void VERIFY_CROSS([[maybe_unused]] const Vector3 & a, [[maybe_unused]] const Vector3 & b,[[maybe_unused]] const Vector3 & cross)
 {
 #ifdef WWDEBUG
 	Vector3 tmp_cross;

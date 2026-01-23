@@ -161,8 +161,8 @@ public:
 	///////////////////////////////////////////////////////////////////////////////////
 	//	Point visibility - used by DazzleRenderObj when no custom handler is installed
 	///////////////////////////////////////////////////////////////////////////////////
-	virtual float				Compute_Point_Visibility(	RenderInfoClass & rinfo,
-																		const Vector3 & point)	{ return 1.0f; }
+	virtual float				Compute_Point_Visibility(	RenderInfoClass & /*rinfo*/,
+																		const Vector3 & /*point*/)	{ return 1.0f; }
 
 
 	///////////////////////////////////////////////////////////////////////////////////
@@ -193,8 +193,8 @@ protected:
 
 private:
 	virtual void				Customized_Render(RenderInfoClass & rinfo)=0;
-	virtual void				Pre_Render_Processing(RenderInfoClass & rinfo) {}
-	virtual void				Post_Render_Processing(RenderInfoClass & rinfo) {}
+	virtual void				Pre_Render_Processing(RenderInfoClass & /*rinfo*/) {}
+	virtual void				Post_Render_Processing(RenderInfoClass & /*rinfo*/) {}
 
 };
 

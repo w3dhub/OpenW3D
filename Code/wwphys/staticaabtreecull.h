@@ -144,7 +144,7 @@ protected:
 	void					Assign_Vis_IDs(void);
 	
 	void					Evaluate_Occluder_Visibility(VisRenderContextClass & context,VisSampleClass & sample);
-	void					Evaluate_Non_Occluder_Visibility(VisRenderContextClass & context,VisSampleClass & sample);
+	void					Evaluate_Non_Occluder_Visibility(VisRenderContextClass & context);
 		
 	void					Render_Occluders(AABTreeNodeClass * node,VisRenderContextClass & context);
 	void					Collect_Non_Occluders(AABTreeNodeClass * node,VisRenderContextClass & context,RefPhysListClass & non_occluder_list);

@@ -37,7 +37,7 @@
 
 DECLARE_SCRIPT(BMG_Test_Script, "" )
 {
-	void Created(GameObject* obj) override
+	void Created(GameObject* /*obj*/) override
 	{
 		Commands->Debug_Message( "BMG Test Script\n" );
 //		Commands->Start_Timer( obj, this, 5, 0 );
@@ -49,12 +49,12 @@ DECLARE_SCRIPT(BMG_Test_Script, "" )
 		Commands->Action_Attack( obj, params );*/
 	}
 
-	void	Sound_Heard( GameObject * obj, const CombatSound & sound ) override
+	void	Sound_Heard( GameObject * /*obj*/, const CombatSound & sound ) override
 	{
 		Commands->Debug_Message("Heard Sound %d\n", sound.Type );
 	}
 
-	void Timer_Expired( GameObject * obj, int timer_id ) override
+	void Timer_Expired( GameObject * obj, int /*timer_id*/ ) override
 	{
 		Commands->Start_Timer( obj, this, 5, 0 );
 

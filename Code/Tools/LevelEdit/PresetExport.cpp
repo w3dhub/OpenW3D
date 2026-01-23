@@ -369,7 +369,7 @@ PresetExportClass::Import_Presets
 bool
 PresetExportClass::Import_Setting
 (
-	PresetClass *			preset,
+	PresetClass *			/* preset */,
 	ParameterClass *		parameter,
 	const char *			value
 )

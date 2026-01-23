@@ -748,7 +748,7 @@ STDMETHODIMP WebBrowser::OnBeforeNavigate(const wchar_t* /* url */,
 *
 ******************************************************************************/
 
-STDMETHODIMP WebBrowser::OnDocumentComplete(const wchar_t* url, BOOL isTopFrame)
+STDMETHODIMP WebBrowser::OnDocumentComplete([[maybe_unused]] const wchar_t* url, BOOL isTopFrame)
 	{
 	WWDEBUG_SAY(("WebBrowser: OnDocumentComplete: %S\n", url));
 

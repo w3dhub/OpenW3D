@@ -1098,7 +1098,7 @@ HANDLE Get_Thread_Handle(int thread_index)
  * HISTORY:                                                                                    *
  *   8/30/2001 3:10PM ST : Created                                                             *
  *=============================================================================================*/
-void Unregister_Thread_ID(unsigned int thread_id, const char *thread_name)
+void Unregister_Thread_ID([[maybe_unused]] unsigned int thread_id, const char *thread_name)
 {
 	for (int i=0 ; i<ThreadList.Count() ; i++) {
 		if (strcmp(thread_name, ThreadList[i]->ThreadName) == 0) {
@@ -1302,7 +1302,7 @@ bool Lookup_Symbol(void *code_ptr, char *symbol, int &displacement)
  * HISTORY:                                                                                    *
  *   6/12/2001 11:57AM ST : Created                                                            *
  *=============================================================================================*/
-int Stack_Walk(void **return_addresses, int num_addresses, CONTEXT *context)
+int Stack_Walk(void **return_addresses, int num_addresses, CONTEXT * /* context */)
 {
 	return CaptureStackBackTrace(1, num_addresses, return_addresses, NULL);
 }
@@ -1321,7 +1321,7 @@ void Register_Application_Version_Callback(const char *(*app_ver_callback)(void)
 
 
 
-void Set_Exit_On_Exception(bool set)
+void Set_Exit_On_Exception(bool /* set */)
 {
 	ExitOnException = true;
 }

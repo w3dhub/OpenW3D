@@ -391,7 +391,7 @@ MultiLineTextCtrlClass::Calculate_Row_Count (void)
 //
 ////////////////////////////////////////////////////////////////
 bool
-MultiLineTextCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+MultiLineTextCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	switch (key_id)
 	{

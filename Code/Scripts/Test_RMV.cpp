@@ -47,7 +47,7 @@
 
 DECLARE_SCRIPT(RMV_Test_Script, "")
 {
-	void Sound_Heard(GameObject * obj, const CombatSound & sound) override
+	void Sound_Heard(GameObject * /*obj*/, const CombatSound & /*sound*/) override
 	{
 		Commands->Debug_Message("Sound heard.\n");
 	}
@@ -85,7 +85,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 		}
 	}
 
-	void Animation_Complete(GameObject * obj, const char *anim) override
+	void Animation_Complete(GameObject * obj, const char * /*anim*/) override
 	{
 		Commands->Destroy_Object(obj);
 	}
@@ -93,7 +93,7 @@ DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 
 DECLARE_SCRIPT(M00_Commando_Death_Taunt, "")
 {
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * /*obj*/, GameObject * killer) override
 	{
 		if (Commands->Is_A_Star(killer))
 		{
@@ -122,12 +122,12 @@ DECLARE_SCRIPT(M00_Damaged_Warning, "")
 		SAVE_VARIABLE( just_sent, 1 );
 	}
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		just_sent = false;
 	}
 	
-	void Damaged(GameObject * obj, GameObject * damager, float amount) override
+	void Damaged(GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		if ((Commands->Get_Health(obj) <= 25.0f) && (!just_sent))
 		{
@@ -140,7 +140,7 @@ DECLARE_SCRIPT(M00_Damaged_Warning, "")
 		}
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id) override
+	void Timer_Expired(GameObject * /*obj*/, int /*timer_id*/) override
 	{
 		just_sent = false;
 	}
@@ -172,7 +172,7 @@ DECLARE_SCRIPT(M00_Put_Script_On_Commando, "")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == 12176) && (param == 12176))
 		{
@@ -194,7 +194,7 @@ DECLARE_SCRIPT(RMV_Hostage_Rescue_Point, "")
 
 DECLARE_SCRIPT(RMV_Trigger_Killed, "ID:int, Type:int, Param:int")
 {
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 	//	if (Commands->Is_A_Star(killer))
 		{
@@ -216,7 +216,7 @@ DECLARE_SCRIPT(RMV_Home_Point, "Radius:float")
 
 DECLARE_SCRIPT(RMV_Test_Facing, "")
 {
-	void Damaged(GameObject * obj, GameObject * damager, float amount) override
+	void Damaged(GameObject * obj, GameObject * damager, float /*amount*/) override
 	{
 		Vector3 my_pos = Commands->Get_Position(obj);
 		Vector3 target_pos = Commands->Get_Position(damager);
@@ -438,7 +438,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		}
 	}
 
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * /*obj*/, GameObject * /*killer*/) override
 	{
 		Commands->Stop_Sound(sound_id, true);
 	}
@@ -451,7 +451,7 @@ DECLARE_SCRIPT(RMV_Cinematic_Position, "Bone:string")
 		Commands->Start_Timer(obj, this, 1.0f, 0);
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id) override
+	void Timer_Expired(GameObject * obj, int /*timer_id*/) override
 	{
 		const char * bone = Get_Parameter("Bone");
 		if (bone)
@@ -465,7 +465,7 @@ DECLARE_SCRIPT(RMV_Cinematic_Position, "Bone:string")
 
 DECLARE_SCRIPT(M00_Destroyed_Turret, "")
 {
-	void Killed(GameObject * obj, GameObject * killer) override
+	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 		Vector3 my_pos = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
@@ -490,7 +490,7 @@ DECLARE_SCRIPT(RMV_Engine_Sound, "Preset:string, Bone:string")
 		sound_id = Commands->Create_3D_Sound_At_Bone(sound, obj, bone);
 	}
 
-	void Destroyed(GameObject * obj) override
+	void Destroyed(GameObject * /*obj*/) override
 	{
 		Commands->Stop_Sound(sound_id, true);
 	}
@@ -583,7 +583,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int /*type*/, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		loading_complete = true;
 	}
@@ -591,7 +591,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 
 DECLARE_SCRIPT(Poke_And_Play_Cinematic, "Text_File:string, Location=0 0 0:vector3")
 {
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * /*obj*/, GameObject * /*poker*/) override
 	{
 		Vector3 pos = Get_Vector3_Parameter("Location");
 		const char * file = Get_Parameter("Text_File");
@@ -612,7 +612,7 @@ DECLARE_SCRIPT(M00_Ion_Cannon_Sound, "Number=0:int")
 
 DECLARE_SCRIPT(RMV_Trigger_Poked_2, "Target:int, Type:int, Param:int")
 {
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
 		GameObject * target = Commands->Find_Object(Get_Int_Parameter("Target"));
 		if (target)
@@ -636,7 +636,7 @@ DECLARE_SCRIPT(RMV_Test_Damage, "")
 		max_shield = Commands->Get_Shield_Strength(obj);
 	}
 	
-	void Damaged(GameObject * obj, GameObject * damager, float amount) override
+	void Damaged(GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		count++;
 		float damage = Commands->Get_Max_Health(obj) - Commands->Get_Health(obj);
@@ -654,7 +654,7 @@ DECLARE_SCRIPT(RMV_Test_Damage, "")
 		Commands->Debug_Message("Object took %3.2f points of damage%s.\n", damage, maxed ? " or more" : "");
 	}
 
-	void Poked(GameObject * obj, GameObject * poker) override
+	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
 		Commands->Debug_Message("Cumulative damage was %3.2f from %d sources.\n", total_damage, count);
 		total_damage = 0.0f;

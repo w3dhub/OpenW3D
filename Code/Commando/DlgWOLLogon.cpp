@@ -566,7 +566,7 @@ void DlgWOLLogon::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 *
 ******************************************************************************/
 
-void DlgWOLLogon::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
+void DlgWOLLogon::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit */, int /* id */)
 	{
 	EditCtrlClass* passwordEdit = (EditCtrlClass*)Get_Dlg_Item(IDC_PASSWORD_EDIT);
 

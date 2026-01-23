@@ -66,7 +66,7 @@ public:
 	virtual DecorationPhysClass *	As_DecorationPhysClass(void) override							{ return this; }
 	
 	void									Init(const DecorationPhysDefClass & def);
-	virtual void						Timestep(float dt) override										{ }
+	virtual void						Timestep(float /* dt */) override										{ }
 	virtual void						Set_Model(RenderObjClass * model) override;
 	
 	virtual bool						Cast_Ray(PhysRayCollisionTestClass & raytest) override;

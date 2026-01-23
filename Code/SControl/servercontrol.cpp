@@ -245,7 +245,7 @@ void ServerControlClass::Service(void)
  * HISTORY:                                                                                    *
  *   11/16/2001 4:03PM ST : Created                                                            *
  *=============================================================================================*/
-void ServerControlClass::Parse_Message(void *buffer, int len, unsigned int address, unsigned short port)
+void ServerControlClass::Parse_Message(void *buffer, [[maybe_unused]] int len, unsigned int address, unsigned short port)
 {
 	ControlMessageStruct *message = (ControlMessageStruct*) buffer;
 	assert(len <= sizeof(ControlMessageStruct));

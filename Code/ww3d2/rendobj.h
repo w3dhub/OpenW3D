@@ -191,9 +191,9 @@ public:
 	virtual RenderObjClass *	Clone(void) const																= 0;		
 	virtual int						Class_ID(void)	const															{ return CLASSID_UNKNOWN; }
 	virtual const char *			Get_Name(void) const															{ return "UNNAMED"; }
-	virtual void					Set_Name(const char * name)												{ }
+	virtual void					Set_Name(const char * /*name*/)												{ }
 	virtual const char *			Get_Base_Model_Name (void) const											{ return NULL; }
-	virtual void					Set_Base_Model_Name (const char *name)									{ }
+	virtual void					Set_Base_Model_Name (const char */*name*/)									{ }
 	virtual int						Get_Num_Polys(void) const													{ return 0; }
 
 
@@ -209,7 +209,7 @@ public:
 	//           should reset their "emitted particle counts" so they can be re-used.)
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	virtual void					Render(RenderInfoClass & rinfo)											= 0;
-	virtual void					Special_Render(SpecialRenderInfoClass & rinfo)						{ }
+	virtual void					Special_Render(SpecialRenderInfoClass & /*rinfo*/)						{ }
 	virtual void					On_Frame_Update(void) 														{ }
 	virtual void					Restart(void)																	{ }	
 
@@ -243,15 +243,15 @@ public:
 	virtual void					Notify_Removed(SceneClass * scene);
 
 	virtual int						Get_Num_Sub_Objects(void) const											{ return 0; } 					
-	virtual RenderObjClass *	Get_Sub_Object(int index) const											{ return NULL; }
-	virtual int						Add_Sub_Object(RenderObjClass * subobj)								{ return 0; }
-	virtual int						Remove_Sub_Object(RenderObjClass * robj)								{ return 0; }
+	virtual RenderObjClass *	Get_Sub_Object(int /*index*/) const											{ return NULL; }
+	virtual int						Add_Sub_Object(RenderObjClass * /*subobj*/)								{ return 0; }
+	virtual int						Remove_Sub_Object(RenderObjClass * /*robj*/)								{ return 0; }
 	virtual RenderObjClass *	Get_Sub_Object_By_Name(const char * name) const;
 
-	virtual int						Get_Num_Sub_Objects_On_Bone(int boneindex) const					{ return 0; }
-	virtual RenderObjClass *	Get_Sub_Object_On_Bone(int index,int boneindex)	const				{ return NULL; }
-	virtual int						Get_Sub_Object_Bone_Index(RenderObjClass * subobj)	const 		{ return 0; }
-	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,int bone_index)	{ return 0; }
+	virtual int						Get_Num_Sub_Objects_On_Bone(int /*boneindex*/) const					{ return 0; }
+	virtual RenderObjClass *	Get_Sub_Object_On_Bone(int /*index*/,int /*boneindex*/)	const				{ return NULL; }
+	virtual int						Get_Sub_Object_Bone_Index(RenderObjClass * /*subobj*/)	const 		{ return 0; }
+	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * /*subobj*/,int /*bone_index*/)	{ return 0; }
 	virtual int						Add_Sub_Object_To_Bone(RenderObjClass * subobj,const char * bname);
 	virtual int						Remove_Sub_Objects_From_Bone(const char * bname);
 
@@ -269,25 +269,25 @@ public:
 	};
 
 	virtual void					Set_Animation( void )														{ }
-	virtual void					Set_Animation( HAnimClass * motion,
-															float frame, int anim_mode = ANIM_MODE_MANUAL)	{ }
-	virtual void					Set_Animation( HAnimClass * motion0,
-															float frame0,
-															HAnimClass * motion1,
-															float frame1,
-															float percentage)											{ }
-	virtual void					Set_Animation( HAnimComboClass * anim_combo)							{ }
+	virtual void					Set_Animation( HAnimClass * /*motion*/,
+															float /*frame*/, int /*anim_mode*/ = ANIM_MODE_MANUAL)	{ }
+	virtual void					Set_Animation( HAnimClass * /*motion0*/,
+															float /*frame0*/,
+															HAnimClass * /*motion1*/,
+															float /*frame1*/,
+															float /*percentage*/)											{ }
+	virtual void					Set_Animation( HAnimComboClass * /*anim_combo*/)							{ }
 
 	virtual HAnimClass *			Peek_Animation( void )														{ return NULL; }
 	virtual int						Get_Num_Bones(void)															{ return 0; }
-	virtual const char *			Get_Bone_Name(int bone_index)												{ return NULL; }
-	virtual int						Get_Bone_Index(const char * bonename)									{ return 0; }
-	virtual const Matrix3D &	Get_Bone_Transform(const char * bonename)    						{ return Get_Transform(); }
-	virtual const Matrix3D &	Get_Bone_Transform(int boneindex)      								{ return Get_Transform(); }
-	virtual void					Capture_Bone(int bindex)													{ }
-	virtual void					Release_Bone(int bindex)													{ }
-	virtual bool					Is_Bone_Captured(int bindex) const										{ return false; }
-	virtual void					Control_Bone(int bindex,const Matrix3D & objtm,bool world_space_translation = false)						{ }
+	virtual const char *			Get_Bone_Name(int /*bone_index*/)												{ return NULL; }
+	virtual int						Get_Bone_Index(const char * /*bonename*/)									{ return 0; }
+	virtual const Matrix3D &	Get_Bone_Transform(const char * /*bonename*/)    						{ return Get_Transform(); }
+	virtual const Matrix3D &	Get_Bone_Transform(int /*boneindex*/)      								{ return Get_Transform(); }
+	virtual void					Capture_Bone(int /*bindex*/)													{ }
+	virtual void					Release_Bone(int /*bindex*/)													{ }
+	virtual bool					Is_Bone_Captured(int /*bindex*/) const										{ return false; }
+	virtual void					Control_Bone(int /*bindex*/,const Matrix3D & /*objtm*/,bool /*world_space_translation*/ = false)						{ }
 	virtual const HTreeClass *	Get_HTree(void) const														{ return NULL; }
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -301,12 +301,12 @@ public:
 	// Intersect_Sphere - tests a ray for intersection with the bounding spheres
 	// Intersect_Sphere_Quick - tests a ray for intersection with bounding spheres
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	virtual bool					Cast_Ray(RayCollisionTestClass & raytest)								{ return false; }
-	virtual bool					Cast_AABox(AABoxCollisionTestClass & boxtest)						{ return false; }
-	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & boxtest)						{ return false; }
+	virtual bool					Cast_Ray(RayCollisionTestClass & /*raytest*/)								{ return false; }
+	virtual bool					Cast_AABox(AABoxCollisionTestClass & /*boxtest*/)						{ return false; }
+	virtual bool					Cast_OBBox(OBBoxCollisionTestClass & /*boxtest*/)						{ return false; }
 	
-	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest)				{ return false; }
-	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)				{ return false; }
+	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & /*boxtest*/)				{ return false; }
+	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & /*boxtest*/)				{ return false; }
 
 	virtual bool					Intersect(IntersectionClass *Intersection, IntersectionResultClass *Final_Result);
 	virtual bool					Intersect_Sphere(IntersectionClass *Intersection, IntersectionResultClass *Final_Result);
@@ -339,10 +339,10 @@ public:
 	virtual float	Get_Cost(void) const;
 	virtual float	Get_Value(void) const																		{ return AT_MIN_LOD; }
 	virtual float	Get_Post_Increment_Value(void) const													{ return AT_MAX_LOD; }
-	virtual void	Set_LOD_Level(int lod)																		{ }
+	virtual void	Set_LOD_Level(int /*lod*/)																		{ }
 	virtual int		Get_LOD_Level(void) const																	{ return 0; }
 	virtual int		Get_LOD_Count(void) const																	{ return 1; }
-	virtual void	Set_LOD_Bias(float bias)																	{ }
+	virtual void	Set_LOD_Bias(float /*bias*/)																	{ }
 	virtual int	Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const;
 	virtual RenderObjClass *	Get_Current_LOD(void)														{ Add_Ref(); return this; }
 
@@ -363,25 +363,25 @@ public:
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Decals
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	virtual void					Create_Decal(DecalGeneratorClass * generator)						{ }
-	virtual void					Delete_Decal(uint32 decal_id)												{ }
+	virtual void					Create_Decal(DecalGeneratorClass * /*generator*/)						{ }
+	virtual void					Delete_Decal(uint32 /*decal_id*/)												{ }
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Attributes, Options, Properties, etc
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	virtual MaterialInfoClass * Get_Material_Info(void) 													{ return NULL; }
-	virtual void					Set_User_Data(void *value, bool recursive = false)					{ User_Data = value; };
+	virtual void					Set_User_Data(void *value, bool /*recursive*/ = false)					{ User_Data = value; };
 	virtual void *					Get_User_Data()																{ return User_Data; };
 	virtual int						Get_Num_Snap_Points(void)													{ return 0; }
-	virtual void					Get_Snap_Point(int index,Vector3 * set)								{ }
+	virtual void					Get_Snap_Point(int /*index*/,Vector3 * /*set*/)								{ }
 //	virtual float					Calculate_Texture_Reduction_Factor(float norm_screensize);
 //	virtual void					Set_Texture_Reduction_Factor(float trf);
 	virtual float					Get_Screen_Size(CameraClass &camera);
-	virtual void					Scale(float scale) 															{ };
-	virtual void					Scale(float scalex, float scaley, float scalez)						{ };
+	virtual void					Scale(float /*scale*/) 															{ };
+	virtual void					Scale(float /*scalex*/, float /*scaley*/, float /*scalez*/)						{ };
 
    virtual int						Get_Sort_Level(void) const													{ return 0; /* SORT_LEVEL_NONE */ }
-   virtual void					Set_Sort_Level(int level)													{ }
+   virtual void					Set_Sort_Level(int /*level*/)													{ }
 	
 	virtual int						Is_Really_Visible(void)														{ return ((Bits & IS_REALLY_VISIBLE) == IS_REALLY_VISIBLE); }
 	virtual int						Is_Not_Hidden_At_All(void)													{ return ((Bits & IS_NOT_HIDDEN_AT_ALL) == IS_NOT_HIDDEN_AT_ALL); }
@@ -436,8 +436,8 @@ protected:
 	void								Load_Sub_Object_User_Lighting(ChunkLoadClass & cload);
 
 
-	enum 
-	{	
+	enum
+	{
 		COLLISION_TYPE_MASK =		0x000000FF,
 
 		IS_VISIBLE =					0x00000100,

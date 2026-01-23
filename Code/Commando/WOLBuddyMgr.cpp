@@ -82,7 +82,7 @@ WOLBuddyMgr* WOLBuddyMgr::_mInstance = NULL;
 *
 ******************************************************************************/
 
-WOLBuddyMgr* WOLBuddyMgr::GetInstance(bool createOK)
+WOLBuddyMgr* WOLBuddyMgr::GetInstance(bool /* createOK */)
 	{
 	if (_mInstance == NULL)
 		{

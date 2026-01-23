@@ -121,7 +121,7 @@ void DlgMpChangeLanNickname::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 }
 
 //-----------------------------------------------------------------------------
-void DlgMpChangeLanNickname::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
+void DlgMpChangeLanNickname::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit */, int id)
 {
 	if ((IDC_NICKNAME_EDIT == id) && Is_Dlg_Item_Enabled(IDOK))
 	{

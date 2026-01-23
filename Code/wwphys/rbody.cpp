@@ -1083,7 +1083,7 @@ void RigidBodyClass::Get_Contact_Parameters(float * stiffness,float * damping,fl
 
 int RigidBodyClass::Compute_Derivatives
 (
-	float						t,
+	[[maybe_unused]] float						t,
 	StateVectorClass *	test_state,
 	StateVectorClass *	dydt,
 	int						index

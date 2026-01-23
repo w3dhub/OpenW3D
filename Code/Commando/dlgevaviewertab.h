@@ -78,8 +78,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public operators
 	////////////////////////////////////////////////////////////////
-	bool				operator== (const EvaViewerObjectClass &src) const	{ return false; }
-	bool				operator!= (const EvaViewerObjectClass &src)	const	{ return true; }
+	bool				operator== (const EvaViewerObjectClass &/* src*/) const	{ return false; }
+	bool				operator!= (const EvaViewerObjectClass &/* src*/)	const	{ return true; }
 
 	////////////////////////////////////////////////////////////////
 	//	Public methods

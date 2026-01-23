@@ -1039,7 +1039,7 @@ AudibleSoundClass::Set_Priority (float priority)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 bool
-AudibleSoundClass::On_Frame_Update (unsigned int milliseconds)
+AudibleSoundClass::On_Frame_Update (unsigned int /* milliseconds */)
 {
 	//
 	// Do we need to track this sound's play-progress?

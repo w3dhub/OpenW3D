@@ -365,7 +365,7 @@ PresetTransitionTabClass::OnModifyButton (void)
 void
 PresetTransitionTabClass::OnItemChangedTransitionList
 (
-	NMHDR *	pNMHDR,
+	NMHDR *	/* pNMHDR */,
 	LRESULT*	pResult
 )
 {
@@ -538,7 +538,7 @@ PresetTransitionTabClass::OnDeleteitemTransitionList
 void
 PresetTransitionTabClass::OnDblclkTransitionList
 (
-	NMHDR *	pNMHDR,
+	NMHDR *	/* pNMHDR */,
 	LRESULT *pResult
 )
 {

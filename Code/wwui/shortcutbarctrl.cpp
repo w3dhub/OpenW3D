@@ -345,7 +345,7 @@ ShortcutBarCtrlClass::Create_Displayed_State_Renderers (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-ShortcutBarCtrlClass::On_Set_Cursor (const Vector2 &mouse_pos)
+ShortcutBarCtrlClass::On_Set_Cursor (const Vector2 &/* mouse_pos */)
 {
 	//
 	//	Change the mouse cursor
@@ -438,7 +438,7 @@ ShortcutBarCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-ShortcutBarCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+ShortcutBarCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	return ;
 }
@@ -514,7 +514,7 @@ ShortcutBarCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //
 ////////////////////////////////////////////////////////////////
 bool
-ShortcutBarCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+ShortcutBarCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	bool handled = true;
 

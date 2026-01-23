@@ -160,7 +160,7 @@ void TransitionEffectClass::Timestep(float dt)
 	RenderTransitionMaterial = (IntensityScale > 0.0f);
 }
 
-void TransitionEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * obj)
+void TransitionEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * /* obj */)
 {
 	if (RenderTransitionMaterial) {
 		

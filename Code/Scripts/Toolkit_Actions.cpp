@@ -171,7 +171,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Action received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -261,7 +261,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 	}
 }
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
+	void Action_Complete(GameObject * /*obj*/, int action_id, ActionCompleteReason reason) override
 	{
 		if (script_active)
 		{
@@ -321,7 +321,7 @@ DECLARE_SCRIPT(M00_Action_Set_Home_Location, "Start_Now=1:int, Receive_Type:int,
 		}
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /*sender*/ ) override
 	{
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{
@@ -346,7 +346,7 @@ DECLARE_SCRIPT (M00_Action_Innate_Follow_Waypath, "Waypath_ID:int")
 		Perform_Action (obj);
 	}
 
-	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason complete_reason) override
+	void Action_Complete(GameObject * /*obj*/, int /*action_id*/, ActionCompleteReason /*complete_reason*/) override
 	{
 		//Commands->Start_Timer (obj, this, 3.0f, 32);
 	}
@@ -359,7 +359,7 @@ DECLARE_SCRIPT (M00_Action_Innate_Follow_Waypath, "Waypath_ID:int")
 		}
 	}
 
-	void Perform_Action (GameObject* obj)
+	void Perform_Action (GameObject* /*obj*/)
 	{
 		/*
 		ActionParamsStruct params;

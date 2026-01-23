@@ -154,7 +154,7 @@ CoverSpotDefinitionClass::Load (ChunkLoadClass &cload)
 //
 //////////////////////////////////////////////////////////////////////////////////
 bool
-CoverSpotDefinitionClass::Save_Variables (ChunkSaveClass &csave)
+CoverSpotDefinitionClass::Save_Variables (ChunkSaveClass &/* csave */)
 {
 	bool retval = true;
 	return retval;

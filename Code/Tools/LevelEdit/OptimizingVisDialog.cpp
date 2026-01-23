@@ -242,7 +242,7 @@ OptimizingVisDialogClass::Optimize (void)
 UINT
 fnOptimizeVisDialogThread
 (
-	DWORD_PTR dwparam1,
+	DWORD_PTR /* dwparam1 */,
 	DWORD_PTR dwparam2,
 	DWORD_PTR /*dwparam3*/,
 	HRESULT* /*presult*/,

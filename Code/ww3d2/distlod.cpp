@@ -369,7 +369,7 @@ bool DistLODDefClass::read_header(ChunkLoadClass & cload)
  * HISTORY:                                                                                    *
  *   7/15/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-bool DistLODDefClass::read_node(ChunkLoadClass & cload,DistLODNodeDefStruct * node)
+bool DistLODDefClass::read_node(ChunkLoadClass & /*cload*/,DistLODNodeDefStruct * /*node*/)
 {
 	return true;
 }

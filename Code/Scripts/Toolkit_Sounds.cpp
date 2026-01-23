@@ -105,7 +105,7 @@ DECLARE_SCRIPT(M00_Sound_Play_2D_RAD, "Start_Now=0:int, Receive_Type:int, Receiv
 		}
 	}
 
-	void Custom(GameObject* obj, int type, intptr_t param, GameObject* sender) override
+	void Custom(GameObject* obj, int type, intptr_t param, GameObject* /*sender*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Sound_Play_2D_RAD received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -212,7 +212,7 @@ DECLARE_SCRIPT (M00_Sound_Play_3D_On_Object_RAD, "Start_Now=0:int, Receive_Type:
 		}
 	}
 
-	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t param, GameObject* /*sender*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Sound_Play_3D_On_Object_RAD received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -359,7 +359,7 @@ DECLARE_SCRIPT(M00_Sound_Play_3D_At_Location_RMV, "Start_Now=0:int, Receive_Type
 		}
 	}
 
-	void Custom(GameObject* obj, int type, intptr_t param, GameObject* sender) override
+	void Custom(GameObject* obj, int type, intptr_t param, GameObject* /*sender*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Sound_Play_3D_At_Location_RMV received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -460,7 +460,7 @@ DECLARE_SCRIPT(M00_Sound_Play_3D_At_Bone_RMV, "Start_Now=0:int, Receive_Type:int
 		}
 	}
 
-	void Custom(GameObject* obj, int type, intptr_t param, GameObject* sender) override
+	void Custom(GameObject* obj, int type, intptr_t param, GameObject* /*sender*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Sound_Play_3D_At_Bone_RMV received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
@@ -661,14 +661,14 @@ DECLARE_SCRIPT(RMV_Audio_Sound_Player_WAV, "WAV_File:string, Is_3D=1:int, Custom
 	bool is3d;
 	int c_type, c_param;
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		is3d = (Get_Int_Parameter("Is_3D") == 1) ? true : false;
 		c_type = Get_Int_Parameter("Custom_Type");
 		c_param = Get_Int_Parameter("Custom_Param");
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((c_type == type) && (c_param == param))
 		{
@@ -691,14 +691,14 @@ DECLARE_SCRIPT(RMV_Audio_Sound_Player_Preset, "Preset_Name:string, Custom_Type=0
 	Vector3 origin;
 	int c_type, c_param;
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		origin = Get_Vector3_Parameter("Sound_Origin");
 		c_type = Get_Int_Parameter("Custom_Type");
 		c_param = Get_Int_Parameter("Custom_Param");
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((c_type == type) && (c_param == param))
 		{
@@ -716,7 +716,7 @@ DECLARE_SCRIPT(RMV_Sound_Play_Near_Player, "Receive_Type:int, Receive_Param:int,
 	float freq_min, freq_max, freq;
 	enum {SOUND_PLAYER_TIMER};
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		enabled = false;
 		offset = Get_Vector3_Parameter("Max_Offset");
@@ -724,7 +724,7 @@ DECLARE_SCRIPT(RMV_Sound_Play_Near_Player, "Receive_Type:int, Receive_Param:int,
 		freq_max = Get_Float_Parameter("Frequency_Max");
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == Get_Int_Parameter("Receive_Type")) && (param == Get_Int_Parameter("Receive_Param")))
 			enabled = !enabled;
@@ -808,7 +808,7 @@ DECLARE_SCRIPT (M00_BuildingStateSoundSpeaker, "Sound_Normal:string,Sound_Destro
 
 	}
 
-	void Timer_Expired(GameObject * obj, int timer_id) override
+	void Timer_Expired(GameObject * obj, int /*timer_id*/) override
 	{
 		if ( building_destroyed == false )
 		{
@@ -854,7 +854,7 @@ DECLARE_SCRIPT (M00_BuildingStateSoundSpeaker, "Sound_Normal:string,Sound_Destro
 		Commands->Monitor_Sound(obj, sound_int);
 	}
 
-	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
+	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /*sender*/ ) override
 	{
 		if (type == CUSTOM_EVENT_SOUND_ENDED)
 		{
@@ -927,12 +927,12 @@ DECLARE_SCRIPT (M00_BuildingStateSoundController, "BuildingSpeaker_ID:int")
 		SAVE_VARIABLE( object_from, 1 );
 	}
 
-	void Created( GameObject *obj) override
+	void Created( GameObject * /*obj*/) override
 	{
 		object_from = Get_Int_Parameter("BuildingSpeaker_ID");
 	}
 
-	void Killed( GameObject * obj, GameObject *killer ) override
+	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		GameObject *target = Commands->Find_Object(object_from);
 
@@ -943,7 +943,7 @@ DECLARE_SCRIPT (M00_BuildingStateSoundController, "BuildingSpeaker_ID:int")
 		}
 	}
 	
-	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
+	void Custom (GameObject* obj, int type, intptr_t /*param*/, GameObject* /*sender*/) override
 	{
 		if ( type == M00_CUSTOM_BUILDING_EXPLODE_NO ) // flip play building explosions to false.
 		{

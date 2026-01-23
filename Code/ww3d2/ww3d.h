@@ -227,7 +227,7 @@ public:
 
 	static void					Set_Prelit_Mode (PrelitModeEnum mode)			{ PrelitMode = mode; }
 	static PrelitModeEnum 	Get_Prelit_Mode ()									{ return (PrelitMode); }
-	static bool					Supports_Prelit_Mode (PrelitModeEnum mode)	{ return (true); }
+	static bool					Supports_Prelit_Mode (PrelitModeEnum /* mode */)	{ return (true); }
 	static void					Expose_Prelit (bool onoff)							{ ExposePrelit = onoff; }
 	static bool					Expose_Prelit ()										{ return (ExposePrelit); }
 

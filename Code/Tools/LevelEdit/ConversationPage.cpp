@@ -472,7 +472,7 @@ ConversationPageClass::Reset_Tree (void)
 void
 ConversationPageClass::OnDblclkConversationTree
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 ) 
 {

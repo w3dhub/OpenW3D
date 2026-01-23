@@ -99,12 +99,12 @@ public:
 	void							Get_Translation(Vector3& translation, int pividx,float frame) const override;
 	void							Get_Orientation(Quaternion& orientation, int pividx,float frame) const override;
 	void							Get_Transform(Matrix3D& transform, int pividx,float frame) const override;
-	bool							Get_Visibility(int pividx,float frame) override		{ return true; }
+	bool							Get_Visibility(int /*pividx*/,float /*frame*/) override		{ return true; }
 
 	void							Insert_Morph_Key (const int channel, uint32 morph_frame, uint32 pose_frame);
 	void							Release_Keys (void);
 
-	bool							Is_Node_Motion_Present(int pividx) override			{ return true; }
+	bool							Is_Node_Motion_Present(int /*pividx*/) override			{ return true; }
 	int							Get_Num_Pivots(void)	const override						{ return NumNodes; }
 
 	void							Set_Name(const char * name);

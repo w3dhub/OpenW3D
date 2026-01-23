@@ -172,7 +172,7 @@ void DynamicMeshModel::Reset(void)
 	MatInfo = NEW_REF(MaterialInfoClass, ());
 }
 
-void DynamicMeshModel::Render(RenderInfoClass & rinfo)
+void DynamicMeshModel::Render(RenderInfoClass & /*rinfo*/)
 {
 	// Process texture reductions:
 //	MatInfo->Process_Texture_Reduction();
@@ -393,7 +393,7 @@ void DynamicMeshModel::Render(RenderInfoClass & rinfo)
 
 }
 
-void DynamicMeshModel::Initialize_Texture_Array(int pass, int stage, TextureClass *texture)
+void DynamicMeshModel::Initialize_Texture_Array(int pass, int /*stage*/, TextureClass *texture)
 {
 	TexBufferClass * texlist = MatDesc->Get_Texture_Array(pass, 0, true);
 	for (int lp = 0; lp < PolyCount; lp++) {
@@ -806,13 +806,13 @@ int DynamicMeshClass::Set_Texture(TextureClass *texture, bool dont_search, int p
 **
 */
 // Remap locations to match a screen
-void DynamicScreenMeshClass::Location( float x, float y, float z)	
+void DynamicScreenMeshClass::Location( float x, float y, float /*z*/)	
 {	
 	DynamicMeshClass::Location( (x * 2) - 1, Aspect - (y * 2 * Aspect), 0); 
 }
 
 // For moving a vertex after the DynaMesh has already been created.
-void DynamicScreenMeshClass::Move_Vertex(int index, float x, float y, float z)	
+void DynamicScreenMeshClass::Move_Vertex(int index, float x, float y, float /*z*/)	
 {	
 	DynamicMeshClass::Move_Vertex( index, (x * 2) - 1, Aspect - (y * 2 * Aspect), 0); 
 }

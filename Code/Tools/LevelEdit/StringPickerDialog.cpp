@@ -185,7 +185,7 @@ StringPickerDialogClass::Resize_Controls (void)
 void
 StringPickerDialogClass::OnSelchangeTabCtrl
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

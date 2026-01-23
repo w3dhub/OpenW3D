@@ -1417,7 +1417,7 @@ WWAudioClass::Find_Sound_Object (uint32 sound_obj_id)
 bool
 WWAudioClass::Load_From_Registry
 (
-	const char *	subkey_name,
+	const char *	/* subkey_name */,
 	StringClass &	device_name,
 	bool &			is_stereo,
 	int &				bits,
@@ -1500,7 +1500,7 @@ WWAudioClass::Load_From_Registry
 bool
 WWAudioClass::Save_To_Registry
 (
-	const char *			subkey_name,
+	const char *			/* subkey_name */,
 	const StringClass &	device_name,
 	bool						is_stereo,
 	int						bits,

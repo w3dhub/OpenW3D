@@ -154,7 +154,7 @@ void
 EvaMapTabClass::On_MapCtrl_Marker_Hilighted
 (
 	MapCtrlClass *	map_ctrl,
-	int				ctrl_id,
+	int				/* ctrl_id */,
 	int				marker_index
 )
 {
@@ -225,8 +225,8 @@ EvaMapTabClass::On_MapCtrl_Marker_Hilighted
 void
 EvaMapTabClass::On_MapCtrl_Pos_Clicked
 (
-	MapCtrlClass *		map_ctrl,
-	int					ctrl_id,
+	MapCtrlClass *		/* map_ctrl */,
+	int					/* ctrl_id */,
 	const Vector3 &	position
 )
 {

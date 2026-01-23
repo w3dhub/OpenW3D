@@ -105,10 +105,10 @@ class PhysObserverClass
 {
 public:
 
-	virtual CollisionReactionType		Collision_Occurred(const CollisionEventClass & event) { return COLLISION_REACTION_DEFAULT; }
-	virtual ExpirationReactionType	Object_Expired(PhysClass * observed_obj)					{ return EXPIRATION_APPROVED; }
-	virtual void							Object_Removed_From_Scene(PhysClass * observed_obj)	{ };
-	virtual void							Object_Shattered_Something(PhysClass * observed_obj, PhysClass * shattered_obj, int surface_type) { };
+	virtual CollisionReactionType		Collision_Occurred(const CollisionEventClass & /* event */) { return COLLISION_REACTION_DEFAULT; }
+	virtual ExpirationReactionType	Object_Expired(PhysClass * /* observed_obj */)					{ return EXPIRATION_APPROVED; }
+	virtual void							Object_Removed_From_Scene(PhysClass * /* observed_obj */)	{ };
+	virtual void							Object_Shattered_Something(PhysClass * /* observed_obj */, PhysClass * /* shattered_obj */, int /* surface_type */) { };
 };
 
 

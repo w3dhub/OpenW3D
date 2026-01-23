@@ -86,8 +86,8 @@ struct FileInfoStruct
 		//////////////////////////////////////////////////////////
 		//	Public operators
 		//////////////////////////////////////////////////////////		
-		bool			operator== (const FileInfoStruct &src) { return false; }
-		bool			operator!= (const FileInfoStruct &src) { return true; }
+		bool			operator== (const FileInfoStruct &/* src*/) { return false; }
+		bool			operator!= (const FileInfoStruct &/* src*/) { return true; }
 
 		//////////////////////////////////////////////////////////
 		//	Public fields

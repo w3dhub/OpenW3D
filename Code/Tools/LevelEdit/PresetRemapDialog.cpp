@@ -186,7 +186,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 void
 PresetRemapDialogClass::OnDblclkListCtrl
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )	 
 {

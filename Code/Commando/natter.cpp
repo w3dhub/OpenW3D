@@ -988,7 +988,7 @@ void WOLNATInterfaceClass::Send_Private_Game_Options(WOL::User *user, char *opti
  * HISTORY:                                                                                    *
  *   8/9/2001 9:40PM ST : Created                                                              *
  *=============================================================================================*/
-bool WOLNATInterfaceClass::Get_Private_Game_Options(WOL::User *user, char *options_buffer, int option_buffer_len)
+bool WOLNATInterfaceClass::Get_Private_Game_Options(WOL::User *user, char *options_buffer, [[maybe_unused]] int option_buffer_len)
 {
 	ThreadLockClass locker(this);
 
@@ -1154,7 +1154,7 @@ void WOLNATInterfaceClass::Set_Service_Socket_Handler(SocketHandlerClass *socket
  * HISTORY:                                                                                    *
  *   8/7/2001 8:19PM ST : Created                                                              *
  *=============================================================================================*/
-char *WOLNATInterfaceClass::Get_Silly_String(WideStringClass *silly_string, char *buffer, int buffer_size)
+char *WOLNATInterfaceClass::Get_Silly_String(WideStringClass *silly_string, char *buffer, [[maybe_unused]] int buffer_size)
 {
 	StringClass string;
 	silly_string->Convert_To(string);

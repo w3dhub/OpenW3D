@@ -171,7 +171,7 @@ void TGAToDXTClass::Write (const char *outputpathname)
 //	ReadDTXnFile
 //
 ///////////////////////////////////////////////////////////////////////////////
-void ReadDTXnFile (DWORD datacount, void *data)
+void ReadDTXnFile (DWORD /* datacount */, void * /* data */)
 {
 	// Not implemented.
 	ASSERT (false);

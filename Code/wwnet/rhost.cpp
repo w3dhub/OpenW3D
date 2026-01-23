@@ -334,7 +334,7 @@ void cRemoteHost::Toggle_Flow_Control()
 }
 
 //------------------------------------------------------------------------------------
-void cRemoteHost::Adjust_Flow_If_Necessary(float sample_time_ms)
+void cRemoteHost::Adjust_Flow_If_Necessary(float /* sample_time_ms */)
 {
    if (!IsFlowControlEnabled) {
       return;

@@ -761,7 +761,7 @@ MPLanHostAdvancedOptionsTabClass::On_Apply (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MPLanHostAdvancedOptionsTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
+MPLanHostAdvancedOptionsTabClass::On_Command (int ctrl_id, int /* message_id */, unsigned int param)
 {
 	bool restart_enabled = true;
 
@@ -1335,9 +1335,9 @@ MPLanHostMapCycleOptionsTabClass::On_Command (int ctrl_id, int message_id, unsig
 void
 MPLanHostMapCycleOptionsTabClass::On_ListCtrl_DblClk
 (
-	ListCtrlClass *list_ctrl,
+	ListCtrlClass * /* list_ctrl */,
 	int				ctrl_id,
-	int				item_index
+	int				/* item_index */
 )
 {
 	switch (ctrl_id)
@@ -1363,10 +1363,10 @@ MPLanHostMapCycleOptionsTabClass::On_ListCtrl_DblClk
 void
 MPLanHostMapCycleOptionsTabClass::On_ComboBoxCtrl_Sel_Change
 (
-	ComboBoxCtrlClass *	combo_ctrl,
-	int						ctrl_id,
-	int						old_sel,
-	int						new_sel
+	ComboBoxCtrlClass *	/* combo_ctrl */,
+	int						/* ctrl_id */,
+	int						/* old_sel */,
+	int						/* new_sel */
 )
 {
 	Populate_Map_List_Ctrl ();

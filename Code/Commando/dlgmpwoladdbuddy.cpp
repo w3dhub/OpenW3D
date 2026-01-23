@@ -176,7 +176,7 @@ void MPWolAddBuddyPopupClass::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 }
 
 
-void MPWolAddBuddyPopupClass::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
+void MPWolAddBuddyPopupClass::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit */, int id)
 {
 	if (IDC_BUDDY_NAME_EDIT == id) {
 		Add_Buddy();

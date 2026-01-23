@@ -339,7 +339,7 @@ void ShaderClass::Enable_Fog (const char *source)
  * HISTORY:																												  *
  *		10/04/00    IML : Created.																					  *	
  *=============================================================================================*/
-void ShaderClass::Report_Unable_To_Fog (const char *source)
+void ShaderClass::Report_Unable_To_Fog ([[maybe_unused]] const char *source)
 {
 	#ifdef WWDEBUG
 	static unsigned _reportcount = 0;

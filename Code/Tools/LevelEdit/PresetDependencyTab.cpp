@@ -284,7 +284,7 @@ PresetDependencyTabClass::OnRemove (void)
 void
 PresetDependencyTabClass::OnItemchangedDepencyList
 (
-	NMHDR *	pNMHDR,
+	NMHDR *	/* pNMHDR */,
 	LRESULT* pResult
 )
 {

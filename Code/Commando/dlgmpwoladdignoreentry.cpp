@@ -145,7 +145,7 @@ void MPWolAddIgnoreEntry::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 }
 
 
-void MPWolAddIgnoreEntry::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
+void MPWolAddIgnoreEntry::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit */, int id)
 {
 	if (IDC_IGNORE_USER_EDIT == id) {
 		Add_Ignore_Entry();

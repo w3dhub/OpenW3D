@@ -160,7 +160,7 @@ InputCtrlClass::Create_Control_Renderers (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-InputCtrlClass::On_Set_Cursor (const Vector2 &mouse_pos)
+InputCtrlClass::On_Set_Cursor (const Vector2 &/* mouse_pos */)
 {
 	//
 	//	Change the mouse cursor
@@ -234,7 +234,7 @@ InputCtrlClass::Render (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-InputCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
+InputCtrlClass::On_LButton_Down (const Vector2 &/* mouse_pos */)
 {
 	if (HasFocus && DialogMgrClass::Get_Time () > MouseIgnoreTime) {
 		On_New_Key (VK_LBUTTON);
@@ -250,7 +250,7 @@ InputCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-InputCtrlClass::On_RButton_Down (const Vector2 &mouse_pos)
+InputCtrlClass::On_RButton_Down (const Vector2 &/* mouse_pos */)
 {
 	if (HasFocus) {
 		On_New_Key (VK_RBUTTON);
@@ -266,7 +266,7 @@ InputCtrlClass::On_RButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-InputCtrlClass::On_MButton_Down (const Vector2 &mouse_pos)
+InputCtrlClass::On_MButton_Down (const Vector2 &/* mouse_pos */)
 {
 	if (HasFocus) {
 		On_New_Key (VK_MBUTTON);
@@ -281,7 +281,7 @@ InputCtrlClass::On_MButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-InputCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+InputCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	return ;
 }
@@ -370,7 +370,7 @@ InputCtrlClass::Set_Key_Assignment (int game_key_id, const WideStringClass &key_
 //
 ////////////////////////////////////////////////////////////////
 bool
-InputCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+InputCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	PendingKeyID = key_id;
 	return false;

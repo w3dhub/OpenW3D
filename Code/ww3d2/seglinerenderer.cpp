@@ -199,7 +199,7 @@ void SegLineRendererClass::Reset_Line(void)
 
 void SegLineRendererClass::Render
 (	
-	RenderInfoClass & rinfo,
+	RenderInfoClass & /* rinfo */,
 	const Matrix3D & transform,
 	unsigned int num_points,
 	Vector3 * points,

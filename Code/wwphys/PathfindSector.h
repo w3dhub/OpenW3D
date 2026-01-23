@@ -72,7 +72,7 @@ public:
 	PathfindSectorClass (void)
 		:	m_IsValid (true)		{}
 
-	PathfindSectorClass (const AABoxClass &box)
+	PathfindSectorClass (const AABoxClass &/* box */)
 		:	m_IsValid (true)		{}
 
 	virtual ~PathfindSectorClass (void);

@@ -221,7 +221,7 @@ MerchandiseCtrlClass::Update_Client_Rect (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-MerchandiseCtrlClass::On_Set_Cursor (const Vector2 &mouse_pos)
+MerchandiseCtrlClass::On_Set_Cursor (const Vector2 &/* mouse_pos */)
 {
 	//
 	//	Change the mouse cursor

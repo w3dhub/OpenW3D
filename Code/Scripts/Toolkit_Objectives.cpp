@@ -58,7 +58,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_RMV, "Objective_ID:int, Obje
 		SAVE_VARIABLE(hidden, 10);
 	}
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		hidden = (Get_Int_Parameter("Hidden") == 1) ? true : false;
 		blip = (Get_Int_Parameter("Radar_Blip") == 1) ? true : false;
@@ -100,7 +100,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_RMV, "Objective_ID:int, Obje
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == custom_type) && (param == activate))
 		{
@@ -155,7 +155,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Locations_RMV, "Objective_ID:int, Ob
 		SAVE_VARIABLE(location, 11);
 	}
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		location = Get_Vector3_Parameter("Location");
 		hidden = (Get_Int_Parameter("Hidden") == 1) ? true : false;
@@ -197,7 +197,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Locations_RMV, "Objective_ID:int, Ob
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == custom_type) && (param == activate))
 		{
@@ -239,7 +239,7 @@ DECLARE_SCRIPT(M00_Objective_Radar_Blip_On_Object_RMV, "Objective_ID:int, Activa
 			Commands->Set_Objective_Radar_Blip_Object(objective_id, obj);
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		int objective_id = Get_Int_Parameter("Objective_ID");
 		if ((Get_Int_Parameter("Activate_Type") == type) && (Get_Int_Parameter("Activate_Param") == param))
@@ -269,7 +269,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_Multiple_Triggers_RMV, "Obje
 		SAVE_VARIABLE(so_far, 3);
 	}
 	
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		hidden = (Get_Int_Parameter("Hidden") == 1) ? true : false;
 		so_far = 0;
@@ -308,7 +308,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_Multiple_Triggers_RMV, "Obje
 		}
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == custom_type) && (param == activate))
 		{
@@ -347,14 +347,14 @@ DECLARE_SCRIPT(M00_Global_Objective_Controller_RMV, "Set_Type:int, Set_Status:in
 	int i_obj, i_new;
 	float f_obj;
 
-	void Created(GameObject * obj) override
+	void Created(GameObject * /*obj*/) override
 	{
 		set_type = Get_Int_Parameter("Set_Type");
 		set_status = Get_Int_Parameter("Set_Status");
 		remove = Get_Int_Parameter("Remove");
 	}
 
-	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
+	void Custom(GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == set_type)
 		{

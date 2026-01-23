@@ -638,7 +638,7 @@ Find_Adjacent_Portals
 (
 	PathfindSectorClass *sector,
 	PathfindPortalClass *portal,
-	PathfindSectorClass *dest_sector,
+	PathfindSectorClass * /* dest_sector */,
 	PathfindPortalClass **portal1,
 	PathfindPortalClass **portal2
 )

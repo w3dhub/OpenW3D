@@ -616,7 +616,7 @@ bool VisSectorSamplerClass::Is_Object_Invalid_Roof(RenderObjClass *render_obj)
 // the candidate point and determines if any of them intersect a 'wall'.
 //
 /////////////////////////////////////////////////////////////////////////
-bool VisSectorSamplerClass::Do_View_Planes_Pass (const Matrix3D &vis_transform)
+bool VisSectorSamplerClass::Do_View_Planes_Pass (const Matrix3D &/* vis_transform */)
 {
 	bool retval = true;
 

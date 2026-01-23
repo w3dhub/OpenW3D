@@ -232,7 +232,7 @@ MenuDialogClass::On_Activate (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-MenuDialogClass::On_Menu_Activate (bool onoff)
+MenuDialogClass::On_Menu_Activate (bool /* onoff */)
 {
 	return ;
 }

@@ -110,8 +110,8 @@ class PathDebugPlotterClass : public RenderObjClass
 			_VECTOR_INFO(const Vector3 &_point, const Vector3 &_vector, const Vector3 &_color)
 				: point (_point), vector (_vector), color (_color)		{ }
 
-			bool operator== (const _VECTOR_INFO &src) { return false; }
-			bool operator!= (const _VECTOR_INFO &src) { return true; }
+			bool operator== (const _VECTOR_INFO &/* src*/) { return false; }
+			bool operator!= (const _VECTOR_INFO &/* src*/) { return true; }
 
 		} VECTOR_INFO;
 

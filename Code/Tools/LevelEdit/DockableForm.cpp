@@ -71,7 +71,7 @@ DockableFormClass::Create
 	const RECT& rect,
 	CWnd* pParentWnd,
 	UINT nID,
-	CCreateContext* pContext
+	CCreateContext* /* pContext */
 )
 {
 	ASSERT(pParentWnd != NULL);

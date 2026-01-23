@@ -178,7 +178,7 @@ void WidgetRenderOpClass::Render(RenderInfoClass & rinfo)
 	};
 }
 
-void WidgetRenderOpClass::render_point(RenderInfoClass & rinfo)
+void WidgetRenderOpClass::render_point([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	// Get the point model
@@ -206,7 +206,7 @@ void WidgetRenderOpClass::render_point(RenderInfoClass & rinfo)
 #endif
 }
 
-void WidgetRenderOpClass::render_vector(RenderInfoClass & rinfo)
+void WidgetRenderOpClass::render_vector([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	if (V1.Length2() < WWMATH_EPSILON) return;
@@ -247,7 +247,7 @@ void WidgetRenderOpClass::render_vector(RenderInfoClass & rinfo)
 #endif
 }
 
-void WidgetRenderOpClass::render_aabox(RenderInfoClass & rinfo)
+void WidgetRenderOpClass::render_aabox([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	RenderObjClass * model = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_AABOX);
@@ -275,7 +275,7 @@ void WidgetRenderOpClass::render_aabox(RenderInfoClass & rinfo)
 #endif
 }
 
-void WidgetRenderOpClass::render_obbox(RenderInfoClass & rinfo)
+void WidgetRenderOpClass::render_obbox([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	RenderObjClass * model = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_OBBOX);
@@ -304,7 +304,7 @@ void WidgetRenderOpClass::render_obbox(RenderInfoClass & rinfo)
 #endif
 }
 
-void WidgetRenderOpClass::render_axes(RenderInfoClass & rinfo)
+void WidgetRenderOpClass::render_axes([[maybe_unused]] RenderInfoClass & rinfo)
 {
 #ifdef WWDEBUG
 	RenderObjClass * model = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_AXES);

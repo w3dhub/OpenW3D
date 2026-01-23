@@ -135,8 +135,8 @@ class AggregateDefClass
 			W3dTextureReplacerStruct	names;
 			IndirectTextureClass *		pnew_texture;
 
-			bool operator == (_TEXTURE_INFO &src) { return false; }
-			bool operator != (_TEXTURE_INFO &src) { return true; }
+			bool operator == (_TEXTURE_INFO &) { return false; }
+			bool operator != (_TEXTURE_INFO &) { return true; }
 		} TEXTURE_INFO;
 		
 

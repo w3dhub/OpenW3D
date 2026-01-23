@@ -257,7 +257,7 @@ CNCPurchaseMenuClass::Render (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-CNCPurchaseMenuClass::On_Merchandise_DblClk (MerchandiseCtrlClass *ctrl, int ctrl_id)
+CNCPurchaseMenuClass::On_Merchandise_DblClk (MerchandiseCtrlClass * /* ctrl */, int ctrl_id)
 {
 	Purchase_Item (ctrl_id);
 	return ;
@@ -293,7 +293,7 @@ CNCPurchaseMenuClass::Purchase_Item (int ctrl_id)
 //
 ////////////////////////////////////////////////////////////////
 void
-CNCPurchaseMenuClass::On_Merchandise_Selected (MerchandiseCtrlClass *ctrl, int ctrl_id)
+CNCPurchaseMenuClass::On_Merchandise_Selected (MerchandiseCtrlClass * /* ctrl */, int ctrl_id)
 {
 	//
 	//	Reset the shopping list to include just this one purchase

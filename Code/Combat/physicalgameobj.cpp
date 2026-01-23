@@ -598,7 +598,7 @@ Vector3	PhysicalGameObj::Get_Bullseye_Position( void )
 	return pos;
 }
 
-void	PhysicalGameObj::Apply_Damage( const OffenseObjectClass & damager, float scale, int alternate_skin )
+void	PhysicalGameObj::Apply_Damage( const OffenseObjectClass & damager, float scale, int /* alternate_skin */ )
 {
 	// If this damage is allowed
 	if ( !CombatManager::Can_Damage( damager.Get_Owner(), this)) {
@@ -617,7 +617,7 @@ void	PhysicalGameObj::Apply_Damage( const OffenseObjectClass & damager, float sc
 
 
 void	PhysicalGameObj::Apply_Damage_Extended( const OffenseObjectClass & damager, float scale,
-			const	Vector3 & direction, const char * collision_box_name )
+			const	Vector3 & /* direction */, const char * /* collision_box_name */ )
 {
 //	if ( CombatManager::I_Am_Server() ) 	Clients can apply damage now
 	{
@@ -1400,7 +1400,7 @@ void	PhysicalGameObj::Enable_HUD_Pokable_Indicator( bool enable )
 void PhysicalGameObj::Object_Shattered_Something
 (
 	PhysClass * observed_obj, 
-	PhysClass * shattered_obj, 
+	PhysClass * /* shattered_obj */, 
 	int surface_type
 )
 {

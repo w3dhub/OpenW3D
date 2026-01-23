@@ -47,7 +47,7 @@ public:
 	LSProgressCallbackClass(void) { }
 	~LSProgressCallbackClass(void) { }
 
-	virtual void Progress_Callback(LightSolveContextClass & context) 
+	virtual void Progress_Callback(LightSolveContextClass & /* context */) 
 	{ 
 		General_Pump_Messages(); 
 	};

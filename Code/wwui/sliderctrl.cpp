@@ -165,7 +165,7 @@ SliderCtrlClass::Create_Control_Renderer (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-SliderCtrlClass::On_Set_Cursor (const Vector2 &mouse_pos)
+SliderCtrlClass::On_Set_Cursor (const Vector2 &/* mouse_pos */)
 {
 	//
 	//	Change the mouse cursor
@@ -242,7 +242,7 @@ SliderCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-SliderCtrlClass::On_LButton_Up (const Vector2 &mouse_pos)
+SliderCtrlClass::On_LButton_Up (const Vector2 &/* mouse_pos */)
 {
 	Release_Capture ();
 	IsDragging = false;
@@ -303,7 +303,7 @@ SliderCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //
 ////////////////////////////////////////////////////////////////
 bool
-SliderCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
+SliderCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 {
 	bool handled = true;
 

@@ -80,12 +80,12 @@ public:
 	//
 	//	File manipulation methods
 	//
-	bool				Add_File (LPCTSTR local_filename, LPCTSTR comment = NULL)	{ return true; }
-	bool				Check_In (LPCTSTR local_filename, LPCTSTR comment = NULL)	{ return true; }
+	bool				Add_File (LPCTSTR /* local_filename */, LPCTSTR /* comment */ = NULL)	{ return true; }
+	bool				Check_In (LPCTSTR /* local_filename */, LPCTSTR /* comment */ = NULL)	{ return true; }
 	bool				Check_Out (LPCTSTR local_filename, bool get_locally = true);
-	bool				Undo_Check_Out (LPCTSTR local_filename)							{ return true; }
+	bool				Undo_Check_Out (LPCTSTR /* local_filename */)							{ return true; }
 	bool				Get (LPCTSTR local_filename);
-	bool				Get_Subproject (LPCTSTR local_filename)							{ return true; }
+	bool				Get_Subproject (LPCTSTR /* local_filename */)							{ return true; }
 	bool				Get_All (LPCTSTR dest_path, LPCTSTR search_mask);
 
 	FileClass *		Get_File (LPCTSTR local_filename);
@@ -95,19 +95,19 @@ public:
 	//
 	//	Extended methods which provide UI
 	//
-	bool				Check_Out_Ex (LPCTSTR local_filename, HWND parent_wnd)	{ return true; }
-	bool				Check_In_Ex (LPCTSTR local_filename, HWND parent_wnd)		{ return true; }
+	bool				Check_Out_Ex (LPCTSTR /* local_filename */, HWND /* parent_wnd */)	{ return true; }
+	bool				Check_In_Ex (LPCTSTR /* local_filename */, HWND /* parent_wnd */)		{ return true; }
 
 	//
 	// Retry methods
 	//
-	bool				Retry_Check_Out (LPCTSTR local_filename, int attempts = 1, int delay = 250)	{ return true; }
-	bool				Retry_Check_In (LPCTSTR local_filename, int attempts = 1, int delay = 250)		{ return true; }
+	bool				Retry_Check_Out (LPCTSTR /* local_filename */, int /* attempts */ = 1, int /* delay */ = 250)	{ return true; }
+	bool				Retry_Check_In (LPCTSTR /* local_filename */, int /* attempts */ = 1, int /* delay */ = 250)		{ return true; }
 	
 	//
 	//	File information methods
 	//		
-	FILE_STATUS		Get_File_Status (LPCTSTR local_filename, StringClass *checked_out_user_name = NULL) { return CHECKED_OUT_TO_ME; }
+	FILE_STATUS		Get_File_Status (LPCTSTR /* local_filename */, StringClass * /* checked_out_user_name */ = NULL) { return CHECKED_OUT_TO_ME; }
 	bool				Is_File_Different (LPCTSTR local_filename) { return (Does_File_Exist (local_filename) == false); }
 	bool				Does_File_Exist (LPCTSTR local_filename);
 

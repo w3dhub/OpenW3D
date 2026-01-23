@@ -460,7 +460,7 @@ VisPointGeneratorClass::Find_Valid_Points
 (
 	const Vector3 &start,
 	const Vector3 &end,
-	const Matrix3 &orientation,
+	const Matrix3 &/* orientation */,
 	bool do_camera_ring
 )
 {

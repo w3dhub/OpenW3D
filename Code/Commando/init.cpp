@@ -364,7 +364,7 @@ void Commando_Assert_Handler(const char * message)
 /*
 **
 */
-void AudioTextCallback(AudibleSoundClass *sound_obj, const StringClass &text, uint32 user_param)
+void AudioTextCallback(AudibleSoundClass * /* sound_obj */, const StringClass &text, uint32 /* user_param */)
 {
 	Vector3 red = Vector3( 1, 0.5f, 0.5f );
 	StringClass str;
@@ -613,7 +613,7 @@ bool RestartNeeded = true;
  * HISTORY:                                                                                    *
  *   12/3/2001 11:26PM ST : Created                                                            *
  *=============================================================================================*/
-void Get_Version_Number(unsigned int *major, unsigned int *minor)
+void Get_Version_Number(unsigned int * /* major */, unsigned int * /* minor */)
 {
 	// Version info removed per Legal review requirements. LFeenanEA - 8th February 2025
 }

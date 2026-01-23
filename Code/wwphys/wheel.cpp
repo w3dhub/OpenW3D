@@ -217,7 +217,7 @@ SuspensionElementClass::~SuspensionElementClass(void)
  * HISTORY:                                                                                    *
  *   12/18/2000 gth : Created.                                                                 *
  *=============================================================================================*/
-void SuspensionElementClass::Init(VehiclePhysClass * obj,int pbone,int rbone,int fbone,int abone)
+void SuspensionElementClass::Init(VehiclePhysClass * obj,int pbone,int /* rbone */,int fbone,int abone)
 {
 	WWASSERT(obj != NULL);							// have to have a valid object
 	WWASSERT(pbone != -1);							// have to have a position bone at least
@@ -423,7 +423,7 @@ void SuspensionElementClass::Update_Model(void)
  * HISTORY:                                                                                    *
  *   12/18/2000 gth : Created.                                                                 *
  *=============================================================================================*/
-void SuspensionElementClass::Non_Physical_Update(float suspension_fraction,float rotation)
+void SuspensionElementClass::Non_Physical_Update(float suspension_fraction,float /* rotation */)
 {
 	RenderObjClass * model = Parent->Peek_Model();
 	if (model == NULL) return;
@@ -780,7 +780,7 @@ if (sum.Length2() < 0.001f) {
  * HISTORY:                                                                                    *
  *   12/18/2000 gth : Created.                                                                 *
  *=============================================================================================*/
-void WheelClass::Compute_Suspension_Force(const Vector3 & pdot,const Vector3 & local_pdot,Vector3 * suspension_force)
+void WheelClass::Compute_Suspension_Force(const Vector3 & pdot,const Vector3 & /* local_pdot */,Vector3 * suspension_force)
 {
 	WWPROFILE("WheelClass::Compute_Suspension_Force");
 

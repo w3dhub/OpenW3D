@@ -870,7 +870,7 @@ void MPWolGameListMenuClass::On_ListCtrl_Delete_Entry(ListCtrlClass* list, int i
 *
 ******************************************************************************/
 
-void MPWolGameListMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int oldIndex, int newIndex)
+void MPWolGameListMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id, int /* oldIndex */, int newIndex)
 	{
 	if (IDC_GAME_LIST_CTRL == id)
 		{
@@ -1015,7 +1015,7 @@ void MPWolGameListMenuClass::GetClanVSClanString(WOLGameInfo& gameInfo, WideStri
 *
 ******************************************************************************/
 
-void MPWolGameListMenuClass::On_ListCtrl_Column_Click(ListCtrlClass* list, int id, int column)
+void MPWolGameListMenuClass::On_ListCtrl_Column_Click(ListCtrlClass* /* list */, int id, int column)
 	{
 	if (IDC_GAME_LIST_CTRL == id)
 		{
@@ -1051,7 +1051,7 @@ void MPWolGameListMenuClass::On_ListCtrl_Column_Click(ListCtrlClass* list, int i
 *
 ******************************************************************************/
 
-void MPWolGameListMenuClass::On_ListCtrl_DblClk(ListCtrlClass* list, int id, int index)
+void MPWolGameListMenuClass::On_ListCtrl_DblClk(ListCtrlClass* /* list */, int id, int /* index */)
 	{
 	if (IDC_GAME_LIST_CTRL == id)
 		{

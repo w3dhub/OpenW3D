@@ -361,7 +361,7 @@ SelectPresetDialogClass::Generate_Tree (int class_id, HTREEITEM parent_item)
 void
 SelectPresetDialogClass::OnSelchangedPresetTree
 (
-	NMHDR *		pNMHDR,
+	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
 )
 {

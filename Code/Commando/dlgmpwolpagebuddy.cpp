@@ -231,7 +231,7 @@ void MPWolPageBuddyPopupClass::CheckIfCanSendPage(void)
 }
 
 
-void MPWolPageBuddyPopupClass::On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* combo, int id)
+void MPWolPageBuddyPopupClass::On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* /* combo */, int id)
 {
 	if (IDC_BUDDY_NAME_COMBO == id) { 
 		CheckIfCanSendPage();
@@ -239,7 +239,7 @@ void MPWolPageBuddyPopupClass::On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* co
 }
 
 
-void MPWolPageBuddyPopupClass::On_EditCtrl_Change(EditCtrlClass* edit, int id)
+void MPWolPageBuddyPopupClass::On_EditCtrl_Change(EditCtrlClass* /* edit */, int id)
 {
 	if (IDC_MESSAGE_EDIT == id) { 
 		CheckIfCanSendPage();
@@ -247,7 +247,7 @@ void MPWolPageBuddyPopupClass::On_EditCtrl_Change(EditCtrlClass* edit, int id)
 }
 
 
-void MPWolPageBuddyPopupClass::On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id)
+void MPWolPageBuddyPopupClass::On_EditCtrl_Enter_Pressed(EditCtrlClass* /* edit */, int id)
 {
 	if (IDC_MESSAGE_EDIT == id && Is_Dlg_Item_Enabled(IDC_PAGE_BUTTON)) {
 		Send_Page();

@@ -663,7 +663,7 @@ void DX8Caps::Check_Bumpmap_Support(const D3DCAPS9& caps)
 //
 // ----------------------------------------------------------------------------
 
-void DX8Caps::Check_Texture_Compression_Support(const D3DCAPS9& caps)
+void DX8Caps::Check_Texture_Compression_Support(const D3DCAPS9& /* caps */)
 {
 	SupportDXTC=SupportTextureFormat[WW3D_FORMAT_DXT1]|
 		SupportTextureFormat[WW3D_FORMAT_DXT2]|
@@ -911,7 +911,7 @@ void DX8Caps::Check_Driver_Version_Status()
 	}
 }
 
-bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat format)
+bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat /* format */)
 {
 	// If nothing limits the maximum resolution, accept any resolution
 	if (MaxDisplayWidth==0 && MaxDisplayHeight==0) return true;
@@ -927,7 +927,7 @@ bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat format)
 //
 // ----------------------------------------------------------------------------
 
-void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER9& adapter_id)
+void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER9& /* adapter_id */)
 {
 	if (VendorId==VENDOR_NVIDIA) {
 		if (SupportNPatches) {

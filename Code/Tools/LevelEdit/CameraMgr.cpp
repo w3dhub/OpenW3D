@@ -674,7 +674,7 @@ void
 CameraMgr::Update_Camera_MOVE_ZOOM
 (
 	CameraClass &	camera,
-	float				deltax,
+	float				/* deltax */,
 	float				deltay
 )
 {
@@ -739,9 +739,9 @@ CameraMgr::Update_Camera_MOVE_PLANE
 void
 CameraMgr::Update_Camera_FLY_THROUGH
 (
-	CameraClass &	camera,
-	float				deltax,
-	float				deltay
+	CameraClass &	/* camera */,
+	float				/* deltax */,
+	float				/* deltay */
 )
 {
 	//
@@ -759,8 +759,8 @@ CameraMgr::Update_Camera_FLY_THROUGH
 void
 CameraMgr::Update_Camera_WALK_THROUGH
 (
-	CameraClass &	camera,
-	float				deltax,
+	CameraClass &	/* camera */,
+	float				/* deltax */,
 	float				deltay
 )
 {
@@ -848,7 +848,7 @@ void
 CameraMgr::Update_Camera_ROTATE_X
 (
 	CameraClass &	camera,
-	float				deltax,
+	float				/* deltax */,
 	float				deltay
 )
 {
@@ -872,7 +872,7 @@ CameraMgr::Update_Camera_ROTATE_Y
 (
 	CameraClass &camera,
 	float deltax,
-	float deltay
+	float /* deltay */
 )
 {
 	// Rotate the camera's transformation matrix based
@@ -930,7 +930,7 @@ CameraMgr::Update_Camera_ROTATE_Z
 void
 CameraMgr::Update_Camera_FLY_TO
 (
-	CameraClass &camera,
+	CameraClass &/* camera */,
 	float /*deltax*/,
 	float /*deltay*/
 )

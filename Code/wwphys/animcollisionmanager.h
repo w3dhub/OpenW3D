@@ -148,8 +148,8 @@ protected:
 		~CollideableObjClass(void);
 
 		CollideableObjClass &				operator = (const CollideableObjClass & that);
-		bool										operator == (const CollideableObjClass & that) const { return false; }
-		bool										operator != (const CollideableObjClass & that) const { return true; }		
+		bool										operator == (const CollideableObjClass & ) const { return false; }
+		bool										operator != (const CollideableObjClass & ) const { return true; }		
 
 		void										Set_Collision_Object(RenderObjClass * mesh);
 		RenderObjClass *						Peek_Collision_Object(void)						{ return CollisionMesh; }

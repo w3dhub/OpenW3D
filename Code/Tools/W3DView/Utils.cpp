@@ -498,7 +498,7 @@ Create_DIB_Section
 //  Make_Bitmap_From_Texture
 //
 HBITMAP
-Make_Bitmap_From_Texture (TextureClass &texture, int width, int height)
+Make_Bitmap_From_Texture ([[maybe_unused]] TextureClass &texture, [[maybe_unused]] int width, [[maybe_unused]] int height)
 {
 	HBITMAP hbitmap = NULL;
 #ifdef WW3D_DX8
@@ -831,7 +831,7 @@ Get_File_Time
 //  Load_RC_Texture
 //
 TextureClass *
-Load_RC_Texture (LPCTSTR resource_name)
+Load_RC_Texture ([[maybe_unused]] LPCTSTR resource_name)
 {
 	TextureClass *texture = NULL;
 
@@ -890,7 +890,7 @@ Find_Missing_Textures
 (
 	DynamicVectorClass<CString> &	list,
 	LPCTSTR								name,
-	int									frame_count
+	int									/* frame_count */
 )
 {
 	//

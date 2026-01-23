@@ -65,7 +65,7 @@ BOOL CW3DViewView::PreCreateWindow(CREATESTRUCT& cs)
 /////////////////////////////////////////////////////////////////////////////
 // CW3DViewView drawing
 
-void CW3DViewView::OnDraw(CDC* pDC)
+void CW3DViewView::OnDraw(CDC* /* pDC */)
 {
 	CW3DViewDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);

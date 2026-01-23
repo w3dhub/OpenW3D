@@ -1636,7 +1636,7 @@ DialogBaseClass::On_Mouse_Wheel (int direction)
 	return ;
 }
 
-void DialogBaseClass::Set_Dirty(bool onoff)
+void DialogBaseClass::Set_Dirty(bool /* onoff */)
 {
 	int index;
 	for (index = 0; index < ControlList.Count (); index ++) {
