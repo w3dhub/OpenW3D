@@ -162,6 +162,7 @@ add_library(wwlib STATIC)
 
 target_link_libraries(wwlib PRIVATE
     wwcommon
+    wwutil
     version
 )
 if(W3D_BUILD_OPTION_SDL3)

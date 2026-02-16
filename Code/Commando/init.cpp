@@ -61,6 +61,7 @@
 #include "msgloop.h"
 #include "resource.h"
 #include "miscutil.h"
+#include "pathutil.h"
 #include "cnetwork.h"
 #include "mathutil.h"
 #include "win.h"
@@ -441,21 +442,21 @@ void	Construct_Directory_Structure(void)
 	//
 	//	Create the data directory if necessary
 	//
-	if (GetFileAttributesA (data_dir) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists (data_dir)) {
 		::CreateDirectoryA (data_dir, NULL);
 	}
 
 	//
 	//	Create the save directory if necessary
 	//
-	if (GetFileAttributesA (save_dir) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists( save_dir)) {
 		::CreateDirectoryA (save_dir, NULL);
 	}
 
 	//
 	//	Create the config directory if necessary
 	//
-	if (GetFileAttributesA (config_dir) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists( config_dir)) {
 		::CreateDirectoryA (config_dir, NULL);
 	}
 
@@ -465,7 +466,7 @@ void	Construct_Directory_Structure(void)
 
 static bool Verify_Log_Directory(const StringClass& folder)
 {
-	if (GetFileAttributesA(folder)!=0xffffffff) return true;
+	if (cPathUtil::PathExists(folder)) return true;
 	//HANDLE file;
 	//file = CreateFileA(folder, 0, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	//if (file!=INVALID_HANDLE_VALUE) {

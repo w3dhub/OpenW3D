@@ -37,6 +37,7 @@
 #include "renegadedialog.h"
 #include "dlgmovieoptions.h"
 #include "listctrl.h"
+#include "pathutil.h"
 #include "BINKMovie.h"
 #include "registry.h"
 #include "translatedb.h"
@@ -227,7 +228,7 @@ MovieOptionsMenuClass::Begin_Play_Movie (void)
 		//
 		//	Play the movie (if it exists locally)
 		//
-		if (::GetFileAttributesA (filename->Peek_Buffer ()) != 0xFFFFFFFF) {
+		if (!cPathUtil::PathExists (filename->Peek_Buffer())) {
 			Play_Movie (filename->Peek_Buffer ());
 		} else {
 

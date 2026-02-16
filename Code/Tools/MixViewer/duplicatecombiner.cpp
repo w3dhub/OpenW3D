@@ -39,6 +39,7 @@
 #include "duplicatecombiner.h"
 #include "ffactory.h"
 #include "mixfile.h"
+#include "pathutil.h"
 #include "rawfile.h"
 #include "bittype.h"
 #include "mixcombiningdialog.h"
@@ -372,7 +373,7 @@ DuplicateRemoverClass::Make_Temp_Directory (void)
 	int index = 0;	
 	do {		
 		TempDirectory.Format ("%s%.2d.DIR", (const char *)temp_path, index++);
-	} while (GetFileAttributes (TempDirectory) != 0xFFFFFFFF);
+	} while (cPathUtil::PathExists (TempDirectory));
 
 	//
 	//	Create the directory
@@ -516,7 +517,7 @@ DuplicateRemoverClass::Get_Temp_Filename (StringClass &full_path)
 	//
 	do {		
 		full_path.Format ("%s%.5d.dat", (const char *)temp_path, TempFilenameStart++);
-	} while (GetFileAttributes (full_path) != 0xFFFFFFFF);
+	} while (cPathUtil::PathExists (full_path));
 
 	return ;
 }

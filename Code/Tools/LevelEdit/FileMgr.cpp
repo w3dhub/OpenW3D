@@ -52,6 +52,7 @@
 #include "ffactory.h"
 #include "ww3d.h"
 #include "node.h"
+#include "pathutil.h"
 #include "preset.h"
 #include "presetmgr.h"
 #include "spawnernode.h"
@@ -954,7 +955,7 @@ FileMgrClass::Update_File (LPCTSTR filename)
 		// Get the latest version from VSS if we don't already have the file
 		// checked out.
 		//
-		if (	::GetFileAttributes (path) == 0xFFFFFFFF ||
+		if (	!cPathUtil::PathExists (path) ||
 				m_DatabaseInterface->Get_File_Status (filename) != AssetDatabaseClass::CHECKED_OUT_TO_ME)
 		{
 			retval = m_DatabaseInterface->Get (path);
@@ -1043,7 +1044,7 @@ FileMgrClass::Set_Base_Path (LPCTSTR base)
 
 	// The new cache directory is simply a subdirectory of the base
 	m_TextureCachePath = m_BasePath + "EditorCache";
-	if (::GetFileAttributes (m_TextureCachePath) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists (m_TextureCachePath)) {
 		::CreateDirectory (m_TextureCachePath, NULL);
 	}
 

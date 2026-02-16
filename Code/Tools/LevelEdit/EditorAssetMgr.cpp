@@ -45,6 +45,7 @@
 #include "ww3d.h"
 #include "Utils.h"
 #include "filemgr.h"
+#include "pathutil.h"
 #include "rawfile.h"
 #include "rcfile.h"
 #include "filelocations.h"
@@ -147,7 +148,7 @@ EditorAssetMgrClass::Determine_Real_Location
 		//
 		//	If the file doesn't exist here, then try the search paths
 		//
-		if (::GetFileAttributes (test_path) == 0xFFFFFFFF) {
+		if (!::cPathUtil::PathExists (test_path)) {
 		
 			//
 			//	Try to find the file in our search path list
@@ -159,7 +160,7 @@ EditorAssetMgrClass::Determine_Real_Location
 				//	Does the file exist in this directoy?
 				//
 				StringClass full_path = static_cast<const char *>(Make_Path (path_list[index], path));
-				if (::GetFileAttributes (full_path) != 0xFFFFFFFF) {
+				if (cPathUtil::PathExists (full_path)) {
 					test_path = full_path;
 					break;
 				}
@@ -598,7 +599,7 @@ EditorFileFactoryClass::Get_File (char const *filename)
 		//
 		//	If the file doesn't exist here, then try the search paths
 		//
-		if (::GetFileAttributes (path) == 0xFFFFFFFF) {
+		if (!cPathUtil::PathExists (path)) {
 		
 			//
 			//	Try to find the file in our search path list
@@ -609,7 +610,7 @@ EditorFileFactoryClass::Get_File (char const *filename)
 				//	Does the file exist in this directoy?
 				//
 				StringClass full_path = static_cast<const char *>(Make_Path (SearchPathList[index], filename));
-				if (::GetFileAttributes (full_path) != 0xFFFFFFFF) {
+				if (cPathUtil::PathExists (full_path)) {
 					path = full_path;
 					break;
 				}

@@ -69,6 +69,7 @@
 #include "assetdep.h"
 #include "presetslibform.h"
 #include "Pathfind.h"
+#include "pathutil.h"
 #include "gameobjmanager.h"
 #include "stringsmgr.h"
 #include "assetpackagemgr.h"
@@ -177,7 +178,7 @@ ExporterClass::Make_Temp_Directory (void)
 	int index = 0;	
 	do {		
 		TempDirectory.Format ("%s%.2d.DIR", (const char *)temp_path, index++);
-	} while (GetFileAttributes (TempDirectory) != 0xFFFFFFFF);
+	} while (cPathUtil::PathExists (TempDirectory));
 
 	//
 	//	Create the directory
@@ -282,7 +283,7 @@ ExporterClass::Export_Always_Files (LPCTSTR path)
 	//
 	// Does the path exist?
 	//
-	if (::GetFileAttributes (path) != 0xFFFFFFFF) {
+	if (cPathUtil::PathExists (path)) {
 
 		//
 		//	Get the base destination path
