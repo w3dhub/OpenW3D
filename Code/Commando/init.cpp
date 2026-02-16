@@ -449,14 +449,14 @@ void	Construct_Directory_Structure(void)
 	//
 	//	Create the save directory if necessary
 	//
-	if (!cPathUtil::PathExists( save_dir)) {
+	if (!cPathUtil::PathExists (save_dir)) {
 		::CreateDirectoryA (save_dir, NULL);
 	}
 
 	//
 	//	Create the config directory if necessary
 	//
-	if (!cPathUtil::PathExists( config_dir)) {
+	if (!cPathUtil::PathExists (config_dir)) {
 		::CreateDirectoryA (config_dir, NULL);
 	}
 

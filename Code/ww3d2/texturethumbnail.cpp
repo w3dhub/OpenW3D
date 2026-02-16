@@ -19,6 +19,7 @@
 #include "texturethumbnail.h"
 #include "hashtemplate.h"
 #include "missingtexture.h"
+#include "pathutil.h"
 #include "TARGA.H"
 #include "ww3dformat.h"
 #include "ddsfile.h"
@@ -663,10 +664,8 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 	// Collect all mix file names
 	DynamicVectorClass<StringClass> mix_names;
 
-	char cur_dir[256];
-	GetCurrentDirectoryA(sizeof(cur_dir),cur_dir);
-	StringClass new_dir(cur_dir,true);
-	new_dir+="\\Data";
+	StringClass cur_dir = cPathUtil::GetWorkingDirectory(true);
+	StringClass new_dir = cur_dir + "Data";
 	SetCurrentDirectoryA(new_dir);
 
 	WIN32_FIND_DATAA find_data;
