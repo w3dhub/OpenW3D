@@ -217,7 +217,7 @@ ViewerSceneClass::Clear_Lineup (void)
 	// Remove every object in the lineup from the scene,
 	// and remove each object from the line up list.
 	RenderObjClass *obj = NULL;
-	while (obj = LineUpList.Remove_Head())
+	while ((obj = LineUpList.Remove_Head()) != NULL)
 		Remove_Render_Object(obj);
 }
 

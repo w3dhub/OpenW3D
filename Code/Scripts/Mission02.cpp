@@ -3399,8 +3399,8 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 
 		// Set the unit's home point, save the value.
 
-		Vector3 my_home_point = Commands->Get_Position(obj);
-		Commands->Set_Innate_Soldier_Home_Location(obj, my_home_point, 20.0f);
+		Vector3 this_home_point = Commands->Get_Position(obj);
+		Commands->Set_Innate_Soldier_Home_Location(obj, this_home_point, 20.0f);
 
 		// Turn hibernation off for a moment.
 		
@@ -3422,7 +3422,7 @@ DECLARE_SCRIPT (M02_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 
 			Commands->Grant_Key (obj, 1, true);
 
-			GameObject *starobj = Commands->Get_A_Star (my_home_point);
+			GameObject *starobj = Commands->Get_A_Star (this_home_point);
 
 			if (starobj)
 			{

@@ -1042,8 +1042,8 @@ void WOLChatMgr::HandleNotification(ChannelListEvent& event)
 			}
 		
 		Add_Ref();
-		WOLChatMgrEvent event = LobbyListChanged;
-		NotifyObservers(event);
+		WOLChatMgrEvent change_event = LobbyListChanged;
+		NotifyObservers(change_event);
 		Release_Ref();
 		}
 	}
@@ -1092,8 +1092,8 @@ void WOLChatMgr::HandleNotification(ChannelEvent& event)
 			AddMessage(NULL, message, true, true);
 
 			Add_Ref();
-			WOLChatMgrEvent event = LobbyChanged;
-			NotifyObservers(event);
+			WOLChatMgrEvent change_event = LobbyChanged;
+			NotifyObservers(change_event);
 			Release_Ref();
 			}
 			break;
@@ -1101,8 +1101,8 @@ void WOLChatMgr::HandleNotification(ChannelEvent& event)
 		case ChannelBanned:
 			{
 			Add_Ref();
-			WOLChatMgrEvent event = BannedFromChannel;
-			NotifyObservers(event);
+			WOLChatMgrEvent ban_event = BannedFromChannel;
+			NotifyObservers(ban_event);
 			Release_Ref();
 			}
 			break;
@@ -1110,8 +1110,8 @@ void WOLChatMgr::HandleNotification(ChannelEvent& event)
 		case ChannelKicked:
 			{
 			Add_Ref();
-			WOLChatMgrEvent event = KickedFromChannel;
-			NotifyObservers(event);
+			WOLChatMgrEvent kick_event = KickedFromChannel;
+			NotifyObservers(kick_event);
 			Release_Ref();
 			}
 			break;

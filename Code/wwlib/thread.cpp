@@ -103,7 +103,7 @@ void ThreadClass::Stop(unsigned ms)
 		unsigned time=TIMEGETTIME();
 		while (handle) {
 			if ((TIMEGETTIME()-time)>ms) {
-				int res=TerminateThread((HANDLE)handle,0);
+				[[maybe_unused]] int res=TerminateThread((HANDLE)handle,0);
 				WWASSERT(res);	// Thread still not killed!
 				handle=0;
 			}

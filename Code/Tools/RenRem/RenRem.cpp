@@ -173,7 +173,7 @@ int main(int argc, char **argv)
 	cprintf("Press escape to quit\n");
 
 	bool doit = true;
-	int BufferPos = 1;
+	int buffer_pos = 1;
 	sprintf(CommandBuffer, PROMPT);
 
 	cprintf(PROMPT);
@@ -206,14 +206,14 @@ int main(int argc, char **argv)
 				** of the line so it at least matches what's in the buffer.
 				*/
 				case 9:
-					BufferPos = 1;
+					buffer_pos = 1;
 					cprintf("\r\n");
 					cprintf(PROMPT);
 					break;
 
 				case 13:
-					if (BufferPos > 1) {
-						CommandBuffer[BufferPos] = 0;
+					if (buffer_pos > 1) {
+						CommandBuffer[buffer_pos] = 0;
 
 						/*
 						** Verify quit command.
@@ -232,7 +232,7 @@ int main(int argc, char **argv)
 							TruncateFile = true;
 						}
 					}
-					BufferPos = 1;
+					buffer_pos = 1;
 					cprintf("\r\n");
 					cprintf(PROMPT);
 					ServerControl.Service();
@@ -242,14 +242,14 @@ int main(int argc, char **argv)
 				** Backspace.
 				*/
 				case 8:
-					if (BufferPos > 1) {
-						BufferPos--;
+					if (buffer_pos > 1) {
+						buffer_pos--;
 						cprintf(" \b");
 					} else {
 						/*
 						** Compensate for backspace going too far.
 						*/
-						if (BufferPos == 1) {
+						if (buffer_pos == 1) {
 							cprintf(PROMPT);
 						}
 					}
@@ -258,7 +258,7 @@ int main(int argc, char **argv)
 
 				default:
 					if (input == 32 || isgraph(input)) {
-						CommandBuffer[BufferPos++] = (input & 0xff);
+						CommandBuffer[buffer_pos++] = (input & 0xff);
 					}
 					break;
 

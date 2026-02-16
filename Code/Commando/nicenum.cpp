@@ -248,7 +248,7 @@ cNicEnum::Init
 		(unsigned int) cUserOptions::PreferredGameSpyNic.Get(), 
 		cNetUtil::Address_To_String(cUserOptions::PreferredGameSpyNic.Get())));
 
-	int cleanup_rc = ::WSACleanup();
+	[[maybe_unused]] int cleanup_rc = ::WSACleanup();
 	WWASSERT(cleanup_rc != SOCKET_ERROR);
 }
 
@@ -269,7 +269,7 @@ cNicEnum::Enumerate_Nics
 	// Get the local hostname
 	//
 	char local_host_name[300];
-	int gethostname_rc = ::gethostname(local_host_name, sizeof(local_host_name));
+	[[maybe_unused]] int gethostname_rc = ::gethostname(local_host_name, sizeof(local_host_name));
 	WWASSERT(gethostname_rc != SOCKET_ERROR);
 
 	//

@@ -1205,7 +1205,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 			}
 
 			// Try to set the previous selection
-			unsigned res=SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_FINDSTRINGEXACT, -1, (LPARAM)cur_sel_string);
+			unsigned res=SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_FINDSTRINGEXACT, WPARAM(-1), (LPARAM)cur_sel_string);
 			if (res==CB_ERR) {
 				if (sel==0) res=0;
 				else {
@@ -1239,7 +1239,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 			}
 
 			// Try to set the previous selection
-			res=SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_FINDSTRINGEXACT, -1, (LPARAM)cur_sel_string);
+			res=SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_FINDSTRINGEXACT, WPARAM(-1), (LPARAM)cur_sel_string);
 			if (res==CB_ERR) {
 				if (sel==0) res=0;
 				else {

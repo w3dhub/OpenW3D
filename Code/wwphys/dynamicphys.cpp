@@ -151,7 +151,7 @@ void DynamicPhysClass::Internal_Update_Visibility_Status(void)
 	VisObjectID = PhysicsSceneClass::Get_Instance()->Get_Dynamic_Object_Vis_ID(Model->Get_Bounding_Box(),&VisNodeID);
 	if ((int)VisObjectID >= PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size()) {
 		
-		int size = PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size();
+		[[maybe_unused]] int size = PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size();
 //		int id = PhysicsSceneClass::Get_Instance()->Get_Dynamic_Object_Vis_ID(Model->Get_Bounding_Box(),&VisNodeID);
 
 		WWDEBUG_SAY(("Invalid VisObjectID: %d for object: %s (max vis id = %d)\n",VisObjectID,Model->Get_Name(),size));

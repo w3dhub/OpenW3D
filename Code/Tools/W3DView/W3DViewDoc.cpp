@@ -726,24 +726,24 @@ CW3DViewDoc::DisplayObject
             // Reset the animation for this object
             pCModel->Set_Animation ();
 
-				RenderObjClass *m_pCRenderObj;
+				RenderObjClass *render_obj;
 
-            m_pCRenderObj = pCModel;
-            m_pCRenderObj->Add_Ref ();
-            m_pCRenderObj->Set_Transform (Matrix3D (1));
+            render_obj = pCModel;
+            render_obj->Add_Ref ();
+            render_obj->Set_Transform (Matrix3D (1));
 
             // Add this object to the scene
-				if (m_pCRenderObj->Class_ID () == RenderObjClass::CLASSID_BITMAP2D) {
-					m_pC2DScene->Add_Render_Object (m_pCRenderObj);
+				if (render_obj->Class_ID () == RenderObjClass::CLASSID_BITMAP2D) {
+					m_pC2DScene->Add_Render_Object (render_obj);
 				} else {
 					m_pCScene->Clear_Lineup();
-					m_pCScene->Add_Render_Object (m_pCRenderObj);
+					m_pCScene->Add_Render_Object (render_obj);
 				}
 
 				// Reset the current lod to be the lowest possible LOD...
 				if ((m_pCScene->Are_LODs_Switching ()) &&
-					 (m_pCRenderObj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
-					((HLodClass *)m_pCRenderObj)->Set_LOD_Level (0);
+					 (render_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
+					((HLodClass *)render_obj)->Set_LOD_Level (0);
 				}
 
             CGraphicView *pCGraphicView = GetGraphicView ();
@@ -754,7 +754,7 @@ CW3DViewDoc::DisplayObject
                 if ((use_global_reset_flag && m_bAutoCameraReset) ||
 					     ((use_global_reset_flag == false) && allow_reset) ||
 						  m_bOneTimeReset) {
-						pCGraphicView->Reset_Camera_To_Display_Object (*m_pCRenderObj);
+						pCGraphicView->Reset_Camera_To_Display_Object (*render_obj);
 						m_bOneTimeReset = false;
 					 }
             }

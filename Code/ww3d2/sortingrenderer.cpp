@@ -323,7 +323,7 @@ void SortingRendererClass::Insert_Triangles(
 	state->min_vertex_index=min_vertex_index;
 	state->vertex_count=vertex_count;
 
-	SortingVertexBufferClass* vertex_buffer=static_cast<SortingVertexBufferClass*>(state->sorting_state.vertex_buffer);
+	[[maybe_unused]] SortingVertexBufferClass* vertex_buffer=static_cast<SortingVertexBufferClass*>(state->sorting_state.vertex_buffer);
 	WWASSERT(vertex_buffer);
 	WWASSERT(state->vertex_count<=vertex_buffer->Get_Vertex_Count());
 
@@ -493,8 +493,8 @@ void SortingRendererClass::Flush_Sorting_Pool()
 
 	unsigned node_id;
 	// Fill dynamic index buffer with sorting index buffer vertices
-	unsigned * node_id_array=Get_Node_Id_Array(overlapping_polygon_count);
-	float* polygon_z_array=Get_Polygon_Z_Array(overlapping_polygon_count);
+	unsigned * node_id_array_ptr=Get_Node_Id_Array(overlapping_polygon_count);
+	float* polygon_z_array_ptr=Get_Polygon_Z_Array(overlapping_polygon_count);
 	ShortVectorIStruct* polygon_idx_array=(ShortVectorIStruct*)Get_Polygon_Index_Array(overlapping_polygon_count);
 
 	DynamicVBAccessClass dyn_vb_access(BUFFER_TYPE_DYNAMIC_DX8,dynamic_fvf_type,overlapping_vertex_count);
@@ -506,7 +506,7 @@ void SortingRendererClass::Flush_Sorting_Pool()
 		unsigned vertex_array_offset=0;
 		for (node_id=0;node_id<overlapping_node_count;++node_id) {
 			SortingNodeStruct* state=overlapping_nodes[node_id];
-			float* vertex_z_array=Get_Vertex_Z_Array(state->vertex_count);
+			float* vertex_z_array_ptr=Get_Vertex_Z_Array(state->vertex_count);
 
 			VertexFormatXYZNDUV2* src_verts=NULL;
 			SortingVertexBufferClass* vertex_buffer=static_cast<SortingVertexBufferClass*>(state->sorting_state.vertex_buffer);
@@ -522,7 +522,7 @@ void SortingRendererClass::Flush_Sorting_Pool()
 			const Matrix4& mtx=(const Matrix4&)d3d_mtx;
 			unsigned i;
 			for (i=0;i<state->vertex_count;++i,++src_verts) {
-				vertex_z_array[i] = (mtx[2][0] * src_verts->x + mtx[2][1] * src_verts->y + mtx[2][2] * src_verts->z + mtx[2][3]);
+				vertex_z_array_ptr[i] = (mtx[2][0] * src_verts->x + mtx[2][1] * src_verts->y + mtx[2][2] * src_verts->z + mtx[2][3]);
 
 				//
 				// If you have a crash in here and "dest_verts" points to illegal memory area,
@@ -547,14 +547,14 @@ void SortingRendererClass::Flush_Sorting_Pool()
 				WWASSERT(idx1<state->vertex_count);
 				WWASSERT(idx2<state->vertex_count);
 				WWASSERT(idx3<state->vertex_count);
-				float z1=vertex_z_array[idx1];
-				float z2=vertex_z_array[idx2];
-				float z3=vertex_z_array[idx3];
+				float z1=vertex_z_array_ptr[idx1];
+				float z2=vertex_z_array_ptr[idx2];
+				float z3=vertex_z_array_ptr[idx3];
 				float z=(z1+z2+z3)/3.0f;
 				unsigned array_index=i+polygon_array_offset;
 				WWASSERT(array_index<overlapping_polygon_count);
-				polygon_z_array[array_index]=z;
-				node_id_array[array_index]=node_id;
+				polygon_z_array_ptr[array_index]=z;
+				node_id_array_ptr[array_index]=node_id;
 				polygon_idx_array[array_index]=ShortVectorIStruct(
 					idx1+vertex_array_offset,
 					idx2+vertex_array_offset,
@@ -572,9 +572,9 @@ void SortingRendererClass::Flush_Sorting_Pool()
 	TempIndexStruct* tis=Get_Temp_Index_Array(overlapping_polygon_count);
 	unsigned a;
 	for (a=0;a<overlapping_polygon_count;++a) {
-		tis[a]=TempIndexStruct(polygon_idx_array[a],node_id_array[a]);
+		tis[a]=TempIndexStruct(polygon_idx_array[a],node_id_array_ptr[a]);
 	}
-	Sort<TempIndexStruct,float>(tis,polygon_z_array,overlapping_polygon_count);
+	Sort<TempIndexStruct,float>(tis,polygon_z_array_ptr,overlapping_polygon_count);
 
 	DynamicIBAccessClass dyn_ib_access(BUFFER_TYPE_DYNAMIC_DX8,overlapping_polygon_count*3);
 	{

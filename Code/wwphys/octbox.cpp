@@ -112,7 +112,7 @@ void OctBoxClass::Get_Outer_Bounds(AABoxClass * set_bounds)
 
 bool OctBoxClass::Is_Intersecting(NonRefPhysListClass * result_list,bool check_static_objs,bool check_dyn_objs)
 {
-	PhysicsSceneClass * the_scene = PhysicsSceneClass::Get_Instance();
+	[[maybe_unused]] PhysicsSceneClass * the_scene = PhysicsSceneClass::Get_Instance();
 	WWASSERT(the_scene != NULL);
 
 	/*

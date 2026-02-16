@@ -4938,7 +4938,7 @@ DECLARE_SCRIPT(M06_Flyover_Controller, "")  // 100018
 		{
 			last = param;
 
-			static constexpr const char *flyovers[11] =
+			static constexpr const char *flyover_files[11] =
 			{
 				"M06_XG_VehicleDrop0.txt",
 				"M06_XG_VehicleDrop1.txt",
@@ -4973,7 +4973,7 @@ DECLARE_SCRIPT(M06_Flyover_Controller, "")  // 100018
 				{
 					GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(-44.177f, 30.547f, 1.605f));
 					Commands->Set_Facing(controller, 0.000f);
-					Commands->Attach_Script(controller, "Test_Cinematic", flyovers[random]);
+					Commands->Attach_Script(controller, "Test_Cinematic", flyover_files[random]);
 				}
 				break;
 			case 4:
@@ -4984,7 +4984,7 @@ DECLARE_SCRIPT(M06_Flyover_Controller, "")  // 100018
 			case 9:
 				{
 					GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0,0,0));
-					Commands->Attach_Script(controller, "Test_Cinematic", flyovers[random]);
+					Commands->Attach_Script(controller, "Test_Cinematic", flyover_files[random]);
 				}
 				break;
 			}

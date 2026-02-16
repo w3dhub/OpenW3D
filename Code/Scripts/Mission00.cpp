@@ -3630,8 +3630,8 @@ DECLARE_SCRIPT (MTU_Range_Powerup, "Powerup_ID:int")
 			GameObject * controller = Commands->Find_Object (MTU_CONTROLLER);
 			if (controller)
 			{
-				int param = Get_Int_Parameter ("Powerup_ID");
-				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_POWERUP_RETRIEVED, param, 0.0f);
+				int int_param = Get_Int_Parameter ("Powerup_ID");
+				Commands->Send_Custom_Event (obj, controller, MTU_TYPE_RANGE_POWERUP_RETRIEVED, int_param, 0.0f);
 			}
 		}
 	}

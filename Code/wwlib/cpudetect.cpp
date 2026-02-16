@@ -162,9 +162,9 @@ static unsigned Calculate_Processor_Speed(int64_t& ticks_per_second)
 
 	unsigned start=TIMEGETTIME();
 	unsigned elapsed;
-	while ((elapsed=TIMEGETTIME()-start)<200) {
+	do {
 		Time.timer1 = READ_TSC();
-	}
+	} while ((elapsed=TIMEGETTIME()-start)<200);
 
 	int64_t t=Time.timer1-Time.timer0;
 	ticks_per_second=(1000/200)*t;	// Ticks per second
@@ -824,13 +824,13 @@ void CPUDetectClass::Init_Processor_String()
 
 void CPUDetectClass::Init_CPUID_Instruction()
 {
+#if defined(_MC_VER) && defined(_M_IX86)
 	unsigned int cpuid_available=0;
 
    // The pushfd/popfd commands are done using emits
    // because CodeWarrior seems to have problems with
    // the command (huh?)
 
-#if defined(_MC_VER) && defined(_M_IX86)
    __asm
    {
 		mov cpuid_available,0	// clear flag

@@ -296,9 +296,9 @@ void AutoRestartClass::Think(void)
 							}
 							LogonAction = (WOLLogonAction) -1;
 							WOLLogonMgr::Set_Quiet_Mode(true);
-							RefPtr<WWOnline::Session> WOLSession = WWOnline::Session::GetInstance(true);
-							if (WOLSession.IsValid()) {
-								Observer<WWOnline::ServerError>::NotifyMe(*WOLSession);
+							RefPtr<WWOnline::Session> wol_session = WWOnline::Session::GetInstance(true);
+							if (wol_session.IsValid()) {
+								Observer<WWOnline::ServerError>::NotifyMe(*wol_session);
 								WOLLogonMgr::Logon(this);
 								RestartState = STATE_LOGIN;
 							} else {

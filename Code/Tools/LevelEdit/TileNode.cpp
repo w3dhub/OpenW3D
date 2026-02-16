@@ -78,7 +78,7 @@ enum
 TileNodeClass::TileNodeClass (PresetClass *preset)
 	:	m_PhysObj (NULL),
 		m_VisObjectID (0),	// (gth) init this to zero, ("always visible")
-		m_VisSectorID (-1),	// (gth) init this to -1, ("no-sector")
+		m_VisSectorID (uint32(-1)),	// (gth) init this to -1, ("no-sector")
 		NodeClass (preset)
 {
 	Restrict_Rotation (true);
@@ -94,7 +94,7 @@ TileNodeClass::TileNodeClass (PresetClass *preset)
 TileNodeClass::TileNodeClass (const TileNodeClass &src)
 	:	m_PhysObj (NULL),
 		m_VisObjectID (0),
-		m_VisSectorID (-1),
+		m_VisSectorID (uint32(-1)),
 		NodeClass (NULL)
 {
 	Restrict_Rotation (true);

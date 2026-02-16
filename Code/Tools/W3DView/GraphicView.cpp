@@ -776,7 +776,7 @@ CGraphicView::OnLButtonUp
 
 float minZoomAdjust = 0.0F;
 Vector3 sphereCenter;
-Quaternion rotation;
+Quaternion rotationGlobal;
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -828,7 +828,7 @@ CGraphicView::OnMouseMove
 
 		transform.Translate (cameraPan);
 
-		Matrix3 view = Build_Matrix3 (rotation);
+		Matrix3 view = Build_Matrix3 (rotationGlobal);
 		Vector3 move = view * cameraPan;
 		sphereCenter += move;
 
@@ -942,40 +942,40 @@ CGraphicView::OnMouseMove
 
 				// Rotate around the object (orbit) using a 0.00F - 1.00F percentage of
 				// the mouse coordinates
-				rotation = ::Trackball (lastPointX, lastPointY, pointX, pointY, 0.8F);
+				rotationGlobal = ::Trackball (lastPointX, lastPointY, pointX, pointY, 0.8F);
 
 				// Do we want to 'lock-out' all rotation except X?
 				if (m_allowedCameraRotation == OnlyRotateX)
 				{
-					Matrix3D tempMatrix = Build_Matrix3D (rotation);
+					Matrix3D tempMatrix = Build_Matrix3D (rotationGlobal);
 					Matrix3D tempMatrix2 (1);
 
 					tempMatrix2.Rotate_X (tempMatrix.Get_X_Rotation ());
 					tempMatrix2.Set_Translation (tempMatrix.Get_Translation ());
 
-					rotation = Build_Quaternion (tempMatrix2);
+					rotationGlobal = Build_Quaternion (tempMatrix2);
 				}
 				// Do we want to 'lock-out' all rotation except Y?
 				else if (m_allowedCameraRotation == OnlyRotateY)
 				{
-					Matrix3D tempMatrix = Build_Matrix3D (rotation);
+					Matrix3D tempMatrix = Build_Matrix3D (rotationGlobal);
 					Matrix3D tempMatrix2 (1);
 
 					tempMatrix2.Rotate_Y (tempMatrix.Get_Y_Rotation ());
 					tempMatrix2.Set_Translation (tempMatrix.Get_Translation ());
 
-					rotation = Build_Quaternion (tempMatrix2);
+					rotationGlobal = Build_Quaternion (tempMatrix2);
 				}
 				// Do we want to 'lock-out' all rotation except Z?
 				else if (m_allowedCameraRotation == OnlyRotateZ)
 				{
-					Matrix3D tempMatrix = Build_Matrix3D (rotation);
+					Matrix3D tempMatrix = Build_Matrix3D (rotationGlobal);
 					Matrix3D tempMatrix2 (1);
 
 					tempMatrix2.Rotate_Z (tempMatrix.Get_Z_Rotation ());
 					tempMatrix2.Set_Translation (tempMatrix.Get_Translation ());
 
-					rotation = Build_Quaternion (tempMatrix2);
+					rotationGlobal = Build_Quaternion (tempMatrix2);
 				}
 
 				// Get the transformation matrix for the camera and its inverse
@@ -987,7 +987,7 @@ CGraphicView::OnMouseMove
 
 				transform.Translate (to_object);
 
-				Matrix3D::Multiply (transform, Build_Matrix3D (rotation), &transform);
+				Matrix3D::Multiply (transform, Build_Matrix3D (rotationGlobal), &transform);
 
 				transform.Translate (-to_object);
 
@@ -1175,7 +1175,7 @@ CGraphicView::Reset_Camera_To_Display_Sphere (SphereClass &sphere)
 	sphereCenter	= sphere.Center;
 	m_ObjectCenter	= sphereCenter;
 	minZoomAdjust	= m_CameraDistance / 190.0F;
-	rotation			= Build_Quaternion (transform);
+	rotationGlobal			= Build_Quaternion (transform);
 
 	// Move the camera back to get a good view of the object
 	m_pCamera->Set_Transform (transform);

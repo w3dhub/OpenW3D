@@ -1263,8 +1263,8 @@ void WOLBuddyMgr::HandleNotification(BuddyEvent& event)
 	if (listChanged)
 		{
 		Add_Ref();
-		WOLBuddyMgrEvent event(BUDDYLIST_CHANGED, this);
-		NotifyObservers(event);
+		WOLBuddyMgrEvent change_event(BUDDYLIST_CHANGED, this);
+		NotifyObservers(change_event);
 		Release_Ref();
 		}
 	}
@@ -1331,8 +1331,8 @@ void WOLBuddyMgr::HandleNotification(UserEvent& event)
 			if (IsBuddy(username))
 				{
 				Add_Ref();
-				WOLBuddyMgrEvent event(BUDDYINFO_CHANGED, this);
-				NotifyObservers(event);
+				WOLBuddyMgrEvent change_event(BUDDYINFO_CHANGED, this);
+				NotifyObservers(change_event);
 				Release_Ref();
 				}
 			}
@@ -1343,8 +1343,8 @@ void WOLBuddyMgr::HandleNotification(UserEvent& event)
 			if (IsBuddy(event.Subject()->GetName()))
 				{
 				Add_Ref();
-				WOLBuddyMgrEvent event(BUDDYINFO_CHANGED, this);
-				NotifyObservers(event);
+				WOLBuddyMgrEvent change_event(BUDDYINFO_CHANGED, this);
+				NotifyObservers(change_event);
 				Release_Ref();
 				}
 		break;

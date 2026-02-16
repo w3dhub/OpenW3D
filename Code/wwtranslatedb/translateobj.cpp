@@ -79,7 +79,7 @@ enum
 ///////////////////////////////////////////////////////////////////////
 TDBObjClass::TDBObjClass (void)	:
 	ID (0),
-	SoundID (-1),
+	SoundID (uint32(-1)),
 	CategoryID (CATEGORY_DEFAULT)
 {
 	return ;
@@ -93,7 +93,7 @@ TDBObjClass::TDBObjClass (void)	:
 ///////////////////////////////////////////////////////////////////////
 TDBObjClass::TDBObjClass (const TDBObjClass &src)	:
 	ID (0),
-	SoundID (-1),
+	SoundID (uint32(-1)),
 	CategoryID (CATEGORY_DEFAULT)
 {
 	(*this) = src;

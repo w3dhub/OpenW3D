@@ -1702,18 +1702,18 @@ void	ConsoleGameModeClass::Update_Memory_Log( void )
 	const float OOMEGABYTE = 1.0f / MEGABYTE;
 
 	StringClass	memory_string(2048);
-	StringClass working_string(true);
+	StringClass temp_string(true);
 
 	memory_string.Format("Memory Category     Current(Mb)    Peak(Mb)\n");
 	int total = 0;
 	for (int i=0; i<WWMemoryLogClass::Get_Category_Count(); i++) {
 
 		// (gth) to compute Mb should I divide by the nearest power of two to a million?
-		working_string.Format("%-18s  %-10.2f     %-10.2f\r\n",
+		temp_string.Format("%-18s  %-10.2f     %-10.2f\r\n",
 										WWMemoryLogClass::Get_Category_Name(i),
 										(float)WWMemoryLogClass::Get_Current_Allocated_Memory(i) * OOMEGABYTE,
 										(float)WWMemoryLogClass::Get_Peak_Allocated_Memory(i) * OOMEGABYTE);
-		memory_string += working_string;
+		memory_string += temp_string;
 		total += WWMemoryLogClass::Get_Current_Allocated_Memory(i);
 	}
 
@@ -1724,30 +1724,30 @@ void	ConsoleGameModeClass::Update_Memory_Log( void )
 	memory_string += working_string;
 #endif
 
-	working_string.Format("SUB TOTAL:          %-10.2f\r\n\r\n",(float)total * OOMEGABYTE);
-	memory_string += working_string;
+	temp_string.Format("SUB TOTAL:          %-10.2f\r\n\r\n",(float)total * OOMEGABYTE);
+	memory_string += temp_string;
 
 	// display the estimated space used by textures residing in system ram
 	int tex_size=TextureClass::_Get_Total_Texture_Size();
-	working_string.Format("%-18s  %-10.2f\r\n","Textures(est)",(float)tex_size * OOMEGABYTE);
-	memory_string += working_string;
+	temp_string.Format("%-18s  %-10.2f\r\n","Textures(est)",(float)tex_size * OOMEGABYTE);
+	memory_string += temp_string;
 	total+=tex_size;
 
 	// display estimated vertex buffer space
 	unsigned vb_size=VertexBufferClass::Get_Total_Allocated_Memory();
-	working_string.Format("%-18s  %-10.2f\r\n","Vertex Buffers(est)",(float)vb_size * OOMEGABYTE);
-	memory_string += working_string;
+	temp_string.Format("%-18s  %-10.2f\r\n","Vertex Buffers(est)",(float)vb_size * OOMEGABYTE);
+	memory_string += temp_string;
 	total+=vb_size;
 
 	// display estimated index buffer space
 	unsigned ib_size=IndexBufferClass::Get_Total_Allocated_Memory();
-	working_string.Format("%-18s  %-10.2f\r\n","Index Buffers(est)",(float)ib_size * OOMEGABYTE);
-	memory_string += working_string;
+	temp_string.Format("%-18s  %-10.2f\r\n","Index Buffers(est)",(float)ib_size * OOMEGABYTE);
+	memory_string += temp_string;
 	total+=ib_size;
 
 	// total!
-	working_string.Format("TOTAL:              %-10.2f\r\n\r\n",(float)total * OOMEGABYTE);
-	memory_string += working_string;
+	temp_string.Format("TOTAL:              %-10.2f\r\n\r\n",(float)total * OOMEGABYTE);
+	memory_string += temp_string;
 
 	StatisticsDisplayManager::Set_Stat( "memory", memory_string, 0xffffffff );
 }

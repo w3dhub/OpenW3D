@@ -367,25 +367,25 @@ inline float IntersectionClass::_Get_Z_Elevation(
 **	Optimized intersection test that only considers the x/y component of the intersection object
 **	and will determine the intersection location down the Z axis.
 */
-inline bool IntersectionClass::Intersect_Polygon_Z(IntersectionResultClass *Result, Vector3 &PolygonNormal, Vector3 &v1, Vector3 &v2, Vector3 &v3)
+inline bool IntersectionClass::Intersect_Polygon_Z(IntersectionResultClass *result, Vector3 &PolygonNormal, Vector3 &v1, Vector3 &v2, Vector3 &v3)
 {
 
-	Result->Range = Plane_Z_Distance(PolygonNormal, v1);
-	(Result->Intersection)[0] = (*RayLocation)[0];
-	(Result->Intersection)[1] = (*RayLocation)[1];
-	(Result->Intersection)[2] = (*RayLocation)[2] - Result->Range;
-	return _Point_In_Polygon(Result, PolygonNormal, v1, v2, v3);
+	result->Range = Plane_Z_Distance(PolygonNormal, v1);
+	(result->Intersection)[0] = (*RayLocation)[0];
+	(result->Intersection)[1] = (*RayLocation)[1];
+	(result->Intersection)[2] = (*RayLocation)[2] - result->Range;
+	return _Point_In_Polygon(result, PolygonNormal, v1, v2, v3);
 }
 
 
 /*
 **	Scale the normalized direction ray to the distance of intersection
 */
-void IntersectionClass::Calculate_Intersection(IntersectionResultClass *Result)
+void IntersectionClass::Calculate_Intersection(IntersectionResultClass *result)
 {
-	(Result->Intersection)[0] = (*RayLocation)[0] + (*RayDirection)[0] * Result->Range;
-	(Result->Intersection)[1] = (*RayLocation)[1] + (*RayDirection)[1] * Result->Range;
-	(Result->Intersection)[2] = (*RayLocation)[2] + (*RayDirection)[2] * Result->Range;
+	(result->Intersection)[0] = (*RayLocation)[0] + (*RayDirection)[0] * result->Range;
+	(result->Intersection)[1] = (*RayLocation)[1] + (*RayDirection)[1] * result->Range;
+	(result->Intersection)[2] = (*RayLocation)[2] + (*RayDirection)[2] * result->Range;
 }
 
 /*
@@ -393,7 +393,7 @@ void IntersectionClass::Calculate_Intersection(IntersectionResultClass *Result)
 **	plane is parallel and if not, the range to it (which may be negative or beyond MaxRange).
 **	It doesn't determine point of intersection either.
 */
-inline bool IntersectionClass::Intersect_Plane_Quick(IntersectionResultClass *Result, Vector3 &PlaneNormal, Vector3 &PlanePoint) 
+inline bool IntersectionClass::Intersect_Plane_Quick(IntersectionResultClass *result, Vector3 &PlaneNormal, Vector3 &PlanePoint) 
 {
 	// do a parallel check
 	float divisor = (PlaneNormal[0] *(*RayDirection)[0] + PlaneNormal[1] *(*RayDirection)[1] + PlaneNormal[2] * (*RayDirection)[2]);
@@ -401,7 +401,7 @@ inline bool IntersectionClass::Intersect_Plane_Quick(IntersectionResultClass *Re
 
 	// determine distance to plane
 	float d = - (PlanePoint[0] * PlaneNormal[0] + PlanePoint[1] * PlaneNormal[1] + PlanePoint[2] * PlaneNormal[2]);
-	Result->Range = - (d + PlaneNormal[0] * (*RayLocation)[0] + PlaneNormal[1] *  (*RayLocation)[1] + PlaneNormal[2] *  (*RayLocation)[2])  / divisor;
+	result->Range = - (d + PlaneNormal[0] * (*RayLocation)[0] + PlaneNormal[1] *  (*RayLocation)[1] + PlaneNormal[2] *  (*RayLocation)[2])  / divisor;
 
 	return true;
 }
@@ -412,22 +412,22 @@ inline bool IntersectionClass::Intersect_Plane_Quick(IntersectionResultClass *Re
 **	Sets Range to the distance from the ray location to the intersection. 
 **	Note: Range is undefined if an intersection didn't occur.
 */
-inline bool IntersectionClass::Intersect_Plane(IntersectionResultClass *Result, Vector3 &PlaneNormal, Vector3 &PlanePoint) {
+inline bool IntersectionClass::Intersect_Plane(IntersectionResultClass *result, Vector3 &PlaneNormal, Vector3 &PlanePoint) {
 								 
 	// normalize the ray direction
 	RayDirection->Normalize();
 
 	// call the quick test routine
-	if(!Intersect_Plane_Quick(Result, PlaneNormal, PlanePoint)) return false;
+	if(!Intersect_Plane_Quick(result, PlaneNormal, PlanePoint)) return false;
 
 	// check to make sure it's not behind the ray's origin
-	if(Result->Range <= 0) return false; 
+	if(result->Range <= 0) return false; 
 
 	// check to make sure it's not beyond max distance
-	if(Result->Range > MaxDistance) return false;
+	if(result->Range > MaxDistance) return false;
 
 	// determine point of intersection
-	Calculate_Intersection(Result);
+	Calculate_Intersection(result);
 
 	return true;
 }
@@ -487,7 +487,7 @@ inline void IntersectionClass::_Find_Polygon_Dominant_Plane(Vector3 &Normal, int
 **	If Interpolated_Normal is specified it will interpolate the surface normal based 
 **	on the vertex normals.
 */
-inline bool IntersectionClass::Intersect_Polygon(IntersectionResultClass *Result, Vector3 &PolygonNormal, Vector3 &v1, Vector3 &v2, Vector3 &v3)
+inline bool IntersectionClass::Intersect_Polygon(IntersectionResultClass *result, Vector3 &PolygonNormal, Vector3 &v1, Vector3 &v2, Vector3 &v3)
 {
 	// first check to see if it hits the plane; determine plane normal and find point on plane (from a vertex)
 	
@@ -495,9 +495,9 @@ inline bool IntersectionClass::Intersect_Polygon(IntersectionResultClass *Result
 	Verify_Normal2(PolygonNormal, v1,v2,v3);
 #endif
 
-	if(Intersect_Plane(Result, PolygonNormal, v1)) {
+	if(Intersect_Plane(result, PolygonNormal, v1)) {
 		// then check to see if it it actually intersects the polygon. 
-		return _Point_In_Polygon(Result, PolygonNormal, v1, v2, v3);
+		return _Point_In_Polygon(result, PolygonNormal, v1, v2, v3);
 	}
 	// doesn't even hit the plane, return false.
 	return false;
@@ -507,13 +507,13 @@ inline bool IntersectionClass::Intersect_Polygon(IntersectionResultClass *Result
 **	This version will calc the normal for the polygon before calling
 **	a lower form of Intersect_Polygon
 */
-inline bool IntersectionClass::Intersect_Polygon(IntersectionResultClass *Result, Vector3 &v1, Vector3 &v2, Vector3 &v3)
+inline bool IntersectionClass::Intersect_Polygon(IntersectionResultClass *result, Vector3 &v1, Vector3 &v2, Vector3 &v3)
 {
 	Vector3 vec1 = v2 - v1;
 	Vector3 vec2 = v3 - v1;
 	Vector3 normal = Vector3::Cross_Product(vec1, vec2);
 
-	return Intersect_Polygon(Result, normal, v1,v2,v3);
+	return Intersect_Polygon(result, normal, v1,v2,v3);
 }
 
 
@@ -533,7 +533,9 @@ bool IntersectionClass::Intersect_Screen_Object(	IntersectionResultClass *Final_
 											Vector4 &Area, 
 											RenderObjClass *obj)
 {
-	if(Final_Result->Intersects =  ((ScreenX >= Area[0]) && (ScreenX <= Area[2]) && (ScreenY >= Area[1]) && (ScreenY <= Area[3]))) {
+	Final_Result->Intersects = ((ScreenX >= Area[0]) && (ScreenX <= Area[2]) && (ScreenY >= Area[1]) && (ScreenY <= Area[3]));
+
+	if(Final_Result->Intersects) {
 		Final_Result->IntersectionType = IntersectionResultClass::GENERIC;
 		Final_Result->IntersectedRenderObject = obj;
 		Final_Result->Range = 0;

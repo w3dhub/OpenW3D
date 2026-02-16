@@ -262,7 +262,7 @@ VisTableClass * PhysicsSceneClass::Get_Vis_Table_For_Rendering(const CameraClass
 		} else {
 
 			if ((LastValidVisId != vis_id) && VisSectorDisplayEnabled)  {
-				StaticPhysClass * tile = StaticCullingSystem->Find_Vis_Tile(vis_sample_point);
+				[[maybe_unused]] StaticPhysClass * tile = StaticCullingSystem->Find_Vis_Tile(vis_sample_point);
 				WWDEBUG_SAY (("Vis Sector: %s\n", tile->Peek_Model ()->Get_Name ()));
 			}
 

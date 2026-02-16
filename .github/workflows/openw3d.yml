@@ -20,15 +20,18 @@ jobs:
         include:
           - name: MSVC x86
             os: windows-latest
-            cmake-args: -A Win32
+            cmake-args: -GNinja -DCMAKE_BUILD_TYPE=Release
             shell: pwsh
+            arch: x86
+            options: "/W4;/WX;/wd4456;/wd4702;/wd4100;/wd4505;/wd4389;/wd5054;/wd4840"
           - name: MSVC x64
             os: windows-latest
-            cmake-args: -A x64
+            cmake-args: -GNinja -DCMAKE_BUILD_TYPE=Release
             shell: pwsh
+            arch: x64
           - name: MinGW x86
             os: windows-latest
-            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja
+            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
             build-args: --target combat combate renegade renegadeserver ww3d2e wwaudioe wwphyse
             msys2: true
             msys2-msystem: mingw32
@@ -36,7 +39,7 @@ jobs:
             shell: msys2 {0}
           - name: MinGW x64
             os: windows-latest
-            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja
+            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
             build-args: --target combat combate renegade renegadeserver ww3d2e wwaudioe wwphyse
             msys2: true
             msys2-msystem: mingw64
@@ -70,8 +73,15 @@ jobs:
           ${{ matrix.msys2-env }}-ffmpeg
           ${{ matrix.msys2-env }}-ninja
           ${{ matrix.msys2-env }}-pkg-config
+    - name: 'Set up MSVC dev cmd'
+      if: ${{ !matrix.msys2 }}
+      uses: ilammy/msvc-dev-cmd@v1.13.0
+      with:
+        arch: ${{ matrix.arch }}
     - uses: actions/checkout@v5
     - name: 'CMake (configure)'
+      env:
+        W3D_COMPILER_FLAGS:  ${{ matrix.options }}
       run: |
         cmake -S . -B build ${{ matrix.cmake-args }}
     - name: 'CMake (build)'

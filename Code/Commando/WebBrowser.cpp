@@ -1104,8 +1104,8 @@ bool WebBrowser::LaunchExternal(const char* url)
 
 	memset(&mProcessInfo, 0, sizeof(mProcessInfo));
 
-	BOOL createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, false,
-			0, NULL, NULL, &startupInfo, &mProcessInfo);
+	bool createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, false,
+			0, NULL, NULL, &startupInfo, &mProcessInfo) != 0;
 
 	WWASSERT(createSuccess && "Failed to launch external WebBrowser.");
 
@@ -1114,7 +1114,7 @@ bool WebBrowser::LaunchExternal(const char* url)
 	  WaitForInputIdle(mProcessInfo.hProcess, 5000);
 		}
 
-	return (true == createSuccess);
+	return createSuccess;
 	}
 
 

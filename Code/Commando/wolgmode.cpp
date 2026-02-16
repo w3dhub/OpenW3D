@@ -1274,7 +1274,6 @@ void WolGameModeClass::Ban_Player(const unichar_t* name, unsigned int ip)
 			   fwrite(pn.Peek_Buffer(), 1, pn.Get_Length(), kick_list);
 			   fclose(kick_list);
 	   	}
-			DynamicVectorClass<unsigned int> KickIPList;
 		}
 	}
 }

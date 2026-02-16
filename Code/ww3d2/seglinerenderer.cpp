@@ -323,7 +323,7 @@ void SegLineRendererClass::Render
 		subdivision_util(point_cnt, xformed_pts, base_tex_v, &sub_point_cnt, xformed_subdiv_pts, subdiv_tex_v);
 
 		// Start using subdivided points from now on
-		Vector3 *points = xformed_subdiv_pts;
+		Vector3 *local_points = xformed_subdiv_pts;
 		float *tex_v = subdiv_tex_v;
 		point_cnt = sub_point_cnt;
 
@@ -391,8 +391,8 @@ void SegLineRendererClass::Render
 
 		for (sidx = 1; sidx < point_cnt; sidx++) {	// #segments = #points - 1 (+ 2 dummy segments)
 
-			Vector3 &curr_point = points[sidx - 1];
-			Vector3 &next_point = points[sidx];
+			Vector3 &curr_point = local_points[sidx - 1];
+			Vector3 &next_point = local_points[sidx];
 
 			// We temporarily store the segment direction in the segment's StartPlane (since it is
 			// used to calculate the StartPlane later).
@@ -429,7 +429,7 @@ void SegLineRendererClass::Render
 			if (sidx > 1) {
 
 				Vector3 prev_plane;
-				Vector3::Cross_Product(points[sidx - 2], curr_point, &prev_plane);
+				Vector3::Cross_Product(local_points[sidx - 2], curr_point, &prev_plane);
 				prev_plane.Normalize();
 
 				Vector3 curr_plane;
@@ -488,13 +488,13 @@ void SegLineRendererClass::Render
 		// Initialize first point "intersection" record.
 		intersection[1][TOP_EDGE].PointCount = 1;
 		intersection[1][TOP_EDGE].NextSegmentID = 1;
-		intersection[1][TOP_EDGE].Point = points[0];
+		intersection[1][TOP_EDGE].Point = local_points[0];
 		intersection[1][TOP_EDGE].TexV = tex_v[0];
 		intersection[1][TOP_EDGE].Fold = true;
 		intersection[1][TOP_EDGE].Parallel = false;
 		intersection[1][BOTTOM_EDGE].PointCount = 1;
 		intersection[1][BOTTOM_EDGE].NextSegmentID = 1;
-		intersection[1][BOTTOM_EDGE].Point = points[0];
+		intersection[1][BOTTOM_EDGE].Point = local_points[0];
 		intersection[1][BOTTOM_EDGE].TexV = tex_v[0];
 		intersection[1][BOTTOM_EDGE].Fold = true;
 		intersection[1][BOTTOM_EDGE].Parallel = false;
@@ -505,7 +505,7 @@ void SegLineRendererClass::Render
 		Vector3 top;
 		Vector3 bottom;
 
-		Vector3 &first_point = points[0];
+		Vector3 &first_point = local_points[0];
 		Vector3 *first_plane = &(segment[1].EdgePlane[0]);
 		top = first_point - first_plane[TOP_EDGE] * Vector3::Dot_Product(first_plane[TOP_EDGE], first_point);
 		top.Normalize();
@@ -514,7 +514,7 @@ void SegLineRendererClass::Render
 		bottom.Normalize();
 		intersection[1][BOTTOM_EDGE].Direction = bottom;
 		
-		Vector3 segdir = points[1] - points[0];
+		Vector3 segdir = local_points[1] - local_points[0];
 		segdir.Normalize();	// Is this needed? Probably not - remove later when all works
 		Vector3 start_pl;
 		Vector3::Cross_Product(top, bottom, &start_pl);
@@ -534,13 +534,13 @@ void SegLineRendererClass::Render
 
 		intersection[last_isec][TOP_EDGE].PointCount = 1;
 		intersection[last_isec][TOP_EDGE].NextSegmentID = numsegs + 1; // Last dummy segment
-		intersection[last_isec][TOP_EDGE].Point = points[point_cnt - 1];
+		intersection[last_isec][TOP_EDGE].Point = local_points[point_cnt - 1];
 		intersection[last_isec][TOP_EDGE].TexV = tex_v[point_cnt - 1];
 		intersection[last_isec][TOP_EDGE].Fold = true;
 		intersection[last_isec][TOP_EDGE].Parallel = false;
 		intersection[last_isec][BOTTOM_EDGE].PointCount = 1;
 		intersection[last_isec][BOTTOM_EDGE].NextSegmentID = numsegs + 1;// Last dummy segment
-		intersection[last_isec][BOTTOM_EDGE].Point = points[point_cnt - 1];
+		intersection[last_isec][BOTTOM_EDGE].Point = local_points[point_cnt - 1];
 		intersection[last_isec][BOTTOM_EDGE].TexV = tex_v[point_cnt - 1];
 		intersection[last_isec][BOTTOM_EDGE].Fold = true;
 		intersection[last_isec][BOTTOM_EDGE].Parallel = false;
@@ -548,7 +548,7 @@ void SegLineRendererClass::Render
 		// Find closest point to last top/bottom segment edge plane, and convert to direction vector
 		// and dummy segment edge vector
 
-		Vector3 &last_point = points[point_cnt - 1];
+		Vector3 &last_point = local_points[point_cnt - 1];
 		Vector3 *last_plane = &(segment[numsegs].EdgePlane[0]);
 		top = last_point - last_plane[TOP_EDGE] * Vector3::Dot_Product(last_plane[TOP_EDGE], last_point);
 		top.Normalize();
@@ -557,7 +557,7 @@ void SegLineRendererClass::Render
 		bottom.Normalize();
 		intersection[last_isec][BOTTOM_EDGE].Direction = bottom;
 		
-		segdir = points[point_cnt - 1] - points[point_cnt - 2];
+		segdir = local_points[point_cnt - 1] - local_points[point_cnt - 2];
 		segdir.Normalize();	// Is this needed? Probably not - remove later when all works
 		Vector3::Cross_Product(top, bottom, &start_pl);
 		start_pl.Normalize();
@@ -584,7 +584,7 @@ void SegLineRendererClass::Render
 		for (iidx = 2; iidx < num_intersections[TOP_EDGE]; iidx++) {
 
 			// Relevant midpoint:
-			Vector3 &midpoint = points[iidx - 1];
+			Vector3 &midpoint = local_points[iidx - 1];
 			float mid_tex_v = tex_v[iidx - 1];
 
 			// Initialize misc. fields
@@ -898,9 +898,9 @@ void SegLineRendererClass::Render
 
 		// "Prime the pump" with two vertices (pick nearest point on each direction line):
 		Vector3 &top_dir = intersection[1][TOP_EDGE].Direction;
-		top = top_dir * Vector3::Dot_Product(points[0], top_dir);
+		top = top_dir * Vector3::Dot_Product(local_points[0], top_dir);
 		Vector3 &bottom_dir = intersection[1][BOTTOM_EDGE].Direction;
-		bottom = bottom_dir * Vector3::Dot_Product(points[0], bottom_dir);
+		bottom = bottom_dir * Vector3::Dot_Product(local_points[0], bottom_dir);
 		vArray[vidx].x = top.X;
 		vArray[vidx].y = top.Y;
 		vArray[vidx].z = top.Z;
@@ -956,9 +956,9 @@ void SegLineRendererClass::Render
 
 				// Generate two vertices for next point by picking nearest point on each direction line
 				Vector3 &top_dir = intersection[top_int_idx][TOP_EDGE].Direction;
-				top = top_dir * Vector3::Dot_Product(points[pidx], top_dir);
+				top = top_dir * Vector3::Dot_Product(local_points[pidx], top_dir);
 				Vector3 &bottom_dir = intersection[bottom_int_idx][BOTTOM_EDGE].Direction;
-				bottom = bottom_dir * Vector3::Dot_Product(points[pidx], bottom_dir);
+				bottom = bottom_dir * Vector3::Dot_Product(local_points[pidx], bottom_dir);
 
 				vArray[vidx].x = top.X;
 				vArray[vidx].y = top.Y;
@@ -992,7 +992,7 @@ void SegLineRendererClass::Render
 
 					// Generate bottom vertex by picking nearest point on bottom direction line
 					Vector3 &bottom_dir = intersection[bottom_int_idx][BOTTOM_EDGE].Direction;
-					bottom = bottom_dir * Vector3::Dot_Product(points[pidx], bottom_dir);
+					bottom = bottom_dir * Vector3::Dot_Product(local_points[pidx], bottom_dir);
 
 					vArray[vidx].x = bottom.X;
 					vArray[vidx].y = bottom.Y;
@@ -1021,7 +1021,7 @@ void SegLineRendererClass::Render
 
 					// Generate top vertex by picking nearest point on top direction line
 					Vector3 &top_dir = intersection[top_int_idx][TOP_EDGE].Direction;
-					top = top_dir * Vector3::Dot_Product(points[pidx], top_dir);
+					top = top_dir * Vector3::Dot_Product(local_points[pidx], top_dir);
 					vArray[vidx].x = top.X;
 					vArray[vidx].y = top.Y;
 					vArray[vidx].z = top.Z;

@@ -666,8 +666,8 @@ MilesAudioClass::Get_2D_Handle (const AudibleSoundClass &sound_obj, bool streami
 		if (sample != NULL) {
 
 			// Get a pointer to the object that is currently using this sample
-			AudibleSoundClass *sound_obj = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
-			if (sound_obj == NULL) {
+			AudibleSoundClass *sample_obj = (AudibleSoundClass *)::AIL_sample_user_data (sample, INFO_OBJECT_PTR);
+			if (sample_obj == NULL) {
 
 				// Return this sample handle to the caller
 				free_sample = sample;
@@ -679,13 +679,13 @@ MilesAudioClass::Get_2D_Handle (const AudibleSoundClass &sound_obj, bool streami
 				// This is done by comparing both the designer-specified priority and the current
 				// runtime priority (which is calculated by distance to the listener).
 				//
-				float priority				= sound_obj->Get_Priority ();
-				float runtime_priority	= sound_obj->Get_Runtime_Priority ();
+				float priority				= sample_obj->Get_Priority ();
+				float runtime_priority	= sample_obj->Get_Runtime_Priority ();
 				if (	(priority < lowest_priority) ||
 						(priority == lowest_priority && runtime_priority <= lowest_runtime_priority))
 				{
 					lowest_priority			= priority;
-					lowest_pri_sound			= sound_obj;
+					lowest_pri_sound			= sample_obj;
 					lowest_pri_sample			= sample;
 					lowest_runtime_priority = runtime_priority;
 				}
@@ -750,8 +750,8 @@ MilesAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj)
 		if (sample != NULL) {
 
 			// Get a pointer to the object that is currently using this sample
-			AudibleSoundClass *sound_obj = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
-			if (sound_obj == NULL) {
+			AudibleSoundClass *sample_obj = (AudibleSoundClass *)::AIL_3D_object_user_data (sample, INFO_OBJECT_PTR);
+			if (sample_obj == NULL) {
 
 				// Return this sample handle to the caller
 				free_sample = sample;
@@ -763,13 +763,13 @@ MilesAudioClass::Get_3D_Handle (const Sound3DClass &sound_obj)
 				// This is done by comparing both the designer-specified priority and the current
 				// runtime priority (which is calculated by distance to the listener).
 				//
-				float priority				= sound_obj->Get_Priority ();
-				float runtime_priority	= sound_obj->Get_Runtime_Priority ();
+				float priority				= sample_obj->Get_Priority ();
+				float runtime_priority	= sample_obj->Get_Runtime_Priority ();
 				if (	(priority < lowest_priority) ||
 						(priority == lowest_priority && runtime_priority <= lowest_runtime_priority))
 				{
 					lowest_priority			= priority;
-					lowest_pri_sound			= sound_obj;
+					lowest_pri_sound			= sample_obj;
 					lowest_pri_sample			= sample;
 					lowest_runtime_priority = runtime_priority;
 				}
@@ -820,7 +820,7 @@ MilesAudioClass::Build_3D_Driver_List (void)
 			m_Driver3DList.Add (info);
 			::AIL_close_3D_provider (provider);
 		} else {
-			char *error_info = ::AIL_last_error ();
+			[[maybe_unused]] char *error_info = ::AIL_last_error ();
 			WWDEBUG_SAY (("WWAudio: Unable to open %s.\r\n", name));
 			WWDEBUG_SAY (("WWAudio: Reason %s.\r\n", error_info));
 		}

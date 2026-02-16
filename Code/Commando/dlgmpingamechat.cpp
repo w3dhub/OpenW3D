@@ -216,20 +216,20 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 					curr_pos = Get_Parameter_From_String(curr_pos, user_name);
 
 					if (user_name.Get_Length() > 0) {
-						WideStringClass message(0, true);
-						message = curr_pos;
-						message.Trim();
+						WideStringClass message_str(0, true);
+						message_str = curr_pos;
+						message_str.Trim();
 
 						// If the user is in this game then just send them a private message.
 						cPlayer* recipient = cPlayerManager::Find_Player(user_name);
 
 						if (recipient) {
 							int recipient_id = recipient->Get_Id();
-							Send_Message(message, TEXT_MESSAGE_PRIVATE, recipient_id);
+							Send_Message(message_str, TEXT_MESSAGE_PRIVATE, recipient_id);
 						} else {
 							// Page external users.
 							WolGameModeClass* wolGame = reinterpret_cast<WolGameModeClass*>(gameMode);
-							wolGame->Page_WOL_User(user_name, message);
+							wolGame->Page_WOL_User(user_name, message_str);
 						}
 					}
 				}
@@ -244,11 +244,11 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 				if (gameMode && gameMode->Is_Active()) {
 					WolGameModeClass* wolGame = reinterpret_cast<WolGameModeClass*>(gameMode);
 
-					WideStringClass message(0, true);
-					message = curr_pos;
-					message.Trim();
+					WideStringClass message_str(0, true);
+					message_str = curr_pos;
+					message_str.Trim();
 
-					wolGame->Reply_Last_Page(message);
+					wolGame->Reply_Last_Page(message_str);
 				}
 			
 				return true;
@@ -284,11 +284,11 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 					if (user_name.Get_Length() > 0) {
 						WolGameModeClass* wolGame = reinterpret_cast<WolGameModeClass*>(gameMode);
 
-						WideStringClass message(0, true);
-						message = curr_pos;
-						message.Trim();
+						WideStringClass message_str(0, true);
+						message_str = curr_pos;
+						message_str.Trim();
 
-						wolGame->Invite_WOL_User(user_name, message);
+						wolGame->Invite_WOL_User(user_name, message_str);
 					}
 				}
 			
