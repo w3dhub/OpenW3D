@@ -97,7 +97,7 @@ static const int LOC_COUNT = sizeof (LOC_STRING_ARRAY) / sizeof (LOC_STRING_ARRA
 //	Get_Locale
 //
 //////////////////////////////////////////////////////////////////////
-WOL::Locale WolLocaleMgrClass::Get_Locale(const wchar_t *login_name)
+WOL::Locale WolLocaleMgrClass::Get_Locale(const unichar_t *login_name)
 {
 	WOL::Locale locale = WOL::LOC_UNKNOWN;
 
@@ -118,7 +118,7 @@ WOL::Locale WolLocaleMgrClass::Get_Locale(const wchar_t *login_name)
 //	Set_Locale
 //
 //////////////////////////////////////////////////////////////////////
-void WolLocaleMgrClass::Set_Locale(const wchar_t *login_name, WOL::Locale locale)
+void WolLocaleMgrClass::Set_Locale(const unichar_t *login_name, WOL::Locale locale)
 {
 	if (WOL::LOC_UNKNOWN != locale) {
 		LoginProfile* profile = LoginProfile::Get(login_name, false);
@@ -163,7 +163,7 @@ void WolLocaleMgrClass::Set_Current_Locale(WOL::Locale locale)
 //	Get_Locale_String
 //
 //////////////////////////////////////////////////////////////////////
-const wchar_t* WolLocaleMgrClass::Get_Locale_String(WOL::Locale locale)
+const unichar_t* WolLocaleMgrClass::Get_Locale_String(WOL::Locale locale)
 {
 	WWASSERT(locale < LOC_COUNT && "Invalid locale");
 	return TRANSLATE(LOC_STRING_ARRAY[locale]);

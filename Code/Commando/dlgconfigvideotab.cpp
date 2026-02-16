@@ -102,13 +102,13 @@ DlgConfigVideoTabClass::On_Init_Dialog (void)
 	WW3D::Get_Device_Resolution (width, height, bits, is_windowed);
 
 	WideStringClass resolution;
-	resolution.Format (L"%d x %d", width, height);
+	resolution.Format (U_CHAR("%d x %d"), width, height);
 
 	//
 	//	Build a string with the current bit depth
 	//
 	WideStringClass bit_depth;
-	bit_depth.Format (L"%d", bits);
+	bit_depth.Format (U_CHAR("%d"), bits);
 
 	//
 	//	Put the data into the dialog
@@ -181,7 +181,7 @@ DlgConfigVideoTabClass::On_SliderCtrl_Pos_Changed
 	int					new_pos
 )
 {
-	const wchar_t *formatstring = L"%.2f";
+	const unichar_t *formatstring = U_CHAR("%.2f");
 		
 	WideStringClass settingstring;
 

@@ -240,7 +240,7 @@ void GameStartWait::HandleNotification(GameStartEvent& start)
 //
 // Override base class to check for timeout
 //
-void GameStartWait::EndWait(WaitResult result, const wchar_t* endText)
+void GameStartWait::EndWait(WaitResult result, const unichar_t* endText)
 	{
 	WWDEBUG_SAY(("GameStartWait::EndWait\n"));
 

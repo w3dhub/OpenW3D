@@ -88,7 +88,7 @@ cGameDataCnc& cGameDataCnc::operator=(const cGameDataCnc& rhs)
 }
 
 //-----------------------------------------------------------------------------
-const wchar_t* cGameDataCnc::Get_Static_Game_Name(void)
+const unichar_t* cGameDataCnc::Get_Static_Game_Name(void)
 {
 	return TRANSLATION(IDS_MP_GAME_TYPE_CNC);
 }
@@ -368,7 +368,7 @@ void cGameDataCnc::Show_My_Money(void)
 		cPlayer * p_player = cNetwork::Get_My_Player_Object();
 		if (p_player != NULL) {
 			WideStringClass text(0,true);
-			text.Format(L"%s: %d",
+			text.Format(U_CHAR("%s: %d"),
 				TRANSLATION(IDS_MP_MONEY), (int) p_player->Get_Money());
 			Add_Bottom_Text(text);
 		}
@@ -403,8 +403,8 @@ void cGameDataCnc::Get_Description(WideStringClass & description)
 	//
 	cGameData::Get_Description(description);
 
-	const WideStringClass delimiter	= L"\t";
-	const WideStringClass newline		= L"\n";
+	const WideStringClass delimiter	= U_CHAR("\t");
+	const WideStringClass newline		= U_CHAR("\n");
 	const WideStringClass yes			= TRANSLATE(IDS_YES);
 	const WideStringClass no			= TRANSLATE(IDS_NO);
 
@@ -415,7 +415,7 @@ void cGameDataCnc::Get_Description(WideStringClass & description)
 	// Starting Credits
 	//
 	attribute = TRANSLATE(IDS_MENU_TEXT349);
-	value.Format(L"%d", StartingCredits);
+	value.Format(U_CHAR("%d"), StartingCredits);
 	description += (attribute + delimiter + value + newline);
 
 	//
@@ -494,23 +494,23 @@ void cGameDataCnc::Get_Description(WideStringClass & description)
 	//
 	cGameData::Get_Description(description);
 
-	const WideStringClass newline	= L"\n";
-	const WideStringClass yes		= L"yes";
-	const WideStringClass no		= L"no";
+	const WideStringClass newline	= U_CHAR("\n");
+	const WideStringClass yes		= U_CHAR("yes");
+	const WideStringClass no		= U_CHAR("no");
 
 	WideStringClass line(0, true);
 
-   line.Format(L"Starting Credits\t%d", StartingCredits);
+   line.Format(U_CHAR("Starting Credits\t%d"), StartingCredits);
 	IDS_MENU_TEXT349
 	description += line;
 	description += newline;
 
-   line.Format(L"Base Destruction Ends Game\t%s",		BaseDestructionEndsGame.Get() ? yes : no);
+   line.Format(U_CHAR("Base Destruction Ends Game\t%s"),		BaseDestructionEndsGame.Get() ? yes : no);
 	IDS_MENU_TEXT314
 	description += line;
 	description += newline;
 
-   line.Format(L"Beacon Placement Ends Game\t%s",		BeaconPlacementEndsGame.Get() ? yes : no);
+   line.Format(U_CHAR("Beacon Placement Ends Game\t%s"),		BeaconPlacementEndsGame.Get() ? yes : no);
 	IDS_MENU_TEXT315
 	description += line;
 	description += newline;

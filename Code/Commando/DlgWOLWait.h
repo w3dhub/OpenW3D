@@ -79,10 +79,10 @@ class DlgWOLWait :
 	public:
 		enum {SHOW_NEVER = 0xFFFFFFFF};
 
-		static bool DoDialog(const wchar_t* title, const wchar_t* button_text, RefPtr<WaitCondition>& wait,
+		static bool DoDialog(const unichar_t* title, const unichar_t* button_text, RefPtr<WaitCondition>& wait,
 				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned int timeout = 0, unsigned int dialog_timeout = 0);
 
-		static bool DoDialog(const wchar_t* title, RefPtr<WaitCondition>& wait,
+		static bool DoDialog(const unichar_t* title, RefPtr<WaitCondition>& wait,
 				Observer<DlgWOLWaitEvent>* observer = NULL, unsigned int timeout = 0, unsigned int dialog_timeout = 0);
 
 		static bool DoDialog(int titleID, RefPtr<WaitCondition>& wait,

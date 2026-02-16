@@ -196,7 +196,7 @@ ToolTipClass::Set_Position (const Vector2 &pos)
 //
 ////////////////////////////////////////////////////////////////
 void
-ToolTipClass::Set_Text (const wchar_t *text)
+ToolTipClass::Set_Text (const unichar_t *text)
 {
 	Text = text;
 	

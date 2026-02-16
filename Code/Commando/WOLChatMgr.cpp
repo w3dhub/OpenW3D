@@ -50,17 +50,17 @@ using namespace WWOnline;
 WOLChatMgr* WOLChatMgr::_mInstance = NULL;
 
 // Local prototypes
-typedef void (*SlashCommandFunc)(const wchar_t*);
+typedef void (*SlashCommandFunc)(const unichar_t*);
 
-static void SlashCmdPage(const wchar_t*);
-static void SlashCmdR(const wchar_t*);
-static void SlashCmdLocate(const wchar_t*);
-static void SlashCmdMsg(const wchar_t*);
-static void SlashCmdInvite(const wchar_t*);
-static void SlashCmdKick(const wchar_t*);
-static void SlashCmdJoin(const wchar_t*);
+static void SlashCmdPage(const unichar_t*);
+static void SlashCmdR(const unichar_t*);
+static void SlashCmdLocate(const unichar_t*);
+static void SlashCmdMsg(const unichar_t*);
+static void SlashCmdInvite(const unichar_t*);
+static void SlashCmdKick(const unichar_t*);
+static void SlashCmdJoin(const unichar_t*);
 
-static const wchar_t* Get_Parameter_From_String(const wchar_t* command_string, WideStringClass& parameter);
+static const unichar_t* Get_Parameter_From_String(const unichar_t* command_string, WideStringClass& parameter);
 
 /******************************************************************************
 *
@@ -181,7 +181,7 @@ bool WOLChatMgr::FinalizeCreate(void)
 		return false;
 		}
 
-	mLobbyPrefix.Format(L"Lob_%d_", product->GetGameCode());
+	mLobbyPrefix.Format(U_CHAR("Lob_%d_"), product->GetGameCode());
 
 	return true;
 	}
@@ -329,7 +329,7 @@ const RefPtr<ChannelData>& WOLChatMgr::GetCurrentLobby(void)
 *
 ******************************************************************************/
 
-const RefPtr<ChannelData> WOLChatMgr::FindLobby(const wchar_t* name)
+const RefPtr<ChannelData> WOLChatMgr::FindLobby(const unichar_t* name)
 	{
 	return mWOLSession->FindChatChannel(name);
 	}
@@ -352,7 +352,7 @@ const RefPtr<ChannelData> WOLChatMgr::FindLobby(const wchar_t* name)
 *
 ******************************************************************************/
 
-void WOLChatMgr::CreateLobby(const wchar_t* name, const wchar_t* password)
+void WOLChatMgr::CreateLobby(const unichar_t* name, const unichar_t* password)
 	{
 	RefPtr<WaitCondition> wait = mWOLSession->CreateChannel(name, password, 0);
 
@@ -360,7 +360,7 @@ void WOLChatMgr::CreateLobby(const wchar_t* name, const wchar_t* password)
 		{
 		WideStringClass message(255, true);
 		message.Format(TRANSLATE(IDS_CHAT_LOBBYCREATE), name);
-		DlgWOLWait::DoDialog((const wchar_t*)message, wait);
+		DlgWOLWait::DoDialog((const unichar_t*)message, wait);
 		}
 	}
 
@@ -397,7 +397,7 @@ void WOLChatMgr::JoinLobby(const RefPtr<ChannelData>& channel)
 
 			WideStringClass message(0, true);
 			message.Format(TRANSLATE(IDS_CHAT_LOBBYJOIN), displayName);
-			DlgWOLWait::DoDialog((const wchar_t*)message, wait);
+			DlgWOLWait::DoDialog((const unichar_t*)message, wait);
 			}
 		}
 	}
@@ -463,8 +463,8 @@ bool WOLChatMgr::IsLobbyValid(const RefPtr<ChannelData>& lobby)
 		if ((lobbyFlags & unwantedFlags) == 0)
 			{
 			// Lobbies that have the matching prefix are valid.
-			const wchar_t* lobbyName = lobby->GetName();
-			return (wcsnicmp(mLobbyPrefix, lobbyName, mLobbyPrefix.Get_Length()) == 0);
+			const unichar_t* lobbyName = lobby->GetName();
+			return (u_strncasecmp(mLobbyPrefix, lobbyName, mLobbyPrefix.Get_Length(), U_COMPARE_CODE_POINT_ORDER) == 0);
 			}
 		}
 
@@ -493,24 +493,24 @@ void WOLChatMgr::GetLobbyDisplayName(const RefPtr<ChannelData>& lobby, WideStrin
 	{
 	if (lobby.IsValid() == false)
 		{
-		outName = L"";
+		outName = U_CHAR("");
 		return;
 		}
 
-	const wchar_t* name = lobby->GetName();
+	const unichar_t* name = lobby->GetName();
 	
 	int prefixLength = mLobbyPrefix.Get_Length();
 
-	if (wcsnicmp(name, mLobbyPrefix, prefixLength) == 0)
+	if (u_strncasecmp(name, mLobbyPrefix, prefixLength, U_COMPARE_CODE_POINT_ORDER) == 0)
 		{
-		const wchar_t* extName = (name + prefixLength);
+		const unichar_t* extName = (name + prefixLength);
 
 		// If the extended portion of the lobby name is a number then select a name
 		// from the Renegade lobby names provided. Otherwise use the extended portion
 		// as given.
-		if (*extName >= L'0' && *extName <= L'9')
+		if (*extName >= U_CHAR('0') && *extName <= U_CHAR('9'))
 			{
-			static const wchar_t* _lobbies[8] =
+			static const unichar_t* _lobbies[8] =
 				{
 				TRANSLATE (IDS_MENU_LOBBY_NAME_01),
 				TRANSLATE (IDS_MENU_LOBBY_NAME_02),
@@ -522,11 +522,12 @@ void WOLChatMgr::GetLobbyDisplayName(const RefPtr<ChannelData>& lobby, WideStrin
 				TRANSLATE (IDS_MENU_LOBBY_NAME_08),
 				};
 
-			int channelNumber = _wtol(extName);
+			int channelNumber;
+			u_sscanf_u(extName, U_CHAR("%d"), &channelNumber);
 			int subnum = (channelNumber / 8);
 			int nameNumber = (channelNumber % 8);
 
-			const wchar_t* displayName = _lobbies[nameNumber];
+			const unichar_t* displayName = _lobbies[nameNumber];
 			
 			if (subnum == 0)
 				{
@@ -534,7 +535,7 @@ void WOLChatMgr::GetLobbyDisplayName(const RefPtr<ChannelData>& lobby, WideStrin
 				}
 			else
 				{
-				outName.Format(L"%s_%d", displayName, (subnum + 1));
+				outName.Format(U_CHAR("%s_%d"), displayName, (subnum + 1));
 				}
 			}
 		else
@@ -561,7 +562,7 @@ void WOLChatMgr::GetLobbyDisplayName(const RefPtr<ChannelData>& lobby, WideStrin
 *
 ******************************************************************************/
 
-const RefPtr<UserData> WOLChatMgr::FindUser(const wchar_t* name)
+const RefPtr<UserData> WOLChatMgr::FindUser(const unichar_t* name)
 	{
 	return mWOLSession->FindUser(name);
 	}
@@ -635,7 +636,7 @@ bool WOLChatMgr::SquelchUser(const RefPtr<UserData>& user, bool onoff)
 	if (success)
 		{
 		int stringID = (onoff ? IDS_CHAT_SQUELCH_ON : IDS_CHAT_SQUELCH_OFF);
-		const wchar_t* text = TRANSLATE(stringID);
+		const unichar_t* text = TRANSLATE(stringID);
 
 		WideStringClass message(0, true);
 		message.Format(text, user->GetName());
@@ -662,7 +663,7 @@ bool WOLChatMgr::SquelchUser(const RefPtr<UserData>& user, bool onoff)
 *
 ******************************************************************************/
 
-void WOLChatMgr::LocateUser(const wchar_t* name)
+void WOLChatMgr::LocateUser(const unichar_t* name)
 	{
 	mLocatingUserName = name;
 	mLocatingUserName.Trim();
@@ -691,7 +692,7 @@ void WOLChatMgr::LocateUser(const wchar_t* name)
 *
 ******************************************************************************/
 
-void WOLChatMgr::SendPublicMessage(const wchar_t* message, bool isAction)
+void WOLChatMgr::SendPublicMessage(const unichar_t* message, bool isAction)
 	{
 	if (ProcessCommand(message))
 		{
@@ -707,7 +708,7 @@ void WOLChatMgr::SendPublicMessage(const wchar_t* message, bool isAction)
 		mWOLSession->SendPublicMessage(message);
 		}
 
-	const wchar_t* sender = NULL;
+	const unichar_t* sender = NULL;
 
 	RefPtr<UserData> me = mWOLSession->GetCurrentUser();
 
@@ -739,7 +740,7 @@ void WOLChatMgr::SendPublicMessage(const wchar_t* message, bool isAction)
 ******************************************************************************/
 
 void WOLChatMgr::SendPrivateMessage(const RefPtr<UserData>& user,
-			const wchar_t* message, bool isAction)
+			const unichar_t* message, bool isAction)
 	{
 	if (ProcessCommand(message))
 		{
@@ -770,7 +771,7 @@ void WOLChatMgr::SendPrivateMessage(const RefPtr<UserData>& user,
 *
 ******************************************************************************/
 
-void WOLChatMgr::SendPrivateMessage(UserList& users, const wchar_t* message, bool isAction)
+void WOLChatMgr::SendPrivateMessage(UserList& users, const unichar_t* message, bool isAction)
 	{
 	if (ProcessCommand(message))
 		{
@@ -786,7 +787,7 @@ void WOLChatMgr::SendPrivateMessage(UserList& users, const wchar_t* message, boo
 		mWOLSession->SendPrivateMessage(users, message);
 		}
 
-	const wchar_t* sender = NULL;
+	const unichar_t* sender = NULL;
 
 	RefPtr<UserData> me = mWOLSession->GetCurrentUser();
 
@@ -818,7 +819,7 @@ void WOLChatMgr::SendPrivateMessage(UserList& users, const wchar_t* message, boo
 *
 ******************************************************************************/
 
-void WOLChatMgr::AddMessage(const wchar_t* sender, const wchar_t* message, bool isPrivate, bool isAction)
+void WOLChatMgr::AddMessage(const unichar_t* sender, const unichar_t* message, bool isPrivate, bool isAction)
 	{
 	ChatMessage msg(sender, message, isPrivate, isAction);
 	mMessageList.push_back(msg);
@@ -856,7 +857,7 @@ bool WOLChatMgr::PassesFilters(const ChatMessage& msg)
 	if (msg.IsSenderSquelched())
 		{
 		WWDEBUG_SAY(("WOLChatMgr: Filtered squelched message from %S\n",
-				(const wchar_t*)msg.GetSendersName()));
+				(const unichar_t*)msg.GetSendersName()));
 		return false;
 		}
 
@@ -995,7 +996,7 @@ void WOLChatMgr::HandleNotification(ServerError& error)
 
 		default:
 			{
-			const wchar_t* msg = error.GetDescription();
+			const unichar_t* msg = error.GetDescription();
 			AddMessage(TRANSLATE(IDS_CHAT_SERVERERROR), msg, true, false);
 			}
 			break;
@@ -1207,12 +1208,12 @@ void WOLChatMgr::HandleNotification(UserEvent& userEvent)
 				// Append the description of the user's location
 				WideStringClass location(64, true);
 				WOLBuddyMgr::GetLocationDescription(user, location);
-				message += L" - ";
+				message += U_CHAR(" - ");
 				message += location;
 
 				// Add this message to the UI
 				AddMessage(NULL, message, true, false);
-				mLocatingUserName = L"";
+				mLocatingUserName = U_CHAR("");
 				}
 			}
 			break;
@@ -1285,7 +1286,7 @@ void WOLChatMgr::HandleNotification(ChatMessage& chatMsg)
 /******************************************************************************
 *
 * NAME
-*     WOLChatMgr::ProcessCommand(const wchar_t* message)
+*     WOLChatMgr::ProcessCommand(const unichar_t* message)
 *
 * DESCRIPTION
 *
@@ -1296,31 +1297,31 @@ void WOLChatMgr::HandleNotification(ChatMessage& chatMsg)
 *
 ******************************************************************************/
 
-bool WOLChatMgr::ProcessCommand(const wchar_t* message)
+bool WOLChatMgr::ProcessCommand(const unichar_t* message)
 	{
 	// Does this look like a command?
-	if (message && message[0] == L'/')
+	if (message && message[0] == U_CHAR('/'))
 		{
 		// Separate the parameters into individual strings
 		WideStringClass command(255, true);
-		const wchar_t* params = Get_Parameter_From_String(&message[1], command);
+		const unichar_t* params = Get_Parameter_From_String(&message[1], command);
 
 		if (command.Get_Length() > 0)
 			{
-			static struct {const wchar_t* Token; SlashCommandFunc Dispatch;} _cmdDispatch[] =
+			static struct {const unichar_t* Token; SlashCommandFunc Dispatch;} _cmdDispatch[] =
 				{
-				{L"page", SlashCmdPage},
-				{L"r", SlashCmdR},
-				{L"locate", SlashCmdLocate},
-				{L"msg", SlashCmdMsg},
-				{L"invite", SlashCmdInvite},
-				{L"kick", SlashCmdKick},
-				{L"join", SlashCmdJoin},
+				{U_CHAR("page"), SlashCmdPage},
+				{U_CHAR("r"), SlashCmdR},
+				{U_CHAR("locate"), SlashCmdLocate},
+				{U_CHAR("msg"), SlashCmdMsg},
+				{U_CHAR("invite"), SlashCmdInvite},
+				{U_CHAR("kick"), SlashCmdKick},
+				{U_CHAR("join"), SlashCmdJoin},
 				{NULL, NULL},
 				};
 
 			int index = 0;
-			const wchar_t* token = _cmdDispatch[index].Token;
+			const unichar_t* token = _cmdDispatch[index].Token;
 
 			while (token)
 				{
@@ -1341,7 +1342,7 @@ bool WOLChatMgr::ProcessCommand(const wchar_t* message)
 
 
 // Page a user
-void SlashCmdPage(const wchar_t* param)
+void SlashCmdPage(const unichar_t* param)
 	{
 	// Get the name parameter from the string
 	WideStringClass name(64, true);
@@ -1364,7 +1365,7 @@ void SlashCmdPage(const wchar_t* param)
 
 
 // Send a page reply
-void SlashCmdR(const wchar_t* param)
+void SlashCmdR(const unichar_t* param)
 	{
 	WideStringClass reply(0, true);
 	reply = param;
@@ -1376,9 +1377,9 @@ void SlashCmdR(const wchar_t* param)
 
 		if (buddyMgr)
 			{
-			const wchar_t* name = buddyMgr->GetLastPagersName();
+			const unichar_t* name = buddyMgr->GetLastPagersName();
 
-			if (name && wcslen(name))
+			if (name && u_strlen(name))
 				{
 				// Reply to the last user who paged.
 				buddyMgr->PageUser(name, reply);
@@ -1391,7 +1392,7 @@ void SlashCmdR(const wchar_t* param)
 
 
 // Locate a user
-void SlashCmdLocate(const wchar_t* param)
+void SlashCmdLocate(const unichar_t* param)
 	{
 	// Try to find the specified user
 	WideStringClass name(64, true);
@@ -1411,7 +1412,7 @@ void SlashCmdLocate(const wchar_t* param)
 
 
 // Send private message
-void SlashCmdMsg(const wchar_t* param)
+void SlashCmdMsg(const unichar_t* param)
 	{
 	// Get the name parameter from the string
 	WideStringClass name(64, true);
@@ -1439,11 +1440,11 @@ void SlashCmdMsg(const wchar_t* param)
 
 
 // Invite a user to our location
-void SlashCmdInvite(const wchar_t* param)
+void SlashCmdInvite(const unichar_t* param)
 	{
 	// Get the name parameter from the string
 	WideStringClass name(64, true);
-	const wchar_t* msg = Get_Parameter_From_String(param, name);
+	const unichar_t* msg = Get_Parameter_From_String(param, name);
 
 	if (name.Is_Empty() == false)
 		{
@@ -1459,7 +1460,7 @@ void SlashCmdInvite(const wchar_t* param)
 
 
 // Kick a user
-void SlashCmdKick(const wchar_t* param)
+void SlashCmdKick(const unichar_t* param)
 	{
 	// Get the name parameter from the string
 	WideStringClass name(64, true);
@@ -1478,7 +1479,7 @@ void SlashCmdKick(const wchar_t* param)
 
 
 // Join a user
-void SlashCmdJoin(const wchar_t* param)
+void SlashCmdJoin(const unichar_t* param)
 	{
 	// Get the name parameter from the string
 	WideStringClass name(64, true);
@@ -1527,18 +1528,18 @@ void SlashCmdJoin(const wchar_t* param)
 *
 ******************************************************************************/
 
-const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass& param)
+const unichar_t* Get_Parameter_From_String(const unichar_t* command, WideStringClass& param)
 	{
 	#define LOCAL_STRIP_WHITESPACE(str)	\
-		while (str[0] != 0 && str[0] == L' ') {++str;}
+		while (str[0] != 0 && str[0] == U_CHAR(' ')) {++str;}
 
 	//	Strip off whitespace
 	LOCAL_STRIP_WHITESPACE(command);
 
-	const wchar_t* curr_pos = command;
+	const unichar_t* curr_pos = command;
 
 	//	Look for the first whitespace break
-	while (curr_pos[0] != 0 && curr_pos[0] != L' ')
+	while (curr_pos[0] != 0 && curr_pos[0] != U_CHAR(' '))
 		{
 		++curr_pos;
 		}
@@ -1548,8 +1549,8 @@ const wchar_t* Get_Parameter_From_String(const wchar_t* command, WideStringClass
 
 	if (length > 0)
 		{
-		wchar_t* buffer = param.Get_Buffer(length + 1);
-		wcsncpy(buffer, command, length);
+		unichar_t* buffer = param.Get_Buffer(length + 1);
+		u_strncpy(buffer, command, length);
 		buffer[length - 1] = 0;
 		}
 

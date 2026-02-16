@@ -45,7 +45,7 @@
 
 namespace WWOnline {
 
-const wchar_t* const DefaultPassword = L"zotclot9";
+const unichar_t* const DefaultPassword = U_CHAR("zotclot9");
 
 //-----------------------------------------------------------------------------
 // Retrieve serverlist wait condition
@@ -86,7 +86,7 @@ class DisconnectWait :
 		static RefPtr<DisconnectWait> Create(const RefPtr<Session>& session);
 
 		void WaitBeginning(void) override;
-		void EndWait(WaitResult, const wchar_t*) override;
+		void EndWait(WaitResult, const unichar_t*) override;
 
 	protected:
 		DisconnectWait(const RefPtr<Session>& session);
@@ -115,7 +115,7 @@ class ConnectWait :
 				const RefPtr<ServerData>& server, const RefPtr<LoginInfo>& login);
 
 		void WaitBeginning(void) override;
-		void EndWait(WaitResult, const wchar_t*) override;
+		void EndWait(WaitResult, const unichar_t*) override;
 
 	protected:
 		ConnectWait(const RefPtr<Session>& session, const RefPtr<ServerData>& server,
@@ -204,19 +204,19 @@ class JoinChannelWait :
 	{
 	public:
 		static RefPtr<JoinChannelWait> Create(const RefPtr<Session>& session,
-				const RefPtr<ChannelData>& channel, const wchar_t* password);
+				const RefPtr<ChannelData>& channel, const unichar_t* password);
 
 		static RefPtr<JoinChannelWait> Create(const RefPtr<Session>& session,
-				const wchar_t* channelName, const wchar_t* password, int type);
+				const unichar_t* channelName, const unichar_t* password, int type);
 
 		void WaitBeginning(void) override;
 
 	protected:
 		JoinChannelWait(const RefPtr<Session>& session, const RefPtr<ChannelData>& channel,
-				const wchar_t* password);
+				const unichar_t* password);
 
-		JoinChannelWait(const RefPtr<Session>& session, const wchar_t* channelName,
-				const wchar_t* password, int type);
+		JoinChannelWait(const RefPtr<Session>& session, const unichar_t* channelName,
+				const unichar_t* password, int type);
 
 		virtual ~JoinChannelWait();
 
@@ -247,13 +247,13 @@ class CreateChannelWait :
 	{
 	public:
 		static RefPtr<CreateChannelWait> Create(const RefPtr<Session>& session,
-				const RefPtr<ChannelData>& channel, const wchar_t* password);
+				const RefPtr<ChannelData>& channel, const unichar_t* password);
 
 		void WaitBeginning(void) override;
 
 	protected:
 		CreateChannelWait(const RefPtr<Session>& session, const RefPtr<ChannelData>& channel,
-					const wchar_t* password);
+					const unichar_t* password);
 
 		virtual ~CreateChannelWait();
 
@@ -304,13 +304,13 @@ class GetUserWait :
 		public SerialWait
 	{
 	public:
-		static RefPtr<GetUserWait> Create(const RefPtr<Session>& session, const wchar_t* userName);
+		static RefPtr<GetUserWait> Create(const RefPtr<Session>& session, const unichar_t* userName);
 
 		void WaitBeginning(void) override;
 		WaitResult GetResult(void) override;
 
 	protected:
-		GetUserWait(const RefPtr<Session>& session, const wchar_t* userName);
+		GetUserWait(const RefPtr<Session>& session, const unichar_t* userName);
 		virtual ~GetUserWait();
 
 		GetUserWait(const GetUserWait&);
@@ -330,12 +330,12 @@ class LocateUserWait :
 		public Observer<UserEvent>
 	{
 	public:
-		static RefPtr<LocateUserWait> Create(const RefPtr<Session>& session, const wchar_t* userName);
+		static RefPtr<LocateUserWait> Create(const RefPtr<Session>& session, const unichar_t* userName);
 
 		void WaitBeginning(void) override;
 
 	protected:
-		LocateUserWait(const RefPtr<Session>& session, const wchar_t* userName);
+		LocateUserWait(const RefPtr<Session>& session, const unichar_t* userName);
 		virtual ~LocateUserWait();
 
 		LocateUserWait(const LocateUserWait&);

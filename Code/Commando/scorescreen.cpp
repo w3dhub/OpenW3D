@@ -250,7 +250,7 @@ ScoreScreenDialogClass::On_Init_Dialog (void)
 
 	// Build Rank Text
 	int rank_ids[5] = { IDS_SS_RANK_1, IDS_SS_RANK_2, IDS_SS_RANK_3, IDS_SS_RANK_4, IDS_SS_RANK_5 };
-	WideStringClass rank_name = L"";
+	WideStringClass rank_name = U_CHAR("");
 	rank_name += TRANSLATE( rank_ids[ overall_stars-1 ] );
 	if ( cheater ) {
 		rank_name += TRANSLATE( IDS_SS_CHEATER );
@@ -268,24 +268,24 @@ ScoreScreenDialogClass::On_Init_Dialog (void)
 
 	WideStringClass wstr;
 
-	wstr.Format( L"%d", _SSStats_building_destroyed );
+	wstr.Format( U_CHAR("%d"), _SSStats_building_destroyed );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_BUILDING_COUNT, wstr );
-	wstr.Format( L"%d", _SSStats_vehicles_destroyed );
+	wstr.Format( U_CHAR("%d"), _SSStats_vehicles_destroyed );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_VEHICLE_COUNT, wstr );
-	wstr.Format( L"%d", _SSStats_enemies_killed );
+	wstr.Format( U_CHAR("%d"), _SSStats_enemies_killed );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_ENEMY_COUNT, wstr );
-	wstr.Format( L"%d", _SSStats_enemies_killed );
+	wstr.Format( U_CHAR("%d"), _SSStats_enemies_killed );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_ENEMY_COUNT, wstr );
 
-	wstr.Format( L"%d", _SSStats_head_hit );
+	wstr.Format( U_CHAR("%d"), _SSStats_head_hit );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_HEAD_COUNT, wstr );
-	wstr.Format( L"%d", _SSStats_torso_hit );
+	wstr.Format( U_CHAR("%d"), _SSStats_torso_hit );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_TORSO_COUNT, wstr );
-	wstr.Format( L"%d", _SSStats_arm_hit );
+	wstr.Format( U_CHAR("%d"), _SSStats_arm_hit );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_ARM_COUNT, wstr );
-	wstr.Format( L"%d", _SSStats_crotch_hit );
+	wstr.Format( U_CHAR("%d"), _SSStats_crotch_hit );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_CROTCH_COUNT, wstr );
-	wstr.Format( L"%d", _SSStats_leg_hit );
+	wstr.Format( U_CHAR("%d"), _SSStats_leg_hit );
 	Set_Dlg_Item_Text( IDC_SCORE_SCREEN_LEG_COUNT, wstr );
 
 	WideStringClass text;

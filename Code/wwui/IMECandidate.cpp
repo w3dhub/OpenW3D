@@ -442,7 +442,7 @@ bool IMECandidate::IsStartFrom1(void) const
 *
 ******************************************************************************/
 
-const wchar_t* IMECandidate::GetCandidate(unsigned int index)
+const unichar_t* IMECandidate::GetCandidate(unsigned int index)
 	{
 	if (index < GetCount())
 		{
@@ -467,7 +467,7 @@ const wchar_t* IMECandidate::GetCandidate(unsigned int index)
 			MultiByteToWideChar(mCodePage, 0, (const char*)&dbcs, -1, mTempString, 1);
 			mTempString[1] = 0;
 
-			return mTempString;
+			return reinterpret_cast<unichar_t *>(mTempString);
 			}
 
 		DWORD offset = mCandidates->dwOffset[index];
@@ -475,12 +475,12 @@ const wchar_t* IMECandidate::GetCandidate(unsigned int index)
 
 		if (mUseUnicode)
 			{
-			return ((const wchar_t*)candString);
+			return ((const unichar_t*)candString);
 			}
 
-		MultiByteToWideChar(mCodePage, 0, candString, -1, mTempString, (sizeof(mTempString) / sizeof(wchar_t)));
-		mTempString[(sizeof(mTempString) / sizeof(wchar_t)) - 1] = 0;
-		return mTempString;
+		MultiByteToWideChar(mCodePage, 0, candString, -1, mTempString, (sizeof(mTempString) / sizeof(unichar_t)));
+		mTempString[(sizeof(mTempString) / sizeof(unichar_t)) - 1] = 0;
+		return reinterpret_cast<unichar_t *>(mTempString);;
 		}
 	
 	return NULL;

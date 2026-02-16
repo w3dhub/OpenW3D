@@ -56,7 +56,7 @@ class ChannelData :
 	{
 	public:
 		static RefPtr<ChannelData> Create(const WOL::Channel&);
-		static RefPtr<ChannelData> Create(const wchar_t* name, const wchar_t* password, int type);
+		static RefPtr<ChannelData> Create(const unichar_t* name, const unichar_t* password, int type);
 
 		const WideStringClass& GetName(void)
 			const {return mChannelName;}
@@ -123,7 +123,7 @@ class ChannelData :
 
 	protected:
 		ChannelData(const WOL::Channel&);
-		ChannelData(const wchar_t* name, const wchar_t* password, int type);
+		ChannelData(const unichar_t* name, const unichar_t* password, int type);
 		virtual ~ChannelData();
 
 		ChannelData(const ChannelData&);
@@ -151,7 +151,7 @@ typedef enum
 	} ChannelStatus;
 
 ChannelStatus GetChannelStatusFromHResult(HRESULT result);
-const wchar_t* GetChannelStatusDescription(ChannelStatus status);
+const unichar_t* GetChannelStatusDescription(ChannelStatus status);
 
 class ChannelEvent :
 		public TypedEvent< ChannelEvent, const RefPtr<ChannelData> >
@@ -203,7 +203,7 @@ class ChannelListEvent :
 
 
 ChannelList::iterator FindChannelNode(ChannelList& list, const char* name);
-RefPtr<ChannelData> FindChannelInList(ChannelList& list, const wchar_t* name);
+RefPtr<ChannelData> FindChannelInList(ChannelList& list, const unichar_t* name);
 RefPtr<ChannelData> FindChannelInList(ChannelList& list, const char* name);
 
 } // namespace WWOnline

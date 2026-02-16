@@ -17,6 +17,8 @@ if(MSVC)
     add_compile_options(/MP)
     # Enforce strict __cplusplus version
     add_compile_options(/Zc:__cplusplus)
+    # Treat all files as utf-8 encoded and run program as utf-8 locale where supported
+    add_compile_options(/utf-8)
 endif()
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

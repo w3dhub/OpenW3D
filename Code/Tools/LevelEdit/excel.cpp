@@ -380,7 +380,7 @@ ExcelClass::Shutdown (void)
 	return ;
 }
 
-
+#define WIDETOOLE(x) (reinterpret_cast<const wchar_t*>(static_cast<const unichar_t*>(x)))
 /////////////////////////////////////////////////////////////////////////
 //
 //	New_Workbook
@@ -401,7 +401,7 @@ ExcelClass::New_Workbook (const char *template_filename)
 
 	VARIANT temp;
 	V_VT (&temp)	= VT_BSTR;
-	V_BSTR (&temp)	= ::SysAllocString (wide_filename);
+	V_BSTR (&temp)	= ::SysAllocString (WIDETOOLE(wide_filename));
 
 	//
 	//	Create the new workbook
@@ -469,7 +469,7 @@ ExcelClass::Save_Workbook (const char *filename)
 	wide_filename.Convert_From (filename);
 
 	V_VT (&name)	= VT_BSTR;
-	V_BSTR (&name)	= SysAllocString (wide_filename);
+	V_BSTR (&name)	= SysAllocString (WIDETOOLE(wide_filename));
 
 	V_VT (&fileformat) = VT_I4;
 	V_I4 (&fileformat) = xlWorkbookNormal;
@@ -566,20 +566,20 @@ ExcelClass::Get_String (int row, int col, WideStringClass &string)
 		//	Is this a string?
 		//
 		if (V_VT (&variant_value) == VT_BSTR) {
-			string = V_BSTR (&variant_value);
+			string = reinterpret_cast<unichar_t*>(V_BSTR (&variant_value));
 			retval = true;
 		} else if (V_VT (&variant_value) == VT_R4) {
 			int value = (int)variant_value.fltVal;
-			string.Format (L"%d", value);
+			string.Format (U_CHAR("%d"), value);
 			retval = true;
 		} else if (V_VT (&variant_value) == VT_R8) {
 			int value = (int)variant_value.dblVal;
-			string.Format (L"%d", value);
+			string.Format (U_CHAR("%d"), value);
 			retval = true;
 		} else if (	V_VT (&variant_value) == VT_I2 || V_VT (&variant_value) == VT_I4 ||
 						V_VT (&variant_value) == VT_UI2 || V_VT (&variant_value) == VT_UI4)
 		{
-			string.Format (L"%d", variant_value.iVal);
+			string.Format (U_CHAR("%d"), variant_value.iVal);
 			retval = true;
 		}
 		
@@ -606,7 +606,7 @@ ExcelClass::Set_String (int row, int col, const WideStringClass &value)
 	//
 	VARIANT variant_value;	
 	V_VT (&variant_value)	= VT_BSTR;
-	V_BSTR (&variant_value) = ::SysAllocString (value);
+	V_BSTR (&variant_value) = ::SysAllocString (WIDETOOLE(value));
 
 	//
 	//	Put the string into the cell
@@ -723,14 +723,14 @@ ExcelClass::Get_Cell (int row, int col, VARIANT &result)
 	//	Generate the name of the cell we'll be using
 	//
 	WideStringClass cell_name;
-	cell_name.Format (L"%c%d", 'A'+col , row + 1);
+	cell_name.Format (U_CHAR("%c%d"), 'A'+col , row + 1);
 
  	//
 	//	Configure a variant object for use as a cell ID
 	//
 	VARIANT cell;
 	V_VT (&cell)	= VT_BSTR;
- 	V_BSTR (&cell)	= ::SysAllocString (cell_name);
+ 	V_BSTR (&cell)	= ::SysAllocString (WIDETOOLE(cell_name));
 
 	//
 	//	Get the data
@@ -773,14 +773,14 @@ ExcelClass::Set_Cell (int row, int col, const VARIANT &data)
 	//	Generate the name of the cell we'll be using
 	//
 	WideStringClass cell_name;
-	cell_name.Format (L"%c%d", 'A'+col, row + 1);
+	cell_name.Format (U_CHAR("%c%d"), 'A'+col, row + 1);
 
  	//
 	//	Configure a variant object for use as a cell ID
 	//
 	VARIANT cell;
 	V_VT (&cell)	= VT_BSTR;
- 	V_BSTR (&cell)	= ::SysAllocString (cell_name);
+ 	V_BSTR (&cell)	= ::SysAllocString (WIDETOOLE(cell_name));
 
 	//
 	//	Get the cell range

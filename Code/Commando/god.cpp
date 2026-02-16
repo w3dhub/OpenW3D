@@ -273,7 +273,7 @@ void cGod::Create_Ai_Player(void)
 	do {
 		client_id--;
 		WWASSERT(client_id > cPlayer::INVALID_ID);
-		name.Format(L"Guard%d", -client_id);
+		name.Format(U_CHAR("Guard%d"), -client_id);
 	} while (cPlayerManager::Is_Player_Present(name));
 
 	Create_Player(client_id, name, -1, 0);

@@ -20,9 +20,9 @@
 
 namespace WWOnline {
 
-static const wchar_t* DefaultMapper(const char*)
+static const unichar_t* DefaultMapper(const char*)
 	{
-	return L"<WOL String lookup not set>";
+	return U_CHAR("<WOL String lookup not set>");
 	}
 
 

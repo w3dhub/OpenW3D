@@ -80,13 +80,13 @@ RefPtr<UserData> UserData::Create(const WOL::User& user)
 *
 ******************************************************************************/
 
-RefPtr<UserData> UserData::Create(const wchar_t* name)
+RefPtr<UserData> UserData::Create(const unichar_t* name)
 	{
 	if (name)
 		{
 		WOL::User user;
 		memset(&user, 0, sizeof(user));
-		wcstombs((char*)user.name, name, sizeof(user.name));
+		u_wstomb((char*)user.name, name, sizeof(user.name));
 		user.name[sizeof(user.name) - 1] = 0;
 
 		return Create(user);
@@ -115,7 +115,7 @@ UserData::UserData(const WOL::User& user) :
 		mUserName((char*)user.name),
 		mLocation(USERLOCATION_UNKNOWN)
 	{
-	WWDEBUG_SAY(("WOL: Instantiating UserData '%S'\n", (const wchar_t*)mUserName));
+	WWDEBUG_SAY(("WOL: Instantiating UserData '%S'\n", (const unichar_t*)mUserName));
 	memcpy(&mData, &user, sizeof(mData));
 	mKickTimer = 0;
 	mData.next = NULL;
@@ -140,7 +140,7 @@ UserData::UserData(const WOL::User& user) :
 
 UserData::~UserData()
 	{
-	WWDEBUG_SAY(("WOL: Destructing UserData '%S'\n", (const wchar_t*)mUserName));
+	WWDEBUG_SAY(("WOL: Destructing UserData '%S'\n", (const unichar_t*)mUserName));
 	}
 
 
@@ -161,10 +161,10 @@ UserData::~UserData()
 
 void UserData::UpdateData(const WOL::User& wolUser)
 	{
-	wchar_t name[64];
-	mbstowcs(name, (const char*)wolUser.name, sizeof(wolUser.name));
+	unichar_t name[64];
+	u_mbtows(name, (const char*)wolUser.name, sizeof(wolUser.name));
 	name[sizeof(wolUser.name) - 1] = 0;
-	WWASSERT(wcslen(name) && "Empty user name");
+	WWASSERT(u_strlen(name) && "Empty user name");
 
 	bool isValid = (!mUserName.Is_Empty() && mUserName.Compare_No_Case(name) == 0);
 	WWASSERT(isValid && "WOLUserData::UpdateData() mismatch");
@@ -542,7 +542,7 @@ NativeWOLUserList::~NativeWOLUserList()
 *
 ******************************************************************************/
 
-RefPtr<UserData> FindUserInList(const wchar_t* username, const UserList& list)
+RefPtr<UserData> FindUserInList(const unichar_t* username, const UserList& list)
 	{
 	for (unsigned int index = 0; index < list.size(); index++)
 		{
@@ -575,7 +575,7 @@ RefPtr<UserData> FindUserInList(const wchar_t* username, const UserList& list)
 *
 ******************************************************************************/
 
-RefPtr<UserData> RemoveUserInList(const wchar_t* username, UserList& list)
+RefPtr<UserData> RemoveUserInList(const unichar_t* username, UserList& list)
 	{
 	RefPtr<UserData> removedUser;
 

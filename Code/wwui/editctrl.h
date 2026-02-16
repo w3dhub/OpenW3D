@@ -80,7 +80,7 @@ public:
 	//	From DialogControlClass
 	//
 	void					Render (void) override;
-	virtual void		Set_Text (const wchar_t *title) override;
+	virtual void		Set_Text (const unichar_t *title) override;
 
 	int					Get_Text_Length (void) const;
 
@@ -126,8 +126,8 @@ protected:
 	int					Character_From_Pos (const Vector2 &mouse_pos);
 	float					Pos_From_Character (int char_index);
 
-	void					On_Unicode_Char (wchar_t unicode) override;
-	void					Insert_String (const wchar_t *string);
+	void					On_Unicode_Char (unichar_t unicode) override;
+	void					Insert_String (const unichar_t *string);
 
 	void					Update_Hilight (int new_pos, int anchor_pos);
 	int					Find_Word_Start (int pos, int increment);
@@ -136,7 +136,7 @@ protected:
 	bool IsIMEAllowed(void) const;
 
 	void Set_IME_Typing_Text_Pos(void);
-	void Show_IME_Typing_Text(const wchar_t* text);
+	void Show_IME_Typing_Text(const unichar_t* text);
 	void Hide_IME_Typing_Text(void);
 	void PositionCandidateList(void);
 

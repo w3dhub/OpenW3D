@@ -507,7 +507,7 @@ MainMenuDialogClass::Update_Version_Number (void)
 	WideStringClass build_number(BuildInfoClass::Get_Build_Number_String(), true);
 	WideStringClass build_initials(BuildInfoClass::Get_Builder_Initials(), true);
 	WideStringClass build_date(BuildInfoClass::Get_Build_Date_String(), true);
-	version_string.Format (L"v%d.%.3d %s-%s %s", (version_major >> 16), (version_major & 0xFFFF), build_initials, build_number, build_date);
+	version_string.Format (U_CHAR("v%d.%.3d %s-%s %s"), (version_major >> 16), (version_major & 0xFFFF), build_initials, build_number, build_date);
 	Set_Dlg_Item_Text (IDC_VERSION_STATIC, version_string);
 }
 
@@ -535,9 +535,9 @@ MainMenuDialogClass::Update_Version_Number (void)
 
 
 				//TRANSLATE_ME
-				//const wchar_t * title	= L"Unable to initialize LAN";
+				//const unichar_t * title	= U_CHAR("Unable to initialize LAN");
 				//IDS_MP_UNABLE_INITIALIZE_LAN
-				//const wchar_t * text	= L"No LAN IP addresses found.";
+				//const unichar_t * text	= U_CHAR("No LAN IP addresses found.");
 				//IDS_MP_NO_LAN_IP_ADDRESSES_FOUND
 
 				//DlgMsgBox::DoDialog(title, text);

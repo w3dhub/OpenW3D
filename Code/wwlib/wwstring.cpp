@@ -307,27 +307,47 @@ StringClass::Release_Resources (void)
 // Copy_Wide
 //
 ///////////////////////////////////////////////////////////////////
-bool StringClass::Copy_Wide (const wchar_t *source)
+bool StringClass::Copy_Wide (const unichar_t *source)
 {
 	if (source != NULL) {
+#ifdef W3D_USING_ICU
+		int32_t length;
+		UErrorCode error = U_ZERO_ERROR;
+		u_strToUTF8(nullptr, 0, &length, source, -1, &error);
 
+		if (length > 0) {
+			++length; // Add space for null termination as ICU does not include that in calculated length.
+			error = U_ZERO_ERROR;
+			u_strToUTF8(Get_Buffer(length), length, nullptr, source, -1, &error);
+
+			if (U_SUCCESS(error)) {
+				Store_Length(length - 1);
+				return (true);
+			}
+		}
+
+		WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed"));
+#else
 		int  length;
-		BOOL unmapped;
 			
-		length = WideCharToMultiByte (CP_ACP, 0 , source, -1, NULL, 0, NULL, &unmapped);
+		length = WideCharToMultiByte (CP_UTF8, 0 , source, -1, nullptr, 0, nullptr, nullptr);
 		if (length > 0) {
 
 			size_t buffer_length = static_cast<size_t>(length);
 
 			// Convert.
-			WideCharToMultiByte(CP_ACP, 0, source, -1, Get_Buffer(buffer_length), length, NULL, NULL);
+			length = WideCharToMultiByte(CP_UTF8, 0, source, -1, Get_Buffer(buffer_length), length, nullptr, nullptr);
 
 			// Update length.
 			Store_Length(buffer_length - 1);
 		}
 
-		// Were all characters successfully mapped?
-		return (!unmapped);
+		if(length <= 0) {
+			WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed"));
+		}
+		
+		return (length > 0);
+#endif
 	}
 
 	// Failure.

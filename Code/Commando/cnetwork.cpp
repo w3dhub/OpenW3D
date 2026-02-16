@@ -373,7 +373,7 @@ void cNetwork::Refusal_Handler(REFUSAL_CODE refusal_code)
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
 		if (refusal_code == REFUSAL_VERSION_MISMATCH) {
 			WideStringClass tval;
-			tval.Format(L"%s...%s", TRANSLATE(IDS_MP_CONNECTION_REFUSED_BY_APPLICATION), 
+			tval.Format(U_CHAR("%s...%s"), TRANSLATE(IDS_MP_CONNECTION_REFUSED_BY_APPLICATION), 
 				TRANSLATE(IDS_MENU_VERSION_MISMATCH));
 			DlgMPConnectionRefused::DoDialog(tval, false);
 		} else {
@@ -821,7 +821,7 @@ void cNetwork::Connection_Status_Change_Feedback(void)
 	static unsigned int _print_good_soon = 0;
 
 	unsigned int time = TIMEGETTIME();
-	const wchar_t *string = NULL;
+	const unichar_t *string = NULL;
 	if (LastServerConnectionStateBad) {
 		if (_last_print_bad && time - _last_print < 4000) {
 			return;
@@ -1198,7 +1198,7 @@ void cNetwork::Server_Broken_Connection_Handler(int broken_rhost_id)
 
 	WideStringClass widestring;
 	widestring.Format(
-		L"%s %d\n",
+		U_CHAR("%s %d\n"),
 		TRANSLATION(IDS_MP_CONNECTION_TO_CLIENT_BROKEN),
 		broken_rhost_id);
    WWASSERT(CombatManager::Get_Message_Window () != NULL);
@@ -1229,7 +1229,7 @@ void cNetwork::Client_Broken_Connection_Handler(void)
    /**/
 	if (PClientConnection->Have_Id()) {
 		//cHelpText::Set(TRANSLATION(IDS_MP_CONNECTION_TO_SERVER_BROKEN));
-		DlgMsgBox::DoDialog(L"", TRANSLATION(IDS_MP_CONNECTION_TO_SERVER_BROKEN));
+		DlgMsgBox::DoDialog(U_CHAR(""), TRANSLATION(IDS_MP_CONNECTION_TO_SERVER_BROKEN));
 	} else {
 		//cHelpText::Set(TRANSLATION(IDS_MP_UNABLE_CONNECT_TO_SERVER));
 	}

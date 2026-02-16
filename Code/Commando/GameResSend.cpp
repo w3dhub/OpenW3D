@@ -276,7 +276,7 @@ void SendGameResults(unsigned int gameID, cGameData* theGame, SList<cPlayer>* pl
 			// Player Location
 			WOL::Locale locale = WOL::LOC_UNKNOWN;
 
-			RefPtr<UserData> user = session->FindUser((const wchar_t*)playerName);
+			RefPtr<UserData> user = session->FindUser((const unichar_t*)playerName);
 
 			if (user.IsValid())
 				{
@@ -342,7 +342,7 @@ void AddPlayerStats(GameResPacket& stats, cPlayer* player, WOL::Locale locale,
 		// Players WOL name
 		const WideStringClass& playerName = player->Get_Name();
 		char name[10];
-		const size_t len = wcstombs(name, (const wchar_t*)playerName, sizeof(name) - 1);
+		const size_t len = u_wstomb(name, (const unichar_t*)playerName, sizeof(name) - 1);
 		if (len == static_cast<size_t>(-1))
 		{
 			name[0] = 0;

@@ -87,7 +87,7 @@ protected:
 	void		Update_Current_Channel(void);
 
 	void		Send_Message(bool is_emot);
-	void		Add_Message(const wchar_t* text);
+	void		Add_Message(const unichar_t* text);
 	void		Refresh_Message_List(void);
 	void		Update_Message_Color(void);
 

@@ -286,7 +286,7 @@ ControlsListTabClass::On_InputCtrl_Get_Key_Info
 			//	Clear the mapping.
 			//
 			Remap_Key (ctrl_id, function_id, 0);
-			key_name = L"";
+			key_name = U_CHAR("");
 			(*game_key_id) = 0;
 		}
 	}
@@ -316,7 +316,7 @@ ControlsListTabClass::Prompt_User (void)
 
 	WideStringClass message (0, true);
 	message.Format (TRANSLATE (IDS_CONTROL_REMAP_WARNING),
-				(const wchar_t *)key_name, (const wchar_t *)function_name);
+				(const unichar_t *)key_name, (const unichar_t *)function_name);
 
 	//
 	//	Display the message box
@@ -542,10 +542,10 @@ ControlsListTabClass::Clear_Key (int dik_id, bool clear_zoom)
 //	Get_Function_Name
 //
 ////////////////////////////////////////////////////////////////
-const wchar_t *
+const unichar_t *
 ControlsListTabClass::Get_Function_Name (int function_id)
 {
-	const wchar_t *retval = NULL;
+	const unichar_t *retval = NULL;
 	for (int index = 0; index < INPUT_NAME_COUNT; index ++) {
 		
 		//

@@ -70,7 +70,7 @@ class UserData :
 	public:
 		// Create new User
 		static RefPtr<UserData> Create(const WOL::User&);
-		static RefPtr<UserData> Create(const wchar_t*);
+		static RefPtr<UserData> Create(const unichar_t*);
 
 		// Get WOL::User data
 		WOL::User& GetData(void)
@@ -269,8 +269,8 @@ class UserIPEvent :
 	};
 
 
-RefPtr<UserData> FindUserInList(const wchar_t* name, const UserList& list);
-RefPtr<UserData> RemoveUserInList(const wchar_t* name, UserList& list);
+RefPtr<UserData> FindUserInList(const unichar_t* name, const UserList& list);
+RefPtr<UserData> RemoveUserInList(const unichar_t* name, UserList& list);
 
 } // namespace WWOnline
 

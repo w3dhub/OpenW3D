@@ -101,7 +101,7 @@ void AutoRestartProgressDialogClass::On_Init_Dialog (void)
 	*/
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_PROGRESS_INFO);
 	if (list_ctrl != NULL) {
-		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 		list_ctrl->Allow_Selection(false);
 		list_ctrl->Set_Wants_Focus(false);
 	}
@@ -162,7 +162,7 @@ void AutoRestartProgressDialogClass::On_Command (int ctrl_id, int message_id, un
  * HISTORY:                                                                                    *
  *   11/6/2001 11:04AM ST : Created                                                            *
  *=============================================================================================*/
-void AutoRestartProgressDialogClass::Add_Text(const wchar_t *txt)
+void AutoRestartProgressDialogClass::Add_Text(const unichar_t *txt)
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item(IDC_PROGRESS_INFO);
 	if (list_ctrl) {

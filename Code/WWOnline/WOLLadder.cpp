@@ -149,7 +149,7 @@ bool LadderData::UpdateData(const WOL::Ladder& ladder, int time)
 *
 ******************************************************************************/
 
-LadderInfoEvent::LadderInfoEvent(const wchar_t* requested, const WOL::Ladder& ladder, int time) :
+LadderInfoEvent::LadderInfoEvent(const unichar_t* requested, const WOL::Ladder& ladder, int time) :
 		mRequestedName(requested),
 		mWOLLadder(ladder),
 		mTimeStamp(time)

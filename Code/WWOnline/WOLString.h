@@ -35,18 +35,19 @@
 #ifndef __WOLSTRING_H__
 #define __WOLSTRING_H__
 
+#include "unichar.h"
 #include <stdlib.h>
 
 namespace WWOnline {
 
-typedef const wchar_t* (*WOLStringLookupFunc)(const char* token);
+typedef const unichar_t* (*WOLStringLookupFunc)(const char* token);
 
 class WOLString
 	{
 	public:
 		static void SetLookupFunc(WOLStringLookupFunc);
 
-		static const wchar_t* Lookup(const char* token)
+		static const unichar_t* Lookup(const char* token)
 			{return _mLookupFunc(token);}
 
 	private:

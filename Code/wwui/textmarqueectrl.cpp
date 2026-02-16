@@ -241,7 +241,7 @@ TextMarqueeCtrlClass::Update_Client_Rect (void)
 //
 ////////////////////////////////////////////////////////////////
 void
-TextMarqueeCtrlClass::Set_Text (const wchar_t *title)
+TextMarqueeCtrlClass::Set_Text (const unichar_t *title)
 {
 	DialogControlClass::Set_Text (title);
 	ScrollPos = 0.0F;
@@ -289,19 +289,19 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 				dest = src_start;							\
 			} else {											\
 				size_t bytes	= src_end - src_start;	\
-				size_t len		= bytes / sizeof (wchar_t);						\
+				size_t len		= bytes / sizeof (unichar_t);						\
 				WWASSERT(len + 1 <= static_cast<size_t>(std::numeric_limits<int>::max())); \
 			::memcpy (dest.Get_Buffer (static_cast<int>(len + 1)), src_start, bytes);	\
 				dest.Peek_Buffer ()[len] = 0;										\
 			}
 
 	int default_color = StyleMgrClass::Get_Text_Color ();
-	CREDIT_LINE default_line (L"", 0, default_color);
+	CREDIT_LINE default_line (U_CHAR(""), 0, default_color);
 
 	//
 	//	Build an array of formatted text lines
 	//	
-	const wchar_t *text = Title;
+	const unichar_t *text = Title;
 	while (text != NULL) {
 		
 		//
@@ -319,13 +319,13 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 		//
 		//	Loop over all the lines of text and check for wrapping...
 		//
-		const wchar_t *line_start = renderer->Find_Row_Start (line.Text, 0);
+		const unichar_t *line_start = renderer->Find_Row_Start (line.Text, 0);
 		while (line_start != NULL) {
 
 			//
 			//	Lookup the start of the next line...
 			//
-			const wchar_t *line_end = renderer->Find_Row_Start (line_start, 1);
+			const unichar_t *line_end = renderer->Find_Row_Start (line_start, 1);
 			
 			//
 			//	Copy this line of text into the control
@@ -358,26 +358,26 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 //
 ////////////////////////////////////////////////////////////////
 int
-TextMarqueeCtrlClass::Read_Tag (const wchar_t *text, CREDIT_LINE &line)
+TextMarqueeCtrlClass::Read_Tag (const unichar_t *text, CREDIT_LINE &line)
 {
 	int retval = -1;
 
-	const wchar_t *TAG_BOLD	= L"bold";
-	const wchar_t *TAG_COLOR	= L"color=";
+	const unichar_t *TAG_BOLD	= U_CHAR("bold");
+	const unichar_t *TAG_COLOR	= U_CHAR("color=");
 
 
-	if (text[0] == L'<') {
+	if (text[0] == U_CHAR('<')) {
 		for (size_t index = 1; text[index] != 0; index ++) {
 			
 			//
 			//	Is this the 'end-tag' bracket?
 			//
-			if (text[index] == L'>') {
+			if (text[index] == U_CHAR('>')) {
 
 				//
 				//	What type of specifier did we find?
 				//
-				if (::_wcsnicmp (text+1, TAG_BOLD, ::wcslen (TAG_BOLD)) == 0) {
+				if (::u_strncasecmp (text+1, TAG_BOLD, ::u_strlen (TAG_BOLD), U_COMPARE_CODE_POINT_ORDER) == 0) {
 					
 					//
 					// We found the bold specifier
@@ -385,12 +385,12 @@ TextMarqueeCtrlClass::Read_Tag (const wchar_t *text, CREDIT_LINE &line)
 					line.FontIndex = 1;
 					WWASSERT(index <= static_cast<size_t>(std::numeric_limits<int>::max()));
 					retval = static_cast<int>(index);
-				} else if (::_wcsnicmp (text+1, TAG_COLOR, ::wcslen (TAG_COLOR)) == 0) {
+				} else if (::u_strncasecmp (text+1, TAG_COLOR, ::u_strlen (TAG_COLOR), U_COMPARE_CODE_POINT_ORDER) == 0) {
 					
 					//
 					//	We found the color specifier
 					//					
-					const size_t tag_len = ::wcslen (TAG_COLOR) + 1;
+					const size_t tag_len = ::u_strlen (TAG_COLOR) + 1;
 					text += tag_len;
 
 					//
@@ -404,8 +404,8 @@ TextMarqueeCtrlClass::Read_Tag (const wchar_t *text, CREDIT_LINE &line)
 					const size_t length_sz = (index + 1) - tag_len;
 					WWASSERT(length_sz > 0 && length_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
 					int length = static_cast<int>(length_sz);
-					wchar_t* tempPtr = temp_buffer.Peek_Buffer();
-					wcsncpy(tempPtr, text, length);
+					unichar_t* tempPtr = temp_buffer.Peek_Buffer();
+					u_strncpy(tempPtr, text, length);
 					tempPtr[length - 1] = 0;
 
 					int color[3] = { 0 };
@@ -413,15 +413,15 @@ TextMarqueeCtrlClass::Read_Tag (const wchar_t *text, CREDIT_LINE &line)
 					//
 					//	Parse the params for the colors
 					//
-					wchar_t *buffer = temp_buffer.Peek_Buffer ();
+					unichar_t *buffer = temp_buffer.Peek_Buffer ();
 					for (int color_index = 0; color_index < 3; color_index ++) {
-						wchar_t *comma_str  = ::wcschr (buffer, L',');
+						unichar_t *comma_str  = ::u_strchr (buffer, U_CHAR(','));
 						if (comma_str != NULL) {
 							comma_str[0]			= 0;
-							color[color_index]	= ::_wtoi (buffer);
+							u_sscanf_u(buffer, U_CHAR("%d"), &color[color_index]);
 							buffer					= &comma_str[1];
 						} else {
-							color[color_index] = ::_wtoi (buffer);
+							u_sscanf_u(buffer, U_CHAR("%d"), &color[color_index]);
 							break;
 						}
 					}
@@ -447,10 +447,10 @@ TextMarqueeCtrlClass::Read_Tag (const wchar_t *text, CREDIT_LINE &line)
 //	Read_Line
 //
 ////////////////////////////////////////////////////////////////
-const wchar_t *
-TextMarqueeCtrlClass::Read_Line (const wchar_t *text, CREDIT_LINE &line)
+const unichar_t *
+TextMarqueeCtrlClass::Read_Line (const unichar_t *text, CREDIT_LINE &line)
 {
-	const wchar_t *text_start = text;
+	const unichar_t *text_start = text;
 
 	//
 	//	Set some defaults
@@ -464,21 +464,21 @@ TextMarqueeCtrlClass::Read_Line (const wchar_t *text, CREDIT_LINE &line)
 	bool keep_going = true;
 	do
 	{
-		wchar_t ch = *text;
+		unichar_t ch = *text;
 
 		//
 		//	Check to see if this character ends the
 		//
-		if (ch == L'\n' || ch == 0) {			
+		if (ch == U_CHAR('\n') || ch == 0) {			
 			int len = text - text_start;
 //			::strncpyW (line.Text.Get_Buffer (len + 1), text_start, len + 1);
 
-			wchar_t* buffer = line.Text.Get_Buffer(len + 1);
-			wcsncpy(buffer, text_start, len + 1);
+			unichar_t* buffer = line.Text.Get_Buffer(len + 1);
+			u_strncpy(buffer, text_start, len + 1);
 			buffer[len] = 0;
 		
 			keep_going = false;
-		} else if (ch == L'<') {
+		} else if (ch == U_CHAR('<')) {
 			
 			//
 			//	Did we find a tag?

@@ -42,10 +42,7 @@
 #define BANDWIDTH_H
 
 #include "bittype.h"
-
-#if defined _MSC_VER && _MSC_VER <= 1200
-#include <wchar.h>
-#endif
+#include "unichar.h"
 
 enum BANDWIDTH_TYPE_ENUM {
 
@@ -72,7 +69,7 @@ class	cBandwidth {
       ~cBandwidth(void) {};
 
 		static unsigned int						Get_Bandwidth_Bps_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
-		static const wchar_t *	Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
+		static const unichar_t *	Get_Bandwidth_String_From_Type(BANDWIDTH_TYPE_ENUM bandwidth_type);
 		static BANDWIDTH_TYPE_ENUM		Get_Bandwidth_Type_From_String(const char *bandwidth_string);
 };
 

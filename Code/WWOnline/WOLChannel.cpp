@@ -81,9 +81,9 @@ RefPtr<ChannelData> ChannelData::Create(const WOL::Channel& wolChannel)
 *
 ******************************************************************************/
 
-RefPtr<ChannelData> ChannelData::Create(const wchar_t* name, const wchar_t* password, int type)
+RefPtr<ChannelData> ChannelData::Create(const unichar_t* name, const unichar_t* password, int type)
 	{
-	if (name && wcslen(name))
+	if (name && u_strlen(name))
 		{
 		return new ChannelData(name, password, type);
 		}
@@ -134,19 +134,19 @@ ChannelData::ChannelData(const WOL::Channel& channel) :
 *
 ******************************************************************************/
 
-ChannelData::ChannelData(const wchar_t* name, const wchar_t* password, int type) :
+ChannelData::ChannelData(const unichar_t* name, const unichar_t* password, int type) :
 		mChannelName(name)
 	{
 	memset(&mData, 0, sizeof(mData));
 	mData.type = type;
 
 	WWASSERT(name && "NULL channel name");
-	wcstombs((char*)mData.name, name, sizeof(mData.name));
+	u_wstomb((char*)mData.name, name, sizeof(mData.name));
 	mData.name[sizeof(mData.name) - 1] = 0;
 
 	if (password)
 		{
-		wcstombs((char*)mData.key, password, sizeof(mData.key));
+		u_wstomb((char*)mData.key, password, sizeof(mData.key));
 		}
 	}
 
@@ -189,10 +189,10 @@ ChannelData::~ChannelData()
 
 void ChannelData::UpdateData(const WOL::Channel& wolChannel)
 	{
-	wchar_t name[64];
-	mbstowcs(name, (const char*)wolChannel.name, sizeof(wolChannel.name));
+	unichar_t name[64];
+	u_mbtows(name, (const char*)wolChannel.name, sizeof(wolChannel.name));
 	name[sizeof(wolChannel.name) - 1] = 0;
-	WWASSERT(wcslen(name));
+	WWASSERT(u_strlen(name));
 
 	bool isValid = (!mChannelName.Is_Empty() && mChannelName.Compare_No_Case(name) == 0);
 	WWASSERT(isValid && "WOLChannelData::UpdateData() channel mismatch");
@@ -427,7 +427,7 @@ ChannelStatus GetChannelStatusFromHResult(HRESULT result)
 *
 ******************************************************************************/
 
-const wchar_t* GetChannelStatusDescription(ChannelStatus status)
+const unichar_t* GetChannelStatusDescription(ChannelStatus status)
 	{
 	static const char* _statusDesc[] =
 		{
@@ -501,7 +501,7 @@ RefPtr<ChannelData> FindChannelInList(ChannelList& list, const char* name)
 
 
 // Find a channel in the specified list by Unicode name.
-RefPtr<ChannelData> FindChannelInList(ChannelList& list, const wchar_t* name)
+RefPtr<ChannelData> FindChannelInList(ChannelList& list, const unichar_t* name)
 	{
 	if (name)
 		{

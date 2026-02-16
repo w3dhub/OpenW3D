@@ -403,7 +403,7 @@ void Download::Process(void)
 *
 ******************************************************************************/
 
-const wchar_t* Download::GetStatusText(void) const
+const unichar_t* Download::GetStatusText(void) const
 	{
 	static const char* _statusText[] =
 		{
@@ -437,11 +437,11 @@ const wchar_t* Download::GetStatusText(void) const
 		return WOLSTRING(_statusText[mStatusCode]);
 		}
 
-	return L"";
+	return U_CHAR("");
 	}
 
 
-const wchar_t* Download::GetErrorText(void) const
+const unichar_t* Download::GetErrorText(void) const
 	{
 	return WOLSTRING(mErrorText);
 	}
@@ -996,7 +996,7 @@ WaitCondition::WaitResult DownloadWait::GetResult(void)
 *
 ******************************************************************************/
 
-void DownloadWait::EndWait(WaitResult endResult, const wchar_t* endText)
+void DownloadWait::EndWait(WaitResult endResult, const unichar_t* endText)
 	{
 	if ((ConditionMet != endResult) && mCurrentDownload.IsValid())
 		{

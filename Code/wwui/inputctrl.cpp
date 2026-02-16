@@ -385,7 +385,7 @@ InputCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 void
 InputCtrlClass::On_Create (void)
 {
-	Title = L"";
+	Title = U_CHAR("");
 	return ;
 }
 

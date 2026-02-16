@@ -273,7 +273,7 @@ DlgConfigPerformanceTabClass::Setup_Controls (void)
 	((SliderCtrlClass *)Get_Dlg_Item (IDC_SURFACE_DETAIL_SLIDER))->Set_Range (0, 2);
 	((SliderCtrlClass *)Get_Dlg_Item (IDC_PARTICLE_DETAIL_SLIDER))->Set_Range (0, 2);
 
-	const wchar_t *PRELIT_MODE_NAMES[] =
+	const unichar_t *PRELIT_MODE_NAMES[] =
 	{
 		TRANSLATE (IDS_MENU_VERTEX),
 		TRANSLATE (IDS_MENU_MP_LIGHTMAPS),
@@ -283,7 +283,7 @@ DlgConfigPerformanceTabClass::Setup_Controls (void)
 	Set_Dlg_Item_Text (IDC_LIGHTING_MODE, PRELIT_MODE_NAMES [WW3D::Get_Prelit_Mode()]);
 	Enable_Dlg_Item (IDC_LIGHTING_MODE,	false);
 
-	const wchar_t *TEXTURE_FILTER_NAMES[] =
+	const unichar_t *TEXTURE_FILTER_NAMES[] =
 	{
 		TRANSLATE (IDS_BILINEAR),
 		TRANSLATE (IDS_TRILINEAR),

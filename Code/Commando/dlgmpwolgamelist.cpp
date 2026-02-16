@@ -488,7 +488,7 @@ void MPWolGameListMenuClass::Join_Game(void)
 			else
 				{
 				// No password require
-				WOLJoinGame::JoinTheGame(channel->GetName(), L"", true);
+				WOLJoinGame::JoinTheGame(channel->GetName(), U_CHAR(""), true);
 				}
 			}
 		}
@@ -551,7 +551,7 @@ void MPWolGameListMenuClass::RequestGameList(void)
 			if (list)
 				{
 				list->Delete_All_Entries();
-				list->Add_Column(L"", 1.0F, Vector3(1, 1, 1));
+				list->Add_Column(U_CHAR(""), 1.0F, Vector3(1, 1, 1));
 				list->Insert_Entry(0, TRANSLATE (IDS_MENU_REQUESTING_NEW_CHANNELS));
 				}
 			}
@@ -611,7 +611,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 				// If the channel was not found then add it now.
 				if (itemIndex == -1)
 					{
-					itemIndex = list->Insert_Entry(listIndex, L"");
+					itemIndex = list->Insert_Entry(listIndex, U_CHAR(""));
 					newlyAdded = true;
 					}
 
@@ -668,7 +668,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 					list->Set_Entry_Data(itemIndex, COL_PLAYERS, MAKELONG(gameInfo.NumPlayers(), gameInfo.MaxPlayers()));
 
 					WideStringClass playersString(64, true);
-					playersString.Format(L"%u/%u", gameInfo.NumPlayers(), gameInfo.MaxPlayers());
+					playersString.Format(U_CHAR("%u/%u"), gameInfo.NumPlayers(), gameInfo.MaxPlayers());
 					list->Set_Entry_Text(itemIndex, COL_PLAYERS, playersString);
 					
 					// Show the ping time ranking
@@ -695,7 +695,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 
 						/*
 						WideStringClass diagnostic;
-						diagnostic.Format(L"Version Mismatch (v. %u.%u)",
+						diagnostic.Format(U_CHAR("Version Mismatch (v. %u.%u)"),
 							HIWORD(gameInfo.Version()), LOWORD(gameInfo.Version()));
 						list->Set_Entry_Text(itemIndex, COL_GAME_TITLE, diagnostic);
 						*/
@@ -898,14 +898,14 @@ void MPWolGameListMenuClass::On_ListCtrl_Sel_Change(ListCtrlClass* list, int id,
 // Denzil 02/14/02 The version encoded in the channel is NOT the printable version.
 // Just show the EXE version until we can work this out.
 #if(0)
-					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const wchar_t*)channel->GetName(),
+					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const unichar_t*)channel->GetName(),
 							mSelectedGame.Title(), HIWORD(mSelectedGame.Version()), LOWORD(mSelectedGame.Version()));
 #else
 					unsigned int verMajor = 0;
 					unsigned int verMinor = 0;
 					Get_Version_Number(&verMajor,&verMinor);
 
-					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const wchar_t*)channel->GetName(),
+					text.Format(TRANSLATE(IDS_MENU_HOST_INFO_FORMAT), (const unichar_t*)channel->GetName(),
 							mSelectedGame.Title(), HIWORD(verMajor), LOWORD(verMajor));
 #endif
 					detailsList->Insert_Entry(0, text);
@@ -993,7 +993,7 @@ void MPWolGameListMenuClass::GetClanVSClanString(WOLGameInfo& gameInfo, WideStri
 		mWOLSession->RequestSquadInfoByID(gameInfo.ClanID2());
 		}
 
-	text.Format(L"%S  -VS-  %S", clan1Name, clan2Name);
+	text.Format(U_CHAR("%S  -VS-  %S"), clan1Name, clan2Name);
 	}
 
 
@@ -1259,7 +1259,7 @@ void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, int pingTime)
 	list->Set_Entry_Data(itemIndex, COL_PING, displayPing);
 
 	WideStringClass text(32, true);
-	text.Format(L" (%lu)", displayPing);
+	text.Format(U_CHAR(" (%lu)"), displayPing);
 	list->Set_Entry_Text(itemIndex, COL_PING, text);
 	}
 
@@ -1370,9 +1370,9 @@ int CALLBACK FlagsSortCallback(ListCtrlClass* list, int index1, int index2, uint
 			return 1;
 			}
 
-		const wchar_t* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
-		const wchar_t* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
-		return wcsicmp(name1, name2);
+		const unichar_t* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
+		const unichar_t* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
+		return u_strcasecmp(name1, name2, U_COMPARE_CODE_POINT_ORDER);
 		}
 
 	return 0;
@@ -1440,9 +1440,9 @@ int CALLBACK NumericSortCallback(ListCtrlClass* list, int index1, int index2, ui
 
 		if (retval == 0)
 			{
-			const wchar_t* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
-			const wchar_t* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
-			retval = wcsicmp(name1, name2);
+			const unichar_t* name1 = list->Get_Entry_Text(index1, COL_HOST_NAME);
+			const unichar_t* name2 = list->Get_Entry_Text(index2, COL_HOST_NAME);
+			retval = u_strcasecmp(name1, name2, U_COMPARE_CODE_POINT_ORDER);
 			}
 		}
 
@@ -1483,9 +1483,9 @@ int CALLBACK AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint
 	// Sort by numeric value stored in entry data field
 	int	column = LOWORD(param);
 
-	const wchar_t* text1 = list->Get_Entry_Text(index1, column);
-	const wchar_t* text2 = list->Get_Entry_Text(index2, column);
-	int retval = wcsicmp(text1, text2);
+	const unichar_t* text1 = list->Get_Entry_Text(index1, column);
+	const unichar_t* text2 = list->Get_Entry_Text(index2, column);
+	int retval = u_strcasecmp(text1, text2, U_COMPARE_CODE_POINT_ORDER);
 
 	// If the strings match then secondary sort by ping time.
 	if (retval == 0)

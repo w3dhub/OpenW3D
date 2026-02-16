@@ -1104,7 +1104,7 @@ BeaconGameObj::Display_Message (int text_id)
 	TDBObjClass *translate_obj = TranslateDBClass::Find_Object (text_id);
 	if (translate_obj != NULL) {
 
-		const wchar_t *string		= translate_obj->Get_String ();
+		const unichar_t *string		= translate_obj->Get_String ();
 		int sound_def_id			= (int)translate_obj->Get_Sound_ID ();
 		float duration				= 2.0F;
 

@@ -78,7 +78,7 @@ ControlSaveLoadMenuClass::On_Init_Dialog (void)
 		//
 		//	Configure the column
 		//
-		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));		
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));		
 		
 		//
 		//	Loop over all the configurations
@@ -311,7 +311,7 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 				//
 				//	Get the new display name for this configuration
 				//
-				const wchar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);			
+				const unichar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);			
 				if (display_name[0] != 0) {
 
 					//
@@ -354,7 +354,7 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 			//
 			//	Get the new display name for this configuration
 			//
-			const wchar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
+			const unichar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
 			if (display_name[0] != 0) {
 
 				//
@@ -482,7 +482,7 @@ ControlSaveLoadMenuClass::On_ListCtrl_Sel_Change
 		//
 		//	Clear the name of the current configuration
 		//
-		Set_Dlg_Item_Text (IDC_NAME_EDIT, L"");
+		Set_Dlg_Item_Text (IDC_NAME_EDIT, U_CHAR(""));
 	}
 
 	//
@@ -534,7 +534,7 @@ ControlSaveLoadMenuClass::ListSortCallback
 			//
 			//	Sort based on the names
 			//
-			retval = ::wcsicmp (config1->Get_Display_Name (), config2->Get_Display_Name ());
+			retval = ::u_strcasecmp (config1->Get_Display_Name (), config2->Get_Display_Name (), U_COMPARE_CODE_POINT_ORDER);
 		}	
 	}
 

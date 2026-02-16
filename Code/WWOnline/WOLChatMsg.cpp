@@ -95,7 +95,7 @@ ChatMessage::ChatMessage(const WOL::User* sender, const char* message, bool isPr
 *
 ******************************************************************************/
 
-ChatMessage::ChatMessage(const WOL::User* sender, const wchar_t* message, bool isPrivate, bool isAction) :
+ChatMessage::ChatMessage(const WOL::User* sender, const unichar_t* message, bool isPrivate, bool isAction) :
 		mMessage(message),
 		mIsPrivate(isPrivate),
 		mIsAction(isAction),
@@ -130,7 +130,7 @@ ChatMessage::ChatMessage(const WOL::User* sender, const wchar_t* message, bool i
 *
 ******************************************************************************/
 
-ChatMessage::ChatMessage(const wchar_t* sender, const wchar_t* message, bool isPrivate, bool isAction) :
+ChatMessage::ChatMessage(const unichar_t* sender, const unichar_t* message, bool isPrivate, bool isAction) :
 		mSenderName(sender),
 		mMessage(message),
 		mIsPrivate(isPrivate),
@@ -292,7 +292,7 @@ bool ChatMessage::IsSenderInClan(unsigned int clanID) const
 *
 ******************************************************************************/
 
-bool IsAnsiText(const wchar_t* text)
+bool IsAnsiText(const unichar_t* text)
 	{
 	for (int index = 0; text[index] != 0; index ++)
 		{

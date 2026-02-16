@@ -497,7 +497,7 @@ TreeCtrlClass::Update_Client_Rect (void)
 	//
 	const float ROW_SPACING	= 4.0F;
 	float border_height		= (ROW_SPACING * StyleMgrClass::Get_Y_Scale ());
-	RowHeight					= (TextRenderer.Get_Text_Extents (L"W").Y + border_height);
+	RowHeight					= (TextRenderer.Get_Text_Extents (U_CHAR("W")).Y + border_height);
 
 	//
 	//	Determine how many rows we can fit on a page
@@ -663,14 +663,14 @@ TreeCtrlClass::Alphabetic_Sort_Callback
 	//
 	//	Sort by name
 	//
-	const wchar_t *name1 = item1->Get_Name ();
-	const wchar_t *name2 = item2->Get_Name ();
-	int result = ::CompareStringW (LOCALE_USER_DEFAULT, NORM_IGNORECASE, name1, -1, name2, -1);
+	const unichar_t *name1 = item1->Get_Name ();
+	const unichar_t *name2 = item2->Get_Name ();
+	int result = u_strcasecmp(name1, name2, U_COMPARE_CODE_POINT_ORDER);
 
 	int retval = 0;
-	if (result == CSTR_LESS_THAN) {
+	if (result < 0) {
 		retval = -1;
-	} else if (result == CSTR_GREATER_THAN) {
+	} else if (result > 0) {
 		retval = 1;
 	}
 	
@@ -1041,7 +1041,7 @@ TreeCtrlClass::Ensure_Visible (TreeItemClass *item_to_find)
 TreeItemClass *
 TreeCtrlClass::Insert_Item
 (
-	const wchar_t *		name,
+	const unichar_t *		name,
 	const char *		icon_name,
 	const char *		selected_icon_name,
 	TreeItemClass *	parent
@@ -1515,7 +1515,7 @@ TreeItemClass::Expand (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-TreeItemClass::Set_Name (const wchar_t *name)
+TreeItemClass::Set_Name (const unichar_t *name)
 {
 	Name = name;
 	TreeCtrl->Set_Dirty ();

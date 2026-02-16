@@ -3707,7 +3707,7 @@ public:
 		int recipient_id = atoi(input);
 
 		WideStringClass msg;
-		msg.Format(L"Hola amigo!");
+		msg.Format(U_CHAR("Hola amigo!"));
 
 		if (cNetwork::I_Am_Client()) {
 			cCsTextObj * p_message = new cCsTextObj;

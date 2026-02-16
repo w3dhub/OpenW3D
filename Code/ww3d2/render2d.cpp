@@ -661,7 +661,7 @@ void	Render2DTextClass::Set_Font( Font3DInstanceClass *font )
 /*
 **
 */
-void	Render2DTextClass::Draw_Char( wchar_t ch, unsigned int color )
+void	Render2DTextClass::Draw_Char( unichar_t ch, unsigned int color )
 {
 	float char_spacing	= Font->Char_Spacing( ch );
 	float char_height		= Font->Char_Height();
@@ -679,7 +679,7 @@ void	Render2DTextClass::Draw_Char( wchar_t ch, unsigned int color )
 		is_clipped = true;
 	}
 
-	if ( ch != (wchar_t)' ' && !is_clipped ) {
+	if ( ch != (unichar_t)' ' && !is_clipped ) {
 		RectClass screen( Cursor.X, Cursor.Y, Cursor.X + Font->Char_Width(ch), Cursor.Y + char_height );
 
 		Internal_Add_Quad_Indicies( Vertices.Count() );
@@ -701,7 +701,7 @@ void	Render2DTextClass::Draw_Text( const char * text, unsigned int color )
 	Draw_Text( wide, color );
 }
 
-void	Render2DTextClass::Draw_Text( const wchar_t * text, unsigned int color )
+void	Render2DTextClass::Draw_Text( const unichar_t * text, unsigned int color )
 {
 	WWMEMLOG(MEM_GEOMETRY);
 
@@ -712,16 +712,16 @@ void	Render2DTextClass::Draw_Text( const wchar_t * text, unsigned int color )
 	}
 
 	while (*text) {
-		wchar_t ch = *text++;
+		unichar_t ch = *text++;
 
 		//	Check to see if we need to move to a newline or not
-		bool wrap = ( ch == (wchar_t)'\n' );
+		bool wrap = ( ch == (unichar_t)'\n' );
 
 		// if the current char is a space, and the next word length puts us past our Width, wrap
-		if ( ch == (wchar_t)' ' && WrapWidth > 0 ) {
-			const wchar_t * word = text;
+		if ( ch == (unichar_t)' ' && WrapWidth > 0 ) {
+			const unichar_t * word = text;
 			float word_width = Font->Char_Spacing(ch);
-			while ( (*word != (wchar_t)0) && (*word > (wchar_t)' ') ) {
+			while ( (*word != (unichar_t)0) && (*word > (unichar_t)' ') ) {
 				word_width += Font->Char_Spacing(*word++);
 			}
 			wrap = ( (Cursor.X + word_width) >= (Location.X + WrapWidth) );
@@ -748,15 +748,15 @@ void	Render2DTextClass::Draw_Block( const RectClass & screen, unsigned int color
 	TotalExtents += screen;
 }
 
-Vector2	Render2DTextClass::Get_Text_Extents( const wchar_t * text )
+Vector2	Render2DTextClass::Get_Text_Extents( const unichar_t * text )
 {
 	Vector2 extent (0, Font->Char_Height());
 
 	if (text) {
 		while (*text) {
-			wchar_t ch = *text++;
+			unichar_t ch = *text++;
 
-			if ( ch != (wchar_t)'\n' ) {
+			if ( ch != (unichar_t)'\n' ) {
 				extent.X += Font->Char_Spacing( ch );
 			}
 		}

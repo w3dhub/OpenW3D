@@ -180,7 +180,7 @@ CNCPurchaseMainMenuClass::On_Init_Dialog (void)
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_LIST_CTRL);
 	if (list_ctrl != NULL) {
-		list_ctrl->Add_Column (L"", 1.0F, Vector3 (1, 1, 1));
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 	}
 
 	//
@@ -984,7 +984,7 @@ CNCPurchaseMainMenuClass::Refresh_Message_Log (void)
 			//
 			//	Get the message to display
 			//
-			const wchar_t *message = message_window->Get_Log_Entry (index);
+			const unichar_t *message = message_window->Get_Log_Entry (index);
 			const Vector3 &color	= message_window->Get_Log_Color (index);
 			WideStringClass temp_string (message, true);
 			int len = temp_string.Get_Length ();
@@ -992,7 +992,7 @@ CNCPurchaseMainMenuClass::Refresh_Message_Log (void)
 			//
 			//	Strip off any unnecessary newlines
 			//
-			if (len > 0 && message[len - 1] == L'\n') {
+			if (len > 0 && message[len - 1] == U_CHAR('\n')) {
 				temp_string.Erase (len - 1, 1);
 			}
 

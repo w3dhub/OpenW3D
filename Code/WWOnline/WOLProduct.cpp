@@ -103,7 +103,7 @@ RefPtr<Product> Product::Current(void)
 ******************************************************************************/
 
 RefPtr<Product> Product::Create(const char* registryPath, int gameCode,
-		const wchar_t* chanPass, unsigned int ladderSKU)
+		const unichar_t* chanPass, unsigned int ladderSKU)
 	{
 	return new Product(registryPath, gameCode, chanPass, ladderSKU);
 	}
@@ -122,7 +122,7 @@ RefPtr<Product> Product::Create(const char* registryPath, int gameCode,
 *
 ******************************************************************************/
 
-Product::Product(const char* registryPath, int gameCode, const wchar_t* chanPass, unsigned int ladderSKU) :
+Product::Product(const char* registryPath, int gameCode, const unichar_t* chanPass, unsigned int ladderSKU) :
 		mRegistryPath(registryPath),
 		mProductSKU(0),
 		mLadderSKU(0),
@@ -174,7 +174,7 @@ Product::Product(const char* registryPath, int gameCode, const wchar_t* chanPass
 ******************************************************************************/
 
 Product::Initializer::Initializer(const char* registryPath, int gameCode,
-		const wchar_t* chanPass, unsigned int ladderSKU)
+		const unichar_t* chanPass, unsigned int ladderSKU)
 	{
 	CurrentProduct() = Product::Create(registryPath, gameCode, chanPass, ladderSKU);
 	}

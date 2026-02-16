@@ -853,7 +853,7 @@ MapCtrlClass::On_Frame_Update (void)
 int
 MapCtrlClass::Add_Marker
 (
-	const wchar_t *		name,
+	const unichar_t *		name,
 	const Vector3 &	pos,
 	const RectClass &	uv_rect,
 	int					color

@@ -71,7 +71,7 @@ cGameDataSinglePlayer& cGameDataSinglePlayer::operator=(const cGameDataSinglePla
 }
 
 //-----------------------------------------------------------------------------
-const wchar_t* cGameDataSinglePlayer::Get_Static_Game_Name(void)
+const unichar_t* cGameDataSinglePlayer::Get_Static_Game_Name(void)
 {
 	return TRANSLATION(IDS_MP_GAME_TYPE_SINGLE_PLAYER);
 }

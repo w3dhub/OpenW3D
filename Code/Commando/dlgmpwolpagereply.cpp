@@ -208,7 +208,7 @@ void DlgWOLPageReply::On_Init_Dialog(void)
 
 	if (list)
 		{
-		list->Add_Column(L"", 1.0F, Vector3(1, 1, 1));
+		list->Add_Column(U_CHAR(""), 1.0F, Vector3(1, 1, 1));
 		list->Allow_Selection(false);
 		}
 
@@ -246,7 +246,7 @@ void DlgWOLPageReply::On_Command(int ctrlID, int message, unsigned int param)
 
 			if (dialog)
 				{
-				const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
+				const unichar_t* pagersName = mBuddyMgr->GetLastPagersName();
 				dialog->Set_Default_User_Name(pagersName);
 				dialog->Start_Dialog();
 				dialog->Release_Ref();
@@ -256,14 +256,14 @@ void DlgWOLPageReply::On_Command(int ctrlID, int message, unsigned int param)
 
 		case IDC_IGNORE_PLAYER_BUTTON:
 			{
-			const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
+			const unichar_t* pagersName = mBuddyMgr->GetLastPagersName();
 			MPWolAddIgnoreEntry::DoDialog(pagersName);
 			}
 			break;
 
 		case IDC_INVITE_BUDDY_BUTTON:
 			{
-			const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
+			const unichar_t* pagersName = mBuddyMgr->GetLastPagersName();
 			mBuddyMgr->InviteUser(pagersName, Get_Dlg_Item_Text(IDC_REPLY_EDIT));
 			End_Dialog();
 			}
@@ -297,9 +297,9 @@ void DlgWOLPageReply::On_Command(int ctrlID, int message, unsigned int param)
 
 void DlgWOLPageReply::Send_Reply(void)
 	{
-	const wchar_t* pagersName = mBuddyMgr->GetLastPagersName();
+	const unichar_t* pagersName = mBuddyMgr->GetLastPagersName();
 
-	if (pagersName && (wcslen(pagersName) > 0))
+	if (pagersName && (u_strlen(pagersName) > 0))
 		{
 		WideStringClass reply(0, true);
 		reply = Get_Dlg_Item_Text(IDC_REPLY_EDIT);
@@ -316,7 +316,7 @@ void DlgWOLPageReply::Send_Reply(void)
 			Add_Message(name, reply);
 			}
 
-		Set_Dlg_Item_Text(IDC_REPLY_EDIT, L"");
+		Set_Dlg_Item_Text(IDC_REPLY_EDIT, U_CHAR(""));
 		}
 	}
 
@@ -338,7 +338,7 @@ void DlgWOLPageReply::Send_Reply(void)
 *
 ******************************************************************************/
 
-void DlgWOLPageReply::Add_Message(const wchar_t* username, const wchar_t* message)
+void DlgWOLPageReply::Add_Message(const unichar_t* username, const unichar_t* message)
 	{
 	ListCtrlClass* list = (ListCtrlClass*)Get_Dlg_Item(IDC_MESSAGE_LIST);
 
@@ -347,7 +347,7 @@ void DlgWOLPageReply::Add_Message(const wchar_t* username, const wchar_t* messag
 		// Build the message
 		if (username) {
 			WideStringClass text(255, true);
-			text.Format(L"%s: %s", username, message);
+			text.Format(U_CHAR("%s: %s"), username, message);
 			list->Insert_Entry(list->Get_Entry_Count(), text);
 		} else {
 			list->Insert_Entry(list->Get_Entry_Count(), message);
@@ -380,7 +380,7 @@ void DlgWOLPageReply::HandleNotification(WOLPagedEvent& event)
 	WWOnline::PageMessage* page = event.Subject();
 	WWASSERT(page && "NULL page in WOLPagedEvent");
 
-	const wchar_t* pager = NULL;
+	const unichar_t* pager = NULL;
 	if (!ConsoleBox.Is_Exclusive())
 		{
 		if (PAGE_RECEIVED == event.GetAction())

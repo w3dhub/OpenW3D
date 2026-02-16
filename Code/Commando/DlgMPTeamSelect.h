@@ -85,7 +85,7 @@ class DlgMPTeamSelect :
 		void RequestWOLGameInfo(void);
 
 		void ShowTimeRemaining(float remainingSecond);
-		bool FindPlayerInListCtrl(const wchar_t* name, ListCtrlClass*& outList, int& outIndex);
+		bool FindPlayerInListCtrl(const unichar_t* name, ListCtrlClass*& outList, int& outIndex);
 
 		void HandleNotification(WWOnline::ChannelEvent&) override;
 		void HandleNotification(WWOnline::UserEvent&) override;

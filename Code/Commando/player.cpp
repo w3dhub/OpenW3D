@@ -241,7 +241,7 @@ void cPlayer::On_Create(void)
 				{
 					WideStringClass widestring;
 					widestring.Format(
-						L"%s, %s.\n",
+						U_CHAR("%s, %s.\n"),
 						TRANSLATION(IDS_MP_WELCOME_RENEGADE),
 						Name);
 					//
@@ -257,12 +257,12 @@ void cPlayer::On_Create(void)
 					WWASSERT(PTheGameData != NULL);
 					if (The_Game()->IsTeamChangingAllowed.Is_True()) {
 						widestring.Format(
-							L"%s, %s.\n",
+							U_CHAR("%s, %s.\n"),
 							TRANSLATION(IDS_MP_WELCOME_RENEGADE),
 							Name);
 					} else {
 						widestring.Format(
-							L"%s, %s, %s %s %s.\n",
+							U_CHAR("%s, %s, %s %s %s.\n"),
 							TRANSLATION(IDS_MP_WELCOME_RENEGADE),
 							Name,
 							TRANSLATION(IDS_MP_TO),
@@ -289,7 +289,7 @@ void cPlayer::On_Create(void)
 				{
 					WideStringClass widestring;
 					widestring.Format(
-						L"%s %s\n",
+						U_CHAR("%s %s\n"),
 						Name,
 						TRANSLATION(IDS_MP_RENEGADE_JOINS));
 
@@ -306,12 +306,12 @@ void cPlayer::On_Create(void)
 					WWASSERT(PTheGameData != NULL);
 					if (The_Game()->IsTeamChangingAllowed.Is_True()) {
 						widestring.Format(
-							L"%s %s\n",
+							U_CHAR("%s %s\n"),
 							Name,
 							TRANSLATION(IDS_MP_RENEGADE_JOINS));
 					} else {
 						widestring.Format(
-							L"%s %s %s %s\n",
+							U_CHAR("%s %s %s %s\n"),
 							Name,
 							TRANSLATION(IDS_MP_TEAMPLAYER_JOINS),
 							The_Game()->Get_Team_Word(),
@@ -343,7 +343,7 @@ void cPlayer::On_Destroy(void)
 
 		WideStringClass message;
 		message.Format(
-			L"%s %s\n",
+			U_CHAR("%s %s\n"),
 			Name, TRANSLATION(IDS_MP_PLAYER_LEFT_GAME));
 
 		//
@@ -451,7 +451,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
    //
 // FIXME TODO: (TSS) Examine all wide string %s formatting for errors...
 
-	string.Format(L"");
+	string.Format(U_CHAR(""));
 
 	WWASSERT(The_Game() != NULL);
 	bool is_verbose = force_verbose ||
@@ -464,8 +464,8 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	//
 	// Standing
 	//
-	//XXX substring.Format(L" %2d. ", rank);
-	substring.Format(L" %2d. ", (int) Get_Rung());
+	//XXX substring.Format(U_CHAR(" %2d. "), rank);
+	substring.Format(U_CHAR(" %2d. "), (int) Get_Rung());
    string += substring;
 
 	//
@@ -474,20 +474,20 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	//	GAMESPY
 	/*
 	if (IsActive.Is_True()) {
-	   substring.Format(L"%-11s", Name);
+	   substring.Format(U_CHAR("%-11s"), Name);
 	} else {
-	   substring.Format(L"%-9s##", Name);
+	   substring.Format(U_CHAR("%-9s##"), Name);
 	}
 	*/
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		substring.Format(L"%-34s", Name);
+		substring.Format(U_CHAR("%-34s"), Name);
 	} else {
-		substring.Format(L"%-9s", Name);
+		substring.Format(U_CHAR("%-9s"), Name);
 	}
 	if (IsActive.Is_True()) {
-		substring += L"  ";
+		substring += U_CHAR("  ");
 	} else {
-		substring += L"##";
+		substring += U_CHAR("##");
 	}
    string += substring;
 
@@ -495,7 +495,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 		//
 		// Don't show all the other details, just show "RELOADING"
 		//
-		substring.Format(L"%s", TRANSLATION(IDS_MP_LOADING));
+		substring.Format(U_CHAR("%s"), TRANSLATION(IDS_MP_LOADING));
 		string += substring;
 		return;
 	}
@@ -504,7 +504,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	// Kills
 	//
    if (is_verbose) {
-      substring.Format(L"%-8d", Get_Kills());
+      substring.Format(U_CHAR("%-8d"), Get_Kills());
       string += substring;
    }
 
@@ -512,7 +512,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	// Deaths
 	//
    if (is_verbose) {
-      substring.Format(L"%-8d", Get_Deaths());
+      substring.Format(U_CHAR("%-8d"), Get_Deaths());
       string += substring;
    }
 
@@ -522,9 +522,9 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
    if (is_verbose) {
 		float ktd = Get_Kill_To_Death_Ratio();
 		if (ktd >= 0) {
-			substring.Format(L"%-8.1f", ktd);
+			substring.Format(U_CHAR("%-8.1f"), ktd);
 		} else {
-			substring.Format(L"%-8s", "-");
+			substring.Format(U_CHAR("%-8s"), "-");
 		}
       string += substring;
    }
@@ -546,9 +546,9 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 			  (cNetwork::Get_My_Team_Number() == (int) PlayerType));
 
 		if (show) {
-	      substring.Format(L"%-8d", (int) Get_Money());
+	      substring.Format(U_CHAR("%-8d"), (int) Get_Money());
 		} else {
-	      substring.Format(L"%-8s", "-");
+	      substring.Format(U_CHAR("%-8s"), "-");
 		}
 
       string += substring;
@@ -557,14 +557,14 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	//
 	// Score
 	//
-	substring.Format(L"%-8d", (int) Get_Score());
+	substring.Format(U_CHAR("%-8d"), (int) Get_Score());
    string += substring;
 
 	//
 	// Ladder Points
 	//
 	if (force_verbose && The_Game()->IsLaddered.Is_True()) {
-		substring.Format(L"%-8d", Get_Ladder_Points());
+		substring.Format(U_CHAR("%-8d"), Get_Ladder_Points());
       string += substring;
 	}
 
@@ -573,9 +573,9 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	//
    if (GameModeManager::Find("WOL")->Is_Active() && is_verbose) {
       if ((int)WolRank == -1) {
-         substring.Format(L"%-8s", L" -");
+         substring.Format(U_CHAR("%-8s"), U_CHAR(" -"));
       } else {
-         substring.Format(L"%-8d", (int)WolRank);
+         substring.Format(U_CHAR("%-8d"), (int)WolRank);
       }
       string += substring;
    }
@@ -588,16 +588,16 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
       /*
 		int ping = Get_Avg_Ping();
       if (ping >= 0) {
-         substring.Format(L"%-8d", ping);
+         substring.Format(U_CHAR("%-8d"), ping);
       } else {
-         substring.Format(L"%-8s", L"");
+         substring.Format(U_CHAR("%-8s"), U_CHAR(""));
 		}
 		*/
 		int ping = Get_Ping();
       if (ping >= 0) {
-         substring.Format(L"%-8d", ping);
+         substring.Format(U_CHAR("%-8d"), ping);
       } else {
-         substring.Format(L"%-8s", L"");
+         substring.Format(U_CHAR("%-8s"), U_CHAR(""));
 		}
       string += substring;
    }
@@ -606,7 +606,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
    // Player Id
    //
    if (cDevOptions::ShowId.Is_True()) {
-      substring.Format(L"%-8d", Id);
+      substring.Format(U_CHAR("%-8d"), Id);
       string += substring;
    }
 
@@ -614,7 +614,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	// Fps
 	//
    if (cNetwork::I_Am_Server() && cDevOptions::ShowClientFps.Is_True()) {
-      substring.Format(L"%-8d", Fps);
+      substring.Format(U_CHAR("%-8d"), Fps);
       string += substring;
    }
 
@@ -625,7 +625,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 		cDevOptions::ShowGameSpyAuthState.Is_True()) {
 		WideStringClass wide_string;
 		wide_string.Convert_From(cGameSpyAuthMgr::Describe_Auth_State(GameSpyAuthState));
-      substring.Format(L"%-12s", wide_string);
+      substring.Format(U_CHAR("%-12s"), wide_string);
       string += substring;
    }
 
@@ -635,7 +635,7 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 	if (cNetwork::I_Am_Server() && cDevOptions::ShowIpAddresses.Is_True()) {
 		WideStringClass wide_ip;
 		wide_ip.Convert_From(cNetUtil::Address_To_String(IpAddress));
-		substring.Format(L"%-30s", wide_ip);
+		substring.Format(U_CHAR("%-30s"), wide_ip);
       string += substring;
 	}
 #endif // WWDEBUG
@@ -644,11 +644,11 @@ void cPlayer::Get_Player_String(int rank, WideStringClass & string, bool force_v
 		//
 		// Logged player list has no color so we need to show Nod/GDI
 		//
-	   //substring.Format(L"  T%d", (int) PlayerType);
+	   //substring.Format(U_CHAR("  T%d"), (int) PlayerType);
 		if (PlayerType == PLAYERTYPE_NOD) {
-			substring.Format(L"  %s", TRANSLATION(IDS_MP_TEAMNAME_MISSIONS_TEAM_0));
+			substring.Format(U_CHAR("  %s"), TRANSLATION(IDS_MP_TEAMNAME_MISSIONS_TEAM_0));
 		} else {
-			substring.Format(L"  %s", TRANSLATION(IDS_MP_TEAMNAME_MISSIONS_TEAM_1));
+			substring.Format(U_CHAR("  %s"), TRANSLATION(IDS_MP_TEAMNAME_MISSIONS_TEAM_1));
 		}
 	   string += substring;
 	}

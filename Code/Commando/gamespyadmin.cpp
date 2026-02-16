@@ -77,7 +77,7 @@ cGameSpyAdmin::Think
 			RefPtr<WaitCondition> bandwidth_wait = BandwidthCheckerClass::Detect();
 
 			if (cUserOptions::DoneClientBandwidthTest.Is_True()) {
-				//DlgWOLWait::DoDialog(TRANSLATE (IDS_MENU_DETECTING_BANDWIDTH), L"Skip", bandwidth_wait, &theGameSpy);
+				//DlgWOLWait::DoDialog(TRANSLATE (IDS_MENU_DETECTING_BANDWIDTH), U_CHAR("Skip"), bandwidth_wait, &theGameSpy);
 				DlgWOLWait::DoDialog(TRANSLATE (IDS_MENU_DETECTING_BANDWIDTH), TRANSLATE (IDS_MP_SKIP), bandwidth_wait, &theGameSpy);
 			} else {
 				DlgWOLWait::DoDialog(TRANSLATE (IDS_MENU_DETECTING_BANDWIDTH), bandwidth_wait, &theGameSpy);

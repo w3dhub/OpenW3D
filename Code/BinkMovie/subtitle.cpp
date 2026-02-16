@@ -135,7 +135,7 @@ void SubTitleClass::Set_RGB_Color(
 *
 ******************************************************************************/
 
-void SubTitleClass::Set_Caption(wchar_t* string)
+void SubTitleClass::Set_Caption(unichar_t* string)
 {
 	// Release existing caption
 	if (mCaption != NULL) {
@@ -145,12 +145,12 @@ void SubTitleClass::Set_Caption(wchar_t* string)
 
 	// Make a copy of caption
 	if (string != NULL) {
-		size_t length = wcslen(string);
-		mCaption = new wchar_t[length + 1];
+		size_t length = u_strlen(string);
+		mCaption = new unichar_t[length + 1];
 		WWASSERT(mCaption != NULL);
 
 		if (mCaption != NULL) {
-			wcscpy(mCaption, string);
+			u_strcpy(mCaption, string);
 		}
 	}
 }

@@ -85,9 +85,9 @@ public:
 	//	Public methods
 	////////////////////////////////////////////////////////////////
 	int				Get_ID (void) const							{ return ID; }
-	const wchar_t *	Get_Name (void) const						{ return	Name; }
-	const wchar_t *	Get_Description (void) const				{ return Description; }
-	const wchar_t *	Get_Affiliation (void) const				{ return Affiliation; }
+	const unichar_t *	Get_Name (void) const						{ return	Name; }
+	const unichar_t *	Get_Description (void) const				{ return Description; }
+	const unichar_t *	Get_Affiliation (void) const				{ return Affiliation; }
 	const char *	Get_Model_Name (void) const				{ return ModelName; }	
 	const char *	Get_Anim_Name (void) const					{ return AnimName; }		
 	const char *	Get_Definition_Name (void) const			{ return DefinitionName; }
@@ -95,9 +95,9 @@ public:
 	int				Get_Player_Type (void) const				{ return PlayerType; }
 
 	void				Set_ID (int id)								{ ID = id; }
-	void				Set_Name (const wchar_t *name)				{ Name = name; }
-	void				Set_Description (const wchar_t *string)	{ Description = string; }
-	void				Set_Affiliation (const wchar_t *string)	{ Affiliation = string; }
+	void				Set_Name (const unichar_t *name)				{ Name = name; }
+	void				Set_Description (const unichar_t *string)	{ Description = string; }
+	void				Set_Affiliation (const unichar_t *string)	{ Affiliation = string; }
 	void				Set_Model_Name (const char *name)		{ ModelName = name; }	
 	void				Set_Anim_Name (const char *name)			{ AnimName = name; }
 	void				Set_Definition_Name (const char *name)	{ DefinitionName = name; }

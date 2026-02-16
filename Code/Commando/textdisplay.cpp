@@ -57,8 +57,8 @@ TextDisplayLine::TextDisplayLine( const WideStringClass & text, unsigned int col
 	Text( text ),
 	Color( color )
 {
-	for( const wchar_t * ch = text; *ch; ch++ ) {
-		if ( *ch == (wchar_t)'\n' ) {
+	for( const unichar_t * ch = text; *ch; ch++ ) {
+		if ( *ch == (unichar_t)'\n' ) {
 			LineCount++;
 		}
 	}

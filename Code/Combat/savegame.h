@@ -53,8 +53,8 @@ public:
 	static const char * Get_Map_Filename( void )			{ return MapFilename; }
 	
 	// Description access
-	static void Set_Description( const wchar_t * text )		{ Description = text; }
-	static const wchar_t * Get_Description( void )			{ return Description; }
+	static void Set_Description( const unichar_t * text )		{ Description = text; }
+	static const unichar_t * Get_Description( void )			{ return Description; }
 
 	// Mission description access
 	static int Get_Mission_Description_ID( void )			{ return MissionDescriptionID; }

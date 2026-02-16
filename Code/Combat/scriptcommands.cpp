@@ -3251,7 +3251,7 @@ void	Set_HUD_Help_Text( int string_id, const Vector3 &color )
 		//
 		//	Clear the help text
 		//
-		HUDInfo::Set_HUD_Help_Text( L"" );
+		HUDInfo::Set_HUD_Help_Text( U_CHAR("") );
 	} else {
 
 		//
