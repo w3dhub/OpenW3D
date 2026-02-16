@@ -40,6 +40,7 @@
 #include "wwfile.h"
 #include "realcrc.h"
 #include "rawfile.h"
+#include "pathutil.h"
 #include "win.h"
 #include "bittype.h"
 
@@ -392,7 +393,7 @@ MixFileFactoryClass::Get_Temp_Filename (const char *path, StringClass &full_path
 	//
 	for (int index = 0; index < 20; index ++) {
 		full_path.Format ("%s%.2d.dat", (const char *)temp_path, index + 1);
-		if (GetFileAttributesA (full_path) == 0xFFFFFFFF) {
+		if (!cPathUtil::PathExists (full_path)) {
 			retval = true;
 			break;
 		}

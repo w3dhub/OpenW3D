@@ -40,6 +40,7 @@
 #include "wwdebug.h"
 #include "assetmgr.h"
 #include "matinfo.h"
+#include "pathutil.h"
 #include "texture.h"
 #include "wwstring.h"
 
@@ -362,7 +363,7 @@ AggregateDefClass::Load_Assets (const char *passet_name)
 		::strcat (path, ".w3d");
 
 		// If the file exists, then load it into the asset manager.
-		if (::GetFileAttributesA (path) != 0xFFFFFFFF) {
+		if (cPathUtil::PathExists(path)) {
 			retval = WW3DAssetManager::Get_Instance()->Load_3D_Assets (path);
 		}
 	}

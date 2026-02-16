@@ -45,6 +45,7 @@
 #include "SoundScene.h"
 #include "WWAudio.h"
 #include "metalmap.h"
+#include "pathutil.h"
 #include "dx8wrapper.h"
 #include <algorithm>
 
@@ -1267,7 +1268,7 @@ CGraphicView::Load_Default_Dat (void)
 	::strcat (filename, "\\default.dat");
 
 	// Does the file exist in the directory?
-	if (::GetFileAttributes (filename) != 0xFFFFFFFF) {
+	if (::cPathUtil::PathExists (filename)) {
 
 		// Ask the document to load the settings from this data file
 		CW3DViewDoc *pCDoc = (CW3DViewDoc *)GetDocument ();

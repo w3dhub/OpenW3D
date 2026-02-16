@@ -6,6 +6,8 @@ set(WWUTIL_SRC
     miscutil.h
     ProcessManager.cpp
     ProcessManager.h
+    pathutil.cpp
+    pathutil.h
     $<$<BOOL:${WIN32}>:stackdump-windows.cpp>
     $<$<BOOL:${LINUX}>:stackdump-linux.cpp>
     stackdump.h
