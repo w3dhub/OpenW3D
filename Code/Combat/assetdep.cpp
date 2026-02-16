@@ -36,6 +36,7 @@
 
 #include "assetdep.h"
 #include "chunkio.h"
+#include "pathutil.h"
 #include "wwstring.h"
 #include "assetmgr.h"
 #include "ffactory.h"
@@ -310,16 +311,7 @@ AssetDependencyManager::Load_Assets (ChunkLoadClass &cload)
 ////////////////////////////////////////////////////////////////////////////
 void Get_Filename_From_Path (StringClass& new_filename, const char *path)
 {
-	// Find the last occurance of the directory deliminator
-	const char *filename = ::strrchr (path, '\\');
-	if (filename != NULL) {
-		// Increment past the directory deliminator
-		filename ++;
-	} else {
-		filename = path;
-	}
-
-	new_filename=filename;
+	new_filename = cPathUtil::ExtractFilename(path);
 }
 
 

@@ -15,6 +15,12 @@ StringClass cPathUtil::GetWorkingDirectory(bool trailing_separator)
 	return StringClass{path.generic_string().c_str()};
 }
 
+StringClass cPathUtil::ExtractFilename(const char *c_path)
+{
+	std::filesystem::path path = c_path;
+	return StringClass{path.filename().generic_string().c_str()};
+}
+
 bool cPathUtil::PathExists(const char *path)
 {
 	std::error_code ec;
