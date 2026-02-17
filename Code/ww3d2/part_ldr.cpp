@@ -44,6 +44,7 @@
 #include <algorithm>
 #include <limits>
 #include <algorithm>
+#include <filesystem>
 
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(pointer) \
@@ -327,20 +328,12 @@ ParticleEmitterDefClass::Set_Texture_Filename (const char *pname)
 //
 void
 ParticleEmitterDefClass::Normalize_Filename (void)
-{	
-	char path[MAX_PATH];
-	::strncpy (path, m_Info.TextureFilename, sizeof (path));
-	path[sizeof (path) - 1] = '\0';
-
-	// Find the last occurance of the directory deliminator
-	const char* filename = ::strrchr (path, '\\');
-	if (filename != NULL) {
-		
-		// Increment past the directory deliminator
-		filename ++;
-
-		// Now copy the filename protion of the path to the structure
-		::strncpy (m_Info.TextureFilename, filename, sizeof (m_Info.TextureFilename));
+{
+	std::filesystem::path path = m_Info.TextureFilename;
+	auto filename = path.filename();
+	if (!filename.empty()) {
+		auto filename_str = filename.generic_string();
+		::strncpy (m_Info.TextureFilename, filename_str.c_str(), sizeof (m_Info.TextureFilename));
 		m_Info.TextureFilename[sizeof (m_Info.TextureFilename) - 1] = '\0';
 	}
 
