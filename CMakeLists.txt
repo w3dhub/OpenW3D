@@ -95,8 +95,6 @@ if(WIN32)
         include(miles)
     endif()
 
-    include(dx9)
-
     option(W3D_BUILD_OPTION_ICU "Build with ICU." OFF)
     add_feature_info(ICUBuild W3D_BUILD_OPTION_ICU "Build OpenW3D with ICU")
 
@@ -107,6 +105,8 @@ else()
     set(W3D_BUILD_OPTION_ICU ON)
     include(icu)
 endif()
+
+include(dx9)
 
 include(gamespy)
 
