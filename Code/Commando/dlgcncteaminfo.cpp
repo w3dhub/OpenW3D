@@ -392,7 +392,7 @@ CNCTeamInfoDialogClass::Populate_Player_List (void)
 //	ListSortCallback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 CNCTeamInfoDialogClass::ListSortCallback
 (
 	ListCtrlClass *	list_ctrl,

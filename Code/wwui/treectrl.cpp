@@ -651,7 +651,7 @@ TreeCtrlClass::Sort_Callback (const void *elem1, const void *elem2)
 //	Alphabetic_Sort_Callback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 TreeCtrlClass::Alphabetic_Sort_Callback
 (
 	TreeCtrlClass *	tree_ctrl,

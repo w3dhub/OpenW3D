@@ -470,7 +470,7 @@ ServerSaveLoadMenuClass::On_ListCtrl_Sel_Change
 //	ListSortCallback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 ServerSaveLoadMenuClass::ListSortCallback
 (
 	ListCtrlClass *	list_ctrl,

@@ -415,7 +415,7 @@ CNCBattleInfoDialogClass::Populate_Player_List (ListCtrlClass *list_ctrl, int te
 //	ListSortCallback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 CNCBattleInfoDialogClass::ListSortCallback
 (
 	ListCtrlClass *	list_ctrl,

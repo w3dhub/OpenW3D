@@ -498,7 +498,7 @@ ControlSaveLoadMenuClass::On_ListCtrl_Sel_Change
 //	ListSortCallback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 ControlSaveLoadMenuClass::ListSortCallback
 (
 	ListCtrlClass *	list_ctrl,

@@ -86,9 +86,9 @@ enum
 
 static void SetGameTypeFlags(ListCtrlClass* list, int itemIndex, const WOLGameInfo& gameInfo);
 static void SetPingTimeIcon(ListCtrlClass* list, int itemIndex, int pingTime);
-static int CALLBACK FlagsSortCallback(ListCtrlClass* list, int item1, int item2, uint32 param);
-static int CALLBACK NumericSortCallback(ListCtrlClass* list, int item1, int item2, uint32 param);
-static int CALLBACK AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param);
+static int FlagsSortCallback(ListCtrlClass* list, int item1, int item2, uint32 param);
+static int NumericSortCallback(ListCtrlClass* list, int item1, int item2, uint32 param);
+static int AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param);
 
 
 MPWolGameListMenuClass* MPWolGameListMenuClass::_mInstance = NULL;
@@ -1337,7 +1337,7 @@ void MPWolGameListMenuClass::SortGameChannels(int column, bool isAscending, unsi
 *
 ******************************************************************************/
 
-int CALLBACK FlagsSortCallback(ListCtrlClass* list, int index1, int index2, uint32 mask)
+int FlagsSortCallback(ListCtrlClass* list, int index1, int index2, uint32 mask)
 	{
 	uint32 flags1 = list->Get_Entry_Data(index1, COL_ICON);
 	flags1 &= mask;
@@ -1400,7 +1400,7 @@ int CALLBACK FlagsSortCallback(ListCtrlClass* list, int index1, int index2, uint
 *
 ******************************************************************************/
 
-int CALLBACK NumericSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param)
+int NumericSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param)
 	{
 	// Sort by numeric value stored in entry data field
 	int	column = LOWORD(param);
@@ -1478,7 +1478,7 @@ int CALLBACK NumericSortCallback(ListCtrlClass* list, int index1, int index2, ui
 *
 ******************************************************************************/
 
-int CALLBACK AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param)
+int AlphaSortCallback(ListCtrlClass* list, int index1, int index2, uint32 param)
 	{
 	// Sort by numeric value stored in entry data field
 	int	column = LOWORD(param);

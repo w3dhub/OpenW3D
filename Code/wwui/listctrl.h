@@ -64,7 +64,7 @@ class TextureClass;
 ////////////////////////////////////////////////////////////////
 //	Typedefs
 ////////////////////////////////////////////////////////////////
-typedef int (CALLBACK *LISTCTRL_SORT_CALLBACK) (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param);
+typedef int (*LISTCTRL_SORT_CALLBACK) (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param);
 
 
 ////////////////////////////////////////////////////////////////
@@ -215,7 +215,7 @@ protected:
 	
 	void				Render_Entry (const RectClass &rect, int col_index, int row_index);
 
-	static int CALLBACK	Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param);
+	static int 	Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param);
 
 
 	////////////////////////////////////////////////////////////////
