@@ -755,7 +755,7 @@ bool cGameData::Is_Valid_Settings(WideStringClass& outMsg, bool check_as_server)
 				StringClass map_name = Get_Map_Cycle(i);
 				if (map_name.Get_Length()) {
 					char filename[_MAX_PATH];
-					sprintf(filename, "data\\%s", map_name.Peek_Buffer());
+					sprintf(filename, "data/%s", map_name.Peek_Buffer());
 					RawFileClass file(filename);
 					if (!file.Is_Available()) {
 						PRINT_CONFIG_ERROR;
@@ -1009,7 +1009,7 @@ void cGameData::Load_From_Server_Config(LPCSTR config_file)
 	StringClass full_filename(config_file, true);
 
 	if (p_ini == NULL) {
-      full_filename.Format("data\\%s", config_file);
+      full_filename.Format("data/%s", config_file);
       FILE * file = fopen(full_filename, "w");
 	   fclose(file);
 
@@ -1533,7 +1533,7 @@ unsigned int cGameData::Get_Config_File_Mod_Time(void)
 	RawFileClass file(full_filename);
 
 	if (!file.Is_Available()) {
-      full_filename.Format("data\\%s", IniFilename);
+      full_filename.Format("data/%s", IniFilename);
 		file.Set_Name(full_filename);
    }
 

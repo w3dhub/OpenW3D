@@ -121,7 +121,7 @@ ModPackageMgrClass::Build_List (void)
 	//
 	//	Build a list of all the saved games we know about
 	//
-	for (file_find = ::FindFirstFileA ("data\\*.pkg", &find_info);
+	for (file_find = ::FindFirstFileA ("data/*.pkg", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{		
@@ -349,7 +349,7 @@ ModPackageMgrClass::Find_Filename_From_CRC
 
 	(*filename) = "";
 
-	StringClass full_search_mask	= "data\\";
+	StringClass full_search_mask	= "data/";
 	full_search_mask					+= search_mask;
 
 	//

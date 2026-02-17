@@ -1521,8 +1521,8 @@ void	CombatGameModeClass::Quick_Save( void )
 		saveA = registry->Get_Bool( "QuicksaveA", saveA );
 	}
 
-#define	SAVEGAME_NAME_A	"save\\quicksaveA.sav"
-#define	SAVEGAME_NAME_B	"save\\quicksaveB.sav"
+#define	SAVEGAME_NAME_A	"save/quicksaveA.sav"
+#define	SAVEGAME_NAME_B	"save/quicksaveB.sav"
 
 	// Check for a missing file
    if ( !cMiscUtil::File_Exists(SAVEGAME_NAME_B) ) {

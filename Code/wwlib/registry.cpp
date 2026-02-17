@@ -695,7 +695,7 @@ void RegistryClass::Delete_Registry_Tree(char *path)
 					*/
 					char new_key_path[512];
 					strcpy(new_key_path, path);
-					strcat(new_key_path, "\\");
+					strcat(new_key_path, "/");
 					strcat(new_key_path, name);
 
 					DWORD num_subs = 0;

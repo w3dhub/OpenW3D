@@ -402,7 +402,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 				//	Create the map name from the aggregate of the mod and map
 				//
 				StringClass ascii_map_name;
-				ascii_map_name.Format ("%s\\%s", mod_name, map_name);
+				ascii_map_name.Format ("%s/%s", mod_name, map_name);
 				wide_map_name.Convert_From (ascii_map_name);
 			}
 
