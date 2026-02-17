@@ -48,7 +48,7 @@ target_include_directories(wwcommon INTERFACE
 
 target_link_libraries(wwcommon INTERFACE
     gamespy
-    $<$<BOOL:${WIN32}>:d3d9lib>
+    d3d9lib
 )
 
 if(TARGET ffmpeg)
