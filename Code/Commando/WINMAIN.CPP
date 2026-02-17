@@ -95,6 +95,7 @@
 #include "ServerSettings.h"
 #include "openw3d.h"
 #include "ini.h"
+#include "soutil.h"
 
 #ifdef _DEBUG
 #include	<crtdbg.h>
@@ -258,9 +259,10 @@ static bool Graphics_Settings_Trouble_Shooting()
 	return true;
 }
 
-typedef IDirect3D9* (WINAPI *Direct3DCreate8Type) (UINT SDKVersion);
-static Direct3DCreate8Type	Direct3DCreate8Ptr = NULL;
-static HMODULE D3D8Lib = NULL;
+typedef IDirect3D9* (WINAPI *Direct3DCreate9Type) (UINT SDKVersion);
+static Direct3DCreate9Type	Direct3DCreate9Ptr = NULL;
+extern const char *Get_D3D9_Object_Name();
+static SharedObject *D3D9Lib = nullptr;
 
 static bool Video_Card_Driver_Check()
 {
@@ -277,22 +279,24 @@ static bool Video_Card_Driver_Check()
 	// Init D3D
 	Init_D3D_To_WW3_Conversion();
 
-	D3D8Lib = LoadLibraryA("D3D9.DLL");
+	D3D9Lib = SharedObject::LoadObject(Get_D3D9_Object_Name());
 
-	if (D3D8Lib != NULL) {
-		Direct3DCreate8Ptr = (Direct3DCreate8Type) GetProcAddress(D3D8Lib, "Direct3DCreate9");
-		if (Direct3DCreate8Ptr) {
-			d3d=Direct3DCreate8Ptr(D3D_SDK_VERSION);		// TODO: handle failure cases...
+	if (D3D9Lib != NULL) {
+		Direct3DCreate9Ptr = reinterpret_cast<Direct3DCreate9Type>(D3D9Lib->LoadFunction("Direct3DCreate9"));
+		if (Direct3DCreate9Ptr) {
+			d3d=Direct3DCreate9Ptr(D3D_SDK_VERSION);		// TODO: handle failure cases...
 			if (!d3d) {
-				FreeLibrary(D3D8Lib);
+				delete D3D9Lib;
+				D3D9Lib = nullptr;
 				return true;
 			}
 		} else {
-			FreeLibrary(D3D8Lib);
-			return(true);
+			delete D3D9Lib;
+			D3D9Lib = nullptr;
+			return true;
 		}
 	} else {
-		return(true);
+		return true;
 	}
 
 	// Select device. If there is already a device selected in the registry, use it.
@@ -325,7 +329,7 @@ static bool Video_Card_Driver_Check()
 		D3DDEVTYPE_HAL,
 		&tmp_caps))) {
 		d3d->Release();
-		FreeLibrary(D3D8Lib);
+		delete D3D9Lib;
 		return true;
 	}
 
@@ -335,7 +339,8 @@ static bool Video_Card_Driver_Check()
 		0/*D3DENUM_WHQL_LEVEL*/,
 		&adapter_id))) {
 		d3d->Release();
-		FreeLibrary(D3D8Lib);
+		delete D3D9Lib;
+		D3D9Lib = nullptr;
 		return true;
 	}
 
@@ -345,7 +350,8 @@ static bool Video_Card_Driver_Check()
 	DX8Caps::DriverVersionStatusType status=caps.Get_Driver_Version_Status();
 
 	d3d->Release();
-	FreeLibrary(D3D8Lib);
+	delete D3D9Lib;
+	D3D9Lib = nullptr;
 
 	switch (status) {
 	default:

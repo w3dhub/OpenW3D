@@ -77,6 +77,7 @@
 #include "bound.h"
 #include "ini.h"
 #include "openw3d.h"
+#include "soutil.h"
 
 const int DEFAULT_RESOLUTION_WIDTH = 800;
 const int DEFAULT_RESOLUTION_HEIGHT = 600;
@@ -170,13 +171,27 @@ static DynamicVectorClass<RenderDeviceDescClass>	_RenderDeviceDescriptionTable;
 
 typedef IDirect3D9* (WINAPI *Direct3DCreate8Type) (UINT SDKVersion);
 Direct3DCreate8Type	Direct3DCreate8Ptr = NULL;
-HINSTANCE D3D8Lib = NULL;
+SharedObject *D3D9Lib = nullptr;
 
 /***********************************************************************************
 **
 ** DX8Wrapper Implementation
 **
 ***********************************************************************************/
+
+const char *Get_D3D9_Object_Name()
+{
+	// FIXME: support overriding object using config (args, ini, register, envvar)
+#ifdef _WIN32
+	return "d3d9.dll";
+#elif defined (__ELF__)
+	return "libdxvk_d3d9.so.0";
+#elif defined (__MACH__)
+	return "libdxvk_d3d9.0.dylib";
+#else
+	static_assert(false, "Unknown d3d9 name");
+#endif
+}
 
 void Log_DX8_ErrorCode(HRESULT res)
 {
@@ -240,11 +255,11 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 	Invalidate_Cached_Render_States();
 
 	if (!lite) {
-		D3D8Lib = LoadLibraryA("D3D9.DLL");
+		D3D9Lib = SharedObject::LoadObject(Get_D3D9_Object_Name());
 
-		if (D3D8Lib == NULL) return false;
+		if (D3D9Lib == NULL) return false;
 
-		Direct3DCreate8Ptr = (Direct3DCreate8Type) GetProcAddress(D3D8Lib, "Direct3DCreate9");
+		Direct3DCreate8Ptr = reinterpret_cast<Direct3DCreate8Type>(D3D9Lib->LoadFunction("Direct3DCreate9"));
 		if (Direct3DCreate8Ptr) {
 
 			/*
@@ -311,9 +326,9 @@ void DX8Wrapper::Shutdown(void)
 	_RenderDeviceShortNameTable.Delete_All();
 	_RenderDeviceDescriptionTable.Delete_All();
 
-	if (D3D8Lib) {
-		FreeLibrary(D3D8Lib);
-		D3D8Lib = NULL;
+	if (D3D9Lib) {
+		delete D3D9Lib;
+		D3D9Lib = NULL;
 	}
 
 	IsInitted = false;
