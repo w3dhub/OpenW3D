@@ -108,7 +108,7 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 	// use to simulate character movement
 	//
 	CStringA full_path;
-	full_path = Get_File_Mgr ()->Make_Full_Path ("Characters\\Commando");
+	full_path = Get_File_Mgr ()->Make_Full_Path ("Characters/Commando");
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
 	RenderObjClass *commando_obj = WW3DAssetManager::Get_Instance()->Create_Render_Obj ("COMMANDO");

@@ -656,7 +656,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 						//	Create the map name from the aggregate of the mod and map
 						//
 						StringClass ascii_map_name;
-						ascii_map_name.Format ("%s\\%s", mod_name, map_name);
+						ascii_map_name.Format ("%s/%s", mod_name, map_name);
 						mapName.Convert_From (ascii_map_name);
 					} else {
 						mapName = gameInfo.MapName();

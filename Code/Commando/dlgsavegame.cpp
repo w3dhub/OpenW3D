@@ -303,7 +303,7 @@ SaveGameMenuClass::Save_Game (bool prompt)
 			//
 			//	Build a full filename
 			//
-			full_path = "save\\";
+			full_path = "save/";
 			full_path += filename;
 
 			//
@@ -368,7 +368,7 @@ SaveGameMenuClass::Get_Unique_Save_Filename (StringClass &filename)
 	bool done	= false;
 
 	while (!done) {
-		filename.Format ("save\\savegame%.2d.sav", slot ++);
+		filename.Format ("save/savegame%.2d.sav", slot ++);
 		
 		//
 		//	Check to see if this file exists
@@ -491,7 +491,7 @@ SaveGameMenuClass::Delete_Game (bool prompt)
 				//
 				//	Build a full path from which to delete the file
 				//
-				StringClass full_path = "data\\save\\";
+				StringClass full_path = "data/save/";
 				full_path += filename;
 				
 				//
@@ -548,7 +548,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 	//	Build a list of all the saved games we know about
 	//
 	int index = 1;
-	for (file_find = ::FindFirstFileA ("data\\save\\*.sav", &find_info);
+	for (file_find = ::FindFirstFileA ("data/save/*.sav", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{

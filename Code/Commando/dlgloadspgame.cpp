@@ -104,16 +104,16 @@ LoadSPGameMenuClass::On_Init_Dialog (void)
 		//start_index = Build_List ("data\\*.mix", start_index);
 		//start_index = Build_List ("data\\m??_*.mix", start_index);
 		StringClass file_filter;
-		file_filter = "data\\m*.mix";
+		file_filter = "data/m*.mix";
 
 #ifdef WWDEBUG
 		if (cDevOptions::FilterLevelFiles.Is_False()) {
-			file_filter = "data\\*.mix";
+			file_filter = "data/mix";
 		}
 #endif // WWDEBUG
 
 		start_index = Build_List (file_filter, start_index);
-		Build_List ("data\\save\\*.sav", start_index);
+		Build_List ("data/save/*.sav", start_index);
 
 		//
 		//	Sort the list and select the first entry
@@ -243,7 +243,7 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 				//	Build the full path to the file
 				//
 				StringClass file_path = path_name;
-				file_path += "\\";
+				file_path += "/";
 				file_path += find_info.cFileName;
 				
 				list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)new FILETIME(local_time));

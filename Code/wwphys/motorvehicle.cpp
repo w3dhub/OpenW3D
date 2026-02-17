@@ -325,7 +325,7 @@ enum
 
 MotorVehicleDefClass::MotorVehicleDefClass(void) :
 	MaxEngineTorque(5.0f),
-	EngineTorqueCurveFilename("Vehicles\\PhysicsTables\\DefaultEngineTorque.tbl"),
+	EngineTorqueCurveFilename("Vehicles/PhysicsTables/DefaultEngineTorque.tbl"),
 	EngineTorqueCurve(NULL),
 	GearCount(4),
 	FinalDriveGearRatio(2.92f),

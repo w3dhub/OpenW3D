@@ -203,7 +203,7 @@ public:
 		Commands->Debug_Message( "Loading Control File %s\n", filename );
 
 		char full_filename[80];
-		snprintf( full_filename, sizeof(full_filename), "DATA\\%s", filename );
+		snprintf( full_filename, sizeof(full_filename), "DATA/%s", filename );
 //		FILE * in = fopen( full_filename, "rt" );
 		void *handle = Commands->Text_File_Open( filename );
 		if ( handle == nullptr ) {

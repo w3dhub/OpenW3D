@@ -454,7 +454,7 @@ void SlaveMasterClass::Load(void)
 		}
 
 		char filename[MAX_PATH];
-		sprintf(filename, "data\\%s", SlaveServers[i].SettingsFileName);
+		sprintf(filename, "data/%s", SlaveServers[i].SettingsFileName);
 		RawFileClass file(filename);
 		if (!file.Is_Available()) {
 			strcpy(SlaveServers[i].SettingsFileName, "svrcfg_cnc.ini");
@@ -713,7 +713,7 @@ bool SlaveMasterClass::Shutdown_Slave(char *slave_login)
 				** Set the slaves auto-restart flag to false or it will just start right up again.
 				*/
 				char slave_name[64];
-				sprintf(slave_name, "\\slave_%d", i);
+				sprintf(slave_name, "/slave_%d", i);
 				strcpy(DefaultRegistryModifier, slave_name+1);
 				RegistryClass slave_reg(APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
 				DefaultRegistryModifier[0] = 0;

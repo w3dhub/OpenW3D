@@ -75,7 +75,7 @@ AssetDependencyManager::Save_Always_Dependencies (const char *path, ASSET_LIST &
 	//
 	//	Get a pointer to the file object
 	//
-	StringClass filename(path + StringClass ("\\") + StringClass (ALWAYS_FILENAME),true);
+	StringClass filename(path + StringClass ("/", true) + StringClass (ALWAYS_FILENAME),true);
 	FileClass * file		= _TheWritingFileFactory->Get_File (filename);	
 	if (file != NULL) {
 

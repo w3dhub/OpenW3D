@@ -702,7 +702,7 @@ RenderObjClass * WW3DAssetManager::Create_Render_Obj(const char * name)
 
 		// If we can't find it, try the parent directory
 		if ( Load_3D_Assets( filename ) == false ) {
-			StringClass	new_filename(StringClass("..\\"),true);
+			StringClass	new_filename(StringClass("../"),true);
 			new_filename+=filename;
 			Load_3D_Assets( new_filename );
 		}
@@ -877,7 +877,7 @@ HAnimClass *	WW3DAssetManager::Get_HAnim(const char * name)
 
 			// If we can't find it, try the parent directory
 			if ( Load_3D_Assets( filename ) == false ) {
-				StringClass	new_filename = StringClass("..\\") + filename;
+				StringClass	new_filename = StringClass("../") + filename;
 				Load_3D_Assets( new_filename );
 			}
 
@@ -922,7 +922,7 @@ HTreeClass *	WW3DAssetManager::Get_HTree(const char * name)
 
 		// If we can't find it, try the parent directory
 		if ( Load_3D_Assets( filename ) == false ) {
-			StringClass	new_filename("..\\",true);
+			StringClass	new_filename("../",true);
 			new_filename+=filename;
 			Load_3D_Assets( new_filename );
 		}

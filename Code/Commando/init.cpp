@@ -137,10 +137,10 @@ extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
 /*
 ** This defines the subdirectory where the game will load all data from
 */
-const char *	DATA_SUBDIRECTORY			= "DATA\\";
-const char *	SAVE_SUBDIRECTORY			= "DATA\\SAVE\\";
-const char *	CONFIG_SUBDIRECTORY		= "DATA\\CONFIG\\";
-const char *	MOVIES_SUBDIRECTORY		= "DATA\\MOVIES\\";
+const char *	DATA_SUBDIRECTORY			= "DATA/";
+const char *	SAVE_SUBDIRECTORY			= "DATA/SAVE/";
+const char *	CONFIG_SUBDIRECTORY		= "DATA/CONFIG/";
+const char *	MOVIES_SUBDIRECTORY		= "DATA/MOVIES/";
 
 
 #define	STRINGS_FILENAME					"STRINGS.TDB"
@@ -437,8 +437,8 @@ void	Construct_Directory_Structure(void)
 	StringClass data_dir(path,true);
 	data_dir += "data";
 
-	StringClass save_dir(data_dir + "\\save",true);
-	StringClass config_dir(data_dir + "\\config",true);
+	StringClass save_dir(data_dir +  "/save",true);
+	StringClass config_dir(data_dir +  "/config",true);
 
 	//
 	//	Create the data directory if necessary
@@ -488,12 +488,12 @@ static bool Create_Log_File_Name(const StringClass& folder, StringClass& filenam
 {
 	StringClass original(filename);
 	if (!use_numbering) {
-		filename.Format("%s\\%s",folder,original);
+		filename.Format("%s/%s",folder,original);
 		return true;
 	}
 	for (int i=0;i<999;++i) {
 		HANDLE file;
-		filename.Format("%s\\%3.3d%s",folder,i,original);
+		filename.Format("%s/%3.3d%s",folder,i,original);
 		file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
 		if (file!=INVALID_HANDLE_VALUE) {
 			CloseHandle(file);
@@ -549,12 +549,12 @@ public:
 		RegistryClass reg(APPLICATION_SUB_KEY_NAME_DEBUG);
 		char path[MAX_PATH];
 		reg.Get_String("LogPath", path, sizeof(path), "\\\\tanya\\game\\projects\\renegade\\_error_logs");
-		strcat(path, "\\");
+		strcat(path, "/");
 
 		StringClass folder_name(0,true);
 		folder_name.Format("%s%d.%d",path,Version>>16,Version&0xffff);
 		if (!Verify_Log_Directory(folder_name)) return;
-		folder_name+="\\";
+		folder_name+="/";
 		folder_name+=computer_name;
 		if (!Verify_Log_Directory(folder_name)) return;
 
@@ -747,7 +747,7 @@ bool Game_Init(void)
 	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
-	for (file_find = ::FindFirstFileA ("data\\*.mix", &find_info);
+	for (file_find = ::FindFirstFileA ("data/*.mix", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{

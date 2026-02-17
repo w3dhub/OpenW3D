@@ -300,7 +300,7 @@ void SlaveServerDialogClass::Set_Slave_Button(int slavenum)
 	WideStringClass description;
 	char file_name[MAX_PATH];
 
-	sprintf(file_name, "data\\%s", ServerSettingsFileNames[slavenum]);
+	sprintf(file_name, "data/%s", ServerSettingsFileNames[slavenum]);
 	RawFileClass file(file_name);
 
 	if (file.Is_Available()) {

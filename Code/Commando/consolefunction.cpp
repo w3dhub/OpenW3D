@@ -894,7 +894,7 @@ public:
 			char filename[200];
 			sscanf(input, "ini %s", filename);
 			char open_command[200];
-			sprintf(open_command, "data\\%s.ini", filename);
+			sprintf(open_command, "data/%s.ini", filename);
 			cNetwork::Shell_Command(open_command);
 		} else {
 		   Print(Get_Help());

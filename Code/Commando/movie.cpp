@@ -178,7 +178,7 @@ void	MovieGameModeClass::Start_Movie( const char * filename )
 			StringClass full_path = cd_path;
 			const size_t path_length = cd_path.Get_Length ();
 			if (path_length == 0 || cd_path[static_cast<int>(path_length - 1)] != '\\') {
-				full_path += "\\";
+				full_path += "/";
 			}
 			full_path += filename_only;
 			Play_Movie( full_path );
@@ -197,7 +197,7 @@ void	MovieGameModeClass::Play_Movie( const char * filename )
 	
 	FontCharsClass* font = StyleMgrClass::Get_Font(StyleMgrClass::FONT_INGAME_SUBTITLE_TXT);
 
-	BINKMovie::Play( filename, "data\\subtitle.ini", font );
+	BINKMovie::Play( filename, "data/subtitle.ini", font );
 
 	if (font) {
 		font->Release_Ref();
@@ -223,7 +223,7 @@ void	MovieGameModeClass::HandleNotification (CDVerifyEvent &event)
 		StringClass full_path = cd_path;
 		const size_t path_length = cd_path.Get_Length ();
 		if (path_length == 0 || cd_path[static_cast<int>(path_length - 1)] != '\\') {
-			full_path += "\\";
+			full_path += "/";
 		}
 			full_path += PendingMovieFilename;
 			Play_Movie( full_path );
@@ -255,7 +255,7 @@ void	MovieGameModeClass::Startup_Movies( void )
 		MovieGameModeClass::Movie_Done();
 	} else {
 		MovieStartupMode = STARTUP_MOVIE_EA;
-		Start_Movie( "MOVIES\\EA_WW.BIK" );		// Play WW/EA movie
+		Start_Movie( "MOVIES/EA_WW.BIK" );		// Play WW/EA movie
 	}
 }
 
@@ -269,7 +269,7 @@ void	MovieGameModeClass::Movie_Done( void )
 
 	if ( MovieStartupMode == STARTUP_MOVIE_EA ) {
 		MovieStartupMode = STARTUP_MOVIE_INTRO;
-		Start_Movie( "MOVIES\\R_INTRO.BIK" );		// Play Renegade intro movie
+		Start_Movie( "MOVIES/R_INTRO.BIK" );		// Play Renegade intro movie
 	} else if ( MovieStartupMode == STARTUP_MOVIE_INTRO ) {
 		MovieStartupMode = STARTUP_MOVIE_OFF;
 		// Goto main menu

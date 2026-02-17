@@ -601,7 +601,7 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 	HANDLE hfile_find;
 	WIN32_FIND_DATAA find_info = {0};
 	StringClass path;
-	path.Format( "data\\makemix\\%s*.*", dir );
+	path.Format( "data/makemix/%s*.*", dir );
 	WWDEBUG_SAY(( "Adding files from %s\n", path ));
 
 	for (hfile_find = ::FindFirstFileA( path, &find_info);
@@ -610,14 +610,14 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 		if ( find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) {
 			if ( find_info.cFileName[0] != '.' ) {
 				StringClass	path;
-				path.Format( "%s%s\\", dir, find_info.cFileName );
+				path.Format( "%s%s/", dir, find_info.cFileName );
 				Add_Files( path, mix );
 			}
 		} else {
 			StringClass name;
 			name.Format( "%s%s", dir, find_info.cFileName );
 			StringClass	source;
-			source.Format( "makemix\\%s", name );
+			source.Format( "makemix/%s", name );
 			mix.Add_File( source, name );
 //			WWDEBUG_SAY(( "Adding file from %s %s\n", source, name ));
 		}
@@ -626,7 +626,7 @@ void	Add_Files( const char * dir, MixFileCreator & mix )
 
 void	Setup_Mix_File( void )
 {
-	_SimpleFileFactory.Set_Sub_Directory( "DATA\\" );
+	_SimpleFileFactory.Set_Sub_Directory( "DATA/" );
 //	_SimpleFileFactory.Set_Strip_Path( true );
 
 	WWDEBUG_SAY(( "Mix File Create .....\n" ));

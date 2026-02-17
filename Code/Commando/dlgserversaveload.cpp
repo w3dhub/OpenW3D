@@ -724,7 +724,7 @@ void ServerSettingsManagerClass::Scan(void)
 	for (int i=2 ; i<MAX_SETTINGS_FILES ; i++) {
 
 		sprintf(file_name, DEFAULT_SERVER_SETTINGS_FILE_NAME, i);
-		sprintf(whole_file_name, "data\\%s", file_name);
+		sprintf(whole_file_name, "data/%s", file_name);
 		RawFileClass file(whole_file_name);
 		if (file.Is_Available()) {
 			INIClass *ini = Get_INI(file_name);
@@ -790,7 +790,7 @@ void ServerSettingsManagerClass::Load_Settings(ServerSettingsClass *settings)
 
 	if (settings && The_Game()) {
 		char filename[MAX_PATH];
-		sprintf(filename, "data\\%s", settings->RawFileName.Peek_Buffer());
+		sprintf(filename, "data/%s", settings->RawFileName.Peek_Buffer());
 		RawFileClass file(filename);
 		if (file.Is_Available()) {
 			The_Game()->Set_Ini_Filename(settings->RawFileName);
@@ -819,7 +819,7 @@ void ServerSettingsManagerClass::Delete_Configuration(ServerSettingsClass *setti
 {
 	if (!settings->Is_Default()) {
 		char filename[MAX_PATH];
-		sprintf(filename, "data\\%s", settings->RawFileName.Peek_Buffer());
+		sprintf(filename, "data/%s", settings->RawFileName.Peek_Buffer());
 		DeleteFileA(filename);
 		for (int i=0 ; i<ServerSettingsList.Count() ; i++) {
 			if (strcmp(settings->RawFileName, ServerSettingsList[i]->RawFileName) == 0) {
@@ -854,7 +854,7 @@ void ServerSettingsManagerClass::Save_Configuration(ServerSettingsClass *setting
 
 	if (settings && The_Game()) {
 		char filename[MAX_PATH];
-		sprintf(filename, "data\\%s", settings->RawFileName.Peek_Buffer());
+		sprintf(filename, "data/%s", settings->RawFileName.Peek_Buffer());
 		RawFileClass file(filename);
 		if (!file.Is_Available()) {
 			file.Create();

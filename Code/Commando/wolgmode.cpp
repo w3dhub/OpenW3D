@@ -1772,7 +1772,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 
 					StringClass filename(0,true);
 					filename=dirname;
-					filename+="\\";
+					filename+="/";
 					tmp=requestor;
 					filename+=tmp;
 					filename+=".txt";

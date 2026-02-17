@@ -1552,14 +1552,14 @@ MPLanHostMapCycleOptionsTabClass::Build_Map_List (void)
 	StringClass file_filter;
 	WWASSERT(The_Game() != NULL);
 	if (The_Game()->Is_Cnc()) {
-		file_filter.Format("data\\c&c_*.mix");
+		file_filter.Format("data/c&c_*.mix");
 	} else {
-		file_filter.Format("data\\mp_*.mix");
+		file_filter.Format("data/mp_*.mix");
 	}
 
 #ifdef WWDEBUG
 	if (cDevOptions::FilterLevelFiles.Is_False()) {
-		file_filter = "data\\*.mix";
+		file_filter = "data/*.mix";
 	}
 #endif // WWDEBUG
 
