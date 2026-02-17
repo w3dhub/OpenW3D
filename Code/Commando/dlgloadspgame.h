@@ -101,7 +101,7 @@ private:
 	////////////////////////////////////////////////////////////////
 	//	Static members
 	////////////////////////////////////////////////////////////////
-	static int CALLBACK LoadListSortCallback (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param);
+	static int	LoadListSortCallback (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param);
 
 	////////////////////////////////////////////////////////////////
 	//	Private methods

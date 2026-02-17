@@ -444,7 +444,7 @@ EvaViewerTabClass::Prepare_Model (RenderObjClass *model)
 //	ListSortCallback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 EvaViewerTabClass::ListSortCallback
 (
 	ListCtrlClass *	list_ctrl,

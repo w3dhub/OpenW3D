@@ -132,7 +132,7 @@ void WWAssert_Callback (const char *message);
 
 
 // Prototypes.
-bool CALLBACK Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int mesage_id, DWORD param);
+bool Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int mesage_id, DWORD param);
 
 
 // Singleton.
@@ -1578,7 +1578,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
  * HISTORY:                                                                                    *
  *   08/22/01    IML : Created.                                                                * 
  *=============================================================================================*/
-bool CALLBACK Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int message_id, DWORD param)
+bool Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int message_id, DWORD param)
 {
 	_Installer.Dialog_Callback (dialog, ctrl_id, message_id, param);
 	return (true);

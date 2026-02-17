@@ -188,7 +188,7 @@ SaveGameMenuClass::On_ListCtrl_Delete_Entry
 //	LoadListSortCallback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 SaveGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param)
 {
 	int retval = 0;

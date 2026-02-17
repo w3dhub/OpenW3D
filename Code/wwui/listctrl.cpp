@@ -485,7 +485,7 @@ ListCtrlClass::Sort_Alphabetically (int col_index, SORT_TYPE type)
 //	Default_Sort_Callback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 ListCtrlClass::Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param)
 {
 	//

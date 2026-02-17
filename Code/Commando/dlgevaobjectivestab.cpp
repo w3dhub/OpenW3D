@@ -255,7 +255,7 @@ EvaObjectivesTabClass::Fill_Objectives_List (void)
 //	ListSortCallback
 //
 ////////////////////////////////////////////////////////////////
-int CALLBACK
+int
 EvaObjectivesTabClass::ListSortCallback
 (
 	ListCtrlClass *	list_ctrl,
