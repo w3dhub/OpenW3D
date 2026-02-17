@@ -112,6 +112,8 @@
 #include "wwprofile.h"
 #include "assetstatus.h"
 
+#include <filesystem>
+
 /*
 ** Static member variable which keeps track of the single instanced asset manager
 */
@@ -689,22 +691,12 @@ RenderObjClass * WW3DAssetManager::Create_Render_Obj(const char * name)
 	if (WW3D_Load_On_Demand && proto == NULL) {	// If we didn't find one, try to load on demand
 		AssetStatusClass::Peek_Instance()->Report_Load_On_Demand_RObj(name);
 
-		char filename [MAX_PATH];
-		char *mesh_name = (char *)::strchr (name, '.');
-		if (mesh_name != NULL) {
-			::strncpy (filename, name, mesh_name - name);
-			filename[mesh_name - name] = '\0';
-			::strncat (filename, ".w3d", sizeof(filename) - (mesh_name - name));
-			filename[sizeof(filename) - 1] = '\0';
-		} else {
-			sprintf( filename, "%s.w3d", name);
-		}
+		auto filename = std::filesystem::path{name}.stem().generic_string() + ".w3d";
 
 		// If we can't find it, try the parent directory
-		if ( Load_3D_Assets( filename ) == false ) {
-			StringClass	new_filename(StringClass("../"),true);
-			new_filename+=filename;
-			Load_3D_Assets( new_filename );
+		if ( Load_3D_Assets( filename.c_str() ) == false ) {
+			auto new_filename = std::filesystem::path{".."} / filename;
+			Load_3D_Assets( new_filename.generic_string().c_str() );
 		}
 
 		proto = Find_Prototype(name);		// try again
@@ -865,20 +857,18 @@ HAnimClass *	WW3DAssetManager::Get_HAnim(const char * name)
 
 			AssetStatusClass::Peek_Instance()->Report_Load_On_Demand_HAnim(name);
 
-			char filename[ MAX_PATH ];
-			char *animname = (char *)strchr( name, '.');
-			if (animname != NULL) {
-				sprintf( filename, "%s.w3d", animname+1);
-			} else {
-				WWDEBUG_SAY(( "Animation %s has no . in the name\n", name ));
-				WWASSERT( 0 );
+			if (!std::filesystem::path{name}.has_extension()) {
+				WWDEBUG_SAY(("Animation %s has no . in the name\n", name));
+				WWASSERT(0);
 				return NULL;
 			}
+			auto extension = std::filesystem::path{name}.extension().generic_string();
+			auto filename = std::string{extension.begin() + 1, extension.end()} + ".w3d";
 
 			// If we can't find it, try the parent directory
-			if ( Load_3D_Assets( filename ) == false ) {
-				StringClass	new_filename = StringClass("../") + filename;
-				Load_3D_Assets( new_filename );
+			if ( Load_3D_Assets( filename.c_str() ) == false ) {
+				auto	new_filename = std::filesystem::path{".."} / filename;
+				Load_3D_Assets( new_filename.generic_string().c_str() );
 			}
 
 			anim = HAnimManager.Get_Anim(name);		// Try agai
@@ -917,14 +907,12 @@ HTreeClass *	WW3DAssetManager::Get_HTree(const char * name)
 		
 		AssetStatusClass::Peek_Instance()->Report_Load_On_Demand_HTree(name);
 
-		char filename[ MAX_PATH ];
-		sprintf( filename, "%s.w3d", name);
+		auto filename = std::string{name} + ".w3d";
 
 		// If we can't find it, try the parent directory
-		if ( Load_3D_Assets( filename ) == false ) {
-			StringClass	new_filename("../",true);
-			new_filename+=filename;
-			Load_3D_Assets( new_filename );
+		if ( Load_3D_Assets( filename.c_str() ) == false ) {
+			auto new_filename = (std::filesystem::path{".."} / filename).generic_string();
+			Load_3D_Assets( new_filename.c_str() );
 		}
 
 		htree = HTreeManager.Get_Tree(name);	// Try again
