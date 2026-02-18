@@ -132,7 +132,11 @@ void _Game_Main_Loop_Loop(void)
 	}
 
 	// Denzil - Embedded browser
+#if WEBBROWSER_ENABLED
 	if (WebBrowser::IsWebPageDisplayed() == false) {
+#else
+    {
+#endif
 		GameModeManager::Render();
 	}
 

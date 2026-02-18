@@ -36,6 +36,9 @@
 #include "always.h"
 
 #include "WebBrowser.h"
+
+#if WEBBROWSER_ENABLED
+
 #include <wwlib/WWCOMUtil.h>
 #include <ww3d2/ww3d.h>
 #include <limits>
@@ -1154,3 +1157,5 @@ bool WebBrowser::IsExternalBrowserRunning(void) const
 
 	return (STILL_ACTIVE == active);
 	}
+
+#endif // WEBBROWSER_ENABLED

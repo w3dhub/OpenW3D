@@ -37,6 +37,7 @@
 #ifndef __DLGWEBPAGE_H__
 #define __DLGWEBPAGE_H__
 
+#include "WebBrowser.h"
 #include "dialogbase.h"
 #include "atlbase_compat.h"
 #include <wwlib/Notify.h>
@@ -77,7 +78,9 @@ class DlgWebPage :
 		const DlgWebPage& operator=(const DlgWebPage&);
 
 	private:
-		WebBrowser* mBrowser;
+#if WEBBROWSER_ENABLED
+		WebBrowser* mBrowser = nullptr;
+#endif
 		const char* mPage;
 		unsigned int mTimer;
 	};

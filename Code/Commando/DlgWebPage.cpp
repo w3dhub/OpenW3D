@@ -79,6 +79,7 @@ void DlgWebPage::DoDialog(const char* page)
 
 		if (success)
 			{
+#if WEBBROWSER_ENABLED
 			// If we are using the embedded browser then show the webpage. Otherwise
 			// ask the user if they want to launch an external browser to view the page.
 			if (dialog->mBrowser->UsingEmbeddedBrowser())
@@ -87,6 +88,7 @@ void DlgWebPage::DoDialog(const char* page)
 				dialog->mBrowser->ShowWebPage(page);
 				}
 			else
+#endif // WEBBROWSER_ENABLED
 				{
 				// Increment the dialog reference so the dialog will be around for the
 				// message box result.
@@ -121,8 +123,7 @@ void DlgWebPage::DoDialog(const char* page)
 ******************************************************************************/
 
 DlgWebPage::DlgWebPage() :
-		DialogBaseClass(GetRenegadeDialog(RenegadeDialogID::IDD_WEBPAGE)),
-		mBrowser(NULL)
+		DialogBaseClass(GetRenegadeDialog(RenegadeDialogID::IDD_WEBPAGE))
 	{
 	WWDEBUG_SAY(("Instantiating DlgWebPage\n"));
 	}
@@ -148,10 +149,12 @@ DlgWebPage::~DlgWebPage()
 	{
 	WWDEBUG_SAY(("Destroying DlgWebPage\n"));
 
+#if WEBROWSER_ENABLED
 	if (mBrowser)
 		{
 		mBrowser->Release();
 		}
+#endif
 	}
 
 
@@ -173,6 +176,7 @@ DlgWebPage::~DlgWebPage()
 
 bool DlgWebPage::FinalizeCreate(void)
 	{
+#if WEBBROWSER_ENABLED
 	mBrowser = WebBrowser::CreateInstance(MainWindow);
 
 	if (mBrowser)
@@ -180,7 +184,7 @@ bool DlgWebPage::FinalizeCreate(void)
 		Observer<WebEvent>::NotifyMe(*mBrowser);
 		return true;
 		}
-
+#endif
 	return false;
 	}
 
@@ -250,6 +254,7 @@ void DlgWebPage::On_Frame_Update(void)
 	{
 	DialogBaseClass::On_Frame_Update();
 
+#if WEBBROWSER_ENABLED
 	if (mBrowser)
 		{
 		bool usingEmbedded = mBrowser->UsingEmbeddedBrowser();
@@ -276,6 +281,7 @@ void DlgWebPage::On_Frame_Update(void)
 				}
 			}
 		}
+#endif
 	}
 
 
@@ -297,6 +303,7 @@ void DlgWebPage::On_Frame_Update(void)
 
 void DlgWebPage::HandleNotification(WebEvent& event)
 	{
+#if WEBBROWSER_ENABLED
 	switch (event.Event())
 		{
 		case WebEvent::Quit:
@@ -317,6 +324,7 @@ void DlgWebPage::HandleNotification(WebEvent& event)
 		default:
 			break;
 		}
+#endif
 	}
 
 
@@ -343,7 +351,11 @@ void DlgWebPage::HandleNotification(DlgMsgBoxEvent& event)
 		case DlgMsgBoxEvent::Yes:
 			// Start the dialog to monitor the external browser.
 			Start_Dialog();
+#if WEBBROWSER_ENABLED
 			mBrowser->ShowWebPage(mPage);
+#else
+			WWDEBUG_ERROR(("Not implemented"));
+#endif
 
 			// Release the reference we added to keep the dialog alive until this point.
 			Release_Ref();
