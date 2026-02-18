@@ -209,6 +209,7 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
+#if WEBBROWSER_ENABLED
 #ifdef _DEBUG // Denzil - DO NOT COMPILE INTO FINAL BUILD
 	bool webInstalled = WebBrowser::InstallPrerequisites();
 
@@ -217,6 +218,7 @@ int main(int argc, char *argv[])
 				"Renegade Warning!", MB_ICONWARNING|MB_OK);
 	}
 #endif // WWDEBUG
+#endif // WEBBROWSER_ENABLED
 
 	//
 	//	Verify that we can execute (i.e. make sure there are no other instances running)
@@ -736,7 +738,11 @@ void On_Focus_Loss(void)
  *=============================================================================================*/
 void On_Focus_Restore(void)
 {
+#if WEBBROWSER_ENABLED
 	if (WebBrowser::IsWebPageDisplayed() == false) {
+#else
+    {
+#endif
 		DirectInput::Acquire();
 	}
 
