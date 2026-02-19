@@ -355,7 +355,7 @@ StringClass	_load_map_name;
 static class LoadThreadClass : public ThreadClass
 {
 public:
-	LoadThreadClass(const char *thread_name = "Game loader thread") : ThreadClass(thread_name, &Exception_Handler) {}
+	LoadThreadClass(const char *thread_name = "Game loader thread") : ThreadClass(thread_name) {}
 
 	void Thread_Function() override {
 

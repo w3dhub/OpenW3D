@@ -534,7 +534,7 @@ public:
 	CopyThreadClass()
 		:
 		Version(0),
-		ThreadClass("LogCopyThread", &Exception_Handler) {}
+		ThreadClass("LogCopyThread") {}
 
 	void Thread_Function() override
 	{

@@ -205,11 +205,7 @@ static TextureLoadTaskListClass					_FreeList;
 static class LoaderThreadClass : public ThreadClass
 {
 public:
-#ifdef Exception_Handler
-	LoaderThreadClass(const char *thread_name = "Texture loader thread") : ThreadClass(thread_name, &Exception_Handler) {}
-#else
 	LoaderThreadClass(const char *thread_name = "Texture loader thread") : ThreadClass(thread_name) {}
-#endif
 
 	void Thread_Function() override;
 } _TextureLoadThread;
