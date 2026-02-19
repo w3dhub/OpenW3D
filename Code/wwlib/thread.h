@@ -16,18 +16,14 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef THREAD_H
-#define THREAD_H
-
-#if defined(_MSC_VER)
 #pragma once
-#endif
 #ifdef _UNIX
 #include "osdep.h"
 #endif
 
 #include "always.h"
-#include "vector.h"
+
+#include <cstdlib>
 
 struct _EXCEPTION_POINTERS;
 
@@ -102,5 +98,3 @@ private:
 	volatile uintptr_t handle;
 	int thread_priority;
 };
-
-#endif

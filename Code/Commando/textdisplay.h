@@ -64,6 +64,7 @@
 #ifndef VECTOR4_H
 	#include "vector4.h"
 #endif
+#include "vector.h"
 
 class	Font3DInstanceClass;
 class	Render2DTextClass;
