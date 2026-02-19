@@ -58,6 +58,7 @@
 #include "mpu.h"
 //#include "commando/nat.h"
 #include "thread.h"
+#include "vector.h"
 #include "wwdebug.h"
 #include "wwmemlog.h"
 #include <limits>

@@ -23,6 +23,8 @@
 #include <windows.h>
 #include "systimer.h"
 
+#include <cassert>
+
 
 ThreadClass::ThreadClass(const char *thread_name, ExceptionHandlerType exception_handler) : handle(0), running(false), thread_priority(0)
 {

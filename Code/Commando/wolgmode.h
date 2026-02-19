@@ -42,6 +42,7 @@
 #define __WOLGMODE_H__
 
 #include "gamemode.h"
+#include "vector.h"
 #include "WOLBuddyMgr.h"
 #include <WWOnline/RefPtr.h>
 #include <wwlib/Notify.h>

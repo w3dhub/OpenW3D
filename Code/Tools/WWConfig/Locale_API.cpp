@@ -40,6 +40,7 @@
 #include "locale_api.h"
 #include "rawfile.h"
 #include "wwconfig_ids.h"
+#include <cassert>
 
 
 /****************************************************************************/
