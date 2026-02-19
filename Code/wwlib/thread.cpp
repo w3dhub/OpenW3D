@@ -26,7 +26,7 @@
 #include <cassert>
 
 
-ThreadClass::ThreadClass(const char *thread_name, ExceptionHandlerType exception_handler) : handle(0), running(false), thread_priority(0)
+ThreadClass::ThreadClass(const char *thread_name) : handle(0), running(false), thread_priority(0)
 {
 	if (thread_name) {
 		assert(strlen(thread_name) < sizeof(ThreadName) - 1);
@@ -34,8 +34,6 @@ ThreadClass::ThreadClass(const char *thread_name, ExceptionHandlerType exception
 	} else {
 		strcpy(ThreadName, "No name");;
 	}
-
-	ExceptionHandler = exception_handler;
 }
 
 ThreadClass::~ThreadClass()
@@ -52,12 +50,9 @@ void __cdecl ThreadClass::Internal_Thread_Function(void* params)
 #ifdef _MSC_VER
 	Register_Thread_ID(tc->ThreadID, tc->ThreadName);
 
-	if (tc->ExceptionHandler != NULL) {
-		__try {
-			tc->Thread_Function();
-		} __except(tc->ExceptionHandler(GetExceptionCode(), GetExceptionInformation())) {};
-	} else {
+	__try {
 		tc->Thread_Function();
+	} __except(Exception_Handler(GetExceptionCode(), GetExceptionInformation())) {
 	}
 
 #else //_WIN32

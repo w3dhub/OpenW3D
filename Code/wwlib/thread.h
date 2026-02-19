@@ -17,9 +17,6 @@
 */
 
 #pragma once
-#ifdef _UNIX
-#include "osdep.h"
-#endif
 
 #include "always.h"
 
@@ -45,9 +42,7 @@ struct _EXCEPTION_POINTERS;
 class ThreadClass
 {
 public:
-	typedef int (*ExceptionHandlerType)(int exception_code, struct _EXCEPTION_POINTERS *e_info);
-
-	ThreadClass(const char *name = NULL, ExceptionHandlerType exception_handler = NULL);
+	ThreadClass(const char *name = NULL);
 	virtual ~ThreadClass();
 
 	// Execute Thread_Function(). Note that only one instance can be executed at a time.
@@ -89,9 +84,6 @@ protected:
 
 	// ID of thread.
 	unsigned ThreadID;
-
-	// Exception handler for this thread.
-	ExceptionHandlerType ExceptionHandler;
 
 private:
 	static void __cdecl Internal_Thread_Function(void*);
