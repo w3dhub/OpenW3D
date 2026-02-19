@@ -91,6 +91,7 @@
 #include <iostream>
 #include "singletoninstancekeeper.h"
 #include "packetmgr.h"
+#include "ProcessManager.h"
 
 //----------------------------------------------------------------------------
 //	Globals
@@ -229,35 +230,18 @@ static bool Graphics_Settings_Trouble_Shooting()
 
 	int progress=registry.Get_Int( VALUE_NAME_GAME_INITIALIZATION_IN_PROGRESS, 0 );
 	if (progress) {
-		StringClass options="wwconfig.exe ";
-		char* opts=options.Peek_Buffer();
-		STARTUPINFOA startup_info;
-		ZeroMemory(&startup_info,sizeof(STARTUPINFOA));
-		startup_info.cb=sizeof(STARTUPINFOA);
-		PROCESS_INFORMATION process_info;
-		CreateProcessA(
-			NULL,
-			opts,
-			NULL,
-			NULL,
-			FALSE,
-			0,
-			NULL,
-			NULL,
-			&startup_info,
-			&process_info);
-
-		DWORD exit_code=STILL_ACTIVE;
-		unsigned res=0;
-		do {
-			res=GetExitCodeProcess(process_info.hProcess,&exit_code);
-			if (!res) {
-				return true;
-			}
-			Sleep(100);
+		const char * args[] = {
+			"wwconfig.exe",
+			nullptr,
+		};
+		Process *process = ProcessManager::Create_Process(args);
+		if (!process) {
+			return 1;
 		}
-		while (exit_code==STILL_ACTIVE);
-		return !exit_code;
+		process->Wait();
+		bool success = *process->Return_Code() != 0;
+		delete process;
+		return success;
 	}
 	return true;
 }
@@ -363,37 +347,17 @@ static bool Video_Card_Driver_Check()
 		break;
 	}
 
-	StringClass options="wwconfig.exe -driverversion";
-	char* opts=options.Peek_Buffer();
-	STARTUPINFOA startup_info;
-	ZeroMemory(&startup_info,sizeof(STARTUPINFOA));
-	startup_info.cb=sizeof(STARTUPINFOA);
-	PROCESS_INFORMATION process_info;
-	if (!CreateProcessA(
-		NULL,
-		opts,
-		NULL,
-		NULL,
-		FALSE,
-		0,
-		NULL,
-		NULL,
-		&startup_info,
-		&process_info)) {
+	const char *options[] = {
+		"wwconfig.exe",
+		"-driverversion",
+		nullptr,
+	};
+	Process *process = ProcessManager::Create_Process(options);
+	if (!process) {
 		return true;
 	}
-
-	DWORD exit_code=STILL_ACTIVE;
-	unsigned res=0;
-	do {
-		res=GetExitCodeProcess(process_info.hProcess,&exit_code);
-		if (!res) {
-			return true;
-		}
-		Sleep(100);
-	}
-	while (exit_code==STILL_ACTIVE);
-	return !exit_code;
+	process->Wait();
+	return process->Return_Code() == 0;
 }
 
 
