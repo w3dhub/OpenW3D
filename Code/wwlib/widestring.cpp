@@ -242,7 +242,7 @@ WideStringClass::Free_String (void)
 //
 ///////////////////////////////////////////////////////////////////
 int
-WideStringClass::Format_Args (const unichar_t *format, const va_list & arg_list )
+WideStringClass::Format_Args (const unichar_t *format, va_list arg_list )
 {
 	if (format == NULL) {
 		return 0;

@@ -237,7 +237,7 @@ StringClass::Free_String (void)
 //
 ///////////////////////////////////////////////////////////////////
 int __cdecl
-StringClass::Format_Args (const char *format, const va_list & arg_list )
+StringClass::Format_Args (const char *format, va_list arg_list )
 {
 	//
 	// Make a guess at the maximum length of the resulting string

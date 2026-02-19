@@ -58,7 +58,7 @@ public:
 	DynamicVectorClass<SubTitleClass*>* Get_Sub_Titles(const char* moviename);
 
 private:
-	enum {LINE_MAX = 1024};
+	enum {MAXIMUM_LINE_LENGTH = 1024};
 
 	typedef struct tagTokenHook
 	{
@@ -78,7 +78,7 @@ private:
 
 	static TokenHook mTokenHooks[];
 	Straw& mInput;
-	unichar_t mBuffer[LINE_MAX];
+	unichar_t mBuffer[MAXIMUM_LINE_LENGTH];
 	unsigned int mLineNumber;
 };
 

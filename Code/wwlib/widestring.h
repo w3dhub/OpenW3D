@@ -115,7 +115,7 @@ public:
 
 	void			Erase (int start_index, int char_count);
 	int __cdecl  Format (const unichar_t *format, ...);
-	int __cdecl  Format_Args (const unichar_t *format, const va_list & arg_list );
+	int __cdecl  Format_Args (const unichar_t *format, va_list arg_list );
 	bool			Convert_From (const char *text);
 	bool			Convert_To (StringClass &string);
 	bool			Convert_To (StringClass &string) const;
