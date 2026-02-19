@@ -34,14 +34,9 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-
-
 #pragma once
 
-#ifndef _SLAVEMASTER_H
-#define _SLAVEMASTER_H
-
-#include <winbase.h>
+#include "ProcessManager.h"
 
 #define MAX_SLAVES	7
 
@@ -78,7 +73,7 @@ class SlaveServerClass
 		unsigned short ControlPort;
 		int	Bandwidth;
 
-		PROCESS_INFORMATION ProcessInfo;
+		Process *ProcessInfo;
 };
 
 
@@ -123,7 +118,6 @@ class SlaveMasterClass
 
 		void Delete_Registry_Copies(void);
 		void Create_Registry_Copies(void);
-		bool Aquire_Slave(int index);
 		void Wait_For_Slave_Shutdown(void);
 
 		SlaveServerClass SlaveServers[MAX_SLAVES];
@@ -133,20 +127,4 @@ class SlaveMasterClass
 
 };
 
-
-
 extern SlaveMasterClass SlaveMaster;
-
-
-
-
-
-
-
-
-
-
-
-
-
-#endif //_SLAVEMASTER_H
