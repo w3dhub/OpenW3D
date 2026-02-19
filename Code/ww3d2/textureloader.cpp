@@ -293,8 +293,8 @@ void TextureLoader::Init()
 
 	ThumbnailManagerClass::Init();
 
-	_TextureLoadThread.Execute();
 	_TextureLoadThread.Set_Priority(-4);
+	_TextureLoadThread.Execute();
 }
 
 
@@ -910,7 +910,7 @@ void TextureLoader::Load_Thumbnail(TextureClass *tc)
 
 void LoaderThreadClass::Thread_Function(void)
 {
-	while (running) {
+	while (mRunning) {
 		// if there are no tasks on the background queue, no need to grab background lock.
 		if (!_BackgroundQueue.Is_Empty()) {
 			// Grab background load so other threads know we could be 

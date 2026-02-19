@@ -19,20 +19,23 @@
 #include "thread.h"
 #include "Except.h"
 #include "wwdebug.h"
-#include <process.h>
+
+#if defined(OPENW3D_WIN32)
 #include <windows.h>
-#include "systimer.h"
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL_timer.h>
+#endif
 
 #include <cassert>
 
 
-ThreadClass::ThreadClass(const char *thread_name) : handle(0), running(false), thread_priority(0)
+ThreadClass::ThreadClass(const char *thread_name) : mHandle(nullptr), mRunning(false)
 {
 	if (thread_name) {
 		assert(strlen(thread_name) < sizeof(ThreadName) - 1);
 		strcpy(ThreadName, thread_name);
 	} else {
-		strcpy(ThreadName, "No name");;
+		strcpy(ThreadName, "No name");
 	}
 }
 
@@ -41,105 +44,136 @@ ThreadClass::~ThreadClass()
 	Stop();
 }
 
-void __cdecl ThreadClass::Internal_Thread_Function(void* params)
+ThreadClass::InternalThreadFunctionReturnType INTERNAL_THREAD_FUNCTION_CALL_CONVENTION ThreadClass::Internal_Thread_Function(void *params)
 {
-	ThreadClass* tc=reinterpret_cast<ThreadClass*>(params);
-	tc->running=true;
-	tc->ThreadID = GetCurrentThreadId();
+	ThreadClass *tc = static_cast<ThreadClass *>(params);
+	tc->mRunning = true;
+
+	tc->mThreadID = _Get_Current_Thread_ID();
+#if defined(OPENW3D_WIN32)
+#elif defined(OPENW3D_SDL3)
+	SDL_ThreadPriority sdl_thread_priority;
+	if (tc->mThread_priority <= -1) {
+		sdl_thread_priority = SDL_THREAD_PRIORITY_LOW;
+	} else if (tc->mThread_priority <= 1) {
+		sdl_thread_priority = SDL_THREAD_PRIORITY_NORMAL;
+	} else if (tc->mThread_priority <= 3) {
+		sdl_thread_priority = SDL_THREAD_PRIORITY_HIGH;
+	} else {
+		sdl_thread_priority = SDL_THREAD_PRIORITY_TIME_CRITICAL;
+	}
+	SDL_SetCurrentThreadPriority(sdl_thread_priority);
+#else
+	assert(0);
+#endif
+
+	Register_Thread_ID(tc->mThreadID, tc->ThreadName);
 
 #ifdef _MSC_VER
-	Register_Thread_ID(tc->ThreadID, tc->ThreadName);
-
 	__try {
 		tc->Thread_Function();
 	} __except(Exception_Handler(GetExceptionCode(), GetExceptionInformation())) {
 	}
-
-#else //_WIN32
+#else
 	tc->Thread_Function();
-#endif //_WIN32
+#endif
 
-#ifdef _WIN32
-	Unregister_Thread_ID(tc->ThreadID, tc->ThreadName);
-#endif // _WIN32
-	tc->handle=0;
-	tc->ThreadID = 0;
+	Unregister_Thread_ID(tc->mThreadID, tc->ThreadName);
+	tc->mThreadID = 0;
+	tc->mRunning = false;
+	return 0;
 }
 
 void ThreadClass::Execute()
 {
-	WWASSERT(!handle);	// Only one thread at a time!
-	#ifdef _UNIX
-		// assert(0);
-		return;
-	#else
-		handle=_beginthread(&Internal_Thread_Function,0,this);
-		SetThreadPriority((HANDLE)handle,THREAD_PRIORITY_NORMAL+thread_priority);
-		WWDEBUG_SAY(("ThreadClass::Execute: Started thread %s, thread ID is %X\n", ThreadName, handle));
-	#endif
+	WWASSERT(!mHandle);	// Only one thread at a time!
+
+#if defined(OPENW3D_WIN32)
+	DWORD threadId;
+	mHandle = CreateThread(NULL, 0, Internal_Thread_Function, this, CREATE_SUSPENDED, &threadId);
+	mThreadID = threadId;
+	SetThreadPriority(mHandle, THREAD_PRIORITY_NORMAL + mThread_priority);
+	wchar_t wideThreadName[64];
+	std::mbstowcs(wideThreadName, ThreadName, sizeof(wideThreadName));
+	wideThreadName[ARRAYSIZE(wideThreadName) - 1] = L'\0';
+	SetThreadDescription(mHandle, wideThreadName);
+	ResumeThread(mHandle);
+#elif defined(OPENW3D_SDL3)
+	mHandle = SDL_CreateThread(Internal_Thread_Function, ThreadName, this);
+
+	mThreadID = SDL_GetThreadID(mHandle);
+#else
+	assert(0);
+#endif
+	WWDEBUG_SAY(("ThreadClass::Execute: Started thread \"%s\", thread ID is %X\n", ThreadName, mThreadID));
 }
 
 void ThreadClass::Set_Priority(int priority)
 {
-	#ifdef _UNIX
-		// assert(0);
-		return;
-	#else
-		thread_priority=priority;
-		if (handle) SetThreadPriority((HANDLE)handle,THREAD_PRIORITY_NORMAL+thread_priority);
-	#endif
+	mThread_priority = priority;
+	if (mHandle) {
+#if defined(OPENW3D_WIN32)
+		SetThreadPriority(mHandle, THREAD_PRIORITY_NORMAL + mThread_priority);
+#elif defined(OPENW3D_SDL3)
+		assert(!mHandle);
+#else
+		assert(0);
+#endif
+	}
 }
 
-void ThreadClass::Stop(unsigned ms)
+void ThreadClass::Stop()
 {
-	#ifdef _UNIX
-		// assert(0);
-		return;
-	#else
-		running=false;
-		unsigned time=TIMEGETTIME();
-		while (handle) {
-			if ((TIMEGETTIME()-time)>ms) {
-				[[maybe_unused]] int res=TerminateThread((HANDLE)handle,0);
-				WWASSERT(res);	// Thread still not killed!
-				handle=0;
-			}
-			Sleep(0);
-		}
-	#endif
+	mRunning = false;
+	if (mHandle) {
+#if defined(OPENW3D_WIN32)
+		WaitForSingleObjectEx(mHandle, INFINITE, FALSE);
+		CloseHandle(mHandle);
+#elif defined(OPENW3D_SDL3)
+		SDL_WaitThread(mHandle, NULL);
+#else
+		assert(0);
+#endif
+	}
+	mHandle = NULL;
+	mThreadID = 0;
 }
 
 void ThreadClass::Sleep_Ms(unsigned ms)
 {
+#if defined(OPENW3D_WIN32)
 	Sleep(ms);
-}
-
-#ifndef _UNIX
-HANDLE test_event = ::CreateEventA (NULL, false, false, "");
+#elif defined(OPENW3D_SDL3)
+	SDL_Delay(ms);
+#else
+	assert(0);
 #endif
+}
 
 void ThreadClass::Switch_Thread()
 {
-	#ifdef _UNIX
-		return;
-	#else
-		//	::SwitchToThread ();
-		::WaitForSingleObject (test_event, 1);
-		//	Sleep(1);	// Note! Parameter can not be 0 (or the thread switch doesn't occur)
-	#endif
+#if defined(OPENW3D_WIN32)
+	SwitchToThread();
+#elif defined(OPENW3D_SDL3)
+	SDL_Delay(0);
+#else
+	assert(0);
+#endif
 }
 
 // Return calling thread's unique thread id
 unsigned ThreadClass::_Get_Current_Thread_ID()
 {
-	#ifdef _UNIX
-		return 0;
-	#else
-		return GetCurrentThreadId();
-	#endif
+#if defined(OPENW3D_WIN32)
+	return GetCurrentThreadId();
+#elif defined(OPENW3D_SDL3)
+	return SDL_GetCurrentThreadID();
+#else
+	assert(0);
+#endif
 }
 
 bool ThreadClass::Is_Running()
 {
-	return !!handle;
+	return mRunning;
 }

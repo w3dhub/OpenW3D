@@ -35,6 +35,8 @@
 #include "WOLChatMsg.h"
 #include <wolapi/chatdefs.h>
 
+#include <windows.h>
+#include <ocidl.h>
 namespace WOL
 {
 #include <wolapi/WOLAPI.h>

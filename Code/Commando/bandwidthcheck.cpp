@@ -192,7 +192,7 @@ void BandwidthCheckerClass::Check_Now(HANDLE event)
 		}
 	}
 	if (Thread.Is_Running()) {
-		Thread.Stop(2000);
+		Thread.Stop();
 	}
 	WWASSERT(!Thread.Is_Running());
 	Thread.Execute();

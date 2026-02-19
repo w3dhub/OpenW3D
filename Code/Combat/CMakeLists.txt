@@ -272,6 +272,7 @@ add_library(combat STATIC)
 
 target_link_libraries(combat PRIVATE
     wwcommon
+    wwlib
     dinput8
     dxguid
 )

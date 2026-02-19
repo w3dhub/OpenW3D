@@ -20,9 +20,13 @@
 
 #include "always.h"
 
-#include <cstdlib>
+#include <atomic>
 
-struct _EXCEPTION_POINTERS;
+#if defined(OPENW3D_WIN32)
+#include <windows.h>
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL_thread.h>
+#endif
 
 
 // ****************************************************************************
@@ -51,8 +55,8 @@ public:
 	// Thread priority 0 is normal, positive numbers are higher and normal and negative are lower.
 	void Set_Priority(int priority);
 
-	// Stop thread execution. Kill after ms milliseconds if not responding.
-	void Stop(unsigned ms=3000);
+	// Signal thread to stop.
+	void Stop();
 
 	// Put current thread sleep for ms milliseconds (can be called from any thread, ThreadClass or other)
 	static void Sleep_Ms(unsigned ms=0);
@@ -67,7 +71,7 @@ public:
 	bool Is_Running();
 
 	// Gets the name of the thread.
-	const char *Get_Name(void) {return(ThreadName);};
+	const char *Get_Name(void) { return(ThreadName); }
 
 	// Get info about a registered thread by it's index.
 	static int Get_Thread_By_Index(int index, char *name_ptr = NULL);
@@ -77,16 +81,26 @@ protected:
 	// User defined thread function. The thread function should check for "running" flag every now and then
 	// and exit the thread if running is false.
 	virtual void Thread_Function() = 0;
-	volatile bool running;
+
+	std::atomic<bool> mRunning;
 
 	// Name of thread.
 	char ThreadName[64];
 
 	// ID of thread.
-	unsigned ThreadID;
+	unsigned mThreadID;
 
 private:
-	static void __cdecl Internal_Thread_Function(void*);
-	volatile uintptr_t handle;
-	int thread_priority;
+#if defined(OPENW3D_WIN32)
+	using ThreadHandle = HANDLE;
+	using InternalThreadFunctionReturnType = DWORD;
+#define INTERNAL_THREAD_FUNCTION_CALL_CONVENTION WINAPI
+#elif defined(OPENW3D_SDL3)
+	using ThreadHandle = SDL_Thread *;
+	using InternalThreadFunctionReturnType = int;
+#define INTERNAL_THREAD_FUNCTION_CALL_CONVENTION SDLCALL
+#endif
+	static InternalThreadFunctionReturnType INTERNAL_THREAD_FUNCTION_CALL_CONVENTION Internal_Thread_Function(void *param);
+	ThreadHandle mHandle;
+	int mThread_priority;
 };
