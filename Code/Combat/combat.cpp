@@ -441,6 +441,7 @@ void	CombatManager::Load_Level_Threaded( const char * map_name, bool preload_ass
 	_load_map_name = map_name;
 
 	WWASSERT(!thread.Is_Running());
+	thread.Stop();
 	thread.Execute();
 }
 

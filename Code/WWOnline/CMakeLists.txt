@@ -56,6 +56,7 @@ add_library(wwonline STATIC)
 
 target_link_libraries(wwonline PRIVATE
     wwcommon
+    wwlib
 )
 
 target_sources(wwonline PRIVATE ${WWONLINE_SRC})
