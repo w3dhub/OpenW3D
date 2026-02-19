@@ -45,8 +45,18 @@ jobs:
             msys2-msystem: mingw64
             msys2-env: mingw-w64-x86_64
             shell: msys2 {0}
+          - name: MinGW x64 SDL3
+            os: windows-latest
+            cmake-args: -DW3D_BUILD_OPTION_FFMPEG=ON -GNinja -DCMAKE_BUILD_TYPE=Release
+            build-args: --target combat combate renegade renegadeserver ww3d2e wwaudioe wwphyse
+            sdl3: true
+            msys2: true
+            msys2-msystem: mingw64
+            msys2-env: mingw-w64-x86_64
+            shell: msys2 {0}
           - name: Linux x64
             os: ubuntu-latest
+            sdl3: true
             build-args: >
                --parallel
                --target
@@ -78,7 +88,15 @@ jobs:
       uses: ilammy/msvc-dev-cmd@v1.13.0
       with:
         arch: ${{ matrix.arch }}
-    - uses: actions/checkout@v5
+    - uses: libsdl-org/setup-sdl@main
+      if: ${{ !!matrix.sdl3 }}
+      id: sdl
+      with:
+        install-linux-dependencies: true
+        version: 3-latest
+        cmake-generator: Ninja
+        shell: ${{ matrix.shell }}
+    - uses: actions/checkout@v6
     - name: 'CMake (configure)'
       env:
         W3D_COMPILER_FLAGS:  ${{ matrix.options }}
