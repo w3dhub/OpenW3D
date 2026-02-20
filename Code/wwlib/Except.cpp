@@ -55,7 +55,6 @@
 #include "cpudetect.h"
 #include	"Except.h"
 //#include "debug.h"
-#include "mpu.h"
 //#include "commando/nat.h"
 #include "thread.h"
 #include "vector.h"
@@ -587,7 +586,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	/*
 	** CPU type
 	*/
-	sprintf(scrap, "\r\nCPU %s, %d Mhz, Vendor: %s\r\n", (char*)CPUDetectClass::Get_Processor_String(), Get_RDTSC_CPU_Speed(), (char*)CPUDetectClass::Get_Processor_Manufacturer_Name());
+	sprintf(scrap, "\r\nCPU %s, Vendor: %s\r\n", (char*)CPUDetectClass::Get_Processor_String(), (char*)CPUDetectClass::Get_Processor_Manufacturer_Name());
 	Add_Txt(scrap);
 
 
