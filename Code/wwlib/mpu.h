@@ -41,6 +41,5 @@
 unsigned int Get_CPU_Clock(unsigned int & high);
 unsigned int Get_CPU_Rate(unsigned int & high);
 
-int Get_RDTSC_CPU_Speed(void);
 
 #endif
