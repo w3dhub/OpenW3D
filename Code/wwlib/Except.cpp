@@ -578,7 +578,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	for (int thread = 0 ; thread < ThreadList.Count() ; thread++) {
 		sprintf(scrap, "  ID: %08X - %s", ThreadList[thread]->ThreadID, ThreadList[thread]->ThreadName);
 		Add_Txt(scrap);
-		if (GetCurrentThreadId() == ThreadList[thread]->ThreadID) {
+		if (ThreadClass::Get_Current_Thread_ID() == ThreadList[thread]->ThreadID) {
 			Add_Txt("   ***CURRENT THREAD***");
 		}
 		Add_Txt("\r\n");
@@ -958,7 +958,7 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 		TryingToExit = true;
 
 		unsigned int id = Get_Main_Thread_ID();
-		if (id != GetCurrentThreadId()) {
+		if (id != ThreadClass::Get_Current_Thread_ID()) {
 			DebugString("Exiting due to exception in sub thread\n");
 			ExitProcess(EXIT_SUCCESS);
 		}

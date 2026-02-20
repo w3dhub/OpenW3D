@@ -702,7 +702,7 @@ void CombatGameModeClass::Load_Level( void )
 	}
 	WWLOG_INTERMEDIATE("Threaded level load");
 
-	GenericDataSafeClass::Set_Preferred_Thread(GetCurrentThreadId());
+	GenericDataSafeClass::Set_Preferred_Thread(ThreadClass::Get_Current_Thread_ID());
 	TextureLoader::Continue_Texture_Load();
 	WWLOG_INTERMEDIATE("TextureLoader::Continue_Texture_Load()");
 

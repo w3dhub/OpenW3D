@@ -290,7 +290,7 @@ unsigned int __stdcall FirewallHelperClass::NAT_Thread_Start(void *thisptr)
 {
 	unsigned int thread_exit_code = 0;
 
-	Register_Thread_ID(GetCurrentThreadId(), "Firewall thread");
+	Register_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Firewall thread");
 
 #ifdef _MSC_VER
 	__try {
@@ -300,7 +300,7 @@ unsigned int __stdcall FirewallHelperClass::NAT_Thread_Start(void *thisptr)
 	} __except(Exception_Handler(GetExceptionCode(), GetExceptionInformation())) {};
 #endif
 
-	Unregister_Thread_ID(GetCurrentThreadId(), "Firewall thread");
+	Unregister_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Firewall thread");
 
 	return(thread_exit_code);
 }
@@ -2272,7 +2272,7 @@ void FirewallHelperClass::Cleanup_Client_Queue(void)
 	** This is the main thread removing entries from the client queue that it wasn't able to remove before due to thread
 	** contention.
 	*/
-	fw_assert(Get_Main_Thread_ID() == GetCurrentThreadId());
+	fw_assert(Get_Main_Thread_ID() == ThreadClass::Get_Current_Thread_ID());
 
 	while (ClientQueueRemoveList.Count()) {
 		if (Remove_Player_From_Negotiation_Queue_If_Mutex_Available(ClientQueueRemoveList[0]->Name)) {
@@ -2315,7 +2315,7 @@ bool FirewallHelperClass::Remove_Player_From_Negotiation_Queue_If_Mutex_Availabl
 		** Just add the name to a list that will be checked later when it's safe to remove stuff from the client queue.
 		** This list must only ever be accessed from the main thread.
 		*/
-		fw_assert(Get_Main_Thread_ID() == GetCurrentThreadId());
+		fw_assert(Get_Main_Thread_ID() == ThreadClass::Get_Current_Thread_ID());
 		for (int i=0 ; i<ClientQueueRemoveList.Count() ; i++) {
 			if (stricmp(ClientQueueRemoveList[i]->Name, player_name) == 0) {
 				return(false);
