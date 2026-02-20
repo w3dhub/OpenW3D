@@ -65,7 +65,7 @@ public:
 	static void Switch_Thread();
 
 	// Return calling thread's unique thread id
-	static unsigned _Get_Current_Thread_ID();
+	static unsigned Get_Current_Thread_ID();
 
 	// Returns true if the thread is running.
 	bool Is_Running();

@@ -310,7 +310,7 @@ void TextureLoader::Deinit()
 
 bool TextureLoader::Is_DX8_Thread(void)
 {
-	return (ThreadClass::_Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
+	return (ThreadClass::Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
 }
 
 
@@ -1411,7 +1411,7 @@ void TextureLoadTaskClass::Unlock_Surfaces(void)
 {
 	for (unsigned int i = 0; i < MipLevelCount; ++i) {
 		if (LockedSurfacePtr[i]) {
-			WWASSERT(ThreadClass::_Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
+			WWASSERT(ThreadClass::Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
 			DX8_ErrorCode(D3DTexture->UnlockRect(i));
 		}
 		LockedSurfacePtr[i] = NULL;
