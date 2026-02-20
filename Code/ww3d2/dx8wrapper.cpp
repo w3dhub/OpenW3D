@@ -208,7 +208,7 @@ bool DX8Wrapper::Init(void * hwnd, bool lite)
 	** Initialize all variables!
 	*/
 	_Hwnd = (HWND)hwnd;
-	_MainThreadID=ThreadClass::_Get_Current_Thread_ID();
+	_MainThreadID=ThreadClass::Get_Current_Thread_ID();
 	WWDEBUG_SAY(("DX8Wrapper main thread: 0x%x\n",_MainThreadID));
 	CurRenderDevice = -1;
 	ResolutionWidth = DEFAULT_RESOLUTION_WIDTH;

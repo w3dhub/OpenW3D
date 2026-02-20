@@ -49,7 +49,7 @@ ThreadClass::InternalThreadFunctionReturnType INTERNAL_THREAD_FUNCTION_CALL_CONV
 	ThreadClass *tc = static_cast<ThreadClass *>(params);
 	tc->mRunning = true;
 
-	tc->mThreadID = _Get_Current_Thread_ID();
+	tc->mThreadID = Get_Current_Thread_ID();
 #if defined(OPENW3D_WIN32)
 #elif defined(OPENW3D_SDL3)
 	SDL_ThreadPriority sdl_thread_priority;
@@ -162,7 +162,7 @@ void ThreadClass::Switch_Thread()
 }
 
 // Return calling thread's unique thread id
-unsigned ThreadClass::_Get_Current_Thread_ID()
+unsigned ThreadClass::Get_Current_Thread_ID()
 {
 #if defined(OPENW3D_WIN32)
 	return GetCurrentThreadId();
