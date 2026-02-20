@@ -367,7 +367,7 @@ public:
 
 		#ifndef PARAM_EDITING_ON
 			// Tell the datasafe to expect calls from this thread now.
-			GenericDataSafeClass::Set_Preferred_Thread(GetCurrentThreadId());
+			GenericDataSafeClass::Set_Preferred_Thread(ThreadClass::Get_Current_Thread_ID());
 		#endif // PARAM_EDITING_ON
 
 		CombatManager::Inc_Load_Progress();

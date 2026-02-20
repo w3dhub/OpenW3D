@@ -417,7 +417,7 @@ int Start_Application(void)
 
 		if (!Create_Main_Window()) return 0;
 
-		Register_Thread_ID(GetCurrentThreadId(), "Main Thread", true);
+		Register_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Main Thread", true);
 	}
 
 	int exitCode = EXIT_SUCCESS;
@@ -458,7 +458,7 @@ int Start_Application(void)
 	}
 #endif //WWDEBUG
 
-	Unregister_Thread_ID(GetCurrentThreadId(), "Main Thread");
+	Unregister_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Main Thread");
 
    //Debug_Say(("Finished logging at time %s", cMiscUtil::Get_Text_Time()));
 

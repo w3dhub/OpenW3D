@@ -81,7 +81,7 @@ int GenericDataSafeClass::CRCErrors = 0;
 #ifdef THREAD_SAFE_DATA_SAFE
 HANDLE GenericDataSafeClass::SafeMutex;
 #else //THREAD_SAFE_DATA_SAFE
-unsigned int GenericDataSafeClass::PreferredThread = GetCurrentThreadId();
+unsigned int GenericDataSafeClass::PreferredThread = ThreadClass::Get_Current_Thread_ID();
 #endif //THREAD_SAFE_DATA_SAFE
 
 #ifdef WWDEBUG
@@ -148,7 +148,7 @@ GenericDataSafeClass::GenericDataSafeClass(void)
 #ifdef THREAD_SAFE_DATA_SAFE
 		SafeMutex = CreateMutexA(NULL, false, NULL);
 #else
-		PreferredThread = GetCurrentThreadId();
+		PreferredThread = ThreadClass::Get_Current_Thread_ID();
 #endif //THREAD_SAFE_DATA_SAFE
 
 #ifdef FIXED_KEY
