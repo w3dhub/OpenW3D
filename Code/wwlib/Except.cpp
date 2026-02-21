@@ -854,15 +854,6 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 {
 	DebugString("Exception!\n");
 
-#ifdef DEMO_TIME_OUT
-	if ( !WindowedMode ) {
-		Load_Title_Page("TITLE.PCX", true);
-		MouseCursor->Release_Mouse();
-		MessageBoxA(MainWindow, "This demo has timed out. Thank you for playing Red Alert 2.","Byeee!", MB_ICONEXCLAMATION|MB_OK);
-		return (EXCEPTION_EXECUTE_HANDLER);
-	}
-#endif	//DEMO_TIME_OUT
-
 	/*
 	** If we were trying to quit and we got another exception then just shut down the whole shooting match right here.
 	*/
