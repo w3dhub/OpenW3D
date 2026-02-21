@@ -45,6 +45,16 @@
 #include "WINMAIN.H"
 #define _WIN32_WINDOWS 0x0401
 #include "winmain_compat.h"
+#if defined(OPENW3D_WIN32)
+#include <windows.h>
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL.h>
+#ifdef _WIN32
+#include <direct.h>
+#else
+#include <unistd.h>
+#endif
+#endif
 #include "win.h"
 #include "resource.h"
 #include "ww3d.h"
@@ -757,6 +767,7 @@ bool Set_Working_Directory(void)
 {
 	char path_buffer[_MAX_PATH];
 	const char *gamedir = cUserOptions::GameDir.Get();
+#if defined(OPENW3D_WIN32)
 	if (gamedir == NULL || gamedir[0] == '\0') {
 		char path_to_exe[256];
 		char drive[_MAX_DRIVE];
@@ -767,4 +778,12 @@ bool Set_Working_Directory(void)
 		gamedir = path_buffer;
 	}
 	return !!SetCurrentDirectoryA(gamedir);
+#elif defined(OPENW3D_SDL3)
+	if (gamedir == NULL || gamedir[0] == '\0') {
+		gamedir = SDL_GetBasePath();
+	}
+	return !chdir(gamedir);
+#else
+	assert(0);
+#endif
 }
