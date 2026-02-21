@@ -112,6 +112,7 @@
 #include "gamespyadmin.h"
 #include "shutdown.h"
 #include "specialbuilds.h"
+#include "wwdialog.h"
 #include <cstdio>
 
 extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
@@ -822,10 +823,9 @@ bool Game_Init(void)
 	case WW3D_ERROR_DIRECTX8_INITIALIZATION_FAILED:
 	default:
 		WWDEBUG_SAY(("WW3D::Init Failed!\r\n"));
-		::MessageBoxA(NULL,
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_ERROR,
 			"DirectX 8.0 or later is required to play C&C:Renegade.",
-			"Renegade Graphics Initialization Error.",
-			MB_OK);
+			"Renegade Graphics Initialization Error.");
 		return false;
 	}
 
@@ -927,10 +927,9 @@ bool Game_Init(void)
 	// table version
 	//
 	if (TranslateDBClass::Get_Version_Number () != STRINGS_VER) {
-		MessageBoxA( 0,
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
 			"This build of Renegade is out of sync with the strings database (strings.tdb).  Strings will be incorrect and may cause the game to crash.",
-			"Version Error",
-			MB_OK | MB_ICONEXCLAMATION | MB_SETFOREGROUND  );
+			"Version Error");
 	}
 
 	//

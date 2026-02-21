@@ -112,6 +112,7 @@
 #include	"wwstring.h"
 #include "widestring.h"
 #include "nstrdup.h"
+#include "wwdialog.h"
 
 
 // Instance of the static variable.
@@ -2363,9 +2364,8 @@ void INIClass::DuplicateCRCError(const char *message, const char *section, const
 	assert(0);
 
 #ifdef NDEBUG
-#ifdef _WINDOWS
-	MessageBoxA(0, buffer, "Duplicate CRC in INI file.", MB_ICONSTOP | MB_OK);
-#endif
+	::Show_Message_Box(MESSAGEBOX_BUTTON_OK | MESSAGEBOX_SEVERITY_ERROR,
+		buffer, "Duplicate CRC in INI file.");
 #endif
 }
 

@@ -28,6 +28,7 @@
 #include "ffactory.h"
 #include "rawfile.h"
 #include "mixfile.h"
+#include "wwdialog.h"
 #include <windows.h>
 #include <climits>
 
@@ -631,13 +632,12 @@ void ThumbnailManagerClass::Update_Thumbnail_File(const char* mix_file_name,bool
 
 	if (display_message_box && !message_box_displayed) {
 		message_box_displayed=true;
-		::MessageBoxA(NULL,
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK,
 			"Some or all texture thumbnails need to be updated.\n"
 			"This will take a while. The update will only be done once\n"
 			"each time a mix file changes and thumb database hasn't been\n"
 			"updated.",
-			"Updating texture thumbnails",
-			MB_OK);
+			"Updating texture thumbnails");
 	}
 
 	// we don't currently have a thumbnail file (either we just deleted it or it never existed, we don't care)

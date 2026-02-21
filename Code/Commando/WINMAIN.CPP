@@ -58,6 +58,7 @@
 #include "win.h"
 #include "resource.h"
 #include "ww3d.h"
+#include "wwdialog.h"
 
 #include "miscutil.h"
 #include "input.h"
@@ -214,8 +215,7 @@ int main(int argc, char *argv[])
 	bool webInstalled = WebBrowser::InstallPrerequisites();
 
 	if (!webInstalled) {
-		::MessageBoxA(NULL, "Embedded browser prerequisites missing\n\nBrowser functionality questionable.\n\n(Please call Denzil @ 27272)",
-				"Renegade Warning!", MB_ICONWARNING|MB_OK);
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING, "Embedded browser prerequisites missing\n\nBrowser functionality questionable.\n\n(Please call Denzil @ 27272)", "Renegade Warning!");
 	}
 #endif // WWDEBUG
 #endif // WEBBROWSER_ENABLED
@@ -397,7 +397,7 @@ int Start_Application(void)
 		** Set the working directory.
 		*/
 		if (!Set_Working_Directory()) {
-			MessageBoxA(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
+			::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_ERROR, "Set working folder and try again...", "Invalid working folder");
 			return 0;
 		}
 
@@ -413,7 +413,7 @@ int Start_Application(void)
 			sizeof(tmp_buffer),
 			tmp_buffer,
 			&tmp_ptr)) {
-			MessageBoxA(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
+			::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_ERROR, "Invalid working folder", "Set working folder and try again...");
 			return 0;
 		}
 

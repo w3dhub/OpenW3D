@@ -43,6 +43,7 @@
 
 
 #include "wwdebug.h"
+#include "wwdialog.h"
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -301,7 +302,6 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
 		_CurAssertHandler(buffer);
 
 	} else {
-#if _WIN32
 		/*
 		// If the exception handler is try to quit the game then don't show an assert.
 		*/
@@ -311,23 +311,17 @@ void WWDebug_Assert_Fail(const char * expr,const char * file, int line)
 
       char assertbuf[4096];
 		sprintf(assertbuf, "Assert failed\n\n. File %s Line %d", file, line);
+      int code = ::Show_Message_Box(MESSAGEBOX_BUTTONS_ABORTRETRYIGNORE, assertbuf, "WWDebug_Assert_Fail");
 
-      int code = MessageBoxA(NULL, assertbuf, "WWDebug_Assert_Fail", MB_ABORTRETRYIGNORE|MB_ICONHAND|MB_SETFOREGROUND|MB_TASKMODAL);
-
-      if (code == IDABORT) {
+      if (code == MESSAGEBOX_BUTTON_ABORT) {
       	raise(SIGABRT);
-      	_exit(3);
+      	exit(3);
       }
 
-		if (code == IDRETRY) {
+		if (code == MESSAGEBOX_BUTTON_RETRY) {
 			__debugbreak();
       	return;
 		}
-#else
-        // TODO throw up a message box and/or trigger the debugger
-        // For now, we just abort so we can trigger the debugger
-        abort();
-#endif
    }
 }
 #endif
@@ -479,7 +473,7 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     heventDBWIN = OpenEvent(EVENT_MODIFY_STATE, false, "DBWIN_BUFFER_READY");
     if ( !heventDBWIN )
     {
-        //MessageBoxA(NULL, "DBWIN_BUFFER_READY nonexistent", NULL, MB_OK);
+        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DBWIN_BUFFER_READY nonexistent", NULL);
         return;
     }
 
@@ -487,7 +481,7 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     heventData = OpenEvent(EVENT_MODIFY_STATE, false, "DBWIN_DATA_READY");
     if ( !heventData )
     {
-        // MessageBoxA(NULL, "DBWIN_DATA_READY nonexistent", NULL, MB_OK);
+        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DBWIN_DATA_READY nonexistent", NULL);
         CloseHandle(heventDBWIN);
         return;
     }
@@ -495,7 +489,7 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     hSharedFile = CreateFileMappingA((HANDLE)-1, NULL, PAGE_READWRITE, 0, 4096, "DBWIN_BUFFER");
     if (!hSharedFile)
     {
-        //MessageBoxA(NULL, "DebugTrace: Unable to create file mapping object DBWIN_BUFFER", "Error", MB_OK);
+        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DebugTrace: Unable to create file mapping object DBWIN_BUFFER", "Error");
         CloseHandle(heventDBWIN);
         CloseHandle(heventData);
         return;
@@ -504,7 +498,7 @@ void WWDebug_DBWin32_Message_Handler( const char * str )
     lpszSharedMem = (LPSTR)MapViewOfFile(hSharedFile, FILE_MAP_WRITE, 0, 0, 512);
     if (!lpszSharedMem)
     {
-        //MessageBoxA(NULL, "DebugTrace: Unable to map shared memory", "Error", MB_OK);
+        // ::Show_Message_Box(MESSAGEBOX_BUTTONS_OK, "DebugTrace: Unable to map shared memory", "Error");
         CloseHandle(heventDBWIN);
         CloseHandle(heventData);
         return;
