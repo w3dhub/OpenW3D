@@ -140,6 +140,8 @@ set(WWLIB_SRC
     widestring.h
     win.h
     WWCOMUtil.h
+    wwdialog.cpp
+    wwdialog.h
     wwfile.h
     wwstring.h
     xmouse.h

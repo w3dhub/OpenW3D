@@ -45,6 +45,7 @@
 #include <WWOnline/WOLLoginInfo.h>
 #include <wwdebug/wwdebug.h>
 #include "win.h"
+#include "wwdialog.h"
 #include "_globals.h"
 #include <cstdio>
 
@@ -101,8 +102,9 @@ bool WebBrowser::InstallPrerequisites(void)
 		if (!success)
 			{
 			WWDEBUG_SAY(("Failed to register WOLBrowser.dll!\n"));
-			::MessageBoxA(NULL, "WOLBrowser.dll not registered!\n\nDefaulting to external browser.",
-					"Renegade Warning!", MB_ICONWARNING|MB_OK);
+			::Show_Message_Box(MESSAGEBOX_BUTTON_OK | MESSAGEBOX_SEVERITY_WARNING,
+					"WOLBrowser.dll not registered!\n\nDefaulting to external browser.",
+					"Renegade Warning!");
 			return false;
 			}
 		}
@@ -114,8 +116,9 @@ bool WebBrowser::InstallPrerequisites(void)
 	if (ERROR_SUCCESS != result)
 		{
 		WWDEBUG_SAY(("URL entry not in the registry\n"));
-		::MessageBoxA(NULL, "Embedded Browser prerequisite error!\n\nURL key not found.",
-				"Renegade Warning!", MB_ICONWARNING|MB_OK);
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
+				"Embedded Browser prerequisite error!\n\nURL key not found.",
+				"Renegade Warning!");
 
 		// Attempt to create the key.
 		LONG result = RegCreateKeyExA(HKEY_CURRENT_USER, APPLICATION_SUB_KEY_NAME_URL, 0, NULL,
@@ -124,8 +127,9 @@ bool WebBrowser::InstallPrerequisites(void)
 		if (ERROR_SUCCESS != result)
 			{
 			WWDEBUG_SAY(("Failed to create URL entry in registry\n"));
-			::MessageBoxA(NULL, "Failed to create Embedded Browser URLS\n\nURL key not found.",
-					"Renegade Warning!", MB_ICONWARNING|MB_OK);
+			::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
+					"Failed to create Embedded Browser URLS\n\nURL key not found.",
+					"Renegade Warning!");
 			return false;
 			}
 
@@ -174,7 +178,8 @@ bool WebBrowser::InstallPrerequisites(void)
 					WWDEBUG_SAY(("Failed to create URL entry '%s' in registry\n", valueName));
 					char errorMsg[256];
 					sprintf(errorMsg, "Embedded Browser prerequisite error!\n\nURL key '%s'", valueName);
-					::MessageBoxA(NULL, errorMsg, "Renegade Warning!", MB_ICONWARNING|MB_OK);
+					::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
+						errorMsg, "Renegade Warning!");
 					break;
 					}
 				}
