@@ -450,36 +450,8 @@ unsigned int Decode_Time_String(unichar_t* string)
 
 	WWASSERT(string != NULL);
 
-	unichar_t buffer[12];
-	u_strncpy(buffer, string, 12);
-	buffer[11] = 0;
-
-	unichar_t* ptr = &buffer[0];
-
-#ifndef W3D_USING_ICU
-	// Isolate hours part
-	unichar_t* separator = u_strchr(ptr, U_CHAR(':'));
-	WWASSERT(separator != NULL);
-	*separator++ = 0;
-	unsigned int hours = wcstoul(ptr, NULL, 10);
-
-	// Isolate minutes part
-	ptr = separator;
-	separator = u_strchr(ptr, U_CHAR(':'));
-	WWASSERT(separator != NULL);
-	*separator++ = 0;
-	unsigned int minutes = wcstoul(ptr, NULL, 10);
-
-	// Isolate seconds part
-	ptr = separator;
-	separator = u_strchr(ptr, U_CHAR(':'));
-	WWASSERT(separator != NULL);
-	*separator++ = 0;
-	unsigned int seconds = wcstoul(ptr, NULL, 10);
-
-	// Isolate hundredth part (1/100th of a second)
-	ptr = separator;
-	unsigned int hundredth = wcstoul(ptr, NULL, 10);
+	unsigned hours = 0, minutes = 0, seconds = 0, hundredth = 0;
+	u_sscanf_u(string, U_CHAR("%u:%u:%u:%u"), &hours, &minutes, &seconds, &hundredth);
 
 	unsigned int time = (hours * TICKS_PER_HOUR);
 	time += (minutes * TICKS_PER_MINUTE);
@@ -487,9 +459,6 @@ unsigned int Decode_Time_String(unichar_t* string)
 	time += ((hundredth * TICKS_PER_SECOND) / 100);
 
 	return time;
-#else
-	return 0; // TODO, ICU implementation
-#endif
 }
 
 
@@ -537,12 +506,8 @@ void Parse_Position(unichar_t* param, SubTitleClass* subTitle)
 
 	if (separator != NULL) {
 		*separator++ = 0;
-#ifndef W3D_USING_ICU
-		int linePos = wcstol(ptr, NULL, 0);
-#else
-	  // TODO ICU implementation.
 		int linePos = 0;
-#endif
+		u_sscanf_u(ptr, U_CHAR("%d"), &linePos);
 		subTitle->Set_Line_Position(linePos);
 		ptr = separator;
 	}
@@ -569,24 +534,10 @@ void Parse_Color(unichar_t* param, SubTitleClass* subTitle)
 	WWASSERT(param != NULL);
 	WWASSERT(subTitle != NULL);
 
-	// TODO ICU implementation
-#ifndef W3D_USING_ICU
-	unichar_t* ptr = param;
-
-	unichar_t* separator = u_strchr(ptr, U_CHAR(':'));
-	*separator++ = 0;
-	unsigned char red = (unsigned char)wcstoul(ptr, NULL, 10);
-	
-	ptr = separator;
-	separator = u_strchr(ptr, U_CHAR(':'));
-	*separator++ = 0;
-	unsigned char green = (unsigned char)wcstoul(ptr, NULL, 10);
-
-	ptr = separator;
-	unsigned char blue = (unsigned char)wcstoul(ptr, NULL, 10);
-
+	unsigned char red = 0, green = 0, blue = 0;
+	u_sscanf_u(param, U_CHAR("%hhu:%hhu:%hhu"), &red, &green, &blue);
 	subTitle->Set_RGB_Color(red, green, blue);
-#endif
+
 }
 
 
