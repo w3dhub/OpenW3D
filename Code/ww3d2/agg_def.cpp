@@ -40,10 +40,9 @@
 #include "wwdebug.h"
 #include "assetmgr.h"
 #include "matinfo.h"
+#include "pathutil.h"
 #include "texture.h"
 #include "wwstring.h"
-
-#include <windows.h>
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -349,20 +348,14 @@ AggregateDefClass::Load_Assets (const char *passet_name)
 	if (passet_name != NULL) {
 		
 		// Determine what the current working directory is
-		char path[MAX_PATH];
-		::GetCurrentDirectoryA (sizeof (path), path);
-
-		// Ensure the path is directory delimited
-		if (path[::strlen(path)-1] != '\\') {
-			::strcat (path, "\\");
-		}
+		StringClass path = cPathUtil::GetWorkingDirectory(true);
 
 		// Assume the filename is simply the "asset name" + the w3d extension
-		::strcat (path, passet_name);
-		::strcat (path, ".w3d");
+		path += passet_name;
+		path += ".w3d";
 
 		// If the file exists, then load it into the asset manager.
-		if (::GetFileAttributesA (path) != 0xFFFFFFFF) {
+		if (cPathUtil::PathExists(path)) {
 			retval = WW3DAssetManager::Get_Instance()->Load_3D_Assets (path);
 		}
 	}

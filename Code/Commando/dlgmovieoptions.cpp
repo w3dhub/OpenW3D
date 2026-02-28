@@ -37,6 +37,7 @@
 #include "renegadedialog.h"
 #include "dlgmovieoptions.h"
 #include "listctrl.h"
+#include "pathutil.h"
 #include "BINKMovie.h"
 #include "registry.h"
 #include "translatedb.h"
@@ -82,7 +83,7 @@ MovieOptionsMenuClass::On_Init_Dialog (void)
 		RegistryClass registry (APPLICATION_SUB_KEY_NAME_MOVIES);
 		if (registry.Is_Valid ()) {
 
-			const char *INTRO_MOVIE	= "MOVIES\\R_INTRO.BIK";
+			const char *INTRO_MOVIE	= "MOVIES/R_INTRO.BIK";
 						
 			//
 			//	Insert the renegade intro movie by default...
@@ -227,7 +228,7 @@ MovieOptionsMenuClass::Begin_Play_Movie (void)
 		//
 		//	Play the movie (if it exists locally)
 		//
-		if (::GetFileAttributesA (filename->Peek_Buffer ()) != 0xFFFFFFFF) {
+		if (!cPathUtil::PathExists (filename->Peek_Buffer())) {
 			Play_Movie (filename->Peek_Buffer ());
 		} else {
 
@@ -279,7 +280,7 @@ MovieOptionsMenuClass::Play_Movie (const char *filename)
 	
 	FontCharsClass* font = StyleMgrClass::Get_Font(StyleMgrClass::FONT_INGAME_SUBTITLE_TXT);
 
-	BINKMovie::Play (filename, "data\\subtitle.ini", font);
+	BINKMovie::Play (filename, "data/subtitle.ini", font);
 	
 	if (font) {
 		font->Release_Ref();
@@ -382,7 +383,7 @@ MovieOptionsMenuClass::HandleNotification (CDVerifyEvent &event)
 			StringClass full_path = cd_path;
 			const size_t path_length = cd_path.Get_Length ();
 				if (path_length == 0 || cd_path[static_cast<int>(path_length - 1)] != '\\') {
-					full_path += "\\";
+					full_path += "/";
 				}
 			full_path += PendingMovieFilename;
 			Play_Movie (full_path);

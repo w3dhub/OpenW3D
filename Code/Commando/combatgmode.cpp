@@ -702,7 +702,7 @@ void CombatGameModeClass::Load_Level( void )
 	}
 	WWLOG_INTERMEDIATE("Threaded level load");
 
-	GenericDataSafeClass::Set_Preferred_Thread(GetCurrentThreadId());
+	GenericDataSafeClass::Set_Preferred_Thread(ThreadClass::Get_Current_Thread_ID());
 	TextureLoader::Continue_Texture_Load();
 	WWLOG_INTERMEDIATE("TextureLoader::Continue_Texture_Load()");
 
@@ -1521,8 +1521,8 @@ void	CombatGameModeClass::Quick_Save( void )
 		saveA = registry->Get_Bool( "QuicksaveA", saveA );
 	}
 
-#define	SAVEGAME_NAME_A	"save\\quicksaveA.sav"
-#define	SAVEGAME_NAME_B	"save\\quicksaveB.sav"
+#define	SAVEGAME_NAME_A	"save/quicksaveA.sav"
+#define	SAVEGAME_NAME_B	"save/quicksaveB.sav"
 
 	// Check for a missing file
    if ( !cMiscUtil::File_Exists(SAVEGAME_NAME_B) ) {

@@ -86,6 +86,7 @@
 #include "slavemaster.h"
 #include "sctextobj.h"
 #include "mainloop.h"
+#include "pathutil.h"
 #include <cstdio>
 #include <algorithm>
 
@@ -1763,7 +1764,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 					// Verify the sysinfo folder
 					StringClass dirname(0,true);
 					dirname.Format("sysinfo_%d",DebugManager::Get_Version_Number());
-					if (GetFileAttributesA(dirname)==0xffffffff) {
+					if (!cPathUtil::PathExists (dirname)) {
 						if (!CreateDirectoryA(dirname,NULL)) {
 							return;
 						}
@@ -1771,7 +1772,7 @@ void WolGameModeClass::HandleNotification(GameOptionsMessage& message)
 
 					StringClass filename(0,true);
 					filename=dirname;
-					filename+="\\";
+					filename+="/";
 					tmp=requestor;
 					filename+=tmp;
 					filename+=".txt";

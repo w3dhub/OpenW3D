@@ -157,6 +157,7 @@
 //#include "mmsys.h"
 //#endif	//MMSYS_H
 #include "systimer.h"
+#include "thread.h"
 
 /*
 ** Use Renegade assert.
@@ -630,10 +631,10 @@ class GenericDataSafeClass
 			public:
 				__forceinline ThreadLockClass(void) {
 #ifdef WWDEBUG
-					if (GenericDataSafeClass::PreferredThread != GetCurrentThreadId()) {
-						WWDEBUG_SAY(("DATASAFE.H - PreferredThread = %08X, GetCurrentThreadId() == %08X\n", GenericDataSafeClass::PreferredThread, GetCurrentThreadId()));
+					if (GenericDataSafeClass::PreferredThread != ThreadClass::Get_Current_Thread_ID()) {
+						WWDEBUG_SAY(("DATASAFE.H - PreferredThread = %08X, GetCurrentThreadId() == %08X\n", GenericDataSafeClass::PreferredThread, ThreadClass::Get_Current_Thread_ID()));
 					}
-					ds_assert(GenericDataSafeClass::PreferredThread == GetCurrentThreadId());
+					ds_assert(GenericDataSafeClass::PreferredThread == ThreadClass::Get_Current_Thread_ID());
 #endif //WWDEBUG
 				};
 		};

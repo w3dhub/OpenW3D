@@ -1304,7 +1304,7 @@ Input::Save_Configuration (const char *filename)
 	//	Save the data to a file
 	//
 	StringClass	config_filename;
-	config_filename.Format( "config\\%s", filename );
+	config_filename.Format( "config/%s", filename );
 	FileClass *ini_file = _TheWritingFileFactory->Get_File (config_filename);
 	if (ini_file != NULL) {
 		ini_file->Open (FileClass::WRITE);

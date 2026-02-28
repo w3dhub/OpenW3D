@@ -25,6 +25,7 @@
 
 
 #include "StdAfx.h"
+#include "pathutil.h"
 #include "W3DViewDoc.H"
 #include "MainFrm.H"
 #include "DataTreeView.H"
@@ -896,7 +897,7 @@ Find_Missing_Textures
 	//
 	//	If this file doesn't exist, then add it to our list
 	//
-	if (::GetFileAttributes (name) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists (name)) {
 		CString full_path = name;
 		Resolve_Path (full_path);
 		list.Add (full_path);

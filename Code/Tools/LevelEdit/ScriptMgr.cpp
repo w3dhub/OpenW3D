@@ -36,6 +36,7 @@
 
 
 #include "StdAfx.h"
+#include "pathutil.h"
 #include "scriptmgr.h"
 #include "scriptevents.H"
 #include "EditScript.h"
@@ -108,7 +109,7 @@ ScriptMgrClass::Initialize (void)
 		//
 		//CString dll_name = ::Make_Path (scripts_path, Get_Filename_From_Path (find_info.cFileName));
 		CString dll_name = ::Make_Path (scripts_path, filename);
-		if (::GetFileAttributes (dll_name) != 0xFFFFFFFF) {
+		if (cPathUtil::PathExists (dll_name)) {
 			HMODULE module_handle = ::LoadLibrary (dll_name);
 			if (module_handle != NULL) {
 				

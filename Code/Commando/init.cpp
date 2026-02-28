@@ -61,6 +61,7 @@
 #include "msgloop.h"
 #include "resource.h"
 #include "miscutil.h"
+#include "pathutil.h"
 #include "cnetwork.h"
 #include "mathutil.h"
 #include "win.h"
@@ -111,6 +112,7 @@
 #include "gamespyadmin.h"
 #include "shutdown.h"
 #include "specialbuilds.h"
+#include "wwdialog.h"
 #include <cstdio>
 
 extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
@@ -135,10 +137,10 @@ extern const char *VALUE_NAME_TEXTURE_FILTER_MODE;
 /*
 ** This defines the subdirectory where the game will load all data from
 */
-const char *	DATA_SUBDIRECTORY			= "DATA\\";
-const char *	SAVE_SUBDIRECTORY			= "DATA\\SAVE\\";
-const char *	CONFIG_SUBDIRECTORY		= "DATA\\CONFIG\\";
-const char *	MOVIES_SUBDIRECTORY		= "DATA\\MOVIES\\";
+const char *	DATA_SUBDIRECTORY			= "DATA/";
+const char *	SAVE_SUBDIRECTORY			= "DATA/SAVE/";
+const char *	CONFIG_SUBDIRECTORY		= "DATA/CONFIG/";
+const char *	MOVIES_SUBDIRECTORY		= "DATA/MOVIES/";
 
 
 #define	STRINGS_FILENAME					"STRINGS.TDB"
@@ -435,27 +437,27 @@ void	Construct_Directory_Structure(void)
 	StringClass data_dir(path,true);
 	data_dir += "data";
 
-	StringClass save_dir(data_dir + "\\save",true);
-	StringClass config_dir(data_dir + "\\config",true);
+	StringClass save_dir(data_dir +  "/save",true);
+	StringClass config_dir(data_dir +  "/config",true);
 
 	//
 	//	Create the data directory if necessary
 	//
-	if (GetFileAttributesA (data_dir) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists (data_dir)) {
 		::CreateDirectoryA (data_dir, NULL);
 	}
 
 	//
 	//	Create the save directory if necessary
 	//
-	if (GetFileAttributesA (save_dir) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists (save_dir)) {
 		::CreateDirectoryA (save_dir, NULL);
 	}
 
 	//
 	//	Create the config directory if necessary
 	//
-	if (GetFileAttributesA (config_dir) == 0xFFFFFFFF) {
+	if (!cPathUtil::PathExists (config_dir)) {
 		::CreateDirectoryA (config_dir, NULL);
 	}
 
@@ -465,7 +467,7 @@ void	Construct_Directory_Structure(void)
 
 static bool Verify_Log_Directory(const StringClass& folder)
 {
-	if (GetFileAttributesA(folder)!=0xffffffff) return true;
+	if (cPathUtil::PathExists(folder)) return true;
 	//HANDLE file;
 	//file = CreateFileA(folder, 0, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	//if (file!=INVALID_HANDLE_VALUE) {
@@ -486,12 +488,12 @@ static bool Create_Log_File_Name(const StringClass& folder, StringClass& filenam
 {
 	StringClass original(filename);
 	if (!use_numbering) {
-		filename.Format("%s\\%s",folder,original);
+		filename.Format("%s/%s",folder,original);
 		return true;
 	}
 	for (int i=0;i<999;++i) {
 		HANDLE file;
-		filename.Format("%s\\%3.3d%s",folder,i,original);
+		filename.Format("%s/%3.3d%s",folder,i,original);
 		file = CreateFileA(filename, GENERIC_WRITE, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
 		if (file!=INVALID_HANDLE_VALUE) {
 			CloseHandle(file);
@@ -534,7 +536,7 @@ public:
 	CopyThreadClass()
 		:
 		Version(0),
-		ThreadClass("LogCopyThread", &Exception_Handler) {}
+		ThreadClass("LogCopyThread") {}
 
 	void Thread_Function() override
 	{
@@ -547,12 +549,12 @@ public:
 		RegistryClass reg(APPLICATION_SUB_KEY_NAME_DEBUG);
 		char path[MAX_PATH];
 		reg.Get_String("LogPath", path, sizeof(path), "\\\\tanya\\game\\projects\\renegade\\_error_logs");
-		strcat(path, "\\");
+		strcat(path, "/");
 
 		StringClass folder_name(0,true);
 		folder_name.Format("%s%d.%d",path,Version>>16,Version&0xffff);
 		if (!Verify_Log_Directory(folder_name)) return;
-		folder_name+="\\";
+		folder_name+="/";
 		folder_name+=computer_name;
 		if (!Verify_Log_Directory(folder_name)) return;
 
@@ -745,7 +747,7 @@ bool Game_Init(void)
 	WIN32_FIND_DATAA find_info	= { 0 };
 	BOOL keep_going				= true;
 	HANDLE file_find				= NULL;
-	for (file_find = ::FindFirstFileA ("data\\*.mix", &find_info);
+	for (file_find = ::FindFirstFileA ("data/*.mix", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFileA (file_find, &find_info))
 	{
@@ -821,10 +823,9 @@ bool Game_Init(void)
 	case WW3D_ERROR_DIRECTX8_INITIALIZATION_FAILED:
 	default:
 		WWDEBUG_SAY(("WW3D::Init Failed!\r\n"));
-		::MessageBoxA(NULL,
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_ERROR,
 			"DirectX 8.0 or later is required to play C&C:Renegade.",
-			"Renegade Graphics Initialization Error.",
-			MB_OK);
+			"Renegade Graphics Initialization Error.");
 		return false;
 	}
 
@@ -926,10 +927,9 @@ bool Game_Init(void)
 	// table version
 	//
 	if (TranslateDBClass::Get_Version_Number () != STRINGS_VER) {
-		MessageBoxA( 0,
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING,
 			"This build of Renegade is out of sync with the strings database (strings.tdb).  Strings will be incorrect and may cause the game to crash.",
-			"Version Error",
-			MB_OK | MB_ICONEXCLAMATION | MB_SETFOREGROUND  );
+			"Version Error");
 	}
 
 	//

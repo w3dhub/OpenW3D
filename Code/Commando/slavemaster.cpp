@@ -287,20 +287,8 @@ void SlaveMasterClass::Wait_For_Slave_Shutdown(void)
 
 			for (int i=0 ; i<NumSlaveServers ; i++) {
 				if (SlaveServers[i].IsRunning) {
-					if (SlaveServers[i].ProcessInfo.hProcess) {
-						DWORD code;
-						int res = GetExitCodeProcess(SlaveServers[i].ProcessInfo.hProcess, &code);
-
-						if (res && code == STILL_ACTIVE) {
-							num_running++;
-						}
-					} else {
-						if (SlaveServers[i].ProcessInfo.dwProcessId) {
-							unsigned int ver = GetProcessVersion(SlaveServers[i].ProcessInfo.dwProcessId);
-							if (ver && ver == GetProcessVersion(GetCurrentProcessId())) {
-								num_running++;
-							}
-						}
+					if (!SlaveServers[i].ProcessInfo->Wait(false)) {
+						num_running++;
 					}
 				}
 			}
@@ -319,24 +307,12 @@ void SlaveMasterClass::Wait_For_Slave_Shutdown(void)
 			if (!forced && TIMEGETTIME() - time > 27000) {
 				forced = true;
 				for (int i=0 ; i<NumSlaveServers ; i++) {
-					if (SlaveServers[i].ProcessInfo.dwProcessId) {
-						unsigned int ver = GetProcessVersion(SlaveServers[i].ProcessInfo.dwProcessId);
-						if (ver && ver == GetProcessVersion(GetCurrentProcessId())) {
-
-							WWDEBUG_SAY(("Terminating process %d due to timeout\n", SlaveServers[i].ProcessInfo.dwProcessId));
-
-							/*
-							** Get a handle to the process.
-							*/
-							HANDLE proc_handle = OpenProcess(PROCESS_TERMINATE, false, SlaveServers[i].ProcessInfo.dwProcessId);
-							if (proc_handle != INVALID_HANDLE_VALUE) {
-								TerminateProcess(proc_handle, 0);
-								CloseHandle(proc_handle);
-							} else {
-								WWDEBUG_SAY(("Failed to get process handle for termination - error code %d\n", GetLastError()));
-							}
-							num_running++;
+					if (SlaveServers[i].ProcessInfo) {
+						WWDEBUG_SAY(("Terminating process %d due to timeout\n", SlaveServers[i].ProcessInfo->Pid()));
+						if (!SlaveServers[i].ProcessInfo->Kill()) {
+							WWDEBUG_SAY(("Failed to get process handle for termination - error code %d\n", GetLastError()));
 						}
+						num_running++;
 					}
 				}
 			}
@@ -478,7 +454,7 @@ void SlaveMasterClass::Load(void)
 		}
 
 		char filename[MAX_PATH];
-		sprintf(filename, "data\\%s", SlaveServers[i].SettingsFileName);
+		sprintf(filename, "data/%s", SlaveServers[i].SettingsFileName);
 		RawFileClass file(filename);
 		if (!file.Is_Available()) {
 			strcpy(SlaveServers[i].SettingsFileName, "svrcfg_cnc.ini");
@@ -535,106 +511,6 @@ void SlaveMasterClass::Add_Slave(bool enable, const char *nick, const char *seri
 	SlaveServers[NumSlaveServers++].Set(enable, nick, serial, port, settings_file, bandwidth, password);
 }
 
-
-
-
-/***********************************************************************************************
- * SlaveMasterClass::Aquire_Slave -- Find a running slave by it's process ID                   *
- *                                                                                             *
- *                                                                                             *
- *                                                                                             *
- * INPUT:    Nothing                                                                           *
- *                                                                                             *
- * OUTPUT:   Nothing                                                                           *
- *                                                                                             *
- * WARNINGS: None                                                                              *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/16/2001 11:34PM ST : Created                                                           *
- *=============================================================================================*/
-bool SlaveMasterClass::Aquire_Slave(int index)
-{
-	int proc_id = 0;
-
-	/*
-	** Try the slaves record of his process ID. If it's not there, it can't have run yet.
-	*/
-	char slave_name[64];
-	sprintf(slave_name, "\\slave_%d", index);
-	strcpy(DefaultRegistryModifier, slave_name+1);
-	RegistryClass slave_reg(APPLICATION_SUB_KEY_NAME);
-	DefaultRegistryModifier[0] = 0;
-	if (slave_reg.Is_Valid()) {
-		proc_id = slave_reg.Get_Int("ProcessId", proc_id);
-	}
-
-	/*
-	** Try our record of the slaves process ID.
-	*/
-	if (proc_id == 0) {
-		RegistryClass reg(APPLICATION_SUB_KEY_NAME_NET_SLAVE);
-		if (reg.Is_Valid()) {
-			char entry[128];
-			sprintf(entry, "%s%d", KEY_SLAVE_RUNNING_ID, index);
-			proc_id = reg.Get_Int(entry, 0);
-		}
-	}
-
-	/*
-	** Search for the slave's console window if we are in console mode. This is a better test than just hoping the Process ID is
-	** correct.
-	*/
-	if (ConsoleBox.Is_Exclusive()) {
-		HWND slave_window = ConsoleBox.Get_Slave_Window_By_Title(SlaveServers[index].NickName, SlaveServers[index].SettingsFileName);
-		if (slave_window != NULL) {
-			/*
-			** Note the process ID for later.
-			*/
-			SlaveServers[index].ProcessInfo.hProcess = NULL;	// Don't know handle.
-			GetWindowThreadProcessId(slave_window, &SlaveServers[index].ProcessInfo.dwProcessId);
-			WWDEBUG_SAY(("Slave found by HWND with process ID %d\n", SlaveServers[index].ProcessInfo.dwProcessId));
-
-			RegistryClass reg(APPLICATION_SUB_KEY_NAME_NET_SLAVE);
-			if (reg.Is_Valid()) {
-				char entry[128];
-				sprintf(entry, "%s%d", KEY_SLAVE_RUNNING_ID, index);
-				reg.Set_Int(entry, SlaveServers[index].ProcessInfo.dwProcessId);
-			}
-			return(true);
-		}
-	}
-
-	/*
-	** See if the process is already running.
-	*/
-	if (proc_id) {
-
-		unsigned int ver = GetProcessVersion(proc_id);
-		if (ver && ver == GetProcessVersion(GetCurrentProcessId())) {
-
-			/*
-			** It looks like one of our slaves. See if we already know about it.
-			*/
-			if (SlaveServers[index].IsRunning && SlaveServers[index].ProcessInfo.dwProcessId == (unsigned) proc_id) {
-				return(true);
-			}
-
-			/*
-			** Note the process ID for later.
-			*/
-			SlaveServers[index].ProcessInfo.hProcess = NULL;	// Don't know handle.
-			SlaveServers[index].ProcessInfo.dwProcessId = proc_id;
-			WWDEBUG_SAY(("Slave found with process ID %d\n", SlaveServers[index].ProcessInfo.dwProcessId));
-			return(true);
-		}
-	}
-
-	return(false);
-}
-
-
-
-
 /***********************************************************************************************
  * SlaveMasterClass::Startup_Slaves -- Create extra slave server processes                     *
  *                                                                                             *
@@ -678,11 +554,8 @@ void SlaveMasterClass::Startup_Slaves(void)
 					/*
 					** Spawn the servers.
 					*/
-					char command_line[300];
 					for (int i=0 ; i<NumSlaveServers ; i++) {
 						if (SlaveServers[i].Enable) {
-
-							bool slave_running = false;
 
 							/*
 							** Get an access point into the slaves registry base.
@@ -692,14 +565,6 @@ void SlaveMasterClass::Startup_Slaves(void)
 							strcpy(DefaultRegistryModifier, slave_name+1);
 							RegistryClass slave_reg(APPLICATION_SUB_KEY_NAME);
 							DefaultRegistryModifier[0] = 0;
-
-							/*
-							** If we are autostarting then take inventory of which slaves are running already.
-							** An autostart after a crash should still see the slaves running. An autostart after a reboot will see no slaves.
-							*/
-							if (AutoRestart.Is_Active()) {
-								slave_running = Aquire_Slave(i);
-							}
 
 							/*
 							** Figure out the name of the .exe to run.
@@ -715,49 +580,22 @@ void SlaveMasterClass::Startup_Slaves(void)
 #else  //FREEDEDICATEDSERVER
 							_makepath(path, drive, dir, "renegade", "exe");
 #endif //FREEDEDICATEDSERVER
-
-							sprintf(command_line, "%s /MULTI /SLAVE /REGMOD=slave_%d", path, i);
+							char regmod[32];
+							sprintf(regmod, "--regmod=slave_%d", i);
+							const char * args[] = {
+								path,
+								"--multi",
+								"--slave",
+								regmod,
+								nullptr,
+								nullptr,
+							};
 							if (ConsoleBox.Is_Exclusive()) {
-								strcat(command_line, " /NODX");
+								args[4] = "--nodx";
 							}
-							STARTUPINFOA startup_info;
-							memset(&startup_info, 0, sizeof(startup_info));
-							startup_info.cb = sizeof(startup_info);
-
-							int result = 1;
-							if (!slave_running) {
-
-								if (slave_reg.Is_Valid()) {
-									slave_reg.Set_Int("ProcessId", 0);
-								}
-								result = CreateProcessA(path, command_line, NULL, NULL, false, 0, NULL, NULL, &startup_info, &SlaveServers[i].ProcessInfo);
-							}
-							if (result) {
+							SlaveServers[i].ProcessInfo = ProcessManager::Create_Process(args);
+							if (SlaveServers[i].ProcessInfo) {
 								SlaveServers[i].IsRunning = true;
-
-								/*
-								** The process ID we have here is actually the ID of the slaves launcher. We need the ID of the actual
-								** game process. Wait a few seconds until the slave sets his ID into his registry location.
-								*/
-								if (!slave_running) {
-									unsigned int time = TIMEGETTIME();
-									while (TIMEGETTIME() - time < 10000) {
-										if (!slave_reg.Is_Valid()) {
-											break;
-										}
-
-										/*
-										** Break out once we read the slaves process ID from the registry indicating that the slave
-										** has already parsed its command line.
-										*/
-										int process_id = slave_reg.Get_Int("ProcessId", 0);
-										if (process_id != 0) {
-											SlaveServers[i].ProcessInfo.dwProcessId = process_id;
-											break;
-										}
-										Sleep(250);
-									}
-								}
 
 								/*
 								** Set a registry flag to say this server is active. We need to know this if the master server (us)
@@ -767,7 +605,7 @@ void SlaveMasterClass::Startup_Slaves(void)
 								if (reg.Is_Valid()) {
 									char entry[128];
 									sprintf(entry, "%s%d", KEY_SLAVE_RUNNING_ID, i);
-									reg.Set_Int(entry, SlaveServers[i].ProcessInfo.dwProcessId);
+									reg.Set_Int(entry, SlaveServers[i].ProcessInfo->Pid());
 								}
 
 							} else {
@@ -810,11 +648,6 @@ void SlaveMasterClass::Shutdown_Slaves(void)
 
 		for (int i=0 ; i<NumSlaveServers ; i++) {
 			if (SlaveServers[i].IsRunning) {
-
-				/*
-				** In case the slave was restarted - we won't know it's new process ID.
-				*/
-				Aquire_Slave(i);
 
 				/*
 				** Set the slaves auto-restart flag to false or it will just start right up again.
@@ -877,15 +710,10 @@ bool SlaveMasterClass::Shutdown_Slave(char *slave_login)
 			if (SlaveServers[i].IsRunning && stricmp(slave_login, SlaveServers[i].NickName) == 0) {
 
 				/*
-				** In case the slave was restarted - we won't know it's new process ID.
-				*/
-				Aquire_Slave(i);
-
-				/*
 				** Set the slaves auto-restart flag to false or it will just start right up again.
 				*/
 				char slave_name[64];
-				sprintf(slave_name, "\\slave_%d", i);
+				sprintf(slave_name, "/slave_%d", i);
 				strcpy(DefaultRegistryModifier, slave_name+1);
 				RegistryClass slave_reg(APPLICATION_SUB_KEY_NAME_WOLSETTINGS);
 				DefaultRegistryModifier[0] = 0;
@@ -979,7 +807,7 @@ void SlaveMasterClass::Create_Registry_Copies(void)
 	WWASSERT(!SlaveMode);
 
 	/*
-	** Make sure the Process ID isn't set in our base registry. It's shouldn't be unless I ran with the /slave command during dev.
+	** Make sure the Process ID isn't set in our base registry. It's shouldn't be unless I ran with the --slave command during dev.
 	*/
 	RegistryClass reg(APPLICATION_SUB_KEY_NAME);
 	if (reg.Is_Valid()) {

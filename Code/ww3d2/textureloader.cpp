@@ -205,11 +205,7 @@ static TextureLoadTaskListClass					_FreeList;
 static class LoaderThreadClass : public ThreadClass
 {
 public:
-#ifdef Exception_Handler
-	LoaderThreadClass(const char *thread_name = "Texture loader thread") : ThreadClass(thread_name, &Exception_Handler) {}
-#else
 	LoaderThreadClass(const char *thread_name = "Texture loader thread") : ThreadClass(thread_name) {}
-#endif
 
 	void Thread_Function() override;
 } _TextureLoadThread;
@@ -297,8 +293,8 @@ void TextureLoader::Init()
 
 	ThumbnailManagerClass::Init();
 
-	_TextureLoadThread.Execute();
 	_TextureLoadThread.Set_Priority(-4);
+	_TextureLoadThread.Execute();
 }
 
 
@@ -314,7 +310,7 @@ void TextureLoader::Deinit()
 
 bool TextureLoader::Is_DX8_Thread(void)
 {
-	return (ThreadClass::_Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
+	return (ThreadClass::Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
 }
 
 
@@ -914,7 +910,7 @@ void TextureLoader::Load_Thumbnail(TextureClass *tc)
 
 void LoaderThreadClass::Thread_Function(void)
 {
-	while (running) {
+	while (mRunning) {
 		// if there are no tasks on the background queue, no need to grab background lock.
 		if (!_BackgroundQueue.Is_Empty()) {
 			// Grab background load so other threads know we could be 
@@ -1415,7 +1411,7 @@ void TextureLoadTaskClass::Unlock_Surfaces(void)
 {
 	for (unsigned int i = 0; i < MipLevelCount; ++i) {
 		if (LockedSurfacePtr[i]) {
-			WWASSERT(ThreadClass::_Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
+			WWASSERT(ThreadClass::Get_Current_Thread_ID() == DX8Wrapper::_Get_Main_Thread_ID());
 			DX8_ErrorCode(D3DTexture->UnlockRect(i));
 		}
 		LockedSurfacePtr[i] = NULL;

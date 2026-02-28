@@ -75,6 +75,7 @@
 #include "scaledialog.h"
 #include "gammadialog.h"
 #include "animatedsoundoptionsdialog.h"
+#include "pathutil.h"
 
 
 //#undef STRICT
@@ -691,7 +692,7 @@ CMainFrame::WindowProc
 				::wsprintf (full_path, "%s%d.dat", filename, (LOWORD(wParam) - IDM_SETTINGS1) + 1);
 				
 				// Does the file exist in the directory?
-				if (::GetFileAttributes (full_path) != 0xFFFFFFFF) {
+				if (cPathUtil::PathExists (full_path)) {
 
 					// Ask the document to load the settings from this data file
 					CW3DViewDoc *pdoc = (CW3DViewDoc *)GetActiveDocument ();

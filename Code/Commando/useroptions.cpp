@@ -289,7 +289,7 @@ void cUserOptions::Print_Command_Line_Help(bool error)
 	_splitpath(path, NULL, NULL, filename, filesuffix);
 	_makepath(path, NULL, NULL, filename, filesuffix);
 
-	fprintf(file, "usage: %s [--ip IP] [--multi] [--regmod MOD] [--slave] [--startserver]\n", path);
+	fprintf(file, "usage: %s [--ip IP] [--multi] [--regmod MOD] [--slave] [--startserver INI]\n", path);
 	fprintf(file, "    [--gamedir PATH]\n");
 	fprintf(file, "    [--gamespyserver ADDRESS] [--nodx]\n");
 #ifndef BETACLIENT

@@ -320,7 +320,7 @@ MainMenuDialogClass::Choose_Skirmish_Map (void)
 	//
 	// Look for any skirmish maps.
 	//
-	file_filter.Format("data\\skirmish*.mix");
+	file_filter.Format("data/skirmish*.mix");
 	keep_going = true;
 	for (file_find = ::FindFirstFileA (file_filter, &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
@@ -337,7 +337,7 @@ MainMenuDialogClass::Choose_Skirmish_Map (void)
 		//
 		// No skirmish maps found. Look for a C&C map.
 		//
-		file_filter.Format("data\\c&c_*.mix");
+		file_filter.Format("data/c&c_*.mix");
 		keep_going = true;
 		for (file_find = ::FindFirstFileA (file_filter, &find_info);
 			 (file_find != INVALID_HANDLE_VALUE) && keep_going;

@@ -293,7 +293,7 @@ public:
 
 	SysInfoCopyThreadClass()
 		:
-		ThreadClass("SysInfoCopyThread", &Exception_Handler) {}
+		ThreadClass("SysInfoCopyThread") {}
 
 	void Thread_Function() override
 	{

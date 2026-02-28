@@ -55,9 +55,9 @@
 #include "cpudetect.h"
 #include	"Except.h"
 //#include "debug.h"
-#include "mpu.h"
 //#include "commando/nat.h"
 #include "thread.h"
+#include "vector.h"
 #include "wwdebug.h"
 #include "wwmemlog.h"
 #include <limits>
@@ -577,7 +577,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	for (int thread = 0 ; thread < ThreadList.Count() ; thread++) {
 		sprintf(scrap, "  ID: %08X - %s", ThreadList[thread]->ThreadID, ThreadList[thread]->ThreadName);
 		Add_Txt(scrap);
-		if (GetCurrentThreadId() == ThreadList[thread]->ThreadID) {
+		if (ThreadClass::Get_Current_Thread_ID() == ThreadList[thread]->ThreadID) {
 			Add_Txt("   ***CURRENT THREAD***");
 		}
 		Add_Txt("\r\n");
@@ -586,7 +586,7 @@ void Dump_Exception_Info(EXCEPTION_POINTERS *e_info)
 	/*
 	** CPU type
 	*/
-	sprintf(scrap, "\r\nCPU %s, %d Mhz, Vendor: %s\r\n", (char*)CPUDetectClass::Get_Processor_String(), Get_RDTSC_CPU_Speed(), (char*)CPUDetectClass::Get_Processor_Manufacturer_Name());
+	sprintf(scrap, "\r\nCPU %s, Vendor: %s\r\n", (char*)CPUDetectClass::Get_Processor_String(), (char*)CPUDetectClass::Get_Processor_Manufacturer_Name());
 	Add_Txt(scrap);
 
 
@@ -854,15 +854,6 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 {
 	DebugString("Exception!\n");
 
-#ifdef DEMO_TIME_OUT
-	if ( !WindowedMode ) {
-		Load_Title_Page("TITLE.PCX", true);
-		MouseCursor->Release_Mouse();
-		MessageBoxA(MainWindow, "This demo has timed out. Thank you for playing Red Alert 2.","Byeee!", MB_ICONEXCLAMATION|MB_OK);
-		return (EXCEPTION_EXECUTE_HANDLER);
-	}
-#endif	//DEMO_TIME_OUT
-
 	/*
 	** If we were trying to quit and we got another exception then just shut down the whole shooting match right here.
 	*/
@@ -957,7 +948,7 @@ int Exception_Handler(int exception_code, EXCEPTION_POINTERS *e_info)
 		TryingToExit = true;
 
 		unsigned int id = Get_Main_Thread_ID();
-		if (id != GetCurrentThreadId()) {
+		if (id != ThreadClass::Get_Current_Thread_ID()) {
 			DebugString("Exiting due to exception in sub thread\n");
 			ExitProcess(EXIT_SUCCESS);
 		}

@@ -24,7 +24,6 @@
 #endif
 
 #include "always.h"
-#include "thread.h"
 
 #include <mutex>
 #include <atomic>

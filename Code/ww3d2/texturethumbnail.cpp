@@ -19,6 +19,7 @@
 #include "texturethumbnail.h"
 #include "hashtemplate.h"
 #include "missingtexture.h"
+#include "pathutil.h"
 #include "TARGA.H"
 #include "ww3dformat.h"
 #include "ddsfile.h"
@@ -27,6 +28,7 @@
 #include "ffactory.h"
 #include "rawfile.h"
 #include "mixfile.h"
+#include "wwdialog.h"
 #include <windows.h>
 #include <climits>
 
@@ -264,7 +266,7 @@ ThumbnailClass::~ThumbnailClass()
 void ThumbnailManagerClass::Create_Thumbnails()
 {
 	SimpleFileFactoryClass ff;
-	ff.Set_Sub_Directory("Data\\");
+	ff.Set_Sub_Directory("Data/");
 
 	MixFileFactoryClass mix(MixFileName, &ff);
 	FileFactoryClass* old_file_factory=_TheFileFactory;
@@ -574,7 +576,7 @@ void ThumbnailManagerClass::Remove_From_Hash(ThumbnailClass* thumb)
 void ThumbnailManagerClass::Update_Thumbnail_File(const char* mix_file_name,bool display_message_box)
 {
 	SimpleFileFactoryClass ff;
-	ff.Set_Sub_Directory("Data\\");
+	ff.Set_Sub_Directory("Data/");
 
 	StringClass thumb_file_name(mix_file_name,true);
 	const size_t len_sz=thumb_file_name.Get_Length();
@@ -630,13 +632,12 @@ void ThumbnailManagerClass::Update_Thumbnail_File(const char* mix_file_name,bool
 
 	if (display_message_box && !message_box_displayed) {
 		message_box_displayed=true;
-		::MessageBoxA(NULL,
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK,
 			"Some or all texture thumbnails need to be updated.\n"
 			"This will take a while. The update will only be done once\n"
 			"each time a mix file changes and thumb database hasn't been\n"
 			"updated.",
-			"Updating texture thumbnails",
-			MB_OK);
+			"Updating texture thumbnails");
 	}
 
 	// we don't currently have a thumbnail file (either we just deleted it or it never existed, we don't care)
@@ -663,10 +664,8 @@ void ThumbnailManagerClass::Pre_Init(bool display_message_box)
 	// Collect all mix file names
 	DynamicVectorClass<StringClass> mix_names;
 
-	char cur_dir[256];
-	GetCurrentDirectoryA(sizeof(cur_dir),cur_dir);
-	StringClass new_dir(cur_dir,true);
-	new_dir+="\\Data";
+	StringClass cur_dir = cPathUtil::GetWorkingDirectory(true);
+	StringClass new_dir = cur_dir + "Data";
 	SetCurrentDirectoryA(new_dir);
 
 	WIN32_FIND_DATAA find_data;

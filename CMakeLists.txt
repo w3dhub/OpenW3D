@@ -38,6 +38,14 @@ if(SYNTAX_CHECK_ONLY)
     add_compile_options("-fsyntax-only")
 endif(SYNTAX_CHECK_ONLY)
 
+# Do we want to build with SDL3 for windows and inputs?
+cmake_dependent_option(W3D_BUILD_OPTION_SDL3 "Build OpenW3D with SDL3." OFF WIN32 ON)
+add_feature_info(SDL3Build W3D_BUILD_OPTION_SDL3 "Build OpenW3D with SDL3")
+
+# Do we want to build with webbrowser?
+cmake_dependent_option(W3D_BUILD_OPTION_WEBBROWSER "Build OpenW3D with webbrowser." ON WIN32 OFF)
+add_feature_info(BrowserBuild W3D_BUILD_OPTION_WEBBROWSER "Build OpenW3D with webbrowser")
+
 # Do we want to build with ffmpeg for audio/video decoding?
 option(W3D_BUILD_OPTION_FFMPEG "Build with ffmpeg." OFF)
 add_feature_info(FFMpegBuild W3D_BUILD_OPTION_FFMPEG "Build OpenW3D with FFMpeg")
@@ -58,6 +66,17 @@ if(W3D_BUILD_OPTION_FFMPEG)
     include(ffmpeg)
 endif()
 
+if(W3D_BUILD_OPTION_SDL3)
+    include(sdl3)
+    add_compile_definitions(-DOPENW3D_SDL3=1)
+elseif(WIN32)
+    add_compile_definitions(-DOPENW3D_WIN32=1)
+else()
+    message(FATAL_ERROR "Invalid backend")
+endif()
+
+add_compile_definitions(-DWEBBROWSER_ENABLED=$<BOOL:${W3D_BUILD_OPTION_WEBBROWSER}>)
+
 if(WIN32)
     # Do we want to build with bink for video decoding?
     option(W3D_BUILD_OPTION_BINK "Build with bink." ON)
@@ -76,8 +95,6 @@ if(WIN32)
         include(miles)
     endif()
 
-    include(dx9)
-
     option(W3D_BUILD_OPTION_ICU "Build with ICU." OFF)
     add_feature_info(ICUBuild W3D_BUILD_OPTION_ICU "Build OpenW3D with ICU")
 
@@ -88,6 +105,8 @@ else()
     set(W3D_BUILD_OPTION_ICU ON)
     include(icu)
 endif()
+
+include(dx9)
 
 include(gamespy)
 

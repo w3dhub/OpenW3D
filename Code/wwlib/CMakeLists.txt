@@ -140,6 +140,8 @@ set(WWLIB_SRC
     widestring.h
     win.h
     WWCOMUtil.h
+    wwdialog.cpp
+    wwdialog.h
     wwfile.h
     wwstring.h
     xmouse.h
@@ -162,7 +164,12 @@ add_library(wwlib STATIC)
 
 target_link_libraries(wwlib PRIVATE
     wwcommon
+    wwutil
     version
 )
+if(W3D_BUILD_OPTION_SDL3)
+    target_link_libraries(wwlib PRIVATE SDL3::SDL3)
+    target_link_libraries(wwlib PUBLIC SDL3::Headers)
+endif()
 
 target_sources(wwlib PRIVATE ${WWLIB_SRC})

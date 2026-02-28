@@ -179,7 +179,7 @@ char *TextureFileCache::_Create_File_Name(const char *fileprefix)
 			
    char path[_MAX_PATH];
    if (addpath && _getcwd(path, _MAX_PATH ))  {
-		sprintf(_FileNamePtr, "%s\\%s.tfc", path, fileprefix);
+		sprintf(_FileNamePtr, "%s/%s.tfc", path, fileprefix);
    } else {
 		// Create a file name.
 		strcpy(_FileNamePtr, fileprefix);

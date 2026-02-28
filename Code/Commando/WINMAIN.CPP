@@ -45,9 +45,20 @@
 #include "WINMAIN.H"
 #define _WIN32_WINDOWS 0x0401
 #include "winmain_compat.h"
+#if defined(OPENW3D_WIN32)
+#include <windows.h>
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL.h>
+#ifdef _WIN32
+#include <direct.h>
+#else
+#include <unistd.h>
+#endif
+#endif
 #include "win.h"
 #include "resource.h"
 #include "ww3d.h"
+#include "wwdialog.h"
 
 #include "miscutil.h"
 #include "input.h"
@@ -84,6 +95,7 @@
 #include "ServerSettings.h"
 #include "openw3d.h"
 #include "ini.h"
+#include "soutil.h"
 
 #ifdef _DEBUG
 #include	<crtdbg.h>
@@ -91,6 +103,7 @@
 #include <iostream>
 #include "singletoninstancekeeper.h"
 #include "packetmgr.h"
+#include "ProcessManager.h"
 
 //----------------------------------------------------------------------------
 //	Globals
@@ -198,14 +211,15 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
+#if WEBBROWSER_ENABLED
 #ifdef _DEBUG // Denzil - DO NOT COMPILE INTO FINAL BUILD
 	bool webInstalled = WebBrowser::InstallPrerequisites();
 
 	if (!webInstalled) {
-		::MessageBoxA(NULL, "Embedded browser prerequisites missing\n\nBrowser functionality questionable.\n\n(Please call Denzil @ 27272)",
-				"Renegade Warning!", MB_ICONWARNING|MB_OK);
+		::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_WARNING, "Embedded browser prerequisites missing\n\nBrowser functionality questionable.\n\n(Please call Denzil @ 27272)", "Renegade Warning!");
 	}
 #endif // WWDEBUG
+#endif // WEBBROWSER_ENABLED
 
 	//
 	//	Verify that we can execute (i.e. make sure there are no other instances running)
@@ -229,42 +243,26 @@ static bool Graphics_Settings_Trouble_Shooting()
 
 	int progress=registry.Get_Int( VALUE_NAME_GAME_INITIALIZATION_IN_PROGRESS, 0 );
 	if (progress) {
-		StringClass options="wwconfig.exe ";
-		char* opts=options.Peek_Buffer();
-		STARTUPINFOA startup_info;
-		ZeroMemory(&startup_info,sizeof(STARTUPINFOA));
-		startup_info.cb=sizeof(STARTUPINFOA);
-		PROCESS_INFORMATION process_info;
-		CreateProcessA(
-			NULL,
-			opts,
-			NULL,
-			NULL,
-			FALSE,
-			0,
-			NULL,
-			NULL,
-			&startup_info,
-			&process_info);
-
-		DWORD exit_code=STILL_ACTIVE;
-		unsigned res=0;
-		do {
-			res=GetExitCodeProcess(process_info.hProcess,&exit_code);
-			if (!res) {
-				return true;
-			}
-			Sleep(100);
+		const char * args[] = {
+			"wwconfig.exe",
+			nullptr,
+		};
+		Process *process = ProcessManager::Create_Process(args);
+		if (!process) {
+			return 1;
 		}
-		while (exit_code==STILL_ACTIVE);
-		return !exit_code;
+		process->Wait();
+		bool success = *process->Return_Code() != 0;
+		delete process;
+		return success;
 	}
 	return true;
 }
 
-typedef IDirect3D9* (WINAPI *Direct3DCreate8Type) (UINT SDKVersion);
-static Direct3DCreate8Type	Direct3DCreate8Ptr = NULL;
-static HMODULE D3D8Lib = NULL;
+typedef IDirect3D9* (WINAPI *Direct3DCreate9Type) (UINT SDKVersion);
+static Direct3DCreate9Type	Direct3DCreate9Ptr = NULL;
+extern const char *Get_D3D9_Object_Name();
+static SharedObject *D3D9Lib = nullptr;
 
 static bool Video_Card_Driver_Check()
 {
@@ -281,22 +279,24 @@ static bool Video_Card_Driver_Check()
 	// Init D3D
 	Init_D3D_To_WW3_Conversion();
 
-	D3D8Lib = LoadLibraryA("D3D9.DLL");
+	D3D9Lib = SharedObject::LoadObject(Get_D3D9_Object_Name());
 
-	if (D3D8Lib != NULL) {
-		Direct3DCreate8Ptr = (Direct3DCreate8Type) GetProcAddress(D3D8Lib, "Direct3DCreate9");
-		if (Direct3DCreate8Ptr) {
-			d3d=Direct3DCreate8Ptr(D3D_SDK_VERSION);		// TODO: handle failure cases...
+	if (D3D9Lib != NULL) {
+		Direct3DCreate9Ptr = reinterpret_cast<Direct3DCreate9Type>(D3D9Lib->LoadFunction("Direct3DCreate9"));
+		if (Direct3DCreate9Ptr) {
+			d3d=Direct3DCreate9Ptr(D3D_SDK_VERSION);		// TODO: handle failure cases...
 			if (!d3d) {
-				FreeLibrary(D3D8Lib);
+				delete D3D9Lib;
+				D3D9Lib = nullptr;
 				return true;
 			}
 		} else {
-			FreeLibrary(D3D8Lib);
-			return(true);
+			delete D3D9Lib;
+			D3D9Lib = nullptr;
+			return true;
 		}
 	} else {
-		return(true);
+		return true;
 	}
 
 	// Select device. If there is already a device selected in the registry, use it.
@@ -329,7 +329,7 @@ static bool Video_Card_Driver_Check()
 		D3DDEVTYPE_HAL,
 		&tmp_caps))) {
 		d3d->Release();
-		FreeLibrary(D3D8Lib);
+		delete D3D9Lib;
 		return true;
 	}
 
@@ -339,7 +339,8 @@ static bool Video_Card_Driver_Check()
 		0/*D3DENUM_WHQL_LEVEL*/,
 		&adapter_id))) {
 		d3d->Release();
-		FreeLibrary(D3D8Lib);
+		delete D3D9Lib;
+		D3D9Lib = nullptr;
 		return true;
 	}
 
@@ -349,7 +350,8 @@ static bool Video_Card_Driver_Check()
 	DX8Caps::DriverVersionStatusType status=caps.Get_Driver_Version_Status();
 
 	d3d->Release();
-	FreeLibrary(D3D8Lib);
+	delete D3D9Lib;
+	D3D9Lib = nullptr;
 
 	switch (status) {
 	default:
@@ -363,37 +365,17 @@ static bool Video_Card_Driver_Check()
 		break;
 	}
 
-	StringClass options="wwconfig.exe -driverversion";
-	char* opts=options.Peek_Buffer();
-	STARTUPINFOA startup_info;
-	ZeroMemory(&startup_info,sizeof(STARTUPINFOA));
-	startup_info.cb=sizeof(STARTUPINFOA);
-	PROCESS_INFORMATION process_info;
-	if (!CreateProcessA(
-		NULL,
-		opts,
-		NULL,
-		NULL,
-		FALSE,
-		0,
-		NULL,
-		NULL,
-		&startup_info,
-		&process_info)) {
+	const char *options[] = {
+		"wwconfig.exe",
+		"-driverversion",
+		nullptr,
+	};
+	Process *process = ProcessManager::Create_Process(options);
+	if (!process) {
 		return true;
 	}
-
-	DWORD exit_code=STILL_ACTIVE;
-	unsigned res=0;
-	do {
-		res=GetExitCodeProcess(process_info.hProcess,&exit_code);
-		if (!res) {
-			return true;
-		}
-		Sleep(100);
-	}
-	while (exit_code==STILL_ACTIVE);
-	return !exit_code;
+	process->Wait();
+	return process->Return_Code() == 0;
 }
 
 
@@ -421,7 +403,7 @@ int Start_Application(void)
 		** Set the working directory.
 		*/
 		if (!Set_Working_Directory()) {
-			MessageBoxA(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
+			::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_ERROR, "Set working folder and try again...", "Invalid working folder");
 			return 0;
 		}
 
@@ -437,7 +419,7 @@ int Start_Application(void)
 			sizeof(tmp_buffer),
 			tmp_buffer,
 			&tmp_ptr)) {
-			MessageBoxA(NULL,"Set working folder and try again...","Invalid working folder",MB_OK);
+			::Show_Message_Box(MESSAGEBOX_BUTTONS_OK | MESSAGEBOX_SEVERITY_ERROR, "Invalid working folder", "Set working folder and try again...");
 			return 0;
 		}
 
@@ -453,7 +435,7 @@ int Start_Application(void)
 
 		if (!Create_Main_Window()) return 0;
 
-		Register_Thread_ID(GetCurrentThreadId(), "Main Thread", true);
+		Register_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Main Thread", true);
 	}
 
 	int exitCode = EXIT_SUCCESS;
@@ -494,7 +476,7 @@ int Start_Application(void)
 	}
 #endif //WWDEBUG
 
-	Unregister_Thread_ID(GetCurrentThreadId(), "Main Thread");
+	Unregister_Thread_ID(ThreadClass::Get_Current_Thread_ID(), "Main Thread");
 
    //Debug_Say(("Finished logging at time %s", cMiscUtil::Get_Text_Time()));
 
@@ -762,7 +744,11 @@ void On_Focus_Loss(void)
  *=============================================================================================*/
 void On_Focus_Restore(void)
 {
+#if WEBBROWSER_ENABLED
 	if (WebBrowser::IsWebPageDisplayed() == false) {
+#else
+    {
+#endif
 		DirectInput::Acquire();
 	}
 
@@ -793,6 +779,7 @@ bool Set_Working_Directory(void)
 {
 	char path_buffer[_MAX_PATH];
 	const char *gamedir = cUserOptions::GameDir.Get();
+#if defined(OPENW3D_WIN32)
 	if (gamedir == NULL || gamedir[0] == '\0') {
 		char path_to_exe[256];
 		char drive[_MAX_DRIVE];
@@ -803,4 +790,12 @@ bool Set_Working_Directory(void)
 		gamedir = path_buffer;
 	}
 	return !!SetCurrentDirectoryA(gamedir);
+#elif defined(OPENW3D_SDL3)
+	if (gamedir == NULL || gamedir[0] == '\0') {
+		gamedir = SDL_GetBasePath();
+	}
+	return !chdir(gamedir);
+#else
+	assert(0);
+#endif
 }
