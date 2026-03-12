@@ -48,11 +48,11 @@ Editor Script - M00_Broadcaster_Register_RAD
   Send_Attempts	= The number of attempts to send to the terminal this will make before failing.
   Send_Delay	= The delay between attempts to send.
   Debug_Mode	= Turn this on if debug information is needed.
-  
+
   Custom:
 
   M00_CUSTOM_BROADCASTER_REGISTRATION
-  
+
   Script activates upon creation.
 */
 
@@ -179,7 +179,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 		int object_count;
 
 		ready_for_objects = false;
-		
+
 		for (object_count = 0; object_count < M00_BROADCASTER_TERMINAL_SIZE_RAD; object_count++)
 		{
 			object_specific_record [object_count]	= 0;
@@ -190,7 +190,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Terminal_RAD, "Random_Percentage=100.0:float, Ra
 		{
 			object_prompts [object_count][0] = 0;
 		}
-		
+
 		SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Terminal_RAD ACTIVATED.\n"));
 		ready_for_objects = true;
 	}
@@ -495,7 +495,7 @@ Editor Script - M00_Broadcaster_Activator_RAD
   1	= Object is sending a custom that should be sent to random objects with one parameter.
   2	= Object is sending a custom that should be sent to everyone with random parameter.
   3	= Object is sending a custom that should be sent to random objects with random parameter.
-  
+
   Script activates upon receipt of a custom. Defaults to constant send, 0.
 */
 
@@ -525,7 +525,7 @@ DECLARE_SCRIPT (M00_Broadcaster_Activator_RAD, "Terminal_ID:int, Prompt_Value=0:
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Activator_RAD is sending custom type M00_CUSTOM_BROADCASTER_PROMPTER, param %d.\n", prompt_value));
 			SCRIPT_DEBUG_MESSAGE(("M00_Broadcaster_Activator_RAD is sending custom type %d, param %d.\n", type, param));
-			
+
 			Commands->Send_Custom_Event (obj, terminal_obj, M00_CUSTOM_BROADCASTER_PROMPTER, prompt_value, 0.0f);
 			Commands->Send_Custom_Event (obj, terminal_obj, type, param, 0.0f);
 		}

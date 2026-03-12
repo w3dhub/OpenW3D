@@ -45,7 +45,7 @@ IDirect3DSurface9* MissingTexture::_Create_Missing_Surface()
 	D3DSURFACE_DESC texture_surface_desc;
 	::ZeroMemory(&texture_surface_desc, sizeof(D3DSURFACE_DESC));
 	DX8_ErrorCode(texture_surface->GetDesc(&texture_surface_desc));
-	
+
 	IDirect3DSurface9 *surface = NULL;
 	DX8CALL(CreateOffscreenPlainSurface(
 		texture_surface_desc.Width,

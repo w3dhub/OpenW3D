@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/clientcontrol.cpp                 $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 9/21/01 10:44a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 6                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/clientcontrol.cpp                 $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 9/21/01 10:44a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 6                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "clientcontrol.h"
@@ -48,7 +48,7 @@ DECLARE_NETWORKOBJECT_FACTORY(CClientControl, NETCLASSID_CLIENTCONTROL);
 
 // FIXME (TSS) high priority for me to fix this CClientControl bug...
 //
-// TSS2001 problem: destruction of this object on the server. Quitting and rejoining 
+// TSS2001 problem: destruction of this object on the server. Quitting and rejoining
 // a game will crash the server.
 //
 
@@ -148,7 +148,7 @@ CClientControl::Export_Frequent(BitStreamClass & packet)
 		p_smart_go->Export_Control_Cs(packet);
 		p_smart_go->Export_State_Cs(packet);
 	}
-	
+
 	SmartObjId = -1;//hack
 }
 
@@ -168,7 +168,7 @@ CClientControl::Import_Frequent(BitStreamClass & packet)
 			packet.Flush();
 		} else {
 			p_smart_go->Import_Control_Cs(packet);
-			
+
 			//
 			// Note: org code had control owner test here, reapply if problems arise.
 			//

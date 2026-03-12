@@ -79,15 +79,15 @@ public:
 	TextureClass *			Peek_Texture (void)							{ return Texture; }
 	const char *			Get_Texture_Name (void)						{ return TextureName; }
 	void						Set_Texture (const char *texture_name);
-	
+
 	//
 	//	UV mapping control
 	//
 	void						Set_Meters_Per_Tile (float value)		{ MetersPerTile = value; }
 	float						Get_Meters_Per_Tile (void) const			{ return MetersPerTile; }
-	
+
 	void						Mirror_UVs (bool onoff)						{ AreUVsMirrored = onoff; }
-	bool						Are_UVs_Mirrored (void) const				{ return AreUVsMirrored; }	
+	bool						Are_UVs_Mirrored (void) const				{ return AreUVsMirrored; }
 
 	//
 	//	Surface type support
@@ -101,13 +101,13 @@ public:
 	bool						Save (ChunkSaveClass &csave);
 	bool						Load (ChunkLoadClass &cload);
 	void						Load_Variables (ChunkLoadClass &cload);
-	
+
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////

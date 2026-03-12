@@ -241,7 +241,7 @@ ShortcutBarCtrlClass::Render_Strip (const RectClass &screen_rect, bool flip_uvs)
 	//
 	//	Flip the UVs if necessary
 	//
-	if (flip_uvs) {		
+	if (flip_uvs) {
 		float temp = bar_top_uvs.Right;
 		bar_top_uvs.Right = bar_top_uvs.Left;
 		bar_top_uvs.Left	= temp;
@@ -332,7 +332,7 @@ ShortcutBarCtrlClass::Create_Displayed_State_Renderers (void)
 	//	Render the right strip
 	//
 	rect.Right	= FullRect.Right;
-	rect.Left	= FullRect.Right - Rect.Width ();	
+	rect.Left	= FullRect.Right - Rect.Width ();
 	Render_Strip (rect, false);
 
 	return ;
@@ -395,7 +395,7 @@ ShortcutBarCtrlClass::Render (void)
 	//
 	//	Recreate the renderers (if necessary)
 	//
-	if (IsDirty) {		
+	if (IsDirty) {
 		Create_Control_Renderers ();
 		Create_Text_Renderers ();
 	}
@@ -405,7 +405,7 @@ ShortcutBarCtrlClass::Render (void)
 	//
 	ControlRenderer.Render ();
 	TexturedControlRenderer.Render ();
-	GlowRenderer.Render ();	
+	GlowRenderer.Render ();
 	TextRenderer.Render ();
 	HilightRenderer.Render ();
 
@@ -466,9 +466,9 @@ ShortcutBarCtrlClass::On_Mouse_Move (const Vector2 &mouse_pos)
 		//
 		if (DialogMgrClass::Get_Focus () != this) {
 			Set_Focus ();
-			Set_Capture ();			
+			Set_Capture ();
 		}
-		
+
 		//
 		//	Change the selection
 		//
@@ -500,7 +500,7 @@ ShortcutBarCtrlClass::On_Set_Focus (void)
 ////////////////////////////////////////////////////////////////
 void
 ShortcutBarCtrlClass::On_Kill_Focus (DialogControlClass *focus)
-{	
+{
 	Set_Hidden_State (true);
 
 	DialogControlClass::On_Kill_Focus (focus);
@@ -522,7 +522,7 @@ ShortcutBarCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 	{
 		case VK_SPACE:
 		case VK_RETURN:
-			Send_Command ();			
+			Send_Command ();
 			break;
 
 		case VK_UP:
@@ -576,7 +576,7 @@ ShortcutBarCtrlClass::Set_Hidden_State (bool onoff)
 		// moves the mouse off of the control
 		//
 		if (IsHiddenState == false) {
-			
+
 			//
 			//	Snap the mouse to the first entry
 			//
@@ -622,7 +622,7 @@ void
 ShortcutBarCtrlClass::Remove_Button (int ctrl_id)
 {
 	for (int index = 0; index < ShortcutList.Count (); index ++) {
-		
+
 		//
 		//	Remove the entry from the list...
 		//
@@ -672,13 +672,13 @@ ShortcutBarCtrlClass::Entry_From_Pos (const Vector2 &mouse_pos)
 	int retval = -1;
 
 	for (int index = 0; index < ShortcutList.Count (); index ++) {
-		
+
 		//
 		//	Get the rectangle for this button
 		//
 		RectClass text_rect;
 		Get_Entry_Rect (index, text_rect);
-	
+
 		//
 		//	Is this the entry we're looking for?
 		//
@@ -724,7 +724,7 @@ ShortcutBarCtrlClass::Set_Curr_Sel (int index, bool snap_mouse)
 			RectClass text_rect;
 			Get_Entry_Rect (CurrSel, text_rect);
 			Vector3 center (text_rect.Center ().X, text_rect.Center ().Y, 0);
-			DialogMgrClass::Set_Mouse_Pos (center);			
+			DialogMgrClass::Set_Mouse_Pos (center);
 		}
 	}
 
@@ -741,7 +741,7 @@ void
 ShortcutBarCtrlClass::On_Mouse_Wheel (int direction)
 {
 	if (IsHiddenState == false) {
-		
+
 		if (direction > 0) {
 			Set_Curr_Sel (CurrSel + 1, true);
 		} else {
@@ -762,7 +762,7 @@ const RectClass &
 ShortcutBarCtrlClass::Get_Window_Rect (void) const
 {
 	const RectClass *retval = &Rect;
-	
+
 	//
 	//	If the bar is completely displayed, then return
 	// the full rectangle instead of the screen rectangle.
@@ -821,7 +821,7 @@ ShortcutBarCtrlClass::Update_Pulse (void)
 		PulseDirection		= 1.0F;
 	} else if (BarOpacity >= MAX_OPACITY) {
 		BarOpacity			= MAX_OPACITY;
-		PulseDirection		= -1.0F;			
+		PulseDirection		= -1.0F;
 	}
 
 	int bar_color = VRGBA_TO_INT32 (Vector4 (1.0F, 1.0F, 1.0F, BarOpacity));

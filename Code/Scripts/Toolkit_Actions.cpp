@@ -62,7 +62,7 @@
   _Move_Crouch				= Whether to move crouched or not.
   _Move_Backwards			= Whether to move backwards or not.
   _Move_Pathfind			= Whether to use pathfinding data for movement or not.
-  
+
   _Attack_Target_ID			= The attack target's ID.
   _Attack_Location			= The location of the attack (if no target).
 
@@ -90,10 +90,10 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 		script_active = false;
 		attacking = false;
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
-		
+
 		GameObject*	move_target;
 		GameObject* attack_target;
-			
+
 		move_target = Commands->Find_Object(Get_Int_Parameter("_Move_Target_ID"));
 		attack_target = Commands->Find_Object(Get_Int_Parameter("_Attack_Target_ID"));
 		primary_weapon = (Get_Int_Parameter("_Attack_Primary") == 1) ? true : false;
@@ -103,18 +103,18 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 		params.Set_Basic(this, Get_Int_Parameter("Action_Priority"), Get_Int_Parameter("Action_ID"));
 		params.Set_Movement(Get_Vector3_Parameter("_Move_Destination"), Get_Float_Parameter("_Move_Speed"), Get_Float_Parameter("_Move_Arrive_Distance"));
 		params.Set_Attack(Get_Vector3_Parameter("_Attack_Location"), Get_Float_Parameter("_Attack_Range"), Get_Float_Parameter("_Attack_Deviation"), primary_weapon);
-		
+
 		params.MoveBackup = (Get_Int_Parameter("_Move_Backwards") == 1) ? true : false;
 		params.MoveFollow = (Get_Int_Parameter("_Move_Following") == 1) ? true : false;
 		params.MoveCrouched = (Get_Int_Parameter("_Move_Crouch") == 1) ? true : false;
 		params.MovePathfind = (Get_Int_Parameter("_Move_Pathfind") == 1) ? true : false;
-		
+
 		params.AttackCrouched = (Get_Int_Parameter("_Attack_Crouched") == 1) ? true : false;
 		params.WaypathID = Get_Int_Parameter("_Move_Waypath_ID");
 		params.WaypointStartID = Get_Int_Parameter("_Move_Waypath_Start_ID");
 		params.WaypointEndID = Get_Int_Parameter("_Move_Waypath_End_ID");
 		params.WaypathSplined = (Get_Int_Parameter("_Move_Waypath_Splined") == 1) ? true : false;
-		
+
 		if (attack_target)
 		{
 			// Attacking a target, override the attack location values
@@ -154,20 +154,20 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 			if (script_active)
 			{
 				// Check if we are firing and moving, or just moving.
-	
+
 				if (attacking)
 				{
 					SCRIPT_DEBUG_MESSAGE(("M00_Action is moving and attacking.\n"));
-	
+
 					Commands->Action_Attack(obj, params);
 				}
 				else
 				{
 					SCRIPT_DEBUG_MESSAGE(("M00_Action is moving only - no attack.\n"));
-	
+
 					Commands->Action_Goto(obj, params);
 				}
-			}	
+			}
 		}
 	}
 
@@ -183,42 +183,42 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 
 				move_target = Commands->Find_Object(Get_Int_Parameter("_Move_Target_ID"));
 				attack_target = Commands->Find_Object(Get_Int_Parameter("_Attack_Target_ID"));
-				
+
 				ActionParamsStruct params;
 				params.Set_Basic(this, Get_Int_Parameter("Action_Priority"), Get_Int_Parameter("Action_ID"));
 				params.Set_Movement(Get_Vector3_Parameter("_Move_Destination"), Get_Float_Parameter("_Move_Speed"), Get_Float_Parameter("_Move_Arrive_Distance"));
 				params.Set_Attack(Get_Vector3_Parameter("_Attack_Location"), Get_Float_Parameter("_Attack_Range"), Get_Float_Parameter("_Attack_Deviation"), primary_weapon);
-			
+
 				params.MoveBackup = (Get_Int_Parameter("_Move_Backwards") == 1) ? true : false;
 				params.MoveFollow = (Get_Int_Parameter("_Move_Following") == 1) ? true : false;
 				params.MoveCrouched = (Get_Int_Parameter("_Move_Crouch") == 1) ? true : false;
 				params.MovePathfind = (Get_Int_Parameter("_Move_Pathfind") == 1) ? true : false;
-			
+
 				params.AttackCrouched = (Get_Int_Parameter("_Attack_Crouched") == 1) ? true : false;
 				params.WaypathID = Get_Int_Parameter("_Move_Waypath_ID");
 				params.WaypointStartID = Get_Int_Parameter("_Move_Waypath_Start_ID");
 				params.WaypointEndID = Get_Int_Parameter("_Move_Waypath_End_ID");
 				params.WaypathSplined = (Get_Int_Parameter("_Move_Waypath_Splined") == 1) ? true : false;
-				
+
 				SCRIPT_DEBUG_MESSAGE(("M00_Action ACTIVATED.\n"));
 
 				if (attack_target)
 				{
 					// Attacking a target, override the attack location values
-	
+
 					params.Set_Attack(attack_target, Get_Float_Parameter("_Attack_Range"), Get_Float_Parameter("_Attack_Deviation"), primary_weapon);
 					attacking = true;
 				}
 				if (current_attack_location != empty_vector)
 				{
 					// Attacking a location, be sure to turn on attacking bool
-		
+
 					attacking = true;
 				}
 				if (move_target)
 				{
 					// Moving toward a target, override other movement values
-	
+
 					params.Set_Movement(move_target, Get_Float_Parameter("_Move_Speed"), Get_Float_Parameter("_Move_Arrive_Distance"));
 					params.WaypathID = 0;
 					params.WaypointStartID = 0;
@@ -228,13 +228,13 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 				if (params.MoveLocation != empty_vector)
 				{
 					// Moving to a location, override other movement values
-		
+
 					params.WaypathID = 0;
 					params.WaypointStartID = 0;
 					params.WaypointEndID = 0;
 					params.WaypathSplined = false;
 				}
-	
+
 				if (script_active)
 				{
 				// Check if we are firing and moving, or just moving.
@@ -247,7 +247,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 				else
 				{
 					SCRIPT_DEBUG_MESSAGE(("M00_Action is moving only - no attack.\n"));
-	
+
 					Commands->Action_Goto(obj, params);
 				}
 			}
@@ -305,7 +305,7 @@ DECLARE_SCRIPT(M00_Action, "Start_Now=0:int, Receive_Type=14:int, Receive_Param_
 							break;
 						}
 					}
-	
+
 			}
 		}
 	}

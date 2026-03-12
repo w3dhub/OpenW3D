@@ -629,7 +629,7 @@ void Get_Version_Number(unsigned int * /* major */, unsigned int * /* minor */)
 #define	LAST_CHAR	'z'
 
 #include "realcrc.h"
-int	CRC_Next( unsigned char ** p, int length ) 
+int	CRC_Next( unsigned char ** p, int length )
 {
 	int ret = 0;
 	if ( length == -1 ) {
@@ -647,7 +647,7 @@ int	CRC_Next( unsigned char ** p, int length )
 
 }
 
-void CRC_Check( void ) 
+void CRC_Check( void )
 {
 	Debug_Say(( "CRC_Check\n" ));
 	int count = 0;
@@ -658,7 +658,7 @@ void CRC_Check( void )
 	int start = timeGetTime();
 
 	unsigned char string[MAX_STRING+1];
-	for ( int length = 1; length <= MAX_STRING; length++ ) 
+	for ( int length = 1; length <= MAX_STRING; length++ )
 	{
 		unsigned char * p = &string[length-1];
 		string[length] = 0;

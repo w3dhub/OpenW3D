@@ -175,7 +175,7 @@ bool WOLChatMgr::FinalizeCreate(void)
 
 	// Generate chat lobby prefex
 	RefPtr<Product> product = Product::Current();
-	
+
 	if (!product.IsValid())
 		{
 		return false;
@@ -430,7 +430,7 @@ void WOLChatMgr::LeaveLobby(void)
 		GetLobbyDisplayName(channel, lobbyName);
 
 		WideStringClass title(0, true);
-		title.Format(TRANSLATE(IDS_CHAT_LOBBYLEAVE), lobbyName); 
+		title.Format(TRANSLATE(IDS_CHAT_LOBBYLEAVE), lobbyName);
 		DlgWOLWait::DoDialog(title, wait);
 		}
 	}
@@ -498,7 +498,7 @@ void WOLChatMgr::GetLobbyDisplayName(const RefPtr<ChannelData>& lobby, WideStrin
 		}
 
 	const unichar_t* name = lobby->GetName();
-	
+
 	int prefixLength = mLobbyPrefix.Get_Length();
 
 	if (u_strncasecmp(name, mLobbyPrefix, prefixLength, U_COMPARE_CODE_POINT_ORDER) == 0)
@@ -528,7 +528,7 @@ void WOLChatMgr::GetLobbyDisplayName(const RefPtr<ChannelData>& lobby, WideStrin
 			int nameNumber = (channelNumber % 8);
 
 			const unichar_t* displayName = _lobbies[nameNumber];
-			
+
 			if (subnum == 0)
 				{
 				outName = displayName;
@@ -558,7 +558,7 @@ void WOLChatMgr::GetLobbyDisplayName(const RefPtr<ChannelData>& lobby, WideStrin
 *     Name - Name of user to look for.
 *
 * RESULT
-*     User - 
+*     User -
 *
 ******************************************************************************/
 
@@ -874,7 +874,7 @@ bool WOLChatMgr::PassesFilters(const ChatMessage& msg)
 	if (testClan)
 		{
 		RefPtr<UserData> user = mWOLSession->GetCurrentUser();
-		
+
 		if (user.IsValid())
 			{
 			unsigned int clanID = user->GetSquadID();
@@ -1040,7 +1040,7 @@ void WOLChatMgr::HandleNotification(ChannelListEvent& event)
 
 			iter++;
 			}
-		
+
 		Add_Ref();
 		WOLChatMgrEvent change_event = LobbyListChanged;
 		NotifyObservers(change_event);
@@ -1384,7 +1384,7 @@ void SlashCmdR(const unichar_t* param)
 				// Reply to the last user who paged.
 				buddyMgr->PageUser(name, reply);
 				}
-			
+
 			buddyMgr->Release_Ref();
 			}
 		}
@@ -1521,7 +1521,7 @@ void SlashCmdJoin(const unichar_t* param)
 *
 * INPUTS
 *     Command - Command string
-*     Param   - 
+*     Param   -
 *
 * RESULT
 *     NONE

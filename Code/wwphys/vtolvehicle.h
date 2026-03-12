@@ -59,13 +59,13 @@ class VTOLVehicleDefClass;
 ** a controller which exerts torques to align the craft to a desired orientation
 ** The x-y accelerations of the craft will be related to its orientation.
 ** Turning will be an independent controller I guess...
-** In addition, "WheelP" bones should be used to provide landing gear in case 
-** the orca tries to "land".  
+** In addition, "WheelP" bones should be used to provide landing gear in case
+** the orca tries to "land".
 **
-** Model animation: 
-** For Orcas, I want to show the engines tilting and engine flames lengthening 
-** and shortening.  For Helecopters, I want to just tilt the rotor...  Maybe 
-** I'll just have to do each in a derived class which is custom coded for Orca 
+** Model animation:
+** For Orcas, I want to show the engines tilting and engine flames lengthening
+** and shortening.  For Helecopters, I want to just tilt the rotor...  Maybe
+** I'll just have to do each in a derived class which is custom coded for Orca
 ** or Helecopter behavior...
 ** - Decided to add support for all of the above behaviors to this class.
 **
@@ -114,7 +114,7 @@ protected:
 	** Captured bones for physics-based graphical effects
 	*/
 	SimpleVecClass<int>			EngineAngleBones;
-	SimpleVecClass<int>			RotorAngleBones;				
+	SimpleVecClass<int>			RotorAngleBones;
 
 	/*
 	** Visual state variables
@@ -140,7 +140,7 @@ class VTOLVehicleDefClass : public VehiclePhysDefClass
 {
 public:
 	VTOLVehicleDefClass(void);
-	
+
 	/*
 	** From DefinitionClass
 	*/
@@ -189,12 +189,12 @@ protected:
 	/*
 	** Engine Graphical Behavior
 	*/
-	float											MaxEngineRotation;			
+	float											MaxEngineRotation;
 
 	/*
 	** Rotor Graphical Behavior
 	*/
-	float											RotorSpeed;		
+	float											RotorSpeed;
 	float											RotorAcceleration;
 	float											RotorDeceleration;
 

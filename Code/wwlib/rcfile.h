@@ -59,14 +59,14 @@ class ResourceFileClass : public FileClass
 
 		ResourceFileClass(HMODULE hmodule, char const *filename);
 		virtual ~ResourceFileClass(void);
-		
+
 		virtual char const * File_Name(void) const override					{ return ResourceName; }
 		virtual char const * Set_Name(char const *filename) override;
 		virtual int Create(void) override											{ return false; }
 		virtual int Delete(void) override											{ return false; }
 		virtual bool Is_Available(int /*forced=false*/) override				{ return Is_Open (); }
 		virtual bool Is_Open(void) const override									{ return (FileBytes != NULL); }
-		
+
 		virtual int Open(char const * /*fname*/, int /*rights=READ*/) override	{ return Is_Open(); }
 		virtual int Open(int /*rights=READ*/) override							{ return Is_Open(); }
 
@@ -85,7 +85,7 @@ class ResourceFileClass : public FileClass
 		char *				ResourceName;
 
 		HMODULE				hModule;
-		
+
 		unsigned char *	FileBytes;
 		unsigned char *	FilePtr;
 		unsigned char *	EndOfFile;

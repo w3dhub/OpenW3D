@@ -121,7 +121,7 @@ DockableFormClass::Create
 //	OnCreate
 //
 int
-DockableFormClass::OnCreate (LPCREATESTRUCT lpCreateStruct) 
+DockableFormClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 {
 	// Allow the base class to process this message
 	if (CWnd::OnCreate(lpCreateStruct) == -1) {
@@ -157,7 +157,7 @@ DockableFormClass::WindowProc
 {
 	// Is this the message we are expecting?
 	if (message == WM_SHOWWINDOW) {
-		
+
 		// Make sure the controls reflect the current state when we are
 		// shown
 		if ((BOOL)wParam) {
@@ -165,6 +165,6 @@ DockableFormClass::WindowProc
 		}
 	}
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	return CWnd::WindowProc(message, wParam, lParam);
 }

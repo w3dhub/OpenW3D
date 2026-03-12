@@ -25,7 +25,7 @@
 Streamer::Streamer() : std::streambuf()
 {
 }
- 
+
 Streamer::~Streamer()
 {
   sync();
@@ -101,7 +101,7 @@ int Streamer::doallocate()
 
     // Get area
     setg(
-        buf,   // eback 
+        buf,   // eback
         buf,   // gptr
         buf);  // egptr
 

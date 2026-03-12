@@ -38,7 +38,7 @@
 
 class cPacket;
 
-enum LanMessages {   
+enum LanMessages {
 	LAN_MESSAGE_POSITION,
 };
 

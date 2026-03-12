@@ -118,7 +118,7 @@ class VisPointGeneratorClass
 		void					Add_Manual_Nodes (void);
 
 		// Bias methods
-		void					Set_Ignore_Bias (bool onoff)	{ m_IgnoreBias = onoff; } 
+		void					Set_Ignore_Bias (bool onoff)	{ m_IgnoreBias = onoff; }
 
 		// Sampling height control
 		void					Set_Vis_Sample_Height (float height) { m_VisSampleHeight = height; }
@@ -137,11 +137,11 @@ class VisPointGeneratorClass
 
 		NodeClass *Find_Floor_Node (const Vector3 &start_point);
 		bool		Test_Camera_Sim_Point (const Vector3 &start_point, const Vector3 &end_point, Matrix3D *transform_result, NodeClass **node_result);
-		
+
 		// Point validation methods
-		bool		Do_View_Planes_Pass (const Matrix3D &vis_transform);		
+		bool		Do_View_Planes_Pass (const Matrix3D &vis_transform);
 		bool		Check_Ceiling (const Vector3 &position, float *ceiling_dist);
-		bool		Is_Object_Invalid_Roof (RenderObjClass *render_obj);		
+		bool		Is_Object_Invalid_Roof (RenderObjClass *render_obj);
 
 		// Grid methods
 		bool		Is_Grid_Cell_Empty (const Vector3 &position);
@@ -163,7 +163,7 @@ class VisPointGeneratorClass
 		VisPointListClass *			m_CurrentPointList;
 		NodeClass *						m_CurrentNode;
 		float								m_CurrentCeilingHeight;
-		
+
 		// Camera simulation variables
 		int								m_CameraSimPointCount;
 		Vector3 *						m_pCameraSimOffsets;
@@ -177,7 +177,7 @@ class VisPointGeneratorClass
 		HWND								m_StatWindow;
 
 		// How high above the sector to sample
-		float								m_VisSampleHeight;	
+		float								m_VisSampleHeight;
 };
 
 

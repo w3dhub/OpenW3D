@@ -49,7 +49,7 @@
 
 /**
 ** BuildingStateClass
-** This 'class' encapsulates some functions which work with the enumerated states that buildings can 
+** This 'class' encapsulates some functions which work with the enumerated states that buildings can
 ** have.  These enumerations are used by BuildingGameObj and BuildingAggregateClass...
 **
 ** WARNING: Don't change these enumerations without checking the BuildingGameObj and BuildingAggregateClass
@@ -59,7 +59,7 @@ class BuildingStateClass
 {
 public:
 
-	enum 
+	enum
 	{
 		HEALTH100_POWERON				= 0,
 		HEALTH75_POWERON,
@@ -76,7 +76,7 @@ public:
 		STATE_COUNT
 	};
 
-	enum 
+	enum
 	{
 		HEALTH_100						= 0,
 		HEALTH_75,
@@ -92,7 +92,7 @@ public:
 	static int				Enable_Power(int input_state,bool onoff);
 
 	static int				Compose_State(int health_state,bool power_onoff);
-	
+
 	static const char *	Get_State_Name(int state);
 };
 

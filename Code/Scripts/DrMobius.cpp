@@ -58,7 +58,7 @@ DECLARE_SCRIPT(Dr_Mobius_Script, "")
 	{
 		if (timer_id == 777) {
 			Commands->Innate_Disable (game_obj);
-			
+
 			Vector3 pos = Commands->Get_Position(game_obj);
 			GameObject * p_leader = Commands->Find_Closest_Soldier(pos, 0.1f, 2.0f, true);
 			if (p_leader != NULL && p_leader != CurrentLeader) {

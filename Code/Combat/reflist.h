@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando / G                                                 * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/reflist.h         $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 2/06/01 2:33p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 13                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando / G                                                 *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/reflist.h         $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 2/06/01 2:33p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 13                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	REFLIST_H
@@ -83,12 +83,12 @@ class ReferenceableClass {
 		bool	Load( ChunkLoadClass & cload );
 
 	protected:
-		ReferencerClass	*ReferencerListHead;	
+		ReferencerClass	*ReferencerListHead;
 
 		T * Get_Data( void ) const	{ return ReferenceData; }
 
 	private:
-		T							*ReferenceData;	
+		T							*ReferenceData;
 };
 
 
@@ -116,8 +116,8 @@ class ReferencerClass : public PostLoadableClass {
 		operator	ScriptableGameObj * (void) const { return Get_Ptr(); }
 
 	protected:
-		ReferenceableClass<ScriptableGameObj>	*ReferenceTarget;	
-		ReferencerClass								*TargetReferencerListNext;	
+		ReferenceableClass<ScriptableGameObj>	*ReferenceTarget;
+		ReferencerClass								*TargetReferencerListNext;
 };
 
 
@@ -125,7 +125,7 @@ class ReferencerClass : public PostLoadableClass {
 ** Clears all references in objects referencing me
 */
 template<class T>
-ReferenceableClass<T>::~ReferenceableClass( void )	
+ReferenceableClass<T>::~ReferenceableClass( void )
 {
 	while ( ReferencerListHead != NULL ) {	// clear each reference to me
 		ReferencerClass *referencer = ReferencerListHead;

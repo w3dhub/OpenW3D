@@ -133,9 +133,9 @@ void PhysicsSceneClass::Release_Collision_Region(void)
 bool PhysicsSceneClass::Cast_Ray(PhysRayCollisionTestClass & raytest,bool use_collision_region)
 {
 	/*
-	** Assert that the result structure has been initialized with the 
-	** optimistic result that the entire move will be taken.  Each call 
-	** should whittle down the Fraction variable so that we are left 
+	** Assert that the result structure has been initialized with the
+	** optimistic result that the entire move will be taken.  Each call
+	** should whittle down the Fraction variable so that we are left
 	** with the fraction that the closest object allowed.  If StartBad
 	** is ever set to true, we can bail out.
 	*/
@@ -156,13 +156,13 @@ bool PhysicsSceneClass::Cast_Ray(PhysRayCollisionTestClass & raytest,bool use_co
 		NonRefPhysListIterator it(&CollisionRegionList);
 		for ( ; !it.Is_Done(); it.Next()) {
 			PhysClass * obj = it.Peek_Obj();
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),raytest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),raytest.CollisionGroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				res |= obj->Cast_Ray(raytest);
 			}
 		}
-	
+
 	} else {
 
 		/*
@@ -172,13 +172,13 @@ bool PhysicsSceneClass::Cast_Ray(PhysRayCollisionTestClass & raytest,bool use_co
 			res |= StaticCullingSystem->Cast_Ray(raytest);
 			if (raytest.Result->StartBad) return true;
 		}
-		
+
 		if (raytest.CheckDynamicObjs) {
 			res |= DynamicCullingSystem->Cast_Ray(raytest);
 			if (raytest.Result->StartBad) return true;
 		}
-	
-	} 
+
+	}
 
 	return res;
 }
@@ -186,16 +186,16 @@ bool PhysicsSceneClass::Cast_Ray(PhysRayCollisionTestClass & raytest,bool use_co
 bool PhysicsSceneClass::Cast_AABox(PhysAABoxCollisionTestClass & boxtest,bool use_collision_region)
 {
 	/*
-	** Assert that the result structure has been initialized with the 
-	** optimistic result that the entire move will be taken.  Each call 
-	** should whittle down the Fraction variable so that we are left 
+	** Assert that the result structure has been initialized with the
+	** optimistic result that the entire move will be taken.  Each call
+	** should whittle down the Fraction variable so that we are left
 	** with the fraction that the closest object allowed.  If StartBad
 	** is ever set to true, we can bail out.
 	*/
 	WWASSERT(boxtest.Result->Fraction == 1.0f);
 	WWASSERT(boxtest.Result->StartBad == false);
 	boxtest.CollidedPhysObj = NULL;
-	
+
 	/*
 	** Check against physical objects in our vicinity
 	*/
@@ -209,14 +209,14 @@ bool PhysicsSceneClass::Cast_AABox(PhysAABoxCollisionTestClass & boxtest,bool us
 		NonRefPhysListIterator it(&CollisionRegionList);
 		for ( ; !it.Is_Done(); it.Next()) {
 			PhysClass * obj = it.Peek_Obj();
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				res |= obj->Cast_AABox(boxtest);
 			}
 		}
-	
-	} else {	
+
+	} else {
 
 		/*
 		** Cull the collision check using the culling systems
@@ -225,7 +225,7 @@ bool PhysicsSceneClass::Cast_AABox(PhysAABoxCollisionTestClass & boxtest,bool us
 			res |= StaticCullingSystem->Cast_AABox(boxtest);
 			if (boxtest.Result->StartBad) return true;
 		}
-		
+
 		if (boxtest.CheckDynamicObjs) {
 			res |= DynamicCullingSystem->Cast_AABox(boxtest);
 			if (boxtest.Result->StartBad) return true;
@@ -238,16 +238,16 @@ bool PhysicsSceneClass::Cast_AABox(PhysAABoxCollisionTestClass & boxtest,bool us
 bool PhysicsSceneClass::Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest,bool use_collision_region)
 {
 	/*
-	** Assert that the result structure has been initialized with the 
-	** optimistic result that the entire move will be taken.  Each call 
-	** should whittle down the Fraction variable so that we are left 
+	** Assert that the result structure has been initialized with the
+	** optimistic result that the entire move will be taken.  Each call
+	** should whittle down the Fraction variable so that we are left
 	** with the fraction that the closest object allowed.  If StartBad
 	** is ever set to true, we can bail out.
 	*/
 	assert(boxtest.Result->Fraction == 1.0f);
 	assert(boxtest.Result->StartBad == false);
 	boxtest.CollidedPhysObj = NULL;
-	
+
 	/*
 	** Check against physical objects in our vicinity
 	*/
@@ -261,14 +261,14 @@ bool PhysicsSceneClass::Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest,bool us
 		NonRefPhysListIterator it(&CollisionRegionList);
 		for ( ; !it.Is_Done(); it.Next()) {
 			PhysClass * obj = it.Peek_Obj();
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				res |= obj->Cast_OBBox(boxtest);
 			}
 		}
-	
-	} else {	
+
+	} else {
 
 		/*
 		** Cull the collision check using the culling systems
@@ -277,7 +277,7 @@ bool PhysicsSceneClass::Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest,bool us
 			res |= StaticCullingSystem->Cast_OBBox(boxtest);
 			if (boxtest.Result->StartBad) return true;
 		}
-		
+
 		if (boxtest.CheckDynamicObjs) {
 			res |= DynamicCullingSystem->Cast_OBBox(boxtest);
 			if (boxtest.Result->StartBad) return true;
@@ -290,22 +290,22 @@ bool PhysicsSceneClass::Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest,bool us
 bool PhysicsSceneClass::Intersection_Test(PhysAABoxIntersectionTestClass & boxtest,bool use_collision_region)
 {
 	if (use_collision_region) {
-	
+
 		/*
 		** Test for intersection with objects in the cached collision region
 		*/
 		NonRefPhysListIterator it(&CollisionRegionList);
 		for ( ; !it.Is_Done(); it.Next()) {
 			PhysClass * obj = it.Peek_Obj();
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				if (obj->Intersection_Test(boxtest)) {
 					return true;
 				}
 			}
 		}
-		
+
 	} else {
 
 		/*
@@ -321,7 +321,7 @@ bool PhysicsSceneClass::Intersection_Test(PhysAABoxIntersectionTestClass & boxte
 				return true;
 			}
 		}
-	
+
 	}
 
 	return false;
@@ -330,22 +330,22 @@ bool PhysicsSceneClass::Intersection_Test(PhysAABoxIntersectionTestClass & boxte
 bool PhysicsSceneClass::Intersection_Test(PhysOBBoxIntersectionTestClass & boxtest,bool use_collision_region)
 {
 	if (use_collision_region) {
-		
+
 		/*
 		** Test for intersection with objects in the cached collision region
 		*/
 		NonRefPhysListIterator it(&CollisionRegionList);
 		for ( ; !it.Is_Done(); it.Next()) {
 			PhysClass * obj = it.Peek_Obj();
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				if (obj->Intersection_Test(boxtest)) {
 					return true;
 				}
 			}
 		}
-	
+
 	} else {
 
 		/*
@@ -368,22 +368,22 @@ bool PhysicsSceneClass::Intersection_Test(PhysOBBoxIntersectionTestClass & boxte
 bool PhysicsSceneClass::Intersection_Test(PhysMeshIntersectionTestClass & meshtest,bool use_collision_region)
 {
 	if (use_collision_region) {
-		
+
 		/*
 		** Test for intersection with objects in the cached collision region
 		*/
 		NonRefPhysListIterator it(&CollisionRegionList);
 		for ( ; !it.Is_Done(); it.Next()) {
 			PhysClass * obj = it.Peek_Obj();
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),meshtest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),meshtest.CollisionGroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				if (obj->Intersection_Test(meshtest)) {
 					return true;
 				}
 			}
 		}
-	
+
 	} else {
 
 		if (meshtest.CheckStaticObjs) {
@@ -461,8 +461,8 @@ void PhysicsSceneClass::Add_Collected_Collideable_Objects_To_List
 				obj != NULL;
 				obj = (StaticPhysClass *)StaticCullingSystem->Get_Next_Collected_Object(obj) )
 		{
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),colgroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),colgroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				list->Add(obj);
 			}
@@ -476,8 +476,8 @@ void PhysicsSceneClass::Add_Collected_Collideable_Objects_To_List
 				obj != NULL;
 				obj = (PhysClass *)DynamicCullingSystem->Get_Next_Collected_Object(obj) )
 		{
-			if (	Do_Groups_Collide(obj->Get_Collision_Group(),colgroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Do_Groups_Collide(obj->Get_Collision_Group(),colgroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				list->Add(obj);
 			}
@@ -488,7 +488,7 @@ void PhysicsSceneClass::Add_Collected_Collideable_Objects_To_List
 void PhysicsSceneClass::Collect_Objects
 (
 	const Vector3 & point,
-	bool static_objs, 
+	bool static_objs,
 	bool dynamic_objs,
 	NonRefPhysListClass * list
 )
@@ -511,7 +511,7 @@ void PhysicsSceneClass::Collect_Objects
 void PhysicsSceneClass::Collect_Objects
 (
 	const AABoxClass & box,
-	bool static_objs, 
+	bool static_objs,
 	bool dynamic_objs,
 	NonRefPhysListClass * list
 )
@@ -534,7 +534,7 @@ void PhysicsSceneClass::Collect_Objects
 void PhysicsSceneClass::Collect_Objects
 (
 	const OBBoxClass & box,
-	bool static_objs, 
+	bool static_objs,
 	bool dynamic_objs,
 	NonRefPhysListClass * list
 )
@@ -556,7 +556,7 @@ void PhysicsSceneClass::Collect_Objects
 void PhysicsSceneClass::Collect_Objects
 (
 	const FrustumClass & frustum,
-	bool static_objs, 
+	bool static_objs,
 	bool dynamic_objs,
 	NonRefPhysListClass * list
 )

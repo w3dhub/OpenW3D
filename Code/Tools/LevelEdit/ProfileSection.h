@@ -16,18 +16,18 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LevelEdit                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tools/LevelEdit/ProfileSection.h                                                                                                                                        $Author:: Patrick_s                                                    * 
- *                                                                                             * 
- *                     $Modtime:: 4/15/99 6:30p                                                                                                                                                                             $Revision:: 1                                                            * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LevelEdit                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tools/LevelEdit/ProfileSection.h                                                                                                                                        $Author:: Patrick_s                                                    *
+ *                                                                                             *
+ *                     $Modtime:: 4/15/99 6:30p                                                                                                                                                                             $Revision:: 1                                                            *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -72,7 +72,7 @@ class ProfileSectionClass
 		//
 		ProfileSectionClass (void) {}
 
-		
+
 		///////////////////////////////////////////////////
 		//
 		//	Private member data

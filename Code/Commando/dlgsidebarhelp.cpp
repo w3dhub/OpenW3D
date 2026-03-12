@@ -68,7 +68,7 @@ SidebarHelpDialogClass::~SidebarHelpDialogClass (void)
 //////////////////////////////////////////////////////////////////////
 void
 SidebarHelpDialogClass::On_Init_Dialog (void)
-{	
+{
 	Check_Dlg_Button (IDC_DONT_SHOW_AGAIN_CHECK, false);
 	PopupDialogClass::On_Init_Dialog ();
 	return ;

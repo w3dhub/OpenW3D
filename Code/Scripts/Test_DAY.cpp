@@ -36,7 +36,7 @@
 
 DECLARE_SCRIPT(M00_Screenshot_Poser_DAY, "Anim_Name:string" )
 {
-	
+
 	void Created( GameObject *obj ) override
 	{
 		Commands->Set_Loiters_Allowed( obj, false );
@@ -52,7 +52,7 @@ DECLARE_SCRIPT(M00_Screenshot_Poser_DAY, "Anim_Name:string" )
 		params.Set_Animation( Get_Parameter( "Anim_Name" ), true );
 		Commands->Action_Play_Animation( obj, params );
 	}
-	
+
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/ ) override
 	{
 		if ( action_id == 0 )
@@ -156,7 +156,7 @@ DECLARE_SCRIPT (DAY_VTOL_CircleAttack, "")
 		targetlocation.Z += Commands->Get_Safe_Flight_Height( targetlocation.X, targetlocation.Y );
 		return targetlocation;
 	}
-	
+
 	void Created( GameObject * /*obj*/ ) override
 	{
 	}
@@ -208,7 +208,7 @@ DECLARE_SCRIPT (M00_GrantPowerup_Created, "WeaponDef:string")
 DECLARE_SCRIPT (M00_VisceroidInnate_DAY, "")
 {
 	void Created( GameObject *obj ) override
-	{	
+	{
 		Commands->Set_Loiters_Allowed( obj, false );
 		Commands->Set_Animation( obj, "C_Visceroid.C_Visceroid", true, NULL, 0.0f, -1.0f, false );
 	}
@@ -260,7 +260,7 @@ DECLARE_SCRIPT(M00_Play_Sound_Object_Bone_DAY, "Sound_Preset:string, Frequency_M
 		pos += Get_Vector3_Parameter("Offset");
 
 		int id;
-		
+
 		Commands->Debug_Message("Playing 3D Sound\n");
 		id = Commands->Create_3D_Sound_At_Bone( sound, obj, "ROOTTRANSFORM" );
 

@@ -105,7 +105,7 @@ class GroupMgrClass
 
 		//
 		//	Information methods
-		//		
+		//
 		const Vector3 &		Get_Center (void) 					{ Update (); return m_LowZCenter; }
 		const Vector3 &		Get_Abs_Center (void) 				{ Update (); return m_AbsCenter; }
 		const SphereClass &	Get_Bounding_Sphere (void)			{ Update (); return m_BoundingSphere; }
@@ -116,7 +116,7 @@ class GroupMgrClass
 		//
 		//	Update methods
 		//
-		void						Set_Dirty (void) { m_bDirty = true; }		
+		void						Set_Dirty (void) { m_bDirty = true; }
 
 		//
 		//	Copy methods
@@ -175,7 +175,7 @@ class SelectionMgrClass : public GroupMgrClass
 		//
 		//	Item addition/removal methods
 		//
-		virtual void		Add_Node (NodeClass *node);		
+		virtual void		Add_Node (NodeClass *node);
 		virtual void		Remove_Node (NodeClass *node);
 		virtual void		Reset (void);
 
@@ -212,7 +212,7 @@ class UserGroupMgrClass : public GroupMgrClass
 		//
 		//	Item addition/removal methods
 		//
-		virtual void		Add_Node (NodeClass *node);		
+		virtual void		Add_Node (NodeClass *node);
 		virtual void		Remove_Node (NodeClass *node);
 
 		//

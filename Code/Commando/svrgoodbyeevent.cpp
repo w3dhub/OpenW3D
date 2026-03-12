@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/svrgoodbyeevent.cpp               $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 2/14/02 3:10p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 19                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/svrgoodbyeevent.cpp               $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 2/14/02 3:10p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 19                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "svrgoodbyeevent.h"
@@ -57,7 +57,7 @@
 #include "specialbuilds.h"
 #include "gamespyadmin.h"
 
-// 
+//
 // TSS2001 Problem - we have lost the unreliable multiblast effect for this message
 //
 
@@ -95,12 +95,12 @@ cSvrGoodbyeEvent::Act(void)
 {
 	if (cNetwork::I_Am_Only_Client()) {
 
-		cNetwork::PClientConnection->Destroy_Connection(0);	// destroy connection to server 
-		
+		cNetwork::PClientConnection->Destroy_Connection(0);	// destroy connection to server
+
 		if (cGameSpyAdmin::Get_Is_Launched_From_Gamespy()) {
 			DlgMPConnectionRefused::DoDialog(TRANSLATION(IDS_MP_SERVER_SHUT_DOWN), true);
 		} else {
-			DlgMsgBox::DoDialog(TRANSLATION(IDS_MENU_SERVER_MESSAGE_TITLE), TRANSLATION(IDS_MP_SERVER_SHUT_DOWN)); 
+			DlgMsgBox::DoDialog(TRANSLATION(IDS_MENU_SERVER_MESSAGE_TITLE), TRANSLATION(IDS_MP_SERVER_SHUT_DOWN));
 		}
 
 		//
@@ -114,8 +114,8 @@ cSvrGoodbyeEvent::Act(void)
 		{
 			WWDEBUG_SAY(("Quick full exit instructed from server.\n"));
 			cDevOptions::QuickFullExit.Set(true);
-		} 
-		else 
+		}
+		else
 		{
 			//TSS090401
 			//
@@ -177,9 +177,9 @@ cSvrGoodbyeEvent::Import_Creation(BitStreamClass & packet)
 
 
 		/*
-		else if (cGameSpyAdmin::Get_Is_Launched_From_Gamespy()) 
+		else if (cGameSpyAdmin::Get_Is_Launched_From_Gamespy())
 		{
 			extern void Stop_Main_Loop (int);
 			Stop_Main_Loop(EXIT_SUCCESS);
-		} 
+		}
 		*/

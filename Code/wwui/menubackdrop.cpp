@@ -55,7 +55,7 @@ MenuBackDropClass::MenuBackDropClass (void)	:
 	Model (NULL),
 	Anim (NULL),
 	ClearScreen (true)
-{	
+{
 	//
 	//	Create a scene to use for the background
 	//
@@ -89,7 +89,7 @@ MenuBackDropClass::MenuBackDropClass (void)	:
 
 	//
 	//	Create a camera to use in background-scene
-	//	
+	//
 	Camera = new CameraClass();
 	Camera->Set_Position (Vector3 (0, 0, 800));
 
@@ -161,7 +161,7 @@ MenuBackDropClass::Set_Model (const char *name)
 		//
 		int camera_bone_index = Model->Get_Bone_Index ("CAMERA");
 		if (camera_bone_index > 0) {
-			
+
 			//
 			// Convert the bone's transform into a camera transform
 			//
@@ -247,9 +247,9 @@ MenuBackDropClass::Play_Animation (void)
 	if (Model == NULL) {
 		return ;
 	}
-	
+
 	if (AnimationName.Get_Length () > 0) {
-		
+
 		//
 		//	Play the animation on the background (if necessary)
 		//
@@ -267,6 +267,6 @@ MenuBackDropClass::Play_Animation (void)
 		REF_PTR_RELEASE (Anim);
 		Model->Set_Animation (NULL);
 	}
-	
+
 	return ;
 }

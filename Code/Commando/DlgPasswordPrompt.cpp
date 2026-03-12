@@ -55,7 +55,7 @@
 ******************************************************************************/
 
 bool DlgPasswordPrompt::DoDialog(Signaler<DlgPasswordPrompt>* target)
-	{	
+	{
 	DlgPasswordPrompt* dialog = new DlgPasswordPrompt;
 
 	if (dialog)

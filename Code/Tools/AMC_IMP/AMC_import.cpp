@@ -197,7 +197,7 @@ const TCHAR *      AMC_Import::LongDesc()
 {
 	return GetString(IDS_LONG_DESC);
 }
-	
+
 const TCHAR *      AMC_Import::ShortDesc()
 {
 	return GetString(IDS_SHORT_DESC);
@@ -281,7 +281,7 @@ public:
 			// Add a key at frame zero to hold the original position.
 
 			Quat rotation ( 0.0f, 0.0f, 0.0f, 1.0f );
-	
+
 			Matrix3 localTM = inode->GetNodeTM (0) *
 				Inverse (inode->GetParentTM (0));
 			rotation *= localTM;
@@ -673,7 +673,7 @@ static void			read_frames
 		if ( isdigit (line [0]) )
 		{
 			// This line marks the start of a new frame.
-			
+
 			int frame_number = strtol ( line, NULL, 10 );
 			frame_time = (frame_number - 1) * amc_ticks_per_frame +
 				first_frame_time;
@@ -849,7 +849,7 @@ int                AMC_Import::DoImport
 
 	int status = amc_load ( filename, iface, gi );
 	if ( status == 0 )
-		status = IMPEXP_CANCEL;	
+		status = IMPEXP_CANCEL;
 
 	return (status <= 0) ? IMPEXP_FAIL : status;
 }

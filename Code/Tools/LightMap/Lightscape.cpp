@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 8/24/01 9:24p       $* 
- *                                                                                             * 
- *                    $Revision:: 60                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 8/24/01 9:24p       $*
+ *                                                                                             *
+ *                    $Revision:: 60                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -68,7 +68,7 @@ LightscapeSolve *LightscapeSolve::_ActiveImporter	= NULL;
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *solvefilenamelist, CStatusBar* statusptr, const char *statusbarmessage, bool blendnoise)
 	: LightmapPacker()
@@ -78,7 +78,7 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 
 	const int materialtexturenamegrowthstep = 256;
 	const int patchfacegrowthstep				 = 1024;
-	const int vertexgrowthstep					 = 2048;	
+	const int vertexgrowthstep					 = 2048;
 	const int lightgrowthstep					 = 32;
 
 	static char _messagebuffer	[1024];
@@ -94,7 +94,7 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 	SmoothingAngle			= DEG_TO_RAD (options.Get_Smoothing_Angle());					//	Convert from degrees to radians.
 	SpatialTolerance		= options.Get_Spatial_Tolerance();								// No mapping required.
 	FilterSharpness		= pow (options.Get_Filter_Sharpness() / 50.0l, 5.0l);		// Map from linear to exponential scale.
-	
+
 	// If noise has been requested create a Perlin Noise generator.
 	if (blendnoise) {
 		ProceduralTexture = new PerlinNoise;
@@ -114,12 +114,12 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 	statusptr->GetDC()->DrawText (statusbarmessage, -1, &trect, DT_CALCRECT);
 
 	CRect	prect (srect.TopLeft().x + trect.Width(), srect.TopLeft().y, srect.BottomRight().x, srect.BottomRight().y);
-	
+
 	ProgressBar = new CProgressCtrl;
 	ASSERT (ProgressBar != NULL);
 	success = ProgressBar->Create (WS_CHILD | WS_VISIBLE | PBS_SMOOTH, prect, statusptr, 0);
 	ASSERT (success);
-	
+
 	// Specify how many elements should be added to dynamic arrays when they are resized.
 	MaterialTextureNames.Set_Growth_Step (materialtexturenamegrowthstep);
 	PatchFaces.Set_Growth_Step (patchfacegrowthstep);
@@ -148,7 +148,7 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 			delete factory;
 			factory = NULL;
 			if (strlen (errormessage.String()) > 0) throw (errormessage.String());
-			
+
 			// Advance to next solve file.
 			solvefilename += strlen (solvefilename) + 1;
 		}
@@ -170,13 +170,13 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 			//			implicit reliance on the material data preceeding the mesh data in the file.
 			factory = new LsPreparationFactory;
 			ASSERT (factory != NULL);
-			
+
 			::LtSolutionImport (solvepathname, *factory);
 			errormessage.Copy (factory->GetErrorMsg());
 			delete factory;
 			factory = NULL;
 			if (strlen (errormessage.String()) > 0) throw (errormessage.String());
-		
+
 			// Sort the material-texture names by a key defined by the comparison function Compare_Material_Names().
 			// NOTE: qsort MUST (and does) allow for duplicate keys.
 			if (MaterialTextureNames.Count() > 0) {
@@ -187,7 +187,7 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 			// processed by Mesh to Texture.
 			factory = new LsMainFactory;
 			ASSERT (factory != NULL);
-			
+
 			::LtSolutionImport (solvepathname, *factory);
 			errormessage.Copy (factory->GetErrorMsg());
 			delete factory;
@@ -223,7 +223,7 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 		}
 
  	} catch (const char *errormessage) {
-			
+
 		// Clean-up.
 		if (factory != NULL) delete factory;
 		if (ProgressBar != NULL) {
@@ -234,7 +234,7 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
 		// Re-throw the message to the caller.
 		throw (errormessage);
 	}
-	
+
 	_ActiveImporter = NULL;
 	delete ProgressBar;
 	ProgressBar = NULL;
@@ -251,7 +251,7 @@ LightscapeSolve::LightscapeSolve (const char *solvedirectoryname, const char *so
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightscapeSolve::Finish()
 {
@@ -270,7 +270,7 @@ LightscapeSolve::Finish()
  *				 destructor	can itself be called during the exception as part of its 'clean-up'.	  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightscapeSolve::~LightscapeSolve()
 {
@@ -284,7 +284,7 @@ LightscapeSolve::~LightscapeSolve()
 
 	// Clean-up the texture names.
 	for (i = 0; i < TextureNames.Length(); i++) {
-		
+
 		TextureNameNode *texturenamenode, *removalnode;
 
 		texturenamenode = TextureNames [i];
@@ -301,7 +301,7 @@ LightscapeSolve::~LightscapeSolve()
 	}
 
 	if (ProceduralTexture != NULL) delete ProceduralTexture;
-}	
+}
 
 
 /***********************************************************************************************
@@ -314,7 +314,7 @@ LightscapeSolve::~LightscapeSolve()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Add_Material_Texture_Name (const char *materialname, const char *texturepathname)
 {
@@ -332,7 +332,7 @@ void LightscapeSolve::Add_Material_Texture_Name (const char *materialname, const
 	// Calculate length of strings including terminator.
 	materialnamelength	 = strlen (materialname) + 1;
 	texturepathnamelength = strlen (texturepathname) + 1;
-		
+
 	name = new char [materialnamelength + texturepathnamelength];
 	ASSERT (name != NULL);
 
@@ -356,13 +356,13 @@ void LightscapeSolve::Add_Material_Texture_Name (const char *materialname, const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/16/99    IML : Created.                                                                 * 
+ *   9/16/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Add_Texture_Name (unsigned patchindex, const char *materialname)
 {
 	const char *materialnotfoundtext =
 "There is a face in the model that has a material name that cannot be found.";
-	
+
 	int		  length;
 	char	   **materialnameptr;
 	char		 *texturepathname;
@@ -371,7 +371,7 @@ void LightscapeSolve::Add_Texture_Name (unsigned patchindex, const char *materia
 	// Can the texture name data be accomodated by the texture name array?
 	length = TextureNames.Length();
 	if ((int) patchindex >= length) {
-		
+
 		const int growthstep = 1024;	// Add this many elements if the vector array runs out of room.
 
 		bool success = TextureNames.Resize (patchindex + growthstep);
@@ -404,7 +404,7 @@ void LightscapeSolve::Add_Texture_Name (unsigned patchindex, const char *materia
 		throw (materialnotfoundtext);
 	}
 
-	// Extract the texture name. 
+	// Extract the texture name.
 	texturepathname		 = *materialnameptr + strlen (*materialnameptr) + 1;
 	texturepathnamelength = strlen (texturepathname) + 1;
 
@@ -412,7 +412,7 @@ void LightscapeSolve::Add_Texture_Name (unsigned patchindex, const char *materia
 	if (texturepathnamelength > 1) {
 
 		TextureNameNode *node;
-		
+
 		node = new TextureNameNode (texturepathname);
 		ASSERT (node != NULL);
 
@@ -434,7 +434,7 @@ void LightscapeSolve::Add_Texture_Name (unsigned patchindex, const char *materia
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   3/24/00    IML : Created.                                                                 * 
+ *   3/24/00    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Add_Light (LightClass *light)
 {
@@ -453,7 +453,7 @@ void LightscapeSolve::Add_Light (LightClass *light)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   1/25/00    IML : Created.                                                                 * 
+ *   1/25/00    IML : Created.                                                                 *
  *=============================================================================================*/
 bool LightscapeSolve::Add_Vertex (unsigned vertexindex, const Vector3 &p, const Vector3 &n, unsigned patchindex, const Vector2 &t)
 {
@@ -483,7 +483,7 @@ bool LightscapeSolve::Add_Vertex (unsigned vertexindex, const Vector3 &p, const 
 	}
 
 	if (success) {
-		Vertices [vertexindex].UV		 = t;	
+		Vertices [vertexindex].UV		 = t;
 		Vertices	[vertexindex].ValidUV = true;
 	}
 
@@ -501,7 +501,7 @@ bool LightscapeSolve::Add_Vertex (unsigned vertexindex, const Vector3 &p, const 
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   1/25/00    IML : Created.                                                                 * 
+ *   1/25/00    IML : Created.                                                                 *
  *=============================================================================================*/
 bool LightscapeSolve::Add_Vertex (unsigned vertexindex, const Vector3 &p, const Vector3 &n, unsigned patchindex, const ColorVector &c)
 {
@@ -528,15 +528,15 @@ bool LightscapeSolve::Add_Vertex (unsigned vertexindex, const Vector3 &p, const 
 	}
 
 	if (success) {
-	
-		// Only add/set the color if this is not a M2T solve. 
+
+		// Only add/set the color if this is not a M2T solve.
 		if (!Importer()->Is_M2T_Solve()) {
-			
+
 			// Add or set the color?
 			if (Vertices [vertexindex].ValidColor) {
 
 				const ColorVector clamp (1.0f, 1.0f, 1.0f);
-					
+
 				// Add and clamp.
 				Vertices [vertexindex].Color += c;
 				Vertices [vertexindex].Color.Update_Min (clamp);
@@ -562,7 +562,7 @@ bool LightscapeSolve::Add_Vertex (unsigned vertexindex, const Vector3 &p, const 
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/16/99    IML : Created.                                                                 * 
+ *   9/16/99    IML : Created.                                                                 *
  *=============================================================================================*/
 bool LightscapeSolve::Add_Patch_Face (unsigned patchfaceindex, unsigned patchindex, unsigned vertexindexcount, unsigned *vertexindices)
 {
@@ -578,12 +578,12 @@ bool LightscapeSolve::Add_Patch_Face (unsigned patchfaceindex, unsigned patchind
 		success = (patchindex == PatchFaces [patchfaceindex].PatchIndex) &&
 					 (vertexindices [0] == PatchFaces [patchfaceindex].VertexIndices [0]) &&
 					 (vertexindices [1] == PatchFaces [patchfaceindex].VertexIndices [1]) &&
-					 (vertexindices [2] == PatchFaces [patchfaceindex].VertexIndices [2]); 
+					 (vertexindices [2] == PatchFaces [patchfaceindex].VertexIndices [2]);
 
 		if (vertexindexcount == 4) {
 			success &= (vertexindices [3] == PatchFaces [patchfaceindex].VertexIndices [3]);
 		}
-	
+
 	} else {
 
 		PatchFaceStruct patchface;
@@ -614,7 +614,7 @@ bool LightscapeSolve::Add_Patch_Face (unsigned patchfaceindex, unsigned patchind
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   1/07/00    IML : Created.                                                                 * 
+ *   1/07/00    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Find_Vertex (const Vector3 &point, const Vector3 *smoothingnormalptr, W3dRGBStruct &vertexcolor, SolveStatistics &solvestatistics)
 {
@@ -632,7 +632,7 @@ void LightscapeSolve::Find_Vertex (const Vector3 &point, const Vector3 *smoothin
 		color.Set (0.0f, 0.0f, 0.0f);
 		count = 0;
 		if (smoothingnormalptr != NULL) {
-		
+
 			// Sum the colors of all vertices that lie within the smoothing normal.
 			for (int v = 0; v < vertexset.Count(); v++) {
 
@@ -656,7 +656,7 @@ void LightscapeSolve::Find_Vertex (const Vector3 &point, const Vector3 *smoothin
 				return;
 			}
 		}
-			
+
 		// Sum the colors of all vertices regardless of smoothing normal.
 		for (int v = 0; v < vertexset.Count(); v++) {
 			if (vertexset [v]->ValidColor) {
@@ -671,14 +671,14 @@ void LightscapeSolve::Find_Vertex (const Vector3 &point, const Vector3 *smoothin
 		 	solvestatistics.Count [SolveStatistics::VERTEX_NOT_SMOOTH]++;
 			return;
 		} else {
-		
+
 			// There are no vertices with a valid color.	Return a place-holder color.
 			vertexcolor = pink;
 			solvestatistics.Count [SolveStatistics::VERTEX_NO_COLOR]++;
 			return;
 		}
 	}
-	
+
 	//	Vertex not found. Return a place-holder color.
 	vertexcolor = pink;
 	solvestatistics.Count [SolveStatistics::VERTEX_NOT_FOUND]++;
@@ -696,16 +696,16 @@ void LightscapeSolve::Find_Vertex (const Vector3 &point, const Vector3 *smoothin
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/07/00    IML : Created.                                                                  * 
+ *   06/07/00    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &normal, PackingTriangle &triangle, SolveStatistics &solvestatistics)
 {
 	const unsigned notextureid	= 0xffffffff;	// Arbitrary ID used to indicate that there is no associated texture.
 
 	VerticesStruct trianglevertices [Triangle::VERTICES_COUNT];
-	FaceResultEnum	faceresult;	
+	FaceResultEnum	faceresult;
 	bool				notexture;
-	unsigned			v;	
+	unsigned			v;
 
 	ASSERT (points != NULL);
 
@@ -787,12 +787,12 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &norma
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/07/00    IML : Created.                                                                * 
+ *   06/07/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightscapeSolve::Submit_Triangle (PackingTriangle &triangle)
-{			
+{
 	DynamicVectorClass <Triangle> adjtriangles;
-	
+
 	adjtriangles.Set_Growth_Step (32);
 	Find_Adjacent_Triangles (triangle, adjtriangles);
 	Submit (&triangle, adjtriangles);
@@ -809,7 +809,7 @@ void LightscapeSolve::Submit_Triangle (PackingTriangle &triangle)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *  6/05/00    IML : Created.                                                                  * 
+ *  6/05/00    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightscapeSolve::Find_Adjacent_Triangles (const PackingTriangle &principaltriangle, DynamicVectorClass <Triangle> &adjtriangles)
 {
@@ -822,21 +822,21 @@ void LightscapeSolve::Find_Adjacent_Triangles (const PackingTriangle &principalt
 		spatialvertexset.Clear();
 		Find_Vertices (principaltriangle.Vertices [v].Point, SpatialTolerance, spatialvertexset);
 		for (int s = 0; s < spatialvertexset.Count(); s++) {
-			
+
 			Vector3 normal;
 			float   angle;
 
 			// Is the face that is associated with this spatial vertex within the smoothing angle of the principal triangle's normal?
-			normal = spatialvertexset [s]->FaceNormal;				
+			normal = spatialvertexset [s]->FaceNormal;
 			angle  = acosf (Vector3::Dot_Product (principaltriangle.Normal, normal));
 			if (angle <= SmoothingAngle) {
 
 				TextureNameNode *texturenamenodeptr;
-				unsigned			  textureid;	
+				unsigned			  textureid;
 
 				// Is the texture name valid?
 				texturenamenodeptr = (TextureNameNode*) Texture_Name (spatialvertexset [s]->PatchIndex);
-				textureid			 = spatialvertexset [s]->PatchIndex;	
+				textureid			 = spatialvertexset [s]->PatchIndex;
 				if (texturenamenodeptr != NULL) {
 
 					PatchFaceStruct p, *patchfaceptr;
@@ -844,7 +844,7 @@ void LightscapeSolve::Find_Adjacent_Triangles (const PackingTriangle &principalt
 					// Find a patch face in the database with patch index that matches the patch index of the spatial vertex.
 					p.PatchIndex = spatialvertexset [s]->PatchIndex;
 					patchfaceptr = (PatchFaceStruct*) bsearch (&p, &PatchFaces [0], PatchFaces.Count(), sizeof (PatchFaceStruct), Compare_Patch_Faces);
-	
+
 					// Does a patch exist?
 					if (patchfaceptr != NULL) {
 
@@ -874,21 +874,21 @@ void LightscapeSolve::Find_Adjacent_Triangles (const PackingTriangle &principalt
 								validuvs = true;
 								for (v = 0; v < Triangle::VERTICES_COUNT; v++) {
 									validuvs &= Vertices [patchfaceptr->VertexIndices [_vertexindex [t][v]]].ValidUV;
-								}	
-							
+								}
+
 								if (validuvs) {
-								
+
 									Triangle triangle;
 									bool		hasequivalent;
 
 									triangle.TextureNameNodePtr = texturenamenodeptr;
 									triangle.TextureID			 = textureid;
-									triangle.Normal				 = normal;	
+									triangle.Normal				 = normal;
 									for (v = 0; v < Triangle::VERTICES_COUNT; v++) {
 										triangle.Vertices [v].Point = Vertices [patchfaceptr->VertexIndices [_vertexindex [t][v]]].Point;
 										triangle.Vertices [v].UV	 = Vertices [patchfaceptr->VertexIndices [_vertexindex [t][v]]].UV;
 									}
-										 
+
 									// Linearly search the existing adjacent triangles to see if this triangle already exists.
 									hasequivalent = false;
 									for (int a = 0; a < adjtriangles.Count(); a++) {
@@ -922,7 +922,7 @@ void LightscapeSolve::Find_Adjacent_Triangles (const PackingTriangle &principalt
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &facenormal, VerticesStruct *vertices, FaceResultEnum &faceresult)
 {
@@ -932,18 +932,18 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &facen
 
 	// Attempt to find the face with zero tolerance.
 	Find_Triangle (points, 0.0f, true, &facenormal, vertices, faceresult);
-		
-	// If the face was not found then attempt to find a face by iterating over a range of 
+
+	// If the face was not found then attempt to find a face by iterating over a range of
 	// tolerances using a binary search technique.
 	if (faceresult == FACE_NOT_FOUND) {
-			
+
 		bool  faceambiguous;
 		float maxtolerance = SpatialTolerance;
 		float mintolerance = 0.00f;
 		float	tolerance;
-			
+
 		tolerance = (maxtolerance + mintolerance) * 0.5f;
-			
+
 		// NOTE: The tolerance will be increased or decreased, depending upon whether the
 		// current result is 'not found' or 'ambiguous'. On each iteration the tolerance
 		// range (max tolerance - min tolerance) is halved. Thus, after n iterations, the
@@ -954,7 +954,7 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &facen
 		for (unsigned attempt = 0; attempt < attemptcount; attempt++) {
 			Find_Triangle (points, tolerance, false, NULL, vertices, faceresult);
 			if (faceresult == FACE_AMBIGUOUS) {
-					
+
 				// Flag that an ambiguous result occured.
 				faceambiguous = true;
 
@@ -963,12 +963,12 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &facen
 				tolerance = (tolerance + mintolerance) * 0.5f;
 			} else {
 				if (faceresult == FACE_NOT_FOUND) {
-						
+
 					// Increase the tolerance.
 					mintolerance = tolerance;
 					tolerance = (tolerance + maxtolerance) * 0.5f;
 				} else {
-					
+
 					// The face has been found.
 					ASSERT (faceresult == FACE_FOUND);
 					break;
@@ -983,7 +983,7 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &facen
 			Find_Triangle (points, maxtolerance, true, &facenormal, vertices, faceresult);
 		}
 	}
-}	
+}
 
 
 /***********************************************************************************************
@@ -996,11 +996,11 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, const Vector3 &facen
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, bool centroidtest, const Vector3 *facenormal, VerticesStruct *vertices, FaceResultEnum &faceresult)
 {
-	const int growthstep = 256;	
+	const int growthstep = 256;
 
 	DynamicVectorClass <VerticesStruct*> vertexset [Triangle::VERTICES_COUNT];
 	DynamicVectorClass <VerticesStruct*> *candidatevertexset = &vertexset [0];
@@ -1032,7 +1032,7 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 
 	// For all other points...
 	for (n = 1; n < Triangle::VERTICES_COUNT; n++) {
-		
+
 		// Create a set of vertex indices that correspond to n'th <point, normal> pair.
 		vertexset [n].Set_Growth_Step (growthstep);
 		Find_Vertices (points [n], tolerance, vertexset [n]);
@@ -1040,10 +1040,10 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 		// Delete all indexes in the candidate index set that have materials that DO NOT occur in the vertex index set.
 		c = 0;
 		while (c < candidatevertexset->Count()) {
-			
+
 			bool found;
 
-			patchindex = (*candidatevertexset) [c]->PatchIndex; 
+			patchindex = (*candidatevertexset) [c]->PatchIndex;
 			found = false;
 			for (v = 0; v < vertexset [n].Count(); v++) {
 				if (patchindex == vertexset [n][v]->PatchIndex) {
@@ -1062,7 +1062,7 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 
 	// If there is more than one candidate and the centroid test can be applied then apply it.
 	if ((candidatevertexset->Count() > 1) && centroidtest) {
-			
+
 		// If there is a patch-face database...
 		if (PatchFaces.Count() > 0) {
 
@@ -1079,20 +1079,20 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 			c = 0;
 			while (c < candidatevertexset->Count()) {
 
-				bool				  contained;	
+				bool				  contained;
 				PatchFaceStruct  p;
 				PatchFaceStruct *patchfaceptr;
-				unsigned			  trianglecount;	
+				unsigned			  trianglecount;
 
 				patchindex = (*candidatevertexset) [c]->PatchIndex;
 				contained  = false;
-					
+
 				// Find a face in the array that matches the patch.
 				p.PatchIndex = patchindex;
 				patchfaceptr = (PatchFaceStruct*) bsearch (&p, &PatchFaces [0], PatchFaces.Count(), sizeof (PatchFaceStruct), Compare_Patch_Faces);
-	
+
 				if (patchfaceptr != NULL) {
-	 
+
 					// Step backwards in the array to the first patch that matches.
 					// NOTE: bsearch() does not necessarily return the first key in the array that matches	when there are duplicate keys.
 					while (patchfaceptr > &PatchFaces [0]) {
@@ -1103,8 +1103,8 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 					// Step forwards in the array while there is a patch match.
 					// Find all vertices whose points and normals approximately match the requested normal and add their patch indices to the patch array.
 					while ((patchfaceptr < &PatchFaces [0] + PatchFaces.Count()) && (Compare_Patch_Faces (&p, patchfaceptr) == 0)) {
-						
-						// NOTE: The candidate point may not match the any of the material face 
+
+						// NOTE: The candidate point may not match the any of the material face
 						// points because Lightscape may have changed the topology. Thus it is
 						// necessary to search ALL of the faces that have this material.
 
@@ -1151,25 +1151,25 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 	if ((candidatevertexset->Count() > 1) && (facenormal != NULL)) {
 
 		float largestdp;
-		
+
 		// Find the smallest angle (largest dot product) between the vertex face normal and the target face normal.
 		largestdp = (*facenormal) * ((*candidatevertexset) [0]->FaceNormal);
 		for (c = 1; c < candidatevertexset->Count(); c++) {
 			largestdp = MAX (largestdp, (*facenormal) * ((*candidatevertexset) [c]->FaceNormal));
 		}
-	
+
 		// Delete all candidates that do not have the largest dot product.
 		c = 0;
 		while (c < candidatevertexset->Count()) {
 
 			float dp = (*facenormal) * ((*candidatevertexset) [c]->FaceNormal);
-	
+
 			if (dp < largestdp) {
 				success = candidatevertexset->Delete (c);
 				ASSERT (success);
 			} else {
 				c++;
-			}	
+			}
 		}
 	}
 
@@ -1188,7 +1188,7 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 			float mindistance = FLT_MAX;
 
 			for (n = 0; n < candidatevertexset->Count(); n++) {
-				
+
 				float distance;
 
 				distance = Manhatten_Distance (*facenormal - (*candidatevertexset) [n]->FaceNormal);
@@ -1198,16 +1198,16 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 				}
 			}
 		}
-		
+
 		// For the zeroth point...
 		patchindex = (*candidatevertexset) [candidateindex]->PatchIndex;
 		vertices [0] = *((*candidatevertexset) [candidateindex]);
 
 		// For all other points...
 		for (n = 1; n < Triangle::VERTICES_COUNT; n++) {
-					
+
 			bool assigned = false;
-						
+
 			for (v = 0; v < vertexset [n].Count(); v++) {
 				if (vertexset [n][v]->PatchIndex == patchindex) {
 					vertices [n] = *(vertexset [n][v]);
@@ -1222,8 +1222,8 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
 		if	(candidatevertexset->Count() > 1) {
 			faceresult = FACE_AMBIGUOUS;
 		} else {
-			
-			// There must be exactly one candidate.  
+
+			// There must be exactly one candidate.
 			ASSERT (candidatevertexset->Count() == 1);
 			faceresult = FACE_FOUND;
 		}
@@ -1241,7 +1241,7 @@ void LightscapeSolve::Find_Triangle (const Vector3 *points, float tolerance, boo
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Find_Vertices (const Vector3 &point, float tolerance, DynamicVectorClass <VerticesStruct*> &vertices)
 {
@@ -1271,7 +1271,7 @@ void LightscapeSolve::Find_Vertices (const Vector3 &point, float tolerance, Dyna
 					break;
 				}
 			}
-	
+
 		} while (b0 <= b1);
 
 		// Step backwards in the array to the first vertex that meets the match criteria defined by Compare_Vertices().
@@ -1286,7 +1286,7 @@ void LightscapeSolve::Find_Vertices (const Vector3 &point, float tolerance, Dyna
 			// Step forwards in the array while there is an approximate vertex match.
 			// Add all vertices that are valid and whose points match the requested point within tolerance.
 			while (vertexindexptr < &VertexIndices [0] + VertexIndices.Count()) {
-				
+
 				VerticesStruct *vertexptr;
 
 				vertexptr = &Vertices [*vertexindexptr];
@@ -1313,7 +1313,7 @@ void LightscapeSolve::Find_Vertices (const Vector3 &point, float tolerance, Dyna
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/17/99    IML : Created.                                                                 * 
+ *   9/17/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightscapeSolve::FaceSizeEnum LightscapeSolve::Face_Size (const Vector3 *points, unsigned count)
 {
@@ -1322,15 +1322,15 @@ LightscapeSolve::FaceSizeEnum LightscapeSolve::Face_Size (const Vector3 *points,
 	float area;
 
 	// Test for degeneracy.
-	// NOTE: Assume that the points are ordered (for triangles this is guaranteed). 
+	// NOTE: Assume that the points are ordered (for triangles this is guaranteed).
 	for (unsigned n = 0; n < count; n++) {
 		if (points [n] == points [(n + 1) % count]) return (FACE_DEGENERATE);
-	}	
+	}
 
 	// Currently, the area calculation requires that the polygon is a triangle.
 	ASSERT (count == 3);
-	
-	// Test for a small area. 
+
+	// Test for a small area.
 	area = 0.5f * Vector3::Cross_Product (points [1] - points [0], points [2] - points [0]).Length();
 	if (area < undersizedarea) return (FACE_UNDERSIZED);
 	return (FACE_NOT_UNDERSIZED);
@@ -1347,7 +1347,7 @@ LightscapeSolve::FaceSizeEnum LightscapeSolve::Face_Size (const Vector3 *points,
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/17/99    IML : Created.                                                                 * 
+ *   9/17/99    IML : Created.                                                                 *
  *=============================================================================================*/
 unsigned LightscapeSolve::Longest_Edge (const Vector3 *points, unsigned count, bool *usededges)
 {
@@ -1364,7 +1364,7 @@ unsigned LightscapeSolve::Longest_Edge (const Vector3 *points, unsigned count, b
 			}
 		}
 	}
-	
+
 	// An edge must have been found.
 	ASSERT (maxlength >= 0.0f);
 	usededges [edgeindex] = true;
@@ -1382,7 +1382,7 @@ unsigned LightscapeSolve::Longest_Edge (const Vector3 *points, unsigned count, b
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 const TextureNameNode *LightscapeSolve::Texture_Name (unsigned patchindex)
 {
@@ -1402,7 +1402,7 @@ const TextureNameNode *LightscapeSolve::Texture_Name (unsigned patchindex)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 int LightscapeSolve::Compare_Material_Texture_Names (const void *materialname0, const void *materialname1)
 {
@@ -1420,7 +1420,7 @@ int LightscapeSolve::Compare_Material_Texture_Names (const void *materialname0, 
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 int LightscapeSolve::Compare_Vertices (const void *vertexindexptr0, const void *vertexindexptr1)
 {
@@ -1453,7 +1453,7 @@ int LightscapeSolve::Compare_Vertices (const void *vertexindexptr0, const void *
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/17/99    IML : Created.                                                                 * 
+ *   9/17/99    IML : Created.                                                                 *
  *=============================================================================================*/
 int LightscapeSolve::Compare_Patch_Faces (const void *patchface0, const void *patchface1)
 {
@@ -1482,7 +1482,7 @@ int LightscapeSolve::Compare_Patch_Faces (const void *patchface0, const void *pa
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/07/00    IML : Created.                                                                 * 
+ *   09/07/00    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightscapeSolve::Pack()
 {
@@ -1500,7 +1500,7 @@ void LightscapeSolve::Pack()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/16/99    IML : Created.                                                                 * 
+ *   9/16/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTInfoBuilderApi* LsInformationFactory::OnGetInfoBuilder()
 {
@@ -1523,7 +1523,7 @@ LtTParameterBuilderApi* LsInformationFactory::OnGetParameterBuilder()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTInfoBuilderApi *LsPreparationFactory::OnGetInfoBuilder()
 {
@@ -1561,7 +1561,7 @@ LtTMeshBuilderApi *LsPreparationFactory::OnGetMeshBuilder()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/23/99    IML : Created.                                                                 * 
+ *   7/23/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LsMainFactory::LsMainFactory()
 	: LtTBuilderFactory()
@@ -1582,7 +1582,7 @@ LsMainFactory::LsMainFactory()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/23/99    IML : Created.                                                                 * 
+ *   7/23/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTInfoBuilderApi* LsMainFactory::OnGetInfoBuilder()
 {
@@ -1610,7 +1610,7 @@ LtTMeshBuilderApi* LsMainFactory::OnGetMeshBuilder()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/17/99    IML : Created.                                                                 * 
+ *   9/17/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LsInfoBuilder::LsInfoBuilder (LtTBuilderFactory *factory)
 	: LtTBaseInfoBuilder (factory)
@@ -1629,7 +1629,7 @@ LsInfoBuilder::LsInfoBuilder (LtTBuilderFactory *factory)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/17/99    IML : Created.                                                                 * 
+ *   9/17/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTBool LsInfoBuilder::Finish()
 {
@@ -1638,7 +1638,7 @@ LtTBool LsInfoBuilder::Finish()
 	LightscapeSolve::Importer()->Set_Patch_Cluster_Count (GetNumGroups());
 	LightscapeSolve::Importer()->Set_Brightness (GetBrightness());
 	LightscapeSolve::Importer()->Set_Contrast (GetContrast());
-	
+
 	// Return success.
 	return (true);
 }
@@ -1654,7 +1654,7 @@ LtTBool LsInfoBuilder::Finish()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/17/99    IML : Created.                                                                 * 
+ *   9/17/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LsParameterBuilder::LsParameterBuilder (LtTBuilderFactory *factory)
 	: LtTBaseParameterBuilder (factory)
@@ -1673,13 +1673,13 @@ LsParameterBuilder::LsParameterBuilder (LtTBuilderFactory *factory)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/17/99    IML : Created.                                                                 * 
+ *   9/17/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTBool LsParameterBuilder::Finish()
 {
 	// Read any parameter values here.
-	LightscapeSolve::Importer()->Set_Is_Daylight ((GetFlags() & LT_PROCESS_DAYLIGHT) != 0); 
-	LightscapeSolve::Importer()->Set_Is_Exterior ((GetFlags() & LT_PROCESS_EXTERIOR) != 0); 
+	LightscapeSolve::Importer()->Set_Is_Daylight ((GetFlags() & LT_PROCESS_DAYLIGHT) != 0);
+	LightscapeSolve::Importer()->Set_Is_Exterior ((GetFlags() & LT_PROCESS_EXTERIOR) != 0);
 
 	// Return success.
 	return (true);
@@ -1696,7 +1696,7 @@ LtTBool LsParameterBuilder::Finish()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LsMaterialBuilder::LsMaterialBuilder (LtTBuilderFactory *factory)
 	: LtTBaseMaterialBuilder (factory)
@@ -1715,13 +1715,13 @@ LsMaterialBuilder::LsMaterialBuilder (LtTBuilderFactory *factory)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/27/99    IML : Created.                                                                 * 
+ *   7/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTBool LsMaterialBuilder::Finish()
 {
 	ASSERT (LightscapeSolve::Importer() != NULL);
-	LightscapeSolve::Importer()->Add_Material_Texture_Name (GetName(), GetTextureName());	
-	
+	LightscapeSolve::Importer()->Add_Material_Texture_Name (GetName(), GetTextureName());
+
 	// Return success.
 	return (true);
 }
@@ -1737,7 +1737,7 @@ LtTBool LsMaterialBuilder::Finish()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   3/24/00    IML : Created.                                                                 * 
+ *   3/24/00    IML : Created.                                                                 *
  *=============================================================================================*/
 LsLampBuilder::LsLampBuilder (LtTBuilderFactory *factory)
 	: LtTBaseLampBuilder (factory)
@@ -1756,7 +1756,7 @@ LsLampBuilder::LsLampBuilder (LtTBuilderFactory *factory)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   3/24/00    IML : Created.                                                                 * 
+ *   3/24/00    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTBool LsLampBuilder::Finish()
 {
@@ -1790,7 +1790,7 @@ LtTBool LsLampBuilder::Finish()
 
 	// If this light has non-zero intensity then add the light to the solve database.
 	if (GetIntensity() > 0.0f) {
-	
+
 		// NOTE 0: Lightscape uses a right-handed coordinate system.
 		// NOTE 1: For directional lights (including sunlight), multiplying the direction matrix
 		//			  by (0, 0, 1) will yield the direction of the light rays.
@@ -1807,24 +1807,24 @@ LtTBool LsLampBuilder::Finish()
 				light = new LightClass (LightClass::POINT);
 				ASSERT (light != NULL);
 				break;
-		
+
 			case LT_LAMP_DIFFUSE:		// Hemispherical distribution with intensity proportional to the cosine to the direction of light.
-			
+
 				// Interpret this light as a spotlight with a 180 degree spot angle.
 				light = new LightClass (LightClass::SPOT);
 				ASSERT (light != NULL);
 				light->Set_Spot_Angle (WWMATH_PI);
 				light->Set_Spot_Direction (zaxis);
-				
+
 				// For efficiency, use unity as exponent.
 				light->Set_Spot_Exponent (1.0f);
 				break;
-			
+
 			case LT_LAMP_SPOTLIGHT:		// Spotlight distribution. Intensity at beam angle is one-half maximum intensity. Intensity is truncated to 0 at field angle.
-			
+
 				light = new LightClass (LightClass::SPOT);
 				ASSERT (light != NULL);
-				
+
 				// NOTE: Field angle is defined as angle swept from center of beam to outside.
 				light->Set_Spot_Angle (GetFieldAngle() * 2.0f);
 				light->Set_Spot_Direction (zaxis);
@@ -1833,13 +1833,13 @@ LtTBool LsLampBuilder::Finish()
 				light->Set_Spot_Exponent (1.0f);
 				break;
 
-			case LT_LAMP_GENERAL:		// General distribution is determined from table if intensities in given directions. 
-			
+			case LT_LAMP_GENERAL:		// General distribution is determined from table if intensities in given directions.
+
 				{
 					float angle;
 
 					// Get the widest angle - this is normally, but not always, the field angle.
-					angle = MAX (GetBeamAngle(), GetFieldAngle()); 
+					angle = MAX (GetBeamAngle(), GetFieldAngle());
 					if (angle > WWMATH_PI / 2.0f) {
 
 						// Interpret light as an isometric light.
@@ -1847,14 +1847,14 @@ LtTBool LsLampBuilder::Finish()
 						ASSERT (light != NULL);
 
 					} else {
-				
+
 				  		// Interpret light as a spotlight.
 						light = new LightClass (LightClass::SPOT);
 						ASSERT (light != NULL);
-				
+
 						light->Set_Spot_Angle (angle * 2.0f);
 						light->Set_Spot_Direction (zaxis);
-						
+
 						// For efficiency, use unity as exponent.
 						light->Set_Spot_Exponent (1.0f);
 					}
@@ -1880,14 +1880,14 @@ LtTBool LsLampBuilder::Finish()
 
 		// Set intensity.
 		light->Set_Intensity (1.0f);
-		
+
 		RadianceMap	radiancemap (LightscapeSolve::Importer()->Get_Brightness(), LightscapeSolve::Importer()->Get_Contrast(), LightscapeSolve::Importer()->Is_Daylight(), LightscapeSolve::Importer()->Is_Exterior());
 		float i = GetIntensity();
 		LtTRGBColor irradiance (i * GetFilterColor().GetR(), i * GetFilterColor().GetG(), i * GetFilterColor().GetB());
-		
+
 		// Set colors.
 		color.Set (irradiance, radiancemap);
-		
+
 		// Clamp to white.
 		color.Update_Min (white);
 
@@ -1906,13 +1906,13 @@ LtTBool LsLampBuilder::Finish()
 			light->Set_Flag (LightClass::FAR_ATTENUATION, true);
 
 			// Calculate attenuation range.
-			// The far attenuation is calculated as the distance at which intensity falls to a given 
+			// The far attenuation is calculated as the distance at which intensity falls to a given
 			// ratio (cut-off), assuming an attenuation of c/d^2, where c = monochrome intensity of light source.
 			float d = sqrt (oocutoff * color.Length());
 			light->Set_Far_Attenuation_Range (d * 0.25f, d);
-		
+
 		} else {
-		
+
 			light->Set_Flag (LightClass::NEAR_ATTENUATION, false);
 			light->Set_Flag (LightClass::FAR_ATTENUATION, false);
 		}
@@ -1921,7 +1921,7 @@ LtTBool LsLampBuilder::Finish()
 		light->Enable_Shadows ((GetFlags() & LT_LAMP_CAST_NO_SHADOWS) ? false : true);
 
 		LightscapeSolve::Importer()->Add_Light (light);
-		
+
 		// Clean-up.
 		light->Release_Ref();
 	}
@@ -1941,7 +1941,7 @@ LtTBool LsLampBuilder::Finish()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/19/00    IML : Created.                                                                 * 
+ *   04/19/00    IML : Created.                                                                 *
  *=============================================================================================*/
 LsMeshInquirer::LsMeshInquirer (LtTBuilderFactory *factory)
 	: LtTBaseMeshBuilder (factory)
@@ -1961,7 +1961,7 @@ LsMeshInquirer::LsMeshInquirer (LtTBuilderFactory *factory)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/19/00    IML : Created.                                                                 * 
+ *   04/19/00    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTBool LsMeshInquirer::Finish()
 {
@@ -1984,7 +1984,7 @@ LtTBool LsMeshInquirer::Finish()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/23/99    IML : Created.                                                                 * 
+ *   7/23/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LsMeshBuilder::LsMeshBuilder (LtTBuilderFactory *factory)
 	: LtTBaseMeshBuilder (factory)
@@ -2007,7 +2007,7 @@ LsMeshBuilder::LsMeshBuilder (LtTBuilderFactory *factory)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/16/99    IML : Created.                                                                 * 
+ *   9/16/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LsMeshBuilder::~LsMeshBuilder()
 {
@@ -2025,14 +2025,14 @@ LsMeshBuilder::~LsMeshBuilder()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/16/99    IML : Created.                                                                 * 
+ *   9/16/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LsMeshBuilder::SetFaces (const int facecount, const LtTFace *faces)
 {
 	int topcount, f, g;
-   
+
 	// Count the number of faces in the top-level hierarchy.
-	topcount = 0; 
+	topcount = 0;
 	for (f = 0; f < facecount; f++) {
 		topcount++;
 		f += faces [f].GetDescendents();
@@ -2045,7 +2045,7 @@ void LsMeshBuilder::SetFaces (const int facecount, const LtTFace *faces)
 		ASSERT (Faces != NULL);
 		AllocatedCount = topcount;
 	}
-	
+
 	// Copy the faces in the top-level hierarchy into the block allocated for faces.
 	g = 0;
 	for (f = 0; f < facecount; f++) {
@@ -2069,7 +2069,7 @@ void LsMeshBuilder::SetFaces (const int facecount, const LtTFace *faces)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/16/99    IML : Created.                                                                 * 
+ *   9/16/99    IML : Created.                                                                 *
  *=============================================================================================*/
 int LsMeshBuilder::GetFaceCount() const
 {
@@ -2087,7 +2087,7 @@ int LsMeshBuilder::GetFaceCount() const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/16/99    IML : Created.                                                                 * 
+ *   9/16/99    IML : Created.                                                                 *
  *=============================================================================================*/
 const LtTFace* LsMeshBuilder::GetFaces() const
 {
@@ -2112,7 +2112,7 @@ const LtTFace* LsMeshBuilder::GetFaces() const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/23/99    IML : Created.                                                                 * 
+ *   7/23/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LtTBool LsMeshBuilder::Finish()
 {
@@ -2121,7 +2121,7 @@ LtTBool LsMeshBuilder::Finish()
  Mesh to Texture option called 'Convert each surface to a single texture per surface' was\
  used.";
 
-	const char *notnormalizedtext = 
+	const char *notnormalizedtext =
 "There is a vertex in the model with a valid texture mapping but a non-normalized texture\
  coordinate.";
 
@@ -2133,28 +2133,28 @@ LtTBool LsMeshBuilder::Finish()
 	bool		  success;
 
 	ASSERT (LightscapeSolve::Importer() != NULL);
-	
+
 	// Add the vertices to the Lightscape solve database.
 	// If this mesh is an M2T patch...
-	if (GetProperties() & LT_MESH_RAWTEXTURE) { 
+	if (GetProperties() & LT_MESH_RAWTEXTURE) {
 
 		int			  vertexindex;
 		LtTVector	  lsv;					// Lightscape scratch vertex.
-		Vector3		  v;						// Scratch vertex. 
+		Vector3		  v;						// Scratch vertex.
 		Vector3		  origin, du, dv;		// Definition of texture projection.
 		Vector2		  length;				//
-		bool			  normalized;	
+		bool			  normalized;
 		LtTUnitVector lsn;
 		Vector3		  n;
 
 		// Lightscape definition of texture projection.
 		LtTTextureProjection lsprojection = GetTextureProjection();
-		
+
 		// If the texture mapping is invalid (ie. not orthographic)...
 		if ((lsprojection.GetFlags() & LT_PROJECTION_TYPE_MASK) != LT_PROJECTION_ORTHOGRAPHIC) {
 			throw (invalidmappingtext);
 		}
-			
+
 		// Define origin and texture vectors for a planar mapping.
 		lsv = lsprojection.GetOrigin();
 		origin.Set (lsv.GetX(), lsv.GetY(), lsv.GetZ());
@@ -2179,7 +2179,7 @@ LtTBool LsMeshBuilder::Finish()
 			if (usedvertices.Is_Used (vertexindex)) {
 
 				LtTPoint	lsp = GetVertices() [vertexindex];
-				
+
 				Vector3 p (lsp.GetX(), lsp.GetY(), lsp.GetZ());
 				Vector2 t;
 
@@ -2191,7 +2191,7 @@ LtTBool LsMeshBuilder::Finish()
 				normalized  = ((t.U >= 0.0f) && (t.U <= 1.0f));
 				normalized &= ((t.V >= 0.0f) && (t.V <= 1.0f));
 				if (!normalized) throw (notnormalizedtext);
-					
+
 				// Assign an index for this vertex which will uniquely identify it in the vertex database.
 				usedvertices.Set_Index (vertexindex, FactoryPtr->Vertex_Count());
 
@@ -2213,14 +2213,14 @@ LtTBool LsMeshBuilder::Finish()
 
 		ProceduralTexture							  *blendtexture;
 		DynamicVectorClass <FaceVertexStruct>  facevertices;
-		double										  *distanceratios;			
+		double										  *distanceratios;
 		int											   vertexindex;
 		int												facevertexindex;
 		RadianceMap									   radiancemap (LightscapeSolve::Importer()->Get_Brightness(), LightscapeSolve::Importer()->Get_Contrast(), LightscapeSolve::Importer()->Is_Daylight(), LightscapeSolve::Importer()->Is_Exterior());
 		LtTPoint										   lsp;
 		LtTRGBColor									   irradiance;
 		LtTUnitVector								   lsn;
-		Vector3										   n;	
+		Vector3										   n;
 
 		blendtexture = LightscapeSolve::Importer()->Procedural_Texture();
 
@@ -2230,17 +2230,17 @@ LtTBool LsMeshBuilder::Finish()
 			if (usedvertices.Is_Used (vertexindex)) {
 
 				FaceVertexStruct facevertex;
-				
+
 				lsp = GetVertices() [vertexindex];
 				irradiance = GetIrradiances() [vertexindex];
 				facevertex.Point.Set (lsp.GetX(), lsp.GetY(), lsp.GetZ());
 				facevertex.Color.Set (irradiance, radiancemap);
-			
+
 			 	// Should the vertex color be blended with a sample from a procedural texture?
 				if (blendtexture != NULL) {
 					facevertex.Color *= blendtexture->Value (facevertex.Point);
-				}	
-				
+				}
+
 				facevertex.Weight = 1.0f;
 				facevertices.Add (facevertex);
 			}
@@ -2268,16 +2268,16 @@ LtTBool LsMeshBuilder::Finish()
 				// Should the vertex color be blended with a sample from a procedural texture?
 				if (blendtexture != NULL) {
 					color *= blendtexture->Value (point);
-				}	
+				}
 
 				d = (point - facevertices [0].Point).Length();
 				distanceratios [0] = s = 1.0f;
 				for (facevertexindex = 1; facevertexindex < facevertices.Count(); facevertexindex++) {
 					distanceratios [facevertexindex] = d / (point - facevertices [facevertexindex].Point).Length();
-				
+
 					// Raise the distance ratio to the user specified filter sharpness.
 					distanceratios [facevertexindex] = pow (distanceratios [facevertexindex], filtersharpness);
-					
+
 					s += distanceratios [facevertexindex];
 				}
 
@@ -2301,10 +2301,10 @@ LtTBool LsMeshBuilder::Finish()
 
 				ColorVector c = facevertices [facevertexindex].Color;
 				c /= facevertices [facevertexindex].Weight;
-			
+
 				// Assign an index for this vertex which will uniquely identify it in the vertex database.
 				usedvertices.Set_Index (vertexindex, FactoryPtr->Vertex_Count());
-				
+
 				// Add the vertex to the database.
 				success = LightscapeSolve::Importer()->Add_Vertex (FactoryPtr->Vertex_Count(), facevertices [facevertexindex].Point, n, FactoryPtr->Patch_Count(), c);
 				if (!success) {
@@ -2317,7 +2317,7 @@ LtTBool LsMeshBuilder::Finish()
 				facevertexindex++;
 			}
 		}
-		
+
 		// Clean-up.
 		delete [] distanceratios;
 	}
@@ -2342,8 +2342,8 @@ LtTBool LsMeshBuilder::Finish()
 			vertexindex = face.GetVert (v);
 			ASSERT (vertexindex >= 0 && vertexindex < GetVertexCount());
 			facevertexindices [v] = usedvertices.Get_Index (vertexindex);
-		}	
-		
+		}
+
 		success = LightscapeSolve::Importer()->Add_Patch_Face (FactoryPtr->Patch_Face_Count(), FactoryPtr->Patch_Count(), facevertexcount, facevertexindices);
 		if (!success) throw (unmatchedmodeltext);
 
@@ -2369,7 +2369,7 @@ LtTBool LsMeshBuilder::Finish()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   1/05/00    IML : Created.                                                                 * 
+ *   1/05/00    IML : Created.                                                                 *
  *=============================================================================================*/
 VertexUser::VertexUser (const LsMeshBuilder &meshbuilder)
 {
@@ -2414,7 +2414,7 @@ VertexUser::VertexUser (const LsMeshBuilder &meshbuilder)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/30/99    IML : Created.                                                                 * 
+ *   7/30/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightscapeMeshSolve::LightscapeMeshSolve (LightscapeSolve &solve, ChunkClass &trianglechunk, ChunkClass &vertexchunk)
 	: Statistics (vertexchunk.Get_Size() / sizeof (W3dVectorStruct), trianglechunk.Get_Size() / sizeof (W3dTriStruct))
@@ -2465,10 +2465,10 @@ LightscapeMeshSolve::LightscapeMeshSolve (LightscapeSolve &solve, ChunkClass &tr
 		for (f = 0; f < FaceCount; f++) {
 			for (v = 0; v < verticesperface; v++) {
 				if (w3dfaces [f].Vindex [v] == vertexindex) {
-					
+
 					Vector3 facenormal;
 
-					// Do not consider face normals that are zero (face is degenerate).  
+					// Do not consider face normals that are zero (face is degenerate).
 					facenormal.Set (w3dfaces [f].Normal.X, w3dfaces	[f].Normal.Y, w3dfaces [f].Normal.Z);
 					if (facenormal != zero) smoothingnormalptr = &facenormal;
 					break;
@@ -2476,10 +2476,10 @@ LightscapeMeshSolve::LightscapeMeshSolve (LightscapeSolve &solve, ChunkClass &tr
 			}
 			if (smoothingnormalptr != NULL) break;
 		}
-		
+
 		w3dvertexptr = w3dvertices + vertexindex;
 		point.Set (w3dvertexptr->X, w3dvertexptr->Y, w3dvertexptr->Z);
-		
+
 		solve.Find_Vertex (point, smoothingnormalptr, vertexcolor, Statistics);
 		VertexColors [vertexindex] = vertexcolor;
 	}
@@ -2496,8 +2496,8 @@ LightscapeMeshSolve::LightscapeMeshSolve (LightscapeSolve &solve, ChunkClass &tr
 		for (v = 0; v < verticesperface; v++) {
 
 			W3dVectorStruct *w3dvertexptr;
-			unsigned			  vindex;	
-			
+			unsigned			  vindex;
+
 			vindex = w3dfaces [f].Vindex [v];
 			w3dvertexptr = w3dvertices + vindex;
 			points [v].Set (w3dvertexptr->X, w3dvertexptr->Y, w3dvertexptr->Z);
@@ -2507,9 +2507,9 @@ LightscapeMeshSolve::LightscapeMeshSolve (LightscapeSolve &solve, ChunkClass &tr
 	}
 
 	if (Statistics.Valid_Lightmap_Solve()) {
-	
-		unsigned	lightmapindex, remaplightmapindex;	
-		bool		found;	
+
+		unsigned	lightmapindex, remaplightmapindex;
+		bool		found;
 
 		// Submit the triangles for packing.
 		for (f = 0; f < FaceCount; f++) {
@@ -2561,7 +2561,7 @@ LightscapeMeshSolve::LightscapeMeshSolve (LightscapeSolve &solve, ChunkClass &tr
 				remaplightmapindex++;
 			}
 		}
-		
+
 		ASSERT (remaplightmapindex > 0);
 		LightmapCount = remaplightmapindex;
 
@@ -2584,7 +2584,7 @@ LightscapeMeshSolve::LightscapeMeshSolve (LightscapeSolve &solve, ChunkClass &tr
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/30/99    IML : Created.                                                                 * 
+ *   7/30/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightscapeMeshSolve::~LightscapeMeshSolve()
 {
@@ -2597,7 +2597,7 @@ LightscapeMeshSolve::~LightscapeMeshSolve()
 
 
 /***********************************************************************************************
- * LightscapeMeshSolve::Vertex_Color --																		  *	
+ * LightscapeMeshSolve::Vertex_Color --																		  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2606,7 +2606,7 @@ LightscapeMeshSolve::~LightscapeMeshSolve()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   1/06/00    IML : Created.                                                                 * 
+ *   1/06/00    IML : Created.                                                                 *
  *=============================================================================================*/
 W3dRGBStruct LightscapeMeshSolve::Vertex_Color (unsigned vertexindex) const
 {
@@ -2626,7 +2626,7 @@ W3dRGBStruct LightscapeMeshSolve::Vertex_Color (unsigned vertexindex) const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/30/99    IML : Created.                                                                 * 
+ *   7/30/99    IML : Created.                                                                 *
  *=============================================================================================*/
 const char *LightscapeMeshSolve::Lightmap_Pathname (unsigned lightmapindex) const
 {
@@ -2646,7 +2646,7 @@ const char *LightscapeMeshSolve::Lightmap_Pathname (unsigned lightmapindex) cons
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/30/99    IML : Created.                                                                 * 
+ *   7/30/99    IML : Created.                                                                 *
  *=============================================================================================*/
 unsigned	LightscapeMeshSolve::Lightmap_Index (unsigned faceindex) const
 {
@@ -2666,15 +2666,15 @@ unsigned	LightscapeMeshSolve::Lightmap_Index (unsigned faceindex) const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   7/30/99    IML : Created.                                                                 * 
+ *   7/30/99    IML : Created.                                                                 *
  *=============================================================================================*/
 W3dTexCoordStruct LightscapeMeshSolve::Lightmap_UV (unsigned facevertexindex) const
 {
 	W3dTexCoordStruct w3duv;
-	
+
 	ASSERT (Statistics.Valid_Lightmap_Solve());
 	ASSERT (facevertexindex < FaceVertexCount);
-	
+
 	w3duv.U = FaceVertexUVs [facevertexindex].U;
 	w3duv.V = FaceVertexUVs [facevertexindex].V;
 	return (w3duv);

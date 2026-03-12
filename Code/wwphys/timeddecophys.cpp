@@ -61,7 +61,7 @@ SimplePersistFactoryClass<TimedDecorationPhysClass,PHYSICS_CHUNKID_TIMEDDECORATI
 /*
 ** Chunk-ID's used by TimedDecoPhys
 */
-enum 
+enum
 {
 	TIMEDDECOPHYS_CHUNK_DECOPHYS		=	0x005160000,			// decophys class data
 	TIMEDDECOPHYS_CHUNK_VARIABLES,
@@ -72,7 +72,7 @@ enum
 TimedDecorationPhysClass::TimedDecorationPhysClass(void) :
 	DecorationPhysClass(),
 	Lifetime(2.0f)
-{ 
+{
 }
 
 void TimedDecorationPhysClass::Init(const TimedDecorationPhysDefClass & def)
@@ -94,7 +94,7 @@ float	TimedDecorationPhysClass::Get_Lifetime( void )
 
 void TimedDecorationPhysClass::Timestep(float dt)
 {
-	
+
 	DecorationPhysClass::Timestep( dt );
 
 	{
@@ -137,8 +137,8 @@ bool TimedDecorationPhysClass::Save (ChunkSaveClass &csave)
 bool TimedDecorationPhysClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case TIMEDDECOPHYS_CHUNK_DECOPHYS:
 				DecorationPhysClass::Load(cload);
@@ -149,7 +149,7 @@ bool TimedDecorationPhysClass::Load (ChunkLoadClass &cload)
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,TIMEDDECOPHYS_VARIABLE_LIFETIME,Lifetime);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 
@@ -157,7 +157,7 @@ bool TimedDecorationPhysClass::Load (ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 	return true;
@@ -182,7 +182,7 @@ DECLARE_DEFINITION_FACTORY(TimedDecorationPhysDefClass, CLASSID_TIMEDDECOPHYSDEF
 /*
 ** Chunk ID's used by TimedDecorationPhysDefClass
 */
-enum 
+enum
 {
 	TIMEDDECORATIONPHYSDEF_CHUNK_DECORATIONPHYSDEF				= 0x01170003,			// (parent class)
 	TIMEDDECORATIONPHYSDEF_CHUNK_VARIABLES,
@@ -197,13 +197,13 @@ TimedDecorationPhysDefClass::TimedDecorationPhysDefClass(void) :
 {
 #ifdef PARAM_EDITING_ON
 	// make our parameters editable!
-	FLOAT_EDITABLE_PARAM(TimedDecorationPhysDefClass, Lifetime, 0.01f, 100.0f);	
+	FLOAT_EDITABLE_PARAM(TimedDecorationPhysDefClass, Lifetime, 0.01f, 100.0f);
 #endif
 }
 
 uint32 TimedDecorationPhysDefClass::Get_Class_ID (void) const
 {
-	return CLASSID_TIMEDDECOPHYSDEF; 
+	return CLASSID_TIMEDDECOPHYSDEF;
 }
 
 PersistClass * TimedDecorationPhysDefClass::Create(void) const
@@ -214,8 +214,8 @@ PersistClass * TimedDecorationPhysDefClass::Create(void) const
 }
 
 const char * TimedDecorationPhysDefClass::Get_Type_Name(void)
-{ 
-	return "TimedDecorationPhysDef"; 
+{
+	return "TimedDecorationPhysDef";
 }
 
 bool TimedDecorationPhysDefClass::Is_Type(const char * type_name)
@@ -241,7 +241,7 @@ bool TimedDecorationPhysDefClass::Save(ChunkSaveClass &csave)
 	csave.Begin_Chunk(TIMEDDECORATIONPHYSDEF_CHUNK_VARIABLES);
 	WRITE_MICRO_CHUNK(csave,TIMEDDECORATIONPHYSDEF_VARIABLE_LIFETIME,Lifetime);
 	csave.End_Chunk();
-	
+
 	return true;
 }
 
@@ -260,7 +260,7 @@ bool TimedDecorationPhysDefClass::Load(ChunkLoadClass &cload)
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,TIMEDDECORATIONPHYSDEF_VARIABLE_LIFETIME,Lifetime);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 

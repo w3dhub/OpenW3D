@@ -23,7 +23,7 @@ Project Name: Carpenter  (The RedAlert ladder creator)
 File Name   : configfile.cpp
 Author      : Neal Kettler
 Start Date  : June 9, 1997
-Last Update : June 17, 1997  
+Last Update : June 17, 1997
 
 
 This class will read in a config file and store the key value pairs for
@@ -102,11 +102,11 @@ bit8 ConfigFile::readFile(FILE *in)
     key=cptr;
     key.truncate('=');
     key.removeSpaces();  // No spaces allowed in the key
-    key.toUpper();       // make key all caps 
+    key.toUpper();       // make key all caps
 
-    // Add the section name to the end of the key 
+    // Add the section name to the end of the key
     if (strlen(sectionname))
-      key.cat(sectionname);  
+      key.cat(sectionname);
 
     cptr=Eat_Spaces(strchr(cptr,'=')+1); // Jump to after the '='
     value=cptr;
@@ -121,7 +121,7 @@ bit8 ConfigFile::readFile(FILE *in)
     Critsec_.lock();
     Dictionary_.add(key,value);
     Critsec_.unlock();
-  } 
+  }
   return(true);
 }
 
@@ -180,12 +180,12 @@ bit8 ConfigFile::getString(IN Wstring &_key, Wstring &value, IN char *section) c
   Critsec_.unlock();
 
   if (retval==false)
-  { 
-	DBGMSG("Config entry missing: "<<key.get()); 
+  {
+	DBGMSG("Config entry missing: "<<key.get());
   }
 
   return(retval);
-} 
+}
 
 // Get a config entry as a string
 bit8 ConfigFile::getString(IN char *key,Wstring &value, IN char *section) const
@@ -193,14 +193,14 @@ bit8 ConfigFile::getString(IN char *key,Wstring &value, IN char *section) const
   Wstring sKey;
   sKey.set(key);
   return(getString(sKey,value,section));
-}   
+}
 
 // Get a config entry as an integer
 bit8 ConfigFile::getInt(IN Wstring &_key,sint32 &value, IN char *section) const
 {
   Wstring key(_key);
   key.toUpper();
- 
+
   if (section)  // append section name to key
   {
     key+="[";
@@ -229,7 +229,7 @@ bit8 ConfigFile::getInt(IN char *key,sint32 &value, IN char *section) const
   sKey.set(key);
 
   return(getInt(sKey,value,section));
-}    
+}
 
 
 
@@ -238,7 +238,7 @@ bit8 ConfigFile::getInt(IN Wstring &_key,sint16 &value, IN char *section) const
 {
   Wstring key(_key);
   key.toUpper();
- 
+
   if (section)  // append section name to key
   {
     key+="[";
@@ -259,7 +259,7 @@ bit8 ConfigFile::getInt(IN Wstring &_key,sint16 &value, IN char *section) const
   value=atoi(svalue.get());
   return(true);
 }
- 
+
 // Get a config entry as an integer
 bit8 ConfigFile::getInt(IN char *key,sint16 &value, IN char *section) const
 {
@@ -278,21 +278,21 @@ bit8 ConfigFile::removeEntry(IN Wstring &_key, IN char *section)
 {
 	Wstring key(_key);
 	key.toUpper();
-	
+
 	if (section)  // append section name to key
 	{
 		key+="[";
 		key+=section;
 		key+="]";
 	}
-	
+
 	Critsec_.lock();
 	bit8 retval=Dictionary_.remove(key);
 	Critsec_.unlock();
-	
+
 	if (retval==false)
 	{ DBGMSG("Config entry missing: "<<key.get()); }
-	
+
 	if (retval==false)
 		return(false);
 	return(true);
@@ -311,7 +311,7 @@ bit8 ConfigFile::setString(IN Wstring &_key, IN Wstring &value, IN char *section
 {
 	Wstring key(_key);
 	key.toUpper();
-	
+
 	if (section)  // append section name to key
 	{
 		key+="[";
@@ -322,7 +322,7 @@ bit8 ConfigFile::setString(IN Wstring &_key, IN Wstring &value, IN char *section
 	{
 		section = "";  // give it a default
 	}
-	
+
 	Critsec_.lock();
 	Dictionary_.remove(key);
 	bit8 retval=Dictionary_.add(key,value);
@@ -344,14 +344,14 @@ bit8 ConfigFile::setString(IN Wstring &_key, IN Wstring &value, IN char *section
 		sectionList.addTail(test);
 	}
 	Critsec_.unlock();
-	
+
 	if (retval==false)
-	{ 
-		DBGMSG("Config could not set entry: "<<key.get()); 
+	{
+		DBGMSG("Config could not set entry: "<<key.get());
 	}
-	
+
 	return(retval);
-} 
+}
 
 // Set a config entry as a string
 bit8 ConfigFile::setString(IN char *key,IN Wstring &value, IN char *section)
@@ -359,14 +359,14 @@ bit8 ConfigFile::setString(IN char *key,IN Wstring &value, IN char *section)
 	Wstring sKey;
 	sKey.set(key);
 	return(setString(sKey,value,section));
-}   
+}
 
 // Set a config entry as an integer
 bit8 ConfigFile::setInt(IN Wstring &_key,IN sint32 &value, IN char *section)
 {
 	Wstring key(_key);
 	key.toUpper();
-	
+
 	if (section)  // append section name to key
 	{
 		key+="[";
@@ -377,7 +377,7 @@ bit8 ConfigFile::setInt(IN Wstring &_key,IN sint32 &value, IN char *section)
 	{
 		section = "";  // give it a default
 	}
-	
+
 	Wstring svalue;
 	svalue.setFormatted("%d", value);
 	Critsec_.lock();
@@ -402,10 +402,10 @@ bit8 ConfigFile::setInt(IN Wstring &_key,IN sint32 &value, IN char *section)
 		sectionList.addTail(test);
 	}
 	Critsec_.unlock();
-	
+
 	if (retval==false)
 	{ DBGMSG("Config could not set entry: "<<key.get()); }
-	
+
 	if (retval==false)
 		return(false);
 	return(true);
@@ -417,7 +417,7 @@ bit8 ConfigFile::setInt(IN char *key,IN sint32 &value, IN char *section)
 	Wstring sKey;
 	sKey.set(key);
 	return(setInt(sKey,value,section));
-}    
+}
 
 
 // Write config file to disk.  Does not preserve comments, etc.
@@ -472,7 +472,7 @@ static uint32 Wstring_Hash(const Wstring &string)
     retval=(retval<<8)^(retval>>24);  // ROL 8
   }
   return(retval);
-}         
+}
 
 static char *Eat_Spaces(char *string)
 {

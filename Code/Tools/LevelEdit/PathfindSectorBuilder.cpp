@@ -87,12 +87,12 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 	bool retval = (point->X != temp_point.X);
 	retval		|= (point->Y != temp_point.Y);
 	retval		|= (point->Z != temp_point.Z);
-	
+
 	//
 	//	Pass the new point back to the caller
 	//
 	(*point) = temp_point;
-	
+
 	return retval;
 }
 
@@ -153,7 +153,7 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 	RenderObjClass *commando_obj = NULL;
 
 	//
-	//	Create an instance of the commando render object we can 
+	//	Create an instance of the commando render object we can
 	// use to simulate character movement
 	//
 	SoldierGameObjDef *definition = (SoldierGameObjDef *)DefinitionMgrClass::Find_Typed_Definition ("Commando", CLASSID_GAME_OBJECT_DEF_SOLDIER, false);
@@ -177,7 +177,7 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 		} else {
 			collision_box			= commando_obj->Get_Sub_Object_By_Name ("WORLDBOX");
 		}
-		
+
 		//
 		//	Store the exents of the collision box for use in our simulation
 		//
@@ -201,13 +201,13 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 			m_DirInfo[index].move.X			*= m_SimBoundingBox.X;
 			m_DirInfo[index].move.Y			*= m_SimBoundingBox.Y;
 			m_DirInfo[index].move.Z			*= m_SimBoundingBox.Z;
-			
+
 			m_DirInfo[index].quad_move.X	*= m_SimBoundingBox.X;
 			m_DirInfo[index].quad_move.Y	*= m_SimBoundingBox.Y;
 			m_DirInfo[index].quad_move.Z	*= m_SimBoundingBox.Z;
 
 			m_DirInfo[index].speed			= m_DirInfo[index].move.Length ();
-		}		
+		}
 
 		REF_PTR_RELEASE (commando_obj);
 
@@ -226,7 +226,7 @@ PathfindSectorBuilderClass::PathfindSectorBuilderClass (void)
 		m_SimSweepBox.Extent = m_SimBoxExtents;
 	}
 
-	Detect_Level_Features ();	
+	Detect_Level_Features ();
 
 	/*AABoxClass collision_box;
 	collision_box.Center.Set (0, 0, 0);
@@ -351,7 +351,7 @@ PathfindSectorBuilderClass::Restore_Level (void)
 			StaticAnimPhysDefClass *definition = static_phys_obj->Get_StaticAnimPhysDef ();
 			if (definition->Does_Collide_In_Pathfind () == false) {
 				phys_obj->Dec_Ignore_Counter ();
-			}			
+			}
 		}
 	}
 
@@ -414,7 +414,7 @@ PathfindSectorBuilderClass::Shutdown (void)
 	//	Do some cleanup
 	//
 	Free_Floodfill_Boxes ();
-	Cleanup_Level_Features ();	
+	Cleanup_Level_Features ();
 
 	//
 	//	Make sure we re-partition the sector culling system so
@@ -452,10 +452,10 @@ PathfindSectorBuilderClass::Compress_Sectors_For_Dyna_Culling (void)
 	DynamicVectorClass<AABoxClass> sectors;
 
 	Set_Max_Sector_Size(MAX_DYNAMIC_VIS_CELL_DIMENSION);
-	
+
 	Compress_Sectors(&sectors);
 
-	// 
+	//
 	// Hand the sectors into the scene (NOTE: this will have to reset the
 	// VIS system)
 	//
@@ -488,7 +488,7 @@ PathfindSectorBuilderClass::Compress_Sectors_For_Pathfind (void)
 	//	Compress the sectors into the largest possible rectangular regions
 	//
 	DWORD before_ticks = ::GetTickCount ();
-	
+
 	Post_Process_Floodfill_For_Level_Features ();
 	Compress_Sectors ();
 	Generate_Portals ();
@@ -496,12 +496,12 @@ PathfindSectorBuilderClass::Compress_Sectors_For_Pathfind (void)
 	DWORD after_ticks = ::GetTickCount ();
 
 	WWDEBUG_SAY(("Time spent compressing: %d secs.\r\n", (after_ticks-before_ticks)/1000));
-	
+
 	//
 	//	Loop through the level and create any portals around
 	// ladders, doors, etc that may be needed.
 	//
-	Apply_Level_Features ();	
+	Apply_Level_Features ();
 	return ;
 }
 
@@ -531,7 +531,7 @@ PathfindSectorBuilderClass::Generate_Sectors (void)
 		//
 		// Start floodfilling from this position
 		//
-		AABoxClass new_box;		
+		AABoxClass new_box;
 		if (Try_Standing_Here (start_pos, &new_box)) {
 			m_CurrentSector = Mark_Sector (new_box);
 			Floodfill (start_pos);
@@ -541,8 +541,8 @@ PathfindSectorBuilderClass::Generate_Sectors (void)
 	//
 	//	Process all the floodfill boxes that have been queued up
 	//
-	while (m_FloodFillProcessList.Count () > 0) {				
-		
+	while (m_FloodFillProcessList.Count () > 0) {
+
 		//
 		//	Pop a floodfill box off the list and process its neighbors
 		//
@@ -553,7 +553,7 @@ PathfindSectorBuilderClass::Generate_Sectors (void)
 		Vector3 pos		= box.Center;
 		pos.Z				= box.Center.Z - box.Extent.Z + (m_SimBoundingBox.Z * 0.5F);
 		Floodfill (pos);
-	}	
+	}
 
 
 	return ;
@@ -594,7 +594,7 @@ PathfindSectorBuilderClass::Find_Ground (const Vector3 &pos, float *ground_pos)
 	//
 	if (	(result.StartBad == false) &&
 			(result.Fraction < 1.0F) &&
-			(result.Normal.Z > 0.71F) &&			
+			(result.Normal.Z > 0.71F) &&
 			(m_AllowWaterFloodfill || (result.SurfaceType != SURFACE_TYPE_WATER)))
 	{
 		//
@@ -641,7 +641,7 @@ PathfindSectorBuilderClass::Find_Ceiling (const Vector3 &pos, float *ceiling_pos
 	//	Check to ensure we didn't start the cast intersecting a poly
 	//
 	if (result.StartBad == false) {
-		
+
 		//
 		//	Calculate what the z-position of the ceiling is
 		//
@@ -730,7 +730,7 @@ PathfindSectorBuilderClass::Try_Standing_Here
 	sweep_box.Center		= expected_pos;
 	sweep_box.Center.Z	+= m_StepHeight;
 	sweep_box.Extent		= m_SimSweepBox.Extent;
-	sweep_box.Extent.Z	-= m_StepHeight;	
+	sweep_box.Extent.Z	-= m_StepHeight;
 
 	//
 	//	Do a box cast to see if we can 'stand' here.
@@ -751,18 +751,18 @@ PathfindSectorBuilderClass::Try_Standing_Here
 	//	Is the start of the cast valid and is the polygon we
 	// landed on flat enough to stand on?
 	//
-	if ((result.StartBad == false) && (result.Normal.Z > 0.71F)) {			
+	if ((result.StartBad == false) && (result.Normal.Z > 0.71F)) {
 
 		//
 		//	Are we standing on the ground?  Is the ground a valid type?
 		//
 		bool on_ground = (result.Fraction < 1.0F);
 		if (on_ground && (m_AllowWaterFloodfill || (result.SurfaceType != SURFACE_TYPE_WATER))) {
-			
+
 			//
 			//	Snap the x and y positions and calculate the z position
 			// of the new box.
-			//			
+			//
 			real_pos->Extent.X	= sweep_box.Extent.X;
 			real_pos->Extent.Y	= sweep_box.Extent.Y;
 			real_pos->Extent.Z	= ((-m_SimMovement.Z * result.Fraction) * 0.5F) + (m_SimBoundingBox.Z * 0.5F);
@@ -822,18 +822,18 @@ PathfindSectorBuilderClass::Do_Physics_Sim
 			m_CurrentSector->Set_Neighbor (direction, neighbor, true);
 		}
 	}
-	
+
 	//
 	//	Did the quick-and-dirty check fail?  If so, then do the full box-cast
 	//
 	if (found == false) {
-				
+
 		Vector3 move_vector	= (m_DirInfo[direction].move);
 		Vector3 new_pos		= start_pos + move_vector;
 
 		AABoxClass new_box;
 		//if (Try_Standing_Here (new_pos, &new_box)) {
-		if (Try_Moving_Here (start_pos, new_pos, &new_box)) {		
+		if (Try_Moving_Here (start_pos, new_pos, &new_box)) {
 			Submit_Box (m_CurrentSector, new_box, direction);
 		}
 	}
@@ -891,7 +891,7 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 			m_CurrentSector->Set_Neighbor (direction, neighbor, true);
 		}
 	}
-	
+
 	//
 	//	Did the quick-and-dirty check fail?  If so, then do the full box-cast
 	//
@@ -916,7 +916,7 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 
 			return ;
 		} else {
-			
+
 			bool did_intersect = false;
 
 			NonRefPhysListIterator it (&obj_list);
@@ -924,7 +924,7 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 				PhysClass *phys_obj = it.Peek_Obj ();
 				if (phys_obj != NULL) {
 					RenderObjClass *model = phys_obj->Peek_Model ();
-					
+
 					AABoxIntersectionTestClass int_test (test_box, COLLISION_TYPE_PHYSICAL);
 					if (model->Intersect_AABox (int_test)) {
 						did_intersect = true;
@@ -937,14 +937,14 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 
 				AABoxClass new_box;
 				if (Try_Standing_Here (new_pos, &new_box)) {
-					Submit_Box (m_CurrentSector, new_box, direction);					
+					Submit_Box (m_CurrentSector, new_box, direction);
 				}
-				
+
 				return ;
 			}
 		}
 
-		
+
 		_PhysSimObj->Set_Position (start_pos);
 		_PhysSimObj->Set_Velocity (Vector3 (0, 0, 0));
 		int attempt;
@@ -966,7 +966,7 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 
 			float delta_len = delta.Length ();
 			if (delta_len < 0.05F && _PhysSimObj->Is_In_Contact ()) {
-				
+
 				AABoxClass new_box;
 				new_box.Center		= new_pos;
 				new_box.Center.Z	= curr_pos.Z;
@@ -975,11 +975,11 @@ PathfindSectorBuilderClass::Do_Real_Physics_Sim
 				keep_going = false;
 
 			} else {
-				
-				Vector3 x_axis = (new_pos - curr_pos);				
+
+				Vector3 x_axis = (new_pos - curr_pos);
 				Vector3 z_axis = Vector3 (0, 0, 1);
 				x_axis.Normalize ();
-				
+
 				Vector3 y_axis = Vector3::Cross_Product (x_axis, z_axis);
 
 				Matrix3D new_tm (x_axis, y_axis, z_axis, curr_pos);
@@ -1027,7 +1027,7 @@ PathfindSectorBuilderClass::Submit_Box
 
 	FloodfillBoxClass *occupant = Get_Sector_Occupant (position);
 	if (occupant == NULL) {
-		
+
 		//
 		//	Mark this cell and add it to the list of sectors
 		// that need to be recursed.
@@ -1048,7 +1048,7 @@ PathfindSectorBuilderClass::Submit_Box
 	if (occupant != from_obj) {
 		from_obj->Set_Neighbor (direction, occupant, true);
 	}
-	
+
 	return occupant;
 }
 
@@ -1066,20 +1066,20 @@ PathfindSectorBuilderClass::Floodfill (const Vector3 &start_pos)
 	// current cell.
 	//
 	if (m_pDialog->Was_Cancelled () == false) {
-		
+
 		//
 		//	Loop through and check any neighbors we don't already know about
 		//
 		for (int index = 0; index < DIR_MAX; index ++) {
 			if (m_CurrentSector->Peek_Neighbor (PATHFIND_DIR(index)) == NULL) {
 				Do_Physics_Sim (start_pos, PATHFIND_DIR(index));
-				m_BeforeUpdateCount ++;				
+				m_BeforeUpdateCount ++;
 			}
 		}
 
 		//
 		//	Check to see if we need to climb up any ladders, open doors, etc...
-		//		
+		//
 		Check_For_Level_Feature (m_CurrentSector);
 
 		//
@@ -1098,7 +1098,7 @@ PathfindSectorBuilderClass::Floodfill (const Vector3 &start_pos)
 		}
 	}
 
-	
+
 	//
 	// Allow windows messages to be processed
 	//
@@ -1185,7 +1185,7 @@ PathfindSectorBuilderClass::Determine_Height
 	AABoxClass box = Get_Body_Box_Bounds (start_box);
 	float z_extent = box.Extent.Z;
 	box.Extent.X	-= WWMATH_EPSILON;
-	box.Extent.Y	-= WWMATH_EPSILON;	
+	box.Extent.Y	-= WWMATH_EPSILON;
 	box.Extent.Z	= 500.0F;
 
 	//
@@ -1210,11 +1210,11 @@ PathfindSectorBuilderClass::Determine_Height
 
 			//
 			//	Return new minimum and maximum
-			//			
+			//
 			if (curr_max_z < box.Center.Z && curr_max_z > (*min_z_pos)) {
 				(*min_z_pos) = curr_max_z;
 			}
-			
+
 			if (curr_min_z > box.Center.Z && curr_min_z < (*max_z_pos)) {
 				(*max_z_pos) = curr_min_z;
 			}
@@ -1239,7 +1239,7 @@ PathfindSectorBuilderClass::Determine_Height
 		(*min_z_pos) = (box_bottom - 0.5F);
 	}
 
-	
+
 	return ;
 }
 
@@ -1362,7 +1362,7 @@ PathfindSectorBuilderClass::Move_Dir (FloodfillBoxClass *start_box, PATHFIND_DIR
 				m_HeightWatcher.Is_Current_Pos_Valid (box.Center.Z + box.Extent.Z))
 		{
 			retval = new_cell;
-		}		
+		}
 	}
 
 	return retval;
@@ -1405,13 +1405,13 @@ PathfindSectorBuilderClass::Check_Edge
 	FloodfillBoxClass *curr_cell = start_box;
 	int x;
 	for (x = 0; retval && x < count_left; x++) {
-		
+
 		//
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_LEFT, 0);
 		if (curr_cell != NULL) {
-			
+
 			//
 			// Can this new cell move in the movement direction AND
 			// can its new cell move right and, if necessary, left?
@@ -1419,7 +1419,7 @@ PathfindSectorBuilderClass::Check_Edge
 			dir_mask = MASK_RIGHT;
 			dir_mask |= ((x + 1) < count_left) ? MASK_LEFT : 0;
 			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
-		
+
 		} else {
 			retval = false;
 		}
@@ -1430,13 +1430,13 @@ PathfindSectorBuilderClass::Check_Edge
 	//
 	curr_cell = start_box;
 	for (x = 0; retval && x < count_right; x++) {
-		
+
 		//
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_RIGHT, 0);
 		if (curr_cell != NULL) {
-			
+
 			//
 			// Can this new cell move in the movement direction AND
 			// can its new cell move left and, if necessary, right?
@@ -1444,7 +1444,7 @@ PathfindSectorBuilderClass::Check_Edge
 			dir_mask = MASK_LEFT;
 			dir_mask |= ((x + 1) < count_right) ? MASK_RIGHT : 0;
 			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
-		
+
 		} else {
 			retval = false;
 		}
@@ -1456,13 +1456,13 @@ PathfindSectorBuilderClass::Check_Edge
 	curr_cell = start_box;
 	int y;
 	for (y = 0; retval && y < count_up; y++) {
-		
+
 		//
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_UP, 0);
 		if (curr_cell != NULL) {
-			
+
 			//
 			// Can this new cell move in the movement direction AND
 			// can its new cell move down and, if necessary, up?
@@ -1470,7 +1470,7 @@ PathfindSectorBuilderClass::Check_Edge
 			dir_mask = MASK_DOWN;
 			dir_mask |= ((y + 1) < count_up) ? MASK_UP : 0;
 			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
-		
+
 		} else {
 			retval = false;
 		}
@@ -1481,13 +1481,13 @@ PathfindSectorBuilderClass::Check_Edge
 	//
 	curr_cell = start_box;
 	for (y = 0; retval && y < count_down; y++) {
-		
+
 		//
 		// Can we move one step in this direction?
 		//
 		curr_cell = Move_Dir (curr_cell, DIR_DOWN, 0);
 		if (curr_cell != NULL) {
-			
+
 			//
 			// Can this new cell move in the movement direction AND
 			// can its new cell move up and, if necessary, down?
@@ -1495,7 +1495,7 @@ PathfindSectorBuilderClass::Check_Edge
 			dir_mask = MASK_UP;
 			dir_mask |= ((y + 1) < count_down) ? MASK_DOWN : 0;
 			retval = (Move_Dir (curr_cell, move_dir, dir_mask) != NULL);
-		
+
 		} else {
 			retval = false;
 		}
@@ -1512,12 +1512,12 @@ PathfindSectorBuilderClass::Check_Edge
 //////////////////////////////////////////////////////////////////////////
 FloodfillBoxClass *
 PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PERIMETER *perimeter)
-{	
+{
 	FloodfillBoxClass *up_cell		= start_box;
 	FloodfillBoxClass *down_cell		= start_box;
 	FloodfillBoxClass *left_cell		= start_box;
 	FloodfillBoxClass *right_cell	= start_box;
-	
+
 	//
 	//	Determine what the maximum number of cells in a given direction can be
 	//
@@ -1529,7 +1529,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 	//
 	Vector3 pos = start_box->Get_Position ();
 	m_HeightWatcher.Initialize (pos.Z - (m_SimBoundingBox.Z * 500.0F), pos.Z + (m_SimBoundingBox.Z * 500.0F), pos.Z);
-	
+
 	do
 	{
 		//
@@ -1537,7 +1537,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 		//
 		if (perimeter->stop_up == false) {
 			perimeter->stop_up = true;
-			
+
 			FloodfillBoxClass *new_cell = Move_Dir (up_cell, DIR_UP, 0);
 			if (new_cell != NULL) {
 				if (Check_Edge (up_cell, perimeter->count_left, perimeter->count_right, 0, 0, DIR_UP)) {
@@ -1613,7 +1613,7 @@ PathfindSectorBuilderClass::Find_Perimeter (FloodfillBoxClass *start_box, BOX_PE
 	while (	perimeter->stop_up == false || perimeter->stop_down == false ||
 				perimeter->stop_left == false || perimeter->stop_right == false);
 
-	
+
 	//
 	//	Some debug checking to make sure we built the region
 	// correctly.
@@ -1703,7 +1703,7 @@ PathfindSectorBuilderClass::Compress_Sectors (DynamicVectorClass<AABoxClass> *bo
 		//	If the area is of an exceptable size, then compress it into a sector
 		//
 		if (width > 2 || height > 2) {
-			
+
 			int skipped_count = start_box->Get_Compress_Skipped_Count ();
 			int min_dim			= std::min (width, height);
 
@@ -1744,7 +1744,7 @@ PathfindSectorBuilderClass::Compress_Sectors (DynamicVectorClass<AABoxClass> *bo
 			}
 
 		} else {
-			
+
 			//
 			//	Sector is too small, so remove the box
 			// from the system.
@@ -1753,7 +1753,7 @@ PathfindSectorBuilderClass::Compress_Sectors (DynamicVectorClass<AABoxClass> *bo
 			start_box->Remove ();
 		}
 	}
-	
+
 	return ;
 }
 
@@ -1774,7 +1774,7 @@ PathfindSectorBuilderClass::Filter_Useless_Sectors (DynamicVectorClass<PathfindS
 		bool found_usefull_portal = false;
 		int portal_count = sector->Get_Portal_Count ();
 		for (int portal_index = 0; portal_index < portal_count; portal_index ++) {
-			
+
 		}
 
 		if (found_usefull_portal) {
@@ -1834,7 +1834,7 @@ Scan_Edge
 			}
 
 		} else {
-			
+
 			//
 			//	Is this the best run we've found?
 			//
@@ -1881,7 +1881,7 @@ PathfindSectorBuilderClass::Is_Valid_Sector
 	int &						cells_down
 )
 {
-	bool retval = true;	
+	bool retval = true;
 
 	//
 	//	Is this sector to small?
@@ -1889,11 +1889,11 @@ PathfindSectorBuilderClass::Is_Valid_Sector
 	if (cells_right < 3 || cells_down < 3) {
 		retval = false;
 
-		if (cells_right < 3) {			
+		if (cells_right < 3) {
 
 			FloodfillBoxClass *ul_ptr = (*upper_left_ptr);
 			FloodfillBoxClass *ur_ptr = (*upper_left_ptr)->Find_Relative (cells_right - 1, 0);
-			
+
 			//
 			//	Determine if either edge can enter an adjacent sector.  This
 			// would make the sector walkable
@@ -1901,7 +1901,7 @@ PathfindSectorBuilderClass::Is_Valid_Sector
 			int best_count = 0;
 			Scan_Edge (ul_ptr, cells_down, DIR_LEFT, DIR_DOWN, &best_count);
 			Scan_Edge (ur_ptr, cells_down, DIR_RIGHT, DIR_DOWN, &best_count);
-			
+
 			//
 			//	Was this run good enough?
 			//
@@ -1919,7 +1919,7 @@ PathfindSectorBuilderClass::Is_Valid_Sector
 			int best_count = 0;
 			Scan_Edge (ul_ptr, cells_right, DIR_UP, DIR_RIGHT, &best_count);
 			Scan_Edge (ll_ptr, cells_right, DIR_DOWN, DIR_RIGHT, &best_count);
-			
+
 			//
 			//	Was this run good enough?
 			//
@@ -1959,18 +1959,18 @@ PathfindSectorBuilderClass::Build_Sector
 	if (is_valid) {
 		sector = new PathfindSectorClass;
 	}
-	
+
 	//
 	//	Remove all the cells that compose this area from the list
 	//
 	FloodfillBoxClass *curr_cell = upper_left_ptr;
 	for (int right = 0; (right < cells_right); right ++) {
-		
+
 		FloodfillBoxClass *down_obj = curr_cell;
 		for (int down = 0; (down < cells_down); down ++) {
-			
+
 			AABoxClass bounding_box = Get_Body_Box_Bounds (down_obj);
-			
+
 			min_point.X = std::min (min_point.X, bounding_box.Center.X - bounding_box.Extent.X);
 			min_point.Y = std::min (min_point.Y, bounding_box.Center.Y - bounding_box.Extent.Y);
 			min_point.Z = std::min (min_point.Z, bounding_box.Center.Z - bounding_box.Extent.Z);
@@ -1978,7 +1978,7 @@ PathfindSectorBuilderClass::Build_Sector
 			max_point.X = std::max (max_point.X, bounding_box.Center.X + bounding_box.Extent.X);
 			max_point.Y = std::max (max_point.Y, bounding_box.Center.Y + bounding_box.Extent.Y);
 			max_point.Z = std::max (max_point.Z, bounding_box.Center.Z + bounding_box.Extent.Z);
-			
+
 			WWASSERT (down_obj->Is_Taken () == false);
 			if (is_valid) {
 				down_obj->Set_Sector (sector);
@@ -2040,10 +2040,10 @@ PathfindSectorBuilderClass::Generate_Portals (void)
 	//
 	for (int index = 0; index < m_PossiblePortalList.Count (); index ++) {
 		FloodfillBoxClass *cull_obj = m_PossiblePortalList[index];
-		
+
 		PathfindSectorClass *sector = cull_obj->Peek_Sector ();
 		if ((sector != NULL) && sector->Is_Valid ()) {
-			
+
 			const AABoxClass &box	= sector->Get_Bounding_Box ();
 			Vector3 portal_size		= m_SimBoundingBox;
 			portal_size.Z				= box.Extent.Z * 2;
@@ -2055,7 +2055,7 @@ PathfindSectorBuilderClass::Generate_Portals (void)
 			for (int dir = 0; dir < DIR_MAX; dir ++) {
 
 				if (cull_obj->Is_New_Portal ((PATHFIND_DIR)dir)) {
-					
+
 					//
 					//	Create the portal
 					//
@@ -2082,7 +2082,7 @@ PathfindSectorBuilderClass::Free_Floodfill_Boxes (void)
 	//	Loop over all the floodfill boxes
 	//
 	for (int index = 0; index < m_BodyBoxReleaseList.Count (); index ++) {
-		
+
 		//
 		//	Remove the floodfill box from the culling system and
 		// free our hold on it
@@ -2098,7 +2098,7 @@ PathfindSectorBuilderClass::Free_Floodfill_Boxes (void)
 	//
 	// Reset our systems
 	//
-	m_BodyBoxCullingSystem.Reset ();	
+	m_BodyBoxCullingSystem.Reset ();
 	m_BodyBoxReleaseList.Delete_All ();
 	return ;
 }
@@ -2171,7 +2171,7 @@ PathfindSectorBuilderClass::Detect_Elevators (void)
 		PhysClass *phys_obj				= iterator.Peek_Obj ();
 		ElevatorPhysClass *elevator	= phys_obj->As_ElevatorPhysClass ();
 		if (elevator != NULL) {
-			
+
 			const ElevatorPhysDefClass *definition = elevator->Get_ElevatorPhysDef ();
 
 			//
@@ -2203,12 +2203,12 @@ PathfindSectorBuilderClass::Detect_Elevators (void)
 			upper_inside.Compute_Axis_Aligned_Extent (&top_box.Extent);
 
 			AABoxClass teleport_zone = bottom_box;
-			teleport_zone.Add_Box (top_box);			
+			teleport_zone.Add_Box (top_box);
 
 			//
 			//	Create a level feature for going UP the elevator
 			//
-			LevelFeatureClass *up_feature = new LevelFeatureClass;			
+			LevelFeatureClass *up_feature = new LevelFeatureClass;
 			up_feature->Set_Type (LevelFeatureClass::TYPE_ELEVATOR);
 			up_feature->Set_Start (lower_call);
 			up_feature->Set_End (upper_call);
@@ -2219,7 +2219,7 @@ PathfindSectorBuilderClass::Detect_Elevators (void)
 			//
 			//	Create a level feature for going DOWN the elevator
 			//
-			LevelFeatureClass *down_feature = new LevelFeatureClass;			
+			LevelFeatureClass *down_feature = new LevelFeatureClass;
 			down_feature->Set_Type (LevelFeatureClass::TYPE_ELEVATOR);
 			down_feature->Set_Start (upper_call);
 			down_feature->Set_End (lower_call);
@@ -2236,7 +2236,7 @@ PathfindSectorBuilderClass::Detect_Elevators (void)
 			m_LevelFeatureList.Add (down_feature);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -2263,12 +2263,12 @@ PathfindSectorBuilderClass::Detect_Doors (void)
 		if (	door != NULL &&
 				door->Get_DoorPhysDef () != NULL &&
 				door->Get_DoorPhysDef ()->Is_Vehicle_Door () == false)
-		{			
+		{
 			const DoorPhysDefClass *definition = door->Get_DoorPhysDef ();
 
 			//
 			//	Get the door's trigger zones
-			//					 
+			//
 			const Matrix3D &tm = door->Get_Transform ();
 			OBBoxClass trigger_zone1;
 			OBBoxClass trigger_zone2;
@@ -2293,7 +2293,7 @@ PathfindSectorBuilderClass::Detect_Doors (void)
 			//
 			//	Create a level feature for going one direction through the door
 			//
-			LevelFeatureClass *feature1 = new LevelFeatureClass;			
+			LevelFeatureClass *feature1 = new LevelFeatureClass;
 			feature1->Set_Type (LevelFeatureClass::TYPE_DOOR);
 			feature1->Set_Start (trigger_zone1);
 			feature1->Set_End (trigger_zone2);
@@ -2304,7 +2304,7 @@ PathfindSectorBuilderClass::Detect_Doors (void)
 			//
 			//	Create a level feature for going the other direction through the door
 			//
-			LevelFeatureClass *feature2 = new LevelFeatureClass;			
+			LevelFeatureClass *feature2 = new LevelFeatureClass;
 			feature2->Set_Type (LevelFeatureClass::TYPE_DOOR);
 			feature2->Set_Start (trigger_zone2);
 			feature2->Set_End (trigger_zone1);
@@ -2338,7 +2338,7 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 
 	//
 	// Loop through all the transitions in the level
-	//	
+	//
 	TransitionNodeClass *node = NULL;
 	for (node = (TransitionNodeClass *)NodeMgrClass::Get_First (NODE_TYPE_TRANSITION);
 		  node != NULL;
@@ -2346,11 +2346,11 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 	{
 		//
 		// Loop through all the different transitions in this node
-		//		
-		bool need_new_ladder_index	= true;		
+		//
+		bool need_new_ladder_index	= true;
 		int count						= node->Get_Transition_Count ();
 		for (int index = 0; index < count; index ++) {
-			
+
 			TransitionInstanceClass *transition = node->Get_Transition (index);
 			if (transition != NULL) {
 
@@ -2375,7 +2375,7 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 						//
 						//	Insert this transition into our culling system
 						//
-						LevelFeatureClass *level_feature = new LevelFeatureClass;				
+						LevelFeatureClass *level_feature = new LevelFeatureClass;
 						level_feature->Set_Start (zone);
 
 						//
@@ -2466,16 +2466,16 @@ PathfindSectorBuilderClass::Detect_Level_Transitions (void)
 						//
 						m_LevelFeatureCullingSystem.Add_Object (level_feature);
 						m_LevelFeatureList.Add (level_feature);
-					}											
+					}
 					break;
 
 					default:
 						break;
-				}			
+				}
 			}
 		}
 	}
-		
+
 	return ;
 }
 
@@ -2491,7 +2491,7 @@ PathfindSectorBuilderClass::Post_Process_Floodfill_For_Level_Features (void)
 	//
 	//	Loop over all the level features
 	//
-	for (int index = 0; index < m_LevelFeatureList.Count (); index ++) {		
+	for (int index = 0; index < m_LevelFeatureList.Count (); index ++) {
 		LevelFeatureClass *level_feature = m_LevelFeatureList[index];
 		if (level_feature != NULL) {
 
@@ -2527,7 +2527,7 @@ PathfindSectorBuilderClass::Post_Process_Floodfill_For_Level_Features (void)
 					if (portal_list_index != -1) {
 						m_PossiblePortalList.Delete (portal_list_index);
 					}
-					
+
 					//
 					//	Remove this box from the system
 					//
@@ -2555,7 +2555,7 @@ PathfindSectorBuilderClass::Apply_Level_Features (void)
 	//	Loop over all the level features and create sectors and portals
 	// for them
 	//
-	for (int index = 0; index < m_LevelFeatureList.Count (); index ++) {		
+	for (int index = 0; index < m_LevelFeatureList.Count (); index ++) {
 		LevelFeatureClass *level_feature = m_LevelFeatureList[index];
 		if (level_feature != NULL) {
 
@@ -2565,7 +2565,7 @@ PathfindSectorBuilderClass::Apply_Level_Features (void)
 			Build_Sector_For_Level_Feature (level_feature);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -2605,7 +2605,7 @@ PathfindSectorBuilderClass::Find_Transition
 		//
 		int index = node->Find_Transition (transition_type);
 		if (index >= 0) {
-			
+
 			//
 			//	Get the transition game object
 			//
@@ -2620,7 +2620,7 @@ PathfindSectorBuilderClass::Find_Transition
 				float curr_z_min = zone.Center.Z - zone.Extent.Z;
 				float curr_z_max = zone.Center.Z + zone.Extent.Z;
 				float curr_delta = std::min (WWMath::Fabs (start_z - curr_z_min), WWMath::Fabs (start_z - curr_z_max));
-				
+
 				//
 				//	Is this transition zone the one we are looking for?
 				//
@@ -2656,35 +2656,35 @@ PathfindSectorBuilderClass::Find_Sector
 
 	if (sector == NULL) {
 		sector = PathfindClass::Get_Instance ()->Find_Sector (box.Center, 1.0F);
-	} 
+	}
 
 	if (sector == NULL) {
 		Vector3 box_point	= box.Center;
 		box_point.X			+= box.Extent.X;
 		box_point.Y			+= box.Extent.Y;
 		sector				= PathfindClass::Get_Instance ()->Find_Sector (box_point, 1.0F);
-	} 
+	}
 
 	if (sector == NULL) {
 		Vector3 box_point	= box.Center;
 		box_point.X			-= box.Extent.X;
 		box_point.Y			-= box.Extent.Y;
 		sector				= PathfindClass::Get_Instance ()->Find_Sector (box_point, 1.0F);
-	} 
+	}
 
 	if (sector == NULL) {
 		Vector3 box_point	= box.Center;
 		box_point.X			+= box.Extent.X;
 		box_point.Y			-= box.Extent.Y;
 		sector				= PathfindClass::Get_Instance ()->Find_Sector (box_point, 1.0F);
-	} 
+	}
 
 	if (sector == NULL) {
 		Vector3 box_point	= box.Center;
 		box_point.X			-= box.Extent.X;
 		box_point.Y			+= box.Extent.Y;
 		sector				= PathfindClass::Get_Instance ()->Find_Sector (box_point, 1.0F);
-	} 
+	}
 
 	return sector;
 }
@@ -2701,14 +2701,14 @@ PathfindSectorBuilderClass::Build_Sector_For_Level_Feature (LevelFeatureClass *l
 	if (level_feature == NULL) {
 		return ;
 	}
-				
+
 	//
 	//	Get the starting and ending positions
 	//
 	Matrix3D end_tm	= level_feature->Get_End_TM ();
 	Vector3 end_pos	= end_tm.Get_Translation ();
 	Vector3 start_pos	= level_feature->Get_Start ().Center;
-		
+
 	//
 	//	Get the starting and ending AABox's for this feature
 	//
@@ -2717,10 +2717,10 @@ PathfindSectorBuilderClass::Build_Sector_For_Level_Feature (LevelFeatureClass *l
 	level_feature->Get_Start_AABox (start_box);
 	level_feature->Get_End_AABox (end_box);
 	Vector3 sector_end_pos = end_pos;
-	
+
 	//
 	//	Assume the player will want to exit "away" from where (s)he entered
-	//	
+	//
 	if (level_feature->Get_Type () == LevelFeatureClass::TYPE_DOOR) {
 		Vector3 offset = end_box.Center - start_box.Center;
 		offset.Normalize ();
@@ -2797,7 +2797,7 @@ PathfindSectorBuilderClass::Build_Sector_For_Level_Feature (LevelFeatureClass *l
 				enter_portal->Set_Destination (end_trigger_zone.Center);
 
 				enter_portal->Set_Action_Type (PathClass::ACTION_LADDER);
-				enter_portal->Set_Mechanism_ID (level_feature->Get_Mechanism_ID ());				
+				enter_portal->Set_Mechanism_ID (level_feature->Get_Mechanism_ID ());
 				exit_portal->Set_Action_Type (PathClass::ACTION_NONE);
 				break;
 			}
@@ -2815,13 +2815,13 @@ PathfindSectorBuilderClass::Build_Sector_For_Level_Feature (LevelFeatureClass *l
 		//
 		enter_portal->Set_Exit_Portal (exit_portal);
 		exit_portal->Set_Enter_Portal (enter_portal);
-		
+
 		//
 		//	Register the new portals with the pathfinding system,
 		// and let the sectors know they can access these portals.
 		//
 		int enter_portal_index	= PathfindClass::Get_Instance ()->Add_Portal (enter_portal);
-		int exit_portal_index	= PathfindClass::Get_Instance ()->Add_Portal (exit_portal);				
+		int exit_portal_index	= PathfindClass::Get_Instance ()->Add_Portal (exit_portal);
 		start_sector->Add_Portal (enter_portal_index);
 		new_sector->Add_Portal (exit_portal_index);
 		REF_PTR_RELEASE (enter_portal);
@@ -2866,7 +2866,7 @@ PathfindSectorBuilderClass::Check_For_Level_Feature (FloodfillBoxClass *body_box
 		//
 		for (int index = 0; index < feature_list.Count (); index ++) {
 			level_feature = feature_list[index];
-			
+
 			//
 			//	Get the bounding box for the pathfind object and the level feature's 'start-zone'
 			//
@@ -2907,14 +2907,14 @@ PathfindSectorBuilderClass::Path_Across_Feature (LevelFeatureClass *level_featur
 	//
 	Vector3 expected_pos	= level_feature->Get_End_TM ().Get_Translation ();
 	expected_pos.Z			+= m_SimBoxExtents.Z;
-	
+
 	//
 	//	Snap this position to our pathfind grid
 	//
 	Vector3 normalized_pos = expected_pos;
 	normalized_pos.X = (int(expected_pos.X / m_SimBoundingBox.X)) * m_SimBoundingBox.X;
 	normalized_pos.Y = (int(expected_pos.Y / m_SimBoundingBox.Y)) * m_SimBoundingBox.Y;
-	
+
 	//
 	//	Can we stand at this new position?
 	//

@@ -86,7 +86,7 @@ static UINT indicators[] =
 CMainFrame::CMainFrame()
 {
 	// TODO: add member initialization code here
-	
+
 }
 
 CMainFrame::~CMainFrame()
@@ -97,7 +97,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	
+
 	if (!m_wndToolBar.CreateEx(this) ||
 		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
 	{
@@ -153,18 +153,18 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 #endif //_DEBUG
 
-BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext) 
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
 	// Create the main splitter window for the application
 	BOOL ok = m_wndSplitter.CreateStatic (this, 1, 2);
 
 	ASSERT(ok);
 	if (!ok) return false;
-	
-	// Create the two sub views 
+
+	// Create the two sub views
 	ok &= m_wndSplitter.CreateView(0,0,RUNTIME_CLASS(CChunkTreeView),CSize(200,10),pContext);
 	ok &= m_wndSplitter.CreateView(0,1,RUNTIME_CLASS(CChunkDataView),CSize(340,10),pContext);
-	
+
 	ASSERT(ok);
 	if (!ok) return false;
 
@@ -182,52 +182,52 @@ CChunkTreeView * CMainFrame::Get_Tree_View(void)
 }
 
 
-void CMainFrame::OnDisplayHex() 
+void CMainFrame::OnDisplayHex()
 {
 	Get_Data_View()->Set_Display_Mode(CChunkDataView::DISPLAY_MODE_HEX);
 }
 
-void CMainFrame::OnUpdateDisplayHex(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateDisplayHex(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(Get_Data_View()->Get_Display_Mode() == CChunkDataView::DISPLAY_MODE_HEX);
 }
 
-void CMainFrame::OnDisplayMicrochunks() 
+void CMainFrame::OnDisplayMicrochunks()
 {
-	Get_Data_View()->Set_Display_Mode(CChunkDataView::DISPLAY_MODE_MICROCHUNKS);	
+	Get_Data_View()->Set_Display_Mode(CChunkDataView::DISPLAY_MODE_MICROCHUNKS);
 }
 
-void CMainFrame::OnUpdateDisplayMicrochunks(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateDisplayMicrochunks(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(Get_Data_View()->Get_Display_Mode() == CChunkDataView::DISPLAY_MODE_MICROCHUNKS);
 }
 
-void CMainFrame::OnWordmodeByte() 
+void CMainFrame::OnWordmodeByte()
 {
 	Get_Data_View()->Set_Word_Size(CChunkDataView::WORD_SIZE_BYTE);
 }
 
-void CMainFrame::OnUpdateWordmodeByte(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateWordmodeByte(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(Get_Data_View()->Get_Word_Size() == CChunkDataView::WORD_SIZE_BYTE);
 }
 
-void CMainFrame::OnWordmodeShort() 
+void CMainFrame::OnWordmodeShort()
 {
 	Get_Data_View()->Set_Word_Size(CChunkDataView::WORD_SIZE_SHORT);
 }
 
-void CMainFrame::OnUpdateWordmodeShort(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateWordmodeShort(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(Get_Data_View()->Get_Word_Size() == CChunkDataView::WORD_SIZE_SHORT);
 }
 
-void CMainFrame::OnWordmodeLong() 
+void CMainFrame::OnWordmodeLong()
 {
 	Get_Data_View()->Set_Word_Size(CChunkDataView::WORD_SIZE_LONG);
 }
 
-void CMainFrame::OnUpdateWordmodeLong(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateWordmodeLong(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(Get_Data_View()->Get_Word_Size() == CChunkDataView::WORD_SIZE_LONG);
 }

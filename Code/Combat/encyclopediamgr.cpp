@@ -189,7 +189,7 @@ EncyclopediaMgrClass::Reveal_Object (TYPE type, int object_id)
 		retval = (KnownObjectVector[type][object_id] != true);
 		KnownObjectVector[type][object_id] = true;
 	}
-	
+
 	return retval;
 }
 
@@ -339,7 +339,7 @@ EncyclopediaMgrClass::Load (ChunkLoadClass &cload)
 				//	Read the bit vector from its chunk
 				//
 				int size = cload.Cur_Chunk_Length ();
-				
+
 				int vector_size = std::max (size, KnownObjectVector[type_index].Get_Bit_Array().Length ());
 				//unsigned char *bit_vector = new unsigned char[vector_size];
 
@@ -433,7 +433,7 @@ EncyclopediaMgrClass::Reveal_Object (DamageableGameObj *game_obj)
 			Display_Event_UI ();
 		}
 
-		retval = Reveal_Object (type, id);		
+		retval = Reveal_Object (type, id);
 	}
 
 	return retval;
@@ -492,6 +492,6 @@ EncyclopediaMgrClass::Restore_Data (void)
 	for (int index = 0; index < TYPE_COUNT; index ++) {
 		KnownObjectVector[index] = CopyOfKnownObjectVector[index];
 	}
-	
+
 	return ;
 }

@@ -55,7 +55,7 @@ struct WidgetDefStruct
 	RenderObjClass *			RObj;
 };
 
-static WidgetDefStruct _WidgetDefs[WidgetSystem::NUM_WIDGETS] = 
+static WidgetDefStruct _WidgetDefs[WidgetSystem::NUM_WIDGETS] =
 {
 	{ WidgetSystem::WIDGET_AABOX,	_AABoxBinary,	sizeof(_AABoxBinary),	"AABox.Box",NULL },
 	{ WidgetSystem::WIDGET_OBBOX,	_OBBoxBinary,	sizeof(_OBBoxBinary),	"OBBox.Box",NULL },
@@ -75,7 +75,7 @@ void WidgetSystem::Init_Debug_Widgets(void)
 		WWASSERT(_WidgetDefs[i].Id == i);
 
 		if (_WidgetDefs[i].RObj == NULL) {
-			RAMFileClass file((void*)_WidgetDefs[i].Data,_WidgetDefs[i].Size);	
+			RAMFileClass file((void*)_WidgetDefs[i].Data,_WidgetDefs[i].Size);
 			WW3DAssetManager::Get_Instance()->Load_3D_Assets(file);
 			_WidgetDefs[i].RObj = WW3DAssetManager::Get_Instance()->Create_Render_Obj(_WidgetDefs[i].Name);
 			SET_REF_OWNER( _WidgetDefs[i].RObj );
@@ -103,5 +103,5 @@ RenderObjClass * WidgetSystem::Get_Debug_Widget([[maybe_unused]] WidgetType id)
 #else
 	return NULL;
 #endif
-	
+
 }

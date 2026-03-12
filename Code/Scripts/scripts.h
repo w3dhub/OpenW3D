@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Scripts/scripts.h                      $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/29/01 11:08a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 26                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Scripts/scripts.h                      $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/29/01 11:08a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 26                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SCRIPTS_H
@@ -48,11 +48,11 @@ class ScriptFactory;
 
 
 // ScriptVariables
-class ScriptVariableClass 
+class ScriptVariableClass
 {
 public:
 	ScriptVariableClass( void * data_ptr, int data_size, int id, ScriptVariableClass * next ) :
-		DataPtr( data_ptr ), 
+		DataPtr( data_ptr ),
 		DataSize( data_size ),
 		ID( id ),
 		Next( next )	{}
@@ -233,6 +233,6 @@ extern ScriptCommands* Commands;
 
 // Array Macros
 #define		ARRAY_ELEMENT_COUNT( x )	( sizeof( x ) / sizeof( x[0] ) )
-#define		RANDOM_ARRAY_ELEMENT( x )	( x[Commands->Get_Random_Int( 0, ARRAY_ELEMENT_COUNT( x ) )] )    
+#define		RANDOM_ARRAY_ELEMENT( x )	( x[Commands->Get_Random_Int( 0, ARRAY_ELEMENT_COUNT( x ) )] )
 
 #endif // SCRIPTS_H

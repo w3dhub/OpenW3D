@@ -90,23 +90,23 @@ class AggregateDefClass
 		///////////////////////////////////////////////////////////
 		//
 		//	Public constructors/destructors
-		//		
+		//
 		AggregateDefClass (void);
 		AggregateDefClass (RenderObjClass &base_model);
 		AggregateDefClass (const AggregateDefClass &src);
 		virtual ~AggregateDefClass (void);
 
-		
+
 		///////////////////////////////////////////////////////////
 		//
 		//	Public operators
-		//		
+		//
 		const AggregateDefClass &operator= (const AggregateDefClass &src);
 
 		///////////////////////////////////////////////////////////
 		//
 		//	Public methods
-		//		
+		//
 		virtual WW3DErrorType	Load_W3D (ChunkLoadClass &chunk_load);
 		virtual WW3DErrorType	Save_W3D (ChunkSaveClass &chunk_save);
 		const char *				Get_Name (void) const					{ return m_pName; }
@@ -138,13 +138,13 @@ class AggregateDefClass
 			bool operator == (_TEXTURE_INFO &) { return false; }
 			bool operator != (_TEXTURE_INFO &) { return true; }
 		} TEXTURE_INFO;
-		
+
 
 		///////////////////////////////////////////////////////////
 		//
 		//	Protected methods
 		//
-		
+
 		//
 		//	Loading methods
 		//
@@ -201,17 +201,17 @@ class AggregateDefClass
 //
 //	AggregatePrototypeClass
 //
-class AggregatePrototypeClass : public PrototypeClass 
+class AggregatePrototypeClass : public PrototypeClass
 {
 	public:
 
 		///////////////////////////////////////////////////////////
 		//
 		//	Public constructors/destructors
-		//		
+		//
 		AggregatePrototypeClass (AggregateDefClass *pdef)		{ m_pDefinition = pdef; }
 		virtual ~AggregatePrototypeClass (void)					{ delete m_pDefinition; }
-		
+
 		///////////////////////////////////////////////////////////
 		//
 		//	Public methods

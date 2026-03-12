@@ -201,7 +201,7 @@ MendozaBossGameObjDefClass::MendozaBossGameObjDefClass (void)
 //
 //////////////////////////////////////////////////////////////////////////
 MendozaBossGameObjDefClass::~MendozaBossGameObjDefClass (void)
-{	
+{
 	return ;
 }
 
@@ -212,9 +212,9 @@ MendozaBossGameObjDefClass::~MendozaBossGameObjDefClass (void)
 //
 //////////////////////////////////////////////////////////////////////////
 uint32
-MendozaBossGameObjDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_MENDOZA_BOSS; 
+MendozaBossGameObjDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_MENDOZA_BOSS;
 }
 
 
@@ -325,8 +325,8 @@ MendozaBossGameObjDefClass::Load_Variables (ChunkLoadClass &/* cload */)
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 MendozaBossGameObjDefClass::Get_Factory (void) const
-{ 
-	return _MendozaBossGameObjDefPersistFactory; 
+{
+	return _MendozaBossGameObjDefPersistFactory;
 }
 
 
@@ -353,7 +353,7 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	MoveState (this),
 	HeadState (this),
 	OverallStateTimer (0),
-	MendozaStateTimer (0),	
+	MendozaStateTimer (0),
 	CameraShakeTimer (0),
 	CameraStateTimer (0),
 	StartTimer (0),
@@ -383,7 +383,7 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 
 	//
 	//	Register the Overall states with its state machine
-	//	
+	//
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_FLYING_SIDEKICK);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_MELEE_ATTACK);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_RANGED_ATTACK);
@@ -393,7 +393,7 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_RUN_AFTER_SYDNEY);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_TOY_WITH_SYDNEY);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, OverallState, OVERALL_STATE_DEATH_SEQUENCE);
-	
+
 	//
 	//	Register the Move states with its state machine
 	//
@@ -401,7 +401,7 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_GET_CLOSE_TO_PLAYER);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_ATTACK_PATTERN1);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_ATTACK_PATTERN2);
-	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_GOTO_HELIPAD);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_GOTO_HELIPAD);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_RUN_TO_HEALTH);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MoveState, MOVE_STATE_CHASE_SYDNEY);
 
@@ -415,16 +415,16 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_DYING);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, MendozaState, MENDOZA_STATE_DEAD);
 	MendozaState.Set_State (MENDOZA_STATE_STANDING);
-	
+
 	//
 	//	Register the Sydney states with its state machine
 	//
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_WAITING);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_BOLTING);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_TRIPPING);
-	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_GETTING_UP);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_GETTING_UP);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_COWERING);
-	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_STRIKE_A_POSE);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, SydneyState, SYDNEY_STATE_STRIKE_A_POSE);
 
 	//
 	//	Register the Head states with its state machine
@@ -439,16 +439,16 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_NONE);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_FLYING_SIDEKICK_RUN);
-	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_FLYING_SIDEKICK);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_FLYING_SIDEKICK);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_CRESENT_KICK);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_SIDE_KICK);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_SIDE_KICK_RETRACT);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_MELEE_PUNCH);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_FLAMETHROWER);
-	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_FIREBALL);	
+	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_FIREBALL);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_HANDGUN);
 	ADD_STATE_TO_MACHINE (MendozaBossGameObjClass, AttackState, ATTACK_STATE_SYDNEY);
-	AttackState.Set_State (ATTACK_STATE_NONE);	
+	AttackState.Set_State (ATTACK_STATE_NONE);
 
 	//
 	//	Register the camera states with its state machine
@@ -456,7 +456,7 @@ MendozaBossGameObjClass::MendozaBossGameObjClass (void)	:
 	CameraState.Add_State (NULL,													NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_NORMAL_Begin,					NULL);
 	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Think,				NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Begin,				NULL);
 	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Think,		NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin,		NULL);
-	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Think,	NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Begin,	NULL);	
+	CameraState.Add_State (&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Think,	NULL,		&MendozaBossGameObjClass::On_CAMERA_STATE_LOOK_AT_DEAD_BOSS_Begin,	NULL);
 	CameraState.Set_State (CAMERA_STATE_NORMAL);
 
 	//
@@ -485,7 +485,7 @@ MendozaBossGameObjClass::~MendozaBossGameObjClass (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-MendozaBossGameObjClass::Get_Factory (void) const 
+MendozaBossGameObjClass::Get_Factory (void) const
 {
 	return _MendozaBossGameObjPersistFactory;
 }
@@ -568,7 +568,7 @@ MendozaBossGameObjClass::Save (ChunkSaveClass & csave)
 	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_ATTACK_STATE_MACHINE);
-		AttackState.Save (csave);		
+		AttackState.Save (csave);
 	csave.End_Chunk ();
 
 	//
@@ -577,7 +577,7 @@ MendozaBossGameObjClass::Save (ChunkSaveClass & csave)
 	csave.Begin_Chunk (CHUNKID_CAMERA_SPLINE);
 		CameraSpline.Save (csave);
 	csave.End_Chunk ();
-	
+
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		Save_Variables (csave);
 	csave.End_Chunk ();
@@ -625,7 +625,7 @@ MendozaBossGameObjClass::Load (ChunkLoadClass &cload)
 				break;
 
 			case CHUNKID_ATTACK_STATE_MACHINE:
-				AttackState.Load (cload);		
+				AttackState.Load (cload);
 				break;
 
 			//
@@ -638,7 +638,7 @@ MendozaBossGameObjClass::Load (ChunkLoadClass &cload)
 				MoveState.Load (cload);
 				HeadState.Load (cload);
 				CameraState.Load (cload);
-				AttackState.Load (cload);		
+				AttackState.Load (cload);
 				break;
 
 			//
@@ -673,7 +673,7 @@ MendozaBossGameObjClass::Load (ChunkLoadClass &cload)
 ///////////////////////////////////////////////////////////////////////////
 void
 MendozaBossGameObjClass::On_Post_Load (void)
-{	
+{
 	SoldierGameObj::On_Post_Load ();
 	Initialize_Boss ();
 	return ;
@@ -694,14 +694,14 @@ MendozaBossGameObjClass::Initialize_Boss (void)
 	PhysicalGameObj *game_obj = GameObjManager::Find_PhysicalGameObj (101010);
 	if (game_obj != NULL) {
 		Sydney = game_obj->As_SoldierGameObj ();
-		
+
 		//
 		//	Turn off her innate AI...
 		//
 		Sydney.Get_Ptr ()->As_PhysicalGameObj ()->As_SoldierGameObj ()->Innate_Disable ();
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -733,7 +733,7 @@ MendozaBossGameObjClass::Save_Variables (ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK (csave, VARID_START_TIMER,							StartTimer);
 	WRITE_MICRO_CHUNK (csave, VARID_SIDE_KICK_POS,						SideKickPos);
 	WRITE_MICRO_CHUNK (csave, VARID_SHOOT_GROUND_POS,					ShootGroundPos);
-	WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_ATTACKING_BONE_NAME,	AttackingBoneName);	
+	WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_ATTACKING_BONE_NAME,	AttackingBoneName);
 	return ;
 }
 
@@ -771,7 +771,7 @@ MendozaBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_START_TIMER,							StartTimer);
 			READ_MICRO_CHUNK (cload, VARID_SIDE_KICK_POS,						SideKickPos);
 			READ_MICRO_CHUNK (cload, VARID_SHOOT_GROUND_POS,					ShootGroundPos);
-			READ_MICRO_CHUNK_WWSTRING (cload, VARID_ATTACKING_BONE_NAME,	AttackingBoneName);	
+			READ_MICRO_CHUNK_WWSTRING (cload, VARID_ATTACKING_BONE_NAME,	AttackingBoneName);
 
 			default:
 				Debug_Say (("Unrecognized MendozaBossGameObjClass Variable chunkID %d\n", cload.Cur_Micro_Chunk_ID ()));
@@ -784,7 +784,7 @@ MendozaBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Register the camera bone pointers...
 	//
-	if (old_camera_bone_ptr != NULL) {			
+	if (old_camera_bone_ptr != NULL) {
 		SaveLoadSystemClass::Register_Pointer (old_camera_bone_ptr, CameraBoneModel);
 		CameraBoneModel->Set_Transform (cam_tm);
 	}
@@ -813,8 +813,8 @@ MendozaBossGameObjClass::Apply_Control (void)
 ///////////////////////////////////////////////////////////////////////////
 void
 MendozaBossGameObjClass::Think (void)
-{	
-	WWPROFILE ("Mendoza Think");	
+{
+	WWPROFILE ("Mendoza Think");
 
 	bool ok_to_think = true;
 
@@ -824,7 +824,7 @@ MendozaBossGameObjClass::Think (void)
 #ifdef PARAM_EDITING_ON
 	ok_to_think = false;
 #endif
-	
+
 	if (COMBAT_STAR == NULL || Sydney == NULL) {
 		ok_to_think = false;
 	}
@@ -866,7 +866,7 @@ MendozaBossGameObjClass::Think (void)
 			CameraState.Think ();
 			AttackState.Think ();
 			SydneyState.Think ();
-		}	
+		}
 	}
 
 	//
@@ -878,7 +878,7 @@ MendozaBossGameObjClass::Think (void)
 	old_health			+= 100.0F;
 	old_health_max		+= 100.0F;
 	DefenseObject.Set_Health_Max (old_health_max);
-	DefenseObject.Set_Health (old_health);	
+	DefenseObject.Set_Health (old_health);
 
 	//
 	//	Let the soldier think
@@ -892,7 +892,7 @@ MendozaBossGameObjClass::Think (void)
 	curr_health		-= 100.0F;
 	old_health_max	-= 100.0F;
 	DefenseObject.Set_Health (std::max (curr_health, 1.0F));
-	DefenseObject.Set_Health_Max (old_health_max);	
+	DefenseObject.Set_Health_Max (old_health_max);
 	return ;
 }
 
@@ -906,7 +906,7 @@ void
 MendozaBossGameObjClass::Shuffle_Taunt_List (void)
 {
 	::memset (TauntList, 0, sizeof (TauntList));
-	
+
 	//
 	//	Grab an entry from the taunt id list
 	//
@@ -982,7 +982,7 @@ MendozaBossGameObjClass::Apply_Damage_Extended
 		//
 		float old_health_percent	= old_health / DefenseObject.Get_Health_Max ();
 		float health_percent			= curr_health / DefenseObject.Get_Health_Max ();
-		
+
 		//
 		//	At 25% health we trigger the "chase after Sydney" event which has different behavior
 		//
@@ -1017,7 +1017,7 @@ MendozaBossGameObjClass::Apply_Damage_Extended
 			//
 			if (old_health_percent > 0.25F) {
 				OverallState.Set_State (OVERALL_STATE_SYDNEY_BOLTS);
-			}			
+			}
 		}
 	}
 
@@ -1122,7 +1122,7 @@ MendozaBossGameObjClass::STATE_IMPL_END(MENDOZA_STATE_KIPPING) (void)
 {
 	//
 	//	Resume the state's we halted
-	//	
+	//
 	MoveState.Resume_State ();
 	AttackState.Set_State (ATTACK_STATE_HANDGUN);
 	AttackState.Resume_State ();
@@ -1171,9 +1171,9 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_PACK_EXPLODING_Begin (void)
 	//
 	//	Create the explosion aggregate to attach to Mendoza
 	//
-	RenderObjClass *die_aggregate = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("AG_MENDOZA_DIE");	
+	RenderObjClass *die_aggregate = WW3DAssetManager::Get_Instance ()->Create_Render_Obj ("AG_MENDOZA_DIE");
 	if (die_aggregate != NULL) {
-		
+
 		//
 		//	Play the animation on the object
 		//
@@ -1182,10 +1182,10 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_PACK_EXPLODING_Begin (void)
 			die_aggregate->Set_Animation (anim, 0, RenderObjClass::ANIM_MODE_ONCE);
 			REF_PTR_RELEASE (anim);
 		}
-		
+
 		//
 		//	Attach the object to the back of Mendoza
-		//		
+		//
 		Peek_Model ()->Add_Sub_Object_To_Bone (die_aggregate, "BACKGUNBONE");
 		REF_PTR_RELEASE (die_aggregate);
 	}
@@ -1230,11 +1230,11 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_PACK_EXPLODING_Think (void)
 	if (CameraShakeTimer <= 0 && CameraShakeTimer > UNINITIALIZED_TIMER) {
 
 		COMBAT_SCENE->Add_Camera_Shake (MendozaPos, 50.0, 1.0F, 0.25F);
-		
+
 		CameraShakeTimer = UNINITIALIZED_TIMER;
 	}
 
-	MendozaStateTimer -= TimeManager::Get_Frame_Real_Seconds ();	
+	MendozaStateTimer -= TimeManager::Get_Frame_Real_Seconds ();
 	if (MendozaStateTimer <= 0) {
 
 		//
@@ -1247,7 +1247,7 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_PACK_EXPLODING_Think (void)
 		//	Force Mendoza to be on fire
 		//
 		Set_Special_Damage_Mode (ArmorWarheadManager::SPECIAL_DAMAGE_TYPE_SUPER_FIRE);
-		SpecialDamageTimer = 100.0F;		
+		SpecialDamageTimer = 100.0F;
 		Set_Blended_Animation ("S_A_HUMAN.H_A_FLMA", true);
 
 		//
@@ -1329,7 +1329,7 @@ MendozaBossGameObjClass::On_MENDOZA_STATE_DEAD_Think (void)
 {
 	MendozaStateTimer -= TimeManager::Get_Frame_Real_Seconds ();
 	if (MendozaStateTimer <= 0) {
-		
+
 		//
 		//	For right now, just restore everything so we can do it again...
 		//
@@ -1364,7 +1364,7 @@ MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Begin (void)
 {
 	//
 	//	Attach the camera to a dummy object we can move around
-	//	
+	//
 	CameraBoneModel->Set_Transform (COMBAT_CAMERA->Get_Transform ());
 	COMBAT_CAMERA->Set_Host_Model (CameraBoneModel);
 
@@ -1406,13 +1406,13 @@ MendozaBossGameObjClass::On_CAMERA_STATE_FACE_ZOOM_Think (void)
 		Matrix3D new_tm (MENDOZA_END_POS);
 		new_tm.Rotate_Z (DEG_TO_RADF (270.0F));
 		Set_Transform (new_tm);
-		
+
 		//
 		//	Detonate the backpack and start following the waypath
-		//		
+		//
 		CameraState.Set_State (CAMERA_STATE_WAYPATH_FOLLOW, true);
 	} else {
-		
+
 		//
 		//	Move closer to the target
 		//
@@ -1447,7 +1447,7 @@ MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin (void)
 	//
 	//	Restore time
 	//
-	TimeManager::Set_Time_Scale (1.0F);		
+	TimeManager::Set_Time_Scale (1.0F);
 
 	//
 	//	Reset the spline
@@ -1466,14 +1466,14 @@ MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Begin (void)
 	float percent = 0.0F;
 	float percent_inc = 1.0F / waypath->Get_Point_Count ();
 	for (int index = 0; index < waypath->Get_Point_Count (); index ++) {
-		
+
 		//
 		//	Add this point to the spline
 		//
 		WaypointClass *waypoint = waypath->Get_Point (index);
 		WWASSERT (waypoint != NULL);
 		CameraSpline.Add_Key (waypoint->Get_Position (), percent);
-		
+
 		//
 		//	Increment the percent
 		//
@@ -1519,11 +1519,11 @@ MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Think (void)
 
 	//
 	//	Move along the spline, looking at the character's head
-	//	
+	//
 	Matrix3D new_tm;
 	new_tm.Look_At (camera_position, dest_pos, camera_twist);
 	CameraBoneModel->Set_Transform (new_tm);
-	
+
 	//
 	//	Kick out of this state when finished
 	//
@@ -1531,7 +1531,7 @@ MendozaBossGameObjClass::On_CAMERA_STATE_WAYPATH_FOLLOW_Think (void)
 	if (CameraStateTimer <= 0) {
 		CameraState.Set_State (CAMERA_STATE_LOOK_AT_DEAD_BOSS, true);
 	}
-		
+
 	return ;
 }
 
@@ -1652,7 +1652,7 @@ MendozaBossGameObjClass::Attach_Fire_Sound (void)
 ///////////////////////////////////////////////////////////////////////////
 void
 MendozaBossGameObjClass::On_ATTACK_STATE_NONE_Begin (void)
-{	
+{
 	return ;
 }
 
@@ -1700,8 +1700,8 @@ MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_Think (void)
 		//	Is Mendoza close to the player?
 		//
 		float dist2 = (MendozaPos - StarPos).Length2 ();
-		if (dist2 < 4.0F) {		
-			
+		if (dist2 < 4.0F) {
+
 			//
 			//	Pick random melee attack...
 			//
@@ -1754,7 +1754,7 @@ MendozaBossGameObjClass::STATE_IMPL_BEGIN(ATTACK_STATE_MELEE_FLYING_SIDEKICK_RUN
 	Get_Anim_Control()->Set_Mode (ANIM_MODE_TARGET, 0);
 	Get_Anim_Control()->Set_Target_Frame (4);
 
-	Peek_Physical_Object ()->Enable_Objects_Simulation (false);	
+	Peek_Physical_Object ()->Enable_Objects_Simulation (false);
 	return ;
 }
 
@@ -1882,14 +1882,14 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(ATTACK_STATE_MELEE_FLYING_SIDEKICK) (v
 	//	If we're finished, then reset back to normal Melee state
 	//
 	if (is_finished) {
-		Peek_Physical_Object ()->Enable_Objects_Simulation (true);	
-		OverallState.Set_State (OVERALL_STATE_MELEE_ATTACK);	
+		Peek_Physical_Object ()->Enable_Objects_Simulation (true);
+		OverallState.Set_State (OVERALL_STATE_MELEE_ATTACK);
 	}
 
 	//
 	//	Cache the last frame number...
 	//
-	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();	
+	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();
 	return ;
 }
 
@@ -1960,14 +1960,14 @@ void
 MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_CRESENT_KICK_Think (void)
 {
 	if (Get_Anim_Control ()->Is_Complete ()) {
-		
+
 		//
 		//	Reset back to general melee state
 		//
 		HumanState.Set_State (HumanStateClass::ANIMATION);
 		AttackState.Set_State (ATTACK_STATE_MELEE);
 	} else if (Get_Anim_Control ()->Get_Current_Frame () < 7.0F) {
-		
+
 		//
 		//	Apply any damage done by the foot that's kicking...
 		//
@@ -1979,7 +1979,7 @@ MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_CRESENT_KICK_Think (void)
 	//
 	//	Cache the last frame number...
 	//
-	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();	
+	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();
 	return ;
 }
 
@@ -2044,14 +2044,14 @@ void
 MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_SIDE_KICK_Think (void)
 {
 	if (Get_Anim_Control ()->Is_Complete ()) {
-		
+
 		//
 		//	Now retract the kick...
-		//		
+		//
 		AttackState.Set_State (ATTACK_STATE_MELEE_SIDE_KICK_RETRACT);
 
 	} else if (Get_Anim_Control ()->Get_Current_Frame () > 6.0F) {
-		
+
 		//
 		//	Apply any damage done by the foot that's kicking...
 		//
@@ -2063,7 +2063,7 @@ MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_SIDE_KICK_Think (void)
 	//
 	//	Cache the last frame number...
 	//
-	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();	
+	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();
 	return ;
 }
 
@@ -2111,7 +2111,7 @@ void
 MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_SIDE_KICK_RETRACT_Think (void)
 {
 	if (Get_Anim_Control ()->Is_Complete ()) {
-		
+
 		//
 		//	Reset back to general melee state
 		//
@@ -2185,10 +2185,10 @@ void
 MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_PUNCH_Think (void)
 {
 	if (Get_Anim_Control ()->Is_Complete ()) {
-		
+
 		//
 		//	Reset back to general melee state
-		//		
+		//
 		AttackState.Set_State (ATTACK_STATE_MELEE);
 
 	} else {
@@ -2240,7 +2240,7 @@ MendozaBossGameObjClass::On_ATTACK_STATE_MELEE_PUNCH_Think (void)
 	//
 	//	Cache the last frame number...
 	//
-	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();	
+	LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();
 	return ;
 }
 
@@ -2298,13 +2298,13 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(ATTACK_STATE_FLAMETHROWER) (void)
 	//	Is the player within 10 meters of Mendoza?
 	//
 	if ((MendozaPos - StarPos).Length2 () < 100.0F) {
-		
+
 		//
 		//	Is the player mostly in front of Mendoza?
 		//
 		if (relative_position.X > 0 && WWMath::Fabs (relative_position.Y) < 5.0F) {
 			turn_on_weapon = true;
-		}		
+		}
 	}
 
 	//
@@ -2391,7 +2391,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(ATTACK_STATE_FIREBALL) (void)
 	//	Get the player's position relative to Mendoza
 	//
 	Vector3 relative_position;
-	Matrix3D::Inverse_Transform_Vector (Get_Transform (), StarPos, &relative_position);	
+	Matrix3D::Inverse_Transform_Vector (Get_Transform (), StarPos, &relative_position);
 
 	//
 	//	Is the player mostly in front of Mendoza?
@@ -2474,7 +2474,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(ATTACK_STATE_HANDGUN) (void)
 
 	//
 	//	Is the player in front of Mendoza?
-	//	
+	//
 	if (relative_position.X > 0) {
 		turn_on_weapon = true;
 	}
@@ -2499,7 +2499,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(ATTACK_STATE_HANDGUN) (void)
 			AttackState.Set_State (ATTACK_STATE_FLAMETHROWER);
 		} else if (OverallState.Get_State () == OVERALL_STATE_FIREBALL_ATTACK) {
 			AttackState.Set_State (ATTACK_STATE_FIREBALL);
-		}		
+		}
 	}
 
 	return ;
@@ -2596,19 +2596,19 @@ MendozaBossGameObjClass::Fly_Move (const Vector3 &vector)
 	//
 	AABoxClass collision_box = Peek_Physical_Object ()->As_HumanPhysClass ()->Get_Collision_Box ();
 	collision_box.Center += MendozaPos;
-	
+
 	//
 	//	Check to see if we've hit something
 	//
 	CastResultStruct result;
 	AABoxCollisionTestClass col_test (collision_box, vector, &result, COLLISION_TYPE_PHYSICAL);
-	
+
 	//
 	//	Find where we hit
 	//
 	bool retval = COMBAT_STAR->Peek_Model ()->Cast_AABox (col_test);
 	if (result.StartBad == false) {
-		
+
 		//
 		//	Calculate where to move to...
 		//
@@ -2660,7 +2660,7 @@ MendozaBossGameObjClass::Apply_Bone_Collision_Damage (const char *bone_name)
 	CastResultStruct result;
 	result.ComputeContactPoint = true;
 	AABoxCollisionTestClass col_test (bone_box, move_vector, &result, COLLISION_TYPE_PROJECTILE);
-	
+
 	//
 	//	Find where we hit
 	//
@@ -2674,7 +2674,7 @@ MendozaBossGameObjClass::Apply_Bone_Collision_Damage (const char *bone_name)
 		if (col_test.CollidedRenderObj != NULL) {
 			obj_name = col_test.CollidedRenderObj->Get_Name ();
 		}
-		
+
 		//
 		//	Apply 10 points of "steel" damage to the player
 		//
@@ -2686,7 +2686,7 @@ MendozaBossGameObjClass::Apply_Bone_Collision_Damage (const char *bone_name)
 		//
 		Vector3 delta_vector = move_vector;
 		delta_vector.Normalize ();
-		COMBAT_STAR->Peek_Physical_Object ()->As_Phys3Class ()->Collide (delta_vector * 0.75F);		
+		COMBAT_STAR->Peek_Physical_Object ()->As_Phys3Class ()->Collide (delta_vector * 0.75F);
 
 		//
 		//	Play the hit sound...
@@ -2797,7 +2797,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(OVERALL_STATE_RANGED_ATTACK) (void)
 	OverallStateTimer -= TimeManager::Get_Frame_Seconds ();
 	if (OverallStateTimer <= 0) {
 		OverallStateTimer = 0.5F;
-		
+
 		//
 		//	Take a random roll of the dice to decide whether or not to try to pickup health...
 		//
@@ -2820,7 +2820,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(OVERALL_STATE_RANGED_ATTACK) (void)
 			//	Do the fireball attack
 			//
 			OverallState.Set_State (OVERALL_STATE_FIREBALL_ATTACK);
-		}		
+		}
 	}
 
 	return ;
@@ -3016,7 +3016,7 @@ void
 MendozaBossGameObjClass::STATE_IMPL_THINK(OVERALL_STATE_TOY_WITH_SYDNEY) (void)
 {
 	if (MoveState.Get_State () != MOVE_STATE_STOP) {
-		
+
 		//
 		//	If Mendoza has gotten close enough to his goal, then make him stop...
 		//
@@ -3192,7 +3192,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(SYDNEY_STATE_GETTING_UP) (void)
 	//
 	//	If Sydney finished getting up, then switch her to the cowering state
 	//
-	if (sydney->Get_Anim_Control ()->Is_Complete ()) {		
+	if (sydney->Get_Anim_Control ()->Is_Complete ()) {
 		sydney->Get_Human_State ()->Set_State (HumanStateClass::ANIMATION);
 		SydneyState.Set_State (SYDNEY_STATE_COWERING);
 	}
@@ -3468,7 +3468,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_ATTACK_PATTERN1) (void)
 		MoveStateTimer = WWMath::Random_Float (1.0F, 7.0F);
 
 		if (StarPos.X > -70.0F) {
-			
+
 			//
 			//	Simply find a random spot next to the player to move to...
 			//
@@ -3484,10 +3484,10 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_ATTACK_PATTERN1) (void)
 				params.Set_Basic ((int)0, 100, 777);
 				params.Set_Movement (position, speed, 1.0F);
 				params.IgnoreFacing = true;
-				Get_Action ()->Goto (params);			
+				Get_Action ()->Goto (params);
 			}
 		} else {
-			
+
 			//
 			//	If the player goes out of range, then switch to the fireball attack
 			//
@@ -3564,7 +3564,7 @@ MendozaBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_ATTACK_PATTERN2) (void)
 			}
 
 		} else {
-			
+
 			//
 			//	If the player goes out of range, then switch to the fireball attack
 			//
@@ -3705,7 +3705,7 @@ MendozaBossGameObjClass::Find_Best_Powerup (void)
 	//
 	SLNode<BaseGameObj> *obj_node = NULL;
 	for (obj_node = GameObjManager::Get_Game_Obj_List ()->Head (); obj_node; obj_node = obj_node->Next ()) {
-		
+
 		//
 		//	Is this a powerup?
 		//
@@ -3719,12 +3719,12 @@ MendozaBossGameObjClass::Find_Best_Powerup (void)
 				//
 				Vector3 powerup_pos;
 				powerup->Get_Position (&powerup_pos);
-				
+
 				//
 				//	Is this powerup in the boss area?
 				//
-				if (	BOSS_AREA_BOX01.Contains (powerup_pos) || 
-						BOSS_AREA_BOX02.Contains (powerup_pos) || 
+				if (	BOSS_AREA_BOX01.Contains (powerup_pos) ||
+						BOSS_AREA_BOX02.Contains (powerup_pos) ||
 						BOSS_AREA_BOX03.Contains (powerup_pos))
 				{
 					powerup_pos.Z = 0;
@@ -3856,7 +3856,7 @@ MendozaBossGameObjClass::Spawn_Health_Powerups (void)
 		//	Ensure this is a valid spot to walk
 		//
 		if (PathfindClass::Get_Instance ()->Find_Random_Spot (rand_pos, 1.0F, &rand_pos)) {
-			
+
 			//
 			//	Build a ray-test to determine at what height to position the powerup
 			//
@@ -3868,12 +3868,12 @@ MendozaBossGameObjClass::Spawn_Health_Powerups (void)
 			CastResultStruct result;
 			PhysRayCollisionTestClass ray_test (ray_cast, &result, TERRAIN_ONLY_COLLISION_GROUP, COLLISION_TYPE_PHYSICAL);
 			COMBAT_SCENE->Cast_Ray (ray_test);
-			
+
 			//
 			//	Calculate the powerup's new position
 			//
 			Vector3 powerup_pos = rand_pos + (delta * (result.Fraction * 0.99F));
-			
+
 			//
 			//	Create and position the object
 			//

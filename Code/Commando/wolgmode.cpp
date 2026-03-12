@@ -341,7 +341,7 @@ void WolGameModeClass::Think(void)
 		// Check for deadbeat channel lurkers.
 		//
 		if (cNetwork::I_Am_Server() && mGameInProgress) {
-		
+
 			unsigned int time = TIMEGETTIME();
 
 			//
@@ -360,9 +360,9 @@ void WolGameModeClass::Think(void)
 			for (size_t index = 0; index < count; index++) {
 				const RefPtr<UserData>& user = userList[index];
 				WWASSERT(user.IsValid());
-			
+
 				if (user.IsValid()) {
-				
+
 					//
 					// Make sure it's not me.
 					//
@@ -372,16 +372,16 @@ void WolGameModeClass::Think(void)
 					if (login.IsValid()) {
 						myname = login->GetNickname();
 					}
-				
+
 					if (myname.Compare_No_Case(user->GetName())) {
-				
+
 						//
 						// Handle timer wrap.
 						//
 						if (time < user->mKickTimer) {
 							user->mKickTimer = time;
 						}
-				
+
 						if (!cPlayerManager::Find_Player(user->GetName())) {
 							if (time - user->mKickTimer > 120 * 1000) {
 								StringClass tempstr;
@@ -407,7 +407,7 @@ void WolGameModeClass::Think(void)
 
 								if (chances > 0) {
 									WWDEBUG_SAY(("'%s' not banned - %d chances left.\n", tempstr.Peek_Buffer(), chances));
-									
+
 									StringClass stringy(user->GetName());
 									IdleKickNameList.Add(stringy);
 									IdleKickTimeList.Add(TIMEGETTIME());
@@ -415,9 +415,9 @@ void WolGameModeClass::Think(void)
 							}
 						} else {
 							user->mKickTimer = time;
-						}	
+						}
 					}
-				}	
+				}
 			}
 		}
 	}
@@ -1591,7 +1591,7 @@ void WolGameModeClass::HandleNotification(DlgWOLWaitEvent& wolEvent)
 	} else {
 		if (!mQuietMode) {
 			DlgMsgBox::DoDialog(TRANSLATE (IDS_MENU_FAILED_TO_CREATE_GAME), wolEvent.Subject()->GetResultText());
-		}	
+		}
 	}
 
 	Signaler<WolGameModeClass>::SendSignal(*this);
@@ -2101,16 +2101,16 @@ void WolGameModeClass::Game_Start_Timeout_Callback(void)
 		WolGameModeClass* wolgame = reinterpret_cast<WolGameModeClass*>(game);
 		wolgame->Game_Start_Timed_Out();
 	}
-}			  
-		
-		
+}
+
+
 void WolGameModeClass::Game_Start_Timed_Out(void)
 {
 	/*
 	** If we lost connection without getting a report from WW Online then the only clue we have is that we will fail to
-	** get the game ID by timing out. Since this is pretty much fatal anyway, let's quit and restart and see if things fix 
+	** get the game ID by timing out. Since this is pretty much fatal anyway, let's quit and restart and see if things fix
 	** themselves up.
-	** 
+	**
 	** ST - 8/21/2002 11:27AM
 	*/
 	if (cNetwork::I_Am_Server()) {
@@ -2125,7 +2125,7 @@ void WolGameModeClass::Game_Start_Timed_Out(void)
 			}
 		}
 	}
-	
-	
-	
-}			  
+
+
+
+}

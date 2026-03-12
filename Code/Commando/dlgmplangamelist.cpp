@@ -122,12 +122,12 @@ MPLanGameListMenuClass::On_Init_Dialog (void)
 	if (list_ctrl != NULL) {
 
 		WideStringClass col_name;
-		
+
 		//
 		//	Configure the columns
 		//
 		col_name = TRANSLATE (IDS_MP_GAME_LIST_HEADER_ICON);
-		list_ctrl->Add_Column (col_name, 0.1F, Vector3 (1, 1, 1));		
+		list_ctrl->Add_Column (col_name, 0.1F, Vector3 (1, 1, 1));
 
 		col_name = TRANSLATE(IDS_MP_GAME_LIST_HEADER_HOST_NAME);
 		list_ctrl->Add_Column (col_name, 0.175F, Vector3 (1, 1, 1));
@@ -152,7 +152,7 @@ MPLanGameListMenuClass::On_Init_Dialog (void)
 
 	//
 	//	Put the nickname into the nickname edit control
-	//      
+	//
 	EditCtrlClass* nameEdit = (EditCtrlClass*)Get_Dlg_Item(IDC_NICKNAME_EDIT);
 	assert(nameEdit != NULL);
 
@@ -184,7 +184,7 @@ MPLanGameListMenuClass::On_Destroy (void)
 	//	Set the new nickname
 	//
 	WideStringClass nickname = Get_Dlg_Item_Text (IDC_NICKNAME_EDIT);
-	cNetInterface::Set_Nickname (nickname);	
+	cNetInterface::Set_Nickname (nickname);
 	return ;
 }
 
@@ -332,7 +332,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 	//	Start fresh
 	//
 	list_ctrl->Delete_All_Entries ();
-	
+
 	//
 	//	Build the game list
 	//
@@ -340,12 +340,12 @@ MPLanGameListMenuClass::Update_Game_List (void)
 	bool found_selected = false;
 	SLNode<cGameChannel> *objnode = NULL;
 	for (objnode = cGameChannelList::Get_Chan_List ()->Head(); objnode; objnode = objnode->Next ()) {
-		
+
 		//
 		//	Get a pointer to the channel for this game
 		//
 		cGameChannel *channel = objnode->Data ();
-		WWASSERT (channel != NULL);		
+		WWASSERT (channel != NULL);
 
 		//
 		//	Insert the entry
@@ -389,7 +389,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 			//	If this is a mod'd game, then display the mod_name\map_name...
 			//
 			if (channel->Get_Game_Data()->Get_Mod_Name ().Get_Length () > 0) {
-				
+
 				//
 				//	Strip off the extension for both the map and the mod package
 				//
@@ -414,7 +414,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 			list_ctrl->Set_Entry_Text (item_index, COL_GAME_NAME,	wide_game_name);
 			list_ctrl->Set_Entry_Text (item_index, COL_GAME_MAP,	wide_map_name);
 			list_ctrl->Set_Entry_Text (item_index, COL_PLAYERS,	players_string);
-			
+
 			//
 			//	Associate the channel data inside with the entry
 			//
@@ -449,7 +449,7 @@ MPLanGameListMenuClass::Update_Game_List (void)
 			//	Notify the user that they can't join this game
 			//
 			if (item_index >= 0) {
-				//list_ctrl->Set_Entry_Text (item_index, COL_HOST_NAME, error_string); 
+				//list_ctrl->Set_Entry_Text (item_index, COL_HOST_NAME, error_string);
 				list_ctrl->Set_Entry_Text (item_index, COL_GAME_NAME, error_string);
 				list_ctrl->Set_Entry_Color (item_index, COL_ICON,			Vector3 (0.5F, 0.5F, 0.5F));
 				list_ctrl->Set_Entry_Color (item_index, COL_HOST_NAME,	Vector3 (0.5F, 0.5F, 0.5F));
@@ -487,7 +487,7 @@ MPLanGameListMenuClass::Join_Game (void)
 	//
 	int index = list_ctrl->Get_Curr_Sel ();
 	if (index >= 0) {
-		
+
 		//
 		//	Get the channel data from this entry
 		//
@@ -520,7 +520,7 @@ MPLanGameListMenuClass::Join_Game (void)
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -580,7 +580,7 @@ MPLanGameListMenuClass::On_ListCtrl_Delete_Entry
 	//
 	cGameChannel *channel = (cGameChannel *)list_ctrl->Get_Entry_Data (item_index, 0);
 	list_ctrl->Set_Entry_Data (item_index, 0, 0);
-	
+
 	if (channel != NULL) {
 		channel->Release_Ref ();
 	}

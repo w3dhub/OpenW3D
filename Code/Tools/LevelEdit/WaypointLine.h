@@ -68,7 +68,7 @@ class WaypointLineClass : public EditorPhysClass
 		////////////////////////////////////////////////////////
 		//
 		// Public methods
-		//		
+		//
 
 		// Used to reset the position of the line
 		void				Reset (const Vector3 &start, const Vector3 &end)					{ m_StartPos = start; m_EndPos = end; m_pLine->Reset (start, end, 0.08F); }
@@ -80,7 +80,7 @@ class WaypointLineClass : public EditorPhysClass
 		////////////////////////////////////////////////////////
 		//
 		// Private member data
-		//		
+		//
 		Vector3			m_StartPos;
 		Vector3			m_EndPos;
 		Line3DClass		*m_pLine;

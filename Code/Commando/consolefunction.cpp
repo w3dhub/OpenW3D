@@ -1041,7 +1041,7 @@ public:
 	virtual	const char * Get_Name( void ) override	{ return "tom"; }
 	virtual	const char * Get_Help( void ) override	{ return "TOM - Annoyance-reduction registry tweaks customized by Tom."; }
 	virtual	void Activate( const char * /* input */ ) override {
-		
+
 		INIClass ini(W3D_CONF_FILE);
 		//
 		// Enable a good level of diagnostics - all devices and types except
@@ -4212,7 +4212,7 @@ public:
 		if (game && game->Is_Active()) {
 
 			WideStringClass wname(input, true);
-			
+
 			if (wname.Get_Length() > 0 && wname.Get_Length() <15) {
 				RefPtr<WWOnline::Session> wol_session = WWOnline::Session::GetInstance(false);
 				if (wol_session.IsValid()) {
@@ -4237,11 +4237,11 @@ public:
 		if (wolgame && wolgame->Is_Active()) {
 			is_wol = true;
 		}
-		
+
 		if (is_wol) {
 			RefPtr<WWOnline::Session> wol_session = WWOnline::Session::GetInstance(false);
 			if (wol_session.IsValid()) {
-				
+
 				unsigned int time = TIMEGETTIME();
 				if (time < last_page || time - last_page > 1000) {
 					last_page = time;

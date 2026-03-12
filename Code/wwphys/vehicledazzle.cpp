@@ -154,10 +154,10 @@ void VehicleDazzleClass::Pre_Render_Update(VehiclePhysClass * parent)
 {
 	WWASSERT(parent != NULL);
 	if (Model != NULL) {
-		
-		switch (Type) 
+
+		switch (Type)
 		{
-			case HEADLIGHT_TYPE: 
+			case HEADLIGHT_TYPE:
 			{
 				/*
 				** Turn on the headlights if the engine is on
@@ -166,7 +166,7 @@ void VehicleDazzleClass::Pre_Render_Update(VehiclePhysClass * parent)
 				Model->Set_Dazzle_Color(Vector3(intensity,intensity,intensity));
 				break;
 			}
-		
+
 			case BRAKELIGHT_TYPE:
 			{
 				/*
@@ -232,14 +232,14 @@ bool VehicleDazzleClass::Is_Vehicle_Dazzle(RenderObjClass * obj)
 int VehicleDazzleClass::Determine_Type(RenderObjClass * obj)
 {
 	if ((obj != NULL) && (obj->Class_ID() == RenderObjClass::CLASSID_DAZZLE)) {
-		
+
 		DazzleRenderObjClass * dazzle = (DazzleRenderObjClass *)obj;
 		const char * type_name = DazzleRenderObjClass::Get_Type_Name(dazzle->Get_Dazzle_Type());
-		
+
         if (strnicmp(type_name,HEADLIGHT_NAME_PREFIX,strlen(HEADLIGHT_NAME_PREFIX)) == 0) {
 			return HEADLIGHT_TYPE;
 		}
-		
+
         if (strnicmp(type_name,BRAKELIGHT_NAME_PREFIX,strlen(BRAKELIGHT_NAME_PREFIX)) == 0) {
 			return BRAKELIGHT_TYPE;
 		}

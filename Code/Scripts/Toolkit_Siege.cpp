@@ -44,7 +44,7 @@ DECLARE_SCRIPT(M00_Siege_Zone_RAD, "Start_Now=1:int, Receive_Type:int, Receive_P
 	int my_group_id;
 	bool script_active;
 	bool debug_mode;
-	
+
 	void Created (GameObject* obj) override
 	{
 		float rnd_value;

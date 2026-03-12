@@ -53,15 +53,15 @@ class DistAlphaVPClass;
 
 /**
 ** PhysDecalSysClass
-** This derived DecalSystemClass provides two pools of decals.  One pool is a 
+** This derived DecalSystemClass provides two pools of decals.  One pool is a
 ** fixed size buffer of decals which are recycled when the buffer fills up.  The second
 ** pool is for "permanent" decals.
 **
 ** Saving and loading of decals is currently not possible so the external user will have
 ** to track the parameters used to create any decals that he wants to survive across
-** a save-load.  
+** a save-load.
 **
-** The decal ID used by this system is formatted in a way so that we 
+** The decal ID used by this system is formatted in a way so that we
 */
 class PhysDecalSysClass : public DecalSystemClass
 {
@@ -81,11 +81,11 @@ public:
 																		bool					is_permanent,
 																		bool					apply_to_translucent_meshes,
 																		PhysClass *			only_this_obj);
-	
+
 	bool										Remove_Decal(uint32 id);
 
 	/*
-	**	Create and release DecalGenerators.  Note that this is the point at which the 
+	**	Create and release DecalGenerators.  Note that this is the point at which the
 	** decal system can track "logical" decals.  The generator will keep an internal list
 	** of all of the render objects which generated decals which you should copy if you
 	** want to track them (e.g. if you want to cap the maximum number of active decals and
@@ -94,7 +94,7 @@ public:
 	virtual void							Unlock_Decal_Generator(DecalGeneratorClass * generator) override;
 
 	/*
-	** When a decal-mesh is destroyed, it must inform the DecalSystem.  Otherwise, systems 
+	** When a decal-mesh is destroyed, it must inform the DecalSystem.  Otherwise, systems
 	** which track decals can get dangling pointers.
 	*/
 	virtual void							Decal_Mesh_Destroyed(uint32 decal_id,DecalMeshClass * mesh) override;
@@ -118,7 +118,7 @@ protected:
 
 	/**
 	** LogicalDecalClass
-	** This class is used to track all of the meshes that were affected when a 
+	** This class is used to track all of the meshes that were affected when a
 	** decal is generated.
 	*/
 	class LogicalDecalClass : public MultiListObjectClass
@@ -141,7 +141,7 @@ protected:
 	bool											CreatePermanentDecals;	// internal setting, are we creating permanent or temporary decals
 
 	uint32										NextTempDecalIndex;		// index of the next temporary decal
-	VectorClass<LogicalDecalClass>		TempDecals;					// array of logical decals for 
+	VectorClass<LogicalDecalClass>		TempDecals;					// array of logical decals for
 	MultiListClass<LogicalDecalClass>	PermanentDecals;			// linked list of permanent decals
 
 	VertexMaterialClass *					DecalMaterial;				// material used by all decals in WWPhys

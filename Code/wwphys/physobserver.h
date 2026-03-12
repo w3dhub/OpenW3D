@@ -56,7 +56,7 @@ struct CastResultStruct;
 class CollisionEventClass
 {
 public:
-	CollisionEventClass(void) : 
+	CollisionEventClass(void) :
 		OtherObj(NULL),
 		CollisionResult(NULL),
 		CollidedRenderObj(NULL)

@@ -62,14 +62,14 @@ class ChunkSaveClass;
 
 /*
 ** BptClass - Mesh with an auxiliary binary partition tree.
-** The bpt is traversed in collision detection queries and to 
+** The bpt is traversed in collision detection queries and to
 ** build the APT for the mesh each frame.
 */
 class BptClass : public Render3DObjClass
 {
 
 public:
- 
+
 	BptClass(void);
 	BptClass(const BptClass & src)					{ assert(0); }
 	BptClass & operator = (const BptClass &)		{ assert(0); return *this; }
@@ -92,7 +92,7 @@ public:
 	** a new mesh due to splitting required by the partitioning process
 	*/
 	void								Build(MeshClass * mesh);
-	
+
 	/*
 	** File IO
 	*/
@@ -104,7 +104,7 @@ public:
 	** frame that the object is in view.
 	*/
 	virtual void					Render( srScene * scene, const CameraClass &camera );
-	
+
 	/*
 	** Collision Detection Support
 	*/
@@ -115,14 +115,14 @@ public:
 //	MeshClass *						Get_Mesh(void);
 
 protected:
-	
+
 	void								Update_Cached_Bounding_Volumes(void) const;
 
-	BptImpClass	*					BptImp;				
+	BptImpClass	*					BptImp;
 
 };
 
-#endif 
+#endif
 
 #endif //PORT140
-#endif 
+#endif

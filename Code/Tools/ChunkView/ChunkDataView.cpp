@@ -103,10 +103,10 @@ void CChunkDataView::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CChunkDataView message handlers
 
-void CChunkDataView::OnInitialUpdate() 
+void CChunkDataView::OnInitialUpdate()
 {
 	CListView::OnInitialUpdate();
-	
+
 	CListCtrl &list = GetListCtrl();
 	int flags = list.GetStyle();
 	flags |= LVS_REPORT;
@@ -116,7 +116,7 @@ void CChunkDataView::OnInitialUpdate()
 	::SendMessage (list, WM_SETFONT, (WPARAM)GetStockObject (ANSI_FIXED_FONT), 0L);
 }
 
-void CChunkDataView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint) 
+void CChunkDataView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	if (this == pSender) return;
 
@@ -126,7 +126,7 @@ void CChunkDataView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 	const ChunkImageClass * chunk = doc->Get_Cur_Chunk();
 
 	// Reset the list
-	list.DeleteAllItems();	
+	list.DeleteAllItems();
 
 	// Rebuild the list view
 	if (chunk != NULL) {
@@ -138,13 +138,13 @@ void CChunkDataView::Display_Chunk(const ChunkImageClass * chunk)
 {
 	CListCtrl &list = GetListCtrl();
 	CChunkViewDoc * doc= (CChunkViewDoc *)GetDocument();
-	
+
 	if (chunk->Get_Data() == NULL) {
 
 		Display_Chunk_Sub_Chunks(chunk);
 
 	} else {
-		
+
 		switch (DisplayMode) {
 			case DISPLAY_MODE_HEX:
 				Display_Chunk_Hex(chunk);
@@ -170,10 +170,10 @@ void CChunkDataView::Display_Chunk_Sub_Chunks(const ChunkImageClass * chunk)
 
 	for (int i=0; i<chunk->Get_Child_Count(); i++) {
 		const ChunkImageClass * child = chunk->Get_Child(i);
-		
+
 		sprintf(_buf,"0x%08X",child->Get_ID());
 		int list_item = list.InsertItem(i, _buf);
-		
+
 		sprintf(_buf,"0x%08X",child->Get_Length());
 		list.SetItemText(list_item, 1, _buf);
 	}
@@ -189,7 +189,7 @@ void CChunkDataView::Display_Chunk_Hex(const ChunkImageClass * chunk)
 
 	HexToStringClass * hexconverter = Create_Hex_Converter(chunk->Get_Data(),chunk->Get_Length());
 	assert(hexconverter != NULL);
-	
+
 	int rowcounter = 0;
 	while (!hexconverter->Is_Done()) {
 		list.InsertItem(rowcounter++,hexconverter->Get_Next_Line());
@@ -215,7 +215,7 @@ void CChunkDataView::Display_Chunk_Micro_Chunks(const ChunkImageClass * chunk)
 	static char _buf[256];
 
 	while (workptr < chunk->Get_Data() + chunk->Get_Length()) {
-		
+
 		uint8 micro_id = *workptr++;
 		uint8 micro_size = *workptr++;
 
@@ -232,13 +232,13 @@ void CChunkDataView::Display_Chunk_Micro_Chunks(const ChunkImageClass * chunk)
 		HexToStringClass * hexconverter = Create_Hex_Converter(workptr,micro_size);
 		tmp_string = hexconverter->Get_Next_Line();
 		list.SetItemText(list_item, 2, tmp_string);
-		
+
 		while (!hexconverter->Is_Done()) {
 			tmp_string = hexconverter->Get_Next_Line();
 			list_item = list.InsertItem(rowcounter++, "");
 			list.SetItemText(list_item, 2, tmp_string);
 		}
-		
+
 		workptr += micro_size;
 		Destroy_Hex_Converter(hexconverter);
 	}
@@ -257,7 +257,7 @@ void CChunkDataView::Reset_Columns(void)
 HexToStringClass * CChunkDataView::Create_Hex_Converter(const uint8 * data,const uint32 size)
 {
 	HexToStringClass * hexconv = NULL;
-	
+
 	switch(WordSize) {
 		case WORD_SIZE_LONG:
 			hexconv = new HexToStringLongClass(data,size);

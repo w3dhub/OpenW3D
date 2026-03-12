@@ -163,7 +163,7 @@ void SubTitleManagerClass::Set_Font(FontCharsClass* font)
 *     Moviename - Pointer to movie name
 *
 * RESULTS
-*     Success - 
+*     Success -
 *
 ******************************************************************************/
 
@@ -185,7 +185,7 @@ bool SubTitleManagerClass::Load_Sub_Titles(const char* moviename, const char* su
 
  	FileStraw input(file);
  	SubTitleParserClass parser(input);
- 	
+
  	mSubTitles = parser.Get_Sub_Titles(moviename);
 
  	if (mSubTitles == NULL) {

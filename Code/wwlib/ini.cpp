@@ -1723,7 +1723,7 @@ int INIClass::Get_String(char const * section, char const * entry, char const * 
 		buffer[0] = '\0';
 		return(0);
 	}
-	
+
 	if (defvalue != buffer) {
 		strncpy(buffer, defvalue, size);
 		buffer[size-1] = '\0';

@@ -97,7 +97,7 @@ BOOL
 IncludeFilesDialogClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
-	CDialog::OnInitDialog ();	
+	CDialog::OnInitDialog ();
 
 	// Insert the 2 main folders into the tree control
 	m_IncludesTreeCtrl.SetImageList (::Get_Global_Image_List (), TVSIL_NORMAL);
@@ -106,7 +106,7 @@ IncludeFilesDialogClass::OnInitDialog (void)
 
 	// Ensure the file manager has the latest and greatest
 	::Get_File_Mgr ()->Build_Global_Include_List ();
-	
+
 	// Loop through all the global include files and add them to the tree control
 	DynamicVectorClass<CString> &global_list = ::Get_File_Mgr ()->Get_Global_Include_File_List ();
 	int index;
@@ -114,14 +114,14 @@ IncludeFilesDialogClass::OnInitDialog (void)
 		int icon_index = (::strpbrk (global_list[index], "*?") != NULL) ? FILES_ICON : FILE_ICON;
 		m_IncludesTreeCtrl.InsertItem (global_list[index], icon_index, icon_index, m_hGlobalFolder);
 	}
-	
+
 	// Loop through all the level-specific include files and add them to the tree control
 	DynamicVectorClass<CString> &level_list = ::Get_File_Mgr ()->Get_Include_File_List ();
 	for (index = 0; index < level_list.Count (); index ++) {
 		int icon_index = (::strpbrk (level_list[index], "*?") != NULL) ? FILES_ICON : FILE_ICON;
 		m_IncludesTreeCtrl.InsertItem (level_list[index], icon_index, icon_index, m_hLevelFolder);
 	}
-	
+
 	// Create the file picker control
 	CRect rect;
 	HWND hold_edit = ::GetDlgItem (m_hWnd, IDC_SPEC_EDIT);
@@ -131,7 +131,7 @@ IncludeFilesDialogClass::OnInitDialog (void)
 										 rect,
 										 this,
 										 IDC_SPEC_EDIT);
-	
+
 	::SetWindowPos (m_FilePicker, ::GetDlgItem (m_hWnd, IDC_SPEC_STATIC), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOOWNERZORDER);
 	::DestroyWindow (hold_edit);
 
@@ -160,7 +160,7 @@ IncludeFilesDialogClass::OnOK (void)
 	for (hchild = m_IncludesTreeCtrl.GetChildItem (m_hGlobalFolder);
 		  hchild != NULL;
 		  hchild = m_IncludesTreeCtrl.GetNextSiblingItem (hchild)) {
-		
+
 		// Add this filespec to the global list
 		CString child_text = m_IncludesTreeCtrl.GetItemText (hchild);
 		global_list.Add (child_text);
@@ -170,7 +170,7 @@ IncludeFilesDialogClass::OnOK (void)
 	for (hchild = m_IncludesTreeCtrl.GetChildItem (m_hLevelFolder);
 		  hchild != NULL;
 		  hchild = m_IncludesTreeCtrl.GetNextSiblingItem (hchild)) {
-		
+
 		// Add this filespec to the local list
 		CString child_text = m_IncludesTreeCtrl.GetItemText (hchild);
 		level_list.Add (child_text);
@@ -197,11 +197,11 @@ IncludeFilesDialogClass::OnSelchangedIncludeTree
 )
 {
 	(*pResult) = 0;
-	
+
 	// Change the text in the edit control to reflect the new selection
-	HTREEITEM hitem = m_IncludesTreeCtrl.GetSelectedItem ();	
-	if (m_IncludesTreeCtrl.GetParentItem (hitem) != NULL) {		
-		
+	HTREEITEM hitem = m_IncludesTreeCtrl.GetSelectedItem ();
+	if (m_IncludesTreeCtrl.GetParentItem (hitem) != NULL) {
+
 		// Put the file spec into the edit control
 		CString path = m_IncludesTreeCtrl.GetItemText (hitem);
 		SetDlgItemText (IDC_SPEC_EDIT, path);
@@ -239,7 +239,7 @@ IncludeFilesDialogClass::Update_Add_Remove_Button (void)
 	filespec = ::Get_File_Mgr ()->Make_Relative_Path (filespec);
 
 	// Determine which item to use as a parent
-	HTREEITEM hselected_item = m_IncludesTreeCtrl.GetSelectedItem ();	
+	HTREEITEM hselected_item = m_IncludesTreeCtrl.GetSelectedItem ();
 	HTREEITEM hroot = hselected_item;
 	if (m_IncludesTreeCtrl.GetParentItem (hroot) != NULL) {
 		hroot = m_IncludesTreeCtrl.GetParentItem (hroot);
@@ -250,7 +250,7 @@ IncludeFilesDialogClass::Update_Add_Remove_Button (void)
 	if (m_CurrentItem != NULL) {
 		SetDlgItemText (IDC_ADD_REMOVE_BUTTON, "&Remove");
 
-		// Ensure this item is selected in the tree control as well		
+		// Ensure this item is selected in the tree control as well
 		if (hselected_item != m_CurrentItem) {
 			m_IncludesTreeCtrl.SelectItem (m_CurrentItem);
 			m_IncludesTreeCtrl.EnsureVisible (m_CurrentItem);
@@ -274,21 +274,21 @@ IncludeFilesDialogClass::Find_Spec
 	LPCTSTR filespec,
 	HTREEITEM hroot
 )
-{	
+{
 	HTREEITEM hitem = NULL;
 
 	// Loop through all the children of the global folder
 	for (HTREEITEM hchild = m_IncludesTreeCtrl.GetChildItem (hroot);
 		  (hchild != NULL) && (hitem == NULL);
 		  hchild = m_IncludesTreeCtrl.GetNextSiblingItem (hchild)) {
-		
+
 		// Is this the entry we are looking for?
 		CString child_text = m_IncludesTreeCtrl.GetItemText (hchild);
 		if (child_text.CompareNoCase (filespec) == 0) {
 			hitem = hchild;
 		}
 	}
-	
+
 	// Return the tree item if we found the item
 	return hitem;
 }
@@ -311,7 +311,7 @@ IncludeFilesDialogClass::OnChangeSpecEdit (void)
 // OnAddRemoveButton
 //
 void
-IncludeFilesDialogClass::OnAddRemoveButton (void) 
+IncludeFilesDialogClass::OnAddRemoveButton (void)
 {
 	// Are we adding or removing an entry from the tree control?
 	if (m_CurrentItem != NULL) {
@@ -321,7 +321,7 @@ IncludeFilesDialogClass::OnAddRemoveButton (void)
 		m_IncludesTreeCtrl.SelectItem (hnew_sel);
 		m_IncludesTreeCtrl.EnsureVisible (hnew_sel);
 	} else {
-		
+
 		// Determine which item to use as a parent
 		HTREEITEM hitem = m_IncludesTreeCtrl.GetSelectedItem ();
 		if (m_IncludesTreeCtrl.GetParentItem (hitem) != NULL) {
@@ -346,14 +346,14 @@ IncludeFilesDialogClass::OnAddRemoveButton (void)
 			m_IncludesTreeCtrl.EnsureVisible (hnew_item);
 
 		} else {
-			
+
 			// Let the user know this path is invalid
 			CString message;
 			CString title;
 			message.Format (IDS_INVALID_MODEL_PATH_MSG, (LPCTSTR)::Get_File_Mgr()->Get_Base_Path ());
 			title.LoadString (IDS_INVALID_MODEL_PATH_TITLE);
 			::MessageBox (m_hWnd, message, title, MB_ICONERROR | MB_OK);
-		}				
+		}
 	}
 
 	// Ensure the file specs are sorted
@@ -371,6 +371,6 @@ void
 IncludeFilesDialogClass::OnDestroy (void)
 {
 	m_IncludesTreeCtrl.SetImageList (NULL, TVSIL_NORMAL);
-	CDialog::OnDestroy();		
+	CDialog::OnDestroy();
 	return ;
 }

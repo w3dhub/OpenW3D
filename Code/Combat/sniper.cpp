@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/sniper.cpp                            $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 7/05/01 11:37a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 60                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/sniper.cpp                            $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 7/05/01 11:37a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 60                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "sniper.h"
@@ -92,9 +92,9 @@ Render2DClass		*	_Sniper2DRenderer;
 #define	HUD_SNIPER_TEXTURE			"hud_sniper.tga"
 
 
-static	void	Info_Editor_Init( void ); 
-static	void	Info_Editor_Update( void ); 
-static	void	Info_Editor_Shutdown( void ); 
+static	void	Info_Editor_Init( void );
+static	void	Info_Editor_Update( void );
+static	void	Info_Editor_Shutdown( void );
 
 /*
 **
@@ -111,7 +111,7 @@ void 	SniperHUDClass::Init( void )
 	_Sniper2DRenderer->Set_Texture( HUD_SNIPER_TEXTURE );
 	_Sniper2DRenderer->Set_Coordinate_Range( Render2DClass::Get_Screen_Resolution() );
 
-//	Info_Editor_Init(); 
+//	Info_Editor_Init();
 }
 
 /*
@@ -129,11 +129,11 @@ void 	SniperHUDClass::Shutdown( void )
 		_Sniper2DRenderer = NULL;
 	}
 
-//	Info_Editor_Shutdown(); 
+//	Info_Editor_Shutdown();
 }
 
 
-void  SniperHUDClass::Build_Base( void ) 
+void  SniperHUDClass::Build_Base( void )
 {
 	if ( _Sniper2DBaseRenderer == NULL ) {
 		return;
@@ -143,7 +143,7 @@ void  SniperHUDClass::Build_Base( void )
 
 	RectClass uv;
 	RectClass draw;
-	
+
 	uv.Set( SNIPER_VIEW_UV_UL, SNIPER_VIEW_UV_LR );
 	uv.Scale( SNIPER_UV_SCALE );
 
@@ -197,7 +197,7 @@ void  SniperHUDClass::Build_Base( void )
 
 	// Draw the bottom line
 	Vector2 bottom_line_1 = BOTTOM_LINE_1;
-	bottom_line_1.Scale( screen_scale.Y, screen_scale.Y ); 
+	bottom_line_1.Scale( screen_scale.Y, screen_scale.Y );
 	_Sniper2DBaseRenderer->Add_Line( Vector2(screen_center.X,bottom_line_1.X), Vector2(screen_center.X,bottom_line_1.Y), 1, blackuv );
 
 	// Draw the bottom line 2
@@ -266,7 +266,7 @@ void 	SniperHUDClass::Update( void )
 	// Set tint color
 	int tint = 0xFF0000FF;	// Blue
 	tint = 0xFF00FF00;	// Green
-	
+
 	// Draw Zoom Indicator
 	RectClass uv;
 	uv.Set( ZOOM_UV_UL, ZOOM_UV_LR );
@@ -312,7 +312,7 @@ static	DynamicVectorClass<InfoEditorField>	InfoEditorFieldList;
 
 #define	INFO_EDITOR_ADD(x)	  field.Name = #x; field.Value = &x; InfoEditorFieldList.Add( field );
 
-static	void	Info_Editor_Init( void ) 
+static	void	Info_Editor_Init( void )
 {
 	InfoEditorField field;
 
@@ -340,7 +340,7 @@ static	void	Info_Editor_Init( void )
 	INFO_EDITOR_ADD( ZOOM_OFFSET_BOTTOM );
 }
 
-static	void	Info_Editor_Update( void ) 
+static	void	Info_Editor_Update( void )
 {
 	bool changed = false;
 	static	int index = 0;
@@ -386,7 +386,7 @@ static	void	Info_Editor_Update( void )
 
 }
 
-static	void	Info_Editor_Shutdown( void ) 
+static	void	Info_Editor_Shutdown( void )
 {
 	while ( InfoEditorFieldList.Count() > 0 ) {
 		Debug_Say(( "Vector2 %s( %d, %d );\n", InfoEditorFieldList[0].Name, (int)InfoEditorFieldList[0].Value->U, (int)InfoEditorFieldList[0].Value->V ));

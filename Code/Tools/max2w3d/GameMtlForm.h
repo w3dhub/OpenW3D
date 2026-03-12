@@ -49,21 +49,21 @@ class GameMtl;
 class FakeIMtlParams : public IMtlParams{
 public:
 	TimeValue GetTime(){ return GetCOREInterface()->GetTime();}
-	virtual void MtlChanged(){};  
-	virtual HWND AddRollupPage( HINSTANCE hInst, DLGTEMPLATE *dlgTemplate, 
+	virtual void MtlChanged(){};
+	virtual HWND AddRollupPage( HINSTANCE hInst, DLGTEMPLATE *dlgTemplate,
 		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD ){return NULL;}
-	virtual HWND AddRollupPage( HINSTANCE hInst, TCHAR *dlgTemplate, 
+	virtual HWND AddRollupPage( HINSTANCE hInst, TCHAR *dlgTemplate,
 		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD ){return NULL;};
 
-	virtual HWND ReplaceRollupPage( HWND hOldRollup, HINSTANCE hInst, TCHAR *dlgTemplate, 
+	virtual HWND ReplaceRollupPage( HWND hOldRollup, HINSTANCE hInst, TCHAR *dlgTemplate,
 		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD  ){return NULL;}
 
-	virtual HWND ReplaceRollupPage( HWND hOldRollup, HINSTANCE hInst, DLGTEMPLATE *dlgTemplate, 
+	virtual HWND ReplaceRollupPage( HWND hOldRollup, HINSTANCE hInst, DLGTEMPLATE *dlgTemplate,
 		DLGPROC dlgProc, TCHAR *title, LPARAM param=0,DWORD flags=0, int category = ROLLUP_CAT_STANDARD  ){return NULL;};
 
 	virtual void DeleteRollupPage( HWND hRollup ){};
 
-	
+
 	virtual void RollupMouseMessage( HWND hDlg, UINT message,WPARAM wParam, LPARAM lParam ){};
 	virtual void RegisterTimeChangeCallback(TimeChangeCallback *tc){}
 	virtual void UnRegisterTimeChangeCallback(TimeChangeCallback *tc){}

@@ -78,7 +78,7 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Initialization
 	//
@@ -101,7 +101,7 @@ public:
 	//	Current heightfield information
 	//
 	static EditableHeightfieldClass *	Get_Current_Heightfield (void)	{ return CurrentHeightfield; }
-	static void									Set_Current_Heightfield (EditableHeightfieldClass *heightfield);	
+	static void									Set_Current_Heightfield (EditableHeightfieldClass *heightfield);
 
 	//
 	//	Current brush configuration
@@ -133,15 +133,15 @@ public:
 	//
 	//	UI support
 	//
-	static HBITMAP		Create_Texture_Thumbnail (const char *texture_name, int width, int height);	
+	static HBITMAP		Create_Texture_Thumbnail (const char *texture_name, int width, int height);
 	static HBITMAP		Create_Texture_Thumbnail (TextureClass *texture, int width, int height);
-	
+
 private:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private member data
 	///////////////////////////////////////////////////////////////////

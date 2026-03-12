@@ -67,7 +67,7 @@ static int _HierarchicalCellsRejected = 0;
 /*
 ** Chunk Id's used by the static-aabtree code to save itself into a file
 */
-enum 
+enum
 {
 	STATICAABTREE_CHUNK_VERSION					= 0x00000001,	// OBSOLETE version wrapper, contains 32bit version #
 	STATICAABTREE_CHUNK_AABTREE_CLASS_DATA		= 0x00000104,	// wraps the AABTreeCullSystemClass's save data
@@ -76,12 +76,12 @@ enum
 
 /*
 ** StaticAABTreeCullClass is a derived AABTree which assumes it contains StaticPhysClasses
-** these two functions encapsulate some typecasting which happens in a lot 
+** these two functions encapsulate some typecasting which happens in a lot
 ** of places...
 */
 inline StaticPhysClass * get_first_object(AABTreeNodeClass * node)
 {
-	return (StaticPhysClass *)(node->Object);		
+	return (StaticPhysClass *)(node->Object);
 }
 
 inline StaticPhysClass * get_next_object(StaticPhysClass * tile)
@@ -89,8 +89,8 @@ inline StaticPhysClass * get_next_object(StaticPhysClass * tile)
 	return (StaticPhysClass *)(((AABTreeLinkClass *)tile->Get_Cull_Link())->NextObject);
 }
 
- 
- 
+
+
 
 /*
 ** Implementation of StaticAABTreeCullClass
@@ -141,12 +141,12 @@ void StaticAABTreeCullClass::Collect_Visible_Objects
 	WWASSERT(RootNode != NULL);
 
 	if (pvs != NULL) {
-	
+
 		/*
 		** If we got a pvs then we call the custom hierarchical visible object
-		** collection function.  
+		** collection function.
 		*/
-	
+
 		VisObjCollectContextClass context(frustum,*pvs,visobjlist,wsmeshlist);
 		if (Scene->Is_Vis_Inverted() || !Is_Hierarchical_Vis_Culling_Enabled()) {
 			Collect_Visible_Objects_No_HVis_Recursive(RootNode,context);
@@ -164,7 +164,7 @@ void StaticAABTreeCullClass::Collect_Visible_Objects
 	} else {
 
 		/*
-		** Otherwise, just call the built-in frustum collection function and 
+		** Otherwise, just call the built-in frustum collection function and
 		** link the objects into the given lists
 		*/
 		Reset_Collection();
@@ -174,9 +174,9 @@ void StaticAABTreeCullClass::Collect_Visible_Objects
 		** Loop over each object, adding it into the list
 		*/
 		StaticPhysClass * obj;
-		for (	obj = (StaticPhysClass *)Get_First_Collected_Object(); 
-				obj != NULL; 
-				obj = (StaticPhysClass *)Get_Next_Collected_Object(obj)) 
+		for (	obj = (StaticPhysClass *)Get_First_Collected_Object();
+				obj != NULL;
+				obj = (StaticPhysClass *)Get_Next_Collected_Object(obj))
 		{
 			if (obj->Is_World_Space_Mesh()) {
 				wsmeshlist.Add(obj);
@@ -213,10 +213,10 @@ void StaticAABTreeCullClass::Collect_Visible_Objects_Recursive
 	if (overlap == CollisionMath::OUTSIDE) {
 		NODE_REJECTED();
 		return;
-	} 
+	}
 
 	NODE_ACCEPTED();
-	
+
 	/*
 	** Test any objects in this node
 	*/
@@ -266,10 +266,10 @@ void StaticAABTreeCullClass::Collect_Visible_Objects_No_HVis_Recursive
 	if (overlap == CollisionMath::OUTSIDE) {
 		NODE_REJECTED();
 		return;
-	} 
+	}
 
 	NODE_ACCEPTED();
-	
+
 	/*
 	** Test any objects in this node
 	*/
@@ -365,7 +365,7 @@ void StaticAABTreeCullClass::Evaluate_Non_Occluder_Visibility
 
 
 	if (context.Is_Vis_Quick_And_Dirty()) {
-		
+
 		RefPhysListIterator it(&non_occluders);
 		for (it.First(); !it.Is_Done(); it.Next()) {
 			StaticPhysClass * obj = (StaticPhysClass *)it.Peek_Obj();
@@ -391,8 +391,8 @@ void StaticAABTreeCullClass::Evaluate_Non_Occluder_Visibility
 			** Check this object if its bounding box is in view and we don't already
 			** think it can be seen.
 			*/
-			if (	!context.Camera.Cull_Box(obj->Get_Bounding_Box()) && 
-					(context.VisTable.Get_Bit(obj->Get_Vis_Object_ID()) == 0) ) 
+			if (	!context.Camera.Cull_Box(obj->Get_Bounding_Box()) &&
+					(context.VisTable.Get_Bit(obj->Get_Vis_Object_ID()) == 0) )
 			{
 				context.VisRasterizer->Reset_Pixel_Counter();
 				context.Set_Vis_ID(obj->Get_Vis_Object_ID());	// set up the vis id
@@ -487,7 +487,7 @@ StaticPhysClass * StaticAABTreeCullClass::Find_Vis_Tile(const Vector3 & sample_p
 	raytest.CheckDynamicObjs = false;
 	Cast_Ray(raytest);
 
-	// 
+	//
 	// Use the ray result, unless the fat box result was a lot closer to
 	// the camera point (this is the case where the ray went through a crack or something. (ug)
 	//
@@ -495,12 +495,12 @@ StaticPhysClass * StaticAABTreeCullClass::Find_Vis_Tile(const Vector3 & sample_p
 	float ray_dist = -(ray_result.Fraction * (p1.Z - p0.Z));
 
 	if ((ray_dist > 3.5f) && (box_dist < ray_dist - 1.0f) && (box_result.Fraction < 1.0f)) {
-	
+
 		// return pointer to the tile that the box hit
 		WWASSERT(boxtest.CollidedPhysObj);
 		WWASSERT(boxtest.CollidedPhysObj->As_StaticPhysClass() != NULL);
 		return (StaticPhysClass *)boxtest.CollidedPhysObj;
-	
+
 	} else if (ray_result.Fraction < 1.0f) {
 
 		// return pointer to the tile that the ray hit
@@ -540,7 +540,7 @@ void StaticAABTreeCullClass::Propogate_Hierarchical_Visibility_Recursive
 	*/
 	if (node->Front != NULL) {
 		Propogate_Hierarchical_Visibility_Recursive(node->Front,pvs);
-	} 
+	}
 
 	if (node->Back != NULL) {
 		Propogate_Hierarchical_Visibility_Recursive(node->Back,pvs);
@@ -568,7 +568,7 @@ bool StaticAABTreeCullClass::Is_Child_Visible
 	** If this is a leaf node, we check for visibility of any contained objects
 	** Otherwise we check if either of the child nodes are visible
 	*/
-	if ((node->Front != NULL) && (pvs->Get_Bit(node->Front->UserData) != 0)) { 
+	if ((node->Front != NULL) && (pvs->Get_Bit(node->Front->UserData) != 0)) {
 		return true;
 	}
 
@@ -590,7 +590,7 @@ bool StaticAABTreeCullClass::Is_Child_Visible
 void StaticAABTreeCullClass::Merge_Vis_Object_IDs(uint32 id0,uint32 id1)
 {
 	/*
-	** Each node and each staticphys object has a vis object id.  
+	** Each node and each staticphys object has a vis object id.
 	** Whenever we encounter one of these with id1, set it to id0.
 	** Whenever we encounter one with id > id1, subtract one from it.
 	*/
@@ -612,7 +612,7 @@ void StaticAABTreeCullClass::Merge_Vis_Object_IDs(uint32 id0,uint32 id1)
 				} else if (obj_id > id1) {
 					obj_id--;
 				}
-				
+
 				obj->Set_Vis_Object_ID(obj_id);
 			}
 			obj = get_next_object(obj);
@@ -641,7 +641,7 @@ void StaticAABTreeCullClass::Merge_Vis_Sector_IDs(uint32 id0,uint32 id1)
 				} else if (sector_id > id1) {
 					sector_id--;
 				}
-				
+
 				obj->Set_Vis_Sector_ID(sector_id);
 			}
 			obj = get_next_object(obj);
@@ -653,14 +653,14 @@ void StaticAABTreeCullClass::Merge_Vis_Sector_IDs(uint32 id0,uint32 id1)
 void StaticAABTreeCullClass::Load_Static_Data(ChunkLoadClass & cload)
 {
 	WWMEMLOG(MEM_CULLINGDATA);
-	while(cload.Open_Chunk()) 
+	while(cload.Open_Chunk())
 	{
-		switch(cload.Cur_Chunk_ID()) 
+		switch(cload.Cur_Chunk_ID())
 		{
-		
+
 		case STATICAABTREE_CHUNK_AABTREE_CLASS_DATA:
 			{
-				TypedAABTreeCullSystemClass<PhysClass>::Load(cload);	
+				TypedAABTreeCullSystemClass<PhysClass>::Load(cload);
 			}
 			break;
 
@@ -668,7 +668,7 @@ void StaticAABTreeCullClass::Load_Static_Data(ChunkLoadClass & cload)
 			WWDEBUG_SAY(("Unhandled chunk type: %d in StaticAABTreeCullClass::Load\r\n",cload.Cur_Chunk_ID()));
 			break;
 		}
-	
+
 		cload.Close_Chunk();
 	}
 }

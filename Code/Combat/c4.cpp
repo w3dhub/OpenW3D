@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/c4.cpp                                $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 2/12/02 10:25a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 72                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/c4.cpp                                $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 2/12/02 10:25a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 72                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "c4.h"
@@ -75,12 +75,12 @@ C4GameObjDef::C4GameObjDef( void ) :
 	EDITABLE_PARAM (C4GameObjDef, ParameterClass::TYPE_FLOAT,	ThrowVelocity);
 }
 
-uint32	C4GameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_C4; 
+uint32	C4GameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_C4;
 }
 
-PersistClass *	C4GameObjDef::Create( void ) const 
+PersistClass *	C4GameObjDef::Create( void ) const
 {
 	C4GameObj * obj = new C4GameObj;
 	obj->Init( *this );
@@ -128,7 +128,7 @@ bool	C4GameObjDef::Load( ChunkLoadClass &cload )
 					cload.Close_Micro_Chunk();
 				}
 				break;
-				
+
 			default:
 				Debug_Say(( "Unrecognized SimpleDef chunkID\n" ));
 				break;
@@ -140,9 +140,9 @@ bool	C4GameObjDef::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-const PersistFactoryClass & C4GameObjDef::Get_Factory (void) const 
-{ 
-	return _C4GameObjDefPersistFactory; 
+const PersistFactoryClass & C4GameObjDef::Get_Factory (void) const
+{
+	return _C4GameObjDefPersistFactory;
 }
 
 
@@ -151,7 +151,7 @@ const PersistFactoryClass & C4GameObjDef::Get_Factory (void) const
 */
 SimplePersistFactoryClass<C4GameObj, CHUNKID_GAME_OBJECT_C4>	_C4GameObjPersistFactory;
 
-const PersistFactoryClass & C4GameObj::Get_Factory (void) const 
+const PersistFactoryClass & C4GameObj::Get_Factory (void) const
 {
 	return _C4GameObjPersistFactory;
 }
@@ -264,7 +264,7 @@ CollisionReactionType	C4GameObj::Collision_Occurred( const CollisionEventClass &
 {
 	Debug_Say(( "C4 collision\n" ));
 
-//	if ( ( !Stuck ) && (CombatManager::I_Am_Server()) ) 
+//	if ( ( !Stuck ) && (CombatManager::I_Am_Server()) )
 	if (!Stuck)
 	{
 		// Figure out who/what/where we hit
@@ -290,7 +290,7 @@ CollisionReactionType	C4GameObj::Collision_Occurred( const CollisionEventClass &
 				return COLLISION_REACTION_NO_BOUNCE;
 			}
 
-//			if ( !other->Is_Teammate( Get_Owner() ) ) 
+//			if ( !other->Is_Teammate( Get_Owner() ) )
 			{
 				Debug_Say(( "Sticking to game object %p (%p)\n", other, Get_Owner() ));
 				Stuck = true;
@@ -307,7 +307,7 @@ CollisionReactionType	C4GameObj::Collision_Occurred( const CollisionEventClass &
 				Get_Position(&my_pos);
 				Matrix3D::Inverse_Transform_Vector( parent_model->Get_Bone_Transform( StuckBone ), my_pos, &StuckOffset );
 				Peek_Physical_Object()->Enable_User_Control( true );
-				
+
 				if (CombatManager::I_Am_Server()) {
 					Set_Object_Dirty_Bit(NetworkObjectClass::BIT_RARE, true);
 				}
@@ -335,13 +335,13 @@ CollisionReactionType	C4GameObj::Collision_Occurred( const CollisionEventClass &
 			return COLLISION_REACTION_STOP_MOTION;
 
 		} else if ( other == NULL && !hit_projectile ) {
-			
+
 			// if this is a static anim, then try to stick to it
 			if (event.OtherObj->As_StaticAnimPhysClass() != NULL) {
 
 				Debug_Say(( "Sticking to static anim object %p (%p)\n", event.OtherObj ));
 				REF_PTR_SET(StuckStaticAnimObj,(StaticAnimPhysClass *)event.OtherObj);
-				
+
 				StuckBone = 0;
 				if ( StuckStaticAnimObj->Peek_Model() ) {
 					StuckBone = StuckStaticAnimObj->Peek_Model()->Get_Sub_Object_Bone_Index( event.CollidedRenderObj );
@@ -349,10 +349,10 @@ CollisionReactionType	C4GameObj::Collision_Occurred( const CollisionEventClass &
 					Get_Position(&my_pos);
 					Matrix3D::Inverse_Transform_Vector( StuckStaticAnimObj->Peek_Model()->Get_Bone_Transform( StuckBone ), my_pos, &StuckOffset );
 				}
-			} 
+			}
 
 			// If we hit permiable, pass through
-			if ( event.CollisionResult != NULL && 
+			if ( event.CollisionResult != NULL &&
 				SurfaceEffectsManager::Is_Surface_Permeable( event.CollisionResult->SurfaceType ) ) {
 				Debug_Say(( "C4 passes through permeable\n" ));
 				return COLLISION_REACTION_NO_BOUNCE;
@@ -448,7 +448,7 @@ bool	C4GameObj::Load( ChunkLoadClass &cload )
 			case CHUNKID_PARENT:
 				SimpleGameObj::Load( cload );
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 			{
 				int ammo_def_id = 0;
@@ -477,7 +477,7 @@ bool	C4GameObj::Load( ChunkLoadClass &cload )
 				AmmoDefinition = WeaponManager::Find_Ammo_Definition( ammo_def_id );
 				WWASSERT( AmmoDefinition != NULL );
 				break;
-			}	
+			}
 
 			case CHUNKID_OWNER:
 				Owner.Load( cload );
@@ -604,15 +604,15 @@ void C4GameObj::Post_Think( void )
 					if (Peek_Model()) {
 						Peek_Model()->Set_Hidden(hide);
 					}
-				} 
+				}
 			}
-		
+
 		} else if ( StuckStaticAnimObj != NULL) {
-			
+
 			Vector3 pos;
 			pos = StuckStaticAnimObj->Peek_Model()->Get_Bone_Transform( StuckBone ) * StuckOffset;
 			Set_Position(pos);
-			
+
 		} else {
 			// Delete without exploding if my object is gone
 			if ( StuckToObject ) {
@@ -709,7 +709,7 @@ void	C4GameObj::Export_Rare( BitStreamClass &packet )
 	//
 	packet.Add(Stuck);
 	if (Stuck) {
-	
+
 		packet.Add(pos.X, BITPACK_WORLD_POSITION_X);
 		packet.Add(pos.Y, BITPACK_WORLD_POSITION_Y);
 		packet.Add(pos.Z, BITPACK_WORLD_POSITION_Z);
@@ -722,14 +722,14 @@ void	C4GameObj::Export_Rare( BitStreamClass &packet )
 			stuck_object_id = StuckObject.Get_Ptr()->Get_ID();
 		}
 		packet.Add(stuck_object_id);
-			
+
 		if (StuckToObject) {
 
 			packet.Add(StuckOffset.X, BITPACK_VEHICLE_VELOCITY);	// offset, using velocity packing...
 			packet.Add(StuckOffset.Y, BITPACK_VEHICLE_VELOCITY);
 			packet.Add(StuckOffset.Z, BITPACK_VEHICLE_VELOCITY);
 			packet.Add(StuckBone);
-		} 
+		}
 
 		bool stuck_static_anim = (StuckStaticAnimObj != NULL);
 		packet.Add(stuck_static_anim);
@@ -804,12 +804,12 @@ void	C4GameObj::Import_Rare( BitStreamClass &packet )
 			packet.Get(StuckOffset.Y, BITPACK_VEHICLE_VELOCITY);
 			packet.Get(StuckOffset.Z, BITPACK_VEHICLE_VELOCITY);
 			packet.Get(StuckBone);
-		} 
+		}
 
 		bool stuck_static_anim;
 		packet.Get(stuck_static_anim);
 		if (stuck_static_anim) {
-			
+
 			uint32 static_anim_obj_id = 0;
 			packet.Get(static_anim_obj_id);
 
@@ -843,9 +843,9 @@ void	C4GameObj::Defuse( void )
 	Set_Delete_Pending();
 }
 
-void	C4GameObj::Restore_Owner( void ) 
+void	C4GameObj::Restore_Owner( void )
 {
-	if ( Get_Owner() == NULL && OwnerBackup != NULL && 
+	if ( Get_Owner() == NULL && OwnerBackup != NULL &&
 		AmmoDefinition && (int)AmmoDefinition->AmmoType != (int)AmmoDefinitionClass::AMMO_TYPE_C4_REMOTE ) {
 		// Try and find a smart game obj with the same playerdata
 
@@ -886,9 +886,9 @@ void	C4GameObj::Maintain_C4_Limit( int player_type )
 		PhysicalGameObj * phys = objnode->Data()->As_PhysicalGameObj();
 		if ( phys ) {
 			C4GameObj * c4 = phys->As_C4GameObj();
-			if (	c4 && 
-					c4->Get_Player_Type() == player_type && 
-					c4->AmmoDefinition && 
+			if (	c4 &&
+					c4->Get_Player_Type() == player_type &&
+					c4->AmmoDefinition &&
 					(int)c4->AmmoDefinition->AmmoType != (int)AmmoDefinitionClass::AMMO_TYPE_C4_TIMED ) {
 				count++;
 

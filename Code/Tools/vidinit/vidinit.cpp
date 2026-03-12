@@ -64,7 +64,7 @@ BOOL CVidinitApp::InitInstance()
 	// If you are not using these features and wish to reduce the size
 	//  of your final executable, you should remove from the following
 	//  the specific initialization routines you do not need.
-				 
+
 	CVidinitDlg dlg(NULL);
 	m_pMainWnd = &dlg;
 	int nResponse = dlg.DoModal();

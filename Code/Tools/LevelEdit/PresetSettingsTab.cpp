@@ -114,7 +114,7 @@ PresetSettingsTabClass::HandleInitDialog (void)
 
 	DefinitionClass *definition = m_Preset->Get_Definition ();
 	if (definition != NULL) {
-		
+
 		//
 		//	Create a scrollable dialog that contains all the
 		//	definition's parameters.
@@ -124,7 +124,7 @@ PresetSettingsTabClass::HandleInitDialog (void)
 		m_ParamSheet = new SpecSheetClass (definition);
 		m_ParamSheet->Set_Is_Temp (m_Preset->Get_IsTemporary ());
 		m_ParamSheet->Set_Read_Only (m_IsReadOnly);
-		m_ParamSheet->Create ("static", "", WS_CHILD | WS_VISIBLE, rect, this, 101);		
+		m_ParamSheet->Create ("static", "", WS_CHILD | WS_VISIBLE, rect, this, 101);
 	}
 
 	return ;
@@ -148,7 +148,7 @@ PresetSettingsTabClass::Apply_Changes (void)
 	}
 
 	m_ParamSheet->Apply ();
-	
+
 	// Return true to allow the dialog to close
 	return retval;
 }
@@ -160,7 +160,7 @@ PresetSettingsTabClass::Apply_Changes (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-PresetSettingsTabClass::OnSize (UINT nType, int cx, int cy) 
+PresetSettingsTabClass::OnSize (UINT nType, int cx, int cy)
 {
 	if ((m_ParamSheet != NULL) && (cx > 0) && (cy > 0)) {
 

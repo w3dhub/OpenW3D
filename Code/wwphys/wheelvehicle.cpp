@@ -51,7 +51,7 @@
 
 DECLARE_FORCE_LINK(wheelvehicle);
 
-												
+
 /*
 ** Declare a PersistFactory for WheeledVehicleClasses
 */
@@ -60,7 +60,7 @@ SimplePersistFactoryClass<WheeledVehicleClass,PHYSICS_CHUNKID_WHEELEDVEHICLE>	_W
 /*
 ** Chunk-ID's used by wheeled vehicle class
 */
-enum 
+enum
 {
 	WHEELEDVEHICLE_CHUNK_MOTORVEHICLE		= 0x00119801,
 	WHEELEDVEHICLE_CHUNK_VARIABLES,
@@ -83,10 +83,10 @@ WheeledVehicleClass::WheeledVehicleClass(void) :
 	SteeringAngle(0)
 {
 }
- 
+
 void WheeledVehicleClass::Init(const WheeledVehicleDefClass & def)
 {
-	MotorVehicleClass::Init(def);	
+	MotorVehicleClass::Init(def);
 }
 
 WheeledVehicleClass::~WheeledVehicleClass(void)
@@ -135,7 +135,7 @@ void WheeledVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * tor
 		** Compute forces and torques for each wheel.
 		*/
 		for (int iwheel = 0; iwheel<Wheels.Length(); iwheel++) {
-			
+
 			/*
 			** update the steering input to the wheel
 			*/
@@ -158,8 +158,8 @@ void WheeledVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * tor
 			if (Wheels[iwheel]->Get_Flag(SuspensionElementClass::ENGINE)) {
 				((WVWheelClass *)Wheels[iwheel])->Set_Axle_Torque(Get_Axle_Torque() / Get_Drive_Wheel_Count() );
 			}
-		}	
-		
+		}
+
 		/*
 		** Let base class add in its forces
 		*/
@@ -212,15 +212,15 @@ bool WheeledVehicleClass::Save (ChunkSaveClass &csave)
 bool WheeledVehicleClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case WHEELEDVEHICLE_CHUNK_MOTORVEHICLE:
 				MotorVehicleClass::Load(cload);
 				break;
 
 			case WHEELEDVEHICLE_CHUNK_VARIABLES:
-			
+
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,WV_VARIABLE_STEERINGANGLE,SteeringAngle);
@@ -229,7 +229,7 @@ bool WheeledVehicleClass::Load (ChunkLoadClass &cload)
 						OBSOLETE_MICRO_CHUNK(OBSOLETE_WV_VARIABLE_DAMPINGCONSTANT);
 						OBSOLETE_MICRO_CHUNK(OBSOLETE_WV_VARIABLE_SPRINGLENGTH);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 
@@ -256,7 +256,7 @@ DECLARE_DEFINITION_FACTORY(WheeledVehicleDefClass, CLASSID_WHEELEDVEHICLEDEF, "W
 /*
 ** Chunk ID's used by WheeledVehicleDefClass
 */
-enum 
+enum
 {
 	WHEELEDVEHICLEDEF_CHUNK_MOTORVEHICLEDEF				= 0x00990066,			// (parent class)
 	WHEELEDVEHICLEDEF_CHUNK_VARIABLES,
@@ -280,9 +280,9 @@ WheeledVehicleDefClass::WheeledVehicleDefClass(void) :
 	ANGLE_EDITABLE_PARAM(WheeledVehicleDefClass, MaxSteeringAngle, DEG_TO_RADF(0.0f), DEG_TO_RADF(90.0f));
 }
 
-uint32 WheeledVehicleDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_WHEELEDVEHICLEDEF; 
+uint32 WheeledVehicleDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_WHEELEDVEHICLEDEF;
 }
 
 const PersistFactoryClass & WheeledVehicleDefClass::Get_Factory (void) const
@@ -324,9 +324,9 @@ bool WheeledVehicleDefClass::Load(ChunkLoadClass &cload)
 			case WHEELEDVEHICLEDEF_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						
+
 						READ_MICRO_CHUNK(cload,WHEELEDVEHICLEDEF_VARIABLE_MAXSTEERINGANGLE,MaxSteeringAngle);
-						
+
 						// NOTE: these variables are now in VehiclePhysDefClass...
 						READ_MICRO_CHUNK(cload,OBSOLETE_WHEELEDVEHICLEDEF_VARIABLE_SPRINGCONSTANT,SpringConstant);
 						READ_MICRO_CHUNK(cload,OBSOLETE_WHEELEDVEHICLEDEF_VARIABLE_DAMPINGCONSTANT,DampingConstant);

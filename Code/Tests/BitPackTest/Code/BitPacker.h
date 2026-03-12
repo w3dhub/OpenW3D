@@ -46,7 +46,7 @@ class BitPacker
 
 		// Set the buffer to use for read / write of bit packed data.
 		void SetBuffer(void* buffer, unsigned int bufferSize);
-		
+
 		// Flush remainder bits to the stream.
 		// (This must be called when finished writting)
 		void Flush(void);

@@ -109,7 +109,7 @@ CNCPurchaseMainMenuClass::~CNCPurchaseMainMenuClass (void)
 ////////////////////////////////////////////////////////////////
 void
 CNCPurchaseMainMenuClass::On_Init_Dialog (void)
-{	
+{
 	ButtonCtrlClass *chars_button			= (ButtonCtrlClass *)Get_Dlg_Item (IDC_CHARACTERS_BUTTON);
 	ButtonCtrlClass *vehicles_button		= (ButtonCtrlClass *)Get_Dlg_Item (IDC_VEHICLES_BUTTON);
 
@@ -156,12 +156,12 @@ CNCPurchaseMainMenuClass::On_Init_Dialog (void)
 	//
 	//	Insert the chat module dialog into the bottom portion of our window
 	//
-	ChatModule = new MPChatChildDialogClass;	
+	ChatModule = new MPChatChildDialogClass;
 	ChatModule->Set_Default_Type (TEXT_MESSAGE_TEAM);
 	ChatModule->Start_Dialog ();
 	Add_Child_Dialog (ChatModule);
 	ChatModule->Set_Rect (chat_rect);
-	ChatModule->Set_End_Dialog_On_Send (false);	
+	ChatModule->Set_End_Dialog_On_Send (false);
 
 	//
 	//	Force the hot-key colors to be white
@@ -209,7 +209,7 @@ CNCPurchaseMainMenuClass::On_Init_Dialog (void)
 void
 CNCPurchaseMainMenuClass::On_Destroy (void)
 {
-	MenuDialogClass::On_Destroy ();	
+	MenuDialogClass::On_Destroy ();
 	return ;
 }
 
@@ -358,14 +358,14 @@ CNCPurchaseMainMenuClass::Do_Purchase_Screen (PurchaseSettingsDefClass::TYPE typ
 	definition = PurchaseSettingsDefClass::Find_Definition (type, Team);
 
 	if (definition != NULL) {
-		
+
 		//
 		//	Show the purchase dialog
 		//
 		CNCPurchaseMenuClass *dialog = new CNCPurchaseMenuClass;
 		dialog->Set_Definition (definition);
 		dialog->Set_Type (type);
-		
+
 		//
 		//	Let the dialog know what "team" this purchase is for...
 		//
@@ -375,14 +375,14 @@ CNCPurchaseMainMenuClass::Do_Purchase_Screen (PurchaseSettingsDefClass::TYPE typ
 			dialog->Set_Team (PlayerTerminalClass::TYPE_NOD);
 		} else {
 			dialog->Set_Team (PlayerTerminalClass::TYPE_MUTANT);
-		}		
+		}
 
 		//
 		//	Examine the base for this player to decide what purchase options they have
 		//
 		BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();
 		if (base != NULL) {
-						
+
 			//
 			//	If the base is powered down then all prices double in cost
 			//
@@ -483,9 +483,9 @@ CNCPurchaseMainMenuClass::Purchase (void)
 	for (int index = 0; index < 6; index ++) {
 		MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (CTRL_IDS[index]);
 		if (ctrl != NULL && ctrl->Get_Purchase_Count () > 0) {
-			
+
 			switch (CTRL_IDS[index])
-			{				
+			{
 				case IDC_ENLISTED_PURCHASE_01:
 				case IDC_ENLISTED_PURCHASE_02:
 				case IDC_ENLISTED_PURCHASE_03:
@@ -501,15 +501,15 @@ CNCPurchaseMainMenuClass::Purchase (void)
 
 				case IDC_BEACON_PURCHASE:
 					VendorClass::Purchase_Item (COMBAT_STAR, VendorClass::TYPE_BEACON, 0);
-					break;								
+					break;
 			}
 		}
-	}	
+	}
 
 	//
 	//	Resume play after a purchase
 	//
-	End_Dialog ();		
+	End_Dialog ();
 	return ;
 }
 
@@ -543,7 +543,7 @@ CNCPurchaseMainMenuClass::On_Merchandise_Selected (MerchandiseCtrlClass *ctrl, i
 			// enlisted controls.
 			//
 			switch (ctrl_id)
-			{				
+			{
 				case IDC_ENLISTED_PURCHASE_01:
 				case IDC_ENLISTED_PURCHASE_02:
 				case IDC_ENLISTED_PURCHASE_03:
@@ -611,13 +611,13 @@ CNCPurchaseMainMenuClass::Purchase_Item (int ctrl_id)
 		if (ctrl != NULL) {
 			ctrl->Reset_Purchase_Count ();
 		}
-	}	
+	}
 
 	//
 	//	Purchase the item and close the dialog
 	//
 	MerchandiseCtrlClass *ctrl = (MerchandiseCtrlClass *)Get_Dlg_Item (ctrl_id);
-	if (ctrl != NULL) {		
+	if (ctrl != NULL) {
 		ctrl->Increment_Purchase_Count ();
 		Purchase ();
 	}
@@ -640,7 +640,7 @@ CNCPurchaseMainMenuClass::On_Frame_Update (void)
 
 	//
 	//	Update the player's money every frame
-	// TSS120301 - I'm not sure how player data can be null here but we are crashing 
+	// TSS120301 - I'm not sure how player data can be null here but we are crashing
 	// with that, so let's test against it.
 	//
 	if (COMBAT_STAR->Get_Player_Data () != NULL) {
@@ -726,7 +726,7 @@ CNCPurchaseMainMenuClass::Refresh_Beacon_State (void)
 				for (int index = 0; index < weapon_count; index ++) {
 					WeaponClass *weapon = weapon_bag->Peek_Weapon (index);
 					if (weapon != NULL && weapon->Get_ID () == beacon_id) {
-						
+
 						//
 						//	Don't allow the player to purchase more beacons then
 						// they can hold.
@@ -779,7 +779,7 @@ CNCPurchaseMainMenuClass::Refresh_Button_States (void)
 		BuildingGameObj *building = base_controller->Find_Building (BuildingConstants::TYPE_VEHICLE_FACTORY);
 		if (building != NULL && building->As_VehicleFactoryGameObj () != NULL) {
 			VehicleFactoryGameObj *factory = building->As_VehicleFactoryGameObj ();
-				
+
 			//
 			//	Determine if the factory is busy or destroyed
 			//
@@ -808,7 +808,7 @@ CNCPurchaseMainMenuClass::Refresh_Button_States (void)
 		building = base_controller->Find_Building (BuildingConstants::TYPE_SOLDIER_FACTORY);
 		if (building != NULL && building->As_SoldierFactoryGameObj () != NULL) {
 			SoldierFactoryGameObj *factory = building->As_SoldierFactoryGameObj ();
-				
+
 			//
 			//	Determine if the factory is busy or destroyed
 			//
@@ -833,26 +833,26 @@ CNCPurchaseMainMenuClass::Refresh_Button_States (void)
 	//	Check to see if this team has reached its limit on vehicles.
 	//
 	if (enable_vehicles) {
-		
+
 		//
 		//	Count team vehicles.
 		//
-		BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();		
-		
+		BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();
+
 		if (base != NULL) {
-			
+
 			//
 			// Find the vehicle factory
 			//
 			BuildingGameObj *building = base->Find_Building (BuildingConstants::TYPE_VEHICLE_FACTORY);
-		
+
 			if ((building != NULL) && (building->As_VehicleFactoryGameObj())) {
-				
-				// 
+
+				//
 				// See if the team already maxed out the number of vehicles
 				//
 				VehicleFactoryGameObj *factory = building->As_VehicleFactoryGameObj ();
-				if (factory->Get_Team_Vehicle_Count() >= factory->Get_Max_Vehicles_Per_Team()) {			
+				if (factory->Get_Team_Vehicle_Count() >= factory->Get_Max_Vehicles_Per_Team()) {
 					Set_Dlg_Item_Text (IDC_VEHICLES_STATIC, TRANSLATE (IDS_MENU_LIMIT_REACHED));
 					enable_vehicles = false;
 				}
@@ -864,9 +864,9 @@ CNCPurchaseMainMenuClass::Refresh_Button_States (void)
 	//	Enable or disable the vehicles and characters button
 	//
 	chars_button->Enable (enable_chars);
-	vehicles_button->Enable (enable_vehicles);	
+	vehicles_button->Enable (enable_vehicles);
 	Get_Dlg_Item (IDC_SOLDIERS_STATIC)->Enable (enable_chars);
-	Get_Dlg_Item (IDC_VEHICLES_STATIC)->Enable (enable_vehicles);		
+	Get_Dlg_Item (IDC_VEHICLES_STATIC)->Enable (enable_vehicles);
 	Get_Dlg_Item (IDC_HOTKEY_TEXT_06)->Set_Text_Color (enable_chars ? Vector3 (1.0F, 1.0F, 1.0F) : Vector3 (0.5F, 0.5F, 0.5F));
 	Get_Dlg_Item (IDC_HOTKEY_TEXT_07)->Set_Text_Color (enable_vehicles ? Vector3 (1.0F, 1.0F, 1.0F) : Vector3 (0.5F, 0.5F, 0.5F));
 	return ;
@@ -882,7 +882,7 @@ bool
 CNCPurchaseMainMenuClass::On_Key_Down (uint32 key_id, uint32 key_data)
 {
 	bool retval = false;
-	
+
 	//
 	//	Don't process hot keys if an edit control has the focus
 	//
@@ -980,7 +980,7 @@ CNCPurchaseMainMenuClass::Refresh_Message_Log (void)
 		//	Add all the messages to the log...
 		//
 		for (int index = 0; index < count; index ++) {
-			
+
 			//
 			//	Get the message to display
 			//
@@ -988,7 +988,7 @@ CNCPurchaseMainMenuClass::Refresh_Message_Log (void)
 			const Vector3 &color	= message_window->Get_Log_Color (index);
 			WideStringClass temp_string (message, true);
 			int len = temp_string.Get_Length ();
-			
+
 			//
 			//	Strip off any unnecessary newlines
 			//
@@ -1001,7 +1001,7 @@ CNCPurchaseMainMenuClass::Refresh_Message_Log (void)
 			//
 			int item_index = list_ctrl->Insert_Entry (index, temp_string);
 			if (item_index != -1) {
-				list_ctrl->Set_Entry_Color (item_index, 0, color);				
+				list_ctrl->Set_Entry_Color (item_index, 0, color);
 			}
 		}
 

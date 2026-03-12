@@ -43,7 +43,7 @@ class ChunkSaveClass;
 
 class CMainFrame : public CFrameWnd
 {
-	
+
 protected: // create from serialization only
 	CMainFrame();
 	DECLARE_DYNCREATE(CMainFrame)
@@ -95,7 +95,7 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-protected: 
+protected:
 	CStatusBar						m_wndStatusBar;
 	CToolBar							m_wndToolBar;
 	CToolBar							m_wndImpulseToolBar;

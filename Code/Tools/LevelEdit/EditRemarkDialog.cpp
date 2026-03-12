@@ -90,7 +90,7 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-EditRemarkDialogClass::OnInitDialog (void) 
+EditRemarkDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 	ASSERT (m_Remark != NULL);
@@ -115,7 +115,7 @@ EditRemarkDialogClass::OnInitDialog (void)
 	//
 	m_WeightSpin.SetRange (0, 100);
 	m_WeightSpin.SetPos ((int)m_Remark->Get_Weight ());
-	SetDlgItemInt (IDC_WEIGHT_EDIT, (int)m_Remark->Get_Weight ());	
+	SetDlgItemInt (IDC_WEIGHT_EDIT, (int)m_Remark->Get_Weight ());
 	return true;
 }
 

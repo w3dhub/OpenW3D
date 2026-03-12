@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/FolderDialog.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 12/13/01 5:46p                $* 
- *                                                                                             * 
- *                    $Revision:: 9                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/FolderDialog.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 12/13/01 5:46p                $*
+ *                                                                                             *
+ *                    $Revision:: 9                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -56,7 +56,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void FolderDialogClass::On_Init_Dialog (void)
 {
@@ -69,9 +69,9 @@ void FolderDialogClass::On_Init_Dialog (void)
 
 		ListCtrlClass  *listctrl;
 		unsigned			 i;
-		WIN32_FIND_DATA finddata;	
+		WIN32_FIND_DATA finddata;
 		HANDLE			 handle;
-		bool				 done = false;			
+		bool				 done = false;
 
 		wildcardfolderpath += L"\\";
 		wildcardfolderpath += wildcardname;
@@ -94,15 +94,15 @@ void FolderDialogClass::On_Init_Dialog (void)
 				if (done = FindNextFile (handle, &finddata) == 0) {
 					if (GetLastError() != ERROR_NO_MORE_FILES) FATAL_SYSTEM_ERROR;
 				}
-			
+
 				i++;
 			}
 			if (!FindClose (handle)) FATAL_SYSTEM_ERROR;
-	
+
 			listctrl->Sort_Alphabetically (0, ListCtrlClass::SORT_ASCENDING);
 		}
 	}
-	
+
 	InstallMenuDialogClass::On_Init_Dialog();
 }
 
@@ -117,10 +117,10 @@ void FolderDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 const wchar_t *FolderDialogClass::Get_Folder (WideStringClass &folder)
-{														  
+{
 	folder = Get_Dlg_Item_Text (IDC_FOLDER_EDIT);
 	return (folder);
 }
@@ -136,7 +136,7 @@ const wchar_t *FolderDialogClass::Get_Folder (WideStringClass &folder)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void GameFolderDialogClass::On_Init_Dialog (void)
 {
@@ -144,14 +144,14 @@ void GameFolderDialogClass::On_Init_Dialog (void)
 
 	// Initialize strings.
 	Set_Dlg_Item_Text (IDC_FOLDER_STATIC1, TxWideStringClass (IDS_SELECT_GAME_FOLDER));
-	
+
 	// Extract game folder from registry (if it exists) - otherwise use a default.
 	if (_RegistryManager.Get_Target_Game_Folder (folder)) {
 		Set_Dlg_Item_Text (IDC_FOLDER_EDIT, folder);
 	} else {
 		Set_Dlg_Item_Text (IDC_FOLDER_EDIT, TxWideStringClass (IDS_DEFAULT_GAME_FOLDER, IDS_RESOURCE_DEFAULT_GAME_FOLDER));
 	}
-	
+
 	FolderDialogClass::On_Init_Dialog();
 }
 
@@ -166,7 +166,7 @@ void GameFolderDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void WOLFolderDialogClass::On_Init_Dialog (void)
 {
@@ -174,7 +174,7 @@ void WOLFolderDialogClass::On_Init_Dialog (void)
 
 	// Initialize strings.
 	Set_Dlg_Item_Text (IDC_FOLDER_STATIC1, TxWideStringClass (IDS_SELECT_WOL_FOLDER));
-	
+
 	// Extract game folder from registry (if it exists) - otherwise use a default.
 	if (_RegistryManager.Get_Target_WOL_Folder (RegistryManagerClass::WOLAPI_COMPONENT, folder)) {
 		Set_Dlg_Item_Text (IDC_FOLDER_EDIT, folder);
@@ -196,11 +196,11 @@ void WOLFolderDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void FolderDialogClass::On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index)
 {
-	Set_Dlg_Item_Text (IDC_FOLDER_EDIT, list_ctrl->Get_Entry_Text (new_index, 0));	
+	Set_Dlg_Item_Text (IDC_FOLDER_EDIT, list_ctrl->Get_Entry_Text (new_index, 0));
 }
 
 
@@ -214,18 +214,18 @@ void FolderDialogClass::On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ct
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void FolderDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
 	switch (ctrl_id) {
 
 		case IDOK:
-		{	
+		{
 			WideStringClass foldername (Get_Dlg_Item_Text (IDC_FOLDER_EDIT));
 			WideStringClass folderpathname;
-			bool				 hasnonspacechar;	
-			int				 dummyid;				
+			bool				 hasnonspacechar;
+			int				 dummyid;
 
 			// Check that the selected folder name has non-space characters.
 			hasnonspacechar = false;

@@ -126,7 +126,7 @@ CLevelEditView::~CLevelEditView (void)
 {
 	// If the camera manager exists, free it.
 	SAFE_DELETE (m_pCameraMgr);
-	SAFE_DELETE (m_pMouseMgr);	
+	SAFE_DELETE (m_pMouseMgr);
 
 	m_pCursorMesh->Remove ();
 	MEMBER_RELEASE (m_pCursorMesh);
@@ -150,7 +150,7 @@ CLevelEditView::~CLevelEditView (void)
 BOOL
 CLevelEditView::PreCreateWindow (CREATESTRUCT& cs)
 {
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	return CView::PreCreateWindow (cs);
 }
 
@@ -218,7 +218,7 @@ CLevelEditView::Initialize_Render_Device (void)
 
 	// Assume failure
 	m_bRenderDeviceInitialized = false;
-	
+
 	// Initialize the rendering engine with the information from
 	// this window.
 	RECT rect;
@@ -264,11 +264,11 @@ CLevelEditView::Initialize_Render_Device (void)
 	m_pCameraMgr->Get_Camera ()->Set_View_Plane (m_HorzFOV, m_VertFOV);
 
 	if (m_p2DCamera == NULL) {
-		
+
 		// Create a new instance of the camera class to use
 		// when rendering the background BMP
 		m_p2DCamera = new CameraClass ();
-        
+
 		// Were we successful in creating the new instance?
 		ASSERT (m_p2DCamera != NULL);
 		if (m_p2DCamera != NULL) {
@@ -303,7 +303,7 @@ CLevelEditView::Initialize_Render_Device (void)
 		m_pCursorMesh->Begin_Tri_Strip();
 
 			m_pCursorMesh->Set_Vertex_Color (Vector3 (0, 0.384F, 0.5F));
-			m_pCursorMesh->Vertex (0.0F,	0.0F, 0, 0, 0);			
+			m_pCursorMesh->Vertex (0.0F,	0.0F, 0, 0, 0);
 			m_pCursorMesh->Set_Vertex_Color (Vector3 (0, 0, 0.5F));
 			m_pCursorMesh->Vertex (0.026F,0.028F, 0, 0, 0);
 			m_pCursorMesh->Set_Vertex_Color (Vector3 (0, 0.5F, 1));
@@ -367,7 +367,7 @@ CLevelEditView::OnSize
 	// FOV proportional to its relative size
 	m_HorzFOV = 0.0F;
 	m_VertFOV = 0.0F;
-	if (cy > cx) {						
+	if (cy > cx) {
 		m_VertFOV = (float)DEG_TO_RAD(45.0f);
 		m_HorzFOV = (double)cx / (double)cy * m_VertFOV;
 	}
@@ -377,21 +377,21 @@ CLevelEditView::OnSize
 	}
 
 	if (m_bRenderDeviceInitialized) {
-		
+
 		if (m_iWindowed == 1) {
-			// Change the resolution of the rendering device to 
+			// Change the resolution of the rendering device to
 			// match that of the view's current dimensions
 			WW3D::Set_Device_Resolution (cx, cy, bpp, m_iWindowed);
 		}
 
 		// Reset the field of view
-		m_pCameraMgr->Get_Camera ()->Set_View_Plane (m_HorzFOV, m_VertFOV);		
+		m_pCameraMgr->Get_Camera ()->Set_View_Plane (m_HorzFOV, m_VertFOV);
 
 		// Force a repaint of the screen
 		Repaint_View ();
 	}
-	
-	return ;	
+
+	return ;
 }
 
 
@@ -405,7 +405,7 @@ CLevelEditView::Allow_Repaint (bool active)
 {
 	// Either increment or decrement the lock
 	_iPaintingLock += (active ? -1 : 1);
-	
+
 	//
 	// Refresh the view if necessary
 	//
@@ -450,7 +450,7 @@ CLevelEditView::Repaint_View (void)
 		//
 		SceneEditorClass *scene		= ::Get_Scene_Editor ();
 		CameraClass *camera			= scene->Get_Render_Camera ();
-		
+
 		//
 		//	Let the game free up anything it needs
 		//
@@ -476,29 +476,29 @@ CLevelEditView::Repaint_View (void)
 
 		// Update some sub-systems.
 		BackgroundMgrClass::Update (scene, camera);
-		SoundEnvironmentClass *sound_environment = CombatManager::Get_Sound_Environment ();		
+		SoundEnvironmentClass *sound_environment = CombatManager::Get_Sound_Environment ();
 		if (sound_environment != NULL) sound_environment->Update (scene, camera);
 		WeatherMgrClass::Update (scene, camera);
 
 		//
 		//	Collect visible objects and such...
-		//		
+		//
 		PhysicsSceneClass::Get_Instance ()->Pre_Render_Processing (*camera);
 
 		//
 		// Set-up the rendering process
 		//
 		WW3D::Begin_Render (true, true, BackgroundMgrClass::Get_Clear_Color());
-		
+
 		//
 		//	Render the background scene from the game (this will give
 		// us the sky and stuff).
-		//		
+		//
 		WW3D::Render (CombatManager::Get_Background_Scene(), camera);
 
 		//
 		// Now render the main scene
-		//		
+		//
 		WW3D::Render (scene, camera);
 
 		//
@@ -539,8 +539,8 @@ CLevelEditView::Repaint_View (void)
 //
 void
 CLevelEditView::OnFinalRelease (void)
-{	
-	// Allow the base class to process this message	
+{
+	// Allow the base class to process this message
 	CView::OnFinalRelease ();
 	return;
 }
@@ -551,9 +551,9 @@ CLevelEditView::OnFinalRelease (void)
 //  OnInitialUpdate
 //
 void
-CLevelEditView::OnInitialUpdate (void) 
+CLevelEditView::OnInitialUpdate (void)
 {
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CView::OnInitialUpdate();
 
 	// Initialize the render device before we can update the view
@@ -567,7 +567,7 @@ CLevelEditView::OnInitialUpdate (void)
 	}
 
 	//MainWindow = m_hWnd;
-	return ;	
+	return ;
 }
 
 
@@ -576,7 +576,7 @@ CLevelEditView::OnInitialUpdate (void)
 //  Start_Update
 //
 void
-CLevelEditView::Start_Update (bool bstart) 
+CLevelEditView::Start_Update (bool bstart)
 {
 	if (bstart && (m_TimerID == 0)) {
 
@@ -594,7 +594,7 @@ CLevelEditView::Start_Update (bool bstart)
 		::timeKillEvent ((UINT)m_TimerID);
 
 		// We don't need this anymore
-		m_TimerID = 0;		
+		m_TimerID = 0;
 	}
 
 	return ;
@@ -650,11 +650,11 @@ fnMouseHookProc
 //  OnCreate
 //
 int
-CLevelEditView::OnCreate (LPCREATESTRUCT lpCreateStruct) 
+CLevelEditView::OnCreate (LPCREATESTRUCT lpCreateStruct)
 {
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	
+
 	// Let the main window know we want to be the active view
 	CMainFrame *pwnd = (CMainFrame *)::AfxGetMainWnd ();
 	if (pwnd) {
@@ -681,9 +681,9 @@ CLevelEditView::OnLButtonDown
 )
 {
 	// Pass this onto the mouse manager
-	m_pMouseMgr->Handle_LButton_Down (nFlags, point);	
+	m_pMouseMgr->Handle_LButton_Down (nFlags, point);
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CView::OnLButtonDown(nFlags, point);
 	return ;
 }
@@ -701,9 +701,9 @@ CLevelEditView::OnLButtonUp
 )
 {
 	// Pass this onto the mouse manager
-	m_pMouseMgr->Handle_LButton_Up (nFlags, point);	
+	m_pMouseMgr->Handle_LButton_Up (nFlags, point);
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CView::OnLButtonUp(nFlags, point);
 	return ;
 }
@@ -721,9 +721,9 @@ CLevelEditView::OnRButtonDown
 )
 {
 	// Pass this onto the mouse manager
-	m_pMouseMgr->Handle_RButton_Down (nFlags, point);	
-	
-	// Allow the base class to process this message	
+	m_pMouseMgr->Handle_RButton_Down (nFlags, point);
+
+	// Allow the base class to process this message
 	CView::OnRButtonDown (nFlags, point);
 	return ;
 }
@@ -741,9 +741,9 @@ CLevelEditView::OnRButtonUp
 )
 {
 	// Pass this onto the mouse manager
-	m_pMouseMgr->Handle_RButton_Up (nFlags, point);	
+	m_pMouseMgr->Handle_RButton_Up (nFlags, point);
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CView::OnRButtonUp (nFlags, point);
 	return ;
 }
@@ -764,7 +764,7 @@ CLevelEditView::OnMouseMove
 	m_pMouseMgr->Handle_Mouse_Move (nFlags, point);
 	SetFocus ();
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CView::OnMouseMove (nFlags, point);
 	return ;
 }
@@ -789,7 +789,7 @@ CLevelEditView::WindowProc
 		::RemoveProp (m_hWnd, "WaitingToProcess");
 	}
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	return CView::WindowProc(message, wParam, lParam);
 }
 
@@ -811,9 +811,9 @@ CLevelEditView::OnDestroy (void)
 
 	::RemoveProp (m_hWnd, "WaitingToProcess");
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CView::OnDestroy ();
-	return ;	
+	return ;
 }
 
 
@@ -880,9 +880,9 @@ CLevelEditView::OnLButtonDblClk
 )
 {
 	// Pass this onto the mouse manager
-	m_pMouseMgr->Handle_LButton_Dblclk (nFlags, point);	
+	m_pMouseMgr->Handle_LButton_Dblclk (nFlags, point);
 
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CView::OnLButtonDown(nFlags, point);
 	return ;
 }

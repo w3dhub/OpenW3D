@@ -83,7 +83,7 @@ public:
 			(*ItemHandle) = NULL;
 		}
 
-		if (ConversationPtr != NULL) {					
+		if (ConversationPtr != NULL) {
 			(*ConversationPtr) = NULL;
 		}
 
@@ -116,12 +116,12 @@ public:
 			//
 			ConversationClass *conversation = (ConversationClass *)TreeCtrl.GetItemData (child_item);
 			if (conversation != NULL && conversation->Get_ID () == ConversationID) {
-				
-				if (ItemHandle != NULL) {					
+
+				if (ItemHandle != NULL) {
 					(*ItemHandle) = child_item;
 				}
 
-				if (ConversationPtr != NULL) {					
+				if (ConversationPtr != NULL) {
 					(*ConversationPtr) = conversation;
 				}
 
@@ -175,7 +175,7 @@ static const int TOOLBAR_H_BORDER	= TOOLBAR_H_SPACING * 2;
 /////////////////////////////////////////////////////////////////////////////
 ConversationPageClass::ConversationPageClass(CWnd* pParent /*=NULL*/)	:
 	m_GlobalsRoot (NULL),
-	m_LevelsRoot (NULL),	
+	m_LevelsRoot (NULL),
 	CDialog(ConversationPageClass::IDD, pParent)
 {
 	//{{AFX_DATA_INIT(ConversationPageClass)
@@ -242,8 +242,8 @@ ConversationPageClass::OnSize
 	UINT	nType,
 	int	cx,
 	int	cy
-) 
-{	
+)
+{
 	// Allow the base class to process this message
 	CDialog::OnSize (nType, cx, cy);
 
@@ -252,7 +252,7 @@ ConversationPageClass::OnSize
 		// Get the bounding rectangle of the form window
 		CRect parentrect;
 		GetWindowRect (&parentrect);
-		
+
 		// Get the bounding rectangle of the toolbar
 		CRect toolbar_rect;
 		m_Toolbar.GetWindowRect (&toolbar_rect);
@@ -269,7 +269,7 @@ ConversationPageClass::OnSize
 		// Get the bounding rectnagle of the list ctrl
 		RECT list_rect;
 		m_TreeCtrl.GetWindowRect (&list_rect);
-				
+
 		CRect client_rect = list_rect;
 		ScreenToClient (&client_rect);
 		int list_height = ((cy - TOOLBAR_V_BORDER) - toolbar_rect.Height ()) - client_rect.top;
@@ -280,10 +280,10 @@ ConversationPageClass::OnSize
 											0,
 											cx-((list_rect.left - parentrect.left) << 1),
 											list_height,
-											SWP_NOZORDER | SWP_NOMOVE);	
+											SWP_NOZORDER | SWP_NOMOVE);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -293,7 +293,7 @@ ConversationPageClass::OnSize
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ConversationPageClass::OnDestroy (void) 
+ConversationPageClass::OnDestroy (void)
 {
 	// Free the state image list we associated with the control
 	CImageList *imagelist = m_TreeCtrl.GetImageList (TVSIL_STATE);
@@ -309,7 +309,7 @@ ConversationPageClass::OnDestroy (void)
 
 	// Allow the base class to process this message
 	CDialog::OnDestroy ();
-	return ;	
+	return ;
 }
 
 
@@ -333,7 +333,7 @@ ConversationPageClass::OnInitDialog (void)
 	//
 	CRect parentrect;
 	GetWindowRect (&parentrect);
-	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);	
+	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);
 
 	//
 	// Pass the general use imagelist onto the tree control
@@ -358,7 +358,7 @@ ConversationPageClass::OnDeleteItemConversationTree
 (
 	NMHDR *	pNMHDR,
 	LRESULT *pResult
-) 
+)
 {
 	NM_TREEVIEW* pNMTreeView = (NM_TREEVIEW*)pNMHDR;
 	(*pResult) = 0;
@@ -395,7 +395,7 @@ ConversationPageClass::Insert_Entry (ConversationClass *conversation, bool sort_
 	HTREEITEM tree_item = m_TreeCtrl.InsertItem (conversation->Get_Name (), DIALOGUE_ICON,
 													DIALOGUE_ICON, parent_item);
 	if (tree_item != NULL) {
-		
+
 		//
 		//	Lock a reference on the object
 		//
@@ -409,7 +409,7 @@ ConversationPageClass::Insert_Entry (ConversationClass *conversation, bool sort_
 		//
 		//	Sort the items
 		//
-		if (sort_items) {			
+		if (sort_items) {
 			m_TreeCtrl.InvalidateRect (NULL, true);
 			m_TreeCtrl.SortChildren (parent_item);
 		}
@@ -453,11 +453,11 @@ void
 ConversationPageClass::Reset_Tree (void)
 {
 	m_TreeCtrl.DeleteAllItems ();
-	
+
 	//
 	//	Insert the root nodes
 	//
-	
+
 	m_GlobalsRoot	= m_TreeCtrl.InsertItem ("Globals", FOLDER_ICON, FOLDER_ICON);
 	m_LevelsRoot	= m_TreeCtrl.InsertItem ("Level Specific", FOLDER_ICON, FOLDER_ICON);
 	return ;
@@ -474,7 +474,7 @@ ConversationPageClass::OnDblclkConversationTree
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-) 
+)
 {
 	//
 	// Determine what client-coord location was double-clicked on
@@ -489,7 +489,7 @@ ConversationPageClass::OnDblclkConversationTree
 	UINT flags				= 0;
 	HTREEITEM tree_item	= m_TreeCtrl.HitTest (hit_point, &flags);
 	if (tree_item != NULL && flags & TVHT_ONITEMLABEL) {
-		
+
 		//
 		//	Edit the entry the user double-clicked on
 		//
@@ -499,8 +499,8 @@ ConversationPageClass::OnDblclkConversationTree
 	} else {
 		(*pResult) = 0;
 	}
-		
-	
+
+
 	return ;
 }
 
@@ -602,7 +602,7 @@ ConversationPageClass::OnAdd (void)
 
 				//
 				//	Add the conversation to the tree
-				//			
+				//
 				Insert_Entry (conversation);
 				m_TreeCtrl.UpdateWindow ();
 
@@ -660,7 +660,7 @@ ConversationPageClass::OnDelete (void)
 				CWaitCursor wait_cursor;
 				check_in = ConversationEditorMgrClass::Check_Out ();
 				can_edit = check_in;
-				
+
 				//
 				//	Reload the tree
 				//
@@ -707,7 +707,7 @@ ConversationPageClass::OnEdit (void)
 {
 	HTREEITEM selected_item = m_TreeCtrl.GetSelectedItem ();
 	if (selected_item != NULL) {
-		
+
 		//
 		//	Edit the selected entry
 		//
@@ -753,7 +753,7 @@ ConversationPageClass::Edit_Entry (HTREEITEM tree_item)
 			}
 
 			if (can_edit && tree_item != NULL && conversation != NULL) {
-				
+
 				//
 				//	Display a dialog to the user allowing them to edit the conversation
 				//
@@ -783,7 +783,7 @@ ConversationPageClass::Edit_Entry (HTREEITEM tree_item)
 					CWaitCursor wait_cursor;
 					ConversationEditorMgrClass::Undo_Check_Out ();
 				}
-			} 
+			}
 		}
 	}
 
@@ -797,10 +797,10 @@ ConversationPageClass::Edit_Entry (HTREEITEM tree_item)
 //
 ////////////////////////////////////////////////////////////////////////////
 void
-ConversationPageClass::OnSwap (void) 
+ConversationPageClass::OnSwap (void)
 {
 	HTREEITEM selected_item = m_TreeCtrl.GetSelectedItem ();
-	if (selected_item != NULL) {		
+	if (selected_item != NULL) {
 
 		//
 		//	Get the conversation associated with the selected item
@@ -814,13 +814,13 @@ ConversationPageClass::OnSwap (void)
 			//
 			CWaitCursor wait_cursor;
 			if (ConversationEditorMgrClass::Check_Out ()) {
-				
+
 				//
 				//	Reload the tree
 				//
 				Reload_Tree (&selected_item, &conversation);
 				if (selected_item != NULL && conversation != NULL) {
-					
+
 					//
 					//	Remove the conversation from the system
 					//
@@ -832,7 +832,7 @@ ConversationPageClass::OnSwap (void)
 					int category_id = conversation->Get_Category_ID ();
 					if (category_id == ConversationMgrClass::CATEGORY_LEVEL) {
 						conversation->Set_Category_ID (ConversationMgrClass::CATEGORY_GLOBAL);
-					} else {				
+					} else {
 						conversation->Set_Category_ID (ConversationMgrClass::CATEGORY_LEVEL);
 					}
 
@@ -860,9 +860,9 @@ ConversationPageClass::OnSwap (void)
 					ConversationEditorMgrClass::Check_In ();
 				}
 			}
-		}		
+		}
 	}
-		
+
 	return ;
 }
 
@@ -883,7 +883,7 @@ ConversationPageClass::Reload_Tree (HTREEITEM *item_handle, ConversationClass **
 	TreeStateCaptureClass capture_obj (m_TreeCtrl, item_handle, conversation_ptr);
 	ConversationEditorMgrClass::Load_Global_Database ();
 	capture_obj.Restore ();
-	
+
 	//
 	//	Expand the two root folders by default
 	//

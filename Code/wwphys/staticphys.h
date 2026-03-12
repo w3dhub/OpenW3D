@@ -55,24 +55,24 @@ class StaticPhysDefClass;
 ** StaticPhysClass
 ** This class implements an object meant to be placed in the static object
 ** culling system.  Static objects are used to make up the bulk of the geometry for the
-** static environment.  
-** 
+** static environment.
+**
 */
 class StaticPhysClass : public PhysClass
 {
 public:
-	
+
 	StaticPhysClass(void);
 	~StaticPhysClass(void);
 	virtual StaticPhysClass *	As_StaticPhysClass(void) override									{ return this; }
 	StaticPhysDefClass *			Get_StaticPhysDef(void)										{ return (StaticPhysDefClass *)Definition; }
-	
+
 	void								Init(const StaticPhysDefClass & def);
 	virtual bool					Needs_Timestep(void) override											{ return false; }
 	virtual void					Timestep(float /* dt */) override											{ };
 	virtual void					Set_Model(RenderObjClass * model) override;
 	virtual void					Render_Vis_Meshes(RenderInfoClass & rinfo) override;
-		
+
 	/*
 	** Collision detection - all collideable objects provide the following collision detection
 	** functions so that other objects do not pass through them.  These functions should test
@@ -93,14 +93,14 @@ public:
 
 	/*
 	** Classify this object for the visibility culling system.  If the rendered
-	** representation of this object is translucent or if the object has multiple render 
+	** representation of this object is translucent or if the object has multiple render
 	** states (e.g. an object that is destructible or can have its model be replaced)
 	** then the object cannot be treated as an occluder.
 	*/
 	int								Is_Occluder(void);
 
 	/*
-	** Classify whether the model for this object is pre-lit.  In this case, we don't 
+	** Classify whether the model for this object is pre-lit.  In this case, we don't
 	** apply static lights or static projectors to it since their effect should be cooked
 	** into the pre-processed lighting
 	*/
@@ -111,7 +111,7 @@ public:
 	** Vis Data access.  In addition to having a vis object id, static physics objects
 	** can define vis-sectors.
 	*/
-	void								Set_Vis_Sector_ID(int new_id);	
+	void								Set_Vis_Sector_ID(int new_id);
 	int								Get_Vis_Sector_ID(void) const { return VisSectorID; }
 	bool								Is_Vis_Sector(RenderObjClass * model = NULL) const;
 
@@ -128,13 +128,13 @@ public:
 	/*
 	** Save-Load of state.  This interface is used to restore the state of any static
 	** objects in the level.  Static objects are not re-created when a save-game is created
-	** instead, their state is restored.  
+	** instead, their state is restored.
 	*/
 	virtual bool								Has_Dynamic_State(void)							{ return false; }
 	virtual void								Save_State(ChunkSaveClass & /* csave */)			{ }
 	virtual void								Load_State(ChunkLoadClass & /* cload */)			{ }
 
-	
+
 	/*
 	** Save-Load System
 	*/
@@ -173,9 +173,9 @@ private:
 class StaticPhysDefClass : public PhysDefClass
 {
 public:
-	
+
 	StaticPhysDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;
@@ -234,7 +234,7 @@ inline bool StaticPhysClass::Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest)
 	if (Model->Cast_OBBox(boxtest)) {
 		boxtest.CollidedPhysObj = this;
 		return true;
-	} else { 
+	} else {
 		return false;
 	}
 }

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/CopyThread.h $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/10/02 6:34p                 $* 
- *                                                                                             * 
- *                    $Revision:: 7                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/CopyThread.h $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/10/02 6:34p                 $*
+ *                                                                                             *
+ *                    $Revision:: 7                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _COPY_THREAD_H
 #define _COPY_THREAD_H
@@ -45,12 +45,12 @@
 
 // Class to implement a worker thread that will execute the file copying process.
 // NOTE: Thread usage will ensure that copying does not stall the copy dialog.
-class CopyThreadClass : public ThreadClass 
+class CopyThreadClass : public ThreadClass
 {
 	public:
 
 		enum StatusEnum {
-		
+
 			STATUS_OK,
 			STATUS_RETRY = STATUS_OK,
 			STATUS_ERROR,
@@ -66,7 +66,7 @@ class CopyThreadClass : public ThreadClass
 		void					 Thread_Function();
 		bool					 Can_Abort (bool lock);
 		void					 Set_Abort (bool abort);
-		bool					 Get_Abort (bool canabort);	
+		bool					 Get_Abort (bool canabort);
 		bool					 Is_Aborting() {return (IsAborting);}
 		void					 Add_Bytes_Copied (unsigned bytecount);
 		float					 Get_Fraction_Complete();
@@ -87,9 +87,9 @@ class CopyThreadClass : public ThreadClass
 		static bool Replace_File (const WideStringClass &sourcepathname, const WideStringClass &targetpathname);
 
 		static CopyThreadClass *_ActiveCopyThread;
-		
+
 	protected:
-		
+
 		void Copy_Directory (const WideStringClass &sourcepath, const WideStringClass &targetpath);
 		void Copy_File (const WideStringClass &sourcepathname, const WideStringClass &targetpathname);
 
@@ -99,7 +99,7 @@ class CopyThreadClass : public ThreadClass
 		// NOTE: Do not access the following variables directly. Instead use the Set/Get()
 		//			functions because they are protected by critical sections.
 		bool										    Abort;
-		bool											 CanAbort;	
+		bool											 CanAbort;
 		int64_t										 BytesCopied;		// Bytes copied so far.
 		WideStringClass							 TargetPath;
 		WideStringClass							 StatusMessage;

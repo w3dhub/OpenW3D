@@ -54,7 +54,7 @@ class TGAToDXTClass
 	protected:
 		void Write (const char *outputfilename);
 
-		FILETIME		  *WriteTimePtr;	// Time stamp of write time of DXT file.	
+		FILETIME		  *WriteTimePtr;	// Time stamp of write time of DXT file.
 		unsigned char *Buffer;			// Staging buffer.
 		unsigned			BufferSize;		// Size of buffer in bytes.
 		unsigned			BufferCount;	// No. of bytes written to buffer.

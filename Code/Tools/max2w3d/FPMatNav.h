@@ -56,7 +56,7 @@ inline class IFPMatNav* GetFPMatNav() {
 // IFPMatNav  fSetMultiMaterialBySlot
 //
 ///////////////////////////////////////////////////////////////////////////////
-class IFPMatNav 
+class IFPMatNav
 {
 public:
 	virtual void Launch(void) = 0;
@@ -65,16 +65,16 @@ public:
 	virtual void SetMultiMaterialBySlot( int iSlot, int iIndex ) = 0;
 	virtual void SetMaterialBySlot( int iSlot ) = 0;
 
-	// function IDs 
+	// function IDs
 	enum {	idLaunch, idSetMultiMaterialTabBySlot,
 			idSetMaterialTabBySlot, idSetMultiMaterialBySlot,
-			idSetMaterialBySlot	}; 
+			idSetMaterialBySlot	};
 };
 
-class FPMatNav : public IFPMatNav, public FPStaticInterface 
+class FPMatNav : public IFPMatNav, public FPStaticInterface
 {
 public:
-	// 
+	//
 	// Setup Callback
 	//
 	void SetIFPMatNavCallback( IFPMatNav *pIFPMatNav ) { m_pIFPMatNavCallback = pIFPMatNav; };

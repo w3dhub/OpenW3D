@@ -43,7 +43,7 @@ int	DlgMpChangeLanNickname::DialogCount	= 0;
 
 //-----------------------------------------------------------------------------
 bool DlgMpChangeLanNickname::DoDialog(void)
-{	
+{
 	DlgMpChangeLanNickname* dialog = NULL;
 
 	if (DialogCount == 0) {
@@ -99,7 +99,7 @@ void DlgMpChangeLanNickname::On_Command(int ctrlID, int message, unsigned int pa
 	if (IDOK == ctrlID)
 	{
 		WideStringClass nickname = Get_Dlg_Item_Text (IDC_NICKNAME_EDIT);
-		cNetInterface::Set_Nickname (nickname);	
+		cNetInterface::Set_Nickname (nickname);
 
 		MPLanGameListMenuClass::Set_Update_Nickname();
 

@@ -180,7 +180,7 @@ AttenuationSphereClass::Set_Radius (float radius)
 	}
 
 	m_Radius = radius;
-	sphere->Set_Extent (Vector3 (m_Radius, m_Radius, m_Radius));	
+	sphere->Set_Extent (Vector3 (m_Radius, m_Radius, m_Radius));
 	sphere->Set_Transform (sphere->Get_Transform ());
 	Update_Cull_Box ();
 	return ;

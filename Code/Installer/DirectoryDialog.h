@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/DirectoryDialog.h $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/24/01 8:38p                $* 
- *                                                                                             * 
- *                    $Revision:: 5                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/DirectoryDialog.h $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/24/01 8:38p                $*
+ *                                                                                             *
+ *                    $Revision:: 5                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _DIRECTORY_DIALOG_H
 #define _DIRECTORY_DIALOG_H
@@ -53,7 +53,7 @@ class DirectoryDialogClass : public InstallMenuDialogClass
 {
 	public:
 		DirectoryDialogClass() : InstallMenuDialogClass (IDD_DIALOG_DIRECTORY), Browser (NULL), OverwriteDialog (NULL), DriveLetter ('\0') {}
-		
+
 		// RTTI.
 		void *As_DirectoryDialogClass()		{return (this);}
 
@@ -64,7 +64,7 @@ class DirectoryDialogClass : public InstallMenuDialogClass
 	protected:
 
 		void	 Update (bool lazyupdate = false);
-		
+
 		void	 On_Init_Dialog (void)		{InstallMenuDialogClass::On_Init_Dialog();}
 		void	 On_Activate (bool onoff);
 		void	 On_Frame_Update (void);
@@ -76,14 +76,14 @@ class DirectoryDialogClass : public InstallMenuDialogClass
 
 		DirectoryBrowserClass *Browser;
 		MessageBoxClass		 *OverwriteDialog;
-		wchar_t						  DriveLetter;	
+		wchar_t						  DriveLetter;
 };
 
 
 class GameDirectoryDialogClass : public DirectoryDialogClass
 {
 	public:
-		
+
 		// RTTI.
 		virtual void *As_GameDirectoryDialogClass()		{return (this);}
 
@@ -100,14 +100,14 @@ class GameDirectoryDialogClass : public DirectoryDialogClass
 class WOLDirectoryDialogClass : public DirectoryDialogClass
 {
 	public:
-		
+
 		// RTTI.
 		virtual void *As_WOLDirectoryDialogClass()		{return (this);}
 
 		void On_Command (int ctrl_id, int message_id, DWORD param);
 
 	protected:
-		
+
 		void	  On_Init_Dialog (void);
 		int64_t Get_Disk_Space_Needed()																	  {return (_Installer.Get_WOL_Size (true));}
 		bool	  Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace) {return (_Installer.Get_WOL_Space_Available (path, diskspace));}

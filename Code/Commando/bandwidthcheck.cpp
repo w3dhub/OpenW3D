@@ -398,8 +398,8 @@ void BandwidthCheckerClass::Check(void)
 		** If we failed due to a missing final ping then try again with fewer packets and no retries.
 		*/
 		if (UpstreamBandwidth == 0) {
-			if (failure_code == BANDTEST_NO_FINAL_PING_TIME || 
-					(cGameSpyAdmin::Is_Gamespy_Game() && 
+			if (failure_code == BANDTEST_NO_FINAL_PING_TIME ||
+					(cGameSpyAdmin::Is_Gamespy_Game() &&
 					failure_code == BANDTEST_NO_EXTERNAL_ROUTER)) {
 				BandtestSettingsStruct settings = {
 					0,		//AlwaysICMP

@@ -147,8 +147,8 @@ class DazzleTypeClass
 public:
 
 	virtual void Calculate_Intensities(
-		float& dazzle_intensity, 
-		float& dazzle_size, 
+		float& dazzle_intensity,
+		float& dazzle_size,
 		float& halo_intensity,
 		const Vector3& camera_dir,
 		const Vector3& dazzle_dir,
@@ -180,7 +180,7 @@ class DazzleLayerClass {
 	friend DazzleRenderObjClass;
 
 	public:
-	
+
 		DazzleLayerClass(void);
 		~DazzleLayerClass(void);
 
@@ -233,7 +233,7 @@ public:
 class INIClass;
 
 class DazzleRenderObjClass : public RenderObjClass
-{	
+{
 	friend DazzleLayerClass;
 
 	DazzleRenderObjClass * succ;
@@ -252,7 +252,7 @@ class DazzleRenderObjClass : public RenderObjClass
 	bool on_list;	// This is used to avoid insterting a dazzle into a list twice.
 	float radius;	// Used to cast rays against
 	unsigned int creation_time;
-	
+
 	static bool	_dazzle_rendering_enabled;
 
 //	static void Draw_Debug_Dazzle(int idx);
@@ -271,11 +271,11 @@ public:
 	const DazzleRenderObjClass* Succ() const { return succ; }
 
 	/////////////////////////////////////////////////////////////////////////////
-	// Render Object Interface 
+	// Render Object Interface
 	/////////////////////////////////////////////////////////////////////////////
 	virtual RenderObjClass *	Clone(void) const override;
 	virtual int						Class_ID(void)	const override { return CLASSID_DAZZLE; }
-	
+
 	virtual void					Render(RenderInfoClass & rinfo) override;
 	virtual void Special_Render(SpecialRenderInfoClass & rinfo) override;
 	virtual void 					Set_Transform(const Matrix3D &m) override;
@@ -351,7 +351,7 @@ public:
 
 /**
 ** DazzlePrototypeClass
-** This description object is generated when reading a W3D_CHUNK_DAZZLE.  It stores the 
+** This description object is generated when reading a W3D_CHUNK_DAZZLE.  It stores the
 ** information needed to construct a particular instance of a dazzle.  Prototypes are
 ** stored in the asset manager and used to construct render objects when needed.
 */
@@ -360,13 +360,13 @@ class DazzlePrototypeClass : public PrototypeClass
 public:
 	DazzlePrototypeClass(void) : DazzleType(0)				{ }
 	virtual ~DazzlePrototypeClass(void)							{ }
-	
+
 	virtual const char *			Get_Name(void) const override			{ return Name; }
 	virtual int						Get_Class_ID(void) const override	{ return RenderObjClass::CLASSID_DAZZLE; }
 	virtual RenderObjClass *	Create(void) override;
 
 	WW3DErrorType					Load_W3D(ChunkLoadClass & cload);
-	
+
 private:
 
 	StringClass						Name;
@@ -376,7 +376,7 @@ private:
 
 /**
 ** DazzleLoaderClass
-** An instance of this class is registered with the asset manager and handles loading W3D_CHUNK_DAZZLE.  
+** An instance of this class is registered with the asset manager and handles loading W3D_CHUNK_DAZZLE.
 ** It creates DazzlePrototypes from the data in the chunk.
 */
 class DazzleLoaderClass : public PrototypeLoaderClass

@@ -74,7 +74,7 @@ enum
 class DialogMgrClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ public:
 	//
 	static const Vector3 &	Get_Mouse_Pos (void)							{ return Input->Get_Mouse_Pos (); }
 	static void					Set_Mouse_Pos (const Vector3 &pos)		{ Input->Set_Mouse_Pos (pos); }
-	
+
 	static const Vector3 &	Get_Last_Mouse_Pos (void)					{ return LastMousePos; }
 	static void					Set_Last_Mouse_Pos (const Vector3 &pos){ LastMousePos = pos; }
 
@@ -209,7 +209,7 @@ private:
 	////////////////////////////////////////////////////////////////
 	//	Private member data
 	////////////////////////////////////////////////////////////////
-	static DynamicVectorClass<DialogBaseClass *>	DialogList;	
+	static DynamicVectorClass<DialogBaseClass *>	DialogList;
 	static DialogBaseClass **							TestArray;
 	static int												TestArrayCount;
 	static int												TestArrayMaxCount;
@@ -221,7 +221,7 @@ private:
 	static DialogControlClass *						InputCapture;
 	static DialogControlClass *						FocusControl;
 	static WWUIInputClass *								Input;
-	
+
 	static DialogTransitionClass *					Transition;
 	static DialogBaseClass *							TransitionDialog;
 	static DialogBaseClass *							PendingActiveDialog;

@@ -208,7 +208,7 @@ public:
 	DX8Caps(IDirect3D9* direct3d, IDirect3DDevice9* D3DDevice,WW3DFormat display_format, const D3DADAPTER_IDENTIFIER9& adapter_id);
 
 	void Compute_Caps(WW3DFormat display_format, const D3DADAPTER_IDENTIFIER9& adapter_id);
-	bool Support_TnL() const { return SupportTnL; };	
+	bool Support_TnL() const { return SupportTnL; };
 	bool Support_DXTC() const { return SupportDXTC; }
 	bool Support_Gamma() const { return supportGamma; }
 	bool Support_NPatches() const { return SupportNPatches; }
@@ -275,7 +275,7 @@ private:
 	int MaxDisplayHeight;
 
 	D3DCAPS9 Caps;
-	bool SupportTnL;	
+	bool SupportTnL;
 	bool SupportDXTC;
 	bool supportGamma;
 	bool SupportNPatches;

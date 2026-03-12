@@ -74,7 +74,7 @@ WaypointClass::WaypointClass (void)
 	:	m_ID (0),
 		m_Position (0, 0, 0),
 		m_Flags (0),
-		m_ActionPortalID (-1)		
+		m_ActionPortalID (-1)
 {
 	return ;
 }
@@ -143,11 +143,11 @@ bool
 WaypointClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
-				
+
 		WaypointClass *this_ptr = this;
 		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR,		this_ptr);
-		WRITE_MICRO_CHUNK (csave, VARID_FLAGS,			m_Flags);		
-		WRITE_MICRO_CHUNK (csave, VARID_POSITION,		m_Position);		
+		WRITE_MICRO_CHUNK (csave, VARID_FLAGS,			m_Flags);
+		WRITE_MICRO_CHUNK (csave, VARID_POSITION,		m_Position);
 		WRITE_MICRO_CHUNK (csave, VARID_ID,				m_ID);
 		WRITE_MICRO_CHUNK (csave, VARID_ACTION_ID,	m_ActionPortalID);
 
@@ -164,9 +164,9 @@ WaypointClass::Save (ChunkSaveClass &csave)
 bool
 WaypointClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-		
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -196,14 +196,14 @@ WaypointClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_FLAGS,		m_Flags);
 			READ_MICRO_CHUNK (cload, VARID_POSITION,	m_Position);
 			READ_MICRO_CHUNK (cload, VARID_ID,			m_ID);
-			READ_MICRO_CHUNK (cload, VARID_ACTION_ID,	m_ActionPortalID);		
+			READ_MICRO_CHUNK (cload, VARID_ACTION_ID,	m_ActionPortalID);
 
 			case VARID_OLD_PTR:
 			{
 				//
 				//	Read the old pointer from the chunk and submit it
 				// to the remapping system.
-				//				
+				//
 				WaypointClass *old_ptr = NULL;
 				cload.Read (&old_ptr, sizeof (int));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
@@ -228,10 +228,10 @@ WaypointClass::operator= (const WaypointClass &src)
 {
 	//
 	//	Simply copy the member data from the src class.
-	// Note;  This is included for extendibility, in 
+	// Note;  This is included for extendibility, in
 	// case this class every contains more then simple
 	// variables.
-	//	
+	//
 	m_ID					= src.m_ID;
 	m_Position			= src.m_Position;
 	m_Flags				= src.m_Flags;

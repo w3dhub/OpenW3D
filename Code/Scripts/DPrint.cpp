@@ -112,7 +112,7 @@ void __cdecl DebugPrint(const char* string, ...)
 			file = CreateFileA(_filename, GENERIC_WRITE, 0, NULL, OPEN_ALWAYS,
 				FILE_ATTRIBUTE_NORMAL, NULL);
 			}
-		
+
 		// Insert carriage return after newlines
 		int i = 0;
 

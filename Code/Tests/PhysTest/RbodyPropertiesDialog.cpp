@@ -87,9 +87,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CRbodyPropertiesDialog message handlers
 
-void CRbodyPropertiesDialog::OnOK() 
+void CRbodyPropertiesDialog::OnOK()
 {
-	Object->Set_Mass(GetDlgItemFloat(IDC_MASS_EDIT));	
+	Object->Set_Mass(GetDlgItemFloat(IDC_MASS_EDIT));
 	Object->Set_Gravity_Multiplier(GetDlgItemFloat(IDC_GRAVITY_EDIT));
 	Object->Set_Elasticity(GetDlgItemFloat(IDC_ELASTICITY_EDIT));
 	Vector3 pos;
@@ -99,18 +99,18 @@ void CRbodyPropertiesDialog::OnOK()
 	Object->Set_Position(pos);
 
 	float length = GetDlgItemFloat(IDC_LENGTH_EDIT);
-	
+
 	// not letting the user override stiffness and damping for now
 	((RigidBodyClass *)Object)->Set_Contact_Parameters(length);
 
 	CDialog::OnOK();
 }
 
-BOOL CRbodyPropertiesDialog::OnInitDialog() 
+BOOL CRbodyPropertiesDialog::OnInitDialog()
 {
 	ASSERT(Object != NULL);
 	CDialog::OnInitDialog();
-	
+
 	m_MassSpin.SetRange(MIN_MASS * 100,MAX_MASS * 100);
 	m_GravitySpin.SetRange(MIN_GRAVITY * 100,MAX_GRAVITY * 100);
 	m_ElasticitySpin.SetRange(MIN_ELASTICITY * 100,MAX_ELASTICITY * 100);
@@ -136,7 +136,7 @@ BOOL CRbodyPropertiesDialog::OnInitDialog()
 	m_DampingSpin.SetPos(damping * 100);
 	m_LengthSpin.SetPos(length * 100);
 
-	SetDlgItemFloat(IDC_MASS_EDIT,Object->Get_Mass());	
+	SetDlgItemFloat(IDC_MASS_EDIT,Object->Get_Mass());
 	SetDlgItemFloat(IDC_GRAVITY_EDIT,Object->Get_Gravity_Multiplier());
 	SetDlgItemFloat(IDC_ELASTICITY_EDIT,Object->Get_Elasticity());
 	SetDlgItemFloat(IDC_POSITIONX_EDIT,position.X);
@@ -146,7 +146,7 @@ BOOL CRbodyPropertiesDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_DAMPING_EDIT,damping);
 	SetDlgItemFloat(IDC_LENGTH_EDIT,length);
 
-	return true; 
+	return true;
 }
 
 float CRbodyPropertiesDialog::GetDlgItemFloat(int controlid)
@@ -164,10 +164,10 @@ void CRbodyPropertiesDialog::SetDlgItemFloat(int controlid,float val)
 }
 
 
-BOOL CRbodyPropertiesDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 
+BOOL CRbodyPropertiesDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	// make the spin controls work...
-	switch(wParam) 
+	switch(wParam)
 	{
 		case IDC_MASS_SPIN:
 		case IDC_GRAVITY_SPIN:

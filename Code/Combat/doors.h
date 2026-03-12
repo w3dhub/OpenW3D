@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/doors.h                         $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/17/02 10:37a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 23                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/doors.h                         $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/17/02 10:37a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 23                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	DOORS_H
@@ -64,11 +64,11 @@ enum
 /*
 ** DoorPhysDefClass
 */
-class DoorPhysDefClass : public AccessiblePhysDefClass 
+class DoorPhysDefClass : public AccessiblePhysDefClass
 {
 public:
 	DoorPhysDefClass(void);
-	
+
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual const char *						Get_Type_Name(void) override				{ return "DoorPhysDef"; }
 	virtual bool								Is_Type(const char *) override;
@@ -140,13 +140,13 @@ public:
 	bool				Can_Unlock_Me( SoldierGameObj * soldier ) const;
 
 protected:
-	
+
 	// State determination
 	virtual void	Update_State( float dt );
 	virtual int		Can_Open_Door( void );
 	virtual int		Check_Door_Trigger( const OBBoxClass &trigger_zone );
 	virtual bool	Set_State( int new_state );
-	
+
 	float		Timer;
 	float		CheckTimer;
 	int		State;

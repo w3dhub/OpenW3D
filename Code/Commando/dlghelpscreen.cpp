@@ -187,7 +187,7 @@ HelpScreenDialogClass::On_Menu_Activate (bool onoff)
 				delete OldBackdrop;
 				OldBackdrop = NULL;
 			}
-		}		
+		}
 	}
 
 	return ;
@@ -211,7 +211,7 @@ HelpScreenDialogClass::On_Destroy (void)
 			delete OldBackdrop;
 			OldBackdrop = NULL;
 		}
-	}		
+	}
 
 	return ;
 }

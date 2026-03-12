@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/samsite.cpp                           $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 9/17/01 4:18p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 36                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/samsite.cpp                           $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 9/17/01 4:18p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 36                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "samsite.h"
@@ -63,12 +63,12 @@ SAMSiteGameObjDef::SAMSiteGameObjDef( void )
 	MODEL_DEF_PARAM( SAMSiteGameObjDef, PhysDefID, "DecorationPhysDef" );
 }
 
-uint32	SAMSiteGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_SAMSITE; 
+uint32	SAMSiteGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_SAMSITE;
 }
 
-PersistClass *	SAMSiteGameObjDef::Create( void ) const 
+PersistClass *	SAMSiteGameObjDef::Create( void ) const
 {
 	SAMSiteGameObj * obj = new SAMSiteGameObj;
 	obj->Init( *this );
@@ -96,7 +96,7 @@ bool	SAMSiteGameObjDef::Load( ChunkLoadClass &cload )
 			case CHUNKID_DEF_PARENT:
 				SmartGameObjDef::Load( cload );
 				break;
-	  
+
 			default:
 				Debug_Say(( "Unrecognized SimpleDef chunkID\n" ));
 				break;
@@ -108,9 +108,9 @@ bool	SAMSiteGameObjDef::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-const PersistFactoryClass & SAMSiteGameObjDef::Get_Factory (void) const 
-{ 
-	return _SAMSiteGameObjDefPersistFactory; 
+const PersistFactoryClass & SAMSiteGameObjDef::Get_Factory (void) const
+{
+	return _SAMSiteGameObjDefPersistFactory;
 }
 
 
@@ -119,7 +119,7 @@ const PersistFactoryClass & SAMSiteGameObjDef::Get_Factory (void) const
 */
 SimplePersistFactoryClass<SAMSiteGameObj, CHUNKID_GAME_OBJECT_SAMSITE>	_SAMSiteGameObjPersistFactory;
 
-const PersistFactoryClass & SAMSiteGameObj::Get_Factory (void) const 
+const PersistFactoryClass & SAMSiteGameObj::Get_Factory (void) const
 {
 	return _SAMSiteGameObjPersistFactory;
 }
@@ -216,7 +216,7 @@ bool	SAMSiteGameObj::Load( ChunkLoadClass &cload )
 			case CHUNKID_PARENT:
 				SmartGameObj::Load( cload );
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 			{
 				while (cload.Open_Micro_Chunk()) {
@@ -340,7 +340,7 @@ void SAMSiteGameObj::Generate_Control( void )
 }
 
 static const char * _profile_name = "SAMSite Think";
-void	SAMSiteGameObj::Think( void ) 
+void	SAMSiteGameObj::Think( void )
 {
 	SmartGameObj *target = NULL;
 {	WWPROFILE( _profile_name );
@@ -370,7 +370,7 @@ void	SAMSiteGameObj::Think( void )
 		Get_Action()->Reset( 100 );
 	}
 }
-	SmartGameObj::Think(); 									  
+	SmartGameObj::Think();
 {	WWPROFILE( _profile_name );
 
 	if ( State == SAMSITE_STATE_DOWN ) {

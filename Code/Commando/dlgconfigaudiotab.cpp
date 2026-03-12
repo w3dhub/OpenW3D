@@ -110,7 +110,7 @@ DlgConfigAudioTabClass::~DlgConfigAudioTabClass (void)
 		MusicVolumeTestSound->Stop ();
 		REF_PTR_RELEASE (MusicVolumeTestSound);
 	}
-	
+
 	if (DialogVolumeTestSound != NULL) {
 		DialogVolumeTestSound->Stop ();
 		REF_PTR_RELEASE (DialogVolumeTestSound);
@@ -137,8 +137,8 @@ DlgConfigAudioTabClass::On_Init_Dialog (void)
 
 	//
 	//	Read the audio library's settings from the registry
-	//	
-	bool is_stereo			= WWAudioClass::Get_Instance ()->Get_Playback_Stereo ();	
+	//
+	bool is_stereo			= WWAudioClass::Get_Instance ()->Get_Playback_Stereo ();
 	float sound_vol		= WWAudioClass::Get_Instance ()->Get_Sound_Effects_Volume ();
 	float music_vol		= WWAudioClass::Get_Instance ()->Get_Music_Volume ();
 	float dialog_vol		= WWAudioClass::Get_Instance ()->Get_Dialog_Volume ();
@@ -147,12 +147,12 @@ DlgConfigAudioTabClass::On_Init_Dialog (void)
 	bool music_on			= WWAudioClass::Get_Instance ()->Is_Music_On ();
 	bool dialog_on			= WWAudioClass::Get_Instance ()->Is_Dialog_On ();
 	bool cinematic_on		= WWAudioClass::Get_Instance ()->Is_Cinematic_Sound_On ();
-		
+
 	SliderCtrlClass *snd_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_SOUND_EFFECTS_SLIDER);
 	SliderCtrlClass *mus_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_MUSIC_SLIDER);
 	SliderCtrlClass *dia_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_DIALOG_SLIDER);
-	SliderCtrlClass *cin_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_CINEMATIC_SLIDER);	
-	
+	SliderCtrlClass *cin_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_CINEMATIC_SLIDER);
+
 	//
 	//	Setup the sound volume controls
 	//
@@ -187,7 +187,7 @@ DlgConfigAudioTabClass::On_Init_Dialog (void)
 	if (cin_vol_slider != NULL) {
 		cin_vol_slider->Set_Range (0, 100);
 		cin_vol_slider->Set_Pos (static_cast<int>(cinematic_vol * 100), false);
-	}	
+	}
 
 	//
 	//	Check the stereo box if necessary
@@ -197,16 +197,16 @@ DlgConfigAudioTabClass::On_Init_Dialog (void)
 
 	//
 	//	Configure the comboboxes and list control
-	//	
+	//
 	Configure_Quality_Combobox ();
 	Configure_Rate_Combobox ();
 	Configure_Speaker_Combobox ();
 	Configure_Driver_List ();
-	
+
 	//
 	//	Update the enabled state of the volume sliders
 	//
-	Update_Slider_Enable_State ();	
+	Update_Slider_Enable_State ();
 	return ;
 }
 
@@ -230,7 +230,7 @@ DlgConfigAudioTabClass::Update_Slider_Enable_State (void)
 	Enable_Dlg_Item (IDC_SOUND_EFFECTS_SLIDER,	sound_enabled);
 	Enable_Dlg_Item (IDC_MUSIC_SLIDER,				music_enabled);
 	Enable_Dlg_Item (IDC_DIALOG_SLIDER,				dialog_enabled);
-	Enable_Dlg_Item (IDC_CINEMATIC_SLIDER,			cinematic_enabled);	
+	Enable_Dlg_Item (IDC_CINEMATIC_SLIDER,			cinematic_enabled);
 
 	//
 	//	Update the audio itself
@@ -248,7 +248,7 @@ DlgConfigAudioTabClass::Update_Slider_Enable_State (void)
 //	Configure_Rate_Combobox
 //
 //////////////////////////////////////////////////////////////////////
-void	
+void
 DlgConfigAudioTabClass::Configure_Rate_Combobox (void)
 {
 	ComboBoxCtrlClass *combo_box = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_RATE_COMBO);
@@ -289,7 +289,7 @@ DlgConfigAudioTabClass::Configure_Rate_Combobox (void)
 //	Configure_Speaker_Combobox
 //
 //////////////////////////////////////////////////////////////////////
-void	
+void
 DlgConfigAudioTabClass::Configure_Speaker_Combobox (void)
 {
 	ComboBoxCtrlClass *combo_box = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_SPEAKER_SETUP_COMBO);
@@ -338,7 +338,7 @@ DlgConfigAudioTabClass::Configure_Speaker_Combobox (void)
 //	Configure_Quality_Combobox
 //
 //////////////////////////////////////////////////////////////////////
-void	
+void
 DlgConfigAudioTabClass::Configure_Quality_Combobox (void)
 {
 	ComboBoxCtrlClass *combo_box = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_QUALITY_COMBO);
@@ -352,7 +352,7 @@ DlgConfigAudioTabClass::Configure_Quality_Combobox (void)
 	combo_box->Add_String (TRANSLATE (IDS_SND_8_BIT));
 	combo_box->Add_String (TRANSLATE (IDS_SND_16_BIT));
 
-	InitialBits = WWAudioClass::Get_Instance ()->Get_Playback_Bits ();	
+	InitialBits = WWAudioClass::Get_Instance ()->Get_Playback_Bits ();
 
 	//
 	//	Select the appropriate quality combobox entry
@@ -378,7 +378,7 @@ DlgConfigAudioTabClass::Configure_Quality_Combobox (void)
 //	On_Command
 //
 //////////////////////////////////////////////////////////////////////
-void	
+void
 DlgConfigAudioTabClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	switch (ctrl_id)
@@ -405,7 +405,7 @@ DlgConfigAudioTabClass::On_Command (int ctrl_id, int message_id, unsigned int pa
 //	Configure_Driver_List
 //
 //////////////////////////////////////////////////////////////////////
-void	
+void
 DlgConfigAudioTabClass::Configure_Driver_List (void)
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_DRIVER_LIST);
@@ -429,7 +429,7 @@ DlgConfigAudioTabClass::Configure_Driver_List (void)
 	bool selected_default = false;
 	int driver_count = WWAudioClass::Get_Instance ()->Get_3D_Device_Count ();
 	for (int index = 0; index < driver_count; index ++) {
-		
+
 		//
 		//	Get information about this sound driver
 		//
@@ -468,7 +468,7 @@ DlgConfigAudioTabClass::Configure_Driver_List (void)
 	//	Record the initial device index so we don't have
 	// to recreate the device if its not necessary
 	//
-	InitialDeviceIndex = list_ctrl->Get_Curr_Sel ();		
+	InitialDeviceIndex = list_ctrl->Get_Curr_Sel ();
 	return ;
 }
 
@@ -515,10 +515,10 @@ DlgConfigAudioTabClass::On_Apply (void)
 	music_on			= Is_Dlg_Button_Checked (IDC_MUSIC_CHECK);
 	dialog_on		= Is_Dlg_Button_Checked (IDC_DIALOG_CHECK);
 	cinematic_on	= Is_Dlg_Button_Checked (IDC_CINEMATIC_CHECK);
-	
+
 	//
 	//	Get the name of the selected device
-	//	
+	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_DRIVER_LIST);
 	int device_index = list_ctrl->Get_Curr_Sel ();
 	if (device_index >= 0) {
@@ -565,7 +565,7 @@ DlgConfigAudioTabClass::On_Apply (void)
 	//	Store these settings in the registry
 	//
 	WWAudioClass::Get_Instance ()->Save_To_Registry (APPLICATION_SUB_KEY_NAME_SOUND,
-												device_name, is_stereo, bits, hertz, sound_on,	
+												device_name, is_stereo, bits, hertz, sound_on,
 												music_on, dialog_on, cinematic_on, sound_vol, music_vol,
 												dialog_vol, cinematic_vol, speaker_type);
 
@@ -607,7 +607,7 @@ DlgConfigAudioTabClass::On_SliderCtrl_Pos_Changed
 )
 {
 	if (ctrl_id == IDC_SOUND_EFFECTS_SLIDER) {
-		
+
 		//
 		//	Update the sound effects volume...
 		//
@@ -619,7 +619,7 @@ DlgConfigAudioTabClass::On_SliderCtrl_Pos_Changed
 		//
 		if (	SoundVolumeTestSound != NULL &&
 				(SoundVolumeTestSound->Is_Playing () == false || ((DialogMgrClass::Get_Time () - SoundVolumeTestSoundStartTime) > 150)))
-		{			
+		{
 			SoundVolumeTestSound->Stop ();
 			SoundVolumeTestSound->Set_Loop_Count (0);
 			SoundVolumeTestSound->Play ();
@@ -650,7 +650,7 @@ DlgConfigAudioTabClass::On_SliderCtrl_Pos_Changed
 		//
 		MusicVolumeTestSoundStartTime = DialogMgrClass::Get_Time ();
 	} else if (ctrl_id == IDC_DIALOG_SLIDER) {
-		
+
 		//
 		//	Update the dialog volume...
 		//
@@ -671,7 +671,7 @@ DlgConfigAudioTabClass::On_SliderCtrl_Pos_Changed
 		}
 
 	} else if (ctrl_id == IDC_CINEMATIC_SLIDER) {
-		
+
 		//
 		//	Update the dialog volume...
 		//
@@ -733,8 +733,8 @@ DlgConfigAudioTabClass::On_Frame_Update (void)
 	if (CinematicVolumeTestSound != NULL && (curr_time - CinematicVolumeTestSoundStartTime) > 2000) {
 		CinematicVolumeTestSound->Set_Loop_Count (1);
 	}
-	
-	ChildDialogClass::On_Frame_Update ();	
+
+	ChildDialogClass::On_Frame_Update ();
 	return ;
 }
 
@@ -752,8 +752,8 @@ DlgConfigAudioTabClass::Set_Default_Volumes (void)
 	SliderCtrlClass *snd_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_SOUND_EFFECTS_SLIDER);
 	SliderCtrlClass *mus_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_MUSIC_SLIDER);
 	SliderCtrlClass *dia_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_DIALOG_SLIDER);
-	SliderCtrlClass *cin_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_CINEMATIC_SLIDER);	
-  
+	SliderCtrlClass *cin_vol_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_CINEMATIC_SLIDER);
+
 	// IML: Get the default settings from the audio system.
 	WWAudioClass::Get_Instance()->Load_Default_Volume (defaultmusicvolume, defaultsoundvolume, defaultdialogvolume, defaultcinematicvolume);
 
@@ -761,6 +761,6 @@ DlgConfigAudioTabClass::Set_Default_Volumes (void)
 	mus_vol_slider->Set_Pos (defaultmusicvolume);
 	dia_vol_slider->Set_Pos (defaultdialogvolume);
 	cin_vol_slider->Set_Pos (defaultcinematicvolume);
-	
+
 	return ;
 }

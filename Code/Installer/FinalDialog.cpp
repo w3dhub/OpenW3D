@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/FinalDialog.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/09/01 10:42p               $* 
- *                                                                                             * 
- *                    $Revision:: 5                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/FinalDialog.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/09/01 10:42p               $*
+ *                                                                                             *
+ *                    $Revision:: 5                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -52,7 +52,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void FinalDialogClass::On_Init_Dialog (void)
 {
@@ -78,9 +78,9 @@ void FinalDialogClass::On_Init_Dialog (void)
 
 	// Show the back button? If false this suggests that there is not a dialog to go back to.
 	if (!ShowBackButton) {
-		
+
 		ButtonCtrlClass *backbutton;
-		
+
 		backbutton = Get_Dlg_Item (IDC_BUTTON_BACK)->As_ButtonCtrlClass();
 		backbutton->Show (false);
 		backbutton->Enable (false);
@@ -110,7 +110,7 @@ void FinalDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void FinalDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
@@ -159,12 +159,12 @@ void FinalDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 
 			// Prevent recursion on this function by 'disabling' it.
 			_disabled = true;
-			
+
 			if (check1->Get_Check()) {
 				check2->Set_Check (false);
 				check3->Set_Check (false);
 			} else {
-			
+
 				// If it has just been unchecked then check it again - user must
 				// not be able to uncheck a control by clicking on it.
 				check1->Set_Check (true);

@@ -64,7 +64,7 @@ class PresetClass;
 class SoundNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ public:
 	//	RTTI
 	//
 	SoundNodeClass *As_SoundNodeClass (void)			{ return this; }
-	
+
 	//
 	// From NodeClass
 	//
@@ -110,7 +110,7 @@ public:
 	void			Remove_From_Scene (void);
 	void			Set_ID (uint32 id);
 	bool			Show_Settings_Dialog (void);
-	
+
 	bool			Is_Attenuation_Sphere_Shown (void)	{ return (Sphere != NULL); }
 	void			Show_Attenuation_Spheres (bool onoff);
 	float			Get_Attenuation_Radius (void);
@@ -164,7 +164,7 @@ SoundNodeClass::On_Rotate (void)
 	if (SoundObj != NULL) {
 		SoundObj->Set_Transform (m_Transform);
 	}
-	
+
 	if (Sphere != NULL) {
 		Sphere->Set_Transform (m_Transform);
 	}

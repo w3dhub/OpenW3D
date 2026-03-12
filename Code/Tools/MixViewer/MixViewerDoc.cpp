@@ -144,7 +144,7 @@ CMixViewerDoc::OnOpenDocument (LPCTSTR path)
 		CMixViewerView *view = (CMixViewerView *)GetNextView (pos);
 		view->Reload (path);
 	}
-		
+
 	return true;
 }
 
@@ -166,6 +166,6 @@ CMixViewerDoc::Reload_Views (void)
 		CMixViewerView *view = (CMixViewerView *)GetNextView (pos);
 		view->Reload (GetPathName ());
 	}
-	
+
 	return ;
 }

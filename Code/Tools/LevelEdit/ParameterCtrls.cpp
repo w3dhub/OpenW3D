@@ -153,7 +153,7 @@ Create_Static_Text_Controls
 								CWnd::FromHandle (parent_wnd));
 
 	left_text->SendMessage (WM_SETFONT, ::SendMessage (parent_wnd, WM_GETFONT, 0, 0L));
-	
+
 	//
 	//	Build a rectangle that represents the left over control area
 	//
@@ -161,11 +161,11 @@ Create_Static_Text_Controls
 	remaining_rect->right	= control_rect.right;
 	remaining_rect->top		= control_rect.top;
 	remaining_rect->bottom	= control_rect.top + ctrl_height;
-	
+
 	//
 	//	Do we need to create a 'units' control?
 	//
-	if (right_text != NULL) {		
+	if (right_text != NULL) {
 
 		//
 		//	Calculate the width of the units string
@@ -191,7 +191,7 @@ Create_Static_Text_Controls
 		remaining_rect->right	= text2_rect.left - SPACE_WIDTH;
 	}
 
-	return; 
+	return;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -214,13 +214,13 @@ Resize_Controls
 	CRect old_rect1;
 	CRect old_rect2;
 	CRect old_rect3;
-	left_wnd.GetWindowRect (&old_rect1);	
+	left_wnd.GetWindowRect (&old_rect1);
 	middle_wnd.GetWindowRect (&old_rect2);
 	right_wnd.GetWindowRect (&old_rect3);
 
 	HWND parent_wnd = ::GetParent (left_wnd);
 	::ScreenToClient (parent_wnd, (LPPOINT)&old_rect2);
-	::ScreenToClient (parent_wnd, ((LPPOINT)&old_rect2)+1);	
+	::ScreenToClient (parent_wnd, ((LPPOINT)&old_rect2)+1);
 	::ScreenToClient (parent_wnd, (LPPOINT)&old_rect3);
 	::ScreenToClient (parent_wnd, ((LPPOINT)&old_rect3)+1);
 
@@ -262,7 +262,7 @@ FileParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (m_Parameter->Get_Name (),
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -280,12 +280,12 @@ FileParameterCtrlClass::Create
 											picker_rect,
 											CWnd::FromHandle (parent_wnd),
 											id_start);
-	
+
 	m_FilePicker.SetWindowText (m_Parameter->Get_String ());
-	
+
 	CString filter_string;
 	filter_string.Format ("%s (*%s)|*%s|All Files (*.*)|*.*||", m_Parameter->Get_Description (), m_Parameter->Get_Extension (), m_Parameter->Get_Extension ());
-	m_FilePicker.Set_Filter_String (filter_string);	
+	m_FilePicker.Set_Filter_String (filter_string);
 
 	pos->bottom = picker_rect.bottom;
 
@@ -329,7 +329,7 @@ FileParameterCtrlClass::Is_Modified (void) const
 	bool retval = false;
 
 	if (m_Parameter != NULL) {
-		
+
 		//
 		//	Simply compare the current and original values
 		//
@@ -337,7 +337,7 @@ FileParameterCtrlClass::Is_Modified (void) const
 		Get_Current_Value (curr_value);
 		CString orig_value = m_Parameter->Get_String ();
 		retval = (orig_value.CompareNoCase (curr_value) != 0);
-	}	
+	}
 
 	return retval;
 }
@@ -409,7 +409,7 @@ StringsDBEntryParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (m_Parameter->Get_Name (),
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -427,10 +427,10 @@ StringsDBEntryParameterCtrlClass::Create
 												picker_rect,
 												CWnd::FromHandle (parent_wnd),
 												id_start);
-	
+
 	m_StringPicker.Set_Entry (m_Parameter->Get_Value ());
 	m_StringPicker.Set_Read_Only (true);
-	
+
 	pos->bottom = picker_rect.bottom;
 
 	if (m_IsReadOnly) {
@@ -528,7 +528,7 @@ StringParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (m_Parameter->Get_Name (),
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -547,7 +547,7 @@ StringParameterCtrlClass::Create
 								CWnd::FromHandle (parent_wnd),
 								id_start ++);
 	m_EditCtrl.SendMessage (WM_SETFONT, ::SendMessage (parent_wnd, WM_GETFONT, 0, 0L));
-	m_EditCtrl.ModifyStyleEx (0, WS_EX_CLIENTEDGE, 0);	
+	m_EditCtrl.ModifyStyleEx (0, WS_EX_CLIENTEDGE, 0);
 	m_EditCtrl.SetWindowText (m_Parameter->Get_String ());
 
 	pos->bottom = edit_rect.bottom;
@@ -588,7 +588,7 @@ StringParameterCtrlClass::Resize (const CRect &rect)
 void
 StringParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 {
-	CString text;	
+	CString text;
 	m_EditCtrl.GetWindowText (text);
 	m_Parameter->Set_String ((LPCTSTR)text);
 	return ;
@@ -651,7 +651,7 @@ IntParameterCtrlClass::Create
 	m_SpinCtrl.SendMessage (WM_SETFONT, ::SendMessage (parent_wnd, WM_GETFONT, 0, 0L));
 
 	m_SpinCtrl.SetRange32 (m_Parameter->Get_Min (), m_Parameter->Get_Max ());
-	
+
 	CString text;
 	text.Format ("%d", m_Parameter->Get_Value ());
 	m_EditCtrl.SetWindowText (text);
@@ -661,7 +661,7 @@ IntParameterCtrlClass::Create
 		m_SpinCtrl.EnableWindow (false);
 	}
 
-	pos->bottom = edit_rect.bottom;	
+	pos->bottom = edit_rect.bottom;
 	return id_start;
 }
 
@@ -740,7 +740,7 @@ FloatParameterCtrlClass::Create
 									id_start++,
 									id_start ++);
 
-	
+
 	::SetWindowFloat (m_EditCtrl, m_Parameter->Get_Value ());
 	m_SpinCtrl.SetRange32 (m_Parameter->Get_Min () * 100, m_Parameter->Get_Max () * 100);
 
@@ -749,7 +749,7 @@ FloatParameterCtrlClass::Create
 		m_SpinCtrl.EnableWindow (false);
 	}
 
-	pos->bottom = edit_rect.bottom;	
+	pos->bottom = edit_rect.bottom;
 	return id_start;
 }
 
@@ -826,12 +826,12 @@ AngleParameterCtrlClass::Create
 									edit_rect,
 									id_start++,
 									id_start ++);
-	
+
 	//
 	//	Set the initial value of the control
 	//
 	::SetWindowFloat (m_EditCtrl, RAD_TO_DEG (m_Parameter->Get_Value ()));
-	
+
 	//
 	//	Set the ranges on the spinner
 	//
@@ -847,7 +847,7 @@ AngleParameterCtrlClass::Create
 		m_SpinCtrl.EnableWindow (false);
 	}
 
-	pos->bottom = edit_rect.bottom;	
+	pos->bottom = edit_rect.bottom;
 	return id_start;
 }
 
@@ -922,7 +922,7 @@ BoolParameterCtrlClass::Create
 		m_CheckBoxCtrl.EnableWindow (false);
 	}
 
-	pos->bottom = check_rect.bottom;	
+	pos->bottom = check_rect.bottom;
 	return id_start;
 }
 
@@ -985,7 +985,7 @@ Vector3ParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_GroupBox.Create (	m_Parameter->Get_Name (),
 								WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_GROUPBOX,
 								group_rect,
@@ -1035,7 +1035,7 @@ Vector3ParameterCtrlClass::Create
 		m_SpinCtrls[2].EnableWindow (false);
 	}
 
-	pos->bottom = group_rect.bottom;	
+	pos->bottom = group_rect.bottom;
 	return id_start;
 }
 
@@ -1072,16 +1072,16 @@ Vector3ParameterCtrlClass::Resize (const CRect &rect)
 	m_EditCtrls[0].GetWindowRect (&edit_rect);
 	::ScreenToClient (parent_wnd, (LPPOINT)&edit_rect);
 	::ScreenToClient (parent_wnd, ((LPPOINT)&edit_rect)+1);
-	
+
 	int width = (group_rect.Width () - (BORDER_WIDTH * 2) - (text_size.cx * 3)) / 3;
 	edit_rect.left		= group_rect.left + BORDER_WIDTH;
 	edit_rect.right	= edit_rect.left + text_size.cx + width;
 
 	for (int index = 0; index < 3; index ++) {
-		
+
 		int y = edit_rect.top + (edit_rect.Height () >> 1) - (text_size.cy >> 1);
 		m_TextCtrls[index].SetWindowPos (NULL, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
-		
+
 		edit_rect.left	+= text_size.cx;
 		m_EditCtrls[index].SetWindowPos (NULL, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
 		m_SpinCtrls[index].SetBuddy (&m_EditCtrls[index]);
@@ -1089,7 +1089,7 @@ Vector3ParameterCtrlClass::Resize (const CRect &rect)
 		edit_rect.left		+= width;
 		edit_rect.right	+= (text_size.cx + width);
 	}
-	
+
 	return ;
 }
 
@@ -1106,7 +1106,7 @@ Vector3ParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 	value.X	= ::GetWindowFloat (m_EditCtrls[0], true);
 	value.Y	= ::GetWindowFloat (m_EditCtrls[1], true);
 	value.Z	= ::GetWindowFloat (m_EditCtrls[2], true);
-	
+
 	m_Parameter->Set_Value (value);
 	return ;
 }
@@ -1140,7 +1140,7 @@ Vector2ParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_GroupBox.Create (	m_Parameter->Get_Name (),
 								WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_GROUPBOX,
 								group_rect,
@@ -1185,7 +1185,7 @@ Vector2ParameterCtrlClass::Create
 		m_SpinCtrls[1].EnableWindow (false);
 	}
 
-	pos->bottom = group_rect.bottom;	
+	pos->bottom = group_rect.bottom;
 	return id_start;
 }
 
@@ -1222,16 +1222,16 @@ Vector2ParameterCtrlClass::Resize (const CRect &rect)
 	m_EditCtrls[0].GetWindowRect (&edit_rect);
 	::ScreenToClient (parent_wnd, (LPPOINT)&edit_rect);
 	::ScreenToClient (parent_wnd, ((LPPOINT)&edit_rect)+1);
-	
+
 	int width = (group_rect.Width () - (BORDER_WIDTH * 3) - (text_size.cx * 2)) / 2;
 	edit_rect.left		= group_rect.left + BORDER_WIDTH;
 	edit_rect.right	= edit_rect.left + text_size.cx + width;
 
 	for (int index = 0; index < 2; index ++) {
-		
+
 		int y = edit_rect.top + (edit_rect.Height () >> 1) - (text_size.cy >> 1);
 		m_TextCtrls[index].SetWindowPos (NULL, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
-		
+
 		edit_rect.left	+= text_size.cx;
 		m_EditCtrls[index].SetWindowPos (NULL, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
 		m_SpinCtrls[index].SetBuddy (&m_EditCtrls[index]);
@@ -1239,7 +1239,7 @@ Vector2ParameterCtrlClass::Resize (const CRect &rect)
 		edit_rect.left		+= width;
 		edit_rect.right	+= (text_size.cx + width);
 	}
-	
+
 	return ;
 }
 
@@ -1255,7 +1255,7 @@ Vector2ParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 	Vector2 value;
 	value.X	= ::GetWindowFloat (m_EditCtrls[0], true);
 	value.Y	= ::GetWindowFloat (m_EditCtrls[1], true);
-	
+
 	m_Parameter->Set_Value (value);
 	return ;
 }
@@ -1294,7 +1294,7 @@ RectParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_GroupBox.Create (	m_Parameter->Get_Name (),
 								WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_GROUPBOX,
 								group_rect,
@@ -1349,7 +1349,7 @@ RectParameterCtrlClass::Create
 		m_SpinCtrls[3].EnableWindow (false);
 	}
 
-	pos->bottom = group_rect.bottom;	
+	pos->bottom = group_rect.bottom;
 	return id_start;
 }
 
@@ -1386,16 +1386,16 @@ RectParameterCtrlClass::Resize (const CRect &rect)
 	m_EditCtrls[0].GetWindowRect (&edit_rect);
 	::ScreenToClient (parent_wnd, (LPPOINT)&edit_rect);
 	::ScreenToClient (parent_wnd, ((LPPOINT)&edit_rect)+1);
-	
+
 	int width = (group_rect.Width () - (BORDER_WIDTH * 5) - (text_size.cx * 4)) / 4;
 	edit_rect.left		= group_rect.left + BORDER_WIDTH;
 	edit_rect.right	= edit_rect.left + text_size.cx + width;
 
 	for (int index = 0; index < 4; index ++) {
-		
+
 		int y = edit_rect.top + (edit_rect.Height () >> 1) - (text_size.cy >> 1);
 		m_TextCtrls[index].SetWindowPos (NULL, edit_rect.left, y, text_size.cx, text_size.cy, SWP_NOZORDER);
-		
+
 		edit_rect.left	+= text_size.cx;
 		m_EditCtrls[index].SetWindowPos (NULL, edit_rect.left, edit_rect.top, edit_rect.Width (), edit_rect.Height (), SWP_NOZORDER);
 		m_SpinCtrls[index].SetBuddy (&m_EditCtrls[index]);
@@ -1403,7 +1403,7 @@ RectParameterCtrlClass::Resize (const CRect &rect)
 		edit_rect.left		+= width + BORDER_WIDTH;
 		edit_rect.right	+= (text_size.cx + width) + BORDER_WIDTH;
 	}
-	
+
 	return ;
 }
 
@@ -1421,7 +1421,7 @@ RectParameterCtrlClass::Read_Data (HWND /*parent_wnd*/)
 	value.Top		= ::GetWindowFloat (m_EditCtrls[1], true);
 	value.Right		= ::GetWindowFloat (m_EditCtrls[2], true);
 	value.Bottom	= ::GetWindowFloat (m_EditCtrls[3], true);
-	
+
 	m_Parameter->Set_Value (value);
 	return ;
 }
@@ -1466,7 +1466,7 @@ Create_Float_Ctrls
 	//
 	//	Set the float control ranges
 	//
-	spin_ctrl.SetRange32 (-1000000, 1000000);	
+	spin_ctrl.SetRange32 (-1000000, 1000000);
 	return ;
 }
 
@@ -1508,7 +1508,7 @@ EnumParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (param_name,
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -1552,7 +1552,7 @@ EnumParameterCtrlClass::Create
 		m_ComboBox.EnableWindow (false);
 	}
 
-	pos->bottom = combo_rect.top + combo_height;	
+	pos->bottom = combo_rect.top + combo_height;
 	return id_start;
 }
 
@@ -1621,7 +1621,7 @@ ColorParameterCtrlClass::Create
 	//
 	CSize text_size;
 	Get_String_Size (parent_wnd, param_name, &text_size);
-	
+
 	int button_height = ::Get_Ctrl_Height (parent_wnd, CTRL_HEIGHT);
 	CRect text_rect	= *pos;
 	text_rect.right	= text_rect.left + text_size.cx + 2;
@@ -1630,7 +1630,7 @@ ColorParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (param_name,
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -1659,7 +1659,7 @@ ColorParameterCtrlClass::Create
 		m_Button.EnableWindow (false);
 	}
 
-	pos->bottom = button_rect.bottom;	
+	pos->bottom = button_rect.bottom;
 	return id_start;
 }
 
@@ -1720,12 +1720,12 @@ ColorParameterCtrlClass::On_Command
 		int red		= color.X * 255;
 		int green	= color.Y * 255;
 		int blue		= color.Z * 255;
-				
+
 		//
 		//	Show the color picker to the user
 		//
 		if (::Show_Color_Picker (&red, &green, &blue)) {
-			
+
 			//
 			//	Store the new color
 			//
@@ -1733,7 +1733,7 @@ ColorParameterCtrlClass::On_Command
 			color.Y = ((float)green) / 255.0F;
 			color.Z = ((float)blue) / 255.0F;
 			m_Parameter->Set_Value (color);
-			
+
 			::InvalidateRect (::GetDlgItem (parent_wnd, m_ButtonID), NULL, true);
 			::UpdateWindow (::GetDlgItem (parent_wnd, m_ButtonID));
 		}
@@ -1759,13 +1759,13 @@ ColorParameterCtrlClass::On_DrawItem
 )
 {
 	bool retval = false;
-	
+
 	//
 	//	Is this the right control?
 	//
 	if ((int)wparam == m_ButtonID) {
 		LPDRAWITEMSTRUCT drawitem_info = (LPDRAWITEMSTRUCT)lparam;
-		
+
 		// Determine what color to paint the button
 		Vector3 color = m_Parameter->Get_Value ();
 
@@ -1784,12 +1784,12 @@ ColorParameterCtrlClass::On_DrawItem
 		temp_dc.Attach (drawitem_info->hDC);
 		temp_dc.FillSolidRect (&rect, RGB (int(color.X * 255), int(color.Y * 255), int(color.Z * 255)));
 		temp_dc.Detach ();
-		
+
 		// Draw the focus rectangle if necessary
 		if (drawitem_info->itemState & ODS_FOCUS) {
 			::DrawFocusRect (drawitem_info->hDC, &rect);
 		}
-				
+
 		retval = true;
 	}
 
@@ -1824,7 +1824,7 @@ PhysDefParameterCtrlClass::Create
 	//
 	CSize text_size;
 	Get_String_Size (parent_wnd, param_name, &text_size);
-	
+
 	int button_height = ::Get_Ctrl_Height (parent_wnd, CTRL_HEIGHT);
 	CRect text_rect	= *pos;
 	text_rect.right	= text_rect.left + text_size.cx + 2;
@@ -1833,7 +1833,7 @@ PhysDefParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (param_name,
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -1862,7 +1862,7 @@ PhysDefParameterCtrlClass::Create
 		m_Button.EnableWindow (false);
 	}
 
-	pos->bottom = button_rect.bottom;	
+	pos->bottom = button_rect.bottom;
 	return id_start;
 }
 
@@ -1931,7 +1931,7 @@ PhysDefParameterCtrlClass::On_Command
 		if (dialog.DoModal () == IDOK) {
 			m_Parameter->Set_Value (dialog.Get_Definition_ID ());
 		}
-				
+
 		retval = true;
 	}
 
@@ -1966,7 +1966,7 @@ DefParameterCtrlClass::Create
 	//
 	CSize text_size;
 	Get_String_Size (parent_wnd, param_name, &text_size);
-	
+
 	int picker_height = ::Get_Ctrl_Height (parent_wnd, CTRL_HEIGHT) + 4;
 	CRect text_rect	= *pos;
 	text_rect.right	= text_rect.left + text_size.cx + 2;
@@ -1975,7 +1975,7 @@ DefParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (param_name,
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -1997,20 +1997,20 @@ DefParameterCtrlClass::Create
 												picker_rect,
 												CWnd::FromHandle (parent_wnd),
 												id_start);
-	
+
 	//
 	//	Pass the current preset onto the control
 	//
 	PresetClass *preset = PresetMgrClass::Find_Preset (m_Parameter->Get_Value ());
 	m_PresetPicker.Set_Preset (preset);
 	m_PresetPicker.Set_Read_Only (true);
-	m_PresetPicker.Set_Class_ID (Get_Def_Class_ID ());	
+	m_PresetPicker.Set_Class_ID (Get_Def_Class_ID ());
 	m_PresetPicker.Set_Icon_Index (Get_Def_Icon ());
-	
+
 	//
 	//	Make the controls read-only (if necessary)
 	//
-	if (m_IsReadOnly) {		
+	if (m_IsReadOnly) {
 		m_PresetPicker.EnableWindow (false);
 	}
 
@@ -2096,7 +2096,7 @@ ScriptParameterCtrlClass::Create
 	//
 	CSize text_size;
 	Get_String_Size (parent_wnd, param_name, &text_size);
-	
+
 	int button_height = ::Get_Ctrl_Height (parent_wnd, CTRL_HEIGHT);
 	CRect text_rect	= *pos;
 	text_rect.right	= text_rect.left + text_size.cx + 32;
@@ -2105,7 +2105,7 @@ ScriptParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_CheckBoxCtrl.Create (	param_name,
 									WS_CHILD | WS_TABSTOP | WS_VISIBLE | BS_AUTOCHECKBOX,
 									text_rect,
@@ -2207,7 +2207,7 @@ ScriptParameterCtrlClass::On_Command
 		//	Setup the dialog's parameters
 		//
 		ScriptEditDialogClass dialog (CWnd::FromHandle (parent_wnd));
-		
+
 		//
 		//	Initialize the dialog with the current script settings
 		//
@@ -2216,13 +2216,13 @@ ScriptParameterCtrlClass::On_Command
 			EditScriptClass temp_script = *template_script;
 			temp_script.Set_Composite_Values (m_Parameter->Get_Params ());
 			dialog.Set_Script (temp_script);
-		}		
+		}
 
 		//
 		//	Show the dialog
 		//
 		if (dialog.DoModal () == IDOK) {
-			
+
 			//
 			//	Record the settings
 			//
@@ -2240,9 +2240,9 @@ ScriptParameterCtrlClass::On_Command
 			//
 			//	Update the window
 			//
-			m_CheckBoxCtrl.SetCheck (::lstrlen (m_Parameter->Get_Script_Name ()) > 0);			
+			m_CheckBoxCtrl.SetCheck (::lstrlen (m_Parameter->Get_Script_Name ()) > 0);
 		}
-				
+
 		retval = true;
 	} else if (	LOWORD (wparam) == ::GetWindowLong (m_CheckBoxCtrl, GWL_ID) &&
 					HIWORD (wparam) == BN_CLICKED)
@@ -2282,7 +2282,7 @@ DefIDListParameterCtrlClass::Create
 	//
 	CSize text_size;
 	Get_String_Size (parent_wnd, param_name, &text_size);
-	
+
 	int button_height = ::Get_Ctrl_Height (parent_wnd, CTRL_HEIGHT);
 	CRect text_rect	= *pos;
 	text_rect.right	= text_rect.left + text_size.cx + 32;
@@ -2291,7 +2291,7 @@ DefIDListParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (param_name,
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -2316,7 +2316,7 @@ DefIDListParameterCtrlClass::Create
 							m_ButtonID);
 	m_Button.SendMessage (WM_SETFONT, ::SendMessage (parent_wnd, WM_GETFONT, 0, 0L));
 
-	pos->bottom = button_rect.bottom;		
+	pos->bottom = button_rect.bottom;
 
 	if (m_IsReadOnly) {
 		m_StaticText.EnableWindow (false);
@@ -2380,7 +2380,7 @@ DefIDListParameterCtrlClass::On_Command
 		//	Setup the dialog's parameters
 		//
 		PresetListDialogClass dialog (CWnd::FromHandle (parent_wnd));
-		
+
 		//
 		//	What class-id should we let the user pick from?
 		//
@@ -2444,7 +2444,7 @@ ZoneParameterCtrlClass::Create
 	//
 	CSize text_size;
 	Get_String_Size (parent_wnd, param_name, &text_size);
-	
+
 	int button_height = ::Get_Ctrl_Height (parent_wnd, CTRL_HEIGHT);
 	CRect text_rect	= *pos;
 	text_rect.right	= text_rect.left + text_size.cx + 32;
@@ -2453,7 +2453,7 @@ ZoneParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (param_name,
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -2478,7 +2478,7 @@ ZoneParameterCtrlClass::Create
 							m_ButtonID);
 	m_Button.SendMessage (WM_SETFONT, ::SendMessage (parent_wnd, WM_GETFONT, 0, 0L));
 
-	pos->bottom = button_rect.bottom;		
+	pos->bottom = button_rect.bottom;
 
 	if (m_IsReadOnly) {
 		m_StaticText.EnableWindow (false);
@@ -2565,7 +2565,7 @@ FilenameListParameterCtrlClass::Create
 	//
 	CSize text_size;
 	Get_String_Size (parent_wnd, param_name, &text_size);
-	
+
 	int button_height = ::Get_Ctrl_Height (parent_wnd, CTRL_HEIGHT);
 	CRect text_rect	= *pos;
 	text_rect.right	= text_rect.left + text_size.cx + 32;
@@ -2574,7 +2574,7 @@ FilenameListParameterCtrlClass::Create
 
 	//
 	//	Create the static text control
-	//	
+	//
 	m_StaticText.Create (param_name,
 								WS_CHILD | WS_VISIBLE | SS_LEFT,
 								text_rect,
@@ -2599,7 +2599,7 @@ FilenameListParameterCtrlClass::Create
 							m_ButtonID);
 	m_Button.SendMessage (WM_SETFONT, ::SendMessage (parent_wnd, WM_GETFONT, 0, 0L));
 
-	pos->bottom = button_rect.bottom;		
+	pos->bottom = button_rect.bottom;
 
 	if (m_IsReadOnly) {
 		m_StaticText.EnableWindow (false);
@@ -2662,7 +2662,7 @@ FilenameListParameterCtrlClass::On_Command
 		//
 		//	Setup the dialog's parameters
 		//
-		EditFilenameListDialogClass dialog (CWnd::FromHandle (parent_wnd));		
+		EditFilenameListDialogClass dialog (CWnd::FromHandle (parent_wnd));
 		DynamicVectorClass<StringClass> &filename_list = m_Parameter->Get_List ();
 		dialog.Set_List (filename_list);
 
@@ -2756,7 +2756,7 @@ void
 SeparatorParameterCtrlClass::Resize (const CRect &rect)
 {
 	CRect old_rect;
-	
+
 	m_FrameCtrl.GetWindowRect (&old_rect);
 	m_FrameCtrl.SetWindowPos (NULL, 0, 0, rect.Width (), old_rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 

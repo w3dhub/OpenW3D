@@ -24,13 +24,13 @@
  *                                                                                             *
  *                     $Archive:: /Commando/Code/Tools/W3DShellExt/External/matrix4.cpp       $*
  *                                                                                             *
- *                   Programmer : Kenny Mitchell															  * 
- *																															  * 
- *                   Start Date : 11/16/99																	  * 
- *																															  * 
- *                  Last Update : 11/16/99																	  * 
- *																															  * 
- *---------------------------------------------------------------------------------------------* 
+ *                   Programmer : Kenny Mitchell															  *
+ *																															  *
+ *                   Start Date : 11/16/99																	  *
+ *																															  *
+ *                  Last Update : 11/16/99																	  *
+ *																															  *
+ *---------------------------------------------------------------------------------------------*
  * Based on Greg Hjelstrom 97 																					  *
  * Functions:                                                                                  *
  *   Matrix4::Multiply -- Multiply two Matrix4's together                                      *
@@ -146,7 +146,7 @@ void Matrix4::Multiply(const Matrix3D &a,const Matrix4 &b,Matrix4 * res)
 void Matrix4::Multiply(const Matrix4 & a,const Matrix3D & b,Matrix4 * res)
 {
 	assert(res != &a);
-	
+
 	// ROWCOL multiplies a row of 'a' by one of the first three columns of 'b' (4th entry in b is zero)
 	// ROWCOL4 multiplies a row of 'a' by the fourth column of 'b' (4th entry in b is one)
 
@@ -181,7 +181,7 @@ void Matrix4::Multiply(const Matrix4 & a,const Matrix3D & b,Matrix4 * res)
  * Set_Perspective -- Sets perspective matrix                                                 *
 // Desc: Sets the passed in 4x4 matrix to a perpsective projection matrix built
 //       from the field-of-view (fov, in y), aspect ratio, near plane (D),
-//       and far plane (F). 
+//       and far plane (F).
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   11/16/99  KJM: Created.                                                                   *
@@ -190,9 +190,9 @@ void Matrix4::Set_Perspective
 (
 	Matrix4* m,
 	float fFOV,
-	float ScreenWidth, 
+	float ScreenWidth,
 	float ScreenHeight,
-	float fNearPlane, 
+	float fNearPlane,
 	float fFarPlane
 )
 {
@@ -208,7 +208,7 @@ void Matrix4::Set_Perspective
 	//printf("sincos %f %f\n",c,s);
 	Q=0.000244140625f; // 1/4096
 
-	w =  (ScreenWidth*Q); 
+	w =  (ScreenWidth*Q);
 	h =  (ScreenHeight*Q);
 
 	Q = s/(1.0f - (fNearPlane/fFarPlane));
@@ -227,8 +227,8 @@ void Matrix4::Set_Perspective
 void Matrix4::Set_View_Matrix
 (
 	Matrix4* m,
-	Vector3& vFrom, 
-	Vector3& vAt, 
+	Vector3& vFrom,
+	Vector3& vAt,
 	Vector3& vWorldUp
 )
 {
@@ -278,7 +278,7 @@ void Matrix4::Set_View_Matrix
 
 
 void Matrix4::Print_Matrix() const
-{	
+{
 	printf("%f %f %f %f\n",Row[0][0],Row[0][1],Row[0][2],Row[0][3]);
 	printf("%f %f %f %f\n",Row[1][0],Row[1][1],Row[1][2],Row[1][3]);
 	printf("%f %f %f %f\n",Row[2][0],Row[2][1],Row[2][2],Row[2][3]);

@@ -69,8 +69,8 @@ public:
 	*/
 	int						Get_Total_Operation_Count(void)				{ return TotalOps; }
 	int						Get_Completed_Operation_Count(void)			{ return CompletedOps; }
-	
-	int						Get_Initial_Bit_Count(void)					{ return InitialBitCount; }	
+
+	int						Get_Initial_Bit_Count(void)					{ return InitialBitCount; }
 	int						Get_Final_Bit_Count(void)						{ return FinalBitCount; }
 	int						Get_Initial_Sector_Count(void)				{ return InitialSectorCount; }
 	int						Get_Final_Sector_Count(void)					{ return FinalSectorCount; }

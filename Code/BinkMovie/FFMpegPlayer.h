@@ -55,7 +55,7 @@ private:
 	std::vector<TextureInfoStruct> TextureInfos;
 	Render2DClass Renderer;
 	std::unique_ptr<SubTitleManagerClass> SubTitleManager;
-	
+
 	void On_Frame(AVFrame *frame, int stream_idx, int stream_type);
 
 	static void On_Frame(AVFrame *frame, int stream_idx, int stream_type, void *user_data)

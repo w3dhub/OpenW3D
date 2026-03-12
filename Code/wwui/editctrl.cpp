@@ -70,15 +70,15 @@ EditCtrlClass::EditCtrlClass (void)	:
 #ifdef SHOW_IME_TYPING
 	, mShowIMETypingText(false)
 #endif
-{	
+{
 	//
 	//	Set the font for the text renderers
 	//
 	StyleMgrClass::Assign_Font (&TextRenderer, StyleMgrClass::FONT_CONTROLS);
 	StyleMgrClass::Configure_Renderer (&ControlRenderer);
-	
+
 	StyleMgrClass::Configure_Renderer (&CaretRenderer);
-	StyleMgrClass::Configure_Renderer (&HilightRenderer);	
+	StyleMgrClass::Configure_Renderer (&HilightRenderer);
 
 	mIME = DialogMgrClass::Get_IME();
 }
@@ -108,7 +108,7 @@ void
 EditCtrlClass::Create_Text_Renderers (void)
 {
 	HilightRenderer.Reset ();
-	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());		
+	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());
 	StyleMgrClass::Configure_Hilighter (&HilightRenderer);
 
 	//
@@ -383,7 +383,7 @@ EditCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 	Set_Capture ();
 
 	if (HasFocus) {
-		
+
 		//
 		//	Update the caret position
 		//
@@ -398,7 +398,7 @@ EditCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 		Set_Dirty ();
 		WasButtonPressedOnMe = true;
 	}
-	
+
 	return ;
 }
 
@@ -553,7 +553,7 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 	//
 	//	Index into the buffer
 	//
-	const unichar_t *text		= display_text.Peek_Buffer () + ScrollPos;	
+	const unichar_t *text		= display_text.Peek_Buffer () + ScrollPos;
 	int char_index			= static_cast<int>(display_text.Get_Length ());
 
 	float x_pos				= mouse_pos.X - ClientRect.Left;
@@ -563,15 +563,15 @@ EditCtrlClass::Character_From_Pos (const Vector2 &mouse_pos)
 	//	Loop over all the characters in the remainder of the string until
 	// we've moved past the x-position we we're looking for.
 	//
-	int count = static_cast<int>(::u_strlen (text));	
+	int count = static_cast<int>(::u_strlen (text));
 	for (int index = 0; index < count; index ++) {
-		
+
 		//
 		//	Get the width of the character
 		//
 		unichar_t char_string[2] = { text[index], 0 };
 		float char_width = TextRenderer.Get_Text_Extents (char_string).X;
-		
+
 		//
 		//	Did we move past the position we were looking for?
 		//
@@ -694,7 +694,7 @@ EditCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 //	On_Key_Down
 //
 ////////////////////////////////////////////////////////////////
-bool 
+bool
 EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 {
 	bool handled = false;
@@ -726,7 +726,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 			if (HilightStartPos >= 0) {
 				changed = Delete_Selection ();
 			} else if (CaretPos > 0) {
-				
+
 				//
 				//	Delete the previous character
 				//
@@ -735,7 +735,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 
 				assert(NumChars > 0);
 				NumChars--;
-				
+
 				changed = true;
 			}
 			update_hilight = false;
@@ -745,20 +745,20 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 			if (HilightStartPos >= 0) {
 				changed = Delete_Selection ();
 			} else if (CaretPos < Title.Get_Length ()) {
-				
+
 				//
 				//	Delete the next character
 				//
 				Title.Erase (CaretPos, 1);
 				assert(NumChars > 0);
 				NumChars--;
-				
+
 				changed = true;
 			}
 			update_hilight = false;
 			break;
 
-		case VK_HOME:			
+		case VK_HOME:
 			Set_Caret_Pos (0);
 			break;
 
@@ -779,7 +779,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 			break;
 
 		case VK_RIGHT:
-			
+
 			//
 			//	Should snap the caret to words, or just increment it?
 			//
@@ -821,7 +821,7 @@ EditCtrlClass::On_Key_Down (uint32 key_id, uint32 key_data)
 		Update_Hilight (CaretPos, old_caret);
 
 	} else if (handled) {
-		
+
 		//
 		//	Reset the hilight position
 		//
@@ -859,7 +859,7 @@ void EditCtrlClass::On_Unicode_Char(unichar_t unicode)
 			new_title += unicode;
 			new_title += Title.Peek_Buffer () + CaretPos;
 			Title = new_title;
-		
+
 			//	Move the caret to the end of the text the user just typed
 			Set_Caret_Pos (CaretPos + 1);
 
@@ -868,7 +868,7 @@ void EditCtrlClass::On_Unicode_Char(unichar_t unicode)
 			//
 			HilightStartPos	= -1;
 			HilightAnchorPos	= -1;
-		
+
 			ADVISE_NOTIFY(On_EditCtrl_Change(this, Get_ID()));
 
 			//	Force a repaint
@@ -965,7 +965,7 @@ void
 EditCtrlClass::On_Create (void)
 {
 	//TextColor.Set (0.35F, 1.0F, 0.35F);
-	//Set_Text (U_CHAR("This is a test..."));	
+	//Set_Text (U_CHAR("This is a test..."));
 	return ;
 }
 
@@ -981,8 +981,8 @@ EditCtrlClass::Set_Caret_Pos (int new_pos)
 	//
 	//	Remove the hilight
 	//
-	HilightStartPos = -1;	
-	
+	HilightStartPos = -1;
+
 	//
 	//	Did the caret position change?
 	//
@@ -999,7 +999,7 @@ EditCtrlClass::Set_Caret_Pos (int new_pos)
 		//	Handle scrolling
 		//
 		Update_Scroll_Pos ();
-		
+
 		//
 		//	Force a repaint
 		//
@@ -1033,22 +1033,22 @@ EditCtrlClass::Update_Hilight (int new_pos, int anchor_pos)
 int
 EditCtrlClass::Find_Word_Start (int pos, int increment)
 {
-	int count = Title.Get_Length ();	
+	int count = Title.Get_Length ();
 
 	//
 	//	Determine what the extreme end posiiton should be
 	//
 	int extreme	= pos + increment * 1000;
-	int retval	= 0;	
+	int retval	= 0;
 	if (extreme > count) {
 		retval = count;
 	}
-	
+
 	//
 	//	Loop over all the  characters until we've found the word break
-	//	
+	//
 	for (int index = pos + increment; index < count && index >= 0; index += increment) {
-		
+
 		//
 		//	Is this a space character?
 		//
@@ -1060,8 +1060,8 @@ EditCtrlClass::Find_Word_Start (int pos, int increment)
 		//
 		if (!is_space && ((index == 0) || (Title[index - 1] == U_CHAR(' ')))) {
 			retval = index;
-			break;			
-		}		
+			break;
+		}
 	}
 
 	return retval;
@@ -1111,12 +1111,12 @@ EditCtrlClass::Update_Scroll_Pos (void)
 				ScrollPos = index + 2;
 				break;
 			}
-		} 
+		}
 	}
-	
+
 	//
 	//	Adjust the scroll range to stay within our boundaries
-	//	
+	//
 	ScrollPos = std::min (ScrollPos, Title.Get_Length () - 1);
 	ScrollPos = std::max (ScrollPos, 0);
 

@@ -195,11 +195,11 @@ CLevelEditDoc::Initialize_VSS (void)
 
 	// Were we successful in logging on with the username?
 	if (blogon_success == false) {
-		
+
 		// Attempt to logon with read-only access
 		blogon_success = m_pFileMgr->Initialize_VSS (database_path);
 		if (!blogon_success) {
-		
+
 			// If we were unsuccessful, let the user know
 			::Message_Box (NULL,
 								IDS_NOVSS_MSG,
@@ -210,7 +210,7 @@ CLevelEditDoc::Initialize_VSS (void)
 		// Ensure or is VSS interface read-only
 		m_pFileMgr->Set_Read_Only_VSS (true);
 	}
-	
+
 	if (m_pFileMgr->Is_VSS_Read_Only ()) {
 
 		// Let the user know they are in read-only mode
@@ -223,12 +223,12 @@ CLevelEditDoc::Initialize_VSS (void)
 	// If at some point we were successful, then cache the database
 	// path in the registry and return success
 	if (blogon_success) {
-		theApp.WriteProfileString (CONFIG_KEY, VSSDB_VALUE, database_path);	
+		theApp.WriteProfileString (CONFIG_KEY, VSSDB_VALUE, database_path);
 		retval = true;
-	}		
+	}
 
 #endif //PUBLIC_EDITOR_VER
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -239,7 +239,7 @@ CLevelEditDoc::Initialize_VSS (void)
 //  Change_Base_Path
 //
 bool
-CLevelEditDoc::Change_Base_Path (void)	
+CLevelEditDoc::Change_Base_Path (void)
 {
 	// Assume failure
 	bool retval = false;
@@ -250,7 +250,7 @@ CLevelEditDoc::Change_Base_Path (void)
 									 NULL,
 									 NULL,
 									 "Please select a location to keep your models.  A subdir named Assets will be created automatically.")) {
-		
+
 		// Concat the Assets subdir onto the path
 		if (base_path[::lstrlen (base_path)-1] != '\\') {
 			base_path += "\\";
@@ -274,13 +274,13 @@ CLevelEditDoc::Change_Base_Path (void)
 ///////////////////////////////////////////////////////////////
 void
 CLevelEditDoc::Update_Core_Files (void)
-{	
+{
 	// Ensure that VSS is initialized
 	if (Initialize_VSS ()) {
-		
+
 		// Do we already have a base path?
 		if (::lstrlen (m_pFileMgr->Get_Base_Path ()) == 0) {
-								
+
 			// Ask the user for a base path
 			if (!Change_Base_Path ()) {
 
@@ -293,7 +293,7 @@ CLevelEditDoc::Update_Core_Files (void)
 
 		//
 		//	Add some search paths to the file factory
-		//		
+		//
 		EditorFileFactoryClass::Add_Search_Path (m_pFileMgr->Make_Full_Path (SHATTER_DIR));
 		EditorFileFactoryClass::Add_Search_Path (m_pFileMgr->Make_Full_Path (WEATHER_DIR));
 		EditorFileFactoryClass::Add_Search_Path (m_pFileMgr->Make_Full_Path (SKY_DIR));
@@ -307,14 +307,14 @@ CLevelEditDoc::Update_Core_Files (void)
 #else
 
 		//
-		// Make sure we have the latest versions of the core files		
+		// Make sure we have the latest versions of the core files
 		//
 		m_pFileMgr->Update_File (PRESETS_PATH);
-		
+
 		if (::Is_Silent_Mode () == false) {
 			m_pFileMgr->Update_File (ALWAYS_INI_PATH);
 			m_pFileMgr->Update_File (SERIAL_INI_PATH);
-			m_pFileMgr->Update_File (UPDATE_INI_PATH);		
+			m_pFileMgr->Update_File (UPDATE_INI_PATH);
 			m_pFileMgr->Get_Subproject (ALWAYS_INI_DIR);
 			m_pFileMgr->Update_File (HUMAN_SKEL_PATH);
 			m_pFileMgr->Update_File (SKY_DIR);
@@ -368,7 +368,7 @@ CLevelEditDoc::Update_Assets_For_Mod_Tree (void)
 	//	Make sure to get the human skeleton
 	//
 	m_pFileMgr->Update_File (HUMAN_SKEL_PATH);
-	return ;	
+	return ;
 }
 
 
@@ -379,11 +379,11 @@ CLevelEditDoc::Update_Assets_For_Mod_Tree (void)
 ///////////////////////////////////////////////////////////////
 void
 CLevelEditDoc::Update_Asset_Tree (void)
-{	
+{
 	// Get a pointer to the INI file from the asset manager
 	CString path = ::Get_File_Mgr ()->Make_Full_Path (UPDATE_INI_PATH);
 	EditorINIClass *pini = _pThe3DAssetManager->Get_INI (path);
-	
+
 	// Were we successful in getting a pointer to the INI file?
 	ASSERT (pini != NULL);
 	if (pini != NULL) {
@@ -395,7 +395,7 @@ CLevelEditDoc::Update_Asset_Tree (void)
 
 		// Do we need to update?
 		if (update_id < curr_update_id) {
-			
+
 			// Get the comments from the file
 			TCHAR comments[512];
 			pini->Get_TextBlock ("Comments", comments, sizeof (comments));
@@ -413,7 +413,7 @@ CLevelEditDoc::Update_Asset_Tree (void)
 			STRING_LIST directory_list;
 			bool update_all = false;
 			for (int index = update_id + 1; index <= curr_update_id; index ++) {
-				
+
 				//
 				//	Get the directory associated with this update-id
 				//
@@ -449,7 +449,7 @@ CLevelEditDoc::Update_Asset_Tree (void)
 		// Free the INI object
 		SAFE_DELETE (pini);
 	}
-	
+
 	return ;
 }
 
@@ -504,7 +504,7 @@ CLevelEditDoc::OnNewDocument (void)
 
 	//
 	// Reset the scene, camera, and file manager
-	//	
+	//
 	m_pFileMgr->Initialize ();
 	::Get_Main_View ()->Reset_View ();
 	::Get_Scene_Editor ()->Re_Partition_Dynamic_Culling_System ();
@@ -516,7 +516,7 @@ CLevelEditDoc::OnNewDocument (void)
 	WW3DAssetManager::Get_Instance ()->Free_Assets ();
 	TheDX8MeshRenderer.Invalidate ();
 	Preload_Human_Data ();
-	Preload_Tool_Assets ();	
+	Preload_Tool_Assets ();
 
 	//
 	//	Reset the overlap-sphere page
@@ -576,8 +576,8 @@ void CLevelEditDoc::Dump(CDumpContext& dc) const
 ////////////////////////////////////////////////////////////
 bool
 CLevelEditDoc::Do_Version_Check (void)
-{	
-	bool retval = true; 
+{
+	bool retval = true;
 
 #ifndef PUBLIC_EDITOR_VER
 	//
@@ -587,7 +587,7 @@ CLevelEditDoc::Do_Version_Check (void)
 	//
 	if (Check_Editor_Version () == false) {
 		if (Message_Box (NULL, IDS_VERSION_ERROR_MSG, IDS_VERSION_ERROR_TITLE, MB_ICONEXCLAMATION | MB_OKCANCEL | MB_SETFOREGROUND | MB_SYSTEMMODAL) == IDCANCEL) {
-			
+
 			//
 			//	Just for kicks, exit the process pretty violently
 			//
@@ -619,7 +619,7 @@ CLevelEditDoc::Preload_Assets (void)
 	//
 	CString dazzle_ini_path = ::Get_File_Mgr ()->Make_Full_Path (DAZZLE_INI_PATH);
 	FileClass * dazzle_ini_file = _TheFileFactory->Get_File (dazzle_ini_path);
-	if (dazzle_ini_file) { 
+	if (dazzle_ini_file) {
 		INIClass dazzle_ini (*dazzle_ini_file);
 		DazzleRenderObjClass::Init_From_INI (&dazzle_ini);
 		_TheFileFactory->Return_File (dazzle_ini_file);
@@ -664,7 +664,7 @@ CLevelEditDoc::Preload_Tool_Assets (void)
 	ResourceFileClass dummy_model (NULL, "DUMMY.W3D");
 	ResourceFileClass cover_spot_model (NULL, "COVERSPOT.W3D");
 	ResourceFileClass building_model (NULL, "BUILDINGICON.W3D");
-	ResourceFileClass carmarker_model (NULL, "CARMARKER.W3D");	
+	ResourceFileClass carmarker_model (NULL, "CARMARKER.W3D");
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets (way_start);
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets (way_mid);
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets (way_end);
@@ -716,12 +716,12 @@ CLevelEditDoc::Preload_Human_Data (void)
 {
 	//
 	//	Make sure the human skeletons are loaded
-	//	
+	//
 	_pThe3DAssetManager->Load_3D_Assets (HUMAN_SKEL_PATH);
 
 	//
 	//	Force load the commando model
-	//	
+	//
 	PresetClass *preset = PresetMgrClass::Find_Typed_Preset (CLASSID_GAME_OBJECT_DEF_SOLDIER, "Commando");
 	if (preset != NULL) {
 		preset->Load_All_Assets ();
@@ -746,7 +746,7 @@ CLevelEditDoc::Init_Scene (void)
 	if (m_pScene == NULL) {
 
 		// Ensure we have the latest core files
-		Update_Core_Files ();		
+		Update_Core_Files ();
 
 		//
 		// Add the texture cache to the search path
@@ -775,7 +775,7 @@ CLevelEditDoc::Init_Scene (void)
 		m_pScene = new SceneEditorClass;
 		m_pScene->Set_Ambient_Light (DEF_AMBIENT_COLOR);
 		m_pScene->Update_Lighting ();
-		m_pScene->Enable_Collision_Detection (0, 0);		
+		m_pScene->Enable_Collision_Detection (0, 0);
 	}
 
 	return ;
@@ -794,7 +794,7 @@ CLevelEditDoc::Get_Coord_System_Transform (NodeClass *node)
 
 	// What coordinate system are we working in?
 	switch (m_CoordSystem) {
-		
+
 		case CLevelEditDoc::COORD_WORLD:
 			matrix = Matrix3D (1);
 			break;
@@ -819,12 +819,12 @@ CLevelEditDoc::Get_Coord_System_Transform (NodeClass *node)
 //
 ///////////////////////////////////////////////////////////////
 BOOL
-CLevelEditDoc::OnOpenDocument (LPCTSTR path) 
+CLevelEditDoc::OnOpenDocument (LPCTSTR path)
 {
 	::Get_Main_View ()->Allow_Repaint (false);
 
 	DWORD start_time = ::GetTickCount ();
-	
+
 	//
 	// Start a new document
 	//
@@ -850,7 +850,7 @@ CLevelEditDoc::OnOpenDocument (LPCTSTR path)
 	CString load_time_message;
 	load_time_message.Format ("Level load took %d seconds\r\n", int((::GetTickCount () - start_time) / 1000));
 	::Output_Message (load_time_message);
-		
+
 	::Get_Main_View ()->Allow_Repaint (true);
 	return true;
 }
@@ -864,8 +864,8 @@ CLevelEditDoc::OnOpenDocument (LPCTSTR path)
 void
 CLevelEditDoc::Set_Current_Path (const char *path)
 {
-	m_strPathName = path;		
-	return ;	
+	m_strPathName = path;
+	return ;
 }
 
 
@@ -875,8 +875,8 @@ CLevelEditDoc::Set_Current_Path (const char *path)
 //
 ///////////////////////////////////////////////////////////////
 BOOL
-CLevelEditDoc::OnSaveDocument (LPCTSTR path) 
-{	
+CLevelEditDoc::OnSaveDocument (LPCTSTR path)
+{
 	theApp.WriteProfileString (CONFIG_KEY,
 										LAST_SAVE_DIR_VALUE,
 										::Strip_Filename_From_Path (path));
@@ -893,10 +893,10 @@ CLevelEditDoc::OnSaveDocument (LPCTSTR path)
 //
 ///////////////////////////////////////////////////////////////
 void
-CLevelEditDoc::Repartition_If_Necessary (void) 
+CLevelEditDoc::Repartition_If_Necessary (void)
 {
 	if (m_bNeedRepartition) {
-		
+
 		// (gth) can't re-partition the object culling systems
 		// or we'll lose hierarchical vis...
 		m_pScene->Re_Partition_Static_Lights ();
@@ -904,7 +904,7 @@ CLevelEditDoc::Repartition_If_Necessary (void)
 
 		m_bNeedRepartition = false;
 	}
-		
+
 	return ;
 }
 
@@ -940,7 +940,7 @@ CLevelEditDoc::OnFileSave (void)
 #ifdef PUBLIC_EDITOR_VER
 
 	if (m_strPathName.IsEmpty () || ::GetFileAttributes (m_strPathName) == 0xFFFFFFFF) {
-		
+
 		//
 		//	Pick a new path and save to it
 		//
@@ -950,17 +950,17 @@ CLevelEditDoc::OnFileSave (void)
 		}
 
 	} else {
-		
+
 		//
 		//	Save to this path
 		//
 		Save_Level_File (m_strPathName);
 	}
 
-#else	
-	CDocument::OnFileSave ();		
+#else
+	CDocument::OnFileSave ();
 #endif //PUBLIC_EDITOR_VER
-	
+
 	return ;
 }
 
@@ -983,8 +983,8 @@ CLevelEditDoc::OnFileSaveAs (void)
 		Save_Level_File (full_path);
 	}
 
-#else	
-	CDocument::OnFileSaveAs ();		
+#else
+	CDocument::OnFileSaveAs ();
 #endif //PUBLIC_EDITOR_VER
 
 	return ;
@@ -1004,7 +1004,7 @@ CLevelEditDoc::Pick_Save_Path (CString &save_path)
 	//
 	// Determine which directory we should save to
 	//
-	CString full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);		
+	CString full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
 	//
@@ -1031,7 +1031,7 @@ CLevelEditDoc::Pick_Save_Path (CString &save_path)
 	// Ask the user where they want to save this level
 	//
 	if (dialog.DoModal () == IDOK) {
-		
+
 		//
 		//	Return the path to the caller
 		//

@@ -83,10 +83,10 @@ public:
 		if (test_state != NULL) {
 			Set_State(*test_state,index);
 		}
-		
+
 		Vector3 Vel;
 		Vector3::Cross_Product(Vector3(0,0,AngVel) , Point , &Vel);
-	
+
 		(*set_derivs)[index++] = Vel[0];
 		(*set_derivs)[index++] = Vel[1];
 		(*set_derivs)[index++] = Vel[2];

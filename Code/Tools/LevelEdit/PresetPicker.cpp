@@ -50,7 +50,7 @@ PresetPickerClass::PresetPickerClass (void)
 	:	m_Preset (NULL),
 		m_ClassID (0),
 		m_IconIndex (0)
-{	
+{
 	m_Icon = (HICON)::LoadImage (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDI_PRESET_TINY), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 	return ;
 }
@@ -83,9 +83,9 @@ PresetPickerClass::On_Pick (void)
 	dialog.Set_Icon_Index (m_IconIndex);
 	dialog.Set_Preset (m_Preset);
 	if (dialog.DoModal () == IDOK) {
-		
+
 		PresetClass *preset = dialog.Get_Selection ();
-		Set_Preset (preset);		
+		Set_Preset (preset);
 	}
 
 	return ;
@@ -113,7 +113,7 @@ PresetPickerClass::Set_Preset (PresetClass *preset)
 	//
 	SetWindowText (new_text);
 
-	m_Preset = preset;	
+	m_Preset = preset;
 	return ;
 }
 

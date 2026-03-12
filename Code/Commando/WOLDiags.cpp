@@ -98,7 +98,7 @@ const char* WOLConsoleFunctionClass::Get_Help(void)
 
 void WOLConsoleFunctionClass::Activate(const char* input)
 	{
-	static Dispatch _dispatch[] = 
+	static Dispatch _dispatch[] =
 		{
 		{"pings", ShowPingServers},
 		{"server", ShowServer},

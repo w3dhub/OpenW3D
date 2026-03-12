@@ -45,7 +45,7 @@
 **
 ************************************************************************************/
 
-VisOptProgressClass::VisOptProgressClass(void) 
+VisOptProgressClass::VisOptProgressClass(void)
 {
 	Reset(0);
 }

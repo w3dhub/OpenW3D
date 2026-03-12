@@ -62,18 +62,18 @@ class PhysGridCullClass : public TypedGridCullSystemClass<PhysClass>
 public:
 	PhysGridCullClass(PhysicsSceneClass * scene);
 	virtual ~PhysGridCullClass(void);
-	
+
 	void	Re_Partition(const Vector3 & min,const Vector3 & max,float objdim) override;
-	
+
 	bool	Cast_Ray(PhysRayCollisionTestClass & raytest);
 	bool	Cast_AABox(PhysAABoxCollisionTestClass & boxtest);
 	bool	Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest);
-	
+
 	bool	Intersection_Test(PhysAABoxIntersectionTestClass & boxtest);
 	bool	Intersection_Test(PhysOBBoxIntersectionTestClass & boxtest);
 	bool	Intersection_Test(PhysMeshIntersectionTestClass & meshtest);
 
-	void	Collect_Visible_Objects(const FrustumClass & frustum,VisTableClass * pvs,RefPhysListClass & visobjlist);	
+	void	Collect_Visible_Objects(const FrustumClass & frustum,VisTableClass * pvs,RefPhysListClass & visobjlist);
 	void	Collect_Visible_Objects(const FrustumClass & frustum,VisTableClass * pvs);
 
 	// Persist support

@@ -149,7 +149,7 @@ DialogueOptionClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_WEIGHT, Weight);
 		WRITE_MICRO_CHUNK (csave, VARID_CONVERSATION_ID, ConversationID);
 	csave.End_Chunk ();
-		
+
 	return ;
 }
 
@@ -162,7 +162,7 @@ DialogueOptionClass::Save (ChunkSaveClass &csave)
 void
 DialogueOptionClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_OPTION_VARIABLES:
@@ -248,7 +248,7 @@ const DialogueClass &
 DialogueClass::operator= (const DialogueClass &src)
 {
 	SilenceWeight	= src.SilenceWeight;
-	
+
 	//
 	//	Free any option objects we may contain
 	//
@@ -288,7 +288,7 @@ DialogueClass::Save (ChunkSaveClass &csave)
 			OptionList[index]->Save (csave);
 		csave.End_Chunk ();
 	}
-		
+
 	return ;
 }
 
@@ -303,7 +303,7 @@ DialogueClass::Load (ChunkLoadClass &cload)
 {
 	Free_Options ();
 
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_DIALOGUE_VARIABLES:
@@ -384,7 +384,7 @@ DialogueClass::Get_Conversation (void)
 	int conv_id = 0;
 
 	//
-	//	Make a number we can use to index linearly into the option list 
+	//	Make a number we can use to index linearly into the option list
 	// to determine which one to use.
 	//
 	float total = SilenceWeight;

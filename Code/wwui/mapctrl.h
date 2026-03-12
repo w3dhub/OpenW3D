@@ -88,7 +88,7 @@ public:
 	const RectClass &	Get_Rect (void) const					{ return UVRect; }
 	uintptr_t				Get_User_Data (void)	const				{ return UserData; }
 	uint32				Get_Color (void) const					{ return Color; }
-	
+
 	void					Set_Position (const Vector3 &pos)	{ Position = pos; }
 	void					Set_Name (const unichar_t *name)			{ Name = name; }
 	void					Set_Rect (const RectClass &rect)		{ UVRect = rect; }
@@ -196,9 +196,9 @@ protected:
 	void				Create_Control_Renderers (void);
 	void				Create_Text_Renderers (void);
 	void				Create_Cloud_Renderer (void);
-	
+
 	int				Marker_From_Pos (const Vector2 &mouse_pos);
-	void				Clamp_Scroll_Pos (void);	
+	void				Clamp_Scroll_Pos (void);
 	Vector3			Position_To_Coord (const Vector2 &mouse_pos);
 
 	bool				Is_Cell_Shrouded (int cell_x, int cell_y);

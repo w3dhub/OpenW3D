@@ -114,7 +114,7 @@ static void Get_Detail_String(StringClass& str)
 {
 	str="";
 	INIClass ini(W3D_CONF_FILE);
-	
+
 	int dynamic_lod		= 3000;
 	int static_lod			= 3000;
 	int dynamic_shadows	= 1;
@@ -141,7 +141,7 @@ static void Get_Detail_String(StringClass& str)
 		surface_effect	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, surface_effect);
 		particle_detail	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, particle_detail);
 	}
-	
+
 	StringClass tmp;
 	tmp.Format("Dynamic LOD budget: %d\r\n",dynamic_lod);
 	str+=tmp;

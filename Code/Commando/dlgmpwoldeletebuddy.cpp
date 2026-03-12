@@ -77,10 +77,10 @@ MPWolDeleteBuddyPopupClass::On_Command (int ctrl_id, int message_id, unsigned in
 	switch (ctrl_id)
 	{
 		case IDC_DELETE_BUTTON:
-		{	
+		{
 			//
 			//	Simply delete the user from our list
-			//		
+			//
 			if (UserName.Is_Empty () == false) {
 				WOLBuddyMgr* buddyMgr = WOLBuddyMgr::GetInstance(false);
 

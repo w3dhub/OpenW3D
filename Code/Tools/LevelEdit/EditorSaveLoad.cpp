@@ -107,7 +107,7 @@ enum
 	VARID_RESPAWN_SCRIPT_NAME,
 };
 
-enum 
+enum
 {
 	CHUNKID_LVL_DATA			= 304021447,
 	CHUNKID_LIGHT_SOLVE,
@@ -172,10 +172,10 @@ EditorSaveLoadClass::Save (ChunkSaveClass &csave)
 		float z_far;
 	} fog_planes = { 50.0F, 100.0F };
 
-	Vector3 fog_color (0, 0, 0);	
+	Vector3 fog_color (0, 0, 0);
 	::Get_Scene_Editor ()->Get_Fog_Range (&fog_planes.z_near, &fog_planes.z_far);
 	fog_color	= ::Get_Scene_Editor ()->Get_Fog_Color ();
-	fog_enabled	= ::Get_Scene_Editor ()->Get_Fog_Enable ();	
+	fog_enabled	= ::Get_Scene_Editor ()->Get_Fog_Enable ();
 
 	WRITE_MICRO_CHUNK (csave, VARID_FOG_ENABLED, fog_enabled);
 	WRITE_MICRO_CHUNK (csave, VARID_FOG_COLOR, fog_color);
@@ -195,14 +195,14 @@ EditorSaveLoadClass::Save (ChunkSaveClass &csave)
 	float znear = 0;
 	float zfar = 0;
 	::Get_Camera_Mgr ()->Get_Camera ()->Get_Clip_Planes (znear, zfar);
-	WRITE_MICRO_CHUNK (csave, VARID_FAR_CLIP_PLANE, zfar);	
+	WRITE_MICRO_CHUNK (csave, VARID_FAR_CLIP_PLANE, zfar);
 
 	//
 	//	Write the background music filename out to the chunk
 	//
 	CString filename = ::Get_Scene_Editor ()->Get_Background_Music_Filename ();
 	CString path = ::Get_File_Mgr ()->Make_Relative_Path (filename);
-	WRITE_MICRO_CHUNK_STRING (csave, VARID_BACK_MUSIC, (LPCTSTR)path);	
+	WRITE_MICRO_CHUNK_STRING (csave, VARID_BACK_MUSIC, (LPCTSTR)path);
 
 	//
 	// Write the list of include files for the level to the chunk.
@@ -227,10 +227,10 @@ EditorSaveLoadClass::Save (ChunkSaveClass &csave)
 bool
 EditorSaveLoadClass::Load (ChunkLoadClass &cload)
 {
-	bool retval = true;	
+	bool retval = true;
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the presets from this chunk
 			//
@@ -265,7 +265,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			//
 			//	Read the camera's transformation matrix from the chunk
 			//	and pass it onto the camera.
@@ -293,7 +293,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 			case VARID_FAR_CLIP_PLANE_DOUBLE:
 			{
 				float znear = 0;
-				float zfar = 0;				
+				float zfar = 0;
 				::Get_Camera_Mgr ()->Get_Camera ()->Get_Clip_Planes (znear, zfar);
 
 				double double_zfar = 0;
@@ -306,7 +306,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 			case VARID_FAR_CLIP_PLANE:
 			{
 				float znear = 0;
-				float zfar = 0;				
+				float zfar = 0;
 				::Get_Camera_Mgr ()->Get_Camera ()->Get_Clip_Planes (znear, zfar);
 				cload.Read (&zfar, sizeof (zfar));
 				::Get_Camera_Mgr ()->Get_Camera ()->Set_Clip_Planes (znear, zfar);
@@ -319,7 +319,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 				cload.Read (&ambient_light, sizeof (ambient_light));
 				::Get_Scene_Editor ()->Set_Ambient_Light (ambient_light);
 				::Get_Scene_Editor ()->Update_Lighting ();
-				
+
 				LightAmbientFormClass *light_form = Get_Ambient_Light_Form ();
 				light_form->Update_Settings ();
 			}
@@ -330,7 +330,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_RESTART_SCRIPT_NAME, restart_script_name);
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_RESPAWN_SCRIPT_NAME, respawn_script_name);
-			
+
 			case VARID_FOG_PLANES:
 			{
 				struct
@@ -341,7 +341,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 
 				cload.Read (&fog_planes, sizeof (fog_planes));
 				::Get_Scene_Editor ()->Set_Fog_Range (fog_planes.z_near, fog_planes.z_far);
-			}	
+			}
 			break;
 
 			case VARID_BACK_MUSIC:
@@ -366,7 +366,7 @@ EditorSaveLoadClass::Load_Micro_Chunks (ChunkLoadClass &cload)
 	//	Apply the fog settings
 	//
 	::Get_Scene_Editor ()->Set_Fog_Color (fog_color);
-	::Get_Scene_Editor ()->Set_Fog_Enable (fog_enabled);	
+	::Get_Scene_Editor ()->Set_Fog_Enable (fog_enabled);
 
 	return retval;
 }
@@ -399,7 +399,7 @@ EditorSaveLoadClass::Save_Level (LPCTSTR filename)
 		ChunkSaveClass chunk_save (&file_obj);
 
 		//
-		// (gth) March 4, 2002 - modifying this function to embed two "save files" into this 
+		// (gth) March 4, 2002 - modifying this function to embed two "save files" into this
 		// file.  The first chunk will contain an entire save for the normal level data.  The second
 		// chunk will contain the lighting save
 		//
@@ -433,21 +433,21 @@ EditorSaveLoadClass::Save_Level_Data(ChunkSaveClass & chunk_save)
 	// (gth) can't re-partition the object culling systems or
 	// we'll lose hierarchical vis
 	//
-	::Get_Scene_Editor ()->Re_Partition_Static_Lights ();	
-	::Get_Scene_Editor ()->Re_Partition_Audio_System ();		
+	::Get_Scene_Editor ()->Re_Partition_Static_Lights ();
+	::Get_Scene_Editor ()->Re_Partition_Audio_System ();
 
 	//
 	//	Basically just save the list of nodes and some other
 	// miscellaneous information (camera, sky, etc).
-	//		
+	//
 	SaveLoadSystemClass::Save (chunk_save, _PhysStaticDataSaveSystem);
 	SaveLoadSystemClass::Save (chunk_save, _TheNodeMgr);
 	SaveLoadSystemClass::Save (chunk_save, _TheEditorSaveLoadSubsystem);
 	SaveLoadSystemClass::Save (chunk_save, _TheBackgroundMgr);
 	SaveLoadSystemClass::Save (chunk_save, _TheWeatherMgr);
-	SaveLoadSystemClass::Save (chunk_save, _TheMapMgrSaveLoadSubsystem);		
+	SaveLoadSystemClass::Save (chunk_save, _TheMapMgrSaveLoadSubsystem);
 	SaveLoadSystemClass::Save (chunk_save, _TheHeightfieldMgrSaveLoadSubsystem);
-		
+
 	//
 	//	Save the level-specific conversations
 	//
@@ -512,7 +512,7 @@ EditorSaveLoadClass::Load_Level (LPCTSTR filename)
 		//
 		uint32 id,size;
 		if (chunk_load.Peek_Next_Chunk(&id,&size) && (id == CHUNKID_LVL_DATA)) {
-		
+
 			// Current file format, multiple saves embedded into this file
 			while (chunk_load.Open_Chunk()) {
 
@@ -524,7 +524,7 @@ EditorSaveLoadClass::Load_Level (LPCTSTR filename)
 					default:
 						break;
 				}
-				
+
 				chunk_load.Close_Chunk();
 			}
 
@@ -548,7 +548,7 @@ EditorSaveLoadClass::Load_Level (LPCTSTR filename)
 		// the preset of any nodes that are currently in the level).
 		//
 		NodeMgrClass::Create_All_Embedded_Nodes ();
-		
+
 		//
 		//	Validate VIS information if necessary
 		//
@@ -569,7 +569,7 @@ EditorSaveLoadClass::Load_Level (LPCTSTR filename)
 		//
 		Set_Modified (false);
 	}
-	
+
 	return ;
 }
 
@@ -605,10 +605,10 @@ EditorSaveLoadClass::Export_Dynamic_Objects (LPCTSTR filename)
 		//
 		NODE_LIST static_obj_list;
 		NodeMgrClass::Remove_Static_Objects (static_obj_list);
-		SaveLoadSystemClass::Save (chunk_save, _TheNodeMgr);		
+		SaveLoadSystemClass::Save (chunk_save, _TheNodeMgr);
 		NodeMgrClass::Put_Objects_Back (static_obj_list);
 	}
-	
+
 	return ;
 }
 
@@ -652,7 +652,7 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 		SaveLoadSystemClass::Load (chunk_load);
 
 		::Output_Message ("Resetting existing static node IDs.\r\n");
-				
+
 		//
 		//	Re-assign IDs to the existing static nodes
 		//
@@ -675,7 +675,7 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 			NodeClass *node = dynamic_obj_list[index];
 			if (NodeMgrClass::Find_Node (node->Get_ID ()) != NULL) {
 				CString entry;
-				entry.Format ("Object %d\n", node->Get_ID ());				
+				entry.Format ("Object %d\n", node->Get_ID ());
 				id_collision_msg += entry;
 				bad_node_list.Add (node);
 				show_msg = true;
@@ -693,12 +693,12 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 		//
 		if (show_msg) {
 			::MessageBox (NULL, id_collision_msg, "ID Collision", MB_ICONERROR | MB_OK);
-			
+
 			//
 			//	Ask the user if we should fix the collisions or not
 			//
 			if (::MessageBox (NULL, "Would you like to repair the newly imported objects with ambiguous IDs?", "ID Collision", MB_ICONQUESTION | MB_YESNO) == IDYES) {
-				
+
 				//
 				//	Repair all collisions
 				//
@@ -707,11 +707,11 @@ EditorSaveLoadClass::Import_Dynamic_Objects (LPCTSTR filename)
 					if (node != NULL) {
 						node->Set_ID (NodeMgrClass::Get_Node_ID (node->Get_Type ()));
 					}
-				}				
+				}
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -767,10 +767,10 @@ PathfindImportExportSaveLoadClass::Export_Pathfind (LPCTSTR filename)
 		//
 		//	Basically just save the list of nodes and some other
 		// miscellaneous information (camera, sky, etc).
-		//		
+		//
 		SaveLoadSystemClass::Save (chunk_save, _ThePathfindImporterExporter);
 	}
-	
+
 	return ;
 }
 
@@ -806,7 +806,7 @@ PathfindImportExportSaveLoadClass::Import_Pathfind (LPCTSTR filename)
 		//
 		SaveLoadSystemClass::Load (chunk_load);
 	}
-	
+
 	return ;
 }
 
@@ -840,7 +840,7 @@ PathfindImportExportSaveLoadClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Import the pathfind data...
 			//

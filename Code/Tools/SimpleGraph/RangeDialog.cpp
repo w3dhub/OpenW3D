@@ -50,7 +50,7 @@ fnEditToFloatProc
 	LRESULT result = 0L;
 
 	if (message == WM_SETTEXT) {
-		
+
 		//
 		//	Convert the textual value to a int, convert
 		// the int to a float, and conver the float to
@@ -68,28 +68,28 @@ fnEditToFloatProc
 		}
 
 	} else if (message == WM_GETTEXT) {
-		
+
 		//
 		//	Get the value (as text) from the control,
 		// convert it to a float, convert the float
 		// to a int, then convert the int back to
 		// a string.
 		//
-		result				= ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);		
+		result				= ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);
 		LPCTSTR string		= (LPCTSTR)lparam;
 		if (::strchr (string, '.') != 0) {
 			float float_value	= ::atof (string);
 			int int_value		= int(float_value * 100);
-			::itoa (int_value, (LPTSTR)lparam, 10);			
+			::itoa (int_value, (LPTSTR)lparam, 10);
 		} else {
 			int int_value		= ::atoi (string) * 100;
-			::itoa (int_value, (LPTSTR)lparam, 10);						
+			::itoa (int_value, (LPTSTR)lparam, 10);
 		}
 
 		result = ::lstrlen ((LPTSTR)lparam);
 
 	} else if (message == WM_CHAR) {
-		
+
 		//
 		//	Check to see if this is one of the characters we allow
 		// the user to type
@@ -208,11 +208,11 @@ CRangeDialog::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	CSimpleGraphView *view = (CSimpleGraphView *)((CMainFrame *)::AfxGetMainWnd ())->GetActiveView ();
-	
+
 	Vector2 range_min;
 	Vector2 range_max;
 	view->Get_Ranges (range_min, range_max);
-	
+
 	/*::Make_Edit_Float_Ctrl (::GetDlgItem (m_hWnd, IDC_MIN_X));
 	::Make_Edit_Float_Ctrl (::GetDlgItem (m_hWnd, IDC_MIN_Y));
 	::Make_Edit_Float_Ctrl (::GetDlgItem (m_hWnd, IDC_MAX_X));
@@ -222,7 +222,7 @@ CRangeDialog::OnInitDialog (void)
 	SetDlgItemFloat (m_hWnd, IDC_MIN_Y, range_min.Y);
 	SetDlgItemFloat (m_hWnd, IDC_MAX_X, range_max.X);
 	SetDlgItemFloat (m_hWnd, IDC_MAX_Y, range_max.Y);
-	
+
 	return true;
 }
 
@@ -241,8 +241,8 @@ CRangeDialog::OnOK (void)
 	range_min.Y = ::GetDlgItemFloat (m_hWnd, IDC_MIN_Y);
 	range_max.X = ::GetDlgItemFloat (m_hWnd, IDC_MAX_X);
 	range_max.Y = ::GetDlgItemFloat (m_hWnd, IDC_MAX_Y);
-	
-	
+
+
 	CSimpleGraphView *view = (CSimpleGraphView *)((CMainFrame *)::AfxGetMainWnd ())->GetActiveView ();
 	view->Set_Ranges (range_min, range_max);
 	view->InvalidateRect (NULL, true);

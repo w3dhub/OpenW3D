@@ -124,7 +124,7 @@ MenuEntryCtrlClass::Render (void)
 	//	Render the menu text
 	//
 	GlowRenderer.Render ();
-	TextRenderer.Render ();	
+	TextRenderer.Render ();
 
 	DialogControlClass::Render ();
 	return ;
@@ -174,7 +174,7 @@ MenuEntryCtrlClass::On_Create (void)
 
 	//
 	//	Determine what rectangle should be clickable
-	//	
+	//
 	Vector2 extents = TextRenderer.Get_Text_Extents (Title);
 	Rect = MaxRect;
 
@@ -183,7 +183,7 @@ MenuEntryCtrlClass::On_Create (void)
 	//
 	if ((Style & 0xF00) == BS_LEFT) {
 		Rect.Right = Rect.Left + extents.X + TextRenderer.Get_Text_Extents (U_CHAR("W")).X;
-	} else {	
+	} else {
 		Rect.Left	= int(Rect.Left + (Rect.Width () / 2) - (extents.X / 2));
 		Rect.Right	= Rect.Left + extents.X + TextRenderer.Get_Text_Extents (U_CHAR("W")).X;
 	}
@@ -315,7 +315,7 @@ void
 MenuEntryCtrlClass::Set_State (int new_state)
 {
 	if (new_state != CurrState) {
-		
+
 		//
 		//	Update the state and force a repaint
 		//
@@ -327,7 +327,7 @@ MenuEntryCtrlClass::Set_State (int new_state)
 		//
 		switch (CurrState)
 		{
-			case UP:			
+			case UP:
 				CurrRadiusX = 5;
 				CurrRadiusY = 5;
 				break;
@@ -346,7 +346,7 @@ MenuEntryCtrlClass::Set_State (int new_state)
 			case HILIGHT:
 				StartTime	= DialogMgrClass::Get_Time ();
 				EndTime		= StartTime + 1000;
-				CurrColor	= RGB_TO_INT32 (MaxHilightRedValue, 0, 0);				
+				CurrColor	= RGB_TO_INT32 (MaxHilightRedValue, 0, 0);
 				break;
 		}
 	}
@@ -391,7 +391,7 @@ MenuEntryCtrlClass::Update_State (void)
 				if (curr_time >= (int)time2) {
 
 					Vector3 start_color (MaxHilightRedValue * 3, MaxHilightRedValue * 3.0F * 0.6F, 0);
-					Vector3 end_color (0, 0, 0);					
+					Vector3 end_color (0, 0, 0);
 
 					//
 					//	Transition the color from start to finish
@@ -423,9 +423,9 @@ MenuEntryCtrlClass::Update_State (void)
 				Set_Dirty ();
 
 			} else {
-			
+
 				if (CurrRadiusX != 160.0F) {
-				
+
 					//
 					//	Snap the glow to its max
 					//
@@ -478,7 +478,7 @@ MenuEntryCtrlClass::Update_State (void)
 				Set_Dirty ();
 
 			} else {
-				
+
 				//
 				//	Snap the glow to its max
 				//
@@ -515,10 +515,10 @@ MenuEntryCtrlClass::Create_Text_Renderer (void)
 	//	Get the extents of the text we will be drawing
 	//
 	Vector2 text_extent = TextRenderer.Get_Text_Extents (Title);
-		
+
 	//
 	//	Assume cenetered text
-	//		
+	//
 	int x_pos = int(Rect.Left + (Rect.Width () / 2) - (text_extent.X / 2));
 	int y_pos = int(Rect.Top + (Rect.Height () / 2) - (text_extent.Y / 2));
 
@@ -528,14 +528,14 @@ MenuEntryCtrlClass::Create_Text_Renderer (void)
 	if ((Style & 0xF00) == BS_LEFT) {
 		x_pos = int(Rect.Left + 1);
 	}
-		
+
 	if (CurrState == UP) {
-		
+
 		//
 		//	Render the glow
 		//
 		Create_Glow (CurrRadiusX, CurrRadiusY, RGB_TO_INT32 (MaxDefaultRedValue, 0, 0));
-		
+
 		//
 		//	Render the text
 		//
@@ -543,12 +543,12 @@ MenuEntryCtrlClass::Create_Text_Renderer (void)
 		TextRenderer.Draw_Sentence (StyleMgrClass::Get_Text_Color ());
 
 	} else if (CurrState == DOWN) {
-		
+
 		//
 		//	Render the glow
 		//
 		Create_Glow (CurrRadiusX, CurrRadiusY, CurrColor);
-		
+
 		//
 		//	Render the text
 		//
@@ -559,12 +559,12 @@ MenuEntryCtrlClass::Create_Text_Renderer (void)
 		TextRenderer.Draw_Sentence (RGB_TO_INT32 (0, 0, 0));
 
 	} else if (CurrState == HILIGHT) {
-		
+
 		//
 		//	Render the glow
 		//
 		Create_Glow (CurrRadiusX, CurrRadiusY, CurrColor);
-		
+
 		TextRenderer.Set_Location (Vector2 (x_pos-1, y_pos-1));
 		TextRenderer.Draw_Sentence (StyleMgrClass::Get_Text_Color ());
 
@@ -732,7 +732,7 @@ MenuEntryCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 ////////////////////////////////////////////////////////////////
 bool
 MenuEntryCtrlClass::On_Key_Up (uint32 /* key_id */)
-{	
+{
 	return false;
 }
 
@@ -762,7 +762,7 @@ MenuEntryCtrlClass::Center_Mouse (void)
 	//	Get the extents of the text we will be drawing
 	//
 	Vector2 text_extent = TextRenderer.Get_Text_Extents (Title);
-	
+
 	int x_pos = 0;
 
 	//
@@ -773,7 +773,7 @@ MenuEntryCtrlClass::Center_Mouse (void)
 	} else {
 		x_pos = int(Rect.Left + (Rect.Width () / 2) - (text_extent.X / 2));
 	}
-		
+
 	int y_pos = int(Rect.Top + (Rect.Height () / 2));
 
 	//

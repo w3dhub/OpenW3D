@@ -117,7 +117,7 @@ BOOL
 ConversationPickerDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
+
 	//
 	// Pass the general use imagelist onto the tree control
 	//
@@ -185,7 +185,7 @@ ConversationPickerDialogClass::Insert_Entry (ConversationClass *conversation)
 	HTREEITEM tree_item = m_TreeCtrl.InsertItem (conversation->Get_Name (), DIALOGUE_ICON,
 													DIALOGUE_ICON, parent_item);
 	if (tree_item != NULL) {
-		
+
 		//
 		//	Associate the conversation with the entry in the tree
 		//

@@ -59,7 +59,7 @@ DynamicVectorClass<MenuDialogClass *>	MenuDialogClass::MenuStack;
 ////////////////////////////////////////////////////////////////
 MenuDialogClass::MenuDialogClass (const DialogResource *dialog_resource)	:
 	DialogBaseClass (dialog_resource)
-{	
+{
 	//
 	//	Add ourselves to the global stack of menus
 	//
@@ -98,7 +98,7 @@ MenuDialogClass::~MenuDialogClass (void)
 ////////////////////////////////////////////////////////////////
 void
 MenuDialogClass::Initialize (void)
-{	
+{
 	Ensure_BackDrop();
 	return ;
 }
@@ -161,7 +161,7 @@ MenuDialogClass::Render (void)
 		//
 		DialogBaseClass::Render ();
 	}
-	
+
 	return ;
 }
 
@@ -245,7 +245,7 @@ MenuDialogClass::On_Menu_Activate (bool /* onoff */)
 ////////////////////////////////////////////////////////////////
 void
 MenuDialogClass::End_Dialog (void)
-{	
+{
 	//
 	//	Is this the last menu?  If so, send a notification
 	//
@@ -258,9 +258,9 @@ MenuDialogClass::End_Dialog (void)
 			//
 			//	Play the sound effect
 			//
-			StyleMgrClass::Play_Sound (StyleMgrClass::EVENT_MENU_BACK);			
+			StyleMgrClass::Play_Sound (StyleMgrClass::EVENT_MENU_BACK);
 		}
-	} 
+	}
 
 	DialogBaseClass::End_Dialog ();
 	return ;

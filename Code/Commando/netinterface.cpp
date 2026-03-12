@@ -21,7 +21,7 @@
 // Project:      Network.lib, for Commando
 // Author:       Tom Spencer-Smith
 // Date:         Dec 1998
-// Description:  
+// Description:
 //
 
 #include "netinterface.h"
@@ -56,7 +56,7 @@ cNetInterface::~cNetInterface(void)
 WideStringClass cNetInterface::Get_Nickname(void)
 {
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
-		
+
 		//
 		// If the gamespy nickname is blank, set it to "Unnamed"
 		//
@@ -109,7 +109,7 @@ void cNetInterface::Set_Nickname(WideStringClass & name)
 
 //-----------------------------------------------------------------------------
 void cNetInterface::Set_Random_Nickname(void)
-{      
+{
 	char name[MAX_COMPUTERNAME_LENGTH + 1];
 	DWORD size = sizeof(name);
 	::GetComputerNameA(name, &size);
@@ -174,7 +174,7 @@ int cNetInterface::Get_Side_Preference(void)
 
 	/*
 	Nickname = name;
-	
+
 	int max_len = 0;
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
 		max_len = 34;

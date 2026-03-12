@@ -87,7 +87,7 @@ const char* const GetChatErrorString(HRESULT hr)
 		ADD_CASE(CHAT_E_JOINCHANNEL, "WOL_CHANNELJOINERROR");
 		ADD_CASE(CHAT_E_UNKNOWNCHANNEL, "WOL_CHANNELNOTFOUND");
 
-		default: 
+		default:
 			return "WOL_UNKNOWNERROR";
 			break;
 		}
@@ -116,7 +116,7 @@ const char* const GetNetUtilErrorString(HRESULT hr)
 		ADD_CASE(NETUTIL_E_INVALIDFIELD, "WOL_PARAMERROR");
 		ADD_CASE(NETUTIL_E_CANTVERIFY, "WOL_CANTVERIFY");
 
-		default: 
+		default:
 			return "WOL_UNKNOWNERROR";
    }
 	}
@@ -146,7 +146,7 @@ const char* const GetDownloadErrorString(HRESULT hr)
 		ADD_CASE(DOWNLOADEVENT_TCPERROR, "WOL_DOWNLOADIOERROR");
 		ADD_CASE(DOWNLOADEVENT_DISCONNECTERROR, "WOL_DOWNLOADDISCONNECTERROR");
 
-		default: 
+		default:
 			return "WOL_UNKNOWNERROR";
 		}
 	}

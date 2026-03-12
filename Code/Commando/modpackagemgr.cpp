@@ -124,7 +124,7 @@ ModPackageMgrClass::Build_List (void)
 	for (file_find = ::FindFirstFileA ("data/*.pkg", &find_info);
 		 (file_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFileA (file_find, &find_info))
-	{		
+	{
 		//
 		//	Create the package from the data in this mix file
 		//
@@ -137,10 +137,10 @@ ModPackageMgrClass::Build_List (void)
 		PackageList.Add (package);
 	}
 
-	if (file_find != INVALID_HANDLE_VALUE) {			  
-		::FindClose (file_find); 
+	if (file_find != INVALID_HANDLE_VALUE) {
+		::FindClose (file_find);
 	}
-	
+
 	return ;
 }
 
@@ -262,7 +262,7 @@ ModPackageMgrClass::Get_Mod_Map_Name_From_CRC_Index
 			if (map_index >= 0 && map_index < list.Count ()) {
 				(*map_name) = list[map_index];
 				retval = true;
-			}			
+			}
 		}
 	}
 
@@ -310,7 +310,7 @@ ModPackageMgrClass::Get_Mod_Map_Name_From_CRC
 			//
 			ModPackageClass *package = ModPackageMgrClass::Find_Package (mod_name->Peek_Buffer ());
 			if (package != NULL) {
-				
+
 				//
 				//	Try to find the map from its CRC inside the mod package
 				//
@@ -403,7 +403,7 @@ ModPackageMgrClass::Find_Package_From_CRC
 	//	Loop over all the packages
 	//
 	for (int index = 0; index < PackageList.Count (); index ++) {
-		
+
 		//
 		//	Does this package's CRC match the one we're looking for?
 		//

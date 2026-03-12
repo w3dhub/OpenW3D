@@ -54,10 +54,10 @@ class BuildingAggregateDefClass;
 
 /**
 ** BuildingAggregateClass (BAG)
-** This class implements the behavior of a "building aggregate".  Building aggregates are animated 
-** static objects which display segments of their animation depending on the state of the building.  
+** This class implements the behavior of a "building aggregate".  Building aggregates are animated
+** static objects which display segments of their animation depending on the state of the building.
 */
-class	BuildingAggregateClass : public StaticAnimPhysClass 
+class	BuildingAggregateClass : public StaticAnimPhysClass
 {
 public:
 
@@ -85,7 +85,7 @@ public:
 	virtual	const	PersistFactoryClass & Get_Factory( void ) const override;
 
 protected:
-	
+
 	bool				Is_Power_On(int state);
 
 	int				CurrentState;
@@ -98,15 +98,15 @@ protected:
 ** BuildingAggregateDefClass (BAGDef!)
 ** The data contained in this class defines the behavior of a "building aggregate".  Building
 ** aggregates are animated static objects which display segments of their animation depending
-** on the state of the building.  
+** on the state of the building.
 ** Obviously, this is a very special case object; designed specifically to provide a set of
 ** features needed by the building logic in Renegade.
 */
-class BuildingAggregateDefClass : public StaticAnimPhysDefClass 
+class BuildingAggregateDefClass : public StaticAnimPhysDefClass
 {
 public:
 	BuildingAggregateDefClass(void);
-	
+
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual const char *						Get_Type_Name(void) override				{ return "BuildingAggregateDef"; }
 	virtual bool								Is_Type(const char *) override;
@@ -130,9 +130,9 @@ protected:
 	** ANIM_LOGIC_LOOP - In this mode, each state has a pair of frames which it loops between.  Whenever
 	**		the state changes, we pop to the same relative position in the new loop.  In addition, certain
 	**		states can have animation disabled; this will cause the object to freeze on the appropriate frame
-	**		right after the state change.  
+	**		right after the state change.
 	*/
-	enum 
+	enum
 	{
 		ANIM_LOGIC_LINEAR						= 0,
 		ANIM_LOGIC_LOOP,
@@ -141,7 +141,7 @@ protected:
 
 	int											AnimLogicMode;
 	bool											IsMCT;
-	
+
 	/*
 	** Animation controls for each state.  In LOOP mode, we use Frame0 and Frame1 to define a loop.  In
 	** Linear mode, only Frame0 is used.

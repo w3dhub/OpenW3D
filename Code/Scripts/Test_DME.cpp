@@ -36,10 +36,10 @@
 #define DME_OCCUPIED	13000
 
 DECLARE_SCRIPT (DME_Test_Powerup, "")
-{	
+{
 
 	int reward_type;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE(reward_type, 1);
@@ -48,12 +48,12 @@ DECLARE_SCRIPT (DME_Test_Powerup, "")
 
 	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
-		
+
 		Commands->Trigger_Spawner ( 100022 );
 		reward_type = Get_Int_Random(0, 7);
 		Vector3 enemy_loc = Commands->Get_Position ( obj );
 		enemy_loc.Z += 1.0f;
-		
+
 		switch (reward_type)
 		{
 		case 0:
@@ -192,8 +192,8 @@ DECLARE_SCRIPT (DME_Test_Powerup, "")
 		}
 
 
-	}	
-	
+	}
+
 };
 
 DECLARE_SCRIPT (DME_Destroy_Item, "timer_length: float")
@@ -221,10 +221,10 @@ DECLARE_SCRIPT (DME_Waypath_test, "")
 		ActionParamsStruct params;
 
 		params.Set_Basic( this, 100, 10 );
-		params.Set_Movement( Vector3(0,0,0), 1.5f, 0 );		
+		params.Set_Movement( Vector3(0,0,0), 1.5f, 0 );
 		params.WaypathID = 100036;
 		params.WaypointStartID = 100037;
-		params.WaypointEndID = 100039;		
+		params.WaypointEndID = 100039;
 		params.WaypathSplined = true;
 		Commands->Action_Goto( obj, params );
 	}
@@ -244,7 +244,7 @@ DECLARE_SCRIPT (DME_Test_Ejected_Soldier, "")
 		GameObject *soldier;
 		soldier = Commands->Create_Object ( "Nod_Technician_0", spawn_loc );
 		Commands->Attach_Script (soldier, "DME_Test_Paradrop", "");
-				
+
 	}
 };
 
@@ -252,7 +252,7 @@ DECLARE_SCRIPT (DME_Test_Ejected_Soldier, "")
 DECLARE_SCRIPT (DME_Test_Paradrop, "")
 {
 	void Created ( GameObject * obj ) override
-	{		
+	{
 		/*Vector3 loc = Commands->Get_Position ( obj );
 		GameObject *para1;
 		para1 = Commands->Create_Object_At_Bone (obj, "Generic_Cinematic", "C HEAD");
@@ -264,7 +264,7 @@ DECLARE_SCRIPT (DME_Test_Paradrop, "")
 		Commands->Start_Timer (obj, this, .8385f, 10);
 		Vector3 loc = Commands->Get_Position ( obj );
 		float facing = Commands->Get_Facing(obj);
-		
+
 		GameObject *box1 = Commands->Create_Object("Generic_Cinematic", loc);
 		Commands->Set_Model(box1, "X5D_Box01");
 		Commands->Set_Facing(box1, facing);
@@ -276,8 +276,8 @@ DECLARE_SCRIPT (DME_Test_Paradrop, "")
 		Commands->Attach_Script(soldier1, "RMV_Trigger_Killed", "1144444, 1000, 1000");
 		Commands->Attach_To_Object_Bone( soldier1, box1, "Box01" );
 		Commands->Set_Animation(soldier1, "s_a_human.H_A_X5D_ParaT_1", false, NULL, 0.0f, -1.0f, false);
-		
-		
+
+
 
 	}
 
@@ -296,7 +296,7 @@ DECLARE_SCRIPT (DME_Test_Paradrop, "")
 			Commands->Create_3D_Sound_At_Bone("parachute_open", para1, "ROOTTRANSFORM");
 			Commands->Attach_Script(para1, "M03_No_More_Parachute", "");
 		}
-	
+
 	}
 
 };
@@ -313,8 +313,8 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 
 	GameObject *destination_object;
 
-	
-	
+
+
 	void init ()	//initializes count and work_done values.
 	{
 		int x;
@@ -324,7 +324,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		{
 			work_done [x] = 1;
 		}
-		
+
 	}
 
 	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
@@ -349,15 +349,15 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			init ();
 		}
 
-		
+
 		GameObject *work_loc;
-				
+
 		choice = Get_Int_Random (area_start, area_end);
-		while (work_done [choice] == 0 || choice == last_loc) 
+		while (work_done [choice] == 0 || choice == last_loc)
 		{
 			choice = Get_Int_Random (area_start, area_end);
-		} 
-		
+		}
+
 		work_done [choice] = 0;
 		last_loc = choice;
 		count++;
@@ -368,37 +368,37 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		work_loc = Commands->Find_Object (loc_id [choice]);
 		location = Commands->Get_Position ( work_loc );
 		facing = Commands->Get_Facing (work_loc);
-				
+
 		ActionParamsStruct params;
 
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 1, 90 );
-		params.Set_Movement( location, WALK, 0.0f );		
+		params.Set_Movement( location, WALK, 0.0f );
 		Commands->Action_Goto( obj, params );
-		
+
 	}
 
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/ ) override	//this is called when the servant reaches the destination location.
 	{																										//the purpose of this function is to have the servant perform their destination animation.
-		
+
 		Vector3 current_loc = Commands->Get_Position ( obj );
 		float distance = Commands->Get_Distance ( current_loc, location );
-		
+
 		if (action_id == 90)
 		{
 			if (star_seen == false && distance <= 3.0f)
 			{
 				anim_playing = true;
-				
+
 				Commands->Start_Timer (obj, this, 2.0f, 500);
 				Commands->Set_Facing(obj, facing);
-				
+
 				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1);
 				params.Set_Animation( area_anim, true );
 				Commands->Action_Play_Animation (obj, params);
 			}
 		}
-			
+
 	}
 
 	void Created ( GameObject * obj ) override		//this is the created function for the servant, it sets up most of the variables.
@@ -443,7 +443,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			area_end = 2;
 			sprintf(area_anim, "%s", "H_A_a0f0");
 		}
-		
+
 		//Area 2 Variables.
 		else if (work_area == 2)
 		{
@@ -452,7 +452,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			area_end = 15;
 			sprintf(area_anim, "%s", "H_A_a0f0");
 		}
-		
+
 		//Area 3 Variables.
 		else if (work_area == 3)
 		{
@@ -472,18 +472,18 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 		if (timer_id == 500)			//this timer resets the servant from his animation loop and calls Worker_Loop to send him to a new location.
 		{
 			anim_playing = false;
-			
+
 			Commands->Action_Reset(obj, 99);
 			Commands->Set_Animation( obj, NULL, false , NULL, 0.0f, -1.0f, false);
-			
+
 			destination_object = Commands->Find_Object (loc_id [choice]);
 			Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 			Worker_Loop (obj);
-						
+
 		}
 
-		
+
 		else if (timer_id == 510)		//this timer resets the servant after seeing the star.  He completes his animation and returns to work.
 		{
 			star_seen = false;
@@ -491,12 +491,12 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			Commands->Action_Reset(obj, 99);
 			Commands->Set_Animation( obj, "H_A_HOST_L1B", false, NULL, 0.0f, -1.0f, false );
 			Commands->Set_Animation_Frame(obj, "H_A_HOST_L1B", 16);
-			
+
 			Worker_Loop (obj);
-			
+
 		}
 
-		
+
 		else if (timer_id == 520)			//this timer is a general reset after being poked.
 		{
 			poked = false;
@@ -510,7 +510,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			poked = false;
 			Worker_Loop ( obj );
 		}
-		
+
 	}
 
 	void Enemy_Seen (GameObject* obj, GameObject* /*enemy*/) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
@@ -524,13 +524,13 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 
 				star_seen = true;
 				Commands->Start_Timer (obj, this, 9.0f, 510);
-				
+
 				const char *conv_name = ("IDS_M06_DME");
 				int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 				Commands->Join_Conversation(obj, conv_id, false, false, true);
 				Commands->Start_Conversation (conv_id, 1);
-				
-				
+
+
 				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN, 1);
 				params.Set_Animation( "H_A_HOST_L1B", true );
@@ -538,7 +538,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			}
 
 		}
-		
+
 	}
 
 	void Poked(GameObject * obj, GameObject * /*poker*/) override  //function runs from a pre-defined random poke_choice.
@@ -551,20 +551,20 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 			poked = true;
-			
+
 			switch (poke_choice)
 			{
 			case 1:		//call for guards
 				{
 					Commands->Start_Timer (obj, this, 5.0f, 520);
-					
+
 					const char *conv_name = ("IDS_M06_DME02");
 					int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 					Commands->Join_Conversation(obj, conv_id, false, false, true);
 					Commands->Start_Conversation (conv_id, 1);
 					Commands->Create_Logical_Sound(obj, SOUND_TYPE_GUNSHOT, Commands->Get_Position(obj), 75.0f);
 
-					
+
 
 				}
 				break;
@@ -572,14 +572,14 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 			case 2:		//sound alarm
 				{
 					Commands->Start_Timer (obj, this, 5.0f, 520);
-					
+
 					const char *conv_name = ("IDS_M06_D05");
 					int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 					Commands->Join_Conversation(obj, conv_id, false, false, true);
 					Commands->Start_Conversation (conv_id, 1);
 
-				
-					
+
+
 				}
 				break;
 
@@ -590,7 +590,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 						Commands->Action_Reset(obj, 99);
 						Commands->Set_Animation( obj, "H_A_HOST_L1B", false , NULL, 0.0f, -1.0f, false);
 						Commands->Set_Animation_Frame(obj, "H_A_HOST_L1B", 16);
-						
+
 						reward_given = true;									//records that the reward has been given.
 						int reward_type = Get_Int_Random(0, 5);
 						Commands->Start_Timer (obj, this, 5.0f, 530);
@@ -600,48 +600,48 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 						Commands->Join_Conversation(obj, conv_id, false, false, true);
 						Commands->Start_Conversation (conv_id, 1);
 
-						
+
 						Vector3 pos = Commands->Get_Position(obj);				//specifies drop location and plays droping anim.
 						float obj_facing = Commands->Get_Facing(obj);
 						Commands->Set_Animation( obj, "H_A_J12C", false, NULL, 0.0f, -1.0f, false );
 						float a = cos(DEG_TO_RADF(obj_facing)) * 1.5;
 						float b = sin(DEG_TO_RADF(obj_facing)) * 1.5;
 						Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
-						
+
 						switch (reward_type)									//random reward type.
 						{
-						case 0:					
+						case 0:
 							{
 								Commands->Create_Object("Armor 025 PowerUp", powerup_loc);
-								
+
 							}
 							break;
-						
-						case 1:					
+
+						case 1:
 							{
 								Commands->Create_Object("Armor 050 PowerUp", powerup_loc);
 							}
 							break;
 
-						case 2:					
+						case 2:
 							{
 								Commands->Create_Object("Armor 100 PowerUp", powerup_loc);
 							}
 							break;
 
-						case 3:					
+						case 3:
 							{
 								Commands->Create_Object("Health 025 PowerUp", powerup_loc);
 							}
 							break;
 
-						case 4:					
+						case 4:
 							{
 								Commands->Create_Object("Health 025 PowerUp", powerup_loc);
 							}
 							break;
 
-						case 5:					
+						case 5:
 							{
 								Commands->Create_Object("Health 025 PowerUp", powerup_loc);
 							}
@@ -653,7 +653,7 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 					{
 						Commands->Start_Timer (obj, this, 3.0f, 530);
 					}
-									
+
 				}
 				break;
 
@@ -662,11 +662,11 @@ DECLARE_SCRIPT (DME_Test_Worker_Wander, "Work_Area=3:int")
 					Commands->Debug_Message ("********poke_choice out of range");
 					break;
 				}
-				
+
 			}
 		}
 	}
-	
+
 };
 
 DECLARE_SCRIPT (DME_Test_Work_Area, "")			//this script needs to be placed on all daves arrows.
@@ -677,7 +677,7 @@ DECLARE_SCRIPT (DME_Test_Work_Area, "")			//this script needs to be placed on al
 	{											//  200 - yes
 		occupied = false;						//70 - change occupied status to true
 	}											//90 - change occupied status to false
-	
+
 	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override
 	{
 		if (type == 50 && param == 50)
@@ -710,7 +710,7 @@ DECLARE_SCRIPT (DME_Test_Work_Area, "")			//this script needs to be placed on al
 
 
 
-DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")	
+DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")
 {
 	bool entered;
 
@@ -718,7 +718,7 @@ DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")
 	{
 		entered = false;
 	}
-	
+
 	void Custom(GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * sender) override
 	{
 		if (entered == false)
@@ -726,7 +726,7 @@ DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")
 			if (type == CUSTOM_EVENT_VEHICLE_ENTERED && Commands->Is_A_Star(sender))
 			{
 				entered = true;
-				
+
 				Vector3 drop_loc;
 				drop_loc.X = -476.07f;
 				drop_loc.Y = -130.76f;
@@ -741,7 +741,7 @@ DECLARE_SCRIPT (M05_Tank_Drop_01_DME, "")
 	}
 };
 
-DECLARE_SCRIPT (M05_Tank_Attack_DME, "")	
+DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 {
 	bool attacking, first;
 
@@ -751,7 +751,7 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( attacking, 1 );
 	}
 
@@ -770,7 +770,7 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 		Vector3 enemy_loc;
 		current_loc = Commands->Get_Position ( obj );
 		enemy_loc = Commands->Get_Position ( enemy );
-		
+
 		if ((Commands->Get_Distance(current_loc, enemy_loc)) < 65)
 		{
 			if(!attacking && first)
@@ -781,7 +781,7 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 				params.Set_Attack (enemy, 65.0f, 3.0f, 1);
 				params.AttackCheckBlocked = true;
 				Commands->Action_Attack( obj, params );
-				
+
 				Commands->Start_Timer(obj, this, 5.0f, ATTACK_OVER);
 			}
 		}
@@ -793,7 +793,7 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 			params.Set_Attack (enemy, 250.0f, 3.0f, 1);
 			params.AttackCheckBlocked = true;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer(obj, this, 5.0f, ATTACK_OVER);
 		}
 	}
@@ -807,7 +807,7 @@ DECLARE_SCRIPT (M05_Tank_Attack_DME, "")
 			attacking = false;
 		}
 	}
-	
+
 };
 
 
@@ -822,8 +822,8 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 
 	GameObject *destination_object;
 
-	
-	
+
+
 	void init ()	//initializes count and work_done values.
 	{
 		int x;
@@ -833,7 +833,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		{
 			work_done [x] = 1;
 		}
-		
+
 	}
 
 	void Custom (GameObject* obj, int type, intptr_t param, GameObject* sender) override	//recieves custom from dave's arrow as to if the location is occupied or not.
@@ -858,15 +858,15 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 			init ();
 		}
 
-		
+
 		GameObject *work_loc;
-				
+
 		choice = Get_Int_Random (area_start, area_end);
-		while (work_done [choice] == 0 || choice == last_loc) 
+		while (work_done [choice] == 0 || choice == last_loc)
 		{
 			choice = Get_Int_Random (area_start, area_end);
-		} 
-		
+		}
+
 		work_done [choice] = 0;
 		last_loc = choice;
 		count++;
@@ -877,37 +877,37 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		work_loc = Commands->Find_Object (loc_id [choice]);
 		location = Commands->Get_Position ( work_loc );
 		facing = Commands->Get_Facing (work_loc);
-				
+
 		ActionParamsStruct params;
 
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 1, 90 );
-		params.Set_Movement( location, WALK, 0.0f );		
+		params.Set_Movement( location, WALK, 0.0f );
 		Commands->Action_Goto( obj, params );
-		
+
 	}
 
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason /*complete_reason*/ ) override	//this is called when the servant reaches the destination location.
 	{																										//the purpose of this function is to have the servant perform their destination animation.
-		
+
 		Vector3 current_loc = Commands->Get_Position ( obj );
 		float distance = Commands->Get_Distance ( current_loc, location );
-		
+
 		if (action_id == 90)
 		{
 			if (star_seen == false && distance <= 3.0f)
 			{
 				anim_playing = true;
-				
+
 				Commands->Start_Timer (obj, this, 2.0f, 500);
 				Commands->Set_Facing(obj, facing);
-				
+
 				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1);
 				params.Set_Animation( area_anim, true );
 				Commands->Action_Play_Animation (obj, params);
 			}
 		}
-			
+
 	}
 
 	void Created ( GameObject * obj ) override		//this is the created function for the servant, it sets up most of the variables.
@@ -938,7 +938,7 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 			area_end = 6;
 			sprintf(area_anim, "%s", "H_A_a0f0");
 		}
-		
+
 		init ();
 
 		Worker_Loop (obj);
@@ -949,18 +949,18 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 		if (timer_id == 500)			//this timer resets the servant from his animation loop and calls Worker_Loop to send him to a new location.
 		{
 			anim_playing = false;
-			
+
 			Commands->Action_Reset(obj, 99);
 			Commands->Set_Animation( obj, NULL, false, NULL, 0.0f, -1.0f, false );
-			
+
 			destination_object = Commands->Find_Object (loc_id [choice]);
 			Commands->Send_Custom_Event(obj, destination_object, 90, 90, 0.0f);
 
 			Worker_Loop (obj);
-						
+
 		}
 
-		
+
 		else if (timer_id == 510)		//this timer resets the servant after seeing the star.  He completes his animation and returns to work.
 		{
 			star_seen = false;
@@ -968,10 +968,10 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 			Commands->Action_Reset(obj, 99);
 			Commands->Set_Animation( obj, "H_A_HOST_L1B", false , NULL, 0.0f, -1.0f, false);
 			Commands->Set_Animation_Frame(obj, "H_A_HOST_L1B", 16);
-			
+
 			Worker_Loop (obj);
-			
-		}		
+
+		}
 	}
 
 	void Enemy_Seen (GameObject* obj, GameObject* /*enemy*/) override	//this function sets the servant in a "don't hurt me!" stance (based on a timer)
@@ -985,20 +985,20 @@ DECLARE_SCRIPT (M05_Tech_Wander_DME, "Work_Area=1:int")
 
 				star_seen = true;
 				Commands->Start_Timer (obj, this, 9.0f, 510);
-				
+
 				const char *conv_name = ("IDS_M06_DME");
 				int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 				Commands->Join_Conversation(obj, conv_id, false, false, true);
 				Commands->Start_Conversation (conv_id, 1);
-				
-				
+
+
 				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN, 1);
 				params.Set_Animation( "H_A_HOST_L1B", true );
 				Commands->Action_Play_Animation (obj, params);
 			}
-		}		
-	}	
+		}
+	}
 };
 
 DECLARE_SCRIPT (test_Ssm_Trigger, "")

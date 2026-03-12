@@ -49,7 +49,7 @@ typedef struct
 	LPCTSTR	title;
 	LPCTSTR	src;
 	LPCTSTR	default_dir;
-	LPCTSTR	reg_key;	
+	LPCTSTR	reg_key;
 	UINT		ctrl_id;
 	UINT		clean_ctrl_id;
 	UINT		dir_ctrl_id;
@@ -154,9 +154,9 @@ BOOL CW3DUpdateDlg::OnInitDialog()
 		//	Is this application installed?
 		//
 		if (::RegOpenKeyEx (HKEY_CURRENT_USER, reg_key_name, 0L, KEY_READ, &hreg_key) == ERROR_SUCCESS) {
-			//Moumine- 
+			//Moumine-
 			//SendDlgItemMessage (app_info.ctrl_id, BM_SETCHECK, (WPARAM)true);
-			
+
 			//
 			//	Read the installation directory from the registry
 			//
@@ -174,7 +174,7 @@ BOOL CW3DUpdateDlg::OnInitDialog()
 		if (path[0] == 0) {
 			::lstrcpy (path, app_info.default_dir);
 		}
-		
+
 		if (app_info.dir_ctrl_id != -1) {
 			SetDlgItemText (app_info.dir_ctrl_id, path);
 		}
@@ -194,7 +194,7 @@ BOOL CW3DUpdateDlg::OnInitDialog()
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CW3DUpdateDlg::OnPaint() 
+void CW3DUpdateDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -259,7 +259,7 @@ CW3DUpdateDlg::OnOK (void)
 			// application in the list?
 			//
 			if (app_info.copy_to_app_dir1 != -1) {
-				CString local_path;				
+				CString local_path;
 
 				//
 				//	Install the application to the same directory as App1
@@ -269,7 +269,7 @@ CW3DUpdateDlg::OnOK (void)
 
 				if (success) {
 					if (app_info.copy_to_app_dir2 != -1) {
-						
+
 						//
 						//	Install the application to the same directory as App2
 						//
@@ -277,8 +277,8 @@ CW3DUpdateDlg::OnOK (void)
 						success = Install_App (app_info.title, app_info.src, local_path, reg_key_name, false);
 					}
 				}
-				
-				
+
+
 			} else {
 
 				//
@@ -291,7 +291,7 @@ CW3DUpdateDlg::OnOK (void)
 				//
 				CString local_path;
 				Get_Destination_Path (index, local_path);
-				
+
 				//
 				//	Install the application
 				//
@@ -301,7 +301,7 @@ CW3DUpdateDlg::OnOK (void)
 				RegisterShellExt();
 			}else{
 				if(index == APP_VIEWER){
-					//Set Viewer as default application 
+					//Set Viewer as default application
 					RegisterViewer(index);
 				}
 			}
@@ -378,12 +378,12 @@ CW3DUpdateDlg::Install_App
 	if (clean) {
 		::Clean_Directory (dest_path);
 	}
-	
+
 	//
 	//	Update the application's files
 	//
 	bool ret_val = ::Update_App (this, title, src_path, dest_path);
-	
+
 	//
 	//	Write the app's installation dir to the registry if we
 	//	installed it correctly.
@@ -431,7 +431,7 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 	browse_info.ulFlags = BIF_RETURNONLYFSDIRS;
 	LPITEMIDLIST pidl = ::SHBrowseForFolder (&browse_info);
 	if (pidl != NULL) {
-		
+
 		// Convert the 'PIDL' into a string
 		char path[MAX_PATH];
 		ret_val = (::SHGetPathFromIDList (pidl, path) == true);
@@ -447,12 +447,12 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 		}
 	}
 
-	
+
 	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
 	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_ENABLETEMPLATEHANDLE, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
 	//dialog.m_ofn.lpTemplateName = MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG);
 	//dialog.m_ofn.hInstance = ::AfxGetInstanceHandle ();
-	//HRSRC resource = ::FindResource (::AfxGetInstanceHandle (), MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG), RT_DIALOG);	
+	//HRSRC resource = ::FindResource (::AfxGetInstanceHandle (), MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG), RT_DIALOG);
 	//dialog.m_ofn.hInstance = (HINSTANCE)::LoadResource (::AfxGetInstanceHandle (), resource);
 
 	//dialog.DoModal ();
@@ -552,7 +552,7 @@ Copy_File
 
 		// Make sure we aren't copying over ourselves
 		bool allow_copy = (::lstrcmpi (existing_filename, new_filename) != 0);
-		
+
 		// Strip the readonly bit off if necessary
 		DWORD attributes = ::GetFileAttributes (new_filename);
 		if (allow_copy &&
@@ -630,7 +630,7 @@ Create_Dir_If_Necessary (LPCTSTR path)
 		Create_Dir_If_Necessary (::Strip_Filename_From_Path (path));
 		::CreateDirectory (path, NULL);
 	}
-	
+
 	return ;
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -649,7 +649,7 @@ fnUpdateAppDirectory (LPVOID pParam)
 
 		// Build a search mask from the directory
 		CString search_mask = info->src_dir + "\\*.*";
-		
+
 		// Loop through all the files in this directory and add them
 		// to our list
 		WIN32_FIND_DATA find_info = { 0 };
@@ -716,7 +716,7 @@ Update_App
 	if (::GetFileAttributes (dest_dir) == 0xFFFFFFFF) {
 		::CreateDirectory (dest_dir, NULL);
 	}
-	
+
 	//
 	//	Kick off a worker thread to do the actual file copy
 	//
@@ -727,7 +727,7 @@ Update_App
 	::AfxBeginThread (fnUpdateAppDirectory, (LPVOID)info);
 	// Kill the updating dialog
 	::PostMessage( dialog.m_hWnd, WM_USER + 101, 0, 0L);
-	
+
 	//
 	//	Display a dialog to monitor the progress
 	//
@@ -754,16 +754,16 @@ CW3DUpdateDlg::OnCommand
 		const APP_INFO &app_info = APPLICATIONS[index];
 
 		if (LOWORD (wParam) == app_info.ctrl_id) {
-			
+
 			//
 			//	Enable or disable the clean and directory buttons
 			//
 			bool enable = (SendDlgItemMessage (LOWORD(wParam), BM_GETCHECK) == 1);
 			::EnableWindow (::GetDlgItem (m_hWnd, app_info.clean_ctrl_id), enable);
 			::EnableWindow (::GetDlgItem (m_hWnd, app_info.dir_ctrl_id), enable);
-			
+
 		} else if (LOWORD (wParam) == app_info.dir_ctrl_id) {
-			
+
 			//
 			//	Change the installation directoy
 			//
@@ -795,7 +795,7 @@ CW3DUpdateDlg::OnDefaults (void)
 			SetDlgItemText (app_info.dir_ctrl_id, app_info.default_dir);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -897,7 +897,7 @@ void CW3DUpdateDlg::RegisterShellExt()
 		reg_value.LoadString(IDS_W3DDEFAULTICON_TEXT);
 		ret_val = ::RegSetValueEx(reg_key, "",0L,REG_SZ,(BYTE *)(LPCTSTR)reg_value,reg_value.GetLength () + 1);
 	}
-	SHChangeNotify(SHCNE_ASSOCCHANGED,SHCNF_IDLIST ,NULL,NULL);	
+	SHChangeNotify(SHCNE_ASSOCCHANGED,SHCNF_IDLIST ,NULL,NULL);
 }
 
 void CW3DUpdateDlg::RegisterViewer(int index){
@@ -906,7 +906,7 @@ void CW3DUpdateDlg::RegisterViewer(int index){
 	CString dest_path;
 	Get_Destination_Path(index, dest_path);
 	CString reg_value(MAKEINTRESOURCE(IDS_VIEWERCOMMAND));
-	reg_value = dest_path + reg_value; 
+	reg_value = dest_path + reg_value;
 	//[HKEY_CLASSES_ROOT\CLSID\{556F8779-49C4-4e88-9CEF-0AC2CFD6B763}]
 	DWORD ret_val = ::RegCreateKeyEx (HKEY_CLASSES_ROOT,reg_key_name,0L,NULL,REG_OPTION_NON_VOLATILE,KEY_ALL_ACCESS,NULL,&reg_key,NULL);
 	if (ERROR_SUCCESS == ret_val) {

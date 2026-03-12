@@ -176,8 +176,8 @@ const float MPR_A01_orca_attack_stoptime_RAD	= 0.2f; // How long the ORCA turret
 const float MPR_A01_obelisk_firing_time_RAD		= 2.0f; // How much time delay between Obelisk attacks.
 
 #define		MPR_A02_DRILL_INSTRUCTOR_X1_JDG			-57.75f
-#define		MPR_A02_DRILL_INSTRUCTOR_Y1_JDG			-12.79f			
-#define		MPR_A02_DRILL_INSTRUCTOR_Z1_JDG			2.42f	
+#define		MPR_A02_DRILL_INSTRUCTOR_Y1_JDG			-12.79f
+#define		MPR_A02_DRILL_INSTRUCTOR_Z1_JDG			2.42f
 #define		MPR_A02_DRILL_INSTRUCTOR_X2_JDG			-52.80f
 #define		MPR_A02_DRILL_INSTRUCTOR_Y2_JDG			-7.26f
 #define		MPR_A02_DRILL_INSTRUCTOR_Z2_JDG			2.42f
@@ -207,7 +207,7 @@ Exercise exercise;
 typedef enum
 {
 	MPR_A04_SUICIDERUN_LIGHTTANK_ALIVE = 0,
-	MPR_A04_SUICIDERUN_LIGHTTANK_DEAD, 
+	MPR_A04_SUICIDERUN_LIGHTTANK_DEAD,
 } LIGHTTANKState;
 
 LIGHTTANKState state;
@@ -215,7 +215,7 @@ LIGHTTANKState state;
 typedef enum
 {
 	MPR_A04_SUICIDERUN_CONSOLE_ALIVE = 0,
-	MPR_A04_SUICIDERUN_CONSOLE_DEAD, 
+	MPR_A04_SUICIDERUN_CONSOLE_DEAD,
 } CONSOLEState;
 
 CONSOLEState status;
@@ -229,7 +229,7 @@ int MPR_A01_CIV02_ID_PMP;
 int MPR_A01_CIV03_ID_PMP;
 int MPR_A01_orca_turret1_RAD;
 int MPR_A01_orca_turret2_RAD;
-int	MPR_A02_drill_instructor_id_JDG;			
+int	MPR_A02_drill_instructor_id_JDG;
 int	MPR_A02_cadet_1_id_JDG;
 int MPR_A02_cadet_2_id_JDG;
 int MPR_A02_cadet_3_id_JDG;
@@ -239,12 +239,12 @@ int MPR_A03_helicopter_injured_nod_pilot_id_JDG;
 int MPR_A03_bridgescene_enterzone_id_JDG;
 int MPR_A03_bridgescene_engineer_id_JDG;
 int MPR_A03_bridgescene_blowupzone_id_JDG;
-int	MPR_A04_suiciderun_enterzone_id_JDG;					
-int MPR_A04_suiciderun_gdi_minigunner_1_id_JDG;			
-int MPR_A04_suiciderun_gdi_minigunner_2_id_JDG;		
-int MPR_A04_suiciderun_nod_minigunner_id_JDG;				
-int MPR_A04_suiciderun_gdi_medium_tank_id_JDG;			
-int MPR_A04_suiciderun_nod_light_tank_id_JDG;		
+int	MPR_A04_suiciderun_enterzone_id_JDG;
+int MPR_A04_suiciderun_gdi_minigunner_1_id_JDG;
+int MPR_A04_suiciderun_gdi_minigunner_2_id_JDG;
+int MPR_A04_suiciderun_nod_minigunner_id_JDG;
+int MPR_A04_suiciderun_gdi_medium_tank_id_JDG;
+int MPR_A04_suiciderun_nod_light_tank_id_JDG;
 int MPR_A05_mammoth_tank_id_RAD;
 
 #define		MPR_A02_HARVESTER_WAYPATH_JDG			364188

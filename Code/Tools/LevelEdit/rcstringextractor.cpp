@@ -50,7 +50,7 @@
 RCStringExtractorClass::RCStringExtractorClass (void)	:
 	CategoryIndex (0)
 {
-	return; 
+	return;
 }
 
 
@@ -121,7 +121,7 @@ RCStringExtractorClass::Find_String
 
 				//
 				//	Return the contents to the caller
-				//	
+				//
 				end[0] = 0;
 				contents = start;
 
@@ -184,7 +184,7 @@ RCStringExtractorClass::Process_Line (StringClass &line, int &current_index)
 	//
 	for (int index = 0; index < KEYWORD_COUNT; index ++) {
 		if (Find_String (line, KEYWORDS[index], string_id, contents)) {
-			
+
 			//
 			//	Create a new translation DB entry for this string
 			//
@@ -192,7 +192,7 @@ RCStringExtractorClass::Process_Line (StringClass &line, int &current_index)
 			new_obj->Set_English_String (contents);
 			new_obj->Set_ID_Desc (string_id);
 			new_obj->Set_Category_ID (CategoryIndex);
-			
+
 			//
 			//	Add the new object to the database
 			//
@@ -201,7 +201,7 @@ RCStringExtractorClass::Process_Line (StringClass &line, int &current_index)
 			break;
 		}
 	}
-	
+
 	return ;
 }
 
@@ -249,7 +249,7 @@ RCStringExtractorClass::Extract_Strings (void)
 		TextFileClass file (SrcFilename);
 		TextFileClass output_file (DestFilename);
 		if (file.Open (RawFileClass::READ) && output_file.Open (RawFileClass::WRITE)) {
-			
+
 			//
 			//	Determine where to start our numbering scheme
 			//
@@ -260,7 +260,7 @@ RCStringExtractorClass::Extract_Strings (void)
 			//
 			StringClass curr_line;
 			while (file.Read_Line (curr_line)) {
-				
+
 				Process_Line (curr_line, current_index);
 
 				curr_line += "\r\n";
@@ -304,13 +304,13 @@ RCStringExtractorClass::Find_Starting_Index (void)
 	for (int index = 0; index < count; index ++) {
 		TDBObjClass *obj = TranslateDBClass::Get_Object (index);
 		if (obj != NULL) {
-			
+
 			//
 			//	Is this one of the strings we care about?
 			//
 			const StringClass &string_desc = obj->Get_ID_Desc ();
 			if (::strnicmp (Prefix, string_desc, prefix_len) == 0) {
-				
+
 				//
 				//	Check to see if this is the largest index we've found yet
 				//

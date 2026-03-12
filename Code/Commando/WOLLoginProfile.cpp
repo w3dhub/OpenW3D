@@ -227,7 +227,7 @@ void LoginProfile::Delete(const unichar_t* loginName)
 	if (loginName && u_strlen(loginName))
 		{
 		RegistryClass registry(APPLICATION_SUB_KEY_NAME_LOGINS, false);
-	
+
 		if (registry.Is_Valid())
 			{
 			char valueName[64];
@@ -515,7 +515,7 @@ void LoginProfile::LoadSettings(void)
 	regKey.Format("%s\\%S", APPLICATION_SUB_KEY_NAME_LOGINS, GetName());
 
 	RegistryClass registry(regKey, false);
-	
+
 	if (registry.Is_Valid())
 		{
 		registry.Get_String(REG_VALUE_SERVER, mServer, "");
@@ -557,7 +557,7 @@ void LoginProfile::SaveSettings(void)
 		login->SetLocale((WOL::Locale)mLocale);
 		}
 
-	// If we are allowed to 
+	// If we are allowed to
 	if (_mSaveAllowed && isStored)
 		{
 		// Save login preferences
@@ -565,7 +565,7 @@ void LoginProfile::SaveSettings(void)
 		regKey.Format("%s\\%S", APPLICATION_SUB_KEY_NAME_LOGINS, GetName());
 
 		RegistryClass registry(regKey);
-	
+
 		if (registry.Is_Valid())
 			{
 			registry.Set_String(REG_VALUE_SERVER, mServer);
@@ -604,7 +604,7 @@ void LoginProfile::LoadRank(const char* valueName, LoginProfile::Ranking& rank)
 	regKey.Format("%s\\%S", APPLICATION_SUB_KEY_NAME_LOGINS, GetName());
 
 	RegistryClass registry(regKey, false);
-	
+
 	if (registry.Is_Valid())
 		{
  		char rankData[255];
@@ -650,7 +650,7 @@ void LoginProfile::SaveRank(const char* valueName, const LoginProfile::Ranking& 
 	regKey.Format("%s\\%S", APPLICATION_SUB_KEY_NAME_LOGINS, GetName());
 
 	RegistryClass registry(regKey);
-	
+
 	if (registry.Is_Valid())
 		{
  		char rankData[255];
@@ -714,7 +714,7 @@ void ShowProfileRanking(DialogBaseClass* dialog, const LoginProfile* profile)
 		for (int index = 0; index < 2; ++index)
 			{
 			int item = list->Insert_Entry(index, _ladders[index].name);
-		
+
 			if (item != -1)
 				{
 				list->Set_Entry_Data(item, COL_LADDERNAME, _ladders[index].type);

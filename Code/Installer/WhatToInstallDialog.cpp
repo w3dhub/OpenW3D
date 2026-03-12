@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/WhatToInstallDialog. $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 10/25/01 3:38p                $* 
- *                                                                                             * 
- *                    $Revision:: 5                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/WhatToInstallDialog. $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 10/25/01 3:38p                $*
+ *                                                                                             *
+ *                    $Revision:: 5                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -52,7 +52,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void WhatToInstallDialogClass::On_Init_Dialog (void)
 {
@@ -100,14 +100,14 @@ void WhatToInstallDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void WhatToInstallDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
 	switch (ctrl_id) {
 
 		case IDOK:
-		{	
+		{
 			// If neither of the first two options have been selected then ask the user if he wishes to cancel.
 			if (!(Is_Dlg_Button_Checked (IDC_WHAT_TO_INSTALL_CHECK1) || Is_Dlg_Button_Checked (IDC_WHAT_TO_INSTALL_CHECK2))) {
 				InstallMenuDialogClass::On_Command (IDCANCEL, 0, 0);
@@ -117,7 +117,7 @@ void WhatToInstallDialogClass::On_Command (int ctrl_id, int message_id, DWORD pa
 		}
 
 		case IDC_WHAT_TO_INSTALL_CHECK1:
-			
+
 			// Disable option 3 (create game icon) if option 1 (install game) is not checked.
 			Enable_Dlg_Item (IDC_WHAT_TO_INSTALL_CHECK3, Is_Dlg_Button_Checked (IDC_WHAT_TO_INSTALL_CHECK1));
 			break;

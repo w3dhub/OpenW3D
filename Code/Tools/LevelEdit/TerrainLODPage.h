@@ -77,7 +77,7 @@ protected:
 		DynamicVectorClass<unsigned int> &Get_Distance_List (void)	{ return m_SettingsList; }
 
 	protected:
-		
+
 		///////////////////////////////////////////////////////
 		//	Protected methods
 		///////////////////////////////////////////////////////

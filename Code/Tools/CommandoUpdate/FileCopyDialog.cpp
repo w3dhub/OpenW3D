@@ -69,11 +69,11 @@ FileCopyDialogClass::WindowProc
 	WPARAM	wParam,
 	LPARAM	lParam
 )
-{	
+{
 	if (message == WM_USER + 101) {
 		EndDialog (true);
 	}
-	
+
 	return CDialog::WindowProc(message, wParam, lParam);
 }
 
@@ -87,12 +87,12 @@ BOOL
 FileCopyDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog();
-	
+
 	CString app_title;
 	app_title.Format ("Application: %s", m_AppTitle);
 	SetDlgItemText (IDC_CURRENT_APP, app_title);
 
-	m_AnimateCtrl.Open (IDR_FILECOPY_AVI);	
+	m_AnimateCtrl.Open (IDR_FILECOPY_AVI);
 
 	return true;  // return true unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return false

@@ -78,7 +78,7 @@ class ChannelData :
 			{return (const char*)mData.topic;}
 
 		void SetExtraInfo(const char* exInfo);
-	
+
 		const char* GetExtraInfo(void) const
 			{return (const char*)mData.exInfo;}
 
@@ -101,18 +101,18 @@ class ChannelData :
 
 		// Set official status
 		void SetOfficial(bool official);
-		
+
 		// Test if this channel is an official Westwood channel
 		inline bool IsOfficial(void) const
 			{return (mData.official != 0);}
 
 		// Set the tournament type this channel is hosting (0 = none)
 		void SetTournament(unsigned int tournamentType);
-	
+
 		// Get the tournament type for this channel
 		inline unsigned int GetTournament(void) const
 			{return mData.tournament;}
-		
+
 		inline unsigned int GetFlags(void) const
 			{return mData.flags;}
 

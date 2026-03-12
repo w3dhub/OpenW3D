@@ -55,7 +55,7 @@ const float DIFFUSE_TO_AMBIENT_FRACTION = 1.0f;
 // TODO These should be float and have initial value, but didn't have types assigned leading to them being int 0 in original game.
 // static int _LightingLODCutoff;
 // static int _LightingLODCutoff2;
-static float _LightingLODCutoff			= 0.5f;	
+static float _LightingLODCutoff			= 0.5f;
 static float _LightingLODCutoff2			= 0.5f * 0.5f;
 
 
@@ -71,7 +71,7 @@ void LightEnvironmentClass::InputLightStruct::Init
 	const Vector3 & object_center
 )
 {
-	switch(light.Get_Type()) 
+	switch(light.Get_Type())
 	{
 	case LightClass::POINT:
 	case LightClass::SPOT:
@@ -103,12 +103,12 @@ void LightEnvironmentClass::InputLightStruct::Init_From_Point_Or_Spot_Light
 	*/
 	double atten_start,atten_end;
 	light.Get_Far_Attenuation_Range(atten_start,atten_end);
-	
+
 	float atten = 1.0f - (dist - atten_start) / (atten_end - atten_start);
 	atten = WWMath::Clamp(atten,0.0f,1.0f);
 
 	if (light.Get_Type() == LightClass::SPOT) {
-		
+
 		Vector3 spot_dir;
 		light.Get_Spot_Direction(spot_dir);
 		Matrix3D::Rotate_Vector(light.Get_Transform(),spot_dir,&spot_dir);
@@ -131,7 +131,7 @@ void LightEnvironmentClass::InputLightStruct::Init_From_Point_Or_Spot_Light
 		DiffuseRejected = false;
 		Ambient *= atten;
 		Diffuse *= atten;
-		
+
 	} else {
 
 		DiffuseRejected = true;
@@ -161,7 +161,7 @@ float LightEnvironmentClass::InputLightStruct::Contribution(void)
 {
 	return Diffuse.Length2();
 }
-	
+
 
 /************************************************************************************************
 **
@@ -177,7 +177,7 @@ void LightEnvironmentClass::OutputLightStruct::Init
 {
 	Diffuse = input.Diffuse;
 	Matrix3D::Inverse_Rotate_Vector(camera_tm,input.Direction,&Direction);
-}	
+}
 
 
 

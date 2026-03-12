@@ -194,7 +194,7 @@ DECLARE_SCRIPT (M00_Sound_Play_3D_On_Object_RAD, "Start_Now=0:int, Receive_Type:
 
 	void Created (GameObject* obj) override
 	{
-		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;		
+		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
 		play_count = Get_Int_Parameter("Play_Count");
 		delay_time_min = Get_Float_Parameter("Sound_Delay_Min");
 		delay_time_max = Get_Float_Parameter("Sound_Delay_Max");
@@ -542,7 +542,7 @@ Editor Script - M00_Sound_Building_Ambient_RAD
   this later through other means - this script is only reactive, meaning its output only
   plays sound effects and does not control other objects.
 
-  When a building is active, all sound effects for the building are played normally at 
+  When a building is active, all sound effects for the building are played normally at
   appropriate positions. Some may be on a timer basis, which is also handled here.
 
   When a building is destroyed, the main ambient sounds are deactivated, and the power-down
@@ -564,7 +564,7 @@ Editor Script - M00_Sound_Building_Ambient_RAD
   In essence, there are several points throughout each building where standard sounds will
   be played. Each location plays one sound at a time, and may or may not loop.
 
-  
+
   Parameters:
 
   Building_ID =		Which building this script is associated with.
@@ -615,7 +615,7 @@ DECLARE_SCRIPT(RMV_Audio_Timer_Delay, "Target_ID:int, Custom_Type=0:int, Custom_
 	int type, param, id;
 	float min, max, delay;
 	bool repeat, random;
-	
+
 	void Created(GameObject * obj) override
 	{
 		type = Get_Int_Parameter("Custom_Type");
@@ -660,7 +660,7 @@ DECLARE_SCRIPT(RMV_Audio_Sound_Player_WAV, "WAV_File:string, Is_3D=1:int, Custom
 {
 	bool is3d;
 	int c_type, c_param;
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		is3d = (Get_Int_Parameter("Is_3D") == 1) ? true : false;
@@ -678,7 +678,7 @@ DECLARE_SCRIPT(RMV_Audio_Sound_Player_WAV, "WAV_File:string, Is_3D=1:int, Custom
 			{
 				Commands->Create_3D_WAV_Sound_At_Bone(sound, obj, "ROOTTRANSFORM");
 			}
-			else 
+			else
 			{
 				Commands->Create_2D_WAV_Sound(sound);
 			}
@@ -690,7 +690,7 @@ DECLARE_SCRIPT(RMV_Audio_Sound_Player_Preset, "Preset_Name:string, Custom_Type=0
 {
 	Vector3 origin;
 	int c_type, c_param;
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		origin = Get_Vector3_Parameter("Sound_Origin");
@@ -715,7 +715,7 @@ DECLARE_SCRIPT(RMV_Sound_Play_Near_Player, "Receive_Type:int, Receive_Param:int,
 	bool enabled;
 	float freq_min, freq_max, freq;
 	enum {SOUND_PLAYER_TIMER};
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		enabled = false;
@@ -754,7 +754,7 @@ DECLARE_SCRIPT(RMV_Sound_Play_Near_Player, "Receive_Type:int, Receive_Param:int,
 };
 
 
-/*********************************************************************************************** 
+/***********************************************************************************************
 **
 ** Building State Sound System - Plays sounds at a simple object location.  Requires Building
 ** controller ID to switch sound from normal to destroyed state.
@@ -899,8 +899,8 @@ DECLARE_SCRIPT (M00_BuildingStateSoundSpeaker, "Sound_Normal:string,Sound_Destro
 
 				explosion_def_name = Get_Parameter("Explosion_Name");
 				Commands->Create_Explosion( explosion_def_name, pos, NULL );
-	
-				float time = Commands->Get_Random( 3, 6 );				
+
+				float time = Commands->Get_Random( 3, 6 );
 				Commands->Send_Custom_Event( obj, obj, M00_CUSTOM_BUILDING_EXPLODE, 1, time );
 			}
 		}
@@ -942,7 +942,7 @@ DECLARE_SCRIPT (M00_BuildingStateSoundController, "BuildingSpeaker_ID:int")
 			Commands->Send_Custom_Event( obj, target, M00_CUSTOM_BUILDING_EXPLODE, 1, 0.0f);	// Play Explosion Sounds
 		}
 	}
-	
+
 	void Custom (GameObject* obj, int type, intptr_t /*param*/, GameObject* /*sender*/) override
 	{
 		if ( type == M00_CUSTOM_BUILDING_EXPLODE_NO ) // flip play building explosions to false.

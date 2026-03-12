@@ -75,12 +75,12 @@ class VSSClass : public AssetDatabaseClass
 		//
 		//	Public Methods
 		//
-		
+
 		//
 		//	Database methods
 		//
 		bool						Open_Database (LPCTSTR ini_filename, LPCTSTR username = NULL, LPCTSTR password = NULL);
-		
+
 		//
 		//	File manipulation methods
 		//
@@ -91,7 +91,7 @@ class VSSClass : public AssetDatabaseClass
 		bool						Get (LPCTSTR local_filename);
 		bool						Get (LPCTSTR local_filename, IVSSItem *pitem);
 		void						Get_Recursive (LPCTSTR local_path, IVSSItem *pparent);
-		bool						Get_Subproject (LPCTSTR local_filename);		
+		bool						Get_Subproject (LPCTSTR local_filename);
 		bool						Destroy (LPCTSTR local_filename);
 
 		FileClass *				Get_File (LPCTSTR local_filename);
@@ -112,11 +112,11 @@ class VSSClass : public AssetDatabaseClass
 		//	Folder (subproject) methods
 		//
 		bool						Build_Tree (LPCTSTR local_filename);
-		
+
 		//
 		//	File information methods
 		//
-		
+
 		VSSFileStatus			Get_File_Status (LPCTSTR local_filename, LPTSTR checked_out_username = NULL, DWORD buffer_size = 0, IVSSItem *item_to_use = NULL);
 		FILE_STATUS				Get_File_Status (LPCTSTR local_filename, StringClass *checked_out_user_name);
 
@@ -133,7 +133,7 @@ class VSSClass : public AssetDatabaseClass
 
 
 	protected:
-		
+
 		//////////////////////////////////////////////////////////
 		//
 		//	Protected methods
@@ -143,7 +143,7 @@ class VSSClass : public AssetDatabaseClass
 		IVSSItem *				Get_VSS_Item (LPCTSTR vss_path);
 		LPCTSTR					Get_Error_Description (HRESULT hresult);
 
-		
+
 	private:
 
 		//////////////////////////////////////////////////////////

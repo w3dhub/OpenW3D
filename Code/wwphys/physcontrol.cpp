@@ -39,7 +39,7 @@
 #include "chunkio.h"
 #include "wwdebug.h"
 
-enum	
+enum
 {
 	PHYSCONTROLLER_CHUNK_VARIABLES				= 0x00000100,
 	PHYSCONTROLLER_VARIABLE_MOVEVECTOR			= 0x00,
@@ -57,7 +57,7 @@ bool PhysControllerClass::Save(ChunkSaveClass & csave)
 	WWASSERT(WWMath::Is_Valid_Float(MoveVector.Y));
 	WWASSERT(WWMath::Is_Valid_Float(MoveVector.Z));
 	WWASSERT(WWMath::Is_Valid_Float(TurnLeft));
-	
+
 	return true;
 }
 
@@ -65,16 +65,16 @@ bool PhysControllerClass::Save(ChunkSaveClass & csave)
 bool PhysControllerClass::Load(ChunkLoadClass & cload)
 {
 	while (cload.Open_Chunk()) {
-		switch(cload.Cur_Chunk_ID()) 
+		switch(cload.Cur_Chunk_ID())
 		{
 			case PHYSCONTROLLER_CHUNK_VARIABLES:
-			
+
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,PHYSCONTROLLER_VARIABLE_MOVEVECTOR,MoveVector);
 						READ_MICRO_CHUNK(cload,PHYSCONTROLLER_VARIABLE_TURNLEFT,TurnLeft);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 			default:

@@ -933,7 +933,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 			}
 		}
 	}
-	
+
 	// HACK: force meshes which are named b_wire and using texture razorw.tga to use alpha-test
 	// These meshes will follow the given pattern:
 	// - there will be a single vertex material, shader, and texture for the first pass
@@ -942,9 +942,9 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 // FIXME (gth) Renegade-specific hack, forcing b_wire mesh to use alpha-test...
 	if (	(parent != NULL) &&
 			(PassCount == 1) &&
-			(Has_Shader_Array(0) == false) && 
-			(Has_Texture_Array(0,0) == false) && 
-			(Has_Material_Array(0) == false)) 
+			(Has_Shader_Array(0) == false) &&
+			(Has_Texture_Array(0,0) == false) &&
+			(Has_Material_Array(0) == false))
 	{
 		if (strstr(parent->Get_Name(),"B_WIRE")) {
 			TextureClass * tex = Peek_Single_Texture(0,0);

@@ -55,7 +55,7 @@ HexToStringClass::HexToStringClass(const uint8 * data,uint32 size) :
 ** HexToStringByteClass
 **
 *******************************************************************************************/
-	
+
 HexToStringByteClass::HexToStringByteClass(const uint8 * data,uint32 size) :
 	HexToStringClass(data,size)
 {
@@ -91,15 +91,15 @@ CString HexToStringByteClass::Get_Next_Line(void)
 	}
 
 	// print blanks at end of buffer
-	for (i=0; i<BYTES_PER_LINE - bytes_to_eat; i++) 
+	for (i=0; i<BYTES_PER_LINE - bytes_to_eat; i++)
 	{
 		line_string += CString("   ");
 	}
-	
+
 	// spaces separate the hex from the characters
 	line_string += CString("  ");
 	workptr = CurPos;
-	
+
 	// print the characters
 	for (i=0; i<bytes_to_eat; i++) {
 		if (isalnum(*workptr)) {
@@ -196,7 +196,7 @@ CString HexToStringLongClass::Get_Next_Line(void)
 	CString tmp_string;
 	const uint32 * workptr = CurPos;
 	uint32 offset = (uint32)((uint8*)CurPos - Data);
-	int longs_to_eat = min(LONGS_PER_LINE,(Size - offset)/sizeof(uint32));  
+	int longs_to_eat = min(LONGS_PER_LINE,(Size - offset)/sizeof(uint32));
 
 	// print hex dump
 	line_string.Format("%08x:  ",offset);

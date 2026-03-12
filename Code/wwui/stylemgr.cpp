@@ -72,7 +72,7 @@ static FONT_DESC	DEFAULT_FONTS[StyleMgrClass::FONT_MAX] =
 	{ "Regatta Condensed LET",	20,	false },
 	{ "Arial MT",					9,		true },
 	{ "Arial MT",					12,	true },
-	
+
 	{ "Arial MT",					10,	false },
 	{ "Arial MT",					10,	true },
 
@@ -194,8 +194,8 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 		const char *FONT_FILE_SECTION	= "Font File List";
 		const char *FONT_NAME_SECTION	= "Font Names";
 
-		const char *FONT_INI_ENTRIES[FONT_MAX] = 
-		{		
+		const char *FONT_INI_ENTRIES[FONT_MAX] =
+		{
 			"FONT_TITLE",
 			"FONT_LG_CONTROLS",
 			"FONT_CONTROLS",
@@ -233,13 +233,13 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 		//	Read information about each font and load it into the system
 		//
 		for (index = 0; index < FONT_MAX; index ++) {
-			
+
 			//
 			//	Read information about this font
 			//
 			StringClass font_entry;
 			ini_file->Get_String (font_entry, FONT_NAME_SECTION, FONT_INI_ENTRIES[index]);
-			
+
 			//
 			//	Parse the information
 			//
@@ -251,8 +251,8 @@ StyleMgrClass::Initialize_From_INI (const char *filename)
 			//
 			//	Scale the point size to fit this resolution
 			//
-			float point_size = ((float)::atoi (font_size)) * ScaleY;			
-			
+			float point_size = ((float)::atoi (font_size)) * ScaleY;
+
 			//
 			//	Remove bold from "small" fonts if they're scaled down
 			//
@@ -457,7 +457,7 @@ StyleMgrClass::Render_Title_Text
 	//
 	int x_pos = int(rect.Left + (rect.Width () / 2) - (text_extent.X / 2));
 	int y_pos = int(rect.Top + (rect.Height () / 2) - (text_extent.Y / 2));
-	
+
 	//
 	//	Build the textures for the text we'll be drawing
 	//
@@ -479,7 +479,7 @@ StyleMgrClass::Render_Title_Text
 	//	Draw the text
 	//
 	renderer->Set_Location (Vector2 (x_pos, y_pos));
-	renderer->Draw_Sentence (TitleColor);		
+	renderer->Draw_Sentence (TitleColor);
 	return ;
 }
 
@@ -494,7 +494,7 @@ StyleMgrClass::Render_Text
 (
 	const unichar_t *				text,
 	Render2DSentenceClass *	renderer,
-	const RectClass &			rect,	
+	const RectClass &			rect,
 	bool							do_shadow,
 	bool							do_clip,
 	JUSTIFICATION				justify,
@@ -529,7 +529,7 @@ StyleMgrClass::Render_Text
 	Render2DSentenceClass *	renderer,
 	uint32						text_color,
 	uint32						shadow_color,
-	const RectClass &			rect,	
+	const RectClass &			rect,
 	bool							do_shadow,
 	bool							do_clip,
 	JUSTIFICATION				justify,
@@ -561,7 +561,7 @@ StyleMgrClass::Render_Text
 	//	Handle other justifications
 	//
 	if (justify == RIGHT_JUSTIFY) {
-		
+
 		//
 		//	Caclulate right justification
 		//
@@ -608,7 +608,7 @@ StyleMgrClass::Render_Text
 	Render2DTextClass *	renderer,
 	uint32					text_color,
 	uint32					shadow_color,
-	const RectClass &		rect,	
+	const RectClass &		rect,
 	bool						do_shadow,
 	bool						do_clip,
 	JUSTIFICATION			justify
@@ -636,7 +636,7 @@ StyleMgrClass::Render_Text
 	//	Handle other justifications
 	//
 	if (justify == RIGHT_JUSTIFY) {
-		
+
 		//
 		//	Caclulate right justification
 		//
@@ -679,7 +679,7 @@ StyleMgrClass::Render_Text
 	Render2DSentenceClass *	renderer,
 	uint32						text_color,
 	uint32						shadow_color,
-	const RectClass &			rect,	
+	const RectClass &			rect,
 	bool							do_shadow,
 	bool							do_clip,
 	JUSTIFICATION				justify
@@ -707,7 +707,7 @@ StyleMgrClass::Render_Text
 	//	Handle other justifications
 	//
 	if (justify == RIGHT_JUSTIFY) {
-		
+
 		//
 		//	Caclulate right justification
 		//
@@ -754,7 +754,7 @@ StyleMgrClass::Render_Wrapped_Text
 	const RectClass &			rect,
 	bool							do_shadow,
 	bool							do_vcenter,
-	bool							is_enabled	
+	bool							is_enabled
 )
 {
 	//
@@ -823,7 +823,7 @@ StyleMgrClass::Render_Wrapped_Text_Ex
 	const unichar_t *				text,
 	Render2DSentenceClass *	renderer,
 	uint32						text_color,
-	uint32						shadow_color, 
+	uint32						shadow_color,
 	const RectClass &			rect,
 	bool							do_shadow,
 	bool							do_vcenter,
@@ -875,7 +875,7 @@ StyleMgrClass::Render_Wrapped_Text_Ex
 		//	Lookup the start of the next line...
 		//
 		const unichar_t *line_end = renderer->Find_Row_Start (line_start, 1);
-		
+
 		//
 		//	Copy this line of text into the control
 		//
@@ -911,7 +911,7 @@ StyleMgrClass::Render_Wrapped_Text
 	const unichar_t *				text,
 	Render2DSentenceClass *	renderer,
 	uint32						text_color,
-	uint32						shadow_color, 
+	uint32						shadow_color,
 	const RectClass &			rect,
 	bool							do_shadow,
 	bool							do_vcenter
@@ -969,13 +969,13 @@ StyleMgrClass::Configure_Hilighter (Render2DClass *renderer)
 {
 	renderer->Enable_Alpha (false);
 	renderer->Enable_Texturing (false);
-	
+
 	//
 	//	Setup an additive shader
 	//
 	ShaderClass *shader = renderer->Get_Shader ();
 	shader->Set_Dst_Blend_Func (ShaderClass::DSTBLEND_ONE);
-	shader->Set_Src_Blend_Func (ShaderClass::SRCBLEND_ONE);	
+	shader->Set_Src_Blend_Func (ShaderClass::SRCBLEND_ONE);
 	//shader->Set_Primary_Gradient (ShaderClass::GRADIENT_ADD);
 	//shader->Set_Secondary_Gradient (ShaderClass::SECONDARY_GRADIENT_DISABLE);
 	return ;
@@ -1024,13 +1024,13 @@ StyleMgrClass::Render_Glow
 	int y_pos = int(rect.Top + (rect.Height () / 2) - (text_extent.Y / 2));
 
 	if (justify == LEFT_JUSTIFY) {
-		
+
 		//
 		//	Caclulate left justification
 		//
 		x_pos = int(rect.Left + 1);
 	} else if (justify == RIGHT_JUSTIFY) {
-		
+
 		//
 		//	Caclulate right justification
 		//
@@ -1041,7 +1041,7 @@ StyleMgrClass::Render_Glow
 	//	Setup an additive shader
 	//
 	renderer->Make_Additive ();
-	
+
 	//
 	//	Figure out how many passes we should do to get the
 	// desired result
@@ -1065,13 +1065,13 @@ StyleMgrClass::Render_Glow
 	//	Do four passes to get from the inner radius to the outer radius
 	//
 	for (int pass_index = 0; pass_index < pass_count; pass_index ++) {
-		
+
 		//
 		//	Circle the characters around using the given radius
 		//
 		float angle = 0;
 		for (int index = 0; index < step_count; index ++) {
-			
+
 			float new_x_pos = float(x_pos + (WWMath::Cos(angle) * curr_radiusx));
 			float new_y_pos = float(y_pos + (WWMath::Sin(angle) * curr_radiusy));
 
@@ -1087,7 +1087,7 @@ StyleMgrClass::Render_Glow
 		curr_radiusx += x_inc;
 		curr_radiusy += y_inc;
 	}
-	
+
 	return ;
 }
 

@@ -53,7 +53,7 @@ SpecSheetClass::SpecSheetClass (DefinitionClass *definition)
 		m_IsReadOnly (false),
 		m_ShowFileOnly (false),
 		m_WereFilesChanged (false),
-		m_AssetTreeOnly (true),		
+		m_AssetTreeOnly (true),
 		m_Definition (definition)
 {
 	return ;
@@ -69,7 +69,7 @@ SpecSheetClass::~SpecSheetClass (void)
 {
 	int index;
 	for (index = 0; index < m_CtrlList.Count (); index ++) {
-		ParameterCtrlClass *ctrl = m_CtrlList[index];		
+		ParameterCtrlClass *ctrl = m_CtrlList[index];
 		delete ctrl;
 	}
 
@@ -116,7 +116,7 @@ SpecSheetClass::Is_Filtered (ParameterClass *parameter)
 
 	if (parameter != NULL) {
 		if (m_ShowFileOnly) {
-			
+
 			int type = parameter->Get_Type ();
 			if (	type != ParameterClass::TYPE_FILENAME &&
 					type != ParameterClass::TYPE_SOUND_FILENAME )
@@ -142,7 +142,7 @@ SpecSheetClass::Add_Parameter (ParameterClass *parameter)
 	//
 	ParameterCtrlClass *parameter_ctrl = NULL;
 	switch (parameter->Get_Type ()) {
-		
+
 		case ParameterClass::TYPE_INT:
 			parameter_ctrl = new IntParameterCtrlClass ((IntParameterClass *)parameter);
 			break;
@@ -203,7 +203,7 @@ SpecSheetClass::Add_Parameter (ParameterClass *parameter)
 
 		case ParameterClass::TYPE_WEAPONOBJDEFINITIONID:
 			parameter_ctrl = new WeaponObjDefParameterCtrlClass ((WeaponObjDefParameterClass *)parameter);
-			break;			
+			break;
 
 		case ParameterClass::TYPE_AMMOOBJDEFINITIONID:
 			parameter_ctrl = new AmmoObjDefParameterCtrlClass ((AmmoObjDefParameterClass *)parameter);
@@ -215,7 +215,7 @@ SpecSheetClass::Add_Parameter (ParameterClass *parameter)
 
 		case ParameterClass::TYPE_SOUNDDEFINITIONID:
 			parameter_ctrl = new SoundDefParameterCtrlClass ((SoundDefParameterClass *)parameter);
-			break;			
+			break;
 
 		case ParameterClass::TYPE_SCRIPT:
 			parameter_ctrl = new ScriptParameterCtrlClass ((ScriptParameterClass *)parameter);
@@ -247,7 +247,7 @@ SpecSheetClass::Add_Parameter (ParameterClass *parameter)
 		parameter_ctrl->Set_Spec_Sheet (this);
 		m_CtrlList.Add (parameter_ctrl);
 	}
-	
+
 	return ;
 }
 
@@ -258,7 +258,7 @@ SpecSheetClass::Add_Parameter (ParameterClass *parameter)
 //
 /////////////////////////////////////////////////////////////////////////////
 int
-SpecSheetClass::OnCreate (LPCREATESTRUCT lpCreateStruct) 
+SpecSheetClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 {
 	if (CWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
@@ -321,12 +321,12 @@ SpecSheetClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 	//
 	for (index = 0; index < m_CtrlList.Count (); index ++) {
 		ParameterCtrlClass *parameter_ctrl = m_CtrlList[index];
-		
+
 		parameter_ctrl->Set_Read_Only (m_IsReadOnly);
 
 		start_id		= parameter_ctrl->Create (m_hWnd, start_id, &rect);
 		rect.top		= rect.bottom + 10;
-		rect.bottom	= rect.top;		
+		rect.bottom	= rect.top;
 	}
 
 	m_MaxScrollPos = rect.bottom;
@@ -347,16 +347,16 @@ SpecSheetClass::Get_Current_Filename_Value (int index, CString &value)
 	//
 	ASSERT (index >= 0 && index < Get_Parameter_Count ());
 	if (index >= 0 && index < Get_Parameter_Count ()) {
-		
+
 		//
 		//	Return the parameter that is associated with this ctrl
 		//
 		ParameterCtrlClass *ctrl = m_CtrlList[index];
-		if (	ctrl->Get_Type () == ParameterClass::TYPE_FILENAME || 
+		if (	ctrl->Get_Type () == ParameterClass::TYPE_FILENAME ||
 				ctrl->Get_Type () == ParameterClass::TYPE_SOUND_FILENAME )
 		{
 			((FileParameterCtrlClass *)ctrl)->Get_Current_Value (value);
-		}		
+		}
 	}
 
 	return ;
@@ -378,7 +378,7 @@ SpecSheetClass::Get_Parameter (int index)
 	//
 	ASSERT (index >= 0 && index < Get_Parameter_Count ());
 	if (index >= 0 && index < Get_Parameter_Count ()) {
-		
+
 		//
 		//	Return the parameter that is associated with this ctrl
 		//
@@ -396,7 +396,7 @@ SpecSheetClass::Get_Parameter (int index)
 //
 /////////////////////////////////////////////////////////////////////////////
 LRESULT
-SpecSheetClass::OnNcHitTest (CPoint /* point */) 
+SpecSheetClass::OnNcHitTest (CPoint /* point */)
 {
 	return HTCLIENT;
 }
@@ -428,7 +428,7 @@ SpecSheetClass::OnVScroll
 				new_pos = m_MaxScrollPos;
 				break;
 
-			case SB_LINEDOWN:			
+			case SB_LINEDOWN:
 				if (new_pos < (m_MaxScrollPos - 10)) {
 					new_pos += 10;
 				} else {
@@ -488,9 +488,9 @@ SpecSheetClass::Set_Scroll_Pos (int new_pos)
 	//
 	//	Scroll the controls
 	//
-	Scroll_Controls (m_ScrollPos - new_pos);		
+	Scroll_Controls (m_ScrollPos - new_pos);
 	m_ScrollPos = new_pos;
-	
+
 
 	//
 	//	Update the scroll bar
@@ -537,8 +537,8 @@ SpecSheetClass::OnNcMouseMove
 (
 	UINT		nHitTest,
 	CPoint	point
-) 
-{	
+)
+{
 	CWnd::OnNcMouseMove (nHitTest, point);
 	return ;
 }
@@ -578,7 +578,7 @@ SpecSheetClass::OnNcLButtonUp
 	UINT		nHitTest,
 	CPoint	point
 )
-{	
+{
 	CWnd::OnNcLButtonUp (nHitTest, point);
 	return ;
 }
@@ -609,11 +609,11 @@ SpecSheetClass::OnLButtonDown (UINT nFlags, CPoint point)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-SpecSheetClass::OnLButtonUp (UINT nFlags, CPoint point) 
+SpecSheetClass::OnLButtonUp (UINT nFlags, CPoint point)
 {
 	m_IsScrolling = false;
 	ReleaseCapture ();
-	
+
 	CWnd::OnLButtonUp (nFlags, point);
 	return ;
 }
@@ -625,14 +625,14 @@ SpecSheetClass::OnLButtonUp (UINT nFlags, CPoint point)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-SpecSheetClass::OnMouseMove (UINT nFlags, CPoint point) 
+SpecSheetClass::OnMouseMove (UINT nFlags, CPoint point)
 {
 	if (m_IsScrolling) {
 
 		CPoint delta		= m_LastPoint - point;
-		int scroll_amt		= delta.y;		
-		int new_pos			= m_ScrollPos + scroll_amt;			
-		
+		int scroll_amt		= delta.y;
+		int new_pos			= m_ScrollPos + scroll_amt;
+
 		//
 		//	Clip the scroll position to the min and max
 		//
@@ -641,7 +641,7 @@ SpecSheetClass::OnMouseMove (UINT nFlags, CPoint point)
 		} else if (new_pos > m_MaxScrollPos) {
 			new_pos = m_MaxScrollPos;
 		}
-		
+
 		//
 		//	Scroll to the new position
 		//
@@ -652,7 +652,7 @@ SpecSheetClass::OnMouseMove (UINT nFlags, CPoint point)
 		//
 		m_LastPoint = point;
 	}
-	
+
 	CWnd::OnMouseMove (nFlags, point);
 	return ;
 }
@@ -691,9 +691,9 @@ SpecSheetClass::Scroll_Controls (int amount)
 	int count = child_wnd_list.Count ();
 	HDWP defer_struct = ::BeginDeferWindowPos (count);
 
-	for (int index = 0; index < count; index ++) {		
+	for (int index = 0; index < count; index ++) {
 		child_wnd = child_wnd_list[index];
-		
+
 		//
 		//	Get the current position of the child window
 		//
@@ -715,13 +715,13 @@ SpecSheetClass::Scroll_Controls (int amount)
 	CRect client_rect;
 	GetClientRect (&client_rect);
 	client_rect.right -= ::GetSystemMetrics (SM_CXVSCROLL);
-	
+
 	HDC dc = ::GetDC (m_hWnd);
 	::ScrollDC (dc, 0, amount, &client_rect, &client_rect, NULL, NULL);
 	::ReleaseDC (m_hWnd, dc);
 
-	
-	if (amount > 0) {		
+
+	if (amount > 0) {
 		client_rect.bottom = client_rect.top + amount;
 	} else {
 		client_rect.top = client_rect.bottom + amount;
@@ -729,7 +729,7 @@ SpecSheetClass::Scroll_Controls (int amount)
 
 	InvalidateRect (client_rect, true);
 	UpdateWindow ();
-	
+
 	/*CRect client_rect;
 	GetClientRect (&client_rect);
 	client_rect.right -= ::GetSystemMetrics (SM_CXVSCROLL);
@@ -752,7 +752,7 @@ SpecSheetClass::OnSize
 	int	cy
 )
 {
-	
+
 	CRect client_rect;
 	GetClientRect (&client_rect);
 
@@ -789,7 +789,7 @@ SpecSheetClass::OnSize
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-SpecSheetClass::PreCreateWindow (CREATESTRUCT &cs) 
+SpecSheetClass::PreCreateWindow (CREATESTRUCT &cs)
 {
 	cs.dwExStyle |= WS_EX_CONTROLPARENT;
 	return CWnd::PreCreateWindow(cs);
@@ -802,7 +802,7 @@ SpecSheetClass::PreCreateWindow (CREATESTRUCT &cs)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-SpecSheetClass::Apply (void) 
+SpecSheetClass::Apply (void)
 {
 	m_WereFilesChanged = false;
 
@@ -824,7 +824,7 @@ SpecSheetClass::Apply (void)
 		//
 		ctrl->Read_Data (NULL);
 	}
-	
+
 	return ;
 }
 
@@ -844,7 +844,7 @@ Rate_Param_Type (ParameterClass::Type type)
 		case ParameterClass::TYPE_FILENAME:
 		case ParameterClass::TYPE_SOUND_FILENAME:
 			retval = 0;
-			break;		
+			break;
 
 		case ParameterClass::TYPE_PHYSDEFINITIONID:
 			retval = 1;
@@ -868,7 +868,7 @@ Rate_Param_Type (ParameterClass::Type type)
 		case ParameterClass::TYPE_ENUM:
 			retval = 5;
 			break;
-		
+
 		case ParameterClass::TYPE_COLOR:
 			retval = 8;
 			break;
@@ -946,11 +946,11 @@ SpecSheetClass::OnCommand
 (
 	WPARAM wParam,
 	LPARAM lParam
-) 
+)
 {
 	bool processed = false;
 	for (int index = 0; (index < m_CtrlList.Count ()) && !processed; index ++) {
-		ParameterCtrlClass *ctrl = m_CtrlList[index];		
+		ParameterCtrlClass *ctrl = m_CtrlList[index];
 		processed = ctrl->On_Command (*this, wParam, lParam);
 	}
 
@@ -967,10 +967,10 @@ void
 SpecSheetClass::OnDestroy (void)
 {
 	for (int index = 0; index < m_CtrlList.Count (); index ++) {
-		ParameterCtrlClass *ctrl = m_CtrlList[index];		
+		ParameterCtrlClass *ctrl = m_CtrlList[index];
 		ctrl->On_Destroy ();
 	}
-	
+
 	CWnd::OnDestroy ();
 	return ;
 }
@@ -982,17 +982,17 @@ SpecSheetClass::OnDestroy (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 LRESULT
-SpecSheetClass::WindowProc (UINT message, WPARAM wParam, LPARAM lParam) 
+SpecSheetClass::WindowProc (UINT message, WPARAM wParam, LPARAM lParam)
 {
 	LRESULT result = 0L;
 
 	if (message == WM_DRAWITEM) {
-		
+
 		//
 		//	Determine which parameter ctrl wants to process this message...
 		//
 		for (int index = 0; (index < m_CtrlList.Count ()) && (result == 0L); index ++) {
-			ParameterCtrlClass *ctrl = m_CtrlList[index];		
+			ParameterCtrlClass *ctrl = m_CtrlList[index];
 			if (ctrl->On_DrawItem (*this, wParam, lParam)) {
 				result = 1L;
 			}

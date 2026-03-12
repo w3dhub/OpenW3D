@@ -61,22 +61,22 @@ class Grid3DClass
 		Grid3DClass (const Vector3 &grid_size, const T &inital_value)
 			:	m_GridSize (0, 0, 0),
 				m_Grid (NULL)				{ Create_Grid (grid_size, inital_value); }
-						
+
 		virtual ~Grid3DClass (void)	{ Free_Grid (); }
 
 		////////////////////////////////////////////////////////////////////
 		//	Public methods
 		////////////////////////////////////////////////////////////////////
-		
+
 		// Cell manipulation
-		T &				Get_At (int x, int y, int z);		
-		void				Set_At (int x, int y, int z, const T &value);		
-		
+		T &				Get_At (int x, int y, int z);
+		void				Set_At (int x, int y, int z, const T &value);
+
 		// Allocation routines
 		void				Create_Grid (const Vector3 &grid_size, const T &initial_value);
 		void				Free_Grid (void);
 
-		// Information methods		
+		// Information methods
 		Vector3			Get_Grid_Size (void) const { return m_GridSize; }
 		int				Get_Cells_X (void) const { return m_GridSize.X; }
 		int				Get_Cells_Y (void) const { return m_GridSize.Y; }
@@ -87,7 +87,7 @@ class Grid3DClass
 		int				Get_Flat_Size (void) const	{ return (m_GridSize.X * m_GridSize.Y * m_GridSize.Z); }
 
 	protected:
-		
+
 		////////////////////////////////////////////////////////////////////
 		//	Protected methods
 		////////////////////////////////////////////////////////////////////
@@ -114,16 +114,16 @@ Grid3DClass<T>::Create_Grid (const Vector3 &grid_size, const T &inital_value)
 {
 	// Start fresh
 	Free_Grid ();
-	
+
 	// Store the grid's dimensions
 	m_GridSize = grid_size;
-	
+
 	//
 	//	Allocate a flat array we can index into like a 3-D grid
 	//
 	int flat_size = m_GridSize.X * m_GridSize.Y * m_GridSize.Z;
 	WWASSERT ((flat_size * sizeof (T)) < 16000000L);
-	m_Grid = new T[flat_size];	
+	m_Grid = new T[flat_size];
 
 	//
 	//	Initialize the grid cells
@@ -150,7 +150,7 @@ Grid3DClass<T>::Free_Grid (void)
 		m_Grid = NULL;
 	}
 
-	m_GridSize.Set (0, 0, 0);	
+	m_GridSize.Set (0, 0, 0);
 	return ;
 }
 

@@ -73,7 +73,7 @@ public:
 
 	//
 	//	RTTI
-	//	
+	//
 	EditCtrlClass *	As_EditCtrlClass (void)	override { return this; }
 
 	//
@@ -91,7 +91,7 @@ public:
 	//	Content control
 	//
 	bool					Delete_Selection (void);
-	
+
 	int					Get_Int (void);
 	void					Set_Int (int value);
 
@@ -121,7 +121,7 @@ protected:
 	void					Create_Control_Renderers (void);
 	void					Create_Text_Renderers (void);
 	void					Create_Caret_Renderer (void);
-	void					Update_Caret (void);	
+	void					Update_Caret (void);
 
 	int					Character_From_Pos (const Vector2 &mouse_pos);
 	float					Pos_From_Character (int char_index);

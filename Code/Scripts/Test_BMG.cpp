@@ -220,7 +220,7 @@ DECLARE_SCRIPT(BMG_Test_Misc_Script, "" )
 		Commands->Debug_Message("Heard Sound %d\n", sound.Type );
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float amount ) 
+	void Damaged( GameObject * obj, GameObject * damager, float amount )
 	{
 		GameObject * o = Commands->Create_Object ( "Invisible_Object", Vector3(-90.0f, 50.0f, 0.0f));
 		Commands->Attach_Script(o, "Test_Cinematic", "X1I_troopdrop02.txt");
@@ -294,7 +294,7 @@ DECLARE_SCRIPT(BMG_Monitor_Events, "" )
 		Commands->Enable_Enemy_Seen( obj, true );
 	}
 
-	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) 
+	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender )
 	{
 		switch( type ) {
 
@@ -323,7 +323,7 @@ DECLARE_SCRIPT(BMG_Monitor_Events, "" )
 
 DECLARE_SCRIPT(BMG_Test_Powerup, "" )
 {
-	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) 
+	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender )
 	{
 		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) {
 			Commands->Debug_Message( "POWERUP for %d\n", Commands->Get_ID( sender ) );
@@ -455,7 +455,7 @@ DECLARE_SCRIPT(BMG_Test_Messages, "speed=1.0:float")
 		Commands->Debug_Message("BMG DAMAGED\n");
 	}
 
-	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender ) 
+	virtual	void	Custom( GameObject * obj, int type, int param, GameObject * sender )
 	{
 		Commands->Debug_Message("BMG CUSTOM %d %d\n", type, param );
 	}
@@ -652,7 +652,7 @@ DECLARE_SCRIPT( BMG_Test_Save_Load, "" )
 
 	void	Load_Data( ScriptLoader & loader )
 	{
-		LOAD_BEGIN();					
+		LOAD_BEGIN();
 			LOAD_DATA( DATA_ID_VALUE1, Value1 );
 			LOAD_DATA( DATA_ID_VALUE2, Value2 );
 		LOAD_END();
@@ -712,7 +712,7 @@ DECLARE_SCRIPT(BMG_Test_Running, "" )
 		Commands->Debug_Message("BMG Running\n");
 		Action_Complete( obj, 1, (ActionCompleteReason)0 );
 	}
-								 
+
 	void	Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason )
 	{
 		state = !state;
@@ -826,7 +826,7 @@ DECLARE_SCRIPT(BMG_Test_Display_Text, "" )
 
 DECLARE_SCRIPT(BMG_Test_Poked, "" )
 {
-	void	Poked( GameObject * obj, GameObject * poker )		
+	void	Poked( GameObject * obj, GameObject * poker )
 	{
 		Commands->Debug_Message_2("BMG_TEST_POKED %p Poked\n", (int)obj);
 	}
@@ -969,7 +969,7 @@ DECLARE_SCRIPT(BMG_Test_Zone, "")
 		Commands->Debug_Message("Test Zone Entered\n");
 	}
 
-	void	Exited( GameObject * obj, GameObject * exiter )	
+	void	Exited( GameObject * obj, GameObject * exiter )
 	{
 		Commands->Debug_Message("Test Zone Exited\n");
 	}

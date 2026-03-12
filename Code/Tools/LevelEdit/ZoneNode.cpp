@@ -108,7 +108,7 @@ ZoneNodeClass::ZoneNodeClass (const ZoneNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 ZoneNodeClass::~ZoneNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
 	return ;
@@ -135,7 +135,7 @@ ZoneNodeClass::Initialize (void)
 
 	DefinitionClass *definition = m_Preset->Get_Definition ();
 	if (definition != NULL) {
-		
+
 		//
 		//	Create the game object
 		//
@@ -155,7 +155,7 @@ ZoneNodeClass::Initialize (void)
 			m_PhysObj->Peek_Model ()->Set_Collision_Type (COLLISION_TYPE_6);
 			m_PhysObj->Set_Transform (m_Transform);
 			m_PhysObj->Get_Box ()->Set_Color (((ScriptZoneGameObjDef *)definition)->Get_Color ());
-			m_PhysObj->Get_Box ()->Set_Dimensions (m_CachedSize);			
+			m_PhysObj->Get_Box ()->Set_Dimensions (m_CachedSize);
 
 			//
 			//	Make sure the physics object has the correct position
@@ -183,7 +183,7 @@ ZoneNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 ZoneNodeClass::Get_Factory (void) const
-{	
+{
 	return _ZoneNodePersistFactory;
 }
 
@@ -302,7 +302,7 @@ ZoneNodeClass::Update_Zone_Obj (void)
 
 	//
 	//	Update the zone's bounding box
-	//	
+	//
 	if (box != NULL && zone_obj != NULL) {
 		Vector3 pos		= box->Get_Transform ().Get_Translation ();
 		Vector3 size	= box->Get_Dimensions () / 2;
@@ -328,11 +328,11 @@ ZoneNodeClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		ObjectNodeClass::Save (csave);
-	csave.End_Chunk ();		
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		WRITE_MICRO_CHUNK (csave, VARID_ZONE_SIZE, m_CachedSize);
-	csave.End_Chunk ();		
+	csave.End_Chunk ();
 	return true;
 }
 
@@ -345,13 +345,13 @@ ZoneNodeClass::Save (ChunkSaveClass &csave)
 bool
 ZoneNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				ObjectNodeClass::Load (cload);
 				break;
-			
+
 
 			case CHUNKID_VARIABLES:
 			{
@@ -365,7 +365,7 @@ ZoneNodeClass::Load (ChunkLoadClass &cload)
 					}
 
 					cload.Close_Micro_Chunk ();
-				}				
+				}
 			}
 			break;
 		}
@@ -392,7 +392,7 @@ ZoneNodeClass::Pre_Export (void)
 
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {
@@ -432,7 +432,7 @@ ZoneNodeClass::Post_Export (void)
 void
 ZoneNodeClass::Hide (bool hide)
 {
-	m_GrabHandles.Hide (hide);	
+	m_GrabHandles.Hide (hide);
 	NodeClass::Hide (hide);
 	return ;
 }

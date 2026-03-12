@@ -147,7 +147,7 @@ WWProfileHierachyNodeClass* WWProfileHierachyNodeClass::Clone_Hierarchy(WWProfil
 	node->TotalTime=TotalTime;
 	node->StartTime=StartTime;
 	node->RecursionCounter=RecursionCounter;
-	
+
 	if (Child) {
 		node->Child=Child->Clone_Hierarchy(this);
 	}
@@ -510,7 +510,7 @@ void	WWProfileManager::End_Collecting(const char* filename)
 {
 	int i;
 	if (filename && ProfileCollectVector.Count()!=0) {
-		FileClass * file= _TheWritingFileFactory->Get_File(filename);	
+		FileClass * file= _TheWritingFileFactory->Get_File(filename);
 		if (file != NULL) {
 			//
 			//	Open or create the file
@@ -539,7 +539,7 @@ void	WWProfileManager::End_Collecting(const char* filename)
 				}
 				ProfileCollectVector[i]->Write_To_File(file,0);
 			}
-		
+
 			//
 			//	Close the file
 			//

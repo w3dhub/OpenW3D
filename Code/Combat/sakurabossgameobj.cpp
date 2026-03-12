@@ -217,25 +217,25 @@ enum
 	CHUNKID_PATH,
 
 	VARID_AVAILABLE_WEAPONS							= 1,
-	VARID_OVERALL_STATE,							
-	VARID_NEXT_OVERALL_STATE,					
-	VARID_FACE_TARGET_IN_TRANSITION,			
-	VARID_ROCKET_LAUNCHER_STATE,				
-	VARID_GATTLING_GUN_STATE,					
-	VARID_SAKURA_STATE,							
-	VARID_VEHICLE_STATE,							
-	VARID_MOVE_TO_LOCATION,						
-	VARID_GATTLING_GUN_STATE_TIME_LEFT,		
-	VARID_SAKURA_TAUNT_TIME_LEFT,				
-	VARID_ROCKET_LAUNCHER_STATE_TIME_LEFT,	
-	VARID_OVERALL_STATE_TIME_LEFT,			
-	VARID_TARGET_TIME_LEFT,						
-	VARID_CURRENT_HEALTH,						
-	VARID_TARGET_ANGLE,							
-	VARID_TARGET_POS,								
-	VARID_IS_ATTACKING,							
-	VARID_CURRENT_MUZZLE_TM,					
-	VARID_CURRENT_MUZZLE_INDEX,				
+	VARID_OVERALL_STATE,
+	VARID_NEXT_OVERALL_STATE,
+	VARID_FACE_TARGET_IN_TRANSITION,
+	VARID_ROCKET_LAUNCHER_STATE,
+	VARID_GATTLING_GUN_STATE,
+	VARID_SAKURA_STATE,
+	VARID_VEHICLE_STATE,
+	VARID_MOVE_TO_LOCATION,
+	VARID_GATTLING_GUN_STATE_TIME_LEFT,
+	VARID_SAKURA_TAUNT_TIME_LEFT,
+	VARID_ROCKET_LAUNCHER_STATE_TIME_LEFT,
+	VARID_OVERALL_STATE_TIME_LEFT,
+	VARID_TARGET_TIME_LEFT,
+	VARID_CURRENT_HEALTH,
+	VARID_TARGET_ANGLE,
+	VARID_TARGET_POS,
+	VARID_IS_ATTACKING,
+	VARID_CURRENT_MUZZLE_TM,
+	VARID_CURRENT_MUZZLE_INDEX,
 	VARID_TILT_ANGLE,
 	VARID_CHOPPER_TILT_BONE_INDEX
 };
@@ -260,16 +260,16 @@ SakuraBossGameObjDef::SakuraBossGameObjDef (void)	:
 	GattlingGunRevSoundDefID (0),
 	RocketDestroyedExplosionID (0),
 	RocketDoorOpenSoundID (0)
-{	
+{
 	PARAM_SEPARATOR (SakuraBossGameObjDef, "Rocket Launcher Defense Settings");
 	DEFENSEOBJECTDEF_EDITABLE_PARAMS (SakuraBossGameObjDef, RocketsDefense);
 	PARAM_SEPARATOR (SakuraBossGameObjDef, "");
 
-	PARAM_SEPARATOR (SakuraBossGameObjDef, "Weapons");	
+	PARAM_SEPARATOR (SakuraBossGameObjDef, "Weapons");
 	EDITABLE_PARAM (SakuraBossGameObjDef, ParameterClass::TYPE_WEAPONOBJDEFINITIONID,	RocketLauncherDefID);
 	EDITABLE_PARAM (SakuraBossGameObjDef, ParameterClass::TYPE_WEAPONOBJDEFINITIONID,	GattlingGunDefID);
-	EDITABLE_PARAM (SakuraBossGameObjDef, ParameterClass::TYPE_SOUNDDEFINITIONID,			GattlingGunRevSoundDefID);	
-	EDITABLE_PARAM (SakuraBossGameObjDef, ParameterClass::TYPE_SOUNDDEFINITIONID,			RocketDoorOpenSoundID);		
+	EDITABLE_PARAM (SakuraBossGameObjDef, ParameterClass::TYPE_SOUNDDEFINITIONID,			GattlingGunRevSoundDefID);
+	EDITABLE_PARAM (SakuraBossGameObjDef, ParameterClass::TYPE_SOUNDDEFINITIONID,			RocketDoorOpenSoundID);
 	EDITABLE_PARAM (SakuraBossGameObjDef, ParameterClass::TYPE_EXPLOSIONDEFINITIONID,	RocketDestroyedExplosionID);
 	PARAM_SEPARATOR (SakuraBossGameObjDef, "");
 	return ;
@@ -282,7 +282,7 @@ SakuraBossGameObjDef::SakuraBossGameObjDef (void)	:
 //
 //////////////////////////////////////////////////////////////////////////
 SakuraBossGameObjDef::~SakuraBossGameObjDef (void)
-{	
+{
 	return ;
 }
 
@@ -293,9 +293,9 @@ SakuraBossGameObjDef::~SakuraBossGameObjDef (void)
 //
 //////////////////////////////////////////////////////////////////////////
 uint32
-SakuraBossGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_SAKURA_BOSS; 
+SakuraBossGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_SAKURA_BOSS;
 }
 
 
@@ -359,7 +359,7 @@ SakuraBossGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_ROCKET_DEFENSEOBJ_DEF:
 				RocketsDefense.Load (cload);
 				break;
-								
+
 			default:
 				Debug_Say (("Unrecognized SakuraBossGameObjDef chunkID\n"));
 				break;
@@ -383,8 +383,8 @@ SakuraBossGameObjDef::Save_Variables (ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK (csave, VARID_DEF_GATLING_DEF_ID,						GattlingGunDefID);
 	WRITE_MICRO_CHUNK (csave, VARID_DEF_ROCKET_DEF_ID,							RocketLauncherDefID);
 	WRITE_MICRO_CHUNK (csave, VARID_DEF_GATLING_REV_SOUND_ID,				GattlingGunRevSoundDefID);
-	WRITE_MICRO_CHUNK (csave, VARID_DEF_ROCKET_DOOR_SOUND_ID,				RocketDoorOpenSoundID);	
-	WRITE_MICRO_CHUNK (csave, VARID_DEF_ROCKET_DESTROYED_EXPLOSION_ID,	RocketDestroyedExplosionID);	
+	WRITE_MICRO_CHUNK (csave, VARID_DEF_ROCKET_DOOR_SOUND_ID,				RocketDoorOpenSoundID);
+	WRITE_MICRO_CHUNK (csave, VARID_DEF_ROCKET_DESTROYED_EXPLOSION_ID,	RocketDestroyedExplosionID);
 	return ;
 }
 
@@ -403,7 +403,7 @@ SakuraBossGameObjDef::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_DEF_GATLING_DEF_ID,						GattlingGunDefID);
 			READ_MICRO_CHUNK (cload, VARID_DEF_ROCKET_DEF_ID,						RocketLauncherDefID);
 			READ_MICRO_CHUNK (cload, VARID_DEF_GATLING_REV_SOUND_ID,				GattlingGunRevSoundDefID);
-			READ_MICRO_CHUNK (cload, VARID_DEF_ROCKET_DOOR_SOUND_ID,				RocketDoorOpenSoundID);	
+			READ_MICRO_CHUNK (cload, VARID_DEF_ROCKET_DOOR_SOUND_ID,				RocketDoorOpenSoundID);
 			READ_MICRO_CHUNK (cload, VARID_DEF_ROCKET_DESTROYED_EXPLOSION_ID,	RocketDestroyedExplosionID);
 
 			default:
@@ -425,8 +425,8 @@ SakuraBossGameObjDef::Load_Variables (ChunkLoadClass &cload)
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 SakuraBossGameObjDef::Get_Factory (void) const
-{ 
-	return _SakuraBossGameObjDefPersistFactory; 
+{
+	return _SakuraBossGameObjDefPersistFactory;
 }
 
 
@@ -499,7 +499,7 @@ SakuraBossGameObj::~SakuraBossGameObj (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-SakuraBossGameObj::Get_Factory (void) const 
+SakuraBossGameObj::Get_Factory (void) const
 {
 	return _SakuraBossGameObjPersistFactory;
 }
@@ -537,7 +537,7 @@ SakuraBossGameObj::Init (const SakuraBossGameObjDef &definition)
 	//
 	const WeaponDefinitionClass *gatling_gun_def			= WeaponManager::Find_Weapon_Definition (definition.GattlingGunDefID);
 	const WeaponDefinitionClass *rocket_launcher_def	= WeaponManager::Find_Weapon_Definition (definition.RocketLauncherDefID);
-	
+
 	//
 	//	Create the gatling gun
 	//
@@ -566,7 +566,7 @@ SakuraBossGameObj::Init (const SakuraBossGameObjDef &definition)
 		Set_Anim_Control (new SimpleAnimControlClass);
 		Get_Anim_Control ()->Set_Model (Peek_Model ());
 	}
-	
+
 	//
 	//	Make sure the engine is on
 	//
@@ -607,7 +607,7 @@ SakuraBossGameObj::Save (ChunkSaveClass & csave)
 {
 	csave.Begin_Chunk (CHUNKID_PARENT);
 		VehicleGameObj::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_ROCKETL_DEFENSE_OBJ);
 		LeftRocketDefenseObject.Save (csave);
@@ -725,7 +725,7 @@ SakuraBossGameObj::On_Post_Load (void)
 	//
 	const WeaponDefinitionClass *gatling_gun_def			= WeaponManager::Find_Weapon_Definition (Get_Definition ().GattlingGunDefID);
 	const WeaponDefinitionClass *rocket_launcher_def	= WeaponManager::Find_Weapon_Definition (Get_Definition ().RocketLauncherDefID);
-	
+
 	//
 	//	Create the gatling gun
 	//
@@ -869,7 +869,7 @@ SakuraBossGameObj::Update_Decision_Data (void)
 	//	Update our current health
 	//
 	DefenseObjectClass *defense_object = Get_Defense_Object ();
-	if (defense_object != NULL) {		
+	if (defense_object != NULL) {
 		CurrentHealth = defense_object->Get_Health () / defense_object->Get_Health_Max ();
 	}
 
@@ -970,7 +970,7 @@ SakuraBossGameObj::Think (void)
 		GattlingGun->Update ();
 		GattlingGun->Set_Total_Rounds (1000);
 	}
-	
+
 	return ;
 }
 
@@ -991,11 +991,11 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 
 				if (	OverallState == STATE_CIRCLE_REFINERY ||
 						OverallState == STATE_ATTACK_LIFT_AREA)
-				{					
+				{
 					Do_Waypath (WID_REFINERY_TO_PPLANT);
 					Set_Overall_State (STATE_IN_TRANSITION);
 
-				} else if (	OverallState == STATE_LONG_STRAFING_RUN || 
+				} else if (	OverallState == STATE_LONG_STRAFING_RUN ||
 								OverallState == STATE_LAND_IN_TIBERIUM_FIELD ||
 								OverallState == STATE_LONG_STRAFING_RUN2)
 				{
@@ -1006,7 +1006,7 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 					Do_Waypath (WID_VSTRAFE_TO_PPLANT);
 					Set_Overall_State (STATE_IN_TRANSITION);
 				}
-				
+
 				break;
 
 			case STATE_CIRCLE_REFINERY:
@@ -1019,16 +1019,16 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 					Set_Overall_State (STATE_IN_TRANSITION);
 
 				} else if (OverallState == STATE_ATTACK_LIFT_AREA) {
-					
+
 					Set_Overall_State (STATE_CIRCLE_REFINERY);
-				
+
 				} else if (OverallState == STATE_VALLEY_STRAFE) {
-					
+
 					Do_Waypath (WID_VSTRAFE_TO_REFINERY);
 					Set_Overall_State (STATE_IN_TRANSITION);
 
 				} else if (OverallState == STATE_LONG_STRAFING_RUN) {
-					
+
 					Do_Waypath (WID_LSTRAFE_TO_REFINERY);
 					Set_Overall_State (STATE_IN_TRANSITION);
 				}
@@ -1046,7 +1046,7 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 				} else if (	OverallState == STATE_CIRCLE_POWER_PLANT ||
 								OverallState == STATE_LONG_STRAFING_RUN2)
 				{
-					Set_Overall_State (STATE_LAND_IN_TIBERIUM_FIELD);					
+					Set_Overall_State (STATE_LAND_IN_TIBERIUM_FIELD);
 
 				} else if (OverallState == STATE_LONG_STRAFING_RUN) {
 
@@ -1079,7 +1079,7 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 					Set_Overall_State (STATE_IN_TRANSITION);
 
 				} else if (OverallState == STATE_LAND_IN_TIBERIUM_FIELD) {
-										
+
 					Do_Waypath (WID_TIBFIELD_TO_VSTRAFE);
 					Set_Overall_State (STATE_IN_TRANSITION);
 				}
@@ -1098,21 +1098,21 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 				} else if (	OverallState == STATE_CIRCLE_POWER_PLANT ||
 								OverallState == STATE_LONG_STRAFING_RUN2 ||
 								OverallState == STATE_LAND_IN_TIBERIUM_FIELD)
-				{										
+				{
 					Do_Waypath (WID_TO_LIFT_AREA_NORTH);
 					Set_Overall_State (STATE_IN_TRANSITION);
 				}
 
 				break;
-			
+
 			case STATE_LONG_STRAFING_RUN2:
 
 				if (	OverallState == STATE_CIRCLE_REFINERY ||
 						OverallState == STATE_ATTACK_LIFT_AREA) {
-					
+
 					Do_Waypath (WID_REFINERY_TO_LSTRAFE2);
 					Set_Overall_State (STATE_IN_TRANSITION);
-				
+
 				} else if (OverallState == STATE_VALLEY_STRAFE) {
 
 					Do_Waypath (WID_VSTRAFE_TO_LSTRAFE2);
@@ -1131,7 +1131,7 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 
 				if (	OverallState == STATE_CIRCLE_REFINERY ||
 						OverallState == STATE_ATTACK_LIFT_AREA)
-				{					
+				{
 					Do_Waypath (WID_REFINERY_TO_LSTRAFE);
 					Set_Overall_State (STATE_IN_TRANSITION);
 
@@ -1149,7 +1149,7 @@ SakuraBossGameObj::Request_Overall_State (int new_state)
 
 				break;
 		}
-		
+
 		NextOverallState = new_state;
 	}
 
@@ -1169,11 +1169,11 @@ SakuraBossGameObj::Set_Overall_State (int new_state)
 
 		switch (new_state)
 		{
-			case STATE_CIRCLE_POWER_PLANT:				
+			case STATE_CIRCLE_POWER_PLANT:
 				Pilot.Set_Destination (Vector3 (-63.34F, 21.26F, 26.0F));
 				Pilot.Set_Mode (PilotClass::MODE_CIRCLE_POINT);
 				Pilot.Set_Circle_Bounds (DEG_TO_RADF (100), DEG_TO_RADF (225));
-				Pilot.Set_Circle_Dist (30);				
+				Pilot.Set_Circle_Dist (30);
 				break;
 
 			case STATE_CIRCLE_REFINERY:
@@ -1215,7 +1215,7 @@ SakuraBossGameObj::Set_Overall_State (int new_state)
 			}
 			break;
 
-				
+
 			case STATE_LAND_IN_TIBERIUM_FIELD:
 			{
 				Vector3 destination (-107.0F, -10.0F, 15.0F);
@@ -1228,7 +1228,7 @@ SakuraBossGameObj::Set_Overall_State (int new_state)
 				FaceTargetInTransition = false;
 				break;
 		}
-		
+
 		OverallState = new_state;
 
 		//
@@ -1262,7 +1262,7 @@ SakuraBossGameObj::Should_Change_Overall_State (void)
 	if (OverallStateTimeLeft <= 0) {
 		retval = true;
 	} else if (CurrentTarget != NULL) {
-		
+
 		switch (OverallState)
 		{
 			case STATE_CIRCLE_POWER_PLANT:
@@ -1296,7 +1296,7 @@ SakuraBossGameObj::Should_Change_Overall_State (void)
 				}
 
 				break;
-			
+
 			case STATE_VALLEY_STRAFE:
 
 				if (TargetPos.Y < 20.0F && (TargetPos.X < -138.0F || TargetPos.X > -78.0F)) {
@@ -1314,13 +1314,13 @@ SakuraBossGameObj::Should_Change_Overall_State (void)
 				break;
 
 			case STATE_LONG_STRAFING_RUN2:
-				
+
 				if (TargetPos.X > -80.0F || TargetPos.Y < 10.0F) {
 					retval = true;
 				}
-				
+
 				break;
-			
+
 		}
 	}
 
@@ -1338,14 +1338,14 @@ SakuraBossGameObj::Decide_New_Overall_State (void)
 {
 	//
 	//	Do we need to change state now?
-	//	
+	//
 	if (Should_Change_Overall_State ()) {
 
 		//
 		//	If we are going to change states, then stop attacking the target
 		//
 		Stop_Attacking ();
-		
+
 		//
 		//	If we've been injured enough, bump up the long strafing run possibility
 		//
@@ -1390,7 +1390,7 @@ SakuraBossGameObj::Decide_New_Overall_State (void)
 				Request_Overall_State (STATE_VALLEY_STRAFE);
 
 			} else if (FreeRandom.Get_Int (5) == 1) {
-				
+
 				//
 				//	Flip a coin and do a strafing run
 				//
@@ -1452,22 +1452,22 @@ SakuraBossGameObj::Update_Overall_State (void)
 				// Have the commanche strafe by the player
 				//
 				if (TargetPos.X > -140.0F && TargetPos.Y > 34.0F) {
-					
+
 					destination.X += 10.0F;
 					destination.Y = TargetPos.Y + 1.0F;
 					destination.Y = std::min (destination.Y, 78.0F);
 					destination.Z -= 20.0F;
 
 				} else {
-					
-					if (target_player || TargetPos.X > -151.0F) {					
+
+					if (target_player || TargetPos.X > -151.0F) {
 						destination.X += 20.0F;
 						destination.Z -= 20.0F;
 					}
 
 					//
 					//	Let the commanche move backwards (if necessary)
-					//					
+					//
 					if (TargetPos.Y > -6.0F) {
 						destination.Y = TargetPos.Y + 46.0F;
 						destination.Y = std::min (destination.Y, 78.0F);
@@ -1481,13 +1481,13 @@ SakuraBossGameObj::Update_Overall_State (void)
 
 				Pilot.Set_Destination (destination);
 				Pilot.Set_Mode (PilotClass::MODE_HOVER);
-				
+
 				if (target_player) {
-					
+
 					Pilot.Set_Target (&TargetPos);
 
 				} else {
-					
+
 					Vector3 position;
 					Get_Position (&position);
 					position += Vector3 (0, -10, 0);
@@ -1497,14 +1497,14 @@ SakuraBossGameObj::Update_Overall_State (void)
 				//
 				//	Start attacking the player if we are within 4 meters of
 				// our expected destination
-				//				
+				//
 				Vector3 curr_position;
 				Get_Position (&curr_position);
 				if ((destination - curr_position).Length2 () < 16) {
-					
+
 					//
 					//	Use the rockets to attack the player
-					//				
+					//
 					Attack_Target (1, 0);
 				}
 
@@ -1518,7 +1518,7 @@ SakuraBossGameObj::Update_Overall_State (void)
 		{
 			Vector3 destination (-161.78F, 79.03F, 18.88F);
 			destination.Z = std::max (TargetPos.Z + 7.0F, 18.88F);
-			Pilot.Set_Destination (destination);				
+			Pilot.Set_Destination (destination);
 
 			destination.X += 10;
 			Pilot.Set_Target (&destination);
@@ -1536,7 +1536,7 @@ SakuraBossGameObj::Update_Overall_State (void)
 					Attack_Target (1, 0);
 				} else {
 					Attack_Target (0, 1);
-				}				
+				}
 			}
 		}
 		break;
@@ -1551,7 +1551,7 @@ SakuraBossGameObj::Update_Overall_State (void)
 			// We should fire on the target if they are in front of us
 			//
 			if (CurrentTarget != NULL) {
-				
+
 				//
 				//	Transform the target into our coordinate system.  Is the target in front of us?
 				//
@@ -1593,7 +1593,7 @@ SakuraBossGameObj::Update_Overall_State (void)
 				//	Target the player
 				//
 				Pilot.Set_Target (&TargetPos);
-				
+
 				//
 				//	Restore the speed
 				//
@@ -1601,20 +1601,20 @@ SakuraBossGameObj::Update_Overall_State (void)
 			}
 		}
 		break;
-		
+
 		case STATE_VALLEY_STRAFE:
 
 			if (CurrentTarget != NULL) {
 				Vector3 destination (-84.33F, 77.99F, 26.77F);
 
 				if (TargetPos.Y < 42.0F) {
-					
+
 					//
 					//	Simply match the player's position along our strafe path
 					//
-					destination.X = WWMath::Clamp (TargetPos.X, -143.0F, -84.33F);				
+					destination.X = WWMath::Clamp (TargetPos.X, -143.0F, -84.33F);
 				} else {
-					
+
 					//
 					//	Try to stay targetted on the player by strafing along the path
 					//
@@ -1622,21 +1622,21 @@ SakuraBossGameObj::Update_Overall_State (void)
 						destination.X = WWMath::Clamp (TargetPos.X - 35.0F, -143.0F, -84.33F);
 					} else {
 						destination.X = WWMath::Clamp (TargetPos.X + 35.0F, -143.0F, -84.33F);
-					}									
+					}
 				}
 
 				Pilot.Set_Destination (destination);
-				Pilot.Set_Mode (PilotClass::MODE_HOVER);				
+				Pilot.Set_Mode (PilotClass::MODE_HOVER);
 				Pilot.Set_Target (&TargetPos);
 
 				//
 				//	Start attacking the player if we are within 4 meters of
 				// our expected destination
-				//				
+				//
 				Vector3 curr_position;
 				Get_Position (&curr_position);
 				if ((destination - curr_position).Length2 () < 16) {
-					
+
 					//
 					//	Make sure we are attacking the player (with either weapon)
 					//
@@ -1646,13 +1646,13 @@ SakuraBossGameObj::Update_Overall_State (void)
 			} else {
 				Pilot.Set_Target (NULL);
 			}
-			
+
 			break;
 
 		case STATE_LAND_IN_TIBERIUM_FIELD:
 		{
 
-			if (CurrentTarget != NULL) {			
+			if (CurrentTarget != NULL) {
 				Pilot.Set_Target (&TargetPos);
 			} else {
 				Pilot.Set_Target (NULL);
@@ -1662,12 +1662,12 @@ SakuraBossGameObj::Update_Overall_State (void)
 			//
 			//	Start attacking the player if we are within 4 meters of
 			// our expected destination
-			//				
+			//
 			Vector3 curr_position;
 			Vector3 destination = Pilot.Get_Destination ();
 			Get_Position (&curr_position);
 			if ((destination - curr_position).Length2 () < 16) {
-				
+
 				//
 				//	Attack the player with either weapon
 				//
@@ -1686,11 +1686,11 @@ SakuraBossGameObj::Update_Overall_State (void)
 				Set_Overall_State (NextOverallState);
 			} else if (FaceTargetInTransition) {
 
-				if (CurrentTarget != NULL) {					
+				if (CurrentTarget != NULL) {
 					Pilot.Set_Target (&TargetPos);
 				} else {
 					Pilot.Set_Target (NULL);
-				}				
+				}
 			}
 
 			break;
@@ -1717,7 +1717,7 @@ SakuraBossGameObj::Update_Tilt (void)
 	WWASSERT (model != NULL);
 
 	if (ChopperTiltBoneIndex > 0) {
-		
+
 		//
 		//	Determine what the maximum tilt allowed is...
 		//
@@ -1733,7 +1733,7 @@ SakuraBossGameObj::Update_Tilt (void)
 
 			//
 			//	Determine how far we need to tile to look straight at the player
-			//			
+			//
 			float target_angle = DEG_TO_RADF (25.0F);
 			if (CurrentTarget != NULL) {
 
@@ -1797,7 +1797,7 @@ SakuraBossGameObj::Update_Tilt (void)
 		//	Do we need to tilt the bone?
 		//
 		if (model->Is_Bone_Captured (ChopperTiltBoneIndex)) {
-			
+
 			//
 			//	Tilt the model up to 25 degrees
 			//
@@ -1851,12 +1851,12 @@ SakuraBossGameObj::Attack_Target
 		//
 		//	Decide which weapon to use
 		//
-		if (rocket_priority > gattling_priority) {		
+		if (rocket_priority > gattling_priority) {
 			Set_Rocket_State (ROCKET_STATE_OPENING);
-		} else if (gattling_priority > rocket_priority) {		
+		} else if (gattling_priority > rocket_priority) {
 			Set_Gattling_Gun_State (GATLING_STATE_REVVING_UP);
 		} else {
-			
+
 			//
 			//	Priorities are equal, so toss a coin and pick a weapon
 			//
@@ -1867,7 +1867,7 @@ SakuraBossGameObj::Attack_Target
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -1907,7 +1907,7 @@ void
 SakuraBossGameObj::Set_Vehicle_State (int new_state)
 {
 	if (VehicleState != new_state) {
-		
+
 		switch (new_state)
 		{
 			case VEHICLE_STATE_HOVERING:
@@ -1942,7 +1942,7 @@ SakuraBossGameObj::Update_Vehicle_State (void)
 	}
 
 	switch (VehicleState)
-	{		
+	{
 		case VEHICLE_STATE_HOVERING:
 			break;
 
@@ -1950,7 +1950,7 @@ SakuraBossGameObj::Update_Vehicle_State (void)
 		{
 			//
 			//	Get the next point on the path
-			//			
+			//
 			Vector3 curr_pos;
 			Vector3 next_pos;
 			Get_Position (&curr_pos);
@@ -1972,7 +1972,7 @@ SakuraBossGameObj::Update_Vehicle_State (void)
 				Set_Vehicle_State (VEHICLE_STATE_HOVERING);
 			} else if (result < PathClass::FIRST_ERROR) {
 				Pilot.Set_Next_Point (next_pos);
-			}			
+			}
 		}
 		break;
 	}
@@ -1990,7 +1990,7 @@ void
 SakuraBossGameObj::Set_Sakura_State (int new_state)
 {
 	if (SakuraState != new_state) {
-		
+
 		switch (new_state)
 		{
 			case SAKURA_STATE_NORMAL:
@@ -2022,7 +2022,7 @@ SakuraBossGameObj::Set_Sakura_State (int new_state)
 				//	Default to a 2 second taunt deault
 				//
 				SakuraTauntTimeLeft = 2.0F;
-				
+
 				//
 				//	Lookup the conversation for this taunt
 				//
@@ -2030,7 +2030,7 @@ SakuraBossGameObj::Set_Sakura_State (int new_state)
 				if (conv != NULL) {
 					ActiveConversationClass *taunt_conversation = ConversationMgrClass::Create_New_Conversation (conv);
 					if (taunt_conversation != NULL) {
-						
+
 						//
 						//	Add Sakura and the player to the list
 						//
@@ -2041,7 +2041,7 @@ SakuraBossGameObj::Set_Sakura_State (int new_state)
 						orator->Set_Flag (OratorClass::FLAG_DONT_FACE,			true);
 
 						SakuraTauntTimeLeft = taunt_conversation->Get_Conversation_Time ();
-						
+
 						//
 						//	Start the conversation
 						//
@@ -2071,7 +2071,7 @@ void
 SakuraBossGameObj::Shuffle_Taunt_List (void)
 {
 	::memset (TauntList, 0, sizeof (TauntList));
-	
+
 	//
 	//	Grab an entry from the taunt id list
 	//
@@ -2105,7 +2105,7 @@ void
 SakuraBossGameObj::Update_Sakura_State (void)
 {
 	switch (SakuraState)
-	{		
+	{
 		case SAKURA_STATE_NORMAL:
 			break;
 
@@ -2130,7 +2130,7 @@ void
 SakuraBossGameObj::Set_Gattling_Gun_State (int new_state)
 {
 	if (GattlingGunState != new_state) {
-		
+
 		switch (new_state)
 		{
 			case GATLING_STATE_NORMAL:
@@ -2152,15 +2152,15 @@ SakuraBossGameObj::Set_Gattling_Gun_State (int new_state)
 					//
 					sound->Attach_To_Object (Peek_Model (), GATLING_MUZZLE);
 					sound->Add_To_Scene (true);
-					REF_PTR_RELEASE (sound);					
+					REF_PTR_RELEASE (sound);
 				} else {
 					GattlingGunStateTimeLeft = 1.0F;
-				}				
-			}				
+				}
+			}
 			break;
 
 			case GATLING_STATE_FIRING:
-				
+
 				//
 				//	Pick a random amount of time to fire at the player
 				//
@@ -2191,7 +2191,7 @@ void
 SakuraBossGameObj::Update_Gattling_Gun_State (void)
 {
 	switch ( GattlingGunState )
-	{		
+	{
 		case GATLING_STATE_REVVING_UP:
 			GattlingGunStateTimeLeft -= TimeManager::Get_Frame_Seconds ();
 			if (GattlingGunStateTimeLeft <= 0) {
@@ -2219,9 +2219,9 @@ SakuraBossGameObj::Update_Gattling_Gun_State (void)
 
 			//
 			//	Stop firing when we've shot at the player for a few seconds
-			//							
+			//
 			GattlingGunStateTimeLeft -= TimeManager::Get_Frame_Seconds ();
-			if (GattlingGunStateTimeLeft <= 0) {				
+			if (GattlingGunStateTimeLeft <= 0) {
 				Set_Gattling_Gun_State (GATLING_STATE_NORMAL);
 			}
 
@@ -2241,7 +2241,7 @@ void
 SakuraBossGameObj::Set_Rocket_State (int new_state)
 {
 	if (RocketLauncherState != new_state) {
-		
+
 		switch (new_state)
 		{
 			case ROCKET_STATE_OPENING:
@@ -2261,7 +2261,7 @@ SakuraBossGameObj::Set_Rocket_State (int new_state)
 					Matrix3D right_tm = Peek_Model ()->Get_Bone_Transform (RIGHT_ROCKET_MUZZLE);
 					WWAudioClass::Get_Instance()->Create_Instant_Sound (Get_Definition ().RocketDoorOpenSoundID, right_tm);
 				}
-				
+
 				//
 				//	Open the rocket doors
 				//
@@ -2278,7 +2278,7 @@ SakuraBossGameObj::Set_Rocket_State (int new_state)
 
 				//
 				//	Stop firing
-				//				
+				//
 				if (RockerLauncherLeft != NULL && RockerLauncherRight != NULL) {
 					RockerLauncherLeft->Set_Primary_Triggered (false);
 					RockerLauncherRight->Set_Primary_Triggered (false);
@@ -2345,7 +2345,7 @@ SakuraBossGameObj::Update_Rocket_State (void)
 			if (anim_control != NULL && anim_control->Get_Current_Frame () == ROCKETS_OUT_FRAME_NUM) {
 				Set_Rocket_State (ROCKET_STATE_OPEN);
 			}
-		}	
+		}
 		break;
 
 		case ROCKET_STATE_CLOSING:
@@ -2357,7 +2357,7 @@ SakuraBossGameObj::Update_Rocket_State (void)
 			if (anim_control != NULL && anim_control->Get_Current_Frame () == ROCKETS_IN_FRAME_NUM) {
 				Set_Rocket_State (ROCKET_STATE_CLOSED);
 			}
-		}	
+		}
 		break;
 
 		case ROCKET_STATE_FIRING:
@@ -2367,7 +2367,7 @@ SakuraBossGameObj::Update_Rocket_State (void)
 
 			RocketLauncherStateTimeLeft -= TimeManager::Get_Frame_Seconds ();
 			if (RocketLauncherStateTimeLeft <= 0) {
-				
+
 				//
 				//	Stop firing
 				//
@@ -2386,7 +2386,7 @@ SakuraBossGameObj::Update_Rocket_State (void)
 		{
 			RocketLauncherStateTimeLeft -= TimeManager::Get_Frame_Seconds ();
 			if (RocketLauncherStateTimeLeft <= 0) {
-				
+
 				//
 				//	Commence firing
 				//
@@ -2427,10 +2427,10 @@ SakuraBossGameObj::Apply_Damage_Extended
 	//
 	bool damaged_rockets = false;
 	if (RocketLauncherState != ROCKET_STATE_CLOSED && collision_box_name != NULL) {
-				
+
 		if (::strstr (collision_box_name, LEFT_ROCKET_MESH) != NULL) {
 			damaged_rockets = true;
-			
+
 			//
 			//	Apply the damage to the left rocket launcher
 			//
@@ -2451,10 +2451,10 @@ SakuraBossGameObj::Apply_Damage_Extended
 			}
 		}
 	}
-	
+
 	//
 	//	If the rockets weren't specifically targetted, then let the damage occur normally
-	//		
+	//
 	if (damaged_rockets == false) {
 		VehicleGameObj::Apply_Damage_Extended (damager, scale, direction, collision_box_name);
 	}
@@ -2516,7 +2516,7 @@ SakuraBossGameObj::Blow_Off_Weapon (int weapon_id)
 	PhysClass *phys_obj = Peek_Physical_Object ();
 	if (phys_obj != NULL && phys_obj->As_RigidBodyClass () != NULL) {
 		RigidBodyClass *rigid_body = phys_obj->As_RigidBodyClass ();
-							
+
 		Vector3 center = Get_Transform ().Get_Translation ();
 		Vector3 y_axis = Get_Transform ().Get_Y_Vector ();
 
@@ -2543,7 +2543,7 @@ SakuraBossGameObj::Blow_Off_Weapon (int weapon_id)
 		rigid_body->Apply_Impulse (left_imp, left_imp_pos);
 		rigid_body->Apply_Impulse (right_imp, right_imp_pos);
 	}
-	
+
 	//
 	//	Make sure the weapon stops firing
 	//
@@ -2556,7 +2556,7 @@ SakuraBossGameObj::Blow_Off_Weapon (int weapon_id)
 	//
 	//	Remove the weapon from the list of available weapons
 	//
-	AvailableWeapons &= ~weapon_id;	
+	AvailableWeapons &= ~weapon_id;
 	return ;
 }
 
@@ -2613,7 +2613,7 @@ SakuraBossGameObj::Are_Rocker_Launchers_Ready (void)
 ///////////////////////////////////////////////////////////////////////////
 void
 SakuraBossGameObj::Move_To_Location (const Vector3 &pos, float /* speed */)
-{	
+{
 	MoveToLocation = pos;
 	Set_Vehicle_State (VEHICLE_STATE_MOVING);
 
@@ -2622,7 +2622,7 @@ SakuraBossGameObj::Move_To_Location (const Vector3 &pos, float /* speed */)
 	// to this location.
 	//
 	Pilot.Set_Mode (PilotClass::MODE_FLY_TO_POINT);
-	Pilot.Set_Destination (pos);	
+	Pilot.Set_Destination (pos);
 	return ;
 }
 
@@ -2639,7 +2639,7 @@ SakuraBossGameObj::Get_Muzzle (int /*index*/)
 
 	RenderObjClass *model = Peek_Model ();
 	if (model != NULL) {
-				
+
 		if (GattlingGunState == GATLING_STATE_FIRING) {
 
 			//
@@ -2649,7 +2649,7 @@ SakuraBossGameObj::Get_Muzzle (int /*index*/)
 
 		} else {
 
-			
+
 			//
 			//	Toggle rocket launchers.
 			//
@@ -2677,7 +2677,7 @@ SakuraBossGameObj::Get_Muzzle (int /*index*/)
 			}
 		}
 	}
-	
+
 	return CurrentMuzzleTM;
 }
 
@@ -2699,9 +2699,9 @@ SakuraBossGameObj::Update_Target (void)
 		//
 		//	Choose either the closest commando or the last person to damage us
 		//
-		if (FreeRandom.Get_Int (2) == 0 && LastDamager != NULL) {		
-			CurrentTarget = LastDamager;	
-		} else {			
+		if (FreeRandom.Get_Int (2) == 0 && LastDamager != NULL) {
+			CurrentTarget = LastDamager;
+		} else {
 			CurrentTarget.Set_Ptr (Find_Closest_Human_Player ());
 		}
 
@@ -2734,7 +2734,7 @@ SakuraBossGameObj::Find_Closest_Human_Player (void)
 	Vector3 sakura_position;
 	Get_Position (&sakura_position);
 
-	AABoxClass valley_box;		
+	AABoxClass valley_box;
 	valley_box.Center.Set (-105.0F, 35.0F, 20.0F);
 	valley_box.Extent.Set (75.0F, 70.5F, 14.0F);
 
@@ -2743,28 +2743,28 @@ SakuraBossGameObj::Find_Closest_Human_Player (void)
 	//
 	NonRefPhysListClass objs_in_valley;
 	PhysicsSceneClass::Get_Instance ()->Collect_Objects (valley_box, false, true, &objs_in_valley);
-	
+
 	//
 	//	Loop over all the objects
 	//
 	NonRefPhysListIterator it (&objs_in_valley);
 	for (it.First (); !it.Is_Done (); it.Next ()) {
 		PhysicalGameObj *gameobj = NULL;
-		
+
 		//
 		//	Get the game object from this physics object
 		//
 		if (it.Peek_Obj()->Get_Observer () != NULL) {
 			gameobj = ((CombatPhysObserverClass *)it.Peek_Obj()->Get_Observer())->As_PhysicalGameObj();
 		}
-		
+
 		//
 		//	Check to see if this is a commando game object
 		//
 		if (gameobj != NULL) {
 			SoldierGameObj *soldier = gameobj->As_SoldierGameObj ();
 			if (soldier != NULL && soldier->Is_Human_Controlled()) {
-				
+
 				Vector3 position;
 				soldier->Get_Position (&position);
 
@@ -2776,7 +2776,7 @@ SakuraBossGameObj::Find_Closest_Human_Player (void)
 					closest_human_player = soldier;
 					closest_distance = distance;
 				}
-			}			
+			}
 		}
 	}
 
@@ -2802,7 +2802,7 @@ SakuraBossGameObj::Do_Waypath (int waypath_id, int start_id, int end_id)
 		path_obj.Initialize (*Peek_Physical_Object ());
 		path_obj.Set_Max_Speed (Get_Max_Speed ());
 		path_obj.Set_Turn_Radius (Get_Turn_Radius ());
-		path_obj.Set_Flag (PathObjectClass::IS_VEHICLE, true);								
+		path_obj.Set_Flag (PathObjectClass::IS_VEHICLE, true);
 		Path->Set_Path_Object (path_obj);
 		Path->Set_Traversal_Type (PathClass::SPLINE);
 		Path->Set_Movement_Radius (5.0F);
@@ -2823,7 +2823,7 @@ SakuraBossGameObj::Do_Waypath (int waypath_id, int start_id, int end_id)
 				end_index = index;
 			}
 		}
-		
+
 		//
 		//	Get the world space locations of the starting and ending waypoints
 		//

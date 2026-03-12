@@ -482,7 +482,7 @@ const unichar_t* IMECandidate::GetCandidate(unsigned int index)
 		mTempString[(sizeof(mTempString) / sizeof(unichar_t)) - 1] = 0;
 		return reinterpret_cast<unichar_t *>(mTempString);;
 		}
-	
+
 	return NULL;
 	}
 
@@ -542,5 +542,5 @@ void IMECandidate::SetView(unsigned int topIndex, unsigned int bottomIndex)
 		ImmReleaseContext(mHWND, imc);
 		}
 	}
-	
+
 } // namespace IME

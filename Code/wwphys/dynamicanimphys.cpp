@@ -68,7 +68,7 @@ enum
 	DYNAMICANIMPHYS_CHUNK_DECOPHYS							= 526000339,
 	DYNAMICANIMPHYS_CHUNK_VARIABLES,
 	DYNAMICANIMPHYS_CHUNK_ANIMMANAGER,
-};										
+};
 
 
 DynamicAnimPhysClass::DynamicAnimPhysClass(void) :
@@ -119,13 +119,13 @@ void DynamicAnimPhysClass::Update_Cached_Model_Parameters(void)
 void DynamicAnimPhysClass::Reset_Mappers(RenderObjClass * model)
 {
 	if (model != NULL) {
-		
+
 		MaterialInfoClass * matinfo = model->Get_Material_Info();
 		if (matinfo != NULL) {
 			matinfo->Reset_Texture_Mappers();
 		}
 		REF_PTR_RELEASE(matinfo);
-		
+
 		for (int i=0; i<model->Get_Num_Sub_Objects(); i++) {
 			RenderObjClass * sub_obj = model->Get_Sub_Object(i);
 			Reset_Mappers(sub_obj);
@@ -168,7 +168,7 @@ bool DynamicAnimPhysClass::Save(ChunkSaveClass &csave)
 	csave.Begin_Chunk(DYNAMICANIMPHYS_CHUNK_ANIMMANAGER);
 	AnimManager.Save(csave);
 	csave.End_Chunk();
-	
+
 	return true;
 }
 
@@ -178,8 +178,8 @@ bool DynamicAnimPhysClass::Load(ChunkLoadClass &cload)
 	** Read in the chunks from the file
 	*/
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case DYNAMICANIMPHYS_CHUNK_DECOPHYS:
 				DecorationPhysClass::Load(cload);
@@ -193,7 +193,7 @@ bool DynamicAnimPhysClass::Load(ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 
@@ -232,7 +232,7 @@ DECLARE_DEFINITION_FACTORY(DynamicAnimPhysDefClass, CLASSID_DYNAMICANIMPHYSDEF, 
 /*
 ** Chunk ID's used by StaticAnimPhysDefClass
 */
-enum 
+enum
 {
 	DYNAMICANIMPHYSDEF_CHUNK_DECOPHYSDEF				= 052600316,			// (parent class)
 	DYNAMICANIMPHYSDEF_CHUNK_ANIMMANAGERDEF,
@@ -254,13 +254,13 @@ DynamicAnimPhysDefClass::DynamicAnimPhysDefClass(void) :
 	ANIMCOLLISIONMANAGERDEF_EDITABLE_PARAMS( DynamicAnimPhysDefClass , AnimManagerDef );
   	PARAM_SEPARATOR(DynamicAnimPhysDefClass, "Shadow Settings");
 	EDITABLE_PARAM(DynamicAnimPhysDefClass,ParameterClass::TYPE_BOOL, CastsShadows);
-	FLOAT_UNITS_PARAM(DynamicAnimPhysDefClass,ShadowNearZ, -1.0f,1000.0f, "meters (-1 for default)") 
-	FLOAT_UNITS_PARAM(DynamicAnimPhysDefClass,ShadowFarZ, -1.0f,1000.0f, "meters (-1 for default)") 
+	FLOAT_UNITS_PARAM(DynamicAnimPhysDefClass,ShadowNearZ, -1.0f,1000.0f, "meters (-1 for default)")
+	FLOAT_UNITS_PARAM(DynamicAnimPhysDefClass,ShadowFarZ, -1.0f,1000.0f, "meters (-1 for default)")
 }
 
-uint32 DynamicAnimPhysDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_DYNAMICANIMPHYSDEF; 
+uint32 DynamicAnimPhysDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_DYNAMICANIMPHYSDEF;
 }
 
 PersistClass * DynamicAnimPhysDefClass::Create(void) const
@@ -276,8 +276,8 @@ const PersistFactoryClass & DynamicAnimPhysDefClass::Get_Factory (void) const
 }
 
 const char * DynamicAnimPhysDefClass::Get_Type_Name(void)
-{ 
-	return "DynamicAnimPhysDef"; 
+{
+	return "DynamicAnimPhysDef";
 }
 
 bool DynamicAnimPhysDefClass::Is_Type(const char * type_name)
@@ -330,7 +330,7 @@ bool DynamicAnimPhysDefClass::Load(ChunkLoadClass &cload)
 						READ_MICRO_CHUNK(cload,DYNAMICANIMPHYSDEF_VARIABLE_SHADOWNEARZ,ShadowNearZ);
 						READ_MICRO_CHUNK(cload,DYNAMICANIMPHYSDEF_VARIABLE_SHADOWFARZ,ShadowFarZ);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 

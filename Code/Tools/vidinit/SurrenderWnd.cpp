@@ -60,7 +60,7 @@ CSurrenderWnd::CSurrenderWnd(CWnd *cwnd, int driver, int width, int height, int 
 	}
 
 	WW3D::Set_Window(GetSafeHwnd());
-	
+
 	m_SubClass = GetWindowLongPtr(GetSafeHwnd(), GWLP_WNDPROC);
 
 	WW3D::Set_Render_Device(driver, width, height, bitdepth, run_in_window, true);
@@ -125,10 +125,10 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSurrenderWnd message handlers
 
-void CSurrenderWnd::OnPaint() 
+void CSurrenderWnd::OnPaint()
 {
 //	CPaintDC dc(this); // device context for painting
-	
+
 	WW3D::Sync(GetTickCount());
 
 	if (m_Motion && m_RObj) {
@@ -163,12 +163,12 @@ void CSurrenderWnd::OnPaint()
 	}
 }
 
-void CSurrenderWnd::RemoveSubclass() 
+void CSurrenderWnd::RemoveSubclass()
 {
 	::SetWindowLongPtr(GetSafeHwnd(), GWLP_WNDPROC, m_SubClass);
 }
 
-void CSurrenderWnd::OnClose() 
+void CSurrenderWnd::OnClose()
 {
 	// TODO: Add your message handler code here and/or call default
 	CWnd::OnClose();
@@ -176,10 +176,10 @@ void CSurrenderWnd::OnClose()
 }
 
 
-void CSurrenderWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) 
+void CSurrenderWnd::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	// TODO: Add your message handler code here and/or call default
-	
+
 	if (nChar == VK_ESCAPE) {
 		m_CWnd->PostMessage(WM_USER + 1, 0xDEADBEEF, 0xDEADBEEF);
 	} else {

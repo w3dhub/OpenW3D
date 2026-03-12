@@ -108,7 +108,7 @@ EditConversationRemarkDialogClass::OnInitDialog (void)
 	//
 	//	Assign icons to each of the orator buttons
 	//
-	for (int index = 0; index < ORATOR_MAX; index ++) {		
+	for (int index = 0; index < ORATOR_MAX; index ++) {
 		HICON icon = ::LoadIcon (::AfxGetResourceHandle (), MAKEINTRESOURCE (ORATOR_BUTTONS[index].icon_id));
 		SendDlgItemMessage (ORATOR_BUTTONS[index].button_id, BM_SETIMAGE, IMAGE_ICON, (LPARAM)icon);
 
@@ -159,11 +159,11 @@ EditConversationRemarkDialogClass::OnOK (void)
 	//
 	//	Assign icons to each of the orator buttons
 	//
-	for (int index = 0; index < ORATOR_MAX; index ++) {		
+	for (int index = 0; index < ORATOR_MAX; index ++) {
 		if (SendDlgItemMessage (ORATOR_BUTTONS[index].button_id, BM_GETCHECK) == 1) {
 			Remark.Set_Orator_ID (index);
 			break;
-		}		
+		}
 	}
 
 	//
@@ -178,7 +178,7 @@ EditConversationRemarkDialogClass::OnOK (void)
 	GetDlgItemText (IDC_ANIMATION_NAME, animation_name);
 
 	//
-	//	Pass the animation name onto the remark object 
+	//	Pass the animation name onto the remark object
 	//
 	Remark.Set_Animation_Name (animation_name);
 

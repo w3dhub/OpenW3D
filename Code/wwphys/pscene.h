@@ -135,14 +135,14 @@ class LightSolveContextClass;
 
   Each move, the following things will happen:
 
-  - The object will rotate in place according to its angular velocity and the 
+  - The object will rotate in place according to its angular velocity and the
     amount of time which has passed for this frame
 
   - Collision detection code will "push" the object into a valid position in the world.
     If it is unable to push the object into a valid position, the rotation state will
 	 be reverted.
 
-  - The object will then compute a translational move for the frame based on its 
+  - The object will then compute a translational move for the frame based on its
     velocity and the time which has passed.
 
   - Collision detection code will test the final position for penetration with the world.
@@ -156,7 +156,7 @@ class LightSolveContextClass;
   - Multiple different types of collision objects or everything is a box?
     Or everything is three different sets of 3d boxes?
 
-  - A separate sorted list for the x axis, y axis and z axis will be maintained.  It 
+  - A separate sorted list for the x axis, y axis and z axis will be maintained.  It
     will be used to optimize the collision detection algorithm.  A single, overall
 	 bounding sphere / axis aligned box should be used for this quick rejection.
 
@@ -175,7 +175,7 @@ class LightSolveContextClass;
     different types of objects (with different state vectors)
     * each object will be responsible for: (1) adding itself to the state vector
 	   (2) getting its new state out of the state vector and (3) adding its
-		derivatives to the derivative vector.  Each of these functions will 
+		derivatives to the derivative vector.  Each of these functions will
 		return the number of values which were added to the vector.  This should
 		allow us to "dumb-down" the physics for objects which are far away too...
 
@@ -186,16 +186,16 @@ class LightSolveContextClass;
     Find a better system.  What if we only decide to use Euler's method, it could
 	 be easily hard coded into each object type...
 	 * The giganitic state vector approach is overkill.  We will not use it.
-	 
+
 12/03/97
 
   - Each object will be "timestepped" individually.  Each object type will be
     free to use whatever integration method it wants to (again, no monolithic state
-	 vector) 
+	 vector)
 
   - One at a time, each object will be told to update their state.  They will be
-    given an elapsed time to ensure that we are frame-rate independent.  
-	 
+    given an elapsed time to ensure that we are frame-rate independent.
+
   - The steps a typical physical object will need to take in order to update itself:
 
 	 - Store its current state so that we can revert if we have to
@@ -213,32 +213,32 @@ class LightSolveContextClass;
 
 	 - Loop while we haven't eaten the entire translation:
 
-      - Add the sub-move vector 
+      - Add the sub-move vector
 
 		- "Push" the object into a valid position, modify velocity by normal of the
-		  polygon collided with.  If push goes into an infinite loop, revert to 
+		  polygon collided with.  If push goes into an infinite loop, revert to
 		  previous sub-move and exit
-   
+
 
 Feb 9, 1998
 
-	Nope, try again, simplify, simplify, simplify!  
-	
-	- For objects which do not care about rotation causing collision (e.g. characters), 
-	*use a collision object which doesn't care either!*  So, for characters and many of the 
+	Nope, try again, simplify, simplify, simplify!
+
+	- For objects which do not care about rotation causing collision (e.g. characters),
+	*use a collision object which doesn't care either!*  So, for characters and many of the
 	objects in the game, we will use either Axis-Aligned boxes or cylinders.  Since I have
-	the math for casting an axis-aligned box, I will probably use that.  These objects will 
+	the math for casting an axis-aligned box, I will probably use that.  These objects will
 	rotate within thier box so to the physics system, rotation / orientation will be trivial.
 
-	- Jello Physics! For objects like the vehicles which were going to be done with rigid body 
-	dynamics I'm going to try a spring-mass model.  There are many problems with rigid body 
+	- Jello Physics! For objects like the vehicles which were going to be done with rigid body
+	dynamics I'm going to try a spring-mass model.  There are many problems with rigid body
 	dynamics.  It is very difficult and expensive to compute correct contact forces, and it
 	is difficult to find contact points.  Assuming the bodies are rigid requires collision
 	detection or at least penetration depth calculations for solids like Oriented Boxes or
 	Convex Polyhedra.  I have solved "volume-sweeping" for oriented boxes but not "volume-
-	rotation" or the penetration depth calculation.  The spring mass model avoids these 
-	problems and it comes down to testing line-segments for intersection with the world 
-	polygons.  
+	rotation" or the penetration depth calculation.  The spring mass model avoids these
+	problems and it comes down to testing line-segments for intersection with the world
+	polygons.
 
 	- Each object will still be moved one at a time.  At the beginning of a move, an object
 	must be in a valid position.  Its move will be "cast" through the world and the object
@@ -251,21 +251,21 @@ April 14, 1998
   - Finally getting back to the physics system.  Month of march was spent converting code
   to the new version of surrender.  So, not all of the items in the February notes were
   implemented.  At this point, I have the beginnings of the character collision system.  It
-  relies on the Cast_AABox function which sweeps an axis-aligned box through the world.  
+  relies on the Cast_AABox function which sweeps an axis-aligned box through the world.
   currently it only checks for collisions with the terrain polygons.  Also, the "move-one-
   at-a-time" system was implemented and the old simulation style system removed.
 
   - I have hidden the implementation of the terrain collision from the game engine.  Any
-  terrain implementation must simply support the Cast_Ray, Cast_AABox, Cast_OBBox functions 
+  terrain implementation must simply support the Cast_Ray, Cast_AABox, Cast_OBBox functions
   and be able to give the user a pointer to a render object which can be added to the scene
   in which the terrain is to be rendered.  This should allow some freedom to experiment with
   octrees or bsp trees to speed up the cast functions...
 
   - The next step is to use the existing "partitioned" mesh to implement the rest of the
   needed collision detection functionality so that the rest of the team can work with it
-  while I experiment with more efficient systems.  
-   - Cast_AABox must be made to also check against the objects.  
-	- Cast_Ray should be hooked in and a physics object for projectiles which is based on 
+  while I experiment with more efficient systems.
+   - Cast_AABox must be made to also check against the objects.
+	- Cast_Ray should be hooked in and a physics object for projectiles which is based on
 	  Cast_Ray should be created.
 	- Communication system between the game engine and collision system should be tested.
      This is going to be a virtual class which simply defines a virtual callback method,
@@ -276,8 +276,8 @@ June 1, 1998
 
   - Working on collision detection again.  Spent the past two weeks or so writing some
   bpt code which turns the terrain mesh into a combination bsp/box tree (I simply call it
-  a Binary Partition Tree).  Each node contains a bounding box which bounds all polygons 
-  in the tree below that node.  Building an efficient bpt is becoming a priority since 
+  a Binary Partition Tree).  Each node contains a bounding box which bounds all polygons
+  in the tree below that node.  Building an efficient bpt is becoming a priority since
   we're getting a lot of splits and also nodes with gobs of polys in them due to the
   way our terrains are constructed.  Should be easy to take advantage of our grid lines.
 
@@ -288,15 +288,15 @@ June 1, 1998
   no matter what the framerate (within reason). (Mar2000 note: this was pretty stupid since you can
   directly calculate where the projectile would end up if the only force is gravity!)
 
-  - Changing all of the internal collision functions to pass around "collision test classes" 
+  - Changing all of the internal collision functions to pass around "collision test classes"
   which wrap the primitive, its movement vector, a results structure, and any pre-calculatable
   variables into one structure.  The main reason for this was just so I have a place to put
   the info that can be precalculated and re-used.  (e.g. put a min,max along with the AABoxClass)
 
-  - Now writing the recursive AABox Cast function which casts the box against the bpt.  Once 
+  - Now writing the recursive AABox Cast function which casts the box against the bpt.  Once
   this is in place, we should start getting a significant speedup from using the bpt.
 
-  - Thinking again about using a hybrid between the "every object moves on its own" and 
+  - Thinking again about using a hybrid between the "every object moves on its own" and
   the "every object puts itself into the monolithic state vector" ideas.  I do need some objects
   to be simulated together if we want to completely avoid being tied to fixed timesteps.  For
   example, I need to simulate the camera along with the object its tied to...  If we do true
@@ -311,8 +311,8 @@ July 13, 1998
 August 31, 1998
 
   CURRENT SITUATION: several sub-systems need efficient culling:
-  - rendering system needs to be able to only render objects which are in the view frustum 
-  - collision system needs to quickly narrow down the number of objects checked for each 
+  - rendering system needs to be able to only render objects which are in the view frustum
+  - collision system needs to quickly narrow down the number of objects checked for each
     collision query made.
   - AI/Game Logic needs to be able to quickly find "nearby" objects, objects within certain
     radii, objects which are in a given cone etc...
@@ -323,7 +323,7 @@ August 31, 1998
   - currently, the "SceneClass" is expected to only deal with RenderObj derived classes.
   - collision queries and the like must go through physics object interfaces so that some
     physics objects can use simple primitives
-  - deriving physobj from renderobj doesn't make a lot of sense because render obj is a 
+  - deriving physobj from renderobj doesn't make a lot of sense because render obj is a
     relatively "heavy" class.  I don't want to make another wrapper (and have the associated
 	 duplicated transforms, etc...)
   - Render objects can have their transforms changed at the programmers whim, there is
@@ -335,15 +335,15 @@ August 31, 1998
   - therefore all objects in the "game world" will be represented by a physics object
   - when a physics object changes position, the culling database can be refreshed
   - physobj needs its linkage information built in.
-	
+
 	class PhysicsSceneClass : public SceneClass
 	{
 		void Add_Render_Obj(...)		{ assert(0); }
 		void Remove_Render_Obj(...)	{ assert(0); }
-		
+
 		void Add_Physical_Object(PhysObjClass * pobj,hint = MOVING);
 		void Remove_Physical_Object(PhysObjClass * pobj);
-		
+
 		void Render(CameraClass & cam);
 		bool Cast_Ray( );
 		bool Cast_AABox( );
@@ -383,31 +383,31 @@ September 15, 1998
 
 November 30, 1998
 
-  Just completed another massive port to the latest version of surrender (1.4x).  Also had to 
-  rewrite much of the plugin this time.  
-  
-  Adding occlusion culling for all physics objects in the "static" scene.  I still have some 
+  Just completed another massive port to the latest version of surrender (1.4x).  Also had to
+  rewrite much of the plugin this time.
+
+  Adding occlusion culling for all physics objects in the "static" scene.  I still have some
   questions in my mind as to how this is going to work but the basic idea is that there will
   be "vis-sectors".  Each vis-sector will contain a bit-vector with one bit for every piece of
-  static geometry which indicates whether that piece of geometry can be seen from this 
+  static geometry which indicates whether that piece of geometry can be seen from this
   "vis-sector".  These bit arrays will be created by rendering the scene from each sector
   in a way that writes the node's id rather than texturing, lighting, etc, and then reading
-  the framebuffer to see which nodes were not occluded.  Currently I have two questions: 
+  the framebuffer to see which nodes were not occluded.  Currently I have two questions:
   How are these vis sectors defined? and How can I cull dynamic objects using this information?
-  
+
   Now working on the occlusion bit vectors.  Currently implementing it with a full bit vector for
-  each object which contains a bit for every other object.  If we compress this, we could at 
+  each object which contains a bit for every other object.  If we compress this, we could at
   the start of each frame, decompress the vis bits for the current active node (or even only
   decompress it when the active node changes).  Only problem is in implementation, editor stuff
   will want an uncompressed one that is easily modified; game will want tight compressed vis table.
 
 December 21, 1998
-  
-  Converted W3D to render directly to the gerd (bypass the sr scene graph).  This was the 
-  easiest way to implement the vis-detection stuff and opens the door for us to 
-  hierarchically cull lights.  Vis detection is implemented now.  
 
-  Need to implement a file format for the map.  
+  Converted W3D to render directly to the gerd (bypass the sr scene graph).  This was the
+  easiest way to implement the vis-detection stuff and opens the door for us to
+  hierarchically cull lights.  Vis detection is implemented now.
+
+  Need to implement a file format for the map.
 
   - What is in the file format?
   - Who reads/writes it?
@@ -442,16 +442,16 @@ Jan 15, 1999
   culler" list and caused to re-insert themselves into the dynamic culling system each
   frame.  These objects will never cause collisions either (just for sanity) they
   are only visual...
-  
+
   Render function will look like this:
 
   Render() {
-		
-		update the "dirty cullers" 
+
+		update the "dirty cullers"
 		collect dynamic objects and vertex processors (dy_obj_list,dy_vp_list)
 		push dynamic vertex processors
 		render static terrain
-		
+
 		global optimization of LOD levels for the dynamic objects
 
 		for each dynamic object
@@ -465,7 +465,7 @@ May 27, 1999
 
   Moving the Visibility system into PhysicsSceneClass so that it can incorporate
   pre-calculated visibility for other things like dynamic objects.  Previously it
-  was pretty nicely encapsulated inside of the static culling system. 
+  was pretty nicely encapsulated inside of the static culling system.
 
 October 26, 1999
 
@@ -485,17 +485,17 @@ Feb 21, 2000
 
 Junk 28, 1000
 
-  Major VIS update.  Now the dynamic culling system is a pre-generated AABTree with 
+  Major VIS update.  Now the dynamic culling system is a pre-generated AABTree with
   precalculated visiblity for each node in the tree.  In addition, the static object
-  culling system contains hierarchical visibility data and each light will have a 
+  culling system contains hierarchical visibility data and each light will have a
   pvs for what static objects and dynamic object cells it can "see".  The generation
-  of the dynamic object AAB-Tree is "seeded" with a pathfind solve and a coarse 
+  of the dynamic object AAB-Tree is "seeded" with a pathfind solve and a coarse
   voxelization of the level.  This tree is "optimized" after VIS is computed; redundant
   leaves of the tree are deleted and the vis tables collapsed.
 
 Aug 9, 2000
 
-  Implementing a new lighting system which collects the lights affecting each object 
+  Implementing a new lighting system which collects the lights affecting each object
   which is not pre-lit and creates temporary directional lights for them.  This should
   solve the problem of having a level with thousands of lights but only a few that
   actually need to be active.  We'll still need to reduce the number of lights in
@@ -503,8 +503,8 @@ Aug 9, 2000
   lightenvironment.cpp.
 
 Sept 24, 2000
- 
-	Making the lighting system coherent across frames.  If an object doesn't move, it 
+
+	Making the lighting system coherent across frames.  If an object doesn't move, it
 	will have its local static lighting environment cached and can just re-use the data.
 	Whenever physics object move, they invalidate their internal cache and will ask
 	the physics scene to recompute the lighting environment next time its needed.  This
@@ -514,7 +514,7 @@ Sept 24, 2000
 	state (such as when the power goes out in a building...)
 
 April 2001
-	
+
 	Installed the new vis renderer, it seems to simplify a lot of code!  Also converting
 	the shadow rendering code to work under DX8.  I plan to add a new shadow mode which
 	uses hardware to render-to-texture.
@@ -533,14 +533,14 @@ public:
 
 	PhysicsSceneClass(void);
 	virtual ~PhysicsSceneClass(void);
-	
+
 	/*
 	** For now, making the Physics Scene a singleton.  If we want the feature of
 	** instantiating multiple physics scenes, we will need to add a scene pointer
 	** to the base PhysClass and resolve all cases where we use this function.
 	*/
 	static PhysicsSceneClass * Get_Instance(void) { return TheScene; }
-	
+
 	/*
 	** Timestep the world
 	*/
@@ -561,7 +561,7 @@ public:
 
 	void Delayed_Remove_Object(PhysClass * obj);
 	void Process_Release_List(void);
-	
+
 	bool Contains(PhysClass * obj);
 
 	RefPhysListIterator	Get_Dynamic_Object_Iterator(void);
@@ -589,8 +589,8 @@ public:
 	/*
 	** Lighting Controls
 	**
-	** Lighting Mode:  You can disable all lighting calculations, use the surrender lighting code, 
-	** or use the el-cheapo lighting code which turns all lights into direction lights with no 
+	** Lighting Mode:  You can disable all lighting calculations, use the surrender lighting code,
+	** or use the el-cheapo lighting code which turns all lights into direction lights with no
 	** per-vertex attenuation or direction calculations.
 	**
 	** Scene Ambient Light:  The physics scene takes over the ambient light (is also implemented
@@ -605,7 +605,7 @@ public:
 	**
 	** Sun Light:  This controls the direction of the sun.  For Renegade, we probably won't ever
 	** change this in-game.  However, if we did not use light-maps and we re-calculated all of
-	** the static projectors each time the sun moved, we could have a moving sun.  
+	** the static projectors each time the sun moved, we could have a moving sun.
 	**
 	** NOTE: elevation is the angle that the sun makes with the horizontal,
 	** rotation is the angle between the +X axis and the line of the sun projected onto the X-Y plane.
@@ -616,9 +616,9 @@ public:
 		LIGHTING_MODE_SURRENDER,
 		LIGHTING_MODE_CHEAP
 	};
-	
+
 	int							Get_Lighting_Mode(void)										{ return LightingMode; }
-	void							Set_Lighting_Mode(int mode)								{ LightingMode = mode; }	
+	void							Set_Lighting_Mode(int mode)								{ LightingMode = mode; }
 
 	virtual void				Set_Ambient_Light(const Vector3 & color) override				{ SceneAmbientLight = color; }
 	virtual const Vector3 &	Get_Ambient_Light(void)	override									{ return SceneAmbientLight; }
@@ -632,7 +632,7 @@ public:
 	void							Set_Sun_Light_Orientation(float rotation,float elevation);
 	void							Get_Sun_Light_Orientation(float * set_rotation,float * set_elevation);
 	void							Get_Sun_Light_Vector(Vector3 * set_vector);
-	
+
 	void							Compute_Static_Lighting(LightEnvironmentClass * light_env,const Vector3 & obj_center,bool use_sun,int vis_object_id);
 	void							Invalidate_Lighting_Caches(const AABoxClass & bounds);
 
@@ -652,7 +652,7 @@ public:
 	bool Cast_Ray(PhysRayCollisionTestClass & raytest,bool use_collision_region = false);
 	bool Cast_AABox(PhysAABoxCollisionTestClass & boxtest,bool use_collision_region = false);
 	bool Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest,bool use_collision_region = false);
-	
+
 	bool Intersection_Test(PhysAABoxIntersectionTestClass & boxtest,bool use_collision_region = false);
 	bool Intersection_Test(PhysOBBoxIntersectionTestClass & boxtest,bool use_collision_region = false);
 	bool Intersection_Test(PhysMeshIntersectionTestClass & meshtest,bool use_collision_region = false);
@@ -683,7 +683,7 @@ public:
 
 	/*
 	** Collision Groups:
-	** 
+	**
 	** Each physical object can be assigned to a collision group.  Then
 	** collision detection between any pair of groups can be enabled or
 	** disabled.  An object will completely ignore objects in collision
@@ -718,7 +718,7 @@ public:
 	bool							Verify_Culling_Systems(StringClass & set_error_report);
 
 	/*
-	** Visibility System.  
+	** Visibility System.
 	** Enable_Vis - turn the vis system on or off
 	** Invert_Vis - invert the logic of vis, draw what would be occulded
 	** Set_Vis_Quick_And_Dirty - when generating, make non-occluders always visible (only used in preprocessing)
@@ -756,7 +756,7 @@ public:
 
 	/*
 	** Dynamic object visibility system debugging.  This system is no longer implemented
-	** as a "grid" but rather an AABTree... 
+	** as a "grid" but rather an AABTree...
 	*/
 	enum {
 		VIS_GRID_DISPLAY_NONE = 0,
@@ -811,14 +811,14 @@ public:
 	VisSampleClass				Update_Vis(const Vector3 & sample_point,const Matrix3D & camera,VisDirBitsType direction_bits = VIS_ALL,CameraClass * alternate_camera = NULL,int user_vis_id = -1);
 	int							Get_Static_Light_Count(void);
 	void							Generate_Vis_For_Light(int light_index);
-	
+
 	void							Export_Vis_Data(ChunkSaveClass & csave);
 	void							Import_Vis_Data(ChunkLoadClass & cload);
 
 	void							Show_Vis_Window(bool onoff);
 	bool							Is_Vis_Window_Visible(void);
 
-	void							Generate_Vis_Statistics_Report(DynamicVectorClass<VisSectorStatsClass> & report);	
+	void							Generate_Vis_Statistics_Report(DynamicVectorClass<VisSectorStatsClass> & report);
 
 	void							Optimize_Visibility_Data(VisOptProgressClass & progress_status);
 
@@ -835,10 +835,10 @@ public:
 	void							Remove_Static_Texture_Projector(TexProjectClass * projector);
 	void							Add_Dynamic_Texture_Projector(TexProjectClass * newprojector);
 	void							Remove_Dynamic_Texture_Projector(TexProjectClass * projector);
-	
+
 	void							Remove_Texture_Projector(TexProjectClass * projector);
 	bool							Contains(TexProjectClass * projector);
-	
+
 	/*
 	** Shadow system, built on top of the Texture Projection system.
 	*/
@@ -873,7 +873,7 @@ public:
 	void							Invalidate_Static_Shadow_Projectors(void);
 	void							Generate_Static_Shadow_Projectors(void);
 	void							Setup_Static_Directional_Shadow(StaticAnimPhysClass & obj,const Vector3 & light_dir,TextureClass * render_target);
-	
+
 	/*
 	** Decal system
 	** Project a decal onto the geometry in the vicinity of the given coordinate system
@@ -895,7 +895,7 @@ public:
 														const Vector3 & impact_point,
 														const Vector3 & impact_normal,
 														const Vector3 & impact_velocity	);
-	
+
 	/*
 	** Camera Shake System
 	** Drop in camera shake spheres and any camera in the vicinity will automatically be affected.
@@ -915,7 +915,7 @@ public:
 
 
 	/*
-	** Save-Load system.  There are three save-load sub-systems in the physics library.  
+	** Save-Load system.  There are three save-load sub-systems in the physics library.
 	** PhysStaticDataSaveSystem - saves static data like pathfind, vis, and static culling data.
 	** PhysStaticObjectsSaveSystem - saves static objects like terrain pieces which have no dynamic state.
 	** PhysDynamicDataSaveSystem - saves dynamic data, settings, and objects in the physics scene
@@ -1001,7 +1001,7 @@ public:
 	float							Compute_Vis_Mesh_Ram(void);
 
 protected:
-	
+
 	/*
 	** Rendering functions
 	*/
@@ -1071,13 +1071,13 @@ protected:
 	void							Add_Collected_Lights_To_List(bool static_lights,bool dynamic_lights,NonRefPhysListClass * list);
 
 	//- Volatile or Constant Member Variables -------------------------------------------------------------
-	// 
+	//
 	// These variables do not need to be saved or loaded for one of the following reasons:
 	// - They are created/initialized when the physics scene is constructed and never change
 	// - They are simple flags or variables that just store the last thing the user set
 	//
 	//-----------------------------------------------------------------------------------------------------
-	
+
 	/*
 	** Cached Data during the Pre_Render, Render, and Post_Render sequence
 	*/
@@ -1103,11 +1103,11 @@ protected:
 	/*
 	** Visibility system variables
 	*/
-	enum 
-	{ 
+	enum
+	{
 		VIS_RENDER_WIDTH = 256,								// resolution width for the vis render window
 		VIS_RENDER_HEIGHT = 256								// resolution height for the vis render window
-	};						
+	};
 
 	bool							VisEnabled;					// use vis data if present? (default true)
 	bool							VisInverted;				// invert vis data if present? (default false)
@@ -1132,12 +1132,12 @@ protected:
 	bool							StaticProjectorsEnabled;	// toggle static shadows (shadows cast by static objs onto dynamic objs)
 	bool							DynamicProjectorsEnabled;	// toggle dynamic shadows (shadows cast by dynamic objs onto everything)
 	ShadowEnum					ShadowMode;						// current shadow mode
-	float							ShadowAttenStart;				// distance to start of shadow attenuation							
+	float							ShadowAttenStart;				// distance to start of shadow attenuation
 	float							ShadowAttenEnd;				// distance to end of shadow attenuation
 	float							ShadowNormalIntensity;		// "normal" non attenuated shadow intensity
 	TextureClass *				ShadowBlobTexture;			// texture to use for fake "blob" shadows
 
-	SpecialRenderInfoClass *ShadowRenderContext;			// render context for shadows																	
+	SpecialRenderInfoClass *ShadowRenderContext;			// render context for shadows
 	CameraClass *				ShadowCamera;					// camera for rendering shadow textures
 	MaterialPassClass *		ShadowMaterialPass;			// material pass for shadows
 	int							ShadowResWidth;
@@ -1146,7 +1146,7 @@ protected:
 	/*
 	** Decal System
 	*/
-	PhysDecalSysClass *		DecalSystem;					
+	PhysDecalSysClass *		DecalSystem;
 
 	/*
 	** Pathfinding
@@ -1172,8 +1172,8 @@ protected:
 
 
 	//- Level Static Data ---------------------------------------------------------------------------------
-	// 
-	// This data is constant throughout the course of a level and therefore is stored in the 
+	//
+	// This data is constant throughout the course of a level and therefore is stored in the
 	// LSD (L)evel (S)tatic (D)ata file.
 	// - The structure of the Static Object AABTree
 	// - The structure of the Static Light AABTree
@@ -1183,7 +1183,7 @@ protected:
 	//-----------------------------------------------------------------------------------------------------
 
 	/*
-	** Culling systems.  These will have a structure which is based on the 
+	** Culling systems.  These will have a structure which is based on the
 	** static terrain for the level and do not change during the course of a level (though
 	** the objects may link and unlink from them)
 	*/
@@ -1194,7 +1194,7 @@ protected:
 
 	TypedAABTreeCullSystemClass<TexProjectClass> *			StaticProjectorCullingSystem;
 	TypedGridCullSystemClass<TexProjectClass> *				DynamicProjectorCullingSystem;
-	
+
 	/*
 	** Visibility Tables
 	*/
@@ -1211,10 +1211,10 @@ protected:
 	float							SunPitch;
 	float							SunYaw;
 	LightClass *				SunLight;
-	
+
 
 	//- Level Dynamic Data --------------------------------------------------------------------------------
-	// 
+	//
 	// This is the dynamic data/objects which all need to be saved in either the LDD file or SAV file.
 	//
 	//-----------------------------------------------------------------------------------------------------
@@ -1231,7 +1231,7 @@ protected:
 	int							StaticPolyBudget;
 
 	/*
-	** Master lists of the objects in the system.   Each object will be in *one* of the 
+	** Master lists of the objects in the system.   Each object will be in *one* of the
 	** following lists.
 	*/
 	RefPhysListClass			ObjList;
@@ -1254,9 +1254,9 @@ protected:
 	unsigned						CurrentFrameNumber;
 
 private:
-	
+
 	/*
-	** The physics scene is a singleton.  If we want to support multiple 
+	** The physics scene is a singleton.  If we want to support multiple
 	** physics scenes, we would need to add a scene pointer to each physics object
 	** and everywhere they are calling Get_Instance() they can just use their pointer
 	*/
@@ -1269,7 +1269,7 @@ private:
 	friend class WW3D;
 
 	/*
-	** VisOptimizationContextClass is a friend so that it can merge vis-id's.  
+	** VisOptimizationContextClass is a friend so that it can merge vis-id's.
 	*/
 	friend class VisOptimizationContextClass;
 
@@ -1277,6 +1277,6 @@ private:
 
 
 
-	
+
 
 #endif

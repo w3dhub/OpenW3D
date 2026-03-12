@@ -70,7 +70,7 @@ ListIconMgrClass::Add_Icon (const char *texture_name)
 		//
 		//	Load the texture
 		//
-		TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (texture_name, TextureClass::MIP_LEVELS_1);	
+		TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (texture_name, TextureClass::MIP_LEVELS_1);
 		if (texture != NULL) {
 
 			//

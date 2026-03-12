@@ -272,7 +272,7 @@ bool Download::Start(void)
 
 	StringClass downloadFile(true);
 	downloadFile.Format("%s\\%s", downloadPath, filename);
-	
+
 	// Initiate download of file.
 	const char* server = GetServerName();
 	const char* login = GetLoginName();
@@ -415,19 +415,19 @@ const unichar_t* Download::GetStatusText(void) const
 
 		// DOWNLOADSTATUS_CONNECTING
 		"WOL_DOWNLOADCONNECT",
-		
+
 		// DOWNLOADSTATUS_LOGGINGIN
 		"WOL_DOWNLOADLOGIN",
-		
+
 		// DOWNLOADSTATUS_FINDINGFILE
 		"WOL_DOWNLOADFIND",
-		
+
 		// DOWNLOADSTATUS_QUERYINGRESUME
 		"WOL_DOWNLOADRESUME",
-		
+
 		// DOWNLOADSTATUS_DOWNLOADING
 		"WOL_DOWNLOADING",
-		
+
 		// DOWNLOADSTATUS_DISCONNECTING
 		"WOL_DOWNLOADDISCONNECT"
 		};
@@ -475,16 +475,16 @@ const char* Download::GetOnErrorText(int onErrorCode) const
 
 		// DOWNLOADEVENT_LOGINFAILED
 		"WOL_DOWNLOADLOGINERROR",
-		
+
 		// DOWNLOADEVENT_NOSUCHFILE
 		"WOL_DOWNLOADFNF",
-		
+
 		// DOWNLOADEVENT_LOCALFILEOPENFAILED
 		"WOL_DOWNLOADOPENERROR",
-		
+
 		// DOWNLOADEVENT_TCPERROR
 		"WOL_DOWNLOADIOERROR",
-		
+
 		// DOWNLOADEVENT_DISCONNECTERROR
 		"WOL_DOWNLOADDISCONNECTERROR"
 		};
@@ -689,11 +689,11 @@ STDMETHODIMP Download::OnError(int error)
 
 	DownloadEvent event(DownloadEvent::DOWNLOAD_ERROR, this);
 	NotifyObservers(event);
-	
+
 	return S_OK;
 	}
 
-        
+
 /******************************************************************************
 *
 * NAME
@@ -718,11 +718,11 @@ STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
 
 	DownloadEvent event(DownloadEvent::DOWNLOAD_PROGRESS, this);
 	NotifyObservers(event);
-	
+
 	return S_OK;
 	}
 
-        
+
 /******************************************************************************
 *
 * NAME
@@ -739,14 +739,14 @@ STDMETHODIMP Download::OnProgressUpdate(int bytesRead, int totalSize,
 STDMETHODIMP Download::OnQueryResume(void)
 	{
 	WWDEBUG_SAY(("WOL: Download QueryResume '%s'\n", GetFilename()));
-	
+
 	DownloadEvent event(DownloadEvent::DOWNLOAD_RESUME, this);
 	NotifyObservers(event);
 
 	return DOWNLOADEVENT_RESUME;
 	}
 
-        
+
 /******************************************************************************
 *
 * NAME
@@ -900,7 +900,7 @@ void DownloadWait::WaitBeginning(void)
 		WWASSERT("DownloadWait::WaitBeginning() called more that once");
 		return;
 		}
-	
+
 	// Start the first download
 	mFileIndex = 0;
 	mCurrentDownload = mFiles[0];
@@ -968,7 +968,7 @@ WaitCondition::WaitResult DownloadWait::GetResult(void)
 					EndWait(Error, mCurrentDownload->GetErrorText());
 					}
 				}
-			else 
+			else
 				{
 				// If all of the files have downloaded successfully then the wait
 				// condition has been met.
@@ -1076,11 +1076,11 @@ void DownloadWait::HandleNotification(DownloadEvent& event)
 				WWDEBUG_SAY(("WOLERROR: Download Error %S\n", download->GetErrorText()));
 				EndWait(Error, download->GetErrorText());
 				break;
-			
+
 			case DownloadEvent::DOWNLOAD_STATUS:
 				mWaitText = download->GetStatusText();
 				break;
-			
+
 			case DownloadEvent::DOWNLOAD_BEGIN:
 				break;
 
@@ -1095,7 +1095,7 @@ void DownloadWait::HandleNotification(DownloadEvent& event)
 				WWDEBUG_SAY(("WOL: Download stopped\n"));
 				EndWait(UserCancel, WOLSTRING("WOL_DOWNLOADSTOPPED"));
 				break;
-			
+
 			case DownloadEvent::DOWNLOAD_RESUME:
 				WWDEBUG_SAY(("WOL: Download resumed\n"));
 				mWaitText = WOLSTRING("WOL_DOWNLOADRESUME");

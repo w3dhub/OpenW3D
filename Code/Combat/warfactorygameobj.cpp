@@ -16,20 +16,20 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/warfactorygameobj.cpp                                                                                                                                     $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/07/02 4:46p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 15                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/warfactorygameobj.cpp                                                                                                                                     $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/07/02 4:46p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 15                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "warfactorygameobj.h"
@@ -116,8 +116,8 @@ WarFactoryGameObjDef::~WarFactoryGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-WarFactoryGameObjDef::Get_Class_ID (void) const	
-{ 
+WarFactoryGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_WARFACTORY;
 }
 
@@ -128,7 +128,7 @@ WarFactoryGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-WarFactoryGameObjDef::Create (void) const 
+WarFactoryGameObjDef::Create (void) const
 {
 	WarFactoryGameObj *building = new WarFactoryGameObj;
 	building->Init (*this);
@@ -145,7 +145,7 @@ WarFactoryGameObjDef::Create (void) const
 bool
 WarFactoryGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		VehicleFactoryGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
@@ -175,7 +175,7 @@ WarFactoryGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized WarFactory Def chunkID\n"));
 				break;
@@ -218,9 +218,9 @@ WarFactoryGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-WarFactoryGameObjDef::Get_Factory (void) const 
-{ 
-	return _WarFactoryGameObjDefPersistFactory; 
+WarFactoryGameObjDef::Get_Factory (void) const
+{
+	return _WarFactoryGameObjDefPersistFactory;
 }
 
 
@@ -254,7 +254,7 @@ WarFactoryGameObj::~WarFactoryGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-WarFactoryGameObj::Get_Factory (void) const 
+WarFactoryGameObj::Get_Factory (void) const
 {
 	return _WarFactoryGameObjPersistFactory;
 }
@@ -327,7 +327,7 @@ WarFactoryGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				VehicleFactoryGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -353,7 +353,7 @@ void
 WarFactoryGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:
@@ -391,7 +391,7 @@ WarFactoryGameObj::CnC_Initialize (BaseControllerClass *base)
 	RefPhysListIterator iterator = PhysicsSceneClass::Get_Instance()->Get_Static_Object_Iterator ();
 	for (iterator.First (); !iterator.Is_Done (); iterator.Next ()) {
 		StaticAnimPhysClass *anim_phys_obj = iterator.Peek_Obj ()->As_StaticAnimPhysClass ();
-		
+
 		//
 		//	Is this a vehicle creation static anim phys?
 		//
@@ -436,17 +436,17 @@ WarFactoryGameObj::Think (void)
 
 		if (CreationFinishedTimer > UNITIALIZED_TIMER) {
 			CreationFinishedTimer -= TimeManager::Get_Frame_Seconds ();
-			
+
 			if (CreationFinishedTimer <= 0) {
-			
+
 				CreationFinishedTimer = UNITIALIZED_TIMER;
-				
+
 				//
 				//	Generate the current vehicle
 				//
 				VehicleGameObj *vehicle = Create_Vehicle ();
 				if (vehicle != NULL) {
-					
+
 					Matrix3D new_tm = CreationTM;
 
 					//
@@ -459,7 +459,7 @@ WarFactoryGameObj::Think (void)
 						vehicle->Set_Transform(new_tm);
 					}
 
-					// 
+					//
 					// Lock the vehicle to anyone but the purchaser
 					//
 					if (Purchaser != NULL) {
@@ -484,7 +484,7 @@ WarFactoryGameObj::Think (void)
 		}
 	}
 
-	VehicleFactoryGameObj::Think ();	
+	VehicleFactoryGameObj::Think ();
 	return ;
 }
 
@@ -504,13 +504,13 @@ WarFactoryGameObj::Play_Creation_Animation (bool onoff)
 	if (static_phys_obj != NULL) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
 		if (anim_phys_obj != NULL) {
-			
+
 			//
 			//	Configure the animation
 			//
 			AnimCollisionManagerClass &anim_mgr = anim_phys_obj->Get_Animation_Manager ();
 			anim_mgr.Set_Animation_Mode (AnimCollisionManagerClass::ANIMATE_TARGET);
-			
+
 			//
 			//	Either play the animation forward or backward
 			//
@@ -547,7 +547,7 @@ WarFactoryGameObj::Begin_Generation (void)
 	if (static_phys_obj != NULL) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
 		if (anim_phys_obj != NULL) {
-			
+
 			//
 			//	Calculate how long to wait before we start playing the end animations
 			//

@@ -82,7 +82,7 @@ public:
 	static void					Set_Map_Texture (const char *filename);
 	static void					Get_Map_Texture_Filename (StringClass &filename);
 	static const char *		Get_Map_Texture_Pathname (void)			{ return MapTextureName; }
-	
+
 	//
 	//	Map centering and scale.
 	//
@@ -112,7 +112,7 @@ public:
 	//
 	// VTOL Support.  Some maps do not support VTOL aircraft.
 	//
-	static void					Enable_VTOL_Vehicles(bool onoff)			{ EnableVTOL = onoff; }		
+	static void					Enable_VTOL_Vehicles(bool onoff)			{ EnableVTOL = onoff; }
 	static bool					Are_VTOL_Vehicles_Enabled(void)			{ return EnableVTOL; }
 
 	//
@@ -146,7 +146,7 @@ protected:
 	//	Save load support
 	//
 	void							Load_Variables (ChunkLoadClass &cload);
-	
+
 private:
 
 	////////////////////////////////////////////////////////////////
@@ -283,7 +283,7 @@ MapMgrClass::Is_Cell_Visible (int x_pos, int y_pos)
 	int bit_offset	= (y_pos * CLOUD_WIDTH) + x_pos;
 	int index		= bit_offset / 32;
 	int bit			= (bit_offset - (index * 32)) + 1;
-	
+
 	//
 	//	Index into the vector to see if this cell is clouded or not
 	//

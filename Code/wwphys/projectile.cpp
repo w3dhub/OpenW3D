@@ -65,7 +65,7 @@ SimplePersistFactoryClass<ProjectileClass,PHYSICS_CHUNKID_PROJECTILE>	_Projectil
 /*
 ** ChunkID's used by ProjectileClass
 */
-enum 
+enum
 {
 	PROJECTILE_CHUNK_MOVEABLEPHYS				= 0x03308765,			// parent class data
 	PROJECTILE_CHUNK_VARIABLES,
@@ -149,7 +149,7 @@ void ProjectileClass::Set_Transform(const Matrix3D & tm)
 void ProjectileClass::Set_Orientation_Mode_Tumbling(void)
 {
 	OrientationMode = ORIENTATION_TUMBLING;
-	
+
 	TumbleAxis.Set(0,0,0);
 	while (TumbleAxis.Length() <= 0.001f) {
 		TumbleAxis.X = WWMath::Random_Float();
@@ -262,13 +262,13 @@ void ProjectileClass::Timestep(float dt)
 			LineSegClass ray(oldstate.Position,State.Position);
 			PhysRayCollisionTestClass raytest(ray,&res,Get_Collision_Group(),COLLISION_TYPE_PROJECTILE);
 
-			{ 
+			{
 				WWPROFILE("Raycast");
 				Inc_Ignore_Counter();
 				PhysicsSceneClass::Get_Instance()->Cast_Ray(raytest);
 				Dec_Ignore_Counter();
 			}
-			
+
 			/*
 			** If the result was a "startbad", just do the whole step
 			*/
@@ -281,8 +281,8 @@ void ProjectileClass::Timestep(float dt)
 				** we integrate right up to the collision
 				*/
 				if (raytest.Result->Fraction < 1.0f) {
-					
-					
+
+
 					timestep = raytest.Result->Fraction * timestep;
 					remaining_time -= timestep;
 
@@ -297,7 +297,7 @@ void ProjectileClass::Timestep(float dt)
 					*/
 					State = oldstate;
 					Integrate(0.99f * timestep);
-					
+
 					/*
 					** Notify the parties involved
 					*/
@@ -366,9 +366,9 @@ void ProjectileClass::Timestep(float dt)
 						remaining_time = 0;
 						State.Velocity = Vector3(0,0,0);
 					}
-				
+
 				} else {
-					
+
 					remaining_time -= timestep;
 
 				}
@@ -387,7 +387,7 @@ void ProjectileClass::Timestep(float dt)
 
 	Update_Transform(dt);
 	Update_Cull_Box();
-	
+
 	DEBUG_RENDER_AXES(Get_Transform(),Vector3(1.0f,1.0f,1.0f));
 
 	/*
@@ -423,7 +423,7 @@ void ProjectileClass::Update_Transform(float dt)
 			tm.Obj_Look_At(State.Position,State.Position + State.Velocity,0.0f);
 			Model->Set_Transform(tm);
 			break;
-		
+
 		case ORIENTATION_ALIGNED_FIXED:
 		case ORIENTATION_FIXED:
 			// just update the position
@@ -437,7 +437,7 @@ void ProjectileClass::Update_Transform(float dt)
 			Matrix3D::Multiply(tm,Matrix3D(TumbleAxis,TumbleRate*dt),&tm);
 			Model->Set_Transform(tm);
 			break;
-	
+
 	};
 
 	Update_Visibility_Status();
@@ -471,8 +471,8 @@ bool ProjectileClass::Save (ChunkSaveClass &csave)
 bool ProjectileClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case PROJECTILE_CHUNK_MOVEABLEPHYS:
 				MoveablePhysClass::Load(cload);
@@ -490,7 +490,7 @@ bool ProjectileClass::Load (ChunkLoadClass &cload)
 						READ_MICRO_CHUNK(cload,PROJECTILE_VARIABLE_LIFETIME,Lifetime);
 						READ_MICRO_CHUNK(cload,PROJECTILE_VARIABLE_BOUNCECOUNT,BounceCount);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 
@@ -498,7 +498,7 @@ bool ProjectileClass::Load (ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 	return true;
@@ -524,7 +524,7 @@ DECLARE_DEFINITION_FACTORY(ProjectileDefClass, CLASSID_PROJECTILEDEF, "Projectil
 /*
 ** Chunk ID's used by MoveablePhysDefClass
 */
-enum 
+enum
 {
 	PROJECTILEDEF_CHUNK_MOVEABLEPHYSDEF				= 0x01210011,			// (parent class)
 	PROJECTILEDEF_CHUNK_VARIABLES,
@@ -535,7 +535,7 @@ enum
 	PROJECTILEDEF_VARIABLE_TUMBLERATE,
 	PROJECTILEDEF_VARIABLE_LIFETIME,
 	PROJECTILEDEF_VARIABLE_BOUNCECOUNT,
-	
+
 };
 
 
@@ -558,11 +558,11 @@ ProjectileDefClass::ProjectileDefClass(void) :
 	param->Add_Value("TUMBLE",ProjectileClass::ORIENTATION_TUMBLING);
 	GENERIC_EDITABLE_PARAM(ProjectileDefClass,param)
 
-	FLOAT_EDITABLE_PARAM(ProjectileDefClass, TumbleAxis.X, 0.0f, 10.0f);	
-	FLOAT_EDITABLE_PARAM(ProjectileDefClass, TumbleAxis.Y, 0.0f, 10.0f);	
-	FLOAT_EDITABLE_PARAM(ProjectileDefClass, TumbleAxis.Z, 0.0f, 10.0f);	
+	FLOAT_EDITABLE_PARAM(ProjectileDefClass, TumbleAxis.X, 0.0f, 10.0f);
+	FLOAT_EDITABLE_PARAM(ProjectileDefClass, TumbleAxis.Y, 0.0f, 10.0f);
+	FLOAT_EDITABLE_PARAM(ProjectileDefClass, TumbleAxis.Z, 0.0f, 10.0f);
 	ANGLE_EDITABLE_PARAM(ProjectileDefClass, TumbleRate, DEG_TO_RADF(0.1f), DEG_TO_RADF(90.0f));
-	FLOAT_EDITABLE_PARAM(ProjectileDefClass, Lifetime, 0.01f, 100.0f);	
+	FLOAT_EDITABLE_PARAM(ProjectileDefClass, Lifetime, 0.01f, 100.0f);
 	INT_EDITABLE_PARAM(ProjectileDefClass, BounceCount, 0, 32);
 #endif
 }
@@ -572,9 +572,9 @@ const PersistFactoryClass & ProjectileDefClass::Get_Factory (void) const
 	return _ProjectileDefFactory;
 }
 
-uint32 ProjectileDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_PROJECTILEDEF; 
+uint32 ProjectileDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_PROJECTILEDEF;
 }
 
 PersistClass * ProjectileDefClass::Create(void) const

@@ -87,7 +87,7 @@ static void Get_Driver_Version_Warning_String(StringClass& str, DX8Caps& caps)
 
 	if (status!=DX8Caps::DRIVER_STATUS_BAD) {
 //		str="Driver version is GOOD";
-		str = StringClass( Locale_GetString( IDS_GOOD_DRIVER )); 
+		str = StringClass( Locale_GetString( IDS_GOOD_DRIVER ));
 		return;
 	}
 
@@ -147,7 +147,7 @@ static void Get_Driver_Version_Warning_String(StringClass& str, DX8Caps& caps)
 void CheckDriverVersion()
 {
 	//
-	//	Attempt to open the registry key 
+	//	Attempt to open the registry key
 	//
 	INIClass ini(W3D_CONF_FILE);
 	int disabled = ini.Get_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", 0);
@@ -298,16 +298,16 @@ void CheckDriverVersion()
 #endif
 }
 
-void DriverVersionWarning::OnDisableDriverVersionDialogCheckbox() 
+void DriverVersionWarning::OnDisableDriverVersionDialogCheckbox()
 {
 	// TODO: Add your control notification handler code here
-	
+
 	int is_disabled = SendDlgItemMessage (IDC_DISABLE_DRIVER_VERSION_DIALOG_CHECKBOX, BM_GETCHECK);
 	INIClass ini(W3D_CONF_FILE);
-	
+
 	ini.Put_Int(W3D_SECTION_RENDER, "DriverVersionCheckDisabled", is_disabled ? 87 : 0);
 	ini.Save(W3D_CONF_FILE);
-		
+
 }
 
 INT_PTR DriverVersionWarning::DoModal()
@@ -326,7 +326,7 @@ INT_PTR DriverVersionWarning::DoModal()
 //
 /////////////////////////////////////////////////////////////////////////////
 
-BOOL DriverVersionWarning::OnInitDialog() 
+BOOL DriverVersionWarning::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -354,23 +354,23 @@ BOOL DriverVersionWarning::OnInitDialog()
 	SetDlgItemText( IDCANCEL, string );
 
 	// TODO: Add extra initialization here
-	
+
 	return true;  // return true unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return false
 }
 
-void DriverVersionWarning::OnCancel() 
+void DriverVersionWarning::OnCancel()
 {
 	// TODO: Add extra cleanup here
-	
+
 	GlobalExitValue=1;
 	CDialog::OnCancel();
 }
 
-void DriverVersionWarning::OnOK() 
+void DriverVersionWarning::OnOK()
 {
 	// TODO: Add extra validation here
-	
+
 	GlobalExitValue=0;
 	CDialog::OnOK();
 }

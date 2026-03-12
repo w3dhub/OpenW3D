@@ -240,7 +240,7 @@ TabCtrlClass::Create_Text_Renderer (void)
 									StyleMgrClass::Get_Tab_Glow_Color ());
 
 		} else {
-			
+
 			//
 			//	Render the text and its glow
 			//
@@ -281,7 +281,7 @@ TabCtrlClass::Create_Text_Renderer (void)
 				TextRenderer.Set_Location (Vector2 (x_pos, y_pos));
 				TextRenderer.Draw_Sentence (RGB_TO_INT32 (147, 155, 153));*/
 
-			
+
 			StyleMgrClass::Render_Glow (title, &GlowRenderer, text_rect, 4, 4,
 									StyleMgrClass::Get_Tab_Glow_Color ());
 		}
@@ -305,7 +305,7 @@ void
 TabCtrlClass::Create_Control_Renderer (void)
 {
 	Render2DClass &renderer = ControlRenderer;
-	renderer.Reset ();	
+	renderer.Reset ();
 
 	//
 	//	Determine which UVs to use for the bubble
@@ -342,7 +342,7 @@ TabCtrlClass::Create_Control_Renderer (void)
 	//
 	//	Calculate the screen rectangle for the bar
 	//
-	RectClass bar_rect;	
+	RectClass bar_rect;
 	bar_rect.Left		= int(ClientRect.Left + x_offset + (BAR_OFFSET * ScaleX) - (bar_width / 2));
 	bar_rect.Right		= int(bar_rect.Left + bar_width);
 	bar_rect.Top		= int(ClientRect.Top - (x_offset * 1.5F));
@@ -384,13 +384,13 @@ TabCtrlClass::Create_Control_Renderer (void)
 	bar_top_rect.Right	= int(bar_rect.Right);
 	bar_top_rect.Top		= int(bar_rect.Top);
 	bar_top_rect.Bottom	= int(bar_top_rect.Top + bar_tip_height);
-	
+
 	RectClass bar_bottom_rect;
 	bar_bottom_rect.Left		= int(bar_rect.Left);
 	bar_bottom_rect.Right	= int(bar_rect.Right);
 	bar_bottom_rect.Top		= int(bar_rect.Bottom - bar_tip_height);
 	bar_bottom_rect.Bottom	= int(bar_rect.Bottom);
-	
+
 	renderer.Add_Quad (bar_top_rect, bar_top_uvs);
 	renderer.Add_Quad (bar_bottom_rect, bar_bottom_uvs);
 
@@ -400,7 +400,7 @@ TabCtrlClass::Create_Control_Renderer (void)
 	float y_pos				= bar_top_rect.Bottom;
 	float total_height	= bar_bottom_rect.Top - y_pos;
 	while (total_height > 0) {
-		
+
 		float height = std::min (bar_tile_height, total_height);
 
 		//
@@ -421,11 +421,11 @@ TabCtrlClass::Create_Control_Renderer (void)
 		//	Render the section
 		//
 		renderer.Add_Quad (bar_tile_rect, uvs);
-		
+
 		y_pos				+= height;
-		total_height	-= height;		
+		total_height	-= height;
 	}
-	
+
 	//
 	//	Render the bar and selector
 	//
@@ -495,14 +495,14 @@ void
 TabCtrlClass::Render (void)
 {
 	Update_Selector ();
-	Update_Bubble ();	
+	Update_Bubble ();
 
 	//
 	//	Recreate the renderers (if necessary)
 	//
-	if (IsDirty) {		
+	if (IsDirty) {
 		Create_Control_Renderer ();
-		Create_Text_Renderer ();		
+		Create_Text_Renderer ();
 	}
 
 	//
@@ -585,7 +585,7 @@ TabCtrlClass::On_Set_Focus (void)
 void
 TabCtrlClass::On_Kill_Focus (DialogControlClass *focus)
 {
-	Set_Dirty ();	
+	Set_Dirty ();
 
 	DialogControlClass::On_Kill_Focus (focus);
 	return ;
@@ -687,7 +687,7 @@ TabCtrlClass::Tab_From_Pos (const Vector2 &mouse_pos)
 ////////////////////////////////////////////////////////////////
 float
 TabCtrlClass::Pos_From_Tab (int index)
-{	
+{
 	float height		= ClientRect.Height ();
 	float tab_height	= height / std::max (TabList.Count (), 1);
 
@@ -710,13 +710,13 @@ TabCtrlClass::Set_Curr_Tab (int index)
 	//	Bound the index
 	//
 	index = std::min (TabList.Count () - 1, index);
-	index = std::max (0, index);	
+	index = std::max (0, index);
 
 	//
 	//	Did we change tabs?
 	//
 	if (CurrTabIndex != index) {
-		
+
 		//
 		//	Switch tabs visibly
 		//
@@ -726,11 +726,11 @@ TabCtrlClass::Set_Curr_Tab (int index)
 		//
 		//	Change the tab and force a repaint
 		//
-		CurrTabIndex = index;		
+		CurrTabIndex = index;
 		Set_Dirty ();
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -743,19 +743,19 @@ void
 TabCtrlClass::Update_Bubble (void)
 {
 	if (HasFocus) {
-		
+
 		//
 		//	Is it time to blink the bubble light?
 		//
 		int curr_time = DialogMgrClass::Get_Time ();
 		if (curr_time > NextBlinkTime) {
-			
+
 			//
 			//	Toggle the bubble light
 			//
 			IsBubbleDisplayed = !IsBubbleDisplayed;
 			NextBlinkTime		= curr_time + BLINK_DELAY;
-			
+
 			//
 			//	Force a repaint
 			//
@@ -847,7 +847,7 @@ TabCtrlClass::Add_Tab (ChildDialogClass *dialog)
 	rect.Top		= (int)ClientRect.Top;
 	rect.Right	= (int)ClientRect.Right;
 	rect.Bottom	= (int)ClientRect.Bottom;
-	dialog->Set_Rect (rect);	
+	dialog->Set_Rect (rect);
 
 	//
 	//	Add this dialog to our list

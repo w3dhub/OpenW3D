@@ -103,7 +103,7 @@ ConversationRemarkClass::operator= (const ConversationRemarkClass &src)
 {
 	OratorID			= src.OratorID;
 	TextID			= src.TextID;
-	AnimationName	= src.AnimationName;	
+	AnimationName	= src.AnimationName;
 	return *this;
 }
 
@@ -121,7 +121,7 @@ ConversationRemarkClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_ANIMATION_NAME,	AnimationName);
 		WRITE_MICRO_CHUNK (csave, VARID_ORATORID,						OratorID);
 		WRITE_MICRO_CHUNK (csave, VARID_TEXTID,						TextID);
-			
+
 	csave.End_Chunk ();
 
 	return true;
@@ -136,7 +136,7 @@ ConversationRemarkClass::Save (ChunkSaveClass &csave)
 bool
 ConversationRemarkClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_VARIABLES:

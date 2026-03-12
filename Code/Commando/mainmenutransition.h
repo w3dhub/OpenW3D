@@ -73,7 +73,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	From DialogTransitionClass
 	//
@@ -85,15 +85,15 @@ public:
 	//	Configuration
 	//
 	void	Set_Camera (CameraClass *camera)	{ Camera = camera; }
-	void	Set_Model (RenderObjClass *model);	
+	void	Set_Model (RenderObjClass *model);
 	void	Set_Dialogs (DialogBaseClass *dialog, DialogBaseClass *other_dlg);
 
 	//
 	//	Validity check
 	//
 	bool	Is_Valid (void) const;
-	
-private:	
+
+private:
 
 	////////////////////////////////////////////////////////////////
 	//	Private methods

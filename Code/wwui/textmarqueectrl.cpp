@@ -100,7 +100,7 @@ TextMarqueeCtrlClass::Create_Control_Renderer (void)
 	}
 
 	if (Style & WS_BORDER) {
-		
+
 		//
 		//	Draw the control's outline
 		//
@@ -139,7 +139,7 @@ TextMarqueeCtrlClass::Create_Text_Renderer (void)
 
 	float curr_height		= 0;
 	int curr_row;
-	for (curr_row = 0; curr_row < CreditLines.Count (); curr_row ++) {		
+	for (curr_row = 0; curr_row < CreditLines.Count (); curr_row ++) {
 		if ((curr_height + CreditLines[curr_row].Height) >= start_height) {
 			break;
 		}
@@ -149,7 +149,7 @@ TextMarqueeCtrlClass::Create_Text_Renderer (void)
 	//
 	//	Configure our starting text rectangle
 	//
-	RectClass text_rect	= ClientRect;	
+	RectClass text_rect	= ClientRect;
 	text_rect.Top			+= curr_height - (ScrollPos - ctrl_height);
 
 	//
@@ -157,7 +157,7 @@ TextMarqueeCtrlClass::Create_Text_Renderer (void)
 	//
 	for (	int index = curr_row;
 			(index < CreditLines.Count ()) && (text_rect.Top < ClientRect.Bottom);
-			index ++) 
+			index ++)
 	{
 		CREDIT_LINE &line = CreditLines[index];
 
@@ -170,10 +170,10 @@ TextMarqueeCtrlClass::Create_Text_Renderer (void)
 
 		//
 		//	Render this line of text centered
-		//			
+		//
 		StyleMgrClass::Render_Text (line.Text, renderer, color, shadow_color,
 								text_rect, true, false, StyleMgrClass::CENTER_JUSTIFY, false);
-		
+
 		//
 		//	Move down to the next row...
 		//
@@ -202,7 +202,7 @@ TextMarqueeCtrlClass::Render (void)
 
 	//
 	//	Render the image...
-	//		
+	//
 	ControlRenderer.Render ();
 	TextRenderers[0].Render ();
 	TextRenderers[1].Render ();
@@ -226,7 +226,7 @@ TextMarqueeCtrlClass::Update_Client_Rect (void)
 	ClientRect = Rect;
 	ClientRect.Inflate (Vector2 (-5.0F * StyleMgrClass::Get_X_Scale (), -3.75F * StyleMgrClass::Get_Y_Scale ()));
 	ClientRect.Left	= int(ClientRect.Left);
-	ClientRect.Top		= int(ClientRect.Top);	
+	ClientRect.Top		= int(ClientRect.Top);
 	ClientRect.Right	= int(ClientRect.Right);
 	ClientRect.Bottom	= int(ClientRect.Bottom);
 
@@ -278,7 +278,7 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 	CreditLines.Delete_All ();
 
 	if (Title.Get_Length () == 0) {
-		return; 
+		return;
 	}
 
 	//
@@ -300,10 +300,10 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 
 	//
 	//	Build an array of formatted text lines
-	//	
+	//
 	const unichar_t *text = Title;
 	while (text != NULL) {
-		
+
 		//
 		//	Scan this line for formatting information
 		//
@@ -326,7 +326,7 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 			//	Lookup the start of the next line...
 			//
 			const unichar_t *line_end = renderer->Find_Row_Start (line_start, 1);
-			
+
 			//
 			//	Copy this line of text into the control
 			//
@@ -337,7 +337,7 @@ TextMarqueeCtrlClass::Build_Credit_Lines (void)
 			//	Add this line to our list
 			//
 			CREDIT_LINE new_line (line);
-			new_line.Text		= text;			
+			new_line.Text		= text;
 			new_line.Height	= TextRenderers[new_line.FontIndex].Peek_Font ()->Get_Char_Height ();
 			CreditLines.Add (new_line);
 
@@ -368,7 +368,7 @@ TextMarqueeCtrlClass::Read_Tag (const unichar_t *text, CREDIT_LINE &line)
 
 	if (text[0] == U_CHAR('<')) {
 		for (size_t index = 1; text[index] != 0; index ++) {
-			
+
 			//
 			//	Is this the 'end-tag' bracket?
 			//
@@ -378,7 +378,7 @@ TextMarqueeCtrlClass::Read_Tag (const unichar_t *text, CREDIT_LINE &line)
 				//	What type of specifier did we find?
 				//
 				if (::u_strncasecmp (text+1, TAG_BOLD, ::u_strlen (TAG_BOLD), U_COMPARE_CODE_POINT_ORDER) == 0) {
-					
+
 					//
 					// We found the bold specifier
 					//
@@ -386,10 +386,10 @@ TextMarqueeCtrlClass::Read_Tag (const unichar_t *text, CREDIT_LINE &line)
 					WWASSERT(index <= static_cast<size_t>(std::numeric_limits<int>::max()));
 					retval = static_cast<int>(index);
 				} else if (::u_strncasecmp (text+1, TAG_COLOR, ::u_strlen (TAG_COLOR), U_COMPARE_CODE_POINT_ORDER) == 0) {
-					
+
 					//
 					//	We found the color specifier
-					//					
+					//
 					const size_t tag_len = ::u_strlen (TAG_COLOR) + 1;
 					text += tag_len;
 
@@ -399,7 +399,7 @@ TextMarqueeCtrlClass::Read_Tag (const unichar_t *text, CREDIT_LINE &line)
 				WWASSERT(index + 1 <= static_cast<size_t>(std::numeric_limits<int>::max()));
 				WideStringClass temp_buffer (static_cast<int>(index + 1), true);
 //					::strncpyW (temp_buffer.Peek_Buffer (), text, (index + 1) - tag_len);
-			
+
 					WWASSERT(index + 1 >= tag_len);
 					const size_t length_sz = (index + 1) - tag_len;
 					WWASSERT(length_sz > 0 && length_sz <= static_cast<size_t>(std::numeric_limits<int>::max()));
@@ -469,17 +469,17 @@ TextMarqueeCtrlClass::Read_Line (const unichar_t *text, CREDIT_LINE &line)
 		//
 		//	Check to see if this character ends the
 		//
-		if (ch == U_CHAR('\n') || ch == 0) {			
+		if (ch == U_CHAR('\n') || ch == 0) {
 			int len = text - text_start;
 //			::strncpyW (line.Text.Get_Buffer (len + 1), text_start, len + 1);
 
 			unichar_t* buffer = line.Text.Get_Buffer(len + 1);
 			u_strncpy(buffer, text_start, len + 1);
 			buffer[len] = 0;
-		
+
 			keep_going = false;
 		} else if (ch == U_CHAR('<')) {
-			
+
 			//
 			//	Did we find a tag?
 			//
@@ -518,7 +518,7 @@ TextMarqueeCtrlClass::On_Frame_Update (void)
 	//
 	float time					= DialogMgrClass::Get_Frame_Time () / 1000.0F;
 	float pixels_scrolled	= time * ScrollRate * char_height;
-	
+
 	//
 	//	Update the scroll position
 	//

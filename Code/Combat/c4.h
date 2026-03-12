@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/c4.h                                  $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/08/02 3:05p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 33                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/c4.h                                  $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/08/02 3:05p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 33                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	C4_H
@@ -123,9 +123,9 @@ private:
 	void *						OwnerBackup;
 	const AmmoDefinitionClass *	AmmoDefinition;
 	int							DetonationMode;
-	
+
 	bool							Stuck;
-	
+
 	bool							StuckToObject;
 	GameObjReference			StuckObject;
 	Vector3						StuckOffset;
@@ -133,7 +133,7 @@ private:
 
 	StaticAnimPhysClass *	StuckStaticAnimObj;
 	bool							StuckMCT;
-	
+
 	float							Age;
 
 	void				Detonate( void );

@@ -126,7 +126,7 @@ MPChatChildDialogClass::Process_Message (void)
 			//	Determine who to send the message to...
 			//
 			if (RecipientName.Is_Empty() == false) {
-			
+
 				//
 				//	Lookup the player we're sending the message to
 				//
@@ -202,7 +202,7 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 						wolGame->Kick_Player(user_name);
 					}
 				}
-			
+
 				return true;
 			}
 
@@ -233,7 +233,7 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 						}
 					}
 				}
-			
+
 				return true;
 			}
 
@@ -250,7 +250,7 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 
 					wolGame->Reply_Last_Page(message_str);
 				}
-			
+
 				return true;
 			}
 
@@ -268,7 +268,7 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 						wolGame->Locate_WOL_User(user_name);
 					}
 				}
-			
+
 				return true;
 			}
 
@@ -291,7 +291,7 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 						wolGame->Invite_WOL_User(user_name, message_str);
 					}
 				}
-			
+
 				return true;
 			}
 
@@ -309,7 +309,7 @@ bool MPChatChildDialogClass::Process_Commands(const unichar_t* message)
 						wolGame->Join_WOL_User(user_name);
 					}
 				}
-			
+
 				return true;
 			}
 		}
@@ -361,7 +361,7 @@ const unichar_t* Get_Parameter_From_String(const unichar_t* command, WideStringC
 //	Auto_Complete_Name
 //
 //////////////////////////////////////////////////////////////////////
-void	
+void
 MPChatChildDialogClass::Auto_Complete_Name (void)
 {
 	EditCtrlClass *edit_ctrl = (EditCtrlClass *)Get_Dlg_Item (IDC_MESSAGE_EDIT);
@@ -389,11 +389,11 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 			int cmd_end_index		= 0;
 			if (Find_Current_Command (message, cmd_start_index, cmd_end_index)) {
 				cmd_start_index ++;
-			
+
 				//
 				//	Try to find the start of the name
 				//
-				const unichar_t *name_start = message.Peek_Buffer () + cmd_start_index;					
+				const unichar_t *name_start = message.Peek_Buffer () + cmd_start_index;
 
 				//
 				//	Make a copy of the first part of the message before the command
@@ -406,8 +406,8 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 				//	Make a copy of the remainder of the message after the command
 				//
 				WideStringClass last_part (message_len - cmd_end_index, true);
-				::u_strcpy (last_part.Peek_Buffer (), message.Peek_Buffer () + cmd_end_index);					
-				
+				::u_strcpy (last_part.Peek_Buffer (), message.Peek_Buffer () + cmd_end_index);
+
 				//
 				//	Copy the typed characters into their own buffer
 				//
@@ -428,20 +428,20 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 				int completed_name_len = completed_name.Get_Length ();
 				if (completed_name_len >= typed_len) {
 					CurrRecipientName = completed_name;
-					
+
 					//
 					//	Rebuild the message...
 					//
 					WideStringClass new_message (first_part);
 					new_message += completed_name;
 					new_message += last_part;
-					
+
 					//
 					//	Put the new text into the edit control and reset the caret
 					//
 					edit_ctrl->Set_Text (new_message);
 					edit_ctrl->Set_Caret_Pos (caret_pos);
-					
+
 					//
 					//	Hilight the auto-completed characters
 					//
@@ -451,7 +451,7 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 					CurrRecipientName = U_CHAR("");
 				}
 			}
-		}	
+		}
 	}
 
 	return ;
@@ -463,11 +463,11 @@ MPChatChildDialogClass::Auto_Complete_Name (void)
 //	Complete_Player_Name
 //
 //////////////////////////////////////////////////////////////////////
-void	
+void
 MPChatChildDialogClass::Complete_Player_Name (const unichar_t *typed_name, WideStringClass &completed_name)
 {
 	const size_t typed_len = ::u_strlen (typed_name);
-	
+
 	//
 	//	Require more then one character for any name starting with "R'.  This is
 	// so that Denzil's "reply to last page" code will work...
@@ -480,7 +480,7 @@ MPChatChildDialogClass::Complete_Player_Name (const unichar_t *typed_name, WideS
 	//	Find the player's name that most closely matches the typed name
 	//
 	for (	SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ();
-			player_node != NULL; 
+			player_node != NULL;
 			player_node = player_node->Next ())
 	{
 		cPlayer *player = player_node->Data ();
@@ -520,7 +520,7 @@ MPChatChildDialogClass::On_EditCtrl_Enter_Pressed (EditCtrlClass * /* edit_ctrl 
 	//	Send the message
 	//
 	Process_Message ();
-	
+
 	//
 	//	Close the dialog
 	//
@@ -570,7 +570,7 @@ MPChatChildDialogClass::On_EditCtrl_Change (EditCtrlClass *edit_ctrl, int /* ctr
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -604,7 +604,7 @@ MPChatChildDialogClass::Find_Current_Command(const unichar_t* message, int& star
 		if (command_start != NULL) {
 			start_index = command_start - message;
 			command_start ++;
-			
+
 			//
 			//	Check to ensure there isn't a space between the designator
 			// and the caret
@@ -618,7 +618,7 @@ MPChatChildDialogClass::Find_Current_Command(const unichar_t* message, int& star
 				retval = true;
 			}
 		}
-	}	
+	}
 
 	return retval;
 }
@@ -658,7 +658,7 @@ MPChatChildDialogClass::On_EditCtrl_Key_Down
 			int cmd_start_index	= 0;
 			int cmd_end_index		= 0;
 			if (Find_Current_Command (message, cmd_start_index, cmd_end_index)) {
-				
+
 				//
 				//	Special-case the space key
 				//
@@ -670,7 +670,7 @@ MPChatChildDialogClass::On_EditCtrl_Key_Down
 					//
 					message.Erase (cmd_start_index, cmd_end_index - cmd_start_index);
 					edit_ctrl->Set_Text (message);
-					edit_ctrl->Set_Caret_Pos (cmd_start_index);					
+					edit_ctrl->Set_Caret_Pos (cmd_start_index);
 
 					//
 					//	Update the dialog with the user's name...
@@ -690,7 +690,7 @@ MPChatChildDialogClass::On_EditCtrl_Key_Down
 			}
 		}
 	}
-		
+
 	return retval;
 }
 
@@ -775,7 +775,7 @@ MPIngameChatPopupClass::On_Init_Dialog (void)
 	//
 	//	Insert the chat module dialog into our window area
 	//
-	ChatModule = new MPChatChildDialogClass;	
+	ChatModule = new MPChatChildDialogClass;
 	ChatModule->Set_Default_Type (DefaultType);
 	ChatModule->Start_Dialog ();
 	Add_Child_Dialog (ChatModule);

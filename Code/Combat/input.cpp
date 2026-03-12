@@ -1609,12 +1609,12 @@ Input::Save_Accelerated_Keys (INIClass	*input_ini)
 ////////////////////////////////////////////////////////////////
 void
 Input::Get_Translated_Key_Name (int dik_id, WideStringClass &name)
-{	
+{
 	for (int index = 0; index < KEYNAME_MAP_COUNT; index ++) {
 
 		//
 		//	Is this the entry we're looking for?
-		//	
+		//
 		if (DIK_KEY_NAME_ARRAY[index].dik_id == dik_id) {
 			if (DIK_KEY_NAME_ARRAY[index].text_id != 0) {
 				name = TRANSLATE (DIK_KEY_NAME_ARRAY[index].text_id);

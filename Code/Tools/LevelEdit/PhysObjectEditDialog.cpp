@@ -114,7 +114,7 @@ PhysObjectEditDialogClass::OnInitDialog (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-PhysObjectEditDialogClass::OnOK (void) 
+PhysObjectEditDialogClass::OnOK (void)
 {
 	if (m_ObjectEditForm.Apply_Changes ()) {
 		CDialog::OnOK ();

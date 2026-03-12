@@ -65,15 +65,15 @@ TechOptionsMenuClass::On_Init_Dialog (void)
 {
 	TabCtrlClass *tab_ctrl = (TabCtrlClass *)Get_Dlg_Item (IDC_TABCTRL);
 	if (tab_ctrl != NULL) {
-		
+
 		//
 		//	Add the tabs to the control
 		//
 		TABCTRL_ADD_TAB (tab_ctrl, DlgConfigAudioTabClass);
-		TABCTRL_ADD_TAB (tab_ctrl, DlgConfigVideoTabClass);		
+		TABCTRL_ADD_TAB (tab_ctrl, DlgConfigVideoTabClass);
 		TABCTRL_ADD_TAB (tab_ctrl, DlgConfigPerformanceTabClass);
 	}
-		
+
 
 	MenuDialogClass::On_Init_Dialog ();
 	return ;
@@ -90,7 +90,7 @@ TechOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsigned int para
 {
 	/*if (ctrl_id == IDOK) {
 
-	}*/	
+	}*/
 
 	MenuDialogClass::On_Command (ctrl_id, message_id, param);
 	return ;

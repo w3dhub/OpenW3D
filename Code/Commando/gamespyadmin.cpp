@@ -20,7 +20,7 @@
 // Filename:     gamespyadmin.cpp
 // Author:       Tom Spencer-Smith
 // Date:         Jan 2002
-// Description:  
+// Description:
 //
 
 #include "gamespyadmin.h"
@@ -59,7 +59,7 @@ WideStringClass	cGameSpyAdmin::PasswordAttempt;
 cGameSpyAdmin theGameSpy;
 
 //----------------------------------------------------------------------------------
-void 
+void
 cGameSpyAdmin::Think
 (
 	void
@@ -89,7 +89,7 @@ cGameSpyAdmin::Think
 
 
 #ifndef MULTIPLAYERDEMO
-	if (cNetwork::I_Am_Server()) 
+	if (cNetwork::I_Am_Server())
 	{
 		cGameSpyAuthMgr::Think();
 	}
@@ -110,13 +110,13 @@ void cGameSpyAdmin::HandleNotification(DlgWOLWaitEvent& event) {
 			}
 		}
 		break;
-			
+
 		case WaitCondition::Waiting:
 		{
 			// Do nothing
 		}
 		break;
-	
+
 		case WaitCondition::UserCancel:
 		{
 			if (DetectingBandwidth) {
@@ -135,7 +135,7 @@ void cGameSpyAdmin::HandleNotification(DlgWOLWaitEvent& event) {
 			}
 		}
 		break;
-			
+
 		case WaitCondition::TimeOut:
 		case WaitCondition::Error:
 		{
@@ -154,7 +154,7 @@ void cGameSpyAdmin::HandleNotification(DlgWOLWaitEvent& event) {
 
 
 //----------------------------------------------------------------------------------
-void 
+void
 cGameSpyAdmin::Join_Server(void) {
 	Connect_To_Game_Server();
 	IsLaunchFromGamespyRequested = false;
@@ -162,7 +162,7 @@ cGameSpyAdmin::Join_Server(void) {
 }
 
 //----------------------------------------------------------------------------------
-void 
+void
 cGameSpyAdmin::Reset
 (
 	void
@@ -178,7 +178,7 @@ cGameSpyAdmin::Reset
 }
 
 //----------------------------------------------------------------------------------
-void 
+void
 cGameSpyAdmin::Connect_To_Game_Server
 (
 	void
@@ -217,7 +217,7 @@ cGameSpyAdmin::Set_Game_Host_Ip
 //----------------------------------------------------------------------------------
 void
 cGameSpyAdmin::Set_Game_Host_Port
-(	
+(
 	USHORT port
 )
 {
@@ -232,10 +232,10 @@ cGameSpyAdmin::Is_Gamespy_Game
 	void
 )
 {
-	return 
+	return
 		IsUnderGamespyMenuing			||
-		IsLaunchFromGamespyRequested	|| 
-		IsLaunchedFromGamespy			|| 
+		IsLaunchFromGamespyRequested	||
+		IsLaunchedFromGamespy			||
 		IsServerGamespyListed;
 }
 
@@ -250,7 +250,7 @@ cGameSpyAdmin::Is_Nickname_Collision
 	WWASSERT(cNetwork::I_Am_Server());
 
 	bool collides = (cPlayerManager::Find_Player(nickname) != NULL);
-	if (cNetwork::I_Am_Only_Server()) 
+	if (cNetwork::I_Am_Only_Server())
 	{
 		collides |= !nickname.Compare_No_Case(cNetInterface::Get_Nickname());
 	}

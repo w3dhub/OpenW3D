@@ -132,12 +132,12 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialog)
 END_MESSAGE_MAP()
 
 
-BOOL CAboutDlg::OnInitDialog() 
+BOOL CAboutDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	// TODO: Add extra initialization here
-	
+
 	return true;  // return true unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return false
 }
@@ -207,7 +207,7 @@ BOOL CPhysTestApp::InitInstance()
 
 	// Create the log file
    init_logfile();
-	
+
 	// Install message handler functions for the WWDebug messages
 	// and assertion failures.
 	WWDebug_Install_Message_Handler(wwdebug_message_handler);
@@ -215,7 +215,7 @@ BOOL CPhysTestApp::InitInstance()
 	//WWDebug_Install_Trigger_Handler(wwdebug_trigger_handler);
 
 	WWDEBUG_SAY(("Logging Begin:\r\n"));
-	
+
 	return (hprev_instance == NULL);
 }
 
@@ -223,7 +223,7 @@ BOOL CPhysTestApp::InitInstance()
 // CPhysTestApp message handlers
 
 
-int CPhysTestApp::ExitInstance() 
+int CPhysTestApp::ExitInstance()
 {
 	// Free any resources the WW3D engine allocated
 	WW3DAssetManager::Get_Instance()->Free_Assets();
@@ -239,7 +239,7 @@ int CPhysTestApp::ExitInstance()
 
 	// Check Active Refs
 	Debug_Refs();
-	
+
 	return CWinApp::ExitInstance();
 }
 
@@ -337,7 +337,7 @@ const char * get_log_filename(void)
 
 	char exe_name[_MAX_PATH];
 	::GetModuleFileName(::AfxGetInstanceHandle(),exe_name,sizeof(exe_name));
- 
+
 	char drive[_MAX_DRIVE];
 	char dir[_MAX_DIR];
 	_splitpath(exe_name,drive,dir,NULL,NULL);
@@ -407,7 +407,7 @@ void wwdebug_assert_handler(const char * message)
 //
 bool wwdebug_trigger_handler(int trigger_num)
 {
-	switch( trigger_num ) 
+	switch( trigger_num )
 	{
 		case WWPHYS_TRIGGER_DISABLE_VIS:				return true;
 	}

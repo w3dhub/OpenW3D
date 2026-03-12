@@ -39,7 +39,7 @@
 #include "RefPtr.h"
 #include "WOLUser.h"
 
-namespace WOL 
+namespace WOL
 {
 #include <wolapi/WOLAPI.h>
 }
@@ -68,99 +68,99 @@ class ChatObserver :
 		// IChatEvent Methods
 		//---------------------------------------------------------------------------
 		STDMETHOD(OnServerList)(HRESULT hr, WOL::Server* servers) override;
-        
+
 		STDMETHOD(OnUpdateList)(HRESULT hr, WOL::Update* updates) override;
-    
+
 		STDMETHOD(OnServerError)(HRESULT hr, LPCSTR ircmsg) override;
-    
+
 		STDMETHOD(OnConnection)(HRESULT hr, LPCSTR motd) override;
-    
+
 		STDMETHOD(OnMessageOfTheDay)(HRESULT hr, LPCSTR motd) override;
-    
+
 		STDMETHOD(OnChannelList)(HRESULT hr, WOL::Channel* channels) override;
-    
+
 		STDMETHOD(OnChannelCreate)(HRESULT hr, WOL::Channel* channel) override;
-    
+
 		STDMETHOD(OnChannelJoin)(HRESULT hr, WOL::Channel* channel, WOL::User* user) override;
-    
+
 		STDMETHOD(OnChannelLeave)(HRESULT hr, WOL::Channel* channel, WOL::User* user) override;
-    
+
 		STDMETHOD(OnChannelTopic)(HRESULT hr, WOL::Channel* channel, LPCSTR topic) override;
-    
+
 		STDMETHOD(OnPrivateAction)(HRESULT hr, WOL::User* user, LPCSTR action) override;
-    
+
 		STDMETHOD(OnPublicAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR action) override;
-    
+
 		STDMETHOD(OnUserList)(HRESULT hr, WOL::Channel* channel, WOL::User* users) override;
-    
+
 		STDMETHOD(OnPublicMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR message) override;
-    
+
 		STDMETHOD(OnPrivateMessage)(HRESULT hr, WOL::User* user, LPCSTR message) override;
-    
+
 		STDMETHOD(OnSystemMessage)(HRESULT hr, LPCSTR message) override;
-    
+
 		STDMETHOD(OnNetStatus)(HRESULT hr) override;
-    
+
 		STDMETHOD(OnLogout)(HRESULT status, WOL::User* user) override;
-    
+
 		STDMETHOD(OnPrivateGameOptions)(HRESULT hr, WOL::User* user, LPCSTR options) override;
-    
+
 		STDMETHOD(OnPublicGameOptions)(HRESULT hr, WOL::Channel* channel, WOL::User* user, LPCSTR options) override;
-    
+
 		STDMETHOD(OnGameStart)(HRESULT hr, WOL::Channel* channel, WOL::User* users, int gameid) override;
-    
+
 		STDMETHOD(OnUserKick)(HRESULT hr, WOL::Channel* channel, WOL::User* kicked, WOL::User* kicker) override;
-    
+
 		STDMETHOD(OnUserIP)(HRESULT hr, WOL::User* user) override;
-    
+
 		STDMETHOD(OnFind)(HRESULT hr, WOL::Channel* chan) override;
-    
+
 		STDMETHOD(OnPageSend)(HRESULT hr) override;
-    
+
 		STDMETHOD(OnPaged)(HRESULT hr, WOL::User* user, LPCSTR message) override;
-    
+
 		STDMETHOD(OnServerBannedYou)(HRESULT hr, WOL::time_t bannedTill) override;
-    
+
 		STDMETHOD(OnUserFlags)(HRESULT hr, LPCSTR name, unsigned int flags, unsigned int mask) override;
-    
+
 		STDMETHOD(OnChannelBan)(HRESULT hr, LPCSTR name, int banned) override;
-    
+
 		STDMETHOD(OnSquadInfo)(HRESULT hr, unsigned int id, WOL::Squad* squad) override;
-    
+
 		STDMETHOD(OnUserLocale)(HRESULT hr, WOL::User* users) override;
-    
+
 		STDMETHOD(OnUserTeam)(HRESULT hr, WOL::User* users) override;
-    
+
 		STDMETHOD(OnSetLocale)(HRESULT hr, WOL::Locale newlocale) override;
-    
+
 		STDMETHOD(OnSetTeam)(HRESULT hr, int newteam) override;
 
 		STDMETHOD(OnBuddyList)(HRESULT hr, WOL::User* buddyList) override;
-        
+
 		STDMETHOD(OnBuddyAdd)(HRESULT hr, WOL::User* buddyAdded) override;
-        
+
 		STDMETHOD(OnBuddyDelete)(HRESULT hr, WOL::User* buddyDeleted) override;
 
 		STDMETHOD(OnPublicUnicodeMessage)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* message) override;
-        
+
 		STDMETHOD(OnPrivateUnicodeMessage)(HRESULT hr, WOL::User* user, const unsigned short* message) override;
-        
+
 		STDMETHOD(OnPrivateUnicodeAction)(HRESULT hr, WOL::User* user, const unsigned short* action) override;
-        
+
 		STDMETHOD(OnPublicUnicodeAction)(HRESULT hr, WOL::Channel* channel, WOL::User* user, const unsigned short* action) override;
-        
+
 		STDMETHOD(OnPagedUnicode)(HRESULT hr, WOL::User* user, const unsigned short* message) override;
-        
+
 		STDMETHOD(OnServerTime)(HRESULT hr, WOL::time_t stime) override;
-        
+
 		STDMETHOD(OnInsiderStatus)(HRESULT hr, WOL::User* users) override;
-        
+
 		STDMETHOD(OnSetLocalIP)(HRESULT hr, LPCSTR message) override;
 
 		STDMETHOD(OnChannelListBegin)(HRESULT hr) override;
-        
+
 		STDMETHOD(OnChannelListEntry)(HRESULT hr, WOL::Channel* channel) override;
-        
+
 		STDMETHOD(OnChannelListEnd)(HRESULT hr) override;
 
 	protected:

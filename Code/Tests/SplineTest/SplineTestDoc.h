@@ -41,7 +41,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	
+
 // Operations
 public:
 
@@ -67,7 +67,7 @@ public:
 	void									Set_Curve_Type(int type);
 	int									Get_Curve_Type(void);
 	Curve3DClass *						Get_Curve(void);
-	
+
 	bool									Grab_Point(const Vector3 & pos);
 	bool									Drag_Point(const Vector3 & pos);
 	bool									Release_Point(void);

@@ -73,14 +73,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWheeledVehicleDialog message handlers
 
-BOOL CWheeledVehicleDialog::OnInitDialog() 
+BOOL CWheeledVehicleDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	m_KSSpin.SetRange(MIN_KS * 100,MAX_KS * 100);
 	m_KDSpin.SetRange(MIN_KD * 100,MAX_KD * 100);
 	m_LengthSpin.SetRange(MIN_LENGTH * 100,MAX_LENGTH * 100);
-	
+
 	float ks,kd,len;
 	EditedObject->Get_Suspension_Parameters(&ks,&kd,&len);
 	m_KSSpin.SetPos(ks * 100);
@@ -91,13 +91,13 @@ BOOL CWheeledVehicleDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_WVEHICLE_KD_EDIT,kd);
 	SetDlgItemFloat(IDC_WVEHICLE_LENGTH_EDIT,len);
 
-	return true; 
+	return true;
 }
 
-BOOL CWheeledVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 
+BOOL CWheeledVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	// make the spin controls work...
-	switch(wParam) 
+	switch(wParam)
 	{
 		case IDC_WVEHICLE_KS_SPIN:
 		case IDC_WVEHICLE_KD_SPIN:
@@ -116,7 +116,7 @@ BOOL CWheeledVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pRes
 }
 
 
-void CWheeledVehicleDialog::OnOK() 
+void CWheeledVehicleDialog::OnOK()
 {
 	float ks,kd,len;
 	ks = GetDlgItemFloat(IDC_WVEHICLE_KS_EDIT);

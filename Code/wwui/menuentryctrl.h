@@ -99,7 +99,7 @@ protected:
 	void					Update_State (void);
 
 	void					Create_Glow (int radiusx, int radiusy, int color);
-	void					On_Pushed (void);	
+	void					On_Pushed (void);
 
 
 	////////////////////////////////////////////////////////////////

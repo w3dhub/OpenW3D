@@ -101,7 +101,7 @@ VisErrorReportDialogClass::VisErrorReportDialogClass (CWnd *pParent)
 	m_AxisSelAreas[VIS_BACKWARDS].top		= 13;
 	m_AxisSelAreas[VIS_BACKWARDS].right		= m_AxisSelAreas[VIS_BACKWARDS].left + 20;
 	m_AxisSelAreas[VIS_BACKWARDS].bottom	= m_AxisSelAreas[VIS_BACKWARDS].top + 16;
-	
+
 	m_AxisSelAreas[VIS_RIGHT].left	= 42;
 	m_AxisSelAreas[VIS_RIGHT].top		= 39;
 	m_AxisSelAreas[VIS_RIGHT].right	= m_AxisSelAreas[VIS_RIGHT].left + 20;
@@ -180,8 +180,8 @@ END_MESSAGE_MAP()
 BOOL
 VisErrorReportDialogClass::OnInitDialog (void)
 {
-	CDialog::OnInitDialog ();	
-	
+	CDialog::OnInitDialog ();
+
 	//
 	//	Register this window for timer-based screen refreshing
 	//
@@ -213,7 +213,7 @@ VisErrorReportDialogClass::OnInitDialog (void)
 	m_AxisArea.top		= rect.top + (rect.Height () >> 1) - (AXIS_BMP_HEIGHT >> 1);
 	m_AxisArea.right	= m_AxisArea.left + AXIS_BMP_WIDTH;
 	m_AxisArea.bottom	= m_AxisArea.top + AXIS_BMP_HEIGHT;
-	
+
 	// Update the dialog with data from the scene
 	Re_Sync_Data ();
 	return true;
@@ -231,8 +231,8 @@ VisErrorReportDialogClass::Re_Sync_Data (void)
 	//
 	//	Get the error list from the scene
 	//
-	VisLogClass &vis_log				= ::Get_Scene_Editor ()->Get_Vis_Log ();	
-	VIS_SAMPLE_LIST &error_list	= vis_log.Peek_Error_List ();	
+	VisLogClass &vis_log				= ::Get_Scene_Editor ()->Get_Vis_Log ();
+	VIS_SAMPLE_LIST &error_list	= vis_log.Peek_Error_List ();
 	m_TotalPoints						= error_list.Count ();
 
 	//
@@ -240,14 +240,14 @@ VisErrorReportDialogClass::Re_Sync_Data (void)
 	//
 	m_ZoomSlider.SetRange (2, m_TotalPoints >> 1);
 	m_ZoomSlider.SetPos (m_TotalPoints >> 2);
-	
+
 	// Reset the range of values in the y-axis
 	int max	= (m_TotalPoints >> 1) - (m_ZoomSlider.GetPos () - 2);
 	m_Graph.Set_Y_Axis_Range (0, max);
 
 	//
 	//	Add the vis error points to the graph
-	//	
+	//
 	Free_Point_List ();
 	int bad_points = 0;
 	for (int index = 0; index < error_list.Count (); index ++) {
@@ -274,7 +274,7 @@ VisErrorReportDialogClass::Re_Sync_Data (void)
 	//
 	int points		= ::Get_Scene_Editor ()->Get_Total_Vis_Points ();
 	SetDlgItemInt (IDC_VIS_POINTS, points);
-	SetDlgItemInt (IDC_BAD_POINTS, bad_points);	
+	SetDlgItemInt (IDC_BAD_POINTS, bad_points);
 	SetDlgItemInt (IDC_MAX_POINTS, max);
 
 	int bad_percent = (points > 0) ? ((bad_points * 100) / points) : 0;
@@ -319,7 +319,7 @@ VisErrorReportDialogClass::OnPaint (void)
 	CPaintDC dc(this);
 	m_Graph.Render (dc, m_GraphArea.left, m_GraphArea.top);
 	Paint_Axis_Area (dc);
-	return ;	
+	return ;
 }
 
 
@@ -334,8 +334,8 @@ VisErrorReportDialogClass::OnVScroll
 	UINT			nSBCode,
 	UINT			nPos,
 	CScrollBar *pScrollBar
-) 
-{	
+)
+{
 	// Reset the range of values in the y-axis
 	int max	= m_TotalPoints - (m_ZoomSlider.GetPos () - 2);
 	m_Graph.Set_Y_Axis_Range (0, max);
@@ -344,7 +344,7 @@ VisErrorReportDialogClass::OnVScroll
 	//
 	//	Repaint the graph
 	//
-	Refresh_View ();	
+	Refresh_View ();
 
 	CDialog::OnVScroll (nSBCode, nPos, pScrollBar);
 	return ;
@@ -357,7 +357,7 @@ VisErrorReportDialogClass::OnVScroll
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-VisErrorReportDialogClass::OnLButtonDown (UINT nFlags, CPoint point) 
+VisErrorReportDialogClass::OnLButtonDown (UINT nFlags, CPoint point)
 {
 	if (m_GraphArea.PtInRect (point)) {
 		 m_TrackPixel = point.x - m_GraphArea.left;
@@ -381,7 +381,7 @@ VisErrorReportDialogClass::OnLButtonDown (UINT nFlags, CPoint point)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-VisErrorReportDialogClass::OnLButtonUp (UINT nFlags, CPoint point) 
+VisErrorReportDialogClass::OnLButtonUp (UINT nFlags, CPoint point)
 {
 	if (m_bTrackingSel) {
 		 m_bTrackingSel = false;
@@ -399,9 +399,9 @@ VisErrorReportDialogClass::OnLButtonUp (UINT nFlags, CPoint point)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-VisErrorReportDialogClass::OnMouseMove (UINT nFlags, CPoint point) 
+VisErrorReportDialogClass::OnMouseMove (UINT nFlags, CPoint point)
 {
-	if (m_bTrackingSel) {		 
+	if (m_bTrackingSel) {
 		 int new_pixel = point.x - m_GraphArea.left;
 		 new_pixel = std::max (new_pixel, 0);
 		 new_pixel = std::min<int> (new_pixel, m_GraphArea.right-1);
@@ -424,7 +424,7 @@ void
 VisErrorReportDialogClass::Display_Point (const Matrix3D &transform, bool fly_to)
 {
 	if (fly_to) {
-		::Get_Camera_Mgr ()->Fly_To_Transform (transform);	
+		::Get_Camera_Mgr ()->Fly_To_Transform (transform);
 	} else {
 		::Get_Camera_Mgr ()->Set_Transform (transform);
 	}
@@ -493,7 +493,7 @@ VisErrorReportDialogClass::Add_Point (const VisSampleClass &point)
 	// to insert the new data point
 	//
 	/*while (end > start) {
-		
+
 		int index = start + ((end - start) >> 1);
 		float curr_fraction = m_PointList[index]->BackfaceFraction;
 		if ((index == start) || (fraction == curr_fraction)) {
@@ -530,7 +530,7 @@ VisErrorReportDialogClass::Find_Value_Index (float fraction)
 	int start	= 0;
 	int end		= m_PointList.Count () - 1;
 	while ((end > start) && (retval == -1)) {
-		
+
 		int index = start + ((end - start) >> 1);
 		float curr_fraction = m_PointList[index]->BackfaceFraction;
 		if (index == start) {
@@ -566,7 +566,7 @@ VisErrorReportDialogClass::Find_Value_Index (float fraction)
 			if (end == index) { index --; break; }
 			end = index;
 		} else {
-			
+
 			while ((curr_fraction == fraction) && (index > 0)) {
 				curr_fraction = m_PointList[--index]->Get_Biggest_Fraction ();
 			}
@@ -648,14 +648,14 @@ VisErrorReportDialogClass::OnPrevError (void)
 		m_CurrentPoint --;
 		m_CurrentPoint = std::max (m_CurrentPoint, 0);
 	}
-	
+
 	//
 	//	Show the point
 	//
 	if (m_CurrentPoint < m_PointList.Count ()) {
 		VisSampleClass *vis_sample	= m_PointList[m_CurrentPoint];
 		int index						= vis_sample->Get_Biggest_Fraction_Index ();
-		
+
 		vis_sample->Set_Cur_Direction ((VisDirType)index);
 		Display_Point (vis_sample->Get_Camera_Transform ((VisDirType)index), true);
 	}
@@ -675,7 +675,7 @@ VisErrorReportDialogClass::OnPrevError (void)
 //
 //////////////////////////////////////////////////////////////////////////////////
 void
-VisErrorReportDialogClass::OnNextError (void) 
+VisErrorReportDialogClass::OnNextError (void)
 {
 	if (m_CurrentPoint < m_SelStartIndex) {
 		m_CurrentPoint = m_SelStartIndex;
@@ -724,7 +724,7 @@ VisErrorReportDialogClass::Update_Current_Point_Text (void)
 		 (m_CurrentPoint < m_PointList.Count ()))
 	{
 		VisSampleClass *vis_sample	= m_PointList[m_CurrentPoint];
-	
+
 		//
 		//	Update the backface percent for this sample
 		//
@@ -737,7 +737,7 @@ VisErrorReportDialogClass::Update_Current_Point_Text (void)
 		//
 		int dir_index = vis_sample->Get_Cur_Direction  ();
 		switch (vis_sample->Sample_Status ((VisDirType)dir_index)) {
-			
+
 			case VIS_STATUS_OK:
 				message = "Ok";
 				break;
@@ -779,7 +779,7 @@ VisErrorReportDialogClass::OnDrawItem
 (
 	int nIDCtl,
 	LPDRAWITEMSTRUCT lpDrawItemStruct
-) 
+)
 {
 	//
 	// Determine what state to draw the button in (pushed or normal)
@@ -820,12 +820,12 @@ VisErrorReportDialogClass::OnDrawItem
 
 	::SelectObject (mem_dc, old_bmp);
 	::DeleteDC (mem_dc);
-		
+
 	// Draw the focus rectangle if necessary
 	if (lpDrawItemStruct->itemState & ODS_FOCUS) {
 		::DrawFocusRect (lpDrawItemStruct->hDC, &rect);
 	}
-	
+
 	// Allow the base class to process this message
 	CDialog::OnDrawItem(nIDCtl, lpDrawItemStruct);
 	return ;
@@ -869,14 +869,14 @@ VisErrorReportDialogClass::Paint_Axis_Area (HDC hdc)
 
 
 	::SelectObject (mem_dc, old_bmp);
-	::DeleteDC (mem_dc);	
+	::DeleteDC (mem_dc);
 	return ;
 }
 
-LRESULT VisErrorReportDialogClass::OnNcHitTest(CPoint point) 
+LRESULT VisErrorReportDialogClass::OnNcHitTest(CPoint point)
 {
 	// TODO: Add your message handler code here and/or call default
-	
+
 	return CDialog::OnNcHitTest(point);
 }
 
@@ -900,7 +900,7 @@ VisErrorReportDialogClass::OnSetCursor
 	//	Determine if the cursor is over a 'hot-spot' in the axis area.
 	//
 	if (Update_Axis_Area ()) {
-		::SetCursor (::LoadCursor (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDC_HAND_POINTER)));		
+		::SetCursor (::LoadCursor (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDC_HAND_POINTER)));
 	} else {
 		retval = CDialog::OnSetCursor (pwnd, hit_test, message);
 	}
@@ -919,12 +919,12 @@ VisErrorReportDialogClass::Update_Axis_Area (bool do_view_change)
 {
 	CPoint point;
 	::GetCursorPos (&point);
-	ScreenToClient (&point);	
+	ScreenToClient (&point);
 
 	point.x -= m_AxisArea.left;
-	point.y -= m_AxisArea.top;	
+	point.y -= m_AxisArea.top;
 
-	bool found			= false;	
+	bool found			= false;
 	int old_sel			= m_AxisSel;
 	m_AxisSel			= 0;
 
@@ -945,7 +945,7 @@ VisErrorReportDialogClass::Update_Axis_Area (bool do_view_change)
 				if (m_AxisSelAreas[index].PtInRect (point)) {
 					m_AxisSel	|= (1 << index);
 					found			= true;
-					
+
 					//
 					//	Update the camera if necessary
 					//
@@ -956,15 +956,15 @@ VisErrorReportDialogClass::Update_Axis_Area (bool do_view_change)
 				}
 			}
 		}
-		
+
 		//
 		//	Hilight the direction that is currently displayed
-		//		
+		//
 		int direction	= vis_sample->Get_Cur_Direction ();
 		int bit			= (1 << direction);
 		m_AxisSel		|= bit;
 	}
-	
+
 	if (old_sel != m_AxisSel) {
 
 		//

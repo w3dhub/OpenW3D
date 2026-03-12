@@ -17,36 +17,36 @@
 */
 
 /* $Header: /Commando/Code/ww3d2/texfcach.cpp 5     8/24/01 3:23p Jani_p $ */
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : WW3D                                                         * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/ww3d2/texfcach.cpp                           $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 8/24/01 11:50a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 5                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
- *   TextureFileCache::TextureFileCache -- Open cache.                              				* 
- *   ~TextureFileCache::TextureFileCache -- Shut down texture cache system.         				* 
- *   TextureFileCache::Save_Texture -- Save the texture into the cache.     							* 
- *   TextureFileCache::Load_Texture -- Load texture from cache into surface.							* 
- *   *TextureFileCache::_Create_File_Name -- Create a file name from prefix 							* 
- *   *TextureFileCache::Load_Original_Texture_Surface -- Create the initial							* 
- *   *TextureFileCache::Open_Texture_Handle -- Set the TextureHandle and Header..            * 
- *   TextureFileCache::Close_Texture_Handle -- Close the current texture so we can open anoth* 
- *   TextureFileCache::Read_Texture -- Read in the texture into surface buffer.              * 
- *   *TextureFileCache::Create_First_Texture_As_Surface -- Load first texture into a surface.  * 
- *   *TextureFileCache::Find_Cached_Surface -- Search for a texture already cached.            * 
- *   TextureFileCache::Add_Cached_Surface -- Add a new cached texture.                         * 
- *   *TFC::Get_Surface -- Load a texture reduced N times.                                      * 
- *   TextureFileCache::Reset_File -- virtual function to reset file and write out file.        * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : WW3D                                                         *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/ww3d2/texfcach.cpp                           $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 8/24/01 11:50a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 5                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
+ *   TextureFileCache::TextureFileCache -- Open cache.                              				*
+ *   ~TextureFileCache::TextureFileCache -- Shut down texture cache system.         				*
+ *   TextureFileCache::Save_Texture -- Save the texture into the cache.     							*
+ *   TextureFileCache::Load_Texture -- Load texture from cache into surface.							*
+ *   *TextureFileCache::_Create_File_Name -- Create a file name from prefix 							*
+ *   *TextureFileCache::Load_Original_Texture_Surface -- Create the initial							*
+ *   *TextureFileCache::Open_Texture_Handle -- Set the TextureHandle and Header..            *
+ *   TextureFileCache::Close_Texture_Handle -- Close the current texture so we can open anoth*
+ *   TextureFileCache::Read_Texture -- Read in the texture into surface buffer.              *
+ *   *TextureFileCache::Create_First_Texture_As_Surface -- Load first texture into a surface.  *
+ *   *TextureFileCache::Find_Cached_Surface -- Search for a texture already cached.            *
+ *   TextureFileCache::Add_Cached_Surface -- Add a new cached texture.                         *
+ *   *TFC::Get_Surface -- Load a texture reduced N times.                                      *
+ *   TextureFileCache::Reset_File -- virtual function to reset file and write out file.        *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifdef WW3D_DX8
 #include "texfcach.h"
@@ -68,7 +68,7 @@
 #include <srBinIStream.hpp>
 #include <srColorSurface.hpp>
 #include <srTextureIFace.hpp>
-						  
+
 #include <direct.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -102,19 +102,19 @@ static void Verify_Compression_Buffer()
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// TextureFileCache /////////////////////////////////////////////
 
-/*********************************************************************************************** 
- * TextureFileCache::TextureFileCache -- Open cache.                                 * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/07/1999 SKB : Created.                                                                 * 
- *   06/27/2000 SKB : added CachedSurfaces                                                     * 
- *   08/14/2000     : Check for revision number.                                               * 
+/***********************************************************************************************
+ * TextureFileCache::TextureFileCache -- Open cache.                                 *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/07/1999 SKB : Created.                                                                 *
+ *   06/27/2000 SKB : added CachedSurfaces                                                     *
+ *   08/14/2000     : Check for revision number.                                               *
  *=============================================================================================*/
 TextureFileCache::TextureFileCache(const char *fileprefix):
 	File(_Create_File_Name(fileprefix)),
@@ -155,28 +155,28 @@ TextureFileCache::TextureFileCache(const char *fileprefix):
 	if (reset) {
 		Reset_File();
 	}
-}	
+}
 
-/*********************************************************************************************** 
- * *TextureFileCache::_Create_File_Name -- Create a file name from prefix passed in.           * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *    Caller of this function must free _FileNamePtr when done with it.                        * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/13/1999 SKB : Created.                                                                 * 
+/***********************************************************************************************
+ * *TextureFileCache::_Create_File_Name -- Create a file name from prefix passed in.           *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *    Caller of this function must free _FileNamePtr when done with it.                        *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/13/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 char *TextureFileCache::_Create_File_Name(const char *fileprefix)
-{	
+{
 	bool addpath = (*fileprefix != '\\' && fileprefix[1] != ':');
 
 	assert(!_FileNamePtr);
 	_FileNamePtr = new char[strlen(fileprefix) + (addpath ? 256 : 6)];
-			
+
    char path[_MAX_PATH];
    if (addpath && _getcwd(path, _MAX_PATH ))  {
 		sprintf(_FileNamePtr, "%s/%s.tfc", path, fileprefix);
@@ -188,20 +188,20 @@ char *TextureFileCache::_Create_File_Name(const char *fileprefix)
 	}
 
 	return(_FileNamePtr);
-}	
+}
 
 
-/*********************************************************************************************** 
- * ~TextureFileCache::TextureFileCache -- Shut down texture cache system.            * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/07/1999 SKB : Created.                                                                 * 
+/***********************************************************************************************
+ * ~TextureFileCache::TextureFileCache -- Shut down texture cache system.            *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/07/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 TextureFileCache::~TextureFileCache()
 {
@@ -210,20 +210,20 @@ TextureFileCache::~TextureFileCache()
 
 	Instances--;
 	WWASSERT(!Instances);
-}	
+}
 
 
-/************************************************************************** 
- * TextureFileCache::Reset_File -- virtual function to reset file and wri * 
- *                                                                        * 
- * INPUT:                                                                 * 
- *                                                                        * 
- * OUTPUT:                                                                * 
- *                                                                        * 
- * WARNINGS:                                                              * 
- *                                                                        * 
- * HISTORY:                                                               * 
- *   08/14/2000     : Created.                                            * 
+/**************************************************************************
+ * TextureFileCache::Reset_File -- virtual function to reset file and wri *
+ *                                                                        *
+ * INPUT:                                                                 *
+ *                                                                        *
+ * OUTPUT:                                                                *
+ *                                                                        *
+ * WARNINGS:                                                              *
+ *                                                                        *
+ * HISTORY:                                                               *
+ *   08/14/2000     : Created.                                            *
  *========================================================================*/
 void TextureFileCache::Reset_File()
 {
@@ -242,29 +242,29 @@ void TextureFileCache::Reset_File()
 	} else {
 		assert(false);
 	}
-}	
+}
 
-/*********************************************************************************************** 
- * TextureFileCache::Save_Texture -- Save the texture into the cache.                 * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/12/1999 SKB : Created.                                                                 * 
- *   06/27/2000 SKB : added Header.PixelFormat                                                 * 
- *   06/27/2000 SKB : changed cached textures to surfaces                                      * 
- *   08/14/2000     : save file's datatime stamp.                                              * 
+/***********************************************************************************************
+ * TextureFileCache::Save_Texture -- Save the texture into the cache.                 *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/12/1999 SKB : Created.                                                                 *
+ *   06/27/2000 SKB : added Header.PixelFormat                                                 *
+ *   06/27/2000 SKB : changed cached textures to surfaces                                      *
+ *   08/14/2000     : save file's datatime stamp.                                              *
  *=============================================================================================*/
 bool TextureFileCache::Save_Texture(const char *texturename, srTextureIFace::MultiRequest& mreq, srColorSurfaceIFace& origsurface)
 {
 	CriticalSectionClass::LockClass m(mutex);
 	int idx;
 	unsigned lod;
-	
+
 	// Open up our new texture.
 	Open_Texture_Handle(texturename);
 
@@ -315,8 +315,8 @@ bool TextureFileCache::Save_Texture(const char *texturename, srTextureIFace::Mul
 		int compsize,lzocode;
 
 		int buf_size=LZO_BUFFER_SIZE(surface->getDataSize());
-		lzocode = LZOCompressor::Compress(	(const lzo_byte *)	surface->getDataPtr(), 
-														(lzo_uint) 		  		surface->getDataSize(), 
+		lzocode = LZOCompressor::Compress(	(const lzo_byte *)	surface->getDataPtr(),
+														(lzo_uint) 		  		surface->getDataSize(),
 														(lzo_byte *) 			Get_Compression_Buffer(buf_size),
 														(unsigned *)			&compsize);
 
@@ -345,20 +345,20 @@ bool TextureFileCache::Save_Texture(const char *texturename, srTextureIFace::Mul
 	TextureHandle->End_Write_Access();
 
 	return (true);
-}	
+}
 
-/*********************************************************************************************** 
- * *TextureFileCache::Load_Original_Texture_Surface -- Create the initial surface that would  * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *     Sureface is only needed to get default values.  The texel data does not get filled in.  * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/13/1999 SKB : Created.                                                                 * 
+/***********************************************************************************************
+ * *TextureFileCache::Load_Original_Texture_Surface -- Create the initial surface that would  *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *     Sureface is only needed to get default values.  The texel data does not get filled in.  *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/13/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 srColorSurfaceIFace *TextureFileCache::Load_Original_Texture_Surface(const char *texturename)
 {
@@ -369,19 +369,19 @@ srColorSurfaceIFace *TextureFileCache::Load_Original_Texture_Surface(const char 
 		return(surface);
 	}
 	return(NULL);
-}	
+}
 
-/*********************************************************************************************** 
- * *TFC::Get_Surface -- Load a texture reduced N times.                                        * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/26/2000 SKB : Created.                                                                 * 
+/***********************************************************************************************
+ * *TFC::Get_Surface -- Load a texture reduced N times.                                        *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/26/2000 SKB : Created.                                                                 *
  *=============================================================================================*/
 srColorSurfaceIFace *TextureFileCache::Get_Surface(const char *texturename, unsigned int reduce_factor)
 {
@@ -421,21 +421,21 @@ srColorSurfaceIFace *TextureFileCache::Get_Surface(const char *texturename, unsi
 		Read_Texture(reduce_factor, surface);
 	}
 	return(surface);
-}	
+}
 
-/*********************************************************************************************** 
- * TextureFileCache::Load_Texture -- Load texture from cache into surface.                     * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/12/1999 SKB : Created.                                                                 * 
- *   06/02/1999 SKB : deal with texture requests larger then what is in cache.                 * 
- *   06/27/2000 SKB : changed cached textures to surfaces                                      * 
+/***********************************************************************************************
+ * TextureFileCache::Load_Texture -- Load texture from cache into surface.                     *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/12/1999 SKB : Created.                                                                 *
+ *   06/02/1999 SKB : deal with texture requests larger then what is in cache.                 *
+ *   06/27/2000 SKB : changed cached textures to surfaces                                      *
  *=============================================================================================*/
 bool TextureFileCache::Load_Texture(const char *texturename, srTextureIFace::MultiRequest& mreq)
 {
@@ -446,7 +446,7 @@ bool TextureFileCache::Load_Texture(const char *texturename, srTextureIFace::Mul
 	}
 
 	// NOTE: Mip maps that are saved in the cache are the first mip maps requested and created
-	//			for a given texture name.  If a user susequently requests mip maps of different 
+	//			for a given texture name.  If a user susequently requests mip maps of different
 	// 		sizes that are not in the cache, they will be created by use of surface copy functions.
 	//			When this happens it is unfortunate because it indicates some sort of inefficiency.
 	//			In code below I have put in comments 'A WASTE' to indicate what part of code deels with it.
@@ -458,7 +458,7 @@ bool TextureFileCache::Load_Texture(const char *texturename, srTextureIFace::Mul
 	int lodsize = -1;
 
 	// Now skip any mip maps that we want but are not in the cache. (A WASTE).
-	for (lod = mreq.largeLOD; lod <= mreq.smallLOD; lod++) {	
+	for (lod = mreq.largeLOD; lod <= mreq.smallLOD; lod++) {
 		lodsize = mreq.levels[lod]->getDataSize();
 		if (lodsize <= idxsize)  {
 			break;
@@ -484,7 +484,7 @@ bool TextureFileCache::Load_Texture(const char *texturename, srTextureIFace::Mul
 		while ((lod <= mreq.smallLOD) && (idx < Header.NumMipMaps)) {
 			srColorSurface *surface = mreq.levels[lod];
 			int size = surface->getDataSize();						assert(Texture_Size(idx) == size);
-				 		  
+
 			// See if we can find the texture already cached.
 			srColorSurface *cached = Find_Cached_Surface(size);
 
@@ -511,7 +511,7 @@ bool TextureFileCache::Load_Texture(const char *texturename, srTextureIFace::Mul
 	unsigned lastlod = lod - 1;
 
 	// largest surface loaded.
-	srColorSurfaceIFace *surface = NULL; 
+	srColorSurfaceIFace *surface = NULL;
 	if (firstlod < lastlod) {
 		surface = mreq.levels[firstlod];
 		surface->addReference();
@@ -554,20 +554,20 @@ bool TextureFileCache::Load_Texture(const char *texturename, srTextureIFace::Mul
 	}
 
 	return (true);
-}	
+}
 
-/*********************************************************************************************** 
- * TextureFileCache::Read_Texture -- Read in the texture into surface buffer.                  * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/01/1999 SKB : Created.                                                                 * 
- *   06/27/2000 SKB : changed cached textures to surfaces                                      * 
+/***********************************************************************************************
+ * TextureFileCache::Read_Texture -- Read in the texture into surface buffer.                  *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/01/1999 SKB : Created.                                                                 *
+ *   06/27/2000 SKB : changed cached textures to surfaces                                      *
  *=============================================================================================*/
 void TextureFileCache::Read_Texture(int offsetidx, srColorSurface *surface)
 {
@@ -587,7 +587,7 @@ void TextureFileCache::Read_Texture(int offsetidx, srColorSurface *surface)
 	// Decompress into texture pointer.
 	int lzocode, decompsize;
 	lzocode = LZOCompressor::Decompress(	(const lzo_byte*)		Get_Compression_Buffer(compsize),
-														(lzo_uint)				compsize, 
+														(lzo_uint)				compsize,
 														(lzo_byte*)				surface->getDataPtr(),
 														(unsigned *)			&decompsize);
 
@@ -595,20 +595,20 @@ void TextureFileCache::Read_Texture(int offsetidx, srColorSurface *surface)
 	assert(lzocode == LZO_E_OK);
 	assert(decompsize == Texture_Size(offsetidx));
 	Verify_Compression_Buffer();
-}	
+}
 
-/*********************************************************************************************** 
- * *TextureFileCache::Create_First_Texture_As_Surface -- Load first texture into a surface.    * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
+/***********************************************************************************************
+ * *TextureFileCache::Create_First_Texture_As_Surface -- Load first texture into a surface.    *
+ *                                                                                             *
+ * INPUT:                                                                                      *
  *  	srColorSurfaceIFace *surfacetype - only used to create surface type we want.				  *
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/02/1999 SKB : Created.                                                                 * 
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/02/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 srColorSurfaceIFace *TextureFileCache::Create_First_Texture_As_Surface(srColorSurfaceIFace *surfacetype)
 {
@@ -625,19 +625,19 @@ srColorSurfaceIFace *TextureFileCache::Create_First_Texture_As_Surface(srColorSu
 	Read_Texture(0, surface);
 
 	return(surface);
-}	
+}
 
-/*********************************************************************************************** 
- * *TextureFileCache::Open_Texture_Handle -- Set the TextureHandle and Header..             * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/13/1999 SKB : Created.                                                                 * 
+/***********************************************************************************************
+ * *TextureFileCache::Open_Texture_Handle -- Set the TextureHandle and Header..             *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/13/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 bool TextureFileCache::Open_Texture_Handle(const char *fname)
 {
@@ -651,9 +651,9 @@ bool TextureFileCache::Open_Texture_Handle(const char *fname)
 	}
 	if (!CurrentTexture) {
 		CurrentTexture = strdup(fname);
-	}			  
-			
-	#if 0					 
+	}
+
+	#if 0
 	// If this is texture is newer then our texture file, reset file.
 	// This means that next time the texture cache file gets opened, all the
 	// previous textures will be loaded.
@@ -664,7 +664,7 @@ bool TextureFileCache::Open_Texture_Handle(const char *fname)
 		Reset_File();
 	}
 	#endif
-	
+
 	// See if we have the texture in the file cache yet.
 	TextureHandle = File.Open_Tag(fname);
 	if (TextureHandle) {
@@ -692,19 +692,19 @@ bool TextureFileCache::Open_Texture_Handle(const char *fname)
 	}
 
 	return(false);
-}	
+}
 
-/*********************************************************************************************** 
- * TextureFileCache::Close_Texture_Handle -- Close the current texture so we can open another. * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/01/1999 SKB : Created.                                                                 * 
+/***********************************************************************************************
+ * TextureFileCache::Close_Texture_Handle -- Close the current texture so we can open another. *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/01/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 void TextureFileCache::Close_Texture_Handle()
 {
@@ -730,48 +730,48 @@ void TextureFileCache::Close_Texture_Handle()
 	} else {
 		assert(!CurrentTexture);
 	}
-}	
+}
 
-/*********************************************************************************************** 
- * *TextureFileCache::Find_Cached_Surface -- Search for a texture already cached.              * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/02/1999 SKB : Created.                                                                 * 
+/***********************************************************************************************
+ * *TextureFileCache::Find_Cached_Surface -- Search for a texture already cached.              *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/02/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 srColorSurface *TextureFileCache::Find_Cached_Surface(int size)
-{			
+{
 	// Search through each allocated record for the right size.
 	for (int idx = 0; idx < NumCachedTextures; idx++) {
 		if (CachedSurfaces[idx]->getDataSize() == size) {
 			return(CachedSurfaces[idx]);
 		}
-	}				 
+	}
 	return(NULL);
-}	
-								  
-/*********************************************************************************************** 
- * TextureFileCache::Add_Cached_Surface -- Add a new cached texture.                           * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/02/1999 SKB : Created.                                                                 * 
+}
+
+/***********************************************************************************************
+ * TextureFileCache::Add_Cached_Surface -- Add a new cached texture.                           *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/02/1999 SKB : Created.                                                                 *
  *=============================================================================================*/
 void TextureFileCache::Add_Cached_Surface(srColorSurface *surface)
-{		
+{
 //	return;
 	assert(!Find_Cached_Surface(surface->getDataSize()));
-			 															
+
 	// If are cache is full, use the smallest one's space.
 	int surface_idx = -1;
 	if (NumCachedTextures == MAX_CACHED_SURFACES)	{
@@ -779,7 +779,7 @@ void TextureFileCache::Add_Cached_Surface(srColorSurface *surface)
 		// Assume first is smallest.
 		int smallsize = 0xfffffff;
 		int smallidx = -1;
-							 
+
 		// Look for any others that might be smaller.
 		for (int idx = 0; idx < NumCachedTextures; idx++) {
 			int size = CachedSurfaces[idx]->getDataSize();
@@ -792,18 +792,18 @@ void TextureFileCache::Add_Cached_Surface(srColorSurface *surface)
 		surface_idx = smallidx;
 		CachedSurfaces[idx]->release();
 		CachedSurfaces[idx] = 0;
-	} else {						
+	} else {
 		// Use next slot in array.
 		assert(NumCachedTextures < MAX_CACHED_SURFACES);
 		surface_idx = NumCachedTextures;
-		NumCachedTextures++;		  
+		NumCachedTextures++;
 	}
 	assert(surface_idx >= 0);
 	assert(!CachedSurfaces[surface_idx]);
 
 	CachedSurfaces[surface_idx] = surface;
 	surface->addReference();
-}	
+}
 
 
 bool TextureFileCache::Validate_Texture(const char* FileName)
@@ -814,7 +814,7 @@ bool TextureFileCache::Validate_Texture(const char* FileName)
 		if (!TextureLoader::Texture_File_Exists(FileName)) {
 			return false;
 		}
-		// We need to load the surface from the file first to determine the real size		
+		// We need to load the surface from the file first to determine the real size
 		srColorSurfaceIFace* TempSurfacePtr = ::Load_Surface(FileName);
 		if (!TempSurfacePtr) return false;
 

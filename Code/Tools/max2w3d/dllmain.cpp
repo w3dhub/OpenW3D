@@ -17,28 +17,28 @@
 */
 
 /* $Header: /Commando/Code/Tools/max2w3d/dllmain.cpp 12    4/08/02 4:07p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando / G                                                 * 
- *                                                                                             * 
- *                    File Name : DLLMAIN.CPP                                                  * 
- *                                                                                             * 
- *                   Programmer : Greg Hjelstrom                                               * 
- *                                                                                             * 
- *                   Start Date : 06/09/97                                                     * 
- *                                                                                             * 
- *                  Last Update : June 9, 1997 [GH]                                            * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
- *   DllMain -- Entry point for the dll                                                        * 
- *   LibDescription -- Returns description of this library                                     * 
- *   LibNumberClasses -- Returns number of classes in this library                             * 
- *   LibClassDesc -- Returns a ClassDesc for the specified class                               * 
- *   LibVersion -- Returns the version number of this library                                  * 
- *   GetString -- Gets a string out of the resources                                           * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando / G                                                 *
+ *                                                                                             *
+ *                    File Name : DLLMAIN.CPP                                                  *
+ *                                                                                             *
+ *                   Programmer : Greg Hjelstrom                                               *
+ *                                                                                             *
+ *                   Start Date : 06/09/97                                                     *
+ *                                                                                             *
+ *                  Last Update : June 9, 1997 [GH]                                            *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
+ *   DllMain -- Entry point for the dll                                                        *
+ *   LibDescription -- Returns description of this library                                     *
+ *   LibNumberClasses -- Returns number of classes in this library                             *
+ *   LibClassDesc -- Returns a ClassDesc for the specified class                               *
+ *   LibVersion -- Returns the version number of this library                                  *
+ *   GetString -- Gets a string out of the resources                                           *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -69,17 +69,17 @@ static W3dClassDesc		W3d_Export_Class_Descriptor;
 
 
 
-/*********************************************************************************************** 
- * DllMain -- Entry point for the dll                                                          * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/09/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * DllMain -- Entry point for the dll                                                          *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/09/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 BOOL WINAPI DllMain(HINSTANCE	hinstDLL,ULONG /*fdwReason*/,LPVOID /*lpvReserved*/)
 {
@@ -101,56 +101,56 @@ BOOL WINAPI DllMain(HINSTANCE	hinstDLL,ULONG /*fdwReason*/,LPVOID /*lpvReserved*
 }
 
 
-/*********************************************************************************************** 
- * LibDescription -- Returns description of this library                                       * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/09/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * LibDescription -- Returns description of this library                                       *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/09/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 DLLEXPORT const TCHAR * LibDescription()
 {
 	return  Get_String(IDS_LIB_DESCRIPTION);
 }
 
-/*********************************************************************************************** 
- * LibNumberClasses -- Returns number of classes in this library                               * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/09/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * LibNumberClasses -- Returns number of classes in this library                               *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/09/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 DLLEXPORT int LibNumberClasses()
 {
 #ifdef W3D_GMAXDEV
 	return 7;
 #else
-	return 9; 
+	return 9;
 #endif
 }
 
 
-/*********************************************************************************************** 
- * LibClassDesc -- Returns a ClassDesc for the specified class                                 * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/09/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * LibClassDesc -- Returns a ClassDesc for the specified class                                 *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/09/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 DLLEXPORT ClassDesc * LibClassDesc(int i)
 {
@@ -174,17 +174,17 @@ DLLEXPORT ClassDesc * LibClassDesc(int i)
 }
 
 
-/*********************************************************************************************** 
- * LibVersion -- Returns the version number of this library                                    * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/09/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * LibVersion -- Returns the version number of this library                                    *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/09/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 DLLEXPORT ULONG LibVersion()
 {
@@ -192,17 +192,17 @@ DLLEXPORT ULONG LibVersion()
 }
 
 
-/*********************************************************************************************** 
- * Get_String -- Gets a string out of the resources                                            * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   06/09/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Get_String -- Gets a string out of the resources                                            *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   06/09/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 TCHAR * Get_String( int id )
 {

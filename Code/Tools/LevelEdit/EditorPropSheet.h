@@ -67,7 +67,7 @@ public:
 	//}}AFX_VIRTUAL
 
 // Implementation
-protected:	
+protected:
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;

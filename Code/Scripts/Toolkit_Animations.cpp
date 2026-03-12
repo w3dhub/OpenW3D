@@ -78,7 +78,7 @@ void M00_Controller_Animation_RMV (GameObject * obj, GameObjObserverClass * scri
 Editor Script - M00_Animation_Play_On_Activation_RMV
 
   This script plays an animation when the object it is attached to receives a custom.
-  
+
   Parameters:
 
   Animation	= The animation to play.
@@ -101,7 +101,7 @@ DECLARE_SCRIPT(M00_Animation_Play_RMV, "Start_Now=0:int, Receive_Type:int, Recei
 			Do_Animation(obj);
 		}
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		SCRIPT_DEBUG_MESSAGE(("M00_Animation_Play_RMV received custom type %d, param %d.\n", type, param));
@@ -133,7 +133,7 @@ DECLARE_SCRIPT(M00_Animation_Play_RMV, "Start_Now=0:int, Receive_Type:int, Recei
 Editor Script - M00_Animation_Play_Drop_Object_RMV
 
   This script plays an animation when the object it is attached to receives a custom.
-  
+
   Parameters:
 
   Animation		= The animation to play.
@@ -146,7 +146,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_RMV, "Start_Now=0:int, Receive_Typ
 {
 	int		priority, action_id;
 	bool	debug_mode;
-	
+
 	void Created(GameObject * obj) override
 	{
 		priority = Get_Int_Parameter("Action_Priority");
@@ -164,14 +164,14 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_RMV, "Start_Now=0:int, Receive_Typ
 			M00_Controller_Animation_RMV (obj, this, anim, 0, priority, action_id, frame, object, bone);
 		}
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		const char *anim = Get_Parameter("Animation");
 		int frame = Get_Int_Parameter("Drop_Frame");
 		const char *object = Get_Parameter("Drop_Object");
 		const char *bone = Get_Parameter("Drop_Bone");
-		
+
 		SCRIPT_DEBUG_MESSAGE(("M00_Animation_Play_Drop_Object_RMV received custom type %d, param %d.\n", type, param));
 		if (type == Get_Int_Parameter("Receive_Type"))
 		{
@@ -200,7 +200,7 @@ Editor Script - M00_Animation_Drop_Object_Attach_Script_RMV
   This script plays an animation when the object it is attached to receives a custom, drops
   a new object at a specified frame of the animation, and then attaches a script to the
   new object.
-  
+
   Parameters:
 
   Animation		= The animation to play.
@@ -215,7 +215,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_Attach_Script_RMV, "Start_Now=0:in
 {
 	int priority, action_id;
 	bool		debug_mode;
-	
+
 	void Created(GameObject * obj) override
 	{
 		priority = Get_Int_Parameter("Action_Priority");
@@ -234,7 +234,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_Attach_Script_RMV, "Start_Now=0:in
 			M00_Controller_Animation_RMV (obj, this, anim, 0, priority, action_id, frame, object, bone);
 		}
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		const char *anim = Get_Parameter("Animation");
@@ -281,7 +281,7 @@ DECLARE_SCRIPT(M00_Animation_Play_Drop_Object_Attach_Script_RMV, "Start_Now=0:in
 			} else {
 				*output++ = *input++;
 			}
-			
+
 		}
 		*output = 0;  // null terminate
 	}

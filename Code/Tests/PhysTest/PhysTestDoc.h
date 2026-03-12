@@ -80,7 +80,7 @@ public:
 	PhysicsSceneClass *	Scene;
 	LightClass *			Light;
 	RenderObjClass *		Origin;
-	DWORD						LastTime;		
+	DWORD						LastTime;
 
 protected:
 

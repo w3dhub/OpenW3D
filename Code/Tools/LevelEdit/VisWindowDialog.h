@@ -95,7 +95,7 @@ private:
 	// Private methods
 	///////////////////////////////////////////////////////////////////
 	int				Hit_Test(CPoint point) const;
-	unsigned int	Id_To_Pixel(unsigned int id) const;		
+	unsigned int	Id_To_Pixel(unsigned int id) const;
 	unsigned int	Pixel_To_Id(unsigned int pixel) const;
 
 	///////////////////////////////////////////////////////////////////

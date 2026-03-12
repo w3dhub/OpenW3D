@@ -68,20 +68,20 @@ DynamicShadowManagerClass::~DynamicShadowManagerClass(void)
 
 void DynamicShadowManagerClass::Update_Shadow(void)
 {
-#if SINGLE_SHADOW_CODE	
+#if SINGLE_SHADOW_CODE
 	/*
 	** Shadow Update
 	** - if shadows are off, release projector and RETURN
 	** - find dominant light source (or multiple sources?)
 	** - if no light sources, set projector intensity to 0.0 and RETURN
 	** - for each light source
-	**   - re-use projector from previous frame or allocate a new projector 
+	**   - re-use projector from previous frame or allocate a new projector
 	**   - initialize the projection parameters, depending on: blob/real,point/directional
 	**   - set the shadow's intensity by attenuating it with distance from lightsource
 	*/
 	PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
 	PhysicsSceneClass::ShadowEnum shadow_mode = scene->Get_Shadow_Mode();
-	
+
 	float near_atten;
 	float far_atten;
 	scene->Get_Shadow_Attenuation(&near_atten,&far_atten);
@@ -122,9 +122,9 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 	** release any projector that we may have and return
 	*/
 	if (	(Parent.Do_Any_Effects_Suppress_Shadows()) ||
-			(Parent.Is_Shadow_Generation_Enabled() == false) || 
+			(Parent.Is_Shadow_Generation_Enabled() == false) ||
 			(shadow_mode == PhysicsSceneClass::SHADOW_MODE_NONE) ||
-			(shadow_dist2 > shadow_shutoff2) || 
+			(shadow_dist2 > shadow_shutoff2) ||
 			(model == NULL) ||
 			(model->Is_Hidden()) ||
 			(objbox.Extent.Length2() < 0.1f) )
@@ -144,7 +144,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 	bool found_light = false;
 	Vector3 sunlight;
 	scene->Get_Sun_Light_Vector(&sunlight);
-	
+
 	if (Parent.Is_In_The_Sun()) {
 
 		/*
@@ -177,7 +177,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 		*/
 		NonRefPhysListClass lightlist;
 		scene->Collect_Lights(position,true,false,&lightlist);
-	
+
 		if (!lightlist.Is_Empty()) {
 
 			/*
@@ -189,7 +189,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 			NonRefPhysListIterator it(&lightlist);
 			for (it.First(); !it.Is_Done(); it.Next()) {
 				best_light = (LightClass *)(it.Peek_Obj()->Peek_Model());
-				break;				
+				break;
 			}
 
 			if (best_light) {
@@ -199,10 +199,10 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 				Shadow->Set_Light_Source_ID((uintptr_t)best_light);
 				Shadow->Set_Light_Vector(best_light->Get_Position());
 
-#else			// This code uses an orthographic approximation 
+#else			// This code uses an orthographic approximation
 				Shadow->Enable_Perspective(false);
 				Shadow->Set_Light_Source_ID((uintptr_t)best_light);
-				
+
 				Vector3 direction;
 				Get_Position(&direction);
 				direction -= best_light->Get_Position();
@@ -213,15 +213,15 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 
 				DEBUG_RENDER_VECTOR(position,best_light->Get_Position()-position,Vector3(1,1,1));
 			}
-		} 
+		}
 #endif //0
 	}
 
 	if (found_light) {
-		
+
 		/*
 		** We have a shadow and a light so update the projection parameters.
-		** If we are using blob shadows, just plug in the blob texture and 
+		** If we are using blob shadows, just plug in the blob texture and
 		** clear the dirty flag.  Otherwise, mark the texture dirty so it will
 		** be re-generated if the shadow actually gets projected onto something
 		*/
@@ -239,7 +239,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 		}
 
 	} else {
-		
+
 		/*
 		** If we have a shadow but we don't want it any more, wait until
 		** it fades out before we release it
@@ -250,7 +250,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 				Shadow->Update_Projection(objbox,Parent.Get_Transform(),ShadowNearZ,ShadowFarZ);
 			}
 		}
-	
+
 	}
 
 #else
@@ -270,7 +270,7 @@ void DynamicShadowManagerClass::Update_Shadow(void)
 	**     - Set target intensity to zero
 	**     - Update projection parameters, move into this frame's shadow list
 	*/
-	
+
 
 #endif
 }
@@ -280,7 +280,7 @@ void DynamicShadowManagerClass::Allocate_Shadow(void)
 {
 	if (Shadow == NULL) {
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-		
+
 		Shadow = NEW_REF(DynTexProjectClass,(&Parent));
 		Shadow->Enable_Attenuation(true);
 		Shadow->Enable_Depth_Gradient(true);

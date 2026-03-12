@@ -51,7 +51,7 @@ class PhysClass;
 /**
 ** PhysTexProjectClass
 ** This derived TexProjectClass simply adds interfaces for handling PhysClasses direction.
-** It also handles getting the shadow render context from the physics scene.  
+** It also handles getting the shadow render context from the physics scene.
 ** TODO: should we "standardize" the shadow render context stuff and move it to WW3D?
 */
 class PhysTexProjectClass : public TexProjectClass
@@ -63,7 +63,7 @@ public:
 
 	/*
 	** Automatic initialization of a TexProjectClass.
-	** First set up your projection parameters with one of the Compute_xxx_Projection functinos, 
+	** First set up your projection parameters with one of the Compute_xxx_Projection functinos,
 	** Then call Compute_Texture.
 	*/
 	bool						Compute_Perspective_Projection(PhysClass * obj,const Vector3 & lightpos,float nearz=-1.0f,float farz=-1.0f);

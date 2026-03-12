@@ -72,7 +72,7 @@ enum
 	MOTO_VARIABLE_SHIFTIMER,
 };
 
-	
+
 MotorVehicleClass::MotorVehicleClass(void) :
 	EngineAngularVelocity(0.0f),
 	CurrentGear(0),
@@ -83,7 +83,7 @@ MotorVehicleClass::MotorVehicleClass(void) :
 }
 
 void MotorVehicleClass::Init(const MotorVehicleDefClass & def)
-{ 
+{
 	VehiclePhysClass::Init(def);
 }
 
@@ -92,10 +92,10 @@ MotorVehicleClass::~MotorVehicleClass(void)
 }
 
 void MotorVehicleClass::Timestep(float dt)
-{	
+{
 	{
 		WWPROFILE("MotorVehicle::Timestep");
-	
+
 		const MotorVehicleDefClass * def = Get_MotorVehicleDef();
 
 		// Update the accelerator and braking state according to the current inputs
@@ -112,7 +112,7 @@ void MotorVehicleClass::Timestep(float dt)
 			} else {
 				AcceleratorFraction = Controller->Get_Move_Forward();
 			}
-		} 
+		}
 
 		// Engine simulation revvs up if the drive wheels are not in contact.
 		if (!Drive_Wheels_In_Contact()) {
@@ -134,7 +134,7 @@ void MotorVehicleClass::Timestep(float dt)
 			ShiftTimer -= dt;
 		}
 	}
-	
+
 	VehiclePhysClass::Timestep(dt);
 }
 
@@ -154,7 +154,7 @@ int MotorVehicleClass::Set_State(const StateVectorClass & new_state,int start_in
 	start_index = VehiclePhysClass::Set_State(new_state,start_index);
 
 	const MotorVehicleDefClass * def = Get_MotorVehicleDef();
-	
+
 	if (Drive_Wheels_In_Contact() == true) {
 		float wheel_avel = Get_Ideal_Drive_Axle_Angular_Velocity();
 		EngineAngularVelocity = wheel_avel * def->GearRatio[CurrentGear] * def->FinalDriveGearRatio;
@@ -164,7 +164,7 @@ int MotorVehicleClass::Set_State(const StateVectorClass & new_state,int start_in
 
 float MotorVehicleClass::Get_Engine_Torque(void)
 {
-	// Torque output by the engine depends on the torque curve, how much gas is being given, and 
+	// Torque output by the engine depends on the torque curve, how much gas is being given, and
 	// the engine's maximum torque.  The maximum torque is used to scale the normalized engine
 	// torque curve so that we can just re-use the same table for many vehicles.
 	const MotorVehicleDefClass * def = Get_MotorVehicleDef();
@@ -195,8 +195,8 @@ float MotorVehicleClass::Get_Normalized_Engine_RPM(void)
 }
 
 float MotorVehicleClass::Get_Max_Engine_Torque(void)
-{ 
-	return Get_MotorVehicleDef()->MaxEngineTorque; 
+{
+	return Get_MotorVehicleDef()->MaxEngineTorque;
 }
 
 
@@ -248,13 +248,13 @@ bool MotorVehicleClass::Save (ChunkSaveClass &csave)
 bool MotorVehicleClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case MOTO_CHUNK_RIGIDBODY:				// used to be derived directly from RigidBody... Obsolete now
 				RigidBodyClass::Load(cload);
 				break;
-				
+
 			case MOTO_CHUNK_VEHICLEPHYS:
 				VehiclePhysClass::Load(cload);
 				break;
@@ -266,15 +266,15 @@ bool MotorVehicleClass::Load (ChunkLoadClass &cload)
 						READ_MICRO_CHUNK(cload,MOTO_VARIABLE_CURRENTGEAR,CurrentGear);
 						READ_MICRO_CHUNK(cload,MOTO_VARIABLE_SHIFTIMER,ShiftTimer);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
-	
+
 			default:
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 
@@ -295,7 +295,7 @@ SimplePersistFactoryClass<MotorVehicleDefClass,PHYSICS_CHUNKID_MOTORVEHICLEDEF>	
 /*
 ** Chunk ID's used by MotorVehicleDefClass
 */
-enum 
+enum
 {
 	MOTORVEHICLEDEF_CHUNK_RIGIDBODYDEF							= 0x00516000,		// (old parent class)
 	MOTORVEHICLEDEF_CHUNK_VARIABLES,
@@ -303,7 +303,7 @@ enum
 
 	MOTORVEHICLEDEF_VARIABLE_MAXENGINETORQUE					= 0x00,
 	MOTORVEHICLEDEF_VARIABLE_ENGINETORQUECURVEFILENAME,
-	
+
 	MOTORVEHICLEDEF_VARIABLE_GEARCOUNT,
 	MOTORVEHICLEDEF_VARIABLE_GEARRATIO1,
 	MOTORVEHICLEDEF_VARIABLE_GEARRATIO2,
@@ -333,7 +333,7 @@ MotorVehicleDefClass::MotorVehicleDefClass(void) :
 	ShiftDownRpm(2000),
 	DriveTrainInertia(0.1f)
 {
-	
+
 	GearRatio[0] = 12.01f;	// 1989 Ford Taurus gear ratios :-)
 	GearRatio[1] = 7.82f;
 	GearRatio[2] = 5.16f;
@@ -345,11 +345,11 @@ MotorVehicleDefClass::MotorVehicleDefClass(void) :
 	ShiftDownAvel = RPM_TO_RADS(ShiftDownRpm);
 
 	// make our parameters editable
-	FLOAT_UNITS_PARAM(MotorVehicleDefClass, MaxEngineTorque, 0.01f, 100000.0f,"N*m");	
+	FLOAT_UNITS_PARAM(MotorVehicleDefClass, MaxEngineTorque, 0.01f, 100000.0f,"N*m");
 	FILENAME_PARAM(MotorVehicleDefClass, EngineTorqueCurveFilename, "Table Files", ".tbl");
 
 	INT_EDITABLE_PARAM(MotorVehicleDefClass,GearCount,1,6);
-	
+
 	FLOAT_EDITABLE_PARAM(MotorVehicleDefClass,GearRatio[0],1.0f,100.0f);
 	FLOAT_EDITABLE_PARAM(MotorVehicleDefClass,GearRatio[1],1.0f,100.0f);
 	FLOAT_EDITABLE_PARAM(MotorVehicleDefClass,GearRatio[2],1.0f,100.0f);
@@ -369,9 +369,9 @@ MotorVehicleDefClass::~MotorVehicleDefClass(void)
 	REF_PTR_RELEASE(EngineTorqueCurve);
 }
 
-uint32 MotorVehicleDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_MOTORVEHICLEDEF; 
+uint32 MotorVehicleDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_MOTORVEHICLEDEF;
 }
 
 const PersistFactoryClass & MotorVehicleDefClass::Get_Factory (void) const

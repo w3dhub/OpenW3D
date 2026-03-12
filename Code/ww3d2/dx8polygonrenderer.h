@@ -61,10 +61,10 @@ class DX8TextureCategoryClass;
 ** This is a record of a batch/range of polygons to be rendered.  These hang off of the DX8TextureCategoryClass's
 ** and are rendered after the system installs a vertex buffer and textures in the DX8 wrapper.
 */
-class DX8PolygonRendererClass : public MultiListObjectClass 
+class DX8PolygonRendererClass : public MultiListObjectClass
 {
 	MeshClass *						mesh;
-	DX8TextureCategoryClass *	texture_category;			
+	DX8TextureCategoryClass *	texture_category;
 	unsigned							index_offset;				// absolute index of index 0 for our parent mesh
 	unsigned							vertex_offset;				// absolute index of vertex 0 for our parent mesh
 	unsigned							index_count;				// number of indices
@@ -86,13 +86,13 @@ public:
 	void								Render(/*const Matrix3D & tm,*/int base_vertex_offset);
 	void								Render_Sorted(/*const Matrix3D & tm,*/int base_vertex_offset,const SphereClass & bounding_sphere);
 	void								Set_Vertex_Index_Range(unsigned min_vertex_index_,unsigned vertex_index_range_);
-	
+
 	unsigned							Get_Vertex_Offset(void)	{ return vertex_offset; }
 	unsigned							Get_Index_Offset(void)	{ return index_offset; }
 
 	MeshClass*						Get_Mesh_Class() { return mesh; }
 //	MeshModelClass*				Get_Mesh_Model_Class() { return mesh->Peek_Model(); }
-	
+
 	DX8TextureCategoryClass*	Get_Texture_Category() { return texture_category; }
 	void								Set_Texture_Category(DX8TextureCategoryClass* tc) { texture_category=tc; }
 

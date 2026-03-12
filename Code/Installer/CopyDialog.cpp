@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/CopyDialog.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/12/02 7:32p                 $* 
- *                                                                                             * 
- *                    $Revision:: 15                    $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/CopyDialog.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/12/02 7:32p                 $*
+ *                                                                                             *
+ *                    $Revision:: 15                    $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -55,7 +55,7 @@
 
 
 // Defines.
-#define MODEL_COUNT			13 
+#define MODEL_COUNT			13
 #define MODEL_DISPLAY_TIME	22000		// Display time for each model (in milliseconds).
 
 
@@ -75,7 +75,7 @@ static const char	*_ModelNames [MODEL_COUNT] = {"C_AG_GDI_MG",
 																"ENC_GPWR"
 															  };
 
-	
+
 static const char	*_AnimNames [MODEL_COUNT]  = {"S_A_HUMAN.H_A_A0A1",
 																"S_A_HUMAN.H_A_A0B1",
 																"S_A_HUMAN.H_A_A0A1",
@@ -121,7 +121,7 @@ static const int _ModelDescriptions [MODEL_COUNT] = {IDS_GDI_SOLDIER_DESCRIPTION
 																	  IDS_GDI_POWER_PLANT_DESCRIPTION
 																	 };
 
-																	  
+
 /***********************************************************************************************
  * CopyDialogClass::CopyDialogClass --																			  *
  *                                                                                             *
@@ -132,7 +132,7 @@ static const int _ModelDescriptions [MODEL_COUNT] = {IDS_GDI_SOLDIER_DESCRIPTION
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 CopyDialogClass::CopyDialogClass()
 	: InstallMenuDialogClass (IDD_DIALOG_COPY),
@@ -158,14 +158,14 @@ CopyDialogClass::CopyDialogClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::On_Init_Dialog (void)
 {
 	WideStringClass sourcepath;
 
 	ViewerCtrlClass *viewercontrol = Get_Dlg_Item (IDC_COPY_VIEWER)->As_ViewerCtrlClass();
-	
+
 	// Disable the OK button until copying is complete.
 	Enable_Dlg_Item (IDOK, false);
 
@@ -193,7 +193,7 @@ void CopyDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::On_Activate (bool onoff)
 {
@@ -218,7 +218,7 @@ void CopyDialogClass::On_Activate (bool onoff)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::On_Frame_Update (void)
 {
@@ -243,11 +243,11 @@ void CopyDialogClass::On_Frame_Update (void)
  			// Advance to next model if timer has 'gone off'.
 			if (CountdownTimer->Value() == 0) {
 				CurrentModel = (CurrentModel + 1) % MODEL_COUNT;
-				Set_Model (CurrentModel);	
+				Set_Model (CurrentModel);
 		 		delete CountdownTimer;
 				CountdownTimer = new CDTimerClass <SafeTimerClass> (MODEL_DISPLAY_TIME);
 			}
-			
+
 			// Update the progress bar.
 			statustext1->Set_Text (statusmessage);
 			statustext2->Set_Text (L"");
@@ -268,17 +268,17 @@ void CopyDialogClass::On_Frame_Update (void)
 		case CopyThreadClass::STATUS_SUCCESS:
 
 			Remove_Models();
-			
+
  			// Advance to next model if timer has 'gone off'.
 			if (CountdownTimer->Value() == 0) {
 				CurrentModel = (CurrentModel + 1) % MODEL_COUNT;
-				Set_Model (CurrentModel);	
+				Set_Model (CurrentModel);
 		 		delete CountdownTimer;
 				CountdownTimer = new CDTimerClass <SafeTimerClass> (MODEL_DISPLAY_TIME);
 			}
 
 			if (FlashTimer == NULL) {
-				
+
 				FlashTimer = new TTimerClass <SafeTimerClass>;
 
 				// Allow the user to continue by enabling the OK button.
@@ -305,9 +305,9 @@ void CopyDialogClass::On_Frame_Update (void)
 
 			// Cancel this dialog if the copy thread has terminated.
 			if (!CopyThread->Is_Running()) {
-				
+
 				MenuDialogClass::On_Command (IDCANCEL, 0, 0);
-			
+
 				// NOTE: Must return because this object may have already been deleted.
 				return;
 			}
@@ -319,7 +319,7 @@ void CopyDialogClass::On_Frame_Update (void)
 
 			// A fatal error has occurred.
 			CopyThread->Get_Error_Message (errormessage);
-			throw (errormessage);	
+			throw (errormessage);
 		}
 
 		default:
@@ -340,7 +340,7 @@ void CopyDialogClass::On_Frame_Update (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::Add_Models()
 {
@@ -374,14 +374,14 @@ void CopyDialogClass::Add_Models()
 		}
 
 		Set_Model (CurrentModel);
-		
-		AddedModels = true;	
+
+		AddedModels = true;
 	}
 }
 
 
 /***********************************************************************************************
- * CopyDialogClass::Set_Model --																					  *	
+ * CopyDialogClass::Set_Model --																					  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -390,14 +390,14 @@ void CopyDialogClass::Add_Models()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::Set_Model (unsigned modelindex)
 {
-	const float	rotationrate = 45.0f;	
+	const float	rotationrate = 45.0f;
 
 	// Set the appropriate model, animation and interface for the viewer.
-	
+
 	ViewerCtrlClass *viewercontrol = Get_Dlg_Item (IDC_COPY_VIEWER)->As_ViewerCtrlClass();
 
 	Set_Dlg_Item_Text (IDC_COPY_HEADER, TxWideStringClass (_ModelHeadings [modelindex]));
@@ -406,7 +406,7 @@ void CopyDialogClass::Set_Model (unsigned modelindex)
 	viewercontrol->Set_Model (_ModelNames [modelindex]);
 	viewercontrol->Set_Animation (_AnimNames [modelindex]);
 	viewercontrol->Set_Interface_Mode (ViewerCtrlClass::Z_ROTATION, rotationrate);
-		
+
 	//	Traverse the model...
 	for (int index = 0; index < viewercontrol->Peek_Model()->Get_Num_Sub_Objects(); index++) {
 
@@ -428,7 +428,7 @@ void CopyDialogClass::Set_Model (unsigned modelindex)
 
 
 /***********************************************************************************************
- * CopyDialogClass::Remove_Models --																			  *	
+ * CopyDialogClass::Remove_Models --																			  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -437,7 +437,7 @@ void CopyDialogClass::Set_Model (unsigned modelindex)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::Remove_Models()
 {
@@ -463,7 +463,7 @@ void CopyDialogClass::Remove_Models()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::End_Dialog (void)
 {
@@ -494,7 +494,7 @@ void CopyDialogClass::End_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::Callback (int id, PopupDialogClass *popup)
 {
@@ -513,15 +513,15 @@ void CopyDialogClass::Callback (int id, PopupDialogClass *popup)
  				REF_PTR_RELEASE (popup);
 				CountdownTimer->Start();
 				break;
-				
+
  			default:
  				break;
 		}
 
 	} else {
-			
+
 		switch (id) {
-		
+
 			case IDC_BUTTON_YES:
 				CopyThread->Set_Abort (true);
 				CountdownTimer->Start();
@@ -553,7 +553,7 @@ void CopyDialogClass::Callback (int id, PopupDialogClass *popup)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
@@ -572,7 +572,7 @@ void CopyDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 				MenuDialogClass::On_Command (IDCANCEL, 0, 0);
 				return;
 			} else {
-			
+
 				// Can the user cancel?
 				// NOTE: User will not be able to cancel if the copying process is uninterruptable because,
 				//			for example, it is updating the registry.
@@ -586,6 +586,6 @@ void CopyDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
  		default:
 			break;
 	}
-	
+
 	InstallMenuDialogClass::On_Command (ctrl_id, message_id, param);
 }

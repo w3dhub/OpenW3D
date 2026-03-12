@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/commando/level.cpp                           $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/16/02 8:56a                                               $* 
- *                                                                                             * 
- *                    $Revision:: 81                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/commando/level.cpp                           $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/16/02 8:56a                                               $*
+ *                                                                                             *
+ *                    $Revision:: 81                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "level.h"
@@ -64,7 +64,7 @@ WWPROFILE( "Release Level" );
    SoundSceneClass *sound_scene = WWAudioClass::Get_Instance ()->Get_Sound_Scene ();
 	if( sound_scene != NULL ) {
 		sound_scene->Flush_Scene ();
-	}	
+	}
 
 	WWAudioClass::Get_Instance ()->Flush_Playlist ();
 
@@ -77,7 +77,7 @@ WWPROFILE( "Release Level" );
 }
 
 {WWPROFILE( "Free assets" );
-	WW3DAssetManager::Get_Instance()->Free_Assets();	
+	WW3DAssetManager::Get_Instance()->Free_Assets();
 }
 }
 

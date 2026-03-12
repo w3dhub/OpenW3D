@@ -51,12 +51,12 @@
 class LightSettingsClass
 {
 	public:
-		
+
 		///////////////////////////////////////////////////
 		//
 		//	Public methods
 		//
-		
+
 		//
 		// Information retrieval methods
 		//
@@ -92,12 +92,12 @@ class LightSettingsClass
 class SoundSettingsClass
 {
 	public:
-		
+
 		///////////////////////////////////////////////////
 		//
 		//	Public methods
 		//
-		
+
 		//
 		// Information retrieval methods
 		//
@@ -122,16 +122,16 @@ class SoundSettingsClass
 
 		virtual bool						Is_3D (void) const = 0;
 		virtual void						Set_3D (bool is_3d) = 0;
-		
+
 		virtual float						Get_Priority (void) const = 0;
 		virtual void						Set_Priority (float priority)	= 0;
-		
+
 		virtual void						Set_Max_Vol_Radius (float radius = 0) = 0;
 		virtual float						Get_Max_Vol_Radius (void) const = 0;
-		
+
 		virtual void						Set_DropOff_Radius (float radius = 1) = 0;
 		virtual float						Get_DropOff_Radius (void) const = 0;
-		
+
 		virtual void						Set_Filename (LPCTSTR filename) = 0;
 		virtual LPCTSTR					Get_Filename (void) const = 0;
 

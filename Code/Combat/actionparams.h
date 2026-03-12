@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/actionparams.h                        $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/19/02 11:31a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 30                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/actionparams.h                        $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/19/02 11:31a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 30                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	ACTIONPARAMS_H
@@ -82,7 +82,7 @@ public:
 	void	Set_Basic( GameObjObserverClass * script, float priority, int action_id, SoldierAIState ai_state = NO_AI_STATE_CHANGE ) { ObserverID = script->Get_ID(); Priority = priority; ActionID = action_id; AIState = ai_state; }
    void	Set_Basic( int observer_id, float priority, int action_id, SoldierAIState ai_state = NO_AI_STATE_CHANGE ) { ObserverID = observer_id; Priority = priority; ActionID = action_id; AIState = ai_state; }
 
-	void	Set_Look( const Vector3 & location, float duration ) { LookLocation = location; LookDuration = duration; }	
+	void	Set_Look( const Vector3 & location, float duration ) { LookLocation = location; LookDuration = duration; }
 	void	Set_Look( GameObject * object, float duration ) { LookObject = object; LookDuration = duration; }
 	void	Set_Look( const Vector3 & obj_pos, float angle,  float duration );
 
@@ -150,7 +150,7 @@ public:
 	bool					AnimationLooping;
 
 	int					ActiveConversationID;
-	const char *		ConversationName;	
+	const char *		ConversationName;
 	SoldierAIState		AIState;
 
 	Vector3				DockLocation;

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/combatsaveload.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/17/02 11:58a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 34                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/combatsaveload.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/17/02 11:58a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 34                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "combatsaveload.h"
@@ -190,7 +190,7 @@ bool	CombatSaveLoadClass::Load( ChunkLoadClass &cload )
 			case CHUNKID_RADAR:
 				RadarManager::Load( cload );
 				break;
-			
+
 			case CHUNKID_GAME_OBJ_OBSERVERS:
 				GameObjObserverManager::Load( cload );
 				break;
@@ -233,6 +233,6 @@ bool	CombatSaveLoadClass::Load( ChunkLoadClass &cload )
 }
 
 
-void	CombatSaveLoadClass::On_Post_Load(void) 
+void	CombatSaveLoadClass::On_Post_Load(void)
 {
 }

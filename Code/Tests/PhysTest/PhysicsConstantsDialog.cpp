@@ -70,14 +70,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPhysicsConstantsDialog message handlers
 
-BOOL CPhysicsConstantsDialog::OnInitDialog() 
+BOOL CPhysicsConstantsDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	m_LDampingSpin.SetRange(MIN_DAMPING * 100,MAX_DAMPING * 100);
 	m_ADampingSpin.SetRange(MIN_DAMPING * 100,MAX_DAMPING * 100);
 	m_GravityAccelSpin.SetRange(MIN_GRAVITY * 100,MAX_GRAVITY * 100);
-	
+
 	m_LDampingSpin.SetPos(PhysicsConstants::LinearDamping * 100);
 	m_LDampingSpin.SetPos(PhysicsConstants::LinearDamping * 100);
 	m_GravityAccelSpin.SetPos(PhysicsConstants::GravityAcceleration.Z * 100);
@@ -86,13 +86,13 @@ BOOL CPhysicsConstantsDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_ADAMPING_EDIT,PhysicsConstants::AngularDamping);
 	SetDlgItemFloat(IDC_GRAVITYACCEL_EDIT,PhysicsConstants::GravityAcceleration.Z);
 
-	return true;	
+	return true;
 }
 
-BOOL CPhysicsConstantsDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 
+BOOL CPhysicsConstantsDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	// make the spin controls work...
-	switch(wParam) 
+	switch(wParam)
 	{
 		case IDC_LDAMPING_SPIN:
 		case IDC_ADAMPING_SPIN:
@@ -110,12 +110,12 @@ BOOL CPhysicsConstantsDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pR
 	return CDialog::OnNotify(wParam, lParam, pResult);
 }
 
-void CPhysicsConstantsDialog::OnOK() 
+void CPhysicsConstantsDialog::OnOK()
 {
 	PhysicsConstants::LinearDamping = GetDlgItemFloat(IDC_LDAMPING_EDIT);
 	PhysicsConstants::AngularDamping = GetDlgItemFloat(IDC_ADAMPING_EDIT);
 	PhysicsConstants::GravityAcceleration.Z = GetDlgItemFloat(IDC_GRAVITYACCEL_EDIT);
-	
+
 	CDialog::OnOK();
 }
 

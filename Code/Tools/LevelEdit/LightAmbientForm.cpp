@@ -110,7 +110,7 @@ void LightAmbientFormClass::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 void
 LightAmbientFormClass::HandleInitDialog (void)
-{	
+{
 	//
 	//	Create the color picker
 	//

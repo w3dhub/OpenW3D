@@ -92,9 +92,9 @@ class PathfindSectorBuilderClass
 
 		void					Compress_Sectors (void);
 		void					Free_Sectors (void);
-		
+
 		void					Import_Raw_Data (void);
-		
+
 	private:
 
 		////////////////////////////////////////////////////////////////////
@@ -102,12 +102,12 @@ class PathfindSectorBuilderClass
 		////////////////////////////////////////////////////////////////////
 		BodyBoxCullObj *					m_CurrentSector;
 		Phys3Class *						m_PhysicsSim;
-		PhysControllerClass				m_Controller;		
+		PhysControllerClass				m_Controller;
 		Vector3								m_SimBoundingBox;
 		int									m_RecurseLevel;
 		int									m_RepartitionCount;
-		bool									m_bCancel;		
-		
+		bool									m_bCancel;
+
 		SECTOR_LIST							m_SectorList;
 		BODY_BOX_LIST						m_FloodFillProcessList;
 		BODY_BOX_CULLING_SYSTEM			m_BodyBoxCullingSystem;

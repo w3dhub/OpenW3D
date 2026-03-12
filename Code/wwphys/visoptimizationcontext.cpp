@@ -47,7 +47,7 @@
 
 const float MIN_OBJECT_MATCH_FRACTION = 0.99f;
 const float MIN_SECTOR_MATCH_FRACTION = 0.99f;
-const float MIN_PRUNE_MATCH_FRACTION = 0.90f;		
+const float MIN_PRUNE_MATCH_FRACTION = 0.90f;
 
 
 /***************************************************************************************************
@@ -56,18 +56,18 @@ const float MIN_PRUNE_MATCH_FRACTION = 0.90f;
 **
 ***************************************************************************************************/
 
-VisOptimizationContextClass::PVSInfoStruct::PVSInfoStruct(void) : 
-	Table(NULL), 
+VisOptimizationContextClass::PVSInfoStruct::PVSInfoStruct(void) :
+	Table(NULL),
 	UnUsed(false)
-{ 
+{
 }
 
 VisOptimizationContextClass::PVSInfoStruct::~PVSInfoStruct(void)
-{ 
-	REF_PTR_RELEASE(Table); 
+{
+	REF_PTR_RELEASE(Table);
 }
 
-const VisOptimizationContextClass::PVSInfoStruct & 
+const VisOptimizationContextClass::PVSInfoStruct &
 VisOptimizationContextClass::PVSInfoStruct::operator = (const PVSInfoStruct & that)
 {
 	REF_PTR_SET(Table,that.Table);
@@ -119,7 +119,7 @@ void VisOptimizationContextClass::Optimize
 )
 {
 	/*
-	** Generate the object tables 
+	** Generate the object tables
 	*/
 	Build_Object_Tables(vis_mgr);
 
@@ -162,7 +162,7 @@ void VisOptimizationContextClass::Build_Object_Tables(VisTableMgrClass * vis_mgr
 	int i,j;
 	int sector_count = vis_mgr->Get_Vis_Table_Count();
 	int object_count = vis_mgr->Get_Vis_Table_Size();
-	
+
 	ObjectTables.Resize(object_count);
 	for (i=0; i<object_count; i++) {
 		PVSInfoStruct objinfo;
@@ -206,7 +206,7 @@ void VisOptimizationContextClass::Combine_Redundant_Objects(void)
 		VisTableClass *table_i = NEW_REF (VisTableClass, (*(ObjectTables[i].Table)));
 
 		for (j=i+1; j<ObjectTables.Count(); j++) {
-		
+
 			/*
 			** Compare table 'j' with the original copy of table 'i'
 			*/
@@ -215,7 +215,7 @@ void VisOptimizationContextClass::Combine_Redundant_Objects(void)
 				Combine_Object_Tables(i,j);
 				Stats.Increment_Objects_Merged();
 				j--;
-			}			
+			}
 		}
 
 		Stats.Increment_Completed_Operations();
@@ -251,7 +251,7 @@ void VisOptimizationContextClass::Combine_Redundant_Sectors(void)
 		VisTableClass *table_i = NEW_REF (VisTableClass, (*(SectorTables[i].Table)));
 
 		for (j=i+1; j<SectorTables.Count(); j++) {
-	
+
 			/*
 			** Compare table 'j' with the original copy of table 'i'
 			*/
@@ -260,7 +260,7 @@ void VisOptimizationContextClass::Combine_Redundant_Sectors(void)
 				Combine_Sector_Tables(i,j);
 				Stats.Increment_Sectors_Merged();
 				j--;
-			}			
+			}
 		}
 		Stats.Increment_Completed_Operations(1);
 		REF_PTR_RELEASE (table_i);
@@ -363,7 +363,7 @@ void VisOptimizationContextClass::Install_Results(VisTableMgrClass * vismgr)
 
 			vismgr->Update_Vis_Table(i,SectorTables[i].Table);
 			REF_PTR_RELEASE(SectorTables[i].Table);
-		
+
 		}
 	}
 }

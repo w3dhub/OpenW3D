@@ -66,7 +66,7 @@ public:
 
 	void				Set_Current_Mesh_Name(const char * name)		{ CurrentMeshName = name; }
 	void				Set_Current_Mesh_Vertex_Count(int vcount)		{ CurrentVertexCount = vcount; }
-	void				Set_Current_Vertex(int index)						{ CurrentVertex = index; }	
+	void				Set_Current_Vertex(int index)						{ CurrentVertex = index; }
 
 	/*
 	** Cancellation request

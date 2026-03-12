@@ -114,14 +114,14 @@ protected:
 
 
 /*
-** CollectionPrototypeClass this is the render object prototype for 
+** CollectionPrototypeClass this is the render object prototype for
 ** Collections.
 */
 class CollectionPrototypeClass : public PrototypeClass
 {
 public:
 	CollectionPrototypeClass(CollectionDefClass * def)		{ ColDef = def; WWASSERT(ColDef); }
-	virtual ~CollectionPrototypeClass(void)					{ delete ColDef; }						 
+	virtual ~CollectionPrototypeClass(void)					{ delete ColDef; }
 
 	virtual const char *			Get_Name(void) const override			{ return ColDef->Get_Name(); }
 	virtual int						Get_Class_ID(void) const override	{ return RenderObjClass::CLASSID_COLLECTION; }
@@ -162,7 +162,7 @@ CollectionClass::CollectionClass(void) :
  *   12/8/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 CollectionClass::CollectionClass(const CollectionDefClass & def) :
-	SubObjects(def.ObjectNames.Count()),	
+	SubObjects(def.ObjectNames.Count()),
 	SnapPoints(NULL)
 {
 	// Set our name
@@ -178,8 +178,8 @@ CollectionClass::CollectionClass(const CollectionDefClass & def) :
 
 	// Copy the list of placeholder objects from the definition
 	ProxyList = def.ProxyList;
-		
-	// grab ahold of the snap points.	
+
+	// grab ahold of the snap points.
 	SnapPoints = def.SnapPoints;
 	if (SnapPoints) SnapPoints->Add_Ref();
 
@@ -239,7 +239,7 @@ CollectionClass & CollectionClass::operator = (const CollectionClass & that)
 
 		// Copy the list of placeholder objects from the definition
 		ProxyList = that.ProxyList;
-		
+
 		SnapPoints = that.SnapPoints;
 		if (SnapPoints) SnapPoints->Add_Ref();
 
@@ -282,7 +282,7 @@ CollectionClass::~CollectionClass(void)
  *=============================================================================================*/
 RenderObjClass * CollectionClass::Clone(void) const
 {
-	return NEW_REF( CollectionClass, (*this));	
+	return NEW_REF( CollectionClass, (*this));
 }
 
 
@@ -308,7 +308,7 @@ void CollectionClass::Free(void)
 	SubObjects.Delete_All();
 	ProxyList.Delete_All ();
 
-	REF_PTR_RELEASE(SnapPoints);	
+	REF_PTR_RELEASE(SnapPoints);
 }
 
 
@@ -527,14 +527,14 @@ int CollectionClass::Add_Sub_Object(RenderObjClass * subobj)
 int CollectionClass::Remove_Sub_Object(RenderObjClass * robj)
 {
 	if (robj == NULL) return 0;
-	
+
 	int res = 0;
 
 	Matrix3D tm = Get_Transform();
 
 	for (int i=0; i<SubObjects.Count(); i++) {
 		if (robj == SubObjects[i]) {
-			
+
 			if (Is_In_Scene()) {
 				SubObjects[i]->Notify_Removed(Scene);
 			}
@@ -809,21 +809,21 @@ void CollectionClass::Update_Obj_Space_Bounding_Volumes(void)
 		BoundBox.Extent.Set(0,0,0);
 		return;
 	}
-	
+
 	Matrix3D tm = Get_Transform();
 	Set_Transform(Matrix3D(1));
 
 	// loop through all sub-objects, combining their bounding spheres.
 	BoundSphere = SubObjects[0]->Get_Bounding_Sphere();
 	for (i=1; i < SubObjects.Count(); i++) {
-		BoundSphere.Add_Sphere(SubObjects[i]->Get_Bounding_Sphere());				
+		BoundSphere.Add_Sphere(SubObjects[i]->Get_Bounding_Sphere());
 	}
 
-	// loop through the sub-objects, computing a box in the root coordinate 
+	// loop through the sub-objects, computing a box in the root coordinate
 	// system which bounds all of the meshes.  Note that we've set the
 	// root coordinate system to identity for this.
 	MinMaxAABoxClass box(Vector3(FLT_MAX,FLT_MAX,FLT_MAX),Vector3(-FLT_MAX,-FLT_MAX,-FLT_MAX));
-	
+
 	for (i=0; i < SubObjects.Count(); i++) {
 		box.Add_Box(SubObjects[i]->Get_Bounding_Box());
 	}
@@ -880,14 +880,14 @@ bool CollectionClass::Get_Proxy (int index, ProxyClass &proxy) const
 	bool retval = false;
 
 	if (index >= 0 && index < ProxyList.Count ()) {
-		
+
 		//
 		// Return the proxy information to the caller
 		//
 		proxy		= ProxyList[index];
 		retval	= true;
 	}
-	
+
 	return retval;
 }
 
@@ -1001,7 +1001,7 @@ const char * CollectionDefClass::Get_Name(void) const
 WW3DErrorType CollectionDefClass::Load(ChunkLoadClass & cload)
 {
 	Free();
-	
+
 	// open the header chunk and read it in
 	W3dCollectionHeaderStruct header;
 	if (!cload.Open_Chunk()) goto Error;
@@ -1011,9 +1011,9 @@ WW3DErrorType CollectionDefClass::Load(ChunkLoadClass & cload)
 
 	strncpy(Name,header.Name,W3D_NAME_LEN);
 	ObjectNames.Resize(header.RenderObjectCount);
-	
+
 	while (cload.Open_Chunk()) {
-		switch (cload.Cur_Chunk_ID()) 
+		switch (cload.Cur_Chunk_ID())
 		{
 		case W3D_CHUNK_COLLECTION_OBJ_NAME:
 			{
@@ -1057,11 +1057,11 @@ WW3DErrorType CollectionDefClass::Load(ChunkLoadClass & cload)
 
 		cload.Close_Chunk();
 	}
-	
+
 	return WW3D_ERROR_OK;
 
 Error:
-	
+
 	return WW3D_ERROR_LOAD_FAILED;
 }
 
@@ -1092,11 +1092,11 @@ PrototypeClass * CollectionLoaderClass::Load_W3D(ChunkLoadClass & cload)
 		return NULL;
 
 	} else {
-	
-		// ok, accept this model! 
+
+		// ok, accept this model!
 		CollectionPrototypeClass * proto = new CollectionPrototypeClass(def);
 		return proto;
-	
+
 	}
 }
 

@@ -41,7 +41,7 @@
 #include "phys.h"
 
 
-DynTexProjectClass::DynTexProjectClass(PhysClass * shadow_generator) : 
+DynTexProjectClass::DynTexProjectClass(PhysClass * shadow_generator) :
 	ProjectionObject(shadow_generator),
 	LightSourceID(0xFFFFFFFF),
 	LightVector(0.0f,0.0f,-1.0f)

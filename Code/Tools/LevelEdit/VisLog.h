@@ -68,7 +68,7 @@ typedef DynamicVectorClass<VisSampleClass *>	VIS_SAMPLE_LIST;
 class VisLogClass
 {
 	public:
-		
+
 		////////////////////////////////////////////////////////////////////////////
 		//	Public constructors/destructors
 		////////////////////////////////////////////////////////////////////////////
@@ -78,12 +78,12 @@ class VisLogClass
 		////////////////////////////////////////////////////////////////////////////
 		//	Public methods
 		////////////////////////////////////////////////////////////////////////////
-		
+
 		// Error addition/removal/viewing
 		void					Log_Sample (const VisSampleClass &vis_sample);
 		void					Reset_Log (void);
 		VIS_SAMPLE_LIST &	Peek_Error_List (void)	{ return m_ErrorList; }
-		
+
 		// Serialization
 		bool					Load (ChunkLoadClass &chunk_load);
 		bool					Save (ChunkSaveClass &chunk_save);

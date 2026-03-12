@@ -128,7 +128,7 @@ FloodfillGridClass::Initialize
 	m_CellSize.Y	= box_extents.Y * 32;
 	m_CellsX	= ((m_WorldMax.X - m_WorldMin.X) / m_CellSize.X) + 1;
 	m_CellsY	= ((m_WorldMax.Y - m_WorldMin.Y) / m_CellSize.Y) + 1;
-	
+
 	//
 	//	Allocate the grid
 	//
@@ -164,13 +164,13 @@ FloodfillGridClass::Collect_Boxes (const AABoxClass &vol)
 	//
 	for (int cell_y = min_cell_y; cell_y <= max_cell_y; cell_y ++) {
 		for (int cell_x = min_cell_x; cell_x <= max_cell_x; cell_x ++) {
-			
+
 			//
 			//	Loop over all the objects in this cell
 			//
 			FloodfillBoxClass *curr_box = m_Grid[cell_y * m_CellsX + cell_x];
 			for (; curr_box != NULL; curr_box = curr_box->Get_Grid_Link ()) {
-				bounding_box.Center = curr_box->Get_Position ();				
+				bounding_box.Center = curr_box->Get_Position ();
 
 				//
 				//	Does this box overlap the collection volume?
@@ -193,7 +193,7 @@ FloodfillGridClass::Collect_Boxes (const AABoxClass &vol)
 ///////////////////////////////////////////////////////////////////////
 FloodfillBoxClass *
 FloodfillGridClass::Find_Box  (const Vector3 &pos)
-{	
+{
 	int index = Get_Cell_Index (pos);
 
 	FloodfillBoxClass *box = NULL;
@@ -202,7 +202,7 @@ FloodfillGridClass::Find_Box  (const Vector3 &pos)
 
 	//
 	//	Loop over all the objects in this cell (looking for one inside the given point)
-	//		
+	//
 	for (	FloodfillBoxClass *curr_box = m_Grid[index];
 			curr_box != NULL && box == NULL;
 			curr_box = curr_box->Get_Grid_Link ())
@@ -262,13 +262,13 @@ FloodfillGridClass::Compute_Box_Count(const AABoxClass & vol)
 	//
 	for (int cell_y = min_cell_y; cell_y <= max_cell_y; cell_y ++) {
 		for (int cell_x = min_cell_x; cell_x <= max_cell_x; cell_x ++) {
-			
+
 			//
 			//	Loop over all the objects in this cell
 			//
 			FloodfillBoxClass *curr_box = m_Grid[cell_y * m_CellsX + cell_x];
 			for (; curr_box != NULL; curr_box = curr_box->Get_Grid_Link ()) {
-				bounding_box.Center = curr_box->Get_Position ();				
+				bounding_box.Center = curr_box->Get_Position ();
 
 				//
 				//	Does this box overlap the collection volume?

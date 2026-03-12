@@ -285,13 +285,13 @@ ButtonCtrlClass::Create_Bitmap_Button (void)
 
 	ShaderClass *shader = ButtonRenderers[0].Get_Shader ();
 	shader->Set_Dst_Blend_Func (ShaderClass::DSTBLEND_ONE);
-	shader->Set_Src_Blend_Func (ShaderClass::SRCBLEND_ONE);	
+	shader->Set_Src_Blend_Func (ShaderClass::SRCBLEND_ONE);
 
 	shader = ButtonRenderers[1].Get_Shader ();
 	shader->Set_Dst_Blend_Func (ShaderClass::DSTBLEND_ONE);
 	shader->Set_Src_Blend_Func (ShaderClass::SRCBLEND_ONE);	*/
 
-	
+
 	return ;
 }
 
@@ -303,7 +303,7 @@ ButtonCtrlClass::Create_Bitmap_Button (void)
 ////////////////////////////////////////////////////////////////
 void
 Blit_Section
-(	
+(
 	Render2DClass &	  renderer,
 	const Vector2 &	  screen_pos,
 	const Vector2 &	  texture_pos,
@@ -319,7 +319,7 @@ Blit_Section
 
 	RectClass uv_rect (texture_pos.X, texture_pos.Y, texture_pos.X + pixels.X, texture_pos.Y + pixels.Y);
 	uv_rect.Inverse_Scale (Vector2 (texture_dimensions.X, texture_dimensions.Y));
-	
+
 	renderer.Add_Quad (screen_rect, uv_rect);
 	return ;
 }
@@ -384,7 +384,7 @@ ButtonCtrlClass::Create_Component_Button (void)
 		Vector2 (edge_width, height), texture_dimensions);
 
 
-	Vector2 horz_top_pos (left + ((right-left) / 2) - 5, top);	
+	Vector2 horz_top_pos (left + ((right-left) / 2) - 5, top);
 	Vector2 horz_bottom_pos (left + ((right-left) / 2) - 5, bottom - height);
 	Vector2 horz_size (10, height);
 
@@ -426,7 +426,7 @@ ButtonCtrlClass::Create_Component_Button (void)
 
 		::Blit_Section (ButtonRenderers[0], Vector2 (Rect.Right - edge_width, y_pos), vert_right_pos,
 			vert_size, texture_dimensions);
- 		
+
 		y_pos += vert_size.Y;
 		remaining_height -= vert_size.Y;
 	}
@@ -445,7 +445,7 @@ ButtonCtrlClass::Create_Component_Button (void)
 	/*y_pos = Rect.Top + height;
 	remaining_height = Rect.Height () - (height * 2);
 	while (remaining_height > 0) {
-		
+
 		x_pos = Rect.Left + edge_width;
 		remaining_width = Rect.Width () - (edge_width * 2);
 		while (remaining_width > 0) {
@@ -470,7 +470,7 @@ ButtonCtrlClass::Create_Component_Button (void)
 
 	ShaderClass *shader = ButtonRenderers[0].Get_Shader ();
 	shader->Set_Dst_Blend_Func (ShaderClass::DSTBLEND_ONE);
-	shader->Set_Src_Blend_Func (ShaderClass::SRCBLEND_ONE);	
+	shader->Set_Src_Blend_Func (ShaderClass::SRCBLEND_ONE);
 
 	shader = ButtonRenderers[1].Get_Shader ();
 	shader->Set_Dst_Blend_Func (ShaderClass::DSTBLEND_ONE);
@@ -495,8 +495,8 @@ ButtonCtrlClass::Create_Component_Button2 (void)
 	//
 	//	Turn off texturing on the UI background
 	//
-	ButtonRenderers[0].Enable_Texturing (false);	
-	ButtonRenderers[1].Enable_Texturing (false);	
+	ButtonRenderers[0].Enable_Texturing (false);
+	ButtonRenderers[1].Enable_Texturing (false);
 	const int BLACK	= VRGB_TO_INT32 (Vector3 (0, 0, 0));
 	const int WHITE	= VRGB_TO_INT32 (Vector3 (1, 1, 1));
 	const int DK_GRAY	= VRGB_TO_INT32 (Vector3 (0.5F, 0.5F, 0.5F));
@@ -517,7 +517,7 @@ ButtonCtrlClass::Create_Component_Button2 (void)
 	ButtonRenderers[1].Add_Line (Vector2 (rect.Right, rect.Top),		Vector2 (rect.Right, rect.Bottom),	1, WHITE);
 	ButtonRenderers[1].Add_Line (Vector2 (rect.Right, rect.Bottom),	Vector2 (rect.Left, rect.Bottom),	1, WHITE);
 
-	
+
 	//
 	//	Draw the inside button outline
 	//
@@ -611,7 +611,7 @@ ButtonCtrlClass::On_Frame_Update (void)
 	} else {
 		Update_Pulse (false);
 	}
-	
+
 	return ;
 }
 
@@ -713,7 +713,7 @@ ButtonCtrlClass::Update_Pulse (bool is_mouse_over)
 
 	if (IsEnabled) {
 
-		if (is_mouse_over) {		
+		if (is_mouse_over) {
 
 			//
 			//	Examine the current time to determine what
@@ -737,7 +737,7 @@ ButtonCtrlClass::Update_Pulse (bool is_mouse_over)
 			//
 			color = VRGB_TO_INT32 (Vector3 (value, value, value));
 		} else {
-		
+
 			color = RGB_TO_INT32 (0xff, 0xff, 0xff);
 			PulseTime = PULSE_LEN;
 		}
@@ -746,7 +746,7 @@ ButtonCtrlClass::Update_Pulse (bool is_mouse_over)
 
 		color = RGB_TO_INT32 (0x60, 0x60, 0x60);
 	}
-	
+
 	//
 	//	Update the color vector arrays
 	//

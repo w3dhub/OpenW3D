@@ -16,7 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// 
+//
 // skeleton.cpp : Defines the entry point for the application.
 //
 // Skeleton WW3D code, Hector Yee, 8/31/00
@@ -71,7 +71,7 @@ CameraClass *			my_camera = NULL;
 Render2DTextClass *	mytext = NULL;
 RenderObjClass *		orig_object = NULL;
 RenderObjClass *		shift_object = NULL;
-HAnimClass *			my_anim = NULL; 
+HAnimClass *			my_anim = NULL;
 Font3DInstanceClass *my_font_a=NULL;
 Font3DInstanceClass *my_font_b=NULL;
 
@@ -162,7 +162,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 {
 	HACCEL hAccelTable;
 	hAccelTable = LoadAccelerators(hInstance, (const char*)IDC_SKELETON);
-	
+
 	// install debug callbacks
 	WWDebug_Install_Message_Handler(WWDebug_Message_Callback);
 	WWDebug_Install_Assert_Handler(WWAssert_Callback);
@@ -176,45 +176,45 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	hInst = hInstance; // Store instance handle in our global variable
 	HWND hWnd = CreateWindow(
-		szWindowClass, 
-		szTitle, 
+		szWindowClass,
+		szTitle,
 		WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 
-		0, 
-		CW_USEDEFAULT, 
-		0, 
-		NULL, 
-		NULL, 
-		hInstance, 
+      CW_USEDEFAULT,
+		0,
+		CW_USEDEFAULT,
+		0,
+		NULL,
+		NULL,
+		hInstance,
 		NULL);
 
 	ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   // WW Inits 
+   // WW Inits
 	WWMath::Init ();
-	AssetManager=new ENBAssetManager;	
+	AssetManager=new ENBAssetManager;
 	AssetManager->Register_Prototype_Loader(&_ParticleEmitterLoader);
-	WW3D::Init(hWnd);	
+	WW3D::Init(hWnd);
 	WW3D::Set_Texture_Thumbnail_Mode(WW3D::TEXTURE_THUMBNAIL_MODE_ON);
 
 //	WW3D::Set_Prelit_Mode(WW3D::PRELIT_MODE_VERTEX);
 	WW3D::Set_Prelit_Mode(WW3D::PRELIT_MODE_LIGHTMAP_MULTI_PASS);
 //	WW3D::Set_Prelit_Mode(WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
 	WW3D::Set_Collision_Box_Display_Mask(0xFF);
-	
+
 	if (WW3D::Set_Render_Device(0,800,600,32,1,true)!=WW3D_ERROR_OK) {
 		WW3D::Shutdown();
 		WWMath::Shutdown ();
 		Debug_Refs();
 		return 0;
 	}
-	
+
 	Init_3D_Scene();
-	WW3D::Enable_Static_Sort_Lists(staticsort);		
+	WW3D::Enable_Static_Sort_Lists(staticsort);
 	WW3D::Enable_Sorting(sort);
 
-	// main loop	
+	// main loop
 	int time=timeGetTime();
 	float theta = 0.0f;
 
@@ -223,25 +223,25 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		if (rotate) {
 			theta += DEG_TO_RADF(0.5f);
 			Matrix3D tm(1);
-			tm.Rotate_Z(theta);			
+			tm.Rotate_Z(theta);
 			if (orig_object) orig_object->Set_Transform(tm);
 			if (shift_object) shift_object->Set_Transform(tm);
 
 			const SphereClass &sp1=shift_object->Get_Bounding_Sphere();
-			const SphereClass &sp2=orig_object->Get_Bounding_Sphere();		
-			shift_object->Set_Position(Vector3(0,sep,0));	
+			const SphereClass &sp2=orig_object->Get_Bounding_Sphere();
+			shift_object->Set_Position(Vector3(0,sep,0));
 			orig_object->Set_Position(Vector3(0,-sep,0));
-		}		
-		
+		}
+
 		Render();
-		Windows_Message_Handler();		
+		Windows_Message_Handler();
 		WW3D::Sync(timeGetTime()-time);
 
 		Log_Statistics();
 	}
 
 	REF_PTR_RELEASE(my_scene);
-	REF_PTR_RELEASE(my_camera);	
+	REF_PTR_RELEASE(my_camera);
 	delete mytext;
 	REF_PTR_RELEASE(my_font_a);
 	REF_PTR_RELEASE(my_font_b);
@@ -269,14 +269,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 void Render()
 {
 	// Predictive LOD optimizer optimizes the mesh LOD levels to match the given polygon budget
-	
+
 	my_scene->Visibility_Check(my_camera);
 	PredictiveLODOptimizerClass::Optimize_LODs(150000);
 
-	WW3D::Begin_Render(true,true,Vector3(0.5f,0.5f,0.5f));		
+	WW3D::Begin_Render(true,true,Vector3(0.5f,0.5f,0.5f));
 
 	// Render 3D scene
-	WW3D::Render(my_scene,my_camera);	
+	WW3D::Render(my_scene,my_camera);
 
 	if (mytext) mytext->Render();
 
@@ -304,7 +304,7 @@ ATOM MyRegisterClassA(HINSTANCE hInstance)
 {
 	WNDCLASSEXA wcex;
 
-	wcex.cbSize = sizeof(WNDCLASSEX); 
+	wcex.cbSize = sizeof(WNDCLASSEX);
 
 	wcex.style			= CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc	= (WNDPROC)WndProc;
@@ -340,11 +340,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 
-	switch (message) 
+	switch (message)
 	{
 		case WM_COMMAND:
-			wmId    = LOWORD(wParam); 
-			wmEvent = HIWORD(wParam); 
+			wmId    = LOWORD(wParam);
+			wmEvent = HIWORD(wParam);
 			// Parse the menu selections:
 			switch (wmId)
 			{
@@ -367,7 +367,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		case WM_PAINT:
 			hdc = BeginPaint(hWnd, &ps);
-			// TODO: Add any drawing code here...			
+			// TODO: Add any drawing code here...
 			EndPaint(hWnd, &ps);
 			break;
 		case WM_DESTROY:
@@ -396,7 +396,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					break;
 				case 's':
 					staticsort=!staticsort;
-					WW3D::Enable_Static_Sort_Lists(staticsort);		
+					WW3D::Enable_Static_Sort_Lists(staticsort);
 					break;
 				case 'S':
 					sort=!sort;
@@ -427,12 +427,12 @@ LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 				return true;
 
 		case WM_COMMAND:
-			if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL) 
+			if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
 			{
 				EndDialog(hDlg, LOWORD(wParam));
 				return true;
 			}
-			break;		
+			break;
 	}
     return false;
 }
@@ -559,7 +559,7 @@ void Log_Statistics()
 	}
 
 	switch (stats_mode) {
-	case 0:		
+	case 0:
 		Debug_Statistics::Record_Texture_Mode(Debug_Statistics::RECORD_TEXTURE_NONE);
 		break;
 	case 1:
@@ -640,19 +640,19 @@ void	LoadAssets()
 
 	shift_object = ((ENBAssetManager*)AssetManager)->Create_Render_Obj(asset,scale,hsv);
 	orig_object = AssetManager->Create_Render_Obj(asset);
-	
+
 	if (shift_object && orig_object)
 	{
 		const SphereClass &sp1=shift_object->Get_Bounding_Sphere();
-		const SphereClass &sp2=orig_object->Get_Bounding_Sphere();		
+		const SphereClass &sp2=orig_object->Get_Bounding_Sphere();
 
 		my_scene->Add_Render_Object(shift_object);
 		my_scene->Add_Render_Object(orig_object);
 
-		sep=WWMath::Max(sp1.Radius,sp2.Radius);		
-		shift_object->Set_Position(Vector3(0,sep,0));	
+		sep=WWMath::Max(sp1.Radius,sp2.Radius);
+		shift_object->Set_Position(Vector3(0,sep,0));
 		orig_object->Set_Position(Vector3(0,-sep,0));
-	}	
+	}
 
 	Matrix3D camtransform(1);
 	camtransform.Look_At(Vector3(3*sep,0,3*sep),Vector3(0,0,0),0);
@@ -664,15 +664,15 @@ void Init_3D_Scene()
 {
   	my_font_a = AssetManager->Get_Font3DInstance("font12x16.tga");
   	my_font_b = AssetManager->Get_Font3DInstance("fontnew4.tga");
-  
+
   	mytext=new Render2DTextClass(my_font_a);
   	mytext->Set_Coordinate_Range( Render2DClass::Get_Screen_Resolution() );
 
-	// build scene	
+	// build scene
 	my_scene=NEW_REF(SimpleSceneClass,());
-	my_scene->Set_Ambient_Light(Vector3(1.0f,1.0f,1.0f));		
+	my_scene->Set_Ambient_Light(Vector3(1.0f,1.0f,1.0f));
 
-	my_camera=NEW_REF(CameraClass,());	
+	my_camera=NEW_REF(CameraClass,());
 
 	LoadAssets();
 }

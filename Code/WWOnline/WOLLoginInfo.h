@@ -59,7 +59,7 @@ class LoginInfo :
 	public:
 		static const LoginInfoList& GetList(void);
 		static void ClearList(void);
-	
+
 		static RefPtr<LoginInfo> Find(const unichar_t* nickname);
 		static RefPtr<LoginInfo> Find(const char* nickname);
 

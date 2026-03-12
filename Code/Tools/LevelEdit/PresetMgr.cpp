@@ -92,7 +92,7 @@ enum
 //
 ///////////////////////////////////////////////////////////////////////
 PresetMgrClass::PresetMgrClass (void)
-{	
+{
 	return ;
 }
 
@@ -156,7 +156,7 @@ PresetMgrClass::Free_Presets (void)
 		next_preset = curr_preset->m_NextPreset;
 		delete curr_preset;
 	}
-	
+
 	return ;
 }
 
@@ -175,11 +175,11 @@ PresetMgrClass::Add_Preset (PresetClass *preset)
 	//
 	//	Don't link the new preset unless its not in the list.
 	//
-	if ((preset->m_NextPreset == NULL) && 
+	if ((preset->m_NextPreset == NULL) &&
 		 (preset->m_PrevPreset == NULL)) {
 		Link_Preset (preset);
 	}
-	
+
 	return ;
 }
 
@@ -197,7 +197,7 @@ PresetMgrClass::Remove_Preset (PresetClass *preset)
 	//
 	//	Only unlink the preset if its in the list
 	//
-	if ((preset->m_NextPreset != NULL) || 
+	if ((preset->m_NextPreset != NULL) ||
 		 (preset->m_PrevPreset != NULL) ||
 		 (preset == _PresetListHead))
 	{
@@ -221,7 +221,7 @@ PresetMgrClass::Link_Preset (PresetClass *preset)
 
 	// Add this preset in front of the current head of the list
 	preset->m_NextPreset = _PresetListHead;
-	
+
 	// If the list wasn't empty, link the next definiton back to this preset
 	if (preset->m_NextPreset != 0) {
 		preset->m_NextPreset->m_PrevPreset = preset;
@@ -249,7 +249,7 @@ PresetMgrClass::Unlink_Preset (PresetClass *preset)
 		// this preset is the head
 		WWASSERT (_PresetListHead == preset);
 		_PresetListHead = preset->m_NextPreset;
-	
+
 	} else {
 
 		// link it's prev with it's next
@@ -258,7 +258,7 @@ PresetMgrClass::Unlink_Preset (PresetClass *preset)
 	}
 
 	// Handle the preset's next pointer if its not at the end of the list:
-	if (preset->m_NextPreset != 0) {		
+	if (preset->m_NextPreset != 0) {
 		preset->m_NextPreset->m_PrevPreset = preset->m_PrevPreset;
 
 	}
@@ -314,7 +314,7 @@ PresetMgrClass::Save_Embedded_Node_Data (ChunkSaveClass &csave)
 		//
 		NODE_LIST &node_list = preset->Get_Node_List ();
 		if (node_list.Count () > 0) {
-			
+
 			//
 			//	Save this preset's ID
 			//
@@ -348,7 +348,7 @@ PresetMgrClass::Load_Embedded_Node_Data (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_PRESET_ID:
 			{
 				//
@@ -359,11 +359,11 @@ PresetMgrClass::Load_Embedded_Node_Data (ChunkLoadClass &cload)
 				curr_preset = Find_Preset (preset_id);
 				break;
 			}
-			
+
 			//
 			//	Load the node list for the current preset
 			//
-			case CHUNKID_NODE_LIST:				
+			case CHUNKID_NODE_LIST:
 				if (curr_preset != NULL) {
 					NodeMgrClass::Load_Node_List (cload, curr_preset->Get_Node_List ());
 				}
@@ -414,10 +414,10 @@ PresetMgrClass::Save (ChunkSaveClass &csave)
 bool
 PresetMgrClass::Load (ChunkLoadClass &cload)
 {
-	bool retval = true;	
+	bool retval = true;
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the presets from this chunk
 			//
@@ -448,7 +448,7 @@ PresetMgrClass::Load (ChunkLoadClass &cload)
 ///////////////////////////////////////////////////////////////////////
 bool
 PresetMgrClass::Save_Presets (ChunkSaveClass &csave)
-{	
+{
 	for (	PresetClass *preset = _PresetListHead;
 			preset != NULL;
 			preset = preset->m_NextPreset)
@@ -485,7 +485,7 @@ PresetMgrClass::Load_Presets (ChunkLoadClass &cload)
 		if (factory != NULL) {
 			PresetClass *preset = (PresetClass *)factory->Load (cload);
 			if (preset != NULL) {
-				
+
 				if (preset->Is_Valid ()) {
 					Add_Preset (preset);
 				} else {
@@ -599,7 +599,7 @@ PresetMgrClass::Is_One_Of
 
 	DefinitionClass *definition = preset->Get_Definition ();
 	if (definition != NULL) {
-		
+
 		//
 		//	Determine which class ID to check
 		//
@@ -609,7 +609,7 @@ PresetMgrClass::Is_One_Of
 		}
 
 		if (type == ID_CLASS) {
-			
+
 			//
 			//	Is this the class we were looking for?
 			//
@@ -618,14 +618,14 @@ PresetMgrClass::Is_One_Of
 			}
 
 		} else if (type == ID_SUPERCLASS) {
-			
+
 			//
 			//	Is this the superclass we were looking for?
 			//
 			if (SuperClassID_From_ClassID (class_id) == id_to_find) {
 				retval = true;
 			}
-		}			
+		}
 	}
 
 	return retval;
@@ -692,7 +692,7 @@ PresetMgrClass::Get_Next
 			uint32 class_id = definition->Get_Class_ID ();
 
 			if (type == ID_CLASS) {
-				
+
 				//
 				//	Is this the class we were looking for?
 				//
@@ -701,7 +701,7 @@ PresetMgrClass::Get_Next
 				}
 
 			} else if (type == ID_SUPERCLASS) {
-				
+
 				//
 				//	Is this the superclass we were looking for?
 				//
@@ -710,7 +710,7 @@ PresetMgrClass::Get_Next
 				}
 
 			} else if (type == ID_PARENT) {
-				
+
 				//
 				//	Is this a child of the parent we were looking for?
 				//
@@ -718,7 +718,7 @@ PresetMgrClass::Get_Next
 				if (parent != NULL && parent->Get_ID () == id) {
 					req_preset = current;
 				}
-			}			
+			}
 		}*/
 	}
 
@@ -738,9 +738,9 @@ PresetMgrClass::Validate_Version (void)
 #ifndef PUBLIC_EDITOR_VER
 
 	if (::Get_File_Mgr ()->Is_VSS_Read_Only () == false) {
-		
+
 		if (Check_Editor_Version () == false) {
-			
+
 			//
 			//	Force the database to be read-only
 			//
@@ -777,7 +777,7 @@ PresetMgrClass::Check_Out_Database (uint32 class_id, bool *should_undo_on_err)
 	//
 	CString path;
 	::Get_File_Mgr ()->Get_Preset_Library_Path (class_id, false, path);
-	
+
 	//
 	//	Do a quick check to make sure the current version of the
 	// editor is allowed to update the asset database.
@@ -789,8 +789,8 @@ PresetMgrClass::Check_Out_Database (uint32 class_id, bool *should_undo_on_err)
 	//
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	if (file_mgr->Is_VSS_Read_Only () == false) {			
-		
+	if (file_mgr->Is_VSS_Read_Only () == false) {
+
 		//
 		//	If the file does not exist, then simply return success
 		//
@@ -828,7 +828,7 @@ PresetMgrClass::Check_Out_Database (LPCTSTR path, bool *should_undo_on_err)
 	StringClass user_name;
 	AssetDatabaseClass::FILE_STATUS status = asset_db.Get_File_Status (path, &user_name);
 	if (status == AssetDatabaseClass::NOT_CHECKED_OUT) {
-		
+
 		//
 		//	Check out the database
 		//
@@ -843,7 +843,7 @@ PresetMgrClass::Check_Out_Database (LPCTSTR path, bool *should_undo_on_err)
 		}
 
 	} else if (status == AssetDatabaseClass::CHECKED_OUT) {
-		
+
 		//
 		//	Let the user know who has the library checked out.
 		//
@@ -869,10 +869,10 @@ bool
 PresetMgrClass::Check_In_Database (LPCTSTR path)
 {
 	CWaitCursor wait_cursor;
-	
+
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	CString full_path					= file_mgr->Make_Full_Path (path);		
+	CString full_path					= file_mgr->Make_Full_Path (path);
 	bool retval							= false;
 
 
@@ -880,7 +880,7 @@ PresetMgrClass::Check_In_Database (LPCTSTR path)
 
 		//
 		//	Check in the database
-		//		
+		//
 		retval = asset_db.Retry_Check_In (full_path, 10, 250);
 		if (retval == false) {
 			CString message;
@@ -937,7 +937,7 @@ PresetMgrClass::Undo_Database_Check_Out (uint32 class_id)
 	//
 	//	We only undo the checkout if its checked out to us
 	//
-	if (Is_Database_Checked_Out (path)) {		
+	if (Is_Database_Checked_Out (path)) {
 
 		//
 		//	Undo the checkout
@@ -959,7 +959,7 @@ void
 PresetMgrClass::Build_Preset_Tree (uint32 class_id, PRESET_TREE &tree, bool include_twiddlers)
 {
 	tree.Reset ();
-	
+
 	//
 	//	Find all the presets that belong to this class
 	//
@@ -968,7 +968,7 @@ PresetMgrClass::Build_Preset_Tree (uint32 class_id, PRESET_TREE &tree, bool incl
 			preset != NULL;
 			preset = Get_Next (preset, class_id, ID_CLASS, include_twiddlers))
 	{
-		
+
 		//
 		//	Add this preset to the list
 		//
@@ -1006,7 +1006,7 @@ PresetMgrClass::Add_Children_To_Tree
 	//
 	//	Lookup the parent preset
 	//
-	PresetClass *parent_preset = Find_Preset (parent_id);	
+	PresetClass *parent_preset = Find_Preset (parent_id);
 	if (parent_preset != NULL) {
 
 		//
@@ -1029,13 +1029,13 @@ PresetMgrClass::Add_Children_To_Tree
 					PRESET_TREE_LEAF *child_leaf = NULL;
 					child_leaf = leaf->Add_Child_Sorted (child_preset, child_preset->Get_Name ());
 					if (child_leaf != NULL) {
-						
+
 						//
 						//	Recursively fill in this presets's children
 						//
 						Add_Children_To_Tree (child_preset->Get_ID (), child_leaf, include_twiddlers);
 					}
-				}				
+				}
 			}
 		}
 	}
@@ -1087,7 +1087,7 @@ PresetMgrClass::Build_Factory_Tree (uint32 class_id, FACTORY_TREE &tree)
 
 		//
 		//	Find all the sub-factories
-		//			
+		//
 		for (	DefinitionFactoryClass *factory = DefinitionFactoryMgrClass::Get_First (class_id);
 				factory != NULL;
 				factory = DefinitionFactoryMgrClass::Get_Next (factory, class_id))
@@ -1095,9 +1095,9 @@ PresetMgrClass::Build_Factory_Tree (uint32 class_id, FACTORY_TREE &tree)
 			if (factory->Is_Displayed ()) {
 				tree.Add_Sorted (factory->Get_Class_ID (), factory->Get_Name ());
 			}
-		}		
+		}
 	}
-	
+
 	return ;
 }
 
@@ -1160,9 +1160,9 @@ PresetMgrClass::Remove_Non_Matching_Presets
 				(class_id_matters && (curr_class_id != class_id)))
 		{
 			Remove_Preset (preset);
-			removed_preset_list.Add (preset);			
+			removed_preset_list.Add (preset);
 		}
-	}	
+	}
 
 	return ;
 }
@@ -1194,22 +1194,22 @@ PresetMgrClass::Discard_Preset_Changes (void)
 
 	//
 	//	Loop over all the preset databases and undo any checkouts
-	//	
+	//
 	for (int index = 0; index < file_list.Count (); index ++) {
 		CString &filename = file_list[index];
-		
+
 		//
 		//	Do we have this file checked out?
 		//
 		if (asset_db.Get_File_Status (filename) == AssetDatabaseClass::CHECKED_OUT_TO_ME) {
-			
+
 			//
 			//	Undo the checkout
 			//
 			asset_db.Undo_Check_Out (filename);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -1233,7 +1233,7 @@ PresetMgrClass::Check_In_Presets (void)
 	//	Simply save the presets together in one file
 	//
 	CString path = ::Get_File_Mgr ()->Make_Full_Path (OBJECTS_DDB_PATH);
-	presets_form->Save_Presets (path, 0, false, false);		
+	presets_form->Save_Presets (path, 0, false, false);
 
 #else
 
@@ -1256,10 +1256,10 @@ PresetMgrClass::Check_In_Presets (void)
 	//
 	//	Check each database file to see if we have it checked out...
 	// If we do have it checked out, then go ahead and check it in.
-	//	
+	//
 	for (int index = 0; index < file_list.Count (); index ++) {
 		CString &filename = file_list[index];
-		
+
 		//
 		//	If we have this file checked out then go ahead and check it in...
 		//
@@ -1267,7 +1267,7 @@ PresetMgrClass::Check_In_Presets (void)
 	}
 
 #endif //PUBLIC_EDITOR_VER
-	
+
 	_PresetsDirty = false;
 	return ;
 }
@@ -1316,13 +1316,13 @@ PresetMgrClass::Add_Dirty_Preset_Files_To_VSS (void)
 {
 	//
 	//	Loop over all the presets in our dirty list
-	//	
+	//
 	for (int index = 0; index < _DirtyPresetList.Count (); index ++) {
 		int preset_id = _DirtyPresetList[index];
-		
+
 		//
 		//	If this preset still exists, then update its files
-		//		
+		//
 		PresetClass *preset = Find_Preset (preset_id);
 		if (preset != NULL) {
 			preset->Add_Files_To_VSS ();
@@ -1332,7 +1332,7 @@ PresetMgrClass::Add_Dirty_Preset_Files_To_VSS (void)
 	//
 	//	Empty the dirty list
 	//
-	_DirtyPresetList.Delete_All ();	
+	_DirtyPresetList.Delete_All ();
 	return ;
 }
 
@@ -1357,7 +1357,7 @@ PresetMgrClass::Create_Preset
 	//
 	DefinitionFactoryClass *factory = DefinitionFactoryMgrClass::Find_Factory (class_id);
 	if (factory != NULL) {
-		
+
 		//
 		//	Create a new definition for the preset
 		//
@@ -1366,17 +1366,17 @@ PresetMgrClass::Create_Preset
 		//
 		//	Assign the definition a new ID
 		//
-		if (is_temp) {		
+		if (is_temp) {
 			definition->Set_ID (::Get_Next_Temp_ID ());
 		} else {
 			definition->Set_ID (DefinitionMgrClass::Get_New_ID (class_id));
 		}
-		
+
 		//
 		//	Create the new preset
 		//
 		new_preset = new PresetClass;
-		new_preset->Set_Definition (definition);	
+		new_preset->Set_Definition (definition);
 		new_preset->Set_IsTemporary (is_temp);
 
 		//

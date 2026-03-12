@@ -112,18 +112,18 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	
+
 	/////////////////////////////////////////////////////////
 	//	Public methods
 	/////////////////////////////////////////////////////////
-	void								Reload_Presets (void);	
+	void								Reload_Presets (void);
 	bool								Is_Modified (void) const	{ return m_IsModified; }
 
 	bool								Save_Presets (void);
 	bool								Save_Temp_Presets (void);
 	static bool						Load_Presets (void);
 	static bool						Load_Temp_Presets (void);
-	
+
 protected:
 
 	/////////////////////////////////////////////////////////
@@ -151,7 +151,7 @@ protected:
 	bool								Modify_Preset (void);
 	PresetClass *					Create_Preset (DefinitionFactoryClass *factory, bool is_temp);
 
-	void								Build_Child_List (HTREEITEM parent_item, DynamicVectorClass<HTREEITEM> &list);	
+	void								Build_Child_List (HTREEITEM parent_item, DynamicVectorClass<HTREEITEM> &list);
 
 	void								Build_Inherited_Param_List (HTREEITEM parent_item, DERIVED_PARAM_LIST &list);
 	void								Propagate_Changes (HTREEITEM modified_item, DERIVED_PARAM_LIST &list);

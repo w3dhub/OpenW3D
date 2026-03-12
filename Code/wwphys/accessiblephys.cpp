@@ -55,18 +55,18 @@ enum
 {
 	CHUNKID_PARENT				= 0x10311235,
 	CHUNKID_VARIABLES,
-	
+
 	VARID_LOCKCODE				= 1,
-};										
+};
 
 
 enum
 {
 	CHUNKID_DEF_PARENT		= 0x10311249,
 	CHUNKID_DEF_VARIABLES,
-	
+
 	VARID_DEF_LOCKCODE		= 1,
-};										
+};
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -132,7 +132,7 @@ AccessiblePhysClass::Save (ChunkSaveClass &csave)
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		Save_Variables (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 	return true;
 }
 
@@ -159,8 +159,8 @@ bool
 AccessiblePhysClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk ()) {
-		
-		switch(cload.Cur_Chunk_ID ()) 
+
+		switch(cload.Cur_Chunk_ID ())
 		{
 			case CHUNKID_PARENT:
 				StaticAnimPhysClass::Load (cload);
@@ -169,12 +169,12 @@ AccessiblePhysClass::Load (ChunkLoadClass &cload)
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
-				
+
 			default:
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 
@@ -195,7 +195,7 @@ AccessiblePhysClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_LOCKCODE, LockCode);
 		}
 
@@ -225,9 +225,9 @@ AccessiblePhysDefClass::AccessiblePhysDefClass (void) :
 //
 ///////////////////////////////////////////////////////////////////////
 uint32
-AccessiblePhysDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_ACCESSIBLEPHYSDEF; 
+AccessiblePhysDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_ACCESSIBLEPHYSDEF;
 }
 
 
@@ -319,8 +319,8 @@ bool
 AccessiblePhysDefClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk ()) {
-		
-		switch(cload.Cur_Chunk_ID ()) 
+
+		switch(cload.Cur_Chunk_ID ())
 		{
 			case CHUNKID_DEF_PARENT:
 				StaticAnimPhysDefClass::Load (cload);
@@ -329,12 +329,12 @@ AccessiblePhysDefClass::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-				
+
 			default:
 				WWDEBUG_SAY (("Unhandled Chunk: 0x%X File: %s Line: %d\r\n", cload.Cur_Chunk_ID (), __FILE__, __LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 
@@ -355,7 +355,7 @@ AccessiblePhysDefClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_DEF_LOCKCODE, LockCode);
 		}
 

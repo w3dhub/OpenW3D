@@ -103,7 +103,7 @@ SelectPresetDialogClass::OnInitDialog (void)
 	//	of the tree.
 	//
 	if (m_ClassID == 0) {
-		
+
 		//
 		//	Build the complete preset tree
 		//
@@ -217,7 +217,7 @@ SelectPresetDialogClass::OnOK (void)
 	//
 	//	Save the selected preset
 	//
-	HTREEITEM selected_item = m_TreeCtrl.GetSelectedItem ();	
+	HTREEITEM selected_item = m_TreeCtrl.GetSelectedItem ();
 	if (selected_item != NULL) {
 		m_Preset = (PresetClass *)m_TreeCtrl.GetItemData (selected_item);
 	}
@@ -260,10 +260,10 @@ SelectPresetDialogClass::Build_Full_Preset_Tree (void)
 
 		//
 		//	Add this factory to the tree
-		//		
+		//
 		HTREEITEM tree_item = m_TreeCtrl.InsertItem (PRESET_CATEGORIES[index].name, FOLDER_ICON, FOLDER_ICON);
-		m_IconIndex = PRESET_CATEGORIES[index].icon;		
-				
+		m_IconIndex = PRESET_CATEGORIES[index].icon;
+
 		//
 		//	Add all presets for this factory into the tree
 		//
@@ -274,10 +274,10 @@ SelectPresetDialogClass::Build_Full_Preset_Tree (void)
 		//
 		/*DefinitionFactoryClass *factory = DefinitionFactoryMgrClass::Find_Factory (PRESET_CATEGORIES[index].clsid);
 		if (factory == NULL) {
-			
+
 			//
 			//	Find all the sub-factories
-			//			
+			//
 			for (	factory = DefinitionFactoryMgrClass::Get_First (PRESET_CATEGORIES[index].clsid);
 					factory != NULL;
 					factory = DefinitionFactoryMgrClass::Get_Next (factory, PRESET_CATEGORIES[index].clsid))
@@ -314,10 +314,10 @@ SelectPresetDialogClass::Generate_Tree (int class_id, HTREEITEM parent_item)
 	//
 	DefinitionFactoryClass *factory = DefinitionFactoryMgrClass::Find_Factory (class_id);
 	if (factory == NULL) {
-		
+
 		//
 		//	Find all the sub-factories
-		//			
+		//
 		for (	factory = DefinitionFactoryMgrClass::Get_First (class_id);
 				factory != NULL;
 				factory = DefinitionFactoryMgrClass::Get_Next (factory, class_id))
@@ -374,7 +374,7 @@ SelectPresetDialogClass::OnSelchangedPresetTree
 	HTREEITEM selected_item = m_TreeCtrl.GetSelectedItem ();
 	if (selected_item != NULL) {
 		PresetClass *preset = (PresetClass *)m_TreeCtrl.GetItemData (selected_item);
-		
+
 		if (m_AllowNoneSelection == false) {
 			::EnableWindow (::GetDlgItem (m_hWnd, IDOK), preset != NULL);
 		}
@@ -398,7 +398,7 @@ SelectPresetDialogClass::OnInfo (void)
 	if (selected_item != NULL) {
 		PresetClass *preset = (PresetClass *)m_TreeCtrl.GetItemData (selected_item);
 		if (preset != NULL) {
-			
+
 			//
 			//	Show the settings for this preset
 			//

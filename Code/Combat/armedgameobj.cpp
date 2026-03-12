@@ -232,7 +232,7 @@ void	ArmedGameObj::Re_Init( const ArmedGameObjDef & definition )
 		int weapon_index = WeaponBag->Get_Count();
 		while (weapon_index --) {
 			WeaponClass *weapon = WeaponBag->Peek_Weapon( weapon_index );
-			
+
 			//
 			//	If this isn't a beacon, then remove it
 			//

@@ -72,7 +72,7 @@ class MPWolGameListMenuClass :
 		// Prevent copy and assignment
 		MPWolGameListMenuClass(const MPWolGameListMenuClass&);
 		const MPWolGameListMenuClass& operator=(const MPWolGameListMenuClass&);
-	
+
 		void On_Init_Dialog(void) override;
 		void On_Command(int id, int mesage_id, unsigned int param) override;
 		void On_Last_Menu_Ending(void) override;

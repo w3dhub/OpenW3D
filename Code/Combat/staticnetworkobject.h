@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/staticnetworkobject.h                 $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 10/16/01 3:56p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 11                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/staticnetworkobject.h                 $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 10/16/01 3:56p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 11                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -104,7 +104,7 @@ public:
 	static void			Generate_Static_Network_Objects (void);
 	static void			Free_Static_Network_Objects (void);
 
-	// 
+	//
 	// Type identification
 	//
 	virtual DoorNetworkObjectClass *			As_Door_Network_Object_Class( void ) 	{ return NULL; }
@@ -112,7 +112,7 @@ public:
 	virtual DSAPONetworkObjectClass *		As_DSAPO_Network_Object_Class( void ) 		{ return NULL; }
 
 	//
-	//	Diagnostics 
+	//	Diagnostics
 	//
 	//virtual bool		Is_Tagged(void)										{ return true; }
 	static int			Get_Static_Network_Object_Count (void)			{ return StaticNetworkObjectList.Count (); }
@@ -178,14 +178,14 @@ public:
 	virtual void		Import_Rare (BitStreamClass &packet) override;
    virtual void		Export_Rare (BitStreamClass &packet) override;
 
-	// 
+	//
 	// Type identification
 	//
 	virtual  DoorNetworkObjectClass *			As_Door_Network_Object_Class( void ) override		{ return this; }
 
 	//
 	// Diagnostics
-	// 
+	//
 	//virtual bool		Is_Tagged(void)										{ return false; }
 	virtual void		Get_Description(StringClass & description) override;
 
@@ -234,14 +234,14 @@ public:
 	virtual void		Import_Rare (BitStreamClass &packet) override;
    virtual void		Export_Rare (BitStreamClass &packet) override;
 
-	// 
+	//
 	// Type identification
 	//
 	virtual  ElevatorNetworkObjectClass *	As_Elevator_Network_Object_Class( void ) override	{ return this; }
 
 	//
 	// Diagnostics
-	// 
+	//
 	//virtual bool		Is_Tagged(void)										{ return true; }
 	virtual void		Get_Description(StringClass & description) override;
 
@@ -294,7 +294,7 @@ public:
 	virtual void		Import_Rare (BitStreamClass &packet) override;
    virtual void		Export_Rare (BitStreamClass &packet) override;
 
-	// 
+	//
 	// Type identification
 	//
 	virtual				DSAPONetworkObjectClass *		As_DSAPO_Network_Object_Class( void ) override		{ return this; }

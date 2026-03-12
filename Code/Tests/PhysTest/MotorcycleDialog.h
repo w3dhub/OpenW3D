@@ -34,7 +34,7 @@ class CMotorcycleDialog : public CDialog
 {
 // Construction
 public:
-	CMotorcycleDialog(CWnd* pParent,MotorcycleClass * obj);   
+	CMotorcycleDialog(CWnd* pParent,MotorcycleClass * obj);
 
 // Dialog Data
 	//{{AFX_DATA(CMotorcycleDialog)

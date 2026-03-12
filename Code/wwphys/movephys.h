@@ -55,7 +55,7 @@ class DynTexProjectClass;
 /**
 ** MoveablePhysClass
 ** All objects that can be moved around in the world in some way will support this interface.
-** This interface defines basic mass and gravity settings and gives access to the object's 
+** This interface defines basic mass and gravity settings and gives access to the object's
 ** velocities.
 */
 class MoveablePhysClass : public DynamicPhysClass
@@ -106,7 +106,7 @@ public:
 	/*
 	** Controller
 	*/
-	void								Set_Controller(PhysControllerClass * control)		{ Controller = control; }	
+	void								Set_Controller(PhysControllerClass * control)		{ Controller = control; }
 	PhysControllerClass *		Get_Controller(void)											{ return Controller; }
 
 
@@ -116,7 +116,7 @@ public:
 	virtual bool					Save (ChunkSaveClass &csave) override;
 	virtual bool					Load (ChunkLoadClass &cload) override;
 	virtual void					On_Post_Load (void) override;
-	
+
 	/*
 	** Access to the state of the object
 	*/
@@ -124,7 +124,7 @@ public:
 	virtual void					Set_Velocity(const Vector3 & /* newvel */)					{ }
 
 	/*
-	** Shadow Casting. 
+	** Shadow Casting.
 	** Get_Blob_Shadow_Bounding_Box - Should return a tight object-space aabox; used for shadow blobs
 	*/
 	virtual void					Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box) override;
@@ -143,7 +143,7 @@ protected:
 	float								MassInv;
 	float								GravScale;
 	float								Elasticity;
-	
+
 	PhysControllerClass *		Controller;
 	PhysClass *						Carrier;
 	RenderObjClass *				CarrierSubObject;
@@ -155,8 +155,8 @@ protected:
 };
 
 
-inline void MoveablePhysClass::Get_Inertia_Inv(Matrix3 * set_I_inv)					
-{ 
+inline void MoveablePhysClass::Get_Inertia_Inv(Matrix3 * set_I_inv)
+{
 	set_I_inv->Make_Identity();
 	(*set_I_inv)[0][0] = MassInv;
 	(*set_I_inv)[1][1] = MassInv;
@@ -171,9 +171,9 @@ inline void MoveablePhysClass::Get_Inertia_Inv(Matrix3 * set_I_inv)
 class MoveablePhysDefClass : public DynamicPhysDefClass
 {
 public:
-	
+
 	MoveablePhysDefClass(void);
-	
+
 	// From PhysDefClass
 	virtual const char *						Get_Type_Name(void) override			{ return "MoveablePhysDef"; }
 	virtual bool								Is_Type(const char *) override;
@@ -197,15 +197,15 @@ protected:
 	float				GravScale;
 	float				Elasticity;
 
-	enum { 
-		CINEMATIC_COLLISION_NONE = 0, 
-		CINEMATIC_COLLISION_STOP, 
-		CINEMATIC_COLLISION_PUSH, 
-		CINEMATIC_COLLISION_KILL 
+	enum {
+		CINEMATIC_COLLISION_NONE = 0,
+		CINEMATIC_COLLISION_STOP,
+		CINEMATIC_COLLISION_PUSH,
+		CINEMATIC_COLLISION_KILL
 	};
-	
+
 	int				CinematicCollisionMode;
-	
+
 	friend class MoveablePhysClass;
 };
 

@@ -101,7 +101,7 @@ void
 MouseMgrClass::Move_Node (NodeClass *node)
 {
 	::Get_Scene_Editor ()->Set_Selection (node);
-	
+
 	Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);
 	((MMObjectManipulateClass *)m_pModeObjects[MOUSE_MODE::MODE_OBJECT_MANIPULATE])->Set_Move_Nodes_Mode ();
 	return ;
@@ -119,11 +119,11 @@ MouseMgrClass::Set_Mouse_Mode (MOUSE_MODE new_mode)
 	//
 	// Change the camera mode
 	//
-	CameraMgr *cameramgr = ::Get_Camera_Mgr ();		
+	CameraMgr *cameramgr = ::Get_Camera_Mgr ();
 	cameramgr->Set_Camera_Mode (m_pModeObjects[new_mode]->m_LButtonMode);
 
 	if (m_MouseMode != new_mode) {
-		
+
 		//
 		//	Notify the old mode that it is ending
 		//
@@ -158,14 +158,14 @@ MouseModeClass::Handle_LButton_Down
 	//
 	// If both buttons are down, then set that mode
 	//
-	if (flags & MK_RBUTTON) {		
-		new_mode = m_BothButtonMode;		
+	if (flags & MK_RBUTTON) {
+		new_mode = m_BothButtonMode;
 	}
 
 	//
 	// Change the camera mode
 	//
-	CameraMgr *cameramgr = ::Get_Camera_Mgr ();		
+	CameraMgr *cameramgr = ::Get_Camera_Mgr ();
 	cameramgr->Set_Camera_Mode (new_mode);
 
 	m_bUpdate = true;
@@ -191,7 +191,7 @@ MouseModeClass::Handle_LButton_Up
 	if (flags & MK_RBUTTON) {
 
 		// Change the camera mode
-		CameraMgr *cameramgr = ::Get_Camera_Mgr ();			
+		CameraMgr *cameramgr = ::Get_Camera_Mgr ();
 		cameramgr->Set_Camera_Mode (m_RButtonMode);
 
 	} else {
@@ -225,13 +225,13 @@ MouseModeClass::Handle_RButton_Down
 	// If both buttons are down, then set that mode
 	//
 	if (flags & MK_LBUTTON) {
-		new_mode = m_BothButtonMode;		
+		new_mode = m_BothButtonMode;
 	}
 
 	//
 	// Change the camera mode
 	//
-	CameraMgr *cameramgr = ::Get_Camera_Mgr ();		
+	CameraMgr *cameramgr = ::Get_Camera_Mgr ();
 	cameramgr->Set_Camera_Mode (new_mode);
 
 	m_bUpdate = true;
@@ -258,7 +258,7 @@ MouseModeClass::Handle_RButton_Up
 	if (flags & MK_LBUTTON) {
 
 		// Change the camera mode
-		CameraMgr *cameramgr = ::Get_Camera_Mgr ();			
+		CameraMgr *cameramgr = ::Get_Camera_Mgr ();
 		cameramgr->Set_Camera_Mode (m_LButtonMode);
 
 	} else {
@@ -301,7 +301,7 @@ MouseModeClass::Handle_Mouse_Move
 		float deltay = (float(point.y - m_LastMousePoint.y))/(float(rect.bottom - rect.top));
 
 		// Have the camera manager update the display based on the deltas
-		CameraMgr *cameramgr = ::Get_Camera_Mgr ();			
+		CameraMgr *cameramgr = ::Get_Camera_Mgr ();
 		cameramgr->Update_Camera (deltax, deltay);
 
 		// This point now becomes our last point
@@ -328,7 +328,7 @@ void
 MMObjectManipulateClass::Change_Operation (OBJECT_MODE type)
 {
 	if (type != m_ObjectMode) {
-		
+
 		// Let the scene editor know we are ending a previous operation
 		if ((m_ObjectMode == MODE_MOVE) ||
 			 (m_ObjectMode == MODE_ROTATE)) {
@@ -376,7 +376,7 @@ MMObjectManipulateClass::Handle_LButton_Dblclk
 	// Find the item the user clicked on
 	NodeClass *node = ::Get_Scene_Editor ()->Find_Node_At_Point (point);
 	if (node != NULL) {
-		
+
 		//
 		// Display the settings dialog for this node
 		//
@@ -407,7 +407,7 @@ MMObjectManipulateClass::Handle_LButton_Down
 	// then process as normal
 	//
 	if (::Get_Scene_Editor ()->Execute_Function_At_Point (point) == false) {
-		
+
 		// Only the left mouse button is down so we are
 		// in select mode
 		Change_Operation (MODE_SELECT);
@@ -430,7 +430,7 @@ MMObjectManipulateClass::Handle_LButton_Down
 		// Make sure we have the mouse captured
 		::Get_Main_View ()->SetCapture ();
 		m_LastMousePoint = point;
-	
+
 	} else {
 
 		Change_Operation (MODE_NONE);
@@ -457,7 +457,7 @@ MMObjectManipulateClass::Handle_LButton_Up
 
 	// Is the right mouse button down?
 	if (flags & MK_RBUTTON) {
-		
+
 		// Only the right button is down so we are in rotate mode
 		Change_Operation (MODE_ROTATE);
 
@@ -471,7 +471,7 @@ MMObjectManipulateClass::Handle_LButton_Up
 		::ReleaseCapture ();
 		Change_Operation (MODE_NONE);
 	}
-		
+
 	return ;
 }
 
@@ -491,7 +491,7 @@ MMObjectManipulateClass::Handle_RButton_Down
 	MouseModeClass::Handle_RButton_Down (flags, point);
 
 	if (flags & MK_LBUTTON) {
-		
+
 		::Get_Selection_Mgr ().Clone_Group ();
 
 	} else {
@@ -502,7 +502,7 @@ MMObjectManipulateClass::Handle_RButton_Down
 	}
 
 	// Make sure we have the mouse captured
-	::Get_Main_View ()->SetCapture ();	
+	::Get_Main_View ()->SetCapture ();
 	m_LastMousePoint = point;
 	return ;
 }
@@ -524,7 +524,7 @@ MMObjectManipulateClass::Handle_RButton_Up
 
 	// Is the left mouse button down?
 	if (flags & MK_LBUTTON) {
-		
+
 		// Only the left button is down so we are in move mode
 		Change_Operation (MODE_MOVE);
 
@@ -541,7 +541,7 @@ MMObjectManipulateClass::Handle_RButton_Up
 		::ReleaseCapture ();
 		Change_Operation (MODE_NONE);
 	}
-		
+
 	return ;
 }
 
@@ -561,7 +561,7 @@ MMObjectManipulateClass::Handle_Mouse_Move
 	if (m_ObjectMode == MODE_SELECT) {
 		if ((abs (point.x - m_LastMousePoint.x) > 3) ||
 			 (abs (point.y - m_LastMousePoint.y) > 3)) {
-			
+
 			// The user moved the mouse more than our
 			// alloted selection fudge factor so now
 			// we are in move mode.
@@ -625,14 +625,14 @@ World_To_Device (const Vector3 &world_pos)
 	Vector2 device_pos (0, 0);
 
 	Vector3 camera_pos = ::Get_Camera_Mgr ()->Get_Camera ()->Get_Position ();
-	//Vector3 ray_start = 
+	//Vector3 ray_start =
 
 	const PlaneClass *planes = ::Get_Camera_Mgr ()->Get_Camera ()->Get_Frustum_Planes ();
 
 	float percent = 0;
 	if (planes[0]->Compute_Intersection (camera_pos, world_pos, &percent)) {
 		Vector3 view_pos = camera_pos + ((world_pos - camera_pos) * percent);
-		device_pos.X = view_pos.X - 
+		device_pos.X = view_pos.X -
 	}
 
 	return device_pos;
@@ -647,7 +647,7 @@ World_To_Device (const Vector3 &world_pos)
 void
 MMObjectManipulateClass::Move_Selection (CPoint point)
 {
-	if (	m_ForceDropToGround || 
+	if (	m_ForceDropToGround ||
 			::Get_Current_Document ()->Get_Mode_Modifiers () & MODE_MOD_DROP_TO_GROUND) {
 
 		//
@@ -748,7 +748,7 @@ MMWaypathEditClass::Exit_Mode (void)
 {
 	m_Waypath		= NULL;
 	m_CurrentPoint	= -1;
-	::Get_Mouse_Mgr ()->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);	
+	::Get_Mouse_Mgr ()->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);
 	return ;
 }
 
@@ -821,10 +821,10 @@ MMWaypathEditClass::Handle_LButton_Up
 			//	Lock that point and start a new point
 			//
 			m_CurrentPoint = m_Waypath->Add_Point (last_pos);
-			::Get_Main_View ()->SetCapture ();	
+			::Get_Main_View ()->SetCapture ();
 		}
 	}
-		
+
 	return ;
 }
 
@@ -872,9 +872,9 @@ MMWaypathEditClass::Handle_Mouse_Move
 	UINT		/* flags */,
 	CPoint	point
 )
-{	
+{
 	if (m_Waypath != NULL && m_CurrentPoint >= 0) {
-		
+
 		//
 		//	Get a pointer to this waypoint
 		//
@@ -930,7 +930,7 @@ MMGrabHandleDragClass::Handle_LButton_Up
 )
 {
 	// Put the mouse mode back to what it was
-	::Get_Mouse_Mgr ()->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);		
+	::Get_Mouse_Mgr ()->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);
 
 	// Let the node know its done dragging
 	if (m_Node != NULL) {

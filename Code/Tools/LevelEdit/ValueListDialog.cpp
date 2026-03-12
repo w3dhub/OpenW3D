@@ -79,7 +79,7 @@ ValueListDialogClass::OnOK (void)
 //	OnUpdateListEdit
 //
 void
-ValueListDialogClass::OnUpdateListEdit (void) 
+ValueListDialogClass::OnUpdateListEdit (void)
 {
 	// Enable or disable the OK button
 	bool benable = bool(::GetWindowTextLength (::GetDlgItem (m_hWnd, IDC_LIST_EDIT)) > 0);
@@ -97,7 +97,7 @@ ValueListDialogClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
 	CDialog::OnInitDialog ();
-	
+
 	// Put the initial text into the edit control
 	SetDlgItemText (IDC_LIST_EDIT, m_ListEntries);
 	return true;

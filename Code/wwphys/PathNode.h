@@ -86,7 +86,7 @@ class PathNodeClass : public RefCountClass, public HeapNodeClass<float>, public 
 		/////////////////////////////////////////////////////////////////////////
 		PathfindSectorClass *	Peek_Sector (void);
 		PathfindPortalClass *	Peek_Portal (void);
-		PathNodeClass *			Peek_Parent_Node (void);		
+		PathNodeClass *			Peek_Parent_Node (void);
 
 		void							Set_Sector (PathfindSectorClass *sector);
 		void							Set_Portal (PathfindPortalClass *portal);
@@ -96,11 +96,11 @@ class PathNodeClass : public RefCountClass, public HeapNodeClass<float>, public 
 
 		float							Get_Heuristic_Cost (void) const;
 		void							Set_Heuristic_Cost (float cost);
-		
+
 		float							Get_Traversal_Cost (void) const;
 		void							Set_Traversal_Cost (float cost);
 
-		Vector3						Get_Position (void) const;	
+		Vector3						Get_Position (void) const;
 		const Matrix3D &			Get_Transform (void) const;
 		void							Set_Transform (const Matrix3D &tm);
 
@@ -121,12 +121,12 @@ class PathNodeClass : public RefCountClass, public HeapNodeClass<float>, public 
 		float							Heap_Key (void) const override;
 
 	protected:
-		
+
 		/////////////////////////////////////////////////////////////////////////
 		// Protected methods
 		/////////////////////////////////////////////////////////////////////////
 		void							Eval_Total_Cost (void);
-		
+
 	private:
 
 		/////////////////////////////////////////////////////////////////////////

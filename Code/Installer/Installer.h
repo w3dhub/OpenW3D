@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/Installer.h  $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/17/02 5:01p                 $* 
- *                                                                                             * 
- *                    $Revision:: 13                    $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/Installer.h  $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/17/02 5:01p                 $*
+ *                                                                                             *
+ *                    $Revision:: 13                    $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _INSTALLER_H
 #define _INSTALLER_H
@@ -76,7 +76,7 @@ class InstallerUIInputClass : public WWUIInputClass
 		void Add_Mouse_Wheel (short delta)
 		{
 			MousePosition.Z += delta;
-		}	
+		}
 
 	private:
 
@@ -90,9 +90,9 @@ class InstallerUIInputClass : public WWUIInputClass
 			MousePosition.Y = cursorposition.y;
 			return (MousePosition);
 		}
-		
+
 		void Set_Mouse_Pos (const Vector3 &position)
-		{	
+		{
 			POINT p;
 
 			if (GameInFocus) {
@@ -137,7 +137,7 @@ class FileLogClass {
 		bool operator != (const FileLogClass &f) {
 			return (!(*this == f));
 		}
-	
+
 		WideStringClass RelativePathname;		// Relative pathname of file.
 		int64_t			 Size;						// Size of file (in bytes).
 };
@@ -148,8 +148,8 @@ class InstallerClass
 	public:
 
 		 InstallerClass();
-		~InstallerClass(); 
-		
+		~InstallerClass();
+
 		InstallerUIInputClass *Get_Input() {return (UIInput);}
 
 		void Cancel_Introduction()			  {CancelIntroduction = true;}
@@ -175,14 +175,14 @@ class InstallerClass
 		const wchar_t			*Get_Target_WOL_Path (WideStringClass &path);
 		const wchar_t			*Get_Target_Game_Folder (WideStringClass &folder);
 		const wchar_t			*Get_Target_WOL_Folder (WideStringClass &folder);
-		bool					 Is_Fresh_Game_Install()									{return (FreshGameInstall);}				
+		bool					 Is_Fresh_Game_Install()									{return (FreshGameInstall);}
 		bool					 Is_Fresh_WOL_Install()										{return (FreshWOLInstall);}
 		bool					 Is_Target_WOL_Older_Than_Source()						{return (TargetWOLOlder);}
 		WW3DAssetManager	*Get_Asset_Manager()											{return (AssetManager);}
 		bool					 Can_Use_IGR_Settings();
 		bool					 Use_IGR_Settings();
 		bool					 Beta_Test();
-		
+
 		// Registry interface.
 		void Update_Registry();
 		void Create_Links();
@@ -236,9 +236,9 @@ class InstallerClass
 		bool											  FreshWOLInstall;
 		bool											  TargetWOLOlder;
 		unsigned										  GameFileCount;
-		int64_t										  GameSize;	
+		int64_t										  GameSize;
 		unsigned										  WOLFileCount;
-		int64_t										  WOLSize;	
+		int64_t										  WOLSize;
 		WW3DAssetManager							 *AssetManager;
 		bool											  WwmathInitialized;
 		bool											  DialogMgrInitialized;
@@ -250,7 +250,7 @@ class InstallerClass
 		bool											  CancelApplication;
 		WelcomeDialogClass						 *WelcomeDialog;
 		NDADialogClass								 *NDADialog;
-		LicenseDialogClass						 *LicenseDialog;	
+		LicenseDialogClass						 *LicenseDialog;
 		SerialDialogClass							 *SerialDialog;
 		WhatToInstallDialogClass				 *WhatToInstallDialog;
 	   GameDirectoryDialogClass				 *GameDirectoryDialog;

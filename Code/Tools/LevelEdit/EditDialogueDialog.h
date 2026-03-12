@@ -91,7 +91,7 @@ protected:
 	////////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////////
-	void					Update_Entry (int index);	
+	void					Update_Entry (int index);
 	void					Insert_Entry (DialogueOptionClass *option);
 
 	void					Update_Enabled_State (void);

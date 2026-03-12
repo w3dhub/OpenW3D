@@ -69,14 +69,14 @@ END_MESSAGE_MAP()
 //
 ///////////////////////////////////////////////////////////////////////////
 BOOL
-MissingTranslationReportDialogClass::OnInitDialog (void) 
+MissingTranslationReportDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
+
 	//
 	//	Select english by default
 	//
-	SendDlgItemMessage (IDC_LANG_COMBO, CB_SETCURSEL, TranslateDBClass::LANGID_ENGLISH);	
+	SendDlgItemMessage (IDC_LANG_COMBO, CB_SETCURSEL, TranslateDBClass::LANGID_ENGLISH);
 	return true;
 }
 
@@ -87,7 +87,7 @@ MissingTranslationReportDialogClass::OnInitDialog (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 void
-MissingTranslationReportDialogClass::OnOK (void) 
+MissingTranslationReportDialogClass::OnOK (void)
 {
 	//
 	//	Import the data
@@ -96,7 +96,7 @@ MissingTranslationReportDialogClass::OnOK (void)
 	if (lang_id >= 0) {
 		ReportMgrClass::Export_Missing_Translation_Report (Filename, lang_id);
 	}
-	
+
 	CDialog::OnOK();
 	return ;
 }

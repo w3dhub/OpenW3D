@@ -89,13 +89,13 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Creation methods
 	//
-	virtual void					Initialize (void) = 0;	
+	virtual void					Initialize (void) = 0;
 	virtual NodeClass *			Clone (void) = 0;
-	
+
 	//
 	//	Identification methods
 	//
@@ -141,7 +141,7 @@ public:
 	virtual const Quaternion &	Get_Orientation (void) const;
 	virtual void					Translate (const Vector3 &vector);
 	virtual void					Rotate (const Matrix3D &rotation_matrix, const Matrix3D &coord_system);
-	
+
 	//
 	//	Movement restriction methods
 	//
@@ -149,7 +149,7 @@ public:
 	virtual bool					Is_Rotation_Restricted (void) const;
 	virtual void					Restrict_Rotation (bool restrict);
 	virtual bool					Is_Locked (void) const;
-	virtual void					Lock (bool lock);	
+	virtual void					Lock (bool lock);
 
 	//
 	//	Intrinsic behavior methods
@@ -178,9 +178,9 @@ public:
 
 	//
 	//	Visibility methods
-	//	
-	virtual void					Show_Selection_Box (bool onoff);	
-	virtual void					Hide (bool hide);	
+	//
+	virtual void					Show_Selection_Box (bool onoff);
+	virtual void					Hide (bool hide);
 	virtual bool					Is_Hidden (void) const;
 
 	//
@@ -199,8 +199,8 @@ public:
 	virtual NodeClass *			Get_Parent_Node (void) const				{ return NULL; }
 	virtual bool					Can_Add_Child_Nodes (void)	const			{ return false; }
 	virtual bool					Is_A_Child_Node (NodeClass *) const		{ return false; }
-	
-	
+
+
 	virtual bool					Is_Proxied (void) const						{ return m_IsProxied; }
 	virtual void					Set_Is_Proxied (bool onoff)				{ m_IsProxied = onoff; }
 	virtual uint32					Get_Container_Preset_ID (void) const	{ return m_ContainerPresetID; }
@@ -255,7 +255,7 @@ protected:
 	//////////////////////////////////////////////////////////////
 	//	Protected methods
 	//////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Save/load methods
 	//
@@ -277,7 +277,7 @@ protected:
 	uint32					m_ContainerPresetID;
 	SelectionBoxClass *	m_SelectionBox;
 	Quaternion				m_Orientation;
-	Vector3					m_SelColor;	
+	Vector3					m_SelColor;
 	Matrix3D					m_Transform;
 	uint32					m_CullLink;
 
@@ -305,12 +305,12 @@ NodeClass::Set_Transform (const Matrix3D &tm)
 {
 	m_Transform = tm;
 
-	PhysClass *phys_obj = Peek_Physics_Obj ();		
+	PhysClass *phys_obj = Peek_Physics_Obj ();
 	if (phys_obj != NULL) {
-		phys_obj->Set_Transform (tm);		
+		phys_obj->Set_Transform (tm);
 		On_Transform ();
 	}
-	
+
 	return ;
 }
 
@@ -322,7 +322,7 @@ NodeClass::Get_Transform (void)
 {
 	Matrix3D tm (1);
 
-	PhysClass *phys_obj = Peek_Physics_Obj ();		
+	PhysClass *phys_obj = Peek_Physics_Obj ();
 	if (phys_obj != NULL) {
 		tm = phys_obj->Get_Transform ();
 	}
@@ -338,12 +338,12 @@ NodeClass::Set_Position (const Vector3 &pos)
 {
 	m_Transform.Set_Translation (pos);
 
-	PhysClass *phys_obj = Peek_Physics_Obj ();		
+	PhysClass *phys_obj = Peek_Physics_Obj ();
 	if (phys_obj != NULL) {
-		phys_obj->Set_Transform (m_Transform);		
+		phys_obj->Set_Transform (m_Transform);
 		On_Translate ();
 	}
-	
+
 	return ;
 }
 

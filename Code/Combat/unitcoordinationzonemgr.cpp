@@ -142,7 +142,7 @@ UnitCoordinationZoneMgr::Detect_Elevator_Zones (void)
 	//
 	//	Loop over all the static anim objects in the world
 	//
-	for (iterator.First (); iterator.Is_Done () == false; iterator.Next ()) {	
+	for (iterator.First (); iterator.Is_Done () == false; iterator.Next ()) {
 		StaticAnimPhysClass *phys_obj = (StaticAnimPhysClass *)iterator.Peek_Obj ();
 		if (phys_obj != NULL && phys_obj->As_ElevatorPhysClass () != NULL) {
 
@@ -212,7 +212,7 @@ UnitCoordinationZoneMgr::Display_Debug_Boxes (void)
 	//
 	//	Pretty simple, just add a debug box for each zone
 	//
-	for (int index = 0; index < ZoneList.Count (); index ++) {	
+	for (int index = 0; index < ZoneList.Count (); index ++) {
 		PhysicsSceneClass::Get_Instance ()->Add_Debug_AABox (ZoneList[index], Vector3 (1.0F, 0.0F, 0.25F));
 	}
 

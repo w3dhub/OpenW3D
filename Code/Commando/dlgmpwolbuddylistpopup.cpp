@@ -63,13 +63,13 @@ MPWolBuddyListPopupClass::MPWolBuddyListPopupClass (void)	:
 ////////////////////////////////////////////////////////////////
 void
 MPWolBuddyListPopupClass::On_Init_Dialog (void)
-{	
+{
 	//
 	//	Configure the list ctrl
 	//
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_BUDDY_LIST_CTRL);
 	if (list_ctrl != NULL) {
-		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));		
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
 
 		//
 		//	Loop over all the buddies
@@ -80,7 +80,7 @@ MPWolBuddyListPopupClass::On_Init_Dialog (void)
 			const WWOnline::UserList& list = buddyMgr->GetBuddyList();
 			const size_t count = list.size();
 			WWASSERT(count <= static_cast<size_t>(std::numeric_limits<int>::max()));
-			
+
 			for (size_t index = 0; index < count; ++index) {
 				const RefPtr<WWOnline::UserData>& user = list[index];
 
@@ -151,7 +151,7 @@ MPWolBuddyListPopupClass::On_Select (void)
 
 	//
 	//	Get the currently selected entry from the list control
-	//	
+	//
 	int curr_sel = list_ctrl->Get_Curr_Sel ();
 	if (curr_sel != -1) {
 
@@ -159,16 +159,16 @@ MPWolBuddyListPopupClass::On_Select (void)
 		//	Record the name of the entry
 		//
 		SelectedUserName = list_ctrl->Get_Entry_Text (curr_sel, 0);
-		
+
 		//
 		//	Notify the observer (if necessary)
 		//
 		if (Observer != NULL) {
 			Observer->Set_Buddy_Name(SelectedUserName);
 		}
-						
+
 		End_Dialog ();
 	}
-	
+
 	return ;
 }

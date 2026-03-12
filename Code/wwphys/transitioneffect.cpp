@@ -54,7 +54,7 @@
 **
 *************************************************************************************************/
 
-static float STEALTH_FRACTION_RATE			= 0.5f;		// rate at which the fraction approaches its target 
+static float STEALTH_FRACTION_RATE			= 0.5f;		// rate at which the fraction approaches its target
 static float STEALTH_ZNEAR_FADE_DISTANCE	= 15.0f;		// distance at which the intensity starts to fade due to camera proximity
 static float STEALTH_ZNEAR_AMOUNT			= 0.25f;		// amount the intensity can change as it approaches the camera
 static float STEALTH_FRIENDLY_FRACTION		= 0.75f;		// fraction at which friendly stealthed objects appear
@@ -84,7 +84,7 @@ TransitionEffectClass::TransitionEffectClass(void) :
 {
 	MaterialPass = NEW_REF(MaterialPassClass,());
 	MaterialPass->Enable_On_Translucent_Meshes(false);
-	
+
 	VertexMaterialClass * vmtl = NEW_REF(VertexMaterialClass,()); //PhysResourceMgrClass::Get_Stealth_Material();
 	vmtl->Set_Ambient(0,0,0);
 	vmtl->Set_Diffuse(0,0,0);
@@ -101,7 +101,7 @@ TransitionEffectClass::TransitionEffectClass(void) :
 
 	MaterialPass->Set_Material(vmtl);
 	REF_PTR_RELEASE(vmtl);
-	
+
 	ShaderClass shader = ShaderClass::_PresetAdditiveShader;
 	shader.Set_Primary_Gradient(ShaderClass::GRADIENT_ADD);
 	MaterialPass->Set_Shader(ShaderClass::_PresetAdditiveShader);
@@ -163,12 +163,12 @@ void TransitionEffectClass::Timestep(float dt)
 void TransitionEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * /* obj */)
 {
 	if (RenderTransitionMaterial) {
-		
+
 		/*
 		** Update the material settings and texture transform
 		*/
 		MaterialPass->Peek_Material()->Set_Emissive(Vector3(1,1,1) * IntensityScale);
-		
+
 		Matrix4 tm(1);
 		tm[0][3] = UVOffset.X;
 		tm[1][3] = UVOffset.Y;
@@ -179,7 +179,7 @@ void TransitionEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * /* o
 		*/
 		rinfo.Push_Material_Pass(MaterialPass);
 	}
-	
+
 	if (RenderBaseMaterial == false) {
 		rinfo.Push_Override_Flags(RenderInfoClass::RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY);
 	}
@@ -202,7 +202,7 @@ void TransitionEffectClass::Set_Texture(TextureClass * texture)
 		MaterialPass->Set_Texture(texture,0);
 	}
 }
-	
+
 
 /************************************************************************************
 **
@@ -210,7 +210,7 @@ void TransitionEffectClass::Set_Texture(TextureClass * texture)
 **
 ************************************************************************************/
 
-enum 
+enum
 {
 	TRANSITIONEFFECT_CHUNK_VARIABLES	= 702011215,			// member variables.
 
@@ -247,7 +247,7 @@ bool TransitionEffectClass::Save(ChunkSaveClass & csave)
 	WRITE_MICRO_CHUNK(csave,TRANSITIONEFFECT_VARIABLE_RENDERTRANSITIONMATERIAL,RenderBaseMaterial);
 	WRITE_MICRO_CHUNK(csave,TRANSITIONEFFECT_VARIABLE_INTENSITYSCALE,IntensityScale);
 	WRITE_MICRO_CHUNK(csave,TRANSITIONEFFECT_VARIABLE_UVOFFSET,UVOffset);
-	
+
 	if (texname != NULL) {
 		WRITE_MICRO_CHUNK_STRING(csave,TRANSITIONEFFECT_VARIABLE_TEXTURENAME,texname);
 	}
@@ -263,7 +263,7 @@ bool TransitionEffectClass::Load(ChunkLoadClass & cload)
 
 	while (cload.Open_Chunk()) {
 
-		switch(cload.Cur_Chunk_ID()) {			
+		switch(cload.Cur_Chunk_ID()) {
 
 			case TRANSITIONEFFECT_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {

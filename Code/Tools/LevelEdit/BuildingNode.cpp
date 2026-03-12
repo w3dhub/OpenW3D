@@ -96,7 +96,7 @@ BuildingNodeClass::BuildingNodeClass (const BuildingNodeClass &src)
 	:	m_PhysObj (NULL),
 		ObjectNodeClass (NULL)
 {
-	(*this) = src;	
+	(*this) = src;
 	return ;
 }
 
@@ -107,7 +107,7 @@ BuildingNodeClass::BuildingNodeClass (const BuildingNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 BuildingNodeClass::~BuildingNodeClass (void)
-{	
+{
 	Free_Child_Nodes ();
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
@@ -133,14 +133,14 @@ BuildingNodeClass::Initialize (void)
 	//
 	RenderObjClass *render_obj = ::Create_Render_Obj ("BUILDINGICON");
 	if (render_obj != NULL) {
-		
+
 		//
 		// Create the new physics object
 		//
 		m_PhysObj = new DecorationPhysClass;
 		m_PhysObj->Set_Model (render_obj);
 		m_PhysObj->Set_Collision_Group (EDITOR_COLLISION_GROUP);
-		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);				
+		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		m_PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (m_PhysObj->Peek_Model (), COLLISION_TYPE_0);
 		render_obj->Release_Ref ();
@@ -158,7 +158,7 @@ BuildingNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 BuildingNodeClass::Get_Factory (void) const
-{	
+{
 	return _BuildingNodePersistFactory;
 }
 
@@ -201,10 +201,10 @@ BuildingNodeClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		ObjectNodeClass::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
-		
+
 		//
 		//	Save the list of child node transforms
 		//
@@ -230,13 +230,13 @@ BuildingNodeClass::Save (ChunkSaveClass &csave)
 bool
 BuildingNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				ObjectNodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -256,7 +256,7 @@ BuildingNodeClass::Load (ChunkLoadClass &cload)
 /////////////////////////////////////////////////////////////////
 bool
 BuildingNodeClass::Load_Variables (ChunkLoadClass &cload)
-{	
+{
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
 
@@ -300,13 +300,13 @@ BuildingNodeClass::Pre_Export (void)
 		//
 		BuildingGameObj *building = Get_Building ();
 		if (building != NULL) {
-			
+
 			//
 			//	What type of building is this?
 			//
 			if (building->As_VehicleFactoryGameObj () != NULL) {
 				VehicleFactoryGameObj *airstrip = building->As_VehicleFactoryGameObj ();
-				
+
 				//
 				//	Configure the factory's creation transform
 				//
@@ -322,7 +322,7 @@ BuildingNodeClass::Pre_Export (void)
 				//
 				if (m_ChildNodes.Count () > 0) {
 					refinery->Set_Dock_TM (m_ChildNodes[0]->Get_Transform ());
-				}							
+				}
 			}
 		}
 
@@ -335,7 +335,7 @@ BuildingNodeClass::Pre_Export (void)
 
 			//
 			//	Remove the line from the scene
-			//	
+			//
 			::Get_Scene_Editor ()->Remove_Object (line);
 		}
 	}
@@ -363,7 +363,7 @@ BuildingNodeClass::Post_Export (void)
 
 			//
 			//	Add the line back into the world
-			//	
+			//
 			::Get_Scene_Editor ()->Add_Dynamic_Object (line);
 		}
 	}
@@ -391,7 +391,7 @@ BuildingNodeClass::Add_Child_Node (const Matrix3D &tm)
 	//
 	//	Create and add the line from the building to the child node
 	//
-	EditorLineClass *line = new EditorLineClass;	
+	EditorLineClass *line = new EditorLineClass;
 	line->Reset (m_Transform.Get_Translation (), tm.Get_Translation ());
 	m_ChildLines.Add (line);
 
@@ -419,13 +419,13 @@ BuildingNodeClass::Can_Add_Child_Nodes (void) const
 
 	BuildingGameObj *building = Get_Building ();
 	if (building != NULL) {
-		
+
 		//
-		//	Is this one of the types of buildings which need 
+		//	Is this one of the types of buildings which need
 		// child nodes?
 		//
 		if (building->As_VehicleFactoryGameObj () != NULL) {
-			
+
 			//
 			//	This type of building can only have one child node
 			//
@@ -433,7 +433,7 @@ BuildingNodeClass::Can_Add_Child_Nodes (void) const
 				retval = true;
 			}
 
-		} else if (building->As_RefineryGameObj () != NULL) {			
+		} else if (building->As_RefineryGameObj () != NULL) {
 
 			//
 			//	This type of building can only have one child node
@@ -462,13 +462,13 @@ BuildingNodeClass::Remove_Child_Node (NodeClass *child_node)
 	//
 	for (int index = 0; index < m_ChildNodes.Count (); index ++) {
 		if (child_node == m_ChildNodes[index]) {
-			
+
 			//
 			//	Free the child node
 			//
 			MEMBER_RELEASE (child_node);
 			m_ChildNodes.Delete (index);
-			
+
 			//
 			//	Remove and free the line to the child node
 			//
@@ -478,7 +478,7 @@ BuildingNodeClass::Remove_Child_Node (NodeClass *child_node)
 			break;
 		}
 	}
-	
+
 	return ;
 }
 
@@ -499,13 +499,13 @@ BuildingNodeClass::Free_Child_Nodes (void)
 	for (int index = 0; index < m_ChildNodes.Count (); index ++) {
 		NodeClass *child_node	= m_ChildNodes[index];
 		EditorLineClass *line	= m_ChildLines[index];
-		
+
 		scene->Remove_Object (line);
 		child_node->Remove_From_Scene ();
 		MEMBER_RELEASE (child_node);
 		MEMBER_RELEASE (line);
 	}
-	
+
 	//
 	//	Remove all the child nodes from the list
 	//
@@ -561,7 +561,7 @@ BuildingNodeClass::Remove_From_Scene (void)
 			scene->Remove_Object (line);
 		}
 	}
-	
+
 	NodeClass::Remove_From_Scene ();
 	return ;
 }
@@ -578,7 +578,7 @@ BuildingNodeClass::Update_Lines (void)
 	for (int index = 0; index < m_ChildNodes.Count (); index ++) {
 		NodeClass *child_node	= m_ChildNodes[index];
 		EditorLineClass *line	= m_ChildLines[index];
-		
+
 		//
 		//	Update the line between the node and its child
 		//
@@ -606,7 +606,7 @@ BuildingNodeClass::Hide (bool hide)
 		child_node->Hide (hide);
 		line->Hide (hide);
 	}
-	
+
 	NodeClass::Hide (hide);
 	return ;
 }

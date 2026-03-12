@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/transitiongameobj.cpp                 $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 11/17/01 10:28a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 10                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/transitiongameobj.cpp                 $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 11/17/01 10:28a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 10                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 /*
@@ -59,12 +59,12 @@ TransitionGameObjDef::~TransitionGameObjDef( void )
 	Free_Transition_List();
 }
 
-uint32	TransitionGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_TRANSITION; 
+uint32	TransitionGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_TRANSITION;
 }
 
-PersistClass *	TransitionGameObjDef::Create( void ) const 
+PersistClass *	TransitionGameObjDef::Create( void ) const
 {
 	TransitionGameObj * obj = new TransitionGameObj;
 	obj->Init( *this );
@@ -119,7 +119,7 @@ bool	TransitionGameObjDef::Load( ChunkLoadClass &cload )
 				Transitions.Add( transition );
 			}
 			break;
-								
+
 			default:
 				Debug_Say(( "Unrecognized TransitionDef chunkID\n" ));
 				break;
@@ -145,14 +145,14 @@ void TransitionGameObjDef::Free_Transition_List( void )
 			delete transition;
 		}
 	}
-	
+
 	Transitions.Delete_All();
 	return ;
 }
 
-const PersistFactoryClass & TransitionGameObjDef::Get_Factory (void) const 
-{ 
-	return _TransitionGameObjDefPersistFactory; 
+const PersistFactoryClass & TransitionGameObjDef::Get_Factory (void) const
+{
+	return _TransitionGameObjDefPersistFactory;
 }
 
 
@@ -161,7 +161,7 @@ const PersistFactoryClass & TransitionGameObjDef::Get_Factory (void) const
 */
 SimplePersistFactoryClass<TransitionGameObj, CHUNKID_GAME_OBJECT_TRANSITION>	_TransitionGameObjPersistFactory;
 
-const PersistFactoryClass & TransitionGameObj::Get_Factory (void) const 
+const PersistFactoryClass & TransitionGameObj::Get_Factory (void) const
 {
 	return _TransitionGameObjPersistFactory;
 }
@@ -253,7 +253,7 @@ bool	TransitionGameObj::Load( ChunkLoadClass &cload )
 		}
 		cload.Close_Chunk();
 	}
-	
+
 	SaveLoadSystemClass::Register_Post_Load_Callback(this);
 	return true;
 }

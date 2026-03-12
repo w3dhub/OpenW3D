@@ -87,7 +87,7 @@ void WOLJoinGame::JoinTheGame(const unichar_t* gameName, const unichar_t* passwo
 					return;
 					}
 				}
-			
+
 			// This will delete the WOLJoinGame object
 			joinGame->Release_Ref();
 			}
@@ -213,7 +213,7 @@ cGameData* WOLJoinGame::CreateGameFromChannel(const RefPtr<ChannelData>& channel
 			{
 			theGame->Set_Password(mPassword);
 			}
-		
+
 		theGame->Import_Tier_1_Data(gameInfo);
 		}
 
@@ -270,7 +270,7 @@ bool WOLJoinGame::Join(const unichar_t* gameName, const unichar_t* password, boo
 	int gameType = product->GetGameCode();
 
 	RefPtr<WaitCondition> wait = mWOLSession->JoinChannel(gameName, password, gameType);
-	
+
 	if (!wait.IsValid())
 		{
 		WWDEBUG_SAY(("ERROR: Couldn't create JoinChannellWait\n"));
@@ -502,7 +502,7 @@ void WOLJoinGame::HandleNotification(ChannelEvent& event)
 		// If the name of this channel is the name of the game we are joining
 		// then create the game from this channel.
 		const WideStringClass& channelName = channel->GetName();
-	
+
 		if (channelName.Compare_No_Case(mGameName) == 0)
 			{
 			WWDEBUG_SAY(("WOLJoinGame: Joined game channel '%S'\n", (const unichar_t*)channelName));
@@ -569,7 +569,7 @@ void WOLJoinGame::HandleNotification(DlgWOLWaitEvent& event)
 		// leave the channel.
 		const WideStringClass& text = event.Subject()->GetResultText();
 		WWDEBUG_SAY(("WOLJoinGame: Wait failed - %S\n", (const unichar_t*)text));
-		
+
 		DlgMsgBox::DoDialog(TRANSLATE(IDS_WOL_ERROR), text);
 
 		Leave();

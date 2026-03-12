@@ -95,7 +95,7 @@ const TCHAR * const ALWAYS_DB_FILENAME			= TEXT ("always.dbs");
 /////////////////////////////////////////////////////////
 void
 ExporterClass::Export_Level (LPCTSTR filename)
-{	
+{
 	CWaitCursor wait_cursor;
 	m_AssetList.Delete_All ();
 
@@ -108,7 +108,7 @@ ExporterClass::Export_Level (LPCTSTR filename)
 	//
 	//	Get the base destination path
 	//
-	Path = ::Strip_Filename_From_Path (filename);	
+	Path = ::Strip_Filename_From_Path (filename);
 
 	//
 	//	Strip the path and extension from the filename to give
@@ -122,7 +122,7 @@ ExporterClass::Export_Level (LPCTSTR filename)
 
 	//
 	//	Setup the temporary directory
-	//	
+	//
 	Make_Temp_Directory ();
 
 	//
@@ -152,7 +152,7 @@ ExporterClass::Export_Level (LPCTSTR filename)
 	//	Cache the directory path we just exported into
 	//
 	theApp.WriteProfileString (CONFIG_KEY, LAST_EXPORT_DIR_VALUE, Path);
-	return ;	
+	return ;
 }
 
 
@@ -171,19 +171,19 @@ ExporterClass::Make_Temp_Directory (void)
 	::GetTempPath (sizeof (temp_dir), temp_dir);
 
 	CString temp_path = ::Make_Path (temp_dir, FilenameBase);
-	
+
 	//
 	//	Try to find a unique temp directory to store our data
 	//
-	int index = 0;	
-	do {		
+	int index = 0;
+	do {
 		TempDirectory.Format ("%s%.2d.DIR", (const char *)temp_path, index++);
 	} while (cPathUtil::PathExists (TempDirectory));
 
 	//
 	//	Create the directory
 	//
-	::CreateDirectory (TempDirectory, NULL);	
+	::CreateDirectory (TempDirectory, NULL);
 	::Set_Current_Directory (TempDirectory);
 	::SetCurrentDirectory (TempDirectory);
 	return ;
@@ -203,7 +203,7 @@ ExporterClass::Delete_Temp_Directory (void)
 	//
 	::Set_Current_Directory (Path);
 	::SetCurrentDirectory (Path);
-	
+
 	//
 	//	Remove the temporary directory
 	//
@@ -262,7 +262,7 @@ ExporterClass::Export_Level_File (void)
 	//	Now add these files to the mix file
 	//
 	CString lsd_path = Make_Path (TempDirectory, lsd_filename);
-	CString ldd_path = Make_Path (TempDirectory, ldd_filename);	
+	CString ldd_path = Make_Path (TempDirectory, ldd_filename);
 	MixFileCreator.Add_File (lsd_path, lsd_filename);
 	MixFileCreator.Add_File (ldd_path, ldd_filename);
 	return true;
@@ -290,25 +290,25 @@ ExporterClass::Export_Always_Files (LPCTSTR path)
 		//
 		Path = path;
 		FilenameBase = ALWAYS_ROOT_NAME;
-		
+
 		//
 		//	Setup the temporary directory
-		//	
+		//
 		Make_Temp_Directory ();
 
 		//
 		// Copy all the files used by the framework to the directory
 		//
-		STRING_LIST &global_list = ::Get_File_Mgr ()->Get_Global_Include_File_List ();		
+		STRING_LIST &global_list = ::Get_File_Mgr ()->Get_Global_Include_File_List ();
 		Process_Include_Files (global_list);
-				
+
 		//
 		//	Get the always dependency search list
 		//
 		STRING_LIST search_list;
 		CString always_dep_search_ini = ::Get_File_Mgr ()->Make_Full_Path (ALWAYS_DEP_INI_PATH);
 		::Get_File_Mgr ()->Build_Include_List (always_dep_search_ini, search_list);
-		
+
 		//
 		//	Find all the files in the search list and add them to a list
 		//
@@ -352,7 +352,7 @@ ExporterClass::Export_Always_Files (LPCTSTR path)
 		::Message_Box (::AfxGetMainWnd ()->m_hWnd, IDS_CANT_EXPORT_MSG, IDS_CANT_EXPORT_TITLE, MB_ICONERROR | MB_OK);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -384,7 +384,7 @@ ExporterClass::Export_Level_Data (void)
 		//
 		bool path_important = ::Get_File_Mgr ()->Is_File_Path_Important (file_index);
 		if (path_important) {
-			
+
 			//
 			//	Pre-pend the subdirectory name to form the entry name
 			//
@@ -440,7 +440,7 @@ ExporterClass::Export_Database_Mix (LPCTSTR path)
 
 	//
 	//	Setup the temporary directory
-	//		
+	//
 	Make_Temp_Directory ();
 
 	//
@@ -472,17 +472,17 @@ ExporterClass::Export_Definition_Databases (bool use_temp_strings_library)
 	PresetsFormClass *presets_form = ::Get_Presets_Form ();
 	if (presets_form != NULL) {
 		CString path = ::Make_Path (TempDirectory, "objects.ddb");
-		presets_form->Save_Presets (path, 0, false, false);		
+		presets_form->Save_Presets (path, 0, false, false);
 		always_db_mix_creator.Add_File (path, ::Get_Filename_From_Path (path));
 	}
-	
+
 	//
 	//	Add the strings table
 	//
 	if (use_temp_strings_library == false) {
 		CString filename = ::Get_File_Mgr ()->Make_Full_Path (STRINGS_DB_PATH);
 		always_db_mix_creator.Add_File (filename, ::Get_Filename_From_Path (filename));
-	} else {		
+	} else {
 		//
 		//	Save the strings table to the temporary directory, then
 		// add it to the mix file
@@ -502,7 +502,7 @@ ExporterClass::Export_Definition_Databases (bool use_temp_strings_library)
 	//	Now generate the definition databases mix file
 	//
 	CString mix_filename = ::Make_Path (Path, ALWAYS_DB_FILENAME);
-	always_db_mix_creator.Generate_Mix_File (mix_filename);	
+	always_db_mix_creator.Generate_Mix_File (mix_filename);
 	return true;
 }
 
@@ -523,18 +523,18 @@ ExporterClass::Build_File_List (const STRING_LIST &search_list, STRING_LIST &fil
 	for (int index = 0; index < search_list.Count (); index ++) {
 		CString wildcard = search_list[index];
 		CString search = ::Get_File_Mgr ()->Make_Full_Path (wildcard);
-		
+
 		//
 		// Make sure we have all the assets for this always group
 		//
 		if (DontGetVersionsFromVSS == false) {
 			::Get_File_Mgr ()->Get_Subproject (::Strip_Filename_From_Path (wildcard));
 		}
-		
+
 		//
 		//	Add the all the files that match the search mask to this list
 		//
-		Find_Files (search, file_list);		
+		Find_Files (search, file_list);
 	}
 
 	return retval;
@@ -563,7 +563,7 @@ ExporterClass::Find_Files (const char *search_mask, STRING_LIST &file_list)
 	HANDLE hfile_find = ::FindFirstFile (search_mask, &find_info);
 	for (;(hfile_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (hfile_find, &find_info))
-	{			
+	{
 		//
 		//	Don't do this if its a directory
 		//
@@ -591,7 +591,7 @@ ExporterClass::Find_Files (const char *search_mask, STRING_LIST &file_list)
 	for (hfile_find = ::FindFirstFile (full_search_mask, &find_info);
 		  (hfile_find != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (hfile_find, &find_info))
-	{			
+	{
 		//
 		//	Don't do this if its a directory
 		//
@@ -641,7 +641,7 @@ ExporterClass::Process_Include_Files (const STRING_LIST &search_list)
 /////////////////////////////////////////////////////////
 bool
 ExporterClass::Export_Include_Files (const STRING_LIST &file_list)
-{	
+{
 	//
 	//	Add all the files from the list
 	//
@@ -717,10 +717,10 @@ ExporterClass::Clean_Directory (LPCTSTR local_dir)
 	//
 	// Build a search mask from the directory
 	//
-	CString search_mask = CString (local_dir) + "\\*.*";	
-	
+	CString search_mask = CString (local_dir) + "\\*.*";
+
 	//
-	// Loop through all the files in this directory and add them	
+	// Loop through all the files in this directory and add them
 	// to our list
 	//
 	DynamicVectorClass<CString> file_list;
@@ -730,7 +730,7 @@ ExporterClass::Clean_Directory (LPCTSTR local_dir)
 	for (;(hfind != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (hfind, &find_info))
 	{
-		
+
 		//
 		// If this file isn't a directory, add it to the list
 		//
@@ -738,7 +738,7 @@ ExporterClass::Clean_Directory (LPCTSTR local_dir)
 			CString filename = find_info.cFileName;
 			file_list.Add (filename);
 		} else if (find_info.cFileName[0] != '.') {
-			
+
 			//
 			//	Recurse into this subdirectory
 			//
@@ -746,7 +746,7 @@ ExporterClass::Clean_Directory (LPCTSTR local_dir)
 			::Delimit_Path (full_path);
 			full_path += find_info.cFileName;
 			Clean_Directory (full_path);
-			
+
 			//
 			//	Add this directory to the list so it will get
 			// deleted with the files...
@@ -762,7 +762,7 @@ ExporterClass::Clean_Directory (LPCTSTR local_dir)
 	if (hfind != NULL) {
 		::FindClose (hfind);
 	}
-	
+
 	//
 	//	Now loop through all the files and delete them
 	//
@@ -798,23 +798,23 @@ ExporterClass::Pre_Level_Export (DynamicVectorClass<NodeClass *> &node_list)
 	::Get_Scene_Editor ()->Re_Partition_Static_Lights ();
 	::Get_Scene_Editor ()->Re_Partition_Audio_System ();
 	::Get_Scene_Editor ()->Set_Selection (NULL);
-	::Get_Scene_Editor ()->Display_Vis_Points (false);	
-	
+	::Get_Scene_Editor ()->Display_Vis_Points (false);
+
 	//
 	//	Make sure the buildings are in a good state
 	//
 	GameObjManager::Update_Building_Collection_Spheres ();
-	GameObjManager::Init_Buildings ();	
+	GameObjManager::Init_Buildings ();
 
 	//
 	//	Let the nodes know we are about to start exporting them.
 	// This way they can remove any 'editor-only' artifacts from
 	// the system.
-	//	
+	//
 	NodeMgrClass::Build_Full_Node_List (node_list);
 	for (int index = 0; index < node_list.Count (); index ++) {
 		node_list[index]->Pre_Export ();
-	}	
+	}
 
 	//
 	//	Force the pathfind system to use any available waypath data
@@ -852,7 +852,7 @@ ExporterClass::Post_Level_Export (DynamicVectorClass<NodeClass *> &node_list)
 /////////////////////////////////////////////////////////
 void
 ExporterClass::Export_Package (LPCTSTR full_path)
-{	
+{
 	CWaitCursor wait_cursor;
 
 	//
@@ -865,7 +865,7 @@ ExporterClass::Export_Package (LPCTSTR full_path)
 	//
 	//	Get the base destination path
 	//
-	Path = ::Strip_Filename_From_Path (full_path);	
+	Path = ::Strip_Filename_From_Path (full_path);
 
 	//
 	//	Strip the path and extension from the filename to give
@@ -891,7 +891,7 @@ ExporterClass::Export_Package (LPCTSTR full_path)
 	//	Cache the directory path we just exported into
 	//
 	theApp.WriteProfileString (CONFIG_KEY, LAST_EXPORT_DIR_VALUE, Path);
-	return ;	
+	return ;
 }
 
 
@@ -919,9 +919,9 @@ ExporterClass::Add_Files_To_Mod_Package (LPCTSTR full_path)
 		  keep_going = ::FindNextFile (file_find, &find_info))
 	{
 		if (find_info.cFileName[0] != '.') {
-			
+
 			if ((find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY) {
-				
+
 				//
 				//	Recurse into this sub-directory
 				//
@@ -929,12 +929,12 @@ ExporterClass::Add_Files_To_Mod_Package (LPCTSTR full_path)
 				Add_Files_To_Mod_Package (subdir_path);
 
 			} else {
-				
+
 				//
 				//	Skip all lvl files
 				//
 				if (::strstr (find_info.cFileName, ".lvl") == NULL) {
-					
+
 					//
 					//	Simply add this file to the mix
 					//
@@ -948,11 +948,11 @@ ExporterClass::Add_Files_To_Mod_Package (LPCTSTR full_path)
 	//
 	//	Close the search handle
 	//
-	if (file_find != INVALID_HANDLE_VALUE) {			  
-		::FindClose (file_find); 
+	if (file_find != INVALID_HANDLE_VALUE) {
+		::FindClose (file_find);
 	}
-	
-	return ;	
+
+	return ;
 }
 
 
@@ -963,7 +963,7 @@ ExporterClass::Add_Files_To_Mod_Package (LPCTSTR full_path)
 /////////////////////////////////////////////////////////
 void
 ExporterClass::Export_Level_Only (LPCTSTR path)
-{	
+{
 	CWaitCursor wait_cursor;
 	m_AssetList.Delete_All ();
 
@@ -976,7 +976,7 @@ ExporterClass::Export_Level_Only (LPCTSTR path)
 	//
 	//	Get the base destination path
 	//
-	Path				= ::Strip_Filename_From_Path (path);	
+	Path				= ::Strip_Filename_From_Path (path);
 	TempDirectory	= Path;
 	::Set_Current_Directory (TempDirectory);
 	::SetCurrentDirectory (TempDirectory);
@@ -989,7 +989,7 @@ ExporterClass::Export_Level_Only (LPCTSTR path)
 	int extension_index = FilenameBase.ReverseFind ('.');
 	if (extension_index != -1) {
 		FilenameBase = FilenameBase.Left (extension_index);
-	}	
+	}
 
 	//
 	//	Export the level in game format

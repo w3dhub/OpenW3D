@@ -774,13 +774,13 @@ const char * _Seat_Textures[3] = {
 	"hud_passseat.tga",	// SEAT_PASENGER,
 };
 
-static	void	Weapon_Reset( void ) 
+static	void	Weapon_Reset( void )
 {
 	_LastHUDWeapon = INVALID_HUD_WEAPON;		// force weapon to re-draw next
 	_LastVehicleSeat = -1;	// force vehicle seat to re-draw next
 }
 
-static	void	Weapon_Update( void ) 
+static	void	Weapon_Update( void )
 {
 	WeaponClass * weapon = NULL;
 	if ( COMBAT_STAR ) {
@@ -1208,7 +1208,7 @@ float	DamageIndicatorIntensity[ NUM_DAMAGE_INDICATORS ];
 bool	DamageIndicatorIntensityChanging;
 bool	DamageIndicatorOrientation;
 
-static	void	Damage_Reset( void ) 
+static	void	Damage_Reset( void )
 {
 	for ( int i = 0; i < NUM_DAMAGE_INDICATORS; i++ ) {
 		DamageIndicatorIntensity[ i ] = 0;
@@ -1217,7 +1217,7 @@ static	void	Damage_Reset( void )
 	CombatManager::Clear_Star_Damage_Direction();
 }
 
-static	void	Damage_Init( void ) 
+static	void	Damage_Init( void )
 {
 	DamageRenderer = new Render2DClass();
 	DamageRenderer->Set_Texture( HUD_MAIN_TEXTURE );

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/apppackettypes.h         $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 2/21/02 3:01p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 21                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/apppackettypes.h         $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 2/21/02 3:01p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 21                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -50,7 +50,7 @@ enum
 {
 	//
 	// S->C
-	//	
+	//
 	APPPACKETTYPE_UNKNOWN,
 	APPPACKETTYPE_SIMPLE,
 	APPPACKETTYPE_SOLDIER,
@@ -89,7 +89,7 @@ enum
 
 	//
 	// C->S
-	//	
+	//
 	APPPACKETTYPE_CLIENTCONTROL,
 	APPPACKETTYPE_CSTEXTOBJ,
 	APPPACKETTYPE_SUICIDEEVENT,
@@ -120,7 +120,7 @@ enum
 	APPPACKETTYPE_ALL,
 
 	APPPACKETTYPE_COUNT,
-};	
+};
 
 //-----------------------------------------------------------------------------
 

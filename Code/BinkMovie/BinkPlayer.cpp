@@ -57,7 +57,7 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 	}
 
 	unsigned poweroftwoheight = 1;
-	
+
 	while (poweroftwoheight < Bink->Height) {
 		poweroftwoheight <<= 1;
 	}
@@ -65,7 +65,7 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 	if (poweroftwowidth > dx8caps.MaxTextureWidth) {
 		poweroftwowidth = dx8caps.MaxTextureWidth;
 	}
-	
+
 	if (poweroftwoheight > dx8caps.MaxTextureHeight) {
 		poweroftwoheight = dx8caps.MaxTextureHeight;
 	}
@@ -83,7 +83,7 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 
 	TextureInfos = new TextureInfoStruct[TextureCount];
 	unsigned cnt = 0;
-	
+
 	for (y = 0; y < Bink->Height; y += max_height-1) {
 		for (x = 0; x < Bink->Width; x += max_width-1) {
 			TextureInfos[cnt].Texture = new TextureClass(

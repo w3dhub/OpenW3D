@@ -50,7 +50,7 @@ DECLARE_FORCE_LINK( shakeablestaticphys );
 /*
 ** Chunk Id's used by ShakeableStaticPhysClass
 */
-enum 
+enum
 {
 	SHAKEABLESTATICPHYS_CHUNK_STATICANIMPHYS				= 7311740,
 };
@@ -58,7 +58,7 @@ enum
 /*
 ** Chunk Id's used by ShakeableStaticPhysDefClass
 */
-enum	
+enum
 {
 	SHAKEABLESTATICPHYSDEF_CHUNK_STATICANIMPHYSDEF		= 7311734,
 };
@@ -85,9 +85,9 @@ ShakeableStaticPhysDefClass::ShakeableStaticPhysDefClass(void)
 {
 }
 
-uint32 ShakeableStaticPhysDefClass::Get_Class_ID(void) const	
-{ 
-	return CLASSID_SHAKEABLESTATICPHYSDEF; 
+uint32 ShakeableStaticPhysDefClass::Get_Class_ID(void) const
+{
+	return CLASSID_SHAKEABLESTATICPHYSDEF;
 }
 
 bool ShakeableStaticPhysDefClass::Is_Type(const char * type_name)
@@ -99,7 +99,7 @@ bool ShakeableStaticPhysDefClass::Is_Type(const char * type_name)
 	}
 }
 
-PersistClass *	ShakeableStaticPhysDefClass::Create(void) const 
+PersistClass *	ShakeableStaticPhysDefClass::Create(void) const
 {
 	ShakeableStaticPhysClass * obj = new ShakeableStaticPhysClass;
 	obj->Init(*this);
@@ -124,7 +124,7 @@ bool	ShakeableStaticPhysDefClass::Load( ChunkLoadClass &cload )
 			case SHAKEABLESTATICPHYSDEF_CHUNK_STATICANIMPHYSDEF:
 				StaticAnimPhysDefClass::Load( cload );
 				break;
-  
+
 			default:
 				WWDEBUG_SAY(( "Unrecognized ShakeableStaticPhysDef chunkID\n" ));
 				break;
@@ -136,9 +136,9 @@ bool	ShakeableStaticPhysDefClass::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-const PersistFactoryClass & ShakeableStaticPhysDefClass::Get_Factory (void) const 
-{ 
-	return _ShakeableStaticPhysDefPersistFactory; 
+const PersistFactoryClass & ShakeableStaticPhysDefClass::Get_Factory (void) const
+{
+	return _ShakeableStaticPhysDefPersistFactory;
 }
 
 
@@ -150,7 +150,7 @@ const PersistFactoryClass & ShakeableStaticPhysDefClass::Get_Factory (void) cons
 ************************************************************************************************/
 SimplePersistFactoryClass<ShakeableStaticPhysClass, PHYSICS_CHUNKID_SHAKEABLESTATICPHYS>	_ShakeableStaticPhysPersistFactory;
 
-const PersistFactoryClass & ShakeableStaticPhysClass::Get_Factory (void) const 
+const PersistFactoryClass & ShakeableStaticPhysClass::Get_Factory (void) const
 {
 	return _ShakeableStaticPhysPersistFactory;
 }
@@ -177,7 +177,7 @@ void ShakeableStaticPhysClass::Play_Animation(void)
 	** to the end of the animation...
 	*/
 	AnimCollisionManagerClass & anim_mgr = Get_Animation_Manager();
-	
+
 	HAnimClass * anim = anim_mgr.Peek_Animation();
 	if (anim != NULL) {
 		anim_mgr.Set_Current_Frame(0);
@@ -206,7 +206,7 @@ bool ShakeableStaticPhysClass::Load(ChunkLoadClass & cload)
 			case SHAKEABLESTATICPHYS_CHUNK_STATICANIMPHYS:
 				StaticAnimPhysClass::Load( cload );
 				break;
-		
+
 			default:
 				WWDEBUG_SAY(( "Unrecognized ShakeableStaticPhys chunkID\n" ));
 				break;

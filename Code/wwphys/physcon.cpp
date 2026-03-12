@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/wwphys/physcon.cpp 13    9/20/01 5:12p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/wwphys/physcon.cpp                           $* 
- *                                                                                             * 
- *                       Author:: Greg_h                                                       * 
- *                                                                                             * 
- *                     $Modtime:: 9/19/01 7:56p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 13                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwphys/physcon.cpp                           $*
+ *                                                                                             *
+ *                       Author:: Greg_h                                                       *
+ *                                                                                             *
+ *                     $Modtime:: 9/19/01 7:56p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 13                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -57,7 +57,7 @@ Vector3		PhysicsConstants::GravityAcceleration(0.0f,0.0f,-9.8f);
 float			PhysicsConstants::LinearDamping = 0.01f;
 
 float			PhysicsConstants::AngularDamping = 0.05f;
-	
+
 float			PhysicsConstants::RestingContactVelocity = 0.1f;
 
 float			PhysicsConstants::MinFrictionVelocity = 0.05f;
@@ -211,8 +211,8 @@ void PhysicsConstants::Load(ChunkLoadClass & cload)
 {
 
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case PHYSCONSTANTS_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
@@ -228,13 +228,13 @@ void PhysicsConstants::Load(ChunkLoadClass & cload)
 					cload.Close_Micro_Chunk();
 				}
 				break;
-		
+
 
 			default:
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 }

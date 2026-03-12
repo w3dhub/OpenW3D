@@ -247,7 +247,7 @@ STDMETHODIMP NetUtilObserver::OnPing(HRESULT result, int time, unsigned int ip, 
 
 		// Notify others about the ping result.
 		mOuter->NotifyObservers(*ping);
-	
+
 		// Remove ping from request list.
 		std::vector<RawPing>::iterator iter = mOuter->mPingRequests.begin();
 
@@ -445,7 +445,7 @@ void NetUtilObserver::ProcessLadderListResults(WOL::Ladder* list, int timeStamp)
 					if (ladderData.IsValid())
 						{
 						ladderData->UpdateData(*wolLadder, timeStamp);
-						}															 
+						}
 					else if (hasLadderData)
 						{
 						ladderData = LadderData::Create(*wolLadder, timeStamp);
@@ -563,7 +563,7 @@ STDMETHODIMP NetUtilObserver::OnNewNick(HRESULT result, LPCSTR message, LPCSTR n
 		{
 		login = LoginInfo::Create(nickname, password, true);
 		}
-		
+
 	NewLoginInfoEvent event(login, message);
 	mOuter->NotifyObservers(event);
 

@@ -80,7 +80,7 @@ typedef enum
 	MASK_BACKWARD	= 4,
 	MASK_RIGHT		= 8,
 	MASK_MAX,
-	
+
 	MASK_UP			= MASK_FORWARD,
 	MASK_DOWN		= MASK_BACKWARD,
 
@@ -119,13 +119,13 @@ Clockwise_Pathfind_Dir (PATHFIND_DIR dir)
 //
 //////////////////////////////////////////////////////////////////////////
 class FloodfillBoxClass : public RefCountClass
-{		
+{
 	public:
 
 		//////////////////////////////////////////////////////////////////////
 		//	Public constructors/destructors
 		//////////////////////////////////////////////////////////////////////
-		FloodfillBoxClass (void) 
+		FloodfillBoxClass (void)
 			:	m_Sector (NULL),
 				m_Flags (NeedsProcessing),
 				m_DirectionInfo (0),
@@ -229,7 +229,7 @@ class FloodfillBoxClass : public RefCountClass
 		//////////////////////////////////////////////////////////////////////
 		//	Private methods
 		//////////////////////////////////////////////////////////////////////
-		
+
 		typedef enum
 		{
 			IsTaken				= 0x01,
@@ -321,19 +321,19 @@ FloodfillBoxClass::Remove (void)
 	if (m_Prev) {
 		m_Prev->m_Next = m_Next;
 	}
-	
+
 	if (m_Next) {
 		m_Next->m_Prev = m_Prev;
 	}
-	
+
 	if (m_First == this) {
 		m_First = m_Next;
 	}
 
 	if (m_Last == this) {
 		m_Last = m_Prev;
-	}	
-	
+	}
+
 	m_Prev = NULL;
 	m_Next = NULL;
 	return ;
@@ -394,7 +394,7 @@ FloodfillBoxClass::Is_Edge (void)
 		 Peek_Neighbor (DIR_BACKWARD) == NULL ||
 		 Peek_Neighbor (DIR_LEFT) == NULL ||
 		 Peek_Neighbor (DIR_RIGHT) == NULL) {
-		
+
 		retval = true;
 	}
 
@@ -424,7 +424,7 @@ FloodfillBoxClass::Are_Neighbors_Processed (void)
 inline void
 FloodfillBoxClass::Set_Neighbor (PATHFIND_DIR dir, FloodfillBoxClass *obj, bool traversible)
 {
-	m_Neighbors[dir] = obj;	
+	m_Neighbors[dir] = obj;
 	Set_Traversible (dir, traversible);
 	return ;
 }

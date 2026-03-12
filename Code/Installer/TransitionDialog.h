@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/TransitionDialog.h $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 12/15/01 5:08p                $* 
- *                                                                                             * 
- *                    $Revision:: 4                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/TransitionDialog.h $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 12/15/01 5:08p                $*
+ *                                                                                             *
+ *                    $Revision:: 4                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _TRANSITION_DIALOG_H
 #define _TRANSITION_DIALOG_H
@@ -40,10 +40,10 @@
 #include "menudialog.h"
 #include "Random.h"
 
-				  
+
 // Defines.
 #define LABEL_COUNT 7
-#define MESH_COUNT  5	 
+#define MESH_COUNT  5
 
 
 // Forward declarations.
@@ -69,7 +69,7 @@ class TransitionDialogClass : public MenuDialogClass
 
 		float														Time;								// Time (in seconds) that the dialog has been running.
 		Render2DSentenceClass							  *TextRenderers [LABEL_COUNT];
-		DynamicVectorClass <Render2DSentenceClass*>  Digits; 							
+		DynamicVectorClass <Render2DSentenceClass*>  Digits;
 		VertexMaterialClass								  *Materials [MESH_COUNT];
 };
 

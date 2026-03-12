@@ -1,5 +1,5 @@
 MAPPER_NAME
-Description: 
+Description:
 What the mapper does
 Params:
 What to type in the argument space
@@ -78,8 +78,8 @@ Moves the texture map in the shape of a Lissajous figure.
 Params:
 UAmp=(float) 1.0f;
 UFreq=(float) 1.0f;
-UPhase=(float) 0.0f;	
-VAmp=(float) 1.0f;	
+UPhase=(float) 0.0f;
+VAmp=(float) 1.0f;
 VFreq=(float) 1.0f;
 VPhase=(float) 0.0f;
 

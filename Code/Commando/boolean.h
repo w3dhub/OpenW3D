@@ -20,7 +20,7 @@
 // Filename:     boolean.h
 // Author:       Tom Spencer-Smith
 // Date:         Nov 1999
-// Description:  
+// Description:
 //
 //-----------------------------------------------------------------------------
 #if defined(_MSV_VER)

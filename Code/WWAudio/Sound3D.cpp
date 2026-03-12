@@ -360,7 +360,7 @@ Sound3DClass::Update_Miles_Transform (void)
 		//
 		Vector3 position = listener_space_tm.Get_Translation ();
 		m_SoundHandle->Set_Position(position);
-		
+
 		//
 		// Pass the sound's orientation (facing) onto miles
 		//
@@ -534,7 +534,7 @@ Sound3DClass::Initialize_Miles_Handle (void)
 		//	Assign the 3D effects level accordingly (for reverb, etc)
 		//
 		m_SoundHandle->Set_Effect_Level(WWAudioClass::Get_Instance ()->Get_Effects_Level ());
-		
+
 		//
 		//	Pass the sound's position and orientation onto Miles
 		//

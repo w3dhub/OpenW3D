@@ -86,7 +86,7 @@ public:
 
 	bool								Has_Just_Jumped (void) const { return JustJumped; }
 	void								Jump_To_Point (const Vector3 &point);
-	
+
 protected:
 
 	virtual void					Check_Ground(const AABoxClass & box,GroundStateStruct * gs,float check_dist) override;
@@ -99,7 +99,7 @@ protected:
 	bool								IsAIControlledJump;
 
 private:
-	
+
 	static bool						_DisableHumanSimulation;
 	static bool						_DisableHumanRendering;
 
@@ -116,9 +116,9 @@ private:
 class HumanPhysDefClass : public Phys3DefClass
 {
 public:
-	
+
 	HumanPhysDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;
@@ -136,7 +136,7 @@ public:
 	DECLARE_EDITABLE(HumanPhysDefClass,Phys3DefClass);
 
 protected:
-	
+
 	// No variables for now...
 };
 

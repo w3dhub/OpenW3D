@@ -470,7 +470,7 @@ bool cGameDataCnc::Is_Gameplay_Permitted(void)
 		//
 		// If your maxplayers is set to more than 1 then you must have an opponent.
 		//
-		permitted = 
+		permitted =
 			cPlayerManager::Tally_Team_Size(PLAYERTYPE_NOD) > 0 &&
 			cPlayerManager::Tally_Team_Size(PLAYERTYPE_GDI) > 0;
 	}

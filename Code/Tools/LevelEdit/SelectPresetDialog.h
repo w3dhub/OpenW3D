@@ -72,7 +72,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	
+
 	///////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ public:
 	//
 	void				Set_Title (LPCTSTR title)			{ m_Title = title; }
 	void				Set_Message (LPCTSTR msg)			{ m_Message = msg; }
-	
+
 private:
 
 	///////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ private:
 	void				Fill_Tree (NTreeLeafClass<PresetClass *> *leaf, HTREEITEM parent_item);
 	void				Generate_Tree (int class_id, HTREEITEM parent_item);
 	void				Build_Full_Preset_Tree (void);
-	
+
 	///////////////////////////////////////////////////////////////
 	//	Private member data
 	///////////////////////////////////////////////////////////////

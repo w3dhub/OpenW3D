@@ -88,7 +88,7 @@ public:
 	static ConversationPageClass *	Get_Instance (void)	{ return _TheInstance; }
 
 protected:
-	
+
 	///////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ private:
 	DialogToolbarClass	m_Toolbar;
 	HTREEITEM				m_GlobalsRoot;
 	HTREEITEM				m_LevelsRoot;
-	
+
 	static ConversationPageClass *	_TheInstance;
 };
 

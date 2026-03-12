@@ -98,7 +98,7 @@ struct W3dRingStruct
 **
 */
 class RingRenderObjClass : public RenderObjClass
-{	
+{
 
 public:
 
@@ -115,7 +115,7 @@ public:
 	~RingRenderObjClass(void);
 
 	/////////////////////////////////////////////////////////////////////////////
-	// Render Object Interface 
+	// Render Object Interface
 	/////////////////////////////////////////////////////////////////////////////
 	virtual RenderObjClass *	Clone(void) const override;
 	virtual int						Class_ID(void) const override;
@@ -186,8 +186,8 @@ public:
 
 	// Animatable channel access
 	RingColorChannelClass &			Get_Color_Channel (void)				{ return ColorChannel; }
-	const RingColorChannelClass &	Peek_Color_Channel (void)				{ return ColorChannel; }	
-	
+	const RingColorChannelClass &	Peek_Color_Channel (void)				{ return ColorChannel; }
+
 	RingAlphaChannelClass &			Get_Alpha_Channel (void)				{ return AlphaChannel; }
 	const RingAlphaChannelClass &	Peek_Alpha_Channel (void)				{ return AlphaChannel; }
 
@@ -203,7 +203,7 @@ public:
 	void								Set_Outer_Scale_Channel (const RingScaleChannelClass &data)		{ OuterScaleChannel = data; }
 
 protected:
-	
+
 	virtual void					update_cached_box(void);
 	void								Update_On_Visibilty(void);
 
@@ -284,11 +284,11 @@ inline void RingRenderObjClass::Set_Local_Min_Max(const Vector3 & min,const Vect
 	update_cached_box();
 }
 
-inline const AABoxClass & RingRenderObjClass::Get_Box(void) 
-{ 
+inline const AABoxClass & RingRenderObjClass::Get_Box(void)
+{
 	Validate_Transform();
 	update_cached_box();
-	return CachedBox; 
+	return CachedBox;
 }
 
 /*

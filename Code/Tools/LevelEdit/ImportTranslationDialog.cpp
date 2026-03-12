@@ -77,7 +77,7 @@ END_MESSAGE_MAP()
 //
 ///////////////////////////////////////////////////////////////////////////
 BOOL
-ImportTranslationDialogClass::OnInitDialog (void) 
+ImportTranslationDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
@@ -89,7 +89,7 @@ ImportTranslationDialogClass::OnInitDialog (void)
 	//
 	//	Select english by default
 	//
-	SendDlgItemMessage (IDC_LANG_COMBO, CB_SETCURSEL, TranslateDBClass::LANGID_ENGLISH);	
+	SendDlgItemMessage (IDC_LANG_COMBO, CB_SETCURSEL, TranslateDBClass::LANGID_ENGLISH);
 	return true;
 }
 
@@ -111,9 +111,9 @@ ImportTranslationDialogClass::OnOK (void)
 		if (lang_id >= 0) {
 			StringsMgrClass::Export_For_Translation (Filename, lang_id);
 		}
-		
+
 	} else {
-		
+
 		//
 		//	Import the data
 		//

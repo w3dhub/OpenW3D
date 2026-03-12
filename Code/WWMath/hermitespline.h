@@ -59,11 +59,11 @@ public:
 		: TangentsDirty (true) { (*this) = that; }
 
 	const HermiteSpline3DClass &operator= (const HermiteSpline3DClass &that);
-	
+
 	virtual void		Evaluate(float time,Vector3 * set_val) override;
 	virtual void		Evaluate_Derivative(float time,Vector3 * set_val);
 	virtual void		Set_Looping(bool onoff) override;
-	
+
 	virtual void		Set_Key(int i,const Vector3 & point) override;
 	virtual int			Add_Key(const Vector3 & point,float t) override;
 	virtual void		Remove_Key(int i) override;
@@ -88,7 +88,7 @@ protected:
 		Vector3			OutTangent;
 		bool				operator == (const TangentsClass & that) { return ((InTangent == that.InTangent) && (OutTangent == that.OutTangent)); }
 		bool				operator != (const TangentsClass & that) { return !TangentsClass::operator == (that); }
-	};	
+	};
 
 	bool											TangentsDirty;
 	DynamicVectorClass<TangentsClass>	Tangents;
@@ -105,10 +105,10 @@ class HermiteSpline1DClass : public Curve1DClass
 public:
 	HermiteSpline1DClass (void)
 		: TangentsDirty (true) { }
-	
+
 	virtual void		Evaluate(float time,float * set_val) override;
 	virtual void		Set_Looping(bool onoff) override;
-	
+
 	virtual void		Set_Key(int i,float point,unsigned int extra=0) override;
 	virtual int			Add_Key(float point,float t,unsigned int extra=0) override;
 	virtual void		Remove_Key(int i) override;
@@ -121,7 +121,7 @@ public:
 	virtual const PersistFactoryClass &	Get_Factory(void) const override;
 	virtual bool								Save(ChunkSaveClass &csave) override;
 	virtual bool								Load(ChunkLoadClass &cload) override;
-	
+
 protected:
 
 	class TangentsClass

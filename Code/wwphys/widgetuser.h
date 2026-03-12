@@ -72,13 +72,13 @@ class WidgetUserClass
 public:
 
 	WidgetUserClass(void);
-	~WidgetUserClass(void);	
+	~WidgetUserClass(void);
 
 	/*
 	** Debug rendering of vectors, points, boxes, etc etc.  Each frame, these objects
 	** will be rendered during PhysClass::Render and then deleted.
 	*/
-	
+
 #ifdef WWDEBUG
 	void				Reset_Debug_Widget_List(void);
 	virtual void	Add_Debug_Point(const Vector3 & p,const Vector3 & color);
@@ -100,7 +100,7 @@ public:
 protected:
 
 #ifdef WWDEBUG
-	void				Add_Debug_Widget(WidgetRenderOpClass * op);	
+	void				Add_Debug_Widget(WidgetRenderOpClass * op);
 #else
 	void				Add_Debug_Widget(WidgetRenderOpClass * /* op */)												{}
 #endif

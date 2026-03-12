@@ -92,11 +92,11 @@ public:
 	void							Set_Sample_Playback_Rate (int rate) override;
 	float 					Get_Sample_Pitch (void) override;
 	void						Set_Sample_Pitch (float pitch) override;
-	
+
 	void 						Initialize_Reverb() override;
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////

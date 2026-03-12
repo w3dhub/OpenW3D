@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/humanstate.cpp                        $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 2/26/02 11:47a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 169                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/humanstate.cpp                        $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 2/26/02 11:47a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 169                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 /*
@@ -104,7 +104,7 @@ HumanStateClass::HumanStateClass( void ) :
 	Reset_Loiter_Delay();
 }
 
-HumanStateClass::~HumanStateClass( void ) 
+HumanStateClass::~HumanStateClass( void )
 {
 	if ( HumanPhys != NULL ) {
 		HumanPhys->Release_Ref();
@@ -141,7 +141,7 @@ void	HumanStateClass::Set_Anim_Control( HumanAnimControlClass * anim_control )
 
 void	HumanStateClass::Set_Human_Anim_Override( const char * name )
 {
-	HumanAnimOverride = (HumanAnimOverrideDef *)DefinitionMgrClass::Find_Typed_Definition( name, 
+	HumanAnimOverride = (HumanAnimOverrideDef *)DefinitionMgrClass::Find_Typed_Definition( name,
 															CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_ANIM_OVERRIDE );
 }
 
@@ -184,14 +184,14 @@ enum	{
 bool	HumanStateClass::Save( ChunkSaveClass & csave )
 {
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE, State );         		
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE_FLAGS, StateFlags );         		
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_SUB_STATE, SubState );      
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE_LOCKED, StateLocked );   
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_WEAPON_HOLD_STYLE, WeaponHoldStyle );   
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_AIMING_TILT, AimingTilt );    
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_AIMING_TURN, AimingTurn );    
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_TURN_VELOCITY, TurnVelocity );  
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE, State );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE_FLAGS, StateFlags );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_SUB_STATE, SubState );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE_LOCKED, StateLocked );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_WEAPON_HOLD_STYLE, WeaponHoldStyle );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_AIMING_TILT, AimingTilt );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_AIMING_TURN, AimingTurn );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_TURN_VELOCITY, TurnVelocity );
 		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_PHYSOBJ,	HumanPhys );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_LOITER_DELAY,	LoiterDelay );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_LOITERS_ALLOWED,	LoitersAllowed );
@@ -222,7 +222,7 @@ bool	HumanStateClass::Load( ChunkLoadClass &cload )
 	int human_loiter_collection_def_id = 0;
 
 	WWASSERT( HumanPhys == NULL );
-	
+
 	while (cload.Open_Chunk()) {
 		switch(cload.Cur_Chunk_ID()) {
 
@@ -234,14 +234,14 @@ bool	HumanStateClass::Load( ChunkLoadClass &cload )
 					WWASSERT(SubState >= 0 && SubState <= HIGHEST_HUMAN_SUB_STATE);
 
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_STATE, State );         		
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_STATE_FLAGS, StateFlags );         		
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_STATE, State );
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_STATE_FLAGS, StateFlags );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_SUB_STATE, SubState );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_STATE_LOCKED, StateLocked );   
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_WEAPON_HOLD_STYLE, WeaponHoldStyle );   
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_AIMING_TILT, AimingTilt );    
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_AIMING_TURN, AimingTurn );    
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_TURN_VELOCITY, TurnVelocity );  
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_STATE_LOCKED, StateLocked );
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_WEAPON_HOLD_STYLE, WeaponHoldStyle );
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_AIMING_TILT, AimingTilt );
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_AIMING_TURN, AimingTurn );
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_TURN_VELOCITY, TurnVelocity );
 						READ_MICRO_CHUNK_PTR( cload, MICROCHUNKID_PHYSOBJ,	HumanPhys );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_LOITER_DELAY,	LoiterDelay );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_LOITERS_ALLOWED,	LoitersAllowed );
@@ -307,8 +307,8 @@ void	HumanStateClass::Update_Weapon( WeaponClass * weapon, bool new_weapon )
 		weapon->Set_Safety( WeaponHoldStyle > WEAPON_HOLD_STYLE_EMPTY_HANDS );
 
 		// Only humans can cansider weapons firing in state
-		if ( weapon->Get_Owner() && 
-			  weapon->Get_Owner()->As_SoldierGameObj() && 
+		if ( weapon->Get_Owner() &&
+			  weapon->Get_Owner()->As_SoldierGameObj() &&
 			  weapon->Get_Owner()->As_SoldierGameObj()->Is_Human_Controlled() ) {
 			WeaponFired = weapon->Is_Firing();
 		}
@@ -360,14 +360,14 @@ void HumanStateClass::Update_Recoil(WeaponClass * weapon)
 {
 	// Programatic Recoil System.  This code needs to run once per frame.
 	if ((weapon != NULL) && (weapon->Is_Firing())) {
-		
-		// Set our recoil timer and capture all of the necessary bones 
+
+		// Set our recoil timer and capture all of the necessary bones
 		// I'm copying all necessary data out of the weapon in case the weapon goes
 		// away before our recoil is finished.
 		RecoilTimer = weapon->Get_Recoil_Time();
 		RecoilScale = weapon->Get_Recoil_Scale();
 		if (RecoilTimer > 0.0f) {
-			RecoilScale *= 1.0f / RecoilTimer; 
+			RecoilScale *= 1.0f / RecoilTimer;
 			_TheRecoiler.Capture_Bones(HumanPhys->Peek_Model());
 		}
 	}
@@ -380,7 +380,7 @@ void HumanStateClass::Update_Recoil(WeaponClass * weapon)
 		recoil_tm.Rotate_Y( -AimingTilt );
 		float recoil_scale = RecoilScale * RecoilTimer;
 		_TheRecoiler.Apply_Recoil( recoil_tm,HumanPhys->Peek_Model(),recoil_scale);
-		
+
 		// Decrement the recoil timer and release the bones if it expires
 		RecoilTimer -= TimeManager::Get_Frame_Seconds();
 		if (RecoilTimer <= 0.0f) {
@@ -428,7 +428,7 @@ void	HumanStateClass::Set_State( HumanStateType state, int sub_state )
 	SubState = sub_state;
 	StateTimer = 0;
 
-	if (( State == LADDER ) || ( State == IN_VEHICLE ) || 
+	if (( State == LADDER ) || ( State == IN_VEHICLE ) ||
 		 ( State == TRANSITION ) || ( State == TRANSITION_COMPLETE ) ||
 		 ( State == DEBUG_FLY )						 ) {
 		HumanPhys->Enable_User_Control( true );
@@ -467,7 +467,7 @@ bool	HumanStateClass::Is_State_Interruptable( void )
 }
 
 
-#define ADD_CASE(exp)  case exp: return #exp; break;  
+#define ADD_CASE(exp)  case exp: return #exp; break;
 const char *  HumanStateClass::Get_State_Name( void )
 {
    switch (State) {
@@ -492,7 +492,7 @@ const char *  HumanStateClass::Get_State_Name( void )
 		ADD_CASE(ON_CNC_CHEM);
 		ADD_CASE(LOCKED_ANIMATION);
 
-		default: 
+		default:
 			WWASSERT(0);
 			return ""; // to avoid compiler warning
 	}
@@ -535,7 +535,7 @@ void	HumanStateClass::Start_Transition_Animation( const char * anim_name, bool b
 	float blend_time = blend ? 0.2 : 0;
 	AnimControl->Set_Animation( anim_name, blend_time );
 	AnimControl->Set_Mode( ANIM_MODE_ONCE );
-	AnimControl->Update( 0 );	// update 
+	AnimControl->Update( 0 );	// update
 	StateLocked = true;
 }
 
@@ -564,7 +564,7 @@ void	HumanStateClass::Start_Scripted_Animation( const char * anim_name, bool ble
 	float blend_time = blend ? 0.2 : 0;
 	AnimControl->Set_Animation( anim_name, blend_time );
 	AnimControl->Set_Mode( looping ? ANIM_MODE_LOOP : ANIM_MODE_ONCE );
-	AnimControl->Update( 0 );	// update 
+	AnimControl->Update( 0 );	// update
 	StateLocked = true;
 }
 
@@ -588,7 +588,7 @@ void	HumanStateClass::Force_Animation( const char * anim_name, bool blend )
 	//Debug_Say(( "Forcing Animation to %s\n", anim_name ));
 	float blend_time = blend ? 0.2 : 0;
 	AnimControl->Set_Animation( anim_name, blend_time );
-	AnimControl->Update( 0 );	// update 
+	AnimControl->Update( 0 );	// update
 }
 
 /*
@@ -621,29 +621,29 @@ typedef enum {
 } HUMAN_ANIM_LEG_STYLE;
 
 static const char * LegAnimNames[] = {
-	"A0",	// LEG_STYLE_STAND,					
-	"A1",	// LEG_STYLE_RUN_FORWARD,			
-	"A2",	// LEG_STYLE_RUN_BACKWARD,			
-	"A3",	// LEG_STYLE_RUN_LEFT,				
-	"A4",	// LEG_STYLE_RUN_RIGHT,				
-	"A5",	// LEG_STYLE_TURN_LEFT,				
-	"A6",	// LEG_STYLE_TURN_RIGHT,				
-	"B1",	// LEG_STYLE_WALK_FORWARD,			
-	"B2",	// LEG_STYLE_WALK_BACKWARD,			
-	"B3",	// LEG_STYLE_WALK_LEFT,				
-	"B4",	// LEG_STYLE_WALK_RIGHT,				
-	"C0",	// LEG_STYLE_CROUCH,					
-	"C1",	// LEG_STYLE_CROUCH_MOVE_FORWARD,	
+	"A0",	// LEG_STYLE_STAND,
+	"A1",	// LEG_STYLE_RUN_FORWARD,
+	"A2",	// LEG_STYLE_RUN_BACKWARD,
+	"A3",	// LEG_STYLE_RUN_LEFT,
+	"A4",	// LEG_STYLE_RUN_RIGHT,
+	"A5",	// LEG_STYLE_TURN_LEFT,
+	"A6",	// LEG_STYLE_TURN_RIGHT,
+	"B1",	// LEG_STYLE_WALK_FORWARD,
+	"B2",	// LEG_STYLE_WALK_BACKWARD,
+	"B3",	// LEG_STYLE_WALK_LEFT,
+	"B4",	// LEG_STYLE_WALK_RIGHT,
+	"C0",	// LEG_STYLE_CROUCH,
+	"C1",	// LEG_STYLE_CROUCH_MOVE_FORWARD,
 	"C2",	// LEG_STYLE_CROUCH_MOVE_BACKWARD,
-	"C3",	// LEG_STYLE_CROUCH_MOVE_LEFT,		
-	"C4",	// LEG_STYLE_CROUCH_MOVE_RIGHT,	
-	"C5",	// LEG_STYLE_CROUCH_TURN_LEFT,		
-	"C6",	// LEG_STYLE_CROUCH_TURN_RIGHT,	
-	"J0",	// LEG_STYLE_JUMP_UP,		
-	"J1",	// LEG_STYLE_JUMP_FORWARD,	
+	"C3",	// LEG_STYLE_CROUCH_MOVE_LEFT,
+	"C4",	// LEG_STYLE_CROUCH_MOVE_RIGHT,
+	"C5",	// LEG_STYLE_CROUCH_TURN_LEFT,
+	"C6",	// LEG_STYLE_CROUCH_TURN_RIGHT,
+	"J0",	// LEG_STYLE_JUMP_UP,
+	"J1",	// LEG_STYLE_JUMP_FORWARD,
 	"J2",	// LEG_STYLE_JUMP_BACKWARD,
-	"J3",	// LEG_STYLE_JUMP_LEFT,		
-	"J4",	// LEG_STYLE_JUMP_RIGHT,	
+	"J3",	// LEG_STYLE_JUMP_LEFT,
+	"J4",	// LEG_STYLE_JUMP_RIGHT,
 };
 
 static const char * _weapon_style_names[ NUM_WEAPON_HOLD_STYLES ] = {
@@ -656,7 +656,7 @@ static const char * _weapon_style_names[ NUM_WEAPON_HOLD_STYLES ] = {
 		"A0",		//WEAPON_HOLD_STYLE_BEACON
 		"A0",		//WEAPON_HOLD_STYLE_EMPTY_HANDS,
 		"B0",		//WEAPON_HOLD_STYLE_AT_CHEST,
-		"A0",		//WEAPON_HOLD_STYLE_HANDS_DOWN,		
+		"A0",		//WEAPON_HOLD_STYLE_HANDS_DOWN,
 };
 
 static const char * _dive_anims[ 4 * 2 ] = {
@@ -728,8 +728,8 @@ void	HumanStateClass::Update_Animation( void )
 				}
 
 				leg_style += LEG_STYLE_CROUCH - LEG_STYLE_STAND;
-			} else if ( SubState & SUB_STATE_SLOW ) {	
-				if ( ( leg_style >= LEG_STYLE_RUN_FORWARD ) && 
+			} else if ( SubState & SUB_STATE_SLOW ) {
+				if ( ( leg_style >= LEG_STYLE_RUN_FORWARD ) &&
 					  ( leg_style <= LEG_STYLE_RUN_RIGHT ) ) {
 					leg_style += LEG_STYLE_WALK_FORWARD - LEG_STYLE_RUN_FORWARD;
 				}
@@ -916,8 +916,8 @@ void	HumanStateClass::Update_Animation( void )
 //#define	WALKING_THRESHHOLD		4.5
 #define	WALKING_THRESHHOLD		3.21f
 
-void	HumanStateClass::Reset_Loiter_Delay( void )									
-{ 
+void	HumanStateClass::Reset_Loiter_Delay( void )
+{
 	LoiterDelay = FreeRandom.Get_Float( 6 ) - 3;
 }
 
@@ -973,7 +973,7 @@ void	HumanStateClass::Update_State( void )
 					}
 					AnimControl->Set_Animation( new_anim, 0.2f );
 					AnimControl->Set_Mode( ANIM_MODE_ONCE );
-					AnimControl->Update( 0 );	// update 
+					AnimControl->Update( 0 );	// update
 				}
 			}
 		} else {
@@ -996,7 +996,7 @@ void	HumanStateClass::Update_State( void )
 			} else if ( State == ANIMATION ) {
 				Set_State( UPRIGHT );
 			} else if ( State == DEATH ) {
-				
+
 				Set_State( DESTROY );
 				TransitionEffectClass * effect = CombatMaterialEffectManager::Get_Death_Effect();
 				this->HumanPhys->Add_Effect_To_Me(effect);
@@ -1022,7 +1022,7 @@ void	HumanStateClass::Update_State( void )
 		}
 	}
 
-	/* 
+	/*
 	** Handle Jump and landing
 	*/
 	if ( !HumanPhys->Is_In_Contact() ) {	// If I am not in contact with the ground
@@ -1075,7 +1075,7 @@ void	HumanStateClass::Post_Think( void )
 		// When walking running diagonally, use forward/backward legs.
 		// Unless you are crouched, then use straffe legs
 		float direction_ratio = 0.75f;
-		if ( Get_State_Flag( CROUCHED_FLAG ) ) {		
+		if ( Get_State_Flag( CROUCHED_FLAG ) ) {
 			direction_ratio = 2;
 		}
 
@@ -1096,7 +1096,7 @@ void	HumanStateClass::Post_Think( void )
 		if ( new_sub_state != 0 ) {
 			if ( move_vector.Length() < WALKING_THRESHHOLD ) new_sub_state |= SUB_STATE_SLOW;
 			//Debug_Say(( "%f %f\n", move_vector.Length(), WALKING_THRESHHOLD ));
-		}																		
+		}
 
 #if 0	// No turn anims!!!
 		// Get our current turn vector
@@ -1118,7 +1118,7 @@ void	HumanStateClass::Post_Think( void )
 				}
 			}
 		}
-		
+
 		if ( Is_Sub_State_Adjustable() ) {
 
 			if ( new_sub_state != Get_Sub_State() ) {
@@ -1229,7 +1229,7 @@ void	HumanStateClass::Post_Think( void )
 		}
 
 		// Turning is at speed 1
-		bool turning = ( new_sub_state & (SUB_STATE_TURN_LEFT | SUB_STATE_TURN_RIGHT ) && 
+		bool turning = ( new_sub_state & (SUB_STATE_TURN_LEFT | SUB_STATE_TURN_RIGHT ) &&
 						  !( new_sub_state & (SUB_STATE_FORWARD | SUB_STATE_BACKWARD )));
 
 		if ( !turning && ideal_speed != 0 ) {
@@ -1253,9 +1253,9 @@ void	HumanStateClass::Post_Think( void )
 /*
 **
 */
-bool	HumanStateClass::Get_Leg_Mode( void )		
-{ 
-	return AnimControl->Get_Progress() > 0.5f; 
+bool	HumanStateClass::Get_Leg_Mode( void )
+{
+	return AnimControl->Get_Progress() > 0.5f;
 }
 
 /*
@@ -1292,7 +1292,7 @@ int	HumanStateClass::Get_Ouch_Type( const	Vector3 & direction, const char * coll
 {
 	// Initialize ouch_type to a default value
 	int ouch_type = TORSO_FROM_FRONT;
-	
+
 	const char * base_name = NULL;
 	if ( collision_box_name != NULL ) {
 		base_name = ::strchr( collision_box_name, '.' );
@@ -1327,21 +1327,21 @@ int	HumanStateClass::Get_Ouch_Type( const	Vector3 & direction, const char * coll
 /*
 **
 */
-const char * _WoundAnims[] = 
+const char * _WoundAnims[] =
 {
-	"S_A_HUMAN.H_A_811A",	// HEAD_FROM_BEHIND,       
-	"S_A_HUMAN.H_A_812A",	// HEAD_FROM_FRONT,        
-	"S_A_HUMAN.H_A_821A",	// TORSO_FROM_BEHIND,      
-	"S_A_HUMAN.H_A_822A",	// TORSO_FROM_FRONT,       
-	"S_A_HUMAN.H_A_831A",	// LEFT_ARM_FROM_BEHIND,   
-	"S_A_HUMAN.H_A_832A",	// LEFT_ARM_FROM_FRONT,    
-	"S_A_HUMAN.H_A_841A",	// RIGHT_ARM_FROM_BEHIND,  
-	"S_A_HUMAN.H_A_842A",	// RIGHT_ARM_FROM_FRONT,   
-	"S_A_HUMAN.H_A_851A",	// LEFT_LEG_FROM_BEHIND,   
-	"S_A_HUMAN.H_A_852A",	// LEFT_LEG_FROM_FRONT,    
-	"S_A_HUMAN.H_A_861A",	// RIGHT_LEG_FROM_BEHIND,  
-	"S_A_HUMAN.H_A_862A",	// RIGHT_LEG_FROM_FRONT,   
-	"S_A_HUMAN.H_A_871A",	// GROIN,                  
+	"S_A_HUMAN.H_A_811A",	// HEAD_FROM_BEHIND,
+	"S_A_HUMAN.H_A_812A",	// HEAD_FROM_FRONT,
+	"S_A_HUMAN.H_A_821A",	// TORSO_FROM_BEHIND,
+	"S_A_HUMAN.H_A_822A",	// TORSO_FROM_FRONT,
+	"S_A_HUMAN.H_A_831A",	// LEFT_ARM_FROM_BEHIND,
+	"S_A_HUMAN.H_A_832A",	// LEFT_ARM_FROM_FRONT,
+	"S_A_HUMAN.H_A_841A",	// RIGHT_ARM_FROM_BEHIND,
+	"S_A_HUMAN.H_A_842A",	// RIGHT_ARM_FROM_FRONT,
+	"S_A_HUMAN.H_A_851A",	// LEFT_LEG_FROM_BEHIND,
+	"S_A_HUMAN.H_A_852A",	// LEFT_LEG_FROM_FRONT,
+	"S_A_HUMAN.H_A_861A",	// RIGHT_LEG_FROM_BEHIND,
+	"S_A_HUMAN.H_A_862A",	// RIGHT_LEG_FROM_FRONT,
+	"S_A_HUMAN.H_A_871A",	// GROIN,
 };
 
 const char *	HumanStateClass::Get_Wound_Anim( int ouch_type )
@@ -1352,26 +1352,26 @@ const char *	HumanStateClass::Get_Wound_Anim( int ouch_type )
 /*
 **
 */
-const char * _DeathAnims[] = 
+const char * _DeathAnims[] =
 {
-	"S_A_HUMAN.H_A_622A",	// HEAD_FROM_BEHIND,       
-	"S_A_HUMAN.H_A_635A",	// HEAD_FROM_FRONT,        
-	"S_A_HUMAN.H_A_622A",	// TORSO_FROM_BEHIND,      
-	"S_A_HUMAN.H_A_632A",	// TORSO_FROM_FRONT,       
-	"S_A_HUMAN.H_A_623A",	// LEFT_ARM_FROM_BEHIND,   
-	"S_A_HUMAN.H_A_634A",	// LEFT_ARM_FROM_FRONT,    
-	"S_A_HUMAN.H_A_624A",	// RIGHT_ARM_FROM_BEHIND,  
-	"S_A_HUMAN.H_A_633A",	// RIGHT_ARM_FROM_FRONT,   
-	"S_A_HUMAN.H_A_623A",	// LEFT_LEG_FROM_BEHIND,   
-	"S_A_HUMAN.H_A_634A",	// LEFT_LEG_FROM_FRONT,    
-	"S_A_HUMAN.H_A_624A",	// RIGHT_LEG_FROM_BEHIND,  
-	"S_A_HUMAN.H_A_633A",	// RIGHT_LEG_FROM_FRONT,   
-	"S_A_HUMAN.H_A_612A",	// GROIN,                  
-	"S_A_HUMAN.H_A_FLMB",	// ON_FIRE,                  
-	"S_A_HUMAN.H_A_FLMB",	// ON_CHEM,                  
-	"S_A_HUMAN.H_A_FLMB",	// ON_ELECTRIC,                  
-	"S_A_HUMAN.H_A_FLMB",	// ON_CNC_FIRE,                  
-	"S_A_HUMAN.H_A_FLMB",	// ON_CNC_CHEM,                  
+	"S_A_HUMAN.H_A_622A",	// HEAD_FROM_BEHIND,
+	"S_A_HUMAN.H_A_635A",	// HEAD_FROM_FRONT,
+	"S_A_HUMAN.H_A_622A",	// TORSO_FROM_BEHIND,
+	"S_A_HUMAN.H_A_632A",	// TORSO_FROM_FRONT,
+	"S_A_HUMAN.H_A_623A",	// LEFT_ARM_FROM_BEHIND,
+	"S_A_HUMAN.H_A_634A",	// LEFT_ARM_FROM_FRONT,
+	"S_A_HUMAN.H_A_624A",	// RIGHT_ARM_FROM_BEHIND,
+	"S_A_HUMAN.H_A_633A",	// RIGHT_ARM_FROM_FRONT,
+	"S_A_HUMAN.H_A_623A",	// LEFT_LEG_FROM_BEHIND,
+	"S_A_HUMAN.H_A_634A",	// LEFT_LEG_FROM_FRONT,
+	"S_A_HUMAN.H_A_624A",	// RIGHT_LEG_FROM_BEHIND,
+	"S_A_HUMAN.H_A_633A",	// RIGHT_LEG_FROM_FRONT,
+	"S_A_HUMAN.H_A_612A",	// GROIN,
+	"S_A_HUMAN.H_A_FLMB",	// ON_FIRE,
+	"S_A_HUMAN.H_A_FLMB",	// ON_CHEM,
+	"S_A_HUMAN.H_A_FLMB",	// ON_ELECTRIC,
+	"S_A_HUMAN.H_A_FLMB",	// ON_CNC_FIRE,
+	"S_A_HUMAN.H_A_FLMB",	// ON_CNC_CHEM,
 };
 
 const char *	HumanStateClass::Get_Death_Anim( int ouch_type )
@@ -1410,7 +1410,7 @@ void	HumanStateClass::Begin_Jump( void )
 	JumpTM	= HumanPhys->Get_Transform();
 
 	// Set my state to Jump, with a direction of my current relative velocity
-	Vector3	move_vector;	
+	Vector3	move_vector;
 	HumanPhys->Get_Velocity( &move_vector );
 	move_vector = HumanPhys->Get_Transform().Inverse_Rotate_Vector( move_vector );
 	int sub_state = 0;
@@ -1445,19 +1445,19 @@ void	HumanStateClass::Complete_Jump( void )
 
 	if ( fall.Z > settings->Get_Falling_Damage_Min_Distance() ) {
 		add_portal = false;
-		float scale = (fall.Z - settings->Get_Falling_Damage_Min_Distance()) / 
+		float scale = (fall.Z - settings->Get_Falling_Damage_Min_Distance()) /
 			(settings->Get_Falling_Damage_Max_Distance() - settings->Get_Falling_Damage_Min_Distance());
 		scale = WWMath::Clamp( scale, 0, 1 );
-	
+
 		// (gth) don't take damage when falling onto an elevator (because we have
 		// super-fast elevators...)
-		if (	(HumanPhys->Peek_Ground_Object() != NULL) && 
+		if (	(HumanPhys->Peek_Ground_Object() != NULL) &&
 				(HumanPhys->Peek_Ground_Object()->As_ElevatorPhysClass() != NULL))
 		{
 			Debug_Say(( "Fell onto an elevator, no damage!\n", scale ));
 			scale = 0.0f;
 		}
-		
+
 		Debug_Say(( "Fall Damage Scale %f\n", scale ));
 
 		SoldierGameObj * owner = (SoldierGameObj *)HumanPhys->Get_Observer();
@@ -1488,7 +1488,7 @@ void	HumanStateClass::Complete_Jump( void )
 	PathfindSectorClass *end_sector		= PathfindClass::Get_Instance ()->Find_Sector (curr_pos, 2.0F);
 
 	//	Make a temporary pathfind connection between these sectors (if necessary)
-	if (add_portal && start_sector != NULL && end_sector != NULL && start_sector != end_sector) {									
+	if (add_portal && start_sector != NULL && end_sector != NULL && start_sector != end_sector) {
 		PathfindClass::Get_Instance ()->Add_Temporary_Portal (start_sector, end_sector, JumpTM.Get_Translation (), curr_pos);
 	}*/
 

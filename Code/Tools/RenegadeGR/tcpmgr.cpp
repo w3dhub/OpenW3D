@@ -53,7 +53,7 @@ bit8 TCPMgr::addListener(uint32 ip, uint16 port, bit8 reuseAddr)
 }
 
 //
-// Remove listener on a given ip/port 
+// Remove listener on a given ip/port
 //
 bit8 TCPMgr::removeListener(uint32 ip, uint16 port)
 {
@@ -123,7 +123,7 @@ bit8 TCPMgr::setBufferedWrites(TCPCon *con, bit8 enabled)
 void TCPMgr::pumpWriters(void)  // pump the buffered writer connections
 {
   TCPCon *conptr=NULL;
- 
+
   // Check to see if this connection is already in our list
   for (int i=0; i<BufferedWriters_.length(); i++)
   {
@@ -142,10 +142,10 @@ bit8 TCPMgr::connect(char *host, uint16 port, OUT uint32 *handle)
   char           hostName[129];
   struct hostent *hostStruct;
   struct in_addr *hostNode;
- 
+
   if (isdigit(host[0]))
     return ( connect(ntohl(inet_addr(host)), port, handle));
- 
+
   strcpy(hostName, host);
   hostStruct = gethostbyname(host);
   if (hostStruct == NULL)
@@ -191,7 +191,7 @@ bit8 TCPMgr::getOutgoingConnection(TCPCon **conn, uint32 handle, sint32 wait_sec
 
 
 //
-// Get an incoming connection (specify listen port or 0 for any) 
+// Get an incoming connection (specify listen port or 0 for any)
 //
 // Wait for upto 'wait_secs' seconds for the connection.
 //
@@ -227,20 +227,20 @@ int TCPMgr::wait(uint32 sec, uint32 usec, SOCKET *sockets, int count, bit8 readM
   timeval     *tvPtr=NULL;
   returnSet=givenSet;
   backupSet=givenSet;
- 
+
   if ((sec==-1)||(usec==-1))
     noTimeout=true;
- 
+
   timeout.SetSec(sec);
   timeout.SetUsec(usec);
   timethen+=timeout;
- 
+
   for (i=0; i<(uint32)count; i++)
   {
     if (sockets[i] > (SOCKET)givenMax)
       givenMax=sockets[i];
   }
- 
+
   bit8 done=false;
   while( ! done)
   {
@@ -326,14 +326,14 @@ SOCKET TCPMgr::createSocket(uint32 ip, uint16 port, bit8 reuseAddr)
   addr.sin_family=AF_INET;
   addr.sin_port=htons(port);
   addr.sin_addr.s_addr=htonl(ip);
- 
+
   SOCKET fd=socket(AF_INET,SOCK_STREAM,DEFAULT_PROTOCOL);
   if (fd==-1)
     return(INVALID_SOCKET);
 
   if (setBlocking(fd,false)==false)
     return(INVALID_SOCKET);
- 
+
   if (reuseAddr)
   {
     uint32 opval=1;
@@ -353,7 +353,7 @@ SOCKET TCPMgr::createSocket(uint32 ip, uint16 port, bit8 reuseAddr)
 
 
 //
-// Set the blocking mode of the socket 
+// Set the blocking mode of the socket
 //
 bit8 TCPMgr::setBlocking(SOCKET fd, bit8 block)
 {
@@ -388,13 +388,13 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
   PendingConn *connPtr=NULL;
   time_t      start=time(NULL);
   SOCKET      fdArray[1024];
- 
+
   for (int i=0; i<ConnectArray_.length(); i++)
   {
     ConnectArray_.getPointer(&connPtr,i);
     fdArray[i]=connPtr->fd;
   }
- 
+
   while(1)
   {
     pumpConnections();
@@ -423,7 +423,7 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
     sint32 remaining_wait=wait_secs - (time(NULL)-start);
     if ((remaining_wait > 0) && (wait(remaining_wait,0,fdArray,ConnectArray_.length(),false) > 0))
       continue;  // got something!
- 
+
     if (remaining_wait <= 0)
       break;
   }
@@ -434,7 +434,7 @@ bit8 TCPMgr::getConnection(TCPCon **conn, uint32 handle, uint16 port, sint32 wai
 
 
 
-// 
+//
 // TOFIX: don't forget about connect flooding on Win32
 //
 void TCPMgr::pumpConnections(void)
@@ -484,7 +484,7 @@ void TCPMgr::pumpConnections(void)
         connPtr->state=CONNECTED;
       }
     }
-  } // for ConnectArray_; 
+  } // for ConnectArray_;
 
   // Incoming connections
   ListenSocket        *listenPtr;

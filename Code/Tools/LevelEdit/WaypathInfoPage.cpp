@@ -105,7 +105,7 @@ WaypathInfoPageClass::HandleInitDialog (void)
 {
 	ASSERT (m_Waypoint != NULL);
 	WaypathNodeClass *path = m_Waypoint->Peek_Waypath ();
-	
+
 	//
 	//	Set the initial state of the 'path' controls
 	//
@@ -115,8 +115,8 @@ WaypathInfoPageClass::HandleInitDialog (void)
 	CheckDlgButton (IDC_GROUND_VEHICLE_CHECK, path->Get_Flag (WaypathClass::FLAG_GROUND_VEHICLE));
 	CheckDlgButton (IDC_AIR_VEHICLE_CHECK, path->Get_Flag (WaypathClass::FLAG_FLYING_VEHICLE));
 	CheckDlgButton (IDC_INNATE_PATHFIND_CHECK, path->Get_Flag (WaypathClass::FLAG_INNATE_PATHFIND));
-	
-	//	
+
+	//
 	//	Set the initial state of the 'point' controls
 	//
 	m_SpeedSlider.SetRange (1, 100);
@@ -140,7 +140,7 @@ bool
 WaypathInfoPageClass::Apply_Changes (void)
 {
 	WaypathNodeClass *path = m_Waypoint->Peek_Waypath ();
-	
+
 	//
 	//	Pass the flags back to the path object
 	//
@@ -158,7 +158,7 @@ WaypathInfoPageClass::Apply_Changes (void)
 	m_Waypoint->Set_Speed (((float)speed) / 100.0F);
 	m_Waypoint->Set_Flag (WaypointNodeClass::FLAG_REQUIRES_JUMP, IsDlgButtonChecked (IDC_JUMP_CHECK) == 1);
 
-		
+
 	// Return true to allow the dialog to close
 	return true;
 }
@@ -174,7 +174,7 @@ WaypathInfoPageClass::OnCommand
 (
 	WPARAM wParam,
 	LPARAM lParam
-) 
+)
 {
 	if (LOWORD (wParam) == IDC_INNATE_PATHFIND_CHECK && HIWORD (wParam) == BN_CLICKED) {
 		Update_Enable_State ();

@@ -156,10 +156,10 @@ cScTextObj::Init
 			//
 			cPlayer *p_sender = cPlayerManager::Find_Player (SenderId);
 			if (p_sender != NULL && p_sender->Is_Team_Player () && COMBAT_STAR != NULL) {
-				
+
 				//
 				//	Is the player on the same team as the local player?
-				//                         
+				//
 				if (p_sender->Get_Player_Type() == COMBAT_STAR->Get_Player_Type()) {
 					allow_act = true;
 				}
@@ -313,7 +313,7 @@ cScTextObj::Act(void)
 			*/
 
 			bool do_popup = IsHostAdminMessage && cNetwork::I_Am_Client();
-			if (do_popup && cNetwork::I_Am_Server() && Type == TEXT_MESSAGE_PRIVATE && 
+			if (do_popup && cNetwork::I_Am_Server() && Type == TEXT_MESSAGE_PRIVATE &&
 				RecipientId != cNetwork::Get_My_Id())
 			{
 				do_popup = false;
@@ -340,7 +340,7 @@ cScTextObj::Act(void)
 								formatted_text.Convert_To(tempstr);
 								teamstr += tempstr;
 								ConsoleBox.Log_To_Disk(teamstr.Peek_Buffer());
-							}	
+							}
 						}
 					}
 				}

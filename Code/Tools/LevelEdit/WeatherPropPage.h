@@ -86,7 +86,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 private:
-	
+
 	void Enable_Lightning_Controls (bool enable);
 	void Update_Lightning_Values();
 	void Update_Wind_Values();

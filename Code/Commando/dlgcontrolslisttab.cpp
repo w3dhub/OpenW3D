@@ -55,7 +55,7 @@ typedef struct
 	int name_id;
 } INPUT_FUNCTION_NAME;
 
-const INPUT_FUNCTION_NAME FUNCTION_NAMES[] = 
+const INPUT_FUNCTION_NAME FUNCTION_NAMES[] =
 {
 	{ INPUT_FUNCTION_MOVE_FORWARD,				IDS_FUNCTION_MOVE_FORWARD },
 	{ INPUT_FUNCTION_MOVE_BACKWARD,				IDS_FUNCTION_MOVE_BACKWARD },
@@ -205,7 +205,7 @@ ControlsListTabClass::On_InputCtrl_Get_Key_Info
 		case VK_LBUTTON:
 			dik_id = DirectInput::BUTTON_MOUSE_LEFT;
 			break;
-		
+
 		case VK_RBUTTON:
 			dik_id = DirectInput::BUTTON_MOUSE_RIGHT;
 			break;
@@ -223,7 +223,7 @@ ControlsListTabClass::On_InputCtrl_Get_Key_Info
 			break;
 
 		default:
-		{			
+		{
 			//
 			//	Get the last key pressed from direct input
 			//
@@ -244,15 +244,15 @@ ControlsListTabClass::On_InputCtrl_Get_Key_Info
 	//	Get the function ID associated with this control
 	//
 	int function_id = int(viewer_ctrl->Get_User_Data ()) - 1;
-	if (function_id >= 0) {		
+	if (function_id >= 0) {
 
 		//
 		//	Do nothing for these keys....
 		//
 		if (	dik_id != DIK_APPS && dik_id != DIK_WIN &&
-				dik_id != DIK_LWIN && dik_id != DIK_RWIN && 
-				dik_id != DIK_LCONTROL && dik_id != DIK_RCONTROL && 
-				dik_id != DIK_LALT && dik_id != DIK_RALT && dik_id != DIK_ALT && 
+				dik_id != DIK_LWIN && dik_id != DIK_RWIN &&
+				dik_id != DIK_LCONTROL && dik_id != DIK_RCONTROL &&
+				dik_id != DIK_LALT && dik_id != DIK_RALT && dik_id != DIK_ALT &&
 				dik_id != DIK_DELETE && dik_id != 0)
 		{
 			retval = true;
@@ -268,7 +268,7 @@ ControlsListTabClass::On_InputCtrl_Get_Key_Info
 				//
 				Remap_Key (ctrl_id, function_id, dik_id);
 			} else {
-				
+
 				//
 				//	Check to see if its OK to remap this key...
 				//
@@ -281,7 +281,7 @@ ControlsListTabClass::On_InputCtrl_Get_Key_Info
 
 		} else if (dik_id == DIK_DELETE) {
 			retval = true;
-			
+
 			//
 			//	Clear the mapping.
 			//
@@ -321,7 +321,7 @@ ControlsListTabClass::Prompt_User (void)
 	//
 	//	Display the message box
 	//
-	DlgMsgBox::DoDialog (0, message, DlgMsgBox::YesNo, this);	
+	DlgMsgBox::DoDialog (0, message, DlgMsgBox::YesNo, this);
 	return ;
 }
 
@@ -338,13 +338,13 @@ ControlsListTabClass::Remap_Key (int ctrl_id, int function_id, int dik_id)
 	//	Determine if this is a primary or secondary key mapping
 	//
 	if (PrimaryCtrlIDList.ID (ctrl_id) != -1) {
-		
+
 		//
 		//	Modify the key mapping
 		//
 		Input::Set_Primary_Key_For_Function (function_id, dik_id);
 	} else if (SecondaryCtrlIDList.ID (ctrl_id) != -1) {
-		
+
 		//
 		//	Modify the key mapping
 		//
@@ -393,7 +393,7 @@ ControlsListTabClass::Load_Key_Mappings (void)
 		input_ctrl = (InputCtrlClass *)Get_Dlg_Item (SecondaryCtrlIDList[index]);
 		if (input_ctrl != NULL) {
 			WideStringClass key_name;
-		
+
 			//
 			//	Get the secondary input for this function
 			//
@@ -478,7 +478,7 @@ ControlsListTabClass::HandleNotification (DlgMsgBoxEvent &event)
 		Get_Dlg_Item (PendingCtrlID)->Set_Focus ();
 
 	} else if (event.Event () == DlgMsgBoxEvent::No) {
-		
+
 		//
 		//	Reload the mappings on this page
 		//
@@ -547,11 +547,11 @@ ControlsListTabClass::Get_Function_Name (int function_id)
 {
 	const unichar_t *retval = NULL;
 	for (int index = 0; index < INPUT_NAME_COUNT; index ++) {
-		
+
 		//
 		//	Is this the function we're looking for?
 		//
-		if (FUNCTION_NAMES[index].function_id == function_id) {			
+		if (FUNCTION_NAMES[index].function_id == function_id) {
 			retval = TRANSLATE (FUNCTION_NAMES[index].name_id);
 			break;
 		}

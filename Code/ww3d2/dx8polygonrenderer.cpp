@@ -52,7 +52,7 @@ DX8PolygonRendererClass::DX8PolygonRendererClass(
 	unsigned index_offset_,
 	bool strip_)
 	:
-	mesh(mesh_), 
+	mesh(mesh_),
 	texture_category(tex_cat),
 	index_offset(index_offset_),
 	vertex_offset(vertex_offset_),
@@ -67,7 +67,7 @@ DX8PolygonRendererClass::DX8PolygonRendererClass(
 
 DX8PolygonRendererClass::DX8PolygonRendererClass(const DX8PolygonRendererClass& src,MeshClass* mesh_)
 	:
-	mesh(mesh_), 
+	mesh(mesh_),
 	texture_category(src.texture_category),
 	index_offset(src.index_offset),
 	vertex_offset(src.vertex_offset),

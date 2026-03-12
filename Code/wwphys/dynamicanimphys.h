@@ -68,7 +68,7 @@ public:
 
 	virtual DynamicAnimPhysClass *		As_DynamicAnimPhysClass(void) override								{ return this; }
 	const DynamicAnimPhysDefClass *		Get_DynamicAnimPhysDef(void);
-	
+
 	void											Init(const DynamicAnimPhysDefClass & def);
 	virtual void								Set_Model(RenderObjClass * model) override;
 
@@ -95,13 +95,13 @@ public:
 	AnimCollisionManagerClass &			Get_Animation_Manager(void)								{ return AnimManager; }
 
 protected:
-	
+
 	void											Update_Cached_Model_Parameters(void);
 	void											Reset_Mappers(RenderObjClass * model);
 
 	AnimCollisionManagerClass				AnimManager;
 	DynamicShadowManagerClass				ShadowManager;
-	
+
 private:
 
 	// Not implemented...
@@ -118,9 +118,9 @@ private:
 class DynamicAnimPhysDefClass : public DecorationPhysDefClass
 {
 public:
-	
+
 	DynamicAnimPhysDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;
@@ -138,7 +138,7 @@ public:
 	DECLARE_EDITABLE(DynamicAnimPhysDefClass,DecorationPhysDefClass);
 
 protected:
-	
+
 	// Animation and animated collision support
 	AnimCollisionManagerDefClass			AnimManagerDef;
 

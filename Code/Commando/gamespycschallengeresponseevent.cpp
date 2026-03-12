@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/gamespycschallengeresponseevent.cpp               $* 
- *                                                                                             * 
- *                      $Author:: Bhayes                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/22/02 12:32p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 5                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/gamespycschallengeresponseevent.cpp               $*
+ *                                                                                             *
+ *                      $Author:: Bhayes                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/22/02 12:32p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 5                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "gamespycschallengeresponseevent.h"
@@ -71,7 +71,7 @@ cGameSpyCsChallengeResponseEvent::Init
 
 	ClientId = cNetwork::Get_My_Id();
 
-	//TODO_AUTH - construct ChallengeResponseString here from challenge_string, 
+	//TODO_AUTH - construct ChallengeResponseString here from challenge_string,
 	// CD-KEY, random value.
 	CCDKeyAuth::AuthSerial(challenge_string.Peek_Buffer(), ChallengeResponseString);
 
@@ -102,8 +102,8 @@ cGameSpyCsChallengeResponseEvent::Act
 	{
 		WWDEBUG_SAY(("  Validating client %d against validation server.\n", ClientId));
 
-		CCDKeyAuth::AuthenticateUser(ClientId, p_player->Get_Ip_Address(), 
-			p_player->Get_GameSpy_Challenge_String().Peek_Buffer(), 
+		CCDKeyAuth::AuthenticateUser(ClientId, p_player->Get_Ip_Address(),
+			p_player->Get_GameSpy_Challenge_String().Peek_Buffer(),
 			ChallengeResponseString.Peek_Buffer());
 
 		if (ChallengeResponseString.Get_Length() > 31) {

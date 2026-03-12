@@ -97,9 +97,9 @@ void *
 ::operator new (size_t size)
 {
 
-	if (_g_binit == false) {	
+	if (_g_binit == false) {
 		_g_binit = true;
-		::SymInitialize (::GetCurrentProcess (), NULL,  true);	
+		::SymInitialize (::GetCurrentProcess (), NULL,  true);
 	}
 
 
@@ -114,7 +114,7 @@ void *
 	::GetThreadContext (hthread2, &context);
 	::CloseHandle (hthread2);
 
-	MY_DEBUG_INFO debug_info[DATA_LEVELS] = { 0 };	
+	MY_DEBUG_INFO debug_info[DATA_LEVELS] = { 0 };
 
 	// Initialize the STACKFRAME structure for the first call.  This is only
 	// necessary for Intel CPUs, and isn't mentioned in the documentation.
@@ -126,7 +126,7 @@ void *
 	sf.AddrFrame.Offset    = context.Ebp;
 	sf.AddrFrame.Mode      = AddrModeFlat;
 
-	
+
 	// Walk the stack up to DATA_LEVELS calls
 	for (int iframe = 0; iframe < DATA_LEVELS+1; iframe ++)
 	{
@@ -182,7 +182,7 @@ void *
 
 	// Allocate the buffer + our debug information
 	void *ptr = ::malloc (size + DATA_SIZE);
-	::memcpy (ptr, debug_info, DATA_SIZE);				
+	::memcpy (ptr, debug_info, DATA_SIZE);
 
 	// Stick the new buffer into our array (should be moved to linked list)
 	if (ptr) {

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/TransitionDialog.c $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 12/15/01 6:37p                $* 
- *                                                                                             * 
- *                    $Revision:: 6                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/TransitionDialog.c $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 12/15/01 6:37p                $*
+ *                                                                                             *
+ *                    $Revision:: 6                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -51,10 +51,10 @@
 #include "Scene.h"
 #include "TooltipMgr.h"
 #include "Ww3D.h"
- 
+
 
 /***********************************************************************************************
- * TransitionDialogClass::TransitionDialogClass -- Constructor											  *		
+ * TransitionDialogClass::TransitionDialogClass -- Constructor											  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -63,7 +63,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 TransitionDialogClass::TransitionDialogClass()
 	: MenuDialogClass (IDD_DIALOG_TRANSITION),
@@ -71,7 +71,7 @@ TransitionDialogClass::TransitionDialogClass()
 {
 	const char *modelname = "IN_STATICTRANS2";
 	const char *animname  = "IN_STATICTRANS2.IN_STATICTRANS2";
-	
+
 	Get_BackDrop()->Set_Model (modelname);
 	Get_BackDrop()->Set_Animation (animname);
 
@@ -92,7 +92,7 @@ TransitionDialogClass::TransitionDialogClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 TransitionDialogClass::~TransitionDialogClass()
 {
@@ -110,7 +110,7 @@ TransitionDialogClass::~TransitionDialogClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void TransitionDialogClass::On_Init_Dialog (void)
 {
@@ -140,9 +140,9 @@ void TransitionDialogClass::On_Init_Dialog (void)
 
 	// Create labels.
 	for (unsigned label = 0; label < LABEL_COUNT; label++) {
-		
+
 		TxWideStringClass text (textstringids [label]);
-		
+
 		TextRenderers [label] = new Render2DSentenceClass;
 		StyleMgrClass::Assign_Font (TextRenderers [label], StyleMgrClass::FONT_CREDITS);
 		TextRenderers [label]->Build_Sentence (text);
@@ -154,9 +154,9 @@ void TransitionDialogClass::On_Init_Dialog (void)
 	// For each model...
 	for (unsigned mesh = 0; mesh < MESH_COUNT; mesh++) {
 		for (int index = 0; index < Get_BackDrop()->Peek_Model()->Get_Num_Sub_Objects(); index++) {
-			
+
 			RenderObjClass *sub_obj = Get_BackDrop()->Peek_Model()->Get_Sub_Object (index);
-			
+
 			if (sub_obj->Class_ID() == RenderObjClass::CLASSID_MESH) {
 				if (::strstr (sub_obj->Get_Name(), meshnames [mesh]) != 0) {
 					Materials [mesh] = ((MeshClass*) sub_obj)->Peek_Model()->Get_Single_Material();
@@ -179,7 +179,7 @@ void TransitionDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void TransitionDialogClass::End_Dialog (void)
 {
@@ -214,12 +214,12 @@ void TransitionDialogClass::End_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void TransitionDialogClass::On_Frame_Update (void)
 {
 	static Random2Class _randomnumber (0x236ae371);
-	
+
 	const float labelcontroltimes [LABEL_COUNT][4] = {{ 1.67f,  1.73f,  6.60f,  6.67f},
 																	  { 6.86f,  6.93f, 17.59f, 17.67f},
 																	  {17.97f, 17.97f, 38.97f, 38.97f},
@@ -244,7 +244,7 @@ void TransitionDialogClass::On_Frame_Update (void)
 	for (unsigned label = 0; label < LABEL_COUNT; label++) {
 
 		uint32 color;
-		float	 f;	
+		float	 f;
 
 		if ((Time < labelcontroltimes [label][0]) || (Time > labelcontroltimes [label][3])) {
 			f = 0.0f;
@@ -276,7 +276,7 @@ void TransitionDialogClass::On_Frame_Update (void)
 
 				const unsigned  randomness = 32;
 				const wchar_t		*text [2]	= {L"0", L"1"};
-				
+
 				Render2DSentenceClass *digit;
 				int						  w, h, bits;
 				bool						  windowed;
@@ -300,7 +300,7 @@ void TransitionDialogClass::On_Frame_Update (void)
 				digit->Reset_Polys();
 				digit->Draw_Sentence (RGBA_TO_INT32 (255, 213, 40, 255));
 				Digits.Add (digit);
-			
+
 			} else {
 
 				// Remove a digit?
@@ -323,7 +323,7 @@ void TransitionDialogClass::On_Frame_Update (void)
 	// For each mesh...
 	for (unsigned mesh = 0; mesh < MESH_COUNT; mesh++) {
 
-		float	 f;	
+		float	 f;
 
 		if ((Time < meshcontroltimes [mesh][0]) || (Time > meshcontroltimes [mesh][3])) {
 			f = 0.0f;
@@ -342,7 +342,7 @@ void TransitionDialogClass::On_Frame_Update (void)
 	}
 
 	MenuDialogClass::On_Frame_Update();
-	
+
 	// Has the animation played out?
 	if (Time > Get_BackDrop()->Peek_Model()->Peek_Animation()->Get_Total_Time()) {
 		End_Dialog();
@@ -360,13 +360,13 @@ void TransitionDialogClass::On_Frame_Update (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 Vector2 TransitionDialogClass::Position (int controlid, const WideStringClass &text)
 {
 	DialogTextClass *textcontrol;
-	RectClass		  rect;	
-	Vector2			  textextent;	
+	RectClass		  rect;
+	Vector2			  textextent;
 	DWORD				  style;
 	Vector2			  position;
 
@@ -402,7 +402,7 @@ Vector2 TransitionDialogClass::Position (int controlid, const WideStringClass &t
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void TransitionDialogClass::Render (void)
 {

@@ -26,8 +26,8 @@
 //  MODULE:   copyhook.cpp
 //
 //  PURPOSE:   Implements the ICopyHook member functions necessary to support
-//             the copy hook portioins of this shell extension.  
-//             Copy hook handlers are called each time a folder is copied, moved, 
+//             the copy hook portioins of this shell extension.
+//             Copy hook handlers are called each time a folder is copied, moved,
 //             renamed, etc. in the system.  Note that the CopyCallback is NOT
 //             called for each file, but only for entire folders.
 //
@@ -38,8 +38,8 @@
 
 //
 //  FUNCTION: CShellExt::CopyCallback(HWND,
-//                                    UINT, 
-//                                    UINT, 
+//                                    UINT,
+//                                    UINT,
 //                                    LPCSTR,
 //                                    DWORD,
 //                                    LPCSTR,
@@ -50,7 +50,7 @@
 //  PARAMETERS:
 //    hwnd          - Window handle to use for any UI stuff
 //    wFunc         - what operation is being done
-//    wFlags        - and flags (FOF_*) set in the initial call 
+//    wFlags        - and flags (FOF_*) set in the initial call
 //                    to the file operation
 //    pszSrcFile    - name of the source file
 //    dwSrcAttribs  - file attributes of the source file
@@ -68,12 +68,12 @@
 //  COMMENTS:
 //
 
-STDMETHODIMP_(UINT) CShellExt::CopyCallback(HWND hwnd, 
-                                            UINT wFunc, 
-                                            UINT wFlags, 
-                                            LPCSTR pszSrcFile, 
+STDMETHODIMP_(UINT) CShellExt::CopyCallback(HWND hwnd,
+                                            UINT wFunc,
+                                            UINT wFlags,
+                                            LPCSTR pszSrcFile,
                                             DWORD dwSrcAttribs,
-                                            LPCSTR pszDestFile, 
+                                            LPCSTR pszDestFile,
                                             DWORD dwDestAttribs)
 {
     ODS("CShellExt::CopyCallback\r\n");

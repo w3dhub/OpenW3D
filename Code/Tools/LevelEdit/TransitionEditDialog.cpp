@@ -101,7 +101,7 @@ TransitionEditDialogClass::TransitionEditDialogClass(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(TransitionEditDialogClass)
 		// NOTE: the ClassWizard will add member initialization here
-	//}}AFX_DATA_INIT	
+	//}}AFX_DATA_INIT
 	return ;
 }
 
@@ -250,7 +250,7 @@ TransitionEditDialogClass::OnInitDialog (void)
 											50,
 											fnUpdateTimer,
 											(DWORD_PTR)m_hWnd,
-											TIME_PERIODIC);	
+											TIME_PERIODIC);
 	return true;
 }
 
@@ -294,7 +294,7 @@ TransitionEditDialogClass::OnOK (void)
 	//	Transform the zone from world space coords to relative coords
 	//
 	OBBoxClass zone_box (m_Zone->Get_Transform ().Get_Translation (), m_Zone->Get_Dimensions () * 0.5F);
-	OBBoxClass rel_zone; 
+	OBBoxClass rel_zone;
 	OBBoxClass::Transform (obj_inv, zone_box, &rel_zone);
 	m_Transition->Set_Zone (rel_zone);
 
@@ -312,7 +312,7 @@ void
 TransitionEditDialogClass::OnDestroy (void)
 {
 	// Stop the timer
-	if (m_TimerID != 0) {		
+	if (m_TimerID != 0) {
 		::timeKillEvent (m_TimerID);
 		m_TimerID = 0;
 	}
@@ -324,7 +324,7 @@ TransitionEditDialogClass::OnDestroy (void)
 		m_SwapChain->Release ();
 		m_SwapChain = NULL;
 	}
-	
+
 	CLevelEditView::Allow_Repaint (true);
 
 	//
@@ -332,13 +332,13 @@ TransitionEditDialogClass::OnDestroy (void)
 	//
 	m_Scene->Remove_Render_Object (m_RenderObj);
 	m_Scene->Remove_Render_Object (m_Zone);
-	m_Scene->Remove_Render_Object (m_CharacterObj);	
+	m_Scene->Remove_Render_Object (m_CharacterObj);
 	MEMBER_RELEASE (m_Scene);
 	MEMBER_RELEASE (m_Camera);
 	MEMBER_RELEASE (m_RenderObj);
-	MEMBER_RELEASE (m_CharacterObj);	
+	MEMBER_RELEASE (m_CharacterObj);
 	MEMBER_RELEASE (m_Zone);
-	MEMBER_RELEASE (m_Animation);	
+	MEMBER_RELEASE (m_Animation);
 
 	//
 	//	Free all the data we associated with the animation list
@@ -369,7 +369,7 @@ TransitionEditDialogClass::Render_View (void)
 
 	if (!render_lock) {
 		render_lock = true;
-		
+
 		//
 		//	Move the camera if the user is pressing
 		// the camera-control keys.
@@ -397,7 +397,7 @@ TransitionEditDialogClass::Render_View (void)
 		//	Blit the frame to the client area of the window
 		//
 		m_SwapChain->Present (NULL, NULL, NULL, NULL, 0);
-		
+
 		//
 		//	Restore the render target
 		//
@@ -407,7 +407,7 @@ TransitionEditDialogClass::Render_View (void)
 		//	Cleanup
 		//
 		RemoveProp (m_hWnd, "WaitingToProcess");
-		render_lock = false;		
+		render_lock = false;
 	}
 
 	return ;
@@ -461,7 +461,7 @@ TransitionEditDialogClass::WindowProc
 	if (message == (WM_USER + 101)) {
 		Render_View ();
 	} else if (message == WM_KEYDOWN || message == WM_KEYUP) {
-		
+
 		//
 		//	Eat the keyboard messages we 'special case'.
 		//
@@ -541,7 +541,7 @@ TransitionEditDialogClass::OnRight (void)
 	Matrix3D transform (1);
 	transform.Look_At (pos + Vector3 (0, m_LookAtDist, 0), pos, 0);
 	m_Camera->Set_Transform (transform);
-	return ;	
+	return ;
 }
 
 
@@ -592,7 +592,7 @@ TransitionEditDialogClass::Insert_Zone (void)
 	//	Create the zone and add it to the scene
 	//
 	m_Zone = new Box3DClass (Vector3 (1, 1, 1));
-	m_Zone->Set_Color (Vector3 (0, 0, 0.7F));	
+	m_Zone->Set_Color (Vector3 (0, 0, 0.7F));
 
 	//
 	//	Transform the zone from relative to world space coords
@@ -661,7 +661,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 		// Get the camera's current position
 		Vector3 position	= m_Camera->Get_Position ();
 		float orig_z		= position.Z;
-		
+
 		//
 		//	Determine how far to move the camera
 		//
@@ -694,7 +694,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 
 		// Get the camera's current position
 		Vector3 position	= m_Camera->Get_Position ();
-		
+
 		//
 		//	Determine how far to move the camera
 		//
@@ -719,7 +719,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 
 		// Get the camera's current position
 		Vector3 position	= m_Camera->Get_Position ();
-		
+
 		//
 		//	Determine how far to move the camera
 		//
@@ -735,7 +735,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 		// Set the camera's new position
 		m_Camera->Set_Position (position);
 	}
-	
+
 	if ((::GetAsyncKeyState (VK_UP) < 0) ||
 		 (::GetAsyncKeyState (VK_DOWN) < 0) ||
 		 (::GetAsyncKeyState (VK_LEFT) < 0) ||
@@ -753,7 +753,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 				translation.Z += amount;
 			} else {
 				translation.X += amount;
-			}			
+			}
 		}
 
 		if (::GetAsyncKeyState (VK_DOWN) < 0) {
@@ -761,7 +761,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 				translation.Z -= amount;
 			} else {
 				translation.X -= amount;
-			}			
+			}
 		}
 
 		if (::GetAsyncKeyState (VK_RIGHT) < 0) {
@@ -770,7 +770,7 @@ TransitionEditDialogClass::Handle_Keypress (void)
 
 		if (::GetAsyncKeyState (VK_LEFT) < 0) {
 			translation.Y -= amount;
-		}		
+		}
 
 		//
 		//	Move the zone
@@ -870,7 +870,7 @@ TransitionEditDialogClass::Fill_Trigger_List (void)
 			m_TriggerList.SetCurSel (item_index);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -892,7 +892,7 @@ TransitionEditDialogClass::Fill_Animation_List (void)
 	file_list.Set_Growth_Step (500);
 
 	#ifdef PUBLIC_EDITOR_VER
-	
+
 		MixFileDatabaseClass::Get_Instance ()->Find_Files (file_list, "h_a_*.w3d");
 
 	#else
@@ -908,7 +908,7 @@ TransitionEditDialogClass::Fill_Animation_List (void)
 		}
 
 	#endif //PUBLIC_EDITOR_VER
-		
+
 	//
 	// Populate the combobox
 	//
@@ -916,7 +916,7 @@ TransitionEditDialogClass::Fill_Animation_List (void)
 	for (index = 0; index < file_list.Count (); index ++) {
 		StringClass &filename	= file_list[index];
 		CString animation_name	= ::Asset_Name_From_Filename (filename);
-		
+
 		//
 		// Add this entry to the animation combobox
 		//
@@ -1059,7 +1059,7 @@ TransitionEditDialogClass::Load_Character (void)
 		//
 		Matrix3D obj_tm	= m_RenderObj->Get_Transform ();
 		Matrix3D char_tm	= m_Transition->Get_Ending_TM ();
-		char_tm				= char_tm * obj_tm;		
+		char_tm				= char_tm * obj_tm;
 		m_CharacterObj->Set_Transform (char_tm);
 
 		//
@@ -1110,7 +1110,7 @@ TransitionEditDialogClass::fn3DWindow
 	} else if (message == WM_MOUSEMOVE) {
 		TransitionEditDialogClass *dialog = NULL;
 		dialog = (TransitionEditDialogClass *)::GetProp (hwnd, "TRANSITION_DIALOG");
-		dialog->Handle_MOUSEMOVE (wparam, lparam);		
+		dialog->Handle_MOUSEMOVE (wparam, lparam);
 	}
 
 	return ::DefWindowProc (hwnd, message, wparam, lparam);
@@ -1184,7 +1184,7 @@ TransitionEditDialogClass::Handle_MOUSEMOVE (WPARAM wparam, LPARAM lparam)
 										m_LastPoint	);
 		}
 
-	} else if (wparam & MK_RBUTTON) {				
+	} else if (wparam & MK_RBUTTON) {
 		float delta = float(m_LastPoint.y - point.y) / 12;
 
 		//
@@ -1268,7 +1268,7 @@ BOOL
 TransitionEditDialogClass::PreTranslateMessage (MSG *pMsg)
 {
 	if (pMsg->message == WM_KEYDOWN || pMsg->message == WM_KEYUP) {
-		
+
 		if (pMsg->wParam == VK_NUMPAD8 || pMsg->wParam == VK_NUMPAD2 ||
 			 pMsg->wParam == VK_NUMPAD4 || pMsg->wParam == VK_NUMPAD6 ||
 			 pMsg->wParam == VK_NUMPAD7 || pMsg->wParam == VK_NUMPAD1 ||
@@ -1278,7 +1278,7 @@ TransitionEditDialogClass::PreTranslateMessage (MSG *pMsg)
 			return 1;
 		}
 	}
-	
+
 	return CDialog::PreTranslateMessage(pMsg);
 }
 
@@ -1402,11 +1402,11 @@ void
 TransitionEditDialogClass::Update_Animation (void)
 {
 	if (m_IsAnimating) {
-		DWORD curr_ticks = ::GetTickCount ();		
-		
+		DWORD curr_ticks = ::GetTickCount ();
+
 		float seconds		= float((curr_ticks - m_LastAnimUpdate)/1000.0F);
 		float frame_inc	= seconds * m_Animation->Get_Frame_Rate ();
-		m_CurrFrame			+= frame_inc;		
+		m_CurrFrame			+= frame_inc;
 
 		if (m_CurrFrame > float(m_Animation->Get_Num_Frames ())) {
 			m_CurrFrame -= float(m_Animation->Get_Num_Frames ());
@@ -1429,7 +1429,7 @@ void
 TransitionEditDialogClass::OnSizeZone (void)
 {
 	m_IsSizingZone = (m_SizeZoneCheck.GetCheck () == 1);
-	
+
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_EDIT_ZONE), !m_IsSizingZone);
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_EDIT_CHAR), !m_IsSizingZone);
 
@@ -1456,7 +1456,7 @@ void
 TransitionEditDialogClass::OnRotateChar (void)
 {
 	m_IsRotatingChar = (m_RotateCharCheck.GetCheck () == 1);
-	
+
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_EDIT_ZONE), !m_IsRotatingChar);
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_EDIT_CHAR), !m_IsRotatingChar);
 

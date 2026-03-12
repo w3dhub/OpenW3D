@@ -46,12 +46,12 @@ public:
 
 	//
 	//	From PickerClass
-	//	
+	//
 	void		On_Pick (void);
-	
+
 	//
 	//	FilePickerClass specific
-	//	
+	//
 	void		Set_Extension_String (LPCTSTR extension)	{ m_ExtensionString = extension; }
 	void		Set_Filter_String (LPCTSTR filter)			{ m_FilterString = filter; }
 	void		Set_Default_Filename (LPCTSTR filename)	{ m_DefaultFilename = filename; }

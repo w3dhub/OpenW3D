@@ -91,19 +91,19 @@ public:
 	void					Increment_Instance_Count(void)					{ Counter++; }
 	int					Get_Instance_Count(void)							{ return Counter; }
 protected:
-	
+
 	Vector3				P0;
 	Vector3				P1;
 	int					P0Index;
 	int					P1Index;
 
 	int					Counter;
-};	
+};
 
 /**
 ** SectorEdgeTableClass
 ** This class is used to build the table of "outer" edges for a vis sector.  Basically the
-** goal is to have a list of all of the edges that apear in a mesh only once.  
+** goal is to have a list of all of the edges that apear in a mesh only once.
 */
 class SectorEdgeTableClass : public DynamicVectorClass<SectorEdgeClass>
 {
@@ -112,7 +112,7 @@ public:
 	SectorEdgeTableClass(int count) : DynamicVectorClass<SectorEdgeClass> (count)		{ }
 	~SectorEdgeTableClass(void)																		{ }
 
-	void Add_Edge_Unique(const SectorEdgeClass & edge);	
+	void Add_Edge_Unique(const SectorEdgeClass & edge);
 
 };
 
@@ -184,7 +184,7 @@ void SectorEdgeTableClass::Add_Edge_Unique(const SectorEdgeClass & edge)
 			return;
 		}
 	}
-	
+
 	/*
 	** If we fall through to here, add the edge to our array
 	*/
@@ -227,7 +227,7 @@ VisSectorSamplerClass::~VisSectorSamplerClass(void)
 void VisSectorSamplerClass::Process(RenderObjClass * model)
 {
 	Reset(model->Get_Num_Polys());
-	
+
 	int count = Collect_Polygons(model);
 	if (count > 0) {
 		Sample_Edges();
@@ -237,7 +237,7 @@ void VisSectorSamplerClass::Process(RenderObjClass * model)
 
 	Stats->Increment_Processed_Node_Count();
 }
-	
+
 void VisSectorSamplerClass::Reset(int poly_count)
 {
 	MeshBuilder->Reset(1,poly_count,0.5f*poly_count + 1);
@@ -256,10 +256,10 @@ int VisSectorSamplerClass::Collect_Polygons(RenderObjClass * renderobj)
 			(renderobj->Class_ID() == RenderObjClass::CLASSID_MESH) )
 	{
 		MeshModelClass * model = ((MeshClass *)renderobj)->Get_Model();
-		if (model != NULL) {		
+		if (model != NULL) {
 
 			MeshBuilderClass::FaceClass face;
-			
+
 			/*
 			** Grab the relevent data from the mesh.
 			*/
@@ -271,9 +271,9 @@ int VisSectorSamplerClass::Collect_Polygons(RenderObjClass * renderobj)
 			** Add each up-facing polygon into our builder
 			*/
 			for (int pi = 0; pi < model->Get_Polygon_Count(); pi++) {
-				
+
 				if (plane_array[pi].Z > 0.3f) {
-					
+
 					/*
 					** Copy this face into the builder
 					*/
@@ -331,31 +331,31 @@ void VisSectorSamplerClass::Sample_Edges(void)
 	*/
 	for (int ei=0; ei<edgetable.Count(); ei++) {
 		if (edgetable[ei].Get_Instance_Count() == 1) {
-			
+
 			Vector3 edge_dir = edgetable[ei].Get_P1() - edgetable[ei].Get_P0();
 			edge_dir.Z = 0.0f;
 			float edge_len = edge_dir.Length();
 			edge_dir /= edge_len;
-			
+
 			if (edge_len > 0.0f) {
-			
+
 				/*
 				** Skip the edge if it is short
 				*/
 #if (USE_EDGE_SKIPPING)
-				if (edge_len + EdgeSkipAccum < MinSampleDistance) { 
+				if (edge_len + EdgeSkipAccum < MinSampleDistance) {
 
 					EdgeSkipAccum += edge_len;
 
 				} else {
-#endif	
+#endif
 					EdgeSkipAccum = 0.0f;
 
 					/*
 					** Move "inward" and up in Z to hopefully generate valid points which don't
 					** cause the camera to intersect walls.
 					*/
-					Vector3 offset(-edge_dir.Y,edge_dir.X,0.0f);		
+					Vector3 offset(-edge_dir.Y,edge_dir.X,0.0f);
 					offset *= SHRINKAGE_DISTANCE;
 					offset.Z += FLOOR_SAMPLE_HEIGHT;
 
@@ -390,8 +390,8 @@ void VisSectorSamplerClass::Sample_Edge(const Vector3 & p0,const Vector3 & p1)
 	/*
 	** Should we subdivide this edge and keep sampling?
 	*/
-	if (	(bits_changed > 0) && 
-			((p1-p0).Quick_Length() > 2.0f*MinSampleDistance) ) 
+	if (	(bits_changed > 0) &&
+			((p1-p0).Quick_Length() > 2.0f*MinSampleDistance) )
 	{
 		Sample_Edge(p0,sample_point);
 		Sample_Edge(sample_point,p1);
@@ -407,7 +407,7 @@ int VisSectorSamplerClass::Sample_Point(const Vector3 & point)
 	** Check the ceiling height
 	*/
 	if ((Check_Ceiling(point,&ceiling_distance) == true) && (ceiling_distance > 1.0f)) {
-	
+
 		if (ceiling_distance > 20.0f) {
 			ceiling_distance = 20.0f;
 		}
@@ -418,7 +418,7 @@ int VisSectorSamplerClass::Sample_Point(const Vector3 & point)
 		/*
 		** Now, sample the bottom and top of the vertical segment, recording
 		** the amount of changes made to the vis vector
-		*/	
+		*/
 		int bits0 = 0,bits1 = 0;
 		bits0 = Update_Vis(point);
 		if (bits0 > 0) {
@@ -434,7 +434,7 @@ int VisSectorSamplerClass::Sample_Point(const Vector3 & point)
 			bits_changed += Sample_Vertical_Segment(point,ceiling_point);
 		}
 	}
-	
+
 	return bits_changed;
 }
 
@@ -444,8 +444,8 @@ int VisSectorSamplerClass::Sample_Vertical_Segment(const Vector3 & p0,const Vect
 	Vector3 sample_point = 0.5f * (p0 + p1);
 	int bits_changed = Update_Vis(sample_point);
 
-	if (	(bits_changed > 0) && 
-			(p1.Z-p0.Z > 2.0f*MinSampleDistance) ) 
+	if (	(bits_changed > 0) &&
+			(p1.Z-p0.Z > 2.0f*MinSampleDistance) )
 	{
 		bits_changed += Sample_Vertical_Segment(p0,sample_point);
 		bits_changed += Sample_Vertical_Segment(sample_point,p1);
@@ -461,7 +461,7 @@ int VisSectorSamplerClass::Update_Vis(const Vector3 & point)
 	Matrix3D transform(Matrix3(1),point);
 	VisSampleClass sample = Scene->Update_Vis(point,transform);
 	Stats->Increment_Sample_Count();
-	
+
 	/*
 	** Log the results with the scene editor
 	*/
@@ -506,11 +506,11 @@ bool VisSectorSamplerClass::Check_Ceiling (const Vector3 &position, float *ceili
 	Vector3 start_point = position + Vector3 (0, 0, 0.001F);
 	Vector3 end_point = position + Vector3 (0, 0, CEILING_CHECK_HEIGHT);
 	LineSegClass ray (start_point, end_point);
-	
+
 	//
 	// Cast the ray into the world and see what it hits.
 	//
-	CastResultStruct res;	
+	CastResultStruct res;
 	PhysRayCollisionTestClass raytest (ray, &res, CollisionGroup, COLLISION_TYPE_PHYSICAL);
 	Scene->Cast_Ray (raytest);
 
@@ -538,7 +538,7 @@ bool VisSectorSamplerClass::Check_Ceiling (const Vector3 &position, float *ceili
 				retval = false;
 			}
 		}
-	}	
+	}
 
 	return retval;
 }
@@ -568,18 +568,18 @@ bool VisSectorSamplerClass::Is_Object_Invalid_Roof(RenderObjClass *render_obj)
 	//
 	int count = render_obj->Get_Num_Sub_Objects ();
 	for (int index = 0; (index < count) && retval; index ++) {
-		
+
 		//
 		// Check this subobject
 		//
 		RenderObjClass *sub_object = render_obj->Get_Sub_Object (index);
-		if (sub_object != NULL) {			
+		if (sub_object != NULL) {
 			retval &= Is_Object_Invalid_Roof (sub_object);
 			REF_PTR_RELEASE(sub_object);
 		}
-	}	
+	}
 
-	
+
 	//
 	// Is this render object a mesh?
 	//
@@ -601,7 +601,7 @@ bool VisSectorSamplerClass::Is_Object_Invalid_Roof(RenderObjClass *render_obj)
 			retval &= (render_obj->Is_Not_Hidden_At_All () != 0);
 
 			REF_PTR_RELEASE(model);
-		}		
+		}
 	}
 
 	return retval;
@@ -623,12 +623,12 @@ bool VisSectorSamplerClass::Do_View_Planes_Pass (const Matrix3D &/* vis_transfor
 #if 0 // TODO!
 	Vector3 center = vis_transform.Get_Translation ();
 	Matrix3 orig_basis (vis_transform);
-	
+
 	//
 	//	Loop through and test each of the 6 orienations
 	// of the view plane to make sure none of them intersect
 	// a 'wall'.
-	//	
+	//
 	/*CastResultStruct result;
 	for (int index = 0; (index < VIS_RENDER_DIRECTIONS) && retval; index ++) {
 
@@ -645,7 +645,7 @@ bool VisSectorSamplerClass::Do_View_Planes_Pass (const Matrix3D &/* vis_transfor
 		//
 		//Vector3
 		AABoxClass box (center, m_ViewPlaneExtent);
-		
+
 		//
 		// Check to see if this viewplane 'box' collides
 		// with anything.

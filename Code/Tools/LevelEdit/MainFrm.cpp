@@ -438,7 +438,7 @@ CMainFrame::CMainFrame (void)
 		m_pCurrentDoc (NULL),
 		m_MaxCamProfiles (0)
 {
-	return ;	
+	return ;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -447,7 +447,7 @@ CMainFrame::CMainFrame (void)
 //
 CMainFrame::~CMainFrame (void)
 {
-	return ;	
+	return ;
 }
 
 
@@ -463,7 +463,7 @@ CMainFrame::OnCreate (LPCREATESTRUCT lpCreateStruct)
 
 	if (CFrameWnd::OnCreate (lpCreateStruct) == -1)
 		return -1;
-	
+
 	if (!m_wndStatusBar.Create(this) ||
 		!m_wndStatusBar.SetIndicators(indicators,
 		  sizeof(indicators)/sizeof(UINT)))
@@ -483,7 +483,7 @@ CMainFrame::OnCreate (LPCREATESTRUCT lpCreateStruct)
 	// Create our global icon imagelist
 	m_ImageList.Create (16, 16, ILC_COLOR | ILC_MASK, 2, 2);
 	for (int index = 0; index < ICON_COUNT; index ++) {
-		
+
 		// Load this icon and add it to our imagelist
 		HICON hicon = (HICON)::LoadImage (::AfxGetResourceHandle (),
 													 MAKEINTRESOURCE (ICON_RESOURCE_IDS[index]),
@@ -548,7 +548,7 @@ CMainFrame::Create_Camera_Menu (void)
 			//
 			//	Add this entry to the menu
 			//
-			camera_menu->AppendMenu (MF_STRING | MF_ENABLED, IDM_FIRST_CAM_PROFILE + index, profile_name);			
+			camera_menu->AppendMenu (MF_STRING | MF_ENABLED, IDM_FIRST_CAM_PROFILE + index, profile_name);
 			m_CameraProfiles.Add (profile_name);
 			m_MaxCamProfiles ++;
 		}
@@ -584,7 +584,7 @@ CMainFrame::Restore_Window_State (void)
 
 	if (is_max) {
 		::ShowWindow (m_hWnd, SW_MAXIMIZE);
-	} else if (rect.left > 0 && rect.right > 0 && rect.top > 0 && rect.bottom > 0) {		
+	} else if (rect.left > 0 && rect.right > 0 && rect.top > 0 && rect.bottom > 0) {
 		::SetWindowPos (m_hWnd, NULL, rect.left, rect.top, rect.Width (), rect.Height (), SWP_NOZORDER);
 	}*/
 
@@ -604,7 +604,7 @@ void
 CMainFrame::Create_Toolbars (void)
 {
 	//m_DialogBar.Create (this);
-	
+
 	//DockableFormClass *new_form = new OutputFormClass;
 	//new_form->Create (CWnd::FromHandlePermanent (m_DialogBar.GetReBarCtrl ()), 101);
 
@@ -635,7 +635,7 @@ CMainFrame::Create_Toolbars (void)
 	m_wndBottomToolBar.SetBarStyle(m_wndBottomToolBar.GetBarStyle() |
 		CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
 
-	 m_wndBottomToolBar.ModifyStyle(0, TBSTYLE_FLAT); 
+	 m_wndBottomToolBar.ModifyStyle(0, TBSTYLE_FLAT);
 
 	// Set the allowed docking stations for each toolbar
 	//m_wndToolBar.EnableDocking(CBRS_ALIGN_TOP);
@@ -644,17 +644,17 @@ CMainFrame::Create_Toolbars (void)
 	m_OutputToolbar.EnableDocking (CBRS_ALIGN_BOTTOM | CBRS_ALIGN_TOP);
 	m_AmbientLightToolbar.EnableDocking (0L);
 	m_CameraSettingsToolbar.EnableDocking (0L);
-	
+
 	// Dock our dialogs
-	//DockControlBar (&m_wndToolBar);	
+	//DockControlBar (&m_wndToolBar);
 	DockControlBar (&m_wndBottomToolBar);
-	DockControlBar (&m_OutputToolbar, AFX_IDW_DOCKBAR_BOTTOM);		
-	
+	DockControlBar (&m_OutputToolbar, AFX_IDW_DOCKBAR_BOTTOM);
+
 	// Hide our floating dialog toolbars
 	ShowControlBar (&m_AmbientLightToolbar, false, false);
 	ShowControlBar (&m_CameraSettingsToolbar, false, false);
 	ShowControlBar (&m_AniToolbar, false, false);
-			
+
 
 	CRect window_rect;
 	GetWindowRect (&window_rect);
@@ -676,7 +676,7 @@ CMainFrame::Create_Toolbars (void)
 
 	// Allow timer updates while the mouse is hovering over the animation toolbar
 	::SetProp (m_AniToolbar, "ALLOW_UPDATE", (HANDLE)1);
-	
+
 	RecalcLayout ();
 	return ;
 }
@@ -764,9 +764,9 @@ CMainFrame::OnCreateClient
 		// Set this directory as the current directory
 		//
 		pathname[0] = 0;
-		::SetCurrentDirectory (filename);		
+		::SetCurrentDirectory (filename);
 	}
-	
+
 	//
 	// Get a pointer to the current doc
 	//
@@ -823,7 +823,7 @@ CMainFrame::OnCreateClient
 	//
 	ProgressUIMgrClass::Set_Status_Text ("Initializing Audio Device...");
 	_pTheAudioManager = WWAudioClass::Create_Instance();
-	_pTheAudioManager->Initialize ();	
+	_pTheAudioManager->Initialize ();
 	_pTheAudioManager->Register_Text_Callback (PatsTextCallback, 1115);
 
 	//
@@ -832,7 +832,7 @@ CMainFrame::OnCreateClient
 	ProgressUIMgrClass::Set_Status_Text ("Initializing Combat Engine...");
 	DialogMgrClass::Initialize ("stylemgr.ini");
 	CombatManager::Set_Observers_Active (false);
-	CombatManager::Init ();	
+	CombatManager::Init ();
 	CombatManager::Pre_Load_Level ();
 	CombatManager::Set_I_Am_Client (true);
 	CombatManager::Set_I_Am_Server (true);
@@ -842,7 +842,7 @@ CMainFrame::OnCreateClient
 
 	CString scripts_path = ::Get_File_Mgr ()->Make_Full_Path (SCRIPTS_PATH);
 	::SetCurrentDirectory (scripts_path);
-	ScriptMgrClass::Initialize ();	
+	ScriptMgrClass::Initialize ();
 	ScriptManager::Init ();
 	WW3D::Enable_Static_Sort_Lists(true);
 
@@ -925,7 +925,7 @@ CMainFrame::OnClose (void)
 
 	// Allow the base class to process this message
 	CFrameWnd::OnClose ();
-	return; 
+	return;
 }
 
 
@@ -935,7 +935,7 @@ CMainFrame::OnClose (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnObjectManipulate (void) 
+CMainFrame::OnObjectManipulate (void)
 {
 	// Get a pointer to the mouse manager for the editor
 	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
@@ -946,7 +946,7 @@ CMainFrame::OnObjectManipulate (void)
 		pmousemgr->Set_Mouse_Mode (MouseMgrClass::MODE_OBJECT_MANIPULATE);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -955,7 +955,7 @@ CMainFrame::OnObjectManipulate (void)
 //  OnUpdateObjectManipulate
 //
 void
-CMainFrame::OnUpdateObjectManipulate (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateObjectManipulate (CCmdUI* pCmdUI)
 {
 	// Get a pointer to the mouse manager for the editor
 	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
@@ -966,7 +966,7 @@ CMainFrame::OnUpdateObjectManipulate (CCmdUI* pCmdUI)
 		pCmdUI->SetCheck ((BOOL)pmousemgr->Get_Mouse_Mode () == MouseMgrClass::MODE_OBJECT_MANIPULATE);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -975,7 +975,7 @@ CMainFrame::OnUpdateObjectManipulate (CCmdUI* pCmdUI)
 //  OnModeCamera
 //
 void
-CMainFrame::OnModeCamera (void) 
+CMainFrame::OnModeCamera (void)
 {
 	// Get a pointer to the mouse manager for the editor
 	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
@@ -986,7 +986,7 @@ CMainFrame::OnModeCamera (void)
 		pmousemgr->Set_Mouse_Mode (MouseMgrClass::MODE_CAMERA_DEFAULT);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -995,7 +995,7 @@ CMainFrame::OnModeCamera (void)
 //  OnUpdateModeCamera
 //
 void
-CMainFrame::OnUpdateModeCamera (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateModeCamera (CCmdUI* pCmdUI)
 {
 	// Get a pointer to the mouse manager for the editor
 	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
@@ -1006,7 +1006,7 @@ CMainFrame::OnUpdateModeCamera (CCmdUI* pCmdUI)
 		pCmdUI->SetCheck ((BOOL)pmousemgr->Get_Mouse_Mode () == MouseMgrClass::MODE_CAMERA_DEFAULT);
 	}
 
-	return ;	
+	return ;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1014,7 +1014,7 @@ CMainFrame::OnUpdateModeCamera (CCmdUI* pCmdUI)
 //  OnDeleteSelection
 //
 void
-CMainFrame::OnDeleteSelection (void) 
+CMainFrame::OnDeleteSelection (void)
 {
 	::Get_Scene_Editor ()->Delete_Nodes ();
 	return ;
@@ -1025,7 +1025,7 @@ CMainFrame::OnDeleteSelection (void)
 //  OnModeOrbit
 //
 void
-CMainFrame::OnModeOrbit (void) 
+CMainFrame::OnModeOrbit (void)
 {
 	// Get a pointer to the mouse manager for the editor
 	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
@@ -1036,7 +1036,7 @@ CMainFrame::OnModeOrbit (void)
 		pmousemgr->Set_Mouse_Mode (MouseMgrClass::MODE_CAMERA_ORBIT);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -1045,7 +1045,7 @@ CMainFrame::OnModeOrbit (void)
 //  OnUpdateModeOrbit
 //
 void
-CMainFrame::OnUpdateModeOrbit (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateModeOrbit (CCmdUI* pCmdUI)
 {
 	// Get a pointer to the mouse manager for the editor
 	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
@@ -1056,7 +1056,7 @@ CMainFrame::OnUpdateModeOrbit (CCmdUI* pCmdUI)
 		pCmdUI->SetCheck ((BOOL)pmousemgr->Get_Mouse_Mode () == MouseMgrClass::MODE_CAMERA_ORBIT);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -1077,7 +1077,7 @@ CMainFrame::OnCoordWorld (void)
 //  OnUpdateCoordWorld
 //
 void
-CMainFrame::OnUpdateCoordWorld (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateCoordWorld (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Coord_System () == CLevelEditDoc::COORD_WORLD);
 	return ;
@@ -1101,7 +1101,7 @@ CMainFrame::OnCoordView (void)
 //  OnUpdateCoordView
 //
 void
-CMainFrame::OnUpdateCoordView (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateCoordView (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Coord_System () == CLevelEditDoc::COORD_VIEW);
 	return ;
@@ -1125,7 +1125,7 @@ CMainFrame::OnCoordObject (void)
 //  OnUpdateCoordObject
 //
 void
-CMainFrame::OnUpdateCoordObject (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateCoordObject (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Coord_System () == CLevelEditDoc::COORD_OBJECT);
 	return ;
@@ -1197,7 +1197,7 @@ CMainFrame::OnRestrictZ (void)
 //  OnUpdateRestrictZ
 //
 void
-CMainFrame::OnUpdateRestrictZ (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateRestrictZ (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Axis_Restriction () == CLevelEditDoc::RESTRICT_Z);
 	return ;
@@ -1209,7 +1209,7 @@ CMainFrame::OnUpdateRestrictZ (CCmdUI* pCmdUI)
 //  OnUpdateRestrictY
 //
 void
-CMainFrame::OnUpdateRestrictY (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateRestrictY (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Axis_Restriction () == CLevelEditDoc::RESTRICT_Y);
 	return ;
@@ -1221,7 +1221,7 @@ CMainFrame::OnUpdateRestrictY (CCmdUI* pCmdUI)
 //  OnUpdateRestrictX
 //
 void
-CMainFrame::OnUpdateRestrictX (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateRestrictX (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Axis_Restriction () == CLevelEditDoc::RESTRICT_X);
 	return ;
@@ -1232,7 +1232,7 @@ CMainFrame::OnUpdateRestrictX (CCmdUI* pCmdUI)
 //  OnCameraFront
 //
 void
-CMainFrame::OnCameraFront (void) 
+CMainFrame::OnCameraFront (void)
 {
 	// Move the camera to this new position
 	::Get_Camera_Mgr ()->Set_Camera_Pos (CameraMgr::CAMERA_FRONT);
@@ -1244,7 +1244,7 @@ CMainFrame::OnCameraFront (void)
 //  OnCameraBack
 //
 void
-CMainFrame::OnCameraBack (void) 
+CMainFrame::OnCameraBack (void)
 {
 	// Move the camera to this new position
 	::Get_Camera_Mgr ()->Set_Camera_Pos (CameraMgr::CAMERA_BACK);
@@ -1256,7 +1256,7 @@ CMainFrame::OnCameraBack (void)
 //  OnCameraLeft
 //
 void
-CMainFrame::OnCameraLeft (void) 
+CMainFrame::OnCameraLeft (void)
 {
 	// Move the camera to this new position
 	::Get_Camera_Mgr ()->Set_Camera_Pos (CameraMgr::CAMERA_LEFT);
@@ -1269,7 +1269,7 @@ CMainFrame::OnCameraLeft (void)
 //  OnCameraRight
 //
 void
-CMainFrame::OnCameraRight (void) 
+CMainFrame::OnCameraRight (void)
 {
 	// Move the camera to this new position
 	::Get_Camera_Mgr ()->Set_Camera_Pos (CameraMgr::CAMERA_RIGHT);
@@ -1281,7 +1281,7 @@ CMainFrame::OnCameraRight (void)
 //  OnCameraTop
 //
 void
-CMainFrame::OnCameraTop (void) 
+CMainFrame::OnCameraTop (void)
 {
 	// Move the camera to this new position
 	::Get_Camera_Mgr ()->Set_Camera_Pos (CameraMgr::CAMERA_TOP);
@@ -1293,7 +1293,7 @@ CMainFrame::OnCameraTop (void)
 //  OnCameraBottom
 //
 void
-CMainFrame::OnCameraBottom (void) 
+CMainFrame::OnCameraBottom (void)
 {
 	// Move the camera to this new position
 	::Get_Camera_Mgr ()->Set_Camera_Pos (CameraMgr::CAMERA_BOTTOM);
@@ -1319,7 +1319,7 @@ CMainFrame::OnDropToGround (void)
 //  OnUpdateDropToGround
 //
 void
-CMainFrame::OnUpdateDropToGround (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateDropToGround (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Mode_Modifiers () & MODE_MOD_DROP_TO_GROUND);
 	return ;
@@ -1351,7 +1351,7 @@ CMainFrame::OnModeWalkthrough (void)
 //  OnUpdateModeWalkthrough
 //
 void
-CMainFrame::OnUpdateModeWalkthrough (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateModeWalkthrough (CCmdUI* pCmdUI)
 {
 	// Get a pointer to the mouse manager for the editor
 	MouseMgrClass *pmousemgr = ::Get_Mouse_Mgr ();
@@ -1362,7 +1362,7 @@ CMainFrame::OnUpdateModeWalkthrough (CCmdUI* pCmdUI)
 		pCmdUI->SetCheck ((BOOL)pmousemgr->Get_Mouse_Mode () == MouseMgrClass::MODE_CAMERA_WALK);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -1371,7 +1371,7 @@ CMainFrame::OnUpdateModeWalkthrough (CCmdUI* pCmdUI)
 //  OnUpdateModeWalkthrough
 //
 void
-CMainFrame::OnViewChangeDevice (void) 
+CMainFrame::OnViewChangeDevice (void)
 {
 	CDeviceSelectionDialog devicedialog (false);
 	if (devicedialog.DoModal () == IDOK) {
@@ -1380,7 +1380,7 @@ CMainFrame::OnViewChangeDevice (void)
 		::Get_Main_View ()->Initialize_Render_Device ();
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -1390,11 +1390,11 @@ CMainFrame::OnViewChangeDevice (void)
 //
 void
 CMainFrame::OnLevelExport (void)
-{		
+{
 	// Determine which directory we should use as a default for the export
 	CString full_path = theApp.GetProfileString (CONFIG_KEY, LAST_EXPORT_DIR_VALUE);
 	if (full_path.GetLength () == 0) {
-		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);		
+		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);
 	}
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
@@ -1418,12 +1418,12 @@ CMainFrame::OnLevelExport (void)
 	saveFileDialog.m_ofn.lpstrInitialDir = full_path;
 
 	// Ask the user what commando level file they wish to save to
-	if (saveFileDialog.DoModal () == IDOK) {		
+	if (saveFileDialog.DoModal () == IDOK) {
 
 		ExporterClass exporter;
 		exporter.Export_Level (saveFileDialog.GetPathName ());
 	}
-	
+
 	return ;
 }
 
@@ -1433,7 +1433,7 @@ CMainFrame::OnLevelExport (void)
 //  OnViewFullscreen
 //
 void
-CMainFrame::OnViewFullscreen (void) 
+CMainFrame::OnViewFullscreen (void)
 {
 	// Toggle the fullscreen view
 	::Get_Main_View ()->Set_Windowed (!::Get_Main_View ()->Is_Windowed ());
@@ -1446,7 +1446,7 @@ CMainFrame::OnViewFullscreen (void)
 //  OnUpdateViewFullscreen
 //
 void
-CMainFrame::OnUpdateViewFullscreen (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateViewFullscreen (CCmdUI* pCmdUI)
 {
 	// Check or uncheck the menu item based on the current windowed mode
 	pCmdUI->SetCheck (!::Get_Main_View ()->Is_Windowed ());
@@ -1459,10 +1459,10 @@ CMainFrame::OnUpdateViewFullscreen (CCmdUI* pCmdUI)
 //  OnViewAmbientLightDlg
 //
 void
-CMainFrame::OnViewAmbientLightDlg (void) 
+CMainFrame::OnViewAmbientLightDlg (void)
 {
 	// Toggle the visiblity state of the toolbar
-	BOOL show_dlg = !m_AmbientLightToolbar.IsWindowVisible ();	
+	BOOL show_dlg = !m_AmbientLightToolbar.IsWindowVisible ();
 	ShowControlBar (&m_AmbientLightToolbar, show_dlg, false);
 	return ;
 }
@@ -1473,7 +1473,7 @@ CMainFrame::OnViewAmbientLightDlg (void)
 //  OnUpdateViewAmbientLightDlg
 //
 void
-CMainFrame::OnUpdateViewAmbientLightDlg (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateViewAmbientLightDlg (CCmdUI* pCmdUI)
 {
 	// Check the menu option if the toolbar is currently displayed
 	pCmdUI->SetCheck (m_AmbientLightToolbar.IsWindowVisible ());
@@ -1486,10 +1486,10 @@ CMainFrame::OnUpdateViewAmbientLightDlg (CCmdUI* pCmdUI)
 //  OnViewToolbarCameraSettings
 //
 void
-CMainFrame::OnViewToolbarCameraSettings (void) 
+CMainFrame::OnViewToolbarCameraSettings (void)
 {
 	// Toggle the visiblity state of the toolbar
-	BOOL show_dlg = !m_CameraSettingsToolbar.IsWindowVisible ();	
+	BOOL show_dlg = !m_CameraSettingsToolbar.IsWindowVisible ();
 	ShowControlBar (&m_CameraSettingsToolbar, show_dlg, false);
 
 	// Get a pointer to the camera settings dialog
@@ -1507,7 +1507,7 @@ CMainFrame::OnViewToolbarCameraSettings (void)
 //  OnUpdateViewToolbarCameraSettings
 //
 void
-CMainFrame::OnUpdateViewToolbarCameraSettings (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateViewToolbarCameraSettings (CCmdUI* pCmdUI)
 {
 	// Check the menu option if the toolbar is currently displayed
 	pCmdUI->SetCheck (m_CameraSettingsToolbar.IsWindowVisible ());
@@ -1520,11 +1520,11 @@ CMainFrame::OnUpdateViewToolbarCameraSettings (CCmdUI* pCmdUI)
 //  OnCameraDepthLess
 //
 void
-CMainFrame::OnCameraDepthLess (void) 
+CMainFrame::OnCameraDepthLess (void)
 {
 	CameraMgr *pcamera_mgr = ::Get_Camera_Mgr ();
 	if (pcamera_mgr != NULL) {
-		
+
 		// Get the current 'near' clip plane
 		float near_plane = 0;
 		float far_plane = 0;
@@ -1552,7 +1552,7 @@ CMainFrame::OnCameraDepthMore (void)
 {
 	CameraMgr *pcamera_mgr = ::Get_Camera_Mgr ();
 	if (pcamera_mgr != NULL) {
-		
+
 		// Get the current 'near' clip plane
 		float near_plane = 0;
 		float far_plane = 0;
@@ -1600,7 +1600,7 @@ void
 CMainFrame::OnUpdateSavePresets (CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable (false);
-	return ;	
+	return ;
 }
 
 
@@ -1618,14 +1618,14 @@ CMainFrame::OnCommand
 	if ((LOWORD (wParam) == ID_FILE_SAVE_AS) ||
 	    (LOWORD (wParam) == ID_FILE_SAVE) ||
 	    (LOWORD (wParam) == ID_FILE_OPEN)) {
-		
+
 		// Set the current working directory to point to the last directory where
 		// we saved a file...
 		CString full_path = theApp.GetProfileString (CONFIG_KEY, LAST_SAVE_DIR_VALUE);
 		if (full_path.GetLength () != 0) {
 			::SetCurrentDirectory (full_path);
 			_pThe3DAssetManager->Set_Current_Directory (full_path);
-			
+
 
 			if (LOWORD (wParam) != ID_FILE_OPEN) {
 				//
@@ -1645,7 +1645,7 @@ CMainFrame::OnCommand
 
 		CMenu *main_menu = GetMenu ();
 		CMenu *camera_menu = main_menu->GetSubMenu (CAMERA_MENU_INDEX);
-		
+
 		//
 		//	Switch to the new camera profile
 		//
@@ -1658,7 +1658,7 @@ CMainFrame::OnCommand
 		camera_menu->CheckMenuRadioItem (IDM_FIRST_CAM_PROFILE,
 							IDM_FIRST_CAM_PROFILE + m_MaxCamProfiles, LOWORD (wParam), MF_BYCOMMAND);
 	}
-	
+
 	// Allow the base class to process this message
 	return CFrameWnd::OnCommand(wParam, lParam);
 }
@@ -1669,7 +1669,7 @@ CMainFrame::OnCommand
 //  OnUpdateToggleSnappoints
 //
 void
-CMainFrame::OnToggleSnappoints() 
+CMainFrame::OnToggleSnappoints()
 {
 	// Toggle the snap points setting
 	CLevelEditDoc *pdoc = ::Get_Current_Document ();
@@ -1683,7 +1683,7 @@ CMainFrame::OnToggleSnappoints()
 //  OnUpdateToggleSnappoints
 //
 void
-CMainFrame::OnUpdateToggleSnappoints (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateToggleSnappoints (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Are_Snap_Points_Active ());
 	return ;
@@ -1706,12 +1706,12 @@ CMainFrame::OnAlwaysExport (void)
 									 NULL,
 									 NULL,
 									 "Select a directory where the core file set will be copied.")) {
-		
+
 		//
 		// Copy the always files to the specified directory
 		//
-		CWaitCursor wait_cursor;		
-		
+		CWaitCursor wait_cursor;
+
 		ExporterClass exporter;
 		exporter.Export_Always_Files (path);
 
@@ -1735,7 +1735,7 @@ CMainFrame::OnDestroy (void)
 	// Don't allow any more repaints
 	CLevelEditView::Allow_Repaint (false);
 
-	CRect rect;	
+	CRect rect;
 	WINDOWPLACEMENT wnd_info = { sizeof (WINDOWPLACEMENT), 0 };
 	::GetWindowPlacement (m_hWnd, &wnd_info);
 	::GetWindowRect (m_hWnd, &rect);
@@ -1752,14 +1752,14 @@ CMainFrame::OnDestroy (void)
 	// We're closing the application so cleanup resources
 	CLevelEditDoc *pCDoc = (CLevelEditDoc *)GetActiveDocument ();
 	if (pCDoc) {
-		
+
 		// Ask the Doc to free its resources
 		pCDoc->CleanupResources ();
-	}        
+	}
 
 	//
 	// Shutdown the different systems
-	//	
+	//
 	CombatManager::Unload_Level ();
 	CombatManager::Shutdown ();
 	ScriptMgrClass::Shutdown ();
@@ -1775,7 +1775,7 @@ CMainFrame::OnDestroy (void)
 	//
 	WW3DAssetManager::Get_Instance()->Free_Assets ();
 	//WW3D::Flush_Texture_Cache ();
-	WW3D::Shutdown ();	
+	WW3D::Shutdown ();
 	SAFE_DELETE (_pThe3DAssetManager);
 
 	::RemoveProp (m_AniToolbar, "ALLOW_UPDATE");
@@ -1810,12 +1810,12 @@ CMainFrame::WindowProc
 )
 {
 	if (message == WM_USER+109) {
-		
+
 		// Show the welcome dialog
 		WelcomeDialogClass welcome_dialog (this);
 		welcome_dialog.DoModal ();
 	}
-	
+
 	return CFrameWnd::WindowProc(message, wParam, lParam);
 }
 
@@ -1890,7 +1890,7 @@ CMainFrame::OnGenVis (void)
 //  OnToggleVisWindow
 //
 void
-CMainFrame::OnToggleVisWindow (void) 
+CMainFrame::OnToggleVisWindow (void)
 {
 	HWND hchild = ::GetDlgItem (::GetDesktopWindow (), 777);
 	if (::IsWindow (hchild)) {
@@ -1907,7 +1907,7 @@ CMainFrame::OnToggleVisWindow (void)
 //  Show_Ani_Toolbar
 //
 void
-CMainFrame::Show_Ani_Toolbar (bool bshow) 
+CMainFrame::Show_Ani_Toolbar (bool bshow)
 {
 	ShowControlBar (&m_AniToolbar, (BOOL)bshow, false);
 	return ;
@@ -1920,14 +1920,14 @@ CMainFrame::Show_Ani_Toolbar (bool bshow)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnAniBackFrame (void) 
+CMainFrame::OnAniBackFrame (void)
 {
 	/*NodeInstanceClass *pnode = Get_Selection_Mgr ().Get_First ();
 	if ((pnode != NULL) &&
 	    (pnode->Get_Type () == NODE_TYPE_TRANSITION_CHARACTER)) {
 		TransitionCharacterClass *pcharacter = (TransitionCharacterClass *)pnode;
 		pcharacter->Send_Animation_Message (TransitionCharacterClass::ANIM_BACK_FRAME);
-		
+
 	}*/
 
 	return ;
@@ -1947,7 +1947,7 @@ CMainFrame::OnAniFirstFrame (void)
 	    (pnode->Get_Type () == NODE_TYPE_TRANSITION_CHARACTER)) {
 		TransitionCharacterClass *pcharacter = (TransitionCharacterClass *)pnode;
 		pcharacter->Send_Animation_Message (TransitionCharacterClass::ANIM_FIRST_FRAME);
-		
+
 	}*/
 
 	return ;
@@ -1967,7 +1967,7 @@ CMainFrame::OnAniFwdFrame (void)
 	    (pnode->Get_Type () == NODE_TYPE_TRANSITION_CHARACTER)) {
 		TransitionCharacterClass *pcharacter = (TransitionCharacterClass *)pnode;
 		pcharacter->Send_Animation_Message (TransitionCharacterClass::ANIM_ADVANCE_FRAME);
-		
+
 	}*/
 
 	return ;
@@ -1987,7 +1987,7 @@ CMainFrame::OnAniLastFrame (void)
 	    (pnode->Get_Type () == NODE_TYPE_TRANSITION_CHARACTER)) {
 		TransitionCharacterClass *pcharacter = (TransitionCharacterClass *)pnode;
 		pcharacter->Send_Animation_Message (TransitionCharacterClass::ANIM_LAST_FRAME);
-		
+
 	}*/
 
 	return ;
@@ -2007,7 +2007,7 @@ CMainFrame::OnAniPause (void)
 	    (pnode->Get_Type () == NODE_TYPE_TRANSITION_CHARACTER)) {
 		TransitionCharacterClass *pcharacter = (TransitionCharacterClass *)pnode;
 		pcharacter->Send_Animation_Message (TransitionCharacterClass::ANIM_PAUSE);
-		
+
 	}*/
 
 	return ;
@@ -2027,7 +2027,7 @@ CMainFrame::OnAniPlay (void)
 	    (pnode->Get_Type () == NODE_TYPE_TRANSITION_CHARACTER)) {
 		TransitionCharacterClass *pcharacter = (TransitionCharacterClass *)pnode;
 		pcharacter->Send_Animation_Message (TransitionCharacterClass::ANIM_PLAY);
-		
+
 	}*/
 
 	return ;
@@ -2047,7 +2047,7 @@ CMainFrame::OnAniStop (void)
 	    (pnode->Get_Type () == NODE_TYPE_TRANSITION_CHARACTER)) {
 		TransitionCharacterClass *pcharacter = (TransitionCharacterClass *)pnode;
 		pcharacter->Send_Animation_Message (TransitionCharacterClass::ANIM_STOP);
-		
+
 	}*/
 
 	return ;
@@ -2157,13 +2157,13 @@ CMainFrame::OnEditUndo (void)
 //  OnUpdateEditUndo
 //
 void
-CMainFrame::OnUpdateEditUndo (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateEditUndo (CCmdUI *pCmdUI)
 {
 	// Enable/disable the menu option
 	pCmdUI->Enable (BOOL(::Get_Scene_Editor ()->Get_Undo_Mgr ().Get_Possible_Undo_Count () > 0));
 
 	// Determine what text to display for the undo operation
-	CString text;	
+	CString text;
 	if (::Get_Scene_Editor ()->Get_Undo_Mgr ().Get_Possible_Undo_Count () > 0) {
 		text.Format ("Undo (%s)\tAlt+Backspace", ::Get_Scene_Editor ()->Get_Undo_Mgr ().Get_Next_Undo_Name ());
 	} else {
@@ -2193,7 +2193,7 @@ CMainFrame::OnEditCopy (void)
 //  OnUpdateEditCopy
 //
 void
-CMainFrame::OnUpdateEditCopy (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateEditCopy (CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable (::Get_Selection_Mgr ().Get_Count () > 0);
 	return ;
@@ -2217,7 +2217,7 @@ CMainFrame::OnEditCut (void)
 //  OnUpdateEditCut
 //
 void
-CMainFrame::OnUpdateEditCut (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateEditCut (CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable (::Get_Scene_Editor ()->Get_Selection_Mgr ().Get_Count () > 0);
 	return ;
@@ -2241,7 +2241,7 @@ CMainFrame::OnEditPaste (void)
 //  OnUpdateEditPaste
 //
 void
-CMainFrame::OnUpdateEditPaste (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateEditPaste (CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable (::Get_Scene_Editor ()->Can_Paste ());
 	return ;
@@ -2253,7 +2253,7 @@ CMainFrame::OnUpdateEditPaste (CCmdUI* pCmdUI)
 //  OnCreateGroup
 //
 void
-CMainFrame::OnCreateGroup (void) 
+CMainFrame::OnCreateGroup (void)
 {
 	return ;
 }
@@ -2264,7 +2264,7 @@ CMainFrame::OnCreateGroup (void)
 //  OnUpdateCreateGroup
 //
 void
-CMainFrame::OnUpdateCreateGroup (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateCreateGroup (CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable (Get_Selection_Mgr ().Get_Count () > 0);
 	return ;
@@ -2289,7 +2289,7 @@ void CMainFrame::OnToggleLights (void)
 //  OnUpdateToggleLights
 //
 void
-CMainFrame::OnUpdateToggleLights (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateToggleLights (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Scene_Editor ()->Are_Lights_On ());
 	return ;
@@ -2309,7 +2309,7 @@ CMainFrame::OnRepartition (void)
 	// Force a repartition for the scene...
 	//
 	::Get_Scene_Editor ()->Re_Partition_Static_Objects ();
-	::Get_Scene_Editor ()->Re_Partition_Static_Lights ();	
+	::Get_Scene_Editor ()->Re_Partition_Static_Lights ();
 	::Get_Scene_Editor ()->Re_Partition_Audio_System ();
 	return ;
 }
@@ -2333,7 +2333,7 @@ CMainFrame::OnAllowAutoUpdates (void)
 //  OnUpdateToggleLights
 //
 void
-CMainFrame::OnUpdateAllowAutoUpdates (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateAllowAutoUpdates (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (FileMgrClass::_bAutoUpdateOn);
 	return ;
@@ -2359,7 +2359,7 @@ CMainFrame::OnRotateLeft (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnRotateRight (void) 
+CMainFrame::OnRotateRight (void)
 {
 	MoverClass::Rotate_Nodes_Z (1.0F);
 	return ;
@@ -2372,7 +2372,7 @@ CMainFrame::OnRotateRight (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnCalcAllLights (void) 
+CMainFrame::OnCalcAllLights (void)
 {
 	//::Get_Scene_Editor ()->Update_Lighting ();
 	return ;
@@ -2385,9 +2385,9 @@ CMainFrame::OnCalcAllLights (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnCalcSelLights (void) 
+CMainFrame::OnCalcSelLights (void)
 {
-	/*PhysListClass list;	
+	/*PhysListClass list;
 
 	for (int index = 0; index < Get_Selection_Mgr ().Get_Count (); index ++) {
 		NodeClass *node = Get_Selection_Mgr ().Get_At (index);
@@ -2397,7 +2397,7 @@ CMainFrame::OnCalcSelLights (void)
 	}
 
 	::Get_Scene_Editor ()->Update_Lighting (&list);*/
-	return; 
+	return;
 }
 
 
@@ -2500,7 +2500,7 @@ CMainFrame::OnVolInc (void)
 {
 	float vol = WWAudioClass::Get_Instance ()->Get_Sound_Effects_Volume ();
 	vol += 0.05F;
-	WWAudioClass::Get_Instance ()->Set_Sound_Effects_Volume (vol);	
+	WWAudioClass::Get_Instance ()->Set_Sound_Effects_Volume (vol);
 	return ;
 }
 
@@ -2513,14 +2513,14 @@ void
 CMainFrame::OnBackgroundSettings (void)
 {
 	const char *title = "Background Settings";
-	
+
 	CPropertySheet			 backgroundsettingspropsheet (title);
 	MusicPropPageClass	*musicproppageptr;
 	SkyPropPageClass		*skyproppageptr;
 	WeatherPropPageClass *weatherproppageptr;
 
 	musicproppageptr	 = new MusicPropPageClass;
-	skyproppageptr		 = new SkyPropPageClass;	
+	skyproppageptr		 = new SkyPropPageClass;
 	weatherproppageptr = new WeatherPropPageClass;
 
 	backgroundsettingspropsheet.AddPage (musicproppageptr);
@@ -2554,7 +2554,7 @@ CMainFrame::OnToggleMusic (void)
 //  OnUpdateToggleMusic
 //
 void
-CMainFrame::OnUpdateToggleMusic (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateToggleMusic (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (WWAudioClass::Get_Instance ()->Is_Music_On ());
 	return ;
@@ -2566,7 +2566,7 @@ CMainFrame::OnUpdateToggleMusic (CCmdUI *pCmdUI)
 //  OnToggleSounds
 //
 void
-CMainFrame::OnToggleSounds (void) 
+CMainFrame::OnToggleSounds (void)
 {
 	bool is_on = WWAudioClass::Get_Instance ()->Are_Sound_Effects_On ();
 	WWAudioClass::Get_Instance ()->Allow_Sound_Effects (!is_on);
@@ -2579,7 +2579,7 @@ CMainFrame::OnToggleSounds (void)
 //  OnUpdateToggleSounds
 //
 void
-CMainFrame::OnUpdateToggleSounds (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateToggleSounds (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (WWAudioClass::Get_Instance ()->Are_Sound_Effects_On ());
 	return ;
@@ -2606,8 +2606,8 @@ void CMainFrame::OnViewAggregateChildren (void)
 //  OnUpdateViewAggregateChildren
 //
 void
-CMainFrame::OnUpdateViewAggregateChildren (CCmdUI *pCmdUI) 
-{	
+CMainFrame::OnUpdateViewAggregateChildren (CCmdUI *pCmdUI)
+{
 	pCmdUI->SetCheck (::Get_Scene_Editor ()->Are_Aggregate_Children_Visible ());
 	return ;
 }
@@ -2632,7 +2632,7 @@ CMainFrame::OnToggleSunlight (void)
 //  OnUpdateToggleSunlight
 //
 void
-CMainFrame::OnUpdateToggleSunlight (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateToggleSunlight (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Scene_Editor ()->Is_Sun_Light_Enabled ());
 	return ;
@@ -2644,7 +2644,7 @@ CMainFrame::OnUpdateToggleSunlight (CCmdUI *pCmdUI)
 //  OnEditSunlight
 //
 void
-CMainFrame::OnEditSunlight (void) 
+CMainFrame::OnEditSunlight (void)
 {
 	SunlightDialogClass dialog (this);
 	dialog.DoModal ();
@@ -2671,7 +2671,7 @@ CMainFrame::OnAutoGenVis (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnVisualOptions (void) 
+CMainFrame::OnVisualOptions (void)
 {
 	VisualOptionsDialogClass dialog (this);
 	dialog.DoModal ();
@@ -2684,7 +2684,7 @@ CMainFrame::OnVisualOptions (void)
 //  OnVisInvert
 //
 //////////////////////////////////////////////////////////////////////////
-void CMainFrame::OnVisInvert() 
+void CMainFrame::OnVisInvert()
 {
 	::Get_Scene_Editor()->Invert_Vis(!::Get_Scene_Editor()->Is_Vis_Inverted());
 	::Refresh_Main_View ();
@@ -2698,7 +2698,7 @@ void CMainFrame::OnVisInvert()
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnViewVisPoints (void) 
+CMainFrame::OnViewVisPoints (void)
 {
 	bool enabled = ::Get_Scene_Editor ()->Are_Vis_Points_Displayed ();
 	::Get_Scene_Editor ()->Display_Vis_Points (!enabled);
@@ -2712,7 +2712,7 @@ CMainFrame::OnViewVisPoints (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateViewVisPoints (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateViewVisPoints (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Scene_Editor ()->Are_Vis_Points_Displayed ());
 	return ;
@@ -2725,7 +2725,7 @@ CMainFrame::OnUpdateViewVisPoints (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnSpecifyAssetDatabase (void) 
+CMainFrame::OnSpecifyAssetDatabase (void)
 {
 	CFileDialog dialog (true,
 							  NULL,//"srcsafe.ini",
@@ -2764,7 +2764,7 @@ CMainFrame::OnSpecifyAssetDatabase (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateVisInvert (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateVisInvert (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Scene_Editor()->Is_Vis_Inverted());
 	return ;
@@ -2781,7 +2781,7 @@ CMainFrame::OnToggleBackfaces (void)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 	if (scene != NULL) {
-		
+
 		//
 		//	Toggle the backface debug setting
 		//
@@ -2789,7 +2789,7 @@ CMainFrame::OnToggleBackfaces (void)
 		scene->Enable_Backface_Occluder_Debug (!enable);
 		::Refresh_Main_View ();
 	}
-	
+
 	return ;
 }
 
@@ -2800,11 +2800,11 @@ CMainFrame::OnToggleBackfaces (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateToggleBackfaces (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateToggleBackfaces (CCmdUI *pCmdUI)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 	if (scene != NULL) {
-		
+
 		//
 		//	Update the menu's checkmark
 		//
@@ -2821,7 +2821,7 @@ CMainFrame::OnUpdateToggleBackfaces (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnToggleWireframeMode (void) 
+CMainFrame::OnToggleWireframeMode (void)
 {
 	bool enable = (::Get_Scene_Editor()->Get_Polygon_Mode () != SceneClass::LINE);
 	::Get_Scene_Editor()->Set_Polygon_Mode (enable ? SceneClass::LINE : SceneClass::FILL);
@@ -2836,7 +2836,7 @@ CMainFrame::OnToggleWireframeMode (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateToggleWireframeMode (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateToggleWireframeMode (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Scene_Editor()->Get_Polygon_Mode () == SceneClass::LINE);
 	return ;
@@ -2875,7 +2875,7 @@ CMainFrame::OnUseVisCamera (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateUseVisCamera (CCmdUI * /* pCmdUI */) 
+CMainFrame::OnUpdateUseVisCamera (CCmdUI * /* pCmdUI */)
 {
 	return ;
 }
@@ -2886,7 +2886,7 @@ CMainFrame::OnUpdateUseVisCamera (CCmdUI * /* pCmdUI */)
 //  OnVisDisable
 //
 //////////////////////////////////////////////////////////////////////////
-void CMainFrame::OnVisDisable() 
+void CMainFrame::OnVisDisable()
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 	bool enabled = scene->Is_Vis_Enabled();
@@ -2915,10 +2915,10 @@ CMainFrame::OnGenerateObstacleVolumes (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateVisDisable (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateVisDisable (CCmdUI *pCmdUI)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
-	pCmdUI->SetCheck (!scene->Is_Vis_Enabled());	
+	pCmdUI->SetCheck (!scene->Is_Vis_Enabled());
 	return ;
 }
 
@@ -2943,7 +2943,7 @@ CMainFrame::OnDisplayPaths (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateDisplayPaths (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateDisplayPaths (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (PathDebugPlotterClass::Get_Instance ()->Is_Displayed ());
 	return ;
@@ -2956,7 +2956,7 @@ CMainFrame::OnUpdateDisplayPaths (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnTestPathfind (void) 
+CMainFrame::OnTestPathfind (void)
 {
 	CWaitCursor wait_cursor;
 
@@ -2988,7 +2988,7 @@ CMainFrame::OnTestPathfind (void)
 		// in its evaluation
 		//
 		PathfindClass::Get_Instance ()->Generate_Waypath_Sectors_And_Portals ();
-		
+
 		//
 		//	Find the path
 		//
@@ -2997,7 +2997,7 @@ CMainFrame::OnTestPathfind (void)
 
 		PathObjectClass path_obj;
 		path_obj.Initialize (*(node1->Peek_Physics_Obj ()));
-		path_obj.Set_Max_Speed (10);				
+		path_obj.Set_Max_Speed (10);
 
 		//
 		//	Determine the turn radius for the starting object...
@@ -3014,7 +3014,7 @@ CMainFrame::OnTestPathfind (void)
 				path_obj.Set_Flag (PathObjectClass::IS_VEHICLE, bool(vehicle_obj != NULL));
 			}
 		}
-		path_obj.Set_Turn_Radius (turn_radius);		
+		path_obj.Set_Turn_Radius (turn_radius);
 
 		PathSolveClass *path = PathMgrClass::Request_Path_Object ();
 		path->Set_Path_Object (path_obj);
@@ -3023,7 +3023,7 @@ CMainFrame::OnTestPathfind (void)
 		Vector3 new_pos (0, 0, 0);
 
 		path->Process_Initial_Sector ();
-		
+
 		//
 		//	Solve the path
 		//
@@ -3033,9 +3033,9 @@ CMainFrame::OnTestPathfind (void)
 
 		//
 		//	Did we find a path?
-		//	
+		//
 		if (path->Get_State () == PathSolveClass::SOLVED_PATH) {
-			
+
 			//
 			//	Display the path
 			//
@@ -3044,8 +3044,8 @@ CMainFrame::OnTestPathfind (void)
 			solved_path->Initialize (*path);
 			solved_path->Display_Path (true);
 			REF_PTR_RELEASE (solved_path);
-		}		
-		
+		}
+
 		PathMgrClass::Return_Path_Object (path);
 
 		//
@@ -3058,7 +3058,7 @@ CMainFrame::OnTestPathfind (void)
 			node->Post_Export ();
 		}
 	}
-	
+
 	return ;
 }
 
@@ -3069,7 +3069,7 @@ CMainFrame::OnTestPathfind (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnDisplayPathfindSectors (void) 
+CMainFrame::OnDisplayPathfindSectors (void)
 {
 	bool displayed = PathfindClass::Get_Instance ()->Are_Sectors_Displayed ();
 	PathfindClass::Get_Instance ()->Display_Sectors (!displayed);
@@ -3083,7 +3083,7 @@ CMainFrame::OnDisplayPathfindSectors (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateDisplayPathfindSectors (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateDisplayPathfindSectors (CCmdUI *pCmdUI)
 {
 	bool displayed = PathfindClass::Get_Instance ()->Are_Sectors_Displayed ();
 	pCmdUI->SetCheck (displayed);
@@ -3125,7 +3125,7 @@ CMainFrame::OnUpdateDisplayPathfindPortals (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnDisplayPathfindRawData (void) 
+CMainFrame::OnDisplayPathfindRawData (void)
 {
 	return ;
 }
@@ -3149,7 +3149,7 @@ CMainFrame::OnUpdateDisplayPathfindRawData (CCmdUI * /* pCmdUI */)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnExportPathfind (void) 
+CMainFrame::OnExportPathfind (void)
 {
 	// Use the level's filename to generate a default filename
 	CString default_name = ::Get_Current_Document ()->GetPathName ();
@@ -3170,14 +3170,14 @@ CMainFrame::OnExportPathfind (void)
 	// Ask the user what commando level file they wish to save to
 	//
 	if (dialog.DoModal () == IDOK) {
-		
+
 		//
 		//	Export the pathfind data
 		//
 		CString filename = dialog.GetPathName ();
 		PathfindImportExportSaveLoadClass::Export_Pathfind (filename);
 	}
-	
+
 	return ;
 }
 
@@ -3211,7 +3211,7 @@ CMainFrame::OnImportPathfind (void)
 	// Ask the user what file they wish to load from
 	//
 	if (dialog.DoModal () == IDOK) {
-		
+
 		//
 		//	Import the pathfind data
 		//
@@ -3252,11 +3252,11 @@ CMainFrame::OnImportVis (void)
 
 	// Ask the user what commando level file they wish to save to
 	if (dialog.DoModal () == IDOK) {
-      
+
 		// Loop through all the selected files
-      POSITION pos = dialog.GetStartPosition (); 
+      POSITION pos = dialog.GetStartPosition ();
       while (pos != NULL) {
-          
+
 			// Is the filename OK?
 			CString filename = dialog.GetNextPathName (pos);
 			HANDLE hfile = ::CreateFile (filename,
@@ -3273,7 +3273,7 @@ CMainFrame::OnImportVis (void)
 				//
 				//	Create a chunk-loader for use with the vis data file
 				//
-				RawFileClass file_obj;		
+				RawFileClass file_obj;
 				file_obj.Attach (hfile);
 				ChunkLoadClass chunk_load (&file_obj);
 
@@ -3331,7 +3331,7 @@ CMainFrame::OnExportVis (void)
 			//
 			//	Create a chunk-saver
 			//
-			RawFileClass file_obj;		
+			RawFileClass file_obj;
 			file_obj.Attach (hfile);
 			ChunkSaveClass chunk_save (&file_obj);
 
@@ -3341,7 +3341,7 @@ CMainFrame::OnExportVis (void)
 			::Get_Scene_Editor ()->Export_Vis_Data (chunk_save);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -3370,7 +3370,7 @@ CMainFrame::OnViewVisWindow (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateViewVisWindow (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateViewVisWindow (CCmdUI *pCmdUI)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 	if (scene != NULL) {
@@ -3453,7 +3453,7 @@ CMainFrame::OnDoDebug2 (void)
 		TextFileClass file (filename);
 		TextFileClass output_file (output_filename);
 		if (file.Open (RawFileClass::READ) && output_file.Open (RawFileClass::WRITE)) {
-			
+
 			int current_index = 1;
 
 			//
@@ -3461,7 +3461,7 @@ CMainFrame::OnDoDebug2 (void)
 			//
 			StringClass curr_line;
 			while (file.Read_Line (curr_line)) {
-				
+
 				Process_Line (curr_line, current_index);
 
 				curr_line += "\r\n";
@@ -3488,7 +3488,7 @@ CMainFrame::OnDoDebug2 (void)
 			preset != NULL;
 			preset = PresetMgrClass::Get_Next (preset))
 	{
-		if (preset->Get_IsTemporary () == false) {						
+		if (preset->Get_IsTemporary () == false) {
 
 			DEFINITION_LIST definition_list;
 			::Build_Embedded_Definition_List (definition_list, preset->Get_Definition ());
@@ -3502,7 +3502,7 @@ CMainFrame::OnDoDebug2 (void)
 				int count = definition->Get_Parameter_Count ();
 				for (int index = 0; index < count; index ++) {
 					ParameterClass *param = definition->Lock_Parameter (index);
-		
+
 					if (param->Get_Type () == ParameterClass::TYPE_ZONE) {
 						ZoneParameterClass *zone_param = (ZoneParameterClass *)param;
 						const OBBoxClass &old_zone = zone_param->Get_Zone ();
@@ -3515,26 +3515,26 @@ CMainFrame::OnDoDebug2 (void)
 				}
 			}
 		}
-	}	
+	}
 
 	//
 	//	Get the list of all static objects from the physics scene
 	//
 	for (int index = 0; index < door_def_list.Count (); index ++) {
 
-			
+
 		DoorPhysDefClass *definition = door_def_list[index];
 
 		const OBBoxClass &box1 = definition->Get_Trigger_Zone1 ();
 		const OBBoxClass &box2 = definition->Get_Trigger_Zone2 ();
-		
+
 		definition->Set_Trigger_Zone2 (box1);
 	}
 
 	PresetsFormClass *form = ::Get_Presets_Form ();
 	form->Save_Preset_Libraries ();*/
 
-	
+
 
 	/*PresetsFormClass *presets_form = ::Get_Presets_Form ();
 
@@ -3548,15 +3548,15 @@ CMainFrame::OnDoDebug2 (void)
 			preset = PresetMgrClass::Get_Next (preset))
 	{
 		if (preset->Get_IsTemporary () == false) {
-					
+
 			DEFINITION_LIST definition_list;
 			::Build_Embedded_Definition_List (definition_list, preset->Get_Definition ());
 
 			for (int index = 0; index < definition_list.Count (); index ++) {
 				DefinitionClass *definition = definition_list[index];
-				
+
 				if (definition != NULL && definition->Get_ID () >= TEMP_DEF_ID_START) {
-					
+
 					message += "Preset Name: ";
 					message += preset->Get_Name ();
 					message += "\tDefinition Name: ";
@@ -3568,7 +3568,7 @@ CMainFrame::OnDoDebug2 (void)
 	}
 
 	MessageBox (message, "Validate Preset IDs", MB_ICONINFORMATION | MB_OK);*/
-	return ;	
+	return ;
 }
 
 
@@ -3595,7 +3595,7 @@ CMainFrame::OnImportDynObjs (void)
 								"Dynamic Objects (*.dyn)|*.dyn||",
 								this);
 
-	if (dialog.DoModal () == IDOK) {		
+	if (dialog.DoModal () == IDOK) {
 		EditorSaveLoadClass::Import_Dynamic_Objects (dialog.GetPathName ());
 	}
 
@@ -3628,7 +3628,7 @@ CMainFrame::OnExportDynObjs (void)
 								this);
 
 
-	if (dialog.DoModal () == IDOK) {		
+	if (dialog.DoModal () == IDOK) {
 		EditorSaveLoadClass::Export_Dynamic_Objects (dialog.GetPathName ());
 	}
 
@@ -3651,10 +3651,10 @@ CMainFrame::OnTestGoto (void)
 	NodeClass *node1 = NodeMgrClass::Find_Node ("GotoStart");
 	NodeClass *node2 = NodeMgrClass::Find_Node ("GotoEnd");
 	if ((node1 != NULL) && (node2 != NULL)) {
-		
+
 		::Get_Scene_Editor ()->DoObjectGoto (node1, node2);
 	}
-	
+
 	return ;
 }
 
@@ -3701,10 +3701,10 @@ CMainFrame::OnImportStatic (void)
 			//
 			//	Create a chunk-loader for use with the pathfind database
 			//
-			RawFileClass file_obj;		
+			RawFileClass file_obj;
 			file_obj.Attach (hfile);
 			ChunkLoadClass cload (&file_obj);
-		
+
 			//
 			//	Remove all static nodes from the level
 			//
@@ -3727,7 +3727,7 @@ CMainFrame::OnImportStatic (void)
 //			::Get_Scene_Editor ()->Re_Partition_Static_Objects ();
 			::Get_Scene_Editor ()->Re_Partition_Static_Lights ();
 			::Get_Scene_Editor ()->Re_Partition_Audio_System ();
-			
+
 			if (EditorSaveLoadClass::Is_Loaded_Vis_Valid ()) {
 				::Get_Scene_Editor ()->Validate_Vis ();
 			}
@@ -3746,7 +3746,7 @@ CMainFrame::OnImportStatic (void)
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -3793,7 +3793,7 @@ CMainFrame::OnExportStatic (void)
 			//
 			//	Create a chunk-saver for use with the pathfind database
 			//
-			RawFileClass file_obj;		
+			RawFileClass file_obj;
 			file_obj.Attach (hfile);
 			ChunkSaveClass csave (&file_obj);
 
@@ -3802,8 +3802,8 @@ CMainFrame::OnExportStatic (void)
 			// (gth) cannot re-partition the object culling systems because they
 			// now contain hierarchical visibility data...
 			//
-			::Get_Scene_Editor ()->Re_Partition_Static_Lights ();	
-			::Get_Scene_Editor ()->Re_Partition_Audio_System ();		
+			::Get_Scene_Editor ()->Re_Partition_Static_Lights ();
+			::Get_Scene_Editor ()->Re_Partition_Audio_System ();
 
 			//
 			//	Export the culling system, vis, etc
@@ -3817,7 +3817,7 @@ CMainFrame::OnExportStatic (void)
 			NodeMgrClass::Remove_Dynamic_Objects (obj_list);
 			SaveLoadSystemClass::Save (csave, _TheNodeMgr);
 			NodeMgrClass::Put_Objects_Back (obj_list);
-		}		
+		}
 	}
 
 	return ;
@@ -3830,7 +3830,7 @@ CMainFrame::OnExportStatic (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnDisplayWeb (void) 
+CMainFrame::OnDisplayWeb (void)
 {
 	bool enable = !::Get_Current_Document ()->Is_Path_Web_Displayed ();
 	::Get_Current_Document ()->Display_Path_Web (enable);
@@ -3852,7 +3852,7 @@ CMainFrame::OnDisplayWeb (void)
 				PathfindPortalClass *portal = sector->Peek_Portal (portal_index);
 				AABoxClass portal_box;
 				portal->Get_Bounding_Box (portal_box);
-				
+
 				PathDebugPlotterClass::Get_Instance ()->Add (center, portal_box.Center, Vector3 (1, 0, 0));
 			}
 		}
@@ -3868,7 +3868,7 @@ CMainFrame::OnDisplayWeb (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateDisplayWeb (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateDisplayWeb (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Is_Path_Web_Displayed ());
 	return ;
@@ -3881,7 +3881,7 @@ CMainFrame::OnUpdateDisplayWeb (CCmdUI* pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateDisplayFullPaths (CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateDisplayFullPaths (CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Are_Full_Paths_Displayed ());
 	return ;
@@ -3898,7 +3898,7 @@ CMainFrame::OnDisplayFullPaths (void)
 {
 	bool enable = !::Get_Current_Document ()->Are_Full_Paths_Displayed ();
 	::Get_Current_Document ()->Display_Full_Paths (enable);
-	return ;	
+	return ;
 }
 
 
@@ -3907,7 +3907,7 @@ CMainFrame::OnDisplayFullPaths (void)
 //  OnEscape
 //
 //////////////////////////////////////////////////////////////////////////
-void CMainFrame::OnEscape (void) 
+void CMainFrame::OnEscape (void)
 {
 	//
 	//	Force the mode back to the default...
@@ -3923,7 +3923,7 @@ void CMainFrame::OnEscape (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnDisplayVisSectors (void) 
+CMainFrame::OnDisplayVisSectors (void)
 {
 	bool enabled = ::Get_Scene_Editor ()->Is_Vis_Sector_Display_Enabled ();
 	::Get_Scene_Editor ()->Enable_Vis_Sector_Display (!enabled);
@@ -3968,7 +3968,7 @@ CMainFrame::OnPrelitMultipass (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdatePrelitMultipass (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdatePrelitMultipass (CCmdUI *pCmdUI)
 {
 	bool enable = (WW3D::Get_Prelit_Mode () == WW3D::PRELIT_MODE_LIGHTMAP_MULTI_PASS);
 	pCmdUI->SetRadio (enable);
@@ -3982,7 +3982,7 @@ CMainFrame::OnUpdatePrelitMultipass (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnPrelitMultitex (void) 
+CMainFrame::OnPrelitMultitex (void)
 {
 	if (WW3D::Get_Prelit_Mode () != WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE) {
 		WW3D::Set_Prelit_Mode (WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
@@ -3999,7 +3999,7 @@ CMainFrame::OnPrelitMultitex (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdatePrelitMultitex (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdatePrelitMultitex (CCmdUI *pCmdUI)
 {
 	bool enable = (WW3D::Get_Prelit_Mode () == WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
 	pCmdUI->SetRadio (enable);
@@ -4030,7 +4030,7 @@ CMainFrame::OnPrelitVertex (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdatePrelitVertex (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdatePrelitVertex (CCmdUI *pCmdUI)
 {
 	bool enable = (WW3D::Get_Prelit_Mode () == WW3D::PRELIT_MODE_VERTEX);
 	pCmdUI->SetRadio (enable);
@@ -4058,7 +4058,7 @@ CMainFrame::OnDebugScriptsMode (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateDebugScriptsMode (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateDebugScriptsMode (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Current_Document ()->Get_Debug_Script_Mode ());
 	return ;
@@ -4093,7 +4093,7 @@ CMainFrame::OnImportLights (void)
 		// Loop through all the selected files
 		//
 		DynamicVectorClass<StringClass> filename_list;
-		POSITION pos = dialog.GetStartPosition (); 
+		POSITION pos = dialog.GetStartPosition ();
 		while (pos != NULL) {
 
 			//
@@ -4104,7 +4104,7 @@ CMainFrame::OnImportLights (void)
 
 		::Get_Scene_Editor ()->Import_Lights (filename_list);
 	}
-		
+
 	return ;
 }
 
@@ -4129,7 +4129,7 @@ CMainFrame::OnViewSoundSpheres (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateViewSoundSpheres (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateViewSoundSpheres (CCmdUI *pCmdUI)
 {
 	bool enabled = ::Get_Scene_Editor ()->Are_Sound_Spheres_Displayed ();
 	pCmdUI->SetCheck (enabled);
@@ -4143,7 +4143,7 @@ CMainFrame::OnUpdateViewSoundSpheres (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnViewLightSpheres (void) 
+CMainFrame::OnViewLightSpheres (void)
 {
 	bool enabled = ::Get_Scene_Editor ()->Are_Light_Spheres_Displayed ();
 	::Get_Scene_Editor ()->Display_Light_Spheres (!enabled);
@@ -4157,7 +4157,7 @@ CMainFrame::OnViewLightSpheres (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateViewLightSpheres (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateViewLightSpheres (CCmdUI *pCmdUI)
 {
 	bool enabled = ::Get_Scene_Editor ()->Are_Light_Spheres_Displayed ();
 	pCmdUI->SetCheck (enabled);
@@ -4190,7 +4190,7 @@ CMainFrame::OnImportSunlight (void)
 		//
 		::Get_Scene_Editor ()->Import_Sunlight (dialog.GetPathName ());
 	}
-		
+
 	return ;
 }
 
@@ -4224,7 +4224,7 @@ CMainFrame::Expand_Attenuation_Spheres (float amount)
 	for (int index = 0; index < sel_mgr.Get_Count (); index ++) {
 		NodeClass *node = sel_mgr.Get_At (index);
 		if (node != NULL) {
-			
+
 			//
 			//	Increment this node's radius and pass it back
 			// to the node...
@@ -4260,8 +4260,8 @@ CMainFrame::OnIncreaseSphere (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateIncreaseSphere (CCmdUI *pCmdUI) 
-{	
+CMainFrame::OnUpdateIncreaseSphere (CCmdUI *pCmdUI)
+{
 	pCmdUI->Enable (::Get_Selection_Mgr ().Get_Count () > 0);
 	return ;
 }
@@ -4273,7 +4273,7 @@ CMainFrame::OnUpdateIncreaseSphere (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnDecreaseSphere (void) 
+CMainFrame::OnDecreaseSphere (void)
 {
 	Adjust_Growth_Rate ();
 	Expand_Attenuation_Spheres (-m_GrowthRate);
@@ -4287,7 +4287,7 @@ CMainFrame::OnDecreaseSphere (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateDecreaseSphere (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateDecreaseSphere (CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable (::Get_Selection_Mgr ().Get_Count () > 0);
 	return ;
@@ -4303,14 +4303,14 @@ void
 CMainFrame::Adjust_Growth_Rate (void)
 {
 	DWORD curr_time = ::GetTickCount ();
-	
+
 	//
 	//	Reset the growth rate if too much time has elapsed
 	//
 	if ((curr_time - m_UpdateTimer) > 800) {
 		m_GrowthRate = 0.25F;
 	}
-	
+
 	m_UpdateTimer = curr_time;
 
 	//
@@ -4327,7 +4327,7 @@ CMainFrame::Adjust_Growth_Rate (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnRunJob (void) 
+CMainFrame::OnRunJob (void)
 {
 	CFileDialog dialog (	true,
 								".job",
@@ -4374,12 +4374,12 @@ CMainFrame::OnExportThumbnails (void)
 	//
 	CString full_path = theApp.GetProfileString (CONFIG_KEY, LAST_EXPORT_DIR_VALUE);
 	if (full_path.GetLength () == 0) {
-		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);		
+		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);
 	}
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
 
-	
+
 	return ;
 }
 
@@ -4427,7 +4427,7 @@ CMainFrame::OnBuildDynaCullsys (void)
 	//
 	PathfindSectorBuilderClass builder;
 	//builder.Allow_Water_Floodfill (true);
-	builder.Initialize ();	
+	builder.Initialize ();
 
 	//
 	//	Find all the pathfind start-points in the level and add
@@ -4442,7 +4442,7 @@ CMainFrame::OnBuildDynaCullsys (void)
 			builder.Add_Start_Point (node->Get_Transform ().Get_Translation ());
 		}
 	}
-	
+
 	//
 	//	Perform the floodfill from each of the start locations
 	//
@@ -4506,7 +4506,7 @@ CMainFrame::OnImportVisRemapData (void)
 			//
 			//	Create a chunk-loader for use with the vis-importer
 			//
-			RawFileClass file_obj;		
+			RawFileClass file_obj;
 			file_obj.Attach (hfile);
 			ChunkLoadClass chunk_load (&file_obj);
 
@@ -4569,7 +4569,7 @@ CMainFrame::OnExportVisRemapData (void)
 			//
 			//	Create a chunk-saver for use with the pathfind database
 			//
-			RawFileClass file_obj;		
+			RawFileClass file_obj;
 			file_obj.Attach (hfile);
 			ChunkSaveClass chunk_save (&file_obj);
 
@@ -4579,7 +4579,7 @@ CMainFrame::OnExportVisRemapData (void)
 			VisMgrClass::Export_Remap_Data (chunk_save);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -4624,18 +4624,18 @@ CMainFrame::OnCheckIds (void)
 	if (node_list.Count () > 0) {
 
 		CString message = "ID collision detected in the following objects:\r\n\r\n";
-		
+
 		//
 		//	Build an error log of all the offending nodes
 		//
 		for (int index = 0; index < node_list.Count (); index ++) {
 			NodeClass *node = node_list[index];
-			
+
 			//
 			//	Add information about this entry to the log
 			//
 			CString entry;
-			entry.Format ("%s, ID = %d\r\n", node->Get_Name (), node->Get_ID ());			
+			entry.Format ("%s, ID = %d\r\n", node->Get_Name (), node->Get_ID ());
 			message += entry;
 		}
 
@@ -4689,10 +4689,10 @@ CMainFrame::OnExportLights (void)
 	//
 	// Ask the user what file they wish to export to
 	//
-	if (dialog.DoModal () == IDOK) {		
+	if (dialog.DoModal () == IDOK) {
 		::Get_Scene_Editor ()->Export_Lights (dialog.GetPathName ());
 	}
-	
+
 	return ;
 }
 
@@ -4730,7 +4730,7 @@ CMainFrame::OnOptimizeVisData (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnDisplayVisGridLittleBoxes (void) 
+CMainFrame::OnDisplayVisGridLittleBoxes (void)
 {
 	bool enabled = ::Get_Scene_Editor ()->Get_Vis_Grid_Display_Mode () == PhysicsSceneClass::VIS_GRID_DISPLAY_CENTERS;
 	if (!enabled) {
@@ -4837,7 +4837,7 @@ CMainFrame::OnBuildFlightInfo (void)
 {
 	CWaitCursor wait_cursor;
 
-	HeightDBClass::Generate ();	
+	HeightDBClass::Generate ();
 	return ;
 }
 
@@ -4858,7 +4858,7 @@ CMainFrame::OnToggleAttenuationSpheres (void)
 	for (int index = 0; index < sel_mgr.Get_Count (); index ++) {
 		NodeClass *node = sel_mgr.Get_At (index);
 		if (node != NULL) {
-			
+
 			//
 			//	Toggle the sphere display...
 			//
@@ -4920,7 +4920,7 @@ CMainFrame::OnFixIdCollisions (void)
 		//
 		MessageBox ("No ID collision detected in this level.", "ID Validation", MB_ICONINFORMATION | MB_OK);
 	}
-	
+
 	return ;
 }
 
@@ -5014,7 +5014,7 @@ CMainFrame::OnEditConversations (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnBuildingPowerOn (void) 
+CMainFrame::OnBuildingPowerOn (void)
 {
 	bool enabled = ::Get_Scene_Editor ()->Is_Building_Power_Enabled ();
 	::Get_Scene_Editor ()->Enable_Building_Power (!enabled);
@@ -5058,7 +5058,7 @@ CMainFrame::OnCreateProxies (void)
 void
 CMainFrame::OnUpdateCreateProxies (CCmdUI *pCmdUI)
 {
-	bool enabled = ::Get_Scene_Editor ()->Is_Proxy_Creation_Enabled ();	
+	bool enabled = ::Get_Scene_Editor ()->Is_Proxy_Creation_Enabled ();
 	pCmdUI->SetCheck (enabled);
 	return ;
 }
@@ -5134,7 +5134,7 @@ CMainFrame::OnRemapIds (void)
 		for (int index = 0; index < sel_mgr.Get_Count (); index ++) {
 			NodeClass *node = sel_mgr.Get_At (index);
 			if (node != NULL) {
-				
+
 				//
 				//	Remap this node's ID
 				//
@@ -5165,7 +5165,7 @@ CMainFrame::OnUpdateRemapIds (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnVerifyCulling (void) 
+CMainFrame::OnVerifyCulling (void)
 {
 	StringClass errors;
 	errors.Format("Errors Detected:\r\n");
@@ -5203,7 +5203,7 @@ CMainFrame::OnEnableVisSectorFallback (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateEnableVisSectorFallback(CCmdUI* pCmdUI) 
+CMainFrame::OnUpdateEnableVisSectorFallback(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(::Get_Scene_Editor()->Is_Vis_Sector_Fallback_Enabled());
 	return ;
@@ -5288,7 +5288,7 @@ CMainFrame::OnAddChildNode (void)
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -5299,7 +5299,7 @@ CMainFrame::OnAddChildNode (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateAddChildNode (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateAddChildNode (CCmdUI *pCmdUI)
 {
 	bool enable = false;
 
@@ -5365,7 +5365,7 @@ CMainFrame::OnMakeVisPoint (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnExportStringTable (void) 
+CMainFrame::OnExportStringTable (void)
 {
 	CFileDialog dialog (false, ".txt", "strings_table.txt",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5412,7 +5412,7 @@ CMainFrame::OnGotoObject (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnExportPresets (void) 
+CMainFrame::OnExportPresets (void)
 {
 	ExportPresetsDialogClass dialog (this);
 	dialog.DoModal ();
@@ -5426,7 +5426,7 @@ CMainFrame::OnExportPresets (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnImportPresets (void) 
+CMainFrame::OnImportPresets (void)
 {
 	CFileDialog dialog (true, ".txt", "presets.txt",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
@@ -5443,7 +5443,7 @@ CMainFrame::OnImportPresets (void)
 		CString path = dialog.GetPathName ();
 		PresetExportClass::Import (path);
 	}
-	
+
 	return ;
 }
 
@@ -5487,7 +5487,7 @@ CMainFrame::OnBatchExport (void)
 			if (::MessageBox (m_hWnd, "Would you like to export each level to its own sub-directory?", "Batch Export", MB_ICONQUESTION | MB_YESNO) == IDYES) {
 				create_subdirs = true;
 			}
-      
+
 			//
 			//	Turn off rendering
 			//
@@ -5497,7 +5497,7 @@ CMainFrame::OnBatchExport (void)
 			//
 			// Loop through all the selected files
 			//
-			POSITION pos = dialog.GetStartPosition (); 
+			POSITION pos = dialog.GetStartPosition ();
 			while (pos != NULL) {
 
 				//
@@ -5565,7 +5565,7 @@ CMainFrame::OnLockVisSamplePoint (void)
 {
 	::Get_Scene_Editor()->Lock_Vis_Sample_Point(!::Get_Scene_Editor()->Is_Vis_Sample_Point_Locked());
 	return ;
-	
+
 }
 
 
@@ -5575,7 +5575,7 @@ CMainFrame::OnLockVisSamplePoint (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateLockVisSamplePoint (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateLockVisSamplePoint (CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck (::Get_Scene_Editor ()->Is_Vis_Sample_Point_Locked());
 	return ;
@@ -5606,9 +5606,9 @@ CMainFrame::OnToggleTerrainSelection (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateToggleTerrainSelection (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateToggleTerrainSelection (CCmdUI *pCmdUI)
 {
-	
+
 	pCmdUI->SetCheck (::Get_Scene_Editor ()->Do_Groups_Collide (MOUSE_CLICK_COLLISION_GROUP, 15));
 	return ;
 }
@@ -5620,9 +5620,9 @@ CMainFrame::OnUpdateToggleTerrainSelection (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnExportPresetFileDependencies (void) 
+CMainFrame::OnExportPresetFileDependencies (void)
 {
-	
+
 	PresetsFormClass *presets_form = ::Get_Presets_Form ();
 	if (presets_form != NULL) {
 
@@ -5667,7 +5667,7 @@ CMainFrame::OnImportStrings (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnExportTileList (void) 
+CMainFrame::OnExportTileList (void)
 {
 	//
 	// Use the level's filename to generate a default filename
@@ -5686,8 +5686,8 @@ CMainFrame::OnExportTileList (void)
 								"Text Files (*.txt)|*.txt||",
 								this);
 
-	if (dialog.DoModal () == IDOK) {		
-		
+	if (dialog.DoModal () == IDOK) {
+
 		//
 		//	Open the file
 		//
@@ -5696,7 +5696,7 @@ CMainFrame::OnExportTileList (void)
 		if (text_file.Open (FileClass::WRITE)) {
 
 			DynamicVectorClass<NodeClass *> node_list;
-			
+
 			//
 			//	Ask the user if they want to export all tiles or just the selection set.
 			//
@@ -5717,9 +5717,9 @@ CMainFrame::OnExportTileList (void)
 						node_list.Add (node);
 					}
 				}
-				
+
 			} else {
-				
+
 				//
 				//	Loop over all the nodes in the scene
 				//
@@ -5741,7 +5741,7 @@ CMainFrame::OnExportTileList (void)
 			//
 			for (int index = 0; index < node_list.Count (); index ++) {
 				NodeClass *node	= node_list[index];
-				
+
 				const char *name		= node->Get_Name ();
 				const Matrix3D &tm	= node->Get_Transform ();
 				const Vector3 &pos	= tm.Get_Translation ();
@@ -5751,17 +5751,17 @@ CMainFrame::OnExportTileList (void)
 				//
 				StringClass text;
 				text.Format ("%s:\t(%.3f, %.3f, %.3f), %.2f degrees", name, pos.X, pos.Y, pos.Z, RAD_TO_DEGF (tm.Get_Z_Rotation ()));
-				
+
 				//
 				//	Write this line to the file
 				//
 				text_file.Write_Line (text);
 			}
-			
+
 			text_file.Close ();
 		}
 	}
-	
+
 	return ;
 }
 
@@ -5802,7 +5802,7 @@ CMainFrame::OnRemapUnimportantIds (void)
 		//
 		MessageBox ("No ID collision detected in this level.", "ID Validation", MB_ICONINFORMATION | MB_OK);
 	}
-	
+
 	return ;
 }
 
@@ -5843,9 +5843,9 @@ CMainFrame::OnExportTranslationData (void)
 		ImportTranslationDialogClass import_dialog (this);
 		import_dialog.Set_Filename (dialog.GetPathName ());
 		import_dialog.Set_Is_For_Export (true);
-		import_dialog.DoModal ();		
+		import_dialog.DoModal ();
 	}
-		
+
 	return ;
 }
 
@@ -5898,7 +5898,7 @@ CMainFrame::OnCompressTextures (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateCompressTextures (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateCompressTextures (CCmdUI *pCmdUI)
 {
 	bool enabled = EditorMixFileCreator::Are_Textures_Compressed();
 	pCmdUI->SetCheck (enabled);
@@ -5927,7 +5927,7 @@ CMainFrame::OnExportFileUsageReport (void)
 	if (dialog.DoModal () == IDOK) {
 		ReportMgrClass::Export_File_Usage_Report (dialog.GetPathName ());
 	}
-		
+
 	return ;
 }
 
@@ -5955,7 +5955,7 @@ CMainFrame::OnExportMissingTranslationReport (void)
 		report_dialog.Set_Filename (dialog.GetPathName ());
 		report_dialog.DoModal ();
 	}
-		
+
 	return ;
 }
 
@@ -5973,7 +5973,7 @@ CMainFrame::OnExportLanguage (void)
 	//
 	CString full_path = theApp.GetProfileString (CONFIG_KEY, LAST_EXPORT_DIR_VALUE);
 	if (full_path.GetLength () == 0) {
-		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);		
+		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);
 	}
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
@@ -6009,7 +6009,7 @@ CMainFrame::OnExportLanguage (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnInitMenuPopup (CMenu *popup_menu, UINT nIndex, BOOL bSysMenu) 
+CMainFrame::OnInitMenuPopup (CMenu *popup_menu, UINT nIndex, BOOL bSysMenu)
 {
 	CFrameWnd::OnInitMenuPopup (popup_menu, nIndex, bSysMenu);
 
@@ -6040,12 +6040,12 @@ CMainFrame::OnAlwaysLocalExport (void)
 									 NULL,
 									 NULL,
 									 "Select a directory where the core file set will be copied.")) {
-		
+
 		//
 		// Copy the always files to the specified directory
 		//
-		CWaitCursor wait_cursor;		
-		
+		CWaitCursor wait_cursor;
+
 		ExporterClass exporter;
 		exporter.Dont_Get_Latest_Versions (true);
 		exporter.Export_Always_Files (path);
@@ -6073,7 +6073,7 @@ CMainFrame::OnExportInstallerLanguageVersion (void)
 	//
 	CString full_path = theApp.GetProfileString (CONFIG_KEY, LAST_EXPORT_DIR_VALUE);
 	if (full_path.GetLength () == 0) {
-		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);		
+		full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);
 	}
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
@@ -6170,7 +6170,7 @@ CMainFrame::OnExtractRcStrings (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnCameraPerspective (void) 
+CMainFrame::OnCameraPerspective (void)
 {
 	::Get_Camera_Mgr ()->Get_Camera ()->Set_Projection_Type (CameraClass::PERSPECTIVE);
 	return ;
@@ -6224,7 +6224,7 @@ CMainFrame::OnCameraOrthographic (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateCameraOrthographic (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateCameraOrthographic (CCmdUI *pCmdUI)
 {
 	bool is_checked = (::Get_Camera_Mgr ()->Get_Camera ()->Get_Projection_Type () == CameraClass::ORTHO);
 	pCmdUI->SetCheck (is_checked);
@@ -6238,7 +6238,7 @@ CMainFrame::OnUpdateCameraOrthographic (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateCameraPerspective (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateCameraPerspective (CCmdUI *pCmdUI)
 {
 	bool is_checked = (::Get_Camera_Mgr ()->Get_Camera ()->Get_Projection_Type () == CameraClass::PERSPECTIVE);
 	pCmdUI->SetCheck (is_checked);
@@ -6252,7 +6252,7 @@ CMainFrame::OnUpdateCameraPerspective (CCmdUI *pCmdUI)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnModExport (void) 
+CMainFrame::OnModExport (void)
 {
 	//
 	// Determine which directory we should use as a default for the export
@@ -6303,7 +6303,7 @@ CMainFrame::OnSaveLevel (void)
 	//
 	// Determine which directory we should save to
 	//
-	CString full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);		
+	CString full_path = ::Get_File_Mgr ()->Make_Full_Path (LEVELS_ASSET_DIR);
 	_pThe3DAssetManager->Set_Current_Directory (full_path);
 
 	//
@@ -6329,8 +6329,8 @@ CMainFrame::OnSaveLevel (void)
 	//
 	// Ask the user where they want to save this level
 	//
-	if (dialog.DoModal () == IDOK) {		
-		
+	if (dialog.DoModal () == IDOK) {
+
 		//
 		//	Save in level editor format
 		//
@@ -6347,10 +6347,10 @@ CMainFrame::OnSaveLevel (void)
 }
 
 
-void CMainFrame::OnComputeVertexSolve() 
+void CMainFrame::OnComputeVertexSolve()
 {
 	LightSolveOptionsDialogClass dialog(this);
-	
+
 	if (dialog.DoModal() == IDOK) {
 		SceneEditorClass *scene = ::Get_Scene_Editor ();
 		if (scene != NULL) {
@@ -6379,7 +6379,7 @@ CMainFrame::OnModeHeightEdit (void)
 //
 //////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnUpdateModeHeightEdit (CCmdUI *pCmdUI) 
+CMainFrame::OnUpdateModeHeightEdit (CCmdUI *pCmdUI)
 {
 	MouseMgrClass *mouse_mgr = ::Get_Mouse_Mgr ();
 
@@ -6390,5 +6390,5 @@ CMainFrame::OnUpdateModeHeightEdit (CCmdUI *pCmdUI)
 		pCmdUI->SetCheck ((BOOL)::Get_Mouse_Mgr ()->Get_Mouse_Mode () == MouseMgrClass::MODE_HEIGHTFIELD_EDIT);
 	}
 
-	return ;	
+	return ;
 }

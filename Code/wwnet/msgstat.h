@@ -18,9 +18,9 @@
 
 //
 // Filename:     msgstat.h
-// Project:      
+// Project:
 // Author:       Tom Spencer-Smith
-// Date:         
+// Date:
 // Description:  Send and receive stats for a single type of message.
 //
 //-----------------------------------------------------------------------------

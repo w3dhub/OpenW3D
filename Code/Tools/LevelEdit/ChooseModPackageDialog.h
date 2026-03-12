@@ -64,7 +64,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	
+
 private:
 
 };

@@ -63,7 +63,7 @@ class ChunkLoadClass;
 class ConversationClass : public RefCountClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -110,7 +110,7 @@ public:
 	SoldierAIState	Get_AI_State( void ) const					{ return AIState; }
 	void				Set_AI_State( SoldierAIState state )	{ AIState = state; }
 
-	
+
 	//
 	//	Remark access
 	//

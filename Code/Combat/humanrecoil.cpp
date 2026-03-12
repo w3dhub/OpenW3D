@@ -66,7 +66,7 @@ struct RecoilDataStruct
 	Vector3			Translation;
 };
 
-static RecoilDataStruct _RecoilData[] = 
+static RecoilDataStruct _RecoilData[] =
 {
 	RecoilDataStruct("C L CLAVICLE",Vector3(-0.025f,0.0f,0.0f)),
 	RecoilDataStruct("C L UPPERARM",Vector3(-0.025f,0.0f,0.0f)),
@@ -111,7 +111,7 @@ void HumanRecoilClass::Apply_Recoil(const Matrix3D & recoil_tm,RenderObjClass * 
 
 	Vector3 recoil_offset;
 	for (int recoil_bone = 0; recoil_bone < _RECOIL_BONE_COUNT; recoil_bone++) {
-	
+
 		// for each bone to recoil, compute the translation and plug it in
 		Matrix3D::Transform_Vector(recoil_tm,scale * _RecoilData[recoil_bone].Translation,&recoil_offset);
 		Matrix3D tm(recoil_offset);
@@ -134,9 +134,9 @@ void HumanRecoilClass::Initialize(RenderObjClass * model)
 {
 	const HTreeClass * tree = model->Get_HTree();
 	for (int recoil_bone = 0; recoil_bone < _RECOIL_BONE_COUNT; recoil_bone++) {
-		
+
 		for (int model_bone = 0; model_bone < tree->Num_Pivots(); model_bone++) {
-			
+
 			if (stricmp(_RecoilData[recoil_bone].BoneName, tree->Get_Bone_Name(model_bone)) == 0) {
 				_RecoilData[recoil_bone].BoneIndex = model_bone;
 				model_bone = tree->Num_Pivots();

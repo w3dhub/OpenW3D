@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 2/14/01 2:21p       $* 
- *                                                                                             * 
- *                    $Revision:: 3                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 2/14/01 2:21p       $*
+ *                                                                                             *
+ *                    $Revision:: 3                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <limits.h>
@@ -53,7 +53,7 @@ float PerlinNoise::_NoiseTable [NOISE_TABLE_SIZE];
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/05/00    IML : Created.                                                                * 
+ *   09/05/00    IML : Created.                                                                *
  *=============================================================================================*/
 PerlinNoise::PerlinNoise()
 {
@@ -70,7 +70,7 @@ PerlinNoise::PerlinNoise()
 			*noisetableptr = randomnumber (0, 10000) * 0.0001f;
 			noisetableptr++;
 		}
-		
+
 		_initialized = true;
 	}
 }
@@ -86,7 +86,7 @@ PerlinNoise::PerlinNoise()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/05/00    IML : Created.                                                                * 
+ *   09/05/00    IML : Created.                                                                *
  *=============================================================================================*/
 float PerlinNoise::Noise (int x, int y, int z)
 {
@@ -118,7 +118,7 @@ float PerlinNoise::Noise (int x, int y, int z)
 	uz = z + INT_MAX + 1;
 
 	return (_NoiseTable [PERMUTE ((ux) + PERMUTE ((uy) + PERMUTE (uz)))]);
-	
+
 	#undef PERMUTE
 }
 
@@ -133,7 +133,7 @@ float PerlinNoise::Noise (int x, int y, int z)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/05/00    IML : Created.                                                                * 
+ *   09/05/00    IML : Created.                                                                *
  *=============================================================================================*/
 float PerlinNoise::Noise (const Vector3 &point)
 {
@@ -182,19 +182,19 @@ float PerlinNoise::Noise (const Vector3 &point)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/05/00    IML : Created.                                                                * 
+ *   09/05/00    IML : Created.                                                                *
  *=============================================================================================*/
 float PerlinNoise::Value (const Vector3 &point)
 {
 	const unsigned octavecount	= 5;
 
 	float value, amplitudesum, frequency;
-				
+
 	value			 = 0.0f;
 	amplitudesum = 0.0f;
 	frequency	 = 0.5f;
 	for (unsigned octave = 0; octave < octavecount; octave++) {
-		
+
 		float oofrequency;
 
 		oofrequency = 1.0f / frequency;

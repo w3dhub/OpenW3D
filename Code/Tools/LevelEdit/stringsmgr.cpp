@@ -78,7 +78,7 @@ StringsMgrClass::Create_Database_If_Necessary (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
@@ -88,20 +88,20 @@ StringsMgrClass::Create_Database_If_Necessary (void)
 	//	Check to see if the file exists in VSS
 	//
 	if (asset_db.Does_File_Exist (filename) == false) {
-		
+
 		//
 		//	Save a copy of the database to disk and add it to VSS
 		//
 		Save_Translation_Database ();
 		asset_db.Add_File (filename);
 	} else {
-		
+
 		//
 		//	The file exists in VSS, so update our local copy
 		//
 		Get_Latest_Version ();
 	}
-	
+
 	return ;
 }
 
@@ -143,7 +143,7 @@ StringsMgrClass::Save_Translation_Database (const char *full_path)
 
 		//
 		//	Save the translation database subsystem
-		//		
+		//
 		SaveLoadSystemClass::Save (chunk_save, _TheTranslateDB);
 	}
 
@@ -191,7 +191,7 @@ StringsMgrClass::Load_Translation_Database (void)
 /////////////////////////////////////////////////////////////////////////
 void
 StringsMgrClass::Import_Strings (void)
-{	
+{
 	CFileDialog dialog (true, ".txt", "strings.txt",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"Text Files (*.txt)|*.txt||", ::AfxGetMainWnd ());
@@ -201,7 +201,7 @@ StringsMgrClass::Import_Strings (void)
 	//
 	// Ask the user what file they want to load
 	//
-	if (dialog.DoModal () == IDOK) {		
+	if (dialog.DoModal () == IDOK) {
 		if (Check_Out ()) {
 
 			//
@@ -209,9 +209,9 @@ StringsMgrClass::Import_Strings (void)
 			//
 			TranslateDBClass::Import_Strings (dialog.GetPathName ());
 			Save_Translation_Database ();
-			Check_In ();			
+			Check_In ();
 		}
-	}	
+	}
 
 	return ;
 }
@@ -224,7 +224,7 @@ StringsMgrClass::Import_Strings (void)
 /////////////////////////////////////////////////////////////////////////
 void
 StringsMgrClass::Import_IDs (void)
-{	
+{
 	CFileDialog dialog (true, ".h", "string_ids.h",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"C Header Files (*.h)|*.h||", ::AfxGetMainWnd ());
@@ -232,7 +232,7 @@ StringsMgrClass::Import_IDs (void)
 	//
 	// Ask the user what file they want to load
 	//
-	if (dialog.DoModal () == IDOK) {		
+	if (dialog.DoModal () == IDOK) {
 		if (Check_Out ()) {
 
 			//
@@ -240,9 +240,9 @@ StringsMgrClass::Import_IDs (void)
 			//
 			TranslateDBClass::Import_C_Header (dialog.GetPathName ());
 			Save_Translation_Database ();
-			Check_In ();			
+			Check_In ();
 		}
-	}	
+	}
 
 	return ;
 }
@@ -255,7 +255,7 @@ StringsMgrClass::Import_IDs (void)
 /////////////////////////////////////////////////////////////////////////
 void
 StringsMgrClass::Export_IDs (void)
-{	
+{
 	CFileDialog dialog (false, ".h", "string_ids.h",
 		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 		"C Header Files (*.h)|*.h||", ::AfxGetMainWnd ());
@@ -275,7 +275,7 @@ StringsMgrClass::Export_IDs (void)
 		} else {
 			TranslateDBClass::Export_C_Header (path);
 		}
-	}	
+	}
 
 	return ;
 }
@@ -291,12 +291,12 @@ StringsMgrClass::Get_Latest_Version (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
 	CString filename = ::Get_File_Mgr ()->Make_Full_Path (STRINGS_DB_PATH);
-	
+
 	//
 	//	Ask VSS to get the latest version of the file for us
 	//
@@ -314,12 +314,12 @@ StringsMgrClass::Check_Out (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
 	CString filename = ::Get_File_Mgr ()->Make_Full_Path (STRINGS_DB_PATH);
-	
+
 	//
 	//	Ask VSS to check out the file to us
 	//
@@ -337,12 +337,12 @@ StringsMgrClass::Check_In (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
 	CString filename = ::Get_File_Mgr ()->Make_Full_Path (STRINGS_DB_PATH);
-	
+
 	//
 	//	Ask VSS to check in the file for us
 	//
@@ -397,7 +397,7 @@ StringsMgrClass::Edit_Database (HWND parent_wnd)
 		//	Reload the database
 		//
 		StringsMgrClass::Load_Translation_Database ();
-		
+
 		//
 		//	Show a dialog to the user so then can edit the strings
 		//
@@ -463,7 +463,7 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 	for (int index = 0; index < count; index ++) {
 		TDBObjClass *object = TranslateDBClass::Get_Object (index);
 		if (object != NULL && object->As_StringTwiddlerClass () == NULL) {
-			
+
 			//
 			//	Get the data for this string that we want to export
 			//
@@ -491,7 +491,7 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 			//
 			WideStringClass category_name;
 			TDBCategoryClass *category	= TranslateDBClass::Find_Category (category_id);
-			if (category != NULL) {				
+			if (category != NULL) {
 				category_name.Convert_From (category->Get_Name ());
 			}
 
@@ -513,7 +513,7 @@ StringsMgrClass::Export_For_Translation (const char *filename, uint32 lang_id)
 			//
 			ExcelClass::Set_String (index + 1, COL_CATEGORY_NAME,		category_name);
 			ExcelClass::Set_String (index + 1, COL_STRING_ID,			wide_string_id);
-			ExcelClass::Set_String (index + 1, COL_SOUND_FILENAME,	wide_sound_filename);			
+			ExcelClass::Set_String (index + 1, COL_SOUND_FILENAME,	wide_sound_filename);
 			ExcelClass::Set_String (index + 1, COL_ENGLISH_TEXT,		wide_string);
 			ExcelClass::Set_String (index + 1, COL_SOUND_PRESET_NAME,wide_sound_preset_name);
 
@@ -573,7 +573,7 @@ StringsMgrClass::Import_From_Translation (const char *filename, uint32 lang_id)
 		WideStringClass string;
 		WideStringClass preset_name;
 		ExcelClass::Get_String (index + 1, COL_CATEGORY_NAME,		category_name);
-		ExcelClass::Get_String (index + 1, COL_STRING_ID,			string_id);		
+		ExcelClass::Get_String (index + 1, COL_STRING_ID,			string_id);
 		ExcelClass::Get_String (index + 1, COL_ENGLISH_TEXT,		english_string);
 		ExcelClass::Get_String (index + 1, COL_TRANSLATED_TEXT,	string);
 		ExcelClass::Get_String (index + 1, COL_SOUND_PRESET_NAME,preset_name);
@@ -591,7 +591,7 @@ StringsMgrClass::Import_From_Translation (const char *filename, uint32 lang_id)
 		if (string_id.Is_Empty ()) {
 			keep_going = false;
 		} else {
-			
+
 			StringClass ascii_string_id;
 			string_id.Convert_To (ascii_string_id);
 
@@ -684,7 +684,7 @@ StringsMgrClass::Convert_Newline_To_Chars (WideStringClass &string)
 	//	Copy characters between the strings
 	//
 	for (int index = 0; index < count; index ++) {
-		
+
 		if (string[index] == U_CHAR('\n')) {
 			retval += U_CHAR("\\n");
 		} else if (string[index] == U_CHAR('\t')) {
@@ -708,7 +708,7 @@ void
 StringsMgrClass::Convert_Chars_To_Newline (WideStringClass &string)
 {
 	WideStringClass retval;
-	
+
 	//
 	//	Take a guess as to how large to make the final string
 	//
@@ -718,7 +718,7 @@ StringsMgrClass::Convert_Chars_To_Newline (WideStringClass &string)
 	//	Copy characters between the strings
 	//
 	for (int index = 0; index < count; index ++) {
-		
+
 		if (index + 1 < count && string[index] == U_CHAR('\\') && string[index + 1] == U_CHAR('n')) {
 			retval += U_CHAR('\n');
 			index ++;
@@ -758,15 +758,15 @@ StringsMgrClass::Apply_Characteristics
 		//
 		//	Check to see if the english string is commented out
 		///
-		const wchar_t *buffer = english_string;			
+		const wchar_t *buffer = english_string;
 		if (buffer[0] == U_CHAR('/') && buffer[1] == U_CHAR('/')) {
-			
+
 			//
 			//	Do we need to comment out the translated string as well?
 			//
 			const wchar_t *trans_buffer = translated_string;
 			if (trans_buffer[0] != U_CHAR('/') || trans_buffer[1] != U_CHAR('/')) {
-				
+
 				//
 				//	Prepend the forward slashes
 				//

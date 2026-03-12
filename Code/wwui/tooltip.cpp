@@ -199,7 +199,7 @@ void
 ToolTipClass::Set_Text (const unichar_t *text)
 {
 	Text = text;
-	
+
 	//
 	//	Force the renderer's to be repositioned and resized
 	//

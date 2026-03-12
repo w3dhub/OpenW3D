@@ -39,7 +39,7 @@
  *   MaterialPassClass::Install_Materials -- Plug our material settings into D3D               *
  *   MaterialPassClass::Set_Texture -- Set texture to use                                      *
  *   MaterialPassClass::Set_Shader -- Set the shader to use                                    *
- *   MaterialPassClass::Set_Material -- set vertex material to use                             * 
+ *   MaterialPassClass::Set_Material -- set vertex material to use                             *
  *   MaterialPassClass::Get_Texture -- Get a pointer to the texture                            *
  *   MaterialPassClass::Get_Material -- get the vertex material                                *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -68,7 +68,7 @@ bool MaterialPassClass::EnablePerPolygonCulling = true;
  * HISTORY:                                                                                    *
  *   2/26/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-MaterialPassClass::MaterialPassClass(void) : 
+MaterialPassClass::MaterialPassClass(void) :
 	Shader(0),
 	Material(NULL),
 	CullVolume(NULL),
@@ -201,7 +201,7 @@ TextureClass * MaterialPassClass::Get_Texture(int stage) const
 {
 	WWASSERT(stage >= 0);
 	WWASSERT(stage < MAX_TEX_STAGES);
-	
+
 	if (Texture[stage]) {
 		Texture[stage]->Add_Ref();
 	}

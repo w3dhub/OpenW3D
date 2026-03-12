@@ -60,7 +60,7 @@ public:
 
 // Operations
 public:
-	
+
 	const ChunkFileImageClass &	Get_File_Image(void);
 	const ChunkImageClass *			Get_Cur_Chunk(void);
 	void									Set_Cur_Chunk(ChunkImageClass * cur_chunk);

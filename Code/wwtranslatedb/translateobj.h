@@ -65,7 +65,7 @@ class StringTwiddlerClass;
 class TDBObjClass : public PersistClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ public:
 	//	RTTI
 	//
 	virtual StringTwiddlerClass *	As_StringTwiddlerClass (void)		{ return NULL; }
-	
+
 	//
 	// From PersistClass
 	//
@@ -110,7 +110,7 @@ public:
 	virtual uint32							Get_Sound_ID (void)					{ return SoundID; }
 	virtual const StringClass &		Get_Animation_Name (void)			{ return AnimationName; }
 	virtual uint32							Get_Category_ID (void)				{ return CategoryID; }
-	
+
 	virtual void							Set_String (uint32 lang_id, const unichar_t *string);
 	virtual void							Set_English_String (const char *string);
 	virtual void							Set_ID (uint32 id);
@@ -123,7 +123,7 @@ public:
 	//	Informational
 	//
 	virtual bool							Contains_Translation (uint32 lang_id);
-	
+
 protected:
 
 	//////////////////////////////////////////////////////////////

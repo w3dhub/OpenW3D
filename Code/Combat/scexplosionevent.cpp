@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/scexplosionevent.cpp                 $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/09/02 3:13p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 5                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/scexplosionevent.cpp                 $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/09/02 3:13p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 5                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "scexplosionevent.h"
@@ -92,7 +92,7 @@ cScExplosionEvent::Act(void)
 
 	ExplosionManager::Explode( DefID, Position, OwnerID, VictimID );
 
-	WWDEBUG_SAY(("cScExplosionEvent::Act: Def %d, at (%5.2f, %5.2f, %5.2f) Owner %d Victim %d\n", 
+	WWDEBUG_SAY(("cScExplosionEvent::Act: Def %d, at (%5.2f, %5.2f, %5.2f) Owner %d Victim %d\n",
 		DefID, Position.X, Position.Y, Position.Z, OwnerID, VictimID ));
 
 	Set_Delete_Pending();

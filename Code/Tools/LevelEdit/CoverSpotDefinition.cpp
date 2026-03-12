@@ -68,7 +68,7 @@ SimplePersistFactoryClass<CoverSpotDefinitionClass, CHUNKID_COVERSPOT_DEF>					_
 //
 //////////////////////////////////////////////////////////////////////////////////
 CoverSpotDefinitionClass::CoverSpotDefinitionClass (void)
-	:	DefinitionClass ()		
+	:	DefinitionClass ()
 {
 	return ;
 }
@@ -131,7 +131,7 @@ CoverSpotDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_VARIABLES:
 				retval &= Load_Variables (cload);
 				break;

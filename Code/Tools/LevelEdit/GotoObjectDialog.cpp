@@ -83,13 +83,13 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-GotoObjectDialogClass::OnInitDialog (void) 
+GotoObjectDialogClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
 	CDialog::OnInitDialog ();
-	
-	// Fill the 'object list' combobox with a complete list of all the objects in the level.	
-	::Fill_Node_Instance_Combo (::GetDlgItem (m_hWnd, IDC_OBJECT_LIST), m_pNode);	
+
+	// Fill the 'object list' combobox with a complete list of all the objects in the level.
+	::Fill_Node_Instance_Combo (::GetDlgItem (m_hWnd, IDC_OBJECT_LIST), m_pNode);
 	return true;
 }
 

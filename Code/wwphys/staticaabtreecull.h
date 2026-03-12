@@ -96,7 +96,7 @@ public:
 	*/
 	virtual void		Save_Static_Data(ChunkSaveClass & csave);
 	virtual void		Load_Static_Data(ChunkLoadClass & cload);
-	
+
 protected:
 
 	/*
@@ -121,7 +121,7 @@ protected:
 			PlanesPassed(0)
 		{
 		}
-		
+
 		const FrustumClass & Frustum;
 		VisTableClass &		PVS;
 		RefPhysListClass &	VisObjList;
@@ -133,7 +133,7 @@ protected:
 	** Run-time visiblity support
 	*/
 	void					Collect_Visible_Objects_Recursive(AABTreeNodeClass * node,VisObjCollectContextClass & context);
-	void					Collect_Visible_Objects_No_HVis_Recursive(AABTreeNodeClass * node,VisObjCollectContextClass & context); 
+	void					Collect_Visible_Objects_No_HVis_Recursive(AABTreeNodeClass * node,VisObjCollectContextClass & context);
 
 	int					Get_Vis_Sector_ID(const Vector3 & sample_point);
 	StaticPhysClass *	Find_Vis_Tile(const Vector3 & sample_point);
@@ -142,10 +142,10 @@ protected:
 	** Visibility Preprocessing support
 	*/
 	void					Assign_Vis_IDs(void);
-	
+
 	void					Evaluate_Occluder_Visibility(VisRenderContextClass & context,VisSampleClass & sample);
 	void					Evaluate_Non_Occluder_Visibility(VisRenderContextClass & context);
-		
+
 	void					Render_Occluders(AABTreeNodeClass * node,VisRenderContextClass & context);
 	void					Collect_Non_Occluders(AABTreeNodeClass * node,VisRenderContextClass & context,RefPhysListClass & non_occluder_list);
 

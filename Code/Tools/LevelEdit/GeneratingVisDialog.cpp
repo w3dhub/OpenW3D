@@ -77,7 +77,7 @@ GeneratingVisDialogClass::GeneratingVisDialogClass (float granularity, CWnd *par
 
 	//
 	//	Get the installation directory of this application
-	//		
+	//
 	TCHAR exe_path[MAX_PATH] = { 0 };
 	::GetModuleFileName (::AfxGetInstanceHandle (), exe_path, sizeof (exe_path));
 	CString path = ::Strip_Filename_From_Path (exe_path);
@@ -119,11 +119,11 @@ END_MESSAGE_MAP()
 //
 //////////////////////////////////////////////////////////////////////////////
 BOOL
-GeneratingVisDialogClass::OnInitDialog (void) 
+GeneratingVisDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
-	m_ProgressCtrl.SetRange (0, 100);	
+	m_ProgressCtrl.SetRange (0, 100);
 	m_ProgressCtrl.SetPos (0);
 
 	ShowWindow (SW_SHOW);
@@ -138,7 +138,7 @@ GeneratingVisDialogClass::OnInitDialog (void)
 //
 //////////////////////////////////////////////////////////////////////////////
 void
-GeneratingVisDialogClass::OnCancel (void) 
+GeneratingVisDialogClass::OnCancel (void)
 {
 	m_bStop = true;
 	return ;
@@ -277,7 +277,7 @@ GeneratingVisDialogClass::WindowProc
 		//
 		VIS_POINT_LIST &point_list = generator.Peek_Point_List ();
 		Render_Vis_Points (point_list);
-		
+
 		//
 		//	Update the dialog so the user knows we are done
 		//
@@ -332,9 +332,9 @@ GeneratingVisDialogClass::Update_Time (void)
 	CString elapsed_time_text;
 	elapsed_time_text.Format ("Elapsed: %.1f min.  Remaining: %.1f min.",elapsed_minutes,remaining_minutes);
 	SetDlgItemText (IDC_ELAPSED_TIME_TEXT, elapsed_time_text);
-	
+
 	m_ProgressCtrl.SetPos (((m_CurrentPoint + 1) * 100) / m_TotalPoints);
-	General_Pump_Messages ();	
+	General_Pump_Messages ();
 	return ;
 }
 
@@ -354,7 +354,7 @@ GeneratingVisDialogClass::Render_Vis_Points (VIS_POINT_LIST &point_list)
 	//	Loop through all the points and vis-render them
 	//
 	int count = point_list.Count ();
-	for (int index = 0; (index < count) && !m_bStop; index ++) {		
+	for (int index = 0; (index < count) && !m_bStop; index ++) {
 
 		VisPointListClass *sub_point_list = point_list[index];
 
@@ -374,7 +374,7 @@ GeneratingVisDialogClass::Render_Vis_Points (VIS_POINT_LIST &point_list)
 
 		//
 		//	Render vis for any sub-points
-		//		
+		//
 		for (int sub_point = 0; sub_point < sub_point_list->Count (); sub_point ++) {
 			Matrix3D &transform = (*sub_point_list)[sub_point];
 
@@ -426,19 +426,19 @@ GeneratingVisDialogClass::Generate_Points
 	int total_polys	= 0;
 	int count			= node_list.Count ();
 	int index;
-	for (index = 0; (index < count) && !m_bStop; index ++) {			
+	for (index = 0; (index < count) && !m_bStop; index ++) {
 		NodeClass *node = node_list[index];
 		RenderObjClass *rendobj = node->Peek_Render_Obj ();
 		if (rendobj != NULL) {
 			total_polys += rendobj->Get_Num_Polys ();
-		}			
+		}
 	}
 
 	//
 	//	Now, ask all the nodes to generate vis points
 	//
 	for (index = 0; (index < count) && !m_bStop; index ++) {
-		
+
 		//
 		// Update the UI
 		//
@@ -450,10 +450,10 @@ GeneratingVisDialogClass::Generate_Points
 		CString elapsed_text;
 		elapsed_text.Format ("Elapsed Time: %.1f minutes.",(::GetTickCount() - m_StartTime) / 60000.0f);
 		SetDlgItemText (IDC_ELAPSED_TIME_TEXT, elapsed_text);
-		
+
 		m_ProgressCtrl.SetPos ((index * 100) / count);
-		General_Pump_Messages ();			
-		
+		General_Pump_Messages ();
+
 		//
 		//	Generate the points
 		//

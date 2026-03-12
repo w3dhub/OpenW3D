@@ -74,9 +74,9 @@
  * HISTORY:                                                                                    *
  *   8/10/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-void PhysicsSceneClass::Set_Lighting_LOD_Cutoff(float intensity)				
-{ 
-	LightEnvironmentClass::Set_Lighting_LOD_Cutoff(intensity); 
+void PhysicsSceneClass::Set_Lighting_LOD_Cutoff(float intensity)
+{
+	LightEnvironmentClass::Set_Lighting_LOD_Cutoff(intensity);
 }
 
 
@@ -95,8 +95,8 @@ void PhysicsSceneClass::Set_Lighting_LOD_Cutoff(float intensity)
  *   8/10/2000  gth : Created.                                                                 *
  *=============================================================================================*/
 float PhysicsSceneClass::Get_Lighting_LOD_Cutoff(void)
-{ 
-	return LightEnvironmentClass::Get_Lighting_LOD_Cutoff(); 
+{
+	return LightEnvironmentClass::Get_Lighting_LOD_Cutoff();
 }
 
 
@@ -177,7 +177,7 @@ void PhysicsSceneClass::Set_Sun_Light_Orientation(float yaw,float pitch)
 	tm.Rotate_Z(yaw);
 	tm.Rotate_Y(DEG_TO_RADF(90.0f) - pitch);
 	tm.Rotate_X(DEG_TO_RADF(180.0f));
-		
+
 	SunLight->Set_Transform(tm);
 }
 
@@ -275,7 +275,7 @@ void PhysicsSceneClass::Compute_Static_Lighting
 	if (use_sun) {
 		light_env->Add_Light(*SunLight);
 	}
-		
+
 	/*
 	** Add in the static lights affecting this object
 	*/
@@ -289,7 +289,7 @@ void PhysicsSceneClass::Compute_Static_Lighting
 			LightClass * light_obj = (LightClass *)light->Peek_Model();
 			light_env->Add_Light(*light_obj);
 		}
-		
+
 		light = StaticLightingSystem->Get_Next_Collected_Object(light);
 	}
 }

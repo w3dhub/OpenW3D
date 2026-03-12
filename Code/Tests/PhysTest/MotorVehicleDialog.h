@@ -53,7 +53,7 @@ public:
 
 // Implementation
 protected:
-	
+
 	MotorVehicleClass * EditedObject;
 
 	float GetDlgItemFloat(int controlid);

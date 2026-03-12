@@ -63,7 +63,7 @@ class PresetClass;
 class SpawnPointNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ public:
 	// From PersistClass
 	//
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	
+
 	//
 	// From NodeClass
 	//
@@ -144,7 +144,7 @@ protected:
 //////////////////////////////////////////////////////////////////
 inline void
 SpawnPointNodeClass::On_Rotate (void)
-{	
+{
 	if (SpawnerNode != NULL) {
 		SpawnerNode->Update_Lines ();
 	}

@@ -48,7 +48,7 @@
 /////////////////////////////////////////////////////////////////////////
 StringPickerClass::StringPickerClass (void)
 	:	m_EntryID (0)
-{	
+{
 	m_Icon = (HICON)::LoadImage (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDI_LIST), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 	return ;
 }
@@ -79,7 +79,7 @@ StringPickerClass::On_Pick (void)
 	StringPickerMainDialogClass dialog (this);
 	dialog.Set_String_ID (m_EntryID);
 	if (dialog.DoModal () == IDOK) {
-		
+
 		m_EntryID = dialog.Get_String_ID ();
 
 		//

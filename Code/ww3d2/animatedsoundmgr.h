@@ -78,7 +78,7 @@ public:
 	//
 	static bool		Does_Animation_Have_Embedded_Sounds (HAnimClass *anim);
 	static float	Trigger_Sound (HAnimClass *anim, float old_frame, float new_frame, const Matrix3D &tm);
-	
+
 private:
 
 	///////////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ private:
 	} ANIM_SOUND_INFO;
 
 	typedef SimpleDynVecClass<ANIM_SOUND_INFO>	ANIM_SOUND_LIST;
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private member data
 	///////////////////////////////////////////////////////////////////

@@ -60,7 +60,7 @@
  *   2/17/2000  gth : Created.                                                                 *
  *=============================================================================================*/
 void FrustumClass::Init
-( 
+(
 	const Matrix3D &		camera,
 	const Vector2 &		vpmin,
 	const Vector2 &		vpmax,
@@ -69,7 +69,7 @@ void FrustumClass::Init
 )
 {
 	int i;
-	
+
 	// Store the camera transform
 	CameraTransform = camera;
 
@@ -104,7 +104,7 @@ void FrustumClass::Init
    Corners[3].Set(vpmax.X, vpmin.Y, 1.0);
    Corners[7] = Corners[3];
    Corners[3] *= znear;
-   Corners[7] *= zfar; 
+   Corners[7] *= zfar;
 
 	// Transform the eight corners of the view frustum from camera space to world space.
 	for (i = 0; i < 8; i++) {

@@ -82,7 +82,7 @@ int			CoverAttackPointNodeClass::_InstanceCount		= 0;
 CoverAttackPointNodeClass::CoverAttackPointNodeClass (PresetClass *preset)
 	:	m_PhysObj (NULL),
 		m_CoverSpot (NULL),
-		NodeClass (preset)		
+		NodeClass (preset)
 {
 	_InstanceCount ++;
 	return ;
@@ -111,10 +111,10 @@ CoverAttackPointNodeClass::CoverAttackPointNodeClass (const CoverAttackPointNode
 //
 //////////////////////////////////////////////////////////////////////////////
 CoverAttackPointNodeClass::~CoverAttackPointNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
-	
+
 	//
 	//	Free the collision object when all instances have gone away
 	//
@@ -146,10 +146,10 @@ CoverAttackPointNodeClass::Initialize (void)
 	RenderObjClass *render_obj = ::Create_Render_Obj ("WAY_B");
 	WWASSERT (render_obj != NULL);
 	if (render_obj != NULL) {
-		
+
 		// Create the new physics object
 		m_PhysObj = new DecorationPhysClass;
-		
+
 		//
 		// Configure the physics object with information about
 		// its new render object and collision data.
@@ -160,7 +160,7 @@ CoverAttackPointNodeClass::Initialize (void)
 		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		m_PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (m_PhysObj->Peek_Model (), COLLISION_TYPE_0);
-		
+
 		// Release our hold on the render object pointer
 		MEMBER_RELEASE (render_obj);
 	}
@@ -169,16 +169,16 @@ CoverAttackPointNodeClass::Initialize (void)
 
 		//
 		//	Create the collision physics object
-		//	
+		//
 		PresetClass *preset = PresetMgrClass::Find_Preset ("Walk-Thru");
 		if (preset != NULL && preset->Get_Definition ()  != NULL) {
-			
+
 			//
 			//	Load the assets for this preset and get its definition
 			//
 			preset->Load_All_Assets ();
 			SoldierGameObjDef *definition	= (SoldierGameObjDef *)preset->Get_Definition ();
-			
+
 			//
 			//	Create the collision physics object
 			//
@@ -200,7 +200,7 @@ CoverAttackPointNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 CoverAttackPointNodeClass::Get_Factory (void) const
-{	
+{
 	return _CoverAttackPointNodePersistFactory;
 }
 
@@ -231,13 +231,13 @@ CoverAttackPointNodeClass::Save (ChunkSaveClass &csave)
 bool
 CoverAttackPointNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -262,7 +262,7 @@ CoverAttackPointNodeClass::Load_Variables (ChunkLoadClass &cload)
 	//	Loop through all the microchunks that define the variables
 	//
 	while (cload.Open_Micro_Chunk ()) {
-		/*switch (cload.Cur_Micro_Chunk_ID ()) {			
+		/*switch (cload.Cur_Micro_Chunk_ID ()) {
 		}*/
 
 		cload.Close_Micro_Chunk ();
@@ -295,7 +295,7 @@ CoverAttackPointNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {

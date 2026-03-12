@@ -84,7 +84,7 @@ SimplePersistFactoryClass<HumanPhysClass,PHYSICS_CHUNKID_HUMANPHYS>	_HumanPhysFa
 /*
 ** Chunk-ID's used by HumanPhysClass
 */
-enum 
+enum
 {
 	HUMANPHYS_CHUNK_PHYS3			= 0x04040404,		// parent Phys3Class data
 	HUMANPHYS_CHUNK_VARIABLES,
@@ -93,7 +93,7 @@ enum
 };
 
 /*
-** SLOPE_SPEED_ADJUSTMENT - fraction of the speed to shave off when player is walking on 
+** SLOPE_SPEED_ADJUSTMENT - fraction of the speed to shave off when player is walking on
 ** the steepest possible slope (just before sliding takes over).  Also the fraction to
 ** add when the player is walking straight downhill
 ** AIR_SPEED_ADJUSTMENT - scale factor to apply to the users move when in the air
@@ -177,7 +177,7 @@ HumanPhysClass::~HumanPhysClass(void)
 void HumanPhysClass::Timestep(float dt)
 {
 	VERBOSE_LOG(("HumanPhys::Timestep\r\n"));
-	bool was_on_ground = OnGround;	
+	bool was_on_ground = OnGround;
 
 	if (Is_Asleep()) {
 		if ((Controller != NULL) && (!Controller->Is_Inactive())) {
@@ -195,12 +195,12 @@ void HumanPhysClass::Timestep(float dt)
 
 	{
 		WWPROFILE("HumanPhys::Timestep");
-	
+
 		// if we didn't jump, we're not on the ground, we were on the ground, and our Z velocity is >0, set it to 0
 		if (was_on_ground && !OnGround && !JustJumped && (State.Velocity.Z > 0.0f)) {
 			State.Velocity.Z = 0.0f;
 		}
-		
+
 		// clear the just jumped flag if its set and we've reached the apex.
 		if (JustJumped && State.Velocity.Z < 0.0f) {
 			JustJumped = false;
@@ -267,14 +267,14 @@ void HumanPhysClass::Check_Ground(const AABoxClass & box,GroundStateStruct * gs,
  *   9/16/2000  gth : Created.                                                                 *
  *=============================================================================================*/
 bool HumanPhysClass::Ballistic_Move(float dt)
-{		
+{
 	WWPROFILE("HumanPhys::Ballistic_Move");
 	VERBOSE_LOG(("HumanPhys::Ballistic_Move\r\n"));
 
 	// Compute a move vector for the object flying through the air...
 	Vector3 move;
 	float accel = PhysicsConstants::GravityAcceleration.Z * GravScale;
-	
+
 	Vector3 start_vel = State.Velocity;
 	Vector3 start_pos = State.Position;
 
@@ -289,13 +289,13 @@ bool HumanPhysClass::Ballistic_Move(float dt)
 	State.Velocity.Y = (State.Position.Y - start_pos.Y) / dt;
 
 	// Compute the analytical Z velocity and the ad-hoc Z velocity, the
-	// more negative one is the one to keep.  What this does is use the 
+	// more negative one is the one to keep.  What this does is use the
 	// analytical velocity unless the character hits a roof.
 	State.Velocity.Z = start_vel.Z + accel * dt;
 #if 0
 	State.Velocity.Z = std::min((State.Position.Z - start_pos.Z) / dt,start_vel.Z + accel * dt);
 #endif
-	
+
 	// Now let the user adjust the movement a little
 	if (Controller && !IsAIControlledJump) {
 		Vector3 player_move(Controller->Get_Move_Vector());
@@ -401,7 +401,7 @@ bool HumanPhysClass::Normal_Move(const GroundStateStruct & gs,float dt)
 	** one more time.
 	*/
 	if (moved && !JustJumped && (GroundState.OnGround) && (GroundState.Normal.Z < SlideNormalZ)) {
-		
+
 		State.Position = start_position;
 		move = start_move;
 
@@ -446,17 +446,17 @@ bool HumanPhysClass::Normal_Move(const GroundStateStruct & gs,float dt)
 void HumanPhysClass::Compute_Desired_Move_Vector(const GroundStateStruct & gs,float dt,Vector3 * set_move)
 {
 	Vector3 move(Controller->Get_Move_Vector());
-	
+
 	if (move.Z < 0.0f) {
 		move.Z = 0.0f;
 	}
-	
+
 	float jump = move.Z;
 	if (jump > 0.0f) {
 		move.Z = 0.0f;
 		JustJumped = true;
 	}
-	
+
 	/*
 	** rotate the move vector into "2D" world space
 	*/
@@ -474,7 +474,7 @@ void HumanPhysClass::Compute_Desired_Move_Vector(const GroundStateStruct & gs,fl
 		float c_angle = Vector3::Dot_Product(Vector3(0,0,1),gs.Normal);
 		axis.Normalize();
 		Matrix3 rotation(axis,s_angle,c_angle);
-		Matrix3::Rotate_Vector(rotation,move,&move);	
+		Matrix3::Rotate_Vector(rotation,move,&move);
 	}
 
 	/*
@@ -569,8 +569,8 @@ bool HumanPhysClass::Save(ChunkSaveClass &csave)
 bool HumanPhysClass::Load(ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case HUMANPHYS_CHUNK_PHYS3:
 				Phys3Class::Load(cload);
@@ -581,7 +581,7 @@ bool HumanPhysClass::Load(ChunkLoadClass &cload)
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,HUMANPHYS_VARIABLE_JUSTJUMPED,JustJumped);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 
@@ -589,10 +589,10 @@ bool HumanPhysClass::Load(ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
-		
+
 	return true;
 }
 
@@ -610,25 +610,25 @@ bool HumanPhysClass::Load(ChunkLoadClass &cload)
  *   10/19/2000  pds : Created.                                                                *
  *=============================================================================================*/
 void HumanPhysClass::Jump_To_Point (const Vector3 &dest_pos)
-{	
+{
 	const float gravity	= PhysicsConstants::GravityAcceleration.Z * Get_Gravity_Multiplier();
 	const float minangle	= 0.3491f;	// 20 degrees.
 	const float	maxangle	= 1.2217f;	// 70 degrees.
 
 	Vector3 displacement, velocity, acceleration;
-	float	  x, y, theta;	
-	float	  time;	
+	float	  x, y, theta;
+	float	  time;
 
 	acceleration.Set (0.0f, 0.0f, gravity);
 	displacement = (dest_pos - Get_Transform().Get_Translation());
-	
+
 	// Calculate a launch/landing angle most appropriate for the jump to be made.
 	// Horizontal jumps will use the minimum launch angle, nera vertical jumps will
 	// use the maximum launch/landing angle.
 	x		= Vector2 (displacement.X, displacement.Y).Length();
 	y		= WWMath::Fabs (displacement.Z);
 	theta = WWMath::Lerp (minangle, maxangle, y / (x + y));
-	
+
 	// If character is jumping up then theta is the landing angle
 	// - otherwise theta is the launch angle.
 	if (displacement.Z >= 0.0f) {
@@ -638,7 +638,7 @@ void HumanPhysClass::Jump_To_Point (const Vector3 &dest_pos)
 		// vfy = viy + g * t (1)
 		//
 		// and
-		// 
+		//
 		// vfx = vix = x / t	(2)
 		//
 		// and
@@ -656,7 +656,7 @@ void HumanPhysClass::Jump_To_Point (const Vector3 &dest_pos)
 		// Substituting (3) in (4):
 		//
 		// tan (theta) = (y / t - 0.5 * g * t + g * t) / (x / t).
-		//	
+		//
 		// Rearranging gives:
 		//
 		// t = sqrt ((2.0f * (-x * tan (theta) - y)) / g).
@@ -670,7 +670,7 @@ void HumanPhysClass::Jump_To_Point (const Vector3 &dest_pos)
 		//
 		// where s is speed, theta is launch angle, g is acceleration due to gravity(-ve),
 		// and t is time.
-		// 
+		//
 		// Horizontal displacement is given by:
 		//
 		// x = s * sin(theta) * t (2)
@@ -725,18 +725,18 @@ DECLARE_DEFINITION_FACTORY(HumanPhysDefClass, CLASSID_HUMANPHYSDEF, "Human") _Hu
 /*
 ** Chunk ID's used by HumanPhysDefClass
 */
-enum 
+enum
 {
 	HUMANPHYSDEF_CHUNK_PHYS3DEF		= 0x00516000,			// phys3def data (parent class)
 };
 
-HumanPhysDefClass::HumanPhysDefClass(void) 
+HumanPhysDefClass::HumanPhysDefClass(void)
 {
 }
 
-uint32 HumanPhysDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_HUMANPHYSDEF; 
+uint32 HumanPhysDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_HUMANPHYSDEF;
 }
 
 PersistClass * HumanPhysDefClass::Create(void) const
@@ -756,7 +756,7 @@ bool HumanPhysDefClass::Save(ChunkSaveClass &csave)
 	csave.Begin_Chunk(HUMANPHYSDEF_CHUNK_PHYS3DEF);
 	Phys3DefClass::Save(csave);
 	csave.End_Chunk();
-	
+
 	// no variables for now
 	return true;
 }

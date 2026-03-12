@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/CopyThread.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/13/02 5:00p                                                                $* 
- *                                                                                             * 
- *                    $Revision:: 10                    $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/CopyThread.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/13/02 5:00p                                                                $*
+ *                                                                                             *
+ *                    $Revision:: 10                    $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -85,7 +85,7 @@ FNOPEN( file_open )
 	HANDLE handle;
 
 	WWASSERT ((oflag & (_O_APPEND | _O_TEMPORARY)) == 0x0);
-	
+
 	DWORD desiredaccess, creationdisposition, flagsandattributes;
 
 	if (oflag & _O_WRONLY) {
@@ -120,7 +120,7 @@ FNOPEN( file_open )
 
 	while ((handle = CreateFile (pszFile, desiredaccess, FILE_SHARE_READ, NULL, creationdisposition, flagsandattributes | FILE_FLAG_WRITE_THROUGH, NULL)) == INVALID_HANDLE_VALUE) {
 		if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
-	}	
+	}
 	return ((int) handle);
 }
 
@@ -134,14 +134,14 @@ FNREAD( file_read )
 	if (!CopyThreadClass::_ActiveCopyThread->Get_Abort (true)) {
 
 		unsigned int bytecount;
-	  
+
 		while (!ReadFile ((void*) hf, pv, cb, &bytecount, NULL)) {
 			if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
 		}
 		return (bytecount);
 
 	} else {
-		
+
 		// NOTE: Returning -1 will cause the calling cabinet process to close all
 		// files, release its resources, and return an error code to the caller of
 		// FDICopy().
@@ -159,7 +159,7 @@ FNWRITE( file_write )
 	if (!CopyThreadClass::_ActiveCopyThread->Get_Abort (true)) {
 
 		unsigned int bytecount;
-		
+
 		while (!WriteFile ((void*) hf, pv, cb, &bytecount, NULL)) {
 			if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
 		}
@@ -170,13 +170,13 @@ FNWRITE( file_write )
 		return (bytecount);
 
 	} else {
-		
+
 		// NOTE: Returning -1 will cause the calling cabinet process to close all
 		// files, release its resources, and return an error code to the caller of
 		// FDICopy().
 		return (-1);
 	}
-}	
+}
 
 
 /***************************************************************************
@@ -185,7 +185,7 @@ FNWRITE( file_write )
 FNCLOSE( file_close )
 {
 	int result;
-	
+
 	while (!(result = CloseHandle ((void*) hf))) {
 		if (!CopyThreadClass::_ActiveCopyThread->Retry()) break;
 	}
@@ -232,13 +232,13 @@ FNFDINOTIFY( notification_function )
 	static WideStringClass _targetpathname;
 	static StringClass	  _multibytetemporarypathname;
 	static FILETIME		  _sourcefiletime;
-	
+
 	switch (fdint) {
 
-		case fdintCOPY_FILE:			
+		case fdintCOPY_FILE:
 		{
 			FILETIME localfiletime;
-			
+
 			// Build target pathname.
 			// NOTE: If the relative path does not contain subdirectories it will not contain a backslash.
 			CopyThreadClass::_ActiveCopyThread->Get_Target_Path (_targetpathname);
@@ -246,11 +246,11 @@ FNFDINOTIFY( notification_function )
 			_targetpathname += WideStringClass (pfdin->psz1);
 
 			_Installer.Log (_targetpathname, pfdin->cb);
-			
+
 			// If target should be overwritten...
 			if (!DosDateTimeToFileTime (pfdin->date, pfdin->time, &localfiletime)) return (-1);
 			if (!LocalFileTimeToFileTime (&localfiletime, &_sourcefiletime)) return (-1);
-			
+
 			if (CopyThreadClass::Replace_File (_sourcefiletime, pfdin->cb, _targetpathname)) {
 
 				WideStringClass statusmessage;
@@ -274,23 +274,23 @@ FNFDINOTIFY( notification_function )
 
 				// Add temporary filename to log.
 				CopyThreadClass::_ActiveCopyThread->Get_Filename_Log().Add (_multibytetemporarypathname);
-				
+
 				return (handle);
 
 			} else {
-				
+
 				// Do not copy file.
 				CopyThreadClass::_ActiveCopyThread->Add_Bytes_Copied ((unsigned) pfdin->cb);
 				return (0);
 			}
 		}
 
-		case fdintCLOSE_FILE_INFO:	
+		case fdintCLOSE_FILE_INFO:
 		{
-			StringClass		 multibytetargetpathname;	
+			StringClass		 multibytetargetpathname;
 			HANDLE			 targetfile;
 			WIN32_FIND_DATA targetfiledata;
-			int				 count;	
+			int				 count;
 
 			// Close the temporary file.
 			if (file_close (pfdin->hf) != 0) return (-1);
@@ -329,8 +329,8 @@ FNFDINOTIFY( notification_function )
 			// Success.
 			return (1);
 		}
-		
-		case fdintNEXT_CABINET:				
+
+		case fdintNEXT_CABINET:
 		{
 			// Nothing to do. Assume that the next cabinet file is in the same directory as the current
 			// cabinet file.
@@ -353,7 +353,7 @@ FNFDINOTIFY( notification_function )
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 CopyThreadClass::CopyThreadClass (int64_t bytestocopy)
 	: ThreadClass(),
@@ -381,7 +381,7 @@ CopyThreadClass::CopyThreadClass (int64_t bytestocopy)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 CopyThreadClass::~CopyThreadClass()
 {
@@ -400,7 +400,7 @@ CopyThreadClass::~CopyThreadClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Thread_Function()
 {
@@ -408,11 +408,11 @@ void CopyThreadClass::Thread_Function()
 
 		unsigned			 i;
 		WideStringClass sourcepath, targetpath;
-		int				 gamesubdirectorycount, gamefilecount; 
+		int				 gamesubdirectorycount, gamefilecount;
 
 		// Copy the game directory if user requested it.
 		if (_Installer.Install_Game()) {
-	
+
 			// Create game subdirectories on target.
 			// NOTE 0: This could have been done whilst copying, but is more efficient to do here,
 			//			  considering that InstallerClass already has this information.
@@ -438,7 +438,7 @@ void CopyThreadClass::Thread_Function()
 			Copy_Directory (_Installer.Get_Source_WOL_Path (sourcepath), _Installer.Get_Target_WOL_Path (targetpath));
 		}
 
-		// Find out if the user wants to abort. At the same time disable the user's ability to abort 
+		// Find out if the user wants to abort. At the same time disable the user's ability to abort
 		// because the operations to follow are irreversible ie. this is the last chance for the
 		// user to abort.
 		if (Get_Abort (false)) goto abort;
@@ -503,7 +503,7 @@ void CopyThreadClass::Thread_Function()
 			// Give time for user to read status message.
 			Sleep (5000);
 		}
-		
+
 	} catch (const WideStringClass &errormessage) {
 
 		// Copy off the errormessage so that it can be interrogated by the thread creator.
@@ -524,7 +524,7 @@ void CopyThreadClass::Thread_Function()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const WideStringClass &targetpath)
 {
@@ -537,9 +537,9 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 	ERF				 erf;
 	WideStringClass sourcepathname;
 	StringClass		 multibytesourcepathname;
-	WIN32_FIND_DATA finddata;	
+	WIN32_FIND_DATA finddata;
 	HANDLE			 handle;
-	bool				 done = false;			
+	bool				 done = false;
 
 	hfdi = FDICreate (fdi_mem_alloc,	// Memory allocation function.
 							fdi_mem_free, 	// Memory free function.
@@ -561,7 +561,7 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 	sourcepathname += L"\\";
 	sourcepathname += wildcardname;
 	multibytesourcepathname = sourcepathname;
-	
+
 	// Find a source file.
 	// NOTE At least one file must be in the directory.
 	while ((handle = FindFirstFile (multibytesourcepathname, &finddata)) == INVALID_HANDLE_VALUE) {
@@ -588,11 +588,11 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
   				subtargetpath += filename;
 
 				_Installer.Log (subtargetpath);
-				
+
 				Copy_Directory (subsourcepath, subtargetpath);
 
   			} else {
-					
+
   				const wchar_t *cabextension = L".cab";
 
   				wchar_t extension [_MAX_EXT];
@@ -607,7 +607,7 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 					sourcepathbackslash += "\\";
 
   					Set_Target_Path (targetpath);
-					
+
 					// Copy the contents of the cabinet file to the target directory.
 					// If the function fails then throw a 'cabinet error'.
 					if (!FDICopy (hfdi,											// Handle to FDI context (created by FDICreate()).
@@ -616,16 +616,16 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
 									  0,												// Flags to control extract operation.
 									  notification_function,					// Ptr to a notification (status update) function.
 									  NULL,											// Ptr to a decryption function.
-									  NULL)) 
-									  
+									  NULL))
+
 									  // If failure was not due to user aborting then throw an error.
 									  if (!Is_Aborting()) FATAL_CAB_ERROR (erf.erfOper);
 
   				} else {
-		
+
   					// Update the name of the current file being copied.
 					WideStringClass statusmessage;
-					int64_t			 filesize;	
+					int64_t			 filesize;
 
 					statusmessage.Format (COPY_MESSAGE_FORMAT_STRING, TxWideStringClass (IDS_COPYING), filename);
 					Set_Status_Message (statusmessage);
@@ -638,10 +638,10 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
   					sourcepathname += filename;
   					targetpathname += L"\\";
   					targetpathname +=	filename;
-  				
+
 					filesize = ((((int64_t)MAXDWORD) + 1) * ((int64_t) finddata.nFileSizeHigh)) + ((int64_t) finddata.nFileSizeLow);
 					_Installer.Log (targetpathname, filesize);
-					
+
 					// If target should be overwitten...
 					if (Replace_File (sourcepathname, targetpathname)) {
 						Copy_File (sourcepathname, targetpathname);
@@ -651,15 +651,15 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
   				}
   			}
   		}
-		
+
 		if (Is_Aborting()) break;
-		
-		while (done = (FindNextFile (handle, &finddata) == 0)) { 
+
+		while (done = (FindNextFile (handle, &finddata) == 0)) {
 			if (GetLastError() == ERROR_NO_MORE_FILES) break;
 			if (!Retry()) FATAL_SYSTEM_ERROR;
 		}
   	}
-  	
+
 	while (!FindClose (handle)) {
 		if (!Retry()) FATAL_SYSTEM_ERROR;
 	}
@@ -678,25 +678,25 @@ void CopyThreadClass::Copy_Directory (const WideStringClass &sourcepath, const W
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const WideStringClass &targetpathname)
 {
 	const unsigned buffersize = 32768;
 
-	static char _buffer [buffersize]; 
-	
+	static char _buffer [buffersize];
+
 	StringClass		 multibytesourcepathname, multibytetargetpathname;
 	WideStringClass targetpath;
 	StringClass		 multibytetargetpath, multibytetemporarypathname;
-	HANDLE			 sourcefile, temporaryfile, targetfile; 
-	DWORD				 sourcebytecount, bytecount; 
+	HANDLE			 sourcefile, temporaryfile, targetfile;
+	DWORD				 sourcebytecount, bytecount;
 	WIN32_FIND_DATA sourcefiledata, targetfiledata;
 
 	multibytesourcepathname = sourcepathname;
 	multibytetargetpathname = targetpathname;
 
-	// Open the read file. 
+	// Open the read file.
 	while ((sourcefile = CreateFile (multibytesourcepathname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL)) == INVALID_HANDLE_VALUE) {
 		if (!Retry()) FATAL_SYSTEM_ERROR;
 	}
@@ -705,13 +705,13 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
 	targetpath = targetpathname;
 	Remove_Trailing_Name (targetpath);
 	if (!Generate_Temporary_Pathname (targetpath, multibytetemporarypathname)) FATAL_SYSTEM_ERROR;
-	
+
 	// Open the temporary file for writing.
 	temporaryfile = CreateFile (multibytetemporarypathname, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_WRITE_THROUGH, NULL);
 	if (temporaryfile == INVALID_HANDLE_VALUE) FATAL_SYSTEM_ERROR;
- 
-	do { 
-		
+
+	do {
+
 		// Abort the copying process?
 		if (Get_Abort (true)) break;
 
@@ -719,9 +719,9 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
 			if (!Retry()) FATAL_SYSTEM_ERROR;
 		}
 		if (!WriteFile (temporaryfile, _buffer, sourcebytecount, &bytecount, NULL)) FATAL_SYSTEM_ERROR;
-		BytesCopied += sourcebytecount;  
+		BytesCopied += sourcebytecount;
 
-	} while (sourcebytecount == buffersize); 
+	} while (sourcebytecount == buffersize);
 
 	// Close.
 	while (!CloseHandle (sourcefile)) {
@@ -736,7 +736,7 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
 	}
 	while (!FindClose (sourcefile)) {
 		if (!Retry()) FATAL_SYSTEM_ERROR;
-	}	
+	}
 
 	// Delete the original target file (if it exists).
 	targetfile = FindFirstFile (multibytetargetpathname, &targetfiledata);
@@ -776,17 +776,17 @@ void CopyThreadClass::Copy_File (const WideStringClass &sourcepathname, const Wi
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool CopyThreadClass::Replace_File (const FILETIME &sourcefiletime, DWORD sourcefilesize, const WideStringClass &targetpathname)
 {
-	StringClass		 multibytetargetpathname (targetpathname);	
+	StringClass		 multibytetargetpathname (targetpathname);
 	WIN32_FIND_DATA targetdata;
 	HANDLE			 handle;
-	int				 t;	
+	int				 t;
 
 	// Does the target file exist?
-	handle = FindFirstFile (multibytetargetpathname, &targetdata); 
+	handle = FindFirstFile (multibytetargetpathname, &targetdata);
 	if (handle == INVALID_HANDLE_VALUE) return (true);
 
 	// Test last write times.
@@ -809,7 +809,7 @@ bool CopyThreadClass::Replace_File (const FILETIME &sourcefiletime, DWORD source
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool CopyThreadClass::Replace_File (const WideStringClass &sourcepathname, const WideStringClass &targetpathname)
 {
@@ -818,7 +818,7 @@ bool CopyThreadClass::Replace_File (const WideStringClass &sourcepathname, const
 	WIN32_FIND_DATA	sourcedata, targetdata;
 	HANDLE				handle;
 	VS_FIXEDFILEINFO	sourceversion, targetversion;
-	int					t;	
+	int					t;
 
 	// Find source file. It must exist.
 	while ((handle = FindFirstFile (multibytesourcepathname, &sourcedata)) == INVALID_HANDLE_VALUE) {
@@ -826,7 +826,7 @@ bool CopyThreadClass::Replace_File (const WideStringClass &sourcepathname, const
 	}
 
 	// Does the target file exist?
-	handle = FindFirstFile (multibytetargetpathname, &targetdata); 
+	handle = FindFirstFile (multibytetargetpathname, &targetdata);
 	if (handle == INVALID_HANDLE_VALUE) return (true);
 
 	// Test version numbers (if they exist).
@@ -857,7 +857,7 @@ bool CopyThreadClass::Replace_File (const WideStringClass &sourcepathname, const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool CopyThreadClass::Can_Abort (bool lock)
 {
@@ -887,7 +887,7 @@ bool CopyThreadClass::Can_Abort (bool lock)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Set_Abort (bool abort)
 {
@@ -908,12 +908,12 @@ void CopyThreadClass::Set_Abort (bool abort)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool CopyThreadClass::Get_Abort (bool canabort)
 {
 	FastCriticalSectionClass::LockClass cs (SectionAbort);
-		
+
 	CanAbort = canabort;
 	if (Abort) IsAborting = true;
 	return (Abort);
@@ -930,7 +930,7 @@ bool CopyThreadClass::Get_Abort (bool canabort)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Add_Bytes_Copied (unsigned bytecount)
 {
@@ -950,7 +950,7 @@ void CopyThreadClass::Add_Bytes_Copied (unsigned bytecount)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 float CopyThreadClass::Get_Fraction_Complete()
 {
@@ -959,7 +959,7 @@ float CopyThreadClass::Get_Fraction_Complete()
 	float fraction;
 
 	fraction = ((double) BytesCopied) / ((double) BytesToCopy);
- 
+
 	// Clamp to valid range.
 	fraction = MAX (0.0f, MIN (1.0f, fraction));
 
@@ -968,7 +968,7 @@ float CopyThreadClass::Get_Fraction_Complete()
 
 
 /***********************************************************************************************
- * CopyThreadClass::Set\Get_Target_Path --																	  *	
+ * CopyThreadClass::Set\Get_Target_Path --																	  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -977,26 +977,26 @@ float CopyThreadClass::Get_Fraction_Complete()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Set_Target_Path (const WideStringClass &targetpath)
 {
 	FastCriticalSectionClass::LockClass cs (SectionTargetPath);
-	
+
 	TargetPath = targetpath;
 }
 
 wchar_t *CopyThreadClass::Get_Target_Path (WideStringClass &targetpath)
 {
 	FastCriticalSectionClass::LockClass cs (SectionTargetPath);
-	
+
 	targetpath = TargetPath;
 	return (targetpath.Peek_Buffer());
 }
 
 
 /***********************************************************************************************
- * CopyThreadClass::Set\Get_Status_Message --																  *	
+ * CopyThreadClass::Set\Get_Status_Message --																  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1005,26 +1005,26 @@ wchar_t *CopyThreadClass::Get_Target_Path (WideStringClass &targetpath)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Set_Status_Message (const WideStringClass &statusmessage)
 {
 	FastCriticalSectionClass::LockClass cs (SectionStatusMessage);
-	
+
 	StatusMessage = statusmessage;
 }
 
 wchar_t *CopyThreadClass::Get_Status_Message (WideStringClass &statusmessage)
 {
 	FastCriticalSectionClass::LockClass cs (SectionStatusMessage);
-	
+
 	statusmessage = StatusMessage;
 	return (statusmessage.Peek_Buffer());
 }
 
 
 /***********************************************************************************************
- * CopyThreadClass::Set\Get_Error_Message --																	  *	
+ * CopyThreadClass::Set\Get_Error_Message --																	  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1033,26 +1033,26 @@ wchar_t *CopyThreadClass::Get_Status_Message (WideStringClass &statusmessage)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Set_Error_Message (const WideStringClass &errormessage)
 {
 	FastCriticalSectionClass::LockClass cs (SectionErrorMessage);
-	
+
 	ErrorMessage = errormessage;
 }
 
 wchar_t *CopyThreadClass::Get_Error_Message (WideStringClass &errormessage)
 {
 	FastCriticalSectionClass::LockClass cs (SectionErrorMessage);
-	
+
 	errormessage = ErrorMessage;
 	return (errormessage.Peek_Buffer());
 }
 
 
 /***********************************************************************************************
- * CopyThreadClass::Set\Get_Status --																			  *	
+ * CopyThreadClass::Set\Get_Status --																			  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1061,25 +1061,25 @@ wchar_t *CopyThreadClass::Get_Error_Message (WideStringClass &errormessage)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CopyThreadClass::Set_Status (StatusEnum status)
 {
 	FastCriticalSectionClass::LockClass cs (SectionStatus);
-	
+
 	Status = status;
 }
 
 CopyThreadClass::StatusEnum CopyThreadClass::Get_Status()
 {
 	FastCriticalSectionClass::LockClass cs (SectionStatus);
-	
+
 	return (Status);
 }
 
 
 /***********************************************************************************************
- * CopyThreadClass::Retry --																						  *	
+ * CopyThreadClass::Retry --																						  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1088,7 +1088,7 @@ CopyThreadClass::StatusEnum CopyThreadClass::Get_Status()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool CopyThreadClass::Retry()
 {

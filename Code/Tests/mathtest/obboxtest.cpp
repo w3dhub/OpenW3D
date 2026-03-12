@@ -79,19 +79,19 @@ static Matrix3 _RotateZ90
 ** Test Data for OBBox->Triangle collision
 **
 *********************************************************************/
-class OBBoxTriTestClass 
+class OBBoxTriTestClass
 {
 public:
 	OBBoxClass		Box;
 	Vector3			BoxMove;
-	Vector3			V0;		
+	Vector3			V0;
 	Vector3			V1;
 	Vector3			V2;
 	Vector3			N;
 	TriClass			Tri;
 	float				Fraction;
 	bool				StartBad;
-	
+
 	OBBoxTriTestClass
 	(
 		const Vector3 &c,					// center of box
@@ -102,7 +102,7 @@ public:
 		const Vector3 &v1,				// v1 of triangle
 		const Vector3 &v2,				// v2 of triangle
 		float frac,							// expected fraction
-		bool sol								// expected start solid 
+		bool sol								// expected start solid
 	)
 	{
 		BoxMove = m;
@@ -145,7 +145,7 @@ OBBoxTriTestClass Test0
 
 OBBoxTriTestClass Test1
 (
-	Vector3(3,0,0),			
+	Vector3(3,0,0),
 	Vector3(1,2,1),
 	Matrix3(1),
 	Vector3(0,-2,0),
@@ -178,7 +178,7 @@ OBBoxTriTestClass Test3
 	Vector3(-4,-4,-1),		// into a polygon in y-z plane
 	Vector3(-2,-4,5),
 	Vector3(0,-4,1),
-	0.0f,						
+	0.0f,
 	false
 );
 
@@ -214,11 +214,11 @@ OBBoxTriTestClass Test6
 	Vector3(1.5f,1.5f,1.5f),
 	Matrix3(1),
 	Vector3(4,-4,0),
-	
+
 	Vector3(-9,-4,-1),		// into a polygon in y-z plane just barely hitting it
 	Vector3(-8,-4,5),
 	Vector3(-3.999f,-4,0),	// (-4,-4,0) would just "touch" (see test5)
-	
+
 	0.25f,						// should move 25%
 	false
 );
@@ -226,13 +226,13 @@ OBBoxTriTestClass Test6
 OBBoxTriTestClass Test7
 (
 	Vector3(0,0,0),			// This is a case where the box starts out intersecting
-	Vector3(5,5,5),	
+	Vector3(5,5,5),
 	Matrix3(1),
 	Vector3(4,4,0),
 	Vector3(1,4,-1),
 	Vector3(2,4,5),
 	Vector3(5,4,0),
-	0.0f,					
+	0.0f,
 	true
 );
 
@@ -242,30 +242,30 @@ OBBoxTriTestClass Test8
 	Vector3(1.5,1,1),			// extent
 	Matrix3(1),					// basis
 	Vector3(3,0,0),			// move
-	
+
 	Vector3(1,2,0),			// v0
 	Vector3(3,4,5),			// v1
 	Vector3(4,5,-1),			// v2
-	0.66666667f,					
+	0.66666667f,
 	false
 );
 
 OBBoxTriTestClass Test9
 (
-	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z 
+	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z
 	Vector3(WWMATH_SQRT2/2.0,WWMATH_SQRT2/2.0,1),
 	_RotateZ45,
 	Vector3(4,0,0),
 
 	Vector3(3,2,-1),		// triangle blocking the move at x=3 (hitting back side)
-	Vector3(3,0,1),		
+	Vector3(3,0,1),
 	Vector3(3,-2,-1),
 
 	0.5f,						// hitting another box edge-to-face halfway through the move
 	false
 );
 
-OBBoxTriTestClass * OBBoxTriTestCases[] = 
+OBBoxTriTestClass * OBBoxTriTestCases[] =
 {
 	&Test0,
 	&Test1,
@@ -320,7 +320,7 @@ void test_obb_tri(void)
 
 	// now time and test the routine
 	for (int i=0; i<numtests; i++) {
-		
+
 		testcase = OBBoxTriTestCases[i];
 
 		result.Fraction = 1.0;
@@ -334,7 +334,7 @@ void test_obb_tri(void)
 										testcase->Tri,
 										Vector3(0,0,0),
 										&result);
-	
+
 		cycles = Get_CPU_Clock() - cycles;
 		totalcycles += cycles;
 		if ((WWMath::Fabs(testcase->Fraction - result.Fraction) > WWMATH_EPSILON) ||
@@ -362,7 +362,7 @@ void test_obb_tri(void)
 	v0.Set(0,1,0);
 	v1.Set(-1,-1,0);
 	v2.Set(1,1,0);
-	
+
 	testtri.V[0] = &v0;
 	testtri.V[1] = &v1;
 	testtri.V[2] = &v2;
@@ -443,7 +443,7 @@ float brute_force_cast_obb_tri
 {
 	float istart = 0.0f;
 	float iend = 1.0f;
-	
+
 	while (iend - istart > WWMATH_EPSILON/2.0f) {
 		float icenter = (iend + istart) / 2.0f;
 		OBBoxClass testbox = box;
@@ -474,7 +474,7 @@ float brute_force_cast_obb_tri
 void brute_force_obb_tri_test(int test_count)
 {
 	Print_Title("Brute Force Testing OBBox->Tri collision.");
-	
+
 	Vector3 v[3];
 	Vector3 n;
 	OBBoxClass box;
@@ -485,7 +485,7 @@ void brute_force_obb_tri_test(int test_count)
 	tri.V[1] = &v[1];
 	tri.V[2] = &v[2];
 	tri.N = &n;
-	
+
 	int fail_count = 0;
 	int startbad_count = 0;
 	int startbad_fail_count = 0;
@@ -531,7 +531,7 @@ void brute_force_obb_tri_test(int test_count)
 		new_center.Y = (v[0].Y + v[1].Y + v[2].Y) / 3.0f;
 		new_center.Z = (v[0].Z + v[1].Z + v[2].Z) / 3.0f;
 		move = new_center - box.Center;
-		
+
 		// sweep box into tri!
 		CastResultStruct result;
 		result.ComputeContactPoint = true;
@@ -586,8 +586,8 @@ void brute_force_obb_tri_test(int test_count)
 				CastResultStruct redo_result;
 				redo_result.ComputeContactPoint = true;
 				CollisionMath::Collide(box,move,tri,Vector3(0,0,0),&redo_result);
-			} 
-		}			
+			}
+		}
 	}
 	printf("\n");
 	int passes = test_count - (startbad_fail_count + fail_count);
@@ -624,7 +624,7 @@ public:
 	Vector3			Move1;
 	float				Fraction;
 	bool				StartBad;
-	
+
 	OBBoxTestClass
 	(
 		const Vector3 & c0,		// center of box0
@@ -638,7 +638,7 @@ public:
 		const Vector3 & m1,		// move for box1
 
 		float frac,					// expected fraction
-		bool sol						// expected start solid 
+		bool sol						// expected start solid
 	) :
 		Box0(c0,e0,b0),
 		Move0(m0),
@@ -661,7 +661,7 @@ OBBoxTestClass BTest0
 	Vector3(1,1,1),		// extent
 	Matrix3(1),				// basis
 	Vector3(0,0,0),		// move
-	0.25f,					
+	0.25f,
 	false
 );
 
@@ -672,10 +672,10 @@ OBBoxTestClass BTest1
 	Matrix3(1),
 	Vector3(4,-4,0),
 
-	Vector3(-5.1,-5,0),		
-	Vector3(1,1,1),		
-	Matrix3(1),				
-	Vector3(0,0,0),		
+	Vector3(-5.1,-5,0),
+	Vector3(1,1,1),
+	Matrix3(1),
+	Vector3(0,0,0),
 
 	1.0f,						// should just barely go by (touches)
 	false
@@ -688,26 +688,26 @@ OBBoxTestClass BTest2
 	Matrix3(1),
 	Vector3(4,-4,0),
 
-	Vector3(9.5,0,0),		
-	Vector3(1,6,1),		
-	Matrix3(1),				
-	Vector3(0,0,0),		
+	Vector3(9.5,0,0),
+	Vector3(1,6,1),
+	Matrix3(1),
+	Vector3(0,0,0),
 
 	0.0f,						// startbad
 	true
 );
 
-OBBoxTestClass BTest3	
+OBBoxTestClass BTest3
 (
-	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z 
+	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z
 	Vector3(WWMATH_SQRT2/2.0,WWMATH_SQRT2/2.0,1),
 	_RotateZ45,
 	Vector3(4,0,0),
 
 	Vector3(4,0,0),		// axis-aligned box blocking the move along the x-axis
-	Vector3(1,3,1),		
-	Matrix3(1),				
-	Vector3(0,0,0),		
+	Vector3(1,3,1),
+	Matrix3(1),
+	Vector3(0,0,0),
 
 	0.5f,						// hitting another box edge-to-face halfway through the move
 	false
@@ -715,15 +715,15 @@ OBBoxTestClass BTest3
 
 OBBoxTestClass BTest4
 (
-	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z 
+	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z
 	Vector3(WWMATH_SQRT2/2.0,WWMATH_SQRT2/2.0,1),
 	_RotateZ45,
 	Vector3(0,4,0),
 
 	Vector3(0,4,0),		// axis-aligned box blocking the move along the x-axis
-	Vector3(3,1,1),		
-	Matrix3(1),				
-	Vector3(0,0,0),		
+	Vector3(3,1,1),
+	Matrix3(1),
+	Vector3(0,0,0),
 
 	0.5f,						// hitting another box edge-to-face halfway through the move
 	false
@@ -731,21 +731,21 @@ OBBoxTestClass BTest4
 
 OBBoxTestClass BTest5
 (
-	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z 
+	Vector3(0,0,0),		// Box with diagonal y-z length of 1, rotated 45 about z
 	Vector3(WWMATH_SQRT2/2.0,WWMATH_SQRT2/2.0,1),
 	_RotateZ45,
 	Vector3(0,-4,0),
 
 	Vector3(0,-4,0),		// axis-aligned box blocking the move along the x-axis
-	Vector3(3,1,1),		
-	Matrix3(1),				
-	Vector3(0,0,0),		
+	Vector3(3,1,1),
+	Matrix3(1),
+	Vector3(0,0,0),
 
 	0.5f,						// hitting another box edge-to-face halfway through the move
 	false
 );
 
-OBBoxTestClass * OBBoxTestCases[] = 
+OBBoxTestClass * OBBoxTestCases[] =
 {
 	&BTest0,
 	&BTest1,
@@ -793,7 +793,7 @@ void test_obb_obb(void)
 
 	// now time and test the routine
 	for (int i=0; i<numtests; i++) {
-		
+
 		testcase = OBBoxTestCases[i];
 
 		result.Fraction = 1.0;
@@ -807,10 +807,10 @@ void test_obb_obb(void)
 										testcase->Box1,
 										testcase->Move1,
 										&result);
-	
+
 		cycles = Get_CPU_Clock() - cycles;
 		totalcycles += cycles;
-	
+
 		if ((WWMath::Fabs(testcase->Fraction - result.Fraction) > WWMATH_EPSILON) ||
 			 (testcase->StartBad != result.StartBad))
 		{
@@ -891,7 +891,7 @@ float brute_force_cast_obb_obb
 {
 	float istart = 0.0f;
 	float iend = 1.0f;
-	
+
 	while (iend - istart > WWMATH_EPSILON) {
 		float icenter = (iend + istart) / 2.0f;
 		OBBoxClass testbox = box0;
@@ -922,7 +922,7 @@ float brute_force_cast_obb_obb
 void brute_force_obb_obb_test(int test_count)
 {
 	Print_Title("Brute Force Testing OBBox->OBBox collision.");
-	
+
 	OBBoxClass box0;
 	OBBoxClass box1;
 	Vector3 move0;
@@ -942,7 +942,7 @@ void brute_force_obb_obb_test(int test_count)
 
 		box0.Init_Random(0.25f,3.0f);
 		box1.Init_Random(0.25f,3.0f);
-		
+
 		box0.Center.X = WWMath::Random_Float(-10.0f,10.0f);
 		box0.Center.Y = WWMath::Random_Float(-10.0f,10.0f);
 		box0.Center.Z = WWMath::Random_Float(-10.0f,10.0f);
@@ -988,7 +988,7 @@ void brute_force_obb_obb_test(int test_count)
 				fraction_error_count++;
 				if (error > max_error) max_error = error;
 			}
-			
+
 			// verify that they are not intersecting now
 			// if the allowed move is smaller than epsilon, we skip this and don't move
 			if (result.Fraction > WWMATH_EPSILON) {
@@ -1023,13 +1023,13 @@ void brute_force_obb_obb_test(int test_count)
 					CastResultStruct redo_result;
 					redo_result.ComputePoint = true;
 					CollisionMath::Collide(box0,move0,box1,Vector3(0,0,0),&redo_result);
-				}			
+				}
 #endif
 				printf("x");
 			} else {
 				printf(".");
 			}
-		}			
+		}
 	}
 	printf("\n");
 

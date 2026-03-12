@@ -111,7 +111,7 @@ public:
 
 	////////////////////////////////////////////////////////////
 	//	Public operators
-	////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////
 	bool operator== (const char *rvalue) const;
 	bool operator!= (const char *rvalue) const;
 
@@ -142,7 +142,7 @@ public:
 	////////////////////////////////////////////////////////////
 	int			Compare (const char *string) const;
 	int			Compare_No_Case (const char *string) const;
-	
+
 	inline size_t	Get_Length (void) const;
 	bool			Is_Empty (void) const;
 
@@ -228,12 +228,12 @@ private:
 ///////////////////////////////////////////////////////////////////
 inline const StringClass &
 StringClass::operator= (const StringClass &string)
-{	
+{
 	size_t len = string.Get_Length();
 	Uninitialised_Grow(len+1);
 	Store_Length(len);
 
-	::memcpy (m_Buffer, string.m_Buffer, (len+1) * sizeof (char));		
+	::memcpy (m_Buffer, string.m_Buffer, (len+1) * sizeof (char));
 	return (*this);
 
 }
@@ -250,7 +250,7 @@ StringClass::operator= (const char *string)
 		Uninitialised_Grow (len+1);
 		Store_Length (len);
 
-		::memcpy (m_Buffer, string, (len + 1) * sizeof (char));		
+		::memcpy (m_Buffer, string, (len + 1) * sizeof (char));
 	}
 
 	return (*this);
@@ -502,7 +502,7 @@ StringClass::Erase(size_t start_index, size_t char_count)
 	size_t len = Get_Length ();
 
 	if (start_index < len) {
-		
+
 		if (char_count > (len - start_index)) {
 			char_count = len - start_index;
 		}
@@ -563,7 +563,7 @@ StringClass::operator+= (char ch)
 
 	m_Buffer[cur_len]			= ch;
 	m_Buffer[cur_len + 1]	= m_NullChar;
-	
+
 	if (ch != m_NullChar) {
 		Store_Length (cur_len + 1);
 	}
@@ -620,7 +620,7 @@ StringClass::operator+= (const StringClass &string)
 		//
 		//	Copy the new string onto our the end of our existing buffer
 		//
-		::memcpy (&m_Buffer[cur_len], (const char *)string, (src_len + 1) * sizeof (char));				
+		::memcpy (&m_Buffer[cur_len], (const char *)string, (src_len + 1) * sizeof (char));
 	}
 
 	return (*this);
@@ -673,9 +673,9 @@ StringClass::Get_Allocated_Length (void) const
 	//
 	//	Read the allocated length from the header
 	//
-	if (m_Buffer != m_EmptyString) {		
+	if (m_Buffer != m_EmptyString) {
 		HEADER *header		= Get_Header ();
-		allocated_length	= header->allocated_length;		
+		allocated_length	= header->allocated_length;
 	}
 
 	return allocated_length;
@@ -695,13 +695,13 @@ StringClass::Get_Length (void) const
 	size_t length = 0;
 
 	if (m_Buffer != m_EmptyString) {
-		
+
 		//
 		//	Read the length from the header
 		//
 		HEADER *header	= Get_Header ();
 		length			= header->length;
-		
+
 		//
 		//	Hmmm, a zero length was stored in the header,
 		// we better manually get the string length.
@@ -732,7 +732,7 @@ StringClass::Set_Buffer_And_Allocated_Length (char *buffer, size_t length)
 	//
 	if (m_Buffer != m_EmptyString) {
 		Store_Allocated_Length (length);
-		Store_Length (0);		
+		Store_Length (0);
 	} else {
 		WWASSERT (length == 0);
 	}
@@ -751,7 +751,7 @@ StringClass::Allocate_Buffer (size_t length)
 	// bytes required to hold the header.
 	//
 	char *buffer = new char[(sizeof (char) * length) + sizeof (StringClass::_HEADER)];
-	
+
 	//
 	//	Fill in the fields of the header
 	//

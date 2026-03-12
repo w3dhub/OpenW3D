@@ -69,7 +69,7 @@ public:
 		Z_ROTATION,				// Automatic rotation of camera around Z-axis.
 		VIRTUAL_TRACKBALL		// Camera rotation with virtual trackball under user control.
 	};
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ public:
 	//	Selection management
 	//
 	SimpleSceneClass *Peek_Scene()									{ return (Scene); }
-	CameraClass		  *Peek_Camera()									{ return (Camera); }	
+	CameraClass		  *Peek_Camera()									{ return (Camera); }
 	void					Set_Model (const char *model_name);
 	void					Set_Model (RenderObjClass *new_model);
 	RenderObjClass	  *Peek_Model()									{ return (Model); }

@@ -65,7 +65,7 @@ class HeapNodeClass
 
 		// This is pure virtual so that any type of key can be used as long as it uses the comparison operators.
 		virtual Key_Type	Heap_Key (void) const = 0;
-		
+
 };
 
 // WARNING!
@@ -110,19 +110,19 @@ class BinaryHeapClass
 			::memset (Elements, 0, sizeof (HeapNodeClass<Key_Type> *) * Max_Number_Of_Elements);
 			Number_Of_Elements = 0;
 		}
-		
+
 		// Reallocate an array large enough to hold the elements
 		void Resize_Array (unsigned int new_size)
 		{
 			// Start fresh
 			Release_Array ();
-			
+
 			// Reallocate
 			Elements						= new HeapNodeClass<Key_Type> *[new_size];
 			Max_Number_Of_Elements	= new_size;
 			Number_Of_Elements		= 0;
 			Own_Array					= true;
-			
+
 			// Initialize to NULL
 			::memset (Elements, 0, sizeof (HeapNodeClass<Key_Type> *) * new_size);
 			return ;
@@ -180,8 +180,8 @@ class BinaryHeapClass
 			Elements[i] = node;
 			Elements[i]->Set_Heap_Location(i);
 		}
-		
-		// Move the element up in the tree if necessary.  Use this if the key value becomes smaller when it is 
+
+		// Move the element up in the tree if necessary.  Use this if the key value becomes smaller when it is
 		// already in the heap.
 		void Percolate_Up(unsigned int location)
 		{
@@ -243,7 +243,7 @@ class BinaryHeapClass
 					Elements[i] = Elements[child];
 					Elements[i]->Set_Heap_Location(i);
 				}
-				else 
+				else
 				{
 					break;
 				}

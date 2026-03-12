@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/CopyDialog.h $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/12/02 7:32p                 $* 
- *                                                                                             * 
- *                    $Revision:: 9                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/CopyDialog.h $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/12/02 7:32p                 $*
+ *                                                                                             *
+ *                    $Revision:: 9                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _COPY_DIALOG_H
 #define _COPY_DIALOG_H
@@ -82,7 +82,7 @@ class CopyDialogClass : public InstallMenuDialogClass
 		CDTimerClass <SafeTimerClass>	*CountdownTimer;
 		TTimerClass <SafeTimerClass>	*FlashTimer;
 		MessageBoxClass					*FileSystemErrorPopup;
-		bool									 AddedModels;	
+		bool									 AddedModels;
 };
 
 

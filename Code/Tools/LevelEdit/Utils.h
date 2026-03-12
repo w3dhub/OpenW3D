@@ -61,7 +61,7 @@
 			if (pobject) {							\
 				pobject->Release_Ref ();		\
 			}											\
-			
+
 #define MEMBER_RELEASE(pmember)				\
 			SAFE_RELEASE_REF(pmember);			\
 			pmember = NULL;						\

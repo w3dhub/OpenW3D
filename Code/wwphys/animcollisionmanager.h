@@ -57,7 +57,7 @@ class PushRecordClass;
 ** AnimCollisionManagerClass
 ** The job of this class is to handle collisions which are caused by animations.  Some examples
 ** of this are: elevators, doors, and "cinematic events".  StaticAnimPhysClass and DynamicAnimPhysClass
-** both use this code to handle collisions with the dynamic objects in the scene.  
+** both use this code to handle collisions with the dynamic objects in the scene.
 */
 class AnimCollisionManagerClass
 {
@@ -87,10 +87,10 @@ public:
 		ANIMATE_TARGET,
 		ANIMATE_MANUAL,
 	};
-	
+
 	void											Set_Animation_Mode(AnimModeType mode);
 	AnimModeType								Get_Animation_Mode(void);
-	
+
 	void											Set_Animation(const char * anim_name);
 	HAnimClass *								Peek_Animation(void);
 
@@ -149,7 +149,7 @@ protected:
 
 		CollideableObjClass &				operator = (const CollideableObjClass & that);
 		bool										operator == (const CollideableObjClass & ) const { return false; }
-		bool										operator != (const CollideableObjClass & ) const { return true; }		
+		bool										operator != (const CollideableObjClass & ) const { return true; }
 
 		void										Set_Collision_Object(RenderObjClass * mesh);
 		RenderObjClass *						Peek_Collision_Object(void)						{ return CollisionMesh; }
@@ -157,10 +157,10 @@ protected:
 		void										Cache_Start_Transform(void)						{ StartTransform = CollisionMesh->Get_Transform(); }
 		void										Cache_End_Transform(void)							{ EndTransform = CollisionMesh->Get_Transform(); }
 		Matrix3D &								Get_Start_Transform(void)							{ return StartTransform; }
-		Matrix3D &								Get_End_Transform(void)								{ return EndTransform; }	
+		Matrix3D &								Get_End_Transform(void)								{ return EndTransform; }
 		void										Install_Start_Transform(void)						{ CollisionMesh->Set_Transform(StartTransform); }
 		void										Install_End_Transform(void)						{ CollisionMesh->Set_Transform(EndTransform); }
-		
+
 		void										Intersect_Scene(int colgroup,NonRefPhysListClass * list);
 		int										Clear_Collision_Bits(void);
 		void										Restore_Collision_Bits(int oldbits);
@@ -171,10 +171,10 @@ protected:
 		Matrix3D									EndTransform;
 	};
 
-	
+
 	/*
 	** Internal functions
-	*/	
+	*/
 	bool											Is_Collision_Model(RenderObjClass * model);
 	int											Recursive_Count_Collision_Models(RenderObjClass * model);
 	void											Recursive_Collect_Collision_Models(RenderObjClass * model);
@@ -185,7 +185,7 @@ protected:
 	void											Internal_Set_Animation(const char * anim_name);
 
 	/*
-	** Parent reference 
+	** Parent reference
 	*/
 	PhysClass &									Parent;
 
@@ -193,10 +193,10 @@ protected:
 	** Animation support
 	*/
 	AnimModeType								AnimationMode;		// current animation mode and parameters.
-	float											TargetFrame;		
+	float											TargetFrame;
 	float											LoopStart;
 	float											LoopEnd;
-	
+
 	HAnimClass *								CurAnimation;		// current animation state.
 	float											CurFrame;
 	HAnimClass *								PrevAnimation;		// temporary variable used in timestep
@@ -208,13 +208,13 @@ protected:
 	RiderManagerClass							RiderManager;
 
 	/*
-	** Animated collision support 
+	** Animated collision support
 	*/
 	CollisionModeType							CollisionMode;
 	DynamicVectorClass<CollideableObjClass>	CollisionMeshes;
 
 	/*
-	** Revert list, In the case that we have to revert our animation state, 
+	** Revert list, In the case that we have to revert our animation state,
 	** we have to undo all changes to external objects.
 	*/
 	PushRecordClass *							PushList;
@@ -254,7 +254,7 @@ public:
 ** The first parameter to the macro is the type-name of your class (e.g. StaticAnimPhysDefClass) and
 ** the second parameter is the name of the member variable which is the animation manager (e.g. AnimManager).
 */
-#ifdef PARAM_EDITING_ON																														
+#ifdef PARAM_EDITING_ON
 
 #define	ANIMCOLLISIONMANAGERDEF_EDITABLE_PARAMS( class_name, member_name )												\
   	PARAM_SEPARATOR( class_name, "Animation Settings");																						\
@@ -277,9 +277,9 @@ public:
 
 #else
 
-#define	ANIMCOLLISIONMANAGERDEF_EDITABLE_PARAMS( class_name, member_name )															
+#define	ANIMCOLLISIONMANAGERDEF_EDITABLE_PARAMS( class_name, member_name )
 
-#endif																																		
+#endif
 
 
 

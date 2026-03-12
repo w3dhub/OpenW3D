@@ -125,22 +125,22 @@ CheckinStyleDialogClass::OnCommand
 //
 INT_PTR
 CheckinStyleDialogClass::DoModal (void)
-{	
+{
 	UINT ret_code = IDC_UPDATE_NOW;
 
 	// Get the cached 'checkin' style if possible
 	CString checkin_style = theApp.GetProfileString (CONFIG_KEY, CHECKIN_STYLE_VALUE, REG_NOT_CACHED);
 	if (checkin_style.CompareNoCase (REG_NOT_CACHED) == 0) {
-		
+
 		// Allow the base class to show the dialog
 		ret_code = CDialog::DoModal ();
 	} else {
 		if (checkin_style.CompareNoCase (REG_LATER) == 0) {
 			ret_code = IDC_UPDATE_LATER;
-		}		
+		}
 	}
 
-	// Return the dialog control's ID	
+	// Return the dialog control's ID
 	return ret_code;
 }
 
@@ -150,7 +150,7 @@ CheckinStyleDialogClass::DoModal (void)
 // OnInitDialog
 //
 BOOL
-CheckinStyleDialogClass::OnInitDialog (void) 
+CheckinStyleDialogClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
 	CDialog::OnInitDialog ();

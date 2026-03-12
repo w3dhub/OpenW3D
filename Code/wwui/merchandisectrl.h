@@ -73,7 +73,7 @@ public:
 	//	Configuration
 	//
 	int				Get_Cost (void) const		{ return Cost; }
-	//const char *	Get_Texture (void) const	{ return TextureName; }	
+	//const char *	Get_Texture (void) const	{ return TextureName; }
 	void				Set_Cost (int cost)			{ Cost = cost; Set_Dirty (); }
 
 	void				Set_Texture (const char *texture_name);

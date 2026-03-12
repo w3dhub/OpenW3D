@@ -54,11 +54,11 @@ class WOLGameInfo
 		enum {MAX_TEXT_LENGTH = 32};
 
 		WOLGameInfo(void);
-		
+
 		WOLGameInfo(const cGameData& theGame);
-		
+
 		WOLGameInfo(const RefPtr<WWOnline::ChannelData>& channel);
-		
+
 		~WOLGameInfo(void);
 
 		void Reset(void);
@@ -68,7 +68,7 @@ class WOLGameInfo
 
 		bool IsMapValid(void) const
 			{return mIsMapValid;}
-		
+
 		void ImportFromGame(const cGameData& theGame);
 
 		void ImportFromChannel(const RefPtr<WWOnline::ChannelData>& channel);
@@ -98,43 +98,43 @@ class WOLGameInfo
 
 		unsigned int NumPlayers(void) const
 			{return mNumPlayers;}
-		
+
 		unsigned int ClanID1(void) const
 			{return mClanID1;}
 
 		unsigned int ClanID2(void) const
 			{return mClanID2;}
-		
+
 		bool IsLaddered(void) const
 			{return mIsLaddered;}
-		
+
 		bool IsPassworded(void) const
 			{return mIsPassworded;}
-		
+
 		bool IsQuickmatch(void) const
 			{return mIsQuickmatch;}
-		
+
 		bool IsDedicated(void) const
 			{return mIsDedicated;}
-		
+
 		bool IsFriendlyFire(void) const
 			{return mIsFriendlyFire;}
-		
+
 		bool IsFreeWeapons(void) const
 			{return mIsFreeWeapons;}
-		
+
 		bool IsTeamRemix(void) const
 			{return mIsTeamRemix;}
-		
+
 		bool IsTeamChange(void) const
 			{return mIsTeamChange;}
-		
+
 		bool IsClanGame(void) const
 			{return mIsClanGame;}
-		
+
 		bool IsRepairBuildings(void) const
 			{return mIsRepairBuildings;}
-		
+
 		bool IsDriverGunner(void) const
 			{return mIsDriverGunner;}
 
@@ -144,7 +144,7 @@ class WOLGameInfo
 		int PingTime(void) const
 			{return mPingTime;}
 
-		// Is the clan competing in the game.		
+		// Is the clan competing in the game.
 		bool IsClanCompeting(unsigned int clanID) const;
 
 		bool IsClanGameOpen(void) const;
@@ -170,10 +170,10 @@ class WOLGameInfo
 		unsigned int mMinPlayers;
 		unsigned int mMaxPlayers;
 		unsigned int mNumPlayers;
-		
+
 		unsigned int mClanID1;
 		unsigned int mClanID2;
-		
+
 		bool mIsMod;
 		bool mIsLaddered;
 		bool mIsPassworded;
@@ -187,7 +187,7 @@ class WOLGameInfo
 		bool mIsRepairBuildings;
 		bool mIsDriverGunner;
 		bool mSpawnWeapons;
-		
+
 		int mPingTime;
 	};
 

@@ -92,7 +92,7 @@ public:
 	//	ID Support
 	//
 	static void				Assign_Unique_IDs (void);
-	
+
 	//
 	//	From SaveLoadSubSystemClass
 	//
@@ -110,19 +110,19 @@ protected:
 	bool						Save (ChunkSaveClass &csave);
 	bool						Load (ChunkLoadClass &cload);
 	void						On_Post_Load (void);
-	const char *			Name (void) const					{ return "HeightfieldMgrClass"; }	
+	const char *			Name (void) const					{ return "HeightfieldMgrClass"; }
 
 	//
 	//	Save load support
 	//
 	void						Load_Variables (ChunkLoadClass &cload);
-	
+
 private:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private member data
 	///////////////////////////////////////////////////////////////////

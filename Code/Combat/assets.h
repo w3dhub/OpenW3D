@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/assets.h                              $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 8/31/01 8:03p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 31                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/assets.h                              $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 8/31/01 8:03p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 31                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	ASSETS_H
@@ -68,7 +68,7 @@ void Get_Render_Obj_Name_From_Filename( StringClass& new_name, const char * file
 ** with filenames that come from preset definitions.
 */
 RenderObjClass * Create_Render_Obj_From_Filename( const char * filename );
-TextureClass * Get_Texture_From_Filename(	const char * filename, 
+TextureClass * Get_Texture_From_Filename(	const char * filename,
 														TextureClass::MipCountType mip_level_count=TextureClass::MIP_LEVELS_ALL );
 
 /*

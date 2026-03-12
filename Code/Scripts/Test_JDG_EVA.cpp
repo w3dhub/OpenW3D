@@ -50,7 +50,7 @@
 	virtual	void	Timer_Expired( GameObject * obj, int timer_id ) {}
 	virtual	void	Animation_Complete( GameObject * obj, const char * animation_name ) {}
 	virtual	void	Poked( GameObject * obj, GameObject * poker ) {}
-	virtual	void	Entered( GameObject * obj, GameObject * enterer ) {}		
+	virtual	void	Entered( GameObject * obj, GameObject * enterer ) {}
 	virtual	void	Exited( GameObject * obj, GameObject * exiter ) {}
 */
 

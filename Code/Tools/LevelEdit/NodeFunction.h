@@ -64,7 +64,7 @@ class NodeFunctionClass
 		//
 		//	Public operators/methods
 		//
-		
+
 		//
 		//	Overrides
 		//

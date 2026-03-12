@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/ww3d2/motchan.h 5     11/29/01 1:07p Jani_p $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando / G 3D Library                                      * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/ww3d2/motchan.h                              $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/28/01 5:43p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 5                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando / G 3D Library                                      *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/ww3d2/motchan.h                              $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/28/01 5:43p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 5                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -70,7 +70,7 @@ public:
 	MotionChannelClass(void);
 	~MotionChannelClass(void);
 
-	bool	Load_W3D(ChunkLoadClass & cload);		
+	bool	Load_W3D(ChunkLoadClass & cload);
 	WWINLINE int Get_Type(void) const { return Type; }
 	WWINLINE int Get_Pivot(void) const { return PivotIdx; }
 	WWINLINE void Set_Pivot(int idx) { PivotIdx=idx; }
@@ -114,7 +114,7 @@ WWINLINE void MotionChannelClass::set_identity(float * setvec) const
 /******************************************************************************
 
 	BitChannelClass is used to store a boolean "on/off" value for each frame
-	in an animation.  
+	in an animation.
 
 ******************************************************************************/
 
@@ -154,12 +154,12 @@ WWINLINE int BitChannelClass::Get_Bit(int frame) const
 		return DefaultVal;
 
 	} else {
-	
+
 		int bit = frame - FirstFrame;
 
 		uint8 mask = (uint8)(1 << (bit % 8));
 		return ((*(Bits + (bit/8)) & mask) != 0);
-		
+
 	}
 }
 
@@ -181,7 +181,7 @@ public:
 	TimeCodedMotionChannelClass(void);
 	~TimeCodedMotionChannelClass(void);
 
-	bool	Load_W3D(ChunkLoadClass & cload);		
+	bool	Load_W3D(ChunkLoadClass & cload);
 	int	Get_Type(void) { return Type; }
 	int	Get_Pivot(void) { return PivotIdx; }
 	void	Get_Vector(float32 frame, float * setvec);
@@ -194,12 +194,12 @@ private:
 	uint32	Type;					// what type of channel is this
 	int		VectorLen;			// size of each individual vector
 	uint32	PacketSize;			// size of each packet
-	
+
 	uint32	NumTimeCodes;		// Number of packets
 
 	uint32	LastTimeCodeIdx;	// absolute index to last time code
 	uint32	CachedIdx;			// Last Index Used
-  
+
 	uint32	*	Data;			 	// pointer to packet data
 
 	void 		Free(void);
@@ -218,7 +218,7 @@ public:
 	AdaptiveDeltaMotionChannelClass(void);
 	~AdaptiveDeltaMotionChannelClass(void);
 
-	bool	Load_W3D(ChunkLoadClass & cload);		
+	bool	Load_W3D(ChunkLoadClass & cload);
 	int	Get_Type(void) { return Type; }
 	int	Get_Pivot(void) { return PivotIdx; }
 	void	Get_Vector(float32 frame, float * setvec);
@@ -230,11 +230,11 @@ private:
 	uint32	PivotIdx;			// what pivot is this channel applied to
 	uint32	Type;					// what type of channel is this
 	int		VectorLen;			// size of each individual vector
-	
+
 	uint32	NumFrames;			// Number of frames
 
 	float		Scale;				// Scale Filter, this much
-  
+
 	uint32  *Data;				 	// pointer to packet data
 
 	uint32	CacheFrame;
@@ -254,7 +254,7 @@ private:
 /******************************************************************************
 
 	TimeCodedBitChannelClass is used to store a boolean "on/off" value for each frame
-	in an animation.  
+	in an animation.
 
 ******************************************************************************/
 
@@ -276,7 +276,7 @@ private:
 	uint32	PivotIdx;
 	uint32	Type;
 	int		DefaultVal;
-	
+
 	uint32	NumTimeCodes;
 	uint32	CachedIdx;
 

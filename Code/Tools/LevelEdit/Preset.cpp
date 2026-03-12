@@ -156,7 +156,7 @@ PresetClass::~PresetClass (void)
 	}
 
 	Free_Node_List ();
-	return ;	
+	return ;
 }
 
 
@@ -167,13 +167,13 @@ PresetClass::~PresetClass (void)
 ///////////////////////////////////////////////////////////////////////
 bool
 PresetClass::Show_Properties (bool read_only)
-{	
+{
 	PresetGeneralTabClass		general_tab (this);
 	PhysObjEditTabClass			phys_model_tab;
 	PresetSettingsTabClass		settings_tab (this);
 	PresetDependencyTabClass	dependencies_tab (this);
-	PresetTransitionTabClass	transition_tab (this);	
-	PresetZoneTabClass			zone_tab (this);	
+	PresetTransitionTabClass	transition_tab (this);
+	PresetZoneTabClass			zone_tab (this);
 	PresetDialogueTabClass		dialogue_tab (this);
 	NodeScriptsPropPage			scripts_tab;
 
@@ -192,9 +192,9 @@ PresetClass::Show_Properties (bool read_only)
 		phys_model_tab.Set_PhysDef_Param (phys_def_param);
 		phys_model_tab.Set_Filter (phys_def_param->Get_Base_Class ());
 		phys_model_tab.Set_Is_Temp (m_IsTemporary);
-		phys_model_tab.Set_Definition_ID (phys_def_param->Get_Value ());		
-		prop_sheet.Add_Page (&phys_model_tab);		
-	}	
+		phys_model_tab.Set_Definition_ID (phys_def_param->Get_Value ());
+		prop_sheet.Add_Page (&phys_model_tab);
+	}
 
 	//
 	//	Add the settings and file dependencies page
@@ -210,7 +210,7 @@ PresetClass::Show_Properties (bool read_only)
 		scripts_tab.Set_Script_List_Parameter (script_list_param);
 		prop_sheet.Add_Page (&scripts_tab);
 	}
-	
+
 	//
 	//	Add a dialogue tab to the property sheet if this preset represents a human.
 	//
@@ -234,7 +234,7 @@ PresetClass::Show_Properties (bool read_only)
 	Build_Zone_List (m_Definition, zone_list);
 	if (zone_list.Count () > 0 && read_only == false) {
 		zone_tab.Set_Zone_Param_List (&zone_list);
-		prop_sheet.Add_Page (&zone_tab);		
+		prop_sheet.Add_Page (&zone_tab);
 	}
 
 	//
@@ -251,7 +251,7 @@ PresetClass::Show_Properties (bool read_only)
 	// Show the property sheet
 	//
 	UINT ret_code = prop_sheet.DoModal ();
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }
@@ -284,7 +284,7 @@ PresetClass::Save (ChunkSaveClass &csave)
 	//	Save the comments to their own chunk
 	//
 	WRITE_WWSTRING_CHUNK (csave, CHUNKID_COMMENTS, m_Comments);
-	
+
 	//
 	//	Save the other variables to a micro chunk
 	//
@@ -307,7 +307,7 @@ PresetClass::Save_Variables (ChunkSaveClass &csave)
 	bool retval = true;
 
 	//
-	//	Write the ID of the definition to the chunk	
+	//	Write the ID of the definition to the chunk
 	//
 	ASSERT (m_Definition != NULL);
 	if (m_Definition != NULL) {
@@ -330,7 +330,7 @@ PresetClass::Save_Variables (ChunkSaveClass &csave)
 	//
 	PresetClass *this_ptr = this;
 	WRITE_MICRO_CHUNK_PTR (csave, VARID_THISPTR, this_ptr);
-	
+
 	if (m_Parent != NULL) {
 		m_ParentID = m_Parent->Get_ID ();
 		WRITE_MICRO_CHUNK (csave, VARID_PARENT_ID, m_ParentID);
@@ -362,7 +362,7 @@ PresetClass::Load (ChunkLoadClass &cload)
 
 		cload.Close_Chunk ();
 	}
-	
+
 	SaveLoadSystemClass::Register_Post_Load_Callback (this);
 	return retval;
 }
@@ -377,7 +377,7 @@ bool
 PresetClass::Load_Variables (ChunkLoadClass &cload)
 {
 	m_DefinitionID = 0;
-	PresetClass *old_this_ptr = NULL; 
+	PresetClass *old_this_ptr = NULL;
 	m_ManualDependencies.Delete_All ();
 
 	//
@@ -385,7 +385,7 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_DEFINITIONID, m_DefinitionID)
 			READ_MICRO_CHUNK (cload, VARID_ISTEMPORARY, m_IsTemporary)
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_COMMENTS, m_Comments);
@@ -399,7 +399,7 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 			{
 				StringClass filename;
 				cload.Read(filename.Get_Buffer(cload.Cur_Micro_Chunk_Length()),cload.Cur_Micro_Chunk_Length());
-				m_ManualDependencies.Add ((LPCTSTR)filename);				
+				m_ManualDependencies.Add ((LPCTSTR)filename);
 			}
 			break;
 		}
@@ -429,7 +429,7 @@ PresetClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	WWASSERT (m_DefinitionID != 0);
 	m_Definition = DefinitionMgrClass::Find_Definition (m_DefinitionID, false);
-	
+
 	//
 	//	Associate this preset with the definition
 	//
@@ -457,7 +457,7 @@ PresetClass::On_Post_Load (void)
 	if (m_ParentID != 0) {
 		m_Parent = PresetMgrClass::Find_Preset (m_ParentID);
 		ASSERT (m_Parent != NULL);
-		
+
 		//
 		//	Add ourselves as a child of our parent
 		//
@@ -491,10 +491,10 @@ PresetClass::Create (void)
 
 	StringClass error_message;
 	if (m_Definition != NULL && m_Definition->Is_Valid_Config (error_message)) {
-		
+
 		uint32 class_id = m_Definition->Get_Class_ID ();
 		switch (::SuperClassID_From_ClassID (class_id))
-		{			
+		{
 			case CLASSID_TERRAIN:
 				node = new TerrainNodeClass (this);
 				break;
@@ -508,7 +508,7 @@ PresetClass::Create (void)
 				break;
 
 			case CLASSID_GAME_OBJECTS:
-				
+
 				if (class_id == CLASSID_SPAWNER_DEF) {
 					node = new SpawnerNodeClass (this);
 				} else if (class_id == CLASSID_GAME_OBJECT_DEF_BUILDING) {
@@ -558,7 +558,7 @@ PresetClass::Create (void)
 		}
 
 	} else if (m_Definition != NULL) {
-		
+
 		//
 		//	Warn the user
 		//
@@ -593,7 +593,7 @@ PresetClass::Copy_Properties (const PresetClass &preset)
 		const TRANSITION_DATA_LIST *src_list	= preset.Get_Transition_List ();
 		TRANSITION_DATA_LIST *dest_list	= Get_Transition_List ();
 		if (src_list != NULL && dest_list != NULL) {
-			
+
 			//
 			//	Free any existing transitions
 			//
@@ -603,13 +603,13 @@ PresetClass::Copy_Properties (const PresetClass &preset)
 				SAFE_DELETE (data);
 			}
 			dest_list->Delete_All ();
-			
+
 			//
 			//	Now copy each of the transitions from the source list
 			//
 			for (index = 0; index < src_list->Count (); index ++) {
 				const TransitionDataClass *data = (*src_list)[index];
-				
+
 				//
 				//	Create a new transition object and copy the src's settings
 				//
@@ -656,7 +656,7 @@ PresetClass::Load_All_Assets (void)
 			RenderObjClass *model = ::Create_Render_Obj (::Asset_Name_From_Filename (full_path));
 			REF_PTR_RELEASE (model);
 		} else {
-			
+
 #ifndef PUBLIC_EDITOR_VER
 
 			if (::GetFileAttributes (full_path) == 0xFFFFFFFF) {
@@ -728,7 +728,7 @@ void
 PresetClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING_LIST &list)
 {
 	if (definition != NULL) {
-		
+
 		//
 		//	Find all 'filename' parameters to this definition.
 		//
@@ -738,7 +738,7 @@ PresetClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING_LI
 			ParameterClass *parameter = definition->Lock_Parameter (index);
 			if (	parameter->Get_Type () == ParameterClass::TYPE_FILENAME ||
 					parameter->Get_Type () == ParameterClass::TYPE_SOUND_FILENAME) {
-				
+
 				//
 				//	Add this filename dependency to the list
 				//
@@ -746,12 +746,12 @@ PresetClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING_LI
 				CString full_path = ::Get_File_Mgr ()->Make_Full_Path (filename);
 				if (	::Get_File_Mgr ()->Is_Path_Valid (full_path) &&
 						::Get_File_Mgr ()->Is_Empty_Path (full_path) == false)
-				{					
+				{
 					list.Add (::Get_File_Mgr ()->Make_Relative_Path (full_path));
 				}
 
 			} else if (parameter->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
-				
+
 				//
 				//	If this is param references a physics-definition, then add all its dependencies as well..
 				//
@@ -778,7 +778,7 @@ PresetClass::Get_Script_List_Param (void)
 
 	//
 	//	Try to find a script list parameter somewhere in the preset...
-	//	
+	//
 	int index = m_Definition->Get_Parameter_Count ();
 	while ((index --) && (param == NULL)) {
 		ParameterClass *parameter = m_Definition->Lock_Parameter (index);
@@ -792,7 +792,7 @@ PresetClass::Get_Script_List_Param (void)
 
 		m_Definition->Unlock_Parameter (index);
 	}
-	
+
 	return param;
 }
 
@@ -809,7 +809,7 @@ PresetClass::Get_Phys_Def_Param (void)
 
 	//
 	//	Try to find a physics-def parameter somewhere in the preset...
-	//	
+	//
 	int index = m_Definition->Get_Parameter_Count ();
 	while ((index --) && (param == NULL)) {
 		ParameterClass *parameter = m_Definition->Lock_Parameter (index);
@@ -823,7 +823,7 @@ PresetClass::Get_Phys_Def_Param (void)
 
 		m_Definition->Unlock_Parameter (index);
 	}
-	
+
 
 	return param;
 }
@@ -841,7 +841,7 @@ PresetClass::Get_Transition_List (void) const
 
 	if (m_Definition != NULL) {
 		switch (m_Definition->Get_Class_ID ()) {
-			
+
 			//
 			//	Vehicles from Combat Lib
 			//
@@ -893,7 +893,7 @@ PresetClass::Build_Zone_List (DefinitionClass *definition, ZONE_PARAM_LIST &zone
 				ZoneParameterClass *zone_param = (ZoneParameterClass *)parameter;
 				zone_list.Add (zone_param);
 			} else if (parameter->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
-				
+
 				//
 				//	Recurse into the physics definition (if necessary)
 				//
@@ -932,10 +932,10 @@ PresetClass::Add_Files_To_VSS (void)
 
 		//
 		//	Loop over all the files and add them to VSS
-		//	
+		//
 		for (int index = 0; index < dependencies.Count (); index ++) {
 			CString filename		= dependencies[index];
-			CString full_path		= ::Get_File_Mgr ()->Make_Full_Path (filename);		
+			CString full_path		= ::Get_File_Mgr ()->Make_Full_Path (filename);
 			::Get_File_Mgr ()->Add_Files_To_Database (full_path);
 		}
 
@@ -955,13 +955,13 @@ bool
 PresetClass::Is_Valid_Sound_Preset (void)
 {
 	bool retval = false;
-	
+
 	//
 	//	First off, is this a sound preset at all?
 	//
 	if (	m_Definition != NULL &&
 			m_Definition->Get_Class_ID () == CLASSID_SOUND)
-	{		
+	{
 		AudibleSoundDefinitionClass *definition = (AudibleSoundDefinitionClass *)m_Definition;
 
 		//
@@ -969,7 +969,7 @@ PresetClass::Is_Valid_Sound_Preset (void)
 		//
 		CString filename = static_cast<const char *>(definition->Get_Filename ());
 		DWORD file_attrs = ::GetFileAttributes (definition->Get_Filename ());
-		if (	filename.GetLength () > 0 && 
+		if (	filename.GetLength () > 0 &&
 				(file_attrs == 0xFFFFFFFF ||
 				 file_attrs != FILE_ATTRIBUTE_DIRECTORY))
 		{
@@ -1044,7 +1044,7 @@ PresetClass::Get_Icon_Index (void) const
 	//
 	uint32 class_id = m_Definition->Get_Class_ID ();
 	switch (::SuperClassID_From_ClassID (class_id))
-	{			
+	{
 		case CLASSID_TERRAIN:
 			index = TERRAIN_ICON;
 			break;
@@ -1112,7 +1112,7 @@ PresetClass::Collect_Definitions (DEFINITION_LIST &list)
 {
 	if (m_Definition != NULL) {
 		list.Add (m_Definition);
-		
+
 		//
 		//	Get the physics definition that this definition embeds (if any)
 		//
@@ -1172,7 +1172,7 @@ PresetClass::Build_Node_List (NodeClass *parent_node)
 				node->Is_Proxied () == false &&
 				node->Get_Parent_Node () == NULL &&
 				node->Get_Type () != NODE_TYPE_WAYPOINT)
-		{			
+		{
 			//
 			//	Make a copy of the node
 			//
@@ -1233,7 +1233,7 @@ PresetClass::Create_Linked_Nodes (NodeClass *parent_node)
 	Matrix3D parent_tm = parent_node->Get_Transform ();
 
 	for (int index = 0; index < m_NodeList.Count (); index ++) {
-		
+
 		//
 		//	Clone this node via the scene so it will get installed into
 		// all the appropriate systems
@@ -1352,7 +1352,7 @@ PresetClass::Remove_Child_Preset (int child_id)
 		// Cast needed to disambiguate Delete(int) and Delete(const T &) where T = int
 		(m_ChildIDList.*(static_cast<bool (DynamicVectorClass<int>::*) (int)>(&DynamicVectorClass<int>::Delete))) (index);
 	}
-		
+
 	return ;
 }
 
@@ -1382,6 +1382,6 @@ PresetClass::Set_Parent (PresetClass *parent)
 	} else {
 		m_ParentID = 0;
 	}
-	
+
 	return ;
 }

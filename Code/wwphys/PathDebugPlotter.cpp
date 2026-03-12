@@ -63,7 +63,7 @@ PathDebugPlotterClass::Render_Vector
 	if (vec.Length2() < WWMATH_EPSILON) return;
 
 	PhysicsSceneClass::Get_Instance ()->Add_Debug_Vector (pt, vec, color);
-	
+
 	return ;
 }
 

@@ -71,7 +71,7 @@
 class MMSLockClass
 {
 public:
-	// Implementations must be provided by the back end. 
+	// Implementations must be provided by the back end.
 	MMSLockClass (void);
 	~MMSLockClass (void);
 };

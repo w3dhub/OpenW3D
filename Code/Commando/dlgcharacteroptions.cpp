@@ -71,7 +71,7 @@ CharacterOptionsMenuClass::CharacterOptionsMenuClass (void)	:
 ////////////////////////////////////////////////////////////////
 CharacterOptionsMenuClass::~CharacterOptionsMenuClass (void)
 {
-	SkinPackageMgrClass::Reset_List ();	
+	SkinPackageMgrClass::Reset_List ();
 
 	//
 	//	Unload the definitions as necessary
@@ -91,11 +91,11 @@ CharacterOptionsMenuClass::~CharacterOptionsMenuClass (void)
 ////////////////////////////////////////////////////////////////
 void
 CharacterOptionsMenuClass::On_Init_Dialog (void)
-{	
+{
 	Ensure_Definitions_Are_Loaded ();
 
 	ComboBoxCtrlClass *combo_box = (ComboBoxCtrlClass *)Get_Dlg_Item (IDC_PACKAGE_COMBO);
-	if (combo_box != NULL) {		
+	if (combo_box != NULL) {
 
 		const StringClass &curr_package_name = SkinPackageMgrClass::Get_Current_Package ().Get_Name ();
 
@@ -104,7 +104,7 @@ CharacterOptionsMenuClass::On_Init_Dialog (void)
 		//
 		int count = SkinPackageMgrClass::Get_Package_Count ();
 		for (int index = 0; index < count; index ++) {
-			
+
 			//
 			//	Add this entry to the combobox
 			//
@@ -112,7 +112,7 @@ CharacterOptionsMenuClass::On_Init_Dialog (void)
 			WideStringClass wide_name;
 			wide_name.Convert_From (name);
 			int item_index = combo_box->Add_String (wide_name);
-			
+
 			//
 			//	Select this entry if its the active package
 			//
@@ -179,7 +179,7 @@ CharacterOptionsMenuClass::Fill_Character_Combobox (void)
 	const int MAX_ENTRIES = 10;
 	int index;
 	for (index = 0; index < MAX_ENTRIES; index ++) {
-		
+
 		int item_index = combo_box->Add_String (settings1->Get_Name (index));
 		if (item_index != -1) {
 			combo_box->Set_Item_Data (item_index, settings1->Get_Definition (index));
@@ -190,7 +190,7 @@ CharacterOptionsMenuClass::Fill_Character_Combobox (void)
 	//	Fill in the NOD characters
 	//
 	for (index = 0; index < MAX_ENTRIES; index ++) {
-		
+
 		int item_index = combo_box->Add_String (settings2->Get_Name (index));
 		if (item_index != -1) {
 			combo_box->Set_Item_Data (item_index, settings2->Get_Definition (index));
@@ -221,12 +221,12 @@ CharacterOptionsMenuClass::On_ComboBoxCtrl_Sel_Change
 )
 {
 	if (ctrl_id == IDC_PACKAGE_COMBO) {
-		
+
 		//
 		//	Select the current package and populate the skin list control
 		//
 		SkinPackageMgrClass::Set_Current_Package (new_sel);
-		
+
 	} else if (ctrl_id == IDC_CHARACTER_COMBO) {
 		On_Character_Selected (new_sel);
 	}
@@ -247,11 +247,11 @@ CharacterOptionsMenuClass::On_Character_Selected (int index)
 	if (combo_box == NULL) {
 		return ;
 	}
-	
+
 	//
 	//	Display the model for this purchase
 	//
-	uint32 definition_id	= combo_box->Get_Item_Data (index);	
+	uint32 definition_id	= combo_box->Get_Item_Data (index);
 	Display_Default_Model (definition_id);
 	return ;
 }
@@ -267,17 +267,17 @@ CharacterOptionsMenuClass::Display_Default_Model (int definition_id)
 {
 	//
 	//	Lookup the definition that goes with this character
-	//	
+	//
 	DefinitionClass *definition = DefinitionMgrClass::Find_Definition (definition_id);
 	if (definition != NULL) {
 		PhysicalGameObjDef *phys_game_obj_def = static_cast<PhysicalGameObjDef *> (definition);
-		
+
 		//
 		//	Now, lookup the physics definition that this game object uses
 		//
 		DefinitionClass *phys_def = DefinitionMgrClass::Find_Definition (phys_game_obj_def->Get_Phys_Def_ID ());
 		if (phys_def != NULL) {
-			
+
 			//
 			//	Display the model that this physics definition requires
 			//

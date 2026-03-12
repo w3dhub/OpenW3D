@@ -914,7 +914,7 @@ void CPUDetectClass::Init_OS()
 			OSVersionNumberMajor = os.dwMajorVersion;
 			OSVersionNumberMinor = os.dwMinorVersion;
 			OSVersionBuildNumber = os.dwBuildNumber;
-			OSVersionPlatformId = os.dwPlatformId;		
+			OSVersionPlatformId = os.dwPlatformId;
             OSVersionExtraInfo = os.szCSDVersion;
 			return;
 		}
@@ -923,7 +923,7 @@ void CPUDetectClass::Init_OS()
 	OSVersionNumberMajor = 6;
 	OSVersionNumberMinor = 2;
 	OSVersionBuildNumber = 0;
-	OSVersionPlatformId = 2;	
+	OSVersionPlatformId = 2;
     OSVersionExtraInfo = "";
 }
 

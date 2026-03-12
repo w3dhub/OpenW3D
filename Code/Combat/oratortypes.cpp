@@ -43,7 +43,7 @@ DECLARE_FORCE_LINK (OratorTypes);
 ////////////////////////////////////////////////////////////////
 //	Constants
 ////////////////////////////////////////////////////////////////
-const char *ORATOR_TYPE_NAMES[ORATOR_TYPE_COUNT] = 
+const char *ORATOR_TYPE_NAMES[ORATOR_TYPE_COUNT] =
 {
 	"GEEN: GDI Enlisted Engineer",
 	"GEGR: GDI Enlisted Grenadier",
@@ -164,7 +164,7 @@ int
 OratorTypeClass::Get_ID (int index)
 {
 	int retval = 0;
-	
+
 	if (index >= 0 && index < ORATOR_TYPE_COUNT) {
 		retval = ORATOR_TYPE_START + index;
 	}
@@ -182,7 +182,7 @@ const char *
 OratorTypeClass::Get_Description (int index)
 {
 	const char *retval = 0;
-	
+
 	if (index >= 0 && index < ORATOR_TYPE_COUNT) {
 		retval = ORATOR_TYPE_NAMES[index];
 	}

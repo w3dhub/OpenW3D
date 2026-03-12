@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/wwutil/stackdump.cpp                 $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 9/29/01 1:13p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 1                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwutil/stackdump.cpp                 $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 9/29/01 1:13p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 1                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "stackdump.h"
@@ -94,7 +94,7 @@ static SymGetModuleBaseType			_SymGetModuleBase				= NULL;
 //
 
 //-----------------------------------------------------------------------------
-[[maybe_unused]] static char const * 
+[[maybe_unused]] static char const *
 Last_Error_Text
 (
 	void
@@ -116,11 +116,11 @@ cStackDump::Print_Call_Stack
 
 	HINSTANCE imagehelp = ::LoadLibraryA("IMAGEHLP.DLL");
 
-	if (imagehelp == NULL) 
+	if (imagehelp == NULL)
 	{
 		WWDEBUG_SAY(("  Unable to load IMAGEHLP.DLL.\n"));
 	}
-	else 
+	else
 	{
 		WWDEBUG_SAY(("  Found IMAGEHLP.DLL - linking to required functions.\n"));
 
@@ -143,12 +143,12 @@ cStackDump::Print_Call_Stack
 	DWORD_ARCH symload = 0;
 	bool symbols_available = false;
 
-	if (_SymInitialize != NULL && _SymInitialize(::GetCurrentProcess(), NULL, false))	
+	if (_SymInitialize != NULL && _SymInitialize(::GetCurrentProcess(), NULL, false))
 	{
 		WWDEBUG_SAY(("  Symbols are available.\n"));
 		symbols_available = true;
 
-		if (_SymSetOptions != NULL) 
+		if (_SymSetOptions != NULL)
 		{
 			_SymSetOptions(SYMOPT_DEFERRED_LOADS | SYMOPT_UNDNAME);
 		}
@@ -156,7 +156,7 @@ cStackDump::Print_Call_Stack
 		char module_name[_MAX_PATH];
 		::GetModuleFileNameA(NULL, module_name, sizeof(module_name));
 
-		if (_SymLoadModule != NULL) 
+		if (_SymLoadModule != NULL)
 		{
 			symload = static_cast<DWORD_ARCH>(_SymLoadModule(::GetCurrentProcess(), NULL, module_name, NULL, 0, 0));
 		}
@@ -164,29 +164,29 @@ cStackDump::Print_Call_Stack
 		if (symload == 0 && GetLastError() != 0)
 		{
 			assert(_SymLoadModule != NULL);
-			WWDEBUG_SAY(("  SymLoad failed for module %s with code %d - %s.\n", 
+			WWDEBUG_SAY(("  SymLoad failed for module %s with code %d - %s.\n",
 				module_name, GetLastError(), Last_Error_Text()));
 		}
-	} 
-	else 
+	}
+	else
 	{
 		WWDEBUG_SAY(("  Symbols are NOT available.\n"));
 		WWDEBUG_SAY(("  SymInitialize failed with code %d - %s.\n", GetLastError(), Last_Error_Text()));
 	}
 
-	if (num_addresses > 0) 
+	if (num_addresses > 0)
 	{
 		WWDEBUG_SAY(("  Stack:\n"));
-		for (int s = 0 ; s < num_addresses; s++) 
+		for (int s = 0 ; s < num_addresses; s++)
 		{
 			DWORD_ARCH temp_addr = reinterpret_cast<DWORD_ARCH>(return_addresses[s]);
 
-			for (int space = 0 ; space <= s ; space++) 
+			for (int space = 0 ; space <= s ; space++)
 			{
 				WWDEBUG_SAY(("  "));
 			}
 
-			if (symbols_available) 
+			if (symbols_available)
 			{
 				symptr->SizeOfStruct = sizeof(symbol);
 				symptr->MaxNameLength = 128;
@@ -194,7 +194,7 @@ cStackDump::Print_Call_Stack
 				symptr->Address = temp_addr;
 
 				DWORD_ARCH displacement = 0;
-				if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr(GetCurrentProcess(), temp_addr, &displacement, symptr)) 
+				if (_SymGetSymFromAddr != NULL && _SymGetSymFromAddr(GetCurrentProcess(), temp_addr, &displacement, symptr))
 				{
 					char symbuf[256];
 					//::sprintf(symbuf, "%s + %08X\n", symptr->Name, displacement);
@@ -208,8 +208,8 @@ cStackDump::Print_Call_Stack
 					}
 					WWDEBUG_SAY((symbuf));
 				}
-			} 
-			else 
+			}
+			else
 			{
 				char symbuf[256];
 				::sprintf(symbuf, "%p", (void *)temp_addr);
@@ -218,8 +218,8 @@ cStackDump::Print_Call_Stack
 
 			WWDEBUG_SAY(("\n"));
 		}
-	} 
-	else 
+	}
+	else
 	{
 		WWDEBUG_SAY(("  Stack walk failed!\n"));
 	}
@@ -227,20 +227,20 @@ cStackDump::Print_Call_Stack
 	//
 	// Unload the symbols.
 	//
-	if (symbols_available) 
+	if (symbols_available)
 	{
-		if (_SymCleanup != NULL) 
+		if (_SymCleanup != NULL)
 		{
 			_SymCleanup(GetCurrentProcess());
 		}
 
-		if (symload && _SymUnloadModule != NULL) 
+		if (symload && _SymUnloadModule != NULL)
 		{
 			_SymUnloadModule(GetCurrentProcess(), (DWORD_ARCH)NULL);
 		}
 	}
 
-	if (imagehelp) 
+	if (imagehelp)
 	{
 		::FreeLibrary(imagehelp);
 	}
@@ -270,14 +270,14 @@ cStackDump::Print_Call_Stack
 	//
 	char path[MAX_PATH] = "";
 	DWORD gmf = ::GetModuleFileNameA(NULL, path, sizeof(path));
-	
+
 	if (gmf != 0)
 	{
 		//
 		//	Strip off the filename
 		//
 		char * filename = ::strrchr(path, '\\');
-		if (filename != NULL) 
+		if (filename != NULL)
 		{
 			filename[0] = 0;
 		}

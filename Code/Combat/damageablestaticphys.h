@@ -52,7 +52,7 @@ class DamageableStaticPhysDefClass;
 ** This is a static physics object which tracks its health.  When the health drops to zero,
 ** it plays its animation and stops on the end frame.
 */
-class	DamageableStaticPhysClass : public StaticAnimPhysClass 
+class	DamageableStaticPhysClass : public StaticAnimPhysClass
 {
 public:
 	//	Constructor and Destructor
@@ -91,7 +91,7 @@ protected:
 		STATE_DEAD_LOOP,
 		STATE_DEAD_TWITCH,
 	};
-			
+
 	int											CurState;
 	DefenseObjectClass						DefenseObject;
 
@@ -104,14 +104,14 @@ protected:
 ** Damageable static objects support two animation loops and several sequences.  An object
 ** can have a pair of frame numbers that are looped between while it is alive (the "Live-Loop"),
 ** a pair that are looped while it is dead (the "Dead-Loop"), a "twitch" sequence that is played
-** whenever it is shot in either the live or dead state, and a sequence that is played when the 
+** whenever it is shot in either the live or dead state, and a sequence that is played when the
 ** object transitions between alive and dead.
 */
-class DamageableStaticPhysDefClass : public StaticAnimPhysDefClass 
+class DamageableStaticPhysDefClass : public StaticAnimPhysDefClass
 {
 public:
 	DamageableStaticPhysDefClass(void);
-	
+
 	virtual uint32								Get_Class_ID(void) const override;
 	virtual const char *						Get_Type_Name(void) override				{ return "DamageableStaticPhysDef"; }
 	virtual bool								Is_Type(const char *) override;
@@ -125,7 +125,7 @@ public:
 protected:
 
 	int											KilledExplosion;
-	
+
 	int											LiveLoopStart;
 	int											LiveLoopEnd;
 	int											LiveTwitchStart;
@@ -138,7 +138,7 @@ protected:
 	int											DeadTwitchEnd;
 	bool											PlayTwitchesToCompletion;
 	DefenseObjectDefClass					DefenseObjectDef;
-	
+
 
 	friend class								DamageableStaticPhysClass;
 	friend class								DSAPONetworkObjectClass;

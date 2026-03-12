@@ -108,26 +108,26 @@ TerrainSectionPersistClass::Apply (NodeClass *node)
 	{
 		return ;
 	}
-	
+
 	//
 	//	Assign the id to the section
 	//
 	node->Set_ID (Get_Instance_ID ());
 	node->Set_Cull_Link (m_CullLink);
-	
+
 	//
 	//	Assign the other IDs (these differ based on type)
 	//
-	if (node->Get_Type () == NODE_TYPE_TERRAIN) {		
+	if (node->Get_Type () == NODE_TYPE_TERRAIN) {
 		m_TerrainSectionInfo.Assign_Section_IDs (reinterpret_cast<TerrainNodeClass *>(node));
 	} else {
-		
+
 		//
 		//	Assign this physics object its vis ID (if applicable)
 		//
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {			
-			
+		if (phys_obj != NULL) {
+
 			if (phys_obj->As_StaticPhysClass () != NULL) {
 				((StaticPhysClass *)phys_obj)->Set_Vis_Object_ID (Get_Vis_Obj_ID ());
 				((StaticPhysClass *)phys_obj)->Set_Vis_Sector_ID (Get_Vis_Sector_ID ());
@@ -154,10 +154,10 @@ TerrainSectionPersistClass::Initialize (NodeClass *node)
 		return ;
 	}
 
-	m_Position			= node->Get_Position ();	
+	m_Position			= node->Get_Position ();
 	m_InstanceID		= node->Get_ID ();
 	m_Name				= node->Get_Model_Name ();
-	
+
 	node->Update_Cached_Cull_Link ();
 	m_CullLink = node->Get_Cull_Link ();
 
@@ -170,7 +170,7 @@ TerrainSectionPersistClass::Initialize (NodeClass *node)
 	}
 
 	if (node->Get_Type () == NODE_TYPE_LIGHT) {
-		
+
 		//
 		//	For lights we have to get the ID straight from the light object (not its phys obj)
 		//
@@ -204,7 +204,7 @@ TerrainSectionPersistClass::Initialize (NodeClass *node)
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -225,7 +225,7 @@ TerrainSectionPersistClass::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_TERRAIN_SECTION_INFO);
 		m_TerrainSectionInfo.Save (csave);
 	csave.End_Chunk ();
-	
+
 	return true;
 }
 
@@ -238,7 +238,7 @@ TerrainSectionPersistClass::Save (ChunkSaveClass &csave)
 bool
 TerrainSectionPersistClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_VARIABLES:
@@ -270,7 +270,7 @@ TerrainSectionPersistClass::Save_Variables (ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK (csave, VARID_INSTANCE_ID,		m_InstanceID);
 	WRITE_MICRO_CHUNK (csave, VARID_VIS_OBJ_ID,		m_VisObjectID);
 	WRITE_MICRO_CHUNK (csave, VARID_VIS_SECTOR_ID,	m_VisSectorID);
-	WRITE_MICRO_CHUNK (csave, VARID_CULLLINK,			m_CullLink);	
+	WRITE_MICRO_CHUNK (csave, VARID_CULLLINK,			m_CullLink);
 	WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_NAME,	m_Name);
 	return true;
 }
@@ -286,13 +286,13 @@ TerrainSectionPersistClass::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_POSITION,			m_Position);
 			READ_MICRO_CHUNK (cload, VARID_DEF_ID,				m_DefinitionID);
 			READ_MICRO_CHUNK (cload, VARID_INSTANCE_ID,		m_InstanceID);
 			READ_MICRO_CHUNK (cload, VARID_VIS_OBJ_ID,		m_VisObjectID);
 			READ_MICRO_CHUNK (cload, VARID_VIS_SECTOR_ID,	m_VisSectorID);
-			READ_MICRO_CHUNK (cload, VARID_CULLLINK,			m_CullLink);	
+			READ_MICRO_CHUNK (cload, VARID_CULLLINK,			m_CullLink);
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_NAME,	m_Name);
 		}
 
@@ -386,7 +386,7 @@ TerrainSectionPersistListClass::Load (ChunkLoadClass &cload)
 {
 	Free_List ();
 
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_SECTION_PERSISTDATA:
@@ -453,9 +453,9 @@ TerrainSectionPersistListClass::Assign_Section_IDs (TerrainNodeClass *node)
 
 	for (int index = 0; index < Count (); index ++) {
 		TerrainSectionPersistClass *persist_obj = (*this)[index];
-		
+
 		//
-		//	Try to match this ID up with 
+		//	Try to match this ID up with
 		//
 		bool found = false;
 		for (int node_index = 0; node_index < m_VirginSections.Count () && !found; node_index ++) {
@@ -468,7 +468,7 @@ TerrainSectionPersistListClass::Assign_Section_IDs (TerrainNodeClass *node)
 			//
 			if (	sub_node->Get_Preset_ID () == persist_obj->Get_Def_ID () &&
 					::lstrcmpi (model_name, persist_obj->Get_Name ()) == 0)
-			{				
+			{
 				//
 				//	Do the positions match up?
 				//
@@ -490,14 +490,14 @@ TerrainSectionPersistListClass::Assign_Section_IDs (TerrainNodeClass *node)
 		//	Warn the user
 		//
 		if (!found) {
-			
+
 			CString message;
 			message.Format (	"Unable to match static ID %d (%s) with a terrain section!\r\n",
 									persist_obj->Get_Instance_ID (),
 									(LPCTSTR)persist_obj->Get_Name ());
 
 			::Output_Message (message);
-		}		
+		}
 	}
 
 	return ;

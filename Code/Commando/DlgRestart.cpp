@@ -57,7 +57,7 @@
 ******************************************************************************/
 
 bool DlgRestart::DoDialog(void)
-	{	
+	{
 	DlgRestart* popup = new DlgRestart;
 
 	if (popup)

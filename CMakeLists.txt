@@ -86,7 +86,7 @@ if(WIN32)
         include(bink)
         target_compile_definitions(binkstub INTERFACE W3D_HAS_BINK)
     endif()
-    
+
     # Do we want to build with miles for audio playback?
     option(W3D_BUILD_OPTION_MILES "Build with miles." ON)
     add_feature_info(MilesBuild W3D_BUILD_OPTION_MILES "Build OpenW3D with Miles Audio")

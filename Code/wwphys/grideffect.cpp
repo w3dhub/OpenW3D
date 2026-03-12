@@ -70,24 +70,24 @@ GridEffectClass::GridEffectClass(void) :
 	LastRenderTime = WW3D::Get_Sync_Time();
 
 	MaterialPass = NEW_REF(MaterialPassClass,());
-	
+
 	VertexMaterialClass * vmtl = PhysResourceMgrClass::Create_Emissive_Material();
 
 	Stage0Mapper = NEW_REF(MatrixMapperClass,(0));
 	Stage0Mapper->Set_Type(MatrixMapperClass::DEPTH_GRADIENT);
 	vmtl->Set_Mapper(Stage0Mapper,0);
-	
+
 	Stage1Mapper = NEW_REF(MatrixMapperClass,(1));
 	Stage1Mapper->Set_Type(MatrixMapperClass::DEPTH_GRADIENT);
 	vmtl->Set_Mapper(Stage1Mapper,1);
-	
+
 	MaterialPass->Set_Material(vmtl);
 	REF_PTR_RELEASE(vmtl);
-	
+
 	ShaderClass shader = ShaderClass::_PresetAdditiveShader;
 	shader.Set_Post_Detail_Color_Func(ShaderClass::DETAILCOLOR_ADD);
 	MaterialPass->Set_Shader(shader);
-	
+
 	MaterialPass->Set_Texture(PhysResourceMgrClass::Peek_Grid_Texture(),0);
 	MaterialPass->Set_Texture(PhysResourceMgrClass::Peek_Grid_Texture(),1);
 }
@@ -99,7 +99,7 @@ GridEffectClass::~GridEffectClass(void)
 	REF_PTR_RELEASE(Stage1Mapper);
 	REF_PTR_RELEASE(MaterialPass);
 }
-	
+
 void GridEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * obj)
 {
 	if (CurrentParameter == TargetParameter) {
@@ -156,14 +156,14 @@ void GridEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * obj)
 
 	Stage1Mapper->Set_Texture_Transform(tm,64.0f);
 	Stage1Mapper->Set_Gradient_U_Coord(CurrentParameter);
-		
+
 	RenderBaseMaterial = (CurrentParameter < 0.5f);
 
 	/*
 	** Push this pass if it is visible, decide whether or not to render the base passes
 	*/
 	rinfo.Push_Material_Pass(MaterialPass);
-	
+
 	if (RenderBaseMaterial == false) {
 		rinfo.Push_Override_Flags(RenderInfoClass::RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY);
 	}

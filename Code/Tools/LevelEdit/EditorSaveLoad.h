@@ -62,7 +62,7 @@ extern class EditorSaveLoadClass _TheEditorSaveLoadSubsystem;
 class EditorSaveLoadClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
-	
+
 	// From SaveLoadSubSystemClass
 	virtual uint32				Chunk_ID (void) const;
 	virtual void				On_Post_Load (void);
@@ -87,7 +87,7 @@ public:
 	// Vis methods
 	static void					Set_Loaded_Vis_Valid (bool onoff)	{ m_LoadedValidVis = onoff; }
 	static bool					Is_Loaded_Vis_Valid (void)				{ return m_LoadedValidVis; }
-	
+
 protected:
 
 	//////////////////////////////////////////////////////////////
@@ -123,7 +123,7 @@ private:
 class PathfindImportExportSaveLoadClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
-	
+
 	//
 	// Inherited
 	//
@@ -143,7 +143,7 @@ public:
 
 	static void					Export_Pathfind (LPCTSTR filename);
 	static void					Import_Pathfind (LPCTSTR filename);
-	
+
 protected:
 
 	//////////////////////////////////////////////////////////////

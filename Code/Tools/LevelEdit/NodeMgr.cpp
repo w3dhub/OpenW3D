@@ -139,7 +139,7 @@ NodeMgrClass::Setup_Node_Identity (NodeClass &node)
 	if (id == 0) {
 		id = Get_Node_ID (node.Get_Type ());
 		node.Set_ID (id);
-	}	
+	}
 
 	//
 	//	Give the node a name
@@ -149,16 +149,16 @@ NodeMgrClass::Setup_Node_Identity (NodeClass &node)
 		name.Format ("%s.%d", preset->Get_Name (), id);
 		node.Set_Name (name);
 	} else {
-		
+
 		RenderObjClass *model = node.Peek_Render_Obj ();
 		if (model != NULL) {
 			CString name;
 			name.Format ("%s.%d", model->Get_Name (), id);
-			node.Set_Name (name);		
+			node.Set_Name (name);
 		} else {
 			CString name;
 			name.Format ("Unknown.%d", id);
-			node.Set_Name (name);		
+			node.Set_Name (name);
 		}
 	}
 
@@ -208,7 +208,7 @@ NodeMgrClass::Add_Node (NodeClass *node)
 {
 	WWASSERT (node->m_NextNode == 0);
 	WWASSERT (node->m_PrevNode == 0);
-	
+
 	//
 	//	Add the node to the the list and lock
 	// a refcount on the node
@@ -250,8 +250,8 @@ NodeMgrClass::Remove_Node (NodeClass *node)
 		//
 		//	Remove the node from our list and
 		//	free our hold on the node
-		//	
-		Unlink_Node (node);		
+		//
+		Unlink_Node (node);
 
 		//
 		//	Update the UI
@@ -263,7 +263,7 @@ NodeMgrClass::Remove_Node (NodeClass *node)
 
 		MEMBER_RELEASE (node);
 	}
-	
+
 	return ;
 }
 
@@ -281,7 +281,7 @@ NodeMgrClass::Link_Node (NodeClass *node)
 
 	// Add this preset in front of the current head of the list
 	node->m_NextNode = _NodeListHead;
-	
+
 	// If the list wasn't empty, link the next definiton back to this node
 	if (node->m_NextNode != 0) {
 		node->m_NextNode->m_PrevNode = node;
@@ -309,7 +309,7 @@ NodeMgrClass::Unlink_Node (NodeClass *node)
 		// this node is the head
 		WWASSERT (_NodeListHead == node);
 		_NodeListHead = node->m_NextNode;
-	
+
 	} else {
 
 		// link it's prev with it's next
@@ -318,7 +318,7 @@ NodeMgrClass::Unlink_Node (NodeClass *node)
 	}
 
 	// Handle the node's next pointer if its not at the end of the list:
-	if (node->m_NextNode != 0) {		
+	if (node->m_NextNode != 0) {
 		node->m_NextNode->m_PrevNode = node->m_PrevNode;
 	}
 
@@ -358,8 +358,8 @@ NodeMgrClass::Free_Nodes (void)
 	_NodeListHead = NULL;
 	for (int index = 0; index < node_list.Count (); index ++) {
 		MEMBER_RELEASE (node_list[index]);
-	}	
-	
+	}
+
 	//
 	//	Reset the node ID ranges
 	//
@@ -649,7 +649,7 @@ NodeMgrClass::Save (ChunkSaveClass &csave)
 	//
 	//	Save the variables to their own chunk
 	//
-	csave.Begin_Chunk (CHUNKID_VARIABLES);	
+	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		//WRITE_MICRO_CHUNK (csave, VARID_NEXT_NODE_ID, _NextNodeID);
 	csave.End_Chunk ();
 
@@ -677,10 +677,10 @@ NodeMgrClass::Save (ChunkSaveClass &csave)
 bool
 NodeMgrClass::Load (ChunkLoadClass &cload)
 {
-	bool retval = true;	
+	bool retval = true;
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the nodes from this chunk
 			//
@@ -708,14 +708,14 @@ NodeMgrClass::Load (ChunkLoadClass &cload)
 ///////////////////////////////////////////////////////////////////////
 bool
 NodeMgrClass::Save_Node_List (ChunkSaveClass &csave, NODE_LIST &node_list)
-{	
+{
 	//
 	//	Loop over all the nodes in the list
 	//
 	for (int index = 0; index < node_list.Count (); index ++) {
 		NodeClass *node = node_list[index];
 		if (node != NULL) {
-			
+
 			//
 			//	Save this node to its own chunk
 			//
@@ -736,7 +736,7 @@ NodeMgrClass::Save_Node_List (ChunkSaveClass &csave, NODE_LIST &node_list)
 ///////////////////////////////////////////////////////////////////////
 bool
 NodeMgrClass::Load_Node_List (ChunkLoadClass &cload, NODE_LIST &node_list)
-{	
+{
 	while (cload.Open_Chunk ()) {
 
 		//
@@ -746,12 +746,12 @@ NodeMgrClass::Load_Node_List (ChunkLoadClass &cload, NODE_LIST &node_list)
 		if (factory != NULL) {
 			NodeClass *node = (NodeClass *)factory->Load (cload);
 			if (node != NULL) {
-				
+
 				//
 				// Does this node's preset still exist?
 				//
 				if (node->Get_Preset () != NULL || node->Get_Type () == NODE_TYPE_WAYPOINT) {
-					
+
 					//
 					//	Initialize the node
 					//
@@ -788,13 +788,13 @@ NodeMgrClass::Load_Node_List (ChunkLoadClass &cload, NODE_LIST &node_list)
 ///////////////////////////////////////////////////////////////////////
 bool
 NodeMgrClass::Save_Nodes (ChunkSaveClass &csave)
-{	
+{
 	for (	NodeClass *node = _NodeListHead;
 			node != NULL;
 			node = node->m_NextNode)
 	{
 		if (node->Needs_Save ()) {
-			
+
 			//
 			//	Save this node to its own chunk
 			//
@@ -829,10 +829,10 @@ NodeMgrClass::Load_Nodes (ChunkLoadClass &cload)
 		if (factory != NULL) {
 			NodeClass *node = (NodeClass *)factory->Load (cload);
 			if (node != NULL) {
-				
+
 				// Does this node's preset still exist?
 				if (node->Get_Preset () != NULL || node->Get_Type () == NODE_TYPE_WAYPOINT) {
-					
+
 					//
 					//	Initialize the node
 					//
@@ -897,7 +897,7 @@ NodeMgrClass::On_Post_Load (void)
 		node->Add_To_Scene ();
 		scene->Update_File_Mgr (node);
 	}
-	
+
 	Reset_New_ID ();
 	return ;
 }
@@ -920,7 +920,7 @@ NodeMgrClass::Load_Variables (ChunkLoadClass &cload)
 
 		cload.Close_Micro_Chunk ();
 	}
-	
+
 	return retval;
 }
 
@@ -990,7 +990,7 @@ NodeMgrClass::Reload_Nodes (PresetClass *preset)
 			node->Reload ();
 		}
 	}
-	
+
 	::Get_Scene_Editor ()->Validate_Vis ();
 	::Get_Main_View ()->Allow_Repaint (true);
 	return ;
@@ -1013,7 +1013,7 @@ NodeMgrClass::Put_Objects_Back (const NODE_LIST &obj_list)
 		NodeMgrClass::Add_Node (node);
 		node->Release_Ref ();
 	}
-	
+
 	return ;
 }
 
@@ -1048,7 +1048,7 @@ NodeMgrClass::Remove_Dynamic_Objects (NODE_LIST &dynamic_obj_list)
 			NodeMgrClass::Remove_Node (node);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -1083,7 +1083,7 @@ NodeMgrClass::Remove_Static_Objects (NODE_LIST &static_obj_list)
 			NodeMgrClass::Remove_Node (node);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -1156,21 +1156,21 @@ NodeMgrClass::Make_Static_Anim_Phys_Collideable (bool onoff)
 	{
 		TerrainNodeClass *terrain	= (TerrainNodeClass *)node;
 		int count						= terrain->Get_Sub_Node_Count ();
-		
+
 		//
 		//	Loop over all the sections of this terrain object
 		//
 		for (int index = 0; index < count; index ++) {
 			NodeClass *sub_node = terrain->Get_Sub_Node (index);
-			if (sub_node != NULL) {				
+			if (sub_node != NULL) {
 
 				//
 				//	Check to make sure this is a static anim phys object
-				//				
+				//
 				PhysClass *phys_obj = sub_node->Peek_Physics_Obj ();
 				if (phys_obj != NULL && phys_obj->As_StaticAnimPhysClass () != NULL) {
 					sub_node->Hide (onoff == false);
-					
+
 					//
 					//	Turn off collision on or off this object
 					//
@@ -1179,7 +1179,7 @@ NodeMgrClass::Make_Static_Anim_Phys_Collideable (bool onoff)
 					} else if (phys_obj->Is_Ignore_Me ()) {
 						phys_obj->Dec_Ignore_Counter ();
 					}
-				}			
+				}
 			}
 		}
 	}
@@ -1197,7 +1197,7 @@ NodeMgrClass::Make_Static_Anim_Phys_Collideable (bool onoff)
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
 		if (phys_obj != NULL && phys_obj->As_StaticAnimPhysClass () != NULL) {
 			node->Hide (onoff);
-			
+
 			//
 			//	Turn off collision on or off this object
 			//
@@ -1208,7 +1208,7 @@ NodeMgrClass::Make_Static_Anim_Phys_Collideable (bool onoff)
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -1246,7 +1246,7 @@ NodeMgrClass::Build_ID_Collision_List (NODE_LIST &node_list)
 					node_list.Add (node1);
 				}
 			}
-			
+
 		}
 	}
 
@@ -1299,7 +1299,7 @@ NodeMgrClass::Build_Unimportant_ID_Collision_List (NODE_LIST &node_list)
 					}
 				}
 			}
-			
+
 		}
 	}
 
@@ -1403,17 +1403,17 @@ NodeMgrClass::Get_Node_ID (NODE_TYPE type)
 		case NODE_TYPE_WAYPOINT:
 			new_id = _NextObjectNodeID ++;
 			break;
-		
-		case NODE_TYPE_OBJECT:		
+
+		case NODE_TYPE_OBJECT:
 			new_id = _NextObjectNodeID ++;
 			break;
 
-		
+
 		case NODE_TYPE_COVER_SPOT:
 		case NODE_TYPE_COVER_ATTACK_POINT:
 			new_id = _NextObjectNodeID ++;
 			break;
-		
+
 		case NODE_TYPE_SPAWNER:
 			new_id = _NextObjectNodeID ++;
 			break;
@@ -1429,8 +1429,8 @@ NodeMgrClass::Get_Node_ID (NODE_TYPE type)
 			new_id = _NextLightNodeID ++;
 			break;
 
-		case NODE_TYPE_UNKNOWN:		
-		case NODE_TYPE_VIS:		
+		case NODE_TYPE_UNKNOWN:
+		case NODE_TYPE_VIS:
 		case NODE_TYPE_VIS_POINT:
 		case NODE_TYPE_PATHFIND_START:
 		default:
@@ -1454,7 +1454,7 @@ NodeMgrClass::Get_ID_Range (NODE_TYPE type, uint32 *min_id, uint32 *max_id)
 	{
 		case NODE_TYPE_TERRAIN:
 		case NODE_TYPE_TERRAIN_SECTION:
-		case NODE_TYPE_TILE:		
+		case NODE_TYPE_TILE:
 		case NODE_TYPE_BUILDING:
 			(*min_id) = theApp.GetProfileInt (CONFIG_KEY, NODE_ID_START_VALUE, FIRST_OBJECT_NODE_ID);
 			(*min_id) += 50000;
@@ -1465,7 +1465,7 @@ NodeMgrClass::Get_ID_Range (NODE_TYPE type, uint32 *min_id, uint32 *max_id)
 		case NODE_TYPE_ZONE:
 		case NODE_TYPE_WAYPATH:
 		case NODE_TYPE_WAYPOINT:
-		case NODE_TYPE_OBJECT:		
+		case NODE_TYPE_OBJECT:
 		case NODE_TYPE_COVER_SPOT:
 		case NODE_TYPE_COVER_ATTACK_POINT:
 		case NODE_TYPE_SPAWNER:
@@ -1482,10 +1482,10 @@ NodeMgrClass::Get_ID_Range (NODE_TYPE type, uint32 *min_id, uint32 *max_id)
 			(*max_id) = (*min_id) + 100000;
 			break;
 
-		case NODE_TYPE_UNKNOWN:		
-		case NODE_TYPE_VIS:		
+		case NODE_TYPE_UNKNOWN:
+		case NODE_TYPE_VIS:
 		case NODE_TYPE_VIS_POINT:
-		case NODE_TYPE_PATHFIND_START:		
+		case NODE_TYPE_PATHFIND_START:
 			(*min_id) = FIRST_MISC_NODE_ID;
 			(*max_id) = (*min_id) + 100000;
 			break;
@@ -1516,7 +1516,7 @@ NodeMgrClass::Build_Full_Node_List (DynamicVectorClass<NodeClass *> &node_list)
 	{
 		Add_Nodes_To_List (node_list, node);
 	}
-	
+
 	return ;
 }
 
@@ -1536,14 +1536,14 @@ NodeMgrClass::Add_Nodes_To_List
 	node_list.Add (node);
 
 	//
-	// If the node is an aggregate (like a terrain), we are adding the 
+	// If the node is an aggregate (like a terrain), we are adding the
 	// sub-nodes directly into the list
 	//
 	int sub_count = node->Get_Sub_Node_Count ();
 	if (sub_count > 0) {
 		for (int index = 0; index < sub_count; index ++) {
 			NodeClass *sub_node = node->Get_Sub_Node (index);
-			
+
 			//
 			//	Recurse into this node
 			//
@@ -1576,7 +1576,7 @@ NodeMgrClass::Create_All_Embedded_Nodes (void)
 		if (node_list[index]->Is_Proxied () == false) {
 			PresetClass *preset = node_list[index]->Get_Preset ();
 			if (preset != NULL) {
-				
+
 				//
 				//	Create the nodes that are embedded inside this preset
 				//

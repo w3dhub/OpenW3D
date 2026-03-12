@@ -124,11 +124,11 @@ END_MESSAGE_MAP()
 //	Modified: 12/06/2001 by	MML	- Retrieving strings from Locomoto file.
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-VideoConfigDialogClass::OnInitDialog (void) 
+VideoConfigDialogClass::OnInitDialog (void)
 {
 	char string [_MAX_PATH];
 
-	CDialog::OnInitDialog ();	
+	CDialog::OnInitDialog ();
 
 	//
 	// Set all the static strings for this dialog.
@@ -183,7 +183,7 @@ VideoConfigDialogClass::OnInitDialog (void)
 			CurrentIsWindowed = bool(windowed == 1);
 		}
 	}
-	
+
 	//
 	//	Set the extended styles for the list control
 	//
@@ -192,13 +192,13 @@ VideoConfigDialogClass::OnInitDialog (void)
 	//
 	//	Configure the columns
 	//
-	m_DriverListCtrl.InsertColumn (COL_DEVICE_NAME, "Device Name");	
+	m_DriverListCtrl.InsertColumn (COL_DEVICE_NAME, "Device Name");
 
 	//
 	//	Populate the render device list control
 	//
 	bool found_default_entry = false;
-	int driver_count = WW3D::Get_Render_Device_Count ();	
+	int driver_count = WW3D::Get_Render_Device_Count ();
 	for (int index = 0; index < driver_count; index ++) {
 		const RenderDeviceDescClass &device_desc = WW3D::Get_Render_Device_Desc (index);
 
@@ -236,7 +236,7 @@ VideoConfigDialogClass::OnInitDialog (void)
 	//
 	if (found_default_entry == false) {
 		m_DriverListCtrl.SetItemState (0, LVIS_SELECTED, LVIS_SELECTED);
-	} 
+	}
 
 	//
 	//	Size the columns
@@ -249,7 +249,7 @@ VideoConfigDialogClass::OnInitDialog (void)
 	//
 	//	Build the resolution list for the currently selected device
 	//
-	Update_Display_Settings ();	
+	Update_Display_Settings ();
 
 	return true;
 }
@@ -305,7 +305,7 @@ VideoConfigDialogClass::Update_Display_Settings (void)
 	//
 	Update_Color_Combo ();
 	Update_Resolution_Slider ();
-	Select_Default_Resolution ();	
+	Select_Default_Resolution ();
 	return ;
 }
 
@@ -385,7 +385,7 @@ VideoConfigDialogClass::Update_Color_Combo (void)
 	//
 	bool selected = false;
 	for (int index = 0; index < ResolutionList.Count (); index ++) {
-		
+
 		const ResolutionDescClass &res_desc = ResolutionList[index];
 
 		char	  string [_MAX_PATH];
@@ -429,9 +429,9 @@ VideoConfigDialogClass::Update_Color_Combo (void)
 		CurrentBitDepth = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETITEMDATA, 0);
 		if (CurrentBitDepth <= 0) {
 			CurrentBitDepth = 16;
-		}		
+		}
 	}
-		
+
 	return ;
 }
 
@@ -447,7 +447,7 @@ VideoConfigDialogClass::Select_Default_Resolution (void)
 	int best_selection		= 0;
 	float best_width_err		= 1000.0F;
 	float best_height_err	= 1000.0F;
-	
+
 	//
 	//	Loop over all the available resolutions and try to select
 	// the one that most closely matches the desired resolution
@@ -491,7 +491,7 @@ VideoConfigDialogClass::Update_Resolution_Text (void)
 {
 	int res_index = m_ResSliderCtrl.GetPos ();
 	if (res_index >= 0) {
-		
+
 		//
 		//	Make a display string for the current resolution
 		//
@@ -580,7 +580,7 @@ ResolutionSortCallback (const void *elem1, const void *elem2)
 				retval = -1;
 			} else if (res1->Height > res2->Height) {
 				retval = 1;
-			}			
+			}
 		}
 	}
 
@@ -605,7 +605,7 @@ VideoConfigDialogClass::OnSelchangeBitdepthCombo (void)
 		CurrentBitDepth = SendDlgItemMessage (IDC_BITDEPTH_COMBO, CB_GETITEMDATA, (WPARAM)index);
 		if (CurrentBitDepth <= 0) {
 			CurrentBitDepth = 16;
-		}		
+		}
 
 		//
 		//	Update the dialog controls

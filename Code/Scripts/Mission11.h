@@ -162,7 +162,7 @@
 // Public Variables
 
 // Enumerations
-enum 
+enum
 {
 	//general commands
 	//M11_PICK_A_NEW_WAYPATH_JDG,
@@ -268,7 +268,7 @@ inline const char *M11_Choose_Mutant_Attack_Animation ( )
 			//"S_A_Human.H_A_D11A",
 		};
 		int random = Commands->Get_Random_Int(0, 6);
-	
+
 
 	return animationList[random];
 };

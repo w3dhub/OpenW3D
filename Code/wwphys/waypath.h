@@ -61,7 +61,7 @@ class Vector3;
 class WaypathClass : public PersistClass, public RefCountClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public flags
 	////////////////////////////////////////////////////////////////
@@ -73,7 +73,7 @@ public:
 		FLAG_GROUND_VEHICLE		= 0x00000008,
 		FLAG_FLYING_VEHICLE		= 0x00000010,
 		FLAG_INNATE_PATHFIND		= 0x00000020
-		
+
 	} FLAGS;
 
 
@@ -114,7 +114,7 @@ public:
 	//	Position methods
 	//
 	bool						Evaluate_Position (const WaypathPositionClass &pos, Vector3 *position);
-	
+
 	//
 	//	Serialization methods (from PersistClass)
 	//
@@ -129,7 +129,7 @@ protected:
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
 	void						Free (void);
-	bool						Load_Variables (ChunkLoadClass &cload);		
+	bool						Load_Variables (ChunkLoadClass &cload);
 
 private:
 

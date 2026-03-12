@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/control.cpp                           $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 2/21/02 5:08p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 34                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/control.cpp                           $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 2/21/02 5:08p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 34                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "control.h"
@@ -57,7 +57,7 @@ ControlClass & ControlClass::operator = (const ControlClass & src)
 {
 	OneTimeBooleanBits		= src.OneTimeBooleanBits;
 	ContinuousBooleanBits	= src.ContinuousBooleanBits;
-	memcpy( AnalogValues, src.AnalogValues, sizeof(AnalogValues) ); 
+	memcpy( AnalogValues, src.AnalogValues, sizeof(AnalogValues) );
 	return *this;
 }
 
@@ -104,8 +104,8 @@ bool	ControlClass::Load( ChunkLoadClass &cload )
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_CONTINUOUS_BOOL, ContinuousBooleanBits );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_PENDING_ONE_TIME_BOOL, PendingOneTimeBooleanBits );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_PENDING_CONTINUOUS_BOOL, PendingContinuousBooleanBits );
-						case MICROCHUNKID_ANALOG:	
-							cload.Read( &AnalogValues[0],sizeof(AnalogValues) ); 
+						case MICROCHUNKID_ANALOG:
+							cload.Read( &AnalogValues[0],sizeof(AnalogValues) );
 							break;
 
 						default:
@@ -128,8 +128,8 @@ bool	ControlClass::Load( ChunkLoadClass &cload )
 }
 
 //JITTER
-void	ControlClass::Clear_Boolean( void )	
-{ 
+void	ControlClass::Clear_Boolean( void )
+{
 	WWASSERT( (8 * sizeof(ControlClass::OneTimeBooleanBits)) >= ControlClass::NUM_BOOLEAN_ONE_TIME  );
 	WWASSERT( (8 * sizeof(ControlClass::ContinuousBooleanBits)) >= ControlClass::NUM_BOOLEAN_CONTINUOUS );
 
@@ -138,14 +138,14 @@ void	ControlClass::Clear_Boolean( void )
 }
 
 
-void	ControlClass::Clear_Control( void )	
-{ 
+void	ControlClass::Clear_Control( void )
+{
 	WWASSERT( (8 * sizeof(ControlClass::OneTimeBooleanBits)) >= ControlClass::NUM_BOOLEAN_ONE_TIME );
 	WWASSERT( (8 * sizeof(ControlClass::ContinuousBooleanBits)) >= ControlClass::NUM_BOOLEAN_CONTINUOUS );
 
 	OneTimeBooleanBits	= 0;
 	ContinuousBooleanBits	= 0;
-	memset( AnalogValues, 0, sizeof(AnalogValues) ); 
+	memset( AnalogValues, 0, sizeof(AnalogValues) );
 }
 
 enum {
@@ -161,7 +161,7 @@ enum {
 
 //-----------------------------------------------------------------------------
 void	ControlClass::Import_Cs( BitStreamClass & packet )
-{ 
+{
 	// Or in the new one time bits
 	uint32_t otb_bits = packet.Get(otb_bits, BITPACK_ONE_TIME_BOOLEAN_BITS);
 	OneTimeBooleanBits |= otb_bits;
@@ -211,7 +211,7 @@ void	ControlClass::Import_Cs( BitStreamClass & packet )
 	for (int i = 0; i < ANALOG_CONTROL_COUNT; i++) {
 		if (fabs(AnalogValues[i]) < 0.005) {
 			//
-			// The code elsewhere has no tolerance for precision error on this 
+			// The code elsewhere has no tolerance for precision error on this
 			// value around zero...
 			//
 			AnalogValues[i] = 0;
@@ -220,7 +220,7 @@ void	ControlClass::Import_Cs( BitStreamClass & packet )
 }
 
 //-----------------------------------------------------------------------------
-void ControlClass::Export_Cs( BitStreamClass & packet ) 
+void ControlClass::Export_Cs( BitStreamClass & packet )
 {
 //	packet.Add(OneTimeBooleanBits,		BITPACK_ONE_TIME_BOOLEAN_BITS);
 	packet.Add(PendingOneTimeBooleanBits,		BITPACK_ONE_TIME_BOOLEAN_BITS);
@@ -267,7 +267,7 @@ void ControlClass::Export_Cs( BitStreamClass & packet )
 
 //-----------------------------------------------------------------------------
 void ControlClass::Import_Sc(BitStreamClass & packet)
-{ 
+{
 	packet.Get(ContinuousBooleanBits, BITPACK_CONTINUOUS_BOOLEAN_BITS);
 
 #if 01
@@ -312,7 +312,7 @@ void ControlClass::Import_Sc(BitStreamClass & packet)
 	for (int i = 0; i < ANALOG_CONTROL_COUNT; i++) {
 		if (fabs(AnalogValues[i]) < 0.005) {
 			//
-			// The code elsewhere has no tolerance for precision error on this 
+			// The code elsewhere has no tolerance for precision error on this
 			// value around zero...
 			//
 			AnalogValues[i] = 0;
@@ -321,7 +321,7 @@ void ControlClass::Import_Sc(BitStreamClass & packet)
 }
 
 //-----------------------------------------------------------------------------
-void ControlClass::Export_Sc(BitStreamClass & packet) 
+void ControlClass::Export_Sc(BitStreamClass & packet)
 {
 	packet.Add(ContinuousBooleanBits,	BITPACK_CONTINUOUS_BOOLEAN_BITS);
 
@@ -363,7 +363,7 @@ void ControlClass::Export_Sc(BitStreamClass & packet)
 
 //-----------------------------------------------------------------------------
 /*
-float	ControlClass::Get_Clamp(AnalogControl control) 
+float	ControlClass::Get_Clamp(AnalogControl control)
 {
    //
    // This will definitely need improving...
@@ -400,14 +400,14 @@ float	ControlClass::Get_Clamp(AnalogControl control)
 */
 
 /*
-BYTE ControlClass::Scale_Analog(float clamp, float unscaled) 
+BYTE ControlClass::Scale_Analog(float clamp, float unscaled)
 {
    WWASSERT(unscaled > -clamp - WWMATH_EPSILON);
    WWASSERT(unscaled < +clamp + WWMATH_EPSILON);
    return (BYTE) (255 * WWMath::Clamp((unscaled + clamp) / (2 * clamp)));
 }
 
-float ControlClass::Unscale_Analog(float clamp, BYTE scaled) 
+float ControlClass::Unscale_Analog(float clamp, BYTE scaled)
 {
    float unscaled;
    if (scaled == 127) { // scaling perturbs zero, special-case it
@@ -422,32 +422,32 @@ float ControlClass::Unscale_Analog(float clamp, BYTE scaled)
 */
 
 void	ControlClass::Set_Boolean( BooleanControl bcontrol, bool state )
-{ 
+{
 	int control = bcontrol;
 	if ( control >= BOOLEAN_CONTINUOUS_FIRST ) {
 		control -= BOOLEAN_CONTINUOUS_FIRST;
-		if (state) 	ContinuousBooleanBits |= (1 << control); 
-		else 		  	ContinuousBooleanBits &= ~(1 << control); 
+		if (state) 	ContinuousBooleanBits |= (1 << control);
+		else 		  	ContinuousBooleanBits &= ~(1 << control);
 
 		PendingContinuousBooleanBits |= ContinuousBooleanBits;
 	} else {
 		control -= BOOLEAN_ONE_TIME_FIRST;
-		if (state) 	OneTimeBooleanBits |= (1 << control); 
-		else 		  	OneTimeBooleanBits &= ~(1 << control); 
+		if (state) 	OneTimeBooleanBits |= (1 << control);
+		else 		  	OneTimeBooleanBits &= ~(1 << control);
 
 		PendingOneTimeBooleanBits |= OneTimeBooleanBits;
 	}
 }
 
 bool	ControlClass::Get_Boolean( BooleanControl bcontrol )
-{ 
+{
 	int control = bcontrol;
 	if ( control >= BOOLEAN_CONTINUOUS_FIRST ) {
 		control -= BOOLEAN_CONTINUOUS_FIRST;
-		return ( ContinuousBooleanBits & (1 << control ) ) ? true : false; 
+		return ( ContinuousBooleanBits & (1 << control ) ) ? true : false;
 	} else {
 		control -= BOOLEAN_ONE_TIME_FIRST;
-		return ( OneTimeBooleanBits & (1 << control ) ) ? true : false; 
+		return ( OneTimeBooleanBits & (1 << control ) ) ? true : false;
 	}
 }
 
@@ -460,7 +460,7 @@ void ControlClass::Set_Precision(void)
 	cEncoderList::Set_Precision(BITPACK_CONTROL_MOVES_SC,				CONTROL_MOVE_DOWN+1); // 6
 
 	//
-	// TSS: I think that analog values are within this range, except for 
+	// TSS: I think that analog values are within this range, except for
 	// DEBUG_RAPID_MOVE...
 	//
 	cEncoderList::Set_Precision(BITPACK_ANALOG_VALUES,	-1.0, 1.0, 0.01);

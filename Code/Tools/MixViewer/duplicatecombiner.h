@@ -90,7 +90,7 @@ private:
 	//////////////////////////////////////////////////////////////////
 	void			Open_Mix_Files (DynamicVectorClass<MixFileFactoryClass *> &list);
 	void			Close_Mix_Files (DynamicVectorClass<MixFileFactoryClass *> &list);
-	void			Internal_Process (void);	
+	void			Internal_Process (void);
 
 	static UINT	fnThreadProc (LPVOID pParam);
 

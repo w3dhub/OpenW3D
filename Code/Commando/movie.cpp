@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/movie.cpp                           $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 2/25/02 11:46a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 31                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/movie.cpp                           $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 2/25/02 11:46a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 31                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "movie.h"
@@ -97,7 +97,7 @@ void 	MovieGameModeClass::Think()
 			return;
 		}
 
-		if (( MovieStartupMode == STARTUP_MOVIE_INTRO ) && 
+		if (( MovieStartupMode == STARTUP_MOVIE_INTRO ) &&
 			( IntroMovieSkipAllowed == false )) {
 			return;
 		}
@@ -132,7 +132,7 @@ void 	MovieGameModeClass::Render()
 void	MovieGameModeClass::Start_Movie( const char * filename )
 {
 	WWMEMLOG(MEM_BINK);
-	
+
 	//
 	//	Check to see if we should enforce the CD or not...
 	//
@@ -171,7 +171,7 @@ void	MovieGameModeClass::Start_Movie( const char * filename )
 		//
 		StringClass cd_path;
 		if ( CDVerifier.Get_CD_Path( cd_path ) ) {
-			
+
 			//
 			//	Build a full-path to the movie on the CD
 			//
@@ -194,7 +194,7 @@ void	MovieGameModeClass::Start_Movie( const char * filename )
 void	MovieGameModeClass::Play_Movie( const char * filename )
 {
 	WWAudioClass::Get_Instance ()->Temp_Disable_Audio (true);
-	
+
 	FontCharsClass* font = StyleMgrClass::Get_Font(StyleMgrClass::FONT_INGAME_SUBTITLE_TXT);
 
 	BINKMovie::Play( filename, "data/subtitle.ini", font );
@@ -216,7 +216,7 @@ void	MovieGameModeClass::HandleNotification (CDVerifyEvent &event)
 		//
 		StringClass cd_path;
 		if ( CDVerifier.Get_CD_Path( cd_path ) ) {
-			
+
 			//
 			//	Build a full-path to the movie on the CD
 			//
@@ -227,12 +227,12 @@ void	MovieGameModeClass::HandleNotification (CDVerifyEvent &event)
 		}
 			full_path += PendingMovieFilename;
 			Play_Movie( full_path );
-		}		
-	} else if ( event.Event() == CDVerifyEvent::NOT_VERIFIED ) {			
+		}
+	} else if ( event.Event() == CDVerifyEvent::NOT_VERIFIED ) {
 
 		if ( MovieStartupMode == STARTUP_MOVIE_EA || MovieStartupMode == STARTUP_MOVIE_INTRO) {
 			MovieStartupMode = STARTUP_MOVIE_OFF;
-			
+
 			// Goto main menu
 			RenegadeDialogMgrClass::Goto_Location (RenegadeDialogMgrClass::LOC_MAIN_MENU);
 			Deactivate();
@@ -273,7 +273,7 @@ void	MovieGameModeClass::Movie_Done( void )
 	} else if ( MovieStartupMode == STARTUP_MOVIE_INTRO ) {
 		MovieStartupMode = STARTUP_MOVIE_OFF;
 		// Goto main menu
-		
+
 #ifdef MULTIPLAYERDEMO
 		RenegadeDialogMgrClass::Goto_Location (RenegadeDialogMgrClass::LOC_SPLASH_IN);
 #else

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 8/10/00 4:10p       $* 
- *                                                                                             * 
- *                    $Revision:: 2                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 8/10/00 4:10p       $*
+ *                                                                                             *
+ *                    $Revision:: 2                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef _TRIANGLE_H
@@ -76,12 +76,12 @@ class Triangle
 
 		bool Is_Equivalent (const Triangle &triangle) const;
 		bool Abuts (const Triangle &triangle) const;
-		
+
 		Vector3			   Normal;							// Face normal.
 		TriangleVertices	Vertices [VERTICES_COUNT];	// Location of triangle in object space and texture space.
 		TextureNameNode  *TextureNameNodePtr;			// List of textures associated with this triangle.
 		unsigned				TextureID;						// ID to uniquely identify the texture.
-};	
+};
 
 
 /***********************************************************************************************
@@ -94,7 +94,7 @@ class Triangle
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *  06/13/00    IML : Created.                                                                 * 
+ *  06/13/00    IML : Created.                                                                 *
  *=============================================================================================*/
 inline bool Triangle::Is_Equivalent (const Triangle &triangle)	const
 {
@@ -106,7 +106,7 @@ inline bool Triangle::Is_Equivalent (const Triangle &triangle)	const
 	// (b) Points must match (but may not necessarily be in the same order).
 
 	if (Normal != triangle.Normal) return (false);
-	
+
 	hasequivalent [0] = false;
 	hasequivalent [1] = false;
 	hasequivalent [2] = false;
@@ -139,7 +139,7 @@ inline bool Triangle::Is_Equivalent (const Triangle &triangle)	const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *  08/03/00    IML : Created.                                                                 * 
+ *  08/03/00    IML : Created.                                                                 *
  *=============================================================================================*/
 inline bool Triangle::Abuts (const Triangle &triangle) const
 {
@@ -172,7 +172,7 @@ inline bool Triangle::Abuts (const Triangle &triangle) const
 class PackingTriangle : public Triangle
 {
 	public:
-		
+
 		// Public data.
 		Vector2  PackedUVs [Triangle::VERTICES_COUNT];
 		unsigned PackedTextureID;

@@ -20,7 +20,7 @@
 // Filename:     regbool.cpp
 // Author:       Tom Spencer-Smith
 // Date:         Dec 1998
-// Description:  
+// Description:
 //
 
 #include "regbool.h" // I WANNA BE FIRST!

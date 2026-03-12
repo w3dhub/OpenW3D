@@ -74,7 +74,7 @@ public:
 	bool					Cast_Ray(PhysRayCollisionTestClass & raytest);
 	bool					Cast_AABox(PhysAABoxCollisionTestClass & boxtest);
 	bool					Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest);
-	
+
 	bool					Intersection_Test(PhysAABoxIntersectionTestClass & boxtest);
 	bool					Intersection_Test(PhysOBBoxIntersectionTestClass & boxtest);
 	bool					Intersection_Test(PhysMeshIntersectionTestClass & meshtest);
@@ -94,7 +94,7 @@ protected:
 	bool					Cast_Ray_Recursive(AABTreeNodeClass * node,PhysRayCollisionTestClass & raytest);
 	bool					Cast_AABox_Recursive(AABTreeNodeClass * node,PhysAABoxCollisionTestClass & boxtest);
 	bool					Cast_OBBox_Recursive(AABTreeNodeClass * node,PhysOBBoxCollisionTestClass & boxtest);
-		
+
 	/*
 	** Members
 	*/

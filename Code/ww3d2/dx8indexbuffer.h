@@ -115,7 +115,7 @@ class DynamicIBAccessClass
 	friend SortingRendererClass;
 
 	unsigned Type;
-	unsigned short IndexCount;	
+	unsigned short IndexCount;
 	unsigned short IndexBufferOffset;
 	IndexBufferClass* IndexBuffer;
 
@@ -139,7 +139,7 @@ public:
 	class WriteLockClass
 	{
 		DynamicIBAccessClass* DynamicIBAccess;
-		unsigned short* Indices;		
+		unsigned short* Indices;
 	public:
 		WriteLockClass(DynamicIBAccessClass* ib_access);
 		~WriteLockClass();
@@ -173,7 +173,7 @@ public:
 	void Copy(unsigned short* indices,unsigned start_index,unsigned index_count);
 
 	inline IDirect3DIndexBuffer9* Get_DX8_Index_Buffer()	{ return index_buffer; }
-	
+
 private:
 	IDirect3DIndexBuffer9*	index_buffer;		// actual dx8 index buffer
 };

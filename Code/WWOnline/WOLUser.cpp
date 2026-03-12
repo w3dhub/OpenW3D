@@ -454,7 +454,7 @@ RefPtr<LadderData> UserData::GetLadderFromType(LadderType type)
 
 	return GetLadder();
 	}
-				
+
 
 /******************************************************************************
 *
@@ -538,7 +538,7 @@ NativeWOLUserList::~NativeWOLUserList()
 *     List - UserData list to search.
 *
 * RESULT
-*     User - 
+*     User -
 *
 ******************************************************************************/
 
@@ -564,7 +564,7 @@ RefPtr<UserData> FindUserInList(const unichar_t* username, const UserList& list)
 *     RemoveUserInList
 *
 * DESCRIPTION
-*     Remove the 
+*     Remove the
 *
 * INPUTS
 *     Name - Name of user to remove.

@@ -98,7 +98,7 @@ class TextureLoadTaskListNodeClass
 
 class TextureLoadTaskListClass
 {
-	// This class implements an unsynchronized, double-linked list of TextureLoadTaskClass 
+	// This class implements an unsynchronized, double-linked list of TextureLoadTaskClass
 	// objects, using an embedded list node.
 
 	public:
@@ -206,7 +206,7 @@ class TextureLoadTaskClass : public TextureLoadTaskListNodeClass
 		bool						Load							(void);
 		void						End_Load						(void);
 		void						Finish_Load					(void);
-		void						Apply_Missing_Texture	(void);						
+		void						Apply_Missing_Texture	(void);
 
 	private:
 		bool						Begin_Compressed_Load	(void);
@@ -219,7 +219,7 @@ class TextureLoadTaskClass : public TextureLoadTaskListNodeClass
 		void						Unlock_Surfaces			(void);
 
 		void						Apply							(bool initialize);
-		
+
 		TextureClass*			Texture;
 		IDirect3DTexture9 *	D3DTexture;
 		WW3DFormat				Format;

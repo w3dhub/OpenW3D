@@ -69,7 +69,7 @@ public:
 
 	// State variables
 	float								Get_Lean_Value(void)			{ return LeanValue; }
-	
+
 	// Save-Load system
 	virtual const PersistFactoryClass &	Get_Factory (void) const override;
 	virtual bool								Save (ChunkSaveClass &csave) override;
@@ -99,9 +99,9 @@ private:
 class MotorcycleDefClass : public WheeledVehicleDefClass
 {
 public:
-	
+
 	MotorcycleDefClass (void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;

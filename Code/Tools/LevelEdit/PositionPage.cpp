@@ -154,7 +154,7 @@ PositionPageClass::HandleInitDialog (void)
 	SendDlgItemMessage (IDC_YPOS_SPIN, UDM_SETRANGE, (WPARAM)0, MAKELPARAM (UD_MAXVAL, UD_MINVAL));
 	SendDlgItemMessage (IDC_ZPOS_SPIN, UDM_SETRANGE, (WPARAM)0, MAKELPARAM (UD_MAXVAL, UD_MINVAL));
 	SendDlgItemMessage (IDC_ZROT_SPIN, UDM_SETRANGE, (WPARAM)0, MAKELPARAM (UD_MAXVAL, UD_MINVAL));
-	
+
 	// Assume we aren't messing with the rotation
 	m_bInclueRotation = false;
 	return ;
@@ -188,7 +188,7 @@ PositionPageClass::Apply_Changes (void)
 
 	// Pass the newly constructed transform directly to the node
 	MoverClass::Transform_Node (m_pNode, transform);
-	
+
 	// Pass the rotation restriction onto the node (if necessary)
 	if (m_pNode->Can_Be_Rotated_Freely ()) {
 		m_pNode->Restrict_Rotation (bool(SendDlgItemMessage (IDC_RESTRICT_CHECK, BM_GETCHECK) == 1));
@@ -209,15 +209,15 @@ PositionPageClass::OnDeltaPosXPosSpin
 (
 	NMHDR* pNMHDR,
 	LRESULT* pResult
-) 
+)
 {
 	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
-	
+
 	// Get the current value, increment it, and put it back into the control
 	float xpos = ::GetDlgItemFloat (m_hWnd, IDC_XPOS_EDIT);
 	xpos += (((float)pNMUpDown->iDelta) / 100.0F);
 	::SetDlgItemFloat (m_hWnd, IDC_XPOS_EDIT, xpos);
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -233,7 +233,7 @@ PositionPageClass::OnDeltaPosXRotSpin
 (
 	NMHDR* pNMHDR,
 	LRESULT* pResult
-) 
+)
 {
 	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
 
@@ -241,7 +241,7 @@ PositionPageClass::OnDeltaPosXRotSpin
 	float xrot = ::GetDlgItemFloat (m_hWnd, IDC_XROT_EDIT);
 	xrot += (((float)pNMUpDown->iDelta) / 100.0F);
 	::SetDlgItemFloat (m_hWnd, IDC_XROT_EDIT, xrot);
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -257,7 +257,7 @@ PositionPageClass::OnDeltaPosYPosSpin
 (
 	NMHDR* pNMHDR,
 	LRESULT* pResult
-) 
+)
 {
 	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
 
@@ -265,7 +265,7 @@ PositionPageClass::OnDeltaPosYPosSpin
 	float ypos = ::GetDlgItemFloat (m_hWnd, IDC_YPOS_EDIT);
 	ypos += (((float)pNMUpDown->iDelta) / 100.0F);
 	::SetDlgItemFloat (m_hWnd, IDC_YPOS_EDIT, ypos);
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -281,7 +281,7 @@ PositionPageClass::OnDeltaPosYRotSpin
 (
 	NMHDR* pNMHDR,
 	LRESULT* pResult
-) 
+)
 {
 	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
 
@@ -289,7 +289,7 @@ PositionPageClass::OnDeltaPosYRotSpin
 	float yrot = ::GetDlgItemFloat (m_hWnd, IDC_YROT_EDIT);
 	yrot += (((float)pNMUpDown->iDelta) / 100.0F);
 	::SetDlgItemFloat (m_hWnd, IDC_YROT_EDIT, yrot);
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -305,7 +305,7 @@ PositionPageClass::OnDeltaPosZPosSpin
 (
 	NMHDR* pNMHDR,
 	LRESULT* pResult
-) 
+)
 {
 	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
 
@@ -313,7 +313,7 @@ PositionPageClass::OnDeltaPosZPosSpin
 	float zpos = ::GetDlgItemFloat (m_hWnd, IDC_ZPOS_EDIT);
 	zpos += (((float)pNMUpDown->iDelta) / 100.0F);
 	::SetDlgItemFloat (m_hWnd, IDC_ZPOS_EDIT, zpos);
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -329,7 +329,7 @@ PositionPageClass::OnDeltaPosZRotSpin
 (
 	NMHDR* pNMHDR,
 	LRESULT* pResult
-) 
+)
 {
 	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
 
@@ -340,7 +340,7 @@ PositionPageClass::OnDeltaPosZRotSpin
 
 	// Modify the transform's rotation on exit
 	m_bInclueRotation = true;
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -355,7 +355,7 @@ void
 PositionPageClass::OnChangeZRotEdit (void)
 {
 	// Modify the transform's rotation on exit
-	m_bInclueRotation = true;	
+	m_bInclueRotation = true;
 	return ;
 }
 

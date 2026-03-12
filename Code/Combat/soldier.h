@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/soldier.h                             $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/29/02 1:41p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 192                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/soldier.h                             $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/29/02 1:41p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 192                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SOLDIER_H
@@ -190,7 +190,7 @@ public:
    virtual	void	Import_State_Cs( BitStreamClass & packet ) override;
    virtual	void	Export_State_Cs( BitStreamClass & packet ) override;
 	void				Interpret_Sc_Position_Data(const Vector3 & sc_position);
-	void				Interpret_Sc_State_Data(HumanStateClass::HumanStateType state, 
+	void				Interpret_Sc_State_Data(HumanStateClass::HumanStateType state,
 							int sub_state, LPCSTR trans_name, const Vector3 & velocity, const Vector3 & sc_position);
 	int				Tally_Vis_Visible_Soldiers(void);
 	bool				Is_In_Elevator(void);
@@ -300,7 +300,7 @@ public:
 	void					Enable_Ghost_Collision( bool onoff );
 	bool					Is_Soldier_Blocked( const Vector3 &curr_pos );
 	bool					Is_Safe_To_Disable_Ghost_Collision( const Vector3 &curr_pos );
-	
+
 
 	//
 	// Speech support
@@ -331,7 +331,7 @@ public:
 	virtual bool		Allow_Special_Damage_State_Lock( void )	{ return (Is_Human_Controlled() == false); }
 
 	virtual	bool	Is_Visible( void ) override						{ return IsVisible; }
-				void	Set_Is_Visible( bool visible )		{ IsVisible = visible; }	
+				void	Set_Is_Visible( bool visible )		{ IsVisible = visible; }
 
 	//
 	//	Static debug support
@@ -400,13 +400,13 @@ protected:
 
 	int						InnateEnableBits;
 	SoldierObserverClass *InnateObserver;
-	SoldierAIState			AIState;	
-	
+	SoldierAIState			AIState;
+
 	DynamicSpeechAnimClass *SpeechAnim;
 	float						GenerateIdleFacialAnimTimer;
 	RenderObjClass *		HeadModel;
 	RenderObjClass *		EmotIconModel;
-	float						EmotIconTimer;	
+	float						EmotIconTimer;
 
 	bool						InFlyMode;
 	bool						IsVisible;
@@ -414,7 +414,7 @@ protected:
 	bool						LadderUpMask;
 	bool						LadderDownMask;
 
-	float						ReloadingTilt;	
+	float						ReloadingTilt;
 
 	bool						WeaponChanged;
 

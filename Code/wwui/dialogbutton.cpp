@@ -86,7 +86,7 @@ DialogButtonClass::Render (void)
 	}
 
 	if (WasButtonPressedOnMe && IsMouseOverMe) {
-		
+
 		//
 		//	Render the button "pressed"
 		//
@@ -163,7 +163,7 @@ DialogButtonClass::On_LButton_Up (const Vector2 &mouse_pos)
 ////////////////////////////////////////////////////////////////
 void
 DialogButtonClass::On_Mouse_Move (const Vector2 &mouse_pos)
-{	
+{
 	IsMouseOverMe = Rect.Contains (mouse_pos);
 	return ;
 }
@@ -187,7 +187,7 @@ DialogButtonClass::Create_Bitmap_Button (void)
 	ButtonRenderers[0].Set_Texture (texture);
 	ButtonRenderers[1].Set_Texture (texture);
 	texture->Release_Ref();
-	
+
 	RectClass uv_rect1 (0, 0, 161.0F / 256.0F, 63.0F / 256.0F);
 	ButtonRenderers[0].Add_Quad (Rect, uv_rect1);
 	return ;
@@ -195,7 +195,7 @@ DialogButtonClass::Create_Bitmap_Button (void)
 
 void
 Blit_Section
-(	
+(
 	Render2DClass &	renderer,
 	const Vector2 &	screen_pos,
 	const Vector2 &	texture_pos,
@@ -288,7 +288,7 @@ DialogButtonClass::Create_Component_Button (void)
 		Vector2 (edge_width, height), texture_dimensions);
 
 
-	Vector2 horz_top_pos ((right / 2) - 5, 0);	
+	Vector2 horz_top_pos ((right / 2) - 5, 0);
 	Vector2 horz_bottom_pos ((right / 2) - 5, bottom - height);
 	Vector2 horz_size (10, height);
 
@@ -312,7 +312,7 @@ DialogButtonClass::Create_Component_Button (void)
 
 		::Blit_Section (ButtonRenderers[1], Vector2 (x_pos, Rect.Bottom - height), horz_bottom_pos + Vector2 (0, dn_start),
 			horz_size, texture_dimensions);
-		
+
 		x_pos += horz_size.X;
 		remaining_width -= horz_size.X;
 	}
@@ -342,7 +342,7 @@ DialogButtonClass::Create_Component_Button (void)
 
 		::Blit_Section (ButtonRenderers[1], Vector2 (Rect.Right - edge_width, y_pos), vert_right_pos  + Vector2 (0, dn_start),
 			vert_size, texture_dimensions);
- 		
+
 		y_pos += vert_size.Y;
 		remaining_height -= vert_size.Y;
 	}
@@ -353,7 +353,7 @@ DialogButtonClass::Create_Component_Button (void)
 	y_pos = Rect.Top + height;
 	remaining_height = Rect.Height () - (height * 2);
 	while (remaining_height > 0) {
-		
+
 		x_pos = Rect.Left + edge_width;
 		remaining_width = Rect.Width () - (edge_width * 2);
 		while (remaining_width > 0) {
@@ -396,8 +396,8 @@ DialogButtonClass::Create_Component_Button2 (void)
 	//
 	//	Turn off texturing on the UI background
 	//
-	ButtonRenderers[0].Enable_Texturing (false);	
-	ButtonRenderers[1].Enable_Texturing (false);	
+	ButtonRenderers[0].Enable_Texturing (false);
+	ButtonRenderers[1].Enable_Texturing (false);
 	const int BLACK	= VRGB_TO_INT32 (Vector3 (0, 0, 0));
 	const int WHITE	= VRGB_TO_INT32 (Vector3 (1, 1, 1));
 	const int DK_GRAY	= VRGB_TO_INT32 (Vector3 (0.5F, 0.5F, 0.5F));
@@ -418,7 +418,7 @@ DialogButtonClass::Create_Component_Button2 (void)
 	ButtonRenderers[1].Add_Line (Vector2 (rect.Right, rect.Top),		Vector2 (rect.Right, rect.Bottom),	1, WHITE);
 	ButtonRenderers[1].Add_Line (Vector2 (rect.Right, rect.Bottom),	Vector2 (rect.Left, rect.Bottom),	1, WHITE);
 
-	
+
 	//
 	//	Draw the inside button outline
 	//

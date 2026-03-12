@@ -21,4 +21,4 @@
 
 extern PaletteClass					DefaultPalette;
 extern ConvertClass					DefaultConvert;
- 
+

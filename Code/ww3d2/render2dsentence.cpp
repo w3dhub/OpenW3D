@@ -394,7 +394,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const unichar_t *text, int *r
 		Vector2 temp(0,0);
 		return(temp);
 	}
-	
+
 	float max_x_pos	= 0;
 	float x_pos			= 0;
 	float y_pos			= Font->Get_Char_Height ();

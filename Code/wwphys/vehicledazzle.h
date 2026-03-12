@@ -64,16 +64,16 @@ public:
 	static bool						Is_Vehicle_Dazzle(RenderObjClass * model);
 
 private:
-		
+
 	enum { HEADLIGHT_TYPE = 0, BRAKELIGHT_TYPE, BLINKLIGHT_TYPE, NONE = -1};
 	static int						Determine_Type(RenderObjClass * model);
 
-	int								Type;				
+	int								Type;
 	DazzleRenderObjClass *		Model;
 	float								BlinkRate;		//(blinks per minute)
-	
+
 	unsigned int					CreationTime;
-	
+
 	// Not Implemented
 	VehicleDazzleClass(const VehicleDazzleClass & that);
 	VehicleDazzleClass & operator = (const VehicleDazzleClass & that);

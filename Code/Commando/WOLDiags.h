@@ -43,7 +43,7 @@ public:
 		{return ("wol");}
 
 	const char* Get_Help(void) override;
-	
+
 	void Activate(const char* input) override;
 };
 

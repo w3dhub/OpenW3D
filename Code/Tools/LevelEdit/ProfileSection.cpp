@@ -16,18 +16,18 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LevelEdit                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tools/LevelEdit/ProfileSection.cpp                                                                                                                                       $Author:: Patrick_s                                                    * 
- *                                                                                             * 
- *                     $Modtime:: 2/23/99 10:26a                                                                                                                                                                            $Revision:: 1                                                            * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LevelEdit                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tools/LevelEdit/ProfileSection.cpp                                                                                                                                       $Author:: Patrick_s                                                    *
+ *                                                                                             *
+ *                     $Modtime:: 2/23/99 10:26a                                                                                                                                                                            $Revision:: 1                                                            *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "StdAfx.h"
@@ -61,7 +61,7 @@ ProfileSectionClass::Get_Next_Key
 		LPTSTR temp_string = ::strchr (local_copy, '=');
 		temp_string[0] = 0;
 		temp_string += 1;
-		
+
 		//
 		//	Strip off the comments (if any)
 		//

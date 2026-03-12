@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/animcontrol.cpp                       $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/04/02 10:26a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 53                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/animcontrol.cpp                       $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/04/02 10:26a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 53                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "animcontrol.h"
@@ -56,7 +56,7 @@ enum	{
 	CHUNKID_CHANNEL1,
 	CHUNKID_CHANNEL2,
 
-	MICROCHUNKID_BLEND_TIMER			= 1,	
+	MICROCHUNKID_BLEND_TIMER			= 1,
 	MICROCHUNKID_BLEND_TOTAL,
 	MICROCHUNKID_FRAME,
 	XXXMICROCHUNKID_WEIGHT,
@@ -219,10 +219,10 @@ void AnimChannelClass::Set_Animation( const HAnimClass *anim )
 }
 
 void	AnimChannelClass::Set_Mode( AnimMode mode, float frame )
-{ 
-	Mode = mode; 
+{
+	Mode = mode;
 	if ( frame >= 0 ) {
-		Frame = frame; 
+		Frame = frame;
 	}
 }
 
@@ -235,14 +235,14 @@ void AnimChannelClass::Update( float dtime )
 	if ( Animation != NULL ) {
 
 		switch ( Mode )
-		{		
+		{
 			case ANIM_MODE_LOOP:
-				
+
 				//
 				//	Increment the frame based on the current timeslice
 				//
 				Frame += dtime * Animation->Get_Frame_Rate();
-				
+
 				//
 				//	Handle wrapping
 				//
@@ -256,23 +256,23 @@ void AnimChannelClass::Update( float dtime )
 				break;
 
 			case ANIM_MODE_TARGET:
-			
+
 				//
 				//	Which direction are we animating?
 				//
 				if ( Frame < TargetFrame ) {
 					Frame += dtime * Animation->Get_Frame_Rate();
-					
+
 					//
 					// If we overshoot targetframe, snap to targetframe
 					//
-					if (Frame >= TargetFrame) {								
+					if (Frame >= TargetFrame) {
 						Frame = TargetFrame;
 					}
 
 				} else if ( Frame > TargetFrame ) {
 					Frame -= dtime * Animation->Get_Frame_Rate();
-					
+
 					//
 					// If we overshoot targetframe, snap to targetframe
 					//
@@ -364,11 +364,11 @@ bool	BlendableAnimChannelClass::Load( ChunkLoadClass &cload )
 			case CHUNKID_NEW:
 				NewChannel.Load( cload );
 				break;
-								
+
 			case CHUNKID_OLD:
 				OldChannel.Load( cload );
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -393,7 +393,7 @@ bool	BlendableAnimChannelClass::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-void	BlendableAnimChannelClass::Set_Animation( const char *name, float blendtime, float start_frame ) 
+void	BlendableAnimChannelClass::Set_Animation( const char *name, float blendtime, float start_frame )
 {
 	// if setting to our current anim, bail
 	if ( ( NewChannel.Peek_Animation() == NULL ) && ( name == NULL ) ) {
@@ -411,17 +411,17 @@ void	BlendableAnimChannelClass::Set_Animation( const char *name, float blendtime
 		BlendTotal = 0.0f;
 		BlendTimer = 0.0f;
 	} else if ( BlendTotal == 0.0 ) {						//if not currently blending
-		OldChannel = NewChannel;	
+		OldChannel = NewChannel;
 		BlendTimer = 0.0f;
 		BlendTotal = blendtime;
 #if 0
 	} else if ( OldChannel.Peek_Animation() == new_anim.Peek_Animation() ) {	// if old anim is the new one
-		OldChannel.Copy_From( NewChannel );	
+		OldChannel.Copy_From( NewChannel );
 		BlendTimer = (1.0f - (BlendTimer / BlendTotal)) * blendtime;
 		BlendTotal = blendtime;
 #endif
 	} else if ( (BlendTimer / BlendTotal) > 0.5 ) {	// if more than halfway through the old blend
-		OldChannel = NewChannel;	
+		OldChannel = NewChannel;
 		BlendTimer = (1.0f - (BlendTimer / BlendTotal)) * blendtime;
 		BlendTotal = blendtime;
 	} else {
@@ -455,17 +455,17 @@ void	BlendableAnimChannelClass::Set_Animation( const HAnimClass * anim, float bl
 		BlendTotal = 0.0f;
 		BlendTimer = 0.0f;
 	} else if ( BlendTotal == 0.0 ) {						//if not currently blending
-		OldChannel = NewChannel;	
+		OldChannel = NewChannel;
 		BlendTimer = 0.0f;
 		BlendTotal = blendtime;
 #if 0
 	} else if ( OldChannel.Peek_Animation() == new_anim.Peek_Animation() ) {	// if old anim is the new one
-		OldChannel.Copy_From( NewChannel );	
+		OldChannel.Copy_From( NewChannel );
 		BlendTimer = (1.0f - (BlendTimer / BlendTotal)) * blendtime;
 		BlendTotal = blendtime;
 #endif
 	} else if ( (BlendTimer / BlendTotal) > 0.5 ) {	// if more than halfway through the old blend
-		OldChannel = NewChannel;	
+		OldChannel = NewChannel;
 		BlendTimer = (1.0f - (BlendTimer / BlendTotal)) * blendtime;
 		BlendTotal = blendtime;
 	} else {
@@ -482,7 +482,7 @@ void	BlendableAnimChannelClass::Set_Animation( const HAnimClass * anim, float bl
 }
 
 
-void	BlendableAnimChannelClass::Update( float dtime ) 
+void	BlendableAnimChannelClass::Update( float dtime )
 {
 	if ( BlendTotal != 0.0f )	{			// if blending between two animations
 		BlendTimer += dtime;	// Bump blend timer forward
@@ -524,7 +524,7 @@ void	BlendableAnimChannelClass::Update_Model( RenderObjClass	*anim_model )
 
 	if ( OldChannel.Peek_Animation() ) {
 		anim_model->Set_Animation(	OldChannel.Peek_Animation(),	OldChannel.Get_Frame(),
-										NewChannel.Peek_Animation(),	NewChannel.Get_Frame(),			
+										NewChannel.Peek_Animation(),	NewChannel.Get_Frame(),
 										blend_ratio );
 	} else if ( NewChannel.Peek_Animation() ) {
 		anim_model->Set_Animation( NewChannel.Peek_Animation(), NewChannel.Get_Frame() );
@@ -536,14 +536,14 @@ void	BlendableAnimChannelClass::Update_Model( RenderObjClass	*anim_model )
 /*
 ** AnimControlClass
 */
-AnimControlClass::AnimControlClass( void )  :	
-	Model( NULL ) 
-{ 
+AnimControlClass::AnimControlClass( void )  :
+	Model( NULL )
+{
 }
 
-AnimControlClass::~AnimControlClass( void ) 	
-{ 
-	REF_PTR_RELEASE( Model ); 
+AnimControlClass::~AnimControlClass( void )
+{
+	REF_PTR_RELEASE( Model );
 }
 
 bool 	AnimControlClass::Save( ChunkSaveClass & csave )
@@ -593,15 +593,15 @@ bool	AnimControlClass::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-void	AnimControlClass::Set_Model( RenderObjClass	*anim_model ) 
-{ 
-	REF_PTR_SET( Model, anim_model ); 
+void	AnimControlClass::Set_Model( RenderObjClass	*anim_model )
+{
+	REF_PTR_SET( Model, anim_model );
 }
 
 /*
 ** SimpleAnimControlClass
 */
-SimpleAnimControlClass::SimpleAnimControlClass( void ) 
+SimpleAnimControlClass::SimpleAnimControlClass( void )
 {
 }
 
@@ -629,11 +629,11 @@ bool	SimpleAnimControlClass::Load( ChunkLoadClass &cload )
 			case CHUNKID_PARENT:
 				AnimControlClass::Load( cload );
 				break;
-								
+
 			case CHUNKID_CHANNEL:
 				Channel.Load( cload );
 				break;
-								
+
 			default:
 				Debug_Say(( "Unrecognized HumanAnimControl chunkID\n" ));
 				break;
@@ -712,7 +712,7 @@ bool	HumanAnimControlClass::Load( ChunkLoadClass &cload )
 			case CHUNKID_PARENT:
 				AnimControlClass::Load( cload );
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -730,11 +730,11 @@ bool	HumanAnimControlClass::Load( ChunkLoadClass &cload )
 			case CHUNKID_CHANNEL1:
 				Channel1.Load( cload );
 				break;
-								
+
 			case CHUNKID_CHANNEL2:
 				Channel2.Load( cload );
 				break;
-								
+
 			default:
 				Debug_Say(( "Unrecognized HumanAnimControl chunkID\n" ));
 				break;

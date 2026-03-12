@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/bones.cpp                             $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 6/14/02 10:41a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 8                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/bones.cpp                             $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 6/14/02 10:41a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 8                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "bones.h"
@@ -48,7 +48,7 @@ static bool _BonesMangerInitted = false;
 */
 class	BoneDataClass {
 public:
-	BoneDataClass( const char * screen_name, float damage_scale ) : 
+	BoneDataClass( const char * screen_name, float damage_scale ) :
 		ScreenName( screen_name ), DamageScale( damage_scale ) {}
 
 	StringClass		ScreenName;

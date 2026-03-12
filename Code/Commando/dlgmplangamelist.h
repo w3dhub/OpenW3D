@@ -56,10 +56,10 @@ class MPLanGameListMenuClass : public MenuDialogClass,
 	protected Signaler<DlgPasswordPrompt>
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	MPLanGameListMenuClass (void);
 	~MPLanGameListMenuClass();
 
@@ -70,10 +70,10 @@ public:
 	void		On_Destroy (void) override;
 	void		On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 	bool		On_Key_Down(uint32 key_id, uint32 key_data) override;
-	
+
 	static void	Set_Update_Nickname(void)						{ UpdateNickname = true; }
 
-	
+
 	void		On_ListCtrl_Delete_Entry (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
 	void		On_ListCtrl_DblClk (ListCtrlClass *list_ctrl, int ctrl_id, int item_index) override;
 	void		On_EditCtrl_Change(EditCtrlClass* edit, int id) override;

@@ -61,7 +61,7 @@ class ScriptZoneGameObj;
 class ZoneNodeClass : public ObjectNodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ public:
 	virtual bool								Save (ChunkSaveClass &csave);
 	virtual bool								Load (ChunkLoadClass &cload);
 
-	
+
 	// From NodeClass
 	NodeClass *	Clone (void)							{ return new ZoneNodeClass (*this); }
 	void			Initialize (void);
@@ -93,7 +93,7 @@ public:
 	int			Get_Icon_Index (void) const		{ return ZONE_ICON; }
 	PhysClass *	Peek_Physics_Obj (void)	const;
 	bool			Is_Static (void) const				{ return false; }
-	void			Hide (bool hide);	
+	void			Hide (bool hide);
 
 	//
 	//	Scene methods
@@ -160,7 +160,7 @@ ZoneNodeClass::Peek_Physics_Obj (void) const
 //////////////////////////////////////////////////////////////////
 inline void
 ZoneNodeClass::On_Rotate (void)
-{	
+{
 	if (m_IsInScene) {
 		m_GrabHandles.Position_Around_Node (this);
 	}

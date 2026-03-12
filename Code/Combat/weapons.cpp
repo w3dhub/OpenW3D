@@ -645,12 +645,12 @@ void	WeaponClass::Do_Fire( bool primary )
 	WWPROFILE( "Do Fire" );
 
 	// Stats
-	if (	Get_Owner() && 
-			Get_Owner()->As_SoldierGameObj() && 
+	if (	Get_Owner() &&
+			Get_Owner()->As_SoldierGameObj() &&
 			Get_Owner()->As_SoldierGameObj()->Get_Player_Data() ) {
 		Get_Owner()->As_SoldierGameObj()->Get_Player_Data()->Stats_Add_Shot_Fired();
 
-		Get_Owner()->As_SoldierGameObj()->Get_Player_Data()->Stats_Add_Weapon_Fired( 
+		Get_Owner()->As_SoldierGameObj()->Get_Player_Data()->Stats_Add_Weapon_Fired(
 			this->Get_Definition()->Get_ID() );
 
 	}
@@ -926,7 +926,7 @@ bool	WeaponClass::Is_Muzzle_Clear()
 	}
 
 	if (Get_Owner()->As_SoldierGameObj() != NULL) {
-	
+
 		start_pt = Get_Owner()->Get_Bullseye_Position();
 
 	} else {
@@ -951,7 +951,7 @@ bool	WeaponClass::Is_Muzzle_Clear()
 	PhysRayCollisionTestClass raytest(ray,&res,BULLET_COLLISION_GROUP,COLLISION_TYPE_PROJECTILE);
 	raytest.CheckDynamicObjs = false;
 
-	{ 
+	{
 		WWPROFILE( "Cast Ray" );
 		COMBAT_SCENE->Cast_Ray( raytest );
 	}
@@ -966,7 +966,7 @@ void WeaponClass::Compute_Bullet_Start_Point(const Matrix3D & muzzle,Vector3 * s
 	//
 	muzzle.Get_Translation(set_start_point);
 
-	// 
+	//
 	// If this weapon is owned by a vehicle, try to ensure the bullet starts in front
 	// of any dynamic objects that may be between the muzzle point and the body of the vehicle
 	//
@@ -993,7 +993,7 @@ void WeaponClass::Compute_Bullet_Start_Point(const Matrix3D & muzzle,Vector3 * s
 		PhysRayCollisionTestClass raytest(ray,&res,BULLET_COLLISION_GROUP,COLLISION_TYPE_PROJECTILE);
 		raytest.CheckStaticObjs = false;
 
-		{ 
+		{
 			Ignore_Owner();
 
 			WWPROFILE( "Cast Ray" );
@@ -1089,7 +1089,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 	//
 	if ( FiringSound != NULL ) {
 		if ( Get_Owner() == COMBAT_STAR && CombatManager::Is_First_Person() ) {
-			
+
 			//
 			//	In first person, we need the sound to be "2D"
 			//
@@ -1109,8 +1109,8 @@ void	WeaponClass::Do_Firing_Effects( void )
 
 	//
 	//	Release the currently playing sound as necessary
-	//	
-	if ( release_curr_sound ) {		
+	//
+	if ( release_curr_sound ) {
 		FiringSound->Remove_From_Scene ();
 		REF_PTR_RELEASE (FiringSound);
 		FiringSoundDefID = 0;
@@ -1126,24 +1126,24 @@ void	WeaponClass::Do_Firing_Effects( void )
 		// Stop the current sound
 		//
    	//FiringSound->Set_Transform( muzzle );
-		//FiringSound->Stop();		
+		//FiringSound->Stop();
 
 		if ( FiringSound->Get_Class_ID () == CLASSID_3D ) {
 			FiringSound->Stop();
 		} else {
 			FiringSound->Seek( 0 );
-		} 
-		
-		
+		}
+
+
 		//
 		//	Force the sound to play
 		//
 		if ( Get_Owner() != COMBAT_STAR || CombatManager::Is_First_Person() == false ) {
 			FiringSound->Add_To_Scene( true );
 			FiringSound->Play();
-		} else {			
+		} else {
 			FiringSound->Play();
-		}		
+		}
 
 		//
 		//	Play the sound (or add it to the scene)
@@ -1163,7 +1163,7 @@ void	WeaponClass::Do_Firing_Effects( void )
 		//
 
 		if ( sound_id != 0 ) {
-			
+
 			//
 			//	Determine whether to play the sound as 2D or 3D
 			//
@@ -1384,8 +1384,8 @@ void	WeaponClass::Update_State( float pending_time )
 
 		bool trigger_ok = true;
 		// Only fire beacon if state is upright
-		if ( Get_Style() == WEAPON_HOLD_STYLE_BEACON && 
-				Get_Owner() && Get_Owner()->As_SoldierGameObj() && 
+		if ( Get_Style() == WEAPON_HOLD_STYLE_BEACON &&
+				Get_Owner() && Get_Owner()->As_SoldierGameObj() &&
 				!Get_Owner()->As_SoldierGameObj()->Is_Upright() ) {
 			trigger_ok = false;
 		}
@@ -1528,8 +1528,8 @@ void	WeaponClass::Force_Reload( void )
 void	WeaponClass::Update( void )
 {
 	// Remove player weapons from vehicle drivers
-	if (	Get_Owner() && 
-			Get_Owner()->As_SoldierGameObj() && 
+	if (	Get_Owner() &&
+			Get_Owner()->As_SoldierGameObj() &&
 			Get_Owner()->As_SoldierGameObj()->Is_In_Vehicle() ) {
 		IsPrimaryTriggered = false;
 		IsSecondaryTriggered = false;
@@ -1589,7 +1589,7 @@ void	WeaponClass::Update( void )
 		// this weapon.
 		//
 		bool emitters_on = IsPrimaryTriggered || IsSecondaryTriggered;
-		if ( State == STATE_START_SWITCH ||  State == STATE_END_SWITCH || 
+		if ( State == STATE_START_SWITCH ||  State == STATE_END_SWITCH ||
 			  State == STATE_RELOAD || Get_Clip_Rounds() == 0 ) {
 			emitters_on = false;
 		}
@@ -1691,7 +1691,7 @@ WeaponClass::Is_Reload_OK( void )
 	//
 	//	Allow reloads if the infinite ammo cheat is enabled
 	//
-	if (	CheatMgrClass::Get_Instance () != NULL && 
+	if (	CheatMgrClass::Get_Instance () != NULL &&
 			CheatMgrClass::Get_Instance ()->Is_Cheat_Enabled( CheatMgrClass::CHEAT_INFINITE_AMMO ) && Owner == COMBAT_STAR )
 	{
 		retval = true;
@@ -1712,7 +1712,7 @@ void	WeaponClass::Stop_Firing_Sound( void )
 	//
 	FiringSound->Stop ();
 	FiringSound->Remove_From_Scene ();
-	REF_PTR_RELEASE (FiringSound);	
+	REF_PTR_RELEASE (FiringSound);
 	return ;
 }
 
@@ -1771,7 +1771,7 @@ void	WeaponClass::Display_Targeting( void )
 		}
 
 		// if stealthed and enemy, it's not targetable
-		if ( obj && obj->As_SmartGameObj() && obj->As_SmartGameObj()->Is_Stealthed() && 
+		if ( obj && obj->As_SmartGameObj() && obj->As_SmartGameObj()->Is_Stealthed() &&
 				COMBAT_STAR && obj->Is_Enemy( COMBAT_STAR ) ) {
 			obj = NULL;
 		}
@@ -1917,7 +1917,7 @@ void	MuzzleFlashClass::Update( bool flashA0, bool flashA1 )
 
 			for (int i=0; i<Model->Get_Num_Sub_Objects_On_Bone( MuzzleA0Bone ); i++) {
 				RenderObjClass * robj = Model->Get_Sub_Object_On_Bone(i, MuzzleA0Bone );
-					
+
 				// hide all meshes named "muzzleflash"
 				if (strstr(robj->Get_Name(),"MUZZLEFLASH") || strstr(robj->Get_Name(),"MZ"))  {
 					robj->Set_Hidden( !flashA0 );
@@ -1928,7 +1928,7 @@ void	MuzzleFlashClass::Update( bool flashA0, bool flashA1 )
 		}
 
 		if (( MuzzleA1Bone > 0 ) && (LastFlashA1 != flashA1)) {
-			
+
 			LastFlashA1 = flashA1;
 	#if 0
 			if ( flash ) {

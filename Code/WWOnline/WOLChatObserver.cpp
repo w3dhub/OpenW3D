@@ -473,7 +473,7 @@ STDMETHODIMP ChatObserver::OnConnection(HRESULT result, LPCSTR motd)
 			{
 			WWDEBUG_SAY(("WOL: Connected to server.\n"));
 			mOuter->GetChatObject()->SetClientVersion(WOLAPI_BUILD_VERSION);
-			
+
 			mOuter->mCurrentConnectionStatus = ConnectionConnected;
 			mOuter->mCurrentServer = mOuter->mPendingServer;
 			mOuter->mCurrentLogin = mOuter->mPendingLogin;
@@ -1186,7 +1186,7 @@ STDMETHODIMP ChatObserver::OnChannelTopic(HRESULT result, WOL::Channel* inChanne
 
 	if (channel.IsValid())
 		{
-#ifndef FREEDEDICATEDSERVER			
+#ifndef FREEDEDICATEDSERVER
 		channel->SetTopic(topic);
 		channel->SetExtraInfo((const char*)inChannel->exInfo);
 
@@ -1669,7 +1669,7 @@ bool PrivateGameOptionsTrackingClass::operator == (PrivateGameOptionsTrackingCla
 		return(true);
 	}
 	return(false);
-}			  
+}
 
 bool PrivateGameOptionsTrackingClass::operator != (PrivateGameOptionsTrackingClass const &whatever)
 {
@@ -1677,7 +1677,7 @@ bool PrivateGameOptionsTrackingClass::operator != (PrivateGameOptionsTrackingCla
 		return(false);
 	}
 	return(true);
-}			  
+}
 
 
 bool Is_Options_Spammer(char *user_name, int &count)
@@ -1692,7 +1692,7 @@ bool Is_Options_Spammer(char *user_name, int &count)
 	}
 
 	if (index == -1) {
-		
+
 		/*
 		** See if there are any old ones we can remove.
 		*/
@@ -1704,8 +1704,8 @@ bool Is_Options_Spammer(char *user_name, int &count)
 				break;
 			}
 		}
-		
-		
+
+
 		PrivateGameOptionsTrackingClass *options = new PrivateGameOptionsTrackingClass;
 		strncpy(options->UserName, user_name, 255);
 		options->UserName[255] = 0;
@@ -1718,7 +1718,7 @@ bool Is_Options_Spammer(char *user_name, int &count)
 
 	unsigned int old_time = time - 4000;
 	if (old_time < time) {
-		
+
 		/*
 		** Remove times older than 5 secs.
 		*/
@@ -1735,22 +1735,22 @@ bool Is_Options_Spammer(char *user_name, int &count)
 		if (OptionsTracking[index]->Times.Count() > 16) {
 			return(true);
 		}
-		
-		
+
+
 	} else {
 		while (OptionsTracking.Count()) {
 			delete OptionsTracking[0];
 			OptionsTracking.Delete(0);
 		}
 	}
-	
+
 	return(false);
-	
-}			  
+
+}
 
 
 void ChatObserver::Kick_Spammer(WOL::User *wol_user)
-{		
+{
 	/*
 	** Get the IP of the spammer.
 	*/
@@ -1768,7 +1768,7 @@ void ChatObserver::Kick_Spammer(WOL::User *wol_user)
 			}
 		}
 	}
-	
+
 	/*
 	** Ban em, ban em all.
 	*/
@@ -1841,9 +1841,9 @@ STDMETHODIMP ChatObserver::OnPrivateGameOptions(HRESULT result, WOL::User* inUse
 		}
 
 	WWDEBUG_SAY(("WOL: (time %d) PrivateGameOptions from '%s' : %s\n", TIMEGETTIME(), (char*)inUser->name, options));
-	
+
 	if (cNetwork::I_Am_Server()) {
-	
+
 		int count = 0;
 		bool is_spammer = Is_Options_Spammer((char*)inUser->name, count);
 		bool is_rginfo = (strstr(options, "RGINFO") == NULL) ? false : true;
@@ -1938,7 +1938,7 @@ STDMETHODIMP ChatObserver::OnPublicGameOptions(HRESULT result, WOL::Channel* inC
 		{
 		WWDEBUG_SAY(("WOL: PublicGameOptions [%s] from '%s': %s\n", (char*)inChannel->name, (char*)inUser->name, options));
 
-#ifdef FREEDEDICATEDSERVER			
+#ifdef FREEDEDICATEDSERVER
 		int count = 0;
 		if (Is_Options_Spammer((char*)inUser->name, count)) {
 			if (count > 16 && count < 19) {
@@ -2186,7 +2186,7 @@ STDMETHODIMP ChatObserver::OnUserIP(HRESULT result, WOL::User* user)
 			UserIPEvent event(UserIPEvent::Error, *user);
 			mOuter->NotifyObservers(event);
 			}
-	
+
 		return S_OK;
 		}
 
@@ -2634,7 +2634,7 @@ void ChatObserver::ProcessSquadRequest(const RefPtr<SquadData>& squad)
 
 			if (iswdigit(firstChar))
 				{
-				unsigned int pendingID;	
+				unsigned int pendingID;
 				u_sscanf_u(pending, U_CHAR("%u"), &pendingID);
 
 				if (squad->GetID() == pendingID)
@@ -3323,7 +3323,7 @@ STDMETHODIMP ChatObserver::OnPagedUnicode(HRESULT result, WOL::User* user, const
 ******************************************************************************/
 
 STDMETHODIMP ChatObserver::OnServerTime(HRESULT result, WOL::time_t server_time)
-	{	
+	{
 	if (mOuter == NULL)
 		{
 		WWDEBUG_SAY(("WOLERROR: Session not initialized\n"));
@@ -3376,7 +3376,7 @@ STDMETHODIMP ChatObserver::OnInsiderStatus(HRESULT result, WOL::User* wolUsers)
 		{
 		//	Get the name of the currently logged in user
 		RefPtr<UserData> curr_user = mOuter->GetCurrentUser();
-		
+
 		// Convert the WOL user's name to a wide character string
 		WideStringClass wide_name(0, true);
 		wide_name.Convert_From((const char*)wolUsers[0].name);
@@ -3652,7 +3652,7 @@ STDMETHODIMP ChatObserver::OnChannelListEnd(HRESULT result)
 		mOuter->NotifyObservers(outEvent);
 		channelList->clear();
 		}
-		
+
 	// Swap in the new channel list
 	channelList->swap(*newList);
 

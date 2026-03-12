@@ -54,40 +54,40 @@ HModelLoaderClass		_HModelLoader;
 ** Prototype Classes
 ** These prototypes are the "built-in" ones for the W3D library.
 */
-PrimitivePrototypeClass::PrimitivePrototypeClass(RenderObjClass * proto)			
-{ 
-	Proto = proto; 
-	assert(Proto); 
-	Proto->Add_Ref(); 
+PrimitivePrototypeClass::PrimitivePrototypeClass(RenderObjClass * proto)
+{
+	Proto = proto;
+	assert(Proto);
+	Proto->Add_Ref();
 }
-PrimitivePrototypeClass::~PrimitivePrototypeClass(void)						
-{ 
-	if (Proto) { 
-		Proto->Release_Ref(); 
+PrimitivePrototypeClass::~PrimitivePrototypeClass(void)
+{
+	if (Proto) {
+		Proto->Release_Ref();
 	}
 }
 
-const char * PrimitivePrototypeClass::Get_Name(void) const			
-{ 
-	return Proto->Get_Name(); 
-}	
-
-int PrimitivePrototypeClass::Get_Class_ID(void) const	
-{ 
-	return Proto->Class_ID(); 
+const char * PrimitivePrototypeClass::Get_Name(void) const
+{
+	return Proto->Get_Name();
 }
 
-RenderObjClass * PrimitivePrototypeClass::Create(void)					
-{ 
-	return (RenderObjClass *)( SET_REF_OWNER( Proto->Clone() ) ); 
-}	
+int PrimitivePrototypeClass::Get_Class_ID(void) const
+{
+	return Proto->Class_ID();
+}
+
+RenderObjClass * PrimitivePrototypeClass::Create(void)
+{
+	return (RenderObjClass *)( SET_REF_OWNER( Proto->Clone() ) );
+}
 
 
 class HModelPrototypeClass : public PrototypeClass
 {
 public:
 	HModelPrototypeClass(HModelDefClass * def)				{ HModelDef = def; assert(HModelDef); }
-	virtual ~HModelPrototypeClass(void)							{ if (HModelDef) delete HModelDef; }						 
+	virtual ~HModelPrototypeClass(void)							{ if (HModelDef) delete HModelDef; }
 
 	virtual const char *			Get_Name(void)	const override			{ return HModelDef->Get_Name(); }
 	virtual int						Get_Class_ID(void) const override	{ return RenderObjClass::CLASSID_HLOD; }
@@ -129,7 +129,7 @@ PrototypeClass * MeshLoaderClass::Load_W3D(ChunkLoadClass & cload)
 		PrimitivePrototypeClass * newproto = new PrimitivePrototypeClass(mesh);
 		mesh->Release_Ref();
 		return newproto;
-	
+
 	}
 }
 
@@ -161,11 +161,11 @@ PrototypeClass * HModelLoaderClass::Load_W3D(ChunkLoadClass & cload)
 		return NULL;
 
 	} else {
-	
-		// ok, accept this model! 
+
+		// ok, accept this model!
 		HModelPrototypeClass * hproto = new HModelPrototypeClass(hdef);
 		return hproto;
-	
+
 	}
 }
 

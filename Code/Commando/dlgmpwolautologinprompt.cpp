@@ -69,7 +69,7 @@ MPWolAutoLoginPromptDialogClass::~MPWolAutoLoginPromptDialogClass (void)
 //////////////////////////////////////////////////////////////////////
 void
 MPWolAutoLoginPromptDialogClass::On_Init_Dialog (void)
-{	
+{
 	Check_Dlg_Button (IDC_DONT_ASK_AGAIN_CHECK, true);
 	PopupDialogClass::On_Init_Dialog ();
 	return ;

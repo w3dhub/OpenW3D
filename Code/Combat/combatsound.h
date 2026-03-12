@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/combatsound.h                         $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 11/29/00 2:07p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 16                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/combatsound.h                         $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 11/29/00 2:07p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 16                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	COMBATSOUND_H
@@ -56,7 +56,7 @@ typedef enum {
 	SOUND_TYPE_FOOTSTEPS,
 	SOUND_TYPE_VEHICLE,
 	SOUND_TYPE_GUNSHOT,
-	SOUND_TYPE_BULLET_HIT,	
+	SOUND_TYPE_BULLET_HIT,
 	NUM_DEFINED_SOUND_TYPES,
 
 	SOUND_TYPE_DESIGNER01	= 991,

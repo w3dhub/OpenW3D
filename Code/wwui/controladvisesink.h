@@ -83,12 +83,12 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Generic callbacks
 	//
 	virtual bool	On_Command (DialogControlClass * /* control */, int /* ctrl_id */, int /* param1 */, int /* param2 */)	{ return false; }
-	
+
 	//
 	//	Scrollbar callbacks
 	//
@@ -106,7 +106,7 @@ public:
 
 	//
 	//	Tree control callbacks
-	
+
 	virtual void	On_TreeCtrl_Expand_Item (TreeCtrlClass * /* list_ctrl */, int /* ctrl_id */, TreeItemClass * /* item */)		{}
 	virtual void	On_TreeCtrl_Delete_Item (TreeCtrlClass * /* list_ctrl */, int /* ctrl_id */, TreeItemClass * /* item */)		{}
 	virtual void	On_TreeCtrl_Sel_Change (TreeCtrlClass * /* list_ctrl */, int /* ctrl_id */, TreeItemClass * /* old_item */, TreeItemClass * /* new_item */)	{}
@@ -130,7 +130,7 @@ public:
 	virtual bool	On_InputCtrl_Get_Key_Info (InputCtrlClass * /* viewer_ctrl */, int /* ctrl_id */, int /* vkey_id */, WideStringClass &/* key_name */, int * /* game_key_id */)	{ return false; }
 
 	//
-	//	Slider control callbacks	
+	//	Slider control callbacks
 	//
 	virtual void	On_SliderCtrl_Pos_Changed (SliderCtrlClass * /* slider_ctrl */, int /* ctrl_id */, int /* new_pos */) {}
 

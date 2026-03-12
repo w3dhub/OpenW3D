@@ -62,7 +62,7 @@ EvaWeaponsTabClass::On_Init_Dialog (void)
 	//	Let the base class know where to get its data
 	//
 	Set_INI_Filename ("weapons.ini");
-	
+
 	EvaViewerTabClass::On_Init_Dialog ();
 	return ;
 }

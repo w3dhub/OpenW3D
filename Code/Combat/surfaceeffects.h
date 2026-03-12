@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/surfaceeffects.h                      $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/12/01 11:15a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 29                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/surfaceeffects.h                      $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/12/01 11:15a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 29                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -64,7 +64,7 @@ public:
 	**
 	*/
 	typedef enum {
-		
+
 		MODE_OFF				= 0,
 		MODE_NO_EMITTERS,
 		MODE_FULL
@@ -85,7 +85,7 @@ public:
 	enum {		// ONLY ADD TO THE END.....
 
 		HITTER_TYPE_NONE,							// used to shut off persistant effects
-		HITTER_TYPE_GENERIC_OBJECT,			// generic dynamic object 
+		HITTER_TYPE_GENERIC_OBJECT,			// generic dynamic object
 
 		HITTER_TYPE_FOOTSTEP_RUN,
 		HITTER_TYPE_FOOTSTEP_WALK,
@@ -111,7 +111,7 @@ public:
 		HITTER_TYPE_SHELL_SHOTGUN,
 
 		HITTER_TYPE_TIRE_ROLLING,				// wheels on humvees, etc...
-		HITTER_TYPE_TIRE_SLIDING,				
+		HITTER_TYPE_TIRE_SLIDING,
 		HITTER_TYPE_TRACK_ROLLING,				// tank tracks...
 		HITTER_TYPE_TRACK_SLIDING,
 
@@ -126,10 +126,10 @@ public:
    static	const char * Hitter_Type_Name( int hitter );
 
 	// The transform for Apply_Effect is in camera convention, +Z is the normal of the surface
-	static	void	Apply_Effect(		int surface_type, 
-												int hitter_type, 
-												const Matrix3D & tm, 
-												PhysClass * hit_obj = NULL, 
+	static	void	Apply_Effect(		int surface_type,
+												int hitter_type,
+												const Matrix3D & tm,
+												PhysClass * hit_obj = NULL,
 												PhysicalGameObj * creator = NULL,
 												bool allow_decals = true,
 												bool allow_emitters = true);
@@ -139,7 +139,7 @@ public:
 	static	void										Destroy_Persistant_Sound( PersistantSurfaceSoundClass * effect );
 	static	void										Update_Persistant_Sound( PersistantSurfaceSoundClass * effect,
 																int surface_type, int hitter_type, const Matrix3D & tm );
-	
+
 	static	PersistantSurfaceEmitterClass *	Create_Persistant_Emitter( void );
 	static	void										Destroy_Persistant_Emitter( PersistantSurfaceEmitterClass * effect );
 	static	void										Update_Persistant_Emitter( PersistantSurfaceEmitterClass * effect,
@@ -163,7 +163,7 @@ public:
 
 private:
 	static	MODE	Mode;						// Do we need to save this???
-	static	int	OverrideSurfaceType;					
+	static	int	OverrideSurfaceType;
 };
 
 #endif	// SURFACEEFFECTS_H

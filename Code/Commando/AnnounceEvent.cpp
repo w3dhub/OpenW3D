@@ -101,7 +101,7 @@ void CSAnnouncement::Init(int to_id, int announcementID, AnnouncementEnum type, 
 			//
 			//	Flooding detected -- don't send the message
 			//
-			Set_Delete_Pending();			
+			Set_Delete_Pending();
 		}
 	}
 
@@ -129,7 +129,7 @@ void CSAnnouncement::Export_Creation(BitStreamClass& packet)
 	packet.Add(mFromID);
 	packet.Add(mAnnouncementID);
 	packet.Add(mRadioCmdID);
-	packet.Add((BYTE)mType);	
+	packet.Add((BYTE)mType);
 
 	Set_Delete_Pending();
 	}
@@ -147,7 +147,7 @@ void CSAnnouncement::Import_Creation(BitStreamClass& packet)
 
 	BYTE type = 0;
 	packet.Get(type);
-	mType = (AnnouncementEnum)type;	
+	mType = (AnnouncementEnum)type;
 
 	Act();
 	}
@@ -270,7 +270,7 @@ void SCAnnouncement::Act(void)
 					const float EMOT_ICON_DURATION = 2.0F;
 					const char *emot_icon_name = cncDef->Get_Radio_Command_Emot_Icon (mRadioCmdID);
 					game_obj->As_SoldierGameObj ()->Set_Emot_Icon (emot_icon_name, EMOT_ICON_DURATION);
-					}				
+					}
 				}
 			}
 
@@ -292,7 +292,7 @@ void SCAnnouncement::Act(void)
 					{
 					CombatManager::Get_Message_Window()->Add_Message(string, Vector3(1,1,1));
 					}
-				}		
+				}
 
 			// Play the sound effect
 			int soundID = (int)translateObj->Get_Sound_ID();

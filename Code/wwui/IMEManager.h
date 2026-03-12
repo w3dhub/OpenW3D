@@ -141,7 +141,7 @@ class IMEManager :
 		bool FinalizeCreate(HWND hwnd);
 
 		LRESULT IMENotify(WPARAM wParam, LPARAM lParam);
-		
+
 		HKL InputLanguageChangeRequest(HKL hkl);
 		void InputLanguageChanged(HKL hkl);
 
@@ -199,7 +199,7 @@ class IMEManager :
 		unichar_t mTypingString[IME_MAX_TYPING_LEN];
 		int mTypingCursorPos;
 		#endif
-		
+
 		unichar_t mCompositionString[IME_MAX_STRING_LEN];
 		unsigned char mCompositionAttr[IME_MAX_STRING_LEN];
 		unsigned int mCompositionClause[IME_MAX_STRING_LEN / 2];

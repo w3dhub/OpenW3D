@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/apppacketstats.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                   $* 
- *                                                                                             * 
- *                     $Modtime:: 2/21/02 3:01p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 24                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/apppacketstats.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                   $*
+ *                                                                                             *
+ *                     $Modtime:: 2/21/02 3:01p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 24                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "apppacketstats.h"
@@ -56,7 +56,7 @@ StringClass		cAppPacketStats::WorkingString;
 //-----------------------------------------------------------------------------
 void
 cAppPacketStats::Reset
-(	
+(
 	void
 )
 {
@@ -69,7 +69,7 @@ cAppPacketStats::Reset
 //-----------------------------------------------------------------------------
 void
 cAppPacketStats::Dump_Diagnostics
-(	
+(
 	void
 )
 {
@@ -90,21 +90,21 @@ cAppPacketStats::Dump_Diagnostics
 //-----------------------------------------------------------------------------
 void
 cAppPacketStats::Increment_Packets_Sent
-(	
+(
 	BYTE app_packet_type
 )
 {
 	WWASSERT(app_packet_type != APPPACKETTYPE_ALL && app_packet_type < APPPACKETTYPE_COUNT);
 
 	PacketsSent[app_packet_type]++;
-	
+
 	PacketsSent[APPPACKETTYPE_ALL]++;
 }
 
 //-----------------------------------------------------------------------------
 void
 cAppPacketStats::Increment_Bits_Sent
-(	
+(
 	BYTE	app_packet_type,
 	DWORD	bits
 )
@@ -120,7 +120,7 @@ cAppPacketStats::Increment_Bits_Sent
 //-----------------------------------------------------------------------------
 void
 cAppPacketStats::Increment_Bits_Sent_Tier
-(	
+(
 	BYTE					app_packet_type,
 	PACKET_TIER_ENUM	tier,
 	DWORD					bits
@@ -137,7 +137,7 @@ cAppPacketStats::Increment_Bits_Sent_Tier
 //-----------------------------------------------------------------------------
 DWORD
 cAppPacketStats::Get_Packets_Sent
-(	
+(
 	BYTE app_packet_type
 )
 {
@@ -149,7 +149,7 @@ cAppPacketStats::Get_Packets_Sent
 //-----------------------------------------------------------------------------
 DWORD
 cAppPacketStats::Get_Bits_Sent
-(	
+(
 	BYTE	app_packet_type
 )
 {
@@ -161,7 +161,7 @@ cAppPacketStats::Get_Bits_Sent
 //-----------------------------------------------------------------------------
 DWORD
 cAppPacketStats::Get_Bits_Sent_Tier
-(	
+(
 	BYTE					app_packet_type,
 	PACKET_TIER_ENUM	tier
 )
@@ -180,11 +180,11 @@ cAppPacketStats::Interpret_Type
 	BYTE app_packet_type
 )
 {
-   switch (app_packet_type) 
+   switch (app_packet_type)
 	{
 		//
 		// S->S
-		//	
+		//
 		ADD_CASE(APPPACKETTYPE_UNKNOWN);
 		ADD_CASE(APPPACKETTYPE_SIMPLE);
 		ADD_CASE(APPPACKETTYPE_SOLDIER);
@@ -224,7 +224,7 @@ cAppPacketStats::Interpret_Type
 
 		//
 		// C->S
-		//	
+		//
 		ADD_CASE(APPPACKETTYPE_CLIENTCONTROL);
 		ADD_CASE(APPPACKETTYPE_CSTEXTOBJ);
 		ADD_CASE(APPPACKETTYPE_SUICIDEEVENT);
@@ -265,7 +265,7 @@ cAppPacketStats::Interpret_Type
 //-----------------------------------------------------------------------------
 void
 cAppPacketStats::Update_Object_Tally
-(	
+(
 	void
 )
 {
@@ -273,11 +273,11 @@ cAppPacketStats::Update_Object_Tally
 
 	int count = NetworkObjectMgrClass::Get_Object_Count();
 
-	for (int index = 0; index < count; index ++) 
+	for (int index = 0; index < count; index ++)
 	{
 		NetworkObjectClass * p_object = NetworkObjectMgrClass::Get_Object(index);
 
-		if (p_object != NULL) 
+		if (p_object != NULL)
 		{
 			BYTE type = p_object->Get_App_Packet_Type();
 			WWASSERT(type < APPPACKETTYPE_ALL);
@@ -298,7 +298,7 @@ cAppPacketStats::Update_Object_Tally
 //-----------------------------------------------------------------------------
 DWORD
 cAppPacketStats::Get_Object_Tally
-(	
+(
 	BYTE app_packet_type
 )
 {
@@ -310,14 +310,14 @@ cAppPacketStats::Get_Object_Tally
 //-----------------------------------------------------------------------------
 StringClass &
 cAppPacketStats::Get_Heading
-(	
+(
 	void
 )
 {
 	//StringClass description;
 
 	WorkingString.Format(
-		"%-30s %-8s %-10s %-10s %-7s %-7s %-7s %-7s %-7s %-7s", 
+		"%-30s %-8s %-10s %-10s %-7s %-7s %-7s %-7s %-7s %-7s",
 		"Type",
 		"Tally",
 		"Packets",
@@ -336,7 +336,7 @@ cAppPacketStats::Get_Heading
 //-----------------------------------------------------------------------------
 StringClass &
 cAppPacketStats::Get_Description
-(	
+(
 	BYTE type
 )
 {
@@ -381,16 +381,16 @@ cAppPacketStats::Get_Description
 
 	//StringClass description;
 	WorkingString.Format(
-		"%-30s %-8d %-10d %-10d %-7.1f %-7d %-7d %-7d %-7d %-7d", 
-		name, 
+		"%-30s %-8d %-10d %-10d %-7.1f %-7d %-7d %-7d %-7d %-7d",
+		name,
 		ObjectTally[type],
 		PacketsSent[type],
-		cMathUtil::Round(num_bytes), 
+		cMathUtil::Round(num_bytes),
 		percentage,
 		average_bytes,
-		t0, 
-		t1, 
-		t2, 
+		t0,
+		t1,
+		t2,
 		t3
 		);
 
@@ -407,7 +407,7 @@ cAppPacketStats::Get_Description
 		{
 			last = ' ';
 		}
-		else 
+		else
 		{
 			last = p[i - 1];
 		}
@@ -416,12 +416,12 @@ cAppPacketStats::Get_Description
 		{
 			next = ' ';
 		}
-		else 
+		else
 		{
 			next = p[i + 1];
 		}
 
-		if (last == ' ' && next == ' ' && p[i] == '0') 
+		if (last == ' ' && next == ' ' && p[i] == '0')
 		{
 			p[i] = ' ';
 		}

@@ -73,7 +73,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		Add_An_Objective(516);
 		Add_An_Objective(517);
 
-		
+
 
 		// Drop Mendoza
 		GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(-555.290f, -89.967f, 31.411f));
@@ -84,11 +84,11 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 	void Add_An_Objective(int id)
 	{
 		GameObject *object;
-		
+
 		switch (id)
 		{
 		// Contact Gunner
-		case 501: 
+		case 501:
 			{
 				Commands->Add_Objective(501, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_02, NULL, IDS_Enc_Obj_Primary_M05_02);
 				object = Commands->Find_Object(100003);
@@ -101,7 +101,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Contact Deadeye
-		case 502: 
+		case 502:
 			{
 				Commands->Add_Objective(502, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_03, NULL, IDS_Enc_Obj_Primary_M05_03);
 				object = Commands->Find_Object(100004);
@@ -114,7 +114,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Rescue Hotwire
-		case 503: 
+		case 503:
 			{
 				Commands->Add_Objective(503, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_01, NULL, IDS_Enc_Obj_Primary_M05_01);
 				object = Commands->Find_Object(100002);
@@ -127,7 +127,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Contact Patch
-		case 504: 
+		case 504:
 			{
 				Commands->Add_Objective(504, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_04, NULL, IDS_Enc_Obj_Primary_M05_04);
 				object = Commands->Find_Object(100006);
@@ -139,7 +139,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Eliminate Black Hand
-		case 506: 
+		case 506:
 			{
 				Commands->Add_Objective(506, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M05_05, NULL, IDS_Enc_Obj_Primary_M05_05);
 				object = Commands->Find_Object(100287);
@@ -151,7 +151,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Secure Town Square
-		case 507: 
+		case 507:
 			{
 				Commands->Add_Objective(507, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_01, NULL, IDS_Enc_Obj_Secondary_M05_01);
 				object = Commands->Find_Object(100112);
@@ -163,7 +163,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Escort Resistance
-		case 508: 
+		case 508:
 			{
 				Commands->Add_Objective(508, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_02, NULL, IDS_Enc_Obj_Secondary_M05_02);
 				object = Commands->Find_Object(101261);
@@ -175,7 +175,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Contact Escapee
-		case 509: 
+		case 509:
 			{
 				Commands->Add_Objective(509, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_03, NULL, IDS_Enc_Obj_Secondary_M05_03);
 				object = Commands->Find_Object(100038);
@@ -187,7 +187,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Contact Babushka
-		case 510: 
+		case 510:
 			{
 				Commands->Add_Objective(510, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_05, NULL, IDS_Enc_Obj_Secondary_M05_05);
 				object = Commands->Find_Object(100050);
@@ -199,7 +199,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			}
 			break;
 		// Eliminate Engineers
-		case 512: 
+		case 512:
 			{
 				Commands->Add_Objective(512, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M05_04, NULL, IDS_Enc_Obj_Secondary_M05_04);
 				object = Commands->Find_Object(100632);
@@ -208,11 +208,11 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 					Commands->Set_Objective_Radar_Blip_Object(512, object);
 					Commands->Set_Objective_HUD_Info_Position(512, 90.0f, "POG_M05_2_04.tga", IDS_POG_ELIMINATE, Commands->Get_Position (object));
 				}
-			}						
+			}
 			break;
-		
+
 		}
-		
+
 	}
 
 	void Remove_Pog(int id)
@@ -220,80 +220,80 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		switch (id)
 		{
 		// Rescue Dead-6 Special Forces Unit - Gunner
-		case 501: 
+		case 501:
 			{
 				Commands->Set_Objective_HUD_Info(501, -1, "POG_M05_1_04.tga", IDS_POG_RESCUE);
 			}
 			break;
 		// Rescue Dead-6 Special Forces Unit - Deadeye
-		case 502: 
+		case 502:
 			{
 				Commands->Set_Objective_HUD_Info(502, -1, "POG_M05_1_05.tga", IDS_POG_RESCUE);
 			}
 			break;
 		// Rescue Dead-6 Special Forces Unit - Hotwire
-		case 503: 
+		case 503:
 			{
 				Commands->Set_Objective_HUD_Info(503, -1, "POG_M05_1_03.tga", IDS_POG_RESCUE);
 			}
 			break;
 		// Rendezvous with Special Forces Unit - Patch
-		case 504: 
+		case 504:
 			{
 				Commands->Set_Objective_HUD_Info(501, -1, "POG_M05_1_02.tga", IDS_POG_RENDEZVOUS);
 			}
 			break;
 		// Repel Black Hand assault
-		case 506: 
+		case 506:
 			{
 				Commands->Set_Objective_HUD_Info(501, -1, "POG_M05_1_02.tga", IDS_POG_RENDEZVOUS);
 			}
 			break;
 		// Assist village resistance in retaking Town Square
-		case 507: 
+		case 507:
 			{
 				Commands->Set_Objective_HUD_Info(507, -1, "POG_M05_2_01.tga", IDS_POG_ASSIST);
 			}
 			break;
 		// Escort village resistance to crashed Nod Transport Helicopter
-		case 508: 
+		case 508:
 			{
 				Commands->Set_Objective_HUD_Info(508, -1, "POG_M05_2_07.tga", IDS_POG_ESCORT);
 			}
 			break;
 		// Contact Chateau escapee and gather intelligence
-		case 509: 
+		case 509:
 			{
 				Commands->Set_Objective_HUD_Info(509, -1, "POG_M05_2_03.tga", IDS_POG_CONTACT);
 			}
 			break;
 		// Free Babushka, village resistance leader
-		case 510: 
+		case 510:
 			{
 				Commands->Set_Objective_HUD_Info(510, -1, "POG_M05_2_06.tga", IDS_POG_FREE);
 			}
 			break;
 		// Eliminate Nod Engineers in Village Park
-		case 512: 
+		case 512:
 			{
 				Commands->Set_Objective_HUD_Info(512, -1, "POG_M05_2_04.tga", IDS_POG_ELIMINATE);
-			}						
-			break;
-		// Commandeer Nod Light Tank
-		case 514: 
-			{
-				
 			}
 			break;
-		
+		// Commandeer Nod Light Tank
+		case 514:
+			{
+
+			}
+			break;
+
 		}
 	}
-	
+
 	void Custom(GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		switch (param)
 		{
-			case 1: 
+			case 1:
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_ACCOMPLISHED);
 					Remove_Pog(type);
 					if(type == 506)
@@ -301,7 +301,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 						Commands->Mission_Complete ( true );
 					}
 				break;
-			case 2: 
+			case 2:
 					if(type == 512 && !m05_512_failed)
 					{
 						m05_512_failed = true;
@@ -325,7 +325,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 					Commands->Clear_Radar_Marker (type);
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_FAILED);
 					Remove_Pog(type);
-					
+
 				break;
 			case 3: Add_An_Objective(type);
 				break;
@@ -350,11 +350,11 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if(timer_id == HAVOCS_SCRIPT)
 		{
 			Commands->Attach_Script(STAR, "M05_Havoc_DLS", "");
-			
+
 		}
 		if(timer_id == HOTWIRE)
 		{
@@ -364,9 +364,9 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300503);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
-		
+
 	}
 
 	void Action_Complete(GameObject * /* obj */, int action_id, ActionCompleteReason /* reason */) override
@@ -377,8 +377,8 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 		{
 			Add_An_Objective(503);
 		}
-		
-		
+
+
 	}
 
 };
@@ -386,7 +386,7 @@ DECLARE_SCRIPT(M05_Objective_Controller, "")  // 100001
 //Grants initial weapons
 DECLARE_SCRIPT(M05_Havoc_DLS, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -396,32 +396,32 @@ DECLARE_SCRIPT(M05_Havoc_DLS, "")
 
 	void Created(GameObject * obj) override
 	{
-	
+
 		Commands->Give_PowerUp(obj, "POW_Chaingun_Player", false);
 		Commands->Give_PowerUp(obj, "POW_SniperRifle_Player", false);
-				
+
 	}
 
 };
 
 DECLARE_SCRIPT(M05_Activate_Objective_501, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -436,7 +436,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_501, "")
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300501);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
 	}
 
@@ -448,16 +448,16 @@ DECLARE_SCRIPT(M05_Activate_Objective_501, "")
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 501, 3, 0.0f);
 		}
-		
-		
+
+
 	}
 };
 
 DECLARE_SCRIPT(M05_Activate_Objective_502, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -482,8 +482,8 @@ DECLARE_SCRIPT(M05_Activate_Objective_502, "")
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300502);
-			Commands->Monitor_Conversation (obj, conv_id);	
-		
+			Commands->Monitor_Conversation (obj, conv_id);
+
 		}
 	}
 
@@ -494,7 +494,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_502, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -505,16 +505,16 @@ DECLARE_SCRIPT(M05_Activate_Objective_502, "")
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 502, 3, 0.0f);
 		}
-		
-		
+
+
 	}
 };
 
 DECLARE_SCRIPT(M05_Activate_Objective_504, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -539,8 +539,8 @@ DECLARE_SCRIPT(M05_Activate_Objective_504, "")
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300504);
-			Commands->Monitor_Conversation (obj, conv_id);	
-		
+			Commands->Monitor_Conversation (obj, conv_id);
+
 		}
 	}
 
@@ -551,7 +551,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_504, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -562,22 +562,22 @@ DECLARE_SCRIPT(M05_Activate_Objective_504, "")
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 504, 3, 0.0f);
 		}
-		
-		
+
+
 	}
 };
 
 DECLARE_SCRIPT(M05_Activate_Objective_507, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -597,8 +597,8 @@ DECLARE_SCRIPT(M05_Activate_Objective_507, "")
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300507);
-			Commands->Monitor_Conversation (obj, conv_id);	
-			
+			Commands->Monitor_Conversation (obj, conv_id);
+
 		}
 	}
 
@@ -620,29 +620,29 @@ DECLARE_SCRIPT(M05_Activate_Objective_507, "")
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 507, 3, 0.0f);
 		}
-		
-		
+
+
 	}
 };
 
 DECLARE_SCRIPT(M05_Activate_Objective_508, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -677,22 +677,22 @@ DECLARE_SCRIPT(M05_Activate_Objective_508, "")
 
 DECLARE_SCRIPT(M05_Activate_Nod_Apc, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -709,22 +709,22 @@ DECLARE_SCRIPT(M05_Activate_Nod_Apc, "")
 
 DECLARE_SCRIPT(M05_Activate_Objective_509, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -754,7 +754,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_509, "")
 			GameObject *controller2 = Commands->Create_Object("Invisible_Object", Vector3(-401.111f, 43.222f, 20.018f));
 			Commands->Set_Facing(controller2, -180.000f);
 			Commands->Attach_Script(controller2, "Test_Cinematic", "X5D_CHTroopdrop4.txt");
-			
+
 		}
 	}
 
@@ -766,17 +766,17 @@ DECLARE_SCRIPT(M05_Activate_Objective_509, "")
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 509, 3, 0.0f);
 		}
-		
-		
+
+
 	}
 
 };
 
 DECLARE_SCRIPT(M05_Activate_Objective_510, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -801,8 +801,8 @@ DECLARE_SCRIPT(M05_Activate_Objective_510, "")
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300510);
-			Commands->Monitor_Conversation (obj, conv_id);	
-		
+			Commands->Monitor_Conversation (obj, conv_id);
+
 		}
 	}
 
@@ -813,7 +813,7 @@ DECLARE_SCRIPT(M05_Activate_Objective_510, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -824,8 +824,8 @@ DECLARE_SCRIPT(M05_Activate_Objective_510, "")
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 510, 3, 0.0f);
 		}
-		
-		
+
+
 	}
 };
 
@@ -833,7 +833,7 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer, "") // first hotwire
 {
 	int poke_id;
 	bool conversation;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -859,7 +859,7 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer, "") // first hotwire
 	{
 		Commands->Set_HUD_Help_Text ( IDS_M05DSGN_DSGN0174I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 503, 2, 1.0f);
-		
+
 	}
 
 	void Poked(GameObject * obj, GameObject * poker) override
@@ -878,7 +878,7 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer, "") // first hotwire
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Join_Conversation(Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f)), conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300551);
-					Commands->Monitor_Conversation (obj, conv_id);	
+					Commands->Monitor_Conversation (obj, conv_id);
 
 					poke_id = 2;
 				}
@@ -908,15 +908,15 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer, "") // first hotwire
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 503, 1, 0.0f);
 			Commands->Destroy_Object(obj);
 		}
-		
-		
+
+
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_DEAD6_Engineer2, "")
 {
-	
+
 	enum{GO_STAR, ATTACK_STAR};
 
 	// Register variables to be Auto-Saved
@@ -948,7 +948,7 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer2, "")
 
 	}
 
-	
+
 
 	void Timer_Expired(GameObject* obj, int timer_id) override
 	{
@@ -970,7 +970,7 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer2, "")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == GO_STAR && reason == ACTION_COMPLETE_NORMAL)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), ATTACK_STAR);
@@ -980,14 +980,14 @@ DECLARE_SCRIPT(M05_DEAD6_Engineer2, "")
 			Commands->Start_Timer (obj, this, 15.0f, GO_STAR);
 		}
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier2, "")
 {
 	enum{GO_STAR, ATTACK_STAR};
 
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -1000,7 +1000,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier2, "")
 		Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 2.0f);
 	}
 
-	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
 	{
 		if(Commands->Get_Health(obj) < 10.0f)
 		{
@@ -1049,7 +1049,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier2, "")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == GO_STAR && reason == ACTION_COMPLETE_NORMAL)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), ATTACK_STAR);
@@ -1068,7 +1068,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 	bool immortal;
 	int healed;
 
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -1085,7 +1085,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 		conversation = false;
 		immortal = true;
 		Commands->Set_Innate_Is_Stationary(obj, true);
-		Commands->Enable_HUD_Pokable_Indicator( obj, true );	
+		Commands->Enable_HUD_Pokable_Indicator( obj, true );
 	}
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
@@ -1103,7 +1103,7 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 
 			switch (poke_id)
 			{
-			case 1: 
+			case 1:
 				{
 					// I'm going to take this town if I have to vaporize every Nod reject in existence. I assume you're assisting?\n
 					const char *conv_name = ("M05_CON010");
@@ -1112,22 +1112,22 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300001);
 					Commands->Monitor_Conversation (obj, conv_id);
-					
+
 					poke_id = 2;
 					immortal = false;
 				}
 				break;
-			case 2: 
+			case 2:
 				{
 					// We won't make it out of here if we don't clear the area.\n
 					const char *conv_name = ("M05_CON011");
 					int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300002);
-					Commands->Monitor_Conversation (obj, conv_id);	
+					Commands->Monitor_Conversation (obj, conv_id);
 				}
 				break;
-			case 3: 
+			case 3:
 				{
 					Vector3 havoc_loc = Commands->Get_Position (STAR);
 					havoc_loc.Z += 7.0f;
@@ -1144,10 +1144,10 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 				//	Commands->Join_Conversation(Commands->Get_A_Star(Commands->Get_Position(obj)), conv_id, false, true, true);
 				//	Commands->Join_Conversation(obj, conv_id, false, true, true);
 				//	Commands->Start_Conversation (conv_id, 300003);
-				//	Commands->Monitor_Conversation (obj, conv_id);	
+				//	Commands->Monitor_Conversation (obj, conv_id);
 				}
 				break;
-			
+
 			}
 
 		}
@@ -1182,10 +1182,10 @@ DECLARE_SCRIPT(M05_DEAD6_Rocket_Soldier, "") // first gunner
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 501, 1, 0.0f);
 			Commands->Destroy_Object(obj);
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
@@ -1215,7 +1215,7 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 		Commands->Enable_HUD_Pokable_Indicator( obj, true );
-			
+
 		objective_513 = false;
 		poke_id = 1;
 		hold = false;
@@ -1234,11 +1234,11 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(type == M05_STAR_INN)
 		{
 			Commands->Start_Timer(obj, this, 2.0f, GO_WINDOW);
-			
+
 		}
 		if(type == M05_MOVE_DEADEYE)
 		{
@@ -1258,7 +1258,7 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 		if(reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
 			conversation = false;
-			
+
 		}
 		if(action_id == 300004 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
@@ -1277,7 +1277,7 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), DEADEYE_MOVE_LOC);
 			params.Set_Movement (Commands->Find_Object(100287), 0.6f, 3.0f);
 			Commands->Action_Goto (obj, params);
-			
+
 		}
 		if(action_id == DEADEYE_MOVE_LOC && reason == ACTION_COMPLETE_NORMAL)
 		{
@@ -1293,7 +1293,7 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 	void Timer_Expired(GameObject* obj, int timer_id) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == GO_WINDOW)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
@@ -1318,10 +1318,10 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 			Commands->Action_Reset ( obj, INNATE_PRIORITY_ENEMY_SEEN + 5 );
 			immortal = false;
 		}
-		
+
 	}
 
-	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
 	{
 		if(immortal)
 		{
@@ -1364,19 +1364,19 @@ DECLARE_SCRIPT(M05_DEAD6_MiniGunner, "") // deadeye
 					Commands->Enable_HUD_Pokable_Indicator( obj, false );
 
 					poke_id = 3;
-		
+
 				}
 			break;
 			case 2:
 				{
 					// Alright, let's keep moving.
-					
+
 				}
 			break;
 			case 3:
 				{
 					// Hold here.  I'll be back.
-					
+
 				}
 			break;
 			}
@@ -1425,7 +1425,7 @@ DECLARE_SCRIPT(M05_DEAD6_Grenadier, "")
 		Commands->Enable_HUD_Pokable_Indicator( obj, true );
 	}
 
-	
+
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
@@ -1442,7 +1442,7 @@ DECLARE_SCRIPT(M05_DEAD6_Grenadier, "")
 
 			switch (poke_id)
 			{
-			case 1: 
+			case 1:
 				{
 					// Havoc! Black Hand squads are arriving from the Chateau! Support fire needed!\n
 					const char *conv_name = ("M05_CON014");
@@ -1451,7 +1451,7 @@ DECLARE_SCRIPT(M05_DEAD6_Grenadier, "")
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300004);
 					Commands->Monitor_Conversation (obj, conv_id);
-					
+
 					poke_id = 2;
 					// Send custom to cathedral controller to initiate attack
 					Commands->Send_Custom_Event(obj, Commands->Find_Object(100287), M05_INITIATE_CATHEDRAL, 1, 0.0f);
@@ -1492,7 +1492,7 @@ DECLARE_SCRIPT(M05_DEAD6_Grenadier, "")
 
 			Commands->Start_Timer (obj, this, 15.0f, GO_STAR);
 		}
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
@@ -1505,23 +1505,23 @@ DECLARE_SCRIPT(M05_DEAD6_Grenadier, "")
 
 	}
 
-	
+
 };
 
 
 DECLARE_SCRIPT(M05_Mendoza, "")
 {
-	
+
 	bool exiting;
 	float health;
-	
+
 	enum {PLACE_C4, BYE_MENDOZA};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( exiting, 1 );
 		SAVE_VARIABLE( health, 2 );
 	}
@@ -1563,7 +1563,7 @@ DECLARE_SCRIPT(M05_Mendoza, "")
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Join_Conversation(Commands->Find_Object(100652), conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 16);
-			Commands->Monitor_Conversation (obj, conv_id);			
+			Commands->Monitor_Conversation (obj, conv_id);
 
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100010), M05_BLOW_BUILDING, 1, 0.0f);
 		}
@@ -1577,10 +1577,10 @@ DECLARE_SCRIPT(M05_Mendoza, "")
 			params.WaypathID = 100011;
 			Commands->Action_Goto( obj, params );
 
-			
+
 		}
-		
-		
+
+
 	}
 
 	void Damaged (GameObject * obj, GameObject * /* damager */, float /* amount */) override
@@ -1597,7 +1597,7 @@ DECLARE_SCRIPT(M05_Mendoza, "")
 		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .23))
 		{
 			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .23) );
-			
+
 			if(!exiting)
 			{
 				// Is that all you got?
@@ -1605,22 +1605,22 @@ DECLARE_SCRIPT(M05_Mendoza, "")
 				int conv_id = Commands->Create_Conversation (conv_name, INNATE_PRIORITY_ENEMY_SEEN + 5, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
-				Commands->Monitor_Conversation (obj, conv_id);		
+				Commands->Monitor_Conversation (obj, conv_id);
 
 				exiting = true;
 			}
 		}
 	}
-	
+
 
 };
 
 DECLARE_SCRIPT(M05_Building_Collapse, "")
 {
-		
+
 	bool already_entered;
 	int m06_roof_id;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -1640,20 +1640,20 @@ DECLARE_SCRIPT(M05_Building_Collapse, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-			
+
 		}
 	}
 
 	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * sender) override
 	{
-		
+
 		ActionParamsStruct params;
 		Commands->Debug_Message("Custom received from object %d.  Type and param of %d and %d.\n", Commands->Get_ID(sender), type, param);
 
 		if(type == 50 && param == 50)
 		{
 		//	GameObject * debris = Commands->Create_Object("M05_X5A_AG_DLoiter", Vector3(0,0,0));
-			
+
 
 			GameObject * debris = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 			Commands->Set_Model ( debris, "x5a_debris" );
@@ -1666,7 +1666,7 @@ DECLARE_SCRIPT(M05_Building_Collapse, "")
 			Commands->Destroy_Object(Commands->Find_Object(m06_roof_id));
 		}
 
-		
+
 	}
 
 };
@@ -1674,7 +1674,7 @@ DECLARE_SCRIPT(M05_Building_Collapse, "")
 DECLARE_SCRIPT(M05_Triangle_Tank, "")
 {
 
-	int fire_loc[3];	
+	int fire_loc[3];
 	bool attacking;
 
 	enum {TANK_TIMER, WAYPATH};
@@ -1683,7 +1683,7 @@ DECLARE_SCRIPT(M05_Triangle_Tank, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( attacking, 1 );
 	}
 
@@ -1698,14 +1698,14 @@ DECLARE_SCRIPT(M05_Triangle_Tank, "")
 		fire_loc[2] = 100022;
 
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1 );
-		params.Set_Movement( Vector3(0,0,0), WALK, 2.0f );		
+		params.Set_Movement( Vector3(0,0,0), WALK, 2.0f );
 		params.WaypathID = 100015;
 		params.WaypathSplined = true;
 		Commands->Action_Goto( obj, params );
 
 		// Fire upon building
 		Commands->Start_Timer (obj, this, 6.0f, TANK_TIMER);
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -1716,8 +1716,8 @@ DECLARE_SCRIPT(M05_Triangle_Tank, "")
 		{
 			ActionParamsStruct params;
 			attacking = false;
-			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc)); 
-			
+			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc));
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1 );
 			params.Set_Attack (Commands->Find_Object(fire_loc[random]), 250.0f, 10.0f, 1);
 			params.AttackCheckBlocked = false;
@@ -1728,7 +1728,7 @@ DECLARE_SCRIPT(M05_Triangle_Tank, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
@@ -1773,7 +1773,7 @@ DECLARE_SCRIPT(M05_TownSquare_Tank, "")
 
 		// Fire upon building
 		Commands->Start_Timer (obj, this, 3.0f, TANK_TIMER);
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -1783,9 +1783,9 @@ DECLARE_SCRIPT(M05_TownSquare_Tank, "")
 		if(timer_id == TANK_TIMER)
 		{
 			ActionParamsStruct params;
-			
+
 			int random = Commands->Get_Random_Int(0, ARRAY_ELEMENT_COUNT(fire_loc));
-			
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1 );
 			params.Set_Attack (Commands->Find_Object(fire_loc[random]), 250.0f, 10.0f, 1);
 			params.AttackCheckBlocked = false;
@@ -1795,7 +1795,7 @@ DECLARE_SCRIPT(M05_TownSquare_Tank, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -1825,7 +1825,7 @@ DECLARE_SCRIPT(M05_Bridge_Tank, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( attacking, 1 );
 		SAVE_VARIABLE( fire_loc, 2 );
 	}
@@ -1841,7 +1841,7 @@ DECLARE_SCRIPT(M05_Bridge_Tank, "")
 		// Fire upon building
 		Commands->Start_Timer (obj, this, 3.0f, TANK_TIMER);
 		attacking = false;
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -1853,7 +1853,7 @@ DECLARE_SCRIPT(M05_Bridge_Tank, "")
 			ActionParamsStruct params;
 			attacking = false;
 			int random = Commands->Get_Random_Int(0, ARRAY_ELEMENT_COUNT(fire_loc));
-			
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1 );
 			params.Set_Attack (Commands->Find_Object(fire_loc[random]), 250.0f, 10.0f, 1);
 			params.AttackCheckBlocked = false;
@@ -1863,7 +1863,7 @@ DECLARE_SCRIPT(M05_Bridge_Tank, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
@@ -1887,9 +1887,9 @@ DECLARE_SCRIPT(M05_Bridge_Tank, "")
 
 DECLARE_SCRIPT(M05_Enable_Overlook, "")
 {
-	
+
 	bool already_entered;
-	
+
 	enum {DROP_SNIPER};
 
 	// Register variables to be Auto-Saved
@@ -1902,7 +1902,7 @@ DECLARE_SCRIPT(M05_Enable_Overlook, "")
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -1919,7 +1919,7 @@ DECLARE_SCRIPT(M05_Enable_Overlook, "")
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100127), M05_CUSTOM_ACTIVATE, 1, 0.0f);
 
 			Commands->Start_Timer (obj, this, 2.0f, DROP_SNIPER);
-			
+
 		}
 	}
 
@@ -1932,7 +1932,7 @@ DECLARE_SCRIPT(M05_Enable_Overlook, "")
 			Commands->Set_Facing(chinook_obj, 80.0f);
 			Commands->Attach_Script(chinook_obj, "Test_Cinematic", "X5I_TroopDrop2.txt");
 		}
-		
+
 	}
 
 	void Custom (GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */) override
@@ -1942,7 +1942,7 @@ DECLARE_SCRIPT(M05_Enable_Overlook, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 };
 
@@ -1978,7 +1978,7 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 	void Killed (GameObject * obj, GameObject * /* killer */) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100162), M05_CACHE_CIV_KILLED, 1, 0.0f);
-			
+
 	}
 
 	void Poked(GameObject * obj, GameObject * poker) override
@@ -2001,7 +2001,7 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 					GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(-529.402f, 23.791f, 23.472f));
 					Commands->Set_Facing(chinook_obj1, -95.000f);
 					Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X5D_C130TroopDrop2.txt");
-				
+
 					// GDI, you've come to help? There's a crashed chopper with supplies all over nearby. Come with us, we'll show you.\n
 					const char *conv_name = ("M05_CON017");
 					int conv_id = Commands->Create_Conversation(conv_name, 0, 0, true);
@@ -2009,14 +2009,14 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 					Commands->Join_Conversation(STAR, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 300508);
 					Commands->Monitor_Conversation (obj, conv_id);
-					
+
 					// start objective 508
 					Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 508, 3, 0.0f);
 
-					
+
 
 					poke_id = 3;
-				
+
 				}
 			break;
 			case 2:
@@ -2045,7 +2045,7 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 					Commands->Join_Conversation(obj, conv_id, false, true, true);
 					Commands->Start_Conversation (conv_id, 1);
 					Commands->Monitor_Conversation (obj, conv_id);
-					
+
 					Vector3 my_loc = Commands->Get_Position(obj);
 					params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), 1);
 					params.Set_Movement (my_loc, RUN, 3.0f);
@@ -2070,8 +2070,8 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 				}
 			break;
 			}
-			
-			
+
+
 		}
 	}
 
@@ -2092,8 +2092,8 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), GO_CHINOOK);
 			params.Set_Movement (Commands->Find_Object(104374), RUN, 3.0f);
 			Commands->Action_Goto (obj, params);
-			
-			
+
+
 		}
 		if(type == 100 && param == 101)
 		{
@@ -2125,13 +2125,13 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 				Commands->Start_Conversation (conv_id, 1);
 				Commands->Monitor_Conversation (obj, conv_id);
 			}
-			
+
 			// Establish homepoints around cache
 			Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 4.0f);
 
 			poke_id = 4;
 
-			
+
 		}
 
 	}
@@ -2154,7 +2154,7 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 		}
 	}
 
-	
+
 
 	void Timer_Expired(GameObject* obj, int timer_id) override
 	{
@@ -2168,14 +2168,14 @@ DECLARE_SCRIPT(M05_Cache_Escort, "")
 				params.Set_Movement (Commands->Find_Object(104374), RUN, 3.0f);
 				Commands->Action_Goto (obj, params);
 			}
-			
+
 		}
 	}
 };
 
 DECLARE_SCRIPT(M05_Cache_Assault, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -2203,28 +2203,28 @@ DECLARE_SCRIPT(M05_Cache_Assault, "")
 		}
 	}
 
-	
+
 
 };
 
 DECLARE_SCRIPT(M05_Chinook_Supply_Cache, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-	
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -2257,7 +2257,7 @@ DECLARE_SCRIPT(M05_Chinook_Supply_Cache, "")
 
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M05_Chateau_Escapee, "")
@@ -2289,7 +2289,7 @@ DECLARE_SCRIPT(M05_Chateau_Escapee, "")
 			Vector3 myPosition = Commands->Get_Position ( obj );
 			Commands->Create_Object ( "Visceroid", myPosition );
 
-			Commands->Start_Timer (obj, this, 0.5f, DESTROY_SELF);	
+			Commands->Start_Timer (obj, this, 0.5f, DESTROY_SELF);
 		}
 
 	}
@@ -2342,7 +2342,7 @@ DECLARE_SCRIPT(M05_Escapee_Brother, "")
 
 			switch (poke_id)
 			{
-			case 1: 
+			case 1:
 				{
 					// Got one back from the dead huh? What you got for me?\n
 					const char *conv_name = ("M05_CON022");
@@ -2371,7 +2371,7 @@ DECLARE_SCRIPT(M05_Escapee_Brother, "")
 
 		if(action_id == 300509 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
-			
+
 			Commands->Select_Weapon(obj, "Weapon_Shotgun_Ai" );
 
 			complete = true;
@@ -2397,9 +2397,9 @@ DECLARE_SCRIPT(M05_Escapee_Brother, "")
 
 			// Turn escapee into Visceroid
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100037), M05_CUSTOM_ACTIVATE, 1, 0.0f);
-			
+
 		}
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
@@ -2413,7 +2413,7 @@ DECLARE_SCRIPT(M05_Escapee_Brother, "")
 
 DECLARE_SCRIPT(M05_Escapee_Invaders, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -2429,12 +2429,12 @@ DECLARE_SCRIPT(M05_Escapee_Invaders, "")
 		params.Set_Movement (STAR, RUN, 3.0f);
 		Commands->Action_Goto (obj, params);
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_Escapee_Windows, "")
 {
-	
+
 	enum{DESTROY_WINDOWS, DESTROY_SELF};
 
 	// Register variables to be Auto-Saved
@@ -2482,28 +2482,28 @@ DECLARE_SCRIPT(M05_Escapee_Windows, "")
 		{
 			Commands->Destroy_Object(obj);
 		}
-		
+
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_Activate_Deadeye, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -2514,7 +2514,7 @@ DECLARE_SCRIPT(M05_Activate_Deadeye, "")
 
 			// Send custom to Deadeye to activate him
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(100004), M05_STAR_INN, 1, 0.0f);
-			
+
 		}
 	}
 
@@ -2522,23 +2522,23 @@ DECLARE_SCRIPT(M05_Activate_Deadeye, "")
 
 DECLARE_SCRIPT(M05_Heal_Dead6, "")
 {
-		
+
 	enum{HEAL_DEAD6};
 
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -2547,7 +2547,7 @@ DECLARE_SCRIPT(M05_Heal_Dead6, "")
 		{
 			already_entered = true;
 			Commands->Start_Timer (obj, this, 0.0f, HEAL_DEAD6);
-			
+
 		}
 	}
 
@@ -2574,22 +2574,22 @@ DECLARE_SCRIPT(M05_Heal_Dead6, "")
 
 DECLARE_SCRIPT(M05_Activate_Babushka_Encounter, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -2608,7 +2608,7 @@ DECLARE_SCRIPT(M05_Babushka, "")
 	int poke_id;
 	bool conversation;
 	bool saved;
-	
+
 	enum{ARM_SHOTGUN};
 
 	// Register variables to be Auto-Saved
@@ -2637,7 +2637,7 @@ DECLARE_SCRIPT(M05_Babushka, "")
 		Commands->Action_Play_Animation (obj, params);
 	}
 
-	
+
 	void Timer_Expired(GameObject * /* obj */, int timer_id ) override
 	{
 		ActionParamsStruct params;
@@ -2658,7 +2658,7 @@ DECLARE_SCRIPT(M05_Babushka, "")
 
 			switch (poke_id)
 			{
-			case 1: 
+			case 1:
 				{
 					params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1000);
 					params.Set_Animation( "H_A_Host_L1c", false );
@@ -2713,10 +2713,10 @@ DECLARE_SCRIPT(M05_Babushka, "")
 			params.Set_Movement (Vector3 (-75.498f, 191.288f, 30.246f), RUN, 3.0f);
 			Commands->Action_Goto (obj, params);
 		}
-		
+
 	}
 
-	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
 	{
 		if(Commands->Get_Health(obj) < 10.0f)
 		{
@@ -2742,7 +2742,7 @@ DECLARE_SCRIPT(M05_Babushka, "")
 
 DECLARE_SCRIPT(M05_Babushka_Guard, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -2754,7 +2754,7 @@ DECLARE_SCRIPT(M05_Babushka_Guard, "")
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
-	
+
 	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		if(Commands->Is_A_Star(enemy))
@@ -2785,13 +2785,13 @@ DECLARE_SCRIPT(M05_Babushka_Guard, "")
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason /* reason */) override
 	{
-		
+
 		if(action_id == 300000)
 		{
 			// Send custom to Babushka to make her playertype GDI
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100050), M05_CUSTOM_ACTIVATE, 1, 0.0f);
 		}
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
@@ -2804,7 +2804,7 @@ DECLARE_SCRIPT(M05_Babushka_Guard, "")
 DECLARE_SCRIPT (M05_Park_Activate, "")
 {
 	bool already_entered;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -2836,15 +2836,15 @@ DECLARE_SCRIPT (M05_Park_Activate, "")
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
-		
+
 		if(action_id == 300512 && (reason == ACTION_COMPLETE_CONVERSATION_ENDED || reason == ACTION_COMPLETE_CONVERSATION_INTERRUPTED))
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 512, 3, 0.0f);
 		}
-		
+
 	}
 
-		
+
 };
 
 DECLARE_SCRIPT (M05_Park_Controller, "")
@@ -2918,14 +2918,14 @@ DECLARE_SCRIPT (M05_Park_Controller, "")
 			{
 				// Respawn Park Rocket Soldiers
 				Commands->Start_Timer (obj, this, 10.0f, PARK_ROCKET_SOLDIERS);
-				
+
 			}
 			else
 			{
 				// Start Artillery
 				Commands->Start_Timer (obj, this, 1.0f, START_ARTILLERY);
 			}
-			
+
 		}
 		if(type == M05_PARK_VEHICLE_KILLED)
 		{
@@ -2940,7 +2940,7 @@ DECLARE_SCRIPT (M05_Park_Controller, "")
 				// Start Artillery
 				Commands->Start_Timer (obj, this, 1.0f, START_ARTILLERY);
 			}
-			
+
 		}
 		if(type == CUSTOM_EVENT_SOUND_ENDED && param == artillery_sound1)
 		{
@@ -2954,8 +2954,8 @@ DECLARE_SCRIPT (M05_Park_Controller, "")
 		{
 			Commands->Create_Explosion("Ground Explosions Twiddler", artillery_loc3, NULL);
 		}
-		
-		
+
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -2978,7 +2978,7 @@ DECLARE_SCRIPT (M05_Park_Controller, "")
 
 			int artillery_id3 = Get_Int_Parameter("Artillery_ID3");
 			artillery_loc3 = Commands->Get_Position(Commands->Find_Object(artillery_id3));
-			
+
 			static constexpr const char *bomb[3] =
 			{
 				"Falling_Bomb_01",
@@ -2990,12 +2990,12 @@ DECLARE_SCRIPT (M05_Park_Controller, "")
 
 			artillery_sound1 = Commands->Create_Sound ( bomb[random], artillery_loc1, obj );
 			Commands->Monitor_Sound (obj, artillery_sound1);
-			
+
 			random = Commands->Get_Random_Int(0, 2);
 
 			artillery_sound2 = Commands->Create_Sound ( bomb[random], artillery_loc2, obj );
 			Commands->Monitor_Sound (obj, artillery_sound2);
-			
+
 			random = Commands->Get_Random_Int(0, 2);
 
 			artillery_sound3 = Commands->Create_Sound ( bomb[random], artillery_loc3, obj );
@@ -3003,7 +3003,7 @@ DECLARE_SCRIPT (M05_Park_Controller, "")
 
 			float time = Commands->Get_Random(0.5f, 3.0f);
 			Commands->Start_Timer (obj, this, time, START_ARTILLERY);
-			
+
 		}
 	}
 
@@ -3013,7 +3013,7 @@ DECLARE_SCRIPT(M05_Park_Apache, "")
 {
 	bool attacking;
 	bool alerted;
-	
+
 	enum{WAYPATH, NEW_CLOSEST, ATTACK_OVER};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
@@ -3027,9 +3027,9 @@ DECLARE_SCRIPT(M05_Park_Apache, "")
 	{
 		attacking = false;
 		alerted = false;
-		
+
 		ActionParamsStruct params;
-		
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, WAYPATH );
 		params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
 		params.WaypathID = 100722;
@@ -3143,7 +3143,7 @@ DECLARE_SCRIPT(M05_ParkSniper, "")
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100632), M05_PARK_UNIT_KILLED, 1, 0.0f);
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M05_Park_Buggy, "")
@@ -3180,7 +3180,7 @@ DECLARE_SCRIPT(M05_Park_Buggy, "")
 			params.Set_Attack (enemy, 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer(obj, this, 6.0f, ATTACK_OVER);
 		}
 	}
@@ -3201,7 +3201,7 @@ DECLARE_SCRIPT(M05_Park_Buggy, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
@@ -3216,7 +3216,7 @@ DECLARE_SCRIPT(M05_Park_Buggy, "")
 			params.Set_Attack (damager, 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer(obj, this, 6.0f, ATTACK_OVER);
 		}
 
@@ -3236,7 +3236,7 @@ DECLARE_SCRIPT(M05_Park_Buggy, "")
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100632), M05_PARK_VEHICLE_KILLED, 1, 0.0f);
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_ParkEngineer, "")
@@ -3245,7 +3245,7 @@ DECLARE_SCRIPT(M05_ParkEngineer, "")
 	int truck_id[4];
 	int truck_cnt;
 	bool alerted;
-	
+
 	enum {ESCAPE_ROUTE, ESCAPED};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
@@ -3264,19 +3264,19 @@ DECLARE_SCRIPT(M05_ParkEngineer, "")
 		truck_id[1] = 100061;
 		truck_id[2] = 100062;
 		truck_id[3] = 100063;
-	
+
 		truck_cnt = 0;
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 10 );
 		params.Set_Movement( Commands->Find_Object(truck_id[truck_cnt]), WALK, 1.5f );
 		Commands->Action_Goto( obj, params );
-	
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
-		
+
+
 		// Technicians working on the obelisk
 		if(action_id == 10 && reason == ACTION_COMPLETE_NORMAL)
 		{
@@ -3305,11 +3305,11 @@ DECLARE_SCRIPT(M05_ParkEngineer, "")
 			waypath_id[2] = 100703;
 
 			int random = Commands->Get_Random_Int(0, 2);
-				
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, ESCAPED );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
 			params.WaypathID = waypath_id[random];
-			Commands->Action_Goto( obj, params );	
+			Commands->Action_Goto( obj, params );
 		}
 
 		if(action_id == ESCAPED && reason == ACTION_COMPLETE_NORMAL)
@@ -3317,7 +3317,7 @@ DECLARE_SCRIPT(M05_ParkEngineer, "")
 			Commands->Destroy_Object(obj);
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 512, 2, 0.0f);
 		}
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id) override
@@ -3359,7 +3359,7 @@ DECLARE_SCRIPT(M05_ParkEngineer, "")
 					Commands->Start_Conversation (conv_id, 1);
 					Commands->Monitor_Conversation (obj, conv_id);
 				}
-	
+
 				alerted = true;
 
 				int waypath_start_loc[3];
@@ -3368,7 +3368,7 @@ DECLARE_SCRIPT(M05_ParkEngineer, "")
 				waypath_start_loc[2] = 101302;
 
 				int random = Commands->Get_Random_Int(0, 2);
-				
+
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, ESCAPE_ROUTE );
 				params.Set_Movement( Commands->Find_Object(waypath_start_loc[random]), RUN, 1.5f );
 				Commands->Action_Goto( obj, params );
@@ -3402,14 +3402,14 @@ DECLARE_SCRIPT(M05_FleeEngineer, "")
 {
 
 	bool already_seen;
-	
+
 	enum {ESCAPE_ROUTE, ESCAPED};
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-	
+
 		SAVE_VARIABLE( already_seen, 1 );
 	}
 
@@ -3436,14 +3436,14 @@ DECLARE_SCRIPT(M05_FleeEngineer, "")
 		}
 
 		ActionParamsStruct params;
-		
+
 		int waypath_start_loc[3];
 		waypath_start_loc[0] = 101300;
 		waypath_start_loc[1] = 101301;
 		waypath_start_loc[2] = 101302;
 
 		int random = Commands->Get_Random_Int(0, 2);
-		
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, ESCAPE_ROUTE );
 		params.Set_Movement( Commands->Find_Object(waypath_start_loc[random]), RUN, 1.5f );
 		Commands->Action_Goto( obj, params );
@@ -3451,7 +3451,7 @@ DECLARE_SCRIPT(M05_FleeEngineer, "")
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
-				
+
 		if(action_id == ESCAPE_ROUTE && reason == ACTION_COMPLETE_NORMAL)
 		{
 			ActionParamsStruct params;
@@ -3462,18 +3462,18 @@ DECLARE_SCRIPT(M05_FleeEngineer, "")
 			waypath_id[2] = 100703;
 
 			int random = Commands->Get_Random_Int(0, 2);
-			
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, ESCAPED );
 			params.Set_Movement( Vector3(0,0,0), RUN, 1.5f );
 			params.WaypathID = waypath_id[random];
-			Commands->Action_Goto( obj, params );	
+			Commands->Action_Goto( obj, params );
 		}
 		if(action_id == ESCAPED && reason == ACTION_COMPLETE_NORMAL)
 		{
 			Commands->Destroy_Object(obj);
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 512, 2, 0.0f);
 		}
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
@@ -3488,18 +3488,18 @@ DECLARE_SCRIPT(M05_Mendoza3, "")
 	bool exiting;
 	bool saw_enemy;
 	float health;
-	
+
 	enum {BYE_MENDOZA3};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( exiting, 1 );
 		SAVE_VARIABLE( saw_enemy, 2 );
 		SAVE_VARIABLE( health, 3 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -3537,7 +3537,7 @@ DECLARE_SCRIPT(M05_Mendoza3, "")
 		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .13))
 		{
 			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .13) );
-			
+
 			if(!exiting)
 			{
 				// All right, I'm bored. Enough of this.\n
@@ -3545,13 +3545,13 @@ DECLARE_SCRIPT(M05_Mendoza3, "")
 				int conv_id = Commands->Create_Conversation (conv_name, INNATE_PRIORITY_ENEMY_SEEN + 5, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
-				Commands->Monitor_Conversation (obj, conv_id);		
+				Commands->Monitor_Conversation (obj, conv_id);
 
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 15 );
 				params.Set_Movement( Vector3(0,0,0), RUN, 0.0f );
 				params.WaypathID = 100077;
 				Commands->Action_Goto( obj, params );
-				
+
 				Commands->Start_Timer (obj, this, 3.0f, BYE_MENDOZA3);
 				exiting = true;
 			}
@@ -3567,33 +3567,33 @@ DECLARE_SCRIPT(M05_Mendoza3, "")
 			int conv_id = Commands->Create_Conversation (conv_name, INNATE_PRIORITY_ENEMY_SEEN + 5, 200.0f, false);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 			saw_enemy = true;
 		}
-		
+
 	}
-	
+
 
 };
 
 DECLARE_SCRIPT(M05_Activate_Nuke_Encounter, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
@@ -3612,7 +3612,7 @@ DECLARE_SCRIPT(M05_Activate_Nuke_Encounter, "")
 			Commands->Enable_Spawner(100223, true);
 			Commands->Enable_Spawner(100224, true);
 			Commands->Enable_Spawner(100225, true);*/
-			
+
 			// Alley Sprint
 			Commands->Enable_Spawner(100227, true);
 			Commands->Enable_Spawner(100228, true);
@@ -3625,7 +3625,7 @@ DECLARE_SCRIPT(M05_Entrapment_Technician, "")
 {
 	bool poked;
 	bool called_mendoza;
-	
+
 	enum {HELP_ME, SOMEONE, MENDOZA_ITS_HIM};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
@@ -3648,7 +3648,7 @@ DECLARE_SCRIPT(M05_Entrapment_Technician, "")
 		int conv_id = Commands->Create_Conversation(conv_name, 0, 0, true);
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, HELP_ME);
-		Commands->Monitor_Conversation (obj, conv_id);	
+		Commands->Monitor_Conversation (obj, conv_id);
 
 		Commands->Start_Timer (obj, this, 5.0f, SOMEONE);
 
@@ -3681,7 +3681,7 @@ DECLARE_SCRIPT(M05_Entrapment_Technician, "")
 			int conv_id = Commands->Create_Conversation(conv_name, 0, 0, true);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, HELP_ME);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 
 			Commands->Start_Timer (obj, this, 5.0f, HELP_ME);
 		}
@@ -3718,7 +3718,7 @@ DECLARE_SCRIPT(M05_Entrapment_Technician, "")
 
 			called_mendoza = true;
 		}
-		
+
 	}
 
 	void Killed (GameObject * /* obj */, GameObject * /* killer */) override
@@ -3737,14 +3737,14 @@ DECLARE_SCRIPT(M05_Mendoza4, "")
 	bool exiting;
 	bool saw_enemy;
 	float health;
-	
+
 	enum {BYE_MENDOZA4, FLEE_NUKE, BOTH_TEAMS};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( exiting, 1 );
 		SAVE_VARIABLE( saw_enemy, 2 );
 		SAVE_VARIABLE( health, 3 );
@@ -3764,7 +3764,7 @@ DECLARE_SCRIPT(M05_Mendoza4, "")
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, BOTH_TEAMS);
 		Commands->Monitor_Conversation (obj, conv_id);
-		
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 15 );
 		params.Set_Movement( Vector3(0,0,0), RUN, 0.0f );
 		params.WaypathID = 100085;
@@ -3791,7 +3791,7 @@ DECLARE_SCRIPT(M05_Mendoza4, "")
 			params.Set_Movement( Vector3(0,0,0), RUN, 0.0f );
 			params.WaypathID = 100089;
 			Commands->Action_Goto( obj, params );
-				
+
 			Commands->Start_Timer (obj, this, 5.0f, BYE_MENDOZA4);
 			exiting = true;
 		}
@@ -3815,14 +3815,14 @@ DECLARE_SCRIPT(M05_Mendoza4, "")
 		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .13))
 		{
 			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .13) );
-			
+
 			if(!exiting)
 			{
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 15 );
 				params.Set_Movement( Vector3(0,0,0), RUN, 0.0f );
 				params.WaypathID = 100089;
 				Commands->Action_Goto( obj, params );
-				
+
 				Commands->Start_Timer (obj, this, 5.0f, BYE_MENDOZA4);
 				exiting = true;
 			}
@@ -3839,7 +3839,7 @@ DECLARE_SCRIPT(M05_Mendoza4, "")
 			Commands->Set_Facing(chinook_obj1, -165.000f);
 			Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X5D_C130TroopDrop8.txt");
 		}
-		
+
 	}
 
 };
@@ -3850,7 +3850,7 @@ DECLARE_SCRIPT(M05_Civ_Warn, "")
 {
 
 	enum {GO_CACHE, GO_STAR};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3877,21 +3877,21 @@ DECLARE_SCRIPT(M05_Civ_Warn, "")
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 1000971);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
 		if(action_id == 1000971 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
 			Commands->Start_Timer (obj, this, 0.5f, GO_CACHE);
-			
+
 			Commands->Select_Weapon(obj, "Weapon_Shotgun_Ai" );
 		}
-		
+
 	}
-	
+
 	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == GO_STAR)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN + 5), 100097);
@@ -3913,12 +3913,12 @@ DECLARE_SCRIPT(M05_Civ_Warn, "")
 		Commands->Enable_Spawner(100104, true);
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M05_Civ_Lead, "")
 {
-	
+
 	int poke_id;
 	bool hold;
 	bool conversation;
@@ -3926,11 +3926,11 @@ DECLARE_SCRIPT(M05_Civ_Lead, "")
 	bool at_resistance;
 
 	enum {GO_CIV_CACHE_TIMER, GO_CIV_CACHE};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
-	{		
+	{
 		SAVE_VARIABLE( poke_id, 1 );
 		SAVE_VARIABLE( hold, 2 );
 		SAVE_VARIABLE( conversation, 3 );
@@ -3948,7 +3948,7 @@ DECLARE_SCRIPT(M05_Civ_Lead, "")
 		conversation = false;
 		first_poke = true;
 		Commands->Innate_Disable(obj);
-		Commands->Enable_HUD_Pokable_Indicator( obj, true );		
+		Commands->Enable_HUD_Pokable_Indicator( obj, true );
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
@@ -3979,7 +3979,7 @@ DECLARE_SCRIPT(M05_Civ_Lead, "")
 //			int conv_id = Commands->Create_Conversation(conv_name, 0, 0, true);
 //			Commands->Join_Conversation(obj, conv_id, false, true, true);
 //			Commands->Start_Conversation (conv_id, 1007551);
-//			Commands->Monitor_Conversation (obj, conv_id);	
+//			Commands->Monitor_Conversation (obj, conv_id);
 //		}
 
 		if(action_id == 1007551)
@@ -4033,7 +4033,7 @@ DECLARE_SCRIPT(M05_Civ_Lead, "")
 						Commands->Join_Conversation(STAR, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 1);
 						Commands->Monitor_Conversation (obj, conv_id);
-						
+
 						Vector3 my_loc = Commands->Get_Position(obj);
 						params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), 6);
 						params.Set_Movement (my_loc, RUN, 3.0f);
@@ -4058,7 +4058,7 @@ DECLARE_SCRIPT(M05_Civ_Lead, "")
 						Commands->Set_Innate_Is_Stationary(obj, false);
 						hold = false;
 						Commands->Start_Timer (obj, this, 1.0f, GO_CIV_CACHE_TIMER);
-						
+
 						poke_id = 1;
 					}
 					break;
@@ -4089,9 +4089,9 @@ DECLARE_SCRIPT(M05_Civ_Lead, "")
 DECLARE_SCRIPT(M05_Triangle_Unit, "Unit_ID=0:int")
 {
 	int unit_id;
-	
+
 	enum{GO_TRIANGLE};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4116,7 +4116,7 @@ DECLARE_SCRIPT(M05_Triangle_Unit, "Unit_ID=0:int")
 
 	}
 
-	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
 	{
 		ActionParamsStruct params;
 
@@ -4128,7 +4128,7 @@ DECLARE_SCRIPT(M05_Triangle_Unit, "Unit_ID=0:int")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == GO_TRIANGLE && reason == ACTION_COMPLETE_LOW_PRIORITY)
 		{
 			Commands->Start_Timer (obj, this, 6.0f, GO_TRIANGLE);
@@ -4142,14 +4142,14 @@ DECLARE_SCRIPT(M05_Triangle_Unit, "Unit_ID=0:int")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == GO_TRIANGLE)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), GO_TRIANGLE);
 			params.Set_Movement (Commands->Find_Object(100105), RUN, 5.0f);
 			Commands->Action_Goto (obj, params);
 		}
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
@@ -4165,7 +4165,7 @@ DECLARE_SCRIPT(M05_Triangle_Controller, "")  // 100105
 	int unit_id2;
 	int unit_id3;
 	int unit_id4;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4254,7 +4254,7 @@ DECLARE_SCRIPT(M05_Triangle_Controller, "")  // 100105
 						Commands->Set_Facing(controller, 10.000f);
 						Commands->Attach_Script(controller, "Test_Cinematic", "X5D_CHTroopdrop9.txt");
 					}
-					
+
 				}
 				break;
 			}
@@ -4265,7 +4265,7 @@ DECLARE_SCRIPT(M05_Triangle_Controller, "")  // 100105
 
 DECLARE_SCRIPT(M05_TownSquare_Sniper, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4278,7 +4278,7 @@ DECLARE_SCRIPT(M05_TownSquare_Sniper, "")
 		ActionParamsStruct params;
 
 		Commands->Set_Innate_Is_Stationary(obj, true);
-			
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 10 );
 		params.Set_Attack (Commands->Find_Object(100114), 250.0f, 0.0f, 1);
 		params.AttackCheckBlocked = false;
@@ -4299,7 +4299,7 @@ DECLARE_SCRIPT(M05_TownSquare_Controller, "")  // 100112
 	int unit_id3;
 	int unit_id4;
 	bool townsquare_retaken;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4360,7 +4360,7 @@ DECLARE_SCRIPT(M05_TownSquare_Controller, "")  // 100112
 				break;
 			case 3:
 				{
-					unit_id3++;	
+					unit_id3++;
 				}
 				break;
 			case 4:
@@ -4368,7 +4368,7 @@ DECLARE_SCRIPT(M05_TownSquare_Controller, "")  // 100112
 					unit_id4++;
 				}
 				break;
-			
+
 			}
 			// Check that all Nod soldiers, tank, cannon emplacement killed
 			if((unit_id1 == 6) && (unit_id2 == 6) && (unit_id3 == 1) && (unit_id4 == 1) && (!townsquare_retaken))
@@ -4388,7 +4388,7 @@ DECLARE_SCRIPT(M05_TownSquare_Controller, "")  // 100112
 DECLARE_SCRIPT(M05_TownSquare_Unit, "Unit_ID=0:int")
 {
 	enum{GO_TOWNSQUARE};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4404,7 +4404,7 @@ DECLARE_SCRIPT(M05_TownSquare_Unit, "Unit_ID=0:int")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == GO_TOWNSQUARE && reason == ACTION_COMPLETE_LOW_PRIORITY)
 		{
 			Commands->Start_Timer (obj, this, 6.0f, GO_TOWNSQUARE);
@@ -4418,12 +4418,12 @@ DECLARE_SCRIPT(M05_TownSquare_Unit, "Unit_ID=0:int")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == GO_TOWNSQUARE)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, GO_TOWNSQUARE );
 			params.Set_Movement( Commands->Find_Object(100112), RUN, 5.0f );
-			Commands->Action_Goto( obj, params );	
+			Commands->Action_Goto( obj, params );
 		}
 	}
 
@@ -4453,7 +4453,7 @@ DECLARE_SCRIPT(M05_Nod_Gun_Emplacement, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( attacking, 1 );
 	}
 
@@ -4474,12 +4474,12 @@ DECLARE_SCRIPT(M05_Nod_Gun_Emplacement, "")
 			params.Set_Attack (enemy, 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer(obj, this, 6.0f, ATTACK_OVER);
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
@@ -4494,7 +4494,7 @@ DECLARE_SCRIPT(M05_Nod_Gun_Emplacement, "")
 			params.Set_Attack (damager, 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer(obj, this, 6.0f, ATTACK_OVER);
 		}
 
@@ -4509,7 +4509,7 @@ DECLARE_SCRIPT(M05_Nod_Gun_Emplacement, "")
 			attacking = false;
 		}
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_Nod_Bridge_Gun_Emplacement, "")
@@ -4522,13 +4522,13 @@ DECLARE_SCRIPT(M05_Nod_Bridge_Gun_Emplacement, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( attacking, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
-		
+
 		attacking = false;
 	}
 
@@ -4543,7 +4543,7 @@ DECLARE_SCRIPT(M05_Nod_Bridge_Gun_Emplacement, "")
 			params.Set_Attack (enemy, 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer(obj, this, 12.0f, ATTACK_OVER);
 		}
 	}
@@ -4558,7 +4558,7 @@ DECLARE_SCRIPT(M05_Nod_Bridge_Gun_Emplacement, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
@@ -4575,7 +4575,7 @@ DECLARE_SCRIPT(M05_Nod_Bridge_Gun_Emplacement, "")
 			params.Set_Attack (damager, 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer(obj, this, 6.0f, ATTACK_OVER);
 		}
 
@@ -4597,14 +4597,14 @@ DECLARE_SCRIPT(M05_Nod_Bridge_Gun_Emplacement, "")
 		Commands->Set_Facing(controller1, -150.000f);
 		Commands->Attach_Script(controller1, "Test_Cinematic", "X5D_CHTroopdrop3.txt");
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_Overlook_Captives, "")
 {
-	
+
 	enum{GO_POWERUPS, ARM_CHAINGUN};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4638,13 +4638,13 @@ DECLARE_SCRIPT(M05_Overlook_Captives, "")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
-		
+
+
 		if(action_id == GO_POWERUPS && reason == ACTION_COMPLETE_NORMAL)
 		{
 			Commands->Give_PowerUp(obj, "POW_Chaingun_AI", false);
 			Commands->Start_Timer(obj, this, 1.0f, ARM_CHAINGUN);
-			
+
 		}
 	}
 
@@ -4667,15 +4667,15 @@ DECLARE_SCRIPT(M05_Overlook_Captives, "")
 
 DECLARE_SCRIPT(M05_Free_Overlook_Captives, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -4701,7 +4701,7 @@ DECLARE_SCRIPT(M05_Overlook_Controller, "")  // 100136
 	int unit_id1;
 	int unit_id2;
 	int reinforce_cnt;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4737,7 +4737,7 @@ DECLARE_SCRIPT(M05_Overlook_Controller, "")  // 100136
 					{
 						Commands->Enable_Spawner(100143, true);
 					}
-					
+
 				}
 				break;
 			case 2:
@@ -4756,16 +4756,16 @@ DECLARE_SCRIPT(M05_Overlook_Controller, "")  // 100136
 					}
 				}
 				break;
-			
+
 			}
 		}
 
 	}
 };
 
-DECLARE_SCRIPT(M05_Overlook_Nod, "")  
+DECLARE_SCRIPT(M05_Overlook_Nod, "")
 {
-			
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4786,10 +4786,10 @@ DECLARE_SCRIPT(M05_Overlook_Nod, "")
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100136), M05_OVERLOOK_REINFORCE, 2, 0.0f);
 	}
-	
+
 };
 
-DECLARE_SCRIPT(M05_Overlook_Civ, "")  
+DECLARE_SCRIPT(M05_Overlook_Civ, "")
 {
 	void Created (GameObject * obj) override
 	{
@@ -4799,10 +4799,10 @@ DECLARE_SCRIPT(M05_Overlook_Civ, "")
 		params.Set_Movement (Commands->Find_Object(100136), RUN, 3.0f);
 		Commands->Action_Goto (obj, params);
 	}
-	
+
 };
 
-DECLARE_SCRIPT(M05_Nod_APC, "")  
+DECLARE_SCRIPT(M05_Nod_APC, "")
 {
 	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
 	{
@@ -4828,7 +4828,7 @@ DECLARE_SCRIPT(M05_Cache_Controller, "")  // 100162
 	int unit_id3;
 	bool civ_arrived;
 	int civ_killed;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4890,11 +4890,11 @@ DECLARE_SCRIPT(M05_Cache_Controller, "")  // 100162
 					}
 					else
 					{
-						
+
 					}
 				}
 				break;
-			
+
 			}
 		}
 
@@ -4936,7 +4936,7 @@ DECLARE_SCRIPT(M05_Cache_Unit, "")
 
 		Commands->Start_Timer(obj, this, 3.0f, ATTACK_STAR);
 
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
@@ -4960,15 +4960,15 @@ DECLARE_SCRIPT(M05_Cache_Unit, "")
 
 DECLARE_SCRIPT(M05_Free_Dump_Captives, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -4995,9 +4995,9 @@ DECLARE_SCRIPT(M05_Free_Dump_Captives, "")
 
 DECLARE_SCRIPT(M05_Dump_Captives, "")
 {
-	
+
 	enum{GO_POWERUPS, ARM_SHOTGUN};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5032,14 +5032,14 @@ DECLARE_SCRIPT(M05_Dump_Captives, "")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
-		
+
+
 		if(action_id == GO_POWERUPS && reason == ACTION_COMPLETE_NORMAL)
 		{
 			Commands->Give_PowerUp(obj, "POW_Chaingun_AI", false);
 
 			Commands->Start_Timer (obj, this, 1.0f, ARM_SHOTGUN);
-			
+
 		}
 	}
 
@@ -5086,7 +5086,7 @@ DECLARE_SCRIPT(M05_Dump_Captives, "")
 DECLARE_SCRIPT(M05_Dump_Unit, "Unit_ID=0:int")
 {
 	int unit_id;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5115,7 +5115,7 @@ DECLARE_SCRIPT(M05_Dump_Controller, "")  // 100173
 	int unit_id1;
 	int unit_id2;
 	int unit_id3;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5152,7 +5152,7 @@ DECLARE_SCRIPT(M05_Dump_Controller, "")  // 100173
 						Commands->Enable_Spawner(100771, true);
 						Commands->Enable_Spawner(100772, true);
 					}
-					
+
 				}
 				break;
 			case 2:
@@ -5166,7 +5166,7 @@ DECLARE_SCRIPT(M05_Dump_Controller, "")  // 100173
 					}
 					else
 					{
-						
+
 					}
 				}
 				break;
@@ -5187,7 +5187,7 @@ DECLARE_SCRIPT(M05_Dump_Controller, "")  // 100173
 					}
 				}
 				break;
-			
+
 			}
 		}
 
@@ -5197,7 +5197,7 @@ DECLARE_SCRIPT(M05_Dump_Controller, "")  // 100173
 DECLARE_SCRIPT(M05_SniperAlley_Sniper, "Sniper_ID=0:int")
 {
 	int sniper_id;
-	
+
 	enum {SNIPER_LOC};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
@@ -5216,7 +5216,7 @@ DECLARE_SCRIPT(M05_SniperAlley_Sniper, "Sniper_ID=0:int")
 		{
 		case 1:
 			{
-				
+
 
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, SNIPER_LOC );
 				params.Set_Movement( Vector3(0,0,0), RUN, 0.5f );
@@ -5302,14 +5302,14 @@ DECLARE_SCRIPT(M05_SniperAlley_Sniper, "Sniper_ID=0:int")
 			Commands->Set_Innate_Is_Stationary(obj, true);
 			Commands->Innate_Force_State_Enemy_Seen(obj, STAR);
 		}
-		
-		
+
+
 	}
 };
 
 DECLARE_SCRIPT(M05_Alley_Sprint, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5325,17 +5325,17 @@ DECLARE_SCRIPT(M05_Alley_Sprint, "")
 		params.Set_Movement( Vector3(0,0,0), RUN, 0.5f );
 		params.WaypathID = 100235;
 		Commands->Action_Goto( obj, params );
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M05_Deactivate_Alley_Sprint, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5357,7 +5357,7 @@ DECLARE_SCRIPT(M05_Deactivate_Alley_Sprint, "")
 			// Shutdown Alley Sprint
 			Commands->Enable_Spawner(100227, false);
 			Commands->Enable_Spawner(100228, false);
-		
+
 		}
 	}
 
@@ -5391,7 +5391,7 @@ DECLARE_SCRIPT(M05_Inn_Tank, "")
 
 		// Fire upon building
 		Commands->Start_Timer (obj, this, 0.0f, TANK_TIMER);
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -5402,8 +5402,8 @@ DECLARE_SCRIPT(M05_Inn_Tank, "")
 		{
 			ActionParamsStruct params;
 			attacking = false;
-			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc)); 
-			
+			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc));
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1 );
 			params.Set_Attack (Commands->Find_Object(fire_loc[random]), 250.0f, 10.0f, 1);
 			params.AttackCheckBlocked = false;
@@ -5414,7 +5414,7 @@ DECLARE_SCRIPT(M05_Inn_Tank, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
@@ -5444,7 +5444,7 @@ DECLARE_SCRIPT(M05_Inn_Tank, "")
 			params.Set_Attack (enemy, 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 			Commands->Start_Timer (obj, this, 15.0f, TANK_TIMER);
 		}
 	}
@@ -5455,7 +5455,7 @@ DECLARE_SCRIPT(M05_Inn_Controller, "")  // 100244
 {
 	int unit_id1;
 	int unit_id2;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5476,7 +5476,7 @@ DECLARE_SCRIPT(M05_Inn_Controller, "")  // 100244
 
 		if(type == M05_INN_REINFORCE)
 		{
-		
+
 			switch(param)
 			{
 			case 1:
@@ -5486,11 +5486,11 @@ DECLARE_SCRIPT(M05_Inn_Controller, "")  // 100244
 					{
 						GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(-50.117f, -62.048f, 4.001f));
 						Commands->Set_Facing(chinook_obj1, 95.000f);
-						Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X5D_CHTroopdrop5.txt");	
+						Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X5D_CHTroopdrop5.txt");
 					}
 					else
 					{
-						
+
 					}
 				}
 				break;
@@ -5501,15 +5501,15 @@ DECLARE_SCRIPT(M05_Inn_Controller, "")  // 100244
 					{
 						GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(-98.226f, -75.228f, 4.042f));
 						Commands->Set_Facing(chinook_obj1, -80.000f);
-						Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X5D_CHTroopdrop6.txt");	
+						Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X5D_CHTroopdrop6.txt");
 					}
 					else
 					{
-						
+
 					}
 				}
 				break;
-			
+
 			}
 		}
 
@@ -5555,16 +5555,16 @@ DECLARE_SCRIPT (M05_Apc_Drop_DME, "")
 			{
 			case 0:
 				{
-					
+
 					path_sec++;
 
 					ActionParamsStruct params;
 
 					params.Set_Basic( this, 99, 90 );
-					params.Set_Movement( loc_1, 1.5f, 2.0f );		
+					params.Set_Movement( loc_1, 1.5f, 2.0f );
 					Commands->Action_Goto( obj, params );
 
-										
+
 				}
 				break;
 
@@ -5575,7 +5575,7 @@ DECLARE_SCRIPT (M05_Apc_Drop_DME, "")
 					ActionParamsStruct params;
 
 					params.Set_Basic( this, 99, 90 );
-					params.Set_Movement( loc_2, 1.5f, 2.0f );		
+					params.Set_Movement( loc_2, 1.5f, 2.0f );
 					Commands->Action_Goto( obj, params );
 				}
 				break;
@@ -5587,7 +5587,7 @@ DECLARE_SCRIPT (M05_Apc_Drop_DME, "")
 					ActionParamsStruct params;
 
 					params.Set_Basic( this, 99, 90 );
-					params.Set_Movement( loc_3, 1.5f, 2.0f );		
+					params.Set_Movement( loc_3, 1.5f, 2.0f );
 					Commands->Action_Goto( obj, params );
 				}
 				break;
@@ -5607,17 +5607,17 @@ DECLARE_SCRIPT (M05_Apc_Drop_Zone_DME, "")
 		{
 			GameObject *apc1 = Commands->Find_Object (100256);
 			Commands->Send_Custom_Event ( STAR, apc1, 100, 100, 0.0f );
-			
-			
+
+
 		}
 	}
 };
 
 DECLARE_SCRIPT(M05_Activate_Surprise_Tank, "")
 {
-		
+
 	bool already_entered;
-	
+
 	enum{EXPLODE_BLOCK};
 
 	// Register variables to be Auto-Saved
@@ -5625,7 +5625,7 @@ DECLARE_SCRIPT(M05_Activate_Surprise_Tank, "")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -5642,26 +5642,26 @@ DECLARE_SCRIPT(M05_Activate_Surprise_Tank, "")
 			Commands->Enable_Spawner(100271, true);
 
 			Commands->Start_Timer (obj, this, 1.0f, EXPLODE_BLOCK);
-			
-			
+
+
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		if(timer_id == EXPLODE_BLOCK)
 		{
 			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(105382)), NULL);
 			Commands->Create_Explosion("Ground Explosions Twiddler", Commands->Get_Position(Commands->Find_Object(101865)), NULL);
-			
+
 
 			Commands->Destroy_Object(Commands->Find_Object(105382));
 			Commands->Destroy_Object(Commands->Find_Object(101865));
 			Commands->Destroy_Object(obj);
-			
+
 
 		}
-		
+
 	}
 
 };
@@ -5680,13 +5680,13 @@ DECLARE_SCRIPT(M05_Surprise_Tank, "")
 		ActionParamsStruct params;
 
 		Commands->Enable_Enemy_Seen( obj, true);
-		
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 10 );
 		params.Set_Movement( Vector3(0,0,0), 1.0f, 1.5f );
 		params.WaypathID = 101236;
 		params.WaypathSplined = true;
 		Commands->Action_Attack( obj, params );
-		
+
 	}
 
 };
@@ -5694,7 +5694,7 @@ DECLARE_SCRIPT(M05_Surprise_Tank, "")
 DECLARE_SCRIPT(M05_Execution_Civilian, "")
 {
 	bool poked;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5761,7 +5761,7 @@ DECLARE_SCRIPT(M05_Execution_Civilian, "")
 
 DECLARE_SCRIPT(M05_Execution_Nod, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -5773,7 +5773,7 @@ DECLARE_SCRIPT(M05_Execution_Nod, "")
 	{
 		ActionParamsStruct params;
 		Commands->Innate_Disable(obj);
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */) override
@@ -5795,15 +5795,15 @@ DECLARE_SCRIPT(M05_Execution_Nod, "")
 
 DECLARE_SCRIPT(M05_Activate_Entrapment_Civ, "")
 {
-		
+
 	bool already_entered;
-			
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -5868,13 +5868,13 @@ DECLARE_SCRIPT(M05_Entrapment_Mendoza, "")
 		int conv_id = Commands->Create_Conversation (conv_name, INNATE_PRIORITY_ENEMY_SEEN + 5, 200.0f, false);
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 1);
-		Commands->Monitor_Conversation (obj, conv_id);	
+		Commands->Monitor_Conversation (obj, conv_id);
 
 		Commands->Set_Innate_Is_Stationary(obj, true);
 
 	}
 
-	
+
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
@@ -5904,7 +5904,7 @@ DECLARE_SCRIPT(M05_Entrapment_Mendoza, "")
 		if((Commands->Get_Health(obj)) < (Commands->Get_Max_Health(obj) * .23))
 		{
 			Commands->Set_Health( obj, (Commands->Get_Max_Health(obj) * .23) );
-			
+
 			if(!exiting)
 			{
 				// Hah! Is that all you got?\n
@@ -5912,7 +5912,7 @@ DECLARE_SCRIPT(M05_Entrapment_Mendoza, "")
 				int conv_id = Commands->Create_Conversation (conv_name, INNATE_PRIORITY_ENEMY_SEEN + 5, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
-				Commands->Monitor_Conversation (obj, conv_id);		
+				Commands->Monitor_Conversation (obj, conv_id);
 
 				exiting = true;
 
@@ -5923,13 +5923,13 @@ DECLARE_SCRIPT(M05_Entrapment_Mendoza, "")
 			}
 		}
 	}
-	
+
 
 };
 
 DECLARE_SCRIPT(M05_Cathedral_Controller, "")  // 100287
 {
-		
+
 	int soldier_id1;
 	int soldier_id2;
 	int soldier_id3;
@@ -5990,7 +5990,7 @@ DECLARE_SCRIPT(M05_Cathedral_Controller, "")  // 100287
 		if(type == M05_CATHEDRAL_VEHICLE_KILLED)
 		{
 			m05_cathedral_vehicle_killed--;
-					
+
 		}
 
 		if(type == M05_CATHEDRAL_REINFORCE && blackhand_cnt < 9)
@@ -6004,7 +6004,7 @@ DECLARE_SCRIPT(M05_Cathedral_Controller, "")  // 100287
 					GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(-167.978f, 178.023f, 29.226f));
 					Commands->Set_Facing(chinook_obj1, 0.000f);
 					Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X5D_CHTroopdrop7.txt");
-					
+
 				}
 				break;
 			case 8:
@@ -6012,7 +6012,7 @@ DECLARE_SCRIPT(M05_Cathedral_Controller, "")  // 100287
 					GameObject * chinook_obj2 = Commands->Create_Object ( "Invisible_Object", Vector3(-179.221f, 110.382f, 28.744f));
 					Commands->Set_Facing(chinook_obj2, 0.000f);
 					Commands->Attach_Script(chinook_obj2, "Test_Cinematic", "X5D_CHTroopdrop8.txt");
-					
+
 				}
 				break;
 			case 10:
@@ -6020,11 +6020,11 @@ DECLARE_SCRIPT(M05_Cathedral_Controller, "")  // 100287
 					GameObject * chinook_obj3 = Commands->Create_Object ( "Invisible_Object", Vector3(-137.472f, 141.174f, 29.144f));
 					Commands->Set_Facing(chinook_obj3, 0.000f);
 					Commands->Attach_Script(chinook_obj3, "Test_Cinematic", "X5D_CHTroopdrop10.txt");
-				
+
 				}
 				break;
 			}
-						
+
 		}
 
 		if(m05_cathedral_vehicle_killed == 0 && blackhand_cnt > 7)
@@ -6032,7 +6032,7 @@ DECLARE_SCRIPT(M05_Cathedral_Controller, "")  // 100287
 			Commands->Create_Logical_Sound(obj, M05_CATHEDRAL_FREE, Commands->Get_Position(obj), 5000.0f);
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), 506, 1, 0.0f);
 		}
-		
+
 	}
 
 	void Timer_Expired(GameObject* obj, int timer_id) override
@@ -6101,7 +6101,7 @@ DECLARE_SCRIPT(M05_Cathedral_Apache, "Apache_ID=0:int")  // 100287
 		params.Set_Movement( Vector3(0,0,0), RUN, 0.0f );
 		params.WaypathID = 101320;
 		Commands->Action_Goto( obj, params );
-	
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason /* reason */) override
@@ -6119,7 +6119,7 @@ DECLARE_SCRIPT(M05_Cathedral_Apache, "Apache_ID=0:int")  // 100287
 					params.WaypathID = 100300;
 					Commands->Action_Attack( obj, params );
 
-					
+
 				}
 				break;
 			case 2:
@@ -6135,15 +6135,15 @@ DECLARE_SCRIPT(M05_Cathedral_Apache, "Apache_ID=0:int")  // 100287
 			// Fire at attack locs
 			Commands->Start_Timer(obj, this, 1.0f, apache_id);
 		}
-		
-		
+
+
 	}
 
 	void Timer_Expired(GameObject* obj, int timer_id) override
 	{
 		ActionParamsStruct params;
 
-		int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc)); 
+		int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc));
 		attacking = false;
 
 		if(timer_id == 1)
@@ -6175,7 +6175,7 @@ DECLARE_SCRIPT(M05_Cathedral_Apache, "Apache_ID=0:int")  // 100287
 		{
 			Commands->Apply_Damage( obj, 100000, "DEATH", obj );
 		}
-		
+
 	}
 
 	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
@@ -6218,7 +6218,7 @@ DECLARE_SCRIPT(M05_Cathedral_Apache, "Apache_ID=0:int")  // 100287
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100287), M05_CATHEDRAL_VEHICLE_KILLED, 1, 0.0f);
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M05_Cathedral_Para_Unit, "Soldier_ID=0:int")
@@ -6265,7 +6265,7 @@ DECLARE_SCRIPT(M05_Cathedral_Para_Unit, "Soldier_ID=0:int")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == GO_STAR && reason == ACTION_COMPLETE_NORMAL)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), ATTACK_STAR);
@@ -6284,7 +6284,7 @@ DECLARE_SCRIPT(M05_Cathedral_Para_Unit, "Soldier_ID=0:int")
 			cathedral_free = true;
 			Commands->Apply_Damage( obj, 100000, "DEATH", obj );
 		}
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /* killer */) override
@@ -6300,21 +6300,21 @@ DECLARE_SCRIPT(M05_Cathedral_Para_Unit, "Soldier_ID=0:int")
 
 DECLARE_SCRIPT(M05_Cache_Surprise, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
@@ -6330,7 +6330,7 @@ DECLARE_SCRIPT(M05_Cache_Surprise, "")
 			GameObject *controller2 = Commands->Create_Object("Invisible_Object", Vector3(-486.106f, -93.892f, 18.440f));
 			Commands->Set_Facing(controller2, 175.000f);
 			Commands->Attach_Script(controller2, "Test_Cinematic", "X5C_Wintroops07.txt");
-			
+
 		}
 	}
 
@@ -6339,7 +6339,7 @@ DECLARE_SCRIPT(M05_Cache_Surprise, "")
 DECLARE_SCRIPT(M05_Vehicle_Dec, "")
 {
 	bool attacking;
-	
+
 	enum{ATTACK_OVER, ATTACKING};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
@@ -6351,7 +6351,7 @@ DECLARE_SCRIPT(M05_Vehicle_Dec, "")
 	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Enemy_Seen( obj, true);
-		
+
 		attacking = false;
 	}
 
@@ -6382,9 +6382,9 @@ DECLARE_SCRIPT(M05_Vehicle_Dec, "")
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, ATTACKING );
 			params.Set_Attack (NULL, 250.0f, 0.0f, 1);
 			Commands->Modify_Action (obj, ATTACKING, params, true, true);
-			
+
 		}
-		
+
 	}
 
 };
@@ -6437,7 +6437,7 @@ DECLARE_SCRIPT(M05_Roadblock_Controller, "")  //100614
 						Commands->Set_Facing(controller, -115.000f);
 						Commands->Attach_Script(controller, "Test_Cinematic", "X5C_Wintroops08.txt");
 					}
-					
+
 				}
 				break;
 			case 2:
@@ -6455,22 +6455,22 @@ DECLARE_SCRIPT(M05_Roadblock_Controller, "")  //100614
 						Commands->Set_Facing(controller, 90.000f);
 						Commands->Attach_Script(controller, "Test_Cinematic", "X5C_Wintroops09.txt");
 					}
-					
+
 				}
 				break;
 			}
 		}
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M05_Roadblock_Unit, "Unit_ID=0:int")
 {
 	int unit_id;
-	
+
 	enum{GO_ROADLBOCK};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -6488,7 +6488,7 @@ DECLARE_SCRIPT(M05_Roadblock_Unit, "Unit_ID=0:int")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == GO_ROADLBOCK && reason == ACTION_COMPLETE_LOW_PRIORITY)
 		{
 			Commands->Start_Timer (obj, this, 6.0f, GO_ROADLBOCK);
@@ -6502,7 +6502,7 @@ DECLARE_SCRIPT(M05_Roadblock_Unit, "Unit_ID=0:int")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == GO_ROADLBOCK)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), GO_ROADLBOCK);
@@ -6519,9 +6519,9 @@ DECLARE_SCRIPT(M05_Roadblock_Unit, "Unit_ID=0:int")
 
 DECLARE_SCRIPT(M05_Activate_Roadblock_Tank, "")
 {
-		
+
 	bool already_entered;
-	
+
 	enum{EXPLODE_BLOCK};
 
 	// Register variables to be Auto-Saved
@@ -6529,7 +6529,7 @@ DECLARE_SCRIPT(M05_Activate_Roadblock_Tank, "")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -6548,7 +6548,7 @@ DECLARE_SCRIPT(M05_Activate_Roadblock_Tank, "")
 			Commands->Start_Timer (obj, this, 1.0f, EXPLODE_BLOCK);
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * /* obj */, int timer_id ) override
 	{
 		ActionParamsStruct params;
@@ -6567,12 +6567,12 @@ DECLARE_SCRIPT(M05_Building_Debris, "")
 {
 	int health;
 	bool already_entered;
-			
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-	
+
 		SAVE_VARIABLE( health, 1 );
 		SAVE_VARIABLE( already_entered, 2 );
 	}
@@ -6583,7 +6583,7 @@ DECLARE_SCRIPT(M05_Building_Debris, "")
 		//Commands->Set_Shield_Type ( obj, "ShieldKevlar" );
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if(Commands->Get_Player_Type(damager) == SCRIPT_PLAYERTYPE_NOD)
 		{
@@ -6606,9 +6606,9 @@ DECLARE_SCRIPT(M05_Building_Debris, "")
 
 DECLARE_SCRIPT(M05_Explode_Debris, "")
 {
-	
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -6624,7 +6624,7 @@ DECLARE_SCRIPT(M05_Explode_Debris, "")
 	//	params.Set_Animation("X5A_Debris.X5A_Debris_Boom", true);
 	//	Commands->Action_Play_Animation(obj, params);
 		Commands->Set_Animation(obj, "X5A_Debris.X5A_Debris_Boom", false, NULL, 0.0f, -1.0f, false);
-		
+
 		Commands->Start_Timer (obj, this, 1.0f, 10);
 		Commands->Create_Sound("Medium Explosion Sound Twiddler", Commands->Get_Position(obj), obj);
 	}
@@ -6647,12 +6647,12 @@ DECLARE_SCRIPT(M05_Flyover_Controller, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 25.0f, 0);
 		last = 21;
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int /* timer_id */) override
@@ -6662,10 +6662,10 @@ DECLARE_SCRIPT(M05_Flyover_Controller, "")
 			"X5H_Apache_1.txt",
 			"X5H_Apache_2.txt",
 			"X5H_Apache_3.txt",
-		
+
 		};
 		int random = int(Commands->Get_Random(0, 3-WWMATH_EPSILON));
-	
+
 		while (random == last) {
 			random = int(Commands->Get_Random(0, 3-WWMATH_EPSILON));
 		}
@@ -6678,7 +6678,7 @@ DECLARE_SCRIPT(M05_Flyover_Controller, "")
 
 DECLARE_SCRIPT(M00_InnateIsStationary, "")
 {
-	
+
 	void Created (GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
@@ -6691,7 +6691,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 	int message_id;
 	bool deadeye_freed;
 	int mission_failed_text;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -6706,7 +6706,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 		already_entered = false;
 		message_id = Get_Int_Parameter("Message_ID");
 		deadeye_freed = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -6726,7 +6726,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100003);
-						
+
 					}
 				}
 				break;
@@ -6740,7 +6740,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100002);
-						
+
 					}
 				}
 				break;
@@ -6754,7 +6754,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100650);
-						
+
 					}
 				}
 				break;
@@ -6770,7 +6770,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100002);
-						Commands->Monitor_Conversation (obj, conv_id);	
+						Commands->Monitor_Conversation (obj, conv_id);
 					}
 					// Gunner
 					else if(Commands->Find_Object(100003))
@@ -6781,7 +6781,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100003);
-						Commands->Monitor_Conversation (obj, conv_id);	
+						Commands->Monitor_Conversation (obj, conv_id);
 					}
 					// Deadeye
 					else if(!deadeye_freed)
@@ -6792,11 +6792,11 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 						int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 						Commands->Join_Conversation(NULL, conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 100652);
-						Commands->Monitor_Conversation (obj, conv_id);	
+						Commands->Monitor_Conversation (obj, conv_id);
 					}
 				}
 				break;
-			
+
 			}
 		}
 	}
@@ -6807,7 +6807,7 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 		{
 			deadeye_freed = true;
 		}
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -6849,15 +6849,15 @@ DECLARE_SCRIPT(M05_Dead6_Help, "Message_ID=0:int")
 
 DECLARE_SCRIPT(M05_Hotwire_Conversation, "")
 {
-		
+
 	bool already_entered;
-			
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -6870,14 +6870,14 @@ DECLARE_SCRIPT(M05_Hotwire_Conversation, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-			
+
 			// Havoc? Bust me outta here?\n
 			const char *conv_name = ("M05_CON036");
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300503);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
 	}
 
@@ -6885,21 +6885,21 @@ DECLARE_SCRIPT(M05_Hotwire_Conversation, "")
 
 DECLARE_SCRIPT(M05_Activate_Surprise, "Spawner_ID1=0:int, Spawner_ID2=0:int, Spawner_ID3=0:int")
 {
-		
+
 	bool already_entered;
-			
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
@@ -6907,11 +6907,11 @@ DECLARE_SCRIPT(M05_Activate_Surprise, "Spawner_ID1=0:int, Spawner_ID2=0:int, Spa
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-			
+
 			int spawner_id1 = Get_Int_Parameter("Spawner_ID1");
 			int spawner_id2 = Get_Int_Parameter("Spawner_ID2");
 			int spawner_id3 = Get_Int_Parameter("Spawner_ID3");
-			
+
 			if(spawner_id1 != 0)
 			{
 				Commands->Enable_Spawner(spawner_id1, true);
@@ -6924,7 +6924,7 @@ DECLARE_SCRIPT(M05_Activate_Surprise, "Spawner_ID1=0:int, Spawner_ID2=0:int, Spa
 			{
 				Commands->Enable_Spawner(spawner_id3, true);
 			}
-			
+
 
 		}
 	}
@@ -6933,7 +6933,7 @@ DECLARE_SCRIPT(M05_Activate_Surprise, "Spawner_ID1=0:int, Spawner_ID2=0:int, Spa
 
 DECLARE_SCRIPT(M05_Surprise_Unit, "")
 {
-	
+
 	enum{DIE_SURPRISE};
 
 	// Register variables to be Auto-Saved
@@ -6950,13 +6950,13 @@ DECLARE_SCRIPT(M05_Surprise_Unit, "")
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 1 );
 		params.Set_Movement( STAR, RUN, 2.0f );
 		Commands->Action_Goto (  obj, params );
-	
+
 //		Commands->Start_Timer (obj, this, 10.0f, DIE_SURPRISE);
 	}
 
 	void Timer_Expired(GameObject* obj, int timer_id) override
 	{
-		
+
 		if(timer_id == DIE_SURPRISE)
 		{
 			Commands->Apply_Damage( obj, 100000, "STEEL", NULL );
@@ -6973,7 +6973,7 @@ DECLARE_SCRIPT(M05_Surprise_Unit, "")
 
 DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int, Artillery_ID3=0:int")
 {
-		
+
 	bool already_entered;
 	int loop_amnt;
 	int loop_count;
@@ -6983,7 +6983,7 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 	Vector3 artillery_loc1;
 	Vector3 artillery_loc2;
 	Vector3 artillery_loc3;
-	
+
 	enum{START_ARTILLERY};
 
 	// Register variables to be Auto-Saved
@@ -7016,7 +7016,7 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-			
+
 			loop_amnt = Commands->Get_Random_Int(2, 4);
 			Commands->Start_Timer (obj, this, 1.0f, START_ARTILLERY);
 
@@ -7025,7 +7025,7 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if(timer_id == START_ARTILLERY && loop_count < loop_amnt)
 		{
 			loop_count++;
@@ -7038,7 +7038,7 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 
 			int artillery_id3 = Get_Int_Parameter("Artillery_ID3");
 			artillery_loc3 = Commands->Get_Position(Commands->Find_Object(artillery_id3));
-			
+
 			static constexpr const char *bomb[3] =
 			{
 				"Falling_Bomb_01",
@@ -7050,12 +7050,12 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 
 			artillery_sound1 = Commands->Create_Sound ( bomb[random], artillery_loc1, obj );
 			Commands->Monitor_Sound (obj, artillery_sound1);
-			
+
 			random = Commands->Get_Random_Int(0, 2);
 
 			artillery_sound2 = Commands->Create_Sound ( bomb[random], artillery_loc2, obj );
 			Commands->Monitor_Sound (obj, artillery_sound2);
-			
+
 			random = Commands->Get_Random_Int(0, 2);
 
 			artillery_sound3 = Commands->Create_Sound ( bomb[random], artillery_loc3, obj );
@@ -7063,7 +7063,7 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 
 			float time = Commands->Get_Random(0.5f, 3.0f);
 			Commands->Start_Timer (obj, this, time, START_ARTILLERY);
-			
+
 		}
 	}
 
@@ -7087,21 +7087,21 @@ DECLARE_SCRIPT(M05_Activate_Artillery, "Artillery_ID1=0:int, Artillery_ID2=0:int
 
 DECLARE_SCRIPT(M05_Activate_ApacheStrike, "Strike_Loc_ID=0:int")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
@@ -7118,7 +7118,7 @@ DECLARE_SCRIPT(M05_Activate_ApacheStrike, "Strike_Loc_ID=0:int")
 			GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", pos);
 			Commands->Set_Facing(chinook_obj, facing);
 			Commands->Attach_Script(chinook_obj, "Test_Cinematic", "X7B_ApacheStk.txt");
-			
+
 		}
 	}
 
@@ -7127,21 +7127,21 @@ DECLARE_SCRIPT(M05_Activate_ApacheStrike, "Strike_Loc_ID=0:int")
 
 DECLARE_SCRIPT(M05_Activate_Truck_Spill, "")
 {
-		
+
 	bool already_entered;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
@@ -7153,7 +7153,7 @@ DECLARE_SCRIPT(M05_Activate_Truck_Spill, "")
 			GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 			Commands->Set_Facing(chinook_obj, 0.0f);
 			Commands->Attach_Script(chinook_obj, "Test_Cinematic", "X5E_TibSpill.txt");
-			
+
 		}
 	}
 
@@ -7162,22 +7162,22 @@ DECLARE_SCRIPT(M05_Activate_Truck_Spill, "")
 
 DECLARE_SCRIPT(M05_Activate_Triangle_Tank_Drop, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
@@ -7203,7 +7203,7 @@ DECLARE_SCRIPT(M05_Aggressiveness_Take_Cover, "Aggessiveness=0.0:float, Take_Cov
 	REGISTER_VARIABLES()
 	{
 //		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -7219,15 +7219,15 @@ DECLARE_SCRIPT(M05_Aggressiveness_Take_Cover, "Aggessiveness=0.0:float, Take_Cov
 
 DECLARE_SCRIPT(M05_Activate_Execution, "")
 {
-		
+
 	bool already_entered;
-			
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -7240,7 +7240,7 @@ DECLARE_SCRIPT(M05_Activate_Execution, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-			
+
 			// Execution players
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(101239), M05_CUSTOM_ACTIVATE, 1, 0.0f);
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(101240), M05_CUSTOM_ACTIVATE, 1, 0.0f);
@@ -7259,23 +7259,23 @@ DECLARE_SCRIPT(M05_Activate_Execution, "")
 DECLARE_SCRIPT(M05_Swap_Artillery, "Artillery_ID=0:int")
 {
 	bool swapped;
-			
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( swapped, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		swapped = false;
-	}	
+	}
 
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == M05_SWAP_ARTILLERY ) 
+		if ( type == M05_SWAP_ARTILLERY )
 		{
 			swapped = true;
 			Commands->Destroy_Object(obj);
@@ -7310,7 +7310,7 @@ DECLARE_SCRIPT(M05_Swap_Artillery, "Artillery_ID=0:int")
 DECLARE_SCRIPT(M05_Cathedral_Artillery, "Fire_Loc1=0:int, Fire_Loc2=0:int")
 {
 
-	int fire_loc[2];	
+	int fire_loc[2];
 
 	enum {TANK_TIMER};
 
@@ -7329,10 +7329,10 @@ DECLARE_SCRIPT(M05_Cathedral_Artillery, "Fire_Loc1=0:int, Fire_Loc2=0:int")
 
 		fire_loc[0] = Get_Int_Parameter("Fire_Loc1");
 		fire_loc[1] = Get_Int_Parameter("Fire_Loc2");
-		
+
 		// Fire upon cathedral
 		Commands->Start_Timer (obj, this, 1.0f, TANK_TIMER);
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -7342,9 +7342,9 @@ DECLARE_SCRIPT(M05_Cathedral_Artillery, "Fire_Loc1=0:int, Fire_Loc2=0:int")
 		if(timer_id == TANK_TIMER)
 		{
 			ActionParamsStruct params;
-			
-			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc)); 
-			
+
+			int random = Commands->Get_Random_Int(0,ARRAY_ELEMENT_COUNT(fire_loc));
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1 );
 			params.Set_Attack (Commands->Find_Object(fire_loc[random]), 250.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
@@ -7360,27 +7360,27 @@ DECLARE_SCRIPT(M05_Cathedral_Artillery, "Fire_Loc1=0:int, Fire_Loc2=0:int")
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100287), M05_CATHEDRAL_VEHICLE_KILLED, 1, 0.0f);
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M05_X5N_MIDTRO_B, "")
 {
-		
+
 	bool already_entered;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -7393,7 +7393,7 @@ DECLARE_SCRIPT(M05_X5N_MIDTRO_B, "")
 			Vector3 havoc_loc = Commands->Get_Position (STAR);
 			havoc_loc.Z += 7.0f;
 			Commands->Set_Position (STAR, havoc_loc );
-			
+
 			GameObject * cinematic_obj = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 			Commands->Attach_Script(cinematic_obj, "Test_Cinematic", "X5N_MIDTRO_B.txt");
 		}
@@ -7403,7 +7403,7 @@ DECLARE_SCRIPT(M05_X5N_MIDTRO_B, "")
 
 DECLARE_SCRIPT(M05_Barrel_Explosion, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -7416,7 +7416,7 @@ DECLARE_SCRIPT(M05_Barrel_Explosion, "")
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		Commands->Create_Explosion ( "Explosion_Barrel_Toxic", myPosition, NULL );
 	}
-	
+
 /*	void Killed (GameObject * obj, GameObject * killer) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
@@ -7439,7 +7439,7 @@ DECLARE_SCRIPT(M05_APC_Deploy, "Preset:string, Soldier_Qty=0:int, Fire_Gun=1:int
 		SAVE_VARIABLE( attacking, 1 );
 		SAVE_VARIABLE( fire_gun, 2 );
 	}
-		
+
 	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Enemy_Seen( obj, true);
@@ -7484,7 +7484,7 @@ DECLARE_SCRIPT(M05_APC_Deploy, "Preset:string, Soldier_Qty=0:int, Fire_Gun=1:int
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if((damager == STAR) && (!attacking))
 		{
@@ -7524,26 +7524,26 @@ DECLARE_SCRIPT(M05_APC_Deploy, "Preset:string, Soldier_Qty=0:int, Fire_Gun=1:int
 DECLARE_SCRIPT(M05_APC_Deploy_Soldier, "APC_ID=0:int")
 {
 	enum{GO_STAR, CLEAR_APC};
-	
+
 	void Created (GameObject * obj) override
 	{
 		Commands->Set_Animation(obj, "S_A_Human.H_A_XG_NAPC_OUT", 0, NULL, 0.0f, -1.0f, false);
-		Commands->Enable_Hibernation (obj, false);		
+		Commands->Enable_Hibernation (obj, false);
 	}
-	
+
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
 		if (stricmp(anim, "S_A_Human.H_A_XG_NAPC_OUT") == 0)
 		{
 			GameObject * apc = Commands->Find_Object(Get_Int_Parameter("APC_ID"));
 			Commands->Attach_To_Object_Bone(obj, NULL, NULL);
-			
+
 			Vector3 pos = Commands->Get_Position(apc);
 			float facing = Commands->Get_Facing(apc);
 			float a = cos(DEG_TO_RADF(facing)) * Commands->Get_Random(-8.0f, -10.0f);
 			float b = sin(DEG_TO_RADF(facing)) * Commands->Get_Random(-8.0f, -10.0f);
 			Vector3 soldier_loc = pos + Vector3(a, b, 0.0f);
-			
+
 			ActionParamsStruct params;
 
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN + 5), CLEAR_APC);
@@ -7565,7 +7565,7 @@ DECLARE_SCRIPT(M05_APC_Deploy_Soldier, "APC_ID=0:int")
 			params.Set_Movement (STAR, RUN, 10.0f);
 			Commands->Action_Goto (obj, params);
 		}
-		
+
 	}
 
 };
@@ -7587,11 +7587,11 @@ DECLARE_SCRIPT(M05_Inn_APC, "")
 	{
 		if(type == M05_REINFORCEMENT_KILLED)
 		{
-			
+
 			reinforcement++;
 			if((reinforcement%2 == 0) && (reinforcement < 3))
 			{
-				
+
 			}
 			else if (reinforcement%2 == 0)
 			{
@@ -7630,7 +7630,7 @@ DECLARE_SCRIPT(M05_Inn_APC, "")
 };
 
 #define	RESISTANCE_CONV_TABLE_SIZE  ( sizeof(Resistance_Conv_Table) / sizeof (Resistance_Conv_Table[0]) )
-const char *	Resistance_Conv_Table[] = 
+const char *	Resistance_Conv_Table[] =
 {
 	"M05_CON044",
 	"M05_CON045",
@@ -7739,10 +7739,10 @@ DECLARE_SCRIPT(M05_Resistance_Poke_Conversation, "")
 		}
 
 		Play_Conversation(obj, min, max);
-	
+
 	}
 
-	
+
 	int Index(int Min, int Max)
 	{
 		while(random == last || random < Min || random > Max)
@@ -7775,7 +7775,7 @@ DECLARE_SCRIPT(M05_DataDisc_01_DLS, "")//
 {
 	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			// Reveal Raveshaw
 			bool reveal = Commands->Reveal_Encyclopedia_Character( 42 );

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando / G                                                 * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/reflist.cpp          $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 2/06/01 2:26p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 1                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando / G                                                 *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/reflist.cpp          $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 2/06/01 2:26p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 1                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -79,9 +79,9 @@ bool	ReferencerClass::Load( ChunkLoadClass & cload )
 }
 
 
-void	ReferencerClass::On_Post_Load(void)	
+void	ReferencerClass::On_Post_Load(void)
 {
-	// if we found our target, re-link to it.  
+	// if we found our target, re-link to it.
 	if ( ReferenceTarget ) {
 		ScriptableGameObj* data = ReferenceTarget->Get_Data();
 		ReferenceTarget = NULL;

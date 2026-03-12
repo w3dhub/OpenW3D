@@ -75,10 +75,10 @@ TextWindowClass::TextWindowClass (void) :
 	IsViewDirty (true),
 	TextRect (0, 0, 0, 0),
 	ColumnHeight (0),
-	LineSpacing (0)	
-{	
+	LineSpacing (0)
+{
 	TextRenderers[0] = NULL;
-	TextRenderers[1] = NULL;	
+	TextRenderers[1] = NULL;
 	return ;
 }
 
@@ -104,7 +104,7 @@ TextWindowClass::~TextWindowClass (void)
 void
 TextWindowClass::Initialize (SceneClass *scene)
 {
-	REF_PTR_SET (Scene, scene);	
+	REF_PTR_SET (Scene, scene);
 	return ;
 }
 
@@ -204,7 +204,7 @@ TextWindowClass::Set_Backdrop
 	//
 	TextureClass *texture = WW3DAssetManager::Get_Instance()->Get_Texture (texture_name, TextureClass::MIP_LEVELS_1);
 	if (texture != NULL) {
-		
+
 		//
 		//	Pass the texture onto the renderer
 		//
@@ -240,7 +240,7 @@ TextWindowClass::Set_Backdrop
 		fadeout_uvs1.Inverse_Scale (texture_size);
 		fadeout_uvs2.Inverse_Scale (texture_size);
 		textback_uvs.Inverse_Scale (texture_size);
-		
+
 		//
 		//	Reverse the UVs of the endcap and fadeaways on the right
 		//
@@ -278,15 +278,15 @@ TextWindowClass::Set_Backdrop
 		//	Calculate how many times we should vertically tile the text backdrop
 		//
 		int largest_height	= std::min (endcap_height, fadeout_height);
-		largest_height			= std::min (largest_height, textback_height);		
+		largest_height			= std::min (largest_height, textback_height);
 		int section_count		= (screen_rect.Height () / largest_height);
 
 		//
 		//	Tile the text backdrop sections
 		//
 		int index;
-		for (index = 0; index < section_count; index ++) {			
-			
+		for (index = 0; index < section_count; index ++) {
+
 			//
 			//	Submit the geometry
 			//
@@ -304,14 +304,14 @@ TextWindowClass::Set_Backdrop
 		//
 		float percent = (screen_rect.Height () / largest_height) - section_count;
 		if (percent > 0) {
-			
+
 			textback_uvs.Bottom				= textback_uvs.Top + (textback_uvs.Height () * percent);
 			fadeout_uvs1.Bottom				= fadeout_uvs1.Top + (fadeout_uvs1.Height () * percent);
 			fadeout_uvs2.Bottom				= fadeout_uvs2.Top + (fadeout_uvs2.Height () * percent);
 
 			textback_screen_rect.Bottom	= textback_screen_rect.Top + (textback_screen_rect.Height () * percent);
 			fadeout_screen_rect1.Bottom	= fadeout_screen_rect1.Top + (fadeout_screen_rect1.Height () * percent);
-			fadeout_screen_rect2.Bottom	= fadeout_screen_rect2.Top + (fadeout_screen_rect2.Height () * percent);			
+			fadeout_screen_rect2.Bottom	= fadeout_screen_rect2.Top + (fadeout_screen_rect2.Height () * percent);
 
 			//
 			//	Submit the geometry
@@ -329,7 +329,7 @@ TextWindowClass::Set_Backdrop
 
 			//
 			//	Submit the geometry
-			//			
+			//
 			Backdrop.Add_Quad (endcap_screen_rect1, endcap_uvs1);
 			Backdrop.Add_Quad (endcap_screen_rect2, endcap_uvs2);
 
@@ -342,7 +342,7 @@ TextWindowClass::Set_Backdrop
 		//
 		percent = (screen_rect.Height () / endcap_height) - section_count;
 		if (percent > 0) {
-			
+
 			endcap_uvs1.Bottom			= endcap_uvs1.Top + (endcap_uvs1.Height () * percent);
 			endcap_uvs2.Bottom			= endcap_uvs2.Top + (endcap_uvs2.Height () * percent);
 			endcap_screen_rect1.Bottom = endcap_screen_rect1.Top + (endcap_screen_rect1.Height () * percent);
@@ -360,7 +360,7 @@ TextWindowClass::Set_Backdrop
 		//
 		REF_PTR_RELEASE(texture);
 	}
-	
+
 	return ;
 }
 
@@ -389,7 +389,7 @@ TextWindowClass::Add_Column (const unichar_t *column_name, float width, const Ve
 	//	Create a new column and add it to the list
 	//
 	TextColumnClass *column = new TextColumnClass;
-	column->Set_Name (column_name);	
+	column->Set_Name (column_name);
 	column->Set_Width (width);
 	column->Set_Color (color);
 	Columns.Add (column);
@@ -498,7 +498,7 @@ TextWindowClass::Delete_Item (int index)
 ////////////////////////////////////////////////////////////////
 int
 TextWindowClass::Insert_Item (int index, const unichar_t *text)
-{	
+{
 	if (Columns.Count () <= 0) {
 		return -1;
 	}
@@ -605,7 +605,7 @@ TextWindowClass::Delete_All_Items (void)
 	for (int index = 0; index < Columns.Count (); index ++) {
 		Columns[index]->Delete_All_Items ();
 	}
-	
+
 	IsViewDirty = true;
 	return ;
 }
@@ -628,13 +628,13 @@ TextWindowClass::Build_View (void)
 
 	//
 	//	Create the fonts
-	//	
+	//
 	FontCharsClass *header_font	= StyleMgrClass::Peek_Font( StyleMgrClass::FONT_INGAME_HEADER_TXT );
 	FontCharsClass *font				= StyleMgrClass::Peek_Font( StyleMgrClass::FONT_INGAME_TXT );
 
 	//
 	//	Load the font we'll use for the column headers
-	//	
+	//
 	if (header_font != NULL) {
 		ColumnHeight = (header_font->Get_Char_Height () * 1.5F);
 	}
@@ -665,7 +665,7 @@ TextWindowClass::Update_View (float *total_height, bool info_only)
 	if (TextRenderers[0] == NULL || TextRenderers[1] == NULL) {
 		Build_View ();
 	}
-	
+
 	TextRenderers[0]->Reset ();
 	TextRenderers[1]->Reset ();
 
@@ -679,9 +679,9 @@ TextWindowClass::Update_View (float *total_height, bool info_only)
 
 			const Vector3 &color = Columns[col_index]->Get_Color ();
 			TextRenderers[0]->Build_Sentence (Columns[col_index]->Get_Name ());
-			TextRenderers[0]->Set_Location (Vector2 (x_pos, TextRect.Top));			
+			TextRenderers[0]->Set_Location (Vector2 (x_pos, TextRect.Top));
 			TextRenderers[0]->Draw_Sentence (VRGB_TO_INT32(color));
-			
+
 			x_pos += Columns[col_index]->Get_Width () * (TextRect.Right - TextRect.Left);
 		}
 	}
@@ -693,12 +693,12 @@ TextWindowClass::Update_View (float *total_height, bool info_only)
 	if (AreColumnsDisplayed) {
 		y_pos += ColumnHeight;
 	}
-	
+
 	//
 	//	Update the contents
-	//	
+	//
 	CurrentDisplayCount	= 0;
-	int item_count			= Columns[0]->Get_Item_Count ();	
+	int item_count			= Columns[0]->Get_Item_Count ();
 	for (int item_index = FirstLineIndex; item_index < item_count; item_index ++) {
 
 		//
@@ -707,14 +707,14 @@ TextWindowClass::Update_View (float *total_height, bool info_only)
 		float row_height = 0;
 		Update_Row (item_index, y_pos, &row_height);
 		CurrentDisplayCount ++;
-		
+
 		//
 		//	Check to see if we've gone outside the client area of the text window
 		//
 		if ((y_pos + row_height) > TextRect.Right && info_only == false) {
 			break;
-		}		
-		
+		}
+
 		//
 		//	Move down one row
 		//
@@ -769,9 +769,9 @@ TextWindowClass::Update_Row
 
 	//
 	//	Loop over all the columns
-	//	
+	//
 	for (int col_index = 0; col_index < Columns.Count (); col_index ++) {
-		
+
 		//
 		//	Alias some variables for readability
 		//
@@ -779,9 +779,9 @@ TextWindowClass::Update_Row
 
 		//
 		//	Determine what text we should display
-		//		
+		//
 		const unichar_t *text	= U_CHAR("");
-		Vector3 color (0 ,0, 0);		
+		Vector3 color (0 ,0, 0);
 		text		= column->Get_Item_Text (item_index);
 		color		= column->Get_Item_Color (item_index);
 
@@ -800,7 +800,7 @@ TextWindowClass::Update_Row
 		TextRenderers[1]->Build_Sentence (text);
 		TextRenderers[1]->Set_Location (Vector2 (int(x_pos), int(y_pos)));
 		TextRenderers[1]->Draw_Sentence (VRGB_TO_INT32(color));
-		
+
 		//
 		//	See if this is the 'tallest' column so far
 		//
@@ -812,7 +812,7 @@ TextWindowClass::Update_Row
 		//
 		x_pos += int (column->Get_Width () * (TextRect.Right - TextRect.Left));
 	}
-	
+
 	return ;
 }
 
@@ -834,7 +834,7 @@ TextWindowClass::Display (bool onoff)
 		Backdrop.Set_Hidden (!onoff);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -904,7 +904,7 @@ TextWindowClass::Render (void)
 
 	//
 	//	Render each piece of text
-	//	
+	//
 	TextRenderers[0]->Render();
 	TextRenderers[1]->Render();
 	return ;
@@ -956,7 +956,7 @@ int
 TextColumnClass::Insert_Item (int index, const unichar_t *item_name)
 {
 	TextItemClass *item = new TextItemClass (item_name);
-	
+
 	//
 	//	Should we insert this item in the list or add it to the end?
 	//

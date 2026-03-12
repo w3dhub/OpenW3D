@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/globalsettings.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/16/02 5:22p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 40                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/globalsettings.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/16/02 5:22p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 40                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "globalsettings.h"
@@ -80,7 +80,7 @@ GlobalSettingsDef::GlobalSettingsDef( void ) :
 {
 	EDITABLE_PARAM(GlobalSettingsDef, ParameterClass::TYPE_SOUNDDEFINITIONID, DeathSoundID);
 	EDITABLE_PARAM(GlobalSettingsDef, ParameterClass::TYPE_SOUNDDEFINITIONID, EVAObjectivesSoundID);
-	EDITABLE_PARAM(GlobalSettingsDef, ParameterClass::TYPE_SOUNDDEFINITIONID, HUDHelpTextSoundID);	
+	EDITABLE_PARAM(GlobalSettingsDef, ParameterClass::TYPE_SOUNDDEFINITIONID, HUDHelpTextSoundID);
 	EDITABLE_PARAM(GlobalSettingsDef, ParameterClass::TYPE_FLOAT, MaxConversationDist);
 	EDITABLE_PARAM(GlobalSettingsDef, ParameterClass::TYPE_FLOAT, MaxCombatConversationDist);
 	EDITABLE_PARAM(GlobalSettingsDef, ParameterClass::TYPE_FLOAT, SoldierWalkSpeed );
@@ -134,17 +134,17 @@ GlobalSettingsDef::~GlobalSettingsDef( void )
 }
 
 
-uint32	GlobalSettingsDef::Get_Class_ID (void) const	
-{	
+uint32	GlobalSettingsDef::Get_Class_ID (void) const
+{
 	return CLASSID_GLOBAL_SETTINGS_DEF_GENERAL;
 }
 
-const PersistFactoryClass & GlobalSettingsDef::Get_Factory (void) const 
-{ 
-	return _GlobalSettingsDefPersistFactory; 
+const PersistFactoryClass & GlobalSettingsDef::Get_Factory (void) const
+{
+	return _GlobalSettingsDefPersistFactory;
 }
 
-PersistClass *	GlobalSettingsDef::Create( void ) const 
+PersistClass *	GlobalSettingsDef::Create( void ) const
 {
 	WWASSERT( 0 );
 	return NULL;
@@ -164,7 +164,7 @@ enum	{
 	MICROCHUNKID_DEF_FALLING_DAMAGE_MIN_DISTANCE,
 	MICROCHUNKID_DEF_FALLING_DAMAGE_MAX_DISTANCE,
 	MICROCHUNKID_DEF_FALLING_DAMAGE_WARHEAD,
-	
+
 	MICROCHUNKID_DEF_PURCHASE_GDI_CHARS_TEXTURE,
 	MICROCHUNKID_DEF_PURCHASE_GDI_VEHICLES_TEXTURE,
 	MICROCHUNKID_DEF_PURCHASE_GDI_EQUIP_TEXTURE,
@@ -208,7 +208,7 @@ bool	GlobalSettingsDef::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_FALLING_DAMAGE_MIN_DISTANCE, FallingDamageMinDistance );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_FALLING_DAMAGE_MAX_DISTANCE, FallingDamageMaxDistance );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_FALLING_DAMAGE_WARHEAD, FallingDamageWarhead );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_ENCY_EVENT_STRING_ID, EncyclopediaEventStringID );		
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_ENCY_EVENT_STRING_ID, EncyclopediaEventStringID );
 
 		WRITE_MICRO_CHUNK_WWSTRING( csave, MICROCHUNKID_DEF_PURCHASE_GDI_CHARS_TEXTURE,		PurchaseGDICharactersTexture );
 		WRITE_MICRO_CHUNK_WWSTRING( csave, MICROCHUNKID_DEF_PURCHASE_GDI_VEHICLES_TEXTURE,	PurchaseGDIVehiclesTexture );
@@ -243,12 +243,12 @@ bool	GlobalSettingsDef::Load( ChunkLoadClass &cload )
 			case CHUNKID_DEF_PARENT:
 				DefinitionClass::Load( cload );
 				break;
-								
+
 			case CHUNKID_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_DEATH_SOUND, DeathSoundID );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_EVA_MO_SOUND, EVAObjectivesSoundID );						
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_EVA_MO_SOUND, EVAObjectivesSoundID );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_HELP_TXT_SOUND, HUDHelpTextSoundID );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_MAX_CONV_DIST, MaxConversationDist );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_MAX_COMBAT_CONV_DIST, MaxCombatConversationDist );
@@ -334,17 +334,17 @@ HumanLoiterGlobalSettingsDef::~HumanLoiterGlobalSettingsDef( void )
 	}
 }
 
-uint32	HumanLoiterGlobalSettingsDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_LOITER; 
+uint32	HumanLoiterGlobalSettingsDef::Get_Class_ID (void) const
+{
+	return CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_LOITER;
 }
 
-const PersistFactoryClass & HumanLoiterGlobalSettingsDef::Get_Factory (void) const 
-{ 
-	return _HumanLoiterGlobalSettingsDefPersistFactory; 
+const PersistFactoryClass & HumanLoiterGlobalSettingsDef::Get_Factory (void) const
+{
+	return _HumanLoiterGlobalSettingsDefPersistFactory;
 }
 
-PersistClass *	HumanLoiterGlobalSettingsDef::Create( void ) const 
+PersistClass *	HumanLoiterGlobalSettingsDef::Create( void ) const
 {
 	WWASSERT( 0 );
 	return NULL;
@@ -385,7 +385,7 @@ bool	HumanLoiterGlobalSettingsDef::Load( ChunkLoadClass &cload )
 			case CHUNKID_HL_DEF_PARENT:
 				DefinitionClass::Load( cload );
 				break;
-								
+
 			case CHUNKID_HL_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -502,9 +502,9 @@ DECLARE_DEFINITION_FACTORY(HUDGlobalSettingsDef, CLASSID_GLOBAL_SETTINGS_DEF_HUD
 #define	TARGET_ICON_SIZE				Vector2( 64, 64 )
 #define	TARGET_ICON_OFFSET			Vector2( 2, -68 )
 #define	TARGET_NAME_BAR_SIZE			Vector2( 120, 20 )
-#define	TARGET_NAME_BAR_OFFSET		(TARGET_BRACKET_OFFSET + Vector2( 19, 2 ))  
+#define	TARGET_NAME_BAR_OFFSET		(TARGET_BRACKET_OFFSET + Vector2( 19, 2 ))
 #define	TARGET_NAME_BAR_UV			RectClass( 1.0f, 59.0f, 31.0f, 79.0f )
-#define	TARGET_NAME_OFFSET			(TARGET_BRACKET_OFFSET + Vector2( 24, 8 ))  
+#define	TARGET_NAME_OFFSET			(TARGET_BRACKET_OFFSET + Vector2( 24, 8 ))
 #define	TARGET_BAR_LENGTH				130
 #define	TARGET_BAR_SIZE				Vector2( TARGET_BAR_LENGTH, 18 )
 #define	TARGET_BAR_OFFSET				(TARGET_BRACKET_OFFSET + Vector2( 19 , 33 ))
@@ -648,7 +648,7 @@ HUDGlobalSettingsDef::HUDGlobalSettingsDef( void ) :
 	DamageIndicatorUV(DAMAGE_INDICATOR_UV),
 	DamageDiagIndicatorUV(DAMAGE_DIAG_INDICATOR_UV)
 {
-	WWASSERT( Instance == NULL );	 // Pat, you can remove this if needed 
+	WWASSERT( Instance == NULL );	 // Pat, you can remove this if needed
 	Instance = this;
 
 	PARAM_SEPARATOR( HUDGlobalSettingsDef, "Colors" );
@@ -765,17 +765,17 @@ HUDGlobalSettingsDef::~HUDGlobalSettingsDef( void )
 	Instance = NULL;
 }
 
-uint32	HUDGlobalSettingsDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GLOBAL_SETTINGS_DEF_HUD; 
+uint32	HUDGlobalSettingsDef::Get_Class_ID (void) const
+{
+	return CLASSID_GLOBAL_SETTINGS_DEF_HUD;
 }
 
-const PersistFactoryClass & HUDGlobalSettingsDef::Get_Factory (void) const 
-{ 
-	return _HUDGlobalSettingsDefPersistFactory; 
+const PersistFactoryClass & HUDGlobalSettingsDef::Get_Factory (void) const
+{
+	return _HUDGlobalSettingsDefPersistFactory;
 }
 
-PersistClass *	HUDGlobalSettingsDef::Create( void ) const 
+PersistClass *	HUDGlobalSettingsDef::Create( void ) const
 {
 	WWASSERT( 0 );
 	return NULL;
@@ -792,64 +792,64 @@ enum	{
 	MICROCHUNKID_HUD_DEF_SECONDARY_OBJECTIVE_COLOR,
 	MICROCHUNKID_HUD_DEF_TERTIARY_OBJECTIVE_COLOR,
 
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_SIZE,				
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_OFFSET,			
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_UV,				
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_SIZE,		
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_OFFSET,		
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_UV,			
-	MICROCHUNKID_HUD_DEF_STAR_BAR_SIZE,					
-	MICROCHUNKID_HUD_DEF_STAR_BAR_OFFSET,				
-	MICROCHUNKID_HUD_DEF_STAR_BAR_UV,						
-	MICROCHUNKID_HUD_DEF_STAR_BAR_END_SIZE,				
-	MICROCHUNKID_HUD_DEF_STAR_BAR_END_OFFSET,			
-	MICROCHUNKID_HUD_DEF_STAR_BAR_END_UV,				
-	MICROCHUNKID_HUD_DEF_STAR_HEALTH_SIZE,				
-	MICROCHUNKID_HUD_DEF_STAR_HEALTH_OFFSET,			
-	MICROCHUNKID_HUD_DEF_STAR_HEALTH_UV,					
-	MICROCHUNKID_HUD_DEF_STAR_SHIELD_SIZE,				
-	MICROCHUNKID_HUD_DEF_STAR_SHIELD_OFFSET,			
-	MICROCHUNKID_HUD_DEF_STAR_SHIELD_UV,					
-	MICROCHUNKID_HUD_DEF_TARGET_BRACKET_SIZE,			
-	MICROCHUNKID_HUD_DEF_TARGET_BRACKET_OFFSET,		
-	MICROCHUNKID_HUD_DEF_TARGET_BRACKET_UV,				
-	MICROCHUNKID_HUD_DEF_TARGET_ICON_SIZE,				
-	MICROCHUNKID_HUD_DEF_TARGET_ICON_OFFSET,			
-	MICROCHUNKID_HUD_DEF_TARGET_NAME_BAR_SIZE,			
-	MICROCHUNKID_HUD_DEF_TARGET_NAME_BAR_OFFSET,		
-	MICROCHUNKID_HUD_DEF_TARGET_NAME_BAR_UV,			
-	MICROCHUNKID_HUD_DEF_TARGET_NAME_OFFSET,			
-	MICROCHUNKID_HUD_DEF_TARGET_BAR_SIZE,				
-	MICROCHUNKID_HUD_DEF_TARGET_BAR_OFFSET,				
-	MICROCHUNKID_HUD_DEF_TARGET_BAR_UV,					
-	MICROCHUNKID_HUD_DEF_TARGET_BAR_END_SIZE,			
-	MICROCHUNKID_HUD_DEF_TARGET_BAR_END_OFFSET,		
-	MICROCHUNKID_HUD_DEF_TARGET_BAR_END_UV,				
-	MICROCHUNKID_HUD_DEF_TARGET_HEALTH_SIZE,			
-	MICROCHUNKID_HUD_DEF_TARGET_HEALTH_OFFSET,			
-	MICROCHUNKID_HUD_DEF_TARGET_HEALTH_UV,				
-	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_SIZE,			
-	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_OFFSET,			
-	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_UV,				
-	MICROCHUNKID_HUD_DEF_RADAR_OFFSET,					 
-	MICROCHUNKID_HUD_DEF_RADAR_RADIUS,					 
-	MICROCHUNKID_HUD_DEF_RADAR_FRAME_SIZE,				 
-	MICROCHUNKID_HUD_DEF_RADAR_FRAME_UV,				 
-	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_OFFSET,		 
-	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_SIZE,			 
-	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_BASE_UV,		 
-	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_UV_OFFSET,	 
-	MICROCHUNKID_HUD_DEF_RADAR_HUMAN_BLIP_UV,			 
-	MICROCHUNKID_HUD_DEF_RADAR_VEHICLE_BLIP_UV,		 
-	MICROCHUNKID_HUD_DEF_RADAR_STATIONARY_BLIP_UV,	 
-	MICROCHUNKID_HUD_DEF_RADAR_OBJECTIVE_BLIP_UV,	 
-	MICROCHUNKID_HUD_DEF_RADAR_BLIP_BRACKET_UV,		 
-	MICROCHUNKID_HUD_DEF_RADAR_SWEEP_UV,				
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_ARMED_SIZE,		
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_ARMED_OFFSET,		
-	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_ARMED_UV,			
-	MICROCHUNKID_HUD_DEF_STAR_WEAPON_ICON_SIZE,					
-	MICROCHUNKID_HUD_DEF_STAR_WEAPON_ICON_OFFSET,					
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_OFFSET,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_UV,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_OFFSET,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_UV,
+	MICROCHUNKID_HUD_DEF_STAR_BAR_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_BAR_OFFSET,
+	MICROCHUNKID_HUD_DEF_STAR_BAR_UV,
+	MICROCHUNKID_HUD_DEF_STAR_BAR_END_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_BAR_END_OFFSET,
+	MICROCHUNKID_HUD_DEF_STAR_BAR_END_UV,
+	MICROCHUNKID_HUD_DEF_STAR_HEALTH_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_HEALTH_OFFSET,
+	MICROCHUNKID_HUD_DEF_STAR_HEALTH_UV,
+	MICROCHUNKID_HUD_DEF_STAR_SHIELD_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_SHIELD_OFFSET,
+	MICROCHUNKID_HUD_DEF_STAR_SHIELD_UV,
+	MICROCHUNKID_HUD_DEF_TARGET_BRACKET_SIZE,
+	MICROCHUNKID_HUD_DEF_TARGET_BRACKET_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_BRACKET_UV,
+	MICROCHUNKID_HUD_DEF_TARGET_ICON_SIZE,
+	MICROCHUNKID_HUD_DEF_TARGET_ICON_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_NAME_BAR_SIZE,
+	MICROCHUNKID_HUD_DEF_TARGET_NAME_BAR_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_NAME_BAR_UV,
+	MICROCHUNKID_HUD_DEF_TARGET_NAME_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_BAR_SIZE,
+	MICROCHUNKID_HUD_DEF_TARGET_BAR_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_BAR_UV,
+	MICROCHUNKID_HUD_DEF_TARGET_BAR_END_SIZE,
+	MICROCHUNKID_HUD_DEF_TARGET_BAR_END_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_BAR_END_UV,
+	MICROCHUNKID_HUD_DEF_TARGET_HEALTH_SIZE,
+	MICROCHUNKID_HUD_DEF_TARGET_HEALTH_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_HEALTH_UV,
+	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_SIZE,
+	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_OFFSET,
+	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_OFFSET,
+	MICROCHUNKID_HUD_DEF_RADAR_RADIUS,
+	MICROCHUNKID_HUD_DEF_RADAR_FRAME_SIZE,
+	MICROCHUNKID_HUD_DEF_RADAR_FRAME_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_OFFSET,
+	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_SIZE,
+	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_BASE_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_UV_OFFSET,
+	MICROCHUNKID_HUD_DEF_RADAR_HUMAN_BLIP_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_VEHICLE_BLIP_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_STATIONARY_BLIP_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_OBJECTIVE_BLIP_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_BLIP_BRACKET_UV,
+	MICROCHUNKID_HUD_DEF_RADAR_SWEEP_UV,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_ARMED_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_ARMED_OFFSET,
+	MICROCHUNKID_HUD_DEF_STAR_BRACKET_TOP_ARMED_UV,
+	MICROCHUNKID_HUD_DEF_STAR_WEAPON_ICON_SIZE,
+	MICROCHUNKID_HUD_DEF_STAR_WEAPON_ICON_OFFSET,
 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW,
 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW_UV,
 	MICROCHUNKID_HUD_DEF_SNIPER_BLACK_COVER_UV,
@@ -872,14 +872,14 @@ enum	{
 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH_UV,
 	MICROCHUNKID_HUD_DEF_RADAR_ON_SOUND_ID,
 	MICROCHUNKID_HUD_DEF_RADAR_OFF_SOUND_ID,
-	MICROCHUNKID_HUD_DEF_MUTANT_COLOR,				       
-	MICROCHUNKID_HUD_DEF_RENEGADE_COLOR,			         
-	MICROCHUNKID_HUD_DEF_HEALTH_HIGH_COLOR,			
-	MICROCHUNKID_HUD_DEF_HEALTH_MED_COLOR,			
-	MICROCHUNKID_HUD_DEF_HEALTH_LOW_COLOR,			
-	MICROCHUNKID_HUD_DEF_ENEMY_COLOR,				
-	MICROCHUNKID_HUD_DEF_FRIENDLY_COLOR,			
-	MICROCHUNKID_HUD_DEF_NO_RELATION_COLOR,			
+	MICROCHUNKID_HUD_DEF_MUTANT_COLOR,
+	MICROCHUNKID_HUD_DEF_RENEGADE_COLOR,
+	MICROCHUNKID_HUD_DEF_HEALTH_HIGH_COLOR,
+	MICROCHUNKID_HUD_DEF_HEALTH_MED_COLOR,
+	MICROCHUNKID_HUD_DEF_HEALTH_LOW_COLOR,
+	MICROCHUNKID_HUD_DEF_ENEMY_COLOR,
+	MICROCHUNKID_HUD_DEF_FRIENDLY_COLOR,
+	MICROCHUNKID_HUD_DEF_NO_RELATION_COLOR,
 
 };
 
@@ -891,11 +891,11 @@ bool	HUDGlobalSettingsDef::Save( ChunkSaveClass & csave )
 
 	csave.Begin_Chunk( CHUNKID_HL_DEF_VARIABLES );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_NOD_COLOR,					NodColor );
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_GDI_COLOR,					GDIColor );               
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_NEUTRAL_COLOR,				NeutralColor );           
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_MUTANT_COLOR,				MutantColor );           
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RENEGADE_COLOR,			RenegadeColor );           
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_PRIMARY_OBJECTIVE_COLOR,	PrimaryObjectiveColor );  
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_GDI_COLOR,					GDIColor );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_NEUTRAL_COLOR,				NeutralColor );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_MUTANT_COLOR,				MutantColor );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RENEGADE_COLOR,			RenegadeColor );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_PRIMARY_OBJECTIVE_COLOR,	PrimaryObjectiveColor );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SECONDARY_OBJECTIVE_COLOR,	SecondaryObjectiveColor );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_TERTIARY_OBJECTIVE_COLOR,	TertiaryObjectiveColor );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_HEALTH_HIGH_COLOR,			HealthHighColor );
@@ -950,38 +950,38 @@ bool	HUDGlobalSettingsDef::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_OFFSET,		TargetShieldOffset	);
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_UV,				 TargetShieldUV	);
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_TEXTURE_SIZE,			RadarTextureSize );
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_OFFSET,						RadarOffset	);            
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_RADIUS,						RadarRadius	);            
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_SIZE,					RadarFrameSize	);         
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_UV,					RadarFrameUV	);         
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_OFFSET,			RadarCompassOffset	);   
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_SIZE,				RadarCompassSize	);      
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_BASE_UV,			RadarCompassBaseUV	);   
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_UV_OFFSET,		RadarCompassUVOffset	);   
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_HUMAN_BLIP_UV,				RadarHumanBlipUV	);      
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_VEHICLE_BLIP_UV,			RadarVehicleBlipUV	);   
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_OFFSET,						RadarOffset	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_RADIUS,						RadarRadius	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_SIZE,					RadarFrameSize	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_UV,					RadarFrameUV	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_OFFSET,			RadarCompassOffset	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_SIZE,				RadarCompassSize	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_BASE_UV,			RadarCompassBaseUV	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_UV_OFFSET,		RadarCompassUVOffset	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_HUMAN_BLIP_UV,				RadarHumanBlipUV	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_VEHICLE_BLIP_UV,			RadarVehicleBlipUV	);
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_STATIONARY_BLIP_UV,		RadarStationaryBlipUV	);
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_OBJECTIVE_BLIP_UV,		RadarObjectiveBlipUV	);   
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_BLIP_BRACKET_UV,			RadarBlipBracketUV	);   
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_SWEEP_UV,					RadarSweepUV	);         
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_OBJECTIVE_BLIP_UV,		RadarObjectiveBlipUV	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_BLIP_BRACKET_UV,			RadarBlipBracketUV	);
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_SWEEP_UV,					RadarSweepUV	);
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_ON_SOUND_ID,				RadarOnSoundID );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_RADAR_OFF_SOUND_ID,				RadarOffSoundID );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TEXTURE_SIZE,			SniperTextureSize );
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW,						SniperView );             
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW_UV,					SniperViewUV );           
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_SCAN_LINE_UV,				SniperScanLineUV );           
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_BLACK_COVER_UV,			SniperBlackCoverUV );     
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR,					SniperTiltBar );          
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_RATE,			SniperTiltBarRate );      
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_UV,				SniperTiltBarUV );        
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR,					SniperTurnBar );          
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_RATE,			SniperTurnBarRate );      
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_UV,				SniperTurnBarUV );        
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH,			SniperDistanceGraph );    
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_UV,		SniperDistanceGraphUV );  
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_MAX,		SniperDistanceGraphMax ); 
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH,				SniperZoomGraph );    
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH_UV,			SniperZoomGraphUV );  
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW,						SniperView );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW_UV,					SniperViewUV );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_SCAN_LINE_UV,				SniperScanLineUV );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_BLACK_COVER_UV,			SniperBlackCoverUV );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR,					SniperTiltBar );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_RATE,			SniperTiltBarRate );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_UV,				SniperTiltBarUV );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR,					SniperTurnBar );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_RATE,			SniperTurnBarRate );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_UV,				SniperTurnBarUV );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH,			SniperDistanceGraph );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_UV,		SniperDistanceGraphUV );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_MAX,		SniperDistanceGraphMax );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH,				SniperZoomGraph );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH_UV,			SniperZoomGraphUV );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_DAMAGE_INDICATOR_UV,				DamageIndicatorUV );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_HUD_DEF_DAMAGE_DIAG_INDICATOR_UV,		DamageDiagIndicatorUV );
 
@@ -998,16 +998,16 @@ bool	HUDGlobalSettingsDef::Load( ChunkLoadClass &cload )
 			case CHUNKID_HL_DEF_PARENT:
 				DefinitionClass::Load( cload );
 				break;
-								
+
 			case CHUNKID_HL_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_NOD_COLOR,					NodColor );
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_GDI_COLOR,					GDIColor );               
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_NEUTRAL_COLOR,				NeutralColor );           
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_MUTANT_COLOR,				MutantColor );           
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RENEGADE_COLOR,			RenegadeColor );           
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_PRIMARY_OBJECTIVE_COLOR,	PrimaryObjectiveColor );  
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_GDI_COLOR,					GDIColor );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_NEUTRAL_COLOR,				NeutralColor );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_MUTANT_COLOR,				MutantColor );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RENEGADE_COLOR,			RenegadeColor );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_PRIMARY_OBJECTIVE_COLOR,	PrimaryObjectiveColor );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SECONDARY_OBJECTIVE_COLOR,	SecondaryObjectiveColor );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_TERTIARY_OBJECTIVE_COLOR,	TertiaryObjectiveColor );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_HEALTH_HIGH_COLOR,			HealthHighColor );
@@ -1063,38 +1063,38 @@ bool	HUDGlobalSettingsDef::Load( ChunkLoadClass &cload )
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_OFFSET,		TargetShieldOffset	);
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_TARGET_SHIELD_UV,				 TargetShieldUV	);
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_TEXTURE_SIZE,			RadarTextureSize );
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_OFFSET,						RadarOffset	);            
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_RADIUS,						RadarRadius	);            
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_SIZE,					RadarFrameSize	);         
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_UV,					RadarFrameUV	);         
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_OFFSET,			RadarCompassOffset	);   
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_SIZE,				RadarCompassSize	);      
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_BASE_UV,			RadarCompassBaseUV	);   
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_UV_OFFSET,		RadarCompassUVOffset	);   
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_HUMAN_BLIP_UV,				RadarHumanBlipUV	);      
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_VEHICLE_BLIP_UV,			RadarVehicleBlipUV	);   
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_OFFSET,						RadarOffset	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_RADIUS,						RadarRadius	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_SIZE,					RadarFrameSize	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_FRAME_UV,					RadarFrameUV	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_OFFSET,			RadarCompassOffset	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_SIZE,				RadarCompassSize	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_BASE_UV,			RadarCompassBaseUV	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_COMPASS_UV_OFFSET,		RadarCompassUVOffset	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_HUMAN_BLIP_UV,				RadarHumanBlipUV	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_VEHICLE_BLIP_UV,			RadarVehicleBlipUV	);
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_STATIONARY_BLIP_UV,		RadarStationaryBlipUV	);
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_OBJECTIVE_BLIP_UV,		RadarObjectiveBlipUV	);   
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_BLIP_BRACKET_UV,			RadarBlipBracketUV	);   
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_SWEEP_UV,					RadarSweepUV	);         
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_OBJECTIVE_BLIP_UV,		RadarObjectiveBlipUV	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_BLIP_BRACKET_UV,			RadarBlipBracketUV	);
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_SWEEP_UV,					RadarSweepUV	);
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_ON_SOUND_ID,				RadarOnSoundID );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_RADAR_OFF_SOUND_ID,				RadarOffSoundID );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TEXTURE_SIZE,			SniperTextureSize );
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW,						SniperView );             
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW_UV,					SniperViewUV );           
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_SCAN_LINE_UV,				SniperScanLineUV );           
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_BLACK_COVER_UV,			SniperBlackCoverUV );     
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR,					SniperTiltBar );          
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_RATE,			SniperTiltBarRate );      
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_UV,				SniperTiltBarUV );        
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR,					SniperTurnBar );          
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_RATE,			SniperTurnBarRate );      
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_UV,				SniperTurnBarUV );        
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH,			SniperDistanceGraph );    
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_UV,		SniperDistanceGraphUV );  
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_MAX,		SniperDistanceGraphMax ); 
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH,				SniperZoomGraph );    
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH_UV,			SniperZoomGraphUV );  
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW,						SniperView );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_VIEW_UV,					SniperViewUV );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_SCAN_LINE_UV,				SniperScanLineUV );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_BLACK_COVER_UV,			SniperBlackCoverUV );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR,					SniperTiltBar );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_RATE,			SniperTiltBarRate );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TILT_BAR_UV,				SniperTiltBarUV );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR,					SniperTurnBar );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_RATE,			SniperTurnBarRate );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_TURN_BAR_UV,				SniperTurnBarUV );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH,			SniperDistanceGraph );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_UV,		SniperDistanceGraphUV );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_DISTANCE_GRAPH_MAX,		SniperDistanceGraphMax );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH,				SniperZoomGraph );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_SNIPER_ZOOM_GRAPH_UV,			SniperZoomGraphUV );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_DAMAGE_INDICATOR_UV,				DamageIndicatorUV );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_HUD_DEF_DAMAGE_DIAG_INDICATOR_UV,		DamageDiagIndicatorUV );
 
@@ -1126,7 +1126,7 @@ SimplePersistFactoryClass<HumanAnimOverrideDef, CHUNKID_GLOBAL_SETTINGS_DEF_HUMA
 
 DECLARE_DEFINITION_FACTORY(HumanAnimOverrideDef, CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_ANIM_OVERRIDE, "HUMAN_ANIM_OVERRIDE") _HumanAnimOverrideDefDefFactory;
 
-HumanAnimOverrideDef::HumanAnimOverrideDef( void ) 
+HumanAnimOverrideDef::HumanAnimOverrideDef( void )
 {
 	EDITABLE_PARAM( HumanAnimOverrideDef, ParameterClass::TYPE_STRING, RunEmptyHands );
 	EDITABLE_PARAM( HumanAnimOverrideDef, ParameterClass::TYPE_STRING, WalkEmptyHands );
@@ -1136,17 +1136,17 @@ HumanAnimOverrideDef::HumanAnimOverrideDef( void )
 	EDITABLE_PARAM( HumanAnimOverrideDef, ParameterClass::TYPE_STRING, WalkAtHip );
 }
 
-uint32	HumanAnimOverrideDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_ANIM_OVERRIDE; 
+uint32	HumanAnimOverrideDef::Get_Class_ID (void) const
+{
+	return CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_ANIM_OVERRIDE;
 }
 
-const PersistFactoryClass & HumanAnimOverrideDef::Get_Factory (void) const 
-{ 
-	return _HumanAnimOverrideDefPersistFactory; 
+const PersistFactoryClass & HumanAnimOverrideDef::Get_Factory (void) const
+{
+	return _HumanAnimOverrideDefPersistFactory;
 }
 
-PersistClass *	HumanAnimOverrideDef::Create( void ) const 
+PersistClass *	HumanAnimOverrideDef::Create( void ) const
 {
 	WWASSERT( 0 );
 	return NULL;
@@ -1157,11 +1157,11 @@ enum	{
 	CHUNKID_HAO_DEF_VARIABLES,
 
 	MICROCHUNKID_HAO_DEF_RUN_EMPTY_HANDS		=	1,
-	MICROCHUNKID_HAO_DEF_WALK_EMPTY_HANDS,	
-	MICROCHUNKID_HAO_DEF_RUN_AT_CHEST,		
-	MICROCHUNKID_HAO_DEF_WALK_AT_CHEST,		
-	MICROCHUNKID_HAO_DEF_RUN_AT_HIP,			
-	MICROCHUNKID_HAO_DEF_WALK_AT_HIP,		
+	MICROCHUNKID_HAO_DEF_WALK_EMPTY_HANDS,
+	MICROCHUNKID_HAO_DEF_RUN_AT_CHEST,
+	MICROCHUNKID_HAO_DEF_WALK_AT_CHEST,
+	MICROCHUNKID_HAO_DEF_RUN_AT_HIP,
+	MICROCHUNKID_HAO_DEF_WALK_AT_HIP,
 
 
 };
@@ -1192,7 +1192,7 @@ bool	HumanAnimOverrideDef::Load( ChunkLoadClass &cload )
 			case CHUNKID_HAO_DEF_PARENT:
 				DefinitionClass::Load( cload );
 				break;
-								
+
 			case CHUNKID_HAO_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {

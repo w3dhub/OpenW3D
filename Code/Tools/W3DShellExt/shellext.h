@@ -25,25 +25,25 @@
 #define MAX_ANIMS_INFILE		16
 
 //#define ODS(sz) OutputDebugString(sz)
-//#define ENABLE_MSG2 
-//#define ENABLE_MSG 
+//#define ENABLE_MSG2
+//#define ENABLE_MSG
 //#define	ENABLE_MSG3
 #if defined ENABLE_MSG
 #define ODS(sz)  MessageBox(NULL, sz, "Debug Message", MB_OK)
-#else 
+#else
 #define ODS(sz)
 #endif
 
 
 #if defined ENABLE_MSG2
 #define ODS2(sz)  MessageBox(NULL, sz, "Debug Message", MB_OK)
-#else 
+#else
 #define ODS2(sz)
 #endif
 
 #if defined ENABLE_MSG3
 #define ODS3(sz)  MessageBox(NULL, sz, "Debug Message", MB_OK)
-#else 
+#else
 #define ODS3(sz)
 #endif
 
@@ -76,10 +76,10 @@ public:
 
 };
 typedef CShellExtClassFactory *LPCSHELLEXTCLASSFACTORY;
-class CShellExt : public IContextMenu, 
-                         IShellExtInit, 
-                         IExtractIcon, 
-                         IPersistFile, 
+class CShellExt : public IContextMenu,
+                         IShellExtInit,
+                         IExtractIcon,
+                         IPersistFile,
                          IShellPropSheetExt,
                          ICopyHook{
 public:

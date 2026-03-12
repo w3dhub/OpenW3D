@@ -87,7 +87,7 @@ public:
 		TYPE_SECRET_VEHICLE,
 
 	}	PURCHASE_TYPE;
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
@@ -105,7 +105,7 @@ private:
 	static PURCHASE_ERROR	Purchase_Vehicle (BaseControllerClass *base, SoldierGameObj *player, int cost, int definition_id);
 	static PURCHASE_ERROR	Purchase_Powerup (BaseControllerClass *base, SoldierGameObj *player, int cost, int definition_id);
 	static PURCHASE_ERROR	Purchase_Character (BaseControllerClass *base, SoldierGameObj *player, int cost, int definition_id);
-	
+
 	static void					Get_Merchandise_Information (SoldierGameObj *player, PURCHASE_TYPE type, int item_index, int alt_skin_index, int &cost, int &definition);
 	static void					Grant_Supplies (SoldierGameObj *player);
 };

@@ -24,7 +24,7 @@
 * DESCRIPTION
 *     These classes encapsulate a Westwood Online Server.
 *
-*     This is a base class. Derived classes include (but not necessarily limited to) 
+*     This is a base class. Derived classes include (but not necessarily limited to)
 *     ChatServer, GameResultsServer, LadderServer, and WDTServer.
 *
 *     Server primarily repackages the WOL Server struct

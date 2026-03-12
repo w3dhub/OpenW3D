@@ -62,7 +62,7 @@ class PresetClass;
 class LightNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -244,13 +244,13 @@ inline void
 LightNodeClass::Set_Attenuation_Radius (float radius)
 {
 	if (radius > 0) {
-		
+
 		//
 		//	Change the settings
 		//
-		m_UsePreset = false;	
+		m_UsePreset = false;
 		m_InstanceSettings.Set_Outer_Radius (radius);
-		
+
 		//
 		//	Update the light model
 		//
@@ -277,7 +277,7 @@ LightNodeClass::Set_Group_ID (uintptr_t group_id)
 	if (m_LightPhysObj != NULL) {
 		m_LightPhysObj->Set_Group_ID (group_id);
 	}
-		
+
 	return ;
 }
 

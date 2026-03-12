@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/scriptzone.cpp                        $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/18/02 10:44a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 18                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/scriptzone.cpp                        $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/18/02 10:44a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 18                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "scriptzone.h"
@@ -100,20 +100,20 @@ ScriptZoneGameObjDef::ScriptZoneGameObjDef( void ) :
 #ifdef PARAM_EDITING_ON
 	EnumParameterClass *zone_type_param = new EnumParameterClass( (int*)&ZoneType );
 	zone_type_param->Set_Name( "Zone Type" );
-	for ( int index = 0; index < TYPE_COUNT; index++ ) {																			
+	for ( int index = 0; index < TYPE_COUNT; index++ ) {
 		zone_type_param->Add_Value( ZONE_TYPE_NAMES[index], index );
-	}																																									
+	}
 	GENERIC_EDITABLE_PARAM(ScriptZoneGameObjDef,zone_type_param);
 #endif
 
 }
 
-uint32	ScriptZoneGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_SCRIPT_ZONE; 
+uint32	ScriptZoneGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_SCRIPT_ZONE;
 }
 
-PersistClass *	ScriptZoneGameObjDef::Create( void ) const 
+PersistClass *	ScriptZoneGameObjDef::Create( void ) const
 {
 	ScriptZoneGameObj * obj = new ScriptZoneGameObj;
 	obj->Init( *this );
@@ -140,7 +140,7 @@ bool	ScriptZoneGameObjDef::Save( ChunkSaveClass & csave )
 	csave.End_Chunk();
 
 	csave.Begin_Chunk( CHUNKID_DEF_VARIABLES );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_ZONE_COLOR, Color );		
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_ZONE_COLOR, Color );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_CHECK_STARS_ONLY, CheckStarsOnly );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_ZONE_TYPE, ZoneType );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_IS_ENVIRONMENT_ZONE, IsEnvironmentZone );
@@ -157,7 +157,7 @@ bool	ScriptZoneGameObjDef::Load( ChunkLoadClass &cload )
 			case CHUNKID_DEF_PARENT:
 				ScriptableGameObjDef::Load( cload );
 				break;
-								
+
 			case CHUNKID_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -187,9 +187,9 @@ bool	ScriptZoneGameObjDef::Load( ChunkLoadClass &cload )
 }
 
 
-const PersistFactoryClass & ScriptZoneGameObjDef::Get_Factory (void) const 
-{ 
-	return _ScriptZoneGameObjDefPersistFactory; 
+const PersistFactoryClass & ScriptZoneGameObjDef::Get_Factory (void) const
+{
+	return _ScriptZoneGameObjDefPersistFactory;
 }
 
 
@@ -212,7 +212,7 @@ ScriptZoneGameObj::~ScriptZoneGameObj( void )
 	}
 }
 
-const PersistFactoryClass & ScriptZoneGameObj::Get_Factory (void) const 
+const PersistFactoryClass & ScriptZoneGameObj::Get_Factory (void) const
 {
 	return _ScriptZoneGameObjPersistFactory;
 }
@@ -285,7 +285,7 @@ bool	ScriptZoneGameObj::Load( ChunkLoadClass &cload )
 			case CHUNKID_PARENT:
 				ScriptableGameObj::Load( cload );
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -298,7 +298,7 @@ bool	ScriptZoneGameObj::Load( ChunkLoadClass &cload )
 					cload.Close_Micro_Chunk();
 				}
 				break;
-	
+
 			case CHUNKID_INSIDE_LIST:
 				WWASSERT( InsideList.Get_Count()== 0 );
 				while (cload.Open_Chunk()) {
@@ -346,7 +346,7 @@ void	ScriptZoneGameObj::Think()
 	SLNode<GameObjReference> *pobjrefnode;
 	for (	pobjrefnode = InsideList.Head(); pobjrefnode; ) {
 		SmartGameObj * obj = (SmartGameObj*)pobjrefnode->Data()->Get_Ptr();
-		
+
 		SLNode<GameObjReference> * next = pobjrefnode->Next();
 
 		if ( obj == NULL ) {
@@ -424,7 +424,7 @@ void		ScriptZoneGameObj::Entered( SmartGameObj * obj )
 /*
 **
 */
-bool	ScriptZoneGameObj::In_List( SmartGameObj * obj ) 
+bool	ScriptZoneGameObj::In_List( SmartGameObj * obj )
 {
 	WWASSERT( obj != NULL );
 	SLNode<GameObjReference> *pobjrefnode;
@@ -440,7 +440,7 @@ bool	ScriptZoneGameObj::In_List( SmartGameObj * obj )
 /*
 **
 */
-bool	ScriptZoneGameObj::Inside_Me( const SmartGameObj * obj ) 
+bool	ScriptZoneGameObj::Inside_Me( const SmartGameObj * obj )
 {
 	if ( obj && obj->Peek_Physical_Object() ) { // hack to hide zones
 		Vector3 pos;
@@ -461,24 +461,24 @@ ScriptZoneGameObj *ScriptZoneGameObj::Find_Closest_Zone (const Vector3 &pos, Zon
 
 	//
 	//	Loop over all the objects looking for zones
-	//	
+	//
 	SLNode<BaseGameObj> *node = NULL;
 	for (node = list->Head (); node != NULL; node = node->Next ()) {
 		BaseGameObj *game_obj = node->Data ();
-		
+
 		//
 		//	Is this a building on our team?
-		//		
+		//
 		if (game_obj != NULL && game_obj->As_ScriptableGameObj () != NULL) {
 			ScriptZoneGameObj *zone = game_obj->As_ScriptableGameObj ()->As_ScriptZoneGameObj ();
 			if (zone != NULL) {
-			
+
 				//
 				//	Is the type of zone we are looking for?
 				//
 				if (zone->Get_Definition ().Get_Type () == type) {
 					float dist2 = (pos - zone->Get_Bounding_Box ().Center).Length2 ();
-					
+
 					//
 					//	Is this the closest zone we've found yet?
 					//
@@ -490,7 +490,7 @@ ScriptZoneGameObj *ScriptZoneGameObj::Find_Closest_Zone (const Vector3 &pos, Zon
 			}
 		}
 	}
-	
+
 	return closest_zone;
 }
 
@@ -536,7 +536,7 @@ int ScriptZoneGameObj::Count_Team_Members_Inside( int player_type )
 bool	ScriptZoneGameObj::Exists_On_Client( void ) const
 {
 	bool retval = false;
-	
+
 	//
 	//	Allow the C&C mode zone's to exist on the client
 	//
@@ -552,7 +552,7 @@ bool	ScriptZoneGameObj::Exists_On_Client( void ) const
 
 	return retval;
 }
-*/	
+*/
 
 /*
 	if (Get_Definition().ZoneType == TYPE_CTF && obj->As_SoldierGameObj() != NULL) {

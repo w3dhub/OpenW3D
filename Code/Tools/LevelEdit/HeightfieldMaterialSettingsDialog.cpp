@@ -81,16 +81,16 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-HeightfieldMaterialSettingsDialogClass::OnInitDialog (void) 
+HeightfieldMaterialSettingsDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
+
 	//
 	//	Lookup the material we're editing
 	//
 	TerrainMaterialClass *material = HeightfieldEditorClass::Peek_Material (MaterialIndex);
 	if (material != NULL) {
-		
+
 		//
 		//	Fill in the controls
 		//
@@ -106,7 +106,7 @@ HeightfieldMaterialSettingsDialogClass::OnInitDialog (void)
 	} else {
 		::SetDlgItemFloat (m_hWnd, IDC_METERS_PER_TILE_EDIT, 10.0F);
 	}
-		
+
 	return true;
 }
 
@@ -132,7 +132,7 @@ HeightfieldMaterialSettingsDialogClass::OnOK (void)
 	//
 	bool is_rel_path = ::Is_Path_Relative (texture_path);
 	if ((is_rel_path == true) || ((is_rel_path == false) && ::Get_File_Mgr ()->Is_Path_Valid (texture_path))) {
-		
+
 		float meters_per_tile = ::GetDlgItemFloat (m_hWnd, IDC_METERS_PER_TILE_EDIT);
 
 		//
@@ -140,7 +140,7 @@ HeightfieldMaterialSettingsDialogClass::OnOK (void)
 		//
 		TerrainMaterialClass *material = HeightfieldEditorClass::Peek_Material (MaterialIndex);
 		if (material == NULL) {
-			
+
 			//
 			//	Create the material and add it to the manager
 			//
@@ -153,7 +153,7 @@ HeightfieldMaterialSettingsDialogClass::OnOK (void)
 		//	Configure the material
 		//
 		material->Set_Texture (texture_path);
-		material->Set_Meters_Per_Tile (meters_per_tile);		
+		material->Set_Meters_Per_Tile (meters_per_tile);
 		material->Mirror_UVs (IsDlgButtonChecked (IDC_MIRROR_CHECK) == 1);
 		material->Set_Surface_Type (SendDlgItemMessage (IDC_SURFACE_TYPE_COMBO, CB_GETCURSEL));
 

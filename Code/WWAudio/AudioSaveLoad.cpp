@@ -204,15 +204,15 @@ DynamicAudioSaveLoadClass::Save (ChunkSaveClass &csave)
 	//
 	SoundSceneClass *scene = WWAudioClass::Get_Instance ()->Get_Sound_Scene ();
 	if (scene != NULL) {
-		
+
 		csave.Begin_Chunk (CHUNKID_DYNAMIC_VARIABLES);
 			float global_scale	= LogicalListenerClass::Get_Global_Scale ();
 			StringClass filename = WWAudioClass::Get_Instance ()->Get_Background_Music_Name ();
 
 			WRITE_MICRO_CHUNK				(csave, VARID_LOGICAL_LISTENER_GLOBAL_SCALE, global_scale);
-			WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_BACKGROUND_MUSIC_NAME,			filename);			
+			WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_BACKGROUND_MUSIC_NAME,			filename);
 		csave.End_Chunk ();
-		
+
 		csave.Begin_Chunk (CHUNKID_DYNAMIC_SCENE);
 			scene->Save_Dynamic (csave);
 		csave.End_Chunk ();
@@ -241,7 +241,7 @@ DynamicAudioSaveLoadClass::Load (ChunkLoadClass &cload)
 				//
 				while (cload.Open_Micro_Chunk ()) {
 					switch (cload.Cur_Micro_Chunk_ID ()) {
-						
+
 						//
 						//	Load the global scale for logical listeners
 						//
@@ -251,7 +251,7 @@ DynamicAudioSaveLoadClass::Load (ChunkLoadClass &cload)
 							LOAD_MICRO_CHUNK (cload, global_scale);
 							LogicalListenerClass::Set_Global_Scale (global_scale);
 							break;
-						}						
+						}
 
 						//
 						//	Load the background music name
@@ -262,7 +262,7 @@ DynamicAudioSaveLoadClass::Load (ChunkLoadClass &cload)
 							LOAD_MICRO_CHUNK_WWSTRING (cload, filename);
 							WWAudioClass::Get_Instance ()->Set_Background_Music (filename);
 							break;
-						}						
+						}
 
 					}
 

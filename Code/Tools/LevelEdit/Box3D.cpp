@@ -53,7 +53,7 @@
 //			|	 |			  |	|
 //			|	1|_________|___| 0
 //			|	/			  |  /
-//			| /			  | /						
+//			| /			  | /
 //			|/				  |/
 //		 5 --------------- 4
 //
@@ -110,7 +110,7 @@ Box3DClass::Create_Model (void)
 {
 	//
 	// Assign a default vertex material for the model
-	//	
+	//
 	VertexMaterialClass *vmat = new VertexMaterialClass ();
 	vmat->Set_Lighting (false);
 	vmat->Set_Ambient(0,0,0);
@@ -129,7 +129,7 @@ Box3DClass::Create_Model (void)
 	//
 	Set_Shader (ShaderClass::_PresetAlphaSolidShader);
 	Enable_Sort ();
-	
+
 	float half_width = m_Dimensions.Y / 2.0F;
 	float half_height = m_Dimensions.Z / 2.0F;
 	float half_depth = m_Dimensions.X / 2.0F;
@@ -171,10 +171,10 @@ Box3DClass::Create_Model (void)
 	//Set_Vertex_Color (Vector3 (0.0F, 0.0F, ((float)(iface)) * 0.15F));
 	Set_Vertex_Color (Vector4 (0.0F, 0.5F, 0.0F, 0.5f));
 	//Set_Vertex_Alpha (0.5F);
-	
+
 	// Loop through all the faces and create them from triangle strips.
 	for (int iface = 0; iface < FACE_COUNT; iface ++) {
-		
+
 		Begin_Tri_Strip ();
 		Easy_Vertex (m_Verticies[FACE_VERTICIES[iface][0]]);
 		Easy_Vertex (m_Verticies[FACE_VERTICIES[iface][1]]);
@@ -182,7 +182,7 @@ Box3DClass::Create_Model (void)
 		Easy_Vertex (m_Verticies[FACE_VERTICIES[iface][3]]);
 		End_Tri_Strip ();
 	}
-		
+
 	Set_Collision_Type (COLLISION_TYPE_0);
 	return ;
 }
@@ -217,7 +217,7 @@ Box3DClass::Set_Width (float width)
 	// Determine if the widht actually changed or not
 	float curr_width = m_Dimensions.Y;
 	if (curr_width != width) {
-		
+
 		// Recalc the obj-space positions of our 8 verticies
 		float half_width = width / 2.0F;
 		m_Verticies[0].Y = half_width;
@@ -252,7 +252,7 @@ Box3DClass::Set_Height (float height)
 	// Determine if the height actually changed or not
 	float curr_height = m_Dimensions.Z;
 	if (curr_height != height) {
-		
+
 		// Recalc the obj-space positions of our 8 verticies
 		float half_height = height / 2.0F;
 		m_Verticies[0].Z = -half_height;
@@ -287,7 +287,7 @@ Box3DClass::Set_Depth (float depth)
 	// Determine if the depth actually changed or not
 	float curr_depth = m_Dimensions.X;
 	if (curr_depth != depth) {
-		
+
 		// Recalc the obj-space positions of our 8 verticies
 		float half_depth = depth / 2.0F;
 		m_Verticies[0].X = -half_depth;
@@ -323,7 +323,7 @@ Box3DClass::Update_Verticies (void)
 		// update their obj-space positions
 		int ivertex = 0;
 		for (int iface = 0; iface < FACE_COUNT; iface ++) {
-			
+
 			Easy_Move_Vertex (ivertex++, m_Verticies[FACE_VERTICIES[iface][0]]);
 			Easy_Move_Vertex (ivertex++, m_Verticies[FACE_VERTICIES[iface][1]]);
 			Easy_Move_Vertex (ivertex++, m_Verticies[FACE_VERTICIES[iface][2]]);
@@ -413,7 +413,7 @@ Box3DClass::Position_Vertex
 {
 	// Params OK?
 	if ((vertex >= 0) && (vertex < 8)) {
-				
+
 		// Make a box from the vertex that we are 'locking' and
 		// the new position
 		Make_Box (Get_Vertex_Lock_Position (vertex), new_position);
@@ -437,7 +437,7 @@ Box3DClass::Translate_Vertex
 {
 	// Params OK?
 	if ((vertex >= 0) && (vertex < 8)) {
-		
+
 		float new_width = m_Dimensions.Y;
 		float new_height = m_Dimensions.Z;
 		float new_depth = m_Dimensions.X;
@@ -446,7 +446,7 @@ Box3DClass::Translate_Vertex
 		new_width += translation.Y * 2.0F;
 		new_height += translation.Z * 2.0F;
 		new_depth += translation.X * 2.0F;
-			
+
 		// Modify the dimensions of the box if they are all valid
 		if ((new_width >= MIN_SIZE) &&
 		    (new_height >= MIN_SIZE) &&
@@ -474,7 +474,7 @@ Box3DClass::Make_Box
 	// Calculate the new center point for the box
 	Vector3 delta = point2 - point1;
 	Vector3 center = point1 + (delta / 2.0F);
-	
+
 	// Recalc the box's position to be centered around the 2 points
 	Matrix3D transform = Get_Transform ();
 	transform.Set_Translation (center);
@@ -539,7 +539,7 @@ Box3DClass::Make_Box
 	m_Dimensions.Y = fabs (m_Dimensions.Y);
 	m_Dimensions.Z = fabs (m_Dimensions.Z);
 	m_bDirty = true;
-	Update_Verticies ();	
+	Update_Verticies ();
 	return ;
 }
 
@@ -549,7 +549,7 @@ Box3DClass::Make_Box
 //	Cast_Ray
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-bool 
+bool
 Box3DClass::Cast_Ray (RayCollisionTestClass & raytest)
 {
 	if ((Get_Collision_Type() & raytest.CollisionType) == 0) return false;
@@ -567,12 +567,12 @@ Box3DClass::Cast_Ray (RayCollisionTestClass & raytest)
 	obbox.Center = Get_Transform ().Get_Translation ();
 	obbox.Extent = m_Dimensions * 0.5F;
 	obbox.Basis = Matrix3 (Get_Transform ());
-	
+
 	CastResultStruct test_result = *raytest.Result;
 	bool obb_hit = CollisionMath::Collide (raytest.Ray, obbox, &test_result);
 
 	WWASSERT (hit == obb_hit);*/
-	
+
 	//
 	// Transform result back into original coordinate system
 	//
@@ -672,7 +672,7 @@ Box3DClass::Drag_VertexXY (int vertex_index, POINT point, const Vector3 &locked_
 	float xpos = point.x;
 	float ypos = point.y;
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
-	
+
 	//
 	// The 'end' of the ray is the world coordinates of the supplied point
 	//
@@ -723,7 +723,7 @@ Box3DClass::Drag_VertexZ (int vertex_index, POINT point, const Vector3 &locked_v
 	float xpos = point.x;
 	float ypos = point.y;
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
-	
+
 	//
 	// The 'end' of the ray is the world coordinates of the supplied point
 	//
@@ -736,25 +736,25 @@ Box3DClass::Drag_VertexZ (int vertex_index, POINT point, const Vector3 &locked_v
 	//
 	float deltax = ::fabs (ray_end.X - ray_start.X);
 	float deltay = ::fabs (ray_end.Y - ray_start.Y);
-	
+
 	//
 	// Determine where the ray intersects this plane
 	//
 	double fraction = 0;
 	Vector3 vertex_pos = Get_Vertex_Position (vertex_index);
 	if ((deltax > deltay) && (deltax != 0.0F)) {
-						
+
 		// Calculate the fraction of the distance along the ray where the
 		// X value of the ray is the same as the X value of the vertex.
 		// This simulates an intersection of the ray with the y-z plane at depth 'x'.
 		fraction = double(vertex_pos.X - ray_start.X) / double(ray_end.X - ray_start.X);
-		
+
 	} else if ((deltay > deltax) && (deltay != 0.0F)) {
 
 		// Calculate the fraction of the distance along the ray where the
 		// X value of the ray is the same as the X value of the vertex.
 		// This simulates an intersection of the ray with the x-z plane at depth 'y'.
-		fraction = double(vertex_pos.Y - ray_start.Y) / double(ray_end.Y - ray_start.Y);			
+		fraction = double(vertex_pos.Y - ray_start.Y) / double(ray_end.Y - ray_start.Y);
 	}
 
 	// If we calculated a valid fraction, then use it
@@ -838,7 +838,7 @@ Find_Intersection_Point
 	//	Loop over all the "t" values we've calculated
 	//
 	(*percent) = 2.0F;
-	for (int index = 0; index < 6; index ++) {		
+	for (int index = 0; index < 6; index ++) {
 
 		//
 		// Is this "t" value the smallest in-range value we've

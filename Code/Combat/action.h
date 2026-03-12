@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/action.h                              $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 10/09/01 2:15p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 47                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/action.h                              $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 10/09/01 2:15p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 47                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	ACTION_H
@@ -101,7 +101,7 @@ public:
 	void				End_Hibernation( void );
 
 	bool				Reset( float priority );
-	bool				Follow_Input( const ActionParamsStruct & parameters );		
+	bool				Follow_Input( const ActionParamsStruct & parameters );
 	bool				Stand( const ActionParamsStruct & parameters );
 	bool				Play_Animation( const ActionParamsStruct & parameters );
 	bool				Goto( const ActionParamsStruct & parameters );

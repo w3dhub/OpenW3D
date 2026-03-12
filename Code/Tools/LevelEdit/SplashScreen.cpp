@@ -85,18 +85,18 @@ SplashScreenClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 													0,
 													0,
 													LR_CREATEDIBSECTION);
-	
+
 	//
 	//	Get the dimensions of the BMP
 	//
 	BITMAP bmp_info = { 0 };
 	if (::GetObject (m_hBitmap, sizeof (BITMAP), &bmp_info) != 0) {
-		
+
 		//
 		//	Resize the window so the BMP compeletely fills the window
 		//
 		m_Size.cx = bmp_info.bmWidth;
-		m_Size.cy = bmp_info.bmHeight;		
+		m_Size.cy = bmp_info.bmHeight;
 		SetWindowPos (	NULL,
 							(::GetSystemMetrics (SM_CXSCREEN) >> 1) - (m_Size.cx >> 1),
 							(::GetSystemMetrics (SM_CYSCREEN) >> 1) - (m_Size.cy >> 1),
@@ -140,7 +140,7 @@ SplashScreenClass::OnPaint (void)
 	CPaintDC dc (this);
 
 	if (m_hMemDC != NULL && m_hBitmap != NULL) {
-		
+
 		//
 		//	Paint the BMP into the window
 		//
@@ -184,10 +184,10 @@ SplashScreenClass::Set_Status_Text (LPCTSTR text)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-SplashScreenClass::Paint_Status_Text (HDC hdc) 
+SplashScreenClass::Paint_Status_Text (HDC hdc)
 {
 	if (m_StatusText.GetLength () > 0) {
-		
+
 		//
 		//	Select the correct font, pen, and brush into the DC
 		//
@@ -225,7 +225,7 @@ SplashScreenClass::Paint_Status_Text (HDC hdc)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-SplashScreenClass::OnDestroy (void) 
+SplashScreenClass::OnDestroy (void)
 {
 	if (m_hMemDC != NULL) {
 		::DeleteDC (m_hMemDC);
@@ -248,7 +248,7 @@ SplashScreenClass::OnDestroy (void)
 	// Its assumed this window is operating on a separate thread...
 	//
 	::PostQuitMessage (0);
-	return ;	
+	return ;
 }
 
 

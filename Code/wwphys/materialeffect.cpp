@@ -82,25 +82,25 @@ void MaterialEffectClass::Timestep_All_Effects(float dt)
 
 DEFINE_AUTO_POOL(SimpleEffectClass, SIMPLE_EFFECT_GROWTH_STEP);
 
-SimpleEffectClass::SimpleEffectClass(MaterialPassClass * matpass) : 
-	MatPass(NULL) 
-{ 
-	REF_PTR_SET(MatPass,matpass); 
-}
-
-SimpleEffectClass::~SimpleEffectClass(void)											
-{ 
-	REF_PTR_RELEASE(MatPass); 
-}
-
-void SimpleEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass *)	
+SimpleEffectClass::SimpleEffectClass(MaterialPassClass * matpass) :
+	MatPass(NULL)
 {
-	rinfo.Push_Material_Pass(MatPass); 
+	REF_PTR_SET(MatPass,matpass);
 }
 
-void SimpleEffectClass::Render_Pop(RenderInfoClass & rinfo)		
-{ 
-	rinfo.Pop_Material_Pass(); 
+SimpleEffectClass::~SimpleEffectClass(void)
+{
+	REF_PTR_RELEASE(MatPass);
+}
+
+void SimpleEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass *)
+{
+	rinfo.Push_Material_Pass(MatPass);
+}
+
+void SimpleEffectClass::Render_Pop(RenderInfoClass & rinfo)
+{
+	rinfo.Pop_Material_Pass();
 }
 
 

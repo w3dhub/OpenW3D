@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/Tools/max2w3d/gamemtl.h 46    3/01/02 6:43p Moumine_ballo $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando / G 3D engine                                       * 
- *                                                                                             * 
- *                    File Name : GAMEMTL.H                                                    * 
- *                                                                                             * 
- *                   Programmer : Greg Hjelstrom                                               * 
- *                                                                                             * 
- *                   Start Date : 06/26/97                                                     * 
- *                                                                                             * 
- *                  Last Update : June 26, 1997 [GH]                                           * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando / G 3D engine                                       *
+ *                                                                                             *
+ *                    File Name : GAMEMTL.H                                                    *
+ *                                                                                             *
+ *                   Programmer : Greg Hjelstrom                                               *
+ *                                                                                             *
+ *                   Start Date : 06/26/97                                                     *
+ *                                                                                             *
+ *                  Last Update : June 26, 1997 [GH]                                           *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -62,7 +62,7 @@
 														GAMEMTL_PASS1_ROLLUP_OPEN | \
 														GAMEMTL_PASS2_ROLLUP_OPEN | \
 														GAMEMTL_PASS3_ROLLUP_OPEN )
-														
+
 #define GAMEMTL_ID_PARTA		0x29397211
 #define GAMEMTL_ID_PARTB		0x28c016c2
 
@@ -127,7 +127,7 @@ extern ClassDesc * Get_PS2_Material_Conversion();
 //		ability to have control over all parameters in our material.
 //
 ///////////////////////////////////////////////////////////////////////////
-class GameMtl: public Mtl 
+class GameMtl: public Mtl
 {
 
 public:
@@ -140,12 +140,12 @@ public:
 
 		GameMtl(BOOL loading = false);
 		~GameMtl(void);
-		
+
 		Class_ID				ClassID();
 		SClass_ID			SuperClassID();
 
 		// From Animatable
-		void					GetClassName(TSTR& s);  
+		void					GetClassName(TSTR& s);
 		void					DeleteThis()													{ delete this; }
 		int					NumSubs();
 		Animatable *		SubAnim(int i);
@@ -155,14 +155,14 @@ public:
 		int					NumRefs()														{ return REF_COUNT; }
 		RefTargetHandle	Clone(RemapDir &remap = NoRemap());
 		RefResult			NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message);
-		void					SetReference(int i, RefTargetHandle rtarg);	
+		void					SetReference(int i, RefTargetHandle rtarg);
 		RefTargetHandle	GetReference(int i);
 
 		// From MtlBase and Mtl
-		void					SetAmbient(Color c, TimeValue t)							{ Set_Ambient(0,t,c); }		
-		void					SetDiffuse(Color c, TimeValue t)							{ Set_Diffuse(0,t,c); }		
+		void					SetAmbient(Color c, TimeValue t)							{ Set_Ambient(0,t,c); }
+		void					SetDiffuse(Color c, TimeValue t)							{ Set_Diffuse(0,t,c); }
 		void					SetSpecular(Color c, TimeValue t)						{ Set_Specular(0,t,c); }
-		void					SetShininess(float v, TimeValue t)						{ Set_Shininess(0,t,v); }				
+		void					SetShininess(float v, TimeValue t)						{ Set_Shininess(0,t,v); }
 		Color					GetAmbient(int mtlNum=0, BOOL backFace=false)		{ return Get_Ambient(0,0); }
 		Color					GetDiffuse(int mtlNum=0, BOOL backFace=false)		{ return Get_Diffuse(0,0); }
 		Color					GetSpecular(int mtlNum=0, BOOL backFace=false)		{ return Get_Specular(0,0); }
@@ -172,14 +172,14 @@ public:
 		void					Reset(void);
 		void					Update(TimeValue t, Interval& validr);
 		Interval				Validity(TimeValue t);
-		
+
 		int					NumSubTexmaps(void);
 		void					SetSubTexmap(int i, Texmap * m);
 		Texmap *				GetSubTexmap(int i);
 
 		float					EvalDisplacement(ShadeContext& sc);
 		Interval				DisplacementValidity(TimeValue t);
-		
+
 		// Rendering
 		void					Shade(ShadeContext& sc);
 		ULONG					Requirements(int subMtlNum);
@@ -205,10 +205,10 @@ public:
 
 		void					Set_Sort_Level(int level)									{ SortLevel = level; }
 		int					Get_Sort_Level(void) const									{ return SortLevel; }
-		
+
 		void					Set_Pass_Count(int passcount);
 		int					Get_Pass_Count(void);
-	
+
 		IParamBlock *		Get_Parameter_Block(int pass);
 		int					Get_Current_Page(int pass)									{ return CurPage[pass]; }
 		Color					Get_Ambient(int pass,TimeValue t);
@@ -222,7 +222,7 @@ public:
 		int					Get_Mapping_Type(int pass, int stage=0);
 		int					Get_PSX_Translucency(int pass);
 		int					Get_PSX_Lighting(int pass);
-									
+
 		int					Get_Depth_Compare(int pass);
 		int					Get_Depth_Mask(int pass);
 		int					Get_Alpha_Test(int pass);
@@ -236,7 +236,7 @@ public:
 		int					Get_PS2_Shader_Param_B(int pass);
 		int					Get_PS2_Shader_Param_C(int pass);
 		int					Get_PS2_Shader_Param_D(int pass);
-		
+
 		int					Get_Texture_Enable(int pass,int stage);
 		int					Get_Texture_Publish(int pass,int stage);
 		int					Get_Texture_Resize(int pass,int stage);		// NOTE: obsolete, replaced by Get_Texture_No_LOD
@@ -268,7 +268,7 @@ public:
 		void					Set_Mapping_Type(int pass,int stage,int val);
 		void					Set_PSX_Translucency(int pass,int val);
 		void					Set_PSX_Lighting(int pass,bool val);
-		
+
 		void					Set_Depth_Compare(int pass,int val);
 		void					Set_Depth_Mask(int pass,int val);
 		void					Set_Alpha_Test(int pass,int val);
@@ -282,7 +282,7 @@ public:
 		void					Set_PS2_Shader_Param_B(int pass,int val);
 		void					Set_PS2_Shader_Param_C(int pass,int val);
 		void					Set_PS2_Shader_Param_D(int pass,int val);
-		
+
 		void					Set_Texture_Enable(int pass,int stage,bool val);
 		void					Set_Texture_Publish(int pass,int stage,bool val);
 		void					Set_Texture_Resize(int pass,int stage,bool val);		// NOTE: obsolete: replaced by Set_Texture_No_LOD
@@ -331,7 +331,7 @@ private:
 
 		int					texture_ref_index(int pass,int stage)			{ return REF_TEXTURE + pass*W3dMaterialClass::MAX_STAGES + stage; }
 		int					pass_ref_index(int pass)							{ return REF_PASS_PARAMETERS + pass; }
-		
+
 		void					update_viewport_display();
 
 		// Do the shade functions specific to the Playstation 2.
@@ -341,27 +341,27 @@ private:
 		unsigned int		SurfaceType;
 		int					SortLevel;
 
-		Interval				Ivalid;				// Valid interval		
+		Interval				Ivalid;				// Valid interval
 #if defined W3D_GMAXDEV
 		GMaxMtlDlg *		MaterialDialog;	// Dialog
 #else
 		GameMtlDlg *		MaterialDialog;	// Dialog
 #endif
-		ULONG					Flags;				// Flags		
+		ULONG					Flags;				// Flags
 		int					RollScroll;			// Rollup scroll position
 		int					CurPage[W3dMaterialClass::MAX_PASSES];		// which page was last open for each pass
-		
+
 		GameMapsClass *	Maps;					// ref 0 (obsolete...)
 		IParamBlock *		MainParameterBlock;
-		IParamBlock *		PassParameterBlock[W3dMaterialClass::MAX_PASSES];	
-		Texmap *				Texture[W3dMaterialClass::MAX_PASSES][W3dMaterialClass::MAX_STAGES];	
+		IParamBlock *		PassParameterBlock[W3dMaterialClass::MAX_PASSES];
+		Texmap *				Texture[W3dMaterialClass::MAX_PASSES][W3dMaterialClass::MAX_STAGES];
 		char *				MapperArg[W3dMaterialClass::MAX_PASSES][W3dMaterialClass::MAX_STAGES];
 		unsigned int		MapperArgLen[W3dMaterialClass::MAX_PASSES][W3dMaterialClass::MAX_STAGES];
 		Texmap *				DisplacementMap;
 		float					DisplacementAmt;
-		// MLL			
+		// MLL
 		int					ShaderType;
-		enum 
+		enum
 		{
 			REF_MAPS = 0,					// obsolete, gamemaps object
 			REF_MAIN	= 1,					// main parameter block is ref 1
@@ -378,7 +378,7 @@ private:
 #if defined W3D_GMAXDEV
 GameMtl*	CreateNewGameMtl();
 const ActionTableId kGameMtlActions = 0x7ea7bca5;
-const ActionContextId kGameMtlContext = 0x7ea7bca5; 
+const ActionContextId kGameMtlContext = 0x7ea7bca5;
 #define NumElements(array) (sizeof(array) / sizeof(array[0]))
 class GameMtlActionCB : public ActionCallback {
 	public:
@@ -386,7 +386,7 @@ class GameMtlActionCB : public ActionCallback {
 		GameMtlActionCB(GameMtl *var_mtl) { game_mtl = var_mtl; }
 		~GameMtlActionCB(){delete game_mtl;}
 		BOOL GameMtlActionCB::IsEnabled(int cmdID) { return true;}
-		BOOL	ExecuteAction(int id); 
+		BOOL	ExecuteAction(int id);
 };
 #endif
 

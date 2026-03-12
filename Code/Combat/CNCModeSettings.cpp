@@ -58,13 +58,13 @@ CNCModeSettingsDef::CNCModeSettingsDef(void) :
 	memset(mRadioCmds, 0, sizeof(mRadioCmds));
 
 	EDITABLE_PARAM(CNCModeSettingsDef, ParameterClass::TYPE_INT, AnnouncementInterval);
-	
+
 	NAMED_EDITABLE_PARAM(CNCModeSettingsDef, ParameterClass::TYPE_STRINGSDB_ID, mPowerOfflineID[0], "Nod power offline");
 	NAMED_EDITABLE_PARAM(CNCModeSettingsDef, ParameterClass::TYPE_STRINGSDB_ID, mPowerOfflineID[1], "GDI power offline");
-	
+
 	NAMED_EDITABLE_PARAM(CNCModeSettingsDef, ParameterClass::TYPE_STRINGSDB_ID, mPurchaseCanceledID[0], "Nod purchase canceled");
 	NAMED_EDITABLE_PARAM(CNCModeSettingsDef, ParameterClass::TYPE_STRINGSDB_ID, mPurchaseCanceledID[1], "GDI purchase canceled");
-	
+
 	NAMED_EDITABLE_PARAM(CNCModeSettingsDef, ParameterClass::TYPE_STRINGSDB_ID, mInsufficientFundsID[0], "Nod inssufficient funds");
 	NAMED_EDITABLE_PARAM(CNCModeSettingsDef, ParameterClass::TYPE_STRINGSDB_ID, mInsufficientFundsID[1], "GDI inssufficient funds");
 
@@ -161,14 +161,14 @@ CNCModeSettingsDef::~CNCModeSettingsDef(void)
 
 
 uint32 CNCModeSettingsDef::Get_Class_ID(void) const
-	{ 
-	return CLASSID_GLOBAL_SETTINGS_DEF_CNCMODE; 
+	{
+	return CLASSID_GLOBAL_SETTINGS_DEF_CNCMODE;
 	}
 
 
 const PersistFactoryClass& CNCModeSettingsDef::Get_Factory(void) const
-	{ 
-	return _CNCModeSettingsDefPersistFactory; 
+	{
+	return _CNCModeSettingsDefPersistFactory;
 	}
 
 
@@ -282,13 +282,13 @@ bool CNCModeSettingsDef::Save(ChunkSaveClass& csave)
 
 	csave.Begin_Chunk(CHUNKID_VARIABLES);
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_ANNOUNCEMENT_INTERVAL, AnnouncementInterval);
-		
+
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_NOD_POWER_OFFLINE_ID, mPowerOfflineID[0]);
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_GDI_POWER_OFFLINE_ID, mPowerOfflineID[1]);
-		
+
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_NOD_PURCHASE_CANCELED_ID, mPurchaseCanceledID[0]);
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_GDI_PURCHASE_CANCELED_ID, mPurchaseCanceledID[1]);
-		
+
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_NOD_INSUFFICIENT_FUNDS_ID, mInsufficientFundsID[0]);
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_GDI_INSUFFICIENT_FUNDS_ID, mInsufficientFundsID[1]);
 
@@ -298,7 +298,7 @@ bool CNCModeSettingsDef::Save(ChunkSaveClass& csave)
 		for (int radioIndex = 0; radioIndex < 30; ++radioIndex)
 			{
 			WRITE_MICRO_CHUNK(csave, VARID_DEF_RADIO_CMD_01 + radioIndex, mRadioCmds[radioIndex]);
-			WRITE_MICRO_CHUNK_WWSTRING(csave, VARID_DEF_RADIO_ICON_01 + radioIndex, mRadioCmdIcons[radioIndex]);			
+			WRITE_MICRO_CHUNK_WWSTRING(csave, VARID_DEF_RADIO_ICON_01 + radioIndex, mRadioCmdIcons[radioIndex]);
 			}
 
 		WRITE_MICRO_CHUNK(csave, VARID_DEF_NOD_ION_BEACON_DEPLOYED_ID, mIonBeaconDeployedID[0]);
@@ -330,7 +330,7 @@ bool CNCModeSettingsDef::Load(ChunkLoadClass& cload)
 			case CHUNKID_PARENT:
 				DefinitionClass::Load(cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk())
 					{
@@ -408,7 +408,7 @@ bool CNCModeSettingsDef::Load(ChunkLoadClass& cload)
 						READ_MICRO_CHUNK_WWSTRING(cload, VARID_DEF_RADIO_ICON_28, mRadioCmdIcons[27]);
 						READ_MICRO_CHUNK_WWSTRING(cload, VARID_DEF_RADIO_ICON_29, mRadioCmdIcons[28]);
 						READ_MICRO_CHUNK_WWSTRING(cload, VARID_DEF_RADIO_ICON_30, mRadioCmdIcons[29]);
-						
+
 						READ_MICRO_CHUNK(cload, VARID_DEF_NOD_ION_BEACON_DEPLOYED_ID, mIonBeaconDeployedID[0]);
 						READ_MICRO_CHUNK(cload, VARID_DEF_GDI_ION_BEACON_DEPLOYED_ID, mIonBeaconDeployedID[1]);
 						READ_MICRO_CHUNK(cload, VARID_DEF_NOD_ION_BEACON_DISARMED_ID, mIonBeaconDisarmedID[0]);

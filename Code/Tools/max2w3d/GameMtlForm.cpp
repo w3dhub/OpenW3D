@@ -59,7 +59,7 @@
  *=============================================================================================*/
 GameMtlFormClass::GameMtlFormClass
 (
-	IMtlParams *	imtl_params, 
+	IMtlParams *	imtl_params,
 	GameMtl *		mtl,
 	int				pass
 )
@@ -107,9 +107,9 @@ void GameMtlFormClass::SetThing(ReferenceTarget * target)
  * HISTORY:                                                                                    *
  *   11/23/98   GTH : Created.                                                                 *
  *=============================================================================================*/
-ReferenceTarget * GameMtlFormClass::GetThing(void) 
-{ 
-	return (ReferenceTarget*)TheMtl; 
+ReferenceTarget * GameMtlFormClass::GetThing(void)
+{
+	return (ReferenceTarget*)TheMtl;
 }
 
 
@@ -145,7 +145,7 @@ void GameMtlFormClass::DeleteThis(void)
  *=============================================================================================*/
 Class_ID	GameMtlFormClass::ClassID()
 {
-	return GameMaterialClassID;  
+	return GameMaterialClassID;
 }
 
 

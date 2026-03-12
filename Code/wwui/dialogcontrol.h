@@ -75,7 +75,7 @@ class ShortcutBarCtrlClass;
 #define ADVISE_NOTIFY(fn)									\
 		if (Parent != NULL)		{ Parent->fn; }		\
 		if (AdviseSink != NULL)	{ AdviseSink->fn;	}
-	
+
 
 ////////////////////////////////////////////////////////////////
 //
@@ -116,7 +116,7 @@ public:
 	virtual ComboBoxCtrlClass *		As_ComboBoxCtrlClass (void)	{ return NULL; }
 	virtual ScrollBarCtrlClass *		As_ScrollBarCtrlClass (void)	{ return NULL; }
 	virtual SliderCtrlClass *			As_SliderCtrlClass (void)		{ return NULL; }
-	virtual ViewerCtrlClass *			As_ViewerCtrlClass (void)		{ return NULL; }	
+	virtual ViewerCtrlClass *			As_ViewerCtrlClass (void)		{ return NULL; }
 	virtual ShortcutBarCtrlClass *	As_ShortcutBarCtrlClass (void){ return NULL; }
 	virtual TreeCtrlClass *				As_TreeCtrlClass (void)			{ return NULL; }
 
@@ -136,7 +136,7 @@ public:
 	void					Set_Client_Rect (const RectClass &rect)	{ ClientRect = rect; }
 	virtual void	Set_Style (DWORD style)							{ Style = style; }
 	void					Set_ID (int id)									{ ID = id; }
-	
+
 	//
 	//	Parent access
 	//

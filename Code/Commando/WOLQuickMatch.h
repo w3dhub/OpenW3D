@@ -80,7 +80,7 @@ class WOLQuickMatch :
 
 		bool SendClientInfo(void);
 		void SendServerInfo(const char* exInfo, const char* topic);
-			
+
 		DECLARE_NOTIFIER(QuickMatchEvent)
 
 	protected:
@@ -88,7 +88,7 @@ class WOLQuickMatch :
 		~WOLQuickMatch();
 
 		bool FinalizeCreate(void);
-		
+
 		void SendStatus(const unichar_t* statusMsg);
 
 		void ParseResponse(const unichar_t* message);

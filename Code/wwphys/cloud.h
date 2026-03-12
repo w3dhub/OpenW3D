@@ -24,10 +24,10 @@ public:
 
 	CloudShadowClass(void);
 	~CloudShadowClass(void)	{}
-	
+
 	// scene graph? transform into eye space
 	void						Set_Camera(const CameraClass & cam);
-	
+
 	// vertex processor interface
 	virtual SRBOOL			isActive(srVertexPipe&);
 	virtual void			process(srVertexPipe&);
@@ -37,11 +37,11 @@ public:
 	float						VOffset;
 	Vector3					Center;
 	Vector3					Scale;
-	
+
 	srMatrix4				modelview;
 
 protected:
-	
+
 	srColorSurfaceIFace *ShadowTexture;
 
 };
@@ -61,20 +61,20 @@ CloudShadowClass::CloudShadowClass(void) :
 	TextureHeight = ShadowTexture->getHeight();
 }
 
-CloudShadowClass::~CloudShadowClass(void)	
+CloudShadowClass::~CloudShadowClass(void)
 {
 	ShadowTexture->release();
 }
 
 void CloudShadowClass::Process_Push(srGERD * gerd)
 {
-	// CloudShadows are applied in world space, 
+	// CloudShadows are applied in world space,
 	srMatrix4 modelview;
 	gerd.matrixMode(srGERD::MODELVIEW);
 	gerd->getMatrix(modelView);
 	modelview.invert();
-	
-	
+
+
 	greg->pushVertexProcessor(*this);
 }
 
@@ -91,17 +91,17 @@ SRBOOL CloudShadowClass::isActive(srVertexPipe&)
 void CloudShadowClass::process(srVertexPipe&)
 {
 	// screen-mapped uv coordinates
-	if (pipe.isChannelAvailable (CHANNEL_DIFFUSE))			
+	if (pipe.isChannelAvailable (CHANNEL_DIFFUSE))
 	{
 		int vnum = pipe.getVertexCount();
 		srVector4 * loc = pipe.getEyeSpaceLocation(void);
 		srVector4 * diffuse = pipe.getDiffuse(void);
-	
-		for (int vidx = 0; vidx < vnum; vidx++) {	
-			
+
+		for (int vidx = 0; vidx < vnum; vidx++) {
+
 			SRLONG x = (loc[vidx].x - Center.X) * TextureWidth / Scale.X;
 			SRLONG y = (loc[vidx].y - Center.Y) * TextureHeight / Scale.Y;
-			srARGB pixel = ShadowTexture->getPixel(x,y); 			
+			srARGB pixel = ShadowTexture->getPixel(x,y);
 			diffuse[vidx].r = pixel.getRed();
 			diffuse[vidx].g = pixel.getGreen();
 			diffuse[vidx].b = pixel.getBlue();

@@ -48,7 +48,7 @@ class RenderObjClass;
 ** Debug Widgets.  These render objects will be used by the physics debugging code
 ** to render bounding boxes, force vectors, co-ordinate axes, etc.  These are meant
 ** to be rendered immediately and then released because someone else could come along
-** and get a pointer to the same object.  
+** and get a pointer to the same object.
 */
 class WidgetSystem
 {

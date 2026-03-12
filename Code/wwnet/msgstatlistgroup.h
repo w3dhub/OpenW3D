@@ -18,10 +18,10 @@
 
 //
 // Filename:     msgstatlistgroup.h
-// Project:      
+// Project:
 // Author:       Tom Spencer-Smith
-// Date:         
-// Description:  Collection of msgstatlists. The server will need one 
+// Date:
+// Description:  Collection of msgstatlists. The server will need one
 //               of these to sum send and receive data to multiple clients.
 //
 //-----------------------------------------------------------------------------

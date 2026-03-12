@@ -68,7 +68,7 @@ public:
 	/////////////////////////////////////////////////////////////////////
 	//	Public methods
 	/////////////////////////////////////////////////////////////////////
-	
+
 	//
 	// Type identification
 	//
@@ -81,7 +81,7 @@ public:
 	bool									Save (ChunkSaveClass &csave) override;
 	bool									Load (ChunkLoadClass &cload) override;
 	const PersistFactoryClass &	Get_Factory (void) const override;
-	
+
 	//
 	//	Twiddler specific
 	//

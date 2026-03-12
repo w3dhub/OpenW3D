@@ -128,11 +128,11 @@ namespace Umbra { class Object; }
 #define DEBUG_RENDER_OBBOX(box,c,o)	Add_Debug_OBBox(box,c,o)
 #define DEBUG_RENDER_AXES(tm,c)		Add_Debug_Axes(tm,c)
 #else
-#define DEBUG_RENDER_POINT(v,c)		
-#define DEBUG_RENDER_VECTOR(p,v,c)	
+#define DEBUG_RENDER_POINT(v,c)
+#define DEBUG_RENDER_VECTOR(p,v,c)
 #define DEBUG_RENDER_AABOX(box,c,o)
 #define DEBUG_RENDER_OBBOX(box,c,o)
-#define DEBUG_RENDER_AXES(tm,c)		
+#define DEBUG_RENDER_AXES(tm,c)
 #endif
 
 
@@ -141,13 +141,13 @@ namespace Umbra { class Object; }
 
 Physics Class Hierarchy (Pre-Apr 98):
 ------------------------------------
-					  
-                     PhysObjClass                        
+
+                     PhysObjClass
                           |_______________________________
 					           |                               |
 					    MoveableObjClass                TerrainPhysClass
               ____________|_______________________________________
-             |                             |					         |        
+             |                             |					         |
          Phys4Class                    Phys6Class             Phys3Class
              |                             |
         CharPhysClass        ______________|______________________________________
@@ -155,7 +155,7 @@ Physics Class Hierarchy (Pre-Apr 98):
                       WheeledPhysClass           TrackedPhysClass          HoverPhysClass
 
 
-  
+
 
 Physics Class Hierarchy (Apr 98):
 ---------------------------------
@@ -173,14 +173,14 @@ Physics Class Hierarchy (Apr 98):
 		                     |              ___|_________________________________
                            |             |                   |                 |
                      CharPhysClass  WheeledPhysClass   TrackedPhysClass   HoverPhysClass
-						 
+
 
 	NOTES:
-	
+
 	- CollideableClass and MoveableClass are organizational only.  I could just
 	put all of their interfaces directly into PhysObjClass.
 
-	- TerrainPhysClass's never move and are complex meshes which do polygon-level 
+	- TerrainPhysClass's never move and are complex meshes which do polygon-level
 	collision detection
 
 	- Projectiles can never be collided with, they collide with others, they
@@ -190,7 +190,7 @@ Physics Class Hierarchy (Apr 98):
 
 	- Physics system should also store all "Moveable" objects in another list
 	for updating everything's motions (or should that be up to the game engine?)
- 
+
    - Bullets are Phys3Class's, nothing can collide with them, they will use
 	ray casting for collision, they do not have "size" or "orientation"
 
@@ -205,7 +205,7 @@ Physics Class Hierarchy (Sept 98):
 
   PhysClass Hierarchy:
 
-  Starting from scratch in some respects.  Culling and collision detection is the 
+  Starting from scratch in some respects.  Culling and collision detection is the
   main focus of the lowest levels of the Phys class hierarchy.  Wrote a new base
   class 'PhysClass' which everything will be derived from.  It must be as lightweight
   as possible since now everything rendered in the game scene must be a PhysClass.
@@ -214,13 +214,13 @@ Physics Class Hierarchy (Sept 98):
 							PhysClass
 								 |
 					----------|-----------------------------
-					|													| 
-	   	Decoration											Motion			
+					|													|
+	   	Decoration											Motion
 																		|
-	
-														Projectile			Controllable		
-								
-																				Char		Vehicle    
+
+														Projectile			Controllable
+
+																				Char		Vehicle
 
 
 
@@ -242,14 +242,14 @@ Jan 5, 1999
 
 Jan 15, 1999
 
-  Improving list code to automatically track refs.  An object added to a "phys list" 
+  Improving list code to automatically track refs.  An object added to a "phys list"
   will be automatically Add_Ref'd.  Moved the list code into a separate module for
   easier reading (physlist.h, cpp)
 
 May 21, 1999
-	
+
   Splitting much of the culling system code out into WWMath so that it can be re-used
-  by other libraries such as the sound system.  Removing "CullableClass" from the 
+  by other libraries such as the sound system.  Removing "CullableClass" from the
   physics library and re-writing the culling stuf to not rely on phys-objects (only
   an abstract "cullable" object).
 
@@ -260,12 +260,12 @@ Sept 1, 1999
   save/load methods and declare a PersistFactoryClass.  The physics system will have
   two SaveLoadSubSystems in it.  One for saving the data which is completely static
   for a level and another for the dynamic data.  Things that are treated as 100% static
-  are: visibility data, pathfinding data, and culling datastructures (but not the 
+  are: visibility data, pathfinding data, and culling datastructures (but not the
   objects in them...)
 
 August 29, 2000
 
-	Adding  Export_State,Import_State functions which can be used by the App to do 
+	Adding  Export_State,Import_State functions which can be used by the App to do
 	network communication of physics object states.
 
 
@@ -290,10 +290,10 @@ public:
 	** DEBUGGING, re-initialize this object because our definition changed
 	*/
 	virtual void					 Definition_Changed(void)					{ }
-	
+
 	/*
 	** Certain physics objects expire when an internal timer runs out or they are crushed.  This function
-	** is used to handle informing any observers and putting this object into the destroy list which is 
+	** is used to handle informing any observers and putting this object into the destroy list which is
 	** processed at the end of each frame
 	*/
 	bool								Expire(void);
@@ -303,7 +303,7 @@ public:
 	** amount of time.
 	*/
 	virtual bool					Needs_Timestep(void)							{ return false; }
-	virtual void					Timestep(float dt)							= 0; 
+	virtual void					Timestep(float dt)							= 0;
 	virtual void					Post_Timestep_Process(void)				{ }
 
 	/*
@@ -330,9 +330,9 @@ public:
 	virtual bool					Intersection_Test(PhysMeshIntersectionTestClass & /* test */)		{ return false; }
 
 	/*
-	** Inter-Object Geometric Dependency.  These functions don't really perform any 
+	** Inter-Object Geometric Dependency.  These functions don't really perform any
 	** physics-based motion, only purely kinematic.  You can link a moveable physics object
-	** (the rider) to another object that it is standing on (the carrier).  This will cause 
+	** (the rider) to another object that it is standing on (the carrier).  This will cause
 	** the carrier to move the rider whenever it moves (by calling Push).
 	**
 	** Set_Carrier - when a carrier is being destroyed, it tells all riders as it unlinks them
@@ -343,13 +343,13 @@ public:
 	virtual void					Link_To_Carrier(PhysClass * /* carrier */,RenderObjClass * /* carrier_sub_obj */ = NULL)	{ }
 	virtual RenderObjClass *	Peek_Carrier_Sub_Object(void)											{ return NULL; }
 	virtual bool					Push(const Vector3 & /* move */)												{ return false; }
-	
+
 	virtual bool					Internal_Link_Rider(PhysClass * /* rider */)								{ return false; }
 	virtual bool					Internal_Unlink_Rider(PhysClass * /* rider */)							{ return false; }
 
 	/*
 	** Culling, this function updates the culling box used by the object.  The default implementation
-	** is to copy the bounding box of the current Model.  
+	** is to copy the bounding box of the current Model.
 	*/
 	void								Update_Cull_Box(void);
 
@@ -386,7 +386,7 @@ public:
 	*/
 	virtual void					Render(RenderInfoClass & rinfo);
 	virtual void					Vis_Render(SpecialRenderInfoClass & rinfo);
-	
+
 	/*
 	** Lighting system.  Each physics object caches its static lighting environment.  This cache must be
 	** invalidated when the object moves or when static lights near it change state.  The simulation code
@@ -459,7 +459,7 @@ public:
 	bool								Is_Disabled(void) const										{ return Get_Flag(DISABLED); }
 
 	/*
-	** The Debug Display flag is used (in debug builds) to enable displaying 
+	** The Debug Display flag is used (in debug builds) to enable displaying
 	** contact points, impulse vectors, etc.
 	*/
 	void								Enable_Debug_Display(bool onoff)							{ (onoff ? Flags |= DEBUGDISPLAY : Flags &= ~DEBUGDISPLAY); }
@@ -541,8 +541,8 @@ public:
 	bool								Is_Object_Simulating(void)									{ return Is_Objects_Simulation_Enabled() && !Is_Simulation_Disabled(); }
 
 	/*
-	** If you install a collision observer, it will be notified of any collisions which occur 
-	** involving this object.  One way to do this is to derive your game objects from 
+	** If you install a collision observer, it will be notified of any collisions which occur
+	** involving this object.  One way to do this is to derive your game objects from
 	** CollisionObserverClass so that they can be directly installed here.  Currently, there
 	** can only be one observer for any physics object.  You are responsible for removing
 	** the observer before this phys object is destroyed: Set_Observer(NULL)
@@ -625,7 +625,7 @@ protected:
 
 	bool									Get_Flag(unsigned int flag) const 					{ return ((Flags & flag) == flag); }
 	void									Set_Flag(unsigned int flag,bool onoff)			 	{ (onoff ? Flags |= flag : Flags &= ~flag); }
-	
+
 	void									Push_Effects(RenderInfoClass & rinfo);
 	void									Pop_Effects(RenderInfoClass & rinfo);
 
@@ -644,7 +644,7 @@ protected:
 		IS_WS_MESH =					0x00010000,		// Enable the static-world-space-mesh rendering optimizations.
 		IS_PRE_LIT =					0x00020000,		// Is this a light-mapped object that doesn't need static lights applied.
 		IS_IN_THE_SUN =				0x00040000,		// Is this object illuminated by the sun?
-		IS_STATE_DIRTY =				0x00080000,		// This object's state has changed. 
+		IS_STATE_DIRTY =				0x00080000,		// This object's state has changed.
 		STATIC_LIGHTING_DIRTY =		0x00100000,		// This object's static lighting cache is dirty
 		FRICTION_DISABLED =			0x00200000,		// Friction is disabled for this object (vehicles disable body-friction when their wheels are in contact)
 		SIMULATION_DISABLED =		0x00400000,		// Turn on/off simulation for this object
@@ -658,7 +658,7 @@ protected:
 	** flags for things like whether this object is currently being considered immovable
 	*/
 	unsigned int					Flags;
-	
+
 	/*
 	** Render model
 	*/
@@ -682,7 +682,7 @@ protected:
 	uint32							VisObjectID;
 
 	/*
-	** Observer object 
+	** Observer object
 	*/
 	PhysObserverClass *			Observer;
 
@@ -727,8 +727,8 @@ private:
 };
 
 
-inline void PhysClass::Inc_Ignore_Counter(void)		
-{ 
+inline void PhysClass::Inc_Ignore_Counter(void)
+{
 	int count = (Flags & IGNORE_MASK) >> IGNORE_SHIFT;
 	count++;
 	WWASSERT(count < 12);
@@ -747,9 +747,9 @@ inline void PhysClass::Dec_Ignore_Counter(void)
 
 
 inline CollisionReactionType PhysClass::Collision_Occurred(CollisionEventClass & event)
-{ 
+{
 	if (Observer) {
-		return Observer->Collision_Occurred(event); 
+		return Observer->Collision_Occurred(event);
 	} else {
 		return COLLISION_REACTION_DEFAULT;
 	}
@@ -777,7 +777,7 @@ inline void PhysClass::Remove_Effect_From_Me(MaterialEffectClass * effect)
 inline bool PhysClass::Is_Pre_Lit(void)
 {
 	if (Model) {
-		return (Get_Flag(IS_PRE_LIT) | (Model->Has_User_Lighting() != 0)); 
+		return (Get_Flag(IS_PRE_LIT) | (Model->Has_User_Lighting() != 0));
 	} else {
 		return Get_Flag(IS_PRE_LIT);
 	}
@@ -790,13 +790,13 @@ inline bool PhysClass::Is_Pre_Lit(void)
 class PhysDefClass : public DefinitionClass
 {
 public:
-	
+
 	PhysDefClass(void);
-	
+
 	// From PersistClass
 	virtual bool					Save(ChunkSaveClass &csave) override;
 	virtual bool					Load(ChunkLoadClass &cload) override;
-	
+
 	// PhysDef type filtering mechanism
 	virtual const char *			Get_Type_Name(void)				{ return "PhysDef"; }
 	virtual bool					Is_Type(const char *);
@@ -807,15 +807,15 @@ public:
 	// accessors
 	const StringClass &			Get_Model_Name()					{ return ModelName; }
 	bool								Get_Is_Pre_Lit()					{ return IsPreLit; }
-	
+
 	//	Editable interface requirements
 	DECLARE_EDITABLE(PhysDefClass,DefinitionClass);
 
 protected:
-	
+
 	StringClass						ModelName;
 	bool								IsPreLit;
-	
+
 	friend class PhysClass;
 };
 

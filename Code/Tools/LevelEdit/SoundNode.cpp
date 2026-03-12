@@ -143,7 +143,7 @@ SoundNodeClass::SoundNodeClass (const SoundNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 SoundNodeClass::~SoundNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	Release_Sound ();
 	MEMBER_RELEASE (PhysObj);
@@ -167,7 +167,7 @@ SoundNodeClass::Release_Sound (void)
 		SoundObj = NULL;
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -187,7 +187,7 @@ SoundNodeClass::Initialize (void)
 	//
 	Show_Attenuation_Spheres (false);
 	Release_Sound ();
-	MEMBER_RELEASE (PhysObj);	
+	MEMBER_RELEASE (PhysObj);
 
 	AudibleSoundDefinitionClass *definition = NULL;
 	definition = static_cast<AudibleSoundDefinitionClass *> (m_Preset->Get_Definition ());
@@ -198,10 +198,10 @@ SoundNodeClass::Initialize (void)
 		//	Copy the preset's settings to our instance (if necessary)
 		//
 		if (OverridePreset == false) {
-			InstanceSettings.Set_Volume (definition->Get_Volume ());		
+			InstanceSettings.Set_Volume (definition->Get_Volume ());
 			InstanceSettings.Set_DropOff_Radius (definition->Get_DropOff_Radius ());
-			InstanceSettings.Set_Start_Offset (definition->Get_Start_Offset ());		
-			InstanceSettings.Set_Pitch_Factor (definition->Get_Pitch_Factor ());		
+			InstanceSettings.Set_Start_Offset (definition->Get_Start_Offset ());
+			InstanceSettings.Set_Pitch_Factor (definition->Get_Pitch_Factor ());
 			InstanceSettings.Set_Max_Vol_Radius (definition->Get_Max_Vol_Radius ());
 		}
 
@@ -211,10 +211,10 @@ SoundNodeClass::Initialize (void)
 		RenderObjClass *render_obj = ::Create_Render_Obj ("SPEAKER");
 		WWASSERT (render_obj != NULL);
 		if (render_obj != NULL) {
-			
+
 			// Create the new physics object
 			PhysObj = new DecorationPhysClass;
-			
+
 			//
 			// Configure the physics object with information about
 			// its new render object and collision data.
@@ -225,7 +225,7 @@ SoundNodeClass::Initialize (void)
 			PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 			PhysObj->Peek_Model ()->Set_Collision_Type (COLLISION_TYPE_6);
 			PhysObj->Set_Transform (m_Transform);
-			
+
 			//
 			// Release our hold on the render object pointer
 			//
@@ -258,7 +258,7 @@ SoundNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 SoundNodeClass::Get_Factory (void) const
-{	
+{
 	return _NewSoundNodePersistFactory;
 }
 
@@ -362,9 +362,9 @@ void
 SoundNodeClass::Show_Attenuation_Spheres (bool onoff)
 {
 	if (onoff && Sphere == NULL) {
-		
+
 		Sphere = new AttenuationSphereClass;
-		Sphere->Display_Around_Node (*this);		
+		Sphere->Display_Around_Node (*this);
 		Sphere->Set_Opacity (0.25F);
 		Sphere->Set_Radius (Get_Attenuation_Radius ());
 
@@ -449,12 +449,12 @@ SoundNodeClass::Update_Sound (void)
 
 	//
 	//	Create and initialize the sound object
-	//			
+	//
 	SoundObj = (AudibleSoundClass *)definition->Create ();
 	if (SoundObj != NULL) {
 		SoundObj->Set_Transform (m_Transform);
-		SoundObj->Set_ID (m_ID);		
-		
+		SoundObj->Set_ID (m_ID);
+
 		//
 		//	Make sure the sound object is 'static'
 		//
@@ -467,9 +467,9 @@ SoundNodeClass::Update_Sound (void)
 		//	Override the preset settings with our instance settings
 		//
 		if (OverridePreset) {
-			SoundObj->Set_Volume (InstanceSettings.Get_Volume ());		
+			SoundObj->Set_Volume (InstanceSettings.Get_Volume ());
 			SoundObj->Set_DropOff_Radius (InstanceSettings.Get_DropOff_Radius ());
-			SoundObj->Set_Start_Offset (InstanceSettings.Get_Start_Offset ());		
+			SoundObj->Set_Start_Offset (InstanceSettings.Get_Start_Offset ());
 			SoundObj->Set_Pitch_Factor (InstanceSettings.Get_Pitch_Factor ());
 			if (sound3d != NULL) {
 				sound3d->Set_Max_Vol_Radius (InstanceSettings.Get_Max_Vol_Radius ());
@@ -498,10 +498,10 @@ SoundNodeClass::Update_Sound (void)
 /////////////////////////////////////////////////////////////////
 bool
 SoundNodeClass::Show_Settings_Dialog (void)
-{	
+{
 	NodeInfoPageClass	info_tab (this);
 	PositionPageClass	pos_tab (this);
-	
+
 	//
 	//	Display the settings tab for instance overrides
 	//
@@ -522,9 +522,9 @@ SoundNodeClass::Show_Settings_Dialog (void)
 	UINT ret_code = prop_sheet.DoModal ();
 	if (ret_code == IDOK) {
 		OverridePreset = true;
-		Update_Sound ();		
+		Update_Sound ();
 	}
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }
@@ -574,7 +574,7 @@ SoundNodeClass::Load (ChunkLoadClass &cload)
 		return NodeClass::Load (cload);
 	}
 
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:

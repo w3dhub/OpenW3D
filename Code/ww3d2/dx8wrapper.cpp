@@ -1086,7 +1086,7 @@ bool DX8Wrapper::Registry_Save_Render_Device( const char */*sub_key*/, int devic
 	ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_DEPTH, depth);
 	ini.Put_Bool(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WINDOWED, windowed != 0);
 	ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_TEXTURE_DEPTH, texture_depth);
-	
+
 	return ini.Save(W3D_CONF_FILE) != 0;
 }
 
@@ -2741,7 +2741,7 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 	DWORD flag=(calibrate?D3DSGR_CALIBRATE:D3DSGR_NO_CALIBRATION);
 
 	D3DGAMMARAMP ramp;
-	float			 limit;	
+	float			 limit;
 
 	// IML: I'm not really sure what the intent of the 'limit' variable is. It does not produce useful results for my purposes.
 	if (uselimit) {

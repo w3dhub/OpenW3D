@@ -107,7 +107,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 	m_ListCtrl.InsertColumn (COL_OBJECT, "Object");
 	m_ListCtrl.InsertColumn (COL_PRESET, "Preset");
 	m_ListCtrl.SetExtendedStyle (m_ListCtrl.GetExtendedStyle () | LVS_EX_FULLROWSELECT);
-	
+
 	//
 	//	Choose an appropriate size for the columns
 	//
@@ -136,7 +136,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 		EndDialog (IDOK);
 
 	} else {
-		
+
 		//
 		//	Add the node's into the list control
 		//
@@ -144,7 +144,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 			NodeClass *node = NodeList[index];
 			if (node != NULL) {
 				StringClass name = node->Get_Name ();
-				
+
 				//
 				//	Add this object to the list control
 				//
@@ -173,7 +173,7 @@ PresetRemapDialogClass::OnInitDialog (void)
 			}
 		}
 	}
-	
+
 	return true;
 }
 
@@ -188,7 +188,7 @@ PresetRemapDialogClass::OnDblclkListCtrl
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-)	 
+)
 {
 	(*pResult) = 0;
 
@@ -211,13 +211,13 @@ PresetRemapDialogClass::OnDblclkListCtrl
 			SelectPresetDialogClass dialog (this);
 			dialog.Set_Preset (node->Get_Preset ());
 			if (dialog.DoModal () == IDOK) {
-				
+
 				//
 				//	Get the new preset from the dialog
 				//
 				PresetClass *preset = dialog.Get_Selection ();
 				CString preset_name = preset->Get_Name ();
-			
+
 
 				//
 				//	Ask the user if they want to make this change to all the nodes
@@ -226,14 +226,14 @@ PresetRemapDialogClass::OnDblclkListCtrl
 
 					uint32 preset_id_to_change = node->Get_Preset_ID ();
 					int count = m_ListCtrl.GetItemCount ();
-					
+
 					//
 					//	Loop over all the nodes in the list
 					//
 					for (int index = 0; index < count; index ++) {
 						NodeClass *curr_node = (NodeClass *)m_ListCtrl.GetItemData (index);
 						if (curr_node != NULL && curr_node->Get_Preset_ID () == preset_id_to_change) {
-							
+
 							//
 							//	Associate the preset with the object
 							//
@@ -247,13 +247,13 @@ PresetRemapDialogClass::OnDblclkListCtrl
 					//
 					//	Associate the preset with the object
 					//
-					node->Set_Preset (preset);					
+					node->Set_Preset (preset);
 					m_ListCtrl.SetItemText (item_index, COL_PRESET, preset_name);
 				}
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -270,7 +270,7 @@ PresetRemapDialogClass::OnDeleteitemListCtrl
 	LRESULT* pResult
 )
 {
-	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;	
+	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	(*pResult) = 0;
 
 	//
@@ -292,8 +292,8 @@ PresetRemapDialogClass::OnDeleteitemListCtrl
 void
 PresetRemapDialogClass::OnOK (void)
 {
-	CWaitCursor wait_cursor;	
-	
+	CWaitCursor wait_cursor;
+
 	//
 	//	Loop over all the nodes in the list
 	//
@@ -301,7 +301,7 @@ PresetRemapDialogClass::OnOK (void)
 	for (int index = 0; index < count; index ++) {
 		NodeClass *curr_node = (NodeClass *)m_ListCtrl.GetItemData (index);
 		if (curr_node->Get_Preset () != NULL) {
-			
+
 			//
 			//	Add this node to the world
 			//

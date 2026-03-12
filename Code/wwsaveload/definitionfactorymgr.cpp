@@ -246,7 +246,7 @@ DefinitionFactoryMgrClass::Link_Factory (DefinitionFactoryClass *factory)
 
 	// Adding this factory in front of the current head of the list
 	factory->m_NextFactory = _FactoryListHead;
-	
+
 	// If the list wasn't empty, link the next factory back to this factory
 	if (factory->m_NextFactory != 0) {
 		factory->m_NextFactory->m_PrevFactory = factory;
@@ -274,7 +274,7 @@ DefinitionFactoryMgrClass::Unlink_Factory (DefinitionFactoryClass *factory)
 		// this factory is the head
 		WWASSERT (_FactoryListHead == factory);
 		_FactoryListHead = factory->m_NextFactory;
-	
+
 	} else {
 
 		// link it's prev with it's next
@@ -284,7 +284,7 @@ DefinitionFactoryMgrClass::Unlink_Factory (DefinitionFactoryClass *factory)
 
 	// Handle the factory's next pointer if its not at the end of the list:
 	if (factory->m_NextFactory != 0) {
-		
+
 		factory->m_NextFactory->m_PrevFactory = factory->m_PrevFactory;
 
 	}

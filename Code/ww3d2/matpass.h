@@ -66,8 +66,8 @@ class OBBoxClass;
 **
 ** This class wraps all of the data needed to describe an additional
 ** material pass for any object.  The motivation for this class is to
-** implement certain types of special effects.  All data needed to 
-** apply the pass should be generated procedurally.  Typically a 
+** implement certain types of special effects.  All data needed to
+** apply the pass should be generated procedurally.  Typically a
 ** vertex processor will be used to generate any needed u-v's or vertex
 ** colors.  Alternatively, we could add the option to request to
 ** re-use the model's existing u-v's or vertex colors.
@@ -92,11 +92,11 @@ public:
 
 	TextureClass *				Peek_Texture(int stage = 0) const;
 	ShaderClass					Peek_Shader(void)	const							{ return Shader; }
-	VertexMaterialClass *	Peek_Material(void) const						{ return Material; }	
+	VertexMaterialClass *	Peek_Material(void) const						{ return Material; }
 
 	void							Set_Cull_Volume(OBBoxClass * volume)		{ CullVolume = volume; }
 	OBBoxClass *				Get_Cull_Volume(void) const					{ return CullVolume; }
-	
+
 	void							Enable_On_Translucent_Meshes(bool onoff)	{ EnableOnTranslucentMeshes = onoff; }
 	bool							Is_Enabled_On_Translucent_Meshes(void)		{ return EnableOnTranslucentMeshes; }
 
@@ -104,7 +104,7 @@ public:
 	static bool					Is_Per_Polygon_Culling_Enabled(void)		{ return EnablePerPolygonCulling; }
 
 protected:
-	
+
 	enum { MAX_TEX_STAGES = 2 };
 
 	TextureClass *				Texture[MAX_TEX_STAGES];
@@ -119,7 +119,7 @@ protected:
 
 
 inline TextureClass * MaterialPassClass::Peek_Texture(int stage) const
-{	
+{
 	WWASSERT(stage >= 0);
 	WWASSERT(stage < MAX_TEX_STAGES);
 	return Texture[stage];

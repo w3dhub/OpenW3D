@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/objectives.cpp                        $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/24/02 5:10p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 38                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/objectives.cpp                        $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/24/02 5:10p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 38                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "objectives.h"
@@ -70,10 +70,10 @@ const Vector3 & Objective::Type_To_Base_Color( void )
 	if ( HUDGlobalSettingsDef::Get_Instance() != NULL ) {
 		switch ( Type ) {
 			case ObjectiveManager::TYPE_PRIMARY:
-				color = HUDGlobalSettingsDef::Get_Instance()->Get_Primary_Objective_Color(); 
+				color = HUDGlobalSettingsDef::Get_Instance()->Get_Primary_Objective_Color();
 				break;
 
-			case ObjectiveManager::TYPE_SECONDARY:	
+			case ObjectiveManager::TYPE_SECONDARY:
 				color = HUDGlobalSettingsDef::Get_Instance()->Get_Secondary_Objective_Color();
 				break;
 
@@ -92,7 +92,7 @@ const Vector3 & Objective::Type_To_Base_Color( void )
 /*
 **
 */
-const Vector3 & Objective::Type_To_Color( void ) 
+const Vector3 & Objective::Type_To_Color( void )
 {
 	static Vector3 color (1.0F, 1.0F, 1.0F);
 	color = Type_To_Base_Color ();
@@ -107,7 +107,7 @@ const Vector3 & Objective::Type_To_Color( void )
 	return color;
 }
 
-const unichar_t * Objective::Type_To_Name( void ) 
+const unichar_t * Objective::Type_To_Name( void )
 {
 	switch ( Type ) {
 		case ObjectiveManager::TYPE_PRIMARY:		return TRANSLATE (IDS_MENU_TEXT145);
@@ -117,7 +117,7 @@ const unichar_t * Objective::Type_To_Name( void )
 	}
 }
 
-const unichar_t * Objective::Status_To_Name( void ) 
+const unichar_t * Objective::Status_To_Name( void )
 {
 	if ( Status == ObjectiveManager::STATUS_ACCOMPLISHED )	return TRANSLATE (IDS_MENU_OBJ_ACCOMPLISHED);
 	if ( Status == ObjectiveManager::STATUS_FAILED )			return TRANSLATE (IDS_MENU_OBJ_FAILED);
@@ -125,7 +125,7 @@ const unichar_t * Objective::Status_To_Name( void )
 	return TRANSLATE (IDS_MENU_OBJ_PENDING);
 }
 
-const Vector3 & Objective::Status_To_Color( void ) 
+const Vector3 & Objective::Status_To_Color( void )
 {
 	static	const	Vector3	RED(1,0,0);
 	static	const	Vector3	GREEN(0,1,0);
@@ -147,7 +147,7 @@ Objective::Objective( void ) :
 	Status( 0 ),
 	DrawBlip( false ),
 	Position( 0,0,0 ),
-	BlipIntensity( 0 ), 
+	BlipIntensity( 0 ),
 	HUDMessageStringID( 0 ),
 	LongDescriptionID( 0 ),
 	ShortDescriptionID( 0 ),
@@ -229,9 +229,9 @@ bool	Objective::Save( ChunkSaveClass & csave )
 {
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_ID, ID );
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_TYPE, Type );                    
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_STATUS, Status );                  
-		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_DESCRIPTION_ID, ShortDescriptionID );             
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_TYPE, Type );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_STATUS, Status );
+		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_DESCRIPTION_ID, ShortDescriptionID );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_LONG_DESCRIPTION_ID, LongDescriptionID );
 		WRITE_MICRO_CHUNK_WWSTRING( csave, 	MICROCHUNKID_DESCRIPTION_SOUND, DescriptionSoundFilename );
 		WRITE_MICRO_CHUNK( csave, 	MICROCHUNKID_DRAW_BLIP, DrawBlip );
@@ -262,8 +262,8 @@ bool	Objective::Load( ChunkLoadClass &cload )
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_ID, ID );
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_TYPE, Type );                    
-						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_STATUS, Status );                  
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_TYPE, Type );
+						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_STATUS, Status );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_DESCRIPTION_ID, ShortDescriptionID );
 						READ_MICRO_CHUNK( cload, 	MICROCHUNKID_LONG_DESCRIPTION_ID, LongDescriptionID );
 						READ_MICRO_CHUNK_WWSTRING( cload, 	MICROCHUNKID_DESCRIPTION_SOUND, DescriptionSoundFilename );
@@ -307,7 +307,7 @@ Objective * ObjectiveManager::Add_Loadable_Objective( void )
 	return objective;
 }
 
-Objective * ObjectiveManager::Find_Objective( int id ) 
+Objective * ObjectiveManager::Find_Objective( int id )
 {
 	for ( int i = 0; i < ObjectiveList.Count(); i++ ) {
 		if ( ObjectiveList[i]->ID == id ) {
@@ -341,7 +341,7 @@ void	ObjectiveManager::Reset( void )
 		Objective * objective = ObjectiveList[0];
 		ObjectiveList.Delete( 0 );
 		delete objective;
-	}	
+	}
 }
 
 /*
@@ -490,7 +490,7 @@ void	ObjectiveManager::Set_Objective_Status( int id, int status )
 	Objective * objective = Find_Objective( id );
 	if ( objective != NULL ) {
 
-		bool is_unhiding =	(objective->Status == ObjectiveManager::STATUS_HIDDEN) && 
+		bool is_unhiding =	(objective->Status == ObjectiveManager::STATUS_HIDDEN) &&
 									(status != ObjectiveManager::STATUS_HIDDEN);
 
 		objective->Status = status;
@@ -504,7 +504,7 @@ void	ObjectiveManager::Set_Objective_Status( int id, int status )
 		}
 
 		objective->Update_Object_Blip();
-	
+
 		if ( is_unhiding ) {
 			objective->Age = 0;		// Reset age
 		}
@@ -544,7 +544,7 @@ void	ObjectiveManager::Change_Objective_Type( int id, int type )
 	if ( objective != NULL ) {
 		objective->Type = type;
 		objective->Update_Object_Blip();
-		//DebugManager::Display_Text( "Mission objective priority changed\n", objective->Type_To_Color () );		
+		//DebugManager::Display_Text( "Mission objective priority changed\n", objective->Type_To_Color () );
 	} else {
 		Debug_Say(( "Objective not found to change type\n" ));
 	}
@@ -586,7 +586,7 @@ int __cdecl ObjectiveManager::ObjectiveSortCallback( const void *elem1, const vo
    WWASSERT (elem1 != NULL);
    WWASSERT (elem2 != NULL);
    Objective *objective1 = *((Objective **)elem1);
-   Objective *objective2 = *((Objective **)elem2);	
+   Objective *objective2 = *((Objective **)elem2);
 
 	//	Sort first on status, low first
 	if (objective1->Status < objective2->Status) {
@@ -655,12 +655,12 @@ int	ObjectiveManager::Get_Num_HUD_Objectives( void )
 	// Assume the pendings are first, in priority order
 	int count = 0;
 	for ( int i = 0; i < ObjectiveList.Count(); i++ ) {
-		if ( ( ObjectiveList[i]->Status == STATUS_IS_PENDING ) && 
+		if ( ( ObjectiveList[i]->Status == STATUS_IS_PENDING ) &&
 			  ( ObjectiveList[i]->HUDPriority > 0 ) ) {
 			count++;
 		}
 	}
-	return count; 
+	return count;
 }
 
 const char *	ObjectiveManager::Get_HUD_Objectives_Pog_Texture_Name( int index )
@@ -687,7 +687,7 @@ int		ObjectiveManager::Get_Num_Objectives( int type )
 {
 	int count = 0;
     for ( int i = 0; i < ObjectiveList.Count(); i++ ) {
-		if ( ( ObjectiveList[i]->Type == type ) && 
+		if ( ( ObjectiveList[i]->Type == type ) &&
 			 ( ObjectiveList[i]->Status != STATUS_HIDDEN ) ) {
 			count++;
 		}
@@ -699,19 +699,19 @@ int		ObjectiveManager::Get_Num_Objectives( int type )
 		}
 	}
 
-	return count; 
+	return count;
 }
 
 int		ObjectiveManager::Get_Num_Completed_Objectives( int type )
 {
 	int count = 0;
     for ( int i = 0; i < ObjectiveList.Count(); i++ ) {
-		if ( ( ObjectiveList[i]->Type == type ) && 
+		if ( ( ObjectiveList[i]->Type == type ) &&
 			 ( ObjectiveList[i]->Status == STATUS_ACCOMPLISHED ) ) {
 			count++;
 		}
 	}
-	return count; 
+	return count;
 }
 
 void	ObjectiveManager::Update( float dt )

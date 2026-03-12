@@ -86,7 +86,7 @@ public:
 	//////////////////////////////////////////////////////////
 	void							Render_Graph (CDC *dc);
 	void							Get_Visible_Points (int *left_pt, int *right_pt);
-		
+
 	typedef enum
 	{
 		HIT_GRAPH_AREA		= 1,
@@ -95,7 +95,7 @@ public:
 		HIT_UNKNOWN
 
 	} HITTYPE;
-	
+
 	HITTYPE						Hit_Test (const CPoint &point, int *hit_pt);
 
 	void							Get_Graph_Rect (CRect &rect);
@@ -116,7 +116,7 @@ protected:
 
 	//////////////////////////////////////////////////////////
 	//	Protected member data
-	//////////////////////////////////////////////////////////	
+	//////////////////////////////////////////////////////////
 
 	Vector2						m_Min;
 	Vector2						m_Max;

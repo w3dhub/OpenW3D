@@ -135,9 +135,9 @@ CNCServerInfoDialogClass::On_Init_Dialog (void)
 		int item_index		= 0;
 		int index			= 0;
 		while (buffer[index] != 0) {
-			
+
 			if (buffer[index] == DELIMITER) {
-				
+
 				//
 				//	Insert a new entry
 				//

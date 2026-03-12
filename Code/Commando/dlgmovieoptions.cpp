@@ -79,12 +79,12 @@ MovieOptionsMenuClass::On_Init_Dialog (void)
 
 		//
 		//	Add the movies to the list...
-		//		
+		//
 		RegistryClass registry (APPLICATION_SUB_KEY_NAME_MOVIES);
 		if (registry.Is_Valid ()) {
 
 			const char *INTRO_MOVIE	= "MOVIES/R_INTRO.BIK";
-						
+
 			//
 			//	Insert the renegade intro movie by default...
 			//
@@ -165,7 +165,7 @@ MovieOptionsMenuClass::On_ListCtrl_Delete_Entry
 	}
 
 	if (ctrl_id == IDC_LIST_CTRL) {
-		
+
 		//
 		//	Remove the data we associated with this entry
 		//
@@ -173,7 +173,7 @@ MovieOptionsMenuClass::On_ListCtrl_Delete_Entry
 		list_ctrl->Set_Entry_Data (item_index, 0, 0);
 		if (filename != NULL) {
 			delete filename;
-		}		
+		}
 	}
 
 	return ;
@@ -217,14 +217,14 @@ MovieOptionsMenuClass::Begin_Play_Movie (void)
 	if (list_ctrl == NULL) {
 		return ;
 	}
-	
+
 	//
 	//	Get the currently selected entry
 	//
 	int curr_sel = list_ctrl->Get_Curr_Sel ();
 	if (curr_sel != -1) {
 		StringClass *filename = (StringClass *)list_ctrl->Get_Entry_Data (curr_sel, 0);
-		
+
 		//
 		//	Play the movie (if it exists locally)
 		//
@@ -246,7 +246,7 @@ MovieOptionsMenuClass::Begin_Play_Movie (void)
 			//
 			StringClass cd_path;
 			if (CDVerifier.Get_CD_Path (cd_path)) {
-				
+
 				//
 				//	Build a full-path to the movie on the CD
 				//
@@ -277,11 +277,11 @@ void
 MovieOptionsMenuClass::Play_Movie (const char *filename)
 {
 	WWAudioClass::Get_Instance ()->Temp_Disable_Audio (true);
-	
+
 	FontCharsClass* font = StyleMgrClass::Get_Font(StyleMgrClass::FONT_INGAME_SUBTITLE_TXT);
 
 	BINKMovie::Play (filename, "data/subtitle.ini", font);
-	
+
 	if (font) {
 		font->Release_Ref();
 	}
@@ -344,7 +344,7 @@ bool
 MovieOptionsMenuClass::On_Key_Down (uint32 key_id, uint32 key_data)
 {
 	bool retval = false;
-	
+
 	//
 	//	Stop playing the movie on any keypress
 	//
@@ -376,7 +376,7 @@ MovieOptionsMenuClass::HandleNotification (CDVerifyEvent &event)
 		//
 		StringClass cd_path;
 		if (CDVerifier.Get_CD_Path (cd_path)) {
-			
+
 			//
 			//	Build a full-path to the movie on the CD
 			//
@@ -387,7 +387,7 @@ MovieOptionsMenuClass::HandleNotification (CDVerifyEvent &event)
 				}
 			full_path += PendingMovieFilename;
 			Play_Movie (full_path);
-		}		
+		}
 	}
 
 	PendingMovieFilename = "";

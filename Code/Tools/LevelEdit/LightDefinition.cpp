@@ -95,7 +95,7 @@ LightDefinitionClass::LightDefinitionClass (void)
 		m_SpotAngle (0),
 		m_SpotExp (0),
 		m_LightType (LightClass::POINT),
-		DefinitionClass ()				
+		DefinitionClass ()
 {
 	NAMED_EDITABLE_PARAM (LightDefinitionClass, ParameterClass::TYPE_BOOL, m_CastsShadows, "Casts Shadows");
 	NAMED_EDITABLE_PARAM (LightDefinitionClass, ParameterClass::TYPE_COLOR, m_AmbientColor, "Ambient");
@@ -190,7 +190,7 @@ LightDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_VARIABLES:
 				retval &= Load_Variables (cload);
 				break;
@@ -217,14 +217,14 @@ LightDefinitionClass::Save_Variables (ChunkSaveClass &csave)
 {
 	bool retval = true;
 
-	WRITE_MICRO_CHUNK (csave, VARID_CASTS_SHADOWS, m_CastsShadows)	
+	WRITE_MICRO_CHUNK (csave, VARID_CASTS_SHADOWS, m_CastsShadows)
 	WRITE_MICRO_CHUNK (csave, VARID_AMBIENT_COLOR, m_AmbientColor)
 	WRITE_MICRO_CHUNK (csave, VARID_DIFFUSE_COLOR, m_DiffuseColor)
 	WRITE_MICRO_CHUNK (csave, VARID_SPECULAR_COLOR, m_SpecularColor)
 	WRITE_MICRO_CHUNK (csave, VARID_INTENSITY, m_Intensity)
 	WRITE_MICRO_CHUNK (csave, VARID_INNER_RADIUS, m_FarRadiusInner)
 	WRITE_MICRO_CHUNK (csave, VARID_OUTER_RADIUS, m_FarRadiusOuter)
-	WRITE_MICRO_CHUNK (csave, VARID_LIGHT_TYPE, m_LightType)	
+	WRITE_MICRO_CHUNK (csave, VARID_LIGHT_TYPE, m_LightType)
 	WRITE_MICRO_CHUNK (csave, VARID_LIGHT_SPOT_ANGLE,	m_SpotAngle)
 	WRITE_MICRO_CHUNK (csave, VARID_LIGHT_SPOT_EXPONENT, m_SpotExp)
 	WRITE_MICRO_CHUNK (csave, VARID_LIGHT_SPOT_DIRECTION, m_SpotDir)
@@ -247,7 +247,7 @@ LightDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_CASTS_SHADOWS, m_CastsShadows)
 			READ_MICRO_CHUNK (cload, VARID_AMBIENT_COLOR, m_AmbientColor)
 			READ_MICRO_CHUNK (cload, VARID_DIFFUSE_COLOR, m_DiffuseColor)
@@ -255,7 +255,7 @@ LightDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_INTENSITY, m_Intensity)
 			READ_MICRO_CHUNK (cload, VARID_INNER_RADIUS, m_FarRadiusInner)
 			READ_MICRO_CHUNK (cload, VARID_OUTER_RADIUS, m_FarRadiusOuter)
-			READ_MICRO_CHUNK (cload, VARID_LIGHT_TYPE, m_LightType)	
+			READ_MICRO_CHUNK (cload, VARID_LIGHT_TYPE, m_LightType)
 			READ_MICRO_CHUNK (cload, VARID_LIGHT_SPOT_ANGLE,	m_SpotAngle)
 			READ_MICRO_CHUNK (cload, VARID_LIGHT_SPOT_EXPONENT, m_SpotExp)
 			READ_MICRO_CHUNK (cload, VARID_LIGHT_SPOT_DIRECTION, m_SpotDir)

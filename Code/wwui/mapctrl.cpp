@@ -95,11 +95,11 @@ MapCtrlClass::MapCtrlClass (void)	:
 	//
 	StyleMgrClass::Assign_Font (&TextRenderer, StyleMgrClass::FONT_CONTROLS);
 	StyleMgrClass::Configure_Renderer (&ControlRenderer);
-	StyleMgrClass::Configure_Renderer (&ButtonRenderer);	
+	StyleMgrClass::Configure_Renderer (&ButtonRenderer);
 	StyleMgrClass::Configure_Renderer (&MapRenderer);
-	StyleMgrClass::Configure_Renderer (&MapOverlayRenderer);	
+	StyleMgrClass::Configure_Renderer (&MapOverlayRenderer);
 	StyleMgrClass::Configure_Renderer (&CloudRenderer);
-	StyleMgrClass::Configure_Renderer (&EdgeRenderer);	
+	StyleMgrClass::Configure_Renderer (&EdgeRenderer);
 	StyleMgrClass::Configure_Renderer (&IconRenderer);
 
 	TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture ("map_edges.tga", TextureClass::MIP_LEVELS_1);
@@ -212,7 +212,7 @@ MapCtrlClass::Create_Control_Renderers (void)
 	//	Render any markers that are in view
 	//
 	IconRenderer.Reset ();
-	for (int index = 0; index < MarkerList.Count (); index ++) {		
+	for (int index = 0; index < MarkerList.Count (); index ++) {
 		const MapMarkerClass &marker = MarkerList[index];
 
 		//
@@ -226,7 +226,7 @@ MapCtrlClass::Create_Control_Renderers (void)
 		//	Is this marker currently visible?
 		//
 		if (map_uv_rect.Contains (map_pos)) {
-			
+
 			//
 			//	Calculate what percentage of the visible map the marker's position is
 			//
@@ -304,7 +304,7 @@ MapCtrlClass::Create_Control_Renderers (void)
 	temp_rect1.Top			= int(ZoomInButtonRect.Center ().Y - (ZoomInUVRect.Height () / 2));
 	temp_rect1.Right		= int(temp_rect1.Left + ZoomInUVRect.Width ());
 	temp_rect1.Bottom		= int(temp_rect1.Top + ZoomInUVRect.Height ());
-	
+
 	RectClass temp_rect2;
 	temp_rect2.Left		= int(ZoomOutButtonRect.Center ().X - (ZoomInUVRect.Width () / 2));
 	temp_rect2.Top			= int(ZoomOutButtonRect.Center ().Y - (ZoomInUVRect.Height () / 2));
@@ -322,7 +322,7 @@ MapCtrlClass::Create_Control_Renderers (void)
 	//	Normalize the map UVs
 	//
 	map_uv_rect.Inverse_Scale (Vector2 (MapSize.X , MapSize.Y));
-	
+
 	//
 	//	Render the map
 	//
@@ -366,14 +366,14 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 	//	Loop over all the cells
 	//
 	for (int cell_y = 0; cell_y < CloudSize.J; cell_y ++) {
-		
+
 		//
 		//	Reset the x position
 		//
 		cloud_x_pos = Rect.Left - (delta_x + (ScrollPos.X * Zoom));
 
 		for (int cell_x = 0; cell_x < CloudSize.I; cell_x ++) {
-		
+
 			//
 			//	Build the rectangle for this cloud section
 			//
@@ -382,7 +382,7 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 			cloud_rect.Top		= cloud_y_pos;
 			cloud_rect.Right	= cloud_rect.Left + cloud_width;
 			cloud_rect.Bottom	= cloud_rect.Top + cloud_height;
-		
+
 			//
 			//	Clip the rectangle
 			//
@@ -390,7 +390,7 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 			cloud_rect.Top		= std::max (cloud_rect.Top, Rect.Top);
 			cloud_rect.Right	= std::min (cloud_rect.Right, Rect.Right);
 			cloud_rect.Bottom	= std::min (cloud_rect.Bottom, Rect.Bottom);
-			
+
 			//
 			//	Don't render anything if this cell is completely clipped.
 			//
@@ -428,7 +428,7 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 
 						uv_rect.Inverse_Scale (Vector2 (64.0F, 64.0F));
 						EdgeRenderer.Add_Quad (cloud_rect, uv_rect);
-					} 
+					}
 
 					if (Is_Cell_Shrouded (cell_x + 1, cell_y)) {
 						RectClass uv_rect = EdgeRightUVRect;
@@ -443,7 +443,7 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 
 						uv_rect.Inverse_Scale (Vector2 (64.0F, 64.0F));
 						EdgeRenderer.Add_Quad (cloud_rect, uv_rect);
-					} 
+					}
 
 					if (Is_Cell_Shrouded (cell_x, cell_y - 1)) {
 						RectClass uv_rect = EdgeTopUVRect;
@@ -458,7 +458,7 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 
 						uv_rect.Inverse_Scale (Vector2 (64.0F, 64.0F));
 						EdgeRenderer.Add_Quad (cloud_rect, uv_rect);
-					} 
+					}
 
 					if (Is_Cell_Shrouded (cell_x, cell_y + 1)) {
 						RectClass uv_rect = EdgeBottomUVRect;
@@ -488,7 +488,7 @@ MapCtrlClass::Create_Cloud_Renderer (void)
 		//
 		cloud_y_pos += cloud_height;
 	}
-	
+
 	return ;
 }
 
@@ -534,13 +534,13 @@ MapCtrlClass::Update_Client_Rect (void)
 	//
 	//	Build the zoom button rectangles
 	//
-	ZoomOutButtonRect;	
+	ZoomOutButtonRect;
 	ZoomOutButtonRect.Left		= int(Rect.Right	- (ZoomInUVRect.Width () + 2));
 	ZoomOutButtonRect.Top		= int(Rect.Bottom	- (ZoomInUVRect.Height () + 2));
 	ZoomOutButtonRect.Right		= int(Rect.Right);
 	ZoomOutButtonRect.Bottom	= int(Rect.Bottom);
 
-	ZoomInButtonRect				= ZoomOutButtonRect;	
+	ZoomInButtonRect				= ZoomOutButtonRect;
 	ZoomInButtonRect.Left		= int(ZoomInButtonRect.Left - (ZoomInUVRect.Width () + 2));
 	ZoomInButtonRect.Right		= int(ZoomInButtonRect.Right - (ZoomInUVRect.Width () + 2));
 
@@ -570,9 +570,9 @@ MapCtrlClass::Render (void)
 
 	//
 	//	Render the background and text for the current state
-	//	
+	//
 	TextRenderer.Render ();
-	MapRenderer.Render ();	
+	MapRenderer.Render ();
 	if (IsUsingOverlay) {
 		MapOverlayRenderer.Render ();
 	}
@@ -580,7 +580,7 @@ MapCtrlClass::Render (void)
 	CloudRenderer.Render ();
 	EdgeRenderer.Render ();
 	ButtonRenderer.Render ();
-	ControlRenderer.Render ();	
+	ControlRenderer.Render ();
 
 	DialogControlClass::Render ();
 	return ;
@@ -606,22 +606,22 @@ MapCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 		IsZoomingOut = true;
 		Set_Capture ();
 	} else {
-		
+
 		//
 		//	If the user held the control as they clicked, then
 		//	notify the advise sinks that a position is being requested
 		//
-		if (::GetAsyncKeyState (VK_CONTROL) < 0) {						
+		if (::GetAsyncKeyState (VK_CONTROL) < 0) {
 			Vector3 world_pos = Position_To_Coord (mouse_pos);
 			ADVISE_NOTIFY (On_MapCtrl_Pos_Clicked (this, Get_ID (), world_pos));
 		} else {
-			
+
 			//
 			//	Begin panning
 			//
 			IsDragging = true;
 			Set_Capture ();
-			
+
 			InitialMousePos	= mouse_pos;
 			InitialScrollPos	= ScrollPos;
 		}
@@ -696,7 +696,7 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 	IsUsingOverlay = false;
 	FileClass *file = _TheFileFactory->Get_File (overlay_texture_name);
 	if (file != NULL) {
-		
+
 		bool is_valid = true;
 
 		//
@@ -732,7 +732,7 @@ MapCtrlClass::Set_Map_Texture (const char *filename)
 		if (file != NULL) {
 			_TheFileFactory->Return_File (file);
 		}
-	}	
+	}
 
 	return ;
 }
@@ -780,7 +780,7 @@ MapCtrlClass::On_Mouse_Move (const Vector2 &mouse_pos)
 	//	Is the user "dragging" inside the control
 	//
 	if (HasFocus) {
-	
+
 		if (IsDragging) {
 
 			Vector2 delta = (InitialMousePos - mouse_pos);
@@ -820,18 +820,18 @@ void
 MapCtrlClass::On_Frame_Update (void)
 {
 	if (HasFocus) {
-		
+
 		if (IsZoomingIn) {
-			
+
 			//
 			//	Zoom-In
 			//
 			Zoom += (DialogMgrClass::Get_Frame_Time () / 1000.F) * ZOOM_RATE;
-			Zoom = WWMath::Clamp (Zoom, 0.5F, 1.5F);		
+			Zoom = WWMath::Clamp (Zoom, 0.5F, 1.5F);
 			Set_Dirty ();
 
 		} else if (IsZoomingOut) {
-			
+
 			//
 			//	Zoom-Out
 			//
@@ -975,7 +975,7 @@ MapCtrlClass::Center_View_About_Marker (int marker_index)
 	//	Now calculate what scroll offset we'd need to be centered
 	// about this position
 	//
-	ScrollPos = map_pos - (MapSize * 0.5F); 
+	ScrollPos = map_pos - (MapSize * 0.5F);
 	Clamp_Scroll_Pos ();
 
 	//
@@ -1001,7 +1001,7 @@ MapCtrlClass::Marker_From_Pos (const Vector2 &mouse_pos)
 	//
 	//	Loop over all the markers in our list
 	//
-	for (int index = 0; index < MarkerList.Count (); index ++) {		
+	for (int index = 0; index < MarkerList.Count (); index ++) {
 		const MapMarkerClass &marker = MarkerList[index];
 
 		//
@@ -1016,11 +1016,11 @@ MapCtrlClass::Marker_From_Pos (const Vector2 &mouse_pos)
 		//
 		Vector2 screen_pos = Rect.Center () + ((map_pos - center) * Zoom);
 		if (Rect.Contains (screen_pos)) {
-			
+
 			//
 			//	Build a screen rectangle of the marker
 			//
-			RectClass screen_rect;			
+			RectClass screen_rect;
 			screen_rect.Left		= screen_pos.X - (marker.Get_Rect ().Width () / 2);
 			screen_rect.Top		= screen_pos.Y - (marker.Get_Rect ().Height () / 2);
 			screen_rect.Right		= screen_rect.Left + marker.Get_Rect ().Width ();
@@ -1033,8 +1033,8 @@ MapCtrlClass::Marker_From_Pos (const Vector2 &mouse_pos)
 				retval = index;
 				break;
 			}
-		}				
-	}	
+		}
+	}
 
 	return retval;
 }
@@ -1054,7 +1054,7 @@ MapCtrlClass::Clamp_Scroll_Pos (void)
 	//
 	//	Determine what our scroll offset should be
 	// at this zoom factor
-	//	
+	//
 	float max_x_offset	= WWMath::Clamp (MapSize.X - width, 0, MapSize.X);
 	float max_y_offset	= WWMath::Clamp (MapSize.Y - height, 0, MapSize.Y);
 
@@ -1166,7 +1166,7 @@ MapCtrlClass::Position_To_Coord (const Vector2 &mouse_pos)
 {
 	Vector2 percent;
 	percent.X = (mouse_pos.X - Rect.Left) / Rect.Width ();
-	percent.Y = (mouse_pos.Y - Rect.Top) / Rect.Height ();	
+	percent.Y = (mouse_pos.Y - Rect.Top) / Rect.Height ();
 
 	//
 	//	Calculate the center of the image
@@ -1230,7 +1230,7 @@ MapCtrlClass::Update_Pulse (void)
 		PulseDirection		= 1.0F;
 	} else if (OverlayOpacity >= MAX_OPACITY) {
 		OverlayOpacity			= MAX_OPACITY;
-		PulseDirection		= -1.0F;			
+		PulseDirection		= -1.0F;
 	}
 
 	int overlay_color = VRGBA_TO_INT32 (Vector4 (1.0F, 1.0F, 1.0F, OverlayOpacity));

@@ -95,7 +95,7 @@ MPWolPageBuddyPopupClass::On_Init_Dialog(void)
 			ComboBoxCtrlClass* combo_box = (ComboBoxCtrlClass*)Get_Dlg_Item(IDC_BUDDY_NAME_COMBO);
 
 			if (combo_box) {
-			
+
 				// Add each buddy to the combobox
 				for (size_t index = 0; index < count; ++index) {
 					const RefPtr<WWOnline::UserData>& user = list[index];
@@ -160,7 +160,7 @@ MPWolPageBuddyPopupClass::On_Command(int ctrl_id, int message_id, unsigned int p
 			MPWolBuddiesMenuClass::Display();
 			End_Dialog();
 			break;
-		
+
 		case IDC_PAGE_BUTTON:
 			Send_Page();
 			break;
@@ -233,7 +233,7 @@ void MPWolPageBuddyPopupClass::CheckIfCanSendPage(void)
 
 void MPWolPageBuddyPopupClass::On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* /* combo */, int id)
 {
-	if (IDC_BUDDY_NAME_COMBO == id) { 
+	if (IDC_BUDDY_NAME_COMBO == id) {
 		CheckIfCanSendPage();
 	}
 }
@@ -241,7 +241,7 @@ void MPWolPageBuddyPopupClass::On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* /*
 
 void MPWolPageBuddyPopupClass::On_EditCtrl_Change(EditCtrlClass* /* edit */, int id)
 {
-	if (IDC_MESSAGE_EDIT == id) { 
+	if (IDC_MESSAGE_EDIT == id) {
 		CheckIfCanSendPage();
 	}
 }
@@ -266,7 +266,7 @@ void MPWolPageBuddyPopupClass::HandleNotification(WOLBuddyMgrEvent &event)
 
 		if (combo_box) {
 			combo_box->Reset_Content();
-		
+
 		const WWOnline::UserList& buddies = mBuddyMgr->GetBuddyList();
 		const size_t count = buddies.size();
 

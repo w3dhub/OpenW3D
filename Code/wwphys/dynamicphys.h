@@ -47,20 +47,20 @@ class DynamicPhysDefClass;
 /**
 ** DynamicPhysClass
 ** This class adds some behavior that will be common to all dynamic physics objects.  It tracks
-** the current vis-ID for the object and has a method to automatically update it which should 
+** the current vis-ID for the object and has a method to automatically update it which should
 ** be called whenever the object moves.  This class is not a concrete derived class.
 */
 class DynamicPhysClass : public PhysClass
 {
 public:
-	
+
 	DynamicPhysClass(void);
 	~DynamicPhysClass(void);
 	virtual DynamicPhysClass *	As_DynamicPhysClass(void) override									{ return this; }
 	void Init(const DynamicPhysDefClass & definition);
-		
+
 	virtual void								Set_Model(RenderObjClass * model) override;
-	
+
 	/*
 	** Call this whenever the object moves to update its visibility status
 	*/
@@ -91,7 +91,7 @@ protected:
 	bool											DirtyVisObjectID;			// dirty flag for the vis object id
 	int											VisNodeID;					// ID of the node this object is in for temporal coherence
 	unsigned int								VisStatusLastUpdated;	// tickcount of last vis update
-	
+
 private:
 
 	static bool									_DisableDynamicPhysSimulation;
@@ -113,7 +113,7 @@ private:
 class DynamicPhysDefClass : public PhysDefClass
 {
 public:
-	
+
 	DynamicPhysDefClass(void);
 
 	// From PersistClass

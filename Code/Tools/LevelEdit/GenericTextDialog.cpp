@@ -91,7 +91,7 @@ GenericTextDialogClass::OnInitDialog (void)
 	//	Load the icon
 	//
 	HICON icon = NULL;
-	if (m_IconID == 0) {		
+	if (m_IconID == 0) {
 		icon = ::LoadIcon (NULL, IDI_INFORMATION);
 	} else {
 		icon = ::LoadIcon (::AfxGetResourceHandle (), MAKEINTRESOURCE (m_IconID));

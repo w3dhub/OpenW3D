@@ -66,7 +66,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 	int squish_target_06;
 	int lieutenant_id;
 	int officer_count;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE (sydney_health_pow, 1);
@@ -143,7 +143,7 @@ DECLARE_SCRIPT (MTU_Tutorial_Controller, "")
 		Commands->Start_Timer (obj, this, (10 + Get_Int_Random (0, 20)), MTU_TIMER_FLYOVERS);
 
 		// Set the gates to be closed at first.
-		
+
 		GameObject * course_gate = Commands->Find_Object (MTU_GATE_01);
 		if (course_gate)
 		{
@@ -2218,11 +2218,11 @@ DECLARE_SCRIPT (MTU_Tutorial_Instructor, "")
 	{
 		Vector3 destination = Vector3 (0,0,0);
 		bool running = false;
-		
+
 		ActionParamsStruct params;
 		params.Set_Basic(this, 100, action_id);
 		params.WaypathID = 0;
-		
+
 		switch (destination_id)
 		{
 		case (MTU_MOVE_LOGAN_JUMP_TRAINING):
@@ -3706,7 +3706,7 @@ DECLARE_SCRIPT (MTU_GDI_Vehicle, "Vehicle_ID:int")
 						}
 
 						// Setup Logan to intro the next part of the course - Tiberium Refinery.
-						
+
 						GameObject * logan = Commands->Find_Object (MTU_LOGAN);
 						if (logan)
 						{

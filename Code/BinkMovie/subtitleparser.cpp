@@ -140,7 +140,7 @@ SubTitleParserClass::~SubTitleParserClass()
 DynamicVectorClass<SubTitleClass*>* SubTitleParserClass::Get_Sub_Titles(const char* moviename)
 {
 	DynamicVectorClass<SubTitleClass*>* subTitleCollection = NULL;
-	
+
 	// Find the movie marker
 	if (Find_Movie_Entry(moviename) == true)	{
 		// Allocate container to hold subtitles
@@ -320,7 +320,7 @@ bool SubTitleParserClass::Parse_Sub_Title(unichar_t* string, SubTitleClass* subT
 			// Skip any comma following a literal string since we used the trailing
 			// quote to terminate the tokens parameters
 			u_strtrim(separator);
-			
+
 			if (*separator == U_CHAR(',')) {
 				separator++;
 			}

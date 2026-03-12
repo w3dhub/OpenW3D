@@ -75,10 +75,10 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-NewAssetPackageDialogClass::OnInitDialog (void) 
+NewAssetPackageDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
+
 	return true;
 }
 

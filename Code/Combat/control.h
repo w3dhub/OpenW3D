@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/control.h                             $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 2/21/02 5:06p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 36                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/control.h                             $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 2/21/02 5:06p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 36                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	CONTROL_H
@@ -151,16 +151,16 @@ private:
 };
 
 
-inline void	ControlClass::Set_Analog( AnalogControl control, float value )	
+inline void	ControlClass::Set_Analog( AnalogControl control, float value )
 {
-	WWASSERT(WWMath::Is_Valid_Float(value)); 
-	AnalogValues[ control ] = value; 
+	WWASSERT(WWMath::Is_Valid_Float(value));
+	AnalogValues[ control ] = value;
 }
 
 inline float ControlClass::Get_Analog( AnalogControl control )
-{ 
-	WWASSERT(WWMath::Is_Valid_Float(AnalogValues[ control ])); 
-	return AnalogValues[ control ]; 
+{
+	WWASSERT(WWMath::Is_Valid_Float(AnalogValues[ control ]));
+	return AnalogValues[ control ];
 }
 
 #endif	//	CONTROL_H

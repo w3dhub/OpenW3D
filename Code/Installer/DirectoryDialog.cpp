@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/DirectoryDialog.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 12/13/01 5:46p                $* 
- *                                                                                             * 
- *                    $Revision:: 8                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/DirectoryDialog.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 12/13/01 5:46p                $*
+ *                                                                                             *
+ *                    $Revision:: 8                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -56,7 +56,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void DirectoryDialogClass::Update (bool lazyupdate)
 {
@@ -109,18 +109,18 @@ void DirectoryDialogClass::Update (bool lazyupdate)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 wchar_t *DirectoryDialogClass::Megabyte_Format (int64_t bytecount, WideStringClass &outputstring)
 {
 	char	 buffer [32];
 	double size;
-	
+
 	// Output byte count in Megabytes.
 	buffer [sizeof (buffer) - 1] = '\0';
 	size = ((double) bytecount) / ((double)(1024 * 1024));
 	_snprintf (buffer, sizeof (buffer) - 1, " %.2f ", size);
-	
+
 	outputstring  = buffer;
 	outputstring += TxWideStringClass (IDS_MEGABYTE_SYMBOL);
 
@@ -138,7 +138,7 @@ wchar_t *DirectoryDialogClass::Megabyte_Format (int64_t bytecount, WideStringCla
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void DirectoryDialogClass::Callback (int id, PopupDialogClass *popup)
 {
@@ -146,9 +146,9 @@ void DirectoryDialogClass::Callback (int id, PopupDialogClass *popup)
 	if (popup == Browser) {
 
 		switch (id) {
-			
+
 			case IDOK:
-			{	
+			{
 				WideStringClass path;
 
 				// Update edit control with selected path from browser.
@@ -166,9 +166,9 @@ void DirectoryDialogClass::Callback (int id, PopupDialogClass *popup)
 			default:
 				break;
 		}
-	
+
 		REF_PTR_RELEASE (Browser);
-	
+
 	} else {
 
 		if (popup == OverwriteDialog) {
@@ -204,17 +204,17 @@ void DirectoryDialogClass::Callback (int id, PopupDialogClass *popup)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void DirectoryDialogClass::On_Activate (bool onoff)
 {
-	// NOTE 0: Disk space needed/available may have changed since this dialog was last active. 
-	//	NOTE 1: It is important to ensure that the dialog is running before Update() is called 
+	// NOTE 0: Disk space needed/available may have changed since this dialog was last active.
+	//	NOTE 1: It is important to ensure that the dialog is running before Update() is called
 	//			  (this indicates that the dialog has been initialized by the framework).
 	if (onoff && Is_Running()) {
 		Update();
 	}
-	
+
 	InstallMenuDialogClass::On_Activate (onoff);
 }
 
@@ -229,7 +229,7 @@ void DirectoryDialogClass::On_Activate (bool onoff)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void DirectoryDialogClass::On_Frame_Update (void)
 {
@@ -249,7 +249,7 @@ void DirectoryDialogClass::On_Frame_Update (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void DirectoryDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
@@ -258,14 +258,14 @@ void DirectoryDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 		case IDC_BUTTON_BROWSE:
 		{
 			Browser = NEW_REF (DirectoryBrowserClass, (this));
-			Browser->Start_Dialog();					
+			Browser->Start_Dialog();
 			break;
 		}
 
 		case IDOK:
-		{	
+		{
 			WideStringClass path (Get_Dlg_Item_Text (IDC_DIRECTORY_EDIT));
-			int				 errormessageid;				
+			int				 errormessageid;
 			int64_t			 spaceavailable;
 
 			// Check that the selected path is valid.
@@ -299,7 +299,7 @@ void DirectoryDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 		}
 
 		case IDC_BUTTON_YES:
-			
+
 			// NOTE: This command has come from the Overwrite dialog via the callback routine.
 			InstallMenuDialogClass::On_Command (IDOK, message_id, param);
 			return;
@@ -322,10 +322,10 @@ void DirectoryDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 const wchar_t *DirectoryDialogClass::Get_Path (WideStringClass &path)
-{																			  
+{
 	path = Get_Dlg_Item_Text (IDC_DIRECTORY_EDIT);
 	return (path);
 }
@@ -341,11 +341,11 @@ const wchar_t *DirectoryDialogClass::Get_Path (WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void GameDirectoryDialogClass::On_Init_Dialog()
 {
-	WideStringClass	path;	
+	WideStringClass	path;
 	TxWideStringClass spaceneededstring (IDS_DISK_SPACE_NEEDED);
 
 	Set_Dlg_Item_Text	(IDC_DIRECTORY_STATIC1, TxWideStringClass (IDS_INSTALL_GAME_DIRECTORY));
@@ -372,13 +372,13 @@ void GameDirectoryDialogClass::On_Init_Dialog()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void WOLDirectoryDialogClass::On_Init_Dialog()
 {
 	WideStringClass	path;
 	TxWideStringClass spaceneededstring (IDS_DISK_SPACE_NEEDED);
-	
+
 	Set_Dlg_Item_Text	(IDC_DIRECTORY_STATIC1, TxWideStringClass (IDS_INSTALL_WOL_DIRECTORY));
 
 	// Extract WOL path from registry (if it exists) - otherwise use a default.
@@ -403,14 +403,14 @@ void WOLDirectoryDialogClass::On_Init_Dialog()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void WOLDirectoryDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
 	switch (ctrl_id)
 	{
 		case IDOK:
-		{	
+		{
 			if (_Installer.Install_Game()) {
 
 				WideStringClass gamepath;

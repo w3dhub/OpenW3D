@@ -101,7 +101,7 @@ TerrainMaterialClass::Set_Texture (const char *texture_name)
 	//	Release the old texture
 	//
 	REF_PTR_RELEASE (Texture);
-	
+
 	//
 	//	Load the new texture
 	//
@@ -124,10 +124,10 @@ TerrainMaterialClass::Set_Texture (const char *texture_name)
 //
 //////////////////////////////////////////////////////////////////////
 void
-TerrainMaterialClass::Set_Surface_Type (int type)		
-{ 
+TerrainMaterialClass::Set_Surface_Type (int type)
+{
 	if ((type >= 0) && (type < SURFACE_TYPE_MAX)) {
-		SurfaceType = type; 
+		SurfaceType = type;
 	}
 }
 
@@ -164,7 +164,7 @@ TerrainMaterialClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the variables from this chunk
 			//
@@ -201,7 +201,7 @@ TerrainMaterialClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK_WWSTRING	(cload, VARID_TEXTURE_NAME,		TextureName);
 			READ_MICRO_CHUNK				(cload, VARID_METERS_PER_TILE,	MetersPerTile);
 			READ_MICRO_CHUNK				(cload, VARID_MIRRORED_UVS,		AreUVsMirrored);
-			READ_MICRO_CHUNK				(cload, VARID_SURFACE_TYPE,		SurfaceType);			
+			READ_MICRO_CHUNK				(cload, VARID_SURFACE_TYPE,		SurfaceType);
 		}
 
 		cload.Close_Micro_Chunk ();

@@ -92,7 +92,7 @@ public:
 	void							Set_Sample_Playback_Rate (int rate) override;
 	float 					Get_Sample_Pitch (void) override;
 	void						Set_Sample_Pitch (float pitch) override;
-	
+
 	void Set_Position(const Vector3 &position) override;
 	void Set_Orientation(const Vector3 &facing, const Vector3 &up) override;
 	void Set_Velocity(const Vector3 &velocity) override;
@@ -100,11 +100,11 @@ public:
 	void Set_Effect_Level(float level) override;
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////

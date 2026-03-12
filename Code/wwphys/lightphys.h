@@ -56,7 +56,7 @@
 class LightPhysClass : public DecorationPhysClass
 {
 public:
-	
+
 	LightPhysClass(bool auto_allocate_light = false);
 	virtual LightPhysClass *				As_LightPhysClass(void) override		{ return this; }
 
@@ -66,7 +66,7 @@ public:
 	** Visibility ID's.  Static lights can store a vis SECTOR id so that they
 	** have a pre-calculated pvs for occlusion culling.
 	*/
-	void											Set_Vis_Sector_ID(int new_id)		{ VisSectorID = new_id; }	
+	void											Set_Vis_Sector_ID(int new_id)		{ VisSectorID = new_id; }
 	int											Get_Vis_Sector_ID(void) const		{ return VisSectorID; }
 
 	/*

@@ -17,22 +17,22 @@
 */
 
 /* $Header$ */
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : NT Device Driver                                             * 
- *                                                                                             * 
- *                    File Name : MONODRVR.H                                                   * 
- *                                                                                             * 
- *                   Programmer : Joe L. Bostic                                                * 
- *                                                                                             * 
- *                   Start Date : 01/06/97                                                     * 
- *                                                                                             * 
- *                  Last Update : January 6, 1997 [JLB]                                        * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : NT Device Driver                                             *
+ *                                                                                             *
+ *                    File Name : MONODRVR.H                                                   *
+ *                                                                                             *
+ *                   Programmer : Joe L. Bostic                                                *
+ *                                                                                             *
+ *                   Start Date : 01/06/97                                                     *
+ *                                                                                             *
+ *                  Last Update : January 6, 1997 [JLB]                                        *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // This header is needed for the CTL_CODE macro.
@@ -63,10 +63,10 @@
 #define IOCTL_MONO_FILL_ATTRIB	CTL_CODE(FILE_DEVICE_MONO, 0x80E, METHOD_BUFFERED, FILE_WRITE_DATA)
 
 /*
-**	These specify the various behavior flags available for the mono display driver. They 
+**	These specify the various behavior flags available for the mono display driver. They
 **	default to being OFF (or FALSE).
 */
-typedef enum MonoFlagType 
+typedef enum MonoFlagType
 {
 	MONOFLAG_WRAP,			// Text will wrap to the next line when right margin is reached.
 

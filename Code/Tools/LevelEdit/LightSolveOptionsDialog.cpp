@@ -67,13 +67,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // LightSolveOptionsDialogClass message handlers
 
-BOOL LightSolveOptionsDialogClass::OnInitDialog() 
+BOOL LightSolveOptionsDialogClass::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	return true;
 }
 
-void LightSolveOptionsDialogClass::OnOK() 
+void LightSolveOptionsDialogClass::OnOK()
 {
 	LightSolveContextClass context;
 
@@ -87,8 +87,8 @@ void LightSolveOptionsDialogClass::OnOK()
 	// Run the solve
 	//
 	LightSolveProgressDialog::Solve(context,this);
-	
-	CDialog::OnOK ();	
+
+	CDialog::OnOK ();
 	return ;
 }
 

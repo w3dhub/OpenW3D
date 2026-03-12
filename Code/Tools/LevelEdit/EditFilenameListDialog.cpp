@@ -100,19 +100,19 @@ EditFilenameListDialogClass::OnAdd (void)
 	// Ask the user to select the files
 	//
 	if (dialog.DoModal () == IDOK) {
-		
+
       //
 		// Add all the new filenames to the list
 		//
-		POSITION pos = dialog.GetStartPosition (); 
-		while (pos != NULL) {			
+		POSITION pos = dialog.GetStartPosition ();
+		while (pos != NULL) {
 			CString full_path = (LPCTSTR)dialog.GetNextPathName (pos);
 			if (::Get_File_Mgr ()->Is_Path_Valid (full_path)) {
 				m_ListCtrl.InsertItem (0xFF, (LPCTSTR)::Get_File_Mgr ()->Make_Relative_Path (full_path));
 			}
 		}
 	}
-			
+
 	return ;
 }
 
@@ -127,14 +127,14 @@ EditFilenameListDialogClass::OnKeydownFilenameListCtrl
 (
 	NMHDR *pNMHDR,
 	LRESULT *pResult
-) 
+)
 {
 	LV_KEYDOWN* pLVKeyDow = (LV_KEYDOWN*)pNMHDR;
 	(*pResult) = 0;
 
 
 	if (pLVKeyDow->wVKey == VK_DELETE) {
-		
+
 		//
 		//	Delete all the selected items
 		//
@@ -162,7 +162,7 @@ EditFilenameListDialogClass::OnInitDialog (void)
 	//	Add a single column to the list control
 	//
 	m_ListCtrl.InsertColumn (0, "Filename");
-	
+
 	//
 	//	Size the column
 	//
@@ -196,7 +196,7 @@ EditFilenameListDialogClass::OnOK (void)
 	m_List.Delete_All ();
 
 	//
-	//	Rebuild the list from the user's entries in the list control	
+	//	Rebuild the list from the user's entries in the list control
 	//
 	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
 		StringClass filename = (LPCTSTR)m_ListCtrl.GetItemText (index, 0);

@@ -24,8 +24,8 @@
 //
 // Created on 12 Apr 2001 by Tom Spencer-Smith (Westwood/Vegas)
 //
-//	Description: 
-// Just a wee test to see if I can use localhost addressing (127.0.0.1) 
+//	Description:
+// Just a wee test to see if I can use localhost addressing (127.0.0.1)
 // on non-networked systems...
 //
 //*****************************************************************************
@@ -48,17 +48,17 @@ void main(void)
 		::printf("::socket failed with error code %d\n", ::WSAGetLastError());
 	}
 	assert(sock != INVALID_SOCKET);
-   
+
 	ULONG is_nonblocking = true;
    int rc_ioctl = ::ioctlsocket(sock, FIONBIO, &is_nonblocking);
    assert(rc_ioctl == 0);
-	
+
 	struct sockaddr_in local_address;
 	local_address.sin_family			= AF_INET;
 	local_address.sin_addr.s_addr		= ::inet_addr("127.0.0.1");	// localhost
 	local_address.sin_port				= ::htons(5555);					// arbitrary
 
-	int rc_bind = ::bind(sock, reinterpret_cast<const SOCKADDR *>(&local_address), 
+	int rc_bind = ::bind(sock, reinterpret_cast<const SOCKADDR *>(&local_address),
 		sizeof(local_address));
 	assert(rc_bind == 0);
 
@@ -78,7 +78,7 @@ void main(void)
 			char send_data[200];
 			::sprintf(send_data, "packet_%d", send_count++);
 			int to_len = sizeof(local_address);
-			int rc_send = ::sendto(sock, send_data, ::strlen(send_data), 0, 
+			int rc_send = ::sendto(sock, send_data, ::strlen(send_data), 0,
 				(LPSOCKADDR) &local_address, to_len);
 			assert(rc_send != SOCKET_ERROR);
 			::printf("Sent %d bytes (%s) on socket %d\n", rc_send, send_data, sock);
@@ -88,7 +88,7 @@ void main(void)
 		// Receive all data available
 		//
 		int rc_recv = 0;
-		do 
+		do
 		{
 			char recv_data[200];
 			::memset(recv_data, 0, sizeof(recv_data));
@@ -97,7 +97,7 @@ void main(void)
 			rc_recv = ::recvfrom(sock, recv_data, sizeof(recv_data), 0,
 				(LPSOCKADDR) &from_address, &from_len);
 
-			if (rc_recv > 0) 
+			if (rc_recv > 0)
 			{
 				::printf("Recd %d bytes (%s) on socket %d\n", rc_recv, recv_data, sock);
 			}

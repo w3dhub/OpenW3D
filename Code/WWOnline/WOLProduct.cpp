@@ -135,7 +135,7 @@ Product::Product(const char* registryPath, int gameCode, const unichar_t* chanPa
 
 	HKEY rKey;
 	LONG result = RegOpenKeyExA(HKEY_CURRENT_USER, registryPath, 0, KEY_READ, &rKey);
-	
+
 	if (result == ERROR_SUCCESS)
 		{
 		// Get SKU

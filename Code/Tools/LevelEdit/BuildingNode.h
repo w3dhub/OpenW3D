@@ -64,7 +64,7 @@ class BuildingChildNodeClass;
 class BuildingNodeClass : public ObjectNodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ public:
 
 	// From PersistClass
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	
+
 	// From NodeClass
 	void			Initialize (void);
 	NodeClass *	Clone (void)								{ return new BuildingNodeClass (*this); }
@@ -98,7 +98,7 @@ public:
 	void			On_Translate (void);
 	void			On_Transform (void);
 	void			Add_To_Scene (void);
-	void			Remove_From_Scene (void);	
+	void			Remove_From_Scene (void);
 	void			Hide (bool hide);
 	NodeClass *	Add_Child_Node (const Matrix3D &tm);
 	bool			Can_Add_Child_Nodes (void)	const;
@@ -155,7 +155,7 @@ BuildingNodeClass::On_Rotate (void)
 	if (m_GameObj != NULL) {
 		((BuildingGameObj *)m_GameObj)->Set_Position (m_Transform.Get_Translation ());
 	}
-	
+
 	Update_Lines ();
 	NodeClass::On_Rotate ();
 	return ;
@@ -187,7 +187,7 @@ BuildingNodeClass::On_Transform (void)
 	if (m_GameObj != NULL) {
 		((BuildingGameObj *)m_GameObj)->Set_Position (m_Transform.Get_Translation ());
 	}
-	
+
 	Update_Lines ();
 	NodeClass::On_Transform ();
 	return ;

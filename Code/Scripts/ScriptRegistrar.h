@@ -30,7 +30,7 @@ class ScriptRegistrar
 
 		// Remove ScriptFactory from the registrar
 		static void UnregisterScript(ScriptFactory* factory);
-		
+
 		// Create an instance of a script
 		static ScriptImpClass* CreateScript(const char* name);
 

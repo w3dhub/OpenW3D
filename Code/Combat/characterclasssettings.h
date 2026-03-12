@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/characterclasssettings.h      $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 2/12/01 11:20a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 2                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/characterclasssettings.h      $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 2/12/01 11:20a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 2                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	__CHARACTER_CLASS_SETTINGS_H
@@ -80,7 +80,7 @@ public:
 		TEAM_COUNT
 	} TEAM;
 
-	
+
 	//////////////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ public:
 	virtual bool								Load (ChunkLoadClass &cload) override;
 	virtual const PersistFactoryClass &	Get_Factory (void) const override;
 
-	static CharacterClassSettingsDefClass *			Get_Instance (void)	{ return GlobalInstance; }	
+	static CharacterClassSettingsDefClass *			Get_Instance (void)	{ return GlobalInstance; }
 
 	//
 	//	Accessors
@@ -108,14 +108,14 @@ public:
 	int								Get_Cost (CLASS char_class, RANK char_rank, TEAM char_team);
 	int								Get_Definition (CLASS char_class, RANK char_rank, TEAM char_team);
 
-	
+
 	//
 	//	Editable support
 	//
 	DECLARE_EDITABLE (CharacterClassSettingsDefClass, DefinitionClass);
 
 protected:
-	
+
 	//////////////////////////////////////////////////////////////////////////
 	//	Protected member data
 	//////////////////////////////////////////////////////////////////////////

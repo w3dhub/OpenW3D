@@ -51,7 +51,7 @@ class Matrix3D;
 /**
 ** HumanRecoilClass
 ** This class encapsulates all of the code to perform a programatic 'recoil' animation on
-** a human skeleton in Renegade.  
+** a human skeleton in Renegade.
 **
 ** WARNING: this code assumes that you are using the same bone structure for every model
 ** that you apply recoils to.  The first time it is called, it caches bone indexes for

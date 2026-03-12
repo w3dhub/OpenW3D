@@ -114,7 +114,7 @@ PowerUpGameObjDef::PowerUpGameObjDef( void ) :
 	EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_FLOAT, GrantHealthMax );
 	EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_WEAPONOBJDEFINITIONID,	GrantWeaponID );
 	EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_BOOL,	GrantWeapon );
-	EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_BOOL,	GrantWeaponClips );	
+	EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_BOOL,	GrantWeaponClips );
 	EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_INT,	GrantWeaponRounds );
 	EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_BOOL,	Persistent );
 	//EDITABLE_PARAM( PowerUpGameObjDef, ParameterClass::TYPE_BOOL,	false );//IsCaptureTheFlag );
@@ -184,7 +184,7 @@ bool	PowerUpGameObjDef::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GRANT_HEALTH_MAX,			GrantHealthMax );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GRANT_WEAPON_ID,				GrantWeaponID );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GRANT_WEAPON,					GrantWeapon );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GRANT_WEAPON_CLIPS,			GrantWeaponClips );		
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GRANT_WEAPON_CLIPS,			GrantWeaponClips );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GRANT_WEAPON_ROUNDS,		GrantWeaponRounds );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_PERSISTENT,					Persistent );
 		//WRITE_MICRO_CHUNK( csave, XXXMICROCHUNKID_DEF_IS_CAPTURE_THE_FLAG,		IsCaptureTheFlag );
@@ -398,7 +398,7 @@ bool	PowerUpGameObjDef::Grant( SmartGameObj * obj, PowerUpGameObj * p_powerup, b
 		}
 
 	} else if ( GrantWeaponClips ) {
-		
+
 		//
 		//	Loop over all the weapons in the owner's bag
 		//
@@ -830,8 +830,8 @@ PowerUpGameObj *	PowerUpGameObj::Create_Backpack( ArmedGameObj * provider )
 }
 
 
-//void	PowerUpGameObj::Get_Extended_Information( StringClass & description ) 
-void	PowerUpGameObj::Get_Description( StringClass & description ) 
+//void	PowerUpGameObj::Get_Extended_Information( StringClass & description )
+void	PowerUpGameObj::Get_Description( StringClass & description )
 {
 	//
 	// Construct a diagnostic string
@@ -849,7 +849,7 @@ void	PowerUpGameObj::Get_Description( StringClass & description )
 	Get_Position(&position);
 	line.Format("POS:   %-5.2f, %-5.2f, %-5.2f\n", position.X, position.Y, position.Z);
 	description += line;
-	
+
 	if (Get_Defense_Object() != NULL) {
 		line.Format("HLTH:  %-5.2f\n", Get_Defense_Object()->Get_Health());
 		description += line;

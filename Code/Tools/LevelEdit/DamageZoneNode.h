@@ -63,7 +63,7 @@ class DamageZoneGameObj;
 class DamageZoneNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ public:
 	virtual bool								Save (ChunkSaveClass &csave);
 	virtual bool								Load (ChunkLoadClass &cload);
 
-	
+
 	// From NodeClass
 	NodeClass *	Clone (void)							{ return new DamageZoneNodeClass (*this); }
 	void			Initialize (void);
@@ -165,7 +165,7 @@ DamageZoneNodeClass::Peek_Physics_Obj (void) const
 //////////////////////////////////////////////////////////////////
 inline void
 DamageZoneNodeClass::On_Rotate (void)
-{	
+{
 	if (m_IsInScene) {
 		m_GrabHandles.Position_Around_Node (this);
 	}

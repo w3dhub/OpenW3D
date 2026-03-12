@@ -20,7 +20,7 @@
 // Filename:     regint.cpp
 // Author:       Tom Spencer-Smith
 // Date:         Dec 1998
-// Description:  
+// Description:
 //
 
 #include "regint.h" // I WANNA BE FIRST!

@@ -61,7 +61,7 @@ public:
 
 	void	Initialize_GDI_Font( const char *font_name, int point_size, bool is_bold );
 	bool	Is_Font( const char *font_name, int point_size, bool is_bold );
-	const char * Get_Name( void )			{ return Name; }	
+	const char * Get_Name( void )			{ return Name; }
 
 	int	Get_Char_Height( void )			{ return CharHeight; }
 	int	Get_Char_Width( unichar_t ch );
@@ -104,7 +104,7 @@ private:
 	StringClass							GDIFontName;
 	HFONT									OldGDIFont;
 	HBITMAP								OldGDIBitmap;
-	HBITMAP								GDIBitmap;	
+	HBITMAP								GDIBitmap;
 	HFONT									GDIFont;
 	uint8 *								GDIBitmapBits;
 	HDC									MemDC;
@@ -134,7 +134,7 @@ public:
 	void	Set_Location( const Vector2 & loc );
 	void	Set_Base_Location( const Vector2 & loc );
 	void	Set_Wrapping_Width (float width)					{ WrapWidth = width; }
-	
+
 	void	Set_Tabstop(float stop);
 
 	//
@@ -175,7 +175,7 @@ public:
 
 	void	Set_Mono_Spaced( bool onoff )						{ MonoSpaced = onoff; }
 
-	// Force all alphas 
+	// Force all alphas
 	void	Force_Alpha( float alpha );
 
 private:
@@ -219,7 +219,7 @@ private:
 	void	Record_Sentence_Chunk (void);
 	void	Allocate_New_Surface (const unichar_t *text);
 	void	Release_Pending_Surfaces (void);
-		
+
 	//
 	//	Private member data
 	//
@@ -242,7 +242,7 @@ private:
 	RectClass										ClipRect;
 	RectClass										DrawExtents;
 	bool												IsClippedEnabled;
-													
+
 	uint16 *											LockedPtr;
 	int												LockedStride;
 	TextureClass *									CurTexture;

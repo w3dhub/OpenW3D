@@ -527,10 +527,10 @@ void AutoRestartClass::Think(void)
 
 
 			/*
-			** Set MaxPlayers based on Bandwidth test results if MaxPlayers is 
+			** Set MaxPlayers based on Bandwidth test results if MaxPlayers is
 			** set to 0 in the INI file.
 			*/
-			if (ServerSettingsClass::Get_Game_Mode() == ServerSettingsClass::MODE_WOL && 
+			if (ServerSettingsClass::Get_Game_Mode() == ServerSettingsClass::MODE_WOL &&
 				The_Game()->Get_Max_Players() == 0 && BandwidthCheckerClass::Got_Bandwidth()) {
 
 				int max_players = (cBandwidth::Get_Bandwidth_Bps_From_Type(BANDWIDTH_AUTO) / 250000) * 4;

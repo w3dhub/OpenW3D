@@ -71,7 +71,7 @@ enum
 //////////////////////////////////////////////////////////////////////////////
 PathfindStartNodeClass::PathfindStartNodeClass (PresetClass *preset)
 	:	m_PhysObj (NULL),
-		NodeClass (preset)		
+		NodeClass (preset)
 {
 	return ;
 }
@@ -97,7 +97,7 @@ PathfindStartNodeClass::PathfindStartNodeClass (const PathfindStartNodeClass &sr
 //
 //////////////////////////////////////////////////////////////////////////////
 PathfindStartNodeClass::~PathfindStartNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
 	return ;
@@ -123,10 +123,10 @@ PathfindStartNodeClass::Initialize (void)
 	RenderObjClass *render_obj = ::Create_Render_Obj ("WAYMID");
 	WWASSERT (render_obj != NULL);
 	if (render_obj != NULL) {
-		
+
 		// Create the new physics object
 		m_PhysObj = new DecorationPhysClass;
-		
+
 		//
 		// Configure the physics object with information about
 		// its new render object and collision data.
@@ -137,7 +137,7 @@ PathfindStartNodeClass::Initialize (void)
 		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		m_PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (m_PhysObj->Peek_Model (), COLLISION_TYPE_6);
-		
+
 		// Release our hold on the render object pointer
 		MEMBER_RELEASE (render_obj);
 	}
@@ -153,7 +153,7 @@ PathfindStartNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 PathfindStartNodeClass::Get_Factory (void) const
-{	
+{
 	return _PathfindStartNodePersistFactory;
 }
 
@@ -184,13 +184,13 @@ PathfindStartNodeClass::Save (ChunkSaveClass &csave)
 bool
 PathfindStartNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -261,7 +261,7 @@ PathfindStartNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {

@@ -991,7 +991,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 
 	//
 	// Name
-	// 
+	//
 	//GAMESPY
 	//substring.Format(U_CHAR("%-11s"), TRANSLATION(IDS_MP_PLAYER));
 	if (cGameSpyAdmin::Is_Gamespy_Game()) {
@@ -1083,7 +1083,7 @@ void cPlayerManager::Construct_Heading(WideStringClass & string, bool force_verb
 	//
 	// GameSpy auth. state
 	//
-   if (cNetwork::I_Am_Server() && cGameSpyAdmin::Is_Gamespy_Game() && 
+   if (cNetwork::I_Am_Server() && cGameSpyAdmin::Is_Gamespy_Game() &&
 		cDevOptions::ShowGameSpyAuthState.Is_True()) {
       substring.Format(U_CHAR("%-12s"), U_CHAR("GS_AUTH"));
       string += substring;

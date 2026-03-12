@@ -161,7 +161,7 @@ RenegadeTerrainPatchClass::~RenegadeTerrainPatchClass (void)
 {
 	REF_PTR_RELEASE (BaseMaterial);
 	REF_PTR_RELEASE (LayerMaterial);
-	
+
 	Free_Rendering_Buffers ();
 	Free_Grid ();
 	Free_Materials ();
@@ -217,7 +217,7 @@ RenegadeTerrainPatchClass::Allocate (int points_x, int points_y, float meters_pe
 	GridPointsX		= points_x;
 	GridPointsY		= points_y;
 	GridPointsX		= std::max (1, GridPointsX);
-	GridPointsY		= std::max (1, GridPointsY);	
+	GridPointsY		= std::max (1, GridPointsY);
 	GridPointCount	= (GridPointsX * GridPointsY);
 	BoundingBoxMin.Z	= 0.0F;
 	BoundingBoxMax.Z	= 0.0F;
@@ -247,7 +247,7 @@ RenegadeTerrainPatchClass::Allocate_Grid (void)
 	GridNormals			= new Vector3[GridPointCount];
 	Grid					= new Vector3[GridPointCount];
 	VertexColors		= new Vector3[GridPointCount];
-	
+
 	//
 	//	Initialize the vertex color array to white
 	//
@@ -288,7 +288,7 @@ RenegadeTerrainPatchClass::Free_Grid (void)
 	if (VertexColors != NULL) {
 		delete [] VertexColors;
 		VertexColors = NULL;
-	}	
+	}
 
 	if (QuadFlags != NULL) {
 		delete [] QuadFlags;
@@ -370,7 +370,7 @@ RenegadeTerrainPatchClass::Render (RenderInfoClass &rinfo)
 	// Render the procedural material passes
 	//
 	for (int i=0; i<rinfo.Additional_Pass_Count(); i++) {
-		
+
 		MaterialPassClass * matpass = rinfo.Peek_Additional_Pass(i);
 		Render_Procedural_Material_Pass(matpass);
 	}
@@ -398,28 +398,28 @@ RenegadeTerrainPatchClass::Render_Procedural_Material_Pass(MaterialPassClass * m
 {
 #if 0
 	if ((pass->Get_Cull_Volume() != NULL) && (MaterialPassClass::Is_Per_Polygon_Culling_Enabled())) {
-		
+
 		/*
-		** Generate the APT 
+		** Generate the APT
 		*/
 		temp_apt.Delete_All(false);
-			
+
 		Matrix3D modeltminv;
 		Get_Transform().Get_Orthogonal_Inverse(modeltminv);
-		
+
 		OBBoxClass localbox;
 		OBBoxClass::Transform(modeltminv,*(pass->Get_Cull_Volume()),&localbox);
 
 		Vector3 view_dir;
 		localbox.Basis.Get_Z_Vector(&view_dir);
 		view_dir = -view_dir;
-			
+
 		if (Model->Has_Cull_Tree()) {
 			Model->Generate_Rigid_APT(localbox,view_dir,temp_apt);
 		} else {
 			Model->Generate_Rigid_APT(view_dir,temp_apt);
 		}
-	
+
 		if (temp_apt.Count() > 0) {
 
 			int buftype = BUFFER_TYPE_DYNAMIC_DX8;
@@ -464,7 +464,7 @@ RenegadeTerrainPatchClass::Render_Procedural_Material_Pass(MaterialPassClass * m
 			*/
 			int vertex_offset = PolygonRendererList.Peek_Head()->Get_Vertex_Offset();
 			pass->Install_Materials();
-			
+
 			DX8Wrapper::Set_Transform(D3DTS_WORLD,Get_Transform());
 			DX8Wrapper::Set_Index_Buffer(dynamic_ib,vertex_offset);
 
@@ -474,12 +474,12 @@ RenegadeTerrainPatchClass::Render_Procedural_Material_Pass(MaterialPassClass * m
 				min_v,
 				max_v-min_v+1);
 		}
-	} else {		
-#endif		
+	} else {
+#endif
 		/*
 		** Normal mesh case, render polys with this mesh's transform
 		*/
-		matpass->Install_Materials();		
+		matpass->Install_Materials();
 
 		//
 		//	Render the base passes first
@@ -530,7 +530,7 @@ RenegadeTerrainPatchClass::Submit_Rendering_Buffers (int texture_index, int pass
 	// Set vertex and index buffers
 	//
 	DX8Wrapper::Set_Vertex_Buffer (MaterialPassList[texture_index]->VertexBuffers[pass_type]);
-	DX8Wrapper::Set_Index_Buffer (MaterialPassList[texture_index]->IndexBuffers[pass_type], 0);	
+	DX8Wrapper::Set_Index_Buffer (MaterialPassList[texture_index]->IndexBuffers[pass_type], 0);
 	return ;
 }
 
@@ -700,12 +700,12 @@ RenegadeTerrainPatchClass::Build_Rendering_Buffers (int texture_index, int pass_
 			int quad_index = quad_list[index];
 			int quad_y_pos = (quad_index / col_count);
 			int quad_x_pos = quad_index - (quad_y_pos * col_count);
-			
+
 			//
 			//	Determine the "starting" vertex index from the current quad
 			//
 			int curr_src_index = (quad_y_pos * GridPointsX) + quad_x_pos;
-			
+
 			//
 			//	Calculate the 4 vertex indices that compose this quad
 			//
@@ -742,7 +742,7 @@ RenegadeTerrainPatchClass::Build_Rendering_Buffers (int texture_index, int pass_
 		//
 		const static Vector3 default_normal (0.0F, 0.0F, 0.0F);
 		const static Vector2 default_uv (0.0F, 0.0F);
-		
+
 		//
 		//	Write each vertex's definition to the dynamic vertex buffer
 		//
@@ -827,7 +827,7 @@ RenegadeTerrainPatchClass::Initialize_Material (void)
 	BaseShader.Set_Fog_Func(ShaderClass::FOG_ENABLE);
 	LayerShader.Set_Fog_Func(ShaderClass::FOG_ENABLE);
 
-	return ;	
+	return ;
 }
 
 
@@ -845,7 +845,7 @@ RenegadeTerrainPatchClass::Free_Materials (void)
 	for (int index = 0; index < MaterialPassList.Count (); index ++) {
 		delete MaterialPassList[index];
 	}
-	
+
 	MaterialPassList.Delete_All ();
 	return ;
 }
@@ -858,7 +858,7 @@ RenegadeTerrainPatchClass::Free_Materials (void)
 //////////////////////////////////////////////////////////////////////
 void
 RenegadeTerrainPatchClass::Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const
-{	
+{
 	float delta_x = BoundingBoxMax.X - BoundingBoxMin.X;
 	float delta_y = BoundingBoxMax.Y - BoundingBoxMin.Y;
 	float delta_z = BoundingBoxMax.Z - BoundingBoxMin.Z;
@@ -901,9 +901,9 @@ RenegadeTerrainPatchClass::Get_Obj_Space_Bounding_Box (AABoxClass &box) const
 	box.Extent.X = (delta_x) + 1.0F;
 	box.Extent.Y = (delta_y) + 1.0F;
 	box.Extent.Z = (delta_z) + 1.0F;
-	
+
 //	box.Center.Set (0, 0, 0);;
-//	box.Extent.Set (500.0F, 500.0F, 500.0F);	
+//	box.Extent.Set (500.0F, 500.0F, 500.0F);
 	return ;
 }
 
@@ -925,7 +925,7 @@ RenegadeTerrainPatchClass::Cast_OBBox (OBBoxCollisionTestClass &boxtest)
 
 	if (boxtest.Result->StartBad) {
 		return false;
-	}	
+	}
 
 	//
 	//	Get the world to object space transform
@@ -949,7 +949,7 @@ RenegadeTerrainPatchClass::Cast_OBBox (OBBoxCollisionTestClass &boxtest)
 	//
 	OBBoxCollisionTestClass obj_space_test (obj_space_box, obj_space_move,
 										boxtest.Result, boxtest.CollisionType);
-	
+
 	//
 	//	Calculate what grid cells this box is "possibly" intersecting
 	//
@@ -968,12 +968,12 @@ RenegadeTerrainPatchClass::Cast_OBBox (OBBoxCollisionTestClass &boxtest)
 		for (int x_pos = min_x; x_pos <= max_x; x_pos ++) {
 
 			int start_index = Grid_Index (x_pos, y_pos);
-			
+
 			int v0_index = start_index;
 			int v1_index = start_index + 1;
 			int v2_index = start_index + GridPointsX + 1;
 			int v3_index = start_index + GridPointsX;
-			
+
 			//
 			//	Compose the two triangles for the collision check
 			//
@@ -1031,7 +1031,7 @@ RenegadeTerrainPatchClass::Cast_OBBox (OBBoxCollisionTestClass &boxtest)
 			}
 		}
 
-		
+
 		//
 		//	Transform the result back into world-space
 		//
@@ -1069,7 +1069,7 @@ RenegadeTerrainPatchClass::Intersect_AABox (AABoxIntersectionTestClass &boxtest)
 
 	AABoxClass obj_space_box;
 	AABoxClass::Transform (world_to_obj_tm, boxtest.Box, &obj_space_box);
-	
+
 	//
 	//	Calculate what grid cells this box is "possibly" intersecting
 	//
@@ -1092,14 +1092,14 @@ RenegadeTerrainPatchClass::Intersect_AABox (AABoxIntersectionTestClass &boxtest)
 			//	Skip this quad if its hidden
 			//
 			if (QuadFlags[quad_index] & QF_HIDDEN) {
-				continue;				
+				continue;
 			}
-			
+
 			int v0_index = start_index;
 			int v1_index = start_index + 1;
 			int v2_index = start_index + GridPointsX + 1;
 			int v3_index = start_index + GridPointsX;
-			
+
 			//
 			//	Compose the two triangles for the collision check
 			//
@@ -1130,7 +1130,7 @@ RenegadeTerrainPatchClass::Intersect_AABox (AABoxIntersectionTestClass &boxtest)
 	//	Make sure to return our pointer to the caller
 	//
 	/*if (retval) {
-		
+
 		boxtest.CollidedRenderObj = this;
 	}*/
 
@@ -1164,7 +1164,7 @@ RenegadeTerrainPatchClass::Intersect_OBBox (OBBoxIntersectionTestClass &boxtest)
 
 	OBBoxIntersectionTestClass obj_space_test (obj_space_box, boxtest.CollisionType);
 	const AABoxClass &obj_space_aabox = obj_space_test.BoundingBox;
-	
+
 	//
 	//	Calculate what grid cells this box is "possibly" intersecting
 	//
@@ -1181,12 +1181,12 @@ RenegadeTerrainPatchClass::Intersect_OBBox (OBBoxIntersectionTestClass &boxtest)
 		for (int x_pos = min_x; x_pos <= max_x; x_pos ++) {
 
 			int start_index = Grid_Index (x_pos, y_pos);
-			
+
 			int v0_index = start_index;
 			int v1_index = start_index + 1;
 			int v2_index = start_index + GridPointsX + 1;
 			int v3_index = start_index + GridPointsX;
-			
+
 			//
 			//	Compose the two triangles for the collision check
 			//
@@ -1217,7 +1217,7 @@ RenegadeTerrainPatchClass::Intersect_OBBox (OBBoxIntersectionTestClass &boxtest)
 	//	Make sure to return our pointer to the caller
 	//
 	/*if (retval) {
-		
+
 		boxtest.CollidedRenderObj = this;
 	}*/
 
@@ -1242,7 +1242,7 @@ RenegadeTerrainPatchClass::Cast_AABox (AABoxCollisionTestClass &boxtest)
 
 	if (boxtest.Result->StartBad) {
 		return false;
-	}	
+	}
 
 	//
 	//	First, transform the boxtest into heightfield (object) space
@@ -1250,7 +1250,7 @@ RenegadeTerrainPatchClass::Cast_AABox (AABoxCollisionTestClass &boxtest)
 	Matrix3D world_to_obj_tm;
 	Get_Inverse_Transform (world_to_obj_tm);
 	boxtest.Transform (world_to_obj_tm);
-	
+
 	//
 	//	Calculate what grid cells this box is "possibly" intersecting
 	//
@@ -1275,14 +1275,14 @@ RenegadeTerrainPatchClass::Cast_AABox (AABoxCollisionTestClass &boxtest)
 			//	Skip this quad if its hidden
 			//
 			if (QuadFlags[quad_index] & QF_HIDDEN) {
-				continue;				
+				continue;
 			}
-			
+
 			int v0_index = start_index;
 			int v1_index = start_index + 1;
 			int v2_index = start_index + GridPointsX + 1;
 			int v3_index = start_index + GridPointsX;
-			
+
 			//
 			//	Compose the two triangles for the collision check
 			//
@@ -1339,7 +1339,7 @@ RenegadeTerrainPatchClass::Cast_AABox (AABoxCollisionTestClass &boxtest)
 				boxtest.Result->SurfaceType = MaterialPassList[best_pass]->Material->Get_Surface_Type ();
 			}
 		}
-		
+
 		//
 		//	Transform the result back into world-space
 		//
@@ -1370,12 +1370,12 @@ RenegadeTerrainPatchClass::Cast_Ray (RayCollisionTestClass &raytest)
 
 	bool retval = false;
 
-	
+
 #if 0
 	CastResultStruct temp_result = (*raytest.Result);
 
 	retval = Brute_Force_Cast_Ray (raytest);
-	
+
 	static bool do_it = false;
 	if (do_it) {
 
@@ -1406,7 +1406,7 @@ do_it_start:
 	} else {
 		retval = Cast_Non_Vertical_Ray (raytest);
 	}*/
-	
+
 	return retval;
 }
 
@@ -1509,9 +1509,9 @@ RenegadeTerrainPatchClass::Brute_Force_Cast_Ray (RayCollisionTestClass &raytest)
 			//	Skip this quad if its hidden
 			//
 			if (QuadFlags[quad_index] & QF_HIDDEN) {
-				continue;				
+				continue;
 			}
-			
+
 			Collide_Quad (line_seg, x_pos,  y_pos, *raytest.Result);
 		}
 	}
@@ -1565,7 +1565,7 @@ RenegadeTerrainPatchClass::Cast_Non_Vertical_Ray (RayCollisionTestClass &raytest
 
 	//
 	//	Determine how many vertical grid lines to search
-	//	
+	//
 	int x_inc = 1;
 	if (start_cell_x > end_cell_x) {
 		x_inc = -1;
@@ -1573,7 +1573,7 @@ RenegadeTerrainPatchClass::Cast_Non_Vertical_Ray (RayCollisionTestClass &raytest
 
 	//
 	//	Determine how many horizontal grid lines to search
-	//	
+	//
 	int y_inc = 1;
 	if (start_cell_y > end_cell_y) {
 		y_inc = -1;
@@ -1636,18 +1636,18 @@ RenegadeTerrainPatchClass::Cast_Non_Vertical_Ray (RayCollisionTestClass &raytest
 		//	Test vertical grid lines first
 		//
 		if (delta_p.X != 0.0F) {
-			
+
 			//
 			//	Find the first intersection point moving along vertical grid lines
 			//
 			for (int curr_x = start_cell_x; cells_x >= 0; cells_x --, curr_x += x_inc) {
-				
+
 				//
 				//	Determine where the ray intersects this grid line
 				//
 				float x_pos		= Get_Grid_Line_Pos_X (curr_x);
 				float percent	= (x_pos - p0.X) / delta_p.X;
-				
+
 				//
 				//	Don't test the cell if its outside the range of the line segment
 				//
@@ -1677,12 +1677,12 @@ RenegadeTerrainPatchClass::Cast_Non_Vertical_Ray (RayCollisionTestClass &raytest
 		//	Test horizontal grid lines next
 		//
 		if (delta_p.Y != 0.0F) {
-			
+
 			//
 			//	Find the first intersection point moving along horizontal grid lines
 			//
 			for (int curr_y = start_cell_y; cells_y >= 0; cells_y --, curr_y += y_inc) {
-				
+
 				//
 				//	Determine where the ray intersects this grid line
 				//
@@ -1726,7 +1726,7 @@ RenegadeTerrainPatchClass::Cast_Non_Vertical_Ray (RayCollisionTestClass &raytest
 
 	//
 	//	Did either collide?
-	//		
+	//
 	if (did_vertical_collide || did_horizontal_collide) {
 		retval = true;
 
@@ -1734,7 +1734,7 @@ RenegadeTerrainPatchClass::Cast_Non_Vertical_Ray (RayCollisionTestClass &raytest
 		//	Determine which result was hit first
 		//
 		if (did_vertical_collide && did_horizontal_collide) {
-			
+
 			//
 			//	Both triangles intersected, so find the one that hit first.
 			//
@@ -1797,7 +1797,7 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 		for (index = 0; index < GridPointCount; index ++) {
 			csave.Write (&Grid[index].X, sizeof (float) * 3);
 		}
-				
+
 	csave.End_Chunk ();
 
 	//
@@ -1808,7 +1808,7 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 		for (index = 0; index < GridPointCount; index ++) {
 			csave.Write (&GridNormals[index].X, sizeof (float) * 3);
 		}
-				
+
 	csave.End_Chunk ();
 
 	//
@@ -1819,7 +1819,7 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 		for (index = 0; index < GridPointCount; index ++) {
 			csave.Write (&VertexColors[index].X, sizeof (float) * 3);
 		}
-				
+
 	csave.End_Chunk ();
 
 	//
@@ -1829,7 +1829,7 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 
 		int quad_count = (GridPointsX - 1) * (GridPointsY - 1);
 		csave.Write (QuadFlags, sizeof (uint8) * quad_count);
-				
+
 	csave.End_Chunk ();
 
 	//
@@ -1838,7 +1838,7 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_MATERIAL_LAYERS);
 
 		for (index = 0; index < MaterialPassList.Count (); index ++) {
-			
+
 			//
 			//	Don't save the material information if there' no material configured...
 			//
@@ -1852,7 +1852,7 @@ RenegadeTerrainPatchClass::Save (ChunkSaveClass &csave)
 				csave.End_Chunk ();
 			}
 		}
-				
+
 	csave.End_Chunk ();
 
 	return true;
@@ -1871,7 +1871,7 @@ RenegadeTerrainPatchClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the variables from this chunk
 			//
@@ -1890,7 +1890,7 @@ RenegadeTerrainPatchClass::Load (ChunkLoadClass &cload)
 
 				break;
 			}
-			
+
 			case CHUNKID_NORMALS:
 			{
 				//
@@ -1958,7 +1958,7 @@ RenegadeTerrainPatchClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_GRID_PT_COUNT,	GridPointCount);
 			READ_MICRO_CHUNK (cload, VARID_GRID_BBOX_MIN,	BoundingBoxMin);
 			READ_MICRO_CHUNK (cload, VARID_GRID_BBOX_MAX,	BoundingBoxMax);
-			READ_MICRO_CHUNK (cload, VARID_GRID_DENSITY,		Density);			
+			READ_MICRO_CHUNK (cload, VARID_GRID_DENSITY,		Density);
 			READ_MICRO_CHUNK (cload, VARID_IS_PRELIT,			IsPreLit);
 		}
 
@@ -1987,7 +1987,7 @@ RenegadeTerrainPatchClass::Load_Materials (ChunkLoadClass &cload)
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_MATERIAL_LAYER:
-			{ 
+			{
 				//
 				//	Create and load the material
 				//
@@ -2023,7 +2023,7 @@ RenegadeTerrainPatchClass::Add_Material (TerrainMaterialClass *material)
 	//
 	if (material != NULL) {
 		material->Add_Ref ();
-	}	
+	}
 
 	//
 	//	Allocate a new pass for this material
@@ -2056,7 +2056,7 @@ RenegadeTerrainPatchClass::Reset_Material_Passes (void)
 	for (int index = 0; index < MaterialPassList.Count (); index ++) {
 		MaterialPassList[index]->Reset ();
 	}
-	
+
 	return ;
 }
 
@@ -2072,15 +2072,15 @@ RenegadeTerrainPatchClass::Update_UVs (void)
 	for (int y_pos = 0; y_pos < GridPointsY; y_pos ++) {
 		int start_index = (y_pos * GridPointsX);
 		for (int x_pos = 0; x_pos < GridPointsX; x_pos ++) {
-			
+
 			//
 			//	Calculate the UV coordinate for this texture at this vertex
-			//			
+			//
 			for (int index = 0; index < MaterialPassList.Count (); index ++) {
 				if (MaterialPassList[index]->Material != NULL) {
 					float meters_per_texture = MaterialPassList[index]->Material->Get_Meters_Per_Tile ();
 
-					
+
 					float u_value = Grid[start_index + x_pos].X / meters_per_texture;
 					float v_value = Grid[start_index + x_pos].Y / meters_per_texture;
 
@@ -2102,13 +2102,13 @@ RenegadeTerrainPatchClass::Update_UVs (void)
 							v_value = 1.0F - v_value;
 						}
 					}
-					
+
 					MaterialPassList[index]->GridUVs[start_index + x_pos].Set (u_value, v_value);
 				}
 			}
 		}
 	}
-	
+
 	AreBuffersDirty = true;
 	return ;
 }
@@ -2128,7 +2128,7 @@ RenegadeTerrainPatchClass::Update_Vertex_Render_Lists (void)
 	//	Loop over each material layer
 	//
 	for (int index = 0; index < MaterialPassList.Count (); index ++) {
-		
+
 		//
 		//	Loop over each pass for this layer
 		//
@@ -2139,7 +2139,7 @@ RenegadeTerrainPatchClass::Update_Vertex_Render_Lists (void)
 			//	Loop over each quad that is rendered in this material pass
 			//
 			for (int quad_index = 0; quad_index < material_pass->QuadList[pass].Count (); quad_index ++) {
-				
+
 				//
 				//	Determine the coordinate for this quad
 				//

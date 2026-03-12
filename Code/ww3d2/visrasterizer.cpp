@@ -84,18 +84,18 @@ void VisPolyClass::Clip(const PlaneClass & plane,VisPolyClass & dest) const
 
 	// perform clipping
 	prev_point_in_front = !plane.In_Front(Verts[iprev]);		// Note, plane normal is outward so we invert this test
-	for (int j=0; j<vcount; j++) { 
-		
+	for (int j=0; j<vcount; j++) {
+
 		cur_point_in_front = !plane.In_Front(Verts[i]);			// Note, plane nomral is out so we invert this test
 		if (prev_point_in_front) {
 
 			if (cur_point_in_front) {
-			
+
 				// Previous vertex was in front of plane and this vertex is in
 				// front of the plane so we emit this vertex.
 				dest.Add_Vertex(Verts[i]);
 
-			} else { 
+			} else {
 
 				// Previous vert was in front, this vert is behind, compute
 				// the intersection and emit the point.
@@ -116,13 +116,13 @@ void VisPolyClass::Clip(const PlaneClass & plane,VisPolyClass & dest) const
 				Lerp(Verts[iprev],Verts[i],alpha,&int_point);
 				dest.Add_Vertex(int_point);
 				dest.Add_Vertex(Verts[i]);
-			
-			} 
-		} 
+
+			}
+		}
 
 		prev_point_in_front = cur_point_in_front;
 		iprev = i;
-		
+
 		//i = (i+1)%(Verts.Count());
 		i++;
 		if (i>=vcount) {
@@ -181,7 +181,7 @@ CameraClass * VisRasterizerClass::Get_Camera(void)
 {
 	if (Camera != NULL) {
 		Camera->Add_Ref();
-	} 
+	}
 	return Camera;
 }
 
@@ -197,7 +197,7 @@ void VisRasterizerClass::Update_MV_Transform(void)
 	if (Camera) {
 		Camera->Get_View_Matrix(&view_tm);
 	}
-	
+
 	MVTransform = view_tm * ModelTransform;
 }
 
@@ -219,8 +219,8 @@ bool VisRasterizerClass::Render_Triangles
 (
 	const Vector3 * verts,
 	int vcount,
-	const TriIndex * tris, 
-	int tcount,const 
+	const TriIndex * tris,
+	int tcount,const
 	AABoxClass & bounds
 )
 {
@@ -228,7 +228,7 @@ bool VisRasterizerClass::Render_Triangles
 	WWASSERT(tris != NULL);
 	WWASSERT(vcount > 0);
 	WWASSERT(tcount > 0);
-	
+
 	/*
 	** if the user supplied bounds, check if we need to clip
 	*/
@@ -244,7 +244,7 @@ bool VisRasterizerClass::Render_Triangles_No_Clip
 (
 	const Vector3 * verts,
 	int vcount,
-	const TriIndex * tris, 
+	const TriIndex * tris,
 	int tcount
 )
 {
@@ -266,7 +266,7 @@ bool VisRasterizerClass::Render_Triangles_No_Clip
 	** 2. Pass triangles on to the ID buffer for scan conversion
 	*/
 	for (int tri_index=0; tri_index<tcount; tri_index++) {
-		
+
 		const TriIndex & tri = tris[tri_index];
 		pixel_passed |= IDBuffer.Render_Triangle(tverts[tri.I],tverts[tri.J],tverts[tri.K]);
 		if (pixel_passed && (IDBuffer.Get_Render_Mode() == IDBufferClass::NON_OCCLUDER_MODE)) {
@@ -281,7 +281,7 @@ bool VisRasterizerClass::Render_Triangles_Clip
 (
 	const Vector3 * verts,
 	int vcount,
-	const TriIndex * tris, 
+	const TriIndex * tris,
 	int tcount
 )
 {
@@ -304,7 +304,7 @@ bool VisRasterizerClass::Render_Triangles_Clip
 	** 3. Clip triangles to the view volume and pass on to the ID buffer for scan conversion
 	*/
 	for (int tri_index=0; tri_index<tcount; tri_index++) {
-		
+
 		/*
 		** Copy triangle data into the vis clipping structure
 		*/
@@ -329,14 +329,14 @@ bool VisRasterizerClass::Render_Triangles_Clip
 		int final_vcount = _VisPoly0.Verts.Count();
 
 		if (final_vcount >= 3) {
-	
+
 			Vector3 * final_verts = &(_VisPoly0.Verts[0]);
 
 			int i;
 			for (i=0; i<final_vcount; i++) {
 				Camera->Project_Camera_Space_Point(final_verts[i],final_verts[i]);
 			}
-		
+
 			/*
 			** Pass the resulting triangle fan to the IDBuffer
 			*/
@@ -453,7 +453,7 @@ struct GradientsStruct
 			OOZ[i] = 1/verts[i].Z;
 		}
 
-		DOOZ_DX = oodx * ( ((OOZ[1] - OOZ[2]) * (verts[0].Y - verts[2].Y)) -	
+		DOOZ_DX = oodx * ( ((OOZ[1] - OOZ[2]) * (verts[0].Y - verts[2].Y)) -
 								 ((OOZ[0] - OOZ[2]) * (verts[1].Y - verts[2].Y)));
 
 		DOOZ_DY = oody * ( ((OOZ[1] - OOZ[2]) * (verts[0].X - verts[2].X)) -
@@ -476,7 +476,7 @@ struct EdgeStruct
 	{
 		Y = WWMath::Ceil(verts[top].Y);
 		Height = WWMath::Ceil(verts[bottom].Y) - Y;
-		
+
 		float y_prestep = Y - verts[top].Y;
 		float real_height = verts[bottom].Y - verts[top].Y;
 		float real_width  = verts[bottom].X - verts[top].X;
@@ -488,7 +488,7 @@ struct EdgeStruct
 		OOZ = grad.OOZ[top] + y_prestep * grad.DOOZ_DY + x_prestep * grad.DOOZ_DX;
 		OOZStep = XStep * grad.DOOZ_DX + grad.DOOZ_DY;
 	}
-	
+
 	inline int Step(void)
 	{
 		X+=XStep;
@@ -590,7 +590,7 @@ bool IDBufferClass::Render_Triangle(const Vector3 & p0,const Vector3 & p1,const 
 	EdgeStruct top_to_bottom_edge(grads,points,top,bottom);
 	EdgeStruct top_to_middle_edge(grads,points,top,middle);
 	EdgeStruct middle_to_bottom_edge(grads,points,middle,bottom);
-	
+
 	EdgeStruct * left_edge = NULL;
 	EdgeStruct * right_edge = NULL;
 
@@ -662,7 +662,7 @@ int IDBufferClass::Render_Occluder_Scanline(GradientsStruct & grads,EdgeStruct *
 	int address = Pixel_Coords_To_Address(xstart,left->Y);
 	float ooz = left->OOZ + xprestep * grads.DOOZ_DX;
 	int pixel_counter = 0;
-	
+
 	/*
 	** Two separate loops, backfaces only render when LESS THAN
 	*/

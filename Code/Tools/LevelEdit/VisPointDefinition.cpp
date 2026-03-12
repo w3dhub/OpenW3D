@@ -70,7 +70,7 @@ SimplePersistFactoryClass<VisPointDefinitionClass, CHUNKID_VIS_POINT_DEF>							
 //////////////////////////////////////////////////////////////////////////////////
 VisPointDefinitionClass::VisPointDefinitionClass (void)
 	:	DefinitionClass ()
-		
+
 {
 	return ;
 }
@@ -129,7 +129,7 @@ VisPointDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_BASE_CLASS:
 				retval &= DefinitionClass::Load (cload);
 				break;

@@ -181,20 +181,20 @@ bool MotorcycleClass::Load (ChunkLoadClass &cload)
 		switch(cload.Cur_Chunk_ID()) {
 
 			case MOTORCYCLE_CHUNK_WHEELEDVEHICLE:
-				WheeledVehicleClass::Load(cload);	
+				WheeledVehicleClass::Load(cload);
 				break;
-			
+
 			case MOTORCYCLE_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,MOTORCYCLE_VARIABLE_LEANK0,LeanK0);
 						READ_MICRO_CHUNK(cload,MOTORCYCLE_VARIABLE_LEANK1,LeanK1);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 
 				break;
-			
+
 			default:
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
@@ -225,7 +225,7 @@ DECLARE_DEFINITION_FACTORY(MotorcycleDefClass, CLASSID_MOTORCYCLEDEF, "Motorcycl
 /*
 ** Chunk ID's used by MotorcycleDefClass
 */
-enum 
+enum
 {
 	MOTORCYCLEDEF_CHUNK_WHEELEDVEHICLEDEF		= 0x00516000,			// (parent class)
 	MOTORCYCLEDEF_CHUNK_VARIABLES,
@@ -237,15 +237,15 @@ enum
 MotorcycleDefClass::MotorcycleDefClass(void) :
 	LeanK0(18.0f),
 	LeanK1(5.0f)
-{	
+{
 	// make our parameters editable!
 	FLOAT_EDITABLE_PARAM(MotorcycleDefClass, LeanK0, 0.01f, 100000.0f);
 	FLOAT_EDITABLE_PARAM(MotorcycleDefClass, LeanK1, 0.01f, 100000.0f);
 }
 
-uint32 MotorcycleDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_MOTORCYCLEDEF; 
+uint32 MotorcycleDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_MOTORCYCLEDEF;
 }
 
 PersistClass *	MotorcycleDefClass::Create(void) const

@@ -100,7 +100,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Initialization
 	//
@@ -131,7 +131,7 @@ inline void
 RenegadeDialogMgrClass::Do_Dialog_By_Button_ID (int button_id)
 {
 	WWASSERT (button_id >= DIALOG_LINK_FIRST && button_id <= DIALOG_LINK_LAST);
-	
+
 	//
 	//	Start the dialog
 	//

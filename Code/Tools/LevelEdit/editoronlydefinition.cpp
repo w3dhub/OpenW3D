@@ -76,7 +76,7 @@ SimplePersistFactoryClass<EditorOnlyDefinitionClass, CHUNKID_EDITOR_ONLY_OBJECTS
 //////////////////////////////////////////////////////////////////////////////////
 EditorOnlyDefinitionClass::EditorOnlyDefinitionClass (void)
 	:	DefinitionClass ()
-		
+
 {
 	FILENAME_PARAM (EditorOnlyDefinitionClass, ModelName, "Westwood 3D Files", ".w3d");
 	return ;
@@ -140,7 +140,7 @@ EditorOnlyDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_VARIABLES:
 				retval &= Load_Variables (cload);
 				break;
@@ -187,7 +187,7 @@ EditorOnlyDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_MODEL_NAME, ModelName)
 		}
 

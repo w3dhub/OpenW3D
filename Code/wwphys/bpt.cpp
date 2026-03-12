@@ -87,7 +87,7 @@ class NormalHasherClass : public HashCalculatorClass<Vector3>
 {
 public:
 
-	virtual bool	Items_Match(const Vector3 & a, const Vector3 & b) 
+	virtual bool	Items_Match(const Vector3 & a, const Vector3 & b)
 	{
 		// looking for an exact match for normals...
 		return ((a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z));
@@ -95,26 +95,26 @@ public:
 
 	virtual void	Compute_Hash(const Vector3 & item)
 	{
-		HashVal = (int)(item.X*12345.6f + item.Y*1714.38484f + item.Z*27561.3f)&1023; 
+		HashVal = (int)(item.X*12345.6f + item.Y*1714.38484f + item.Z*27561.3f)&1023;
 	}
 
-	virtual int		Num_Hash_Bits(void) 
-	{ 
-		return 10;  // 10bit hash value. 
+	virtual int		Num_Hash_Bits(void)
+	{
+		return 10;  // 10bit hash value.
 	}
-	
+
 	virtual int		Num_Hash_Values(void)
 	{
 		return 1;	// only one hash value for normals, require *exact* match
 	}
-	
+
 	virtual int		Get_Hash_Value(int index)
 	{
 		return HashVal;
 	}
 
 private:
-	
+
 	int HashVal;
 
 };
@@ -126,7 +126,7 @@ private:
 */
 class DistanceHasherClass : public HashCalculatorClass<float>
 {
-	virtual bool	Items_Match(const float & a, const float & b) 
+	virtual bool	Items_Match(const float & a, const float & b)
 	{
 		// looking for an exact match for distances
 		return (a == b);
@@ -134,20 +134,20 @@ class DistanceHasherClass : public HashCalculatorClass<float>
 
 	virtual void	Compute_Hash(const float & item)
 	{
-		HashVal = (int)(item)&1023; 
+		HashVal = (int)(item)&1023;
 	}
 
-	virtual int		Num_Hash_Bits(void) 
-	{ 
-		return 12;  // 12bit hash value. 
+	virtual int		Num_Hash_Bits(void)
+	{
+		return 12;  // 12bit hash value.
 	}
-	
+
 	virtual int		Num_Hash_Values(void)
 	{
 		return 1;	// only one hash value for normals, require *exact* match
 	}
 
-	virtual int		Get_Hash_Value(int index) 
+	virtual int		Get_Hash_Value(int index)
 	{
 		return HashVal;
 	}
@@ -160,7 +160,7 @@ private:
 
 
 
- 
+
 /*
 ** BPT Notes
 **
@@ -177,7 +177,7 @@ private:
 **
 ** - Extend PlaneClass to know about special case planes such as x-y, y-z, x-z.  Optimize
 **   the culling and clipping functions to take advantage of them.
-** 
+**
 ** - Separate the normal from the distance in the plane equation?  Many many planes will
 **   probably share the same normal but different distances.  This probably should be a
 **   very late optimization.
@@ -196,14 +196,14 @@ public:
 	BptVertexClass(const BptVertexClass & that);
 
 	BptVertexClass &	operator = (const BptVertexClass & that);
-	
+
 	int					Which_Side(const PlaneClass & plane) const;
 
 	Vector3				Position;
 	Vector3				Normal;
 	Vector3				Color;
 	Vector3				TexCoord;
-	
+
 	static BptVertexClass Lerp(const BptVertexClass & v0,const BptVertexClass & v1,double lerp);
 	static BptVertexClass Intersect_Plane(const BptVertexClass & v0,const BptVertexClass & v1,const PlaneClass & plane);
 
@@ -225,7 +225,7 @@ public:
 	BptPolyClass(const BptVertexClass * points, int num);
 
 	BptPolyClass &				operator = (const BptPolyClass & that);
-	
+
 	const BptVertexClass &	operator[] (int i) const { return Verts[i]; }
 	BptVertexClass &			operator[] (int i) { return Verts[i]; }
 
@@ -253,7 +253,7 @@ public:
 
 	BptNodeClass(void) : NumPolys(0),Polys(NULL),Front(NULL),Back(NULL),ArrayIndex(-1) { }
 	~BptNodeClass(void) { if (Front) delete Front; if (Back) delete Back; if (Polys) delete[] Polys; }
-	
+
 	void				Build(int numpolys,BptPolyClass * polys);
 	int				Num_Polys(void) const;
 	int				Num_Tris(void) const;
@@ -275,7 +275,7 @@ private:
 	BptNodeClass *				Back;			// pointer to back tree
 
 	int							ArrayIndex;	// used in building the tree into array form.
-	
+
 	Vector3						Min;			// bounding box for this tree.
 	Vector3						Max;
 
@@ -286,8 +286,8 @@ private:
 	struct SplitChoiceStruct
 	{
 		SplitChoiceStruct(void) : Score(0.0f),FrontCount(0),BackCount(0),OnCount(0),SplitCount(0),Plane(0,0,0,0) {}
-		
-		float			Score;			// 0.0 is worst, 1.0 is "perfect" 
+
+		float			Score;			// 0.0 is worst, 1.0 is "perfect"
 		int			FrontCount;		// number of polys in front of the plane
 		int			BackCount;		// number of polys behind the plane
 		int			OnCount;			// number of polys on the plane
@@ -311,7 +311,7 @@ private:
 		BptPolyClass *		OnPolys;
 	};
 
-	SplitChoiceStruct		Compute_Plane_Score(int numpolys,BptPolyClass * polys,const PlaneClass & plane);	
+	SplitChoiceStruct		Compute_Plane_Score(int numpolys,BptPolyClass * polys,const PlaneClass & plane);
 	SplitChoiceStruct		Select_Splitting_Plane(int numpolys,BptPolyClass * polys);
 
 	void						Split_Polys(const int num_polys,
@@ -340,12 +340,12 @@ public:
 
 	BptImpClass * Build(MeshClass * mesh);
 	BptImpClass * Build(int numpolys,BptPolyClass * polyarray,MaterialInfoClass * matinfo);
-	
+
 private:
 
 	void						unwind_mesh(MeshClass * mesh,int & set_numpolys,BptPolyClass * & set_polyarray);
 	BptImpClass *			build_imp(void);
-	
+
 	BptNodeClass *			Root;
 	MaterialInfoClass *	MatInfo;
 	int						InputPolyCount;
@@ -405,7 +405,7 @@ private:
 	// These functions are used by the BptImpBuilder to construct
 	// the BptImp...
 	BptImpClass(void);
-	
+
 	void Set_Mesh(MeshClass * mesh);
 	void Set_Node_Array(int numnodes, BptImpNodeClass * nodes);
 	void Set_Normal_Array(const UniqueArrayClass<Vector3> & normals);
@@ -420,20 +420,20 @@ private:
 	bool Cast_Ray_Recursive(BptImpNodeClass * node,PhysRayCollisionTestClass & boxtest) const;
 	bool Cast_AABox_Recursive(BptImpNodeClass * node,PhysAABoxCollisionTestClass & boxtest) const;
 	bool Cast_OBBox_Recursive(BptImpNodeClass * node,PhysOBBoxCollisionTestClass & boxtest) const;
-	
+
 	bool Cast_Ray_To_Polys(BptImpNodeClass * node,PhysAABoxCollisionTestClass & boxtest) const { assert(0); return false; }
 	bool Cast_AABox_To_Polys(BptImpNodeClass * node,PhysAABoxCollisionTestClass & boxtest) const;
 	bool Cast_OBBox_To_Polys(BptImpNodeClass * node,PhysAABoxCollisionTestClass & boxtest) const { assert(0); return false; }
 
 	void Verify_Node_Bounding_Volume(BptImpNodeClass * node,const Vector3 & min,const Vector3 & max) const;
-	
+
 	// Polygon Mesh in w3d-friendly form
 	MeshClass *					Mesh;
 
 	// Binary partition nodes
 	int							NodeCount;
 	BptImpNodeClass *			Nodes;
-	
+
 	// Node Polygon remap arrays
 	int							PolyIndexCount;
 	int *							PolyIndices;
@@ -479,12 +479,12 @@ public:
 private:
 
 	void					Remap_Triangle_Indices(void);
-	
+
 	MeshBuilderClass					MeshBuilder;			// accumulate the polygons
 
 	NormalHasherClass					NormalHasher;			// computes hash values for the normals
 	DistanceHasherClass				DistanceHasher;		// computes hash values for the distances
-	
+
 	UniqueArrayClass<Vector3> *	UniqueNormals;			// accumulates the unique normals
 	UniqueArrayClass<float>	*		UniqueDistances;		// accumulates the unique distances
 
@@ -535,7 +535,7 @@ BptClass::BptClass(void) :
  * HISTORY:                                                                                    *
  *   5/6/98     GTH : Created.                                                                 *
  *=============================================================================================*/
-BptClass::~BptClass(void) 
+BptClass::~BptClass(void)
 {
 	Free();
 }
@@ -655,13 +655,13 @@ void BptClass::Render( srScene * scene, const CameraClass &camera )
 	** Do our APT stuff
 	*/
 	BptImp->Build_Apt(camera);
-	
+
 	/*
 	** Then let Mesh render itself
 	*/
 	BptImp->Mesh->Render(scene,camera);
 }
-	
+
 
 void BptClass::Update_Cached_Bounding_Volumes(void) const
 {
@@ -775,7 +775,7 @@ BptVertexClass BptVertexClass::Lerp(const BptVertexClass & v0,const BptVertexCla
 {
 	assert(lerp >= -BPT_EPSILON);
 	assert(lerp <= 1.0 + BPT_EPSILON);
-	
+
 	// interpolate position
 	BptVertexClass res;
 	res.Position = ::Lerp(v0.Position,v1.Position,lerp);
@@ -800,7 +800,7 @@ int BptVertexClass::Which_Side(const PlaneClass & plane) const
 
 	if (d > BPT_EPSILON) {
 		return BPT_FRONT;
-	} 
+	}
 
 	if (d < -BPT_EPSILON) {
 		return BPT_BACK;
@@ -818,7 +818,7 @@ BptVertexClass BptVertexClass::Intersect_Plane
 {
 	double alpha = 0.0f;
 	plane.Compute_Intersection(p0.Position,p1.Position,&alpha);
-	return BptVertexClass::Lerp(p0,p1,alpha);				
+	return BptVertexClass::Lerp(p0,p1,alpha);
 }
 
 /**************************************************************
@@ -873,7 +873,7 @@ void BptPolyClass::Compute_Plane(void)
 
 	for (i=0; i<NumVerts; i++) {
 		j = (i+1) % NumVerts;
-		
+
 		nx += (double)(Verts[i].Position.Y - Verts[j].Position.Y) * (double)(Verts[i].Position.Z + Verts[j].Position.Z);
 		ny += (double)(Verts[i].Position.Z - Verts[j].Position.Z) * (double)(Verts[i].Position.X + Verts[j].Position.X);
 		nz += (double)(Verts[i].Position.X - Verts[j].Position.X) * (double)(Verts[i].Position.Y + Verts[j].Position.Y);
@@ -891,7 +891,7 @@ void BptPolyClass::Compute_Plane(void)
 	nx /= len;
 	ny /= len;
 	nz /= len;
-	
+
 	Plane.Set(Vector3(nx,ny,nz),Vector3(ax,ay,az));
 }
 
@@ -899,7 +899,7 @@ int BptPolyClass::Which_Side(const PlaneClass & plane) const
 {
 	int side_mask = 0;
 	for (int i=0; i<NumVerts;i++) {
-		
+
 		side_mask |= Verts[i].Which_Side(plane);
 
 	}
@@ -931,7 +931,7 @@ void BptPolyClass::Split(const PlaneClass & plane,BptPolyClass & front,BptPolyCl
 	assert(Which_Side(plane) == BPT_BOTH);
 
 	BptVertexClass point;
-	front.NumVerts = 0; 
+	front.NumVerts = 0;
 	back.NumVerts = 0;
 
 	// find a vertex on one side or the other
@@ -943,17 +943,17 @@ void BptPolyClass::Split(const PlaneClass & plane,BptPolyClass & front,BptPolyCl
 	int iprev = i;
 	int sideprev = side;
 	int sidelastdefinite = 0;
-	
+
 	i = (i+1) % NumVerts;
 
-	for (int j=0; j<NumVerts; j++) { 
-		
+	for (int j=0; j<NumVerts; j++) {
+
 		side = Verts[i].Which_Side(plane);
-		
+
 		if (sideprev == BPT_FRONT) {
 
 			if (side == BPT_FRONT) {
-			
+
 				// Previous vertex was in front of plane and this vertex is in
 				// front of the plane so we emit this vertex in the front poly
 				front.Verts[(front.NumVerts)++] = Verts[i];
@@ -964,7 +964,7 @@ void BptPolyClass::Split(const PlaneClass & plane,BptPolyClass & front,BptPolyCl
 				// the vertex into the front poly.
 				sidelastdefinite = BPT_FRONT;
 				front.Verts[(front.NumVerts)++] = Verts[i];
-			
+
 			} else { // side == BPT_BACK
 
 				// Previous vert was in front, this vert is behind, compute
@@ -988,11 +988,11 @@ void BptPolyClass::Split(const PlaneClass & plane,BptPolyClass & front,BptPolyCl
 				back.Verts[(back.NumVerts)++] = point;
 				front.Verts[(front.NumVerts)++] = point;
 				front.Verts[(front.NumVerts)++] = Verts[i];
-			
+
 			} else if (side == BPT_ON) {
-			
+
 				// segment went from back halfspace to "on" the plane.  Emit
-				// the vertex into the back poly and remember that we came 
+				// the vertex into the back poly and remember that we came
 				// from the back halfspace.
 				sidelastdefinite = BPT_BACK;
 				back.Verts[(back.NumVerts)++] = Verts[i];
@@ -1004,7 +1004,7 @@ void BptPolyClass::Split(const PlaneClass & plane,BptPolyClass & front,BptPolyCl
 				back.Verts[(back.NumVerts)++] = Verts[i];
 
 			}
-		
+
 		} else if (sideprev == BPT_ON) {
 
 			if (side == BPT_FRONT) {
@@ -1014,7 +1014,7 @@ void BptPolyClass::Split(const PlaneClass & plane,BptPolyClass & front,BptPolyCl
 					front.Verts[(front.NumVerts)++] =	Verts[iprev];
 				}
 				front.Verts[(front.NumVerts)++] = Verts[i];
-			
+
 			} else if (side == BPT_ON) {
 
 				if (sidelastdefinite == BPT_FRONT) {
@@ -1022,7 +1022,7 @@ void BptPolyClass::Split(const PlaneClass & plane,BptPolyClass & front,BptPolyCl
 				} else {
 					back.Verts[(back.NumVerts)++] = Verts[i];
 				}
-			
+
 			} else { // side == BPT_BACK
 
 				if (sidelastdefinite == BPT_FRONT) {
@@ -1066,7 +1066,7 @@ bool BptPolyClass::Is_Degenerate(void)
 
 	for (i=0; i<NumVerts; i++) {
 		for (j = i+1; j < NumVerts; j++) {
-			
+
 			float delta = (Verts[i].Position - Verts[j].Position).Length();
 			if (delta < BPT_COINCIDENCE_EPSILON) {
 				WWDEBUG_SAY(("Degenerate Poly - coincident vertices!\r\n"));
@@ -1102,13 +1102,13 @@ bool BptPolyClass::Salvage_Degenerate(void)
 
 		float delta = (Verts[i].Position - Verts[i+1].Position).Length();
 		if (delta < BPT_COINCIDENCE_EPSILON) {
-			
+
 			for (int j=i+1; j<NumVerts-1; j++) {
 				Verts[j] = Verts[j+1];
 			}
 
 			NumVerts--;
-		
+
 		} else {
 
 			i++;
@@ -1123,7 +1123,7 @@ bool BptPolyClass::Salvage_Degenerate(void)
 	BptBuilderClass Implementation
 
 **************************************************************/
-BptBuilderClass::BptBuilderClass(void) : 
+BptBuilderClass::BptBuilderClass(void) :
 	Root(NULL),
 	MatInfo(NULL),
 	InputPolyCount(0),
@@ -1133,10 +1133,10 @@ BptBuilderClass::BptBuilderClass(void) :
 {
 }
 
-BptBuilderClass::~BptBuilderClass(void) 
-{ 
-	if (Root) delete Root; 
-	if (MatInfo) MatInfo->Release_Ref(); 
+BptBuilderClass::~BptBuilderClass(void)
+{
+	if (Root) delete Root;
+	if (MatInfo) MatInfo->Release_Ref();
 }
 
 BptImpClass * BptBuilderClass::Build(MeshClass * mesh)
@@ -1149,7 +1149,7 @@ BptImpClass * BptBuilderClass::Build(MeshClass * mesh)
 
 	unwind_mesh(mesh,numpolys,polys);
 	assert(numpolys > 0);
-	
+
 	/*
 	** Jump into the generalized build method
 	*/
@@ -1214,7 +1214,7 @@ BptImpClass * BptBuilderClass::Build(int numpolys,BptPolyClass * polys,MaterialI
 	** Build the optimized BptImp and return it.
 	*/
 	return build_imp();
-}	
+}
 
 void BptBuilderClass::unwind_mesh(MeshClass * mesh,int & set_numpolys,BptPolyClass * & set_polyarray)
 {
@@ -1231,21 +1231,21 @@ void BptBuilderClass::unwind_mesh(MeshClass * mesh,int & set_numpolys,BptPolyCla
 	// allocate a bunch of BptPolygons
 	set_numpolys = srmesh->getPolygonCount();
 	set_polyarray = new BptPolyClass[set_numpolys];
-	
+
 	int src_idx = 0;
 	int dst_idx = 0;
 
 	for (src_idx = 0; src_idx<set_numpolys; src_idx++) {
-		
+
 		set_polyarray[dst_idx].NumVerts = 3;
-		
+
 		for (int vrt_idx=0; vrt_idx<3; vrt_idx++) {
-					
+
 			// copy the three positions
 			set_polyarray[dst_idx][vrt_idx].Position.X = loc[polyvert[src_idx][vrt_idx]].x;
 			set_polyarray[dst_idx][vrt_idx].Position.Y = loc[polyvert[src_idx][vrt_idx]].y;
 			set_polyarray[dst_idx][vrt_idx].Position.Z = loc[polyvert[src_idx][vrt_idx]].z;
-		
+
 			// copy the three normals
 			if (norm) {
 				set_polyarray[dst_idx][vrt_idx].Normal.X = norm[polyvert[src_idx][vrt_idx]].x;
@@ -1266,7 +1266,7 @@ void BptBuilderClass::unwind_mesh(MeshClass * mesh,int & set_numpolys,BptPolyCla
 				set_polyarray[dst_idx][vrt_idx].Color.Y = dcg[polyvert[src_idx][vrt_idx]].y;
 				set_polyarray[dst_idx][vrt_idx].Color.Z = dcg[polyvert[src_idx][vrt_idx]].z;
 			}
-			
+
 			// store the material ID
 			if (polymtl) {
 				set_polyarray[dst_idx].MaterialId = ((MaterialClass *)(polymtl[src_idx]))->Get_Mat_Info_Index();
@@ -1312,8 +1312,8 @@ BptImpClass * BptBuilderClass::build_imp(void)
 
 
 int BptNodeClass::Num_Polys(void) const
-{ 
-	int count = NumPolys; 
+{
+	int count = NumPolys;
 	if (Front) count += Front->Num_Polys();
 	if (Back) count += Back->Num_Polys();
 	return count;
@@ -1321,7 +1321,7 @@ int BptNodeClass::Num_Polys(void) const
 
 int BptNodeClass::Num_Tris(void) const
 {
-	int count = 0; 
+	int count = 0;
 	for (unsigned int i=0; i<NumPolys; i++) {
 		count += Polys[i].NumVerts - 2;
 	}
@@ -1368,7 +1368,7 @@ void BptNodeClass::Build(int numpolys,BptPolyClass * polys)
 	*/
 	SplitChoiceStruct sc = Select_Splitting_Plane(numpolys,polys);
 	Plane = sc.Plane;
-	
+
 	/*
 	** Split the polygons
 	*/
@@ -1399,7 +1399,7 @@ void BptNodeClass::Build(int numpolys,BptPolyClass * polys)
 		arrays.FrontPolys = NULL;
 
 	}
-	
+
 	/*
 	** Build a back tree if necessary. Remember that the build function
 	** deletes the poly array.
@@ -1415,7 +1415,7 @@ void BptNodeClass::Build(int numpolys,BptPolyClass * polys)
 }
 
 
-BptNodeClass::SplitChoiceStruct 
+BptNodeClass::SplitChoiceStruct
 BptNodeClass::Compute_Plane_Score(int numpolys,BptPolyClass * polys,const PlaneClass & plane)
 {
 	/*
@@ -1451,13 +1451,13 @@ BptNodeClass::Compute_Plane_Score(int numpolys,BptPolyClass * polys,const PlaneC
 
 		}
 	}
-	
+
 	/*
 	** Compute the score
 	*/
 	float max_splits = std::min(MAX_SPLITS,numpolys);
 	float max_on = std::min(MAX_POLYS_ON_PLANE,numpolys);
-	
+
 	float split_score = (float)(max_splits - sc.SplitCount) / max_splits;
 	if (split_score < 0.0f) split_score = 0.0f;
 
@@ -1503,7 +1503,7 @@ doitagain:
 	** Try putting axis-aligned planes through some random vertices
 	*/
 	for (int vertex_trys = 0; vertex_trys < std::min(NUM_VERTEX_TRYS,3*numpolys); vertex_trys++) {
-	
+
 		int poly_index = rand() % numpolys;
 		int vert_index = rand() % polys[poly_index].NumVerts;;
 		Vector3 pos = polys[poly_index].Verts[vert_index].Position;
@@ -1531,7 +1531,7 @@ doitagain:
 	** Now try "autopartition" planes which come from the input polygons
 	*/
 	for (int poly_trys=0; poly_trys<min(NUM_POLY_TRYS,numpolys); poly_trys++) {
-		
+
 		int poly_index = rand() % numpolys;
 
 		assert(
@@ -1539,9 +1539,9 @@ doitagain:
 			(polys[poly_index][1].Which_Side(polys[poly_index].Plane) == BPT_ON) &&
 			(polys[poly_index][2].Which_Side(polys[poly_index].Plane) == BPT_ON)
 		);
-		
+
 		considered_plane_stats = Compute_Plane_Score(numpolys,polys,polys[poly_index].Plane);
-		
+
 		if (considered_plane_stats.Score > best_plane_stats.Score) {
 			best_plane_stats = considered_plane_stats;
 		}
@@ -1612,7 +1612,7 @@ void BptNodeClass::Split_Polys
 		}
 	}
 
-	// when we are all done, the counts should match. 
+	// when we are all done, the counts should match.
 	assert(arrays->FrontCount <= sc.FrontCount + sc.SplitCount);
 	assert(arrays->BackCount <= sc.BackCount + sc.SplitCount);
 	assert(arrays->OnCount == sc.OnCount);
@@ -1644,7 +1644,7 @@ void BptNodeClass::Submit_Polys(MeshBuilderClass & builder) const
 	if (Back) {
 		Back->Submit_Polys(builder);
 	}
-	
+
 	/*
 	** Triangulate each poly and submit it to the mesh builder
 	*/
@@ -1655,7 +1655,7 @@ void BptNodeClass::Submit_Polys(MeshBuilderClass & builder) const
 		BptPolyClass * poly = &(Polys[fi]);
 
 		for (int ti = 2;ti < poly->NumVerts; ti++) {
-			
+
 			face.MaterialIdx = poly->MaterialId;
 			face.SmGroup = 1; //TODO: get the correct smooth group???
 			face.Index = 0; //TODO: do we have an actual index?
@@ -1668,7 +1668,7 @@ void BptNodeClass::Submit_Polys(MeshBuilderClass & builder) const
 			face.Verts[1].Position =	poly->Verts[ti-1].Position;
 			face.Verts[1].TexCoord =	poly->Verts[ti-1].TexCoord;
 			face.Verts[1].Color =		poly->Verts[ti-1].Color;
-			
+
 			face.Verts[2].Position =	poly->Verts[ti].Position;
 			face.Verts[2].TexCoord =	poly->Verts[ti].TexCoord;
 			face.Verts[2].Color =		poly->Verts[ti].Color;
@@ -1694,7 +1694,7 @@ void BptNodeClass::Compute_Bounding_Box(void)
 		Front->Compute_Bounding_Box();
 	}
 
-	if (Back) { 
+	if (Back) {
 		Back->Compute_Bounding_Box();
 	}
 
@@ -1708,7 +1708,7 @@ void BptNodeClass::Compute_Bounding_Box(void)
 		for (int vert_index = 0; vert_index < Polys[poly_index].NumVerts; vert_index++) {
 
 			Vector3 & point = Polys[poly_index].Verts[vert_index].Position;
-			
+
 			if (point.X - BPT_EPSILON < Min.X) Min.X = point.X - BPT_EPSILON;
 			if (point.X + BPT_EPSILON > Max.X) Max.X = point.X + BPT_EPSILON;
 
@@ -1730,7 +1730,7 @@ void BptNodeClass::Compute_Bounding_Box(void)
 
 		if (Front->Min.Y < Min.Y) Min.Y = Front->Min.Y;
 		if (Front->Max.Y > Max.Y) Max.Y = Front->Max.Y;
-		
+
 		if (Front->Min.Z < Min.Z) Min.Z = Front->Min.Z;
 		if (Front->Max.Z > Max.Z) Max.Z = Front->Max.Z;
 	}
@@ -1744,7 +1744,7 @@ void BptNodeClass::Compute_Bounding_Box(void)
 
 		if (Back->Min.Y < Min.Y) Min.Y = Back->Min.Y;
 		if (Back->Max.Y > Max.Y) Max.Y = Back->Max.Y;
-		
+
 		if (Back->Min.Z < Min.Z) Min.Z = Back->Min.Z;
 		if (Back->Max.Z > Max.Z) Max.Z = Back->Max.Z;
 	}
@@ -1762,7 +1762,7 @@ int BptNodeClass::Assign_Array_Indices(int index)
 {
 	/*
 	** This function is used to assign a sequential index to
-	** each node in the tree.  The BptImp stores its nodes in 
+	** each node in the tree.  The BptImp stores its nodes in
 	** an array so this index is used to determine which slot
 	** in the array to put each node into.
 	*/
@@ -1810,7 +1810,7 @@ inline bool BptImpNodeClass::Is_Visible(const CameraClass & camera)
 	BptImpClass Implementation
 
 **************************************************************/
-BptImpClass::BptImpClass(void) : 
+BptImpClass::BptImpClass(void) :
 	Mesh(NULL),
 	NodeCount(0),
 	Nodes(NULL),
@@ -1824,15 +1824,15 @@ BptImpClass::BptImpClass(void) :
 	ActivePolyTable(NULL)
 
 {
-} 
-	
+}
+
 BptImpClass::~BptImpClass(void)
 {
 	Free();
 }
 
 
-void BptImpClass::Free(void) 
+void BptImpClass::Free(void)
 {
 	if (Mesh!=NULL) {
 		Mesh->Release_Ref();
@@ -1864,18 +1864,18 @@ void BptImpClass::Free(void)
 	}
 }
 
-void BptImpClass::Set_Mesh(MeshClass * mesh) 
-{ 
-	if (Mesh) Mesh->Release_Ref(); 
-	Mesh = mesh; 
-	if (Mesh) Mesh->Add_Ref(); 
+void BptImpClass::Set_Mesh(MeshClass * mesh)
+{
+	if (Mesh) Mesh->Release_Ref();
+	Mesh = mesh;
+	if (Mesh) Mesh->Add_Ref();
 }
 
 void BptImpClass::Set_Node_Array(int numnodes, BptImpNodeClass * nodes)
-{ 
-	if (Nodes) delete[] Nodes; 
-	Nodes = nodes; 
-	NodeCount = numnodes; 
+{
+	if (Nodes) delete[] Nodes;
+	Nodes = nodes;
+	NodeCount = numnodes;
 }
 
 void BptImpClass::Set_Normal_Array(const UniqueArrayClass<Vector3> & normals)
@@ -1884,7 +1884,7 @@ void BptImpClass::Set_Normal_Array(const UniqueArrayClass<Vector3> & normals)
 		if (Normals) delete[] Normals;
 		Normals = new Vector3[normals.Count()];
 	}
-	
+
 	NormalCount = normals.Count();
 
 	for (int i=0; i<NormalCount; i++) {
@@ -1915,7 +1915,7 @@ void BptImpClass::Set_Poly_Index_Array(int numremaps,int * polyremaps)
 void BptImpClass::Build_Apt(const CameraClass & camera)
 {
 	WWDEBUG_PROFILE_START("BPT::Build_Apt");
-	Begin_Apt();	
+	Begin_Apt();
 	Build_Apt_Recursive(&(Nodes[0]),camera);
 	End_Apt();
 	WWDEBUG_PROFILE_STOP("BPT::Build_Apt");
@@ -1930,7 +1930,7 @@ void BptImpClass::Begin_Apt(void)
 void BptImpClass::Add_Polys_To_Apt(BptImpNodeClass * node)
 {
 	assert(node != NULL);
-	
+
 #if 0
 	memcpy(&(ActivePolyTable[ActivePolyCount]),&(PolyIndices[node->FirstPoly]),node->PolyCount);
 	ActivePolyCount += node->PolyCount;
@@ -1964,9 +1964,9 @@ void BptImpClass::Build_Apt_Recursive(BptImpNodeClass * node,const CameraClass &
 	*/
 	float dist = Vector3::Dot_Product(Normals[node->NormalIndex],cam.Get_Position());
 	if (dist > Distances[node->DistanceIndex]) {
-		
+
 		/*
-		** FRONT: 
+		** FRONT:
 		** We are in front of the plane so proceed in the following order:
 		** Visit the 'Back' node
 		** Add our polys to the APT
@@ -1978,7 +1978,7 @@ void BptImpClass::Build_Apt_Recursive(BptImpNodeClass * node,const CameraClass &
 
 	} else {
 		/*
-		** BACK: 
+		** BACK:
 		** We are in back of the plane so proceed in the following order:
 		** Visit the 'Front' node
 		** Add our polys to the APT
@@ -2103,7 +2103,7 @@ bool BptImpClass::Cast_AABox_To_Polys(BptImpNodeClass * node,PhysAABoxCollisionT
 
 void BptImpClass::Verify_Node_Bounding_Volume(BptImpNodeClass * node,const Vector3 & min,const Vector3 & max) const
 {
-			
+
 	srMeshModel * srmesh = Mesh->Get_Surrender_Mesh();
 	srVector3 * loc = srmesh->getVertexLoc();
 	srVector3i * polyverts = srmesh->getPolyVertex();
@@ -2119,7 +2119,7 @@ void BptImpClass::Verify_Node_Bounding_Volume(BptImpNodeClass * node,const Vecto
 		assert(v->X >= min.X);
 		assert(v->Y >= min.Y);
 		assert(v->Z >= min.Z);
-		
+
 		assert(v->X <= max.X);
 		assert(v->Y <= max.Y);
 		assert(v->Z <= max.Z);
@@ -2129,7 +2129,7 @@ void BptImpClass::Verify_Node_Bounding_Volume(BptImpNodeClass * node,const Vecto
 		assert(v->X >= min.X);
 		assert(v->Y >= min.Y);
 		assert(v->Z >= min.Z);
-		
+
 		assert(v->X <= max.X);
 		assert(v->Y <= max.Y);
 		assert(v->Z <= max.Z);
@@ -2139,7 +2139,7 @@ void BptImpClass::Verify_Node_Bounding_Volume(BptImpNodeClass * node,const Vecto
 		assert(v->X >= min.X);
 		assert(v->Y >= min.Y);
 		assert(v->Z >= min.Z);
-		
+
 		assert(v->X <= max.X);
 		assert(v->Y <= max.Y);
 		assert(v->Z <= max.Z);
@@ -2209,7 +2209,7 @@ BptImpClass * BptImpBuilderClass::Build_Bpt_Imp(BptNodeClass * root,MaterialInfo
 	WWDEBUG_SAY(("Building the Run-Time Bpt\r\n"));
 
 	TriCount = root->Num_Tris();
-	
+
 	/*
 	** Allocate the UniqueNormals and UniqueDistances objects
 	*/
@@ -2235,7 +2235,7 @@ BptImpClass * BptImpBuilderClass::Build_Bpt_Imp(BptNodeClass * root,MaterialInfo
 	*/
 	TriIndexArray = new int[TriCount];
 	CurTriIndex = 0;
-	
+
 	/*
 	** Allocate the array of nodes
 	*/
@@ -2261,7 +2261,7 @@ BptImpClass * BptImpBuilderClass::Build_Bpt_Imp(BptNodeClass * root,MaterialInfo
 	MeshBuilder.Build_Mesh(true);
 
 	/*
-	** Remap all of the polygon indices (account for the 
+	** Remap all of the polygon indices (account for the
 	** mesh builder re-ording polygons)
 	*/
 	Remap_Triangle_Indices();
@@ -2335,7 +2335,7 @@ void BptImpBuilderClass::Add_Bpt_Node(const BptNodeClass * node)
 		BptPolyClass * poly = &(node->Polys[fi]);
 
 		for (int ti = 2;ti < poly->NumVerts; ti++) {
-			
+
 			face.MaterialIdx = poly->MaterialId;
 			face.SmGroup = 1; //TODO: get the correct smooth group???
 			face.Index = 0; //TODO: do we have an actual index?
@@ -2348,7 +2348,7 @@ void BptImpBuilderClass::Add_Bpt_Node(const BptNodeClass * node)
 			face.Verts[1].Position =	poly->Verts[ti-1].Position;
 			face.Verts[1].TexCoord =	poly->Verts[ti-1].TexCoord;
 			face.Verts[1].Color =		poly->Verts[ti-1].Color;
-			
+
 			face.Verts[2].Position =	poly->Verts[ti].Position;
 			face.Verts[2].TexCoord =	poly->Verts[ti].TexCoord;
 			face.Verts[2].Color =		poly->Verts[ti].Color;
@@ -2383,10 +2383,10 @@ void BptImpBuilderClass::Add_Bpt_Node(const BptNodeClass * node)
 			assert(face.Verts[2].Position.X <= node->Max.X);
 			assert(face.Verts[2].Position.Y <= node->Max.Y);
 			assert(face.Verts[2].Position.Z <= node->Max.Z);
-	
+
 		}
 	}
-	
+
 	/*
 	** Bounding box
 	*/

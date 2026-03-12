@@ -151,11 +151,11 @@ PhysClass::~PhysClass(void)
 void PhysClass::Init(const PhysDefClass & def)
 {
 	Definition = &def;
-	Flags = DEFAULT_FLAGS; 
+	Flags = DEFAULT_FLAGS;
 	if (!def.ModelName.Is_Empty()) {
 
 		RenderObjClass * model = NULL;
-	
+
 		if (::strchr(def.ModelName, '.') != NULL) {
 			model = ::create_render_obj_from_filename(def.ModelName);
 		} else {
@@ -171,22 +171,22 @@ void PhysClass::Init(const PhysDefClass & def)
 	}
 }
 
-void PhysClass::Set_Model(RenderObjClass * model)		
-{ 
+void PhysClass::Set_Model(RenderObjClass * model)
+{
 	PhysicsSceneClass * the_scene = PhysicsSceneClass::Get_Instance();
 	bool in_scene = the_scene->Contains(this);
 
 	if (Model) {
 		// If we had an old model, copy the transform
-		if ( model ) {		
+		if ( model ) {
 			model->Set_Transform( Model->Get_Transform() );
 		}
 		if (in_scene) Model->Notify_Removed(the_scene);
 		Model->Release_Ref();
 	}
-	Model = model; 
+	Model = model;
 	if (Model) {
-		Model->Add_Ref(); 
+		Model->Add_Ref();
 		if (in_scene) Model->Notify_Added(the_scene);
 	}
 
@@ -195,7 +195,7 @@ void PhysClass::Set_Model(RenderObjClass * model)
 	}
 	Invalidate_Static_Lighting_Cache ();
 }
-	
+
 void PhysClass::Set_Model_By_Name(const char * model_type_name)
 {
 	RenderObjClass * model = WW3DAssetManager::Get_Instance()->Create_Render_Obj(model_type_name);
@@ -210,10 +210,10 @@ void PhysClass::Set_Model_By_Name(const char * model_type_name)
 	}
 }
 
-RenderObjClass * PhysClass::Get_Model(void)								
-{ 
-	if (Model) Model->Add_Ref(); 
-	return Model; 
+RenderObjClass * PhysClass::Get_Model(void)
+{
+	if (Model) Model->Add_Ref();
+	return Model;
 }
 
 void PhysClass::Set_Name(const char * name)
@@ -236,12 +236,12 @@ void PhysClass::Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box)
 }
 
 void PhysClass::Render(RenderInfoClass & rinfo)
-{ 
+{
 	Push_Effects(rinfo);
 
-	if (Model) { 
-		Model->Render(rinfo); 
-	} 
+	if (Model) {
+		Model->Render(rinfo);
+	}
 
 	Pop_Effects(rinfo);
 }
@@ -261,7 +261,7 @@ void PhysClass::Invalidate_Static_Lighting_Cache(void)
 LightEnvironmentClass * PhysClass::Get_Static_Lighting_Environment(void)
 {
 	if (Is_Pre_Lit()) {
-	
+
 		/*
 		** This object doesn't need a lighting cache, make sure it doesn't have one
 		*/
@@ -270,7 +270,7 @@ LightEnvironmentClass * PhysClass::Get_Static_Lighting_Environment(void)
 			delete StaticLightingCache;
 			StaticLightingCache = NULL;
 		}
-	
+
 	} else if (Get_Flag(STATIC_LIGHTING_DIRTY)) {
 
 		/*
@@ -292,9 +292,9 @@ LightEnvironmentClass * PhysClass::Get_Static_Lighting_Environment(void)
 																						Model->Get_Bounding_Sphere().Center,
 																						Get_Flag(IS_IN_THE_SUN),
 																						Get_Vis_Object_ID() );
-										
+
 		Set_Flag(STATIC_LIGHTING_DIRTY,false);
-	} 
+	}
 
 	/*
 	** Return our lighting cache to the caller
@@ -310,10 +310,10 @@ void PhysClass::Update_Sun_Status(void)
 	SunStatusLastUpdated=current_time;
 
 	PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
-	
+
 	Vector3 sunlight;
 	scene->Get_Sun_Light_Vector(&sunlight);
-	Vector3 center = Model->Get_Bounding_Sphere().Center; 
+	Vector3 center = Model->Get_Bounding_Sphere().Center;
 
 // FIXME (gth) Need a collision group for sun-rays
 	CastResultStruct sunresult;
@@ -325,19 +325,19 @@ void PhysClass::Update_Sun_Status(void)
 	Inc_Ignore_Counter();
 	scene->Cast_Ray(sunraytest);
 
-	// if the ray hits a static object which is casting a projected shadow, ignore that object 
+	// if the ray hits a static object which is casting a projected shadow, ignore that object
 	// and check again.
-	if (	(sunresult.Fraction < 1.0f) && 
-			(sunraytest.CollidedPhysObj != NULL) ) 
-	{ 
+	if (	(sunresult.Fraction < 1.0f) &&
+			(sunraytest.CollidedPhysObj != NULL) )
+	{
 		PhysClass * obj = sunraytest.CollidedPhysObj;
 		if (obj->Is_Casting_Shadow()) {
 			obj->Inc_Ignore_Counter();
 			sunresult.Reset();
-			scene->Cast_Ray(sunraytest);			
+			scene->Cast_Ray(sunraytest);
 			obj->Dec_Ignore_Counter();
-		}		
-	}	
+		}
+	}
 	Dec_Ignore_Counter();
 
 	Enable_Is_In_The_Sun(sunresult.Fraction == 1.0f);
@@ -357,7 +357,7 @@ void PhysClass::Push_Effects(RenderInfoClass & rinfo)
 
 		ShaderClass shader = ShaderClass::_PresetOpaqueShader;
 		VertexMaterialClass * vmtl = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_NODIFFUSE);
-		
+
 		DX8Wrapper::Set_Shader(shader);
 		DX8Wrapper::Set_Material(vmtl);
 
@@ -371,7 +371,7 @@ void PhysClass::Push_Effects(RenderInfoClass & rinfo)
 		DX8Wrapper::Set_Transform(D3DTS_VIEW,identity);
 		DX8Wrapper::Set_Transform(D3DTS_PROJECTION,identity);
 
-		
+
 		TexProjListIterator iterator(&ProjectionsOnMe);
 		for ( ; !iterator.Is_Done() ; iterator.Next()) {
 			TextureClass * tex = iterator.Peek_Obj()->Peek_Material_Pass()->Peek_Texture(0);
@@ -443,7 +443,7 @@ void PhysClass::Pop_Effects(RenderInfoClass & rinfo)
 {
 	if (!MaterialEffectsOnMe.Is_Empty()) {
 		RefMaterialEffectListIterator iterator(&MaterialEffectsOnMe);
-	
+
 		while (!iterator.Is_Done()) {
 
 			MaterialEffectClass * effect = iterator.Peek_Obj();
@@ -471,7 +471,7 @@ bool PhysClass::Save (ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK_PTR(csave,PHYS_VARIABLE_WIDGETUSER_PTR,widgetuser_ptr);
 	WRITE_MICRO_CHUNK_PTR(csave,PHYS_VARIABLE_EDITABLE_PTR,editable_ptr);
 	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_FLAGS,Flags);
-	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_INSTANCEID,InstanceID);	
+	WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_INSTANCEID,InstanceID);
 	if (Name.Get_Length() > 0) {
 		csave.Begin_Micro_Chunk(PHYS_VARIABLE_NAME);
 		WWASSERT(Name.Get_Length()+1 < 255);
@@ -483,7 +483,7 @@ bool PhysClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK(csave,PHYS_VARIABLE_DEFID,defid);
 	}
 	csave.End_Chunk();
-	
+
 	csave.Begin_Chunk(PHYS_CHUNK_MODEL);
 	csave.Begin_Chunk(Model->Get_Factory().Chunk_ID());
 	Model->Get_Factory().Save(csave,Model);
@@ -505,8 +505,8 @@ bool PhysClass::Load (ChunkLoadClass &cload)
 	RenderObjClass * render_model = NULL;
 
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case PHYS_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
@@ -518,12 +518,12 @@ bool PhysClass::Load (ChunkLoadClass &cload)
 						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_FLAGS,Flags);
 						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_DEFID,defid);
 						READ_MICRO_CHUNK(cload,PHYS_VARIABLE_INSTANCEID,InstanceID);
-						
+
 						case PHYS_VARIABLE_NAME:
 							cload.Read(tmpstring,cload.Cur_Micro_Chunk_Length());
 							break;
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 
@@ -542,7 +542,7 @@ bool PhysClass::Load (ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		if (cullable_ptr != NULL) {
 			SaveLoadSystemClass::Register_Pointer(cullable_ptr,(CullableClass *)this);
 		}
@@ -560,7 +560,7 @@ bool PhysClass::Load (ChunkLoadClass &cload)
 	** Set our definition pointer
 	*/
 	if (defid != -1) {
-		Definition = (PhysDefClass *)_TheDefinitionMgr.Find_Definition(defid);	
+		Definition = (PhysDefClass *)_TheDefinitionMgr.Find_Definition(defid);
 	} else {
 		Definition = NULL;
 	}
@@ -577,7 +577,7 @@ bool PhysClass::Load (ChunkLoadClass &cload)
 	if (Observer != NULL) {
 		REQUEST_POINTER_REMAP((void**)&Observer);
 	}
-	
+
 	/*
 	** Register all of the multiple-inheritance versions of our this pointer
 	*/
@@ -652,8 +652,8 @@ void PhysClass::Add_Debug_Axes(const Matrix3D & transform,const Vector3 & color)
 }
 #endif
 
-bool PhysClass::Is_Debug_Display_Enabled(void) const					
-{ 
+bool PhysClass::Is_Debug_Display_Enabled(void) const
+{
 	PhysicsSceneClass * the_scene = PhysicsSceneClass::Get_Instance();
 
 	Vector3 pos;
@@ -664,9 +664,9 @@ bool PhysClass::Is_Debug_Display_Enabled(void) const
 	}
 
 	if (the_scene) {
-		return (((Flags & DEBUGDISPLAY) == DEBUGDISPLAY) || the_scene->Is_Debug_Display_Enabled()); 
+		return (((Flags & DEBUGDISPLAY) == DEBUGDISPLAY) || the_scene->Is_Debug_Display_Enabled());
 	} else {
-		return ((Flags & DEBUGDISPLAY) == DEBUGDISPLAY); 
+		return ((Flags & DEBUGDISPLAY) == DEBUGDISPLAY);
 	}
 }
 
@@ -685,7 +685,7 @@ bool PhysClass::Expire(void)
 }
 
 //
-// TSS added this... not efficient to use if you are also 
+// TSS added this... not efficient to use if you are also
 // setting position
 //
 void PhysClass::Set_Facing(float new_facing)
@@ -696,7 +696,7 @@ void PhysClass::Set_Facing(float new_facing)
 	Matrix3D tm(1);
 	tm.Translate(pos);
 	tm.Rotate_Z(new_facing);
-	
+
 	Set_Transform(tm);
 }
 
@@ -720,7 +720,7 @@ bool PhysClass::Do_Any_Effects_Suppress_Shadows(void)
 **
 ***********************************************************************************************/
 
-enum 
+enum
 {
 	PHYSDEF_CHUNK_DEFINITION		= 0x055ffe07,			// parent class data.
 	PHYSDEF_CHUNK_VARIABLES,									// simple variables
@@ -732,7 +732,7 @@ enum
 };
 
 
-PhysDefClass::PhysDefClass(void) : 
+PhysDefClass::PhysDefClass(void) :
 	ModelName ("NULL"),
 	IsPreLit(false)
 {
@@ -759,7 +759,7 @@ bool PhysDefClass::Save(ChunkSaveClass &csave)
 
 	csave.Begin_Chunk(PHYSDEF_CHUNK_VARIABLES);
 	WRITE_MICRO_CHUNK_WWSTRING(csave,PHYSDEF_VARIABLE_MODELNAME,ModelName);
-	WRITE_MICRO_CHUNK(csave,PHYSDEF_VARIABLE_ISPRELIT,IsPreLit);	
+	WRITE_MICRO_CHUNK(csave,PHYSDEF_VARIABLE_ISPRELIT,IsPreLit);
 	csave.End_Chunk();
 	return true;
 
@@ -769,7 +769,7 @@ bool PhysDefClass::Load(ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
 
-		switch(cload.Cur_Chunk_ID()) {			
+		switch(cload.Cur_Chunk_ID()) {
 
 			case PHYSDEF_CHUNK_DEFINITION:
 				DefinitionClass::Load(cload);
@@ -781,7 +781,7 @@ bool PhysDefClass::Load(ChunkLoadClass &cload)
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						OBSOLETE_MICRO_CHUNK(PHYSDEF_VARIABLE_FLAGS);
 						READ_MICRO_CHUNK_WWSTRING(cload,PHYSDEF_VARIABLE_MODELNAME,ModelName);
-						READ_MICRO_CHUNK(cload,PHYSDEF_VARIABLE_ISPRELIT,IsPreLit);	
+						READ_MICRO_CHUNK(cload,PHYSDEF_VARIABLE_ISPRELIT,IsPreLit);
 					}
 					cload.Close_Micro_Chunk();
 				}

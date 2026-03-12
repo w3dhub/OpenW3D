@@ -165,7 +165,7 @@ MapMgrClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_CENTER_POINT,				MapCenterPoint);
 		WRITE_MICRO_CHUNK (csave, VARID_SCALE,							MapScale);
 		WRITE_MICRO_CHUNK (csave, VARID_MAP_TITLE_ID,				MapTitleID);
-		WRITE_MICRO_CHUNK (csave, VARID_IS_PLAYER_MARKDER_VISIBLE, IsPlayerMarkerVisible);		
+		WRITE_MICRO_CHUNK (csave, VARID_IS_PLAYER_MARKDER_VISIBLE, IsPlayerMarkerVisible);
 		WRITE_MICRO_CHUNK (csave, VARID_ENABLE_VTOL,					EnableVTOL);
 	csave.End_Chunk ();
 
@@ -190,10 +190,10 @@ MapMgrClass::Save (ChunkSaveClass &csave)
 bool
 MapMgrClass::Load (ChunkLoadClass &cload)
 {
-	
+
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the variables from this chunk
 			//
@@ -237,7 +237,7 @@ MapMgrClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_CENTER_POINT,				MapCenterPoint);
 			READ_MICRO_CHUNK (cload, VARID_SCALE,						MapScale);
 			READ_MICRO_CHUNK (cload, VARID_MAP_TITLE_ID,				MapTitleID);
-			READ_MICRO_CHUNK (cload, VARID_IS_PLAYER_MARKDER_VISIBLE, IsPlayerMarkerVisible);		
+			READ_MICRO_CHUNK (cload, VARID_IS_PLAYER_MARKDER_VISIBLE, IsPlayerMarkerVisible);
 			READ_MICRO_CHUNK (cload, VARID_ENABLE_VTOL,				EnableVTOL);
 		}
 
@@ -248,14 +248,14 @@ MapMgrClass::Load_Variables (ChunkLoadClass &cload)
 	// (gth) VTOL DISABLE!  We are not going to let Modders make VTOL aircraft
 	// until we release some levels with them.  FORCE the EnableVTOL flag to
 	// false for now.  When we release some maps with orcas, then we patch
-	// the game with this line of code removed and the mod people can make them 
+	// the game with this line of code removed and the mod people can make them
 	// too.
 	//
 #ifdef FORCE_DISABLE_VTOL
 	EnableVTOL = false;
 #endif
 
-	SaveLoadSystemClass::Register_Post_Load_Callback (this);	
+	SaveLoadSystemClass::Register_Post_Load_Callback (this);
 	return ;
 }
 

@@ -102,7 +102,7 @@ GameResPacket::GameResPacket(unsigned char* curbuf)
 
 	mID = ntohs(*(unsigned short*)curbuf);
 	curbuf += sizeof(mID);
-	
+
 	mReserved = ntohs(*(unsigned short*)curbuf);
 	curbuf += sizeof(mReserved);
 

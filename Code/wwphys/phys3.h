@@ -50,11 +50,11 @@
 class Phys3DefClass;
 class Phys3HistoryClass;
 
-/** 
+/**
 ** Phys3Class
 ** 3 Degree of Freedom Physics
 ** This object can translate in X,Y,and Z.  It will be represented
-** in the world by an axis-aligned box. 
+** in the world by an axis-aligned box.
 */
 class Phys3Class : public MoveablePhysClass
 {
@@ -109,7 +109,7 @@ public:
 	/*
 	** Phys3 movement controls
 	*/
-	virtual void					Set_Position(const Vector3 & position);	
+	virtual void					Set_Position(const Vector3 & position);
 	virtual const Vector3 &		Get_Position(void) const;
 	virtual void					Set_Heading(float heading);
 	virtual float					Get_Heading(void) const;
@@ -118,7 +118,7 @@ public:
 	virtual float					Get_Slide_Angle(void) const;
 	virtual void					Set_Normalized_Speed(float val)						{ NormSpeed = val; }
 	virtual float					Get_Normalized_Speed(void)	const						{ return NormSpeed; }
-	
+
 	void								Add_Animation_Move(const Vector3 & move)			{ AnimationMove += move; }
 	void								Get_Animation_Move(Vector3 * set_move)				{ *set_move = AnimationMove; }
 	void								Reset_Animation_Move(void)								{ AnimationMove.Set(0,0,0); }
@@ -143,7 +143,7 @@ public:
 
 	void								Network_Latency_State_Update(	const Vector3 & pos,
 																				const Vector3 & vel);
-	
+
 	static void						Set_Correction_Time(float time) { _CorrectionTime = time; }
 	static void						Set_Allowable_Error(float err) { _AllowableError = err; }
 	static void						Set_Pop_Error(float err) { _PopError = err; }
@@ -185,14 +185,14 @@ protected:
 	/*
 	** State of a Phys3 object
 	*/
-	struct StateStruct 
+	struct StateStruct
 	{
 		StateStruct(void);
 		StateStruct(const StateStruct & that);
 		StateStruct &	operator = (const StateStruct & that);
 
 		Vector3				Position;
-		Vector3				Velocity;		
+		Vector3				Velocity;
 	};
 
 
@@ -207,11 +207,11 @@ protected:
 	virtual bool					Slide_Move(const GroundStateStruct & gs,float dt);
 	virtual bool					Normal_Move(const GroundStateStruct & gs,float dt);
 	virtual bool					Collide_Move(const Vector3 & requested_move,float dt);
-	
+
 	bool								Apply_Move(const Vector3 & move,float dt,bool allow_sliding = true,bool allow_stepping = false,bool stop_on_walkable = false);
 	void								Snap_To_Ground(const Vector3 & actual_move,bool was_stepping);
 	void								Clip_Move(const Vector3 * contacts,int contact_count,Vector3 * move);
-	
+
 	void								Attach_To_Ground_Object(void);
 
 	/*
@@ -243,7 +243,7 @@ protected:
 	StateStruct						State;				// state vector
 	float								Heading;				// heading, a move of 1,0,0 will move in this direction.
 	float								NormSpeed;			// speed to move when controller is 1.0
-	float								SlideAngle;			// slope angle at which this object slides off 
+	float								SlideAngle;			// slope angle at which this object slides off
 	float								SlideNormalZ;		// cos(SlideAngle)
 	float								SlideAngleTan;		// tan(SlideAngle)
 	float								StepHeight;			// step side that this object will hop over
@@ -261,7 +261,7 @@ protected:
 	static float					_CorrectionTime;	// Network correction handling constants
 	static float					_AllowableError;
 	static float					_PopError;
-	
+
 private:
 
 	// not implemented
@@ -272,9 +272,9 @@ private:
 
 
 
-inline void Phys3Class::Get_Velocity(Vector3 * set_vel) const 
-{ 
-	*set_vel = State.Velocity; 
+inline void Phys3Class::Get_Velocity(Vector3 * set_vel) const
+{
+	*set_vel = State.Velocity;
 }
 
 inline void Phys3Class::Set_Velocity(const Vector3 & newvel)
@@ -291,20 +291,20 @@ inline void Phys3Class::Compute_WS_Collision_Box(const StateStruct & state,AABox
 inline Phys3Class::StateStruct::StateStruct(void) :
 	Position(0,0,0),
 	Velocity(0,0,0)
-{ 
+{
 }
 
 inline Phys3Class::StateStruct::StateStruct(const StateStruct & that)
-{ 
-	*this = that; 
+{
+	*this = that;
 }
 
-inline 
-Phys3Class::StateStruct & 
-Phys3Class::StateStruct::operator = (const StateStruct & that)	
-{ 
-	Position = that.Position; 
-	Velocity = that.Velocity; 
+inline
+Phys3Class::StateStruct &
+Phys3Class::StateStruct::operator = (const StateStruct & that)
+{
+	Position = that.Position;
+	Velocity = that.Velocity;
 	return *this;
 }
 
@@ -316,9 +316,9 @@ Phys3Class::StateStruct::operator = (const StateStruct & that)
 class Phys3DefClass : public MoveablePhysDefClass
 {
 public:
-	
+
 	Phys3DefClass(void);
-	
+
 	// From Definition
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;
@@ -338,7 +338,7 @@ public:
 protected:
 
 	float								NormSpeed;			// speed to move when controller is 1.0
-	float								SlideAngle;			// slope angle at which this object slides off 
+	float								SlideAngle;			// slope angle at which this object slides off
 	float								StepHeight;			// step side that this object will hop over
 
 	friend class Phys3Class;

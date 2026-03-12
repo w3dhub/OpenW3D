@@ -149,7 +149,7 @@ _D3DTRANSFORMSTATETYPE {
     D3DTS_WORLDMATRIX(0)  = box, pointgroup, camera
 } D3DTRANSFORMSTATETYPE;
 
-Clip Planes		= 
+Clip Planes		=
 Clip Status		=
 Current Texture Palette	=
 Cursor Position		=
@@ -165,7 +165,7 @@ Render Target		=
 Stream Source		= DX8W
 Texture			= DX8W
 WORLD Transform		= box, DX8R, pointgr
-VIEW  Transform		= pointgr 
+VIEW  Transform		= pointgr
 PROJECTION Transform	= camera
 TEXTURE Transform	= Map
 Vertex Shader		= DX8W

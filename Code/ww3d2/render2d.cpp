@@ -68,19 +68,19 @@ Render2DClass::Render2DClass( TextureClass* tex ) :
 	UVCoordinates(sizeof(PreAllocatedUVCoordinates)/sizeof(Vector2),PreAllocatedUVCoordinates),
 	Colors(sizeof(PreAllocatedColors)/sizeof(unsigned int),PreAllocatedColors)
 {
-	Set_Texture( tex );	
+	Set_Texture( tex );
    Shader = Get_Default_Shader();
 	return ;
 }
 
 Render2DClass::~Render2DClass()
 {
-	REF_PTR_RELEASE(Texture);	
+	REF_PTR_RELEASE(Texture);
 }
 
-void	Render2DClass::Set_Screen_Resolution( const RectClass & screen )	
-{ 
-	ScreenResolution = screen; 
+void	Render2DClass::Set_Screen_Resolution( const RectClass & screen )
+{
+	ScreenResolution = screen;
 #if 0
 	// Fool into pixel doubling  - Byon..
 	if ( screen.Width() >= 1280 ) {
@@ -96,7 +96,7 @@ Render2DClass::Get_Default_Shader( void )
 	ShaderClass shader;
 
    shader.Set_Depth_Mask( ShaderClass::DEPTH_WRITE_DISABLE );
-	shader.Set_Depth_Compare( ShaderClass::PASS_ALWAYS );	
+	shader.Set_Depth_Compare( ShaderClass::PASS_ALWAYS );
 	shader.Set_Dst_Blend_Func( ShaderClass::DSTBLEND_ONE_MINUS_SRC_ALPHA );
 	shader.Set_Src_Blend_Func( ShaderClass::SRCBLEND_SRC_ALPHA );
 	shader.Set_Fog_Func( ShaderClass::FOG_DISABLE );
@@ -118,7 +118,7 @@ void	Render2DClass::Reset(void)
 
 void Render2DClass::Set_Texture(TextureClass* tex)
 {
-	REF_PTR_SET(Texture,tex);	
+	REF_PTR_SET(Texture,tex);
 }
 
 void Render2DClass::Set_Texture( const char * filename)
@@ -193,7 +193,7 @@ void	  Render2DClass::Update_Bias( void )
 }
 
 #if 0
-Vector2 Render2DClass::Convert_Vert( const Vector2 & v ) 
+Vector2 Render2DClass::Convert_Vert( const Vector2 & v )
 {
 	Vector2 out;
 
@@ -201,7 +201,7 @@ Vector2 Render2DClass::Convert_Vert( const Vector2 & v )
 	out.X = v.X * CoordinateScale.X + CoordinateOffset.X;
 	out.Y = v.Y * CoordinateScale.Y + CoordinateOffset.Y;
 
-	// Convert to pixels 
+	// Convert to pixels
 	out.X = (out.X + 1.0f) * (Get_Screen_Resolution().Width() * 0.5f);
 	out.Y = (out.Y - 1.0f) * (Get_Screen_Resolution().Height() * -0.5f);
 
@@ -218,7 +218,7 @@ Vector2 Render2DClass::Convert_Vert( const Vector2 & v )
 
 	// Convert back to (-1,1)-(1,-1)
 	out.X = out.X / (Get_Screen_Resolution().Width() * 0.5f) - 1.0f;
-	out.Y = out.Y / (Get_Screen_Resolution().Height() * -0.5f) + 1.0f;	
+	out.Y = out.Y / (Get_Screen_Resolution().Height() * -0.5f) + 1.0f;
 
 	return out;
 }
@@ -245,7 +245,7 @@ void Render2DClass::Convert_Vert( Vector2 & vert_out, float x_in, float y_in )
 
 #endif
 
-void	Render2DClass::Move( const Vector2 & move )	// Move all verts 
+void	Render2DClass::Move( const Vector2 & move )	// Move all verts
 {
 	Vector2 scaled_move;
 	scaled_move.X = move.X * CoordinateScale.X;
@@ -255,7 +255,7 @@ void	Render2DClass::Move( const Vector2 & move )	// Move all verts
 	}
 }
 
-void	Render2DClass::Force_Alpha( float alpha )		// Force all alphas 
+void	Render2DClass::Force_Alpha( float alpha )		// Force all alphas
 {
 	unsigned int a = (unsigned)(WWMath::Clamp( alpha, 0, 1 ) * 255.0f);
 	a <<= 24;
@@ -265,7 +265,7 @@ void	Render2DClass::Force_Alpha( float alpha )		// Force all alphas
 }
 
 
-void	Render2DClass::Force_Color( int color )		// Force all alphas 
+void	Render2DClass::Force_Color( int color )		// Force all alphas
 {
 	for ( int i = 0; i < Colors.Count(); i++ ) {
 		Colors[i] = color;
@@ -305,7 +305,7 @@ void	Render2DClass::Internal_Add_Quad_UVs( const RectClass & uv )
 	uvs=UVCoordinates.Uninitialized_Add();
 	uvs->X = uv.Right;	uvs->Y = uv.Top;
 	uvs=UVCoordinates.Uninitialized_Add();
-	uvs->X = uv.Right;	uvs->Y = uv.Bottom;	
+	uvs->X = uv.Right;	uvs->Y = uv.Bottom;
 
 }
 
@@ -356,7 +356,7 @@ void	Render2DClass::Internal_Add_Quad_HColors( unsigned int color1, unsigned int
 void	Render2DClass::Internal_Add_Quad_Indicies( int start_vert_index, bool backfaced )
 {
 	unsigned short * indices;
-	
+
 	if (backfaced ^ (CoordinateScale.X * CoordinateScale.Y > 0)) {
 		indices=Indices.Uninitialized_Add();
 		*indices = start_vert_index + 1;
@@ -463,7 +463,7 @@ void	Render2DClass::Add_Tri( const Vector2 & v0, const Vector2 & v1, const Vecto
 	Convert_Vert( *Vertices.Uninitialized_Add(), v0 );
 	Convert_Vert( *Vertices.Uninitialized_Add(), v1 );
 	Convert_Vert( *Vertices.Uninitialized_Add(), v2 );
-	
+
 #endif
 
 	// Add the uv coordinates
@@ -532,7 +532,7 @@ void	Render2DClass::Add_Outline( const RectClass & rect, float width, const Rect
 	Add_Line (Vector2 (rect.Left, rect.Bottom),		Vector2 (rect.Left, rect.Top - 1),		width, uv, color);
 	Add_Line (Vector2 (rect.Left, rect.Top),		Vector2 (rect.Right, rect.Top),			width, uv, color);
 	Add_Line (Vector2 (rect.Right, rect.Top),		Vector2 (rect.Right, rect.Bottom),		width, uv, color);
-	Add_Line (Vector2 (rect.Right, rect.Bottom),	Vector2 (rect.Left - 1, rect.Bottom),	width, uv, color);	
+	Add_Line (Vector2 (rect.Right, rect.Bottom),	Vector2 (rect.Left - 1, rect.Bottom),	width, uv, color);
 }
 
 
@@ -590,7 +590,7 @@ void Render2DClass::Render(void)
 			*(unsigned int*)(va+fi.Get_Diffuse_Offset())=Colors[i];
 			*(Vector2*)(va+fi.Get_Tex_Offset(0))=UVCoordinates[i];
 			va+=fi.Get_FVF_Size();
-		}		
+		}
 	}
 
 	DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8,Indices.Count());
@@ -599,11 +599,11 @@ void Render2DClass::Render(void)
 		unsigned short *mem=Lock.Get_Index_Array();
 		for (int i=0; i<Indices.Count(); i++)
 			mem[i]=Indices[i];
-	}	
+	}
 
 	DX8Wrapper::Set_Vertex_Buffer(vb);
 	DX8Wrapper::Set_Index_Buffer(ib,0);
-	DX8Wrapper::Draw_Triangles(0,Indices.Count()/3,0,Vertices.Count());	
+	DX8Wrapper::Draw_Triangles(0,Indices.Count()/3,0,Vertices.Count());
 
 	DX8Wrapper::Set_Transform(D3DTS_VIEW,view);
 	DX8Wrapper::Set_Transform(D3DTS_PROJECTION,proj);
@@ -623,7 +623,7 @@ Render2DTextClass::Render2DTextClass(Font3DInstanceClass *font) :
 {
 	Set_Coordinate_Range( RectClass( -320, -240, 320, 240 ) );
 	Set_Font( font );
-	
+
 	Reset();
 }
 
@@ -665,7 +665,7 @@ void	Render2DTextClass::Draw_Char( unichar_t ch, unsigned int color )
 {
 	float char_spacing	= Font->Char_Spacing( ch );
 	float char_height		= Font->Char_Height();
-	
+
 	//
 	//	Check to see if this character is clipped
 	//

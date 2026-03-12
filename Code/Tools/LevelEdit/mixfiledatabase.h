@@ -71,12 +71,12 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Database methods
 	//
 	bool				Open_Database (LPCTSTR ini_filename, LPCTSTR username = NULL, LPCTSTR password = NULL);
-	
+
 	//
 	//	File manipulation methods
 	//
@@ -103,10 +103,10 @@ public:
 	//
 	bool				Retry_Check_Out (LPCTSTR /* local_filename */, int /* attempts */ = 1, int /* delay */ = 250)	{ return true; }
 	bool				Retry_Check_In (LPCTSTR /* local_filename */, int /* attempts */ = 1, int /* delay */ = 250)		{ return true; }
-	
+
 	//
 	//	File information methods
-	//		
+	//
 	FILE_STATUS		Get_File_Status (LPCTSTR /* local_filename */, StringClass * /* checked_out_user_name */ = NULL) { return CHECKED_OUT_TO_ME; }
 	bool				Is_File_Different (LPCTSTR local_filename) { return (Does_File_Exist (local_filename) == false); }
 	bool				Does_File_Exist (LPCTSTR local_filename);
@@ -127,12 +127,12 @@ public:
 	static MixFileDatabaseClass *	Get_Instance (void)	{ return _TheInstance; }
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
 	bool				Copy_File (FileClass *file, LPCTSTR local_filename);
-	void				Create_Directory_Structure (LPCTSTR path);	
+	void				Create_Directory_Structure (LPCTSTR path);
 	bool				Internal_Does_File_Exist (LPCSTR filename);
 	bool				Internal_Get (LPCSTR filename, LPCSTR local_path);
 	bool				Is_Texture (LPCSTR filename);
@@ -142,7 +142,7 @@ protected:
 
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
-	///////////////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////////////////////
 	StringClass		ModName;
 	StringClass		ModAssetPath;
 	StringClass		MixFilePath;

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/wwnet/networkobjectmgr.cpp                   $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 1/07/02 10:30a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 20                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwnet/networkobjectmgr.cpp                   $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 1/07/02 10:30a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 20                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "networkobjectmgr.h"
@@ -63,7 +63,7 @@ NetworkObjectMgrClass::Register_Object (NetworkObjectClass *object)
 		//
 		int index = 0;
 		if (Find_Object (object_id, &index) == false) {
-			
+
 			//
 			//	Insert the object into the list
 			//
@@ -91,7 +91,7 @@ NetworkObjectMgrClass::Unregister_Object (NetworkObjectClass *object)
 		//
 		int index = 0;
 		if (Find_Object (object_id, &index)) {
-					
+
 			//
 			//	Remove the object from the list
 			//
@@ -112,7 +112,7 @@ NetworkObjectClass *
 NetworkObjectMgrClass::Find_Object (int object_id)
 {
 	NetworkObjectClass *object = NULL;
-	
+
 	//
 	//	Lookup the object in the sorted list
 	//
@@ -162,7 +162,7 @@ NetworkObjectMgrClass::Get_New_Dynamic_ID (void)
 	NetworkObjectClass * p_object = Find_Object(_NewDynamicID);
 	while (p_object != NULL) {
 		/*
-		WWDEBUG_SAY(("NetworkObjectMgrClass::Get_New_Dynamic_ID :skipping id %d (already in use)\n", 
+		WWDEBUG_SAY(("NetworkObjectMgrClass::Get_New_Dynamic_ID :skipping id %d (already in use)\n",
 			_NewDynamicID));
 		*/
 		_NewDynamicID++;
@@ -221,11 +221,11 @@ NetworkObjectMgrClass::Find_Object (int id_to_find, int *index)
 {
 	WWASSERT(index != NULL);
 
-	bool found		= false;	
+	bool found		= false;
 	(*index)			= 0;
 	int min_index	= 0;
-	int max_index	= _ObjectList.Count () - 1;		
-	
+	int max_index	= _ObjectList.Count () - 1;
+
 	//
 	//	Keep looping until we've closed the window of possiblity
 	//
@@ -382,7 +382,7 @@ NetworkObjectMgrClass::Restore_Dirty_Bits (int client_id)
 	WWASSERT(client_id > 0);
 
 	//
-	// If a guy quits, we need to restore the dirty bits on each object so that 
+	// If a guy quits, we need to restore the dirty bits on each object so that
 	// if he rejoins he will be told about stuff again.
 	// For now I am going to use the topmost client id...
 	//
@@ -419,14 +419,14 @@ NetworkObjectMgrClass::Register_Object_For_Deletion (NetworkObjectClass *object)
 //	Reset_Import_State_Counts
 //
 ////////////////////////////////////////////////////////////////
-void 
+void
 NetworkObjectMgrClass::Reset_Import_State_Counts(void)
 {
 	for (int index = 0; index < _ObjectList.Count (); index ++) {
 
 		NetworkObjectClass * p_object = _ObjectList[index];
 		WWASSERT(p_object != NULL);
-			
+
 		//
 		//	Reset its import state count
 		//

@@ -45,8 +45,8 @@
 
 /**
 ** DynTexProjectClass
-** Dynamic projected textures.  This class is simply a projected texture that 
-** can keep track of the object it is supposed to be projecting and refresh 
+** Dynamic projected textures.  This class is simply a projected texture that
+** can keep track of the object it is supposed to be projecting and refresh
 ** its texture only when needed.  In addition, it stores the 'ID' of the
 ** light source which generated it so that we can re-use the same DynTexProjectClass's
 ** when the same object is being projected by the same light source (see the
@@ -84,7 +84,7 @@ public:
 
 	void					Set_Light_Vector(const Vector3 & vector);
 	void					Get_Light_Vector(Vector3 * set_vector);
-	
+
 	void					Enable_Perspective(bool onoff);
 	bool					Is_Perspective_Enabled(void);
 
@@ -92,7 +92,7 @@ public:
 	bool					Is_Texture_Dirty(void);
 
 	void					Update_Projection(const AABoxClass & objbox,const Matrix3D & objtm,float znear = -1.0f,float zfar = -1.0f);
-	
+
 protected:
 
 	PhysClass *			ProjectionObject;			// Object to be projected, not ref-counted!

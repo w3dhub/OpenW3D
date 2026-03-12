@@ -105,9 +105,9 @@ PresetGeneralTabClass::HandleInitDialog (void)
 		// Set the text of the respective dialog controls
 		//
 		SetDlgItemText (IDC_NAME_EDIT, definition->Get_Name ());
-		SetDlgItemInt (IDC_PRESET_ID_EDIT, definition->Get_ID ());		
+		SetDlgItemInt (IDC_PRESET_ID_EDIT, definition->Get_ID ());
 		SetDlgItemText (IDC_COMMENTS_EDIT, m_Preset->Get_Comments ());
-	}	
+	}
 
 	if (m_IsReadOnly) {
 		::EnableWindow (::GetDlgItem (m_hWnd, IDC_NAME_EDIT), false);
@@ -137,7 +137,7 @@ PresetGeneralTabClass::Apply_Changes (void)
 		// Pass the new name onto the base
 		CString name;
 		GetDlgItemText (IDC_NAME_EDIT, name);
-		
+
 		// Is the new name valid?
 		if (name.GetLength () > 0) {
 			definition->Set_Name (name);
@@ -145,7 +145,7 @@ PresetGeneralTabClass::Apply_Changes (void)
 
 			// Let the user know they MUST enter a name for the base
 			::Message_Box (m_hWnd, IDS_BASE_INFO_NONAME_MSG, IDS_BASE_INFO_NONAME_TITLE);
-			
+
 			// Put the focus back to the control
 			::SetFocus (::GetDlgItem (m_hWnd, IDC_NAME_EDIT));
 			retval = false;
@@ -156,7 +156,7 @@ PresetGeneralTabClass::Apply_Changes (void)
 		GetDlgItemText (IDC_COMMENTS_EDIT, comments);
 		m_Preset->Set_Comments (comments);
 	}
-	
+
 	// Return true to allow the dialog to close
 	return retval;
 }

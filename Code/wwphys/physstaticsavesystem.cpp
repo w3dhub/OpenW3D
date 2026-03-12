@@ -63,7 +63,7 @@ uint32 PhysStaticDataSaveSystemClass::Chunk_ID(void) const
 }
 
 bool PhysStaticDataSaveSystemClass::Save(ChunkSaveClass &csave)
-{	
+{
 	WWMEMLOG(MEM_GAMEDATA);
 
 	csave.Begin_Chunk(PSDSSC_CHUNKID_SCENE);
@@ -81,7 +81,7 @@ bool PhysStaticDataSaveSystemClass::Load(ChunkLoadClass &cload)
 	WWMEMLOG(MEM_GAMEDATA);
 
 	while (cload.Open_Chunk()) {
-		switch (cload.Cur_Chunk_ID()) 
+		switch (cload.Cur_Chunk_ID())
 		{
 			case PSDSSC_CHUNKID_SCENE:
 				PhysicsSceneClass::Get_Instance()->Load_Level_Static_Data(cload);
@@ -115,7 +115,7 @@ uint32 PhysStaticObjectsSaveSystemClass::Chunk_ID(void) const
 }
 
 bool PhysStaticObjectsSaveSystemClass::Save(ChunkSaveClass &csave)
-{	
+{
 	csave.Begin_Chunk(PSOSSC_CHUNKID_SCENE);
 	PhysicsSceneClass::Get_Instance()->Save_Level_Static_Objects(csave);
 	csave.End_Chunk();
@@ -126,7 +126,7 @@ bool PhysStaticObjectsSaveSystemClass::Save(ChunkSaveClass &csave)
 bool PhysStaticObjectsSaveSystemClass::Load(ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		switch (cload.Cur_Chunk_ID()) 
+		switch (cload.Cur_Chunk_ID())
 		{
 			case PSOSSC_CHUNKID_SCENE:
 				PhysicsSceneClass::Get_Instance()->Load_Level_Static_Objects(cload);

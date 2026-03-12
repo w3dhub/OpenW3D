@@ -68,7 +68,7 @@ const int		WHEEL_INDEX_CHAR1							= 7;
 const int		WHEEL_FLAG_CHAR0							= 8;
 
 // Wheel flags (begin appearing at character WHEEL_FLAG_CHAR0)
-const char		WHEEL_FLAG_STEERING						= 'S';			// wheel turns with steering 
+const char		WHEEL_FLAG_STEERING						= 'S';			// wheel turns with steering
 const char		WHEEL_FLAG_INV_STEERING					= 'I';			// wheel turns opposite steering
 const char		WHEEL_FLAG_TILT_STEERING				= 'T';			// wheel turns when vehicle (bike) tilts
 const char		WHEEL_FLAG_ENGINE							= 'E';			// wheel is attached to engine
@@ -76,10 +76,10 @@ const char		WHEEL_FLAG_LEFT_TRACK					= 'L';			// wheel is part of the left trac
 const char		WHEEL_FLAG_RIGHT_TRACK					= 'R';			// wheel is part of the right track
 const char		WHEEL_FLAG_FAKE							= 'F';			// wheel is fake!
 
-																
-																						
-																						
-																						
+
+
+
+
 /***********************************************************************************************
 **
 ** VehiclePhysClass Implementation
@@ -157,7 +157,7 @@ void VehiclePhysClass::Update_Wheels (void)
 	for (int i=0; i<Wheels.Length(); i++) {
 		Wheels[i]->Update_Model();
 	}
-	
+
 	PhysicsSceneClass::Get_Instance()->Release_Collision_Region();
 	Dec_Ignore_Counter();
 
@@ -222,14 +222,14 @@ float VehiclePhysClass::Compute_Approximate_Ride_Height(void)
 		OBBoxClass box;
 		ContactBox->Get_Inner_Box(&box,Quaternion(1),Vector3(0,0,0));
 		val += (box.Extent.Z - box.Center.Z);
-		
+
 		if (Wheels.Length() > 0) {
 			val += 0.66f * Wheels[0]->Get_Spring_Length();
-		} else { 
+		} else {
 			val += 0.6f;
 		}
 
-	} else { 
+	} else {
 		val = 1.0f;
 	}
 
@@ -306,7 +306,7 @@ void VehiclePhysClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 {
 	{
 		WWPROFILE("VehiclePhysClass::Compute_Force_And_Torque");
-		
+
 		/*
 		** Compute forces and torques for each wheel.
 		*/
@@ -317,7 +317,7 @@ void VehiclePhysClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 				goodwheels++;
 			}
 		}
-		
+
 		/*
 		** If all of our wheels are contacting and we are mostly upright,
 		** remember this transform as a "good" position.
@@ -336,14 +336,14 @@ void VehiclePhysClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 bool VehiclePhysClass::Can_Go_To_Sleep(float dt)
 {
 	/*
-	** Vehicles go to sleep if at least three wheels are in contact and their 
+	** Vehicles go to sleep if at least three wheels are in contact and their
 	** velocities are below some thresh-hold and their controller isn't doing anything.
 	*/
 	if ((Controller != NULL) && (Controller->Is_Inactive() != true)) {
 		GoToSleepTimer = RBODY_SLEEP_DELAY;
 		return false;
 	}
-	
+
 	/*
 	** Check our velocities
 	*/
@@ -354,8 +354,8 @@ bool VehiclePhysClass::Can_Go_To_Sleep(float dt)
 	float max_amomentum2 = IBody[1][1] * IBody[1][1] * AVEL_THRESHHOLD * AVEL_THRESHHOLD;
 	bool tried_to_sleep = false;
 
-	if ((State.LMomentum.Length2() < max_lmomentum2) && 
-		(State.AMomentum.Length2() < max_amomentum2) ) 
+	if ((State.LMomentum.Length2() < max_lmomentum2) &&
+		(State.AMomentum.Length2() < max_amomentum2) )
 	{
 
 		/*
@@ -367,7 +367,7 @@ bool VehiclePhysClass::Can_Go_To_Sleep(float dt)
 			if (Wheels[iwheel]->Get_Flag(SuspensionElementClass::INCONTACT)) {
 				contact_count++;
 			}
-		}	
+		}
 
 		if ((Wheels.Length() <= 2) || (contact_count >= 3) || (ContactBox->ContactCount >= 3)) {
 			tried_to_sleep = true;
@@ -405,11 +405,11 @@ void VehiclePhysClass::Update_Cached_Model_Parameters(void)
 	for (int i=0; i<Wheels.Length(); i++) {
 		if (	Wheels[i]->Get_Flag(SuspensionElementClass::ENGINE) ||
 				Wheels[i]->Get_Flag(SuspensionElementClass::LEFT_TRACK) ||
-				Wheels[i]->Get_Flag(SuspensionElementClass::RIGHT_TRACK) ) 
+				Wheels[i]->Get_Flag(SuspensionElementClass::RIGHT_TRACK) )
 		{
 			DriveWheelCount++;
 		}
-		
+
 		// "Real" wheels are all of them except the fake ones.
 		if (Wheels[i]->Get_Flag(SuspensionElementClass::FAKE) == false) {
 			RealWheelCount++;
@@ -444,7 +444,7 @@ void VehiclePhysClass::Create_Wheels(void)
 
 	const VehiclePhysDefClass * def = Get_VehiclePhysDef();
 	WWASSERT(def != NULL);
-	
+
 	int ibone;
 	int wheelcount = 0;
 
@@ -479,7 +479,7 @@ void VehiclePhysClass::Create_Wheels(void)
 			int rotation_bone = Find_Rotation_Bone(model,wpname);
 			int fork_bone = Find_Fork_Bone(model,wpname);
 			int trans_bone = Find_Translation_Bone(model,wpname);
-		
+
 			if (position_bone != -1) {
 
 				// initialize a wheel structure:
@@ -524,7 +524,7 @@ void VehiclePhysClass::Create_Wheels(void)
 					}
 					index++;
 				}
-				
+
 				// install the wheel
 				Wheels[curwheel++] = new_wheel;
 			}
@@ -535,7 +535,7 @@ void VehiclePhysClass::Create_Wheels(void)
 int VehiclePhysClass::Find_Fork_Bone(RenderObjClass * model,const char * wpname)
 {
 	for (int ibone=0; ibone < model->Get_Num_Bones(); ibone++) {
-				
+
 		const char * wfname = model->Get_Bone_Name(ibone);
         if (	(strnicmp(wfname,WHEELF_BONE_NAME,strlen(WHEELF_BONE_NAME)) == 0) &&
 				(wfname[WHEEL_INDEX_CHAR0] == wpname[WHEEL_INDEX_CHAR0]) &&
@@ -550,7 +550,7 @@ int VehiclePhysClass::Find_Fork_Bone(RenderObjClass * model,const char * wpname)
 int VehiclePhysClass::Find_Rotation_Bone(RenderObjClass * model,const char * wpname)
 {
 	for (int ibone=0; ibone < model->Get_Num_Bones(); ibone++) {
-				
+
 		const char * wcname = model->Get_Bone_Name(ibone);
         if (	(strnicmp(wcname,WHEELC_BONE_NAME,strlen(WHEELC_BONE_NAME)) == 0) &&
 				(wcname[WHEEL_INDEX_CHAR0] == wpname[WHEEL_INDEX_CHAR0]) &&
@@ -565,7 +565,7 @@ int VehiclePhysClass::Find_Rotation_Bone(RenderObjClass * model,const char * wpn
 int VehiclePhysClass::Find_Translation_Bone(RenderObjClass * model,const char * wpname)
 {
 	for (int ibone=0; ibone < model->Get_Num_Bones(); ibone++) {
-				
+
 		const char * wtname = model->Get_Bone_Name(ibone);
         if (	(strnicmp(wtname,WHEELT_BONE_NAME,strlen(WHEELT_BONE_NAME)) == 0) &&
 				(wtname[WHEEL_INDEX_CHAR0] == wpname[WHEEL_INDEX_CHAR0]) &&
@@ -576,7 +576,7 @@ int VehiclePhysClass::Find_Translation_Bone(RenderObjClass * model,const char * 
 	}
 	return -1;
 }
- 
+
 void VehiclePhysClass::Release_Auxiliary_Bones(void)
 {
 	// release any bones that we currently have captured
@@ -599,7 +599,7 @@ void VehiclePhysClass::Capture_Auxiliary_Bones(void)
 	for (ibone=0; (ibone < Model->Get_Num_Bones()) && (engine_bone_count < MAX_CAPTURED_BONE_COUNT); ibone++) {
 		const char * bone_name = Model->Get_Bone_Name(ibone);
         if (strnicmp(bone_name,ENGINE_FLAME_BONE_NAME,strlen(ENGINE_FLAME_BONE_NAME)) == 0) {
-			
+
 			EngineFlameBones[engine_bone_count] = ibone;
 			Model->Capture_Bone(ibone);
 			engine_bone_count++;
@@ -625,7 +625,7 @@ void VehiclePhysClass::Capture_Dazzles(void)
 
 	[[maybe_unused]] const VehiclePhysDefClass * def = Get_VehiclePhysDef();
 	WWASSERT(def != NULL);
-	
+
 	int imodel;
 	int dazzlecount = 0;
 
@@ -689,7 +689,7 @@ bool	VehiclePhysClass::Is_In_Contact(void)
 	//	Check to see if any of the wheels are on the ground
 	//
 	for (int index = 0; index < Wheels.Length(); index++) {
-		
+
 		//
 		//	Is this wheel on the ground?
 		//
@@ -719,19 +719,19 @@ bool VehiclePhysClass::Save(ChunkSaveClass &csave)
 bool VehiclePhysClass::Load(ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case VEHICLEPHYS_CHUNK_RIGIDBODY:
 				RigidBodyClass::Load(cload);
 				break;
-				
+
 			case VEHICLEPHYS_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,VEHICLEPHYS_VARIABLE_ISENGINEON,IsEngineOn);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 
@@ -739,14 +739,14 @@ bool VehiclePhysClass::Load(ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 
-	return true;	
+	return true;
 }
- 
- 
+
+
 /***********************************************************************************************
 **
 ** VehiclePhysDefClass Implementation
@@ -762,12 +762,12 @@ SimplePersistFactoryClass<VehiclePhysDefClass,PHYSICS_CHUNKID_VEHICLEPHYSDEF>	_V
 /*
 ** Chunk ID's used by VehiclePhysDefClass
 */
-enum 
+enum
 {
 	VEHICLEPHYSDEF_CHUNK_RIGIDBODYDEF					= 405001519,			// (parent class)
 	VEHICLEPHYSDEF_CHUNK_VARIABLES,
 
-	VEHICLEPHYSDEF_VARIABLE_SPRINGCONSTANT				= 0x00,	
+	VEHICLEPHYSDEF_VARIABLE_SPRINGCONSTANT				= 0x00,
 	VEHICLEPHYSDEF_VARIABLE_DAMPINGCONSTANT,
 	VEHICLEPHYSDEF_VARIABLE_SPRINGLENGTH,
 	VEHICLEPHYSDEF_VARIABLE_TRACTIONMULTIPLIER,
@@ -788,7 +788,7 @@ VehiclePhysDefClass::VehiclePhysDefClass(void) :
 	IsFake(false)
 {
 	// make our parameters editable!
-	EDITABLE_PARAM(VehiclePhysDefClass, ParameterClass::TYPE_BOOL, IsFake);	
+	EDITABLE_PARAM(VehiclePhysDefClass, ParameterClass::TYPE_BOOL, IsFake);
 	FLOAT_UNITS_PARAM(VehiclePhysDefClass, SpringConstant, 0.0f, 100000.0f,"N/m");
 	FLOAT_UNITS_PARAM(VehiclePhysDefClass, DampingConstant, 0.0f, 100000.0f,"N/(m/s)");
 	FLOAT_UNITS_PARAM(VehiclePhysDefClass, SpringLength, 0.0f, 100.0f,"m");
@@ -802,9 +802,9 @@ VehiclePhysDefClass::~VehiclePhysDefClass(void)
 {
 }
 
-uint32 VehiclePhysDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_VEHICLEPHYSDEF; 
+uint32 VehiclePhysDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_VEHICLEPHYSDEF;
 }
 
 const PersistFactoryClass & VehiclePhysDefClass::Get_Factory (void) const

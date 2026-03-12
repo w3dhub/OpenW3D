@@ -77,7 +77,7 @@ SimplePersistFactoryClass<WaypathDefinitionClass, CHUNKID_WAYPATH_DEF>				_Waypa
 WaypathDefinitionClass::WaypathDefinitionClass (void)
 	:	m_PassableObjects (0),
 		DefinitionClass ()
-		
+
 {
 	ENUM_PARAM (WaypathDefinitionClass, m_PassableObjects, ("All", 1, "Humans", 2, "Ground Vehicles", 3, "Flying Vehicles", 4, NULL));
 	return ;
@@ -119,7 +119,7 @@ WaypathDefinitionClass::Save (ChunkSaveClass &csave)
 
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		retval &= DefinitionClass::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		WRITE_MICRO_CHUNK (csave, VARID_PASSABLE_OBJ_ID, m_PassableObjects);
@@ -141,7 +141,7 @@ WaypathDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_BASE_CLASS:
 				retval &= DefinitionClass::Load (cload);
 				break;
@@ -171,7 +171,7 @@ WaypathDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_PASSABLE_OBJ_ID, m_PassableObjects);
 		}
 

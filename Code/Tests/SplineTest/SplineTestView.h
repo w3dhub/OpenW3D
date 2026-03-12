@@ -59,7 +59,7 @@ public:
 	Vector3		Clamp_Point(const Vector3 & input);
 	void			Enable_Draw_Tangents(bool onoff);
 	bool			Is_Draw_Tangents_Enabled(void);
-	
+
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;

@@ -115,7 +115,7 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	//
 	// Definitions
 	//
@@ -148,11 +148,11 @@ public:
    virtual	void						Apply_Damage_Extended (const OffenseObjectClass &offense, float scale = 1.0f, const	Vector3 & direction = Vector3 (0, 0, 0), const char *collision_box_name = NULL) override;
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Save/load support
 	//
@@ -167,13 +167,13 @@ protected:
 	bool									Apply_Bone_Collision_Damage (float damage_scale, const char *bone_name);
 	void									Determine_New_Overall_State (void);
 	void									Find_Death_Facing_Pos (Vector3 *facing_pos);
-	
+
 	//
 	//	Movement support
-	//	
+	//
 	float									Get_Distance_From_Ground (void);
 	bool									Fly_Move (PhysicalGameObj *game_obj, const Vector3 &vector);
-	void									Jump_To_Point (const Vector3 &pos);	
+	void									Jump_To_Point (const Vector3 &pos);
 
 	//
 	//	Lightning rod support
@@ -245,7 +245,7 @@ protected:
 		MOVE_STATE_GOTO_TIBERIUM,
 		MOVE_STATE_GOTO_CATWALK,
 		MOVE_STATE_JUMP_TO_CATWALK,
-		MOVE_STATE_CIRCLE_CATWALK,		
+		MOVE_STATE_CIRCLE_CATWALK,
 		MOVE_STATE_GOTO_THROW_OBJECT,
 		MOVE_STATE_JUMP_TO_STAR,
 		MOVE_STATE_FOLLOW_STAR,
@@ -295,13 +295,13 @@ protected:
 
 	//
 	//	Overall state handlers
-	//	
+	//
 	DECLARE_STATE (OVERALL_STATE_NOTHING,				SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (OVERALL_STATE_HEALING,				SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (OVERALL_STATE_THROWING_OBJECT,	SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (OVERALL_STATE_THROWING_SOLDIER,	SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (OVERALL_STATE_THROWING_STAR,		SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
-	DECLARE_STATE (OVERALL_STATE_GRAB_STAR,			SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);	
+	DECLARE_STATE (OVERALL_STATE_GRAB_STAR,			SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (OVERALL_STATE_JUMP_TO_CATWALK,	SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (OVERALL_STATE_ON_CATWALK,			SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (OVERALL_STATE_BODYSLAM,				SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
@@ -312,7 +312,7 @@ protected:
 
 	//
 	//	Raveshaw state handlers
-	//	
+	//
 	DECLARE_STATE (RAVESHAW_STATE_NOTHING,			SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_ROAR,				SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_GRAB_TIBERIUM,	SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
@@ -322,35 +322,35 @@ protected:
 	DECLARE_STATE (RAVESHAW_STATE_THROW_OBJECT,	SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_GRAB_STAR,		SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_BODYSLAM,		SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
-	DECLARE_STATE (RAVESHAW_STATE_JUMP_DOWN,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);	
+	DECLARE_STATE (RAVESHAW_STATE_JUMP_DOWN,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_STUMBLE,			SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_LOOK_CONFUSED,	SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_DYING,			SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (RAVESHAW_STATE_FALL,				SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
-	DECLARE_STATE (RAVESHAW_STATE_DEATH_LANDING,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);	
+	DECLARE_STATE (RAVESHAW_STATE_DEATH_LANDING,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 
 	//
 	//	Move state handlers
-	//	
+	//
 	DECLARE_STATE (MOVE_STATE_STOP,					SM_BEGIN,		SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (MOVE_STATE_GOTO_TIBERIUM,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (MOVE_STATE_GOTO_CATWALK,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
-	DECLARE_STATE (MOVE_STATE_JUMP_TO_CATWALK,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);	
+	DECLARE_STATE (MOVE_STATE_JUMP_TO_CATWALK,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (MOVE_STATE_CIRCLE_CATWALK,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
-	DECLARE_STATE (MOVE_STATE_GOTO_THROW_OBJECT,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);	
+	DECLARE_STATE (MOVE_STATE_GOTO_THROW_OBJECT,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (MOVE_STATE_JUMP_TO_STAR,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (MOVE_STATE_FOLLOW_STAR,			SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
 
 	//
 	//	Engorged state handlers
-	//	
+	//
 	DECLARE_STATE (ENGORGED_STATE_NONE,						SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (ENGORGED_STATE_ABSORBING_TIBERIUM,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (ENGORGED_STATE_FADING,					SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
 
 	//
 	//	Jump state handlers
-	//	
+	//
 	DECLARE_STATE (JUMP_STATE_NONE,			SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (JUMP_STATE_CROUCHING,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (JUMP_STATE_JUMPING,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
@@ -358,28 +358,28 @@ protected:
 
 	//
 	//	Stealth soldier state handlers
-	//	
+	//
 	DECLARE_STATE (STEALTH_SOLDIER_STATE_NONE,			SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (STEALTH_SOLDIER_STATE_DISPLAY,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (STEALTH_SOLDIER_STATE_FLYING,			SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 
 	//
 	//	Havoc state handlers
-	//	
+	//
 	DECLARE_STATE (HAVOC_STATE_NONE,			SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (HAVOC_STATE_GRABBED,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (HAVOC_STATE_FLYING,		SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 
 	//
 	//	Thrown object state handlers
-	//	
+	//
 	DECLARE_STATE (THROWN_OBJECT_STATE_NONE,		SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (THROWN_OBJECT_STATE_PICKUP,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 	DECLARE_STATE (THROWN_OBJECT_STATE_FLYING,	SM_BEGIN,		SM_NO_END,	SM_THINK,		SM_NO_REQ_END);
 
 	//
 	//	Lightning rod state handlers
-	//	
+	//
 	DECLARE_STATE (LIGHTNING_ROD_STATE_NONE,		SM_NO_BEGIN,	SM_NO_END,	SM_NO_THINK,	SM_NO_REQ_END);
 	DECLARE_STATE (LIGHTNING_ROD_STATE_ACTIVE,	SM_BEGIN,		SM_END,		SM_THINK,		SM_NO_REQ_END);
 
@@ -392,16 +392,16 @@ private:
 	{
 		MAX_TAUNTS	= 6
 	};
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private methods
 	///////////////////////////////////////////////////////////////////
 	static int __cdecl	fnSortLightningRodsCallback (const void *elem1, const void *elem2);
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private member data
 	///////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Taunts
 	//
@@ -420,7 +420,7 @@ private:
 	float							StealthSoldierStateTimer;
 	float							LightningRodStateTimer;
 	float							StartTimer;
-	
+
 	//
 	//	Melee data
 	//
@@ -429,7 +429,7 @@ private:
 
 	//
 	//	Thrown object data
-	//	
+	//
 	GameObjReference			StealthSoldier;
 	StealthEffectClass *		StealthEffect;
 	SimpleGameObj *			ThrownObject;
@@ -439,7 +439,7 @@ private:
 	Matrix3D						RelObjTM;
 	RenderObjClass *			CameraBoneModel;
 	bool							RestoreFirstPerson;
-	
+
 	//
 	//	Effects data
 	//
@@ -489,7 +489,7 @@ WWINLINE SoldierGameObj *
 RaveshawBossGameObjClass::Peek_Stealth_Soldier (void)
 {
 	SoldierGameObj *soldier = NULL;
-	
+
 	//
 	//	Dig the soldier out of the game object reference
 	//

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/soldierobserver.h                     $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/29/01 11:03a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 44                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/soldierobserver.h                     $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/29/01 11:03a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 44                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SOLDIEROBSERVER_H
@@ -91,14 +91,14 @@ public:
 	void		Get_Information( StringClass & string );
 
 	typedef enum {
-		SOLDIER_AI_RELAXED_IDLE = 0,	
-		SOLDIER_AI_ALERT_IDLE,	
+		SOLDIER_AI_RELAXED_IDLE = 0,
+		SOLDIER_AI_ALERT_IDLE,
 		SOLDIER_AI_FOOTSTEPS_HEARD,
 		SOLDIER_AI_BULLET_HEARD,
 		SOLDIER_AI_GUNSHOT_HEARD,
 		SOLDIER_AI_ENEMY_SEEN,
 		NUM_SOLDIER_AI_STATES,
-		SOLDIER_AI_CONDITIONAL_IDLE = 100,	
+		SOLDIER_AI_CONDITIONAL_IDLE = 100,
 	} SoldierAIStates;
 
 	bool Set_State( SoldierGameObj * soldier, int state, const Vector3& location = Vector3(0,0,0), GameObject* enemy = NULL);

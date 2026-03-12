@@ -107,7 +107,7 @@ PresetListDialogClass::OnInitDialog (void)
 	//	Configure the preset list control
 	//
 	m_PresetListCtrl.InsertColumn (0, "Name");
-	m_PresetListCtrl.InsertColumn (1, "Type");	
+	m_PresetListCtrl.InsertColumn (1, "Type");
 
 	//
 	//	Configure the type combobox
@@ -118,13 +118,13 @@ PresetListDialogClass::OnInitDialog (void)
 	//	Add the previously selected presets to the list control
 	//
 	for (int index = 0; index < m_List->Count (); index ++) {
-		
+
 		//
 		//	Lookup this preset
 		//
 		int preset_id			= (*m_List)[index];
 		PresetClass *preset	= PresetMgrClass::Find_Preset (preset_id);
-		
+
 		//
 		//	Add the preset to the list control
 		//
@@ -136,7 +136,7 @@ PresetListDialogClass::OnInitDialog (void)
 	//
 	m_PresetTreeCtrl.SetImageList (::Get_Global_Image_List (), TVSIL_NORMAL);
 	Populate_Preset_Tree ();
-	
+
 	//
 	//	Size the columns
 	//
@@ -216,13 +216,13 @@ void
 PresetListDialogClass::Add_Preset (PresetClass *preset)
 {
 	if (preset != NULL && preset->Get_Definition () != NULL) {
-		
+
 		//
 		//	Insert this preset into the list control
 		//
 		int list_index = m_PresetListCtrl.InsertItem (0xFFF, preset->Get_Name ());
 		if (list_index >= 0) {
-			
+
 			//
 			//	Set the entry's type name
 			//
@@ -258,7 +258,7 @@ PresetListDialogClass::OnOK (void)
 	for (int index = 0; index < count; index ++) {
 		int preset_id = m_PresetListCtrl.GetItemData (index);
 		m_List->Add (preset_id);
-	}	
+	}
 
 	CDialog::OnOK ();
 	return ;
@@ -330,7 +330,7 @@ PresetListDialogClass::OnDblclkPresetList
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-) 
+)
 {
 	(*pResult) = 0;
 
@@ -349,7 +349,7 @@ PresetListDialogClass::OnDblclkPresetTree
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-) 
+)
 {
 	(*pResult) = 0;
 
@@ -368,7 +368,7 @@ PresetListDialogClass::OnItemchangedPresetList
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-) 
+)
 {
 	(*pResult) = 0;
 
@@ -387,7 +387,7 @@ PresetListDialogClass::OnSelchangedPresetTree
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-) 
+)
 {
 	(*pResult) = 0;
 
@@ -402,10 +402,10 @@ PresetListDialogClass::OnSelchangedPresetTree
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-PresetListDialogClass::OnDestroy (void) 
+PresetListDialogClass::OnDestroy (void)
 {
 	m_PresetTreeCtrl.SetImageList (NULL, TVSIL_NORMAL);
-	CDialog::OnDestroy ();	
+	CDialog::OnDestroy ();
 	return ;
 }
 
@@ -416,14 +416,14 @@ PresetListDialogClass::OnDestroy (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-PresetListDialogClass::Generate_Type_List (void) 
-{	
+PresetListDialogClass::Generate_Type_List (void)
+{
 	//
 	// Configure the combo-box
 	//
 	m_ComboBox.SetImageList (::Get_Global_Image_List ());
 	m_ComboBox.EnableWindow (m_EnableTypeSel);
-	
+
 	//
 	// Build a tree of factories
 	//
@@ -475,7 +475,7 @@ PresetListDialogClass::Add_Factories_To_Combo
 		item.lParam				= (LPARAM)class_id;
 		item.iItem				= index ++;
 		int item_index			= m_ComboBox.InsertItem (&item);
-		
+
 		//
 		//	Is this the factory we need to select?
 		//
@@ -551,7 +551,7 @@ PresetListDialogClass::Populate_Preset_Tree (void)
 		//
 		//	Populate the tree control
 		//
-		Fill_Tree (preset_tree.Peek_Root (), TVI_ROOT);		
+		Fill_Tree (preset_tree.Peek_Root (), TVI_ROOT);
 	}
 
 	return ;
@@ -635,7 +635,7 @@ PresetListDialogClass::Fill_Tree (NTreeLeafClass<PresetClass *> *leaf, HTREEITEM
 																					OBJECT_ICON,
 																					OBJECT_ICON,
 																					folder_item);
-			
+
 			m_PresetTreeCtrl.SetItemData (preset_item, (ULONG)preset);
 		}
 	}
@@ -660,19 +660,19 @@ PresetListDialogClass::OnSelendokTypeCombo (void)
 }
 
 
-void PresetListDialogClass::OnSelchangeTypeCombo() 
+void PresetListDialogClass::OnSelchangeTypeCombo()
 {
 	//
 	//	Get the currently selected type from the combobox
 	//
 	int cur_sel = m_ComboBox.GetCurSel ();
 	if (cur_sel >= 0) {
-		
+
 		//
 		//	Repopulate the tree control if the type changed
 		//
 		uint32 new_class_id = m_ComboBox.GetItemData (cur_sel);
-		if (new_class_id != m_ClassID) {		
+		if (new_class_id != m_ClassID) {
 			m_ClassID = new_class_id;
 			Populate_Preset_Tree ();
 		}

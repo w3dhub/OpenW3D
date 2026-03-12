@@ -50,7 +50,7 @@ typedef sint32         SOCKET;
 #define closesocket    close
 #define SOCKET_ERROR   -1
 #define INVALID_SOCKET -1
- 
+
 #endif
 
 #ifdef AIX

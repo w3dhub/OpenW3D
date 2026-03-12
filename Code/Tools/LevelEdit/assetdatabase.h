@@ -79,12 +79,12 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-	
+
 		//
 		//	Database methods
 		//
 		virtual bool				Open_Database (LPCTSTR ini_filename, LPCTSTR username = NULL, LPCTSTR password = NULL) = 0;
-		
+
 		//
 		//	File manipulation methods
 		//
@@ -109,11 +109,11 @@ public:
 		//
 		virtual bool				Retry_Check_Out (LPCTSTR local_filename, int attempts = 1, int delay = 250) = 0;
 		virtual bool				Retry_Check_In (LPCTSTR local_filename, int attempts = 1, int delay = 250) = 0;
-		
+
 		//
 		//	File information methods
 		//
-		
+
 		virtual FILE_STATUS		Get_File_Status (LPCTSTR local_filename, StringClass *checked_out_user_name = NULL) = 0;
 		virtual bool				Is_File_Different (LPCTSTR local_filename) = 0;
 		virtual bool				Does_File_Exist (LPCTSTR local_filename) = 0;
@@ -124,14 +124,14 @@ public:
 		virtual bool				Is_Read_Only (void) const	{ return true; }
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
-	///////////////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////////////////////
 };
 
 

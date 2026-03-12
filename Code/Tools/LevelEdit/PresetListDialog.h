@@ -82,7 +82,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ protected:
 	//	Protected methods
 	//////////////////////////////////////////////////////////////////
 	void			Add_Preset (PresetClass *preset);
-	void			Sort_Nodes (HTREEITEM root_item, bool recursive);	
+	void			Sort_Nodes (HTREEITEM root_item, bool recursive);
 	void			Update_Button_State (void);
 
 	void			Populate_Preset_Tree (void);
@@ -106,7 +106,7 @@ protected:
 
 	void			Add_Factories_To_Combo (NTreeLeafClass<uint32> *leaf, int indent, int &index);
 	void			Generate_Type_List (void);
-	
+
 
 	//////////////////////////////////////////////////////////////////
 	//	Protected member data

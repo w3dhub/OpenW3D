@@ -226,7 +226,7 @@ public:
 	//
 	virtual DialogTransitionClass *	Get_Transition_In (DialogBaseClass * /* prev_dlg */)	{ return NULL; }
 	virtual DialogTransitionClass *	Get_Transition_Out (DialogBaseClass * /* next_dlg */)	{ return NULL; }
-	
+
 	virtual void			Set_Controls_Hidden (bool onoff)			{ AreControlsHidden = onoff; }
 	virtual bool			Are_Controls_Hidden (void) const			{ return AreControlsHidden; }
 
@@ -247,7 +247,7 @@ protected:
 
 	////////////////////////////////////////////////////////////////
 	//	Protected typedefs
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	typedef DynamicVectorClass<DialogControlClass *> CONTROL_LIST;
 	typedef DynamicVectorClass<ChildDialogClass *> DIALOG_LIST;
 
@@ -275,7 +275,7 @@ protected:
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	WideStringClass				Title;
 	RectClass						Rect;
 	const DialogResource *				DialogResource_;

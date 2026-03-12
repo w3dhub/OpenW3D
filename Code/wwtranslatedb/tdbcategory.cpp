@@ -105,7 +105,7 @@ TDBCategoryClass::~TDBCategoryClass (void)
 //	operator=
 //
 /////////////////////////////////////////////////////////////////
-const TDBCategoryClass &	
+const TDBCategoryClass &
 TDBCategoryClass::operator= (const TDBCategoryClass &src)
 {
 	ID		= src.ID;
@@ -137,7 +137,7 @@ TDBCategoryClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		PersistClass::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		Save_Variables (csave);
@@ -154,13 +154,13 @@ TDBCategoryClass::Save (ChunkSaveClass &csave)
 bool
 TDBCategoryClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				PersistClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -180,12 +180,12 @@ TDBCategoryClass::Load (ChunkLoadClass &cload)
 /////////////////////////////////////////////////////////////////
 void
 TDBCategoryClass::Save_Variables (ChunkSaveClass &csave)
-{	
+{
 	//
 	//	Save each variable to its own micro chunk
 	//
 	WRITE_MICRO_CHUNK					(csave, VARID_ID,		ID);
-	WRITE_MICRO_CHUNK_WWSTRING		(csave, VARID_NAME,	Name);	
+	WRITE_MICRO_CHUNK_WWSTRING		(csave, VARID_NAME,	Name);
 	return ;
 }
 
@@ -197,12 +197,12 @@ TDBCategoryClass::Save_Variables (ChunkSaveClass &csave)
 /////////////////////////////////////////////////////////////////
 void
 TDBCategoryClass::Load_Variables (ChunkLoadClass &cload)
-{	
+{
 	while (cload.Open_Micro_Chunk ()) {
-		switch (cload.Cur_Micro_Chunk_ID ()) {			
-			
+		switch (cload.Cur_Micro_Chunk_ID ()) {
+
 			READ_MICRO_CHUNK					(cload, VARID_ID,		ID);
-			READ_MICRO_CHUNK_WWSTRING		(cload, VARID_NAME,	Name);	
+			READ_MICRO_CHUNK_WWSTRING		(cload, VARID_NAME,	Name);
 		}
 
 		cload.Close_Micro_Chunk ();

@@ -199,7 +199,7 @@ AudibleSoundClass::AudibleSoundClass (const AudibleSoundClass &src)
 		m_LoopsLeft (0),
 		m_Type (TYPE_SOUND_EFFECT),
 		m_FadeType (FADE_NONE),
-		m_FadeTimer (0),		
+		m_FadeTimer (0),
 		m_FadeTime (0),
 		m_VirtualChannel (0),
 		m_bDirty (true),

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/evictionevent.cpp               $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 11/10/01 1:02p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 11                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/evictionevent.cpp               $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 11/10/01 1:02p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 11                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "evictionevent.h"
@@ -49,7 +49,7 @@
 #include "apppackettypes.h"
 #include "messagewindow.h"
 
-// 
+//
 // TSS2001 Problem - we have lost the unreliable multiblast effect for this message
 //
 
@@ -97,8 +97,8 @@ cEvictionEvent::Act(void)
 
 	WideStringClass widestring;
 	widestring.Format(
-		U_CHAR("%s: %s"), 
-		TRANSLATION(IDS_MP_YOU_ARE_EVICTED), 
+		U_CHAR("%s: %s"),
+		TRANSLATION(IDS_MP_YOU_ARE_EVICTED),
 		code_string);
    WWASSERT(CombatManager::Get_Message_Window() != NULL);
 

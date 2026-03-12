@@ -147,12 +147,12 @@ void
 MainMenuDialogClass::On_Menu_Activate (bool onoff)
 {
 	if (TitleTransModel != NULL) {
-	
+
 		//
 		//	Either add or remove the logo from the scene
 		//
 		if (onoff) {
-	
+
 			// Put the logo pack into the scene when reactivated.
 			if (LogoModel && LogoModel->Peek_Scene() == NULL) {
 				if (MenuBackDropClass *backdrop = Get_BackDrop()) {
@@ -400,7 +400,7 @@ MainMenuDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param
 		}
 
 		case IDC_MENU_MP_LAN_GAME_BUTTON:
-			
+
 			//
 			// Clear any gamespyadmin flags
 			//
@@ -410,7 +410,7 @@ MainMenuDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param
 				GameInitMgrClass::Initialize_LAN ();
 			} else {
 				DlgMsgBox::DoDialog(
-					TRANSLATE(IDS_MP_UNABLE_INITIALIZE_LAN), 
+					TRANSLATE(IDS_MP_UNABLE_INITIALIZE_LAN),
 					TRANSLATE(IDS_MP_NO_LAN_IP_ADDRESSES_FOUND));
 				allow_default = false;
 			}

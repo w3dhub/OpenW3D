@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/refinerygameobj.h                     $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/18/02 11:17p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 10                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/refinerygameobj.h                     $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/18/02 11:17p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 10                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -93,7 +93,7 @@ protected:
 	//	Protected member data
 	////////////////////////////////////////////////////////////////
 	float			UnloadTime;
-	float			FundsGathered;	
+	float			FundsGathered;
 	float			FundsDistributedPerSec;
 	int			HarvesterDefID;
 
@@ -147,7 +147,7 @@ public:
 	//
 	void					CnC_Initialize (BaseControllerClass *base) override;
 	void					On_Destroyed (void) override;
-	
+
 	//
 	//	GameObj methods
 	//
@@ -200,7 +200,7 @@ private:
 	////////////////////////////////////////////////////////////////
 	//	Private methods
 	////////////////////////////////////////////////////////////////
-	void					Load_Variables (ChunkLoadClass &cload);	
+	void					Load_Variables (ChunkLoadClass &cload);
 
 	////////////////////////////////////////////////////////////////
 	//	Private constants

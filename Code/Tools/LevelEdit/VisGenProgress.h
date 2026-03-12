@@ -77,7 +77,7 @@ protected:
 	int				TotalSampleCount;
 	int				CurrentNodeEdgeCount;
 	int				CurrentNodeSampleCount;
-	
+
 	bool				CancelRequested;
 };
 
@@ -95,9 +95,9 @@ inline VisGenProgressClass::VisGenProgressClass(void) :
 
 
 inline float VisGenProgressClass::Get_Average_Samples_Per_Node(void)
-{ 
+{
 	if (ProcessedNodeCount > 0) {
-		return (float)TotalSampleCount / (float)ProcessedNodeCount; 
+		return (float)TotalSampleCount / (float)ProcessedNodeCount;
 	} else {
 		return 0.0f;
 	}

@@ -370,7 +370,7 @@ public:
 	const char * Get_Name( void ) override	{ return "Gamma_Correction"; }
 	const char * Get_INI_Name( void ) override	{ return "GammaCorrection"; }
 	const char * Get_Help( void ) override	{ formatstring.Format ("GAMMA_CORRECTION [%d..%d] - Adjusts gamma correction curve for the display.", GAMMA_SLIDER_MIN, GAMMA_SLIDER_MAX); return (formatstring); }
-	
+
 	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Gamma (); return Value; }
 	void	Set_Slider( int value ) override	{ DlgConfigVideoTabClass::Set_Gamma (value); }
 	void	Registry_Save				( RegistryClass & registry ) override { registry.Set_Int (Get_Name (), Get_Slider ()); }
@@ -392,7 +392,7 @@ public:
 	const char * Get_Name( void ) override	{ return "Brightness"; }
 	const char * Get_INI_Name( void ) override	{ return "Brightness"; }
 	const char * Get_Help( void ) override	{ formatstring.Format ("BRIGHTNESS [%d..%d] - Adjusts brightness for the display.", BRIGHTNESS_SLIDER_MIN, BRIGHTNESS_SLIDER_MAX); return (formatstring); }
-	
+
 	int	Get_Slider( void ) override		{ Value = DlgConfigVideoTabClass::Get_Brightness (); return Value; }
 	void	Set_Slider( int value ) override	{ DlgConfigVideoTabClass::Set_Brightness (value); }
 	void	Registry_Save				( RegistryClass & registry ) override { registry.Set_Int (Get_Name (), Get_Slider ()); }

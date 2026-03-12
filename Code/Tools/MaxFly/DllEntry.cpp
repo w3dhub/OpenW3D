@@ -22,9 +22,9 @@
 
 	DESCRIPTION:Contains the Dll Entry stuff
 
-	CREATED BY: 
+	CREATED BY:
 
-	HISTORY: 
+	HISTORY:
 
  *>	Copyright (c) 1997, All Rights Reserved.
  **********************************************************************/
@@ -45,7 +45,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
 		InitCustomControls(hInstance);	// Initialize MAX's custom controls
 		InitCommonControls();			// Initialize Win95 controls
 	}
-			
+
 	return (true);
 }
 

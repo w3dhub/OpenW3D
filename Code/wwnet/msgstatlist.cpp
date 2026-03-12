@@ -18,10 +18,10 @@
 
 //
 // Filename:     msgstatlist.cpp
-// Project:      
+// Project:
 // Author:       Tom Spencer-Smith
-// Date:         
-// Description:  
+// Date:
+// Description:
 //
 //------------------------------------------------------------------------------------
 #include "msgstatlist.h" // I WANNA BE FIRST!
@@ -62,7 +62,7 @@ void cMsgStatList::Init(int num_stats)
 void cMsgStatList::Increment_Num_Msg_Sent(int message_type, int increment)
 {
 	WWASSERT(message_type >= 0 && message_type < NumStats);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStat[message_type].Increment_Num_Msg_Sent(increment);
 	PStat[NumStats].Increment_Num_Msg_Sent(increment);
@@ -72,7 +72,7 @@ void cMsgStatList::Increment_Num_Msg_Sent(int message_type, int increment)
 void cMsgStatList::Increment_Num_Byte_Sent(int message_type, int increment)
 {
 	WWASSERT(message_type >= 0 && message_type < NumStats);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStat[message_type].Increment_Num_Byte_Sent(increment);
 	PStat[NumStats].Increment_Num_Byte_Sent(increment);
@@ -82,7 +82,7 @@ void cMsgStatList::Increment_Num_Byte_Sent(int message_type, int increment)
 void cMsgStatList::Increment_Num_Msg_Recd(int message_type, int increment)
 {
 	WWASSERT(message_type >= 0 && message_type < NumStats);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStat[message_type].Increment_Num_Msg_Recd(increment);
 	PStat[NumStats].Increment_Num_Msg_Recd(increment);
@@ -92,7 +92,7 @@ void cMsgStatList::Increment_Num_Msg_Recd(int message_type, int increment)
 void cMsgStatList::Increment_Num_Byte_Recd(int message_type, int increment)
 {
 	WWASSERT(message_type >= 0 && message_type < NumStats);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStat[message_type].Increment_Num_Byte_Recd(increment);
 	PStat[NumStats].Increment_Num_Byte_Recd(increment);

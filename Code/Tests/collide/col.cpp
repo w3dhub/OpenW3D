@@ -52,7 +52,7 @@ BoxClass::BoxClass(Box box)
 //---------------------------------------------------------------------------
 IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1,float dt)
 {
-	// memoized values for Dot_Product(box0.Basis[i],box1.Basis[j]), 
+	// memoized values for Dot_Product(box0.Basis[i],box1.Basis[j]),
 	Matrix3 AB;
 
 	// calculate difference of centers
@@ -63,7 +63,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1,float
 
 	/////////////////////////////////////////////////////////////////////////
 	// L = A0
-	// 
+	//
 	// Projecting the two boxes onto Box0's X axis.  If their intervals
 	// on this line do not intersect, the boxes are not intersecting!
 	// Each of the tests in this function work in a similar way.
@@ -71,7 +71,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1,float
 	AB[0][0] = Dot_Product(box0.Basis[0],box1.Basis[0]);
 	AB[0][1] = Dot_Product(box0.Basis[0],box1.Basis[1]);
 	AB[0][2] = Dot_Product(box0.Basis[0],box1.Basis[2]);
-	
+
 	ra = FABS(box0.Extent[0]);
 	rb = FABS(box1.Extent[0]*AB[0][0])+FABS(box1.Extent[1]*AB[0][1])+FABS(box1.Extent[2]*AB[0][2]);
 	rsum = ra+rb;
@@ -102,7 +102,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1,float
 	if ((u0 > rsum && u1 > rsum) || (u0 < -rsum && u1 < -rsum) )
 		return itA1;
 
-	
+
 	/////////////////////////////////////////////////////////////////////////
 	// L = A2
 	// Separating Axis is Box0's Y axis
@@ -148,7 +148,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1,float
 	if ((u0 > rsum && u1 > rsum) || (u0 < -rsum && u1 < -rsum) )
 		return itB1;
 
-	
+
 	/////////////////////////////////////////////////////////////////////////
 	// L = B2
 	// Separating Axis is Box1's Z axis
@@ -303,7 +303,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1,float
 
 IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1)
 {
-	// memoized values for Dot_Product(box0.Basis[i],box1.Basis[j]), 
+	// memoized values for Dot_Product(box0.Basis[i],box1.Basis[j]),
 	Matrix3 AB;
 
 	// calculate difference of centers
@@ -313,7 +313,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1)
 
 	/////////////////////////////////////////////////////////////////////////
 	// L = A0
-	// 
+	//
 	// Projecting the two boxes onto Box0's X axis.  If their intervals
 	// on this line do not intersect, the boxes are not intersecting!
 	// Each of the tests in this function work in a similar way.
@@ -321,7 +321,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1)
 	AB[0][0] = Dot_Product(box0.Basis[0],box1.Basis[0]);
 	AB[0][1] = Dot_Product(box0.Basis[0],box1.Basis[1]);
 	AB[0][2] = Dot_Product(box0.Basis[0],box1.Basis[2]);
-	
+
 	ra = FABS(box0.Extent[0]);
 	rb = FABS(box1.Extent[0]*AB[0][0])+FABS(box1.Extent[1]*AB[0][1])+FABS(box1.Extent[2]*AB[0][2]);
 	rsum = ra+rb;
@@ -350,7 +350,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1)
 	if ((u0 > rsum) || (u0 < -rsum))
 		return itA1;
 
-	
+
 	/////////////////////////////////////////////////////////////////////////
 	// L = A2
 	// Separating Axis is Box0's Y axis
@@ -393,7 +393,7 @@ IntersectType Boxes_Intersect(const BoxClass & box0, const BoxClass & box1)
 	if ((u0 > rsum) || (u0 < -rsum))
 		return itB1;
 
-	
+
 	/////////////////////////////////////////////////////////////////////////
 	// L = B2
 	// Separating Axis is Box1's Z axis

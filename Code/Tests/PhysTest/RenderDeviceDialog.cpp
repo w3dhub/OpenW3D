@@ -60,7 +60,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CRenderDeviceDialog message handlers
 
-BOOL CRenderDeviceDialog::OnInitDialog() 
+BOOL CRenderDeviceDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -74,7 +74,7 @@ BOOL CRenderDeviceDialog::OnInitDialog()
 	return true;
 }
 
-void CRenderDeviceDialog::OnOK() 
+void CRenderDeviceDialog::OnOK()
 {
 	// get the index of the currently selected render device and set ww3d to use it
 	int device = m_RenderDeviceCombo.GetCurSel();
@@ -91,7 +91,7 @@ void CRenderDeviceDialog::OnOK()
 			}
 		}
 		assert(err == WW3D_ERROR_OK);
-	
+
 	}
 	CDialog::OnOK();
 }

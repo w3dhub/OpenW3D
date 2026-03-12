@@ -47,7 +47,7 @@
 /*
 ** WidgetRenderOpClass
 ** This class encapsulates the instructions from a physics object to render
-** a debug widget.  Each physics object has a list of these hanging off it 
+** a debug widget.  Each physics object has a list of these hanging off it
 ** for rendering vectors, points, etc.
 ** Since instances of this class are constantly allocated and deallocated
 ** each frame they are derived from AutoPoolClass.
@@ -57,7 +57,7 @@ class WidgetRenderOpClass : public AutoPoolClass<WidgetRenderOpClass,256>
 public:
 
 	WidgetRenderOpClass(void);
-	
+
 	void	Set_Color(const Vector3 & color);
 	void	Set_Opacity(float opacity);
 	void	Init_Point(const Vector3 & point);
@@ -65,7 +65,7 @@ public:
 	void	Init_AABox(const AABoxClass & box);
 	void	Init_OBBox(const OBBoxClass & box);
 	void	Init_Coord_Axes(const Matrix3D & tm);
-		
+
 	void	Render(RenderInfoClass & rinfo);
 
 	void	Set_Next(WidgetRenderOpClass * next)		{ Next = next; }
@@ -210,7 +210,7 @@ void WidgetRenderOpClass::render_vector([[maybe_unused]] RenderInfoClass & rinfo
 {
 #ifdef WWDEBUG
 	if (V1.Length2() < WWMATH_EPSILON) return;
-	
+
 	RenderObjClass * vecmodel = WidgetSystem::Get_Debug_Widget(WidgetSystem::WIDGET_VECTOR);
 	if (vecmodel) {
 
@@ -235,7 +235,7 @@ void WidgetRenderOpClass::render_vector([[maybe_unused]] RenderInfoClass & rinfo
 		tm0.Look_At(V0,V0+V1,0.0f);	// point -z from pt along vec
 		tm1.Translate(Vector3(0,0,1.0f - V1.Length()));	// p1 is along -z (Point1 starts at -1)
 		vecmodel->Set_Transform(tm0);
-	
+
 		// set bone "Point1" to be at p1
 		int p1index = vecmodel->Get_Bone_Index("Point1");
 		vecmodel->Capture_Bone(p1index);
@@ -265,7 +265,7 @@ void WidgetRenderOpClass::render_aabox([[maybe_unused]] RenderInfoClass & rinfo)
 	AABoxRenderObjClass * boxmodel = (AABoxRenderObjClass *)model;
 	boxmodel->Set_Local_Center_Extent(V0,V1);
 	boxmodel->Set_Transform(Matrix3D(1));
-	boxmodel->Set_Color(Color);	
+	boxmodel->Set_Color(Color);
 	boxmodel->Set_Opacity(Opacity);
 	boxmodel->Render(rinfo);
 	boxmodel->Release_Ref();
@@ -294,7 +294,7 @@ void WidgetRenderOpClass::render_obbox([[maybe_unused]] RenderInfoClass & rinfo)
 	boxmodel->Set_Collision_Type(0xFF);
 	boxmodel->Set_Transform(Transform);
 	boxmodel->Set_Local_Center_Extent(V0,V1);
-	boxmodel->Set_Color(Color);	
+	boxmodel->Set_Color(Color);
 	boxmodel->Set_Opacity(Opacity);
 	boxmodel->Render(rinfo);
 	boxmodel->Release_Ref();

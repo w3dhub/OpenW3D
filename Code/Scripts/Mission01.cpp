@@ -271,7 +271,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 		SAVE_VARIABLE(commcenter_sam_destroyed, 89);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 
@@ -415,7 +415,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_HON_HAS_BEEN_DESTROYED_JDG://Hand of Nod has been destroyed
-					{	
+					{
 						Commands->Send_Custom_Event( obj, obj, 0, M01_CLEAR_HON_OBJECTIVE_PASS_JDG, 2 );
 						float pick_a_sound = Commands->Get_Random ( 0.5f, 2.5f );
 
@@ -424,7 +424,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							Commands->Create_Sound ( "EVA_Enemy_Structure_Destroyed", Vector3 (0,0,0), obj);
 						}
 
-						else 
+						else
 						{
 							Commands->Create_Sound ( "EVA_Nod_Structure_Destroyed", Vector3 (0,0,0), obj);
 						}
@@ -528,7 +528,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_COMM_CENTER_HAS_BEEN_DESTROYED_JDG://Comm Center has been destroyed
-					{	
+					{
 						if (players_location != INSIDE_COMM_CENTER)
 						{
 							GameObject * m01_commcenter_evacuator_guy01 = Commands->Trigger_Spawner( M01_COMMCENTER_DESTROYED_SPAWNER_JDG );
@@ -571,7 +571,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_PLAYER_IS_INSIDE_HON_JDG://Player is inside HON--kill rain sounds
-					{	
+					{
 						players_location = INSIDE_HAND_OF_NOD;
 
 						GameObject * soundController = Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG );
@@ -590,14 +590,14 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_PLAYER_IS_OUTSIDE_HON_JDG://Player is outside HON--restart rain sounds
-					{	
+					{
 						players_location = BY_HAND_OF_NOD;
 						Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG ), 0, M01_TURN_ON_OUTSIDE_AMBIENTS_JDG, 0 );
 					}
 					break;
 
 				case M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG://Player is inside Comm Center--kill rain sounds--start internal pagings
-					{	
+					{
 						players_location = INSIDE_COMM_CENTER;
 
 						GameObject * soundController = Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG );
@@ -606,7 +606,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							Commands->Send_Custom_Event( obj, soundController, 0, M01_TURN_OFF_OUTSIDE_AMBIENTS_JDG, 0 );
 							Commands->Send_Custom_Event( obj, soundController, 0, M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG, 0 );
 						}
-						
+
 						GameObject * baseCommander = Commands->Find_Object ( M01_COMMCENTER_BASE_COMMANDER_JDG );
 						if (baseCommander != NULL)
 						{
@@ -652,35 +652,35 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_PLAYER_IS_OUTSIDE_COMM_CENTER_JDG://Player is outside Comm Center--restart rain sounds
-					{	
+					{
 						players_location = BY_COMM_CENTER;
 						Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG ), 0, M01_TURN_ON_OUTSIDE_AMBIENTS_JDG, 0 );
 					}
 					break;
 
 				case M01_PLAYER_IS_INSIDE_TUNNEL_JDG://Player is inside TUNNEL leading to tailgun run--stop rain sounds
-					{	
+					{
 						players_location = INSIDE_TUNNEL;
 						Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG ), 0, M01_TURN_OFF_OUTSIDE_AMBIENTS_JDG, 0 );
 					}
 					break;
 
 				case M01_PLAYER_IS_OUTSIDE_TUNNEL_JDG://Player is outside TUNNEL--restart rain sounds
-					{	
+					{
 						players_location = BY_TUNNEL;
 						Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG ), 0, M01_TURN_ON_OUTSIDE_AMBIENTS_JDG, 0 );
 					}
 					break;
 
 				case M01_PLAYER_IS_INSIDE_WATERFALL_JDG://Player is inside WATERFALL cave--stop rain sounds
-					{	
+					{
 						players_location = INSIDE_WATERFALL;
 						Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG ), 0, M01_TURN_OFF_OUTSIDE_AMBIENTS_JDG, 0 );
 					}
 					break;
 
 				case M01_PLAYER_IS_OUTSIDE_WATERFALL_JDG://Player is outside WATERFALL cave--restart rain sounds
-					{	
+					{
 						players_location = BY_WATERFALL;
 						Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_AMBIENT_SOUND_CONTROLLER_JDG ), 0, M01_TURN_ON_OUTSIDE_AMBIENTS_JDG, 0 );
 					}
@@ -746,7 +746,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_PLAYER_IS_IN_HON_DOJO_JDG://Player is entering DOJO--cue actors
-					{	
+					{
 						if ((hand_of_nod_state != DESTROYED) && (first_time_in_hon_dojolevel == true))
 						{
 							first_time_in_hon_dojolevel = false;
@@ -760,7 +760,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_HON_SAMSITE_HAS_BEEN_DESTROYED_JDG://hand of nod sam site has been destroyed--duh!
-					{	
+					{
 						//Commands->Set_Objective_Status( M01_HON_SAM_OBJECTIVE_JDG, OBJECTIVE_STATUS_ACCOMPLISHED );
 
 						GameObject * handOfNod = Commands->Find_Object ( M01_HAND_OF_NOD_JDG );
@@ -778,7 +778,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_COMMCENTER_SAMSITE_HAS_BEEN_DESTROYED_JDG://Comm Center sam site has been destroyed--duh!
-					{	
+					{
 						commcenter_sam_destroyed = true;
 						if (commcenter_sam_objective_active == true)
 						{
@@ -800,13 +800,13 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_ANNOUNCE_AIRSTRIKE_JDG://EVA announces incoming airstrike
-					{	
+					{
 						Commands->Create_Sound ( "00-N036E", Vector3 (0,0,0), obj);
 					}
 					break;
 
 				case M01_ANNOUNCE_REINFORCEMENTS_JDG://EVA announces incoming reinforcements
-					{	
+					{
 						Commands->Create_Sound ( "00-N180E", Vector3 (0,0,0), obj);
 					}
 					break;
@@ -820,7 +820,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_SEND_HON_REINFORCEMENTS_A_JDG://Starting Elie drop off animation at Hand of Nod
-					{	
+					{
 						GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(-147.1f, 558.8f, 4.4f));
 						Commands->Set_Facing(chinook_obj1, -130.00f);
 						Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X1I_GDI_HON_TroopDrop01a.txt");
@@ -836,7 +836,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_HON_CHINOOK_GUY_HAS_BEEN_KILLED_JDG://a reinforcement guy's been killed--spawn more if needed
-					{	
+					{
 						m01_hon_chinook_guys_killed++;
 
 						if (m01_hon_chinook_guys_killed == 3)
@@ -851,7 +851,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								Commands->Send_Custom_Event( obj, obj, 0, M01_SEND_HON_REINFORCEMENTS_A_JDG, delayTimer );
 							}
 
-							else 
+							else
 							{
 								float delayTimer = Commands->Get_Random ( 0, 2 );
 								Commands->Send_Custom_Event( obj, obj, 0, M01_SEND_HON_REINFORCEMENTS_B_JDG, delayTimer );
@@ -861,7 +861,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_PLAYER_IS_APPROACHING_CHURCH_JDG://cue church actors
-					{	
+					{
 						if (m01_bridgeWeather_is_Set == false)
 						{
 							m01_bridgeWeather_is_Set = true;
@@ -880,7 +880,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							{
 								Commands->Send_Custom_Event( obj, chemGuy01, 0, M01_START_ACTING_JDG, 5 );
 							}
-						} 
+						}
 
 						int church_upadate = Commands->Create_Conversation( "M01_Add_Church_Objective", 100, 1000, false);
 						Commands->Join_Conversation( NULL, church_upadate, false, false, true );
@@ -980,19 +980,19 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_CLEAR_CHURCH_OBJECTIVE_PASS_JDG://player has rescued clergy
-					{	
+					{
 						Commands->Set_Objective_Status( M01_CHURCH_OBJECTIVE_JDG, OBJECTIVE_STATUS_ACCOMPLISHED );
 					}
 					break;
 
 				case M01_CLEAR_CHURCH_OBJECTIVE_FAIL_JDG://player has rescued clergy
-					{	
+					{
 						Commands->Set_Objective_Status( M01_CHURCH_OBJECTIVE_JDG, OBJECTIVE_STATUS_FAILED );
 					}
 					break;
 
 				case M01_LOVESHACK_GUARD_IS_DEAD_JDG://Loveshack guard is dead--let nun know
-					{	
+					{
 						loveshack_guard_is_dead = true;
 
 						GameObject * loveshackNun = Commands->Find_Object ( M01_CHURCH_LOVESHACK_NUN_ID );
@@ -1015,7 +1015,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_CHURCH_GUARD_IS_DEAD_JDG://inner guard is dead--let nuns & prist know
-					{	
+					{
 						church_guard_is_dead = true;
 
 						GameObject * churchNun = Commands->Find_Object ( M01_CHURCH_INTERIOR_NUN_ID );
@@ -1045,7 +1045,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_CHURCH_CLERGY_HAS_BOARDED_JDG://when all clergy have boarded--tell chinook to take off
-					{	
+					{
 						if (Commands->Find_Object ( M01_CHURCH_LOVESHACK_NUN_ID ) || (Commands->Find_Object ( M01_CHURCH_INTERIOR_NUN_ID )) || (Commands->Find_Object ( m01_church_interior_nun02_ID )) || (Commands->Find_Object ( M01_CHURCH_PRIEST_ID )))
 						{
 							Commands->Send_Custom_Event( obj, obj, 0, M01_CHURCH_CLERGY_HAS_BOARDED_JDG, 2 );
@@ -1105,7 +1105,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_GDI_GUY_HAS_BEEN_POKED_JDG://player has poked a GDI soldier--if player is alone assign escort
-					{	
+					{
 						int poked_guys_ID = Commands->Get_ID ( sender );
 
 						if (player_has_an_escort == false)
@@ -1132,7 +1132,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					}
 					break;
 
-				case M01_PLAYER_IS_ATTACKING_ME_JDG://if player is being escorted--tell escort who havoc's target is 
+				case M01_PLAYER_IS_ATTACKING_ME_JDG://if player is being escorted--tell escort who havoc's target is
 					{
 						if (player_has_an_escort == true)
 						{
@@ -1162,7 +1162,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_PLAYER_IS_LEAVING_HON_01_JDG://if havoc has escort--tell them to go somewhere else
-					{	
+					{
 						if (player_has_an_escort == true)
 						{
 							Commands->Send_Custom_Event( obj, Commands->Find_Object ( players_escorts_ID ), 0, M01_PLAYER_IS_LEAVING_HON_01_JDG, 0 );
@@ -1199,7 +1199,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							{
 								Commands->Send_Custom_Event( obj, chemGuy01, 0, M01_START_ACTING_JDG, 5 );
 							}
-						} 
+						}
 
 						Commands->Send_Custom_Event( obj, obj, 0, M01_SEND_CHURCH_CHINOOK_JDG, 10 );
 
@@ -1231,7 +1231,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							{
 								Commands->Send_Custom_Event( obj, chemGuy01, 0, M01_START_ACTING_JDG, 5 );
 							}
-						} 
+						}
 
 						Commands->Send_Custom_Event( obj, obj, 0, M01_SEND_CHURCH_CHINOOK_JDG, 10 );
 
@@ -1244,7 +1244,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_SPAWN_TIB_CAVE_HELICOPTER_JDG://player is in tib cave--spawn surprise helicopter
-					{	
+					{
 						GameObject * m01_tiberium_cave_helicopter = Commands->Create_Object ( "NOD_Apache", Vector3(-40.708f, 375.387f, 30.275f) );
 						Commands->Set_Facing ( m01_tiberium_cave_helicopter, -30 );
 						Commands->Attach_Script(m01_tiberium_cave_helicopter, "M01_Tiberium_Cave_Helicopter_JDG", "");
@@ -1260,7 +1260,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							Commands->Set_Wind (60, 5.0f, 1.0f, 15);
 							Commands->Set_Rain (1.0f, 15, false);
 							Commands->Set_Lightning (0.5f, 0, 0.25f, 0, 1, 15);
-						} 
+						}
 
 						int hand_of_nod_conv = Commands->Create_Conversation( "M01_Add_HON_Objective", 100, 1000, false);
 						Commands->Join_Conversation( NULL, hand_of_nod_conv, false, false, true );
@@ -1301,7 +1301,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_PLAYER_HAS_POKED_COMM_CENTER_PCT_JDG:
-					{	
+					{
 						if (player_has_unlocked_pen == false)//player is poking PCT--play EVA messages
 						{
 							eva_comm_center_line_01 = Commands->Create_Sound ( "00-N000E", Vector3 (0,0,0), obj );//accessing
@@ -1335,8 +1335,8 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						{
 							gate_objective_done = true;
 							Commands->Set_Objective_Status( M01_OPEN_THE_GATE_JDG, OBJECTIVE_STATUS_ACCOMPLISHED );
-							Commands->Static_Anim_Phys_Goto_Last_Frame (M01_COMMCENTER_DETENTION_GATE_JDG, NULL );	
-							
+							Commands->Static_Anim_Phys_Goto_Last_Frame (M01_COMMCENTER_DETENTION_GATE_JDG, NULL );
+
 							//Vector3 gatePosition = Commands->Get_Position ( Commands->Find_Object ( M01_COMMCENTER_DETENTION_GATE_JDG ) );
 							//Vector3 gatePosition = Commands->Get_Position ( STAR );
 							Vector3 gatePosition (-313.060f, 575.220f, 28.513f);
@@ -1348,17 +1348,17 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								Commands->Send_Custom_Event( obj, obj, 0, M01_ANNOUNCE_COMMCENTER_SAM_OBJECTIVE_JDG, 0 );
 							}
 
-							else 
+							else
 							{
 								Commands->Create_Logical_Sound ( obj, M01_DETENTION_GATE_DOWN_SAM_DEAD_JDG, Vector3 (-315.383f, 572.805f, 27.623f), 50.0f );
 							}
 
 							if (prisoners_are_freed == false)
-							{	
+							{
 								Commands->Send_Custom_Event( obj, obj, 0, M01_CLEAR_PRISONERS_PASS_JDG, 0 );
 								prisoners_are_freed = true;
 							}
-							
+
 						}
 					}
 					break;
@@ -1376,7 +1376,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_ADD_COMM_SAM_OBJECTIVE_JDG:
-					{	
+					{
 						GameObject * commSamSite = Commands->Find_Object ( M01_COMMCENTER_SAM_JDG );
 						if (commSamSite != NULL)
 						{
@@ -1434,7 +1434,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						{
 							Commands->Send_Custom_Event( obj, obj, 0, M01_ANNOUNCE_COMMCENTER_SAM_OBJECTIVE_JDG, 0 );
 						}
-						
+
 
 						if (unlock_gate_objective_active == true)
 						{
@@ -1453,7 +1453,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					{
 						Commands->Set_Objective_Status( M01_COMM_SAM_OBJECTIVE_JDG, OBJECTIVE_STATUS_ACCOMPLISHED );
 						commcenter_sam_objective_active = false;
-						
+
 						if (prisoners_are_freed == true)
 						{
 							Commands->Create_Logical_Sound ( obj, M01_DETENTION_GATE_DOWN_SAM_DEAD_JDG, Vector3 (-315.383f, 572.805f, 27.623f), 50.0f );
@@ -1598,7 +1598,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 
 						Commands->Mission_Complete ( true );
 
-						
+
 					}
 					break;
 
@@ -1621,7 +1621,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_HON_SPAWNS_MINIGUNNER_JDG:
-					{	
+					{
 						if (hand_of_nod_state != DESTROYED)
 						{
 							m01_HON_SpawnRate = 21;
@@ -1658,7 +1658,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 									m01_hon_total_spawners_tally++;
 								}
 							}
-							
+
 							Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_HON_SPAWNS_MINIGUNNER_JDG, m01_HON_SpawnRate );
 						}
 					}
@@ -1779,7 +1779,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_TURRET_HAS_BEEN_DESTROYED_JDG:
-					{	
+					{
 						GameObject * turret01 = Commands->Find_Object ( M01_TURRETBEACH_TURRET_01_ID );
 						if (turret01 == NULL)
 						{
@@ -1806,7 +1806,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							//Commands->Create_Sound ( "00-N180E", Vector3 (0,0,0), obj);
 
 							medium_tank_spawned = true;
-							
+
 							//GameObject *controller1 = Commands->Create_Object("Invisible_Object", Vector3(-85.808f, 125.455f, 3.927f));
 							//Commands->Set_Facing ( controller1, 180 );
 							//Commands->Attach_Script(controller1, "Test_Cinematic", "X1I_GDI_Drop_MediumTank.txt");
@@ -1908,7 +1908,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							Commands->Send_Custom_Event( obj, lightTank, 0, M01_START_ACTING_JDG, 0 );
 						}
 
-						
+
 					}
 					break;
 
@@ -2087,7 +2087,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						{
 							civs_scattered = true;
 							//Commands->Send_Custom_Event( obj, obj, 0, M01_CHANGE_BARN_OBJECTIVE_JDG, 5 );
-							
+
 							GameObject * barnPrisoner01 = Commands->Find_Object ( M01_BARN_PRISONER_01_ID );
 							if (barnPrisoner01 != NULL)
 							{
@@ -2226,7 +2226,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							Commands->Start_Conversation( civ3_conv,  civ3_conv );
 							Commands->Monitor_Conversation(  obj, civ3_conv );
 						}
-						
+
 					}
 					break;
 
@@ -2239,7 +2239,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							Commands->Send_Custom_Event( obj, obj, 0, M01_END_BARN_OBJECTIVE_JDG, 0 );
 						}
 					}
-					break;	
+					break;
 
 				case M01_CIVILIAN_KILLED_JDG:
 					{
@@ -2276,11 +2276,11 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						if (missionStart == true)
 						{
 							missionStart = false;
-							
+
 						}
 
 						//GameObject * crashed_orca = Commands->Find_Object ( 103121 );
-						//if (crashed_orca != NULL) 
+						//if (crashed_orca != NULL)
 						//{
 						//	Commands->Send_Custom_Event( obj, crashed_orca, 0, M01_START_ACTING_JDG, 0 );
 						//}
@@ -2288,7 +2288,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 					break;
 
 				case M01_DO_DAMAGE_CHECK_JDG://a building has been damaged--take appropriate action
-					{	
+					{
 						if (sender == Commands->Find_Object(M01_HAND_OF_NOD_JDG))//hand of nod under attack--refinery okay--send engineer
 						{
 							GameObject * honEngineer = Commands->Find_Object ( M01_HON_REPAIR_ENGINEER_ID );
@@ -2353,10 +2353,10 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 								Commands->Join_Conversation( kane, kane_and_havoc_conv, false, true, true );
 								Commands->Join_Conversation( STAR, kane_and_havoc_conv, false, false, true );
 								Commands->Start_Conversation( kane_and_havoc_conv,  kane_and_havoc_conv );
-									
+
 								Commands->Monitor_Conversation(  obj, kane_and_havoc_conv );
 							}
-							
+
 						}
 					}
 					break;
@@ -2375,7 +2375,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						Commands->Create_Sound ( "M01EVAG_DSGN0268I1EVAG_SND", Vector3 (0,0,0), obj );
 						GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(12.703f, 84.163f, 1.898f));
 						Commands->Set_Facing(chinook_obj1, -130.0f);
-						Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X1I_EasyNodChinook01.txt");	
+						Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X1I_EasyNodChinook01.txt");
 					}
 					break;
 
@@ -2406,23 +2406,23 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 							Commands->Send_Custom_Event( obj, barnEvacController, 0, M01_SEND_BARN_CIVILIANS_RESCUE_CHINOOK_JDG, 0 );
 						}
 					}
-					break;	
+					break;
 			}
-		}	
+		}
 	}
 
 	void Action_Complete( GameObject * obj, int action_id, ActionCompleteReason complete_reason ) override
 	{
 		switch (complete_reason)
 		{
-			case ACTION_COMPLETE_CONVERSATION_ENDED: 
+			case ACTION_COMPLETE_CONVERSATION_ENDED:
 				{
-					if (action_id == billy_conv) 
+					if (action_id == billy_conv)
 					{
 						Commands->Send_Custom_Event( obj, obj, 0, M01_SEND_BARN_CIVILIANS_RESCUE_CHINOOK_JDG, 0 );
-					}		
+					}
 
-					else if (action_id == babushka_conv) 
+					else if (action_id == babushka_conv)
 					{
 						Commands->Send_Custom_Event( obj, obj, 0, M01_SEND_BARN_CIVILIANS_RESCUE_CHINOOK_JDG, 0 );
 						GameObject * barnPrisoner01 = Commands->Find_Object ( M01_BARN_PRISONER_01_ID );
@@ -2430,15 +2430,15 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						if ( barnPrisoner01 != NULL && barn_prisoner_01_is_dead != true) //this is babushka
 						{
 							Commands->Send_Custom_Event( obj, barnPrisoner01, 0, M01_MODIFY_YOUR_ACTION_05_JDG, 0 );
-						}//int 
+						}//int
 					}
 
-					else if (action_id == civ3_conv) 
+					else if (action_id == civ3_conv)
 					{
 						Commands->Send_Custom_Event( obj, obj, 0, M01_SEND_BARN_CIVILIANS_RESCUE_CHINOOK_JDG, 0 );
 					}
 
-					else if (action_id == turrets_conv) 
+					else if (action_id == turrets_conv)
 					{
 						Commands->Send_Custom_Event( obj, obj, 0, M01_ADD_TURRETS_OBJECTIVE_JDG, 0 );
 					}
@@ -2450,7 +2450,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						//Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "XG_M01_HumveeDrop.txt");
 					//}
 
-					else if (action_id == barnfailed_conv) 
+					else if (action_id == barnfailed_conv)
 					{
 						//int honAlerted_conv = Commands->Create_Conversation( "M01_HandOfNod_Alerted_Conversation", 100, 1000, false);
 						//Commands->Join_Conversation( NULL, honAlerted_conv, false, false, true );
@@ -2458,25 +2458,25 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						//Commands->Start_Conversation( honAlerted_conv,  honAlerted_conv );
 					}
 
-					else if (action_id == kane_and_no2_conv01) 
+					else if (action_id == kane_and_no2_conv01)
 					{
 						kane_and_no2_conv01_active = false;
 
 						GameObject * securityCamera = Commands->Find_Object ( M01_COMMCENTER_CEILING_CAMERA_JDG);
 						if (securityCamera != NULL)
-						{	
+						{
 							Commands->Send_Custom_Event( obj, securityCamera, 0, M01_START_ATTACKING_01_JDG, 0 );
 						}
 					}
 
-					else if (action_id == kane_and_no2_conv02) 
+					else if (action_id == kane_and_no2_conv02)
 					{
 						kane_and_no2_conv02_active = false;
 					}
 
-					else if (action_id == kane_and_havoc_conv) 
+					else if (action_id == kane_and_havoc_conv)
 					{
-						
+
 						GameObject * kane = Commands->Find_Object ( kane_ID);
 						if (kane != NULL)
 						{
@@ -2495,7 +2495,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						Commands->Set_HUD_Help_Text ( IDS_Enc_ObjTitle_Primary_M01_03, TEXT_COLOR_OBJECTIVE_PRIMARY );
 					}
 
-					else if (action_id == endMission_conv) 
+					else if (action_id == endMission_conv)
 					{
 						Commands->Create_2D_Sound ( "00-N048E" );//eva primary accomplished
 						Commands->Send_Custom_Event( obj, obj, 0, M01_END_MISSION_PASS_JDG, 3 );
@@ -2511,7 +2511,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 						priest_conv_playing = false;
 					}
 
-					else if (action_id == interior_nun_conv) 
+					else if (action_id == interior_nun_conv)
 					{
 						interior_nun_conv_playing = false;
 					}
@@ -2523,7 +2523,7 @@ DECLARE_SCRIPT(M01_Mission_Controller_JDG, "")//this guys ID number is 100376
 
 DECLARE_SCRIPT(M01_HON_Medlab_DropOff_Guy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		Commands->Enable_Hibernation( obj, false );
@@ -2570,7 +2570,7 @@ DECLARE_SCRIPT(M01_Hand_of_Nod_Building_Script_JDG, "")
 		SAVE_VARIABLE(memorial_sound, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 memorialSpot (-195.053f, 533.737f, 10.953f);
 		memorial_sound = Commands->Create_Sound ( "m01eval_dsgn0254r1ncxk_snd", memorialSpot, obj );
@@ -2586,7 +2586,7 @@ DECLARE_SCRIPT(M01_Hand_of_Nod_Building_Script_JDG, "")
 		Commands->Create_Object ( "POW_Medal_Armor", Vector3 (-180.312f, 541.400f, 3.518f) );
 		Commands->Create_Object ( "POW_Medal_Health", Vector3 (-178.349f, 541.471f, 3.518f) );
 
-		
+
 
 	}
 
@@ -2614,7 +2614,7 @@ DECLARE_SCRIPT(M01_Hand_of_Nod_Building_Script_JDG, "")
 
 DECLARE_SCRIPT(M01_Flyover_Generic_Script_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Disable_Physical_Collisions ( obj );
 		Commands->Enable_Hibernation( obj, false );
@@ -2637,7 +2637,7 @@ DECLARE_SCRIPT(M01_Flyover_Generic_Script_JDG, "")
 
 DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 {
-	enum 
+	enum
 	{
 		play_destroyed_building_sound = 101,
 		pick_refinery_sound,
@@ -2703,7 +2703,7 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 		players_location = OUTSIDE;
 
 		Commands->Send_Custom_Event( obj, obj, 0, M01_TURN_ON_OUTSIDE_AMBIENTS_JDG, 0 );
-		
+
 	}
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
@@ -2715,7 +2715,7 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 
 			if (building_ambients_playing == true /*&& building_sound != NULL*/)
 			{
-				Commands->Stop_Sound ( building_sound, true );	
+				Commands->Stop_Sound ( building_sound, true );
 			}
 
 			building_ambients_playing = false;
@@ -2737,17 +2737,17 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 			comm_center_state = DESTROYED;
 		}
 
-		else if (param == M01_PLAYER_IS_INSIDE_GDI_CON_JDG) 
+		else if (param == M01_PLAYER_IS_INSIDE_GDI_CON_JDG)
 		{
 			players_location = INSIDE_GDI_CON;
 		}
 
-		else if (param == M01_PLAYER_IS_INSIDE_GDI_POWERPLANT_JDG) 
+		else if (param == M01_PLAYER_IS_INSIDE_GDI_POWERPLANT_JDG)
 		{
 			players_location = INSIDE_GDI_POWERPLANT;
 		}
 
-		else if (param == M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG) 
+		else if (param == M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG)
 		{
 			players_location = INSIDE_COMM_CENTER;
 
@@ -2762,7 +2762,7 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 			}
 		}
 
-		else if (param == M01_PLAYER_IS_INSIDE_HON_JDG) 
+		else if (param == M01_PLAYER_IS_INSIDE_HON_JDG)
 		{
 			players_location = INSIDE_HAND_OF_NOD;
 
@@ -2782,7 +2782,7 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 			const char* klaxonName = klaxonNames[klaxon];
 
 			GameObject * star = Commands->Get_A_Star (Vector3(0.0f,0.0f,0.0f));
-			if ( star != NULL ) 
+			if ( star != NULL )
 			{
 				Vector3 playerPosition = Commands->Get_Position ( star );
 
@@ -2822,7 +2822,7 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 			const char *soundName = sounds[sound];
 
 			GameObject * star = Commands->Get_A_Star (Vector3(0.0f,0.0f,0.0f));
-			if ( star != NULL ) 
+			if ( star != NULL )
 			{
 				Vector3 playerPosition = Commands->Get_Position ( star );
 
@@ -2934,7 +2934,7 @@ DECLARE_SCRIPT(M01_Ambient_Sound_Controller_JDG, "")
 				Commands->Send_Custom_Event( obj, obj, 0, play_commcenter_sound, 0 );
 			}
 
-			else 
+			else
 			{
 				sound = 14;
 				Commands->Send_Custom_Event( obj, obj, 0, play_commcenter_sound, 0 );
@@ -3066,7 +3066,7 @@ DECLARE_SCRIPT(M01_Player_is_Leaving_GDI_Base_Zone, "")
 		SAVE_VARIABLE(firstEntry, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		firstEntry = true;
 	}
@@ -3213,7 +3213,7 @@ DECLARE_SCRIPT(M01_HandOfNod_SAMSite_Script, "")//M01_HON_SAM_SITE_JDG==100031
 
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
-		Commands->Send_Custom_Event( obj, Commands->Find_Object (M01_MISSION_CONTROLLER_JDG), 0, M01_HON_SAMSITE_HAS_BEEN_DESTROYED_JDG, 5 );	
+		Commands->Send_Custom_Event( obj, Commands->Find_Object (M01_MISSION_CONTROLLER_JDG), 0, M01_HON_SAMSITE_HAS_BEEN_DESTROYED_JDG, 5 );
 	}
 };
 
@@ -3221,7 +3221,7 @@ DECLARE_SCRIPT(M01_HandOfNod_SAMSite_Script, "")//M01_HON_SAM_SITE_JDG==100031
 
 DECLARE_SCRIPT(M01_Destroyed_SAMSITE_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 
@@ -3238,7 +3238,7 @@ DECLARE_SCRIPT(M01_Destroyed_SAMSITE_JDG, "")
 
 DECLARE_SCRIPT(M01_CommCenter_Evacuator_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		ActionParamsStruct params;
@@ -3251,7 +3251,7 @@ DECLARE_SCRIPT(M01_CommCenter_Evacuator_JDG, "")
 			evac_spot.Set(-286.904f, 557.896f, 27.616f);
 		}
 
-		else 
+		else
 		{
 			evac_spot.Set(-318.149f, 530.868f, 27.971f);
 		}
@@ -3289,7 +3289,7 @@ DECLARE_SCRIPT(M01_CommCenter_Evacuator_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_FrontDoor_Evacuator_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 		Commands->Enable_Hibernation( obj, false );
@@ -3314,7 +3314,7 @@ DECLARE_SCRIPT(M01_HON_FrontDoor_Evacuator_JDG, "")
 		ActionParamsStruct params;
 
 		if (action_id == M01_PICK_A_NEW_LOCATION_JDG && complete_reason == ACTION_COMPLETE_NORMAL)
-		{ 
+		{
 			Vector3 evac_spot;
 
 			float evac_location = Commands->Get_Random ( 0.5, 3.5f );
@@ -3329,7 +3329,7 @@ DECLARE_SCRIPT(M01_HON_FrontDoor_Evacuator_JDG, "")
 				evac_spot.Set(-145.746f, 531.964f, 4.271f);
 			}
 
-			else 
+			else
 			{
 				evac_spot.Set(-163.828f, 515.290f, 4.258f);
 			}
@@ -3344,17 +3344,17 @@ DECLARE_SCRIPT(M01_HON_FrontDoor_Evacuator_JDG, "")
 			params.Set_Movement( evac_spot, 1.0f, 3 );
 			Commands->Action_Goto( obj, params );
 		}
-			
+
 		else if (action_id == M01_GOING_TO_EVAC_SPOT_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//Tech is evac'd allow hibernation
 		{
 			Commands->Enable_Hibernation( obj, true );
-		} 
+		}
 	}
 };
 
 DECLARE_SCRIPT(M01_HON_BackDoor_Evacuator_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 		Commands->Enable_Hibernation( obj, false );
@@ -3395,7 +3395,7 @@ DECLARE_SCRIPT(M01_HON_BackDoor_Evacuator_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_Dorm_Crapper_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		Commands->Set_Facing ( obj, -120 );
@@ -3452,7 +3452,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_Crapper_JDG, "")
 					evac_spot.Set(-163.828f, 515.290f, 4.258f);
 				}
 
-				else 
+				else
 				{
 					evac_spot.Set(-221.947f, 515.124f, 4.012f);
 				}
@@ -3476,9 +3476,9 @@ DECLARE_SCRIPT(M01_HON_Dorm_Crapper_JDG, "")
 		ActionParamsStruct params;
 
 		if (action_id == M01_GOING_TO_EVAC_SPOT_JDG && complete_reason == ACTION_COMPLETE_NORMAL)
-		{ 
+		{
 			GameObject * star = Commands->Get_A_Star (Vector3(0.0f,0.0f,0.0f));
-			if ( star != NULL ) 
+			if ( star != NULL )
 			{
 				int players_ID_number = Commands->Get_ID ( star );
 
@@ -3498,7 +3498,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_Crapper_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_Dorm_FlameGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		Commands->Set_Facing ( obj, 90 );
@@ -3555,7 +3555,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_FlameGuy_JDG, "")
 					evac_spot.Set(-163.828f, 515.290f, 4.258f);
 				}
 
-				else 
+				else
 				{
 					evac_spot.Set(-221.947f, 515.124f, 4.012f);
 				}
@@ -3587,7 +3587,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_FlameGuy_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_Dorm_ChemGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		Commands->Set_Facing ( obj, -90 );
@@ -3644,7 +3644,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_ChemGuy_JDG, "")
 					evac_spot.Set(-163.828f, 515.290f, 4.258f);
 				}
 
-				else 
+				else
 				{
 					evac_spot.Set(-221.947f, 515.124f, 4.012f);
 				}
@@ -3676,7 +3676,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_ChemGuy_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_Dorm_RocketGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		Commands->Set_Facing ( obj, -90 );
@@ -3733,7 +3733,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_RocketGuy_JDG, "")
 					evac_spot.Set(-163.828f, 515.290f, 4.258f);
 				}
 
-				else 
+				else
 				{
 					evac_spot.Set(-221.947f, 515.124f, 4.012f);
 				}
@@ -3763,7 +3763,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_RocketGuy_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_Dorm_MiniGunner_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		Commands->Set_Facing ( obj, 180 );
@@ -3820,7 +3820,7 @@ DECLARE_SCRIPT(M01_HON_Dorm_MiniGunner_JDG, "")
 					evac_spot.Set(-163.828f, 515.290f, 4.258f);
 				}
 
-				else 
+				else
 				{
 					evac_spot.Set(-221.947f, 515.124f, 4.012f);
 				}
@@ -3857,8 +3857,8 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Eating_Guy_JDG, "")
 		SAVE_VARIABLE( enemy_detected, 1 );
 	}
 
-	
-	void Created( GameObject * obj ) override 
+
+	void Created( GameObject * obj ) override
 	{
 		enemy_detected = 0;
 		Commands->Innate_Disable(obj);
@@ -3916,7 +3916,7 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Eating_Guy_JDG, "")
 					evac_spot.Set(-163.828f, 515.290f, 4.258f);
 				}
 
-				else 
+				else
 				{
 					evac_spot.Set(-221.947f, 515.124f, 4.012f);
 				}
@@ -3946,7 +3946,7 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Eating_Guy_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_Cafeteria_Walking_Guy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -4005,7 +4005,7 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Walking_Guy_JDG, "")
 					evac_spot.Set(-163.828f, 515.290f, 4.258f);
 				}
 
-				else 
+				else
 				{
 					evac_spot.Set(-221.947f, 515.124f, 4.012f);
 				}
@@ -4029,21 +4029,21 @@ DECLARE_SCRIPT(M01_HON_Cafeteria_Walking_Guy_JDG, "")
 		ActionParamsStruct params;
 
 		if (action_id == M01_WALKING_WAYPATH_01_JDG && complete_reason == ACTION_COMPLETE_NORMAL)
-		{ 
+		{
 			params.Set_Basic(this, 45, M01_FACING_SPECIFIED_DIRECTION_01_JDG);
 			params.Set_Face_Location( Vector3(-170.179f, 520.595f, 5.999f), 1 );
 			Commands->Action_Face_Location ( obj, params );
 		}
 
 		else if (action_id == M01_FACING_SPECIFIED_DIRECTION_01_JDG && complete_reason == ACTION_COMPLETE_NORMAL)
-		{ 
+		{
 			params.Set_Basic(this, 45, M01_DOING_ANIMATION_01_JDG);
 			params.Set_Animation ("H_A_J17C", false);
 			Commands->Action_Play_Animation (obj, params);
 		}
 
 		else if (action_id == M01_DOING_ANIMATION_01_JDG && complete_reason == ACTION_COMPLETE_NORMAL)
-		{ 
+		{
 			params.Set_Basic(this, 45, M01_WALKING_WAYPATH_02_JDG);
 			params.Set_Movement( Vector3(0,0,0), .35f, .25f );
 			params.WaypathID = 100674;
@@ -4100,7 +4100,7 @@ DECLARE_SCRIPT(M01_Hand_Of_Nod_Dojo_Zone, "")
 
 DECLARE_SCRIPT(M01_Church_LoveShack_MiniGunner_JDG, "")//M01_CHURCH_LOVESHACK_MINIGUNNER_ID		101305
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -4153,7 +4153,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_MiniGunner_JDG, "")//M01_CHURCH_LOVESHACK_MI
 
 DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -4199,7 +4199,7 @@ DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 		ActionParamsStruct params;
 
 		if (action_id == M01_WALKING_WAYPATH_01_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_01_JDG );
@@ -4218,7 +4218,7 @@ DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 		}
 
 		else if (action_id == M01_WALKING_WAYPATH_02_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_02_JDG );
@@ -4237,7 +4237,7 @@ DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 		}
 
 		else if (action_id == M01_WALKING_WAYPATH_03_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_03_JDG );
@@ -4256,7 +4256,7 @@ DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 		}
 
 		else if (action_id == M01_WALKING_WAYPATH_04_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_04_JDG );
@@ -4278,7 +4278,7 @@ DECLARE_SCRIPT(M01_Church_Exterior_MiniGunner_JDG, "")
 
 DECLARE_SCRIPT(M01_Church_Balcony_MiniGunner_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -4307,7 +4307,7 @@ DECLARE_SCRIPT(M01_Church_Balcony_MiniGunner_JDG, "")
 		ActionParamsStruct params;
 
 		if (action_id == M01_WALKING_WAYPATH_01_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_01_JDG );
@@ -4326,7 +4326,7 @@ DECLARE_SCRIPT(M01_Church_Balcony_MiniGunner_JDG, "")
 		}
 
 		else if (action_id == M01_WALKING_WAYPATH_02_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_02_JDG );
@@ -4345,7 +4345,7 @@ DECLARE_SCRIPT(M01_Church_Balcony_MiniGunner_JDG, "")
 		}
 
 		else if (action_id == M01_WALKING_WAYPATH_03_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_03_JDG );
@@ -4364,7 +4364,7 @@ DECLARE_SCRIPT(M01_Church_Balcony_MiniGunner_JDG, "")
 		}
 
 		else if (action_id == M01_WALKING_WAYPATH_04_JDG && complete_reason == ACTION_COMPLETE_NORMAL)//minigunner is at animation point--choose and do animation
-		{ 
+		{
 			const char* animationName = M01_Choose_Idle_Animation ( );
 
 			params.Set_Basic( this, 45, M01_DOING_ANIMATION_04_JDG );
@@ -4400,7 +4400,7 @@ DECLARE_SCRIPT(M01_Announce_Hand_of_Nod_Zone, "")
 			}
 
 			Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_ANNOUNCE_HON_OBJECTIVE_JDG, 0 );
-			
+
 			Commands->Destroy_Object ( obj);//this is a 1-time only zone--cleaning up
 		}
 	}
@@ -4422,7 +4422,7 @@ DECLARE_SCRIPT(M01_Announce_Barn_Objective_Zone, "")
 
 DECLARE_SCRIPT(M01_Tiberium_Cave_Helicopter_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 
@@ -4453,8 +4453,8 @@ DECLARE_SCRIPT(M01_Tiberium_Cave_Helicopter_JDG, "")
 			params.AttackCheckBlocked = false;
 			params.MovePathfind = false;
 
-			params.Set_Attack (STAR, 100, 0, true);	
-			
+			params.Set_Attack (STAR, 100, 0, true);
+
 			Commands->Modify_Action (obj, M01_START_ACTING_JDG, params, true, true);
 
 			float delayTimer = Commands->Get_Random ( 1, 2 );
@@ -4501,10 +4501,10 @@ DECLARE_SCRIPT(M01_Player_Is_Crossing_Bridge_Zone, "")
 			}
 
 			if ( Commands->Find_Object ( M01_CHURCHAREA_SPAWNER_CONTROLLER_JDG ))
-			{	
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_CHURCHAREA_SPAWNER_CONTROLLER_JDG ), 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 			}
-		
+
 			//this is a one-time only zone--cleaning up
 			if (Commands->Find_Object ( 100922 ))//clean up all zones associated with the driveby scenario
 			{
@@ -4531,14 +4531,14 @@ DECLARE_SCRIPT(M01_Player_Is_Crossing_Bridge_Via_Cave_Zone, "")
 		if (enterer == STAR )
 		{
 			Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_PLAYER_IS_CROSSING_THE_BRIDGE_VIA_CAVE_JDG, 0 );
-			
+
 			if ( Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ))
 			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ), 0, M01_QUIT_SPAWNING_PLEASE_JDG, 0 );
 			}
 
 			if ( Commands->Find_Object ( M01_CHURCHAREA_SPAWNER_CONTROLLER_JDG ))
-			{	
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_CHURCHAREA_SPAWNER_CONTROLLER_JDG ), 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 			}
 			//this is a one-time only zone--cleaning up
@@ -4567,14 +4567,14 @@ DECLARE_SCRIPT(M01_Player_Is_Crossing_Bridge_Via_Church_Zone, "")
 		if (enterer == STAR )
 		{
 			Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_PLAYER_IS_CROSSING_THE_BRIDGE_JDG, 0 );
-			
+
 			if ( Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ))
 			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ), 0, M01_QUIT_SPAWNING_PLEASE_JDG, 0 );
 			}
 
 			if ( Commands->Find_Object ( M01_CHURCHAREA_SPAWNER_CONTROLLER_JDG ))
-			{	
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_CHURCHAREA_SPAWNER_CONTROLLER_JDG ), 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 			}
 			//this is a one-time only zone--cleaning up
@@ -4645,7 +4645,7 @@ DECLARE_SCRIPT(M01_Flamethrower_Point_Guard_JDG, "")
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
-		if ((sound.Type == SOUND_TYPE_BULLET_HIT) || (sound.Type == SOUND_TYPE_GUNSHOT))  
+		if ((sound.Type == SOUND_TYPE_BULLET_HIT) || (sound.Type == SOUND_TYPE_GUNSHOT))
 		{
 			Commands->Set_Innate_Is_Stationary (  obj, false );
 		}
@@ -4678,7 +4678,7 @@ DECLARE_SCRIPT(M01_MiniGunner_Point_Guard_JDG, "")
 		SAVE_VARIABLE(myPosition, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		myPosition.Set (Commands->Get_Position ( obj ));
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPosition, 3 );
@@ -4725,7 +4725,7 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_01_JDG, "")
 		SAVE_VARIABLE(fighting, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		hunting = false;
 		fighting = false;
@@ -4780,7 +4780,7 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_01_JDG, "")
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
 		if (sound.Creator == STAR && fighting == false)
-		{	
+		{
 			Vector3 playersPosition = Commands->Get_Position ( STAR );
 
 			if (sound.Type == SOUND_TYPE_GUNSHOT)
@@ -4841,7 +4841,7 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_02_JDG, "")
 		SAVE_VARIABLE(fighting, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		hunting = false;
 		fighting = false;
@@ -4882,7 +4882,7 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_02_JDG, "")
 	}
 
 	void Enemy_Seen( GameObject * obj, GameObject * enemy ) override
-	{ 
+	{
 		if (enemy == STAR && fighting == false)
 		{
 			fighting = true;
@@ -4896,7 +4896,7 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_02_JDG, "")
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
 		if (sound.Creator == STAR && fighting == false)
-		{	
+		{
 			Vector3 playersPosition = Commands->Get_Position ( STAR );
 
 			if (sound.Type == SOUND_TYPE_GUNSHOT)
@@ -4956,7 +4956,7 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_03_JDG, "")
 		SAVE_VARIABLE(fighting, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		hunting = false;
 		fighting = false;
@@ -5011,7 +5011,7 @@ DECLARE_SCRIPT(M01_HON_Easy_Spawned_Guy_03_JDG, "")
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override
 	{
 		if (sound.Creator == STAR && fighting == false)
-		{	
+		{
 			Vector3 playersPosition = Commands->Get_Position ( STAR );
 
 			if (sound.Type == SOUND_TYPE_GUNSHOT)
@@ -5088,7 +5088,7 @@ DECLARE_SCRIPT(M01_Whack_A_Mole_Exit_Zone_JDG, "")//this guys ID is 101207
 		SAVE_VARIABLE(okayToAct, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		okayToAct = false;
 	}
@@ -5135,7 +5135,7 @@ DECLARE_SCRIPT(M01_Whack_A_Mole_Minigunner_JDG, "")
 		SAVE_VARIABLE(Whack_a_Mole_State, 6);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		//Commands->Innate_Disable(obj);
 		invincible = false;
@@ -5328,7 +5328,7 @@ DECLARE_SCRIPT(M01_Right_Interrogation_Room_Enter_Zone_JDG, "")//this guys ID is
 
 DECLARE_SCRIPT(M01_Interrogation_Room_L03_Keycard_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Obj_Radar_Blip_Shape ( obj, RADAR_BLIP_SHAPE_NONE );
 	}
@@ -5345,7 +5345,7 @@ DECLARE_SCRIPT(M01_Interrogation_Room_Surprise_Guy_JDG, "")//this guys ID is 101
 		SAVE_VARIABLE(onGuard, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		onGuard = true;
@@ -5422,7 +5422,7 @@ DECLARE_SCRIPT(M01_Interrogation_Room_Surprise_Guy_JDG, "")//this guys ID is 101
 
 				params.Set_Basic( this, 80, M01_HUNT_THE_PLAYER_JDG );
 				params.Set_Attack( STAR, 20, 0, true );
-				params.AttackActive	= true;	
+				params.AttackActive	= true;
 				params.AttackCheckBlocked = true;
 
 				Commands->Action_Attack ( obj, params );
@@ -5439,7 +5439,7 @@ DECLARE_SCRIPT(M01_Interrogation_Room_Surprise_Guy_JDG, "")//this guys ID is 101
 			Commands->Create_Sound ( "TargetHasBeenEngaged_2", myPostion, obj );
 			params.Set_Basic( this, 80, M01_HUNT_THE_PLAYER_JDG );
 			params.Set_Attack( STAR, 20, 0, true );
-			params.AttackActive	= true;	
+			params.AttackActive	= true;
 			params.AttackCheckBlocked = false;
 
 			Commands->Action_Attack ( obj, params );
@@ -5454,7 +5454,7 @@ DECLARE_SCRIPT(M01_Interrogation_Room_Surprise_Guy_JDG, "")//this guys ID is 101
 
 DECLARE_SCRIPT(M01_Medium_Tank_Tunnel_Squish_Guy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPositon = Commands->Get_Position ( obj );
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPositon, 10.0f );
@@ -5489,7 +5489,7 @@ DECLARE_SCRIPT(M01_Billys_Conversation_Zone_JDG, "")//this guys ID is 101661
 		SAVE_VARIABLE(playerEntered, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		okay_to_play_conversation = false;
 		playerEntered = false;
@@ -5546,7 +5546,7 @@ DECLARE_SCRIPT(M01_Billys_Conversation_Zone_JDG, "")//this guys ID is 101661
 
 
 
-DECLARE_SCRIPT(M01_Tank_Entering_Tunnel_Zone_JDG, "")//this guys ID is 
+DECLARE_SCRIPT(M01_Tank_Entering_Tunnel_Zone_JDG, "")//this guys ID is
 {
 	int gdi_medium_tank;
 
@@ -5555,7 +5555,7 @@ DECLARE_SCRIPT(M01_Tank_Entering_Tunnel_Zone_JDG, "")//this guys ID is
 		SAVE_VARIABLE(gdi_medium_tank, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		gdi_medium_tank = 0;
 	}
@@ -5575,7 +5575,7 @@ DECLARE_SCRIPT(M01_Tank_Entering_Tunnel_Zone_JDG, "")//this guys ID is
 		{
 			Commands->Send_Custom_Event( obj, lightTank, 0, M01_GOTO_IDLE_JDG, 0 );
 			Vector3 newTankPosition (14.208f, 225.943f, 4.0f);
-			Commands->Set_Position ( lightTank, newTankPosition );	
+			Commands->Set_Position ( lightTank, newTankPosition );
 		}*/
 
 		if (enterer == Commands->Find_Object ( gdi_medium_tank ))
@@ -5638,10 +5638,10 @@ DECLARE_SCRIPT(M01_Player_Is_Entering_Tailgun_Alley_JDG, "")//this guys ID is 10
 			}
 
 			if ( Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ))
-			{	
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ), 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 			}
-		
+
 			if ( Commands->Find_Object ( 101718 ))//this is the backway enter zone
 			{
 				Commands->Destroy_Object ( Commands->Find_Object ( 101718 ) );
@@ -5678,7 +5678,7 @@ DECLARE_SCRIPT(M01_Player_Is_Entering_Tailgun_Alley_Backway_JDG, "")//this guys 
 			if ( Commands->Find_Object ( M01_TAILGUN_03_ID ))
 			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_TAILGUN_03_ID ), 0, M01_START_ACTING_JDG, 0 );
-			}	
+			}
 
 			if ( Commands->Find_Object ( M01_GDIBASE_SPAWNER_CONTROLLER_JDG ))
 			{
@@ -5686,7 +5686,7 @@ DECLARE_SCRIPT(M01_Player_Is_Entering_Tailgun_Alley_Backway_JDG, "")//this guys 
 			}
 
 			if ( Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ))
-			{	
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_TAILGUNRUN_SPAWNER_CONTROLLER_JDG ), 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 			}
 
@@ -5702,7 +5702,7 @@ DECLARE_SCRIPT(M01_Player_Is_Entering_Tailgun_Alley_Backway_JDG, "")//this guys 
 
 DECLARE_SCRIPT(M01_TailGunner_01_JDG, "")//M01_TAILGUNNER_01_ID  101470
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 
@@ -5712,7 +5712,7 @@ DECLARE_SCRIPT(M01_TailGunner_01_JDG, "")//M01_TAILGUNNER_01_ID  101470
 			Vector3 tailgunPosition = Commands->Get_Position ( Commands->Find_Object ( M01_TAILGUN_01_ID ) );
 			params.Set_Basic( this, 100, M01_WALKING_WAYPATH_01_JDG );
 			params.Set_Movement( tailgunPosition, .25f, .25f );
-			
+
 			Commands->Action_Goto( obj, params );
 		}
 	}
@@ -5739,7 +5739,7 @@ DECLARE_SCRIPT(M01_TailGunner_01_JDG, "")//M01_TAILGUNNER_01_ID  101470
 
 DECLARE_SCRIPT(M01_TailGunner_02_JDG, "")//M01_TAILGUNNER_02_ID  101471
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 
@@ -5749,7 +5749,7 @@ DECLARE_SCRIPT(M01_TailGunner_02_JDG, "")//M01_TAILGUNNER_02_ID  101471
 			Vector3 tailgunPosition = Commands->Get_Position ( Commands->Find_Object ( M01_TAILGUN_02_ID ) );
 			params.Set_Basic( this, 100, M01_WALKING_WAYPATH_01_JDG );
 			params.Set_Movement( tailgunPosition, .25f, .25f );
-			
+
 			Commands->Action_Goto( obj, params );
 		}
 	}
@@ -5776,7 +5776,7 @@ DECLARE_SCRIPT(M01_TailGunner_02_JDG, "")//M01_TAILGUNNER_02_ID  101471
 
 DECLARE_SCRIPT(M01_TailGunner_03_JDG, "")//M01_TAILGUNNER_03_ID  101472
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 
@@ -5786,7 +5786,7 @@ DECLARE_SCRIPT(M01_TailGunner_03_JDG, "")//M01_TAILGUNNER_03_ID  101472
 			Vector3 tailgunPosition = Commands->Get_Position ( Commands->Find_Object ( M01_TAILGUN_03_ID ) );
 			params.Set_Basic( this, 100, M01_WALKING_WAYPATH_01_JDG );
 			params.Set_Movement( tailgunPosition, .25f, .35f );
-			
+
 			Commands->Action_Goto( obj, params );
 		}
 	}
@@ -5878,7 +5878,7 @@ DECLARE_SCRIPT(M01_Tailgun_02_SpawnApache_Zone_JDG, "")
 
 DECLARE_SCRIPT(M01_Civ_To_Minigunner_Guy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 
@@ -5888,7 +5888,7 @@ DECLARE_SCRIPT(M01_Civ_To_Minigunner_Guy_JDG, "")
 
 			params.Set_Basic( this, 50, M01_WALKING_WAYPATH_01_JDG );
 			params.Set_Movement( myGotoSpot, RUN, 20 );
-			
+
 			Commands->Action_Goto( obj, params );
 		}
 	}
@@ -5903,7 +5903,7 @@ DECLARE_SCRIPT(M01_Comm_Base_Commander_JDG, "")//this guys ID is M01_COMMCENTER_
 		SAVE_VARIABLE(enemyEngaged, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		enemyEngaged = false;
@@ -5952,12 +5952,12 @@ DECLARE_SCRIPT(M01_Comm_Base_Commander_JDG, "")//this guys ID is M01_COMMCENTER_
 			}
 		}
 	}
-		
+
 };
 
 /*DECLARE_SCRIPT(M01_Comm_Base_Scapegoat_JDG, "")//this guys ID is M01_COMMCENTER_BASE_SCAPEGOAT_JDG 101938
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPosition, 5 );
@@ -5966,7 +5966,7 @@ DECLARE_SCRIPT(M01_Comm_Base_Commander_JDG, "")//this guys ID is M01_COMMCENTER_
 
 DECLARE_SCRIPT(M01_Comm_Ceiling_Camera_JDG, "")//this guys ID is M01_COMMCENTER_CEILING_CAMERA_JDG 101937
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 
@@ -5995,7 +5995,7 @@ DECLARE_SCRIPT(M01_Comm_Ceiling_Camera_JDG, "")//this guys ID is M01_COMMCENTER_
 	}
 };*/
 
-DECLARE_SCRIPT(M01_Comm_Stationary_Tech_JDG, "") 
+DECLARE_SCRIPT(M01_Comm_Stationary_Tech_JDG, "")
 {
 	//these guys IDs are  M01_COMMCENTER_UPSTAIRS_TECH_JDG		101168
 						//M01_COMMCENTER_WAROOM_TECH_01_JDG		101170
@@ -6008,7 +6008,7 @@ DECLARE_SCRIPT(M01_Comm_Stationary_Tech_JDG, "")
 		SAVE_VARIABLE(myLocation, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		myLocation = Commands->Get_Position ( obj );
 		Commands->Innate_Disable(obj);
@@ -6020,7 +6020,7 @@ DECLARE_SCRIPT(M01_Comm_Stationary_Tech_JDG, "")
 
 		switch (param)
 		{
-			case M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG: 
+			case M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG:
 				{
 					Commands->Innate_Enable(obj);
 					Commands->Set_Innate_Aggressiveness ( obj, 0.15f );
@@ -6064,7 +6064,7 @@ DECLARE_SCRIPT(M01_Comm_ComputerRoom_Tech_JDG, "")//this guys ID is M01_COMMCENT
 		SAVE_VARIABLE(myLocation, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		myLocation = Commands->Get_Position ( obj );
 		Commands->Innate_Disable(obj);
@@ -6076,7 +6076,7 @@ DECLARE_SCRIPT(M01_Comm_ComputerRoom_Tech_JDG, "")//this guys ID is M01_COMMCENT
 
 		switch (param)
 		{
-			case M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG: 
+			case M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG:
 				{
 					Commands->Innate_Enable(obj);
 					Commands->Set_Innate_Aggressiveness ( obj, 0.15f );
@@ -6113,7 +6113,7 @@ DECLARE_SCRIPT(M01_Comm_ComputerRoom_Tech_JDG, "")//this guys ID is M01_COMMCENT
 
 DECLARE_SCRIPT(M01_Comm_Upstairs_Guard_JDG, "")//this guys ID is M01_COMMCENTER_UPSTAIRS_GUARD_JDG 101946
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -6124,7 +6124,7 @@ DECLARE_SCRIPT(M01_Comm_Upstairs_Guard_JDG, "")//this guys ID is M01_COMMCENTER_
 
 		switch (param)
 		{
-			case M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG: 
+			case M01_PLAYER_IS_INSIDE_COMM_CENTER_JDG:
 				{
 					Commands->Innate_Enable(obj);
 					Commands->Set_Innate_Aggressiveness ( obj, 0.75f );
@@ -6164,7 +6164,7 @@ DECLARE_SCRIPT(M01_Comm_Upstairs_Guard_JDG, "")//this guys ID is M01_COMMCENTER_
 
 		switch (timer_id)
 		{
-			case M01_WALKING_WAYPATH_01_JDG: 
+			case M01_WALKING_WAYPATH_01_JDG:
 				{
 					params.Set_Basic(this, 30, M01_WALKING_WAYPATH_02_JDG);
 					params.Set_Movement( Vector3 (0,0,0), WALK, 0 );
@@ -6175,7 +6175,7 @@ DECLARE_SCRIPT(M01_Comm_Upstairs_Guard_JDG, "")//this guys ID is M01_COMMCENTER_
 				}
 				break;
 
-			case M01_WALKING_WAYPATH_02_JDG: 
+			case M01_WALKING_WAYPATH_02_JDG:
 				{
 					params.Set_Basic(this, 30, M01_WALKING_WAYPATH_01_JDG);
 					params.Set_Movement( Vector3 (0,0,0), WALK, 0 );
@@ -6187,7 +6187,7 @@ DECLARE_SCRIPT(M01_Comm_Upstairs_Guard_JDG, "")//this guys ID is M01_COMMCENTER_
 				break;
 		}
 	}
-			
+
 };
 
 DECLARE_SCRIPT(M01_Comm_Base_Commander_Conv_Start_Zone_JDG, "")//this guys ID is 101947
@@ -6242,7 +6242,7 @@ DECLARE_SCRIPT(M01_Comm_MCT_Placeholder_JDG, "")
 
 DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 
@@ -6260,11 +6260,11 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 
 		switch (complete_reason)
 		{
-			case ACTION_COMPLETE_NORMAL: 
+			case ACTION_COMPLETE_NORMAL:
 				{
 					switch (action_id)
 					{
-						case M01_WALKING_WAYPATH_01_JDG: 
+						case M01_WALKING_WAYPATH_01_JDG:
 							{
 								const char* animationName = M01_Choose_Idle_Animation ( );
 
@@ -6274,7 +6274,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_DOING_ANIMATION_01_JDG: 
+						case M01_DOING_ANIMATION_01_JDG:
 							{
 								params.Set_Basic( this, 30, M01_WALKING_WAYPATH_02_JDG );
 								params.Set_Movement( Vector3(0,0,0), WALK, .05f );
@@ -6285,7 +6285,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_WALKING_WAYPATH_02_JDG: 
+						case M01_WALKING_WAYPATH_02_JDG:
 							{
 								const char* animationName = M01_Choose_Idle_Animation ( );
 
@@ -6295,7 +6295,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_DOING_ANIMATION_02_JDG: 
+						case M01_DOING_ANIMATION_02_JDG:
 							{
 								params.Set_Basic( this, 30, M01_WALKING_WAYPATH_03_JDG );
 								params.Set_Movement( Vector3(0,0,0), WALK, .05f );
@@ -6306,7 +6306,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_WALKING_WAYPATH_03_JDG: 
+						case M01_WALKING_WAYPATH_03_JDG:
 							{
 								const char* animationName = M01_Choose_Idle_Animation ( );
 
@@ -6316,7 +6316,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_DOING_ANIMATION_03_JDG: 
+						case M01_DOING_ANIMATION_03_JDG:
 							{
 								params.Set_Basic( this, 30, M01_WALKING_WAYPATH_04_JDG );
 								params.Set_Movement( Vector3(0,0,0), WALK, .05f );
@@ -6327,7 +6327,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_WALKING_WAYPATH_04_JDG: 
+						case M01_WALKING_WAYPATH_04_JDG:
 							{
 								const char* animationName = M01_Choose_Idle_Animation ( );
 
@@ -6337,7 +6337,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_DOING_ANIMATION_04_JDG: 
+						case M01_DOING_ANIMATION_04_JDG:
 							{
 								params.Set_Basic( this, 30, M01_WALKING_WAYPATH_05_JDG );
 								params.Set_Movement( Vector3(0,0,0), WALK, .05f );
@@ -6348,7 +6348,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_WALKING_WAYPATH_05_JDG: 
+						case M01_WALKING_WAYPATH_05_JDG:
 							{
 								const char* animationName = M01_Choose_Idle_Animation ( );
 
@@ -6358,7 +6358,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_DOING_ANIMATION_05_JDG: 
+						case M01_DOING_ANIMATION_05_JDG:
 							{
 								params.Set_Basic( this, 30, M01_WALKING_WAYPATH_06_JDG );
 								params.Set_Movement( Vector3(0,0,0), WALK, .05f );
@@ -6369,7 +6369,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_WALKING_WAYPATH_06_JDG: 
+						case M01_WALKING_WAYPATH_06_JDG:
 							{
 								const char* animationName = M01_Choose_Idle_Animation ( );
 
@@ -6379,7 +6379,7 @@ DECLARE_SCRIPT(M01_GDI_Toolshed_PatrolGuy_JDG, "")
 							}
 							break;
 
-						case M01_DOING_ANIMATION_06_JDG: 
+						case M01_DOING_ANIMATION_06_JDG:
 							{
 								params.Set_Basic( this, 30, M01_WALKING_WAYPATH_01_JDG );
 								params.Set_Movement( Vector3(0,0,0), WALK, .05f );
@@ -6405,7 +6405,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Spawner_Controller_JDG, "")//this guys ID is M01_GDI
 		SAVE_VARIABLE(active_unit_count, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		active_unit_count = 0;
 	}
@@ -6414,7 +6414,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Spawner_Controller_JDG, "")//this guys ID is M01_GDI
 	{
 		switch (param)
 		{
-			case M01_SPAWNER_IS_DEAD_JDG: 
+			case M01_SPAWNER_IS_DEAD_JDG:
 				{
 					active_unit_count--;
 					Commands->Send_Custom_Event( obj, obj, 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
@@ -6422,7 +6422,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Spawner_Controller_JDG, "")//this guys ID is M01_GDI
 				}
 				break;
 
-			case M01_SPAWNER_SPAWN_PLEASE_JDG: 
+			case M01_SPAWNER_SPAWN_PLEASE_JDG:
 				{
 					Commands->Enable_Hibernation( obj, false );
 					int currentDifficulty = Commands->Get_Difficulty_Level( );
@@ -6480,7 +6480,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Spawner_Controller_JDG, "")//this guys ID is M01_GDI
 								active_unit_count++;
 							}
 
-							else 
+							else
 							{
 								Commands->Trigger_Spawner( M01_GDIBASE_SPAWNER_C_JDG );
 								active_unit_count++;
@@ -6492,9 +6492,9 @@ DECLARE_SCRIPT(M01_GDI_Base_Spawner_Controller_JDG, "")//this guys ID is M01_GDI
 
 					Commands->Send_Custom_Event( obj, obj, 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 10 );
 				}
-				break;	
+				break;
 
-			case M01_QUIT_SPAWNING_PLEASE_JDG: 
+			case M01_QUIT_SPAWNING_PLEASE_JDG:
 				{
 					if (Commands->Find_Object (M01_GDIBASE_SPAWNER_A_JDG))
 					{
@@ -6541,25 +6541,25 @@ DECLARE_SCRIPT(M01_Tailgun_Run_Spawner_Controller_JDG, "")//this guys ID is M01_
 		SAVE_VARIABLE(startup, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		active_unit_count = 0;
-		startup = true;	
+		startup = true;
 	}
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
 		switch (param)
 		{
-			case M01_SPAWNER_IS_DEAD_JDG: 
+			case M01_SPAWNER_IS_DEAD_JDG:
 				{
 					active_unit_count--;
 					Commands->Send_Custom_Event( obj, obj, 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 				}
 				break;
 
-			case M01_SPAWNER_SPAWN_PLEASE_JDG: 
+			case M01_SPAWNER_SPAWN_PLEASE_JDG:
 				{
 					int currentDifficulty = Commands->Get_Difficulty_Level( );
 					int easy = 0;
@@ -6591,7 +6591,7 @@ DECLARE_SCRIPT(M01_Tailgun_Run_Spawner_Controller_JDG, "")//this guys ID is M01_
 						}
 					}
 
-					else 
+					else
 					{
 						if (currentDifficulty == easy)
 						{
@@ -6640,7 +6640,7 @@ DECLARE_SCRIPT(M01_Tailgun_Run_Spawner_Controller_JDG, "")//this guys ID is M01_
 									active_unit_count++;
 								}
 
-								else 
+								else
 								{
 									Commands->Trigger_Spawner( M01_TAILGUNRUN_SPAWNER_C_JDG );
 									active_unit_count++;
@@ -6649,9 +6649,9 @@ DECLARE_SCRIPT(M01_Tailgun_Run_Spawner_Controller_JDG, "")//this guys ID is M01_
 						}
 					}
 				}
-				break;	
+				break;
 
-			case M01_QUIT_SPAWNING_PLEASE_JDG: 
+			case M01_QUIT_SPAWNING_PLEASE_JDG:
 				{
 					if (Commands->Find_Object (M01_TAILGUNRUN_SPAWNER_A_JDG))
 					{
@@ -6698,25 +6698,25 @@ DECLARE_SCRIPT(M01_ChurchArea_Spawner_Controller_JDG, "")//this guys ID is M01_C
 		SAVE_VARIABLE(startup, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		active_unit_count = 0;
-		startup = true;	
+		startup = true;
 	}
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
 		switch (param)
 		{
-			case M01_SPAWNER_IS_DEAD_JDG: 
+			case M01_SPAWNER_IS_DEAD_JDG:
 				{
 					active_unit_count--;
 					Commands->Send_Custom_Event( obj, obj, 0, M01_SPAWNER_SPAWN_PLEASE_JDG, 0 );
 				}
 				break;
 
-			case M01_SPAWNER_SPAWN_PLEASE_JDG: 
+			case M01_SPAWNER_SPAWN_PLEASE_JDG:
 				{
 					int currentDifficulty = Commands->Get_Difficulty_Level( );
 					int easy = 0;
@@ -6748,7 +6748,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Spawner_Controller_JDG, "")//this guys ID is M01_C
 						}
 					}
 
-					else 
+					else
 					{
 						if (currentDifficulty == easy)
 						{
@@ -6797,7 +6797,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Spawner_Controller_JDG, "")//this guys ID is M01_C
 									active_unit_count++;
 								}
 
-								else 
+								else
 								{
 									Commands->Trigger_Spawner( M01_CHURCHAREA_SPAWNER_C_JDG );
 									active_unit_count++;
@@ -6806,9 +6806,9 @@ DECLARE_SCRIPT(M01_ChurchArea_Spawner_Controller_JDG, "")//this guys ID is M01_C
 						}
 					}
 				}
-				break;	
+				break;
 
-			case M01_QUIT_SPAWNING_PLEASE_JDG: 
+			case M01_QUIT_SPAWNING_PLEASE_JDG:
 				{
 					if (Commands->Find_Object (M01_CHURCHAREA_SPAWNER_A_JDG))
 					{
@@ -6856,10 +6856,10 @@ DECLARE_SCRIPT(M01_Turn_on_the_Hand_of_Nod_Zone_JDG, "")
 			}
 
 			if ( Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ))
-			{	
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_HON_SPAWNS_MINIGUNNER_JDG, 0 );
 			}
-			
+
 			if (obj)
 			{
 				Commands->Destroy_Object ( obj);//this is a one-time only zone--cleaning up
@@ -6879,7 +6879,7 @@ DECLARE_SCRIPT(M01_Turn_on_the_Hand_of_Nod_Zone_JDG, "")
 		SAVE_VARIABLE(firstTimeDamaged, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		deadYet = false;
 		firstTimeDamaged = true;
@@ -6893,7 +6893,7 @@ DECLARE_SCRIPT(M01_Turn_on_the_Hand_of_Nod_Zone_JDG, "")
 		if (obj)
 		{
 			if (damager == STAR && deadYet == false && firstTimeDamaged == true)
-			{	
+			{
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Vector3 playerPosition = Commands->Get_Position ( STAR );
 				float playerDistance = Commands->Get_Distance ( myPosition, playerPosition );
@@ -6905,7 +6905,7 @@ DECLARE_SCRIPT(M01_Turn_on_the_Hand_of_Nod_Zone_JDG, "")
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 					params.Set_Animation( "H_A_J21C", false );
 					Commands->Action_Play_Animation (  obj, params );
-				}	
+				}
 			}
 		}
 	}
@@ -6938,7 +6938,7 @@ DECLARE_SCRIPT(M01_Turn_on_the_Hand_of_Nod_Zone_JDG, "")
 							float delayTimer;
 
 							if (currentDifficulty == hard)
-							{	
+							{
 								delayTimer = 60;
 							}
 
@@ -6976,14 +6976,14 @@ DECLARE_SCRIPT(M01_Turn_on_the_Hand_of_Nod_Zone_JDG, "")
 							{
 								Commands->Send_Custom_Event( obj, nodCommanderDialogController, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 							}
-							float delayTimer = Commands->Get_Random ( 15, 30 ); 
+							float delayTimer = Commands->Get_Random ( 15, 30 );
 							Commands->Send_Custom_Event( obj, obj, 0, M01_CALL_IN_REINFORCEMENTS_JDG, delayTimer );
 						}
 					}
 					break;
 			}
 		}
-	}		
+	}
 };*/
 
 DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGUNAREA_NOD_COMMANDER_JDG 102358
@@ -6999,7 +6999,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 		SAVE_VARIABLE(playerSeen, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		deadYet = false;
 		firstTimeDamaged = true;
@@ -7012,7 +7012,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 		if (obj)
 		{
 			if (damager == STAR && deadYet == false && firstTimeDamaged == true)
-			{	
+			{
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Vector3 playerPosition = Commands->Get_Position ( STAR );
 				float playerDistance = Commands->Get_Distance ( myPosition, playerPosition );
@@ -7027,7 +7027,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 					params.Set_Animation( animationName, false );
 					Commands->Action_Play_Animation (  obj, params );
-				}	
+				}
 			}
 		}
 	}
@@ -7049,7 +7049,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 				if (obj)
 				{
 					if (deadYet == false && playerSeen == false)
-					{	
+					{
 						Vector3 myPosition = Commands->Get_Position ( obj );
 						Vector3 playerPosition = Commands->Get_Position ( STAR );
 						float playerDistance = Commands->Get_Distance ( myPosition, playerPosition );
@@ -7062,7 +7062,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 							params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 							params.Set_Animation( animationName, false );
 							Commands->Action_Play_Animation (  obj, params );
-						}	
+						}
 					}
 				}
 			}
@@ -7098,7 +7098,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 							float delayTimer;
 
 							if (currentDifficulty == hard)
-							{	
+							{
 								delayTimer = 60;
 							}
 
@@ -7136,7 +7136,7 @@ DECLARE_SCRIPT(M01_TailgunRun_NOD_Commander_JDG, "")//this guys ID is M01_TAILGU
 							{
 								Commands->Send_Custom_Event( obj, nodCommanderDialogController, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 							}
-							float delayTimer = Commands->Get_Random ( 15, 30 ); 
+							float delayTimer = Commands->Get_Random ( 15, 30 );
 							Commands->Send_Custom_Event( obj, obj, 0, M01_CALL_IN_REINFORCEMENTS_JDG, delayTimer );
 						}
 					}
@@ -7159,7 +7159,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 		SAVE_VARIABLE(playerSeen, 3);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		deadYet = false;
 		firstTimeDamaged = true;
@@ -7167,14 +7167,14 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
 
-	
+
 
 	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if (obj)
 		{
 			if (damager == STAR && deadYet == false && firstTimeDamaged == true && playerSeen == false)
-			{	
+			{
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Vector3 playerPosition = Commands->Get_Position ( STAR );
 				float playerDistance = Commands->Get_Distance ( myPosition, playerPosition );
@@ -7187,7 +7187,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 					params.Set_Animation( animationName, false );
 					Commands->Action_Play_Animation (  obj, params );
-				}	
+				}
 			}
 		}
 	}
@@ -7209,7 +7209,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 				if (obj)
 				{
 					if (deadYet == false && playerSeen == false)
-					{	
+					{
 						Vector3 myPosition = Commands->Get_Position ( obj );
 						Vector3 playerPosition = Commands->Get_Position ( STAR );
 						float playerDistance = Commands->Get_Distance ( myPosition, playerPosition );
@@ -7222,7 +7222,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 							params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 							params.Set_Animation( animationName, false );
 							Commands->Action_Play_Animation (  obj, params );
-						}	
+						}
 					}
 				}
 			}
@@ -7258,7 +7258,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 							float delayTimer;
 
 							if (currentDifficulty == hard)
-							{	
+							{
 								delayTimer = 60;
 							}
 
@@ -7296,7 +7296,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 							{
 								Commands->Send_Custom_Event( obj, nodCommanderDialogController, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 							}
-							float delayTimer = Commands->Get_Random ( 15, 30 ); 
+							float delayTimer = Commands->Get_Random ( 15, 30 );
 							Commands->Send_Custom_Event( obj, obj, 0, M01_CALL_IN_REINFORCEMENTS_JDG, delayTimer );
 						}
 					}
@@ -7307,7 +7307,7 @@ DECLARE_SCRIPT(M01_ChurchArea_NOD_Commander_JDG, "")//M01_CHURCHAREA_NOD_COMMAND
 };
 
 DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY_CONTROLLER_ID	102294
-{				
+{
 	Vector3 locs[35];
 	Vector3 sound_location;
 	int last;
@@ -7326,7 +7326,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY
 		SAVE_VARIABLE(delayTimerMax, 6);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		locs[0] = Vector3(96.983f, -75.433f, -7.894f);
 		locs[1] = Vector3(64.778f,-70.692f, -7.917f );
@@ -7376,12 +7376,12 @@ DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY
 	{
 		switch (param)
 		{
-			case M01_PICK_A_NEW_LOCATION_JDG: 
+			case M01_PICK_A_NEW_LOCATION_JDG:
 				{
 					if (command_clearance == true)
 					{
 						int random = int(Commands->Get_Random(0, 35-WWMATH_EPSILON));
-						while (random == last) 
+						while (random == last)
 						{
 							random = int(Commands->Get_Random(0, 35-WWMATH_EPSILON));
 						}
@@ -7397,9 +7397,9 @@ DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
-					command_clearance = false;	
+					command_clearance = false;
 
 					if (sender == Commands->Find_Object ( M01_BARNAREA_NOD_COMMANDER_JDG ))//your "commander" is dead--destroy yourself
 					{
@@ -7410,7 +7410,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY
 
 			case M01_START_ACTING_JDG:
 				{
-					command_clearance = true;	
+					command_clearance = true;
 					Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, 2 );
 				}
 				break;
@@ -7421,7 +7421,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY
 			if (param == bomb_sound)
 			{
 				Vector3 explosion_location = sound_location;
-				
+
 				explosion_location.Z -= 10;
 				Commands->Create_Explosion("Ground Explosions Twiddler", explosion_location, NULL);
 
@@ -7429,7 +7429,7 @@ DECLARE_SCRIPT(M01_GDI_Base_Artillery_Controller_JDG, "")//M01_GDIBASE_ARTILLERY
 				Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, delayTimer );
 			}
 		}
-	}				
+	}
 };
 
 
@@ -7508,7 +7508,7 @@ DECLARE_SCRIPT(M01_GuardTower_Sniper_Target_JDG, "wave_location:vector3,  delete
 		SAVE_VARIABLE(leavePosition, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		runToPosition = Get_Vector3_Parameter("wave_location");
 		leavePosition = Get_Vector3_Parameter("delete_location");
@@ -7560,7 +7560,7 @@ DECLARE_SCRIPT(M01_GuardTower_Sniper_Target_JDG, "wave_location:vector3,  delete
 
 		switch (complete_reason)
 		{
-			case ACTION_COMPLETE_NORMAL: 
+			case ACTION_COMPLETE_NORMAL:
 				{
 					switch (action_id)
 					{
@@ -7604,7 +7604,7 @@ DECLARE_SCRIPT(M01_Gunboat_Spawn_Hovercraft_Zone_JDG, "")//this guys id is 10250
 		SAVE_VARIABLE(okay_to_trigger, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		okay_to_trigger = false;
 	}
@@ -7631,7 +7631,7 @@ DECLARE_SCRIPT(M01_Gunboat_Spawn_Hovercraft_Zone_JDG, "")//this guys id is 10250
 
 DECLARE_SCRIPT(M01_BasalBuilding_Population_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		float myHomeRadius = Commands->Get_Random ( 2, 10 );
@@ -7652,7 +7652,7 @@ DECLARE_SCRIPT(M01_HarvesterScript_New_JDG, "")
 		SAVE_VARIABLE(deadYet, 3);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		animation_count = 0;
 		damagedYet = false;
@@ -7679,7 +7679,7 @@ DECLARE_SCRIPT(M01_HarvesterScript_New_JDG, "")
 					Commands->Send_Custom_Event ( obj, obj, 0, M01_START_ACTING_JDG, 0.25 );
 				}
 				damagedYet = true;
-				
+
 			}
 		}
 	}
@@ -7724,7 +7724,7 @@ DECLARE_SCRIPT(M01_HarvesterScript_New_JDG, "")
 		{
 			Commands->Set_Animation(obj, "V_NOD_HRVSTR.V_NOD_HRVSTR", false, NULL, 0.0f, -1.0f, false);
 			animation_count++;
-		} 
+		}
 
 		else
 		{
@@ -7771,7 +7771,7 @@ DECLARE_SCRIPT(M01_TibField_Guard01_New_JDG, "")
 			}
 		}
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M01_Barn_Babushkas_Conversation_Zone_JDG, "")//this guys ID is 101662
@@ -7785,7 +7785,7 @@ DECLARE_SCRIPT(M01_Barn_Babushkas_Conversation_Zone_JDG, "")//this guys ID is 10
 		SAVE_VARIABLE(playerEntered, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		okay_to_play_conversation = false;
 		playerEntered = false;
@@ -7844,7 +7844,7 @@ DECLARE_SCRIPT(M01_Barn_Babushkas_Conversation_Zone_JDG, "")//this guys ID is 10
 DECLARE_SCRIPT(M01_Barn_Point_Guard_01_JDG, "")//this guys ID is 101439
 {
 	void Created( GameObject * obj ) override
-	{	
+	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
 
@@ -7940,7 +7940,7 @@ DECLARE_SCRIPT(M01_Barn_Point_Guard_02_JDG, "")//this guys ID is 101658
 
 DECLARE_SCRIPT(M01_Barn_Door_Guard_JDG, "")//this guys ID is M01_BARN_DOOR_GUARD_ID	101512
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPosition, 5.0f );
@@ -7954,12 +7954,12 @@ DECLARE_SCRIPT(M01_Barn_Door_Guard_JDG, "")//this guys ID is M01_BARN_DOOR_GUARD
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_BARN_GUARD_IS_DEAD_JDG, 0 );
-	}	
+	}
 };
 
 DECLARE_SCRIPT(M01_Barn_Talk_Guard_01_JDG, "")//this guys ID is M01_BARN_TALK_GUARD_01_ID 103318
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPosition, 5.0f );
@@ -7976,7 +7976,7 @@ DECLARE_SCRIPT(M01_Barn_Talk_Guard_01_JDG, "")//this guys ID is M01_BARN_TALK_GU
 	}
 };
 
-DECLARE_SCRIPT(M01_BarnArea_AI_ExitZone_JDG, "")//112015 -- tunnel 112016 -- shack  
+DECLARE_SCRIPT(M01_BarnArea_AI_ExitZone_JDG, "")//112015 -- tunnel 112016 -- shack
 {
 	int hovercraftGuyId;
 
@@ -7985,7 +7985,7 @@ DECLARE_SCRIPT(M01_BarnArea_AI_ExitZone_JDG, "")//112015 -- tunnel 112016 -- sha
 		SAVE_VARIABLE(hovercraftGuyId, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		hovercraftGuyId = 0;
 	}
@@ -8017,7 +8017,7 @@ DECLARE_SCRIPT(M01_TurretBeach_GDI_Guy_01_JDG, "")//
 		SAVE_VARIABLE(turretbeach_conv, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		int myId = Commands->Get_ID ( obj );
 		GameObject * myExitZone01 = Commands->Find_Object ( 112015 );
@@ -8154,7 +8154,7 @@ DECLARE_SCRIPT(M01_DetentionPen_CivDeathMonitor, "")
 		SAVE_VARIABLE(damagedYet, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		damagedYet = false;
 	}
@@ -8179,7 +8179,7 @@ DECLARE_SCRIPT(M01_DetentionPen_CivDeathMonitor, "")
 	{
 		switch (param)
 		{
-			case M01_GOING_TO_EVAC_SPOT02_JDG: 
+			case M01_GOING_TO_EVAC_SPOT02_JDG:
 				{
 					Vector3 myEvacSpot = Commands->Get_Position ( Commands->Find_Object ( 103380 ) );
 					ActionParamsStruct params;
@@ -8202,7 +8202,7 @@ DECLARE_SCRIPT(M01_DetentionPen_GDIDeathMonitor, "")
 		SAVE_VARIABLE(damagedYet, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		damagedYet = false;
 	}
@@ -8227,7 +8227,7 @@ DECLARE_SCRIPT(M01_DetentionPen_GDIDeathMonitor, "")
 	{
 		switch (param)
 		{
-			case M01_GOING_TO_EVAC_SPOT02_JDG: 
+			case M01_GOING_TO_EVAC_SPOT02_JDG:
 				{
 					Vector3 myEvacSpot = Commands->Get_Position ( Commands->Find_Object ( 103381 ) );
 					ActionParamsStruct params;
@@ -8257,7 +8257,7 @@ DECLARE_SCRIPT(M01_DetentionPen_Evac_Controller01_JDG, "")//103380
 		SAVE_VARIABLE(deadPrisonerTally, 3);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		deadPrisonerTally = 0;
 	}
@@ -8325,7 +8325,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Waypath_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
@@ -8336,7 +8336,7 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Waypath_JDG, "")
 
 DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Chopper_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Shield_Type ( obj, "Blamo" );
 		Commands->Enable_Hibernation( obj, false );
@@ -8388,19 +8388,19 @@ DECLARE_SCRIPT(M01_DetentionCiv_Air_Evac_Chopper_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Enable_Collisions ( obj );
 				}
 				break;
 
-			case M01_DO_END_MISSION_CHECK_JDG: 
+			case M01_DO_END_MISSION_CHECK_JDG:
 				{
 					GameObject * civGuy01 = Commands->Find_Object ( 101929 );
 					GameObject * civGuy02 = Commands->Find_Object ( 101930 );
@@ -8492,7 +8492,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Waypath_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Set_Animation ( obj, "XG_TransprtBone.XG_EV1_PathZ", false, NULL, 0.0f, -1.0f, false );
 				}
@@ -8503,7 +8503,7 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Waypath_JDG, "")
 
 DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Chopper_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Shield_Type ( obj, "Blamo" );
 		Commands->Enable_Hibernation( obj, false );
@@ -8555,19 +8555,19 @@ DECLARE_SCRIPT(M01_DetentionGDI_Air_Evac_Chopper_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV1_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Enable_Collisions ( obj );
 				}
 				break;
 
-			case M01_DO_END_MISSION_CHECK_JDG: 
+			case M01_DO_END_MISSION_CHECK_JDG:
 				{
 					GameObject * GDIGuy01 = Commands->Find_Object ( 101926 );
 					GameObject * GDIGuy02 = Commands->Find_Object ( 101927 );
@@ -8610,12 +8610,12 @@ DECLARE_SCRIPT(M01_Nod_Chinook_Reinforcement_Guy_JDG, "")//
 
 			Commands->Send_Custom_Event( obj, obj, 0, M01_HUNT_THE_PLAYER_JDG, 1 );
 		}
-	}	
+	}
 };
 
 DECLARE_SCRIPT(M01_Hunt_The_Player_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		Commands->Start_Timer ( obj, this, 60, M01_GOTO_IDLE_JDG );
@@ -8672,8 +8672,8 @@ DECLARE_SCRIPT(M01_Hunt_The_Player_JDG, "")
 
 DECLARE_SCRIPT(M01_HON_Escorts_Warroom_MCT_Commander_JDG, "")//103373
 {
-	void Created( GameObject * obj ) override 
-	{ 
+	void Created( GameObject * obj ) override
+	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
 
@@ -8708,16 +8708,16 @@ DECLARE_SCRIPT(M01_HON_Escorts_Warroom_MCT_Commander_JDG, "")//103373
 
 DECLARE_SCRIPT(M01_HON_Escorts_Warroom_MCT_Protector01_JDG, "")//103374
 {
-	void Created( GameObject * obj ) override 
-	{ 
+	void Created( GameObject * obj ) override
+	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
 };
 
 DECLARE_SCRIPT(M01_HON_Escorts_Warroom_MCT_Protector02_JDG, "")//103375
 {
-	void Created( GameObject * obj ) override 
-	{ 
+	void Created( GameObject * obj ) override
+	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
 };
@@ -8733,8 +8733,8 @@ DECLARE_SCRIPT(M01_HON_Engineer02_JDG, "")//101948
 		SAVE_VARIABLE(repairSoundPlaying, 1);
 	}
 
-	void Created( GameObject * obj ) override 
-	{ 
+	void Created( GameObject * obj ) override
+	{
 		repairSoundPlaying = false;
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
@@ -8761,11 +8761,11 @@ DECLARE_SCRIPT(M01_HON_Engineer02_JDG, "")//101948
 		if (timer_id == M01_START_ACTING_JDG)
 		{
 			Commands->Enable_Hibernation( obj, true );
-			
+
 			Commands->Action_Reset ( obj, 100 );
 
 			Vector3 repair_sound_spot (-175.074f, 533.086f, 19.327f);
-			
+
 
 			GameObject * handOfNod = Commands->Find_Object ( M01_HAND_OF_NOD_JDG );
 			float hon_max_health = Commands->Get_Max_Health ( handOfNod );
@@ -8781,7 +8781,7 @@ DECLARE_SCRIPT(M01_HON_Engineer02_JDG, "")//101948
 				if (repairSoundPlaying == false)
 				{
 					Commands->Create_Sound ( "CnC_Healer_Sound", repair_sound_spot, obj );
-					
+
 					repairSoundPlaying = true;
 					Commands->Start_Timer ( obj, this, 5, M01_GOTO_IDLE_JDG );
 				}
@@ -8916,7 +8916,7 @@ DECLARE_SCRIPT(M01_BuggyNew_Controller_JDG, "")//this guys id is 103367
 		SAVE_VARIABLE(gdi_minigunner_02_inPlace, 3);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		gdi_minigunner_01_inPlace = false;
 		gdi_minigunner_02_inPlace = false;
@@ -8973,7 +8973,7 @@ DECLARE_SCRIPT(M01_BuggyScript_New_JDG, "")
 		SAVE_VARIABLE(minigunner02_id, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Soldier_Enable_Enemy_Seen ( obj, true );
 		ActionParamsStruct params;
@@ -9000,7 +9000,7 @@ DECLARE_SCRIPT(M01_BuggyScript_New_JDG, "")
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
 		Commands->Create_Sound ( "EVA_Nod_Unit_Destroyed", Vector3 (0,0,0), obj);
-		
+
 		Vector3 buggyDeathSpot (-217.0f, 499.4f, 4.0f);
 		GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", buggyDeathSpot);
 		Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X1D_GDIPowerUpDrop.txt");
@@ -9097,7 +9097,7 @@ DECLARE_SCRIPT(M01_Priest_Conversation_Zone_JDG, "")//this guys ID is 103395  M0
 		SAVE_VARIABLE(okay_to_play_conversation, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		okay_to_play_conversation = false;
 	}
@@ -9134,7 +9134,7 @@ DECLARE_SCRIPT(M01_Loveshack_Nun_Conversation_Zone_JDG, "")//this guys ID is 101
 		SAVE_VARIABLE(okay_to_play_conversation, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		okay_to_play_conversation = false;
 	}
@@ -9171,7 +9171,7 @@ DECLARE_SCRIPT(M01_Interior_Nun_Conversation_Zone_JDG, "")//this guys ID is #101
 		SAVE_VARIABLE(okay_to_play_conversation, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		okay_to_play_conversation = false;
 	}
@@ -9199,7 +9199,7 @@ DECLARE_SCRIPT(M01_Interior_Nun_Conversation_Zone_JDG, "")//this guys ID is #101
 
 DECLARE_SCRIPT(M01_Church_Guard_MiniGunner_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPosition, 5 );
@@ -9232,7 +9232,7 @@ DECLARE_SCRIPT(M01_Church_Guard_MiniGunner_JDG, "")
 	}
 };
 
-DECLARE_SCRIPT(M01_Church_Loveshack_InterrogationConv_Zone_JDG, "")//103392 
+DECLARE_SCRIPT(M01_Church_Loveshack_InterrogationConv_Zone_JDG, "")//103392
 {
 	bool conversation_triggered;
 
@@ -9241,7 +9241,7 @@ DECLARE_SCRIPT(M01_Church_Loveshack_InterrogationConv_Zone_JDG, "")//103392
 		SAVE_VARIABLE(conversation_triggered, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		conversation_triggered = false;
 	}
@@ -9271,7 +9271,7 @@ DECLARE_SCRIPT(M01_Church_Loveshack_InterrogationConv_Zone_JDG, "")//103392
 
 
 
-DECLARE_SCRIPT(M01_GDI_Escort_Conversation_Controller_GDI, "")//103396 
+DECLARE_SCRIPT(M01_GDI_Escort_Conversation_Controller_GDI, "")//103396
 {
 	bool first_time_at_escort_limit;
 
@@ -9280,7 +9280,7 @@ DECLARE_SCRIPT(M01_GDI_Escort_Conversation_Controller_GDI, "")//103396
 		SAVE_VARIABLE(first_time_at_escort_limit, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		first_time_at_escort_limit = true;
 	}
@@ -9347,7 +9347,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 	typedef enum {
 		ESCORTING,
 		NOT_ESCORTING,
-		
+
 	} M01_State;
 
 	M01_State thisGuysState;
@@ -9360,7 +9360,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 		SAVE_VARIABLE(initialEscortConv, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		thisGuysState = NOT_ESCORTING;
 	}
@@ -9430,7 +9430,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
-		
+
 		if ((param == M01_PICK_A_NEW_LOCATION_JDG) && (thisGuysState != ESCORTING) )
 		{
 			Vector3 homeSpot;
@@ -9462,7 +9462,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 				homeSpot.Set (-140.792f, 342.980f, 10.387f);
 			}
 
-			else 
+			else
 			{
 				homeSpot.Set (-126.169f, 335.223f, 8.997f);
 			}
@@ -9509,8 +9509,8 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 				params.Set_Basic( this, 100, M01_GOING_TO_HAVOC_JDG );
 				params.Set_Movement( myTarget, RUN, 5 );
 				params.AttackActive	= true;
-				params.Set_Attack (myTarget, 50, 0, true);	
-				
+				params.Set_Attack (myTarget, 50, 0, true);
+
 				Commands->Modify_Action ( obj, M01_GOING_TO_HAVOC_JDG, params, true, true );
 			}
 		}
@@ -9538,7 +9538,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 				homeSpot.Set (-173.371f, 437.383f, 29.711f);
 			}
 
-			else 
+			else
 			{
 				homeSpot.Set (-138.958f, 435.696f, 27.001f);
 			}
@@ -9549,7 +9549,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 			params.Set_Movement(homeSpot, WALK, 3);
 			Commands->Action_Goto(obj, params);
 
-			
+
 		}
 
 		else if ((param == M01_PLAYER_IS_LEAVING_CHURCH_02_JDG) && (thisGuysState == ESCORTING))
@@ -9575,7 +9575,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 				homeSpot.Set (-49.614f, 363.304f, 10.816f);
 			}
 
-			else 
+			else
 			{
 				homeSpot.Set (-66.361f, 339.288f, 8.772f);
 			}
@@ -9627,7 +9627,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier01_GDI, "")
 					Commands->Modify_Action ( obj, M01_GOING_TO_HAVOC_JDG, params, true, true );
 				}
 			}
-		}	
+		}
 	}
 };
 
@@ -9636,7 +9636,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 	typedef enum {
 		ESCORTING,
 		NOT_ESCORTING,
-		
+
 	} M01_State;
 
 	M01_State thisGuysState;
@@ -9646,7 +9646,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 		SAVE_VARIABLE(thisGuysState, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		thisGuysState = NOT_ESCORTING;
 	}
@@ -9697,7 +9697,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
-		
+
 		if ((param == M01_PICK_A_NEW_LOCATION_JDG) && (thisGuysState != ESCORTING) )
 		{
 			Vector3 homeSpot;
@@ -9729,7 +9729,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 				homeSpot.Set (-140.792f, 342.980f, 10.387f);
 			}
 
-			else 
+			else
 			{
 				homeSpot.Set (-126.169f, 335.223f, 8.997f);
 			}
@@ -9776,8 +9776,8 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 				params.Set_Basic( this, 100, M01_GOING_TO_HAVOC_JDG );
 				params.Set_Movement( myTarget, RUN, 5 );
 				params.AttackActive	= true;
-				params.Set_Attack (myTarget, 50, 0, true);	
-				
+				params.Set_Attack (myTarget, 50, 0, true);
+
 				Commands->Modify_Action ( obj, M01_GOING_TO_HAVOC_JDG, params, true, true );
 			}
 		}
@@ -9806,7 +9806,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 				homeSpot.Set (-173.371f, 437.383f, 29.711f);
 			}
 
-			else 
+			else
 			{
 				homeSpot.Set (-138.958f, 435.696f, 27.001f);
 			}
@@ -9842,7 +9842,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 				homeSpot.Set (-49.614f, 363.304f, 10.816f);
 			}
 
-			else 
+			else
 			{
 				homeSpot.Set (-66.361f, 339.288f, 8.772f);
 			}
@@ -9894,7 +9894,7 @@ DECLARE_SCRIPT(M01_CHURCH_Chinook_Spawned_Soldier02_GDI, "")
 					Commands->Modify_Action ( obj, M01_GOING_TO_HAVOC_JDG, params, true, true );
 				}
 			}
-		}	
+		}
 	}
 };
 
@@ -9903,7 +9903,7 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 	typedef enum {
 		ESCORTING,
 		NOT_ESCORTING,
-		
+
 	} M01_State;
 
 	M01_State thisGuysState;
@@ -9913,7 +9913,7 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 		SAVE_VARIABLE(thisGuysState, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		thisGuysState = NOT_ESCORTING;
 	}
@@ -9960,7 +9960,7 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		ActionParamsStruct params;
-		
+
 		if ((param == M01_PICK_A_NEW_LOCATION_JDG) && (thisGuysState == NOT_ESCORTING) )
 		{
 			Vector3 homeSpot;
@@ -9992,7 +9992,7 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 				homeSpot.Set (-313.597f, 568.022f, 27.740f);
 			}
 
-			else 
+			else
 			{
 				homeSpot.Set (-301.160f, 523.405f, 16.583f);
 			}
@@ -10038,8 +10038,8 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 				params.Set_Basic( this, 100, M01_GOING_TO_HAVOC_JDG );
 				params.Set_Movement( myTarget, RUN, 5 );
 				params.AttackActive	= true;
-				params.Set_Attack (myTarget, 50, 0, true);	
-				
+				params.Set_Attack (myTarget, 50, 0, true);
+
 				Commands->Modify_Action ( obj, M01_GOING_TO_HAVOC_JDG, params, true, true );
 
 				Commands->Debug_Message ( "**********************Player's escort has received orders to attack havocs target\n" );
@@ -10086,7 +10086,7 @@ DECLARE_SCRIPT(M01_COMM_Chinook_Spawned_Soldier_GDI, "")
 					Commands->Modify_Action ( obj, M01_GOING_TO_HAVOC_JDG, params, true, true );
 				}
 			}
-		}	
+		}
 	}
 };
 
@@ -10121,7 +10121,7 @@ DECLARE_SCRIPT(M01_GDIBase_EvacMonitor_JDG, "")//M01_GDIBASE_EVAC_MONITOR_JDG
 		SAVE_VARIABLE(unitsEvacuated, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		unitsEvacuated = 0;
 	}
@@ -10159,7 +10159,7 @@ DECLARE_SCRIPT(M01_ChurchArea_EvacMonitor_JDG, "")//M01_CHURCHAREA_EVAC_MONITOR_
 		SAVE_VARIABLE(unitsEvacuated, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		unitsEvacuated = 0;
 	}
@@ -10195,7 +10195,7 @@ DECLARE_SCRIPT(M01_MovieProjector_JDG, "")//103942
 		SAVE_VARIABLE(destroyed, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		destroyed = false;
 	}
@@ -10245,7 +10245,7 @@ DECLARE_SCRIPT(M01_Propaganda_Sounds_Controller_JDG, "")//this guys ID is 103099
 	}
 
 	void Created(GameObject * /* obj */) override
-	{	
+	{
 		last = 0;
 		displayScreen_ID = 0;
 		monitor_sound01 = 0;
@@ -10270,16 +10270,16 @@ DECLARE_SCRIPT(M01_Propaganda_Sounds_Controller_JDG, "")//this guys ID is 103099
 				}
 				Commands->Send_Custom_Event( obj, obj, 0, M01_START_ACTING_JDG, 2 );
 			}
-		
+
 		//if (obj && type == CUSTOM_EVENT_SOUND_ENDED  )
 		//{
 		//	if (obj && param == monitor_sound01)
 			//{
-				
+
 			//}
 		//}
 
-		
+
 			else if (param == M01_START_ACTING_JDG && destroyed == false)
 			{
 				static constexpr const char* propaganda_screen[10] =
@@ -10357,7 +10357,7 @@ DECLARE_SCRIPT(M01_Propaganda_Sounds_Controller_JDG, "")//this guys ID is 103099
 
 DECLARE_SCRIPT(M01_BackPath_NodGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 		GameObject * gdiBaseCommander = Commands->Find_Object ( 106050 );
@@ -10384,8 +10384,8 @@ DECLARE_SCRIPT(M01_Comm_Repair_Engineer_JDG, "")//this guys ID is M01_COMM_CENTE
 		SAVE_VARIABLE(healing, 2);
 	}
 
-	void Created( GameObject * obj ) override 
-	{ 
+	void Created( GameObject * obj ) override
+	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 		healing = false;
 	}
@@ -10424,7 +10424,7 @@ DECLARE_SCRIPT(M01_Comm_Repair_Engineer_JDG, "")//this guys ID is M01_COMM_CENTE
 		if (timer_id == M01_START_ACTING_JDG)
 		{
 			Commands->Enable_Hibernation( obj, true );
-			
+
 			Commands->Action_Reset ( obj, 100 );
 
 			GameObject * commCenter = Commands->Find_Object ( M01_COMM_CENTER_JDG );
@@ -10441,7 +10441,7 @@ DECLARE_SCRIPT(M01_Comm_Repair_Engineer_JDG, "")//this guys ID is M01_COMM_CENTE
 
 				healer_sound = Commands->Create_Sound ( "CnC_Healer_Sound", repair_sound_spot, obj );
 				Commands->Monitor_Sound ( obj, healer_sound );
-				
+
 			}
 		}
 	}
@@ -10513,7 +10513,7 @@ DECLARE_SCRIPT(M01_PaintballRoom_ChatterController_JDG, "")//107554
 		SAVE_VARIABLE(acting, 13);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		nodguy01_id = 102001;
 		nodguy02_id = 101998;
@@ -10717,7 +10717,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_01_JDG, "")//this is the grunt team
 		SAVE_VARIABLE(starEncountered, 9);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		enemySniperId = 102001;
 		retreating = false;
@@ -10788,7 +10788,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_01_JDG, "")//this is the grunt team
 			}
 		}
 
-		else 
+		else
 		{
 			if (starEncountered == false)
 			{
@@ -10802,7 +10802,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_01_JDG, "")//this is the grunt team
 	{
 		switch (timer_id)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					if (retreating == false)
 					{
@@ -10820,7 +10820,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_01_JDG, "")//this is the grunt team
 				}
 				break;
 
-			case M01_MODIFY_YOUR_ACTION_02_JDG: 
+			case M01_MODIFY_YOUR_ACTION_02_JDG:
 				{
 					retreating = false;
 
@@ -10829,7 +10829,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_01_JDG, "")//this is the grunt team
 				}
 				break;
 		}
-		
+
 	}
 };
 
@@ -10858,7 +10858,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_02_JDG, "")//this is the officer team
 		SAVE_VARIABLE(starEncountered, 9);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		enemySniperId= 101998;
 		retreating = false;
@@ -10949,7 +10949,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_02_JDG, "")//this is the officer team
 	{
 		switch (timer_id)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					if (retreating == false)
 					{
@@ -10967,7 +10967,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_02_JDG, "")//this is the officer team
 				}
 				break;
 
-			case M01_MODIFY_YOUR_ACTION_02_JDG: 
+			case M01_MODIFY_YOUR_ACTION_02_JDG:
 				{
 					retreating = false;
 
@@ -10976,7 +10976,7 @@ DECLARE_SCRIPT(M01_HON_Paintball_Team_02_JDG, "")//this is the officer team
 				}
 				break;
 		}
-		
+
 	}
 };
 
@@ -10993,7 +10993,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Trainer_JDG, "")//this guys ID is M01_HON_DOJO_SENSE
 		SAVE_VARIABLE(handOfNodDead, 3);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		handOfNodDead = false;
 		first_time = true;
@@ -11024,7 +11024,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Trainer_JDG, "")//this guys ID is M01_HON_DOJO_SENSE
 			}
 		}
 
-		else 
+		else
 		{
 			if (Commands->Find_Object (M01_HON_DOJO_CIV_01_JDG))
 			{
@@ -11088,7 +11088,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Trainer_JDG, "")//this guys ID is M01_HON_DOJO_SENSE
 					dojo_conv = Commands->Create_Conversation( "M01_Dojo_Sensei_Conversation", 100, 1000, true);
 					Commands->Join_Conversation( obj, dojo_conv, false, true, true );
 					Commands->Start_Conversation( dojo_conv,  dojo_conv );
-							
+
 					Commands->Monitor_Conversation(  obj, dojo_conv);
 
 					Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 5 );
@@ -11117,7 +11117,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Trainer_JDG, "")//this guys ID is M01_HON_DOJO_SENSE
 	{
 		switch (complete_reason)
 		{
-			case ACTION_COMPLETE_CONVERSATION_ENDED: 
+			case ACTION_COMPLETE_CONVERSATION_ENDED:
 				{
 					if (action_id == dojo_conv)//your initial conv is over--tell civs to do pushups
 					{
@@ -11168,7 +11168,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 		SAVE_VARIABLE(thanks_conv, 6);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		dojo_civ_01 = 102048;//babushka
 		dojo_civ_02 = 102049;//billy
@@ -11243,7 +11243,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 				{
 					params.Set_Basic( this, 100, M01_WALKING_WAYPATH_03_JDG );
 					params.Set_Look( STAR, 5 );
-					
+
 					Commands->Action_Face_Location ( obj, params );
 
 					float delayTimer = Commands->Get_Random ( 0, 1 );
@@ -11277,12 +11277,12 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 						Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 2 );
 					}
 
-					else 
+					else
 					{
 						thanks_conv = Commands->Create_Conversation( "M01_Dojo_FarmerJohn_Thanks_Conversation", 100, 1000, true);
 						Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 4 );
 					}
-					
+
 				}
 				break;
 
@@ -11320,7 +11320,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 					Vector3 newGotoSpot(-54.512f, 183.109f, 0.774f);//this is at the landing beach
 					params.Set_Basic( this, 100, M01_WALKING_WAYPATH_04_JDG );
 					params.Set_Movement( newGotoSpot, RUN, 5 );
-		
+
 					Commands->Action_Goto( obj, params );
 
 					Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, 10 );//do distance check from star
@@ -11335,7 +11335,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 
 		switch (complete_reason)
 		{
-			case ACTION_COMPLETE_CONVERSATION_ENDED: 
+			case ACTION_COMPLETE_CONVERSATION_ENDED:
 				{
 					if (action_id == thanks_conv)
 					{
@@ -11345,7 +11345,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 						Vector3 newGotoSpot(-54.512f, 183.109f, 0.774f);//this is at the landing beach
 						params.Set_Basic( this, 100, M01_WALKING_WAYPATH_04_JDG );
 						params.Set_Movement( newGotoSpot, RUN, 5 );
-			
+
 						Commands->Action_Goto( obj, params );
 
 						Commands->Send_Custom_Event( obj, obj, 0, M01_PICK_A_NEW_LOCATION_JDG, 10 );//do distance check from star
@@ -11353,24 +11353,24 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 				}
 				break;
 
-			case ACTION_COMPLETE_NORMAL: 
+			case ACTION_COMPLETE_NORMAL:
 				{
 					switch (action_id)
 					{
-						case M01_DOING_ANIMATION_01_JDG: 
+						case M01_DOING_ANIMATION_01_JDG:
 							{
 								if (pushups_done < 2)
 								{
-									params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );//this is pushup animation animation 
+									params.Set_Basic( this, 100, M01_DOING_ANIMATION_01_JDG );//this is pushup animation animation
 									params.Set_Animation( "H_A_J13B", false );
 
 									Commands->Action_Play_Animation (  obj, params );
 									pushups_done++;
 								}
 
-								else 
+								else
 								{
-									params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );//this is guy standing up 
+									params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );//this is guy standing up
 									params.Set_Animation( "H_A_J13C", false );
 
 									Commands->Action_Play_Animation (  obj, params );
@@ -11378,18 +11378,18 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 							}
 							break;
 
-						case M01_DOING_ANIMATION_02_JDG: 
+						case M01_DOING_ANIMATION_02_JDG:
 							{
 								const char* animationName = M01_Choose_Idle_Animation ( );
 
-								params.Set_Basic( this, 100, M01_DOING_ANIMATION_03_JDG );//this is guy standing up 
+								params.Set_Basic( this, 100, M01_DOING_ANIMATION_03_JDG );//this is guy standing up
 								params.Set_Animation( animationName, false );
 
 								Commands->Action_Play_Animation (  obj, params );
 							}
 							break;
 
-						case M01_DOING_ANIMATION_03_JDG: 
+						case M01_DOING_ANIMATION_03_JDG:
 							{
 								if (i_am == dojo_civ_01)
 								{
@@ -11411,23 +11411,23 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 							}
 							break;
 
-						case M01_WALKING_WAYPATH_01_JDG: 
+						case M01_WALKING_WAYPATH_01_JDG:
 							{
-								params.Set_Basic( this, 100, M01_DOING_ANIMATION_04_JDG );//this is guy placing C$ 
+								params.Set_Basic( this, 100, M01_DOING_ANIMATION_04_JDG );//this is guy placing C$
 								params.Set_Animation( "H_A_J12C", false );
 
 								Commands->Action_Play_Animation (  obj, params );
 							}
 							break;
 
-						case M01_DOING_ANIMATION_04_JDG: 
+						case M01_DOING_ANIMATION_04_JDG:
 							{
 								Vector3 myPosition = Commands->Get_Position ( obj );
 								GameObject *newsoldier = Commands->Create_Object("Nod_MiniGunner_0", myPosition);
 								Commands->Attach_Script(newsoldier, "M01_Civ_To_Minigunner_Guy_JDG", "");
 								Commands->Destroy_Object ( obj );
 							}
-							break;							
+							break;
 					}
 				}
 				break;
@@ -11439,7 +11439,7 @@ DECLARE_SCRIPT(M01_HON_Dojo_Civ_01_JDG, "")
 
 DECLARE_SCRIPT(M01_Nod_GuardTower_Tailgun_JDG, "")//100246
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		ActionParamsStruct params;
 		params.Set_Basic( this, 100, M01_START_ATTACKING_01_JDG );
@@ -11490,7 +11490,7 @@ DECLARE_SCRIPT(M01_Comm_Mainframe_PogZone_03_JDG, "")//108028
 	}
 };
 
-DECLARE_SCRIPT(M01_Comm_Center_Player_Terminal_Zone, "")//107809  
+DECLARE_SCRIPT(M01_Comm_Center_Player_Terminal_Zone, "")//107809
 {
 	bool poked;
 	bool commCenterDead;
@@ -11501,7 +11501,7 @@ DECLARE_SCRIPT(M01_Comm_Center_Player_Terminal_Zone, "")//107809
 		SAVE_VARIABLE(commCenterDead, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		commCenterDead = false;
 		Commands->Enable_HUD_Pokable_Indicator ( obj, true );
@@ -11566,14 +11566,14 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 	{
 		switch (complete_reason)
 		{
-			case ACTION_COMPLETE_CONVERSATION_ENDED: 
+			case ACTION_COMPLETE_CONVERSATION_ENDED:
 				{
 					if (action_id == missionIntro) //add first objective pog here
 					{
 						Vector3 prisonerPenLocation (-312.725f, 575.887f, 27.221f);
 						Commands->Add_Objective( M01_PRISONER_OBJECTIVE_JDG, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M01_01, NULL, IDS_Enc_Obj_Primary_M01_01 );
 						Commands->Set_Objective_Radar_Blip( M01_PRISONER_OBJECTIVE_JDG, prisonerPenLocation );
-						
+
 						Commands->Set_Objective_HUD_Info_Position( M01_PRISONER_OBJECTIVE_JDG, 80, "POG_M01_1_01.tga", IDS_POG_LOCATE, prisonerPenLocation );
 						Commands->Set_HUD_Help_Text ( IDS_M00DSGN_DSGN1004I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 
@@ -11663,7 +11663,7 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 				{
 					turretsLocation.Set (-105.024f, 113.658f, 1.872f);
 				}
-				
+
 				Commands->Set_Objective_HUD_Info_Position( M01_TURRETS_OBJECTIVE_JDG, 91, "POG_M01_2_02.tga", IDS_POG_DESTROY, turretsLocation );
 
 				//Commands->Send_Custom_Event( obj, obj, M01_REMOVE_OBJECTIVE_POG_JDG, M01_TURRETS_OBJECTIVE_JDG, SECONDARY_POG_DELAY );
@@ -11750,7 +11750,7 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 					Commands->Set_HUD_Help_Text ( IDS_Enc_ObjTitle_Secondary_M01_08, TEXT_COLOR_OBJECTIVE_PRIMARY );
 				}
 			}
-		
+
 
 			else if (param == M01_TURRETS_OBJECTIVE_JDG)
 			{
@@ -11760,7 +11760,7 @@ DECLARE_SCRIPT(M01_Objective_Pog_Controller_JDG, "")//M01_MISSION_POG_CONTROLLER
 				{
 					turretsLocation.Set (-105.024f, 113.658f, 1.872f);
 				}
-				
+
 				Commands->Set_Objective_HUD_Info_Position( M01_TURRETS_OBJECTIVE_JDG, 91, "POG_M01_2_02.tga", IDS_POG_DESTROY, turretsLocation );
 			}
 		}
@@ -11785,7 +11785,7 @@ DECLARE_SCRIPT(M01_GDIBase_FirstChinook_Script_JDG, "")//
 
 
 
-DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394 
+DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 {
 	int evac_waypath_id;
 	int evac_helicopter_id;
@@ -11804,7 +11804,7 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 		SAVE_VARIABLE(transportCalled, 6);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		deadCivs = 0;
 		transportCalled = false;
@@ -11858,13 +11858,13 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 			Commands->Debug_Message ( "**********************chopper id received.....%d\n",evac_helicopter_id );
 		}
 
-		else if (param == M01_WAYPATH_IS_SENDING_ID_JDG)//waypath is sending you his ID 
+		else if (param == M01_WAYPATH_IS_SENDING_ID_JDG)//waypath is sending you his ID
 		{
 			evac_waypath_id = Commands->Get_ID ( sender );
 			Commands->Debug_Message ( "**********************waypath id received.....%d\n", evac_waypath_id );
 		}
 
-		else if (param == M01_ROPE_IS_SENDING_ID_JDG)//rope is sending you his ID 
+		else if (param == M01_ROPE_IS_SENDING_ID_JDG)//rope is sending you his ID
 		{
 			evac_rope_id = Commands->Get_ID ( sender );
 			Commands->Debug_Message ( "**********************rope id received.....%d\n", evac_rope_id );
@@ -11875,7 +11875,7 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 			Vector3 evacPosition = Commands->Get_Position ( obj );
 			GameObject * troopbone = Commands->Create_Object("Invisible_Object", evacPosition );
 			Commands->Set_Model ( troopbone, "XG_EV5_troopBN" );
-			
+
 			Commands->Attach_Script(troopbone, "M01_Evac_TroopBone_JDG", "");
 			Commands->Innate_Disable(sender);
 			Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
@@ -11887,7 +11887,7 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 			{
 				Commands->Debug_Message("troopbone not created yet");
 			}
-			
+
 			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 		}
 	}
@@ -11919,7 +11919,7 @@ DECLARE_SCRIPT(M01_Church_EvacController_JDG, "")//103394
 
 DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Rope_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Debug_Message ( "**********************script attached to evac rope\n" );
 		Commands->Enable_Hibernation( obj, false );
@@ -11942,7 +11942,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Rope_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
@@ -11954,7 +11954,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Rope_JDG, "")
 
 DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Waypath_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		GameObject * myController = Commands->Find_Object ( 103394 );
@@ -11976,7 +11976,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Waypath_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
@@ -11988,7 +11988,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Waypath_JDG, "")
 
 DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
@@ -12018,7 +12018,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 			Vector3 evacLocation = Commands->Get_Position ( obj );
 			Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsL", true, NULL, 0.0f, -1.0f, false );
 
-			GameObject * loveshackNun = Commands->Find_Object ( M01_CHURCH_LOVESHACK_NUN_ID ); 
+			GameObject * loveshackNun = Commands->Find_Object ( M01_CHURCH_LOVESHACK_NUN_ID );
 			GameObject * churchNun = Commands->Find_Object ( M01_CHURCH_INTERIOR_NUN_ID );
 			GameObject * priest = Commands->Find_Object ( M01_CHURCH_PRIEST_ID );
 
@@ -12050,22 +12050,22 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Enable_Collisions ( obj );
 				}
 				break;
 
-			case M01_DO_END_MISSION_CHECK_JDG: 
+			case M01_DO_END_MISSION_CHECK_JDG:
 				{
-					GameObject * loveshackNun = Commands->Find_Object ( M01_CHURCH_LOVESHACK_NUN_ID ); 
+					GameObject * loveshackNun = Commands->Find_Object ( M01_CHURCH_LOVESHACK_NUN_ID );
 					GameObject * churchNun = Commands->Find_Object ( M01_CHURCH_INTERIOR_NUN_ID );
 					GameObject * priest = Commands->Find_Object ( M01_CHURCH_PRIEST_ID );
 
@@ -12084,7 +12084,7 @@ DECLARE_SCRIPT(M01_ChurchArea_Air_Evac_Chopper_JDG, "")
 							Commands->Debug_Message ( "*******************************all barn civs on board--sent cutom to controller\n" );
 						}
 
-						
+
 					}
 				}
 				break;
@@ -12103,7 +12103,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 		SAVE_VARIABLE(prayerSound, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		Vector3 myPosition = Commands->Get_Position ( obj );
@@ -12170,7 +12170,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 				params.Set_Movement( evacSpot, RUN, 0.5f );
 				Commands->Action_Goto( obj, params );
 			}
-			
+
 			//ActionParamsStruct params;
 			//Commands->Action_Reset ( obj, 100 );
 			//params.Set_Basic(this, 100, M01_PICK_A_NEW_LOCATION_JDG);
@@ -12194,28 +12194,28 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 		if (complete_reason == ACTION_COMPLETE_NORMAL)
 		{
 			if (action_id == M01_DOING_ANIMATION_01_JDG )//civ is standing up after guard is dead
-			{ 
+			{
 				params.Set_Basic( this, 90, M01_DOING_ANIMATION_02_JDG );
 				params.Set_Animation ("H_A_Host_L1b", false);
 				Commands->Action_Play_Animation (obj, params);
 			}
 
 			else if (action_id == M01_DOING_ANIMATION_02_JDG)//civ is standing up after guard is dead
-			{ 
+			{
 				params.Set_Basic( this, 90, M01_DOING_ANIMATION_03_JDG );
 				params.Set_Animation ("H_A_Host_L1c", false);
 				Commands->Action_Play_Animation (obj, params);
 			}
 
 			else if (action_id == M01_DOING_ANIMATION_03_JDG)//civ is standing up after guard is dead
-			{ 
+			{
 				params.Set_Basic( this, 90, M01_WALKING_WAYPATH_02_JDG );
 				params.Set_Movement( Vector3 (-135.571f, 340.213f, 9.608f), 0.9f, 0.5f );
 				Commands->Action_Goto( obj, params );
 			}
 
 			else if (action_id == M01_WALKING_WAYPATH_02_JDG)//civ is standing up after guard is dead
-			{ 
+			{
 				Commands->Enable_Hibernation( obj, true );
 
 				if (Commands->Find_Object ( 103395 ))//this is your conversation zone
@@ -12225,7 +12225,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 			}
 
 			else if (action_id == M01_GOING_TO_EVAC_SPOT_JDG)//Nun is by chinook--play getting on anim
-			{ 
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_CHURCH_CLERGY_HAS_BOARDED_JDG, 1 );
 				Commands->Give_Points( STAR, 2000, false );
 
@@ -12251,7 +12251,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 			}
 
 			else if (action_id == M01_PICK_A_NEW_LOCATION_JDG)//priest is by Havoc--cue lucky charms conversation
-			{ 
+			{
 				//lucky_charms = Commands->Create_Conversation( "M01_Priest_LuckyCharms_Conversation", 100, 1000, false);
 				//Commands->Join_Conversation( obj, lucky_charms, true, true, true );
 				//Commands->Start_Conversation( lucky_charms,  lucky_charms );
@@ -12269,7 +12269,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 		}
 
 		else if (complete_reason == ACTION_COMPLETE_CONVERSATION_ENDED)//priest is by Havoc--cue lucky charms conversation
-		{ 
+		{
 			if (action_id == lucky_charms)
 			{
 				params.Set_Basic(this, 100, M01_DOING_ANIMATION_04_JDG);
@@ -12293,7 +12293,7 @@ DECLARE_SCRIPT(M01_Church_Priest_JDG, "")
 				}
 			}
 		}
-	}		
+	}
 };
 
 DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
@@ -12307,7 +12307,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 		SAVE_VARIABLE(prayerSound, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		following_player = false;
@@ -12351,7 +12351,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 			Commands->Action_Reset ( obj, 100 );
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
-				
+
 			Commands->Action_Goto( obj, params );
 		}
 	}
@@ -12371,14 +12371,14 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 		if (complete_reason == ACTION_COMPLETE_NORMAL)
 		{
 			if (action_id == M01_DOING_ANIMATION_01_JDG)//civ is standing up after guard is dead
-			{ 
+			{
 				params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 				params.Set_Animation ("S_A_Human.H_A_Host_L1b", false);
 				Commands->Action_Play_Animation (obj, params);
 			}
 
 			else if (action_id == M01_DOING_ANIMATION_02_JDG)//civ is standing up after guard is dead
-			{ 
+			{
 				params.Set_Basic( this, 100, M01_DOING_ANIMATION_03_JDG );
 				params.Set_Animation ("S_A_Human.H_A_Host_L1c", false);
 				Commands->Action_Play_Animation (obj, params);
@@ -12388,14 +12388,14 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 			}
 
 			else if (action_id == M01_DOING_ANIMATION_03_JDG)//civ is standing up after guard is dead
-			{ 
+			{
 				params.Set_Basic( this, 100, M01_WALKING_WAYPATH_02_JDG );
 				params.Set_Movement( Vector3 (-136.738f, 325.073f, 8.167f), RUN, 0.50f );
 				Commands->Action_Goto( obj, params );
 			}
 
 			else if (action_id == M01_WALKING_WAYPATH_02_JDG)//Nun is by chinook--play getting on anim
-			{ 
+			{
 				Commands->Enable_Hibernation( obj, true );
 
 				if (Commands->Find_Object ( 101370 ))//this is your conversation zone
@@ -12405,7 +12405,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 			}
 
 			else if (action_id == M01_GOING_TO_EVAC_SPOT_JDG )//Nun is by chinook--play getting on anim
-			{ 
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_CHURCH_CLERGY_HAS_BOARDED_JDG, 1 );
 				Commands->Give_Points( STAR, 2000, false );
 
@@ -12445,7 +12445,7 @@ DECLARE_SCRIPT(M01_Church_Interior_Nun_JDG, "")
 
 DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -12495,7 +12495,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 			Commands->Action_Reset ( obj, 100 );
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
-				
+
 			Commands->Action_Goto( obj, params );
 		}
 	}
@@ -12515,7 +12515,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 		if (complete_reason == ACTION_COMPLETE_NORMAL)
 		{
 			if (action_id == M01_GOING_TO_EVAC_SPOT_JDG )//Nun is by chinook--play getting on anim
-			{ 
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_CHURCH_CLERGY_HAS_BOARDED_JDG, 1 );
 				Commands->Give_Points( STAR, 2000, false );
 
@@ -12548,7 +12548,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 			}
 
 			else if (action_id == M01_WALKING_WAYPATH_02_JDG )//nun is at hide spot--play animation--cue havoc talk zone
-			{ 
+			{
 				Commands->Enable_Hibernation( obj, true );
 
 				if (Commands->Find_Object ( 101368 ))//this is your conversation zone
@@ -12572,7 +12572,7 @@ DECLARE_SCRIPT(M01_Church_LoveShack_Nun_JDG, "")
 
 DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Rope_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Debug_Message ( "**********************script attached to evac rope\n" );
 		Commands->Enable_Hibernation( obj, false );
@@ -12595,7 +12595,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Rope_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
@@ -12607,7 +12607,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Rope_JDG, "")
 
 DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Waypath_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		GameObject * myController = Commands->Find_Object ( M01_BARNAREA_EVAC_MONITOR_JDG );
@@ -12629,7 +12629,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Waypath_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
@@ -12641,7 +12641,7 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Waypath_JDG, "")
 
 DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Chopper_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
@@ -12722,20 +12722,20 @@ DECLARE_SCRIPT(M01_BarnArea_Air_Evac_Chopper_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Enable_Collisions ( obj );
 				}
 				break;
 
-			case M01_DO_END_MISSION_CHECK_JDG: 
+			case M01_DO_END_MISSION_CHECK_JDG:
 				{
 					GameObject * barnCiv01 = Commands->Find_Object ( M01_BARN_PRISONER_01_ID );
 					GameObject * barnCiv02 = Commands->Find_Object ( M01_BARN_PRISONER_02_ID );
@@ -12779,7 +12779,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_01_JDG, "")//this guys ID is M01_BARN_PRISONER_
 		SAVE_VARIABLE(chinookOnWay, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		talkingToHavoc = false;
 		chinookOnWay = false;
@@ -12816,7 +12816,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_01_JDG, "")//this guys ID is M01_BARN_PRISONER_
 		{
 			params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 			params.Set_Animation( "S_A_HUMAN.H_A_HOST_L2C", false );
-			Commands->Action_Play_Animation ( obj, params );	
+			Commands->Action_Play_Animation ( obj, params );
 		}
 
 		else if (param == M01_MODIFY_YOUR_ACTION_04_JDG)//you are now talking to havoc in your shed
@@ -12842,7 +12842,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_01_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
-				
+
 			Commands->Action_Goto( obj, params );
 			Commands->Set_Player_Type ( obj, SCRIPT_PLAYERTYPE_GDI );
 
@@ -12951,7 +12951,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_02_JDG, "")//this guys ID is M01_BARN_PRISONER_
 		SAVE_VARIABLE(chinookOnWay, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		chinookOnWay = false;
 		Commands->Innate_Disable(obj);
@@ -12987,7 +12987,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_02_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			params.Set_Animation( "S_A_HUMAN.H_A_HOST_L2C", false );
 			Commands->Action_Play_Animation ( obj, params );
 
-			
+
 		}
 
 		else if (param == M01_SEND_BARN_CIVILIANS_RESCUE_CHINOOK_JDG)//your ride is on the way--disable hibernation
@@ -13003,7 +13003,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_02_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
-				
+
 			Commands->Action_Goto( obj, params );
 
 			GameObject * billyszone = Commands->Find_Object ( 101661 );
@@ -13077,7 +13077,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_02_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			{
 				params.Set_Basic( this, 100, M01_WALKING_WAYPATH_01_JDG );
 				params.Set_Movement( Vector3(-73.572f, 138.013f, 0.329f), RUN, .5f );
-				
+
 				Commands->Action_Goto( obj, params );
 				Commands->Set_Player_Type ( obj, SCRIPT_PLAYERTYPE_GDI );
 
@@ -13097,7 +13097,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 		SAVE_VARIABLE(chinookOnWay, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		chinookOnWay = false;
 		//Commands->Innate_Disable(obj);
@@ -13143,7 +13143,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			params.Set_Animation( "S_A_HUMAN.H_A_HOST_L2C", false );
 			Commands->Action_Play_Animation ( obj, params );
 
-			
+
 		}//M01_MODIFY_YOUR_ACTION_11_JDG
 
 		else if (param == M01_MODIFY_YOUR_ACTION_11_JDG)//babushka is talking ot havoc--turn and face him
@@ -13181,9 +13181,9 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 			ActionParamsStruct params;
 			params.Set_Basic(this, 100, M01_GOING_TO_EVAC_SPOT_JDG);
 			params.Set_Movement( evacSpot, RUN, 1 );
-					
+
 			Commands->Action_Goto( obj, params );
-			
+
 		}
 	}
 
@@ -13270,7 +13270,7 @@ DECLARE_SCRIPT(M01_Barn_Prisoner_03_JDG, "")//this guys ID is M01_BARN_PRISONER_
 
 DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Rope_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Debug_Message ( "**********************script attached to evac rope\n" );
 		Commands->Enable_Hibernation( obj, false );
@@ -13293,7 +13293,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Rope_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
@@ -13307,7 +13307,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Rope_JDG, "")
 
 DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Waypath_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		GameObject * myController = Commands->Find_Object ( M01_GDIBASE_POWSCENE02_MONITOR_JDG );
@@ -13329,7 +13329,7 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Waypath_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
@@ -13361,7 +13361,7 @@ DECLARE_SCRIPT(M01_Evac_TroopBone_JDG, "")
 
 DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Waypath_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 		GameObject * myController = Commands->Find_Object ( 106694 );
@@ -13383,7 +13383,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Waypath_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************waypath has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_Path.XG_EV5_PathZ", false, NULL, 0.0f, -1.0f, false );
@@ -13395,7 +13395,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Waypath_JDG, "")
 
 DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Rope_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Debug_Message ( "**********************script attached to evac rope\n" );
 		Commands->Enable_Hibernation( obj, false );
@@ -13418,7 +13418,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Rope_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************rope has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "XG_EV5_rope.XG_EV5_ropeZ", false, NULL, 0.0f, -1.0f, false );
@@ -13540,7 +13540,7 @@ DECLARE_SCRIPT(M01_TriggerZone_GDIBase_BaseCommander_JDG, "")//106267 and 106268
 
 DECLARE_SCRIPT(M01_GDIBase_FirstChinookFlamethrowerGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		GameObject * gdiGuy01 = Commands->Find_Object ( 104685 );
 		GameObject * gdiGuy02 = Commands->Find_Object ( 104686 );
@@ -13561,7 +13561,7 @@ DECLARE_SCRIPT(M01_GDIBase_FirstChinookFlamethrowerGuy_JDG, "")
 
 /*DECLARE_SCRIPT(M01_GDIBase_SecondChinookFlamethrowerGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		GameObject * powController = Commands->Find_Object ( M01_GDIBASE_POWSCENE02_MONITOR_JDG );
 		if (powController != NULL)
@@ -13596,7 +13596,7 @@ DECLARE_SCRIPT(M01_GDIBase_FirstChinookFlamethrowerGuy_JDG, "")
 
 DECLARE_SCRIPT(M01_GDIBase_SecondChinookMinigunnerGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		GameObject * powController = Commands->Find_Object ( M01_GDIBASE_POWSCENE02_MONITOR_JDG );
 		if (powController != NULL)
@@ -13705,7 +13705,7 @@ DECLARE_SCRIPT(M01_TibCave_StartZone_JDG, "")//108922
 
 DECLARE_SCRIPT(M01_Visceroid01_JDG, "")//106908
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -13738,7 +13738,7 @@ DECLARE_SCRIPT(M01_Visceroid01_JDG, "")//106908
 
 DECLARE_SCRIPT(M01_Visceroid02_JDG, "")//106909
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -13771,7 +13771,7 @@ DECLARE_SCRIPT(M01_Visceroid02_JDG, "")//106909
 
 DECLARE_SCRIPT(M01_Visceroid03_JDG, "")//106907
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -13800,7 +13800,7 @@ DECLARE_SCRIPT(M01_Visceroid03_JDG, "")//106907
 
 DECLARE_SCRIPT(M01_Visceroid_NodGuy01_JDG, "")//106910
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -13834,7 +13834,7 @@ DECLARE_SCRIPT(M01_Visceroid_NodGuy01_JDG, "")//106910
 
 DECLARE_SCRIPT(M01_Visceroid_NodGuy02_JDG, "")//106911
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 	}
@@ -13887,15 +13887,15 @@ DECLARE_SCRIPT(M01_Tiberium_Cave_Spawn_Helicopter_Zone_JDG, "")//M01_TIB_TUNNEL_
 			}
 
 			Commands->Destroy_Object ( obj );
-		}	
-	
-	}	
+		}
+
+	}
 };
 
 
 DECLARE_SCRIPT(M01_TiberiumCave_UpThere_NodGuy_JDG, "")//103274
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPosition, 5 );
@@ -14036,7 +14036,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 		SAVE_VARIABLE(pow_guy01_id, 5);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Obj_Radar_Blip_Color ( obj, RADAR_BLIP_COLOR_GDI );
 		pow_guy01_id = 101927;
@@ -14060,7 +14060,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 
 		switch (param)
 		{
-			case M01_START_ACTING_JDG: 
+			case M01_START_ACTING_JDG:
 				{
 					Commands->Innate_Soldier_Enable_Gunshot_Heard ( obj, true );
 					Commands->Innate_Soldier_Enable_Bullet_Heard ( obj, true );
@@ -14068,7 +14068,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Innate_Soldier_Enable_Gunshot_Heard ( obj, false );
 					Commands->Innate_Soldier_Enable_Bullet_Heard ( obj, false );
@@ -14076,12 +14076,12 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 				}
 				break;
 
-			case M01_FACING_SPECIFIED_DIRECTION_01_JDG: 
+			case M01_FACING_SPECIFIED_DIRECTION_01_JDG:
 				{
 					Commands->Innate_Disable(obj);
 					params.Set_Basic( this, 100, M01_FACING_SPECIFIED_DIRECTION_01_JDG );
 					params.Set_Attack( STAR, 0, 0, true );
-					
+
 					Commands->Action_Attack ( obj, params );
 
 					float delayTimer = Commands->Get_Random ( 0.25f, 2.5f );
@@ -14089,7 +14089,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 				}
 				break;
 
-			case M01_DOING_ANIMATION_01_JDG: 
+			case M01_DOING_ANIMATION_01_JDG:
 				{
 					const char* animationName = M01_Choose_Cheer_Animation ( );
 
@@ -14185,7 +14185,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 		else if (action_id == M01_WALKING_WAYPATH_05_JDG)
 		{
 			Commands->Set_Innate_Is_Stationary ( obj, true );
-			
+
 			GameObject * missionController = Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG );
 			if (missionController != NULL)
 			{
@@ -14260,7 +14260,7 @@ DECLARE_SCRIPT(M01_PrisonPen_POW_JDG, "")
 			params.Set_Basic( this, 100, M01_WALKING_WAYPATH_03_JDG );
 			params.Set_Movement( myGotoSpot, RUN, 0.5f);
 			Commands->Action_Goto ( obj, params );
-			
+
 		}
 
 		else if (sound.Creator == STAR && okayToReact == true && heardHavocAlert == false)
@@ -14313,7 +14313,7 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 		SAVE_VARIABLE(sam_is_destroyed, 11);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		okayToReact = false;
 		heardHavocAlert = false;
@@ -14367,8 +14367,8 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 		ActionParamsStruct params;
 
 		int random = int(Commands->Get_Random(0, 13-WWMATH_EPSILON));
-		
-		while (random == last) 
+
+		while (random == last)
 		{
 			random = int(Commands->Get_Random(0, 13-WWMATH_EPSILON));
 		}
@@ -14458,7 +14458,7 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 
 		switch (param)
 		{
-			case M01_START_ACTING_JDG: 
+			case M01_START_ACTING_JDG:
 				{
 					Commands->Innate_Soldier_Enable_Gunshot_Heard ( obj, true );
 					Commands->Innate_Soldier_Enable_Bullet_Heard ( obj, true );
@@ -14466,7 +14466,7 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Innate_Soldier_Enable_Gunshot_Heard ( obj, false );
 					Commands->Innate_Soldier_Enable_Bullet_Heard ( obj, false );
@@ -14474,12 +14474,12 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 				}
 				break;
 
-			case M01_FACING_SPECIFIED_DIRECTION_01_JDG: 
+			case M01_FACING_SPECIFIED_DIRECTION_01_JDG:
 				{
 					Commands->Innate_Disable(obj);
 					params.Set_Basic( this, 100, M01_FACING_SPECIFIED_DIRECTION_01_JDG );
 					params.Set_Attack( STAR, 0, 0, true );
-					
+
 					Commands->Action_Attack ( obj, params );
 
 					float delayTimer = Commands->Get_Random ( 1.25f, 3.5f );
@@ -14487,7 +14487,7 @@ DECLARE_SCRIPT(M01_PrisonPen_Civilian_JDG, "")
 				}
 				break;
 
-			case M01_DOING_ANIMATION_01_JDG: 
+			case M01_DOING_ANIMATION_01_JDG:
 				{
 					const char* animationName = M01_Choose_Cheer_Animation ( );
 
@@ -14665,7 +14665,7 @@ DECLARE_SCRIPT(M01_BarnArea_NOD_Commander_Trigger_Zone_JDG, "")//M01_BARNAREA_NO
 		{
 			GameObject * firstFieldCommander = Commands->Find_Object (M01_BARNAREA_NOD_COMMANDER_JDG);
 			if (firstFieldCommander != NULL)
-			{							
+			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_BARNAREA_NOD_COMMANDER_JDG ), 0, M01_START_ACTING_JDG, 0 );
 				Commands->Send_Custom_Event( obj, Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG ), 0, M01_ADD_BARN_COMMANDER_OBJECTIVE_JDG, 5 );
 			}
@@ -14677,7 +14677,7 @@ DECLARE_SCRIPT(M01_BarnArea_NOD_Commander_Trigger_Zone_JDG, "")//M01_BARNAREA_NO
 			{
 				Commands->Destroy_Object ( zone01 );//one time zone
 			}
-			
+
 			if (zone02 != NULL)
 			{
 				Commands->Destroy_Object ( zone02 );//one time zone
@@ -14705,13 +14705,13 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 		SAVE_VARIABLE(playerSeen, 5);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		introConvPlaying = false;
 		firstTimeDamaged = true;
 		playerSeen = false;
 		deadYet = false;
-		Commands->Set_Innate_Is_Stationary ( obj, true );	
+		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
 
 	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
@@ -14719,7 +14719,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 		if (obj)
 		{
 			if (damager == STAR && deadYet == false && firstTimeDamaged == true)
-			{	
+			{
 				Vector3 myPosition = Commands->Get_Position ( obj );
 				Vector3 playerPosition = Commands->Get_Position ( STAR );
 				float playerDistance = Commands->Get_Distance ( myPosition, playerPosition );
@@ -14732,7 +14732,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 					params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 					params.Set_Animation( animationName, false );
 					Commands->Action_Play_Animation (  obj, params );
-				}	
+				}
 			}
 		}
 	}
@@ -14754,7 +14754,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 				if (obj)
 				{
 					if (deadYet == false && playerSeen == false)
-					{	
+					{
 						Vector3 myPosition = Commands->Get_Position ( obj );
 						Vector3 playerPosition = Commands->Get_Position ( STAR );
 						float playerDistance = Commands->Get_Distance ( myPosition, playerPosition );
@@ -14767,7 +14767,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 							params.Set_Basic( this, 100, M01_DOING_ANIMATION_02_JDG );
 							params.Set_Animation( animationName, false );
 							Commands->Action_Play_Animation (  obj, params );
-						}	
+						}
 					}
 				}
 			}
@@ -14788,7 +14788,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 		{
 			Commands->Destroy_Object ( zone01 );//one time zone
 		}
-		
+
 		if (zone02 != NULL)
 		{
 			Commands->Destroy_Object ( zone02 );//one time zone
@@ -14862,7 +14862,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 							Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 20 );
 							Commands->Send_Custom_Event( obj, obj, 0, M01_CALL_IN_REINFORCEMENTS_JDG, 20 );
 						}
-						
+
 
 						if (STAR && deadYet == false)
 						{
@@ -14886,7 +14886,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 							float delayTimer;
 
 							if (currentDifficulty == hard)
-							{	
+							{
 								delayTimer = 60;
 							}
 
@@ -14925,14 +14925,14 @@ DECLARE_SCRIPT(M01_GDI_GuardTower_NOD_Commander_JDG, "")//M01_BARNAREA_NOD_COMMA
 								Commands->Debug_Message ( "**********************Nod gdi tower commander is sending custom to dialog controller\n" );
 								Commands->Send_Custom_Event( obj, nodCommanderDialogController, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 							}
-							float delayTimer = Commands->Get_Random ( 15, 30 ); 
+							float delayTimer = Commands->Get_Random ( 15, 30 );
 							Commands->Send_Custom_Event( obj, obj, 0, M01_CALL_IN_REINFORCEMENTS_JDG, delayTimer );
 						}
 					}
 					break;
 			}
 		}
-	}		
+	}
 };
 
 DECLARE_SCRIPT(M01_Nod_Commander_Conversation_Controller_GDI, "")// 103398
@@ -14946,7 +14946,7 @@ DECLARE_SCRIPT(M01_Nod_Commander_Conversation_Controller_GDI, "")// 103398
 		SAVE_VARIABLE(initialCommanderConv, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		first_call = true;
 	}
@@ -15024,7 +15024,7 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_PastTunnelZone_JDG, "")
 		GameObject * lightTank = Commands->Find_Object ( M01_TAILGUNAREA_NOD_LIGHTTANK_JDG );
 		if (enterer == lightTank)
 		{
-			Commands->Send_Custom_Event( obj, lightTank, 0, M01_GOTO_IDLE_JDG, 0 );	
+			Commands->Send_Custom_Event( obj, lightTank, 0, M01_GOTO_IDLE_JDG, 0 );
 			Commands->Destroy_Object ( obj );
 		}
 	}
@@ -15044,7 +15044,7 @@ DECLARE_SCRIPT(M01_KeyCard01_Script_JDG, "")
 {
 	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			int lockeKeycard = Commands->Create_Conversation( "M01_First_Keycard_Conversation", 100, 1000, true);
 			Commands->Join_Conversation( NULL, lockeKeycard, false, false, true );
@@ -15127,7 +15127,7 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_JDG, "")//M01_TAILGUNAREA_NOD_LIGHTTANK_JDG
 		Commands->Join_Conversation( NULL, tankReward, false, false, true );
 		//Commands->Join_Conversation( STAR, tankReward, false, false, true );
 		Commands->Start_Conversation( tankReward,  tankReward );
-		
+
 		Vector3 tankDeathSpot (4.2f, 279.8f, 3.2f);
 		GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", tankDeathSpot);
 		Commands->Attach_Script(chinook_obj1, "Test_Cinematic", "X1D_GDIPowerUpDrop.txt");
@@ -15142,18 +15142,18 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_JDG, "")//M01_TAILGUNAREA_NOD_LIGHTTANK_JDG
 		ActionParamsStruct params;
 
 		switch (param)
-		{						   
-			case M01_START_ACTING_JDG: 
+		{
+			case M01_START_ACTING_JDG:
 				{
 					if (STAR)
 					{
 						int currentDifficulty = Commands->Get_Difficulty_Level( );
-						
+
 						int medium = 1;
 						int hard = 2;
 
 						float tankSpeed;
-						
+
 						if (currentDifficulty == hard)
 						{
 							tankSpeed = 0.6f;
@@ -15187,17 +15187,17 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_JDG, "")//M01_TAILGUNAREA_NOD_LIGHTTANK_JDG
 				}
 				break;
 
-			case M01_MODIFY_YOUR_ACTION_03_JDG: 
+			case M01_MODIFY_YOUR_ACTION_03_JDG:
 				{
 					int currentDifficulty = Commands->Get_Difficulty_Level( );
-					
+
 					int medium = 1;
 					int hard = 2;
 
 					float tankSpeed;
 					float tankRange;
 					float tankAccuracy;
-					
+
 					if (currentDifficulty == hard)
 					{
 						tankSpeed = 0.5f;
@@ -15212,7 +15212,7 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_JDG, "")//M01_TAILGUNAREA_NOD_LIGHTTANK_JDG
 						tankAccuracy = 1;
 					}
 
-					else 
+					else
 					{
 						tankSpeed = 0.1f;
 						tankRange = 50;
@@ -15239,7 +15239,7 @@ DECLARE_SCRIPT(M01_GDIBase_LightTank_JDG, "")//M01_TAILGUNAREA_NOD_LIGHTTANK_JDG
 
 DECLARE_SCRIPT(M01_GDIBase_BackPath_NodGuy_JDG, "")//103337
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
@@ -15292,7 +15292,7 @@ DECLARE_SCRIPT(M01_GDIBase_BackPath_NodGuy_JDG, "")//103337
 
 DECLARE_SCRIPT(M01_Sinking_Gunboat_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Animation ( obj, "V_GDI_GBOAT.XG_GBOAT_SINK", false, NULL, 0, 60, false );
 	}
@@ -15379,7 +15379,7 @@ DECLARE_SCRIPT(M01_GDI_BaseCommander_Backside_EntryZone_JDG, "")//113733
 		SAVE_VARIABLE(entered, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		entered = false;
 	}
@@ -15418,7 +15418,7 @@ DECLARE_SCRIPT(M01_Obelisk_UpdateDisc_JDG, "")
 {
 	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Reveal_Encyclopedia_Building ( 12 );
 			Commands->Set_HUD_Help_Text ( IDS_M00EVAG_DSGN0104I1EVAG_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY  );
@@ -15448,7 +15448,7 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 		SAVE_VARIABLE(failed, 7);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		unitsEvacuated = 0;
 		transportCalled = false;
@@ -15520,13 +15520,13 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 			Commands->Debug_Message ( "**********************chopper id received.....%d\n",evac_helicopter_id );
 		}
 
-		else if (param == M01_WAYPATH_IS_SENDING_ID_JDG)//waypath is sending you his ID 
+		else if (param == M01_WAYPATH_IS_SENDING_ID_JDG)//waypath is sending you his ID
 		{
 			evac_waypath_id = Commands->Get_ID ( sender );
 			Commands->Debug_Message ( "**********************waypath id received.....%d\n", evac_waypath_id );
 		}
 
-		else if (param == M01_ROPE_IS_SENDING_ID_JDG)//rope is sending you his ID 
+		else if (param == M01_ROPE_IS_SENDING_ID_JDG)//rope is sending you his ID
 		{
 			evac_rope_id = Commands->Get_ID ( sender );
 			Commands->Debug_Message ( "**********************rope id received.....%d\n", evac_rope_id );
@@ -15537,7 +15537,7 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 			Vector3 evacPosition = Commands->Get_Position ( obj );
 			GameObject * troopbone = Commands->Create_Object("Invisible_Object", evacPosition );
 			Commands->Set_Model ( troopbone, "XG_EV5_troopBN" );
-			
+
 			Commands->Attach_Script(troopbone, "M01_Evac_TroopBone_JDG", "");
 			Commands->Innate_Disable(sender);
 			Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
@@ -15549,7 +15549,7 @@ DECLARE_SCRIPT(M01_BarnArea_EvacMonitor_JDG, "")//M01_BARNAREA_EVAC_MONITOR_JDG
 			{
 				Commands->Debug_Message("troopbone not created yet");
 			}
-			
+
 			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 		}
 
@@ -15625,7 +15625,7 @@ DECLARE_SCRIPT(M01_Comm_Center_Pen_Gate, "")
 		SAVE_VARIABLE(samDead, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		samDead = false;
 		Commands->Enable_HUD_Pokable_Indicator ( obj, true );
@@ -15684,7 +15684,7 @@ DECLARE_SCRIPT(M01_CommCenter_SAMSite_Script, "")
 
 
 
-DECLARE_SCRIPT(M01_Commander_Shack_Zone_JDG, "")//115985  
+DECLARE_SCRIPT(M01_Commander_Shack_Zone_JDG, "")//115985
 {
 	bool commanderAlive;
 	bool playerinZone;
@@ -15699,7 +15699,7 @@ DECLARE_SCRIPT(M01_Commander_Shack_Zone_JDG, "")//115985
 		SAVE_VARIABLE(convStarted, 4);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		commanderAlive = true;
 		playerinZone = false;
@@ -15728,7 +15728,7 @@ DECLARE_SCRIPT(M01_Commander_Shack_Zone_JDG, "")//115985
 		{
 			playerinZone = false;
 		}
-	}	
+	}
 
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /* sender */ ) override
 	{
@@ -15786,7 +15786,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Engineer_JDG, "")//this guys ID is M01_TURRETBEAC
 		SAVE_VARIABLE(turret02_dead, 5);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		turret01_dead = false;
 		turret02_dead = false;
@@ -16061,7 +16061,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 		SAVE_VARIABLE(atTurretsYet, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		killedYet = false;
 		atTurretsYet = false;
@@ -16087,7 +16087,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
 		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
-		{ 
+		{
 			GameObject *turret01 = Commands->Find_Object ( M01_TURRETBEACH_TURRET_01_ID );
 			GameObject *turret02 = Commands->Find_Object ( M01_TURRETBEACH_TURRET_02_ID );
 
@@ -16097,7 +16097,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 				params.Set_Basic(this, 100, M01_WALKING_WAYPATH_03_JDG);
 				params.Set_Movement(Vector3 (0,0,0), RUN, 1);
 				params.WaypathID = 109629;
-				Commands->Action_Goto(obj, params);	
+				Commands->Action_Goto(obj, params);
 
 				Commands->Send_Custom_Event ( obj, obj, 0, M01_WALKING_WAYPATH_03_JDG, 5 );
 			}
@@ -16108,10 +16108,10 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 				params.Set_Basic(this, 45, M01_WALKING_WAYPATH_03_JDG);
 				params.Set_Movement(Vector3 (0,0,0), RUN, 1);
 				params.WaypathID = 109629;
-				Commands->Action_Goto(obj, params);	
+				Commands->Action_Goto(obj, params);
 
 				//Commands->Send_Custom_Event ( obj, obj, 0, M01_WALKING_WAYPATH_03_JDG, 5 );
-			}	
+			}
 		}
 	}
 
@@ -16144,7 +16144,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 				//params.Set_Basic(this, 100, M01_WALKING_WAYPATH_03_JDG);
 				//params.Set_Movement(Vector3 (0,0,0), RUN, 1);
 				//params.WaypathID = 109629;
-				//Commands->Action_Goto(obj, params);	
+				//Commands->Action_Goto(obj, params);
 
 				Commands->Send_Custom_Event ( obj, obj, 0, M01_WALKING_WAYPATH_03_JDG, 5 );
 			}
@@ -16156,7 +16156,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 				//params.Set_Basic(this, 45, M01_WALKING_WAYPATH_03_JDG);
 				//params.Set_Movement(Vector3 (0,0,0), RUN, 1);
 				//params.WaypathID = 109629;
-				//Commands->Action_Goto(obj, params);	
+				//Commands->Action_Goto(obj, params);
 
 				//Commands->Send_Custom_Event ( obj, obj, 0, M01_WALKING_WAYPATH_03_JDG, 5 );
 			}
@@ -16209,7 +16209,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Chinook_Spawned_Soldier_NOD, "")
 				//params.MovePathfind = false;
 				Commands->Action_Goto ( obj, params );
 			}
-			
+
 			else
 			{
 				Commands->Send_Custom_Event( obj, obj, 0, M01_CHECK_TURRETS_HEALTH_JDG, 1 );
@@ -16330,7 +16330,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_Dogfight_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -16362,7 +16362,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_Dogfight_Contoller_JDG, "")
 			"X1A_Solo_Apache_01.txt",
 			"X1A_Solo_Nod_Chinook_01.txt",
 			"X1A_Solo_GDI_Chinook_01.txt",
-			
+
 			//this is a low level flyover in nod base
 			//it goes from the waterfall to the refinery S->N
 			"X1A_Solo_Orca_02.txt",
@@ -16377,10 +16377,10 @@ DECLARE_SCRIPT(M01_FP_NodBase_Dogfight_Contoller_JDG, "")
 			"X1A_Solo_Nod_Chinook_02.txt",
 			"X1A_Solo_Nod_Chinook_02.txt",
 			"X1A_Solo_GDI_Chinook_02.txt",
-			
+
 		};
 		int random = Commands->Get_Random_Int(0, 28);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 28);
 		}
@@ -16400,7 +16400,7 @@ DECLARE_SCRIPT(M01_FP_BaseToBase_NorthSouth_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -16444,7 +16444,7 @@ DECLARE_SCRIPT(M01_FP_BaseToBase_NorthSouth_Contoller_JDG, "")
 			"X1A_Solo_A10_04.txt",
 		};
 		int random = Commands->Get_Random_Int(0, 28);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 28);
 		}
@@ -16453,7 +16453,7 @@ DECLARE_SCRIPT(M01_FP_BaseToBase_NorthSouth_Contoller_JDG, "")
 		float delayTimer = Commands->Get_Random ( 30, 60 );
 		Commands->Start_Timer(obj, this, delayTimer, 0);
 		last = random;
-		
+
 	}
 };
 
@@ -16465,7 +16465,7 @@ DECLARE_SCRIPT(M01_FP_BaseToBase_SouthNorth_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		last = 21;
@@ -16527,7 +16527,7 @@ DECLARE_SCRIPT(M01_FP_BaseToBase_SouthNorth_Contoller_JDG, "")
 			"X1A_Solo_GDI_Chinook_07.txt",
 			"X1A_Solo_NodCargo_07.txt",
 			"X1A_Solo_A10_07.txt",
-			
+
 			//this is a low level traffic lane from gdi ocean to nod comm center-- S->N
 			"X1A_Solo_Orca_08.txt",
 			"X1A_Solo_Orca_08.txt",
@@ -16543,10 +16543,10 @@ DECLARE_SCRIPT(M01_FP_BaseToBase_SouthNorth_Contoller_JDG, "")
 			"X1A_Solo_Nod_Chinook_08.txt",
 			"X1A_Solo_NodCargo_08.txt",
 			"X1A_Solo_A10_08.txt",
-			
+
 		};
 		int random = Commands->Get_Random_Int(0, 56);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 56);
 		}
@@ -16566,7 +16566,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_EastWest_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -16656,7 +16656,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_EastWest_Contoller_JDG, "")
 			"X1A_Solo_A10_11.txt",
 		};
 		int random = Commands->Get_Random_Int(0, 72);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 72);
 		}
@@ -16676,7 +16676,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_WestEast_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -16740,7 +16740,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_WestEast_Contoller_JDG, "")
 			"X1A_Solo_A10_13.txt",
 		};
 		int random = Commands->Get_Random_Int(0, 48);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 48);
 		}
@@ -16749,7 +16749,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_WestEast_Contoller_JDG, "")
 		float delayTimer = Commands->Get_Random ( 30, 60 );
 		Commands->Start_Timer(obj, this, delayTimer, 0);
 		last = random;
-		
+
 	}
 };
 
@@ -16761,7 +16761,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_NorthSouth_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -16825,7 +16825,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_NorthSouth_Contoller_JDG, "")
 			"X1A_Solo_A10_15.txt",
 		};
 		int random = Commands->Get_Random_Int(0, 48);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 48);
 		}
@@ -16845,7 +16845,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_SouthNorth_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -16909,7 +16909,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_SouthNorth_Contoller_JDG, "")
 			"X1A_Solo_A10_17.txt",
 		};
 		int random = Commands->Get_Random_Int(0, 48);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 48);
 		}
@@ -16917,7 +16917,7 @@ DECLARE_SCRIPT(M01_FP_NodBase_SouthNorth_Contoller_JDG, "")
 		Commands->Attach_Script(controller, "Test_Cinematic", flyovers[random]);
 		float delayTimer = Commands->Get_Random ( 30, 60 );
 		Commands->Start_Timer(obj, this, delayTimer, 0);
-		last = random;	
+		last = random;
 	}
 };
 
@@ -16929,7 +16929,7 @@ DECLARE_SCRIPT(M01_FP_GDIOcean_NorthSouth_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -16971,10 +16971,10 @@ DECLARE_SCRIPT(M01_FP_GDIOcean_NorthSouth_Contoller_JDG, "")
 			"X1A_Solo_GDI_Chinook_19.txt",
 			"X1A_Solo_NodCargo_19.txt",
 			"X1A_Solo_A10_19.txt",
-			
+
 		};
 		int random = Commands->Get_Random_Int(0, 28);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 28);
 		}
@@ -16994,7 +16994,7 @@ DECLARE_SCRIPT(M01_FP_GDIOcean_SouthNorth_Contoller_JDG, "")
 	{
 		SAVE_VARIABLE(last, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 60.0f, 0);
@@ -17034,10 +17034,10 @@ DECLARE_SCRIPT(M01_FP_GDIOcean_SouthNorth_Contoller_JDG, "")
 			"X1A_Solo_GDI_Chinook_21.txt",
 			"X1A_Solo_GDI_Chinook_21.txt",
 			"X1A_Solo_A10_21.txt",
-			
+
 		};
 		int random = Commands->Get_Random_Int(0, 26);
-		
+
 		while (random == last) {
 			random = Commands->Get_Random_Int(0, 26);
 		}
@@ -17046,13 +17046,13 @@ DECLARE_SCRIPT(M01_FP_GDIOcean_SouthNorth_Contoller_JDG, "")
 		float delayTimer = Commands->Get_Random ( 30, 60 );
 		Commands->Start_Timer(obj, this, delayTimer, 0);
 		last = random;
-		
+
 	}
 };
 
 DECLARE_SCRIPT(M01_Deco_LightTanks_JDG, "")//119424 119426 119425
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myTarget (-27.746f, 52.823f, 1.071f);
 		ActionParamsStruct params;
@@ -17177,7 +17177,7 @@ DECLARE_SCRIPT(M01_Airstrike_Controller_JDG, "")//121041
 			else if (param == M01_MODIFY_YOUR_ACTION_JDG)
 			{
 				Commands->Send_Custom_Event( obj, obj, 0, M01_START_ATTACKING_01_JDG, 0 );
-				
+
 				GameObject * chinook_obj3 = Commands->Create_Object ( "Invisible_Object", Vector3(0,0,0));
 				Commands->Attach_Script(chinook_obj3, "Test_Cinematic", "X1G_A-10_Strike.txt");
 			}
@@ -17193,9 +17193,9 @@ DECLARE_SCRIPT(M01_GDIBase_RealLightTank_JDG, "")//120022
 		//Commands->Join_Conversation( NULL, airdrop_conv, false, false, true );
 		//Commands->Start_Conversation( airdrop_conv,  airdrop_conv );
 
-		
+
 	}
-	
+
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /* sender */ ) override
 	{
 		if (type == 0)
@@ -17214,7 +17214,7 @@ DECLARE_SCRIPT(M01_GDIBase_RealLightTank_JDG, "")//120022
 				{
 					Commands->Send_Custom_Event( obj, airstrikeController, 0, M01_START_ACTING_JDG, 0 );
 					Commands->Send_Custom_Event( obj, airstrikeController, 0, M01_MODIFY_YOUR_ACTION_JDG, 15 );
-				}	
+				}
 			}
 
 			else if (param == M01_START_ATTACKING_01_JDG)
@@ -17222,7 +17222,7 @@ DECLARE_SCRIPT(M01_GDIBase_RealLightTank_JDG, "")//120022
 				if (obj)
 				{
 					Commands->Apply_Damage( obj, 10000, "BlamoKiller", NULL );
-				}	
+				}
 			}
 		}
 	}
@@ -17234,7 +17234,7 @@ DECLARE_SCRIPT(M01_GDIBase_RealLightTank_JDG, "")//120022
 		if (complete_reason == ACTION_COMPLETE_NORMAL)
 		{
 			if (action_id == M01_WALKING_WAYPATH_01_JDG )
-			{ 
+			{
 				params.Set_Basic(this, 100, M01_START_ATTACKING_01_JDG);
 				params.Set_Attack( STAR, 100, 10, true );
 				params.AttackCheckBlocked = false;
@@ -17242,7 +17242,7 @@ DECLARE_SCRIPT(M01_GDIBase_RealLightTank_JDG, "")//120022
 
 				//Commands->Send_Custom_Event( obj, obj, 0, M01_START_ATTACKING_02_JDG, 4 );
 
-				
+
 			}
 		}
 	}
@@ -17257,7 +17257,7 @@ DECLARE_SCRIPT(M01_RealLightTank_TriggerZone_JDG, "")
 		SAVE_VARIABLE(entered, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		entered = false;
 	}
@@ -17284,7 +17284,7 @@ DECLARE_SCRIPT(M01_First_AutoRifle_JDG, "")
 {
 	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			int pressEnterConv = Commands->Create_Conversation( "M01_Press_Enter_Conversation", 100, 1000, true);
 			Commands->Join_Conversation( NULL, pressEnterConv, false, false, true );
@@ -17300,7 +17300,7 @@ DECLARE_SCRIPT(M01_First_AutoRifle_JDG, "")
 
 DECLARE_SCRIPT(M01_Announce_First_ObjectiveZone_JDG, "")//116380
 {
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		int pressF1Conv = Commands->Create_Conversation( "M01_Press_F1_Conversation", 100, 1000, true);
 		Commands->Join_Conversation( NULL, pressF1Conv, false, false, true );
@@ -17331,14 +17331,14 @@ DECLARE_SCRIPT(M01_SniperRifle_01_JDG, "")//on powerplant
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			GameObject * c4TextController = Commands->Find_Object ( 117188 );
 			if (c4TextController != NULL)
 			{
 				Commands->Send_Custom_Event( obj, c4TextController, 2, 1, 0 );
 			}
-			
+
 			GameObject * sniperTarget01 = Commands->Create_Object ( "Nod_MiniGunner_0", Vector3(-53.217f, -68.049f, 13.701f));
 			Commands->Attach_Script(sniperTarget01, "M01_SniperRifle_01_Target_JDG", "");
 		}
@@ -17347,7 +17347,7 @@ DECLARE_SCRIPT(M01_SniperRifle_01_JDG, "")//on powerplant
 
 DECLARE_SCRIPT(M01_SniperRifle_01_Target_JDG, "")//on lighthouse
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Attach_Script(obj, "M00_Soldier_Powerup_Disable", "");
 		Commands->Enable_Hibernation( obj, false );
@@ -17366,7 +17366,7 @@ DECLARE_SCRIPT(M01_SniperRifle_01_Target_JDG, "")//on lighthouse
 		if (complete_reason == ACTION_COMPLETE_NORMAL)
 		{
 			if (action_id == M01_WALKING_WAYPATH_01_JDG )
-			{ 
+			{
 				Commands->Enable_Hibernation( obj, true );
 				Commands->Set_Innate_Is_Stationary ( obj, true );
 			}
@@ -17378,13 +17378,13 @@ DECLARE_SCRIPT(M01_SniperRifle_02_JDG, "")//in guard tower 01
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			GameObject * c4TextController = Commands->Find_Object ( 117188 );
 			if (c4TextController != NULL)
 			{
 				Commands->Send_Custom_Event( obj, c4TextController, 2, 1, 0 );
-			}	
+			}
 		}
 	}
 };
@@ -17409,13 +17409,13 @@ DECLARE_SCRIPT(M01_C4_TutorialScript_JDG, "")//
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			GameObject * c4TextController = Commands->Find_Object ( 117188 );
 			if (c4TextController != NULL)
 			{
 				Commands->Send_Custom_Event( obj, c4TextController, 1, 1, 0 );
-			}		
+			}
 		}
 	}
 };
@@ -17452,7 +17452,7 @@ DECLARE_SCRIPT(M01_AccessDenied_Zone_JDG, "")
 
 DECLARE_SCRIPT(M01_GDIBase_FirstChinookMinigunnerGuy_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myPosition = Commands->Get_Position ( obj );
 		Commands->Set_Innate_Soldier_Home_Location ( obj, myPosition, 5 );
@@ -17473,7 +17473,7 @@ DECLARE_SCRIPT(M01_QuickSave_Zone_JDG, "")
 
 DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Chopper_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
@@ -17534,20 +17534,20 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_Air_Evac_Chopper_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Enable_Collisions ( obj );
 				}
 				break;
 
-			case M01_DO_END_MISSION_CHECK_JDG: 
+			case M01_DO_END_MISSION_CHECK_JDG:
 				{
 					GameObject * gdiBaseCommander = Commands->Find_Object ( 106050 );
 					GameObject * gdiBaseMinigunner = Commands->Find_Object ( 116382 );
@@ -17589,7 +17589,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_EvacController_JDG, "")//106694
 		SAVE_VARIABLE(evac_rope_id, 4);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		evacing = false;
 		Commands->Enable_Hibernation( obj, false );
@@ -17663,13 +17663,13 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_EvacController_JDG, "")//106694
 				Commands->Debug_Message ( "**********************chopper id received.....%d\n",evac_helicopter_id );
 			}
 
-			else if (param == M01_MODIFY_YOUR_ACTION_04_JDG)//waypath is sending you his ID 
+			else if (param == M01_MODIFY_YOUR_ACTION_04_JDG)//waypath is sending you his ID
 			{
 				evac_waypath_id = Commands->Get_ID ( sender );
 				Commands->Debug_Message ( "**********************waypath id received.....%d\n", evac_waypath_id );
 			}
 
-			else if (param == M01_MODIFY_YOUR_ACTION_05_JDG)//rope is sending you his ID 
+			else if (param == M01_MODIFY_YOUR_ACTION_05_JDG)//rope is sending you his ID
 			{
 				evac_rope_id = Commands->Get_ID ( sender );
 				Commands->Debug_Message ( "**********************rope id received.....%d\n", evac_rope_id );
@@ -17680,7 +17680,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_EvacController_JDG, "")//106694
 				Vector3 evacPosition = Commands->Get_Position ( obj );
 				GameObject * troopbone = Commands->Create_Object("Invisible_Object", evacPosition );
 				Commands->Set_Model ( troopbone, "XG_EV5_troopBN" );
-				
+
 				Commands->Attach_Script(troopbone, "M01_Evac_TroopBone_JDG", "");
 				Commands->Innate_Disable(sender);
 				Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
@@ -17692,7 +17692,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_EvacController_JDG, "")//106694
 				{
 					Commands->Debug_Message("troopbone not created yet");
 				}
-				
+
 				Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 			}
 		}
@@ -17706,7 +17706,7 @@ DECLARE_SCRIPT(M01_GDIBaseCommander_EvacController_JDG, "")//106694
 
 DECLARE_SCRIPT(M01_Base_Nod_Minigunner_JDG, "")//116384
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
@@ -17714,7 +17714,7 @@ DECLARE_SCRIPT(M01_Base_Nod_Minigunner_JDG, "")//116384
 
 DECLARE_SCRIPT(M01_POW_Nod_Minigunner01_JDG, "")//116388
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
 	}
@@ -17755,7 +17755,7 @@ DECLARE_SCRIPT(M01_GDIBase_POWEncounter02_Controller_JDG, "")//M01_GDIBASE_POWSC
 		SAVE_VARIABLE(evac_rope_id, 7);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		powGuy01isDead = false;
 		powGuy02isDead = false;
@@ -17793,13 +17793,13 @@ DECLARE_SCRIPT(M01_GDIBase_POWEncounter02_Controller_JDG, "")//M01_GDIBASE_POWSC
 			//Commands->Debug_Message ( "**********************chopper id received.....%d\n",evac_helicopter_id );
 		}
 
-		else if (param == M01_WAYPATH_IS_SENDING_ID_JDG)//waypath is sending you his ID 
+		else if (param == M01_WAYPATH_IS_SENDING_ID_JDG)//waypath is sending you his ID
 		{
 			evac_waypath_id = Commands->Get_ID ( sender );
 			//Commands->Debug_Message ( "**********************waypath id received.....%d\n", evac_waypath_id );
 		}
 
-		else if (param == M01_ROPE_IS_SENDING_ID_JDG)//rope is sending you his ID 
+		else if (param == M01_ROPE_IS_SENDING_ID_JDG)//rope is sending you his ID
 		{
 			evac_rope_id = Commands->Get_ID ( sender );
 			//Commands->Debug_Message ( "**********************rope id received.....%d\n", evac_rope_id );
@@ -17810,7 +17810,7 @@ DECLARE_SCRIPT(M01_GDIBase_POWEncounter02_Controller_JDG, "")//M01_GDIBASE_POWSC
 			Vector3 evacPosition = Commands->Get_Position ( obj );
 			GameObject * troopbone = Commands->Create_Object("Invisible_Object", evacPosition );
 			Commands->Set_Model ( troopbone, "XG_EV5_troopBN" );
-			
+
 			Commands->Attach_Script(troopbone, "M01_Evac_TroopBone_JDG", "");
 			Commands->Innate_Disable(sender);
 			Commands->Attach_To_Object_Bone( sender, troopbone, "Troop_L" );
@@ -17822,7 +17822,7 @@ DECLARE_SCRIPT(M01_GDIBase_POWEncounter02_Controller_JDG, "")//M01_GDIBASE_POWSC
 			{
 				Commands->Debug_Message("troopbone not created yet");
 			}
-			
+
 			Commands->Set_Animation ( sender, "S_A_Human.XG_EV5_troop", false, NULL, 0.0f, -1.0f, false );
 		}
 
@@ -17868,7 +17868,7 @@ DECLARE_SCRIPT(M01_GDIBase_POWEncounter02_Controller_JDG, "")//M01_GDIBASE_POWSC
 
 DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Chopper_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsA", false, NULL, 0.0f, -1.0f, false );
 		Commands->Debug_Message ( "**********************script attached to evac chopper\n" );
@@ -17924,20 +17924,20 @@ DECLARE_SCRIPT(M01_GDIBasePOW_Air_Evac_Chopper_JDG, "")
 	{
 		switch (param)
 		{
-			case M01_MODIFY_YOUR_ACTION_JDG: 
+			case M01_MODIFY_YOUR_ACTION_JDG:
 				{
 					Commands->Debug_Message ( "*******************************helicopter has received custom to goto exit anim\n" );
 					Commands->Set_Animation ( obj, "v_GDI_trnspt.XG_EV5_trnsz", false, NULL, 0.0f, -1.0f, false );
 				}
 				break;
 
-			case M01_GOTO_IDLE_JDG: 
+			case M01_GOTO_IDLE_JDG:
 				{
 					Commands->Enable_Collisions ( obj );
 				}
 				break;
 
-			case M01_DO_END_MISSION_CHECK_JDG: 
+			case M01_DO_END_MISSION_CHECK_JDG:
 				{
 					GameObject * gdiGuy01 = Commands->Find_Object ( M01_GDIBASE_POWSCENE02_POWGUY01_JDG );
 					GameObject * gdiGuy02 = Commands->Find_Object ( M01_GDIBASE_POWSCENE02_POWGUY02_JDG );
@@ -18011,7 +18011,7 @@ DECLARE_SCRIPT(M01_C130_Dropoff_Dude_JDG, "")
 
 DECLARE_SCRIPT(M01_Base_GDI_Fodder_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Vector3 myTarget (72.223f, -24.751f, -0.296f);
 		ActionParamsStruct params;
@@ -18066,7 +18066,7 @@ DECLARE_SCRIPT(M01_Base_StartZone_JDG, "")//119628
 
 DECLARE_SCRIPT(M01_Nod_Truck_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Player_Type ( obj, SCRIPT_PLAYERTYPE_NEUTRAL );
 		Commands->Set_Obj_Radar_Blip_Color ( obj, RADAR_BLIP_COLOR_NOD );
@@ -18115,7 +18115,7 @@ DECLARE_SCRIPT(M01_GateSwitch_Tutorial_Zone_JDG, "")//120844
 		SAVE_VARIABLE(command_clearance, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		command_clearance = false;
 	}
@@ -18152,7 +18152,7 @@ DECLARE_SCRIPT(M01_BarnArea_NOD_Commander_Trigger_Zone02_JDG, "")//103343
 		SAVE_VARIABLE(entered, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		entered = false;
 	}
@@ -18189,7 +18189,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Turret_01_Script_JDG, "")//M01_TURRETBEACH_TURRET
 		SAVE_VARIABLE(fodderHovercraft_ID, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		engineer_id = M01_TURRETBEACH_ENGINEER_ID;
 	}
@@ -18232,7 +18232,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Turret_01_Script_JDG, "")//M01_TURRETBEACH_TURRET
 			{
 				Commands->Send_Custom_Event( obj, turretEngineer, 0, M01_PLAYER_IS_ATTACKING_ME_JDG, 0 );
 			}
-		}	
+		}
 	}
 
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
@@ -18254,7 +18254,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Turret_01_Script_JDG, "")//M01_TURRETBEACH_TURRET
 				}
 			}
 
-			else if (param == M01_BUSY_TRY_AGAIN_JDG)//engineer is busy--call back in 2 seconds  
+			else if (param == M01_BUSY_TRY_AGAIN_JDG)//engineer is busy--call back in 2 seconds
 			{
 				GameObject * turretEngineer = Commands->Find_Object ( engineer_id );
 				if (turretEngineer != NULL)
@@ -18273,7 +18273,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Turret_01_Script_JDG, "")//M01_TURRETBEACH_TURRET
 		{
 			fodderHovercraft_ID = param;
 			GameObject * fodderHovercraft = Commands->Find_Object ( fodderHovercraft_ID );
-			
+
 			if (fodderHovercraft != NULL)
 			{
 				Commands->Action_Reset ( obj, 100 );
@@ -18293,7 +18293,7 @@ DECLARE_SCRIPT(M01_TurretBeach_Turret_01_Script_JDG, "")//M01_TURRETBEACH_TURRET
 		ActionParamsStruct params;
 
 		if (action_id == M01_START_ATTACKING_01_JDG)//hovercraft is dead...go back to attacking gunboat
-		{ 
+		{
 			GameObject * gunboat = Commands->Find_Object ( M01_TURRETBEACH_GUNBOAT_ID );
 			if (gunboat != NULL)
 			{
@@ -18320,7 +18320,7 @@ DECLARE_SCRIPT(M01_GunboatAction_Controller_JDG, "")//M01_TURRETBEACH_CONTROLLER
 		SAVE_VARIABLE(engineer_id, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		active = false;
 		engineer_id = M01_TURRETBEACH_ENGINEER_ID;
@@ -18396,14 +18396,14 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 		SAVE_VARIABLE(myFacing, 4);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		firstHealthWarningPlayed = false;
 		secondHealthWarningPlayed = false;
 		myPosition = Commands->Get_Position ( obj );
 		myFacing = Commands->Get_Facing ( obj );
 
-		
+
 
 		ActionParamsStruct params;
 
@@ -18412,12 +18412,12 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 		//params.WaypathID = 101497;
 		params.AttackActive		= false;
 		params.AttackCheckBlocked = false;
-			
+
 		Commands->Action_Attack (obj, params);
 	}
 
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override //
-	{	
+	{
 		GameObject * missionController = Commands->Find_Object ( M01_MISSION_CONTROLLER_JDG );
 		if (missionController != NULL)
 		{
@@ -18468,14 +18468,14 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 				}
 			}
 
-			
+
 		}
 	}
 
 	void Custom( GameObject * obj, int /* type */, intptr_t param, GameObject * /* sender */ ) override
 	{
 		ActionParamsStruct params;
-	
+
 		if (param == M01_MODIFY_YOUR_ACTION_03_JDG)
 		{
 			params.Set_Basic(this, 100, M01_WALKING_WAYPATH_02_JDG);
@@ -18496,7 +18496,7 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 					params.Set_Attack( myTarget, 2000, 0, true );
 				}
 
-				
+
 				else if (turret02 != NULL)
 				{
 					Vector3 myTarget = Commands->Get_Position ( turret02 );
@@ -18575,7 +18575,7 @@ DECLARE_SCRIPT(M01_Initial_Gunboat_Script_JDG, "")//M01_TURRETBEACH_GUNBOAT_ID	1
 		ActionParamsStruct params;
 
 		if (action_id == M01_WALKING_WAYPATH_03_JDG)//gunboat is at end of final waypath--delete it
-		{ 
+		{
 			Commands->Destroy_Object ( obj );
 		}
 	}
@@ -18596,7 +18596,7 @@ DECLARE_SCRIPT(M01_GDIBase_BaseCommander_JDG, "")//106050 Capt Duncan
 		SAVE_VARIABLE(powsRescued, 4);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Obj_Radar_Blip_Color ( obj, RADAR_BLIP_COLOR_GDI );
 		powsRescued = false;
@@ -18788,7 +18788,7 @@ DECLARE_SCRIPT(M01_GDIBase_BaseCommander_JDG, "")//106050 Capt Duncan
 		{
 			if (action_id == M01_WALKING_WAYPATH_02_JDG)
 			{
-				
+
 			}
 
 			else if (action_id == M01_DOING_ANIMATION_01_JDG)
@@ -18885,7 +18885,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Grenadier_JDG, "")//116383
 		GameObject * nodGuy01 = Commands->Find_Object ( 116388 );
 		GameObject * nodGuy02 = Commands->Find_Object ( 116387 );
 
-		if (damager == nodGuy01 || damager == nodGuy02) 
+		if (damager == nodGuy01 || damager == nodGuy02)
 		{
 			if (damagedByNod == false)
 			{
@@ -18931,7 +18931,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Grenadier_JDG, "")//116383
 		{
 			if (param == M01_MODIFY_YOUR_ACTION_JDG)//run over next to ladder
 			{
-				
+
 				Vector3 newPosition (38.873f, -42.180f, -0.432f);
 
 				Commands->Set_Innate_Is_Stationary ( obj, false );
@@ -19091,7 +19091,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Grenadier_JDG, "")//116383
 			if (action_id == M01_WALKING_WAYPATH_01_JDG)
 			{
 				Vector3 myTarget (28.449f, -23.325f, 3.032f);
-				
+
 				Commands->Set_Innate_Is_Stationary ( obj, true );
 				params.Set_Basic( this, 100, M01_START_ACTING_JDG );
 				params.Set_Attack( myTarget, 1000, 0, true );
@@ -19195,7 +19195,7 @@ DECLARE_SCRIPT(M01_MediumTank_ReminderZone_JDG, "")//122848
 		SAVE_VARIABLE(reminders, 4);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		commandClearance = false;
 		player_in_tank = false;
@@ -19263,7 +19263,7 @@ DECLARE_SCRIPT(M01_MediumTank_ReminderZone_JDG, "")//122848
 			if (action_id == reminderConv)
 			{
 				Commands->Start_Timer ( obj, this, 30, 0 );
-				
+
 			}
 		}
 	}
@@ -19303,7 +19303,7 @@ DECLARE_SCRIPT(M01_Base_POW01_JDG, "")//116386
 		SAVE_VARIABLE(pokable, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		deadGuards = 0;
 		Commands->Set_Obj_Radar_Blip_Color ( obj, RADAR_BLIP_COLOR_GDI );
@@ -19442,7 +19442,7 @@ DECLARE_SCRIPT(M01_Base_POW02_JDG, "")//116385
 		SAVE_VARIABLE(pow02conv01, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Obj_Radar_Blip_Color ( obj, RADAR_BLIP_COLOR_GDI );
 		Commands->Set_Loiters_Allowed( obj, false );
@@ -19567,7 +19567,7 @@ DECLARE_SCRIPT(M01_Base_POW02_JDG, "")//116385
 	}
 };
 
-DECLARE_SCRIPT(M01_GDIBase_POW_Conversation_Controller_JDG, "")//121237 
+DECLARE_SCRIPT(M01_GDIBase_POW_Conversation_Controller_JDG, "")//121237
 {
 	bool convPlayed;
 	int pow02conv01;
@@ -19578,7 +19578,7 @@ DECLARE_SCRIPT(M01_GDIBase_POW_Conversation_Controller_JDG, "")//121237
 		SAVE_VARIABLE(pow02conv01, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		convPlayed = false;
 	}
@@ -19624,7 +19624,7 @@ DECLARE_SCRIPT(M01_GDIBase_POW_Conversation_Controller_JDG, "")//121237
 				{
 					Commands->Send_Custom_Event( obj, pow02, 0, M01_GOTO_INNATE_JDG, 0 );
 				}
-				
+
 			}
 		}
 	}
@@ -19668,7 +19668,7 @@ DECLARE_SCRIPT(M01_GDIBase_POW_Conversation_Controller_JDG, "")//121237
 
 DECLARE_SCRIPT(M01_GDI_BeachGuy01_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Innate_Disable(obj);
 		ActionParamsStruct params;
@@ -19761,7 +19761,7 @@ DECLARE_SCRIPT(M01_GDI_GuardTower02_SniperRifle_JDG, "")
 				Commands->Send_Custom_Event( obj, c4TextController, 2, 1, 0 );
 			}
 
-			
+
 			Vector3 spawnLocation01 (-79.182f, 141.927f, 1.763f);
 			GameObject * sniperTarget01 = Commands->Create_Object ( "Nod_MiniGunner_0", spawnLocation01);
 			Commands->Attach_Script(sniperTarget01, "M01_GuardTower02_Sniper_Target01_JDG", "");
@@ -19782,7 +19782,7 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_Target01_JDG, "")
 		SAVE_VARIABLE(acting, 3);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		acting = true;
 		Commands->Enable_Hibernation( obj, false );
@@ -19894,7 +19894,7 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_Target01_JDG, "")
 
 
 
-DECLARE_SCRIPT(M01_GuardTower02_Sniper_TowerZone_JDG, "")//123645 
+DECLARE_SCRIPT(M01_GuardTower02_Sniper_TowerZone_JDG, "")//123645
 {
 	bool player_in_zone;
 	int targets_killed;
@@ -19905,7 +19905,7 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_TowerZone_JDG, "")//123645
 		SAVE_VARIABLE(targets_killed, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		player_in_zone = false;
 		targets_killed = 0;
@@ -19943,7 +19943,7 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_TowerZone_JDG, "")//123645
 						GameObject * new_sniperTarget = Commands->Create_Object ( "Nod_MiniGunner_0", spawnLocation02);
 						Commands->Attach_Script(new_sniperTarget, "M01_GuardTower02_NewSniperTarget_JDG", "");
 
-						
+
 					}
 
 					else if (targets_killed == 2)
@@ -19957,7 +19957,7 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_TowerZone_JDG, "")//123645
 
 DECLARE_SCRIPT(M01_GuardTower02_NewSniperTarget_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Enable_Hibernation( obj, false );
 
@@ -20028,11 +20028,11 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_Target02_JDG, "")
 		SAVE_VARIABLE(acting, 2);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		acting = true;
 		Commands->Enable_Hibernation( obj, false );
-		
+
 		Vector3 myGotoSpot (-92.927f, 115.587f, 1.847f);
 		ActionParamsStruct params;
 		params.Set_Basic( this, 80, M01_WALKING_WAYPATH_01_JDG );
@@ -20090,7 +20090,7 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_Target02_JDG, "")
 				acting = false;
 				Commands->Set_Innate_Is_Stationary ( obj, false );
 				Vector3 myGotoSpot (-79.399f, 112.473f, 2.373f);
-				
+
 				params.Set_Basic( this, 50, M01_WALKING_WAYPATH_01_JDG );
 				params.Set_Movement( myGotoSpot, WALK, 1 );
 
@@ -20113,7 +20113,7 @@ DECLARE_SCRIPT(M01_GuardTower02_Sniper_Target02_JDG, "")
 	}
 };
 
-DECLARE_SCRIPT(M01_TurnOff_TankReminder_Zone_JDG, "")  
+DECLARE_SCRIPT(M01_TurnOff_TankReminder_Zone_JDG, "")
 {
 	void Entered( GameObject * obj, GameObject * enterer ) override
 	{
@@ -20129,7 +20129,7 @@ DECLARE_SCRIPT(M01_TurnOff_TankReminder_Zone_JDG, "")
 	}
 };
 
-DECLARE_SCRIPT(M01_HON_Escorts_Warroom_MCT_ZoneController_JDG, "")//103378  
+DECLARE_SCRIPT(M01_HON_Escorts_Warroom_MCT_ZoneController_JDG, "")//103378
 {
 	void Entered( GameObject * obj, GameObject * enterer ) override
 	{
@@ -20174,7 +20174,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_01_GDI_JDG, "")
 		SAVE_VARIABLE(dialogs_said_to_havoc, 5);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		dialogs_said = 0;
 		dialogs_said_to_havoc = 0;
@@ -20199,7 +20199,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_01_GDI_JDG, "")
 	//Vector3 myGotoLocation (-187.848f, 526.480f, 3.518f);
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)	
+		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_WALKING_WAYPATH_01_JDG, 0 );
 			Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 5 );
@@ -20241,7 +20241,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_01_GDI_JDG, "")
 				{
 					Commands->Send_Custom_Event( obj, obj, 0, M01_GOTO_INNATE_JDG, 0 );
 				}
-				
+
 			}
 
 			else if (param == M01_START_ACTING_JDG && at_final_destination == false)
@@ -20257,7 +20257,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_01_GDI_JDG, "")
 					params.Set_Basic(this, 60, M01_WALKING_WAYPATH_02_JDG);
 					params.Set_Movement(myGotoLocation, WALK, 1);
 					Commands->Action_Goto(obj, params);
-					
+
 					Commands->Send_Custom_Event( obj, obj, 0, M01_START_ACTING_JDG, 5 );
 				}
 
@@ -20379,7 +20379,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_02_GDI_JDG, "")
 		SAVE_VARIABLE(escorting, 3);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		player_in_warroom = false;
 		at_final_destination = false;
@@ -20403,7 +20403,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_02_GDI_JDG, "")
 	//Vector3 myGotoLocation (-188.670f, 530.083f, 3.518f);
 	void Animation_Complete(GameObject * obj, const char *anim) override
 	{
-		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)	
+		if (stricmp(anim, "s_a_human.h_a_troopdrop") == 0)
 		{
 			Commands->Send_Custom_Event( obj, obj, 0, M01_WALKING_WAYPATH_01_JDG, 0 );
 		}
@@ -20459,7 +20459,7 @@ DECLARE_SCRIPT(M01_HON_Chinook_Spawned_Soldier_02_GDI_JDG, "")
 					params.Set_Basic(this, 60, M01_WALKING_WAYPATH_02_JDG);
 					params.Set_Movement(myGotoLocation, WALK, 0);
 					Commands->Action_Goto(obj, params);
-					
+
 					Commands->Send_Custom_Event( obj, obj, 0, M01_START_ACTING_JDG, 5 );
 				}
 
@@ -20532,7 +20532,7 @@ DECLARE_SCRIPT(M01_GiveMCTSpeech_Zone_JDG, "")//124260
 		SAVE_VARIABLE(hon_gdi_guy_conv1, 6);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		player_in_warroom = false;
 		commandClearance = false;
@@ -20599,7 +20599,7 @@ DECLARE_SCRIPT(M01_GiveMCTSpeech_Zone_JDG, "")//124260
 						Commands->Join_Conversation( gdiGuy01, hon_gdi_guy_conv1, false, true, true );
 						Commands->Join_Conversation( STAR, hon_gdi_guy_conv1, false, false, false );
 						Commands->Start_Conversation( hon_gdi_guy_conv1,  hon_gdi_guy_conv1 );
-													
+
 						Commands->Monitor_Conversation(  obj, hon_gdi_guy_conv1 );
 					}
 
@@ -20610,11 +20610,11 @@ DECLARE_SCRIPT(M01_GiveMCTSpeech_Zone_JDG, "")//124260
 						Commands->Join_Conversation( gdiGuy02, hon_gdi_guy_conv1, false, true, true );
 						Commands->Join_Conversation( STAR, hon_gdi_guy_conv1, false, false, false );
 						Commands->Start_Conversation( hon_gdi_guy_conv1,  hon_gdi_guy_conv1 );
-													
+
 						Commands->Monitor_Conversation(  obj, hon_gdi_guy_conv1 );
 					}
 				}
-			
+
 			}
 		}
 	}
@@ -20685,7 +20685,7 @@ DECLARE_SCRIPT(M01_HON_WarroomController_JDG, "")//124044
 		SAVE_VARIABLE(dead_soldier_tally, 5);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		gdiGuy01_id = 0;
 		gdiGuy02_id = 0;
@@ -20769,7 +20769,7 @@ DECLARE_SCRIPT(M01_HON_WarroomController_JDG, "")//124044
 
 DECLARE_SCRIPT(M01_Medium_Tank01_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		GameObject * hovercraftExplosionController = Commands->Find_Object ( 121839 );
 		if (hovercraftExplosionController != NULL)
@@ -20790,7 +20790,7 @@ DECLARE_SCRIPT(M01_CantBring_MediumTank_ThroughHereZone_JDG, "")
 		SAVE_VARIABLE(tank_id, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		player_in_tank = false;
 	}
@@ -20842,7 +20842,7 @@ DECLARE_SCRIPT(M01_Medium_Tank_JDG, "")
 		SAVE_VARIABLE(firstTimeEntered, 1);
 	}
 
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		Commands->Create_Sound ( "m00evag_dsgn0009i1evag_snd", Vector3 (0,0,0), obj);
 
@@ -20913,7 +20913,7 @@ DECLARE_SCRIPT(M01_Medium_Tank_JDG, "")
 			{
 				Commands->Send_Custom_Event( obj, tankBarrierZone, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 			}
-			
+
 		}
 
 		else if (type == CUSTOM_EVENT_VEHICLE_EXITED )
@@ -20944,7 +20944,7 @@ DECLARE_SCRIPT(M01_TurretBeach_FodderHovercraft_Controller_JDG, "")//121630  M01
 		SAVE_VARIABLE(hovercraft_ID, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		hovercraftAlive = false;
 	}
@@ -21034,7 +21034,7 @@ DECLARE_SCRIPT(M01_Hovercraft_Explosion_Controller_JDG, "")//121839
 
 DECLARE_SCRIPT(M01_FodderHovercraft_Script_JDG, "")
 {
-	void Created( GameObject * obj ) override 
+	void Created( GameObject * obj ) override
 	{
 		GameObject * fodderHovercraftController = Commands->Find_Object ( 121630 );
 		if (fodderHovercraftController != NULL)
@@ -21047,7 +21047,7 @@ DECLARE_SCRIPT(M01_FodderHovercraft_Script_JDG, "")
 		//{
 		//	Commands->Send_Custom_Event( obj, hovercraftExplosionController, 0, M01_CHOPPER_IS_SENDING_ID_JDG, 0 );
 		//}
-		
+
 		float delayTimer = Commands->Get_Random ( 5, 8 );
 		Commands->Send_Custom_Event( obj, obj, 0, M01_START_ACTING_JDG, delayTimer );
 	}
@@ -21155,7 +21155,7 @@ DECLARE_SCRIPT(M01_TibCave01_Datadisc_JDG, "")//shows the barn area
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Set_HUD_Help_Text (IDS_M00EVAG_DSGN0103I1EVAG_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
 
@@ -21204,7 +21204,7 @@ DECLARE_SCRIPT(M01_Shed_Datadisc_JDG, "")//shows the light tank area
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Set_HUD_Help_Text (IDS_M00EVAG_DSGN0103I1EVAG_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
 
@@ -21346,7 +21346,7 @@ DECLARE_SCRIPT(M01_Medlab_Datadisc_JDG, "")
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Set_HUD_Help_Text (IDS_M00EVAG_DSGN0103I1EVAG_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY);
 			Commands->Reveal_Map ( );
@@ -21369,14 +21369,14 @@ DECLARE_SCRIPT(M01_DataDisc_TextController_JDG, "")//117188
 		SAVE_VARIABLE(playingText, 1);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		playingText = false;
 	}
 
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /* sender */ ) override
 	{
-		if ( type == 0 ) 
+		if ( type == 0 )
 		{
 			if (param == 10)//now show the text message for ESC key
 			{
@@ -21483,7 +21483,7 @@ DECLARE_SCRIPT(M01_Duncan_InHere_ConvController_JDG, "")
 		SAVE_VARIABLE(duncanDiscovered, 2);
 	}
 
-	void Created( GameObject * /* obj */ ) override 
+	void Created( GameObject * /* obj */ ) override
 	{
 		deadNodGuys = 0;
 		duncanDiscovered = false;
@@ -21532,7 +21532,7 @@ DECLARE_SCRIPT(M01_BackPath_EntranceZone_JDG, "")//121433
 	{
 		if (enterer == STAR)
 		{
-			
+
 			Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_JDG, 0 );
 		}
 	}
@@ -21631,7 +21631,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 		GameObject * nodGuy01 = Commands->Find_Object ( 116388 );
 		GameObject * nodGuy02 = Commands->Find_Object ( 116387 );
 
-		if (damager == nodGuy01 || damager == nodGuy02) 
+		if (damager == nodGuy01 || damager == nodGuy02)
 		{
 			if (damagedByNod == false)
 			{
@@ -21815,7 +21815,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 			{
 				havocDownPath = true;
 
-				
+
 
 				//Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_06_JDG, 0.25f );
 			}
@@ -21882,7 +21882,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 			if (action_id == M01_WALKING_WAYPATH_01_JDG)
 			{
 				Vector3 myTarget (72.223f, -24.751f, -0.296f);
-				
+
 				Commands->Set_Innate_Is_Stationary ( obj, true );
 				params.Set_Basic( this, 100, M01_START_ACTING_JDG );
 				params.Set_Attack( myTarget, 1000, 0, true );
@@ -21891,13 +21891,13 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 
 				Commands->Action_Attack (obj, params);
 
-				Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 2 );	
+				Commands->Send_Custom_Event( obj, obj, 0, M01_MODIFY_YOUR_ACTION_02_JDG, 2 );
 			}
 
 			else if (action_id == M01_WALKING_WAYPATH_02_JDG)
 			{
 				Vector3 myTarget (28.449f, -23.325f, 3.032f);
-				
+
 				Commands->Set_Innate_Is_Stationary ( obj, true );
 				params.Set_Basic( this, 100, M01_START_ACTING_JDG );
 				params.Set_Attack( myTarget, 1000, 0, true );
@@ -21980,7 +21980,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 
 				Commands->Monitor_Conversation(  obj, gdi01conv02 );
 
-				
+
 			}
 
 			else if (action_id == gdi01conv02)
@@ -21999,7 +21999,7 @@ DECLARE_SCRIPT(M01_Base_GDI_Minigunner_JDG, "")//116382
 				GameObject * grenadier = Commands->Find_Object ( 116383 );
 				if (grenadier != NULL)
 				{
-					Commands->Send_Custom_Event( obj, grenadier, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 0 );//tell grenadier to greet havoc	
+					Commands->Send_Custom_Event( obj, grenadier, 0, M01_MODIFY_YOUR_ACTION_03_JDG, 0 );//tell grenadier to greet havoc
 				}
 			}
 

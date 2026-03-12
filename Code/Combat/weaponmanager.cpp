@@ -118,7 +118,7 @@ WeaponDefinitionClass::WeaponDefinitionClass( void ) :
 	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_FLOAT,		KeyNumber);
 
 	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_BOOL,			CanSnipe);
-	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_BOOL,			CanReceiveGenericCnCAmmo);	
+	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_BOOL,			CanReceiveGenericCnCAmmo);
 	EDITABLE_PARAM( WeaponDefinitionClass, ParameterClass::TYPE_FLOAT,		Rating);
 
 	PHYS_DEF_PARAM( WeaponDefinitionClass, EjectPhysDefID,			"ProjectileDef" );
@@ -222,7 +222,7 @@ bool	WeaponDefinitionClass::Save( ChunkSaveClass & csave )
 		WRITE_SAFE_MICRO_CHUNK(		 csave, 	MICROCHUNKID_WEAPON_DEF_RELOAD_TIME,			ReloadTime, float );
 		WRITE_MICRO_CHUNK(			 csave, 	MICROCHUNKID_WEAPON_DEF_KEY_NUMBER,				KeyNumber );
 		WRITE_MICRO_CHUNK(			 csave, 	MICROCHUNKID_WEAPON_DEF_CAN_SNIPE,				CanSnipe );
-		WRITE_MICRO_CHUNK(			 csave, 	MICROCHUNKID_WEAPON_DEF_GENERIC_AMMO_OK,		CanReceiveGenericCnCAmmo );		
+		WRITE_MICRO_CHUNK(			 csave, 	MICROCHUNKID_WEAPON_DEF_GENERIC_AMMO_OK,		CanReceiveGenericCnCAmmo );
 		WRITE_MICRO_CHUNK(			 csave, 	MICROCHUNKID_WEAPON_DEF_EJECT_PHYS_DEF_ID, 	EjectPhysDefID );
 		WRITE_MICRO_CHUNK(			 csave, 	MICROCHUNKID_WEAPON_DEF_MUZZLE_FLASH_PHYS_DEF_ID, 	MuzzleFlashPhysDefID );
 		WRITE_MICRO_CHUNK(			 csave, 	MICROCHUNKID_WEAPON_DEF_RATING,					Rating );
@@ -272,7 +272,7 @@ bool	WeaponDefinitionClass::Load( ChunkLoadClass &cload )
 						READ_SAFE_MICRO_CHUNK(		cload, 	MICROCHUNKID_WEAPON_DEF_RELOAD_TIME,			ReloadTime, float);
 						READ_MICRO_CHUNK(				cload, 	MICROCHUNKID_WEAPON_DEF_KEY_NUMBER,				KeyNumber );
 						READ_MICRO_CHUNK(				cload, 	MICROCHUNKID_WEAPON_DEF_CAN_SNIPE,				CanSnipe );
-						READ_MICRO_CHUNK(				cload, 	MICROCHUNKID_WEAPON_DEF_GENERIC_AMMO_OK,		CanReceiveGenericCnCAmmo );		
+						READ_MICRO_CHUNK(				cload, 	MICROCHUNKID_WEAPON_DEF_GENERIC_AMMO_OK,		CanReceiveGenericCnCAmmo );
 						READ_MICRO_CHUNK(				cload, 	MICROCHUNKID_WEAPON_DEF_EJECT_PHYS_DEF_ID, 	EjectPhysDefID );
 						READ_MICRO_CHUNK(				cload, 	MICROCHUNKID_WEAPON_DEF_MUZZLE_FLASH_PHYS_DEF_ID, 	MuzzleFlashPhysDefID );
 						READ_MICRO_CHUNK(				cload, 	MICROCHUNKID_WEAPON_DEF_RATING,					Rating );

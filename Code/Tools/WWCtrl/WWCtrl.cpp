@@ -55,7 +55,7 @@ DllMain (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 	{
 		TRACE0("WWCTRL.DLL Initializing!\n");
 		_hinstance = hInstance;
-		
+
 		// Extension DLL one-time initialization
 		if (!AfxInitExtensionModule(WWCtrlDLL, hInstance))
 			return 0;

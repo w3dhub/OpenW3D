@@ -134,7 +134,7 @@ CSimpleGraphView::Repaint_Graph (void)
 	Get_Graph_Rect (rect);
 
 	InvalidateRect (rect, true);
-	UpdateWindow ();	
+	UpdateWindow ();
 	return ;
 }
 
@@ -146,7 +146,7 @@ CSimpleGraphView::Repaint_Graph (void)
 ///////////////////////////////////////////////////////////////////////
 void
 CSimpleGraphView::Render_Axis (CDC *dc)
-{	
+{
 	CRect view_rect;
 	GetClientRect (&view_rect);
 
@@ -160,12 +160,12 @@ CSimpleGraphView::Render_Axis (CDC *dc)
 	dc->LineTo (view_rect.right - 25, view_rect.bottom - 45);
 
 	int tick_width		= 35;
-	int tick_height	= 35;	
+	int tick_height	= 35;
 
 	int ticks_x			= (graph_rect.Width () / tick_width);
 	int ticks_y			= (graph_rect.Height () / tick_height);
-	
-	tick_width			= (graph_rect.Width () / ticks_x);	
+
+	tick_width			= (graph_rect.Width () / ticks_x);
 	tick_height			= (graph_rect.Height () / ticks_y);
 
 	float x_val			= m_Min.X;
@@ -178,7 +178,7 @@ CSimpleGraphView::Render_Axis (CDC *dc)
 	//
 	int location = graph_rect.left;
 	for (int tick = 0; tick <= ticks_x; tick ++) {
-		
+
 		dc->MoveTo (location, view_rect.bottom - 50);
 		dc->LineTo (location, view_rect.bottom - 40);
 
@@ -201,7 +201,7 @@ CSimpleGraphView::Render_Axis (CDC *dc)
 	//
 	location = graph_rect.top;
 	for (tick = 0; tick <= ticks_y; tick ++) {
-		
+
 		dc->MoveTo (view_rect.left + 65, location);
 		dc->LineTo (view_rect.left + 75, location);
 
@@ -241,29 +241,29 @@ CSimpleGraphView::Render_Graph (CDC *dc)
 	Get_Graph_Rect (graph_area);
 
 	float delta_x	= m_Max.X - m_Min.X;
-	float delta_y	= m_Max.Y - m_Min.Y;	
-	
+	float delta_y	= m_Max.Y - m_Min.Y;
+
 	float start_time	= 0;
 	float end_time		= 0;
 	float foo			= 0;
 	spline.Get_Key (0, &foo, &start_time);
 	spline.Get_Key (spline.Key_Count () - 1, &foo, &end_time);
-	
+
 	start_time	= std::max (m_Min.X, start_time);
-	end_time		= min (m_Max.X, end_time);		
-	
+	end_time		= min (m_Max.X, end_time);
+
 	float start_value	= 0;
 	float end_value	= 0;
 	CPoint start_pt;
 	CPoint end_pt;
 	spline.Evaluate (start_time, &start_value);
-	spline.Evaluate (end_time, &end_value);	
+	spline.Evaluate (end_time, &end_value);
 	Value_To_Point (Vector2 (start_time, start_value), &start_pt);
 	Value_To_Point (Vector2 (end_time, end_value), &end_pt);
-	
+
 	int count		= ((end_pt.x - start_pt.x) / 4);
 	float time_inc = (end_time - start_time) / (float)count;
-	
+
 	//
 	//	Draw the curve
 	//
@@ -278,7 +278,7 @@ CSimpleGraphView::Render_Graph (CDC *dc)
 
 		int client_x = graph_area.left + int(graph_area.Width () * percent_x);
 		int client_y = graph_area.top + int(graph_area.Height () * (1-percent_y));
-		
+
 		if (percent_x <= 0) {
 			dc->MoveTo (client_x, client_y);
 		}
@@ -324,7 +324,7 @@ CSimpleGraphView::Render_Points (CDC *dc)
 		CPoint graph_pt;
 		Value_To_Point (Vector2 (time,value), &graph_pt);
 
-		if (m_SelPt == index) {			
+		if (m_SelPt == index) {
 			dc->SelectObject (&m_SelBrush);
 			dc->Ellipse (graph_pt.x - 4, graph_pt.y - 4, graph_pt.x + 4, graph_pt.y + 4);
 			dc->SelectObject (&m_Brush);
@@ -339,7 +339,7 @@ CSimpleGraphView::Render_Points (CDC *dc)
 			label_rect.right	= graph_pt.x + 30;
 			label_rect.top		= graph_pt.y - 30;
 			label_rect.bottom	= graph_pt.y - 6;
-			
+
 			CString label;
 			label.Format ("%.2f, %.2f", time, value);
 			dc->DrawText (label, label_rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
@@ -376,7 +376,7 @@ CSimpleGraphView::Get_Visible_Points (int *left_pt, int *right_pt)
 		float time = 0;
 		float value;
 		spline.Get_Key (index, &value, &time);
-		
+
 		float percent_x = (time - m_Min.X) / delta_x;
 		float percent_y = 1.0F - ((value - m_Min.Y) / delta_y);
 
@@ -385,7 +385,7 @@ CSimpleGraphView::Get_Visible_Points (int *left_pt, int *right_pt)
 		//
 		if (	percent_x >= 0 && percent_x <= 1.0F &&
 				percent_y >= 0 && percent_y <= 1.0F)
-		{			
+		{
 			if ((*left_pt) == -1) {
 				(*left_pt) = index;
 			}
@@ -417,8 +417,8 @@ CSimpleGraphView::Hit_Test (const CPoint &point, int *hit_pt)
 	//graph_pt.y	= point.y - graph_area.top;
 
 	if (	(point.x >= 0 && point.x < graph_area.left) ||
-			(point.y >= 0 && point.y < graph_area.top))	
-	{		
+			(point.y >= 0 && point.y < graph_area.top))
+	{
 		retval = HIT_AXIS;
 
 	} else if (point.x >= graph_area.left && point.y >= graph_area.top) {
@@ -434,7 +434,7 @@ CSimpleGraphView::Hit_Test (const CPoint &point, int *hit_pt)
 			float time = 0;
 			float value;
 			spline.Get_Key (index, &value, &time);
-			
+
 			float percent_x = (time - m_Min.X) / delta_x;
 			float percent_y = 1.0F - ((value - m_Min.Y) / delta_y);
 
@@ -464,16 +464,16 @@ CSimpleGraphView::Hit_Test (const CPoint &point, int *hit_pt)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::OnLButtonDown (UINT nFlags, CPoint point) 
+CSimpleGraphView::OnLButtonDown (UINT nFlags, CPoint point)
 {
 	if ((nFlags & MK_RBUTTON) == 0 && m_DraggingPt == -1) {
-		
+
 		int point_index	= 0;
 		HITTYPE hit_type	= Hit_Test (point, &point_index);
 
-		if (hit_type == HIT_GRAPH_AREA) {		
+		if (hit_type == HIT_GRAPH_AREA) {
 			m_DraggingPt = Add_New_Point (point);
-		} else if (hit_type == HIT_POINT) {		
+		} else if (hit_type == HIT_POINT) {
 			m_DraggingPt = point_index;
 		}
 
@@ -485,7 +485,7 @@ CSimpleGraphView::OnLButtonDown (UINT nFlags, CPoint point)
 	}
 
 	CView::OnLButtonDown (nFlags, point);
-	return; 
+	return;
 }
 
 
@@ -495,9 +495,9 @@ CSimpleGraphView::OnLButtonDown (UINT nFlags, CPoint point)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::OnLButtonUp (UINT nFlags, CPoint point) 
+CSimpleGraphView::OnLButtonUp (UINT nFlags, CPoint point)
 {
-	if (m_DraggingPt >= 0) {		
+	if (m_DraggingPt >= 0) {
 		::ReleaseCapture ();
 		m_DraggingPt = -1;
 		Repaint_Graph ();
@@ -514,11 +514,11 @@ CSimpleGraphView::OnLButtonUp (UINT nFlags, CPoint point)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point) 
+CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 {
 	if (nFlags & MK_LBUTTON && nFlags & MK_RBUTTON) {
 
-		CPoint delta = m_ZoomPt - point;		
+		CPoint delta = m_ZoomPt - point;
 
 		float delta_x = m_Max.X - m_Min.X;
 		float delta_y = m_Max.Y - m_Min.Y;
@@ -528,7 +528,7 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 
 		float units_x = (delta.x * delta_x) / (float)graph_area.Width ();
 		float units_y = -(delta.y * delta_y) / (float)graph_area.Height ();
-		
+
 		m_Min.X += units_x;
 		m_Min.Y += units_y;
 		m_Max.X += units_x;
@@ -538,8 +538,8 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 		UpdateWindow ();
 
 	} else if (m_IsZooming) {
-		
-		CPoint delta = m_ZoomPt - point;		
+
+		CPoint delta = m_ZoomPt - point;
 
 		float delta_x = m_Max.X - m_Min.X;
 		float delta_y = m_Max.Y - m_Min.Y;
@@ -576,7 +576,7 @@ CSimpleGraphView::OnMouseMove (UINT nFlags, CPoint point)
 		m_DraggingPt	= Move_Value (m_DraggingPt, new_value);
 		m_SelPt			= m_DraggingPt;
 	}
-	
+
 	m_ZoomPt = point;
 
 	CView::OnMouseMove (nFlags, point);
@@ -620,12 +620,12 @@ CSimpleGraphView::Move_Value (int old_index, const Vector2 &new_value)
 	Curve1DClass &spline = GetDocument ()->Get_Spline  ();
 
 	int new_index			= -1;
-	int count				= spline.Key_Count ();	
+	int count				= spline.Key_Count ();
 	Vector2 *point_list	= new Vector2[count];
 	int curr_index			= 0;
 
 	for (int list_index = 0; list_index < count; list_index ++) {
-		
+
 		//
 		//	Skip the old value
 		//
@@ -637,7 +637,7 @@ CSimpleGraphView::Move_Value (int old_index, const Vector2 &new_value)
 			float time = 0;
 			float value;
 			spline.Get_Key (list_index, &value, &time);
-			
+
 			Vector2 curr_point;
 			curr_point.X = time;
 			curr_point.Y = value;
@@ -654,12 +654,12 @@ CSimpleGraphView::Move_Value (int old_index, const Vector2 &new_value)
 			//	Add the current value to the list
 			//
 			point_list[curr_index++].Set (curr_point.X, curr_point.Y);
-		}		
+		}
 	}
 
 	if (old_index != -1 && new_index == -1) {
 		new_index = curr_index;
-		point_list[new_index].Set (new_value.X, new_value.Y);		
+		point_list[new_index].Set (new_value.X, new_value.Y);
 	}
 
 	//
@@ -675,9 +675,9 @@ CSimpleGraphView::Move_Value (int old_index, const Vector2 &new_value)
 	float time;
 	float key;
 	float last_time = -9999999999.0F;
-	
+
 	for (index = 0; index < count; index ++) {
-		
+
 		time = point_list[index].X;
 		key = point_list[index].Y;
 
@@ -689,7 +689,7 @@ CSimpleGraphView::Move_Value (int old_index, const Vector2 &new_value)
 		last_time = time;
 	}
 
-	Repaint_Graph ();	
+	Repaint_Graph ();
 
 	delete [] point_list;
 	return new_index;
@@ -702,7 +702,7 @@ CSimpleGraphView::Move_Value (int old_index, const Vector2 &new_value)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::Point_To_Value (const CPoint &point, Vector2 *value) 
+CSimpleGraphView::Point_To_Value (const CPoint &point, Vector2 *value)
 {
 	CRect graph_area;
 	Get_Graph_Rect (graph_area);
@@ -726,7 +726,7 @@ CSimpleGraphView::Point_To_Value (const CPoint &point, Vector2 *value)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::Value_To_Point (const Vector2 &value, CPoint *point) 
+CSimpleGraphView::Value_To_Point (const Vector2 &value, CPoint *point)
 {
 	CRect graph_area;
 	Get_Graph_Rect (graph_area);
@@ -735,7 +735,7 @@ CSimpleGraphView::Value_To_Point (const Vector2 &value, CPoint *point)
 	float percent_y = (value.Y - m_Min.Y) / (m_Max.Y - m_Min.Y);
 
 	point->x = graph_area.left + int(graph_area.Width () * percent_x);
-	point->y = graph_area.top + int(graph_area.Height () * (1.0F - percent_y));	
+	point->y = graph_area.top + int(graph_area.Height () * (1.0F - percent_y));
 	return ;
 }
 
@@ -746,11 +746,11 @@ CSimpleGraphView::Value_To_Point (const Vector2 &value, CPoint *point)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::Get_Graph_Rect (CRect &rect) 
+CSimpleGraphView::Get_Graph_Rect (CRect &rect)
 {
 	CRect view_rect;
 	GetClientRect (&view_rect);
-	
+
 	rect.left		= 75;
 	rect.right		= view_rect.Width () - 25;
 	rect.top			= 25;
@@ -839,10 +839,10 @@ CSimpleGraphView::OnDelete (void)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::OnUpdateDelete (CCmdUI *pCmdUI) 
+CSimpleGraphView::OnUpdateDelete (CCmdUI *pCmdUI)
 {
 	pCmdUI->Enable (m_SelPt != -1);
-	return ;	
+	return ;
 }
 
 
@@ -856,14 +856,14 @@ CSimpleGraphView::OnZoomExtents (void)
 {
 	Curve1DClass &spline = GetDocument ()->Get_Spline  ();
 	int count = spline.Key_Count ();
-	
+
 	if (count > 0) {
 
 		m_Min.Set (99999.0F, 99999.0F);
 		m_Max.Set (-99999.0F, -99999.0F);
 
 		float	start_time	= spline.Get_Start_Time ();
-		float end_time		= spline.Get_End_Time ();		
+		float end_time		= spline.Get_End_Time ();
 
 		float time_inc = (end_time - start_time) / 400.0F;
 		float time = start_time;
@@ -876,11 +876,11 @@ CSimpleGraphView::OnZoomExtents (void)
 			m_Min.Y = min (m_Min.Y, value);
 
 			m_Max.X = std::max (m_Max.X, time);
-			m_Max.Y = std::max (m_Max.Y, value);			
+			m_Max.Y = std::max (m_Max.Y, value);
 
 			time += time_inc;
 		}
-		
+
 		float delta_x = m_Max.X - m_Min.X;
 		float delta_y = m_Max.Y - m_Min.Y;
 
@@ -888,11 +888,11 @@ CSimpleGraphView::OnZoomExtents (void)
 		m_Min.Y -= (delta_y / 100.0F);
 		m_Max.X += (delta_x / 100.0F);
 		m_Max.Y += (delta_y / 100.0F);
-	
+
 		InvalidateRect (NULL, true);
 		UpdateWindow ();
 	}
-	
+
 	return ;
 }
 
@@ -903,7 +903,7 @@ CSimpleGraphView::OnZoomExtents (void)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::OnRButtonDown (UINT nFlags, CPoint point) 
+CSimpleGraphView::OnRButtonDown (UINT nFlags, CPoint point)
 {
 	if (m_IsZooming == false) {
 		m_ZoomPt = point;
@@ -922,7 +922,7 @@ CSimpleGraphView::OnRButtonDown (UINT nFlags, CPoint point)
 //
 ///////////////////////////////////////////////////////////////////////
 void
-CSimpleGraphView::OnRButtonUp (UINT nFlags, CPoint point) 
+CSimpleGraphView::OnRButtonUp (UINT nFlags, CPoint point)
 {
 	if (m_IsZooming) {
 		m_IsZooming = false;

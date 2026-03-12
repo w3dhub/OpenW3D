@@ -64,11 +64,11 @@ public:
 
 	DecorationPhysClass(void);
 	virtual DecorationPhysClass *	As_DecorationPhysClass(void) override							{ return this; }
-	
+
 	void									Init(const DecorationPhysDefClass & def);
 	virtual void						Timestep(float /* dt */) override										{ }
 	virtual void						Set_Model(RenderObjClass * model) override;
-	
+
 	virtual bool						Cast_Ray(PhysRayCollisionTestClass & raytest) override;
 	virtual bool						Cast_AABox(PhysAABoxCollisionTestClass & boxtest) override;
 	virtual bool						Cast_OBBox(PhysOBBoxCollisionTestClass & boxtest) override;
@@ -104,9 +104,9 @@ private:
 class DecorationPhysDefClass : public DynamicPhysDefClass
 {
 public:
-	
+
 	DecorationPhysDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;
@@ -124,7 +124,7 @@ public:
 	DECLARE_EDITABLE(DecorationPhysDefClass,DynamicPhysDefClass);
 
 protected:
-	
+
 	friend class StaticPhysClass;
 };
 

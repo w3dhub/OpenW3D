@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/cover.cpp                             $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 4/17/01 11:44a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 7                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/cover.cpp                             $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 4/17/01 11:44a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 7                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "cover.h"
@@ -139,12 +139,12 @@ CoverEntryClass * CoverManager::Request_Cover( const Vector3 & cur_pos, const Ve
 	int best_dist = max_dist;
 	for ( int index = 0; index < CoverPositions.Count(); index++ ) {
 		CoverEntryClass * cover = CoverPositions[ index ];
-		if ( cover->Get_In_Use() ) {	
+		if ( cover->Get_In_Use() ) {
 			continue;		// Already in use
 		}
 		Vector3 range_vector = cur_pos - cover->Get_Transform().Get_Translation();
 		float dist = range_vector.Length();
-		if ( dist > max_dist ) {  
+		if ( dist > max_dist ) {
 			continue;		// Too far away
 		}
 
@@ -211,12 +211,12 @@ bool	CoverEntryClass::Save( ChunkSaveClass & csave )
 	CoverEntryClass * me = this;
 
 	csave.Begin_Chunk( CHUNKID_VARIABLES );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_TRANSFORM,     Transform );				
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_CROUCH,        Crouch );				
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_IN_USE,        InUse );				
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_TRANSFORM,     Transform );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_CROUCH,        Crouch );
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_IN_USE,        InUse );
 		for ( int i = 0; i < AttackPositionList.Count(); i++ ) {
 			Vector3 pos = AttackPositionList[i];
-			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ATTACK_POSITION,     pos );				
+			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ATTACK_POSITION,     pos );
 		}
 		WRITE_MICRO_CHUNK_PTR( csave, MICROCHUNKID_REMAP_PTR,     me );
 	csave.End_Chunk();
@@ -237,9 +237,9 @@ bool	CoverEntryClass::Load( ChunkLoadClass & cload )
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_TRANSFORM,     Transform );				
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_CROUCH,        Crouch );				
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_IN_USE,        InUse );				
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_TRANSFORM,     Transform );
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_CROUCH,        Crouch );
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_IN_USE,        InUse );
 
 						case MICROCHUNKID_ATTACK_POSITION:
 						{
@@ -277,8 +277,8 @@ bool	CoverEntryClass::Load( ChunkLoadClass & cload )
 	return true;
 }
 
-Vector3 CoverEntryClass::Get_Attack_Position( Vector3 & /* enemy_pos */ )	
-{ 
+Vector3 CoverEntryClass::Get_Attack_Position( Vector3 & /* enemy_pos */ )
+{
 	// Find a cover position that will allow attack of enemy_pos (not yet)
 
 	// default to cover spot

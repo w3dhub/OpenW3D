@@ -52,7 +52,7 @@ static bool _DynamicSortingVertexArrayInUse=false;
 //static VertexFormatXYZNDUV2* _DynamicSortingVertexArray=NULL;
 static SortingVertexBufferClass* _DynamicSortingVertexArray=NULL;
 static unsigned short _DynamicSortingVertexArraySize=0;
-static unsigned short _DynamicSortingVertexArrayOffset=0;	
+static unsigned short _DynamicSortingVertexArrayOffset=0;
 
 static bool _DynamicDX8VertexBufferInUse=false;
 static DX8VertexBufferClass* _DynamicDX8VertexBuffer=NULL;
@@ -317,8 +317,8 @@ DX8VertexBufferClass::DX8VertexBufferClass(unsigned FVF, unsigned short vertex_c
 
 DX8VertexBufferClass::DX8VertexBufferClass(
 	const Vector3* vertices,
-	const Vector3* normals, 
-	const Vector2* tex_coords, 
+	const Vector3* normals,
+	const Vector2* tex_coords,
 	unsigned short VertexCount,
 	UsageType usage)
 	:
@@ -337,9 +337,9 @@ DX8VertexBufferClass::DX8VertexBufferClass(
 
 DX8VertexBufferClass::DX8VertexBufferClass(
 	const Vector3* vertices,
-	const Vector3* normals, 
+	const Vector3* normals,
 	const Vector4* diffuse,
-	const Vector2* tex_coords, 
+	const Vector2* tex_coords,
 	unsigned short VertexCount,
 	UsageType usage)
 	:
@@ -360,7 +360,7 @@ DX8VertexBufferClass::DX8VertexBufferClass(
 DX8VertexBufferClass::DX8VertexBufferClass(
 	const Vector3* vertices,
 	const Vector4* diffuse,
-	const Vector2* tex_coords, 
+	const Vector2* tex_coords,
 	unsigned short VertexCount,
 	UsageType usage)
 	:
@@ -379,7 +379,7 @@ DX8VertexBufferClass::DX8VertexBufferClass(
 
 DX8VertexBufferClass::DX8VertexBufferClass(
 	const Vector3* vertices,
-	const Vector2* tex_coords, 
+	const Vector2* tex_coords,
 	unsigned short VertexCount,
 	UsageType usage)
 	:
@@ -728,7 +728,7 @@ DynamicVBAccessClass::~DynamicVBAccessClass()
 		_DynamicSortingVertexArrayInUse=false;
 		_DynamicSortingVertexArrayOffset+=VertexCount;
 	}
-	
+
 	REF_PTR_RELEASE (VertexBuffer);
 }
 
@@ -772,7 +772,7 @@ void DynamicVBAccessClass::Allocate_DX8_Dynamic_Buffer()
 		}
 
 		_DynamicDX8VertexBuffer=NEW_REF(DX8VertexBufferClass,(
-			dynamic_fvf_type, 
+			dynamic_fvf_type,
 			_DynamicDX8VertexBufferSize,
 			(DX8VertexBufferClass::UsageType)usage));
 		_DynamicDX8VertexBufferOffset=0;

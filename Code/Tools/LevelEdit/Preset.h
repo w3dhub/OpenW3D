@@ -103,9 +103,9 @@ public:
 	//
 	void						Get_All_Dependencies (STRING_LIST &list) const;
 	void						Get_Implicit_Dependencies (STRING_LIST &list) const;
-	void						Get_Manual_Dependencies (STRING_LIST &list) const;	
+	void						Get_Manual_Dependencies (STRING_LIST &list) const;
 	void						Set_Manual_Dependencies (STRING_LIST &list);
-	
+
 	//
 	// Inline accessors
 	//
@@ -118,7 +118,7 @@ public:
 	PresetClass *			Get_Parent (void) const						{ return m_Parent; }
 	void						Set_Parent (PresetClass *parent);
 	bool						Is_A_Parent (PresetClass *preset);
-	bool						Is_A_Parent (LPCTSTR parent_name);	
+	bool						Is_A_Parent (LPCTSTR parent_name);
 
 	//
 	//	Child access
@@ -139,7 +139,7 @@ public:
 	//	Display methods
 	//
 	int						Get_Icon_Index (void) const;
-	
+
 	//
 	// Pass-thrus to the definition object
 	//
@@ -166,7 +166,7 @@ public:
 	void						Build_Node_List (NodeClass *parent_node);
 	void						Create_Linked_Nodes (NodeClass *parent_node);
 	NODE_LIST &				Get_Node_List (void)		{ return m_NodeList; }
-	void						Free_Node_List (void);	
+	void						Free_Node_List (void);
 
 protected:
 
@@ -179,7 +179,7 @@ protected:
 	TRANSITION_DATA_LIST *			Get_Transition_List (void) const;
 	void									Build_Zone_List (DefinitionClass *definition, ZONE_PARAM_LIST &zone_list) const;
 	ModelDefParameterClass *		Get_Phys_Def_Param (void);
-	ScriptListParameterClass *		Get_Script_List_Param (void);	
+	ScriptListParameterClass *		Get_Script_List_Param (void);
 
 	////////////////////////////////////////////////////////////////////
 	//	Protected member data
@@ -235,7 +235,7 @@ inline void
 PresetClass::Set_ID (uint32 id)
 {
 	if (m_Definition != NULL) {
-		m_Definition->Set_ID (id);		
+		m_Definition->Set_ID (id);
 	}
 
 	m_DefinitionID = id;

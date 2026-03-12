@@ -51,7 +51,7 @@ class TextureClass;
 
 /*
 ** SegmentedLineClass -- a render object for rendering thick segmented lines.
-*/ 
+*/
 class SegmentedLineClass : public RenderObjClass
 {
 	public:

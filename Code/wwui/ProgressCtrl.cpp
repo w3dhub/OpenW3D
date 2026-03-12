@@ -195,7 +195,7 @@ void ProgressCtrlClass::Update_Client_Rect(void)
 	mBarRect.Top = Rect.Top + BAR_INSET;
 	mBarRect.Bottom	= Rect.Bottom - BAR_INSET;
 	mBarRect.Right = (mBarRect.Left + Calculate_Bar_Width(mPosition));
-	
+
 	Set_Dirty();
 	}
 
@@ -237,7 +237,7 @@ void ProgressCtrlClass::Render(void)
 *
 * DESCRIPTION
 *     Sets the minimum and maximum values for the progress bar and redraws the
-*     bar to reflect the new range. 
+*     bar to reflect the new range.
 *
 * INPUTS
 *     Min - Minimum range value

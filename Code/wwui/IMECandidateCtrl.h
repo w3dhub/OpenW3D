@@ -78,7 +78,7 @@ class IMECandidateCtrl :
 		int mCurrSel;
 		unsigned int mScrollPos;
 		unsigned int mCellsPerPage;
-		
+
 		ScrollBarCtrlClass mScrollBarCtrl;
 		RectClass mScrollBarRect;
 

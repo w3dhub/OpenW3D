@@ -394,9 +394,9 @@ CollisionReactionType BulletDataClass::Bullet_Collision_Occurred( const Collisio
 			// Check for damage to a DamageableStaticPhys object
 			// For now I'm using the persist factory chunk-ID for RTTI... If a better solution
 			// turns up we should change this.
-			if (	event.OtherObj->Get_Factory().Chunk_ID() == PHYSICS_CHUNKID_DAMAGEABLESTATICPHYS 
-//					&& CombatManager::I_Am_Server() 
-				) 
+			if (	event.OtherObj->Get_Factory().Chunk_ID() == PHYSICS_CHUNKID_DAMAGEABLESTATICPHYS
+//					&& CombatManager::I_Am_Server()
+				)
 			{
 				DamageableStaticPhysClass * damphys = (DamageableStaticPhysClass *)event.OtherObj;
 				OffenseObjectClass offense( AmmoDefinition->Damage, (int)AmmoDefinition->Warhead, Get_Owner() );
@@ -990,7 +990,7 @@ void	BulletManager::Create_Bullet( const AmmoDefinitionClass * def, const Vector
 
 	BulletDataClass data( def, owner, position, velocity );
 
-#if BULLET_SPEED_CHEAT 
+#if BULLET_SPEED_CHEAT
 	if ( (float)def->Velocity >= _INSTANT_BULLET_THRESHHOLD/3 ) {
 #else
 	if ( (float)def->Velocity >= _INSTANT_BULLET_THRESHHOLD ) {

@@ -63,7 +63,7 @@ public:
 
 	////////////////////////////////////////////////////////////////
 	//	Public flags
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	typedef enum
 	{
 		FLAG_REQUIRES_JUMP	= 0x00000001,
@@ -106,7 +106,7 @@ public:
 	int						Get_Flags (void) const					{ return m_Flags; }
 	void						Set_Flags (int flags)					{ m_Flags = flags; }
 	bool						Get_Flag (int flag)						{ return bool((m_Flags & flag) == flag); }
-	void						Set_Flag (int flag, bool onoff);	
+	void						Set_Flag (int flag, bool onoff);
 
 	//
 	//	Action access

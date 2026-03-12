@@ -261,7 +261,7 @@ void MPWolChatMenuClass::On_Frame_Update(void)
 	if (mUserOutListChanged) {
 		Remove_Users();
 	}
-	
+
 	//	Do we need to update the message list?
 	if (mMessageListChanged) {
 		Refresh_Message_List();
@@ -300,7 +300,7 @@ void MPWolChatMenuClass::Refresh_Lobby_List(void)
 			End_Dialog();
 			return;
 		}
-		
+
 		LobbyList::const_iterator iter = lobbyList.begin();
 
 		while (iter != lobbyList.end()) {
@@ -493,7 +493,7 @@ void MPWolChatMenuClass::Refresh_Message_List(void)
 
 		for (size_t index = 0; index < count; index ++) {
 			const ChatMessage& message = messageList[index];
-		
+
 			// Build the string
 			WideStringClass text(255, true);
 
@@ -710,7 +710,7 @@ void MPWolChatMenuClass::Send_Message(bool is_emot)
 	if (list_ctrl && (list_ctrl->Get_First_Selected() >= 0)) {
 		UserList users;
 		int index = list_ctrl->Get_First_Selected();
-		
+
 		while (index != -1) {
 			const unichar_t* name = list_ctrl->Get_Entry_Text(index, 1);
 			const RefPtr<UserData> user = mChatMgr->FindUser(name);
@@ -839,7 +839,7 @@ void MPWolChatMenuClass::DoDialog(const RefPtr<ChannelData>& channel)
 	//	Create the dialog if necessary, otherwise simply bring it to the front
 	if (_TheInstance == NULL) {
 		MPWolChatMenuClass* dialog = new MPWolChatMenuClass;
-		
+
 		if (dialog) {
 			dialog->Start_Dialog();
 			dialog->Release_Ref();
@@ -886,7 +886,7 @@ void MPWolChatMenuClass::HandleNotification(WOLChatMgrEvent& event)
 		case UserOutListChanged:
 			mUserOutListChanged = true;
 			break;
-		
+
 		case MessageListChanged:
 			mMessageListChanged = true;
 			break;

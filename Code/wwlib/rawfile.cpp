@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Command & Conquer                                            * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/wwlib/rawfile.cpp                            $* 
- *                                                                                             * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Command & Conquer                                            *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwlib/rawfile.cpp                            $*
+ *                                                                                             *
  *                      $Author:: Jani_p                                                      $*
- *                                                                                             * 
+ *                                                                                             *
  *                     $Modtime:: 11/25/01 1:26p                                              $*
- *                                                                                             * 
+ *                                                                                             *
  *                    $Revision:: 13                                                          $*
  *                                                                                             *
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  *   RawFileClass::Bias -- Bias a file with a specific starting position and length.           *
  *   RawFileClass::Close -- Perform a closure of the file.                                     *
  *   RawFileClass::Create -- Creates an empty file.                                            *
@@ -221,7 +221,7 @@ void RawFileClass::Error(int, int, char const * )
  * HISTORY:                                                                                    *
  *   10/18/1994 JLB : Created.                                                                 *
  *=============================================================================================*/
-int RawFileClass::Transfer_Block_Size(void) 
+int RawFileClass::Transfer_Block_Size(void)
 {
 	return (int)((unsigned)UINT_MAX)-16L;
 }
@@ -572,7 +572,7 @@ void RawFileClass::Close(void)
 		*/
 		int closeok;
 		#ifdef _UNIX
-			closeok=(fclose(Handle)==0)?true:false;	
+			closeok=(fclose(Handle)==0)?true:false;
 		#else
 			closeok=CloseHandle(Handle);
 		#endif
@@ -654,7 +654,7 @@ int RawFileClass::Read(void * buffer, int size)
 		#else
 			readok=ReadFile(Handle, buffer, size, &(DWORD&)bytesread, NULL);
 		#endif
-			
+
 
 		if (! readok) {
 			size -= bytesread;
@@ -857,13 +857,13 @@ int RawFileClass::Size(void)
 
       #ifdef _UNIX
 			fpos_t curpos,startpos,endpos;
-			fgetpos(Handle,&curpos);	
+			fgetpos(Handle,&curpos);
 
 			fseek(Handle,0,SEEK_SET);
-			fgetpos(Handle,&startpos);	
+			fgetpos(Handle,&startpos);
 
 			fseek(Handle,0,SEEK_END);
-			fgetpos(Handle,&endpos);	
+			fgetpos(Handle,&endpos);
 
 			size=endpos-startpos;
 			fsetpos(Handle,&curpos);
@@ -1199,7 +1199,7 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 void RawFileClass::Attach (void *handle, int rights)
 {
 	Reset ();
-	
+
 	Rights = rights;
 	BiasStart = 0;
 	BiasLength = -1;
@@ -1232,6 +1232,6 @@ void RawFileClass::Detach (void)
 	BiasLength = -1;
 	Date = 0;
 	Time = 0;
-	Handle = NULL_HANDLE;	
+	Handle = NULL_HANDLE;
 }
 

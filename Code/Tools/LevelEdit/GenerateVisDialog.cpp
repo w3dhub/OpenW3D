@@ -74,7 +74,7 @@ GenerateVisDialogClass::OnInitDialog (void)
 	CDialog::OnInitDialog ();
 
 	m_GranularitySlider.SetRange (1, 32);
-	m_GranularitySlider.SetPos (16);	
+	m_GranularitySlider.SetPos (16);
 	SetDlgItemInt (IDC_GRANULARITY_EDIT, 16);
 
 	m_SampleHeightSlider.SetRange (1, 20);
@@ -98,7 +98,7 @@ GenerateVisDialogClass::OnHScroll
 	UINT nSBCode,
 	UINT nPos,
 	CScrollBar* pScrollBar
-) 
+)
 {
 	SetDlgItemInt (IDC_GRANULARITY_EDIT, m_GranularitySlider.GetPos ());
 	SetDlgItemInt (IDC_SAMPLEHEIGHT_EDIT, m_SampleHeightSlider.GetPos ());
@@ -113,7 +113,7 @@ GenerateVisDialogClass::OnHScroll
 //
 //////////////////////////////////////////////////////////////////////////////
 void
-GenerateVisDialogClass::OnOK (void) 
+GenerateVisDialogClass::OnOK (void)
 {
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 
@@ -121,7 +121,7 @@ GenerateVisDialogClass::OnOK (void)
 	//	Enable quick and dirty mode (if necessary)
 	//
 	bool is_quick_and_dirty = SendDlgItemMessage (IDC_IGNORE_TRANSPARENCY_CHECK, BM_GETCHECK) != 0;
-	scene->Set_Vis_Quick_And_Dirty (is_quick_and_dirty);	
+	scene->Set_Vis_Quick_And_Dirty (is_quick_and_dirty);
 
 	//
 	//	Read the settings from the dialog
@@ -131,7 +131,7 @@ GenerateVisDialogClass::OnOK (void)
 	float granularity		= (float)m_GranularitySlider.GetPos ();
 	float sample_height	= (float)m_SampleHeightSlider.GetPos ();
 
-	// 
+	//
 	// Record the time when the vis preprocessing is started
 	//
 	DWORD start_time = ::GetTickCount();
@@ -142,7 +142,7 @@ GenerateVisDialogClass::OnOK (void)
 	if (!selection_only) {
 		scene->Reset_Vis(true);
 	}
-	
+
 	//
 	//	Kick off the vis
 	//
@@ -153,13 +153,13 @@ GenerateVisDialogClass::OnOK (void)
 	}
 
 	if (!selection_only) {
-		
-		// 
+
+		//
 		// Now do the manual vis points ();
 		//
 		scene->Generate_Manual_Vis ();
 
-		// 
+		//
 		// Now vis the light sources
 		//
 		scene->Generate_Light_Vis ();
@@ -179,12 +179,12 @@ GenerateVisDialogClass::OnOK (void)
 	int minutes = elapsed_time / (1000 * 60);
 	elapsed_time -= minutes * (1000 * 60);
 	int seconds = elapsed_time / 1000;
-	
+
 	CString message;
 	message.Format("Total Elapsed Time: %d hours, %d minutes, %d seconds.",hours,minutes,seconds);
 	MessageBox (message, "Time", MB_OK | MB_ICONEXCLAMATION);
 
 
-	CDialog::OnOK ();	
+	CDialog::OnOK ();
 	return ;
 }

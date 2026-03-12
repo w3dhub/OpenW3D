@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/cinematicgameobj.cpp                  $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 10/10/01 11:37a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 32                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/cinematicgameobj.cpp                  $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 10/10/01 11:37a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 32                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 /*
@@ -82,17 +82,17 @@ CinematicGameObjDef::CinematicGameObjDef( void ) :
 	EDITABLE_PARAM( CinematicGameObjDef, ParameterClass::TYPE_BOOL,	CameraRelative );
 }
 
-uint32	CinematicGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_CINEMATIC; 
+uint32	CinematicGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_CINEMATIC;
 }
 
-const PersistFactoryClass & CinematicGameObjDef::Get_Factory (void) const 
-{ 
-	return _CinematicGameObjDefPersistFactory; 
+const PersistFactoryClass & CinematicGameObjDef::Get_Factory (void) const
+{
+	return _CinematicGameObjDefPersistFactory;
 }
 
-PersistClass *	CinematicGameObjDef::Create( void ) const 
+PersistClass *	CinematicGameObjDef::Create( void ) const
 {
 	CinematicGameObj * obj = new CinematicGameObj;
 	obj->Init( *this );
@@ -170,7 +170,7 @@ bool	CinematicGameObjDef::Load( ChunkLoadClass &cload )
 */
 SimplePersistFactoryClass<CinematicGameObj, CHUNKID_GAME_OBJECT_CINEMATIC>	_CinematicGameObjPersistFactory;
 
-const PersistFactoryClass & CinematicGameObj::Get_Factory (void) const 
+const PersistFactoryClass & CinematicGameObj::Get_Factory (void) const
 {
 	return _CinematicGameObjPersistFactory;
 }
@@ -210,8 +210,8 @@ void	CinematicGameObj::Init( const CinematicGameObjDef & definition )
 void	CinematicGameObj::Cinematic_Init( void )
 {
 	/*
-	** (gth) cinematic game objects behave like animated terrain so they are in the 
-	** terrain collision group 
+	** (gth) cinematic game objects behave like animated terrain so they are in the
+	** terrain collision group
 	*/
 	Peek_Physical_Object()->Set_Collision_Group( PhysicsSceneClass::COLLISION_GROUP_WORLD );
 //	COMBAT_SCENE->Add_To_Dirty_Cull_List( Peek_Physical_Object() );
@@ -375,8 +375,8 @@ void	CinematicGameObj::Post_Think( void )
 		PhysClass * pobj = Peek_Physical_Object();
 		if (pobj != NULL) {
 			DynamicAnimPhysClass * dpobj = pobj->As_DynamicAnimPhysClass();
-			if ((dpobj != NULL) && 
-				 (dpobj->Get_Animation_Manager().Peek_Animation() != NULL) && 
+			if ((dpobj != NULL) &&
+				 (dpobj->Get_Animation_Manager().Peek_Animation() != NULL) &&
 				 (dpobj->Get_Animation_Manager().Is_At_Target()) )
 			{
 				Set_Delete_Pending();
@@ -386,7 +386,7 @@ void	CinematicGameObj::Post_Think( void )
 }
 
 
-void CinematicGameObj::Completely_Damaged( const OffenseObjectClass & damager ) 
+void CinematicGameObj::Completely_Damaged( const OffenseObjectClass & damager )
 {
 	if ( Get_Definition().KilledExplosion != 0 ) {
 		Vector3 pos;
@@ -463,7 +463,7 @@ void	CinematicGameObj::Export_Rare( BitStreamClass &packet )
 	//	Dig the animation data out of the physics object
 	//
 	DynamicAnimPhysClass *dynanim = Peek_Physical_Object()->As_DynamicAnimPhysClass();
-	if (dynanim != NULL) {		
+	if (dynanim != NULL) {
 		AnimCollisionManagerClass &anim_mgr = dynanim->Get_Animation_Manager();
 
 		//
@@ -505,7 +505,7 @@ void	CinematicGameObj::Import_Rare( BitStreamClass &packet )
 	//	Pass the animation information onto the controller
 	//
 	DynamicAnimPhysClass *dynanim = Peek_Physical_Object()->As_DynamicAnimPhysClass();
-	if (dynanim != NULL) {		
+	if (dynanim != NULL) {
 		AnimCollisionManagerClass &anim_mgr = dynanim->Get_Animation_Manager();
 		anim_mgr.Set_Animation( animation_name );
 		anim_mgr.Set_Animation_Mode( (AnimCollisionManagerClass::AnimModeType)anim_mode );

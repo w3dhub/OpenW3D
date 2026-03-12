@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/simplegameobj.cpp                     $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 10/10/01 1:43p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 29                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/simplegameobj.cpp                     $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 10/10/01 1:43p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 29                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "simplegameobj.h"
@@ -82,12 +82,12 @@ SimpleGameObjDef::SimpleGameObjDef( void ) :
 	return ;
 }
 
-uint32	SimpleGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_SIMPLE; 
+uint32	SimpleGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_SIMPLE;
 }
 
-PersistClass *	SimpleGameObjDef::Create( void ) const 
+PersistClass *	SimpleGameObjDef::Create( void ) const
 {
 	SimpleGameObj * obj = new SimpleGameObj;
 	obj->Init( *this );
@@ -112,7 +112,7 @@ bool	SimpleGameObjDef::Save( ChunkSaveClass & csave )
 	csave.Begin_Chunk( CHUNKID_DEF_VARIABLES );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_IS_EDITOR_OBJECT, IsEditorObject );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_IS_HIDDEN_OBJECT, IsHiddenObject );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_PLAYER_TERM_TYPE, PlayerTerminalType );		
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_PLAYER_TERM_TYPE, PlayerTerminalType );
 	csave.End_Chunk();
 
 	return true;
@@ -126,7 +126,7 @@ bool	SimpleGameObjDef::Load( ChunkLoadClass &cload )
 			case CHUNKID_DEF_PARENT:
 				PhysicalGameObjDef::Load( cload );
 				break;
-	  
+
 			case CHUNKID_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -154,9 +154,9 @@ bool	SimpleGameObjDef::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-const PersistFactoryClass & SimpleGameObjDef::Get_Factory (void) const 
-{ 
-	return _SimpleGameObjDefPersistFactory; 
+const PersistFactoryClass & SimpleGameObjDef::Get_Factory (void) const
+{
+	return _SimpleGameObjDefPersistFactory;
 }
 
 
@@ -165,7 +165,7 @@ const PersistFactoryClass & SimpleGameObjDef::Get_Factory (void) const
 */
 SimplePersistFactoryClass<SimpleGameObj, CHUNKID_GAME_OBJECT_SIMPLE>	_SimpleGameObjPersistFactory;
 
-const PersistFactoryClass & SimpleGameObj::Get_Factory (void) const 
+const PersistFactoryClass & SimpleGameObj::Get_Factory (void) const
 {
 	return _SimpleGameObjPersistFactory;
 }

@@ -69,14 +69,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CInertiaDialog message handlers
 
-BOOL CInertiaDialog::OnInitDialog() 
+BOOL CInertiaDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	m_IBodyXSpin.SetRange(MIN_IBODY * 100,MAX_IBODY * 100);
 	m_IBodyYSpin.SetRange(MIN_IBODY * 100,MAX_IBODY * 100);
 	m_IBodyZSpin.SetRange(MIN_IBODY * 100,MAX_IBODY * 100);
-	
+
 	Matrix3 ibody;
 	Object->Get_Inertia(&ibody);
 	m_IBodyXSpin.SetPos(ibody[0][0] * 100);
@@ -87,14 +87,14 @@ BOOL CInertiaDialog::OnInitDialog()
 	SetDlgItemFloat(IDC_IBODYY_EDIT,ibody[1][1]);
 	SetDlgItemFloat(IDC_IBODYZ_EDIT,ibody[2][2]);
 
-	return true; 
+	return true;
 }
 
 
-BOOL CInertiaDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 
+BOOL CInertiaDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	// make the spin controls work...
-	switch(wParam) 
+	switch(wParam)
 	{
 		case IDC_IBODYX_SPIN:
 		case IDC_IBODYY_SPIN:
@@ -113,14 +113,14 @@ BOOL CInertiaDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 }
 
 
-void CInertiaDialog::OnOK() 
+void CInertiaDialog::OnOK()
 {
 	Matrix3 ibody(1);
 	ibody[0][0] = GetDlgItemFloat(IDC_IBODYX_EDIT);
 	ibody[1][1] = GetDlgItemFloat(IDC_IBODYY_EDIT);
 	ibody[2][2] = GetDlgItemFloat(IDC_IBODYZ_EDIT);
 	Object->Set_Inertia(ibody);
-	
+
 	CDialog::OnOK();
 }
 

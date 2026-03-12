@@ -67,7 +67,7 @@ class WaypathClass;
 class WaypathNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ public:
 	//	RTTI
 	//
 	WaypathNodeClass *As_WaypathNodeClass (void)		{ return this; }
-	
+
 	//
 	// From NodeClass
 	//
@@ -138,7 +138,7 @@ public:
 	void			Get_Point (int index, Vector3 &point);
 	void			Get_Point (int index, WaypointNodeClass **waypoint);
 	void			Update_Line (void);
-	
+
 	void			Set_Flags (int flags);
 	void			Set_Flag (int flag, bool onoff);
 	bool			Get_Flag (int flag);
@@ -146,7 +146,7 @@ public:
 
 	//////////////////////////////////////////////////////////////////
 	//	Public flags
-	//////////////////////////////////////////////////////////////////	
+	//////////////////////////////////////////////////////////////////
 	typedef enum
 	{
 		FLAG_TWO_WAY			= WaypathClass::FLAG_TWO_WAY,
@@ -163,7 +163,7 @@ protected:
 	//////////////////////////////////////////////////////////////////
 	//	Protected methods
 	//////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Save/load methods
 	//
@@ -173,7 +173,7 @@ protected:
 	//	Misc utility methods
 	//
 	void						Free_Waypoints (void);
-	SegmentedLineClass *	Peek_Line (void);	
+	SegmentedLineClass *	Peek_Line (void);
 	WaypointNodeClass *	Create_Waypoint (const Vector3 &point);
 
 	//////////////////////////////////////////////////////////////////

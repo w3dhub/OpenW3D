@@ -71,7 +71,7 @@ public:
 		STATE_FINISHED						= 0,
 		STATE_WAITING,
 		STATE_MOVING
-	
+
 	}	STATE;
 
 	typedef enum
@@ -81,7 +81,7 @@ public:
 		TYPE_ELEVATOR,
 		TYPE_DOOR,
 		TYPE_LADDER
-	
+
 	}	TYPE;
 
 
@@ -95,7 +95,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Configuration
 	//
@@ -114,7 +114,7 @@ public:
 	//	Save/Load support
 	//
 	void				Save (ChunkSaveClass &csave);
-	void				Load (ChunkLoadClass &cload);	
+	void				Load (ChunkLoadClass &cload);
 
 	//
 	//	Ladder occupant access
@@ -149,7 +149,7 @@ private:
 		ELEVATOR_STATE_RIDING,
 		ELEVATOR_STATE_ENTERING,
 		ELEVATOR_STATE_EXITING,
-	
+
 	}	ELEVATOR_STATE;
 
 	typedef enum
@@ -158,7 +158,7 @@ private:
 		DOOR_STATE_GETTING_IN_POSITION,
 		DOOR_STATE_WAITING,
 		DOOR_STATE_ENTERING
-	
+
 	}	DOOR_STATE;
 
 	typedef enum
@@ -167,7 +167,7 @@ private:
 		LADDER_STATE_WAITING,
 		LADDER_STATE_GETTING_ON,
 		LADDER_STATE_CLIMBING
-	
+
 	}	LADDER_STATE;
 
 	////////////////////////////////////////////////////////////////
@@ -185,7 +185,7 @@ private:
 	Vector3					FacePos;
 	float						Timer;
 	int						LadderIndex;
-	
+
 	static DynamicVectorClass<GameObjReference>	LadderList;
 };
 

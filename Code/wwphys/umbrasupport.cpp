@@ -66,7 +66,7 @@ static int									_umbra_box_face_count = 12;
 
 
 /*
-** 
+**
 ** Local utility functions
 **
 */
@@ -89,7 +89,7 @@ static void _convert_matrix_westwood_to_umbra(const Matrix3D & in,Umbra::Matrix4
 			out.m[i][j] = in[j][i];
 		}
 	}
-		
+
 	out.m[0][3] = in[0][3];
 	out.m[1][3] = in[1][3];
 	out.m[2][3] = in[2][3];
@@ -130,7 +130,7 @@ static void _convert_frustum_westwood_to_umbra(const CameraClass & camera,Umbra:
 }
 
 
-static void _init_umbra_box(const AABoxClass & obj_bound_box) 
+static void _init_umbra_box(const AABoxClass & obj_bound_box)
 {
 	_umbra_box_verts[0].v[0] = obj_bound_box.Center.X + obj_bound_box.Extent.X;
 	_umbra_box_verts[0].v[1] = obj_bound_box.Center.Y + obj_bound_box.Extent.Y;
@@ -203,15 +203,15 @@ class UmbraCommanderClass : public Umbra::Commander
 {
 public:
 
-	UmbraCommanderClass(void) : VisObjList(NULL) 
+	UmbraCommanderClass(void) : VisObjList(NULL)
 	{
 	}
 
 	void Set_List(RefPhysListClass & visible_obj_list)
 	{
-		VisObjList = &visible_obj_list;		
+		VisObjList = &visible_obj_list;
 	}
-	
+
 	virtual void command(Command cmd)
 	{
 		WWASSERT(VisObjList != NULL);
@@ -249,7 +249,7 @@ void UmbraSupport::Init(void)
 	Umbra::Vector3 center;
 	center.v[0] = 0.0; center.v[1] = 0.0; center.v[2] = 0.0;
 	_DummySphere = new Umbra::SphereModel(center,1.0);
-	
+
 	/*
 	** Create a Cell to put everything (we don't have portals so everything is in one cell)
 	*/
@@ -261,9 +261,9 @@ void UmbraSupport::Init(void)
 	_TheCamera = new Umbra::Camera;
 	_TheCamera->setCell(_TheCell);
 
-//	_TheCamera->setParameters(	640,480,0); 
-//	_TheCamera->setParameters(	640,480,Umbra::Camera::VIEWFRUSTUM_CULLING); 
-	_TheCamera->setParameters(	640,480,Umbra::Camera::VIEWFRUSTUM_CULLING |	Umbra::Camera::OCCLUSION_CULLING); 
+//	_TheCamera->setParameters(	640,480,0);
+//	_TheCamera->setParameters(	640,480,Umbra::Camera::VIEWFRUSTUM_CULLING);
+	_TheCamera->setParameters(	640,480,Umbra::Camera::VIEWFRUSTUM_CULLING |	Umbra::Camera::OCCLUSION_CULLING);
 
 	/*
 	** Create the commander
@@ -341,7 +341,7 @@ Umbra::Model * UmbraSupport::Create_Mesh_Model(MeshClass & mesh)
 {
 	MeshModelClass * mdl = mesh.Get_Model();
 	Umbra::Model * new_model = NULL;
-	
+
 	if (mdl != NULL) {
 		int vcount = mdl->Get_Vertex_Count();
 		int fcount = mdl->Get_Polygon_Count();
@@ -367,10 +367,10 @@ Umbra::Model * UmbraSupport::Create_Mesh_Model(MeshClass & mesh)
 			new_model = new Umbra::MeshModel(uverts,ufaces,vcount,fcount);
 			new_model->autoRelease();
 		}
-	
+
 		REF_PTR_RELEASE(mdl);
-	} 
-	
+	}
+
 	if (new_model != NULL) {
 		return new_model;
 	} else {
@@ -384,7 +384,7 @@ void UmbraSupport::Collect_Visible_Objects(const CameraClass & camera,RefPhysLis
 	Umbra::Matrix4x4 camtocell;
 	Matrix3D camtm;
 	camtm = camera.Get_Transform();
-	camtm.Rotate_X(DEG_TO_RAD(180.0f));	
+	camtm.Rotate_X(DEG_TO_RAD(180.0f));
 	_convert_matrix_westwood_to_umbra(camtm,camtocell);
 
 //	_convert_matrix_westwood_to_umbra(camera.Get_Transform(),camtocell);

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/savegame.cpp                          $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 3/07/02 12:05p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 45                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/savegame.cpp                          $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 3/07/02 12:05p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 45                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "savegame.h"
@@ -77,8 +77,8 @@ enum	{
 
 #ifdef BETACLIENT
 	//
-	// This CHUNKID_LEVEL_INFO tweaking is temporary, to disallow the aircraft maps 
-	// to be used outside of the beta. The maps distributed with the Beta client must have 
+	// This CHUNKID_LEVEL_INFO tweaking is temporary, to disallow the aircraft maps
+	// to be used outside of the beta. The maps distributed with the Beta client must have
 	// 1011991648 replaced with 1011991650 and 1011991649 replaced with 1011991651.
 	//
 	CHUNKID_LEVEL_INFO					=	1011991650,
@@ -153,7 +153,7 @@ void	SaveGameManager::Pre_Load_Game
 (
 	 const char *	filename,
 	 StringClass & filename_to_load,
-	 StringClass &	lsd_filename 
+	 StringClass &	lsd_filename
 )
 {
 	//
@@ -178,7 +178,7 @@ void	SaveGameManager::Pre_Load_Game
 	//	Is this a mix file?
 	//
 	if (::strcmpi (extension, ".mix") == 0) {
-		
+
 		StringClass thumb_filename(root_name,true);
 		thumb_filename+=".thu";
 		ThumbnailManagerClass::Add_Thumbnail_Manager(thumb_filename,filename);
@@ -198,11 +198,11 @@ void	SaveGameManager::Pre_Load_Game
 			FileFactoryListClass::Get_Instance ()->Set_Search_Start(filename);
 		}
 
-	} else if (::strcmpi (extension, ".lsd") == 0) {		
+	} else if (::strcmpi (extension, ".lsd") == 0) {
 		lsd_filename = filename;
 		filename_to_load.Format ("%s.ldd", root_name);
 	} else {
-		
+
 		//
 		//	Dig out the name of the map we'll use with this file
 		//
@@ -257,7 +257,7 @@ void	SaveGameManager::Load_Game( const char * filename )
 			case CHUNKID_LEVEL_INFO:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						
+
 						READ_MICRO_CHUNK_WWSTRING( cload,	MICROCHUNKID_MAP_FILENAME,			MapFilename );
 						READ_MICRO_CHUNK( cload,			MICROCHUNKID_MISSION_DESCRIPTION,	MissionDescriptionID );
 						READ_MICRO_CHUNK_WIDESTRING( cload, MICROCHUNKID_DESCRIPTION,			Description );
@@ -281,11 +281,11 @@ void	SaveGameManager::Load_Game( const char * filename )
 				WWLOG_INTERMEDIATE("Load_Definitions");
 
 				// Load the static data
-				Load_Level();	
+				Load_Level();
 				WWLOG_INTERMEDIATE("Load_Level");
-				
+
 				break;
-								
+
 			case CHUNKID_LEVEL_DATA:
 				if (CombatManager::I_Am_Server()) {
 					SaveLoadSystemClass::Load( cload, false );
@@ -327,8 +327,8 @@ bool	SaveGameManager::Smart_Peek_Description
 	//	Is this a mix file?
 	//
 	FileFactoryClass * mix_factory = NULL;
-	if (::strcmpi (extension, ".mix") == 0) {		
-		
+	if (::strcmpi (extension, ".mix") == 0) {
+
 		//
 		// Configure a mix file factory for this mix file
 		//
@@ -380,7 +380,7 @@ bool SaveGameManager::Peek_Description
 	bool retval			= false;
 	int mission_name_id	= 0;
 	StringClass map_filename(0,true);
-	
+
 	//
 	//	Loop until we've found the header chunk
 	//
@@ -390,7 +390,7 @@ bool SaveGameManager::Peek_Description
 			case CHUNKID_LEVEL_INFO:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						
+
 						//
 						//	Read the header chunks
 						//
@@ -441,7 +441,7 @@ bool SaveGameManager::Peek_Map_Name( const char * filename, StringClass &map_nam
 	ChunkLoadClass cload(file);
 
 	bool retval = false;
-	
+
 	//
 	//	Loop until we've found the header chunk
 	//
@@ -451,9 +451,9 @@ bool SaveGameManager::Peek_Map_Name( const char * filename, StringClass &map_nam
 			case CHUNKID_LEVEL_INFO:
 				while (retval == false && cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						
+
 					//
-					//	Read the map name string from chunk	
+					//	Read the map name string from chunk
 					//
 					case MICROCHUNKID_MAP_FILENAME:
 						LOAD_MICRO_CHUNK_WWSTRING( cload, map_name );
@@ -482,8 +482,8 @@ bool SaveGameManager::Peek_Map_Name( const char * filename, StringClass &map_nam
 void	SaveGameManager::Save_Level( void )
 {
 	Debug_Say(( "Save Level %s\n", MapFilename ));
-	Save_Save_Load_System(	MapFilename,	
-									&_PhysStaticDataSaveSystem, 
+	Save_Save_Load_System(	MapFilename,
+									&_PhysStaticDataSaveSystem,
 									&_PhysStaticObjectsSaveSystem,
 									&_StaticAudioSaveLoadSubsystem,
 									&_TheBackgroundMgr,

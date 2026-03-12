@@ -63,7 +63,7 @@ int DlgMsgBox::CurrentCount	= 0;
 
 bool DlgMsgBox::DoDialog(const unichar_t* title, const unichar_t* text,
 		DlgMsgBox::Type type, Observer<DlgMsgBoxEvent>* observer, unsigned int user_data)
-	{	
+	{
 	DlgMsgBox* popup = new DlgMsgBox;
 
 	if (popup)
@@ -238,10 +238,10 @@ void DlgMsgBox::On_Command(int ctrl, int message, unsigned int param)
 		case IDOK:
 			{
 			Add_Ref();
-			
+
 			DlgMsgBoxEvent event(DlgMsgBoxEvent::Okay, this, mUserData);
 			NotifyObservers(event);
-			
+
 			Release_Ref();
 			End_Dialog();
 			}
@@ -250,10 +250,10 @@ void DlgMsgBox::On_Command(int ctrl, int message, unsigned int param)
 		case IDYES:
 			{
 			Add_Ref();
-			
+
 			DlgMsgBoxEvent event(DlgMsgBoxEvent::Yes, this, mUserData);
 			NotifyObservers(event);
-			
+
 			Release_Ref();
 			End_Dialog();
 			}
@@ -262,7 +262,7 @@ void DlgMsgBox::On_Command(int ctrl, int message, unsigned int param)
 		case IDNO:
 			{
 			Add_Ref();
-			
+
 			DlgMsgBoxEvent event(DlgMsgBoxEvent::No, this, mUserData);
 			NotifyObservers(event);
 

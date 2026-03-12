@@ -79,9 +79,9 @@ GeneratingEdgeSampledVisDialogClass::GeneratingEdgeSampledVisDialogClass(CWnd* p
 	//{{AFX_DATA_INIT(GeneratingEdgeSampledVisDialogClass)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
-	
+
 	Create (GeneratingEdgeSampledVisDialogClass::IDD, NULL);
-	
+
 	//
 	//	Determine the section of the status file
 	//
@@ -90,7 +90,7 @@ GeneratingEdgeSampledVisDialogClass::GeneratingEdgeSampledVisDialogClass(CWnd* p
 
 	//
 	//	Get the installation directory of this application
-	//		
+	//
 	TCHAR exe_path[MAX_PATH] = { 0 };
 	::GetModuleFileName (::AfxGetInstanceHandle (), exe_path, sizeof (exe_path));
 	CString path = ::Strip_Filename_From_Path (exe_path);
@@ -136,7 +136,7 @@ BOOL
 GeneratingEdgeSampledVisDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog();
-	
+
 	//
 	//	Configure the progress control
 	//
@@ -183,7 +183,7 @@ GeneratingEdgeSampledVisDialogClass::OnTimer (UINT_PTR nIDEvent)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-GeneratingEdgeSampledVisDialogClass::OnCancel (void) 
+GeneratingEdgeSampledVisDialogClass::OnCancel (void)
 {
 	m_IsCancelled = true;
 
@@ -213,7 +213,7 @@ void
 GeneratingEdgeSampledVisDialogClass::Update_Stats (void)
 {
 	if (m_ProgressObj != NULL) {
-		
+
 		//
 		//	Update the simple text controls
 		//
@@ -249,13 +249,13 @@ GeneratingEdgeSampledVisDialogClass::Update_Stats (void)
 			CString status_text;
 			status_text.Format ("Nodes processed %d of %d.",processed,total);
 			SetDlgItemText (IDC_STATUS_TEXT, status_text);
-			
-			CString elapsed_text;			
+
+			CString elapsed_text;
 			elapsed_text.Format ("Elapsed: %.1f min Remaining: %.1f min.",elapsed_minutes, remaining_minutes);
 			SetDlgItemText (IDC_ELAPSED_TIME_TEXT, elapsed_text);
 
 		} else {
-			
+
 			CString status_text;
 			status_text.Format ("Nodes processed %d of %d.",processed,total);
 			SetDlgItemText (IDC_STATUS_TEXT, status_text);
@@ -299,7 +299,7 @@ GeneratingEdgeSampledVisDialogClass::Set_Progress_Obj (VisGenProgressClass *obj)
 /////////////////////////////////////////////////////////////////////////////
 GeneratingEdgeSampledVisDialogClass *
 GeneratingEdgeSampledVisDialogClass::Display (void)
-{	
+{
 	//
 	//	Create the dialog on a separate thread
 	//
@@ -316,7 +316,7 @@ GeneratingEdgeSampledVisDialogClass::Display (void)
 /////////////////////////////////////////////////////////////////////////////
 void
 GeneratingEdgeSampledVisDialogClass::End_Dialog (void)
-{	
+{
 	::DestroyWindow (m_hWnd);
 	::PostQuitMessage (0);
 	return ;
@@ -330,7 +330,7 @@ GeneratingEdgeSampledVisDialogClass::End_Dialog (void)
 /////////////////////////////////////////////////////////////////////////////
 void
 GeneratingEdgeSampledVisDialogClass::Set_Finished (bool is_finished)
-{	
+{
 	m_IsFinished = is_finished;
 	End_Dialog();
 	return ;

@@ -16,7 +16,7 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// 
+//
 // skeleton.cpp : Defines the entry point for the application.
 //
 // Skeleton WW3D code, Hector Yee, 8/31/00
@@ -93,7 +93,7 @@ CameraClass *			my_camera = NULL;
 CameraClass *			my_2d_camera = NULL;
 Render2DTextClass *	mytext = NULL;
 RenderObjClass *		my_object = NULL;
-HAnimClass *			my_anim = NULL; 
+HAnimClass *			my_anim = NULL;
 TexProjectClass *		my_texture_projector = NULL;
 MaterialPassClass *	my_material_pass = NULL;
 LightClass *			my_lights[3];
@@ -196,7 +196,7 @@ public:
 	~SkeletonSceneClass(void) { REF_PTR_RELEASE(TestPass); }
 
 	virtual void	Customized_Render(RenderInfoClass & rinfo);
-	void				Set_Material_Pass(MaterialPassClass * pass)	{ REF_PTR_SET(TestPass,pass); }	
+	void				Set_Material_Pass(MaterialPassClass * pass)	{ REF_PTR_SET(TestPass,pass); }
 
 protected:
 	MaterialPassClass *	TestPass;
@@ -204,8 +204,8 @@ protected:
 
 // ----------------------------------------------------------------------------
 
-void	SkeletonSceneClass::Customized_Render(RenderInfoClass & rinfo)	
-{ 
+void	SkeletonSceneClass::Customized_Render(RenderInfoClass & rinfo)
+{
 	if (TestPass) {
 		rinfo.Push_Material_Pass(TestPass);
 	}
@@ -229,7 +229,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 {
 	HACCEL hAccelTable;
 	hAccelTable = LoadAccelerators(hInstance, (LPCTSTR)IDC_SKELETON);
-	
+
 	// install debug callbacks
 	WWDebug_Install_Message_Handler(WWDebug_Message_Callback);
 	WWDebug_Install_Assert_Handler(WWAssert_Callback);
@@ -243,33 +243,33 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	hInst = hInstance; // Store instance handle in our global variable
 	HWND hWnd = CreateWindow(
-		szWindowClass, 
-		szTitle, 
+		szWindowClass,
+		szTitle,
 		WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 
-		0, 
-		CW_USEDEFAULT, 
-		0, 
-		NULL, 
-		NULL, 
-		hInstance, 
+      CW_USEDEFAULT,
+		0,
+		CW_USEDEFAULT,
+		0,
+		NULL,
+		NULL,
+		hInstance,
 		NULL);
 
 	ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   // WW Inits 
+   // WW Inits
 	WWMath::Init ();
-	AssetManager=new WW3DAssetManager;	
+	AssetManager=new WW3DAssetManager;
 	AssetManager->Register_Prototype_Loader(&_ParticleEmitterLoader);
 	AssetManager->Load_3D_Assets("ShatterPlanes0.w3d");		// Shatter planes
-	WW3D::Init(hWnd);	
+	WW3D::Init(hWnd);
 
 //	WW3D::Set_Prelit_Mode(WW3D::PRELIT_MODE_VERTEX);
 	WW3D::Set_Prelit_Mode(WW3D::PRELIT_MODE_LIGHTMAP_MULTI_PASS);
 //	WW3D::Set_Prelit_Mode(WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
 //	WW3D::Set_Collision_Box_Display_Mask(0xFF);
-	
+
 	if (WW3D::Set_Render_Device(-1,RESOLUTION_X,RESOLUTION_Y,BIT_DEPTH,1,true)!=WW3D_ERROR_OK) {
 		if (WW3D::Set_Any_Render_Device()!=WW3D_ERROR_OK) {
 			WW3D::Shutdown();
@@ -283,7 +283,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	Init_2D_Scene();
 	Init_3D_Scene();
 
-	// main loop	
+	// main loop
 	int time=timeGetTime();
 	float theta = 0.0f;
 
@@ -296,8 +296,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			//tm.Rotate_X(theta*1.37f);
 			//tm.Rotate_Y(theta*1.09f);
 			tm.Set_Translation(OBJECT_POSITION);
-			my_object->Set_Transform(tm);			
-		}		
+			my_object->Set_Transform(tm);
+		}
 
 		if (my_object && my_texture_projector) {
 			my_texture_projector->Set_Transform(my_object->Get_Bone_Transform("ProjectorBone"));
@@ -308,7 +308,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 			if (my_object->Class_ID()==RenderObjClass::CLASSID_MESH)
 			{
 				my_scene->Remove_Render_Object(my_object);
-				ShatterSystem::Shatter_Mesh((MeshClass*)my_object,Vector3(0,0,0),Vector3(1,0,0));				
+				ShatterSystem::Shatter_Mesh((MeshClass*)my_object,Vector3(0,0,0),Vector3(1,0,0));
 				REF_PTR_RELEASE(my_object);
 				int count=ShatterSystem::Get_Fragment_Count();
 				int i;
@@ -358,9 +358,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 				case 2: sprintf(name,"fullmoon.tga");
 					break;
 				}
-				TextureClass *newtex=AssetManager->Get_Texture(name);				
+				TextureClass *newtex=AssetManager->Get_Texture(name);
 				mesh->Replace_Texture(tex,newtex);
-				mi->Replace_Texture(0,newtex);				
+				mi->Replace_Texture(0,newtex);
 				REF_PTR_RELEASE(newtex);
 			}
 			randtex=!randtex;
@@ -372,7 +372,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 		WW3D::Enable_Static_Sort_Lists(staticsort);
 		Render();
-		Windows_Message_Handler();		
+		Windows_Message_Handler();
 		WW3D::Sync(timeGetTime()-time);
 
 		Log_Statistics();
@@ -415,13 +415,13 @@ void Render()
 	// Predictive LOD optimizer optimizes the mesh LOD levels to match the given polygon budget
 	PredictiveLODOptimizerClass::Optimize_LODs(5000);
 
-	WW3D::Begin_Render(true,true,Vector3(0.0f,0.0f,0.0f));		
+	WW3D::Begin_Render(true,true,Vector3(0.0f,0.0f,0.0f));
 
 	// Render 3D scene
-	WW3D::Render(my_scene,my_camera);	
+	WW3D::Render(my_scene,my_camera);
 
 	// Render 2D scene
-	WW3D::Render(my_2d_scene,my_2d_camera);	
+	WW3D::Render(my_2d_scene,my_2d_camera);
 
 	if (mytext) mytext->Render();
 
@@ -449,7 +449,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 {
 	WNDCLASSEX wcex;
 
-	wcex.cbSize = sizeof(WNDCLASSEX); 
+	wcex.cbSize = sizeof(WNDCLASSEX);
 
 	wcex.style			= CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc	= (WNDPROC)WndProc;
@@ -485,11 +485,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 	HDC hdc;
 
-	switch (message) 
+	switch (message)
 	{
 		case WM_COMMAND:
-			wmId    = LOWORD(wParam); 
-			wmEvent = HIWORD(wParam); 
+			wmId    = LOWORD(wParam);
+			wmEvent = HIWORD(wParam);
 			// Parse the menu selections:
 			switch (wmId)
 			{
@@ -509,7 +509,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		case WM_PAINT:
 			hdc = BeginPaint(hWnd, &ps);
-			// TODO: Add any drawing code here...			
+			// TODO: Add any drawing code here...
 			EndPaint(hWnd, &ps);
 			break;
 		case WM_DESTROY:
@@ -620,12 +620,12 @@ LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 				return true;
 
 		case WM_COMMAND:
-			if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL) 
+			if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
 			{
 				EndDialog(hDlg, LOWORD(wParam));
 				return true;
 			}
-			break;		
+			break;
 	}
     return false;
 }
@@ -697,7 +697,7 @@ RenderObjClass * Create_Dynamesh(void)
 RenderObjClass *Create_segline(void)
 {
 	SegmentedLineClass *segline = NEW_REF(SegmentedLineClass,());
-	
+
 	Vector3 locations[4];
 	locations[0].Set(0,0,0);
 	locations[1].Set(50,50,50);
@@ -749,7 +749,7 @@ RenderObjClass * Create_Ring(void)
 
 	rng->Set_Color(Vector3(1,0,1));
 	rng->Set_Inner_Scale(Vector2(10,10));
-	rng->Set_Outer_Scale(Vector2(50,50));	
+	rng->Set_Outer_Scale(Vector2(50,50));
 	return rng;
 }
 
@@ -814,7 +814,7 @@ void Create_Decal(RenderObjClass * robj,Matrix3D & tm,float radius,char * textur
 
 MaterialPassClass *	Create_Material_Pass(void)
 {
-	TextureClass * texture = WW3DAssetManager::Get_Instance()->Get_Texture("decal.tga");	
+	TextureClass * texture = WW3DAssetManager::Get_Instance()->Get_Texture("decal.tga");
 	VertexMaterialClass * mtl = NEW_REF(VertexMaterialClass,());
 	mtl->Set_Diffuse(0.5f,0.5f,0.5f);
 	mtl->Set_Specular(0,0,0);
@@ -849,12 +849,12 @@ TexProjectClass *	Create_Texture_Projector(void)
 	new_projector->Init_Additive();
 	new_projector->Set_Intensity(1.0,true);
 	new_projector->Set_Ortho_Projection(-SIZE,SIZE,-SIZE,SIZE,ZNEAR,ZFAR);
-	
+
 	Matrix3D tm;
 	tm.Look_At(Vector3(200,200,200),Vector3(0,0,0),0.0f);
 	new_projector->Set_Transform(tm);
 
-	TextureClass * texture = WW3DAssetManager::Get_Instance()->Get_Texture("GreenSpot.tga");	
+	TextureClass * texture = WW3DAssetManager::Get_Instance()->Get_Texture("GreenSpot.tga");
 
 	new_projector->Set_Texture(texture);
 	REF_PTR_RELEASE(texture);
@@ -961,7 +961,7 @@ void Log_Statistics()
 	}
 
 	switch (stats_mode) {
-	case 0:		
+	case 0:
 		Debug_Statistics::Record_Texture_Mode(Debug_Statistics::RECORD_TEXTURE_NONE);
 		break;
 	case 1:
@@ -1021,7 +1021,7 @@ void Init_Assets()
    AssetManager->Load_3D_Assets("SkinTest.w3d");			// Tests skinning and environment mapping
    AssetManager->Load_3D_Assets("sorting_test.w3d");			// Tests skinning and environment mapping
    AssetManager->Load_3D_Assets("boxtest.w3d");				// Tests BoxRenderObjClass (turn on the box display mask)
-  	AssetManager->Load_3D_Assets("Test1.w3d");				// Test yellow particles		
+  	AssetManager->Load_3D_Assets("Test1.w3d");				// Test yellow particles
   	AssetManager->Load_3D_Assets("Test2.w3d");				// Tests alpha particles
   	AssetManager->Load_3D_Assets("MPassSphere.w3d");		// Tests more than 2 passes on a mesh
   	AssetManager->Load_3D_Assets("MPassTeapot.w3d");		// Tests more that 2 passes
@@ -1038,8 +1038,8 @@ void Init_Assets()
 	AssetManager->Load_3D_Assets("SCREEN_ALIGN.w3d");		// Tests camera aligned meshes
 	AssetManager->Load_3D_Assets("halfsphere.w3d");			// Tests two-sided flag, camera aligned, and camera oriented meshes
 	AssetManager->Load_3D_Assets("tsi01a.w3d");			// Tests static sort level
-	AssetManager->Load_3D_Assets("tsi08a.w3d");			// Tests static sort level	
-*/	
+	AssetManager->Load_3D_Assets("tsi08a.w3d");			// Tests static sort level
+*/
 	AssetManager->Load_3D_Assets("area1-LM.w3d");
 /*
 	AssetManager->Load_3D_Assets("S_A_Human.W3D");
@@ -1047,7 +1047,7 @@ void Init_Assets()
 	AssetManager->Load_3D_Assets("h_a_a0a1.W3D");
 */
 }
-	
+
 // ----------------------------------------------------------------------------
 //
 // Create a scene for 2D-display, such as text and rectangles.
@@ -1071,9 +1071,9 @@ void Init_2D_Scene()
 
 	// Scene needs camera to be rendered with ----------------------------------
 
-	my_2d_camera = NEW_REF(CameraClass,());   
+	my_2d_camera = NEW_REF(CameraClass,());
 #ifdef DRAWBITMAP
-	my_2d_camera->Set_Position(Vector3(0,0,1));	
+	my_2d_camera->Set_Position(Vector3(0,0,1));
 	my_2d_camera->Set_Clip_Planes(0.995,2);
 #else
 	my_2d_camera->Set_Position(Vector3(0,0,320));
@@ -1081,7 +1081,7 @@ void Init_2D_Scene()
 #endif
 	Vector2 min = Vector2(-1, -0.75f);
 	Vector2 max = Vector2(+1, +0.75f);
-	my_2d_camera->Set_View_Plane(min, max);			
+	my_2d_camera->Set_View_Plane(min, max);
 }
 
 void Init_3D_Scene()
@@ -1089,13 +1089,13 @@ void Init_3D_Scene()
 	WW3D::Enable_Sorting(false);
 	WW3D::Set_NPatches_Level(1);
 
-	// build scene	
+	// build scene
 	my_scene=NEW_REF(SkeletonSceneClass,());
 	my_scene->Set_Ambient_Light(Vector3(0.5f,0.5f,0.5f));
 
 	// set up a light
 	my_lights[0]=my_lights[1]=my_lights[2]=NULL;
-	my_lights[0]=NEW_REF(LightClass,(LightClass::DIRECTIONAL));	
+	my_lights[0]=NEW_REF(LightClass,(LightClass::DIRECTIONAL));
 	my_lights[0]->Set_Ambient(Vector3(0.1f,0.1f,0.1f));
 	my_lights[0]->Set_Diffuse(Vector3(1.0f,1.0f,1.0f));
 	my_lights[0]->Set_Spot_Direction(Vector3(0,1,0));
@@ -1113,7 +1113,7 @@ void Init_3D_Scene()
 	}
 
 	if (my_object != NULL) {
-		
+
 		my_object->Set_Position(OBJECT_POSITION);
 
 #if 0
@@ -1127,7 +1127,7 @@ void Init_3D_Scene()
 		Create_Decal(my_object,decal_tm,13.7f,"decal.tga");
 #endif
 
-//		PredictiveLODOptimizerClass::Add_Object(my_object);		
+//		PredictiveLODOptimizerClass::Add_Object(my_object);
 		my_object->Set_Position(Vector3(0,0,0));
 		if (my_anim != NULL) {
 			my_object->Set_Animation(my_anim,0,RenderObjClass::ANIM_MODE_LOOP);
@@ -1137,7 +1137,7 @@ void Init_3D_Scene()
 		if (my_object->Class_ID()==RenderObjClass::CLASSID_PARTICLEEMITTER) {
 			((ParticleEmitterClass*) my_object)->Start();
 		}
-	}	
+	}
 
 	// 3D line object ----------------------------------------------------------
 #if 0

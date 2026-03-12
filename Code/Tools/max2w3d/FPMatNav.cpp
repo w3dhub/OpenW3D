@@ -55,7 +55,7 @@ FPMatNav fpMatNav(FPMATNAV_INTERFACE, _T("MaterialNavNotify"), 0, NULL, FP_CORE,
 		_T("Element"), 0, TYPE_INT,
 	IFPMatNav::idSetMaterialBySlot, _T("SetMaterialBySlot"), 0, TYPE_VOID, 0, 1,
 		_T("slot"), 0, TYPE_INT,
-end 
+end
 );
 
 IFPMatNav *FPMatNav::m_pIFPMatNavCallback = NULL;

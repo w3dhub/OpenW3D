@@ -73,7 +73,7 @@ int MsgManager::setDebugStream(OutputDevice *device)
   if (device==NULL)
     return(1);
 
- 
+
   debug_streamer.setOutputDevice(device);
   delete(debug_ostream);
   debug_ostream=new std::ostream(&debug_streamer);
@@ -140,4 +140,4 @@ std::ostream *MsgManager::warnStream(void)
 std::ostream *MsgManager::errorStream(void)
 {
   return(error_ostream);
-}   
+}

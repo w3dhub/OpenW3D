@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/gameobjmanager.h                      $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 12/09/01 2:02p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 38                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/gameobjmanager.h                      $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 12/09/01 2:02p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 38                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	GAMEOBJMANAGER_H
@@ -86,7 +86,7 @@ enum
 **
 ** In the editor, building objects will be created and added to this manager.  In the game, they will
 ** be loaded.  After a level has been loaded, the 'Init_Level_Buildings' function should be called.
-** This manager will be the entry point for any operations that need to happen on all existing buildings 
+** This manager will be the entry point for any operations that need to happen on all existing buildings
 ** such as save/load, per-frame processing, etc.
 */
 

@@ -59,7 +59,7 @@ static VisemeTableItem gsVisemeTable[] =
 	{"and",		VISEME_NEW, VISEME_TOLD},
 	{"ze",		VISEME_ROAR, VISEME_EAT},		// numbers: zero to nine
 	{"ro",		VISEME_WET, VISEME_OX},
-	{"one",		VISEME_WET, VISEME_CAT},		
+	{"one",		VISEME_WET, VISEME_CAT},
 	{"two",		VISEME_EAT, VISEME_WET},
 	{"thr",		VISEME_THOUGH, VISEME_ROAR},
 	{"fou",		VISEME_FAVE, VISEME_OX},
@@ -70,7 +70,7 @@ static VisemeTableItem gsVisemeTable[] =
 	{"eight",	VISEME_CAT, VISEME_EAT},
 	{"ni",		VISEME_THOUGH, VISEME_IF},
 	{"ne",		VISEME_THOUGH, -1},				// end numbers
-	
+
 };
 
 struct VisemeTableReferenceItem
@@ -120,7 +120,7 @@ VisemeManager::VisemeManager(void)
 // Input:	word		- word to parse
 //			maxvisemes	- max. number of visemes on the output list visemelist
 // Output:	visemelist	- contains viseme ID's
-// Remark:	this routine examines word and identifies visemes and place them 
+// Remark:	this routine examines word and identifies visemes and place them
 //			on the given output list(visemelist)
 // Return:	number of visemes on the output list
 //
@@ -143,7 +143,7 @@ int VisemeManager::Get_Visemes(const char *word, int *visemelist, int maxvisemes
 	while ( *pchar ) {
 		// check for tabled viseme combinations
 		offset = Lookup(pchar, word, viseme);
-		
+
 		if ( offset == 0 ) {
 			// analyse the current letter
 
@@ -598,7 +598,7 @@ int VisemeManager::Do_Letter_t(const char *pchar, char /*prevchar*/, int *viseme
 		}
 	}
 	else if ( pchar[1] == 'h' ) {
-		viseme[0] = VISEME_THOUGH;		// e.g. "this","thin", "through", "then" 
+		viseme[0] = VISEME_THOUGH;		// e.g. "this","thin", "through", "then"
 		offset = 2;						// except for "thomas"
 	}
 

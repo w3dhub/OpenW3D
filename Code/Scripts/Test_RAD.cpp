@@ -1296,7 +1296,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 
 	// On Created, place unit in Default State
 	// Random crouch walk or run between two points and fire at targets
-	
+
 	void Created (GameObject * obj) override
 	{
 		Commands->Attach_Script (obj, "M00_Soldier_Powerup_Disable", "");
@@ -2380,7 +2380,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							}
 						case (2):
 							{
-								moveloc = Commands->Find_Object (MX0_A02_MOVE_OBJ_04);						
+								moveloc = Commands->Find_Object (MX0_A02_MOVE_OBJ_04);
 								break;
 							}
 						case (3):
@@ -2443,7 +2443,7 @@ DECLARE_SCRIPT (MX0_A02_ACTOR, "ActorID=0:int")
 							}
 						case (2):
 							{
-								moveloc = Commands->Find_Object (MX0_A02_MOVE_OBJ_03);						
+								moveloc = Commands->Find_Object (MX0_A02_MOVE_OBJ_03);
 								break;
 							}
 						case (3):
@@ -2944,7 +2944,7 @@ DECLARE_SCRIPT (MX0_A02_GDI_MEDTANK, "")
 	{
 		SAVE_VARIABLE (entered, 1);
 	}
-	
+
 	void Created (GameObject * /*obj*/) override
 	{
 		entered = false;
@@ -3165,7 +3165,7 @@ DECLARE_SCRIPT (M03_A05_Evac_Zone, "")
 		soldier_obj_1 = Commands->Create_Object("Nod MiniGunner", position);
 
 		ActionParamsStruct params;
-		
+
 		if (soldier_obj_1)
 		{
 			Commands->Attach_Script(soldier_obj_1, "M00_Trigger_When_Destroyed_RMV", "1,2,1,0,1000004,1000,1,0.0,0.0,0");

@@ -72,7 +72,7 @@ static const char VALUE_INI_SPEAKER_TYPE[]		= "SpeakerType";
 static const char WWAUDIO_INI_FILENAME[]				= "WWAudio.ini";
 static const char WWAUDIO_INI_RELATIVE_PATHNAME[]	= "Data/WWAudio.ini";
 static const char INI_DEFAULT_VOLUME_SECTION[]		= "Default Volume";
-static const char INI_MUSIC_VOLUME_ENTRY[]			= "MUSIC_VOLUME"; 
+static const char INI_MUSIC_VOLUME_ENTRY[]			= "MUSIC_VOLUME";
 static const char INI_SOUND_VOLUME_ENTRY[]			= "SOUND_VOLUME";
 static const char INI_DIALOG_VOLUME_ENTRY[]			= "DIALOG_VOLUME";
 static const char INI_CINEMATIC_VOLUME_ENTRY[]		= "CINEMATIC_VOLUME";
@@ -85,7 +85,7 @@ static constexpr int	MAX_VIRTUAL_CHANNELS				= 100;
 WWAudioClass *WWAudioClass::_theInstance = NULL;
 
 WWAudioClass::WWAudioClass(bool lite)
- : 
+ :
 	  m_BackgroundMusic (NULL),
 	  m_FileFactory (NULL),
 		AudioIni(NULL),
@@ -133,7 +133,7 @@ WWAudioClass::WWAudioClass(bool lite)
 }
 
 WWAudioClass::~WWAudioClass (void)
-{ 
+{
 	delete AudioIni;
 	_theInstance = NULL;
 }
@@ -800,7 +800,7 @@ WWAudioClass::Create_Sound_Effect (const char *filename)
 		// Param OK?
 		WWASSERT (filename != NULL);
 		if (filename != NULL) {
-			
+
 			// Try to find the buffer in our cache, otherwise create a new buffer.
 			SoundBufferClass *buffer = Get_Sound_Buffer (filename, false);
 
@@ -1443,7 +1443,7 @@ WWAudioClass::Load_From_Registry
 	INIClass ini(W3D_CONF_FILE);
 
 	if(ini.Is_Present(W3D_SECTION_SOUND)) {
-		
+
 		//
 		//	Read the device name into a string object
 		//
@@ -1466,7 +1466,7 @@ WWAudioClass::Load_From_Registry
 		dialog_enabled		= ini.Get_Bool (W3D_SECTION_SOUND, VALUE_INI_DIALOG_ENABLED, true);
 		cinematic_enabled = ini.Get_Bool (W3D_SECTION_SOUND, VALUE_INI_CINEMATIC_ENABLED, true);
 
-		
+
 		//
 		//	Read the volume information
 		//

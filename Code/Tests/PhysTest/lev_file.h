@@ -55,7 +55,7 @@
   encounters those chunks.
 
   The chunk 'LEV_CHUNK_STATIC_SCENE' can be handled by the physics scene's Load_Static_Scene
-  function and the 'LEV_CHUNK_DYNAMIC_SCENE' can be handled by the physics scene's 
+  function and the 'LEV_CHUNK_DYNAMIC_SCENE' can be handled by the physics scene's
   Load_Dynamic_Scene function.  The definitions for the data inside those chunks can be
   found inside the header file 'physchunks.h'
 
@@ -64,11 +64,11 @@
 enum {
 
 	LEV_CHUNK_LEVEL						= 0x00000000,	// wraps entire level definition
-		
+
 		LEV_CHUNK_MAP						= 0x00000100,	// wraps the map definition
 			LEV_CHUNK_STATIC_SCENE		= 0x00000102,	// wraps physics definition of static objs (terrain)
 			LEV_CHUNK_STATIC_GAMEOBJS	= 0x00000103,	// game object definitions which link to above phys objs
-		
+
 		LEV_CHUNK_OBJECTS					= 0x00000200,	// wraps defintion of all of the dynamic objects
 			LEV_CHUNK_DYNAMIC_SCENE		= 0x00000201,	// wraps physics definition of dynamic objs
 			LEV_CHUNK_DYNAMIC_GAMEOBJS	= 0x00000202,	// game obj definitions which link to above phys objs

@@ -104,7 +104,7 @@ public:
 	//
 	void						Deform_Heightfield (const Vector3 &center, float amount, float inner_radius, float outter_radius);
 	void						Smooth_Heightfield (const Vector3 &center, float amount, float inner_radius, float outter_radius);
-	void						Smooth_Foundation_Heightfield (const Vector3 &center, float amount, float inner_radius, float outter_radius);	
+	void						Smooth_Foundation_Heightfield (const Vector3 &center, float amount, float inner_radius, float outter_radius);
 	void						Paint_Heightfield (const Vector3 &world_space_center, int texture_index, float amount, float	inner_radius, float outter_radius);
 	void						Cutout_Heightfield (const Vector3 &world_space_center, float outter_radius, bool subtract);
 
@@ -124,12 +124,12 @@ public:
 	TerrainMaterialClass *	Peek_Material (int index)			{ return MaterialList[index]; }
 	void							Set_Material (int index, TerrainMaterialClass *material);
 	void							On_Material_Changed (int index);
-	
+
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
-	///////////////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////////////////////
 
 	//
 	//	Index utility functions
@@ -137,7 +137,7 @@ protected:
 	int						Grid_Index (int x, int y)			{ return (y * GridPointsX) + x; }
 
 	int						Get_Point_Index_X (float x_pos, bool clamp = true);
-	int						Get_Point_Index_Y (float y_pos, bool clamp = true);		
+	int						Get_Point_Index_Y (float y_pos, bool clamp = true);
 	int						Get_Quad_Index_X (float x_pos, bool clamp = true);
 	int						Get_Quad_Index_Y (float y_pos, bool clamp = true);
 
@@ -149,7 +149,7 @@ protected:
 	void						Initialize_Material (void);
 	void						Initialize (void);
 	void						Initialize_Grid (void);
-	void						Allocate_Grid (void);	
+	void						Allocate_Grid (void);
 
 	void						Update_Normals (int min_x, int min_y, int max_x, int max_y);
 	void						Update_UVs (void);
@@ -181,7 +181,7 @@ protected:
 		QF_NORMAL		= 0,
 		QF_HIDDEN		= 1,
 	} QUAD_FLAGS;
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////

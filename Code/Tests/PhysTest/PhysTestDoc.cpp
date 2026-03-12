@@ -51,7 +51,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // Chunk ID's used by PhysTestDoc
 
-enum 
+enum
 {
 	PHYSTESTDOC_CHUNK_MAINFRAME	= 0x03321990,
 	PHYSTESTDOC_CHUNK_SYSTEMS,
@@ -73,7 +73,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CPhysTestDoc construction/destruction
 
-CPhysTestDoc::CPhysTestDoc() : 
+CPhysTestDoc::CPhysTestDoc() :
 	Scene(NULL),
 	Light(NULL),
 	Origin(NULL)
@@ -82,7 +82,7 @@ CPhysTestDoc::CPhysTestDoc() :
 
 CPhysTestDoc::~CPhysTestDoc()
 {
-	if (Scene) { 
+	if (Scene) {
 		Scene->Remove_All();
 	}
 	REF_PTR_RELEASE(Scene);
@@ -125,7 +125,7 @@ void CPhysTestDoc::Init_Scene(void)
 					Light->Set_Flag (LightClass::NEAR_ATTENUATION, false);
 					Light->Set_Flag (LightClass::FAR_ATTENUATION, false);
 					Light->Set_Far_Attenuation_Range (1000000, 1000000);
-					
+
 					Light->Set_Intensity(1.0F);
 					Light->Set_Force_Visible(true);
 					Light->Set_Ambient(Vector3(0,0,0));
@@ -184,7 +184,7 @@ BOOL CPhysTestDoc::OnNewDocument()
 
 	if (Scene) {
 		Scene->Remove_All();
-		
+
 		WWASSERT(Light);
 		if (Light) {
 			Scene->Add_Render_Object(Light);
@@ -202,16 +202,16 @@ BOOL CPhysTestDoc::OnNewDocument()
 	return true;
 }
 
-BOOL CPhysTestDoc::OnOpenDocument(LPCTSTR lpszPathName) 
+BOOL CPhysTestDoc::OnOpenDocument(LPCTSTR lpszPathName)
 {
-	Load_PHY_File(lpszPathName); 
+	Load_PHY_File(lpszPathName);
 	Get_Data_View()->Rebuild_Tree();
 	return true;
 }
 
-BOOL CPhysTestDoc::OnSaveDocument(LPCTSTR lpszPathName) 
+BOOL CPhysTestDoc::OnSaveDocument(LPCTSTR lpszPathName)
 {
-	Save_PHY_File(lpszPathName); 
+	Save_PHY_File(lpszPathName);
 	return true;
 }
 
@@ -220,7 +220,7 @@ BOOL CPhysTestDoc::OnSaveDocument(LPCTSTR lpszPathName)
 //
 //  Load_LEV_File
 //
-void CPhysTestDoc::Load_LEV_File(LPCTSTR lpszPathName) 
+void CPhysTestDoc::Load_LEV_File(LPCTSTR lpszPathName)
 {
 #if 0
 	WWASSERT(Scene);
@@ -283,7 +283,7 @@ void CPhysTestDoc::Load_LEV_File(LPCTSTR lpszPathName)
 //
 //  Load_W3D_File
 //
-void CPhysTestDoc::Load_W3D_File(LPCTSTR lpszPathName) 
+void CPhysTestDoc::Load_W3D_File(LPCTSTR lpszPathName)
 {
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets(lpszPathName);
 
@@ -347,7 +347,7 @@ CDataView * CPhysTestDoc::Get_Data_View(void)
 
     // Get a pointer to the main window
     CMainFrame * mainwnd = (CMainFrame *)::AfxGetMainWnd();
-    
+
 	 if (mainwnd) {
         // Get the pane from the main window
         view = (CDataView *)mainwnd->Get_Pane(0,0);
@@ -367,7 +367,7 @@ CGraphicView * CPhysTestDoc::Get_Graphic_View(void)
 
     // Get a pointer to the main window
     CMainFrame * mainwnd = (CMainFrame *)::AfxGetMainWnd();
-    
+
 	 if (mainwnd) {
         // Get the pane from the main window
         view = (CGraphicView *)mainwnd->Get_Pane(0,1);

@@ -50,7 +50,7 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 	EndOfFile(NULL)
 {
 	Set_Name(filename);
-	HRSRC hresource = FindResourceA(hmodule,ResourceName,RESOURCE_FILE_TYPE_NAME);	
+	HRSRC hresource = FindResourceA(hmodule,ResourceName,RESOURCE_FILE_TYPE_NAME);
 
 	if (hresource) {
 		HGLOBAL hglob = LoadResource(hmodule,hresource);
@@ -64,10 +64,10 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 	}
 }
 
-ResourceFileClass::~ResourceFileClass(void)									
-{ 
-	if (ResourceName) 
-		free(ResourceName); 
+ResourceFileClass::~ResourceFileClass(void)
+{
+	if (ResourceName)
+		free(ResourceName);
 }
 
 char const * ResourceFileClass::Set_Name(char const *filename)
@@ -78,7 +78,7 @@ char const * ResourceFileClass::Set_Name(char const *filename)
 	}
 	if (filename) {
 		ResourceName = strdup(filename);
-	} 
+	}
 	return ResourceName;
 }
 
@@ -116,7 +116,7 @@ int ResourceFileClass::Seek(int pos, int dir)
 	if (FilePtr < FileBytes) {
 		FilePtr = FileBytes;
 	}
-	
+
 	return FilePtr - FileBytes;
 }
 

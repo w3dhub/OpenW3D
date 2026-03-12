@@ -85,7 +85,7 @@ struct FileInfoStruct
 
 		//////////////////////////////////////////////////////////
 		//	Public operators
-		//////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////
 		bool			operator== (const FileInfoStruct &/* src*/) { return false; }
 		bool			operator!= (const FileInfoStruct &/* src*/) { return true; }
 
@@ -245,7 +245,7 @@ class FileMgrClass
 		static bool				_bAutoUpdateOn;
 
 	protected:
-		
+
 		//////////////////////////////////////////////////////////
 		//	Protected methods
 		//////////////////////////////////////////////////////////
@@ -253,7 +253,7 @@ class FileMgrClass
 
 		CDialog *				m_pUpdateDlg;
 		CString					m_CurrentFile;
-		void						Add_Files_To_Database (void);		
+		void						Add_Files_To_Database (void);
 
 		friend UINT				fnUpdateVSSThread (LPVOID pParam);
 

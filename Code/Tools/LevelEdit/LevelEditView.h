@@ -94,7 +94,7 @@ protected:
 		bool							Initialize_Render_Device (void);
 		bool							Is_Windowed (void) { return bool(m_iWindowed == 1); }
 		void							Set_Windowed (bool windowed) { m_iWindowed = (int)windowed; Initialize_Render_Device (); }
-	
+
 		//
 		//	Painting methods
 		//
@@ -129,7 +129,7 @@ protected:
 		static void					Allow_Repaint (bool active);
 
 	private:
-		
+
 		////////////////////////////////////////////////////
 		//	Private member data
 		////////////////////////////////////////////////////

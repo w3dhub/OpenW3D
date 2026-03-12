@@ -70,7 +70,7 @@ Get_INI (const char *filename)
 	//
 	FileClass *file = _TheFileFactory->Get_File (filename);
 	if (file) {
-		
+
 		//
 		//	Create the INI object
 		//
@@ -114,7 +114,7 @@ Build_List_From_String
 			  (entry != NULL) && (entry[1] != 0);
 			  entry = ::strstr (entry, delimiter))
 		{
-			
+
 			//
 			// Move past the current delimiter (if necessary)
 			//
@@ -125,14 +125,14 @@ Build_List_From_String
 			// Increment the count of entries
 			count ++;
 		}
-	
+
 		if (count > 0) {
 
 			//
 			// Allocate enough StringClass objects to hold all the strings in the list
 			//
 			(*string_list) = new StringClass[count];
-		
+
 			//
 			// Parse the string and pull out its entries.
 			//
@@ -141,7 +141,7 @@ Build_List_From_String
 				  (entry != NULL) && (entry[1] != 0);
 				  entry = ::strstr (entry, delimiter))
 			{
-				
+
 				//
 				// Move past the current delimiter (if necessary)
 				//
@@ -153,7 +153,7 @@ Build_List_From_String
 				// Copy this entry into its own string
 				//
 				StringClass entry_string = entry;
-				char *delim_start = (char *)::strstr (entry_string, delimiter);				
+				char *delim_start = (char *)::strstr (entry_string, delimiter);
 				if (delim_start != NULL) {
 					delim_start[0] = 0;
 				}
@@ -171,7 +171,7 @@ Build_List_From_String
 			(*string_list) = new StringClass[count];
 			(*string_list)[0] = buffer;
 		}
-				
+
 	}
 
 	//
@@ -197,7 +197,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 	}
 
 	const char *DEFAULT_INI_FILENAME	= "w3danimsound.ini";
-	
+
 	//
 	//	Determine which filename to use
 	//
@@ -247,7 +247,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 				//
 				//	Extract the parameters from the section
 				//
-				size_t len = value.Get_Length ();					
+				size_t len = value.Get_Length ();
 				StringClass definition_name (len + 1, true);
 				int frame_start = 0;
 
@@ -281,7 +281,7 @@ AnimatedSoundMgrClass::Initialize (const char *ini_filename)
 			}
 
 			if (sound_list->Count () != 0) {
-				
+
 				//
 				//	Add this sound list to our hash-table and vector-array
 				//
@@ -390,8 +390,8 @@ AnimatedSoundMgrClass::Trigger_Sound
 	//
 	ANIM_SOUND_LIST *sound_list = Find_Sound_List (anim);
 	if (sound_list != NULL) {
-		
-		for (int index = 0; index < sound_list->Count (); index ++) {			
+
+		for (int index = 0; index < sound_list->Count (); index ++) {
 			int frame = (*sound_list)[index].Frame;
 
 			//
@@ -403,7 +403,7 @@ AnimatedSoundMgrClass::Trigger_Sound
 				//	Don't trigger the sound if its skipped to far past...
 				//
 				if (WWMath::Fabs (new_frame - old_frame) < 3.0F) {
-					
+
 					//
 					//	Play the sound
 					//

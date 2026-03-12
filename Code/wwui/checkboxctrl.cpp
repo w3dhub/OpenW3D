@@ -92,7 +92,7 @@ CheckBoxCtrlClass::Create_Text_Renderers (void)
 	//	Configure the renderers
 	//
 	HilightRenderer.Reset ();
-	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());		
+	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());
 	StyleMgrClass::Configure_Hilighter (&HilightRenderer);
 
 	//
@@ -273,7 +273,7 @@ CheckBoxCtrlClass::Render (void)
 	//
 	//	Recreate the renderers (if necessary)
 	//
-	if (IsDirty) {		
+	if (IsDirty) {
 		Create_Control_Renderers ();
 		Create_Text_Renderers ();
 	}
@@ -295,7 +295,7 @@ CheckBoxCtrlClass::Render (void)
 //
 ////////////////////////////////////////////////////////////////
 void CheckBoxCtrlClass::Set_Check (bool onoff)
-{ 
+{
 	Internal_Set_Check(onoff, false);
 }
 

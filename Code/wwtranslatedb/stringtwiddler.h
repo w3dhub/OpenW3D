@@ -60,7 +60,7 @@
 class StringTwiddlerClass : public TDBObjClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ public:
 	//	RTTI
 	//
 	StringTwiddlerClass *		As_StringTwiddlerClass (void) override		{ return this; }
-	
+
 	//
 	// From PersistClass
 	//
@@ -106,13 +106,13 @@ public:
 
 	//
 	//	String list access
-	//	
+	//
 	void								Add_String (int string_id)			{ StringList.Add (string_id); }
 	void								Reset_String_List (void)			{ StringList.Delete_All (); }
 	int								Get_String_Count (void) const		{ return StringList.Count (); }
 	int								Get_String_Index (int index) const		{ return StringList[index]; }
 	TDBObjClass *					Lookup_String (int index);
-	
+
 protected:
 
 	//////////////////////////////////////////////////////////////

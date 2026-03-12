@@ -113,7 +113,7 @@ VisPointGeneratorClass::VisPointGeneratorClass (float granularity)
 	float z_dim = znear * ::tan (vfov / 2);
 	float max_dim = std::max (y_dim, z_dim);
 	max_dim += 0.001F;
-	
+
 	m_ViewPlaneExtent.Set (max_dim, max_dim, max_dim);
 	return ;
 }
@@ -169,7 +169,7 @@ Read_Float_Param (LPCTSTR text, LPCTSTR key, float *value)
 	lowercase_text.MakeLower ();
 	LPCTSTR key_start = ::strstr (lowercase_text, key);
 	if (key_start != NULL) {
-		
+
 		//
 		//	Move past the key designator
 		//
@@ -198,9 +198,9 @@ Read_Float_Param (LPCTSTR text, LPCTSTR key, float *value)
 			//
 			int index = 0;
 			while (::Is_Numerical (key_value[index ++])) ;
-			
+
 			if (index > 1) {
-				
+
 				//
 				//	Convert the string to a float and return the value
 				// to the caller.
@@ -231,7 +231,7 @@ VisPointGeneratorClass::Determine_Granularity (MeshClass &mesh)
 	//	Default to the base granularity
 	//
 	m_Granularity = m_BaseGranularity;
-	
+
 	//
 	//	Should we use the vis-bias settings from the mesh?
 	//
@@ -239,11 +239,11 @@ VisPointGeneratorClass::Determine_Granularity (MeshClass &mesh)
 
 		//
 		//	Check to see if this mesh uses a vis-bias parameter
-		//	
+		//
 		float vis_bias		= 1.0F;
-		CString user_text	= mesh.Get_User_Text ();	
+		CString user_text	= mesh.Get_User_Text ();
 		if (::Read_Float_Param (user_text, VIS_BIAS_STRING, &vis_bias)) {
-			
+
 			//
 			//	Adjust the granularity based on the value of the
 			// VisBias setting.
@@ -277,7 +277,7 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 	//
 	//	Create a grid we can use to effeciently build a list
 	// of vis points spaced 'granularity' meters apart.
-	//	
+	//
 	AABoxClass box;
 	mesh.Get_Obj_Space_Bounding_Box (box);
 	int cells_x = (int)fabs(((box.Extent.X * 2) / m_Granularity));
@@ -290,12 +290,12 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 	// a vis-point from world space to 'grid' space.
 	//
 	Matrix3D object_tm = mesh.Get_Transform ();
-	object_tm.Get_Orthogonal_Inverse (m_WorldToGridTM);	
-	
+	object_tm.Get_Orthogonal_Inverse (m_WorldToGridTM);
+
 	Vector3 offset (	-(box.Center.X - box.Extent.X),
 							-(box.Center.Y - box.Extent.Y),
 							-(box.Center.Z - box.Extent.Z));
-	
+
 	Vector3 pos = m_WorldToGridTM.Get_Translation ();
 	pos += offset;
 	m_WorldToGridTM.Set_Translation (pos);
@@ -304,7 +304,7 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 	//	Get this mesh's polygon information
 	//
 	MeshModelClass *model = mesh.Get_Model ();
-	if (model != NULL) {		
+	if (model != NULL) {
 		const TriIndex *poly_array		= model->Get_Polygon_Array ();
 		const Vector3 *vertex_array	= model->Get_Vertex_Array ();
 		const Vector4 *plane_array		= model->Get_Plane_Array (true);
@@ -313,7 +313,7 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 		//	Loop through all the polygons in the mesh
 		//
 		int poly_count = model->Get_Polygon_Count ();
-		for (int index = 0; index < poly_count; index ++) {				
+		for (int index = 0; index < poly_count; index ++) {
 			const TriIndex &poly_def = poly_array[index];
 
 			// Is this poly mostly flat?
@@ -352,8 +352,8 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 				//
 				Find_Valid_Points (point3 + ((center-point3) * 0.1F), center, Matrix3(1), false);
 
-				// 
-				// Recursively subdivide and submit center points 
+				//
+				// Recursively subdivide and submit center points
 				//
 				Subdivide_And_Submit_Centers (point1, point2, point3);
 			}
@@ -363,7 +363,7 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 	}
 
 	MEMBER_RELEASE (model);
-	
+
 	//DWORD before_collection = ::GetTickCount ();
 
 	//
@@ -371,14 +371,14 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 	//
 	int cell_count = m_Grid.Get_Flat_Size ();
 	for (int cell = 0; cell < cell_count; cell ++) {
-					
+
 		//
 		//	Add the vis point from this cell to the list.
 		//
 		//Matrix3D *vis_point = m_Grid.Get_At_Flat (cell);
 		VisPointInfo *vis_point = m_Grid.Get_At_Flat (cell);
 		if (vis_point != NULL) {
-			
+
 			//
 			//	Allocate a new point list for this point
 			//
@@ -414,7 +414,7 @@ VisPointGeneratorClass::Submit_Mesh (MeshClass &mesh)
 /////////////////////////////////////////////////////////////////////////
 //
 //	Subdivide_And_Submit_Centers
-// submits the center point of the given triangle and recursively 
+// submits the center point of the given triangle and recursively
 // subdivides the triangle until it is smaller than the granularity
 // value.
 //
@@ -438,7 +438,7 @@ VisPointGeneratorClass::Subdivide_And_Submit_Centers
 	float elen = m_Granularity * m_Granularity * 2.0f;
 
 	if ( (e0len > elen) || (e1len > elen) || (e2len > elen) ) {
-		// subdivide into four tris 
+		// subdivide into four tris
 		Vector3 p12 = (point1 + point2) * 0.5f;
 		Vector3 p23 = (point2 + point3) * 0.5f;
 		Vector3 p31 = (point3 + point1) * 0.5f;
@@ -447,7 +447,7 @@ VisPointGeneratorClass::Subdivide_And_Submit_Centers
 		Subdivide_And_Submit_Centers(p12,point2,p23);
 		Subdivide_And_Submit_Centers(p23,point3,p31);
 		Subdivide_And_Submit_Centers(p12,p23,p31);
-	}	
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -470,8 +470,8 @@ VisPointGeneratorClass::Find_Valid_Points
 	//	Try a few different points along the line from [start, end].
 	//
 	const int MAX_ATTEMPTS = 5;
-	
-	// 
+
+	//
 	// If the start and end point are very close together, only make
 	// one attempt.
 	//
@@ -481,14 +481,14 @@ VisPointGeneratorClass::Find_Valid_Points
 	}
 
 	for (int attempt = 0; (attempt < max_attempts) && !retval; attempt ++) {
-		
+
 		//
 		//	Build a transform to test along the provided line segment
 		//
 		float percent = ((float)attempt) / ((float)MAX_ATTEMPTS);
 		Vector3 position = start + ((end - start) * percent);
 
-		
+
 #if 0
 		//
 		//	Check to make sure this vis-point isn't under a hill or mountain.
@@ -501,15 +501,15 @@ VisPointGeneratorClass::Find_Valid_Points
 		{
 			bool retval = true;
 			if (ceiling_dist < HEIGHT_SPREAD_DISTANCE) {
-				
+
 				//
 				//	The ceiling is low enough where we should just submit one point
 				//
 				position.Z += DEF_INDOOR_POINT_RAISE_HEIGHT;
 				retval &= Submit_Point (Matrix3D (position), do_camera_ring);
-			
+
 			} else {
-				
+
 				//
 				//	The ceiling is high enough to try spreading points vertically
 				//
@@ -517,7 +517,7 @@ VisPointGeneratorClass::Find_Valid_Points
 				while (retval && delta_z <= HEIGHT_SPREAD_DISTANCE) {
 					Vector3 point_pos = position;
 					point_pos.Z += delta_z;
-					retval &= Submit_Point (Matrix3D (point_pos), do_camera_ring);					
+					retval &= Submit_Point (Matrix3D (point_pos), do_camera_ring);
 					delta_z += HEIGHT_SPREAD_DELTA;
 				}
 			}
@@ -534,23 +534,23 @@ VisPointGeneratorClass::Find_Valid_Points
 		//
 		bool done = false;
 		bool ok_to_sample = false;
-		
+
 		Vector3 start_point(position.X,position.Y,position.Z + 0.001f);
 		Vector3 end_point(position.X,position.Y,position.Z + m_VisSampleHeight);
 
 		while (!done) {
 
-			CastResultStruct res;	
+			CastResultStruct res;
 			LineSegClass ray (start_point, end_point);
-	
+
 			PhysRayCollisionTestClass raytest (ray, &res, GAME_COLLISION_GROUP, COLLISION_TYPE_PHYSICAL | COLLISION_TYPE_VIS);
 			raytest.CheckDynamicObjs = false;
 			::Get_Scene_Editor ()->Cast_Ray (raytest);
-			
+
 			if (res.Fraction == 1.0f) {
 				done = true;
 			} else {
-				
+
 				Vector3 point;
 				ray.Compute_Point(res.Fraction,&point);
 
@@ -559,17 +559,17 @@ VisPointGeneratorClass::Find_Valid_Points
 
 				if ((is_vis_sector) || (res.Normal.Z < 0.0f)) {
 
-					// 
+					//
 					// If we hit a roof or another vis sector, snap the end point down and signal that we're done
 					//
 					end_point.Z = point.Z;
 					ok_to_sample = true;
 					done = true;
-			
+
 				} else {
-				
-					// 
-					// If we hit a floor (or anything else), "ratchet" up past that point 
+
+					//
+					// If we hit a floor (or anything else), "ratchet" up past that point
 					//
 					start_point.Z = point.Z + 0.001f;
 				}
@@ -586,33 +586,33 @@ VisPointGeneratorClass::Find_Valid_Points
 		// If this check passes, then it is ok to sample.
 		//
 		if (!ok_to_sample) {
-		
+
 			float dist = 0.0f;
 			ok_to_sample = Check_Ceiling(end_point,&dist);
 
 		}
 
-		// 
+		//
 		// Now generate samples between start_point and end_point
 		//
 		if (ok_to_sample) {
 
 			retval = true;
 			Vector3 sample_point(start_point);
-			
+
 			if (DEF_INDOOR_POINT_RAISE_HEIGHT < end_point.Z - sample_point.Z) {
 				sample_point.Z += DEF_INDOOR_POINT_RAISE_HEIGHT;
 			} else {
 				sample_point.Z = end_point.Z - 0.1f;
 			}
-			
+
 			while (sample_point.Z < end_point.Z) {
-				
-				retval &= Submit_Point (Matrix3D(sample_point), do_camera_ring);					
+
+				retval &= Submit_Point (Matrix3D(sample_point), do_camera_ring);
 				sample_point.Z += VERTICAL_GRANULARITY;
 
 			}
-		} 
+		}
 #endif
 	}
 
@@ -641,11 +641,11 @@ VisPointGeneratorClass::Check_Ceiling (const Vector3 &position, float *ceiling_d
 	Vector3 start_point = position + Vector3 (0, 0, 0.001F);
 	Vector3 end_point = position + Vector3 (0, 0, CEILING_CHECK_HEIGHT);
 	LineSegClass ray (start_point, end_point);
-	
+
 	//
 	// Cast the ray into the world and see what it hits.
 	//
-	CastResultStruct res;	
+	CastResultStruct res;
 	PhysRayCollisionTestClass raytest (ray, &res, GAME_COLLISION_GROUP, COLLISION_TYPE_PHYSICAL | COLLISION_TYPE_VIS);
 	::Get_Scene_Editor ()->Cast_Ray (raytest);
 
@@ -676,7 +676,7 @@ VisPointGeneratorClass::Check_Ceiling (const Vector3 &position, float *ceiling_d
 					(hittest->node->Is_Static ()))*/
 
 			if (physobj->As_StaticPhysClass () != NULL) {
-					
+
 				// If this polygon is facing up, then make sure it satisfies
 				// our 'ceiling' requirements for back-face polygons.
 				if ((res.Normal.Z > 0) &&
@@ -686,7 +686,7 @@ VisPointGeneratorClass::Check_Ceiling (const Vector3 &position, float *ceiling_d
 				}
 			}
 		}
-	}	
+	}
 
 	return retval;
 }
@@ -746,7 +746,7 @@ VisPointGeneratorClass::Submit_Point
 	m_WorldToGridTM.Get_Orthogonal_Inverse (grid_to_world_tm);
 	cell_center = grid_to_world_tm * cell_center;
 	float new_point_dist = (vis_transform.Get_Translation () - cell_center).Length ();
-	
+
 	//
 	//	Only insert the point into the grid if the grid cell is
 	//	empty.
@@ -761,9 +761,9 @@ VisPointGeneratorClass::Submit_Point
 		//
 		was_valid = Do_View_Planes_Pass (vis_transform);
 		if (1 || was_valid) {
-			
+
 			//
-			//	Convert the world-space transform to a 
+			//	Convert the world-space transform to a
 			// camera space transform.
 			//
 			//Matrix3D world_to_cam_tm (Vector3 (0, -1, 0), Vector3 (0, 0, 1), Vector3 (-1, 0, 0), Vector3 (0, 0, 0));
@@ -776,7 +776,7 @@ VisPointGeneratorClass::Submit_Point
 			SAFE_DELETE (cell_contents);
 		}
 	}
-	
+
 	return was_valid;
 }
 
@@ -796,12 +796,12 @@ VisPointGeneratorClass::Do_View_Planes_Pass (const Matrix3D &vis_transform)
 
 	Vector3 center = vis_transform.Get_Translation ();
 	Matrix3 orig_basis (vis_transform);
-	
+
 	//
 	//	Loop through and test each of the 6 orienations
 	// of the view plane to make sure none of them intersect
 	// a 'wall'.
-	//	
+	//
 	/*CastResultStruct result;
 	for (int index = 0; (index < VIS_RENDER_DIRECTIONS) && retval; index ++) {
 
@@ -818,7 +818,7 @@ VisPointGeneratorClass::Do_View_Planes_Pass (const Matrix3D &vis_transform)
 		//
 		//Vector3
 		AABoxClass box (center, m_ViewPlaneExtent);
-		
+
 		//
 		// Check to see if this viewplane 'box' collides
 		// with anything.
@@ -853,7 +853,7 @@ VisPointGeneratorClass::Test_Camera_Sim_Point
 
 	AABoxClass box (start_point, m_ViewPlaneExtent);
 	Vector3 sweep_vector = end_point - start_point;
-	
+
 	//
 	// Check to see if the camera's 'box' collides with anything.
 	//
@@ -874,7 +874,7 @@ VisPointGeneratorClass::Test_Camera_Sim_Point
 	//	Find the node this point lies over
 	//
 	NodeClass *node = Find_Floor_Node (test_point);
-	
+
 	//
 	//	If the point doesn't lie over the current node, then
 	// we've successfully found a new point.
@@ -909,7 +909,7 @@ VisPointGeneratorClass::Find_Floor_Node (const Vector3 &start_point)
 	//
 	// Cast the ray into the world and see what it hits.
 	//
-	CastResultStruct res;	
+	CastResultStruct res;
 	PhysRayCollisionTestClass raytest (ray, &res, GAME_COLLISION_GROUP, COLLISION_TYPE_ALL);
 	::Get_Scene_Editor ()->Cast_Ray (raytest);
 
@@ -967,18 +967,18 @@ VisPointGeneratorClass::Is_Object_Invalid_Roof (RenderObjClass *render_obj)
 	//
 	int count = render_obj->Get_Num_Sub_Objects ();
 	for (int index = 0; (index < count) && retval; index ++) {
-		
+
 		//
 		// Check this subobject
 		//
 		RenderObjClass *sub_object = render_obj->Get_Sub_Object (index);
-		if (sub_object != NULL) {			
+		if (sub_object != NULL) {
 			retval &= Is_Object_Invalid_Roof (sub_object);
 			MEMBER_RELEASE (sub_object);
 		}
-	}	
+	}
 
-	
+
 	//
 	// Is this render object a mesh?
 	//
@@ -1000,7 +1000,7 @@ VisPointGeneratorClass::Is_Object_Invalid_Roof (RenderObjClass *render_obj)
 			retval &= (render_obj->Is_Not_Hidden_At_All () != 0);
 
 			MEMBER_RELEASE (model);
-		}		
+		}
 	}
 
 	return retval;
@@ -1019,7 +1019,7 @@ VisPointGeneratorClass::Initialize_Camera_Sim (void)
 	m_pCameraSimOffsets = new Vector3[m_CameraSimPointCount];
 
 	for (int index = 0; index < m_CameraSimPointCount; index ++) {
-		
+
 		//
 		//	Calculate an arbitrary number of points around a circle
 		// and store these 'offsets' in a vector array.
@@ -1027,7 +1027,7 @@ VisPointGeneratorClass::Initialize_Camera_Sim (void)
 		float angle = ((2 * 3.14159265359F) * index) / m_CameraSimPointCount;
 		float x = CAMERA_SIM_RADIUS * ::cos (angle);
 		float y = CAMERA_SIM_RADIUS * ::sin (angle);
-		
+
 		m_pCameraSimOffsets[index] = Vector3 (y, -x, 0);
 	}
 
@@ -1058,14 +1058,14 @@ VisPointGeneratorClass::Generate_Camera_Locations (const Matrix3D &real_vis_poin
 	};
 
 	CAMERA_SIM_POINTS *sim_points = new CAMERA_SIM_POINTS[m_CameraSimPointCount];
-	
+
 	//
 	//	Loop through each camera simulation point (they lie
 	// in a circle around the position)
-	//	
+	//
 	int index;
 	for (index = 0; index < m_CameraSimPointCount; index ++) {
-				
+
 		//
 		//	Build a ray from the given position down 1000 meters
 		//
@@ -1095,9 +1095,9 @@ VisPointGeneratorClass::Generate_Camera_Locations (const Matrix3D &real_vis_poin
 		//
 		if ((sim_points[index].node != current_node) ||
 			 (index == m_CameraSimPointCount - 1)) {
-			
+
 			if (index > 0) {
-				
+
 				//
 				//	Attempt to find the 'middle' of the series
 				//
@@ -1105,7 +1105,7 @@ VisPointGeneratorClass::Generate_Camera_Locations (const Matrix3D &real_vis_poin
 				bool found = false;
 				int max = ((index - start_index) >> 1) + 1;
 				for (int offset = 0; (offset < max) && !found; offset ++) {
-					
+
 					if (((middle_index + offset) < index) &&
 						 (sim_points[middle_index + offset].node != NULL))
 					{

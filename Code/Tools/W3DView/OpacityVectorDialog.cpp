@@ -89,7 +89,7 @@ BOOL
 OpacityVectorDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog();
-	
+
 	m_OpacityBar = ColorBarClass::Get_Color_Bar (::GetDlgItem (m_hWnd, IDC_OPACITY_BAR));
 	ASSERT (m_OpacityBar);
 
@@ -99,7 +99,7 @@ OpacityVectorDialogClass::OnInitDialog (void)
 	m_OpacityBar->Set_Range (0, 10);
 	m_OpacityBar->Modify_Point (0, 0, 255, 255, 255);
 	m_OpacityBar->Insert_Point (1, 10, 0, 0, 0);
-	
+
 	float value =  ::atan (((m_Value.intensity / 10.0F) * 11.0F)) / DEG_TO_RAD (84.5) * 10.0F;
 	m_OpacityBar->Set_Selection_Pos (value);
 
@@ -146,7 +146,7 @@ OpacityVectorDialogClass::OnInitDialog (void)
 	y_rot = WWMath::Wrap (y_rot, 0, 360);
 	z_rot = WWMath::Wrap (z_rot, 0, 360);*/
 
-	
+
 	Matrix3D rotation = Build_Matrix3D (m_Value.angle);
 	//Vector3 point = m_Value.angle.Rotate_Vector (Vector3 (1, 0, 0));
 
@@ -217,11 +217,11 @@ OpacityVectorDialogClass::Update_Value (void)
 	rot_mat.Rotate_Z (z_rot);
 
 	value.angle = ::Build_Quaternion (rot_mat);
-	
+
 	float percent = ::tan ((m_OpacityBar->Get_Selection_Pos () / 10.0F) * DEG_TO_RAD (84.5)) / 11.0F;
 	percent = std::clamp (percent, 0.0F, 1.0F);
 
-	value.intensity = 10.0F * percent;	
+	value.intensity = 10.0F * percent;
 	return value;
 }
 
@@ -235,7 +235,7 @@ void
 OpacityVectorDialogClass::Update_Object (const AlphaVectorStruct &value)
 {
 	if (m_RenderObj != NULL) {
-		
+
 		//
 		//	Determine what type of object this is
 		//
@@ -246,7 +246,7 @@ OpacityVectorDialogClass::Update_Object (const AlphaVectorStruct &value)
 				//
 				//	Update the key with the new vector
 				//
-				
+
 				SphereVectorChannelClass &vector_channel = ((SphereRenderObjClass *)m_RenderObj)->Get_Vector_Channel ();
 				vector_channel.Set_Key_Value (m_KeyIndex, value);
 
@@ -288,13 +288,13 @@ OpacityVectorDialogClass::OnHScroll
 	UINT				nSBCode,
 	UINT				nPos,
 	CScrollBar *	pScrollBar
-) 
+)
 {
 	//
 	//	Update the object
 	//
 	Update_Object ();
-	
+
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
 	return ;
 }
@@ -311,7 +311,7 @@ OpacityVectorDialogClass::OnNotify
 	WPARAM wParam,
 	LPARAM lParam,
 	LRESULT *pResult
-) 
+)
 {
 	CBR_NMHDR *color_bar_hdr = (CBR_NMHDR *)lParam;
 
@@ -324,13 +324,13 @@ OpacityVectorDialogClass::OnNotify
 		{
 			//
 			// Update the object
-			//			
+			//
 			if (color_bar_hdr->hdr.code == CBRN_SEL_CHANGED) {
 				Update_Object ();
 			}
 		}
 		break;
 	}
-		
+
 	return CDialog::OnNotify (wParam, lParam, pResult);
 }

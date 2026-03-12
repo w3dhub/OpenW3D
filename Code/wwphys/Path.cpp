@@ -209,7 +209,7 @@ void
 PathClass::Initialize (PathSolveClass &path_solve)
 {
 	WWMEMLOG(MEM_PATHFIND);
-	
+
 	m_State					= STATE_TRAVERSING_PATH;
 	m_SplineTime			= 0;
 	m_LookAheadTime		= 0;
@@ -227,8 +227,8 @@ PathClass::Initialize (PathSolveClass &path_solve)
 	// a format we can digest
 	//
 	PathSolveClass::PATHPOINT_LIST &raw_path = path_solve.Get_Raw_Path ();
-	for (int index = 0; index < raw_path.Count (); index ++) {		
-	
+	for (int index = 0; index < raw_path.Count (); index ++) {
+
 		//
 		//	Setup a path node that contains the information we
 		// need from the path solver
@@ -240,7 +240,7 @@ PathClass::Initialize (PathSolveClass &path_solve)
 		node.mechanism_id		= 0;
 		node.tighten_spline	= false;
 		node.pos					= raw_path[index].m_Point;
-		node.dest_pos.Set (0, 0, 0);  
+		node.dest_pos.Set (0, 0, 0);
 
 		//
 		//	Check for any action requirements
@@ -290,7 +290,7 @@ PathClass::Initialize (PathSolveClass &path_solve)
 				//
 				node.action_id			= action_portal->Get_Action_Type ();
 				node.dest_pos			= action_portal->Get_Destination ();
-				node.mechanism_id		= action_portal->Get_Mechanism_ID ();				
+				node.mechanism_id		= action_portal->Get_Mechanism_ID ();
 				node.tighten_spline	= true;
 
 				//
@@ -333,12 +333,12 @@ PathClass::Initialize (PathSolveClass &path_solve)
 				}
 
 			} else if (portal->Is_Two_Way_Portal () == false) {
-				
+
 				/*if (index < (raw_path.Count () - 1) && raw_path[index+1].m_Portal != NULL) {
-					
+
 					AABoxClass curr_box;
 					AABoxClass next_box;
-					
+
 					portal->Get_Bounding_Box (curr_box);
 					raw_path[index+1].m_Portal->Get_Bounding_Box (next_box);
 
@@ -373,7 +373,7 @@ PathClass::Initialize (PathSolveClass &path_solve)
 				}*/
 			}
 		}
-		
+
 		if (is_valid) {
 			node_list.Add (node);
 		}
@@ -440,7 +440,7 @@ PathClass::Add_Waypoint_Info_To_Node_List
 		//
 		PathfindActionPortalClass *action_portal = waypoint->Get_Action_Portal ();
 		if (action_portal != NULL) {
-			
+
 			//
 			//	Configure the node's action parameters
 			//
@@ -463,7 +463,7 @@ PathClass::Add_Waypoint_Info_To_Node_List
 	//
 	//	Add the node to the list
 	//
-	node_list.Add (node);	
+	node_list.Add (node);
 	return ;
 }
 
@@ -502,7 +502,7 @@ PathClass::Add_Waypath_Data
 
 		WaypointClass *waypoint		= waypath->Get_Point (index);
 		WaypointClass *next_point	= waypath->Get_Point (index + inc);
-		
+
 		//
 		//	Add data from each waypoint into our path node list
 		//
@@ -512,13 +512,13 @@ PathClass::Add_Waypath_Data
 	}
 
 	//
-	//	If this is a looping path, then add the first and second waypoints again. 
+	//	If this is a looping path, then add the first and second waypoints again.
 	//	This is done so we can wrap the spline from "last_point-1" all the way
 	//	through "first_point+1". If we don't do this, the spline will not look
 	//	continuous.
 	//
 	if (m_IsLooping) {
-		
+
 		Add_Waypoint_Info_To_Node_List (node_list, waypath->Get_Point (start_index),
 													waypath->Get_Point (start_index + inc));
 
@@ -540,7 +540,7 @@ PathClass::Initialize (WaypathClass *waypath, int start_pt_id, int end_pt_id)
 {
 	WWMEMLOG(MEM_PATHFIND);
 
-	m_State					= ERROR_NOT_INITIALIZED;	
+	m_State					= ERROR_NOT_INITIALIZED;
 	m_SplineTime			= 0;
 	m_LookAheadTime		= 0;
 	m_LookAheadDist		= 0;
@@ -558,7 +558,7 @@ PathClass::Initialize (WaypathClass *waypath, int start_pt_id, int end_pt_id)
 		//	Determine if this is a looping path or not
 		//
 		m_IsLooping = waypath->Get_Flag (WaypathClass::FLAG_LOOPING);
-		
+
 		//
 		//	Get the number of waypoints on this path
 		//
@@ -577,24 +577,24 @@ PathClass::Initialize (WaypathClass *waypath, int start_pt_id, int end_pt_id)
 				if (waypath->Get_Point (index)->Get_ID () == end_pt_id) {
 					end_index = index;
 				}
-			}			
-			
+			}
+
 			//
 			//	Initialize our first position
 			//
 			m_ExpectedPos	= waypath->Get_Point (start_index)->Get_Position ();
 			m_State			= STATE_TRAVERSING_PATH;
-			
+
 			//
 			//	Add the waypath data to our node list
 			//
 			DynamicVectorClass<PATH_NODE> node_list;
 			Add_Waypath_Data (node_list, waypath, start_index, end_index);
-			
+
 			//
 			//	Now create a spline from the waypath data
 			//
-			Initialize_Spline (node_list);			
+			Initialize_Spline (node_list);
 		}
 	}
 
@@ -626,7 +626,7 @@ PathClass::Evaluate_Next_Point (const Vector3 &curr_pos, Vector3 &new_pos)
 	// should be heading
 	//
 	Vector3 delta = m_ExpectedPos - curr_pos;
-	
+
 	//
 	// Zero out any directions we aren't moving in
 	//
@@ -661,7 +661,7 @@ PathClass::Evaluate_Next_Point (const Vector3 &curr_pos, Vector3 &new_pos)
 
 	//
 	//	Did we reach the expected position?
-	//	
+	//
 	bool advance_dest = delta_len < m_LookAheadDist;
 	if (advance_dest) {
 
@@ -700,19 +700,19 @@ PathClass::Evaluate_Next_Point (const Vector3 &curr_pos, Vector3 &new_pos)
 			}
 
 		} else {
-				
+
 			//
 			//	Check to see if the object needs to perform an action at this point
 			//
 			if (m_CurrentAction + 1 < m_PathActions.Count ()) {
 				PATH_NODE &node = m_PathActions[m_CurrentAction + 1];
-				
+
 				//
 				//	Should we activate this action request?
 				//
 				float action_time = node.time;
 				if (WWMath::Fabs (action_time - m_SplineTime) < (m_LookAheadTime * 0.5F)) {
-					
+
 					//
 					//	Set the new state and remember which action we are to perform
 					//
@@ -736,7 +736,7 @@ PathClass::Evaluate_Next_Point (const Vector3 &curr_pos, Vector3 &new_pos)
 		//	Evaluate the spline at the given 'time' to determine our new position
 		//
 		m_Spline->Evaluate (m_SplineTime, &m_ExpectedPos);
-		
+
 		if (m_PathObject.Is_Flag_Set (PathObjectClass::IS_VEHICLE)) {
 			m_SplineTime = ((VehicleCurveClass *)m_Spline)->Get_Last_Eval_Time ();
 		}
@@ -830,13 +830,13 @@ PathClass::Display_Path (bool onoff)
 	if (onoff == false) {
 		PathDebugPlotterClass::Get_Instance ()->Display (false);
 	} else if (m_State < FIRST_ERROR) {
-		
+
 		//
 		//	Turn off painting
 		//
 		PathDebugPlotterClass::Get_Instance ()->Display (false);
 		PathDebugPlotterClass::Get_Instance ()->Reset ();
-			
+
 		//
 		//	Get the first position on the spline
 		//
@@ -864,7 +864,7 @@ PathClass::Display_Path (bool onoff)
 		//
 		PathDebugPlotterClass::Get_Instance ()->Display (true);
 	}
-	
+
 	return ;
 }
 
@@ -905,7 +905,7 @@ Find_Intersection_X
 {
 	float percent = (rgn_center.X - start.X) / (end.X - start.X);
 	(*intersect_point) = start + ((end - start) * percent);
-	
+
 	bool retval	= false;
 	if (percent >= 0 && percent < 1.0F) {
 		retval	= (intersect_point->Y >= (rgn_center.Y - rgn_extent.Y));
@@ -935,7 +935,7 @@ Find_Intersection_Y
 {
 	float percent = (rgn_center.Y - start.Y) / (end.Y - start.Y);
 	(*intersect_point) = start + ((end - start) * percent);
-	
+
 	bool retval	= false;
 	if (percent >= 0 && percent < 1.0F) {
 		retval	= (intersect_point->X >= (rgn_center.X - rgn_extent.X));
@@ -972,28 +972,28 @@ Find_Side_Intersection
 		Vector3 extent = Vector3 (0, box.Extent.Y, box.Extent.Z);
 
 		retval = Find_Intersection_X (start, end, center, extent, intersection_point);
-		
+
 	} else if (index == 1) {
 
 		Vector3 center	= box.Center;
 		center.X			-= box.Extent.X;
 		Vector3 extent = Vector3 (0, box.Extent.Y, box.Extent.Z);
 
-		retval = Find_Intersection_X (start, end, center, extent, intersection_point);		
+		retval = Find_Intersection_X (start, end, center, extent, intersection_point);
 	} else if (index == 2) {
 
 		Vector3 center	= box.Center;
 		center.Y			+= box.Extent.Y;
 		Vector3 extent = Vector3 (box.Extent.X, 0, box.Extent.Z);
 
-		retval = Find_Intersection_Y (start, end, center, extent, intersection_point);		
+		retval = Find_Intersection_Y (start, end, center, extent, intersection_point);
 	} else if (index == 3) {
 
 		Vector3 center	= box.Center;
 		center.Y			-= box.Extent.Y;
 		Vector3 extent = Vector3 (box.Extent.X, 0, box.Extent.Z);
 
-		retval = Find_Intersection_Y (start, end, center, extent, intersection_point);		
+		retval = Find_Intersection_Y (start, end, center, extent, intersection_point);
 	}
 
 	return retval;
@@ -1042,7 +1042,7 @@ PathClass::Clip_Control_Point
 	//
 	//	Loop through all the boxes we need to clip against
 	//
-	for (int index = 0; index < sector_list.Count (); index ++) {		
+	for (int index = 0; index < sector_list.Count (); index ++) {
 		AABoxClass &box = *(sector_list[index]);
 
 
@@ -1051,18 +1051,18 @@ PathClass::Clip_Control_Point
 		// top or bottom for the moment).
 		//
 		for (int side_index = 0; side_index < 4; side_index ++) {
-			
+
 			//
 			//	Does the line pass through this side?
 			//
 			Vector3 intersect_point;
 			if (Find_Side_Intersection (side_index, box, start_point, *point, &intersect_point)) {
-				
+
 				//
 				//	If there isn't a portal where this line passes through the side, then
 				// clip the line to the side.
 				//
-				if (Is_Point_In_Boxes (intersect_point, portal_list) == false) {															
+				if (Is_Point_In_Boxes (intersect_point, portal_list) == false) {
 					(*point) = intersect_point;
 				}
 			}
@@ -1080,7 +1080,7 @@ PathClass::Clip_Control_Point
 /////////////////////////////////////////////////////////////////////////////////
 void
 PathClass::Initialize_Vehicle_Spline (DynamicVectorClass<PATH_NODE> &node_list)
-{	
+{
 	m_Spline = new VehicleCurveClass (m_PathObject.Get_Turn_Radius ());
 
 	Vector3 point;
@@ -1093,7 +1093,7 @@ PathClass::Initialize_Vehicle_Spline (DynamicVectorClass<PATH_NODE> &node_list)
 	float current_dist	= 0;
 	for (int index = 0; index < node_list.Count (); index ++) {
 		point = node_list[index].pos;
-		
+
 		//
 		//	Add this point as a key along the spline
 		//
@@ -1109,7 +1109,7 @@ PathClass::Initialize_Vehicle_Spline (DynamicVectorClass<PATH_NODE> &node_list)
 		//	Is this a looping path?
 		//
 		if (m_IsLooping) {
-		
+
 			//
 			//	Record where the loop starts and ends...
 			//
@@ -1117,10 +1117,10 @@ PathClass::Initialize_Vehicle_Spline (DynamicVectorClass<PATH_NODE> &node_list)
 				m_StartTime = curr_time;
 			} else if (index == node_list.Count () - 2) {
 				m_EndTime = curr_time;
-			}			
+			}
 		}
 
-		
+
 		last_point = point;
 	}
 
@@ -1155,7 +1155,7 @@ PathClass::Initialize_Human_Spline(DynamicVectorClass<PATH_NODE> &node_list)
 	bool fixup_last_action	= false;
 	for (int index = 0; index < node_list.Count (); index ++) {
 		point = node_list[index].pos;
-		
+
 		//
 		//	Add this point as a key along the spline
 		//
@@ -1170,7 +1170,7 @@ PathClass::Initialize_Human_Spline(DynamicVectorClass<PATH_NODE> &node_list)
 		//	Is this a looping path?
 		//
 		if (m_IsLooping) {
-		
+
 			//
 			//	Record where the loop starts and ends...
 			//
@@ -1178,7 +1178,7 @@ PathClass::Initialize_Human_Spline(DynamicVectorClass<PATH_NODE> &node_list)
 				m_StartTime = curr_time;
 			} else if (index == node_list.Count () - 2) {
 				m_EndTime = curr_time;
-			}			
+			}
 		}
 
 
@@ -1190,7 +1190,7 @@ PathClass::Initialize_Human_Spline(DynamicVectorClass<PATH_NODE> &node_list)
 			node.next_time		= curr_time;
 			fixup_last_action	= false;
 		}
-		
+
 		//
 		//	Do we have an action at this node that we need to store?
 		//
@@ -1222,9 +1222,9 @@ PathClass::Initialize_Human_Spline(DynamicVectorClass<PATH_NODE> &node_list)
 		//
 		if (node_list[index].tighten_spline) {
 			temp_spline.Set_Tightness (index, 1.0F);
-		} else {		
+		} else {
 			temp_spline.Set_Tightness (index, tightness);
-		}			
+		}
 
 		last_point = point;
 	}
@@ -1268,7 +1268,7 @@ PathClass::Clip_Spline_To_Pathfind_Data
 	//
 	int index;
 	for (index = 0; index < node_list.Count () - 1; index ++) {
-		
+
 		//
 		//	Get the current and next points on the path
 		//
@@ -1297,7 +1297,7 @@ PathClass::Clip_Spline_To_Pathfind_Data
 		//
 		Clip_Control_Point (point, &ctrl_pt1, sector_list, portal_list);
 		Clip_Control_Point (next_point, &ctrl_pt2, sector_list, portal_list);
-		
+
 		//
 		//	Convert the control points back into tangents
 		//
@@ -1308,7 +1308,7 @@ PathClass::Clip_Spline_To_Pathfind_Data
 		//	Pass the tangents back to the hermite spline
 		//
 		((HermiteSpline3DClass*)m_Spline)->Set_Tangents (index, tangent_in, tangent_out);
-		((HermiteSpline3DClass*)m_Spline)->Set_Tangents (index + 1, next_tangent_in, next_tangent_out);		
+		((HermiteSpline3DClass*)m_Spline)->Set_Tangents (index + 1, next_tangent_in, next_tangent_out);
 	}
 
 	//
@@ -1322,7 +1322,7 @@ PathClass::Clip_Spline_To_Pathfind_Data
 	//
 	//	Free the temporary sector-box list
 	//
-	for (index = 0; index < sector_list.Count (); index ++) {		
+	for (index = 0; index < sector_list.Count (); index ++) {
 		AABoxClass *box = sector_list[index];
 		delete box;
 	}
@@ -1340,7 +1340,7 @@ void
 PathClass::Initialize_Spline (DynamicVectorClass<PATH_NODE> &node_list)
 {
 	if (node_list.Count () > 0) {
-		
+
 		//
 		//	Start fresh
 		//
@@ -1368,7 +1368,7 @@ PathClass::Initialize_Spline (DynamicVectorClass<PATH_NODE> &node_list)
 		m_TotalDist = 0;
 		for (int index = 0; index < node_list.Count (); index ++) {
 			point = node_list[index].pos;
-			
+
 			//
 			//	Add the distance of this point from the last point
 			// into the total
@@ -1452,7 +1452,7 @@ void
 PathClass::Save (ChunkSaveClass &csave)
 {
 	if (m_Spline != NULL) {
-		
+
 		//
 		//	Use the spline's factory to save it to its own chunk
 		//
@@ -1477,15 +1477,15 @@ PathClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_LOOK_AHEAD_TIME,		m_LookAheadTime);
 		WRITE_MICRO_CHUNK (csave, VARID_MOVEMENT_RADIUS,		m_MovementRadius);
 		WRITE_MICRO_CHUNK (csave, VARID_SPLINE_TIME,				m_SplineTime);
-		WRITE_MICRO_CHUNK (csave, VARID_VELOCITY,					m_Velocity);		
+		WRITE_MICRO_CHUNK (csave, VARID_VELOCITY,					m_Velocity);
 		WRITE_MICRO_CHUNK (csave, VARID_CURRENT_ACTION,			m_CurrentAction);
-		WRITE_MICRO_CHUNK (csave, VARID_MOVEMENT_DIRECTIONS,	m_MovementDirections);		
+		WRITE_MICRO_CHUNK (csave, VARID_MOVEMENT_DIRECTIONS,	m_MovementDirections);
 		WRITE_MICRO_CHUNK (csave, VARID_PATH_OBJECT,				m_PathObject);
 		WRITE_MICRO_CHUNK (csave, VARID_START_TIME,				m_StartTime);
 		WRITE_MICRO_CHUNK (csave, VARID_END_TIME,					m_EndTime);
 		WRITE_MICRO_CHUNK (csave, VARID_ISLOOPING,				m_IsLooping);
 		WRITE_MICRO_CHUNK (csave, VARID_TOTAL_DIST,				m_TotalDist);
-		
+
 		PathClass *this_ptr = this;
 		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR,					this_ptr);
 
@@ -1510,11 +1510,11 @@ PathClass::Save (ChunkSaveClass &csave)
 void
 PathClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_SPLINE:
-			{				
+			{
 				//
 				//	Use the spline's factory to load it from disk
 				//
@@ -1523,7 +1523,7 @@ PathClass::Load (ChunkLoadClass &cload)
 					if (factory != NULL) {
 						m_Spline = (Curve3DClass *)factory->Load (cload);
 					}
-					cload.Close_Chunk ();				
+					cload.Close_Chunk ();
 				}
 			}
 			break;
@@ -1565,9 +1565,9 @@ PathClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_LOOK_AHEAD_TIME,			m_LookAheadTime);
 			READ_MICRO_CHUNK (cload, VARID_MOVEMENT_RADIUS,			m_MovementRadius);
 			READ_MICRO_CHUNK (cload, VARID_SPLINE_TIME,				m_SplineTime);
-			READ_MICRO_CHUNK (cload, VARID_VELOCITY,					m_Velocity);		
+			READ_MICRO_CHUNK (cload, VARID_VELOCITY,					m_Velocity);
 			READ_MICRO_CHUNK (cload, VARID_CURRENT_ACTION,			m_CurrentAction);
-			READ_MICRO_CHUNK (cload, VARID_MOVEMENT_DIRECTIONS,	m_MovementDirections);		
+			READ_MICRO_CHUNK (cload, VARID_MOVEMENT_DIRECTIONS,	m_MovementDirections);
 			READ_MICRO_CHUNK (cload, VARID_PATH_OBJECT,				m_PathObject);
 			READ_MICRO_CHUNK (cload, VARID_START_TIME,				m_StartTime);
 			READ_MICRO_CHUNK (cload, VARID_END_TIME,					m_EndTime);

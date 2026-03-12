@@ -116,7 +116,7 @@ void
 StringsCategoryViewDialogClass::Remove_Column (int col_id)
 {
 	for (int index = 0; index < Columns.Count (); index ++) {
-		
+
 		//
 		//	If this is the column we were looking for, remove
 		// it from list
@@ -127,7 +127,7 @@ StringsCategoryViewDialogClass::Remove_Column (int col_id)
 			break;
 		}
 	}
-	
+
 	return ;
 }
 
@@ -197,7 +197,7 @@ StringsCategoryViewDialogClass::OnInitDialog (void)
 	for (	TDBObjClass *object = TranslateDBClass::Get_First_Object (CategoryID);
 			object != NULL;
 			object = TranslateDBClass::Get_Next_Object (CategoryID, object))
-	{		
+	{
 		//
 		//	Insert a copy of this object into the list control
 		//
@@ -281,7 +281,7 @@ StringsCategoryViewDialogClass::Find_Entry (TDBObjClass *object)
 	//
 	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
 		TDBObjClass *curr_object = (TDBObjClass *)m_ListCtrl.GetItemData (index);
-		
+
 		//
 		//	Is this the object we're looking for?
 		//
@@ -305,7 +305,7 @@ StringsCategoryViewDialogClass::OnDblclkStringList
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-) 
+)
 {
 	(*pResult) = 0;
 
@@ -321,7 +321,7 @@ StringsCategoryViewDialogClass::OnDblclkStringList
 	//
 	//	Peek into the selected item to get the translation object associated with it
 	//
-	int selected_item = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);	
+	int selected_item = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);
 	if (selected_item >= 0) {
 		object = (TDBObjClass *)m_ListCtrl.GetItemData (selected_item);
 	}
@@ -336,14 +336,14 @@ StringsCategoryViewDialogClass::OnDblclkStringList
 
 	//
 	//	Determine which dialog to show
-	//	
+	//
 	bool show_edit_string = true;
 	if (EditMode == EDIT_MODE_TWIDDLER && object == NULL) {
 		show_edit_string = false;
 	} else if (twiddler != NULL) {
 		show_edit_string = false;
 	}
-	
+
 	//
 	//	Show a dialog to the user
 	//
@@ -355,13 +355,13 @@ StringsCategoryViewDialogClass::OnDblclkStringList
 		EditStringDialogClass dialog (this);
 		dialog.Set_Translate_Object (object);
 		if (dialog.DoModal () == IDOK) {
-			
+
 			//
 			//	Either add a new entry to the list control, or update the
 			// text of an existing entry
 			//
 			if (object == NULL) {
-				
+
 				TDBObjClass *new_object = dialog.Get_Translate_Object ();
 				new_object->Set_Category_ID (CategoryID);
 				TranslateDBClass::Add_Object (new_object);
@@ -383,7 +383,7 @@ StringsCategoryViewDialogClass::OnDblclkStringList
 			// text of an existing entry
 			//
 			if (object == NULL) {
-				
+
 				StringTwiddlerClass *new_object = dialog.Get_Twiddler ();
 				new_object->Set_Category_ID (CategoryID);
 				TranslateDBClass::Add_Object (new_object);
@@ -394,7 +394,7 @@ StringsCategoryViewDialogClass::OnDblclkStringList
 			}
 		}
 	}
-	
+
 	//
 	//	Force a repaint
 	//
@@ -415,7 +415,7 @@ StringsCategoryViewDialogClass::OnColumnclickStringList
 	NMHDR *		pNMHDR,
 	LRESULT *	pResult
 )
- 
+
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	(*pResult) = 0;
@@ -449,7 +449,7 @@ StringEntrySortCompareFn (LPARAM param1, LPARAM param2, LPARAM sort_info)
 	bool ascending	= HIWORD (sort_info) != 0;
 
 	if (object1 != NULL && object2 != NULL) {
-		
+
 		//
 		//	Determine the order based on which column the user clicked on
 		//
@@ -493,7 +493,7 @@ StringsCategoryViewDialogClass::Upate_Entry (int index)
 		//	Update each column
 		//
 		for (int col_index = 0; col_index < Columns.Count (); col_index ++) {
-			
+
 			//
 			//	Determine what information to update
 			//
@@ -537,7 +537,7 @@ StringsCategoryViewDialogClass::Insert_New_Entry (TDBObjClass *object)
 		//	Update each column
 		//
 		for (int col_index = 0; col_index < Columns.Count (); col_index ++) {
-			
+
 			//
 			//	Determine what information to update
 			//
@@ -565,7 +565,7 @@ StringsCategoryViewDialogClass::OnDeleteitemStringList
 (
 	NMHDR *		pNMHDR,
 	LRESULT *	pResult
-) 
+)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	(*pResult) = 0;
@@ -605,7 +605,7 @@ StringsCategoryViewDialogClass::OnKeydownStringList
 
 
 	if (pLVKeyDow->wVKey == VK_DELETE) {
-		
+
 		//
 		//	Delete all the selected items (except for the last item)
 		//
@@ -621,7 +621,7 @@ StringsCategoryViewDialogClass::OnKeydownStringList
 
 	} else if (::GetKeyState (VK_CONTROL) < 0) {
 
-		if (CallbackObject != NULL) {		
+		if (CallbackObject != NULL) {
 
 			//
 			//	Check to see if the user pressed the copy or paste keys
@@ -681,7 +681,7 @@ StringsCategoryViewDialogClass::Resize_Controls (void)
 	//
 	CRect rect;
 	GetClientRect (&rect);
-	
+
 	//
 	//	Resize the list control
 	//
@@ -705,7 +705,7 @@ StringsCategoryViewDialogClass::Apply_Changes (void)
 	if (EditMode == EDIT_MODE_NONE) {
 		return ;
 	}
-	
+
 	//
 	//	Add all the objects from the list control into the database
 	//
@@ -727,7 +727,7 @@ StringsCategoryViewDialogClass::Apply_Changes (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-StringsCategoryViewDialogClass::OnSize (UINT nType, int cx, int cy) 
+StringsCategoryViewDialogClass::OnSize (UINT nType, int cx, int cy)
 {
 	CDialog::OnSize (nType, cx, cy);
 	Resize_Controls ();
@@ -817,7 +817,7 @@ StringsCategoryViewDialogClass::Get_Selection (void)
 	//	Check to see if we need to update the cached selection ID
 	//
 	if (::IsWindow (m_hWnd)) {
-		
+
 		//
 		//	Find the selected item
 		//
@@ -831,7 +831,7 @@ StringsCategoryViewDialogClass::Get_Selection (void)
 			if (object != NULL) {
 				SelectedObjectID = object->Get_ID ();
 			}
-			
+
 		} else {
 			SelectedObjectID = 0;
 		}
@@ -857,12 +857,12 @@ StringsCategoryViewDialogClass::OnItemchangedStringList
 	(*pResult) = 0;
 
 	if (IsInitialized && (pNMListView->uChanged & LVIF_STATE)) {
-		
+
 		//
 		//	This will force the cached selection data to be updated
 		//
 		Get_Selection ();
-		
+
 		//
 		//	Notify the owner (if necessary)
 		//

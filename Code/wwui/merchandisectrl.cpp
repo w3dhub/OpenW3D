@@ -69,12 +69,12 @@ MerchandiseCtrlClass::MerchandiseCtrlClass (void)	:
 	StyleMgrClass::Assign_Font (&CostTextRenderer, StyleMgrClass::FONT_HEADER);
 	StyleMgrClass::Assign_Font (&CountTextRenderer, StyleMgrClass::FONT_TOOLTIPS);
 	StyleMgrClass::Configure_Renderer (&ControlRenderer);
-	StyleMgrClass::Configure_Renderer (&TextureRenderer);	
-	StyleMgrClass::Configure_Renderer (&ButtonRenderer);		
+	StyleMgrClass::Configure_Renderer (&TextureRenderer);
+	StyleMgrClass::Configure_Renderer (&ButtonRenderer);
 	StyleMgrClass::Configure_Renderer (&HilightRenderer);
 	StyleMgrClass::Configure_Hilighter (&HilightRenderer);
 	TextureRenderer.Enable_Texturing (true);
-	ButtonRenderer.Enable_Texturing (true);	
+	ButtonRenderer.Enable_Texturing (true);
 
 	//
 	//	Pass the texture onto the renderer
@@ -130,7 +130,7 @@ MerchandiseCtrlClass::Create_Text_Renderer (void)
 		//
 		WideStringClass count_text;
 		count_text.Format (U_CHAR("%d"), Count);
-		StyleMgrClass::Render_Text (count_text, &CountTextRenderer, RGB_TO_INT32 (255, 255, 255), RGB_TO_INT32 (0, 0, 0), CountRect, true, true, StyleMgrClass::CENTER_JUSTIFY, true);	
+		StyleMgrClass::Render_Text (count_text, &CountTextRenderer, RGB_TO_INT32 (255, 255, 255), RGB_TO_INT32 (0, 0, 0), CountRect, true, true, StyleMgrClass::CENTER_JUSTIFY, true);
 	}
 
 	return ;
@@ -196,7 +196,7 @@ MerchandiseCtrlClass::Update_Client_Rect (void)
 	CostRect				= Rect;
 	CostRect.Top		= int(TextureRect.Bottom + 1);
 	CostRect.Bottom	= CostRect.Top + int((Rect.Bottom - TextureRect.Bottom) * 0.6F);
-	
+
 	//
 	//	The rest of the space goes to the text rect
 	//
@@ -269,8 +269,8 @@ MerchandiseCtrlClass::Create_Control_Renderer (void)
 	//
 	//	Draw the cycle button in the upper right corner...
 	//
-	if (TextureNameList.Count () > 1) {		
-		
+	if (TextureNameList.Count () > 1) {
+
 		//
 		//	Draw the button
 		//
@@ -308,7 +308,7 @@ MerchandiseCtrlClass::Create_Control_Renderer (void)
 	//
 	text_rect.Right = std::min (text_rect.Right, Rect.Right);
 	cost_rect.Right = std::min (cost_rect.Right, Rect.Right);
-	
+
 	//
 	//	Render the text backdrops
 	//
@@ -348,7 +348,7 @@ MerchandiseCtrlClass::Create_Texture_Renderer (void)
 	//
 	//	Configure this renderer
 	//
-	TextureRenderer.Reset ();	
+	TextureRenderer.Reset ();
 	TextureRenderer.Add_Quad (Rect, color);
 	return ;
 }
@@ -373,7 +373,7 @@ MerchandiseCtrlClass::Set_Texture (const char *texture_name)
 	//
 	//	Pass the texture onto the renderer
 	//
-	TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (texture_name, TextureClass::MIP_LEVELS_1);	
+	TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (texture_name, TextureClass::MIP_LEVELS_1);
 	TextureRenderer.Set_Texture (texture);
 	REF_PTR_RELEASE (texture);
 	return ;
@@ -412,7 +412,7 @@ MerchandiseCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 	//	Did the user click in the cycle button?
 	//
 	if (TextureNameList.Count () > 1 && button_rect.Contains (mouse_pos)) {
-		
+
 		//
 		//	Cycle to the next texture
 		//
@@ -424,7 +424,7 @@ MerchandiseCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 		//
 		//	Pass the texture onto the renderer
 		//
-		TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (TextureNameList[CurrentTextureIndex], TextureClass::MIP_LEVELS_1);	
+		TextureClass *texture = WW3DAssetManager::Get_Instance ()->Get_Texture (TextureNameList[CurrentTextureIndex], TextureClass::MIP_LEVELS_1);
 		if (texture != NULL) {
 			TextureRenderer.Set_Texture (texture);
 			REF_PTR_RELEASE (texture);

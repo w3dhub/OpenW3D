@@ -56,7 +56,7 @@ const float		DEFAULT_SPRING_LENGTH					= 1.0f;
 /**
 ** Wheels.  An instance of a wheel object will contain information on each
 ** wheel detected in the vehicle model.  Wheels use a pair of named bones.
-** The "position" bone is used to move the wheel up and down according to 
+** The "position" bone is used to move the wheel up and down according to
 ** the suspension system and to rotate if this is a "steering" wheel.  The
 ** "rotation" bone is used to roll the wheel on the terrain.
 **
@@ -65,10 +65,10 @@ const float		DEFAULT_SPRING_LENGTH					= 1.0f;
 **   it is rotated about its z-axis to make the wheel appear to roll
 ** - The "position" bone is used in conjunction with the length parameter
 **   to define the suspension springs.
-** 
+**
 ** Defining the "spring-segment" using the position bone:
 ** - The default location of the position bone is considered the point of maximum-
-**   compression.  (this point should be *inside* the collision box for the model!) 
+**   compression.  (this point should be *inside* the collision box for the model!)
 ** - The spring will extend down the -z axis in the position bone's coordinate system
 **
 ** Graphical constraints for the wheel
@@ -77,13 +77,13 @@ const float		DEFAULT_SPRING_LENGTH					= 1.0f;
 **   a rotation constraint bone.
 ** - Normal case: There are two bones for the wheel: position and center.  The position
 **   bone is moved along its Z-axis to the point of collision with the ground
-** - Translation: There is an additional translation bone (WheelTxx) which defines 
+** - Translation: There is an additional translation bone (WheelTxx) which defines
 **   the axis that the wheel is to be translated along.
-** - Fork/Rotation: a "fork" bone (WheelFxx) is rotated such that the Z-coordinate (in 
+** - Fork/Rotation: a "fork" bone (WheelFxx) is rotated such that the Z-coordinate (in
 **   the fork's coordinate system) meets the ground.
-** 
+**
 ** Wheel Flags:
-** - 'E' Engine. this wheel is connected to the engine and should exert its force 
+** - 'E' Engine. this wheel is connected to the engine and should exert its force
 ** - 'S' Steering: The position bone for this wheel rotates about its Z-axis for steering
 ** - 's' Inverse Steering: The position bone for this wheel rotates the opposite way
 ** - 'L' Left Track: this wheel is part of the left track of a tracked vehicle
@@ -112,7 +112,7 @@ public:
 		ENGINE					= 0x0010,			// this wheel exerts the engine force
 		LEFT_TRACK				= 0x0020,			// this wheel is part of the left track of a tank
 		RIGHT_TRACK				= 0x0040,			// this wheel is part of the right track of a tank
-		
+
 		DISABLED					= 0x0100,			// this wheel is disabled
 		INCONTACT				= 0x0200,			// this wheel is in contact with the ground
 		BRAKING					= 0x0400,			// this wheel is undergoing braking
@@ -136,7 +136,7 @@ public:
 	void				Set_Spring_Length(float len)				{ SpringLength = len; }
 
 	/*
-	** Inputs from the parent object 
+	** Inputs from the parent object
 	*/
 	float				Get_Steering_Angle(void)					{ return SteeringAngle; }
 	void				Set_Steering_Angle(float angle)			{ SteeringAngle = angle; }
@@ -180,7 +180,7 @@ protected:
 	int				PositionBone;				// Bone index of the position bone (wheel coordinate system)
 	int				ForkBone;					// Bone index for the "fork" constraint (if not -1, we use fork constraints)
 	int				AxisBone;					// Bone index for the translation axis bone (if not -1, we translate on its z-axis instead)
-	
+
 	Matrix3D			ObjWheelTM;					// Wheel coordinate system in object-space
 
 	float				SpringConstant;			// spring
@@ -210,7 +210,7 @@ protected:
 	/*
 	** Constraint variables
 	*/
-	float				TranslationScale;			
+	float				TranslationScale;
 	Vector3			ObjAxis;						// axis used for wheels with an overridden translation axis
 	Matrix3D			ObjForkTM;					// these are constants used for "fork" constrained wheels
 	float				ForkLength;					// I'm calling the back wheel of a motorcycle a "fork" this
@@ -226,7 +226,7 @@ protected:
 	Vector3			SpringEndP1;
 	Vector3			SpringEndP0;
 private:
-	
+
 	// not implemented
 	SuspensionElementClass(const SuspensionElementClass & that);
 	SuspensionElementClass & operator = (const SuspensionElementClass & that);
@@ -269,14 +269,14 @@ protected:
 	*/
 	void				Compute_Suspension_Force(const Vector3 & pdot,const Vector3 & local_pdot,Vector3 * suspension_force);
 	void				Apply_Forces(Vector3 * force,Vector3 * torque);
-	
+
 	/*
 	** Derived wheel classes implement this to compute the traction forces
 	*/
 	virtual void	Compute_Traction_Forces(const Vector3 & local_pdot,float normal_force,float * set_lateral_force,float * set_tractive_force) = 0;
 
 	/*
-	** Properties 
+	** Properties
 	*/
 	float				Radius;						// radius of the wheel (for rolling)
 	int				RotationBone;				// bone index of the rotation bone
@@ -307,7 +307,7 @@ private:
 
 /**
 ** WVWheelClass (Wheeled-Vehicle-Wheel)
-** This wheel class is used by things like Humvees and Buggys.   
+** This wheel class is used by things like Humvees and Buggys.
 */
 class WVWheelClass : public WheelClass
 {
@@ -329,7 +329,7 @@ protected:
 ** TrackWheelClass
 ** This wheel type is used by TrackedVehicleClass.  The differences between
 ** it and the WVWheelClass are minor, mainly in the logic for how the wheels
-** roll and possibly the lack of a traction circle.  
+** roll and possibly the lack of a traction circle.
 */
 class TrackWheelClass : public WheelClass
 {

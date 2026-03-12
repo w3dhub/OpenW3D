@@ -72,7 +72,7 @@ class WOLJoinGame :
 		bool FinalizeCreate(void);
 
 		cGameData* CreateGameFromChannel(const RefPtr<WWOnline::ChannelData>& channel);
-		
+
 		bool Join(const unichar_t* gameName, const unichar_t* password, bool allowTeamSelect);
 		void ProceedWithConnection(int teamChoice);
 		void Leave(void);
@@ -86,7 +86,7 @@ class WOLJoinGame :
 
 	private:
 		RefPtr<WWOnline::Session> mWOLSession;
-		
+
 		typedef enum {IDLE_STATE = 0, JOINING_STATE, FIREWALL_STATE} JoinState;
 		JoinState mJoinState;
 

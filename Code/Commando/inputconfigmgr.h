@@ -61,7 +61,7 @@ class ChunkLoadClass;
 class InputConfigMgrClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ public:
 	static void		Load_Current_Configuration (void);
 	static void		Load_Default_Configuration (void);
 	static void		Load_Configuration (const InputConfigClass &config);
-	static void		Save_Current_Configuration (void);	
+	static void		Save_Current_Configuration (void);
 	static void		Save_Configuration (const InputConfigClass &config);
 
 
@@ -96,13 +96,13 @@ public:
 	static int		Add_Configuration (const unichar_t *display_name);
 	static void		Delete_Configuration (const char *filename);
 	static void		Delete_Configuration (int index);
-	
+
 
 	//
 	//	Configuration list access
 	//
 	static int		Get_Configuration_Count (void)									{ return ConfigList.Count (); }
-	static void		Get_Configuration (int index, InputConfigClass &config)	{ config = ConfigList[index]; }	
+	static void		Get_Configuration (int index, InputConfigClass &config)	{ config = ConfigList[index]; }
 
 private:
 
@@ -124,7 +124,7 @@ private:
 
 	////////////////////////////////////////////////////////////////
 	//	Private member data
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	static DynamicVectorClass<InputConfigClass>	ConfigList;
 	static int												CurrentConfigIndex;
 };

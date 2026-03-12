@@ -26,7 +26,7 @@
 //
 
 #ifdef WWCTRL_LIB
-	#define LINKAGE_SPEC	__declspec (dllexport) 
+	#define LINKAGE_SPEC	__declspec (dllexport)
 #else
 	#define LINKAGE_SPEC
 #endif
@@ -120,7 +120,7 @@ protected:
 		//	Static members
 		//////////////////////////////////////////////////////////////////////////
 		static ColorPickerClass *Get_Color_Picker (HWND window_handle)	{  return (ColorPickerClass *)::GetProp (window_handle, "CLASSPOINTER"); }
-		
+
 	protected:
 
 		/////////////////////////////////////////////////////////////////////////

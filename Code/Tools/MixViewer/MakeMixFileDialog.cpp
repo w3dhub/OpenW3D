@@ -64,12 +64,12 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // MakeMixFileDialogClass message handlers
 
-BOOL MakeMixFileDialogClass::OnInitDialog() 
+BOOL MakeMixFileDialogClass::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	// TODO: Add extra initialization here
-	
+
 	return true;  // return true unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return false
 }
@@ -82,8 +82,8 @@ unsigned MakeMixFileDialogClass::Add_Files (const StringClass &basepath, const S
 	const char wildcardname [] = "*.*";
 
 	unsigned			 filecount;
-	StringClass		 findfilepathname;	
-	WIN32_FIND_DATA finddata;	
+	StringClass		 findfilepathname;
+	WIN32_FIND_DATA finddata;
 	HANDLE			 handle;
 
 	filecount = 0;
@@ -98,7 +98,7 @@ unsigned MakeMixFileDialogClass::Add_Files (const StringClass &basepath, const S
 	findfilepathname += wildcardname;
 	handle = FindFirstFile (findfilepathname, &finddata);
 	if (handle != INVALID_HANDLE_VALUE) {
-		
+
 		bool done;
 
 		done = false;
@@ -117,7 +117,7 @@ unsigned MakeMixFileDialogClass::Add_Files (const StringClass &basepath, const S
 
 				// Is it a subdirectory?
 	  			if ((finddata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-				
+
 					// Recurse on subdirectory.
 					filecount += Add_Files (basepath, subpathname, mixfile);
 
@@ -146,7 +146,7 @@ unsigned MakeMixFileDialogClass::Add_Files (const StringClass &basepath, const S
 	return (filecount);
 }
 
-void MakeMixFileDialogClass::OnOK() 
+void MakeMixFileDialogClass::OnOK()
 {
 	CString mix_name;
 	GetDlgItemText( IDC_BROWSE_FILE_NAME, mix_name );
@@ -180,7 +180,7 @@ void MakeMixFileDialogClass::OnOK()
 	}
 }
 
-void MakeMixFileDialogClass::OnBrowseFile() 
+void MakeMixFileDialogClass::OnBrowseFile()
 {
 	CString old_name;
 	GetDlgItemText( IDC_BROWSE_FILE_NAME, old_name );
@@ -198,7 +198,7 @@ void MakeMixFileDialogClass::OnBrowseFile()
 	}
 }
 
-void MakeMixFileDialogClass::OnBrowseDir() 
+void MakeMixFileDialogClass::OnBrowseDir()
 {
 	CString old_name;
 	GetDlgItemText( IDC_BROWSE_DIR_NAME, old_name );

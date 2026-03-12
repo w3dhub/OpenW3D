@@ -61,7 +61,7 @@ PresetPropSheetClass::OnInitDialog (void)
 	//
 	CRect button_rect;
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDCANCEL), &button_rect);
-	ScreenToClient (&button_rect);		
+	ScreenToClient (&button_rect);
 
 	//
 	//	Create a new button
@@ -104,7 +104,7 @@ PresetPropSheetClass::Reposition_Buttons (int cx, int cy)
 	//
 	CRect button_rect;
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDCANCEL), &button_rect);
-	ScreenToClient (&button_rect);		
+	ScreenToClient (&button_rect);
 
 	//
 	//	Reposition the OK and Cancel buttons
@@ -117,7 +117,7 @@ PresetPropSheetClass::Reposition_Buttons (int cx, int cy)
 						 0,
 						 0,
 						 SWP_NOZORDER | SWP_NOSIZE);
-						 	
+
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDCANCEL),
 						 NULL,
 						 (cx - (button_rect.Width () + first_width)) - (BORDER_BUTTON_X * 3),
@@ -153,7 +153,7 @@ PresetPropSheetClass::OnCommand (WPARAM wParam, LPARAM lParam)
 			HIWORD (wParam) == BN_CLICKED)
 	{
 		if (Apply_Changes ()) {
-			
+
 			//
 			//	Show the propagation dialog
 			//

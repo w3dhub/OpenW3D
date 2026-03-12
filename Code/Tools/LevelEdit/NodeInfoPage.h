@@ -47,7 +47,7 @@ class NodeInfoPageClass : public DockableFormClass
 		NodeInfoPageClass (void);
 		NodeInfoPageClass (NodeClass *node);
 		virtual ~NodeInfoPageClass (void);
-	
+
 
 // Form Data
 public:
@@ -70,14 +70,14 @@ public:
 	//}}AFX_VIRTUAL
 
 // Implementation
-protected:	
+protected:
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
 	// Generated message map functions
-	//{{AFX_MSG(NodeInfoPageClass)	
+	//{{AFX_MSG(NodeInfoPageClass)
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 

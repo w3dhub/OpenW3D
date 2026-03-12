@@ -40,7 +40,7 @@
 
 #ifndef WWDEBUG_H
 #define WWDEBUG_H
-				
+
 // The macro MESSAGE allows user to put:
 // #pragma MESSAGE("Hello world")
 // anywhere in a source file.  The message:
@@ -49,7 +49,7 @@
 // You can then use next/prev error	hot keys to see where comment is.  It is not an error and
 // will be printed everytime it is compiled.  Very useful to put comments in code that cannot
 // be forgoten.
-#define STRING_IT(a) #a																				  
+#define STRING_IT(a) #a
 #define TOKEN_IT(a) STRING_IT(a)
 #define MESSAGE(a) message (__FILE__ "(" TOKEN_IT(__LINE__) ") : " a)
 
@@ -103,7 +103,7 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 
 /*
 ** Use the following #define so that all of the debugging messages
-** and strings go away when the release version is built.  
+** and strings go away when the release version is built.
 ** WWDEBUG_SAY(("dir = %f\n",dir));
 */
 
@@ -132,7 +132,7 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 #define DIE                               (WWDebug_Assert_Fail("DIE",__FILE__,__LINE__))
 #else
 #define WWASSERT( expr )
-#define WWASSERT_PRINT( expr, string )	
+#define WWASSERT_PRINT( expr, string )
 #define DIE
 #endif
 
@@ -147,7 +147,7 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 #endif
 
 /*
-** The WWDEBUG_TRIGGER macro can be used to ask the application if 
+** The WWDEBUG_TRIGGER macro can be used to ask the application if
 ** a debug trigger is set.  We define a couple of generic triggers
 ** for casual use.
 */
@@ -157,7 +157,7 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 #ifdef WWDEBUG
 #define WWDEBUG_TRIGGER(x)						WWDebug_Check_Trigger(x)
 #else
-#define WWDEBUG_TRIGGER(x)						(0)	
+#define WWDEBUG_TRIGGER(x)						(0)
 #endif
 
 
@@ -168,7 +168,7 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 #define WWDEBUG_PROFILE_START(x)				WWDebug_Profile_Start(x)
 #define WWDEBUG_PROFILE_STOP(x) 				WWDebug_Profile_Stop(x)
 #else
-#define WWDEBUG_PROFILE_START(x)				
+#define WWDEBUG_PROFILE_START(x)
 #define WWDEBUG_PROFILE_STOP(x)
 #endif
 

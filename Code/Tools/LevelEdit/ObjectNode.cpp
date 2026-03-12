@@ -81,7 +81,7 @@ ObjectNodeClass::ObjectNodeClass (PresetClass *preset)
 	:	m_GameObj (NULL),
 		NodeClass (preset)
 {
-	
+
 	return ;
 }
 
@@ -106,7 +106,7 @@ ObjectNodeClass::ObjectNodeClass (const ObjectNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 ObjectNodeClass::~ObjectNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	Destroy_Game_Obj ();
 	Free_Scripts ();
@@ -124,7 +124,7 @@ ObjectNodeClass::~ObjectNodeClass (void)
 //////////////////////////////////////////////////////////////////////////////
 void
 ObjectNodeClass::Initialize (void)
-{	
+{
 	Destroy_Game_Obj ();
 
 	if (m_Preset != NULL) {
@@ -143,7 +143,7 @@ ObjectNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 ObjectNodeClass::Get_Factory (void) const
-{	
+{
 	return _ObjectNodePersistFactory;
 }
 
@@ -155,7 +155,7 @@ ObjectNodeClass::Get_Factory (void) const
 ////////////////////////////////////////////////////////////////
 bool
 ObjectNodeClass::Show_Settings_Dialog (void)
-{	
+{
 	NodeInfoPageClass		info_tab (this);
 	PositionPageClass		pos_tab (this);
 	NodeScriptsPropPage	scripts_tab (&m_Scripts);
@@ -168,7 +168,7 @@ ObjectNodeClass::Show_Settings_Dialog (void)
 	// Show the property sheet
 	UINT ret_code = prop_sheet.DoModal ();
 	if (ret_code == IDOK) {
-		
+
 		//
 		//	If the scripts changed, then we need to
 		// reload the object and assign it the new
@@ -176,7 +176,7 @@ ObjectNodeClass::Show_Settings_Dialog (void)
 		//
 		Reload ();
 	}
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }
@@ -192,14 +192,14 @@ ObjectNodeClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		NodeClass::Save (csave);
-	csave.End_Chunk ();		
+	csave.End_Chunk ();
 
 	//
 	//	Save the list of scripts
 	//
 	for (int index = 0; index < m_Scripts.Count (); index ++) {
 		EditScriptClass *script = m_Scripts[index];
-		
+
 		//
 		//	Have this script save itself
 		//
@@ -222,13 +222,13 @@ ObjectNodeClass::Load (ChunkLoadClass &cload)
 {
 	Free_Scripts ();
 
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_SCRIPT:
 			{
 				EditScriptClass *script = new EditScriptClass;
@@ -258,7 +258,7 @@ ObjectNodeClass::Free_Scripts (void)
 		EditScriptClass *script = m_Scripts[index];
 		SAFE_DELETE (script);
 	}
-	
+
 	m_Scripts.Delete_All ();
 	return ;
 }
@@ -275,7 +275,7 @@ ObjectNodeClass::Assign_Scripts (void)
 	if (m_GameObj != NULL) {
 		for (int index = 0; index < m_Scripts.Count (); index ++) {
 			EditScriptClass *script	= m_Scripts[index];
-			
+
 			//
 			//	Create the game script and pass it onto the game obj
 			//
@@ -285,7 +285,7 @@ ObjectNodeClass::Assign_Scripts (void)
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -377,17 +377,17 @@ ObjectNodeClass::Create_Game_Obj (void)
 	if (m_GameObj == NULL) {
 		DefinitionClass *definition = m_Preset->Get_Definition ();
 		if (definition != NULL) {
-			
+
 			//
 			//	Create the game object
-			//			
+			//
 			m_GameObj = (ScriptableGameObj *)::Instance_Definition (definition);
 
 			//
 			//	Assign 'hit-test' information to this game object
 			//
 			if (m_GameObj != NULL) {
-				PhysClass *phys_obj			= Peek_Physics_Obj ();			
+				PhysClass *phys_obj			= Peek_Physics_Obj ();
 				RenderObjClass *render_obj	= phys_obj->Peek_Model ();
 				if (render_obj != NULL) {
 					render_obj->Set_User_Data ((PVOID)&m_HitTestInfo, false);

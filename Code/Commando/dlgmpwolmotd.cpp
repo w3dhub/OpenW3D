@@ -70,7 +70,7 @@ MPWolMOTDDialogClass::~MPWolMOTDDialogClass (void)
 //////////////////////////////////////////////////////////////////////
 void
 MPWolMOTDDialogClass::On_Init_Dialog (void)
-{	
+{
 	//
 	//	Get a pointer to the list control
 	//
@@ -95,12 +95,12 @@ MPWolMOTDDialogClass::On_Init_Dialog (void)
 			//	Do we need to insert a new entry into the control?
 			//
 			if (message[0] == U_CHAR('\r') && message[1] == U_CHAR('\n')) {
-				message[0] = 0;			
-				list_ctrl->Insert_Entry (0xFFFF, entry_text);			
+				message[0] = 0;
+				list_ctrl->Insert_Entry (0xFFFF, entry_text);
 				message ++;
 				entry_text = message + 1;
 			} else if (message[0] == U_CHAR('\n')) {
-				message[0] = 0;			
+				message[0] = 0;
 				list_ctrl->Insert_Entry (0xFFFF, entry_text);
 				entry_text = message + 1;
 			}
@@ -128,7 +128,7 @@ MPWolMOTDDialogClass::On_Init_Dialog (void)
 //////////////////////////////////////////////////////////////////////
 void
 MPWolMOTDDialogClass::On_Destroy (void)
-{	
+{
 	PopupDialogClass::On_Destroy ();
 	return ;
 }

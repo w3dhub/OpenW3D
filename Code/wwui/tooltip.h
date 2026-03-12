@@ -90,7 +90,7 @@ private:
 	//	Private member data
 	////////////////////////////////////////////////////////////////
 	Render2DSentenceClass 	TextRenderer;
-	Render2DClass			BackgroundRenderer;	
+	Render2DClass			BackgroundRenderer;
 	WideStringClass		Text;
 	RectClass				Rect;
 

@@ -161,7 +161,7 @@ public:
 	//	Backdrop support
 	//
 	static void				Render_Backdrop (Render2DClass *renderer, const RectClass &rect);
-	
+
 	//
 	//	Text support
 	//
@@ -169,7 +169,7 @@ public:
 	static void				Render_Text (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_clip = true, JUSTIFICATION justify = LEFT_JUSTIFY, bool is_enabled = true, bool is_vcentered = true);
 	static void				Render_Title_Text (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect);
 	static void				Render_Wrapped_Text (const unichar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false);
-	static void				Render_Wrapped_Text (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, bool is_enabled = true);	
+	static void				Render_Wrapped_Text (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, bool is_enabled = true);
 	static void				Render_Wrapped_Text_Ex (const unichar_t *text, Render2DSentenceClass *renderer, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, bool is_enabled = true, JUSTIFICATION justify = LEFT_JUSTIFY);
 	static void				Render_Wrapped_Text_Ex (const unichar_t *text, Render2DSentenceClass *renderer, uint32 text_color, uint32 shadow_color, const RectClass &rect, bool do_shadow = false, bool do_vcenter = false, JUSTIFICATION justify = LEFT_JUSTIFY);
 
@@ -188,8 +188,8 @@ private:
 
 	////////////////////////////////////////////////////////////////
 	//	Private member data
-	////////////////////////////////////////////////////////////////	
-	static TextureClass *			BackdropTexture;	
+	////////////////////////////////////////////////////////////////
+	static TextureClass *			BackdropTexture;
 	static uint32						TitleColor;
 	static uint32						TitleHilightColor;
 	static uint32						TitleShadowColor;

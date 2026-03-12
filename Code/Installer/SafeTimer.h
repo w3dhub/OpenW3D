@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/SafeTimer.h  $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/05/01 7:41p                $* 
- *                                                                                             * 
- *                    $Revision:: 2                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/SafeTimer.h  $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/05/01 7:41p                $*
+ *                                                                                             *
+ *                    $Revision:: 2                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef _SAFE_TIMER_H
@@ -64,7 +64,7 @@ inline int SafeTimerClass::operator () (void) const
 {
 	DWORD time = timeGetTime();
 
-	// Has the timer wrapped? 
+	// Has the timer wrapped?
 	if (time >= _StartTime) {
 		return (time - _StartTime);
 	} else {
@@ -77,7 +77,7 @@ inline SafeTimerClass::operator int (void) const
 {
 	DWORD time = timeGetTime();
 
-	// Has the timer wrapped? 
+	// Has the timer wrapped?
 	if (time >= _StartTime) {
 		return (time - _StartTime);
 	} else {

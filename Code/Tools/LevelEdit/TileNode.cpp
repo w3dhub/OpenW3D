@@ -98,7 +98,7 @@ TileNodeClass::TileNodeClass (const TileNodeClass &src)
 		NodeClass (NULL)
 {
 	Restrict_Rotation (true);
-	(*this) = src;	
+	(*this) = src;
 	return ;
 }
 
@@ -109,7 +109,7 @@ TileNodeClass::TileNodeClass (const TileNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 TileNodeClass::~TileNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
 	return ;
@@ -141,7 +141,7 @@ TileNodeClass::Initialize (void)
 		//	Make sure all assets are loaded into memory before this tile is created...
 		//
 		m_Preset->Load_All_Assets ();
-		
+
 		//
 		//	Lookup the physics definition this tile definition was configured with
 		//
@@ -187,7 +187,7 @@ TileNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 TileNodeClass::Get_Factory (void) const
-{	
+{
 	return _TileNodePersistFactory;
 }
 
@@ -215,19 +215,19 @@ TileNodeClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		NodeClass::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 
 		//
 		//	Save the tile's vis-id to the chunk
-		//	
+		//
 		if (m_PhysObj != NULL) {
 			uint32 vis_id = ((StaticPhysClass *)m_PhysObj)->Get_Vis_Object_ID ();
 			WRITE_MICRO_CHUNK (csave, VARID_VISOBJECTID, vis_id);
 			vis_id = ((StaticPhysClass *)m_PhysObj)->Get_Vis_Sector_ID ();
 			WRITE_MICRO_CHUNK (csave, VARID_VISSECTORID, vis_id);
-		}			
+		}
 
 	csave.End_Chunk ();
 	return true;
@@ -242,13 +242,13 @@ TileNodeClass::Save (ChunkSaveClass &csave)
 bool
 TileNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -268,11 +268,11 @@ TileNodeClass::Load (ChunkLoadClass &cload)
 /////////////////////////////////////////////////////////////////
 bool
 TileNodeClass::Load_Variables (ChunkLoadClass &cload)
-{	
+{
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
 			READ_MICRO_CHUNK (cload, VARID_VISOBJECTID,	m_VisObjectID);
-			READ_MICRO_CHUNK (cload, VARID_VISSECTORID,	m_VisSectorID);			
+			READ_MICRO_CHUNK (cload, VARID_VISSECTORID,	m_VisSectorID);
 		}
 
 		cload.Close_Micro_Chunk ();

@@ -74,14 +74,14 @@ Create_Physics_Definition (LPCTSTR base_class_name, bool is_temp)
 		//
 		definition = factory->Create ();
 		if (definition != NULL) {
-			
+
 			//
 			//	Is this the definition 'type' we want?
 			//
 			if (((PhysDefClass *)definition)->Is_Type (base_class_name) == false) {
 				SAFE_DELETE (definition);
 			} else {
-				
+
 				if (is_temp) {
 					definition->Set_ID (::Get_Next_Temp_ID ());
 				} else {
@@ -149,7 +149,7 @@ Copy_Definition (DefinitionClass *src_def, DefinitionClass *dest_def, bool is_te
 	uint32 class_id1 = dest_def->Get_Class_ID ();
 	uint32 class_id2 = src_def->Get_Class_ID ();
 	if (class_id1 == class_id2) {
-		
+
 		//
 		//	Loop over all the parameters contained in the definitions
 		//
@@ -157,9 +157,9 @@ Copy_Definition (DefinitionClass *src_def, DefinitionClass *dest_def, bool is_te
 		for (int index = 0; index < count; index ++) {
 			ParameterClass *dest_param	= dest_def->Lock_Parameter (index);
 			ParameterClass *src_param	= src_def->Lock_Parameter (index);
-			
-			if ((dest_param != NULL) && (src_param != NULL)) {					
-				
+
+			if ((dest_param != NULL) && (src_param != NULL)) {
+
 				//
 				//	Is this parameter type a 'phys-def' parameter?
 				///If it is, we need to make sure we don't copy the phys-def ID value,
@@ -167,7 +167,7 @@ Copy_Definition (DefinitionClass *src_def, DefinitionClass *dest_def, bool is_te
 				// points to.
 				//
 				if (dest_param->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
-					
+
 					int dest_def_id	= ((ModelDefParameterClass *)dest_param)->Get_Value ();
 					int src_def_id		= ((ModelDefParameterClass *)src_param)->Get_Value ();
 					DefinitionClass *dest_phys_def	= DefinitionMgrClass::Find_Definition (dest_def_id, false);
@@ -221,7 +221,7 @@ Copy_Definition (DefinitionClass *src_def, DefinitionClass *dest_def, bool is_te
 			//
 			for (int index = 0; index < DIALOG_MAX; index ++) {
 				dest_list[index] = src_list[index];
-			}			
+			}
 		}
 	}
 
@@ -247,13 +247,13 @@ Build_Embedded_Definition_List (DEFINITION_LIST &list, DefinitionClass *parent)
 	int count = parent->Get_Parameter_Count ();
 	for (int index = 0; index < count; index ++) {
 		ParameterClass *param = parent->Lock_Parameter (index);
-		
+
 		//
 		//	If this is the paramter type we are looking for, get the
 		// definition pointer from it and return the pointer to the caller
 		//
 		if (param != NULL ) {
-			
+
 			if (param->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
 				int def_id = ((ModelDefParameterClass *)param)->Get_Value ();
 				DefinitionClass *definition = DefinitionMgrClass::Find_Definition (def_id, false);
@@ -276,7 +276,7 @@ Build_Embedded_Definition_List (DEFINITION_LIST &list, DefinitionClass *parent)
 		}
 
 		parent->Unlock_Parameter (index);
-	}	
+	}
 
 	return ;
 }
@@ -300,18 +300,18 @@ Fix_Embedded_Definition_IDs (DefinitionClass *parent)
 	int count = parent->Get_Parameter_Count ();
 	for (int index = 0; index < count; index ++) {
 		ParameterClass *param = parent->Lock_Parameter (index);
-		
+
 		//
 		//	If this is the paramter type we are looking for, get the
 		// definition pointer from it and return the pointer to the caller
 		//
 		if (param != NULL ) {
-			
+
 			if (param->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
 				int def_id = ((ModelDefParameterClass *)param)->Get_Value ();
 				DefinitionClass *definition = DefinitionMgrClass::Find_Definition (def_id, false);
 				if (definition != NULL) {
-					
+
 					//
 					//	Give this definition a new ID if necessary
 					//
@@ -327,7 +327,7 @@ Fix_Embedded_Definition_IDs (DefinitionClass *parent)
 				}
 
 			} else if (param->Get_Type () == ParameterClass::TYPE_PHYSDEFINITIONID) {
-				
+
 				int def_id = ((PhysDefParameterClass *)param)->Get_Value ();
 				DefinitionClass *definition = DefinitionMgrClass::Find_Definition (def_id, false);
 				if (definition != NULL) {
@@ -344,7 +344,7 @@ Fix_Embedded_Definition_IDs (DefinitionClass *parent)
 		}
 
 		parent->Unlock_Parameter (index);
-	}	
+	}
 
 	return ;
 }
@@ -370,7 +370,7 @@ Find_Physics_Definition (DefinitionClass *parent)
 	int count = parent->Get_Parameter_Count ();
 	for (int index = 0; index < count && definition == NULL; index ++) {
 		ParameterClass *param = parent->Lock_Parameter (index);
-		
+
 		//
 		//	If this is the paramter type we are looking for, get the
 		// definition pointer from it and return the pointer to the caller
@@ -381,7 +381,7 @@ Find_Physics_Definition (DefinitionClass *parent)
 		}
 
 		parent->Unlock_Parameter (index);
-	}	
+	}
 
 	return definition;
 }
@@ -398,7 +398,7 @@ Get_Phys_Obj_From_Definition (DefinitionClass *definition)
 	SANITY_CHECK (definition != NULL) {
 		return NULL;
 	}
-	
+
 	PhysClass *retval = NULL;
 
 	//
@@ -443,12 +443,12 @@ Get_Phys_Obj_From_Definition (DefinitionClass *definition)
 			BaseGameObj *game_obj = (BaseGameObj *)definition->Create ();
 			if (game_obj != NULL) {
 				PhysicalGameObj *phys_game_obj = game_obj->As_PhysicalGameObj ();
-				if (phys_game_obj != NULL) {					
+				if (phys_game_obj != NULL) {
 					MEMBER_ADD (retval, phys_game_obj->Peek_Physical_Object ());
 				}
-				
+
 				game_obj->Set_Delete_Pending ();
-			}			
+			}
 		}
 		break;
 	}

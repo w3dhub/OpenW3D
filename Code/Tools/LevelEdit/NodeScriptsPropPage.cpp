@@ -158,7 +158,7 @@ NodeScriptsPropPage::Build_Script_List (void)
 
 		DynamicVectorClass<StringClass> &name_list = m_ScriptListParam->Get_Name_List ();
 		DynamicVectorClass<StringClass> &param_list = m_ScriptListParam->Get_Param_List ();
-		
+
 		//
 		//	Loop over and create edit scripts for each string pair
 		//
@@ -201,10 +201,10 @@ NodeScriptsPropPage::HandleInitDialog (void)
 	//
 	// Add all the scripts that we are editing to the list control
 	//
-	for (int index = 0; index < m_ScriptList->Count (); index ++) {		
+	for (int index = 0; index < m_ScriptList->Count (); index ++) {
 		EditScriptClass *script = (*m_ScriptList)[index];
 		if (script != NULL) {
-			
+
 			//
 			// Put this script into the list control
 			//
@@ -242,13 +242,13 @@ NodeScriptsPropPage::OnItemChangedScriptList
 )
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
-	
+
 	// Did the selection state change?
 	if ((pNMListView != NULL) &&
 		 (pNMListView->uChanged & LVIF_STATE) &&
 		 ((pNMListView->uNewState & LVIS_SELECTED) || (pNMListView->uOldState & LVIS_SELECTED)))
 	{
-		
+
 		// Get the index of the currently selected property
 		int index = m_ListCtrl.GetNextItem (-1, LVNI_ALL | LVNI_SELECTED);
 		if (index != -1) {
@@ -264,7 +264,7 @@ NodeScriptsPropPage::OnItemChangedScriptList
 			::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY), false);
 		}
 	}
-	
+
 	*pResult = 0;
 	return ;
 }
@@ -292,7 +292,7 @@ NodeScriptsPropPage::OnModify (void)
 			ScriptEditDialogClass dialog (this);
 			dialog.Set_Script (*script);
 			if (dialog.DoModal () == IDOK) {
-				
+
 				//
 				//	Update the list
 				//
@@ -338,7 +338,7 @@ NodeScriptsPropPage::OnAdd (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-NodeScriptsPropPage::OnDelete (void) 
+NodeScriptsPropPage::OnDelete (void)
 {
 	// Get the index of the currently selected property
 	int index = m_ListCtrl.GetNextItem (-1, LVNI_ALL | LVNI_SELECTED);
@@ -372,7 +372,7 @@ NodeScriptsPropPage::Apply_Changes (void)
 	m_ScriptList->Delete_All ();
 
 	//
-	// Loop through all the entries in the list contrl and add them 
+	// Loop through all the entries in the list contrl and add them
 	// to the script list
 	//
 	index = -1;
@@ -442,11 +442,11 @@ NodeScriptsPropPage::OnDeleteItemScriptList
 		// Free the associated script
 		EditScriptClass *script = (EditScriptClass *)m_ListCtrl.GetItemData (pNMListView->iItem);
 		SAFE_DELETE (script);
-		
+
 		// Reset the associated data for this item
 		m_ListCtrl.SetItemData (pNMListView->iItem, NULL);
 	}
-	
+
 	*pResult = 0;
 	return;
 }

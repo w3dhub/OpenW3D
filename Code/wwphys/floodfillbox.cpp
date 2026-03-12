@@ -60,9 +60,9 @@ FloodfillBoxClass::Is_Two_Way_Traversible (PATHFIND_DIR dir)
 	bool retval = false;
 
 	FloodfillBoxClass *neighbor = Peek_Neighbor (dir);
-	if (neighbor != NULL) {		
+	if (neighbor != NULL) {
 		retval = (neighbor->Peek_Neighbor (::Inverse_Pathfind_Dir (dir)) == this);
-	} 
+	}
 
 	return retval;
 }
@@ -80,7 +80,7 @@ FloodfillBoxClass::Is_New_Portal (PATHFIND_DIR dir, PathfindSectorClass *dest_se
 
 	//
 	//	Basically this box is part of a new 'portal' if:
-	//	
+	//
 	//		a) Its not already part of a portal.
 	//		b) It has a neighbor in the specified direction.
 	//		c) Its neighbor doesn't belong to the same sector OR
@@ -90,7 +90,7 @@ FloodfillBoxClass::Is_New_Portal (PATHFIND_DIR dir, PathfindSectorClass *dest_se
 			(m_Sector != NULL) &&
 			(m_Neighbors[dir] != NULL) &&
 			(Get_Traversible (dir))) {
-			
+
 		if (	(dest_sector != NULL) &&
 				(m_Neighbors[dir]->m_Sector == dest_sector) &&
 				(m_Neighbors[dir]->m_Sector->Is_Valid ()))
@@ -254,7 +254,7 @@ FloodfillBoxClass::Make_Portal
 	//
 	float test1 = (max_point.X - min_point.X);
 	float test2 = (max_point.Y - min_point.Y);
-	float test_value = std::max (test1, test2);	
+	float test_value = std::max (test1, test2);
 
 	//
 	//	Is this portal large enough?
@@ -269,7 +269,7 @@ FloodfillBoxClass::Make_Portal
 			portal_box->Part_Of_Portal (dir, true);
 			if (is_two_way) {
 				portal_box->m_Neighbors[dir]->Part_Of_Portal (::Inverse_Pathfind_Dir (dir), true);
-			}			
+			}
 		}
 
 		//
@@ -285,15 +285,15 @@ FloodfillBoxClass::Make_Portal
 		//
 		//	Set the portal's bounding box
 		//
-		AABoxClass bounding_box;		
+		AABoxClass bounding_box;
 		bounding_box.Center = min_point + ((max_point - min_point) / 2.0F);
-		
+
 		bounding_box.Extent.X = (max_point.X - min_point.X) / 2.0F;
 		bounding_box.Extent.Y = (max_point.Y - min_point.Y) / 2.0F;
 		bounding_box.Extent.Z = (max_point.Z - min_point.Z) / 2.0F;
 
 		portal->Set_Bounding_Box (bounding_box);
-		
+
 		//
 		//	Register the portal with the system
 		//

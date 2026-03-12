@@ -37,7 +37,7 @@ int Print(HANDLE handle, char const * text)
 		printf(text);
 	}
 	return(retval);
-}	
+}
 
 
 int __cdecl main(int argc, char *argv[])

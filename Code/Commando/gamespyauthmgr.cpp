@@ -51,7 +51,7 @@
 //
 
 //-----------------------------------------------------------------------------
-void 
+void
 cGameSpyAuthMgr::Think
 (
 	void
@@ -69,7 +69,7 @@ cGameSpyAuthMgr::Think
 	for (
 		SLNode<cPlayer> * player_node = cPlayerManager::Get_Player_Object_List()->Head();
 		player_node != NULL;
-		player_node = player_node->Next()) 
+		player_node = player_node->Next())
 	{
 		cPlayer * p_player = player_node->Data();
 		WWASSERT(p_player != NULL);
@@ -106,7 +106,7 @@ cGameSpyAuthMgr::Think
 
 					p_player->Set_GameSpy_Auth_State(GAMESPY_AUTH_STATE_CHALLENGED);
 					p_player->Set_GameSpy_Challenge_String(challenge_string);
-					
+
 					cGameSpyScChallengeEvent * p_event = new cGameSpyScChallengeEvent;
 					p_event->Init(p_player->Get_Id(), challenge_string);
 				}
@@ -125,7 +125,7 @@ cGameSpyAuthMgr::Think
 					//
 					int player_id = p_player->Get_Id();
 
-					WWDEBUG_SAY(("cGameSpyAuthMgr::Think: player %d timed out on challenge response.\n", 
+					WWDEBUG_SAY(("cGameSpyAuthMgr::Think: player %d timed out on challenge response.\n",
 						player_id));
 
 					//p_player->Set_GameSpy_Auth_State(GAMESPY_AUTH_STATE_REJECTING);
@@ -136,9 +136,9 @@ cGameSpyAuthMgr::Think
 			}
 
 			case GAMESPY_AUTH_STATE_VALIDATING:
-			{ 
+			{
 				//
-				// At this stage I am not implementing any timeout for GameSpy to 
+				// At this stage I am not implementing any timeout for GameSpy to
 				// authenticate this user.
 				//
 				break;
@@ -179,7 +179,7 @@ cGameSpyAuthMgr::Think
 }
 
 //-----------------------------------------------------------------------------
-void 
+void
 cGameSpyAuthMgr::Initiate_Auth_Rejection
 (
 	int player_id
@@ -189,10 +189,10 @@ cGameSpyAuthMgr::Initiate_Auth_Rejection
 
 	WWASSERT(cNetwork::I_Am_Server());
 	WWASSERT(cGameSpyAdmin::Is_Gamespy_Game());
-	
+
 	cPlayer * p_player = cPlayerManager::Find_Player(player_id);
-	
-	if (p_player != NULL) 
+
+	if (p_player != NULL)
 	{
 		cScTextObj * p_message = new cScTextObj;
 		//p_message->Init(U_CHAR("CD Authentication failed. Please quit."), TEXT_MESSAGE_PRIVATE, true, HOST_TEXT_SENDER, player_id);
@@ -203,7 +203,7 @@ cGameSpyAuthMgr::Initiate_Auth_Rejection
 }
 
 //-----------------------------------------------------------------------------
-void 
+void
 cGameSpyAuthMgr::Evict_Player
 (
 	int player_id
@@ -224,7 +224,7 @@ cGameSpyAuthMgr::Evict_Player
 }
 
 //-----------------------------------------------------------------------------
-const char * 
+const char *
 cGameSpyAuthMgr::Describe_Auth_State
 (
 	GAMESPY_AUTH_STATE_ENUM state

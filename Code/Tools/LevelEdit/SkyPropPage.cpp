@@ -75,7 +75,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // SkyPropPageClass message handlers
 
-BOOL SkyPropPageClass::OnInitDialog() 
+BOOL SkyPropPageClass::OnInitDialog()
 {
 	const CTime starttime (2000, 01, 01, 00, 00, 00, 0);
 	const CTime	endtime	 (2000, 01, 01, 23, 59, 00, 0);
@@ -84,15 +84,15 @@ BOOL SkyPropPageClass::OnInitDialog()
 	_SYSTEMTIME										 systemtime;
 	BackgroundMgrClass::LightSourceTypeEnum lightsourcetype;
 	SkyClass::MoonTypeEnum						 moontype;
-	float												 cloudcover, gloominess;	
+	float												 cloudcover, gloominess;
 
 	CPropertyPage::OnInitDialog();
-	
+
 	BackgroundMgrClass::Get_Time_Of_Day (hours, minutes);
 
 	// Format time display to 24hr clock.
 	TimeCtrl.SetFormat ("HH:mm");
-	
+
 	TimeCtrl.SetRange (&starttime, &endtime);
 	memset (&systemtime, 0, sizeof (systemtime));
 	systemtime.wYear	 = 2000;
@@ -104,23 +104,23 @@ BOOL SkyPropPageClass::OnInitDialog()
 
 	lightsourcetype = BackgroundMgrClass::Get_Light_Source_Type();
 	switch (lightsourcetype) {
-		
+
 		case BackgroundMgrClass::LIGHT_SOURCE_TYPE_SUN:
-			OnSkyLightSun(); 
+			OnSkyLightSun();
 			break;
 
 		case BackgroundMgrClass::LIGHT_SOURCE_TYPE_MOON:
-			OnSkyLightMoon(); 
+			OnSkyLightMoon();
 			break;
 
 		default:
 			ASSERT (false);
 			break;
 	}
-	
+
 	moontype = BackgroundMgrClass::Get_Moon_Type();
 	switch (moontype) {
-		
+
 		case SkyClass::MOON_TYPE_FULL:
 			OnSkyMoonFull();
 			break;
@@ -139,36 +139,36 @@ BOOL SkyPropPageClass::OnInitDialog()
 	CloudCoverCtrl.SetPos (WWMath::Float_To_Long (cloudcover * CLOUD_SLIDER_RESOLUTION));
 	CloudGloominessCtrl.SetRange (0, CLOUD_SLIDER_RESOLUTION);
 	CloudGloominessCtrl.SetPos (WWMath::Float_To_Long (gloominess * CLOUD_SLIDER_RESOLUTION));
-	
+
 	return true;  // return true unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return false
 }
 
-void SkyPropPageClass::OnSkyLightSun() 
+void SkyPropPageClass::OnSkyLightSun()
 {
 	CheckDlgButton (IDC_SKY_LIGHT_SUN, 1);
 	CheckDlgButton (IDC_SKY_LIGHT_MOON, 0);
 }
 
-void SkyPropPageClass::OnSkyLightMoon() 
+void SkyPropPageClass::OnSkyLightMoon()
 {
 	CheckDlgButton (IDC_SKY_LIGHT_SUN, 0);
 	CheckDlgButton (IDC_SKY_LIGHT_MOON, 1);
 }
 
-void SkyPropPageClass::OnSkyMoonFull() 
+void SkyPropPageClass::OnSkyMoonFull()
 {
 	CheckDlgButton (IDC_SKY_MOON_FULL,	  1);
 	CheckDlgButton (IDC_SKY_MOON_PARTIAL, 0);
 }
 
-void SkyPropPageClass::OnSkyMoonPartial() 
+void SkyPropPageClass::OnSkyMoonPartial()
 {
 	CheckDlgButton (IDC_SKY_MOON_FULL,	  0);
 	CheckDlgButton (IDC_SKY_MOON_PARTIAL, 1);
 }
 
-void SkyPropPageClass::OnOK() 
+void SkyPropPageClass::OnOK()
 {
 	const float oocloudsliderresolution = 1.0f / CLOUD_SLIDER_RESOLUTION;
 
@@ -188,11 +188,11 @@ void SkyPropPageClass::OnOK()
 	} else {
 		BackgroundMgrClass::Set_Moon_Type (SkyClass::MOON_TYPE_PART);
 	}
-	
+
 	cloudcover = CloudCoverCtrl.GetPos() * oocloudsliderresolution;
 	gloominess = CloudGloominessCtrl.GetPos() * oocloudsliderresolution;
 	BackgroundMgrClass::Set_Clouds (cloudcover, gloominess);
-	
+
 	CPropertyPage::OnOK();
 }
 

@@ -67,7 +67,7 @@ bool LaunchWebBrowser(const char* url)
 	// Create a temporary file with HTML content
 	char tempPath[MAX_PATH];
 	GetWindowsDirectoryA(tempPath, MAX_PATH);
-	
+
 	char filename[MAX_PATH];
 	GetTempFileNameA(tempPath, "WWS", 0, filename);
 
@@ -112,7 +112,7 @@ bool LaunchWebBrowser(const char* url)
   STARTUPINFOA startupInfo;
 	memset(&startupInfo, 0, sizeof(startupInfo));
 	startupInfo.cb = sizeof(startupInfo);
-  
+
 	PROCESS_INFORMATION processInfo;
 	BOOL createSuccess = CreateProcessA(exeName, commandLine, NULL, NULL, false,
 			0, NULL, NULL, &startupInfo, &processInfo);

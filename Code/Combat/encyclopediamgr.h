@@ -119,9 +119,9 @@ public:
 	//	Inherited
 	//
 	uint32				Chunk_ID (void) const override			{ return CHUNKID_ENCYCLOPEDIAMGR; }
-	
+
 private:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Private methods
 	///////////////////////////////////////////////////////////////////
@@ -132,10 +132,10 @@ private:
 	bool					Save (ChunkSaveClass &csave) override;
 	bool					Load (ChunkLoadClass &cload) override;
 	const char *		Name (void) const override					{ return "EncyclopediaMgrClass"; }
-								
-	//							
-	//	Save load support	
-	//							
+
+	//
+	//	Save load support
+	//
 	void					Load_Variables (ChunkLoadClass &cload);
 
 	//
@@ -145,7 +145,7 @@ private:
 
 	///////////////////////////////////////////////////////////////////
 	//	Private member data
-	///////////////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////////////////////
 	static BooleanVectorClass	KnownObjectVector[TYPE_COUNT];
 	static BooleanVectorClass	CopyOfKnownObjectVector[TYPE_COUNT];
 };

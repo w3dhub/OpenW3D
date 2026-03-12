@@ -81,10 +81,10 @@ void CMotorcycleDialog::SetDlgItemFloat(int controlid,float val)
 	SetDlgItemText(controlid,string);
 }
 
-BOOL CMotorcycleDialog::OnInitDialog() 
+BOOL CMotorcycleDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	m_LeanK0Spin.SetRange(MIN_K * 100,MAX_K * 100);
 	m_LeanK1Spin.SetRange(MIN_K * 100,MAX_K * 100);
 
@@ -92,7 +92,7 @@ BOOL CMotorcycleDialog::OnInitDialog()
 	k = EditedObject->LeanK0;
 	m_LeanK0Spin.SetPos(k * 100);
 	SetDlgItemFloat(IDC_LEAN_K0_EDIT,k);
-	
+
 	k = EditedObject->LeanK1;
 	m_LeanK1Spin.SetPos(k * 100);
 	SetDlgItemFloat(IDC_LEAN_K1_EDIT,k);
@@ -100,10 +100,10 @@ BOOL CMotorcycleDialog::OnInitDialog()
 	return true;
 }
 
-BOOL CMotorcycleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 
+BOOL CMotorcycleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	// make the spin controls work...
-	switch(wParam) 
+	switch(wParam)
 	{
 		case IDC_LEAN_K0_SPIN:
 		case IDC_LEAN_K1_SPIN:
@@ -116,11 +116,11 @@ BOOL CMotorcycleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 			}
 			break;
 	}
-	
+
 	return CDialog::OnNotify(wParam, lParam, pResult);
 }
 
-void CMotorcycleDialog::OnOK() 
+void CMotorcycleDialog::OnOK()
 {
 	float k;
 	k = GetDlgItemFloat(IDC_LEAN_K0_EDIT);

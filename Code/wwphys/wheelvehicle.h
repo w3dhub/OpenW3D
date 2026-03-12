@@ -60,8 +60,8 @@ class NormalWheelClass;
 class WheeledVehicleDefClass;
 
 /**
-** WheeledVehicleClass 
-** This is a derivation of RigidBodyClass which basically adds wheels to 
+** WheeledVehicleClass
+** This is a derivation of RigidBodyClass which basically adds wheels to
 ** a rigid body object.  Each wheel detected in the model will have a friction
 ** model and a spring-damper force.  Each one will "roll" an amount derived
 ** from the motion of the contact point for the wheel.  Special engine wheels
@@ -116,7 +116,7 @@ class WheeledVehicleDefClass : public MotorVehicleDefClass
 {
 public:
 	WheeledVehicleDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;
@@ -140,7 +140,7 @@ public:
 protected:
 
 	float											MaxSteeringAngle;			// maximum angle for the steering wheels
-	
+
 	friend class WheeledVehicleClass;
 };
 

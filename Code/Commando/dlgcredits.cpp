@@ -68,7 +68,7 @@ CreditsMenuClass::On_Init_Dialog (void)
 	FileClass *credits_txt_file = _TheFileFactory->Get_File (CREDITS_TXT_FILENAME);
 	if (credits_txt_file != NULL && credits_txt_file->Is_Available ()) {
 		if (credits_txt_file->Open ()) {
-			
+
 			//
 			//	Read the data from the file
 			//
@@ -98,13 +98,13 @@ CreditsMenuClass::On_Init_Dialog (void)
 			//
 			Set_Dlg_Item_Text (IDC_CREDITS_EDIT, wide_text);
 		}
-		
+
 		//
 		//	Close the text file
 		//
 		_TheFileFactory->Return_File (credits_txt_file);
 	}
-	
+
 	MenuDialogClass::On_Init_Dialog ();
 	return ;
 }

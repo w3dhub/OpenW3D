@@ -621,7 +621,7 @@ void cPlayer::Get_Player_String(int /* rank */, WideStringClass & string, bool f
 	//
 	// GameSpy auth. state
 	//
-   if (cNetwork::I_Am_Server() && cGameSpyAdmin::Is_Gamespy_Game() && 
+   if (cNetwork::I_Am_Server() && cGameSpyAdmin::Is_Gamespy_Game() &&
 		cDevOptions::ShowGameSpyAuthState.Is_True()) {
 		WideStringClass wide_string;
 		wide_string.Convert_From(cGameSpyAuthMgr::Describe_Auth_State(GameSpyAuthState));
@@ -1041,7 +1041,7 @@ void cPlayer::Set_Is_Active(bool flag)
 bool cPlayer::Is_Alive_And_Kicking(void) const
 {
 	//
-	// Abbreviates those players who are human, loaded, and active. 
+	// Abbreviates those players who are human, loaded, and active.
 	//
 
 	return Is_Human() && IsInGame.Is_True() && IsActive.Is_True();

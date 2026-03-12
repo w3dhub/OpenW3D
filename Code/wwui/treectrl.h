@@ -98,10 +98,10 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Inherited
-	//	
+	//
 	void				Render (void) override;
 	void				On_VScroll (ScrollBarCtrlClass *, int, int new_position) override;
 
@@ -128,7 +128,7 @@ public:
 	void					Ensure_Visible (TreeItemClass *tree_item);
 
 protected:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
@@ -150,15 +150,15 @@ protected:
 	void				Set_Scroll_Pos (int new_pos);
 	void				Update_Scroll_Bar_Visibility (void);
 	int				Count_Visible_Rows (void);
-	int				Count_Visible_Rows (TreeItemClass *item);	
-	
+	int				Count_Visible_Rows (TreeItemClass *item);
+
 	TreeItemClass *	Get_Prev_Sibling (TreeItemClass *item);
-	TreeItemClass *	Get_Next_Sibling (TreeItemClass *item);	
+	TreeItemClass *	Get_Next_Sibling (TreeItemClass *item);
 	TreeItemClass *	Find_Prev_Visible (TreeItemClass *item);
 	TreeItemClass *	Find_Next_Visible (TreeItemClass *item);
 	TreeItemClass *	Find_Top_Item (void);
 	TreeItemClass *	Find_Last_Visible_Item (void);
-	
+
 	bool				Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int &row_index, int level);
 
 	static int __cdecl	Sort_Callback (const void *elem1, const void *elem2);
@@ -249,7 +249,7 @@ public:
 
 	//
 	//	Child access
-	//	
+	//
 	void				Add_Child (TreeItemClass *child)	{ ChildList.Add (child); NeedsChildren = false; }
 	void				Remove_Child (int index)			{ ChildList.Delete (index); }
 	void				Remove_Child (TreeItemClass *child);
@@ -278,7 +278,7 @@ public:
 	int					Get_Indent_Level (void);
 
 protected:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////

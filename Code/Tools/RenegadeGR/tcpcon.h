@@ -31,7 +31,7 @@ class TCPCon /// : OutputDevice
            ~TCPCon();
 
    SOCKET  getFD(void);
-   void    close(void); 
+   void    close(void);
    sint32  write(IN uint8 *msg, uint32 len, sint32 wait_secs=-1);
    sint32  read(OUT uint8 *msg, uint32 maxlen, sint32 wait_secs=-1);
    bit8    unread(uint8 *data, int length);
@@ -43,7 +43,7 @@ class TCPCon /// : OutputDevice
    bit8    setOutputDelay(sint32 delay) { OutputDelay_=delay; return(true); };
 
    // For OutputDevice
-   /// virtual int print(IN char *str, int len); 
+   /// virtual int print(IN char *str, int len);
 
  private:
    friend  class TCPMgr;

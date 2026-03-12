@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/globalsettings.h                      $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/27/01 10:56a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 33                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/globalsettings.h                      $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/27/01 10:56a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 33                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	GLOBALSETTINGS_H
@@ -66,21 +66,21 @@ public:
 
 	DECLARE_EDITABLE( GlobalSettingsDef, DefinitionClass );
 
-	static GlobalSettingsDef *		Get_Global_Settings (void)					{ return GlobalSettings; }	
+	static GlobalSettingsDef *		Get_Global_Settings (void)					{ return GlobalSettings; }
 	int									Get_Death_Sound_ID (void) const				{ return DeathSoundID; }
 	int									Get_EVA_Objectives_Sound_ID (void) const	{ return EVAObjectivesSoundID; }
-	int									Get_HUD_Help_Text_Sound_ID (void) const	{ return HUDHelpTextSoundID; }	
-											
+	int									Get_HUD_Help_Text_Sound_ID (void) const	{ return HUDHelpTextSoundID; }
+
 	float									Get_Conversation_Dist (void) const			{ return MaxConversationDist; }
 	float									Get_Combat_Conversation_Dist (void) const	{ return MaxCombatConversationDist; }
-											
+
 	float									Get_Soldier_Walk_Speed(void) const			{ return SoldierWalkSpeed; }
 	float									Get_Soldier_Crouch_Speed(void) const		{ return SoldierCrouchSpeed; }
-											
+
 	float									Get_Falling_Damage_Min_Distance(void) const	{ return FallingDamageMinDistance; }
 	float									Get_Falling_Damage_Max_Distance(void) const	{ return FallingDamageMaxDistance; }
 	int									Get_Falling_Damage_Warhead(void) const		{ return FallingDamageWarhead; }
-											
+
 	const char *						Get_Purchase_GDI_Characters_Texture(void) const	{ return PurchaseGDICharactersTexture; }
 	const char *						Get_Purchase_GDI_Vehicles_Texture(void) const	{ return PurchaseGDIVehiclesTexture; }
 	const char *						Get_Purchase_GDI_Equipment_Texture(void) const	{ return PurchaseGDIEquipmentTexture; }
@@ -116,7 +116,7 @@ protected:
 	float									SoldierCrouchSpeed;
 	float									FallingDamageMinDistance;
 	float									FallingDamageMaxDistance;
-	
+
 	StringClass							PurchaseGDICharactersTexture;
 	StringClass							PurchaseGDIVehiclesTexture;
 	StringClass							PurchaseGDIEquipmentTexture;
@@ -328,7 +328,7 @@ public:
 class	HumanAnimOverrideDef : public DefinitionClass {
 
 public:
-	HumanAnimOverrideDef( void );		
+	HumanAnimOverrideDef( void );
 
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create( void ) const override;

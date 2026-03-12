@@ -115,11 +115,11 @@ PresetDependencyTabClass::HandleInitDialog (void)
 	//	Configure the list control
 	//
 	m_ListCtrl.InsertColumn (0, "Filename");
-	
+
 	CRect rect;
 	m_ListCtrl.GetClientRect (&rect);
 	m_ListCtrl.SetColumnWidth (0, rect.Width () - 4);
-	
+
 	//
 	//	Get the list of dependencies from the preset
 	//
@@ -146,7 +146,7 @@ PresetDependencyTabClass::HandleInitDialog (void)
 	// Put the focus into the edit control
 	//
 	::SetFocus (::GetDlgItem (m_hWnd, IDC_DEPENCY_LIST));
-	Update_Button_State ();	
+	Update_Button_State ();
 	return ;
 }
 
@@ -164,7 +164,7 @@ PresetDependencyTabClass::Apply_Changes (void)
 	//
 	STRING_LIST list;
 	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
-		
+
 		//
 		//	Add this file to the list of dependencies
 		//
@@ -175,7 +175,7 @@ PresetDependencyTabClass::Apply_Changes (void)
 	//
 	//	Pass the new dependency list onto the preset
 	//
-	m_Preset->Set_Manual_Dependencies (list);	
+	m_Preset->Set_Manual_Dependencies (list);
 	return true;
 }
 
@@ -190,7 +190,7 @@ PresetDependencyTabClass::Update_Button_State (void)
 {
 	int sel_index = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);
 
-	if (m_IsReadOnly == false) {	
+	if (m_IsReadOnly == false) {
 		::EnableWindow (::GetDlgItem (m_hWnd, IDC_REMOVE), bool(sel_index >= 0));
 	}
 
@@ -212,7 +212,7 @@ PresetDependencyTabClass::OnAdd (void)
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 							  "All Files|*.*|Westwood 3D Files|*.w3d|Texture Files|*.tga|Sound Files|*.wav;*.mp3||",
 							  this);
-	
+
 	//
 	//	Setup the initial directory
 	//
@@ -222,7 +222,7 @@ PresetDependencyTabClass::OnAdd (void)
 	//	Let the user pick a file
 	//
 	if (dialog.DoModal () == IDOK) {
-		
+
 		//
 		// Is the new path valid?
 		//
@@ -235,16 +235,16 @@ PresetDependencyTabClass::OnAdd (void)
 			m_ListCtrl.InsertItem (0xFF, rel_path);
 
 		} else {
-			
+
 			//
 			// Let the user know this path is invalid
 			//
 			CString message;
 			CString title;
 			message.Format (IDS_INVALID_MODEL_PATH_MSG, (LPCTSTR)::Get_File_Mgr()->Get_Base_Path ());
-			title.LoadString (IDS_INVALID_MODEL_PATH_TITLE);			
+			title.LoadString (IDS_INVALID_MODEL_PATH_TITLE);
 			::MessageBox (m_hWnd, message, title, MB_ICONERROR | MB_OK);
-		}		
+		}
 
 	}
 
@@ -265,7 +265,7 @@ PresetDependencyTabClass::OnRemove (void)
 	//
 	int sel_index = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);
 	if (sel_index >= 0) {
-		
+
 		//
 		//	Remove this entry from the list control
 		//
@@ -290,6 +290,6 @@ PresetDependencyTabClass::OnItemchangedDepencyList
 {
 	(*pResult) = 0;
 
-	Update_Button_State ();	
+	Update_Button_State ();
 	return ;
 }

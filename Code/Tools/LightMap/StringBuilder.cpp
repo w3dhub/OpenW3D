@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 2/09/00 1:12p       $* 
- *                                                                                             * 
- *                    $Revision:: 5                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 2/09/00 1:12p       $*
+ *                                                                                             *
+ *                    $Revision:: 5                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -51,7 +51,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 StringBuilder::StringBuilder (unsigned buffersize)
 {
@@ -73,7 +73,7 @@ StringBuilder::StringBuilder (unsigned buffersize)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 StringBuilder::StringBuilder (char *buffer, unsigned buffersize)
 {
@@ -94,7 +94,7 @@ StringBuilder::StringBuilder (char *buffer, unsigned buffersize)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 StringBuilder::~StringBuilder()
 {
@@ -112,7 +112,7 @@ StringBuilder::~StringBuilder()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 char *StringBuilder::Copy (const char *controlstring, ...)
 {
@@ -152,7 +152,7 @@ char *StringBuilder::Copy (const char *controlstring, ...)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 char *StringBuilder::Concatenate (const char *controlstring, ...)
 {

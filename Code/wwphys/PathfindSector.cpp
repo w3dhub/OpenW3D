@@ -86,8 +86,8 @@ PathfindSectorClass::~PathfindSectorClass (void)
 ////////////////////////////////////////////////////////////////////////////////////
 void
 PathfindSectorClass::Reset_Portal_List (void)
-{	
-	m_PortalList.Delete_All ();	
+{
+	m_PortalList.Delete_All ();
 	return ;
 }
 
@@ -99,9 +99,9 @@ PathfindSectorClass::Reset_Portal_List (void)
 ///////////////////////////////////////////////////////////////////////////
 bool
 PathfindSectorClass::Save (ChunkSaveClass &csave)
-{	
+{
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
-		
+
 		//
 		//	Write the bounding box out to the chunk
 		//
@@ -138,13 +138,13 @@ PathfindSectorClass::Load (ChunkLoadClass &cload)
 	//
 	//	Read all the chunks...
 	//
-	while (cload.Open_Chunk ()) {		
-		switch (cload.Cur_Chunk_ID ()) {			
-			
+	while (cload.Open_Chunk ()) {
+		switch (cload.Cur_Chunk_ID ()) {
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
-			
+
 			default:
 				WWDEBUG_SAY (("Unknown chunk ID 0x%X\n", cload.Cur_Chunk_ID ()));
 				break;
@@ -152,7 +152,7 @@ PathfindSectorClass::Load (ChunkLoadClass &cload)
 
 		cload.Close_Chunk ();
 	}
-	
+
 	return true;
 }
 
@@ -171,21 +171,21 @@ PathfindSectorClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Read all the micro chunks...
 	//
-	while (cload.Open_Micro_Chunk ()) {		
-		switch (cload.Cur_Micro_Chunk_ID ()) {			
-			
+	while (cload.Open_Micro_Chunk ()) {
+		switch (cload.Cur_Micro_Chunk_ID ()) {
+
 			READ_MICRO_CHUNK (cload, VARID_BOUNDING_BOX, bounding_box);
-			
+
 			case VARID_PORTAL_ID:
 			{
-				uint32 portal_id = 0;				
+				uint32 portal_id = 0;
 				cload.Read (&portal_id, sizeof (portal_id));
 				if (portal_id < PathfindClass::TEMP_PORTAL_ID_START) {
 					m_PortalList.Add (portal_id);
 				}
 			}
 			break;
-			
+
 			default:
 				WWDEBUG_SAY (("Unknown micro chunk ID 0x%X\n", cload.Cur_Micro_Chunk_ID ()));
 				break;
@@ -200,7 +200,7 @@ PathfindSectorClass::Load_Variables (ChunkLoadClass &cload)
 	if (old_ptr != NULL) {
 		SaveLoadSystemClass::Register_Pointer (old_ptr, this);
 	}
-	
+
 	Set_Bounding_Box (bounding_box);
 	return true;
 }
@@ -249,12 +249,12 @@ PathfindSectorClass::Remove_Portal (uint32 portal_id)
 ///////////////////////////////////////////////////////////////////////////
 bool
 PathfindWaypathSectorClass::Save (ChunkSaveClass &csave)
-{	
+{
 	csave.Begin_Chunk (CHUNKID_WP_PARENT);
 		PathfindSectorClass::Save (csave);
 	csave.End_Chunk ();
 
-	csave.Begin_Chunk (CHUNKID_WP_VARIABLES);		
+	csave.Begin_Chunk (CHUNKID_WP_VARIABLES);
 		WRITE_MICRO_CHUNK (csave, VARID_WAYPATH_ID, WaypathID);
 	csave.End_Chunk ();
 
@@ -273,9 +273,9 @@ PathfindWaypathSectorClass::Load (ChunkLoadClass &cload)
 	//
 	//	Read all the chunks...
 	//
-	while (cload.Open_Chunk ()) {		
-		switch (cload.Cur_Chunk_ID ()) {			
-			
+	while (cload.Open_Chunk ()) {
+		switch (cload.Cur_Chunk_ID ()) {
+
 			case CHUNKID_WP_PARENT:
 				PathfindSectorClass::Load (cload);
 				break;
@@ -283,7 +283,7 @@ PathfindWaypathSectorClass::Load (ChunkLoadClass &cload)
 			case CHUNKID_WP_VARIABLES:
 				Load_Variables (cload);
 				break;
-			
+
 			default:
 				WWDEBUG_SAY (("Unknown chunk ID 0x%X\n", cload.Cur_Chunk_ID ()));
 				break;
@@ -307,11 +307,11 @@ PathfindWaypathSectorClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Read all the micro chunks...
 	//
-	while (cload.Open_Micro_Chunk ()) {		
-		switch (cload.Cur_Micro_Chunk_ID ()) {			
-			
+	while (cload.Open_Micro_Chunk ()) {
+		switch (cload.Cur_Micro_Chunk_ID ()) {
+
 			READ_MICRO_CHUNK (cload, VARID_WAYPATH_ID, WaypathID);
-			
+
 			default:
 				WWDEBUG_SAY (("Unknown micro chunk ID 0x%X\n", cload.Cur_Micro_Chunk_ID ()));
 				break;
@@ -340,16 +340,16 @@ PathfindWaypathSectorClass::Can_Access_Portal
 
 	//
 	//	Check to see if the base class requirements are met
-	//	
+	//
 	if (PathfindSectorClass::Can_Access_Portal (last_portal, test_portal)) {
-		
+
 		//
 		//	Check to see if the waypath is one-way, if so we need to make sure
-		// the portal we are testing is "ahead" of the portal 
+		// the portal we are testing is "ahead" of the portal
 		//
 		WaypathClass *waypath = PathfindClass::Get_Instance ()->Find_Waypath (WaypathID);
 		if (waypath != NULL && waypath->Get_Flag (WaypathClass::FLAG_TWO_WAY) == false) {
-			
+
 			//
 			//	Check to see if the portal we entered is "ahead" of the portal
 			// we are testing
@@ -362,9 +362,9 @@ PathfindWaypathSectorClass::Can_Access_Portal
 					break;
 				}
 			}
-			
+
 		} else {
-			
+
 			//
 			//	On a two-way waypath, we don't care which direction the portal
 			// is from the one we entered

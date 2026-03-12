@@ -156,7 +156,7 @@ EvaObjectivesTabClass::Update_Curr_Objective_Controls (void)
 	if (curr_sel >= 0) {
 		Objective *objective = ObjectiveManager::Get_Objective (list_ctrl->Get_Entry_Data (curr_sel, 0));
 		if (objective != NULL) {
-			
+
 			//
 			//	Put the long description into the edit control
 			//
@@ -166,7 +166,7 @@ EvaObjectivesTabClass::Update_Curr_Objective_Controls (void)
 			//	Configure the image ctrl
 			//
 			image_ctrl->Set_Texture (objective->HUDPogTextureName);
-		}		
+		}
 	}
 
 	return ;
@@ -193,10 +193,10 @@ EvaObjectivesTabClass::Fill_Objectives_List (void)
 	//	Loop over all the objectives
 	//
 	int count = ObjectiveManager::Get_Objective_Count ();
-	for (int index = 0; index < count; index ++) {		
+	for (int index = 0; index < count; index ++) {
 		Objective *objective = ObjectiveManager::Get_Objective (index);
 		if (objective != NULL) {
-			
+
 			//
 			//	Don't display hidden objectives (unless you really want to)
 			//
@@ -209,7 +209,7 @@ EvaObjectivesTabClass::Fill_Objectives_List (void)
 				int item_index = list_ctrl->Insert_Entry (index, objective->Type_To_Name ());
 				if (item_index != -1) {
 					WideStringClass text = TRANSLATE (objective->ShortDescriptionID);
-					
+
 					//
 					//	Strip off the line delimiter (if necessary)
 					//
@@ -227,7 +227,7 @@ EvaObjectivesTabClass::Fill_Objectives_List (void)
 					Vector3 color = objective->Type_To_Color ();
 					list_ctrl->Set_Entry_Color (item_index, COL_PRIORITY, color);
 					list_ctrl->Set_Entry_Color (item_index, COL_TEXT, color);
-					list_ctrl->Set_Entry_Color (item_index, COL_STATUS, color);					
+					list_ctrl->Set_Entry_Color (item_index, COL_STATUS, color);
 				}
 			}
 		}
@@ -297,6 +297,6 @@ EvaObjectivesTabClass::ListSortCallback
 		//
 		result = (item_index1 - item_index2);
 	}
-			
+
 	return result;
 }

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 9/06/00 5:06p       $* 
- *                                                                                             * 
- *                    $Revision:: 3                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 9/06/00 5:06p       $*
+ *                                                                                             *
+ *                    $Revision:: 3                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -74,18 +74,18 @@ END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // SelectionDialog message handlers
-BOOL SelectionDialog::OnInitDialog() 
+BOOL SelectionDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	if (ListPtr != NULL) {
 
 		CListBox *listboxptr = (CListBox*) GetDlgItem (IDC_SELECTION_LIST);
-	
+
 		for (int i = 0; i < ListPtr->Count(); i++) {
 			listboxptr->AddString ((*ListPtr) [i]);
 		}
-	
+
 		// Set the initial selection.
 		listboxptr->SetCurSel (0);
 	}
@@ -95,12 +95,12 @@ BOOL SelectionDialog::OnInitDialog()
 }
 
 
-void SelectionDialog::OnDestroy() 
+void SelectionDialog::OnDestroy()
 {
 	CDialog::OnDestroy();
 
 	CListBox *listboxptr = (CListBox*) GetDlgItem (IDC_SELECTION_LIST);
-	
+
 	// Record the most recent list box selection.
 	Selection = listboxptr->GetCurSel();
 }

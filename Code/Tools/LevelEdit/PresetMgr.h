@@ -84,7 +84,7 @@ const DWORD TEMP_DEF_ID_START			= 1000000000;
 class PresetMgrClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
-	
+
 	// From SaveLoadSubSystemClass
 	virtual uint32				Chunk_ID (void) const;
 	virtual const char *		Name (void) const			{ return "PresetMgrClass"; }
@@ -127,7 +127,7 @@ public:
 	static PresetClass *		Find_Preset (LPCTSTR name);
 	static PresetClass *		Get_First (void);
 	static PresetClass *		Get_First (uint32 id, ID_TYPE type, bool include_twiddlers = false);
-	static PresetClass *		Get_Next (PresetClass *current);	
+	static PresetClass *		Get_Next (PresetClass *current);
 	static PresetClass *		Get_Next (PresetClass *current, uint32 class_id, ID_TYPE type, bool include_twiddlers = false);
 
 	//
@@ -138,7 +138,7 @@ public:
 
 	//
 	//	Content control
-	// 
+	//
 	static void					Put_Presets_Back (PRESET_LIST &preset_list);
 	static void					Remove_Non_Matching_Presets (uint32 class_id, bool class_id_matters, bool is_temp, PRESET_LIST &removed_preset_list);
 
@@ -169,7 +169,7 @@ protected:
 	//////////////////////////////////////////////////////////////
 	//	Protected methods
 	//////////////////////////////////////////////////////////////
-	
+
 	// From SaveLoadSubSystemClass
 	virtual bool				Contains_Data(void) const;
 	virtual bool				Save (ChunkSaveClass &csave);
@@ -201,7 +201,7 @@ private:
 
 	/////////////////////////////////////////////////////////////////////
 	//	Static member data
-	/////////////////////////////////////////////////////////////////////	
+	/////////////////////////////////////////////////////////////////////
 	static PresetClass *					_PresetListHead;
 	static DynamicVectorClass<int>	_DirtyPresetList;
 	static bool								_PresetsDirty;
@@ -211,7 +211,7 @@ private:
 
 /////////////////////////////////////////////////////////////////////
 //	Get_First
-/////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////
 inline PresetClass *
 PresetMgrClass::Get_First (void)
 {
@@ -236,7 +236,7 @@ public:
 		:	m_Preset (NULL)				{ }
 
 	virtual ~PresetListNode (void)	{ Reset (); }
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@ public:
 	PRESET_NODE_LIST &	Get_Children (void)	{ return m_Children; }
 
 	void						Set_Preset (PresetClass *preset) {	m_Preset = preset; }
-	void						Add_Child (PresetClass *preset, bool sort = true);	
+	void						Add_Child (PresetClass *preset, bool sort = true);
 	void						Reset (void);
 
 protected:

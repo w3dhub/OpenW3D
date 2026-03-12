@@ -44,7 +44,7 @@ enum
 {
 
 	LOG_CHUNK_VIS							= 0x00000000,
-		
+
 		LOG_CHUNK_VIS_HEADER				= 0x00000100,
 			LEV_CHUNK_VIS_POINT_INFO	= 0x00000102,
 };
@@ -130,7 +130,7 @@ VisLogClass::Log_Sample (const VisSampleClass &vis_sample)
 	/*if (	vis_sample.Status == VIS_STATUS_BACKFACE_LEAK ||
 			vis_sample.Status == VIS_STATUS_BACKFACE_OVERFLOW ||
 			vis_sample.Status == VIS_STATUS_OK) {*/
-	
+
 		//
 		//	Add this sample to our list
 		//
@@ -139,7 +139,7 @@ VisLogClass::Log_Sample (const VisSampleClass &vis_sample)
 			m_ErrorList.Add (new_sample);
 	}
 	//}
-	
+
 	return ;
 }
 
@@ -153,7 +153,7 @@ bool
 VisLogClass::Load (ChunkLoadClass &chunk_load)
 {
 	bool retval = chunk_load.Open_Chunk ();
-	if (retval) {		
+	if (retval) {
 		bool close_both = false;
 
 		//
@@ -172,14 +172,14 @@ VisLogClass::Load (ChunkLoadClass &chunk_load)
 				//
 				//	Read the list of points from the chunk
 				//
-				for (uint32 index = 0; (index < header.count) && retval; index ++) {				
+				for (uint32 index = 0; (index < header.count) && retval; index ++) {
 					VisSampleClass sample;
 					retval &= sample.Load (chunk_load);
-					
+
 					//
 					//	Add this sample to the log
-					//						
-					if (retval) {						
+					//
+					if (retval) {
 						Log_Sample (sample);
 					}
 				}
@@ -190,7 +190,7 @@ VisLogClass::Load (ChunkLoadClass &chunk_load)
 				ASSERT (0);
 				break;
 		}
-		
+
 		//
 		//	Close the chunks
 		//
@@ -213,7 +213,7 @@ bool
 VisLogClass::Save (ChunkSaveClass &chunk_save)
 {
 	bool retval = false;
-	
+
 	chunk_save.Begin_Chunk (LOG_CHUNK_VIS);
 	chunk_save.Begin_Chunk (LOG_CHUNK_VIS_HEADER);
 

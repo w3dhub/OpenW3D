@@ -57,7 +57,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_RMV, "Objective_ID:int, Obje
 		SAVE_VARIABLE(blip, 9);
 		SAVE_VARIABLE(hidden, 10);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		hidden = (Get_Int_Parameter("Hidden") == 1) ? true : false;
@@ -116,7 +116,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_RMV, "Objective_ID:int, Obje
 			if ((blip) && (Commands->Find_Object(object_id) != NULL))
 				Commands->Set_Objective_Radar_Blip_Object(objective_id, Commands->Find_Object(object_id));
 		}
-		
+
 		if ((type == custom_type) && (param == success))
 		{
 			Commands->Set_Objective_Status(objective_id, OBJECTIVE_STATUS_ACCOMPLISHED);
@@ -154,7 +154,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Locations_RMV, "Objective_ID:int, Ob
 		SAVE_VARIABLE(hidden, 10);
 		SAVE_VARIABLE(location, 11);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		location = Get_Vector3_Parameter("Location");
@@ -213,7 +213,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Locations_RMV, "Objective_ID:int, Ob
 			if (blip)
 				Commands->Set_Objective_Radar_Blip(objective_id, location);
 		}
-		
+
 		if ((type == custom_type) && (param == success))
 		{
 			Commands->Set_Objective_Status(objective_id, OBJECTIVE_STATUS_ACCOMPLISHED);
@@ -268,7 +268,7 @@ DECLARE_SCRIPT(M00_Objective_Controller_For_Objects_Multiple_Triggers_RMV, "Obje
 		SAVE_VARIABLE(hidden, 10);
 		SAVE_VARIABLE(so_far, 3);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		hidden = (Get_Int_Parameter("Hidden") == 1) ? true : false;

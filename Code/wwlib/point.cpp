@@ -16,23 +16,23 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Command & Conquer                                            * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Library/Point.CPP                                 $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 7/22/97 11:37a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 1                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
- *   Point2D::Bias_To -- Bias a point into a rectangle.                                        * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Command & Conquer                                            *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Library/Point.CPP                                 $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 7/22/97 11:37a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 1                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
+ *   Point2D::Bias_To -- Bias a point into a rectangle.                                        *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifdef NEVER
@@ -43,22 +43,22 @@
 #include	"rect.h"
 
 
-/*********************************************************************************************** 
- * Point2D::Bias_To -- Bias a point into a rectangle.                                          * 
- *                                                                                             * 
- *    It is often necessary to take a point that is relative to a rectangle and derive a       * 
- *    point that is no longer relative to the rectangle coordiates, yet still have it refer    * 
- *    to the same location.                                                                    * 
- *                                                                                             * 
- * INPUT:   rect  -- The rectangle to bias this point against.                                 * 
- *                                                                                             * 
- * OUTPUT:  Returns with a point in the rectangles coordinate space but still referring to the * 
- *          same location.                                                                     * 
- *                                                                                             * 
- * WARNINGS:   none                                                                            * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   05/26/1997 JLB : Created.                                                                 * 
+/***********************************************************************************************
+ * Point2D::Bias_To -- Bias a point into a rectangle.                                          *
+ *                                                                                             *
+ *    It is often necessary to take a point that is relative to a rectangle and derive a       *
+ *    point that is no longer relative to the rectangle coordiates, yet still have it refer    *
+ *    to the same location.                                                                    *
+ *                                                                                             *
+ * INPUT:   rect  -- The rectangle to bias this point against.                                 *
+ *                                                                                             *
+ * OUTPUT:  Returns with a point in the rectangles coordinate space but still referring to the *
+ *          same location.                                                                     *
+ *                                                                                             *
+ * WARNINGS:   none                                                                            *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   05/26/1997 JLB : Created.                                                                 *
  *=============================================================================================*/
 Point2D const Point2D::Bias_To(Rect const & rect) const
 {

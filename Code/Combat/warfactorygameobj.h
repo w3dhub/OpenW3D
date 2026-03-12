@@ -16,20 +16,20 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/warfactorygameobj.h                                                                                                                                       $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/05/02 11:54a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 7                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/warfactorygameobj.h                                                                                                                                       $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/05/02 11:54a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 7                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -57,7 +57,7 @@ class BaseControllerClass;
 class WarFactoryGameObjDef : public VehicleFactoryGameObjDef
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Friends
 	////////////////////////////////////////////////////////////////
@@ -139,7 +139,7 @@ public:
 	//	From BuildingGameObj
 	//
 	void					CnC_Initialize (BaseControllerClass *base) override;
-	
+
 	//
 	//	GameObj methods
 	//

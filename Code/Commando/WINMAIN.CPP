@@ -308,7 +308,7 @@ static bool Video_Card_Driver_Check()
 	//
 	char device_name[256] = { 0 };
 	ini.Get_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, "", device_name, sizeof(device_name));
-	
+
 	int adapter_count = d3d->GetAdapterCount();
 	for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
 		D3DADAPTER_IDENTIFIER9 id;

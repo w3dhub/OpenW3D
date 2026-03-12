@@ -42,7 +42,7 @@ static char THIS_FILE[] = __FILE__;
 // GeneratingLightVisDialogClass dialog
 //
 //////////////////////////////////////////////////////////////////////////////
-GeneratingLightVisDialogClass::GeneratingLightVisDialogClass(CWnd* pParent /*=NULL*/) : 
+GeneratingLightVisDialogClass::GeneratingLightVisDialogClass(CWnd* pParent /*=NULL*/) :
 	CDialog(GeneratingLightVisDialogClass::IDD, pParent),
 	m_IsCancelled(false),
 	m_StartTicks(0),
@@ -65,7 +65,7 @@ GeneratingLightVisDialogClass::GeneratingLightVisDialogClass(CWnd* pParent /*=NU
 
 	//
 	//	Get the installation directory of this application
-	//		
+	//
 	TCHAR exe_path[MAX_PATH] = { 0 };
 	::GetModuleFileName (::AfxGetInstanceHandle (), exe_path, sizeof (exe_path));
 	CString path = ::Strip_Filename_From_Path (exe_path);
@@ -74,7 +74,7 @@ GeneratingLightVisDialogClass::GeneratingLightVisDialogClass(CWnd* pParent /*=NU
 	}
 	m_StatusFilename = path + "status.vis";
 	::WritePrivateProfileString ("Status", m_StatusSection, "", m_StatusFilename);
-	
+
 	return ;
 }
 
@@ -84,7 +84,7 @@ GeneratingLightVisDialogClass::GeneratingLightVisDialogClass(CWnd* pParent /*=NU
 // DoDataExchange
 //
 //////////////////////////////////////////////////////////////////////////////
-void 
+void
 GeneratingLightVisDialogClass::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
@@ -104,17 +104,17 @@ END_MESSAGE_MAP()
 // OnInitDialog
 //
 //////////////////////////////////////////////////////////////////////////////
-BOOL 
-GeneratingLightVisDialogClass::OnInitDialog() 
+BOOL
+GeneratingLightVisDialogClass::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
-	m_ProgressCtrl.SetRange (0, 100);	
+
+	m_ProgressCtrl.SetRange (0, 100);
 	m_ProgressCtrl.SetPos (0);
 
 	ShowWindow (SW_SHOW);
 	PostMessage (WM_USER+101);
-	
+
 	return true;
 }
 
@@ -123,8 +123,8 @@ GeneratingLightVisDialogClass::OnInitDialog()
 // OnCancel
 //
 //////////////////////////////////////////////////////////////////////////////
-void 
-GeneratingLightVisDialogClass::OnCancel() 
+void
+GeneratingLightVisDialogClass::OnCancel()
 {
 	m_IsCancelled = true;
 }
@@ -134,8 +134,8 @@ GeneratingLightVisDialogClass::OnCancel()
 // WindowProc
 //
 //////////////////////////////////////////////////////////////////////////////
-LRESULT 
-GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) 
+LRESULT
+GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_USER+101) {
 
@@ -148,7 +148,7 @@ GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lP
 		*/
 		int light_count = scene_editor->Get_Static_Light_Count();
 		float lights_per_processor = (float)light_count / (float)m_TotalProcessors;
-		
+
 		m_FirstLight	= (int)::floor (lights_per_processor * (float)m_ProcessorIndex);
 		m_LastLight		= (int)::ceil (lights_per_processor * (float)(m_ProcessorIndex+1));
 		m_LastLight		= std::min (light_count, m_LastLight);
@@ -158,14 +158,14 @@ GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lP
 		*/
 		bool restore_vis_point_display = scene_editor->Are_Vis_Points_Displayed ();
 		scene_editor->Display_Vis_Points (false);
-	
+
 		/*
 		** Perform a vis sample for each light, updating the UI after each one
 		*/
 		for (int i=m_FirstLight; (i<m_LastLight) && (m_IsCancelled == false); i++) {
 			scene_editor->Generate_Vis_For_Light(i);
 			Update_Status(i);
-			General_Pump_Messages();	
+			General_Pump_Messages();
 		}
 
 		/*
@@ -188,13 +188,13 @@ GeneratingLightVisDialogClass::WindowProc(UINT message, WPARAM wParam, LPARAM lP
 // Update_Status
 //
 //////////////////////////////////////////////////////////////////////////////
-void 
+void
 GeneratingLightVisDialogClass::Update_Status (int cur_light)
 {
 	int light_index = (cur_light - m_FirstLight) + 1;
 	int light_count = (m_LastLight - m_FirstLight);
 
-	// 
+	//
 	// Update the light counters
 	//
 	CString status_text;
@@ -213,10 +213,10 @@ GeneratingLightVisDialogClass::Update_Status (int cur_light)
 	}
 	DWORD avg_ticks = elapsed_ticks / light_index;
 	DWORD remaining_ticks = (m_LastLight - cur_light) * avg_ticks;
-	
+
 	float elapsed_minutes = (float)elapsed_ticks / 60000.0f;
 	float remaining_minutes = (float)remaining_ticks / 60000.0f;
-	
+
 	CString elapsed_time_text;
 	elapsed_time_text.Format ("Elapsed: %.1f min.  Remaining: %.1f min.",elapsed_minutes,remaining_minutes);
 	SetDlgItemText (IDC_ELAPSED_TIME_TEXT, elapsed_time_text);

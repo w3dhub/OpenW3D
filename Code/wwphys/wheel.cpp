@@ -75,7 +75,7 @@ const Vector3	LATERAL_FORCE_COLOR						= Vector3(0,1,0);
 const Vector3	TRACTIVE_FORCE_COLOR						= Vector3(1,0,0);
 
 // Maximum total acceleration the suspension will exert on the parent vehicle (in m/s^2)
-// Note, each "real" wheel gets an equal fraction of this, so if you have 4 wheels, the max 
+// Note, each "real" wheel gets an equal fraction of this, so if you have 4 wheels, the max
 // acceleration any single wheel will exert is one quarter of the total.
 const float		MAX_SUSPENSION_ACCEL = 50.0f;
 
@@ -84,7 +84,7 @@ const float		MAX_SUSPENSION_ACCEL = 50.0f;
 /*
 ** Wheels:  An instance of this object will contain information on each
 ** wheel detected in the vehicle model.  Wheels use a pair of named bones.
-** The "position" bone is used to move the wheel up and down according to 
+** The "position" bone is used to move the wheel up and down according to
 ** the suspension system and to rotate if this is a "steering" wheel.  The
 ** "rotation" bone is used to roll the wheel on the terrain.
 **
@@ -93,10 +93,10 @@ const float		MAX_SUSPENSION_ACCEL = 50.0f;
 **   it is rotated about its z-axis to make the wheel appear to roll
 ** - The "position" bone is used in conjunction with the length parameter
 **   to define the suspension springs.
-** 
+**
 ** Defining the "spring-segment" using the position bone:
 ** - The default location of the position bone is considered the point of maximum-
-**   compression.  (this point should be *inside* the collision box for the model!) 
+**   compression.  (this point should be *inside* the collision box for the model!)
 ** - The spring will extend down the -z axis in the position bone's coordinate system
 **
 ** Graphical constraints for the wheel
@@ -105,13 +105,13 @@ const float		MAX_SUSPENSION_ACCEL = 50.0f;
 **   a rotation constraint bone.
 ** - Normal case: There are two bones for the wheel: position and center.  The position
 **   bone is moved along its Z-axis to the point of collision with the ground
-** - Translation: There is an additional translation bone (WheelTxx) which defines 
+** - Translation: There is an additional translation bone (WheelTxx) which defines
 **   the axis that the wheel is to be translated along.
-** - Fork/Rotation: a "fork" bone (WheelFxx) is rotated such that the Z-coordinate (in 
+** - Fork/Rotation: a "fork" bone (WheelFxx) is rotated such that the Z-coordinate (in
 **   the fork's coordinate system) meets the ground.
-** 
+**
 ** Wheel Flags:
-** - 'E' Engine. this wheel is connected to the engine and should exert its force 
+** - 'E' Engine. this wheel is connected to the engine and should exert its force
 ** - 'S' Steering: The position bone for this wheel rotates about its Z-axis for steering
 ** - 'L' Left Track: this wheel is part of the left track of a tracked vehicle
 ** - 'R' Right Track: this wheel is part of the right track of a tracked vehicle
@@ -399,7 +399,7 @@ void SuspensionElementClass::Update_Model(void)
 
 	// update the contact point.
 	Intersect_Spring();
-	
+
 	// use the constraints to make the wheel touch the ground
 	if (ForkBone != -1) {
 		Rotate_Fork(model);
@@ -431,7 +431,7 @@ void SuspensionElementClass::Non_Physical_Update(float suspension_fraction,float
 	// Set the wheel up as if it had an intersection at 'fraction' of its length
 	Non_Physical_Intersect_Spring(suspension_fraction);
 
-	// Update the "constraints" 
+	// Update the "constraints"
 	if (ForkBone != -1) {
 		Rotate_Fork(model);
 	} else if (AxisBone != -1) {
@@ -465,7 +465,7 @@ void SuspensionElementClass::Translate_Wheel_On_Axis(RenderObjClass * model)
 	if (Get_Flag(INCONTACT)) {
 		Vector3 dp;
 		Vector3 springdir;
-		Vector3::Subtract(Contact,WheelP0,&dp);	
+		Vector3::Subtract(Contact,WheelP0,&dp);
 		WheelTM.Get_Z_Vector(&springdir);
 		position_tm.Adjust_Z_Translation(TranslationScale * Vector3::Dot_Product(dp,springdir));
 	} else {
@@ -473,7 +473,7 @@ void SuspensionElementClass::Translate_Wheel_On_Axis(RenderObjClass * model)
 	}
 
 	model->Control_Bone(AxisBone,position_tm);
-		
+
 }
 
 
@@ -499,7 +499,7 @@ void SuspensionElementClass::Translate_Wheel(RenderObjClass * model)
 	if (Get_Flag(INCONTACT)) {
 		Vector3 dp;
 		Vector3 springdir;
-		Vector3::Subtract(Contact,WheelP0,&dp);	
+		Vector3::Subtract(Contact,WheelP0,&dp);
 		WheelTM.Get_Z_Vector(&springdir);
 		position_tm.Adjust_Z_Translation(Vector3::Dot_Product(dp,springdir));
 	} else {
@@ -529,7 +529,7 @@ void SuspensionElementClass::Translate_Wheel(RenderObjClass * model)
 void SuspensionElementClass::Rotate_Fork(RenderObjClass * model)
 {
 	WWASSERT(ForkBone != -1);
-	
+
 	float fork_sin = 0.0f;
 	float fork_cos = 1.0f;
 
@@ -545,7 +545,7 @@ void SuspensionElementClass::Rotate_Fork(RenderObjClass * model)
 	if (x2 < 0.0f) {
 		return;
 	}
-	p1.X = WWMath::Sqrt(x2);	
+	p1.X = WWMath::Sqrt(x2);
 
 	// Compute the sine and cosine of the new rotation (without calling atan,sine or cosine!)
 	float ooforklen = 1.0f / ForkLength;
@@ -558,7 +558,7 @@ void SuspensionElementClass::Rotate_Fork(RenderObjClass * model)
 	fork_sin = -WWMath::Sin(angledelta);
 	fork_cos = WWMath::Cos(angledelta);
 #endif
-	
+
 	Matrix3D fork_rotation(1);
 	fork_rotation.Rotate_Y(fork_sin,fork_cos);
 	model->Control_Bone(ForkBone,fork_rotation);
@@ -650,7 +650,7 @@ void WheelClass::Init
 {
 	// Allow the base class to init
 	SuspensionElementClass::Init(obj,position_bone,rotation_bone,fork_bone,axis_bone);
-	
+
 	// Grab a pointer to the render model
 	RenderObjClass * model = obj->Peek_Model();
 	WWASSERT(model != NULL);
@@ -667,7 +667,7 @@ void WheelClass::Init
 	if (RotationBone != -1) {
 		rotation_tm = model->Get_Bone_Transform(RotationBone);
 		Radius = (WheelP0 - rotation_tm.Get_Translation()).Length();
-	} 
+	}
 }
 
 
@@ -696,17 +696,17 @@ void WheelClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque)
 	TractiveFrictionForce.Set(0,0,0);
 	LateralFrictionForce.Set(0,0,0);
 	IdealAngularVelocity = 0.0f;
-	
+
 	// Intersect the spring with the world to find our contact point
 	// If it doesn't hit anything, we are done!
 	{
 		WWPROFILE("Intersect_Spring");
-		Intersect_Spring();	
+		Intersect_Spring();
 	}
 	if (!Get_Flag(INCONTACT)) {
 		return;
 	}
-	
+
 	// Rotate the wheel coordinate system by the steering angle
 	WheelTM.Rotate_Z(SteeringAngle);
 
@@ -716,15 +716,15 @@ void WheelClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque)
 	// Compute the velocity of the contact point both in world space and in
 	// the wheel's coordinate system
 	Vector3 pdot,local_pdot;
-	Parent->Compute_Point_Velocity(Contact,&pdot);		
+	Parent->Compute_Point_Velocity(Contact,&pdot);
 	local_pdot = pdot - Vector3::Dot_Product(pdot,Normal)*Normal;
 	Matrix3D::Inverse_Rotate_Vector(WheelTM,local_pdot,&local_pdot);
 	IdealAngularVelocity = local_pdot.X / Radius;
-	
+
 	// Suspension Force:
 	Compute_Suspension_Force(pdot,local_pdot,&SuspensionForce);
 
-	// Get the load on this wheel.  I'm not using the spring force since it is too 
+	// Get the load on this wheel.  I'm not using the spring force since it is too
 	// sloppy; instead, I'll just give each wheel an equal share of the vehicle weight.
 	// Also, compute the lateral components of gravitational acceleration so that
 	// the wheel can attempt to cancel them.
@@ -733,10 +733,10 @@ void WheelClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque)
 	gravity /= Parent->Get_Real_Wheel_Count();
 	Vector3 local_gravity;
 	Matrix3D::Inverse_Rotate_Vector(WheelTM,gravity,&local_gravity);
-	
+
 	float wheel_normal_force = -local_gravity.Z;
 	wheel_normal_force *= vehicle_def->Get_Traction_Multiplier();
-		
+
 	// Friction / Traction Forces (initialized so that they cancel gravity):
 	// (gth, 8/19/2001) scale the gravity cancellation forces down a bit so they don't cause
 	// vehicles to slide uphill!
@@ -762,7 +762,7 @@ if (sum.Length2() < 0.001f) {
 	// Compute the world-space traction forces
 	Matrix3D::Rotate_Vector(WheelTM,Vector3(tractive_force,0,0),&TractiveFrictionForce);
 	Matrix3D::Rotate_Vector(WheelTM,Vector3(0,lateral_force,0),&LateralFrictionForce);
-	
+
 	// Apply the final forces and torques
 	Apply_Forces(force,torque);
 }
@@ -790,10 +790,10 @@ void WheelClass::Compute_Suspension_Force(const Vector3 & pdot,const Vector3 & /
 	// - Compute the velocity of the wheel projected onto the spring axis
 	// - Compute the spring/damper force
 	// -----------------------------------------------------------------------------
-	Vector3 spring_dir;												
+	Vector3 spring_dir;
 	WheelTM.Get_Z_Vector(&spring_dir);								// spring_dir points from the wheel up to the body
-	
-	float dv = Vector3::Dot_Product(pdot,spring_dir);			
+
+	float dv = Vector3::Dot_Product(pdot,spring_dir);
 	float dx = Vector3::Dot_Product(WheelP0 - Contact,spring_dir) - SpringLength;
 
 	float sforce = - SpringConstant*dx - DampingCoefficient*dv;
@@ -801,7 +801,7 @@ void WheelClass::Compute_Suspension_Force(const Vector3 & pdot,const Vector3 & /
 	// Clamp the suspension force to produce at most an acceleration of MAX_SUSPENSION_ACCEL
 	float max_sforce = MAX_SUSPENSION_ACCEL * Parent->Get_Mass() / WWMath::Max(Parent->Get_Real_Wheel_Count(),1.0f);
 	sforce = WWMath::Clamp(sforce,-max_sforce,max_sforce);
-	
+
 	*suspension_force = Normal;
 	*suspension_force *= sforce;
 }
@@ -820,7 +820,7 @@ void WheelClass::Compute_Suspension_Force(const Vector3 & pdot,const Vector3 & /
  *   12/18/2000 gth : Created.                                                                 *
  *=============================================================================================*/
 void WheelClass::Apply_Forces(Vector3 * force,Vector3 * torque)
-{	
+{
 	WWPROFILE("WheelClass::Apply_Forces");
 
 	// Grab the 'Definition' for our parent for quick access to the constants
@@ -828,14 +828,14 @@ void WheelClass::Apply_Forces(Vector3 * force,Vector3 * torque)
 
 	// -----------------------------------------------------------------------------
 	// Compute the final forces and torques
-	// I'm applying the suspension force and lateral friction forces in the X-Y plane of 
-	// the CM of the vehicle since we really don't like vehicles that tip over.  May even 
+	// I'm applying the suspension force and lateral friction forces in the X-Y plane of
+	// the CM of the vehicle since we really don't like vehicles that tip over.  May even
 	// need to add a self-balancing force to keep the vehicle from *ever* fliping over...
 	// -----------------------------------------------------------------------------
 	Vector3 wheel_pos;
 	Vector3 r_lateral;			// moment arm for lateral forces
 	Vector3 r_tractive;			// moment arm for tractive forces
-	
+
 	ObjWheelTM.Get_Translation(&wheel_pos);
 	wheel_pos.Z = -vehicle_def->Get_Lateral_Moment_Arm();
 	Matrix3D::Rotate_Vector(Parent->Get_Transform(),wheel_pos,&r_lateral);
@@ -883,7 +883,7 @@ float WheelClass::Get_Ideal_Drive_Wheel_Angular_Velocity(float max_avel)
 		if (IdealAngularVelocity > max_avel) {
 			return IdealAngularVelocity;
 		}
-	} 
+	}
 	return max_avel;
 }
 
@@ -891,7 +891,7 @@ float WheelClass::Get_Ideal_Drive_Wheel_Angular_Velocity(float max_avel)
 
 	WVWheelClass Implementation (Wheeled-Vehicle-Wheel)
 
-*************************************************************************************/ 
+*************************************************************************************/
 void WVWheelClass::Compute_Traction_Forces
 (
 	const Vector3 & local_pdot,
@@ -912,7 +912,7 @@ void WVWheelClass::Compute_Traction_Forces
 		float friction_coefficient =	PhysicsConstants::Get_Contact_Friction_Coefficient(
 													PhysicsConstants::DYNAMIC_OBJ_TYPE_TIRE,
 													ContactSurface	);
-		
+
 		// Friction force from sliding should act like a proportional controller while the
 		// engine torque or braking force should just be added in (later to be clamped to the
 		// friction circle)
@@ -921,7 +921,7 @@ void WVWheelClass::Compute_Traction_Forces
 		if ((Get_Flag(BRAKING) == true) || (Parent->Is_Engine_Enabled() == false)) {
 			tractive_friction_coefficient = lateral_friction_coefficient;
 		}
-		
+
 
 		// Friction "penalty" force, proportional to the velocity, tuned so that the force
 		// will be small when the velocity is small.  The lateral and tractive friction forces
@@ -946,7 +946,7 @@ void WVWheelClass::Compute_Traction_Forces
 		tractive_force -= drag_coefficient * local_pdot.X * local_pdot.X;
 
 		if (Get_Flag(ENGINE) && !Get_Flag(BRAKING)) {
-			tractive_force += AxleTorque / Radius; 
+			tractive_force += AxleTorque / Radius;
 		}
 
 		// Add in the initial lateral and tractive force (gravitation cancelling)
@@ -990,7 +990,7 @@ void WVWheelClass::Non_Physical_Update(float suspension_fraction,float rotation)
 	// Set up the position and constraints
 	WheelClass::Non_Physical_Update(suspension_fraction,rotation);
 
-	// Set the rotation 
+	// Set the rotation
 	Matrix3D rotation_tm(1);
 	rotation_tm.Rotate_Z(rotation);
 	model->Control_Bone(RotationBone,rotation_tm);
@@ -1001,37 +1001,37 @@ void WVWheelClass::Roll_Wheel(void)
 {
 	RenderObjClass * model = Parent->Peek_Model();
 	WheeledVehicleClass * wv_parent = Parent->As_WheeledVehicleClass();
-	
+
 	if ((model == NULL) || (wv_parent == NULL) || (RotationBone == -1)) {
 		return;
 	}
 
 	// if we're braking, the wheels lock (not realistic but fun!)
 	if (wv_parent->Is_Braking() == false) {
-		
+
 		if (Get_Flag(INCONTACT) || (Get_Flag(ENGINE) /*&& Not_In_Neutral*/)) {
 
 			// Rotate the wheel based on movement
 			Vector3 forward;
 			Vector3 move;
-			
+
 			WheelTM.Get_X_Vector(&forward);
-			Vector3::Subtract(Contact,LastPoint,&move);										
+			Vector3::Subtract(Contact,LastPoint,&move);
 			float dist = Vector3::Dot_Product(move,forward);
-			
+
 			RotationDelta = -dist/Radius;
-			
+
 			if (Get_Flag(ENGINE) && (SlipFactor > 1.0f) && (SlipFactor < 100.0f)) {
 				RotationDelta *= 2.0f * SlipFactor;
 			}
-			
+
 			Rotation += RotationDelta;
 
 			WWASSERT(WWMath::Is_Valid_Float(RotationDelta));
 			WWASSERT(WWMath::Is_Valid_Float(Rotation));
 
 		} else {
-			
+
 			// Rotate the wheel at the rate it was last rolling and slow it down a little
 			Rotation += RotationDelta;
 			RotationDelta *= 0.97f;
@@ -1040,7 +1040,7 @@ void WVWheelClass::Roll_Wheel(void)
 			WWASSERT(WWMath::Is_Valid_Float(Rotation));
 		}
 	}
-	
+
 	Matrix3D rotation_tm(1);
 	rotation_tm.Rotate_Z(Rotation);
 
@@ -1053,12 +1053,12 @@ void WVWheelClass::Roll_Wheel(void)
 /*************************************************************************************
 
 	TrackWheelClass Implementation
-	These wheels differ from WVWheelClass in that they do not roll independently.  
-	They ask their TrackedVehicle parent how much their track has rolled and roll 
+	These wheels differ from WVWheelClass in that they do not roll independently.
+	They ask their TrackedVehicle parent how much their track has rolled and roll
 	with it.  Also, their friction forces may not behave the same way as wheeled
 	vehicle wheels... Tanks probably shouldn't slide very much.
 
-*************************************************************************************/ 
+*************************************************************************************/
 
 void TrackWheelClass::Compute_Traction_Forces
 (
@@ -1074,7 +1074,7 @@ void TrackWheelClass::Compute_Traction_Forces
 	float friction_coefficient =	PhysicsConstants::Get_Contact_Friction_Coefficient(
 												PhysicsConstants::DYNAMIC_OBJ_TYPE_TIRE,
 												ContactSurface	);
-	
+
 	// Friction force from sliding should act like a proportional controller while the
 	// engine torque or braking force should just be added in (later to be clamped to the
 	// friction circle)
@@ -1103,9 +1103,9 @@ void TrackWheelClass::Compute_Traction_Forces
 #endif
 
 	tractive_force *= -WWMath::Sign(local_pdot.X);
-	tractive_force += AxleTorque / Radius; 
+	tractive_force += AxleTorque / Radius;
 	tractive_force += *set_tractive_force;
-	
+
 	lateral_force *= -WWMath::Sign(local_pdot.Y);
 	lateral_force += *set_lateral_force;
 
@@ -1140,7 +1140,7 @@ void TrackWheelClass::Non_Physical_Update(float suspension_fraction,float rotati
 	// Set up the position and constraints
 	WheelClass::Non_Physical_Update(suspension_fraction,rotation);
 
-	// Set the rotation 
+	// Set the rotation
 	Matrix3D rotation_tm(1);
 	rotation_tm.Rotate_Z(rotation);
 	model->Control_Bone(RotationBone,rotation_tm);
@@ -1163,7 +1163,7 @@ void TrackWheelClass::Roll_Wheel(void)
 	} else {
 		dist = SlipFactor * track_parent->Get_Right_Track_Movement();
 	}
-	
+
 	RotationDelta = -dist/Radius;
 	Rotation += RotationDelta;
 
@@ -1183,9 +1183,9 @@ void TrackWheelClass::Roll_Wheel(void)
 
 	VTOLWheelClass Implemention
 	These wheels just don't like to move.  Their purpose is to just hold the vehicle
-	up off the ground when it lands.  
+	up off the ground when it lands.
 
-*************************************************************************************/ 
+*************************************************************************************/
 
 void VTOLWheelClass::Update_Model(void)
 {
@@ -1201,13 +1201,13 @@ void VTOLWheelClass::Non_Physical_Update(float suspension_fraction,float rotatio
 	// Set up the position and constraints
 	WheelClass::Non_Physical_Update(suspension_fraction,rotation);
 
-	// Set the rotation 
+	// Set the rotation
 	Matrix3D rotation_tm(1);
 	rotation_tm.Rotate_Z(rotation);
 	model->Control_Bone(RotationBone,rotation_tm);
 }
 
-void VTOLWheelClass::Compute_Traction_Forces	
+void VTOLWheelClass::Compute_Traction_Forces
 (
 	const Vector3 & local_pdot,
 	float normal_force,
@@ -1229,26 +1229,26 @@ void VTOLWheelClass::Roll_Wheel(void)
 
 	if ((RotationBone != -1) && (model != NULL)) {
 		if (Get_Flag(INCONTACT)) {
-			
+
 			// Rotate the wheel based on movement
 			Vector3 forward;
 			Vector3 move;
-			
+
 			WheelTM.Get_X_Vector(&forward);
-			Vector3::Subtract(Contact,LastPoint,&move);										
+			Vector3::Subtract(Contact,LastPoint,&move);
 			float dist = Vector3::Dot_Product(move,forward);
-			
+
 			RotationDelta = -dist/Radius;
 			Rotation += RotationDelta;
 
 		} else {
-			
+
 			// Rotate the wheel at the rate it was last rolling and slow it down a little
 			Rotation += RotationDelta;
 			RotationDelta *= 0.97f;
-		
+
 		}
-		
+
 		Matrix3D rotation_tm(1);
 		rotation_tm.Rotate_Z(Rotation);
 

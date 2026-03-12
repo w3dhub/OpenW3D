@@ -21,7 +21,7 @@
 // Project:      Network.lib, for Commando
 // Author:       Tom Spencer-Smith
 // Date:         Dec 1998
-// Description:  
+// Description:
 //
 
 #include "gamedata.h"
@@ -47,10 +47,10 @@ void cGameChannelList::Add_Channel(cGameData * p_game_data, const RefPtr<WWOnlin
    } else {
 		//
 		// Update any dynamic data
-		// 
+		//
 		p_game_channel->Get_Game_Data()->Set_Current_Players(
 			p_game_data->Get_Current_Players());
-		
+
 		p_game_channel->Get_Game_Data()->Set_Map_Name(
 			p_game_data->Get_Map_Name());
 
@@ -64,8 +64,8 @@ void cGameChannelList::Add_Channel(cGameData * p_game_data, const RefPtr<WWOnlin
 cGameChannel * cGameChannelList::Find_Channel(const WideStringClass & owner)
 {
 	for (
-		SLNode<cGameChannel> * objnode = ChanList.Head(); 
-		objnode; 
+		SLNode<cGameChannel> * objnode = ChanList.Head();
+		objnode;
 		objnode = objnode->Next()) {
 
 		cGameChannel * p_channel = objnode->Data();
@@ -95,8 +95,8 @@ void cGameChannelList::Remove_All(void)
 	WWDEBUG_SAY(("cGameChannelList::Remove_All\n"));
 
 	for (
-		SLNode<cGameChannel> * objnode = ChanList.Head(); 
-		objnode; 
+		SLNode<cGameChannel> * objnode = ChanList.Head();
+		objnode;
 		objnode = objnode->Next()) {
 
 		cGameChannel * p_channel = objnode->Data();

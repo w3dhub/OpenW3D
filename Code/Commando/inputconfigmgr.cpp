@@ -242,7 +242,7 @@ InputConfigMgrClass::Delete_Configuration (int index)
 	//
 	bool load_default = false;
 	if (index == CurrentConfigIndex) {
-		CurrentConfigIndex = -1;		
+		CurrentConfigIndex = -1;
 		load_default = true;
 	}
 

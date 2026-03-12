@@ -92,14 +92,14 @@ protected:
 
 		bool operator== (const _CREDIT_LINE &/* src*/)	{ return false; }
 		bool operator!= (const _CREDIT_LINE &/* src*/)	{ return true; }
-			
+
 		WideStringClass	Text;
 		int					FontIndex;
 		int					Color;
 		float					Height;
 
 	} CREDIT_LINE;
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
@@ -122,7 +122,7 @@ protected:
 	float							ScrollPos;
 	int							PixelHeight;
 	float							ScrollRate;
-	
+
 	DynamicVectorClass<CREDIT_LINE>	CreditLines;
 };
 

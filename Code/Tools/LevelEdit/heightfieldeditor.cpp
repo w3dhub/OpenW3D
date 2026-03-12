@@ -183,14 +183,14 @@ HeightfieldEditorClass::On_Frame_Update (void)
 		//
 		RenderObjClass *model = phys_obj->Peek_Model ();
 		if (model != NULL && model->Class_ID () == RenderObjClass::CLASSID_RENEGADE_TERRAIN && CurrentHeightfield != NULL) {
-			
+
 			EditableHeightfieldClass *heightfield = CurrentHeightfield;
 
 			//
 			//	Is the left button or right button down?
 			//
 			if (::Get_Mouse_Mgr ()->Is_LButton_Down ()) {
-				
+
 				//
 				//	Determine what operation to perform
 				//
@@ -219,7 +219,7 @@ HeightfieldEditorClass::On_Frame_Update (void)
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -232,7 +232,7 @@ HeightfieldEditorClass::On_Frame_Update (void)
 void
 HeightfieldEditorClass::Render (void)
 {
-	
+
 	return ;
 }
 
@@ -254,7 +254,7 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (TextureClass *texture, int wid
 	//
 	StringClass filename = texture->Get_Full_Path ();
 	HBITMAP thumbnail = Create_Texture_Thumbnail (filename, width, height);
-	
+
 	//
 	//	Release our hold on the texture
 	//
@@ -278,7 +278,7 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (const char *filename, int widt
 
 	//
 	//	Load the d3d surface for this texture
-	//	
+	//
 	IDirect3DSurface9 *d3d_surface = TextureLoader::Load_Surface_Immediate (filename, WW3D_FORMAT_R8G8B8, false);
 
 	//
@@ -291,7 +291,7 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (const char *filename, int widt
 	//
 	//	Get the texture's bits so we can copy tthem
 	//
-	D3DLOCKED_RECT lock_rect;	
+	D3DLOCKED_RECT lock_rect;
 	::ZeroMemory (&lock_rect, sizeof (D3DLOCKED_RECT));
 	DX8_ErrorCode (d3d_surface->LockRect (&lock_rect, 0, 0));
 	int src_pitch		= lock_rect.Pitch;
@@ -320,7 +320,7 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (const char *filename, int widt
 	uint8 *dest_bits	= NULL;
 	HDC screen_dc		= ::GetDC (NULL);
 	HBITMAP bitmap		= ::CreateDIBSection (screen_dc, (const BITMAPINFO *)&bitmap_info,
-														DIB_RGB_COLORS, (void **)&dest_bits, NULL, 0L);	
+														DIB_RGB_COLORS, (void **)&dest_bits, NULL, 0L);
 
 	int dest_pitch = (((width * 3) + 3) & ~3);
 
@@ -349,7 +349,7 @@ HeightfieldEditorClass::Create_Texture_Thumbnail (const char *filename, int widt
 //////////////////////////////////////////////////////////////////////
 void
 HeightfieldEditorClass::Set_Material (int index, TerrainMaterialClass *material)
-{	
+{
 	//
 	//	Add enough entries to the array until we've got a slot for "index"
 	//
@@ -372,7 +372,7 @@ HeightfieldEditorClass::Set_Material (int index, TerrainMaterialClass *material)
 //////////////////////////////////////////////////////////////////////
 TerrainMaterialClass *
 HeightfieldEditorClass::Peek_Material (int index)
-{	
+{
 	TerrainMaterialClass *retval = NULL;
 
 	//
@@ -393,7 +393,7 @@ HeightfieldEditorClass::Peek_Material (int index)
 //////////////////////////////////////////////////////////////////////
 TerrainMaterialClass *
 HeightfieldEditorClass::Get_Material (int index)
-{	
+{
 	//
 	//	Simply add a reference to the material and return its pointer
 	//
@@ -422,7 +422,7 @@ HeightfieldEditorClass::Load_Materials (EditableHeightfieldClass *heightfield)
 	//	Simply loop over and store all the materials
 	//
 	for (int index = 0; index < MAX_HEIGHTFIELD_MATERIALS; index ++) {
-		TerrainMaterialClass *material = heightfield->Peek_Material (index);		
+		TerrainMaterialClass *material = heightfield->Peek_Material (index);
 		Set_Material (index, material);
 
 		//
@@ -430,9 +430,9 @@ HeightfieldEditorClass::Load_Materials (EditableHeightfieldClass *heightfield)
 		//
 		HeightfieldPageClass::Get_Instance ()->Update_Material_Button (index);
 	}
-		
+
 	CurrentHeightfield = heightfield;
-	return ;	
+	return ;
 }
 
 
@@ -470,6 +470,6 @@ HeightfieldEditorClass::On_Material_Changed (int material_index)
 		CurrentHeightfield->Set_Material (material_index, MaterialList[material_index]);
 		CurrentHeightfield->On_Material_Changed (material_index);
 	}
-	
+
 	return ;
 }

@@ -74,7 +74,7 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////
 BOOL
-StringPickerMainDialogClass::OnInitDialog (void) 
+StringPickerMainDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 

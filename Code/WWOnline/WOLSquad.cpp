@@ -75,7 +75,7 @@ void SquadData::Reset(void)
 *     SquadID - ID of squad to search for.
 *
 * RESULT
-*     Squad - Reference to squad 
+*     Squad - Reference to squad
 *
 ******************************************************************************/
 
@@ -110,7 +110,7 @@ RefPtr<SquadData> SquadData::FindByID(unsigned int id)
 *     Abbr - Abbreviation of squad to search for.
 *
 * RESULT
-*     Squad - Reference to squad 
+*     Squad - Reference to squad
 *
 ******************************************************************************/
 

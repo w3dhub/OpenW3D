@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Command & Conquer                                            * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/wwlib/rawfile.h                              $* 
- *                                                                                             * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Command & Conquer                                            *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwlib/rawfile.h                              $*
+ *                                                                                             *
  *                      $Author:: Ian_l                                                       $*
- *                                                                                             * 
+ *                                                                                             *
  *                     $Modtime:: 10/31/01 2:00p                                              $*
- *                                                                                             * 
+ *                                                                                             *
  *                    $Revision:: 9                                                           $*
  *                                                                                             *
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  *   RawFileClass::File_Name -- Returns with the filename associate with the file object.      *
  *   RawFileClass::RawFileClass -- Default constructor for a file object.                      *
  *   RawFileClass::~RawFileClass -- Default deconstructor for a file object.                   *
@@ -51,8 +51,8 @@
 #ifdef _UNIX
 #include <stdio.h>
 #include "osdep.h"
-  #define	NULL_HANDLE	 	NULL	
-  #define	HANDLE_TYPE		FILE*	
+  #define	NULL_HANDLE	 	NULL
+  #define	HANDLE_TYPE		FILE*
 #else
   #define	NULL_HANDLE		INVALID_HANDLE_VALUE
   #define	HANDLE_TYPE		HANDLE
@@ -111,10 +111,10 @@ class RawFileClass : public FileClass
 		virtual bool Set_Date_Time(unsigned int datetime);
 		virtual void Error(int error, int canretry = false, char const * filename=NULL);
 		virtual void Bias(int start, int length=-1);
-		virtual void * Get_File_Handle(void) { return Handle; } 
+		virtual void * Get_File_Handle(void) { return Handle; }
 
 		virtual void	Attach (void *handle, int rights=READ);
-		virtual void	Detach (void);		
+		virtual void	Detach (void);
 
 		/*
 		**	These bias values enable a sub-portion of a file to appear as if it

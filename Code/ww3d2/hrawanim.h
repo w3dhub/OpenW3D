@@ -45,8 +45,8 @@
 
 #include "always.h"
 #include "hanim.h"
- 
- 
+
+
 /**********************************************************************************
 
 	HRawAnimClass
@@ -61,13 +61,13 @@ class HRawAnimClass : public HAnimClass
 {
 
 public:
-	
+
 	enum
 	{
 		OK,
 		LOAD_ERROR
 	};
-	
+
 	HRawAnimClass(void);
 	~HRawAnimClass(void);
 
@@ -100,14 +100,14 @@ private:
 
 	char							Name[2*W3D_NAME_LEN];
 	char							HierarchyName[W3D_NAME_LEN];
-	
+
 	int							NumFrames;
 	int							NumNodes;
 	float							FrameRate;
 
 	NodeMotionStruct *		NodeMotion;
 
-	void Free(void);	
+	void Free(void);
 	bool read_channel(ChunkLoadClass & cload,MotionChannelClass * * newchan,bool pre30);
 	void add_channel(MotionChannelClass * newchan);
 

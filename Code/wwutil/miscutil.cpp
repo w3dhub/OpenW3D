@@ -21,7 +21,7 @@
 // Project:      wwutil
 // Author:       Tom Spencer-Smith
 // Date:         June 1998
-// Description:  
+// Description:
 //
 //-----------------------------------------------------------------------------
 #include "miscutil.h" // I WANNA BE FIRST!
@@ -34,7 +34,7 @@
 #include "ffactory.h"
 
 //
-// cMiscUtil statics 
+// cMiscUtil statics
 //
 
 //---------------------------------------------------------------------------
@@ -49,7 +49,7 @@ const char * cMiscUtil::Get_Text_Time(void)
 	time_t time_now = ::time(NULL);
    char * time_str = ::ctime(&time_now);
    time_str[::strlen(time_str) - 1] = 0; // remove \n
-   return time_str; 
+   return time_str;
 }
 
 //---------------------------------------------------------------------------
@@ -96,7 +96,7 @@ bool cMiscUtil::File_Exists(const char * filename)
 
 	WIN32_FIND_DATAA find_info;
    HANDLE file_handle = ::FindFirstFileA(filename, &find_info);
-	
+
 	if (file_handle != INVALID_HANDLE_VALUE) {
 		::FindClose(file_handle);
 		return true;
@@ -139,7 +139,7 @@ bool cMiscUtil::Is_Whitespace(char c)
 
 //-----------------------------------------------------------------------------
 void cMiscUtil::Trim_Trailing_Whitespace(char * text)
-{	
+{
    WWASSERT(text != NULL);
 
 	int length = static_cast<int>(::strlen(text));
@@ -189,7 +189,7 @@ int cMiscUtil::Get_Exe_Key(void)
 	succeeded = ::GetModuleFileNameA(NULL, filename, sizeof(filename));
 	::strupr(filename);
 	WWASSERT(succeeded);
-      
+
    //
    // Get size
    //
@@ -245,7 +245,7 @@ int cMiscUtil::Get_Exe_Key(void)
 	succeeded = ::GetModuleFileNameA(NULL, filename, sizeof(filename));
 	::strupr(filename);
 	WWASSERT(succeeded);
-      
+
 	StringClass string;
 	Get_File_Id_String(filename, string);
 

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/repairbaygameobj.cpp                  $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/15/01 6:37p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 11                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/repairbaygameobj.cpp                  $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/15/01 6:37p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 11                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "repairbaygameobj.h"
@@ -73,7 +73,7 @@ using namespace BuildingConstants;
 ////////////////////////////////////////////////////////////////
 //	Constants
 ////////////////////////////////////////////////////////////////
-const char *RepairBayGameObj::BoneNames[RepairBayGameObj::BONE_COUNT] = 
+const char *RepairBayGameObj::BoneNames[RepairBayGameObj::BONE_COUNT] =
 {
 	"BONE02",
 	"BONE03",
@@ -125,7 +125,7 @@ RepairBayGameObjDef::RepairBayGameObjDef (void)	:
 {
 	//
 	//	Editable support
-	//	
+	//
 	EDITABLE_PARAM (RepairBayGameObjDef, ParameterClass::TYPE_FLOAT,	RepairPerSec);
 
 	#ifdef PARAM_EDITING_ON
@@ -134,7 +134,7 @@ RepairBayGameObjDef::RepairBayGameObjDef (void)	:
 		param->Set_Name ("Repairing Static Anim Type");
 		GENERIC_EDITABLE_PARAM (RepairBayGameObjDef, param)
 	#endif //PARAM_EDITING_ON
-	
+
 	return ;
 }
 
@@ -156,8 +156,8 @@ RepairBayGameObjDef::~RepairBayGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-RepairBayGameObjDef::Get_Class_ID (void) const	
-{ 
+RepairBayGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_REPAIR_BAY;
 }
 
@@ -168,7 +168,7 @@ RepairBayGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-RepairBayGameObjDef::Create (void) const 
+RepairBayGameObjDef::Create (void) const
 {
 	RepairBayGameObj *building = new RepairBayGameObj;
 	building->Init (*this);
@@ -185,13 +185,13 @@ RepairBayGameObjDef::Create (void) const
 bool
 RepairBayGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		BuildingGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
-	csave.Begin_Chunk (CHUNKID_DEF_VARIABLES);			
+	csave.Begin_Chunk (CHUNKID_DEF_VARIABLES);
 		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_REPAIR_PER_SEC,					RepairPerSec);
-		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_REPARING_STATICANIM_DEFID,	RepairingStaticAnimDefID);		
+		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_REPARING_STATICANIM_DEFID,	RepairingStaticAnimDefID);
 	csave.End_Chunk ();
 
 	return true;
@@ -217,7 +217,7 @@ RepairBayGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized RepairBay Def chunkID\n"));
 				break;
@@ -242,8 +242,8 @@ RepairBayGameObjDef::Load_Variables (ChunkLoadClass &cload)
 		switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_REPAIR_PER_SEC,				RepairPerSec);
-			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_REPARING_STATICANIM_DEFID,	RepairingStaticAnimDefID);		
-			
+			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_REPARING_STATICANIM_DEFID,	RepairingStaticAnimDefID);
+
 			default:
 				Debug_Say (("Unrecognized RepairBay Def Variable chunkID\n"));
 				break;
@@ -262,9 +262,9 @@ RepairBayGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-RepairBayGameObjDef::Get_Factory (void) const 
-{ 
-	return _RepairBayGameObjDefPersistFactory; 
+RepairBayGameObjDef::Get_Factory (void) const
+{
+	return _RepairBayGameObjDefPersistFactory;
 }
 
 
@@ -310,7 +310,7 @@ RepairBayGameObj::~RepairBayGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-RepairBayGameObj::Get_Factory (void) const 
+RepairBayGameObj::Get_Factory (void) const
 {
 	return _RepairBayGameObjPersistFactory;
 }
@@ -383,7 +383,7 @@ RepairBayGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				BuildingGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -409,7 +409,7 @@ void
 RepairBayGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:
@@ -457,7 +457,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 	}
 
 	//
-	//	Try to find the mesh that contains the 
+	//	Try to find the mesh that contains the
 	//
 	RefMultiListIterator<BuildingAggregateClass> mesh_iterator (&Aggregates);
 	for (mesh_iterator.First (); !mesh_iterator.Is_Done (); mesh_iterator.Next ()) {
@@ -478,7 +478,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 	RefPhysListIterator iterator = PhysicsSceneClass::Get_Instance()->Get_Static_Object_Iterator ();
 	for (iterator.First (); !iterator.Is_Done (); iterator.Next ()) {
 		StaticAnimPhysClass *anim_phys_obj = iterator.Peek_Obj ()->As_StaticAnimPhysClass ();
-		
+
 		//
 		//	Is this a repairing static anim phys?
 		//
@@ -509,7 +509,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 		{
 			ArcObjects[index]->Peek_Physical_Object ()->Peek_Model ()->Set_Hidden (true);
 		}
-		
+
 		ArcLifeRemaining[index]	= 0;
 	}
 
@@ -529,7 +529,7 @@ RepairBayGameObj::CnC_Initialize (BaseControllerClass *base)
 		//
 		//	Lookup the original transform of the end-bone
 		//
-		int end_index		= model->Get_Bone_Index ("bone_end");		
+		int end_index		= model->Get_Bone_Index ("bone_end");
 		EndTM					= model->Get_Bone_Transform (end_index);
 	}
 
@@ -552,13 +552,13 @@ RepairBayGameObj::Play_Repairing_Animation (bool onoff)
 	if (static_phys_obj != NULL) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
 		if (anim_phys_obj != NULL) {
-			
+
 			//
 			//	Configure the animation
 			//
 			AnimCollisionManagerClass &anim_mgr = anim_phys_obj->Get_Animation_Manager ();
 			anim_mgr.Set_Animation_Mode (AnimCollisionManagerClass::ANIMATE_TARGET);
-			
+
 			//
 			//	Either play the animation forward or backward
 			//
@@ -596,7 +596,7 @@ RepairBayGameObj::Think (void)
 			//	Repair any vehicle that is in our zone
 			//
 			bool is_repairing = Repair_Vehicle ();
-			
+
 			//
 			//	Play the repairing animation
 			//
@@ -623,7 +623,7 @@ RepairBayGameObj::Think (void)
 		}
 	}
 
-	BuildingGameObj::Think ();	
+	BuildingGameObj::Think ();
 	return ;
 }
 
@@ -644,21 +644,21 @@ RepairBayGameObj::Repair_Vehicle (void)
 	//
 	NonRefPhysListClass objs_to_repair;
 	PhysicsSceneClass::Get_Instance ()->Collect_Objects (RepairZone, false, true, &objs_to_repair);
-	
+
 	//
 	//	Loop over all the objects
 	//
 	NonRefPhysListIterator it (&objs_to_repair);
 	for (it.First (); !it.Is_Done (); it.Next ()) {
 		PhysicalGameObj *gameobj = NULL;
-		
+
 		//
 		//	Get the game object from this physics object
 		//
 		if (it.Peek_Obj()->Get_Observer () != NULL) {
 			gameobj = ((CombatPhysObserverClass *)it.Peek_Obj()->Get_Observer())->As_PhysicalGameObj();
 		}
-		
+
 		if (gameobj != NULL) {
 
 			//
@@ -671,7 +671,7 @@ RepairBayGameObj::Repair_Vehicle (void)
 				//	Check to ensure the driver is of the right team
 				//
 				SoldierGameObj *driver = vehicle->Get_Driver ();
-				if (	driver != NULL && 
+				if (	driver != NULL &&
 						driver->Get_Player_Type () == BaseController->Get_Player_Type() )
 				{
 					float shield_max	= vehicle->Get_Defense_Object ()->Get_Shield_Strength_Max ();
@@ -697,7 +697,7 @@ RepairBayGameObj::Repair_Vehicle (void)
 
 // FIXME (TSS) available_funds			= 1000 looks suspect...
 					int available_funds			= 1000;
-					
+
 					int points_restored			= int(available_funds / repair_cost_per_pt);
 					points_restored				= std::max (points_restored, 0);
 					points_restored				= std::min (points_restored, damage_points);
@@ -709,14 +709,14 @@ RepairBayGameObj::Repair_Vehicle (void)
 
 					//
 					//	Repair the vehicle's health if the player has enough money
-					//					
+					//
 					if (health_restored > 0) {
 						if (CombatManager::I_Am_Server ()) {
 							vehicle->Get_Defense_Object ()->Add_Health (health_restored);
 						}
 						is_repairing = true;
 					}
-					
+
 					//
 					//	Repair the vehicle's shield if the player has enough money
 					//
@@ -737,7 +737,7 @@ RepairBayGameObj::Repair_Vehicle (void)
 			}
 		}
 	}
-	
+
 	return is_repairing;
 }
 
@@ -773,7 +773,7 @@ Find_Random_Mesh (RenderObjClass *model)
 		//
 		//	Get a pointer to the current subobject
 		//
-		int real_index = (start_index + index) % count;		
+		int real_index = (start_index + index) % count;
 		RenderObjClass *subobj	= model->Get_Sub_Object (real_index);
 		if (subobj != NULL) {
 
@@ -813,7 +813,7 @@ RepairBayGameObj::Update_Repairing_Animations (void)
 				if (FreeRandom.Get_Int (4) == 1) {
 					Emit_Welding_Arc (model);
 				}
-			}				
+			}
 		}
 	}
 
@@ -838,7 +838,7 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 	//
 	Vector3 startpoint (0, 0, 0);
 	Get_Position (&startpoint);
-	
+
 	//
 	//	Pick a random bone to emit the animation from
 	//
@@ -848,7 +848,7 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 	StringClass bone_name;
 	bone_name.Format ("REP^NODRIM_FX%d", bone_index);
 	startpoint = aggregate_model->Get_Bone_Transform (bone_name).Get_Translation ();
-	
+
 	//
 	//	Default the end of the vector to the vehicles start position
 	//
@@ -861,7 +861,7 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 	if (mesh != NULL) {
 		MeshModelClass *mesh_model = mesh->Get_Model ();
 		if (mesh_model != NULL) {
-			
+
 			//
 			//	Get a random vertex inside the model
 			//
@@ -873,7 +873,7 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 
 			REF_PTR_RELEASE (mesh_model);
 		}
-	}				
+	}
 
 	//
 	//	Try to find an available welding-arc
@@ -901,7 +901,7 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 			// will fit perfectly between the start and endpoints.
 			//
 			for (int bone_index = 0; bone_index < BONE_COUNT; bone_index ++) {
-				
+
 				float percent		= WWMath::Fabs (Bones[bone_index].Get_Translation ().X / EndTM.Get_Translation ().X);
 				Vector3 new_pos	= startpoint + (endpoint - startpoint) * percent;
 
@@ -911,14 +911,14 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 				Vector3 world_space_pos		= start_tm * Bones[bone_index].Get_Translation ();
 				Vector3 world_space_offset	= new_pos - world_space_pos;
 				Matrix3D bone_tm (world_space_offset);
-				
+
 				//
 				//	Control the bone
 				//
 				int bone_id = model->Get_Bone_Index (BoneNames[bone_index]);
 				model->Capture_Bone (bone_id);
 				model->Control_Bone (bone_id, bone_tm, true);
-			}			
+			}
 
 			//
 			//	Calculate the world space position of the endpoint
@@ -932,7 +932,7 @@ RepairBayGameObj::Emit_Welding_Arc (RenderObjClass *vehicle_model)
 			//
 			int end_index = model->Get_Bone_Index ("bone_end");
 			model->Capture_Bone (end_index);
-			model->Control_Bone (end_index, end_tm, true);			
+			model->Control_Bone (end_index, end_tm, true);
 
 			//
 			//	Start the animation
@@ -975,13 +975,13 @@ RepairBayGameObj::Export_Creation (BitStreamClass &packet)
 	packet.Add (RepairZone.Extent.X, BITPACK_WORLD_POSITION_X);
 	packet.Add (RepairZone.Extent.Y, BITPACK_WORLD_POSITION_Y);
 	packet.Add (RepairZone.Extent.Z, BITPACK_WORLD_POSITION_Z);
-	
+
 	//
 	//	Send the zone's facing (almost 100% of the time, this zone should
 	// simply be an AABox rotated about its Z-axis).
 	//
 	float facing = RepairZone.Basis.Get_Z_Rotation ();
-	packet.Add (facing);	
+	packet.Add (facing);
 	return ;
 }
 
@@ -1005,13 +1005,13 @@ RepairBayGameObj::Import_Creation (BitStreamClass &packet)
 	packet.Get (RepairZone.Extent.X, BITPACK_WORLD_POSITION_X);
 	packet.Get (RepairZone.Extent.Y, BITPACK_WORLD_POSITION_Y);
 	packet.Get (RepairZone.Extent.Z, BITPACK_WORLD_POSITION_Z);
-	
+
 	//
 	//	Get the zone's facing (almost 100% of the time, this zone should
 	// simply be an AABox rotated about its Z-axis).
 	//
 	float facing = 0;
-	packet.Get (facing);	
+	packet.Get (facing);
 	RepairZone.Basis.Rotate_Z (facing);
 	return ;
 }

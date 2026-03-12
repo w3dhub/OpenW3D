@@ -70,7 +70,7 @@ class ExporterClass
 		void		Export_Level (LPCTSTR filename);
 		void		Export_Always_Files (LPCTSTR path);
 		void		Export_Database_Mix (LPCTSTR path);
-		
+
 		void		Export_Package (LPCTSTR path);
 		void		Export_Level_Only (LPCTSTR path);
 
@@ -83,7 +83,7 @@ class ExporterClass
 
 		//////////////////////////////////////////////////////////
 		//	Protected methods
-		//////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////
 		void		Process_Include_Files (const STRING_LIST &search_list);
 		bool		Build_File_List (const STRING_LIST &search_list, STRING_LIST &file_list);
 		bool		Export_Include_Files (const STRING_LIST &file_list);
@@ -104,7 +104,7 @@ class ExporterClass
 		void		Find_Files (const char *search_mask, STRING_LIST &file_list);
 
 		void		Add_Files_To_Mod_Package (LPCTSTR full_path);
-		
+
 	private:
 
 		//////////////////////////////////////////////////////////

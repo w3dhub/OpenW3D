@@ -51,8 +51,8 @@ DialogTextClass::DialogTextClass (void)	:
 	//
 	//	Set the font for the text renderer
 	//
-	StyleMgrClass::Assign_Font (&TextRenderer, StyleMgrClass::FONT_CONTROLS);	
-	StyleMgrClass::Configure_Renderer (&ControlRenderer);	
+	StyleMgrClass::Assign_Font (&TextRenderer, StyleMgrClass::FONT_CONTROLS);
+	StyleMgrClass::Configure_Renderer (&ControlRenderer);
 	return ;
 }
 
@@ -66,7 +66,7 @@ void
 DialogTextClass::Render (void)
 {
 	if (Style & WS_VISIBLE) {
-	
+
 		//
 		//	Update the text renderer (if necessary)
 		//
@@ -77,7 +77,7 @@ DialogTextClass::Render (void)
 		if (IsTitle) {
 			GlowRenderer.Render ();
 		}
-		
+
 		//
 		//	Render the control
 		//
@@ -102,7 +102,7 @@ DialogTextClass::Create_Text_Renderer (void)
 	ControlRenderer.Reset ();
 
 	if ((Style & SS_TYPEMASK) == SS_ETCHEDHORZ) {
-		
+
 		//
 		//	Determine which color to draw the outline in
 		//
@@ -132,7 +132,7 @@ DialogTextClass::Create_Text_Renderer (void)
 		ControlRenderer.Add_Outline (Rect, 1.0F, color);
 
 	} else {
-	
+
 		//
 		//	Determine how to justify the text
 		//
@@ -151,8 +151,8 @@ DialogTextClass::Create_Text_Renderer (void)
 		//
 		//	Draw the text
 		//
-		if (IsTitle) {		
-			
+		if (IsTitle) {
+
 			//
 			//	Render the title text using a glow
 			//
@@ -202,12 +202,12 @@ void
 DialogTextClass::On_Create (void)
 {
 	if (Title.Get_Length () >= 2) {
-		
+
 		//
 		//	Does this string have special formatting?
 		//
 		if (Title[0] == U_CHAR('%') && Title[1] == U_CHAR('t')) {
-			
+
 			//
 			//	Strip off the preceding format specifier
 			//
@@ -219,12 +219,12 @@ DialogTextClass::On_Create (void)
 			//
 			IsTitle = true;
 			StyleMgrClass::Assign_Font (&TextRenderer, StyleMgrClass::FONT_TITLE);
-			StyleMgrClass::Assign_Font (&GlowRenderer, StyleMgrClass::FONT_TITLE);	
+			StyleMgrClass::Assign_Font (&GlowRenderer, StyleMgrClass::FONT_TITLE);
 
 			GlowRenderer.Build_Sentence (Title);
 
 		} else if (Title[0] == U_CHAR('%') && Title[1] == U_CHAR('h')) {
-			
+
 			//
 			//	Support a "header" style font
 			//
@@ -235,9 +235,9 @@ DialogTextClass::On_Create (void)
 			//
 			WideStringClass text	= Title.Peek_Buffer () + 2;
 			Title						= text;
-		
+
 		} else if (Title[0] == U_CHAR('%') && Title[1] == U_CHAR('s')) {
-			
+
 			//
 			//	Support a "small" style font
 			//

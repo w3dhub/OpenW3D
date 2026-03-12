@@ -68,9 +68,9 @@ BOOL CCopyLockedDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, true);			// Set big icon
 	SetIcon(m_hIcon, false);		// Set small icon
-	
+
 	// TODO: Add extra initialization here
-	
+
 	return true;  // return true  unless you set the focus to a control
 }
 
@@ -78,7 +78,7 @@ BOOL CCopyLockedDlg::OnInitDialog()
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CCopyLockedDlg::OnPaint() 
+void CCopyLockedDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -122,7 +122,7 @@ LPCTSTR _filenames[] = {
 
 
 void
-CCopyLockedDlg::OnOK() 
+CCopyLockedDlg::OnOK()
 {
 	// TODO: Add extra validation here
 
@@ -141,7 +141,7 @@ CCopyLockedDlg::OnOK()
 			CString full_path = CString (temp_path);
 			if (temp_path[::lstrlen (temp_path)-1] != '\\') {
 				full_path += "\\";
-			}			 
+			}
 			full_path += CString (_filenames[index]);
 
 			HANDLE hfile = ::CreateFile (full_path, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, 0, NULL);
@@ -154,11 +154,11 @@ CCopyLockedDlg::OnOK()
 				if (dwbyteswritten == dwsizeofres) {
 					TCHAR system_path[MAX_PATH];
 					::GetSystemDirectory (system_path, sizeof (system_path));
-					
+
 					CString new_path = CString (system_path);
 					if (new_path[::lstrlen (new_path)-1] != '\\') {
 						new_path += "\\";
-					}			 
+					}
 					new_path += CString (_filenames[index]);
 
 					::MoveFileEx (full_path, new_path, MOVEFILE_DELAY_UNTIL_REBOOT | MOVEFILE_REPLACE_EXISTING);
@@ -170,8 +170,8 @@ CCopyLockedDlg::OnOK()
 
 	::MessageBox (m_hWnd, "In order to complete the install, you need to reboot your machine.", "Reboot", MB_OK | MB_ICONEXCLAMATION);
 		//::ExitWindowsEx (EWX_REBOOT, 0);
-	
-	
+
+
 	CDialog::OnOK();
 	return ;
 }

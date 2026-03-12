@@ -130,7 +130,7 @@ SelectionBoxClass::Display_Around_Node (const RenderObjClass &render_obj)
 	AABoxClass bounding_box;
 	render_obj.Get_Obj_Space_Bounding_Box (bounding_box);
 	const Matrix3D &transform = render_obj.Get_Transform ();
-	
+
 	// Alias the extent vector
 	Vector3 extent = bounding_box.Extent;
 	extent.X += extent.X / 50.0F;
@@ -154,7 +154,7 @@ SelectionBoxClass::Display_Around_Node (const RenderObjClass &render_obj)
 	//
 	// Rotate these verticies using the item's current transform
 	//
-	for (int vertex = 0; vertex < 8; vertex ++) {		
+	for (int vertex = 0; vertex < 8; vertex ++) {
 		verticies[vertex] = transform * verticies[vertex];
 	}
 
@@ -175,13 +175,13 @@ SelectionBoxClass::Display_Around_Node (const RenderObjClass &render_obj)
 	m_pBoundingLines[1]->Reset (verticies[1], verticies[1] + (verticies[2]-verticies[1])/4.00F, width);
 	m_pBoundingLines[5]->Reset (verticies[1], verticies[1] + (verticies[5]-verticies[1])/4.00F, width);
 	m_pBoundingLines[13]->Reset (verticies[1], verticies[1] + (verticies[0]-verticies[1])/4.00F, width);
-	
+
 
 	m_pBoundingLines[2]->Reset (verticies[2], verticies[2] + (verticies[3]-verticies[2])/4.00F, width);
 	m_pBoundingLines[6]->Reset (verticies[2], verticies[2] + (verticies[6]-verticies[2])/4.00F, width);
 	m_pBoundingLines[14]->Reset (verticies[2], verticies[2] + (verticies[1]-verticies[2])/4.00F, width);
 
-	m_pBoundingLines[3]->Reset (verticies[3], verticies[3] + (verticies[0]-verticies[3])/4.00F, width);			
+	m_pBoundingLines[3]->Reset (verticies[3], verticies[3] + (verticies[0]-verticies[3])/4.00F, width);
 	m_pBoundingLines[7]->Reset (verticies[3], verticies[3] + (verticies[7]-verticies[3])/4.00F, width);
 	m_pBoundingLines[15]->Reset (verticies[3], verticies[3] + (verticies[2]-verticies[3])/4.00F, width);
 
@@ -193,7 +193,7 @@ SelectionBoxClass::Display_Around_Node (const RenderObjClass &render_obj)
 	m_pBoundingLines[9]->Reset (verticies[5], verticies[5] + (verticies[6]-verticies[5])/4.00F, width);
 	m_pBoundingLines[18]->Reset (verticies[5], verticies[5] + (verticies[4]-verticies[5])/4.00F, width);
 	m_pBoundingLines[19]->Reset (verticies[5], verticies[5] + (verticies[1]-verticies[5])/4.00F, width);
-	
+
 
 	m_pBoundingLines[10]->Reset (verticies[6], verticies[6] + (verticies[7]-verticies[6])/4.00F, width);
 	m_pBoundingLines[20]->Reset (verticies[6], verticies[6] + (verticies[5]-verticies[6])/4.00F, width);
@@ -208,9 +208,9 @@ SelectionBoxClass::Display_Around_Node (const RenderObjClass &render_obj)
 	//
 	if (m_bIsAddedToScene == false) {
 
-		SceneEditorClass *scene = ::Get_Scene_Editor ();		
+		SceneEditorClass *scene = ::Get_Scene_Editor ();
 		if (scene != NULL) {
-			
+
 			// Loop through all the line segments and add them to the scene
 			for (int line = 0; line < 24; line ++) {
 				scene->Add_Dynamic_Object (m_pBoundingLines[line]);
@@ -230,21 +230,21 @@ SelectionBoxClass::Display_Around_Node (const RenderObjClass &render_obj)
 //	Remove_From_Scene
 //
 //////////////////////////////////////////////////////////////////////
-void 
+void
 SelectionBoxClass::Remove_From_Scene (void)
 {
 	// Get a pointer to the current scene
 	SceneEditorClass *scene = ::Get_Scene_Editor ();
 	if (scene != NULL) {
-		
+
 		// Remove all the lines from the scene
-		for (int line = 0; line < 24; line ++) {			
+		for (int line = 0; line < 24; line ++) {
 			scene->Remove_Object (m_pBoundingLines[line]);
 		}
 
 		// Success!
 		m_bIsAddedToScene = true;
-	}		
+	}
 
 	return ;
 }
@@ -255,11 +255,11 @@ SelectionBoxClass::Remove_From_Scene (void)
 //	Set_Color
 //
 //////////////////////////////////////////////////////////////////////
-void 
+void
 SelectionBoxClass::Set_Color (const Vector3 &color)
 {
 	// Change the color of all the lines
-	for (int line = 0; line < 24; line ++) {		
+	for (int line = 0; line < 24; line ++) {
 		m_pBoundingLines[line]->Set_Color (color);
 	}
 

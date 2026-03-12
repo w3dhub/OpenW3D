@@ -45,9 +45,9 @@ bool TextureLoader::TextureLoadSuspended;
 #define USE_MANAGED_TEXTURES
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 // TextureLoadTaskListClass implementation
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 TextureLoadTaskListClass::TextureLoadTaskListClass(void)
@@ -103,7 +103,7 @@ TextureLoadTaskClass *TextureLoadTaskListClass::Pop_Front(void)
 TextureLoadTaskClass *TextureLoadTaskListClass::Pop_Back(void)
 {
 	// exit early if list is empty
-	if (Is_Empty()) { 
+	if (Is_Empty()) {
 		return 0;
 	}
 
@@ -132,9 +132,9 @@ void TextureLoadTaskListClass::Remove(TextureLoadTaskClass *task)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 // SynchronizedTextureLoadTaskListClass implementation
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 SynchronizedTextureLoadTaskListClass::SynchronizedTextureLoadTaskListClass(void)
@@ -282,9 +282,9 @@ static bool Is_Format_Compressed(WW3DFormat texture_format,bool allow_compressio
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 // TextureLoader implementation
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 void TextureLoader::Init()
@@ -617,7 +617,7 @@ void TextureLoader::Request_Thumbnail(TextureClass *tc)
 void TextureLoader::Request_Background_Loading(TextureClass *tc)
 {
 	// Grab the foreground lock. This prevents the foreground thread
-	// from retiring any tasks related to this texture. It also 
+	// from retiring any tasks related to this texture. It also
 	// serializes calls to Request_Background_Loading from other
 	// threads.
 	FastCriticalSectionClass::LockClass foreground_lock(_ForegroundCriticalSection);
@@ -647,7 +647,7 @@ void TextureLoader::Request_Background_Loading(TextureClass *tc)
 void TextureLoader::Request_Foreground_Loading(TextureClass *tc)
 {
 	// Grab the foreground lock. This prevents the foreground thread
-	// from retiring the load tasks for this texture. It also 
+	// from retiring the load tasks for this texture. It also
 	// serializes calls to Request_Foreground_Loading from other
 	// threads.
 	FastCriticalSectionClass::LockClass foreground_lock(_ForegroundCriticalSection);
@@ -696,7 +696,7 @@ void TextureLoader::Request_Foreground_Loading(TextureClass *tc)
 		// task to the foreground queue.
 
 		// Grab the background lock. After we're holding this lock, we
-		// know the background thread cannot begin loading mipmap levels 
+		// know the background thread cannot begin loading mipmap levels
 		// for this texture.
 		FastCriticalSectionClass::LockClass background_lock(_BackgroundCriticalSection);
 
@@ -708,7 +708,7 @@ void TextureLoader::Request_Foreground_Loading(TextureClass *tc)
 		}
 
 		if (task) {
-			// if a load task is waiting on the background queue, we need to 
+			// if a load task is waiting on the background queue, we need to
 			// move it to the foreground queue.
 			if (task->Get_List() == &_BackgroundQueue) {
 
@@ -748,7 +748,7 @@ void TextureLoader::Flush_Pending_Load_Tasks(void)
 		{
 			// we have no pending load tasks when both queues are empty
 			// and the background thread is not processing a texture.
-			
+
 			// Grab the background lock. Once we're holding it, we
 			// know that the background thread is not processing any
 			// textures.
@@ -877,9 +877,9 @@ void TextureLoader::Begin_Load_And_Queue(TextureLoadTaskClass *task)
 		// background load thread will service tasks in LIFO
 		// (last in, first out) order.
 
-		// NOTE: this was how the old code did it, with a 
+		// NOTE: this was how the old code did it, with a
 		// comment that mentioned good reasons for doing so,
-		// without actually listing the reasons. I suspect 
+		// without actually listing the reasons. I suspect
 		// it has something to do with visually important textures,
 		// like those in the foreground, starting their load last.
 		_BackgroundQueue.Push_Front(task);
@@ -913,7 +913,7 @@ void LoaderThreadClass::Thread_Function(void)
 	while (mRunning) {
 		// if there are no tasks on the background queue, no need to grab background lock.
 		if (!_BackgroundQueue.Is_Empty()) {
-			// Grab background load so other threads know we could be 
+			// Grab background load so other threads know we could be
 			// loading a texture.
 			FastCriticalSectionClass::LockClass lock(_BackgroundCriticalSection);
 
@@ -938,9 +938,9 @@ void LoaderThreadClass::Thread_Function(void)
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// 
+//
 // TextureLoaderTaskClass implementation
-// 
+//
 ////////////////////////////////////////////////////////////////////////////////
 
 TextureLoadTaskClass::TextureLoadTaskClass()
@@ -974,7 +974,7 @@ TextureLoadTaskClass::~TextureLoadTaskClass(void)
 
 TextureLoadTaskClass *TextureLoadTaskClass::Create(TextureClass *tc, TaskType type, PriorityType priority)
 {
-	// recycle or create a new texture load task with the given type 
+	// recycle or create a new texture load task with the given type
 	// and priority, then associate the texture with the task.
 
 	// pull a load task from front of free list
@@ -1243,7 +1243,7 @@ static bool	Get_Texture_Information(
 		w = targa.Header.Width  >> reduction;
 		h = targa.Header.Height >> reduction;
 		mip_count = 0;
-		return true; 
+		return true;
 	}
 
 	if (compressed &&
@@ -1328,9 +1328,9 @@ bool TextureLoadTaskClass::Begin_Compressed_Load(void)
 	}
 
 	D3DTexture	= DX8Wrapper::_Create_DX8_Texture(
-		Width, 
-		Height, 
-		Format, 
+		Width,
+		Height,
+		Format,
 		(TextureClass::MipCountType)mip_level_count,
 #ifdef USE_MANAGED_TEXTURES
 		D3DPOOL_MANAGED);
@@ -1353,8 +1353,8 @@ bool TextureLoadTaskClass::Begin_Uncompressed_Load(void)
 	WW3DFormat dest_format=src_format;
 	dest_format=Get_Valid_Texture_Format(dest_format,false);	// No compressed destination format if reading from targa...
 
-	if (	src_format != WW3D_FORMAT_A8R8G8B8 
-		&&	src_format != WW3D_FORMAT_R8G8B8 
+	if (	src_format != WW3D_FORMAT_A8R8G8B8
+		&&	src_format != WW3D_FORMAT_R8G8B8
 		&&	src_format != WW3D_FORMAT_X8R8G8B8) {
 		WWDEBUG_SAY(("Invalid TGA format used in %s - only 24 and 32 bit formats should be used!\n", Texture->Get_Full_Path()));
 	}
@@ -1377,9 +1377,9 @@ bool TextureLoadTaskClass::Begin_Uncompressed_Load(void)
 	}
 
 	D3DTexture = DX8Wrapper::_Create_DX8_Texture(
-		Width, 
-		Height, 
-		Format, 
+		Width,
+		Height,
+		Format,
 		Texture->MipLevelCount,
 #ifdef USE_MANAGED_TEXTURES
 		D3DPOOL_MANAGED);
@@ -1497,12 +1497,12 @@ bool TextureLoadTaskClass::Load_Uncompressed_Mipmap(void)
 	unsigned char * converted_surface	= NULL;
 
 	// No paletted format allowed when generating mipmaps
-	if (	src_format	== WW3D_FORMAT_A1R5G5B5 
-		|| src_format	== WW3D_FORMAT_R5G6B5 
-		|| src_format	== WW3D_FORMAT_A4R4G4B4 
-		||	src_format	== WW3D_FORMAT_P8 
-		|| src_format	== WW3D_FORMAT_L8 
-		|| src_width	!= width 
+	if (	src_format	== WW3D_FORMAT_A1R5G5B5
+		|| src_format	== WW3D_FORMAT_R5G6B5
+		|| src_format	== WW3D_FORMAT_A4R4G4B4
+		||	src_format	== WW3D_FORMAT_P8
+		|| src_format	== WW3D_FORMAT_L8
+		|| src_width	!= width
 		|| src_height	!= height) {
 
 		converted_surface = new unsigned char[width*height*4];

@@ -112,7 +112,7 @@ ScriptMgrClass::Initialize (void)
 		if (cPathUtil::PathExists (dll_name)) {
 			HMODULE module_handle = ::LoadLibrary (dll_name);
 			if (module_handle != NULL) {
-				
+
 				// Lookup the function pointer we need to call to determine
 				// a filename list
 				LPFN_GET_SCRIPT_COUNT pfn_get_script_count		= (LPFN_GET_SCRIPT_COUNT)::GetProcAddress (module_handle, LPSTR_GET_SCRIPT_COUNT);
@@ -126,14 +126,14 @@ ScriptMgrClass::Initialize (void)
 					 (pfn_get_param_desc != NULL))
 				{
 					int count = (*pfn_get_script_count) ();
-					
+
 					//
 					// Loop through all the scripts in the list and add their names
 					// to our list
 					//
 					for (int index = 0; index < count; index ++) {
 						EditScriptClass *script = new EditScriptClass;
-						
+
 						//
 						// Pass the script name, and the script params onto our object
 						//
@@ -155,7 +155,7 @@ ScriptMgrClass::Initialize (void)
 	if (file_find != INVALID_HANDLE_VALUE) {
 		::FindClose (file_find);
 	}*/
-	
+
 	return ;
 }
 
@@ -190,7 +190,7 @@ ScriptMgrClass::Find_Script (LPCTSTR name)
 
 	for (int index = 0; (index < _ScriptList.Count ()) && (script == NULL); index++) {
 		EditScriptClass *curr_script = _ScriptList[index];
-		
+
 		//
 		//	Is this the script we are looking for?
 		//

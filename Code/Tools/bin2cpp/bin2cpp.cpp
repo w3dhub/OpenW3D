@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 	/*
 	** Open the input file
 	*/
-	HANDLE inputfile = CreateFile(argv[1],GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);	
+	HANDLE inputfile = CreateFile(argv[1],GENERIC_READ,FILE_SHARE_READ,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
 	if (inputfile == INVALID_HANDLE_VALUE) {
 		printf("Could not open file: %s\n",argv[1]);
 		Print_Usage();
@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
 		Print_Usage();
 		return 1;
 	}
-	
+
 	/*
 	** Write the cpp file
 	*/
@@ -92,9 +92,9 @@ int main(int argc, char* argv[])
 	const int LINELEN = 16;
 	char bytes[LINELEN];
 	DWORD bytesread = 0;
-	
+
 	while(bytesread < inputsize) {
-		
+
 		DWORD readsize = min(LINELEN,inputsize - bytesread);
 		DWORD actualread;
 

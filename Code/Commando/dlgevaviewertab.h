@@ -88,8 +88,8 @@ public:
 	const unichar_t *	Get_Name (void) const						{ return	Name; }
 	const unichar_t *	Get_Description (void) const				{ return Description; }
 	const unichar_t *	Get_Affiliation (void) const				{ return Affiliation; }
-	const char *	Get_Model_Name (void) const				{ return ModelName; }	
-	const char *	Get_Anim_Name (void) const					{ return AnimName; }		
+	const char *	Get_Model_Name (void) const				{ return ModelName; }
+	const char *	Get_Anim_Name (void) const					{ return AnimName; }
 	const char *	Get_Definition_Name (void) const			{ return DefinitionName; }
 	float				Get_Min_Distance (void) const				{ return MinDistance; }
 	int				Get_Player_Type (void) const				{ return PlayerType; }
@@ -98,7 +98,7 @@ public:
 	void				Set_Name (const unichar_t *name)				{ Name = name; }
 	void				Set_Description (const unichar_t *string)	{ Description = string; }
 	void				Set_Affiliation (const unichar_t *string)	{ Affiliation = string; }
-	void				Set_Model_Name (const char *name)		{ ModelName = name; }	
+	void				Set_Model_Name (const char *name)		{ ModelName = name; }
 	void				Set_Anim_Name (const char *name)			{ AnimName = name; }
 	void				Set_Definition_Name (const char *name)	{ DefinitionName = name; }
 	void				Set_Min_Distance (float dist)				{ MinDistance = dist; }
@@ -160,14 +160,14 @@ public:
 	//
 	void		On_ListCtrl_Sel_Change (ListCtrlClass *list_ctrl, int ctrl_id, int old_index, int new_index) override;
 	void		On_ViewerCtrl_Model_Loaded (ViewerCtrlClass *viewer_ctrl, int ctrl_id, RenderObjClass *model) override;
-	
+
 protected:
 
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
 	void		On_Init_Dialog (void) override;
-	void		On_Destroy_Dialog (void);	
+	void		On_Destroy_Dialog (void);
 	void		View_Entry (int entry_index);
 
 	void		Build_Object_List (void);
@@ -186,7 +186,7 @@ protected:
 	DialogTextClass *	AffiliationCtrl;
 	ViewerCtrlClass *	ViewerCtrl;
 	StringClass			INIFilename;
-	
+
 	EncyclopediaMgrClass::TYPE	EncyclopediaType;
 
 	DynamicVectorClass<EvaViewerObjectClass> ObjectList;

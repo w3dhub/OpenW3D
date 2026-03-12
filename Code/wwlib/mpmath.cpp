@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Command & Conquer                                            * 
- *                                                                                             * 
- *                     $Archive:: /VSS_Sync/wwlib/mpmath.cpp                                  $* 
- *                                                                                             * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Command & Conquer                                            *
+ *                                                                                             *
+ *                     $Archive:: /VSS_Sync/wwlib/mpmath.cpp                                  $*
+ *                                                                                             *
  *                      $Author:: Vss_sync                                                    $*
- *                                                                                             * 
+ *                                                                                             *
  *                     $Modtime:: 3/21/01 12:01p                                              $*
- *                                                                                             * 
+ *                                                                                             *
  *                    $Revision:: 2                                                           $*
  *                                                                                             *
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  *   _Byte_Precision -- Determines the number of bytes significant in int integer.            *
  *   memrev -- Reverse the byte order of the buffer specified.                                 *
  *   XMP_Abs -- Perform an absolute value on the specified MP number.                          *
@@ -114,13 +114,13 @@ unsigned short mp_quo_digit(unsigned short * dividend);
 unsigned short const * MPEXPORT XMP_Fetch_Prime_Table(void)
 {
 	return(primeTable);
-}	
+}
 
 
 int MPEXPORT XMP_Fetch_Prime_Size(void)
 {
 	return(ARRAY_SIZE(primeTable));
-}	
+}
 
 
 bool MPEXPORT XMP_Test_Eq_Int(digit const * r, int i, int p)

@@ -109,7 +109,7 @@ MPWolIgnoreListPopupClass::On_Command (int ctrl_id, int message_id, unsigned int
 			//	Get the name of the selected user
 			WideStringClass name(0, true);
 			Get_Selected_Entry(name);
-			
+
 			//	Display a confirmation dialog to the user.
 			if (name.Is_Empty () == false) {
 				MPWolDeleteIgnoreEntryPopupClass* dialog = new MPWolDeleteIgnoreEntryPopupClass;
@@ -147,7 +147,7 @@ MPWolIgnoreListPopupClass::Refresh_List (void)
 	if (curr_sel != -1) {
 		selected_user = list_ctrl->Get_Entry_Text (curr_sel, 0);
 	}
-	
+
 	//	Start fresh
 	list_ctrl->Delete_All_Entries ();
 	bool is_selection_set = false;

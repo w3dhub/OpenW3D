@@ -265,7 +265,7 @@ RefPtr<UString> Protect::GetPassKey(void) const
 
 		// Get game information
 		HKEY hKey;
-		
+
 		/*
 		LONG result = RegOpenKeyExA(HKEY_CURRENT_USER,
 			"Software\\Westwood\\Red Alert 2", 0, KEY_READ, &hKey);

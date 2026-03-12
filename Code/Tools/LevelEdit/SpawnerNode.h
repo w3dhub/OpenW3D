@@ -64,7 +64,7 @@ class SpawnPointNodeClass;
 class SpawnerNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ public:
 	//
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
 	void											On_Post_Load (void);
-	
+
 	//
 	// From NodeClass
 	//
@@ -117,8 +117,8 @@ public:
 	//	Export methods
 	//
 	void			Pre_Export (void);
-	void			Post_Export (void);	
-	
+	void			Post_Export (void);
+
 	//
 	//	From PersistClass
 	//
@@ -135,7 +135,7 @@ public:
 	void							Remove_Spawn_Point (SpawnPointNodeClass *spawn_point);
 	void							Update_Lines (void);
 	void							Copy_Scripts (const SpawnerNodeClass &src);
-	SCRIPT_LIST &				Get_Scripts (void)	{ return m_Scripts; }	
+	SCRIPT_LIST &				Get_Scripts (void)	{ return m_Scripts; }
 
 
 protected:

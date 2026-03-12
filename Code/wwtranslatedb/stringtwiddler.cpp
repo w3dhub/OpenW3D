@@ -104,7 +104,7 @@ StringTwiddlerClass::~StringTwiddlerClass (void)
 //	operator=
 //
 /////////////////////////////////////////////////////////////////
-const StringTwiddlerClass &	
+const StringTwiddlerClass &
 StringTwiddlerClass::operator= (const StringTwiddlerClass &src)
 {
 	TDBObjClass::operator= (src);
@@ -135,10 +135,10 @@ StringTwiddlerClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		TDBObjClass::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
-		
+
 		//
 		//	Write each string ID to its own microchunk
 		//
@@ -161,13 +161,13 @@ StringTwiddlerClass::Save (ChunkSaveClass &csave)
 bool
 StringTwiddlerClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				TDBObjClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -187,10 +187,10 @@ StringTwiddlerClass::Load (ChunkLoadClass &cload)
 /////////////////////////////////////////////////////////////////
 void
 StringTwiddlerClass::Load_Variables (ChunkLoadClass &cload)
-{	
+{
 	while (cload.Open_Micro_Chunk ()) {
-		switch (cload.Cur_Micro_Chunk_ID ()) {			
-			
+		switch (cload.Cur_Micro_Chunk_ID ()) {
+
 			case VARID_STRING_ID:
 			{
 				//
@@ -247,14 +247,14 @@ StringTwiddlerClass::Randomize (int lang_id)
 	//
 	int count = StringList.Count ();
 	if (count > 0) {
-		
+
 		//
 		//	Randomly pick a string from our list
 		//
 		int index = (rand () % count);
 		TDBObjClass *object = TranslateDBClass::Find_Object (StringList[index]);
 		if (object != NULL && object->As_StringTwiddlerClass () == NULL) {
-			
+
 			//
 			//	Copy the string contents into ourselves
 			//

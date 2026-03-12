@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/scriptablegameobj.h                   $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 1/05/02 10:52a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 25                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/scriptablegameobj.h                   $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 1/05/02 10:52a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 25                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SCRIPTABLEGAMEOBJ_H
@@ -111,7 +111,7 @@ public:
 	virtual	~ScriptableGameObj( void );
 
 	// Definitions
-	void	Init( const ScriptableGameObjDef & definition );	
+	void	Init( const ScriptableGameObjDef & definition );
 	void	Copy_Settings( const ScriptableGameObjDef & definition );
 	void	Re_Init( const ScriptableGameObjDef & definition );
 	virtual void	Post_Re_Init( void );
@@ -134,7 +134,7 @@ public:
 	void Remove_Observer( GameObjObserverClass * observer );
 	void Remove_All_Observers(void);
 	// Start_Observers will call created on all observers.  Should be used
-	// in On_Post_Load (if first load), and after spawning / creating.  
+	// in On_Post_Load (if first load), and after spawning / creating.
 	// Observers added in other cases will already have Created called.
 	void Start_Observers( void );
 	const GameObjObserverList & Get_Observers( void )	{ return Observers; }

@@ -77,11 +77,11 @@ public:
 /*
 ** ShakeableStaticPhysClass
 */
-class ShakeableStaticPhysDefClass : public StaticAnimPhysDefClass 
+class ShakeableStaticPhysDefClass : public StaticAnimPhysDefClass
 {
 public:
 	ShakeableStaticPhysDefClass(void);
-	
+
 	virtual uint32								Get_Class_ID(void) const override;
 	virtual const char *						Get_Type_Name(void) override				{ return "ShakeableStaticPhysDef"; }
 	virtual bool								Is_Type(const char *) override;

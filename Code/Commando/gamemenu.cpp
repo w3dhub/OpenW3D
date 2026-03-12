@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/gamemenu.cpp                        $* 
- *                                                                                             * 
- *                      $Author:: Bhayes                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 2/08/02 12:16p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 191                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/gamemenu.cpp                        $*
+ *                                                                                             *
+ *                      $Author:: Bhayes                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 2/08/02 12:16p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 191                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "gamemenu.h"
@@ -116,15 +116,15 @@ MenuGameModeClass2::Init (void)
 
 	//
 	//	Create the background music
-	//				
+	//
 	MenuMusic = WWAudioClass::Get_Instance ()->Create_Sound_Effect (MENU_MUSIC_FILENAME);
 	if (MenuMusic != NULL) {
 		MenuMusic->Set_Type (AudibleSoundClass::TYPE_MUSIC);
 		MenuMusic->Set_Priority (1.0F);
 		MenuMusic->Set_Loop_Count (0);
-		MenuMusic->Set_Volume (1.0F);		
+		MenuMusic->Set_Volume (1.0F);
 	}
-	
+
 	if (MenuDialogClass::Get_BackDrop () && MenuDialogClass::Get_BackDrop ()->Peek_Model () == NULL) {
 		MenuDialogClass::Get_BackDrop ()->Set_Model ("IF_BACK01");
 		MenuDialogClass::Get_BackDrop ()->Set_Animation ("IF_BACK01.IF_BACK01");
@@ -139,7 +139,7 @@ MenuGameModeClass2::Init (void)
 //	Shutdown
 //
 ////////////////////////////////////////////////////////////////////
-void 
+void
 MenuGameModeClass2::Shutdown (void)
 {
 	if (MenuMusic != NULL) {
@@ -156,11 +156,11 @@ MenuGameModeClass2::Shutdown (void)
 //	Think
 //
 ////////////////////////////////////////////////////////////////////
-void 
+void
 MenuGameModeClass2::Think (void)
 {
 	if (MenuMusic != NULL) {
-		
+
 		//
 		//	Start playing the music where necessary and stop the music
 		// where necessary
@@ -189,7 +189,7 @@ MenuGameModeClass2::Think (void)
 //	Think
 //
 ////////////////////////////////////////////////////////////////////
-void 
+void
 MenuGameModeClass2::Render (void)
 {
 	return ;
@@ -201,7 +201,7 @@ MenuGameModeClass2::Render (void)
 //	Activate
 //
 ////////////////////////////////////////////////////////////////////
-void 
+void
 MenuGameModeClass2::Activate (void)
 {
 	WWMEMLOG(MEM_GAMEDATA);
@@ -227,7 +227,7 @@ MenuGameModeClass2::Activate (void)
 //	Deactivate
 //
 ////////////////////////////////////////////////////////////////////
-void 
+void
 MenuGameModeClass2::Deactivate (void)
 {
 	WWMEMLOG(MEM_GAMEDATA);

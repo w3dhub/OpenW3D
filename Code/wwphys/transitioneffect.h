@@ -61,7 +61,7 @@ class TransitionEffectClass : public MaterialEffectClass
 public:
 	TransitionEffectClass(void);
 	~TransitionEffectClass(void);
-	
+
 	virtual void		Timestep(float dt) override;
 	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj) override;
 	virtual void		Render_Pop(RenderInfoClass & rinfo) override;
@@ -92,7 +92,7 @@ public:
 	bool					Load(ChunkLoadClass & cload);
 
 protected:
-	
+
 	/*
 	** Current State
 	*/
@@ -110,7 +110,7 @@ protected:
 	float					StartDelay;
 	bool					RemoveOnComplete;
 
-	/* 
+	/*
 	** Render State
 	*/
 	bool					RenderBaseMaterial;

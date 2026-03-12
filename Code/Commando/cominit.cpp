@@ -36,7 +36,7 @@
 
 //#include "utility.h"
 
-// 
+//
 // Creating this instance will setup all COM stuff & do cleanup on program exit
 //
 static cComInit	global_com_initializer;

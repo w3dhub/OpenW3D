@@ -60,9 +60,9 @@ class TextureClass;
 class GridEffectClass : public MaterialEffectClass
 {
 public:
-	GridEffectClass(void);	
+	GridEffectClass(void);
 	~GridEffectClass(void);
-	
+
 	virtual void		Render_Push(RenderInfoClass & rinfo,PhysClass * obj) override;
 	virtual void		Render_Pop(RenderInfoClass & rinfo) override;
 
@@ -77,7 +77,7 @@ public:
 	float					Get_Current_Parameter(void)			{ return CurrentParameter; }
 	float					Get_Target_Parameter(void)				{ return TargetParameter; }
 	float					Get_Parameter_Rate(void)				{ return ParameterRate; }
-	
+
 	/*
 	** Control over the grid transform, this enables you to set the coordinate
 	** axes that will generate the grid.
@@ -95,7 +95,7 @@ public:
 	TextureClass *		Peek_Texture(void);
 
 protected:
-	
+
 	float					CurrentParameter;
 	float					TargetParameter;
 	float					ParameterRate;
@@ -105,7 +105,7 @@ protected:
 
 	bool					RenderBaseMaterial;
 	bool					RenderGridMaterial;
-	
+
 	MatrixMapperClass *		Stage0Mapper;
 	MatrixMapperClass *		Stage1Mapper;
 	MaterialPassClass *		MaterialPass;

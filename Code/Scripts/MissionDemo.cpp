@@ -517,7 +517,7 @@ Commands->Debug_Message (">>>>>>>>>>>>>>>> UNIT COUNT = %i, UNIT MAX = %i.\n",ar
 		else if (type == 107)
 		{
 			// A Heli_01 spawner type is attempting to reset itself.
-			
+
 			area_spawn_heli_drop_01_active[param] = false;
 		}
 		else if (type == 108)
@@ -725,7 +725,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		Commands->Set_Innate_Soldier_Home_Location(obj, this_home_point, 20.0f);
 
 		// Turn hibernation off for a moment.
-		
+
 		Commands->Enable_Hibernation (obj, false);
 
 		// Start the timer to register with the controller.
@@ -827,7 +827,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 				if (officer)
 				{
 					// Unit is a preplaced officer. Register as an officer and hibernate.
-				
+
 					Commands->Set_Innate_Take_Cover_Probability (obj, 100.0f);
 					Commands->Send_Custom_Event(obj, object, 106, param, 0.0f);
 				}
@@ -881,7 +881,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			{
 				Vector3 starloc = Commands->Get_Position(star_obj);
 				float distance = Commands->Get_Distance (myloc, starloc);
-				
+
 				//DEMOif (distance > 70.0f)
 				if (distance > 300.0f)
 				{
@@ -905,7 +905,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 		else if (timer_id == 3)
 		{
 			// Force movement code to prevent irregular activity.
-		
+
 			Force_Move (obj);
 			Commands->Start_Timer(obj, this, 15.0f, 3);
 		}
@@ -1005,7 +1005,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			if (!enemy_seen)
 			{
 				// Time to move the chem-warrior. Pick a new location.
-				
+
 				Vector3 newloc;
 				int rndnum = (Get_Int_Random(0.0f,1.0f) * 5);
 				switch (rndnum)
@@ -1091,7 +1091,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			if (officer)
 			{
 				// If a Medium Tank is needed for A03, drop it.
-					
+
 				Commands->Send_Custom_Event (obj, object, 111, 2, 0.0f);
 			}
 		}
@@ -1104,7 +1104,7 @@ DECLARE_SCRIPT (MDD_Nod_Soldier, "Area_Number:int,Area_Officer:int,Pre_Placed:in
 			Commands->Innate_Enable (obj);
 
 			// If the unit is a preplaced minigunner, forced movement code is activated for this unit.
-			
+
 			int preplaced = Get_Int_Parameter("Pre_Placed");
 
 			if (preplaced == 2)
@@ -1221,7 +1221,7 @@ DECLARE_SCRIPT (MDD_GDI_Soldier, "Area_ID:int, Soldier_Type=0:int")
 		stop_following = false;
 
 		// Special case checks for preplaced soldiers - A01 currently, others to come.
-		
+
 		int area_id = Get_Int_Parameter("Area_ID");
 
 		if (area_id == 1)
@@ -1447,7 +1447,7 @@ DECLARE_SCRIPT (MDD_Nod_Apache, "Area_ID:int")
 		float timer_len = 1.0f;
 
 		//First waypath means area for looping Apaches, it is set when timer expires, and then uses real IDs.
-		
+
 		switch (area_id)
 		{
 		case (0):

@@ -77,7 +77,7 @@ public:
 	void			Apply_Changes (void);
 
 private:
-	
+
 	/////////////////////////////////////////////////////////////////
 	//	Private methods
 	/////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ private:
 	void			Setup_Controls (void);
 	void			Update_Expert_Controls (int level);
 	void			Load_Values (void);
-	void			Determine_Performance_Setting (void);	
+	void			Determine_Performance_Setting (void);
 	void			Get_Settings (DynamicVectorClass<int> &settings);
 
 	/////////////////////////////////////////////////////////////////

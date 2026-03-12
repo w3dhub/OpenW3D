@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*************************************************************************** 
- ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     *** 
- *************************************************************************** 
- *                                                                         * 
- *                 Project Name : G                                        * 
- *                                                                         * 
- *                     $Archive:: /Commando/Code/wwlib/sharebuf.h         $* 
- *                                                                         * 
- *                      $Author:: Greg_h                                  $* 
- *                                                                         * 
- *                     $Modtime:: 3/20/01 1:24p                           $* 
- *                                                                         * 
- *                    $Revision:: 8                                       $* 
- *                                                                         * 
- *-------------------------------------------------------------------------* 
- * Functions:                                                              * 
+/***************************************************************************
+ ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     ***
+ ***************************************************************************
+ *                                                                         *
+ *                 Project Name : G                                        *
+ *                                                                         *
+ *                     $Archive:: /Commando/Code/wwlib/sharebuf.h         $*
+ *                                                                         *
+ *                      $Author:: Greg_h                                  $*
+ *                                                                         *
+ *                     $Modtime:: 3/20/01 1:24p                           $*
+ *                                                                         *
+ *                    $Revision:: 8                                       $*
+ *                                                                         *
+ *-------------------------------------------------------------------------*
+ * Functions:                                                              *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #if _MSC_VER >= 1000
 #pragma once
@@ -67,7 +67,7 @@ class ShareBufferClass : public RefCountClass
 		const T &	Get_Element(int index) const;
 		T &			Get_Element(int index);
 
-		// Clear the memory in this array.  
+		// Clear the memory in this array.
 		// CAUTION! Be careful calling this if 'T' is a class.  You could be wiping out
 		// virtual function table pointers.  Not a good idea to memset 0 over the top of
 		// an array of objects but useful if you are creating an array of some basic type
@@ -91,7 +91,7 @@ ShareBufferClass<T>::ShareBufferClass(int count) :
 	Array = new T[Count];
 }
 
-template <class T> 
+template <class T>
 ShareBufferClass<T>::ShareBufferClass(const ShareBufferClass<T> & that) :
 	Count(that.Count)
 {
@@ -120,7 +120,7 @@ void ShareBufferClass<T>::Set_Element(int index,const T & thing)
 }
 
 template<class T>
-const T& ShareBufferClass<T>::Get_Element(int index) const 
+const T& ShareBufferClass<T>::Get_Element(int index) const
 {
 	return Array[index];
 }

@@ -100,7 +100,7 @@ EditorOnlyObjectNodeClass::EditorOnlyObjectNodeClass (const EditorOnlyObjectNode
 //
 //////////////////////////////////////////////////////////////////////////////
 EditorOnlyObjectNodeClass::~EditorOnlyObjectNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (DisplayObj);
 	return ;
@@ -124,15 +124,15 @@ EditorOnlyObjectNodeClass::Initialize (void)
 
 		//
 		//	Make sure we have all the assets loaded into memory that this object needs.
-		//			
+		//
 		m_Preset->Load_All_Assets ();
-		
+
 		//
 		//	Create the display object
 		//
 		DisplayObj						= new DecorationPhysClass;
 		CString render_obj_name		= ::Asset_Name_From_Filename (definition->Get_Model_Name ());
-		RenderObjClass *render_obj	= ::Create_Render_Obj (render_obj_name);		
+		RenderObjClass *render_obj	= ::Create_Render_Obj (render_obj_name);
 		if (render_obj != NULL) {
 			DisplayObj->Set_Model (render_obj);
 			MEMBER_RELEASE (render_obj);
@@ -140,7 +140,7 @@ EditorOnlyObjectNodeClass::Initialize (void)
 			DisplayObj->Set_Collision_Group (GAME_COLLISION_GROUP);
 			DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 			::Set_Model_Collision_Type (DisplayObj->Peek_Model (), 15);
-		}		
+		}
 
 		//
 		//	Update the transforms of both objects
@@ -159,7 +159,7 @@ EditorOnlyObjectNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 EditorOnlyObjectNodeClass::Get_Factory (void) const
-{	
+{
 	return _EditorOnlyObjNodePersistFactory;
 }
 
@@ -187,7 +187,7 @@ EditorOnlyObjectNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (DisplayObj != NULL && m_IsInScene) {

@@ -86,7 +86,7 @@ public:
 		CATEGORY_LEVEL,
 		CATEGORY_MAX
 	} CATEGORY;
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -125,17 +125,17 @@ public:
 	static ActiveConversationClass *	Start_Conversation (PhysicalGameObj *orator, int conversation_id, bool force = false);
 	static ActiveConversationClass *	Start_Conversation (PhysicalGameObj *orator, ConversationClass *conversation, bool force = false);
 	static ConversationClass *			Pick_Conversation (PhysicalGameObj *initiator, const DynamicVectorClass<PhysicalGameObj *> &available_orator_list, DynamicVectorClass<PhysicalGameObj *> &orator_list);
-	
+
 	static ConversationClass *			Find_Conversation (const char *conversation_name);
 	static ConversationClass *			Find_Conversation (int conversation_id);
 	static ActiveConversationClass *	Find_Active_Conversation (int id);
 
 	static void								Reset_All_Other_Conversations (ActiveConversationClass *active_conversation);
 	static bool								Is_Key_Conversation_Playing (void);
-	
+
 	static int								Get_Active_Conversation_Count (void) { return ActiveConversationList.Count (); }
 	static void								Think (void);
-	
+
 	//
 	//	State access
 	//
@@ -163,7 +163,7 @@ protected:
 	static void				Build_Buddy_List (PhysicalGameObj *orator, DynamicVectorClass<PhysicalGameObj *> &list, bool include_soldier);
 	static bool				Test_Conversation (PhysicalGameObj *initiator, ConversationClass *conversation, DynamicVectorClass<PhysicalGameObj *> &buddy_list, bool force = false);
 	static bool				Test_Orator (ConversationClass *conversation, OratorClass *orator, PhysicalGameObj *game_obj);
-	
+
 	//
 	//	From SaveLoadSubSystemClass
 	//
@@ -178,7 +178,7 @@ private:
 
 	////////////////////////////////////////////////////////////////
 	//	Private member data
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	static CONVERSATION_LIST			ConversationList[CATEGORY_MAX];
 	static ACTIVE_CONVERSATION_LIST	ActiveConversationList;
 	static int								NextActiveConversationID;
@@ -191,7 +191,7 @@ private:
 
 ////////////////////////////////////////////////////////////////
 //	Get_Conversation_Count
-////////////////////////////////////////////////////////////////	
+////////////////////////////////////////////////////////////////
 inline int
 ConversationMgrClass::Get_Conversation_Count (void)
 {
@@ -206,23 +206,23 @@ ConversationMgrClass::Get_Conversation_Count (void)
 
 ////////////////////////////////////////////////////////////////
 //	Peek_Conversation
-////////////////////////////////////////////////////////////////	
+////////////////////////////////////////////////////////////////
 inline ConversationClass *
 ConversationMgrClass::Peek_Conversation (int index_to_find)
 {
-	ConversationClass *conversation = NULL;	
+	ConversationClass *conversation = NULL;
 
 	//
 	//	Loop over all the categories
 	//
 	for (int index = 0; index < CATEGORY_MAX; index ++) {
-		
+
 		//
 		//	Is the specified index inside of this category?
 		//
 		int curr_count = ConversationList[index].Count ();
 		if (index_to_find < curr_count) {
-			
+
 			//
 			//	Index into this category to find the conversation
 			//

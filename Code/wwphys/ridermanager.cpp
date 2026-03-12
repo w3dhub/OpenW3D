@@ -76,8 +76,8 @@ void RiderManagerClass::Move_Riders(const Matrix3D & delta,RenderObjClass * carr
 	Vector3 move;
 	delta.Get_Translation(&move);
 
-	
-	// make all riders which are riding on this subobject ignore each other since they are 
+
+	// make all riders which are riding on this subobject ignore each other since they are
 	// going to move together
 	NonRefPhysListIterator it(&RiderList);
 	for (it.First(); !it.Is_Done(); it.Next()) {

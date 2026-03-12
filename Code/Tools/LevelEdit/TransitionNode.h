@@ -60,7 +60,7 @@ class PhysClass;
 class TransitionNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -81,7 +81,7 @@ public:
 	// From PersistClass
 	//
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	
+
 	//
 	// From NodeClass
 	//

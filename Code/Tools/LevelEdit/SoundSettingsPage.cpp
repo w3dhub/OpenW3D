@@ -177,7 +177,7 @@ SoundSettingsPageClass::Apply_Changes (void)
 	// Read the pitch factor
 	//
 	float factor = ::GetDlgItemFloat (m_hWnd, IDC_PITCH_FACTOR_EDIT);
-	Definition->Set_Pitch_Factor (factor);	
+	Definition->Set_Pitch_Factor (factor);
 	return true;
 }
 
@@ -206,7 +206,7 @@ SoundSettingsPageClass::OnHScroll (UINT nSBCode, UINT nPos, CScrollBar *pScrollB
 	//	Update the edit control
 	//
 	::SetDlgItemFloat (m_hWnd, IDC_VOLUME_EDIT, m_VolumeSlider.GetPos ());
-		
+
 	DockableFormClass::OnHScroll (nSBCode, nPos, pScrollBar);
 	return ;
 }
@@ -225,7 +225,7 @@ SoundSettingsPageClass::OnChangeVolumeEdit (void)
 	//
 	float volume = ::GetDlgItemFloat (m_hWnd, IDC_VOLUME_EDIT);
 	volume = WWMath::Clamp (volume, 0, 100.0F);
-	m_VolumeSlider.SetPos (volume);	
+	m_VolumeSlider.SetPos (volume);
 	return ;
 }
 

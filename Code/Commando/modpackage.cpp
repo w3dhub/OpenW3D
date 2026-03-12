@@ -170,7 +170,7 @@ void
 ModPackageClass::Compute_CRC (void)
 {
 	FileCRC = 0;
-	
+
 	//
 	//	Get a file object for the package
 	//
@@ -191,7 +191,7 @@ ModPackageClass::Compute_CRC (void)
 			int file_size = file->Size ();
 			uint8 buffer[4096];
 			while (file_size > 0) {
-				
+
 				//
 				//	Read the data from the source file
 				//
@@ -218,12 +218,12 @@ ModPackageClass::Compute_CRC (void)
 			//
 			file->Close ();
 		}
-		
+
 		//
 		//	Return the file
 		//
 		_TheFileFactory->Return_File (file);
-	}	
+	}
 
 	return ;
 }

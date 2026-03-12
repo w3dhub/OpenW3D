@@ -52,7 +52,7 @@
 ******************************************************************************/
 
 bool DlgMPConnectionRefused::DoDialog(const unichar_t * text, bool show_splash_screen)
-	{	
+	{
 	DlgMPConnectionRefused* popup = new DlgMPConnectionRefused(text, show_splash_screen);
 
 	if (popup)
@@ -164,7 +164,7 @@ void DlgMPConnectionRefused::On_Command(int ctrlID, int message, unsigned int pa
 			{
 			cNetwork::Cleanup_Client();
 			}
-		if (cGameSpyAdmin::Get_Is_Launched_From_Gamespy()) 
+		if (cGameSpyAdmin::Get_Is_Launched_From_Gamespy())
 			{
 
 #ifdef MULTIPLAYERDEMO
@@ -174,7 +174,7 @@ void DlgMPConnectionRefused::On_Command(int ctrlID, int message, unsigned int pa
 				DialogMgrClass::Flush_Dialogs ();
 				START_DIALOG (SplashOutroMenuDialogClass);
 			}
-			else 
+			else
 			{
 				extern void Stop_Main_Loop (int);
 				Stop_Main_Loop(EXIT_SUCCESS);

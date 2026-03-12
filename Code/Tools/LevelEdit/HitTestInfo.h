@@ -54,7 +54,7 @@ class VisGenPointClass;
 //
 /////////////////////////////////////////////////////////////////
 typedef struct _HITTESTINFO
-{	
+{
 	enum
 	{
 		Node		= 0,

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/scriptcommands.h                      $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/09/02 12:09p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 211                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/scriptcommands.h                      $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/09/02 12:09p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 211                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SCRIPTCOMMANDS_H
@@ -155,7 +155,7 @@ typedef struct {
 	void	( * Disable_All_Collisions )( GameObject * obj );
 	void	( * Disable_Physical_Collisions )( GameObject * obj );
 	void	( * Enable_Collisions )( GameObject * obj );
-	
+
 	// Object Management
 	void ( * Destroy_Object )( GameObject * obj );
 	GameObject * ( * Find_Object )( int obj_id );
@@ -180,7 +180,7 @@ typedef struct {
 
 	// Random Numbers
 	float	( * Get_Random )( float min, float max );
-	int	( * Get_Random_Int )( int min, int max );  // Get a random number between min and max-1, INCLUSIVE 
+	int	( * Get_Random_Int )( int min, int max );  // Get a random number between min and max-1, INCLUSIVE
 
 	//	Random Selection
 	GameObject * ( * Find_Random_Simple_Object )( const char *preset_name );
@@ -197,7 +197,7 @@ typedef struct {
 	int	( * Create_2D_WAV_Sound )( const char * wav_filename );
 	int	( * Create_3D_WAV_Sound_At_Bone )( const char * wav_filename, GameObject * obj, const char * bone_name );
 	int	( * Create_3D_Sound_At_Bone )( const char * sound_preset_name, GameObject * obj, const char * bone_name );
-	int	( * Create_Logical_Sound )( GameObject * creator, int type, const Vector3 & position, float radius );	
+	int	( * Create_Logical_Sound )( GameObject * creator, int type, const Vector3 & position, float radius );
 	void	( * Start_Sound )( int sound_id );
 	void	( * Stop_Sound )( int sound_id, bool destroy_sound/* = true */ );
 	void	( * Monitor_Sound )( GameObject * game_obj, int sound_id );
@@ -270,7 +270,7 @@ typedef struct {
 	//
 	//	Map support
 	//
-	void	(* Clear_Map_Cell )( int cell_x, int cell_y );	
+	void	(* Clear_Map_Cell )( int cell_x, int cell_y );
 	void	(* Clear_Map_Cell_By_Pos )( const Vector3 &world_space_pos );
 	void	(* Clear_Map_Cell_By_Pixel_Pos )( int pixel_pos_x, int pixel_pos_y );
 	void	(* Clear_Map_Region_By_Pos )( const Vector3 &world_space_pos, int pixel_radius );
@@ -472,7 +472,7 @@ public:
 };
 
 /*
-** Get Script Commands 
+** Get Script Commands
 ** This should only be called in the host application
 ** and not from the DLL
 */

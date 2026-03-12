@@ -81,11 +81,11 @@ TreeCtrlClass::TreeCtrlClass (void)	:
 	//
 	StyleMgrClass::Assign_Font (&TextRenderer, StyleMgrClass::FONT_LISTS);
 	StyleMgrClass::Configure_Renderer (&ControlRenderer);
-	StyleMgrClass::Configure_Renderer (&PlusRenderer);	
-	StyleMgrClass::Configure_Renderer (&IconRenderer);		
-	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());		
+	StyleMgrClass::Configure_Renderer (&PlusRenderer);
+	StyleMgrClass::Configure_Renderer (&IconRenderer);
+	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());
 	StyleMgrClass::Configure_Hilighter (&HilightRenderer);
-	
+
 	//
 	//	Load the "plus" texture
 	//
@@ -101,7 +101,7 @@ TreeCtrlClass::TreeCtrlClass (void)	:
 	//	We don't want the scroll bar getting focus
 	//
 	ScrollBarCtrl.Set_Wants_Focus (false);
-	ScrollBarCtrl.Set_Advise_Sink (this);	
+	ScrollBarCtrl.Set_Advise_Sink (this);
 	ScrollBarCtrl.Set_Is_Embedded (true);
 	return ;
 }
@@ -114,8 +114,8 @@ TreeCtrlClass::TreeCtrlClass (void)	:
 ////////////////////////////////////////////////////////////////
 TreeCtrlClass::~TreeCtrlClass (void)
 {
-	ScrollBarCtrl.Set_Advise_Sink (NULL);	
-	
+	ScrollBarCtrl.Set_Advise_Sink (NULL);
+
 	if (Parent != NULL) {
 		Parent->Remove_Control (&ScrollBarCtrl);
 	}
@@ -151,7 +151,7 @@ TreeCtrlClass::Create_Text_Renderers (void)
 	//	Render each row...
 	//
 	for (int index = 0; index < ItemList.Count (); index ++) {
-		TreeItemClass *item = ItemList[index];	
+		TreeItemClass *item = ItemList[index];
 		if (Render_Item (item, x_pos, y_pos, row_index, level) == false) {
 			break;
 		}
@@ -192,7 +192,7 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 	RectClass rect;
 	rect.Left	= ClientRect.Left + LINE_START + int(level * LINE_SPACING);
 	rect.Top		= y_pos;
-	rect.Right	= ClientRect.Right;	
+	rect.Right	= ClientRect.Right;
 	rect.Bottom	= y_pos + RowHeight;
 
 	RectClass plus_rect;
@@ -217,7 +217,7 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 	//	Only draw the entry if its inside the view
 	//
 	if (row_index >= ScrollPos && ((y_pos + RowHeight) <= ClientRect.Bottom)) {
-				
+
 		//
 		//	Draw the tick to the left of the entry
 		//
@@ -271,7 +271,7 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 		//	Is this the selected item?
 		//
 		if (SelectedItem == item) {
-			
+
 			if (HasFocus) {
 				RectClass hilight_rect = text_rect;
 				hilight_rect.Right	-= 1.0F;
@@ -306,7 +306,7 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 		for (int index = 0; index < child_count; index ++) {
 			end_row_index	= row_index + 1;
 			retval = Render_Item (item->Get_Child (index), x_pos, y_pos, row_index, level + 1);
-		}		
+		}
 
 		//
 		//	Render the line connecting this item to all its children
@@ -316,7 +316,7 @@ TreeCtrlClass::Render_Item (TreeItemClass *item, float x_pos, float &y_pos, int 
 				start_row_index <= (ScrollPos + RowsPerPage))
 		{
 			float end_y_pos = start_y_pos + (end_row_index - start_row_index) * RowHeight;
-			
+
 			//
 			//	Clip the line start and end to the window
 			//
@@ -388,7 +388,7 @@ TreeCtrlClass::Count_Visible_Rows (void)
 		//
 		total += Count_Visible_Rows (item);
 	}
-	
+
 	return total;
 }
 
@@ -404,7 +404,7 @@ TreeCtrlClass::Count_Visible_Rows (TreeItemClass *item)
 	if (item == NULL) {
 		return 0;
 	}
-	
+
 	int total = 1;
 
 	//
@@ -556,19 +556,19 @@ TreeCtrlClass::Render (void)
 	//
 	//	Recreate the renderers (if necessary)
 	//
-	if (IsDirty) {		
+	if (IsDirty) {
 		Create_Control_Renderers ();
 		Create_Text_Renderers ();
 	}
 
 	//
 	//	Render the background and text for the current state
-	//	
+	//
 	IconMgr.Render_Icons ();
 	TextRenderer.Render ();
 	ControlRenderer.Render ();
 	PlusRenderer.Render ();
-	HilightRenderer.Render ();	
+	HilightRenderer.Render ();
 
 	DialogControlClass::Render ();
 	return ;
@@ -610,7 +610,7 @@ TreeCtrlClass::Sort_Children (TreeItemClass *parent, TREECTRL_SORT_CALLBACK sort
 		}
 
 	} else {
-		
+
 		TREE_ITEM_LIST &child_list = parent->Get_Child_List ();
 
 		//
@@ -641,7 +641,7 @@ TreeCtrlClass::Sort_Callback (const void *elem1, const void *elem2)
 
 	//
 	//	Pass the sorting off to the user... (NOT THREAD SAFE)
-	//	
+	//
 	return CurrentSortCallback (CurrentSorter, item1, item2, CurrentSortUserData);
 }
 
@@ -673,7 +673,7 @@ TreeCtrlClass::Alphabetic_Sort_Callback
 	} else if (result > 0) {
 		retval = 1;
 	}
-	
+
 	return retval;
 }
 
@@ -746,7 +746,7 @@ TreeCtrlClass::Hit_Test (const Vector2 &mouse_pos, HITTYPE &type)
 	//
 	TreeItemClass *hit_item = Find_Top_Item ();
 	if (hit_item != NULL) {
-		
+
 		//
 		//	Determine on which row of the screen the user clicked
 		//
@@ -758,11 +758,11 @@ TreeCtrlClass::Hit_Test (const Vector2 &mouse_pos, HITTYPE &type)
 		for (int index = 0; hit_item != NULL && index < row_index; index ++) {
 			hit_item = Find_Next_Visible (hit_item);
 		}
-		
+
 		const float LINE_START		= 16.0F * StyleMgrClass::Get_X_Scale ();
 		const float LINE_SPACING	= 16.0F * StyleMgrClass::Get_X_Scale ();
 		const float TEXT_SPACING	= 4.0F * StyleMgrClass::Get_X_Scale ();
-		
+
 		//
 		//	Now determine on what part of the item the user clicked...
 		//
@@ -807,7 +807,7 @@ TreeCtrlClass::On_LButton_Down (const Vector2 &mouse_pos)
 	TreeItemClass *tree_item = Hit_Test (mouse_pos, type);
 	if (tree_item != NULL) {
 		SelectedItem = tree_item;
-		
+
 		//
 		//	Toggle the expanded state if the user clicked on the
 		// plus
@@ -1007,7 +1007,7 @@ TreeCtrlClass::Ensure_Visible (TreeItemClass *item_to_find)
 	//
 	TreeItemClass *item = ItemList.Count () > 0 ? ItemList[0] : NULL;
 	for (int row_index = 0; item != NULL; row_index ++) {
-		
+
 		if (item == item_to_find) {
 
 			//
@@ -1096,7 +1096,7 @@ TreeCtrlClass::Delete_Item (TreeItemClass *item)
 	//
 	//	Remove the selected item if necessary
 	//
-	if (SelectedItem == item) {		
+	if (SelectedItem == item) {
 		SelectedItem = NULL;
 	}
 
@@ -1122,7 +1122,7 @@ TreeCtrlClass::Delete_Item (TreeItemClass *item)
 	if (parent != NULL) {
 		parent->Remove_Child (item);
 	} else {
-		
+
 		//
 		//	Remove this item from the root list
 		//
@@ -1235,7 +1235,7 @@ TreeCtrlClass::Get_Next_Sibling (TreeItemClass *item)
 			retval = ItemList[index + 1];
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -1269,7 +1269,7 @@ TreeCtrlClass::Get_Prev_Sibling (TreeItemClass *item)
 			retval = ItemList[index - 1];
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -1298,9 +1298,9 @@ TreeCtrlClass::Find_Prev_Visible (TreeItemClass *item)
 	if (retval == NULL) {
 		retval = item->Get_Parent ();
 	} else {
-		
+
 		while (retval->Is_Expanded ()) {
-		
+
 			//
 			//	Find the last child for this given item
 			//
@@ -1349,7 +1349,7 @@ TreeCtrlClass::Find_Next_Visible (TreeItemClass *item)
 	}
 
 	if (retval == NULL) {
-		
+
 		//
 		//	Try to find this item's next sibling...
 		//
@@ -1532,7 +1532,7 @@ void
 TreeItemClass::Set_Icon (const char *texture_name)
 {
 	IconName = texture_name;
-	
+
 	//
 	//	Add this icon to our manager
 	//
@@ -1599,7 +1599,7 @@ TreeItemClass::Get_Prev_Child (TreeItemClass *child)
 ////////////////////////////////////////////////////////////////
 TreeItemClass *
 TreeItemClass::Get_Next_Child (TreeItemClass *child)
-{	
+{
 	TreeItemClass *retval = NULL;
 	if (child == NULL) {
 		return NULL;
@@ -1624,7 +1624,7 @@ TreeItemClass::Get_Next_Child (TreeItemClass *child)
 ////////////////////////////////////////////////////////////////
 int
 TreeItemClass::Get_Indent_Level (void)
-{	
+{
 	int retval = 0;
 
 	//
@@ -1635,7 +1635,7 @@ TreeItemClass::Get_Indent_Level (void)
 		retval ++;
 	}
 
-	return retval;	
+	return retval;
 }
 
 
@@ -1653,7 +1653,7 @@ TreeItemClass::Get_Last_Child (void)
 		retval = ChildList[ChildList.Count () - 1];
 	}
 
-	return retval;	
+	return retval;
 }
 
 

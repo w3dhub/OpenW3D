@@ -86,7 +86,7 @@ WaypathNodeClass::WaypathNodeClass (PresetClass *preset)
 		m_Flags (FLAG_HUMAN | FLAG_GROUND_VEHICLE),
 		m_RuntimeWaypath (NULL),
 		m_HasLoadCompleted (true),
-		NodeClass (preset)		
+		NodeClass (preset)
 {
 	return ;
 }
@@ -115,8 +115,8 @@ WaypathNodeClass::WaypathNodeClass (const WaypathNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 WaypathNodeClass::~WaypathNodeClass (void)
-{	
-	Remove_From_Scene ();	
+{
+	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
 
 	Free_Waypoints ();
@@ -136,16 +136,16 @@ void
 WaypathNodeClass::Initialize (void)
 {
 	MEMBER_RELEASE (m_PhysObj);
-		
+
 	SegmentedLineClass *line = new SegmentedLineClass;
 	line->Set_Width (0.075F);
 	line->Set_Color (Vector3 (0, 0.75F, 0));
 	line->Set_Opacity (1.0F);
 	//line->Set_Shader (ShaderClass::_PresetOpaqueSolidShader);
-	
+
 	// Create the new physics object
 	m_PhysObj = new DecorationPhysClass;
-	
+
 	//
 	// Configure the physics object with information about
 	// its new render object and collision data.
@@ -156,7 +156,7 @@ WaypathNodeClass::Initialize (void)
 	m_PhysObj->Peek_Model ()->Set_Collision_Type (COLLISION_TYPE_6);
 	m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 	m_PhysObj->Set_Transform (m_Transform);
-	
+
 	// Release our hold on the render object pointer
 	MEMBER_RELEASE (line);
 
@@ -182,7 +182,7 @@ WaypathNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 WaypathNodeClass::Get_Factory (void) const
-{	
+{
 	return _WaypathNodePersistFactory;
 }
 
@@ -202,7 +202,7 @@ WaypathNodeClass::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		WaypathNodeClass *this_ptr = this;
 		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, this_ptr);
-		WRITE_MICRO_CHUNK (csave, VARID_FLAGS, m_Flags);		
+		WRITE_MICRO_CHUNK (csave, VARID_FLAGS, m_Flags);
 	csave.End_Chunk ();
 
 	//
@@ -235,13 +235,13 @@ WaypathNodeClass::Load (ChunkLoadClass &cload)
 	Free_Waypoints ();
 	m_HasLoadCompleted = false;
 
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -296,10 +296,10 @@ WaypathNodeClass::Load_Variables (ChunkLoadClass &cload)
 				//
 				//	Read the old waypoint ptr from the chunk and add it to our
 				// list.  We will remap it later.
-				//				
+				//
 				WaypointNodeClass *waypoint = NULL;
-				cload.Read (&waypoint, sizeof (waypoint));				
-				m_OldStylePointList.Add (waypoint);				
+				cload.Read (&waypoint, sizeof (waypoint));
+				m_OldStylePointList.Add (waypoint);
 			}
 			break;
 
@@ -308,7 +308,7 @@ WaypathNodeClass::Load_Variables (ChunkLoadClass &cload)
 				//
 				//	Read the old pointer from the chunk and submit it
 				// to the remapping system.
-				//				
+				//
 				WaypathNodeClass *old_ptr = NULL;
 				cload.Read (&old_ptr, sizeof (int));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
@@ -343,7 +343,7 @@ WaypathNodeClass::On_Post_Load (void)
 	//
 	if (m_OldStylePointList.Count () > 0) {
 		Free_Waypoints ();
-		
+
 		//
 		//	Add a ref-count to each of the waypoints and remove it from the node manager
 		//
@@ -353,7 +353,7 @@ WaypathNodeClass::On_Post_Load (void)
 			if (waypoint != NULL) {
 				new_point_list.Add (waypoint);
 				SAFE_ADD_REF (waypoint);
-				
+
 				//
 				//	Remove the node from the manager (we'll manage the waypoints)
 				//
@@ -393,13 +393,13 @@ WaypathNodeClass::Set_Transform (const Matrix3D &tm)
 
 	SegmentedLineClass *line = Peek_Line ();
 	if (line != NULL) {
-			
+
 		//
 		//	Transform all the points in the path
 		//
 		int index = m_PointList.Count ();
 		while (index --) {
-			
+
 			//
 			//	Get this point's object space location
 			//
@@ -468,7 +468,7 @@ WaypathNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {
@@ -501,7 +501,7 @@ WaypathNodeClass::Pre_Export (void)
 			//	Check to see if the line segment formed by the last point and this point
 			// intersects any pathfind-action portals (transition zones)
 			//
-			if (index > 0) {				
+			if (index > 0) {
 				DynamicVectorClass<PathfindPortalClass *> list;
 				PathfindClass::Get_Instance ()->Find_Portals (last_pos, curr_pos, list, true);
 
@@ -516,11 +516,11 @@ WaypathNodeClass::Pre_Export (void)
 					//
 					//	Create a runtime waypoint and add it to the runtime
 					// waypath.
-					//			
+					//
 					WaypointClass *new_waypoint = new WaypointClass;
 					new_waypoint->Set_ID (NodeMgrClass::Get_Node_ID (NODE_TYPE_WAYPOINT));
 					new_waypoint->Set_Position (portal_box.Center);
-					new_waypoint->Set_Action_Portal (portal);					
+					new_waypoint->Set_Action_Portal (portal);
 					m_RuntimeWaypath->Add_Point (*new_waypoint);
 					MEMBER_RELEASE (new_waypoint);
 				}
@@ -529,14 +529,14 @@ WaypathNodeClass::Pre_Export (void)
 			//
 			//	Create a runtime waypoint and add it to the runtime
 			// waypath.
-			//			
+			//
 			WaypointClass *runtime_waypoint = new WaypointClass;
 			runtime_waypoint->Set_ID (waypoint->Get_ID ());
 			runtime_waypoint->Set_Position (curr_pos);
-			
+
 			runtime_waypoint->Set_Flags (0);
 			runtime_waypoint->Set_Flag (WaypointClass::FLAG_REQUIRES_JUMP, waypoint->Get_Flag (WaypointNodeClass::FLAG_REQUIRES_JUMP));
-			
+
 			m_RuntimeWaypath->Add_Point (*runtime_waypoint);
 			MEMBER_RELEASE (runtime_waypoint);
 		}
@@ -574,7 +574,7 @@ WaypathNodeClass::Post_Export (void)
 	}
 	return ;
 }
-	
+
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -647,7 +647,7 @@ WaypathNodeClass::Remove_From_Scene (void)
 			}
 		}
 	}
-	
+
 	NodeClass::Remove_From_Scene ();
 	return ;
 }
@@ -672,7 +672,7 @@ WaypathNodeClass::Delete_Point (int index)
 	waypoint->Set_Waypath (NULL);
 	waypoint->Remove_From_Scene ();
 	//NodeMgrClass::Remove_Node (waypoint);
-	MEMBER_RELEASE (waypoint);	
+	MEMBER_RELEASE (waypoint);
 	m_PointList.Delete (index);
 
 	if (m_PointList.Count () > 0) {
@@ -729,7 +729,7 @@ int
 WaypathNodeClass::Find_Index (WaypointNodeClass *waypoint)
 {
 	int retval	= -1;
-	
+
 	//
 	//	Loop over all the waypoints in our list until
 	// we have found the matching pointer...
@@ -753,7 +753,7 @@ WaypathNodeClass::Find_Index (WaypointNodeClass *waypoint)
 //////////////////////////////////////////////////////////////////////////////
 int
 WaypathNodeClass::Add_Point (const Vector3 &point)
-{			
+{
 	//
 	//	Create a new waypoint and add it to the end of our list...
 	//
@@ -790,7 +790,7 @@ WaypathNodeClass::On_Point_Moved (int index, const Vector3 &new_pos)
 		//	Pass the new position onto the line...
 		//
 		line->Set_Point_Location (index, obj_space_pos);
-	
+
 		if (index == 0 && (Get_Flag (FLAG_LOOPING) || m_PointList.Count () == 1)) {
 			line->Set_Point_Location (m_PointList.Count (), obj_space_pos);
 		}
@@ -798,7 +798,7 @@ WaypathNodeClass::On_Point_Moved (int index, const Vector3 &new_pos)
 		m_PhysObj->Update_Cull_Box ();
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -809,10 +809,10 @@ WaypathNodeClass::On_Point_Moved (int index, const Vector3 &new_pos)
 //////////////////////////////////////////////////////////////////////////////
 void
 WaypathNodeClass::Update_Line (void)
-{	
+{
 	SegmentedLineClass *line = Peek_Line ();
 	if (line != NULL) {
-		
+
 		//
 		//	Allocate a new array of points for the line render object
 		//
@@ -838,7 +838,7 @@ WaypathNodeClass::Update_Line (void)
 				} else {
 					waypoint->Set_Model (WaypointNodeClass::MODEL_START_PT);
 				}
-				
+
 			} else {
 				waypoint->Set_Model (WaypointNodeClass::MODEL_MIDDLE_PT);
 			}
@@ -848,7 +848,7 @@ WaypathNodeClass::Update_Line (void)
 			// a local coordinate system for the path.
 			//
 			Vector3 world_pos	= waypoint->Get_Position () + Vector3 (0, 0, 0.2F);
-			Matrix3D::Inverse_Transform_Vector (m_Transform, world_pos, &points[index]);			
+			Matrix3D::Inverse_Transform_Vector (m_Transform, world_pos, &points[index]);
 		}
 
 		//
@@ -894,7 +894,7 @@ WaypathNodeClass::Create_Waypoint (const Vector3 &point)
 	// path is supposed to be in the scene...
 	//
 	if (m_IsInScene) {
-		waypoint->Add_To_Scene ();		
+		waypoint->Add_To_Scene ();
 	}
 
 	//NodeMgrClass::Add_Node (waypoint);
@@ -979,7 +979,7 @@ WaypathNodeClass::Hide (bool hide)
 			waypoint->Hide (hide);
 		}
 	}
-	
+
 	NodeClass::Hide (hide);
 	return ;
 }
@@ -995,7 +995,7 @@ WaypathNodeClass::Show_Settings_Dialog (void)
 {
 	NodeInfoPageClass	info_tab (this);
 	PositionPageClass	pos_tab (this);
-	
+
 	//
 	//	Add each tab to the property sheet
 	//
@@ -1005,7 +1005,7 @@ WaypathNodeClass::Show_Settings_Dialog (void)
 
 	// Show the property sheet
 	UINT ret_code = prop_sheet.DoModal ();
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }

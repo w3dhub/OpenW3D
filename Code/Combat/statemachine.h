@@ -72,12 +72,12 @@
 
 /*#define BEGIN_STATE_MAP(machine)						\
 		void	Install_##machine_States (void) {	\
-			
+
 
 #define ADD_STATE_HANDLER(machine, state)		\
 			machine.Add_State (state);				\
 			machine.
-			
+
 
 #define END_STATE_MAP()					\
 		}*/
@@ -217,13 +217,13 @@ public:
 		CurrState (-1),
 		Object (object),
 		IsHalted (false)						{}
-	
+
 	virtual ~StateMachineClass (void)	{}
 
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Think
 	///////////////////////////////////////////////////////////////////
@@ -288,12 +288,12 @@ public:
 		//	Notify the current state that it's "ending"
 		//
 		if (Is_Valid_State (CurrState)) {
-			
+
 			if (StateTable[CurrState].End != NULL) {
 				(Object->*(StateTable[CurrState].End)) ();
 			}
 		}
-		
+
 		IsHalted = true;
 		return ;
 	}
@@ -310,12 +310,12 @@ public:
 		//
 		//	Notify the current state that it's starting again
 		//
-		if (Is_Valid_State (CurrState)) {			
+		if (Is_Valid_State (CurrState)) {
 			if (StateTable[CurrState].Begin != NULL) {
 				(Object->*(StateTable[CurrState].Begin)) ();
 			}
 		}
-		
+
 		IsHalted = false;
 		return ;
 	}
@@ -356,7 +356,7 @@ public:
 		}
 
 		if (Is_Valid_State (state_index)) {
-						
+
 			//
 			//	Switch to the new state
 			//
@@ -379,7 +379,7 @@ public:
 		csave.Begin_Chunk (CHUNKID_VARIABLES);
 			WRITE_MICRO_CHUNK (csave, VARID_CURR_STATE,	CurrState);
 			WRITE_MICRO_CHUNK (csave, VARID_IS_HALTED,	IsHalted);
-		csave.End_Chunk ();		
+		csave.End_Chunk ();
 		return ;
 	}
 
@@ -395,7 +395,7 @@ public:
 				case CHUNKID_VARIABLES:
 					Load_Variables (cload);
 					break;
-		  
+
 				default:
 					WWDEBUG_SAY (("Unrecognized StateMachineClass chunkID\n"));
 					break;
@@ -417,7 +417,7 @@ public:
 			{
 				READ_MICRO_CHUNK_UNCHECKED (cload, VARID_CURR_STATE,	this->CurrState);
 				READ_MICRO_CHUNK_UNCHECKED (cload, VARID_IS_HALTED,		this->IsHalted);
-				
+
 				default:
 					WWDEBUG_SAY (("Unrecognized StateMachineClass variable chunkID\n"));
 					break;
@@ -429,7 +429,7 @@ public:
 	}
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////

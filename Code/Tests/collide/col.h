@@ -46,7 +46,7 @@ class BoxClass
 public:
 
 	BoxClass(Box box);
-	
+
 	Vector3	Center;
 	Vector3	Extent;
 	Vector3	Velocity;

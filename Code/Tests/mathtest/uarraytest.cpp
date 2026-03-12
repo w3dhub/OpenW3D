@@ -40,7 +40,7 @@
 #include "uarray.h"
 
 
-Vector3 InputVectors[] = 
+Vector3 InputVectors[] =
 {
 	Vector3(0,0,0),
 	Vector3(1,0,0),
@@ -58,7 +58,7 @@ class VectorHasherClass : public HashCalculatorClass<Vector3>
 {
 public:
 
-	virtual bool	Items_Match(const Vector3 & a, const Vector3 & b) 
+	virtual bool	Items_Match(const Vector3 & a, const Vector3 & b)
 	{
 		// looking for an exact match for normals...
 		return ((a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z));
@@ -66,26 +66,26 @@ public:
 
 	virtual void	Compute_Hash(const Vector3 & item)
 	{
-		HashVal = (int)(item.X*12345.6f + item.Y*1714.38484f + item.Z*27561.3f)&1023; 
+		HashVal = (int)(item.X*12345.6f + item.Y*1714.38484f + item.Z*27561.3f)&1023;
 	}
 
-	virtual int		Num_Hash_Bits(void) 
-	{ 
-		return 12;  // 12bit hash value. 
+	virtual int		Num_Hash_Bits(void)
+	{
+		return 12;  // 12bit hash value.
 	}
-	
+
 	virtual int		Num_Hash_Values(void)
 	{
 		return 1;	// only one hash value for normals, require *exact* match
 	}
-	
+
 	virtual int		Get_Hash_Value(int index)
 	{
 		return HashVal;
 	}
 
 private:
-	
+
 	int HashVal;
 
 };

@@ -984,7 +984,7 @@ void VehicleGameObj::Import_Frequent(BitStreamClass & packet)
 				packet.Get(vel.Y, BITPACK_VEHICLE_VELOCITY);
 				packet.Get(vel.Z, BITPACK_VEHICLE_VELOCITY);
 #endif
-				
+
 				packet.Get(ang_vel.X, BITPACK_VEHICLE_ANGULAR_VELOCITY);
 				packet.Get(ang_vel.Y, BITPACK_VEHICLE_ANGULAR_VELOCITY);
 				packet.Get(ang_vel.Z, BITPACK_VEHICLE_ANGULAR_VELOCITY);

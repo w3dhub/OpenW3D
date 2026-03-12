@@ -75,7 +75,7 @@ void MuzzleRecoilClass::Update(RenderObjClass * model)
 	model->Capture_Bone(BoneIndex);
 
 	// Apply the recoil effect.
-	float recoil_scale = RecoilScale * RecoilTimer * OORecoilTime; 
+	float recoil_scale = RecoilScale * RecoilTimer * OORecoilTime;
 	Matrix3D recoil_tm(1);
 	recoil_tm.Translate_X(-recoil_scale);
 	model->Control_Bone(BoneIndex,recoil_tm);

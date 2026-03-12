@@ -685,7 +685,7 @@ BeaconGameObj::Start_Cinematic ( int id )
 			Vector3 position;
 			Get_Position (&position);
 			game_obj->Set_Position (position);
-	
+
 			CinematicObject = game_obj;
 
 			Debug_Say(( "Beacon Cinematic Started\n" ));
@@ -1344,12 +1344,12 @@ BeaconGameObj::Create_Explosion (void)
 	//
 	Vector3 position;
 	Get_Position (&position);
-	
+
 	//
 	// (gth) don't explode if the owner is gone
 	//
 	if (Get_Owner() != NULL) {
-	
+
 		ExplosionManager::Create_Explosion_At (Get_Definition ().ExplosionDefID, Get_Transform (), Get_Owner ());
 
 		if (CombatManager::I_Am_Server())

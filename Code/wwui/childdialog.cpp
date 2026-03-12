@@ -49,7 +49,7 @@
 ChildDialogClass::ChildDialogClass (const DialogResource *dialog_resource)	:
 	ParentDialog (NULL),
 	DialogBaseClass (dialog_resource)
-{	
+{
 	return ;
 }
 
@@ -60,7 +60,7 @@ ChildDialogClass::ChildDialogClass (const DialogResource *dialog_resource)	:
 //
 ////////////////////////////////////////////////////////////////
 ChildDialogClass::~ChildDialogClass (void)
-{	
+{
 	return ;
 }
 

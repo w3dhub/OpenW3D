@@ -59,7 +59,7 @@ SimplePersistFactoryClass<LightPhysClass,PHYSICS_CHUNKID_LIGHTPHYS>	_LightPhysFa
 /*
 ** Chunk ID's used by LightPhysClass
 */
-enum 
+enum
 {
 	LIGHTPHYS_CHUNK_DECOPHYS			= 0x00770010,
 	LIGHTPHYS_CHUNK_VARIABLES,
@@ -80,7 +80,7 @@ LightPhysClass::LightPhysClass(bool auto_allocate_light) :
 	}
 }
 
-void LightPhysClass::Set_Model(RenderObjClass * model) 
+void LightPhysClass::Set_Model(RenderObjClass * model)
 {
 	DecorationPhysClass::Set_Model(model);
 }
@@ -96,7 +96,7 @@ int LightPhysClass::Is_Vis_Object_Visible(int vis_object_id)
 		REF_PTR_RELEASE(pvs);
 		return vis_bit;
 	}
-	
+
 	return 1;
 }
 
@@ -116,7 +116,7 @@ bool LightPhysClass::Save (ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK(csave,LIGHTPHYS_VARIABLE_VISSECTORID,VisSectorID);
 	WRITE_MICRO_CHUNK(csave,LIGHTPHYS_VARIABLE_GROUPID,GroupID);
 	csave.End_Chunk();
-	
+
 	return true;
 }
 
@@ -135,7 +135,7 @@ bool LightPhysClass::Load (ChunkLoadClass &cload)
 						READ_MICRO_CHUNK(cload,LIGHTPHYS_VARIABLE_VISSECTORID,VisSectorID);
 						READ_MICRO_CHUNK(cload,LIGHTPHYS_VARIABLE_GROUPID,GroupID);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 

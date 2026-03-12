@@ -75,7 +75,7 @@ void MPWolBuddiesMenuClass::Display(void)
 	//	Create the dialog if necessary, otherwise simply bring it to the front
 	if (_mInstance == NULL) {
 		MPWolBuddiesMenuClass* dialog = new MPWolBuddiesMenuClass;
-		
+
 		if (dialog) {
 			dialog->Start_Dialog();
 			dialog->Release_Ref();
@@ -145,7 +145,7 @@ MPWolBuddiesMenuClass::On_Init_Dialog (void)
 		bar->Add_Button(IDC_MP_SHORTCUT_NEWS, TRANSLATE(IDS_MP_SHORTCUT_NEWS));
 		bar->Add_Button(IDC_MP_SHORTCUT_CLANS, TRANSLATE(IDS_MP_SHORTCUT_CLANS));
 		bar->Add_Button(IDC_MP_SHORTCUT_RANKINGS, TRANSLATE(IDS_MP_SHORTCUT_RANKINGS));
-		bar->Add_Button(IDC_MP_SHORTCUT_NET_STATUS, TRANSLATE(IDS_MP_SHORTCUT_NET_STATUS));		
+		bar->Add_Button(IDC_MP_SHORTCUT_NET_STATUS, TRANSLATE(IDS_MP_SHORTCUT_NET_STATUS));
 	}
 
 	//	Get a pointer to the list control
@@ -350,7 +350,7 @@ void MPWolBuddiesMenuClass::Update_Buddy_Ranking(int index, const RefPtr<WWOnlin
 //	Refresh_Buddy_List
 //
 ////////////////////////////////////////////////////////////////
-void	
+void
 MPWolBuddiesMenuClass::Refresh_Buddy_List (void)
 {
 	ListCtrlClass *list_ctrl = (ListCtrlClass *)Get_Dlg_Item (IDC_BUDDY_LIST_CTRL);
@@ -630,9 +630,9 @@ void MPWolBuddiesMenuClass::Page_Selected_User(void)
 	// pass it to the page dialog
 	WideStringClass buddy_name(64, true);
 	Get_Selected_Buddy(buddy_name);
-	
+
 	// Show the dialog
-	MPWolPageBuddyPopupClass* dialog = new MPWolPageBuddyPopupClass;			
+	MPWolPageBuddyPopupClass* dialog = new MPWolPageBuddyPopupClass;
 	WWASSERT(dialog && "Failed to create page buddy dialog");
 
 	if (dialog) {

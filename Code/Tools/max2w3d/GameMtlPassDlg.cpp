@@ -58,7 +58,7 @@
 #include "w3d_file.h"
 
 
-static int _Pass_Index_To_Flag[] = 
+static int _Pass_Index_To_Flag[] =
 {
 	GAMEMTL_PASS0_ROLLUP_OPEN,
 	GAMEMTL_PASS1_ROLLUP_OPEN,
@@ -81,7 +81,7 @@ extern bool _UsingLargeFonts;
  * HISTORY:                                                                                    *
  *   11/23/98   GTH : Created.                                                                 *
  *=============================================================================================*/
-static BOOL CALLBACK PassDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam) 
+static BOOL CALLBACK PassDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	GameMtlPassDlg *theDlg;
 
@@ -94,7 +94,7 @@ static BOOL CALLBACK PassDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM l
 		SetWindowLong(hwndDlg, GWL_USERDATA,lParam);
 	} else {
 		if ((theDlg = (GameMtlPassDlg *)GetWindowLong(hwndDlg, GWL_USERDATA) ) == NULL) {
-			return false; 
+			return false;
 		}
 	}
 	return theDlg->DialogProc(hwndDlg,msg,wParam,lParam);
@@ -124,7 +124,7 @@ GameMtlPassDlg::GameMtlPassDlg(HWND hwMtlEdit, IMtlParams *imp, GameMtl *m,int p
 	sprintf(title, "Pass %d", pass + 1);
 
 #if !defined W3D_GMAXDEV
-	HwndPanel = IParams->AddRollupPage( 
+	HwndPanel = IParams->AddRollupPage(
 		AppInstance,
 		MAKEINTRESOURCE(IDD_GAMEMTL_PASS),
 		PassDlgProc,
@@ -212,7 +212,7 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 			for (i=0; i<PAGE_COUNT; i++) {
 
 				HWND hwnd = Page[i]->Get_Hwnd();
-			
+
 				// set the tab names
 				char name[64];
 				::GetWindowText(hwnd,name,sizeof(name));
@@ -224,7 +224,7 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 			RECT rect;
 			::GetWindowRect(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB),&rect);
 			TabCtrl_AdjustRect(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB),false, &rect);
-  
+
 			// Convert the display rectangle from screen to client coords
 			ScreenToClient(HwndPanel,(POINT *)(&rect));
 			ScreenToClient(HwndPanel, ((LPPOINT)&rect) + 1);
@@ -234,22 +234,22 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 				HWND hwnd = Page[i]->Get_Hwnd();
 
 				// Loop through all the tabs in the property sheet
-				// Get a pointer to this tab				
-				SetWindowPos(	hwnd, 
-									NULL, 
-									rect.left, rect.top, 
-									rect.right - rect.left, rect.bottom - rect.top, 
-									SWP_NOZORDER);				
+				// Get a pointer to this tab
+				SetWindowPos(	hwnd,
+									NULL,
+									rect.left, rect.top,
+									rect.right - rect.left, rect.bottom - rect.top,
+									SWP_NOZORDER);
 			}
-			
+
  			CurPage = 0;
-			TabCtrl_SetCurSel(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB),CurPage); 
+			TabCtrl_SetCurSel(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB),CurPage);
 			Page[CurPage]->Show();
 
 			break;
 		}
-	
-		case WM_PAINT: 
+
+		case WM_PAINT:
 		{
 #if defined W3D_GMAXDEV
 			if (!Valid) {
@@ -264,16 +264,16 @@ BOOL GameMtlPassDlg::DialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM l
 #endif
 			return false;
 		}
-		
+
 		case WM_NOTIFY:{
 			NMHDR * header = (NMHDR *)lParam;
-			switch(header->code) { 
+			switch(header->code) {
 				case TCN_SELCHANGE:{
-					int sel = TabCtrl_GetCurSel(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB)); 
+					int sel = TabCtrl_GetCurSel(GetDlgItem(HwndPanel,IDC_GAMEMTL_TAB));
 					Page[sel]->Show();
 					for (int i=0; i < PAGE_COUNT; i++) {
 						if (i != sel) Page[i]->Show(false);
-					} 
+					}
 					CurPage = sel;
 					TheMtl->Set_Current_Page(PassIndex,CurPage);
 					break;
@@ -384,7 +384,7 @@ void GameMtlPassDlg::ReloadDialog()
 	TheMtl->Update(IParams->GetTime(),v);
 #else
 	TheMtl->Update(GetCOREInterface()->GetTime(),v);
-#endif	
+#endif
 	for (i=0; i<PAGE_COUNT; i++) {
 		if(Page[i]){
 			Page[i]->ReloadDialog();
@@ -396,7 +396,7 @@ void GameMtlPassDlg::ReloadDialog()
 	Page[CurPage]->Show();
 	for (i=0; i < PAGE_COUNT; i++) {
 		if (i != CurPage) Page[i]->Show(false);
-	} 
+	}
 }
 
 
@@ -414,7 +414,7 @@ void GameMtlPassDlg::ReloadDialog()
  *=============================================================================================*/
 Class_ID	GameMtlPassDlg::ClassID()
 {
-	return GameMaterialClassID;  
+	return GameMaterialClassID;
 }
 
 
@@ -437,7 +437,7 @@ void GameMtlPassDlg::SetThing(ReferenceTarget* target)
 	assert (target->ClassID()==GameMaterialClassID);
 
 	TheMtl = (GameMtl *)target;
-	
+
 	for (int i=0; i<PAGE_COUNT; i++) {
 		Page[i]->SetThing(target);
 	}
@@ -480,7 +480,7 @@ void GameMtlPassDlg::ActivateDlg(BOOL onoff)
  *=============================================================================================*/
 void GameMtlPassDlg::SetTime(TimeValue t)
 {
-	// parent dialog class keeps track of the validty and we 
+	// parent dialog class keeps track of the validty and we
 	// don't have to do anything in this function (it will never
 	// be called in fact)
 }

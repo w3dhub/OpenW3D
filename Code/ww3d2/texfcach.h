@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/ww3d2/texfcach.h 3     3/26/01 10:45a Jani_p $ */
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : WW3D                                                         * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/ww3d2/texfcach.h                             $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/23/01 11:15a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 3                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : WW3D                                                         *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/ww3d2/texfcach.h                             $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/23/01 11:15a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 3                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #if defined(_MSC_VER)
 #pragma once
@@ -53,7 +53,7 @@
 class FileClass;
 //class srColorSurfaceIFace;
 
-class TextureFileCache  
+class TextureFileCache
 {
 	public:
 		TextureFileCache(const char *fileprefix);
@@ -104,7 +104,7 @@ class TextureFileCache
 		//		rawdata MipMap[_TextureBlockHeader.NumMipMaps - 1]
 		//		End of BLock
 
-		struct TextureBlockHeader 
+		struct TextureBlockHeader
 		{
 			// Time data stamp of file.
 			unsigned int 								FileTime;
@@ -135,14 +135,14 @@ class TextureFileCache
 		{
 			OffsetTableType() : Offset(0), Size (0) {}
 
-			// Offset of texture in file.  
+			// Offset of texture in file.
 			int	Offset;
 
 			// Size (uncompressed) of texture.  The size of the compressed texture
 			// is caclcuated by Texture_Size() below.
 			int	Size;
 		};
-	protected:										 
+	protected:
 		enum  {
 			MAX_CACHED_SURFACES = srTextureIFace::MAX_LOD,
 		};
@@ -165,7 +165,7 @@ class TextureFileCache
 
 		// Cache pointers to data that has already been loaded for this texture.
 		srColorSurface *				CachedSurfaces[MAX_CACHED_SURFACES];
-																	
+
 		// Number of cached textures we have.
 		int								NumCachedTextures;
 
@@ -174,10 +174,10 @@ class TextureFileCache
 //		static char						*CompressionBuffer;
 //		static char						*EOCompressionBuffer;
 
-		// This keeps track of number of instances of the TextureFileCache.  
+		// This keeps track of number of instances of the TextureFileCache.
 		// This way static variables are only freed when all instances have been deleted.
 //		static int						Instances;
-																	 
+
 		// Access to previously cached textures so they do not have to be read off of disk.
 		void Add_Cached_Surface(srColorSurface *surface);
 		srColorSurface *Find_Cached_Surface(int size);

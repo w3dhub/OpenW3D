@@ -52,7 +52,7 @@ DECLARE_FORCE_LINK( damageablestaticphys );
 /*
 ** Chunk Id's used by DamageableStaticPhysDefClass
 */
-enum	
+enum
 {
 	DAMAGEABLESTATICPHYSDEF_CHUNK_STATICANIMPHYSDEF		= 7311734,
 	DAMAGEABLESTATICPHYSDEF_CHUNK_VARIABLES,
@@ -76,7 +76,7 @@ enum
 /*
 ** Chunk Id's used by DamageableStaticPhysClass
 */
-enum 
+enum
 {
 	DAMAGEABLESTATICPHYS_CHUNK_STATICANIMPHYS				= 7311740,
 	DAMAGEABLESTATICPHYS_CHUNK_DEFENSEOBJECT,
@@ -96,7 +96,7 @@ SimplePersistFactoryClass<DamageableStaticPhysDefClass, PHYSICS_CHUNKID_DAMAGEAB
 DECLARE_DEFINITION_FACTORY(DamageableStaticPhysDefClass, CLASSID_DAMAGEABLESTATICPHYSDEF, "DamageableStaticPhys") _DamageableStaticPhysDefDefFactory;
 
 
-DamageableStaticPhysDefClass::DamageableStaticPhysDefClass(void) : 
+DamageableStaticPhysDefClass::DamageableStaticPhysDefClass(void) :
 	StaticAnimPhysDefClass(),
 	KilledExplosion(0),
 	LiveLoopStart(0),
@@ -114,7 +114,7 @@ DamageableStaticPhysDefClass::DamageableStaticPhysDefClass(void) :
 	PARAM_SEPARATOR(DamageableStaticPhysDefClass, "Damage Behavior Controls");
 
 	EDITABLE_PARAM(DamageableStaticPhysDefClass, ParameterClass::TYPE_EXPLOSIONDEFINITIONID,	KilledExplosion);
-	
+
 	INT_EDITABLE_PARAM(DamageableStaticPhysDefClass, LiveLoopStart, 0, 999);
 	INT_EDITABLE_PARAM(DamageableStaticPhysDefClass, LiveLoopEnd, 0, 999);
 	INT_EDITABLE_PARAM(DamageableStaticPhysDefClass, LiveTwitchStart, 0, 999);
@@ -130,9 +130,9 @@ DamageableStaticPhysDefClass::DamageableStaticPhysDefClass(void) :
 	DEFENSEOBJECTDEF_EDITABLE_PARAMS(DamageableStaticPhysDefClass, DefenseObjectDef);
 }
 
-uint32 DamageableStaticPhysDefClass::Get_Class_ID(void) const	
-{ 
-	return CLASSID_DAMAGEABLESTATICPHYSDEF; 
+uint32 DamageableStaticPhysDefClass::Get_Class_ID(void) const
+{
+	return CLASSID_DAMAGEABLESTATICPHYSDEF;
 }
 
 bool DamageableStaticPhysDefClass::Is_Type(const char * type_name)
@@ -144,7 +144,7 @@ bool DamageableStaticPhysDefClass::Is_Type(const char * type_name)
 	}
 }
 
-PersistClass *	DamageableStaticPhysDefClass::Create(void) const 
+PersistClass *	DamageableStaticPhysDefClass::Create(void) const
 {
 	DamageableStaticPhysClass * obj = new DamageableStaticPhysClass;
 	obj->Init(*this);
@@ -188,7 +188,7 @@ bool	DamageableStaticPhysDefClass::Load( ChunkLoadClass &cload )
 			case DAMAGEABLESTATICPHYSDEF_CHUNK_STATICANIMPHYSDEF:
 				StaticAnimPhysDefClass::Load( cload );
 				break;
-  
+
 			case DAMAGEABLESTATICPHYSDEF_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -227,9 +227,9 @@ bool	DamageableStaticPhysDefClass::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-const PersistFactoryClass & DamageableStaticPhysDefClass::Get_Factory (void) const 
-{ 
-	return _DamageableStaticPhysDefPersistFactory; 
+const PersistFactoryClass & DamageableStaticPhysDefClass::Get_Factory (void) const
+{
+	return _DamageableStaticPhysDefPersistFactory;
 }
 
 
@@ -241,7 +241,7 @@ const PersistFactoryClass & DamageableStaticPhysDefClass::Get_Factory (void) con
 ************************************************************************************************/
 SimplePersistFactoryClass<DamageableStaticPhysClass, PHYSICS_CHUNKID_DAMAGEABLESTATICPHYS>	_DamageableStaticPhysPersistFactory;
 
-const PersistFactoryClass & DamageableStaticPhysClass::Get_Factory (void) const 
+const PersistFactoryClass & DamageableStaticPhysClass::Get_Factory (void) const
 {
 	return _DamageableStaticPhysPersistFactory;
 }
@@ -270,8 +270,8 @@ void DamageableStaticPhysClass::Timestep(float dt)
 	/*
 	** If we just reached a target, then transition into the loop for our current health state
 	*/
-	if (	(Get_Animation_Manager().Get_Animation_Mode() == AnimCollisionManagerClass::ANIMATE_TARGET) && 
-			(Get_Animation_Manager().Is_At_Target()) ) 
+	if (	(Get_Animation_Manager().Get_Animation_Mode() == AnimCollisionManagerClass::ANIMATE_TARGET) &&
+			(Get_Animation_Manager().Is_At_Target()) )
 	{
 		Start_Loop();
 	}
@@ -296,7 +296,7 @@ void DamageableStaticPhysClass::Apply_Damage_Static( const OffenseObjectClass & 
 
 	/*
 	** If we just lost all of our health, implement all of the
-	** destruction effects. 
+	** destruction effects.
 	*/
 	if (new_health <= 0) {
 
@@ -314,7 +314,7 @@ void DamageableStaticPhysClass::Apply_Damage_Static( const OffenseObjectClass & 
 		}
 
 	} else {
-		
+
 		/*
 		** We were hit but didn't lose all of our health, so play a twitch
 		*/
@@ -330,11 +330,11 @@ void DamageableStaticPhysClass::Reset_Health(void)
 }
 
 
-void DamageableStaticPhysClass::Start_Loop(void) 
+void DamageableStaticPhysClass::Start_Loop(void)
 {
 	const DamageableStaticPhysDefClass * def = Get_DamageableStaticPhysDef();
 	if (def != NULL) {
-	
+
 		int frame0,frame1;
 
 		if (DefenseObject.Get_Health() > 0) {
@@ -346,7 +346,7 @@ void DamageableStaticPhysClass::Start_Loop(void)
 			frame1 = def->DeadLoopEnd;
 			CurState = STATE_DEAD_LOOP;
 		}
-		
+
 		if (frame0 != frame1) {
 			Get_Animation_Manager().Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_LOOP);
 			Get_Animation_Manager().Set_Current_Frame(frame0);
@@ -367,7 +367,7 @@ void DamageableStaticPhysClass::Play_Twitch(void)
 	** Never interrupt death transitions.
 	*/
 	if (CurState == STATE_DEATH_TRANSITION) {
-		return; 
+		return;
 	}
 
 	/*
@@ -379,7 +379,7 @@ void DamageableStaticPhysClass::Play_Twitch(void)
 		/*
 		** Don't interrupt other twitches if the designer doesn't want us to
 		*/
-		if ((def->PlayTwitchesToCompletion == false) || 
+		if ((def->PlayTwitchesToCompletion == false) ||
 			 ((CurState != STATE_LIVE_TWITCH) && (CurState != STATE_DEAD_TWITCH)))
 		{
 			int frame0,frame1;
@@ -393,7 +393,7 @@ void DamageableStaticPhysClass::Play_Twitch(void)
 				frame1 = def->DeadTwitchEnd;
 				CurState = STATE_DEAD_TWITCH;
 			}
-			
+
 			if (frame0 != frame1) {
 				Get_Animation_Manager().Set_Animation_Mode(AnimCollisionManagerClass::ANIMATE_TARGET);
 				Get_Animation_Manager().Set_Current_Frame(frame0);
@@ -420,7 +420,7 @@ void DamageableStaticPhysClass::Play_Death_Transition(void)
 		} else {
 			Start_Loop();
 		}
-	
+
 	} else {
 		WWDEBUG_SAY(("ERROR: Missing definition for damageable object: %s\n",Model->Get_Name()));
 	}
@@ -441,7 +441,7 @@ bool DamageableStaticPhysClass::Save( ChunkSaveClass & csave )
 	csave.Begin_Chunk(DAMAGEABLESTATICPHYS_CHUNK_DEFENSEOBJECT);
 		DefenseObject.Save(csave);
 	csave.End_Chunk();
-	
+
 	/*
 	** Save our variables
 	*/
@@ -461,7 +461,7 @@ bool DamageableStaticPhysClass::Load(ChunkLoadClass & cload)
 			case DAMAGEABLESTATICPHYS_CHUNK_STATICANIMPHYS:
 				StaticAnimPhysClass::Load( cload );
 				break;
-		
+
 			case DAMAGEABLESTATICPHYS_CHUNK_DEFENSEOBJECT:
 				DefenseObject.Load(cload);
 				break;

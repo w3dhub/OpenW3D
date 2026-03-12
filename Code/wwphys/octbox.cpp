@@ -87,7 +87,7 @@ void OctBoxClass::Set_Thickness(float thickness)
 void OctBoxClass::Update_Contact_Parameters(void)
 {
 	float mass = Parent.Get_Mass();
-	
+
 	// Make the contact force have a maximum of MULTIPLIER * gravity
 	Stiffness = mass * WWMath::Fabs(PhysicsConstants::GravityAcceleration.Z);
 	Stiffness *= CONTACT_GRAVITY_MULTIPLIER;
@@ -125,7 +125,7 @@ bool OctBoxClass::Is_Intersecting(NonRefPhysListClass * result_list,bool check_s
 
 	test.CheckStaticObjs = check_static_objs;
 	test.CheckDynamicObjs = check_dyn_objs;
-	
+
 	Parent.Inc_Ignore_Counter ();
 	bool intersect = PhysicsSceneClass::Get_Instance ()->Intersection_Test(test);
 	Parent.Dec_Ignore_Counter ();
@@ -159,7 +159,7 @@ OctBoxClass::Compute_Contacts(bool lock_to_centroids)
 }
 
 
-OctBoxClass::CollisionResult			
+OctBoxClass::CollisionResult
 OctBoxClass::Internal_Compute_Contacts(bool lock_to_centroids)
 {
 	/*
@@ -197,7 +197,7 @@ OctBoxClass::Internal_Compute_Contacts(bool lock_to_centroids)
 		//Parent.Add_Debug_OBBox(wrld_outer_box,Vector3(1,0,0));
 		return RESULT_INTERSECTION;
 	}
-	
+
 	/*
 	** Check the octants for contact
 	*/
@@ -224,7 +224,7 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 	};
 
 	/*
-	** Compute the corner contact "hair" which doubles as the 
+	** Compute the corner contact "hair" which doubles as the
 	** move vector for the octant box.
 	*/
 	CastResultStruct corner_result;
@@ -239,9 +239,9 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 
 	Vector3 corner_move = Thickness * _octant_offset[oi];
 	Matrix3::Rotate_Vector(WrldInnerBox.Basis,corner_move,&corner_move);
-	
+
 	/*
-	** Collision detect for the corner line-segment 
+	** Collision detect for the corner line-segment
 	*/
 	LineSegClass ray(corner,corner + corner_move);
 	WWASSERT(corner_move.Length2() <= ((3*Thickness*Thickness) + 0.01f));
@@ -260,7 +260,7 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 #endif
 
 	/*
-	** Compute the contact for this octant-box. 
+	** Compute the contact for this octant-box.
 	*/
 	OBBoxClass octbox = WrldInnerBox;
 	octbox.Extent = OctantExtent;
@@ -283,7 +283,7 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 														Parent.Get_Collision_Group(),
 														COLLISION_TYPE_PHYSICAL | COLLISION_TYPE_VEHICLE);
 	PhysicsSceneClass::Get_Instance()->Cast_OBBox(boxtest,true);
-	
+
 	/*
 	** Wake up any vehicle in contact with us
 	*/
@@ -296,11 +296,11 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 	*/
 #ifdef WWDEBUG
 #if SHOW_CONTACT_DETECTORS
-	static Vector3 _oct_colors[8] = { 
+	static Vector3 _oct_colors[8] = {
 		Vector3(1,0,0),Vector3(0,1,0),Vector3(0,0,1),Vector3(1,1,1),
 		Vector3(1,1,1),Vector3(0,0,1),Vector3(0,1,0),Vector3(1,0,0)
 	};
-		
+
 	octbox.Center += octant_result.Fraction * corner_move;
 	//Parent.Add_Debug_OBBox(octbox,_oct_colors[oi]);
 	//Parent.Add_Debug_Vector(result.Point,result.Normal,Vector3(0,1,0));
@@ -309,13 +309,13 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 
 	/*
 	** Now, decide which (if any) contact to use.  We prefer the
-	** corners but have to use the box's contact if it is significantly 
+	** corners but have to use the box's contact if it is significantly
 	** closer.  If neither hits anything, just bail out of this routine.
 	*/
 	if ((corner_result.Fraction >= 1.0f) && (octant_result.Fraction >= 1.0f)) {
 		return;
 	}
-	
+
 	/*
 	** If the corner is within 'CORNER_BIAS' of the result of the octant
 	** then use its result
@@ -332,9 +332,9 @@ void OctBoxClass::Compute_Octant_Contact(int oi,bool /* lock_to_centroids */)
 		if ((octant_result.Fraction < 1.0f) && (!octant_result.StartBad)) {
 			if (octant_result.Normal.Length2() > 0.0f) {				// the normal will be 0,0,0 when we hit a backside
 				Add_Contact(octant_result,boxtest.CollidedPhysObj);
-			} 
+			}
 		}
-		
+
 		if (corner_result.Fraction < 1.0f) {
 			// also add the corner contact!
 			if (corner_result.Normal.Length2() > 0.0f) {				// the normal will be 0,0,0 when we hit a backside

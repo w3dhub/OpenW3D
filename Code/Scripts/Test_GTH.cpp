@@ -27,15 +27,15 @@
 #define GTH_DEBUG_INT( x , format )			Commands->Display_Int( x, format )
 #define GTH_DEBUG_FLOAT( x , format )		Commands->Display_Float( x, format )
 #else
-#define GTH_DEBUG_INT( x , format )			
-#define GTH_DEBUG_FLOAT( x , format )		
+#define GTH_DEBUG_INT( x , format )
+#define GTH_DEBUG_FLOAT( x , format )
 #endif
 
 
 /*
 ** GTH_Drop_Object_On_Death  (verified)
 ** This script will create an object at the position of the object when it dies.
-** 
+**
 ** Params:
 ** Drop_Object - name of the preset to create an instance of
 ** Drop_Height - float meters to add to the Z coord of the original object when creating the drop obj
@@ -46,10 +46,10 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death, "Drop_Object=:string,Drop_Height=0.25:f
 	void Killed( GameObject * obj, GameObject * /*killer*/ ) override
 	{
 		const char * obj_name = Get_Parameter("Drop_Object");
-		
+
 		bool doit = false;
 		float probability = Get_Int_Parameter("Probability");
-		
+
 		if (probability >= 100) {
 			doit = true;
 		} else {
@@ -68,19 +68,19 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death, "Drop_Object=:string,Drop_Height=0.25:f
 /*
 ** GTH_Drop_Object_On_Death_Zone (verified)
 ** This script is just like the other drop object on death except that it must also
-** be activated by a custom message from another script.  Use the GTH_Zone_Send_Custom 
-** to enable and disable this script.  
+** be activated by a custom message from another script.  Use the GTH_Zone_Send_Custom
+** to enable and disable this script.
 **
 ** Params:
 ** Custom_Message - message id that turns this script on or off, use message ID's greater than 10000!
 ** Drop_Object - name of the preset to create an instance of
 ** Drop_Height - float meters to add to the Z coord of the original object when creating the drop obj
 ** Probability - int between 1 and 100, chance that the object will be created
-*/ 
+*/
 DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Object=:string,Drop_Height=0.25:float,Probability=100:int")
 {
 	bool enabled;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE(enabled, 1);
@@ -106,12 +106,12 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 			GTH_DEBUG_INT(0,"not in zone\n");
 			return;
 		}
-		
+
 		const char * obj_name = Get_Parameter("Drop_Object");
-		
+
 		bool doit = false;
 		float probability = Get_Int_Parameter("Probability");
-		
+
 		if (probability >= 100) {
 			doit = true;
 		} else {
@@ -129,7 +129,7 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 			GTH_DEBUG_FLOAT(spawn_location.X," x=%f, ");
 			GTH_DEBUG_FLOAT(spawn_location.Y," y=%f, ");
 			GTH_DEBUG_FLOAT(spawn_location.Z," z=%f, ");
-			
+
 			Commands->Create_Object ( obj_name, spawn_location );
 		}
 	}
@@ -137,10 +137,10 @@ DECLARE_SCRIPT(GTH_Drop_Object_On_Death_Zone, "Custom_Message=20000:int,Drop_Obj
 
 /*
 ** GTH_Zone_Send_Custom (verified)
-** This script lets you send a custom message to an object on enter and exit of a zone.  To talk 
+** This script lets you send a custom message to an object on enter and exit of a zone.  To talk
 ** to the "drop in death zone" script, send the same custom message with 1 for Enter_Param and
 ** 0 for Exit_Param...
-** 
+**
 ** Params:
 ** Enter_Message = message id to send when an object enters this zone
 ** Enter_Param = message parameter to send when an object enters
@@ -171,8 +171,8 @@ DECLARE_SCRIPT(GTH_Zone_Send_Custom, "Enter_Message=20000:int,Enter_Param=1:int,
 /*
 ** GTH_Create_Object_On_Enter (verified)
 ** This script will create an object when a script zone is entered by a game object.  Use it
-** to fire off cinematics for example... 
-** 
+** to fire off cinematics for example...
+**
 ** Params:
 ** Create_Object - name of the preset to create an instance of
 ** Position - world space position to create the object at
@@ -185,7 +185,7 @@ DECLARE_SCRIPT(GTH_Create_Object_On_Enter, "Create_Object=:string,Position:vecto
 {
 	bool script_enabled;
 	int trigger_count;
-	
+
 	enum { TIMER_ID_REENABLE = 0 };
 
 public:
@@ -201,7 +201,7 @@ protected:
 		SAVE_VARIABLE(script_enabled, 1);
 		SAVE_VARIABLE(trigger_count, 2);
 	}
-	
+
 	void Entered( GameObject * obj, GameObject * enterer ) override
 	{
 		if (script_enabled == false) {
@@ -225,7 +225,7 @@ protected:
 				return;
 			}
 		}
-		
+
 		GTH_DEBUG_INT( 0, "Enter callback in GTH_Create_Object_On_Enter" );
 
 		// Inc our trigger count, if we're allowed to fire again, set a timer to re-enable the script
@@ -238,7 +238,7 @@ protected:
 		// Ok, create the object
 		const char * obj_name = Get_Parameter("Create_Object");
 		Vector3 obj_pos = Get_Vector3_Parameter("Position");
-		
+
 		if (obj_name != NULL) {
 
 			GTH_DEBUG_INT( 0, obj_name );
@@ -290,12 +290,12 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 		cur_state = -1;
 		last_pos = Commands->Get_Position( obj );
 		update_state(obj,eval_speed(obj));
-		
+
 		// start up our update timer
 		Commands->Start_Timer(obj, this, Get_Float_Parameter("Update_Rate"), TIMER_ID_TICK);
 	}
 
-		
+
 	void	( * Set_Animation )( GameObject * obj, const char * anim_name, bool looping, const char * sub_obj_name = NULL, float start_frame = 0.0F, float end_frame = -1.0F, bool is_blended = false );
 
 
@@ -307,7 +307,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 		}
 	}
 
-	float get_update_rate( void ) 
+	float get_update_rate( void )
 	{
 		float update_rate = Get_Float_Parameter("Update_Rate");
 		if (update_rate <= 0.01f) {
@@ -334,7 +334,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 
 		return RUNNING;
 	}
-	
+
 	void update_state( GameObject * obj, int new_state )
 	{
 		// This function plugs in the animation depending on the current state
@@ -349,7 +349,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 				}
 				break;
 			case WALKING:
-				{ 
+				{
 					anim = Get_Parameter("Walk_Anim");
 				}
 				break;
@@ -372,7 +372,7 @@ DECLARE_SCRIPT(GTH_Speed_Controlled_Anim,"Stop_Speed=0.1:float,StopAnim=none:str
 ** GTH_On_Enter_Mission_Complete (verified)
 ** When you enter a zone with this script on it, the mission is complete. NOTE, this only
 ** works in single player levels
-** 
+**
 ** Parameters:
 ** Success - 0 = mission failed, 1 = missuion succeeded
 ** Player_Type - type of player allowed to trigger, 0=nod, 1=gdi, 2=any
@@ -388,32 +388,32 @@ DECLARE_SCRIPT(GTH_On_Enter_Mission_Complete, "Success=1:int, Player_Type=2:int"
 		GTH_DEBUG_INT(our_player_type,"Script desired player type: %d\n");
 
 		if (our_player_type != 2) {
-		
+
 			int enter_player_type = Commands->Get_Player_Type(enterer);
 			GTH_DEBUG_INT(enter_player_type,"Enterer player type: %d\n");
 			if (enter_player_type != our_player_type) {
 				return;
 			}
 		}
-		
+
 		// if we get here, complete the mission
 		int success = Get_Int_Parameter("Success");
 		GTH_DEBUG_INT(success,"Calling Mission_Complete(%d)\n");
-		
+
 		if (success == 0) {
 			Commands->Mission_Complete(false);
 		} else {
 			Commands->Mission_Complete(true);
 		}
-	}	
+	}
 };
 
 
 /*
 ** GTH_On_Death_Mission_Complete (verified)
-** When you kill something this script on it, the mission is complete.  NOTE this 
+** When you kill something this script on it, the mission is complete.  NOTE this
 ** only works in single-player levels.
-** 
+**
 ** Parameters:
 ** Success - 0 = mission failed, 1 = missuion succeeded
 ** Player_Type - type of player allowed to trigger, 0=nod, 1=gdi, 2=any
@@ -423,7 +423,7 @@ DECLARE_SCRIPT(GTH_On_Killed_Mission_Complete, "Success=1:int, Player_Type=2:int
 	void Killed( GameObject * /*obj*/, GameObject * killer ) override
 	{
 		GTH_DEBUG_INT(0,"GTH_On_Killed_Mission_Complete::Killed\n");
-	
+
 		// check the player type
 		int our_player_type = Get_Int_Parameter("Player_Type");
 		GTH_DEBUG_INT(our_player_type,"Script desired player type: %d\n");
@@ -436,7 +436,7 @@ DECLARE_SCRIPT(GTH_On_Killed_Mission_Complete, "Success=1:int, Player_Type=2:int
 				return;
 			}
 		}
-		
+
 		// if we get here, complete the mission
 		int success = Get_Int_Parameter("Success");
 		GTH_DEBUG_INT(success,"Calling Mission_Complete(%d)\n");
@@ -446,15 +446,15 @@ DECLARE_SCRIPT(GTH_On_Killed_Mission_Complete, "Success=1:int, Player_Type=2:int
 		} else {
 			Commands->Mission_Complete(true);
 		}
-	}	
+	}
 };
 
 
 /*
 ** GTH_Create_Objective
-** Adds an objective to the mission when the specified action (create, enter, poke, or kill) 
+** Adds an objective to the mission when the specified action (create, enter, poke, or kill)
 ** happens to the object with this script on it.
-** 
+**
 ** params:
 ** Creation_Type - 0=Create, 1=Entered, 2=Poked, 3=Killed
 ** Objective_ID - id of the objective, match this with the "GTH_Objective_Complete" script
@@ -462,10 +462,10 @@ DECLARE_SCRIPT(GTH_On_Killed_Mission_Complete, "Success=1:int, Player_Type=2:int
 ** Short_Desc_ID - string id for short description
 ** Long_Desc_ID - string id for long description
 ** Priority - priority of this objective
-** Position - 3d position of the objective 
+** Position - 3d position of the objective
 ** Pog_Texture - tga file for the objective pog
 ** Pog_Text_ID - string id for the pog text (usually something like IDS_POG_DESTROY)
-** 
+**
 */
 DECLARE_SCRIPT(GTH_Create_Objective,"Creation_Type=0:int,Objective_ID=0:int,Objective_Type=0:int,Short_Desc_ID=0:int,Long_Desc_ID=0:int,Priority=90:float,Position:vector3,Pog_Texture:string")
 {
@@ -481,7 +481,7 @@ DECLARE_SCRIPT(GTH_Create_Objective,"Creation_Type=0:int,Objective_ID=0:int,Obje
 	void	Poked( GameObject * /*obj*/, GameObject * /*poker*/ ) override		{ if (Get_Int_Parameter("Creation_Type") == 2) create_objective(); }
 	void	Killed( GameObject * /*obj*/, GameObject * /*killer*/ ) override		{ if (Get_Int_Parameter("Creation_Type") == 3) create_objective(); }
 
-	void create_objective(void) 
+	void create_objective(void)
 	{
 		if (already_triggered) {
 			return;
@@ -509,7 +509,7 @@ DECLARE_SCRIPT(GTH_Create_Objective,"Creation_Type=0:int,Objective_ID=0:int,Obje
 		const char * pog = Get_Parameter("Pog_Texture");
 		float priority = Get_Float_Parameter("Priority");
 		int pog_text_id = Get_Int_Parameter("Pog_Text_ID");
-		
+
 		Commands->Set_Objective_HUD_Info_Position(id, priority, pog, pog_text_id, objective_pos);
 	}
 };
@@ -533,13 +533,13 @@ DECLARE_SCRIPT(GTH_Objective_Complete_Enter_Kill_Poke, "Objective_ID=0:int, Succ
 	{
 		SAVE_VARIABLE(already_triggered, 1);
 	}
-	
+
 	void	Created( GameObject * /*obj*/ ) override							{ already_triggered = false; }
 	void	Poked( GameObject * /*obj*/, GameObject * poker ) override		{ trigger(poker); }
 	void	Killed( GameObject * /*obj*/, GameObject * killer ) override		{ trigger(killer); }
 	void	Entered( GameObject * /*obj*/, GameObject * enterer ) override	{ trigger(enterer); }
 
-	
+
 	void trigger(GameObject * obj)
 	{
 		// check if we've already triggered
@@ -555,7 +555,7 @@ DECLARE_SCRIPT(GTH_Objective_Complete_Enter_Kill_Poke, "Objective_ID=0:int, Succ
 				return;
 			}
 		}
-		
+
 		// if we get here, complete the mission
 		int success = Get_Int_Parameter("Success");
 		int id = Get_Int_Parameter("Objective_ID");
@@ -567,7 +567,7 @@ DECLARE_SCRIPT(GTH_Objective_Complete_Enter_Kill_Poke, "Objective_ID=0:int, Succ
 		}
 
 		already_triggered = true;
-	}	
+	}
 };
 
 
@@ -601,7 +601,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 	void Created (GameObject * obj) override
 	{
 		occupied = false;
-		
+
 		// find out what my team preset is.
 		player_type = Commands->Get_Player_Type( obj );
 		Commands->Debug_Message( "***** Player Type Saved *****\n" );
@@ -651,7 +651,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 			int rnd_num = Get_Int_Random(0,2);
 
 			if (occupied == false) {
-	
+
 				GTH_DEBUG_INT(rnd_num,"GTH_User_Controllable_Base_Defense aiming at target %d\n");
 				switch (rnd_num)
 				{
@@ -730,7 +730,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
-			
+
 		switch (type)
 		{
 		case CUSTOM_EVENT_VEHICLE_ENTERED:
@@ -738,7 +738,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 
 			params.Set_Basic(this, 100, 3);
 			Commands->Action_Follow_Input( obj, params );
-			
+
 			break;
 
 		case CUSTOM_EVENT_VEHICLE_EXITED:
@@ -751,7 +751,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 		}
 
 		GTH_DEBUG_INT(occupied,"GTH_User_Controllable_Base_Defense occupied = %d\n");
-			
+
 	}
 };
 
@@ -762,7 +762,7 @@ DECLARE_SCRIPT (GTH_User_Controllable_Base_Defense, "MinAttackDistance=0:int, Ma
 ** create silos that give money as long as they're alive.
 ** NOTE: this won't work on buildings, only things like turrets, characters, or vehicles so make your
 ** "silos" as a weaponless vehcile set up like the nod-turret for example.
-** 
+**
 ** Params:
 ** Credits - number of credits to give
 ** Delay - time between credit grants
@@ -824,10 +824,10 @@ DECLARE_SCRIPT(GTH_Enable_Spawner_On_Enter, "SpawnerID=0:int,Player_Type=2:int,E
 /*
 ** GTH_CTF_Object
 ** This script will make the object it is attached to behave kind of like a CTF "flag" by
-** attaching to the opposing player who pokes it.  If its position gets within a 
+** attaching to the opposing player who pokes it.  If its position gets within a
 ** certain distance of the "enemy home" an internal counter is incremented.  Once the counter
 ** reaches a desired number, an object in the level is destroyed.  This object should be the
-** only building owned by the flag's team so that they immediately lose.  
+** only building owned by the flag's team so that they immediately lose.
 **
 ** You should use this script on an object that has "projectile" collision only.  Make a model
 ** of your "flag", give it projectile collision and make a preset for it similar to the "Marker_Flag"
@@ -836,19 +836,19 @@ DECLARE_SCRIPT(GTH_Enable_Spawner_On_Enter, "SpawnerID=0:int,Player_Type=2:int,E
 ** CTF Rules as implemented:
 ** - this script controls how many flag captures cause a win
 ** - enemy entering the pickup radius of the flag attaches it to him
-** - enemy teammates can take the flag from each other 
+** - enemy teammates can take the flag from each other
 ** - friend poking the flag sends it back to its initial position (only if its not carried by an enemy)
 ** - enemy getting the flag to his home position increments an internal counter
 ** - when win count is reached, all of the "Win_Object_To_Kill" objects are destroyed (make sure
 **   this destroys all of the enemy team's buildings
-**  
+**
 ** Params:
 ** Update_Delay - how many times per second to update (this will *always* be laggy though...)
 ** Enemy_Player_Type - type of player that wants to grab this flag (0=Nod,1=GDI)
 ** Enemy_Home_Position - when flag gets here, capture count increments!
 ** Pickup_Radius - how close to flag we need to pickup flag
 ** Home_Radius - how close to enemy home position we need to get to count
-** Capture_Respawn_Timer - When flag is dropped respawn back at home position after x seconds.  
+** Capture_Respawn_Timer - When flag is dropped respawn back at home position after x seconds.
 **       x < 0 means flag MUST be poked for it to be returned.
 ** Captures_Needed_To_Win - after this many captures, we destroy the token "building" for the win
 ** Flag_Stolen_Event_ID - custom event id to send when the flag is stolen
@@ -866,7 +866,7 @@ DECLARE_SCRIPT(GTH_Enable_Spawner_On_Enter, "SpawnerID=0:int,Player_Type=2:int,E
 ** Win_Object_To_Kill2 - object that we destroy when the capture count is reached
 ** Win_Object_To_Kill3 - object that we destroy when the capture count is reached
 ** Win_Object_To_Kill4 - object that we destroy when the capture count is reached
-** 
+**
 */
 DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int,Enemy_Home_Position:vector3,"
                                 "Pickup_Radius=5.0:float,Home_Radius=5.0:float,Capture_Respawn_Timer=30.0:float,"
@@ -901,7 +901,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 		captured_by_id = 0;
 		capture_timer = 0.0;
 		home_position = Commands->Get_Position(obj);
-		
+
 		GTH_DEBUG_FLOAT(home_position.X,"Flag x: %f");
 		GTH_DEBUG_FLOAT(home_position.Y,"Flag y: %f");
 		GTH_DEBUG_FLOAT(home_position.Z,"Flag z: %f\n");
@@ -915,18 +915,18 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 		Grab_Flag(obj,damager);
 	}
 
-//	void Poked( GameObject * obj, GameObject * poker )	
+//	void Poked( GameObject * obj, GameObject * poker )
 //	{
 //		Grab_Flag(obj,poker);
 //	}
 
 	void Grab_Flag( GameObject * obj, GameObject * grabber )
-	{ 
+	{
 		// If we're already captured, bail
 		if (captured_by_id != 0) {
 			return;
 		}
-		
+
 		// Check distance, if the damager is too far away, bail
 		Vector3 my_pos = Commands->Get_Position(obj);
 		Vector3 delta = my_pos - Commands->Get_Position(grabber);
@@ -934,7 +934,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 			GTH_DEBUG_FLOAT(delta.Length(),"Flag too far away, dist = %f\n");
 			return;
 		}
-		
+
 		// Check player type, if it doesn't match, warp back to our home position
 		int capture_player_type = Get_Int_Parameter("Enemy_Player_Type");
 		int poke_player_type = Commands->Get_Player_Type(grabber);
@@ -945,7 +945,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 				// if we're not being carried and the flag isn't on a timer, warp back
 				if (captured_by_id == 0 && Get_Float_Parameter("Capture_Respawn_Timer") < 0) {
 					Commands->Set_Position(obj,home_position);
-			
+
 					GTH_DEBUG_INT(poke_player_type,"Flag recovered back by team: %d\n");
 					// Play flag returned sound
 					int cust_id = Get_Int_Parameter("Flag_Returned_Event_ID");
@@ -957,10 +957,10 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 			}
 		}
 
-		// The player type matches, Attach to this dude! 
+		// The player type matches, Attach to this dude!
 		captured_by_id = Commands->Get_ID(grabber);
 
-		// attach to bone 0 (root) 
+		// attach to bone 0 (root)
 		Commands->Attach_To_Object_Bone(obj,grabber,"ROOTTRANSFORM");
 		GTH_DEBUG_INT(poke_player_type,"Flag captured by team: %d\n");
 
@@ -993,14 +993,14 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 
 			// check if we've been captured enough to end the game
 			if (capture_count >= Get_Int_Parameter("Captures_Needed_To_Win")) {
-				
+
 				// Play Win Sound!
 				int cust_id = Get_Int_Parameter("Captures_Exceeded_Event_ID");
 				GameObject * event_obj = Commands->Find_Object(Get_Int_Parameter("Captures_Exceeded_Object_ID"));
 				if (event_obj == NULL) event_obj = obj;
 				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 
-				// win!  
+				// win!
 				GameObject * win_obj = Commands->Find_Object(Get_Int_Parameter("Win_Object_To_Kill0"));
 				if (win_obj != NULL) {
 					Commands->Destroy_Object( win_obj );
@@ -1021,9 +1021,9 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 				if (win_obj != NULL) {
 					Commands->Destroy_Object( win_obj );
 				}
-		
+
 				GTH_DEBUG_INT(0,"Capture count exceeded\n");
-				
+
 				return;
 			}
 
@@ -1032,7 +1032,7 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 
 			float dist = delta.Length();
 			if (dist < Get_Float_Parameter("Home_Radius")) {
-				
+
 				// Increment the capture count, detatch from our carrier and warp home
 				capture_count++;
 				captured_by_id = 0;
@@ -1046,19 +1046,19 @@ DECLARE_SCRIPT(GTH_CTF_Object2, "Update_Delay=0.05:float,Enemy_Player_Type=0:int
 				if (event_obj == NULL) event_obj = obj;
 				Commands->Send_Custom_Event(obj,event_obj,cust_id, 1, 0.0f);
 			}
-			
+
 			// check if we have a capturer and need to update
 			if (captured_by_id != 0) {
 				GameObject * capturer = Commands->Find_Object(captured_by_id);
-				
+
 				if (capturer != NULL) {
-				
+
 					// Don't do this cause we're using the attach to bone method!
 					//Vector3 cap_position = Commands->Get_Position(capturer);
 					//Commands->Set_Position(obj,cap_position);
-				
+
 				} else {
-				
+
 					captured_by_id = 0;
 					// start the flag respawn timer.
 					capture_timer = (((float)Commands->Get_Sync_Time()) / 1000.0);

@@ -344,7 +344,7 @@ public:
 	// ADPCM WAV, VOC, or MP3.
 	//
 	AudibleSoundClass *		Create_Sound_Effect (const char *filename);
-	
+
 	//
 	//	Note:  3D sound effects should be inserted into the SoundScene.
 	// They should not be manually played/stopped/etc.
@@ -359,7 +359,7 @@ public:
 	// and do not calculate doppler and reverb effects.
 	//
 	Sound3DClass *		Create_3D_Sound (const char *filename, int classid_hint = CLASSID_3D);
-	
+
 
 	//////////////////////////////////////////////////////////////////////
 	//	Background music support
@@ -418,7 +418,7 @@ public:
 	//	Play control methods
 	//////////////////////////////////////////////////////////////////////
 	bool					Simple_Play_2D_Sound_Effect (const char *filename, float priority = 1.0F, float volume = DEF_SFX_VOL);
-	
+
 	//////////////////////////////////////////////////////////////////////
 	//	Playlist methods
 	//////////////////////////////////////////////////////////////////////
@@ -498,7 +498,7 @@ protected:
 	//	Cache methods
 	//////////////////////////////////////////////////////////////////////
 	virtual SoundBufferClass *	Get_Sound_Buffer (const char *filename, bool is_3d) = 0;
-	
+
 protected:
 	typedef struct _LOGICAL_TYPE_STRUCT
 	{

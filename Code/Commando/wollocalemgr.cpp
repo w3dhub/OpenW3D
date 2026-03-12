@@ -122,7 +122,7 @@ void WolLocaleMgrClass::Set_Locale(const unichar_t *login_name, WOL::Locale loca
 {
 	if (WOL::LOC_UNKNOWN != locale) {
 		LoginProfile* profile = LoginProfile::Get(login_name, false);
-		
+
 		if (profile) {
 			profile->SetLocale(locale);
 			profile->SaveSettings();
@@ -189,7 +189,7 @@ void WolLocaleMgrClass::Configure_Locale_Combobox(ComboBoxCtrlClass *ctrl)
 		WideStringClass wide_nickname(64, true);
 		const char* nickname = MPSettingsMgrClass::Get_Last_Login();
 		wide_nickname.Convert_From(nickname);
-	
+
 		//	Select this locale in the combobox
 		int locale = Get_Locale(wide_nickname);
 		ctrl->Set_Curr_Sel(locale);

@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/Tools/ViewTrans/viewtrans.h 3     7/06/98 6:27p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Matrix Viewer Utility                                        * 
- *                                                                                             * 
- *                    File Name : VIEWTRANS.H                                                  * 
- *                                                                                             * 
- *                   Programmer : Greg Hjelstrom                                               * 
- *                                                                                             * 
- *                   Start Date : 02/25/97                                                     * 
- *                                                                                             * 
- *                  Last Update : February 25, 1997 [GH]                                       * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Matrix Viewer Utility                                        *
+ *                                                                                             *
+ *                    File Name : VIEWTRANS.H                                                  *
+ *                                                                                             *
+ *                   Programmer : Greg Hjelstrom                                               *
+ *                                                                                             *
+ *                   Start Date : 02/25/97                                                     *
+ *                                                                                             *
+ *                  Last Update : February 25, 1997 [GH]                                       *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef VIEWTRANS_H
@@ -66,10 +66,10 @@ extern UtilityClassDesc		UtilityDesc;
 *  Class declaration for TransViewerUtility.
 *
 *  This utility simply displays the transformation matrices of the currently
-*  selected node.  
+*  selected node.
 *
 *****************************************************************************/
-class TransViewerUtility : public UtilityObj 
+class TransViewerUtility : public UtilityObj
 {
 public:
 
@@ -92,14 +92,14 @@ public:
 	// Keep ahold of pointer to our interfaces to MAX.
 	IUtil *iu;
 	Interface *ip;
-	
+
 	// Window handle to the dialog box.
 	HWND hPanel;
-	
-private:	
+
+private:
 
 	// windows Dialog Proc which manipulates this class's data.
-	friend BOOL CALLBACK UtilityDlgProc(HWND hDlg, UINT message, 
+	friend BOOL CALLBACK UtilityDlgProc(HWND hDlg, UINT message,
 		WPARAM wParam, LPARAM lParam);
 
 };
@@ -107,10 +107,10 @@ private:
 
 /*****************************************************************************
 *
-* Class Description 
+* Class Description
 *
 *****************************************************************************/
-class UtilityClassDesc : public ClassDesc 
+class UtilityClassDesc : public ClassDesc
 {
 public:
 	int 			IsPublic() {return 1;}

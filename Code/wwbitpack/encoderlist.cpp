@@ -21,7 +21,7 @@
 // Project:      wwbitpack.lib
 // Author:       Tom Spencer-Smith
 // Date:         June 1998
-// Description:  
+// Description:
 //
 
 #include "encoderlist.h"

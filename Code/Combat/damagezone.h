@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/damagezone.h                          $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 7/16/01 11:20a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 12                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/damagezone.h                          $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 7/16/01 11:20a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 12                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	DAMAGEZONE_H
@@ -73,14 +73,14 @@ protected:
 	int			DamageWarhead;
 
 	Vector3		Color;
-	
+
 	friend	class								DamageZoneGameObj;
 };
 
 /*
-** Damage Zone 
+** Damage Zone
 */
-class DamageZoneGameObj : public BaseGameObj 
+class DamageZoneGameObj : public BaseGameObj
 {
 
 public:

@@ -68,7 +68,7 @@ class LadderData :
 
 		unsigned int GetWins(void) const
 			{return mData.wins;}
-			
+
 		unsigned int GetLosses(void) const
 			{return mData.losses;}
 

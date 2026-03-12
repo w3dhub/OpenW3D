@@ -61,7 +61,7 @@ enum
 //
 ////////////////////////////////////////////////////////////////
 EditScriptClass::EditScriptClass (void)
-{	
+{
 	return ;
 }
 
@@ -111,7 +111,7 @@ EditScriptClass::operator= (const EditScriptClass &src)
 ////////////////////////////////////////////////////////////////
 bool
 EditScriptClass::operator== (const EditScriptClass &src)
-{	
+{
 	bool retval = true;
 
 	// Are the params the same?
@@ -158,7 +158,7 @@ EditScriptClass::Build_Composite_String (void) const
 	for (int index = 0; index < count; index ++) {
 		const PARAM_VALUE &value = m_ParamValues[index];
 		composite_string += value.value;
-		
+
 		// Make sure the entries are comma delimited
 		if (index != (count - 1)) {
 			composite_string += ",";
@@ -188,15 +188,15 @@ EditScriptClass::Update_Data (void)
 	// Loop through the paramter descriptions
 	for (int index = 0; index < count; index ++) {
 		CString param_desc = param_list[index];
-		
+
 		CString name = param_desc;
 		CString def_value;
 		CString type;
-		
+
 		// Look for a default value and a type specifier
 		int def_index = param_desc.Find ('=');
 		int type_index = param_desc.Find (':');
-		
+
 		// Was there a type specifier?
 		if (type_index != -1) {
 			name = param_desc.Left (type_index);
@@ -221,7 +221,7 @@ EditScriptClass::Update_Data (void)
 		value.type	= String_To_Type (type);
 		m_ParamValues.Add (value);
 	}
-	
+
 	SAFE_DELETE_ARRAY (param_list);
 	return ;
 }
@@ -239,7 +239,7 @@ EditScriptClass::String_To_Type (LPCTSTR type_name)
 	PARAM_TYPES type = PARAM_TYPE_INT;
 	bool found = false;
 	for (int type_index = 0; (type_index < PARAM_TYPE_COUNT) && (found == false); type_index ++) {
-		
+
 		// Is this the type specifier we were looking for?
 		if (::lstrcmpi (type_name, PARAM_TYPE_STRINGS[type_index]) == 0) {
 			type = (PARAM_TYPES)type_index;
@@ -265,7 +265,7 @@ EditScriptClass::Create_Script (void)
 	//
 	ScriptClass	*script = ScriptManager::Create_Script (m_Name);
 	if (script != NULL) {
-		
+
 		//
 		//	Convert our params to a string and pass them
 		// onto the script
@@ -285,16 +285,16 @@ EditScriptClass::Create_Script (void)
 /////////////////////////////////////////////////////////////////
 bool
 EditScriptClass::Save (ChunkSaveClass &csave)
-{	
+{
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
-		
+
 		WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_NAME, m_Name);
 		//WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_PARAM_DESC, m_ParamDescription);
-		
+
 		//StringClass values = (LPCTSTR)Build_Composite_String ();
 		//WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_VALUES, values);
 
-	csave.End_Chunk ();		
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VALUES);
 		StringClass values = (LPCTSTR)Build_Composite_String ();
@@ -315,8 +315,8 @@ EditScriptClass::Load (ChunkLoadClass &cload)
 {
 	bool retval = true;
 
-	while (cload.Open_Chunk ()) {		
-		switch (cload.Cur_Chunk_ID ()) 
+	while (cload.Open_Chunk ()) {
+		switch (cload.Cur_Chunk_ID ())
 		{
 			case CHUNKID_VARIABLES:
 				retval &= Load_Variables (cload);
@@ -341,7 +341,7 @@ EditScriptClass::Load (ChunkLoadClass &cload)
 
 		cload.Close_Chunk ();
 	}
-		
+
 	return retval;
 }
 
@@ -361,7 +361,7 @@ EditScriptClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_NAME,			m_Name);
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_VALUES,			values);
 		}
@@ -372,7 +372,7 @@ EditScriptClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Make sure we use the current version of the parameter list
 	//
-	Lookup_Param_Description ();	
+	Lookup_Param_Description ();
 	Set_Composite_Values (values);
 	return true;
 }

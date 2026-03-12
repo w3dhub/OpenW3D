@@ -70,7 +70,7 @@ EvaMapTabClass::On_Init_Dialog (void)
 
 	MapCtrlClass *map_ctrl = (MapCtrlClass *)Get_Dlg_Item (IDC_MAP_CTRL);
 	if (map_ctrl != NULL) {
-		
+
 		//
 		//	Configure the map
 		//
@@ -92,7 +92,7 @@ EvaMapTabClass::On_Init_Dialog (void)
 				map_ctrl->Set_Cloud_Cell (cell_x, cell_y, MapMgrClass::Is_Cell_Visible (cell_x, cell_y));
 			}
 		}
-		
+
 		//
 		//	Now add a marker that represents Havoc to the map
 		//
@@ -108,7 +108,7 @@ EvaMapTabClass::On_Init_Dialog (void)
 		int count = ObjectiveManager::Get_Objective_Count ();
 		for (int index = 0; index < count; index ++) {
 			Objective *objective = ObjectiveManager::Get_Objective (index);
-			
+
 			//
 			//	Is this an objective we should put on the map?
 			//
@@ -171,14 +171,14 @@ EvaMapTabClass::On_MapCtrl_Marker_Hilighted
 	image_ctrl->Set_Texture (NULL);
 
 	if (marker_index == 0) {
-		
+
 		//
 		//	Let the user know its Havoc
 		//
 		list_ctrl->Insert_Entry (0, TRANSLATE (IDS_MENU_NAME_HAVOC));
 
 	} else if (marker_index > 0) {
-		
+
 		//
 		//	Display the objective information
 		//
@@ -202,7 +202,7 @@ EvaMapTabClass::On_MapCtrl_Marker_Hilighted
 			//	Lookup the translation object from the strings database
 			//
 			TDBObjClass *translate_obj = TranslateDBClass::Find_Object (objective->LongDescriptionID);
-			if (translate_obj != NULL) {			
+			if (translate_obj != NULL) {
 				list_ctrl->Insert_Entry (4, translate_obj->Get_String ());
 			}
 
@@ -210,7 +210,7 @@ EvaMapTabClass::On_MapCtrl_Marker_Hilighted
 			//	Configure the POG icon
 			//
 			image_ctrl->Set_Texture (objective->HUDPogTextureName);
-		}		
+		}
 	}
 
 	return ;

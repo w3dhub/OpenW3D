@@ -104,14 +104,14 @@ BOOL CWWConfigApp::InitInstance()
 	} else if( cmd.Find( "-English") !=-1 ) {
 		language = 	IDL_ENGLISH;
 	}
-	
+
 	Locale_Init( language, "WWConfig.loc" );
 
 	SimpleFileFactoryClass *ff = dynamic_cast<SimpleFileFactoryClass *>(_TheWritingFileFactory);
 	ff->Append_Sub_Directory("DATA/");
 	ff = dynamic_cast<SimpleFileFactoryClass *>(_TheFileFactory);
 	ff->Append_Sub_Directory("DATA/");
-	
+
 	//
 	//
 	//
@@ -147,10 +147,10 @@ BOOL CWWConfigApp::InitInstance()
 	return false;
 }
 
-int CWWConfigApp::ExitInstance() 
+int CWWConfigApp::ExitInstance()
 {
 	// TODO: Add your specialized code here and/or call the base class
-	
+
 	CWinApp::ExitInstance();
 	return GlobalExitValue;
 }

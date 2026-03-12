@@ -194,7 +194,7 @@ const TCHAR *      ASF_Import::LongDesc()
 {
 	return GetString(IDS_LONG_DESC);
 }
-	
+
 const TCHAR *      ASF_Import::ShortDesc()
 {
 	return GetString(IDS_SHORT_DESC);
@@ -267,14 +267,14 @@ int                ASF_Import::DoImport
 	const TCHAR *  filename,
 	ImpInterface * iface,
 	Interface *    gi,
-	BOOL 
+	BOOL
 )
 {
 	int status;
 
 	status = asf_load ( filename, iface, gi );
 	if(status == 0)
-		status = IMPEXP_CANCEL;	
+		status = IMPEXP_CANCEL;
 
 	return (status <= 0) ? IMPEXP_FAIL : status;
 }

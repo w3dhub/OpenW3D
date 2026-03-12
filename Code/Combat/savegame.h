@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/savegame.h                            $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 11/02/01 2:19p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 8                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/savegame.h                            $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 11/02/01 2:19p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 8                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SAVEGAME_H
@@ -47,11 +47,11 @@
 class	SaveGameManager {
 
 public:
-	
+
 	// Map filename (LSD) access
 	static void Set_Map_Filename( const char * filename )	{ MapFilename = filename; }
 	static const char * Get_Map_Filename( void )			{ return MapFilename; }
-	
+
 	// Description access
 	static void Set_Description( const unichar_t * text )		{ Description = text; }
 	static const unichar_t * Get_Description( void )			{ return Description; }
@@ -59,7 +59,7 @@ public:
 	// Mission description access
 	static int Get_Mission_Description_ID( void )			{ return MissionDescriptionID; }
 	static void	Set_Mission_Description_ID( int id )		{ MissionDescriptionID = id; }
-	
+
 	// Utility functions
 	static bool Smart_Peek_Description( const char *filename, WideStringClass &description, WideStringClass &mission_name );
 	static bool Smart_Peek_Map_Name( const char * filename, StringClass &map_name );
@@ -71,7 +71,7 @@ public:
 	static void	Load_Game( const char * filename );
 	static void	Pre_Load_Game( const char * filename, StringClass &filename_to_load, StringClass &lsd_filename );
 	static const char * Get_Current_Game_Filename( void )	{ return CurrentGameFilename; }
-	
+
 	// LSD Access - Editor only calls Save_Level, App only calls Load_Level
 	static void	Save_Level( void );
 	static void	Load_Level( void );

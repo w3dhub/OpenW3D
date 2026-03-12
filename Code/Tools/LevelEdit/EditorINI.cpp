@@ -143,7 +143,7 @@ EditorINIClass::Get_Matrix3D
 		ASSERT( strlen( buffer ) == 4*4*4 );
 
 		// convert UU string to Matrix3D
-		
+
 		ASSERT( sizeof( Matrix3D ) == 3*4*4 );
 		Base64Pipe b64pipe(Base64Pipe::DECODE);
 		BufferPipe bpipe((void*)&tm, sizeof( Matrix3D ) );
@@ -168,7 +168,7 @@ EditorINIClass::Put_Matrix3D
 	LPCTSTR section,
 	LPCTSTR entry,
 	const Matrix3D &value
-) 
+)
 {
 	// check input parameters
 	if ( section == NULL || entry == NULL ) {
@@ -203,7 +203,7 @@ EditorINIClass::Put_Vector3
 	LPCTSTR section,
 	LPCTSTR entry,
 	const Vector3 &value
-) 
+)
 {
 	// Assume failure
 	bool retval = false;
@@ -212,7 +212,7 @@ EditorINIClass::Put_Vector3
 	CString string_value;
 	string_value.Format ("%f, %f, %f", value.X, value.Y, value.Z);
 	retval = Put_String (section, entry, (LPCTSTR)string_value);
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -228,7 +228,7 @@ EditorINIClass::Put_Vector4
 	LPCTSTR section,
 	LPCTSTR entry,
 	const Vector4 &value
-) 
+)
 {
 	// Assume failure
 	bool retval = false;
@@ -237,7 +237,7 @@ EditorINIClass::Put_Vector4
 	CString string_value;
 	string_value.Format ("%f, %f, %f, %f", value.X, value.Y, value.Z, value.W);
 	retval = Put_String (section, entry, (LPCTSTR)string_value);
-	
+
 	// Return the true/false result code
 	return retval;
 }

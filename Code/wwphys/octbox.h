@@ -50,8 +50,8 @@
 
 /**
 ** OctBoxClass
-** This class encapsulates the collision detection algorithms used by Renegade's "rigid-body" 
-** physics.  It basically acts like rigid box with a contact zone around it.  Contacts are detected 
+** This class encapsulates the collision detection algorithms used by Renegade's "rigid-body"
+** physics.  It basically acts like rigid box with a contact zone around it.  Contacts are detected
 ** when geometry is within "thickness" distance of the rigid box.
 */
 class OctBoxClass
@@ -95,10 +95,10 @@ public:
 	float							Get_Extent_Length2()						{ return InnerBox.Extent.Length2(); }
 
 public: //protected:
-	
+
 	CollisionResult			Internal_Compute_Contacts(bool lock_to_centroids);
 	void							Compute_Octant_Contact(int oi,bool lock_to_centroids);
-	
+
 	void							Transform_To_World_Space(const Matrix3D & tm);
 	void							Transform_To_World_Space(const Quaternion & q,const Vector3 & p);
 
@@ -111,7 +111,7 @@ public: //protected:
 	** Properties
 	*/
 	RigidBodyClass &			Parent;					// parent object this OctBox is working for
-	OBBoxClass					InnerBox;				// OBBox for the parent when parent's TM is I			
+	OBBoxClass					InnerBox;				// OBBox for the parent when parent's TM is I
 	float							Thickness;				// thickness of the "squishy zone"
 	float							Stiffness;				// spring stiffness to use
 	float							Damping;					// damping coefficient to use
@@ -123,7 +123,7 @@ public: //protected:
 	** Current State
 	*/
 	OBBoxClass					WrldInnerBox;
-		
+
 	/*
 	** Contact Accumulation
 	*/

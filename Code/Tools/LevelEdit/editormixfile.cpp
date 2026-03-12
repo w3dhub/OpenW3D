@@ -41,7 +41,7 @@
 #include "mixfile.h"
 #include "TGAToDXT.h"
 #include "LevelEdit.h"
-#include "RegKeys.h" 
+#include "RegKeys.h"
 #include	<stdlib.h>
 #include <winbase.h>
 
@@ -68,7 +68,7 @@ EditorMixFileCreator::Add_File (const char *full_path, const char *name)
 {
 	char substitutefullpath [MAX_PATH];
 	char substitutename [MAX_PATH];
-	
+
 	// See if another file needs to be substituted for the input file.
 	Substitute_File (full_path, name, substitutefullpath, substitutename);
 
@@ -80,13 +80,13 @@ EditorMixFileCreator::Add_File (const char *full_path, const char *name)
 	//
 	EditorMixFileEntry *stored_path = FilenameHash.Get (lower_name);
 	if (stored_path != NULL) {
-		
+
 		//
 		//	Don't store the new file unless its newer then the one already
 		// in the hash
 		//
 		if (::Quick_Compare_Files (stored_path->Get_Path (), substitutefullpath) > 0) {
-			
+
 			//
 			//	Remap this entry to the new path
 			//
@@ -94,7 +94,7 @@ EditorMixFileCreator::Add_File (const char *full_path, const char *name)
 		}
 
 	} else {
-		
+
 		//
 		//	Allocate a new entry...
 		//
@@ -117,11 +117,11 @@ EditorMixFileCreator::Add_File (const char *full_path, const char *name)
 //	Substitute_File
 //
 /////////////////////////////////////////////////////////////////////////
-void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *name, char *substitutefullpath, char *substitutename) 
+void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *name, char *substitutefullpath, char *substitutename)
 {
 	bool	  substitutefile;
 	char	  filename  [_MAX_FNAME];
-	char	  extension [_MAX_EXT]; 
+	char	  extension [_MAX_EXT];
 	CString cachedfullpath;
 	CString cachedname;
 
@@ -153,10 +153,10 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 				char   *s;
 
 				// OPTIMIZATION: Has the .DDS file already been created and stored in the texture cache?
-				
+
 				// NOTE:	If the name contains a subdirectory mangle it with the filename. This will ensure that the filename is unique.
 				_splitpath (name, NULL, mangleddirectory, mangledname, NULL);
-				
+
    			// NOTE: The cached name must be the same as the original name but with .DDS extension.
 				cachedname	= mangleddirectory;
 				cachedname += mangledname;
@@ -181,7 +181,7 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 				tgafile = CreateFile (fullpath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0L, NULL);
 				ddsfile = CreateFile (cachedfullpath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0L, NULL);
 				if (tgafile != INVALID_HANDLE_VALUE) {
-				
+
 					FILETIME tgawritetime;
 
 					GetFileTime (tgafile, NULL, NULL, &tgawritetime);
@@ -197,14 +197,14 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 
 							// Files have the same time stamp. Substitute the .DDS file.
 							substitutefile = true;
-						
+
 						} else {
 
 							// Files have a different time stamp (and therefore it is assumed that the	.TGA file has been modified since the .DDS file was created).
 							// Create a new .DDS file from the .TGA file and give it the same time stamp as the .TGA file.
 							substitutefile = Convert_File (fullpath, cachedfullpath, &tgawritetime);
-						}	
-					
+						}
+
 					} else {
 
 						CloseHandle (tgafile);
@@ -216,8 +216,8 @@ void EditorMixFileCreator::Substitute_File (const char *fullpath, const char *na
 				} else {
 
 					CString message;
-				
-					// Cannot open the input file!	
+
+					// Cannot open the input file!
 					message.Format ("Failed to open: %s\r\n", fullpath);
 					::Output_Message (message);
 				}
@@ -252,7 +252,7 @@ bool EditorMixFileCreator::Convert_File (const char *fullpath, const char *cache
 
 	bool	  success, alpharemoved;
 	CString message;
-	
+
 	success = _TGAToDXTConverter.Convert (fullpath, cachedfullpath, tgawritetimeptr, alpharemoved);
 	if (!success) {
 		message.Format (failedtocompresstext, fullpath);
@@ -280,10 +280,10 @@ EditorMixFileCreator::Generate_Mix_File (const char *full_path)
 	//
 	//	Loop over all the entries in hash table
 	//
-	HashTemplateIterator<StringClass, EditorMixFileEntry *> iterator (FilenameHash);	
+	HashTemplateIterator<StringClass, EditorMixFileEntry *> iterator (FilenameHash);
 	for (iterator.First (); iterator.Is_Done () == false; iterator.Next ()) {
 		EditorMixFileEntry *entry = iterator.Peek_Value ();
-		
+
 		//
 		// Add this file to the mix
 		//
@@ -305,9 +305,9 @@ EditorMixFileCreator::Flush (void)
 	//
 	//	Loop over all the entries in hash table
 	//
-	HashTemplateIterator<StringClass, EditorMixFileEntry *> iterator (FilenameHash);	
+	HashTemplateIterator<StringClass, EditorMixFileEntry *> iterator (FilenameHash);
 	for (iterator.First (); iterator.Is_Done () == false; iterator.Next ()) {
-		
+
 		//
 		//	Free this entry
 		//

@@ -61,14 +61,14 @@ public:
 	/////////////////////////////////////////////////////////////////////
 	//	Public methods
 	/////////////////////////////////////////////////////////////////////
-	static NetworkObjectFactoryClass *	Find_Factory (uint32 class_id);	
+	static NetworkObjectFactoryClass *	Find_Factory (uint32 class_id);
 	static void									Register_Factory (NetworkObjectFactoryClass *factory);
 	static void									Unregister_Factory (NetworkObjectFactoryClass *factory);
 
 	// Factory enumeration
 	static NetworkObjectFactoryClass *	Get_First (void);
 	static NetworkObjectFactoryClass *	Get_Next (NetworkObjectFactoryClass *current);
-	
+
 private:
 
 	/////////////////////////////////////////////////////////////////////

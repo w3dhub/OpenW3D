@@ -62,7 +62,7 @@
 #include "camera.h"
 #include "vertmaterial.h"
 #include "shader.h"
-#include "visrendercontext.h" 
+#include "visrendercontext.h"
 #include "visoptimizationcontext.h"
 #include "visoptprogress.h"
 #include "light.h"
@@ -158,28 +158,28 @@ int PhysicsSceneClass::Get_Vis_Grid_Display_Mode(void)
 }
 
 void PhysicsSceneClass::Vis_Grid_Debug_Reset_Node(void)
-{ 
-	DynamicObjVisSystem->Debug_Reset_Node(); 
+{
+	DynamicObjVisSystem->Debug_Reset_Node();
 }
 
-bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Parent(void)			
-{ 
-	return DynamicObjVisSystem->Debug_Enter_Parent(); 
+bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Parent(void)
+{
+	return DynamicObjVisSystem->Debug_Enter_Parent();
 }
 
-bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Sibling(void)			
-{ 
-	return DynamicObjVisSystem->Debug_Enter_Sibling(); 
-}
-	
-bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Front_Child(void)		
-{ 
-	return DynamicObjVisSystem->Debug_Enter_Front_Child(); 
+bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Sibling(void)
+{
+	return DynamicObjVisSystem->Debug_Enter_Sibling();
 }
 
-bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Back_Child(void)		
-{ 
-	return DynamicObjVisSystem->Debug_Enter_Back_Child(); 
+bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Front_Child(void)
+{
+	return DynamicObjVisSystem->Debug_Enter_Front_Child();
+}
+
+bool PhysicsSceneClass::Vis_Grid_Debug_Enter_Back_Child(void)
+{
+	return DynamicObjVisSystem->Debug_Enter_Back_Child();
 }
 
 bool PhysicsSceneClass::Is_Vis_Sector_Missing(void)
@@ -241,7 +241,7 @@ VisTableClass * PhysicsSceneClass::Get_Vis_Table(const CameraClass & camera)
 
 VisTableClass * PhysicsSceneClass::Get_Vis_Table_For_Rendering(const CameraClass & camera)
 {
-	// Decompress the visibility table for the current camera view 
+	// Decompress the visibility table for the current camera view
 	// Note that if the vis system needs to be reset, we don't want to use any obsolete data
 	// Also, if a sample point hasn't been given, we will skip visibility.
 	// Also, if we don't find a vis sector, we'll try to use the last valid one that we had.
@@ -251,7 +251,7 @@ VisTableClass * PhysicsSceneClass::Get_Vis_Table_For_Rendering(const CameraClass
 	Compute_Vis_Sample_Point(camera,&vis_sample_point);
 
 	if ((!VisResetNeeded) && VisEnabled) {
-		
+
 		vis_id = StaticCullingSystem->Get_Vis_Sector_ID(vis_sample_point);
 
 		if (vis_id == -1) {
@@ -269,7 +269,7 @@ VisTableClass * PhysicsSceneClass::Get_Vis_Table_For_Rendering(const CameraClass
 			LastValidVisId = vis_id;
 			VisSectorMissing = false;
 		}
-		
+
 		if (vis_id != -1) {
 			pvs = VisTableManager.Get_Vis_Table(LastValidVisId);
 		}
@@ -382,7 +382,7 @@ void PhysicsSceneClass::Validate_Vis(void)
 	/*
 	** Clear the reset flag, this is needed after a level is loaded.
 	** Normally as static objects are added to the system, the reset
-	** flag will be set, but in the case of loading, we are also 
+	** flag will be set, but in the case of loading, we are also
 	** loading the visibility data...
 	*/
 	VisResetNeeded = false;
@@ -407,7 +407,7 @@ void PhysicsSceneClass::Internal_Vis_Reset(void)
 
 		VisResetNeeded = false;
 		WWDEBUG_SAY(("Resetting the visibility system.\r\n"));
-		
+
 		/*
 		** Throw away all visibility data.
 		*/
@@ -428,7 +428,7 @@ void PhysicsSceneClass::Internal_Vis_Reset(void)
 		StaticCullingSystem->Assign_Vis_IDs();
 		DynamicObjVisSystem->Assign_Vis_IDs();
 		StaticLightingSystem->Assign_Vis_IDs();
-		
+
 		/*
 		** Force all dynamic objects to recompute their visibility id
 		*/
@@ -470,7 +470,7 @@ CameraClass * PhysicsSceneClass::Get_Vis_Camera(void)
 	VisCamera->Set_Clip_Planes(VIS_NEAR_CLIP,VIS_FAR_CLIP);
 	VisCamera->Set_View_Plane(DEG_TO_RAD(90.0f),DEG_TO_RAD(90.0f));
 	VisCamera->Set_Viewport(Vector2(0,0),Vector2(1,1));
-	
+
 	VisCamera->Add_Ref();
 	return VisCamera;
 }
@@ -536,7 +536,7 @@ PhysicsSceneClass::Update_Vis
 	}
 
 	/*
-	** Get the existing pvs and make a copy of it that we can 
+	** Get the existing pvs and make a copy of it that we can
 	** modify with the results of our sampling
 	*/
 	VisTableClass * original_pvs = VisTableManager.Get_Vis_Table(vis_id,true);
@@ -644,7 +644,7 @@ int PhysicsSceneClass::Get_Static_Light_Count(void)
 	for (light_it.First();!light_it.Is_Done(); light_it.Next()) {
 		counter++;
 	}
-	
+
 	return counter;
 }
 
@@ -674,17 +674,17 @@ void PhysicsSceneClass::Generate_Vis_For_Light(int light_index)
 	*/
 	RefPhysListIterator light_it = Get_Static_Light_Iterator();
 	for (; light_index > 0; light_index--) {
-		light_it.Next(); 
+		light_it.Next();
 	}
-	
+
 	/*
 	** Update vis for the specified light.
 	*/
 	LightPhysClass * light = light_it.Peek_Obj()->As_LightPhysClass();
-	if (	(light != NULL) && 
+	if (	(light != NULL) &&
 			(light->Get_Vis_Sector_ID() != 0xFFFFFFFF) &&
 			(light->Peek_Model() != NULL) &&
-			(light->Peek_Model()->Class_ID() == RenderObjClass::CLASSID_LIGHT)) 
+			(light->Peek_Model()->Class_ID() == RenderObjClass::CLASSID_LIGHT))
 	{
 		/*
 		** Perform the vis sample
@@ -730,7 +730,7 @@ void PhysicsSceneClass::Vis_Render_And_Scan(VisRenderContextClass & context,VisS
 	WWASSERT(context.VisRasterizer != NULL);
 	context.VisRasterizer->Set_Render_Mode(IDBufferClass::OCCLUDER_MODE);
 	StaticCullingSystem->Evaluate_Occluder_Visibility(context,vis_sample);
-	
+
 	On_Vis_Occluders_Rendered(context,vis_sample);
 
 	/*
@@ -760,7 +760,7 @@ void PhysicsSceneClass::Vis_Render_And_Scan(VisRenderContextClass & context,VisS
 void PhysicsSceneClass::Generate_Vis_Statistics_Report(DynamicVectorClass<VisSectorStatsClass> & report)
 {
 	/*
-	** Loop over each of the vis sectors in the level, adding up how many polygons and 
+	** Loop over each of the vis sectors in the level, adding up how many polygons and
 	** and how much texture memory can be seen from each one.
 	*/
 	VisSectorStatsClass stats;

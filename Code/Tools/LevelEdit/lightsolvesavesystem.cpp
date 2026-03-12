@@ -75,16 +75,16 @@ bool LightSolveSaveSystemClass::Contains_Data(void) const
 
 
 bool LightSolveSaveSystemClass::Save(ChunkSaveClass &csave)
-{	
+{
 	SceneEditorClass * scene = ::Get_Scene_Editor();
 	WWASSERT(scene != NULL);
 
 	RefPhysListIterator it = scene->Get_Static_Object_Iterator();
 	while (!it.Is_Done()) {
 		StaticPhysClass * pobj = it.Peek_Obj()->As_StaticPhysClass();
-		if (	(pobj != NULL) && 
-				(pobj->Peek_Model() != NULL) && 
-				(pobj->Peek_Model()->Has_User_Lighting()) ) 
+		if (	(pobj != NULL) &&
+				(pobj->Peek_Model() != NULL) &&
+				(pobj->Peek_Model()->Has_User_Lighting()) )
 		{
 			csave.Begin_Chunk(LSS_CHUNKID_OBJECT_LIGHT_SOLVE);
 			Save_Lighting_For_Object(csave,pobj);
@@ -98,11 +98,11 @@ bool LightSolveSaveSystemClass::Save(ChunkSaveClass &csave)
 
 
 bool LightSolveSaveSystemClass::Save_Lighting_For_Object(ChunkSaveClass & csave,StaticPhysClass * pobj)
-{	
+{
 	RenderObjClass * model = pobj->Peek_Model();
 	uint32 id = pobj->Get_ID();
 	uint32 classid = (uint32)model->Class_ID();
-	uint32 subobjcount = (uint32)model->Get_Num_Sub_Objects();	
+	uint32 subobjcount = (uint32)model->Get_Num_Sub_Objects();
 
 	csave.Begin_Chunk(LSS_CHUNKID_OBJECT_VARIABLES);
 	WRITE_MICRO_CHUNK(csave,LSS_VARIABLE_OBJECT_ID,id);
@@ -121,8 +121,8 @@ bool LightSolveSaveSystemClass::Save_Lighting_For_Object(ChunkSaveClass & csave,
 bool LightSolveSaveSystemClass::Load(ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case LSS_CHUNKID_OBJECT_LIGHT_SOLVE:
 				Load_Lighting_For_Object(cload);
@@ -132,7 +132,7 @@ bool LightSolveSaveSystemClass::Load(ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 	return true;
@@ -140,10 +140,10 @@ bool LightSolveSaveSystemClass::Load(ChunkLoadClass &cload)
 
 
 bool LightSolveSaveSystemClass::Load_Lighting_For_Object(ChunkLoadClass & cload)
-{	
+{
 	uint32 id = 0;
 	uint32 classid = 0;
-	uint32 subobjcount = 0;	
+	uint32 subobjcount = 0;
 
 	/*
 	** Read in the variables, return if we do not detect the variables chunk first
@@ -161,18 +161,18 @@ bool LightSolveSaveSystemClass::Load_Lighting_For_Object(ChunkLoadClass & cload)
 				READ_MICRO_CHUNK(cload,LSS_VARIABLE_OBJECT_CLASSID,classid);
 				READ_MICRO_CHUNK(cload,LSS_VARIABLE_OBJECT_SUBOBJCOUNT,subobjcount);
 			}
-			cload.Close_Micro_Chunk();	
+			cload.Close_Micro_Chunk();
 		}
 	}
 	cload.Close_Chunk();
 
 	/*
-	** Look up the object 
+	** Look up the object
 	*/
 	StaticPhysClass * obj = PhysicsSceneClass::Get_Instance()->Get_Static_Object_By_ID(id);
-	
+
 	if (obj != NULL) {
-	
+
 		RenderObjClass * model = obj->Peek_Model();
 		if (	(model != NULL) &&
 				(obj->Get_ID() == id) &&

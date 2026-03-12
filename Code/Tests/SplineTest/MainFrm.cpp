@@ -74,7 +74,7 @@ static UINT indicators[] =
 CMainFrame::CMainFrame()
 {
 	// TODO: add member initialization code here
-	
+
 }
 
 CMainFrame::~CMainFrame()
@@ -85,7 +85,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	
+
 #if 0
 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP
 		| CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
@@ -144,7 +144,7 @@ void CMainFrame::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CMainFrame message handlers
 
-void CMainFrame::OnCurveCardinal() 
+void CMainFrame::OnCurveCardinal()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc) {
@@ -152,7 +152,7 @@ void CMainFrame::OnCurveCardinal()
 	}
 }
 
-void CMainFrame::OnUpdateCurveCardinal(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCurveCardinal(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {
@@ -160,7 +160,7 @@ void CMainFrame::OnUpdateCurveCardinal(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCurveCatmullRom() 
+void CMainFrame::OnCurveCatmullRom()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc) {
@@ -168,7 +168,7 @@ void CMainFrame::OnCurveCatmullRom()
 	}
 }
 
-void CMainFrame::OnUpdateCurveCatmullRom(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCurveCatmullRom(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {
@@ -176,7 +176,7 @@ void CMainFrame::OnUpdateCurveCatmullRom(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCurveLinear() 
+void CMainFrame::OnCurveLinear()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc) {
@@ -184,7 +184,7 @@ void CMainFrame::OnCurveLinear()
 	}
 }
 
-void CMainFrame::OnUpdateCurveLinear(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCurveLinear(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {
@@ -192,7 +192,7 @@ void CMainFrame::OnUpdateCurveLinear(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCurveTcb() 
+void CMainFrame::OnCurveTcb()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc) {
@@ -200,7 +200,7 @@ void CMainFrame::OnCurveTcb()
 	}
 }
 
-void CMainFrame::OnUpdateCurveTcb(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCurveTcb(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {
@@ -208,7 +208,7 @@ void CMainFrame::OnUpdateCurveTcb(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCurveReset() 
+void CMainFrame::OnCurveReset()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {
@@ -216,7 +216,7 @@ void CMainFrame::OnCurveReset()
 	}
 }
 
-void CMainFrame::OnCurveDrawTangents() 
+void CMainFrame::OnCurveDrawTangents()
 {
 	CSplineTestView * view = (CSplineTestView *)GetActiveView();
 	if (view) {
@@ -224,7 +224,7 @@ void CMainFrame::OnCurveDrawTangents()
 	}
 }
 
-void CMainFrame::OnUpdateCurveDrawTangents(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCurveDrawTangents(CCmdUI* pCmdUI)
 {
 	CSplineTestView * view = (CSplineTestView *)GetActiveView();
 	if (view) {
@@ -232,7 +232,7 @@ void CMainFrame::OnUpdateCurveDrawTangents(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCurveLoop() 
+void CMainFrame::OnCurveLoop()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {
@@ -244,7 +244,7 @@ void CMainFrame::OnCurveLoop()
 	}
 }
 
-void CMainFrame::OnUpdateCurveLoop(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCurveLoop(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {
@@ -255,15 +255,15 @@ void CMainFrame::OnUpdateCurveLoop(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnVehicleCurve() 
+void CMainFrame::OnVehicleCurve()
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc) {
 		doc->Set_Curve_Type(CSplineTestDoc::VEHICLE	);
-	}	
+	}
 }
 
-void CMainFrame::OnUpdateVehicleCurve(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateVehicleCurve(CCmdUI* pCmdUI)
 {
 	CSplineTestDoc * doc = (CSplineTestDoc *)GetActiveDocument();
 	if (doc != NULL) {

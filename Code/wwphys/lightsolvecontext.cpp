@@ -51,8 +51,8 @@ LightSolveContextClass::~LightSolveContextClass(void)
 {
 }
 
-void LightSolveContextClass::Update_Observer(void) 
-{ 
-	if (Observer) Observer->Progress_Callback(*this); 
+void LightSolveContextClass::Update_Observer(void)
+{
+	if (Observer) Observer->Progress_Callback(*this);
 }
 

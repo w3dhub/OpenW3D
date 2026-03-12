@@ -50,7 +50,7 @@ class RenderObjClass;
 /**
 ** MuzzleRecoilClass
 ** This class tracks the recoil state of a muzzle for an ArmedGameObj.  To set up the object,
-** call Init with the bone index that you want it to control.  To trigger a recoil, call 
+** call Init with the bone index that you want it to control.  To trigger a recoil, call
 ** Start_Recoil.  To make everything work, call Update once per frame with the model pointer
 ** and the amount of time that has elapsed.
 */

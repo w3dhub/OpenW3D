@@ -116,7 +116,7 @@ RenegadeCheatMgrClass::Enable_Cheat (int /* cheat */, bool /* onoff */)
 		// player and we need to be a client (which means we are a player).
 		//
 		if (IS_SOLOPLAY && CombatManager::I_Am_Client ()) {
-			
+
 			//
 			//	Make the current player invulnerable or not
 			//

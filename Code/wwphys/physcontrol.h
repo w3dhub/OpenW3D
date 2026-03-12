@@ -58,7 +58,7 @@ class ChunkSaveClass;
 	PhysControllerClass
 
 	This is an object which abstractly describes the control state
-	for a physics object.  
+	for a physics object.
 
 	PhysControllers are not persistant objects on their own but they
 	do provide a save and load method so that you can embed them in
@@ -67,7 +67,7 @@ class ChunkSaveClass;
 */
 
 
-class PhysControllerClass 
+class PhysControllerClass
 {
 public:
 
@@ -86,7 +86,7 @@ public:
 	float					Get_Turn_Left(void)						{ return TurnLeft; }
 
 	void					Reset_Move(void)							{ MoveVector.Set(0,0,0); }
-	const Vector3	&	Get_Move_Vector(void)					{ return MoveVector; }	
+	const Vector3	&	Get_Move_Vector(void)					{ return MoveVector; }
 	void					Reset_Turn(void)							{ TurnLeft = 0.0f; }
 
 	bool					Is_Inactive(void);
@@ -106,4 +106,4 @@ inline bool PhysControllerClass::Is_Inactive(void)
 	return ((TurnLeft == 0.0f) && (MoveVector.Length2() == 0.0f));
 }
 
-#endif 
+#endif

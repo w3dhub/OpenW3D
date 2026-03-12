@@ -98,8 +98,8 @@ public:
 		PRELIT_NODIFFUSE,
 		PRESET_COUNT
 	};
-		
-	
+
+
 	VertexMaterialClass(void);
 	VertexMaterialClass(const VertexMaterialClass & src);
 	~VertexMaterialClass(void);
@@ -111,7 +111,7 @@ public:
 	** Name Access
 	*/
 	void					Set_Name(const char * name)
-	{	
+	{
 		Name = name;
 	}
 
@@ -146,7 +146,7 @@ public:
 	void			Get_Ambient(Vector3 * set_color) const;
 	void			Set_Ambient(const Vector3 & color);
 	void			Set_Ambient(float r,float g,float b);
-	
+
 	void			Get_Diffuse(Vector3 * set_color) const;
 	void			Set_Diffuse(const Vector3 & color);
 	void			Set_Diffuse(float r,float g,float b);
@@ -154,7 +154,7 @@ public:
 	void			Get_Specular(Vector3 * set_color) const;
 	void			Set_Specular(const Vector3 & color);
 	void			Set_Specular(float r,float g,float b);
-	
+
 	void			Get_Emissive(Vector3 * set_color) const;
 	void			Set_Emissive(const Vector3 & color);
 	void			Set_Emissive(float r,float g,float b);
@@ -164,8 +164,8 @@ public:
 
 	/*
 	** Color source control.  Note that if you set one of the sources to be one of
-	** the arrays, then the setting in the material is ignored.  (i.e. if you 
-	** set the diffuse source to array0, then the diffuse color set into the 
+	** the arrays, then the setting in the material is ignored.  (i.e. if you
+	** set the diffuse source to array0, then the diffuse color set into the
 	** vertex material is ignored.
 	*/
 	void					Set_Ambient_Color_Source(ColorSourceType src);
@@ -186,7 +186,7 @@ public:
 	int					Get_UV_Source(int stage);
 
 	/*
-	** Mapper control.  
+	** Mapper control.
 	*/
 	inline void							Set_Mapper(TextureMapperClass *mapper,int stage=0);
 	inline TextureMapperClass *	Get_Mapper(int stage=0);
@@ -210,7 +210,7 @@ public:
 			CRC=Compute_CRC();
 			CRCDirty=false;
 		}
-			
+
 		return CRC;
 	}
 
@@ -266,7 +266,7 @@ private:
 inline void VertexMaterialClass::Set_Mapper(TextureMapperClass *mapper, int stage)
 {
 	CRCDirty=true;
-	REF_PTR_SET(Mapper[stage],mapper);	
+	REF_PTR_SET(Mapper[stage],mapper);
 }
 
 inline TextureMapperClass * VertexMaterialClass::Get_Mapper(int stage)

@@ -92,7 +92,7 @@ public:
 	void				Harvest_Tiberium (void);
 	void				Stop (void);
 
-	
+
 	//
 	//	Accessors
 	//
@@ -112,7 +112,7 @@ public:
 	void				Custom (GameObject *game_obj, int type, intptr_t param, GameObject *sender) override;
 	void				Attach (GameObject *game_obj) override;
 	void				Detach (GameObject *game_obj) override;
-	
+
 	//
 	//	Unused methods from the base class
 	//
@@ -151,7 +151,7 @@ private:
 	////////////////////////////////////////////////////////////////////
 	RefineryGameObj *	Refinery;
 	Vector3				DockLocation;
-	Vector3				DockEntrance;	
+	Vector3				DockEntrance;
 	HarvesterState		State;
 	OBBoxClass			TiberiumRegion;
 	VehicleGameObj *	Vehicle;

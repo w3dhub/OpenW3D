@@ -78,7 +78,7 @@ public:
 	void				On_VScroll (ScrollBarCtrlClass *scrollbar, int ctrl_id, int new_position) override;
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
@@ -90,9 +90,9 @@ protected:
 	void				Create_Text_Renderer (void);
 
 	void				Calculate_Row_Count (void);
-	void				Update_Scroll_Bar_Visibility (void);	
+	void				Update_Scroll_Bar_Visibility (void);
 	void				Set_Scroll_Pos (int new_position);
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////

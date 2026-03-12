@@ -50,7 +50,7 @@
 
 // Public Variables
 
-Vector3 Objective_Radar_Locations [20] = 
+Vector3 Objective_Radar_Locations [20] =
 {
 	Vector3 (1113.53f,877.16f,17.47f), // Destroy or Deactivate Obelisk
 	Vector3 (1001.69f,903.86f,0.82f),  // Destroy the Dam's MCT

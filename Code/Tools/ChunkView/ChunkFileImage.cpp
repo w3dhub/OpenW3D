@@ -70,7 +70,7 @@ void ChunkFileImageClass::Load(const char * filename)
 	RawFileClass file(filename);
 	file.Open();
 	ChunkLoadClass cload(&file);
-	
+
 	cload.Open_Chunk();
 	RootNode = new ChunkImageClass;
 	RootNode->Load(cload);
@@ -130,12 +130,12 @@ void ChunkImageClass::Load(ChunkLoadClass & cload)
 		}
 
 	} else {
-		
+
 		if (Length > 0) {
 			Data = new uint8[Length];
 			cload.Read(Data,Length);
 		}
-	
+
 	}
 }
 
@@ -155,7 +155,7 @@ void ChunkImageClass::Add_Child(ChunkImageClass * new_child)
 
 void ChunkImageClass::Add_Sibling(ChunkImageClass * new_sibling)
 {
-	// Need to add to the tail so we display chunks in 
+	// Need to add to the tail so we display chunks in
 	// the same order they appear in the file, so we
 	// search for the tail.
 	ChunkImageClass * tail = this;
@@ -173,10 +173,10 @@ int ChunkImageClass::Get_Child_Count(void) const
 
 	ChunkImageClass * child = Child;
 	while (child != NULL) {
-		count++;	
+		count++;
 		child = child->Sibling;
 	}
-	return count;	
+	return count;
 }
 
 const ChunkImageClass * ChunkImageClass::Get_Child(int i) const
@@ -185,10 +185,10 @@ const ChunkImageClass * ChunkImageClass::Get_Child(int i) const
 
 	ChunkImageClass * child = Child;
 	while (child != NULL && count < i) {
-		count++;	
+		count++;
 		child = child->Sibling;
 	}
-	
+
 	assert(count == i);
 	return child;
 }
@@ -200,10 +200,10 @@ int ChunkImageClass::Get_Sibling_Count(void) const
 
 	const ChunkImageClass * sibling = this;
 	while (sibling != NULL) {
-		count++;	
+		count++;
 		sibling = sibling->Sibling;
 	}
-	return count;	
+	return count;
 }
 
 const ChunkImageClass * ChunkImageClass::Get_Sibling(int i) const
@@ -213,7 +213,7 @@ const ChunkImageClass * ChunkImageClass::Get_Sibling(int i) const
 
 	const ChunkImageClass * sibling = this;
 	while (sibling != NULL && count < i) {
-		count++;	
+		count++;
 		sibling = sibling->Sibling;
 	}
 

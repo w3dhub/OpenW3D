@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/Utilities.cpp  $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/11/02 10:27a                $* 
- *                                                                                             * 
- *                    $Revision:: 10                    $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/Utilities.cpp  $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/11/02 10:27a                $*
+ *                                                                                             *
+ *                    $Revision:: 10                    $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -61,16 +61,16 @@ static bool	  Validate_Install_CD (const char driveletter, const WideStringClass
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Prompt_Install_CD (const WideStringClass &installvolumename, char &sourcedriveletter)
 {
 	bool success = false;
 
 	while (!success) {
-	
+
 		for (char r = 'A'; r <= 'Z'; r++) {
-			
+
 			char rootpathname [] = "?:\\";
 
 			rootpathname [0] = r;
@@ -111,7 +111,7 @@ bool Prompt_Install_CD (const WideStringClass &installvolumename, char &sourcedr
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Validate_Install_CD (const WideStringClass &sourcepath, const WideStringClass &installvolumename)
 {
@@ -130,7 +130,7 @@ bool Validate_Install_CD (const WideStringClass &sourcepath, const WideStringCla
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Validate_Install_CD (const char driveletter, const WideStringClass &installvolumename)
 {
@@ -142,9 +142,9 @@ bool Validate_Install_CD (const char driveletter, const WideStringClass &install
 
 	rootpathname [0] = driveletter;
 	if (GetVolumeInformation (rootpathname, multibytevolumename, _MAX_PATH, NULL, &maxfilenamelength, &flags, filesystemname, _MAX_PATH)) {
-				 
+
 		WideStringClass volumename (multibytevolumename);
-		
+
 		// Windows '95 appears to have a volume name limit of 11 characters. I cannot find a Win32
 		// call that will return the maximum volume name length so the value '11' is hard-coded here
 		// and the assumption made that all OS's have this length or better.
@@ -166,7 +166,7 @@ bool Validate_Install_CD (const char driveletter, const WideStringClass &install
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace)
 {
@@ -204,7 +204,7 @@ bool Get_Disk_Space_Available (const WideStringClass &path, int64_t &diskspace)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Validate_Path (const WideStringClass &path, int &errorcode)
 {
@@ -216,7 +216,7 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
 			if ((path [1] == L':') && ((path [2] == L'\\') || (path [2] == L'/'))) {
 
 				const wchar_t *c = ((WideStringClass) path).Peek_Buffer() + _MAX_DRIVE;
-	
+
 				while	(*c != L'\0') {
 					if ((*c == L'\\') || (*c == L'/')) {
 
@@ -225,10 +225,10 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
 					}
 					c++;
 				}
-	
+
 				// Parsed entire string?
 				if (*c == L'\0') {
-			
+
 					// Check that path does not contain any illegal characters.
 					if (wcscspn (((WideStringClass) path).Peek_Buffer(), L"*?<>|") == (size_t) path.Get_Length()) {
 
@@ -241,7 +241,7 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
 
 						// Attempt to create (and then remove) the path.
 						if (Create_Directory (drive, directory.Peek_Buffer(), directory.Peek_Buffer(), true, NULL)) {
-							valid = true;	
+							valid = true;
 						} else {
 							errorcode = IDS_CANNOT_CREATE_DIRECTORY;
 						}
@@ -249,7 +249,7 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
 					} else {
 						errorcode = IDS_INVALID_PATH;
 					}
-				
+
 				} else {
 					errorcode = IDS_INVALID_PATH;
 				}
@@ -280,7 +280,7 @@ bool Validate_Path (const WideStringClass &path, int &errorcode)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Create_Directory (const WideStringClass &path, DynamicVectorClass <StringClass> *log)
 {
@@ -294,7 +294,7 @@ bool Create_Directory (const WideStringClass &path, DynamicVectorClass <StringCl
 
 	return (Create_Directory (drive, directory.Peek_Buffer(), directory.Peek_Buffer(), false, log));
 }
-	
+
 
 /***********************************************************************************************
  * Create_Directory --																								  *
@@ -306,7 +306,7 @@ bool Create_Directory (const WideStringClass &path, DynamicVectorClass <StringCl
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Create_Directory (const wchar_t *drive, const wchar_t *directory, wchar_t *subdirectory, bool remove, DynamicVectorClass <StringClass> *log)
 {
@@ -335,7 +335,7 @@ bool Create_Directory (const wchar_t *drive, const wchar_t *directory, wchar_t *
 		} else {
 			errorcode = GetLastError();
 		}
-		
+
 		// If no error or directory already exists...
 		if ((errorcode == 0) || (errorcode == ERROR_ALREADY_EXISTS)) {
 
@@ -351,7 +351,7 @@ bool Create_Directory (const wchar_t *drive, const wchar_t *directory, wchar_t *
 			if (remove && (errorcode == 0)) {
 				if (!RemoveDirectory (multibytepath)) FATAL_SYSTEM_ERROR;
 			}
-		
+
 		} else {
 			valid = false;
 		}
@@ -359,7 +359,7 @@ bool Create_Directory (const wchar_t *drive, const wchar_t *directory, wchar_t *
 	} else {
 		valid = true;
 	}
-		
+
 	return (valid);
 }
 
@@ -374,7 +374,7 @@ bool Create_Directory (const wchar_t *drive, const wchar_t *directory, wchar_t *
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 int64_t Cluster_Padding (unsigned filecount)
 {
@@ -400,14 +400,14 @@ int64_t Cluster_Padding (unsigned filecount)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Is_Same_Path (const WideStringClass &path0, const WideStringClass &path1, bool standardize)
 {
 	if (standardize) {
 
 		WideStringClass path0copy, path1copy;
-		
+
 		Standardize_Path (path0, path0copy);
 		Standardize_Path (path1, path1copy);
 		return (path0copy.Compare (path1copy) == 0);
@@ -427,7 +427,7 @@ bool Is_Same_Path (const WideStringClass &path0, const WideStringClass &path1, b
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Is_Sub_Path (const WideStringClass &path0, const WideStringClass &path1, bool standardize)
 {
@@ -444,11 +444,11 @@ bool Is_Sub_Path (const WideStringClass &path0, const WideStringClass &path1, bo
 	if	(wcsstr (path0copy, path1copy) != NULL) {
 
 		if (path0copy.Get_Length() == path1copy.Get_Length()) {
-		
+
 			return (true);
-		
+
 		} else {
-	
+
 			wchar_t c;
 
 			c = path0copy [path1copy.Get_Length()];
@@ -470,7 +470,7 @@ bool Is_Sub_Path (const WideStringClass &path0, const WideStringClass &path1, bo
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 wchar_t *Standardize_Path (const WideStringClass &path, WideStringClass &standardpath)
 {
@@ -514,7 +514,7 @@ wchar_t *Standardize_Path (const WideStringClass &path, WideStringClass &standar
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 wchar_t *Remove_Trailing_Name (WideStringClass &path)
 {
@@ -540,20 +540,20 @@ wchar_t *Remove_Trailing_Name (WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 wchar_t *Extract_Suffix_Root (WideStringClass &path, const WideStringClass &prefixpath)
 {
 	if (wcsstr (path, prefixpath) == path) {
 
 		int s, e, c;
-		
+
 		s = prefixpath.Get_Length();
 		if ((path [s] == L'\\') || (path [s] == L'/')) s++;
 		if (s > 0) path.Erase (0, s);
 		e = 0;
 		c = path.Get_Length();
-		for (e = 0, c = path.Get_Length(); c > 0; e++, c--) { 
+		for (e = 0, c = path.Get_Length(); c > 0; e++, c--) {
 			if ((path [e] == L'\\') || (path [e] == L'/')) {
 				path.Erase (e, c);
 				break;
@@ -575,7 +575,7 @@ wchar_t *Extract_Suffix_Root (WideStringClass &path, const WideStringClass &pref
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 wchar_t *Extract_Trailing_Name (WideStringClass &path)
 {
@@ -601,7 +601,7 @@ wchar_t *Extract_Trailing_Name (WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Directory_Exists (const WideStringClass &path)
 {
@@ -609,11 +609,11 @@ bool Directory_Exists (const WideStringClass &path)
 	DWORD			errorcode;
 
 	if (CreateDirectory (multibytepath, NULL)) {
-		errorcode = 0; 
+		errorcode = 0;
 	} else {
 		errorcode = GetLastError();
 	}
-	
+
 	if (errorcode == 0) {
 		if (!RemoveDirectory (multibytepath)) FATAL_SYSTEM_ERROR;
 		return (false);
@@ -633,7 +633,7 @@ bool Directory_Exists (const WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Is_System_Directory (const WideStringClass &path)
 {
@@ -666,7 +666,7 @@ bool Is_System_Directory (const WideStringClass &path)
 	char				 multibytesystempath [_MAX_PATH];
 	WideStringClass systempath;
 	bool				 result;
-	HINSTANCE		 hinstLib; 
+	HINSTANCE		 hinstLib;
 
 	// Test for Windows directory.
 	if (!GetWindowsDirectory (multibytesystempath, _MAX_PATH)) FATAL_SYSTEM_ERROR;
@@ -680,8 +680,8 @@ bool Is_System_Directory (const WideStringClass &path)
 
    // Get a handle to the DLL module.
    result = false;
-	hinstLib = LoadLibrary ("shfolder.dll"); 
-	if (hinstLib != NULL) { 
+	hinstLib = LoadLibrary ("shfolder.dll");
+	if (hinstLib != NULL) {
 
 		HRESULT (__stdcall * PFNSHGETFOLDERPATHA)(HWND, int, HANDLE, DWORD, LPSTR);
 		PFNSHGETFOLDERPATHA = ( HRESULT ( __stdcall * )(HWND, int, HANDLE, DWORD, LPSTR)) GetProcAddress( hinstLib, "SHGetFolderPathA" );
@@ -690,7 +690,7 @@ bool Is_System_Directory (const WideStringClass &path)
 
 			HRESULT hr = 0;
 
-			for (int i = 0; i < sizeof (DirectoryTypes) / sizeof(int); i++) {			
+			for (int i = 0; i < sizeof (DirectoryTypes) / sizeof(int); i++) {
 
 				// Get each of the known directories above and compare to the desired directory.
 				hr = (*PFNSHGETFOLDERPATHA)( NULL, DirectoryTypes [i], NULL, 0, multibytesystempath);
@@ -705,9 +705,9 @@ bool Is_System_Directory (const WideStringClass &path)
     	}
 
 		// Free the DLL module.
-		FreeLibrary (hinstLib); 
+		FreeLibrary (hinstLib);
 	}
-	
+
 	return (result);
 }
 
@@ -722,7 +722,7 @@ bool Is_System_Directory (const WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void Get_Current_Directory (WideStringClass &path)
 {
@@ -743,7 +743,7 @@ void Get_Current_Directory (WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Generate_Temporary_Pathname (const WideStringClass &path, StringClass &multibytetemporarypathname)
 {
@@ -766,7 +766,7 @@ bool Generate_Temporary_Pathname (const WideStringClass &path, StringClass &mult
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void Message_Box (const WideStringClass &header, const WideStringClass &errormessage)
 {

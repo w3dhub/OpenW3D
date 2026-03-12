@@ -181,7 +181,7 @@ bool IMEManager::FinalizeCreate(HWND hwnd)
 
 	// Create new input context for the specified window.
 	mHIMC = ImmCreateContext();
-	
+
 	if (mHIMC == NULL)
 		{
 		return false;
@@ -664,7 +664,7 @@ LRESULT IMEManager::IMENotify(WPARAM wParam, LPARAM lParam)
 					{
 					WWDEBUG_SAY(("IMEManager: ConversionMode - "));
 
-					static struct convmodestruct {int flag; const char* ondesc; const char* offdesc;} _convModes[] = 
+					static struct convmodestruct {int flag; const char* ondesc; const char* offdesc;} _convModes[] =
 						{
 						{IME_CMODE_CHARCODE, "CharCode:On", "CharCode:Off"},
 						{IME_CMODE_EUDC, " EUDC:On", " EUDC:Off"},
@@ -724,7 +724,7 @@ LRESULT IMEManager::IMENotify(WPARAM wParam, LPARAM lParam)
 					{
 					WWDEBUG_SAY(("IMEManager: SentenceMode - "));
 
-					static struct smodestruct {int flag; const char* ondesc; const char* offdesc;} _sModes[] = 
+					static struct smodestruct {int flag; const char* ondesc; const char* offdesc;} _sModes[] =
 						{
 						{IME_SMODE_AUTOMATIC, "Automatic:On", "Automatic:Off"},
 						{IME_SMODE_NONE, " SentenceInfo:Off", " SentenceInfo:On"},
@@ -792,7 +792,7 @@ LRESULT IMEManager::IMENotify(WPARAM wParam, LPARAM lParam)
 		default:
 			break;
 		}
-	
+
 	return true;
 	}
 
@@ -1010,7 +1010,7 @@ void IMEManager::DoComposition(unsigned int /* dbcs */, int compFlags)
 
 #if(0)
 	#ifdef _DEBUG
-	static struct flagstruct {int flag; const char* desc;} _gcsFlags[] = 
+	static struct flagstruct {int flag; const char* desc;} _gcsFlags[] =
 		{
 		{GCS_COMPATTR, "GCS_COMPATTR"},
 		{GCS_COMPCLAUSE, " GCS_COMPCLAUSE"},
@@ -1093,12 +1093,12 @@ void IMEManager::DoComposition(unsigned int /* dbcs */, int compFlags)
 				int size = ReadReadingAttr(imc, attr, sizeof(attr));
 
 				WWDEBUG_SAY(("ReadAttr: "));
-				
+
 				for (int index = 0; index < size; ++index)
 					{
 					WWDEBUG_SAY(("%01x", (int)attr[index]));
 					}
-				
+
 				WWDEBUG_SAY(("\n"));
 				}
 #endif
@@ -1124,7 +1124,7 @@ void IMEManager::DoComposition(unsigned int /* dbcs */, int compFlags)
 					{
 					WWDEBUG_SAY(("%01x", (int)mCompositionAttr[index]));
 					}
-				
+
 				WWDEBUG_SAY(("\n"));
 #endif
 				}
@@ -1220,7 +1220,7 @@ bool IMEManager::ReadCompositionString(HIMC imc, unsigned int flag, unichar_t* b
 			buffer[0] = 0;
 			return false;
 			}
-		
+
 		// Terminate string
 		buffer[(size / sizeof(unichar_t))] = 0;
 		}
@@ -1279,7 +1279,7 @@ int IMEManager::ReadReadingAttr(HIMC imc, unsigned char* attr, int length)
 
 	// Terminate the string
 	string[size] = 0;
-		
+
 	LONG attrSize = ImmGetCompositionString(imc, GCS_COMPREADATTR, attr, length);
 	WWASSERT(size == attrSize);
 
@@ -1331,7 +1331,7 @@ int IMEManager::ReadReadingClause(HIMC imc, unsigned int* clause, int length)
 		{
 		return 0;
 		}
-	
+
 	return ConvertClauseForUnicode(string, size, clause);
 	}
 
@@ -1367,7 +1367,7 @@ int IMEManager::ReadCompositionAttr(HIMC imc, unsigned char* attr, int length)
 
 	// Terminate the string
 	string[size] = 0;
-		
+
 	LONG attrSize = ImmGetCompositionString(imc, GCS_COMPATTR, attr, length);
 	WWASSERT(size == attrSize);
 
@@ -1418,7 +1418,7 @@ int IMEManager::ReadCompositionClause(HIMC imc, unsigned int* clause, int length
 		{
 		return 0;
 		}
-	
+
 	return ConvertClauseForUnicode(string, size, clause);
 	}
 
@@ -1595,7 +1595,7 @@ void IMEManager::ChangeCandidate(unsigned int candList)
 		}
 	}
 
-	
+
 /******************************************************************************
 *
 * NAME

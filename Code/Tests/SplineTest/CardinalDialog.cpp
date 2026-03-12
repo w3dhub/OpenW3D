@@ -67,16 +67,16 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CCardinalDialog message handlers
 
-BOOL CCardinalDialog::OnInitDialog() 
+BOOL CCardinalDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	SetDlgItemFloat(IDC_TIGHTNESS_EDIT,Curve->Get_Tightness(Key));
-	
+
 	return true;
 }
 
-void CCardinalDialog::OnOK() 
+void CCardinalDialog::OnOK()
 {
 	Curve->Set_Tightness(Key,GetDlgItemFloat(IDC_TIGHTNESS_EDIT));
 	CDialog::OnOK();

@@ -1,4 +1,4 @@
-set(SCONTROL_SRC 
+set(SCONTROL_SRC
     servercontrol.cpp
     servercontrol.h
     servercontrolsocket.cpp

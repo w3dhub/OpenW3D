@@ -99,7 +99,7 @@ bool VisSampleClass::Sample_Rejected(void) const
 			return true;
 		}
 	}
-	return false;	
+	return false;
 }
 
 bool VisSampleClass::Sample_Useless(void) const
@@ -107,15 +107,15 @@ bool VisSampleClass::Sample_Useless(void) const
 #if 1
 	return Sample_Rejected();
 #else
-	// This returns true if this sample is useless, we 
+	// This returns true if this sample is useless, we
 	// obviously generated a point outside of where the player
-	// should be allowed to be.  
+	// should be allowed to be.
 	for (int i=0; i<VIS_DIRECTIONS; i++) {
 		if (BackfaceFraction[i] > 0.5f) {
 			return true;
 		}
 	}
-	return false;	
+	return false;
 #endif
 }
 
@@ -174,7 +174,7 @@ float VisSampleClass::Backface_Fraction(VisDirType direction_index) const
 	return BackfaceFraction[direction_index];
 }
 
-	
+
 void VisSampleClass::Set_Cur_Direction(VisDirType direction_index)
 {
 	WWASSERT(direction_index >= 0);
@@ -196,7 +196,7 @@ const char * VisSampleClass::Get_Cur_Direction_Name(void) const
 	WWASSERT(CurDirection >= 0);
 	WWASSERT(CurDirection < VIS_DIRECTIONS);
 
-	static const char * _direction_names[] = 
+	static const char * _direction_names[] =
 	{
 		"F","L","B","R","U","D"
 	};
@@ -246,7 +246,7 @@ bool VisSampleClass::Save(ChunkSaveClass &chunk_save) const
 	info.transform				= ViewTransform;
 	info.direction_bits		= DirectionBits;
 	info.current_direction	= CurDirection;
-	
+
 	for (int index = 0; index < VIS_DIRECTIONS; index ++) {
 		info.status[index]				= Status[index];
 		info.backface_fraction[index]	= BackfaceFraction[index];
@@ -268,16 +268,16 @@ bool VisSampleClass::Load(ChunkLoadClass &chunk_load)
 	//
 	PERSISTENT_VIS_SAMPLE_INFO info;
 	retval = (chunk_load.Read (&info, sizeof (info)) == sizeof (info));
-	
+
 	if (retval) {
-		
+
 		//
 		//	Copy the sample information into the object
 		//
 		ViewTransform	= info.transform;
 		DirectionBits	= info.direction_bits;
 		CurDirection	= info.current_direction;
-		
+
 		for (int index = 0; index < VIS_DIRECTIONS; index ++) {
 			Status[index]				= info.status[index];
 			BackfaceFraction[index] = info.backface_fraction[index];

@@ -53,7 +53,7 @@ BOOL CALLBACK Patch_Window_Proc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lPar
       bmpLoader.init("launcher.bmp",GetDlgItem(hwnd,IDC_SPLASH));
       return(true);   // True means windows handles focus issues
     break;
-    
+
 		case WM_PAINT:
       bmpLoader.drawBmp();
 			ValidateRect(hwnd, NULL);

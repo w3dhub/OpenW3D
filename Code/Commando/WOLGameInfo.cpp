@@ -165,10 +165,10 @@ void WOLGameInfo::Reset(void)
 	mMinPlayers = 0;
 	mMaxPlayers = 0;
 	mNumPlayers = 0;
-		
+
 	mClanID1 = 0;
 	mClanID2 = 0;
-		
+
 	mIsMod = false;
 	mIsLaddered = false;
 	mIsPassworded = false;
@@ -182,7 +182,7 @@ void WOLGameInfo::Reset(void)
 	mIsRepairBuildings = false;
 	mIsDriverGunner = false;
 	mSpawnWeapons = false;
-		
+
 	mPingTime = -1;
 	}
 
@@ -215,7 +215,7 @@ void WOLGameInfo::ImportFromGame(const cGameData& theGame)
 
 	strncpy(mMapName, theGame.Get_Map_Name(), MAX_TEXT_LENGTH);
 	mMapName[MAX_TEXT_LENGTH - 1] = 0;
-	
+
 	strncpy(mModName, theGame.Get_Mod_Name(), MAX_TEXT_LENGTH);
 	mModName[MAX_TEXT_LENGTH - 1] = 0;
 
@@ -277,13 +277,13 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 		mIsDataValid = false;
 		return;
 		}
-					
+
 	//ST - Test code
 	//if (channel->GetName() != WideStringClass(U_CHAR("ladtest07"))) {
 	//	mIsDataValid = false;
 	//	return;
 	//}
-		
+
 
 	const char* exInfo = channel->GetExtraInfo();
 
@@ -346,7 +346,7 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 	mSpawnWeapons      = ((gameFlags2 & 0x04) == 0x04);
 	mIsRepairBuildings = ((gameFlags2 & 0x02) == 0x02);
 	mIsDriverGunner    = ((gameFlags2 & 0x01) == 0x01);
-	
+
 	// Find the mod and map names from their CRC
 	StringClass mapName(0, true);
 	mapName = "<Unknown>";
@@ -531,7 +531,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 		// entries MUST NEVER exceed 80 bytes.
 		char topic[81];
 		sprintf(topic, "%c%.32s", encodedTitleLength, mTitle);
-		
+
 		//
 		// Only using 61 max right now. Room for a map name maybe? ST - 10/31/2002 2:55PM
 		//

@@ -161,7 +161,7 @@ HistogramCtlClass::Set_Dimensions (int width, int height)
 {
 	if ((m_BMPWidth != width) ||
 		 (m_BMPHeight != height)) {
-		
+
 		//
 		//	Recreate the BMP we use
 		//
@@ -206,7 +206,7 @@ HistogramCtlClass::Paint_DIB (void)
 		float red_inc		= (m_BkLowColor.X - m_BkHighColor.X) / (float)m_BMPHeight;
 		float green_inc	= (m_BkLowColor.Y - m_BkHighColor.Y) / (float)m_BMPHeight;
 		float blue_inc		= (m_BkLowColor.Z - m_BkHighColor.Z) / (float)m_BMPHeight;
-		
+
 		//
 		//	Loop through all the pixels and set their background color.
 		//
@@ -234,7 +234,7 @@ HistogramCtlClass::Paint_DIB (void)
 			green	+= green_inc;
 			blue	+= blue_inc;
 			bmp_index += row_offset;
-		}		
+		}
 	}
 
 	//
@@ -246,7 +246,7 @@ HistogramCtlClass::Paint_DIB (void)
 
 		int * x_vector		= new int [m_BMPWidth];
 		::memset (x_vector, 0, sizeof (int) * m_BMPWidth);
-		
+
 		//
 		//	Loop through all the values and combine pixel-duplicates
 		//
@@ -285,7 +285,7 @@ HistogramCtlClass::Paint_DIB (void)
 				//
 				int bmp_index = (y_pos * m_ScanlineSize) + (x_pos * 3);
 				for (int pixel = y_pos; pixel < m_BMPHeight; pixel ++) {
-					
+
 					//
 					//	Plot the pixel in the BMP (note, the bits are orgainzed
 					//	in an BGR format).
@@ -317,7 +317,7 @@ HistogramCtlClass::Paint_DIB (void)
 		delete [] x_vector;
 		Set_Dirty (false);
 	}
-	
+
 	return ;
 }
 
@@ -371,7 +371,7 @@ HistogramCtlClass::Add_Data_Point (float value)
 	//
 	bool found = false;
 	while ((end > start) && !found) {
-		
+
 		int index = start + ((end - start) >> 1);
 		VALUE &curr_point = m_ValueList[index];
 		if (index == start) {
@@ -427,7 +427,7 @@ HistogramCtlClass::Find_Value_Index (float value)
 			if (end == index) { index --; break; }
 			end = index;
 		} else {
-			
+
 			while ((curr_value == value) && (index > 0)) {
 				curr_value = m_ValueList[--index].value;
 			}
@@ -455,13 +455,13 @@ HistogramCtlClass::Find_Value_Index (float value)
 	/*int start	= 0;
 	int end		= m_ValueList.Count () - 1;
 	while ((end > start) && (retval == -1)) {
-		
+
 		int index = start + ((end - start) >> 1);
 		VALUE &curr_point = m_ValueList[index];
 		if (index == start) {
 			retval = (value > curr_point.value) ? end : start;
 			break;
-		} else if (value > curr_point.value) {			
+		} else if (value > curr_point.value) {
 			start = index;
 		} else if (value < curr_point.value) {
 			end = index;

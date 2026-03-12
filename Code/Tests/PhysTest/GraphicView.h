@@ -63,7 +63,7 @@ public:
 
 // Implementation
 public:
-	
+
 	enum {
 		CAMERA_FLY			= 0,
 		CAMERA_FOLLOW,
@@ -81,7 +81,7 @@ public:
 	bool			Is_Simulation_Enabled(void)					{ return RunSimulation; }
 	void			Enable_Simulation(bool onoff)					{ RunSimulation = onoff; }
 	bool			Is_Collision_Box_Display_Enabled(void);
-	void			Enable_Collision_Box_Display(bool onoff); 
+	void			Enable_Collision_Box_Display(bool onoff);
 
 	void			Set_Camera_Mode(int mode)						{ CameraMode = mode; }
 	int			Get_Camera_Mode(void)							{ return CameraMode; }

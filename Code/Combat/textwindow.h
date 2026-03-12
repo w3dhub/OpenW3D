@@ -66,7 +66,7 @@ class SceneClass;
 class TextWindowClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ public:
 	//
 	void				Set_Backdrop (const char *texture_name, const RectClass &screen_rect, const Vector2 &texture_size, const RectClass &endcap_rect, const RectClass &fadeout_rect, const RectClass &textback_rect);
 	void				Set_Text_Area (const RectClass &rect)	{ TextRect = rect; }
-	
+
 	//
 	//	Font control
 	//
@@ -107,7 +107,7 @@ public:
 	//
 	//	Content control
 	//
-	int				Insert_Item (int index, const unichar_t *text);	
+	int				Insert_Item (int index, const unichar_t *text);
 	bool				Set_Item_Text (int index, int col_index, const unichar_t *text);
 	bool				Set_Item_Color (int index, int col_index, const Vector3 &color);
 	bool				Set_Item_Data (int index, uintptr_t user_data);
@@ -130,7 +130,7 @@ public:
 	void				Display (bool onoff);
 	int				Get_Display_Count (void);
 	float				Get_Total_Display_Height (void);
-	
+
 	//
 	//	Rendering methods
 	//
@@ -171,13 +171,13 @@ private:
 
 	bool							IsViewDirty;
 	bool							IsWindowDirty;
-	
+
 	COLUMN_LIST					Columns;
 	Render2DSentenceClass *	TextRenderers[2];
 
 	Render2DClass				Backdrop;
 	RectClass					TextRect;
-	
+
 	float							ColumnHeight;
 	float							LineSpacing;
 
@@ -194,7 +194,7 @@ private:
 class TextItemClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -213,7 +213,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Name access
 	//
@@ -251,7 +251,7 @@ private:
 class TextColumnClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -263,7 +263,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Name access
 	//
@@ -289,10 +289,10 @@ public:
 	int					Get_Item_Count (void) const								{ return Items.Count (); }
 	bool					Delete_Item (int index);
 	void					Delete_All_Items (void);
-	
+
 	void					Set_Item_Text (int index, const unichar_t *text)			{ Items[index]->Set_Name (text); }
-	const unichar_t *		Get_Item_Text (int index) const							{ return Items[index]->Get_Name (); }	
-	
+	const unichar_t *		Get_Item_Text (int index) const							{ return Items[index]->Get_Name (); }
+
 	void					Set_Item_Color (int index, const Vector3 &color)	{ Items[index]->Set_Color (color); }
 	const Vector3 &	Get_Item_Color (int index) const							{ return Items[index]->Get_Color (); }
 

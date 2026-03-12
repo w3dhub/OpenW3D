@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/Translator.cpp $*		
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 12/13/01 5:31p                $* 
- *                                                                                             * 
- *                    $Revision:: 5                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/Translator.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 12/13/01 5:31p                $*
+ *                                                                                             *
+ *                    $Revision:: 5                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -44,7 +44,7 @@
 // Defines.
 #define RESOURCE_NOT_FOUND_STRING		 "[Resource %d not found]"
 #define WIDE_RESOURCE_NOT_FOUND_STRING L"[Resource %d not found]"
-	
+
 
 /***********************************************************************************************
  * RxStringClass::RxStringClass --																				  *
@@ -56,7 +56,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 RxStringClass::RxStringClass (int resourceid)
 	: StringClass()
@@ -83,7 +83,7 @@ RxStringClass::RxStringClass (int resourceid)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 RxWideStringClass::RxWideStringClass (int resourceid)
 	: WideStringClass()
@@ -110,7 +110,7 @@ RxWideStringClass::RxWideStringClass (int resourceid)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 TxWideStringClass::TxWideStringClass (int databaseid, int resourceid)
 	: WideStringClass()
@@ -128,9 +128,9 @@ TxWideStringClass::TxWideStringClass (int databaseid, int resourceid)
 				*((WideStringClass*) this) = TRANSLATE (databaseid);
 				break;
 		}
-	
+
 	} else {
-	
+
 		if (resourceid != -1) {
 
 			StringClass multibytestring;

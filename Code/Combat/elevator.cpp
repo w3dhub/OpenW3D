@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/elevator.cpp                          $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 9/13/01 12:03p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 25                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/elevator.cpp                          $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 9/13/01 12:03p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 25                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "elevator.h"
@@ -60,7 +60,7 @@ DECLARE_FORCE_LINK( elevatorphys );
 enum
 {
 	EFFECT_DOOR_OPENING,
-	EFFECT_DOOR_CLOSING,	
+	EFFECT_DOOR_CLOSING,
 	EFFECT_DOOR_UNLOCKED,
 	EFFECT_ACCESS_DENIED,
 	EFFECT_ELEVATOR_MOVING,
@@ -75,7 +75,7 @@ SimplePersistFactoryClass<ElevatorPhysDefClass, PHYSICS_CHUNKID_ELEVATORPHYSDEF>
 
 DECLARE_DEFINITION_FACTORY(ElevatorPhysDefClass, CLASSID_ELEVATORPHYSDEF, "ElevatorPhys") _ElevatorPhysDefDefFactory;
 
-ElevatorPhysDefClass::ElevatorPhysDefClass( void ) : 
+ElevatorPhysDefClass::ElevatorPhysDefClass( void ) :
 	AccessiblePhysDefClass(),
 	CloseDelay( 2 ),
 	/*LowerCallZone( Vector3( 0,0,0), Vector3( 1,1,1 ) ),
@@ -108,18 +108,18 @@ ElevatorPhysDefClass::ElevatorPhysDefClass( void ) :
 	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_FLOAT,					DoorOpeningBottom_FrameNum );
 	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_FLOAT,					ElevatorStartTop_FrameNum );
 	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_FLOAT,					ElevatorStoppedBottom_FrameNum );
-	
+
 	PARAM_SEPARATOR(ElevatorPhysDefClass, "Sounds");
-	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_SOUNDDEFINITIONID,	DoorOpenSoundDefID );	
+	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_SOUNDDEFINITIONID,	DoorOpenSoundDefID );
 	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_SOUNDDEFINITIONID,	DoorCloseSoundDefID );
 	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_SOUNDDEFINITIONID,	DoorUnlockSoundDefID );
 	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_SOUNDDEFINITIONID,	DoorAccessDeniedSoundDefID );
 	EDITABLE_PARAM(ElevatorPhysDefClass, ParameterClass::TYPE_SOUNDDEFINITIONID,	ElevatorMovingSoundDefID );
 }
 
-uint32	ElevatorPhysDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_ELEVATORPHYSDEF; 
+uint32	ElevatorPhysDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_ELEVATORPHYSDEF;
 }
 
 bool ElevatorPhysDefClass::Is_Type(const char * type_name)
@@ -131,7 +131,7 @@ bool ElevatorPhysDefClass::Is_Type(const char * type_name)
 	}
 }
 
-PersistClass *	ElevatorPhysDefClass::Create( void ) const 
+PersistClass *	ElevatorPhysDefClass::Create( void ) const
 {
 	ElevatorPhysClass * elevator = new ElevatorPhysClass;
 	elevator->Init( *this );
@@ -201,7 +201,7 @@ bool	ElevatorPhysDefClass::Load( ChunkLoadClass &cload )
 			case CHUNKID_DEF_PARENT:
 				AccessiblePhysDefClass::Load( cload );
 				break;
-  
+
 			case CHUNKID_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -240,9 +240,9 @@ bool	ElevatorPhysDefClass::Load( ChunkLoadClass &cload )
 	return true;
 }
 
-const PersistFactoryClass & ElevatorPhysDefClass::Get_Factory (void) const 
-{ 
-	return _ElevatorPhysDefPersistFactory; 
+const PersistFactoryClass & ElevatorPhysDefClass::Get_Factory (void) const
+{
+	return _ElevatorPhysDefPersistFactory;
 }
 
 /*
@@ -250,7 +250,7 @@ const PersistFactoryClass & ElevatorPhysDefClass::Get_Factory (void) const
 */
 SimplePersistFactoryClass<ElevatorPhysClass, PHYSICS_CHUNKID_ELEVATORPHYS>	_ElevatorPhysPersistFactory;
 
-const PersistFactoryClass & ElevatorPhysClass::Get_Factory (void) const 
+const PersistFactoryClass & ElevatorPhysClass::Get_Factory (void) const
 {
 	return _ElevatorPhysPersistFactory;
 }
@@ -440,13 +440,13 @@ void	ElevatorPhysClass::Timestep( float dt )
 
 		PhysicsSceneClass::Get_Instance ()->Add_Debug_OBBox (world_box, Vector3 (1, 0, 0));
 	}*/
-	
+
 
 	{
 		WWPROFILE("ElevatorPhys::Timestep");
 		// Delayed Open/close
 		if ( AnimManager.Peek_Animation() != NULL ) {
-			
+
 			//
 			//	Make sure the door sounds play at the appropriate times
 			//
@@ -462,7 +462,7 @@ void	ElevatorPhysClass::Timestep( float dt )
 			CheckTimer -= dt;
 			if ( CheckTimer <= 0 ) {
 				CheckTimer = 0.5F;
-				Update_State();				
+				Update_State();
 			}
 		}
 	}
@@ -473,7 +473,7 @@ void	ElevatorPhysClass::Timestep( float dt )
 void	ElevatorPhysClass::Set_Door_State( int new_state, int door_id  )
 {
 	if ( new_state != DoorStates[door_id] ) {
-		
+
 		switch ( new_state )
 		{
 			case DOOR_STATE_NORMAL:
@@ -487,7 +487,7 @@ void	ElevatorPhysClass::Set_Door_State( int new_state, int door_id  )
 				Play_Effect( EFFECT_ACCESS_DENIED, door_id == TOP );
 				break;
 		}
-		
+
 		DoorStates[door_id] = new_state;
 	}
 
@@ -497,7 +497,7 @@ void	ElevatorPhysClass::Set_Door_State( int new_state, int door_id  )
 void	ElevatorPhysClass::Set_State( int new_state )
 {
 	if ( new_state != State ) {
-		
+
 		switch ( new_state )
 		{
 			case STATE_DOWN:
@@ -520,7 +520,7 @@ void	ElevatorPhysClass::Set_State( int new_state )
 				AnimManager.Set_Target_Frame( AnimManager.Peek_Animation()->Get_Num_Frames() - 1 );
 				break;
 		}
-		
+
 		State = new_state;
 	}
 
@@ -545,7 +545,7 @@ void	ElevatorPhysClass::Update_State(void)
 
 		case STATE_UP:
 			if ( CombatManager::I_Am_Server() ) {
-								
+
 				if ( IsCallTimerSet && CallTimer <= 0 ) {
 					IsCallTimerSet = false;
 
@@ -558,7 +558,7 @@ void	ElevatorPhysClass::Update_State(void)
 
 					bool in_call	= Triggered( ZONE_LOWER_CALL );
 					bool in_inside	= Triggered( ZONE_UPPER_INSIDE );
-					
+
 					if ( in_call && !in_inside ) {
 						IsCallTimerSet	= true;
 						CallTimer		= 1.0F;
@@ -572,17 +572,17 @@ void	ElevatorPhysClass::Update_State(void)
 
 		case STATE_DOWN:
 			if ( CombatManager::I_Am_Server() ) {
-				
+
 				if ( IsCallTimerSet && CallTimer <= 0 ) {
 					IsCallTimerSet = false;
 
 					if ( Triggered( ZONE_LOWER_INSIDE ) || Triggered( ZONE_UPPER_CALL ) ) {
-						Set_State( STATE_MOVING_UP );	
+						Set_State( STATE_MOVING_UP );
 						TriggerRequest = 0;
 					}
 
 				} else if ( IsCallTimerSet == false ) {
-					
+
 					bool in_call	= Triggered( ZONE_UPPER_CALL );
 					bool in_inside	= Triggered( ZONE_LOWER_INSIDE );
 
@@ -612,7 +612,7 @@ inline bool Is_Call_Zone ( int zone_id )
 }
 
 bool	ElevatorPhysClass::Triggered( int zone_id )
-{	
+{
 	const ElevatorPhysDefClass *def = Get_ElevatorPhysDef();
 
 	OBBoxClass world_box;
@@ -659,7 +659,7 @@ bool	ElevatorPhysClass::Triggered( int zone_id )
 					bool open_door = true;
 					if ( is_call ) {
 						if ( soldier->Has_Key( Get_ElevatorPhysDef()->LockCode ) ) {
-							
+
 							//
 							//	The player just unlocked this door...
 							//
@@ -680,7 +680,7 @@ bool	ElevatorPhysClass::Triggered( int zone_id )
 					}
 
 				} else {
-					
+
 					//
 					//	Reset the state of the door to 'normal'
 					//
@@ -737,7 +737,7 @@ void	ElevatorPhysClass::Update_Sound_Effects( void )
 		} else if ( Has_Frame_Occured( prev_frame, curr_frame, def->DoorOpeningBottom_FrameNum ) ) {
 			Play_Effect( EFFECT_DOOR_OPENING,  false );
 		}
-		
+
 		//
 		//	Check to see if we should start or stop the elevator moving sound
 		//
@@ -746,7 +746,7 @@ void	ElevatorPhysClass::Update_Sound_Effects( void )
 		} else if ( Has_Frame_Occured( prev_frame, curr_frame, def->ElevatorStoppedBottom_FrameNum ) ) {
 			Play_Effect( EFFECT_ELEVATOR_STOPPED_MOVING,  false );
 		}
-		
+
 	} else if ( State == STATE_MOVING_UP ) {
 
 		//
@@ -757,7 +757,7 @@ void	ElevatorPhysClass::Update_Sound_Effects( void )
 		} else if ( Has_Frame_Occured( prev_frame, curr_frame, def->DoorClosedTop_FrameNum ) ) {
 			Play_Effect( EFFECT_DOOR_OPENING,  true );
 		}
-		
+
 		//
 		//	Check to see if we should start or stop the elevator moving sound
 		//
@@ -767,7 +767,7 @@ void	ElevatorPhysClass::Update_Sound_Effects( void )
 			Play_Effect( EFFECT_ELEVATOR_STOPPED_MOVING, true );
 		}
 	}
-	
+
 	PrevFrame = curr_frame;
 	return ;
 }
@@ -817,7 +817,7 @@ void	ElevatorPhysClass::Play_Effect( int effect_id, bool is_top )
 
 				RenderObjClass *model = Peek_Model ();
 				if (model != NULL) {
-				
+
 					//
 					//	Lookup the bone we need to attach this sound to
 					//
@@ -929,7 +929,7 @@ bool ElevatorPhysClass::Can_Object_Enter (SmartGameObj *game_obj)
 	} else if( CollisionMath::Intersection_Test( top_box, obj_box ) ) {
 		retval = (State == STATE_UP);
 	}
-	
+
 	return retval;
 }
 
@@ -964,12 +964,12 @@ void ElevatorPhysClass::Request_Elevator (SmartGameObj *game_obj)
 	//	Get the bottom and top call zones
 	//
 	const ElevatorPhysDefClass *def = Get_ElevatorPhysDef();
-	
+
 	//
 	//	See what trigger zone the object is in...
 	//
 	for ( int index = 0; index < ZONE_MAX; index ++) {
-		
+
 		//
 		//	Transform the trigger zone into world space
 		//
@@ -983,7 +983,7 @@ void ElevatorPhysClass::Request_Elevator (SmartGameObj *game_obj)
 			TriggerRequest |= (1 << index);
 		}
 	}
-	
+
 	return ;
 }
 

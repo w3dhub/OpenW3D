@@ -21,7 +21,7 @@
 // Project:      wwutil
 // Author:       Tom Spencer-Smith
 // Date:         June 1998
-// Description:  
+// Description:
 //
 //-----------------------------------------------------------------------------
 #include "mathutil.h" // I WANNA BE FIRST!
@@ -64,7 +64,7 @@ void cMathUtil::Angle_To_Vector(double angle, double & dx, double & dy)
 	}
 
    double len;
-	len = ::sqrt(dx * dx + dy * dy); 
+	len = ::sqrt(dx * dx + dy * dy);
    WWASSERT(::fabs(len - 1) < 0.0005);
 
 	//
@@ -150,7 +150,7 @@ double cMathUtil::Get_Uniform_Pdf_Double(double lower, double upper)
    double x = lower + ::rand() / (double) RAND_MAX * (upper - lower);
 
    WWASSERT(x - lower > -MISCUTIL_EPSILON && upper - x > -MISCUTIL_EPSILON);
-   
+
    return x;
 }
 
@@ -167,7 +167,7 @@ int cMathUtil::Get_Uniform_Pdf_Int(int lower, int upper)
    int x = lower + ::rand() % (upper - lower + 1);
 
    WWASSERT(x >= lower && upper >= x);
-   
+
    return x;
 }
 
@@ -177,7 +177,7 @@ double cMathUtil::Get_Hat_Pdf_Double(double lower, double upper)
    WWASSERT(upper - lower > -MISCUTIL_EPSILON);
 
    double x;
-   
+
    if (::fabs(upper - lower) < MISCUTIL_EPSILON) {
       x = lower;
    } else {
@@ -186,7 +186,7 @@ double cMathUtil::Get_Hat_Pdf_Double(double lower, double upper)
       double dy = 1 / dx;
       double m = dy / dx;
       double c = -m * lower;
-   
+
       x = Get_Uniform_Pdf_Double(lower, lower + dx);
       double y = Get_Uniform_Pdf_Double(0, dy);
 

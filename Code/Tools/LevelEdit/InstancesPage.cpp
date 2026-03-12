@@ -196,8 +196,8 @@ InstancesPageClass::OnSize
 	UINT	nType,
 	int	cx,
 	int	cy
-) 
-{	
+)
+{
 	// Allow the base class to process this message
 	CDialog::OnSize (nType, cx, cy);
 
@@ -206,7 +206,7 @@ InstancesPageClass::OnSize
 		// Get the bounding rectangle of the form window
 		CRect parentrect;
 		GetWindowRect (&parentrect);
-		
+
 		// Get the bounding rectangle of the toolbar
 		CRect toolbar_rect;
 		m_Toolbar.GetWindowRect (&toolbar_rect);
@@ -223,7 +223,7 @@ InstancesPageClass::OnSize
 		// Get the bounding rectnagle of the list ctrl
 		RECT list_rect;
 		m_ListCtrl.GetWindowRect (&list_rect);
-				
+
 		CRect client_rect = list_rect;
 		ScreenToClient (&client_rect);
 		int list_height = ((cy - TOOLBAR_V_BORDER) - toolbar_rect.Height ()) - client_rect.top;
@@ -234,10 +234,10 @@ InstancesPageClass::OnSize
 											0,
 											cx-((list_rect.left - parentrect.left) << 1),
 											list_height,
-											SWP_NOZORDER | SWP_NOMOVE);	
+											SWP_NOZORDER | SWP_NOMOVE);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -247,7 +247,7 @@ InstancesPageClass::OnSize
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-InstancesPageClass::OnDestroy (void) 
+InstancesPageClass::OnDestroy (void)
 {
 	//
 	// Free the state image list we associated with the control
@@ -266,7 +266,7 @@ InstancesPageClass::OnDestroy (void)
 	::RemoveProp (m_hWnd, "TRANS_ACCS");
 
 	CDialog::OnDestroy ();
-	return ;	
+	return ;
 }
 
 
@@ -346,7 +346,7 @@ InstancesPageClass::OnShowAll (void)
 	//
 	// Make sure the main view is updated
 	//
-	::Refresh_Main_View ();	
+	::Refresh_Main_View ();
 	return ;
 }
 
@@ -367,7 +367,7 @@ InstancesPageClass::WindowProc
 	//
 	// Is this the message we are expecting?
 	//
-	if (message == WM_USER+102) {			
+	if (message == WM_USER+102) {
 		int index = (int)lParam;
 
 		//
@@ -404,9 +404,9 @@ CheckBoxSubclassProc
 )
 {
 	WNDPROC pold_proc = (WNDPROC)::GetProp (hwnd, "OLDPROC");
-	
+
 	if (message == WM_LBUTTONUP) {
-		
+
 		//
 		//	Find out where the user clicked
 		//
@@ -414,7 +414,7 @@ CheckBoxSubclassProc
 		hittest.pt.x = LOWORD (lparam);
 		hittest.pt.y = HIWORD (lparam);
 		::SendMessage (hwnd, LVM_HITTEST, 0, (LPARAM)&hittest);
-		
+
 		//
 		//	Did the user click one of the checkboxes?
 		//
@@ -435,7 +435,7 @@ CheckBoxSubclassProc
 		return ::CallWindowProc (pold_proc, hwnd, message, wparam, lparam);
 	} else {
 		return ::DefWindowProc (hwnd, message, wparam, lparam);
-	}			
+	}
 }
 
 
@@ -449,7 +449,7 @@ InstancesPageClass::OnDblclkInstanceList
 (
 	NMHDR *	/* pNMHDR */,
 	LRESULT* pResult
-) 
+)
 {
 	// Determine what client-coord location was double-clicked on
 	DWORD mouse_pos = ::GetMessagePos ();
@@ -460,17 +460,17 @@ InstancesPageClass::OnDblclkInstanceList
 	UINT flags = 0;
 	int index = m_ListCtrl.HitTest (hit_point, &flags);
 	if ((index >= 0) && ((flags & LVHT_ONITEMLABEL) || (flags & LVHT_ONITEMICON))) {
-		
-		ITEM_DATA *item_data = (ITEM_DATA *)m_ListCtrl.GetItemData (index);		
+
+		ITEM_DATA *item_data = (ITEM_DATA *)m_ListCtrl.GetItemData (index);
 		if (item_data != NULL) {
 
-			
+
 			if (item_data->type == TYPE_NAVIGATOR) {
-				
+
 				//
 				//	Determine which class id we should display
 				//
-				int class_id = 0;				
+				int class_id = 0;
 				if (m_ClassIDStack.Count () > 0) {
 					class_id = m_ClassIDStack[m_ClassIDStack.Count ()-1];
 					m_ClassIDStack.Delete (m_ClassIDStack.Count ()-1);
@@ -479,17 +479,17 @@ InstancesPageClass::OnDblclkInstanceList
 				Populate_List (class_id);
 
 			} else if (item_data->type == TYPE_FACTORY) {
-				
+
 				//
 				//	Fill the list with children of the given class id
 				//
 				m_ClassIDStack.Add (m_ClassID);
 				Populate_List (item_data->class_id);
 			} else {
-				
+
 				NodeClass *node = Get_Item_Node (index);
 				if (node != NULL) {
-					
+
 					//
 					//	If this node is a terrain, then display the subojects,
 					// otherwise snap the camera to the node
@@ -502,9 +502,9 @@ InstancesPageClass::OnDblclkInstanceList
 					}
 				}
 			}
-		}		
+		}
 	}
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -533,7 +533,7 @@ InstancesPageClass::OnSelect (void)
 			::Get_Scene_Editor ()->Toggle_Selection (node);
 		}
 	}
-	
+
 	::Refresh_Main_View ();
 	return ;
 }
@@ -545,12 +545,12 @@ InstancesPageClass::OnSelect (void)
 //
 ////////////////////////////////////////////////////////////////////////////
 void
-InstancesPageClass::OnDelete (void) 
+InstancesPageClass::OnDelete (void)
 {
 	CString message = "Are you sure you wish to delete the selected node(s)?";
 	CString title;
 	title.LoadString (IDS_DELETE_CONFIRM_TITLE);
-	
+
 	//
 	// Ask the user if they really want to delete the selected item
 	//
@@ -574,10 +574,10 @@ InstancesPageClass::OnDelete (void)
 		for (index = 0; index < delete_list.Count (); index ++) {
 			::Get_Scene_Editor ()->Delete_Node (delete_list[index]);
 		}
-		
+
 		::Refresh_Main_View ();
 	}
-	
+
 	return ;
 }
 
@@ -602,7 +602,7 @@ InstancesPageClass::OnInitDialog (void)
 	//
 	CRect parentrect;
 	GetWindowRect (&parentrect);
-	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);	
+	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);
 	m_Toolbar.Enable_Button (IDC_DELETE, false);
 	m_Toolbar.Enable_Button (IDC_SELECT, false);
 	m_Toolbar.Enable_Button (IDC_EDIT, false);
@@ -618,7 +618,7 @@ InstancesPageClass::OnInitDialog (void)
 	CImageList *imagelist = new CImageList;
 	imagelist->Create (MAKEINTRESOURCE (IDB_CHECKBOX_STATES1), 13, 0, RGB (255, 0, 255));
 	m_ListCtrl.SetImageList (imagelist, LVSIL_STATE);
-	
+
 	//
 	//	Setup the columns of the list control
 	//
@@ -686,8 +686,8 @@ InstancesPageClass::Insert_Factory (LPCTSTR name, int class_id)
 		m_ListCtrl.SetItemData (index, (DWORD_PTR)item_data);
 		m_ListCtrl.SetCheck (index, true);
 	}
-	
-	return ;	
+
+	return ;
 }
 
 
@@ -709,7 +709,7 @@ InstancesPageClass::Insert_Node (NodeClass *node)
 		//	Set the text and the icon for this entry
 		//
 		//m_ListCtrl.SetItem (index, COLUMN_NAME, LVIF_TEXT | LVIF_IMAGE, node->Get_Name (), node->Get_Icon_Index (), 0, 0, 0);
-		
+
 		//
 		//	Allocate a new wrapper if we need to
 		//
@@ -730,7 +730,7 @@ InstancesPageClass::Insert_Node (NodeClass *node)
 		ListView_SetCheckState (m_ListCtrl, index, (node->Is_Hidden () == false));
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -752,7 +752,7 @@ InstancesPageClass::Insert_Navigator (void)
 		//	Set the text and the icon for this entry
 		//
 		//m_ListCtrl.SetItem (index, COLUMN_NAME, LVIF_TEXT | LVIF_IMAGE, "..", NAVIGATOR_ICON, 0, 0, 0);
-		
+
 		//
 		//	Allocate a new wrapper if we need to
 		//
@@ -771,7 +771,7 @@ InstancesPageClass::Insert_Navigator (void)
 		m_ListCtrl.SetItemData (index, (DWORD_PTR)item_data);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -800,7 +800,7 @@ InstancesPageClass::Add_Node (NodeClass *node)
 				Insert_Node (node);
 				m_ListCtrl.SortItems (InstancesListSortCallback, 0L);
 				m_ListCtrl.SetRedraw (true);
-			}			
+			}
 		}
 	}
 
@@ -824,7 +824,7 @@ InstancesPageClass::Remove_Node (NodeClass *node)
 	//
 	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
 		NodeClass *curr_node = Get_Item_Node (index);
-		
+
 		//
 		//	If this is the node we are looking for, then remove it from
 		// the view.
@@ -878,7 +878,7 @@ InstancesPageClass::Set_Node_Check
 	// First off, show/hide the node
 	/*NodeClass *node = Get_Item_Node (index);
 	if (node != NULL) {
-		node->Hide (!onoff);	
+		node->Hide (!onoff);
 	}*/
 
 	// Update the UI for this node
@@ -913,13 +913,13 @@ InstancesPageClass::Populate_List (uint32 class_id)
 	m_ListCtrl.DeleteAllItems ();
 
 	if (class_id == 0) {
-	
+
 		//
 		//	Add all the node categories to the list control
 		//
 		for (int index = 0; index < PRESET_CATEGORY_COUNT; index ++) {
 			Insert_Factory (PRESET_CATEGORIES[index].name, PRESET_CATEGORIES[index].clsid);
-		}		
+		}
 
 	} else {
 		Insert_Navigator ();
@@ -964,7 +964,7 @@ InstancesPageClass::Populate_List (uint32 class_id)
 	//	Save this class ID for later
 	//
 	m_ClassID = class_id;
-	
+
 	//
 	//	Make sure the toolbar is up to date
 	//
@@ -994,10 +994,10 @@ InstancesPageClass::Populate_List (NodeClass *node)
 		for (int index = 0; index < node->Get_Sub_Node_Count (); index ++) {
 			NodeClass *sub_node = node->Get_Sub_Node (index);
 			if (sub_node != NULL) {
-				
+
 				//
 				//	Add this node to the list control
-				//			
+				//
 				Insert_Node (sub_node);
 			}
 		}
@@ -1029,7 +1029,7 @@ InstancesPageClass::OnDeleteitemInstanceList
 (
 	NMHDR *		pNMHDR,
 	LRESULT *	pResult
-) 
+)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 	(*pResult) = 0;
@@ -1040,7 +1040,7 @@ InstancesPageClass::OnDeleteitemInstanceList
 
 	// Free the item data structure associated with this entry
 	ITEM_DATA *item_data = (ITEM_DATA *)m_ListCtrl.GetItemData (pNMListView->iItem);
-	SAFE_DELETE (item_data);	
+	SAFE_DELETE (item_data);
 	m_ListCtrl.SetItemData (pNMListView->iItem, 0L);
 	return ;
 }
@@ -1064,12 +1064,12 @@ InstancesListSortCallback
 	ITEM_DATA *item_data1 = (ITEM_DATA *)lParam1;
 	ITEM_DATA *item_data2 = (ITEM_DATA *)lParam2;
 	if (item_data1 != NULL && item_data2 != NULL) {
-		
+
 		//
 		//	Do the types match?
 		//
 		if (item_data1->type == item_data2->type) {
-			
+
 			//
 			//	Do a simple name comparison
 			//
@@ -1083,7 +1083,7 @@ InstancesListSortCallback
 			retval = (item_data1->type - item_data2->type);
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -1108,7 +1108,7 @@ InstancesPageClass::OnItemchangedInstanceList
 		//
 		//	Did the selection set change?
 		//
-		if (pNMListView->uNewState & LVIS_SELECTED || pNMListView->uOldState & LVIS_SELECTED) {			
+		if (pNMListView->uNewState & LVIS_SELECTED || pNMListView->uOldState & LVIS_SELECTED) {
 			Update_Button_States ();
 		}
 	}
@@ -1156,17 +1156,17 @@ InstancesPageClass::Hide_Node (NodeClass *node, uint32 class_id, bool hide)
 	if (preset != NULL) {
 		DefinitionClass *definition = preset->Get_Definition ();
 		if (definition != NULL) {
-			
+
 			//
 			//	Did this node come from the selected factory?
 			//
 			uint32 curr_class_id	= definition->Get_Class_ID ();
 			uint32 superclass_id	= ::SuperClassID_From_ClassID (curr_class_id);
 			if (curr_class_id == class_id || superclass_id == class_id) {
-				
+
 				//
 				//	Change this node's display state
-				//							
+				//
 				node->Hide (hide);
 			}
 		}
@@ -1194,9 +1194,9 @@ InstancesPageClass::Hide_Node (NodeClass *node, uint32 class_id, bool hide)
 void
 InstancesPageClass::Hide_Nodes (int index, bool hide)
 {
-	ITEM_DATA *item_data = (ITEM_DATA *)m_ListCtrl.GetItemData (index);		
+	ITEM_DATA *item_data = (ITEM_DATA *)m_ListCtrl.GetItemData (index);
 	if (item_data != NULL) {
-		
+
 		if (item_data->type == TYPE_FACTORY) {
 
 			//
@@ -1205,15 +1205,15 @@ InstancesPageClass::Hide_Nodes (int index, bool hide)
 			for (	NodeClass *node = NodeMgrClass::Get_First ();
 					node != NULL;
 					node = NodeMgrClass::Get_Next (node))
-			{				
+			{
 				//
 				//	Hide this node (if necessary)
 				//
 				Hide_Node (node, item_data->class_id, hide);
 			}
-			
+
 		} else if (item_data->type == TYPE_NODE) {
-						
+
 			//
 			//	Change this node's display state
 			//
@@ -1224,7 +1224,7 @@ InstancesPageClass::Hide_Nodes (int index, bool hide)
 	//
 	// Make sure the main view is updated
 	//
-	::Refresh_Main_View ();		
+	::Refresh_Main_View ();
 	return ;
 }
 
@@ -1241,20 +1241,20 @@ InstancesPageClass::Update_Overlays (void)
 	//	Loop over all the entries in the current view
 	//
 	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
-		
+
 		//
 		//	Get information about this entry
 		//
 		ITEM_DATA *item_data = (ITEM_DATA *)m_ListCtrl.GetItemData (index);
 		if (item_data != NULL) {
-			
+
 			bool needs_overlay = false;
 
 			//
 			//	Check to see if this entry has any sub-entries
 			//
 			if (item_data->type == TYPE_FACTORY) {
-				needs_overlay = Does_Factory_Have_Children (item_data->class_id);				
+				needs_overlay = Does_Factory_Have_Children (item_data->class_id);
 			} else if (item_data->type == TYPE_NODE && (item_data->node->Get_Sub_Node_Count () > 0)) {
 				needs_overlay = true;
 			}
@@ -1292,7 +1292,7 @@ InstancesPageClass::Does_Factory_Have_Children (uint32 factory_id)
 		if (preset != NULL) {
 			DefinitionClass *definition = preset->Get_Definition ();
 			if (definition != NULL) {
-				
+
 				//
 				//	Did this node come from the specified factory?
 				//

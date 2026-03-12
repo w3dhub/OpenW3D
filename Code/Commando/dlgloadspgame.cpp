@@ -163,7 +163,7 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 		const size_t index_offset	= static_cast<size_t>(search_dir - search_string);
 		path_name.Erase (static_cast<int>(index_offset), static_cast<int>(len - index_offset));
 	}
-	
+
 	//
 	//	Build a list of all the saved games we know about
 	//
@@ -211,7 +211,7 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 					case 13:	description = TRANSLATE( IDS_LoadScreen_MX0_Title ); break;
 				}
 			}
-			
+
 			//
 			//	Get the time this file was last written
 			//
@@ -245,7 +245,7 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 				StringClass file_path = path_name;
 				file_path += "/";
 				file_path += find_info.cFileName;
-				
+
 				list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)new FILETIME(local_time));
 				list_ctrl->Set_Entry_Data (item_index, 1, (uintptr_t)new StringClass(file_path));
 				list_ctrl->Set_Entry_Data (item_index, 2, (uintptr_t)new StringClass(find_info.cFileName));
@@ -253,8 +253,8 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 		}
 	}
 
-	if (file_find != INVALID_HANDLE_VALUE) {			  
-		::FindClose (file_find); 
+	if (file_find != INVALID_HANDLE_VALUE) {
+		::FindClose (file_find);
 	}
 
 	return index;
@@ -265,7 +265,7 @@ LoadSPGameMenuClass::Build_List (const char *search_string, int start_index)
 //	Is_Game_Allowed
 //
 ////////////////////////////////////////////////////////////////
-bool		
+bool
 LoadSPGameMenuClass::Is_Game_Allowed
 (
 	const char * filename
@@ -294,7 +294,7 @@ LoadSPGameMenuClass::Is_Game_Allowed
 //	Get_Game_Rank
 //
 ////////////////////////////////////////////////////////////////
-int	
+int
 LoadSPGameMenuClass::Get_Game_Rank
 (
 	const char * filename
@@ -321,7 +321,7 @@ LoadSPGameMenuClass::Get_Game_Rank
 //	Set_Game_Rank
 //
 ////////////////////////////////////////////////////////////////
-void	
+void
 LoadSPGameMenuClass::Set_Game_Rank
 (
 	const char * filename,
@@ -403,7 +403,7 @@ LoadSPGameMenuClass::On_ListCtrl_Delete_Entry
 )
 {
 	if (ctrl_id == IDC_LOAD_GAME_LIST_CTRL) {
-		
+
 		//
 		//	Remove the data we associated with this entry
 		//
@@ -413,18 +413,18 @@ LoadSPGameMenuClass::On_ListCtrl_Delete_Entry
 		list_ctrl->Set_Entry_Data (item_index, 0, 0);
 		list_ctrl->Set_Entry_Data (item_index, 1, 0);
 		list_ctrl->Set_Entry_Data (item_index, 2, 0);
-		
+
 		//
 		//	Free the data
 		//
 		if (file_time != NULL) {
 			delete file_time;
 		}
-		
+
 		if (path != NULL) {
 			delete path;
 		}
-				
+
 		if (filename != NULL) {
 			delete filename;
 		}
@@ -451,7 +451,7 @@ LoadSPGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_in
 	BOOL	sort_ascending	= HIWORD (user_param);
 
 	if (sort_col_index == 0 || sort_col_index == 1) {
-		
+
 		//
 		//	Sort by time
 		//
@@ -460,7 +460,7 @@ LoadSPGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_in
 		retval = ::CompareFileTime (file_time1, file_time2);
 
 	} else {
-		
+
 		//
 		//	Sort by name
 		//
@@ -631,10 +631,10 @@ LoadSPGameMenuClass::Update_Button_State (void)
 
 		//
 		//	Get the filename associated with this entry
-		//		
+		//
 		if (list_ctrl->Get_Entry_Data (item_index, 0) != 0) {
 			StringClass filename = ((StringClass *)list_ctrl->Get_Entry_Data (item_index, 1))->Peek_Buffer ();
-			
+
 			//
 			//	Check to see if this is a saved game or a level file.
 			//
@@ -647,7 +647,7 @@ LoadSPGameMenuClass::Update_Button_State (void)
 		//
 		//	Change the enable state of the button
 		//
-		Get_Dlg_Item (IDC_DELETE_GAME_BUTTON)->Enable (enable);	
+		Get_Dlg_Item (IDC_DELETE_GAME_BUTTON)->Enable (enable);
 	}
 
 	return ;
@@ -696,7 +696,7 @@ LoadSPGameMenuClass::Delete_Game (bool prompt)
 
 		//
 		//	Determine what filename this entry refers to
-		//		
+		//
 		if (list_ctrl->Get_Entry_Data (item_index, 0) != 0) {
 			StringClass filename = ((StringClass *)list_ctrl->Get_Entry_Data (item_index, 1))->Peek_Buffer ();
 
@@ -745,7 +745,7 @@ void
 LoadSPGameMenuClass::HandleNotification (DlgMsgBoxEvent &event)
 {
 	if (event.Get_User_Data () == MBEVENT_DELETE_PROMPT) {
-		
+
 		//
 		//	The user has confirmed the delete, so delete the file
 		//

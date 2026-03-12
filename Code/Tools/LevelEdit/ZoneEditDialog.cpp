@@ -91,7 +91,7 @@ ZoneEditDialogClass::ZoneEditDialogClass(CWnd* pParent /*=NULL*/)
 {
 	//{{AFX_DATA_INIT(ZoneEditDialogClass)
 		// NOTE: the ClassWizard will add member initialization here
-	//}}AFX_DATA_INIT	
+	//}}AFX_DATA_INIT
 	return ;
 }
 
@@ -164,10 +164,10 @@ ZoneEditDialogClass::OnInitDialog (void)
 	//	Create the scene and camera we will use
 	//
 	m_Scene	= new SimpleSceneClass;
-	m_Camera	= new CameraClass;	
+	m_Camera	= new CameraClass;
 	m_Scene->Set_Ambient_Light (Vector3 (1, 1, 1));
 	m_Camera->Set_Clip_Planes (0.1F, 400.0F);
-	
+
 	//
 	//	Configure the camera
 	//
@@ -192,7 +192,7 @@ ZoneEditDialogClass::OnInitDialog (void)
 	//	Select the default UI
 	//
 	SendDlgItemMessage (IDC_TOP, BM_SETCHECK, (WPARAM)true);
-	SendDlgItemMessage (IDC_EDIT_ZONE, BM_SETCHECK, (WPARAM)true);	
+	SendDlgItemMessage (IDC_EDIT_ZONE, BM_SETCHECK, (WPARAM)true);
 	OnTop ();
 	OnEditZone ();
 	Update_Status ();
@@ -216,8 +216,8 @@ ZoneEditDialogClass::OnInitDialog (void)
 											50,
 											fnUpdateTimer,
 											(DWORD_PTR)m_hWnd,
-											TIME_PERIODIC);	
-		
+											TIME_PERIODIC);
+
 	m_Initialized = true;
 	return true;
 }
@@ -258,7 +258,7 @@ void
 ZoneEditDialogClass::OnDestroy (void)
 {
 	// Stop the timer
-	if (m_TimerID != 0) {		
+	if (m_TimerID != 0) {
 		::timeKillEvent (m_TimerID);
 		m_TimerID = 0;
 	}
@@ -301,7 +301,7 @@ ZoneEditDialogClass::Render_View (void)
 
 	if (!render_lock) {
 		render_lock = true;
-		
+
 		//
 		//	Move the camera if the user is pressing
 		// the camera-control keys.
@@ -324,7 +324,7 @@ ZoneEditDialogClass::Render_View (void)
 		//	Blit the frame to the client area of the window
 		//
 		m_SwapChain->Present (NULL, NULL, NULL, NULL, 0);
-		
+
 		//
 		//	Restore the render target
 		//
@@ -334,7 +334,7 @@ ZoneEditDialogClass::Render_View (void)
 		//	Cleanup
 		//
 		RemoveProp (m_hWnd, "WaitingToProcess");
-		render_lock = false;		
+		render_lock = false;
 	}
 
 	return ;
@@ -388,7 +388,7 @@ ZoneEditDialogClass::WindowProc
 	if (message == (WM_USER + 101)) {
 		Render_View ();
 	} else if (message == WM_KEYDOWN || message == WM_KEYUP) {
-		
+
 		//
 		//	Eat the keyboard messages we 'special case'.
 		//
@@ -468,7 +468,7 @@ ZoneEditDialogClass::OnRight (void)
 	Matrix3D transform (1);
 	transform.Look_At (pos + Vector3 (0, m_LookAtDist, 0), pos, 0);
 	m_Camera->Set_Transform (transform);
-	return ;	
+	return ;
 }
 
 
@@ -519,7 +519,7 @@ ZoneEditDialogClass::Insert_Zone (void)
 	//	Create the zone and add it to the scene
 	//
 	m_Zone = new Box3DClass (Vector3 (1, 1, 1));
-	m_Zone->Set_Color (Vector3 (0, 0.7F, 0));	
+	m_Zone->Set_Color (Vector3 (0, 0.7F, 0));
 
 	//
 	//	Transform the zone from relative to world space coords
@@ -546,7 +546,7 @@ ZoneEditDialogClass::Insert_Zone (void)
 /////////////////////////////////////////////////////////////////////////////
 void
 ZoneEditDialogClass::Set_Phys_Obj (PhysClass *phys_obj)
-{	
+{
 	MEMBER_ADD (m_PhysObj, phys_obj);
 
 	//
@@ -587,7 +587,7 @@ ZoneEditDialogClass::Handle_Keypress (void)
 		// Get the camera's current position
 		Vector3 position	= m_Camera->Get_Position ();
 		float orig_z		= position.Z;
-		
+
 		//
 		//	Determine how far to move the camera
 		//
@@ -620,7 +620,7 @@ ZoneEditDialogClass::Handle_Keypress (void)
 
 		// Get the camera's current position
 		Vector3 position	= m_Camera->Get_Position ();
-		
+
 		//
 		//	Determine how far to move the camera
 		//
@@ -645,7 +645,7 @@ ZoneEditDialogClass::Handle_Keypress (void)
 
 		// Get the camera's current position
 		Vector3 position	= m_Camera->Get_Position ();
-		
+
 		//
 		//	Determine how far to move the camera
 		//
@@ -661,7 +661,7 @@ ZoneEditDialogClass::Handle_Keypress (void)
 		// Set the camera's new position
 		m_Camera->Set_Position (position);
 	}
-	
+
 	if ((::GetAsyncKeyState (VK_UP) < 0) ||
 		 (::GetAsyncKeyState (VK_DOWN) < 0) ||
 		 (::GetAsyncKeyState (VK_LEFT) < 0) ||
@@ -679,7 +679,7 @@ ZoneEditDialogClass::Handle_Keypress (void)
 				translation.Z += amount;
 			} else {
 				translation.X += amount;
-			}			
+			}
 		}
 
 		if (::GetAsyncKeyState (VK_DOWN) < 0) {
@@ -687,7 +687,7 @@ ZoneEditDialogClass::Handle_Keypress (void)
 				translation.Z -= amount;
 			} else {
 				translation.X -= amount;
-			}			
+			}
 		}
 
 		if (::GetAsyncKeyState (VK_RIGHT) < 0) {
@@ -696,7 +696,7 @@ ZoneEditDialogClass::Handle_Keypress (void)
 
 		if (::GetAsyncKeyState (VK_LEFT) < 0) {
 			translation.Y -= amount;
-		}		
+		}
 
 		//
 		//	Move the zone
@@ -783,7 +783,7 @@ ZoneEditDialogClass::fn3DWindow
 	} else if (message == WM_MOUSEMOVE) {
 		ZoneEditDialogClass *dialog = NULL;
 		dialog = (ZoneEditDialogClass *)::GetProp (hwnd, "ZONE_DIALOG");
-		dialog->Handle_MOUSEMOVE (wparam, lparam);		
+		dialog->Handle_MOUSEMOVE (wparam, lparam);
 	}
 
 	return ::DefWindowProc (hwnd, message, wparam, lparam);
@@ -865,7 +865,7 @@ ZoneEditDialogClass::Handle_MOUSEMOVE (WPARAM wparam, LPARAM lparam)
 										m_LastPoint	);
 		}
 
-	} else if (wparam & MK_RBUTTON) {				
+	} else if (wparam & MK_RBUTTON) {
 		float delta = float(m_LastPoint.y - point.y) / 12;
 
 		//
@@ -949,7 +949,7 @@ BOOL
 ZoneEditDialogClass::PreTranslateMessage (MSG *pMsg)
 {
 	if (pMsg->message == WM_KEYDOWN || pMsg->message == WM_KEYUP) {
-		
+
 		if (pMsg->wParam == VK_NUMPAD8 || pMsg->wParam == VK_NUMPAD2 ||
 			 pMsg->wParam == VK_NUMPAD4 || pMsg->wParam == VK_NUMPAD6 ||
 			 pMsg->wParam == VK_NUMPAD7 || pMsg->wParam == VK_NUMPAD1 ||
@@ -959,7 +959,7 @@ ZoneEditDialogClass::PreTranslateMessage (MSG *pMsg)
 			return 1;
 		}
 	}
-	
+
 	return CDialog::PreTranslateMessage(pMsg);
 }
 
@@ -973,7 +973,7 @@ void
 ZoneEditDialogClass::OnSizeZone (void)
 {
 	m_IsSizingZone = (m_SizeZoneCheck.GetCheck () == 1);
-	
+
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_EDIT_ZONE), !m_IsSizingZone);
 
 	if (m_IsSizingZone) {
@@ -992,7 +992,7 @@ ZoneEditDialogClass::OnSizeZone (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ZoneEditDialogClass::OnLastFrame (void) 
+ZoneEditDialogClass::OnLastFrame (void)
 {
 	SendDlgItemMessage (IDC_FIRST_FRAME, BM_SETCHECK, (WPARAM)false);
 	SendDlgItemMessage (IDC_LAST_FRAME, BM_SETCHECK, (WPARAM)true);

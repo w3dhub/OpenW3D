@@ -125,7 +125,7 @@ void
 MouseMgrClass::Show_Cursor (bool onoff)
 {
 	if (MouseCursor == NULL && onoff) {
-		
+
 		//
 		//	Create the mouse cursor
 		//
@@ -133,9 +133,9 @@ MouseMgrClass::Show_Cursor (bool onoff)
 		MouseCursor->Set_Texture (Textures[CursorType]);
 		MouseCursor->Set_Hotspot (HOTSPOTS[CursorType]);
 		CursorWaitCount = 0;
-		
+
 	} else if (MouseCursor != NULL && onoff == false) {
-		
+
 		//
 		//	Free the mouse cursor
 		//

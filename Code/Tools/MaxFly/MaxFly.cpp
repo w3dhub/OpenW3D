@@ -22,9 +22,9 @@
 
 	DESCRIPTION:	Appwizard generated plugin
 
-	CREATED BY: 
+	CREATED BY:
 
-	HISTORY: 
+	HISTORY:
 
  *>	Copyright (c) 1997, All Rights Reserved.
  **********************************************************************/
@@ -38,19 +38,19 @@ const float YAW_SPEED = 8.0f * 3.1415f / 180.0f;
 const float FLY_SPEED = 5.0f;
 
 
-class MaxFly : public UtilityObj 
+class MaxFly : public UtilityObj
 {
 public:
 	MaxFly();
-	~MaxFly();		
+	~MaxFly();
 
 	void BeginEditParams(Interface *ip,IUtil *iu);
 	void EndEditParams(Interface *ip,IUtil *iu);
 
 	void Init(HWND hWnd);
 	void Destroy(HWND hWnd);
-	
-	void DeleteThis() { }		
+
+	void DeleteThis() { }
 
 protected:
 
@@ -61,7 +61,7 @@ protected:
 	void	Yaw_Right(void);
 	void	Fly_Forward(void);
 	void	Fly_Backward(void);
-		
+
 	HWND			hPanel;
 	IUtil *		iu;
 	Interface *	ip;
@@ -71,7 +71,7 @@ protected:
 
 static MaxFly theMaxFly;
 
-class MaxFlyClassDesc:public ClassDesc2 
+class MaxFlyClassDesc:public ClassDesc2
 {
 	public:
 	int 				IsPublic() {return 1;}
@@ -115,7 +115,7 @@ static BOOL CALLBACK MaxFlyDlgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 		case WM_LBUTTONDOWN:
 		case WM_LBUTTONUP:
 		case WM_MOUSEMOVE:
-			theMaxFly.ip->RollupMouseMessage(hWnd,msg,wParam,lParam); 
+			theMaxFly.ip->RollupMouseMessage(hWnd,msg,wParam,lParam);
 			break;
 
 		default:
@@ -132,7 +132,7 @@ static BOOL CALLBACK MaxFlyDlgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 MaxFly::MaxFly()
 {
 	iu = NULL;
-	ip = NULL;	
+	ip = NULL;
 	hPanel = NULL;
 }
 
@@ -141,7 +141,7 @@ MaxFly::~MaxFly()
 
 }
 
-void MaxFly::BeginEditParams(Interface *ip,IUtil *iu) 
+void MaxFly::BeginEditParams(Interface *ip,IUtil *iu)
 {
 	this->iu = iu;
 	this->ip = ip;
@@ -152,8 +152,8 @@ void MaxFly::BeginEditParams(Interface *ip,IUtil *iu)
 		GetString(IDS_PARAMS),
 		0);
 }
-	
-void MaxFly::EndEditParams(Interface *ip,IUtil *iu) 
+
+void MaxFly::EndEditParams(Interface *ip,IUtil *iu)
 {
 	this->iu = NULL;
 	this->ip = NULL;
@@ -184,10 +184,10 @@ void MaxFly::Pitch_Up(void)
 				Matrix3 object_tm = node->GetObjectTM(ip->GetTime());
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
-									AngAxis(Point3(1,0,0),-PITCH_SPEED),	// const AngAxis& val, 
-									true,												// BOOL localOrigin=false, 
-									true,												// BOOL affectKids=true, 
-									PIV_NONE,										// int pivMode=PIV_NONE, 
+									AngAxis(Point3(1,0,0),-PITCH_SPEED),	// const AngAxis& val,
+									true,												// BOOL localOrigin=false,
+									true,												// BOOL affectKids=true,
+									PIV_NONE,										// int pivMode=PIV_NONE,
 									true												// BOOL ignoreLocks=false
 								);
 			}
@@ -206,10 +206,10 @@ void MaxFly::Pitch_Down(void)
 				Matrix3 object_tm = node->GetObjectTM(ip->GetTime());
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
-									AngAxis(Point3(1,0,0),PITCH_SPEED),		// const AngAxis& val, 
-									true,												// BOOL localOrigin=false, 
-									true,												// BOOL affectKids=true, 
-									PIV_NONE,										// int pivMode=PIV_NONE, 
+									AngAxis(Point3(1,0,0),PITCH_SPEED),		// const AngAxis& val,
+									true,												// BOOL localOrigin=false,
+									true,												// BOOL affectKids=true,
+									PIV_NONE,										// int pivMode=PIV_NONE,
 									true												// BOOL ignoreLocks=false
 								);
 			}
@@ -227,10 +227,10 @@ void MaxFly::Yaw_Left(void)
 				Matrix3 object_tm = node->GetObjectTM(ip->GetTime());
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
-									AngAxis(Point3(0,1,0),-YAW_SPEED),		// const AngAxis& val, 
-									true,												// BOOL localOrigin=false, 
-									true,												// BOOL affectKids=true, 
-									PIV_NONE,										// int pivMode=PIV_NONE, 
+									AngAxis(Point3(0,1,0),-YAW_SPEED),		// const AngAxis& val,
+									true,												// BOOL localOrigin=false,
+									true,												// BOOL affectKids=true,
+									PIV_NONE,										// int pivMode=PIV_NONE,
 									true												// BOOL ignoreLocks=false
 								);
 			}
@@ -248,10 +248,10 @@ void MaxFly::Yaw_Right(void)
 				Matrix3 object_tm = node->GetObjectTM(ip->GetTime());
 				node->Rotate(	ip->GetTime(),									// Time
 									object_tm,										// tmAxis
-									AngAxis(Point3(0,1,0),+YAW_SPEED),		// const AngAxis& val, 
-									true,												// BOOL localOrigin=false, 
-									true,												// BOOL affectKids=true, 
-									PIV_NONE,										// int pivMode=PIV_NONE, 
+									AngAxis(Point3(0,1,0),+YAW_SPEED),		// const AngAxis& val,
+									true,												// BOOL localOrigin=false,
+									true,												// BOOL affectKids=true,
+									PIV_NONE,										// int pivMode=PIV_NONE,
 									true												// BOOL ignoreLocks=false
 								);
 			}
@@ -267,12 +267,12 @@ void MaxFly::Fly_Forward(void)
 			INode * node = ip->GetSelNode(i);
 			if (node) {
 				Matrix3 object_tm = node->GetObjectTM(ip->GetTime());
-				node->Move(		ip->GetTime(),									// TimeValue t, 
-									object_tm,										// const Matrix3& tmAxis, 
-									Point3(0.0f,0.0f,-FLY_SPEED),				// const Point3& val, 
-									true,												// BOOL localOrigin=false, 
-									true,												// BOOL affectKids=true, 
-									PIV_NONE,										// int pivMode=PIV_NONE, 
+				node->Move(		ip->GetTime(),									// TimeValue t,
+									object_tm,										// const Matrix3& tmAxis,
+									Point3(0.0f,0.0f,-FLY_SPEED),				// const Point3& val,
+									true,												// BOOL localOrigin=false,
+									true,												// BOOL affectKids=true,
+									PIV_NONE,										// int pivMode=PIV_NONE,
 									true												// BOOL ignoreLocks=false
 								);
 			}
@@ -288,12 +288,12 @@ void MaxFly::Fly_Backward(void)
 			INode * node = ip->GetSelNode(i);
 			if (node) {
 				Matrix3 object_tm = node->GetObjectTM(ip->GetTime());
-				node->Move(		ip->GetTime(),									// TimeValue t, 
-									object_tm,										// const Matrix3& tmAxis, 
-									Point3(0.0f,0.0f,FLY_SPEED),				// const Point3& val, 
-									true,												// BOOL localOrigin=false, 
-									true,												// BOOL affectKids=true, 
-									PIV_NONE,										// int pivMode=PIV_NONE, 
+				node->Move(		ip->GetTime(),									// TimeValue t,
+									object_tm,										// const Matrix3& tmAxis,
+									Point3(0.0f,0.0f,FLY_SPEED),				// const Point3& val,
+									true,												// BOOL localOrigin=false,
+									true,												// BOOL affectKids=true,
+									PIV_NONE,										// int pivMode=PIV_NONE,
 									true												// BOOL ignoreLocks=false
 								);
 			}
@@ -302,4 +302,4 @@ void MaxFly::Fly_Backward(void)
 	}
 }
 
-		
+

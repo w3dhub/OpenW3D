@@ -110,7 +110,7 @@ public:
 
 	virtual float								Get_Outer_Radius (void) const;
 	virtual void								Set_Outer_Radius (float intensity);
-	
+
 	virtual LightClass::LightType			Get_Light_Type (void) const;
 	virtual void								Set_Light_Type (LightClass::LightType type);
 
@@ -306,7 +306,7 @@ LightDefinitionClass::Set_Light_Type (LightClass::LightType type)
 /////////////////////////////////////////////////////////////////////
 inline const Vector3 &
 LightDefinitionClass::Get_Spot_Direction (void) const
-{	
+{
 	return m_SpotDir;
 }
 

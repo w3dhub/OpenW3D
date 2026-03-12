@@ -67,13 +67,13 @@ CheckingOutDialogClass::WindowProc
 	UINT message,
 	WPARAM wParam,
 	LPARAM lParam
-) 
+)
 {
 	if (message == WM_USER+101) {
 		EndDialog (1);
 	}
-	
-	// Allow the base class to process this message	
+
+	// Allow the base class to process this message
 	return CDialog::WindowProc(message, wParam, lParam);
 }
 
@@ -87,14 +87,14 @@ CheckingOutDialogClass::OnCommand
 (
 	WPARAM wParam,
 	LPARAM lParam
-) 
+)
 {
 	// Don't let the dialog be closed by hitting enter or escape
 	if (LOWORD (wParam) == IDOK || LOWORD (wParam) == IDCANCEL) {
 		return false;
 	}
-	
-	// Allow the base class to process this message	
+
+	// Allow the base class to process this message
 	return CDialog::OnCommand(wParam, lParam);
 }
 
@@ -104,10 +104,10 @@ CheckingOutDialogClass::OnCommand
 // OnInitDialog
 //
 BOOL
-CheckingOutDialogClass::OnInitDialog (void) 
+CheckingOutDialogClass::OnInitDialog (void)
 {
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	CDialog::OnInitDialog ();
-		
+
 	return true;
 }

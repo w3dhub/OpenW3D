@@ -58,7 +58,7 @@ class MeshMatDescClass;
 /***********************************************************************************************
 ** MaterialInfoClass
 **
-** This class gives an interface to the "changeable" material parameters inside a 
+** This class gives an interface to the "changeable" material parameters inside a
 ** W3D render object.  Typically, this will include things like the following:
 ** - one or more textures,
 ** - the vertex material used by the mesh (defines lighting properties, etc)
@@ -84,7 +84,7 @@ public:
 
 	int							Add_Vertex_Material(VertexMaterialClass * vmat);
 	int							Add_Texture(TextureClass * tex);
-	
+
 	int							Get_Vertex_Material_Index(const char * name);
 	int							Get_Texture_Index(const char * name);
 
@@ -109,10 +109,10 @@ public:
 private:
 
 	void Free(void);
-	
+
 	DynamicVectorClass<VertexMaterialClass *>		VertexMaterials;
-	DynamicVectorClass<TextureClass *>			Textures;			
-	
+	DynamicVectorClass<TextureClass *>			Textures;
+
 };
 
 
@@ -172,7 +172,7 @@ private:
 
 /***********************************************************************************************
 ** MaterialCollectorClass
-** 
+**
 ** This class can be used to collect all of the unique instances of materials from a mesh.
 ** Its original motivation is to solve a problem encountered in trying to save a mesh
 ** to disk.  There are arrays of pointers to vertex materials in the mesh but no record of
@@ -184,7 +184,7 @@ private:
 ** check whether the contents of the objects are identical.  (Exporter does this, I assume
 ** that if there are two separate objects, they are that way for a reason here.)
 ***********************************************************************************************/
-class MaterialCollectorClass 
+class MaterialCollectorClass
 {
 public:
 
@@ -200,7 +200,7 @@ public:
 	int							Get_Shader_Count(void);
 	int							Get_Vertex_Material_Count(void);
 	int							Get_Texture_Count(void);
-	
+
 	ShaderClass					Peek_Shader(int i);
 	TextureClass *				Peek_Texture(int i);
 	VertexMaterialClass *	Peek_Vertex_Material(int i);

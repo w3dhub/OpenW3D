@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/gdsingleplayer.cpp                  $* 
- *                                                                                             * 
- *                      $Author:: Denzil_l                                                    $* 
- *                                                                                             * 
- *                     $Modtime:: 12/13/01 2:35p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 22                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/gdsingleplayer.cpp                  $*
+ *                                                                                             *
+ *                      $Author:: Denzil_l                                                    $*
+ *                                                                                             *
+ *                     $Modtime:: 12/13/01 2:35p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 22                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "gdsingleplayer.h"  // I WANNA BE FIRST!
@@ -62,7 +62,7 @@ cGameDataSinglePlayer::~cGameDataSinglePlayer(void)
 //-----------------------------------------------------------------------------
 cGameDataSinglePlayer& cGameDataSinglePlayer::operator=(const cGameDataSinglePlayer& rhs)
 {
-	// 
+	//
 	// Call the base class
 	//
 	cGameData::operator=(rhs);

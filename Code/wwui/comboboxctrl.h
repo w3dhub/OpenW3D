@@ -94,7 +94,7 @@ public:
 	uintptr_t			Get_Item_Data (int index)								{ return DropDownCtrl.Get_Item_Data (index); }
 	void				Reset_Content (void)										{ DropDownCtrl.Reset_Content (); }
 	bool				Get_String (int index, WideStringClass &string)	{ return DropDownCtrl.Get_String (index, string); }
-	
+
 	int Get_Item_Count(void) {return DropDownCtrl.Get_Count();}
 
 	//
@@ -147,7 +147,7 @@ protected:
 	Vector2						DropDownSize;
 	bool							WasButtonPressedOnMe;
 	bool							IsInitialized;
-	DropDownCtrlClass			DropDownCtrl;	
+	DropDownCtrlClass			DropDownCtrl;
 	int							LastDropDownDisplayChange;
 	int							CurrSel;
 	EditCtrlClass				EditControl;

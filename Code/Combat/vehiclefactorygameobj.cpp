@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/vehiclefactorygameobj.cpp             $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/19/02 10:44a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 26                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/vehiclefactorygameobj.cpp             $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/19/02 10:44a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 26                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "vehiclefactorygameobj.h"
@@ -118,7 +118,7 @@ VehicleFactoryGameObjDef::VehicleFactoryGameObjDef (void) :
 	}
 	GENERIC_EDITABLE_PARAM(VehicleFactoryGameObjDef,param)
 #endif
-	
+
 	return ;
 }
 
@@ -140,8 +140,8 @@ VehicleFactoryGameObjDef::~VehicleFactoryGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-VehicleFactoryGameObjDef::Get_Class_ID (void) const	
-{ 
+VehicleFactoryGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_VEHICLE_FACTORY;
 }
 
@@ -152,7 +152,7 @@ VehicleFactoryGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-VehicleFactoryGameObjDef::Create (void) const 
+VehicleFactoryGameObjDef::Create (void) const
 {
 	VehicleFactoryGameObj *building = new VehicleFactoryGameObj;
 	building->Init (*this);
@@ -169,7 +169,7 @@ VehicleFactoryGameObjDef::Create (void) const
 bool
 VehicleFactoryGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		BuildingGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
@@ -200,7 +200,7 @@ VehicleFactoryGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized Vehicle Factory Def chunkID\n"));
 				break;
@@ -245,9 +245,9 @@ VehicleFactoryGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-VehicleFactoryGameObjDef::Get_Factory (void) const 
-{ 
-	return _VehicleFactoryGameObjDefPersistFactory; 
+VehicleFactoryGameObjDef::Get_Factory (void) const
+{
+	return _VehicleFactoryGameObjDefPersistFactory;
 }
 
 
@@ -286,7 +286,7 @@ VehicleFactoryGameObj::~VehicleFactoryGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-VehicleFactoryGameObj::Get_Factory (void) const 
+VehicleFactoryGameObj::Get_Factory (void) const
 {
 	return _VehicleFactoryGameObjPersistFactory;
 }
@@ -367,7 +367,7 @@ VehicleFactoryGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				BuildingGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -393,7 +393,7 @@ void
 VehicleFactoryGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_CREATION_TM,					CreationTM);
@@ -469,16 +469,16 @@ VehicleFactoryGameObj::Think (void)
 	if (EndTimer > UNITIALIZED_TIMER) {
 		EndTimer -= TimeManager::Get_Frame_Seconds ();
 		if (EndTimer < 0) {
-			
+
 			//
 			//	Handle the end-condition
 			//
-			On_Generation_Complete ();	
+			On_Generation_Complete ();
 			EndTimer = UNITIALIZED_TIMER;
 		}
 	}
-	
-	BuildingGameObj::Think ();	
+
+	BuildingGameObj::Think ();
 	return ;
 }
 
@@ -492,7 +492,7 @@ VehicleFactoryGameObj::Think (void)
 // already created its maximum number of vehicles.
 //
 ////////////////////////////////////////////////////////////////
-bool 
+bool
 VehicleFactoryGameObj::Is_Available_For_Purchase (void) const
 {
 	int team_vehicle_count = Get_Team_Vehicle_Count();
@@ -507,7 +507,7 @@ VehicleFactoryGameObj::Is_Available_For_Purchase (void) const
 // (not including the harvester!)
 //
 ////////////////////////////////////////////////////////////////
-int 
+int
 VehicleFactoryGameObj::Get_Team_Vehicle_Count(void) const
 {
 	int team_vehicle_count = 0;
@@ -521,11 +521,11 @@ VehicleFactoryGameObj::Get_Team_Vehicle_Count(void) const
 	SLNode<SmartGameObj> * smart_objnode;
 	for (smart_objnode = GameObjManager::Get_Smart_Game_Obj_List()->Head(); smart_objnode; smart_objnode = smart_objnode->Next()) {
 		VehicleGameObj * obj = smart_objnode->Data()->As_VehicleGameObj();
-		
-		if (	(obj != NULL) && 
+
+		if (	(obj != NULL) &&
 				(obj != harvy) &&
 				(obj->Peek_Physical_Object() != NULL) &&
-				(obj->Peek_Physical_Object()->As_VehiclePhysClass() != NULL) ) 
+				(obj->Peek_Physical_Object()->As_VehiclePhysClass() != NULL) )
 		{
 			if (obj->Get_Definition().Get_Default_Player_Type() == Get_Player_Type()) {
 				team_vehicle_count++;
@@ -548,7 +548,7 @@ VehicleFactoryGameObj::On_Generation_Complete (void)
 	//
 	if (Vehicle != NULL) {
 
-		// 
+		//
 		// Shut off the action making the vehicle drive off the pad.
 		// (if it didn't make it by now, give up anyway)
 		//
@@ -556,7 +556,7 @@ VehicleFactoryGameObj::On_Generation_Complete (void)
 		if (vehicle_obj != NULL) {
 			ActionClass * action = vehicle_obj->Get_Action();
 			if (action != NULL) {
-		
+
 				// Change the arrived distance so the vehicles think
 				// they've arrived at their destination (complete the action)
 				action->Get_Parameters().Set_Movement(Vector3(0,0,0), 0.0f, 1000.0f);
@@ -592,7 +592,7 @@ VehicleFactoryGameObj::On_Destroyed (void)
 	if (BaseController != NULL && CombatManager::I_Am_Server ()) {
 		BaseController->Set_Can_Generate_Vehicles (false);
 	}
-	
+
 	return ;
 }
 
@@ -613,7 +613,7 @@ VehicleFactoryGameObj::Request_Vehicle (int definition_id, float generation_time
 	if (IsBusy == false && definition_id != 0) {
 		GeneratingVehicleID	= definition_id;
 		GenerationTime			= generation_time;
-		IsBusy					= true;		
+		IsBusy					= true;
 		Purchaser				= purchaser;
 		EndTimer					= Get_Definition().Get_Total_Building_Time();
 
@@ -642,26 +642,26 @@ VehicleFactoryGameObj::Destroy_Blocking_Objects (void)
 	//
 	NonRefPhysListClass objs_to_kill;
 	PhysicsSceneClass::Get_Instance ()->Collect_Objects (GeneratingRegion, false, true, &objs_to_kill);
-	
+
 	//
 	//	Loop over all the objects
 	//
 	NonRefPhysListIterator it (&objs_to_kill);
 	for (it.First (); !it.Is_Done (); it.Next ()) {
 		PhysicalGameObj *gameobj = NULL;
-		
+
 		//
 		//	Get the game object from this physics object
 		//
 		if (it.Peek_Obj()->Get_Observer () != NULL) {
 			gameobj = ((CombatPhysObserverClass *)it.Peek_Obj()->Get_Observer())->As_PhysicalGameObj();
 		}
-		
+
 		//
 		//	Kill the object
 		//
 		if (gameobj != NULL && gameobj != Vehicle && gameobj->As_ArmedGameObj () != NULL) {
-			
+
 			//
 			//	Destroy the object
 			//
@@ -675,12 +675,12 @@ VehicleFactoryGameObj::Destroy_Blocking_Objects (void)
 
 ////////////////////////////////////////////////////////////////
 //
-//	Deliver_Vehicle, 
-// Gives the vehicle an action to follow one of the delivery 
+//	Deliver_Vehicle,
+// Gives the vehicle an action to follow one of the delivery
 // waypaths out of the construction zone.
 //
 ////////////////////////////////////////////////////////////////
-void 
+void
 VehicleFactoryGameObj::Deliver_Vehicle(void)
 {
 	//
@@ -690,13 +690,13 @@ VehicleFactoryGameObj::Deliver_Vehicle(void)
 	AABoxClass box;
 	box.Center = GeneratingRegion.Center;
 	box.Extent = GeneratingRegion.Extent;
-	
+
 	if (pathfind != NULL) {
 
 		WaypathClass * path = pathfind->Get_Waypath_Starting_In_Box(box,LastDeliveryPath);
-		
+
 		if (path != NULL) {
-		
+
 			LastDeliveryPath = (LastDeliveryPath + 1) % pathfind->Count_Waypaths_Starting_In_Box(box);
 
 			if ((Vehicle.Get_Ptr() != NULL) && (Vehicle.Get_Ptr()->As_VehicleGameObj() != NULL)) {
@@ -711,12 +711,12 @@ VehicleFactoryGameObj::Deliver_Vehicle(void)
 					parameters.ShutdownEngineOnArrival = true;
 
 					action->Goto(parameters);
-				
+
 					vehicle->Set_Vehicle_Delivered();
 					BaseController->On_Vehicle_Delivered(vehicle);
 				}
 			}
-			
+
 			REF_PTR_RELEASE(path);
 		}
 	}
@@ -743,13 +743,13 @@ VehicleFactoryGameObj::Create_Vehicle (void)
 		//	Create the vehicle object
 		//
 		PhysicalGameObj *physical_obj = ObjectLibraryManager::Create_Object (GeneratingVehicleID);
-		
+
 		//
 		// If this is a VTOL vehicle, see if we should let them have it...
 		//
 		if ((physical_obj != NULL) && (physical_obj->Peek_Physical_Object() != NULL)) {
-			
-			if (	(MapMgrClass::Are_VTOL_Vehicles_Enabled() == false) && 
+
+			if (	(MapMgrClass::Are_VTOL_Vehicles_Enabled() == false) &&
 					(physical_obj->Peek_Physical_Object()->As_VTOLVehicleClass() != NULL)
 				)
 			{
@@ -787,7 +787,7 @@ VehicleFactoryGameObj::Import_Rare (BitStreamClass &packet)
 
 	//
 	//	Read the state information from the server
-	//	
+	//
 	packet.Get (IsBusy);
 	return ;
 }

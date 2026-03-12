@@ -67,7 +67,7 @@ CombatDazzleClass _TheCombatDazzleHandler;
 float CombatDazzleClass::Compute_Dazzle_Visibility
 (
 	RenderInfoClass & rinfo,
-	DazzleRenderObjClass * /* obj */,	
+	DazzleRenderObjClass * /* obj */,
 	const Vector3 & point
 ) const
 {
@@ -80,7 +80,7 @@ float CombatDazzleClass::Compute_Dazzle_Visibility
 			COMBAT_STAR->Peek_Physical_Object()->Inc_Ignore_Counter();
 		}
 	}
-	
+
 	/*
 	** Cast a ray from the camera to the dazzle position
 	*/

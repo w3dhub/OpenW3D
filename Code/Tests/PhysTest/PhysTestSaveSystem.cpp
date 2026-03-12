@@ -51,7 +51,7 @@ uint32 PhysTestSaveSystemClass::Chunk_ID(void) const
 }
 
 bool PhysTestSaveSystemClass::Save(ChunkSaveClass &csave)
-{	
+{
 	csave.Begin_Chunk(CHUNKID_MAINFRAME);
 	((CMainFrame *)(::AfxGetMainWnd()))->Save(csave);
 	csave.End_Chunk();

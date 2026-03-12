@@ -75,14 +75,14 @@ END_MESSAGE_MAP()
 //
 ///////////////////////////////////////////////////////////////////////////
 BOOL
-TranslationExportDialogClass::OnInitDialog (void) 
+TranslationExportDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
+
 	//
 	//	Select english by default
 	//
-	SendDlgItemMessage (IDC_LANG_COMBO, CB_SETCURSEL, TranslateDBClass::LANGID_ENGLISH);	
+	SendDlgItemMessage (IDC_LANG_COMBO, CB_SETCURSEL, TranslateDBClass::LANGID_ENGLISH);
 	return true;
 }
 
@@ -93,7 +93,7 @@ TranslationExportDialogClass::OnInitDialog (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 void
-TranslationExportDialogClass::OnOK (void) 
+TranslationExportDialogClass::OnOK (void)
 {
 	//
 	//	Export the data...
@@ -105,7 +105,7 @@ TranslationExportDialogClass::OnOK (void)
 		//	Make sure the translate database is loaded into memory
 		//
 		StringsMgrClass::Load_Translation_Database ();
-		
+
 		//
 		//	Switch the database to the requested language...
 		//
@@ -127,7 +127,7 @@ TranslationExportDialogClass::OnOK (void)
 		TranslateDBClass::Enable_Single_Language_Export (false);
 		TranslateDBClass::Set_Current_Language (TranslateDBClass::LANGID_ENGLISH);
 	}
-	
+
 	CDialog::OnOK();
 	return ;
 }
@@ -187,7 +187,7 @@ TranslationExportDialogClass::Export_Installer_Strings (void)
 		//	Filter out any strings that do not belong to this category
 		//
 		TranslateDBClass::Set_Export_Filter (TranslateDBClass::FILTER_IF_NOT_EQUAL, category->Get_ID ());
-		
+
 		//
 		//	Save the database and restore the default filter
 		//

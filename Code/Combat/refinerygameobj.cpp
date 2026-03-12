@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/refinerygameobj.cpp                   $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/18/02 11:17p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 24                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/refinerygameobj.cpp                   $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/18/02 11:17p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 24                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "refinerygameobj.h"
@@ -109,10 +109,10 @@ RefineryGameObjDef::RefineryGameObjDef (void)	:
 {
 	//
 	//	Editable support
-	//	
+	//
 	EDITABLE_PARAM (RefineryGameObjDef, ParameterClass::TYPE_FLOAT,	UnloadTime);
 	EDITABLE_PARAM (RefineryGameObjDef, ParameterClass::TYPE_FLOAT,	FundsGathered);
-	EDITABLE_PARAM (RefineryGameObjDef, ParameterClass::TYPE_FLOAT,	FundsDistributedPerSec);	
+	EDITABLE_PARAM (RefineryGameObjDef, ParameterClass::TYPE_FLOAT,	FundsDistributedPerSec);
 
 	#ifdef PARAM_EDITING_ON
 		GenericDefParameterClass *param = new GenericDefParameterClass (&HarvesterDefID);
@@ -142,8 +142,8 @@ RefineryGameObjDef::~RefineryGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-RefineryGameObjDef::Get_Class_ID (void) const	
-{ 
+RefineryGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_REFINERY;
 }
 
@@ -154,7 +154,7 @@ RefineryGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-RefineryGameObjDef::Create (void) const 
+RefineryGameObjDef::Create (void) const
 {
 	RefineryGameObj *building = new RefineryGameObj;
 	building->Init (*this);
@@ -171,16 +171,16 @@ RefineryGameObjDef::Create (void) const
 bool
 RefineryGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		BuildingGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_DEF_VARIABLES);
-			
+
 		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_UNLOAD_TIME,		UnloadTime);
 		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_FUNDS_GATHERED,	FundsGathered);
-		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_FUNDS_PER_SEC,	FundsDistributedPerSec);		
-		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_HARVESTER_DEFID,	HarvesterDefID);		
+		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_FUNDS_PER_SEC,	FundsDistributedPerSec);
+		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_DEF_HARVESTER_DEFID,	HarvesterDefID);
 
 	csave.End_Chunk ();
 
@@ -207,7 +207,7 @@ RefineryGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized Refinery Def chunkID\n"));
 				break;
@@ -233,9 +233,9 @@ RefineryGameObjDef::Load_Variables (ChunkLoadClass &cload)
 		{
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_UNLOAD_TIME,		UnloadTime);
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_FUNDS_GATHERED,	FundsGathered);
-			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_FUNDS_PER_SEC,		FundsDistributedPerSec);		
+			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_FUNDS_PER_SEC,		FundsDistributedPerSec);
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_HARVESTER_DEFID,	HarvesterDefID);
-			
+
 			default:
 				Debug_Say (("Unrecognized Refinery Def Variable chunkID\n"));
 				break;
@@ -254,9 +254,9 @@ RefineryGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-RefineryGameObjDef::Get_Factory (void) const 
-{ 
-	return _RefineryGameObjDefPersistFactory; 
+RefineryGameObjDef::Get_Factory (void) const
+{
+	return _RefineryGameObjDefPersistFactory;
 }
 
 
@@ -303,7 +303,7 @@ RefineryGameObj::~RefineryGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-RefineryGameObj::Get_Factory (void) const 
+RefineryGameObj::Get_Factory (void) const
 {
 	return _RefineryGameObjPersistFactory;
 }
@@ -382,7 +382,7 @@ RefineryGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				BuildingGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -408,14 +408,14 @@ void
 RefineryGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_TIBERIUM_FIELD,			TiberiumField);
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_IS_HARVESTER_DOCKED,	IsHarvesterDocked);
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_UNLOAD_TIMER,			UnloadTimer);
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DOCK_TM,					DockTM);
-			
+
 			default:
 				Debug_Say (("Unrecognized Refinery Variable chunkID\n"));
 				break;
@@ -480,7 +480,7 @@ RefineryGameObj::CnC_Initialize (BaseControllerClass *base)
 	RefPhysListIterator iterator = PhysicsSceneClass::Get_Instance()->Get_Static_Object_Iterator ();
 	for (iterator.First (); !iterator.Is_Done (); iterator.Next ()) {
 		StaticAnimPhysClass *anim_phys_obj = iterator.Peek_Obj ()->As_StaticAnimPhysClass ();
-		
+
 		//
 		//	Is this an unloading static anim phys?
 		//
@@ -521,17 +521,17 @@ RefineryGameObj::Think (void)
 	Manage_Money_Trickle_Sound();
 
 	if (IsDestroyed == false && CombatManager::I_Am_Server ()) {
-		
+
 		//
 		//	Create a new harvester (if necessary)
 		//
-		if (	(Harvester == NULL) && 
-				(DefenseObject.Get_Health() > 0.0f) && 
-				(CombatManager::Is_Gameplay_Permitted()) ) 
+		if (	(Harvester == NULL) &&
+				(DefenseObject.Get_Health() > 0.0f) &&
+				(CombatManager::Is_Gameplay_Permitted()) )
 		{
 			Set_Is_Harvester_Docked(false);
 			BaseController->Request_Harvester (Get_Definition ().HarvesterDefID);
-		
+
 		} else if (IsHarvesterDocked) {
 
 			//
@@ -554,7 +554,7 @@ RefineryGameObj::Think (void)
 				//BaseController->Deposit_Funds (funds);
 				BaseController->Distribute_Funds_To_Each_Teammate (funds);
 			}
-			
+
 			//
 			//	Is it time to send the harvester off again?
 			//
@@ -587,7 +587,7 @@ RefineryGameObj::Think (void)
 		//	Distrubute a little money to each player
 		//
 		if (CombatManager::Is_Gameplay_Permitted() && IsHarvesterDocked == false) {
-			
+
 			//
 			//	Only do this once per second
 			//
@@ -616,7 +616,7 @@ RefineryGameObj::Think (void)
 		}
 	}
 
-	BuildingGameObj::Think ();	
+	BuildingGameObj::Think ();
 	return ;
 }
 
@@ -639,9 +639,9 @@ RefineryGameObj::Manage_Money_Trickle_Sound (void)
 
 		if (same_team) {
 
-			bool play_sound = 
-				!IsDestroyed && 
-				(DefenseObject.Get_Health() > 0.0f) && 
+			bool play_sound =
+				!IsDestroyed &&
+				(DefenseObject.Get_Health() > 0.0f) &&
 				IsHarvesterDocked;
 
 			if (play_sound) {
@@ -679,13 +679,13 @@ RefineryGameObj::Play_Unloading_Animation (bool onoff)
 	if (static_phys_obj != NULL) {
 		StaticAnimPhysClass *anim_phys_obj = static_phys_obj->As_StaticAnimPhysClass ();
 		if (anim_phys_obj != NULL) {
-			
+
 			//
 			//	Configure the animation
 			//
 			AnimCollisionManagerClass &anim_mgr = anim_phys_obj->Get_Animation_Manager ();
 			anim_mgr.Set_Animation_Mode (AnimCollisionManagerClass::ANIMATE_TARGET);
-			
+
 			//
 			//	Either play the animation forward or backward
 			//
@@ -721,14 +721,14 @@ RefineryGameObj::On_Destroyed (void)
 			OffenseObjectClass default_damager;
 			harvy->Completely_Damaged(default_damager);
 		}
-	
+
 	}
 
 	//
 	// Make sure we shut off the tiberium docking animation
 	//
 	Play_Unloading_Animation (false);
-	
+
 	return ;
 }
 

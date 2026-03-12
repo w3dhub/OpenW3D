@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/evasettings.h         $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 10/01/01 10:49a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 5                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/evasettings.h         $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 10/01/01 10:49a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 5                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	EVASETTINGS_H
@@ -51,7 +51,7 @@
 class EvaSettingsDefClass : public DefinitionClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,7 @@ public:
 	virtual bool								Load (ChunkLoadClass &cload) override;
 	virtual const PersistFactoryClass &	Get_Factory (void) const override;
 
-	static EvaSettingsDefClass *			Get_Instance (void)	{ return EvaSettings; }	
+	static EvaSettingsDefClass *			Get_Instance (void)	{ return EvaSettings; }
 
 	//
 	//	Accessors
@@ -90,14 +90,14 @@ public:
 	const RectClass &				Get_Messages_Background_Rect (void) const		{ return MessagesBackgroundUVRect; }
 	const Vector2 &				Get_Messages_Texture_Size (void) const			{ return MessagesTextureSize;; }
 	Vector2							Get_Messages_Icon_Position (void) const;
-	
+
 	//
 	//	Editable support
 	//
 	DECLARE_EDITABLE (EvaSettingsDefClass, DefinitionClass);
 
 protected:
-	
+
 	//////////////////////////////////////////////////////////////////////////
 	//	Protected member data
 	//////////////////////////////////////////////////////////////////////////
@@ -116,7 +116,7 @@ protected:
 	RectClass									MessagesBackgroundUVRect;
 	Vector2										MessagesTextureSize;
 	Vector2										MessagesIconPos;
-	
+
 	static EvaSettingsDefClass *			EvaSettings;
 };
 

@@ -65,7 +65,7 @@ FilePickerClass::On_Pick (void)
 	CString full_path	= ::Get_File_Mgr ()->Make_Full_Path (window_text);
 	CString filename	= ::Get_Filename_From_Path (full_path);
 	CString path;
-	
+
 	DWORD attribs = ::GetFileAttributes (full_path);
 	if ((attribs != 0xFFFFFFFF) && !(attribs & FILE_ATTRIBUTE_DIRECTORY)) {
 		path = ::Strip_Filename_From_Path (full_path);
@@ -104,7 +104,7 @@ FilePickerClass::On_Pick (void)
 				SetWindowText (rel_path);
 			}
 		}
-	}		
+	}
 
 	PickerClass::On_Pick ();
 	return ;

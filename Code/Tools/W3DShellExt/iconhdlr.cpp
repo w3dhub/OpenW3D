@@ -43,7 +43,7 @@ STDMETHODIMP CShellExt::GetIconLocation(UINT   uFlags,
                                         UINT   cchMax,
                                         int   *piIndex,
                                         UINT  *pwFlags)
-{  
+{
     GetModuleFileName(g_DllInstance, szIconFile, cchMax);
     *piIndex = (int)GetPrivateProfileInt("IconImage", "Index", 0, m_szFileUserClickedOn);
     return S_OK;

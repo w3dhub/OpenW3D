@@ -42,7 +42,7 @@
 /*
 ** Static data used by BuildingStateClass
 */
-static int _EquivalentPowerOnState[] = 
+static int _EquivalentPowerOnState[] =
 {
 	BuildingStateClass::HEALTH100_POWERON,
 	BuildingStateClass::HEALTH75_POWERON,
@@ -58,7 +58,7 @@ static int _EquivalentPowerOnState[] =
 
 };
 
-static int _EquivalentPowerOffState[] = 
+static int _EquivalentPowerOffState[] =
 {
 	BuildingStateClass::HEALTH100_POWEROFF,
 	BuildingStateClass::HEALTH75_POWEROFF,
@@ -73,7 +73,7 @@ static int _EquivalentPowerOffState[] =
 	BuildingStateClass::DESTROYED_POWEROFF,
 };
 
-static const char * _StateNames[] = 
+static const char * _StateNames[] =
 {
 	"Building State: Health 100%, Power ON",
 	"Building State: Health 75%, Power ON",
@@ -103,7 +103,7 @@ int BuildingStateClass::Percentage_To_Health_State(float health)
 {
 	if (health <= 0.0f) {
 		return HEALTH_0;
-	} 
+	}
 	if (health <= 25.0f) {
 		return HEALTH_25;
 	}
@@ -151,4 +151,4 @@ const char * BuildingStateClass::Get_State_Name(int state)
 
 
 
- 
+

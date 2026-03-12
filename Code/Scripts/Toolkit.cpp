@@ -98,7 +98,7 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 		desc = Get_Parameter("Description");
 		filename = Get_Parameter("Filename");
 		file = fopen(filename, "wt");
-		
+
 		fprintf(file, "%s [ID %d] created.\n", desc, Commands->Get_ID(obj));
 	}
 
@@ -118,7 +118,7 @@ DECLARE_SCRIPT(M00_Debug_Text_File_RMV, "Description=Object:string, Filename=Deb
 	{
 	//	fprintf(file, "%s [ID %d] heard a sound.   %3.1f sec.\n", desc, Commands->Get_ID(obj), current_time);
 	}
-	
+
 	void Enemy_Seen( GameObject * obj, GameObject * enemy) override
 	{
 		current_time = time(NULL);
@@ -200,7 +200,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Object_On_Timer_RMV, "Delay:float, Primary
 	int stop_id;
 	int target_id;
 	GameObject *target;
-	
+
 	void Created(GameObject * obj) override
 	{
 		time = Get_Float_Parameter("Delay");
@@ -239,7 +239,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Location_On_Frame_RMV, "Frame:int, Primary
 	int start_id;
 	int stop_id;
 	Vector3 target;
-	
+
 	void Created(GameObject * obj) override
 	{
 		frame = (float)Get_Int_Parameter("Frame");
@@ -273,7 +273,7 @@ DECLARE_SCRIPT(M00_Activate_Weapon_At_Location_On_Timer_RMV, "Delay:float, Prima
 	int start_id;
 	int stop_id;
 	Vector3 target;
-	
+
 	void Created(GameObject * obj) override
 	{
 		time = Get_Float_Parameter("Delay");
@@ -339,7 +339,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( object_detached, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -356,7 +356,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 			attached_object_id = Commands->Get_ID(sender);
 			Commands->Start_Timer (obj, this, param / 30.0f, OBJECT_DETACHED);
 		}
-		
+
 	}
 
 	void Timer_Expired(GameObject * /*obj*/, int timer_id) override
@@ -365,7 +365,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 		{
 			object_detached = true;
 		}
-		
+
 	}
 
 	void Killed (GameObject * /*obj*/, GameObject * /*killer*/) override
@@ -375,7 +375,7 @@ DECLARE_SCRIPT(M00_Monitor_Attached_Primary, "")
 			Commands->Apply_Damage( Commands->Find_Object(attached_object_id), 10000.0f, "DEATH", NULL);
 		}
 	}
-	
+
 };
 
 /***********************************************************************************************************
@@ -662,7 +662,7 @@ DECLARE_SCRIPT(M00_ChainRxn_Barrel_JDG, "Controller_ID :int")
 				"DSP_METDRUM08.DSP_METDRUM08",
 			};
 
-			int barrels_endframe[8] = 
+			int barrels_endframe[8] =
 			{
 				28,//1
 				15,//2
@@ -751,7 +751,7 @@ DECLARE_SCRIPT (M00_Advanced_Guard_Tower, "")
 		gun_02_pos.X = gun_02_pos.X + 5.161f;
 		gun_02_pos.Y = gun_02_pos.Y + 3.272f;
 		gun_02_pos.Z = gun_02_pos.Z - 9.0f;
-		
+
 		gun_03_pos.X = gun_03_pos.X - 4.491f;
 		gun_03_pos.Y = gun_03_pos.Y + 3.257f;
 		gun_03_pos.Z = gun_03_pos.Z - 9.0f;
@@ -1733,7 +1733,7 @@ DECLARE_SCRIPT(M00_ArmorMedal_TextMessage_JDG, "")
 {
 	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Set_HUD_Help_Text ( IDS_M00DSGN_DSGN1009I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 		}
@@ -1744,7 +1744,7 @@ DECLARE_SCRIPT(M00_HealthMedal_TextMessage_JDG, "")
 {
 	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Set_HUD_Help_Text ( IDS_M00DSGN_DSGN1008I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 		}
@@ -1808,7 +1808,7 @@ DECLARE_SCRIPT(M00_SSM_DLS, "")
 			Commands->Destroy_Object (Commands->Find_Object (ssm_missile_id));
 		}
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M00_Generic_Conv_DME, "ConvName:string")
@@ -1865,7 +1865,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 				mod_on = false;
 			}
 		}
-	}		
+	}
 
 	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override
 	{
@@ -1881,7 +1881,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 			if ((star_modifier && damager == STAR && star_killable) || (notStar_modifier && damager != STAR && notStar_killable))
 			{
 				current_health = Commands->Get_Health (obj);
-				if (current_health == 0) 
+				if (current_health == 0)
 				{
 					damage = ((last_health - current_health) + damage_tally);
 				}
@@ -1892,7 +1892,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 				}
 				float mod_damage = (damage * (Get_Float_Parameter("Damage_multiplier")));
 				damage_tally += mod_damage;
-				
+
 				Commands->Set_Health (obj, (last_health - mod_damage));
 				last_health = Commands->Get_Health (obj);
 				current_health = Commands->Get_Health (obj);
@@ -1901,7 +1901,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 			if ((star_modifier && damager == STAR && !star_killable) || (notStar_modifier && damager != STAR && !notStar_killable))
 			{
 				current_health = Commands->Get_Health (obj);
-				if (current_health == 0) 
+				if (current_health == 0)
 				{
 					damage = ((last_health - current_health));
 				}
@@ -1911,7 +1911,7 @@ DECLARE_SCRIPT (M00_Damage_Modifier_DME, "Damage_multiplier:float, Star_Modifier
 					damage = (last_health - current_health);
 				}
 				float mod_damage = (damage * (Get_Float_Parameter("Damage_multiplier")));
-				
+
 				Commands->Set_Health (obj, (last_health - mod_damage));
 				last_health = Commands->Get_Health (obj);
 				current_health = Commands->Get_Health (obj);

@@ -111,7 +111,7 @@ protected:
 class SakuraBossGameObj : public VehicleGameObj
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -151,11 +151,11 @@ public:
 	//
 	// Damage
 	//
-   virtual	void						Apply_Damage_Extended( const OffenseObjectClass & offense, 
-														float scale = 1.0f, 
-														const	Vector3 & direction = Vector3( 0,0,0 ), 
+   virtual	void						Apply_Damage_Extended( const OffenseObjectClass & offense,
+														float scale = 1.0f,
+														const	Vector3 & direction = Vector3( 0,0,0 ),
 														const char * collision_box_name = NULL ) override;
-	
+
 	//
 	//	Occupant control
 	//
@@ -189,7 +189,7 @@ protected:
 	//	Gatling gun state management
 	//
 	void									Set_Gattling_Gun_State (int new_state);
-	void									Update_Gattling_Gun_State (void);	
+	void									Update_Gattling_Gun_State (void);
 
 	//
 	//	Sakura state management
@@ -200,8 +200,8 @@ protected:
 	//
 	//	Vehicle state management
 	//
-	void									Set_Vehicle_State (int new_state);	
-	void									Update_Vehicle_State (void);	
+	void									Set_Vehicle_State (int new_state);
+	void									Update_Vehicle_State (void);
 
 	//
 	//	Overall state management
@@ -257,18 +257,18 @@ private:
 	////////////////////////////////////////////////////////////////
 
 	int							AvailableWeapons;
-	
+
 	int							OverallState;
 	int							NextOverallState;
 	bool							FaceTargetInTransition;
-	
+
 	int							RocketLauncherState;
 	int							GattlingGunState;
 	int							SakuraState;
 	int							VehicleState;
 	DefenseObjectClass		LeftRocketDefenseObject;
-	DefenseObjectClass		RightRocketDefenseObject;	
-	
+	DefenseObjectClass		RightRocketDefenseObject;
+
 	GameObjReference			LastDamager;
 	GameObjReference			CurrentTarget;
 	Vector3						MoveToLocation;

@@ -75,7 +75,7 @@ SimplePersistFactoryClass<DummyObjectDefinitionClass, CHUNKID_DUMMY_OBJECT_DEF>	
 //////////////////////////////////////////////////////////////////////////////////
 DummyObjectDefinitionClass::DummyObjectDefinitionClass (void)
 	:	DefinitionClass ()
-		
+
 {
 	FILENAME_PARAM (DummyObjectDefinitionClass, m_ModelName, "Westwood 3D Files", ".w3d");
 	return ;
@@ -139,7 +139,7 @@ DummyObjectDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_VARIABLES:
 				retval &= Load_Variables (cload);
 				break;
@@ -186,7 +186,7 @@ DummyObjectDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_MODEL_NAME, m_ModelName)
 		}
 

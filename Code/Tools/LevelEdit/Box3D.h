@@ -95,7 +95,7 @@ class Box3DClass : public DynamicMeshClass
 		void							Get_Obj_Space_Bounding_Box(AABoxClass & box) const;
 		void							Render (RenderInfoClass &rinfo);
 
-			
+
 		//
 		//	Dimension methods
 		//
@@ -148,7 +148,7 @@ class Box3DClass : public DynamicMeshClass
 		//	Private member data
 		//////////////////////////////////////////////////////////
 		Vector3						m_Dimensions;
-		Vector3						m_Verticies[8];		
+		Vector3						m_Verticies[8];
 		bool							m_bDirty;
 };
 
@@ -169,7 +169,7 @@ class Box3DPhysClass : public EditorPhysClass
 			: m_pBox (NULL)								{ Initialize (1, 1, 1); }
 
 		Box3DPhysClass (const Vector3 &dimensions)
-			: m_pBox (NULL)								{ Initialize (dimensions.X, dimensions.Y, dimensions.Z); }	
+			: m_pBox (NULL)								{ Initialize (dimensions.X, dimensions.Y, dimensions.Z); }
 
 		virtual ~Box3DPhysClass (void)				{ MEMBER_RELEASE (m_pBox); }
 

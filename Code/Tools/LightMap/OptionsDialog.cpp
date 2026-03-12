@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 9/08/00 6:37p       $* 
- *                                                                                             * 
- *                    $Revision:: 7                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 9/08/00 6:37p       $*
+ *                                                                                             *
+ *                    $Revision:: 7                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -64,8 +64,8 @@ static char THIS_FILE[] = __FILE__;
 #define PERCENT_SLIDER_TICK_COUNT			101
 #define SMOOTHING_ANGLE_TICK_COUNT			181
 #define MIN_SAMPLE_RATE							1
-#define MAX_SAMPLE_RATE							9999	
-#define SAMPLE_RATE_VALUE_CONTROL_STRING	"%4.1f"	
+#define MAX_SAMPLE_RATE							9999
+#define SAMPLE_RATE_VALUE_CONTROL_STRING	"%4.1f"
 
 
 /***********************************************************************************************
@@ -78,7 +78,7 @@ static char THIS_FILE[] = __FILE__;
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 OptionsDialog::OptionsDialog (CWnd *parent)
 	: CDialog (OptionsDialog::IDD, parent)
@@ -136,9 +136,9 @@ END_MESSAGE_MAP()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
-BOOL OptionsDialog::OnInitDialog() 
+BOOL OptionsDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -151,7 +151,7 @@ BOOL OptionsDialog::OnInitDialog()
 	SetDlgItemInt (IDC_FILL_COLOR_RED,   FillColor.R, false);
 	SetDlgItemInt (IDC_FILL_COLOR_GREEN, FillColor.G, false);
 	SetDlgItemInt (IDC_FILL_COLOR_BLUE,  FillColor.B, false);
-	Initialize_Spinner (IDC_SAMPLE_RATE, MIN_SAMPLE_RATE, MAX_SAMPLE_RATE, SampleRate); 
+	Initialize_Spinner (IDC_SAMPLE_RATE, MIN_SAMPLE_RATE, MAX_SAMPLE_RATE, SampleRate);
 	Set_Text (IDC_SAMPLE_RATE_VALUE, SAMPLE_RATE_VALUE_CONTROL_STRING, Get_Sample_Rate());
   	Initialize_Slider (IDC_FILTER_ERROR, 0, PERCENT_SLIDER_TICK_COUNT - 1, FilterError);
 	Set_Text (IDC_FILTER_ERROR_VALUE, "%d", (int) FilterError);
@@ -166,7 +166,7 @@ BOOL OptionsDialog::OnInitDialog()
 		case 24:
 			CheckDlgButton (IDC_24_BITS_PER_PIXEL, 1);
 			break;
-			
+
 		default:
 			ASSERT (false);
 			break;
@@ -190,7 +190,7 @@ BOOL OptionsDialog::OnInitDialog()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
 int OptionsDialog::DoModal()
 {
@@ -224,14 +224,14 @@ int OptionsDialog::DoModal()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/03/00    IML : Created.                                                                * 
+ *   02/03/00    IML : Created.                                                                *
  *=============================================================================================*/
-void OptionsDialog::OnChangeSpatialTolerance() 
+void OptionsDialog::OnChangeSpatialTolerance()
 {
 	SpatialTolerance = GetDlgItemInt (IDC_SPATIAL_TOLERANCE, NULL, false);
 }
 
-void OptionsDialog::OnUpdateSpatialTolerance() 
+void OptionsDialog::OnUpdateSpatialTolerance()
 {
 	const unsigned maxtolerance = 10000;
 
@@ -250,14 +250,14 @@ void OptionsDialog::OnUpdateSpatialTolerance()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/16/99    IML : Created.                                                                * 
+ *   11/16/99    IML : Created.                                                                *
  *=============================================================================================*/
-void OptionsDialog::OnChangeFillColorRed() 
+void OptionsDialog::OnChangeFillColorRed()
 {
 	FillColor.R = GetDlgItemInt (IDC_FILL_COLOR_RED, NULL, false);
 }
 
-void OptionsDialog::OnUpdateFillColorRed() 
+void OptionsDialog::OnUpdateFillColorRed()
 {
 	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_RED, NULL, false);
 	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_RED, _UI8_MAX, false);
@@ -274,14 +274,14 @@ void OptionsDialog::OnUpdateFillColorRed()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/16/99    IML : Created.                                                                * 
+ *   11/16/99    IML : Created.                                                                *
  *=============================================================================================*/
-void OptionsDialog::OnChangeFillColorGreen() 
+void OptionsDialog::OnChangeFillColorGreen()
 {
 	FillColor.G = GetDlgItemInt (IDC_FILL_COLOR_GREEN, NULL, false);
 }
 
-void OptionsDialog::OnUpdateFillColorGreen() 
+void OptionsDialog::OnUpdateFillColorGreen()
 {
 	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_GREEN, NULL, false);
 	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_GREEN, _UI8_MAX, false);
@@ -299,14 +299,14 @@ void OptionsDialog::OnUpdateFillColorGreen()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/16/99    IML : Created.                                                                * 
+ *   11/16/99    IML : Created.                                                                *
  *=============================================================================================*/
-void OptionsDialog::OnChangeFillColorBlue() 
+void OptionsDialog::OnChangeFillColorBlue()
 {
 	FillColor.B = GetDlgItemInt (IDC_FILL_COLOR_BLUE, NULL, false);
 }
 
-void OptionsDialog::OnUpdateFillColorBlue() 
+void OptionsDialog::OnUpdateFillColorBlue()
 {
 	unsigned v = GetDlgItemInt (IDC_FILL_COLOR_BLUE, NULL, false);
 	if (v > _UI8_MAX) SetDlgItemInt (IDC_FILL_COLOR_BLUE, _UI8_MAX, false);
@@ -323,9 +323,9 @@ void OptionsDialog::OnUpdateFillColorBlue()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
-void OptionsDialog::On16BitsPerPixel() 
+void OptionsDialog::On16BitsPerPixel()
 {
 	BitDepth = 16;
 }
@@ -341,9 +341,9 @@ void OptionsDialog::On16BitsPerPixel()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
-void OptionsDialog::On24BitsPerPixel() 
+void OptionsDialog::On24BitsPerPixel()
 {
 	BitDepth = 24;
 }
@@ -359,9 +359,9 @@ void OptionsDialog::On24BitsPerPixel()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
-void OptionsDialog::OnHScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar) 
+void OptionsDialog::OnHScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar)
 {
 	int controlid = scrollbar->GetDlgCtrlID();
 
@@ -387,7 +387,7 @@ void OptionsDialog::OnHScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar)
 		default:
 			break;
 	}
-	
+
 	CDialog::OnHScroll (sbcode, pos, scrollbar);
 }
 
@@ -402,9 +402,9 @@ void OptionsDialog::OnHScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/16/00    IML : Created.                                                                * 
+ *   08/16/00    IML : Created.                                                                *
  *=============================================================================================*/
-void OptionsDialog::OnVScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar) 
+void OptionsDialog::OnVScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar)
 {
 	int controlid = scrollbar->GetDlgCtrlID();
 
@@ -435,9 +435,9 @@ void OptionsDialog::OnVScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/16/00    IML : Created.                                                                * 
+ *   08/16/00    IML : Created.                                                                *
  *=============================================================================================*/
-void OptionsDialog::OnLightExportSelective() 
+void OptionsDialog::OnLightExportSelective()
 {
 	LightExportSelective = !LightExportSelective;
 	GetDlgItem (IDC_LIGHT_EXCLUSION_STRING)->EnableWindow (LightExportSelective);
@@ -454,9 +454,9 @@ void OptionsDialog::OnLightExportSelective()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/16/00    IML : Created.                                                                * 
+ *   08/16/00    IML : Created.                                                                *
  *=============================================================================================*/
-void OptionsDialog::OnChangeLightExclusionString() 
+void OptionsDialog::OnChangeLightExclusionString()
 {
 	GetDlgItem (IDC_LIGHT_EXCLUSION_STRING)->GetWindowText (LightExclusionString);
 }
@@ -472,7 +472,7 @@ void OptionsDialog::OnChangeLightExclusionString()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void OptionsDialog::Initialize_Slider (int sliderid, int start, int end, int value)
 {
@@ -482,7 +482,7 @@ void OptionsDialog::Initialize_Slider (int sliderid, int start, int end, int val
 	ASSERT (slider != NULL);
 	slider->SetRange (start, end);
 	slider->SetPos (value);
-}	
+}
 
 
 /***********************************************************************************************
@@ -495,12 +495,12 @@ void OptionsDialog::Initialize_Slider (int sliderid, int start, int end, int val
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void OptionsDialog::Initialize_Spinner (int spinnerid, int start, int end, int value)
 {
 	CSpinButtonCtrl *spinner;
-	
+
 	spinner = (CSpinButtonCtrl*) GetDlgItem (spinnerid);
 	ASSERT (spinner != NULL);
 	spinner->SetRange (start, end);
@@ -518,7 +518,7 @@ void OptionsDialog::Initialize_Spinner (int spinnerid, int start, int end, int v
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void OptionsDialog::Set_Text (int textid, const char *controlstring, int value)
 {
@@ -539,7 +539,7 @@ void OptionsDialog::Set_Text (int textid, const char *controlstring, int value)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/2/99    IML : Created.                                                                 * 
+ *   11/2/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void OptionsDialog::Set_Text (int textid, const char *controlstring, float value)
 {

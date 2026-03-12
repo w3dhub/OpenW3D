@@ -100,12 +100,12 @@ BOOL
 ScriptEditDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog();
-	
+
 	//
 	// Add the total list of scripts to the combobox
 	//
 	for (int index = 0; index < ScriptMgrClass::Get_Count (); index ++) {
-		EditScriptClass *script = ScriptMgrClass::Get_Script (index);		
+		EditScriptClass *script = ScriptMgrClass::Get_Script (index);
 		if (script != NULL) {
 
 			//
@@ -140,12 +140,12 @@ ScriptEditDialogClass::OnInitDialog (void)
 	//	Create the 'Vector3' dialog control
 	//
 	m_ValueVector3Dlg = new Vector3DialogClass;
-	m_ValueVector3Dlg->Create (this);	
+	m_ValueVector3Dlg->Create (this);
 	CRect v3_rect;
 	m_ValueVector3Dlg->GetWindowRect (&v3_rect);
 	m_ValueVector3Dlg->ShowWindow (SW_HIDE);
 	m_ValueVector3Dlg->SetWindowPos (&m_ValueNumberEdit, rect.left, (rect.top + rect.Height () / 2) - (v3_rect.Height () / 2), 0, 0, SWP_NOSIZE);
-	
+
 	Fill_Param_Combo ();
 	Switch_Value_Control_Type ();
 	return true;
@@ -204,9 +204,9 @@ ScriptEditDialogClass::Switch_Value_Control_Type (int param_index)
 	// Is the new type different than the old one?
 	PARAM_TYPES type = m_Script.Get_Param_Type (param_index);
 	if (type != m_CurrentParamType) {
-		
+
 		//
-		// What's the new type?		
+		// What's the new type?
 		//
 		switch (type)
 		{
@@ -235,7 +235,7 @@ ScriptEditDialogClass::Switch_Value_Control_Type (int param_index)
 				m_ValueVector3Dlg->ShowWindow (SW_SHOW);
 			}
 			break;
-			
+
 			case PARAM_TYPE_STRING:
 			default:
 			{
@@ -265,13 +265,13 @@ ScriptEditDialogClass::Switch_Value_Control_Type (int param_index)
 				m_ValueBoolCheck.ShowWindow (SW_HIDE);
 			}
 			break;
-			
+
 			case PARAM_TYPE_VECTOR3:
 			{
 				m_ValueVector3Dlg->ShowWindow (SW_HIDE);
 			}
-			break;			
-			
+			break;
+
 			case PARAM_TYPE_STRING:
 			default:
 			{
@@ -300,7 +300,7 @@ ScriptEditDialogClass::Switch_Value_Control_Type (int param_index)
 void
 ScriptEditDialogClass::Fill_Value_Control (LPCTSTR value)
 {
-	// What's type?		
+	// What's type?
 	switch (m_CurrentParamType)
 	{
 		case PARAM_TYPE_FLOAT:
@@ -319,27 +319,27 @@ ScriptEditDialogClass::Fill_Value_Control (LPCTSTR value)
 		break;
 
 		case PARAM_TYPE_BOOL:
-		{			
+		{
 			m_ValueBoolCheck.SetWindowText (m_Script.Get_Param_Name (m_CurrentParamIndex));
 			m_ValueBoolCheck.SetCheck (::lstrcmpi (value, "true") == 0);
 		}
 		break;
 
 		case PARAM_TYPE_VECTOR3:
-		{						
+		{
 			//
 			//	Determine what the 3 components of the vector3 are
 			//
 			Vector3 new_value (0, 0, 0);
 			::sscanf (value, "%f %f %f", &new_value.X, &new_value.Y, &new_value.Z);
-			
+
 			//
 			//	Pass the new value onto the dialog
 			//
 			m_ValueVector3Dlg->Set_Default_Value (new_value);
 		}
 		break;
-		
+
 		case PARAM_TYPE_STRING:
 		default:
 		{
@@ -391,11 +391,11 @@ ScriptEditDialogClass::Save_Current_Value (void)
 			//
 			//	Get the current value from the dialog and convert it to a string
 			//
-			Vector3 curr_value = m_ValueVector3Dlg->Get_Current_Value ();			
+			Vector3 curr_value = m_ValueVector3Dlg->Get_Current_Value ();
 			text_value.Format ("%.2f %.2f %.2f", curr_value.X, curr_value.Y, curr_value.Z);
 		}
 		break;
-		
+
 		case PARAM_TYPE_STRING:
 		default:
 		{
@@ -416,7 +416,7 @@ ScriptEditDialogClass::Save_Current_Value (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ScriptEditDialogClass::OnSelChangeParamNameCombo (void) 
+ScriptEditDialogClass::OnSelChangeParamNameCombo (void)
 {
 	// Make sure we save the current value from the value control
 	Save_Current_Value ();
@@ -424,7 +424,7 @@ ScriptEditDialogClass::OnSelChangeParamNameCombo (void)
 	// Get the parameter index
 	m_CurrentParamIndex = SendDlgItemMessage (IDC_PARAM_NAME_COMBO, CB_GETCURSEL);
 	if (m_CurrentParamIndex != CB_ERR) {
-		
+
 		// Reset the dialog controls to reflect this parameter
 		Switch_Value_Control_Type ();
 		Fill_Value_Control (m_Script.Get_Param_Value (m_CurrentParamIndex));
@@ -440,7 +440,7 @@ ScriptEditDialogClass::OnSelChangeParamNameCombo (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ScriptEditDialogClass::OnSelChangeScriptName (void) 
+ScriptEditDialogClass::OnSelChangeScriptName (void)
 {
 	// Get the current selection
 	int index = SendDlgItemMessage (IDC_SCRIPT_NAME, CB_GETCURSEL);
@@ -470,7 +470,7 @@ ScriptEditDialogClass::OnDeltaposParamValueNumberSpin
 (
 	NMHDR *pNMHDR,
 	LRESULT *pResult
-) 
+)
 {
 	NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
 

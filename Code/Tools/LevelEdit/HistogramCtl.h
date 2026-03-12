@@ -61,7 +61,7 @@ class HistogramCtlClass
 
 		//////////////////////////////////////////////////////////////
 		//	Public methods
-		//////////////////////////////////////////////////////////////	
+		//////////////////////////////////////////////////////////////
 		void			Add_Data_Point		(float value);
 		void			Reset_Data_Points (void);
 
@@ -70,10 +70,10 @@ class HistogramCtlClass
 		void			Set_Selection		(float range_min, float range_max);
 		void			Set_Selection		(int min_pixel, int max_pixel);
 		void			Clear_Selection	(void);
-		
+
 		// Control customization
 		void			Set_X_Axis_Range	(float min, float max);
-		void			Set_Y_Axis_Range	(float min, float max);	
+		void			Set_Y_Axis_Range	(float min, float max);
 		void			Set_Dimensions		(int width, int height);
 		void			Set_Bk_Color		(const Vector3 &low, const Vector3 &high);
 		void			Set_Color			(const Vector3 &low, const Vector3 &high);
@@ -93,7 +93,7 @@ class HistogramCtlClass
 		void			Destroy_DIB_Section (void);
 		void			Paint_DIB (void);
 		int			Find_Value_Index (float value);
-		
+
 	private:
 
 		//////////////////////////////////////////////////////////////
@@ -119,10 +119,10 @@ class HistogramCtlClass
 		} VALUE;
 
 		typedef DynamicVectorClass<VALUE> VALUE_LIST;
-		
+
 		//////////////////////////////////////////////////////////////
 		//	Private member data
-		//////////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////////
 		HBITMAP			m_hBitmap;
 		unsigned char *m_pBits;
 		int				m_ScanlineSize;
@@ -185,7 +185,7 @@ HistogramCtlClass::Set_Selection	(int min_pixel, int max_pixel)
 
 	/*float *x_vector	= new float[m_BMPWidth*2];
 	::memset (x_vector, 0, sizeof (float) * m_BMPWidth * 2);
-	
+
 	if (m_ValueList[)
 	//
 	//	Loop through all the values and combine pixel-duplicates
@@ -195,8 +195,8 @@ HistogramCtlClass::Set_Selection	(int min_pixel, int max_pixel)
 		int x_pos			= int((value.value / x_range) * (float)(m_BMPWidth-1));
 		x_vector[x_pos]	= std::min (x_vector[x_pos], value.value);
 		x_vector[x_pos*2]	= std::max (x_vector[x_pos*2], value.value);
-	}	
-	
+	}
+
 	//float value1	= ((float)(min_pixel * x_range) / ((float)m_BMPWidth));
 	//float value2	= ((float)(max_pixel * x_range) / ((float)m_BMPWidth));
 
@@ -214,7 +214,7 @@ HistogramCtlClass::Set_Selection	(int min_pixel, int max_pixel)
 
 	m_Selection.min = std::min (value1, value2);
 	m_Selection.max = std::max (value1, value2);
-	
+
 
 	/*if (min_pixel != -1) {
 		m_Selection.min = std::min (value1, value2);

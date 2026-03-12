@@ -101,7 +101,7 @@ PurchaseSettingsDefClass::PurchaseSettingsDefClass (void)	:
 	::memset (CostList,						0, sizeof (CostList));
 	::memset (DefinitionList,				0, sizeof (DefinitionList));
 	::memset (NameList,						0, sizeof (NameList));
-	::memset (AlternateDefinitionList,	0, sizeof (AlternateDefinitionList));	
+	::memset (AlternateDefinitionList,	0, sizeof (AlternateDefinitionList));
 
 	//
 	//	Configure the enum parameters for the editable system
@@ -129,7 +129,7 @@ PurchaseSettingsDefClass::PurchaseSettingsDefClass (void)	:
 	//	Configure the editable system
 	//
 	for (int index = 0; index < MAX_ENTRIES; index ++) {
-		
+
 		//
 		//	Add a separator for this entry
 		//
@@ -154,11 +154,11 @@ PurchaseSettingsDefClass::PurchaseSettingsDefClass (void)	:
 			//	Insert the alternate textures and definitions
 			//
 			for (int alt_index = 0; alt_index < MAX_ALTERNATES; alt_index ++) {
-				
+
 				name.Format ("Alt Texture %d", alt_index + 1);
 				NAMED_EDITABLE_PARAM (PurchaseSettingsDefClass, ParameterClass::TYPE_STRING, AlternateTextureList[index][alt_index], name);
 
-				name.Format ("Alt Object %d", alt_index + 1);		
+				name.Format ("Alt Object %d", alt_index + 1);
 				GenericDefParameterClass *param = new GenericDefParameterClass (&(AlternateDefinitionList[index][alt_index]));
 				param->Set_Class_ID (CLASSID_GAME_OBJECTS);
 				param->Set_Name (name);
@@ -197,8 +197,8 @@ PurchaseSettingsDefClass::~PurchaseSettingsDefClass (void)
 ///////////////////////////////////////////////////////////////////////////////////////////
 uint32
 PurchaseSettingsDefClass::Get_Class_ID (void) const
-{ 
-	return CLASSID_GLOBAL_SETTINGS_DEF_PURCHASE; 
+{
+	return CLASSID_GLOBAL_SETTINGS_DEF_PURCHASE;
 }
 
 
@@ -209,8 +209,8 @@ PurchaseSettingsDefClass::Get_Class_ID (void) const
 ///////////////////////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 PurchaseSettingsDefClass::Get_Factory (void) const
-{ 
-	return _PurchaseDefPersistFactory; 
+{
+	return _PurchaseDefPersistFactory;
 }
 
 
@@ -220,7 +220,7 @@ PurchaseSettingsDefClass::Get_Factory (void) const
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
 PersistClass *
-PurchaseSettingsDefClass::Create (void) const 
+PurchaseSettingsDefClass::Create (void) const
 {
 	WWASSERT (0);
 	return NULL;
@@ -254,7 +254,7 @@ PurchaseSettingsDefClass::Save (ChunkSaveClass &csave)
 			WRITE_MICRO_CHUNK (csave, VARID_INDEX,							index);
 			WRITE_MICRO_CHUNK (csave, VARID_COST,							CostList[index]);
 			WRITE_MICRO_CHUNK (csave, VARID_DEFINITION,					DefinitionList[index]);
-			WRITE_MICRO_CHUNK (csave, VARID_NAME,							NameList[index]);			
+			WRITE_MICRO_CHUNK (csave, VARID_NAME,							NameList[index]);
 			WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_TEXTURE_NAME,	TextureList[index]);
 
 			for (int alt_index = 0; alt_index < MAX_ALTERNATES; alt_index ++) {
@@ -284,7 +284,7 @@ PurchaseSettingsDefClass::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				DefinitionClass::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -315,7 +315,7 @@ PurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 
 	while (cload.Open_Micro_Chunk ()) {
 		switch(cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			//
 			//	Read the type and team information
 			//
@@ -326,8 +326,8 @@ PurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 			//	Read the current list entry
 			//
 			READ_MICRO_CHUNK (cload, VARID_INDEX,		entry_index);
-			READ_MICRO_CHUNK (cload, VARID_ALT_INDEX,	alt_index);			
-																						
+			READ_MICRO_CHUNK (cload, VARID_ALT_INDEX,	alt_index);
+
 			case VARID_COST:
 				if (entry_index >= 0 && entry_index < MAX_ENTRIES) {
 					LOAD_MICRO_CHUNK (cload, CostList[entry_index]);
@@ -342,10 +342,10 @@ PurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 
 			case VARID_NAME:
 				if (entry_index >= 0 && entry_index < MAX_ENTRIES) {
-					LOAD_MICRO_CHUNK (cload, NameList[entry_index]);			
+					LOAD_MICRO_CHUNK (cload, NameList[entry_index]);
 				}
 				break;
-			
+
 			case VARID_TEXTURE_NAME:
 				if (entry_index >= 0 && entry_index < MAX_ENTRIES) {
 					LOAD_MICRO_CHUNK_WWSTRING (cload, TextureList[entry_index]);

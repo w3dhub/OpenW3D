@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 1/24/01 3:29p       $* 
- *                                                                                             * 
- *                    $Revision:: 3                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 1/24/01 3:29p       $*
+ *                                                                                             *
+ *                    $Revision:: 3                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if !defined(AFX_INSERTSOLVEDIALOG_H__6F280B62_836D_11D4_A3D2_009027447394__INCLUDED_)
@@ -56,9 +56,9 @@ public:
 	char *Directory_Name()	 {return (DirectoryName);}
 	char *Filename_List()	 {return (FilenameList);}
 	bool  Apply_Selective()	 {return (ApplySelective);}
-	bool	Invert_Selection() {return (InvertSelection);}	
+	bool	Invert_Selection() {return (InvertSelection);}
 	bool	Blend_Noise()		 {return (BlendNoise);}
-	char *Inclusion_String() {return (InclusionString);}	
+	char *Inclusion_String() {return (InclusionString);}
 
 // Dialog Data
 	//{{AFX_DATA(InsertSolveDialog)

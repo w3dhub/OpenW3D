@@ -48,9 +48,9 @@ class PhysClass;
 
 
 ///////////////////////////////////////////////////////////////////////////
-// 
+//
 // Derived versions of the Collision Test Classes which contain
-// a pointer to the 'CollidedPhysObj'.  This will be set to point at the 
+// a pointer to the 'CollidedPhysObj'.  This will be set to point at the
 // phys object collided with (if any).
 //
 ///////////////////////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ public:
 	** group - collision group of the object making query
 	*/
 	PhysRayCollisionTestClass(const LineSegClass & ray,CastResultStruct * res,int group,int type = COLLISION_TYPE_PROJECTILE) :
-		RayCollisionTestClass(ray,res,type), 
+		RayCollisionTestClass(ray,res,type),
 		CollidedPhysObj(NULL),
 		CollisionGroup(group),
 		CheckStaticObjs(true),
@@ -98,8 +98,8 @@ public:
 	** res - pointer to a result struct to put results in
 	** group - collision group of the object making query
 	*/
-	PhysAABoxCollisionTestClass(const AABoxClass & aabox,const Vector3 & move,CastResultStruct * res,int group,int type = COLLISION_TYPE_PHYSICAL) : 
-		AABoxCollisionTestClass(aabox,move,res,type), 
+	PhysAABoxCollisionTestClass(const AABoxClass & aabox,const Vector3 & move,CastResultStruct * res,int group,int type = COLLISION_TYPE_PHYSICAL) :
+		AABoxCollisionTestClass(aabox,move,res,type),
 		CollidedPhysObj(NULL),
 		CollisionGroup(group),
 		CheckStaticObjs(true),
@@ -132,8 +132,8 @@ public:
 	** res - pointer to a result struct to put results in
 	** group - collision group of the object making query
 	*/
-	PhysOBBoxCollisionTestClass(const OBBoxClass & box,const Vector3 & move,CastResultStruct * res,int group,int type = COLLISION_TYPE_PHYSICAL) : 
-		OBBoxCollisionTestClass(box,move,res,type), 
+	PhysOBBoxCollisionTestClass(const OBBoxClass & box,const Vector3 & move,CastResultStruct * res,int group,int type = COLLISION_TYPE_PHYSICAL) :
+		OBBoxCollisionTestClass(box,move,res,type),
 		CollidedPhysObj(NULL),
 		CollisionGroup(group),
 		CheckStaticObjs(true),

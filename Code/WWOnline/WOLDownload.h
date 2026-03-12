@@ -41,7 +41,7 @@
 #include "RefPtr.h"
 #include "WaitCondition.h"
 
-namespace WOL 
+namespace WOL
 {
 #include <wolapi/WOLAPI.h>
 }
@@ -210,7 +210,7 @@ class DownloadWait :
 		static RefPtr<DownloadWait> Create(const DownloadList& files);
 
 		void WaitBeginning(void) override;
-		
+
 		WaitResult GetResult(void) override;
 
 		void EndWait(WaitResult, const unichar_t*) override;

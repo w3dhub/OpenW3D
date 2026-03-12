@@ -61,7 +61,7 @@ END_MESSAGE_MAP()
 // GenerateBaseDialogClass message handlers
 
 void
-GenerateBaseDialogClass::OnOK (void) 
+GenerateBaseDialogClass::OnOK (void)
 {
 	GetDlgItemText (IDC_PRESET_NAME, m_PresetName);
 	CDialog::OnOK();

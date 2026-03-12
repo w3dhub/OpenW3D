@@ -42,14 +42,14 @@ static char THIS_FILE[] = __FILE__;
 //	Progress Callback Object
 //////////////////////////////////////////////////////////////////////////
 class LSProgressCallbackClass : public LightSolveObserverClass
-{	
+{
 public:
 	LSProgressCallbackClass(void) { }
 	~LSProgressCallbackClass(void) { }
 
-	virtual void Progress_Callback(LightSolveContextClass & /* context */) 
-	{ 
-		General_Pump_Messages(); 
+	virtual void Progress_Callback(LightSolveContextClass & /* context */)
+	{
+		General_Pump_Messages();
 	};
 };
 
@@ -94,11 +94,11 @@ END_MESSAGE_MAP()
 // OnInitDialog
 //
 /////////////////////////////////////////////////////////////////////////////
-BOOL 
-LightSolveProgressDialog::OnInitDialog() 
+BOOL
+LightSolveProgressDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	m_ProgressBar.SetRange (0, 100);
 	SetTimer (777, 250, NULL);
 	ShowWindow (SW_SHOW);
@@ -126,14 +126,14 @@ LightSolveProgressDialog::OnCancel (void)
 // WindowProc
 //
 /////////////////////////////////////////////////////////////////////////////
-LRESULT 
-LightSolveProgressDialog::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) 
+LRESULT
+LightSolveProgressDialog::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_USER+101) {
 		//
 		//	Kick off the lighting solveoptimization
 		//
-		LightSolveClass::Generate_Static_Light_Solve(m_SolveContext); 
+		LightSolveClass::Generate_Static_Light_Solve(m_SolveContext);
 
 		//
 		//	Cleanup the dialog
@@ -144,7 +144,7 @@ LightSolveProgressDialog::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 	if (message == WM_TIMER) {
 		Update_Stats ();
 	}
-	
+
 	return CDialog::WindowProc(message, wParam, lParam);
 }
 
@@ -183,13 +183,13 @@ LightSolveProgressDialog::Update_Stats (void)
 	SetDlgItemText (IDC_CURRENT_MESH_NAME,		progress->Get_Current_Mesh_Name());
 	SetDlgItemInt (IDC_VERTEX_COUNT,				progress->Get_Current_Mesh_Vertex_Count());
 	SetDlgItemInt (IDC_CURRENT_VERTEX,			progress->Get_Current_Vertex());
-	
+
 	//
 	//	Update the status text
 	//
 	int total	= progress->Get_Object_Count ();
 	int current	= progress->Get_Processed_Object_Count ();
-	
+
 	CString status_text;
 	status_text.Format ("%d of %d objects solved.", current, total);
 	SetDlgItemText (IDC_STATUS_TEXT,status_text);
@@ -224,4 +224,4 @@ LightSolveProgressDialog::Solve (LightSolveContextClass & context,CWnd * parent)
 	dialog.DoModal();
 }
 
-	
+

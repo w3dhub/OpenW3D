@@ -118,10 +118,10 @@ LightNodeClass::LightNodeClass (const LightNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 LightNodeClass::~LightNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_LightPhysObj);
-	MEMBER_RELEASE (m_DisplayObj);	
+	MEMBER_RELEASE (m_DisplayObj);
 	MEMBER_RELEASE (m_Sphere);
 	return ;
 }
@@ -139,7 +139,7 @@ void
 LightNodeClass::Initialize (void)
 {
 	MEMBER_RELEASE (m_LightPhysObj);
-	MEMBER_RELEASE (m_DisplayObj);	
+	MEMBER_RELEASE (m_DisplayObj);
 
 	//
 	//	Use the preset's settings (if desired)
@@ -157,7 +157,7 @@ LightNodeClass::Initialize (void)
 	LightClass *light_obj	= new LightClass;
 	m_LightPhysObj				= new LightPhysClass(true);
 	m_DisplayObj				= new DecorationPhysClass;
-		
+
 	//
 	// Configure the physics object with information about
 	// its new render object and collision data.
@@ -166,7 +166,7 @@ LightNodeClass::Initialize (void)
 	m_DisplayObj->Set_Model_By_Name ("POINTLIGHT");
 	m_DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 	::Set_Model_Collision_Type (m_DisplayObj->Peek_Model (), COLLISION_TYPE_6);
-	
+
 	m_LightPhysObj->Set_Transform (m_Transform);
 	m_DisplayObj->Set_Transform (m_Transform);
 
@@ -174,7 +174,7 @@ LightNodeClass::Initialize (void)
 	//	Make sure the light settings are correct
 	//
 	Update_Light ();
-	
+
 	// Release our hold on the light object pointer
 	MEMBER_RELEASE (light_obj);
 	return ;
@@ -188,7 +188,7 @@ LightNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 LightNodeClass::Get_Factory (void) const
-{	
+{
 	return _LightNodePersistFactory;
 }
 
@@ -214,10 +214,10 @@ LightNodeClass::operator= (const LightNodeClass &src)
 /////////////////////////////////////////////////////////////////
 bool
 LightNodeClass::Show_Settings_Dialog (void)
-{	
+{
 	NodeInfoPageClass	info_tab (this);
 	PositionPageClass	pos_tab (this);
-	
+
 	//
 	//	Display the settings tab for instance overrides
 	//
@@ -239,7 +239,7 @@ LightNodeClass::Show_Settings_Dialog (void)
 		Update_Light ();
 		m_UsePreset = false;
 	}
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }
@@ -255,7 +255,7 @@ LightNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_DisplayObj != NULL && m_IsInScene) {
@@ -296,7 +296,7 @@ LightNodeClass::Add_To_Scene (void)
 
 	if (	m_LightPhysObj != NULL &&
 			scene->Contains (m_LightPhysObj) == false) {
-		
+
 		//
 		//	Add the static light to the scene and the display object
 		// the editor uses as a visual representation of the light
@@ -307,8 +307,8 @@ LightNodeClass::Add_To_Scene (void)
 			m_Sphere->Display_Around_Node (*this);
 		}
 	}
-	
-	m_IsInScene = true;	
+
+	m_IsInScene = true;
 	return ;
 }
 
@@ -325,19 +325,19 @@ LightNodeClass::Remove_From_Scene (void)
 
 	if (	m_LightPhysObj != NULL &&
 			scene->Contains (m_LightPhysObj)) {
-		
+
 		//
 		//	Remove the static light from the scene and the display object
 		// the editor uses as a visual representation of the light
 		//
 		scene->Remove_Object (m_LightPhysObj);
-		scene->Remove_Object (m_DisplayObj);		
+		scene->Remove_Object (m_DisplayObj);
 		if (m_Sphere != NULL) {
 			m_Sphere->Remove_From_Scene ();
 		}
 	}
-	
-	m_IsInScene = false;	
+
+	m_IsInScene = false;
 	return ;
 }
 
@@ -375,7 +375,7 @@ LightNodeClass::Save (ChunkSaveClass &csave)
 bool
 LightNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
@@ -385,7 +385,7 @@ LightNodeClass::Load (ChunkLoadClass &cload)
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
-			
+
 			case CHUNKID_INSTANCE_SETTINGS:
 				m_InstanceSettings.Load (cload);
 				m_UsePreset = false;
@@ -486,7 +486,7 @@ LightNodeClass::Update_Light (void)
 		//
 		m_LightPhysObj->Set_Model (light_obj);
 		m_LightPhysObj->Set_Transform (m_Transform);
-		m_LightPhysObj->Set_Vis_Sector_ID (m_VisSectorID);		
+		m_LightPhysObj->Set_Vis_Sector_ID (m_VisSectorID);
 
 		//
 		// Loop through all the vertext materials in the display object
@@ -494,11 +494,11 @@ LightNodeClass::Update_Light (void)
 		//
 		MaterialInfoClass *material_info = light_obj->Get_Material_Info ();
 		if (material_info != NULL) {
-			
+
 			int counter = material_info->Vertex_Material_Count ();
 			while (counter --) {
 				VertexMaterialClass *vertex_mat = material_info->Peek_Vertex_Material (counter);
-				if (vertex_mat != NULL) {					
+				if (vertex_mat != NULL) {
 					vertex_mat->Set_Ambient (ambient);
 					vertex_mat->Set_Emissive (ambient);
 					vertex_mat->Set_Diffuse (diffuse);
@@ -540,14 +540,14 @@ LightNodeClass::Update_Light (void)
 void
 LightNodeClass::Initialize_From_Light (LightClass *light)
 {
-	m_UsePreset = false;	
+	m_UsePreset = false;
 
 	//
 	//	Read the settings we care about from the light
 	//
 	Vector3 ambient_color (0, 0, 0);
 	Vector3 diffuse_color (0, 0, 0);
-	Vector3 specular_color (0, 0, 0);	
+	Vector3 specular_color (0, 0, 0);
 	light->Get_Ambient (&ambient_color);
 	light->Get_Diffuse (&diffuse_color);
 	light->Get_Specular (&specular_color);
@@ -634,7 +634,7 @@ LightNodeClass::Peek_Light (void)
 		RenderObjClass *model = m_LightPhysObj->Peek_Model ();
 		if (model != NULL && model->Class_ID () == RenderObjClass::CLASSID_LIGHT) {
 			light = (LightClass *)model;
-		}		
+		}
 	}
 
 	return light;

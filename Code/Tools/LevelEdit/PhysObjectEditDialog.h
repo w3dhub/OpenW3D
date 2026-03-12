@@ -76,7 +76,7 @@ public:
 	void				Set_Read_Only (bool read_only)	{ m_ObjectEditForm. Set_Read_Only (read_only); }
 
 	ModelDefParameterClass *	Get_PhysDef_Param (void) const						{ return m_ObjectEditForm. Get_PhysDef_Param (); }
-	void							Set_PhysDef_Param (ModelDefParameterClass *param)	{ m_ObjectEditForm. Set_PhysDef_Param (param); }	
+	void							Set_PhysDef_Param (ModelDefParameterClass *param)	{ m_ObjectEditForm. Set_PhysDef_Param (param); }
 
 private:
 

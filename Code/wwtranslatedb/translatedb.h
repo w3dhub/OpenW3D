@@ -101,7 +101,7 @@ public:
 		FILTER_IF_EQUAL,
 		FILTER_IF_NOT_EQUAL,
 	} FILTER_OPT;
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -121,7 +121,7 @@ public:
 	static void						Update_Version (void);
 	static bool						Is_Loaded()									{return (m_ObjectList.Count () > 0);}
 
-	
+
 	//
 	// From SaveLoadSubSystemClass
 	//
@@ -152,7 +152,7 @@ public:
 	static bool						Add_Object (TDBObjClass *new_obj);
 	static bool						Remove_Object (int index);
 	static void						Remove_All (void);
-	
+
 	//
 	//	Enumeration
 	//
@@ -177,13 +177,13 @@ public:
 	//
 	static void						Set_Current_Language (int lang_id)	{ m_LanguageID = lang_id; }
 	static uint32					Get_Current_Language (void)			{ return m_LanguageID; }
-	
+
 	//
 	//	Save/load options
 	//
 	static bool						Is_Single_Language_Export_Enabled (void)		{ return IsSingleLanguageExport; }
 	static void						Enable_Single_Language_Export (bool onoff)	{ IsSingleLanguageExport = onoff; }
-	
+
 	static void						Set_Export_Filter (FILTER_OPT filter, uint32 category_id);
 
 protected:
@@ -250,7 +250,7 @@ TranslateDBClass::Get_String (uint32 id)
 	if (id == 0) {
 		return NULL;
 	}
-	
+
 	const unichar_t *string = STRING_NOT_FOUND;
 
 	//
@@ -262,21 +262,21 @@ TranslateDBClass::Get_String (uint32 id)
 	//	Calculate which index this ID refers to
 	//
 	int index = (id - ID_MIN);
-	
+
 	//
 	//	Check to see if the requested ID is in the range
 	// of loaded string objects.
 	//
 	WWASSERT (index >= 0 && index < m_ObjectList.Count ());
 	if (index >= 0 && index < m_ObjectList.Count ()) {
-		
+
 		//
 		//	Get the translation object
 		//
 		TDBObjClass *trans_obj = m_ObjectList[index];
 		WWASSERT (trans_obj != NULL);
 		if (trans_obj != NULL) {
-			
+
 			//
 			//	Get the string from the object and return it to the caller
 			//
@@ -346,14 +346,14 @@ TranslateDBClass::Get_English_String (uint32 id)
 	//
 	WWASSERT (index >= 0 && index < m_ObjectList.Count ());
 	if (index >= 0 && index < m_ObjectList.Count ()) {
-		
+
 		//
 		//	Get the translation object
 		//
 		TDBObjClass *trans_obj = m_ObjectList[index];
 		WWASSERT (trans_obj != NULL);
 		if (trans_obj != NULL) {
-			
+
 			//
 			//	Get the string from the object and return it to the caller
 			//
@@ -370,7 +370,7 @@ TranslateDBClass::Get_English_String (uint32 id)
 //	Find_Object
 //
 //////////////////////////////////////////////////////////////
-WWINLINE TDBObjClass *	
+WWINLINE TDBObjClass *
 TranslateDBClass::Find_Object (const char *id_desc)
 {
 	StringClass lower_case_name(id_desc,true);
@@ -381,7 +381,7 @@ TranslateDBClass::Find_Object (const char *id_desc)
 //////////////////////////////////////////////////////////////
 //	Find_Object
 //////////////////////////////////////////////////////////////
-WWINLINE TDBObjClass *	
+WWINLINE TDBObjClass *
 TranslateDBClass::Find_Object (uint32 id)
 {
 	TDBObjClass *object = NULL;
@@ -391,7 +391,7 @@ TranslateDBClass::Find_Object (uint32 id)
 	//
 	int index = (id - ID_MIN);
 	if (index >= 0 && index < m_ObjectList.Count ()) {
-		
+
 		//
 		//	Get the translation object
 		//

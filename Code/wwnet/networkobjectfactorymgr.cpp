@@ -151,7 +151,7 @@ NetworkObjectFactoryMgrClass::Link_Factory (NetworkObjectFactoryClass *factory)
 
 	// Adding this factory in front of the current head of the list
 	factory->NextFactory = _FactoryListHead;
-	
+
 	// If the list wasn't empty, link the next factory back to this factory
 	if (factory->NextFactory != 0) {
 		factory->NextFactory->PrevFactory = factory;
@@ -179,7 +179,7 @@ NetworkObjectFactoryMgrClass::Unlink_Factory (NetworkObjectFactoryClass *factory
 		// this factory is the head
 		WWASSERT (_FactoryListHead == factory);
 		_FactoryListHead = factory->NextFactory;
-	
+
 	} else {
 
 		// link it's prev with it's next
@@ -189,7 +189,7 @@ NetworkObjectFactoryMgrClass::Unlink_Factory (NetworkObjectFactoryClass *factory
 
 	// Handle the factory's next pointer if its not at the end of the list:
 	if (factory->NextFactory != 0) {
-		
+
 		factory->NextFactory->PrevFactory = factory->PrevFactory;
 
 	}

@@ -125,7 +125,7 @@ protected:
 	Render2DClass			ButtonRenderer;
 	bool						WasButtonPressedOnMe;
 	int						MinPos;
-	int						MaxPos;	
+	int						MaxPos;
 	int						CurrPos;
 	int						PageSize;
 	int						CurrState;

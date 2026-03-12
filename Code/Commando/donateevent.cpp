@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/donateevent.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 12/06/01 5:13p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 1                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/donateevent.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 12/06/01 5:13p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 1                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "donateevent.h"
@@ -96,7 +96,7 @@ cDonateEvent::Act(void)
 	cPlayer * p_donor = cPlayerManager::Find_Player(SenderId);
 	cPlayer * p_recipient = cPlayerManager::Find_Player(RecipientId);
 
-	if (p_donor != NULL && 
+	if (p_donor != NULL &&
 		 p_recipient != NULL &&
 		 Amount >= cDonateEvent::Get_Minimum_Acceptable_Donation() &&
 		 (p_donor->Get_Player_Type() == p_recipient->Get_Player_Type()) &&
@@ -110,14 +110,14 @@ cDonateEvent::Act(void)
 		//
 		WideStringClass text;
 
-		text.Format(U_CHAR("%s (%d %s, %s)."), 
+		text.Format(U_CHAR("%s (%d %s, %s)."),
 			TRANSLATE(IDS_MP_DONATION_RECEIVED),
-			Amount, 
+			Amount,
 			TRANSLATE(IDS_MP_MONEY),
 			p_donor->Get_Name());
 
 		cScTextObj * p_message = new cScTextObj;
-		p_message->Init(text, TEXT_MESSAGE_PRIVATE, false, HOST_TEXT_SENDER, 
+		p_message->Init(text, TEXT_MESSAGE_PRIVATE, false, HOST_TEXT_SENDER,
 			p_recipient->Get_Id());
 	}
 

@@ -274,7 +274,7 @@ EVAEncyclopediaMenuClass::Prompt_User (void)
 	//
 	//	Display the message box
 	//
-	DlgMsgBox::DoDialog (TRANSLATE (IDS_MENU_TEXT054), TRANSLATE (IDS_EXIT_GAME_VERIFICATION), DlgMsgBox::YesNo, this);	
+	DlgMsgBox::DoDialog (TRANSLATE (IDS_MENU_TEXT054), TRANSLATE (IDS_EXIT_GAME_VERIFICATION), DlgMsgBox::YesNo, this);
 	return ;
 }
 

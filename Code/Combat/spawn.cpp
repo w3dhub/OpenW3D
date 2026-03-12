@@ -529,14 +529,14 @@ bool SpawnerClass::Determine_Spawn_TM( PhysicalGameObj * obj )
 PhysicalGameObj * SpawnerClass::Create_Spawned_Object( int obj_id )
 {
 	WWMEMLOG(MEM_GAMEDATA);
-	
+
 	int spawn_id = obj_id;
 	if ( obj_id == -1 ) {
-		
+
 		/*
 		** Randomly select an object to spawn
 		*/
-		int spawn_count = Get_Definition().SpawnDefinitionIDList.Count();		
+		int spawn_count = Get_Definition().SpawnDefinitionIDList.Count();
 		if ( spawn_count > 0 ) {
 			int spawn_index = FreeRandom.Get_Int( spawn_count );
 			spawn_id = Get_Definition().SpawnDefinitionIDList[ spawn_index ];
@@ -616,7 +616,7 @@ void	SpawnerClass::Check_Auto_Spawn( float dtime )
 }
 
 PhysicalGameObj * SpawnerClass::Spawn_Object( int obj_def_id )
-{	
+{
 	return Spawn( obj_def_id );
 }
 
@@ -629,7 +629,7 @@ bool	SpawnerClass::Can_Spawn_Object( int obj_def_id )
 	//
 	const DynamicVectorClass<int>	&def_list = Definition->Get_Spawn_Definition_ID_List ();
 	for (int index = 0; index < def_list.Count (); index ++) {
-		
+
 		//
 		//	Is this the object we're looking for?
 		//
@@ -863,7 +863,7 @@ Matrix3D SpawnManager::Get_Primary_Spawn_Location( void )
 
 Matrix3D SpawnManager::Get_Multiplayer_Spawn_Location( int player_type, SoldierGameObj * soldier )
 {
-	if (player_type == PLAYERTYPE_NEUTRAL) {		
+	if (player_type == PLAYERTYPE_NEUTRAL) {
 		//
 		// Use renegade spawner
 		//
@@ -898,25 +898,25 @@ Matrix3D SpawnManager::Get_Multiplayer_Spawn_Location( int player_type, SoldierG
 		int start_index = 0;
 		int count = 0;
 
-		for ( i = 0; i < SpawnerList.Count(); i++ ) 
+		for ( i = 0; i < SpawnerList.Count(); i++ )
 		{
 			if ( !SpawnerList[i]->Get_Definition().IsPrimary &&
 				  SpawnerList[i]->Get_Definition().IsSoldierStartup &&
-				  SpawnerList[i]->Get_Definition().PlayerType == player_type ) 
+				  SpawnerList[i]->Get_Definition().PlayerType == player_type )
 			{
-				if (count == selected_spawner) 
+				if (count == selected_spawner)
 				{
 					// As a fallback, we will always return the first transform
 					// that was selected.
 					tm = SpawnerList[i]->Get_TM();
-					start_index = i;					
+					start_index = i;
 					break;
 				}
 
 				count++;
 			}
 		}
-		
+
 		//
 		// Loop through the entire list of spawners, starting with the one
 		// we just selected, until we find a clear spawn point for this soldier
@@ -924,16 +924,16 @@ Matrix3D SpawnManager::Get_Multiplayer_Spawn_Location( int player_type, SoldierG
 		Phys3Class * phys_obj = soldier->Peek_Human_Phys();
 		if (phys_obj != NULL) {
 			for ( i = 0; i < SpawnerList.Count(); i++) {
-				
+
 				// Wrap around the list if needed:
 				int index = (i + start_index) % SpawnerList.Count();
-				
+
 				if ( !SpawnerList[index]->Get_Definition().IsPrimary &&
 					  SpawnerList[index]->Get_Definition().IsSoldierStartup &&
-					  SpawnerList[index]->Get_Definition().PlayerType == player_type ) 
+					  SpawnerList[index]->Get_Definition().PlayerType == player_type )
 				{
 					if (phys_obj->Can_Teleport(SpawnerList[index]->Get_TM(),true)) {
-						
+
 						// Return the first good spawn point we find!
 						return SpawnerList[index]->Get_TM();
 					}
@@ -962,7 +962,7 @@ Matrix3D SpawnManager::Get_Ctf_Spawn_Location(int team)
 	}
 
 	int index = -1;
-	
+
 	for (int i = 0; i < SpawnerList.Count(); i++) {
 		if ( !spawner_name.Compare(SpawnerList[i]->Get_Definition().Get_Name()) ) {
 			index = i;

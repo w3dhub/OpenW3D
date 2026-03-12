@@ -84,7 +84,7 @@ Vector3	FirstPersonOffsetTweak( 0, 0, 0 );
 const float CAMERA_UNWIND_SPEED = 1.0f;
 
 /*
-** Camera Profiles	
+** Camera Profiles
 */
 //SList<CCameraProfileClass>	  				ProfileList;
 HashTemplateClass<StringClass, CCameraProfileClass*> ProfileHash;
@@ -105,7 +105,7 @@ HashTemplateClass<StringClass, CCameraProfileClass*> ProfileHash;
 /*
 **
 */
-class CCameraProfileClass 
+class CCameraProfileClass
 {
 public:
 	static void Init( void );
@@ -147,14 +147,14 @@ bool CCameraProfileClass::_ProfilesInitted = false;
 /*
 **
 */
-CCameraProfileClass::CCameraProfileClass( void ) : 
+CCameraProfileClass::CCameraProfileClass( void ) :
 	FOV( DEG_TO_RADF( 65.0f ) ),
 	Height( 1.95f ),
 	ViewTilt( DEG_TO_RADF(20.0f) ),
 	TiltTweak( 0.6f ),
 	TranslationTilt( DEG_TO_RADF( 19.9f ) ),
 	Distance( 3.1f ),
-	Lag( 0,0,0 )	
+	Lag( 0,0,0 )
 {
 }
 
@@ -183,7 +183,7 @@ float CCameraProfileClass::Get_Zoom( void )
 //	profile->v = camerasINI->Get_String( section_name, e, profile->v )
 
 void CCameraProfileClass::Init( void )
-{	
+{
 	if (_ProfilesInitted) {
 		CCameraProfileClass::Shutdown();
 	}
@@ -224,7 +224,7 @@ void CCameraProfileClass::Init( void )
 		Release_INI( camerasINI );
 	} else {
 		Debug_Say(("CCameraProfileClass::Init - Unable to load %s\n", CAMERAS_INI_FILENAME));
-	}	
+	}
 	_ProfilesInitted = true;
 }
 
@@ -255,7 +255,7 @@ const CCameraProfileClass & CCameraProfileClass::operator = ( const CCameraProfi
 	return *this;
 }
 
-float	RadianLerp( float a, float b, float lerp ) 
+float	RadianLerp( float a, float b, float lerp )
 {
 	float diff = b - a;					// diff should be -180 .. 180
 	diff = WWMath::Wrap( diff, DEG_TO_RADF( -180 ), DEG_TO_RADF( 180 ) );
@@ -279,7 +279,7 @@ CCameraProfileClass	*	CCameraProfileClass::Find( const char * name )
 	// Compare lower case strings
 	char tmp[256];
 	strncpy(tmp,name,sizeof(tmp));
-	
+
     openw3d::string_to_lower(tmp);
 	StringClass tmp_string(tmp,true);
 	CCameraProfileClass* profile = ProfileHash.Get(tmp_string);
@@ -296,9 +296,9 @@ CCameraProfileClass	*	CCameraProfileClass::Find( const char * name )
 
 
 /*
-** CCameraClass 
+** CCameraClass
 */
-CCameraClass::CCameraClass() : 
+CCameraClass::CCameraClass() :
 	CameraClass(),
 	HostModel( NULL ),
 	AnchorPosition(0,0,0),
@@ -338,7 +338,7 @@ CCameraClass::CCameraClass() :
 
 	DefaultProfile = CCameraProfileClass::Find( "default" );
 	DefaultProfileName="default";
-	Use_Default_Profile(); 
+	Use_Default_Profile();
 }
 
 CCameraClass::~CCameraClass(void)
@@ -362,7 +362,7 @@ CCameraClass::~CCameraClass(void)
 **
 */
 void CCameraClass::Init( void )
-{	
+{
 	CCameraProfileClass::Init();
 }
 
@@ -378,37 +378,37 @@ enum	{
 	XXXCHUNKID_PARENT							=	416012036,
 	CHUNKID_VARIABLES,
 
-	MICROCHUNKID_HOST_MODEL					=	1,				
-	MICROCHUNKID_ANCHOR_POSITION,			
-	MICROCHUNKID_IS_VALID,					
-	MICROCHUNKID_TILT,						
-	MICROCHUNKID_HEADING,					
-	MICROCHUNKID_DISTANCE_FRACTION,		 
-	MICROCHUNKID_ENABLE_2D_TARGETING,	
-	MICROCHUNKID_ENABLE_WEAPON_HELP,		
-	MICROCHUNKID_WEAPON_HELP_TIMER,		
-	MICROCHUNKID_WEAPON_HELP_TARGET_ID,	
+	MICROCHUNKID_HOST_MODEL					=	1,
+	MICROCHUNKID_ANCHOR_POSITION,
+	MICROCHUNKID_IS_VALID,
+	MICROCHUNKID_TILT,
+	MICROCHUNKID_HEADING,
+	MICROCHUNKID_DISTANCE_FRACTION,
+	MICROCHUNKID_ENABLE_2D_TARGETING,
+	MICROCHUNKID_ENABLE_WEAPON_HELP,
+	MICROCHUNKID_WEAPON_HELP_TIMER,
+	MICROCHUNKID_WEAPON_HELP_TARGET_ID,
 	MICROCHUNKID_STAR_TARGETING_POSITION,
 	MICROCHUNKID_CAMERA_TARGET_2D_OFFSET,
-	MICROCHUNKID_LERP_TIME_TOTAL,			
-	MICROCHUNKID_LERP_TIME_REMAINING,	
-	MICROCHUNKID_LAST_ANCHOR_POSITION,	
-	MICROCHUNKID_LAST_HEADING,				
-	MICROCHUNKID_CURRENT_PROFILE,			
-	MICROCHUNKID_LAST_PROFILE,				
-	MICROCHUNKID_DEFAULT_PROFILE,			
-	MICROCHUNKID_NEAR_CLIP_PLANE,			
-	MICROCHUNKID_FAR_CLIP_PLANE,			
-	MICROCHUNKID_IS_STAR_SNIPING,				
-	MICROCHUNKID_WAS_STAR_SNIPING,				
-	MICROCHUNKID_SNIPER_ZOOM,				
-	MICROCHUNKID_SNIPER_DISTANCE,			
-	XXXMICROCHUNKID_IS_SNIPER_LOCKED,		
-	XXXMICROCHUNKID_SNIPER_TARGET_NAME,		
-	XXXMICROCHUNKID_SNIPER_LISTENER,			
-	MICROCHUNKID_SNAP_SHOT_MODE,			
-	MICROCHUNKID_CINEMATIC_SNIPING_ENABLED,				
-	MICROCHUNKID_CINEMATIC_SNIPING_DESIRED_ZOOM,				
+	MICROCHUNKID_LERP_TIME_TOTAL,
+	MICROCHUNKID_LERP_TIME_REMAINING,
+	MICROCHUNKID_LAST_ANCHOR_POSITION,
+	MICROCHUNKID_LAST_HEADING,
+	MICROCHUNKID_CURRENT_PROFILE,
+	MICROCHUNKID_LAST_PROFILE,
+	MICROCHUNKID_DEFAULT_PROFILE,
+	MICROCHUNKID_NEAR_CLIP_PLANE,
+	MICROCHUNKID_FAR_CLIP_PLANE,
+	MICROCHUNKID_IS_STAR_SNIPING,
+	MICROCHUNKID_WAS_STAR_SNIPING,
+	MICROCHUNKID_SNIPER_ZOOM,
+	MICROCHUNKID_SNIPER_DISTANCE,
+	XXXMICROCHUNKID_IS_SNIPER_LOCKED,
+	XXXMICROCHUNKID_SNIPER_TARGET_NAME,
+	XXXMICROCHUNKID_SNIPER_LISTENER,
+	MICROCHUNKID_SNAP_SHOT_MODE,
+	MICROCHUNKID_CINEMATIC_SNIPING_ENABLED,
+	MICROCHUNKID_CINEMATIC_SNIPING_DESIRED_ZOOM,
 };
 
 //------------------------------------------------------------------------------------
@@ -420,7 +420,7 @@ bool	CCameraClass::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_IS_VALID,					IsValid );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_TILT,							Tilt );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_HEADING,						Heading );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DISTANCE_FRACTION,		DistanceFraction );			
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DISTANCE_FRACTION,		DistanceFraction );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ENABLE_2D_TARGETING,		Enable2DTargeting );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ENABLE_WEAPON_HELP,		EnableWeaponHelp );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_WEAPON_HELP_TIMER,		WeaponHelpTimer );
@@ -477,7 +477,7 @@ bool	CCameraClass::Load( ChunkLoadClass &cload )
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_IS_VALID,						IsValid );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_TILT,							Tilt );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_HEADING,						Heading );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_DISTANCE_FRACTION,			DistanceFraction );			
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_DISTANCE_FRACTION,			DistanceFraction );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_ENABLE_2D_TARGETING,		Enable2DTargeting );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_ENABLE_WEAPON_HELP,		EnableWeaponHelp );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_WEAPON_HELP_TIMER,			WeaponHelpTimer );
@@ -553,16 +553,16 @@ void	CCameraClass::Set_Host_Model( RenderObjClass * host )
 
 	static	StringClass		SavedProfileName;
 
-	// If dropping host 
+	// If dropping host
 	if ( HostModel != NULL && host == NULL ) {
 		if ( SavedProfileName.Is_Empty() ) {
 			Use_Default_Profile();
 		} else {
 			Use_Profile( SavedProfileName );		// Return to saved profile
 		}
-	} 
+	}
 
-	// If getting host 
+	// If getting host
 	if ( HostModel == NULL && host != NULL ) {
 		SavedProfileName = CurrentProfileName;
 		Use_Profile( "Cinematic" );
@@ -591,13 +591,13 @@ void	CCameraClass::Set_Host_Model( RenderObjClass * host )
 
 }
 
-void	Convert_World_To_Camera( Matrix3D * tm ) 
+void	Convert_World_To_Camera( Matrix3D * tm )
 {
 	tm->Rotate_Y( DEG_TO_RADF(-90.0) );
 	tm->Rotate_Z( DEG_TO_RADF(-90.0) );
 }
 
-void	CCameraClass::Use_Host_Model( void ) 
+void	CCameraClass::Use_Host_Model( void )
 {
 	WWASSERT( HostModel );
 	Matrix3D tm = HostModel->Get_Bone_Transform( "CAMERA" );
@@ -671,13 +671,13 @@ void	CCameraClass::Use_Host_Model( void )
 /*
 **
 */
-void	CCameraClass::Set_Anchor_Position( Vector3 pos )	
-{ 
-	AnchorPosition = pos; 
+void	CCameraClass::Set_Anchor_Position( Vector3 pos )
+{
+	AnchorPosition = pos;
 
 	// If this is the first anchor point, don't lag the camera
 	if ( !IsValid ) {
-		LastAnchorPosition = pos; 
+		LastAnchorPosition = pos;
 		IsValid = true;
 	}
 }
@@ -685,7 +685,7 @@ void	CCameraClass::Set_Anchor_Position( Vector3 pos )
 /*
 **
 */
-void	Ignore_Star_And_Vehicle( void ) 
+void	Ignore_Star_And_Vehicle( void )
 {
 	if (COMBAT_STAR != NULL) {
 
@@ -697,7 +697,7 @@ void	Ignore_Star_And_Vehicle( void )
 	}
 }
 
-void	Unignore_Star_And_Vehicle( void ) 
+void	Unignore_Star_And_Vehicle( void )
 {
 	if (COMBAT_STAR != NULL) {
 
@@ -749,7 +749,7 @@ void CCameraClass::Update()
 
 			// Set up last, so out Lag code doesn't use the old
 			LastAnchorPosition = anchor_position;
-			LastHeading	= Heading;	
+			LastHeading	= Heading;
 		}
 		profile = *CurrentProfile;
 
@@ -835,12 +835,12 @@ void CCameraClass::Update()
 		float nearz,farz;
 		const float HEAD_RADIUS = 0.2f;								// HEAD_RADIUS should be renamed and become part of the profile?
 		Get_Clip_Planes(nearz,farz);
-		tm.Translate_Z(nearz + HEAD_RADIUS);						
+		tm.Translate_Z(nearz + HEAD_RADIUS);
 	}
 
 	Vector3 intermediate_pos = tm.Get_Translation();		// Save base position
 	Matrix3D intermediate_tm = tm;								// Save base transform
-	
+
 
 	// Generate a translation path for the camera which is 'tilt' off of the z-axis
 	Vector3 camera_move(0,0,profile.Distance);
@@ -861,7 +861,7 @@ void CCameraClass::Update()
 
 		// Collide the bounding box of the near clip plane
 		// Have to Set_Transform so that the camera can calculate the box for us
-		CastResultStruct res;				
+		CastResultStruct res;
 		Set_Transform(intermediate_tm);
 		Set_Clip_Planes( NearClipPlane,FarClipPlane );
 		OBBoxClass box = Get_Near_Clip_Bounding_Box();
@@ -897,7 +897,7 @@ void CCameraClass::Update()
 		}
 
 		// When Physics_Debug is on, draw the camera collision box in its start point
-#ifdef WWDEBUG	
+#ifdef WWDEBUG
 		PhysicsSceneClass * scene = PhysicsSceneClass::Get_Instance();
 		if (scene && scene->Is_Debug_Display_Enabled()) {
 			scene->Add_Debug_OBBox(box,Vector3(1,0,0));
@@ -916,7 +916,7 @@ void CCameraClass::Update()
 
 		// Collide the bounding box of the near clip plane
 		// Have to Set_Transform so that the camera can calculate the box for us
-		CastResultStruct res;				
+		CastResultStruct res;
 		Set_Transform(tm);
 		Set_Clip_Planes(NearClipPlane,FarClipPlane);
 		OBBoxClass box = Get_Near_Clip_Bounding_Box();
@@ -968,7 +968,7 @@ void CCameraClass::Update()
 		Matrix3D::Transform_Vector( star_tm, star_space_pos, &StarTargetingPosition );
 #endif
 
-		COMBAT_STAR->Set_Targeting( StarTargetingPosition ); 
+		COMBAT_STAR->Set_Targeting( StarTargetingPosition );
 	}
 
 }
@@ -1019,8 +1019,8 @@ bool	CCameraClass::Determine_Targeting_Position( void )
 			// start the ray in front of the character + 0.5m
 			float move_forward_dist = DistanceFraction * CurrentProfile->Distance + 0.5f;
 			cast_start += move_forward_dist * -(tm.Get_Z_Vector());
-			ray.Set( cast_start, cast_end );			
-			
+			ray.Set( cast_start, cast_end );
+
 		} else {
 			// for 2D, start at the camera
 			ray.Set( cast_start, cast_end );
@@ -1032,7 +1032,7 @@ bool	CCameraClass::Determine_Targeting_Position( void )
 		ray.Set( cast_start, cast_end );
 
 		CastResultStruct result;
-		PhysRayCollisionTestClass raytest(ray, &result, 
+		PhysRayCollisionTestClass raytest(ray, &result,
 			BULLET_COLLISION_GROUP, COLLISION_TYPE_PROJECTILE);
 		WWASSERT(COMBAT_SCENE != NULL);
 
@@ -1044,7 +1044,7 @@ bool	CCameraClass::Determine_Targeting_Position( void )
 
 		// Determine the Camera Target Point and object
 		ray.Compute_Point( raytest.Result->Fraction, &StarTargetingPosition );
-	
+
 		//
 		// (gth) "hack" to prevent the target point from ever ending up behind the player
 		// this sometimes happens when looking up at an extreme angle in third person
@@ -1068,7 +1068,7 @@ bool	CCameraClass::Determine_Targeting_Position( void )
 			float xy_dist_to_target2 = target_dx * target_dx + target_dy * target_dy;
 
 			if (xy_dist_to_target2 < xy_dist_to_player2) {
-				
+
 				// Move the point along the raycast until until
 				// target is in front of player.
 				float ray_parameter = 1.1f * WWMath::Sqrt(xy_dist_to_player2) / WWMath::Sqrt(xy_dist_to_target2);
@@ -1097,7 +1097,7 @@ bool	CCameraClass::Determine_Targeting_Position( void )
 			}
 
 			// if stealthed and enemy, it's not targetable
-			if ( obj && obj->As_SmartGameObj() && obj->As_SmartGameObj()->Is_Stealthed() && 
+			if ( obj && obj->As_SmartGameObj() && obj->As_SmartGameObj()->Is_Stealthed() &&
 					COMBAT_STAR && obj->Is_Enemy( COMBAT_STAR ) ) {
 				obj = NULL;
 			}
@@ -1120,7 +1120,7 @@ bool	CCameraClass::Determine_Targeting_Position( void )
 /*
 ** Apply_Weapon_Help : Use weapon Help to update the StarTargetingPosition );
 ** Should only be called if not already on a target object
-** We will only do the search periodically, so we will save the last valid target, 
+** We will only do the search periodically, so we will save the last valid target,
 ** and track him until we search again.
 */
 #define	WEAPON_HELP_CHEAT	0
@@ -1143,7 +1143,7 @@ void	CCameraClass::Apply_Weapon_Help( void )
 
 //		if ( star && EnableWeaponHelp )	{
 #if WEAPON_HELP_CHEAT
-		if ( star )	{ 
+		if ( star )	{
 #else
 		if ( star && CombatManager::Get_Difficulty_Level() == 0 && IS_MISSION )	{	// if on easy difficulty
 #endif
@@ -1160,7 +1160,7 @@ void	CCameraClass::Apply_Weapon_Help( void )
 			float weapon_range = 100;
 			if ( star->Get_Weapon() ) {
 				weapon_range = star->Get_Weapon()->Get_Range();
-			}		
+			}
 			Vector3	star_pos;
 			star->Get_Position( &star_pos );
 
@@ -1211,7 +1211,7 @@ void	CCameraClass::Apply_Weapon_Help( void )
 						Vector3 cast_start = Get_Transform().Get_Translation();
 						Vector3 cast_end = pos;
 						LineSegClass ray;
-						ray.Set( cast_start, cast_end );			
+						ray.Set( cast_start, cast_end );
 
 	#if 0
 						// trim off Near Clip from Beginning
@@ -1221,7 +1221,7 @@ void	CCameraClass::Apply_Weapon_Help( void )
 	#endif
 
 						CastResultStruct result;
-						PhysRayCollisionTestClass raytest(ray, &result, 
+						PhysRayCollisionTestClass raytest(ray, &result,
 							BULLET_COLLISION_GROUP, COLLISION_TYPE_PROJECTILE);
 						WWASSERT(COMBAT_SCENE != NULL);
 
@@ -1233,14 +1233,14 @@ void	CCameraClass::Apply_Weapon_Help( void )
 
 						//Debug_Say(( "Targeting %f %f %f\n", StarTargetingPosition.X, StarTargetingPosition.Y, StarTargetingPosition.Z ));
 
-						if ( raytest.CollidedPhysObj != NULL && raytest.CollidedPhysObj->Get_Observer() != NULL && 
+						if ( raytest.CollidedPhysObj != NULL && raytest.CollidedPhysObj->Get_Observer() != NULL &&
 							 ((CombatPhysObserverClass *)raytest.CollidedPhysObj->Get_Observer())->As_PhysicalGameObj() ) {
 							best_distance = distance;
 							best_obj = obj;
 						} else {
 							// If this is the Info Target, forget him!
 							if ( obj == HUDInfo::Get_Info_Object() ) {
-								HUDInfo::Set_Info_Object( NULL ); 
+								HUDInfo::Set_Info_Object( NULL );
 							}
 
 						}
@@ -1322,7 +1322,7 @@ void	CCameraClass::Handle_Input( void )
 	#define TILT_ADJUST			(float)DEG_TO_RAD(30.0f)
 	#define MAX_TILT				(float)DEG_TO_RAD(80.0f)
 	#define MIN_TILT				(float)DEG_TO_RAD(-30.0f)
-	
+
 	#define DISTANCE_ADJUST		5.0f
 	#define MIN_DISTANCE			-5.0f
 	#define MAX_DISTANCE			200.0f
@@ -1345,13 +1345,13 @@ void	CCameraClass::Handle_Input( void )
 
 		Vector3	tweak(0,0,0);
 
-		tweak.X	 =	( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) + 
+		tweak.X	 =	( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) +
 						( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_DEC ) ? -1 : 0 );
 
-		tweak.Y	 =	( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_IN ) ? -1 : 0 ) + 
+		tweak.Y	 =	( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_IN ) ? -1 : 0 ) +
 						( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_OUT ) ? 1 : 0 );
 
-		tweak.Z	 =	( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? -1 : 0 ) + 
+		tweak.Z	 =	( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? -1 : 0 ) +
 						( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_DEC ) ? 1 : 0 );
 
 		tweak *= dt * FP_TWEAK_RATE;
@@ -1368,45 +1368,45 @@ void	CCameraClass::Handle_Input( void )
 
 	} else {
 
-		float	tilt_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) + 
+		float	tilt_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_INC ) ? 1 : 0 ) +
 									( Input::Get_State( INPUT_FUNCTION_CAMERA_TRANSTILT_DEC ) ? -1 : 0 );
 		CurrentProfile->TranslationTilt += TILT_ADJUST * tilt_amount * dt;
 		CurrentProfile->TranslationTilt = WWMath::Clamp( CurrentProfile->TranslationTilt, MIN_TILT, MAX_TILT );
 
-		float	view_tilt_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_VIEWTILT_INC ) ? 1 : 0 ) + 
+		float	view_tilt_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_VIEWTILT_INC ) ? 1 : 0 ) +
 									( Input::Get_State( INPUT_FUNCTION_CAMERA_VIEWTILT_DEC ) ? -1 : 0 );
 		CurrentProfile->ViewTilt += TILT_ADJUST * view_tilt_amount * dt;
 		CurrentProfile->ViewTilt = WWMath::Clamp( CurrentProfile->ViewTilt, MIN_TILT, MAX_TILT );
 
-		float	distance_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? 1 : 0 ) + 
+		float	distance_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_INC ) ? 1 : 0 ) +
 										( Input::Get_State( INPUT_FUNCTION_CAMERA_DIST_DEC ) ? -1 : 0 );
 		CurrentProfile->Distance += DISTANCE_ADJUST * distance_amount * dt;
 		CurrentProfile->Distance = WWMath::Clamp( CurrentProfile->Distance, MIN_DISTANCE, MAX_DISTANCE );
 
-		float	fov_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_FOV_INC ) ? 1 : 0 ) + 
+		float	fov_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_FOV_INC ) ? 1 : 0 ) +
 									( Input::Get_State( INPUT_FUNCTION_CAMERA_FOV_DEC ) ? -1 : 0 );
 		CurrentProfile->FOV += FOV_ADJUST * fov_amount * dt;
 		CurrentProfile->FOV = WWMath::Clamp( CurrentProfile->FOV, MIN_FOV, MAX_FOV );
 
-		float	height_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_HEIGHT_INC ) ? 1 : 0 ) + 
+		float	height_amount =	( Input::Get_State( INPUT_FUNCTION_CAMERA_HEIGHT_INC ) ? 1 : 0 ) +
 										( Input::Get_State( INPUT_FUNCTION_CAMERA_HEIGHT_DEC ) ? -1 : 0 );
 		CurrentProfile->Height += HEIGHT_ADJUST * height_amount * dt;
 		CurrentProfile->Height = WWMath::Clamp( CurrentProfile->Height, MIN_HEIGHT, MAX_HEIGHT );
 
 		if ( ( tilt_amount != 0 ) || (view_tilt_amount != 0) || ( distance_amount != 0 ) ||
-			  ( fov_amount != 0 ) || ( height_amount != 0 ) ) 
+			  ( fov_amount != 0 ) || ( height_amount != 0 ) )
 		{
-		
+
 			Debug_Say(( " Dist: %3.1f Height: %3.1f FOV %3.1f TransTilt: %3.1f ViewTilt: %3.1f\n",
 				CurrentProfile->Distance,
 				CurrentProfile->Height,
-				RAD_TO_DEG( CurrentProfile->FOV ), 
+				RAD_TO_DEG( CurrentProfile->FOV ),
 				RAD_TO_DEG( CurrentProfile->TranslationTilt ),
 				RAD_TO_DEG( CurrentProfile->ViewTilt )
 				));
 		}
 
-		if ( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_IN ) || 
+		if ( Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_IN ) ||
 			 Input::Get_State( INPUT_FUNCTION_DEBUG_FAR_CLIP_OUT ) ) {
 			float fog_start, fog_stop;
 			COMBAT_SCENE->Get_Fog_Range( &fog_start, &fog_stop );
@@ -1420,7 +1420,7 @@ void	CCameraClass::Handle_Input( void )
 			COMBAT_SCENE->Set_Fog_Range( fog_start, FarClipPlane );
 			Debug_Say(( "FarClipPlane %f\n", FarClipPlane ));
 			Set_Clip_Planes( NearClipPlane, FarClipPlane );
-		} 
+		}
 
 	}
 #endif
@@ -1467,7 +1467,7 @@ void	CCameraClass::Handle_Input( void )
 	float sniping_scale = 1;
 	if ( !Is_Using_Host_Model() && Is_Star_Sniping() ) {
 
-		float amount = Input::Get_Amount( INPUT_FUNCTION_ZOOM_IN ) - 
+		float amount = Input::Get_Amount( INPUT_FUNCTION_ZOOM_IN ) -
 						   Input::Get_Amount( INPUT_FUNCTION_ZOOM_OUT );
 		SniperZoom += amount * TimeManager::Get_Frame_Seconds();
 		SniperZoom = WWMath::Clamp( SniperZoom, 0, 1 );
@@ -1486,11 +1486,11 @@ void	CCameraClass::Handle_Input( void )
 
 
 	//	Adjust Tilt
-	float tilt_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_UP ) - 
+	float tilt_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_UP ) -
 						Input::Get_Amount( INPUT_FUNCTION_WEAPON_DOWN );
 
 	//	Adjust Facing
-	float	turn_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_LEFT ) - 
+	float	turn_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_LEFT ) -
 								Input::Get_Amount( INPUT_FUNCTION_WEAPON_RIGHT );
 
 	if ( Input::Get_State( INPUT_FUNCTION_TURN_AROUND ) ) {
@@ -1536,14 +1536,14 @@ void	CCameraClass::Handle_Input( void )
 	float	soldier_turn = 0;
 	if ( COMBAT_STAR != NULL && COMBAT_STAR->Get_Vehicle() == NULL ) {
 		// only do this if the soldier is not in a vehicle
-		soldier_turn =	Input::Get_Amount( INPUT_FUNCTION_TURN_LEFT ) - 
+		soldier_turn =	Input::Get_Amount( INPUT_FUNCTION_TURN_LEFT ) -
 							Input::Get_Amount( INPUT_FUNCTION_TURN_RIGHT );
 	}
 
 	Heading += soldier_turn * dt * sniping_scale;
 }
 
-void CCameraClass::Force_Look( const Vector3 & target ) 
+void CCameraClass::Force_Look( const Vector3 & target )
 {
 	Vector3 diff = Get_Transform().Get_Translation();
 	diff -= target;
@@ -1633,7 +1633,7 @@ void	CCameraClass::Set_Is_Star_Sniping( bool onoff )
 void CCameraClass::Update_Sniper_Listener_Pos( void )
 {
 	if ( SniperListener != NULL ) {
-		
+
 		//
 		//	Get the camera's transform
 		//
@@ -1642,7 +1642,7 @@ void CCameraClass::Update_Sniper_Listener_Pos( void )
 		//
 		//	Calculate what point in world space the sniper is zoomed into
 		//
-		float dist = ::tan (1.45F + ((1.5672F - 1.45F) * SniperZoom));	
+		float dist = ::tan (1.45F + ((1.5672F - 1.45F) * SniperZoom));
 		dist = std::min (dist, SniperDistance);
 		Vector3 pos = tm.Get_Translation() - (tm.Get_Z_Vector() * dist);
 
@@ -1664,7 +1664,7 @@ void CCameraClass::Set_Sniper_Distance( float dist )
 	if ( SniperDistance != dist ) {
 		SniperDistance = dist;
 		Update_Sniper_Listener_Pos();
-	}	
+	}
 
 	return ;
 }
@@ -1678,17 +1678,17 @@ void	CCameraClass::Handle_Snap_Shot_Mode( void )
 
 	static float tilt = 0;
 	static float turn = 0;
-	float tilt_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_UP ) - 
+	float tilt_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_UP ) -
 								Input::Get_Amount( INPUT_FUNCTION_WEAPON_DOWN );
 
-	float	turn_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_LEFT ) - 
+	float	turn_amount =	Input::Get_Amount( INPUT_FUNCTION_WEAPON_LEFT ) -
 								Input::Get_Amount( INPUT_FUNCTION_WEAPON_RIGHT );
 
 	if (turn_amount == 0) {
-		turn_amount =	Input::Get_Amount( INPUT_FUNCTION_TURN_LEFT ) - 
+		turn_amount =	Input::Get_Amount( INPUT_FUNCTION_TURN_LEFT ) -
 							Input::Get_Amount( INPUT_FUNCTION_TURN_RIGHT );
 	}
-	
+
 	tilt += tilt_amount * dt;
 	turn += turn_amount * dt;
 
@@ -1700,11 +1700,11 @@ void	CCameraClass::Handle_Snap_Shot_Mode( void )
 	tm.Rotate_Z( turn );
 	tm.Rotate_X( tilt );
 
-	float forward = Input::Get_Amount( INPUT_FUNCTION_MOVE_FORWARD ) - 
+	float forward = Input::Get_Amount( INPUT_FUNCTION_MOVE_FORWARD ) -
 						Input::Get_Amount( INPUT_FUNCTION_MOVE_BACKWARD );
-	float left = Input::Get_Amount( INPUT_FUNCTION_MOVE_LEFT ) - 
+	float left = Input::Get_Amount( INPUT_FUNCTION_MOVE_LEFT ) -
 						Input::Get_Amount( INPUT_FUNCTION_MOVE_RIGHT );
-	float up = Input::Get_Amount( INPUT_FUNCTION_MOVE_UP ) - 
+	float up = Input::Get_Amount( INPUT_FUNCTION_MOVE_UP ) -
 						Input::Get_Amount( INPUT_FUNCTION_MOVE_DOWN );
 
 	SnapShotMode = Input::Get_State( INPUT_FUNCTION_SNAP_SHOT_ADVANCE ) ? SNAPSHOT_PROGRESS : SNAPSHOT_ON;

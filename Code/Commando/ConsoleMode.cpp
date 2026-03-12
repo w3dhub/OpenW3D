@@ -392,7 +392,7 @@ void ConsoleModeClass::Print_Maybe(char const * string, ...)
 void ConsoleModeClass::Static_Print_Maybe(char const * string, ...)
 {
 	ConsoleBox.Print_Maybe(string);
-}			  
+}
 
 
 

@@ -602,10 +602,10 @@ DropDownCtrlClass::Entry_From_Pos (const Vector2 &mouse_pos)
 	float curr_y_pos = ClientRect.Top;
 	for (int index = ScrollPos; index < EntryList.Count (); index ++) {
 		retval = index;
-		
+
 		//
 		//	Is ths mouse over this entry?
-		//		
+		//
 		if (	(mouse_pos.Y >= curr_y_pos &&
 				 mouse_pos.Y <= (curr_y_pos + CellSize.Y)) ||
 				mouse_pos.Y > ClientRect.Bottom)
@@ -618,7 +618,7 @@ DropDownCtrlClass::Entry_From_Pos (const Vector2 &mouse_pos)
 		//
 		curr_y_pos += CellSize.Y;
 	}
-	
+
 	return retval;
 }
 
@@ -632,7 +632,7 @@ void
 DropDownCtrlClass::Set_Curr_Sel (int index)
 {
 	if (index >= -1 && index < EntryList.Count () && CurrSel != index) {
-		
+
 		//
 		//	Change the selection
 		//
@@ -664,7 +664,7 @@ DropDownCtrlClass::Get_String (int index, WideStringClass &string) const
 	bool retval = false;
 
 	if (index >= 0 && index < EntryList.Count ()) {
-		
+
 		//
 		//	Index into the entry list and return the string
 		//
@@ -687,7 +687,7 @@ DropDownCtrlClass::Get_String (int index) const
 	const unichar_t *retval = NULL;
 
 	if (index >= 0 && index < EntryList.Count ()) {
-		
+
 		//
 		//	Index into the entry list and return the string
 		//
@@ -711,7 +711,7 @@ DropDownCtrlClass::Update_Scroll_Pos (void)
 	}
 
 	if (CurrSel < ScrollPos) {
-		
+
 		//
 		//	Scroll up so the current selection is in view
 		//
@@ -776,6 +776,6 @@ void
 DropDownCtrlClass::On_VScroll (ScrollBarCtrlClass *, int , int new_position)
 {
 	ScrollPos = new_position;
-	Set_Dirty ();	
+	Set_Dirty ();
 	return ;
 }

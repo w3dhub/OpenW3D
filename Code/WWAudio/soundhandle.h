@@ -81,13 +81,13 @@ public:
 
 	//
 	//	Initialization
-	//	
+	//
 	virtual void	Set_Miles_Handle (void *handle) = 0;
 	virtual void	Initialize (SoundBufferClass *buffer);
 
 	//
 	//	Sample control
-	//	
+	//
 	virtual void	Start_Sample (void) = 0;
 	virtual void	Stop_Sample (void) = 0;
 	virtual void	Resume_Sample (void) = 0;
@@ -116,11 +116,11 @@ public:
 
 	virtual void Initialize_Reverb() {}
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////

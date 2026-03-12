@@ -215,7 +215,7 @@ protected:
 	friend	class	SpawnerClass;
 };
 
-#endif	//	SPAWN_H	
+#endif	//	SPAWN_H
 
 
 

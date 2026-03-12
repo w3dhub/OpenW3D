@@ -16,20 +16,20 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/vehiclefactorygameobj.h                                                                                                                                               $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 12/10/01 4:41p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 12                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/vehiclefactorygameobj.h                                                                                                                                               $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 12/10/01 4:41p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 12                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -59,7 +59,7 @@ class SoldierGameObj;
 class VehicleFactoryGameObjDef : public BuildingGameObjDef
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Friends
 	////////////////////////////////////////////////////////////////
@@ -146,7 +146,7 @@ public:
 	//
 	void					CnC_Initialize (BaseControllerClass *base) override;
 	void					On_Destroyed (void) override;
-	
+
 	//
 	//	GameObj methods
 	//
@@ -158,7 +158,7 @@ public:
 	bool					Is_Available (void) const	{ return (IsBusy == false) && (IsDestroyed == false); }
 	bool					Is_Available_For_Purchase (void) const;
 	bool					Is_Busy (void) const			{ return IsBusy; }
-	int					Get_Team_Vehicle_Count(void) const; 
+	int					Get_Team_Vehicle_Count(void) const;
 
 	//
 	//	Factory access
@@ -179,7 +179,7 @@ public:
 
 	//
 	// Vehicle limits
-	// 
+	//
 	static void			Set_Max_Vehicles_Per_Team(int max)		{ WWASSERT(max > 0); MaxVehiclesPerTeam = max; }
 	static int			Get_Max_Vehicles_Per_Team(void)			{ return MaxVehiclesPerTeam; }
 

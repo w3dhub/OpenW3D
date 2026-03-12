@@ -177,7 +177,7 @@ CDVerifyDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param
 			End_Dialog ();
 		}
 	} else if (ctrl_id == IDCANCEL) {
-		
+
 		//
 		//	Notify anybody who cares that the user has cancelled the operation
 		//
@@ -187,7 +187,7 @@ CDVerifyDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param
 		//
 		//	Close the dialog
 		//
-		End_Dialog ();		
+		End_Dialog ();
 	}
 
 	PopupDialogClass::On_Command (ctrl_id, message_id, param);

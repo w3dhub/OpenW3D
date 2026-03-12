@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/RegistryManager.h  $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/25/01 2:35p                $* 
- *                                                                                             * 
- *                    $Revision:: 6                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/RegistryManager.h  $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/25/01 2:35p                $*
+ *                                                                                             *
+ *                    $Revision:: 6                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _REGISTRY_MANAGER_H
 #define _REGISTRY_MANAGER_H
@@ -69,7 +69,7 @@ class RegistryManagerClass {
 		bool Get_Target_WOL_Folder (WOLComponentEnum wolcomponent, WideStringClass &folder);
 		bool Get_Target_WOL_Version (WOLComponentEnum wolcomponent, DWORD &version);
 		bool Use_IGR_Settings (bool &useigrsettings);
-		
+
 		void Register_Game (const WideStringClass &name,
 								  const WideStringClass &installpathname,
 								  const WideStringClass &folderpath,
@@ -103,7 +103,7 @@ class RegistryManagerClass {
 		bool Get_Document_Application_Pathname (WideStringClass &pathname);
 
 	protected:
-		
+
 		bool __cdecl Get_String (HKEY rootkey, WideStringClass *string, ...);
 		bool __cdecl Get_Value (HKEY rootkey, DWORD *value, ...);
 		bool __cdecl Set_String (HKEY rootkey, const wchar_t *string, ...);

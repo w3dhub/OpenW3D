@@ -280,7 +280,7 @@ ListCtrlClass::Create_Text_Renderers (void)
 
 					UnderlineRenderer.Add_Line (Vector2 (tri_x_pos, tri_y_pos - tri_half_size),
 												Vector2 (tri_x_pos - tri_half_size, tri_y_pos + tri_half_size), 1.0F, color);
-					
+
 				} else {
 
 					UnderlineRenderer.Add_Line (Vector2 (tri_x_pos - tri_half_size, tri_y_pos - tri_half_size),
@@ -335,7 +335,7 @@ ListCtrlClass::Create_Text_Renderers (void)
 			//
 			//	Determine how wide this column is
 			//
-			float col_width = (ColList[index]->Get_Width () * HeaderRect.Width ());		
+			float col_width = (ColList[index]->Get_Width () * HeaderRect.Width ());
 			if (index == ColList.Count () - 1) {
 				col_width = TextRect.Right - x_pos;
 			}
@@ -394,8 +394,8 @@ ListCtrlClass::Render_Entry (const RectClass &clip_rect, int col_index, int row_
 	//	Render the icons
 	//
 	int icon_count = ColList[col_index]->Get_Icon_Count (row_index);
-	for (int index = 0; index < icon_count; index ++) {		
-		
+	for (int index = 0; index < icon_count; index ++) {
+
 		//
 		//	Render this icon
 		//
@@ -413,7 +413,7 @@ ListCtrlClass::Render_Entry (const RectClass &clip_rect, int col_index, int row_
 	//
 	const unichar_t *text = ColList[col_index]->Get_Entry_Text (row_index);
 	int text_color		= VRGB_TO_INT32 (ColList[col_index]->Get_Entry_Color (row_index));
-				
+
 	//
 	//	Render the text
 	//
@@ -453,7 +453,7 @@ ListCtrlClass::Set_Sort_Designator (int col_index, SORT_TYPE type)
 {
 	SortColumn	= col_index;
 	SortType		= type;
-	
+
 	Set_Dirty ();
 	return ;
 }
@@ -493,7 +493,7 @@ ListCtrlClass::Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1,
 	//
 	int	sort_col_index = LOWORD (user_param);
 	SORT_TYPE sort_type = (SORT_TYPE)HIWORD (user_param);
-		
+
 	//
 	//	Sort by name
 	//
@@ -566,7 +566,7 @@ ListCtrlClass::Update_Client_Rect (void)
 	//
 	//	Size the scroll bar
 	//
-	ScrollBarCtrl.Set_Window_Rect (scroll_rect);	
+	ScrollBarCtrl.Set_Window_Rect (scroll_rect);
 
 	Set_Dirty ();
 	return ;
@@ -582,7 +582,7 @@ int
 ListCtrlClass::Find_Top_Of_Page (int bottom_index)
 {
 	int retval	= 0;
-	//int count	= RowInfoList.Count ();	
+	//int count	= RowInfoList.Count ();
 	float y_pos	= TextRect.Bottom;
 
 	//
@@ -600,7 +600,7 @@ ListCtrlClass::Find_Top_Of_Page (int bottom_index)
 			break;
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -632,7 +632,7 @@ ListCtrlClass::Find_End_Of_Page (void)
 			break;
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -649,7 +649,7 @@ ListCtrlClass::Find_Last_Page_Top_Entry (void)
 
 	float y_pos	= TextRect.Bottom;
 	int count	= RowInfoList.Count ();
-	
+
 	//
 	//	Scan backwards from the bottom entry until we've
 	// found one that extends off the top of the page.
@@ -661,7 +661,7 @@ ListCtrlClass::Find_Last_Page_Top_Entry (void)
 			break;
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -780,7 +780,7 @@ ListCtrlClass::Render (void)
 
 	//
 	//	Render the background and text
-	//	
+	//
 	IconMgr.Render_Icons ();
 	TextRenderer.Render ();
 	HilightRenderer.Render ();
@@ -808,7 +808,7 @@ ListCtrlClass::Get_First_Selected (void) const
 	//
 	int entry_count = Get_Entry_Count ();
 	for (int index = 0; index < entry_count; index ++) {
-		
+
 		//
 		//	Is this entry selected?
 		//
@@ -837,7 +837,7 @@ ListCtrlClass::Get_Next_Selected (int index) const
 	//
 	int entry_count = Get_Entry_Count ();
 	for (index ++; index < entry_count; index ++) {
-		
+
 		//
 		//	Is this entry selected?
 		//
@@ -1046,7 +1046,7 @@ ListCtrlClass::On_Key_Down (uint32 key_id, uint32 /* key_data */)
 
 			//
 			//	If we are at the end of the page, then
-			// scroll one page, otherwise snap to the 
+			// scroll one page, otherwise snap to the
 			// end of the page
 			//
 			if (CurrSel == end_of_page) {
@@ -1626,7 +1626,7 @@ ListCtrlClass::Insert_Entry (int index, const unichar_t *text)
 	float green	=  ((color & 0x0000FF00) >> 8) / 256.0F;
 	float blue	=  ((color & 0x000000FF)) / 256.0F;
 	Vector3 new_color (red, green, blue);
-	
+
 	ColList[0]->Set_Entry_Color (index, new_color);
 
 	//
@@ -1634,7 +1634,7 @@ ListCtrlClass::Insert_Entry (int index, const unichar_t *text)
 	//
 	for (int col_index = 1; col_index < ColList.Count (); col_index ++) {
 		ListColumnClass *column = ColList[col_index];
-		column->Insert_Entry (index, U_CHAR(""));		
+		column->Insert_Entry (index, U_CHAR(""));
 		column->Set_Entry_Color (index, new_color);
 	}
 
@@ -1672,7 +1672,7 @@ ListCtrlClass::Update_Row_Height (int row_index)
 		//
 		//	Determine how wide this column is
 		//
-		float col_width = (ColList[index]->Get_Width () * HeaderRect.Width ());		
+		float col_width = (ColList[index]->Get_Width () * HeaderRect.Width ());
 		if (index == ColList.Count () - 1) {
 			col_width = TextRect.Right - x_pos;
 		}
@@ -1681,7 +1681,7 @@ ListCtrlClass::Update_Row_Height (int row_index)
 		//	Set the wrapping width
 		//
 		TextRenderer.Set_Wrapping_Width (col_width);
-		
+
 		//
 		//	Calculate the height of this text
 		//
@@ -1700,7 +1700,7 @@ ListCtrlClass::Update_Row_Height (int row_index)
 	//
 	float min_height	= MinRowHeight * StyleMgrClass::Get_Y_Scale ();
 	height				= std::max (min_height, height);
-	
+
 	//
 	//	Store the row height
 	//
@@ -1783,7 +1783,7 @@ ListCtrlClass::Is_Entry_Selected (int index)
 {
 	bool retval = false;
 	if (index >= 0 && index < Get_Entry_Count ()) {
-		
+
 		//
 		//	Get the selection state of the row
 		//
@@ -2242,7 +2242,7 @@ ListCtrlClass::Entry_From_Pos (const Vector2 &mouse_pos)
 		//
 		//	Stop searching if we've moved off the page
 		//
-		if (mouse_pos.Y >= TextRect.Bottom) {			
+		if (mouse_pos.Y >= TextRect.Bottom) {
 			break;
 		}
 	}
@@ -2258,7 +2258,7 @@ ListCtrlClass::Entry_From_Pos (const Vector2 &mouse_pos)
 ////////////////////////////////////////////////////////////////
 void
 ListCtrlClass::Scroll_Page (int direction)
-{	
+{
 	int count		= RowInfoList.Count ();
 	float height	= TextRect.Height ();
 
@@ -2272,7 +2272,7 @@ ListCtrlClass::Scroll_Page (int direction)
 	for (	index = ScrollPos;
 			index >= 0 && index < count;
 			index += direction)
-	{		
+	{
 		//
 		//	Decrement the remaining distance
 		//
@@ -2297,7 +2297,7 @@ ListCtrlClass::Scroll_Page (int direction)
 	if (index < 0 && found == false) {
 		ScrollPos = 0;
 		ScrollBarCtrl.Set_Pos (ScrollPos, false);
-		Set_Dirty ();		
+		Set_Dirty ();
 	}
 
 	return ;
@@ -2456,7 +2456,7 @@ ListColumnClass::Delete_All_Entries (void)
 		delete EntryList[index];
 	}
 
-	EntryList.Delete_All ();	
+	EntryList.Delete_All ();
 	return ;
 }
 

@@ -267,7 +267,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Created_RMV, "Target_ID:int, Send_Type:int, Send
 	{
 		SAVE_VARIABLE(debug_mode, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		debug_mode = (Get_Int_Parameter("Debug_Mode") == 1) ? true : false;
@@ -303,7 +303,7 @@ Editor Script - M00_Trigger_Zone_Entered_RMV
   Parameters:
 
   Trigger_Count		= How many times this trigger will fire.
-  Triggerer         = Who can activate this trigger. 
+  Triggerer         = Who can activate this trigger.
 
   Special Information:
 
@@ -317,7 +317,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_RMV, "Start_Now=1:int, Receive_Type=3:in
 	bool	debug_mode;
 	int		trigger_count;
 
-	
+
 
 	typedef enum
 	{
@@ -366,7 +366,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_RMV, "Start_Now=1:int, Receive_Type=3:in
 				trigger_count--;
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_RMV has %d triggers remaining.\n", trigger_count));
 			}
-			
+
 			int target_id = Get_Int_Parameter("Target_ID");
 			float time_low = Get_Float_Parameter("Min_Delay");
 			float time_up = Get_Float_Parameter("Max_Delay");
@@ -392,14 +392,14 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_RMV, "Start_Now=1:int, Receive_Type=3:in
 					break;
 				}
 			}
-			
+
 			GameObject *target = Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f));
 
 			if (target_id > 0)
 			{
 				target = Commands->Find_Object(target_id);
 			}
-			
+
 			if (target)
 			{
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_RMV found its target object.\n"));
@@ -454,7 +454,7 @@ Editor Script - M00_Trigger_Zone_Exited_RMV
   Parameters:
 
   Trigger_Count		= How many times this trigger will fire.
-  Triggerer         = Who can activate this trigger. 
+  Triggerer         = Who can activate this trigger.
 
   Special Information:
 
@@ -468,7 +468,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Exited_RMV, "Start_Now=1:int, Receive_Type=4:int
 	bool	debug_mode;
 	int		trigger_count;
 
-	
+
 
 	typedef enum
 	{
@@ -516,7 +516,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Exited_RMV, "Start_Now=1:int, Receive_Type=4:int
 				trigger_count--;
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Exited_RMV has %d triggers remaining.\n", trigger_count));
 			}
-			
+
 			int target_id = Get_Int_Parameter("Target_ID");
 			float time_low = Get_Float_Parameter("Min_Delay");
 			float time_up = Get_Float_Parameter("Max_Delay");
@@ -542,14 +542,14 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Exited_RMV, "Start_Now=1:int, Receive_Type=4:int
 					break;
 				}
 			}
-			
+
 			GameObject *target = Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f));
 
 			if (target_id > 0)
 			{
 				target = Commands->Find_Object(target_id);
 			}
-			
+
 			if (target)
 			{
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Exited_RMV found its target object.\n"));
@@ -604,7 +604,7 @@ Editor Script - M00_Trigger_Zone_Entered_Or_Exited_RMV
   Parameters:
 
   Trigger_Count		= How many times this trigger will fire.
-  Triggerer         = Who can activate this trigger. 
+  Triggerer         = Who can activate this trigger.
 
   Special Information:
 
@@ -656,7 +656,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_Or_Exited_RMV, "Start_Now=1:int, Receive
 				trigger_count--;
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_Or_Exited_RMV has %d triggers remaining.\n", trigger_count));
 			}
-			
+
 			int target_id = Get_Int_Parameter("Target_ID");
 			float time_low = Get_Float_Parameter("Min_Delay");
 			float time_up = Get_Float_Parameter("Max_Delay");
@@ -682,14 +682,14 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_Or_Exited_RMV, "Start_Now=1:int, Receive
 					break;
 				}
 			}
-			
+
 			GameObject *target = Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f));
 
 			if (target_id > 0)
 			{
 				target = Commands->Find_Object(target_id);
 			}
-			
+
 			if (target)
 			{
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_Or_Exited_RMV found its target object.\n"));
@@ -730,7 +730,7 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_Or_Exited_RMV, "Start_Now=1:int, Receive
 				trigger_count--;
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_Or_Exited_RMV has %d triggers remaining.\n", trigger_count));
 			}
-			
+
 			int target_id = Get_Int_Parameter("Target_ID");
 			float time_low = Get_Float_Parameter("Min_Delay");
 			float time_up = Get_Float_Parameter("Max_Delay");
@@ -756,14 +756,14 @@ DECLARE_SCRIPT(M00_Trigger_Zone_Entered_Or_Exited_RMV, "Start_Now=1:int, Receive
 					break;
 				}
 			}
-			
+
 			GameObject *target = Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f));
 
 			if (target_id > 0)
 			{
 				target = Commands->Find_Object(target_id);
 			}
-			
+
 			if (target)
 			{
 				SCRIPT_DEBUG_MESSAGE (("M00_Trigger_Zone_Entered_Or_Exited_RMV found its target object.\n"));
@@ -1049,7 +1049,7 @@ DECLARE_SCRIPT(M00_Trigger_When_Action_Complete_RMV, "Start_Now=1:int, Receive_T
 			int param = Get_Int_Parameter("Send_Param");
 			int type = Get_Int_Parameter("Send_Type");
 			GameObject *target = Commands->Get_A_Star(Vector3(0.0f,0.0f,0.0f));
-			
+
 			if (target_id > 0)
 			{
 				target = Commands->Find_Object(target_id);
@@ -1261,7 +1261,7 @@ DECLARE_SCRIPT(M00_Trigger_Timer_Expired_RAD, "Start_Now=0:int, Receive_Type=15:
 				if (timer_id == M00_TIMER_TRIGGER_EXPIRED)
 				{
 					target_obj = Commands->Find_Object(target_id);
-					
+
 					if (target_obj)
 					{
 						SCRIPT_DEBUG_MESSAGE(("M00_Trigger_Timer_Expired_RAD found its target object.\n"));

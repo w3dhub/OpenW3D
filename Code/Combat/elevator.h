@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/elevator.h                            $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 9/13/01 11:42a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 16                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/elevator.h                            $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 9/13/01 11:42a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 16                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	ELEVATOR_H
@@ -66,11 +66,11 @@ typedef enum
 /*
 ** ElevatorPhysDefClass
 */
-class ElevatorPhysDefClass : public AccessiblePhysDefClass 
+class ElevatorPhysDefClass : public AccessiblePhysDefClass
 {
 public:
 	ElevatorPhysDefClass(void);
-	
+
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual const char *						Get_Type_Name(void) override				{ return "ElevatorPhysDef"; }
 	virtual bool								Is_Type(const char *) override;
@@ -106,7 +106,7 @@ protected:
 /*
 ** ElevatorPhysClass
 */
-class	ElevatorPhysClass : public AccessiblePhysClass 
+class	ElevatorPhysClass : public AccessiblePhysClass
 {
 public:
 	//	Constructor and Destructor

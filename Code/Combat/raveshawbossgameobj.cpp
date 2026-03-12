@@ -105,7 +105,7 @@ public:
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Inherited
 	//
@@ -146,7 +146,7 @@ static const float HEAL_TIME			= 3.0F;
 static const float EFFECT_FADE_TIME = 12.0F;
 static const float EFFECT_INTENSITY	= 0.75F;
 
-static const char *ARC_BONE_NAMES[6] = 
+static const char *ARC_BONE_NAMES[6] =
 {
 	"BONE02",
 	"BONE03",
@@ -271,7 +271,7 @@ RaveshawBossGameObjDefClass::RaveshawBossGameObjDefClass (void)
 //
 //////////////////////////////////////////////////////////////////////////
 RaveshawBossGameObjDefClass::~RaveshawBossGameObjDefClass (void)
-{	
+{
 	return ;
 }
 
@@ -282,9 +282,9 @@ RaveshawBossGameObjDefClass::~RaveshawBossGameObjDefClass (void)
 //
 //////////////////////////////////////////////////////////////////////////
 uint32
-RaveshawBossGameObjDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_RAVESHAW_BOSS; 
+RaveshawBossGameObjDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_RAVESHAW_BOSS;
 }
 
 
@@ -395,8 +395,8 @@ RaveshawBossGameObjDefClass::Load_Variables (ChunkLoadClass &/* cload */)
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 RaveshawBossGameObjDefClass::Get_Factory (void) const
-{ 
-	return _RaveshawBossGameObjDefPersistFactory; 
+{
+	return _RaveshawBossGameObjDefPersistFactory;
 }
 
 
@@ -462,13 +462,13 @@ RaveshawBossGameObjClass::RaveshawBossGameObjClass (void)	:
 
 	//
 	//	Register the Overall states with its state machine
-	//	
+	//
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_NOTHING);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_HEALING);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_THROWING_OBJECT);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_THROWING_SOLDIER);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_THROWING_STAR);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_GRAB_STAR);	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_GRAB_STAR);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_JUMP_TO_CATWALK);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_ON_CATWALK);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, OverallState, OVERALL_STATE_BODYSLAM);
@@ -486,25 +486,25 @@ RaveshawBossGameObjClass::RaveshawBossGameObjClass (void)	:
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_GRAB_SOLDIER);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_THROW_SOLDIER);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_GRAB_OBJECT);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_THROW_OBJECT);	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_THROW_OBJECT);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_GRAB_STAR);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_BODYSLAM);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_JUMP_DOWN);	
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_STUMBLE);	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_JUMP_DOWN);
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_STUMBLE);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_LOOK_CONFUSED);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_DYING);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_FALL);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_DEATH_LANDING);	
-	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, RaveshawState, RAVESHAW_STATE_DEATH_LANDING);
+
 	//
 	//	Register the Move states with its state machine
 	//
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_STOP);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_GOTO_TIBERIUM);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_GOTO_CATWALK);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_JUMP_TO_CATWALK);	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_JUMP_TO_CATWALK);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_CIRCLE_CATWALK);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_GOTO_THROW_OBJECT);		
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_GOTO_THROW_OBJECT);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_JUMP_TO_STAR);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, MoveState, MOVE_STATE_FOLLOW_STAR);
 
@@ -523,13 +523,13 @@ RaveshawBossGameObjClass::RaveshawBossGameObjClass (void)	:
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, JumpState, JUMP_STATE_JUMPING);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, JumpState, JUMP_STATE_LANDING);
 	JumpState.Set_State (JUMP_STATE_NONE);
-	
+
 	//
 	//	Register the Stealth Soldier states with its state machine
 	//
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, StealthSoldierState, STEALTH_SOLDIER_STATE_NONE);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, StealthSoldierState, STEALTH_SOLDIER_STATE_DISPLAY);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, StealthSoldierState, STEALTH_SOLDIER_STATE_FLYING);	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, StealthSoldierState, STEALTH_SOLDIER_STATE_FLYING);
 	StealthSoldierState.Set_State (STEALTH_SOLDIER_STATE_NONE);
 
 	//
@@ -537,15 +537,15 @@ RaveshawBossGameObjClass::RaveshawBossGameObjClass (void)	:
 	//
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, HavocState, HAVOC_STATE_NONE);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, HavocState, HAVOC_STATE_GRABBED);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, HavocState, HAVOC_STATE_FLYING);	
-	HavocState.Set_State (HAVOC_STATE_NONE);	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, HavocState, HAVOC_STATE_FLYING);
+	HavocState.Set_State (HAVOC_STATE_NONE);
 
 	//
 	//	Register the Thrown object states with its state machine
 	//
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, ThrownObjectState, THROWN_OBJECT_STATE_NONE);
 	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, ThrownObjectState, THROWN_OBJECT_STATE_PICKUP);
-	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, ThrownObjectState, THROWN_OBJECT_STATE_FLYING);	
+	ADD_STATE_TO_MACHINE (RaveshawBossGameObjClass, ThrownObjectState, THROWN_OBJECT_STATE_FLYING);
 	ThrownObjectState.Set_State (THROWN_OBJECT_STATE_NONE);
 
 	//
@@ -601,7 +601,7 @@ RaveshawBossGameObjClass::~RaveshawBossGameObjClass (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-RaveshawBossGameObjClass::Get_Factory (void) const 
+RaveshawBossGameObjClass::Get_Factory (void) const
 {
 	return _RaveshawBossGameObjPersistFactory;
 }
@@ -644,7 +644,7 @@ RaveshawBossGameObjClass::Init (const RaveshawBossGameObjDefClass &definition)
 	//	Start fresh...
 	//
 	Get_Action ()->Reset (100);
-	StartTimer = 2.0F;	
+	StartTimer = 2.0F;
 
 	//
 	//	Determine which state to do...
@@ -679,7 +679,7 @@ RaveshawBossGameObjClass::Save (ChunkSaveClass & csave)
 {
 	csave.Begin_Chunk (CHUNKID_PARENT);
 		SoldierGameObj::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	//
 	//	Save the tiberium effect to its own chunk
@@ -687,7 +687,7 @@ RaveshawBossGameObjClass::Save (ChunkSaveClass & csave)
 	csave.Begin_Chunk (CHUNKID_STEALTH_SOLDIER);
 		StealthSoldier.Save (csave);
 	csave.End_Chunk ();
-	
+
 	//
 	//	Save the tiberium effect to its own chunk
 	//
@@ -720,23 +720,23 @@ RaveshawBossGameObjClass::Save (ChunkSaveClass & csave)
 
 	csave.Begin_Chunk (CHUNKID_HAVOC_STATE_MACHINE);
 		HavocState.Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_THROWN_OBJ_STATE_MACHINE);
 		ThrownObjectState.Save (csave);
 	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_JUMP_STATE_MACHINE);
-		JumpState.Save (csave);		
+		JumpState.Save (csave);
 	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_LIGHTNING_ROD_STATE_MACHINE);
-		LightningRodState.Save (csave);		
+		LightningRodState.Save (csave);
 	csave.End_Chunk ();
 
 	//
 	//	Save the variables
-	//	
+	//
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		Save_Variables (csave);
 	csave.End_Chunk ();
@@ -796,11 +796,11 @@ RaveshawBossGameObjClass::Load (ChunkLoadClass &cload)
 				break;
 
 			case CHUNKID_JUMP_STATE_MACHINE:
-				JumpState.Load (cload);		
+				JumpState.Load (cload);
 				break;
 
 			case CHUNKID_LIGHTNING_ROD_STATE_MACHINE:
-				LightningRodState.Load (cload);		
+				LightningRodState.Load (cload);
 				break;
 
 			case CHUNKID_VARIABLES:
@@ -828,7 +828,7 @@ RaveshawBossGameObjClass::Load (ChunkLoadClass &cload)
 ///////////////////////////////////////////////////////////////////////////
 void
 RaveshawBossGameObjClass::On_Post_Load (void)
-{	
+{
 	SoldierGameObj::On_Post_Load ();
 
 	//
@@ -869,14 +869,14 @@ RaveshawBossGameObjClass::Save_Variables (ChunkSaveClass &csave)
 	//
 	//	Save a pointer for each arc-object
 	//
-	for (int index = 0; index < ARC_OBJ_COUNT; index ++) {		
+	for (int index = 0; index < ARC_OBJ_COUNT; index ++) {
 		WRITE_MICRO_CHUNK (csave, VARID_ARC_OBJ_PTR,	ArcObjects[index]);
 	}
 
 	Matrix3D cam_tm = CameraBoneModel->Get_Transform ();
 	WRITE_MICRO_CHUNK_PTR (csave, VARID_CAMERA_BONE_PTR,					CameraBoneModel);
 	WRITE_MICRO_CHUNK (csave, VARID_CAMERA_BONE_TM,						cam_tm);
-	WRITE_MICRO_CHUNK (csave, VARID_RESTORE_FIRST_PERSON,				RestoreFirstPerson);	
+	WRITE_MICRO_CHUNK (csave, VARID_RESTORE_FIRST_PERSON,				RestoreFirstPerson);
 
 	WRITE_MICRO_CHUNK_PTR (csave, VARID_THROWN_OBJECT_PTR,					ThrownObject);
 	WRITE_MICRO_CHUNK (csave, VARID_IS_TIBERIUM_EFFECT_APPLIED,		IsTiberiumEffectApplied);
@@ -896,7 +896,7 @@ RaveshawBossGameObjClass::Save_Variables (ChunkSaveClass &csave)
 	WRITE_MICRO_CHUNK (csave, VARID_FLYING_OBJECT_DEST,				FlyingObjectDest);
 	WRITE_MICRO_CHUNK (csave, VARID_FLYING_DIST,							FlyingDist);
 	WRITE_MICRO_CHUNK (csave, VARID_RELOBJ_TM,							RelObjTM);
-	WRITE_MICRO_CHUNK (csave, VARID_CURR_JUMP_POS,						CurrentJumpToPos);	
+	WRITE_MICRO_CHUNK (csave, VARID_CURR_JUMP_POS,						CurrentJumpToPos);
 	return ;
 }
 
@@ -922,7 +922,7 @@ RaveshawBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 
 			READ_MICRO_CHUNK_PTR (cload, VARID_CAMERA_BONE_PTR,					old_camera_bone_ptr);
 			READ_MICRO_CHUNK (cload, VARID_CAMERA_BONE_TM,					cam_tm);
-			READ_MICRO_CHUNK (cload, VARID_RESTORE_FIRST_PERSON,			RestoreFirstPerson);	
+			READ_MICRO_CHUNK (cload, VARID_RESTORE_FIRST_PERSON,			RestoreFirstPerson);
 
 			READ_MICRO_CHUNK_PTR (cload, VARID_THROWN_OBJECT_PTR,				ThrownObject);
 			READ_MICRO_CHUNK (cload, VARID_IS_TIBERIUM_EFFECT_APPLIED,	IsTiberiumEffectApplied);
@@ -942,7 +942,7 @@ RaveshawBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, VARID_FLYING_OBJECT_DEST,				FlyingObjectDest);
 			READ_MICRO_CHUNK (cload, VARID_FLYING_DIST,						FlyingDist);
 			READ_MICRO_CHUNK (cload, VARID_RELOBJ_TM,							RelObjTM);
-			READ_MICRO_CHUNK (cload, VARID_CURR_JUMP_POS,					CurrentJumpToPos);	
+			READ_MICRO_CHUNK (cload, VARID_CURR_JUMP_POS,					CurrentJumpToPos);
 
 			default:
 				Debug_Say (("Unrecognized RaveshawBossGameObjClass Variable chunkID %d\n", cload.Cur_Micro_Chunk_ID ()));
@@ -966,7 +966,7 @@ RaveshawBossGameObjClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	//	Register the camera bone pointers...
 	//
-	if (old_camera_bone_ptr != NULL) {			
+	if (old_camera_bone_ptr != NULL) {
 		SaveLoadSystemClass::Register_Pointer (old_camera_bone_ptr, CameraBoneModel);
 		CameraBoneModel->Set_Transform (cam_tm);
 	}
@@ -995,8 +995,8 @@ RaveshawBossGameObjClass::Apply_Control (void)
 ///////////////////////////////////////////////////////////////////////////
 void
 RaveshawBossGameObjClass::Think (void)
-{	
-	WWPROFILE ("Raveshaw Think");	
+{
+	WWPROFILE ("Raveshaw Think");
 
 	bool ok_to_think = true;
 
@@ -1057,7 +1057,7 @@ RaveshawBossGameObjClass::Think (void)
 	old_health			+= 100.0F;
 	old_health_max		+= 100.0F;
 	DefenseObject.Set_Health_Max (old_health_max);
-	DefenseObject.Set_Health (old_health);	
+	DefenseObject.Set_Health (old_health);
 
 	//
 	//	Let the soldier think
@@ -1071,7 +1071,7 @@ RaveshawBossGameObjClass::Think (void)
 	curr_health		-= 100.0F;
 	old_health_max	-= 100.0F;
 	DefenseObject.Set_Health (std::max (curr_health, 1.0F));
-	DefenseObject.Set_Health_Max (old_health_max);	
+	DefenseObject.Set_Health_Max (old_health_max);
 	return ;
 }
 
@@ -1101,7 +1101,7 @@ RaveshawBossGameObjClass::Verify_Stealth_Soldier (void)
 		stealth_soldier->Peek_Physical_Object ()->Remove_Effect_From_Me (StealthEffect);
 		stealth_soldier->Get_Human_State ()->Stop_Scripted_Animation ();
 		stealth_soldier->Set_Delete_Pending ();
-		StealthSoldier = NULL;		
+		StealthSoldier = NULL;
 
 		OverallState.Set_State (OVERALL_STATE_NOTHING);
 		RaveshawState.Set_State (RAVESHAW_STATE_ROAR);
@@ -1124,7 +1124,7 @@ void
 RaveshawBossGameObjClass::Shuffle_Taunt_List (void)
 {
 	::memset (TauntList, 0, sizeof (TauntList));
-	
+
 	//
 	//	Grab an entry from the taunt id list
 	//
@@ -1167,7 +1167,7 @@ RaveshawBossGameObjClass::Apply_Damage_Extended
 			OverallState.Get_State () == OVERALL_STATE_DEATH_SEQUENCE)
 	{
 		return ;
-	}	
+	}
 
 	//
 	//	Apply the damage
@@ -1343,7 +1343,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(OVERALL_STATE_CHASE_STAR) (void)
 	//
 	float dist2 = (RaveshawPos - StarPos).Length2 ();
 	if (dist2 <= ARMS_REACH && JumpState.Get_State () == JUMP_STATE_NONE) {
-		
+
 		//
 		//	Grab for the star
 		//
@@ -1472,7 +1472,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_GOTO_TIBERIUM) (void)
 	//
 	if (Get_Action ()->Is_Active () == false) {
 		RaveshawState.Set_State (RAVESHAW_STATE_GRAB_TIBERIUM);
-		MoveState.Set_State (MOVE_STATE_STOP);		
+		MoveState.Set_State (MOVE_STATE_STOP);
 	}
 
 	return ;
@@ -1535,7 +1535,7 @@ RaveshawBossGameObjClass::Find_Closest_Catwalk_Pos (const Vector3 &curr_pos, Vec
 	//	Now find the closest point which is in-between the waypath points
 	//
 	for (int index = 0; index < waypath->Get_Point_Count (); index ++) {
-		
+
 		//
 		//	Determine what the current and next waypath points are
 		//
@@ -1550,7 +1550,7 @@ RaveshawBossGameObjClass::Find_Closest_Catwalk_Pos (const Vector3 &curr_pos, Vec
 		//
 		Vector3 curr_waypath_pos = waypath->Get_Point (curr_index)->Get_Position ();
 		Vector3 next_waypath_pos = waypath->Get_Point (next_index)->Get_Position ();
-		
+
 		//
 		//	Evaluate this jump to position (is it the closest?)
 		//
@@ -1604,7 +1604,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_GOTO_CATWALK) (void)
 ///////////////////////////////////////////////////////////////////////////
 void
 RaveshawBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_JUMP_TO_CATWALK) (void)
-{	
+{
 	//
 	//	Simply cause the physics to jump to the specified point
 	//
@@ -1620,7 +1620,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_JUMP_TO_CATWALK) (void)
 ///////////////////////////////////////////////////////////////////////////
 void
 RaveshawBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_JUMP_TO_CATWALK) (void)
-{	
+{
 	//
 	//	The state ends when the mutant lands
 	//
@@ -1693,7 +1693,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(MOVE_STATE_CIRCLE_CATWALK) (void)
 			params.Set_Basic ((int)0, 100, 777);
 			params.Set_Movement (CurrentDestPos, 0.5F, 0.5F);
 			params.IgnoreFacing = true;
-			Get_Action ()->Goto (params);		
+			Get_Action ()->Goto (params);
 		}
 	}
 
@@ -1715,7 +1715,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_GOTO_THROW_OBJECT) (void)
 	ActionParamsStruct params;
 	params.Set_Basic ((int)0, 100, 777);
 	params.Set_Movement (ThrownObject, 0.5F, 1.25F);
-	Get_Action ()->Goto (params);		
+	Get_Action ()->Goto (params);
 	return ;
 }
 
@@ -1756,7 +1756,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(MOVE_STATE_JUMP_TO_STAR) (void)
 	//
 	//	Stop any current action and jump to the star's position
 	//
-	Get_Action ()->Reset (100);	
+	Get_Action ()->Reset (100);
 	Jump_To_Point (StarPos);
 	//Peek_Human_Phys ()->Jump_To_Point (StarPos);
 	return ;
@@ -1886,7 +1886,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_NOTHING) (void)
 		//
 		RaveshawState.Set_State (RAVESHAW_STATE_ROAR);
 	}
-	
+
 	return ;
 }
 
@@ -1903,7 +1903,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(RAVESHAW_STATE_ROAR) (void)
 	//	Play the roar animation and sound
 	//
 	Set_Blended_Animation ("S_C_HUMAN.H_C_A0A0_L07", false);
-	Attach_Sound ("Rav_Long_Yell_Twiddler", "C HEAD");	
+	Attach_Sound ("Rav_Long_Yell_Twiddler", "C HEAD");
 
 	//
 	//	Stop whatever action he's doing (temporarily)
@@ -1933,7 +1933,7 @@ RaveshawBossGameObjClass::STATE_IMPL_END(RAVESHAW_STATE_ROAR) (void)
 	//
 	MoveState.Resume_State ();
 	JumpState.Resume_State ();
-	Get_Action ()->Pause (false);	
+	Get_Action ()->Pause (false);
 	return ;
 }
 
@@ -2007,7 +2007,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_GRAB_TIBERIUM) (void)
 	//
 	//	Face the tiberium
 	//
-	Set_Targeting (TIBERIUM_POS);	
+	Set_Targeting (TIBERIUM_POS);
 
 	//
 	//	Handy macro
@@ -2015,7 +2015,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_GRAB_TIBERIUM) (void)
 	float curr_frame = Get_Anim_Control ()->Get_Current_Frame ();
 	#define PASSED_FRAME(frame) (LastMeleeAnimFrame < frame && curr_frame >= frame)
 	if (PASSED_FRAME (9.0F)) {
-		
+
 		//
 		//	Start healing
 		//
@@ -2120,7 +2120,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(RAVESHAW_STATE_THROW_SOLDIER) (void)
 	//	Start the animation at frame 27
 	//
 	Get_Anim_Control ()->Set_Mode (ANIM_MODE_ONCE, 27);*/
-	
+
 	//
 	//	Advance to frame 49
 	//
@@ -2174,7 +2174,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_THROW_SOLDIER) (void)
 	//
 	//	Decide on what to do when finished
 	//
-	if (Get_Anim_Control ()->Is_Complete ()) {		
+	if (Get_Anim_Control ()->Is_Complete ()) {
 		Determine_New_Overall_State ();
 	}
 
@@ -2230,7 +2230,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_GRAB_OBJECT) (void)
 	float curr_frame = Get_Anim_Control ()->Get_Current_Frame ();
 	#define PASSED_FRAME(frame) (LastMeleeAnimFrame < frame && curr_frame >= frame)
 	if (PASSED_FRAME (9.0F)) {
-	
+
 		//
 		//	Pickup the object
 		//
@@ -2314,7 +2314,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_THROW_OBJECT) (void)
 		float curr_frame = Get_Anim_Control ()->Get_Current_Frame ();
 		#define PASSED_FRAME(frame) (LastMeleeAnimFrame < frame && curr_frame >= frame)
 		if (PASSED_FRAME (36.0F)) {
-		
+
 			//
 			//	Let the object fly!
 			//
@@ -2437,7 +2437,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_GRAB_STAR) (void)
 			RaveshawState.Set_State (RAVESHAW_STATE_NOTHING);
 			Determine_New_Overall_State ();
 		}
-		
+
 		//
 		//	Apply hefty damage if we connect
 		//
@@ -2445,11 +2445,11 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_GRAB_STAR) (void)
 			HasMeleeAttackHit |= Apply_Bone_Collision_Damage (15.0F, "C R HAND");
 			HasMeleeAttackHit |= Apply_Bone_Collision_Damage (15.0F, "C L HAND");
 		}
-		
+
 		//
 		//	Cache the last frame number...
 		//
-		LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();	
+		LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();
 	}*/
 
 	return ;
@@ -2530,7 +2530,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_BODYSLAM) (void)
 	//
 	float curr_frame = Get_Anim_Control ()->Get_Current_Frame ();
 	if (curr_frame >= 174.0F) {
-		
+
 		//
 		//	Determine which state to goto next...
 		//
@@ -2564,30 +2564,30 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_BODYSLAM) (void)
 				ExplosionManager::Create_Explosion_At (definition->Get_ID (), pelvis_tm.Get_Translation (), NULL);
 			}
 		}
-		
+
 		//
 		//	Do we need to check for the ground?
 		//
 		if (Get_Anim_Control ()->Get_Target_Frame () != 174.0F) {
-		
+
 			//
 			//	Now determine if the mutant is within a few feet of the ground
 			//
 			float distance = Get_Distance_From_Ground ();
 			if (distance < 1.0F) {
 				Get_Anim_Control ()->Set_Target_Frame (174.0F);
-			}		
+			}
 		}
 
 		//
 		//	Apply massive damage if we connect
 		//
 		Apply_Bone_Collision_Damage (500.0F, "C PELVIS");
-		
+
 		//
 		//	Cache the last frame number...
 		//
-		LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();	
+		LastMeleeAnimFrame = Get_Anim_Control ()->Get_Current_Frame ();
 	}
 
 	return ;
@@ -2693,7 +2693,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_DYING) (void)
 	float curr_frame = Get_Anim_Control ()->Get_Current_Frame ();
 	#define PASSED_FRAME(frame) (LastMeleeAnimFrame < frame && curr_frame >= frame)
 	if (PASSED_FRAME (43.0F)) {
-		
+
 	//
 	//	Start falling when the animation gets to the correct frame
 	//
@@ -2741,7 +2741,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(RAVESHAW_STATE_FALL) (void)
 	//
 	const float FLOOR_POS1 = -189.1F;
 	const float FLOOR_POS2 = -191.0F;
-	
+
 	if (	(new_pos.X >= -133.1F && new_pos.Z <= FLOOR_POS1) ||
 			(new_pos.X < -133.1F && new_pos.Z <= FLOOR_POS2))
 	{
@@ -2859,7 +2859,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(ENGORGED_STATE_ABSORBING_TIBERIUM) (v
 		EngorgedState.Set_State (ENGORGED_STATE_FADING);
 		OverallState.Set_State (OVERALL_STATE_CHASE_STAR);
 	} else {
-		
+
 		//
 		//	Configure the intensity
 		//
@@ -2924,7 +2924,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(ENGORGED_STATE_FADING) (void)
 	if (EngorgedStateTimer <= 0) {
 		EngorgedState.Set_State (ENGORGED_STATE_NONE);
 	} else {
-		
+
 		//
 		//	Configure the intensity
 		//
@@ -3084,7 +3084,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(JUMP_STATE_LANDING) (void)
 	float curr_frame = Get_Anim_Control ()->Get_Current_Frame ();
 	#define PASSED_FRAME(frame) (LastMeleeAnimFrame < frame && curr_frame >= frame)
 	if (PASSED_FRAME (20.0F)) {
-		
+
 		//
 		//	Play the landing sound
 		//
@@ -3163,8 +3163,8 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(HAVOC_STATE_FLYING) (void)
 
 	//
 	//	Calculate the direction that the soldier will fly through the air
-	//	
-	FlyingObjectVector	= dir_vector * 15.0F;	
+	//
+	FlyingObjectVector	= dir_vector * 15.0F;
 	FlyingDist				= FlyingObjectVector.Length ();
 	FlyingObjectDest		= StarPos + FlyingObjectVector;
 	FlyingObjectVector.Normalize ();
@@ -3216,13 +3216,13 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(HAVOC_STATE_FLYING) (void)
 		//
 		//	Restore physics simulation
 		//
-		COMBAT_STAR->Peek_Physical_Object ()->Enable_Objects_Simulation (true);		
+		COMBAT_STAR->Peek_Physical_Object ()->Enable_Objects_Simulation (true);
 
 		//
 		//	Apply some damage to the player
 		//
 		OffenseObjectClass offense_obj (20.0F, 1);
-		COMBAT_STAR->Apply_Damage_Extended (offense_obj, 1.0F);		
+		COMBAT_STAR->Apply_Damage_Extended (offense_obj, 1.0F);
 
 		//
 		//	Restore Havoc's state
@@ -3346,7 +3346,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(STEALTH_SOLDIER_STATE_FLYING) (void)
 			stealth_soldier->Get_Human_State ()->Set_State (HumanStateClass::LOCKED_ANIMATION);
 		} else {
 			stealth_soldier->Set_Blended_Animation ("S_A_HUMAN.H_A_FLY2", true);
-			stealth_soldier->Get_Human_State ()->Set_State (HumanStateClass::LOCKED_ANIMATION);		
+			stealth_soldier->Get_Human_State ()->Set_State (HumanStateClass::LOCKED_ANIMATION);
 		}
 	} else {
 		if (relative_vector.Y > 0) {
@@ -3354,7 +3354,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(STEALTH_SOLDIER_STATE_FLYING) (void)
 			stealth_soldier->Get_Human_State ()->Set_State (HumanStateClass::LOCKED_ANIMATION);
 		} else {
 			stealth_soldier->Set_Blended_Animation ("S_A_HUMAN.H_A_FLY3", true);
-			stealth_soldier->Get_Human_State ()->Set_State (HumanStateClass::LOCKED_ANIMATION);		
+			stealth_soldier->Get_Human_State ()->Set_State (HumanStateClass::LOCKED_ANIMATION);
 		}
 	}
 
@@ -3387,7 +3387,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(STEALTH_SOLDIER_STATE_FLYING) (void)
 
 	Vector3 soldier_pos;
 	stealth_soldier->Get_Position (&soldier_pos);
-	
+
 	float dist = (soldier_pos - FlyingObjectDest).Length ();
 	float dist_percent = (dist / FlyingDist);
 
@@ -3406,7 +3406,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(STEALTH_SOLDIER_STATE_FLYING) (void)
 		//
 		OffenseObjectClass offense_obj (10000.0F, 1);
 		stealth_soldier->Apply_Damage_Extended (offense_obj, 1.0F);
-		
+
 		//
 		//	Restore our state
 		//
@@ -3441,7 +3441,7 @@ RaveshawBossGameObjClass::STATE_IMPL_BEGIN(THROWN_OBJECT_STATE_PICKUP) (void)
 	//
 	Matrix3D world_to_hand_tm;
 	r_hand_tm.Get_Orthogonal_Inverse (world_to_hand_tm);
-	
+
 	const Matrix3D &obj_tm = ThrownObject->Get_Transform ();
 	RelObjTM = world_to_hand_tm * obj_tm;
 
@@ -3499,7 +3499,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(THROWN_OBJECT_STATE_FLYING) (void)
 
 	Vector3 object_pos;
 	ThrownObject->Get_Position (&object_pos);
-	
+
 	float dist				= (object_pos - FlyingObjectDest).Length ();
 	float dist_percent	= (dist / FlyingDist);
 
@@ -3560,7 +3560,7 @@ RaveshawBossGameObjClass::STATE_IMPL_END(LIGHTNING_ROD_STATE_ACTIVE) (void)
 		phys_obj->Peek_Model ()->Set_Hidden (true);
 		ArcLifeRemaining[index] = 0;
 	}
-	
+
 	return ;
 }
 
@@ -3576,7 +3576,7 @@ RaveshawBossGameObjClass::STATE_IMPL_THINK(LIGHTNING_ROD_STATE_ACTIVE) (void)
 	LightningRodStateTimer -= TimeManager::Get_Frame_Seconds ();
 	if (LightningRodStateTimer <= 0) {
 		LightningRodStateTimer = 0.125F;
-		
+
 		int count	= LightningRodList.Count ();
 		int index0	= FreeRandom.Get_Int (count - 1);
 		int index1	= index0 + 1;
@@ -3672,7 +3672,7 @@ RaveshawBossGameObjClass::Apply_Bone_Collision_Damage (float damage_scale, const
 	CastResultStruct result;
 	result.ComputeContactPoint = true;
 	AABoxCollisionTestClass col_test (bone_box, move_vector, &result, COLLISION_TYPE_PROJECTILE);
-	
+
 	//
 	//	Find where we hit
 	//
@@ -3686,7 +3686,7 @@ RaveshawBossGameObjClass::Apply_Bone_Collision_Damage (float damage_scale, const
 		if (col_test.CollidedRenderObj != NULL) {
 			obj_name = col_test.CollidedRenderObj->Get_Name ();
 		}
-		
+
 		//
 		//	Apply 10 points of "steel" damage to the player
 		//
@@ -3699,7 +3699,7 @@ RaveshawBossGameObjClass::Apply_Bone_Collision_Damage (float damage_scale, const
 		Vector3 delta_vector = move_vector;
 		delta_vector.Normalize ();
 		COMBAT_STAR->Peek_Physical_Object ()->As_Phys3Class ()->Collide (delta_vector * 0.25F);
-		
+
 		if (delta_vector.Z > 0.0F) {
 			delta_vector.Z = 0.5F;
 			delta_vector.Normalize ();
@@ -3723,7 +3723,7 @@ RaveshawBossGameObjClass::Apply_Bone_Collision_Damage (float damage_scale, const
 ///////////////////////////////////////////////////////////////////////////
 float
 RaveshawBossGameObjClass::Get_Distance_From_Ground (void)
-{	
+{
 	const float MAX_DISTANCE	= 100.0F;
 	float distance					= 0.0F;
 
@@ -3783,18 +3783,18 @@ RaveshawBossGameObjClass::Create_Stealth_Soldier (const Matrix3D &tm)
 	//
 	StealthEffect->Set_Current_State (1.0F);
 	StealthEffect->Set_Target_State (0.0F);
-	
+
 	//
 	//	Add the effect to the object
 	//
 	soldier->Peek_Physical_Object ()->Add_Effect_To_Me (StealthEffect);
-	
+
 	//
 	//	Disable physics for this soldier
 	//
-	soldier->Peek_Physical_Object ()->Enable_Objects_Simulation (false);	
+	soldier->Peek_Physical_Object ()->Enable_Objects_Simulation (false);
 	soldier->Start_Observers ();
-	return ;	
+	return ;
 }
 
 
@@ -3828,7 +3828,7 @@ RaveshawBossGameObjClass::Link_Thrown_Object_To_Hands (void)
 	Matrix3D::Multiply (r_hand_tm, RelObjTM, &obj_tm);
 
 	ThrownObject->Set_Transform (obj_tm);
-	return ;	
+	return ;
 }
 
 
@@ -3857,7 +3857,7 @@ RaveshawBossGameObjClass::Link_Player_To_Hands (void)
 	//
 	Vector3 hand_pos	= hand_tm.Get_Translation ();
 	Vector3 delta_pos = neck_tm.Get_Translation () - soldier_tm.Get_Translation ();
-	Vector3 new_pos	= hand_pos - delta_pos;	
+	Vector3 new_pos	= hand_pos - delta_pos;
 
 	//
 	//	Disable collision on Raveshaw
@@ -3897,15 +3897,15 @@ RaveshawBossGameObjClass::Link_Player_To_Hands (void)
 	//
 	Peek_Physical_Object ()->Dec_Ignore_Counter ();
 	COMBAT_STAR->Peek_Physical_Object ()->Dec_Ignore_Counter ();
-	
+
 
 	//
 	//	Get the target relative to the head
 	//
 	//Vector3 rav_head_pos = Peek_Model ()->Get_Bone_Transform ("C HEAD").Get_Translation ();
-	
+
 	//COMBAT_STAR->Set_Targeting (rav_head_pos);
-	
+
 	/*Vector3 rav_head_rel;
 	Matrix3D::Inverse_Transform_Vector (new_soldier_tm, rav_head_pos, &rav_head_rel);
 
@@ -3916,7 +3916,7 @@ RaveshawBossGameObjClass::Link_Player_To_Hands (void)
 	//	Choose a random orientation for the soldier
 	//
 	//new_soldier_tm.Rotate_Z (WWMath::Random_Float (0, DEG_TO_RADF (319.0F)));
-	
+
 
 	/*Matrix3D world_to_soldier_tm;
 	soldier_tm.Get_Orthogonal_Inverse (world_to_soldier_tm);
@@ -3926,13 +3926,13 @@ RaveshawBossGameObjClass::Link_Player_To_Hands (void)
 	Matrix3D sol_rel_to_neck_tm;
 	neck_rel_to_sol_tm.Get_Orthogonal_Inverse (sol_rel_to_neck_tm);
 
-	Matrix3D new_soldier_tm (hand_tm * sol_rel_to_neck_tm);*/	
-	
+	Matrix3D new_soldier_tm (hand_tm * sol_rel_to_neck_tm);*/
+
 	//Matrix3D test_tm = hand_tm * sol_rel_to_neck_tm;
 	//Matrix3D new_soldier_tm (test_tm.Get_Translation ());
 	//new_soldier_tm = hand_tm * sol_rel_to_neck_tm;
 
-	
+
 	/*Matrix3D soldier_to_neck_tm;
 	neck_to_soldier_tm.Get_Orthogonal_Inverse (soldier_to_neck_tm);
 
@@ -3942,11 +3942,11 @@ RaveshawBossGameObjClass::Link_Player_To_Hands (void)
 
 	Matrix3D neck_to_soldier_tm = soldier_tm * world_to_neck_tm;
 
-	Matrix3D 
+	Matrix3D
 	Matrix3D new_soldier_tm = (hand_tm * neck_to_soldier_tm);*/
 
 	//COMBAT_STAR->Set_Transform (new_soldier_tm);
-	return ;	
+	return ;
 }
 
 
@@ -3987,7 +3987,7 @@ RaveshawBossGameObjClass::Link_Stealth_Soldier_To_Hand (void)
 	//	Choose a random orientation for the soldier
 	//
 	//new_soldier_tm.Rotate_Z (WWMath::Random_Float (0, DEG_TO_RADF (319.0F)));
-	
+
 
 	/*Matrix3D world_to_soldier_tm;
 	soldier_tm.Get_Orthogonal_Inverse (world_to_soldier_tm);
@@ -3997,13 +3997,13 @@ RaveshawBossGameObjClass::Link_Stealth_Soldier_To_Hand (void)
 	Matrix3D sol_rel_to_neck_tm;
 	neck_rel_to_sol_tm.Get_Orthogonal_Inverse (sol_rel_to_neck_tm);
 
-	Matrix3D new_soldier_tm (hand_tm * sol_rel_to_neck_tm);*/	
-	
+	Matrix3D new_soldier_tm (hand_tm * sol_rel_to_neck_tm);*/
+
 	//Matrix3D test_tm = hand_tm * sol_rel_to_neck_tm;
 	//Matrix3D new_soldier_tm (test_tm.Get_Translation ());
 	//new_soldier_tm = hand_tm * sol_rel_to_neck_tm;
 
-	
+
 	/*Matrix3D soldier_to_neck_tm;
 	neck_to_soldier_tm.Get_Orthogonal_Inverse (soldier_to_neck_tm);
 
@@ -4013,11 +4013,11 @@ RaveshawBossGameObjClass::Link_Stealth_Soldier_To_Hand (void)
 
 	Matrix3D neck_to_soldier_tm = soldier_tm * world_to_neck_tm;
 
-	Matrix3D 
+	Matrix3D
 	Matrix3D new_soldier_tm = (hand_tm * neck_to_soldier_tm);*/
 
 	stealth_soldier->Set_Transform (new_soldier_tm);
-	return ;	
+	return ;
 }
 
 
@@ -4036,18 +4036,18 @@ RaveshawBossGameObjClass::Fly_Move (PhysicalGameObj *game_obj, const Vector3 &ve
 	//	Get the object's collision box
 	//
 	AABoxClass collision_box;
-	
+
 	if (game_obj->As_SoldierGameObj () != NULL) {
 		collision_box				= game_obj->Peek_Physical_Object ()->As_HumanPhysClass ()->Get_Collision_Box ();
 		collision_box.Center		+= curr_pos;
 	} else {
 		collision_box = game_obj->Peek_Model ()->Get_Bounding_Box ();
-	}	
+	}
 
 	if (game_obj != COMBAT_STAR) {
 		collision_box.Extent.Z -= 0.25F;
 	}
-	
+
 	//
 	//	Disable collision on Raveshaw
 	//
@@ -4059,13 +4059,13 @@ RaveshawBossGameObjClass::Fly_Move (PhysicalGameObj *game_obj, const Vector3 &ve
 	//
 	CastResultStruct result;
 	PhysAABoxCollisionTestClass col_test (collision_box, vector, &result, DEFAULT_COLLISION_GROUP, COLLISION_TYPE_PHYSICAL);
-	
+
 	//
 	//	Find where we hit
 	//
 	bool retval = COMBAT_SCENE->Cast_AABox (col_test);
 	if (result.StartBad == false) {
-		
+
 		//
 		//	Calculate where to move to...
 		//
@@ -4106,7 +4106,7 @@ RaveshawBossGameObjClass::Find_Object_To_Throw (void)
 	//
 	SLNode<BaseGameObj> *obj_node = NULL;
 	for (obj_node = GameObjManager::Get_Game_Obj_List ()->Head (); obj_node; obj_node = obj_node->Next ()) {
-		
+
 		//
 		//	Is this a simple game object?
 		//
@@ -4114,7 +4114,7 @@ RaveshawBossGameObjClass::Find_Object_To_Throw (void)
 		if (phys_game_obj != NULL && phys_game_obj->As_SimpleGameObj () != NULL) {
 			SimpleGameObj *object = phys_game_obj->As_SimpleGameObj ();
 			if (object != NULL) {
-				
+
 				//
 				//	Is this one of Raveshaw's throwable objects?
 				//
@@ -4126,7 +4126,7 @@ RaveshawBossGameObjClass::Find_Object_To_Throw (void)
 					//
 					Vector3 object_pos;
 					object->Get_Position (&object_pos);
-					
+
 					//
 					//	Is this object in the boss area?
 					//
@@ -4168,7 +4168,7 @@ RaveshawBossGameObjClass::Determine_New_Overall_State (void)
 	float health_percent		= health / DefenseObject.Get_Health_Max ();
 
 	if (health_percent <= 0.05F) {
-		
+
 		//
 		//	Retreat to the catwalk if we're mostly damaged
 		//
@@ -4180,7 +4180,7 @@ RaveshawBossGameObjClass::Determine_New_Overall_State (void)
 		}
 
 	} else {
-		
+
 		//
 		//	Should he heal himself?
 		//
@@ -4244,7 +4244,7 @@ void
 RaveshawBossGameObjClass::Collect_Lightning_Rods (void)
 {
 	LightningRodList.Delete_All ();
-	
+
 	//
 	//	Compute the box where the lightning rods in question should live
 	//
@@ -4264,7 +4264,7 @@ RaveshawBossGameObjClass::Collect_Lightning_Rods (void)
 	NonRefPhysListIterator it (&obj_list);
 	for (it.First (); !it.Is_Done (); it.Next ()) {
 		DamageableStaticPhysClass *phys_obj = it.Peek_Obj ()->As_DamageableStaticPhysClass ();
-		
+
 		//
 		//	Add this object to our list
 		//
@@ -4323,7 +4323,7 @@ RaveshawBossGameObjClass::Prepare_Arc_Effect_Data (void)
 		{
 			ArcObjects[index]->Peek_Physical_Object ()->Peek_Model ()->Set_Hidden (true);
 		}
-		
+
 		ArcLifeRemaining[index]	= 0;
 	}
 
@@ -4344,9 +4344,9 @@ RaveshawBossGameObjClass::Prepare_Arc_Effect_Data (void)
 		//
 		//	Lookup the original transform of the end-bone
 		//
-		int end_index		= model->Get_Bone_Index ("bone_end");		
+		int end_index		= model->Get_Bone_Index ("bone_end");
 		EndTM					= model->Get_Bone_Transform (end_index);
-		
+
 		//
 		//	Get rid of the temporary object
 		//
@@ -4391,7 +4391,7 @@ RaveshawBossGameObjClass::Add_Lightning_Arc (const Vector3 &start_point, const V
 			// will fit perfectly between the start and endpoints.
 			//
 			for (int bone_index = 0; bone_index < BONE_COUNT; bone_index ++) {
-				
+
 				float percent		= WWMath::Fabs (Bones[bone_index].Get_Translation ().X / EndTM.Get_Translation ().X);
 				Vector3 new_pos	= start_point + (end_point - start_point) * percent;
 
@@ -4401,7 +4401,7 @@ RaveshawBossGameObjClass::Add_Lightning_Arc (const Vector3 &start_point, const V
 				Vector3 world_space_pos		= start_tm * Bones[bone_index].Get_Translation ();
 				Vector3 world_space_offset	= new_pos - world_space_pos;
 				Matrix3D bone_tm (world_space_offset);
-				
+
 				//
 				//	Control the bone
 				//
@@ -4473,7 +4473,7 @@ RaveshawBossGameObjClass::fnSortLightningRodsCallback
 		Vector3 rod2_pos;
 		rod1->Get_Position (&rod1_pos);
 		rod2->Get_Position (&rod2_pos);
-		
+
 		rod1_pos -= TIBERIUM_POS;
 		rod2_pos -= TIBERIUM_POS;
 
@@ -4481,7 +4481,7 @@ RaveshawBossGameObjClass::fnSortLightningRodsCallback
 		//	Compute the angle assuming the tiberium to be the center of a circle
 		//
 		float angle1 = WWMath::Atan2 (rod1_pos.Y, rod1_pos.X);
-		float angle2 = WWMath::Atan2 (rod2_pos.Y, rod2_pos.X);		
+		float angle2 = WWMath::Atan2 (rod2_pos.Y, rod2_pos.X);
 		angle1 = WWMath::Wrap (angle1 + DEG_TO_RADF (90.0F), 0.0F, DEG_TO_RADF (360.0F));
 		angle2 = WWMath::Wrap (angle2 + DEG_TO_RADF (90.0F), 0.0F, DEG_TO_RADF (360.0F));
 
@@ -4523,7 +4523,7 @@ RaveshawBossGameObjClass::Find_Death_Facing_Pos (Vector3 *facing_pos)
 	//	Now find the closest point which is in-between the waypath points
 	//
 	for (int index = 0; index < waypath->Get_Point_Count (); index ++) {
-		
+
 		//
 		//	Determine what the current and next waypath points are
 		//
@@ -4538,7 +4538,7 @@ RaveshawBossGameObjClass::Find_Death_Facing_Pos (Vector3 *facing_pos)
 		//
 		Vector3 curr_waypath_pos = waypath->Get_Point (curr_index)->Get_Position ();
 		Vector3 next_waypath_pos = waypath->Get_Point (next_index)->Get_Position ();
-		
+
 		//
 		//	Evaluate this jump to position (is it the closest?)
 		//

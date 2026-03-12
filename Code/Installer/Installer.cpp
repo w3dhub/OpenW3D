@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/Installer.cpp  $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/17/02 7:43p                 $* 
- *                                                                                             * 
- *                    $Revision:: 18                    $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/Installer.cpp  $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/17/02 7:43p                 $*
+ *                                                                                             *
+ *                    $Revision:: 18                    $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Include files.
@@ -77,7 +77,7 @@
 #define INI_CD_LABEL_SECTION					"CDLabel"
 #define INI_SUBDIRECTORY_SECTION				"SubDirectories"
 #define INI_FILES_SECTION						"Files"
-#define INI_VOLUME_LABEL_ENTRY				"VolumeLabel"		
+#define INI_VOLUME_LABEL_ENTRY				"VolumeLabel"
 #define INI_SUBDIRECTORY_ENTRY_PREFIX		"Dir"
 #define INI_TOTAL_DISK_SPACE_NEEDED_ENTRY	"TotalDiskSpaceNeeded"
 #define INI_NUM_FILES_ENTRY					"NumFiles"
@@ -91,12 +91,12 @@
 
 // Section names and entry names for IDS_SETUP_INI_FILENAME.
 #define INI_SETUP_SECTION						"Setup"
-#define INI_LANGUAGE_ENTRY						"Language"	
+#define INI_LANGUAGE_ENTRY						"Language"
 #define INI_SKU_ENTRY							"SKU"
 #define INI_CAN_USE_IGR_SETTNGS_ENTRY		"CanUseIGRSettings"
 
 // Miscellaneous.
-#define ENCRYPTION_STRING_LENGTH				128	
+#define ENCRYPTION_STRING_LENGTH				128
 #define INSTALLER_NOMINAL_BYTE_COUNT		0x40000
 
 // Registry access.
@@ -116,14 +116,14 @@
 		dialog->Start_Dialog();	\
 	} else { \
 		DialogMgrClass::Register_Dialog (dialog); \
-	} 
+	}
 
 #define UNREGISTER_DIALOG(dialog) \
-	DialogMgrClass::UnRegister_Dialog (dialog); 
+	DialogMgrClass::UnRegister_Dialog (dialog);
 
 #define DO_CANCEL \
 	CancelApplication = true; \
-	PostQuitMessage (0); 
+	PostQuitMessage (0);
 
 
 // Foward declarations.
@@ -154,9 +154,9 @@ typedef HRESULT (*DLLUNREGISTERSERVER)(void);
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
-InstallerClass::InstallerClass() 
+InstallerClass::InstallerClass()
 	:	SetupIni (NULL),
 		GameIni (NULL),
 		WOLIni (NULL),
@@ -209,7 +209,7 @@ InstallerClass::InstallerClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 InstallerClass::~InstallerClass()
 {
@@ -229,7 +229,7 @@ InstallerClass::~InstallerClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 {
@@ -249,8 +249,8 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 			const char *intromoviename	= "InstallMovie.bik";
 			const int	playouttime		= 2000;
 
-			bool cancelapplication = false;	
-			int  time;	
+			bool cancelapplication = false;
+			int  time;
 
 			Check_Existing_Install();
 			Initialize();
@@ -259,7 +259,7 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 			CardSelectionDialog = NEW_REF (CardSelectionDialogClass, (false));
 			while (CardSelectionDialog->Get_Card_Count() > 1) {
 
-				int cardselection;	
+				int cardselection;
 
 				CardSelectionDialog->Start_Dialog();
 				while (CardSelectionDialog->Is_Running()) {
@@ -272,13 +272,13 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 						Sleep (50);
 					}
 					WW3D::End_Render();
-					Windows_Message_Handler();		
+					Windows_Message_Handler();
 				}
 				cardselection = CardSelectionDialog->Get_Card_Selection();
 				cancelapplication = CardSelectionDialog->Cancel_Application();
 
 				if (cancelapplication) break;
-				
+
 				// NOTE: Must release all dialogs before attempting initialization.
 				REF_PTR_RELEASE (CardSelectionDialog);
 				WW3D_Shutdown();
@@ -313,7 +313,7 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 							Sleep (50);
 						}
 						WW3D::End_Render();
-						Windows_Message_Handler();		
+						Windows_Message_Handler();
 					}
 					BINKMovie::Shutdown();
 
@@ -334,7 +334,7 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 						if (TransitionMusic != NULL) TransitionMusic->Play();
 
 						TTimerClass <SafeTimerClass> timer;
-						
+
 						// Play.
 						while (true) {
 
@@ -368,7 +368,7 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 
 							WW3D::Sync (timer.Value());
 							WWAudioClass::Get_Instance()->On_Frame_Update();
-							Windows_Message_Handler();		
+							Windows_Message_Handler();
 
 							// Has the user cancelled the transition?
 							if (CancelIntroduction) {
@@ -433,7 +433,7 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
 			Shutdown();
 		}
 	}
-	
+
 	catch (const WideStringClass &errormessage) {
 
 		Shutdown();
@@ -452,11 +452,11 @@ void InstallerClass::Install (MixFileFactoryClass *mixfilefactory)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Check_Source()
 {
-	ArgvClass commandlineparser (false, true);			
+	ArgvClass commandlineparser (false, true);
 
 	// Use the simple file factory to read INI files from the current working directory.
 	_TheFileFactory = _TheSimpleFileFactory;
@@ -466,14 +466,14 @@ bool InstallerClass::Check_Source()
 	#else
 	if (true) {
 	#endif
- 	
-		char sourcedriveletter;	
+
+		char sourcedriveletter;
 
 		// Prompt for a CD with correct volume label.
 		if (Prompt_Install_CD (RxWideStringClass (IDS_INSTALL_CD_VOLUME_NAME), sourcedriveletter)) {
-		
+
 			char sourcedrive [] = "?:";
-		
+
 			sourcedrive [0] = tolower (sourcedriveletter);
 			SourceGamePath  = sourcedrive;
 			SourceWOLPath   = sourcedrive;
@@ -519,14 +519,14 @@ bool InstallerClass::Check_Source()
 		wolinipathname  = SourceWOLPath;
 		wolinipathname += L"\\";
 		wolinipathname += RxWideStringClass (IDS_WOL_INI_FILENAME);
-	
+
 		multibytewolinipathname = wolinipathname;
 		if (!WOLIni->Load (multibytewolinipathname)) FATAL_APP_ERROR (IDS_INI_FILE_NOT_FOUND_OR_LOADED);
 	}
 
 	// Count no. and total file size of contents of game directory.
 	Count_Source_Files (SourceGamePath, GameFileCount, GameSize);
-	
+
 	//	Add game file count and size contained in CAB files.
 	// WARNING: Only values < 2Gb will be reported correctly due to 32-bit limit on INIClass::Get_Int().
 	//				However, result is returned in 64-bits so that all callers are ready to handle >= 2Gb when the need arises.
@@ -552,15 +552,15 @@ bool InstallerClass::Check_Source()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsigned &filecount, int64_t &filesize)
 {
 	const wchar_t *wildcardname = L"*.*";
 
 	WideStringClass sourcepathname (sourcepath);
-	StringClass		 multibytesourcewolpath;	
-	WIN32_FIND_DATA finddata;	
+	StringClass		 multibytesourcewolpath;
+	WIN32_FIND_DATA finddata;
 	HANDLE			 handle;
 	bool				 done = false;
 
@@ -570,14 +570,14 @@ void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsi
 	handle = FindFirstFile (multibytesourcewolpath, &finddata);
 	if (handle != INVALID_HANDLE_VALUE) {
 		while (!done) {
-			
+
 			WideStringClass filename (finddata.cFileName);
-			
+
 			if (finddata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-			
+
 				// Filter out system diretories.
 				if (filename [0] != L'.') {
-				
+
 					WideStringClass subsourcepath;
 
 					// Recurse on subdirectory..
@@ -588,7 +588,7 @@ void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsi
 				}
 
 			} else {
-				
+
 				const wchar_t *cabextension = L".cab";
 
   				wchar_t extension [_MAX_EXT];
@@ -619,13 +619,13 @@ void InstallerClass::Count_Source_Files (const WideStringClass &sourcepath, unsi
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Check_Existing_Install()
 {
 	WideStringClass pathname;
-	StringClass		 multibytepathname;	
-	WIN32_FIND_DATA finddata;	
+	StringClass		 multibytepathname;
+	WIN32_FIND_DATA finddata;
 	HANDLE			 handle;
 	bool				 fresh;
 	bool				 older;
@@ -650,10 +650,10 @@ void InstallerClass::Check_Existing_Install()
 	fresh = false;
 	older = false;
 	for (int c = RegistryManagerClass::COMPONENT_FIRST; c < RegistryManagerClass::COMPONENT_COUNT; c++) {
-		
+
 		WideStringClass pathname;
-		StringClass		 multibytepathname;	
-		WIN32_FIND_DATA finddata;	
+		StringClass		 multibytepathname;
+		WIN32_FIND_DATA finddata;
 		HANDLE			 handle;
 		DWORD				 major, minor, sourceversion, targetversion;
 
@@ -664,7 +664,7 @@ void InstallerClass::Check_Existing_Install()
 			break;
 		}
 		multibytepathname = pathname;
-		handle = FindFirstFile (multibytepathname, &finddata); 
+		handle = FindFirstFile (multibytepathname, &finddata);
 		if (handle == INVALID_HANDLE_VALUE) {
 			fresh = true;
 			older = true;
@@ -687,13 +687,13 @@ void InstallerClass::Check_Existing_Install()
 	}
 
 	FreshWOLInstall = fresh;
-	TargetWOLOlder  = older;	
+	TargetWOLOlder  = older;
 }
 
 
 /***********************************************************************************************
  * InstallerClass::Initialize --																					  *
- *																															  *			
+ *																															  *
  * INPUT:                                                                                      *
  *                                                                                             *
  * OUTPUT:                                                                                     *
@@ -701,13 +701,13 @@ void InstallerClass::Check_Existing_Install()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Initialize()
 {
 	const char *transitionmusicfilename	= "TransitionMusic.mp3";
 	const char *installmusicfilename		= "InstallMusic.mp3";
-	
+
 	// All subsequent file factory access uses the mix file.
 	_TheFileFactory = MixFileFactory;
 
@@ -742,7 +742,7 @@ void InstallerClass::Initialize()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Shutdown()
 {
@@ -808,18 +808,18 @@ void InstallerClass::Shutdown()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::WW3D_Initialize (int cardselection)
 {
 	const char *stylemgrini = "StyleMgr.ini";
-	
+
 	bool windowedmode;
 
 	// Initialize WW3D.
 	AssetManager = new WW3DAssetManager;
 	AssetManager->Set_WW3D_Load_On_Demand (true);
-	WW3D::Init (MainWindow);	
+	WW3D::Init (MainWindow);
 	WW3D::Enable_Sorting (true);
 	WW3D::Set_Thumbnail_Enabled (false);
 	AssetStatusClass::Peek_Instance()->Enable_Reporting (false);
@@ -828,7 +828,7 @@ bool InstallerClass::WW3D_Initialize (int cardselection)
 	_TheFileFactory = MixFileFactory;
 
 	ArgvClass commandlineparser (false, true);
-	
+
 	windowedmode = (commandlineparser.Find ("-W") != NULL);
 
 	// For each available video card...
@@ -836,10 +836,10 @@ bool InstallerClass::WW3D_Initialize (int cardselection)
 
 		// Does this card index match the supplied card index or should we try all cards until success?
 		if ((cardselection == -1) || (cardselection == d)) {
-		
+
 			// Set the card index and whether windowed mode in the registry.
 			WW3D::Registry_Save_Render_Device (APPLICATION_SUB_KEY_NAME_RENDER, d, -1, -1, -1, 0, -1);
-		
+
 			// Configure video for the user.
 			Auto_Configure();
 
@@ -891,7 +891,7 @@ bool InstallerClass::WW3D_Initialize (int cardselection)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::WW3D_Shutdown()
 {
@@ -922,7 +922,7 @@ void InstallerClass::WW3D_Shutdown()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Auto_Configure()
 {
@@ -932,7 +932,7 @@ void InstallerClass::Auto_Configure()
 	memset (&startupinfo, 0, sizeof (STARTUPINFO));
 	startupinfo.cb = sizeof (STARTUPINFO);
 
-   // Start the child process. 
+   // Start the child process.
    if (CreateProcess (NULL,								// Address of module name
 							 "WWConfig.exe -autoconfig",	// Address of command line
 							 NULL,								// Address of process security attributes
@@ -947,7 +947,7 @@ void InstallerClass::Auto_Configure()
 		// Wait until child process exits.
 	   WaitForSingleObject (processinfo.hProcess, INFINITE);
 
-		// Close process and thread handles. 
+		// Close process and thread handles.
 	   CloseHandle (processinfo.hProcess);
 	   CloseHandle (processinfo.hThread);
    }
@@ -964,14 +964,14 @@ void InstallerClass::Auto_Configure()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Install_Game()
 {
 	WWASSERT (WhatToInstallDialog != NULL);
 	return (WhatToInstallDialog->Install_Game());
 }
-	  
+
 bool InstallerClass::Install_WOL()
 {
 	WWASSERT (WhatToInstallDialog != NULL);
@@ -995,7 +995,7 @@ bool InstallerClass::Install_Game_Shortcut()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 const wchar_t *InstallerClass::Get_Target_Game_Path (WideStringClass &path)
 {
@@ -1032,13 +1032,13 @@ const wchar_t *InstallerClass::Get_Target_WOL_Folder (WideStringClass &folder)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Get_Target_Sub_Path (unsigned index, WideStringClass &subpath)
 {
 	StringClass		 multibytesubdirectoryname, entryname;
 	WideStringClass subdirectoryname, targetpath;
-	char				 numberstring [MAX_NUMBER_STRING_LENGTH];	
+	char				 numberstring [MAX_NUMBER_STRING_LENGTH];
 
 	entryname  = INI_SUBDIRECTORY_ENTRY_PREFIX;
 	entryname += ltoa (index, numberstring, 10);
@@ -1065,7 +1065,7 @@ bool InstallerClass::Get_Target_Sub_Path (unsigned index, WideStringClass &subpa
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 int64_t InstallerClass::Get_Game_Size (bool ondisk)
 {
@@ -1090,7 +1090,7 @@ int64_t InstallerClass::Get_Game_Size (bool ondisk)
 
 
 /***********************************************************************************************
- * InstallerClass::Get_WOL_Size --																				  *		
+ * InstallerClass::Get_WOL_Size --																				  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1099,7 +1099,7 @@ int64_t InstallerClass::Get_Game_Size (bool ondisk)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 int64_t InstallerClass::Get_WOL_Size (bool ondisk)
 {
@@ -1110,7 +1110,7 @@ int64_t InstallerClass::Get_WOL_Size (bool ondisk)
 		bytecount = WOLSize;
 
 		if (ondisk) {
-		
+
 			// Account for cluster padding.
 			bytecount += Cluster_Padding (WOLFileCount);
 
@@ -1133,7 +1133,7 @@ int64_t InstallerClass::Get_WOL_Size (bool ondisk)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 int64_t InstallerClass::Get_Total_Size (bool ondisk)
 {
@@ -1151,7 +1151,7 @@ int64_t InstallerClass::Get_Total_Size (bool ondisk)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Get_WOL_Space_Available (const WideStringClass &path, int64_t &diskspace)
 {
@@ -1179,12 +1179,12 @@ bool InstallerClass::Get_WOL_Space_Available (const WideStringClass &path, int64
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 const char *InstallerClass::Get_Serial_Number (StringClass &serialnumber)
 {
 	bool valid;
-	
+
 	WWASSERT (SerialDialog != NULL);
 	valid = SerialDialog->Get_Serial_Number (serialnumber);
 	WWASSERT (valid);
@@ -1202,12 +1202,12 @@ const char *InstallerClass::Get_Serial_Number (StringClass &serialnumber)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int message_id, DWORD param)
 {
 	InstallMenuDialogClass *installmenudialog = (InstallMenuDialogClass*) dialog;
-	
+
 	// If no dialog is currently active display the welcome dialog.
 	if (installmenudialog == NULL) {
 
@@ -1288,7 +1288,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 		if (installmenudialog->As_SerialDialogClass()) {
 
 			switch (ctrl_id) {
-					
+
 				case IDCANCEL:
 					DO_CANCEL
 					UNREGISTER_DIALOG (dialog)
@@ -1319,7 +1319,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 				case IDOK:
 					UNREGISTER_DIALOG (dialog)
 
-					// Does the user want to install the game? If not skip to WOL dialogs.	
+					// Does the user want to install the game? If not skip to WOL dialogs.
 					if (Install_Game()) {
 						REGISTER_DIALOG (GameDirectoryDialogClass, GameDirectoryDialog, ())
 					} else {
@@ -1368,8 +1368,8 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 
 				case IDOK:
 					UNREGISTER_DIALOG (dialog)
-					
-					// Does the user want to install WOL? If not skip to Review dialog.	
+
+					// Does the user want to install WOL? If not skip to Review dialog.
 					if (Install_WOL()) {
 						REGISTER_DIALOG (WOLDirectoryDialogClass, WOLDirectoryDialog, ())
 					} else {
@@ -1401,7 +1401,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 
 				case IDC_BUTTON_BACK:
 					UNREGISTER_DIALOG (dialog)
-					
+
 					// Does the user want to install the game? If not skip to the What To Install dialog.
 					if (Install_Game()) {
 						REGISTER_DIALOG (GameFolderDialogClass, GameFolderDialog, ())
@@ -1411,7 +1411,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 					return;
 			}
 		}
-			
+
 		// Is the current dialog the Online Folder dialog?
 		if (installmenudialog->As_WOLFolderDialogClass()) {
 
@@ -1443,7 +1443,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 					DO_CANCEL
 					UNREGISTER_DIALOG (dialog)
 					return;
-	
+
 				case IDOK:
 					UNREGISTER_DIALOG (dialog)
 					REGISTER_DIALOG (CopyDialogClass, CopyDialog, ())
@@ -1451,7 +1451,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 
 				case IDC_BUTTON_BACK:
 					UNREGISTER_DIALOG (dialog)
-					
+
 					// Does the user want to install WOL? If not skip to game folder.
 					if (Install_WOL()) {
 						REGISTER_DIALOG (WOLFolderDialogClass, WOLFolderDialog, ())
@@ -1468,9 +1468,9 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 			switch (ctrl_id) {
 
 				case IDCANCEL:
-					
+
 					if (((CopyDialogClass*) installmenudialog->As_CopyDialogClass())->Was_Successful()) {
-							
+
 						// Copying was successful - advance straight to final dialog.
 						UNREGISTER_DIALOG (dialog)
 						REGISTER_DIALOG (FinalDialogClass, FinalDialog, (false))
@@ -1485,7 +1485,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 
 				case IDOK:
 					UNREGISTER_DIALOG (dialog)
-					
+
 					// Does the user have existing Westwood Online accounts?
 					if (Has_WOL_Account()) {
 						REGISTER_DIALOG (WOL1DialogClass, WOL1Dialog, ())
@@ -1494,7 +1494,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 					}
 					return;
 			}
-		}	
+		}
 
 		// Is the current dialog the WOL1 dialog?
 		if (installmenudialog->As_WOL1DialogClass()) {
@@ -1535,7 +1535,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
 				case IDOK:
 					DO_CANCEL
 					UNREGISTER_DIALOG (dialog)
-					
+
 					// Extract any information from dialogs that will be needed on program end.
 					if (Install_Game()) {
 						Get_Target_Game_Path (TargetGamePath);
@@ -1576,7 +1576,7 @@ void InstallerClass::Dialog_Callback (DialogBaseClass *dialog, int ctrl_id, int 
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int message_id, DWORD param)
 {
@@ -1595,7 +1595,7 @@ bool Default_On_Command (DialogBaseClass *dialog, int ctrl_id, int message_id, D
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void WWDebug_Message_Callback (DebugType type, const char *message)
 {
@@ -1613,7 +1613,7 @@ void WWDebug_Message_Callback (DebugType type, const char *message)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void WWAssert_Callback (const char *message)
 {
@@ -1632,7 +1632,7 @@ void WWAssert_Callback (const char *message)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Can_Use_IGR_Settings()
 {
@@ -1650,7 +1650,7 @@ bool InstallerClass::Can_Use_IGR_Settings()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Use_IGR_Settings()
 {
@@ -1669,15 +1669,15 @@ bool InstallerClass::Use_IGR_Settings()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Beta_Test()
 {
 	const char *ndafilename = "NDA.txt";
 
 	HANDLE			 handle;
-	WIN32_FIND_DATA finddata;	
-	
+	WIN32_FIND_DATA finddata;
+
 	// Use existence of Beta NDA to indicate whether this is the Beta test version.
 	handle = FindFirstFile (ndafilename, &finddata);
 	if (handle != INVALID_HANDLE_VALUE) {
@@ -1698,7 +1698,7 @@ bool InstallerClass::Beta_Test()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Update_Registry()
 {
@@ -1753,7 +1753,7 @@ void InstallerClass::Update_Registry()
 	}
 
 	if (Install_WOL()) {
-	
+
 		WideStringClass folderpath, wolapipathname, wolregisterpathname, wolbrowserpathname;
 		DWORD				 sku, version;
 		WideStringClass WOLfolder;
@@ -1830,7 +1830,7 @@ void InstallerClass::Update_Registry()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Create_Links()
 {
@@ -1872,7 +1872,7 @@ void InstallerClass::Create_Links()
 		Get_Target_Game_Path (uninstallpathname);
 		uninstallpathname += L"\\";
 		uninstallpathname += RxWideStringClass (IDS_GAME_UNINSTALL_FILENAME);
-		Create_File_Link (folderpath, TxWideStringClass (IDS_GAME_UNINSTALL_TITLE, IDS_RESOURCE_GAME_UNINSTALL_TITLE), uninstallpathname, uninstallpathname); 
+		Create_File_Link (folderpath, TxWideStringClass (IDS_GAME_UNINSTALL_TITLE, IDS_RESOURCE_GAME_UNINSTALL_TITLE), uninstallpathname, uninstallpathname);
 
 		// Create Internet Registration menu item.
 		Get_Target_Game_Path (internetpathname);
@@ -1894,7 +1894,7 @@ void InstallerClass::Create_Links()
 
 		// Create desktop icon (if requested).
 		if (Install_Game_Shortcut()) {
-		
+
 			WideStringClass shortcutpath;
 
 			_RegistryManager.Get_Desktop_Path (shortcutpath);
@@ -1919,7 +1919,7 @@ void InstallerClass::Create_Links()
 		registerpathname += L"\\";
 		registerpathname += RxWideStringClass (IDS_INTERNET_REGISTRATION_FILENAME);
 		Create_File_Link (folderpath, TxWideStringClass (IDS_INTERNET_REGISTRATION_TITLE, IDS_RESOURCE_INTERNET_REGISTRATION_TITLE), registerpathname, registerpathname);
-		
+
 		// Create Uninstall Registration menu item.
 		Get_Target_WOL_Path (uninstallpathname);
 		uninstallpathname += L"\\";
@@ -1932,7 +1932,7 @@ void InstallerClass::Create_Links()
 
 
 /***********************************************************************************************
- * InstallerClass::Create_File_Link --																			  *	
+ * InstallerClass::Create_File_Link --																			  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -1941,15 +1941,15 @@ void InstallerClass::Create_Links()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Create_File_Link (const WideStringClass &linkpath, const WideStringClass &title, const WideStringClass &targetpathname, const WideStringClass &iconpathname, const WideStringClass *arguments)
 {
 	WideStringClass  linkpathname, trimmedtitle, targetpath;
-	StringClass		  multibytelinkpathname, multibytetargetpath, multibytetitle, multibytetargetpathname, multibyteiconpathname;	
+	StringClass		  multibytelinkpathname, multibytetargetpath, multibytetitle, multibytetargetpathname, multibyteiconpathname;
 	IShellLink		 *psl;
 	IPersistFile	 *ppf;
-	bool				  success;	
+	bool				  success;
 
 	// The title is used in a pathname so it should be freed of any leading or trailing whitespace.
 	trimmedtitle = title;
@@ -1969,7 +1969,7 @@ bool InstallerClass::Create_File_Link (const WideStringClass &linkpath, const Wi
 	multibytetargetpathname = targetpathname;
 	multibyteiconpathname	= iconpathname;
 
-	// Remove previous icon (if it exists).  
+	// Remove previous icon (if it exists).
 	DeleteFile (multibytelinkpathname);
 
 	success = CoCreateInstance (CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, IID_IShellLink, (void**) &psl) == S_OK;
@@ -1981,9 +1981,9 @@ bool InstallerClass::Create_File_Link (const WideStringClass &linkpath, const Wi
 			if (psl->SetDescription (multibytetitle) != NOERROR) throw (IDS_COM_ERROR);
 			if (psl->SetIconLocation (multibyteiconpathname, 0) != NOERROR) throw (IDS_COM_ERROR);
 			if (arguments != NULL) {
-		
+
 				StringClass multibytearguments (*arguments);
-		
+
 				if (psl->SetArguments (multibytearguments) != NOERROR) throw (IDS_COM_ERROR);
 			}
 
@@ -2006,7 +2006,7 @@ bool InstallerClass::Create_File_Link (const WideStringClass &linkpath, const Wi
 
 
 /***********************************************************************************************
- * InstallerClass::Create_URL_Link --																			  *	
+ * InstallerClass::Create_URL_Link --																			  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2015,15 +2015,15 @@ bool InstallerClass::Create_File_Link (const WideStringClass &linkpath, const Wi
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Create_URL_Link (const WideStringClass &linkpath, const WideStringClass &title, const WideStringClass &url)
 {
-	WideStringClass			 trimmedtitle, linkpathname;	
+	WideStringClass			 trimmedtitle, linkpathname;
 	StringClass					 multibytelinkpathname, multibyteurl;
 	IUniformResourceLocator *purl;
 	IPersistFile				*ppf;
-  	bool							 success;	
+  	bool							 success;
 
 	// The title is used in a pathname so it should be freed of any leading or trailing whitespace.
 	trimmedtitle = title;
@@ -2037,7 +2037,7 @@ bool InstallerClass::Create_URL_Link (const WideStringClass &linkpath, const Wid
 	multibytelinkpathname = linkpathname;
 	multibyteurl			 = url;
 
-	// Remove previous icon (if it exists).  
+	// Remove previous icon (if it exists).
 	DeleteFile (multibytelinkpathname);
 
 	// Create an IUniformResourceLocator object
@@ -2053,13 +2053,13 @@ bool InstallerClass::Create_URL_Link (const WideStringClass &linkpath, const Wid
 		}
 		purl->Release();
 	}
-	
+
 	return (success);
 }
 
 
 /***********************************************************************************************
- * InstallerClass::Has_WOL_Account --																				  *	
+ * InstallerClass::Has_WOL_Account --																				  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2068,7 +2068,7 @@ bool InstallerClass::Create_URL_Link (const WideStringClass &linkpath, const Wid
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Has_WOL_Account()
 {
@@ -2079,7 +2079,7 @@ bool InstallerClass::Has_WOL_Account()
 
 
 /***********************************************************************************************
- * InstallerClass::Get_WOL_Account --																				  *	
+ * InstallerClass::Get_WOL_Account --																				  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2088,7 +2088,7 @@ bool InstallerClass::Has_WOL_Account()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Get_WOL_Account (unsigned index, WideStringClass &name, WideStringClass &password)
 {
@@ -2097,7 +2097,7 @@ bool InstallerClass::Get_WOL_Account (unsigned index, WideStringClass &name, Wid
 
 
 /***********************************************************************************************
- * InstallerClass::Log --																							  *		
+ * InstallerClass::Log --																							  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2106,17 +2106,17 @@ bool InstallerClass::Get_WOL_Account (unsigned index, WideStringClass &name, Wid
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Log (const WideStringClass &pathname, int64_t size)
 {
 	WideStringClass path;
 
 	if (Install_Game()) {
-	
+
 		// Does the start of the pathname match either the game or WOL target path?
 		if (wcsstr (pathname, Get_Target_Game_Path (path)) != NULL) {
-		
+
 			if (size == -1) {
 
 				WideStringClass subdirectoryname (((WideStringClass) pathname).Peek_Buffer() + path.Get_Length() + 1);
@@ -2128,14 +2128,14 @@ void InstallerClass::Log (const WideStringClass &pathname, int64_t size)
 				FileLogClass filelog;
 
 				filelog.RelativePathname = ((WideStringClass) pathname).Peek_Buffer() + path.Get_Length() + 1;
-				filelog.Size = size;	
+				filelog.Size = size;
 				GameFiles.Add (filelog);
 			}
 
 			return;
 		}
 	}
-	
+
 	if (Install_WOL()) {
 
 		if (wcsstr (pathname, Get_Target_WOL_Path (path)) != NULL) {
@@ -2146,7 +2146,7 @@ void InstallerClass::Log (const WideStringClass &pathname, int64_t size)
 			WWASSERT (size != -1);
 
 			filelog.RelativePathname = ((WideStringClass) pathname).Peek_Buffer() + path.Get_Length() + 1;
-			filelog.Size = size;	
+			filelog.Size = size;
 			WOLFiles.Add (filelog);
 		}
 	}
@@ -2154,7 +2154,7 @@ void InstallerClass::Log (const WideStringClass &pathname, int64_t size)
 
 
 /***********************************************************************************************
- * InstallerClass::Create_Uninstall_Logs --																	  *	
+ * InstallerClass::Create_Uninstall_Logs --																	  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2163,7 +2163,7 @@ void InstallerClass::Log (const WideStringClass &pathname, int64_t size)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Create_Uninstall_Logs()
 {
@@ -2177,7 +2177,7 @@ void InstallerClass::Create_Uninstall_Logs()
 
 
 /***********************************************************************************************
- * InstallerClass::Create_Game_Uninstall_Log --																  *	
+ * InstallerClass::Create_Game_Uninstall_Log --																  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2186,7 +2186,7 @@ void InstallerClass::Create_Uninstall_Logs()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Create_Game_Uninstall_Log()
 {
@@ -2195,12 +2195,12 @@ void InstallerClass::Create_Game_Uninstall_Log()
 	WideStringClass s;
 	WideStringClass logfilepathname;
 	WideStringClass gamefilepathname;
-	HANDLE			 handle;	
+	HANDLE			 handle;
 	int				 i;
 	DWORD				 byteswritten;
 	StringClass		 multibytelogfilepathname, multibytelog;
 	int64_t			 totalfilesize;
-	
+
 	_RegistryManager.Get_Folder_Path (folderpath);
 	_RegistryManager.Get_Desktop_Path (shortcutpath);
 
@@ -2313,7 +2313,7 @@ void InstallerClass::Create_Game_Uninstall_Log()
 
 
 /***********************************************************************************************
- * InstallerClass::Create_WOL_Uninstall_Log --																  *	
+ * InstallerClass::Create_WOL_Uninstall_Log --																  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -2322,14 +2322,14 @@ void InstallerClass::Create_Game_Uninstall_Log()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Create_WOL_Uninstall_Log()
 {
 	WideStringClass log;
 	WideStringClass s;
 	WideStringClass logfilepathname;
-	HANDLE			 handle;	
+	HANDLE			 handle;
 	int				 i;
 	DWORD				 byteswritten;
 	StringClass		 multibytelogfilepathname, multibytelog;
@@ -2367,11 +2367,11 @@ void InstallerClass::Create_WOL_Uninstall_Log()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Create_Encryption_File (const WideStringClass &pathname)
 {
-	StringClass multibytepathname (pathname); 
+	StringClass multibytepathname (pathname);
 	char			stringbuffer [ENCRYPTION_STRING_LENGTH];
    HANDLE		handle;
 	DWORD			byteswritten;
@@ -2385,7 +2385,7 @@ void InstallerClass::Create_Encryption_File (const WideStringClass &pathname)
 	for (unsigned i = 0; i < ENCRYPTION_STRING_LENGTH; i++) {
 
 		char digit;
-		
+
 		digit	= rand() % 10;
 		stringbuffer [i] = digit + '0';
 	}
@@ -2409,18 +2409,18 @@ void InstallerClass::Create_Encryption_File (const WideStringClass &pathname)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Encrypt (const char *number, const WideStringClass &pathname, StringClass &encryptednumber)
 {
 	StringClass  multibytepathname (pathname);
-	char			*s;		
+	char			*s;
 	int			 numberlength;
-	HANDLE		 handle;	
+	HANDLE		 handle;
 	DWORD			 bytesread;
 	char			 stringbuffer [ENCRYPTION_STRING_LENGTH];
 	int			 p;
-	
+
 	numberlength = strlen (number);
 	s = new char [numberlength + 1];
 	memcpy (s, number, numberlength + 1);
@@ -2428,7 +2428,7 @@ void InstallerClass::Encrypt (const char *number, const WideStringClass &pathnam
 	handle = CreateFile (multibytepathname, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 	if (handle == INVALID_HANDLE_VALUE) FATAL_SYSTEM_ERROR;
 	if (!ReadFile (handle, stringbuffer, sizeof (stringbuffer), &bytesread, NULL)) FATAL_SYSTEM_ERROR;
-	
+
 	p = 0;
 	for (unsigned i = 0; i < ENCRYPTION_STRING_LENGTH; i++) {
 
@@ -2462,12 +2462,12 @@ void InstallerClass::Encrypt (const char *number, const WideStringClass &pathnam
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool InstallerClass::Register_COM_Server (const WideStringClass &comdll)
 {
 	StringClass multibytecomdll (comdll);
-	
+
 	HMODULE module = LoadLibrary (multibytecomdll);
 
 	if (module) {
@@ -2483,7 +2483,7 @@ bool InstallerClass::Register_COM_Server (const WideStringClass &comdll)
 		module = NULL;
 		return (SUCCEEDED (hr));
 	}
- 
+
 	return (false);
 }
 
@@ -2498,12 +2498,12 @@ bool InstallerClass::Register_COM_Server (const WideStringClass &comdll)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::On_Prog_End()
 {
 	switch (ProgEndAction) {
-	
+
 		case ACTION_NONE:
 			break;
 
@@ -2528,13 +2528,13 @@ void InstallerClass::On_Prog_End()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Run_Game()
 {
 	WideStringClass	  modulepathname;
 	StringClass			  multibytemodulepathname, multibytetargetgamepath;
-	PROCESS_INFORMATION processinfo; 
+	PROCESS_INFORMATION processinfo;
 	STARTUPINFO			  startupinfo;
 
 	modulepathname  = TargetGamePath;
@@ -2546,7 +2546,7 @@ void InstallerClass::Run_Game()
 
 	memset (&startupinfo, 0, sizeof (STARTUPINFO));
 	startupinfo.cb = sizeof (STARTUPINFO);
-	
+
 	if (!CreateProcess (multibytemodulepathname.Peek_Buffer(),					// Address of module name
 							  NULL,																// Address of command line
 							  NULL,																// Address of process security attributes
@@ -2573,7 +2573,7 @@ void InstallerClass::Run_Game()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallerClass::Display_Readme()
 {
@@ -2584,20 +2584,20 @@ void InstallerClass::Display_Readme()
 	WideStringClass		pathname;
 	wchar_t						docapppathname [_MAX_PATH];
 	wchar_t					  *t;
-	unsigned				   i;	
-	PROCESS_INFORMATION  processinfo; 
+	unsigned				   i;
+	PROCESS_INFORMATION  processinfo;
 	STARTUPINFO			   startupinfo;
 	WideStringClass	   commandline;
 	StringClass				multibytecommandline;
-	BOOL					   success = false;	
+	BOOL					   success = false;
 
-	// See if Winword is the owner of .doc files.  
+	// See if Winword is the owner of .doc files.
 	_RegistryManager.Get_Document_Application_Pathname (pathname);
 	wcscpy (docapppathname, pathname);
 	_wcsupr (docapppathname);
 	t = wcsstr (docapppathname, winwordprogramname);
 	if (t != NULL) {
-		 
+
 		t += wcslen (winwordprogramname);
 		*t = L'\0';
 
@@ -2612,8 +2612,8 @@ void InstallerClass::Display_Readme()
 		memset (&startupinfo, 0, sizeof (STARTUPINFO));
 		startupinfo.cb = sizeof (STARTUPINFO);
 		multibytecommandline = commandline;
-		success = CreateProcess (NULL,															// Address of module name                
-										 multibytecommandline.Peek_Buffer(), 					// Address of command line               
+		success = CreateProcess (NULL,															// Address of module name
+										 multibytecommandline.Peek_Buffer(), 					// Address of command line
 										 NULL,															// Address of process security attributes
 										 NULL,															// Address of thread security attributes
 										 false,															// Does new process inherit handles?

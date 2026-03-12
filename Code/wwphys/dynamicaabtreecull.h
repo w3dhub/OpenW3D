@@ -57,9 +57,9 @@ class AABoxRenderObjClass;
 ** DynamicAABTreeCullClass
 ** This is a specialized AABTree which is designed to be used with dynamic objects.  It
 ** contains both a uniform voxelization of the level and special "seed" boxes which
-** are generated from a pathfind floodfill.  Whenever a dynamic object moves, it is 
+** are generated from a pathfind floodfill.  Whenever a dynamic object moves, it is
 ** re-inserted into the smallest leaf node in the tree.  So this is basically an AAB-Tree
-** that partitions the level paying special attention to the areas that you seed 
+** that partitions the level paying special attention to the areas that you seed
 ** it with.  All nodes in the tree are assigned a visiblity id and are tracked in the
 ** vis system.
 **
@@ -84,9 +84,9 @@ public:
 	virtual void		Update_Culling(CullableClass * obj) override;
 
 	/*
-	** Objects will request the visibility ID from this system.  
-	** Note that if you pass in a pointer to your previous node_id, the lookup will be faster and this 
-	** variable will be modified with the updated node id.  The first time this method is called, 
+	** Objects will request the visibility ID from this system.
+	** Note that if you pass in a pointer to your previous node_id, the lookup will be faster and this
+	** variable will be modified with the updated node id.  The first time this method is called,
 	** initialize the node_id to zero.
 	*/
 	uint32				Get_Dynamic_Object_Vis_ID(const AABoxClass & obj_bounds,int * node_id = NULL);
@@ -122,11 +122,11 @@ public:
 		DISPLAY_CENTERS,
 		DISPLAY_OCCUPIED,
 	};
-	
+
 	void					Render_Visible_Cells(RenderInfoClass & rinfo,VisTableClass * pvs,DisplayModeType mode);
 	void					Debug_Reset_Node(void)				{ DebugIterator.Reset(); }
 	bool					Debug_Enter_Parent(void)			{ return DebugIterator.Enter_Parent(); }
-	bool					Debug_Enter_Sibling(void)			{ return DebugIterator.Enter_Sibling(); }	
+	bool					Debug_Enter_Sibling(void)			{ return DebugIterator.Enter_Sibling(); }
 	bool					Debug_Enter_Front_Child(void)		{ return DebugIterator.Enter_Front_Child(); }
 	bool					Debug_Enter_Back_Child(void)		{ return DebugIterator.Enter_Back_Child(); }
 
@@ -163,13 +163,13 @@ protected:
 			PlanesPassed(0)
 		{
 		}
-		
+
 		const FrustumClass & Frustum;
 		VisTableClass &		PVS;
 		RefPhysListClass &	VisObjList;
 		int						PlanesPassed;
 	};
-	
+
 	/*
 	** Internal functions
 	*/
@@ -183,7 +183,7 @@ protected:
 	int					find_insertion_node(CullableClass * obj);
 	void					find_optimal_node(AABTreeNodeClass * node,const AABoxClass & box,int & node_index);
 	void					find_optimal_deflated_node(AABTreeNodeClass * node,const Vector3 & center,int & node_index);
-	
+
 	bool					deflated_box_contains_point(const AABoxClass & box,const Vector3 & point);
 	void					prune_redundant_leaf_nodes_recursive(AABTreeNodeClass * node,VisOptimizationContextClass & context);
 	void					prune_child(AABTreeNodeClass * parent,AABTreeNodeClass * child,VisOptimizationContextClass & context);

@@ -51,7 +51,7 @@ ImageCtrlClass::ImageCtrlClass (void)
 	//	Configure the renderers
 	//
 	StyleMgrClass::Configure_Renderer (&ControlRenderer);
-	StyleMgrClass::Configure_Renderer (&TextureRenderer);	
+	StyleMgrClass::Configure_Renderer (&TextureRenderer);
 	return ;
 }
 
@@ -62,7 +62,7 @@ ImageCtrlClass::ImageCtrlClass (void)
 //
 //////////////////////////////////////////////////////////////////////
 ImageCtrlClass::~ImageCtrlClass (void)
-{	
+{
 	return ;
 }
 
@@ -167,7 +167,7 @@ ImageCtrlClass::Render (void)
 
 	//
 	//	Render the image...
-	//	
+	//
 	TextureRenderer.Render ();
 	ControlRenderer.Render ();
 

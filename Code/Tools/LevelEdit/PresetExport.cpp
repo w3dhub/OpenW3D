@@ -59,7 +59,7 @@ PresetExportClass::Import (const char *filename)
 	//
 	TextFileClass file (filename);
 	if (file.Open ()) {
-		
+
 		//
 		//	Lookup the class ID in the header of the text file
 		//
@@ -92,7 +92,7 @@ PresetExportClass::Import (const char *filename)
 					//
 					if (Import_Presets (file, class_id, column_headers)) {
 						is_valid_file = true;
-				
+
 						//
 						//	Save the preset changes to disk
 						//
@@ -107,13 +107,13 @@ PresetExportClass::Import (const char *filename)
 					//
 					PresetMgrClass::Set_Immediate_Check_In_Mode (old_check_in_mode);
 				}
-			}			
+			}
 		}
 
 		//
 		//	Warn the user that the file did not appear to be valid
-		//	
-		if (is_valid_file == false) {			
+		//
+		if (is_valid_file == false) {
 			CString message;
 			message.Format ("%s does not appear to be a valid preset export text file or there was an error parsing the data.\nDue to the severe side-effects of improperly importing preset settings, all changes were ignored.", filename);
 			::MessageBox (::AfxGetMainWnd ()->m_hWnd, message, "Invalid Data", MB_ICONERROR | MB_OK);
@@ -141,7 +141,7 @@ PresetExportClass::Read_Column_Headers
 	DynamicVectorClass<StringClass> &	column_headers
 )
 {
-	bool retval = false;	
+	bool retval = false;
 
 	//
 	//	Keep reading lines of text from the file until we've
@@ -149,21 +149,21 @@ PresetExportClass::Read_Column_Headers
 	//
 	StringClass line;
 	while (file.Read_Line (line)) {
-		
+
 		//
 		//	Check to see if this is the column header
 		//
 		const char * COL_HEADER_TEXT	= "Name\tPreset ID\t";
 		int header_len						= ::lstrlen (COL_HEADER_TEXT);
 		if (::strnicmp (line, COL_HEADER_TEXT, header_len) == 0) {
-			
+
 			//
 			//	Build a list from the column header string
 			//
 			CString *temp_string_list = NULL;
 			int count = ::Build_List_From_String (line, "\t", &temp_string_list);
 			if (count > 0) {
-				
+
 				//
 				//	Add the entries from our temp list to the list the
 				// caller supplied.  Also check for NULL entries
@@ -180,7 +180,7 @@ PresetExportClass::Read_Column_Headers
 			break;
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -209,12 +209,12 @@ PresetExportClass::Validate_Columns
 		//	Assume success from here on out
 		//
 		retval = true;
-		
+
 		//
 		//	Try to match each column header with a parameter of the class
 		//
 		for (int col_index = 2; col_index < column_headers.Count (); col_index ++) {
-			
+
 			//
 			//	Loop over all the parameters for this definition type
 			//
@@ -228,7 +228,7 @@ PresetExportClass::Validate_Columns
 				//	Is this the parameter we are looking for?
 				//
 				if (::lstrcmpi (column_headers[col_index], parameter->Get_Name ()) == 0) {
-					
+
 					//
 					//	Is this a parameter type that we are likely to have exported?
 					//
@@ -248,7 +248,7 @@ PresetExportClass::Validate_Columns
 				break;
 			}
 		}
-	}	
+	}
 
 	return retval;
 }
@@ -294,7 +294,7 @@ PresetExportClass::Import_Presets
 			//
 			int preset_id = ::atoi (value_list[1]);
 			PresetClass *preset = NULL;
-			
+
 			if (preset_id == 0) {
 
 				//
@@ -348,7 +348,7 @@ PresetExportClass::Import_Presets
 				}
 			}
 		}
-		
+
 		SAFE_DELETE_ARRAY (value_list);
 	}
 
@@ -388,7 +388,7 @@ PresetExportClass::Import_Setting
 			//
 			int param_value = 0;
 			::sscanf (value, "%d", &param_value);
-			
+
 			//
 			//	Pass the new value onto the parameter
 			//
@@ -403,7 +403,7 @@ PresetExportClass::Import_Setting
 			//
 			float param_value = 0;
 			::sscanf (value, "%f", &param_value);
-			
+
 			//
 			//	Pass the new value onto the parameter
 			//
@@ -429,7 +429,7 @@ PresetExportClass::Import_Setting
 			//
 			Vector3 param_value (0, 0, 0);
 			::sscanf (value, "\"%f, %f, %f\"", &param_value.X, &param_value.Y, &param_value.Z);
-			
+
 			//
 			//	Pass the new value onto the parameter
 			//
@@ -444,7 +444,7 @@ PresetExportClass::Import_Setting
 			//
 			int param_value = 0;
 			::sscanf (value, "%d", &param_value);
-			
+
 			//
 			//	Pass the new value onto the parameter
 			//
@@ -459,7 +459,7 @@ PresetExportClass::Import_Setting
 			//
 			int param_value = 0;
 			::sscanf (value, "%d", &param_value);
-			
+
 			//
 			//	Pass the new value onto the parameter
 			//
@@ -474,7 +474,7 @@ PresetExportClass::Import_Setting
 			//
 			float param_value = 0;
 			::sscanf (value, "%f", &param_value);
-			
+
 			//
 			//	Pass the new value onto the parameter
 			//
@@ -486,7 +486,7 @@ PresetExportClass::Import_Setting
 			retval = false;
 			break;
 	}
-	
+
 	return retval;
 }
 
@@ -517,7 +517,7 @@ PresetExportClass::Find_Parameter (PresetClass *preset, const char *parameter_na
 			found = true;
 		}
 	}
-	
+
 	return parameter;
 }
 
@@ -538,14 +538,14 @@ PresetExportClass::Find_Header (TextFileClass &file)
 	// found the header
 	//
 	while (file.Read_Line (line)) {
-		
+
 		//
 		//	Check to see if this is the header
 		//
 		const char * HEADER_TEXT	= "Level Edit Preset Export.  Class ID: ";
 		int header_len					= ::lstrlen (HEADER_TEXT);
 		if (::strnicmp (line, HEADER_TEXT, header_len) == 0) {
-			
+
 			//
 			//	Convert the remaining characters to a class ID
 			//
@@ -604,7 +604,7 @@ PresetExportClass::Export (uint32 class_id, const char *filename)
 		file.Close ();
 	}
 
-	
+
 	return ;
 }
 
@@ -653,7 +653,7 @@ PresetExportClass::Write_Column_Headers (uint32 class_id, TextFileClass &file)
 	PresetClass *first_preset = PresetMgrClass::Get_First (class_id, PresetMgrClass::ID_CLASS);
 	if (first_preset != NULL) {
 		StringClass column_headers = "Name\tPreset ID\t";
-		
+
 		//
 		//	Loop over all the parameters for this definition type
 		//

@@ -288,7 +288,7 @@ ExcelClass::Initialize (void)
 	//	Allocate the application object
 	//
 	Application = new _Application;
-	
+
 	//
 	//	Attempt to start excel
 	//
@@ -362,7 +362,7 @@ ExcelClass::Shutdown (void)
 	SAFE_DELETE (RangeObj);
 	SAFE_DELETE (WorksheetObj);
 
-	if (WorkbooksObj != NULL) {		
+	if (WorkbooksObj != NULL) {
 		WorkbooksObj->Close ();
 		SAFE_DELETE (WorksheetObj);
 	}
@@ -406,7 +406,7 @@ ExcelClass::New_Workbook (const char *template_filename)
 	//
 	//	Create the new workbook
 	//
-	LPDISPATCH dispatch = WorkbooksObj->Add (temp);	
+	LPDISPATCH dispatch = WorkbooksObj->Add (temp);
 	if (dispatch != NULL) {
 
 		//
@@ -439,7 +439,7 @@ ExcelClass::Open_Workbook (const char *filename)
 														nullstring, yes, dummy, dummy, no, no, dummy, no);
 
 	if (dispatch != NULL) {
-		
+
 		//
 		//	Wrap the dispatch pointer in a friendlier object
 		//
@@ -477,7 +477,7 @@ ExcelClass::Save_Workbook (const char *filename)
 	V_VT (&rc) = VT_I4;
 	V_I4 (&rc) = xlLocalSessionChanges;
 
-	WorkbookObj->SaveAs ( name, fileformat, nullstring, nullstring, no, no, 
+	WorkbookObj->SaveAs ( name, fileformat, nullstring, nullstring, no, no,
 					xlNoChange, rc, no, empty, empty );
 
 	VariantClear (&name);
@@ -498,7 +498,7 @@ ExcelClass::Save_Workbook (const char *filename)
 		//	Check to see if the file still exists
 		//
 		if (::GetFileAttributes (CurrPath) != 0xFFFFFFFF) {
-				
+
 				WideStringClass wide_filename;
 				wide_filename.Convert_From (CurrPath);
 
@@ -561,7 +561,7 @@ ExcelClass::Get_String (int row, int col, WideStringClass &string)
 	//
 	VARIANT variant_value;
 	if (Get_Cell (row, col, variant_value)) {
-		
+
 		//
 		//	Is this a string?
 		//
@@ -582,7 +582,7 @@ ExcelClass::Get_String (int row, int col, WideStringClass &string)
 			string.Format (U_CHAR("%d"), variant_value.iVal);
 			retval = true;
 		}
-		
+
 		//
 		//	Free the variant data
 		//
@@ -604,7 +604,7 @@ ExcelClass::Set_String (int row, int col, const WideStringClass &value)
 	//
 	//	Configure a variant with the string data we want to set
 	//
-	VARIANT variant_value;	
+	VARIANT variant_value;
 	V_VT (&variant_value)	= VT_BSTR;
 	V_BSTR (&variant_value) = ::SysAllocString (WIDETOOLE(value));
 
@@ -636,7 +636,7 @@ ExcelClass::Get_Int (int row, int col, int &value)
 	//
 	VARIANT variant_value;
 	if (Get_Cell (row, col, variant_value)) {
-		
+
 		//
 		//	Is this an integer?
 		//
@@ -644,7 +644,7 @@ ExcelClass::Get_Int (int row, int col, int &value)
 			value = V_I4(&variant_value);
 			retval = true;
 		}
-		
+
 		//
 		//	Free the variant data
 		//
@@ -666,7 +666,7 @@ ExcelClass::Set_Int (int row, int col, int value)
 	//
 	//	Configure a variant with the integer data we want to set
 	//
-	VARIANT variant_value;	
+	VARIANT variant_value;
 	V_VT (&variant_value)	= VT_I4;
 	V_I4 (&variant_value)	= value;
 
@@ -718,7 +718,7 @@ ExcelClass::Get_Cell (int row, int col, VARIANT &result)
 	}
 
 	bool retval = false;
-	
+
 	//
 	//	Generate the name of the cell we'll be using
 	//
@@ -768,7 +768,7 @@ ExcelClass::Set_Cell (int row, int col, const VARIANT &data)
 	}
 
 	bool retval = false;
-	
+
 	//
 	//	Generate the name of the cell we'll be using
 	//
@@ -787,7 +787,7 @@ ExcelClass::Set_Cell (int row, int col, const VARIANT &data)
 	//
 	LPDISPATCH dispatch = WorksheetObj->GetRange (cell, cell);
 	if (dispatch != NULL) {
-		
+
 		//
 		//	Shove our new data into this range
 		//

@@ -122,7 +122,7 @@ Alloc_Sys_String (LPCTSTR string)
 	BSTR sys_string = NULL;
 
 	if (string != NULL) {
-		
+
 		// Copy the ascii format string to a wide-character string
 		wchar_t *pwide_string = new wchar_t [::lstrlen (string) + 1];
 		wchar_t *ptemp_string = pwide_string;
@@ -164,7 +164,7 @@ IDispatch_Get_Property
 	if (pdispatch != NULL) {
 
 		// Get this property w/o passing any args
-		DISPPARAMS no_args = {NULL, NULL, 0, 0};			
+		DISPPARAMS no_args = {NULL, NULL, 0, 0};
 		retval = SUCCEEDED (pdispatch->Invoke (dispid,
 															IID_NULL,
 															NULL,
@@ -174,7 +174,7 @@ IDispatch_Get_Property
 															NULL,
 															NULL));
 	}
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -203,8 +203,8 @@ IDispatch_Get_Property
 		// Fill in the dispatch-params structure with our single param
 		DISPPARAMS args = {NULL, NULL, 0, 0};
 		args.rgvarg = &var_arg;
-		args.cArgs = 1;		
-		
+		args.cArgs = 1;
+
 		// Get this property an pass in the single arguement
 		EXCEPINFO excep_info = { 0 };
 		retval = SUCCEEDED (pdispatch->Invoke (dispid,
@@ -216,7 +216,7 @@ IDispatch_Get_Property
 															&excep_info,
 															NULL));
 	}
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -230,7 +230,7 @@ void
 VSSClass::Get_VSS_Interface (void)
 {
 	if (m_pIVSSDatabase == NULL) {
-	
+
 		// Attempt to create an instance of the VSS Database interface
 		LPUNKNOWN punknown = NULL;
 		HRESULT hresult = ::CoCreateInstance (CLSID_VSSDatabase,
@@ -239,7 +239,7 @@ VSSClass::Get_VSS_Interface (void)
 														  IID_IVSSDatabase,
 														  (LPVOID *)&punknown);
 		if (SUCCEEDED (hresult)) {
-			
+
 			// Get a pointer to the 'newest' interface we know about
 			punknown->QueryInterface (IID_IVSSDatabase, (LPVOID *)&m_pIVSSDatabase);
 
@@ -247,7 +247,7 @@ VSSClass::Get_VSS_Interface (void)
 			COM_RELEASE (punknown);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -273,7 +273,7 @@ VSSClass::Open_Database
 	m_bReadOnly = true;
 	ASSERT (m_pIVSSDatabase != NULL);
 	if (m_pIVSSDatabase != NULL) {
-		
+
 		// Convert the string params to COM-safe system strings
 		BSTR bstr_filename = ::Alloc_Sys_String (ini_filename);
 		BSTR bstr_username = ::Alloc_Sys_String (username != NULL ? username : "");
@@ -282,7 +282,7 @@ VSSClass::Open_Database
 		// Ask VSS to open this database
 		retval = SUCCEEDED (m_pIVSSDatabase->Open (bstr_filename, bstr_username, bstr_password));
 		if (retval) {
-			
+
 			//
 			//	Determine if the user is read-only
 			//
@@ -300,7 +300,7 @@ VSSClass::Open_Database
 
 			/*IVSSItem *root_item = Get_VSS_Item ("$/");
 			if (root_item != NULL) {
-				
+
 				LPCTSTR local_path	= ::Get_File_Mgr ()->Get_Base_Path ();
 				BSTR bstr_local_path	= ::Alloc_Sys_String (local_path);
 				HRESULT result			= root_item->put_LocalSpec (bstr_local_path);
@@ -343,7 +343,7 @@ VSSClass::Get_VSS_Item_From_Local_Path (LPCTSTR local_filename)
 	// State OK?
 	if ((m_pIVSSDatabase != NULL) &&
 		 (local_filename != NULL)) {
-		
+
 		// Lookup the relative path
 		TCHAR vss_path[MAX_PATH];
 		CString rel_path = ::Get_File_Mgr ()->Make_Relative_Path (local_filename);
@@ -374,11 +374,11 @@ VSSClass::Get_VSS_Item (LPCTSTR vss_path)
 	// State OK?
 	if ((m_pIVSSDatabase != NULL) &&
 		 (vss_path != NULL)) {
-		
+
 		// Convert the ascii string to a COM-safe BSTR
 		BSTR bstr_vss_path = ::Alloc_Sys_String (vss_path);
 
-		/*VARIANT var_arg;		
+		/*VARIANT var_arg;
 		var_arg.vt = VT_BSTR;
 		var_arg.bstrVal = bstr_vss_path;
 		VARIANT result = { 0 };
@@ -388,12 +388,12 @@ VSSClass::Get_VSS_Item (LPCTSTR vss_path)
 															  0x00000006,
 															  var_arg,
 															  &result);		*/
-	
+
 		HRESULT result = m_pIVSSDatabase->get_VSSItem (bstr_vss_path, 0, &pitem);
 		if (FAILED (result)) {
 			pitem = NULL;
 		}
-		
+
 		// Was the property-get successful?
 		/*if (success) {
 
@@ -426,7 +426,7 @@ VSSClass::Does_File_Exist (LPCTSTR local_filename)
 	// If we successfully got the VSS item, then it exists in the DB
 	if (pitem != NULL) {
 		retval = true;
-				
+
 		// Release our hold on the item
 		COM_RELEASE (pitem);
 	}
@@ -484,7 +484,7 @@ VSSClass::Get (LPCTSTR local_filename)
 		IVSSItem *pitem = Get_VSS_Item_From_Local_Path (local_filename);
 		ASSERT (pitem != NULL);
 		if (pitem != NULL) {
-			
+
 			// Do the actual file 'get' from VSS.
 			retval = Get (local_filename, pitem);
 			COM_RELEASE (pitem);
@@ -543,7 +543,7 @@ VSSClass::Get
 		if (!SUCCEEDED (hresult) || (is_different != 0)) {
 
 			//	Get the last mod time of the version in VSS
-			SYSTEMTIME vss_file_time = { 0 };		
+			SYSTEMTIME vss_file_time = { 0 };
 			if (Get_File_Date (pitem, vss_file_time)) {
 
 				//	Get the last mod time of the local version
@@ -587,7 +587,7 @@ VSSClass::Get_Subproject (LPCTSTR local_filename)
 		Get_Recursive (local_filename, pitem);
 		retval = true;
 
-		// Convert the ascii string to a COM-safe BSTR		
+		// Convert the ascii string to a COM-safe BSTR
 		//BSTR bstr_filename = ::Alloc_Sys_String (::Get_File_Mgr ()->Make_Full_Path (local_filename));
 
 		// Ask the VSS interface to recursively 'get' this file for us
@@ -595,7 +595,7 @@ VSSClass::Get_Subproject (LPCTSTR local_filename)
 
 		// Free the system string we allocated earlier
 		//::SysFreeString (bstr_filename);
-		
+
 		// Release our hold on the item
 		COM_RELEASE (pitem);
 	}
@@ -630,7 +630,7 @@ VSSClass::Check_Out (LPCTSTR local_filename, bool get_locally)
 
 		// Free the system string we allocated earlier
 		::SysFreeString (bstr_filename);
-		
+
 		// Release our hold on the item
 		COM_RELEASE (pitem);
 	}
@@ -669,11 +669,11 @@ VSSClass::Check_In
 		retval = SUCCEEDED (pitem->Checkin (bstr_comment, bstr_filename, VSSFLAG_CMPCHKSUM | VSSFLAG_RECURSNO | VSSFLAG_UPDUPDATE));
 
 		// Free the system strings we allocated earlier
-		::SysFreeString (bstr_filename);	
+		::SysFreeString (bstr_filename);
 		if (bstr_comment) {
 			::SysFreeString (bstr_filename);
 		}
-		
+
 		// Release our hold on the item
 		COM_RELEASE (pitem);
 	}
@@ -718,11 +718,11 @@ VSSClass::Add_File
 			retval = SUCCEEDED (pitem->Add (bstr_filename, bstr_comment, 0, &pnew_item));
 
 			// Free the system strings we allocated earlier
-			::SysFreeString (bstr_filename);	
+			::SysFreeString (bstr_filename);
 			if (bstr_comment) {
 				::SysFreeString (bstr_filename);
 			}
-			
+
 			// Release our hold on these items
 			COM_RELEASE (pitem);
 			COM_RELEASE (pnew_item);
@@ -750,13 +750,13 @@ VSSClass::Build_Tree (LPCTSTR local_filename)
 	// Generate a list of folders from the path
 	CString *pfolder_list = NULL;
 	int count = ::Build_List_From_String (::Strip_Filename_From_Path (rel_path), "\\", &pfolder_list);
-	
+
 	// Loop through all the folders in the path and make sure they
 	// exist in VSS
 	CString vss_path = "$";
 	CString parent = "$";
 	for (int ifolder = 0; (ifolder < count) && retval; ifolder ++) {
-		
+
 		// See if this path exists in the VSS database
 		vss_path += CString ("\\") + pfolder_list[ifolder];
 		IVSSItem *pitem = Get_VSS_Item (vss_path);
@@ -772,13 +772,13 @@ VSSClass::Build_Tree (LPCTSTR local_filename)
 				// Ask the VSS interface to add this folder for us
 				IVSSItem *pfolder = NULL;
 				retval &= (bool)SUCCEEDED (pitem->NewSubproject (bstr_foldername, NULL, &pfolder));
-				
+
 				// Free any memory we allocated
-				::SysFreeString (bstr_foldername);	
+				::SysFreeString (bstr_foldername);
 				COM_RELEASE (pfolder);
-			}			
+			}
 		}
-		
+
 		COM_RELEASE (pitem);
 		parent += CString ("\\") + pfolder_list[ifolder];
 	}
@@ -816,7 +816,7 @@ VSSClass::Undo_Check_Out (LPCTSTR local_filename)
 
 		// Free the system string we allocated earlier
 		::SysFreeString (bstr_filename);
-		
+
 		// Release our hold on the item
 		COM_RELEASE (pitem);
 	}
@@ -874,7 +874,7 @@ VSSClass::Get_File_Version (LPCTSTR local_filename)
 		// Get the version number for this item
 		VARIANT result = { 0 };
 		::IDispatch_Get_Property (pitem, 0x00000008, &result);
-		
+
 		// Pass the result back to the caller
 		version = result.lVal;
 
@@ -913,7 +913,7 @@ VSSClass::Is_File_Different (LPCTSTR local_filename)
 		// Ask VSS if the local and checked-in copy are different
 		VARIANT result = { 0 };
 		::IDispatch_Get_Property (pitem, 0x00000010, var_arg, &result);
-		
+
 		// Convert the COM-bool to a C++ bool
 		different = (result.boolVal == 0 ? false : true);
 
@@ -962,7 +962,7 @@ VSSClass::Get_File_Date
 			IUnknown *penum_variant = NULL;
 			HRESULT hresult = pversions->_NewEnum (&penum_variant);
 			if (SUCCEEDED (hresult)) {
-				
+
 				//
 				// Convert the IUnknown version enumerator to a standard
 				// VARIANT enumerator.
@@ -977,17 +977,17 @@ VSSClass::Get_File_Date
 					bool found = false;
 					VARIANT version_info = { 0 };
 					while ((pversion_enum->Next (1, &version_info, NULL) == S_OK) && !found) {
-						
+
 						IVSSVersionOld *pversion = (IVSSVersionOld *)version_info.pdispVal;
 						if (pversion != NULL) {
-							
+
 							// Get this version's number
 							long ver_num = 0L;
 							pversion->get_VersionNumber (&ver_num);
 
 							// Is this the version we were looking for?
 							if (ver_num == current_ver_num) {
-								
+
 								// Get the date from the version
 								DATE file_date = { 0 };
 								pversion->get_Date (&file_date);
@@ -1023,10 +1023,10 @@ VSSClass::Get_File_Date
 					delete [] username;
 					username = NULL;
 				}*/
-				
+
 				COM_RELEASE (penum_variant);
 			}
-											
+
 			// Release our hold on the interface
 			COM_RELEASE (pversions);
 		}
@@ -1066,7 +1066,7 @@ VSSClass::Get_File_Status
 		// Get the current check-out status for this item
 		VARIANT result = { 0 };
 		::IDispatch_Get_Property (pitem, 0x0000000e, &result);
-		
+
 		// Pass the result back to the caller
 		status = (VSSFileStatus)result.lVal;
 
@@ -1079,12 +1079,12 @@ VSSClass::Get_File_Status
 			IVSSCheckouts *pcheckouts = (IVSSCheckouts *)result.ppdispVal;
 
 			if (success && (pcheckouts != NULL)) {
-				
+
 				// Get the count of 'checkouts' on this file (should be 1 for our purposes)
 				if (::IDispatch_Get_Property (pcheckouts, 0x00000001, &result)) {
 					int count = result.lVal;
-					if (count > 0) {						
-						
+					if (count > 0) {
+
 						VARIANT var_test = { 0 };
 						var_test.vt = VT_I4;
 						var_test.lVal = 1;
@@ -1110,13 +1110,13 @@ VSSClass::Get_File_Status
 								delete [] username;
 								username = NULL;
 							}
-							
+
 							// Release our hold on the checkout interface
 							COM_RELEASE (pcheckout);
 						}
 					}
 				}
-				
+
 				// Release our hold on the interface
 				COM_RELEASE (pcheckouts);
 			}
@@ -1176,7 +1176,7 @@ VSSClass::Retry_Check_Out
 
 	// Try for up to 'iattempts' times to check-out the file
 	for (int iattempt = 0; (iattempt < iattempts) && !retval; iattempt ++) {
-		
+
 		// Attempt to checkout the file, if unsucccessful, then wait for a second
 		retval = Check_Out (local_filename);
 		if (retval == false) {
@@ -1206,7 +1206,7 @@ VSSClass::Retry_Check_In
 
 	// Try for up to 'iattempts' times to check-in the file
 	for (int iattempt = 0; (iattempt < iattempts) && !retval; iattempt ++) {
-		
+
 		// Attempt to checkin the file, if unsucccessful, then wait for a second
 		retval = Check_In (local_filename);
 		if (retval == false) {
@@ -1290,7 +1290,7 @@ VSSClass::Get_Recursive
 						// Release our hold on this subitem's interface
 						COM_RELEASE (psub_item);
 					}
-				}				
+				}
 			}
 		}
 
@@ -1318,7 +1318,7 @@ VSSClass::Check_Out_Ex (LPCTSTR local_filename, HWND parent_wnd)
 	CString user_name;
 	VSSFileStatus status = Get_File_Status (local_filename, user_name.GetBufferSetLength (64), 64);
 	if (status == VSSFILE_NOTCHECKEDOUT) {
-		
+
 		//
 		//	Check out the file
 		//
@@ -1330,7 +1330,7 @@ VSSClass::Check_Out_Ex (LPCTSTR local_filename, HWND parent_wnd)
 		}
 
 	} else if (status == VSSFILE_CHECKEDOUT) {
-		
+
 		//
 		//	Let the user know who has the file checked out.
 		//
@@ -1340,7 +1340,7 @@ VSSClass::Check_Out_Ex (LPCTSTR local_filename, HWND parent_wnd)
 	} else if (status == VSSFILE_CHECKEDOUT_ME) {
 		retval = true;
 	}
-	
+
 	return retval;
 }
 
@@ -1362,7 +1362,7 @@ VSSClass::Check_In_Ex (LPCTSTR local_filename, HWND parent_wnd)
 
 		//
 		//	Check in the file
-		//		
+		//
 		retval = Retry_Check_In (local_filename, 10, 250);
 		if (retval == false) {
 			CString message;

@@ -50,19 +50,19 @@ static const int GR_ERROR_CONNECT_FAILED	= -101;
 
 // Game Specific
 static char GR_GAME_ID[5]			= { "IDNO" };
-static char GR_PLAYER_COUNT[5]		= { "PLRS" };	
-static char GR_CLAN_GAME[5]			= { "CLGM" };	
-static char GR_DURATION[5]			= { "DURA" };	
-static char GR_MAP_NAME[5]			= { "MPNM" };	
-static char GR_SKU[5]				= { "GSKU" };	
-static char GR_STYLE[5]				= { "GSTY" };	
-static char GR_NUM_CLANS[5]			= { "NTMS" };	
-static char GR_START_TIME[5]		= { "TIME" };	
-static char GR_TOURNAMENT[5]		= { "TRNY" };	
+static char GR_PLAYER_COUNT[5]		= { "PLRS" };
+static char GR_CLAN_GAME[5]			= { "CLGM" };
+static char GR_DURATION[5]			= { "DURA" };
+static char GR_MAP_NAME[5]			= { "MPNM" };
+static char GR_SKU[5]				= { "GSKU" };
+static char GR_STYLE[5]				= { "GSTY" };
+static char GR_NUM_CLANS[5]			= { "NTMS" };
+static char GR_START_TIME[5]		= { "TIME" };
+static char GR_TOURNAMENT[5]		= { "TRNY" };
 
 // Player Specific
 static char GR_LOGINS[5]			= { "LGL?" };
-static char GR_SCORES[5]			= { "SCO?" };	
+static char GR_SCORES[5]			= { "SCO?" };
 static char GR_CLANIDS[5]			= { "CLN?" };
 static char GR_DURATIONS[5]			= { "DUR?" };
 static char GR_IPS[5]				= { "IPL?" };
@@ -77,8 +77,8 @@ static char GR_DAMAGEPOINTS[5]		= { "DMP?" };
 `----------------------------------------------------------------------*/
 typedef enum gamestyle
 {
-	GR_DEATHMATCH = 0, 
-	GR_CAPTUREFLAG, 
+	GR_DEATHMATCH = 0,
+	GR_CAPTUREFLAG,
 	GR_FLAGBALL,
 	GR_KINGREALM,
 	GR_HIGHLANDER,
@@ -110,10 +110,10 @@ public:
 	// METHODS
 	RenegadeGameRes(const char* host = NULL, int port = 0) :
 					    _host(NULL), _port(0),
-						_myplayercount(0), _game_id(0), _player_count(0), _clan_game(0), 
-						_duration(0), _map_name(NULL), _sku(0), _style(GR_DEATHMATCH), 
-						_num_clans(0), _start_time(0), _tournament(0), _logins(NULL), 
-						_scores(NULL), _clan_ids(NULL), _durations(NULL), _ips(NULL), 
+						_myplayercount(0), _game_id(0), _player_count(0), _clan_game(0),
+						_duration(0), _map_name(NULL), _sku(0), _style(GR_DEATHMATCH),
+						_num_clans(0), _start_time(0), _tournament(0), _logins(NULL),
+						_scores(NULL), _clan_ids(NULL), _durations(NULL), _ips(NULL),
 						_deaths(NULL), _kills(NULL), _selfkills(NULL), _damagepoints(NULL)
 	{
 		if( host != NULL )
@@ -126,35 +126,35 @@ public:
 	~RenegadeGameRes();
 
 
-	void setHost(const char* host)				
-	{ 
+	void setHost(const char* host)
+	{
 		if( _host != NULL )
 			delete[] _host;
-		_host = new char[strlen(host)+1];	
-		strcpy(_host, host); 
+		_host = new char[strlen(host)+1];
+		strcpy(_host, host);
 	}
 	void setPort(int val)						{ _port = val; }
-	void setGameID(int unsigned int val)		{ _game_id = val; }	
-	void setPlayerCount(unsigned char val)		{ _player_count = val; }	
-	void setClanGame(unsigned char val)			{ _clan_game = val; }	
-	void setDuration(int unsigned int val)		{ _duration = val; }	
+	void setGameID(int unsigned int val)		{ _game_id = val; }
+	void setPlayerCount(unsigned char val)		{ _player_count = val; }
+	void setClanGame(unsigned char val)			{ _clan_game = val; }
+	void setDuration(int unsigned int val)		{ _duration = val; }
 	void setMapName(const char* val);
-	void setSKU(Language lang)					{ _sku = GR_BASE_SKU | lang; }	
-	void setStyle(GameStyle val)				{ _style = (unsigned char)val; }	
-	void setNumClans(unsigned char val)			{ _num_clans = val; }	
-	void setStartTime(int unsigned int val)	{ _start_time = val; }	
-	void setTournament(unsigned char val)		{ _tournament = val; }	
+	void setSKU(Language lang)					{ _sku = GR_BASE_SKU | lang; }
+	void setStyle(GameStyle val)				{ _style = (unsigned char)val; }
+	void setNumClans(unsigned char val)			{ _num_clans = val; }
+	void setStartTime(int unsigned int val)	{ _start_time = val; }
+	void setTournament(unsigned char val)		{ _tournament = val; }
 
 	void addPlayer(const char* login = "INVALID", double score = 0.0, int unsigned int clan_id = 0,
-				   int unsigned int duration = 0, int unsigned int ip = 0, 
-				   int unsigned int deaths = 0, int unsigned int kills = 0, 
+				   int unsigned int duration = 0, int unsigned int ip = 0,
+				   int unsigned int deaths = 0, int unsigned int kills = 0,
 				   int unsigned int selfkills = 0, int unsigned int damagepoints = 0);
 
 	int sendResults();
 
 
 
-private:	
+private:
 	// METHODS
 	char** _addToArr(char** arr, const char* item);
 	int unsigned int* _addToArr(int unsigned int* arr, int unsigned int item);
@@ -186,7 +186,7 @@ private:
 	int unsigned int*	_deaths;
 	int unsigned int*	_kills;
 	int unsigned int*	_selfkills;
-	int unsigned int*	_damagepoints;	
+	int unsigned int*	_damagepoints;
 };
 
 

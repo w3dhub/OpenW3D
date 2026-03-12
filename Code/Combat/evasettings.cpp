@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/evasettings.cpp         $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/07/02 10:46a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 10                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/evasettings.cpp         $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/07/02 10:46a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 10                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "evasettings.h"
@@ -133,7 +133,7 @@ EvaSettingsDefClass::EvaSettingsDefClass (void)	:
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, ObjectivesEndcapUVRect, "Endcap UV Rect (pixels)");
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, ObjectivesFadeoutUVRect, "Fadeout UV Rect (pixels)");
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, ObjectivesBackgroundUVRect, "Background UV Rect (pixels)");
-	
+
 	PARAM_SEPARATOR (EvaSettingsDefClass, "Messages Window");
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, MessagesScreenRect, "Screen Rect (normalized pixels)");
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, MessagesTextRect, "Text Rect (normalized pixels)");
@@ -141,8 +141,8 @@ EvaSettingsDefClass::EvaSettingsDefClass (void)	:
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_VECTOR2, MessagesTextureSize, "Texture Size (pixels)");
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, MessagesEndcapUVRect, "Endcap UV Rect (pixels)");
 	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, MessagesFadeoutUVRect, "Fadeout UV Rect (pixels)");
-	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, MessagesBackgroundUVRect, "Background UV Rect (pixels)");	
-	
+	NAMED_EDITABLE_PARAM (EvaSettingsDefClass, ParameterClass::TYPE_RECT, MessagesBackgroundUVRect, "Background UV Rect (pixels)");
+
 	EvaSettings = this;
 	return ;
 }
@@ -167,8 +167,8 @@ EvaSettingsDefClass::~EvaSettingsDefClass (void)
 ///////////////////////////////////////////////////////////////////////////////////////////
 uint32
 EvaSettingsDefClass::Get_Class_ID (void) const
-{ 
-	return CLASSID_GLOBAL_SETTINGS_DEF_EVA; 
+{
+	return CLASSID_GLOBAL_SETTINGS_DEF_EVA;
 }
 
 
@@ -179,8 +179,8 @@ EvaSettingsDefClass::Get_Class_ID (void) const
 ///////////////////////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 EvaSettingsDefClass::Get_Factory (void) const
-{ 
-	return _EvaSettingsDefPersistFactory; 
+{
+	return _EvaSettingsDefPersistFactory;
 }
 
 
@@ -190,7 +190,7 @@ EvaSettingsDefClass::Get_Factory (void) const
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
 PersistClass *
-EvaSettingsDefClass::Create (void) const 
+EvaSettingsDefClass::Create (void) const
 {
 	WWASSERT (0);
 	return NULL;
@@ -217,7 +217,7 @@ EvaSettingsDefClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, 	VARID_OBJECTIVESFADEOUTUVRECT,		ObjectivesFadeoutUVRect);
 		WRITE_MICRO_CHUNK (csave, 	VARID_OBJECTIVESBACKGROUNDUVRECT,	ObjectivesBackgroundUVRect);
 		WRITE_MICRO_CHUNK (csave, 	VARID_OBJECTIVESTEXTURESIZE,			ObjectivesTextureSize);
-		
+
 		WRITE_MICRO_CHUNK (csave, 	VARID_MESSAGESSCREENRECT,				MessagesScreenRect);
 		WRITE_MICRO_CHUNK (csave, 	VARID_MESSAGESTEXTRECT,					MessagesTextRect);
 		WRITE_MICRO_CHUNK (csave, 	VARID_MESSAGESENDCAPUVRECT,			MessagesEndcapUVRect);
@@ -225,7 +225,7 @@ EvaSettingsDefClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, 	VARID_MESSAGESBACKGROUNDUVRECT,		MessagesBackgroundUVRect);
 		WRITE_MICRO_CHUNK (csave, 	VARID_MESSAGESTEXTURESIZE,				MessagesTextureSize);
 		WRITE_MICRO_CHUNK (csave, 	VARID_MESSAGESICONPOS,					MessagesIconPos);
-		
+
 
 	csave.End_Chunk();
 
@@ -247,7 +247,7 @@ EvaSettingsDefClass::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				DefinitionClass::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk ()) {
 					switch(cload.Cur_Micro_Chunk_ID ()) {
@@ -258,7 +258,7 @@ EvaSettingsDefClass::Load (ChunkLoadClass &cload)
 						READ_MICRO_CHUNK (cload, 	VARID_OBJECTIVESFADEOUTUVRECT,		ObjectivesFadeoutUVRect);
 						READ_MICRO_CHUNK (cload, 	VARID_OBJECTIVESBACKGROUNDUVRECT,	ObjectivesBackgroundUVRect);
 						READ_MICRO_CHUNK (cload, 	VARID_OBJECTIVESTEXTURESIZE,			ObjectivesTextureSize);
-						
+
 						READ_MICRO_CHUNK (cload, 	VARID_MESSAGESSCREENRECT,				MessagesScreenRect);
 						READ_MICRO_CHUNK (cload, 	VARID_MESSAGESTEXTRECT,					MessagesTextRect);
 						READ_MICRO_CHUNK (cload, 	VARID_MESSAGESENDCAPUVRECT,			MessagesEndcapUVRect);
@@ -285,7 +285,7 @@ EvaSettingsDefClass::Load (ChunkLoadClass &cload)
 	}
 
 	ObjectiveManager::Reload_Viewer ();
-	
+
 	//
 	//	Ask the message window to recalculate its size...
 	//
@@ -293,7 +293,7 @@ EvaSettingsDefClass::Load (ChunkLoadClass &cload)
 	if (message_window != NULL) {
 		message_window->Clear_Log ();
 		message_window->Reset_Current_Rect ();
-		message_window->Set_Window_Dirty (true);		
+		message_window->Set_Window_Dirty (true);
 	}
 
 	return true;

@@ -56,7 +56,7 @@ class DynamicAABTreeCullClass;
 ** nodes.  It also performs merging of both sector and object ids.
 */
 class VisOptimizationContextClass
-{	
+{
 public:
 
 	VisOptimizationContextClass(PhysicsSceneClass * scene,VisOptProgressClass & stats);

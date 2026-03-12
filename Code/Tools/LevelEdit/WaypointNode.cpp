@@ -84,7 +84,7 @@ WaypointNodeClass::WaypointNodeClass (PresetClass *preset)
 		m_Flags (NULL),
 		m_ModelType (MODEL_MIDDLE_PT),
 		m_Speed (0.6F),
-		NodeClass (preset)		
+		NodeClass (preset)
 {
 	return ;
 }
@@ -114,8 +114,8 @@ WaypointNodeClass::WaypointNodeClass (const WaypointNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 WaypointNodeClass::~WaypointNodeClass (void)
-{	
-	Remove_From_Scene ();	
+{
+	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
 	return ;
 }
@@ -138,7 +138,7 @@ WaypointNodeClass::Initialize (void)
 	MEMBER_RELEASE (m_PhysObj);
 	Update_Model ();
 	return ;
-}	
+}
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -196,7 +196,7 @@ WaypointNodeClass::Update_Model (void)
 		//
 		//	Pass the model onto the physics object
 		//
-		m_PhysObj->Set_Model (render_obj);					
+		m_PhysObj->Set_Model (render_obj);
 
 		//
 		//	Configure the physics object
@@ -221,7 +221,7 @@ WaypointNodeClass::Update_Model (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 WaypointNodeClass::Get_Factory (void) const
-{	
+{
 	return _WaypointNodePersistFactory;
 }
 
@@ -238,13 +238,13 @@ WaypointNodeClass::Save (ChunkSaveClass &csave)
 		NodeClass::Save (csave);
 	csave.End_Chunk ();
 
-	csave.Begin_Chunk (CHUNKID_VARIABLES);		
-		
-		WaypointNodeClass *this_ptr = this;		
+	csave.Begin_Chunk (CHUNKID_VARIABLES);
+
+		WaypointNodeClass *this_ptr = this;
 		WRITE_MICRO_CHUNK_PTR (csave, VARID_OLD_PTR, this_ptr);
 		WRITE_MICRO_CHUNK_PTR (csave, VARID_WAYPATH_PTR, m_Waypath);
 		WRITE_MICRO_CHUNK (csave, VARID_FLAGS, m_Flags);
-				
+
 	csave.End_Chunk ();
 	return true;
 }
@@ -258,13 +258,13 @@ WaypointNodeClass::Save (ChunkSaveClass &csave)
 bool
 WaypointNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -298,8 +298,8 @@ WaypointNodeClass::Load_Variables (ChunkLoadClass &cload)
 				//
 				//	Read the old pointer from the chunk and register it
 				// for remapping.
-				//				
-				cload.Read (&m_Waypath, sizeof (m_Waypath));				
+				//
+				cload.Read (&m_Waypath, sizeof (m_Waypath));
 				REQUEST_POINTER_REMAP ((void **)&m_Waypath);
 			}
 			break;
@@ -309,7 +309,7 @@ WaypointNodeClass::Load_Variables (ChunkLoadClass &cload)
 				//
 				//	Read the old pointer from the chunk and submit it
 				// to the remapping system.
-				//				
+				//
 				WaypointNodeClass *old_ptr = NULL;
 				cload.Read (&old_ptr, sizeof (old_ptr));
 				SaveLoadSystemClass::Register_Pointer (old_ptr, this);
@@ -346,13 +346,13 @@ void
 WaypointNodeClass::On_Translate (void)
 {
 	if (m_Waypath != NULL) {
-		
+
 		//
 		//	Find where we are on the waypath
 		//
 		int index = m_Waypath->Find_Index (this);
 		if (index != -1) {
-			
+
 			//
 			//	Notify our waypath that we have been moved
 			//
@@ -374,20 +374,20 @@ void
 WaypointNodeClass::On_Delete (void)
 {
 	if (m_Waypath != NULL) {
-		
+
 		//
 		//	Find where we are on the waypath
 		//
 		int index = m_Waypath->Find_Index (this);
 		if (index != -1) {
-			
+
 			//
 			//	Detach ourselves from the waypath
 			//
 			m_Waypath->Delete_Point (index);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -419,7 +419,7 @@ WaypointNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {
@@ -501,7 +501,7 @@ WaypointNodeClass::Show_Settings_Dialog (void)
 	NodeInfoPageClass	info_tab (this);
 	PositionPageClass	pos_tab (this);
 	WaypathInfoPageClass path_tab (this);
-	
+
 	//
 	//	Add each tab to the property sheet
 	//
@@ -515,7 +515,7 @@ WaypointNodeClass::Show_Settings_Dialog (void)
 	if (ret_code == IDOK && m_Waypath != NULL) {
 		m_Waypath->Update_Line ();
 	}
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }
@@ -531,9 +531,9 @@ WaypointNodeClass::Parent_Set_Transform (const Matrix3D &tm)
 {
 	m_Transform = tm;
 
-	PhysClass *phys_obj = Peek_Physics_Obj ();		
+	PhysClass *phys_obj = Peek_Physics_Obj ();
 	if (phys_obj != NULL) {
-		phys_obj->Set_Transform (tm);		
+		phys_obj->Set_Transform (tm);
 	}
 
 	return ;
@@ -550,9 +550,9 @@ WaypointNodeClass::Parent_Set_Position (const Vector3 &pos)
 {
 	m_Transform.Set_Translation (pos);
 
-	PhysClass *phys_obj = Peek_Physics_Obj ();		
+	PhysClass *phys_obj = Peek_Physics_Obj ();
 	if (phys_obj != NULL) {
-		phys_obj->Set_Transform (m_Transform);		
+		phys_obj->Set_Transform (m_Transform);
 	}
 
 	return ;

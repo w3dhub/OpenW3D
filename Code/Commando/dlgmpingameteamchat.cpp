@@ -75,14 +75,14 @@ MPIngameTeamChatPopupClass::On_Key_Down (uint32 key_id, uint32 key_data)
 	if (key_id == VK_RETURN)
 	{
 		WideStringClass msg = Get_Dlg_Item_Text(IDC_MULTIPLAY_INGAME_CHAT_EDIT);
-		if (msg.Get_Length() > 0) 
+		if (msg.Get_Length() > 0)
 		{
 			cCsTextObj * p_message = new cCsTextObj;
 			p_message->Init(msg, TEXT_MESSAGE_TEAM, cNetwork::Get_My_Id(), -1);
 		}
 		End_Dialog ();
 	}
-	
+
 	return retval;
 }
 

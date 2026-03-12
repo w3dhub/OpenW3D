@@ -16,21 +16,21 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/building.cpp                          $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 6/20/02 3:09p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 68                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/building.cpp                          $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 6/20/02 3:09p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 68                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "building.h"
@@ -125,11 +125,11 @@ BuildingGameObjDef::BuildingGameObjDef (void)	:
 
 #ifdef PARAM_EDITING_ON
 	int skin_type_counter;
-	EnumParameterClass * mct_skin_param = new EnumParameterClass( (int*)&MCTSkin );												
-	mct_skin_param->Set_Name("MCTSkin");																																
-	for ( skin_type_counter = 0; skin_type_counter < ArmorWarheadManager::Get_Num_Armor_Types(); skin_type_counter++ ) {																			
+	EnumParameterClass * mct_skin_param = new EnumParameterClass( (int*)&MCTSkin );
+	mct_skin_param->Set_Name("MCTSkin");
+	for ( skin_type_counter = 0; skin_type_counter < ArmorWarheadManager::Get_Num_Armor_Types(); skin_type_counter++ ) {
 		mct_skin_param->Add_Value(ArmorWarheadManager::Get_Armor_Name(skin_type_counter), skin_type_counter);
-	}																																									
+	}
 	GENERIC_EDITABLE_PARAM(BuildingGameObjDef,mct_skin_param);
 #endif
 
@@ -139,9 +139,9 @@ BuildingGameObjDef::BuildingGameObjDef (void)	:
 #ifdef PARAM_EDITING_ON
 	EnumParameterClass *building_type_param = new EnumParameterClass( (int*)&Type );
 	building_type_param->Set_Name("Building Type");
-	for ( int index = TYPE_NONE; index < TYPE_COUNT; index++ ) {																			
+	for ( int index = TYPE_NONE; index < TYPE_COUNT; index++ ) {
 		building_type_param->Add_Value(BULDING_TYPE_NAMES[index+1], index);
-	}																																									
+	}
 	GENERIC_EDITABLE_PARAM(BuildingGameObjDef,building_type_param);
 #endif
 
@@ -158,9 +158,9 @@ BuildingGameObjDef::BuildingGameObjDef (void)	:
 //
 /////////////////////////////////////////////////////////////////////////////
 uint32
-BuildingGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_BUILDING; 
+BuildingGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_BUILDING;
 }
 
 
@@ -170,7 +170,7 @@ BuildingGameObjDef::Get_Class_ID (void) const
 //
 /////////////////////////////////////////////////////////////////////////////
 PersistClass *
-BuildingGameObjDef::Create (void) const 
+BuildingGameObjDef::Create (void) const
 {
 	BuildingGameObj * obj = new BuildingGameObj;
 	obj->Init( *this );
@@ -189,10 +189,10 @@ enum	{
 	MICROCHUNKID_DEF_MCTSKIN,
 	MICROCHUNKID_DEF_BUILDING_TYPE,
 	LEGACY_MICROCHUNKID_DEF_BUILDING_TEAM,
-	MICROCHUNKID_DEF_GDI_DAMAGE_REPORT_ID, 
-	MICROCHUNKID_DEF_NOD_DAMAGE_REPORT_ID, 
-	MICROCHUNKID_DEF_GDI_DESTROY_REPORT_ID, 
-	MICROCHUNKID_DEF_NOD_DESTROY_REPORT_ID, 
+	MICROCHUNKID_DEF_GDI_DAMAGE_REPORT_ID,
+	MICROCHUNKID_DEF_NOD_DAMAGE_REPORT_ID,
+	MICROCHUNKID_DEF_GDI_DESTROY_REPORT_ID,
+	MICROCHUNKID_DEF_NOD_DESTROY_REPORT_ID,
 };
 
 
@@ -211,7 +211,7 @@ BuildingGameObjDef::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk( CHUNKID_DEF_VARIABLES );
 		WRITE_MICRO_CHUNK_WWSTRING( csave, MICROCHUNKID_DEF_MESHPREFIX, MeshPrefix );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_MCTSKIN, MCTSkin );
-		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_BUILDING_TYPE, Type );		
+		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_BUILDING_TYPE, Type );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GDI_DAMAGE_REPORT_ID, GDIDamageReportID );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_NOD_DAMAGE_REPORT_ID, NodDamageReportID );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_DEF_GDI_DESTROY_REPORT_ID, GDIDestroyReportID );
@@ -238,13 +238,13 @@ BuildingGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_PARENT:
 				DamageableGameObjDef::Load( cload );
 				break;
-	  
+
 			case CHUNKID_DEF_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK_WWSTRING( cload, MICROCHUNKID_DEF_MESHPREFIX, MeshPrefix );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_MCTSKIN, MCTSkin );
-						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_BUILDING_TYPE, Type );		
+						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_BUILDING_TYPE, Type );
 						READ_MICRO_CHUNK( cload, LEGACY_MICROCHUNKID_DEF_BUILDING_TEAM, legacy_team );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_GDI_DAMAGE_REPORT_ID, GDIDamageReportID );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_DEF_NOD_DAMAGE_REPORT_ID, NodDamageReportID );
@@ -285,9 +285,9 @@ BuildingGameObjDef::Load (ChunkLoadClass &cload)
 //
 /////////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-BuildingGameObjDef::Get_Factory (void) const 
-{ 
-	return _BuildingGameObjDefPersistFactory; 
+BuildingGameObjDef::Get_Factory (void) const
+{
+	return _BuildingGameObjDefPersistFactory;
 }
 
 
@@ -330,7 +330,7 @@ SimplePersistFactoryClass<BuildingGameObj, CHUNKID_GAME_OBJECT_BUILDING>	_Buildi
 //
 /////////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-BuildingGameObj::Get_Factory (void) const 
+BuildingGameObj::Get_Factory (void) const
 {
 	return _BuildingGameObjPersistFactory;
 }
@@ -446,7 +446,7 @@ BuildingGameObj::Save (ChunkSaveClass &csave)
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_POSITION,				Position);
 		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_ISPOWERON,				IsPowerOn);
-		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_COLLECTION_SPHERE,	CollectionSphere);		
+		WRITE_MICRO_CHUNK (csave, MICROCHUNKID_COLLECTION_SPHERE,	CollectionSphere);
 	csave.End_Chunk ();
 
 	return true;
@@ -467,11 +467,11 @@ BuildingGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				DamageableGameObj::Load (cload);
 				break;
-	  
+
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk ()) {
 					switch (cload.Cur_Micro_Chunk_ID ()) {
-						
+
 						READ_MICRO_CHUNK (cload, MICROCHUNKID_POSITION,				Position);
 						READ_MICRO_CHUNK (cload, MICROCHUNKID_ISPOWERON,			IsPowerOn);
 						READ_MICRO_CHUNK (cload, MICROCHUNKID_COLLECTION_SPHERE,	CollectionSphere);
@@ -570,8 +570,8 @@ void BuildingGameObj::Apply_Damage( const OffenseObjectClass & damager, float sc
 
 	// Stats
 	if ( DefenseObject.Get_Health() <= 0 ) {
-		if ( damager.Get_Owner() != NULL && 
-			  damager.Get_Owner()->As_SoldierGameObj() != NULL && 
+		if ( damager.Get_Owner() != NULL &&
+			  damager.Get_Owner()->As_SoldierGameObj() != NULL &&
 			  damager.Get_Owner()->As_SoldierGameObj()->Get_Player_Data() != NULL ) {
 			damager.Get_Owner()->As_SoldierGameObj()->Get_Player_Data()->Stats_Add_Building_Destroyed();
 		}
@@ -729,7 +729,7 @@ BuildingGameObj::Update_State (bool force_update)
 	float health_percentage = 100.0f * DefenseObject.Get_Health()/DefenseObject.Get_Health_Max();
 	int health_state = BuildingStateClass::Percentage_To_Health_State(health_percentage);
 	int new_state = BuildingStateClass::Compose_State(health_state,IsPowerOn);
-	
+
 	/*
 	** If the state has changed, inform all of our components
 	*/
@@ -771,7 +771,7 @@ BuildingGameObj::Update_State (bool force_update)
 		** the building is at zero health
 		*/
 		Enable_Alternate_Materials(InteriorMeshes,((health_state == BuildingStateClass::HEALTH_0) || (!IsPowerOn)));
-		
+
 
 		/*
 		** Exterior meshes: use alternate materials if the building is destroyed
@@ -786,7 +786,7 @@ BuildingGameObj::Update_State (bool force_update)
 		disable &= (!PowerOffLights.Is_Empty());	// for lights, power is not disabled if there are not power-off lights
 
 		AABoxClass light_bounds(Position,Vector3(1,1,1));
-		
+
 		RefMultiListIterator<LightPhysClass> light_iterator(&PowerOnLights);
 		for (light_iterator.First(); !light_iterator.Is_Done(); light_iterator.Next()) {
 			light_iterator.Peek_Obj()->Set_Disabled(disable);
@@ -828,7 +828,7 @@ BuildingGameObj::Play_Announcement(int text_id, bool broadcast)
 		bool display_text = true;
 
 		if (sound_def_id > 0) {
-			
+
 			//	Create the sound object
 			CurrentAnnouncement = WWAudioClass::Get_Instance()->Create_Sound(sound_def_id);
 
@@ -857,7 +857,7 @@ BuildingGameObj::Play_Announcement(int text_id, bool broadcast)
 		if (display_text && string) {
 			float message_duration = std::max(duration, 5.0F);
 			CombatManager::Get_Message_Window()->Add_Message(string, Vector3(1, 1, 1), NULL, message_duration);
-		}		
+		}
 	}
 }
 
@@ -870,8 +870,8 @@ BuildingGameObj::Play_Announcement(int text_id, bool broadcast)
 void
 BuildingGameObj::Stop_Current_Announcement (void)
 {
-	if (CurrentAnnouncement) {		
-		
+	if (CurrentAnnouncement) {
+
 		//	Stop the sound object and remove it from the world
 		CurrentAnnouncement->Stop();
 		CurrentAnnouncement->Remove_From_Scene();
@@ -906,7 +906,7 @@ BuildingGameObj::Initialize_Building (void)
 	AnnouncementSphere.Center	= bounding_box.Center;
 	AnnouncementSphere.Radius	= std::max (bounding_box.Extent.X, bounding_box.Extent.Y);
 	AnnouncementSphere.Radius	= std::max (AnnouncementSphere.Radius, bounding_box.Extent.Z);
-	
+
 	//
 	//	If we can find a base for our team, then add ourselves to it.
 	//
@@ -928,7 +928,7 @@ void
 BuildingGameObj::Reset_Components (void)
 {
 	RefMultiListIterator<StaticPhysClass> mesh_iterator(&InteriorMeshes);
-	
+
 	for (mesh_iterator.First(); !mesh_iterator.Is_Done(); mesh_iterator.Next()) {
 		WWASSERT(mesh_iterator.Peek_Obj()->Get_Observer() == this);
 		mesh_iterator.Peek_Obj()->Set_Observer(NULL);
@@ -943,7 +943,7 @@ BuildingGameObj::Reset_Components (void)
 		WWASSERT(agg_iterator.Peek_Obj()->Get_Observer() == this);
 		agg_iterator.Peek_Obj()->Set_Observer(NULL);
 	}
-						  
+
 	InteriorMeshes.Reset_List();
 	ExteriorMeshes.Reset_List();
 	PowerOnLights.Reset_List();
@@ -1127,7 +1127,7 @@ BuildingGameObj::On_Damaged (void)
 void
 BuildingGameObj::On_Destroyed (void)
 {
-	IsDestroyed = true;	
+	IsDestroyed = true;
 
 	//
 	//	Notify the controller that the building has been destroyed
@@ -1135,7 +1135,7 @@ BuildingGameObj::On_Destroyed (void)
 	if (BaseController != NULL) {
 		BaseController->On_Building_Destroyed (this);
 	}
-	
+
 	//
 	//	Mark the object as dirty so it's state will be mirrored on the client
 	//
@@ -1163,7 +1163,7 @@ BuildingGameObj::Import_Rare (BitStreamClass &packet)
 
 	//
 	//	Read the state information from the server
-	//	
+	//
 	bool is_destroyed	= IsDestroyed;
 	bool is_power_on	= IsPowerOn;
 	int current_state	= CurrentState;
@@ -1176,11 +1176,11 @@ BuildingGameObj::Import_Rare (BitStreamClass &packet)
 	//
 	if (is_power_on != IsPowerOn) {
 		Enable_Power (is_power_on);
-	} 
+	}
 
-	// 
+	//
 	// Update our health if we are destroyed
-	// 
+	//
 	if (is_destroyed) {
 		Get_Defense_Object()->Set_Health(0.0f);
 	}
@@ -1252,7 +1252,7 @@ BuildingGameObj::Collect_Building_Components (void)
 	//
 	RefPhysListIterator staticobj_iterator = PhysicsSceneClass::Get_Instance()->Get_Static_Object_Iterator();
 	for (staticobj_iterator.First(); !staticobj_iterator.Is_Done(); staticobj_iterator.Next()) {
-		
+
 		StaticPhysClass * obj = staticobj_iterator.Peek_Obj()->As_StaticPhysClass ();
 		WWASSERT (obj != NULL);
 		WWASSERT (obj->Peek_Model() != NULL);
@@ -1300,11 +1300,11 @@ BuildingGameObj::Collect_Building_Components (void)
 						Add_Aggregate ((BuildingAggregateClass *)obj);
 					}
 
-				}				
+				}
 			}
 
 		} else if (Is_Interior_Mesh_Name (obj_name) || Is_Exterior_Mesh_Name (obj_name)) {
-			
+
 			//
 			//	Does this mesh match the prefix that this building is expecting?
 			//
@@ -1350,12 +1350,12 @@ BuildingGameObj::Collect_Building_Components (void)
 	}
 
 	//
-	// Iterate through all static lights in the level, assigning each building light to 
+	// Iterate through all static lights in the level, assigning each building light to
 	// the appropriate building controller
 	//
 	RefPhysListIterator staticlight_iterator = PhysicsSceneClass::Get_Instance ()->Get_Static_Light_Iterator ();
 	for (staticlight_iterator.First (); !staticlight_iterator.Is_Done (); staticlight_iterator.Next ()) {
-		
+
 		LightPhysClass * light = staticlight_iterator.Peek_Obj()->As_LightPhysClass();
 		WWASSERT(light != NULL);
 		WWASSERT(light->Peek_Model() != NULL);
@@ -1370,7 +1370,7 @@ BuildingGameObj::Collect_Building_Components (void)
 			// collection sphere
 			//
 			Vector3 light_pos;
-			light->Get_Position (&light_pos);			
+			light->Get_Position (&light_pos);
 			float dist2 = (CollectionSphere.Center - light_pos).Length2 ();
 
 			//
@@ -1473,7 +1473,7 @@ BuildingGameObj::Compute_Object_Priority (int client_id, const Vector3 &client_p
 		priority = DamageableGameObj::Compute_Object_Priority (client_id, client_pos);
 	}
 
-	// 
+	//
 	// Priority value is cached, update the cached value.
 	//
 	Set_Cached_Priority(priority);
@@ -1488,7 +1488,7 @@ BuildingGameObj::Compute_Object_Priority (int client_id, const Vector3 &client_p
 //	Get_Description
 //
 /////////////////////////////////////////////////////////////////////////////
-void 
+void
 //BuildingGameObj::Get_Extended_Information(StringClass & description)
 BuildingGameObj::Get_Description(StringClass & description)
 {
@@ -1511,7 +1511,7 @@ BuildingGameObj::Get_Description(StringClass & description)
 	Get_Position(&position);
 	line.Format("POS:   %-5.2f, %-5.2f, %-5.2f\n", position.X, position.Y, position.Z);
 	description += line;
-	
+
 	if (Get_Defense_Object() != NULL) {
 		line.Format("HLTH:  %-5.2f\n", Get_Defense_Object()->Get_Health());
 		description += line;
@@ -1556,7 +1556,7 @@ BuildingGameObj::Find_Closest_Poly_For_Model
 	int index;
 	for (index = 0; index < model->Get_Num_Sub_Objects (); index++) {
 		RenderObjClass *sub_obj = model->Get_Sub_Object (index);
-		
+
 		//
 		//	Recurse into this sub-object
 		//
@@ -1576,20 +1576,20 @@ BuildingGameObj::Find_Closest_Poly_For_Model
 
 			const TriIndex *tri_array	= mesh_model->Get_Polygon_Array ();
 			Vector3 *vert_array			= mesh_model->Get_Vertex_Array ();
-			
+
 			//
 			//	Check each polygon to see which is the closest
 			//
 			int poly_count = mesh_model->Get_Polygon_Count ();
 			for (index = 0; index < poly_count; index ++) {
-				
+
 				int vert1 = tri_array[index][0];
 				int vert2 = tri_array[index][1];
 				int vert3 = tri_array[index][2];
 
 				//
 				//	Compute the distance from the center of this polygon to the
-				// 
+				//
 				//
 				Vector3 poly_center	= (vert_array[vert1] + vert_array[vert2] + vert_array[vert3]) * 0.33F;
 				Vector3 delta			= (poly_center - obj_space_point);

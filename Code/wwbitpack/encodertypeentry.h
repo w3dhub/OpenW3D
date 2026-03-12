@@ -21,7 +21,7 @@
 // Project:      wwbitpack.lib
 // Author:       Tom Spencer-Smith
 // Date:         June 2000
-// Description:  
+// Description:
 //
 //-----------------------------------------------------------------------------
 #if defined(_MSV_VER)

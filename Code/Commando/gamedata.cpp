@@ -2174,7 +2174,7 @@ cGameData::Rotate_Map(void)
 		}
 	}
 #endif //(0)
-	
+
 	//
 	// Increment it
 	//

@@ -17,29 +17,29 @@
 */
 
 /* $Header: /Commando/Code/Tests/movietest/WINMAIN.CPP 2     3/21/98 12:08p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tests/movietest/WINMAIN.CPP                  $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/06/98 2:47p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 2                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
- *   WinMain -- Win32 Program Entry Point!                                                     * 
- *   WIN_resize -- Surrender-required function which resizes the main window                   * 
- *   WIN_set_fullscreen -- Surrender-required function for toggling full-screen mode           * 
- *   Main_Window_Proc -- Windows Proc for the main game window                                 * 
- *   Create_Main_Window -- Creates the main game window                                        * 
- *   Focus_Loss -- this function is called when the application loses focus                    * 
- *   Focus_Restore -- This function is called when the application gets focus                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tests/movietest/WINMAIN.CPP                  $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/06/98 2:47p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 2                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
+ *   WinMain -- Win32 Program Entry Point!                                                     *
+ *   WIN_resize -- Surrender-required function which resizes the main window                   *
+ *   WIN_set_fullscreen -- Surrender-required function for toggling full-screen mode           *
+ *   Main_Window_Proc -- Windows Proc for the main game window                                 *
+ *   Create_Main_Window -- Creates the main game window                                        *
+ *   Focus_Loss -- this function is called when the application loses focus                    *
+ *   Focus_Restore -- This function is called when the application gets focus                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -56,11 +56,11 @@
 //----------------------------------------------------------------------------
 //	Globals
 //----------------------------------------------------------------------------
-extern "C" 
+extern "C"
 {
 	HWND		hWndMain;
 	bool		WIN_fullscreen = true;
-	
+
 //PORT130	SRBOOL SRCALL WIN_resize(SRLONG width, SRLONG height);
 //PORT130	SRBOOL SRCALL WIN_set_fullscreen(SRBOOL state);
 }
@@ -77,21 +77,21 @@ void Set_Working_Directory(char *old_path, char *new_path);
 
 
 
-/*********************************************************************************************** 
- * WinMain -- Win32 Program Entry Point!                                                       * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *  																														  * 
- * 	Standard WinMain inputs :-)																				  * 
- * 																														  * 
- * OUTPUT:																												  * 
- *  																														  * 
- * 	Standard WinMain output																						  * 
- * 																														  * 
- * WARNINGS:																											  * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/18/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * WinMain -- Win32 Program Entry Point!                                                       *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *  																														  *
+ * 	Standard WinMain inputs :-)																				  *
+ * 																														  *
+ * OUTPUT:																												  *
+ *  																														  *
+ * 	Standard WinMain output																						  *
+ * 																														  *
+ * WARNINGS:																											  *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
@@ -117,31 +117,31 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	Init();
 
 	Main_Loop();
-	
+
 	Shutdown();
 
 	delete Keyboard;
 	delete MouseCursor;
 
 	return(EXIT_SUCCESS);
-} 
+}
 
-/*********************************************************************************************** 
- * WIN_resize -- Surrender-required function which resizes the main window                     * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- * 																														  * 
- * 	width -- desired new width																					  * 
- * 	height -- desired new height																				  * 
- * 																														  * 
- * OUTPUT:                                                                                     * 
- * 																														  * 
- * 	SRTRUE = success SRFALSE = error																			  * 
- * 																														  * 
- * WARNINGS:																											  * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/18/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * WIN_resize -- Surrender-required function which resizes the main window                     *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ * 																														  *
+ * 	width -- desired new width																					  *
+ * 	height -- desired new height																				  *
+ * 																														  *
+ * OUTPUT:                                                                                     *
+ * 																														  *
+ * 	SRTRUE = success SRFALSE = error																			  *
+ * 																														  *
+ * WARNINGS:																											  *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 #ifdef PORT130
 SRBOOL SRCALL WIN_resize( SRLONG width, SRLONG height )
@@ -151,7 +151,7 @@ SRBOOL SRCALL WIN_resize( SRLONG width, SRLONG height )
 	SRLONG		xp,yp;
 
 	SetRect( &rc, 0,0, width,height);
-	AdjustWindowRectEx( &rc, GetWindowStyle(hWndMain), 
+	AdjustWindowRectEx( &rc, GetWindowStyle(hWndMain),
 						GetMenu(hWndMain)!=NULL,
 						GetWindowExStyle(hWndMain));
 
@@ -177,21 +177,21 @@ SRBOOL SRCALL WIN_resize( SRLONG width, SRLONG height )
 }
 #endif
 
-/*********************************************************************************************** 
- * WIN_set_fullscreen -- Surrender-required function for toggling full-screen mode             * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *  																														  * 
- * 	state -- if SRTRUE, go into fullscreen mode, else go to windowed mode						  * 
- * 																														  * 
- * OUTPUT:																												  * 
- * 																														  * 
- * 	SRTRUE = sucess SRFALSE = failure																		  * 
- * 																														  * 
- * WARNINGS:																											  * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/18/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * WIN_set_fullscreen -- Surrender-required function for toggling full-screen mode             *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *  																														  *
+ * 	state -- if SRTRUE, go into fullscreen mode, else go to windowed mode						  *
+ * 																														  *
+ * OUTPUT:																												  *
+ * 																														  *
+ * 	SRTRUE = sucess SRFALSE = failure																		  *
+ * 																														  *
+ * WARNINGS:																											  *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 #ifdef PORT130
 SRBOOL SRCALL WIN_set_fullscreen( SRBOOL state )
@@ -221,22 +221,22 @@ SRBOOL SRCALL WIN_set_fullscreen( SRBOOL state )
 	return SRTRUE;
 }
 #endif
-				
-/*********************************************************************************************** 
- * Main_Window_Proc -- Windows Proc for the main game window                                   * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- * 																														  * 
- * 	Standard Windows Proc inputs																				  * 
- * 																														  * 
- * OUTPUT:																												  * 
- * 																														  * 
- * 	Standard Windows Proc output																				  * 
- * 																														  * 
- * WARNINGS:																											  * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/18/1997 GH  : Created.                                                                 * 
+
+/***********************************************************************************************
+ * Main_Window_Proc -- Windows Proc for the main game window                                   *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ * 																														  *
+ * 	Standard Windows Proc inputs																				  *
+ * 																														  *
+ * OUTPUT:																												  *
+ * 																														  *
+ * 	Standard Windows Proc output																				  *
+ * 																														  *
+ * WARNINGS:																											  *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam )
 {
@@ -336,31 +336,31 @@ LRESULT CALLBACK Main_Window_Proc( HWND hwnd, UINT message, WPARAM wParam, LPARA
 					return (0);
 			}
 			break;
-		
+
 		default:
 			break;
 	}
 
 	return DefWindowProc(hwnd, message, wParam, lParam);
-} 
+}
 
 
-/*********************************************************************************************** 
- * Create_Main_Window -- Creates the main game window                                          * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *  																														  * 
- * 	hInstance -- Instance handle of the application														  * 
- * 	nCmdShow -- how the window is to be shown																  * 
- * 																														  * 
- * OUTPUT:																												  * 
- * 																														  * 
- * 	TRUE = success, FALSE = failure																			  * 
- * 																														  * 
- * WARNINGS:																											  * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/18/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Create_Main_Window -- Creates the main game window                                          *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *  																														  *
+ * 	hInstance -- Instance handle of the application														  *
+ * 	nCmdShow -- how the window is to be shown																  *
+ * 																														  *
+ * OUTPUT:																												  *
+ * 																														  *
+ * 	TRUE = success, FALSE = failure																			  *
+ * 																														  *
+ * WARNINGS:																											  *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 static BOOL Create_Main_Window(HANDLE hInstance, int nCmdShow)
 {
@@ -406,34 +406,34 @@ static BOOL Create_Main_Window(HANDLE hInstance, int nCmdShow)
 }
 
 
-/*********************************************************************************************** 
- * Focus_Loss -- this function is called when the application loses focus                      * 
- *                                                                                             * 
- * INPUT:		Nothing																								  * 
- * 																														  * 
- * OUTPUT:		Nothing																								  * 
- * 																														  * 
- * WARNINGS:	None																									  * 
- * 																														  * 
- * HISTORY:                                                                                    * 
- *   07/18/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Focus_Loss -- this function is called when the application loses focus                      *
+ *                                                                                             *
+ * INPUT:		Nothing																								  *
+ * 																														  *
+ * OUTPUT:		Nothing																								  *
+ * 																														  *
+ * WARNINGS:	None																									  *
+ * 																														  *
+ * HISTORY:                                                                                    *
+ *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 void Focus_Loss(void)
 {
 }
 
 
-/*********************************************************************************************** 
- * Focus_Restore -- This function is called when the application gets focus                    * 
- *                                                                                             * 
- * INPUT:		Nothing																								  * 
- * 																														  * 
- * OUTPUT:		Nothing																								  * 
- * 																														  * 
- * WARNINGS:	None																									  * 
- * 																														  * 
- * HISTORY:                                                                                    * 
- *   07/18/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Focus_Restore -- This function is called when the application gets focus                    *
+ *                                                                                             *
+ * INPUT:		Nothing																								  *
+ * 																														  *
+ * OUTPUT:		Nothing																								  *
+ * 																														  *
+ * WARNINGS:	None																									  *
+ * 																														  *
+ * HISTORY:                                                                                    *
+ *   07/18/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 void Focus_Restore(void)
 {
@@ -453,7 +453,7 @@ void Split_Command_Line_Args(HINSTANCE instance, char *path_to_exe, char *comman
 {
 	// first arguement is the path to the executable including file name
 	GetModuleFileName (instance, &path_to_exe[0], 132);
-	Argv[0] = path_to_exe;	
+	Argv[0] = path_to_exe;
 
 	char * token = strtok(command_line, " ");
 	Argc = 1;

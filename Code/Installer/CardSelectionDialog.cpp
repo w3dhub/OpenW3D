@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/CardSelectionDialog.cpp          $  * 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/09/01 1:07p                $* 
- *                                                                                             * 
- *                    $Revision:: 3                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/CardSelectionDialog.cpp          $  *
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/09/01 1:07p                $*
+ *                                                                                             *
+ *                    $Revision:: 3                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -53,13 +53,13 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CardSelectionDialogClass::On_Init_Dialog (void)
 {
 	ListCtrlClass *listctrl;
 	int				e;
-	
+
 	listctrl = Get_Dlg_Item (IDC_CARD_SELECTION_LIST)->As_ListCtrlClass();
 	listctrl->Add_Column (L"", 1.0f, Vector3 (1.0f, 1.0f, 1.0f));
 	e = 0;
@@ -89,12 +89,12 @@ void CardSelectionDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CardSelectionDialogClass::Callback (int id, PopupDialogClass *popup)
 {
 	switch (id) {
-		
+
 		case IDC_BUTTON_YES:
 			CancelApplication = true;
 			End_Dialog();
@@ -116,7 +116,7 @@ void CardSelectionDialogClass::Callback (int id, PopupDialogClass *popup)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CardSelectionDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {

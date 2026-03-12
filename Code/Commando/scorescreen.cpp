@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/scorescreen.cpp                     $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/24/02 11:20a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 27                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/scorescreen.cpp                     $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/24/02 11:20a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 27                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "scorescreen.h"
@@ -171,7 +171,7 @@ ScoreScreenDialogClass::On_Init_Dialog (void)
 	int level_of_play_stars			= Get_Level_Of_Play_Stars();
 	int saves_loaded_stars			= Get_Saves_Loaded_Stars();
 	int secondary_missions_stars	= Get_Secondary_Missions_Stars();
-	int overall_stars = (time_to_finish_stars + level_of_play_stars + 
+	int overall_stars = (time_to_finish_stars + level_of_play_stars +
 						saves_loaded_stars + secondary_missions_stars) / 4;
 
 	// Update the ranking
@@ -346,7 +346,7 @@ ScoreScreenDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int par
 		case IDCANCEL:
 		case IDOK:
 			End_Dialog();
-		
+
 			break;
 
 		default:
@@ -365,19 +365,19 @@ ScoreScreenDialogClass::On_Command (int ctrl_id, int mesage_id, unsigned int par
 */
 float	level_star_times[] = {
 /*	STARS	 2		3		4		5	*/
-/* 0 */	 10,		
-/* 1 */	 20,		
-/* 2 */	 40,		
-/* 3 */	 20,		
-/* 4 */	 25,		
-/* 5 */	 30,		
-/* 6 */	 20,		
-/* 7 */	 35,		
-/* 8 */	 20,		
-/* 9 */	 25,		
-/* 10 */	 35,		
-/* 11 */	 25,		
-/* 12 */	 10,		
+/* 0 */	 10,
+/* 1 */	 20,
+/* 2 */	 40,
+/* 3 */	 20,
+/* 4 */	 25,
+/* 5 */	 30,
+/* 6 */	 20,
+/* 7 */	 35,
+/* 8 */	 20,
+/* 9 */	 25,
+/* 10 */	 35,
+/* 11 */	 25,
+/* 12 */	 10,
 /* 13 */	 10,			// Mission 0
 };
 

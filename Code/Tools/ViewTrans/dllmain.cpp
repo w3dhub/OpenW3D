@@ -17,23 +17,23 @@
 */
 
 /* $Header: /Commando/Code/Tools/ViewTrans/dllmain.cpp 2     1/16/98 5:02p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Matrix Viewer Utility                                        * 
- *                                                                                             * 
- *                    File Name : DLLMAIN.CPP                                                  * 
- *                                                                                             * 
- *                   Programmer : Greg Hjelstrom                                               * 
- *                                                                                             * 
- *                   Start Date : 02/25/97                                                     * 
- *                                                                                             * 
- *                  Last Update : February 25, 1997 [GH]                                       * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
- *   DllMain -- Windows DLL initialization                                                     * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Matrix Viewer Utility                                        *
+ *                                                                                             *
+ *                    File Name : DLLMAIN.CPP                                                  *
+ *                                                                                             *
+ *                   Programmer : Greg Hjelstrom                                               *
+ *                                                                                             *
+ *                   Start Date : 02/25/97                                                     *
+ *                                                                                             *
+ *                  Last Update : February 25, 1997 [GH]                                       *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
+ *   DllMain -- Windows DLL initialization                                                     *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <Max.h>
@@ -47,51 +47,51 @@
 int controlsInit = false;
 
 
-/*********************************************************************************************** 
- * DllMain -- Windows DLL initialization                                                       * 
- *                                                                                             * 
+/***********************************************************************************************
+ * DllMain -- Windows DLL initialization                                                       *
+ *                                                                                             *
  * This function is called by Windows when the DLL is loaded.  This                            *
  * function may also be called many times during time critical operations					   *
  * like rendering.  Therefore developers need to be careful what they						   *
  * do inside this function.  In the code below, note how after the DLL is					   *
  * loaded the first time only a few statements are executed.								   *
  *																							   *
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/25/1997 GH  : Created.                                                                 * 
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/25/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
-BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved) 
-{	
+BOOL WINAPI DllMain(HINSTANCE hinstDLL,ULONG fdwReason,LPVOID lpvReserved)
+{
 	// Hang on to this DLL's instance handle.
 	hInstance = hinstDLL;
 
 	if (! controlsInit) {
 		controlsInit = true;
-		
+
 		// Initialize MAX's custom controls
 		InitCustomControls(hInstance);
 
 		// Initialize Win95 controls
 		InitCommonControls();
 	}
-	
+
 	return(true);
 }
 
 __declspec(dllexport) const TCHAR *
 LibDescription() { return _T("Transformation Matrix Viewer"); }
 
-__declspec(dllexport) int 
+__declspec(dllexport) int
 LibNumberClasses() { return 1; }
 
-__declspec(dllexport) ClassDesc* 
+__declspec(dllexport) ClassDesc*
 LibClassDesc(int i) { return &UtilityDesc; }
 
-__declspec(dllexport) ULONG 
+__declspec(dllexport) ULONG
 LibVersion() { return VERSION_3DSMAX; }
 

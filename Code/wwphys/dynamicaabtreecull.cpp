@@ -68,12 +68,12 @@ enum
 
 /*
 ** DynamicAABTreeCullClass is a derived AABTree which assumes it contains PhysClasses
-** these two functions encapsulate some typecasting which happens in a lot 
+** these two functions encapsulate some typecasting which happens in a lot
 ** of places...
 */
 inline PhysClass * get_first_object(AABTreeNodeClass * node)
 {
-	return (PhysClass *)(node->Object);		
+	return (PhysClass *)(node->Object);
 }
 
 inline PhysClass * get_next_object(PhysClass * tile)
@@ -81,7 +81,7 @@ inline PhysClass * get_next_object(PhysClass * tile)
 	return (PhysClass *)(((AABTreeLinkClass *)tile->Get_Cull_Link())->NextObject);
 }
 
- 
+
 /*
 ** DynamicAABTreeCullClass Implementation
 */
@@ -142,8 +142,8 @@ void DynamicAABTreeCullClass::Update_Culling(CullableClass * obj)
 
 uint32 DynamicAABTreeCullClass::Get_Dynamic_Object_Vis_ID(const AABoxClass & obj_bounds,int * node_id)
 {
-	bool is_big_obj = (	(obj_bounds.Extent.X > MaxObjRadius) || 
-								(obj_bounds.Extent.Y > MaxObjRadius) || 
+	bool is_big_obj = (	(obj_bounds.Extent.X > MaxObjRadius) ||
+								(obj_bounds.Extent.Y > MaxObjRadius) ||
 								(obj_bounds.Extent.Z > MaxObjRadius) );
 
 	/*
@@ -165,22 +165,22 @@ uint32 DynamicAABTreeCullClass::Get_Dynamic_Object_Vis_ID(const AABoxClass & obj
 		/*
 		** For "big" objects, we check the entire box against the node's box
 		*/
-		while (	(CollisionMath::Overlap_Test(start_node->Box,obj_bounds) != CollisionMath::INSIDE) && 
-					(start_node != RootNode)	) 
+		while (	(CollisionMath::Overlap_Test(start_node->Box,obj_bounds) != CollisionMath::INSIDE) &&
+					(start_node != RootNode)	)
 		{
 			start_node = start_node->Parent;
 		}
 
 	} else {
-	
+
 		/*
 		** For "normal" objects, we check the center point against the "deflated" boxes.  This
 		** is more correct for the way that VIS was generated.
 		*/
-		while (	(deflated_box_contains_point(start_node->Box,obj_bounds.Center) == false) && 
-					(start_node != RootNode)	) 
+		while (	(deflated_box_contains_point(start_node->Box,obj_bounds.Center) == false) &&
+					(start_node != RootNode)	)
 		{
-			start_node = start_node->Parent;		
+			start_node = start_node->Parent;
 		}
 	}
 #endif
@@ -236,13 +236,13 @@ void DynamicAABTreeCullClass::Re_Partition
 
 	int total_grid_count = cellcount.I * cellcount.J * cellcount.K;
 	while (total_grid_count > max_grid_cell_count) {
-		
+
 		int i;
 		Vector3 cellfraction;
 		for (i=0; i<3; i++) {
 			cellfraction[i] = (worldsize[i] / cellcount[i]) / min_grid_cell_size[i];
 		}
-		
+
 		int smalldim = 0;
 		float smallfraction = cellfraction[0];
 		for (i=1; i<2; i++) {
@@ -263,7 +263,7 @@ void DynamicAABTreeCullClass::Re_Partition
 
 	/*
 	** Allocate the complete set of seed boxes.  This will be *either* a voxelization
-	** of the level *or* a set of seed boxes passed in (which were presumably generated 
+	** of the level *or* a set of seed boxes passed in (which were presumably generated
 	** from a pathfind floodfill of the level).
 	*/
 	SimpleDynVecClass<AABoxClass> boxes;
@@ -289,8 +289,8 @@ void DynamicAABTreeCullClass::Re_Partition
 			box.Extent += Vector3(MaxObjRadius,MaxObjRadius,MaxObjRadius);
 			boxes.Add(box);
 		}
-	} 
-	
+	}
+
 	/*
 	** Add in the voxelization boxes
 	*/
@@ -305,13 +305,13 @@ void DynamicAABTreeCullClass::Re_Partition
 				boxmin.Y = grid_min.Y + j * cellsize.Y;
 				boxmin.Z = grid_min.Z + k * cellsize.Z;
 				boxmax = boxmin + cellsize;
-				
+
 				/*
 				** Inflate by MaxObjRadius
 				*/
 				boxmin -= Vector3(MaxObjRadius,MaxObjRadius,MaxObjRadius);
 				boxmax += Vector3(MaxObjRadius,MaxObjRadius,MaxObjRadius);
-				
+
 				/*
 				** Add to the array
 				*/
@@ -338,16 +338,16 @@ void DynamicAABTreeCullClass::Re_Partition
 }
 
 void DynamicAABTreeCullClass::Collect_Visible_Objects
-(		
+(
 	const FrustumClass & frustum,
 	VisTableClass * pvs,
-	RefPhysListClass & visobjlist	
+	RefPhysListClass & visobjlist
 )
 {
 	WWASSERT(RootNode != NULL);
 
 	if (pvs != NULL) {
-	
+
 		/*
 		** Recursively collect objects directly into the specified list.
 		*/
@@ -357,9 +357,9 @@ void DynamicAABTreeCullClass::Collect_Visible_Objects
 		} else {
 			collect_visible_objects_recursive(RootNode,collection_context);
 		}
-	
+
 	} else {
-		
+
 		/*
 		** Reset the internal collection, call the built-in frustum collection function
 		*/
@@ -370,9 +370,9 @@ void DynamicAABTreeCullClass::Collect_Visible_Objects
 		** Loop over each collected object, adding it into the list
 		*/
 		PhysClass * obj;
-		for (	obj = Get_First_Collected_Object(); 
-				obj != NULL; 
-				obj = Get_Next_Collected_Object(obj)) 
+		for (	obj = Get_First_Collected_Object();
+				obj != NULL;
+				obj = Get_Next_Collected_Object(obj))
 		{
 			visobjlist.Add(obj);
 		}
@@ -413,7 +413,7 @@ void DynamicAABTreeCullClass::Save_Static_Data(ChunkSaveClass & csave)
 	csave.Begin_Chunk(DYNAMICAABTREE_CHUNK_AABTREE_CLASS_DATA);
 	TypedAABTreeCullSystemClass<PhysClass>::Save(csave);
 	csave.End_Chunk();
-	
+
 	csave.Begin_Chunk(DYNAMICAABTREE_CHUNK_VARIABLES);
 	WRITE_MICRO_CHUNK(csave,DYNAMICAABTREE_VARIABLE_MAXOBJRADIUS,MaxObjRadius);
 	csave.End_Chunk();
@@ -428,17 +428,17 @@ void DynamicAABTreeCullClass::Load_Static_Data(ChunkLoadClass & cload)
 			case DYNAMICAABTREE_CHUNK_AABTREE_CLASS_DATA:
 				TypedAABTreeCullSystemClass<PhysClass>::Load(cload);
 				break;
-			
+
 			case DYNAMICAABTREE_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,DYNAMICAABTREE_VARIABLE_MAXOBJRADIUS,MaxObjRadius);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 
 				break;
-			
+
 			default:
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
@@ -475,9 +475,9 @@ void DynamicAABTreeCullClass::evaluate_non_occluder_visibility_recursive
 
 	int vis_id = node->UserData;
 
-	if (	(nodebox.Contains(context.Camera.Get_Position())) || 
+	if (	(nodebox.Contains(context.Camera.Get_Position())) ||
 			(context.VisTable.Get_Bit(vis_id) != 0) ||
-			(context.Is_Vis_Quick_And_Dirty())) 
+			(context.Is_Vis_Quick_And_Dirty()))
 	{
 
 		box_is_visible = true;
@@ -486,11 +486,11 @@ void DynamicAABTreeCullClass::evaluate_non_occluder_visibility_recursive
 	} else {
 
 		if (!context.Camera.Cull_Box(node->Box)) {
-	
+
 			context.Set_Vis_ID(vis_id);								//	use the node's vis-id
 			context.VisRasterizer->Reset_Pixel_Counter();
 
-			AABoxRenderObjClass * rbox = get_render_box();		
+			AABoxRenderObjClass * rbox = get_render_box();
 			rbox->Set_Local_Center_Extent(nodebox.Center,nodebox.Extent);
 			rbox->Special_Render(context);							// render the bounding volume
 			REF_PTR_RELEASE(rbox);
@@ -514,7 +514,7 @@ void DynamicAABTreeCullClass::evaluate_non_occluder_visibility_recursive
 		if (node->Back != NULL) {
 			evaluate_non_occluder_visibility_recursive(node->Back,context);
 		}
-	} 
+	}
 }
 
 bool DynamicAABTreeCullClass::subtree_is_visible
@@ -547,7 +547,7 @@ AABoxRenderObjClass * DynamicAABTreeCullClass::get_render_box(void)
 	if (RenderBox == NULL) {
 		RenderBox = NEW_REF(AABoxRenderObjClass,());
 	}
-	
+
 	WWASSERT(RenderBox != NULL);
 	RenderBox->Add_Ref();
 	return RenderBox;
@@ -555,11 +555,11 @@ AABoxRenderObjClass * DynamicAABTreeCullClass::get_render_box(void)
 
 
 int DynamicAABTreeCullClass::find_insertion_node(CullableClass * obj)
-{	
+{
 	int node_index = 0;
 	const AABoxClass & cullbox = obj->Get_Cull_Box();
-	if (	(cullbox.Extent.X > MaxObjRadius) || 
-			(cullbox.Extent.Y > MaxObjRadius) || 
+	if (	(cullbox.Extent.X > MaxObjRadius) ||
+			(cullbox.Extent.Y > MaxObjRadius) ||
 			(cullbox.Extent.Z > MaxObjRadius) )
 	{
 		find_optimal_node(RootNode,cullbox,node_index);
@@ -578,7 +578,7 @@ void DynamicAABTreeCullClass::find_optimal_node
 {
 	/*
 	** We want to find the smallest node in the tree that contains
-	** the given bounding box. 
+	** the given bounding box.
 	*/
 	int input_node_index = node_index;
 
@@ -595,7 +595,7 @@ void DynamicAABTreeCullClass::find_optimal_node
 	}
 
 	/*
-	** If we have no children or none of our children contained the object, 
+	** If we have no children or none of our children contained the object,
 	** then we check if we contain the object.
 	*/
 	if (node_index == input_node_index) {
@@ -613,7 +613,7 @@ void DynamicAABTreeCullClass::find_optimal_deflated_node
 )
 {
 	/*
-	** We want to find the smallest "de-flated" leaf node that contains the 
+	** We want to find the smallest "de-flated" leaf node that contains the
 	** given center point.
 	*/
 	int input_node_index = node_index;
@@ -631,7 +631,7 @@ void DynamicAABTreeCullClass::find_optimal_deflated_node
 	}
 
 	/*
-	** If we have no children or none of our children contained the object, 
+	** If we have no children or none of our children contained the object,
 	** then we check if we contain the object.
 	*/
 	if (node_index == input_node_index) {
@@ -667,20 +667,20 @@ void DynamicAABTreeCullClass::collect_visible_objects_recursive
 	if (overlap == CollisionMath::OUTSIDE) {
 		NODE_REJECTED();
 		return;
-	} 
+	}
 //	else if (overlap == CollisionMath::INSIDE) {
 //		collect_visible_objects_recursive(node,context);
 //		return;
 //	}
 
 	NODE_ACCEPTED();
-	
+
 	/*
 	** Test any objects in this node
 	*/
 	if (node->Object) {
 
-		if (context.PVS.Get_Bit(node->UserData) != 0) {				
+		if (context.PVS.Get_Bit(node->UserData) != 0) {
 
 			PhysClass * obj = get_first_object(node);
 			while (obj) {
@@ -719,20 +719,20 @@ void DynamicAABTreeCullClass::collect_visible_objects_no_hvis_recursive
 	if (overlap == CollisionMath::OUTSIDE) {
 		NODE_REJECTED();
 		return;
-	} 
+	}
 //	else if (overlap == CollisionMath::INSIDE) {
 //		collect_visible_objects_recursive(node,context);
 //		return;
 //	}
 
 	NODE_ACCEPTED();
-	
+
 	/*
 	** Test any objects in this node
 	*/
 	if (node->Object) {
 
-		if (context.PVS.Get_Bit(node->UserData) != 0) {				
+		if (context.PVS.Get_Bit(node->UserData) != 0) {
 
 			PhysClass * obj = get_first_object(node);
 			while (obj) {
@@ -783,17 +783,17 @@ void DynamicAABTreeCullClass::render_visible_cells_recursive
 	if (node->Back != NULL) child_count++;
 
 	if ((child_count <= 1) || (mode == DISPLAY_OCCUPIED)) {
-		
+
 		if ((pvs == NULL) || (pvs->Get_Bit(visid))) {
-			
+
 			if ((mode != DISPLAY_OCCUPIED) || (node->Object != NULL)) {
-			
+
 				// force boxes to get rendered (yuck)
 				int oldmask = WW3D::Get_Collision_Box_Display_Mask();
 				WW3D::Set_Collision_Box_Display_Mask(oldmask | 0x01);
 
-				AABoxRenderObjClass * rbox = get_render_box();		
-				
+				AABoxRenderObjClass * rbox = get_render_box();
+
 				if (mode == DISPLAY_CENTERS) {
 					rbox->Set_Local_Center_Extent(node->Box.Center,Vector3(0.3f,0.3f,0.3f));
 				} else {
@@ -810,12 +810,12 @@ void DynamicAABTreeCullClass::render_visible_cells_recursive
 					red = blue / 2.0f;
 					green = blue / 3.0f;
 				} else {
-					red = 1.0f; //((visid % 13468) & 0xFF) / 255.0f;					
+					red = 1.0f; //((visid % 13468) & 0xFF) / 255.0f;
 					blue = red / 2.0f;
 					green = red / 3.0f;
 				}
-				rbox->Set_Color(Vector3(red,green,blue));										
-				
+				rbox->Set_Color(Vector3(red,green,blue));
+
 				rbox->Render(rinfo);																	// render the bounding volume
 				REF_PTR_RELEASE(rbox);
 
@@ -858,7 +858,7 @@ void DynamicAABTreeCullClass::prune_redundant_leaf_nodes_recursive
 	}
 
 	/*
-	** Try to prune our children.  They will only be removed if their 
+	** Try to prune our children.  They will only be removed if their
 	** vis matches ours and they are a leaf node.
 	*/
 	prune_child(node,node->Front,context);
@@ -882,7 +882,7 @@ void DynamicAABTreeCullClass::prune_child
 	}
 
 	/*
-	** If the child is a leaf node and its VIS matches the parent vis, delete the 
+	** If the child is a leaf node and its VIS matches the parent vis, delete the
 	** child, fixup the vis tables and ID's, and re-insert the child's objects into the tree.
 	*/
 	if ((child->Front == NULL) && (child->Back == NULL)) {
@@ -903,7 +903,7 @@ void DynamicAABTreeCullClass::prune_child
 			if (parent->Back == child) {
 				parent->Back = NULL;
 			}
-		
+
 			/*
 			** re-index the tree to remove the final dangling pointer.
 			*/
@@ -911,7 +911,7 @@ void DynamicAABTreeCullClass::prune_child
 
 			/*
 			** re-insert all objects into the tree
-			** zero the bounding box of the node to remove any chance of the objects from being left 
+			** zero the bounding box of the node to remove any chance of the objects from being left
 			** in the child node!
 			*/
 			child->Box.Extent.Set(0,0,0);
@@ -920,12 +920,12 @@ void DynamicAABTreeCullClass::prune_child
 				Update_Culling(obj);
 				obj = get_first_object(child);
 			}
-			
+
 			/*
 			** delete the node
 			*/
 			delete child;
-			
+
 			/*
 			** Tell the optimizer to combine the tables.  This is going to call back into the tree
 			** so make sure it is in a consistent state...
@@ -941,7 +941,7 @@ void DynamicAABTreeCullClass::prune_child
 void DynamicAABTreeCullClass::Merge_Vis_Object_IDs(uint32 id0,uint32 id1)
 {
 	/*
-	** Each node has a vis object id.  
+	** Each node has a vis object id.
 	** Whenever we encounter one of these with id1, set it to id0.
 	** Whenever we encounter one with id > id1, subtract one from it.
 	*/

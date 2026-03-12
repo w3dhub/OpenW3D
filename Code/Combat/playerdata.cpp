@@ -73,29 +73,29 @@ enum	{
 	CHUNKID_STATS_WEAPON,
 
 	MICROCHUNKID_SCORE					=	1,
-	MICROCHUNKID_MONEY, 
-	MICROCHUNKID_STAT_TIME_IN_GAME, 
-	MICROCHUNKID_STAT_ENEMIES_KILLED, 
-	MICROCHUNKID_STAT_ALLIES_KILLED, 
-	MICROCHUNKID_STAT_SHOTS_FIRED, 
-	MICROCHUNKID_STAT_HEAD_SHOTS, 
-	MICROCHUNKID_STAT_TORSO_SHOTS, 
-	MICROCHUNKID_STAT_ARM_SHOTS, 
-	MICROCHUNKID_STAT_LEG_SHOTS, 
-	MICROCHUNKID_STAT_CROTCH_CHOTS, 
-	MICROCHUNKID_STAT_FINAL_HEALTH, 
-	MICROCHUNKID_STAT_POWERUPS, 
-	MICROCHUNKID_STAT_VEHICLES_DESTROYED, 
-	MICROCHUNKID_STAT_TIME_IN_VEHICLES, 
-	MICROCHUNKID_STAT_KILLS_FROM_VEHICLES, 
-	MICROCHUNKID_STAT_SQUISHES, 
-	MICROCHUNKID_STAT_CREDITS_GRANTED, 
-	MICROCHUNKID_STAT_BUILDINGS_DESTROYED, 
-	MICROCHUNKID_STAT_HEAD_HITS, 
-	MICROCHUNKID_STAT_TORSO_HITS, 
-	MICROCHUNKID_STAT_ARM_HITS, 
-	MICROCHUNKID_STAT_LEG_HITS, 
-	MICROCHUNKID_STAT_CROTCH_HITS, 
+	MICROCHUNKID_MONEY,
+	MICROCHUNKID_STAT_TIME_IN_GAME,
+	MICROCHUNKID_STAT_ENEMIES_KILLED,
+	MICROCHUNKID_STAT_ALLIES_KILLED,
+	MICROCHUNKID_STAT_SHOTS_FIRED,
+	MICROCHUNKID_STAT_HEAD_SHOTS,
+	MICROCHUNKID_STAT_TORSO_SHOTS,
+	MICROCHUNKID_STAT_ARM_SHOTS,
+	MICROCHUNKID_STAT_LEG_SHOTS,
+	MICROCHUNKID_STAT_CROTCH_CHOTS,
+	MICROCHUNKID_STAT_FINAL_HEALTH,
+	MICROCHUNKID_STAT_POWERUPS,
+	MICROCHUNKID_STAT_VEHICLES_DESTROYED,
+	MICROCHUNKID_STAT_TIME_IN_VEHICLES,
+	MICROCHUNKID_STAT_KILLS_FROM_VEHICLES,
+	MICROCHUNKID_STAT_SQUISHES,
+	MICROCHUNKID_STAT_CREDITS_GRANTED,
+	MICROCHUNKID_STAT_BUILDINGS_DESTROYED,
+	MICROCHUNKID_STAT_HEAD_HITS,
+	MICROCHUNKID_STAT_TORSO_HITS,
+	MICROCHUNKID_STAT_ARM_HITS,
+	MICROCHUNKID_STAT_LEG_HITS,
+	MICROCHUNKID_STAT_CROTCH_HITS,
 
 	MICROCHUNKID_STAT_WEAPON_ID,
 	MICROCHUNKID_STAT_WEAPON_COUNT,
@@ -228,8 +228,8 @@ void PlayerDataClass::Reset_Player(void)
 	Set_Money( 0 );
 }
 
-void	PlayerDataClass::Increment_Score( float add )		
-{ 
+void	PlayerDataClass::Increment_Score( float add )
+{
 	if (!CombatManager::Is_Gameplay_Permitted()) {
 		return;
 	}
@@ -243,7 +243,7 @@ void	PlayerDataClass::Increment_Score( float add )
 		LOG_CALL_STACK;
 	}
 
-	Score = (float)Score + add; 
+	Score = (float)Score + add;
 
 	//
 	// TSS101001 - let's try giving 1 credit per point
@@ -253,8 +253,8 @@ void	PlayerDataClass::Increment_Score( float add )
 	}
 }
 
-void	PlayerDataClass::Increment_Money( float add )		
-{ 
+void	PlayerDataClass::Increment_Money( float add )
+{
 	if (add > 0 && !CombatManager::Is_Gameplay_Permitted()) {
 		return;
 	}
@@ -263,7 +263,7 @@ void	PlayerDataClass::Increment_Money( float add )
 	// Look out for very big increments
 	//
 // FIXME (gth) this caused a crash and seems like debugging code so I'm disabling it...
-#if 0 
+#if 0
 	static int warning_num = 0;
 	if (add >= 10000 && ++warning_num < 10) {
 		WWDEBUG_SAY(("* PlayerDataClass::Increment_Money(%f) - is this ok?\n", add));
@@ -271,7 +271,7 @@ void	PlayerDataClass::Increment_Money( float add )
 	}
 #endif
 
-	Money = (float)Money + add; 
+	Money = (float)Money + add;
 
 	if ( add > 0 ) {
 		Stats_Add_Credit_Grant( (int) add );

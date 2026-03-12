@@ -61,7 +61,7 @@
 #define WWMATH_OOSQRT2		0.707106781f
 #define WWMATH_OOSQRT3		0.577350269f
 
-/* 
+/*
 **	Macros to convert between degrees and radians
 */
 #ifndef RAD_TO_DEG
@@ -89,8 +89,8 @@ extern float _FastSinTable[SIN_TABLE_SIZE];
 extern float _FastInvSinTable[SIN_TABLE_SIZE];
 
 /*
-** Some simple math functions which work on the built-in types.  
-** Include the various other header files in the WWMATH library 
+** Some simple math functions which work on the built-in types.
+** Include the various other header files in the WWMATH library
 ** in order to get matrices, quaternions, etc.
 */
 class WWMath
@@ -161,15 +161,15 @@ static bool			Is_Valid_Double(double x);
 
 };
 
-WWINLINE float WWMath::Sign(float val) 
-{ 
-	if (val > 0.0f) { 
-		return +1.0f; 
-	} 
-	if (val < 0.0f) { 
-		return -1.0f; 
-	} 
-	return 0.0f; 
+WWINLINE float WWMath::Sign(float val)
+{
+	if (val > 0.0f) {
+		return +1.0f;
+	}
+	if (val < 0.0f) {
+		return -1.0f;
+	}
+	return 0.0f;
 }
 
 WWINLINE bool WWMath::Fast_Is_Float_Positive(const float & val)
@@ -177,33 +177,33 @@ WWINLINE bool WWMath::Fast_Is_Float_Positive(const float & val)
 	return !((*(int *)(&val)) & 0x80000000);
 }
 
-WWINLINE float WWMath::Random_Float(float min,float max) 
-{ 
-	return Random_Float() * (max-min) + min; 
+WWINLINE float WWMath::Random_Float(float min,float max)
+{
+	return Random_Float() * (max-min) + min;
 }
 
-WWINLINE float WWMath::Clamp(float val, float min /*= 0.0f*/, float max /*= 1.0f*/) 
+WWINLINE float WWMath::Clamp(float val, float min /*= 0.0f*/, float max /*= 1.0f*/)
 {
 	if(val < min) return min;
 	if(val > max) return max;
 	return val;
 }
 
-WWINLINE double WWMath::Clamp(double val, double min /*= 0.0f*/, double max /*= 1.0f*/) 
+WWINLINE double WWMath::Clamp(double val, double min /*= 0.0f*/, double max /*= 1.0f*/)
 {
 	if(val < min) return min;
 	if(val > max) return max;
 	return val;
 }
 
-WWINLINE int WWMath::Clamp_Int(int val, int min_val, int max_val) 
+WWINLINE int WWMath::Clamp_Int(int val, int min_val, int max_val)
 {
 	if(val < min_val) return min_val;
 	if(val > max_val) return max_val;
 	return val;
 }
 
-WWINLINE float WWMath::Wrap(float val, float min /*= 0.0f*/, float max /*= 1.0f*/) 
+WWINLINE float WWMath::Wrap(float val, float min /*= 0.0f*/, float max /*= 1.0f*/)
 {
 	// Implemented as an if rather than a while, to long loops
 	if ( val >= max )	val -= (max-min);
@@ -218,7 +218,7 @@ WWINLINE float WWMath::Wrap(float val, float min /*= 0.0f*/, float max /*= 1.0f*
 	return val;
 }
 
-WWINLINE double WWMath::Wrap(double val, double min /*= 0.0f*/, double max /*= 1.0f*/) 
+WWINLINE double WWMath::Wrap(double val, double min /*= 0.0f*/, double max /*= 1.0f*/)
 {
 	// Implemented as an if rather than a while, to long loops
 	if ( val >= max )	val -= (max-min);
@@ -260,7 +260,7 @@ WWINLINE bool WWMath::Is_Valid_Float(float x)
 	unsigned int * plong = (unsigned int *)(&x);
 	unsigned int exponent = ((*plong) & 0x7F800000) >> (32-9);
 
-	// if exponent is 0xFF, this is a NAN 
+	// if exponent is 0xFF, this is a NAN
 	if (exponent == 0xFF) {
 		return false;
 	}
@@ -272,7 +272,7 @@ WWINLINE bool WWMath::Is_Valid_Double(double x)
 	unsigned int * plong = (unsigned int *)(&x) + 1;
 	unsigned int exponent = ((*plong) & 0x7FF00000) >> (32-12);
 
-	// if exponent is 0x7FF, this is a NAN 
+	// if exponent is 0x7FF, this is a NAN
 	if (exponent == 0x7FF) {
 		return false;
 	}
@@ -288,7 +288,7 @@ WWINLINE int WWMath::Float_To_Long(float f)
 	return (int) (f + 0.5f);
 }
 
-WWINLINE int WWMath::Float_To_Long(double f)	
+WWINLINE int WWMath::Float_To_Long(double f)
 {
 	return (int) f;
 }
@@ -325,7 +325,7 @@ WWINLINE float WWMath::Fast_Sin(float val)
 
 	idx0 = ((unsigned)idx0) & (SIN_TABLE_SIZE-1);
 	idx1 = ((unsigned)idx1) & (SIN_TABLE_SIZE-1);
-	
+
 	return (1.0f - frac) * _FastSinTable[idx0] + frac * _FastSinTable[idx1];
 }
 
@@ -335,7 +335,7 @@ WWINLINE float WWMath::Fast_Sin(float val)
 
 WWINLINE float WWMath::Fast_Inv_Sin(float val)
 {
-#if 0 // TODO: more testing, not reliable! 
+#if 0 // TODO: more testing, not reliable!
 	float index = val * float(SIN_TABLE_SIZE) / (2.0f * WWMATH_PI);
 
 	int idx0=Float_To_Int_Floor(index);
@@ -344,7 +344,7 @@ WWINLINE float WWMath::Fast_Inv_Sin(float val)
 
 	idx0 = ((unsigned)idx0) & (SIN_TABLE_SIZE-1);
 	idx1 = ((unsigned)idx1) & (SIN_TABLE_SIZE-1);
-	
+
 	// The table becomes inaccurate near 0 and 2pi so fall back to doing a divide.
 	const int BUFFER = 16;
 	if ((idx0 <= BUFFER) || (idx0 >= SIN_TABLE_SIZE-BUFFER-1)) {
@@ -373,7 +373,7 @@ WWINLINE float WWMath::Fast_Cos(float val)
 
 	idx0 = ((unsigned)idx0) & (SIN_TABLE_SIZE-1);
 	idx1 = ((unsigned)idx1) & (SIN_TABLE_SIZE-1);
-	
+
 	return (1.0f - frac) * _FastSinTable[idx0] + frac * _FastSinTable[idx1];
 }
 
@@ -393,7 +393,7 @@ WWINLINE float WWMath::Fast_Inv_Cos(float val)
 
 	idx0 = ((unsigned)idx0) & (SIN_TABLE_SIZE-1);
 	idx1 = ((unsigned)idx1) & (SIN_TABLE_SIZE-1);
-	
+
 	// The table becomes inaccurate near 0 and 2pi so fall back to doing a divide.
 	if ((idx0 <= 2) || (idx0 >= SIN_TABLE_SIZE-3)) {
 		return 1.0f / WWMath::Fast_Cos(val);
@@ -452,10 +452,10 @@ WWINLINE float WWMath::Fast_Asin(float val)
 	if (WWMath::Fabs(val) > 0.975f) {
 		return WWMath::Asin(val);
 	}
-	
+
 	val*=float(ARC_TABLE_SIZE/2);
 
-	int idx0=Float_To_Int_Floor(val); 
+	int idx0=Float_To_Int_Floor(val);
 	int idx1=idx0+1;
 	float frac=val-(float)idx0;
 

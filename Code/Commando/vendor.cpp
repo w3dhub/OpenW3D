@@ -66,10 +66,10 @@ using namespace BuildingConstants;
 //	Purchase_Vehicle
 //
 ////////////////////////////////////////////////////////////////
-VendorClass::PURCHASE_ERROR	
+VendorClass::PURCHASE_ERROR
 VendorClass::Purchase_Vehicle
 (
-	BaseControllerClass *	base, 
+	BaseControllerClass *	base,
 	SoldierGameObj *			player,
 	int							cost,
 	int							vehicle_id
@@ -86,12 +86,12 @@ VendorClass::Purchase_Vehicle
 
 		PlayerDataClass *player_data	= NULL;
 		bool has_funds						= true;
-		
+
 		//
 		//	Check to see if the player has sufficient funds to purchase the vehicle
 		//
 		if (player != NULL && player->Get_Player_Data () != NULL) {
-			player_data	= player->Get_Player_Data ();	
+			player_data	= player->Get_Player_Data ();
 			has_funds	= (player_data->Get_Money () >= cost);
 		}
 
@@ -108,7 +108,7 @@ VendorClass::Purchase_Vehicle
 				//
 				//	If we have a vehicle factory that isn't busy, then start building the vehicle
 				//
-				if (factory->Is_Available ()) {			
+				if (factory->Is_Available ()) {
 					float time = 5.0F * base->Get_Operation_Time_Factor ();
 					factory->Request_Vehicle (vehicle_id, time, player);
 					retval = PERR_SUCCESS;
@@ -139,7 +139,7 @@ VendorClass::Purchase_Vehicle
 VendorClass::PURCHASE_ERROR
 VendorClass::Purchase_Powerup
 (
-	BaseControllerClass *	/* base */, 
+	BaseControllerClass *	/* base */,
 	SoldierGameObj *			player,
 	int							cost,
 	int							powerup_id
@@ -173,7 +173,7 @@ VendorClass::Purchase_Powerup
 			//	Try to purchase the powerup
 			//
 			has_funds = player_data->Purchase_Item (cost);
-		}			
+		}
 
 		//
 		//	If the player has the cash, then grant him the powerup
@@ -182,7 +182,7 @@ VendorClass::Purchase_Powerup
 			powerup_def->Grant (player);
 			retval = PERR_SUCCESS;
 		}
-		
+
 	} else {
 		retval = PERR_NOT_IN_STOCK;
 	}
@@ -196,10 +196,10 @@ VendorClass::Purchase_Powerup
 //	Purchase_Character
 //
 ////////////////////////////////////////////////////////////////
-VendorClass::PURCHASE_ERROR	
+VendorClass::PURCHASE_ERROR
 VendorClass::Purchase_Character
 (
-	BaseControllerClass *	base, 
+	BaseControllerClass *	base,
 	SoldierGameObj *			player,
 	int							cost,
 	int							definition_id
@@ -227,16 +227,16 @@ VendorClass::Purchase_Character
 		//
 		BuildingGameObj *building = base->Find_Building (TYPE_SOLDIER_FACTORY);
 		if ((building != NULL && building->Is_Destroyed () == false) || cost == 0) {
-		
+
 			//
 			//	Lookup the new definition for the soldier
 			//
 			DefinitionClass *definition = DefinitionMgrClass::Find_Definition (definition_id);
 			if (definition != NULL && definition->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_SOLDIER) {
-				
+
 				//
 				//	Upgrade the player
-				//							
+				//
 				SoldierGameObjDef *soldier_def = reinterpret_cast<SoldierGameObjDef *> (definition);
 				player->Re_Init (*soldier_def);
 				player->Post_Re_Init();
@@ -263,7 +263,7 @@ VendorClass::PURCHASE_ERROR
 VendorClass::Purchase_Item
 (
 	SoldierGameObj *	player,
-	PURCHASE_TYPE		type, 
+	PURCHASE_TYPE		type,
 	int					item_index,
 	int					alt_skin_index,
 	bool					is_from_server
@@ -278,8 +278,8 @@ VendorClass::Purchase_Item
 		return retval;
 	}
 
-	if (CombatManager::I_Am_Server () == false) {		
-		
+	if (CombatManager::I_Am_Server () == false) {
+
 		//
 		//	Request this purchase from the server
 		//
@@ -290,7 +290,7 @@ VendorClass::Purchase_Item
 		//	Let the user know the operation is pending
 		//
 		retval = PERR_OPERATION_PENDING;
-	
+
 	} else {
 
 		//
@@ -323,9 +323,9 @@ VendorClass::Purchase_Item
 			//
 			//	Purchase the character
 			//
-			retval = Purchase_Character (base, player, cost, definition_id);			
+			retval = Purchase_Character (base, player, cost, definition_id);
 		} else if (type == TYPE_VEHICLE || type == TYPE_SECRET_VEHICLE) {
-			
+
 			//
 			//	Purchase the vehicle
 			//
@@ -337,7 +337,7 @@ VendorClass::Purchase_Item
 			//
 			retval = Purchase_Powerup (base, player, cost, definition_id);
 		} else if (type == TYPE_SUPPLY) {
-			
+
 			//
 			//	Grant full health, armor and ammo
 			//
@@ -387,7 +387,7 @@ VendorClass::Grant_Supplies (SoldierGameObj *player)
 	//
 	DefenseObjectClass *defense_obj = player->Get_Defense_Object ();
 	defense_obj->Set_Health (defense_obj->Get_Health_Max ());
-	defense_obj->Set_Shield_Strength (defense_obj->Get_Shield_Strength_Max ());	
+	defense_obj->Set_Shield_Strength (defense_obj->Get_Shield_Strength_Max ());
 	return ;
 }
 
@@ -420,7 +420,7 @@ VendorClass::Get_Merchandise_Information
 	//	Lookup the definition
 	//
 	if (type == TYPE_CHARACTER || type == TYPE_VEHICLE) {
-		
+
 		//
 		//	Determine which purchase type to use
 		//
@@ -447,12 +447,12 @@ VendorClass::Get_Merchandise_Information
 		}
 
 	} else if (type == TYPE_SECRET_CHARACTER || type == TYPE_SECRET_VEHICLE) {
-	
+
 		//
 		// Only allow cheats in non-laddered games!
 		//
 		if (The_Game()->IsLaddered.Is_False()) {
-			
+
 			//
 			//	Determine which purchase type to use
 			//
@@ -470,7 +470,7 @@ VendorClass::Get_Merchandise_Information
 				definition_id	= definition->Get_Definition (item_index);
 			}
 		}
-		
+
 	} else if (type == TYPE_ENLISTED_CHARACTER) {
 
 		//

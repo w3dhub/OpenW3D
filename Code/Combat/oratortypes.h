@@ -146,7 +146,7 @@ typedef enum
 	ORATOR_VNCH,
 
 	ORATOR_TYPE_MAX,
-	
+
 	ORATOR_TYPE_COUNT				= ORATOR_TYPE_MAX - ORATOR_TYPE_START,
 
 }	ORATOR_TYPE;
@@ -174,7 +174,7 @@ public:
 	static const char *	Get_Description (int index);
 
 private:
-	
+
 	//////////////////////////////////////////////////////////////////////////////////
 	//	Static member data
 	//////////////////////////////////////////////////////////////////////////////////

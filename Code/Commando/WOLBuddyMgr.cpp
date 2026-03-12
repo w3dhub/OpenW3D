@@ -804,7 +804,7 @@ void WOLBuddyMgr::ProcessPendingJoin(void)
 					// Go ahead and attempt to join the pending location.
 					GotoPendingJoinLocation(NULL);
 					}
-				
+
 				return;
 				}
 			}

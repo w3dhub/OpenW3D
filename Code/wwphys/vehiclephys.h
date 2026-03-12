@@ -50,7 +50,7 @@ class VehicleDazzleClass;
 /**
 ** VehiclePhysClass
 ** This RigidBody-derived class adds the constants needed to define the suspension behavior
-** for all vehicles.  Most of the actual force calculations are implemented in further 
+** for all vehicles.  Most of the actual force calculations are implemented in further
 ** derived classes but this is the common base class for various classes (e.g. WheeledVehicle,
 ** TrackedVehicle, and VTOLPhys
 */
@@ -84,11 +84,11 @@ public:
 	virtual void						Timestep(float dt) override;
 
 	/*
-	** Gentlemen Start your Engines! 
+	** Gentlemen Start your Engines!
 	*/
 	void									Enable_Engine(bool onoff)		{ IsEngineOn = onoff; }
 	bool									Is_Engine_Enabled(void)			{ return IsEngineOn; }
-	
+
 	/*
 	** Wheel management
 	*/
@@ -127,7 +127,7 @@ public:
 	virtual bool						Load(ChunkLoadClass &cload) override;
 
 protected:
-	
+
 	/*
 	** Simulation
 	*/
@@ -152,13 +152,13 @@ protected:
 
 	/*
 	** Dazzle controllers
-	*/	
+	*/
 	void									Release_Dazzles(void);
 	void									Capture_Dazzles(void);
 	VehicleDazzleClass *				Create_Dazzle_Controller(RenderObjClass * obj);
 
 	/*
-	** Virtual Wheel Creation, Derived classes implement this to create 
+	** Virtual Wheel Creation, Derived classes implement this to create
 	** the types of wheels that they need to use.  (NOTE: wheels should be 'new'ed
 	** since VehiclePhysClass will 'delete' them when done.)
 	*/
@@ -178,10 +178,10 @@ protected:
 	int									RealWheelCount;		// active wheel count
 	int									DriveWheelCount;		// drive wheel count
 	SimpleVecClass<SuspensionElementClass *>	Wheels;	// array of wheel objects
-	SimpleVecClass<VehicleDazzleClass *>		Dazzles;	// array of dazzle controllers (for headlights, taillights, blinky lights, etc)	
+	SimpleVecClass<VehicleDazzleClass *>		Dazzles;	// array of dazzle controllers (for headlights, taillights, blinky lights, etc)
 	SimpleVecClass<int>				EngineFlameBones;		// indices to "engine-flame" bones
 	Matrix3D								LastGoodPosition;		// last state where all wheels were on the ground
-	float									ExpireTimer;			// time left before blowing up when rolled over	
+	float									ExpireTimer;			// time left before blowing up when rolled over
 
 	static bool							_DisableVehicleSimulation;
 	static bool							_DisableVehicleRendering;
@@ -191,7 +191,7 @@ protected:
 
 /**
 ** VehiclePhysDefClass
-** This definition contains a set of constants used by all types of vehicles.  
+** This definition contains a set of constants used by all types of vehicles.
 */
 class VehiclePhysDefClass : public RigidBodyDefClass
 {
@@ -199,7 +199,7 @@ public:
 
 	VehiclePhysDefClass(void);
 	virtual ~VehiclePhysDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 
@@ -242,7 +242,7 @@ protected:
 	float											LateralMomentArm;			// arbitrary dist from x-y plane to apply lateral tire forces
 	float											TractiveMomentArm;		// arbitrary dist from x-y plane to apply tractive tire forces
 	float											EngineFlameLength;		// max length of the engine flame (how far to translate at flame=1.0)
-	bool											IsFake;						// short-circuit all possible physics calculations!	
+	bool											IsFake;						// short-circuit all possible physics calculations!
 
 	friend class VehiclePhysClass;
 };

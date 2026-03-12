@@ -78,7 +78,7 @@ public:
 	static Umbra::Cell *			Peek_Umbra_Cell(void);
 	static Umbra::Camera *		Peek_Umbra_Camera(void);
 	static Umbra::Model *		Peek_Dummy_Sphere(void);
-	
+
 	static Umbra::Model *		Create_Box_Model(const AABoxClass & objbox);
 	static Umbra::Model *		Create_Mesh_Model(MeshClass & mesh);
 

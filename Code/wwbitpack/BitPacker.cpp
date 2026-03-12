@@ -46,7 +46,7 @@ cBitPacker::cBitPacker() :
 }
 
 //-----------------------------------------------------------------------------
-cBitPacker::~cBitPacker() 
+cBitPacker::~cBitPacker()
 {
 	//delete [] Buffer;
 }
@@ -76,8 +76,8 @@ cBitPacker& cBitPacker::operator=(const cBitPacker& rhs)
 void cBitPacker::Add_Bits(uint32_t value, uint32_t num_bits)
 {
 	//
-	// N.B. Presently you cannot use this class with an atomic type of more 
-	// than 4 bytes, such as a double. Hopefully you would be using a float 
+	// N.B. Presently you cannot use this class with an atomic type of more
+	// than 4 bytes, such as a double. Hopefully you would be using a float
 	// instead anyway.
 	//
 #if 0	// Old version
@@ -156,7 +156,7 @@ void cBitPacker::Get_Bits(uint32_t & value, uint32_t num_bits)
 		uint32_t bit_offset = BitReadPosition % 8;
 		bool b = (Buffer[byte_num] & (1 << bit_offset)) != 0;
 
-		value += (b << bit);	
+		value += (b << bit);
 
 		BitReadPosition++;
 	}
@@ -219,7 +219,7 @@ void cBitPacker::Increment_Bit_Position(int num_bits)
 }
 
 //-----------------------------------------------------------------------------
-uint32_t cBitPacker::Get_Compressed_Size_Bytes() const 
+uint32_t cBitPacker::Get_Compressed_Size_Bytes() const
 {
 	return (int) ceil(BitWritePosition / 8.0f);
 }
@@ -228,7 +228,7 @@ uint32_t cBitPacker::Get_Compressed_Size_Bytes() const
 inline void cBitPacker::Advance_Bit_Position()
 {
 	BitWritePosition++;
-	
+
 	//
 	// If the following assert hits then our buffer is not large enough.
 	// We can advance BitWritePosition one bit past the end of the buffer, but

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/nethandler.cpp                      $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 1/08/02 4:01p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 70                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/nethandler.cpp                      $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 1/08/02 4:01p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 70                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "nethandler.h"
@@ -41,7 +41,7 @@
 #include "playerkill.h"
 
 //-----------------------------------------------------------------------------
-bool GameCombatNetworkHandlerClass::Can_Damage(ArmedGameObj * /* p_armed_damager */, 
+bool GameCombatNetworkHandlerClass::Can_Damage(ArmedGameObj * /* p_armed_damager */,
 	PhysicalGameObj * p_phys_victim)
 {
 	WWASSERT(p_phys_victim != NULL);
@@ -65,7 +65,7 @@ bool GameCombatNetworkHandlerClass::Can_Damage(ArmedGameObj * /* p_armed_damager
 //-----------------------------------------------------------------------------
 float GameCombatNetworkHandlerClass::Get_Damage_Factor
 (
-	ArmedGameObj *		/* p_armed_damager */, 
+	ArmedGameObj *		/* p_armed_damager */,
 	PhysicalGameObj *	p_phys_victim
 )
 {

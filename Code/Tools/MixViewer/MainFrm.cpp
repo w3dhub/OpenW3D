@@ -260,7 +260,7 @@ CMainFrame::OnCombineDuplicates (void)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-//	
+//
 //	OnCreateMixFile
 //
 /////////////////////////////////////////////////////////////////////////////
@@ -273,7 +273,7 @@ CMainFrame::OnCreateMixFile (void)
 }
 
 /////////////////////////////////////////////////////////////////////////////
-//	
+//
 //	OnExportFiles
 //
 /////////////////////////////////////////////////////////////////////////////
@@ -346,7 +346,7 @@ CMainFrame::OnExportFiles (void)
 					}
 
 
-					if ( source_file && source_file->Is_Available() && 
+					if ( source_file && source_file->Is_Available() &&
 							dest_file && dest_file->Is_Available() ) {
 
 						int length = source_file->Size();
@@ -400,12 +400,12 @@ CMainFrame::OnExportFiles (void)
 			StringClass message;
 			message.Format ("Error reading the filename list from %s.", current_filename);
 			MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
-		}		
+		}
 	} else {
 		StringClass message;
 		message.Format ("No Current Mix File.");
 		MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
-	}		
+	}
 
 	return ;
 }
@@ -603,7 +603,7 @@ CMainFrame::WindowProc
 	UINT		message,
 	WPARAM	wParam,
 	LPARAM	lParam
-) 
+)
 {
 	return CFrameWnd::WindowProc(message, wParam, lParam);
 }
@@ -615,7 +615,7 @@ CMainFrame::WindowProc
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::OnDropFiles (HDROP hDropInfo) 
+CMainFrame::OnDropFiles (HDROP hDropInfo)
 {
 	SetActiveWindow ();
 
@@ -656,7 +656,7 @@ CMainFrame::OnDropFiles (HDROP hDropInfo)
 				Add_To_Mix_File (doc->GetPathName (), filename);
 				doc->Reload_Views ();
 			}
-		
+
 		} else {
 
 			DynamicVectorClass<StringClass> file_list;
@@ -665,12 +665,12 @@ CMainFrame::OnDropFiles (HDROP hDropInfo)
 			//	Loop over each of the dropped files and add them to the current mix file
 			//
 			for (int index = 0; index < file_count; index ++) {
-				
+
 				//
 				//	Add this file to a list so we can batch add all the files...
 				//
 				TCHAR filename[_MAX_PATH];
-				::DragQueryFile (hDropInfo, index, filename, _MAX_PATH);				
+				::DragQueryFile (hDropInfo, index, filename, _MAX_PATH);
 				file_list.Add (filename);
 			}
 			::DragFinish(hDropInfo);
@@ -693,9 +693,9 @@ CMainFrame::OnDropFiles (HDROP hDropInfo)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-CMainFrame::Add_To_Mix_File (const char *mix_filename, const char *filename) 
+CMainFrame::Add_To_Mix_File (const char *mix_filename, const char *filename)
 {
-	DynamicVectorClass<StringClass> file_list;	
+	DynamicVectorClass<StringClass> file_list;
 	file_list.Add (filename);
 	Add_To_Mix_File (mix_filename, file_list);
 	return ;
@@ -714,7 +714,7 @@ CMainFrame::Add_To_Mix_File (const char *mix_filename, DynamicVectorClass<String
 	//	Set the current directory...
 	//
 	CString path = Strip_Filename_From_Path (mix_filename);
-	if (path.GetLength () > 0) {	
+	if (path.GetLength () > 0) {
 		::SetCurrentDirectory (path);
 	}
 

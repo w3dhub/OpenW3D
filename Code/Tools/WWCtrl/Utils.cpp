@@ -104,7 +104,7 @@ Frame_Rect
 		pbits[index++] = green;
 		pbits[index++] = red;
 	}
-	
+
 	index = (rect.top * scanline_size) + (rect.left * 3);
 	for (int row = rect.top; row < rect.bottom; row ++) {
 		pbits[index]		= blue;

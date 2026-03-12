@@ -53,7 +53,7 @@
 **
 *************************************************************************************************/
 
-static float STEALTH_FRACTION_RATE			= 0.5f;		// rate at which the fraction approaches its target 
+static float STEALTH_FRACTION_RATE			= 0.5f;		// rate at which the fraction approaches its target
 static float STEALTH_DEFAULT_FADE_DISTANCE= 25.0f;		// distance at which the intensity starts to fade due to camera proximity
 static float STEALTH_ZNEAR_AMOUNT			= 0.40f;		// amount the intensity can change as it approaches the camera
 static float STEALTH_FRIENDLY_FRACTION		= 0.75f;		// fraction at which friendly stealthed objects appear
@@ -80,7 +80,7 @@ StealthEffectClass::StealthEffectClass(void) :
 	MaterialPass(NULL)
 {
 	MaterialPass = NEW_REF(MaterialPassClass,());
-	
+
 	VertexMaterialClass * vmtl = NEW_REF(VertexMaterialClass,()); //PhysResourceMgrClass::Get_Stealth_Material();
 	vmtl->Set_Ambient(0,0,0);
 	vmtl->Set_Diffuse(0,0,0);
@@ -97,7 +97,7 @@ StealthEffectClass::StealthEffectClass(void) :
 
 	MaterialPass->Set_Material(vmtl);
 	REF_PTR_RELEASE(vmtl);
-	
+
 	ShaderClass shader = ShaderClass::_PresetAdditiveShader;
 	shader.Set_Primary_Gradient(ShaderClass::GRADIENT_ADD);
 	MaterialPass->Set_Shader(ShaderClass::_PresetAdditiveShader);
@@ -140,7 +140,7 @@ void StealthEffectClass::Damage_Occured(void)
 void StealthEffectClass::Update_Target_Fraction(void)
 {
 	if (IsStealthEnabled) {
-		
+
 		if (IsBroken) {
 			TargetFraction = STEALTH_BROKEN_FRACTION;
 		} else if (IsFriendly) {
@@ -148,14 +148,14 @@ void StealthEffectClass::Update_Target_Fraction(void)
 		} else {
 			TargetFraction = 1.0f;
 		}
-	
+
 	} else {
 		TargetFraction = 0.0f;
 	}
 }
 
 void StealthEffectClass::Timestep(float dt)
-{ 
+{
 	/*
 	** Update the stealth fraction
 	*/
@@ -189,7 +189,7 @@ void StealthEffectClass::Timestep(float dt)
 	** shadows are also suppressed.
 	*/
 	RenderBaseMaterial = (CurrentFraction < 0.5f);
-	Enable_Suppress_Shadows(CurrentFraction > 0.5f);		
+	Enable_Suppress_Shadows(CurrentFraction > 0.5f);
 }
 
 void StealthEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * obj)
@@ -211,14 +211,14 @@ void StealthEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * obj)
 	** The stealth material gets rendered if the intensity is greater than 0.0
 	*/
 	RenderStealthMaterial = (IntensityScale > 0.0f);
-	
+
 	if (RenderStealthMaterial) {
-		
+
 		/*
 		** Update the material settings and texture transform
 		*/
 		MaterialPass->Peek_Material()->Set_Emissive(Vector3(1,1,1) * IntensityScale);
-		
+
 		Matrix4 tm(1);
 		tm[0][3] = UVOffset.X;
 		tm[1][3] = UVOffset.Y;
@@ -229,7 +229,7 @@ void StealthEffectClass::Render_Push(RenderInfoClass & rinfo,PhysClass * obj)
 		*/
 		rinfo.Push_Material_Pass(MaterialPass);
 	}
-	
+
 	if (RenderBaseMaterial == false) {
 		rinfo.Push_Override_Flags(RenderInfoClass::RINFO_OVERRIDE_ADDITIONAL_PASSES_ONLY);
 	}
@@ -251,7 +251,7 @@ void StealthEffectClass::Render_Pop(RenderInfoClass & rinfo)
 **
 ************************************************************************************/
 
-enum 
+enum
 {
 	STEALTHEFFECT_CHUNK_VARIABLES	= 0x055ffe07,			// member variables.
 
@@ -283,7 +283,7 @@ bool StealthEffectClass::Load(ChunkLoadClass & cload)
 {
 	while (cload.Open_Chunk()) {
 
-		switch(cload.Cur_Chunk_ID()) {			
+		switch(cload.Cur_Chunk_ID()) {
 
 			case STEALTHEFFECT_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {

@@ -146,7 +146,7 @@ PresetTransitionTabClass::HandleInitDialog (void)
 	//
 	int count = m_TransitionList->Count ();
 	for (int index = 0; index < count; index ++) {
-				
+
 		//
 		//	Insert this transition into the control
 		//
@@ -187,7 +187,7 @@ PresetTransitionTabClass::Apply_Changes (void)
 	//
 	int count = m_TransitionList->Count ();
 	int index;
-	for (index = 0; index < count; index ++) {				
+	for (index = 0; index < count; index ++) {
 		TransitionDataClass *transition = (*m_TransitionList)[index];
 		SAFE_DELETE (transition);
 	}
@@ -205,7 +205,7 @@ PresetTransitionTabClass::Apply_Changes (void)
 			m_ListCtrl.SetItemData (index, NULL);
 		}
 	}
-		
+
 	// Return true to allow the dialog to close
 	return retval;
 }
@@ -239,7 +239,7 @@ void
 PresetTransitionTabClass::OnAddButton (void)
 {
 	Create_Render_Obj ();
-	
+
 	//
 	//	Show the transition editor
 	//
@@ -250,7 +250,7 @@ PresetTransitionTabClass::OnAddButton (void)
 		//
 		TransitionDataClass *transition = new TransitionDataClass;
 		transition->Set_Type ((TransitionDataClass::StyleType)0);
-		
+
 		//
 		//	Give the transition a starting position and size
 		//
@@ -267,7 +267,7 @@ PresetTransitionTabClass::OnAddButton (void)
 		dialog.Set_Start_Height (m_Height);
 		dialog.Set_Transition (transition);
 		if (dialog.DoModal () == IDOK) {
-			
+
 			//
 			//	Update the list ctrl
 			//
@@ -277,7 +277,7 @@ PresetTransitionTabClass::OnAddButton (void)
 		}
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -332,7 +332,7 @@ PresetTransitionTabClass::OnModifyButton (void)
 			//
 			TransitionDataClass *transition = (TransitionDataClass *)m_ListCtrl.GetItemData (index);
 			if (transition != NULL) {
-				
+
 				//
 				//	Show the transition edit dialog
 				//
@@ -378,7 +378,7 @@ PresetTransitionTabClass::OnItemChangedTransitionList
 	} else {
 		::EnableWindow (::GetDlgItem (m_hWnd, IDC_MODIFY_BUTTON), false);
 		::EnableWindow (::GetDlgItem (m_hWnd, IDC_DELETE_BUTTON), false);
-	}		
+	}
 
 	return ;
 }
@@ -395,18 +395,18 @@ PresetTransitionTabClass::Create_Render_Obj (void)
 	CWaitCursor wait_cursor;
 
 	if (m_RenderObj == NULL && m_Preset != NULL) {
-		
+
 		//
 		//	Instantiate the node
 		//
 		NodeClass *node = (NodeClass *)m_Preset->Create ();
 		ASSERT (node != NULL);
 		if (node != NULL) {
-			
+
 			//
 			//	Initialize the game object and get its render object pointer
 			//
-			node->Initialize ();			
+			node->Initialize ();
 			RenderObjClass *render_obj	= node->Peek_Render_Obj ();
 			ASSERT (render_obj != NULL);
 			if (render_obj != NULL) {
@@ -419,7 +419,7 @@ PresetTransitionTabClass::Create_Render_Obj (void)
 					//
 					//	Create a 'floor' which we can drop the object onto
 					//
-					PhysClass *phys_obj		= node->Peek_Physics_Obj ();				
+					PhysClass *phys_obj		= node->Peek_Physics_Obj ();
 					RenderObjClass *floor	= ::Create_Render_Obj ("GRID");
 					if (floor != NULL) {
 						phys_obj->Set_Transform (Matrix3D (Vector3(0, 0, DROP_POS)));
@@ -431,7 +431,7 @@ PresetTransitionTabClass::Create_Render_Obj (void)
 						if (phys_obj->Peek_Model () != NULL) {
 							drop_height = (phys_obj->Peek_Model ()->Get_Bounding_Box ().Extent.Z * 2.0F);
 						}
-						
+
 						//
 						//	Create the floor
 						//
@@ -543,7 +543,7 @@ PresetTransitionTabClass::OnDblclkTransitionList
 )
 {
 	(*pResult) = 0;
-	
+
 	OnModifyButton ();
 	return ;
 }

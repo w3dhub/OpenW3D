@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/assetdep.cpp                          $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/29/01 9:48p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 12                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/assetdep.cpp                          $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/29/01 9:48p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 12                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "assetdep.h"
@@ -76,14 +76,14 @@ AssetDependencyManager::Save_Always_Dependencies (const char *path, ASSET_LIST &
 	//	Get a pointer to the file object
 	//
 	StringClass filename(path + StringClass ("/", true) + StringClass (ALWAYS_FILENAME),true);
-	FileClass * file		= _TheWritingFileFactory->Get_File (filename);	
+	FileClass * file		= _TheWritingFileFactory->Get_File (filename);
 	if (file != NULL) {
 
 		//
 		//	Open or create the file
 		//
 		file->Open (FileClass::WRITE);
-		
+
 		//
 		//	Save the asset list to the file
 		//
@@ -96,7 +96,7 @@ AssetDependencyManager::Save_Always_Dependencies (const char *path, ASSET_LIST &
 		file->Close ();
 		_TheWritingFileFactory->Return_File (file);
 	}
-	
+
 	return ;
 }
 
@@ -119,7 +119,7 @@ AssetDependencyManager::Save_Level_Dependencies (const char *full_path, ASSET_LI
 		//	Open or create the file
 		//
 		file->Open (FileClass::WRITE);
-		
+
 		//
 		//	Save the asset list to the file
 		//
@@ -132,7 +132,7 @@ AssetDependencyManager::Save_Level_Dependencies (const char *full_path, ASSET_LI
 		file->Close ();
 		_TheWritingFileFactory->Return_File (file);
 	}
-	
+
 	return ;
 }
 

@@ -55,18 +55,18 @@ class MeshClass;
 
 /**
 ** StaticAnimPhysClass
-** This class is a static object which needs to perform additional processing 
+** This class is a static object which needs to perform additional processing
 ** each frame.  Here are some of the features planned for this class:
 ** - animation which causes collisions in the world (like doors, elevators and more)
 ** - animation which updates a texture projector for effects like spot-lights, animated shadows
 ** - It can cause collisions due to its model animating (e.g. doors, lifts)
-** and it can manage a texture projector. 
+** and it can manage a texture projector.
 ** - Possibly support multiple models and switch between the models for damage
 */
 class StaticAnimPhysClass : public StaticPhysClass
 {
 public:
-	
+
 	StaticAnimPhysClass(void);
 	~StaticAnimPhysClass(void);
 	virtual StaticAnimPhysClass *			As_StaticAnimPhysClass(void) override								{ return this; }
@@ -74,7 +74,7 @@ public:
 	void											Init(const StaticAnimPhysDefClass & def);
 	virtual void								Set_Model(RenderObjClass * model) override;
 	virtual void								Vis_Render(SpecialRenderInfoClass & rinfo) override;
-	
+
 	/*
 	** Static properties
 	*/
@@ -105,7 +105,7 @@ public:
 	AnimCollisionManagerClass &			Get_Animation_Manager(void)								{ return AnimManager; }
 
 	/*
-	** Shadow control.  These are static texture projectors which affect 
+	** Shadow control.  These are static texture projectors which affect
 	** dynamic objects.  Examples are tree shadows and stained glass windows
 	*/
 	void											Set_Shadow(TexProjectClass * shadow);
@@ -120,7 +120,7 @@ public:
 	virtual void								On_Post_Load(void) override;
 
 protected:
-	
+
 	void											Update_Cached_Model_Parameters(void);
 	virtual void								Update_Sun_Status(void) override;
 
@@ -156,9 +156,9 @@ private:
 class StaticAnimPhysDefClass : public StaticPhysDefClass
 {
 public:
-	
+
 	StaticAnimPhysDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;
@@ -186,7 +186,7 @@ public:
 	bool											Does_Collide_In_Pathfind(void)	{ return DoesCollideInPathfind; }
 
 protected:
-	
+
 	bool											IsCosmetic;
 
 	// Animation and animated collision support
@@ -195,7 +195,7 @@ protected:
 	// Animated projector support
 	ProjectorManagerDefClass				ProjectorManagerDef;
 
-	// Static shadow support 
+	// Static shadow support
 	bool											ShadowDynamicObjs;
 	bool											ShadowIsAdditive;
 	bool											ShadowIgnoresZRotation;
@@ -205,7 +205,7 @@ protected:
 
 	// Pathfind support
 	bool											DoesCollideInPathfind;
-	
+
 	friend class StaticAnimPhysClass;
 };
 

@@ -74,7 +74,7 @@ public:
 	int			Get_Bit(int i) const;
 	void			Set_Bit(int i,bool onoff);
 	void			Delete_Bit(int i);
-	
+
 	void			Merge(const VisTableClass & that);
 	void			Invert(void);
 	bool			Is_Equal_To(const VisTableClass & that);
@@ -112,10 +112,10 @@ protected:
 ** CompressedVisTableClass
 ** This is the form that pvs data is stored in memory when it is not being used.  It
 ** is basically a wrapper around an allocated array with functions to compress and
-** decompress to/from a VisTableClass and functions for saving and loading. 
+** decompress to/from a VisTableClass and functions for saving and loading.
 */
 class CompressedVisTableClass
-{	
+{
 public:
 
 	CompressedVisTableClass(void);
@@ -127,7 +127,7 @@ public:
 
 	void			Load(void* hfile);
 	void			Save(void* hfile);
-	
+
 	void			Load(ChunkLoadClass & cload);
 	void			Save(ChunkSaveClass & csave);
 
@@ -138,7 +138,7 @@ protected:
 
 	void			Compress(uint8 * src_buffer,int src_size);
 	void			Decompress(uint8 * decomp_buffer,int decomp_size);
-	
+
 	int			BufferSize;
 	uint8 *		Buffer;
 
@@ -151,23 +151,23 @@ protected:
 
 
 inline int VisTableClass::Get_Bit(int i) const
-{ 
+{
 	WWASSERT(Buffer != NULL);
 	WWASSERT(i < BitCount);
 
-	return (Buffer[i>>5] & (0x80000000u >> (i & 0x1F))); 
+	return (Buffer[i>>5] & (0x80000000u >> (i & 0x1F)));
 }
 
-inline void VisTableClass::Set_Bit(int i,bool onoff) 
-{ 
+inline void VisTableClass::Set_Bit(int i,bool onoff)
+{
 	WWASSERT(Buffer != NULL);
 	WWASSERT(i < BitCount);
 
 	if (onoff) {
-		Buffer[i>>5] |= (0x80000000u >> (i & 0x01F)); 
-	} else { 
-		Buffer[i>>5] &= ~(0x80000000u >> (i & 0x01F)); 
-	} 
+		Buffer[i>>5] |= (0x80000000u >> (i & 0x01F));
+	} else {
+		Buffer[i>>5] &= ~(0x80000000u >> (i & 0x01F));
+	}
 }
 
 

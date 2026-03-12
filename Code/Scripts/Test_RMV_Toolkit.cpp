@@ -57,7 +57,7 @@ DECLARE_SCRIPT(RMV_Trigger_Zone, "TargetID:int, Type:int, Param:int")
 			GameObject *target = Commands->Find_Object(Get_Int_Parameter("TargetID"));
 			if (target)
 				Commands->Send_Custom_Event(obj, target, type, param, 0.0f);
-			if (obj) 
+			if (obj)
 				Commands->Destroy_Object(obj);
 		}
 	}
@@ -133,7 +133,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		{
 			return;
 		}
-		
+
 		if ((sound.Type == M00_SOUND_ENGINEER_WANDER) && (!busy))
 		{
 			emergency = false;
@@ -167,7 +167,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		const char* evac = Get_Parameter("Evac_Object");
 		Commands->Action_Reset(Owner(), 99);
 		evacuating = true;
-		
+
 		if (stricmp(evac, "None") == 0)
 		{
 			return;
@@ -237,7 +237,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 /*DECLARE_SCRIPT(RMV_Engineer_Wander_Terminal, "Animation_Name:string, Custom_Type:int, Custom_Param_1:int, Custom_Param_2:int")
 {
 	enum {ENGINEER_WANDER_TIMER};
-	
+
 	bool i_am_occupied;
 	Vector3 mypos;
 	int c_type, c_param_1, c_param_2;
@@ -250,7 +250,7 @@ DECLARE_SCRIPT(RMV_Engineer_Wander, "Custom_Type:int, Custom_Param_1:int, Custom
 		SAVE_VARIABLE(c_param_1, 4);
 		SAVE_VARIABLE(c_param_2, 5);
 	}
-		
+
 	void Created(GameObject * obj)
 	{
 	//	Commands->Enable_Hibernation(obj, false);
@@ -298,21 +298,21 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 		SAVE_VARIABLE(sent_50, 2);
 		SAVE_VARIABLE(sent_75, 3);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		sent_25 = sent_50 = sent_75 = false;
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
-	{		
+	{
 		if (type == CUSTOM_EVENT_BUILDING_DAMAGED)
 		{
 			float percentage = 1 - ((float)param/100.0f);
 			if (!sent_25 && percentage >= 0.25)
 			{
 				Commands->Debug_Message("Building took 25 percent or more damage, notifying engineers.\n");
-				
+
 				sent_25 = true;
 				for (int x = 0; x < Get_Int_Parameter("25_Number"); x++)
 				{
@@ -323,14 +323,14 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 					}
 				}
 			}
-	
+
 			if (!sent_50 && percentage >= 0.50)
 			{
 				Commands->Debug_Message("Building took 50 percent or more damage, notifying engineers.\n");
-				
+
 				Vector3 mypos = Commands->Get_Position(obj);
 				Commands->Create_Logical_Sound(obj, M00_SOUND_ALWAYS_RUN, mypos, Get_Float_Parameter("Killed_Broadcast_Radius"));
-				
+
 				sent_50 = true;
 				for (int x = 0; x < Get_Int_Parameter("50_Number"); x++)
 				{
@@ -341,11 +341,11 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 					}
 				}
 			}
-	
+
 			if (!sent_75 && percentage >= 0.75)
 			{
 				Commands->Debug_Message("Building took 75 percent or more damages, notifying engineers.\n");
-				
+
 				sent_75 = true;
 				for (int x = 0; x < Get_Int_Parameter("75_Number"); x++)
 				{
@@ -357,14 +357,14 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 				}
 			}
 		}
-		
+
 		if (type == CUSTOM_EVENT_BUILDING_REPAIRED)
 		{
 			float percentage = 1 - ((float)param/100.0f);
 			if (percentage <= 0.25)
 			{
 				Commands->Debug_Message("Building repaired to 75 percent or more health, notifying engineers.\n");
-				
+
 				sent_25 = false;
 				for (int x = 0; x < Get_Int_Parameter("25_Number"); x++)
 				{
@@ -375,14 +375,14 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 					}
 				}
 			}
-	
+
 			if (percentage <= 0.50)
 			{
 				Commands->Debug_Message("Building repaired to 50 percent or more health, notifying engineers.\n");
-				
+
 				Vector3 mypos = Commands->Get_Position(obj);
 				Commands->Create_Logical_Sound(obj, M00_SOUND_ALWAYS_RUN_OFF, mypos, Get_Float_Parameter("Killed_Broadcast_Radius"));
-				
+
 				sent_50 = false;
 				for (int x = 0; x < Get_Int_Parameter("50_Number"); x++)
 				{
@@ -393,11 +393,11 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 					}
 				}
 			}
-	
+
 			if (percentage <= 0.75)
 			{
 				Commands->Debug_Message("Building repaired to 25 percent or more health, notifying engineers.\n");
-				
+
 				sent_75 = false;
 				for (int x = 0; x < Get_Int_Parameter("75_Number"); x++)
 				{
@@ -421,7 +421,7 @@ DECLARE_SCRIPT(RMV_Building_Engineer_Controller, "Killed_Broadcast_Radius:float,
 DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:string, Custom_Type:int, Custom_Param_1:int, Custom_Param_2:int")
 {
 	enum {ENGINEER_WANDER_TIMER};
-	
+
 	bool i_am_occupied;
 	Vector3 mypos;
 	int c_type, c_param_1, c_param_2;
@@ -436,7 +436,7 @@ DECLARE_SCRIPT(RMV_Toggled_Engineer_Target, "Emergency=1:int, Animation_Name:str
 		SAVE_VARIABLE(c_param_2, 5);
 		SAVE_VARIABLE(active, 6);
 	}
-		
+
 	void Created(GameObject * obj) override
 	{
 		active = false;
@@ -523,9 +523,9 @@ DECLARE_SCRIPT(M00_Play_Sound, "Sound_Preset:string, Is_3D=1:int, Offset:vector3
 		pos.X += Commands->Get_Random(-offset_random.X, offset_random.X);
 		pos.Y += Commands->Get_Random(-offset_random.Y, offset_random.Y);
 		pos.Z += Commands->Get_Random(-offset_random.Z, offset_random.Z);
-		
+
 		int id;
-		
+
 		if (is_3d)
 		{
 			Commands->Debug_Message("Playing 3D Sound\n");

@@ -106,11 +106,11 @@ protected:
 	void				On_Create (void) override;
 	void				On_Mouse_Wheel (int direction) override;
 	void				Update_Client_Rect (void) override;
-	
+
 	void				On_New_Key (int vkey_id);
 
 	void				Create_Control_Renderers (void);
-	void				Create_Text_Renderers (void);	
+	void				Create_Text_Renderers (void);
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data

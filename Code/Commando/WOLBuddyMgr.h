@@ -101,11 +101,11 @@ class WOLBuddyMgr :
 
 		// Request the buddy list anew.
 		void RefreshBuddyList(void);
-		
+
 		// Get list of buddies
 		const WWOnline::UserList& GetBuddyList(void) const
 			{return mWOLSession->GetBuddyList();}
-		
+
 		// Get a user from our buddy list
 		const RefPtr<WWOnline::UserData> FindBuddy(const unichar_t* name) const;
 
@@ -133,7 +133,7 @@ class WOLBuddyMgr :
 		// Get a list of usernames we are ignoring
 		const IgnoreList& GetIngoreList(void) const
 			{return mIgnoreList;}
-	
+
 		const PageList& GetPageList(void) const
 			{return mPageList;}
 
@@ -164,7 +164,7 @@ class WOLBuddyMgr :
 		bool CanInviteUsers(void) const;
 
 		// Invite a user to our location
-		void InviteUser(const unichar_t* username, const unichar_t* message);	
+		void InviteUser(const unichar_t* username, const unichar_t* message);
 
 		// Decline an invitation to join a user.
 		void DeclineInvitation(const unichar_t* username, DECLINE_REASON reason = DECLINE_BYUSER);
@@ -179,7 +179,7 @@ class WOLBuddyMgr :
 		void SaveIgnoreList(void);
 
 		bool IsCommand(const unichar_t* message);
-		
+
 		void ProcessPendingJoin(void);
 		void GotoPendingJoinLocation(const unichar_t* password);
 		void ReceiveSignal(DlgPasswordPrompt&) override;

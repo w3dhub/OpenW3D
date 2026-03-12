@@ -168,7 +168,7 @@ NodeClass::Add_To_Scene (void)
 {
 	PhysClass *phys_obj = Peek_Physics_Obj ();
 	if (phys_obj != NULL && phys_obj->Get_Culling_System () == NULL) {
-		
+
 		//
 		//	Add the object to either the static or dynamic culling system
 		//
@@ -179,7 +179,7 @@ NodeClass::Add_To_Scene (void)
 			scene->Add_Dynamic_Object (phys_obj);
 		}
 	}
-	
+
 	m_IsInScene = true;
 	return ;
 }
@@ -200,7 +200,7 @@ NodeClass::Remove_From_Scene (void)
 		//	Record the cull-link index (if necessary)
 		//
 		Update_Cached_Cull_Link ();
-		
+
 		//
 		//	Remove this object from either the static or dynamic culling system
 		//
@@ -211,7 +211,7 @@ NodeClass::Remove_From_Scene (void)
 			scene->Remove_Object (phys_obj);
 		}
 	}
-	
+
 	m_IsInScene = false;
 	return ;
 }
@@ -261,10 +261,10 @@ NodeClass::Peek_Render_Obj (void) const
 {
 	RenderObjClass *render_obj	= NULL;
 	PhysClass *phys_obj			= Peek_Physics_Obj ();
-	if (phys_obj != NULL) {		
+	if (phys_obj != NULL) {
 		render_obj = phys_obj->Peek_Model ();
 	}
-	
+
 	return render_obj;
 }
 
@@ -281,7 +281,7 @@ NodeClass::Hide (bool hide)
 	if (render_obj != NULL) {
 		render_obj->Set_Hidden (hide);
 	}
-	
+
 	return ;
 }
 
@@ -300,7 +300,7 @@ NodeClass::Is_Hidden (void) const
 	if (render_obj != NULL) {
 		is_hidden = (render_obj->Is_Not_Hidden_At_All () == false);
 	}
-	
+
 	return is_hidden;
 }
 
@@ -354,7 +354,7 @@ NodeClass::Update_Selection_Color (void)
 	//
 	PhysClass *collision_obj = Peek_Collision_Obj ();
 	if (collision_obj != NULL) {
-		
+
 		AABoxClass aabox;
 		OBBoxClass obbox;
 		bool is_aabox = ::Get_Collision_Box (collision_obj->Peek_Model (), aabox, obbox);
@@ -369,7 +369,7 @@ NodeClass::Update_Selection_Color (void)
 			PhysAABoxCollisionTestClass boxtest (aabox, move, &res, GAME_COLLISION_GROUP);
 			PhysicsSceneClass::Get_Instance()->Cast_AABox (boxtest);
 			collision_obj->Dec_Ignore_Counter();
-			
+
 			if (boxtest.Result->StartBad) {
 				m_SelColor = SEL_COLOR_INVALID;
 			}
@@ -385,7 +385,7 @@ NodeClass::Update_Selection_Color (void)
 			PhysOBBoxCollisionTestClass boxtest (obbox, move, &res, GAME_COLLISION_GROUP);
 			PhysicsSceneClass::Get_Instance()->Cast_OBBox (boxtest);
 			collision_obj->Dec_Ignore_Counter();
-			
+
 			if (boxtest.Result->StartBad) {
 				m_SelColor = SEL_COLOR_INVALID;
 			}
@@ -419,7 +419,7 @@ NodeClass::Update_Selection_Box (void)
 		m_SelectionBox->Display_Around_Node (*this);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -528,7 +528,7 @@ NodeClass::Save (ChunkSaveClass &csave)
 {
 	//
 	//	Update the preset-id
-	//	
+	//
 	if (m_Preset != NULL) {
 		m_PresetID = m_Preset->Get_ID ();
 	}
@@ -548,7 +548,7 @@ NodeClass::Save (ChunkSaveClass &csave)
 	//	Save the variables
 	//
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
-	
+
 		WRITE_MICRO_CHUNK_STRING (csave, VARID_NAME, (LPCTSTR)m_Name);
 		WRITE_MICRO_CHUNK (csave, VARID_IS_LOCKED,		m_IsLocked);
 		WRITE_MICRO_CHUNK (csave, VARID_ID,					m_ID);
@@ -593,11 +593,11 @@ NodeClass::Save (ChunkSaveClass &csave)
 bool
 NodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			READ_WWSTRING_CHUNK (cload, CHUNKID_COMMENTS, m_Comments);
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -618,14 +618,14 @@ NodeClass::Load (ChunkLoadClass &cload)
 bool
 NodeClass::Load_Variables (ChunkLoadClass &cload)
 {
-	PresetClass *old_this_ptr = NULL; 
+	PresetClass *old_this_ptr = NULL;
 
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_IS_LOCKED,				m_IsLocked);
 			READ_MICRO_CHUNK (cload, VARID_ID,						m_ID);
-			READ_MICRO_CHUNK (cload, VARID_ROT_RESTRICT,			m_RotationRestricted);			
+			READ_MICRO_CHUNK (cload, VARID_ROT_RESTRICT,			m_RotationRestricted);
 			READ_MICRO_CHUNK (cload, VARID_PRESETID,				m_PresetID);
 			READ_MICRO_CHUNK_PTR (cload, VARID_THISPTR,				old_this_ptr)
 			READ_MICRO_CHUNK (cload, VARID_TRANSFORM,				m_Transform)
@@ -713,15 +713,15 @@ NodeClass::Has_Vis_Sectors (RenderObjClass *render_obj)
 		//
 		int count = render_obj->Get_Num_Sub_Objects ();
 		for (int index = 0; (index < count) && !retval; index ++) {
-			
+
 			// Get a pointer to this subobject
 			RenderObjClass *sub_object = render_obj->Get_Sub_Object (index);
 			if (sub_object != NULL) {
-				
+
 				retval |= Has_Vis_Sectors (sub_object);
 				MEMBER_RELEASE (sub_object);
 			}
-		}	
+		}
 
 		//
 		// Is this render object a mesh?
@@ -766,15 +766,15 @@ NodeClass::Add_Vis_Points
 	//
 	int count = render_obj->Get_Num_Sub_Objects ();
 	for (int index = 0; index < count; index ++) {
-		
+
 		// Get a pointer to this subobject
 		RenderObjClass *sub_object = render_obj->Get_Sub_Object (index);
 		if (sub_object != NULL) {
-			
+
 			Add_Vis_Points (generator, sub_object);
 			MEMBER_RELEASE (sub_object);
 		}
-	}	
+	}
 
 	//
 	// Is this render object a mesh?
@@ -787,7 +787,7 @@ NodeClass::Add_Vis_Points
 		//
 		MeshClass *mesh = static_cast<MeshClass *> (render_obj);
 		generator.Submit_Mesh (*mesh);
-	}	
+	}
 
 	return ;
 }
@@ -830,7 +830,7 @@ NodeClass::Reload (void)
 /////////////////////////////////////////////////////////////////
 bool
 NodeClass::Show_Settings_Dialog (void)
-{	
+{
 	NodeInfoPageClass info_tab (this);
 	PositionPageClass	pos_tab (this);
 
@@ -840,7 +840,7 @@ NodeClass::Show_Settings_Dialog (void)
 
 	// Show the property sheet
 	UINT ret_code = prop_sheet.DoModal ();
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }

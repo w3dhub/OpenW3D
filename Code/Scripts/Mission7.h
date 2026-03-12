@@ -90,8 +90,8 @@
 #define	M07_DEACTIVATE_NUKE_BLAST			7042
 #define	M07_SSM_CRATE_KILLED				7043
 #define	M07_FREE_CIV_RESIST					7044
-#define	M07_OBELISK_KILLED					7045		
-	
+#define	M07_OBELISK_KILLED					7045
+
 
 // Logical Sound Types
 #define M07_NUKE_IMPACT						17000

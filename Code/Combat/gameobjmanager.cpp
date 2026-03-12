@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/gameobjmanager.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 12/21/01 3:43p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 76                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/gameobjmanager.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 12/21/01 3:43p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 76                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "gameobjmanager.h"
@@ -89,7 +89,7 @@ void GameObjManager::Shutdown(void)
 enum	{
 	CHUNKID_OBJECTS							=	916991653,
 	CHUNKID_VARIABLES,
-	
+
 	MICROCHUNKID_GENERATED_ID				= 1,
 	MICROCHUNKID_GLOBAL_SIGHT_RANGE_SCALE,
 	MICROCHUNKID_CINEMATIC_FREEZE,
@@ -138,11 +138,11 @@ bool	GameObjManager::Load( ChunkLoadClass &cload )
 					cload.Close_Chunk();
 				}
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						
+
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_GLOBAL_SIGHT_RANGE_SCALE, sight_scale );
 						READ_MICRO_CHUNK( cload, MICROCHUNKID_CINEMATIC_FREEZE, CinematicFreezeActive );
 						case MICROCHUNKID_GENERATED_ID:
@@ -178,19 +178,19 @@ bool	GameObjManager::Load( ChunkLoadClass &cload )
 }
 
 
-void	GameObjManager::Add( BaseGameObj *obj ) 
-{ 
+void	GameObjManager::Add( BaseGameObj *obj )
+{
 	// Make sure we have no duplicate IDs
 	PhysicalGameObj *pobj = obj->As_PhysicalGameObj();
 	if ( pobj ) {
-		WWASSERT( Find_PhysicalGameObj(pobj->Get_ID()) == NULL ); 
+		WWASSERT( Find_PhysicalGameObj(pobj->Get_ID()) == NULL );
 	}
 
-	// Cinematic scripts wanted objects not to progress on the frame they were created, 
+	// Cinematic scripts wanted objects not to progress on the frame they were created,
 	// and wanted the ability to set a frame number without haveing it bumped.
 	// So, make new things at the head of the list, so the oldest thinks last.
-//	GameObjList.Add_Tail( obj ); 
-	GameObjList.Add_Head( obj ); 
+//	GameObjList.Add_Tail( obj );
+	GameObjList.Add_Head( obj );
 }
 
 void GameObjManager::Init_All()
@@ -219,22 +219,22 @@ void GameObjManager::Destroy_All()		// Destroy each object in the list
 
 // FIXME Disabling Think and Post_Think in GameObjManager::Destroy_All()
 #if 0
-	Think();	
+	Think();
 	Post_Think();
 #endif
-	
-	NetworkObjectMgrClass::Delete_Pending ();	
+
+	NetworkObjectMgrClass::Delete_Pending ();
 
 													// we do it twice in case any new objects got created
 	for (	objnode = GameObjList.Head(); objnode; objnode = objnode->Next()) {
 		objnode->Data()->Set_Delete_Pending();
 	}
-#if 0 	
-	Think();	
+#if 0
+	Think();
 	Post_Think();
 #endif
 
-	NetworkObjectMgrClass::Delete_Pending ();	
+	NetworkObjectMgrClass::Delete_Pending ();
 
 	WWASSERT( GameObjList.Head() == NULL );
 	WWASSERT( SmartGameObjList.Head() == NULL );
@@ -351,14 +351,14 @@ SoldierGameObj * GameObjManager::Find_Soldier_Of_Client_ID(int client_id)
 	{
 		WWPROFILE( "FSOC id" );
 		for (
-			SLNode<SmartGameObj> * objnode = Get_Smart_Game_Obj_List()->Head(); 
-			objnode; 
+			SLNode<SmartGameObj> * objnode = Get_Smart_Game_Obj_List()->Head();
+			objnode;
 			objnode = objnode->Next()) {
 
 			SoldierGameObj * p_soldier = objnode->Data()->As_SoldierGameObj();
 
-			if (p_soldier != NULL && 
-				 !p_soldier->Is_Delete_Pending() && 
+			if (p_soldier != NULL &&
+				 !p_soldier->Is_Delete_Pending() &&
 				 p_soldier->Get_Control_Owner() == client_id) {
 
 				return p_soldier;
@@ -375,14 +375,14 @@ SoldierGameObj * GameObjManager::Find_Soldier_Of_Client_ID(int client_id)
 SoldierGameObj * GameObjManager::Find_Different_Player_Soldier(int my_id)
 {
 	for (
-		SLNode<SmartGameObj> * objnode = Get_Smart_Game_Obj_List()->Head(); 
-		objnode; 
+		SLNode<SmartGameObj> * objnode = Get_Smart_Game_Obj_List()->Head();
+		objnode;
 		objnode = objnode->Next()) {
 
 		SoldierGameObj * p_soldier = objnode->Data()->As_SoldierGameObj();
 
-		if (p_soldier != NULL && 
-			 !p_soldier->Is_Delete_Pending() && 
+		if (p_soldier != NULL &&
+			 !p_soldier->Is_Delete_Pending() &&
 			 p_soldier->Is_Human_Controlled() &&
 			 p_soldier->Get_Control_Owner() != my_id) {
 
@@ -396,14 +396,14 @@ SoldierGameObj * GameObjManager::Find_Different_Player_Soldier(int my_id)
 SoldierGameObj	* GameObjManager::Find_Soldier_Of_Player_Type(int player_type)
 {
    for (
-		SLNode<SmartGameObj> * objnode = Get_Smart_Game_Obj_List()->Head(); 
-		objnode; 
+		SLNode<SmartGameObj> * objnode = Get_Smart_Game_Obj_List()->Head();
+		objnode;
 		objnode = objnode->Next()) {
 
 		SoldierGameObj * p_soldier = objnode->Data()->As_SoldierGameObj();
 
-      if (p_soldier != NULL && 
-			!p_soldier->Is_Delete_Pending() && 
+      if (p_soldier != NULL &&
+			!p_soldier->Is_Delete_Pending() &&
 			 p_soldier->Get_Player_Type() == player_type) {
 
          return p_soldier;
@@ -545,7 +545,7 @@ void	GameObjManager::Update_Building_Collection_Spheres( void )
 					Vector3 test_position;
 					test_obj->Get_Position (&test_position);
 
-					
+
 					//
 					//	Minimize the collection radius for this building (if necessary)
 					//

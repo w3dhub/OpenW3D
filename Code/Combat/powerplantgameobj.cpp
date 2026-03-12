@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/powerplantgameobj.cpp                 $* 
- *                                                                                             * 
- *                      $Author:: Denzil_l                                                    $* 
- *                                                                                             * 
- *                     $Modtime:: 11/21/01 9:31a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 4                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/powerplantgameobj.cpp                 $*
+ *                                                                                             *
+ *                      $Author:: Denzil_l                                                    $*
+ *                                                                                             *
+ *                     $Modtime:: 11/21/01 9:31a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 4                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "powerplantgameobj.h"
@@ -107,8 +107,8 @@ PowerPlantGameObjDef::~PowerPlantGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-PowerPlantGameObjDef::Get_Class_ID (void) const	
-{ 
+PowerPlantGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_POWERPLANT;
 }
 
@@ -119,7 +119,7 @@ PowerPlantGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-PowerPlantGameObjDef::Create (void) const 
+PowerPlantGameObjDef::Create (void) const
 {
 	PowerPlantGameObj *building = new PowerPlantGameObj;
 	building->Init (*this);
@@ -136,7 +136,7 @@ PowerPlantGameObjDef::Create (void) const
 bool
 PowerPlantGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		BuildingGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
@@ -165,7 +165,7 @@ PowerPlantGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized Powerplant Def chunkID\n"));
 				break;
@@ -187,7 +187,7 @@ void
 PowerPlantGameObjDef::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:
@@ -208,9 +208,9 @@ PowerPlantGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-PowerPlantGameObjDef::Get_Factory (void) const 
-{ 
-	return _PowerPlantGameObjDefPersistFactory; 
+PowerPlantGameObjDef::Get_Factory (void) const
+{
+	return _PowerPlantGameObjDefPersistFactory;
 }
 
 
@@ -242,7 +242,7 @@ PowerPlantGameObj::~PowerPlantGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-PowerPlantGameObj::Get_Factory (void) const 
+PowerPlantGameObj::Get_Factory (void) const
 {
 	return _PowerPlantGameObjPersistFactory;
 }
@@ -315,7 +315,7 @@ PowerPlantGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				BuildingGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -341,7 +341,7 @@ void
 PowerPlantGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:

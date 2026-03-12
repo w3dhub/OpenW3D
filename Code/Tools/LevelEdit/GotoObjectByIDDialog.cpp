@@ -86,12 +86,12 @@ GotoObjectByIDDialogClass::OnOK (void)
 	//
 	NodeClass *node = NodeMgrClass::Find_Node (obj_id);
 	if (node == NULL) {
-		
+
 		//
 		//	Warn the user
 		//
 		::MessageBox (m_hWnd, "There is not object in the current level with that ID.", "Object Not Found", MB_ICONERROR | MB_OK);
-		
+
 		//
 		//	Return focus to the edit control so the user can re-enter the ID
 		//
@@ -106,6 +106,6 @@ GotoObjectByIDDialogClass::OnOK (void)
 
 		CDialog::OnOK ();
 	}
-	
+
 	return ;
 }

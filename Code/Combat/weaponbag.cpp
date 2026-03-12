@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/weaponbag.cpp                         $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 1/02/02 4:21p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 55                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/weaponbag.cpp                         $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 1/02/02 4:21p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 55                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -163,7 +163,7 @@ void	WeaponBagClass::Remove_Weapon( int index )
 	//
 	if ( index >= 0 && index < WeaponList.Count() ) {
 		delete	WeaponList[index];
-		WeaponList.Delete( index );		
+		WeaponList.Delete( index );
 	}
 
 	return ;
@@ -178,7 +178,7 @@ void	WeaponBagClass::Clear_Weapons( void )
 	while ( WeaponList.Count() > 1 ) {
 		int index = WeaponList.Count()-1;
 		delete WeaponList[index];
-		WeaponList.Delete( index );		
+		WeaponList.Delete( index );
 	}
 
 	Select_Index( 0 );
@@ -274,7 +274,7 @@ WeaponClass	*	WeaponBagClass::Get_Next_Weapon( void )
 	return NULL;
 }
 
-void	WeaponBagClass::Select_Next( void ) 
+void	WeaponBagClass::Select_Next( void )
 {
 	// Find the next existing weapons
 	for ( int i = 1; i < WeaponList.Count(); i++ ) {
@@ -288,7 +288,7 @@ void	WeaponBagClass::Select_Next( void )
 	}
 }
 
-void	WeaponBagClass::Select_Prev( void ) 
+void	WeaponBagClass::Select_Prev( void )
 {
 	// Find the next existing weapons
 	for ( int i = 1; i < WeaponList.Count(); i++ ) {
@@ -302,7 +302,7 @@ void	WeaponBagClass::Select_Prev( void )
 	}
 }
 
-void	WeaponBagClass::Select_Key_Number( int key_number ) 
+void	WeaponBagClass::Select_Key_Number( int key_number )
 {
 	if ( key_number == -1 ) {
 		Select_Index( 0 );
@@ -310,8 +310,8 @@ void	WeaponBagClass::Select_Key_Number( int key_number )
 		// Start from the current, find the next existing weapon with the right key_number
 		for ( int i = 1; i < WeaponList.Count(); i++ ) {
 			int index = ( WeaponIndex + i ) % WeaponList.Count();
-			if (	WeaponList[ index ] != NULL && 
-					WeaponList[ index ]->Does_Weapon_Exist() && 
+			if (	WeaponList[ index ] != NULL &&
+					WeaponList[ index ]->Does_Weapon_Exist() &&
 					(int)WeaponList[ index ]->Get_Key_Number() == key_number ) {
 				Select_Index( index );
 				break;
@@ -320,7 +320,7 @@ void	WeaponBagClass::Select_Key_Number( int key_number )
 	}
 }
 
-void	WeaponBagClass::Select_Weapon_ID( int weapon_id ) 
+void	WeaponBagClass::Select_Weapon_ID( int weapon_id )
 {
 	for( int i = 1; i < WeaponList.Count(); i++ ) {
 		if ( WeaponList[i]->Get_ID() == weapon_id ) {
@@ -493,7 +493,7 @@ void	WeaponBagClass::Store_Inventory( InventoryClass * inventory )
 /*
 **
 */
-void	WeaponBagClass::Mark_Owner_Dirty( void ) 
+void	WeaponBagClass::Mark_Owner_Dirty( void )
 {
 	if ( Owner != NULL ) {
 		Owner->Set_Object_Dirty_Bit( NetworkObjectClass::BIT_OCCASIONAL, true );

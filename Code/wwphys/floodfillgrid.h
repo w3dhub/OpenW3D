@@ -73,12 +73,12 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Initialization methods
 	//
 	void						Initialize (const Vector3 &box_extents, const Vector3 &min_extents, const Vector3 &max_extents);
-	
+
 	//
 	//	Insertion/removal methods
 	//
@@ -104,7 +104,7 @@ protected:
 
 	////////////////////////////////////////////////////////////////////
 	//	Protected methods
-	////////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////////
 	int				Get_Cell_Index (const Vector3 &pos);
 	void				Point_To_Cell (const Vector3 &pos, int *cell_x, int *cell_y);
 
@@ -154,7 +154,7 @@ FloodfillGridClass::Point_To_Cell (const Vector3 &pos, int *cell_x, int *cell_y)
 	//
 	float cell_x_pos = pos.X - m_WorldMin.X;
 	float cell_y_pos = pos.Y - m_WorldMin.Y;
-	
+
 	//
 	//	Calculate cell indicies from the coordinates
 	//
@@ -245,12 +245,12 @@ FloodfillGridClass::Remove_Box (FloodfillBoxClass *box)
 		//	Is this the box we are looking for?
 		//
 		if (box == curr_box) {
-						
+
 			//
 			//	Unlink this box from the grid
 			//
 			if (prev_box != NULL) {
-				prev_box->Set_Grid_Link (box->Get_Grid_Link ());	
+				prev_box->Set_Grid_Link (box->Get_Grid_Link ());
 			} else {
 				m_Grid[index] = box->Get_Grid_Link ();
 			}

@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/Tests/MeshTest/mainloop.cpp 47    12/10/98 5:53p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tests/MeshTest/mainloop.cpp                  $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 12/07/98 1:30p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 47                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tests/MeshTest/mainloop.cpp                  $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 12/07/98 1:30p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 47                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #define NOMINMAX
@@ -190,9 +190,9 @@ void Load_Data(void)
 }
 
 
-/*			  
-**  
-*/			   
+/*
+**
+*/
 void Create_Objects(void)
 {
 	Camera = NEW_REF(CameraClass,());
@@ -213,7 +213,7 @@ void Create_Objects(void)
 	Light->Set_Transform(lighttm);
 	Light->Add(TheScene);
 
-}	
+}
 
 
 /*
@@ -236,12 +236,12 @@ void	Destroy_Objects(void)
 		TestModel->Release_Ref();
 		TestModel = NULL;
 	}
-	
+
 	if (Camera) {
 		Camera->Release_Ref();
 		Camera = NULL;
 	}
-	
+
 	if (Light) {
 		Light->Remove();
 		Light->Release_Ref();
@@ -273,7 +273,7 @@ void Time_Step(void)
 	if (Keyboard->Down(VK_RIGHT)) {
 		CameraDir += (float)DEG_TO_RAD(10.0f);
 	}
-	
+
 	Matrix3D camtm(1);
 	camtm.Rotate_Z(CameraDir);
 	camtm.Rotate_X(DEG_TO_RAD(35.0f));
@@ -309,7 +309,7 @@ void Time_Step(void)
 			_frame = 0;
 		}
 	  	TestModel->Set_Animation(TestAnim,_frame);
-	
+
 	} else {
 
 		TestModel->Set_Animation();
@@ -329,14 +329,14 @@ void Time_Step(void)
 	}
 #endif
 
-#ifdef SPIN_MODEL	
+#ifdef SPIN_MODEL
 	ModelOrientation = ModelOrientation * ModelRotation;
 	ModelOrientation.Normalize();
 	TestModel->Set_Transform(Build_Matrix3D(ModelOrientation));
 #else
 	TestModel->Set_Transform(Matrix3D(1));
 #endif
-	
+
 	Matrix3D camtm(1);
 	camtm.Rotate_X(DEG_TO_RAD(35.0f));
 	camtm.Translate(0,0,20.0f);
@@ -382,7 +382,7 @@ void Time_Step(void)
 #endif
 
 #ifdef TEST_TEXTURE_ANIMATION
-	
+
 	mesh = (MeshClass*)TestModel->Get_Sub_Object("Box01");
 	if (mesh) {
 
@@ -390,9 +390,9 @@ void Time_Step(void)
 
 		if (matinfo) {
 			MaterialClass * mtl = matinfo->Get_Material(0);
-			
+
 			if (mtl && (stricmp(mtl->Get_Name(),"Explosion Material") == 0)) {
-			
+
 #if 1
 				int curframe = mtl->Get_Channel_Anim_Frame(MaterialClass::DIFFUSE_COLOR);
 				curframe = (curframe+1) % mtl->Get_Channel_Anim_Frame_Count(MaterialClass::DIFFUSE_COLOR);
@@ -414,7 +414,7 @@ void Time_Step(void)
 
 			if (mtl) mtl->Release_Ref();
 		}
-			
+
 		mesh->Release_Ref();
 	}
 
@@ -433,7 +433,7 @@ void	Init_Debug(void)
 	WWDebug_Install_Message_Handler(wwdebug_message_handler);
 	WWDebug_Install_Assert_Handler(wwdebug_assert_handler);
 	WWDebug_Install_Trigger_Handler(wwdebug_trigger_handler);
-	
+
 }
 
 void	Shutdown_Debug(void)
@@ -484,18 +484,18 @@ void Debug_Refs(void)
 	}
 
 	RefBaseNodeClass * node = RefBaseClass::ActiveRefList.First();
-	
+
 	while (node->Is_Valid())
 	{
 		RefBaseClass * obj = node->Get();
 
 		ActiveRefStruct * ref = &(obj->ActiveRefInfo);
-		
+
 		sprintf(buf,"Active Ref: %s\nLine: %d\nPointer %p\n", ref->File,ref->Line,obj);
 		if (MessageBox(NULL,buf,"Ref Debugging",MB_OKCANCEL) == IDCANCEL) {
 			break;
 		}
-		
+
 		node = node->Next();
 	}
 

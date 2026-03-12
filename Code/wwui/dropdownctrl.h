@@ -89,14 +89,14 @@ public:
 	void					Set_Item_Data (int index, uintptr_t data);
 	uintptr_t				Get_Item_Data (int index);
 	void					Reset_Content (void);
-	
+
 	//
 	//	Information accessors
 	//
 	bool					Get_String (int index, WideStringClass &string) const;
 	const unichar_t *		Get_String (int index) const;
 	int					Get_Count (void)							{ return EntryList.Count (); }
-	
+
 	//
 	//	Selection management
 	//

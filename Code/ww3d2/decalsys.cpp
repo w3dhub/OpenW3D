@@ -146,9 +146,9 @@ void DecalSystemClass::Unlock_Decal_Generator(DecalGeneratorClass * generator)
  * HISTORY:                                                                                    *
  *   1/26/00    gth : Created.                                                                 *
  *=============================================================================================*/
-uint32 DecalSystemClass::Generate_Unique_Global_Decal_Id(void)			
-{ 
-	return DecalIDGenerator++; 
+uint32 DecalSystemClass::Generate_Unique_Global_Decal_Id(void)
+{
+	return DecalIDGenerator++;
 }
 
 
@@ -298,7 +298,7 @@ MultiFixedPoolDecalSystemClass::MultiFixedPoolDecalSystemClass(uint32 num_pools,
 	Generator_PoolID(0),
 	Generator_SlotID(0)
 {
-	if (PoolCount) 
+	if (PoolCount)
 	{
 		WWASSERT(pool_sizes);
 		Pools = new LogicalDecalPoolClass [PoolCount];
@@ -409,7 +409,7 @@ MultiFixedPoolDecalSystemClass::LogicalDecalClass & MultiFixedPoolDecalSystemCla
 	return find_logical_decal(pool_id, slot_id);
 }
 
-	
+
 /*
 ** MultiFixedPoolDecalSystemClass::LogicalDecalClass implementation
 */

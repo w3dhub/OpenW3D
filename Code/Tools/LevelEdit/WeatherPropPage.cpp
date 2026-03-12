@@ -93,11 +93,11 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // WeatherPropPageClass message handlers
 
-BOOL WeatherPropPageClass::OnInitDialog() 
+BOOL WeatherPropPageClass::OnInitDialog()
 {
 	const int fogstartmax				 = 1000;
 	const int fogendmax					 = 5000;
-	const int precipitationdensitymax = 100;	
+	const int precipitationdensitymax = 100;
 	const int windspeedmax				 = 100;
 
 	float	fogstart, fogend;
@@ -118,7 +118,7 @@ BOOL WeatherPropPageClass::OnInitDialog()
 //	::Get_Scene_Editor ()->Get_Fog_Range (&fogstart, &fogend);
 	WeatherMgrClass::Get_Fog_Range (fogstart, fogend);
 	FogStartSpin.SetRange (0, fogstartmax);
-	FogEndSpin.SetRange (0, fogendmax);	
+	FogEndSpin.SetRange (0, fogendmax);
 	FogStartSpin.SetPos (fogstart);
 	FogEndSpin.SetPos (fogend);
 
@@ -137,11 +137,11 @@ BOOL WeatherPropPageClass::OnInitDialog()
 	LightningIntensitySlider.SetRange (0, SLIDER_RESOLUTION);
 	LightningIntensitySlider.SetPos (WWMath::Float_To_Long (lightningintensity * SLIDER_RESOLUTION));
 	LightningStartDistanceSlider.SetRange (0, SLIDER_RESOLUTION);
-	LightningStartDistanceSlider.SetPos (WWMath::Float_To_Long (lightningstartdistance * SLIDER_RESOLUTION)); 
+	LightningStartDistanceSlider.SetPos (WWMath::Float_To_Long (lightningstartdistance * SLIDER_RESOLUTION));
 	LightningEndDistanceSlider.SetRange (0, SLIDER_RESOLUTION);
-	LightningEndDistanceSlider.SetPos (WWMath::Float_To_Long (lightningenddistance * SLIDER_RESOLUTION)); 
+	LightningEndDistanceSlider.SetPos (WWMath::Float_To_Long (lightningenddistance * SLIDER_RESOLUTION));
 	LightningHeadingSlider.SetRange (0, 359);
-	LightningHeadingSlider.SetPos (WWMath::Float_To_Long (lightningheading)); 
+	LightningHeadingSlider.SetPos (WWMath::Float_To_Long (lightningheading));
 	LightningDistributionSlider.SetRange (0, SLIDER_RESOLUTION);
 	LightningDistributionSlider.SetPos (WWMath::Float_To_Long (lightningdistribution * SLIDER_RESOLUTION));
 	Update_Lightning_Values();
@@ -169,7 +169,7 @@ BOOL WeatherPropPageClass::OnInitDialog()
 	// Load the wind settings into the dialog controls.
 	WeatherMgrClass::Get_Wind (windheading, windspeed, windvariability);
 	WindHeadingSlider.SetRange (0, 359);
-	WindHeadingSlider.SetPos (WWMath::Float_To_Long (windheading)); 
+	WindHeadingSlider.SetPos (WWMath::Float_To_Long (windheading));
 	WindSpeedSpin.SetRange (0, windspeedmax * SPINNER_RESOLUTION);
 	SetWindowFloat (WindSpeedSpin.GetBuddy()->m_hWnd, windspeed);
 	WindVariabilitySlider.SetRange (0, SLIDER_RESOLUTION);
@@ -181,14 +181,14 @@ BOOL WeatherPropPageClass::OnInitDialog()
 }
 
 
-void WeatherPropPageClass::OnFogCheck() 
+void WeatherPropPageClass::OnFogCheck()
 {
 	bool enabled = (IsDlgButtonChecked (IDC_FOG_CHECK) == 1);
 
 	// Enable/disable fog controls.
 	FogStartSpin.EnableWindow (enabled);
 	FogEndSpin.EnableWindow (enabled);
-	
+
 	// Fog colors are now under programmatic control. Don't let the user edit this.
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_FOG_COLOR), false);
 
@@ -196,7 +196,7 @@ void WeatherPropPageClass::OnFogCheck()
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_FOG_END_EDIT), enabled);
 }
 
-void WeatherPropPageClass::OnFogColor() 
+void WeatherPropPageClass::OnFogColor()
 {
 	int red, green, blue;
 
@@ -204,7 +204,7 @@ void WeatherPropPageClass::OnFogColor()
 	green = MIN (UCHAR_MAX, FogColor.Y * ((float) (UCHAR_MAX + 1)));
 	blue	= MIN (UCHAR_MAX, FogColor.Z * ((float) (UCHAR_MAX + 1)));
 	if (::Show_Color_Picker (&red, &green, &blue)) {
-		
+
 		const float ooucharmaxplusone = 1.0f / (UCHAR_MAX + 1);
 
 		FogColor.Set ((red + 0.5f) * ooucharmaxplusone, (green + 0.5f) * ooucharmaxplusone, (blue + 0.5f) * ooucharmaxplusone);
@@ -215,13 +215,13 @@ void WeatherPropPageClass::OnFogColor()
 }
 
 
-void WeatherPropPageClass::OnDrawItem (int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct) 
+void WeatherPropPageClass::OnDrawItem (int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
 	Vector3 color;
 	UINT	  state = DFCS_BUTTONPUSH | DFCS_ADJUSTRECT;
 	CRect	  rect = lpDrawItemStruct->rcItem;
 	CDC	  dc;
-	int	  r, g, b;	
+	int	  r, g, b;
 
 	color = FogColor;
 
@@ -235,23 +235,23 @@ void WeatherPropPageClass::OnDrawItem (int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemSt
 
 	// Fill the button with the appropriate color.
 	dc.Attach (lpDrawItemStruct->hDC);
-	
+
 	r = MIN (UCHAR_MAX, FogColor.X * ((float) (UCHAR_MAX + 1)));
 	g = MIN (UCHAR_MAX, FogColor.Y * ((float) (UCHAR_MAX + 1)));
 	b = MIN (UCHAR_MAX, FogColor.Z * ((float) (UCHAR_MAX + 1)));
 	dc.FillSolidRect (&rect, RGB (r, g, b));
 	dc.Detach();
-	
+
 	// Draw the focus rectangle (if necessary).
 	if (lpDrawItemStruct->itemState & ODS_FOCUS) {
 		::DrawFocusRect (lpDrawItemStruct->hDC, &rect);
 	}
-	
+
 	CPropertyPage::OnDrawItem (nIDCtl, lpDrawItemStruct);
 }
 
 
-void WeatherPropPageClass::OnLightningNone() 
+void WeatherPropPageClass::OnLightningNone()
 {
 	CheckDlgButton (IDC_LIGHTNING_NONE, 1);
 	CheckDlgButton (IDC_LIGHTNING_LIGHTNING, 0);
@@ -260,7 +260,7 @@ void WeatherPropPageClass::OnLightningNone()
 }
 
 
-void WeatherPropPageClass::OnLightningLightning() 
+void WeatherPropPageClass::OnLightningLightning()
 {
 	CheckDlgButton (IDC_LIGHTNING_NONE, 0);
 	CheckDlgButton (IDC_LIGHTNING_LIGHTNING, 1);
@@ -269,7 +269,7 @@ void WeatherPropPageClass::OnLightningLightning()
 }
 
 
-void WeatherPropPageClass::OnLightningWarBlitz() 
+void WeatherPropPageClass::OnLightningWarBlitz()
 {
 	CheckDlgButton (IDC_LIGHTNING_NONE, 0);
 	CheckDlgButton (IDC_LIGHTNING_LIGHTNING, 0);
@@ -293,7 +293,7 @@ void WeatherPropPageClass::Enable_Lightning_Controls (bool enable)
 }
 
 
-void WeatherPropPageClass::OnPrecipitationNone() 
+void WeatherPropPageClass::OnPrecipitationNone()
 {
 	CheckDlgButton (IDC_PRECIPITATION_NONE, 1);
 	CheckDlgButton (IDC_PRECIPITATION_RAIN, 0);
@@ -303,7 +303,7 @@ void WeatherPropPageClass::OnPrecipitationNone()
 }
 
 
-void WeatherPropPageClass::OnPrecipitationRain() 
+void WeatherPropPageClass::OnPrecipitationRain()
 {
 	CheckDlgButton (IDC_PRECIPITATION_NONE, 0);
 	CheckDlgButton (IDC_PRECIPITATION_RAIN, 1);
@@ -313,7 +313,7 @@ void WeatherPropPageClass::OnPrecipitationRain()
 }
 
 
-void WeatherPropPageClass::OnPrecipitationSnow() 
+void WeatherPropPageClass::OnPrecipitationSnow()
 {
 	CheckDlgButton (IDC_PRECIPITATION_NONE, 0);
 	CheckDlgButton (IDC_PRECIPITATION_RAIN, 0);
@@ -323,7 +323,7 @@ void WeatherPropPageClass::OnPrecipitationSnow()
 }
 
 
-void WeatherPropPageClass::OnPrecipitationAsh() 
+void WeatherPropPageClass::OnPrecipitationAsh()
 {
 	CheckDlgButton (IDC_PRECIPITATION_NONE, 0);
 	CheckDlgButton (IDC_PRECIPITATION_RAIN, 0);
@@ -333,7 +333,7 @@ void WeatherPropPageClass::OnPrecipitationAsh()
 }
 
 
-void WeatherPropPageClass::OnHScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar) 
+void WeatherPropPageClass::OnHScroll (UINT sbcode, UINT pos, CScrollBar *scrollbar)
 {
 	Update_Lightning_Values();
 	Update_Wind_Values();
@@ -380,10 +380,10 @@ void WeatherPropPageClass::Update_Wind_Values()
 }
 
 
-void WeatherPropPageClass::OnOK() 
+void WeatherPropPageClass::OnOK()
 {
 	const float oosliderresolution = 1.0f / SLIDER_RESOLUTION;
-	
+
 	float	lightningintensity, lightningstartdistance, lightningenddistance, lightningheading, lightningdistribution;
 	float	windheading, windspeed, windvariability;
 	float	precipitationdensity;
@@ -406,7 +406,7 @@ void WeatherPropPageClass::OnOK()
 		BackgroundMgrClass::Set_War_Blitz (0.0f);
 	} else {
 		if (IsDlgButtonChecked (IDC_LIGHTNING_LIGHTNING) == 1) {
-			BackgroundMgrClass::Set_Lightning (lightningintensity, lightningstartdistance, lightningenddistance, lightningheading, lightningdistribution); 
+			BackgroundMgrClass::Set_Lightning (lightningintensity, lightningstartdistance, lightningenddistance, lightningheading, lightningdistribution);
 			BackgroundMgrClass::Set_War_Blitz (0.0f);
 		} else {
 			WWASSERT (IsDlgButtonChecked (IDC_LIGHTNING_WAR_BLITZ) == 1);

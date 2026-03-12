@@ -44,7 +44,7 @@ UpdatingDBDialogClass::UpdatingDBDialogClass(HWND /* hparentwnd */)
 	//pnew_wnd->Attach (hparentwnd);
 	Create (UpdatingDBDialogClass::IDD, ::AfxGetMainWnd ());
 	//new_wnd.Detach ();
-	return; 
+	return;
 }
 
 
@@ -84,7 +84,7 @@ UpdatingDBDialogClass::WindowProc
 		SetCursor (::LoadCursor (NULL, IDC_WAIT));
 		return 0;
 	}
-	
+
 	// Allow the base class to process this message
 	return CDialog::WindowProc (message, wParam, lParam);
 }
@@ -95,7 +95,7 @@ UpdatingDBDialogClass::WindowProc
 //	PostNcDestroy
 //
 void
-UpdatingDBDialogClass::PostNcDestroy (void) 
+UpdatingDBDialogClass::PostNcDestroy (void)
 {
 	// Allow the base class to process this message
 	CDialog::PostNcDestroy ();
@@ -114,17 +114,17 @@ UpdatingDBDialogClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
 	CDialog::OnInitDialog();
-	
+
 	// Center the window
 	HWND hparentwnd = ::GetParent (m_hWnd);
 	if (::IsWindow (hparentwnd)) {
-		
+
 		// Get the rectangles of the window and its parent
 		CRect parent_rect;
 		CRect rect;
 		GetWindowRect (&rect);
 		::GetWindowRect (hparentwnd, &parent_rect);
-		
+
 		// Center the dialog ontop of its parent
 		::SetWindowPos (m_hWnd,
 							 NULL,
@@ -135,6 +135,6 @@ UpdatingDBDialogClass::OnInitDialog (void)
 							 SWP_NOZORDER | SWP_NOSIZE);
 	}
 
-	m_AnimationCtrl.Open (IDR_FILECOPY_ANI);	
+	m_AnimationCtrl.Open (IDR_FILECOPY_ANI);
 	return true;
 }

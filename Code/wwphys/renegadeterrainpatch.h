@@ -114,7 +114,7 @@ public:
 
 	//
 	//	Save/load support
-	//	
+	//
 	bool					Save (ChunkSaveClass &csave) override;
 	bool					Load (ChunkLoadClass &cload) override;
 	void					Load_Variables (ChunkLoadClass &cload);
@@ -129,7 +129,7 @@ public:
 	void					Render (RenderInfoClass &rinfo) override;
 	void		 			Get_Obj_Space_Bounding_Sphere (SphereClass &sphere) const override;
 	void					Get_Obj_Space_Bounding_Box (AABoxClass &box) const override;
-	
+
 	//
 	//	Inherited collision detection
 	//
@@ -145,7 +145,7 @@ public:
 	int											Add_Material (TerrainMaterialClass *material);
 	void											Reset_Material_Passes (void);
 	RenegadeTerrainMaterialPassClass *	Get_Material_Pass (int index, TerrainMaterialClass *material);
-	int											Get_Material_Count (void)			{ return MaterialPassList.Count (); }	
+	int											Get_Material_Count (void)			{ return MaterialPassList.Count (); }
 	RenegadeTerrainMaterialPassClass *	Peek_Material_Pass (int index)	{ return MaterialPassList[index]; }
 
 	//
@@ -164,16 +164,16 @@ public:
 	const Vector3 &	Get_Vertex_Color (int index)								{ return VertexColors[index]; }
 
 protected:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected methods
-	///////////////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////////////////////
 
 	//
 	//	Index utility functions
 	//
 	int						Grid_Index (int x, int y)			{ return (y * GridPointsX) + x; }
-	
+
 	int						Get_Quad_Index_X (float x_pos, bool clamp = true);
 	int						Get_Quad_Index_Y (float y_pos, bool clamp = true);
 	float						Get_Grid_Line_Pos_X (int grid_line_index);
@@ -223,27 +223,27 @@ protected:
 		QF_HIDDEN		= 1,
 	} QUAD_FLAGS;
 
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Protected member data
 	///////////////////////////////////////////////////////////////////
 	Vector3 *							Grid;
 	Vector3 *							GridNormals;
 	Vector3 *							VertexColors;
-	uint8 *								QuadFlags;	
+	uint8 *								QuadFlags;
 	int									GridPointsX;
 	int									GridPointsY;
 	int									GridPointCount;
 	float									Density;
 	VertexMaterialClass *			BaseMaterial;
 	ShaderClass							BaseShader;
-	VertexMaterialClass *			LayerMaterial;	
+	VertexMaterialClass *			LayerMaterial;
 	ShaderClass							LayerShader;
 	Vector3								BoundingBoxMin;
 	Vector3								BoundingBoxMax;
 	bool									AreBuffersDirty;
 	bool									IsPreLit;
-						
+
 	DynamicVectorClass<RenegadeTerrainMaterialPassClass *>	MaterialPassList;
 };
 
@@ -346,12 +346,12 @@ RenegadeTerrainPatchClass::Set_Vertex_Pos (int x, int y, const Vector3 &pos)
 	//	Update the vertex position
 	//
 	Grid[Grid_Index (x, y)] = pos;
-	
+
 	//
 	//	Do we need to update the bounding volume of the patch?
 	//
 	if (pos.Z > BoundingBoxMax.Z) {
-		BoundingBoxMax.Z = pos.Z;		
+		BoundingBoxMax.Z = pos.Z;
 	}
 
 	if (pos.Z < BoundingBoxMin.Z) {

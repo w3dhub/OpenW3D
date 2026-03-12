@@ -26,7 +26,7 @@
 //
 
 #ifdef WWCTRL_LIB
-	#define LINKAGE_SPEC	__declspec (dllexport) 
+	#define LINKAGE_SPEC	__declspec (dllexport)
 #else
 	#define LINKAGE_SPEC
 #endif
@@ -138,7 +138,7 @@ protected:
 	friend LRESULT WINAPI fnColorBarProc (HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
 	public:
-		
+
 		/////////////////////////////////////////////////////////////////////////
 		//
 		//	Public methods
@@ -180,7 +180,7 @@ protected:
 		//
 		typedef struct
 		{
-			float	PosPercent;			
+			float	PosPercent;
 			int	StartPos;
 			int	EndPos;
 
@@ -189,7 +189,7 @@ protected:
 
 			float StartRed;
 			float StartGreen;
-			float StartBlue;			
+			float StartBlue;
 
 			float	RedInc;
 			float	GreenInc;

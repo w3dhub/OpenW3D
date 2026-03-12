@@ -124,7 +124,7 @@ RefPtr<GameStartWait> GameStartWait::Create(const UserList& players, void(*timeo
 *     Constructor
 *
 * INPUTS
-*     Players - 
+*     Players -
 *
 * RESULT
 *     NONE
@@ -246,7 +246,7 @@ void GameStartWait::EndWait(WaitResult result, const unichar_t* endText)
 
 	if (result == TimeOut && mTimeoutCallback) {
 		mTimeoutCallback();
-	}	
+	}
 
 	SingleWait::EndWait(result, endText);
 }

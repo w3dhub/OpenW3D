@@ -137,7 +137,7 @@ PresetZoneTabClass::HandleInitDialog (void)
 	//
 	int count = m_ZoneList->Count ();
 	for (int index = 0; index < count; index ++) {
-				
+
 		//
 		//	Insert this zone into the control
 		//
@@ -189,7 +189,7 @@ PresetZoneTabClass::Modify_Selected_Zone (void)
 
 			ZoneParameterClass *parameter = (*m_ZoneList)[index];
 			if (parameter != NULL) {
-				
+
 				//
 				//	Show the zone edit dialog
 				//
@@ -225,11 +225,11 @@ PresetZoneTabClass::Create_Phys_Obj (void)
 		NodeClass *node = (NodeClass *)m_Preset->Create ();
 		ASSERT (node != NULL);
 		if (node != NULL) {
-			
+
 			//
 			//	Initialize the node and get its phys object pointer
 			//
-			node->Initialize ();			
+			node->Initialize ();
 			PhysClass *phys_obj = node->Peek_Physics_Obj ();
 			ASSERT (phys_obj != NULL);
 			if (phys_obj != NULL) {
@@ -250,7 +250,7 @@ PresetZoneTabClass::Create_Phys_Obj (void)
 			}
 
 			MEMBER_RELEASE (node);
-		}		
+		}
 	}
 
 	return ;

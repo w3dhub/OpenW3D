@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/MessageBox.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/29/01 3:54p                $* 
- *                                                                                             * 
- *                    $Revision:: 4                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/MessageBox.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/29/01 3:54p                $*
+ *                                                                                             *
+ *                    $Revision:: 4                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -51,14 +51,14 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 MessageBoxClass *MessageBoxClass::Create_Dialog (const wchar_t *title, const wchar_t *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject)
 {
 	MessageBoxClass *popup;
-		
+
 	switch (type) {
-		
+
 		case MESSAGE_BOX_TYPE_OK:
 			popup = NEW_REF (MessageBoxClass, (IDD_DIALOG_MESSAGE_BOX_OK, callbackobject));
 			break;
@@ -91,12 +91,12 @@ MessageBoxClass *MessageBoxClass::Create_Dialog (const wchar_t *title, const wch
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void MessageBoxClass::Do_Dialog (const wchar_t *title, const wchar_t *text, MessageBoxTypeEnum type, CallbackMenuDialogClass *callbackobject)
 {
 	MessageBoxClass *popup;
-		
+
 	popup = Create_Dialog (title, text, type, callbackobject);
 	REF_PTR_RELEASE (popup);
 }
@@ -112,7 +112,7 @@ void MessageBoxClass::Do_Dialog (const wchar_t *title, const wchar_t *text, Mess
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void MessageBoxClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
@@ -134,12 +134,12 @@ void MessageBoxClass::On_Command (int ctrl_id, int message_id, DWORD param)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void CallbackMenuDialogClass::Callback (int id, PopupDialogClass *popup)
 {
 	switch (id) {
-		
+
 		case IDC_BUTTON_YES:
 			MenuDialogClass::On_Command (IDCANCEL, 0, 0);
 			break;

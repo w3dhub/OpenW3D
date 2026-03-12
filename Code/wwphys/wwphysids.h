@@ -49,7 +49,7 @@
 ** Persist Factory ID's for WWPHYS
 ** NOTE: It is important that *NONE* of these ID's are ever changed!
 */
-enum 
+enum
 {
 	// Sub-System chunk id's
 	PHYSICS_CHUNKID_STATIC_DATA_SUBSYSTEM		= CHUNKID_WWPHYS_BEGIN,
@@ -137,7 +137,7 @@ enum
 	CLASSID_SHAKEABLESTATICPHYSDEF,
 	CLASSID_ACCESSIBLEPHYSDEF,
 
-	// External 
+	// External
 	CLASSID_DOORPHYSDEF								= CLASSID_PHYSICS + 0x80,
 	CLASSID_ELEVATORPHYSDEF,
 	CLASSID_DAMAGEABLESTATICPHYSDEF,

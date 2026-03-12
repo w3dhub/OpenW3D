@@ -55,7 +55,7 @@ public:
 	Null3DObjClass(const char * name = "NULL");
 	Null3DObjClass(const Null3DObjClass & src);
 	Null3DObjClass & operator = (const Null3DObjClass & that);
-			
+
 	virtual int						Class_ID(void) const override;
 	virtual RenderObjClass *	Clone(void) const override;
 	virtual const char *			Get_Name(void) const override						{ return Name; }

@@ -98,7 +98,7 @@ public:
 	void						Start_Conversation (void);
 	void						Stop_Conversation (ActionCompleteReason reason = ACTION_COMPLETE_CONVERSATION_ENDED);
 	void						Think (void);
-	bool						Is_Finished (void)				{ return bool(State == STATE_FINISHED); }	
+	bool						Is_Finished (void)				{ return bool(State == STATE_FINISHED); }
 
 	//
 	//	State evaluation methods
@@ -107,8 +107,8 @@ public:
 	bool						Get_Current_Orator_Location (Vector3 *position);
 	PhysicalGameObj *		Get_Current_Orator (void);
 	void						Get_Conversation_Center (Vector3 *position);
-	void						Set_Orator_Arrived (PhysicalGameObj *orator, bool has_arrived);	
-	
+	void						Set_Orator_Arrived (PhysicalGameObj *orator, bool has_arrived);
+
 	void						Control_Orator (SoldierGameObj *orator);
 
 	//
@@ -176,7 +176,7 @@ protected:
 
 	////////////////////////////////////////////////////////////////
 	//	Protected member data
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	int												ID;
 	ConversationClass	*							Conversation;
 	int												CurrentRemark;

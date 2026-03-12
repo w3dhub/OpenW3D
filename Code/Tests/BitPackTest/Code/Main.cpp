@@ -54,7 +54,7 @@ void main(int, void**)
 
 	TypeEncoder encoder(buffer, BUFFER_SIZE);
 
-	encoder.PutBool(true);	
+	encoder.PutBool(true);
 	encoder.PutBool(true);
 	encoder.PutBool(false);
 	encoder.PutInt(5, 3);

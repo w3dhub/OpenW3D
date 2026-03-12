@@ -81,7 +81,7 @@ class GrabHandlePhysClass : public NodeFunctionClass, public Box3DPhysClass
 
 		virtual ~GrabHandlePhysClass (void) {}
 
-		
+
 		//////////////////////////////////////////////////////////
 		//
 		//	Public operators/methods
@@ -94,7 +94,7 @@ class GrabHandlePhysClass : public NodeFunctionClass, public Box3DPhysClass
 		void						Set_Vertex (int ivertex) { m_iVertex = ivertex; }
 		GrabHandlesClass *	Get_Parent (void) const { return m_pParent; }
 		void						Get_Parent (GrabHandlesClass *pparent) { m_pParent = pparent; }
-		
+
 
 		//
 		//	Overrides from NodeFunctionClass
@@ -142,7 +142,7 @@ class GrabHandlesClass
 		GrabHandlesClass (const GrabHandlesClass &ref);
 		virtual ~GrabHandlesClass (void);
 
-		
+
 		//////////////////////////////////////////////////////////
 		//
 		//	Public operators/methods
@@ -164,7 +164,7 @@ class GrabHandlesClass
 		//////////////////////////////////////////////////////////
 		//
 		//	Protected methods
-		//		
+		//
 		void						Initialize (void);
 
 	private:

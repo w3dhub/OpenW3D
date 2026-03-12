@@ -65,7 +65,7 @@ Get_Current_Document (void)
 
    // Get a pointer to the main window
 	CMainFrame *pmainwnd = (CMainFrame *)theApp.GetMainWnd ();
-    
+
 	// Did we successfully get a pointer to the main window?
 	if (pmainwnd != NULL) {
 		// Use the main window pointer to get a pointer
@@ -103,11 +103,11 @@ Get_Scene_Editor (void)
 {
 	SceneEditorClass *peditor = NULL;
 	CLevelEditDoc *pdoc  = ::Get_Current_Document ();
-	
+
 	// Were we successful in getting the document pointer?
 	ASSERT (pdoc != NULL);
-	if (pdoc != NULL) { 
-		
+	if (pdoc != NULL) {
+
 		// Get a pointer to the editor
 		peditor = pdoc->Get_Scene ();
 	}
@@ -129,10 +129,10 @@ Get_Camera_Mgr (void)
 
 	// Get a pointer to the current view
 	CLevelEditView *pview  = ::Get_Main_View ();
-	
+
 	// Were we successful in getting the view pointer?
 	ASSERT (pview != NULL);
-	if (pview != NULL) { 
+	if (pview != NULL) {
 		// Get a pointer to the camera maanager
 		pcameramgr = pview->Get_Camera_Mgr ();
 	}
@@ -154,10 +154,10 @@ Get_Mouse_Mgr (void)
 
 	// Get a pointer to the current view
 	CLevelEditView *pview  = ::Get_Main_View ();
-	
+
 	// Were we successful in getting the view pointer?
 	ASSERT (pview != NULL);
-	if (pview != NULL) { 
+	if (pview != NULL) {
 		// Get a pointer to the mouse maanager
 		pmousemgr = pview->Get_Mouse_Mgr ();
 	}
@@ -193,7 +193,7 @@ Get_Main_View (void)
 
    // Get a pointer to the main window
 	CMainFrame *pmainwnd = (CMainFrame *)theApp.GetMainWnd ();
-    
+
 	// Did we successfully get a pointer to the main window?
 	ASSERT (pmainwnd != NULL);
 	if (pmainwnd != NULL) {
@@ -220,10 +220,10 @@ Get_File_Mgr (void)
 
 	// Get a pointer to the current document
 	CLevelEditDoc *pdoc  = ::Get_Current_Document ();
-	
+
 	// Were we successful in getting the document pointer?
 	ASSERT (pdoc != NULL);
-	if (pdoc != NULL) { 
+	if (pdoc != NULL) {
 		// Get a pointer to the file maanager
 		pfilemgr = pdoc->Get_File_Mgr ();
 	}
@@ -250,7 +250,7 @@ Refresh_Main_View (void)
 		pview->Repaint_View ();
 		pview->Repaint_View ();
 	}
-	
+
 	return ;
 }
 
@@ -285,7 +285,7 @@ Paint_Gradient
 
 	// Loop through each shade and paint its sliver
 	float posx = 0.00F;
-	for (int shade = 0; shade < 256; shade ++) {       
+	for (int shade = 0; shade < 256; shade ++) {
 		// Paint this sliver
 		cdc.FillSolidRect ((int)posx,
 								 0,
@@ -298,7 +298,7 @@ Paint_Gradient
 	}
 
 	// Release the DC
-	cdc.Detach ();    
+	cdc.Detach ();
 	::ReleaseDC (hwnd, hdc);
 
 	// Validate the contents of the window so the control won't paint itself
@@ -482,7 +482,7 @@ Get_File_Size (LPCTSTR path)
 
 	ASSERT (path != NULL);
 	if (path != NULL) {
-		
+
 		// Attempt to open the file
 		HANDLE hfile = ::CreateFile (path,
 											  0,
@@ -491,7 +491,7 @@ Get_File_Size (LPCTSTR path)
 											  OPEN_EXISTING,
 											  0L,
 											  NULL);
-		
+
 		ASSERT (hfile != INVALID_HANDLE_VALUE);
 		if (hfile != INVALID_HANDLE_VALUE) {
 
@@ -502,7 +502,7 @@ Get_File_Size (LPCTSTR path)
 			// Close the file
 			::CloseHandle (hfile);
 			hfile = INVALID_HANDLE_VALUE;
-		}		
+		}
 	}
 
 	// Return the size in bytes of the file to the caller.
@@ -520,7 +520,7 @@ Output_Message (LPCTSTR message)
 {
    // Get a pointer to the main window
 	CMainFrame *pmainwnd = (CMainFrame *)theApp.GetMainWnd ();
-    
+
 	// Did we successfully get a pointer to the main window?
 	ASSERT (pmainwnd != NULL);
 	if (pmainwnd != NULL) {
@@ -530,12 +530,12 @@ Output_Message (LPCTSTR message)
 		OutputFormClass *form = (OutputFormClass *)toolbar.Get_Form ();
 
 		// Print the message to the window
-		if ((form != NULL) && IsWindow (form->m_hWnd)) {			
+		if ((form != NULL) && IsWindow (form->m_hWnd)) {
 			form->Output_Message (message);
 		}
 	}
 
-	TRACE (message);			
+	TRACE (message);
 	return ;
 }
 
@@ -553,7 +553,7 @@ Is_Path_Relative (LPCTSTR path)
 	// Param valid?
 	ASSERT (path != NULL);
 	if (path != NULL && path[0] != 0) {
-		
+
 		// Check for drive designation
 		relative = bool(path[1] != ':');
 
@@ -592,16 +592,16 @@ Find_File
 		if (current_dir[::lstrlen (current_dir)-1] == '\\') {
 			current_dir = current_dir.Left (::lstrlen (current_dir)-1);
 		}
-		
+
 		// Is the file in this directory?
 		CString dir_test = current_dir + CString ("\\") + filename;
 		if (::GetFileAttributes (dir_test) != 0xFFFFFFFF) {
-			
+
 			// Found it!
 			bfound = true;
 			full_path = dir_test;
 		} else {
-			
+
 			WIN32_FIND_DATA find_info = { 0 };
 			BOOL bcontinue = true;
 
@@ -679,7 +679,7 @@ Quick_Compare_Files
 
 			// Get information about these 2 files.
 			BY_HANDLE_FILE_INFORMATION file1_info = { 0 };
-			BY_HANDLE_FILE_INFORMATION file2_info = { 0 };			
+			BY_HANDLE_FILE_INFORMATION file2_info = { 0 };
 			::GetFileInformationByHandle (hfile1, &file1_info);
 			::GetFileInformationByHandle (hfile2, &file2_info);
 
@@ -690,7 +690,7 @@ Quick_Compare_Files
 		} else if ((hfile1 != INVALID_HANDLE_VALUE) && (hfile2 == INVALID_HANDLE_VALUE)) {
 			icompare = 1;
 		}
-		
+
 		if (hfile1 != INVALID_HANDLE_VALUE) {
 			::CloseHandle (hfile1);
 		}
@@ -735,7 +735,7 @@ Build_List_From_String
 		for (entry = buffer;
 			  (entry != NULL) && (entry[1] != 0);
 			  entry = ::strstr (entry, delimiter)) {
-			
+
 			// Move past the current delimiter (if necessary)
 			if ((::strnicmp (entry, delimiter, delim_len) == 0) && (count > 0)) {
 				entry += delim_len;
@@ -744,18 +744,18 @@ Build_List_From_String
 			// Increment the count of entries
 			count ++;
 		}
-	
+
 		if (count > 0) {
 
 			// Allocate enough CString objects to hold all the strings in the list
 			(*pstring_list) = new CString[count];
-		
+
 			// Parse the string and pull out its entries.
 			count = 0;
 			for (entry = buffer;
 				  (entry != NULL) && (entry[1] != 0);
 				  entry = ::strstr (entry, delimiter)) {
-				
+
 				// Move past the current delimiter (if necessary)
 				if ((::strnicmp (entry, delimiter, delim_len) == 0) && (count > 0)) {
 					entry += delim_len;
@@ -776,7 +776,7 @@ Build_List_From_String
 			(*pstring_list) = new CString[count];
 			(*pstring_list)[0] = buffer;
 		}
-				
+
 	}
 
 	// Return the number of entries in our list
@@ -796,7 +796,7 @@ Build_String_From_List
 	int count,
 	LPCTSTR delimiter
 )
-{	
+{
 	// Start an empty string
 	CString composite_string;
 
@@ -850,10 +850,10 @@ Asset_Name_From_Filename (LPCTSTR filename)
 {
 	// Get the filename from this path
 	CString asset_name = ::Get_Filename_From_Path (filename);
-	
+
 	// Find the index of the extension (if exists)
-	int extension = asset_name.ReverseFind ('.');	
-	
+	int extension = asset_name.ReverseFind ('.');
+
 	// Strip off the extension
 	if (extension != -1) {
 		asset_name = asset_name.Left (extension);
@@ -906,7 +906,7 @@ Message_Box
 		// Show the message box to the user and return the user's response
 		ret_code = ::MessageBox (hparentwnd, message, title, style);
 	}
-	
+
 	return ret_code;
 }
 
@@ -930,7 +930,7 @@ Rotate_Matrix
 	*/
 	Matrix3D coord_inv;					// inverse of coordinate transform
 	Matrix3D coord_to_obj;				// transform from coord to object
-	
+
 	coord_system.Get_Orthogonal_Inverse (coord_inv);
 	Matrix3D::Multiply (coord_inv, input_mat, &coord_to_obj);
 
@@ -941,7 +941,7 @@ Rotate_Matrix
 		poutput_mat->Re_Orthogonalize ();
 		TRACE ("Matrix wasn't orthogonal.\n");
 	}
-	
+
 	return ;
 }
 
@@ -964,7 +964,7 @@ Get_LOD_File_Count
 	if ((base_filename.GetLength () > 6) &&
 		 ::strcmpi (&first_lod_filename[::lstrlen (first_lod_filename)-6], "L1.W3D") == 0) {
 		base_filename = base_filename.Left (base_filename.GetLength () - 6);
-			
+
 		// Loop through the files in the directory and count up the ones that
 		// match our LOD-syntax for this object
 		bool bfound = true;
@@ -979,7 +979,7 @@ Get_LOD_File_Count
 			}
 		}
 	}
-	
+
 	if (pbase_filename != NULL) {
 		*pbase_filename = base_filename;
 	}
@@ -996,7 +996,7 @@ Get_LOD_File_Count
 ////////////////////////////////////////////////////////////////////////////
 bool
 Browse_For_Folder
-(	
+(
 	CString &folder,
 	HWND hparentwnd,
 	LPCTSTR /* default_path */,
@@ -1013,7 +1013,7 @@ Browse_For_Folder
 	browse_info.ulFlags = flags;
 	LPITEMIDLIST pidl = ::SHBrowseForFolder (&browse_info);
 	if (pidl != NULL) {
-		
+
 		// Convert the 'PIDL' into a string
 		char path[MAX_PATH];
 		retval = (::SHGetPathFromIDList (pidl, path) != 0);
@@ -1044,7 +1044,7 @@ General_Pump_Messages (void)
 {
 	// Process any paint messages currently pending in the queue
 	MSG msg = { 0 };
-	while (::PeekMessage (&msg, NULL, 0, 0, PM_REMOVE)) {		
+	while (::PeekMessage (&msg, NULL, 0, 0, PM_REMOVE)) {
 		::DispatchMessage (&msg);
 	}
 
@@ -1066,7 +1066,7 @@ Pump_Messages (void)
 			 ::PeekMessage (&msg, NULL, WM_NCPAINT, WM_NCPAINT, PM_REMOVE) ||
 			 ::PeekMessage (&msg, NULL, WM_ERASEBKGND, WM_ERASEBKGND, PM_REMOVE) ||
 			 ::PeekMessage (&msg, NULL, WM_SYNCPAINT, WM_SYNCPAINT, PM_REMOVE)) {
-		
+
 		::DispatchMessage (&msg);
 	}
 
@@ -1195,7 +1195,7 @@ Create_UI_Thread
 	HRESULT *presult,
 	HWND *phmain_wnd
 )
-{	
+{
 	// Create a structure we can pass to the thread proc
 	THREAD_PARAMS *pthread_params = new THREAD_PARAMS;
 	pthread_params->ThreadProc = (LPVOID)fnthread_proc;
@@ -1207,7 +1207,7 @@ Create_UI_Thread
 	pthread_params->hevent = ::CreateEvent (NULL, false, false, NULL);
 
 	// Kick off our own thread proc
-	::AfxBeginThread (fnUIThread, (LPVOID)pthread_params);	
+	::AfxBeginThread (fnUIThread, (LPVOID)pthread_params);
 
 	// Now pump messages until the thread has initialized
 	while (::MsgWaitForMultipleObjects (1,
@@ -1215,11 +1215,11 @@ Create_UI_Thread
 												  false,
 												  INFINITE,
 												  QS_ALLINPUT | QS_ALLEVENTS | QS_ALLPOSTMESSAGE) != WAIT_OBJECT_0) {
-		
+
 
 		// Dispatch all messages in the queue
 		MSG msg = { 0 };
-		while (::PeekMessage (&msg, NULL, 0, 0, PM_REMOVE)) {			
+		while (::PeekMessage (&msg, NULL, 0, 0, PM_REMOVE)) {
 			::TranslateMessage (&msg);
 			::DispatchMessage (&msg);
 		}
@@ -1245,7 +1245,7 @@ Update_Frame_Count
 {
    // Get a pointer to the main window
 	CMainFrame *pmainwnd = (CMainFrame *)theApp.GetMainWnd ();
-    
+
 	// Did we successfully get a pointer to the main window?
 	ASSERT (pmainwnd != NULL);
 	if (pmainwnd != NULL) {
@@ -1318,7 +1318,7 @@ GetWindowFloat (HWND hwnd, bool interpret)
 	} else {
 		value = ::atof (string_value);
 	}
-	
+
 	return value;
 }
 
@@ -1349,7 +1349,7 @@ GetDlgItemFloat
 	} else {
 		value = ::atof (string_value);
 	}
-	
+
 	return value;
 }
 
@@ -1381,7 +1381,7 @@ Get_Overlap_Form (void)
 
 	//
 	// Attempt to get a pointer to the form from the dialog bar
-	//	
+	//
 	CMainFrame *main_wnd					= (CMainFrame *)::AfxGetMainWnd ();
 	if (main_wnd != NULL) {
 		MainDialogBarClass &toolbar	= main_wnd->Get_Main_Dialog_Bar ();
@@ -1392,7 +1392,7 @@ Get_Overlap_Form (void)
 	return form;
 }
 
-			
+
 ////////////////////////////////////////////////////////////////////////////
 //
 //  Get_Instances_Form
@@ -1405,7 +1405,7 @@ Get_Instances_Form (void)
 
 	//
 	// Attempt to get a pointer to the form from the dialog bar
-	//	
+	//
 	CMainFrame *main_wnd				= (CMainFrame *)::AfxGetMainWnd ();
 	if (main_wnd != NULL) {
 		MainDialogBarClass &toolbar	= main_wnd->Get_Main_Dialog_Bar ();
@@ -1427,7 +1427,7 @@ Get_Presets_Form (void)
 {
 	//
 	// Attempt to get a pointer to the form from the dialog bar
-	//	
+	//
 	MainDialogBarClass &toolbar	= ((CMainFrame *)::AfxGetMainWnd ())->Get_Main_Dialog_Bar ();
 	PresetsFormClass *form			= toolbar.Get_Presets_Form ();
 
@@ -1460,13 +1460,13 @@ Fill_Node_Instance_Combo
 	HWND			hcombobox,
 	NodeClass *	default_node
 )
-{	
+{
 	// Loop through all the nodes in the level, and add them to the combobox
 	NodeMgrClass &node_mgr = ::Get_Node_Mgr ();
 	for (NodeClass *node = node_mgr.Get_First ();
 		  node != NULL;
 		  node = node_mgr.Get_Next (node)) {
-		
+
 		// Add this node to the combobox
 		int index = ::SendMessage (hcombobox, CB_ADDSTRING, (WPARAM)0, (LPARAM)node->Get_Name ());
 		if (index != CB_ERR) {
@@ -1494,7 +1494,7 @@ Fill_Group_Combo
 	HWND				hcombobox,
 	GroupMgrClass *pdefault
 )
-{	
+{
 	// Loop through all the groups in the level, and add them to the combobox
 	GROUP_LIST &group_list = ::Get_Global_Group_List ();
 	for (int index = 0; index < group_list.Count (); index ++) {
@@ -1512,7 +1512,7 @@ Fill_Group_Combo
 					::SendMessage (hcombobox, CB_SETCURSEL, (WPARAM)index, 0L);
 				}
 			}
-		}		
+		}
 	}
 
 	return ;
@@ -1572,7 +1572,7 @@ Copy_File
 
 		// Make sure we aren't copying over ourselves
 		bool allow_copy = (::lstrcmpi (existing_filename, new_filename) != 0);
-		
+
 		// Strip the readonly bit off if necessary
 		DWORD attributes = ::GetFileAttributes (new_filename);
 		if (allow_copy &&
@@ -1681,7 +1681,7 @@ Get_File_Time
 										  OPEN_EXISTING,
 										  0L,
 										  NULL);
-	
+
 	if (hfile != INVALID_HANDLE_VALUE) {
 
 		// Get the mod times for this file
@@ -1689,8 +1689,8 @@ Get_File_Time
 
 		// Close the file
 		SAFE_CLOSE (hfile);
-	}		
-	
+	}
+
 	// Return the true/false result code
 	return retval;
 }
@@ -1712,7 +1712,7 @@ Type_To_Icon
 
 	// If we aren't looking for a temp icon, then determine
 	// which icon to use based on the type
-	if (btemp == false) {		
+	if (btemp == false) {
 		switch (type)
 		{
 			case NODE_TYPE_OBJECT:
@@ -1723,7 +1723,7 @@ Type_To_Icon
 			case NODE_TYPE_TERRAIN:
 				index = TERRAIN_ICON;
 				break;
-			
+
 			case NODE_TYPE_TILE:
 				index = TILE_ICON;
 				break;
@@ -1784,19 +1784,19 @@ FileAccessRightsClass::FileAccessRightsClass
 	// Does the file exist?
 	m_FileAttrs = ::GetFileAttributes (m_Filename);
 	if (m_FileAttrs != 0xFFFFFFFF) {
-		
+
 		if ((type == WANTS_READONLY) &&
 			 (m_FileAttrs & FILE_ATTRIBUTE_READONLY) != FILE_ATTRIBUTE_READONLY) {
-			
+
 			// Assign the readonly bit to the file
 			::SetFileAttributes (m_Filename, m_FileAttrs | FILE_ATTRIBUTE_READONLY);
 			m_bNeedsRestoring = should_restore;
 		} else if ((type == WANTS_WRITEABLE) &&
 					  (m_FileAttrs & FILE_ATTRIBUTE_READONLY) == FILE_ATTRIBUTE_READONLY) {
-			
+
 			// Strip the readonly bit from the file
 			::SetFileAttributes (m_Filename, m_FileAttrs & (~FILE_ATTRIBUTE_READONLY));
-			m_bNeedsRestoring = should_restore;			
+			m_bNeedsRestoring = should_restore;
 		}
 	}
 
@@ -1838,7 +1838,7 @@ fnEditToFloatProc
 	LRESULT result = 0L;
 
 	if (message == WM_SETTEXT) {
-		
+
 		//
 		//	Convert the textual value to a int, convert
 		// the int to a float, and conver the float to
@@ -1856,28 +1856,28 @@ fnEditToFloatProc
 		}
 
 	} else if (message == WM_GETTEXT) {
-		
+
 		//
 		//	Get the value (as text) from the control,
 		// convert it to a float, convert the float
 		// to a int, then convert the int back to
 		// a string.
 		//
-		result				= ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);		
+		result				= ::CallWindowProc (old_proc, hwnd, message, wparam, lparam);
 		LPCTSTR string		= (LPCTSTR)lparam;
 		if (::strchr (string, '.') != 0) {
 			float float_value	= ::atof (string);
 			int int_value		= int(float_value * 100);
-			::itoa (int_value, (LPTSTR)lparam, 10);			
+			::itoa (int_value, (LPTSTR)lparam, 10);
 		} else {
 			int int_value		= ::atol (string) * 100;
-			::itoa (int_value, (LPTSTR)lparam, 10);						
+			::itoa (int_value, (LPTSTR)lparam, 10);
 		}
 
 		result = ::lstrlen ((LPTSTR)lparam);
 
 	} else if (message == WM_CHAR) {
-		
+
 		//
 		//	Check to see if this is one of the characters we allow
 		// the user to type
@@ -1949,7 +1949,7 @@ fnEditToIntProc
 	LRESULT result = 0L;
 
 	if (message == WM_CHAR) {
-		
+
 		//
 		//	Check to see if this is one of the characters we allow
 		// the user to type
@@ -2047,7 +2047,7 @@ Get_Next_Temp_ID (void)
 	//
 	//	Store the next temp ID value in the registry
 	//
-	theApp.WriteProfileInt (CONFIG_KEY, TEMP_ID_VALUE, temp_id+1);	
+	theApp.WriteProfileInt (CONFIG_KEY, TEMP_ID_VALUE, temp_id+1);
 	return temp_id;
 }
 
@@ -2063,18 +2063,18 @@ Get_Collision_Box (const RenderObjClass *model, AABoxClass &box)
 	bool retval = false;
 
 	if (model != NULL) {
-		
+
 		//
 		//	Get the collision box for this render obj
 		//
 		RenderObjClass *world_box = model->Get_Sub_Object_By_Name ("WORLDBOX");
 
-		// If we didn't finde WorldBox, try to find the LOD named "WorldBox" 
+		// If we didn't finde WorldBox, try to find the LOD named "WorldBox"
 		// The LOD code generates a unique name for the mesh by appending A,B,C, etc to the name.
 		// A is the lowest LOD, B is the next, and so on.  Our worldbox is specified in the highest
 		// LOD so we have to construct the name by appending 'A'+LodCount to the name... icky
 		if ((world_box == NULL) && (model->Class_ID() == RenderObjClass::CLASSID_HLOD))
-		{			
+		{
 			char namebuffer[64];
 			sprintf(namebuffer,"WorldBox%c",'A' + ((HLodClass *)model)->Get_Lod_Count() - 1);
 
@@ -2083,14 +2083,14 @@ Get_Collision_Box (const RenderObjClass *model, AABoxClass &box)
 				world_box = box_obj;
 			}*/
 		}
-		
+
 		if (world_box != NULL) {
 			box = world_box->Get_Bounding_Box ();
 			world_box->Release_Ref ();
 			retval = true;
 		}
 	}
-	
+
 
 	return retval;
 }
@@ -2122,20 +2122,20 @@ Get_Collision_Box (RenderObjClass *render_obj, AABoxClass &aabox, OBBoxClass &ob
 		RenderObjClass *world_box = render_obj->Get_Sub_Object_By_Name ("WorldBox");
 
 		//
-		// If we didn't finde WorldBox, try to find the LOD named "WorldBox" 
+		// If we didn't finde WorldBox, try to find the LOD named "WorldBox"
 		// The LOD code generates a unique name for the mesh by appending A,B,C, etc to the name.
 		// A is the lowest LOD, B is the next, and so on.  Our worldbox is specified in the highest
 		// LOD so we have to construct the name by appending 'A'+LodCount to the name... icky
 		//
 		if ((world_box == NULL) && (render_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
-			
+
 			char namebuffer[64];
 			sprintf(namebuffer,"WorldBox%c",'A' + ((HLodClass *)render_obj)->Get_Lod_Count() - 1);
 			world_box = render_obj->Get_Sub_Object_By_Name (namebuffer);
 		}
 
 		if (world_box != NULL) {
-			
+
 			//
 			//	Determine which type of bounding box to return and OBBox or an AABox
 			//
@@ -2164,7 +2164,7 @@ PersistClass *
 Instance_Definition (DefinitionClass *definition)
 {
 	PersistClass *new_object = NULL;
-	
+
 	//
 	//	Create the new object
 	//
@@ -2173,11 +2173,11 @@ Instance_Definition (DefinitionClass *definition)
 	}
 
 	if (new_object == NULL) {
-		
+
 		LPCTSTR name = definition->Get_Name ();
 		CString message;
 		message.Format ("Unable to create an instance of %s.\nCheck to make sure the preset is properly configured with a model and/or physics object.", name);
-			
+
 		//
 		//	Warn the user that we were unable to create the object
 		//
@@ -2226,7 +2226,7 @@ Perform_Job (LPCTSTR filename, bool delete_on_completion)
 {
 	int total = ::GetPrivateProfileInt ("Job Description", "Total", 1, filename);
 	int index = ::GetPrivateProfileInt ("Job Description", "Index", 0, filename);
-	
+
 	CString granularity_string;
 	::GetPrivateProfileString ("Job Description", "Granularity", "1", granularity_string.GetBufferSetLength (20), 20, filename);
 	float granularity = ::atof (granularity_string);
@@ -2238,7 +2238,7 @@ Perform_Job (LPCTSTR filename, bool delete_on_completion)
 	::GetPrivateProfileString ("Job Description", "Output", "", output_file.GetBufferSetLength (MAX_PATH), MAX_PATH, filename);
 
 	if (level_file.GetLength () > 0) {
-		
+
 		//
 		//	Load the requested level
 		//
@@ -2249,7 +2249,7 @@ Perform_Job (LPCTSTR filename, bool delete_on_completion)
 		//
 		//	Start VIS
 		//
-#if (1)		
+#if (1)
 		::Get_Scene_Editor ()->Generate_Uniform_Sampled_Vis (granularity,false,false,true,index,total);
 #else
 		::Get_Scene_Editor ()->Generate_Edge_Sampled_Vis (granularity,false,true,index,total);
@@ -2289,7 +2289,7 @@ Get_Factory_Name (uint32 class_id)
 	//
 	DefinitionFactoryClass *factory = DefinitionFactoryMgrClass::Find_Factory (class_id);
 	if (factory == NULL) {
-		
+
 		//
 		//	Check to see if this is an abstract factory
 		//
@@ -2327,7 +2327,7 @@ Convert_Newline_To_Chars (CString &string)
 	//	Copy characters between the strings
 	//
 	for (int index = 0; index < count; index ++) {
-		
+
 		if (string[index] == '\n') {
 			retval += "\\n";
 		} else {
@@ -2349,7 +2349,7 @@ void
 Convert_Chars_To_Newline (CString &string)
 {
 	CString retval;
-	
+
 	//
 	//	Take a guess as to how large to make the final string
 	//
@@ -2359,7 +2359,7 @@ Convert_Chars_To_Newline (CString &string)
 	//	Copy characters between the strings
 	//
 	for (int index = 0; index < count; index ++) {
-		
+
 		if (index + 1 < count && string[index] == '\\' && string[index + 1] == 'n') {
 			retval += '\n';
 			index ++;

@@ -1,5 +1,5 @@
 Version 1.0.4.73: November 29, 2001
-Greg -	Fixed a bug in the animation exporter which caused it to export un-used, uninitialized 
+Greg -	Fixed a bug in the animation exporter which caused it to export un-used, uninitialized
 		floats after the end of each animation channel.  Probably existed for 4 years!
 
 Version 1.0.4.72: October 26, 2001
@@ -8,7 +8,7 @@ Andre:- Fixed a bug in the "wwDuplicateSkinWSM" MAXScript function. It didn't li
 		  to support it.
 
 Version 1.0.4.71: September 10, 2001
-Greg:	- Added new surface types for Renegade: 
+Greg:	- Added new surface types for Renegade:
 			Permeable Water
 			Tiberium Water
 			Permeable Tiberium Water
@@ -20,7 +20,7 @@ Greg:	- Added BumpEnv mapper
 Ian:	- Added BumpEnv setting to the shader (in primary gradient)
 
 Version 1.0.4.69: January 4, 2001
-Greg:	- Modified the "bone picker" that the WWSkin space warp uses to allow Max bones to 
+Greg:	- Modified the "bone picker" that the WWSkin space warp uses to allow Max bones to
           be used.
 
 Version 1.0.4.68: December 7, 2000
@@ -59,9 +59,9 @@ Greg:	- Fixed a bug in the name editing dialog in the W3D utility panel
 		can be combined into larger meshes.
 
 Version 1.0.4.63: October 19, 2000
-Greg:	Re-organized the entire DoExport function.  
-		- First I unified all of the code to go through the "DoOriginBasedExport" 
-		code by using the scene root as the origin when there were no user-defined 
+Greg:	Re-organized the entire DoExport function.
+		- First I unified all of the code to go through the "DoOriginBasedExport"
+		code by using the scene root as the origin when there were no user-defined
 		origins.
 		- Re-organized the Export_Geometry function to use a new abstract
 		class: GeometryExporTaskClass which encapsulates a lot of code that was
@@ -71,7 +71,7 @@ Greg:	Re-organized the entire DoExport function.
 		- Modified/Cleaned HierarchySaveClass and MeshConnections class.
 
 Version 1.0.4.62: October 11, 2000
-Greg:	Re-organised the W3DUtility plugin.  Moved several dialog boxes 
+Greg:	Re-organised the W3DUtility plugin.  Moved several dialog boxes
 		used by it into their own modules and created a modeless dialog
 		containing the w3d settings that can be left up when the user
 		is not in Max's utility panel.
@@ -87,9 +87,9 @@ Greg:	Added dazzle exporting to the plugin.  Modified MeshConnnections
 		"auxiliary" header for hmodels is now obsolete.
 
 Version 1.0.4.59: September 18, 2000
-Greg:	Modified the code so that collections are exported even when no 
+Greg:	Modified the code so that collections are exported even when no
 		meshes or other render objects are present.  This is used to create
-		collections of proxy objects for the renegade level editor.  Also 
+		collections of proxy objects for the renegade level editor.  Also
 		modified the "origin" export code to support exporting collections
 		with origins.
 
@@ -97,9 +97,9 @@ Version 1.0.4.58: August 25, 2000
 Greg:	Fixed a crash bug that happens if you create a PS2 material.  The
 		bug was caused by the modifications to the texture pane to replace
 		the NoMipMap and Resize buttons with a single NoLOD button.  For some
-		reason, the PS2 material uses a separate dialog template for its 
-		texture pane which is the same as the dialog template for the 
-		normal material.  Since the PS2 version of the template was not updated, 
+		reason, the PS2 material uses a separate dialog template for its
+		texture pane which is the same as the dialog template for the
+		normal material.  Since the PS2 version of the template was not updated,
 		the code would crash when initializing the NoLOD button.
 
 Version 1.0.4.57: August 18, 2000
@@ -109,7 +109,7 @@ Andre:	Fixed the loading of version 4 ParameterBlocks so that the value
 Version 1.0.4.56: August 16,2000
 Greg:	Removed the texture flags and buttons for No-Mipmapping and enable
 		resizing.  These are all lumped into the setting for No-LOD now.
-		The GameMtl still has the entries in its parameter block for 
+		The GameMtl still has the entries in its parameter block for
 		No-Mipmapping and Resize and I use the No-Mipmap setting to set
 		the initial state of the No-LOD flag...  This also required a flag
 		in GameMtl indicating that the conversion had been done.  Ug... :-)
@@ -121,7 +121,7 @@ Greg:	Added new colliison type: camera.  In renegade we have some physically
 		is first converted to the new version, the camera collision flag is
 		set to the same setting as the current state of physical collision.
 
-		Added light-glare geometry type.  This currently only exports the 
+		Added light-glare geometry type.  This currently only exports the
 		position of the pivot point of the max object.  It will be used to
 		indicate where there should be fancy light glare effects in the level
 
@@ -162,11 +162,11 @@ Andre:	Added a new MAX Script extension: wwInputBox
 Version 1.0.4.49: May 2, 2000
 Greg:	Fixed a bug in vchannel.cpp.  Was writing out garbage animation
 		channels which would crash wdump.
-		
+
 Version 1.0.4.48: May 1, 2000
 Greg:	Changed the way skins are exported so that their vertices are
 		sorted with respect to the bone they are attached to.  Also
-		made it so vertices are secondarily sorted by vertex material 
+		made it so vertices are secondarily sorted by vertex material
 		(this means that non-skinned meshes will sort by vertex
 		material only.)
 
@@ -174,7 +174,7 @@ Version 1.0.4.47: April 19 2000
 Greg:	Added a new geometry option for "shatterable" objects.  Wrote
 		a new W3DAppData2Struct which replaces the old AppData1Struct.
 		Whenever the old format app data is encountered, a new one
-		is created to replace it.  This new app data chunk has more 
+		is created to replace it.  This new app data chunk has more
 		space in it for future expansion.
 		Also fixed a crash bug in the skin modifier related to deleting
 		bones from the space warp.
@@ -199,7 +199,7 @@ Andre:	Fixed a couple of crash bugs related to animation exporting.
 
 Version 1.0.4.43: February 29, 2000
 Greg:	Fixed a bug which caused all meshes marked to cast shadows to
-		not get texture coordinates.  
+		not get texture coordinates.
 		Fixed meshsave.cpp to detect and properly handle mirrored meshes.
 
 Version 1.0.4.42: January 24, 2000
@@ -223,7 +223,7 @@ Ian:	Added 'Export Utilites' group to W3D Utility panel and added a
 		convert materials back to W3D materials. The purpose of this
 		utility is to make it possible to export W3D material attributes
 		to third party file formats (eg. Lightscape Preparation files).
-		
+
 Version 1.0.4.39: November 15, 1999
 Andre:	Changed the mesh LOD naming convention so that we use numbers
 		that correspond to the LOD number (highest-to-lowest) instead
@@ -319,11 +319,11 @@ Greg:	Fixed a bug in Export_Geometry.  While exporting skins, one line of
 Version 1.0.4.24: July 27, 1999
 Greg:	Changed the Hide/Unhide by W3D type buttons into "Select by W3D Type"
 		buttons.  This should be more useable.  Also, added select alpha meshes,
-		select physical, projectile and vis collision meshes.  
+		select physical, projectile and vis collision meshes.
 		Added a material naming tool.
 
 Version 1.0.4.23: July 9, 1999
-Pat:	Changed the default behavior of the collection naming tool to 
+Pat:	Changed the default behavior of the collection naming tool to
 		be 'affect selected' rather than 'affect all'
 
 Version 1.0.4.22: July 7, 1999
@@ -336,7 +336,7 @@ Pat:	The export code doesn't export the DCG array if all vertex colors
 
 Version 1.0.4.21: July 1, 1999
 Pat:	Added code to optimze the between-mesh smoothing and added a new
-		button to the export dialog that allows the user to turn this 
+		button to the export dialog that allows the user to turn this
 		smoothing feature on/off.  Also added displacement maps to the
 		W3D material, however due to a bug in the NURBS Mesher modifier,
 		we decided not to expose the functionality in UI at this time.
@@ -351,15 +351,15 @@ Pat:	Added code to apply smoothing groups over mesh boundaries.  More
 
 Version 1.0.4.19: June 14, 1999
 Greg:	Added the VAlpha checkbox to the W3D utility panel.  Checking this
-		causes the exporter to convert vertex colors into alpha values and put 
-		them in all passes that are using alpha blending.  This might be a temporary 
-		solution; I'm thinking we need to extend the Utility panel (and the AppData 
-		structure that we are saving) to allow for more flexible control over vertex 
+		causes the exporter to convert vertex colors into alpha values and put
+		them in all passes that are using alpha blending.  This might be a temporary
+		solution; I'm thinking we need to extend the Utility panel (and the AppData
+		structure that we are saving) to allow for more flexible control over vertex
 		alpha, vertex color, etc.
 
 Version 1.0.4.18: May 27, 1999
 Greg:	Fixed a bug in the code which handles loading a hierarchy tree from another
-		W3D file.  Made the W3D utility panel support multiple selection.  
+		W3D file.  Made the W3D utility panel support multiple selection.
 Pat:	Added the initial mesh deform object space modifier.  Currently doesn't
 		export the data.
 
@@ -371,7 +371,7 @@ Greg:	Fixed a bug related to exporting a mesh with zero vertices.  Exporter will
 		part of the exporter code is getting uuuuuugly...
 
 Version 1.0.4.16: April 6, 1999
-Greg:	Fixed a bug related to the storing of the default export options.  If the 
+Greg:	Fixed a bug related to the storing of the default export options.  If the
 		user exported a model which uses the hierarchy from another model and then
 		moves the Max file, the next export would crash Max when the exporter couldn't
 		find the w3d file which contains the hierarchy.
@@ -417,12 +417,12 @@ Version 1,0,4,8: Feb 9, 1999
 Greg:	Added the ZNormals option for forcing the normals of a mesh to be 0,0,1
 
 Version 1,0,4,7: Feb 8, 1999
-Greg:	Fixed 2 bugs in the skin code.  Added code to scan the materials used 
+Greg:	Fixed 2 bugs in the skin code.  Added code to scan the materials used
 		by a mesh and discard un-used ones.
 Naty:	Added 'Alpha-Bitmap' button to the texture dialog, added new shader presets
 
 Version 1,0,4,8: Feb 15, 1999
-Greg:	Improved the strip generation algorithm.  Now actually turns a cube into 6 
+Greg:	Improved the strip generation algorithm.  Now actually turns a cube into 6
 		strips instead of 12 individual triangles.  Still needs work though...
-	
+
 

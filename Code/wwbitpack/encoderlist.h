@@ -21,8 +21,8 @@
 // Project:      wwbitpack.lib
 // Author:       Tom Spencer-Smith
 // Date:         June 1998
-// Description:  
-//					  
+// Description:
+//
 
 #ifndef ENCODERLIST_H
 #define ENCODERLIST_H
@@ -46,7 +46,7 @@ class cEncoderList
 
 #pragma auto_inline(off)
 		//------------------------------------------------------------------------------------
-		template<class T> static T Set_Precision(int type, T min, T max, 
+		template<class T> static T Set_Precision(int type, T min, T max,
 			T resolution = 1)
 		{
 			WWASSERT(type >= 0 && type < MAX_ENCODERTYPES);
@@ -54,8 +54,8 @@ class cEncoderList
 			WWASSERT(resolution > MISCUTIL_EPSILON);
 
 			EncoderTypes[type].Init(
-				static_cast<double>(min), 
-				static_cast<double>(max), 
+				static_cast<double>(min),
+				static_cast<double>(max),
 				static_cast<double>(resolution));
 
 			WWDEBUG_SAY(("cEncoderList::Set_Precision for type %d: %d -> %d bits\n",

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/explosion.h                           $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/09/02 3:16p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 17                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/explosion.h                           $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/09/02 3:16p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 17                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	EXPLOSION_H
@@ -55,7 +55,7 @@ class	DamageableGameObj;
 class	ExplosionDefinitionClass : public DefinitionClass {
 
 public:
-	ExplosionDefinitionClass( void );		
+	ExplosionDefinitionClass( void );
 
 	virtual uint32								Get_Class_ID( void ) const override;
 	virtual PersistClass *					Create( void ) const override					{ WWASSERT( 0 ); return NULL; }

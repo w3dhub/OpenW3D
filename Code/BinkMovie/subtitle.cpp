@@ -107,7 +107,7 @@ SubTitleClass::~SubTitleClass()
 ******************************************************************************/
 
 void SubTitleClass::Set_RGB_Color(
-	unsigned char red, 
+	unsigned char red,
 	unsigned char green,
 	unsigned char blue)
 {

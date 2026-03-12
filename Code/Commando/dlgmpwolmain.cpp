@@ -342,7 +342,7 @@ MPWolMainMenuClass::Update_Login_Profile(void)
 
 	LoginProfile* profile = LoginProfile::Get(lastlogin);
 	ShowProfileRanking(this, profile);
-	
+
 	if (profile) {
 		profile->Release_Ref();
 	}

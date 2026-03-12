@@ -198,7 +198,7 @@ void DlgMPConnect::On_Command(int ctrlID, int message, unsigned int param)
 			{
 			cNetwork::Cleanup_Client();
 			}
-		if (cGameSpyAdmin::Get_Is_Launched_From_Gamespy()) 
+		if (cGameSpyAdmin::Get_Is_Launched_From_Gamespy())
 			{
 			extern void Stop_Main_Loop (int);
 			Stop_Main_Loop(EXIT_SUCCESS);

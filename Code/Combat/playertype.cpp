@@ -20,7 +20,7 @@
 // Filename:     playertype.cpp
 // Author:       Byon Garrabrant
 // Date:         Jun 2001
-// Description:  
+// Description:
 //
 //-----------------------------------------------------------------------------
 

@@ -111,20 +111,20 @@ class SceneEditorClass : public PhysicsSceneClass
 		virtual bool						Undo (void);
 		virtual void						Begin_Operation (OPERATION_TYPE type, NodeClass *node);
 		virtual void						Begin_Operation (OPERATION_TYPE type, NODE_LIST *affected_list = NULL);
-		virtual void						End_Operation (void);		
+		virtual void						End_Operation (void);
 
 		//
 		//	Object transformation methods
 		//
 		virtual void						Lock_Nodes (bool lock);
-		virtual Vector3					Build_Node_List (NODE_LIST &node_list);		
+		virtual Vector3					Build_Node_List (NODE_LIST &node_list);
 
 		//
 		//	Inline accessors
 		//
 		virtual SelectionMgrClass &	Get_Selection_Mgr (void) { return *m_SelectionMgr; }
 		virtual UndoMgrClass &			Get_Undo_Mgr (void) { return m_UndoMgr; }
-		virtual GROUP_LIST &				Get_Group_List (void) { return m_GroupsList; }		
+		virtual GROUP_LIST &				Get_Group_List (void) { return m_GroupsList; }
 
 		//
 		//	Group methods
@@ -231,7 +231,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		void									Generate_Pathfind_Portals (void);
 		void									Pathfind_Floodfill (Phys3Class &char_sim, const Vector3 &start_pos);
 		void									DoObjectGoto (NodeClass *node1, NodeClass *node2);
-		
+
 		//
 		//	Aggregate methods
 		//
@@ -270,9 +270,9 @@ class SceneEditorClass : public PhysicsSceneClass
 		virtual void						Add_Groups_To_List (NodeClass &node, GROUP_LIST &group_list);
 		virtual void						Add_Nodes_To_List (NodeClass &node, NODE_LIST &node_list);
 		virtual void						Build_Group_List (GROUP_LIST &group_list, NodeClass *node = NULL);
-		virtual void						Build_Node_List (NODE_LIST &node_list, NodeClass *node);		
+		virtual void						Build_Node_List (NODE_LIST &node_list, NodeClass *node);
 		virtual void						Update_Toolbars (void);
-		virtual void						Empty_Local_Clipboard (void);		
+		virtual void						Empty_Local_Clipboard (void);
 
 		void									Move_Selected_Nodes (void);
 
@@ -280,7 +280,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		//	From base class
 		//
 		virtual void						On_Vis_Occluders_Rendered(VisRenderContextClass & context,VisSampleClass & sample);
-		
+
 	private:
 
 		//////////////////////////////////////////////////////////
@@ -309,7 +309,7 @@ class SceneEditorClass : public PhysicsSceneClass
 		bool									m_CreateProxies;
 		VisWindowDialogClass				m_VisWindow;
 
-		NodeClass *							m_MovingObject;		
+		NodeClass *							m_MovingObject;
 };
 
 

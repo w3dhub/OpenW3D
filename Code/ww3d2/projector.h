@@ -57,7 +57,7 @@ class MatrixMapperClass;
 class ProjectorClass
 {
 public:
-	
+
 	ProjectorClass(void);
 	virtual ~ProjectorClass(void);
 

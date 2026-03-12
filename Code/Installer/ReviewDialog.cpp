@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/ReviewDialog.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/24/01 9:29p                $* 
- *                                                                                             * 
- *                    $Revision:: 5                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/ReviewDialog.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/24/01 9:29p                $*
+ *                                                                                             *
+ *                    $Revision:: 5                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -42,7 +42,7 @@
 
 
 /***********************************************************************************************
- * ReviewDialogClass::On_Init_Dialog --																		  *		
+ * ReviewDialogClass::On_Init_Dialog --																		  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -51,7 +51,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void ReviewDialogClass::On_Init_Dialog (void)
 {
@@ -62,7 +62,7 @@ void ReviewDialogClass::On_Init_Dialog (void)
 
 
 /***********************************************************************************************
- * ReviewDialogClass::On_Activate --																			  *		
+ * ReviewDialogClass::On_Activate --																			  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -71,7 +71,7 @@ void ReviewDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void ReviewDialogClass::On_Activate (bool onoff)
 {
@@ -132,7 +132,7 @@ void ReviewDialogClass::On_Activate (bool onoff)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void ReviewDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {

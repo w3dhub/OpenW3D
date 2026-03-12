@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/comcentergameobj.cpp                  $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 7/16/01 12:10p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 4                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/comcentergameobj.cpp                  $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 7/16/01 12:10p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 4                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "comcentergameobj.h"
@@ -108,8 +108,8 @@ ComCenterGameObjDef::~ComCenterGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-ComCenterGameObjDef::Get_Class_ID (void) const	
-{ 
+ComCenterGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_COMCENTER;
 }
 
@@ -120,7 +120,7 @@ ComCenterGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-ComCenterGameObjDef::Create (void) const 
+ComCenterGameObjDef::Create (void) const
 {
 	ComCenterGameObj *building = new ComCenterGameObj;
 	building->Init (*this);
@@ -137,7 +137,7 @@ ComCenterGameObjDef::Create (void) const
 bool
 ComCenterGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		BuildingGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
@@ -166,7 +166,7 @@ ComCenterGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized Com Center Def chunkID\n"));
 				break;
@@ -188,7 +188,7 @@ void
 ComCenterGameObjDef::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:
@@ -209,9 +209,9 @@ ComCenterGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-ComCenterGameObjDef::Get_Factory (void) const 
-{ 
-	return _ComCenterGameObjDefPersistFactory; 
+ComCenterGameObjDef::Get_Factory (void) const
+{
+	return _ComCenterGameObjDefPersistFactory;
 }
 
 
@@ -243,7 +243,7 @@ ComCenterGameObj::~ComCenterGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-ComCenterGameObj::Get_Factory (void) const 
+ComCenterGameObj::Get_Factory (void) const
 {
 	return _ComCenterGameObjPersistFactory;
 }
@@ -316,7 +316,7 @@ ComCenterGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				BuildingGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -342,7 +342,7 @@ void
 ComCenterGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:

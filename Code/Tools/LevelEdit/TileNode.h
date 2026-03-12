@@ -59,7 +59,7 @@ class PresetClass;
 class TileNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ public:
 	//	RTTI
 	//
 	TileNodeClass *As_TileNodeClass (void)			{ return this; }
-	
+
 	// From NodeClass
 	void			Initialize (void);
 	NodeClass *	Clone (void)							{ return new TileNodeClass (*this); }

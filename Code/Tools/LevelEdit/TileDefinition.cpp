@@ -76,7 +76,7 @@ SimplePersistFactoryClass<TileDefinitionClass, CHUNKID_TILE_DEF>			_TilePersistF
 //////////////////////////////////////////////////////////////////////////////////
 TileDefinitionClass::TileDefinitionClass (void)
 	:	m_PhysDefID (0),
-		DefinitionClass ()		
+		DefinitionClass ()
 {
 	MODEL_DEF_PARAM (TileDefinitionClass, m_PhysDefID, "StaticPhysDef");
 	return ;
@@ -140,7 +140,7 @@ TileDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_VARIABLES:
 				retval &= Load_Variables (cload);
 				break;
@@ -188,8 +188,8 @@ TileDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
-			READ_MICRO_CHUNK (cload, VARID_PHYS_DEF_ID, m_PhysDefID)			
+
+			READ_MICRO_CHUNK (cload, VARID_PHYS_DEF_ID, m_PhysDefID)
 		}
 
 		cload.Close_Micro_Chunk ();

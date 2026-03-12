@@ -58,7 +58,7 @@ class MPWolBuddiesMenuClass :
 {
 public:
 	static void Display(void);
-	
+
 protected:
 	MPWolBuddiesMenuClass(void);
 	~MPWolBuddiesMenuClass();

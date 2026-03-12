@@ -236,7 +236,7 @@ static BOOL CALLBACK ClipboardDlgProc
 	case WM_INITDIALOG:
 		the_clipboard.Init(hWnd);
 		break;
-	
+
 	case WM_DESTROY:
 		the_clipboard.Destroy(hWnd);
 		break;
@@ -270,7 +270,7 @@ static BOOL CALLBACK ClipboardDlgProc
 	default:
 		return false;
 	}
-	return true; 
+	return true;
 }
 
 //----------------------------------------------------------------------------
@@ -319,7 +319,7 @@ static BOOL CALLBACK Pose_Name_Message_Handler
 		last_frame_spin->SetResetValue ( current_frame );
 
 		return true;
-	
+
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
@@ -343,7 +343,7 @@ static BOOL CALLBACK Pose_Name_Message_Handler
 
 	case CC_SPINNER_CHANGE:
 
-		// Do checking on the range spinners to make sure the low value never 
+		// Do checking on the range spinners to make sure the low value never
 		// exceeds the high value.
 
 		switch ( LOWORD(wParam) )
@@ -368,7 +368,7 @@ static BOOL CALLBACK Pose_Name_Message_Handler
 		return true;
 	}
 
-	return false; 
+	return false;
 }
 
 //----------------------------------------------------------------------------
@@ -378,7 +378,7 @@ static BOOL CALLBACK Pose_Name_Message_Handler
 Clipboard_Class::Clipboard_Class()
 {
 	iu = NULL;
-	ip = NULL;	
+	ip = NULL;
 	hPanel = NULL;
 	first_pose = NULL;
 }
@@ -401,7 +401,7 @@ Clipboard_Class::~Clipboard_Class ()
 // Clipboard_Class::BeginEditParams
 //----------------------------------------------------------------------------
 
-void Clipboard_Class::BeginEditParams(Interface *ip,IUtil *iu) 
+void Clipboard_Class::BeginEditParams(Interface *ip,IUtil *iu)
 {
 	this->iu = iu;
 	this->ip = ip;
@@ -414,12 +414,12 @@ void Clipboard_Class::BeginEditParams(Interface *ip,IUtil *iu)
 		0
 	);
 }
-	
+
 //----------------------------------------------------------------------------
 // Clipboard_Class::EndEditParams
 //----------------------------------------------------------------------------
 
-void Clipboard_Class::EndEditParams ( Interface *ip, IUtil *iu ) 
+void Clipboard_Class::EndEditParams ( Interface *ip, IUtil *iu )
 {
 	this->iu = NULL;
 	this->ip = NULL;

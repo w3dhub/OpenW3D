@@ -63,9 +63,9 @@ void CDataView::Rebuild_Tree(void)
 	GetTreeCtrl().DeleteItem(ModelsRoot);
 	GetTreeCtrl().DeleteItem(InstancesRoot);
 
-	ModelsRoot = GetTreeCtrl().InsertItem("Models", NULL, NULL);	
+	ModelsRoot = GetTreeCtrl().InsertItem("Models", NULL, NULL);
 	InstancesRoot = GetTreeCtrl().InsertItem ("Physics Object Instances", NULL, NULL);
-	
+
 	// MODELS
 	// Get an iterator from the asset manager that we can
 	// use to enumerate the currently loaded assets
@@ -85,7 +85,7 @@ void CDataView::Rebuild_Tree(void)
 				// Add this entry to the tree
 				HTREEITEM hItem = GetTreeCtrl().InsertItem(model_name,NULL,0,ModelsRoot,TVI_SORT);
 				ASSERT (hItem != NULL);
-		
+
 				ItemInfoClass * item_info = new ItemInfoClass(model_name,ItemInfoClass::MODEL);
 				GetTreeCtrl().SetItemData(hItem, (ULONG)item_info);
 			}
@@ -96,11 +96,11 @@ void CDataView::Rebuild_Tree(void)
 	}
 
 	// PHYSICS OBJECT INSTANCES
-	CPhysTestDoc * doc = (CPhysTestDoc *)GetDocument();	
-	
+	CPhysTestDoc * doc = (CPhysTestDoc *)GetDocument();
+
 	RefPhysListIterator phys_iterator = PhysicsSceneClass::Get_Instance()->Get_Dynamic_Object_Iterator();
 	for (phys_iterator.First();!phys_iterator.Is_Done();phys_iterator.Next()) {
-		
+
 		const char * instance_name = phys_iterator.Peek_Obj()->Get_Name();
 
 		if (instance_name != NULL) {
@@ -114,7 +114,7 @@ void CDataView::Rebuild_Tree(void)
 			GetTreeCtrl().SetItemData(hItem, (ULONG)item_info);
 		}
 	}
-	
+
 	// Turn;repainting back on and force a redraw
 	GetTreeCtrl().SetRedraw (true);
 	Invalidate(false);
@@ -182,7 +182,7 @@ void CDataView::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CDataView message handlers
 
-BOOL CDataView::PreCreateWindow(CREATESTRUCT& cs) 
+BOOL CDataView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// Modify the style bits for the window so it will
 	// have buttons and lines between nodes.
@@ -190,21 +190,21 @@ BOOL CDataView::PreCreateWindow(CREATESTRUCT& cs)
 	return CTreeView::PreCreateWindow(cs);
 }
 
-int CDataView::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int CDataView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CTreeView::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	
-	ModelsRoot = GetTreeCtrl().InsertItem("Models", NULL, NULL);	
+
+	ModelsRoot = GetTreeCtrl().InsertItem("Models", NULL, NULL);
 	InstancesRoot = GetTreeCtrl().InsertItem ("Physics Object Instances", NULL, NULL);
-	
+
 	return 0;
 }
 
-void CDataView::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult) 
+void CDataView::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_TREEVIEW* pNMTreeView = (NM_TREEVIEW*)pNMHDR;
-	
+
 	ItemInfoClass * item_info = (ItemInfoClass *)pNMTreeView->itemOld.lParam;
 
 	// Free the asset information object
@@ -218,7 +218,7 @@ void CDataView::OnDeleteitem(NMHDR* pNMHDR, LRESULT* pResult)
 	*pResult = 0;
 }
 
-void CDataView::OnSelchanged(NMHDR* pNMHDR, LRESULT* pResult) 
+void CDataView::OnSelchanged(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	// just tell the main window that the selection changed so it
 	// can link/unlink the virtual joystick.

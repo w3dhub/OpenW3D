@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/wwphys/physcon.h 11    9/20/01 5:12p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/wwphys/physcon.h                             $* 
- *                                                                                             * 
- *                       Author:: Greg_h                                                       * 
- *                                                                                             * 
- *                     $Modtime:: 9/19/01 7:49p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 11                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwphys/physcon.h                             $*
+ *                                                                                             *
+ *                       Author:: Greg_h                                                       *
+ *                                                                                             *
+ *                     $Modtime:: 9/19/01 7:49p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 11                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -65,15 +65,15 @@ public:
 	static void		Init(void);
 
 	/*
-	** In this engine friction usually occurs between a moving object and 
+	** In this engine friction usually occurs between a moving object and
 	** polygons in the static terrain.
 	*/
-	enum 
+	enum
 	{
 		DYNAMIC_OBJ_TYPE_TIRE			= 0,			// (tires on humvees, etc)
 		DYNAMIC_OBJ_TYPE_TRACK,							// (tracks on tanks, APCs, etc)
 		DYNAMIC_OBJ_TYPE_GENERIC,						// (generic dynamic objects, may need to expand this one)
-		
+
 		DYNAMIC_OBJ_TYPE_MAX,
 	};
 
@@ -103,15 +103,15 @@ public:
 	static Vector3	GravityAcceleration;
 
 	/*
-	** Linear Damping factor.  
+	** Linear Damping factor.
 	*/
 	static float	LinearDamping;
-	
+
 	/*
-	** Angular Damping factor.  
+	** Angular Damping factor.
 	*/
 	static float	AngularDamping;
-	
+
 	/*
 	** epsilon for detecting resting contact.  If the
 	** velocity is within this epsilon of zero, a

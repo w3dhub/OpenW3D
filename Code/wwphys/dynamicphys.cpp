@@ -88,7 +88,7 @@ DynamicPhysClass::~DynamicPhysClass(void)
 
 void DynamicPhysClass::Init(const DynamicPhysDefClass & definition)
 {
-	PhysClass::Init(definition);	
+	PhysClass::Init(definition);
 }
 
 void DynamicPhysClass::Set_Model(RenderObjClass * model)
@@ -102,7 +102,7 @@ void DynamicPhysClass::Set_Model(RenderObjClass * model)
 		*/
 		AABoxClass obj_box;
 		model->Get_Obj_Space_Bounding_Box(obj_box);
-		
+
 		/*
 		** Insert it into our Umbra object
 		*/
@@ -150,7 +150,7 @@ void DynamicPhysClass::Internal_Update_Visibility_Status(void)
 	*/
 	VisObjectID = PhysicsSceneClass::Get_Instance()->Get_Dynamic_Object_Vis_ID(Model->Get_Bounding_Box(),&VisNodeID);
 	if ((int)VisObjectID >= PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size()) {
-		
+
 		[[maybe_unused]] int size = PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size();
 //		int id = PhysicsSceneClass::Get_Instance()->Get_Dynamic_Object_Vis_ID(Model->Get_Bounding_Box(),&VisNodeID);
 
@@ -184,8 +184,8 @@ bool DynamicPhysClass::Save(ChunkSaveClass &csave)
 bool DynamicPhysClass::Load(ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case DYNAMICPHYS_CHUNK_PHYS:
 				PhysClass::Load(cload);
@@ -195,7 +195,7 @@ bool DynamicPhysClass::Load(ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 	SaveLoadSystemClass::Register_Post_Load_Callback(this);
@@ -205,7 +205,7 @@ bool DynamicPhysClass::Load(ChunkLoadClass &cload)
 void DynamicPhysClass::On_Post_Load(void)
 {
 	PhysClass::On_Post_Load();
-	
+
 	// update cached vis object id, vis node id, and sunlight status...
 	Update_Cull_Box();
 	Update_Visibility_Status();
@@ -221,7 +221,7 @@ void DynamicPhysClass::On_Post_Load(void)
 **
 ***********************************************************************************************/
 
-enum 
+enum
 {
 	DYNAMICPHYSDEF_CHUNK_PHYSDEF	= 813001104,			// parent class data.
 };
@@ -257,7 +257,7 @@ bool DynamicPhysDefClass::Load(ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
 
-		switch(cload.Cur_Chunk_ID()) {			
+		switch(cload.Cur_Chunk_ID()) {
 
 			case DYNAMICPHYSDEF_CHUNK_PHYSDEF:
 				PhysDefClass::Load(cload);

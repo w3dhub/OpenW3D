@@ -66,17 +66,17 @@ void RenegadeGameRes::setMapName(const char* val)
 	if( _map_name != NULL ) delete[] _map_name;
 
 	if( val == NULL ) return;
-	
+
 	_map_name = new char[strlen(val)+1];
 	strcpy(_map_name, val);
 }
 
 
 void RenegadeGameRes::addPlayer(const char* login, double score, unsigned int clan_id,
-								unsigned int duration, unsigned int ip, 
-								unsigned int deaths, unsigned int kills, 
+								unsigned int duration, unsigned int ip,
+								unsigned int deaths, unsigned int kills,
 								unsigned int selfkills, unsigned int damagepoints)
-{	
+{
 	char** newstr = _addToArr(_logins, login);
 	delete[] _logins;
 	_logins = newstr;
@@ -86,7 +86,7 @@ void RenegadeGameRes::addPlayer(const char* login, double score, unsigned int cl
 	// we take the maximum value for a 4-byte int and multiply it
 	// by the jscore floating value.  We now have a scale of the same
 	// accuracy as a 4-byte float.
-	
+
 	// Expecting a score X such that -0.5 <= X <= 0.5
 	score += 0.5;	// So that it can be stored unsigned
 	unsigned int convscore = (unsigned int)(score * GR_SCORE_SCALE);
@@ -144,8 +144,8 @@ int RenegadeGameRes::sendResults()
 	rawPacket.Add_Field(GR_START_TIME, _start_time);
 	rawPacket.Add_Field(GR_TOURNAMENT, _tournament);
 
-	
-	for (int i = 0 ; i < _player_count; i++) 
+
+	for (int i = 0 ; i < _player_count; i++)
   	{
     	GR_LOGINS[3] = (char)('0' + (char)i);
     	rawPacket.Add_Field(GR_LOGINS, (char *)((const char*)_logins[i]));
@@ -179,7 +179,7 @@ int RenegadeGameRes::sendResults()
 	void* encPacket = PrepareEncryptedPacket((unsigned char*)outPacket, &packetsize);
 	bit8 result = 0;
 	sint32 sendlen = 0;
-	
+
 
 	// If the _host member is not set, then this method is being called in-game
 	// and wants to use the WOLAPI methods to send game results.  Otherwise it
@@ -275,7 +275,7 @@ unsigned int* RenegadeGameRes::_addToArr(unsigned int* arr, unsigned int item)
 	{
 		// Make a new array
 		assert( _myplayercount == 0 );
-		newarr = new unsigned int[1];		
+		newarr = new unsigned int[1];
 		// Add the new item
 		newarr[0] = item;
 	}

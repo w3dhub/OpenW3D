@@ -76,7 +76,7 @@ ViewerCtrlClass::ViewerCtrlClass (void)	:
 	InterfaceMode (Z_ROTATION)
 {
 	Vector3 ambientcolor (0.2f, 0.2f, 0.2f);
-		
+
 	LastMousePosition = DialogMgrClass::Get_Mouse_Pos();
 
 	//
@@ -97,7 +97,7 @@ ViewerCtrlClass::ViewerCtrlClass (void)	:
 	//			thru the far clip plane (and Z-fighting will result if the ratio is too high). If this
 	//			proves to problematic replace the constant settings with a function of object size that
 	//			can be set on a per object basis.
-	//			
+	//
 	Camera = new CameraClass;
 	Camera->Set_Clip_Planes (0.25F, 300.0F);
 
@@ -107,7 +107,7 @@ ViewerCtrlClass::ViewerCtrlClass (void)	:
 	Light->Set_Ambient (Vector3 (0.0f, 0.0f, 0.0f));
 	Light->Set_Diffuse (Vector3 (1.0f, 1.0f, 1.0f));
 	Scene->Add_Render_Object (Light);
-	
+
 	return ;
 }
 
@@ -501,7 +501,7 @@ void ViewerCtrlClass::Set_Interface_Mode (InterfaceModeEnum mode, float rotation
 		InterfaceMode = mode;
 		ZRotation	  = DEG_TO_RADF (0.0f);
 	}
-	RotationRate = DEG_TO_RADF (rotationrate);	
+	RotationRate = DEG_TO_RADF (rotationrate);
 }
 
 
@@ -549,7 +549,7 @@ ViewerCtrlClass::On_Frame_Update (void)
 			Camera->Set_Transform (tm);
 			break;
 		}
-		
+
 		case VIRTUAL_TRACKBALL:
 
 			if (DialogMgrClass::Is_Button_Down (VK_LBUTTON)) {
@@ -561,9 +561,9 @@ ViewerCtrlClass::On_Frame_Update (void)
 
 					int		  width, height, bits;
 					bool		  windowed;
-					float		  oow, ooh;	
-					Vector2	  viewportmin, viewportmax, viewportextent, viewportcenter;  
-					float		  a, b;	
+					float		  oow, ooh;
+					Vector2	  viewportmin, viewportmax, viewportextent, viewportcenter;
+					float		  a, b;
 					Vector2	  p0, p1;
 					Quaternion rotation;
 					Matrix3D	  transform, inversetransform;
@@ -578,19 +578,19 @@ ViewerCtrlClass::On_Frame_Update (void)
 					viewportcenter = 0.5f * (viewportmin + viewportmax);
 					a =  1.0f / viewportextent.X;
 					b = -1.0f / viewportextent.Y;
-					
+
 					p0.Set (LastMousePosition.X, LastMousePosition.Y);
 					p0.Scale (oow, ooh);
 					p0 -= viewportcenter;
 					p0.Scale (a, b);
-					
+
 					p1.Set (DialogMgrClass::Get_Mouse_Pos().X, DialogMgrClass::Get_Mouse_Pos().Y);
 					p1.Scale (oow, ooh);
 					p1 -= viewportcenter;
 					p1.Scale (a, b);
-					
+
 					rotation = ::Trackball (p0.X, p0.Y, p1.X, p1.Y, 0.5f);
-					
+
 					transform = Camera->Get_Transform();
 					transform.Get_Orthogonal_Inverse (inversetransform);
 					objectcenter = inversetransform * BoundingBox.Center;
@@ -606,7 +606,7 @@ ViewerCtrlClass::On_Frame_Update (void)
 
 	// Place the light source at the camera position.
 	Light->Set_Transform (Camera->Get_Transform());
-	
+
 	LastMousePosition = DialogMgrClass::Get_Mouse_Pos();
 	DialogControlClass::On_Frame_Update ();
 	return ;
@@ -668,12 +668,12 @@ ViewerCtrlClass::Get_Visible_Bounding_Box (AABoxClass *box, RenderObjClass *rend
 			} else {
 				vertex_array = mesh_model->Get_Vertex_Array ();
 			}
-			
+
 			//
 			//	Loop over all the verts inside this model
-			//			
+			//
 			for (int index = 0; index < vertex_count; index ++) {
-				
+
 				//
 				//	Get the world-space vertex position
 				//

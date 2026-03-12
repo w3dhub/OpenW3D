@@ -1159,7 +1159,7 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 	temp_point.X = std::clamp (temp_point.X, box.Center.X - box.Extent.X, box.Center.X + box.Extent.X);
 	temp_point.Y = std::clamp (temp_point.Y, box.Center.Y - box.Extent.Y, box.Center.Y + box.Extent.Y);
 	temp_point.Z = std::clamp (temp_point.Z, box.Center.Z - box.Extent.Z, box.Center.Z + box.Extent.Z);
-	
+
 	//
 	//	Did the clip change the point?
 	//
@@ -1225,7 +1225,7 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 
 					//
 					//	Don't allow any movement if something is in our way
-					//					
+					//
 					if ( soldier == NULL || soldier->Is_Soldier_Blocked( curr_pos ) == false ) {
 						if ( Move_To_Absolute( next_pos ) ) {
 							act_result = Arrived();
@@ -1441,7 +1441,7 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 					// to beeline -- otherwise, kill the action...
 					//
 					if (PathfindClass::Get_Instance ()->Does_Pathfind_Data_Exist ()) {
-						
+
 						//
 						//	Kill the action
 						//
@@ -1837,19 +1837,19 @@ public:
 		float dist = (my_pos - abs_pos).Length();
 		float move = TimeManager::Get_Total_Seconds() * ErrorScale;
 
-		float error_angle = WWMath::Fabs(Action->Get_Parameters().AttackError) + 
+		float error_angle = WWMath::Fabs(Action->Get_Parameters().AttackError) +
 									WWMath::Fabs(obj->Get_Weapon_Error());
 
-#if 0		
+#if 0
 		// Modify error angle based on difficulty
 		switch ( CombatManager::Get_Difficulty_Level() ) {
-			case 0:	
+			case 0:
 				error_angle += 20;
 				break;
-			case 1:	
+			case 1:
 				// no change
 				break;
-			case 2:	
+			case 2:
 				error_angle -= 20;
 				break;
 		};
@@ -2000,7 +2000,7 @@ public:
 		} else {
 			Pilot.Set_Target (NULL);
 		}
-		
+
 		return result;
 	}
 
@@ -2306,7 +2306,7 @@ public:
 		csave.Begin_Chunk( CHUNKID_VARIABLES );
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_STATE,						State				);
 			WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ORIGINAL_POS,				OriginalPos		);
-			
+
 			//
 			//	Only save the conversation ptr if it exists in the manager
 			//
@@ -2706,10 +2706,10 @@ public:
 			float turn_radius = 2.0F;
 			if ( vehicle != NULL ) {
 				turn_radius = vehicle->Get_Turn_Radius();
-			}			
+			}
 
 			if (turn_radius == 0) {
-								
+
 				//
 				//	Instruct the object to drive to the side of the docking bay
 				//
@@ -2721,7 +2721,7 @@ public:
 				GotoActionCodeClass::Init( action );
 
 			} else {
-				
+
 				WaypathClass *test_waypath = new WaypathClass;
 				Vector3 side_pos = params.DockLocation + (params.DockEntrance - params.DockLocation) * 0.8F;
 

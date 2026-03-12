@@ -84,7 +84,7 @@ ControlsMenuClass::On_Init_Dialog (void)
 {
 	TabCtrlClass *tab_ctrl = (TabCtrlClass *)Get_Dlg_Item (IDC_CONTROL_TABCTRL);
 	if (tab_ctrl != NULL) {
-		
+
 		//
 		//	Add the tabs to the control
 		//
@@ -143,7 +143,7 @@ ControlsMenuClass::Apply_Changes (void)
 	TabCtrlClass *tab_ctrl = (TabCtrlClass *)Get_Dlg_Item (IDC_CONTROL_TABCTRL);
 	if (tab_ctrl != NULL) {
 		if (tab_ctrl->Apply_Changes_On_Tabs ()) {
-			
+
 			//
 			//	Save the changes
 			//
@@ -151,7 +151,7 @@ ControlsMenuClass::Apply_Changes (void)
 		}
 	}
 
-	return; 
+	return;
 }
 
 
@@ -170,7 +170,7 @@ ControlsMenuClass::Reload (void)
 	if (tab_ctrl != NULL) {
 		tab_ctrl->Reload_Tabs ();
 	}
-	
+
 	return ;
 }
 

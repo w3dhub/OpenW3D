@@ -107,7 +107,7 @@ RenegadePlayerTerminalClass::Display_Terminal (SoldierGameObj *player, TYPE type
 	if (player == NULL || player->Get_Player_Data() == NULL) {
 		return ;
 	}
-	
+
 	//
 	//	Check to ensure this player can access the given terminal
 	//
@@ -116,7 +116,7 @@ RenegadePlayerTerminalClass::Display_Terminal (SoldierGameObj *player, TYPE type
 	} else if (player->Get_Player_Type () == PLAYERTYPE_NOD && type == TYPE_NOD) {
 		Show_Terminal_Dialog (PurchaseSettingsDefClass::TEAM_NOD);
 	} else if (type == TYPE_MUTANT) {
-		
+
 		//
 		//	Determine what player terminal to display -- GDI mutant or NOD mutant
 		//
@@ -127,7 +127,7 @@ RenegadePlayerTerminalClass::Display_Terminal (SoldierGameObj *player, TYPE type
 		}
 
 	} else {
-		
+
 		//
 		//	Display a dialog to the user telling them they don't have access to this terminal.
 		//

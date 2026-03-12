@@ -117,10 +117,10 @@ VisWindowDialogClass::Create (void)
 // OnInitDialog
 //
 /////////////////////////////////////////////////////////////////////////////
-BOOL VisWindowDialogClass::OnInitDialog() 
+BOOL VisWindowDialogClass::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	// create the tool-tip
 	if (ToolTip.Create(this, TTS_ALWAYSTIP) && ToolTip.AddTool(this))
 	{
@@ -133,7 +133,7 @@ BOOL VisWindowDialogClass::OnInitDialog()
 	{
 		TRACE("Error in creating ToolTip");
 	}
- 	
+
 	return true;  // return true unless you set the focus to a control
 	              // EXCEPTION: OCX Property Pages should return false
 }
@@ -178,7 +178,7 @@ VisWindowDialogClass::Update_Display (VisRasterizerClass &rasterizer)
 		// our starting index for this row is mapped appropriately.
 		//
 		index = row * stride;
-		
+
 		//
 		//	Get a pointer to the raw vis-render data for this row of the bitmap
 		//
@@ -186,19 +186,19 @@ VisWindowDialogClass::Update_Display (VisRasterizerClass &rasterizer)
 
 		//
 		//	Loop over all the columns of the bitmap
-		//		
+		//
 		for (int col = 0; col < Width; col ++) {
 
 			unsigned int id			= pixel_ptr[col];// + 1;
 			unsigned int pixel		= Id_To_Pixel(id);
-			
+
 			//
 			//	Convert the pixel into red, green, and blue components
 			//
 			BYTE red		= BYTE(pixel & 0x000000FF);
 			BYTE green	= BYTE((pixel & 0x0000FF00) >> 8);
-			BYTE blue	= BYTE((pixel & 0x00FF0000) >> 16);			
-			
+			BYTE blue	= BYTE((pixel & 0x00FF0000) >> 16);
+
 			//
 			//	Store the pixel in the bitmap
 			//
@@ -361,17 +361,17 @@ VisWindowDialogClass::OnPaint (void)
 // Hit_Test - determines the vis-id under the cursor
 //
 /////////////////////////////////////////////////////////////////////////////
-int 
+int
 VisWindowDialogClass::Hit_Test(CPoint point) const
 {
-	// 
+	//
 	// If we don't have a bitmap, just return
 	//
 	if (BitmapBits == NULL) {
 		return -1;
 	}
 
-	// 
+	//
 	// Look up the pixel, we are StretchBlt'ing the bitmap to 2x the normal size
 	// so we divide the coordinates by two
 	//
@@ -389,9 +389,9 @@ VisWindowDialogClass::Hit_Test(CPoint point) const
 	BYTE green = BitmapBits[pixel_address ++];
 	BYTE red = BitmapBits[pixel_address ++];
 
-	// 
+	//
 	// Map the color back to a vis ID
-	// 
+	//
 	unsigned int color = red | (green<<8) | (blue<<16);
 	unsigned int id = Pixel_To_Id(color);
 	return id;
@@ -402,9 +402,9 @@ VisWindowDialogClass::Hit_Test(CPoint point) const
 // Id_To_Pixel
 //
 /////////////////////////////////////////////////////////////////////////////
-unsigned int	
-VisWindowDialogClass::Id_To_Pixel(unsigned int id) const		
-{ 
+unsigned int
+VisWindowDialogClass::Id_To_Pixel(unsigned int id) const
+{
 	uint32 pixel = 0;
 	pixel |= ((id & 0x0000000F) >>  0) << 20;		// LSN (Least Significant Nibble) goes into MSN of red
 	pixel |= ((id & 0x000000F0) >>  4) << 12;		// next LSN goes into MSN of green
@@ -421,14 +421,14 @@ VisWindowDialogClass::Id_To_Pixel(unsigned int id) const
 // Pixel_To_Id
 //
 /////////////////////////////////////////////////////////////////////////////
-unsigned int	
+unsigned int
 VisWindowDialogClass::Pixel_To_Id(unsigned int pixel) const
-{ 
+{
 	uint32 id = 0;
 
-	id |= ((pixel & 0x0000000F) >>  0) << 20;		
-	id |= ((pixel & 0x000000F0) >>  4) << 8;		
-	id |= ((pixel & 0x00000F00) >>  8) << 16;		
+	id |= ((pixel & 0x0000000F) >>  0) << 20;
+	id |= ((pixel & 0x000000F0) >>  4) << 8;
+	id |= ((pixel & 0x00000F00) >>  8) << 16;
 	id |= ((pixel & 0x0000F000) >> 12) << 4;
 	id |= ((pixel & 0x000F0000) >> 16) << 12;
 	id |= ((pixel & 0x00F00000) >> 20) << 0;
@@ -442,18 +442,18 @@ VisWindowDialogClass::Pixel_To_Id(unsigned int pixel) const
 // PreTranslateMessage
 //
 /////////////////////////////////////////////////////////////////////////////
-BOOL 
-VisWindowDialogClass::PreTranslateMessage(MSG* pMsg) 
+BOOL
+VisWindowDialogClass::PreTranslateMessage(MSG* pMsg)
 {
 	if (::IsWindow(ToolTip.m_hWnd) && pMsg->hwnd == m_hWnd)
 	{
 		switch(pMsg->message)
 		{
-		case WM_LBUTTONDOWN:    
+		case WM_LBUTTONDOWN:
 		case WM_MOUSEMOVE:
-		case WM_LBUTTONUP:    
+		case WM_LBUTTONUP:
 		case WM_RBUTTONDOWN:
-		case WM_MBUTTONDOWN:    
+		case WM_MBUTTONDOWN:
 		case WM_RBUTTONUP:
 		case WM_MBUTTONUP:
 			ToolTip.RelayEvent(pMsg);
@@ -468,7 +468,7 @@ VisWindowDialogClass::PreTranslateMessage(MSG* pMsg)
 // OnMouseMove
 //
 /////////////////////////////////////////////////////////////////////////////
-void VisWindowDialogClass::OnMouseMove(UINT nFlags, CPoint point) 
+void VisWindowDialogClass::OnMouseMove(UINT nFlags, CPoint point)
 {
 	if (::IsWindow(ToolTip.m_hWnd))
 	{
@@ -476,7 +476,7 @@ void VisWindowDialogClass::OnMouseMove(UINT nFlags, CPoint point)
 
 		if ((vis_id == -1) || (vis_id != CurToolTipVisId)) {
 			// Use Activate() to hide the tooltip.
-			ToolTip.Activate(false);        
+			ToolTip.Activate(false);
 		}
 
 		if (vis_id != -1) {

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 1/24/01 3:40p       $* 
- *                                                                                             * 
- *                    $Revision:: 3                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 1/24/01 3:40p       $*
+ *                                                                                             *
+ *                    $Revision:: 3                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -51,13 +51,13 @@ InsertSolveDialog::InsertSolveDialog (const char *initialpathname, CWnd* pParent
 	: CDialog(InsertSolveDialog::IDD, pParent)
 {
 	InitialPathname = initialpathname;
-	*DirectoryName	 = '\0';	
+	*DirectoryName	 = '\0';
 	FileListBuffer	 = NULL;
-	FilenameList	 = NULL;	
+	FilenameList	 = NULL;
 	ApplySelective	 = false;
 	InvertSelection = false;
 	BlendNoise		 = false;
-	InclusionString = NULL;	
+	InclusionString = NULL;
 
 	//{{AFX_DATA_INIT(InsertSolveDialog)
 		// NOTE: the ClassWizard will add member initialization here
@@ -97,14 +97,14 @@ END_MESSAGE_MAP()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-BOOL InsertSolveDialog::OnInitDialog() 
+BOOL InsertSolveDialog::OnInitDialog()
 {
 	char inclusionstring [2] = "^";
 
 	CDialog::OnInitDialog();
-	
+
 	CheckDlgButton (IDC_APPLY_SELECTIVE, ApplySelective);
 	CheckDlgButton (IDC_CONTAINING, true);
 	CheckDlgButton (IDC_NOT_CONTAINING, false);
@@ -129,23 +129,23 @@ BOOL InsertSolveDialog::OnInitDialog()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-void InsertSolveDialog::OnBrowse() 
+void InsertSolveDialog::OnBrowse()
 {
 	const char		*filefilter = "Lightscape Solution Files (*.ls)|*.ls|All Files (*.*)|*.*||";	// Filter for supported solve file formats.
 	const unsigned  filelistbuffersize = 4096;
-		
+
 	char  initialdrivename [_MAX_DRIVE];
 	char  initialdirectoryname [_MAX_DIR];
 	char  initialpath [_MAX_PATH];
 
 	// Select one or more solve files.
 	CFileDialog dialog (true, NULL, NULL, LightMapApp::File_Dialog_Flags() | OFN_ALLOWMULTISELECT, filefilter);
-		
+
 	// Allocate a buffer to contain the list of files selected.
 	// NOTE: Add one to buffer size in case an extra null must be added (see below).
-	FileListBuffer = new char [filelistbuffersize + 1];		  
+	FileListBuffer = new char [filelistbuffersize + 1];
 	ASSERT (FileListBuffer != NULL);
 	*FileListBuffer = '\0';
 	dialog.m_ofn.lpstrFile = FileListBuffer;
@@ -157,7 +157,7 @@ void InsertSolveDialog::OnBrowse()
 	dialog.m_ofn.lpstrInitialDir = initialpath;
 
 	if (dialog.DoModal() == IDOK) {
-		
+
 		char *cptr;
 		char *windowtext, *windowtextptr;
 
@@ -178,7 +178,7 @@ void InsertSolveDialog::OnBrowse()
 
 		// Must be room for directory name (including null terminator).
 		ASSERT (dialog.m_ofn.nFileOffset < sizeof (DirectoryName));
-			
+
 		// Copy directory name from file list buffer and append a backslash.
 		if (dialog.m_ofn.nFileOffset > 0) {
 			strncpy (DirectoryName, FileListBuffer, dialog.m_ofn.nFileOffset);
@@ -229,9 +229,9 @@ void InsertSolveDialog::OnBrowse()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-void InsertSolveDialog::OnApplySelective() 
+void InsertSolveDialog::OnApplySelective()
 {
 	ApplySelective = !ApplySelective;
 	GetDlgItem (IDC_INCLUSION_STRING)->EnableWindow (ApplySelective);
@@ -250,9 +250,9 @@ void InsertSolveDialog::OnApplySelective()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-void InsertSolveDialog::OnContaining() 
+void InsertSolveDialog::OnContaining()
 {
 	InvertSelection = false;
 }
@@ -268,9 +268,9 @@ void InsertSolveDialog::OnContaining()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-void InsertSolveDialog::OnNotContaining() 
+void InsertSolveDialog::OnNotContaining()
 {
 	InvertSelection = true;
 }
@@ -286,9 +286,9 @@ void InsertSolveDialog::OnNotContaining()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-void InsertSolveDialog::OnBlendNoise() 
+void InsertSolveDialog::OnBlendNoise()
 {
 	BlendNoise = !BlendNoise;
 }
@@ -304,9 +304,9 @@ void InsertSolveDialog::OnBlendNoise()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-void InsertSolveDialog::OnChangeInclusionString() 
+void InsertSolveDialog::OnChangeInclusionString()
 {
 	int textlength;
 
@@ -328,9 +328,9 @@ void InsertSolveDialog::OnChangeInclusionString()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   09/06/00    IML : Created.                                                                * 
+ *   09/06/00    IML : Created.                                                                *
  *=============================================================================================*/
-void InsertSolveDialog::OnMoreOptions() 
+void InsertSolveDialog::OnMoreOptions()
 {
 	OptionsDialog options;
 

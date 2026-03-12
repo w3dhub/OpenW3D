@@ -136,10 +136,10 @@ EvaViewerTabClass::On_Init_Dialog (void)
 		ListCtrl->Set_Curr_Sel (0);
 		View_Entry (0);
 	} else {
-		
+
 		if (AffiliationCtrl != NULL) {
 			AffiliationCtrl->Set_Text (U_CHAR(""));
-		}		
+		}
 	}
 
 	ChildDialogClass::On_Init_Dialog ();
@@ -201,7 +201,7 @@ EvaViewerTabClass::Build_Object_List (void)
 			ini_file->Get_String (description_id,	section->Section, "DescriptionID");
 			ini_file->Get_String (affiliation_id,	section->Section, "AffiliationID");
 			ini_file->Get_String (model_name,		section->Section, "Model");
-			ini_file->Get_String (anim_name,			section->Section, "Anim");			
+			ini_file->Get_String (anim_name,			section->Section, "Anim");
 			ini_file->Get_String (definition_name, section->Section, "DefinitionName");
 			ini_file->Get_String (player_type_str,	section->Section, "PlayerType");
 			int id			= ini_file->Get_Int (section->Section, "ID");
@@ -321,7 +321,7 @@ EvaViewerTabClass::View_Entry (int entry_index)
 		//	Special-case vehicles so we can get the wheels to "drop"
 		//
 		if (EncyclopediaType == EncyclopediaMgrClass::TYPE_VEHICLE) {
-			
+
 			RenderObjClass *new_model = NULL;
 
 			//
@@ -329,16 +329,16 @@ EvaViewerTabClass::View_Entry (int entry_index)
 			//
 			DefinitionClass *definition = DefinitionMgrClass::Find_Typed_Definition (definition_name, CLASSID_GAME_OBJECTS);
 			if (definition != NULL) {
-				
+
 				PhysicalGameObj *game_obj = (PhysicalGameObj *)definition->Create ();
 				if (game_obj != NULL) {
-					
+
 					//
 					//	Is the physics object associated with this game object a vehicle?
 					//
 					PhysClass *phys_obj = game_obj->Peek_Physical_Object ();
 					if (phys_obj != NULL && phys_obj->As_VehiclePhysClass () != NULL) {
-						
+
 						//
 						//	Drop the wheels on this object and clone its model
 						//
@@ -362,7 +362,7 @@ EvaViewerTabClass::View_Entry (int entry_index)
 			} else {
 				ViewerCtrl->Set_Model (model_name);
 			}
-			
+
 		} else {
 			ViewerCtrl->Set_Model (model_name);
 		}

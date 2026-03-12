@@ -104,13 +104,13 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Initialization
 	//
 	void						Initialize (void);
 	void						Shutdown (void);
-	
+
 	//
 	//	Generation management
 	//
@@ -137,7 +137,7 @@ protected:
 	void							Do_Physics_Sim (const Vector3 &start_pos, PATHFIND_DIR direction);
 	void							Do_Real_Physics_Sim (const Vector3 &start_pos, PATHFIND_DIR direction);
 	void							Floodfill (const Vector3 &start_pos);
-	
+
 	bool							Try_Standing_Here (const Vector3 &expected_pos, AABoxClass *real_pos);
 	bool							Try_Moving_Here (const Vector3 &start_pos, const Vector3 &expected_pos, AABoxClass *real_pos);
 	bool							Find_Ground (const Vector3 &pos, float *ground_pos);
@@ -149,10 +149,10 @@ protected:
 	void							Mark_Sector (FloodfillBoxClass *body_box);
 	FloodfillBoxClass *		Submit_Box (FloodfillBoxClass *from_obj, const AABoxClass &new_box, PATHFIND_DIR direction);
 
-	PathfindSectorClass *	Build_Sector (FloodfillBoxClass *upper_left_ptr, int cells_right, int cells_down);	
+	PathfindSectorClass *	Build_Sector (FloodfillBoxClass *upper_left_ptr, int cells_right, int cells_down);
 	void							Generate_Portals (void);
 	void							Free_Floodfill_Boxes (void);
-	
+
 	void							Determine_Height (FloodfillBoxClass *start_box, float *min_z_pos, float *max_z_pos);
 	int							Build_Height_Values (void);
 
@@ -160,7 +160,7 @@ protected:
 	FloodfillBoxClass *		Find_Perimeter (FloodfillBoxClass *start_box, BOX_PERIMETER *perimeter);
 	bool							Check_Edge (FloodfillBoxClass *start_box, int count_left, int count_right, int count_up, int count_down, PATHFIND_DIR move_dir);
 	FloodfillBoxClass *		Move_Dir (FloodfillBoxClass *start_box, PATHFIND_DIR dir, int dir_mask);
-	
+
 	//
 	//	Ladder and other transition handling
 	//
@@ -174,13 +174,13 @@ protected:
 	void							Detect_Doors (void);
 	void							Detect_Level_Transitions (void);
 	void							Cleanup_Level_Features (void);
-	
+
 	//
 	//	Environment detection methods
 	//
 	TransitionInstanceClass *	Find_Transition (TransitionDataClass::StyleType type, const Vector3 &start_pos, float z_delta, TransitionNodeClass **transition_node);
 	PathfindSectorClass *		Find_Sector (const Vector3 &point, const AABoxClass &box);
-	
+
 
 	//
 	//	Prepartion methods
@@ -201,7 +201,7 @@ protected:
 
 
 	bool							Is_Valid_Sector (FloodfillBoxClass **upper_left_ptr, int &cells_right, int &cells_down);
-	
+
 private:
 
 	////////////////////////////////////////////////////////////////////
@@ -212,7 +212,7 @@ private:
 	Vector3								m_SimBoxExtents;
 	float									m_StepHeight;
 	bool									m_AllowWaterFloodfill;
-	
+
 	START_POINT_LIST					m_StartPointList;
 	BODY_BOX_LIST						m_FloodFillProcessList;
 	FloodfillGridClass				m_BodyBoxCullingSystem;

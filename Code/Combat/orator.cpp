@@ -49,12 +49,12 @@ enum
 {
 	CHUNKID_VARIABLES			= 0x11060315,
 	CHUNKID_GAMEOBJ
-	
+
 };
 
 enum
 {
-	VARID_ID						= 1,	
+	VARID_ID						= 1,
 	VARID_OLD_PTR,
 	VARID_CONVERSATION,
 	VARID_POSITION,
@@ -72,7 +72,7 @@ enum
 //	OratorClass
 //
 //////////////////////////////////////////////////////////////////////////////
-OratorClass::OratorClass (void) :	
+OratorClass::OratorClass (void) :
 	Conversation (NULL),
 	GameObj (NULL),
 	Position (0, 0, 0),
@@ -200,8 +200,8 @@ OratorClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_FLAGS,				Flags);
 		WRITE_MICRO_CHUNK (csave, VARID_ORATOR_TYPE,		OratorType);
 		WRITE_MICRO_CHUNK (csave, VARID_IS_INVISIBLE,	IsInvisible);
-		WRITE_MICRO_CHUNK (csave, VARID_LOOK_AT_OBJID,	LookAtObjID);		
-		
+		WRITE_MICRO_CHUNK (csave, VARID_LOOK_AT_OBJID,	LookAtObjID);
+
 		//
 		//	Save our current pointer so we can remap it on load
 		//
@@ -226,7 +226,7 @@ OratorClass::Save (ChunkSaveClass &csave)
 bool
 OratorClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_GAMEOBJ:

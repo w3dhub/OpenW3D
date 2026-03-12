@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/beacongameobj.h                       $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/04/02 2:58p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 16                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/beacongameobj.h                       $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/04/02 2:58p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 16                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -99,7 +99,7 @@ protected:
 	//	Protected member data
 	////////////////////////////////////////////////////////////////
 	float			BroadcastToAllTime;
-	
+
 	float			ArmTime;
 	float			DisarmTime;
 	float			PreDetonateCinematicDelay;
@@ -107,7 +107,7 @@ protected:
 	float			PostDetonateTime;
 
 	int			ArmedSoundDefID;
-	
+
 	int			DisarmingTextID;
 	int			DisarmedTextID;
 	int			ArmingTextID;

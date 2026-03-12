@@ -265,7 +265,7 @@ void IMECandidateCtrl::CreateTextRenderer(void)
 
 			WideStringClass entry(0, true);
 			entry.Format(U_CHAR("%d. %s"), ((index - mScrollPos) + selIndexBias), text);
-			
+
 			StyleMgrClass::Render_Text(entry, &mTextRenderer, textRect, true, true);
 
 			//	Hilight this entry (if its the currently selected one)
@@ -373,7 +373,7 @@ int IMECandidateCtrl::EntryFromPos(const Vector2& mousePos)
 			currYPos += mCellSize.Y;
 			}
 		}
-	
+
 	return -1;
 	}
 
@@ -452,7 +452,7 @@ void IMECandidateCtrl::Update_Client_Rect(void)
 
 	Rect.Right = (Rect.Left + (pageSize.X + (BORDER_WIDTH * 2.0f)));
 	Rect.Bottom = (Rect.Top + (pageSize.Y + (BORDER_HEIGHT * 2.0f)));
-	
+
 	mFullRect = Rect;
 
 	ClientRect = Rect;

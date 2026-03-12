@@ -65,7 +65,7 @@ PhysObjEditTabClass::PhysObjEditTabClass (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 PhysObjEditTabClass::~PhysObjEditTabClass (void)
-{	
+{
 	return ;
 }
 
@@ -106,11 +106,11 @@ PhysObjEditTabClass::HandleInitDialog (void)
 {
 	DefinitionClass *default_definition = DefinitionMgrClass::Find_Definition (m_DefinitionID, false);
 	uint32 default_classid = 0;
-	
+
 	if (default_definition != NULL) {
 		default_classid = default_definition->Get_Class_ID ();
 	}
-	
+
 	//
 	//	Fill in the list of all the definition types
 	//
@@ -131,7 +131,7 @@ PhysObjEditTabClass::HandleInitDialog (void)
 
 			DefinitionClass *definition = factory->Create ();
 			if (definition != NULL) {
-				
+
 				//
 				//	If this definition passes the filter, then add it to
 				// the combo-box, otherwise delete it
@@ -170,8 +170,8 @@ PhysObjEditTabClass::Apply_Changes (void)
 {
 	CWaitCursor wait_cursor;
 
-	if (m_ParamSheet != NULL) {		
-		
+	if (m_ParamSheet != NULL) {
+
 		// Save the UI changes to the definition
 		m_ParamSheet->Apply ();
 
@@ -181,13 +181,13 @@ PhysObjEditTabClass::Apply_Changes (void)
 		DefinitionClass *definition	= m_ParamSheet->Get_Definition ();
 		m_DefinitionID						= 0;
 		if (definition != NULL) {
-			
+
 			//
 			//	Does the definition already have an ID?
 			//
 			m_DefinitionID = definition->Get_ID ();
 			if (m_DefinitionID == 0) {
-				
+
 				//
 				//	Give the definition a new ID
 				//
@@ -231,7 +231,7 @@ PhysObjEditTabClass::OnDestroy (void)
 	for (int index = 0; index < m_ObjTypeCombo.GetCount (); index ++) {
 		DefinitionClass *definition = (DefinitionClass *)m_ObjTypeCombo.GetItemData (index);
 		if (definition != NULL) {
-			
+
 			//
 			//	Delete all the definitions EXCEPT for the one we
 			// will be returning to the caller.
@@ -239,7 +239,7 @@ PhysObjEditTabClass::OnDestroy (void)
 			if (definition->Get_ID () != m_DefinitionID) {
 				DefinitionMgrClass::Unregister_Definition (definition);
 				delete definition;
-			}			
+			}
 		}
 	}
 
@@ -257,7 +257,7 @@ void
 PhysObjEditTabClass::OnSelChangeTypeCombo (void)
 {
 	if (::IsWindow (m_ObjTypeCombo)) {
-		SetRedraw (false);		
+		SetRedraw (false);
 
 		//
 		//	Free the old param sheet if necessary

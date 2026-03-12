@@ -53,9 +53,9 @@ class	ChunkLoadClass;
 /**
 ** ScreenFadeManager
 ** This class renders letterbox polys and full-screen "tint" polys.  It should get to
-** think once per frame and get rendered last.  
+** think once per frame and get rendered last.
 */
-class	ScreenFadeManager 
+class	ScreenFadeManager
 {
 public:
 

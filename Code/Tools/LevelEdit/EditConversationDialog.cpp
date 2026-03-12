@@ -140,7 +140,7 @@ EditConversationDialogClass::OnInitDialog (void)
 	//
 	if (m_Conversation == NULL) {
 		m_Conversation = new ConversationClass;
-		
+
 		OratorClass orator;
 		m_Conversation->Add_Orator (orator);
 	}
@@ -178,7 +178,7 @@ EditConversationDialogClass::OnInitDialog (void)
 		//
 		int type_count = OratorTypeClass::Get_Count ();
 		for (int type_index = 0; type_index < type_count; type_index ++) {
-			
+
 			//
 			//	Lookup information about this orator type
 			//
@@ -190,9 +190,9 @@ EditConversationDialogClass::OnInitDialog (void)
 			//	Add this orator type to the combobox
 			//
 			int item_index = SendDlgItemMessage (combobox_id, CB_ADDSTRING, 0, (LPARAM)type_name);
-			SendDlgItemMessage (combobox_id, CB_SETITEMDATA, (WPARAM)item_index, (LPARAM)type_id);			
+			SendDlgItemMessage (combobox_id, CB_SETITEMDATA, (WPARAM)item_index, (LPARAM)type_id);
 		}
-	
+
 		//
 		//	Select the first item by default
 		//
@@ -213,8 +213,8 @@ EditConversationDialogClass::OnInitDialog (void)
 		SendDlgItemMessage (ORATOR_CTRLS[index].button_id, BM_SETCHECK, (WPARAM)true);
 		SendDlgItemMessage (ORATOR_CTRLS[index].check_id, BM_SETCHECK, (WPARAM)(!orator->Is_Invisible ()));
 		::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_CTRLS[index].combo_id), true);
-		::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_CTRLS[index].check_id), true);		
-		
+		::EnableWindow (::GetDlgItem (m_hWnd, ORATOR_CTRLS[index].check_id), true);
+
 		//
 		//	Select the current orator type in the combobox
 		//
@@ -242,8 +242,8 @@ EditConversationDialogClass::OnInitDialog (void)
 	//
 	//	Set the check state of the "Is Innate" and "Is Key" checkboxes
 	//
-	SendDlgItemMessage (IDC_INNATE_CHECK, BM_SETCHECK, (WPARAM)m_Conversation->Is_Innate ());	
-	SendDlgItemMessage (IDC_KEY_CONVESATION_CHECK, BM_SETCHECK, (WPARAM)m_Conversation->Is_Key ());	
+	SendDlgItemMessage (IDC_INNATE_CHECK, BM_SETCHECK, (WPARAM)m_Conversation->Is_Innate ());
+	SendDlgItemMessage (IDC_KEY_CONVESATION_CHECK, BM_SETCHECK, (WPARAM)m_Conversation->Is_Key ());
 
 	//
 	//	Configure the columns
@@ -251,7 +251,7 @@ EditConversationDialogClass::OnInitDialog (void)
 	m_ListCtrl.InsertColumn (COL_ORATOR, "Orator");
 	m_ListCtrl.InsertColumn (COL_REMARK, "Remark");
 	m_ListCtrl.SetExtendedStyle (m_ListCtrl.GetExtendedStyle () | LVS_EX_FULLROWSELECT);
-	
+
 	//
 	//	Choose an appropriate size for the columns
 	//
@@ -264,14 +264,14 @@ EditConversationDialogClass::OnInitDialog (void)
 	//
 	//	Fill in the conversation's name into the appropriate control
 	//
-	SetDlgItemText (IDC_CONVERSATION_NAME, m_Conversation->Get_Name ());	
+	SetDlgItemText (IDC_CONVERSATION_NAME, m_Conversation->Get_Name ());
 
 	//
 	//	Add all the remark's to the list control
 	//
 	int count = m_Conversation->Get_Remark_Count ();
 	for (index = 0; index < count; index ++) {
-		
+
 		ConversationRemarkClass remark;
 		if (m_Conversation->Get_Remark_Info (index, remark)) {
 			Add_Entry (remark);
@@ -316,7 +316,7 @@ EditConversationDialogClass::OnDblclkRemarkList
 				orator_bitmask |= (1 << index);
 			}
 		}
-			
+
 		//
 		//	Show a dialog to the user that will let them choose an orator and
 		// a remark
@@ -337,7 +337,7 @@ EditConversationDialogClass::OnDblclkRemarkList
 			CString orator_text;
 			orator_text.Format ("%d", remark->Get_Orator_ID () + 1);
 			m_ListCtrl.SetItemText (sel_index, COL_ORATOR, orator_text);
-			
+
 			//
 			//	Update the text entry in the list control
 			//
@@ -347,7 +347,7 @@ EditConversationDialogClass::OnDblclkRemarkList
 			}
 		}
 	}
-		
+
 	return ;
 }
 
@@ -368,7 +368,7 @@ EditConversationDialogClass::OnKeydownRemarkList
 	(*pResult) = 0;
 
 	if (pLVKeyDow->wVKey == VK_DELETE) {
-		
+
 		//
 		//	Delete all the selected items
 		//
@@ -419,13 +419,13 @@ EditConversationDialogClass::OnOK (void)
 	//
 	int index;
 	for (index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
-		ConversationRemarkClass *remark = Get_Entry_Data (index);		
+		ConversationRemarkClass *remark = Get_Entry_Data (index);
 		m_Conversation->Add_Remark (*remark);
 	}
 
 	//
 	//	Build a list of orators for the conversation
-	//	
+	//
 	for (index = 0; index < ORATOR_MAX; index ++) {
 
 		//
@@ -458,7 +458,7 @@ EditConversationDialogClass::OnOK (void)
 	m_Conversation->Set_Is_Innate (is_innate);
 
 	bool is_key = bool(SendDlgItemMessage (IDC_KEY_CONVESATION_CHECK, BM_GETCHECK) == 1);
-	m_Conversation->Set_Is_Key (is_key);	
+	m_Conversation->Set_Is_Key (is_key);
 	return ;
 }
 
@@ -535,7 +535,7 @@ EditConversationDialogClass::Add_Entry (const ConversationRemarkClass &remark, i
 	orator_text.Format ("%d", remark.Get_Orator_ID () + 1);
 	int item_index = m_ListCtrl.InsertItem (insert_index, orator_text);
 	if (item_index >= 0) {
-		
+
 		//
 		//	Lookup the text to display for this remark
 		//
@@ -619,7 +619,7 @@ void
 EditConversationDialogClass::Update_Button_States (void)
 {
 	int sel_index = m_ListCtrl.GetNextItem (-1, LVNI_ALL | LVNI_SELECTED);
-	::EnableWindow (::GetDlgItem (m_hWnd, IDC_INSERT), static_cast<bool>(sel_index != -1));	
+	::EnableWindow (::GetDlgItem (m_hWnd, IDC_INSERT), static_cast<bool>(sel_index != -1));
 	return ;
 }
 
@@ -636,9 +636,9 @@ EditConversationDialogClass::OnCommand
 	LPARAM lParam
 )
 {
-	
+
 	switch (LOWORD (wParam)) {
-		
+
 		case IDC_ORATOR1_CHECK:
 		case IDC_ORATOR2_CHECK:
 		case IDC_ORATOR3_CHECK:
@@ -679,14 +679,14 @@ EditConversationDialogClass::Update_Remarks (int orator_index)
 {
 	BOOL is_checked = (SendDlgItemMessage (ORATOR_CTRLS[orator_index].button_id, BM_GETCHECK) == 1);
 	if (is_checked == false) {
-		
+
 		//
 		//	Remove any remarks made by the specified orator
 		//
 		int item_count = m_ListCtrl.GetItemCount ();
 		for (int index = 0; index < item_count; index ++) {
 			ConversationRemarkClass *remark = Get_Entry_Data (index);
-			
+
 			//
 			//	Remove this entry if it was made by the orator in question
 			//
@@ -742,7 +742,7 @@ EditConversationDialogClass::Update_Player_Type_Combos (int orator_index)
 		}
 	}
 
-	
+
 	return ;
 }
 
@@ -779,7 +779,7 @@ EditConversationDialogClass::OnDeleteitemRemarkList
 (
 	NMHDR *		pNMHDR,
 	LRESULT *	pResult
-) 
+)
 {
 	NM_LISTVIEW *pNMListView = (NM_LISTVIEW *)pNMHDR;
 	(*pResult) = 0;
@@ -815,7 +815,7 @@ EditConversationDialogClass::Find_Combobox_Entry (int orator_type)
 	//
 	int count = SendDlgItemMessage (IDC_ORATOR1_COMBO, CB_GETCOUNT);
 	for (int index = 0; index < count; index ++) {
-		
+
 		//
 		//	Is this the orator we are looking for?
 		//

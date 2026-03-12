@@ -86,7 +86,7 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Bounding box access
 	//
@@ -121,7 +121,7 @@ public:
 	//	Serialization methods
 	//
 	virtual bool			Save (ChunkSaveClass &csave);
-	virtual bool			Load (ChunkLoadClass &cload);		
+	virtual bool			Load (ChunkLoadClass &cload);
 
 protected:
 
@@ -210,13 +210,13 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Waypath access
 	//
 	void					Set_Waypath_ID (int waypath_id)	{ WaypathID = waypath_id; }
 	int					Get_Waypath_ID (void)				{ return WaypathID; }
-	
+
 	//
 	//	From PathfindSectorClass
 	//

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 7/20/00 4:47p       $* 
- *                                                                                             * 
- *                    $Revision:: 3                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 7/20/00 4:47p       $*
+ *                                                                                             *
+ *                    $Revision:: 3                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -57,9 +57,9 @@ static char THIS_FILE[] = __FILE__;
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/03/00    IML : Created.                                                                * 
+ *   02/03/00    IML : Created.                                                                *
  *=============================================================================================*/
-BOOL PackingDialog::OnInitDialog() 
+BOOL PackingDialog::OnInitDialog()
 {
   	static LV_COLUMN _column [2] = {
 		{LVCF_FMT | LVCF_TEXT | LVCF_WIDTH, LVCFMT_LEFT,  0, "Statistic", 0, 0},
@@ -69,15 +69,15 @@ BOOL PackingDialog::OnInitDialog()
 	static float _widthratio [2] = {0.55f, 0.45f};
 
 	static char *_statisticlabels [LightmapPacker::STATISTICS_COUNT] = {
-		"Page format",                          
-		"No. of lightmaps processed",           
+		"Page format",
+		"No. of lightmaps processed",
 		"Percentage adjacent faces blended",		// No. adjacent faces edge blended / No. adjacent faces. NOTE: Some adjacent
 																// faces cannot be edge blended because they do not have the same UV mapping
 																// as the principal face.
-		"Edge blend efficiency",						// Percentage texel area not dedicated to edge blending. 
+		"Edge blend efficiency",						// Percentage texel area not dedicated to edge blending.
 		"Scaling efficiency",							// Percentage texel area reduction due to low-pass filter scaling.
-		"No. of pages created",                 
-		"Packing efficiency",							// Percentage texel area of page used (not padded). 
+		"No. of pages created",
+		"Packing efficiency",							// Percentage texel area of page used (not padded).
 	   "Replica lightmap culling efficiency",		// Percentage texel area saved due to lightmap reuse.
 		"Estimated texture swapping efficiency",	// Estimated likelihood that next face will not incur a texture swap.
 		"No. of oversize lightmaps"					// No. of lightmaps that exceeded the page size limit and had to be scaled.
@@ -94,7 +94,7 @@ BOOL PackingDialog::OnInitDialog()
 	list->GetClientRect (&rect);
 	w = (float) rect.right;
 	for (unsigned c = 0; c < sizeof (_widthratio) / sizeof (float); c++) {
-		
+
 		float columnwidth;
 
 		columnwidth = w * _widthratio [c];
@@ -145,7 +145,7 @@ END_MESSAGE_MAP()
 INT_PTR PackingDialog::DoModal()
 {
 	// TODO: Add your specialized code here and/or call the base class
-	
+
 	return CDialog::DoModal();
 }
 

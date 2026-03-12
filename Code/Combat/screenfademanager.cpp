@@ -185,7 +185,7 @@ void ScreenFadeManager::Think()
 	** Update the parameters
 	*/
 	float seconds = TimeManager::Get_Frame_Seconds();
-	
+
 	_LetterboxFraction.Update(seconds);
 	_OverlayOpacity.Update(seconds);
 	_OverlayRed.Update(seconds);
@@ -201,13 +201,13 @@ void ScreenFadeManager::Think()
 		float g = _OverlayGreen.Get_Value();
 		float b = _OverlayBlue.Get_Value();
 		float a = _OverlayOpacity.Get_Value();
-		_Renderer->Add_Quad(RectClass(-1.0f,-1.0f,1.0f,1.0f),FRGBA_TO_INT32(r,g,b,a));		
+		_Renderer->Add_Quad(RectClass(-1.0f,-1.0f,1.0f,1.0f),FRGBA_TO_INT32(r,g,b,a));
 	}
 
 	if (_LetterboxFraction.Get_Value() > 0.0f) {
 		float lsize = _LetterboxFraction.Get_Value() * LETTERBOX_SIZE;
-		_Renderer->Add_Quad(RectClass(0.0f,0.0f,1.0f,lsize),RGB_TO_INT32(0,0,0));		
-		_Renderer->Add_Quad(RectClass(0.0f,1.0f - lsize,1.0f,1.0f),RGB_TO_INT32(0,0,0));		
+		_Renderer->Add_Quad(RectClass(0.0f,0.0f,1.0f,lsize),RGB_TO_INT32(0,0,0));
+		_Renderer->Add_Quad(RectClass(0.0f,1.0f - lsize,1.0f,1.0f),RGB_TO_INT32(0,0,0));
 	}
 
 }

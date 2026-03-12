@@ -66,7 +66,7 @@ GeneratingManualVisDialogClass::GeneratingManualVisDialogClass(CWnd* pParent /*=
 
 	//
 	//	Get the installation directory of this application
-	//		
+	//
 	TCHAR exe_path[MAX_PATH] = { 0 };
 	::GetModuleFileName (::AfxGetInstanceHandle (), exe_path, sizeof (exe_path));
 	CString path = ::Strip_Filename_From_Path (exe_path);
@@ -110,8 +110,8 @@ BOOL
 GeneratingManualVisDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
-	m_ProgressCtrl.SetRange (0, 100);	
+
+	m_ProgressCtrl.SetRange (0, 100);
 	m_ProgressCtrl.SetPos (0);
 
 	ShowWindow (SW_SHOW);
@@ -131,11 +131,11 @@ GeneratingManualVisDialogClass::WindowProc
 	UINT		message,
 	WPARAM	wParam,
 	LPARAM	lParam
-) 
+)
 {
 	if (message == WM_USER + 101) {
 		::Get_Main_View ()->Allow_Repaint (false);
-		
+
 		//
 		//	Set-up the render statistics variables
 		//
@@ -149,7 +149,7 @@ GeneratingManualVisDialogClass::WindowProc
 		VisMgrClass::Render_Manual_Vis_Points (m_FarmMode, m_ProcessorIndex, m_TotalProcessors, ManualVisPointCallback, (DWORD_PTR)this);
 
 		::Get_Main_View ()->Allow_Repaint (true);
-		EndDialog (IDOK);	
+		EndDialog (IDOK);
 	}
 
 	return CDialog::WindowProc (message, wParam, lParam);
@@ -174,7 +174,7 @@ GeneratingManualVisDialogClass::On_Manual_Vis_Point_Render (DWORD milliseconds)
 	//
 	//	Process window's messages once a second
 	//
-	static DWORD last_message_pump = 0;	
+	static DWORD last_message_pump = 0;
 	if (::GetTickCount () - last_message_pump > 1000) {
 		General_Pump_Messages ();
 		last_message_pump = ::GetTickCount ();
@@ -274,9 +274,9 @@ GeneratingManualVisDialogClass::Update_Time (void)
 	CString elapsed_time_text;
 	elapsed_time_text.Format ("Elapsed: %.1f min.  Remaining: %.1f min.",elapsed_minutes,remaining_minutes);
 	SetDlgItemText (IDC_ELAPSED_TIME_TEXT, elapsed_time_text);
-	
+
 	m_ProgressCtrl.SetPos (((m_CurrentPoint + 1) * 100) / m_TotalPoints);
-	General_Pump_Messages ();	
+	General_Pump_Messages ();
 	return ;
 }
 

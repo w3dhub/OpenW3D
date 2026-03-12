@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 7/24/01 4:56p       $* 
- *                                                                                             * 
- *                    $Revision:: 65                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 7/24/01 4:56p       $*
+ *                                                                                             *
+ *                    $Revision:: 65                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -89,7 +89,7 @@ END_MESSAGE_MAP()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 LightMapDoc::LightMapDoc() :
 	W3dFile (NULL),
@@ -99,8 +99,8 @@ LightMapDoc::LightMapDoc() :
 	SolveCount (0)
 {
 	MeshStatus.Set_Growth_Step (512);
-	
-	// LightMapDoc implicitly references some Surrender objects. Thus Surrender must be initialized here. 
+
+	// LightMapDoc implicitly references some Surrender objects. Thus Surrender must be initialized here.
 	srInit();
 
 	// Get the solve to delete any assets left over from a previous session.
@@ -118,12 +118,12 @@ LightMapDoc::LightMapDoc() :
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 LightMapDoc::~LightMapDoc()
 {
 	char pathname [_MAX_PATH];
-	
+
 	// Clean-up. Delete any temporary files (if they exist).
 	for (unsigned f = 0; f < TEMPORARY_SOLVE_FILENAME_COUNT; f++) {
 		strcpy (pathname, theApp.Working_Path());
@@ -158,7 +158,7 @@ LightMapDoc::~LightMapDoc()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 BOOL LightMapDoc::OnNewDocument()
 {
@@ -180,7 +180,7 @@ BOOL LightMapDoc::OnNewDocument()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 BOOL LightMapDoc::OnOpenDocument (LPCTSTR pathname)
 {
@@ -205,13 +205,13 @@ BOOL LightMapDoc::OnOpenDocument (LPCTSTR pathname)
 			// NOTE: RawFileClass will not keep a copy of the filename unless Set_Name()
 			// is explicitly called.
 			W3dFile->Set_Name (pathname);
-			
+
 			// Check that this is a valid w3d document.
 			if (Check_Document()) {
 
 				// Return success.
 				statusptr->SetPaneText (0, openedtext);
-			
+
 				// Make a copy of the name of the file for later reference.
 				_splitpath (pathname, NULL, NULL, DocumentName, NULL);
 
@@ -229,11 +229,11 @@ BOOL LightMapDoc::OnOpenDocument (LPCTSTR pathname)
 			}
 
 		} else {
-			
+
 			// Return failure.
 			return (false);
 		}
-	
+
 	} else {
 
 		// Return failure.
@@ -249,10 +249,10 @@ BOOL LightMapDoc::OnOpenDocument (LPCTSTR pathname)
  *                                                                                             *
  * OUTPUT:                                                                                     *
  *                                                                                             *
- * WARNINGS:																											  *	
+ * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 bool LightMapDoc::Check_Document()
 {
@@ -287,21 +287,21 @@ bool LightMapDoc::Check_Document()
 				w3dchunk.Close_Chunk();
 
 				while (w3dchunk.Open_Chunk()) {
-				
+
 					switch (w3dchunk.Cur_Chunk_ID()) {
 
 						case W3D_CHUNK_MESH_HEADER3:
 							chunkmeshheader3count++;
 							break;
-			
+
 						default:
-							
+
 							// Do nothing.
 							break;
 					}
 					w3dchunk.Close_Chunk();
 				}
-				
+
 				// Check for missing/too many header chunks.
 				if (chunkmeshheader3count != 1)	throw ("A mesh does not contain exactly one chunk W3D_CHUNK_MESH_HEADER3.");
 
@@ -333,7 +333,7 @@ bool LightMapDoc::Check_Document()
 				if (meshanomaly.MeshAnomalies != 0) anomalycount++;
 				trianglecount += meshstatus.TriangleCount;
 				MeshStatus.Add (meshstatus);
-			  
+
 				// A solve can be inserted if a vertex solve and/or a lightmap solve can be inserted.
 				CanInsertSolve |= (meshstatus.Can_Insert_Vertex_Solve() || meshstatus.Can_Insert_Multi_Pass_Solve() || meshstatus.Can_Insert_Multi_Texture_Solve());
 
@@ -347,8 +347,8 @@ bool LightMapDoc::Check_Document()
 		TriangleCount = trianglecount;
 
 		if (anomalycount > 0) {
-			
-			const char *anomalytext	= 
+
+			const char *anomalytext	=
 "%d meshes have mesh anomalies associated with them. If the anomaly is serious, a\
  vertex or lightmap solve cannot be inserted. Check each mesh for specific anomalies\
  by left-clicking on the mesh name in the list.";
@@ -358,7 +358,7 @@ bool LightMapDoc::Check_Document()
 			anomalymessage.Copy (anomalytext, anomalycount);
 			MessageBox (NULL, anomalymessage.String(), "Attention", MB_ICONEXCLAMATION | MB_SETFOREGROUND);
 		}
-		
+
 		return (true);
 
 	} catch (const char *message) {
@@ -370,7 +370,7 @@ bool LightMapDoc::Check_Document()
 		// Clean-up.
 		MeshStatus.Clear();
 		W3dFile->Close();
-		
+
 		// Report to user why document cannot be opened.
 		invalidmessage.Copy (invalidprefix);
 		invalidmessage.Concatenate (message);
@@ -391,7 +391,7 @@ bool LightMapDoc::Check_Document()
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 LightMapDoc::MeshInfoStruct::MeshInfoStruct (FileClass &meshfile)
 {
@@ -405,13 +405,13 @@ LightMapDoc::MeshInfoStruct::MeshInfoStruct (FileClass &meshfile)
 	VertexChunk	  = NULL;
 	for (s = 0; s < PrelitModeEnum::COUNT; s++) {
 		memset (&MaterialInfo [s], 0x0, sizeof (MaterialInfo [s]));
-		VertexMaterials [s] = NULL; 
+		VertexMaterials [s] = NULL;
 		ShaderChunk	[s]	  = NULL;
 		for (unsigned p = 0; p < MeshMatDescClass::MAX_PASSES; p++) {
 			ShaderIdChunk [s][p]	= NULL;
 		}
-	}	
-	DIGsExist			= false;	
+	}
+	DIGsExist			= false;
 	SCGsExist			= false;
 	DeformExists		= false;
 	IsMultiStage		= false;
@@ -420,7 +420,7 @@ LightMapDoc::MeshInfoStruct::MeshInfoStruct (FileClass &meshfile)
 	meshfile.Open (FileClass::READ);
 
 	try {
-	
+
 		materialpass = 0;
 		while (w3dchunk.Open_Chunk()) {
 
@@ -489,7 +489,7 @@ LightMapDoc::MeshInfoStruct::MeshInfoStruct (FileClass &meshfile)
 					break;
 
 				default:
-					
+
 					// Do nothing.
 					break;
 			}
@@ -520,7 +520,7 @@ LightMapDoc::MeshInfoStruct::MeshInfoStruct (FileClass &meshfile)
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::MeshInfoStruct::Parse_Vertex_Materials (ChunkLoadClass &w3dchunk, unsigned prelitmode)
 {
@@ -533,23 +533,23 @@ void LightMapDoc::MeshInfoStruct::Parse_Vertex_Materials (ChunkLoadClass &w3dchu
 		while (w3dchunk.Open_Chunk()) {
 
 			while (w3dchunk.Open_Chunk()) {
-					
+
 				switch (w3dchunk.Cur_Chunk_ID()) {
 
 					case W3D_CHUNK_VERTEX_MATERIAL_NAME:
 					case W3D_CHUNK_VERTEX_MAPPER_ARGS0:
 					case W3D_CHUNK_VERTEX_MAPPER_ARGS1:
 						break;
-					
+
 					case W3D_CHUNK_VERTEX_MATERIAL_INFO:
 						if (w3dchunk.Read (&vertexmaterialinfo, sizeof (vertexmaterialinfo)) != sizeof (vertexmaterialinfo)) {
 							throw ("Cannot read data in W3D_CHUNK_VERTEX_MATERIAL_INFO.");
 						}
 						VertexMaterials [prelitmode]->Add (vertexmaterialinfo);
 						break;
-						
+
 					default:
-										
+
 						// Do nothing.
 						break;
 				}
@@ -571,18 +571,18 @@ void LightMapDoc::MeshInfoStruct::Parse_Vertex_Materials (ChunkLoadClass &w3dchu
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/28/00    IML : Created.                                                                * 
+ *   08/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::MeshInfoStruct::Parse_Material_Pass (ChunkLoadClass &w3dchunk, unsigned prelitmode, unsigned materialpass)
 {
 	unsigned chunkstagecount;
 
-	// While there are material chunks... 
+	// While there are material chunks...
 	chunkstagecount = 0;
 	while (w3dchunk.Open_Chunk()) {
-							
+
 		switch (w3dchunk.Cur_Chunk_ID()) {
-							
+
 			case W3D_CHUNK_SHADER_IDS:
 				if ((materialpass < MeshMatDescClass::MAX_PASSES) && (ShaderIdChunk [prelitmode][materialpass] == NULL)) {
 					ShaderIdChunk [prelitmode][materialpass] = new ChunkClass (w3dchunk);
@@ -591,13 +591,13 @@ void LightMapDoc::MeshInfoStruct::Parse_Material_Pass (ChunkLoadClass &w3dchunk,
 				break;
 
 			case W3D_CHUNK_SCG:
-				
+
 				// Flag that an SCG chunk has been found.
 				SCGsExist = true;
 				break;
-			
+
 			case W3D_CHUNK_DCG:
-			{	
+			{
 				// Scan the chunk for color information and flag appropriately.
 				ChunkClass	  *dcgschunk;
 				W3dRGBAStruct *dcgs;
@@ -610,11 +610,11 @@ void LightMapDoc::MeshInfoStruct::Parse_Material_Pass (ChunkLoadClass &w3dchunk,
 					if ((dcgs [v].R != UCHAR_MAX) ||
 						 (dcgs [v].G != UCHAR_MAX) ||
 						 (dcgs [v].B != UCHAR_MAX)) {
-					
+
 						VertexColorsExist = true;
 					}
 				}
-				
+
 				delete dcgschunk;
 				break;
 			}
@@ -640,7 +640,7 @@ void LightMapDoc::MeshInfoStruct::Parse_Material_Pass (ChunkLoadClass &w3dchunk,
 	// Flag if more than one texture stage exists on this material pass.
 	if (chunkstagecount > 1) IsMultiStage = true;
 }
-	
+
 
 /***********************************************************************************************
  * MeshInfoStruct::Parse_Prelit_Chunk --																		  *
@@ -652,7 +652,7 @@ void LightMapDoc::MeshInfoStruct::Parse_Material_Pass (ChunkLoadClass &w3dchunk,
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/28/00    IML : Created.                                                                * 
+ *   08/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::MeshInfoStruct::Parse_Prelit_Chunk (ChunkLoadClass &w3dchunk, unsigned prelitmode)
 {
@@ -706,7 +706,7 @@ void LightMapDoc::MeshInfoStruct::Parse_Prelit_Chunk (ChunkLoadClass &w3dchunk, 
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 LightMapDoc::MeshInfoStruct::~MeshInfoStruct()
 {
@@ -734,7 +734,7 @@ LightMapDoc::MeshInfoStruct::~MeshInfoStruct()
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 LightMapDoc::MeshAnomalyStruct::MeshAnomalyStruct (const MeshInfoStruct &meshinfo)
 {
@@ -785,16 +785,16 @@ LightMapDoc::MeshAnomalyStruct::MeshAnomalyStruct (const MeshInfoStruct &meshinf
 
 	// Test shaders.
 	if (meshinfo.ShaderChunk [PrelitModeEnum::UNLIT] != NULL) {
-			
+
 		W3dShaderStruct *shaderptr = (W3dShaderStruct*) meshinfo.ShaderChunk [PrelitModeEnum::UNLIT]->Get_Data();
-			
+
 		for (unsigned s = 0; s < meshinfo.ShaderChunk [PrelitModeEnum::UNLIT]->Get_Size() / sizeof (W3dShaderStruct); s++) {
-				
+
 			if (shaderptr->PriGradient != W3DSHADER_PRIGRADIENT_MODULATE) MeshAnomalies |= (1 << MESH_NOT_MODULATED_PRIMARY);
 			if (shaderptr->SecGradient != W3DSHADER_SECGRADIENT_DISABLE) MeshAnomalies |= (1 << MESH_HAS_SPECULAR);
 			if (shaderptr->AlphaTest != W3DSHADER_ALPHATEST_DISABLE) MeshAnomalies |= (1 << MESH_ALPHATEST);
 			shaderptr++;
-		}	
+		}
 	}
 
 	// Determine if there is an SCG chunk.
@@ -806,13 +806,13 @@ LightMapDoc::MeshAnomalyStruct::MeshAnomalyStruct (const MeshInfoStruct &meshinf
 	// Determine if there is destination blending in pass 0.
 	if ((meshinfo.ShaderChunk [PrelitModeEnum::UNLIT] != NULL) && (meshinfo.ShaderIdChunk [PrelitModeEnum::UNLIT] [0] != NULL)) {
 		for (unsigned s = 0; s < meshinfo.ShaderIdChunk [PrelitModeEnum::UNLIT] [0]->Get_Size() / sizeof (uint32); s++) {
-											
+
 			uint32			  shaderid;
 			W3dShaderStruct *shaderptr;
 
 			shaderid  = *((uint32*) meshinfo.ShaderIdChunk [PrelitModeEnum::UNLIT][0]->Get_Data() + s);
 			shaderptr = ((W3dShaderStruct*) meshinfo.ShaderChunk [PrelitModeEnum::UNLIT]->Get_Data()) + shaderid;
-		
+
 			if (shaderptr->DestBlend != W3DSHADER_DESTBLENDFUNC_ZERO) MeshAnomalies |= (1 << MESH_PASS_ZERO_DESTBLEND);
 		}
 	}
@@ -832,17 +832,17 @@ LightMapDoc::MeshAnomalyStruct::MeshAnomalyStruct (const MeshInfoStruct &meshinf
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/04/01    IML : Created.                                                                * 
+ *   06/04/01    IML : Created.                                                                *
  *=============================================================================================*/
 LightMapDoc::SplitVertexInfoStruct::SplitVertexInfoStruct (const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve)
 {
 	const unsigned verticesperface = 3;	// No. of vertices in a triangle.
 	const unsigned facecount		 = meshinfo.TriangleChunk->Get_Size() / sizeof (W3dTriStruct);
 	const unsigned vertexcount		 = meshinfo.VertexChunk->Get_Size() / sizeof (W3dVectorStruct);
-	const unsigned facevertexcount = facecount * verticesperface;										
+	const unsigned facevertexcount = facecount * verticesperface;
 
 	W3dTriStruct *triangles;
-	unsigned		  worstcasevertexcount;	
+	unsigned		  worstcasevertexcount;
 	unsigned		  splitvertexindex, facevertexindex, t, v;
 
 	worstcasevertexcount = MAX (vertexcount, facevertexcount);
@@ -883,7 +883,7 @@ LightMapDoc::SplitVertexInfoStruct::SplitVertexInfoStruct (const MeshInfoStruct 
 	splitvertexindex = vertexcount;
 	facevertexindex = 0;
 	for (unsigned f = 0; f < facecount; f++) {
-		
+
 		// For each face vertex...
 		for (v = 0; v < verticesperface; v++) {
 
@@ -894,16 +894,16 @@ LightMapDoc::SplitVertexInfoStruct::SplitVertexInfoStruct (const MeshInfoStruct 
 
 			// Has this index not been used before?
 			if (UVPtrTable [vertexindex] == NULL) {
-				
+
 				RemapTable [vertexindex]	  = vertexindex;
 				IndexTable [facevertexindex] = vertexindex;
 				UVPtrTable [vertexindex]	  = UVTable + facevertexindex;
-					
+
 			} else {
 
 				// Does this vertex reference the same UV coordinate as the vertex that has already been indexed?
 				if (*UVPtrTable [vertexindex] == UVTable [facevertexindex]) {
-					
+
 					IndexTable [facevertexindex] = vertexindex;
 
 				} else {
@@ -923,7 +923,7 @@ LightMapDoc::SplitVertexInfoStruct::SplitVertexInfoStruct (const MeshInfoStruct 
 	// Iterate over the original vertices to see if any were unreferenced by a triangle.
 	// NOTE: The existence of these suggests some redundancy in the mesh data!
 	for (v = 0; v < vertexcount; v++) {
-		
+
 		if (UVPtrTable [v] == NULL) {
 
 			// Remap it to the zeroth vertex in the zeroth triangle.
@@ -947,7 +947,7 @@ LightMapDoc::SplitVertexInfoStruct::SplitVertexInfoStruct (const MeshInfoStruct 
  * WARNINGS:																											  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/04/01    IML : Created.                                                                * 
+ *   06/04/01    IML : Created.                                                                *
  *=============================================================================================*/
 LightMapDoc::SplitVertexInfoStruct::~SplitVertexInfoStruct()
 {
@@ -969,7 +969,7 @@ LightMapDoc::SplitVertexInfoStruct::~SplitVertexInfoStruct()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   01/02/00    IML : Created.                                                                * 
+ *   01/02/00    IML : Created.                                                                *
  *=============================================================================================*/
 const char *LightMapDoc::Mesh_Anomalies_String (unsigned meshindex, bool verbose, StringBuilder &string)
 {
@@ -1019,7 +1019,7 @@ cannot be inserted.",
 ": mesh has a material pass with more than one texture stage. A multi-texture lightmap solve cannot be inserted.",
 ": mesh has vertex coloring. Is this what you intended?"
 }};
-	
+
 	unsigned int meshanomalies = MeshStatus [meshindex].MeshAnomalies;
 
 	if (verbose) {
@@ -1055,13 +1055,13 @@ cannot be inserted.",
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   01/02/00    IML : Created.                                                                * 
+ *   01/02/00    IML : Created.                                                                *
  *=============================================================================================*/
 const char *LightMapDoc::Solve_Anomalies_String (unsigned meshindex, bool verbose, StringBuilder &string)
 {
 	static char *_solvetext [2][SolveStatistics::SOLVE_STATISTIC_COUNT] = {{
 "Vertices not found",
-"No color data", 
+"No color data",
 "Faces not found",
 "No lightmaps",
 "Not smooth",
@@ -1082,7 +1082,7 @@ const char *LightMapDoc::Solve_Anomalies_String (unsigned meshindex, bool verbos
  Length Tolerance was set to a reasonable value prior to generating the solve.",
 ": %d vertices in the W3D mesh have no corresponding color data in the Lightscape\
  solve file. A vertex solve for this mesh cannot be inserted. If you wish to insert a vertex\
- solve, ensure that one or more solve files contain a Lightscape radiosty mesh.", 
+ solve, ensure that one or more solve files contain a Lightscape radiosty mesh.",
 ": %d faces that exist in the W3D mesh cannot be located in the Lightscape solve file (.ls).\
  For these faces, a placeholder texture ('Placeholder.tga') has been substituted for the\
  missing lightmap. To correct this problem, first ensure that the MAX model that was used to\
@@ -1116,7 +1116,7 @@ const char *LightMapDoc::Solve_Anomalies_String (unsigned meshindex, bool verbos
  file (.ls). For these faces, a placeholder lightmap ('Placeholder.tga') has been substituted\
  for the missing lightmap."
 }};
-	
+
 	SolveStatistics *solvestatisticsptr = &(MeshStatus [meshindex].SolveStatistics);
 
 	if (verbose) {
@@ -1155,7 +1155,7 @@ const char *LightMapDoc::Solve_Anomalies_String (unsigned meshindex, bool verbos
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   01/02/00    IML : Created.                                                                * 
+ *   01/02/00    IML : Created.                                                                *
  *=============================================================================================*/
 const char *LightMapDoc::Vertex_Solve_Status_String (unsigned meshindex, StringBuilder &string)
 {
@@ -1184,7 +1184,7 @@ const char *LightMapDoc::Vertex_Solve_Status_String (unsigned meshindex, StringB
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   01/02/00    IML : Created.                                                                * 
+ *   01/02/00    IML : Created.                                                                *
  *=============================================================================================*/
 const char *LightMapDoc::Lightmap_Solve_Status_String (unsigned meshindex, StringBuilder &string)
 {
@@ -1220,19 +1220,19 @@ const char *LightMapDoc::Lightmap_Solve_Status_String (unsigned meshindex, Strin
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/06/01    IML : Created.                                                                * 
+ *   07/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Reorder()
 {
 	RawFileClass *reorderfile = NULL;
-	
+
 	try {
 
 		DynamicVectorClass <MeshReorderStruct> meshes;
 
 		{
 			W3dFile->Open (FileClass::READ);
-		
+
 			ChunkLoadClass w3dchunk	(W3dFile);
 
 			// Read the (unordered) mesh chunks.
@@ -1242,7 +1242,7 @@ void LightMapDoc::Reorder()
 				if (w3dchunk.Cur_Chunk_ID() == W3D_CHUNK_MESH) {
 
 					ChunkClass *chunk = new ChunkClass (w3dchunk);
-					
+
 					RAMFileClass		meshfile (chunk->Get_Data(), chunk->Get_Size());
 					MeshInfoStruct		meshinfo (meshfile);
 					MeshReorderStruct mesh;
@@ -1259,9 +1259,9 @@ void LightMapDoc::Reorder()
 
 		// If more than one chunk, spatially sort the mesh chunks.
 		if (meshes.Count() > 1) {
-		
+
 			const float floatmax = 0.5f * (sqrt (FLT_MAX / 3.0f));
-			
+
 			int					m;
 			float					distance, mindistance;
 			Vector3				seed;
@@ -1276,9 +1276,9 @@ void LightMapDoc::Reorder()
 					seed			= meshes [m].Position;
 				}
 			}
-				
+
 			for (m = 0; m < meshes.Count() - 1; m++) {
-				
+
 				float		distancesquared, mindistancesquared;
 				unsigned	nearestmeshindex;
 
@@ -1286,11 +1286,11 @@ void LightMapDoc::Reorder()
 				for (int n = m; n < meshes.Count(); n++) {
 					distancesquared =	(meshes [n].Position - seed).Length2();
 					if (distancesquared < mindistancesquared) {
-						nearestmeshindex	 = n;	
+						nearestmeshindex	 = n;
 						mindistancesquared = distancesquared;
 					}
 				}
-				
+
 				// Swap mesh positions.
 				t = meshes [m];
 				meshes [m] = meshes [nearestmeshindex];
@@ -1298,13 +1298,13 @@ void LightMapDoc::Reorder()
 
 				// If it exists, swap mesh status.
 				if (MeshStatus.Count() > 0) {
-					
+
 					MeshStatusStruct s;
-					
+
 					s = MeshStatus [m];
 					MeshStatus [m] = MeshStatus [nearestmeshindex];
 					MeshStatus [nearestmeshindex] = s;
-				}	
+				}
 
 				seed = meshes [m].Position;
 			}
@@ -1323,10 +1323,10 @@ void LightMapDoc::Reorder()
 			strcat (temporarypathname, theApp.Instance_Name());
 			reorderfile = new RawFileClass (temporarypathname);
 			ASSERT (reorderfile != NULL);
-	
+
 			// NOTE: RawFileClass will not keep a copy of the filename unless Set_Name() is explicitly called.
 			reorderfile->Set_Name (temporarypathname);
-	
+
 			// NOTE: WRITE only access will truncate any existing temporary file.
 			reorderfile->Open (FileClass::WRITE);
 
@@ -1360,7 +1360,7 @@ void LightMapDoc::Reorder()
 		// Clean-up.
 		delete W3dFile;
 		reorderfile->Close();
-	
+
 		// Make the reorder file the w3d file.
 		W3dFile = reorderfile;
 
@@ -1371,7 +1371,7 @@ void LightMapDoc::Reorder()
 
 		// Throw to caller.
 		throw (errormessage);
-	}	
+	}
 }
 
 
@@ -1385,7 +1385,7 @@ void LightMapDoc::Reorder()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/06/01    IML : Created.                                                                * 
+ *   07/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Optimize()
 {
@@ -1403,13 +1403,13 @@ void LightMapDoc::Optimize()
 		strcat (temporarypathname, theApp.Instance_Name());
 		optimizefile = new RawFileClass (temporarypathname);
 		ASSERT (optimizefile != NULL);
-	
+
 		// NOTE: RawFileClass will not keep a copy of the filename unless Set_Name() is explicitly called.
 		optimizefile->Set_Name (temporarypathname);
-	
+
 		// NOTE: WRITE only access will truncate any existing temporary file.
 		optimizefile->Open (FileClass::WRITE);
-	
+
 		ChunkLoadClass w3dchunk		  (W3dFile);
 		ChunkSaveClass optimizechunk (optimizefile);
 
@@ -1420,16 +1420,16 @@ void LightMapDoc::Optimize()
 
 				optimizechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
 				while (w3dchunk.Open_Chunk()) {
-				  
+
 					switch (w3dchunk.Cur_Chunk_ID()) {
-						
+
 						case W3D_CHUNK_PRELIT_VERTEX:
-							
+
 							optimizechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
 							while (w3dchunk.Open_Chunk()) {
-								
+
 								switch (w3dchunk.Cur_Chunk_ID()) {
-									
+
 									case W3D_CHUNK_MATERIAL_PASS:
 										Optimize_Prelit_Vertex_Material_Pass (w3dchunk, optimizechunk);
 										break;
@@ -1450,7 +1450,7 @@ void LightMapDoc::Optimize()
 					w3dchunk.Close_Chunk();
 				}
 				optimizechunk.End_Chunk();
-			
+
 			} else {
 				Copy_Chunk (w3dchunk, optimizechunk);
 			}
@@ -1460,7 +1460,7 @@ void LightMapDoc::Optimize()
 		// Clean-up.
 		delete W3dFile;
 		optimizefile->Close();
-	
+
 		// Make the optimize file the w3d file.
 		W3dFile = optimizefile;
 
@@ -1475,7 +1475,7 @@ void LightMapDoc::Optimize()
 
 		// Throw to caller.
 		throw (errormessage);
-	}	
+	}
 }
 
 
@@ -1489,7 +1489,7 @@ void LightMapDoc::Optimize()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/06/01    IML : Created.                                                                * 
+ *   07/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Optimize_Prelit_Vertex_Material_Pass (ChunkLoadClass &w3dchunk, ChunkSaveClass &optimizechunk)
 {
@@ -1498,7 +1498,7 @@ void LightMapDoc::Optimize_Prelit_Vertex_Material_Pass (ChunkLoadClass &w3dchunk
 	ChunkClass *digschunk [MAX_SOLVE_COUNT];
 
 	optimizechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
-	
+
 	digcount	 = 0;
 	dcgschunk = NULL;
 	while (w3dchunk.Open_Chunk()) {
@@ -1522,7 +1522,7 @@ void LightMapDoc::Optimize_Prelit_Vertex_Material_Pass (ChunkLoadClass &w3dchunk
 
 		w3dchunk.Close_Chunk();
 	}
-	
+
 	// For each DIG chunk...
 	for (i = 0; i < digcount; i++) {
 
@@ -1531,7 +1531,7 @@ void LightMapDoc::Optimize_Prelit_Vertex_Material_Pass (ChunkLoadClass &w3dchunk
 
 		// Copy the DIG chunk into a DCG chunk, blend the DCG chunk (if it exists).
 		optimizechunk.Begin_Chunk (W3D_CHUNK_DCG);
-			
+
 		digs = (W3dRGBStruct*) digschunk [i]->Get_Data();
 		if (dcgschunk != NULL) {
 			dcgs = (W3dRGBAStruct*) dcgschunk->Get_Data();
@@ -1544,26 +1544,26 @@ void LightMapDoc::Optimize_Prelit_Vertex_Material_Pass (ChunkLoadClass &w3dchunk
 			unsigned char alpha;
 			W3dRGBAStruct outputcolor;
 
-			blendcolor = digs [v]; 
+			blendcolor = digs [v];
 			if (dcgs != NULL) {
-		
+
 				W3dRGBStruct color;
-					
+
 				color.Set (dcgs [v].R, dcgs [v].G, dcgs [v].B);
 				blendcolor *= color;
 				alpha = dcgs [v].A;
 			} else {
 				alpha = UCHAR_MAX;
 			}
-				
+
 			outputcolor.R = blendcolor.R;
 			outputcolor.G = blendcolor.G;
 			outputcolor.B = blendcolor.B;
 			outputcolor.A = alpha;
 
 			optimizechunk.Write (&outputcolor, sizeof (outputcolor));
-		}	
-		
+		}
+
 		optimizechunk.End_Chunk();
 	}
 
@@ -1582,7 +1582,7 @@ void LightMapDoc::Optimize_Prelit_Vertex_Material_Pass (ChunkLoadClass &w3dchunk
 		if (digschunk [i] != NULL) delete digschunk [i];
 	}
 }
- 
+
 
 /***********************************************************************************************
  * LightMapDoc::OnFileSave --																						  *
@@ -1594,9 +1594,9 @@ void LightMapDoc::Optimize_Prelit_Vertex_Material_Pass (ChunkLoadClass &w3dchunk
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-void LightMapDoc::OnFileSave() 
+void LightMapDoc::OnFileSave()
 {
 	OnSaveDocument (GetPathName());
 }
@@ -1612,9 +1612,9 @@ void LightMapDoc::OnFileSave()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-void LightMapDoc::OnFileSaveAs() 
+void LightMapDoc::OnFileSaveAs()
 {
 	CFileDialog dialog (false, LightMapApp::Document_File_Extension(), NULL, LightMapApp::File_Dialog_Flags(), LightMapApp::File_Dialog_Filter());
 
@@ -1632,9 +1632,9 @@ void LightMapDoc::OnFileSaveAs()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname) 
+BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 {
 	const char *savingmodeltext  = "Step 1/3: Saving Westwood 3D file (.W3D)";
 	const char *savinglightstext = "Step 2/3: Saving Westwood light file (.WLT)";
@@ -1644,11 +1644,11 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 
 	CMainFrame* frameptr  = (CMainFrame*) AfxGetApp()->m_pMainWnd;
 	CStatusBar* statusptr = &(frameptr->m_wndStatusBar);
-	
+
 	StringBuilder errormessage (8192);
 
 	try {
-	
+
 		ASSERT (pathname != NULL);
 
 		// Inform the user that the save has started.
@@ -1669,15 +1669,15 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 			RawFileClass	 savefile (pathname);
 			ChunkLoadClass  loadchunk (W3dFile);
 			ChunkSaveClass  savechunk (&savefile);
-			char				 lightmappathname [_MAX_PATH];	
+			char				 lightmappathname [_MAX_PATH];
 
 			// Extract the file name from the path name, check that the length is okay.
 			_splitpath (pathname, NULL, NULL, filename, NULL);
 			filenamesize = strlen (filename) + 1;
 			if (filenamesize > W3D_NAME_LEN) {
-				
+
 				const char *controlstring = "File name is too long. Please use %d characters or less.";
-				
+
 				throw (errormessage.Copy (controlstring, W3D_NAME_LEN));
 			}
 
@@ -1690,18 +1690,18 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 
 			// Open a save file with write access.
 			if (!savefile.Open (FileClass::WRITE)) throw ("Cannot create file with this file name.");
-			
+
 			{
 				CProgressCtrl progressbar;
 				CRect			  srect, trect;
 				BOOL			  success;
-		
+
 				statusptr->GetItemRect (0, &srect);
 				statusptr->SetPaneText (0, savingmodeltext);
 				statusptr->GetDC()->DrawText (savingmodeltext, -1, &trect, DT_CALCRECT);
 
 				CRect	prect (srect.TopLeft().x + trect.Width(), srect.TopLeft().y, srect.BottomRight().x, srect.BottomRight().y);
-		
+
 				success = progressbar.Create (WS_CHILD | WS_VISIBLE | PBS_SMOOTH, prect, statusptr, 0);
 				ASSERT (success);
 				progressbar.SetRange32 (0, MeshCount);
@@ -1709,7 +1709,7 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 
 				// While there are load chunks...
 				while (loadchunk.Open_Chunk()) {
-				
+
 					switch (loadchunk.Cur_Chunk_ID()) {
 
 						case W3D_CHUNK_MESH:
@@ -1720,7 +1720,7 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 						case W3D_CHUNK_COLLECTION:
 							Rename_Collection (loadchunk, savechunk, filename);
 							break;
-						
+
 						case W3D_CHUNK_HLOD:
 							Rename_HLOD (loadchunk, savechunk, filename);
 							break;
@@ -1750,7 +1750,7 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 			// Save the lights.
 			statusptr->SetPaneText (0, savinglightstext);
 			Save_Lights (pathname);
-			
+
 			// Clean-up.
 			W3dFile->Close();
 			savefile.Close();
@@ -1760,17 +1760,17 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
 		SetModifiedFlag (false);
 		statusptr->SetPaneText (0, savedtext);
 		return (true);
-	
+
 	} catch (const char *message) {
 
 		// Clean-up.
 		// NOTE 0: Can safely call close even if files are not open.
 		// NOTE 1: Save file will be closed when it goes out of scope.
 		W3dFile->Close();
-		
+
 		// Report why save failed to user.
 		MessageBox (NULL, message, NULL, MB_ICONERROR | MB_SETFOREGROUND);
-		
+
 		// Return failure.
 		statusptr->SetPaneText (0, notsavedtext);
 		return (false);
@@ -1788,13 +1788,13 @@ BOOL LightMapDoc::OnSaveDocument (LPCTSTR pathname)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Rename_Mesh (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename, const char *lightmapdirectory)
 {
 	savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
 	while (loadchunk.Open_Chunk()) {
-		
+
 		switch (loadchunk.Cur_Chunk_ID()) {
 
 			case W3D_CHUNK_MESH_HEADER3:
@@ -1833,19 +1833,19 @@ void LightMapDoc::Rename_Mesh (ChunkLoadClass &loadchunk, ChunkSaveClass &savech
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Rename_Mesh_Header (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename)
 {
 	unsigned filenamesize = strlen (filename) + 1;
 
 	W3dMeshHeader3Struct header;
-				
+
 	if (loadchunk.Read (&header, loadchunk.Cur_Chunk_Length()) != loadchunk.Cur_Chunk_Length()) {
 		throw ("Cannot read data in W3D_CHUNK_MESH_HEADER3.");
 	}
 
-	// If there is a container modify the container name, otherwise modify the mesh name. 
+	// If there is a container modify the container name, otherwise modify the mesh name.
 	if (strlen (header.ContainerName) > 0) {
 		ASSERT (filenamesize <= sizeof (header.ContainerName));
 		strcpy (header.ContainerName, filename);
@@ -1857,7 +1857,7 @@ void LightMapDoc::Rename_Mesh_Header (ChunkLoadClass &loadchunk, ChunkSaveClass 
 	savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
 	savechunk.Write (&header, sizeof (header));
 	savechunk.End_Chunk();
-}	
+}
 
 
 /***********************************************************************************************
@@ -1870,13 +1870,13 @@ void LightMapDoc::Rename_Mesh_Header (ChunkLoadClass &loadchunk, ChunkSaveClass 
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/02/00    IML : Created.                                                                  * 
+ *   02/02/00    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Rename_Prelit_Chunks (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *lightmapdirectory)
 {
 	savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
 	while (loadchunk.Open_Chunk()) {
-		
+
 		switch (loadchunk.Cur_Chunk_ID()) {
 
 			case W3D_CHUNK_TEXTURES:
@@ -1891,7 +1891,7 @@ void LightMapDoc::Rename_Prelit_Chunks (ChunkLoadClass &loadchunk, ChunkSaveClas
 		loadchunk.Close_Chunk();
 	}
 	savechunk.End_Chunk();
-}	
+}
 
 
 /***********************************************************************************************
@@ -1904,20 +1904,20 @@ void LightMapDoc::Rename_Prelit_Chunks (ChunkLoadClass &loadchunk, ChunkSaveClas
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Rename_Lightmaps (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *lightmapdirectory)
 {
 	savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
 	while (loadchunk.Open_Chunk()) {
-					
+
 		savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
 		while (loadchunk.Open_Chunk()) {
-			
+
 			switch (loadchunk.Cur_Chunk_ID()) {
 
 				case W3D_CHUNK_TEXTURE_NAME:
-				{	
+				{
 					ChunkClass *loadpathchunk;
 					char			loaddrivename [_MAX_DRIVE];
 					char			loaddirectoryname [_MAX_DIR];
@@ -1927,7 +1927,7 @@ void LightMapDoc::Rename_Lightmaps (ChunkLoadClass &loadchunk, ChunkSaveClass &s
 
 					loadpathchunk = new ChunkClass (loadchunk);
 					ASSERT (loadpathchunk != NULL);
-	
+
 					// Break the load pathname into its component parts.
 					_splitpath ((const char*) loadpathchunk->Get_Data(), loaddrivename, loaddirectoryname, loadfilename, loadextname);
 
@@ -1950,7 +1950,7 @@ void LightMapDoc::Rename_Lightmaps (ChunkLoadClass &loadchunk, ChunkSaveClass &s
 				}
 
 				default:
-				
+
 					// Copy other texture chunks unmodified.
 					Copy_Chunk (loadchunk, savechunk);
 					break;
@@ -1975,16 +1975,16 @@ void LightMapDoc::Rename_Lightmaps (ChunkLoadClass &loadchunk, ChunkSaveClass &s
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Rename_Collection (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename)
 {
 	unsigned filenamesize = strlen (filename) + 1;
 
 	savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
-	
+
 	while (loadchunk.Open_Chunk()) {
-			
+
 		switch (loadchunk.Cur_Chunk_ID()) {
 
 			case W3D_CHUNK_COLLECTION_HEADER:
@@ -1992,7 +1992,7 @@ void LightMapDoc::Rename_Collection (ChunkLoadClass &loadchunk, ChunkSaveClass &
 				W3dCollectionHeaderStruct header;
 
 				ASSERT (filenamesize <= sizeof (header.Name));
-				
+
 				if (loadchunk.Read (&header, loadchunk.Cur_Chunk_Length()) != loadchunk.Cur_Chunk_Length()) {
 					throw ("Cannot read data in W3D_CHUNK_COLLECTION_HEADER.");
 				}
@@ -2037,14 +2037,14 @@ void LightMapDoc::Rename_Collection (ChunkLoadClass &loadchunk, ChunkSaveClass &
 				break;
 
 			default:
-				
+
 				// Other collection chunks.
 				Copy_Chunk (loadchunk, savechunk);
 				break;
 		}
 		loadchunk.Close_Chunk();
 	}
-	
+
 	savechunk.End_Chunk();
 }
 
@@ -2059,7 +2059,7 @@ void LightMapDoc::Rename_Collection (ChunkLoadClass &loadchunk, ChunkSaveClass &
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename)
 {
@@ -2067,7 +2067,7 @@ void LightMapDoc::Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savech
 
 	savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
 	while (loadchunk.Open_Chunk()) {
-			
+
 		switch (loadchunk.Cur_Chunk_ID()) {
 
 			case W3D_CHUNK_HLOD_HEADER:
@@ -2075,7 +2075,7 @@ void LightMapDoc::Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savech
 				W3dHLodHeaderStruct header;
 
 				ASSERT (filenamesize <= sizeof (header.Name));
-				
+
 				if (loadchunk.Read (&header, loadchunk.Cur_Chunk_Length()) != loadchunk.Cur_Chunk_Length()) {
 					throw ("Cannot read data in W3D_CHUNK_HLOD_HEADER.");
 				}
@@ -2097,12 +2097,12 @@ void LightMapDoc::Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savech
 						{
 							W3dHLodSubObjectStruct  subobject;
 							char						   subobjectname [sizeof (subobject.Name)];
-							char						  *suffix;	
+							char						  *suffix;
 
 							if (loadchunk.Read (&subobject, loadchunk.Cur_Chunk_Length()) != loadchunk.Cur_Chunk_Length()) {
 								throw ("Cannot read data in W3D_CHUNK_HLOD_LOD_ARRAY.");
 							}
-							
+
 							ASSERT (filenamesize <= sizeof (subobjectname));
 							strcpy (subobjectname, filename);
 							suffix = strrchr (subobject.Name, '.');
@@ -2119,7 +2119,7 @@ void LightMapDoc::Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savech
 						}
 
 						default:
-							
+
 							// Other collection chunks.
 							Copy_Chunk (loadchunk, savechunk);
 							break;
@@ -2130,7 +2130,7 @@ void LightMapDoc::Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savech
 				break;
 
 			default:
-			  
+
 				// Other collection chunks.
 				Copy_Chunk (loadchunk, savechunk);
 				break;
@@ -2151,16 +2151,16 @@ void LightMapDoc::Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savech
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Rename_Dazzle (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename)
 {
 	unsigned filenamesize = strlen (filename) + 1;
 
 	savechunk.Begin_Chunk (loadchunk.Cur_Chunk_ID());
-	
+
 	while (loadchunk.Open_Chunk()) {
-			
+
 		switch (loadchunk.Cur_Chunk_ID()) {
 
 	  		case W3D_CHUNK_DAZZLE_NAME:
@@ -2219,7 +2219,7 @@ void LightMapDoc::Rename_Dazzle (ChunkLoadClass &loadchunk, ChunkSaveClass &save
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *  07/04/00    IML : Created.                                                                 * 
+ *  07/04/00    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightMapDoc::Save_Lights (const char *pathname)
 {
@@ -2235,7 +2235,7 @@ void LightMapDoc::Save_Lights (const char *pathname)
 	strcat (lightpathname, directoryname);
 	strcat (lightpathname, filename);
 	strcat (lightpathname, extension);
-		
+
 	RawFileClass *lightfile = new RawFileClass (lightpathname);
 	ASSERT (lightfile != NULL);
 
@@ -2246,14 +2246,14 @@ void LightMapDoc::Save_Lights (const char *pathname)
 	lightfile->Open (FileClass::WRITE);
 
 	ChunkSaveClass lightchunk (lightfile);
-			
+
 	for (unsigned s = 0; s < MAX_SOLVE_COUNT; s++) {
 
 		lightchunk.Begin_Chunk (W3D_CHUNK_LIGHTSCAPE);
 
 		// For each light...
 		for (int l = 0; l < Lights [s].Count(); l++) {
-					
+
 			const Matrix3D						t			 = Lights [s][l]->Get_Transform();
 			const W3dLightTransformStruct transform = {t [0][0], t [0][1], t [0][2], t [0][3],
 																	 t [1][0], t [1][1], t [1][2], t [1][3],
@@ -2290,9 +2290,9 @@ void LightMapDoc::Save_Lights (const char *pathname)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-void LightMapDoc::DeleteContents() 
+void LightMapDoc::DeleteContents()
 {
 	// Get the solve to delete its assets.
 	LightscapeSolve::Delete_Assets();
@@ -2305,7 +2305,7 @@ void LightMapDoc::DeleteContents()
 
 	// Re-initialize data.
 	MeshCount			= 0;
-	TriangleCount		= 0;	
+	TriangleCount		= 0;
 	CanInsertSolve		= false;
 	SolveCount			= 0;
 	MeshStatus.Clear();
@@ -2330,9 +2330,9 @@ void LightMapDoc::DeleteContents()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-void LightMapDoc::OnUpdateFileSave (CCmdUI* cmdui) 
+void LightMapDoc::OnUpdateFileSave (CCmdUI* cmdui)
 {
 	cmdui->Enable (Is_Open() && IsModified());
 }
@@ -2348,9 +2348,9 @@ void LightMapDoc::OnUpdateFileSave (CCmdUI* cmdui)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-void LightMapDoc::OnUpdateFileSaveAs (CCmdUI* cmdui) 
+void LightMapDoc::OnUpdateFileSaveAs (CCmdUI* cmdui)
 {
 	cmdui->Enable (Is_Open());
 }
@@ -2371,7 +2371,7 @@ void LightMapDoc::OnUpdateFileSaveAs (CCmdUI* cmdui)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solvefilenamelist, const char *inclusionstring, bool invertselection, bool blendnoise)
 {
@@ -2410,7 +2410,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 
 		// NOTE: RawFileClass will not keep a copy of the filename unless Set_Name() is explicitly called.
 		solvefile->Set_Name (temporarypathname);
-		
+
 		// NOTE: WRITE only access will truncate any existing temporary file.
 		solvefile->Open (FileClass::WRITE);
 
@@ -2419,8 +2419,8 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 		CProgressCtrl  progressbar;
 		CRect			   srect, trect;
 		BOOL			   success;
-		unsigned		   meshindex;	
-		unsigned		   anomalycount;	
+		unsigned		   meshindex;
+		unsigned		   anomalycount;
 
 		// Create the solve for the entire model from the solution file(s).
 		LightscapeSolve solve (solvedirectoryname, solvefilenamelist, statusptr, buildingtext, blendnoise);
@@ -2430,7 +2430,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 		statusptr->GetDC()->DrawText (insertingtext, -1, &trect, DT_CALCRECT);
 
 		CRect	prect (srect.TopLeft().x + trect.Width(), srect.TopLeft().y, srect.BottomRight().x, srect.BottomRight().y);
-	
+
 		success = progressbar.Create (WS_CHILD | WS_VISIBLE | PBS_SMOOTH, prect, statusptr, 0);
 		ASSERT (success);
 		progressbar.SetRange32 (0, TriangleCount);
@@ -2441,7 +2441,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 
 			// Is this a mesh chunk?
 			if (w3dchunk.Cur_Chunk_ID() == W3D_CHUNK_MESH) {
-				
+
 				bool includemesh;
 
 				// Currently, nothing has been inserted.
@@ -2455,7 +2455,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 					if (invertselection) includemesh = !includemesh;
 				}
 				if (includemesh && (MeshStatus [meshindex].Can_Insert_Vertex_Solve() || MeshStatus [meshindex].Can_Insert_Multi_Pass_Solve() || MeshStatus [meshindex].Can_Insert_Multi_Texture_Solve())) {
-				
+
 					unsigned int	fileposition;
 					ChunkLoadClass meshchunk (w3dchunk);
 
@@ -2475,22 +2475,22 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 					// Analyze the mesh status to see if it is compatible with each solve type (vertex, lightmap or both).
 					MeshStatus [meshindex].SolveStatistics = *meshsolve.Get_Statistics();
 					prelitflags	= MeshStatus [meshindex].Prelit_Flags();
-					
+
 					solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
 
 					// While there are mesh chunks...
 					while (w3dchunk.Open_Chunk()) {
-							
+
 						switch (w3dchunk.Cur_Chunk_ID()) {
 
 							case W3D_CHUNK_MESH_HEADER3:
 								Translate_Mesh_Header3 (w3dchunk, prelitflags, solvechunk, splitvertexinfo);
 								break;
-							
+
 							case W3D_CHUNK_VERTICES:
 								Translate_Vertices (w3dchunk, solvechunk, splitvertexinfo);
 								break;
-								
+
 							case W3D_CHUNK_VERTEX_NORMALS:
 								Translate_Vertex_Normals (w3dchunk, solvechunk, splitvertexinfo);
 								break;
@@ -2538,7 +2538,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 									Copy_Chunk (w3dchunk, solvechunk);
 								}
 								break;
-							
+
 							case W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_PASS:
 								if (prelitflags & W3D_MESH_FLAG_PRELIT_LIGHTMAP_MULTI_PASS) {
 									Insert_Solve (MULTI_PASS, w3dchunk, MULTI_PASS, solvechunk, meshinfo, meshsolve, splitvertexinfo);
@@ -2547,7 +2547,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 									Copy_Chunk (w3dchunk, solvechunk);
 								}
 								break;
-							
+
 							case W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_TEXTURE:
 								if (prelitflags & W3D_MESH_FLAG_PRELIT_LIGHTMAP_MULTI_TEXTURE) {
 									Insert_Solve (MULTI_TEXTURE, w3dchunk, MULTI_TEXTURE, solvechunk, meshinfo, meshsolve, splitvertexinfo);
@@ -2558,14 +2558,14 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 								break;
 
 							default:
-						
+
 								// This chunk does not need to be modified. Just copy it.
 								Copy_Chunk (w3dchunk, solvechunk);
 								break;
 						}
 						w3dchunk.Close_Chunk();
   					}
-				
+
 					solvechunk.End_Chunk();
 
 			  		// Clean-up.
@@ -2573,7 +2573,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 					meshfilebuffer = NULL;
 
 				} else {
-					
+
 					// No solves can be inserted. Just copy the existing mesh chunk.
 					Copy_Chunk (w3dchunk, solvechunk);
 				}
@@ -2602,10 +2602,10 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 		for (unsigned m = 0; m < MeshCount; m++) {
 			if (!(MeshStatus [m].SolveStatistics == 0)) anomalycount++;
 		}
-		
+
 		if (anomalycount > 0) {
-			
-			const char *anomalytext	= 
+
+			const char *anomalytext	=
 "%d meshes have solve anomalies associated with them. If the anomaly is serious, a\
  vertex or lightmap solve may not have been inserted. Check each mesh for specific\
  anomalies by left-clicking on the mesh name in the list.";
@@ -2620,7 +2620,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 		// NOTE: Add references to the lights from the solve.
 		//			This will ensure that the lights will not be deleted when the solve goes out of scope.
 		for (unsigned l = 0; l < solve.Light_Count(); l++) {
-			
+
 			LightClass *light = solve.Get_Light (l);
 
 			Lights [SolveCount].Add (light);
@@ -2630,7 +2630,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 		// Clean-up.
 		delete W3dFile;
 		solvefile->Close();
-	
+
 		// Make the current solve file the w3d file.
 		W3dFile = solvefile;
 
@@ -2650,7 +2650,7 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 	} catch (const char *errormessage) {
 
 		const char *prefixmessage = "The solve cannot be inserted.\n\n";
-		
+
 		char *messagebuffer;
 
 		// Clean-up.
@@ -2665,12 +2665,12 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
 		strcat (messagebuffer, errormessage);
 		MessageBox (NULL, messagebuffer, NULL, MB_ICONERROR | MB_SETFOREGROUND);
 		delete messagebuffer;
-		
+
 		// Inform user that solve has NOT been inserted.
 		StringBuilder string (256);
 		string.Copy ("%s%d%s", solvetext, SolveCount, notinsertedtext);
 		statusptr->SetPaneText (0, string.String());
-		
+
 		UpdateAllViews (NULL);
 	}
 }
@@ -2686,12 +2686,12 @@ void LightMapDoc::Insert_Solve (const char *solvedirectoryname, const char *solv
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Translate_Mesh_Header3 (ChunkLoadClass &w3dchunk, unsigned int prelitflags, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
 	W3dMeshHeader3Struct header;
-	
+
 	if (w3dchunk.Read (&header, sizeof (header)) != sizeof (header)) throw ("Cannot read data in W3D_CHUNK_MESH_HEADER3.");
 
 	// Flag that this is a lightmapped mesh.
@@ -2719,7 +2719,7 @@ void LightMapDoc::Translate_Mesh_Header3 (ChunkLoadClass &w3dchunk, unsigned int
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/06/01    IML : Created.                                                                * 
+ *   04/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Translate_Vertices (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -2751,7 +2751,7 @@ void LightMapDoc::Translate_Vertices (ChunkLoadClass &w3dchunk, ChunkSaveClass &
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/06/01    IML : Created.                                                                * 
+ *   04/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Translate_Vertex_Normals (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -2783,7 +2783,7 @@ void LightMapDoc::Translate_Vertex_Normals (ChunkLoadClass &w3dchunk, ChunkSaveC
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/06/01    IML : Created.                                                                * 
+ *   04/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Translate_Vertex_Influences (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -2815,14 +2815,14 @@ void LightMapDoc::Translate_Vertex_Influences (ChunkLoadClass &w3dchunk, ChunkSa
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/06/01    IML : Created.                                                                * 
+ *   04/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Translate_Triangles (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
 	const unsigned verticesperface = 3;	// No. of vertices in a triangle.
 
 	ChunkClass	 *trianglechunk;
-	unsigned		  facecount, facevertexindex;	
+	unsigned		  facecount, facevertexindex;
 	W3dTriStruct *triangles;
 
 	trianglechunk = new ChunkClass (w3dchunk);
@@ -2831,7 +2831,7 @@ void LightMapDoc::Translate_Triangles (ChunkLoadClass &w3dchunk, ChunkSaveClass 
 	triangles = (W3dTriStruct*) trianglechunk->Get_Data();
 
 	solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
-	
+
 	facevertexindex = 0;
 	for (unsigned f = 0; f < facecount; f++) {
 
@@ -2861,7 +2861,7 @@ void LightMapDoc::Translate_Triangles (ChunkLoadClass &w3dchunk, ChunkSaveClass 
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/06/01    IML : Created.                                                                * 
+ *   04/06/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Translate_Vertex_Shade_Indices (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -2893,7 +2893,7 @@ void LightMapDoc::Translate_Vertex_Shade_Indices (ChunkLoadClass &w3dchunk, Chun
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, FileClass &meshfile, PrelitModeEnum outputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -2923,21 +2923,21 @@ void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, FileClass &meshfile, P
 			solvechunk.Begin_Chunk (W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_TEXTURE);
 			break;
 	}
-	
+
 	meshfile.Open (FileClass::READ);
-	
+
 	// While there are mesh chunks...
 	materialpass = 0;
 	hastexturechunk = false;
 	while (w3dchunk.Open_Chunk()) {
-					
+
 		switch (w3dchunk.Cur_Chunk_ID()) {
 
 			case W3D_CHUNK_MESH_HEADER3:
 
 				// Ignore these chunk types.
 				break;
-							
+
 			case W3D_CHUNK_MATERIAL_INFO:
 				Translate_Material_Info (inputmode, w3dchunk, outputmode, solvechunk, meshinfo, meshsolve);
 				break;
@@ -2952,13 +2952,13 @@ void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, FileClass &meshfile, P
 
 			case W3D_CHUNK_TEXTURES:
 				Translate_Textures (w3dchunk, outputmode, solvechunk, meshsolve);
-				hastexturechunk = true;			
+				hastexturechunk = true;
 				break;
 
 			case W3D_CHUNK_MATERIAL_PASS:
 
 				// If adding lightmaps and no texture chunk has been encountered so far add one now.
-				// NOTE: WW3D expects the texture chunk to precede the material pass chunk. 
+				// NOTE: WW3D expects the texture chunk to precede the material pass chunk.
 				if (!hastexturechunk && ((outputmode == MULTI_PASS) || (outputmode == MULTI_TEXTURE))) {
 					solvechunk.Begin_Chunk (W3D_CHUNK_TEXTURES);
 					Add_Lightmap_Textures (solvechunk, meshsolve);
@@ -2977,7 +2977,7 @@ void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, FileClass &meshfile, P
 		}
 		w3dchunk.Close_Chunk();
 	}
-			
+
 	// If this is the last pass, add an additional material pass now.
 	if ((materialpass == meshinfo.MaterialInfo [inputmode].PassCount) && (outputmode == MULTI_PASS)) {
 		Add_Lightmap_Material_Pass (inputmode, materialpass - 1, solvechunk, meshinfo, meshsolve, splitvertexinfo);
@@ -2998,7 +2998,7 @@ void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, FileClass &meshfile, P
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, ChunkLoadClass &w3dchunk, PrelitModeEnum outputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -3008,11 +3008,11 @@ void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, ChunkLoadClass &w3dchu
 	ASSERT (inputmode != UNLIT);
 
 	solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
-	
+
 	// While there are mesh chunks...
 	materialpass = 0;
 	while (w3dchunk.Open_Chunk()) {
-					
+
 		switch (w3dchunk.Cur_Chunk_ID()) {
 
 			case W3D_CHUNK_MATERIAL_INFO:
@@ -3042,7 +3042,7 @@ void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, ChunkLoadClass &w3dchu
 		}
 		w3dchunk.Close_Chunk();
 	}
-			
+
 	solvechunk.End_Chunk();
 }
 
@@ -3057,7 +3057,7 @@ void LightMapDoc::Insert_Solve (PrelitModeEnum inputmode, ChunkLoadClass &w3dchu
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Translate_Material_Info (PrelitModeEnum inputmode, ChunkLoadClass &w3dchunk, PrelitModeEnum outputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve)
 {
@@ -3073,12 +3073,12 @@ void LightMapDoc::Translate_Material_Info (PrelitModeEnum inputmode, ChunkLoadCl
 
 				// Increment pass count to accomodate lightmap pass.
 				materialinfo.PassCount++;
-	
+
 				materialinfo.VertexMaterialCount += meshinfo.Lightmap_Vertex_Material_Count();
 				materialinfo.ShaderCount += meshinfo.Lightmap_Shader_Count();
 			}
 		}
-	
+
 		//	Increment texture count to accomodate additional lightmap textures.
 		ASSERT (materialinfo.TextureCount == meshinfo.MaterialInfo [inputmode].TextureCount);
 		materialinfo.TextureCount += meshsolve.Lightmap_Count();
@@ -3092,7 +3092,7 @@ void LightMapDoc::Translate_Material_Info (PrelitModeEnum inputmode, ChunkLoadCl
 	solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
 	solvechunk.Write (&materialinfo, sizeof (materialinfo));
 	solvechunk.End_Chunk();
-}	
+}
 
 
 /***********************************************************************************************
@@ -3105,16 +3105,16 @@ void LightMapDoc::Translate_Material_Info (PrelitModeEnum inputmode, ChunkLoadCl
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Translate_Vertex_Materials (PrelitModeEnum inputmode, ChunkLoadClass &w3dchunk, PrelitModeEnum outputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo)
 {
 	solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
-	
+
 	ASSERT (meshinfo.MaterialInfo [inputmode].VertexMaterialCount > 0);
 
 	if (inputmode == UNLIT) {
-	
+
 		const W3dRGBStruct black ((uint8) 0x00, (uint8) 0x00, (uint8) 0x00);
 		const W3dRGBStruct white ((uint8) 0xff, (uint8) 0xff, (uint8) 0xff);
 
@@ -3125,17 +3125,17 @@ void LightMapDoc::Translate_Vertex_Materials (PrelitModeEnum inputmode, ChunkLoa
 
 			solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
 			while (w3dchunk.Open_Chunk()) {
-					
+
 				switch (w3dchunk.Cur_Chunk_ID()) {
 
 					case W3D_CHUNK_VERTEX_MATERIAL_NAME:
-							
+
 						// Copy chunk unmodified.
 						Copy_Chunk (w3dchunk, solvechunk);
 						break;
 
 					case W3D_CHUNK_VERTEX_MAPPER_ARGS0:
-						
+
 						switch (outputmode) {
 
 							case UNLIT:
@@ -3184,7 +3184,7 @@ void LightMapDoc::Translate_Vertex_Materials (PrelitModeEnum inputmode, ChunkLoa
 								break;
 
 							case MULTI_TEXTURE:
-							{	
+							{
 								uint32 stage0attributes, stage1attributes;
 
 								// If there are any mappers in stage 0 it must be shifted to stage 1 because
@@ -3199,10 +3199,10 @@ void LightMapDoc::Translate_Vertex_Materials (PrelitModeEnum inputmode, ChunkLoa
 								// Clear the stage 0 and stage 1 attributes.
 								// NOTE: Stage 1 attributes should be unused but clear them anyway as a precaution.
 								vertexmaterialinfo.Attributes &= ~(W3DVERTMAT_STAGE0_MAPPING_MASK | W3DVERTMAT_STAGE1_MAPPING_MASK);
-									
+
 								// Add in the new stage 1 attributes.
 								vertexmaterialinfo.Attributes |= stage1attributes;
-									
+
 								// NOTE: Fall thru.
 							}
 
@@ -3224,7 +3224,7 @@ void LightMapDoc::Translate_Vertex_Materials (PrelitModeEnum inputmode, ChunkLoa
 					}
 
 					default:
-								
+
 						// Any other chunk type can be copied unmodified.
 						Copy_Chunk (w3dchunk, solvechunk);
 						break;
@@ -3262,23 +3262,23 @@ void LightMapDoc::Translate_Vertex_Materials (PrelitModeEnum inputmode, ChunkLoa
 			solvechunk.End_Chunk();
 			solvechunk.End_Chunk();
 		}
-	
+
 	} else {
-	
+
 		DynamicVectorClass <ChunkClass*> vertexmaterialchunks;
 
 		// Duplicate all of the existing vertex materials.
-		
+
 		while (w3dchunk.Open_Chunk()) {
-			
+
 			ChunkClass *vertexmaterialchunkptr;
 
 			vertexmaterialchunkptr = new ChunkClass (w3dchunk);
-			
+
 			solvechunk.Begin_Chunk (vertexmaterialchunkptr->ChunkType);
 			solvechunk.Write (vertexmaterialchunkptr->Get_Data(), vertexmaterialchunkptr->Get_Size());
 			solvechunk.End_Chunk();
-			
+
 			vertexmaterialchunks.Add (vertexmaterialchunkptr);
 			w3dchunk.Close_Chunk();
 		}
@@ -3306,7 +3306,7 @@ void LightMapDoc::Translate_Vertex_Materials (PrelitModeEnum inputmode, ChunkLoa
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Translate_Shaders (PrelitModeEnum inputmode, ChunkLoadClass &w3dchunk, PrelitModeEnum outputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo)
 {
@@ -3318,7 +3318,7 @@ void LightMapDoc::Translate_Shaders (PrelitModeEnum inputmode, ChunkLoadClass &w
 	solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
 
 	for (s = 0; s < meshinfo.MaterialInfo [inputmode].ShaderCount; s++) {
-		
+
 		if (w3dchunk.Read (&shader, sizeof (shader)) != sizeof (shader)) {
 			throw ("Cannot read data in W3D_CHUNK_SHADERS.");
 		}
@@ -3340,7 +3340,7 @@ void LightMapDoc::Translate_Shaders (PrelitModeEnum inputmode, ChunkLoadClass &w
 					W3d_Shader_Set_Texturing (&shader, W3DSHADER_TEXTURING_ENABLE);
 
 				} else {
-					
+
 					ASSERT (W3d_Shader_Get_Texturing (&shader) == W3DSHADER_TEXTURING_ENABLE);
 
 					// Enable detail texture.
@@ -3351,7 +3351,7 @@ void LightMapDoc::Translate_Shaders (PrelitModeEnum inputmode, ChunkLoadClass &w
 				}
 				break;
 		}
-		
+
 		solvechunk.Write (&shader, sizeof (shader));
 	}
 
@@ -3359,22 +3359,22 @@ void LightMapDoc::Translate_Shaders (PrelitModeEnum inputmode, ChunkLoadClass &w
 
 		// Write out a set of shaders for the lightmap pass.
 		for (s = 0; s < meshinfo.Lightmap_Shader_Count(); s++) {
-	
+
 			W3d_Shader_Reset (&shader);
 
-			W3d_Shader_Set_Depth_Compare (&shader, W3DSHADER_DEPTHCOMPARE_PASS_LEQUAL);			 
-			W3d_Shader_Set_Depth_Mask (&shader, W3DSHADER_DEPTHMASK_WRITE_DISABLE);				 
-			W3d_Shader_Set_Src_Blend_Func (&shader, W3DSHADER_SRCBLENDFUNC_ZERO);			 
-			W3d_Shader_Set_Dest_Blend_Func (&shader, W3DSHADER_DESTBLENDFUNC_SRC_COLOR);			 
+			W3d_Shader_Set_Depth_Compare (&shader, W3DSHADER_DEPTHCOMPARE_PASS_LEQUAL);
+			W3d_Shader_Set_Depth_Mask (&shader, W3DSHADER_DEPTHMASK_WRITE_DISABLE);
+			W3d_Shader_Set_Src_Blend_Func (&shader, W3DSHADER_SRCBLENDFUNC_ZERO);
+			W3d_Shader_Set_Dest_Blend_Func (&shader, W3DSHADER_DESTBLENDFUNC_SRC_COLOR);
 			W3d_Shader_Set_Pri_Gradient (&shader, W3DSHADER_PRIGRADIENT_DISABLE);
-			W3d_Shader_Set_Sec_Gradient (&shader, W3DSHADER_SECGRADIENT_DISABLE);				 
+			W3d_Shader_Set_Sec_Gradient (&shader, W3DSHADER_SECGRADIENT_DISABLE);
 			W3d_Shader_Set_Texturing (&shader, W3DSHADER_TEXTURING_ENABLE);
-			W3d_Shader_Set_Detail_Color_Func (&shader, W3DSHADER_DETAILCOLORFUNC_DISABLE);		 
-  			W3d_Shader_Set_Detail_Alpha_Func (&shader, W3DSHADER_DETAILALPHAFUNC_DISABLE);		 
-  			W3d_Shader_Set_Alpha_Test (&shader, W3DSHADER_ALPHATEST_DISABLE);				 
+			W3d_Shader_Set_Detail_Color_Func (&shader, W3DSHADER_DETAILCOLORFUNC_DISABLE);
+  			W3d_Shader_Set_Detail_Alpha_Func (&shader, W3DSHADER_DETAILALPHAFUNC_DISABLE);
+  			W3d_Shader_Set_Alpha_Test (&shader, W3DSHADER_ALPHATEST_DISABLE);
   			W3d_Shader_Set_Post_Detail_Color_Func (&shader, W3DSHADER_DETAILCOLORFUNC_DISABLE);
-  			W3d_Shader_Set_Post_Detail_Alpha_Func (&shader, W3DSHADER_DETAILALPHAFUNC_DISABLE); 
-  
+  			W3d_Shader_Set_Post_Detail_Alpha_Func (&shader, W3DSHADER_DETAILALPHAFUNC_DISABLE);
+
 			solvechunk.Write (&shader, sizeof (shader));
 		}
 	}
@@ -3393,7 +3393,7 @@ void LightMapDoc::Translate_Shaders (PrelitModeEnum inputmode, ChunkLoadClass &w
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Translate_Textures (ChunkLoadClass &w3dchunk, PrelitModeEnum outputmode, ChunkSaveClass &solvechunk, const LightscapeMeshSolve &meshsolve)
 {
@@ -3406,12 +3406,12 @@ void LightMapDoc::Translate_Textures (ChunkLoadClass &w3dchunk, PrelitModeEnum o
 
 		case MULTI_PASS:
 		case MULTI_TEXTURE:
-	
+
 			solvechunk.Begin_Chunk (W3D_CHUNK_TEXTURES);
 
 			// Copy the existing texture chunks.
 			while (w3dchunk.Open_Chunk()) {
-		
+
 				ChunkClass *datachunk;
 
 				datachunk = new ChunkClass (w3dchunk);
@@ -3420,7 +3420,7 @@ void LightMapDoc::Translate_Textures (ChunkLoadClass &w3dchunk, PrelitModeEnum o
 				solvechunk.Begin_Chunk (datachunk->ChunkType);
 				solvechunk.Write (datachunk->Get_Data(), datachunk->Get_Size());
 				solvechunk.End_Chunk();
-		
+
 				w3dchunk.Close_Chunk();
 
 				// Clean-up.
@@ -3444,7 +3444,7 @@ void LightMapDoc::Translate_Textures (ChunkLoadClass &w3dchunk, PrelitModeEnum o
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Add_Lightmap_Textures (ChunkSaveClass &solvechunk, const LightscapeMeshSolve &meshsolve)
 {
@@ -3460,7 +3460,7 @@ void LightMapDoc::Add_Lightmap_Textures (ChunkSaveClass &solvechunk, const Light
 	textureinfo.FrameCount = 1;
 	textureinfo.FrameRate  = (float32) undefined;
 	for (unsigned l = 0; l < meshsolve.Lightmap_Count(); l++) {
-	
+
 		solvechunk.Begin_Chunk (W3D_CHUNK_TEXTURE);
 
 		solvechunk.Begin_Chunk (W3D_CHUNK_TEXTURE_NAME);
@@ -3470,7 +3470,7 @@ void LightMapDoc::Add_Lightmap_Textures (ChunkSaveClass &solvechunk, const Light
 		solvechunk.Begin_Chunk (W3D_CHUNK_TEXTURE_INFO);
 		solvechunk.Write (&textureinfo, sizeof (textureinfo));
 		solvechunk.End_Chunk();
-		
+
 		solvechunk.End_Chunk();
 	}
 }
@@ -3486,7 +3486,7 @@ void LightMapDoc::Add_Lightmap_Textures (ChunkSaveClass &solvechunk, const Light
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Translate_Material_Pass (PrelitModeEnum inputmode, ChunkLoadClass &w3dchunk, unsigned materialpass, PrelitModeEnum outputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -3495,7 +3495,7 @@ void LightMapDoc::Translate_Material_Pass (PrelitModeEnum inputmode, ChunkLoadCl
 
 	solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
 
-	// While there are material chunks... 
+	// While there are material chunks...
 	hastexturestage = false;
 	stage = 0;
 	while (w3dchunk.Open_Chunk()) {
@@ -3503,7 +3503,7 @@ void LightMapDoc::Translate_Material_Pass (PrelitModeEnum inputmode, ChunkLoadCl
 		switch (w3dchunk.Cur_Chunk_ID()) {
 
 			case W3D_CHUNK_DCG:
-				Translate_DCGs (w3dchunk, solvechunk, splitvertexinfo); 
+				Translate_DCGs (w3dchunk, solvechunk, splitvertexinfo);
 				break;
 
 			case W3D_CHUNK_DIG:
@@ -3523,7 +3523,7 @@ void LightMapDoc::Translate_Material_Pass (PrelitModeEnum inputmode, ChunkLoadCl
 					}
 					Translate_Texture_Stage (w3dchunk, solvechunk, splitvertexinfo);
 					hastexturestage = true;
-					
+
 				} else {
 
 					// NOTE: If multi-pass, last material pass contains lightmap stage.
@@ -3538,11 +3538,11 @@ void LightMapDoc::Translate_Material_Pass (PrelitModeEnum inputmode, ChunkLoadCl
 						Translate_Texture_Stage (w3dchunk, solvechunk, splitvertexinfo);
 					}
 					stage++;
-				}	
+				}
 				break;
 
 			default:
-						
+
 				// Any other chunk type can be copied unmodified.
 				Copy_Chunk (w3dchunk, solvechunk);
 				break;
@@ -3553,16 +3553,16 @@ void LightMapDoc::Translate_Material_Pass (PrelitModeEnum inputmode, ChunkLoadCl
 	if (inputmode == UNLIT) {
 
 		if (!hastexturestage && (outputmode == MULTI_TEXTURE)) {
-				
-			// Stage 0 is lightmap, stage 1 is unused. 
+
+			// Stage 0 is lightmap, stage 1 is unused.
 			Add_Lightmap_Stage (inputmode, solvechunk, meshinfo, meshsolve, splitvertexinfo);
-		}	
-			
+		}
+
 		if (outputmode == VERTEX) {
 			Add_DIGs (inputmode, materialpass, solvechunk, meshinfo, meshsolve, splitvertexinfo);
 		}
 	}
-	
+
 	solvechunk.End_Chunk();
 }
 
@@ -3730,7 +3730,7 @@ void LightMapDoc::Translate_Vertex_Material_IDs (PrelitModeEnum inputmode, Chunk
 void LightMapDoc::Translate_Texture_Stage (ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo)
 {
 	solvechunk.Begin_Chunk (w3dchunk.Cur_Chunk_ID());
-	
+
 	while (w3dchunk.Open_Chunk()) {
 
 		switch (w3dchunk.Cur_Chunk_ID()) {
@@ -3743,7 +3743,7 @@ void LightMapDoc::Translate_Texture_Stage (ChunkLoadClass &w3dchunk, ChunkSaveCl
 				Copy_Chunk (w3dchunk, solvechunk);
 				break;
 		}
-		
+
 		w3dchunk.Close_Chunk();
 	}
 
@@ -3798,7 +3798,7 @@ void LightMapDoc::Translate_Stage_Texcoords (ChunkLoadClass &w3dchunk, ChunkSave
 void LightMapDoc::Add_Lightmap_Material_Pass (PrelitModeEnum inputmode, unsigned materialpass, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve, const SplitVertexInfoStruct &splitvertexinfo)
 {
 	uint32 vertexmaterialid;
-	uint32 shaderid;	
+	uint32 shaderid;
 
 	// This routine only supports unlit meshes.
 	ASSERT (inputmode == UNLIT);
@@ -3809,7 +3809,7 @@ void LightMapDoc::Add_Lightmap_Material_Pass (PrelitModeEnum inputmode, unsigned
 	// Write vertex material ID chunk.
 	solvechunk.Begin_Chunk (W3D_CHUNK_VERTEX_MATERIAL_IDS);
 	ASSERT (meshinfo.Lightmap_Vertex_Material_Count() == 1);
-	vertexmaterialid = meshinfo.MaterialInfo [inputmode].VertexMaterialCount;	
+	vertexmaterialid = meshinfo.MaterialInfo [inputmode].VertexMaterialCount;
 	solvechunk.Write (&vertexmaterialid, sizeof (vertexmaterialid));
 	solvechunk.End_Chunk();
 
@@ -3843,7 +3843,7 @@ void LightMapDoc::Add_Lightmap_Material_Pass (PrelitModeEnum inputmode, unsigned
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/25/00    IML : Created.                                                                * 
+ *   08/25/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Add_Lightmap_Stage (PrelitModeEnum inputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -3863,7 +3863,7 @@ void LightMapDoc::Add_Lightmap_Stage (PrelitModeEnum inputmode, ChunkSaveClass &
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/25/00    IML : Created.                                                                * 
+ *   08/25/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapDoc::Translate_Lightmap_Stage (PrelitModeEnum inputmode, ChunkLoadClass &w3dchunk, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve, const SplitVertexInfoStruct &splitvertexinfo)
 {
@@ -3881,7 +3881,7 @@ void LightMapDoc::Translate_Lightmap_Stage (PrelitModeEnum inputmode, ChunkLoadC
 				Copy_Chunk (w3dchunk, solvechunk);
 				break;
 		}
-		
+
 		w3dchunk.Close_Chunk();
 	}
 
@@ -3900,15 +3900,15 @@ void LightMapDoc::Translate_Lightmap_Stage (PrelitModeEnum inputmode, ChunkLoadC
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Add_Lightmap_Stage_Chunks (PrelitModeEnum inputmode, ChunkSaveClass &solvechunk, const MeshInfoStruct &meshinfo, const LightscapeMeshSolve &meshsolve, const SplitVertexInfoStruct &splitvertexinfo)
 {
 	const unsigned facecount = meshinfo.TriangleChunk->Get_Size() / sizeof (W3dTriStruct);
-	
-	unsigned	f; 
+
+	unsigned	f;
    unsigned	textureindex;
-	bool		writesingleindex;	
+	bool		writesingleindex;
 
 	// Write texture ID's (one per face in face order).
 	// If all of the texture indexes are the same then just write a single ID (this will be interpeted as an ID that applies to all faces in the mesh).
@@ -3950,7 +3950,7 @@ void LightMapDoc::Add_Lightmap_Stage_Chunks (PrelitModeEnum inputmode, ChunkSave
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapDoc::Copy_Chunk (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk)
 {
@@ -3977,9 +3977,9 @@ void LightMapDoc::Copy_Chunk (ChunkLoadClass &loadchunk, ChunkSaveClass &savechu
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-ChunkClass::ChunkClass (ChunkLoadClass &loadchunk)	: ChunkHeader (loadchunk.Cur_Chunk_ID(), loadchunk.Cur_Chunk_Length()) 
+ChunkClass::ChunkClass (ChunkLoadClass &loadchunk)	: ChunkHeader (loadchunk.Cur_Chunk_ID(), loadchunk.Cur_Chunk_Length())
 {
 	const char *controlstring = "Cannot read data in chunk %d.";
 
@@ -3988,9 +3988,9 @@ ChunkClass::ChunkClass (ChunkLoadClass &loadchunk)	: ChunkHeader (loadchunk.Cur_
 
 	Data = new char [ChunkSize];
 	ASSERT (Data != NULL);
-	
+
 	if (loadchunk.Read (Data, ChunkSize) != ChunkSize) {
- 
+
 		static char _messagebuffer [256];
 
 		StringBuilder errormessage (_messagebuffer, sizeof (_messagebuffer));

@@ -40,14 +40,14 @@ const float RBODY_SLEEP_DELAY	= 0.5f;	// if still for this many seconds, shut of
 
 /**
 ** RigidBodyStateStruct
-** This is the state vector for a RigidBodyClass.  
+** This is the state vector for a RigidBodyClass.
 */
-struct RigidBodyStateStruct 
+struct RigidBodyStateStruct
 {
 	RigidBodyStateStruct(void) {}
 	RigidBodyStateStruct(const RigidBodyStateStruct & that);
 	RigidBodyStateStruct & operator = (const RigidBodyStateStruct & that);
-	
+
 	void				Reset(void);
 	void				To_Vector(StateVectorClass & vec);
 	int				From_Vector(const StateVectorClass & vec,int index);
@@ -61,7 +61,7 @@ struct RigidBodyStateStruct
 };
 
 
-/** 
+/**
 ** RigidBodyClass
 ** Simulation of a rigid body.  The shape is limited to be an oriented box.
 */
@@ -123,7 +123,7 @@ public:
 																						const Quaternion & new_orientation,
 																						const Vector3 & new_vel,
 																						const Vector3 & new_avel);
-	
+
 	static void						Set_Correction_Time(float time)	{ _CorrectionTime = time; }
 	static float					Get_Correction_Time(void)			{ return _CorrectionTime; }
 
@@ -189,7 +189,7 @@ protected:
 	void								Assert_State_Valid(void) const;
 	void								Assert_Not_Intersecting(void);
 	void								Dump_State(void) const;
-	
+
 	/*
 	** Physical Description:
 	*/
@@ -203,12 +203,12 @@ protected:
 	** State vector
 	*/
 	RigidBodyStateStruct			State;				// current state vector
-	
+
 	/*
 	** Quantities derived from (dependent on) the current state
 	*/
 	Matrix3							Rotation;
-	Matrix3							IInv;		
+	Matrix3							IInv;
 	Vector3							Velocity;
 	Vector3							AngularVelocity;
 
@@ -267,7 +267,7 @@ inline void RigidBodyStateStruct::To_Vector(StateVectorClass & vec)
 	vec.Add(Position[0]);
 	vec.Add(Position[1]);
 	vec.Add(Position[2]);
-	
+
 	vec.Add(Orientation[0]);
 	vec.Add(Orientation[1]);
 	vec.Add(Orientation[2]);
@@ -296,7 +296,7 @@ inline int RigidBodyStateStruct::From_Vector(const StateVectorClass & vec,int in
 	LMomentum[0] = vec[index++];
 	LMomentum[1] = vec[index++];
 	LMomentum[2] = vec[index++];
-	
+
 	AMomentum[0] = vec[index++];
 	AMomentum[1] = vec[index++];
 	AMomentum[2] = vec[index++];
@@ -327,7 +327,7 @@ class RigidBodyDefClass : public MoveablePhysDefClass
 {
 public:
 	RigidBodyDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;

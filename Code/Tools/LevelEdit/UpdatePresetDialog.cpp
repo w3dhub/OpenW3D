@@ -106,14 +106,14 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-UpdatePresetDialogClass::OnInitDialog (void) 
+UpdatePresetDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
 	SANITY_CHECK (m_Preset != NULL && m_Preset->Get_Definition () != NULL) {
 		return true;
 	}
-	
+
 	//
 	//	Lookup the model-definition for this preset
 	//
@@ -121,12 +121,12 @@ UpdatePresetDialogClass::OnInitDialog (void)
 	if (definition == NULL) {
 		definition = m_Preset->Get_Definition ();
 	}
-	
+
 	//
 	//	Get the rectangle where we will be creating the 'spec-sheet'.
 	//
 	CRect rect;
-	::GetWindowRect (::GetDlgItem (m_hWnd, IDC_FILE_GROUP), &rect);		
+	::GetWindowRect (::GetDlgItem (m_hWnd, IDC_FILE_GROUP), &rect);
 	ScreenToClient (&rect);
 	rect.top += 12;
 	rect.bottom -= 5;
@@ -196,7 +196,7 @@ UpdatePresetDialogClass::OnOK (void)
 {
 	int count = m_ParamSheet->Get_Parameter_Count ();
 	for (int index = 0; index < count; index ++) {
-				
+
 		//
 		//	Get the original and new filenames
 		//
@@ -219,7 +219,7 @@ UpdatePresetDialogClass::OnOK (void)
 			//
 			if (orig_full_path.CompareNoCase (new_path) != 0) {
 				::Get_File_Mgr ()->Update_Model (orig_path, new_path);
-				
+
 				//
 				//	Update the INI file so it 'knows' about this latest update
 				//
@@ -227,7 +227,7 @@ UpdatePresetDialogClass::OnOK (void)
 				Update_INI (rel_folder);
 			}
 		} else {
-			
+
 			//
 			//	Warn the user that we cannot do this operation...
 			//
@@ -237,7 +237,7 @@ UpdatePresetDialogClass::OnOK (void)
 			MessageBox (message, "Invalid Entry", MB_ICONEXCLAMATION | MB_OK);
 		}
 	}
-	
+
 	CDialog::OnOK ();
 	return ;
 }
@@ -250,7 +250,7 @@ UpdatePresetDialogClass::OnOK (void)
 /////////////////////////////////////////////////////////////////////////////
 void
 UpdatePresetDialogClass::Update_INI (LPCTSTR rel_folder)
-{		
+{
 	//
 	// Attempt to check out the INI file
 	//
@@ -258,12 +258,12 @@ UpdatePresetDialogClass::Update_INI (LPCTSTR rel_folder)
 	AssetDatabaseClass &asset_db	= ::Get_File_Mgr ()->Get_Database_Interface ();
 
 	if (asset_db.Retry_Check_Out (path, 10, 1000)) {
-				
+
 		//
-		// Get a pointer to the INI file from the asset manager		
+		// Get a pointer to the INI file from the asset manager
 		//
-		EditorINIClass *pini = _pThe3DAssetManager->Get_INI (path);		
-		ASSERT (pini != NULL);	
+		EditorINIClass *pini = _pThe3DAssetManager->Get_INI (path);
+		ASSERT (pini != NULL);
 		if (pini != NULL) {
 
 			//
@@ -279,7 +279,7 @@ UpdatePresetDialogClass::Update_INI (LPCTSTR rel_folder)
 			CString number_string;
 			number_string.Format ("%d", curr_update_id);
 			pini->Put_String ("Details", number_string, rel_folder);
-			
+
 			//
 			// Update the current time/date in the INI file
 			//
@@ -322,7 +322,7 @@ UpdatePresetDialogClass::Update_INI (LPCTSTR rel_folder)
 			}
 
 			// Free the INI object
-			SAFE_DELETE (pini);			
+			SAFE_DELETE (pini);
 		}
 
 		// Now try to check in the file

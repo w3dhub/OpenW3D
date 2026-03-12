@@ -34,7 +34,7 @@ class CInertiaDialog : public CDialog
 {
 // Construction
 public:
-	CInertiaDialog(CWnd* pParent,RigidBodyClass * obj); 
+	CInertiaDialog(CWnd* pParent,RigidBodyClass * obj);
 
 // Dialog Data
 	//{{AFX_DATA(CInertiaDialog)

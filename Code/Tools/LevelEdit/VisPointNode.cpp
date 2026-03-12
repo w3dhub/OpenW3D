@@ -83,7 +83,7 @@ VisPointNodeClass::VisPointNodeClass (PresetClass *preset)
 		m_NearClipPlane (0),
 		m_HFov (0),
 		m_VFov (0),
-		NodeClass (preset)		
+		NodeClass (preset)
 {
 	return ;
 }
@@ -110,7 +110,7 @@ VisPointNodeClass::VisPointNodeClass (const VisPointNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 VisPointNodeClass::~VisPointNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
 	return ;
@@ -136,10 +136,10 @@ VisPointNodeClass::Initialize (void)
 	RenderObjClass *render_obj = ::Create_Render_Obj ("CAMERA");
 	WWASSERT (render_obj != NULL);
 	if (render_obj != NULL) {
-		
+
 		// Create the new physics object
 		m_PhysObj = new DecorationPhysClass;
-		
+
 		//
 		// Configure the physics object with information about
 		// its new render object and collision data.
@@ -150,7 +150,7 @@ VisPointNodeClass::Initialize (void)
 		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		m_PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (m_PhysObj->Peek_Model (), COLLISION_TYPE_6);
-		
+
 		// Release our hold on the render object pointer
 		MEMBER_RELEASE (render_obj);
 	}
@@ -166,7 +166,7 @@ VisPointNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 VisPointNodeClass::Get_Factory (void) const
-{	
+{
 	return _VisPointodePersistFactory;
 }
 
@@ -201,13 +201,13 @@ VisPointNodeClass::Save (ChunkSaveClass &csave)
 bool
 VisPointNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -233,7 +233,7 @@ VisPointNodeClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_TILE_LOCATION, m_VisTileLocation);
 			READ_MICRO_CHUNK (cload, VARID_NEAR_CLIP, m_NearClipPlane);
 			READ_MICRO_CHUNK (cload, VARID_HFOV, m_HFov);
@@ -333,7 +333,7 @@ VisPointNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {

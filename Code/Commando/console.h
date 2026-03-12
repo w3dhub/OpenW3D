@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/console.h                           $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 7/25/01 2:12p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 12                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/console.h                           $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 7/25/01 2:12p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 12                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	CONSOLE_H
@@ -63,7 +63,7 @@ class WWProfileIterator;
 */
 class	ConsoleGameModeClass : public GameModeClass {
 public:
-	
+
 	virtual	const char *Name() override	{ return "Console"; }	// the name of this mode
 	virtual	void	Init() override;		 	// called when the mode is activated
 	virtual	void 	Shutdown() override; 	// called when the mode is deactivated
@@ -90,8 +90,8 @@ private:
 	void		Clear_Suggestion(void);
 	void		Accept_Suggestion(char * cmd);
 	void		Update_Suggestion(char * cmd,bool go_to_next);
-	
-	enum { 
+
+	enum {
 		MAX_INPUT_LINE_LENGTH		= 100,
 		MAX_DRAWER_CHARS				= 4000,
 	};

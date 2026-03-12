@@ -90,12 +90,12 @@ protected:
 
 
 public:
-	
+
 	/////////////////////////////////////////////////////////////////////////
 	//	Public methods
 	/////////////////////////////////////////////////////////////////////////
 	void						Set_Phys_Obj (PhysClass *phys_obj);
-	
+
 	void						Set_Zone (const OBBoxClass &zone)					{ m_ZoneBox = zone; }
 	const OBBoxClass &	Get_Zone (void) const									{ return m_ZoneBox; }
 

@@ -90,7 +90,7 @@ MPR_A01_CivLeader
 
   Follower_ID	= DEBUG
 */
-		
+
 DECLARE_SCRIPT(MPR_A01_CivLeader_PMP, "Follower_ID:int")
 {
 	int Follower_ID;
@@ -128,7 +128,7 @@ DECLARE_SCRIPT(MPR_A01_CivLeader_PMP, "Follower_ID:int")
 
 			Commands->_Start_Timer(obj, this, Commands->Get_Random( 0, 5), MPR_TIMER_DELAY_01_04_PMP);
 		}
-		
+
 		if (event == MPR_CUSTOM_ESCORT_ATTACKED_DEL)
 		{
 			//Commands->Display_Text("Got attacked message\n");
@@ -200,7 +200,7 @@ DECLARE_SCRIPT(MPR_A01_CivFollower_PMP, "Host_ID:int, Host_distance=1.5:float")
 
 		Host_distance = Get_Float_Parameter("Host_distance");
 		Host_ID = Get_Int_Parameter("Host_ID");
-	}	
+	}
 
 	void Custom(GameObject* obj, int event, int param, GameObject* host)
 	{
@@ -271,7 +271,7 @@ DECLARE_SCRIPT(MPR_A01_EscortDies_PMP,"CIV01_ID:int, CIV02_ID:int, CIV03_ID:int"
 		CIV01_ID = Get_Int_Parameter("CIV01_ID");
 		CIV02_ID = Get_Int_Parameter("CIV02_ID");
 		CIV03_ID = Get_Int_Parameter("CIV03_ID");
-		
+
 		//Commands->Display_Text("I am dead\n");
 		MPR_nod_dead_PMP = true;
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(CIV01_ID),MPR_CUSTOM_I_AM_DEAD_DEL, 0);
@@ -396,7 +396,7 @@ DECLARE_SCRIPT(MPR_A01_Evac_Call_PMP,"")
 		{
 			//Commands->Display_Text("Chinook Created\n");
 
-			GameObject* Chinook_evac = Commands->Create_Object( "Chinook_E", Vector3 (0,0,0) );		
+			GameObject* Chinook_evac = Commands->Create_Object( "Chinook_E", Vector3 (0,0,0) );
 
 			if (Chinook_evac)
 			{
@@ -444,7 +444,7 @@ DECLARE_SCRIPT(MPR_A01_Chinook_Evac_Civies_PMP,"")
 				Commands->Send_Custom_Event(obj, Commands->Find_Object(CIV01_ID),MPR_CUSTOM_EVAC_CALL_DEL, 0);
 			}
 			if (Commands->Find_Object(CIV02_ID))
-			{	
+			{
 				Commands->Send_Custom_Event(obj, Commands->Find_Object(CIV02_ID),MPR_CUSTOM_EVAC_CALL_DEL, 0);
 			}
 			if (Commands->Find_Object(CIV03_ID))
@@ -649,7 +649,7 @@ DECLARE_SCRIPT(MPR_Looping_Path_JDG, "DestObjID1=:int, DestObjID2=:int")
 			DebugPrint("Error! Cannot find destination for MPR_Looping_Path_JDG.\n");
 		}
 	}
-	
+
 	void Movement_Complete(GameObject* game_obj, MovementCompleteReason)
 	{
 		m_CurrentDest = !m_CurrentDest;
@@ -664,7 +664,7 @@ MPR_A03_Bridge_Exploding_DEL
   DEBUG DESCRIPTION
   DEBUG NAMING CONVENTION
   DEBUG UNUSED
-  
+
   Parameters:
 
   AnimationName		= DEBUG
@@ -675,7 +675,7 @@ DECLARE_SCRIPT(MPR_A03_Bridge_Exploding_DEL, "AnimationName=:string")
 	void Created(GameObject* game_obj)
 	{
 		//	Set the animation to the first frame
-		
+
 		const char* animName = Get_Parameter("AnimationName");
 		Commands->Set_Animation_Frame(game_obj, animName, 0);
 	}
@@ -699,7 +699,7 @@ MPR_A03_Bridge_Trigger_DEL
   DEBUG DESCRIPTION
   DEBUG NAMING CONVENTION
   DEBUG UNUSED
-  
+
   Parameters:
 
   BridgeID		= DEBUG
@@ -730,7 +730,7 @@ Demo_Harvester
   DEBUG DESCRIPTION
   DEBUG NAMING CONVENTION
   DEBUG UNUSED
-  
+
   Parameters:
 
   RefineryZoneID	= DEBUG
@@ -778,7 +778,7 @@ DECLARE_SCRIPT(Demo_Harvester, "RefineryZoneID:int,TiberiumZoneID:int")
 		mState = IDLE;
 		GotoTiberium();
 	}
-	
+
 	Vector3 FindTiberium(void)
 	{
 		// Locate the tiberium zone and pick a random location within the
@@ -936,7 +936,7 @@ MPR_ApacheTrigger
 
   DEBUG DESCRIPTION
   DEBUG NAMING CONVENTION
-  
+
   Parameters:
 
   ApacheID	= DEBUG
@@ -956,12 +956,12 @@ DECLARE_SCRIPT(MPR_ApacheTrigger, "ApacheID:int,Position:int")
 			DebugPrint("Apache attack triggered!\n");
 
 			// Get apache object
-		
+
 			int apacheID = Get_Int_Parameter("ApacheID");
 			GameObject* apache = Commands->Find_Object(apacheID);
 
 			// Tell the apache were to move
-			
+
 			if (apache != NULL)
 			{
 				int position = Get_Int_Parameter("Position");
@@ -977,7 +977,7 @@ MPR_ApacheShootAtPlayer
 
   DEBUG DESCRIPTION
   DEBUG NAMING CONVENTION
-  
+
   Parameters:
 
   ApacheID	= DEBUG
@@ -996,12 +996,12 @@ DECLARE_SCRIPT(MPR_ApacheShootAtPlayer, "ApacheID:int")
 			DebugPrint("Apache shoot at player enabled!\n");
 
 			// Get apache object
-		
+
 			int apacheID = Get_Int_Parameter("ApacheID");
 			GameObject* apache = Commands->Find_Object(apacheID);
 
 			// Tell the apache were to move
-			
+
 			if (apache != NULL)
 			{
 				Commands->Send_Custom_Event(Owner(), apache, MPR_CUSTOM_APACHE_SHOOT_DEL, (int)true);
@@ -1061,7 +1061,7 @@ DECLARE_SCRIPT(MPR_ApacheController, "")
 		const char* HoverAnim;
 	} Transition;
 
-	static Transition _mTransitions[APACHE_POSITION_COUNT]; 
+	static Transition _mTransitions[APACHE_POSITION_COUNT];
 
 	ApachePosition mCurrentPosition;
 	ApachePosition mDesiredPosition;
@@ -1098,7 +1098,7 @@ DECLARE_SCRIPT(MPR_ApacheController, "")
 			Shoot_At_Player();
 		}
 	}
-	
+
 	void Goto_Position(ApachePosition position)
 	{
 		assert(position >= APACHE_POSITION_FIRST);
@@ -1110,10 +1110,10 @@ DECLARE_SCRIPT(MPR_ApacheController, "")
 		if ((position != mCurrentPosition) || (position != mDesiredPosition))
 		{
 			#if(0)
-			
+
 				// If currently in the landed position we must first move to 0.0.0
 				// because the animations are relative to that.
-				
+
 				if (mCurrentPosition == APACHE_LANDED)
 				{
 					Vector3 origin(0.0f, 0.0f, 0.0f);
@@ -1211,7 +1211,7 @@ MPR_ApacheController
   DEBUG NAMING CONVENTION
 */
 
-MPR_ApacheController::Transition MPR_ApacheController::_mTransitions[APACHE_POSITION_COUNT] = 
+MPR_ApacheController::Transition MPR_ApacheController::_mTransitions[APACHE_POSITION_COUNT] =
 {
 	// Landed
 	{NULL, NULL},
@@ -1221,10 +1221,10 @@ MPR_ApacheController::Transition MPR_ApacheController::_mTransitions[APACHE_POSI
 
 	// Position 2 - Move into position on the right side and hover
 	{"m_ap_move1-2", "m_ap_loitr2"},
-	
+
 	// Position 3 - Move into position on front side and hover.
 	{"m_ap_move2-3", "m_ap_loitr3"},
-	
+
 	// Position 4 - Move into position on the left side and hover
 	{"m_ap_move1-4", "m_ap_loitr4"},
 };
@@ -1270,7 +1270,7 @@ DECLARE_SCRIPT(MPR_A01_Orca_Strike_On_Turret_RAD, "Target_Number:int, AnimationN
 		if (n_type == MPR_A01_CUSTOM_ORCA_TURRETSTRIKE_RAD)
 		{
 			// Set up the appropriate target number for the turret target.
-			
+
 			switch(Get_Int_Parameter("Target_Number"))
 			{
 			case (1):
@@ -1305,13 +1305,13 @@ DECLARE_SCRIPT(MPR_A01_Orca_Strike_On_Turret_RAD, "Target_Number:int, AnimationN
 					Commands->Destroy_Object(p_obj);
 				}
 			}
-			
+
 			// Find the location of the turret, and start the attack animation on the ORCA.
 
 			v_target_loc = Commands->Get_Position(Commands->Find_Object(n_target_number));
 			v_target_loc.Z += 0.5f;
 			Commands->Set_Animation(p_obj, Get_Parameter("AnimationName"), 0);
-			
+
 			// Start the timer for the first attack. When this ends the attack happens.
 
 			Commands->Start_Timer(p_obj, (Get_Int_Parameter("Fire_01") / 30), MPR_A01_TIMER_ORCASTRIKE_RAD);
@@ -1337,7 +1337,7 @@ DECLARE_SCRIPT(MPR_A01_Orca_Strike_On_Turret_RAD, "Target_Number:int, AnimationN
 				// Fire the weapon at the target.
 
 				Commands->Trigger_Weapon(p_obj, true, v_target_loc, true);
-				
+
 				n_attack_number++;
 
 				// Start the timer for turning the attack off.
@@ -1353,7 +1353,7 @@ DECLARE_SCRIPT(MPR_A01_Orca_Strike_On_Turret_RAD, "Target_Number:int, AnimationN
 				// Turn off the attack, set the timer for the next attack.
 
 				Commands->Trigger_Weapon(p_obj, false, v_target_loc, true);
-				
+
 				switch (n_attack_number)
 				{
 				case (2):
@@ -1515,7 +1515,7 @@ DECLARE_SCRIPT(MPR_A01_Orca_Turret_Attack_Zone_RAD, "")
 /*
 MPR_A04_Obelisk_Weapon
 
-  This script handles the obelisk weapon firing. It is attached to a zone. 
+  This script handles the obelisk weapon firing. It is attached to a zone.
   It handle the following process:
 
   0. When the object is created, it starts a firing timer for target switching.
@@ -1701,7 +1701,7 @@ DECLARE_SCRIPT(MPR_A04_Main_Control_Terminal_RAD, "ObeliskControllerID:int, Buil
 		GameObject* p_created;
 		int n_building_id;
 		float f_rightbuilding;
-		
+
 		n_building_id = Get_Int_Parameter("BuildingID");
 
 		if ((n_building_id == 2) || (n_building_id == 3))
@@ -1893,7 +1893,7 @@ DECLARE_SCRIPT(MPR_A06_Final_Zone_Trigger_RMV, "")
 			{
 				Commands->Destroy_Object(clouds);
 			}
-			Commands->Create_Sound( "Ion Cannon ready", Commands->Get_Position(Commands->Get_The_Star()), obj );			
+			Commands->Create_Sound( "Ion Cannon ready", Commands->Get_Position(Commands->Get_The_Star()), obj );
 			Commands->Start_Timer( obj, fadeout_frame/30, end_of_demo );
 			Commands->Create_Object( "Outro Aggregate", Vector3(0,0,0) );
 			Commands->Create_Sound( "Ion Cannon03", Vector3(-170.0f, 448.0f, 20.0f), obj );
@@ -1906,7 +1906,7 @@ DECLARE_SCRIPT(MPR_A06_Final_Zone_Trigger_RMV, "")
 	}
 	void Timer_Expired( GameObject * obj, int timer_id )
 	{
-		if ( timer_id == apache1_die ) 
+		if ( timer_id == apache1_die )
 		{
 			GameObject *apache1 = Commands->Find_Object( apache1_id );
 			GameObject *apache2 = Commands->Find_Object( apache2_id );
@@ -1944,7 +1944,7 @@ DECLARE_SCRIPT(MPR_A06_Final_Zone_Trigger_RMV, "")
 			Commands->Mission_Complete(true);
 		}
 
-	} 
+	}
 };
 
 
@@ -2072,7 +2072,7 @@ MPR_A05_RMV_A10_Air_Strike
   DEBUG NAMING CONVENTION
 */
 
-DECLARE_SCRIPT(MPR_A05_A10_Air_Strike_RMV, "") 
+DECLARE_SCRIPT(MPR_A05_A10_Air_Strike_RMV, "")
 {
 	enum
 	{
@@ -2082,14 +2082,14 @@ DECLARE_SCRIPT(MPR_A05_A10_Air_Strike_RMV, "")
 		STRAFE,
 		NO_STRAFE
 	};
-	
+
 	void Created( GameObject * obj )
 	{
 		float go_time = 3.0;
 		float shoot_frame = 160;				//Frame 70
 		float shoot_time = shoot_frame / 30;
 		float stop_frame = 240;					//Frame 150
-		float stop_time = stop_frame / 30;	
+		float stop_time = stop_frame / 30;
 		float begin_strafe_frame = 420;
 		float begin_strafe_time = begin_strafe_frame / 30;
 		float stop_strafe_frame = 450;
@@ -2129,7 +2129,7 @@ DECLARE_SCRIPT(MPR_A05_A10_Air_Strike_RMV, "")
 	void Animation_Complete( GameObject * obj, const char * name )
 	{
 		Commands->Destroy_Object( obj );
-	} 
+	}
 };
 
 
@@ -2167,7 +2167,7 @@ DECLARE_SCRIPT(MPR_A02_Orca_Dogfight_RMV, "")
 		FIRE_4,
 		STOP_FIRE,
 	};
-	
+
 	void Created( GameObject * obj )
 	{
 		float fire_1_frame = 80;
@@ -2260,7 +2260,7 @@ DECLARE_SCRIPT(MPR_A01_Intro_Cinematic_RMV, "")
 			Commands->Control_Enable( Commands->Get_The_Star(), false );
 			Commands->Enable_HUD(0);
 		}
-		
+
 		if ( timer_id == INTRO )
 		{
 			start_location.X = -118.69f;
@@ -2319,7 +2319,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), MPR_A02_CUSTOM_CADET_3_JDG, MPR_A02_PARAM_CADETS_GOTO_INNATE_JDG);
 		}
 	}
-	
+
 	void Custom (GameObject* obj, int Type, int Param, GameObject* Sender)
 	{
 		if ((Param == MPR_A02_PARAM_CADETS_GOTO_INNATE_JDG) && (Type == MPR_A02_CUSTOM_DRILL_INSTRUCTOR_JDG))
@@ -2337,7 +2337,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 		if ((Param == MPR_A02_PARAM_CADETS_TEN_HUT_JDG) && (Type == MPR_A02_CUSTOM_DRILL_INSTRUCTOR_JDG))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Received custom from zone, about to do Ten_Hut\n" );
-		
+
 			Ten_Hut (obj);
 		}
 
@@ -2345,7 +2345,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 		if ((Type == MPR_A02_CUSTOM_CADET_1_JDG) && (Param == MPR_A02_PARAM_CADETS_AT_ATTENTION_JDG))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, About to start first pushups\n");
-		
+
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J04C", 0);
 			//S_A_HUMAN.H_A_J04C is animation for give order
 
@@ -2360,21 +2360,21 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 		if ((Type == MPR_A02_CUSTOM_CADET_1_JDG) && (Param == MPR_A02_PARAM_CADETS_MADE_MISTAKE_JDG))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, About to Rag on Cadet #1\n");
-		
+
 			Rag_On_Cadet (1);
 		}
 
 		if ((Type == MPR_A02_CUSTOM_CADET_2_JDG) && (Param == MPR_A02_PARAM_CADETS_MADE_MISTAKE_JDG))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, About to Rag on Cadet #2\n");
-		
+
 			Rag_On_Cadet (2);
 		}
 
 		if ((Type == MPR_A02_CUSTOM_CADET_3_JDG) && (Param == MPR_A02_PARAM_CADETS_MADE_MISTAKE_JDG))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, About to Rag on Cadet #3\n");
-		
+
 			Rag_On_Cadet (3);
 		}
 	}
@@ -2382,13 +2382,13 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 	void Ten_Hut (GameObject* obj)
 	{
 		//DebugPrint("JDG. Demo, Drill Instructor, Starting Ten_Hut\n");
-	
+
   		//check if cadet_2 exists
 
 		if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Ten_Hut, DI gives order\n");
-		
+
 			//instructor faces cadet 2...
 			Commands->Action_Attack_Object (obj, (Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), 1, 0);
 
@@ -2402,7 +2402,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 			{
 				//DebugPrint("JDG. Demo, Drill Instructor, Ten_Hut, Start C1 delay timer\n");
-			
+
 				float timeDelay = Commands->Get_Random (0.5f,1.5f);
 				Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_TEN_HUT_DELAY_JDG);
 			}
@@ -2410,7 +2410,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 			{
 				//DebugPrint("JDG. Demo, Drill Instructor, Ten_Hut, Start C2 delay timer\n");
-			
+
 				float timeDelay = Commands->Get_Random (0.5f,1.5f);
 				Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_TEN_HUT_DELAY_JDG);
 			}
@@ -2418,7 +2418,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 			{
 				//DebugPrint("JDG. Demo, Drill Instructor, Ten_Hut, Start C3 delay timer\n");
-			
+
 				float timeDelay = Commands->Get_Random (0.5f,1.5f);
 				Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_TEN_HUT_DELAY_JDG);
 			}
@@ -2428,9 +2428,9 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 	void Cadet_Mistake (void)
 	{
 		//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, Start\n");
-	
+
 		//declare and define local variables here
-	
+
 		float mistake;
 		mistake = Commands->Get_Random(0,100);
 
@@ -2438,7 +2438,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 		if (mistake > 220)
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, About to goto Choose_Cadet\n");
-		
+
 			Choose_Cadet ();
 		}
 
@@ -2450,7 +2450,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #1 do pushups\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_PUSHUPS_DELAY_JDG);
 				}
@@ -2458,7 +2458,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #2 do pushups\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_PUSHUPS_DELAY_JDG);
 				}
@@ -2466,7 +2466,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #3 do pushups\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_PUSHUPS_DELAY_JDG);
 				}
@@ -2479,7 +2479,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #1 do situps\n");
-					
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_SITUPS_DELAY_JDG);
 				}
@@ -2487,7 +2487,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #2 do situps\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_SITUPS_DELAY_JDG);
 				}
@@ -2495,7 +2495,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #3 do situps\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_SITUPS_DELAY_JDG);
 				}
@@ -2503,12 +2503,12 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				DI_Goes_To_New_Position ();
 			}
 
-			else 
+			else
 			{
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #1 do j-jacks\n");
-					
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_JUMPING_JACKS_DELAY_JDG);
 				}
@@ -2516,7 +2516,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #2 do j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_JUMPING_JACKS_DELAY_JDG);
 				}
@@ -2524,12 +2524,12 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Cadet_Mistake, No mistake, #3 do j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_JUMPING_JACKS_DELAY_JDG);
 				}
 
-				DI_Goes_To_New_Position ();	   
+				DI_Goes_To_New_Position ();
 			}
 		}
 	}
@@ -2537,7 +2537,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 	void Choose_Cadet (void)
 	{
 		//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, Start\n");
-	
+
 		float cadet;
 
 		cadet = Commands->Get_Random(0,100);
@@ -2550,7 +2550,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 			{
 				//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C1 makes mistake\n");
-			
+
 				Commands->Create_Sound ("GonnaDieHere02", (Commands->Get_Position (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))), (Commands->Find_Object(MPR_A02_cadet_1_id_JDG)));
 				//insert "Doh!" sound when ready
 
@@ -2559,13 +2559,13 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			}
 
 			//tell cadet 2-3 to do proper animation
-		
+
 			if (exercise == PUSHUPS)
 			{
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C1 makes mistake, #2 pushups\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_PUSHUPS_DELAY_JDG);
 				}
@@ -2573,10 +2573,10 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C1 makes mistake, #3 pushups\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_PUSHUPS_DELAY_JDG);
-				}		
+				}
 			}
 
 			else if (exercise == SITUPS)
@@ -2585,7 +2585,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C1 makes mistake, #2 situps\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_SITUPS_DELAY_JDG);
 				}
@@ -2593,21 +2593,21 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C1 makes mistake, #3 situps\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_SITUPS_DELAY_JDG);
-				}	
+				}
 			}
 
 			// jumping jacks
-			
-			else 
+
+			else
 			{
 
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C1 makes mistake, #2 j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_JUMPING_JACKS_DELAY_JDG);
 
@@ -2616,11 +2616,11 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C1 makes mistake, #3 j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_JUMPING_JACKS_DELAY_JDG);
 
-				}	
+				}
 			}
 		}
 
@@ -2631,11 +2631,11 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 			{
 				//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C2 makes mistake\n");
-			
+
 				Commands->Create_Sound ("GonnaDieHere02", (Commands->Get_Position (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))), (Commands->Find_Object(MPR_A02_cadet_2_id_JDG)));
 
 				Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J09C", 0);
-		
+
 				//S_A_HUMAN.H_A_J09C is animation for make mistake
 
 			}
@@ -2647,7 +2647,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C2 makes mistake, #1 pushups\n");
-			
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_PUSHUPS_DELAY_JDG);
 				}
@@ -2655,11 +2655,11 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C2 makes mistake, #3 pushups\n");
-			
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_PUSHUPS_DELAY_JDG);
 				}
-				
+
 			}
 			else if (exercise == SITUPS)
 			{
@@ -2667,7 +2667,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C2 makes mistake, #1 situps\n");
-			
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_SITUPS_DELAY_JDG);
 				}
@@ -2675,21 +2675,21 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C2 makes mistake, #3 situps\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_SITUPS_DELAY_JDG);
-				}			   
+				}
 			}
 
 			// jumping jacks
 
-			else 
+			else
 			{
 
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C2 makes mistake, #1 j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_JUMPING_JACKS_DELAY_JDG);
 				}
@@ -2697,10 +2697,10 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C2 makes mistake, #3 j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_3_JUMPING_JACKS_DELAY_JDG);
-				}		
+				}
 			}
 		}
 
@@ -2711,7 +2711,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			if (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))
 			{
 				//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C3 makes mistake\n");
-			
+
 				Commands->Create_Sound ("GonnaDieHere02", (Commands->Get_Position (Commands->Find_Object(MPR_A02_cadet_3_id_JDG))), (Commands->Find_Object(MPR_A02_cadet_3_id_JDG)));
 
 				Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J09C", 0);
@@ -2726,7 +2726,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C3 makes mistake, #2 pushups\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_PUSHUPS_DELAY_JDG);
 				}
@@ -2734,10 +2734,10 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C3 makes mistake, #1 pushups\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_PUSHUPS_DELAY_JDG);
-				}		
+				}
 			}
 
 			else if (exercise == SITUPS)
@@ -2746,7 +2746,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C3 makes mistake, #2 situps\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_SITUPS_DELAY_JDG);
 				}
@@ -2754,21 +2754,21 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C3 makes mistake, #1 situps\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_SITUPS_DELAY_JDG);
-				}	
+				}
 			}
 
 			// jumping jacks
 
-			else 
+			else
 			{
 
 				if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C3 makes mistake, #2 j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_2_JUMPING_JACKS_DELAY_JDG);
 
@@ -2777,63 +2777,63 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				if (Commands->Find_Object(MPR_A02_cadet_1_id_JDG))
 				{
 					//DebugPrint("JDG. Demo, Drill Instructor, Choose_Cadet, C3 makes mistake, #1 j-jacks\n");
-				
+
 					float timeDelay = Commands->Get_Random (0.5f,1.5f);
 					Commands->Start_Timer ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), timeDelay, MPR_A02_TIMER_CADET_1_JUMPING_JACKS_DELAY_JDG);
-				}			
+				}
 			}
-		}		  
+		}
 	}
 
 	void Rag_On_Cadet (int Cadet_Number)
 	{
-		
+
 		//DebugPrint("JDG. Demo, Drill Instructor, Rag_On_Cadet, start\n");
-	
+
 
 		if ((Cadet_Number == 1) && (Commands->Find_Object(MPR_A02_cadet_1_id_JDG)))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Rag_On_Cadet, DI rags on C1\n");
-		
+
 			//make drill instructor face cadet 1
 
 			Commands->Action_Attack_Object((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)),(Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), 1, 0);
 
 			Vector3 C1_position (MPR_A02_CADET_1_X_JDG, MPR_A02_CADET_1_Y_JDG, MPR_A02_CADET_1_Z_JDG);
-			
+
 			//Drill instructor goes to cadet 1's position
 
-			Commands->Action_Movement_Goto_Location ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), C1_position, 0.5f);			
+			Commands->Action_Movement_Goto_Location ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), C1_position, 0.5f);
 		}
 
 		if ((Cadet_Number == 2) && (Commands->Find_Object(MPR_A02_cadet_2_id_JDG)))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Rag_On_Cadet, DI rags on C2\n");
-		
+
 			//make drill instructor face cadet 2
 
 			Commands->Action_Attack_Object((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)),(Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), 1, 0);
 
 			Vector3 C2_position (MPR_A02_CADET_2_X_JDG, MPR_A02_CADET_2_Y_JDG, MPR_A02_CADET_2_Z_JDG);
-			
+
 			//Drill instructor goes to cadet 2's position
 
-			Commands->Action_Movement_Goto_Location ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), C2_position, 0.5f);			
+			Commands->Action_Movement_Goto_Location ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), C2_position, 0.5f);
 		}
 
 		if ((Cadet_Number == 3) && (Commands->Find_Object(MPR_A02_cadet_3_id_JDG)))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Rag_On_Cadet, DI rags on C3\n");
-		
+
 			//make drill instructor face cadet 3
 
 			Commands->Action_Attack_Object((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)),(Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), 1, 0);
 
 			Vector3 C3_position (MPR_A02_CADET_3_X_JDG, MPR_A02_CADET_3_Y_JDG, MPR_A02_CADET_3_Z_JDG);
-			
+
 			//Drill instructor goes to cadet 3's position
 
-			Commands->Action_Movement_Goto_Location ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), C3_position, 0.5f);			
+			Commands->Action_Movement_Goto_Location ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), C3_position, 0.5f);
 		}
 
 		Commands->Set_Animation ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), "S_A_HUMAN.H_A_J07C", 0);
@@ -2842,20 +2842,20 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 
 		Yell_At_Cadet ();
 
-		//sets up random things to yell at cadet guy	
+		//sets up random things to yell at cadet guy
 	}
 
 
 	void Yell_At_Cadet (void)
 	{
-		
+
 		//DebugPrint("JDG. Demo, Drill Instructor, Yell_At_Cadet, start\n");
-	
+
 		float n = Commands->Get_Random(0, 100);
 
 		if ((n > 0) && (n <= 25)  && (Commands->Find_Object(MPR_A02_cadet_1_id_JDG)))
 		{
-			Commands->Create_Sound ("KillHim02", (Commands->Get_Position (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG))), (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG))); 
+			Commands->Create_Sound ("KillHim02", (Commands->Get_Position (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG))), (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)));
 		}
 
 		else if ((n > 25) && (n <= 50) && (Commands->Find_Object(MPR_A02_cadet_1_id_JDG)))
@@ -2868,21 +2868,21 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			Commands->Create_Sound ("SoundAlarm02", (Commands->Get_Position (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG))), (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)));
     	}
 
-		else 
+		else
 		{
 			Commands->Create_Sound ("FireAtWill02", (Commands->Get_Position (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG))), (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)));
 		}
 	}
 
 	void Animation_Complete (GameObject* obj, const char* name)
-	{	
+	{
 
 		//S_A_HUMAN.H_A_J07C is animation for rag on cadet
 
 		if ((stricmp("S_A_HUMAN.H_A_J07C", name) == 0) && (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Animation_Complete\n");
-		
+
 			DI_Goes_To_New_Position ();
 		}
 
@@ -2890,7 +2890,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 		{
 			Commands->Action_Attack_Object (obj, (Commands->Get_The_Star()), 1.0f, 50.0f);
 
-			//Commands->Set_Animation (obj, "S_A_HUMAN.H_A_C2C0", 1);	
+			//Commands->Set_Animation (obj, "S_A_HUMAN.H_A_C2C0", 1);
 		}
 
 	}
@@ -2899,9 +2899,9 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 	{
 		if (state != DI_INNATE)
 		{
-		
+
 			//DebugPrint("JDG. Demo, Drill Instructor, DI_Goes_To_New_Position, start\n");
-	
+
 			float xnot, ynot, znot;
 			float random_number = Commands->Get_Random (0,100);
 
@@ -2926,7 +2926,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				znot = 2.42f;
 			}
 
-			else 
+			else
 			{
 				xnot = -53.21f;
 				ynot = -8.00f;
@@ -2944,14 +2944,14 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 				Commands->Start_Timer ((Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), delayTimer, MPR_A02_TIMER_DI_PRE_GIVE_ORDER_JDG);
 
 				//make DI wait for 10-15 secs
-				
+
 				state = DI_MOVING;
 			}
 		}
 	}
 
 	void Movement_Complete (GameObject* obj, MovementCompleteReason)
-	{	
+	{
 		if ((state == DI_MOVING) && (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)))
 		{
 			//when DI reaches new spot, face cadets and start new timer
@@ -2959,7 +2959,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 			if (Commands->Find_Object(MPR_A02_cadet_2_id_JDG))
 			{
 			//	DebugPrint("JDG. Demo, Drill Instructor, Movement_Complete, start\n");
-			
+
 				//first, make instructor face cadets...
 
 				Commands->Action_Attack_Object (obj, (Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), 1, 0);
@@ -2973,7 +2973,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_DI_PRE_GIVE_ORDER_JDG) && (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)) && (state != DI_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Drill Instructor, Timer_Expired, start\n");
-		
+
 			Next_Exercise ();
 		}
 
@@ -2989,7 +2989,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 	void Next_Exercise (void)
 	{
 		//DebugPrint("JDG. Demo, Drill Instructor, Next_Exercise, start\n");
-	
+
 		exercise = (Exercise)(exercise + 1);
 
 		if (exercise >= JUMPING_JACKS)
@@ -3033,7 +3033,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Instructor_JDG, "")
 
 			Cadet_Mistake ();
 		}
-	}	
+	}
 };
 
 
@@ -3062,9 +3062,9 @@ DECLARE_SCRIPT(MPR_A02_Drill_Start_Zone_JDG, "")
 		if (Enterer == (Commands->Get_The_Star()) && (count == 0))
 		{
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_DRILL_INSTRUCTOR_JDG, MPR_A02_PARAM_CADETS_TEN_HUT_JDG);
-			
+
 			//DebugPrint("JDG. Demo, Zone sending custom to Drill instructor\n");
-		
+
 			count++;
 		}
 	}
@@ -3120,7 +3120,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((Param == MPR_A02_PARAM_CADETS_GOTO_INNATE_JDG) && (Type == MPR_A02_CUSTOM_CADET_1_JDG))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Recieved Innate Custom\n");
-	
+
 			state = CADET_1_INNATE;
 
 			float timeDelay = Commands->Get_Random (1.5f,2.5f);
@@ -3133,7 +3133,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_1_ATTACK_DELAY_JDG) && (state == CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Attack Havoc Timer_Expired, start\n");
-	
+
 			Commands->Action_Movement_Set_Forward_Speed(obj, 0.55f);
 
 			Vector3 C1_Attack_Spot(-51.25f, -6.41f, 2.42f);
@@ -3149,7 +3149,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_1_TEN_HUT_DELAY_JDG) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Timer_Expired, start\n");
-	
+
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_A0A0", 0);
 			//S_A_HUMAN.H_A_A0A0 is animation for come to attention
 		}
@@ -3157,7 +3157,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_1_PUSHUPS_DELAY_JDG) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Pushups_Timer_Expired, start\n");
-	
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J43C", 0);
 			//S_A_HUMAN.H_A_J13B is animation for pushups
 		}
@@ -3165,7 +3165,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_1_SITUPS_DELAY_JDG) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Situps_Timer_Expired, start\n");
-	
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J13C", 0);
 			//S_A_HUMAN.H_A_J14C is animation for situps
 		}
@@ -3173,7 +3173,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_1_JUMPING_JACKS_DELAY_JDG) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, JJacks_Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J43A" , 0);
 			//S_A_HUMAN.H_A_J43B is animation for j-jacks
 		}
@@ -3181,7 +3181,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_1_MISTAKE_DELAY_JDG) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Mistake_Timer_Expired, start\n");
-		
+
 			if (exercise == PUSHUPS)
 			{
 				Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J43C", 0);
@@ -3207,27 +3207,27 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((stricmp(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J13A", 0);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J43B", 1);
 		}
 		if ((stricmp(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J14C", 1);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), "S_A_HUMAN.H_A_J13B", 1);
 		}
 
@@ -3235,16 +3235,16 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_1_JDG, "")
 		if ((stricmp (name,"S_A_HUMAN.H_A_A0A0") ==0 ) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Animation_Complete, Come to Attention\n");
-		
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_CADET_1_JDG, MPR_A02_PARAM_CADETS_AT_ATTENTION_JDG);
 		}
-	 
+
 
 		//S_A_HUMAN.H_A_J09C is animation for make mistake
 		if ((stricmp (name, "S_A_HUMAN.H_A_J09C") == 0 ) && (state != CADET_1_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Animation_Complete, Make Mistake\n");
-		
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_CADET_1_JDG, MPR_A02_PARAM_CADETS_MADE_MISTAKE_JDG);
 
 			float timeDelay = Commands->Get_Random (0.5f,1.5f);
@@ -3285,7 +3285,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		Commands->Action_Movement_Goto_Location (obj, C2_Start_Spot, .02f);
 
 		Vector3 Cadet_Face_Spot(-56.02f, -9.09f, 2.42f);
-		Commands->Action_Attack_Location(obj, Cadet_Face_Spot, 0, 0); 
+		Commands->Action_Attack_Location(obj, Cadet_Face_Spot, 0, 0);
 	}
 
 	void Killed (GameObject* obj, GameObject* Killer)
@@ -3303,7 +3303,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((Param == MPR_A02_PARAM_CADETS_GOTO_INNATE_JDG) && (Type == MPR_A02_CUSTOM_CADET_2_JDG))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Recieved Innate Custom\n");
-		
+
 			state = CADET_2_INNATE;
 
 			float timeDelay = Commands->Get_Random (1.5f,2.5f);
@@ -3316,7 +3316,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_2_ATTACK_DELAY_JDG) && (state == CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Attack Havoc Timer_Expired, start\n");
-		
+
 			Commands->Action_Movement_Set_Forward_Speed(obj, 0.25f);
 
 			Vector3 C2_Attack_Spot(-50.03f, -13.23f, 2.42f);
@@ -3331,7 +3331,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_2_TEN_HUT_DELAY_JDG) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_A0A0", 0);
 			//S_A_HUMAN.H_A_A0A0 is animation for come to attention
 		}
@@ -3339,7 +3339,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_2_PUSHUPS_DELAY_JDG) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Pushups_Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J43C", 0);
 			//S_A_HUMAN.H_A_J13B is animation for pushups
 		}
@@ -3347,7 +3347,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_2_SITUPS_DELAY_JDG) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Situps_Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J13C", 0);
 			//S_A_HUMAN.H_A_J14C is animation for situps
 		}
@@ -3355,7 +3355,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_2_JUMPING_JACKS_DELAY_JDG) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, JJacks_Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J43A" , 0);
 			//S_A_HUMAN.H_A_J43B is animation for j-jacks
 		}
@@ -3363,7 +3363,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_2_MISTAKE_DELAY_JDG) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Mistake_Timer_Expired, start\n");
-		
+
 			if (exercise == PUSHUPS)
 			{
 				Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J43C", 0);
@@ -3389,28 +3389,28 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((stricmp(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J13A", 0);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J43B", 1);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J14C", 1);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), "S_A_HUMAN.H_A_J13B", 1);
 		}
 
@@ -3418,7 +3418,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((stricmp(name, "S_A_HUMAN.H_A_A0A0") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Animation_Complete, Come to Attention\n");
-		
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_CADET_2_JDG, MPR_A02_PARAM_CADETS_AT_ATTENTION_JDG);
 		}
 
@@ -3426,7 +3426,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_2_JDG, "")
 		if ((stricmp(name, "S_A_HUMAN.H_A_J09C") == 0) && (state != CADET_2_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Animation_Complete, Make Mistake\n");
-		
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_CADET_2_JDG, MPR_A02_PARAM_CADETS_MADE_MISTAKE_JDG);
 
 			float timeDelay = Commands->Get_Random (0.5f,1.5f);
@@ -3467,7 +3467,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		Commands->Action_Movement_Goto_Location (obj, C3_Start_Spot, .02f);
 
 		Vector3 Cadet_Face_Spot(-56.02f, -9.09f, 2.42f);
-		Commands->Action_Attack_Location(obj, Cadet_Face_Spot, 0, 0);		
+		Commands->Action_Attack_Location(obj, Cadet_Face_Spot, 0, 0);
 	}
 
 	void Killed (GameObject* obj, GameObject* Killer)
@@ -3498,7 +3498,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_3_ATTACK_DELAY_JDG) && (state == CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Attack Havoc Timer_Expired, start\n");
-		
+
 			Commands->Action_Movement_Set_Forward_Speed(obj, 0.55f);
 
 			Vector3 C3_Attack_Spot(-55.32f, -16.55f, 2.42f);
@@ -3513,7 +3513,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_3_TEN_HUT_DELAY_JDG) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_A0A0", 0);
 			//S_A_HUMAN.H_A_A0A0 is animation for come to attention
 		}
@@ -3521,7 +3521,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_3_PUSHUPS_DELAY_JDG) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 1, Pushups_Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J43C", 0);
 			//S_A_HUMAN.H_A_J13A is animation for transition into pushups
 		}
@@ -3529,7 +3529,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_3_SITUPS_DELAY_JDG) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Situps_Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J13C", 0);
 			//S_A_HUMAN.H_A_J14C is animation for situps
 		}
@@ -3537,7 +3537,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_3_JUMPING_JACKS_DELAY_JDG) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, JJacks_Timer_Expired, start\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J43A" , 0);
 			//S_A_HUMAN.H_A_J43B is animation for j-jacks
 		}
@@ -3545,7 +3545,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((Timer_ID == MPR_A02_TIMER_CADET_3_MISTAKE_DELAY_JDG) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Mistake_Timer_Expired, start\n");
-		
+
 			if (exercise == PUSHUPS)
 			{
 				Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J43C", 0);
@@ -3571,28 +3571,28 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((stricmp(name, "S_A_HUMAN.H_A_J43C") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J13A", 0);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J43A") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J43B", 1);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J13C") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J14C", 1);
 		}
 
 		if ((stricmp(name, "S_A_HUMAN.H_A_J13A") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Pushup transition Complete, Start pushups\n");
-		
+
 			Commands->Set_Animation ((Commands->Find_Object(MPR_A02_cadet_3_id_JDG)), "S_A_HUMAN.H_A_J13B", 1);
 		}
 
@@ -3600,7 +3600,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((stricmp(name, "S_A_HUMAN.H_A_A0A0") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 3, Animation_Complete, Come to Attention\n");
-		
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_CADET_3_JDG, MPR_A02_PARAM_CADETS_AT_ATTENTION_JDG);
 		}
 
@@ -3608,7 +3608,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Cadet_3_JDG, "")
 		if ((stricmp(name, "S_A_HUMAN.H_A_J09C") == 0) && (state != CADET_3_INNATE))
 		{
 			//DebugPrint("JDG. Demo, Cadet 2, Animation_Complete, Make Mistake\n");
-		
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_CADET_3_JDG, MPR_A02_PARAM_CADETS_MADE_MISTAKE_JDG);
 
 			float timeDelay = Commands->Get_Random (0.5f,1.5f);
@@ -3632,7 +3632,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Kill_Havoc_Zone_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, PRDemo, Drill Instructor, Kill Havoc Zone, Created okay\n");
-	
+
 		Havoc_in_this_Zone = 0;
 	}
 
@@ -3641,7 +3641,7 @@ DECLARE_SCRIPT(MPR_A02_Drill_Kill_Havoc_Zone_JDG, "")
 		if (Enterer == (Commands->Get_The_Star()) && (Havoc_in_this_Zone == 0))
 		{
 			//DebugPrint("JDG, PRDemo, Drill Instructor, Havoc has penetrated Kill Havoc Zone, Sending Innate Customs\n");
-	
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_drill_instructor_id_JDG)), MPR_A02_CUSTOM_DRILL_INSTRUCTOR_JDG, MPR_A02_PARAM_CADETS_GOTO_INNATE_JDG);
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_cadet_1_id_JDG)), MPR_A02_CUSTOM_CADET_1_JDG, MPR_A02_PARAM_CADETS_GOTO_INNATE_JDG);
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_cadet_2_id_JDG)), MPR_A02_CUSTOM_CADET_2_JDG, MPR_A02_PARAM_CADETS_GOTO_INNATE_JDG);
@@ -3666,7 +3666,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_StartZone_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, PRDemo, SuicideRun, StartZone, Created okay\n");
-	
+
 		Havoc_in_this_Zone = 0;
 
 		MPR_A04_suiciderun_enterzone_id_JDG = Commands->Get_ID (obj);
@@ -3677,7 +3677,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_StartZone_JDG, "")
 		if (Enterer == (Commands->Get_The_Star()) && (Havoc_in_this_Zone == 0))
 		{
 			//DebugPrint("JDG, PRDemo, SuicideRun, Havoc has penetrated StartZone, Start GDI Suicide Team Initial Motion\n");
-	
+
 			Commands->Action_Movement_Set_Forward_Speed((Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_1_id_JDG)), 0.20f);
 			Commands->Action_Movement_Set_Forward_Speed((Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_2_id_JDG)), 0.20f);
 			Commands->Action_Movement_Set_Forward_Speed((Commands->Find_Object(MPR_A04_suiciderun_gdi_medium_tank_id_JDG)), 0.35f);
@@ -3687,7 +3687,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_StartZone_JDG, "")
 
 			Commands->Action_Movement_Follow_Object((Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_1_id_JDG)), (Commands->Find_Object(MPR_A04_suiciderun_gdi_medium_tank_id_JDG)), 6.0f);
 			Commands->Action_Movement_Follow_Object((Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_2_id_JDG)), (Commands->Find_Object(MPR_A04_suiciderun_gdi_medium_tank_id_JDG)), 6.0f);
-			
+
 			float timeDelay_1 = Commands->Get_Random (8.5f,12.5f);
 			Commands->Start_Timer ((Commands->Find_Object(MPR_A04_suiciderun_nod_minigunner_id_JDG)), timeDelay_1, MPR_A04_TIMER_SUICIDERUN_NOD_MINIGUNNER_HAVOC_IN_ZONE_DELAY_JDG);
 
@@ -3709,8 +3709,8 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_1_JDG, "")
 	{
 		MPR_A04_MPR_A04_SUICIDERUN_GDI_MINIGUNNER_1_IDLE_JDG = 0,
 		MPR_A04_SUICIDERUN_GDI_MINIGUNNER_1_MOVING_TO_OBELISK,
-		
-		
+
+
 	} GDIM1State;
 
 	GDIM1State M1state;
@@ -3718,7 +3718,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_1_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, PRDemo, SuicideRun, GDI Minigunner 1, Created okay\n");
-	
+
 		MPR_A04_suiciderun_gdi_minigunner_1_id_JDG = Commands->Get_ID (obj);
 
 		M1state = MPR_A04_MPR_A04_SUICIDERUN_GDI_MINIGUNNER_1_IDLE_JDG;
@@ -3729,7 +3729,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_1_JDG, "")
 		if ((Timer_ID == MPR_A04_TIMER_SUICIDERUN_GDI_MINIGUNNER_1_CHASE_DELAY_JDG) && (Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_1_id_JDG)))
 		{
 			//DebugPrint("JDG, PRDemo, SuicideRun, GDI Minigunner 1 ChaseDelay Timer Expired\n");
-	
+
 			if (Commands->Find_Object(MPR_A04_suiciderun_nod_minigunner_id_JDG))
 			{
 				Commands->Action_Movement_Set_Forward_Speed((Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_1_id_JDG)), 0.75f);
@@ -3802,8 +3802,8 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_1_JDG, "")
 	}
 
 	void Movement_Complete (GameObject* obj, MovementCompleteReason)
-	{	
-			
+	{
+
 		if ((M1state == MPR_A04_SUICIDERUN_GDI_MINIGUNNER_1_MOVING_TO_OBELISK) && (Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_1_id_JDG)))
 		{
 			Commands->Set_Animation(obj, "S_A_HUMAN.H_A_J33C", 0);
@@ -3813,17 +3813,17 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_1_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((stricmp(name, "S_A_HUMAN.H_A_J33C") == 0)) 
+		if ((stricmp(name, "S_A_HUMAN.H_A_J33C") == 0))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J15C", 0);
 		}
 
-		if ((stricmp(name, "S_A_HUMAN.H_A_J15C") == 0)) 
+		if ((stricmp(name, "S_A_HUMAN.H_A_J15C") == 0))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J03C", 0);
 		}
 
-		if ((stricmp(name, "S_A_HUMAN.H_A_J03C") == 0)) 
+		if ((stricmp(name, "S_A_HUMAN.H_A_J03C") == 0))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J33C", 0);
 		}
@@ -3842,8 +3842,8 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_2_JDG, "")
 	typedef enum
 	{
 		MPR_A04_SUICIDERUN_GDI_MINIGUNNER_2_MOVING_TO_OBELISK = 0,
-		
-		
+
+
 	} GDIM2State;
 
 	GDIM2State M2state;
@@ -3932,8 +3932,8 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_2_JDG, "")
 	}
 
 	void Movement_Complete (GameObject* obj, MovementCompleteReason)
-	{	
-			
+	{
+
 		if ((M2state == MPR_A04_SUICIDERUN_GDI_MINIGUNNER_2_MOVING_TO_OBELISK) && (Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_2_id_JDG)))
 		{
 			Commands->Set_Animation(obj, "S_A_HUMAN.H_A_J09C", 0);
@@ -3942,17 +3942,17 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Minigunner_2_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((stricmp(name, "S_A_HUMAN.H_A_J09C") == 0)) 
+		if ((stricmp(name, "S_A_HUMAN.H_A_J09C") == 0))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J10C", 0);
 		}
 
-		if ((stricmp(name, "S_A_HUMAN.H_A_J10C") == 0)) 
+		if ((stricmp(name, "S_A_HUMAN.H_A_J10C") == 0))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J11C", 0);
 		}
 
-		if ((stricmp(name, "S_A_HUMAN.H_A_J11C") == 0)) 
+		if ((stricmp(name, "S_A_HUMAN.H_A_J11C") == 0))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J09C", 0);
 		}
@@ -3971,7 +3971,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Medium_Tank_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, PRDemo, SuicideRun, GDI Medium Tank, Created okay\n");
-	
+
 		MPR_A04_suiciderun_gdi_medium_tank_id_JDG = Commands->Get_ID (obj);
 	}
 
@@ -4002,7 +4002,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_GDI_Medium_Tank_JDG, "")
 				Vector3 Obelisk_Attack_Location(81.60f, 403.71f, 8.77f);
 				Commands->Action_Attack_Location(obj, Obelisk_Attack_Location,10.0f, 50.0f);
 			}
-			
+
 			else
 			{
 				Commands->Action_Movement_Set_Forward_Speed((Commands->Find_Object(MPR_A04_suiciderun_gdi_medium_tank_id_JDG)), 0.25f);
@@ -4046,7 +4046,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_NOD_Minigunner_JDG, "")
 		if ((Timer_ID == MPR_A04_TIMER_SUICIDERUN_NOD_MINIGUNNER_HAVOC_IN_ZONE_DELAY_JDG) && (Commands->Find_Object(MPR_A04_suiciderun_nod_minigunner_id_JDG)))
 		{
 			//DebugPrint("JDG, PRDemo, SuicideRun, NOD Minigunner, Recieved Custom from EnterZone, Starting GDI Minigunner Timers\n");
-	
+
 			float timeDelay_1 = Commands->Get_Random (1.5f,2.5f);
 			Commands->Start_Timer ((Commands->Find_Object(MPR_A04_suiciderun_gdi_minigunner_1_id_JDG)), timeDelay_1, MPR_A04_TIMER_SUICIDERUN_GDI_MINIGUNNER_1_CHASE_DELAY_JDG);
 
@@ -4131,7 +4131,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_NOD_Light_Tank_JDG, "")
 
 			float timeDelay_4 = Commands->Get_Random (1.5f,2.5f);
 			Commands->Start_Timer ((Commands->Find_Object(MPR_A04_suiciderun_gdi_medium_tank_id_JDG)), timeDelay_4, MPR_A04_TIMER_SUICIDERUN_GDI_MEDIUMTANK_ATTACK_LIGHTTANK_DELAY_JDG);
-		}	
+		}
 	}
 
 	void Killed(GameObject* obj, GameObject* Killer)
@@ -4144,7 +4144,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_NOD_Light_Tank_JDG, "")
 
 		float timeDelay_4 = Commands->Get_Random (1.5f,2.5f);
 		Commands->Start_Timer ((Commands->Find_Object(MPR_A04_suiciderun_gdi_medium_tank_id_JDG)), timeDelay_4, MPR_A04_TIMER_SUICIDERUN_GDI_MEDIUMTANK_ATTACK_OBELISK_DELAY_JDG);
-	
+
 		state = MPR_A04_SUICIDERUN_LIGHTTANK_DEAD;
 	}
 };
@@ -4153,7 +4153,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_NOD_Light_Tank_JDG, "")
 /*
 MPR_A04_SuicideRun_Console
 
-	The following is a script for the suicide run.  It goes on both the obelisk and power plant consoles and lets 
+	The following is a script for the suicide run.  It goes on both the obelisk and power plant consoles and lets
 	the gdi guys know if/when the console gets destroyed.
 */
 
@@ -4174,7 +4174,7 @@ DECLARE_SCRIPT(MPR_A04_SuicideRun_Console_JDG, "")
 
 		float timeDelay_4 = Commands->Get_Random (0.5f,1.5f);
 		Commands->Start_Timer ((Commands->Find_Object(MPR_A04_suiciderun_gdi_medium_tank_id_JDG)), timeDelay_4, MPR_A04_TIMER_SUICIDERUN_GDI_MEDIUMTANK_OBELISK_IS_DEAD_DELAY_JDG);
-	
+
 		status = MPR_A04_SUICIDERUN_CONSOLE_DEAD;
 	}
 };
@@ -4204,9 +4204,9 @@ DECLARE_SCRIPT(MPR_A02_DriveBy_EnterZone_JDG, "")
 		{
 			//Commands->DebugPrint("JDG, MPRA02, Havoc has Entered the DriveBy start zone, Sending customs to harvester patrol group\n");
 			//Commands->Display_Text_Colored(Vector3(1.0f,0.0f,0.7f),"JDG, MPRA02, Havoc has Entered the DriveBy start zone, Sending customs to harvester patrol group\n" );
-	
+
 			Commands->Send_Custom_Event (obj, (Commands->Find_Object(MPR_A02_driveby_harvester_id_JDG)), MPR_A02_CUSTOM_DRIVEBY_HARVESTER_JDG, MPR_A00_PARAM_HAVOC_IN_ENTER_ZONE_JDG);
-		
+
 			Havoc_in_this_Zone++;
 		}
 	}
@@ -4225,7 +4225,7 @@ DECLARE_SCRIPT(MPR_A02_DriveBy_Harvester_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, MPRA02, DriveBy, Harvester Created Okay\n");
-	
+
 		MPR_A02_driveby_harvester_id_JDG = Commands->Get_ID (obj);
 
 
@@ -4237,7 +4237,7 @@ DECLARE_SCRIPT(MPR_A02_DriveBy_Harvester_JDG, "")
 		if ((Type == MPR_A02_CUSTOM_DRIVEBY_HARVESTER_JDG) && (Param == MPR_A00_PARAM_HAVOC_IN_ENTER_ZONE_JDG))
 		{
 			//DebugPrint("JDG, MPRA02, Harvester, Recieved Custom from EnterZone, Starting Scenario\n");
-	
+
 			Commands->Action_Movement_Set_Forward_Speed(obj, 0.25f);
 
 			Commands->Action_Movement_Follow_Waypath (  obj, MPR_A02_HARVESTER_WAYPATH_JDG, MPR_A02_HARVESTER_WAYPATH_START_JDG, MPR_A02_HARVESTER_WAYPATH_STOP_JDG, true );
@@ -4268,7 +4268,7 @@ DECLARE_SCRIPT(MPR_A03_Helicopter_EnterZone_JDG, "")
 	MPR_A03_JDG_EXPLOSION_TIMER_2,
 	MPR_A03_JDG_EXPLOSION_TIMER_3,
 	MPR_A03_JDG_EXPLOSION_TIMER_4,
-		
+
 	} PRTIMER_TIMERS;
 
 	void Created(GameObject* obj)
@@ -4276,7 +4276,7 @@ DECLARE_SCRIPT(MPR_A03_Helicopter_EnterZone_JDG, "")
 		//DebugPrint("JDG, MPRA03, Heli_Explosion EnterZone created okay\n");
 
 		Havoc_in_this_Zone = 0;
-		
+
 
 		MPR_A03_HELI_EXLOSION_ZONE_ID = Commands->Get_ID (obj);
 	}
@@ -4304,7 +4304,7 @@ DECLARE_SCRIPT(MPR_A03_Helicopter_EnterZone_JDG, "")
 	void Make_Explosions ()
 	{
 		//DebugPrint("JDG, MPRA03, Make Explosions start\n");
-			
+
 		int Explosion_Number = (int)Commands->Get_Random(1, 5);
 
 		if ((Explosion_Number == 1) && (count <= Explosion_Count))
@@ -4425,7 +4425,7 @@ DECLARE_SCRIPT(MPR_A03_Helicopter_Injured_NOD_Pilot_JDG, "")
 		MPR_A03_PILOT_LOOKING_BACK,
 		MPR_A03_PILOT_ADJUSTING_KEVLAR,
 		MPR_A03_PILOT_ATTACKING,
-		
+
 	} PILOTState;
 
 	PILOTState state;
@@ -4456,28 +4456,28 @@ DECLARE_SCRIPT(MPR_A03_Helicopter_Injured_NOD_Pilot_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((stricmp("S_A_HUMAN.H_A_H11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STANDING_UP)) 
+		if ((stricmp("S_A_HUMAN.H_A_H11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STANDING_UP))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_611A", 0);
 
 			state = MPR_A03_PILOT_STAMMERING;
 		}
 
-		if ((stricmp("S_A_HUMAN.H_A_611A", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STAMMERING)) 
+		if ((stricmp("S_A_HUMAN.H_A_611A", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_STAMMERING))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J11C", 0);
 
 			state = MPR_A03_PILOT_LOOKING_BACK;
 		}
 
-		if ((stricmp("S_A_HUMAN.H_A_J11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_LOOKING_BACK)) 
+		if ((stricmp("S_A_HUMAN.H_A_J11C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_LOOKING_BACK))
 		{
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J22C", 0);
 
 			state = MPR_A03_PILOT_ADJUSTING_KEVLAR;
 		}
 
-		if ((stricmp("S_A_HUMAN.H_A_J22C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_ADJUSTING_KEVLAR)) 
+		if ((stricmp("S_A_HUMAN.H_A_J22C", name) == 0) && (Commands->Find_Object(MPR_A03_helicopter_injured_nod_pilot_id_JDG)) && (state == MPR_A03_PILOT_ADJUSTING_KEVLAR))
 		{
 			Commands->Action_Movement_Set_Forward_Speed (obj, 0.5f);
 
@@ -4503,7 +4503,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_EnterZone_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, MPRA03, BridgeScene, EnterZone, Created Okay\n");
-	
+
 		Havoc_in_this_Zone = 0;
 
 		MPR_A03_bridgescene_enterzone_id_JDG = Commands->Get_ID (obj);
@@ -4516,23 +4516,23 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_EnterZone_JDG, "")
 		if (Enterer == (Commands->Get_The_Star()) && (Havoc_in_this_Zone == 0))
 		{
 			//DebugPrint("JDG, MPRA03, BridgeScene, EnterZone, Havoc has entered Zone. Starting Delay timers on Bridge Team\n");
-		
+
 			float timeDelay_3 = Commands->Get_Random (0.0f, 0.5f);
 			Commands->Start_Timer ((Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)), timeDelay_3, MPR_A03_TIMER_BRIDGESCENE_ENGINEER_HAVOC_IN_ZONE_DELAY_JDG);
-			
+
 			float timeDelay_4 = 8.0f;
 			Commands->Start_Timer (obj, timeDelay_4, MPR_A03_TIMER_BRIDGESCENE_ENTER_ZONE_EXPLOSION_DELAY_JDG);
-		
+
 			Havoc_in_this_Zone++;
 		}
 	}
 
 	void Timer_Expired (GameObject* obj, int Timer_ID)
 	{
-		if (Timer_ID == MPR_A03_TIMER_BRIDGESCENE_ENTER_ZONE_EXPLOSION_DELAY_JDG) 
+		if (Timer_ID == MPR_A03_TIMER_BRIDGESCENE_ENTER_ZONE_EXPLOSION_DELAY_JDG)
 		{
 			Commands->Static_Anim_Phys_Goto_Last_Frame (MPR_A03_BRIDGESCENE_BRIDGE_ID_JDG, "BRIDGE_EXPLDA02.BRIDGE_EXPLDA02" );
-		}	
+		}
 	}
 };
 
@@ -4541,7 +4541,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_EnterZone_JDG, "")
 MPR_A03_BridgeScene_BlowUpZone
 
 	The following script is for a zone right next to the bridge that immediately blows the
-	bridge when entered.  This is to prevent the player from reaching the other side before 
+	bridge when entered.  This is to prevent the player from reaching the other side before
 	the bridge blows.
 */
 
@@ -4552,7 +4552,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_BlowUpZone_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, MPRA03, BridgeScene, EnterZone, Created Okay\n");
-	
+
 		Havoc_in_this_Zone = 0;
 
 		MPR_A03_bridgescene_blowupzone_id_JDG = Commands->Get_ID (obj);
@@ -4563,7 +4563,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_BlowUpZone_JDG, "")
 		if (Enterer == (Commands->Get_The_Star()) && (Havoc_in_this_Zone == 0))
 		{
 			//DebugPrint("JDG, MPRA03, BridgeScene, EnterZone, Havoc has entered Zone. Starting Delay timers on Bridge Team\n");
-		
+
 			Commands->Static_Anim_Phys_Goto_Last_Frame (MPR_A03_BRIDGESCENE_BRIDGE_ID_JDG, "BRIDGE_EXPLDA02.BRIDGE_EXPLDA02" );
 		}
 	}
@@ -4573,7 +4573,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_BlowUpZone_JDG, "")
 /*
 MPR_A03_BridgeScene_Engineer
 
-	The following is for the engineer next to the bridge.  He does a few animations then runs through the 
+	The following is for the engineer next to the bridge.  He does a few animations then runs through the
 	tunnel and is deleted.
 */
 
@@ -4587,7 +4587,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 		MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_INT_SPOT,
 		MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_TUNNEL,
 		MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_FINAL_POSITION,
-		
+
 	} ENGINEERState;
 
 	ENGINEERState state;
@@ -4595,7 +4595,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 	void Created(GameObject* obj)
 	{
 		//DebugPrint("JDG, MPRA03, BridgeScene, Engineer, Created Okay\n");
-	
+
 		MPR_A03_bridgescene_engineer_id_JDG = Commands->Get_ID (obj);
 
 		Commands->Action_Attack_Object( obj, (Commands->Get_The_Star()), 0, 0);
@@ -4608,7 +4608,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 		if ((Timer_ID == MPR_A03_TIMER_BRIDGESCENE_ENGINEER_HAVOC_IN_ZONE_DELAY_JDG) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)))
 		{
 			//DebugPrint("JDG, MPRA03, BridgeScene, Engineer, Havoc/EnterZone Timer Expired\n");
-	
+
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J12C", 0);
 			//"S_A_HUMAN.H_A_J12C" is animation for tying your shoe
 
@@ -4618,7 +4618,7 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 
 	void Animation_Complete (GameObject* obj, const char* name)
 	{
-		if ((stricmp("S_A_HUMAN.H_A_J12C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_PLACING_BOMB)) 
+		if ((stricmp("S_A_HUMAN.H_A_J12C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_PLACING_BOMB))
 		{
 
 			Commands->Set_Animation (obj, "S_A_HUMAN.H_A_J18C", 0);
@@ -4626,11 +4626,11 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 
 			state = MPR_A03_BRIDGESCENE_ENGINEER_WAVING;
 		}
-		
-		if ((stricmp("S_A_HUMAN.H_A_J18C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_WAVING)) 
+
+		if ((stricmp("S_A_HUMAN.H_A_J18C", name) == 0) && (Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_WAVING))
 		{
 			//DebugPrint("JDG, MPRA03, BridgeScene, Engineer, Finished waving\n");
-	
+
 			Vector3 Engineers_Int_Position (234.26f, 202.66f, 3.92f);
 			Commands->Action_Attack_Location(obj, Engineers_Int_Position, 0, 0);
 
@@ -4639,12 +4639,12 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 			Commands->Action_Movement_Goto_Location(obj, Engineers_Int_Position, 0.05f);
 
 			//DebugPrint("JDG, MPRA03, BridgeScene, Engineer, start moving away\n");
-	
+
 			state = MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_INT_SPOT;
 		}
 	}
 
-	void Movement_Complete(GameObject* obj, MovementCompleteReason reason) 
+	void Movement_Complete(GameObject* obj, MovementCompleteReason reason)
 	{
 		static const char* _reasons[] =
 		{
@@ -4659,27 +4659,27 @@ DECLARE_SCRIPT(MPR_A03_BridgeScene_Engineer_JDG, "")
 		if ((Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_INT_SPOT))
 		{
 		//DebugPrint("JDG, MPRA03, BridgeScene, Engineer, Reached intermediate spot\n");
-	
+
 			Vector3 Engineers_Tunnel_Position (154.90f, 242.68f, 0.39f);
 			Commands->Action_Attack_Location(obj, Engineers_Tunnel_Position, 0, 0);
 
 			Commands->Action_Movement_Goto_Location(obj, Engineers_Tunnel_Position, 0.05f);
 
 			state = MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_TUNNEL;
-			
+
 		}
 
 		if ((Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_TUNNEL))
 		{
 			//DebugPrint("JDG, MPRA03, BridgeScene, Engineer, Reached bridge location\n");
-	
+
 			Vector3 Engineers_Final_Position (141.95f, 297.41f, 0.86f);
 			Commands->Action_Attack_Location(obj, Engineers_Final_Position, 0, 0);
 
 			Commands->Action_Movement_Goto_Location(obj, Engineers_Final_Position, 0.05f);
 
 			state = MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_FINAL_POSITION;
-			
+
 		}
 
 		if ((Commands->Find_Object(MPR_A03_bridgescene_engineer_id_JDG)) && (state == MPR_A03_BRIDGESCENE_ENGINEER_MOVING_TO_FINAL_POSITION))

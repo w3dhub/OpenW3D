@@ -51,8 +51,8 @@
 
 /**
 ** RenderObjPhysClass
-** The *ONLY* purpose of this class is as a wrapper when render objects are added 
-** directly to the physics scene.  This class plugs a pointer back to it into the UserData 
+** The *ONLY* purpose of this class is as a wrapper when render objects are added
+** directly to the physics scene.  This class plugs a pointer back to it into the UserData
 ** field of its render object.  If you find yourself creating these objects,
 ** consider using DecorationPhysClass instead...
 */
@@ -76,7 +76,7 @@ public:
 	virtual RenderObjPhysClass *	As_RenderObjPhysClass(void) override							{ return this; }
 
 	/*
-	** Save-Load 
+	** Save-Load
 	*/
 	virtual const PersistFactoryClass &	Get_Factory (void) const override;
 	virtual bool								Save (ChunkSaveClass &csave) override;

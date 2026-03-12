@@ -87,7 +87,7 @@ DynamicVectorClass<EditableHeightfieldClass *>	HeightfieldMgrClass::HeightfieldL
 void
 HeightfieldMgrClass::Initialize (void)
 {
-	
+
 	return ;
 }
 
@@ -103,10 +103,10 @@ HeightfieldMgrClass::Shutdown (void)
 	//
 	//	Release each heightfield in our list
 	//
-	for (int index = 0; index < HeightfieldList.Count (); index ++) {	
+	for (int index = 0; index < HeightfieldList.Count (); index ++) {
 		delete HeightfieldList[index];
 	}
-	
+
 	HeightfieldList.Delete_All ();
 	return ;
 }
@@ -146,10 +146,10 @@ HeightfieldMgrClass::Save (ChunkSaveClass &csave)
 ////////////////////////////////////////////////////////////////
 bool
 HeightfieldMgrClass::Load (ChunkLoadClass &cload)
-{	
+{
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the variables from this chunk
 			//
@@ -203,7 +203,7 @@ HeightfieldMgrClass::Load_Variables (ChunkLoadClass &/* cload */)
 		cload.Close_Micro_Chunk ();
 	}*/
 
-	SaveLoadSystemClass::Register_Post_Load_Callback (this);	
+	SaveLoadSystemClass::Register_Post_Load_Callback (this);
 	return ;
 }
 
@@ -257,14 +257,14 @@ HeightfieldMgrClass::Create_Heightfield (float width, float height, float densit
 	//
 	//	Create a new heightfield and add it to our list
 	//
-	EditableHeightfieldClass *heightfield = new EditableHeightfieldClass;	
+	EditableHeightfieldClass *heightfield = new EditableHeightfieldClass;
 	heightfield->Set_Dimensions (width, height, density);
 
 	//
 	//	Add these objects to our lists
 	//
 	HeightfieldList.Add (heightfield);
-	
+
 	//
 	//	Set this heightfield as the current heightfield
 	//
@@ -292,7 +292,7 @@ HeightfieldMgrClass::Create_Heightfield
 	//
 	//	Create a new heightfield and add it to our list
 	//
-	EditableHeightfieldClass *heightfield = new EditableHeightfieldClass;	
+	EditableHeightfieldClass *heightfield = new EditableHeightfieldClass;
 	heightfield->Create (heightmap_filename, width, height, density, scale);
 
 	//

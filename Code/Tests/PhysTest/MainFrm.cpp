@@ -224,10 +224,10 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-void CMainFrame::OnDestroy() 
+void CMainFrame::OnDestroy()
 {
 	CFrameWnd::OnDestroy();
-	
+
 	if (VirtualJoystick != NULL) {
 		VirtualJoystick->DestroyWindow();
 		delete VirtualJoystick;
@@ -260,7 +260,7 @@ void CMainFrame::Load(ChunkLoadClass & cload)
 	PhysControllerClass * controlptr = NULL;
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	CDataView * data_view = (CDataView *)Splitter.GetPane(0,0);
-	
+
 	while (cload.Open_Chunk()) {
 		switch (cload.Cur_Chunk_ID()) {
 			case MAINFRAME_CHUNK_VARIABLES:
@@ -309,7 +309,7 @@ void CMainFrame::Dump(CDumpContext& dc) const
 // CMainFrame message handlers
 
 
-BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext) 
+BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 {
 	// Create the main splitter window for the application
 	BOOL ok = Splitter.CreateStatic (this, 1, 2);
@@ -373,7 +373,7 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	return true;
 }
 
-void CMainFrame::OnActivateApp(BOOL bActive, HTASK hTask) 
+void CMainFrame::OnActivateApp(BOOL bActive, HTASK hTask)
 {
 	// Get a pointer to the 'graphic' pane's window
 	CGraphicView * view = (CGraphicView *)Splitter.GetPane(0,1);
@@ -388,10 +388,10 @@ void CMainFrame::OnActivateApp(BOOL bActive, HTASK hTask)
 
 	// Allow the base class to process this message
 	CFrameWnd::OnActivateApp(bActive, hTask);
-	return ;	
+	return ;
 }
 
-void CMainFrame::OnOptionsRunSimulation() 
+void CMainFrame::OnOptionsRunSimulation()
 {
 	CGraphicView * view = (CGraphicView *)Splitter.GetPane(0,1);
 	ASSERT(view);
@@ -400,17 +400,17 @@ void CMainFrame::OnOptionsRunSimulation()
 	}
 }
 
-void CMainFrame::OnUpdateOptionsRunSimulation(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateOptionsRunSimulation(CCmdUI* pCmdUI)
 {
 	CGraphicView * view = (CGraphicView *)Splitter.GetPane(0,1);
 	ASSERT(view);
-	
+
 	if (view) {
 		pCmdUI->SetCheck(view->Is_Simulation_Enabled());
 	}
 }
 
-void CMainFrame::OnOptionsDisplayBoxes() 
+void CMainFrame::OnOptionsDisplayBoxes()
 {
 	CGraphicView * view = (CGraphicView *)Splitter.GetPane(0,1);
 	ASSERT(view);
@@ -419,11 +419,11 @@ void CMainFrame::OnOptionsDisplayBoxes()
 	}
 }
 
-void CMainFrame::OnUpdateOptionsDisplayBoxes(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateOptionsDisplayBoxes(CCmdUI* pCmdUI)
 {
 	CGraphicView * view = (CGraphicView *)Splitter.GetPane(0,1);
 	ASSERT(view);
-	
+
 	if (view) {
 		pCmdUI->SetCheck(view->Is_Collision_Box_Display_Enabled());
 	}
@@ -453,7 +453,7 @@ CPhysTestDoc * CMainFrame::Get_Document(void)
 	return doc;
 }
 
-void CMainFrame::OnCreateRigidBody() 
+void CMainFrame::OnCreateRigidBody()
 {
 	const char * model_name = Peek_Selected_Model();
 	if (model_name == NULL) return;
@@ -470,12 +470,12 @@ void CMainFrame::OnCreateRigidBody()
 	model->Release_Ref();
 }
 
-void CMainFrame::OnUpdateCreateRigidBody(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCreateRigidBody(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_Model() != NULL);
 }
 
-void CMainFrame::OnCreateWheeledVehicle() 
+void CMainFrame::OnCreateWheeledVehicle()
 {
 	const char * model_name = Peek_Selected_Model();
 	if (model_name == NULL) return;
@@ -492,12 +492,12 @@ void CMainFrame::OnCreateWheeledVehicle()
 	model->Release_Ref();
 }
 
-void CMainFrame::OnUpdateCreateWheeledVehicle(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCreateWheeledVehicle(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_Model() != NULL);
 }
 
-void CMainFrame::OnCreateMotorcycle() 
+void CMainFrame::OnCreateMotorcycle()
 {
 	const char * model_name = Peek_Selected_Model();
 	if (model_name == NULL) return;
@@ -514,7 +514,7 @@ void CMainFrame::OnCreateMotorcycle()
 	model->Release_Ref();
 }
 
-void CMainFrame::OnUpdateCreateMotorcycle(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCreateMotorcycle(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_Model() != NULL);
 }
@@ -524,7 +524,7 @@ const char * CMainFrame::Peek_Selected_Model(void)
 	CDataView * data_view = (CDataView *)Splitter.GetPane(0,0);
 	CPhysTestDoc * doc = (CPhysTestDoc *)data_view->GetDocument();
 	if ((data_view == NULL) || (doc == NULL)) return NULL;
-	
+
 	// get the currently selected instance
 	ItemInfoClass * item = data_view->Get_Selected_Item();
 	if (item == NULL) return NULL;
@@ -539,7 +539,7 @@ PhysClass * CMainFrame::Peek_Selected_Object(void)
 	CDataView * data_view = (CDataView *)Splitter.GetPane(0,0);
 	CPhysTestDoc * doc = (CPhysTestDoc *)data_view->GetDocument();
 	if ((data_view == NULL) || (doc == NULL)) return NULL;
-	
+
 	// get the currently selected instance
 	ItemInfoClass * item = data_view->Get_Selected_Item();
 	if (item == NULL) return NULL;
@@ -616,12 +616,12 @@ void CMainFrame::Apply_Couple(const Vector3 & p0,const Vector3 & i0,const Vector
 	}
 }
 
-void CMainFrame::OnUpdateImpulseButton(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateImpulseButton(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_RigidBodyClass() != NULL);
 }
 
-void CMainFrame::OnCoupleNegx() 
+void CMainFrame::OnCoupleNegx()
 {
 	Apply_Couple(	Vector3( 0, 1, 0),		// p0
 						Vector3( 0, 0, 1),		// i0
@@ -630,7 +630,7 @@ void CMainFrame::OnCoupleNegx()
 					);
 }
 
-void CMainFrame::OnCoupleNegy() 
+void CMainFrame::OnCoupleNegy()
 {
 	Apply_Couple(	Vector3( 1, 0, 0),		// p0
 						Vector3( 0, 0, 1),		// i0
@@ -639,7 +639,7 @@ void CMainFrame::OnCoupleNegy()
 					);
 }
 
-void CMainFrame::OnCoupleNegz() 
+void CMainFrame::OnCoupleNegz()
 {
 	Apply_Couple(	Vector3( 0, 1, 0),		// p0
 						Vector3( 1, 0, 0),		// i0
@@ -648,7 +648,7 @@ void CMainFrame::OnCoupleNegz()
 					);
 }
 
-void CMainFrame::OnCouplePosx() 
+void CMainFrame::OnCouplePosx()
 {
 	Apply_Couple(	Vector3( 0,-1, 0),		// p0
 						Vector3( 0, 0, 1),		// i0
@@ -657,7 +657,7 @@ void CMainFrame::OnCouplePosx()
 					);
 }
 
-void CMainFrame::OnCouplePosy() 
+void CMainFrame::OnCouplePosy()
 {
 	Apply_Couple(	Vector3( 1, 0, 0),		// p0
 						Vector3( 0, 0,-1),		// i0
@@ -666,7 +666,7 @@ void CMainFrame::OnCouplePosy()
 					);
 }
 
-void CMainFrame::OnCouplePosz() 
+void CMainFrame::OnCouplePosz()
 {
 	Apply_Couple(	Vector3( 0, 1, 0),		// p0
 						Vector3(-1, 0, 0),		// i0
@@ -675,47 +675,47 @@ void CMainFrame::OnCouplePosz()
 					);
 }
 
-void CMainFrame::OnImpulseNegx() 
+void CMainFrame::OnImpulseNegx()
 {
 	Apply_Impulse(Vector3(-1,0,0));
 }
 
-void CMainFrame::OnImpulseNegy() 
+void CMainFrame::OnImpulseNegy()
 {
 	Apply_Impulse(Vector3(0,-1,0));
 }
 
-void CMainFrame::OnImpulseNegz() 
+void CMainFrame::OnImpulseNegz()
 {
 	Apply_Impulse(Vector3(0,0,-1));
 }
 
-void CMainFrame::OnImpulsePosx() 
+void CMainFrame::OnImpulsePosx()
 {
 	Apply_Impulse(Vector3(1,0,0));
 }
 
-void CMainFrame::OnImpulsePosy() 
+void CMainFrame::OnImpulsePosy()
 {
 	Apply_Impulse(Vector3(0,1,0));
 }
 
-void CMainFrame::OnImpulsePosz() 
+void CMainFrame::OnImpulsePosz()
 {
 	Apply_Impulse(Vector3(0,0,1));
 }
 
-void CMainFrame::OnViewImpulsetoolbar() 
+void CMainFrame::OnViewImpulsetoolbar()
 {
 	ShowControlBar(&m_wndImpulseToolBar,!m_wndImpulseToolBar.IsWindowVisible(),false);
 }
 
-void CMainFrame::OnUpdateViewImpulsetoolbar(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateViewImpulsetoolbar(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(m_wndImpulseToolBar.IsWindowVisible());
 }
 
-void CMainFrame::OnViewVirtualjoystick() 
+void CMainFrame::OnViewVirtualjoystick()
 {
 	if (VirtualJoystick) {
 		if (VirtualJoystick->IsWindowVisible()) {
@@ -726,12 +726,12 @@ void CMainFrame::OnViewVirtualjoystick()
 	}
 }
 
-void CMainFrame::OnUpdateViewVirtualjoystick(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateViewVirtualjoystick(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(VirtualJoystick && VirtualJoystick->IsWindowVisible());
 }
 
-void CMainFrame::OnInertia() 
+void CMainFrame::OnInertia()
 {
 	RigidBodyClass * rbody = Peek_Selected_RigidBodyClass();
 	if (rbody == NULL) return;
@@ -739,7 +739,7 @@ void CMainFrame::OnInertia()
 	dialog.DoModal();
 }
 
-void CMainFrame::OnProperties() 
+void CMainFrame::OnProperties()
 {
 	MoveablePhysClass * obj = Peek_Selected_MoveablePhysClass();
 	if (obj == NULL) return;
@@ -747,12 +747,12 @@ void CMainFrame::OnProperties()
 	dialog.DoModal();
 }
 
-void CMainFrame::OnUpdateProperties(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateProperties(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_MoveablePhysClass() != NULL);
 }
 
-void CMainFrame::OnMotorProperties() 
+void CMainFrame::OnMotorProperties()
 {
 	MotorVehicleClass * vehicle = Peek_Selected_MotorVehicleClass();
 	if (vehicle == NULL) return;
@@ -760,12 +760,12 @@ void CMainFrame::OnMotorProperties()
 	dialog.DoModal();
 }
 
-void CMainFrame::OnUpdateMotorProperties(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateMotorProperties(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_MotorVehicleClass() != NULL);
 }
 
-void CMainFrame::OnMotorcycleProperties() 
+void CMainFrame::OnMotorcycleProperties()
 {
 	MotorcycleClass * cycle = Peek_Selected_MotorcycleClass();
 	if (cycle == NULL) return;
@@ -773,12 +773,12 @@ void CMainFrame::OnMotorcycleProperties()
 	dialog.DoModal();
 }
 
-void CMainFrame::OnUpdateMotorcycleProperties(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateMotorcycleProperties(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_MotorVehicleClass() != NULL);
 }
 
-void CMainFrame::OnWheelProperties() 
+void CMainFrame::OnWheelProperties()
 {
 	WheeledVehicleClass * vehicle = Peek_Selected_WheeledVehicleClass();
 	if (vehicle == NULL) return;
@@ -786,18 +786,18 @@ void CMainFrame::OnWheelProperties()
 	dialog.DoModal();
 }
 
-void CMainFrame::OnUpdateWheelProperties(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateWheelProperties(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(Peek_Selected_WheeledVehicleClass() != NULL);
 }
 
-void CMainFrame::OnOptionsPhysicsConstants() 
+void CMainFrame::OnOptionsPhysicsConstants()
 {
 	CPhysicsConstantsDialog dialog;
 	dialog.DoModal();
 }
 
-void CMainFrame::OnFreezeObject() 
+void CMainFrame::OnFreezeObject()
 {
 	CDataView * data_view = (CDataView *)Splitter.GetPane(0,0);
 	CPhysTestDoc * doc = (CPhysTestDoc *)data_view->GetDocument();
@@ -805,7 +805,7 @@ void CMainFrame::OnFreezeObject()
 	ItemInfoClass * item = data_view->Get_Selected_Item();
 	if (item == NULL) return;
 	if (item->Type != ItemInfoClass::INSTANCE) return;
-	
+
 	RigidBodyClass * rbody = (RigidBodyClass *)item->Instance;
 	if (rbody == NULL) return;
 
@@ -818,13 +818,13 @@ void CMainFrame::Set_Status_Bar_Text(const char * text)
 	m_wndStatusBar.SetWindowText(text);
 }
 
-void CMainFrame::OnDebugObject() 
+void CMainFrame::OnDebugObject()
 {
 	PhysClass * obj = Peek_Selected_Object();
 	obj->Enable_Debug_Display(!obj->Is_Debug_Display_Enabled());
 }
 
-void CMainFrame::OnUpdateDebugObject(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateDebugObject(CCmdUI* pCmdUI)
 {
 	PhysClass * obj = Peek_Selected_Object();
 	if (obj == NULL) {
@@ -835,32 +835,32 @@ void CMainFrame::OnUpdateDebugObject(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnOptionsFilled() 
+void CMainFrame::OnOptionsFilled()
 {
-	PhysicsSceneClass::Get_Instance()->Set_Polygon_Mode(SceneClass::FILL);	
+	PhysicsSceneClass::Get_Instance()->Set_Polygon_Mode(SceneClass::FILL);
 }
 
-void CMainFrame::OnUpdateOptionsFilled(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateOptionsFilled(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(PhysicsSceneClass::Get_Instance()->Get_Polygon_Mode() == SceneClass::FILL);
 }
 
-void CMainFrame::OnOptionsPoints() 
+void CMainFrame::OnOptionsPoints()
 {
-	PhysicsSceneClass::Get_Instance()->Set_Polygon_Mode(SceneClass::POINT);	
+	PhysicsSceneClass::Get_Instance()->Set_Polygon_Mode(SceneClass::POINT);
 }
 
-void CMainFrame::OnUpdateOptionsPoints(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateOptionsPoints(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck(PhysicsSceneClass::Get_Instance()->Get_Polygon_Mode() == SceneClass::POINT);	
+	pCmdUI->SetCheck(PhysicsSceneClass::Get_Instance()->Get_Polygon_Mode() == SceneClass::POINT);
 }
 
-void CMainFrame::OnOptionsWireframe() 
+void CMainFrame::OnOptionsWireframe()
 {
 	PhysicsSceneClass::Get_Instance()->Set_Polygon_Mode(SceneClass::LINE);
 }
 
-void CMainFrame::OnUpdateOptionsWireframe(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateOptionsWireframe(CCmdUI* pCmdUI)
 {
 	pCmdUI->SetCheck(PhysicsSceneClass::Get_Instance()->Get_Polygon_Mode() == SceneClass::LINE);
 }
@@ -881,7 +881,7 @@ void CMainFrame::Notify_Selection_Changed(void)
 	}
 }
 
-void CMainFrame::OnCameraFly() 
+void CMainFrame::OnCameraFly()
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view) {
@@ -889,7 +889,7 @@ void CMainFrame::OnCameraFly()
 	}
 }
 
-void CMainFrame::OnUpdateCameraFly(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCameraFly(CCmdUI* pCmdUI)
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view && graphic_view->Get_Camera_Mode() == CGraphicView::CAMERA_FLY) {
@@ -899,7 +899,7 @@ void CMainFrame::OnUpdateCameraFly(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCameraFollow() 
+void CMainFrame::OnCameraFollow()
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view) {
@@ -907,7 +907,7 @@ void CMainFrame::OnCameraFollow()
 	}
 }
 
-void CMainFrame::OnUpdateCameraFollow(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCameraFollow(CCmdUI* pCmdUI)
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view && graphic_view->Get_Camera_Mode() == CGraphicView::CAMERA_FOLLOW) {
@@ -917,7 +917,7 @@ void CMainFrame::OnUpdateCameraFollow(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCameraTether() 
+void CMainFrame::OnCameraTether()
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view) {
@@ -925,7 +925,7 @@ void CMainFrame::OnCameraTether()
 	}
 }
 
-void CMainFrame::OnUpdateCameraTether(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCameraTether(CCmdUI* pCmdUI)
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view && graphic_view->Get_Camera_Mode() == CGraphicView::CAMERA_TETHER) {
@@ -935,7 +935,7 @@ void CMainFrame::OnUpdateCameraTether(CCmdUI* pCmdUI)
 	}
 }
 
-void CMainFrame::OnCameraRigidTether() 
+void CMainFrame::OnCameraRigidTether()
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view) {
@@ -943,7 +943,7 @@ void CMainFrame::OnCameraRigidTether()
 	}
 }
 
-void CMainFrame::OnUpdateCameraRigidTether(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateCameraRigidTether(CCmdUI* pCmdUI)
 {
 	CGraphicView * graphic_view = (CGraphicView *)Splitter.GetPane(0,1);
 	if (graphic_view && graphic_view->Get_Camera_Mode() == CGraphicView::CAMERA_RIGID_TETHER) {
@@ -955,47 +955,47 @@ void CMainFrame::OnUpdateCameraRigidTether(CCmdUI* pCmdUI)
 
 
 
-void CMainFrame::OnOptionsRenderDevice() 
+void CMainFrame::OnOptionsRenderDevice()
 {
 	CRenderDeviceDialog dialog;
 	dialog.DoModal();
 }
 
-void CMainFrame::OnUpdateOptionsRenderDevice(CCmdUI* pCmdUI) 
+void CMainFrame::OnUpdateOptionsRenderDevice(CCmdUI* pCmdUI)
 {
 	pCmdUI->Enable(WW3D::Is_Initted());
 }
 
 
-void CMainFrame::OnFileImportModel() 
+void CMainFrame::OnFileImportModel()
 {
  	// show the file open dialong
-	CFileDialog file_dialog(	true,    // bOpenFileDialog, 
-										".W3D",	// LPCTSTR lpszDefExt = NULL, 
-										NULL,    // LPCTSTR lpszFileName = NULL, 
+	CFileDialog file_dialog(	true,    // bOpenFileDialog,
+										".W3D",	// LPCTSTR lpszDefExt = NULL,
+										NULL,    // LPCTSTR lpszFileName = NULL,
 										OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
 										"Westwood 3D Files|*.w3d|"
 									);
-	
+
 	// read in the file
 	if (file_dialog.DoModal()) {
-		Get_Document()->Load_W3D_File(file_dialog.GetPathName()); 
-	}	
+		Get_Document()->Load_W3D_File(file_dialog.GetPathName());
+	}
 }
 
-void CMainFrame::OnFileImportLev() 
+void CMainFrame::OnFileImportLev()
 {
  	// show the file open dialong
-	CFileDialog file_dialog(	true,    // bOpenFileDialog, 
-										".LEV",	// LPCTSTR lpszDefExt = NULL, 
-										NULL,    // LPCTSTR lpszFileName = NULL, 
+	CFileDialog file_dialog(	true,    // bOpenFileDialog,
+										".LEV",	// LPCTSTR lpszDefExt = NULL,
+										NULL,    // LPCTSTR lpszFileName = NULL,
 										OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
 										"LEV Files|*.lev|"
 									);
-	
+
 	// read in the file
 	if (file_dialog.DoModal()) {
-		Get_Document()->Load_LEV_File(file_dialog.GetPathName()); 
-	}	
+		Get_Document()->Load_LEV_File(file_dialog.GetPathName());
+	}
 }
 

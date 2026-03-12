@@ -57,15 +57,15 @@ enum {
 
 
 /**
-** BitCounterClass 
+** BitCounterClass
 ** This class is used to accelerate some of the bit-vector comparing and counting that
-** goes on in VisTableClass.  
+** goes on in VisTableClass.
 */
 class BitCounterClass
 {
 public:
 	BitCounterClass(void);
-	
+
 	int				Count_True_Bits(uint8 byte)							{ return TrueBits[byte]; }
 
 protected:
@@ -103,7 +103,7 @@ VisTableClass::VisTableClass(unsigned bitcount,int id) :
 	Buffer(NULL),
 	VisSectorID(id),
 	Timestamp(0)
-{ 
+{
 	Alloc_Buffer(bitcount);
 }
 
@@ -187,21 +187,21 @@ int VisTableClass::Get_Long_Count(void) const
 }
 
 void VisTableClass::Reset_All(void)
-{ 
+{
 	if (Buffer != NULL) {
-		memset(Buffer,0x00,Get_Byte_Count()); 
+		memset(Buffer,0x00,Get_Byte_Count());
 	}
 }
 
 void VisTableClass::Set_All(void)
-{ 
+{
 	/*
 	** Set the buffer to FF's
 	*/
 	if (Buffer != NULL) {
-		memset((uint8*)Buffer,0xFF,Get_Byte_Count()); 
+		memset((uint8*)Buffer,0xFF,Get_Byte_Count());
 	}
-	
+
 	/*
 	** Make sure the trailing bits are zero'd (just for sanity...)
 	*/
@@ -219,11 +219,11 @@ void VisTableClass::Delete_Bit(int delete_index)
 	*/
 	int first_long = delete_index >> 5;
 	int start_bits = WWMath::Min((first_long + 1)<<5,BitCount-1);
-	
+
 	for (i=delete_index; i<start_bits; i++) {
 		Set_Bit(i,(Get_Bit(i+1) != 0));
 	}
-	
+
 	/*
 	** handle the reset of the buffer.  There are two cases here, if the deleted
 	** bit was in the last int of the buffer, we simply have to clear the trailing
@@ -239,7 +239,7 @@ void VisTableClass::Delete_Bit(int delete_index)
 		}
 		Buffer[long_count-1] = Buffer[long_count-1]<<1;
 	}
-	
+
 	/*
 	** Finally, record that a bit was removed.
 	*/
@@ -278,7 +278,7 @@ int VisTableClass::Count_Differences(const VisTableClass & that)
 {
 	if (BitCount != that.BitCount) {
 		return BitCount;
-	} 
+	}
 
 	int counter = 0;
 	int byte_count = Get_Byte_Count();
@@ -308,7 +308,7 @@ float VisTableClass::Match_Fraction(const VisTableClass & that)
 	if (BitCount != that.BitCount) {
 		return 0.0f;
 	}
-	
+
 	/*
 	** or_counter will be the number of bits that were on in at least one of the vectors
 	** xor_counter will be the count of bits that were different (1 in one and zero in the other)
@@ -404,7 +404,7 @@ void CompressedVisTableClass::Load(ChunkLoadClass & cload)
 		old_table = NEW_REF(VisTableClass,(this,PhysicsSceneClass::Get_Instance()->Get_Vis_Table_Size(),0));
 		delete[] Buffer;
 	}
-	
+
 	cload.Open_Chunk();
 	if (cload.Cur_Chunk_ID() != VISTABLE_CHUNK_BYTECOUNT) {
 		cload.Close_Chunk();
@@ -414,11 +414,11 @@ void CompressedVisTableClass::Load(ChunkLoadClass & cload)
 	cload.Close_Chunk();
 
 	Buffer = new uint8[BufferSize];
-	
+
 	/*
 	** Load the compressed visibility bits.  At one point in the past,
 	** we were using the lzhl compression scheme, if we encounter that chunk,
-	** just reset vis because that compressor had bugs and the data is probably 
+	** just reset vis because that compressor had bugs and the data is probably
 	** invalid
 	*/
 	bool load_error = false;
@@ -492,7 +492,7 @@ void CompressedVisTableClass::Load (void* hfile)
 		Buffer = new uint8[BufferSize];
 		::ReadFile ((HANDLE)hfile, Buffer, sizeof (uint8) * BufferSize, &dwbytes_read, NULL);
 	}
-	
+
 	return;
 }
 
@@ -509,9 +509,9 @@ void CompressedVisTableClass::Save (void* hfile)
 		/*
 		** Write the buffer
 		*/
-		::WriteFile ((HANDLE)hfile, Buffer, sizeof (uint8) * BufferSize, &dwbytes_written, NULL);		
+		::WriteFile ((HANDLE)hfile, Buffer, sizeof (uint8) * BufferSize, &dwbytes_written, NULL);
 	}
-	
+
 	return;
 }
 
@@ -522,7 +522,7 @@ void CompressedVisTableClass::Compress(uint8 * src_buffer,int src_size)
 		delete[] Buffer;
 		Buffer = NULL;
 	}
-	
+
 	uint8 * comp_buffer = new uint8[LZO_BUFFER_SIZE(src_size)];
 	lzo_uint comp_size;
 	[[maybe_unused]] int lzocode = LZOCompressor::Compress(src_buffer,src_size,comp_buffer,&comp_size);
@@ -566,7 +566,7 @@ void CompressedVisTableClass::Compare_Compression(void)
 
 	num_compressions++;
 	total_size += test_size;
-	
+
 	// Testing LCW
 	uint8 * lcw_comp_buf = new uint8[test_size * 2];
 	int lcw_comp_size = LCW_Comp(test_buf, lcw_comp_buf, test_size);
@@ -578,7 +578,7 @@ void CompressedVisTableClass::Compare_Compression(void)
 	if ((memcmp(test_buf,lcw_decomp_buf,test_size) != 0) || (lcw_decomp_size != test_size)) {
 		lcw_failures++;
 	}
-	
+
 	// Testing LZO
 	uint8 * lzo_comp_buf = new uint8[test_size * 2]; //LZO_BUFFER_SIZE(test_size)];
 	lzo_uint lzo_comp_size;

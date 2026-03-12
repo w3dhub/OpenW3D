@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/physicalgameobj.h                     $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/08/02 6:39p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 126                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/physicalgameobj.h                     $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/08/02 6:39p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 126                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	PHYSICALGAMEOBJ_H
@@ -90,7 +90,7 @@ public:
 	DECLARE_EDITABLE( PhysicalGameObjDef, DamageableGameObjDef );
 
 protected:
-	int											Type;					
+	int											Type;
 	int											RadarBlipType;
 	float										BullseyeOffsetZ;
 	StringClass									Animation;
@@ -125,7 +125,7 @@ public:
 	virtual	bool	Load( ChunkLoadClass & cload ) override;
 	virtual	void	On_Post_Load(void) override;
 
-	virtual	void	Startup( void )	{}	
+	virtual	void	Startup( void )	{}
 
 	// Physics
 	WWINLINE PhysClass *	Peek_Physical_Object( void ) const { return PhysObj; }
@@ -237,7 +237,7 @@ public:
 	void				Hide_Muzzle_Flashes( bool hide = true );
 
 	void				Enable_HUD_Pokable_Indicator( bool enable );
-	bool				Is_HUD_Pokable_Indicator_Enabled( void )		{ return HUDPokableIndicatorEnabled; } 
+	bool				Is_HUD_Pokable_Indicator_Enabled( void )		{ return HUDPokableIndicatorEnabled; }
 
 	virtual void		Set_Player_Type(int type) override;
 

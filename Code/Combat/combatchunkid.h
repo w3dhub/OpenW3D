@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/combatchunkid.h                       $* 
- *                                                                                             * 
- *                      $Author:: Denzil_l                                                    $* 
- *                                                                                             * 
- *                     $Modtime:: 11/21/01 10:26a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 55                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/combatchunkid.h                       $*
+ *                                                                                             *
+ *                      $Author:: Denzil_l                                                    $*
+ *                                                                                             *
+ *                     $Modtime:: 11/21/01 10:26a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 55                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	COMBATCHUNKID_H
@@ -144,7 +144,7 @@ enum {
 
 	CHUNKID_GAME_OBJECT_BEACON,
 	CHUNKID_GAME_OBJECT_DEF_BEACON,
-	
+
 	CHUNKID_GAME_OBJECT_REFINERY,
 	CHUNKID_GAME_OBJECT_DEF_REFINERY,
 
@@ -171,7 +171,7 @@ enum {
 
 	CHUNKID_MAPMGR,
 	CHUNKID_ENCYCLOPEDIAMGR,
-	
+
 	CHUNKID_GAME_OBJECT_MENDOZA_BOSS,
 	CHUNKID_GAME_OBJECT_DEF_MENDOZA_BOSS,
 
@@ -260,7 +260,7 @@ enum {
 /*
 ** Munitions CLASSIDs
 */
-enum {	
+enum {
 	CLASSID_DEF_WEAPON			= 	CLASSID_MUNITIONS + 1,
 	CLASSID_DEF_AMMO,
 	CLASSID_DEF_EXPLOSION,
@@ -269,7 +269,7 @@ enum {
 /*
 ** Building CLASSIDs
 */
-enum {	
+enum {
 	CLASSID_GAME_OBJECT_DEF_BUILDING					= 	CLASSID_BUILDINGS + 1,
 
 	CLASSID_GAME_OBJECT_DEF_REFINERY,
@@ -286,7 +286,7 @@ enum {
 /*
 ** GlobalSettings CLASSIDs
 */
-enum {	
+enum {
 	CLASSID_GLOBAL_SETTINGS_DEF			= 	CLASSID_GLOBAL_SETTINGS + 1,
 	CLASSID_GLOBAL_SETTINGS_DEF_HUMAN_LOITER,
 	CLASSID_GLOBAL_SETTINGS_DEF_GENERAL,

@@ -38,7 +38,7 @@
 #include <windows.h>
 #include "WOLUser.h"
 
-namespace WOL 
+namespace WOL
 {
 #include <wolapi/WOLAPI.h>
 }
@@ -55,7 +55,7 @@ class NetUtilObserver :
 	{
 	public:
 		NetUtilObserver();
-		
+
 		void Init(Session& outer);
 
 		//---------------------------------------------------------------------------
@@ -69,15 +69,15 @@ class NetUtilObserver :
 		// INetUtilEvent Methods
 		//---------------------------------------------------------------------------
 		STDMETHOD(OnPing)(HRESULT hr, int time, unsigned int ip, int handle) override;
-        
+
 		STDMETHOD(OnLadderList)(HRESULT hr, WOL::Ladder* list, int count, int time, int keyRung) override;
-       
+
 		STDMETHOD(OnGameresSent)(HRESULT hr) override;
-      
+
 		STDMETHOD(OnNewNick)(HRESULT hr, LPCSTR message, LPCSTR nick, LPCSTR pass) override;
-        
+
 		STDMETHOD(OnAgeCheck)(HRESULT hr, int years, int consent) override;
-   
+
 		STDMETHOD(OnWDTState)(HRESULT hr, unsigned char* state, int length) override;
 
 		STDMETHOD(OnHighscore)(HRESULT hr, WOL::Highscore* list, int count, int time, int keyRung) override;

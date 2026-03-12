@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*************************************************************************** 
- ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     *** 
- *************************************************************************** 
- *                                                                         * 
- *                 Project Name : G                                        * 
- *                                                                         * 
- *                     $Archive:: /VSS_Sync/ww3d2/part_buf.h              $* 
- *                                                                         * 
- *                      $Author:: Vss_sync                                $* 
- *                                                                         * 
- *                     $Modtime:: 10/26/01 2:56p                          $* 
- *                                                                         * 
- *                    $Revision:: 10                                      $* 
- *                                                                         * 
- *-------------------------------------------------------------------------* 
- * Functions:                                                              * 
+/***************************************************************************
+ ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     ***
+ ***************************************************************************
+ *                                                                         *
+ *                 Project Name : G                                        *
+ *                                                                         *
+ *                     $Archive:: /VSS_Sync/ww3d2/part_buf.h              $*
+ *                                                                         *
+ *                      $Author:: Vss_sync                                $*
+ *                                                                         *
+ *                     $Modtime:: 10/26/01 2:56p                          $*
+ *                                                                         *
+ *                    $Revision:: 10                                      $*
+ *                                                                         *
+ *-------------------------------------------------------------------------*
+ * Functions:                                                              *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #if defined(_MSC_VER)
 #pragma once
@@ -195,7 +195,7 @@ class ParticleBufferClass : public RenderObjClass
 		float						Get_Fade_Time (void) const			{ return (NumColorKeyFrames > 1) ? (((float)ColorKeyFrameTimes[1]) / 1000.0f) : 0.0f; }
 		ShaderClass				Get_Shader (void) const;
 
-		// 
+		//
 		// Line rendering properties.  These functions will always return
 		// a default value if line rendering is not enabled.
 		//
@@ -210,7 +210,7 @@ class ParticleBufferClass : public RenderObjClass
 		float						Get_Texture_Tile_Factor(void) const;
 		Vector2					Get_UV_Offset_Rate(void) const;
 
-		
+
 		// This is a utility function only meant to be called by the particle emitter.
 		unsigned int			Get_Buffer_Size(void) const		{ return MaxNum; }
 
@@ -226,10 +226,10 @@ class ParticleBufferClass : public RenderObjClass
 		// Total Active Particle Buffer Count
 		static unsigned int	Get_Total_Active_Count( void )	{ return TotalActiveCount; }
 
-		// Global control of particle LOD.  
+		// Global control of particle LOD.
 		static void				Set_LOD_Max_Screen_Size(int lod_level,float max_screen_size);
 		static float			Get_LOD_Max_Screen_Size(int lod_level);
-			
+
 	protected:
 
 		virtual void			Update_Cached_Bounding_Volumes(void) const override;
@@ -252,7 +252,7 @@ class ParticleBufferClass : public RenderObjClass
 		// Update the visual particle state. This includes updating color/size
 		// for all existing particles. Only needs to happen at rendering time.
 		void Update_Visual_Particle_State(void);
-		
+
 		// Update the bounding box. (Updates the particle state if it needs to).
 		void Update_Bounding_Box(void);
 
@@ -315,7 +315,7 @@ class ParticleBufferClass : public RenderObjClass
 		// the Values array which will have one entry (the constant value).
 		// Note that the rotation and orientation properties are different -
 		// only orientation is used in rendering. The rotation data is only
-		// used to compute the orientations. So the condition is different - 
+		// used to compute the orientations. So the condition is different -
 		// if rotation and orientation randomizers, and all rotation keyframes
 		// are all zero, then all of the arrays will be NULL (including the
 		// Values array).
@@ -369,7 +369,7 @@ class ParticleBufferClass : public RenderObjClass
 		float *			RandomFrameEntries;
 		unsigned int	NumRandomBlurTimeEntriesMinus1;		// 2^n - 1 so can be used as a mask also
 		float *			RandomBlurTimeEntries;
-		
+
 		Vector3			ColorRandom;
 		float				OpacityRandom;
 		float				SizeRandom;
@@ -394,7 +394,7 @@ class ParticleBufferClass : public RenderObjClass
 		// points are active (it is only used if all are not active)..
 		ShareBufferClass<Vector3> *	Position[2];	// Only [0] used unless pingpong enabled
 		ShareBufferClass<Vector4> *	Diffuse;			// passed into point group
-		ShareBufferClass<Vector3> *	Color;			
+		ShareBufferClass<Vector3> *	Color;
 		ShareBufferClass<float> *		Alpha;
 		ShareBufferClass<float> *		Size;
 		ShareBufferClass<uint8> *		Frame;
@@ -435,7 +435,7 @@ class ParticleBufferClass : public RenderObjClass
 
 		// Projected area, used for LOD purposes
 		float									ProjectedArea;
-		
+
 		// Total Active Particle Buffer Count
 		static unsigned int				TotalActiveCount;
 

@@ -55,13 +55,13 @@ class StaticPhysClass;
 ** LightSolveSaveSystemClass
 ** This class is a save-load subsystem which can save and restore a lighting solve in the editor.
 ** Since the editor uses a very abstracted description of the level we cannot use the game's
-** mechanism of saving the lighting solve with the model.  This system should be called last 
+** mechanism of saving the lighting solve with the model.  This system should be called last
 ** (or at least after all of the tiles and terrain nodes) in the save process for saving an LVL file.
 */
 class LightSolveSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	virtual uint32				Chunk_ID (void) const;
 
 protected:
@@ -78,7 +78,7 @@ protected:
 	/*
 	** internal chunk id's
 	*/
-	enum 
+	enum
 	{
 		LSS_CHUNKID_OBJECT_LIGHT_SOLVE			= 30102537,
 		LSS_CHUNKID_OBJECT_VARIABLES,

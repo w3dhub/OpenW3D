@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/purchaserequestevent.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Steve_t                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 8/14/02 11:57a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 11                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/purchaserequestevent.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Steve_t                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 8/14/02 11:57a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 11                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "purchaserequestevent.h"
@@ -97,18 +97,18 @@ cPurchaseRequestEvent::Act(void)
 	VendorClass::PURCHASE_ERROR result = VendorClass::PERR_UNKNOWN;
 
 	WWASSERT(The_Game() != NULL);
-	if (The_Game()->Is_Gameplay_Permitted()) 
+	if (The_Game()->Is_Gameplay_Permitted())
 	{
 		//
 		//	Attempt to make the purchase
 		//
 		result = VendorClass::Purchase_Item (player, (VendorClass::PURCHASE_TYPE)PurchaseType, ItemIndex, AltSkinIndex, false);
-	} 
-	else 
+	}
+	else
 	{
 		result = VendorClass::PERR_NO_FACTORY;
 	}
-	
+
 	//
 	// Show the server admin who bought the vehicle.
 	//
@@ -118,7 +118,7 @@ cPurchaseRequestEvent::Act(void)
 			StringClass short_name(true);
 			player->Get_Name().Convert_To(short_name);
 			ConsoleBox.Print_Maybe("%s purchased a vehicle\n", short_name.Peek_Buffer());
-		}	
+		}
 	}
 
 	//
@@ -143,7 +143,7 @@ cPurchaseRequestEvent::Export_Creation(BitStreamClass & packet)
 	packet.Add(SenderId);
 	packet.Add(PurchaseType);
 	packet.Add(ItemIndex);
-	packet.Add(AltSkinIndex);	
+	packet.Add(AltSkinIndex);
 
 	Set_Delete_Pending();
 }
@@ -159,7 +159,7 @@ cPurchaseRequestEvent::Import_Creation(BitStreamClass & packet)
 	packet.Get(SenderId);
 	packet.Get(PurchaseType);
 	packet.Get(ItemIndex);
-	packet.Get(AltSkinIndex);	
+	packet.Get(AltSkinIndex);
 
 	WWASSERT(SenderId > 0);
 

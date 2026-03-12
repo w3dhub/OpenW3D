@@ -274,7 +274,7 @@ void ShaderClass::Init_From_Material3(const W3dMaterial3Struct & mat3)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:																												  *
- *		05/02/00    IML : Created.																					  *	
+ *		05/02/00    IML : Created.																					  *
  *=============================================================================================*/
 
 void ShaderClass::Enable_Fog (const char *source)
@@ -287,12 +287,12 @@ void ShaderClass::Enable_Fog (const char *source)
 				Set_Fog_Func (ShaderClass::FOG_WHITE);
 			} else {
 				Report_Unable_To_Fog (source);
-			}	
+			}
 			break;
 
 		case ShaderClass::SRCBLEND_ONE:
 			switch (Get_Dst_Blend_Func()) {
-				
+
 				case ShaderClass::DSTBLEND_ZERO:							// Opaque.
 					Set_Fog_Func (ShaderClass::FOG_ENABLE);
 					break;
@@ -313,7 +313,7 @@ void ShaderClass::Enable_Fog (const char *source)
 				Set_Fog_Func (ShaderClass::FOG_ENABLE);
 			} else {
 				Report_Unable_To_Fog (source);
-			}	
+			}
 			break;
 
 		case ShaderClass::SRCBLEND_ONE_MINUS_SRC_ALPHA:
@@ -321,14 +321,14 @@ void ShaderClass::Enable_Fog (const char *source)
 				Set_Fog_Func (ShaderClass::FOG_ENABLE);
 			} else {
 				Report_Unable_To_Fog (source);
-			}	
+			}
 			break;
 	}
 }
 
 
 /***********************************************************************************************
- * ShaderClass::Report_Unable_To_Fog --																		  *	
+ * ShaderClass::Report_Unable_To_Fog --																		  *
  *                                                                                             *
  * INPUT:                                                                                      *
  *                                                                                             *
@@ -337,7 +337,7 @@ void ShaderClass::Enable_Fog (const char *source)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:																												  *
- *		10/04/00    IML : Created.																					  *	
+ *		10/04/00    IML : Created.																					  *
  *=============================================================================================*/
 void ShaderClass::Report_Unable_To_Fog ([[maybe_unused]] const char *source)
 {
@@ -375,7 +375,7 @@ public:
 	bool		useAlpha;
 };
 
-const Blend srcBlendLUT[ShaderClass::SRCBLEND_MAX] = 
+const Blend srcBlendLUT[ShaderClass::SRCBLEND_MAX] =
 {
 	Blend(D3DBLEND_ZERO, false),
 	Blend(D3DBLEND_ONE, false),
@@ -383,7 +383,7 @@ const Blend srcBlendLUT[ShaderClass::SRCBLEND_MAX] =
  	Blend(D3DBLEND_INVSRCALPHA, true)
 };
 
-const Blend dstBlendLUT[ShaderClass::DSTBLEND_MAX] = 
+const Blend dstBlendLUT[ShaderClass::DSTBLEND_MAX] =
 {
 	Blend(D3DBLEND_ZERO, false),
 	Blend(D3DBLEND_ONE, false),
@@ -467,7 +467,7 @@ void ShaderClass::Apply()
 		if(Get_Alpha_Test() == ShaderClass::ALPHATEST_ENABLE)
 		{
 			unsigned char alphareference = 0x60;	// Alpha reference value that produces best results with mip-mapped textures.
-			
+
 			if(sf == D3DBLEND_INVSRCALPHA)
 			{
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHAREF,0xff - alphareference);
@@ -496,14 +496,14 @@ void ShaderClass::Apply()
 
 			BOOL fm = false;
 			D3DCOLOR fogColor = DX8Wrapper::Get_Fog_Color();
-			
+
 			switch(Get_Fog_Func())
 			{
 			case ShaderClass::FOG_ENABLE:
 				fm = true;
 				break;
 			case ShaderClass::FOG_SCALE_FRAGMENT:
-				fogColor = 0;	
+				fogColor = 0;
 				fm = true;
 				break;
 			case ShaderClass::FOG_WHITE:
@@ -525,7 +525,7 @@ void ShaderClass::Apply()
 		} else {
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_FOGENABLE,false);
 		}
-		
+
 		diff &= ~(ShaderClass::MASK_FOG);
 		if(!diff)
 			return;
@@ -562,7 +562,7 @@ void ShaderClass::Apply()
 				aArg2 = D3DTA_DIFFUSE;
 				break;
 			case ShaderClass::GRADIENT_ADD:
-				if(!(TextureOpCaps & D3DTEXOPCAPS_ADD))	
+				if(!(TextureOpCaps & D3DTEXOPCAPS_ADD))
 					cOp = D3DTOP_MODULATE;
 				else
 					cOp = D3DTOP_ADD;
@@ -866,7 +866,7 @@ void ShaderClass::Apply()
 	}
 
 	// Enable/disable alpha test
-	DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHATESTENABLE,BOOL(Get_Alpha_Test()));	
+	DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHATESTENABLE,BOOL(Get_Alpha_Test()));
 
 	// Enable/disable stencil test
 	// Not supported yet

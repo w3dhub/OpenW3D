@@ -77,7 +77,7 @@ enum
 SpawnPointNodeClass::SpawnPointNodeClass (PresetClass *preset)
 	:	PhysObj (NULL),
 		SpawnerNode (NULL),
-		NodeClass (preset)		
+		NodeClass (preset)
 {
 	return ;
 }
@@ -104,7 +104,7 @@ SpawnPointNodeClass::SpawnPointNodeClass (const SpawnPointNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 SpawnPointNodeClass::~SpawnPointNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (PhysObj);
 	return ;
@@ -130,10 +130,10 @@ SpawnPointNodeClass::Initialize (void)
 	RenderObjClass *render_obj = SpawnerNode->Get_Spawned_Model ();
 	WWASSERT (render_obj != NULL);
 	if (render_obj != NULL) {
-		
+
 		// Create the new physics object
 		PhysObj = new DecorationPhysClass;
-		
+
 		//
 		// Configure the physics object with information about
 		// its new render object and collision data.
@@ -144,7 +144,7 @@ SpawnPointNodeClass::Initialize (void)
 		PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (PhysObj->Peek_Model (), COLLISION_TYPE_0);
-		
+
 		// Release our hold on the render object pointer
 		MEMBER_RELEASE (render_obj);
 	}
@@ -160,7 +160,7 @@ SpawnPointNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 SpawnPointNodeClass::Get_Factory (void) const
-{	
+{
 	return _SpawnPointNodePersistFactory;
 }
 
@@ -191,13 +191,13 @@ SpawnPointNodeClass::Save (ChunkSaveClass &csave)
 bool
 SpawnPointNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -222,7 +222,7 @@ SpawnPointNodeClass::Load_Variables (ChunkLoadClass &cload)
 	//	Loop through all the microchunks that define the variables
 	//
 	while (cload.Open_Micro_Chunk ()) {
-		/*switch (cload.Cur_Micro_Chunk_ID ()) {			
+		/*switch (cload.Cur_Micro_Chunk_ID ()) {
 		}*/
 
 		cload.Close_Micro_Chunk ();
@@ -255,7 +255,7 @@ SpawnPointNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (PhysObj != NULL && m_IsInScene) {

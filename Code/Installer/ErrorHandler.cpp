@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/ErrorHandler.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/25/01 6:56p                $* 
- *                                                                                             * 
- *                    $Revision:: 7                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/ErrorHandler.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/25/01 6:56p                $*
+ *                                                                                             *
+ *                    $Revision:: 7                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -64,7 +64,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void Handle_Fatal_System_Error (int errorcode, const char *filename, int sourceline)
 {
@@ -81,7 +81,7 @@ void Handle_Fatal_System_Error (int errorcode, const char *filename, int sourcel
 
 	messagebody = (TCHAR*) messagebuffer;
 	LocalFree (messagebuffer);
-	
+
 	#if VERBOSE_ERROR_MESSAGES
 	errormessage.Format (SYSTEM_ERROR_FORMAT_STRING, messagebody, WideStringClass (filename), sourceline);
 	#else
@@ -102,7 +102,7 @@ void Handle_Fatal_System_Error (int errorcode, const char *filename, int sourcel
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void Handle_Fatal_Application_Error (int errorcode, const char *filename, int sourceline)
 {
@@ -128,7 +128,7 @@ void Handle_Fatal_Application_Error (int errorcode, const char *filename, int so
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void Handle_Fatal_Cab_Error (int errorcode, const char *filename, int sourceline)
 {

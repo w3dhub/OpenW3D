@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/radar.h                               $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 10/27/01 11:36a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 26                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/radar.h                               $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 10/27/01 11:36a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 26                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	RADAR_H
@@ -123,7 +123,7 @@ public:
 		BLIP_BRACKET							= NUM_BLIP_SHAPE_TYPES,
 		BLIP_SWEEP,
 		NUM_BLIP_TYPES
-	}; 
+	};
 	static	int	Get_Num_Blip_Shape_Types( void ) { return NUM_BLIP_SHAPE_TYPES; }
 	static const char * Get_Blip_Shape_Type_Name( int index );
 
@@ -138,7 +138,7 @@ public:
 		BLIP_COLOR_TYPE_SECONDARY_OBJECTIVE,
 		BLIP_COLOR_TYPE_TERTIARY_OBJECTIVE,
 		NUM_BLIP_COLOR_TYPES
-	}; 
+	};
 
 	// Special Markers
 	static	void	Clear_Marker( int id );

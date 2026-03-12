@@ -145,7 +145,7 @@ void CSplineTestDoc::Set_Curve_Type(int type)
 
 		delete Curve;
 		Curve = new_curve;
-		
+
 		CurveType = type;
 	}
 }
@@ -171,7 +171,7 @@ Curve3DClass * CSplineTestDoc::Create_Curve(int type)
 		new_curve = new VehicleCurveClass (1.0F);
 		break;
 	case CATMULL_ROM:
-		new_curve = new CatmullRomSpline3DClass;		
+		new_curve = new CatmullRomSpline3DClass;
 		break;
 	case CARDINAL:
 		new_curve = new CardinalSpline3DClass;

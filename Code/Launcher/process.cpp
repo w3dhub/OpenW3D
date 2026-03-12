@@ -19,7 +19,7 @@
 #include "process.h"
 
 Process::Process()
-{ 
+{
   directory[0]=0;
   command[0]=0;
   args[0]=0;
@@ -119,7 +119,7 @@ bit8 Read_Process_Info(ConfigFile &config,OUT Process &info, IN char *key)
  strcpy(info.directory,dir.get());
  strcpy(info.args,args.get());
  return(true);
- 
+
 
 /*********************************************************
   FILE     *in;

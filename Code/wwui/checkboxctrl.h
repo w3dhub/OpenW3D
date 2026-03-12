@@ -68,12 +68,12 @@ public:
 
 	//
 	//	RTTI
-	//	
+	//
 	CheckBoxCtrlClass *		As_CheckBoxCtrlClass (void) override	{ return this; }
 
 	//
 	//	From DialogControlClass
-	//	
+	//
 	void				Render (void) override;
 
 	//

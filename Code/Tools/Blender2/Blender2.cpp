@@ -118,9 +118,9 @@ static BOOL CALLBACK BlenderDlgProc
 	switch (msg)
 	{
 	case WM_INITDIALOG:
-		the_blender.Init(hWnd);			
+		the_blender.Init(hWnd);
 		break;
-	
+
 	case WM_DESTROY:
 		the_blender.Destroy(hWnd);
 		break;
@@ -145,7 +145,7 @@ static BOOL CALLBACK BlenderDlgProc
 	default:
 		return false;
 	}
-	return true; 
+	return true;
 }
 
 //----------------------------------------------------------------------------
@@ -155,7 +155,7 @@ static BOOL CALLBACK BlenderDlgProc
 Blender_Class::Blender_Class()
 {
 	iu = NULL;
-	ip = NULL;	
+	ip = NULL;
 	hPanel = NULL;
 
 	first_frame = 0;
@@ -168,7 +168,7 @@ Blender_Class::Blender_Class()
 // Blender_Class::BeginEditParams
 //----------------------------------------------------------------------------
 
-void Blender_Class::BeginEditParams(Interface *ip,IUtil *iu) 
+void Blender_Class::BeginEditParams(Interface *ip,IUtil *iu)
 {
 	this->iu = iu;
 	this->ip = ip;
@@ -181,12 +181,12 @@ void Blender_Class::BeginEditParams(Interface *ip,IUtil *iu)
 		0
 	);
 }
-	
+
 //----------------------------------------------------------------------------
 // Blender_Class::EndEditParams
 //----------------------------------------------------------------------------
 
-void Blender_Class::EndEditParams ( Interface *ip, IUtil *iu ) 
+void Blender_Class::EndEditParams ( Interface *ip, IUtil *iu )
 {
 	this->iu = NULL;
 	this->ip = NULL;

@@ -63,7 +63,7 @@ enum
 ** consider using DecorationPhysClass instead...
 */
 RenderObjPhysClass::RenderObjPhysClass(void)
-{ 
+{
 	Enable_Is_Pre_Lit(true);
 
 	if (Model) {
@@ -89,7 +89,7 @@ void RenderObjPhysClass::Set_Model(RenderObjClass * model)
 
 	if (Model) {
 		Model->Set_User_Data(this);
-		
+
 		if (Model->Class_ID() == RenderObjClass::CLASSID_HLOD) {
 			Enable_Is_Pre_Lit(false);
 		} else {
@@ -172,13 +172,13 @@ bool RenderObjPhysClass::Save (ChunkSaveClass &csave)
 bool RenderObjPhysClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case RENDEROBJPHYS_CHUNK_PHYS:
 				PhysClass::Load(cload);		// note, legacy loading here... file must be old.
 				break;
-			
+
 			case RENDEROBJPHYS_CHUNK_DYNAMICPHYS:
 				DynamicPhysClass::Load(cload);
 				break;
@@ -187,7 +187,7 @@ bool RenderObjPhysClass::Load (ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 	SaveLoadSystemClass::Register_Post_Load_Callback(this);

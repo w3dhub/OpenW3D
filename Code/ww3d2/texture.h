@@ -116,8 +116,8 @@ class TextureClass : public RefCountClass
 
 		// Create texture with desired height, width and format.
 		TextureClass(
-			unsigned width, 
-			unsigned height, 
+			unsigned width,
+			unsigned height,
 			WW3DFormat format,
 			MipCountType mip_level_count=MIP_LEVELS_ALL,
 			PoolType pool=POOL_MANAGED,
@@ -135,8 +135,8 @@ class TextureClass : public RefCountClass
 
 		// Create texture from a surface.
 		TextureClass(
-			SurfaceClass *surface, 
-			MipCountType mip_level_count=MIP_LEVELS_ALL);		
+			SurfaceClass *surface,
+			MipCountType mip_level_count=MIP_LEVELS_ALL);
 
 		TextureClass(IDirect3DTexture9* d3d_texture);
 
@@ -154,13 +154,13 @@ class TextureClass : public RefCountClass
 		unsigned int Get_Mip_Level_Count(void);
 
 		// Note! Width and Height may be zero and may change if texture uses mipmaps
-		int Get_Width() 
+		int Get_Width()
 		{
 				return Width;
 		}
 		int Get_Height()
 		{
-			return Height; 
+			return Height;
 		}
 
 		void Init();

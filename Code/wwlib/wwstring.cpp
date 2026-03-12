@@ -98,7 +98,7 @@ StringClass::Get_String (size_t length, bool is_temp)
 			unsigned mask=1<<index;
 			if (!(ReservedMask&mask)) {
 				ReservedMask|=mask;
-				
+
 				//
 				//	Grab this unused buffer for our string
 				//
@@ -115,7 +115,7 @@ StringClass::Get_String (size_t length, bool is_temp)
 	}
 
 	if (string == NULL) {
-		
+
 		//
 		//	Allocate a new string as necessary
 		//
@@ -170,16 +170,16 @@ StringClass::Uninitialised_Grow (size_t new_len)
 
 	size_t allocated_len = Get_Allocated_Length ();
 	if (new_len > allocated_len) {
-		
+
 		//
 		//	Switch to a newly allocated buffer
 		//
 		char *new_buffer = Allocate_Buffer (new_len);
-		Set_Buffer_And_Allocated_Length (new_buffer, new_len);	
+		Set_Buffer_And_Allocated_Length (new_buffer, new_len);
 	}
-		
+
 	//
-	// Whenever this function is called, clear the cached length 
+	// Whenever this function is called, clear the cached length
 	//
 	Store_Length (0);
 	return ;
@@ -250,10 +250,10 @@ StringClass::Format_Args (const char *format, va_list arg_list )
 	//
 
 	retval = vsnprintf (temp_buffer, 512, format, arg_list);
-	
+
 	//
 	//	Copy the string into our buffer
-	//	
+	//
 	(*this) = temp_buffer;
 
 	return retval;
@@ -281,10 +281,10 @@ StringClass::Format (const char *format, ...)
 	//	Format the string
 	//
 	retval = vsnprintf (temp_buffer, 512, format, arg_list);
-	
+
 	//
 	//	Copy the string into our buffer
-	//	
+	//
 	(*this) = temp_buffer;
 
 	va_end (arg_list);
@@ -329,7 +329,7 @@ bool StringClass::Copy_Wide (const unichar_t *source)
 		WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed"));
 #else
 		int  length;
-			
+
 		length = WideCharToMultiByte (CP_UTF8, 0 , source, -1, nullptr, 0, nullptr, nullptr);
 		if (length > 0) {
 
@@ -345,7 +345,7 @@ bool StringClass::Copy_Wide (const unichar_t *source)
 		if(length <= 0) {
 			WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed"));
 		}
-		
+
 		return (length > 0);
 #endif
 	}

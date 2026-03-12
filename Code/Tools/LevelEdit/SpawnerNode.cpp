@@ -119,7 +119,7 @@ SpawnerNodeClass::SpawnerNodeClass (const SpawnerNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 SpawnerNodeClass::~SpawnerNodeClass (void)
-{	
+{
 	Free_Spawn_Points ();
 	Remove_From_Scene ();
 	Free_Scripts ();
@@ -148,11 +148,11 @@ SpawnerNodeClass::Initialize (void)
 
 		//
 		//	Create the spawner object object
-		//			
+		//
 		Load_Assets ();
 		m_Preset->Load_All_Assets ();
 		Create_Spawner_Obj ();
-		
+
 		//
 		//	Get a model to represet the spawner with
 		//
@@ -163,7 +163,7 @@ SpawnerNodeClass::Initialize (void)
 			//	Create our own physics object around the visual representation
 			// of the game object.
 			//
-			m_PhysObj = new DecorationPhysClass;					
+			m_PhysObj = new DecorationPhysClass;
 			m_PhysObj->Set_Model (model);
 			model->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 			::Set_Model_Collision_Type (model, COLLISION_TYPE_6);
@@ -172,7 +172,7 @@ SpawnerNodeClass::Initialize (void)
 			//
 			//	Make sure the physics object has the correct position
 			//
-			Set_Transform (m_Transform);			
+			Set_Transform (m_Transform);
 		}
 	}
 
@@ -187,7 +187,7 @@ SpawnerNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 SpawnerNodeClass::Get_Factory (void) const
-{	
+{
 	return _SpawnerNodePersistFactory;
 }
 
@@ -199,7 +199,7 @@ SpawnerNodeClass::Get_Factory (void) const
 /////////////////////////////////////////////////////////////////
 bool
 SpawnerNodeClass::Save (ChunkSaveClass &csave)
-{	
+{
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		NodeClass::Save (csave);
 	csave.End_Chunk ();
@@ -210,7 +210,7 @@ SpawnerNodeClass::Save (ChunkSaveClass &csave)
 	int index;
 	for (index = 0; index < m_Scripts.Count (); index ++) {
 		EditScriptClass *script = m_Scripts[index];
-		
+
 		//
 		//	Have this script save itself
 		//
@@ -220,7 +220,7 @@ SpawnerNodeClass::Save (ChunkSaveClass &csave)
 	}
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
-		
+
 		//
 		//	Save the list of spawn points transforms
 		//
@@ -249,7 +249,7 @@ SpawnerNodeClass::Load (ChunkLoadClass &cload)
 	Free_Spawn_Points ();
 	Free_Scripts ();
 
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
@@ -264,7 +264,7 @@ SpawnerNodeClass::Load (ChunkLoadClass &cload)
 				}
 			}
 			break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -295,7 +295,7 @@ SpawnerNodeClass::On_Post_Load (void)
 
 		//
 		//	Create the spawner object object
-		//			
+		//
 		Load_Assets ();
 		m_Preset->Load_All_Assets ();
 		Create_Spawner_Obj ();
@@ -325,7 +325,7 @@ SpawnerNodeClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			case VARID_SPAWN_POINT:
 			{
 				//
@@ -359,19 +359,19 @@ SpawnerNodeClass::Get_Spawned_Model (void)
 	RenderObjClass *model = NULL;
 
 	if (m_SpawnerObj != NULL) {
-		
+
 		//
 		//	Spawn an object
 		//
 		PhysicalGameObj *game_obj = m_SpawnerObj->Create_Spawned_Object ();
 		if (game_obj != NULL) {
-			
+
 			//
 			//	Dig the render object out of the game object
 			//
 			PhysClass *phys_obj				= game_obj->Peek_Physical_Object ();
 			RenderObjClass *render_obj		= phys_obj->Peek_Model ();
-			
+
 			//
 			//	Make a copy of the render object to return to the caller
 			//
@@ -454,7 +454,7 @@ SpawnerNodeClass::operator= (const SpawnerNodeClass &src)
 
 	//
 	//	Make sure we have the spawner object created
-	//			
+	//
 	Load_Assets ();
 	m_Preset->Load_All_Assets ();
 	Create_Spawner_Obj ();
@@ -474,7 +474,7 @@ SpawnerNodeClass::operator= (const SpawnerNodeClass &src)
 	//	Copy the script list from the source object
 	//
 	Copy_Scripts (src);
-	
+
 	return *this;
 }
 
@@ -489,7 +489,7 @@ SpawnerNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {
@@ -507,8 +507,8 @@ SpawnerNodeClass::Pre_Export (void)
 		//
 		for (int index = 0; index < m_SpawnPointNodes.Count (); index ++) {
 			SpawnPointNodeClass *spawn_point	= m_SpawnPointNodes[index];
-			EditorLineClass *line				= m_SpawnPointLines[index];			
-			
+			EditorLineClass *line				= m_SpawnPointLines[index];
+
 			//
 			//	Remove the editor only objects from the world
 			//
@@ -544,8 +544,8 @@ SpawnerNodeClass::Post_Export (void)
 		//	Process each spawn point
 		//
 		for (int index = 0; index < m_SpawnPointNodes.Count (); index ++) {
-			EditorLineClass *line				= m_SpawnPointLines[index];			
-			
+			EditorLineClass *line				= m_SpawnPointLines[index];
+
 			//
 			//	Remove the editor only objects from the world
 			//
@@ -607,7 +607,7 @@ SpawnerNodeClass::Remove_From_Scene (void)
 			scene->Remove_Object (line);
 		}
 	}
-	
+
 	NodeClass::Remove_From_Scene ();
 	return ;
 }
@@ -671,20 +671,20 @@ SpawnerNodeClass::Add_Spawn_Point (const Matrix3D &tm)
 	SpawnPointNodeClass *spawn_point = new SpawnPointNodeClass;
 	spawn_point->Set_Spawner (this);
 	spawn_point->Initialize ();
-	spawn_point->Set_Transform (tm);	
+	spawn_point->Set_Transform (tm);
 	NodeMgrClass::Setup_Node_Identity (*spawn_point);
-	
+
 	//
 	//	Create the line from the spawner to the spawn point
 	//
-	EditorLineClass *line = new EditorLineClass;	
+	EditorLineClass *line = new EditorLineClass;
 	const AABoxClass &box1 = m_PhysObj->Peek_Model ()->Get_Bounding_Box ();
 	const AABoxClass &box2 = spawn_point->Peek_Physics_Obj ()->Peek_Model ()->Get_Bounding_Box ();
 	Vector3 offset1 (0, 0, box1.Extent.Z);
 	Vector3 offset2 (0, 0, box2.Extent.Z);
 	line->Set_Color (Vector3 (0.5F, 0, 0.75F));
 	line->Reset (m_Transform.Get_Translation () + offset1, tm.Get_Translation () + offset2);
-	
+
 	//
 	//	Add the spawn point and its line to our data structures
 	//
@@ -716,13 +716,13 @@ SpawnerNodeClass::Remove_Spawn_Point (SpawnPointNodeClass *spawn_point)
 	//
 	for (int index = 0; index < m_SpawnPointNodes.Count (); index ++) {
 		if (spawn_point == m_SpawnPointNodes[index]) {
-			
+
 			//
 			//	Free the spawn point
 			//
 			MEMBER_RELEASE (spawn_point);
 			m_SpawnPointNodes.Delete (index);
-			
+
 			//
 			//	Remove and free the line to the spawn point
 			//
@@ -732,7 +732,7 @@ SpawnerNodeClass::Remove_Spawn_Point (SpawnPointNodeClass *spawn_point)
 			break;
 		}
 	}
-	
+
 	return ;
 }
 
@@ -753,13 +753,13 @@ SpawnerNodeClass::Free_Spawn_Points (void)
 	for (int index = 0; index < m_SpawnPointNodes.Count (); index ++) {
 		SpawnPointNodeClass *spawn_point	= m_SpawnPointNodes[index];
 		EditorLineClass *line				= m_SpawnPointLines[index];
-		
+
 		scene->Remove_Object (line);
 		spawn_point->Remove_From_Scene ();
 		MEMBER_RELEASE (spawn_point);
 		MEMBER_RELEASE (line);
 	}
-	
+
 	//
 	//	Remove all the spawn points from the list
 	//
@@ -814,7 +814,7 @@ SpawnerNodeClass::Add_Child_Node (const Matrix3D &tm)
 ////////////////////////////////////////////////////////////////
 bool
 SpawnerNodeClass::Show_Settings_Dialog (void)
-{	
+{
 	NodeInfoPageClass		info_tab (this);
 	PositionPageClass		pos_tab (this);
 	NodeScriptsPropPage	scripts_tab (&m_Scripts);
@@ -827,7 +827,7 @@ SpawnerNodeClass::Show_Settings_Dialog (void)
 	// Show the property sheet
 	UINT ret_code = prop_sheet.DoModal ();
 	if (ret_code == IDOK) {
-		
+
 		//
 		//	If the scripts changed, then we need to
 		// reload the object and assign it the new
@@ -835,7 +835,7 @@ SpawnerNodeClass::Show_Settings_Dialog (void)
 		//
 		Reload ();
 	}
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }
@@ -882,7 +882,7 @@ SpawnerNodeClass::Free_Scripts (void)
 		EditScriptClass *script = m_Scripts[index];
 		SAFE_DELETE (script);
 	}
-	
+
 	m_Scripts.Delete_All ();
 	return ;
 }
@@ -899,11 +899,11 @@ SpawnerNodeClass::Assign_Scripts (void)
 	if (m_SpawnerObj != NULL) {
 		for (int index = 0; index < m_Scripts.Count (); index ++) {
 			EditScriptClass *script	= m_Scripts[index];
-			
+
 			m_SpawnerObj->Add_Script (script->Get_Name (), script->Get_Composite_String ());
 		}
 	}
-	
+
 	return ;
 }
 

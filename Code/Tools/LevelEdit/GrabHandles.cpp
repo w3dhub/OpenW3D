@@ -69,7 +69,7 @@ GrabHandlesClass::GrabHandlesClass (const GrabHandlesClass &ref)
 	  m_pNode (NULL)
 {
 	*this = ref;
-	Initialize ();	
+	Initialize ();
 	return ;
 }
 
@@ -108,7 +108,7 @@ GrabHandlesClass::Initialize (void)
 		m_pHandles[handle] = new GrabHandlePhysClass (handle, this);
 
 		// Modify the color of this box to be solid black
-		Box3DClass *pbox = m_pHandles[handle]->Get_Box (); 
+		Box3DClass *pbox = m_pHandles[handle]->Get_Box ();
 		pbox->Set_Shader (ShaderClass::_PresetOpaqueSolidShader);
 		pbox->Set_Vertex_Material (vmat);
 		pbox->Set_Color (Vector3 (0.0F, 0.0F, 0.0F));
@@ -117,7 +117,7 @@ GrabHandlesClass::Initialize (void)
 		pbox->Enable_Bounding_Box ();
 	}
 
-	MEMBER_RELEASE (vmat);	
+	MEMBER_RELEASE (vmat);
 	return ;
 }
 
@@ -131,8 +131,8 @@ const GrabHandlesClass &
 GrabHandlesClass::operator= (const GrabHandlesClass &ref)
 {
 	m_pNode = ref.m_pNode;
-	
-	// Return a reference to ourselves	
+
+	// Return a reference to ourselves
 	return *this;
 }
 
@@ -149,13 +149,13 @@ GrabHandlesClass::Remove_From_Scene (void)
 
 		// Get a pointer to the current scene
 		SceneEditorClass *pscene = ::Get_Scene_Editor ();
-		
+
 		// Were we successful in getting the scene pointer?
 		ASSERT (pscene != NULL);
 		if (pscene != NULL) {
 
 			// Loop through and remove all the handles from the scene
-			for (int handle = 0; handle < 8; handle ++) {	
+			for (int handle = 0; handle < 8; handle ++) {
 				if (m_pHandles[handle] != NULL) {
 					pscene->Remove_Object (m_pHandles[handle]);
 				}
@@ -163,7 +163,7 @@ GrabHandlesClass::Remove_From_Scene (void)
 
 			// Success!
 			m_bIsAddedToScene = false;
-		}		
+		}
 	}
 
 	return ;
@@ -179,7 +179,7 @@ void
 GrabHandlesClass::Hide (bool bhide)
 {
 	// Loop through and hide all the handles
-	for (int handle = 0; handle < 8; handle ++) {	
+	for (int handle = 0; handle < 8; handle ++) {
 		if (m_pHandles[handle] != NULL) {
 			m_pHandles[handle]->Peek_Model ()->Set_Hidden (bhide);
 
@@ -203,12 +203,12 @@ GrabHandlesClass::Hide (bool bhide)
 //////////////////////////////////////////////////////////////////////
 void
 GrabHandlesClass::Position_Around_Node (NodeClass *node)
-{	
+{
 	RenderObjClass *render_obj = node->Peek_Render_Obj ();
 	if (render_obj != NULL) {
 
 		//
-		// Get the object's bounding box so we know where to 
+		// Get the object's bounding box so we know where to
 		// position the grab handles
 		//
 		AABoxClass bounding_box;
@@ -241,7 +241,7 @@ GrabHandlesClass::Position_Around_Node (NodeClass *node)
 		verticies[7] = bounding_box.Center + Vector3 (extent.X,  extent.Y,  extent.Z);
 
 		// Now add 'handles' centered around each of the 8 verticies
-		for (int vertex = 0; vertex < 8; vertex ++) {		
+		for (int vertex = 0; vertex < 8; vertex ++) {
 
 			// Rotate these verticies using the item's current transform
 			verticies[vertex] = transform * verticies[vertex];
@@ -250,22 +250,22 @@ GrabHandlesClass::Position_Around_Node (NodeClass *node)
 			Box3DClass *pbox = m_pHandles[vertex]->Get_Box ();
 			pbox->Set_Dimensions (Vector3 (size, size, size));
 			//pbox->Set_Dimensions (Vector3 (1, 1, 1));
-			
+
 			// Reposition this handle so its centered around the vertex
 			Matrix3D handle_transform = m_pHandles[vertex]->Get_Transform ();
 			handle_transform.Set_Translation (verticies[vertex]);
 			m_pHandles[vertex]->Set_Transform (handle_transform);
 		}
-		
+
 		if (m_bIsAddedToScene == false) {
 
 			// Get a pointer to the current scene
 			SceneEditorClass *pscene = ::Get_Scene_Editor ();
-			
+
 			// Were we successful in getting the scene pointer?
 			ASSERT (pscene != NULL);
 			if (pscene != NULL) {
-				
+
 				// Loop through all the handles and add them to the scene
 				for (int handle = 0; handle < 8; handle ++) {
 					pscene->Add_Dynamic_Object (m_pHandles[handle]);
@@ -304,7 +304,7 @@ void
 GrabHandlePhysClass::On_Click (void)
 {
 	if (m_pParent != NULL) {
-		
+
 		// Switch to the 'grabhandle drag' mode
 		MouseMgrClass *mousemgr = ::Get_Mouse_Mgr ();
 		mousemgr->Set_Mouse_Mode (MouseMgrClass::MODE_GRABHANDLE_DRAG);
@@ -315,7 +315,7 @@ GrabHandlePhysClass::On_Click (void)
 			mode->Set_Node_Info (m_pParent->Get_Node (), m_iVertex);
 		}
 	}
-		
+
 	return ;
 }
 

@@ -64,11 +64,11 @@ public:
 	bool								Is_Occlusion_Enabled(void) { return OcclusionEnabled; }
 
 	LightSolveProgressClass &	Get_Progress(void) { return Progress; }
-	
+
 	void								Set_Observer(LightSolveObserverClass * observer) { Observer = observer; }
 	LightSolveObserverClass *	Get_Observer(void) { return Observer; }
 
-	void								Update_Observer(void); 
+	void								Update_Observer(void);
 
 protected:
 
@@ -80,12 +80,12 @@ protected:
 };
 
 /**
-** LightSolveObserverClass 
+** LightSolveObserverClass
 ** Derive from this class and install your object in the light solve context to get
 ** progress callbacks periodically...
 */
 class LightSolveObserverClass
-{	
+{
 public:
 	virtual ~LightSolveObserverClass(void) { };
 	virtual void Progress_Callback(LightSolveContextClass & /* context */) { };

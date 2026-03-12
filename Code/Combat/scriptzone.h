@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/scriptzone.h                          $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 11/27/01 4:46p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 14                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/scriptzone.h                          $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 11/27/01 4:46p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 14                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SCRIPTZONEOBJ_H
@@ -119,7 +119,7 @@ public:
 	virtual	void	Init( void ) override;
 	void	Init( const ScriptZoneGameObjDef & definition );
 	const ScriptZoneGameObjDef & Get_Definition( void ) const;
-	
+
 	// RTTI
 	ScriptZoneGameObj	*As_ScriptZoneGameObj( void ) override	{ return this; };
 
@@ -194,7 +194,7 @@ class	ZoneObserverClass {
 
 /*
 ** Abstract Base ZoneClass
-*/ 
+*/
 class	ZoneClass {
 
 public:
@@ -222,7 +222,7 @@ protected:
 };
 
 /*
-** TransitionZoneClass 
+** TransitionZoneClass
 */
 class	TransitionZoneClass : public ZoneClass {
 public:

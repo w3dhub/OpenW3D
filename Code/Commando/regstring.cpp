@@ -20,7 +20,7 @@
 // Filename:     regstring.cpp
 // Author:       Tom Spencer-Smith
 // Date:         Dec 1998
-// Description:  
+// Description:
 //
 
 #include "regstring.h" // I WANNA BE FIRST!
@@ -34,7 +34,7 @@
 //
 
 //-----------------------------------------------------------------------------
-cRegistryString::cRegistryString(const char *registry_location, const char *key_name, 
+cRegistryString::cRegistryString(const char *registry_location, const char *key_name,
 	const char *default_value)
 {
    WWASSERT(default_value != NULL);

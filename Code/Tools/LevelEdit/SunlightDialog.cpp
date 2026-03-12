@@ -85,15 +85,15 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-SunlightDialogClass::OnInitDialog (void) 
+SunlightDialogClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
 	CDialog::OnInitDialog ();
-	
+
 	m_pSunlight = ::Get_Scene_Editor ()->Get_Sun_Light ();
 	ASSERT (m_pSunlight != NULL);
 	m_pSunlight->Get_Diffuse (&m_Color);
-	
+
 	::Get_Scene_Editor ()->Get_Sun_Light_Orientation (&m_Yaw, &m_Pitch);
 	m_Intensity = m_pSunlight->Get_Intensity ();
 	m_Yaw		= WWMath::Wrap (m_Yaw, 0, DEG_TO_RADF (360));
@@ -122,11 +122,11 @@ void
 SunlightDialogClass::OnHScroll
 (
 	UINT nSBCode,
-	UINT nPos, 
+	UINT nPos,
 	CScrollBar* pScrollBar
-) 
+)
 {
-	if (pScrollBar == GetDlgItem (IDC_YAW_SLIDER)) {		
+	if (pScrollBar == GetDlgItem (IDC_YAW_SLIDER)) {
 		m_Yaw = DEG_TO_RAD ((float)m_YawSlider.GetPos ());
 		::Get_Scene_Editor ()->Set_Sun_Light_Orientation (m_Yaw, m_Pitch);
 		::Get_Scene_Editor ()->Update_Lighting ();
@@ -146,8 +146,8 @@ SunlightDialogClass::OnHScroll
 		m_pSunlight->Set_Intensity (m_Intensity);
 		::Get_Scene_Editor ()->Update_Lighting ();
 	}
-	
-	::Refresh_Main_View ();	
+
+	::Refresh_Main_View ();
 
 	// Allow the base class to process this message
 	CDialog::OnHScroll(nSBCode, nPos, pScrollBar);
@@ -166,12 +166,12 @@ SunlightDialogClass::OnColor (void)
 	int red		= m_Color.X * 255;
 	int green	= m_Color.Y * 255;
 	int blue		= m_Color.Z * 255;
-	
+
 	//
 	// Display a dialog to the user that will allow them to select a color
 	//
 	if (::Show_Color_Picker (&red, &green, &blue)) {
-		
+
 		//
 		//	Get the color from the picker and pass it onto the manager
 		//
@@ -189,7 +189,7 @@ SunlightDialogClass::OnColor (void)
 	}
 
 
-	return ;	
+	return ;
 }
 
 
@@ -203,7 +203,7 @@ SunlightDialogClass::OnDrawItem
 (
 	int nIDCtl,
 	LPDRAWITEMSTRUCT lpDrawItemStruct
-) 
+)
 {
 	// Determine what state to draw the button in (pushed or normal)
 	UINT state = DFCS_BUTTONPUSH | DFCS_ADJUSTRECT;
@@ -220,12 +220,12 @@ SunlightDialogClass::OnDrawItem
 	temp_dc.Attach (lpDrawItemStruct->hDC);
 	temp_dc.FillSolidRect (&rect, RGB (int(m_Color.X * 255), int(m_Color.Y * 255), int(m_Color.Z * 255)));
 	temp_dc.Detach ();
-	
+
 	// Draw the focus rectangle if necessary
 	if (lpDrawItemStruct->itemState & ODS_FOCUS) {
 		::DrawFocusRect (lpDrawItemStruct->hDC, &rect);
 	}
-	
+
 	// Allow the base class to process this message
 	CDialog::OnDrawItem(nIDCtl, lpDrawItemStruct);
 	return ;
@@ -240,7 +240,7 @@ SunlightDialogClass::OnDrawItem
 void
 SunlightDialogClass::OnUpdatePitchEdit (void)
 {
-	float pitch_deg	= ::GetDlgItemFloat (m_hWnd, IDC_PITCH_EDIT);	
+	float pitch_deg	= ::GetDlgItemFloat (m_hWnd, IDC_PITCH_EDIT);
 	m_Pitch				= DEG_TO_RAD (pitch_deg);
 	::Get_Scene_Editor ()->Set_Sun_Light_Orientation (m_Yaw, m_Pitch);
 	::Get_Scene_Editor ()->Update_Lighting ();
@@ -259,7 +259,7 @@ SunlightDialogClass::OnUpdatePitchEdit (void)
 void
 SunlightDialogClass::OnKillfocusPitchEdit (void)
 {
-	float pitch_deg = ::GetDlgItemFloat (m_hWnd, IDC_PITCH_EDIT);	
+	float pitch_deg = ::GetDlgItemFloat (m_hWnd, IDC_PITCH_EDIT);
 	if (pitch_deg > 90.0F) {
 		pitch_deg = 90.0F;
 		::SetDlgItemFloat (m_hWnd, IDC_PITCH_EDIT, pitch_deg);
@@ -282,7 +282,7 @@ SunlightDialogClass::OnKillfocusPitchEdit (void)
 void
 SunlightDialogClass::OnKillfocusYawEdit (void)
 {
-	float yaw_deg = ::GetDlgItemFloat (m_hWnd, IDC_YAW_EDIT);	
+	float yaw_deg = ::GetDlgItemFloat (m_hWnd, IDC_YAW_EDIT);
 	if (yaw_deg > 360.0F) {
 		yaw_deg = 360.0F;
 		::SetDlgItemFloat (m_hWnd, IDC_YAW_EDIT, yaw_deg);
@@ -304,7 +304,7 @@ SunlightDialogClass::OnKillfocusYawEdit (void)
 void
 SunlightDialogClass::OnUpdateYawEdit (void)
 {
-	float yaw_deg = ::GetDlgItemFloat (m_hWnd, IDC_YAW_EDIT);	
+	float yaw_deg = ::GetDlgItemFloat (m_hWnd, IDC_YAW_EDIT);
 	m_Yaw = DEG_TO_RAD (yaw_deg);
 	::Get_Scene_Editor ()->Set_Sun_Light_Orientation (m_Yaw, m_Pitch);
 	::Get_Scene_Editor ()->Update_Lighting ();

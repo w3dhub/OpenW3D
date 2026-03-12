@@ -57,7 +57,7 @@ class ProjectorManagerDefClass;
 
 /**
 ** ProjectorManagerClass
-** This class is meant to be embedded in a phyisics object and simply manages the 
+** This class is meant to be embedded in a phyisics object and simply manages the
 ** chore of updating the transforms for texture projectors which are attached
 ** to bones in a model
 */
@@ -66,8 +66,8 @@ class ProjectorManagerClass
 public:
 	ProjectorManagerClass(void);
 	~ProjectorManagerClass(void);
-	
-	enum 
+
+	enum
 	{
 		IS_ANIMATED = 0x00000001,
 	};
@@ -79,7 +79,7 @@ public:
 	bool											Get_Flag(int flag)					{ return ((Flags & flag) == flag); }
 
 protected:
-	
+
 	void											Free(void);
 
 	uint16										Flags;

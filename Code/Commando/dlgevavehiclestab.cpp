@@ -65,7 +65,7 @@ EvaVehiclesTabClass::On_Init_Dialog (void)
 	//	Let the base class know where to get its data
 	//
 	Set_INI_Filename ("vehicles.ini");
-	
+
 	EvaViewerTabClass::On_Init_Dialog ();
 	return ;
 }

@@ -141,7 +141,7 @@ PickerClass::WindowProc
 		//	Translate the message so the dialog thinks it came from an
 		// edit control
 		//
-		LONG id = ::GetWindowLong (m_hWnd, GWL_ID); 
+		LONG id = ::GetWindowLong (m_hWnd, GWL_ID);
 		return ::SendMessage (::GetParent (m_hWnd),
 									 message,
 									 MAKEWPARAM (id & 0xFFFF, HIWORD (wParam)),
@@ -178,7 +178,7 @@ PickerClass::Initialize_Control (void)
 	::GetTextExtentPoint32 (hdc, "XgW", 3, &size);
 	::SelectObject (hdc, holdfont);
 	::ReleaseDC (m_hWnd, hdc);
-	
+
 	//
 	// Create the edit control
 	//
@@ -195,13 +195,13 @@ PickerClass::Initialize_Control (void)
 											  m_hWnd,
 											  (HMENU)(DWORD_PTR)EDIT_ID,
 											  ::AfxGetInstanceHandle (),
-											  NULL);	
+											  NULL);
 		CRect rect2;
 		GetWindowRect (&rect2);
 
 
 	::SendMessage (m_EditCtrl, WM_SETFONT, (WPARAM)hfont, 0L);
-	
+
 	//
 	// Create the picker button
 	//
@@ -216,7 +216,7 @@ PickerClass::Initialize_Control (void)
 												 (HMENU)(DWORD_PTR)BUTTON_ID,
 												 ::AfxGetInstanceHandle (),
 												 NULL);
-	
+
 	ASSERT (m_BrowseButton != NULL);
 	return ;
 }
@@ -254,12 +254,12 @@ PickerClass::OnSize
 
 	CRect client_rect;
 	GetClientRect (&client_rect);
-	
+
 	//
 	// Resize the edit control
 	//
 	::SetWindowPos (	m_EditCtrl,
-							NULL, 
+							NULL,
 							2,
 							(client_rect.Height () >> 1) - ((size.cy) >> 1),
 							client_rect.Width () - BUTTON_WIDTH - 3,
@@ -269,7 +269,7 @@ PickerClass::OnSize
 	//
 	// Reposition the file button
 	//
-	::SetWindowPos (	m_BrowseButton, 
+	::SetWindowPos (	m_BrowseButton,
 							NULL,
 							client_rect.Width () - BUTTON_WIDTH,
 							0,
@@ -277,8 +277,8 @@ PickerClass::OnSize
 							client_rect.Height (),
 							SWP_NOZORDER);
 
-	CStatic::OnSize (nType, cx, cy);	
-	return ;	
+	CStatic::OnSize (nType, cx, cy);
+	return ;
 }
 
 
@@ -318,8 +318,8 @@ PickerClass::OnDrawItem
 (
 	int nIDCtl,
 	LPDRAWITEMSTRUCT pDrawItemStruct
-) 
-{	
+)
+{
 	CRect rect;
 	::GetClientRect (m_BrowseButton, &rect);
 

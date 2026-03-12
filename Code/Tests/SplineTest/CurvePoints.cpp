@@ -29,7 +29,7 @@ float _ControlPoints[CONTROL_POINT_COUNT][4] =
 	{ 7.0f,2.0f,0.0f,4.0f },
 };
 
-float _TCBParams[CONTROL_POINT_COUNT][3] = 
+float _TCBParams[CONTROL_POINT_COUNT][3] =
 {
 	{ 0.0f,1.0f,0.0f },
 	{ 0.0f,1.0f,0.0f },

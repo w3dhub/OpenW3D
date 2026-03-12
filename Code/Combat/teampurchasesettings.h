@@ -63,7 +63,7 @@ public:
 		TEAM_NOD,
 		TEAM_COUNT
 	} TEAM;
-	
+
 	//////////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////////
@@ -104,7 +104,7 @@ public:
 	//	Singleton access
 	//
 	static TeamPurchaseSettingsDefClass *	Get_Definition (TEAM team);
-	
+
 	//
 	//	Editable support
 	//
@@ -124,12 +124,12 @@ protected:
 	{
 		MAX_ENTRIES = 4
 	};
-	
+
 	//////////////////////////////////////////////////////////////////////
 	//	Protected member data
 	//////////////////////////////////////////////////////////////////////
 	TEAM					Team;
-	
+
 	//
 	//	Enlisted character settings
 	//
@@ -150,7 +150,7 @@ protected:
 	//
 	int					SupplyNameID;
 	StringClass			SupplyTextureName;
-	
+
 	static TeamPurchaseSettingsDefClass *	DefinitionArray[TEAM_COUNT];
 };
 

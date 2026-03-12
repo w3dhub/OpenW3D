@@ -66,7 +66,7 @@ protected:
 
 	void Send_Page(void);
 	void CheckIfCanSendPage(void);
-	
+
 	void On_ComboBoxCtrl_Edit_Change(ComboBoxCtrlClass* combo, int id) override;
 	void On_EditCtrl_Change(EditCtrlClass* edit, int id) override;
 	void On_EditCtrl_Enter_Pressed(EditCtrlClass* edit, int id) override;

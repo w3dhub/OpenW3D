@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/WhatToInstallDialog $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 10/25/01 1:42p                $* 
- *                                                                                             * 
- *                    $Revision:: 4                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/WhatToInstallDialog $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 10/25/01 1:42p                $*
+ *                                                                                             *
+ *                    $Revision:: 4                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _WHAT_TO_INSTALL_H
 #define _WHAT_TO_INSTALL_H
@@ -47,7 +47,7 @@ class WhatToInstallDialogClass : public InstallMenuDialogClass
 {
 	public:
 		WhatToInstallDialogClass() : InstallMenuDialogClass (IDD_DIALOG_WHAT_TO_INSTALL) {}
-		
+
 		// RTTI.
 		void *As_WhatToInstallDialogClass()			{return (this);}
 
@@ -59,7 +59,7 @@ class WhatToInstallDialogClass : public InstallMenuDialogClass
 		bool Use_IGR_Settings()			{return (Is_Dlg_Button_Checked (IDC_WHAT_TO_INSTALL_CHECK4));}
 
 	protected:
-		
+
 		void On_Init_Dialog (void);
 };
 

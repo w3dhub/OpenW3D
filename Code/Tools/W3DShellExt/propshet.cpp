@@ -49,7 +49,7 @@ UINT CALLBACK W3DPageCallback(HWND hWnd,
             if (ppsp->lParam){
                ((LPCSHELLEXT)(ppsp->lParam))->Release();
             }
-            return true; 
+            return true;
 			}
     }
     return true;
@@ -75,7 +75,7 @@ void GetItemName(ChunkItem *pItem, int id_of_interest, void* pInfo, int sizeof_s
 	//Get all Sibitems for this item
 	POSITION p = pItem->Chunks.GetHeadPosition();
 	while(p != 0) {
-		ChunkItem *subitem = pItem->Chunks.GetNext(p); 
+		ChunkItem *subitem = pItem->Chunks.GetNext(p);
 		GetItemName(subitem, id_of_interest, pInfo, sizeof_struct,found);
 	}
 }
@@ -422,7 +422,7 @@ STDMETHODIMP CShellExt::AddPages(LPFNADDPROPSHEETPAGE lpfnAddPage,	//Pointer to 
     }
     return NOERROR;
 }
-//  PURPOSE: Called by the shell only for Control Panel property sheet 
+//  PURPOSE: Called by the shell only for Control Panel property sheet
 STDMETHODIMP CShellExt::ReplacePage(UINT uPageID,									//ID of page to be replaced
                                     LPFNADDPROPSHEETPAGE lpfnReplaceWith,  //Pointer to the Shell's Replace function
                                     LPARAM lParam){									//Passed as second parameter to lpfnReplaceWith

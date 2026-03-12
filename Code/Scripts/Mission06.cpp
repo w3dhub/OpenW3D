@@ -71,14 +71,14 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 		Commands->Enable_Hibernation(obj, false);
 		mendoza_id = 0;
 		accomplished_609 = false;
-		
+
 		// EVA - Give me a position on the scientists.\n
 		const char *conv_name = ("M06_CON059");
 		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 		Commands->Join_Conversation(STAR, conv_id, false, true, true);
 		Commands->Join_Conversation(NULL, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 300601);
-		Commands->Monitor_Conversation (obj, conv_id);	
+		Commands->Monitor_Conversation (obj, conv_id);
 
 		Add_An_Objective(605);
 		Add_An_Objective(607);
@@ -92,11 +92,11 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 	void Add_An_Objective(int id)
 	{
 		GameObject *object;
-						
+
 		switch (id)
 		{
 		// Hack War Room Computer
-		case 601: 
+		case 601:
 			{
 				Commands->Add_Objective(601, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M06_02, NULL, IDS_Enc_Obj_Primary_M06_02);
 				object = Commands->Find_Object(106952);
@@ -108,7 +108,7 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 			}
 			break;
 		// Rescue Scientists
-		case 603: 
+		case 603:
 			{
 				Commands->Add_Objective(603, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M06_01, NULL, IDS_Enc_Obj_Primary_M06_01);
 				object = Commands->Find_Object(101010);
@@ -120,7 +120,7 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 			}
 			break;
 		// Eliminate Mendoza
-		case 604: 
+		case 604:
 			{
 				Commands->Add_Objective(604, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M06_04, NULL, IDS_Enc_Obj_Primary_M06_04);
 			//	object = Commands->Find_Object(mendoza_id);
@@ -133,27 +133,27 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 			}
 			break;
 		// Rescue Resistance
-		case 605: 
+		case 605:
 			{
 				Commands->Add_Objective(605, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M06_02, NULL, IDS_Enc_Obj_Hidden_M06_02);
 				object = Commands->Find_Object(101016);
-				
+
 			}
 			break;
 		// Release GDI prisoner
-		case 607: 
+		case 607:
 			{
 				Commands->Add_Objective(607, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M06_03, NULL, IDS_Enc_Obj_Hidden_M06_03);
 			}
 			break;
 		// Plunder Raveshaw's hidden cache
-		case 608: 
+		case 608:
 			{
 				Commands->Add_Objective(608, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M06_04, NULL, IDS_Enc_Obj_Hidden_M06_04);
 			}
 			break;
 		// Deactivate alarm system
-		case 609: 
+		case 609:
 			{
 				Commands->Add_Objective(609, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Hidden_M06_01, NULL, IDS_Enc_Obj_Hidden_M06_01);
 				Vector3 star_pos = Commands->Get_Position(STAR);
@@ -181,17 +181,17 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 				}
 
 
-				
+
 			}
 			break;
 		// Alarm State: Stand Down
-		case 610: 
+		case 610:
 			{
 				Commands->Add_Objective(610, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_HIDDEN, 1000, NULL, 0);
 			}
 			break;
 		// Escape Chateau with Dr. Sydney Mobius
-		case 611: 
+		case 611:
 			{
 				Commands->Set_HUD_Help_Text ( IDS_M11DSGN_DSGN1007I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 				Commands->Add_Objective(611, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M06_03, NULL, IDS_Enc_Obj_Primary_M06_03);
@@ -211,11 +211,11 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 		if(type == M06_MENDOZA_ID)
 		{
 			mendoza_id = param;
-			
+
 		}
 		if(type == 666 && param == 666)
 		{
-			
+
 			Commands->Start_Timer (obj, this, 2.0f, M06_DEAD_HAVOC);
 		}
 		if(type > 611)
@@ -224,7 +224,7 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 		}
 		switch (param)
 		{
-			case 1: 
+			case 1:
 				{
 					if(type == 609 && accomplished_609)
 					{
@@ -240,7 +240,7 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 					{
 						accomplished_609 = true;
 					}
-						
+
 
 				}
 				break;
@@ -254,17 +254,17 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 					}
 				}
 				break;
-			case 3: 
+			case 3:
 					Add_An_Objective(type);
 				break;
-			case 4: 
+			case 4:
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_PENDING);
 				break;
-			case 5: 
+			case 5:
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_HIDDEN);
 				break;
 		}
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -274,32 +274,32 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 601, 3, 0.0f);
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * /*obj*/, int timer_id ) override
 	{
-		
+
 		if(timer_id == HAVOCS_SCRIPT)
 		{
 	//		Commands->Attach_Script(STAR, "M06_Havoc_DLS", "");
-			
+
 		}
 		if(timer_id == M06_DEAD_HAVOC)
 		{
-		
+
 	//		Commands->Attach_Script(STAR, "M06_Havoc_DLS", "");
-			
+
 		}
 
 		if(timer_id == M06_INITIAL_APACHES)
 		{
-		
+
 			// Initial Apaches
 			GameObject *controller1 = Commands->Create_Object("Invisible_Object", Vector3(0,0,0));
 			Commands->Attach_Script(controller1, "Test_Cinematic", "X6A_Apache_01.txt");
-				
+
 			GameObject *controller2 = Commands->Create_Object("Invisible_Object", Vector3(0,0,0));
 			Commands->Attach_Script(controller2, "Test_Cinematic", "X6A_Apache_02.txt");
-			
+
 		}
 	}
 
@@ -309,14 +309,14 @@ DECLARE_SCRIPT(M06_Objective_Controller, "") // 100018
 DECLARE_SCRIPT(M06_WarRoom_Computer, "")
 {
 	bool already_poked;
-	
+
 
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_poked, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -335,13 +335,13 @@ DECLARE_SCRIPT(M06_WarRoom_Computer, "")
 			Commands->Join_Conversation(NULL, conv_id, true, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300603);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 
 			already_poked = true;
 			Commands->Enable_HUD_Pokable_Indicator( obj, false );
 
 			Commands->Create_Object ("Level_03_Keycard", Vector3 (35.263F, 16.432F, 13.382F));
-			
+
 		}
 	}
 
@@ -354,14 +354,14 @@ DECLARE_SCRIPT(M06_WarRoom_Computer, "")
 			// New Primary Mission Objective: Evacuate Doctors' Ignatio and Sydney Mobius.  Basement, NE section.  Requires level 2 security keycard.
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 601, 1, 0.0f);
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 603, 3, 1.0f);
-			
+
 		}
 	}
 
 };
 
 #define	SYDNEY_MOVE_TABLE_SIZE  ( sizeof(Sydney_Move_Table) / sizeof (Sydney_Move_Table[0]) )
-const int	Sydney_Move_Table[] = 
+const int	Sydney_Move_Table[] =
 {
 	101567,
 	101569,
@@ -383,7 +383,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 	int poke_id;
 	bool dont_move;
 	int current_move_loc;
-	
+
 	enum {CHECK_DISTANCE = 20, SYDNEY_MOVE_LOC, MOVE_LOC_LOW_PRIORITY};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
@@ -400,9 +400,9 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 		Commands->Grant_Key (obj, 3, true);
 		poke_id = 4;
 		dont_move = true;
-		
+
 		current_move_loc = 0;
-		
+
 	}
 
 	void Poked(GameObject * obj, GameObject * /*poker*/) override
@@ -419,7 +419,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 				Commands->Join_Conversation(STAR, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
 				Commands->Monitor_Conversation (obj, conv_id);
-				
+
 				Commands->Set_Innate_Is_Stationary(obj, true);
 
 				dont_move = true;
@@ -440,13 +440,13 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 				params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), SYDNEY_MOVE_LOC);
 				params.Set_Movement (Commands->Find_Object(Sydney_Move_Table[current_move_loc]), 1.0f, 3.0f);
 				Commands->Action_Goto (obj, params);
-				
+
 				poke_id = 1;
 				dont_move = false;
 			}
 			break;
 		}
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
@@ -474,7 +474,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 				// Clost and lock door to lab
 				// Door to the lab
 				Commands->Static_Anim_Phys_Goto_Frame ( 1300001615, 0, "DOOR_0.DOOR_0");
-				
+
 			}
 			if(param == 1)
 			{
@@ -485,7 +485,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 				Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 611, 1, 1.0f);
 				// Relocate Mendoza
 				//Commands->Send_Custom_Event(obj, Commands->Find_Object(108275), M06_RELOCATE, 0, 0.0f);
-				
+
 				//
 				//	Play the boss music
 				//
@@ -504,7 +504,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 		//			Commands->Set_Facing (mendoza, -50.0F);
 		//			Commands->Attach_Script(mendoza, "M06_Mendoza", "");
 		//		}
-				
+
 				// Mission objective to defeat Mendoza
 				Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 604, 3, 0.0f);
 				// Make Sydney indestructible
@@ -515,7 +515,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 				//  Create logical sound to remove all other players in fight with Mendoza
 				//
 				Commands->Create_Logical_Sound(obj, M06_CLEAR_FOR_MENDOZA, Commands->Get_Position(obj), 2500.0f);
-			
+
 			}
 
 
@@ -533,10 +533,10 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 			params.Set_Movement (Commands->Find_Object(Sydney_Move_Table[current_move_loc]), 1.0f, 3.0f);
 			Commands->Action_Goto (obj, params);
 		}
-		
+
 	}
 
-	void Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override 
+	void Damaged( GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 	//	Commands->Set_Health(obj, Commands->Get_Max_Health(obj));
 	}
@@ -545,7 +545,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 	{
 		ActionParamsStruct params;
 
-		
+
 		if(action_id == SYDNEY_MOVE_LOC && reason == ACTION_COMPLETE_NORMAL)
 		{
 			Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 4.0f);
@@ -559,7 +559,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == MOVE_LOC_LOW_PRIORITY)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), SYDNEY_MOVE_LOC);
@@ -586,7 +586,7 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 				Commands->Start_Conversation (conv_id, 1);
 				Commands->Monitor_Conversation (obj, conv_id);
 			}
-			
+
 		}
 		else if(timer_id == CHECK_DISTANCE && poke_id == 1)
 		{
@@ -605,16 +605,16 @@ DECLARE_SCRIPT(M06_Sydney_Mobius, "")
 			}
 
 		}
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Set_HUD_Help_Text ( IDS_M11DSGN_DSGN1008I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
 		Commands->Send_Custom_Event (obj, Commands->Find_Object(100018), 611, 2, 0.0f);
-		
+
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M06_MidtroB_Explosion_Controller, "Loc0_ID=0:int, Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:int, Loc4_ID=0:int")
@@ -637,16 +637,16 @@ DECLARE_SCRIPT(M06_MidtroB_Explosion_Controller, "Loc0_ID=0:int, Loc1_ID=0:int, 
 
 DECLARE_SCRIPT(M06_Activate_Midtro, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -672,7 +672,7 @@ DECLARE_SCRIPT(M06_Activate_Midtro, "")
 			Vector3 havoc_loc = Commands->Get_Position (STAR);
 			havoc_loc.Z += 7.0f;
 			Commands->Set_Position (STAR, havoc_loc );
-		
+
 			GameObject * cinematic_obj = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 			Commands->Attach_Script(cinematic_obj, "Test_Cinematic", "X6B_MIDTRO.txt");
 
@@ -686,7 +686,7 @@ DECLARE_SCRIPT(M06_Destruction_Stub, "")
 {
 
 	enum {SHAKE_TIMER};
-	
+
 
 	void Custom (GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
@@ -705,7 +705,7 @@ DECLARE_SCRIPT(M06_Destruction_Stub, "")
 
 			GameObject *crate2 = Commands->Create_Object("X6_Rubble2", Vector3(27.086f, 28.569f, -1.454f));
 			Commands->Set_Facing( crate2, 0.000f );
-		
+
 			GameObject *crate3 = Commands->Create_Object("X6_Rubble2", Vector3(25.614f, 33.324f, -0.043f));
 			Commands->Set_Facing( crate3, 125.000f );
 
@@ -723,7 +723,7 @@ DECLARE_SCRIPT(M06_Destruction_Stub, "")
 
 			GameObject *crate8 = Commands->Create_Object("X6_Rubble4", Vector3(40.258f, 3.442f, 2.798f));
 			Commands->Set_Facing( crate8, -180.000f );
-			
+
 			GameObject *crate9 = Commands->Create_Object("X6_Rubble4", Vector3(9.832f, -35.126f, -0.014f));
 			Commands->Set_Facing( crate9, 5.000f );
 
@@ -781,7 +781,7 @@ DECLARE_SCRIPT(M06_Destruction_Stub, "")
 			GameObject *crate27 = Commands->Create_Object("X6_Rubble5", Vector3(5.699f, -32.438f, 2.563f));
 			Commands->Set_Facing( crate27, -120.000f );
 
-			
+
 
 			float shake_timer = Commands->Get_Random(0.0f, 3.0f);
 			Commands->Start_Timer (obj, this, shake_timer, SHAKE_TIMER);
@@ -793,9 +793,9 @@ DECLARE_SCRIPT(M06_Destruction_Stub, "")
 		// Shake the Chateau to simulate collapse
 		if(timer_id == SHAKE_TIMER)
 		{
-			
-			
-			
+
+
+
 			// Explosions near Star to simulate collapse
 		//	Vector3 star_pos = Commands->Get_Position(STAR);
 
@@ -821,7 +821,7 @@ DECLARE_SCRIPT(M06_Destruction_Stub, "")
 			float camera_duration = shake_timer - 1.0f;
 			Commands->Shake_Camera(Vector3 (-12.0f, 40.0f, -9.0f), 1000.0f, camera_intensity, camera_duration);
 		}
-		
+
 	}
 };
 
@@ -831,7 +831,7 @@ DECLARE_SCRIPT(M06_Mendoza, "")
 	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 604, 1, 0.0f);
-		
+
 	}
 
 };
@@ -841,7 +841,7 @@ DECLARE_SCRIPT(M06_GDI_Prisoner, "")
 
 	bool conversation;
 	bool poked;
-	
+
 	enum{ESCAPE_CHATEAU};
 
 	// Register variables to be Auto-Saved
@@ -872,7 +872,7 @@ DECLARE_SCRIPT(M06_GDI_Prisoner, "")
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Join_Conversation(poker, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300607);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 
 			conversation = true;
 			poked = true;
@@ -885,7 +885,7 @@ DECLARE_SCRIPT(M06_GDI_Prisoner, "")
 	{
 		ActionParamsStruct params;
 
-		
+
 		if(action_id == 300607 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
 			conversation = false;
@@ -912,15 +912,15 @@ DECLARE_SCRIPT(M06_GDI_Prisoner, "")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == ESCAPE_CHATEAU)
 		{
 			params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), 1);
 			params.Set_Movement (Commands->Find_Object(104967), RUN, 3.0f);
 			Commands->Action_Goto (obj, params);
-				
+
 		}
-		
+
 	}
 };
 
@@ -933,7 +933,7 @@ DECLARE_SCRIPT(M06_Activate_Secret_Door, "Secret_Door_ID=0:int")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_poked, 1 );
-		
+
 	}
 
 
@@ -947,15 +947,15 @@ DECLARE_SCRIPT(M06_Activate_Secret_Door, "Secret_Door_ID=0:int")
 		if (Commands->Is_A_Star(poker) && (!already_poked))
 		{
 			already_poked = true;
-			
-			
+
+
 
 			// Looks like Raveshaw's private stash. Time for a five-finger discount.\n
 			const char *conv_name = ("M06_CON061");
 			int conv_id = Commands->Create_Conversation (conv_name, INNATE_PRIORITY_ENEMY_SEEN + 5, 0, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300608);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
 	}
 
@@ -973,10 +973,10 @@ DECLARE_SCRIPT(M06_Activate_Secret_Door, "Secret_Door_ID=0:int")
 
 DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 {
-	
+
 	int poke_id;
 	bool conversation;
-	
+
 	enum{WAYPATH};
 
 	// Register variables to be Auto-Saved
@@ -997,7 +997,7 @@ DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 
 	}
 
-	
+
 
 	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
@@ -1019,7 +1019,7 @@ DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 				Commands->Join_Conversation(STAR, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 300123);
 				Commands->Monitor_Conversation (obj, conv_id);
-				
+
 				Vector3 pos = Commands->Get_Position(obj);
 				float facing = Commands->Get_Facing(obj);
 				float a = cos(DEG_TO_RADF(facing)) * 1.5;
@@ -1038,14 +1038,14 @@ DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Join_Conversation(STAR, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 300124);
-				Commands->Monitor_Conversation (obj, conv_id);	
+				Commands->Monitor_Conversation (obj, conv_id);
 			}
 			break;
-		
+
 		}
 	}
 
-	
+
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
@@ -1063,12 +1063,12 @@ DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 			params.WaypathID = 101552;
 			Commands->Action_Goto( obj, params );
 
-			
+
 			Commands->Set_Player_Type(obj, SCRIPT_PLAYERTYPE_GDI );
 			Commands->Set_Innate_Is_Stationary(obj, false);
-			
+
 		}
-		
+
 		if(action_id == WAYPATH && reason == ACTION_COMPLETE_NORMAL)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 12 );
@@ -1078,7 +1078,7 @@ DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 			conversation = false;
 
 		}
-		
+
 	}
 
 	void Killed (GameObject * /*obj*/, GameObject * /*killer*/) override
@@ -1090,16 +1090,16 @@ DECLARE_SCRIPT(M06_Civ_Prisoner, "")
 
 DECLARE_SCRIPT(M06_Enable_Guard_Tower, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -1112,7 +1112,7 @@ DECLARE_SCRIPT(M06_Enable_Guard_Tower, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-		
+
 			// Warning: Nod Security Measures Detected.\n
 	//		const char *conv_name = ("M06_CON010");
 	//		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
@@ -1120,7 +1120,7 @@ DECLARE_SCRIPT(M06_Enable_Guard_Tower, "")
 	//		Commands->Join_Conversation(STAR, conv_id, true, true, true);
 	//		Commands->Start_Conversation (conv_id, 300606);
 	//		Commands->Monitor_Conversation (obj, conv_id);
-			
+
 			// Patrols
 			Commands->Enable_Spawner(101046, true);
 			Commands->Enable_Spawner(101053, true);
@@ -1142,10 +1142,10 @@ DECLARE_SCRIPT(M06_Enable_Guard_Tower, "")
 
 DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 {
-		
+
 	int soldier_id;
 	bool disable_tower_spawn;
-	
+
 	enum {M06_GATE_GUARD_WAYPATH = 105, WAYPATH, CONVERSATION};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
@@ -1164,7 +1164,7 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 
 		Commands->Send_Custom_Event (obj, obj, M06_GATE_GUARD_WAYPATH, 1, 0.0f);
 		Commands->Send_Custom_Event (obj, Commands->Find_Object(110908), M06_GATE_GUARD_WAYPATH, 1, 0.0f);
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -1173,7 +1173,7 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 		Commands->Debug_Message("Action_Complete on Gate Guard.  action_id %d reason %d.\n", action_id, reason);
 		if(action_id == 1109081 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
-			
+
 		}
 		if(action_id == WAYPATH && reason == ACTION_COMPLETE_LOW_PRIORITY)
 		{
@@ -1184,11 +1184,11 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
-		
+
 
 		if(type == M06_GATE_GUARD_WAYPATH)
 		{
-			
+
 
 			Commands->Set_Innate_Is_Stationary(obj, false);
 
@@ -1214,7 +1214,7 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == WAYPATH)
 		{
 			Commands->Set_Innate_Is_Stationary(obj, false);
@@ -1240,13 +1240,13 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 						Commands->Join_Conversation(obj, conv_id, false, true, true);
 						Commands->Join_Conversation(Commands->Find_Object(110908), conv_id, false, true, true);
 						Commands->Start_Conversation (conv_id, 1109081);
-						Commands->Monitor_Conversation (obj, conv_id);	
+						Commands->Monitor_Conversation (obj, conv_id);
 					}
 				}
 				break;
 			}
 		}
-		
+
 	}
 
 	void Killed (GameObject * /*obj*/, GameObject * /*killer*/) override
@@ -1260,7 +1260,7 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 			conv_name[3] = ("M06_CON015");  // This is Tower. Hold position brother, reinforcements enroute.\n
 			conv_name[4] = ("M06_CON016");  // This is Tower, report in.\n
 			conv_name[5] = ("M06_CON017");  // This is Tower. We've a possible man down, Bravo patrol inspect.\n
-			
+
 			int random = Get_Int_Random(0, 5);
 
 			int conv_id = Commands->Create_Conversation (conv_name[random], 0, 0, true);
@@ -1283,7 +1283,7 @@ DECLARE_SCRIPT(M06_Gate_Guards, "Soldier_ID=0:int")
 		}
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Escort_Tank, "")
@@ -1309,7 +1309,7 @@ DECLARE_SCRIPT(M06_Escort_Tank, "")
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if(timer_id == START_ESCORT)
 		{
 			ActionParamsStruct params;
@@ -1320,7 +1320,7 @@ DECLARE_SCRIPT(M06_Escort_Tank, "")
 	//		params.WaypathSplined = true;
 			Commands->Action_Goto( obj, params );
 		}
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -1333,7 +1333,7 @@ DECLARE_SCRIPT(M06_Escort_Tank, "")
 			Commands->Enable_Engine(obj, false);
 			Commands->Enable_Hibernation(obj, true);
 		}
-		
+
 	}
 
 
@@ -1348,10 +1348,10 @@ DECLARE_SCRIPT(M06_Escort_Tank, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(damager == STAR)
 		{
 			if(!attacking)
@@ -1366,9 +1366,9 @@ DECLARE_SCRIPT(M06_Escort_Tank, "")
 
 	void Killed (GameObject * /*obj*/, GameObject * /*killer*/) override
 	{
-		
+
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M06_Alarm_Controller, "")
@@ -1423,7 +1423,7 @@ DECLARE_SCRIPT(M06_Alarm_Controller, "")
 			Commands->Create_Logical_Sound(obj, M06_SOUND_ALARM_ON, Vector3 (0,0,0), 2500.0f);
 	//		Commands->Monitor_Sound (obj, alarm_sound);
 		}
-		
+
 		if((type == M00_CUSTOM_CAMERA_ALARM) && (!alarm_sounded))
 		{
 			alarm_sounded = true;
@@ -1444,7 +1444,7 @@ DECLARE_SCRIPT(M06_Alarm_Controller, "")
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if((timer_id == STAND_DOWN)) // && (alarm_sounded) && (alarmed))
 		{
 			if(alarm_sounded)
@@ -1464,10 +1464,10 @@ DECLARE_SCRIPT(M06_Alarm_Controller, "")
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 609, 1, 0.0f);
 			alarm_sounded = true;
 //			Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 610, 1, 0.0f);
-			
+
 		}
-		
-		
+
+
 	}
 };
 
@@ -1483,7 +1483,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 	bool hear_footsteps;
 	int havoc_id;
 	bool attacking_havoc;
-	
+
 
 	enum {HEAR_FOOTSTEPS};
 
@@ -1502,7 +1502,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 
 	void Created(GameObject * obj) override
 	{
-		
+
 		// No starting units can hear footsteps until otherwise alerted
 		Commands->Innate_Soldier_Enable_Footsteps_Heard(obj, false);
 		hear_footsteps = false;
@@ -1537,34 +1537,34 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 		Vector3 soldier_pos = Commands->Get_Position(obj);
 		float this_distance = 0.0f;
 		float closest_distance = 0.0f;
-		
+
 		int i = 0;
 		while (i < alarm_switch_amnt)
 		{
-			
-			
+
+
 			if(Commands->Find_Object(alarm_switch_id[i]))
 			{
 				alarm_pos = Commands->Get_Position(Commands->Find_Object(alarm_switch_id[i]));
-			
+
 				this_distance = Commands->Get_Distance(soldier_pos, alarm_pos);
-			
-				
+
+
 				if(closest_distance == 0.0f)
 				{
 					closest_distance = this_distance;
-					
+
 				}
 				if(WWMath::Min(this_distance, closest_distance) == this_distance)
 				{
 					closest_distance = this_distance;
 					closest_id = alarm_switch_id[i];
-					
+
 				}
 			}
 			i++;
 		}
-		
+
 		return closest_id;
 	}
 
@@ -1579,23 +1579,23 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 			Commands->Action_Face_Location ( obj, params );
 
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(closest_id), M06_CHECK_ALARM, Commands->Get_ID(obj), 0.0f);
-			
+
 		}
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		ActionParamsStruct params;
 
-		
+
 		if(type == M06_ALARMED)  // Custom returned from alarm controller for new spawns to set alarmed status
 		{
 			alarmed = (param == 1) ? true : false;
 		}
 		if(type == M06_CHECK_ALARM && !alarmed)
 		{
-			
+
 			if(param == 1)
 			{
 				// The alarm switch is destroyed, we need engineering!\n
@@ -1604,7 +1604,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 1);
 				Commands->Monitor_Conversation (obj, conv_id);
-				
+
 				int i = 0;
 				int curr_alarm_switch_id = Commands->Get_ID(sender);
 				while (i < alarm_switch_amnt)
@@ -1632,7 +1632,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 				// Send custom to sound alarm
 				Commands->Send_Custom_Event (obj, Commands->Find_Object(100018), M06_SOUND_ALARM, 1, 0.0f);
 				// Once alarm has been sounded
-				
+
 			}
 		}
 
@@ -1646,13 +1646,13 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 			Commands->Action_Attack (obj, params);
 		}
 
-		
+
 	}
 
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
 
-		
+
 		if ( sound.Type == M06_SOUND_ALARM_ON )
 		{
 			alarmed = true;
@@ -1661,7 +1661,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 			Vector3 pos = Commands->Get_Position(obj);
 			Commands->Innate_Force_State_Gunshots_Heard(obj, pos);
 
-			
+
 		}
 		if ( sound.Type == M06_SOUND_ALARM_OFF )
 		{
@@ -1671,7 +1671,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 		}
 		if ( sound.Type == M06_ATTACK_HAVOC_SOUND )
 		{
-			
+
 			havoc_id = Commands->Get_ID(sound.Creator);
 			// Let Havoc know this soldier is coming to attack
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(havoc_id), M06_ATTACK_HAVOC, 1, 0.0f);
@@ -1689,14 +1689,14 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if(timer_id == HEAR_FOOTSTEPS)
 		{
 			hear_footsteps = false;
 			Commands->Innate_Soldier_Enable_Footsteps_Heard(obj, false);
-			
+
 		}
-		
+
 	}
 
 	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
@@ -1763,7 +1763,7 @@ DECLARE_SCRIPT(M06_Alarm_Behavior, "Alarm_Enemy_Seen=0.0:float, Alarm_Damaged=0.
 DECLARE_SCRIPT(M06_Alarm_Switch, "")
 {
 	bool destroyed;
-	
+
 	enum{DAMAGE_ALARM};
 
 	// Register variables to be Auto-Saved
@@ -1779,7 +1779,7 @@ DECLARE_SCRIPT(M06_Alarm_Switch, "")
 		Vector3 alarm_pos = Commands->Get_Position(obj);
 		Commands->Debug_Message("Position of alarm switch %d: X: %d, Y: %d, Z:%d", Commands->Get_ID(obj), alarm_pos.X, alarm_pos.Y, alarm_pos.Z );
 		Commands->Set_Animation_Frame(obj, "dsp_doorswitch2.dsp_doorswitch2", 0);
-		destroyed = false;	
+		destroyed = false;
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * sender) override
@@ -1789,7 +1789,7 @@ DECLARE_SCRIPT(M06_Alarm_Switch, "")
 			Commands->Send_Custom_Event (obj, sender, M06_CHECK_ALARM, destroyed, 0.0f);
 		}
 
-		
+
 	}
 
 	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
@@ -1805,14 +1805,14 @@ DECLARE_SCRIPT(M06_Alarm_Switch, "")
 			{
 				destroyed = true;
 				Commands->Set_Animation_Frame(obj, "dsp_doorswitch2.dsp_doorswitch2", 60);
-				
+
 			}
 			else
 			{
 				Commands->Set_Animation_Frame(obj, "dsp_doorswitch2.dsp_doorswitch2", 60);
 			}
 		}
-	
+
 	}
 
 };
@@ -1852,11 +1852,11 @@ DECLARE_SCRIPT(M06_Alarm_Terminal_DLS, "")
 		{
 			// Custom to alarm controller to stand down
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(100018), M06_STAND_DOWN, 1, 0.0f);
-		}		
+		}
 
 		Vector3 myPositon = Commands->Get_Position ( obj );
 		float myFacing  = Commands->Get_Facing ( obj );
-		
+
 		GameObject * destroyedMCT = Commands->Create_Object ( "Nod_MCT_Alarm_Destroyed", myPositon);
 		Commands->Set_Facing ( destroyedMCT, myFacing );
 	}
@@ -1869,7 +1869,7 @@ DECLARE_SCRIPT(M06_Tower_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	Vector3 waypath_loc;
 	bool disable_tower_spawn;
 	bool chateau_destruction;
-	
+
 	enum {WAYPATH, GO_WAYPATH};
 
 	// Register variables to be Auto-Saved
@@ -1895,7 +1895,7 @@ DECLARE_SCRIPT(M06_Tower_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 
 		disable_tower_spawn = false;
 		chateau_destruction = false;
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -1922,7 +1922,7 @@ DECLARE_SCRIPT(M06_Tower_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == WAYPATH)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_FOOTSTEPS_HEARD - 5, GO_WAYPATH );
@@ -1955,7 +1955,7 @@ DECLARE_SCRIPT(M06_Tower_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 			conv_name[3] = ("M06_CON015");  // This is Tower. Hold position brother, reinforcements enroute.\n
 			conv_name[4] = ("M06_CON016");  // This is Tower, report in.\n
 			conv_name[5] = ("M06_CON017");  // This is Tower. We've a possible man down, Bravo patrol inspect.\n
-		
+
 			int random = Get_Int_Random(0, 10);
 
 			if(random < 6)
@@ -1975,8 +1975,8 @@ DECLARE_SCRIPT(M06_Courtyard_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	Vector3 waypath_loc;
 	bool disable_courtyard_spawn;
 	bool chateau_destruction;
-	
-	
+
+
 	enum {WAYPATH, GO_WAYPATH};
 
 	// Register variables to be Auto-Saved
@@ -2002,7 +2002,7 @@ DECLARE_SCRIPT(M06_Courtyard_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 
 		disable_courtyard_spawn = false;
 		chateau_destruction = false;
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -2029,7 +2029,7 @@ DECLARE_SCRIPT(M06_Courtyard_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == WAYPATH)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_FOOTSTEPS_HEARD - 5, GO_WAYPATH );
@@ -2061,7 +2061,7 @@ DECLARE_SCRIPT(M06_Courtyard_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 			conv_name[2] = ("M06_CON023");  // This is Courtyard, get me a response team.\n
 			conv_name[3] = ("M06_CON024");  // Courtyard here. What's the situation brothers?\n
 			conv_name[4] = ("M06_CON025");  // Courtyard here. Intruder response to your location.\n
-			
+
 			int random = Get_Int_Random(0, 10);
 			if(random < 5)
 			{
@@ -2080,8 +2080,8 @@ DECLARE_SCRIPT(M06_Hedgemaze_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	Vector3 waypath_loc;
 	bool disable_hedgemaze_spawn;
 	bool chateau_destruction;
-	
-	
+
+
 	enum {WAYPATH, GO_WAYPATH};
 
 	// Register variables to be Auto-Saved
@@ -2107,7 +2107,7 @@ DECLARE_SCRIPT(M06_Hedgemaze_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 
 		disable_hedgemaze_spawn = false;
 		chateau_destruction = false;
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -2134,7 +2134,7 @@ DECLARE_SCRIPT(M06_Hedgemaze_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == WAYPATH)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_FOOTSTEPS_HEARD - 5, GO_WAYPATH );
@@ -2165,7 +2165,7 @@ DECLARE_SCRIPT(M06_Hedgemaze_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 			conv_name[1] = ("M06_CON027");  // This is Hedge Maze. Get a patrol to that position.\n
 			conv_name[2] = ("M06_CON028");  // Hedge Maze here, report in please.\n
 			conv_name[3] = ("M06_CON029");  // Hedge Maze here, please respond.\n
-			
+
 			int random = Get_Int_Random(0, 10);
 			if(random < 4)
 			{
@@ -2182,8 +2182,8 @@ DECLARE_SCRIPT(M06_Interior_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 {
 	int waypath_id;
 	Vector3 waypath_loc;
-	
-	
+
+
 	enum {WAYPATH, GO_WAYPATH};
 
 	// Register variables to be Auto-Saved
@@ -2231,7 +2231,7 @@ DECLARE_SCRIPT(M06_Interior_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == WAYPATH)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_FOOTSTEPS_HEARD - 5, GO_WAYPATH );
@@ -2251,8 +2251,8 @@ DECLARE_SCRIPT(M06_Lab_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 {
 	int waypath_id;
 	Vector3 waypath_loc;
-	
-	
+
+
 	enum {WAYPATH, GO_WAYPATH};
 
 	// Register variables to be Auto-Saved
@@ -2300,7 +2300,7 @@ DECLARE_SCRIPT(M06_Lab_Patrol, "Waypath_ID=0:int, Waypath_Loc:Vector3")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == WAYPATH)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_FOOTSTEPS_HEARD - 5, GO_WAYPATH );
@@ -2317,7 +2317,7 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 	int barracks_drop[5];
 	int barracks_pickup[6];
 	bool chateau_destruction;
-	
+
 	enum {WAYPATH, PICKUP, DROP};
 
 	// Register variables to be Auto-Saved
@@ -2328,7 +2328,7 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 		SAVE_VARIABLE( chateau_destruction, 2 );
 	}
 
-	
+
 	void Created (GameObject * obj) override
 	{
 		Commands->Enable_Hibernation(obj, false);
@@ -2359,7 +2359,7 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 
 	void Sound_Heard(GameObject* /*obj*/, const CombatSound & sound) override
 	{
-		
+
 		if ( sound.Type == M06_DISABLE_BARRACKS_SPAWN )
 		{
 			disable_barracks_spawn = true;
@@ -2373,7 +2373,7 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == PICKUP && reason == ACTION_COMPLETE_NORMAL)
 		{
 			Commands->Enable_Hibernation(obj, true);
@@ -2414,7 +2414,7 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == PICKUP)
 		{
 			int random = Get_Int_Random(0, 5);
@@ -2422,7 +2422,7 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 			params.Set_Movement (Commands->Find_Object(barracks_pickup[random]), WALK, 1.5f);
 			Commands->Action_Goto (obj, params);
 		}
-		
+
 	}
 
 	void Killed (GameObject * /*obj*/, GameObject * /*killer*/) override
@@ -2435,7 +2435,7 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 			conv_name[2] = ("M06_CON032"); // Barracks here. Alpha team to last known location.\n
 			conv_name[3] = ("M06_CON033"); // Barracks here, report in brothers.\n
 			conv_name[4] = ("M06_CON034"); // This is Barracks. You there, please respond.\n
-			
+
 			int random = Get_Int_Random(0, 10);
 
 			if(random < 5)
@@ -2451,12 +2451,12 @@ DECLARE_SCRIPT(M06_Barracks_Patrol, "")
 
 DECLARE_SCRIPT(M06_Lab_Guard, "")
 {
-	
+
 	void Created (GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
-	
+
 	void Enemy_Seen(GameObject * obj, GameObject * /*enemy*/ ) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, false);
@@ -2466,7 +2466,7 @@ DECLARE_SCRIPT(M06_Lab_Guard, "")
 
 DECLARE_SCRIPT(M06_Nod_Tower, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -2530,10 +2530,10 @@ DECLARE_SCRIPT(M06_Courtyard_Controller, "")
 
 
 		}
-		
+
 	}
 
-	
+
 
 };
 
@@ -2572,10 +2572,10 @@ DECLARE_SCRIPT(M06_Hedgemaze_Controller, "")
 
 
 		}
-		
+
 	}
 
-	
+
 
 };
 
@@ -2610,7 +2610,7 @@ DECLARE_SCRIPT(M06_Barracks_Controller, "")
 		if(type == M06_EVAC_ARRIVED)
 		{
 			evac_soldiers = 0;
-			Commands->Create_Logical_Sound(obj, M06_SOLDIER_TO_EVAC, Vector3 (0,0,0), 2500.0f);	
+			Commands->Create_Logical_Sound(obj, M06_SOLDIER_TO_EVAC, Vector3 (0,0,0), 2500.0f);
 		}
 		if(type == M06_TO_EVAC)
 		{
@@ -2628,30 +2628,30 @@ DECLARE_SCRIPT(M06_Barracks_Controller, "")
 				Commands->Enable_Spawner(101531, false);
 				Commands->Enable_Spawner(101532, false);
 				Commands->Enable_Spawner(101533, false);
-				
+
 				Commands->Create_Logical_Sound(obj, M06_DISABLE_BARRACKS_SPAWN, Vector3 (0,0,0), 2500.0f);
 			}
 
 
 		}
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if(timer_id == M06_NEXT_EVAC)
 		{
 			GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Vector3(-37.824f, 30.975f, 1.605f));
 			Commands->Set_Facing(chinook_obj, 0.000f);
 			Commands->Attach_Script(chinook_obj, "Test_Cinematic", "M06_XG_EV4_1.txt");
-			
+
 			Commands->Start_Timer (obj, this, 30.0f, M06_NEXT_EVAC);
 		}
-		
+
 	}
 
-	
+
 
 };
 
@@ -2699,7 +2699,7 @@ DECLARE_SCRIPT(M06_Interior_Controller, "")
 					Commands->Enable_Spawner(101295, false);
 					Commands->Enable_Spawner(101298, false);
 					Commands->Enable_Spawner(101301, false);
-					
+
 					// Enable grade 2 patrols
 					Commands->Enable_Spawner(101281, true);
 					Commands->Enable_Spawner(101284, true);
@@ -2781,7 +2781,7 @@ DECLARE_SCRIPT(M06_Interior_Controller, "")
 					{
 						// Fire team to top floor, main gallery.
 						conv_name = ("M06_CON040");
-					}	
+					}
 					else if((dead_loc.X < 25.0f) && (dead_loc.Y >= 5.0f) && (dead_loc.Z < 5.0f))
 					{
 						// Possible intruder.  Disturbance bottom floor, open air courtyard.\n
@@ -2812,12 +2812,12 @@ DECLARE_SCRIPT(M06_Interior_Controller, "")
 				}
 				break;
 			}
-			
+
 		}
-		
+
 	}
 
-	
+
 
 };
 
@@ -2833,7 +2833,7 @@ DECLARE_SCRIPT(M06_Apply_Damage, "")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == APPLY_DAMAGE)
 		{
 			Commands->Apply_Damage( obj, 10000.0f, "STEEL", NULL);
@@ -2843,16 +2843,16 @@ DECLARE_SCRIPT(M06_Apply_Damage, "")
 
 DECLARE_SCRIPT(M06_Enable_Exterior_Courtyard, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -2871,7 +2871,7 @@ DECLARE_SCRIPT(M06_Enable_Exterior_Courtyard, "")
 			Commands->Enable_Spawner(101036, false);
 			Commands->Enable_Spawner(101046, false);
 			Commands->Enable_Spawner(101053, false);
-		
+
 			Commands->Create_Logical_Sound(obj, M06_DISABLE_TOWER_SPAWN, Vector3 (0,0,0), 2500.0f);
 
 			// Enable reinforcements for courtyard
@@ -2880,25 +2880,25 @@ DECLARE_SCRIPT(M06_Enable_Exterior_Courtyard, "")
 			Commands->Enable_Spawner(101073, true);
 			Commands->Enable_Spawner(101082, true);
 			Commands->Enable_Spawner(101095, true);
-			
+
 		}
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Hedgemaze, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -2911,7 +2911,7 @@ DECLARE_SCRIPT(M06_Enable_Hedgemaze, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-	
+
 			// Enable reinforcements for hedgemaze
 			Commands->Enable_Spawner(101143, true);
 			Commands->Enable_Spawner(101144, true);
@@ -2929,24 +2929,24 @@ DECLARE_SCRIPT(M06_Enable_Hedgemaze, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Barracks, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -2959,12 +2959,12 @@ DECLARE_SCRIPT(M06_Enable_Barracks, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-	
+
 			// Enable reinforcements for barracks
 			Commands->Enable_Spawner(101531, true);
 			Commands->Enable_Spawner(101532, true);
 			Commands->Enable_Spawner(101533, true);
-						
+
 			// Disable remaining zones
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101012), M06_DISABLE_ZONE, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101212), M06_DISABLE_ZONE, 1, 0.0f);
@@ -2977,24 +2977,24 @@ DECLARE_SCRIPT(M06_Enable_Barracks, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Interior, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -3024,7 +3024,7 @@ DECLARE_SCRIPT(M06_Enable_Interior, "")
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101306), M06_DISABLE_ZONE, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101307), M06_DISABLE_ZONE, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101308), M06_DISABLE_ZONE, 1, 0.0f);
-			
+
 		}
 	}
 
@@ -3034,24 +3034,24 @@ DECLARE_SCRIPT(M06_Enable_Interior, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Greenhouse, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -3069,12 +3069,12 @@ DECLARE_SCRIPT(M06_Enable_Greenhouse, "")
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101509), M06_CUSTOM_ACTIVATE, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101356), M06_CUSTOM_ACTIVATE, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101357), M06_CUSTOM_ACTIVATE, 1, 0.0f);
-			
-			
+
+
 			// Shut down all greenhouse zones
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101350), M06_DISABLE_ZONE, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101351), M06_DISABLE_ZONE, 1, 0.0f);
-			
+
 		}
 	}
 
@@ -3084,24 +3084,24 @@ DECLARE_SCRIPT(M06_Enable_Greenhouse, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Lab, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -3114,7 +3114,7 @@ DECLARE_SCRIPT(M06_Enable_Lab, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-	
+
 			// Enable units for laboratory
 			Commands->Enable_Spawner(101332, true);
 			Commands->Enable_Spawner(101334, true);
@@ -3141,7 +3141,7 @@ DECLARE_SCRIPT(M06_Alarm_Engineer, "")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( fixing_alarm, 1 );
-		
+
 	}
 
 	void Created(GameObject * obj) override
@@ -3163,7 +3163,7 @@ DECLARE_SCRIPT(M06_Alarm_Engineer, "")
 			Commands->Action_Face_Location ( obj, params );
 
 		}
-		
+
 		if(action_id == 11 && reason == ACTION_COMPLETE_NORMAL)
 		{
 			GameObject * broken_alarm = Commands->Find_Object(broken_alarm_id);
@@ -3182,11 +3182,11 @@ DECLARE_SCRIPT(M06_Alarm_Engineer, "")
 			}
 
 		}
-		
-		
+
+
 	}
 
-	
+
 
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
@@ -3203,7 +3203,7 @@ DECLARE_SCRIPT(M06_Alarm_Engineer, "")
 			Commands->Action_Goto (obj, params);
 
 		}
-		
+
 	}
 
 };
@@ -3218,7 +3218,7 @@ DECLARE_SCRIPT(M06_Courtyard_Eagle, "")
 	REGISTER_VARIABLES()
 	{
 	//	SAVE_VARIABLE( already_seen, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -3244,7 +3244,7 @@ DECLARE_SCRIPT(M06_Courtyard_Eagle, "")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(action_id == WAYPATH && reason == ACTION_COMPLETE_NORMAL)
 		{
 			params.Set_Basic( this, INNATE_PRIORITY_FOOTSTEPS_HEARD - 5, WAYPATH );
@@ -3265,19 +3265,19 @@ DECLARE_SCRIPT(M06_Courtyard_Eagle, "")
 		Commands->Send_Custom_Event (obj, Commands->Find_Object(101104), M06_DEAD_COURTYARD_EAGLE, 1, 0.0f);
 	}
 
-	
+
 
 };
 
 DECLARE_SCRIPT(M06_Hedgemaze_Eagle, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 	//	SAVE_VARIABLE( already_seen, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -3285,7 +3285,7 @@ DECLARE_SCRIPT(M06_Hedgemaze_Eagle, "")
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
 
-	
+
 	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Send_Custom_Event (obj, Commands->Find_Object(101147), M06_DEAD_HEDGEMAZE_EAGLE, 1, 0.0f);
@@ -3295,13 +3295,13 @@ DECLARE_SCRIPT(M06_Hedgemaze_Eagle, "")
 
 DECLARE_SCRIPT(M06_Barracks_Eagle, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 	//	SAVE_VARIABLE( already_seen, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -3309,7 +3309,7 @@ DECLARE_SCRIPT(M06_Barracks_Eagle, "")
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
 
-	
+
 	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Send_Custom_Event (obj, Commands->Find_Object(101204), M06_DEAD_BARRACKS_EAGLE, 1, 0.0f);
@@ -3320,7 +3320,7 @@ DECLARE_SCRIPT(M06_Barracks_Eagle, "")
 //Grants initial weapons
 DECLARE_SCRIPT(M06_Havoc_DLS, "")
 {
-		
+
 	bool alarmed;
 	int attacking_havoc;
 
@@ -3328,7 +3328,7 @@ DECLARE_SCRIPT(M06_Havoc_DLS, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( alarmed, 1 );
 		SAVE_VARIABLE( attacking_havoc, 2 );
 	}
@@ -3341,19 +3341,19 @@ DECLARE_SCRIPT(M06_Havoc_DLS, "")
 		Commands->Grant_Key (obj, 10, true);
 		// Give Havoc the key to the barracks
 		Commands->Grant_Key (STAR, 9, true);
-	
+
 		Commands->Give_PowerUp(obj, "POW_Chaingun_Player", false);
 		Commands->Give_PowerUp(obj, "POW_SniperRifle_Player", false);
 		Commands->Give_PowerUp(obj, "POW_MineRemote_Player", false);
 		Commands->Give_PowerUp(obj, "POW_MineRemote_Player", false);
 		Commands->Give_PowerUp(obj, "POW_GrenadeLauncher_Player", false);
-		
+
 	}
 
 	void Destroyed(GameObject * /*obj*/) override
 	{
 //		Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), 666, 666, 0.0f);
-		
+
 	}
 
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
@@ -3365,33 +3365,33 @@ DECLARE_SCRIPT(M06_Havoc_DLS, "")
 			{
 				Commands->Start_Timer (obj, this, 0.0f, HAVOC_ALARM_SOUND);
 				Commands->Debug_Message("Alarm heard on Havoc, play M06_ATTACK_HAVOC_SOUND.\n");
-				Commands->Create_Logical_Sound(obj, M06_ATTACK_HAVOC_SOUND, Vector3 (0,0,0), 55.0f);	
-			
+				Commands->Create_Logical_Sound(obj, M06_ATTACK_HAVOC_SOUND, Vector3 (0,0,0), 55.0f);
+
 				alarmed = true;
 			}
-			
-			
+
+
 		}
 		if ( sound.Type == M06_SOUND_ALARM_OFF )
 		{
 			alarmed = false;
 			attacking_havoc = 0;
-			
+
 		}
-	
-		
+
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if((timer_id == HAVOC_ALARM_SOUND) && (alarmed))
 		{
 			Commands->Create_Logical_Sound(obj, SOUND_TYPE_GUNSHOT, Vector3 (0,0,0), 30.0f);
 			Commands->Start_Timer (obj, this, 8.0f, HAVOC_ALARM_SOUND);
-			
+
 		}
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t param, GameObject * sender) override
@@ -3405,15 +3405,15 @@ DECLARE_SCRIPT(M06_Havoc_DLS, "")
 				attacking_havoc++;
 				Commands->Send_Custom_Event(obj, sender, M06_YOU_ATTACK_HAVOC, 1, 0.0f);
 
-				
+
 			}
-			
+
 		}
 		if(type == M06_DEAD_HAVOC_ATTACKER)
 		{
 			Commands->Debug_Message("Soldier attacking Havoc killed, get new one.\n");
 			attacking_havoc = 3;
-			Commands->Create_Logical_Sound(obj, M06_ATTACK_HAVOC_SOUND, Vector3 (0,0,0), 55.0f);	
+			Commands->Create_Logical_Sound(obj, M06_ATTACK_HAVOC_SOUND, Vector3 (0,0,0), 55.0f);
 		}
 		if(type == M06_RELOCATE)
 		{
@@ -3429,13 +3429,13 @@ DECLARE_SCRIPT(M06_Havoc_DLS, "")
 				Commands->Set_Facing (obj, 140.0F);
 			}
 
-			
+
 		}
-		
+
 	}
 
-	
-	
+
+
 };
 
 DECLARE_SCRIPT(M06_Resistance_Raider_DLS, "")
@@ -3458,7 +3458,7 @@ DECLARE_SCRIPT(M06_Resistance_Raider_DLS, "")
 		Commands->Apply_Damage( obj, 25.0f, "STEEL", NULL);
 		talking = false;
 		Commands->Enable_HUD_Pokable_Indicator( obj, true );
-		
+
 	}
 
 	void Poked(GameObject * obj, GameObject * poker) override
@@ -3492,7 +3492,7 @@ DECLARE_SCRIPT(M06_Resistance_Raider_DLS, "")
 			float b = sin(DEG_TO_RADF(facing)) * 1.5;
 			Vector3 powerup_loc = pos + Vector3(a, b, 0.5f);
 			Commands->Create_Object("POW_GrenadeLauncher_Player", powerup_loc);
-			
+
 		}
 	}
 
@@ -3517,7 +3517,7 @@ DECLARE_SCRIPT(M06_Assistance_Farmer_DLS, "")
 	{
 		Commands->Innate_Disable(obj);
 		give_health = false;
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
@@ -3539,8 +3539,8 @@ DECLARE_SCRIPT(M06_Assistance_Farmer_DLS, "")
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		ActionParamsStruct params;
-		
-		
+
+
 		if(action_id == TALK_STAR && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
 		{
 			Vector3 pos = Commands->Get_Position(obj);
@@ -3553,20 +3553,20 @@ DECLARE_SCRIPT(M06_Assistance_Farmer_DLS, "")
 			// Send custom to M06_Trigger_A04 zone to start conversation in maintenance shaft
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(101357), M06_START_CONVERSATION, 1, 0.0f);
 		}
-				
+
 		if(action_id == GO_STAR && reason == ACTION_COMPLETE_NORMAL)
 		{
 			// Assume hands over head anim
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1);
 			params.Set_Animation( "H_A_HOST_L1B", true );
 			Commands->Action_Play_Animation (obj, params);
-			
+
 			// There are two of 'em in the maintenance shaft.  Here, take this.\n
 			const char *conv_name = ("M06_CON046");
 			int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, TALK_STAR);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
 	}
 
@@ -3592,17 +3592,17 @@ DECLARE_SCRIPT(M06_Assistance_Farmer_DLS, "")
 
 			Commands->Start_Timer (obj, this, 10.0f, GIVE_HEALTH);
 		}
-		
+
 	}
 
 	void Timer_Expired(GameObject * /*obj*/, int timer_id ) override
 	{
-		
+
 		if(timer_id == GIVE_HEALTH)
 		{
 			give_health = true;
 		}
-		
+
 	}
 
 
@@ -3611,7 +3611,7 @@ DECLARE_SCRIPT(M06_Assistance_Farmer_DLS, "")
 DECLARE_SCRIPT(M06_Greenhouse_Shaft_Unit, "")
 {
 	int soldier_id;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3652,7 +3652,7 @@ DECLARE_SCRIPT(M06_Greenhouse_Shaft_Unit, "")
 DECLARE_SCRIPT(M06_Floor1_Library_Unit, "")
 {
 	int soldier_id;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3675,7 +3675,7 @@ DECLARE_SCRIPT(M06_Floor1_Library_Unit, "")
 
 		if(type == M06_START_CONVERSATION)
 		{
-			
+
 			if(Commands->Find_Object(101358))
 			{
 				// I see little reason for them to resist.\n
@@ -3693,16 +3693,16 @@ DECLARE_SCRIPT(M06_Floor1_Library_Unit, "")
 
 DECLARE_SCRIPT(M06_Enable_Floor1_Library, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -3731,15 +3731,15 @@ DECLARE_SCRIPT(M06_Enable_Floor1_Library, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Floor1_Bedroom_Unit, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3763,24 +3763,24 @@ DECLARE_SCRIPT(M06_Floor1_Bedroom_Unit, "")
 		{
 			Commands->Innate_Enable(obj);
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Floor1_Bedroom, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -3793,7 +3793,7 @@ DECLARE_SCRIPT(M06_Enable_Floor1_Bedroom, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101363), M06_CUSTOM_ACTIVATE, 1, 0.0f);
-			
+
 		}
 	}
 
@@ -3803,24 +3803,24 @@ DECLARE_SCRIPT(M06_Enable_Floor1_Bedroom, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Floor2_Bedroom, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -3833,7 +3833,7 @@ DECLARE_SCRIPT(M06_Enable_Floor2_Bedroom, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101364), M06_CUSTOM_ACTIVATE, 1, 0.0f);
-			
+
 		}
 	}
 
@@ -3843,15 +3843,15 @@ DECLARE_SCRIPT(M06_Enable_Floor2_Bedroom, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Floor2_Bedroom_Unit, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3873,15 +3873,15 @@ DECLARE_SCRIPT(M06_Floor2_Bedroom_Unit, "")
 		{
 			Commands->Innate_Enable(obj);
 		}
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Floor2_Library_Unit, "")
 {
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3897,12 +3897,12 @@ DECLARE_SCRIPT(M06_Floor2_Library_Unit, "")
 
 	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
-		
+
 		if(type == M06_CUSTOM_ACTIVATE)
 		{
 			Commands->Innate_Enable(obj);
 		}
-		
+
 
 		if(type == M06_START_CONVERSATION)
 		{
@@ -3923,16 +3923,16 @@ DECLARE_SCRIPT(M06_Floor2_Library_Unit, "")
 
 DECLARE_SCRIPT(M06_Enable_Floor2_Library, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -3945,7 +3945,7 @@ DECLARE_SCRIPT(M06_Enable_Floor2_Library, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-			
+
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101365), M06_CUSTOM_ACTIVATE, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101366), M06_CUSTOM_ACTIVATE, 1, 0.0f);
 			// Send custom to activate conversation
@@ -3955,13 +3955,13 @@ DECLARE_SCRIPT(M06_Enable_Floor2_Library, "")
 	}
 
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Floor2_Conference_Unit, "")
 {
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4001,16 +4001,16 @@ DECLARE_SCRIPT(M06_Floor2_Conference_Unit, "")
 
 DECLARE_SCRIPT(M06_Enable_Floor2_Conference, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4034,7 +4034,7 @@ DECLARE_SCRIPT(M06_Enable_Floor2_Conference, "")
 	}
 
 
-	
+
 };
 
 // WarRoom Officer
@@ -4055,7 +4055,7 @@ DECLARE_SCRIPT(M06_WarRoom_Officer_DLS, "")
 		Commands->Set_Innate_Is_Stationary(obj, true);
 		has_keycard = false;
 	}
-	
+
 	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		ActionParamsStruct params;
@@ -4072,13 +4072,13 @@ DECLARE_SCRIPT(M06_WarRoom_Officer_DLS, "")
 		//	Commands->Join_Conversation(NULL, conv_id, false, true, true);
 		//	Commands->Join_Conversation(obj, conv_id, false, true, true);
 		//	Commands->Start_Conversation (conv_id, 300123);
-		//	Commands->Monitor_Conversation (obj, conv_id);	
+		//	Commands->Monitor_Conversation (obj, conv_id);
 		}
 		if(type == M06_WR_KCARD_ACQUIRED)
 		{
 			has_keycard = true;
 		}
-		
+
 	}
 
 	void Enemy_Seen(GameObject * obj, GameObject * /*enemy*/ ) override
@@ -4115,25 +4115,25 @@ DECLARE_SCRIPT(M06_WarRoom_Bodyguard_DLS, "")
 		{
 			has_keycard = true;
 		}
-		
+
 	}
-	
-	
-	
+
+
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Warroom_DoorGuard, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4148,12 +4148,12 @@ DECLARE_SCRIPT(M06_Enable_Warroom_DoorGuard, "")
 			already_entered = true;
 
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(101516), M06_CUSTOM_ACTIVATE, 1, 0.0f);
-			
+
 		}
 	}
 
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_WarRoom_DoorGuard, "")
@@ -4185,22 +4185,22 @@ DECLARE_SCRIPT(M06_WarRoom_DoorGuard, "")
 		{
 			has_keycard = true;
 		}
-		
+
 	}
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_WarRoom, "")
 {
-		
+
 	bool already_entered;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4233,21 +4233,21 @@ DECLARE_SCRIPT(M06_Enable_WarRoom, "")
 	}
 
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_KaneHead, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -4258,7 +4258,7 @@ DECLARE_SCRIPT(M06_KaneHead, "")
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Join_Conversation(Commands->Find_Object(101008), conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 300123);
-		Commands->Monitor_Conversation (obj, conv_id);	
+		Commands->Monitor_Conversation (obj, conv_id);
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -4272,7 +4272,7 @@ DECLARE_SCRIPT(M06_KaneHead, "")
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300124);
-			Commands->Monitor_Conversation (obj, conv_id);	
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
 		if((action_id == 300124 && reason == ACTION_COMPLETE_CONVERSATION_ENDED) || (action_id == 300124 && reason == ACTION_COMPLETE_CONVERSATION_INTERRUPTED))
 		{
@@ -4280,21 +4280,21 @@ DECLARE_SCRIPT(M06_KaneHead, "")
 		}
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M06_Enable_Officers_Mess, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4304,7 +4304,7 @@ DECLARE_SCRIPT(M06_Enable_Officers_Mess, "")
 
 	void Entered (GameObject * obj, GameObject * enterer) override
 	{
-		
+
 
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
@@ -4333,14 +4333,14 @@ DECLARE_SCRIPT(M06_Enable_Officers_Mess, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 };
 
 DECLARE_SCRIPT(M06_Officers_Mess_Unit, "")
 {
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4380,7 +4380,7 @@ DECLARE_SCRIPT(M06_Officers_Mess_Unit, "")
 
 DECLARE_SCRIPT(M06_Courtyard_Unit, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4421,16 +4421,16 @@ DECLARE_SCRIPT(M06_Courtyard_Unit, "")
 
 DECLARE_SCRIPT(M06_Enable_Courtyard, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4466,23 +4466,23 @@ DECLARE_SCRIPT(M06_Enable_Courtyard, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 };
 
 DECLARE_SCRIPT(M06_Enable_Bathroom, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4514,23 +4514,23 @@ DECLARE_SCRIPT(M06_Enable_Bathroom, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 };
 
 DECLARE_SCRIPT(M06_Enable_Barracks_Mess, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4565,14 +4565,14 @@ DECLARE_SCRIPT(M06_Enable_Barracks_Mess, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 };
 
 DECLARE_SCRIPT(M06_Barracks_Mess_Unit, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4650,16 +4650,16 @@ DECLARE_SCRIPT(M06_Bathroom_Unit, "")
 
 DECLARE_SCRIPT(M06_Enable_South_Barracks, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4692,14 +4692,14 @@ DECLARE_SCRIPT(M06_Enable_South_Barracks, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 };
 
 DECLARE_SCRIPT(M06_South_Barracks_Unit, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4711,7 +4711,7 @@ DECLARE_SCRIPT(M06_South_Barracks_Unit, "")
 	{
 		Commands->Innate_Disable(obj);
 		Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 2.0f);
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
@@ -4741,16 +4741,16 @@ DECLARE_SCRIPT(M06_South_Barracks_Unit, "")
 
 DECLARE_SCRIPT(M06_Enable_North_Barracks, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -4781,14 +4781,14 @@ DECLARE_SCRIPT(M06_Enable_North_Barracks, "")
 		{
 			already_entered = true;
 		}
-		
+
 	}
 
 };
 
 DECLARE_SCRIPT(M06_North_Barracks_Unit, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4802,7 +4802,7 @@ DECLARE_SCRIPT(M06_North_Barracks_Unit, "")
 		Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 2.0f);
 		ActionParamsStruct params;
 
-		
+
 	}
 
 	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
@@ -4811,7 +4811,7 @@ DECLARE_SCRIPT(M06_North_Barracks_Unit, "")
 		{
 			Commands->Innate_Enable(obj);
 		}
-		
+
 	}
 
 };
@@ -4836,7 +4836,7 @@ DECLARE_SCRIPT (M06_Courtyard_Apache, "")
 		ActionParamsStruct params;
 
 		params.Set_Basic( this, 100, COURTYARD );
-		params.Set_Movement( Vector3(0,0,0), 1.0f, 2.0f );		
+		params.Set_Movement( Vector3(0,0,0), 1.0f, 2.0f );
 		params.WaypathID = 101428;
 		params.WaypathSplined = true;
 		Commands->Action_Goto( obj, params );
@@ -4919,19 +4919,19 @@ DECLARE_SCRIPT(M06_Flyover_Controller, "")  // 100018
 				"X6A_Apache_07.txt",
 				"X6A_Apache_08.txt",
 				"X6A_Apache_09.txt",
-		
+
 
 				"M06_XG_EV2_1.txt",
-				
+
 			};
-			
+
 			int random = Get_Int_Random(0, 10);
 
 			while(random == last)
 			{
 				random = Get_Int_Random(0, 10);
 			}
-			
+
 			switch(random)
 			{
 			case 1:
@@ -4956,8 +4956,8 @@ DECLARE_SCRIPT(M06_Flyover_Controller, "")  // 100018
 				}
 				break;
 			}
-			
-			
+
+
 		}
 
 		if(type == M06_ACTIVATE_FLYOVERS)
@@ -4972,27 +4972,27 @@ DECLARE_SCRIPT(M06_Flyover_Controller, "")  // 100018
 				flyovers = false;
 			}
 		}
-		
+
 	}
 };
 
 DECLARE_SCRIPT(M06_Activate_Flyovers, "Active=0:int")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
 	{
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -5008,7 +5008,7 @@ DECLARE_SCRIPT(M06_Activate_Flyovers, "Active=0:int")
 DECLARE_SCRIPT(M06_Flyover, "Flyover_ID=0:int")
 {
 	int flyover_id;
-	
+
 	void Created( GameObject * obj ) override
 	{
 		Commands->Disable_Physical_Collisions ( obj );
@@ -5018,22 +5018,22 @@ DECLARE_SCRIPT(M06_Flyover, "Flyover_ID=0:int")
 	void Destroyed(GameObject * obj) override
 	{
 		Commands->Send_Custom_Event(obj, Commands->Find_Object(100018), M06_FLYOVER_COMPLETE, flyover_id, 0.0f);
-		
+
 	}
 };
 
 DECLARE_SCRIPT(M06_Drop_Thunder_Squad, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -5046,7 +5046,7 @@ DECLARE_SCRIPT(M06_Drop_Thunder_Squad, "")
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
 		{
 			already_entered = true;
-			
+
 			// This is Nod Helo Delta 14.  We are hot dropping a squad of Black Hand at your doorstep, be advised they are on the ground only long enough to re-equip, skip the standard check in.  Raveshaw's orders.\n
 			const char *conv_name = ("M06_CON057");
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
@@ -5054,7 +5054,7 @@ DECLARE_SCRIPT(M06_Drop_Thunder_Squad, "")
 			Commands->Join_Conversation(STAR, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, 300603);
 			Commands->Monitor_Conversation (obj, conv_id);
-			
+
 			GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Vector3(-55.305f, -87.235f, -0.767f));
 			Commands->Set_Facing(chinook_obj, 85.000f);
 			Commands->Attach_Script(chinook_obj, "Test_Cinematic", "X6I_TroopDrop1.txt");
@@ -5084,9 +5084,9 @@ DECLARE_SCRIPT(M06_Thunder_Unit, "")
 		if(action_id == WAYPATH && reason == ACTION_COMPLETE_NORMAL)
 		{
 			Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 2.0f);
-			
+
 		}
-		
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /*killer*/) override
@@ -5100,8 +5100,8 @@ DECLARE_SCRIPT(M06_Thunder_Unit, "")
 DECLARE_SCRIPT(M06_Servant_Behavior, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:int, Animation=S_A_HUMAN.H_A_A0F0:string")
 {
 	bool enemy_seen;
-	
-	enum{GO_FIRST_LOC, FACING_FIRST_LOC, ANIMATE_FIRST_LOC, GO_SECOND_LOC, FACING_SECOND_LOC, ANIMATE_SECOND_LOC, 
+
+	enum{GO_FIRST_LOC, FACING_FIRST_LOC, ANIMATE_FIRST_LOC, GO_SECOND_LOC, FACING_SECOND_LOC, ANIMATE_SECOND_LOC,
 		GO_THIRD_LOC, FACING_THIRD_LOC, ANIMATE_THIRD_LOC, HANDS_OVER_HEAD, START_OVER};
 
 	// Register variables to be Auto-Saved
@@ -5116,11 +5116,11 @@ DECLARE_SCRIPT(M06_Servant_Behavior, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:in
 		ActionParamsStruct params;
 
 		enemy_seen = false;
-		
+
 		params.Set_Basic (this, INNATE_PRIORITY_ENEMY_SEEN - 5, GO_FIRST_LOC);
 		params.Set_Movement (Commands->Find_Object(Get_Int_Parameter("Loc1_ID")), WALK, 1.5f);
 		Commands->Action_Goto (obj, params);
-		
+
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
@@ -5168,7 +5168,7 @@ DECLARE_SCRIPT(M06_Servant_Behavior, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:in
 			params.Set_Movement (Commands->Find_Object(Get_Int_Parameter("Loc3_ID")), WALK, 1.5f);
 			Commands->Action_Goto (obj, params);
 		}
-		
+
 		// Third Loc
 
 		if(action_id == GO_THIRD_LOC && reason == ACTION_COMPLETE_NORMAL)
@@ -5203,9 +5203,9 @@ DECLARE_SCRIPT(M06_Servant_Behavior, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:in
 	{
 		ActionParamsStruct params;
 
-		
 
-		
+
+
 
 		Commands->Create_Logical_Sound(obj, SOUND_TYPE_GUNSHOT, Commands->Get_Position(obj), 8.0f);
 		if(!enemy_seen)
@@ -5229,11 +5229,11 @@ DECLARE_SCRIPT(M06_Servant_Behavior, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:in
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
-		
+
 		if(timer_id == START_OVER)
 		{
 			enemy_seen = false;
-			
+
 			// Exit hands over head anim
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10);
 			params.Set_Animation( "H_A_HOST_L1C", false );
@@ -5243,26 +5243,26 @@ DECLARE_SCRIPT(M06_Servant_Behavior, "Loc1_ID=0:int, Loc2_ID=0:int, Loc3_ID=0:in
 			params.Set_Movement (Commands->Find_Object(Get_Int_Parameter("Loc1_ID")), WALK, 1.5f);
 			Commands->Action_Goto (obj, params);
 		}
-		
+
 	}
 
 };
 
 DECLARE_SCRIPT(M06_Move_Sydney, "Move_Loc=0:int")
 {
-		
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 //		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
 	{
-		
+
 	}
 
 	void Entered (GameObject * obj, GameObject * enterer) override
@@ -5285,7 +5285,7 @@ DECLARE_SCRIPT(M06_Collapse_Zone, "Zone_ID=0:int")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -5364,7 +5364,7 @@ DECLARE_SCRIPT(M06_Collapse_Zone, "Zone_ID=0:int")
 
 					GameObject * l6_floorfire02 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_floorfire02, "L6_floorfire02" );
-					Commands->Set_Animation(l6_floorfire02, "L6_floorfire02.L6_floorfire02", true, NULL, 0.0f, -1.0f, false);					
+					Commands->Set_Animation(l6_floorfire02, "L6_floorfire02.L6_floorfire02", true, NULL, 0.0f, -1.0f, false);
 
 					GameObject * l6_falldust04 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_falldust04, "L6_falldust04" );
@@ -5379,7 +5379,7 @@ DECLARE_SCRIPT(M06_Collapse_Zone, "Zone_ID=0:int")
 					GameObject * l6_falldust05 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_falldust05, "L6_falldust05" );
 
-					
+
 				}
 				break;
 			// Large mess hall with wooden beams supporting the ceiling
@@ -5409,7 +5409,7 @@ DECLARE_SCRIPT(M06_Collapse_Zone, "Zone_ID=0:int")
 					GameObject * l6_falldust07 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_falldust07, "L6_falldust07" );
 
-					
+
 				}
 				break;
 			// Staircase leading out of mess and into main artwork area
@@ -5449,7 +5449,7 @@ DECLARE_SCRIPT(M06_Collapse_Zone, "Zone_ID=0:int")
 
 					GameObject * l6_floorfire06 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_floorfire06, "L6_floorfire06" );
-					Commands->Set_Animation(l6_floorfire06, "L6_floorfire06.L6_floorfire06", true, NULL, 0.0f, -1.0f, false);					
+					Commands->Set_Animation(l6_floorfire06, "L6_floorfire06.L6_floorfire06", true, NULL, 0.0f, -1.0f, false);
 
 					GameObject * l6_falldust18 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_falldust18, "L6_falldust18" );
@@ -5472,12 +5472,12 @@ DECLARE_SCRIPT(M06_Collapse_Zone, "Zone_ID=0:int")
 
 					GameObject * l6_floorfire04 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_floorfire04, "L6_floorfire04" );
-					Commands->Set_Animation(l6_floorfire04, "L6_floorfire04.L6_floorfire04", true, NULL, 0.0f, -1.0f, false);					
+					Commands->Set_Animation(l6_floorfire04, "L6_floorfire04.L6_floorfire04", true, NULL, 0.0f, -1.0f, false);
 
 					GameObject * l6_floorfire05 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_floorfire05, "L6_floorfire05" );
 					Commands->Set_Animation(l6_floorfire05, "L6_floorfire04.L6_floorfire05", true, NULL, 0.0f, -1.0f, false);
-					
+
 					GameObject * l6_falldust15 = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f) );
 					Commands->Set_Model ( l6_falldust15, "L6_falldust15" );
 
@@ -5524,22 +5524,22 @@ DECLARE_SCRIPT(M06_Collapse_Zone, "Zone_ID=0:int")
 
 DECLARE_SCRIPT(M06_Activate_MidtroC, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
 	{
 		already_entered = true;
-		
+
 	}
 
 	void Entered (GameObject * /*obj*/, GameObject * enterer) override
@@ -5573,7 +5573,7 @@ DECLARE_SCRIPT(M06_Activate_MidtroC, "")
 			Vector3 sydney_loc = Commands->Get_Position (sydney);
 			havoc_loc.Z += 7.0f;
 			Commands->Set_Position (sydney, sydney_loc );
-		
+
 			GameObject * cinematic_obj = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 			Commands->Attach_Script(cinematic_obj, "Test_Cinematic", "X6C_MIDTRO.txt");
 
@@ -5607,7 +5607,7 @@ DECLARE_SCRIPT(M06_DataDisc_01_DLS, "")//
 {
 	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			// Reveal Mutant Templar
 			bool reveal = Commands->Reveal_Encyclopedia_Character(28);
@@ -5621,16 +5621,16 @@ DECLARE_SCRIPT(M06_DataDisc_01_DLS, "")//
 
 DECLARE_SCRIPT(M06_Enable_Alarm_Objective, "")
 {
-		
+
 	bool already_entered;
-	
-	
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
-		
+
 	}
 
 	void Created (GameObject * /*obj*/) override
@@ -5662,7 +5662,7 @@ DECLARE_SCRIPT(M06_Enable_Alarm_Objective, "")
 		}
 	}
 
-	
+
 };
 
 

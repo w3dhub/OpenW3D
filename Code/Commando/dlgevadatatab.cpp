@@ -113,8 +113,8 @@ EvaDataTabClass::Fill_Statistics_List (void)
 		Set_Dlg_Item_Int (IDC_WEAPONS_TEXT,				player->Get_Weapon_Fired_Count ());
 		Set_Dlg_Item_Int (IDC_POWERUPS_TEXT,			player->Get_Powerups_Collected ());
 		Set_Dlg_Item_Int (IDC_FRIENDLIES_TEXT,			player->Get_Allies_Killed ());
-		Set_Dlg_Item_Int (IDC_SHOTS_FIRED_TEXT,		player->Get_Shots_Fired ());		
-		Set_Dlg_Item_Int (IDC_ENEMIES_KILLED_TEXT,	player->Get_Enemies_Killed ());		
+		Set_Dlg_Item_Int (IDC_SHOTS_FIRED_TEXT,		player->Get_Shots_Fired ());
+		Set_Dlg_Item_Int (IDC_ENEMIES_KILLED_TEXT,	player->Get_Enemies_Killed ());
 		Set_Dlg_Item_Int (IDC_VEHICLE_KILLS_TEXT,		player->Get_Kills_From_Vehicle ());
 		Set_Dlg_Item_Int (IDC_VEHICLE_SQUISHES_TEXT,	player->Get_Squishes ());
 		Set_Dlg_Item_Int (IDC_VEHICLES_KILLED_TEXT,	player->Get_Vehiclies_Destroyed ());
@@ -175,8 +175,8 @@ EvaDataTabClass::Fill_Statistics_List (void)
 		Set_Dlg_Item_Text (IDC_GAME_TIME_MINS_TEXT, time_string);
 		time_string.Format (U_CHAR("%.02d"), seconds);
 		Set_Dlg_Item_Text (IDC_GAME_TIME_SECS_TEXT, time_string);
-		
-		
+
+
 		/*WideStringClass entry;
 
 		entry.Format (TRANSLATE (IDS_EVA_DATA_GAME_TIME),  / 60.0F);

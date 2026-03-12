@@ -123,13 +123,13 @@ BOOL
 StringLibraryDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
+
 	//
 	//	Loop over all the categories in the database
 	//
 	int count = TranslateDBClass::Get_Category_Count ();
 	for (int index = 0; index < count; index ++) {
-		
+
 		//
 		//	Lookup this category
 		//
@@ -145,7 +145,7 @@ StringLibraryDialogClass::OnInitDialog (void)
 	if (CategoryPages.Count () > 0) {
 		CategoryPages[0]->ShowWindow (SW_SHOW);
 	}
-	
+
 	Resize_Controls ();
 	Enable_Buttons ();
 	Update_Mode ();
@@ -166,7 +166,7 @@ StringLibraryDialogClass::OnSize
 	UINT	nType,
 	int	cx,
 	int	cy
-) 
+)
 {
 	CDialog::OnSize (nType, cx, cy);
 	if (IsInitialized) {
@@ -192,7 +192,7 @@ StringLibraryDialogClass::Resize_Controls (void)
 	CRect button_rect;
 	GetClientRect (&rect);
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDOK), &button_rect);
-	
+
 	//
 	//	Calculate some positions and widths
 	//
@@ -234,7 +234,7 @@ StringLibraryDialogClass::Resize_Controls (void)
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDOK), NULL, button_x_pos, button_y_pos,
 		0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOCOPYBITS | SWP_NOACTIVATE);
 	button_x_pos += button_width + SPACING_X;
-	
+
 	::SetWindowPos (::GetDlgItem (m_hWnd, IDCANCEL), NULL, button_x_pos, button_y_pos,
 		0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOCOPYBITS | SWP_NOACTIVATE);
 
@@ -249,7 +249,7 @@ StringLibraryDialogClass::Resize_Controls (void)
 /////////////////////////////////////////////////////////////////////////////
 void
 StringLibraryDialogClass::OnOK (void)
-{	
+{
 	//
 	//	Reset the database
 	//
@@ -308,7 +308,7 @@ StringLibraryDialogClass::Update_Page_Visibility (void)
 	//
 	int newtab = m_TabCtrl.GetCurSel ();
 	if (CurrentTab != newtab) {
-		
+
 		//
 		// Hide the old tab
 		//
@@ -370,13 +370,13 @@ StringLibraryDialogClass::OnAdd (void)
 {
 	StringsCategoryNameDialogClass dialog (this);
 	if (dialog.DoModal () == IDOK) {
-		
+
 		//
 		//	Create the new category
 		//
 		TDBCategoryClass *category = TranslateDBClass::Add_Category (dialog.Get_Name ());
-		if (category != NULL) {			
-			
+		if (category != NULL) {
+
 			//
 			//	Add some UI for this new category
 			//
@@ -386,10 +386,10 @@ StringLibraryDialogClass::OnAdd (void)
 			//	Ensure the new category page is the right size
 			//
 			Resize_Controls ();
-		}		
+		}
 	}
-	
-	return ;	
+
+	return ;
 }
 
 
@@ -408,7 +408,7 @@ StringLibraryDialogClass::OnRemove (void)
 	if (index > 0) {
 		TDBCategoryClass *category = TranslateDBClass::Get_Category (index);
 		if (category != NULL) {
-			
+
 			//
 			//	Prompt the user to ensure they really want to remove the category
 			//
@@ -428,12 +428,12 @@ StringLibraryDialogClass::OnRemove (void)
 				//	Remove the category from the database
 				//
 				TranslateDBClass::Remove_Category (index);
-				
+
 				//
 				//	Remove the category's tab
 				//
 				m_TabCtrl.DeleteItem (index);
-				
+
 				//
 				//	Free the UI object and remove it from our list
 				//
@@ -474,7 +474,7 @@ StringLibraryDialogClass::Add_Category_Page (TDBCategoryClass *category)
 	//	Create a page for this new category
 	//
 	StringsCategoryViewDialogClass *child_wnd = new StringsCategoryViewDialogClass;
-	child_wnd->Set_Category_ID (category->Get_ID ());	
+	child_wnd->Set_Category_ID (category->Get_ID ());
 	child_wnd->Set_Callback (this);
 	child_wnd->Create (this);
 	CategoryPages.Add (child_wnd);
@@ -532,7 +532,7 @@ StringLibraryDialogClass::Clear_Clipboard (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-StringLibraryDialogClass::OnRename (void) 
+StringLibraryDialogClass::OnRename (void)
 {
 	//
 	//	The user can't rename the first (default) category
@@ -548,7 +548,7 @@ StringLibraryDialogClass::OnRename (void)
 			StringsCategoryNameDialogClass dialog (this);
 			dialog.Set_Name (category->Get_Name ());
 			if (dialog.DoModal () == IDOK) {
-				
+
 				//
 				//	Rename the category and tab UI
 				//
@@ -562,7 +562,7 @@ StringLibraryDialogClass::OnRename (void)
 				tab_info.mask		= TCIF_TEXT;
 				tab_info.pszText	= (char *)new_name;
 				m_TabCtrl.SetItem (index, &tab_info);
-				
+
 				//
 				//	HACK - Not really sure why, but the current page disappears
 				// when the tab ctrl is renamed (and it has nothing to do with repainting).
@@ -572,8 +572,8 @@ StringLibraryDialogClass::OnRename (void)
 			}
 		}
 	}
-		
-	return ;	
+
+	return ;
 }
 
 
@@ -650,6 +650,6 @@ StringLibraryDialogClass::Update_Mode (void)
 			sub_menu->CheckMenuRadioItem (0, 1, Mode, MF_BYPOSITION);
 		}
 	}
-	
+
 	return ;
 }

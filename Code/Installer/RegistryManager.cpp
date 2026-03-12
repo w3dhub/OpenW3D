@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/RegistryManager.cpp  $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/25/02 5:09p                 $* 
- *                                                                                             * 
- *                    $Revision:: 11                    $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/RegistryManager.cpp  $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/25/02 5:09p                 $*
+ *                                                                                             *
+ *                    $Revision:: 11                    $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -49,44 +49,44 @@
 // Defines.
 #define SHELL_FOLDERS_KEY				  "Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders"
 #define PROGRAMS_PATH_KEY				  "Programs"
-#define DESKTOP_PATH_KEY				  "Desktop"		
+#define DESKTOP_PATH_KEY				  "Desktop"
 
-#define SOFTWARE_KEY						  "Software"	
+#define SOFTWARE_KEY						  "Software"
 #define WESTWOOD_KEY						  "Westwood"
 
 #define NAME_KEY							  "Name"
 #define DESKTOP_SHORTCUT_PATHNAME_KEY "Desktop"			// Pathname of shortcut file to launch game.
-#define FOLDER_PATH_KEY					  "FolderPath"					
+#define FOLDER_PATH_KEY					  "FolderPath"
 #define INSTALL_PATHNAME_KEY			  "InstallPath"	// NOTE: This is a misnomer. Actually refers to product pathname.
-#define LANGUAGE_KEY						  "Language"	
+#define LANGUAGE_KEY						  "Language"
 #define SERIAL_KEY						  "Serial"
 #define SKU_KEY							  "SKU"
 #define VERSION_KEY						  "Version"
-#define WOLSETTINGS_KEY					  "WOLSettings"	
-#define URL_KEY							  "URL"	
+#define WOLSETTINGS_KEY					  "WOLSettings"
+#define URL_KEY							  "URL"
 
 #define WOLAPI_KEY						  "WOLAPI"
 #define WOLREGISTER_KEY					  "Register"
 #define WOLBROWSER_KEY					  "WOLBrowser"
-#define USAGE_KEY							  "Usage"	
+#define USAGE_KEY							  "Usage"
 
 #define MICROSOFT_KEY					  "Microsoft"
 #define WINDOWS_KEY						  "Windows"
 #define CURRENT_VERSION_KEY			  "CurrentVersion"
 #define APP_PATHS_KEY					  "App Paths"
-#define PATH_KEY							  "Path"	
-#define UNINSTALL_KEY					  "Uninstall"	
+#define PATH_KEY							  "Path"
+#define UNINSTALL_KEY					  "Uninstall"
 #define DISPLAY_NAME_KEY				  "DisplayName"
-#define UNINSTALLER_FILENAME_KEY		  "UninstallString"	
-#define EXTENSIONS_KEY					  "Extensions"	
+#define UNINSTALLER_FILENAME_KEY		  "UninstallString"
+#define EXTENSIONS_KEY					  "Extensions"
 #define DOCUMENT_KEY						  "doc"
 
-#define WESTWOOD_CHAT_KEY				  "Wchat"	
+#define WESTWOOD_CHAT_KEY				  "Wchat"
 #define NICKNAME_INDEX_KEY				  "Nick%u"
 #define NICKNAME_KEY						  "Nick"
 #define PASSWORD_KEY						  "Pass"
 #define PREFERRED_LOGIN_KEY			  "AutoLogin"
-#define OPTIONS_KEY						  "Options"	
+#define OPTIONS_KEY						  "Options"
 
 // Internet Game Room flags.
 #define IGR_NO_AUTO_LOGIN  				0x01
@@ -110,7 +110,7 @@ RegistryManagerClass _RegistryManager;
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 RegistryManagerClass::RegistryManagerClass()
 {
@@ -130,7 +130,7 @@ RegistryManagerClass::RegistryManagerClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Folder_Path (WideStringClass &path)
 {
@@ -148,7 +148,7 @@ bool RegistryManagerClass::Get_Folder_Path (WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Desktop_Path (WideStringClass &path)
 {
@@ -166,7 +166,7 @@ bool RegistryManagerClass::Get_Desktop_Path (WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_Game_Pathname (WideStringClass &pathname)
 {
@@ -184,11 +184,11 @@ bool RegistryManagerClass::Get_Target_Game_Pathname (WideStringClass &pathname)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_Game_Path (WideStringClass &path)
 {
-	bool				 success = false;	
+	bool				 success = false;
 	WideStringClass pathname;
 
 	if (Get_Target_Game_Pathname (pathname)) {
@@ -213,7 +213,7 @@ bool RegistryManagerClass::Get_Target_Game_Path (WideStringClass &path)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_Game_Folder (WideStringClass &folder)
 {
@@ -225,9 +225,9 @@ bool RegistryManagerClass::Get_Target_Game_Folder (WideStringClass &folder)
 		Get_Folder_Path (folderpath);
 		suffixroot = Extract_Suffix_Root (path, folderpath);
 		if (suffixroot != NULL) {
-			folder = path;	
+			folder = path;
 			success = true;
-		}	
+		}
 	}
 
 	return (success);
@@ -244,7 +244,7 @@ bool RegistryManagerClass::Get_Target_Game_Folder (WideStringClass &folder)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_WOL_Pathname (WOLComponentEnum wolcomponent, WideStringClass &pathname)
 {
@@ -262,7 +262,7 @@ bool RegistryManagerClass::Get_Target_WOL_Pathname (WOLComponentEnum wolcomponen
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_WOL_Path (WOLComponentEnum wolcomponent, WideStringClass &path)
 {
@@ -276,7 +276,7 @@ bool RegistryManagerClass::Get_Target_WOL_Path (WOLComponentEnum wolcomponent, W
 		Remove_Trailing_Name (path);
 		success = true;
 	}
-	
+
 	return (success);
 }
 
@@ -291,7 +291,7 @@ bool RegistryManagerClass::Get_Target_WOL_Path (WOLComponentEnum wolcomponent, W
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_WOL_Folder (WOLComponentEnum wolcomponent, WideStringClass &folder)
 {
@@ -303,9 +303,9 @@ bool RegistryManagerClass::Get_Target_WOL_Folder (WOLComponentEnum wolcomponent,
 		Get_Folder_Path (folderpath);
 		suffixroot = Extract_Suffix_Root (path, folderpath);
 		if (suffixroot != NULL) {
-			folder = path;	
+			folder = path;
 			success = true;
-		}	
+		}
 	}
 
 	return (success);
@@ -322,7 +322,7 @@ bool RegistryManagerClass::Get_Target_WOL_Folder (WOLComponentEnum wolcomponent,
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Target_WOL_Version (WOLComponentEnum wolcomponent, DWORD &version)
 {
@@ -340,11 +340,11 @@ bool RegistryManagerClass::Get_Target_WOL_Version (WOLComponentEnum wolcomponent
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Use_IGR_Settings (bool &useigrsettings)
 {
-	bool	success;	
+	bool	success;
 	DWORD igrsettings;
 
 	success = Get_Value (HKEY_CURRENT_USER, &igrsettings, SOFTWARE_KEY, WESTWOOD_KEY, WOLAPI_KEY, OPTIONS_KEY, NULL);
@@ -365,7 +365,7 @@ bool RegistryManagerClass::Use_IGR_Settings (bool &useigrsettings)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void RegistryManagerClass::Register_Game (const WideStringClass &name,
 														const WideStringClass &installpathname,
@@ -376,7 +376,7 @@ void RegistryManagerClass::Register_Game (const WideStringClass &name,
 														DWORD	sku,
 														DWORD version)
 {
-	DWORD				 maskedsku;			
+	DWORD				 maskedsku;
 	RxStringClass	 gameproductkey (IDS_GAME_PRODUCT_KEY);
 	WideStringClass wideserialnumber (serialnumber);
 	WideStringClass s, url;
@@ -442,9 +442,9 @@ void RegistryManagerClass::Register_Game (const WideStringClass &name,
 	// Register the uninstall program with the OS.
 	Set_String (HKEY_CURRENT_USER, TxWideStringClass (IDS_VERBOSE_GAME_PRODUCT_NAME), SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), DISPLAY_NAME_KEY, NULL);
 	s += L"\\";
-	s += RxWideStringClass (IDS_GAME_UNINSTALL_FILENAME); 
+	s += RxWideStringClass (IDS_GAME_UNINSTALL_FILENAME);
 	Set_String (HKEY_CURRENT_USER, s, SOFTWARE_KEY, MICROSOFT_KEY, WINDOWS_KEY, CURRENT_VERSION_KEY, UNINSTALL_KEY, RxStringClass (IDS_GAME_PRODUCT_KEY), UNINSTALLER_FILENAME_KEY, NULL);
-}	
+}
 
 
 /***********************************************************************************************
@@ -457,7 +457,7 @@ void RegistryManagerClass::Register_Game (const WideStringClass &name,
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void RegistryManagerClass::Register_WOLAPI (const WideStringClass &folderpath,
 	  													  const WideStringClass &installpathname,
@@ -499,7 +499,7 @@ void RegistryManagerClass::Register_WOLAPI (const WideStringClass &folderpath,
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void RegistryManagerClass::Register_WOLRegister (const WideStringClass &folderpath,
 	  															 const WideStringClass &installpathname,
@@ -525,7 +525,7 @@ void RegistryManagerClass::Register_WOLRegister (const WideStringClass &folderpa
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void RegistryManagerClass::Register_WOLBrowser (const WideStringClass &installpathname,
 	  															const WideStringClass &name,
@@ -547,7 +547,7 @@ void RegistryManagerClass::Register_WOLBrowser (const WideStringClass &installpa
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void RegistryManagerClass::Update_WOLAPI()
 {
@@ -564,9 +564,9 @@ void RegistryManagerClass::Update_WOLAPI()
 		// If a SKU and a serial number exist...
 		if (Get_Value (HKEY_CURRENT_USER, &sku, SOFTWARE_KEY, WESTWOOD_KEY, keyname, SKU_KEY, NULL)) {
 			if (Get_String (HKEY_CURRENT_USER, &serialnumber, SOFTWARE_KEY, WESTWOOD_KEY, keyname, SERIAL_KEY, NULL)) {
-				
+
 				WideStringClass widekeyname;
-				char				 skuname [MAX_NUMBER_STRING_LENGTH];	
+				char				 skuname [MAX_NUMBER_STRING_LENGTH];
 
 				// Create a key for the key name under the WOLAPI key.
 				ltoa (sku, skuname, 10);
@@ -593,7 +593,7 @@ void RegistryManagerClass::Update_WOLAPI()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_WOL_Account (unsigned index, WideStringClass &name, WideStringClass &password)
 {
@@ -636,7 +636,7 @@ bool RegistryManagerClass::Get_WOL_Account (unsigned index, WideStringClass &nam
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void RegistryManagerClass::Set_Preferred_WOL_Account (const WideStringClass &accountname)
 {
@@ -654,7 +654,7 @@ void RegistryManagerClass::Set_Preferred_WOL_Account (const WideStringClass &acc
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Document_Application_Pathname (WideStringClass &pathname)
 {
@@ -672,13 +672,13 @@ bool RegistryManagerClass::Get_Document_Application_Pathname (WideStringClass &p
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_String (HKEY rootkey, WideStringClass *string, ...)
 {
 	bool			 success = false;
 	va_list		 marker;
-	char			*keyname, *nextkeyname;	
+	char			*keyname, *nextkeyname;
 	StringClass  keystring;
 	HKEY			 key;
 
@@ -704,7 +704,7 @@ bool RegistryManagerClass::Get_String (HKEY rootkey, WideStringClass *string, ..
 
 			if (RegQueryValueEx (key, keyname, NULL, &type, NULL, &size) == ERROR_SUCCESS) {
 				if (type == REG_SZ) {
-					
+
 					StringClass multibytestring;
 
 					if (RegQueryValueEx (key, keyname, NULL, &type, (BYTE*) multibytestring.Get_Buffer (size), &size) == ERROR_SUCCESS) {
@@ -733,13 +733,13 @@ bool RegistryManagerClass::Get_String (HKEY rootkey, WideStringClass *string, ..
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool RegistryManagerClass::Get_Value (HKEY rootkey, DWORD *value, ...)
 {
 	bool			 success = false;
 	va_list		 marker;
-	char			*keyname, *nextkeyname;	
+	char			*keyname, *nextkeyname;
 	StringClass  keystring;
 	HKEY			 key;
 
@@ -792,7 +792,7 @@ bool RegistryManagerClass::Get_Value (HKEY rootkey, DWORD *value, ...)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool __cdecl RegistryManagerClass::Set_String (HKEY rootkey, const wchar_t *string, ...)
 {
@@ -800,7 +800,7 @@ bool __cdecl RegistryManagerClass::Set_String (HKEY rootkey, const wchar_t *stri
 	DWORD	   disposition;
 	bool	   success = false;
 	va_list  marker;
-	char	  *keyname, *nextkeyname;	
+	char	  *keyname, *nextkeyname;
 
 	va_start (marker, string);
 
@@ -808,20 +808,20 @@ bool __cdecl RegistryManagerClass::Set_String (HKEY rootkey, const wchar_t *stri
 	key = rootkey;
   	keyname = va_arg (marker, char*);
 	if (keyname != NULL) {
-	
+
 		nextkeyname = va_arg (marker, char*);
 		while (true) {
 
 			if (nextkeyname == NULL) {
-				
+
 				StringClass multibytestring (string);
-				
+
 				if (RegSetValueEx (key, keyname, 0, REG_SZ, (BYTE*) multibytestring.Peek_Buffer(), multibytestring.Get_Length() + 1) == ERROR_SUCCESS) {
 					success = true;
 				}
 				break;
 			}
-		
+
 			if (RegCreateKeyEx (key, keyname, 0, "", REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &key, &disposition) != ERROR_SUCCESS) {
 				break;
 			}
@@ -846,7 +846,7 @@ bool __cdecl RegistryManagerClass::Set_String (HKEY rootkey, const wchar_t *stri
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool __cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
 {
@@ -854,7 +854,7 @@ bool __cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
 	DWORD	   disposition;
 	bool	   success = false;
 	va_list  marker;
-	char	  *keyname, *nextkeyname;	
+	char	  *keyname, *nextkeyname;
 
 	va_start (marker, value);
 
@@ -862,7 +862,7 @@ bool __cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
 	key = rootkey;
   	keyname = va_arg (marker, char*);
 	if (keyname != NULL) {
-	
+
 		nextkeyname = va_arg (marker, char*);
 		while (true) {
 
@@ -872,7 +872,7 @@ bool __cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
 				}
 				break;
 			}
-		
+
 			if (RegCreateKeyEx (key, keyname, 0, "", REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &key, &disposition) != ERROR_SUCCESS) {
 				break;
 			}
@@ -897,7 +897,7 @@ bool __cdecl RegistryManagerClass::Set_Value (HKEY rootkey, DWORD value, ...)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool __cdecl RegistryManagerClass::Get_Key (HKEY rootkey, DWORD keyindex, StringClass *keyname, ...)
 {

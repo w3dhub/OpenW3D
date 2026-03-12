@@ -82,7 +82,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 public:
-	
+
 	///////////////////////////////////////////////////////////////////
 	//	Public methods
 	///////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ public:
 	bool					Is_Read_Only (void) const	{ return m_IsReadOnly; }
 	void					Set_Read_Only (bool onoff) { m_IsReadOnly = onoff; }
 
-	void					Show_File_Only (bool onoff)		{ m_ShowFileOnly = onoff; }	
+	void					Show_File_Only (bool onoff)		{ m_ShowFileOnly = onoff; }
 	bool					Were_Files_Changed (void) const	{ return m_WereFilesChanged; }
 
 	void					Set_Asset_Tree_Only (bool onoff)				{ m_AssetTreeOnly = onoff; }

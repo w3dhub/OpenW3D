@@ -123,9 +123,9 @@ void DX8TextureManagerClass::Remove(TextureClass *tex)
 
 	while (!it.Is_Done())
 	{
-		DX8TextureTrackerClass *track=it.Peek_Obj();		
+		DX8TextureTrackerClass *track=it.Peek_Obj();
 		if (track->Texture==tex)
-		{			
+		{
 			it.Remove_Current_Object();
 			delete track;
 			break;
@@ -156,7 +156,7 @@ void DX8TextureManagerClass::Release_Textures()
 
 	while (!it.Is_Done())
 	{
-		DX8TextureTrackerClass *track=it.Peek_Obj();		
+		DX8TextureTrackerClass *track=it.Peek_Obj();
 		WWASSERT(track->Texture->D3DTexture);
 		track->Texture->D3DTexture->Release();
 		track->Texture->D3DTexture=NULL;

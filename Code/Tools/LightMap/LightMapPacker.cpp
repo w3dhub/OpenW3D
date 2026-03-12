@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 7/09/01 4:30p       $* 
- *                                                                                             * 
- *                    $Revision:: 50                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 7/09/01 4:30p       $*
+ *                                                                                             *
+ *                    $Revision:: 50                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -90,7 +90,7 @@ char LightmapPacker::_Statistics [LightmapPacker::STATISTICS_COUNT][LightmapPack
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightmapPacker::LightmapPacker()
 {
@@ -132,7 +132,7 @@ LightmapPacker::LightmapPacker()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightmapPacker::Finish()
 {
@@ -154,7 +154,7 @@ LightmapPacker::Finish()
 		errormessage = PagePtrs [pageindex]->Save (pagepathname);
 		if (errormessage != NULL) throw (errormessage);
 	}
-	
+
 	_BasePageIndex += PagePtrs.Count();
 	Collate_Statistics();
 }
@@ -171,7 +171,7 @@ LightmapPacker::Finish()
  *				 destructor	can itself be called during the exception as part of its 'clean-up'.	  *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 LightmapPacker::~LightmapPacker()
 {
@@ -194,7 +194,7 @@ LightmapPacker::~LightmapPacker()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/28/00    IML : Created.                                                                * 
+ *   07/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightmapPacker::Submit (PackingTriangle *principaltriangleptr, const DynamicVectorClass <Triangle> &adjtriangles)
 {
@@ -228,7 +228,7 @@ void LightmapPacker::Submit (PackingTriangle *principaltriangleptr, const Dynami
 		// NOTE: Use a 'placeholder group' ID to indicate to the triangle packer that it should not be merged with non-placeholder triangles.
 		trianglepackerptr = new TrianglePacker (principaltriangleptr, noadjtriangles, placeholdergroupid, EDGE_BLEND_THICKNESS, SampleRate, FillColor);
 		ASSERT (trianglepackerptr != NULL);
-	
+
 	} else {
 
 		// Create a triangle packer from the principal and adjacent triangles.
@@ -258,7 +258,7 @@ void LightmapPacker::Submit (PackingTriangle *principaltriangleptr, const Dynami
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/28/00    IML : Created.                                                                * 
+ *   07/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrianglePacker *LightmapPacker::Merge (TrianglePacker *trianglepackerptr)
 {
@@ -269,22 +269,22 @@ TrianglePacker *LightmapPacker::Merge (TrianglePacker *trianglepackerptr)
 	for (int t = 0; t < TrianglePackerPtrs.Count(); t++) {
 
 		TrianglePacker *mergedpackerptr;
-		
+
 		mergedpackerptr = TrianglePackerPtrs [t]->Merge (*trianglepackerptr);
 		if (mergedpackerptr != NULL) {
-			
+
 			// Does the merged packer fit within the maximum page size?
 			if ((mergedpackerptr->Width() <= PAGE_WIDTH) && (mergedpackerptr->Height() <= PAGE_HEIGHT)) {
-	
+
 				unsigned mergedarea, unmergedarea;
-				
+
 				// Is the merged packer smaller in area than the sum of the two unmerged packers?
 				mergedarea	 = mergedpackerptr->Width() * mergedpackerptr->Height();
 				unmergedarea = (trianglepackerptr->Width() * trianglepackerptr->Height()) + (TrianglePackerPtrs [t]->Width() * TrianglePackerPtrs [t]->Height());
 				if (mergedarea <= unmergedarea) {
 
 					bool success;
-	
+
 					// Replace the two unmerged packers with the merged packer.
 					delete trianglepackerptr;
 					delete TrianglePackerPtrs [t];
@@ -296,7 +296,7 @@ TrianglePacker *LightmapPacker::Merge (TrianglePacker *trianglepackerptr)
 			}
 		}
 	}
-	
+
 	return (resultantpackerptr);
 }
 
@@ -311,27 +311,27 @@ TrianglePacker *LightmapPacker::Merge (TrianglePacker *trianglepackerptr)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   05/18/00    IML : Created.                                                                * 
+ *   05/18/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightmapPacker::Pack (ProceduralTexture *proceduraltexture)
 {
 	TargaLoader	targaloader (SampleRate, FillColor);
-	
+
 	// For each triangle packer...
 	for (int t = 0; t < TrianglePackerPtrs.Count(); t++) {
 
 		const unsigned rescalethreshold = 16; // When snapping to even dimension, 'round down' if above this size -
-														  // otherwise 'round up'.			
+														  // otherwise 'round up'.
 
 		TrueColorTarga	  rasterizedtarga;
-		unsigned			  unscaledwidth, unscaledheight;								 
-		unsigned			  clampedwidth, clampedheight;	
+		unsigned			  unscaledwidth, unscaledheight;
+		unsigned			  clampedwidth, clampedheight;
 		unsigned			  padwidth, padheight;
 
 		// Rasterize the triangle packer.
 		TrianglePackerPtrs [t]->Rasterize (targaloader, proceduraltexture, rasterizedtarga);
 
-		// Scale targa according to user-specified filter error. 
+		// Scale targa according to user-specified filter error.
 		unscaledwidth  = rasterizedtarga.Width();
 		unscaledheight = rasterizedtarga.Height();
 		rasterizedtarga.Scale (FilterError);
@@ -342,7 +342,7 @@ void LightmapPacker::Pack (ProceduralTexture *proceduraltexture)
 		clampedwidth  = MIN (PAGE_WIDTH  - (EDGE_BLEND_THICKNESS * 2), rasterizedtarga.Width());
 		clampedheight = MIN (PAGE_HEIGHT - (EDGE_BLEND_THICKNESS * 2), rasterizedtarga.Height());
 		if ((clampedwidth < rasterizedtarga.Width()) || (clampedheight < rasterizedtarga.Height())) {
-			
+
 			// Statistics: update no. of oversize targas.
 			OversizeCount++;
 		}
@@ -373,7 +373,7 @@ void LightmapPacker::Pack (ProceduralTexture *proceduraltexture)
 
 		// Pack the targa into a lightmap page.
 		Pack (rasterizedtarga, TrianglePackerPtrs [t]->Principal_Triangles());
-		
+
 		// Statistics: add targa's area before and after scaling.
 		// NOTE: Although this is not desirable, it is possible for scaling to increase the targa's area.
 		UnscaledTexelCount += unscaledwidth * unscaledheight;
@@ -401,7 +401,7 @@ void LightmapPacker::Pack (ProceduralTexture *proceduraltexture)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/30/00    IML : Created.                                                                * 
+ *   07/30/00    IML : Created.                                                                *
  *=============================================================================================*/
 TargaLoader::TargaLoader (float samplerate, W3dRGBStruct fillcolor)
 {
@@ -427,7 +427,7 @@ TargaLoader::TargaLoader (float samplerate, W3dRGBStruct fillcolor)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/30/00    IML : Created.                                                                * 
+ *   07/30/00    IML : Created.                                                                *
  *=============================================================================================*/
 TargaLoader::~TargaLoader()
 {
@@ -435,7 +435,7 @@ TargaLoader::~TargaLoader()
 	for (int c = 0; c < CleanupList.Count(); c++) {
 		ASSERT (CleanupList [c] != NULL);
 		delete CleanupList [c];
-	}	
+	}
 }
 
 
@@ -449,15 +449,15 @@ TargaLoader::~TargaLoader()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/08/00    IML : Created.                                                                * 
+ *   06/08/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrueColorTarga *TargaLoader::Load (const Triangle &triangle)
 {
 	TrueColorTarga *targaptr;
-	unsigned			 index; 		
+	unsigned			 index;
 
-	index = Index (triangle.TextureID); 
-	
+	index = Index (triangle.TextureID);
+
 	// Is there a cache miss?
 	if ((Cache [index].Ptr == NULL) || (Cache [index].ID != triangle.TextureID)) {
 
@@ -484,12 +484,12 @@ TrueColorTarga *TargaLoader::Load (const Triangle &triangle)
 		// Read all remaining targa asset files and add them to the first.
 		pathnamenodeptr = pathnamenodeptr->Next;
 		while (pathnamenodeptr != NULL) {
-				
+
 			TrueColorTarga additivetarga;
 
 			errormessage = additivetarga.Load (pathnamenodeptr->TextureName);
 			if (errormessage != NULL) throw (errormessage);
-			
+
 			// Replace fill texel with padding.
 			additivetarga.Fill (FillColor);
 
@@ -530,7 +530,7 @@ TrueColorTarga *TargaLoader::Load (const Triangle &triangle)
 		Cache [index].Ptr = targaptr;
 
 	} else {
-		
+
 		// Cache hit.
 		targaptr = Cache [index].Ptr;
 	}
@@ -549,7 +549,7 @@ TrueColorTarga *TargaLoader::Load (const Triangle &triangle)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   05/19/00    IML : Created.                                                                * 
+ *   05/19/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightmapPacker::Pack (TrueColorTarga &targa, DynamicVectorClass <PackingTriangle*> &triangleptrs)
 {
@@ -567,7 +567,7 @@ void LightmapPacker::Pack (TrueColorTarga &targa, DynamicVectorClass <PackingTri
 	if (!packed) {
 
 		const unsigned packingwindowsize = PACKING_BYTES / ((PAGE_WIDTH * PAGE_HEIGHT * PageBitDepth) / CHAR_BIT);
-		
+
 		int firstpage, lastpage;
 
 		// Iterate over all existing pages (except the current page) that are in the packing window.
@@ -585,7 +585,7 @@ void LightmapPacker::Pack (TrueColorTarga &targa, DynamicVectorClass <PackingTri
 
 		// If still not packed then create a new page.
 		if (!packed) {
-				
+
 			Page *pageptr;
 
 			pageptr = new Page (PageBitDepth, FillColor);
@@ -622,7 +622,7 @@ void LightmapPacker::Pack (TrueColorTarga &targa, DynamicVectorClass <PackingTri
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 const char *LightmapPacker::Lightmap_Pathname (unsigned pageindex)
 {
@@ -649,18 +649,18 @@ const char *LightmapPacker::Lightmap_Pathname (unsigned pageindex)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   05/15/00    IML : Created.                                                                * 
+ *   05/15/00    IML : Created.                                                                *
  *=============================================================================================*/
 const char *LightmapPacker::Asset_Directory()
 {
 	static bool _called = false;
-	static char _assetdirectory [_MAX_PATH]; 
+	static char _assetdirectory [_MAX_PATH];
 
 	// Optimization: only required to build asset directory once because it is invariant over
 	// lifetime of application.
 	if (!_called) {
 		strcpy (_assetdirectory, TEMPORARY_DIRECTORY_NAME);
-		strcat (_assetdirectory, theApp.Instance_Name()); 
+		strcat (_assetdirectory, theApp.Instance_Name());
 		strcat (_assetdirectory, "\\");
 		_called = true;
 	}
@@ -678,7 +678,7 @@ const char *LightmapPacker::Asset_Directory()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 const char *LightmapPacker::Asset_Directory (const char *filename)
 {
@@ -700,7 +700,7 @@ const char *LightmapPacker::Asset_Directory (const char *filename)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightmapPacker::Delete_Assets()
 {
@@ -721,10 +721,10 @@ void LightmapPacker::Delete_Assets()
 			strcat (pathname, Asset_Directory());
 			strcat (pathname, fileinfo.name);
 			DeleteFile (pathname);
-		
+
 		} while (_findnext (handle, &fileinfo) == 0);
 	}
-	
+
 	// Clean-up.
 	_findclose (handle);
 
@@ -745,7 +745,7 @@ void LightmapPacker::Delete_Assets()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightmapPacker::Copy_Assets (const char *pathname)
 {
@@ -757,7 +757,7 @@ void LightmapPacker::Copy_Assets (const char *pathname)
 	char			savepathname [_MAX_PATH];
 	int			handle;
 	_finddata_t	fileinfo;
-	
+
 	// Attempt to copy every file in the load directory to the save directory.
 	strcpy (loadpathname, theApp.Working_Path());
 	strcat (loadpathname, Asset_Directory());
@@ -780,7 +780,7 @@ void LightmapPacker::Copy_Assets (const char *pathname)
 			strcpy (savepathname, savepath);
 			strcat (savepathname, fileinfo.name);
 		  	CopyFile (loadpathname, savepathname, false);
-		
+
 		} while (_findnext (handle, &fileinfo) == 0);
 	}
 
@@ -799,7 +799,7 @@ void LightmapPacker::Copy_Assets (const char *pathname)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightmapPacker::Reset_Statistics()
 {
@@ -809,7 +809,7 @@ void LightmapPacker::Reset_Statistics()
 	BlendedFaceCount		= 0;
 	EdgeBlendAreaSum		= 0.0;
 	UnscaledTexelCount	= 0;
-	ScaledTexelCount		= 0;	
+	ScaledTexelCount		= 0;
 	ReplicaEfficiencySum	= 0.0;
 	PackingEfficiencySum	= 0.0;
 	TextureSwapCount		= 0;
@@ -828,7 +828,7 @@ void LightmapPacker::Reset_Statistics()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightmapPacker::Update_Statistics (const Page &page)
 {
@@ -847,7 +847,7 @@ void LightmapPacker::Update_Statistics (const Page &page)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/31/00    IML : Created.                                                                * 
+ *   07/31/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightmapPacker::Update_Statistics (const TrianglePacker &trianglepacker)
 {
@@ -867,13 +867,13 @@ void LightmapPacker::Update_Statistics (const TrianglePacker &trianglepacker)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void LightmapPacker::Collate_Statistics()
 {
 	unsigned	pagecount;
 	float		adjacentfaceblendfraction, edgeblendefficiency, scalingefficiency, packingefficiency, cullingefficiency, swappingefficiency;
-	
+
 	// Build statistics string.
 	adjacentfaceblendfraction = (AdjacentFaceCount > 0) ? ((float) BlendedFaceCount) / ((float) AdjacentFaceCount) : 0.0f;
 	edgeblendefficiency		  = (UnscaledTexelCount > 0) ? 1.0f - (EdgeBlendAreaSum / UnscaledTexelCount) : 0.0f;
@@ -906,12 +906,12 @@ void LightmapPacker::Collate_Statistics()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/28/00    IML : Created.                                                                * 
+ *   07/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrianglePacker::TrianglePacker (const PackingTriangle *principaltriangleptr, const DynamicVectorClass <Triangle> &adjtriangles, unsigned groupid, unsigned edgeblendthickness, float samplerate, W3dRGBStruct fillcolor)
 {
 	Projection			 = Get_Projection (principaltriangleptr->Normal);
-	GroupID				 = groupid;	
+	GroupID				 = groupid;
 	EdgeBlendThickness = edgeblendthickness;
 	SampleRate			 = samplerate;
 	FillColor			 = fillcolor;
@@ -928,7 +928,7 @@ TrianglePacker::TrianglePacker (const PackingTriangle *principaltriangleptr, con
 				AdjacentTriangles [ADJACENT_PROJECTION_VALID].Add (adjtriangles [a]);
 			} else {
 				AdjacentTriangles [ADJACENT_PROJECTION_NONE].Add (adjtriangles [a]);
-			}	
+			}
 		}
 	}
 
@@ -947,14 +947,14 @@ TrianglePacker::TrianglePacker (const PackingTriangle *principaltriangleptr, con
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/28/00    IML : Created.                                                                * 
+ *   07/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrianglePacker::TrianglePacker (const TrianglePacker &trianglepacker)
 {
 	int t, a;
 
 	Projection			 = trianglepacker.Projection;
-	GroupID				 = trianglepacker.GroupID;	
+	GroupID				 = trianglepacker.GroupID;
 	EdgeBlendThickness = trianglepacker.EdgeBlendThickness;
 	SampleRate			 = trianglepacker.SampleRate;
 	FillColor			 = trianglepacker.FillColor;
@@ -973,7 +973,7 @@ TrianglePacker::TrianglePacker (const TrianglePacker &trianglepacker)
 		}
 	}
 }
-	
+
 
 /***********************************************************************************************
  * TrianglePacker::Reset --																						  *
@@ -985,7 +985,7 @@ TrianglePacker::TrianglePacker (const TrianglePacker &trianglepacker)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/28/00    IML : Created.                                                                * 
+ *   07/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 void TrianglePacker::Set_Bounds()
 {
@@ -997,7 +997,7 @@ void TrianglePacker::Set_Bounds()
 	// Calculate the smallest bounding rectangle that will contain the projected principal triangles.
 	for (int t = 0; t < PrincipalTriangles.Count(); t++) {
 		for (int v = 0; v < Triangle::VERTICES_COUNT; v++) {
-			
+
 			Vector2 uv;
 
 			uv = Project (PrincipalTriangles [t]->Vertices [v].Point);
@@ -1024,7 +1024,7 @@ void TrianglePacker::Set_Bounds()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/28/00    IML : Created.                                                                * 
+ *   07/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 float TrianglePacker::Edge_Blend_Area() const
 {
@@ -1058,14 +1058,14 @@ float TrianglePacker::Edge_Blend_Area() const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   07/28/00    IML : Created.                                                                * 
+ *   07/28/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrianglePacker *TrianglePacker::Merge (const TrianglePacker &trianglepacker)
 {
 	TrianglePacker *mergedpackerptr;
 
 	mergedpackerptr = NULL;
-	
+
 	// Do both triangle packers have the same projection, group ID, edge blend thickness, sample rate, and fill color?
 	// If not, then they are not compatible packers and cannot be merged.
 	if ((Projection == trianglepacker.Projection) &&
@@ -1105,7 +1105,7 @@ TrianglePacker *TrianglePacker::Merge (const TrianglePacker &trianglepacker)
 			// Merge the adjacent triangles (do not allow duplicates).
 			for (int a = 0; a < ADJACENT_PROJECTION_COUNT; a++) {
 				for (int t = 0; t < trianglepacker.AdjacentTriangles [a].Count(); t++) {
-				
+
 					const Triangle *triangleptr;
 					bool				 foundadjacent;
 
@@ -1117,7 +1117,7 @@ TrianglePacker *TrianglePacker::Merge (const TrianglePacker &trianglepacker)
 							break;
 						}
 					}
-				
+
 					if (!foundadjacent) {
 						mergedpackerptr->AdjacentTriangles [a].Add ((trianglepacker.AdjacentTriangles [a]) [t]);
 					}
@@ -1128,7 +1128,7 @@ TrianglePacker *TrianglePacker::Merge (const TrianglePacker &trianglepacker)
 			mergedpackerptr->Set_Bounds();
 		}
 	}
-	
+
 	return (mergedpackerptr);
 }
 
@@ -1143,7 +1143,7 @@ TrianglePacker *TrianglePacker::Merge (const TrianglePacker &trianglepacker)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/19/00    IML : Created.                                                                * 
+ *   06/19/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrianglePacker::ProjectionEnum TrianglePacker::Get_Projection (const Vector3 &normal)
 {
@@ -1195,7 +1195,7 @@ TrianglePacker::ProjectionEnum TrianglePacker::Get_Projection (const Vector3 &no
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/19/00    IML : Created.                                                                * 
+ *   06/19/00    IML : Created.                                                                *
  *=============================================================================================*/
 bool TrianglePacker::Can_Project (const Vector3 &normal)
 {
@@ -1208,8 +1208,8 @@ bool TrianglePacker::Can_Project (const Vector3 &normal)
 	 {-1.0f,  0.0f,  0.0f}
 	};
 
-	const float maxprojectionangle = (80.0f * WWMATH_PI) / 180.0f;	// Max. allowed angle between triangle and projection plane. 
-	
+	const float maxprojectionangle = (80.0f * WWMATH_PI) / 180.0f;	// Max. allowed angle between triangle and projection plane.
+
 	Vector3 projectionnormal;
 	float	  angle;
 
@@ -1229,7 +1229,7 @@ bool TrianglePacker::Can_Project (const Vector3 &normal)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/19/00    IML : Created.                                                                * 
+ *   06/19/00    IML : Created.                                                                *
  *=============================================================================================*/
 Vector2 TrianglePacker::Project (const Vector3 &point) const
 {
@@ -1267,7 +1267,7 @@ Vector2 TrianglePacker::Project (const Vector3 &point) const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/08/00    IML : Created.                                                                * 
+ *   06/08/00    IML : Created.                                                                *
  *=============================================================================================*/
 void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *proceduraltexture, TrueColorTarga &rasterizedtarga)
 {
@@ -1280,21 +1280,21 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 	// There must be at least one principal triangle to rasterize.
 	ASSERT (PrincipalTriangles.Count() >= 1);
 
-	unsigned				  width, height;	
-	SampleSurface		 *forwardsurfaceptr, *backwardsurfaceptr;	
+	unsigned				  width, height;
+	SampleSurface		 *forwardsurfaceptr, *backwardsurfaceptr;
 	int					  t;
 	unsigned				  projectiontrianglecount;
-	float					  right, top;	
+	float					  right, top;
 	ProjectionTriangle *projectiontriangles;
-	Vector3				  points [Triangle::VERTICES_COUNT];	
+	Vector3				  points [Triangle::VERTICES_COUNT];
 	Vector2				  sourceuvs [Triangle::VERTICES_COUNT];
 	Vector2				  projectionuvs [Triangle::VERTICES_COUNT];
-	TrueColorTarga		 *sourcetargaptr;	
-	float					  oosqrtsamplespertexel;	
+	TrueColorTarga		 *sourcetargaptr;
+	float					  oosqrtsamplespertexel;
 	Vector2				  samplepoint;
 	int					  sampledt;
 	unsigned				  x, y, u, v;
-	float					  oowidth, ooheight;	
+	float					  oowidth, ooheight;
 
 	width  = Width();
 	height = Height();
@@ -1335,7 +1335,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 				outcodev = (projectionuvs [v].V < 0.0f) | ((projectionuvs [v].V >= top) << 1);
 				outcode &= (outcodeu | (outcodev << 2));
 			}
-			
+
 			// Should the triangle be accepted (ie. not trivially rejected)?
 			if (outcode == 0) {
 				for (int v = 0; v < Triangle::VERTICES_COUNT; v++) {
@@ -1347,7 +1347,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 				projectiontrianglecount++;
 			}
 		}
-	}	
+	}
 
 	// Sample the projection triangles into the backward surface.
 	oosqrtsamplespertexel = 1.0f / sqrtbackwardsamplespertexel;
@@ -1362,7 +1362,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 					if (sampledt < PrincipalTriangles.Count()) {
 						if (backwardsurfaceptr->Sample (samplepoint, projectiontriangles [sampledt], principalpriority)) goto nextsample;
 					}
-									
+
 					for (t = 0; t < PrincipalTriangles.Count(); t++) {
 						if (t != sampledt) {
 							if (backwardsurfaceptr->Sample (samplepoint, projectiontriangles [t], principalpriority)) {
@@ -1370,8 +1370,8 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 			 					goto nextsample;
 			 				}
 			 			}
-					}  
-							  			
+					}
+
 					if ((sampledt >= PrincipalTriangles.Count()) && (sampledt < (int) projectiontrianglecount)) {
 						if (backwardsurfaceptr->Sample (samplepoint, projectiontriangles [sampledt], adjacentpriority)) goto nextsample;
 					}
@@ -1418,7 +1418,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 			maxlength = (float) WWMath::Sqrt (MAX (MAX (d0.Length2(), d1.Length2()), d2.Length2()));
 			pseudoarea = MAX (projectionarea, maxlength);
 			sqrtsamplecount = ceilf (WWMath::Sqrt (sqrtforwardsamplespertexel * sqrtforwardsamplespertexel * pseudoarea));
-			
+
 			// Sample the projection triangle into the forward surface.
 			oosqrtsamplecount = 1.0f / sqrtsamplecount;
 			for (b = 0; b < sqrtsamplecount; b++) {
@@ -1438,7 +1438,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 
 	// Iterate over the backward (and possibly forward) surface and translate it into the rasterized targa.
 	for (y = 0; y < height; y++) {
-		
+
 		unsigned miny, maxy, minx, maxx;
 		bool		inrangeofprincipal;
 		unsigned	a, b;
@@ -1448,7 +1448,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 		for (x = 0; x < width; x++) {
 
 			W3dRGBStruct color;
-			
+
 			minx = MAX ((int) 0, ((int) x) - ((int) EdgeBlendThickness));
 			maxx = MIN (width - 1, x + EdgeBlendThickness);
 
@@ -1471,10 +1471,10 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 				}
 				if (inrangeofprincipal) break;
 			}
-			
+
 			// Is texel within range of 'principal texel'?
 			if (inrangeofprincipal) {
-				
+
 				// Does the backward surface's texel have a sample?
 				if (backwardsurfaceptr->Get_Color (x, y, color)) {
 					rasterizedtarga.Set_Color (x, y, color);
@@ -1506,7 +1506,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
 		for (unsigned v = 0; v < Triangle::VERTICES_COUNT; v++) {
 
 			Vector2 uv;
-			
+
 			uv = Project (PrincipalTriangles [t]->Vertices [v].Point) - LowerBound;
 			uv.Scale (oowidth, ooheight);
 			PrincipalTriangles [t]->PackedUVs [v] = uv;
@@ -1530,7 +1530,7 @@ void TrianglePacker::Rasterize (TargaLoader &targaloader, ProceduralTexture *pro
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/08/00    IML : Created.                                                                * 
+ *   06/08/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrianglePacker::ProjectionTriangle::ProjectionTriangle (const Vector3 *points, const Vector2 *sourceuvs, const TrueColorTarga *sourcetargaptr, const Vector2 *projectionuvs)
 {
@@ -1557,7 +1557,7 @@ TrianglePacker::ProjectionTriangle::ProjectionTriangle (const Vector3 *points, c
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 TrueColorTarga::TrueColorTarga()
 	: Targa()
@@ -1569,11 +1569,11 @@ TrueColorTarga::TrueColorTarga()
 	// Check that width, height and pixel depth will fit into the Targa internal storage types.
 	ASSERT (width  <= SHRT_MAX);
 	ASSERT (height <= SHRT_MAX);
-	ASSERT (pixeldepth <= SCHAR_MAX); 
-	
+	ASSERT (pixeldepth <= SCHAR_MAX);
+
 	mFlags			  = TGAF_IMAGE;
 	Header.ImageType = TGA_TRUECOLOR;
-	
+
 	Reformat (width, height, pixeldepth);
 }
 
@@ -1588,7 +1588,7 @@ TrueColorTarga::TrueColorTarga()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 TrueColorTarga::TrueColorTarga (unsigned width, unsigned height, unsigned pixeldepth)
 	: Targa()
@@ -1596,11 +1596,11 @@ TrueColorTarga::TrueColorTarga (unsigned width, unsigned height, unsigned pixeld
 	// Check that width, height and pixel depth will fit into the Targa internal storage types.
 	ASSERT (width  <= SHRT_MAX);
 	ASSERT (height <= SHRT_MAX);
-	ASSERT (pixeldepth <= SCHAR_MAX); 
-	
+	ASSERT (pixeldepth <= SCHAR_MAX);
+
 	mFlags			  = TGAF_IMAGE;
 	Header.ImageType = TGA_TRUECOLOR;
-	
+
 	Reformat (width, height, pixeldepth);
 }
 
@@ -1615,7 +1615,7 @@ TrueColorTarga::TrueColorTarga (unsigned width, unsigned height, unsigned pixeld
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 TrueColorTarga::TrueColorTarga (unsigned width, unsigned height, unsigned pixeldepth, const W3dRGBStruct &clearcolor)
 	: Targa()
@@ -1623,11 +1623,11 @@ TrueColorTarga::TrueColorTarga (unsigned width, unsigned height, unsigned pixeld
 	// Check that width, height and pixel depth will fit into the Targa internal storage types.
 	ASSERT (width  <= SHRT_MAX);
 	ASSERT (height <= SHRT_MAX);
-	ASSERT (pixeldepth <= SCHAR_MAX); 
-	
+	ASSERT (pixeldepth <= SCHAR_MAX);
+
 	mFlags			  = TGAF_IMAGE;
 	Header.ImageType = TGA_TRUECOLOR;
-	
+
 	Reformat (width, height, pixeldepth, clearcolor);
 }
 
@@ -1642,7 +1642,7 @@ TrueColorTarga::TrueColorTarga (unsigned width, unsigned height, unsigned pixeld
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void TrueColorTarga::Reformat (unsigned width, unsigned height, unsigned pixeldepth)
 {
@@ -1659,7 +1659,7 @@ void TrueColorTarga::Reformat (unsigned width, unsigned height, unsigned pixelde
 		mImage = (char*) realloc (mImage, size);
 		ASSERT (mImage != NULL);
 	}
-} 
+}
 
 
 /***********************************************************************************************
@@ -1672,7 +1672,7 @@ void TrueColorTarga::Reformat (unsigned width, unsigned height, unsigned pixelde
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void TrueColorTarga::Reformat (unsigned width, unsigned height, unsigned pixeldepth, const W3dRGBStruct &clearcolor)
 {
@@ -1693,7 +1693,7 @@ void TrueColorTarga::Reformat (unsigned width, unsigned height, unsigned pixelde
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 srPixelConvert::e_surfaceType TrueColorTarga::Pixel_Format (unsigned pixeldepth)
 {
@@ -1729,7 +1729,7 @@ srPixelConvert::e_surfaceType TrueColorTarga::Pixel_Format (unsigned pixeldepth)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void TrueColorTarga::Clear (const TrueColorTarga::UnpackedTexelStruct &cleartexel)
 {
@@ -1757,7 +1757,7 @@ void TrueColorTarga::Clear (const TrueColorTarga::UnpackedTexelStruct &cleartexe
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 char *TrueColorTarga::Load (const char *pathname)
 {
@@ -1772,7 +1772,7 @@ char *TrueColorTarga::Load (const char *pathname)
 	int			   error;
 	bool			   valid;
 	StringBuilder  errormessage (_messagebuffer, sizeof (_messagebuffer));
-	
+
 	error = Targa::Load (pathname, TGAF_IMAGE);
 	if (error != 0) {
 		errormessage.Copy (loaderrormessage, pathname, error);
@@ -1803,7 +1803,7 @@ char *TrueColorTarga::Load (const char *pathname)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   8/18/99    IML : Created.                                                                 * 
+ *   8/18/99    IML : Created.                                                                 *
  *=============================================================================================*/
 char *TrueColorTarga::Save (const char *pathname)
 {
@@ -1835,7 +1835,7 @@ char *TrueColorTarga::Save (const char *pathname)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void TrueColorTarga::Blit (TrueColorTarga &destination, unsigned x, unsigned y)
 {
@@ -1843,7 +1843,7 @@ void TrueColorTarga::Blit (TrueColorTarga &destination, unsigned x, unsigned y)
 	unsigned			maxc, maxr;
 	unsigned char *sourceptr, *destptr;
 
-	sourcebytespertexel = TGA_BytesPerPixel (Pixel_Depth()); 
+	sourcebytespertexel = TGA_BytesPerPixel (Pixel_Depth());
 	destbytespertexel   = TGA_BytesPerPixel (destination.Pixel_Depth());
 
 	// Currently, a true color targa cannot blit to itself.
@@ -1876,7 +1876,7 @@ void TrueColorTarga::Blit (TrueColorTarga &destination, unsigned x, unsigned y)
 		for (unsigned c = 0; c < maxc; c++) {
 
 			UnpackedTexelStruct unpackedtexel;
-			
+
 			Pack_Texel (*Unpack_Texel (sourceptr, sourcebytespertexel, unpackedtexel), destptr, destbytespertexel);
 
 			// Advance to next texel.
@@ -1897,7 +1897,7 @@ void TrueColorTarga::Blit (TrueColorTarga &destination, unsigned x, unsigned y)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void TrueColorTarga::Scale (TrueColorTarga &destination, unsigned width, unsigned height)
 {
@@ -1919,8 +1919,8 @@ void TrueColorTarga::Scale (TrueColorTarga &destination, unsigned width, unsigne
 	surface.setFilter (&srBSplineFilter);
 
 	// Enable clamping.
-	surface.setHClampMode (true); 
-	surface.setVClampMode (true); 
+	surface.setHClampMode (true);
+	surface.setVClampMode (true);
 
 	// Copy the targa source texel data to the Surrender surface.
 	size = Width() * Height() * TGA_BytesPerPixel (Pixel_Depth());
@@ -1929,7 +1929,7 @@ void TrueColorTarga::Scale (TrueColorTarga &destination, unsigned width, unsigne
 	// Scale.
 	success = surface.rescale (width, height);
 	ASSERT (success);
-	
+
 	// Resize the destination to match that of the rescaled Surrender surface.
 	destination.Reformat (width, height, destination.Pixel_Depth());
 
@@ -2008,7 +2008,7 @@ void TrueColorTarga::Scale (TrueColorTarga &destination, float error)
 	}
 	height = dimension;
 
-	// Scale targa. 
+	// Scale targa.
 	Scale	(destination, width, height);
 }
 #undef AVERAGE
@@ -2025,7 +2025,7 @@ void TrueColorTarga::Scale (TrueColorTarga &destination, float error)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   10/07/99    IML : Created.                                                                * 
+ *   10/07/99    IML : Created.                                                                *
  *=============================================================================================*/
 void TrueColorTarga::Transpose (TrueColorTarga &destination)
 {
@@ -2042,7 +2042,7 @@ void TrueColorTarga::Transpose (TrueColorTarga &destination)
 
 	bytespertexel = TGA_BytesPerPixel (Pixel_Depth());
 	size = Width() * Height() * bytespertexel;
-	
+
 	stagingbuffer = new unsigned char [size];
 	ASSERT (stagingbuffer != NULL);
 
@@ -2067,7 +2067,7 @@ void TrueColorTarga::Transpose (TrueColorTarga &destination)
 
 	// Clean-up.
 	delete [] stagingbuffer;
-}	
+}
 
 
 /***********************************************************************************************
@@ -2086,8 +2086,8 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, float epsilon)
 {
 	unsigned			 bytespertexel, comparisonbytespertexel;
 	int	 			 epsilondelta;
-	float				 xscale, yscale;	
-	int				 result;	
+	float				 xscale, yscale;
+	int				 result;
 	unsigned char	*imageptr;
 
 	ASSERT ((epsilon >= 0.0f) && (epsilon <= 1.0f));
@@ -2130,7 +2130,7 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, float epsilon)
 			}
 
 			if (delta > epsilondelta) {
-	
+
 				// Return result.
 				return (1);
 			}
@@ -2138,7 +2138,7 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, float epsilon)
 			if (delta == epsilondelta) {
 				result = 0;
 			}
-			
+
 			// Advance.
 			imageptr += bytespertexel;
 		}
@@ -2165,7 +2165,7 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, unsigned x, unsigned y,
 {
 	unsigned			 bytespertexel, comparisonbytespertexel;
 	int	 			 epsilondelta;
-	int				 result;	
+	int				 result;
 	unsigned char	*imageptr, *comparisonptr;
 
 	ASSERT ((epsilon >= 0.0f) && (epsilon <= 1.0f));
@@ -2175,7 +2175,7 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, unsigned x, unsigned y,
 	epsilondelta				= MAX (0, epsilon * 255.0f);
 	result						= -1;
 
-	// This targa must be contained by comparison targa. 
+	// This targa must be contained by comparison targa.
 	if (x + Width()  >= comparison.Width())  return (1);
 	if (y + Height() >= comparison.Height()) return (1);
 
@@ -2199,7 +2199,7 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, unsigned x, unsigned y,
 			}
 
 			if (delta > epsilondelta) {
-	
+
 				// Return result.
 				return (1);
 			}
@@ -2207,7 +2207,7 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, unsigned x, unsigned y,
 			if (delta == epsilondelta) {
 				result = 0;
 			}
-			
+
 			// Advance.
 			imageptr += bytespertexel;
 			comparisonptr += comparisonbytespertexel;
@@ -2229,16 +2229,16 @@ int TrueColorTarga::Compare (TrueColorTarga &comparison, unsigned x, unsigned y,
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 bool TrueColorTarga::Fill (const W3dRGBStruct &fillcolor)
 {
 	const unsigned growthstep = 2048;
-	const UnpackedTexelStruct filltexel (fillcolor.R, fillcolor.G, fillcolor.B, 0); 
+	const UnpackedTexelStruct filltexel (fillcolor.R, fillcolor.G, fillcolor.B, 0);
 
 	DynamicVectorClass <PointStruct> *fourconnectedarrays;
 	unsigned									 index;
-	bool										 allfillcolor;	
+	bool										 allfillcolor;
 
 	// Allocate dynamic arrays and initialize.
 	fourconnectedarrays = new DynamicVectorClass <PointStruct> [2];
@@ -2260,22 +2260,22 @@ bool TrueColorTarga::Fill (const W3dRGBStruct &fillcolor)
 		// While there are still unpadded texels...
 		while (fourconnectedarrays [index].Count() > 0) {
 
-			// For each four connected texel... 
+			// For each four connected texel...
 			for (int e = 0; e < fourconnectedarrays [index].Count(); e++) {
 				Fill_Four_Connected ((fourconnectedarrays [index])[e].X, (fourconnectedarrays [index])[e].Y, filltexel, fourconnectedarrays [index ^ 1]);
 			}
 			fourconnectedarrays [index].Clear();
-		
-			// Toggle dynamic array in which to place new four-connected texel coordinates. 
+
+			// Toggle dynamic array in which to place new four-connected texel coordinates.
 			index ^= 1;
 		}
 	}
 
 	// Clean-up.
 	delete [] fourconnectedarrays;
-	
+
 	return (allfillcolor);
-}	
+}
 
 
 /***********************************************************************************************
@@ -2288,7 +2288,7 @@ bool TrueColorTarga::Fill (const W3dRGBStruct &fillcolor)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 bool TrueColorTarga::Fill_Four_Connected (unsigned x, unsigned y, const UnpackedTexelStruct &filltexel, DynamicVectorClass <PointStruct> &fourconnectedarray)
 {
@@ -2297,16 +2297,16 @@ bool TrueColorTarga::Fill_Four_Connected (unsigned x, unsigned y, const Unpacked
 
 	static const int offsetx [fourconnectedcount] = {-1, +1,  0,  0};
 	static const int offsety [fourconnectedcount] = { 0,  0, -1, +1};
-	
+
 	UnpackedTexelStruct  unpackedtexel;
 	unsigned char		  *texelptr;
 
-	// Is texel (x, y) the fill color (ie. not already filled)?  
+	// Is texel (x, y) the fill color (ie. not already filled)?
 	texelptr = Get_Texel (x, y);
 	ASSERT (texelptr != NULL);
 	Unpack_Texel (texelptr, bytespertexel, unpackedtexel);
 	if (unpackedtexel == filltexel) {
-		
+
 		unsigned	adj;
 		bool		fourconnected [fourconnectedcount];
 		unsigned	fillcount, r, g, b;
@@ -2339,7 +2339,7 @@ bool TrueColorTarga::Fill_Four_Connected (unsigned x, unsigned y, const Unpacked
 		}
 
 		if (fillcount > 0) {
-		
+
 			float oofillcount;
 
 			// Fill texel (x, y) with average of neighboring non-fill colors.
@@ -2349,11 +2349,11 @@ bool TrueColorTarga::Fill_Four_Connected (unsigned x, unsigned y, const Unpacked
 			b = MIN (b * oofillcount, UCHAR_MAX);
 			UnpackedTexelStruct texel (r, g, b, 0);
 			Pack_Texel (texel, texelptr, bytespertexel);
-			
+
 			// Add the coordinates of any neighboring fill colors.
 			for (adj = 0; adj < fourconnectedcount; adj++) {
 				if (fourconnected [adj]) {
-				
+
 					PointStruct p;
 
 					p.X = ((int) x) + offsetx [adj];
@@ -2379,27 +2379,27 @@ bool TrueColorTarga::Fill_Four_Connected (unsigned x, unsigned y, const Unpacked
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void TrueColorTarga::Add (TrueColorTarga &targa)
 {
 	unsigned	width, height;
 	unsigned thisbytespertexel, targabytespertexel;
 
-	// Scale both targas to maximum width & height of both. 
+	// Scale both targas to maximum width & height of both.
 	width  = MAX (Width(),  targa.Width());
 	height = MAX (Height(), targa.Height());
 	Scale (width, height);
 	targa.Scale (width, height);
 
-	// Step thru both targas and add the pixel data. Store result in this targa.  
+	// Step thru both targas and add the pixel data. Store result in this targa.
 	// For each row...
-	thisbytespertexel	 = TGA_BytesPerPixel (Pixel_Depth()); 
+	thisbytespertexel	 = TGA_BytesPerPixel (Pixel_Depth());
 	targabytespertexel = TGA_BytesPerPixel (targa.Pixel_Depth());
 	for (unsigned r = 0; r < height; r++) {
-	
+
 		unsigned char *thisptr, *targaptr;
-		
+
 		thisptr  = ((unsigned char*) GetImage()) + (width * r * thisbytespertexel);
 		targaptr = ((unsigned char*) targa.GetImage()) + (width * r * targabytespertexel);
 
@@ -2407,10 +2407,10 @@ void TrueColorTarga::Add (TrueColorTarga &targa)
 		for (unsigned c = 0; c < width; c++) {
 
 			UnpackedTexelStruct thisunpackedtexel, targaunpackedtexel;
-			
+
 			Unpack_Texel (thisptr, thisbytespertexel, thisunpackedtexel);
 			Unpack_Texel (targaptr, targabytespertexel, targaunpackedtexel);
-			
+
 			thisunpackedtexel += targaunpackedtexel;
 			Pack_Texel (thisunpackedtexel, thisptr, thisbytespertexel);
 
@@ -2419,7 +2419,7 @@ void TrueColorTarga::Add (TrueColorTarga &targa)
 			targaptr += targabytespertexel;
 		}
 	}
-}	
+}
 
 
 /***********************************************************************************************
@@ -2432,7 +2432,7 @@ void TrueColorTarga::Add (TrueColorTarga &targa)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   05/22/00    IML : Created.                                                                * 
+ *   05/22/00    IML : Created.                                                                *
  *=============================================================================================*/
 void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct &fillcolor, unsigned vertexcount, const W3dRGBStruct *vertexcolors, Vector2 *vertexuvs)
 {
@@ -2443,21 +2443,21 @@ void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct 
 		{0.0f, 0.0f},
 		{0.0f, 1.0f}
 	};
-	
+
 	const UnpackedTexelStruct filltexel (fillcolor.R, fillcolor.G, fillcolor.B, 0);
 
 	const unsigned	sqrtsamplecountminusone	 = 3;
 	const float		oosqrtsamplecountminusone = 1.0f / sqrtsamplecountminusone;
-	const unsigned	mindimension = 3;	
+	const unsigned	mindimension = 3;
 
 	Vector2				   edges [edgecount];
-	float					   longestlength2, r, w, h;	
+	float					   longestlength2, r, w, h;
 	unsigned				   longestedge;
-	Vector2				   i, j;	
+	Vector2				   i, j;
 	float						oowidthminustwo, ooheightminustwo;
-	unsigned				   bytespertexel;	
-	unsigned char		  *destptr;			
-	W3dRGBStruct		   colors [edgecount];	
+	unsigned				   bytespertexel;
+	unsigned char		  *destptr;
+	W3dRGBStruct		   colors [edgecount];
 	float					   oowidth, ooheight;
 	unsigned					n;
 
@@ -2477,7 +2477,7 @@ void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct 
 	// Identify the longest edge.
 	longestlength2 = 0.0f;
 	for (unsigned e = 0; e < edgecount; e++) {
-		
+
 		float length2 = edges [e].Length2();
 
 		if (length2 > longestlength2) {
@@ -2516,22 +2516,22 @@ void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct 
 	destptr			  = (unsigned char*) destination.GetImage();
 	for (unsigned v = 0; v < destination.Height(); v++) {
 		for (unsigned u = 0; u < destination.Width(); u++) {
-			
+
 			unsigned				  validsamplecount;
-			float					  r, g, b;	
+			float					  r, g, b;
 			float					  fu, fv;
-			float					  oovalidsamplecount;	
+			float					  oovalidsamplecount;
 			UnpackedTexelStruct averagetexel;
-			float					  clamped;	
+			float					  clamped;
 
 			// For given destination texel subsample the source triangle.
 			validsamplecount = 0;
 			r = g = b		  = 0.0f;
 			for (unsigned sv = 0; sv <= sqrtsamplecountminusone; sv++) {
-				
+
 				fv = (v + (sv * oosqrtsamplecountminusone) - 1.0f) * ooheightminustwo;
 				for (unsigned su = 0; su <= sqrtsamplecountminusone; su++) {
-				
+
 					fu = (u + (su * oosqrtsamplecountminusone) - 1.0f) * oowidthminustwo;
 
 					// Which region does (fu, fv) fall in?
@@ -2555,18 +2555,18 @@ void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct 
 							clamped = true;
 						}
 					}
-					
+
 					if ((fu + fv) >= 1.0f) {
-						
+
 						float ood = 1.0f / (fu + fv);
 
 						fu = fu * ood;
 						fv = fv * ood;
 						clamped = true;
 					}
-					
+
 					if (!clamped) {
-			
+
 						Vector2				   p;
 						unsigned				   x, y;
 						UnpackedTexelStruct  unpackedtexel;
@@ -2613,7 +2613,7 @@ void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct 
 	ooheight = 1.0f / destination.Height();
 	for (n = 0; n < vertexcount; n++) {
 		vertexuvs [n].Set (_vertexuvs [((edgecount - 1 - longestedge) + n) % edgecount][0], _vertexuvs [((edgecount - 1 - longestedge) + n) % edgecount][1]);
-		
+
 		// Scale and translate UV's to accomodate one texel wide filtered edge.
 		vertexuvs [n].U *= (destination.Width()  - 2) * oowidth;
 		vertexuvs [n].V *= (destination.Height() - 2) * ooheight;
@@ -2633,12 +2633,12 @@ void TrueColorTarga::Rasterize (TrueColorTarga &destination, const W3dRGBStruct 
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   05/22/00    IML : Created.                                                                * 
+ *   05/22/00    IML : Created.                                                                *
  *=============================================================================================*/
 void TrueColorTarga::Pad (TrueColorTarga &destination, unsigned padwidth, unsigned padheight, const W3dRGBStruct &padcolor, DynamicVectorClass <PackingTriangle*> &triangleptrs)
 {
-	unsigned				  w, h;	
-	float					  oobw, oobh;	
+	unsigned				  w, h;
+	float					  oobw, oobh;
 	UnpackedTexelStruct padtexel (padcolor.R, padcolor.G, padcolor.B, 0);
 	Matrix3				  uvmatrix;
 
@@ -2660,13 +2660,13 @@ void TrueColorTarga::Pad (TrueColorTarga &destination, unsigned padwidth, unsign
 			TrueColorTarga	targacopy (w, h, Pixel_Depth());
 
 			Blit (targacopy, 0, 0);
-		
+
 			// Resize to match that of the padded targa.
 			Reformat (w + padwidth, h + padheight, Pixel_Depth());
 
 			// Clear to pad color.
 			Clear (padtexel);
-		
+
 			// Blit copy to this targa. Offset by pad thickness.
 			targacopy.Blit (*this, padwidth >> 1, padheight >> 1);
 
@@ -2689,7 +2689,7 @@ void TrueColorTarga::Pad (TrueColorTarga &destination, unsigned padwidth, unsign
 		uvmatrix [0].Set (w * oobw, 0.0f, 0.0f);
 		uvmatrix [1].Set (0.0f, h * oobh, 0.0f);
 		uvmatrix [2].Set ((padwidth >> 1) * oobw, (padheight >> 1) * oobh, 1.0f);
-		
+
 		// Transpose transform matrix.
 		// NOTE: This matrix is set up for post multiplication (ie. V' = M X V, matrix M, vector V).
 		uvmatrix = uvmatrix.Transpose();
@@ -2703,7 +2703,7 @@ void TrueColorTarga::Pad (TrueColorTarga &destination, unsigned padwidth, unsign
 				// NOTE: Create a homogeneous vector (3-components) from the UV vector so that it can be transformed by the matrix.
 				uv.Set (triangleptrs [t]->PackedUVs [v].X, triangleptrs [t]->PackedUVs [v].Y, 1.0f);
 				uv = uvmatrix * uv;
-				triangleptrs [t]->PackedUVs [v].Set (uv.X, uv.Y); 
+				triangleptrs [t]->PackedUVs [v].Set (uv.X, uv.Y);
 			}
 		}
 	}
@@ -2720,7 +2720,7 @@ void TrueColorTarga::Pad (TrueColorTarga &destination, unsigned padwidth, unsign
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/12/00    IML : Created.                                                                * 
+ *   06/12/00    IML : Created.                                                                *
  *=============================================================================================*/
 TrianglePacker::SampleSurface::SampleSurface (unsigned width, unsigned height, ProceduralTexture *blendtexture)
 {
@@ -2729,7 +2729,7 @@ TrianglePacker::SampleSurface::SampleSurface (unsigned width, unsigned height, P
 	Width  = width;
 	Height = height;
 	SampledTexelCount = 0;
-	
+
 	Surface = new SampleStruct [width * height];
 	ASSERT (Surface != NULL);
 
@@ -2758,13 +2758,13 @@ TrianglePacker::SampleSurface::SampleSurface (unsigned width, unsigned height, P
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/12/00    IML : Created.                                                                * 
+ *   06/12/00    IML : Created.                                                                *
  *=============================================================================================*/
 bool TrianglePacker::SampleSurface::Sample (const Vector2 &samplepoint, const ProjectionTriangle &projectiontriangle, unsigned priority)
 {
 	const float epsilon = 0.0001f;
 
-	int	  u, v;	
+	int	  u, v;
 	Vector2 t0, t1, t2;
 	float	  alpha, beta;
 
@@ -2776,7 +2776,7 @@ bool TrianglePacker::SampleSurface::Sample (const Vector2 &samplepoint, const Pr
 	if ((v < 0) || (v >= (int) Height)) return (false);
 
 	// Use the baricentric method to determine if the sample point lies inside
-	//	the triangle (see Graphics Gems I p390). 
+	//	the triangle (see Graphics Gems I p390).
 	t0 = samplepoint - projectiontriangle.ProjectionUVs [0];
 	t1 = projectiontriangle.ProjectionUVs [1];
 	t2 = projectiontriangle.ProjectionUVs [2];
@@ -2790,9 +2790,9 @@ bool TrianglePacker::SampleSurface::Sample (const Vector2 &samplepoint, const Pr
 		alpha = (t0.U - beta * t2.U) / t1.U;
 	}
 
-	// Does the projection triangle contain the sample point? 
+	// Does the projection triangle contain the sample point?
 	if ((alpha > 0.0f) && ((alpha + beta) < 1.0f)) {
-										
+
 		Vector2		  uv;
 		W3dRGBStruct  color;
 		SampleStruct *sampleptr;
@@ -2811,7 +2811,7 @@ bool TrianglePacker::SampleSurface::Sample (const Vector2 &samplepoint, const Pr
 			v = BlendTexture->Value (p);
 			color.Set ((uint8) (color.R * v), (uint8) (color.G * v), (uint8) (color.B * v));
 		}
-		
+
 		// Add the sample.
 		sampleptr = Surface + (v * Width + u);
 		sampleptr->Red	  += color.R;
@@ -2840,7 +2840,7 @@ bool TrianglePacker::SampleSurface::Sample (const Vector2 &samplepoint, const Pr
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/12/00    IML : Created.                                                                * 
+ *   06/12/00    IML : Created.                                                                *
  *=============================================================================================*/
 bool TrianglePacker::SampleSurface::Sample (float alpha, float beta, const ProjectionTriangle &projectiontriangle, unsigned priority)
 {
@@ -2899,7 +2899,7 @@ bool TrianglePacker::SampleSurface::Sample (float alpha, float beta, const Proje
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 Page::Page (unsigned bitdepth, const W3dRGBStruct &clearcolor)
 	: TrueColorTarga (PAGE_WIDTH, PAGE_HEIGHT, bitdepth)
@@ -2907,7 +2907,7 @@ Page::Page (unsigned bitdepth, const W3dRGBStruct &clearcolor)
 	const UnpackedTexelStruct cleartexel (clearcolor.R, clearcolor.G, clearcolor.B, 0);
 
 	Region *regionptr;
-	
+
 	// Clear this page to a recognizable color.
 	Clear (cleartexel);
 
@@ -2931,7 +2931,7 @@ Page::Page (unsigned bitdepth, const W3dRGBStruct &clearcolor)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 Page::~Page()
 {
@@ -2957,7 +2957,7 @@ Page::~Page()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void Page::Reset_Statistics()
 {
@@ -2977,7 +2977,7 @@ void Page::Reset_Statistics()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   05/19/00    IML : Created.                                                                * 
+ *   05/19/00    IML : Created.                                                                *
  *=============================================================================================*/
 bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <PackingTriangle*> &triangleptrs)
 {
@@ -2985,14 +2985,14 @@ bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <Packi
 	bool				 replica, packed;
 	TransposeEnum	 transposed;
 	unsigned			 cost;
-	Region			 targetregion;	
+	Region			 targetregion;
 
 	// Targa must fit on this page.
 	ASSERT (targa.Width()  <= Width());
 	ASSERT (targa.Height() <= Height());
 
 	targaptr [UNTRANSPOSED] = &targa;
-	
+
 	// Create a transposed version of the targa.
 	targaptr [TRANSPOSED] = new TrueColorTarga (targaptr [UNTRANSPOSED]->Width(), targaptr [UNTRANSPOSED]->Height(), targaptr [UNTRANSPOSED]->Pixel_Depth());
 	ASSERT (targaptr [TRANSPOSED] != NULL);
@@ -3009,18 +3009,18 @@ bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <Packi
 	}
 
 	if (replica) {
-		
+
 	 	// Update statistics.
 		ReplicaTexelCount += targaptr [transposed]->Width() * targaptr [transposed]->Height();
 
 	} else {
-  
-		// Attempt to pack targa with width >= height first. 
+
+		// Attempt to pack targa with width >= height first.
 		transposed = (targaptr [UNTRANSPOSED]->Width() >= targaptr [UNTRANSPOSED]->Height()) ? UNTRANSPOSED : TRANSPOSED;
 
 		// Can the targa be packed?
 		packed = Lowest_Cost_Region (*targaptr [transposed], cost, targetregion);
-		
+
 		// If not packed then transpose the targa and attempt to pack it again.
 		if (!packed) {
 			transposed = (transposed == UNTRANSPOSED) ? TRANSPOSED : UNTRANSPOSED;
@@ -3028,7 +3028,7 @@ bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <Packi
 		}
 
 		if (packed) {
-	
+
 			// Region must be aligned on an even boundary. This will reduce texel bleeding as a result of mip-mapping.
 			ASSERT ((targetregion.X0 & 0x1) == 0x0);
 			ASSERT ((targetregion.Y0 & 0x1) == 0x0);
@@ -3071,7 +3071,7 @@ bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <Packi
 			uvmatrix [0].Set (su  , 0.0f, 0.0f);
 			uvmatrix [1].Set (0.0f, sv  , 0.0f);
 		}
-				
+
 		// Define translation vector in transform matrix.
 		uvmatrix [2].Set (tu, tv, 1.0f);
 
@@ -3088,7 +3088,7 @@ bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <Packi
 				// NOTE: Create a homogeneous vector (3-components) from the UV vector so that it can be transformed by the matrix.
 				uv.Set (triangleptrs [t]->PackedUVs [v].X, triangleptrs [t]->PackedUVs [v].Y, 1.0f);
 				uv = uvmatrix * uv;
-				triangleptrs [t]->PackedUVs [v].Set (uv.X, uv.Y); 
+				triangleptrs [t]->PackedUVs [v].Set (uv.X, uv.Y);
 			}
 		}
 
@@ -3114,14 +3114,14 @@ bool Page::Pack (TrueColorTarga &targa, float epsilon, DynamicVectorClass <Packi
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   11/17/99    IML : Created.                                                                * 
+ *   11/17/99    IML : Created.                                                                *
  *=============================================================================================*/
 bool Page::Replica_Region (TrueColorTarga &targa, float epsilon, Region &replicaregion)
 {
 	bool		 replica;
 	Region	*regionptr;
 	unsigned  regionwidth, regionheight;
-	
+
 	// Iterate over all used regions to see if one matches the targa to within tolerance.
 	replica = false;
 	regionptr = (Region*) UsedRegionList.First_Valid();
@@ -3129,18 +3129,18 @@ bool Page::Replica_Region (TrueColorTarga &targa, float epsilon, Region &replica
 
 		regionwidth  = regionptr->X1 - regionptr->X0 + 1;
 		regionheight = regionptr->Y1 - regionptr->Y0 + 1;
-	
+
 		// If regions are the same size...
 		if ((regionwidth == targa.Width()) && (regionheight == targa.Height())) {
 
-			// If regions are deemed equal to within epsilon...		
+			// If regions are deemed equal to within epsilon...
 			if (targa.Compare (*this, regionptr->X0, regionptr->Y0, epsilon) <= 0) {
 				replica = true;
 				replicaregion = *regionptr;
 				break;
 			}
 		}
-		
+
 		// Next region.
 		regionptr = (Region*) regionptr->Next_Valid();
 	}
@@ -3159,7 +3159,7 @@ bool Page::Replica_Region (TrueColorTarga &targa, float epsilon, Region &replica
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   10/8/99    IML : Created.                                                                 * 
+ *   10/8/99    IML : Created.                                                                 *
  *=============================================================================================*/
 bool Page::Lowest_Cost_Region (TrueColorTarga &targa, unsigned &lowestcost, Region &lowestcostregion)
 {
@@ -3177,7 +3177,7 @@ bool Page::Lowest_Cost_Region (TrueColorTarga &targa, unsigned &lowestcost, Regi
 	while (regionptr != NULL) {
 
 		Region candidateregion;
-		
+
 		// Does the asset fit inside the region?
 		if (regionptr->Accomodates (width, height, candidateregion)) {
 
@@ -3204,13 +3204,13 @@ bool Page::Lowest_Cost_Region (TrueColorTarga &targa, unsigned &lowestcost, Regi
 				mintotalsubregioncount = totalsubregioncount;
 			}
 		}
-		
+
 		// Next region.
 		regionptr = (Region*) regionptr->Next_Valid();
 	}
 
 	lowestcost = mintotalsubregioncount;
-	
+
 	// Can the asset be packed on this page?
 	return (packed);
 }
@@ -3226,12 +3226,12 @@ bool Page::Lowest_Cost_Region (TrueColorTarga &targa, unsigned &lowestcost, Regi
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   10/8/99    IML : Created.                                                                 * 
+ *   10/8/99    IML : Created.                                                                 *
  *=============================================================================================*/
 void Page::Insert_Region (const Region &insertionregion)
 {
 	Region *regionptr;
-						
+
 	// First, add the insertion region to the used region list.
 	regionptr = new Region (insertionregion);
 	ASSERT (regionptr != NULL);
@@ -3247,27 +3247,27 @@ void Page::Insert_Region (const Region &insertionregion)
 
 		// If there is an intersection between the region and target region...
 		if (regionptr->Intersects (insertionregion, subregioncount, &subregions)) {
-		
+
 			// Remove the original region, advance to next region.
 			removalptr = regionptr;
 			regionptr  = (Region*) regionptr->Next_Valid();
 			delete removalptr;
-				
-			// Add the subregions to the head of the list. 
+
+			// Add the subregions to the head of the list.
 			// NOTE: Adding to the head of the list will ensure that they will not get re-processed by the current 'list walker'.
 			for (int s = ((int) subregioncount) - 1; s >= 0; s--) {
-			
+
 				// Only add the subregion if it is not contained by another region ie. avoid redundancy.
 				if (!Contains (subregions [s])) {
-						
+
 					Region *newregionptr;
-						
+
 					newregionptr = new Region (subregions [s]);
 					ASSERT (newregionptr != NULL);
 					VacantRegionList.Add_Head (newregionptr);
 				}
-			}		
-						
+			}
+
 		} else {
 
 			// Advance to next region.
@@ -3287,7 +3287,7 @@ void Page::Insert_Region (const Region &insertionregion)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 bool Page::Region::Accomodates (unsigned width, unsigned height, Region &targetregion)
 {
@@ -3312,7 +3312,7 @@ bool Page::Region::Accomodates (unsigned width, unsigned height, Region &targetr
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 bool Page::Region::Intersects (const Region &targetregion, unsigned &subregioncount, Region **subregions)
 {
@@ -3364,7 +3364,7 @@ bool Page::Region::Intersects (const Region &targetregion, unsigned &subregionco
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 bool Page::Contains (const Region &testregion)
 {
@@ -3374,7 +3374,7 @@ bool Page::Contains (const Region &testregion)
 	regionptr = (Region*) VacantRegionList.First_Valid();
 	while (regionptr != NULL) {
 		if ((testregion.X0 >= regionptr->X0) && (testregion.X1 <= regionptr->X1) && (testregion.Y0 >= regionptr->Y0) && (testregion.Y1 <= regionptr->Y1)) {
-			
+
 			// Test region is contained by a region in the list.
 			return (true);
 		}

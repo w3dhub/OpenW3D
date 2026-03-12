@@ -54,15 +54,15 @@ class VisDecompressionCacheClass;
 
 /*
 ** VisTableMgrClass
-** This class collects the visibility tables and vis-id allocation into one place. 
+** This class collects the visibility tables and vis-id allocation into one place.
 ** The physics scene contains an instance of this class and will save and load it as
 ** part of the (L)evel (S)tatic (D)ata file...
 */
-class VisTableMgrClass 
+class VisTableMgrClass
 {
 
 public:
-	
+
 	VisTableMgrClass(void);
 	~VisTableMgrClass(void);
 
@@ -106,7 +106,7 @@ protected:
 	void								Delete_All_Vis_Tables(void);
 
 	SimpleDynVecClass<CompressedVisTableClass *>		VisTables;
-	VisDecompressionCacheClass *							Cache;	
+	VisDecompressionCacheClass *							Cache;
 	unsigned int												FrameCounter;
 };
 

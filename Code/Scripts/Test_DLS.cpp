@@ -58,7 +58,7 @@ DECLARE_SCRIPT (DLS_Spawner, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -66,7 +66,7 @@ DECLARE_SCRIPT (DLS_Spawner, "")
 		Commands->Enable_Spawner(Commands->Get_ID(obj), false);
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT (DLS_Two_Way, "")
@@ -75,7 +75,7 @@ DECLARE_SCRIPT (DLS_Two_Way, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -107,20 +107,20 @@ DECLARE_SCRIPT (DLS_Two_Way, "")
 		}
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(DLS_Invulnerable_Test, "")
 {
-		
+
 	bool debug_mode;
 	int poke_id;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
@@ -128,32 +128,32 @@ DECLARE_SCRIPT(DLS_Invulnerable_Test, "")
 	{
 		Commands->Set_Health( obj, 2);
 		Commands->Apply_Damage( obj, 50000.0f, "STEEL", NULL);
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(DLS_InnateIsStationary_Test, "")
 {
-		
+
 	bool debug_mode;
 	int poke_id;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
 	void Created (GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
-		
+
 	}
-	
+
 	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
 		ActionParamsStruct params;
@@ -162,30 +162,30 @@ DECLARE_SCRIPT(DLS_InnateIsStationary_Test, "")
 		params.Set_Movement (STAR, RUN, 2.0f);
 		params.MoveFollow = true;
 		Commands->Action_Goto (obj, params);
-		
+
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
-	
+
 	int pan_loc1_id;
 	int pan_loc2_id;
 	int enemy_id;
 	int seen_cnt;
 	int time;
-	
-	
+
+
 	enum {CAMERA_LOC1 = 15, CAMERA_LOC2 = 16, STAR_VISIBLE = 17};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
@@ -194,10 +194,10 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 		ActionParamsStruct params;
 
 		Commands->Enable_Enemy_Seen( obj, true );
-		
+
 		pan_loc1_id = Get_Int_Parameter("Pan_Loc1_ID");
 		pan_loc2_id = Get_Int_Parameter("Pan_Loc2_ID");
-		
+
 		enemy_id = 0;
 		seen_cnt = 0;
 		time = 0;
@@ -207,7 +207,7 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 		params.AttackCheckBlocked = false;
 		Commands->Action_Attack( obj, params );
 
-	
+
 
 	}
 
@@ -250,9 +250,9 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 			params.Set_Attack (Commands->Find_Object(pan_loc2_id), 0.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack( obj, params );
-			
+
 		}
-		
+
 	}
 
 	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
@@ -262,7 +262,7 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 		enemy_id = Commands->Get_ID(enemy);
 
 		SCRIPT_DEBUG_MESSAGE (("Enemy Seen: %d Seen Time: %d.\n", Commands->Get_ID(enemy), time));
-			
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN, 1 );
 		params.Set_Attack (enemy, 0.0f, 0.0f, 1);
 		params.AttackCheckBlocked = false;
@@ -279,11 +279,11 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 			Commands->Create_Sound ("Klaxon", Commands->Get_Position (obj), obj);
 		}
 
-		
-		
+
+
 	}
 
-	
+
 };
 
 
@@ -291,19 +291,19 @@ DECLARE_SCRIPT(DLS_Camera_Test, "Pan_Loc1_ID=0:int, Pan_Loc2_ID=0:int, Debug_Mod
 
 DECLARE_SCRIPT(DLS_Gun_Test, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
-	
+
 	enum {GUN_LOC1, GUN_LOC2};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
-	
+
 
 	void Action_Complete(GameObject * /*obj*/, int action_id, ActionCompleteReason /*reason*/) override
 	{
@@ -331,22 +331,22 @@ DECLARE_SCRIPT(DLS_Gun_Test, "Debug_Mode=0:int")
 
 DECLARE_SCRIPT(DLS_Test_NULL, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
-	
-	
-	
+
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
 	void Created(GameObject * /*obj*/) override
 	{
-		
+
 	}
 
 	void Poked(GameObject * obj, GameObject * /*poker*/) override
@@ -355,20 +355,20 @@ DECLARE_SCRIPT(DLS_Test_NULL, "Debug_Mode=0:int")
 		int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 		Commands->Join_Conversation(NULL, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 1);
-		Commands->Monitor_Conversation (obj, conv_id);	
+		Commands->Monitor_Conversation (obj, conv_id);
 	}
 
-	
-	
-	
+
+
+
 };
 
 DECLARE_SCRIPT(DLS_Rappelling_Activate, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
 	bool already_entered;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -377,7 +377,7 @@ DECLARE_SCRIPT(DLS_Rappelling_Activate, "Debug_Mode=0:int")
 		SAVE_VARIABLE( already_entered, 2 );
 	}
 
-	
+
 	void Damaged (GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/) override
 	{
 		GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
@@ -385,35 +385,35 @@ DECLARE_SCRIPT(DLS_Rappelling_Activate, "Debug_Mode=0:int")
 		Commands->Attach_Script(controller, "Test_Cinematic", "X5C_Wintroops3.txt");
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(DLS_Tank_Path_Test, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
-	
+
 	enum {STAR_VISIBLE};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( debug_mode, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
 	{
-		
+
 		Commands->Start_Timer (obj, this, 2.0f, STAR_VISIBLE);
 
-		
+
 	}
 
 	void Damaged( GameObject * obj, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 		ActionParamsStruct params;
-		
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 1 );
 		params.Set_Attack (STAR, 200.0f, 5.0f, 0);
 		params.AttackCheckBlocked = false;
@@ -430,37 +430,37 @@ DECLARE_SCRIPT(DLS_Tank_Path_Test, "Debug_Mode=0:int")
 			params.Set_Attack (STAR, 200.0f, 5.0f, 1);
 			params.AttackCheckBlocked = false;
 			Commands->Action_Attack (obj, params);
-			
+
 		}
-		
+
 	}
 
-	
+
 
 };
 
 DECLARE_SCRIPT(DLS_Vehicle_Follow, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
-	
+
 	enum {STAR_VISIBLE};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( debug_mode, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
 	{
-			
+
 		Commands->Start_Timer (obj, this, 2.0f, STAR_VISIBLE);
 
 	}
 
-	
+
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
@@ -469,28 +469,28 @@ DECLARE_SCRIPT(DLS_Vehicle_Follow, "Debug_Mode=0:int")
 		if(timer_id == STAR_VISIBLE)
 		{
 			Commands->Apply_Damage( obj, 100000, "STEEL", NULL );
-			
+
 		}
-		
+
 	}
 
-	
+
 
 };
 
 DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
 	bool destroyed_state;
-	
+
 	enum {FRAME0, FRAME1, FRAME2, FRAME3, FRAME5, FRAME6, FRAME7, FRAME8, FRAME9};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( debug_mode, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -499,7 +499,7 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 
 		Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 0);
 	}
-	
+
 	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		if(!destroyed_state)
@@ -517,7 +517,7 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 			}
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
@@ -525,81 +525,81 @@ DECLARE_SCRIPT(DLS_Filing_Cabinet, "Debug_Mode=0:int")
 		if(timer_id == FRAME0)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 0);
-			
+
 		}
 		if(timer_id == FRAME2)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 2);
 			Commands->Start_Timer (obj, this, (1.0f / 30.0f), FRAME3);
-			
+
 		}
 		if(timer_id == FRAME3)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 3);
 			Commands->Start_Timer (obj, this, (1.0f / 30.0f), FRAME0);
-			
+
 		}
 		if(timer_id == FRAME5)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 5);
 			Commands->Start_Timer (obj, this, (1.0f / 30.0f), FRAME6);
-			
+
 		}
 		if(timer_id == FRAME6)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 6);
 			Commands->Start_Timer (obj, this, (1.0f / 30.0f), FRAME7);
-			
+
 		}
 		if(timer_id == FRAME7)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 7);
 			Commands->Start_Timer (obj, this, (1.0f / 30.0f), FRAME8);
-			
+
 		}
 		if(timer_id == FRAME8)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 8);
 			Commands->Start_Timer (obj, this, (1.0f / 30.0f), FRAME9);
-			
+
 		}
 		if(timer_id == FRAME9)
 		{
 			Commands->Set_Animation_Frame(obj, "dsp_lockers.dsp_lockers", 9);
-						
+
 		}
-		
-		
-		
+
+
+
 	}
 
 	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Create_Explosion("Small Crate Explosion", Commands->Get_Position(obj), obj);
 	}
-	
 
-	
+
+
 
 };
 
 DECLARE_SCRIPT(DLS_Waypath_Test, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( debug_mode, 1 );
-		
+
 	}
 
 	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
-		
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 16 );
 		params.Set_Movement( Vector3(0,0,0), 1.0f, 1.5f );
 		params.WaypathID = 100001;
@@ -638,9 +638,9 @@ DECLARE_SCRIPT(DLS_Waypath_Test, "Debug_Mode=0:int")
 		}
 	}
 
-	
 
-	
+
+
 
 };
 
@@ -691,7 +691,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		target -= Commands->Get_Position(Owner());
 		target.Rotate_Z(DEG_TO_RADF(angle));
 		target += Commands->Get_Position(Owner());
-		
+
 		return target;
 	}
 
@@ -710,7 +710,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 
 		return target;
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		switcher = enemy_id = 0;
@@ -728,7 +728,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 	void Resume(void)
 	{
 		Commands->Debug_Message("**** Enemy lost... resuming.\n");
-		
+
 		Commands->Action_Reset(Owner(), INNATE_PRIORITY_ENEMY_SEEN - 5);
 		enemy_id = 0;
 		enemy_seen = timer_expired = alert = false;
@@ -764,7 +764,7 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		else
 		{
 			++switcher %= 8;
-	
+
 			ActionParamsStruct params;
 			params.Set_Basic(this, INNATE_PRIORITY_ENEMY_SEEN - 5, 0);
 			params.Set_Attack(Get_Target(), 0.0f, 0.0f, true);
@@ -778,10 +778,10 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 		if (!enemy_seen)
 		{
 			Commands->Debug_Message("**** Enemy acquired.\n");
-			
+
 			enemy_id = Commands->Get_ID(enemy);
 			enemy_seen = true;
-		
+
 			ActionParamsStruct params;
 			params.Set_Basic(this, INNATE_PRIORITY_ENEMY_SEEN, 0);
 			params.Set_Attack(enemy, 0.0f, 0.0f, true);
@@ -799,27 +799,27 @@ DECLARE_SCRIPT(M06_Camera_Behavior, "Angle:float")
 
 DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
 	bool already_entered;
-	
+
 	enum {TROOP_PICKUP1, TROOP_PICKUP2, M06_STOP_PICKUP};
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( debug_mode, 1 );
-		
+
 	}
 
-		
+
 	void Created (GameObject * obj) override
 	{
 		Commands->Start_Timer (obj, this, 0.0f, TROOP_PICKUP1);
 		already_entered = false;
 	}
 
-	
+
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		ActionParamsStruct params;
@@ -834,7 +834,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 
 			Commands->Start_Timer (obj, this, random, TROOP_PICKUP2);
 			Commands->Start_Timer (obj, this, random, TROOP_PICKUP1);
-			
+
 		}
 		if(timer_id == TROOP_PICKUP2 && (!already_entered))
 		{
@@ -843,7 +843,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 			Commands->Attach_Script(controller, "Test_Cinematic", "X6I_TroopPickup.txt");
 
 		}
-		
+
 	}
 
 	void Entered (GameObject * /*obj*/, GameObject * enterer) override
@@ -867,7 +867,7 @@ DECLARE_SCRIPT(DLS_Test_Pickup, "Debug_Mode=0:int")
 		}
 	}
 
-	
+
 
 };
 
@@ -877,7 +877,7 @@ DECLARE_SCRIPT (DLS_Flame_Tank_Test, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 	}
 
 	void Created (GameObject * obj) override
@@ -891,7 +891,7 @@ DECLARE_SCRIPT (DLS_Flame_Tank_Test, "")
 		Commands->Action_Attack( obj, params );
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT (DLS_Innate_Force_State, "")
@@ -916,18 +916,18 @@ DECLARE_SCRIPT (DLS_Innate_Force_State, "")
 		}
 		if(timer_id == BULLET_HEARD)
 		{
-		
+
 			Commands->Innate_Force_State_Bullet_Heard(obj, pos);
 			Commands->Start_Timer (obj, this, 5.0f, GUNSHOTS_HEARD);
 			Commands->Debug_Message("**** Innate_Force_State_Bullet_Heard.\n");
 		}
-		
+
 		if(timer_id == GUNSHOTS_HEARD)
 		{
 			Commands->Innate_Force_State_Gunshots_Heard(obj, pos);
 			Commands->Start_Timer (obj, this, 5.0f, ENEMY_SEEN);
 			Commands->Debug_Message("**** Innate_Force_State_Gunshots_Heard.\n");
-		}		
+		}
 
 		if(timer_id == ENEMY_SEEN)
 		{
@@ -937,7 +937,7 @@ DECLARE_SCRIPT (DLS_Innate_Force_State, "")
 		}
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT (DLS_Cargo_Plane_Test, "")
@@ -946,7 +946,7 @@ DECLARE_SCRIPT (DLS_Cargo_Plane_Test, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 	}
 
 	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
@@ -957,7 +957,7 @@ DECLARE_SCRIPT (DLS_Cargo_Plane_Test, "")
 		Commands->Attach_Script(chinook_obj, "M00_C130_ParaDrop", "Nod_MiniGunner_0");
 	}
 
-	
+
 };
 
 DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
@@ -972,12 +972,12 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		SAVE_VARIABLE(dead, 2);
 		SAVE_VARIABLE(out, 3);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Vector3 loc = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
-		
+
 		GameObject *chinook_rail = Commands->Create_Object("Generic_Cinematic", loc);
 		Commands->Set_Model(chinook_rail, "X5D_Chinookfly");
 		Commands->Set_Facing(chinook_rail, facing);
@@ -994,7 +994,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		Commands->Attach_Script(chinook, "M00_Reinforcement_C130", params);
 
 				chinook_id = Commands->Get_ID(chinook);
-		
+
 		// Destroy Chinook
 		Commands->Start_Timer(obj, this, 280.0f/30.0f, 0);
 		// Parachutes
@@ -1006,7 +1006,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 		Commands->Start_Timer(obj, this, 155.0f/30.0f, 5);
 		Commands->Start_Timer(obj, this, 165.0f/30.0f, 6);
 
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id) override
@@ -1017,12 +1017,12 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 
 		switch (timer_id)
 		{
-		case 0: 
+		case 0:
 			GameObject *chinook;
 			chinook = Commands->Find_Object(chinook_id);
 			Commands->Destroy_Object(chinook);
 			break;
-		case 1: 
+		case 1:
 			if (out >= 1)
 			{
 				GameObject *para1;
@@ -1034,7 +1034,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para1, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 2: 
+		case 2:
 			if (out >= 2)
 			{
 				GameObject *para2;
@@ -1046,7 +1046,7 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para2, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 3: 
+		case 3:
 			if (out == 3)
 			{
 				GameObject *para3;
@@ -1058,10 +1058,10 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para3, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 4: 
+		case 4:
 			if (!dead)
 			{
-			
+
 			GameObject *box1 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box1, "X5D_Box01");
 			Commands->Set_Facing(box1, facing);
@@ -1077,10 +1077,10 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}
-		
+
 			}
 			break;
-		case 5: 
+		case 5:
 			if (!dead)
 			{
 
@@ -1099,10 +1099,10 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}
-				
+
 			}
 			break;
-		case 6: 
+		case 6:
 			if (!dead)
 			{
 
@@ -1121,10 +1121,10 @@ DECLARE_SCRIPT(M00_C130_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}
-			
+
 			}
 			break;
-		
+
 		}
 	}
 
@@ -1145,12 +1145,12 @@ DECLARE_SCRIPT(M00_Reinforcement_C130, "Controller_ID:int")
 	{
 		SAVE_VARIABLE(sound_id, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		sound_id = Commands->Create_3D_Sound_At_Bone("C130_Idle_01", obj, "BODYMAIN");
 	}
-	
+
 	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 		GameObject * con = Commands->Find_Object(Get_Int_Parameter(0));
@@ -1162,38 +1162,38 @@ DECLARE_SCRIPT(M00_Reinforcement_C130, "Controller_ID:int")
 DECLARE_SCRIPT(DLS_Test_Conversation, "Debug_Mode=0:int")
 {
 	bool debug_mode;
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Set_Innate_Is_Stationary(obj, true);
 	}
-	
+
 	void Poked(GameObject * obj, GameObject * /*poker*/) override
 	{
-	
+
 		const char *conv_name = ("IDS_M00_Test");
 		int conv_id = Commands->Create_Conversation (conv_name, 0, 0, true);
 		Commands->Join_Conversation(Commands->Get_A_Star(Commands->Get_Position(obj)), conv_id, false, true, true);
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
 		Commands->Start_Conversation (conv_id, 300001);
 		Commands->Monitor_Conversation (obj, conv_id);
-		
+
 	}
 
 	void Action_Complete(GameObject * /*obj*/, int /*action_id*/, ActionCompleteReason /*reason*/) override
 	{
-		SCRIPT_DEBUG_MESSAGE (("Action_Complete action_id %d reason %d.\n", action_id, reason));	
-		
+		SCRIPT_DEBUG_MESSAGE (("Action_Complete action_id %d reason %d.\n", action_id, reason));
+
 	}
 };
 
 DECLARE_SCRIPT(DLS_Test_Zone_Timer, "Debug_Mode=0:int")
 {
-		
+
 	bool debug_mode;
-	
-	
-		
+
+
+
 	void Created (GameObject * obj) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("DLS_Test_Zone_Timer Created.\n"));
@@ -1202,20 +1202,20 @@ DECLARE_SCRIPT(DLS_Test_Zone_Timer, "Debug_Mode=0:int")
 		Commands->Start_Timer(obj, this, 1.0f, 666);
 	}
 
-	
+
 	void Timer_Expired(GameObject * obj, int /*timer_id*/ ) override
 	{
 		SCRIPT_DEBUG_MESSAGE (("Timer_Expired on DLS_Test_Zone_Timer timer_id: %d.\n", timer_id));
 
 		Commands->Start_Timer(obj, this, 1.0f, 666);
-		
+
 	}
 };
 
 DECLARE_SCRIPT(DLS_Drop_Unit, "Box_ID:int")
 {
-		
-	
+
+
 
 	void Damaged (GameObject * /*obj*/, GameObject * /*damager*/, float /*amount*/) override
 	{
@@ -1244,8 +1244,8 @@ DECLARE_SCRIPT(DLS_Drop_Unit, "Box_ID:int")
 
 DECLARE_SCRIPT(DLS_CNC_Sound, "Box_ID:int")
 {
-		
-	
+
+
 
 	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
@@ -1257,8 +1257,8 @@ DECLARE_SCRIPT(DLS_CNC_Sound, "Box_ID:int")
 
 DECLARE_SCRIPT(DLS_Spawn_Engineer, "")
 {
-		
-	
+
+
 
 	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
@@ -1271,8 +1271,8 @@ DECLARE_SCRIPT(DLS_Spawn_Engineer, "")
 
 DECLARE_SCRIPT(DLS_Spawn_Engineer2, "")
 {
-		
-	
+
+
 
 	void Damaged (GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
@@ -1290,38 +1290,38 @@ DECLARE_SCRIPT(DLS_Test_Homepoint, "")
 		Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 2.0f);
 	}
 };
-	
+
 DECLARE_SCRIPT (DLS_Test_Apache, "")
 {
-	
+
 
 	void Created (GameObject *obj) override
 	{
 		ActionParamsStruct params;
 
 		params.Set_Basic( this, 100, 10 );
-		params.Set_Movement( Vector3(0,0,0), 1.0f, 2.0f );		
+		params.Set_Movement( Vector3(0,0,0), 1.0f, 2.0f );
 		params.WaypathID = 2000222;
 		params.WaypathSplined = true;
 		Commands->Action_Goto( obj, params );
 	}
-};	
+};
 
 DECLARE_SCRIPT (DLS_Test_Tank, "")
 {
-	
+
 
 	void Created (GameObject *obj) override
 	{
 		ActionParamsStruct params;
 
 		params.Set_Basic( this, 100, 10 );
-		params.Set_Movement( Vector3(0,0,0), 1.0f, 2.0f );		
+		params.Set_Movement( Vector3(0,0,0), 1.0f, 2.0f );
 		params.WaypathID = 100002;
 		params.WaypathSplined = true;
 		Commands->Action_Goto( obj, params );
 	}
-};	
+};
 
 DECLARE_SCRIPT (DLS_Goto_Unit, "")
 {
@@ -1332,7 +1332,7 @@ DECLARE_SCRIPT (DLS_Goto_Unit, "")
 		ActionParamsStruct params;
 
 		Commands->Start_Timer (obj, this, 5.0f, GO_STAR);
-	
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -1342,10 +1342,10 @@ DECLARE_SCRIPT (DLS_Goto_Unit, "")
 		if(timer_id == GO_STAR)
 		{
 			params.Set_Basic( this, 100, 10 );
-			params.Set_Movement( STAR, 1.0f, 2.0f );		
+			params.Set_Movement( STAR, 1.0f, 2.0f );
 			Commands->Action_Goto( obj, params );
 		}
-		
+
 	}
 };
 
@@ -1354,7 +1354,7 @@ DECLARE_SCRIPT (DLS_Playertype, "")
 
 	void Created (GameObject * /*obj*/) override
 	{
-		
+
 	}
 
 	void Poked(GameObject * obj, GameObject * /*poker*/) override
@@ -1362,7 +1362,7 @@ DECLARE_SCRIPT (DLS_Playertype, "")
 		Commands->Set_Player_Type(obj, SCRIPT_PLAYERTYPE_GDI );
 		Commands->Give_PowerUp(obj, "MG Weapon 1 Clip PowerUp", false);
 		Commands->Give_PowerUp(obj, "MiniGun 2 Clips PU", false);
-		
+
 	}
 };
 
@@ -1374,9 +1374,9 @@ DECLARE_SCRIPT (DLS_No_Innate, "")
 		Commands->Innate_Disable(obj);
 	}
 
-	
+
 };
-		
+
 
 DECLARE_SCRIPT(DLS_ActionComplete_Test, "")
 {
@@ -1385,7 +1385,7 @@ DECLARE_SCRIPT(DLS_ActionComplete_Test, "")
 	void Created (GameObject * obj) override
 	{
 		ActionParamsStruct params;
-		
+
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 16 );
 		params.Set_Movement( Vector3(0,0,0), 1.0f, 1.5f );
 		params.WaypathID = 100001;
@@ -1422,9 +1422,9 @@ DECLARE_SCRIPT(DLS_Artillery_Test, "")
 
 	void Timer_Expired (GameObject * /*game_obj*/, int timer_id) override
 	{
-		if (timer_id == ARTILLERY_DROP) 
+		if (timer_id == ARTILLERY_DROP)
 		{
-			
+
 		}
 
 		return ;
@@ -1536,7 +1536,7 @@ DECLARE_SCRIPT(DLS_Where_Am_I, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 //		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
@@ -1547,8 +1547,8 @@ DECLARE_SCRIPT(DLS_Where_Am_I, "")
 		Commands->Debug_Message("%s at: X:%f Y:%f Z:%f \n", preset_name, pos.X, pos.Y, pos.Z);
 
 		Commands->Start_Timer (obj, this, 3.0f, WHERE_AM_I);
-		
-		
+
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -1562,11 +1562,11 @@ DECLARE_SCRIPT(DLS_Where_Am_I, "")
 			Commands->Debug_Message("%s at: X:%f Y:%f Z:%f \n", preset_name, pos.X, pos.Y, pos.Z);
 
 			Commands->Start_Timer (obj, this, 3.0f, WHERE_AM_I);
-			
+
 		}
-		
+
 	}
-	
+
 };
 
 DECLARE_SCRIPT(DLS_Test_Flyovers, "")
@@ -1577,16 +1577,16 @@ DECLARE_SCRIPT(DLS_Test_Flyovers, "")
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		
+
 //		SAVE_VARIABLE( debug_mode, 2 );
 	}
 
 	void Created (GameObject * obj) override
 	{
-		
+
 		Commands->Start_Timer (obj, this, 17.0f, WHERE_AM_I);
-		
-		
+
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
@@ -1595,7 +1595,7 @@ DECLARE_SCRIPT(DLS_Test_Flyovers, "")
 
 		if(timer_id == WHERE_AM_I)
 		{
-			
+
 
 			GameObject * chinook_obj1 = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 			Commands->Set_Facing(chinook_obj1, 0.0f);
@@ -1610,16 +1610,16 @@ DECLARE_SCRIPT(DLS_Test_Flyovers, "")
 			Commands->Attach_Script(chinook_obj3, "Test_Cinematic", "X7A_TrnsptCt_00.txt");
 
 			Commands->Start_Timer (obj, this, 17.0f, WHERE_AM_I);
-			
+
 		}
-		
+
 	}
-	
+
 };
 
 DECLARE_SCRIPT(DLS_Test_Hand_Over_Head, "")
 {
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -1693,7 +1693,7 @@ DECLARE_SCRIPT(DLS_Math, "")
 DECLARE_SCRIPT(DLS_Test_Evac, "")  // Deadeye2
 {
 	enum{WAYPATH};
-	
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -1720,7 +1720,7 @@ DECLARE_SCRIPT(DLS_Test_Evac, "")  // Deadeye2
 			int dead6_id = Commands->Get_ID(obj);
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(100001), M07_DEAD6_EVAC, dead6_id, 0.0f);
 		}
-		
+
 	}
 
 };
@@ -1759,7 +1759,7 @@ enum
 	MX0_OBELISK_DRIVER,					// 4
 	MX0_OBELISK_MEDIUM_TANK,			// 5
 	MX0_SOLDIER_MOVE,					// 6
-	MX0_FIRE_SAM,						// 7	Hardcoded into X0E_Obelisk.txt 
+	MX0_FIRE_SAM,						// 7	Hardcoded into X0E_Obelisk.txt
 	MX0_A10_STRIKE,						// 8
 	MX0_MISSION_SUCCESS,				// 9	Hardcoded into X0Z_Finale.txt
 	MX0_DISCOVERS_NOD_BASE,				// 10
@@ -1770,15 +1770,15 @@ enum
 	MX0_ROCKETTROOPER_TAKE_SAMS,		// 15
 	MX0_ROCKETTROOPER_SAMS_HISTORY,		// 16
 	MX0_TROOPER_UP_ON_WALL,				// 17
-	MX0_DESTROY_OBELISK,				// 18	Hardcoded into X0E_Obelisk.txt 
+	MX0_DESTROY_OBELISK,				// 18	Hardcoded into X0E_Obelisk.txt
 	MX0_GDI_REINFORCEMENT_KILLED,		// 19
 	MX0_NEED_YOU_HERE,					// 20
 	MX0_ROCKETTROOPER_CANT_TURN_BACK,	// 21
-	
+
 };
 
 #define	WRONG_WAY_CONV_TABLE_SIZE  ( sizeof(Wrong_Way_Conv_Table) / sizeof (Wrong_Way_Conv_Table[0]) )
-const char *	Wrong_Way_Conv_Table[] = 
+const char *	Wrong_Way_Conv_Table[] =
 {
 	"MX0_A04_CON015",	// You�re going the wrong way, Havoc!
 	"MX0_A04_CON016",	// Stay with the Mission, Havoc!
@@ -1813,7 +1813,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 	int gdi_reinforcement2_id;
 	int conv_num;
 	int say_need_here;
-		
+
 	enum
 	{
 		AREA4_ACTIVATED = 0,
@@ -1836,7 +1836,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
-	{		
+	{
 		SAVE_VARIABLE( star_area, 1 );
 		SAVE_VARIABLE( area4_activated, 2 );
 		SAVE_VARIABLE( humvee_id, 3 );
@@ -1905,7 +1905,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				GameObject * humvee = Commands->Find_Object(humvee_id);
 				Commands->Attach_Script(humvee, "MX0_Vehicle_DLS", "1500018, 1500019, 0, 0, 0.5f");
 				Commands->Attach_Script(humvee, "MX0_GDI_Killed_DLS", "1");
-				
+
 				// Medium Tank Blasted  *** Ajdusted 12/12/01 No longer gets destroyed
 				GameObject * medium_tank_blasted = Commands->Find_Object(medium_tank_blasted_id);
 				Commands->Attach_Script(medium_tank_blasted, "MX0_Vehicle_DLS", "1500022, 1500023, 0, 0, 1.0f");
@@ -1915,7 +1915,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				// Medium Tank Escort
 				GameObject * medium_tank_escort = Commands->Find_Object(medium_tank_escort_id);
 				Commands->Attach_Script(medium_tank_escort, "MX0_Vehicle_DLS", "1500027, 1500028, 1500029, 0, 1.0f");
-				
+
 
 				// GDI Trooper 1
 				GameObject * gdi_trooper1 = Commands->Find_Object(gdi_trooper1_id);
@@ -1934,77 +1934,77 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 
 			if(param == 1)
 			{
-				humvee_id = Commands->Get_ID(sender);				
+				humvee_id = Commands->Get_ID(sender);
 			}
 			if(param == 3)
 			{
-				medium_tank_blasted_id = Commands->Get_ID(sender);				
+				medium_tank_blasted_id = Commands->Get_ID(sender);
 			}
 			if(param == 4)
 			{
-				medium_tank_escort_id = Commands->Get_ID(sender);				
+				medium_tank_escort_id = Commands->Get_ID(sender);
 			}
 			if(param == 5)
 			{
-				light_tank_a_id = Commands->Get_ID(sender);				
+				light_tank_a_id = Commands->Get_ID(sender);
 			}
 			if(param == 6)
 			{
-				light_tank_b_id = Commands->Get_ID(sender);				
+				light_tank_b_id = Commands->Get_ID(sender);
 			}
 			if(param == 8)
 			{
-				nod_base_rocketsoldier_a_id = Commands->Get_ID(sender);				
+				nod_base_rocketsoldier_a_id = Commands->Get_ID(sender);
 			}
 			if(param == 9)
 			{
-				nod_base_rocketsoldier_b_id = Commands->Get_ID(sender);				
+				nod_base_rocketsoldier_b_id = Commands->Get_ID(sender);
 			}
 			if(param == 10)
 			{
-				player_tank_id = Commands->Get_ID(sender);				
+				player_tank_id = Commands->Get_ID(sender);
 			}
 			if(param == 11)
 			{
-				gdi_trooper1_id = Commands->Get_ID(sender);				
+				gdi_trooper1_id = Commands->Get_ID(sender);
 			}
 			if(param == 12)
 			{
-				gdi_trooper2_id = Commands->Get_ID(sender);				
+				gdi_trooper2_id = Commands->Get_ID(sender);
 			}
 			if(param == 13)
 			{
-				gdi_trooper3_id = Commands->Get_ID(sender);				
+				gdi_trooper3_id = Commands->Get_ID(sender);
 			}
 			if(param == 14)
 			{
-				obelisk_id = Commands->Get_ID(sender);				
+				obelisk_id = Commands->Get_ID(sender);
 			}
 			if(param == 15)
 			{
-				obelisk_weapon_id = Commands->Get_ID(sender);				
+				obelisk_weapon_id = Commands->Get_ID(sender);
 			}
 			if(param == 16)
 			{
-				obelisk_orca_id = Commands->Get_ID(sender);				
+				obelisk_orca_id = Commands->Get_ID(sender);
 			}
 			if(param == 17)
 			{
-				mobile_artillery_id = Commands->Get_ID(sender);				
+				mobile_artillery_id = Commands->Get_ID(sender);
 			}
 			if(param == 18)
 			{
-				basewall_id = Commands->Get_ID(sender);				
+				basewall_id = Commands->Get_ID(sender);
 			}
 			if(param == 19)
 			{
-				gdi_reinforcement1_id = Commands->Get_ID(sender);				
+				gdi_reinforcement1_id = Commands->Get_ID(sender);
 			}
 			if(param == 20)
 			{
-				gdi_reinforcement2_id = Commands->Get_ID(sender);				
+				gdi_reinforcement2_id = Commands->Get_ID(sender);
 			}
-			
+
 		}
 		// Commands for SAMs to fire on incoming Orca
 		if (type == MX0_FIRE_SAM)
@@ -2049,12 +2049,12 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 	}
 	void Wrong_Way(GameObject * obj)
 	{
-		
+
 		if(conv_num == WRONG_WAY_CONV_TABLE_SIZE)
 		{
 			conv_num = 0;
 		}
-		
+
 		const char *conv_name = Wrong_Way_Conv_Table[conv_num];
 		int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 		Commands->Join_Conversation(obj, conv_id, false, true, true);
@@ -2066,7 +2066,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		ActionParamsStruct params;
 
 		if(timer_id == AREA4_ACTIVATED)
-		{			
+		{
 			if(star_area > 0)  // Area 2 or Area 3
 			{
 				// Start moving convoy forward with all GDI troops
@@ -2081,7 +2081,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				// Relocate GDI Trooper2 & GDI Trooper3
 				Commands->Send_Custom_Event( obj, Commands->Find_Object(gdi_trooper2_id), MX0_SOLDIER_MOVE, 1, 0.0f);
 				Commands->Send_Custom_Event( obj, Commands->Find_Object(gdi_trooper3_id), MX0_SOLDIER_MOVE, 1, 0.0f);
-					
+
 				// Light Tank A
 				GameObject * light_tank_a = Commands->Find_Object(light_tank_a_id);
 				Commands->Attach_Script(light_tank_a, "MX0_Vehicle_DLS", "1500033, 1500034, 0, 0, 0.4f");
@@ -2103,7 +2103,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				// RocketTrooper sees Obelisk
 				Commands->Send_Custom_Event( obj, Commands->Find_Object(gdi_trooper1_id), MX0_SPECIFIC_ACTION, MX0_ROCKETTROOPER_SEES_OBELISK, 4.0f);
 
-				
+
 			}
 			else
 			{
@@ -2121,10 +2121,10 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 		{
 			if(star_area > 1)  // Area 2 or Area 3
 			{
-				
+
 				// Light Tank A
 				Commands->Send_Custom_Event( obj, Commands->Find_Object(light_tank_a_id), MX0_VEHICLE_MOVE, 1, 0.0f);
-				
+
 				// Obelisk blasts Hummvee
 				Commands->Send_Custom_Event( obj, Commands->Find_Object(1500020), MX0_OBELISK_HUMVEE, 1, 0.0f);
 
@@ -2145,7 +2145,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				// "We need you Commando"
 				Commands->Start_Timer (obj, this, 6.0f, HUMMVEE_DESTRUCTION);
 			}
-	
+
 		}
 		if(timer_id == MEDIUM_TANK_DESTRUCTION)
 		{
@@ -2175,12 +2175,12 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 
 					// Obelisk blasts GDI Medium Tank  **** Ajdusted 12/12/01 No longer destroy tank
 			//		Commands->Send_Custom_Event( obj, Commands->Find_Object(1500020), MX0_OBELISK_MEDIUM_TANK, 2, 0.0f);
-					
+
 					// Relocate Medium Tank Escort
 					Commands->Send_Custom_Event( obj, Commands->Find_Object(medium_tank_escort_id), MX0_VEHICLE_MOVE, 2, 0.0f);
 					// Mobile Artillery
 					Commands->Send_Custom_Event( obj, Commands->Find_Object(mobile_artillery_id), MX0_VEHICLE_MOVE, 1, 0.0f);
-					
+
 					// Orca is shot down with SAMs, slams into Obelisk
 					Commands->Start_Timer (obj, this, 8.0f, OBELISK_DESTRUCTION);
 
@@ -2195,7 +2195,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				}
 				break;
 			}
-			
+
 		}
 		if(timer_id == OBELISK_DESTRUCTION)
 		{
@@ -2224,26 +2224,26 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 					GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 					Commands->Set_Facing(controller, 0.000f);
 					Commands->Attach_Script(controller, "Test_Cinematic", "X0E_Obelisk.txt");
-					
+
 					// Remove Obelisk weapon
 					Commands->Destroy_Object(Commands->Find_Object(obelisk_weapon_id));
-					
+
 					// Orcas sweeping in to take out Obelisk
 					Commands->Start_Timer (obj, this, 5.0f, ORCA_STRIKE1);
 					Commands->Start_Timer (obj, this, 10.0f, ORCA_STRIKE2);
 					orca_strike = true;
-					
+
 					// Commando, take out those SAMs
 					Commands->Start_Timer (obj, this, 8.0f, CONVERSATION_HAVOC_TAKE_OUT_SAMS);
 					// Nod soldiers being shot off balcony
 					Commands->Start_Timer (obj, this, 2.0f, SAMS_DESTRUCTION);
-					
+
 					// Relocate Troops
 					Relocate_Soldiers (obj);
 				}
 				break;
 			}
-			
+
 		}
 		// Commando, take out those SAMs
 		if(timer_id == CONVERSATION_HAVOC_TAKE_OUT_SAMS)
@@ -2283,7 +2283,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 						Commands->Start_Timer (obj, this, 5.0f, ORCA_STRIKE1);
 						Commands->Start_Timer (obj, this, 10.0f, ORCA_STRIKE2);
 						orca_strike = false;
-						
+
 						// Commando, take out those SAMs ** Only say it once
 						if(!say_take_out_sams)
 						{
@@ -2312,15 +2312,15 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 						// Nod RocketSoldier on base wall fire at Havoc's tank
 						Commands->Send_Custom_Event (obj, Commands->Find_Object(nod_base_rocketsoldier_a_id), MX0_SPECIFIC_ACTION, player_tank_id, 0.0f);
 						Commands->Send_Custom_Event (obj, Commands->Find_Object(nod_base_rocketsoldier_b_id), MX0_SPECIFIC_ACTION, player_tank_id, 0.0f);
-						
+
 						// A10 strike and destruction
 						Commands->Start_Timer (obj, this, 5.0f, A10_STRIKE);
 					}
-					
+
 				}
 				break;
 			}
-			
+
 		}
 		if(timer_id == DESTROY_SAM1)
 		{
@@ -2364,7 +2364,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 					GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 					Commands->Set_Facing(controller, 0.000f);
 					Commands->Attach_Script(controller, "Test_Cinematic", "X0D_A10_Crash.txt");
-					
+
 					// Apaches rise up from behind wall, Ion cannon strike
 					Commands->Start_Timer (obj, this, 6.0f, ION_CANNON_STRIKE);
 
@@ -2373,7 +2373,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 				}
 				break;
 			}
-			
+
 		}
 		// A10 - I�m hit! I�m hit!
 		if(timer_id == A10_HIT)
@@ -2400,13 +2400,13 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 
 			// Relocate Troops
 			Relocate_Soldiers (obj);
-			
+
 		}
 		if(timer_id == FLASH_TO_WHITE)
 		{
 			Commands->Set_Screen_Fade_Color(1.0f, 1.0f, 1.0f, 0.2f);
 			Commands->Set_Screen_Fade_Opacity(1.0f, 0.2f);
-		
+
 		}
 		if(timer_id == FINALE)
 		{
@@ -2427,7 +2427,7 @@ DECLARE_SCRIPT (MX0_Area4_Controller_DLS, "")
 			Commands->Set_Facing(orca_controller, 0.000f);
 			Commands->Attach_Script(orca_controller, "Test_Cinematic", "X0C_Flyovers_02.txt");
 		}
-		
+
 	}
 
 };
@@ -2508,7 +2508,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 		params.Set_Attack(enemy, 200.0f, 5.0f, true);
 	//	params.AttackCheckBlocked = false;
 	//	params.AttackForceFire = true;
-					
+
 		Commands->Action_Attack(obj, params);
 	}
 
@@ -2523,30 +2523,30 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (attack_loc [loc])), speed, 5.0f );
 			params.Set_Attack(Commands->Find_Object(1500024), 0.0f, 0.0f, true);
 			Commands->Action_Attack(obj, params);
-			Commands->Debug_Message("Attack_Loc [%d] = %d \n", loc, attack_loc[loc]);					
-			
+			Commands->Debug_Message("Attack_Loc [%d] = %d \n", loc, attack_loc[loc]);
+
 		}
 		if(type == MX0_SPECIFIC_ACTION)
 		{
 			// Humvee announces discovery of Nod Base
-			if(param == MX0_DISCOVERS_NOD_BASE)  
+			if(param == MX0_DISCOVERS_NOD_BASE)
 			{
 				// Eagle Base� We found it!
 				const char *conv_name = ("MX0_A04_CON001");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, CON001);
-				Commands->Monitor_Conversation (obj, conv_id);		
+				Commands->Monitor_Conversation (obj, conv_id);
 			}
 			// We need you up here, Sir.
-			if(param == MX0_NEED_YOU_HERE)  
+			if(param == MX0_NEED_YOU_HERE)
 			{
 				// We need you up here, Sir.
 				const char *conv_name = ("MX0_A04_CON013");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, 10);
-					
+
 			}
 		}
 	}
@@ -2560,7 +2560,7 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 			Commands->Join_Conversation(NULL, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, CON002);
-		//	Commands->Monitor_Conversation (obj, conv_id);	
+		//	Commands->Monitor_Conversation (obj, conv_id);
 		}
 		if((action_id == CON002) && (reason == ACTION_COMPLETE_CONVERSATION_ENDED))
 		{
@@ -2569,14 +2569,14 @@ DECLARE_SCRIPT (MX0_Vehicle_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Attack_L
 			int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 			Commands->Join_Conversation(obj, conv_id, false, true, true);
 			Commands->Start_Conversation (conv_id, CON002);
-			
-			
+
+
 		}
 		if(action_id == 10)
 		{
 			Commands->Debug_Message("Action_Complete");
 		}
-		
+
 	}
 };
 
@@ -2638,15 +2638,15 @@ DECLARE_SCRIPT (MX0_Obelisk_Weapon_DLS, "Max_Range=75.0f:float")
 		{
 			if(param == 1)
 			{
-				humvee_id = Commands->Get_ID(sender);				
+				humvee_id = Commands->Get_ID(sender);
 			}
 			if(param == 2)
 			{
-				humvee_driver_id = Commands->Get_ID(sender);				
+				humvee_driver_id = Commands->Get_ID(sender);
 			}
 			if(param == 3)
 			{
-				medium_tank_blasted_id = Commands->Get_ID(sender);				
+				medium_tank_blasted_id = Commands->Get_ID(sender);
 			}
 		}
 		if (type == 1)
@@ -2794,7 +2794,7 @@ DECLARE_SCRIPT (MX0_GDI_Killed_DLS, "Unit_ID=0:int")
 
 	void Created (GameObject * /*obj*/) override
 	{
-		
+
 	}
 
 	void Damaged (GameObject * obj, GameObject * damager, float /*amount*/) override
@@ -2889,7 +2889,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 		params.Set_Attack(enemy, 200.0f, 5.0f, true);
 	//	params.AttackCheckBlocked = false;
 	//	params.AttackForceFire = true;
-					
+
 		Commands->Action_Attack(obj, params);
 	}
 
@@ -2906,8 +2906,8 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 			params.Set_Attack(Commands->Find_Object(1500024), 0.0f, 0.0f, true);
 			params.MoveCrouched = move_crouched;
 			Commands->Action_Attack(obj, params);
-			Commands->Debug_Message("Attack_Loc [%d] = %d \n", loc, attack_loc[loc]);					
-			
+			Commands->Debug_Message("Attack_Loc [%d] = %d \n", loc, attack_loc[loc]);
+
 		}
 		if(type == MX0_SPECIFIC_ACTION)
 		{
@@ -2921,46 +2921,46 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				params.Set_Basic( this, 100, 1 );
 				params.Set_Animation ("H_A_A0A0_L51", true);
 				Commands->Action_Play_Animation (obj, params);
-				
+
 				// Death #1 - Bullet death scream
 				const char *conv_name = ("MX0_A04_CON019");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
-				Commands->Start_Conversation (conv_id, 10);	
+				Commands->Start_Conversation (conv_id, 10);
 			}
 			// Rocket Trooper sights obelisk
-			if(param == MX0_ROCKETTROOPER_SEES_OBELISK) 
+			if(param == MX0_ROCKETTROOPER_SEES_OBELISK)
 			{
 				// They have an Obelisk!
 				const char *conv_name = ("MX0_A04_CON003");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
-				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_SEES_OBELISK);	
-				
+				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_SEES_OBELISK);
+
 				// Start Area4 muzak
 				Commands->Fade_Background_Music( "Level 0 Nod base.mp3", 2, 2);
-			
+
 			}
 			// Rocket Trooper announces obelisk is hot
-			if(param == MX0_ROCKETTROOPER_HOT_OBELISK) 
+			if(param == MX0_ROCKETTROOPER_HOT_OBELISK)
 			{
 				// The Obelisk is hot!  Look out!
 				const char *conv_name = ("MX0_A04_CON004");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
-				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_HOT_OBELISK);	
+				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_HOT_OBELISK);
 			}
 			// Rocket Trooper - It�s down! The Obelisk is down!
-			if(param == MX0_ROCKETTROOPER_OBELISK_DOWN) 
+			if(param == MX0_ROCKETTROOPER_OBELISK_DOWN)
 			{
 				// It�s down! The Obelisk is down!
 				const char *conv_name = ("MX0_A04_CON006");
 				int conv_id = Commands->Create_Conversation (conv_name, 100.0f, 200.0f, false);
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
-				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_OBELISK_DOWN);	
+				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_OBELISK_DOWN);
 			}
 			// Rocket Trooper - Go! Go!  Knock out those SAMs!
-			if(param == MX0_ROCKETTROOPER_TAKE_SAMS) 
+			if(param == MX0_ROCKETTROOPER_TAKE_SAMS)
 			{
 				// Go! Go!  Knock out those SAMs!
 				const char *conv_name = ("MX0_A04_CON007");
@@ -2969,7 +2969,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_TAKE_SAMS);
 			}
 			// Rocket Trooper - The SAMs are history!
-			if(param == MX0_ROCKETTROOPER_SAMS_HISTORY) 
+			if(param == MX0_ROCKETTROOPER_SAMS_HISTORY)
 			{
 				// The SAMs are history!
 				const char *conv_name = ("MX0_A04_CON008");
@@ -2978,7 +2978,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_SAMS_HISTORY);
 			}
 			// Trooper1 - There, on the wall!
-			if(param == MX0_TROOPER_UP_ON_WALL) 
+			if(param == MX0_TROOPER_UP_ON_WALL)
 			{
 				// There, on the wall!
 				const char *conv_name = ("MX0_A04_CON009");
@@ -2987,7 +2987,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				Commands->Start_Conversation (conv_id, MX0_TROOPER_UP_ON_WALL);
 			}
 			// If Havoc turns back and exits Area4
-			if(param == MX0_ROCKETTROOPER_CANT_TURN_BACK) 
+			if(param == MX0_ROCKETTROOPER_CANT_TURN_BACK)
 			{
 				// We need your help - over here, Sir!
 				const char *conv_name = ("MX0_A04_CON014");
@@ -2995,7 +2995,7 @@ DECLARE_SCRIPT (MX0_GDI_Soldier_DLS, "Attack_Loc0=0:int, Attack_Loc1=0:int, Atta
 				Commands->Join_Conversation(obj, conv_id, false, true, true);
 				Commands->Start_Conversation (conv_id, MX0_ROCKETTROOPER_CANT_TURN_BACK);
 			}
-					
+
 		}
 	}
 
@@ -3054,7 +3054,7 @@ DECLARE_SCRIPT (MX0_Gun_Emplacement_DLS, "Left_Point=0:int, Right_Point=0:int")
 		if(type == MX0_SPECIFIC_ACTION)
 		{
 			Timer_Expired(obj, STRAFE);
-			
+
 		}
 	}
 
@@ -3083,7 +3083,7 @@ DECLARE_SCRIPT (MX0_Gun_Emplacement_DLS, "Left_Point=0:int, Right_Point=0:int")
 				Commands->Action_Attack( obj, params );
 			}
 			Commands->Start_Timer (obj, this, 4.0f, STRAFE);
-		}		
+		}
 	}
 };
 
@@ -3119,7 +3119,7 @@ DECLARE_SCRIPT (MX0_Nod_RocketSoldier_DLS, "Stationary_Point=0:int")
 			params.Set_Attack (Commands->Find_Object(param), 150.0f, 0.0f, 1);
 			params.AttackCheckBlocked = false;
 			params.AttackForceFire = true;
-			Commands->Action_Attack( obj, params );			
+			Commands->Action_Attack( obj, params );
 		}
 	}
 
@@ -3254,7 +3254,7 @@ DECLARE_SCRIPT (DLS_Star_No_Fall, "")
 				Commands->Start_Timer (obj, this, 1.0f, ATTACH_SCRIPT);
 			}
 		}
-		
+
 	}
 };
 
@@ -3269,12 +3269,12 @@ DECLARE_SCRIPT (MX0_Explosive_Barrels_DLS, "Logical_Sound=0:int, Radius:float")
 
 	void Created (GameObject * /*obj*/) override
 	{
-		
+
 	}
 
 	void Custom (GameObject * /*obj*/, int /*type*/, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
-		
+
 	}
 
 	void Sound_Heard( GameObject * obj, const CombatSound & sound ) override

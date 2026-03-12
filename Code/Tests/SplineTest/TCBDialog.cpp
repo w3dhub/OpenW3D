@@ -66,20 +66,20 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTCBDialog message handlers
 
-BOOL CTCBDialog::OnInitDialog() 
+BOOL CTCBDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	
+
 	float t,c,b;
 	Curve->Get_TCB_Params(Key,&t,&c,&b);
 	SetDlgItemFloat(IDC_TENSION_EDIT,t);
 	SetDlgItemFloat(IDC_CONTINUITY_EDIT,c);
 	SetDlgItemFloat(IDC_BIAS_EDIT,b);
 
-	return true;  
+	return true;
 }
 
-void CTCBDialog::OnOK() 
+void CTCBDialog::OnOK()
 {
 	float t,c,b;
 	t = GetDlgItemFloat(IDC_TENSION_EDIT);

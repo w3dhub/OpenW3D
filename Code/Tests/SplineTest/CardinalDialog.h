@@ -34,7 +34,7 @@ class CCardinalDialog : public CDialog
 {
 // Construction
 public:
-	CCardinalDialog(CWnd* pParent,CardinalSpline3DClass * curve,int key);   
+	CCardinalDialog(CWnd* pParent,CardinalSpline3DClass * curve,int key);
 
 // Dialog Data
 	//{{AFX_DATA(CCardinalDialog)
@@ -55,7 +55,7 @@ protected:
 
 	CardinalSpline3DClass *		Curve;
 	int								Key;
-	
+
 	float								GetDlgItemFloat(int controlid);
 	void								SetDlgItemFloat(int controlid,float val);
 

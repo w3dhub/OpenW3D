@@ -77,7 +77,7 @@ ISpinnerControl *	SkinWSMObjectClass::BasePoseSpin = NULL;
 ** Class Descriptor for SkinWSMObjectClass
 **
 *******************************************************************************/
-class SkinWSMObjectClassDesc:public ClassDesc 
+class SkinWSMObjectClassDesc:public ClassDesc
 {
 public:
 
@@ -98,7 +98,7 @@ ClassDesc * Get_Skin_Obj_Desc() { return &_SkinWSMObjectDesc; }
 ** Class Descriptor for the SkinModifier
 **
 *******************************************************************************/
-class SkinModClassDesc:public ClassDesc 
+class SkinModClassDesc:public ClassDesc
 {
 public:
 
@@ -120,10 +120,10 @@ ClassDesc * Get_Skin_Mod_Desc() { return &_SkinModDesc; }
 **		SkinWSMObjectCreateCallback
 **		A class derived from CreateMouseCallBack to handle
 **		the user input during the creation phase of the SkinWSMObject.
-** 
+**
 *******************************************************************************/
-class SkinWSMObjectCreateCallBack : public CreateMouseCallBack 
-{	
+class SkinWSMObjectCreateCallBack : public CreateMouseCallBack
+{
 public:
 	int proc( ViewExp * vpt,int msg, int point, int flags, IPoint2 m, Matrix3 & mat)
 	{
@@ -131,7 +131,7 @@ public:
 			Point3 pos = vpt->GetPointOnCP(m);
 			mat.IdentityMatrix();
 			mat.SetTrans(pos);
-			return CREATE_STOP;	
+			return CREATE_STOP;
 		}
 		return true;
 	}
@@ -144,7 +144,7 @@ static SkinWSMObjectCreateCallBack _SkinCreateCB;
 **		SkinWSMObjectClass
 **
 *******************************************************************************/
-SkinWSMObjectClass::SkinWSMObjectClass() 
+SkinWSMObjectClass::SkinWSMObjectClass()
 {
 	/*
 	** Initialize class variables to default state!
@@ -157,21 +157,21 @@ SkinWSMObjectClass::SkinWSMObjectClass()
 	pblock = NULL;
 }
 
-SkinWSMObjectClass::~SkinWSMObjectClass(void) 
+SkinWSMObjectClass::~SkinWSMObjectClass(void)
 {
 		OutputDebugString("DeletingSkinWSMObjectClass\n");
 	assert(!((InterfacePtr == NULL) && (SotHWND != NULL)));
 	if (SotHWND != NULL) {
-		InterfacePtr->UnRegisterDlgWnd(SotHWND);		
+		InterfacePtr->UnRegisterDlgWnd(SotHWND);
 		InterfacePtr->DeleteRollupPage(SotHWND);
-	  	SotHWND = NULL;				
+	  	SotHWND = NULL;
 	}
 
 	assert(!((InterfacePtr == NULL) && (SkeletonHWND != NULL)));
 	if (SkeletonHWND != NULL) {
-		InterfacePtr->UnRegisterDlgWnd(SkeletonHWND);		
+		InterfacePtr->UnRegisterDlgWnd(SkeletonHWND);
 		InterfacePtr->DeleteRollupPage(SkeletonHWND);
-	  	SkeletonHWND = NULL;				
+	  	SkeletonHWND = NULL;
 	}
 }
 
@@ -190,11 +190,11 @@ void SkinWSMObjectClass::BeginEditParams(IObjParam  *ip, ULONG flags,Animatable 
 	** Install the "supports objects of type" rollup
 	*/
 	if (SotHWND == NULL) {
-		SotHWND = ip->AddRollupPage( 
-					AppInstance, 
+		SotHWND = ip->AddRollupPage(
+					AppInstance,
 					MAKEINTRESOURCE(IDD_SKIN_SOT),
 					_sot_dialog_proc,
-					Get_String(IDS_SOT), 
+					Get_String(IDS_SOT),
 					(LPARAM)InterfacePtr,
 					APPENDROLL_CLOSED);
 	} else {
@@ -205,11 +205,11 @@ void SkinWSMObjectClass::BeginEditParams(IObjParam  *ip, ULONG flags,Animatable 
 	** Install the skeleton rollup
 	*/
 	if (SkeletonHWND == NULL) {
-		SkeletonHWND = InterfacePtr->AddRollupPage( 
-					AppInstance, 
+		SkeletonHWND = InterfacePtr->AddRollupPage(
+					AppInstance,
 					MAKEINTRESOURCE(IDD_SKELETON_PARAMETERS),
 					_skeleton_dialog_thunk,
-					Get_String(IDS_SKELETON_PARAMETERS), 
+					Get_String(IDS_SKELETON_PARAMETERS),
 					(LPARAM)this,
 					0);
 	} else {
@@ -229,18 +229,18 @@ void SkinWSMObjectClass::EndEditParams(IObjParam *ip, ULONG flags,Animatable *ne
 		** Remove the Sot rollup
 		*/
 		if (SotHWND != NULL) {
-			InterfacePtr->UnRegisterDlgWnd(SotHWND);		
+			InterfacePtr->UnRegisterDlgWnd(SotHWND);
 			InterfacePtr->DeleteRollupPage(SotHWND);
-	  		SotHWND = NULL;				
+	  		SotHWND = NULL;
 		}
-	
+
 		/*
 		** Remove the info rollup
 		*/
 		if (SkeletonHWND != NULL) {
-			InterfacePtr->UnRegisterDlgWnd(SkeletonHWND);		
+			InterfacePtr->UnRegisterDlgWnd(SkeletonHWND);
 			InterfacePtr->DeleteRollupPage(SkeletonHWND);
-	  		SkeletonHWND = NULL;				
+	  		SkeletonHWND = NULL;
 		}
 	}
 
@@ -255,7 +255,7 @@ RefTargetHandle SkinWSMObjectClass::Clone(RemapDir & remap)
 	/*
 	** create another SkinWSMObject and return it.
 	*/
-	SkinWSMObjectClass * sobj = new SkinWSMObjectClass();	
+	SkinWSMObjectClass * sobj = new SkinWSMObjectClass();
 	return(sobj);
 }
 
@@ -276,7 +276,7 @@ RefTargetHandle SkinWSMObjectClass::GetReference(int i)
 	return BoneTab[boneidx];
 }
 
-void SkinWSMObjectClass::SetReference(int i, RefTargetHandle rtarg) 
+void SkinWSMObjectClass::SetReference(int i, RefTargetHandle rtarg)
 {
 	if (i < SimpleWSMObject::NumRefs()) {
 		SimpleWSMObject::SetReference(i,rtarg);
@@ -286,7 +286,7 @@ void SkinWSMObjectClass::SetReference(int i, RefTargetHandle rtarg)
 		assert(boneidx < BoneTab.Count());
 		BoneTab[boneidx] = (INode *)rtarg;
 	}
-}		
+}
 
 RefResult SkinWSMObjectClass::NotifyRefChanged(Interval changeInt,RefTargetHandle hTarget,PartID& partID, RefMessage message)
 {
@@ -314,7 +314,7 @@ RefResult SkinWSMObjectClass::NotifyRefChanged(Interval changeInt,RefTargetHandl
 CreateMouseCallBack * SkinWSMObjectClass::GetCreateMouseCallBack(void)
 {
 	/*
-	** The "CreateMouseCallback" is used when creating the 
+	** The "CreateMouseCallback" is used when creating the
 	** object.  Since our object doesn't need an interactive
 	** creation phase, we return NULL.
 	*/
@@ -344,10 +344,10 @@ void SkinWSMObjectClass::BuildMesh(TimeValue t)
 	** we just use FOREVER.
 	*/
 	ivalid = FOREVER;
-	
+
 	/*
 	** Ok, this is the first time BuildMesh has been called.
-	** Create a mesh which will represent this space warp object in 
+	** Create a mesh which will represent this space warp object in
 	** in the max viewports.  Note that we are using the mesh
 	** member which is inherited from SimpleWSMObject.
 	*/
@@ -364,7 +364,7 @@ void SkinWSMObjectClass::BuildMesh(TimeValue t)
 	MeshBuilt = true;
 }
 
-void SkinWSMObjectClass::Build_Tri(Face * f, int a,  int b, int c) 
+void SkinWSMObjectClass::Build_Tri(Face * f, int a,  int b, int c)
 {
 	f->setVerts(a, b, c);
 	f->setSmGroup(0);
@@ -387,7 +387,7 @@ void SkinWSMObjectClass::User_Picked_Bone(INode * node)
 		default:
 			assert(0);
 	}
-	
+
 	Set_Bone_Selection_Mode(BONE_SEL_MODE_NONE);
 	Update_Bone_List();
 }
@@ -417,7 +417,7 @@ void SkinWSMObjectClass::Set_Bone_Selection_Mode(int mode)
 {
 	assert(mode >= BONE_SEL_MODE_NONE);
 	assert(mode <= BONE_SEL_MODE_REMOVE_MANY);
-	
+
 	/*
 	** store the selection mode
 	*/
@@ -431,7 +431,7 @@ void SkinWSMObjectClass::Set_Bone_Selection_Mode(int mode)
 }
 
 int SkinWSMObjectClass::Add_Bone(INode * node)
-{	
+{
 	OutputDebugString("Adding a bone\n");
 	int refidx;
 	int boneidx;
@@ -446,7 +446,7 @@ int SkinWSMObjectClass::Add_Bone(INode * node)
 
 	/*
 	** Otherwise, look for a NULL bone and we'll re-use
-	** its slot.  This happens when a user removes a bone or 
+	** its slot.  This happens when a user removes a bone or
 	** a bone in the scene is deleted.
 	*/
 	boneidx = Find_Bone(NULL);
@@ -455,12 +455,12 @@ int SkinWSMObjectClass::Add_Bone(INode * node)
 		MakeRefByID(FOREVER,refidx,node);
 		return boneidx;
 	}
-	
+
 	/*
-	** If we made it here, add the bone to the end of the 
+	** If we made it here, add the bone to the end of the
 	** reference array.
 	*/
-	BoneTab.Append(1,&node);		
+	BoneTab.Append(1,&node);
 	boneidx = BoneTab.Count() - 1;
 	refidx = To_Ref_Index(boneidx);
 	MakeRefByID(FOREVER,refidx,node);
@@ -583,7 +583,7 @@ int SkinWSMObjectClass::Find_Closest_Bone(const Point3 & vertex)
 	TimeValue basetime = Get_Base_Pose_Time();
 
 	for (int boneidx = 0; boneidx < BoneTab.Count(); boneidx++) {
-		
+
 		if (BoneTab[boneidx] == NULL) continue;
 
 		float bonedist = Bone_Distance(BoneTab[boneidx],basetime,vertex);
@@ -609,14 +609,14 @@ SkinModifierClass::SkinModifierClass(void)
 	Default_Init();
 }
 
-SkinModifierClass::SkinModifierClass(INode * node,SkinWSMObjectClass * skin_obj) 
+SkinModifierClass::SkinModifierClass(INode * node,SkinWSMObjectClass * skin_obj)
 {
 	Default_Init();
 
 	/*
 	** Make the reference to the space warp node.
 	*/
-	MakeRefByID(FOREVER,NODE_REF,node);	
+	MakeRefByID(FOREVER,NODE_REF,node);
 
 	/*
 	** Make reference to the WSMObject
@@ -629,7 +629,7 @@ void SkinModifierClass::Default_Init(void)
 {
 	SubObjSelLevel = VERTEX_SEL_LEVEL;
 	WSMObjectRef = NULL;
-	WSMNodeRef = NULL;	
+	WSMNodeRef = NULL;
 	InterfacePtr = NULL;
 
 	BoneInfluenceHWND = NULL;
@@ -658,7 +658,7 @@ void SkinModifierClass::BeginEditParams(IObjParam * ip, ULONG flags,Animatable *
 	** Grab a copy of the interface pointer
 	*/
 	InterfacePtr = ip;
-	
+
 	/*
 	** allocate the selection command mode for use in vertex selection
 	*/
@@ -671,7 +671,7 @@ void SkinModifierClass::BeginEditParams(IObjParam * ip, ULONG flags,Animatable *
 #if defined W3D_MAX4		//defined as in the project (.dsp)
 	InterfacePtr->SetSubObjectLevel(1);
 #else
-	//---This call is obsolete from version 4.   
+	//---This call is obsolete from version 4.
 	InterfacePtr->RegisterSubObjectTypes( ptype, 1);
 #endif
 	/*
@@ -701,13 +701,13 @@ void SkinModifierClass::EndEditParams(IObjParam *ip, ULONG flags,Animatable *nex
 	InterfacePtr->DeleteMode(SelectMode);
 	if (SelectMode ) delete SelectMode;
 	SelectMode = NULL;
-		
+
 	/*
 	** Remove the rollup window(s) if needed
 	*/
-	if (flags & END_EDIT_REMOVEUI) {		
+	if (flags & END_EDIT_REMOVEUI) {
 		Remove_Bone_Influence_Dialog();
-	} 
+	}
 
 	/*
 	** Make sure we don't hang onto an invalid interface
@@ -754,17 +754,17 @@ void SkinModifierClass::SetReference(int i, RefTargetHandle rtarg)
 	}
 }
 
-RefResult SkinModifierClass::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message) 
+RefResult SkinModifierClass::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message)
 {
 	switch (message) {
 
 		case REFMSG_TARGET_DELETED:
-	
+
 			/*
 			** This means the WSM node is being deleted. As a result,
-			** we must delete ourselves. 
+			** we must delete ourselves.
 			*/
-			DeleteMe();		// also deletes all refs and 
+			DeleteMe();		// also deletes all refs and
 								// sends REFMSG_TARGET_DELETED to all Dependents
 			return REF_STOP;
 	}
@@ -785,7 +785,7 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 	** Get the skin data from the ModContext.
 	*/
 	SkinDataClass * skindata = (SkinDataClass *)mc.localData;
-	
+
 	/*
 	** If there is no skin data, allocate it
 	** Also, do an initial auto attach.
@@ -797,9 +797,9 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 	if (!skindata->IsValid()) {
 		skindata->Validate(&triobj->mesh);
 	}
-	
+
 	/*
-	** If in vertex selection mode, tell the mesh to display the 
+	** If in vertex selection mode, tell the mesh to display the
 	** selected vertices and turn on vertex tick marks.  Otherwise
 	** make sure vertex tick marks are off.
 	*/
@@ -807,7 +807,7 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 		triobj->mesh.vertSel = skindata->VertSel;
 		triobj->mesh.SetDispFlag(DISP_VERTTICKS|DISP_SELVERTS);
 
-		if (triobj->mesh.selLevel != MESH_VERTEX) {	
+		if (triobj->mesh.selLevel != MESH_VERTEX) {
 			triobj->mesh.selLevel = MESH_VERTEX;
 		}
 	} else {
@@ -825,7 +825,7 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 		// issues - UI to set the weights, rebalance weights whenever
 		// a bone is deleted, should also then never get NULL bones
 		// and remove the need to check for NULL bones in this routine...
- 
+
 		/*
 		** Get a pointer to the bone that this vertex is attached to
 		*/
@@ -833,7 +833,7 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 
 		int boneidx = inf->BoneIdx[0];
 		if ((boneidx != -1) && (boneidx < WSMObjectRef->Num_Bones())) {
-				
+
 			INode * bone = WSMObjectRef->Get_Bone(inf->BoneIdx[0]);
 
 			if (bone == NULL) {
@@ -842,9 +842,9 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 				** clear this vert's bone influence index
 				*/
 				inf->BoneIdx[0] = -1;
-	
+
 			} else {
-					
+
 				/*
 				** Ok, got the bone, now transform the point and
 				** give it back to the mesh
@@ -853,7 +853,7 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 				Matrix3 tm;
 
 				pnew = triobj->GetPoint(vidx);
-				
+
 				if (os->GetTM()) {
 					tm = *(os->GetTM());
 				} else {
@@ -861,12 +861,12 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 				}
 
 				pnew = tm * pnew;
-								
+
 				TimeValue basetime = WSMObjectRef->Get_Base_Pose_Time();
 				Matrix3 basetm = bone->GetObjectTM(basetime);
 				Matrix3 curtm = bone->GetObjectTM(t);
 				pnew = (pnew * Inverse(basetm)) * curtm;
-				
+
 				pnew = Inverse(tm) * pnew;
 
 				triobj->SetPoint(vidx,pnew);
@@ -877,12 +877,12 @@ void SkinModifierClass::ModifyObject(TimeValue t, ModContext & mc, ObjectState *
 	/*
 	** Tell the object that points were changed
 	*/
-	triobj->PointsWereChanged();		
+	triobj->PointsWereChanged();
 
 	/*
 	** Set the validity of the updated geometry data
 	*/
-	triobj->UpdateValidity(GEOM_CHAN_NUM,Get_Validity(t));	
+	triobj->UpdateValidity(GEOM_CHAN_NUM,Get_Validity(t));
 }
 
 IOResult SkinModifierClass::Save(ISave * isave)
@@ -964,7 +964,7 @@ void SkinModifierClass::ActivateSubobjSel(int level, XFormModes & modes)
 	/*
 	** Set the appropriate command mode.  We only want selection.
 	*/
-	switch (SubObjSelLevel) 
+	switch (SubObjSelLevel)
 	{
 		case OBJECT_SEL_LEVEL:
 			Remove_Bone_Influence_Dialog();
@@ -980,9 +980,9 @@ void SkinModifierClass::ActivateSubobjSel(int level, XFormModes & modes)
 	** Put our named subobject selection sets into the drop down list
 	*/
 	Create_Named_Selection_Sets();
-	
+
 	/*
-	** Notify our dependents that the subselection type, 
+	** Notify our dependents that the subselection type,
 	** and the display have changed
 	*/
 	NotifyDependents(FOREVER, PART_SUBSEL_TYPE|PART_DISPLAY, REFMSG_CHANGE);
@@ -993,7 +993,7 @@ void SkinModifierClass::ActivateSubobjSel(int level, XFormModes & modes)
 	InterfacePtr->PipeSelLevelChanged();
 
 	/*
-	** Notify our dependents that the selection channel, 
+	** Notify our dependents that the selection channel,
 	** display attributes, and subselection type channels have changed
 	*/
 	NotifyDependents(FOREVER, SELECT_CHANNEL|DISP_ATTRIB_CHANNEL|SUBSEL_TYPE_CHANNEL, REFMSG_CHANGE);
@@ -1001,13 +1001,13 @@ void SkinModifierClass::ActivateSubobjSel(int level, XFormModes & modes)
 
 int SkinModifierClass::HitTest
 (
-	TimeValue		t, 
+	TimeValue		t,
 	INode *			inode,
-	int				type, 
-	int				crossing, 
-	int				flags, 
-	IPoint2 *		p, 
-	ViewExp *		vpt, 
+	int				type,
+	int				crossing,
+	int				flags,
+	IPoint2 *		p,
+	ViewExp *		vpt,
 	ModContext *	mc
 )
 {
@@ -1026,9 +1026,9 @@ int SkinModifierClass::HitTest
 	*/
 	GraphicsWindow *gw = vpt->getGW();
 	gw->setHitRegion(&hr);
-	gw->setTransform(mat);	
+	gw->setTransform(mat);
 	gw->setRndLimits(((savedLimits = gw->getRndLimits()) | GW_PICK) & ~GW_ILLUM);
-	
+
 	if (1 /*IgnoreBackfaces*/) {
 		gw->setRndLimits(gw->getRndLimits() |  GW_BACKCULL);
 	} else {
@@ -1041,17 +1041,17 @@ int SkinModifierClass::HitTest
 	** Do the hit test!
 	*/
 	SubObjHitList hitlist;
-	MeshSubHitRec * rec;	
-	
+	MeshSubHitRec * rec;
+
 	ObjectState os = inode->EvalWorldState(InterfacePtr->GetTime());
 	TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
 	res = tobj->mesh.SubObjectHitTest(gw,gw->getMaterial(),&hr,flags | SUBHIT_VERTS,hitlist);
-	
+
 	/*
 	** Record all of the hits
 	*/
 	rec = hitlist.First();
-	while (rec) 
+	while (rec)
 	{
 		/*
 		** rec->index is the index of vertex which was hit!
@@ -1065,13 +1065,13 @@ int SkinModifierClass::HitTest
 	/*
 	** Cleanup
 	*/
-	gw->setRndLimits(savedLimits);	
-	
+	gw->setRndLimits(savedLimits);
+
 	if (needsdel) {
 		tobj->DeleteThis();
 	}
 
-	return res;	
+	return res;
 }
 
 void SkinModifierClass::SelectSubComponent(HitRecord *hitRec, BOOL selected, BOOL all, BOOL invert)
@@ -1080,12 +1080,12 @@ void SkinModifierClass::SelectSubComponent(HitRecord *hitRec, BOOL selected, BOO
 	int count = 0;
 
 	switch (SubObjSelLevel) {
-		
+
 		case VERTEX_SEL_LEVEL:
 
-			while (hitRec) {				
+			while (hitRec) {
 
-				skindata = (SkinDataClass *)hitRec->modContext->localData;				
+				skindata = (SkinDataClass *)hitRec->modContext->localData;
 
 				/*
 				** Undo/Redo functionality
@@ -1096,7 +1096,7 @@ void SkinModifierClass::SelectSubComponent(HitRecord *hitRec, BOOL selected, BOO
 				}
 				theHold.Accept(_T("Select Vertex"));
 #endif
-				
+
 				BitArray * array = &(skindata->VertSel);
 
 				if (all & invert) {
@@ -1113,7 +1113,7 @@ void SkinModifierClass::SelectSubComponent(HitRecord *hitRec, BOOL selected, BOO
 				} else {
 					array->Set(hitRec->hitInfo,selected);
 				}
-				
+
 				if (!all) break;
 				hitRec = hitRec->Next();
 			}
@@ -1130,17 +1130,17 @@ void SkinModifierClass::ClearSelection(int selLevel)
 	ModContextList mcList;
 	INodeTab nodes;
 
-	if (!InterfacePtr ) return;	
-	
+	if (!InterfacePtr ) return;
+
 	InterfacePtr->GetModContexts(mcList,nodes);
 	InterfacePtr->ClearCurNamedSelSet();
 
 	for (int i = 0; i < mcList.Count(); i++) {
 
 		SkinDataClass * skindata = (SkinDataClass *)mcList[i]->localData;
-		
-		if (skindata==NULL) continue;		
-		
+
+		if (skindata==NULL) continue;
+
 		ObjectState os = nodes[i]->EvalWorldState(InterfacePtr->GetTime());
 		TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
 
@@ -1151,7 +1151,7 @@ void SkinModifierClass::ClearSelection(int selLevel)
 				return;
 #endif
 
-			case VERTEX_SEL_LEVEL:	
+			case VERTEX_SEL_LEVEL:
 #if 0 // undo/redo
 				if (theHold.Holding()) {
 					theHold.Put(new VertexSelRestore(meshData,this));
@@ -1166,7 +1166,7 @@ void SkinModifierClass::ClearSelection(int selLevel)
 			tobj->DeleteThis();
 		}
 	}
-	
+
 	/*
 	** Get rid of the temporary copies of the INodes.
 	*/
@@ -1186,17 +1186,17 @@ void SkinModifierClass::SelectAll(int selLevel)
 	ModContextList mclist;
 	INodeTab nodes;
 
-	if (!InterfacePtr) return;	
-	
+	if (!InterfacePtr) return;
+
 	InterfacePtr->GetModContexts(mclist,nodes);
 	InterfacePtr->ClearCurNamedSelSet();
 
 	for (int i = 0; i < mclist.Count(); i++) {
 
 		SkinDataClass * skindata = (SkinDataClass *)mclist[i]->localData;
-		
-		if (skindata==NULL) continue;		
-		
+
+		if (skindata==NULL) continue;
+
 		ObjectState os = nodes[i]->EvalWorldState(InterfacePtr->GetTime());
 		TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
 
@@ -1206,7 +1206,7 @@ void SkinModifierClass::SelectAll(int selLevel)
 				assert(0);
 				return;
 
-			case VERTEX_SEL_LEVEL:	
+			case VERTEX_SEL_LEVEL:
 #if 0 // undo/redo
 				if (theHold.Holding()) {
 					theHold.Put(new VertexSelRestore(meshData,this));
@@ -1221,7 +1221,7 @@ void SkinModifierClass::SelectAll(int selLevel)
 			tobj->DeleteThis();
 		}
 	}
-	
+
 	/*
 	** Get rid of the temporary copies of the INodes.
 	*/
@@ -1240,17 +1240,17 @@ void SkinModifierClass::InvertSelection(int selLevel)
 	ModContextList mclist;
 	INodeTab nodes;
 
-	if (!InterfacePtr) return;	
-	
+	if (!InterfacePtr) return;
+
 	InterfacePtr->GetModContexts(mclist,nodes);
 	InterfacePtr->ClearCurNamedSelSet();
 
 	for (int i = 0; i < mclist.Count(); i++) {
 
 		SkinDataClass * skindata = (SkinDataClass *)mclist[i]->localData;
-		
-		if (skindata==NULL) continue;		
-		
+
+		if (skindata==NULL) continue;
+
 		ObjectState os = nodes[i]->EvalWorldState(InterfacePtr->GetTime());
 		TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
 
@@ -1260,7 +1260,7 @@ void SkinModifierClass::InvertSelection(int selLevel)
 				assert(0);
 				return;
 
-			case VERTEX_SEL_LEVEL:	
+			case VERTEX_SEL_LEVEL:
 #if 0 // undo/redo
 				if (theHold.Holding()) {
 					theHold.Put(new VertexSelRestore(meshData,this));
@@ -1269,7 +1269,7 @@ void SkinModifierClass::InvertSelection(int selLevel)
 				for (int j=0; j<tobj->mesh.vertSel.GetSize(); j++) {
 					if (tobj->mesh.vertSel[j]) tobj->mesh.vertSel.Clear(j);
 					else tobj->mesh.vertSel.Set(j);
-				}				
+				}
 				skindata->VertSel = tobj->mesh.vertSel;
 				break;
 		}
@@ -1278,7 +1278,7 @@ void SkinModifierClass::InvertSelection(int selLevel)
 			tobj->DeleteThis();
 		}
 	}
-	
+
 	/*
 	** Get rid of the temporary copies of the INodes.
 	*/
@@ -1304,10 +1304,10 @@ void SkinModifierClass::User_Picked_Bone(INode * node)
 	INodeTab nodelist;
 
 	InterfacePtr->GetModContexts(mclist,nodelist);
-	
+
 	/*
 	** This seems wrong... But I always get only one ModContext and
-	** it is the one that I want so I'll just use it...  
+	** it is the one that I want so I'll just use it...
 	** I believe that OS Modifiers can get multiple ones but WS modifiers
 	** don't
 	*/
@@ -1333,12 +1333,12 @@ void SkinModifierClass::User_Picked_Bone(INode * node)
 	NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
 	InterfacePtr->RedrawViews(InterfacePtr->GetTime());
 }
-	
+
 void SkinModifierClass::User_Picked_Bones(INodeTab & nodetab)
 {
 	/*
 	** One by one, add the selected bones to the influences of
-	** all selected vertices.  
+	** all selected vertices.
 	*/
 	for (int i=0; i<nodetab.Count() && i<2; i++) {
 		User_Picked_Bone(nodetab[i]);
@@ -1350,7 +1350,7 @@ void SkinModifierClass::ActivateSubSelSet(TSTR & setname)
 
 	ModContextList mclist;
 	INodeTab nodes;
-	
+
 	if (InterfacePtr == NULL) return;
 
 	InterfacePtr->GetModContexts(mclist,nodes);
@@ -1358,8 +1358,8 @@ void SkinModifierClass::ActivateSubSelSet(TSTR & setname)
 	for (int i = 0; i < mclist.Count(); i++) {
 
 		SkinDataClass * skindata = (SkinDataClass *)mclist[i]->localData;
-		if (!skindata) continue;		
-	
+		if (!skindata) continue;
+
 		int index = skindata->VertSelSets.Find_Set(setname);
 		if (index < 0) continue;
 
@@ -1368,26 +1368,26 @@ void SkinModifierClass::ActivateSubSelSet(TSTR & setname)
 		ObjectState os = nodes[i]->EvalWorldState(InterfacePtr->GetTime());
 		TriObject * tobj = Get_Tri_Object(InterfacePtr->GetTime(),os,valid,needsdel);
 		Mesh * mesh = &(tobj->mesh);
-		
+
 		// TODO: undo redo
 #if 0
 		if (theHold.Holding()) {
 			theHold.Put(new VertexSelRestore(meshData,this));
 		}
 #endif
-				
+
 		if (skindata->VertSelSets[index].GetSize() != mesh->getNumVerts()) {
 			skindata->VertSelSets[index].SetSize(mesh->getNumVerts(),true);
 		}
 		mesh->vertSel  = skindata->VertSelSets[index];
 		skindata->VertSel = mesh->vertSel;
-	
+
 		if (needsdel) {
 			tobj->DeleteThis();
 		}
 	}
-	
-	nodes.DisposeTemporary();	
+
+	nodes.DisposeTemporary();
 
 	NotifyDependents(FOREVER, PART_SELECT, REFMSG_CHANGE);
 	InterfacePtr->RedrawViews(InterfacePtr->GetTime());
@@ -1407,7 +1407,7 @@ void SkinModifierClass::Create_Named_Selection_Sets(void)
 {
 	/*
 	** This function creates a named selection set of vertices
-	** for each bone in the skeleton.  
+	** for each bone in the skeleton.
 	*/
 	if (InterfacePtr == NULL) return;
 
@@ -1433,7 +1433,7 @@ void SkinModifierClass::Create_Named_Selection_Sets(void)
 		if (skinobj->Get_Bone(boneidx) != NULL) {
 			BitArray boneverts;
 			boneverts.SetSize(skindata->VertData.Count());
-			
+
 			for (int vertidx = 0; vertidx < skindata->VertData.Count(); vertidx++) {
 				if (skindata->VertData[vertidx].BoneIdx[0] == boneidx) boneverts.Set(vertidx);
 				else boneverts.Clear(vertidx);
@@ -1447,7 +1447,7 @@ void SkinModifierClass::Create_Named_Selection_Sets(void)
 
 	Install_Named_Selection_Sets();
 
-	nodes.DisposeTemporary();	
+	nodes.DisposeTemporary();
 }
 
 void SkinModifierClass::Install_Named_Selection_Sets(void)
@@ -1463,14 +1463,14 @@ void SkinModifierClass::Install_Named_Selection_Sets(void)
 		InterfacePtr->GetModContexts(mclist,nodes);
 		SkinDataClass * skindata = (SkinDataClass *)mclist[0]->localData;
 		if (skindata == NULL) return;
-		
+
 		InterfacePtr->ClearSubObjectNamedSelSets();
 		for (int i=0; i < skindata->VertSelSets.Count(); i++) {
 			InterfacePtr->AppendSubObjectNamedSelSet(*skindata->VertSelSets.Names[i]);
 		}
 
 		nodes.DisposeTemporary();
-	}	
+	}
 }
 
 void SkinModifierClass::Auto_Attach_Verts(BOOL all)
@@ -1478,14 +1478,14 @@ void SkinModifierClass::Auto_Attach_Verts(BOOL all)
 	assert(InterfacePtr);
 
 	/*
-	** Get the skin data. 
+	** Get the skin data.
 	*/
 	ModContextList mclist;
 	INodeTab nodes;
 	InterfacePtr->GetModContexts(mclist,nodes);
 	SkinDataClass * skindata = (SkinDataClass *)mclist[0]->localData;
 	if (skindata == NULL) return;
-	
+
 	/*
 	** get the skin WSM object.
 	*/
@@ -1501,13 +1501,13 @@ void SkinModifierClass::Auto_Attach_Verts(BOOL all)
 	TimeValue basetime = WSMObjectRef->Get_Base_Pose_Time();
 	ObjectState os = nodes[0]->EvalWorldState(basetime);
 	TriObject * triobj = Get_Tri_Object(basetime,os,valid,needsdel);
-		
+
 	/*
 	** Attach each selected vertex (or all of them) to their closest bone.
 	*/
 	for (int vertidx = 0; vertidx < skindata->VertData.Count(); vertidx++){
 		if (skindata->VertSel[vertidx] || all) {
-			
+
 			Point3 vert = triobj->GetPoint(vertidx);
 			if (os.GetTM()) vert = vert * (*os.GetTM());
 			int boneidx = skinobj->Find_Closest_Bone(vert);
@@ -1530,7 +1530,7 @@ void SkinModifierClass::Auto_Attach_Verts(BOOL all)
 	** Cleanup...
 	*/
 	nodes.DisposeTemporary();
-	
+
 	if (needsdel) {
 		triobj->DeleteThis();
 	}
@@ -1541,14 +1541,14 @@ void SkinModifierClass::Unlink_Verts(void)
 	assert(InterfacePtr);
 
 	/*
-	** Get the skin data. 
+	** Get the skin data.
 	*/
 	ModContextList mclist;
 	INodeTab nodes;
 	InterfacePtr->GetModContexts(mclist,nodes);
 	SkinDataClass * skindata = (SkinDataClass *)mclist[0]->localData;
 	if (skindata == NULL) return;
-	
+
 	/*
 	** Unlink each selected vertex (give them bone index -1)
 	*/
@@ -1600,11 +1600,11 @@ void SkinModifierClass::Install_Bone_Influence_Dialog(void)
 	/*
 	** Put up the UI that is used to assign vertices to bones
 	*/
-	BoneInfluenceHWND = InterfacePtr->AddRollupPage( 
+	BoneInfluenceHWND = InterfacePtr->AddRollupPage(
 				AppInstance,
 				MAKEINTRESOURCE(IDD_BONE_INFLUENCE_PARAMS),
 				_bone_influence_dialog_thunk,
-				string, 
+				string,
 				(LPARAM)this,
 				0);
 }
@@ -1657,10 +1657,10 @@ static BOOL CALLBACK _skeleton_dialog_thunk(HWND hWnd,UINT message,WPARAM wParam
 {
 	SkinWSMObjectClass * skinobj = (SkinWSMObjectClass *)GetWindowLong(hWnd,GWL_USERDATA);
 	if (!skinobj && message != WM_INITDIALOG) return false;
-	
+
 	if (message == WM_INITDIALOG) {
 		skinobj = (SkinWSMObjectClass *)lParam;
-		SetWindowLong(hWnd,GWL_USERDATA,(LONG)skinobj);			
+		SetWindowLong(hWnd,GWL_USERDATA,(LONG)skinobj);
 	}
 
 	return skinobj->Skeleton_Dialog_Proc(hWnd,message,wParam,lParam);
@@ -1679,7 +1679,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			*/
 			AddBonesButton = GetICustButton(GetDlgItem(hWnd, IDC_ADD_BONES_BUTTON));
 			RemoveBonesButton = GetICustButton(GetDlgItem(hWnd, IDC_REMOVE_BONES_BUTTON));
-			
+
 			AddBonesButton->SetType(CBT_CHECK);
 			AddBonesButton->SetHighlightColor(GREEN_WASH);
 			AddBonesButton->SetTooltip(true, _T("Add bones by name"));
@@ -1687,7 +1687,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			RemoveBonesButton->SetType(CBT_CHECK);
 			RemoveBonesButton->SetHighlightColor(GREEN_WASH);
 			RemoveBonesButton->SetTooltip(true, _T("Remove bones by name"));
-	
+
 			/*
 			** Initialize the "Base Pose Frame" spinner
 			*/
@@ -1702,19 +1702,19 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			ReleaseICustButton(AddBonesButton);
 			ReleaseICustButton(RemoveBonesButton);
 			ReleaseISpinner(BasePoseSpin);
-			
+
 			AddBonesButton = NULL;
 			RemoveBonesButton = NULL;
 			BasePoseSpin = NULL;
 			BoneListHWND = NULL;
-			
+
 			return false;
-	
+
 		case CC_SPINNER_CHANGE:
-			switch (LOWORD(wParam)) 
+			switch (LOWORD(wParam))
 			{
 				case IDC_BASE_POSE_SPIN:
-					BasePoseFrame = BasePoseSpin->GetIVal();						
+					BasePoseFrame = BasePoseSpin->GetIVal();
 					break;
 			}
 			NotifyDependents(FOREVER, PART_ALL, REFMSG_CHANGE);
@@ -1726,7 +1726,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			InterfacePtr->RedrawViews(InterfacePtr->GetTime(),REDRAW_END);
 			return true;
 
-		
+
 		case WM_LBUTTONDOWN:
 		case WM_LBUTTONUP:
 		case WM_MOUSEMOVE:
@@ -1734,7 +1734,7 @@ BOOL SkinWSMObjectClass::Skeleton_Dialog_Proc(HWND hWnd,UINT message,WPARAM wPar
 			return false;
 
 		case WM_COMMAND:
-			switch (LOWORD(wParam)) 
+			switch (LOWORD(wParam))
 			{
 
 				case IDC_ADD_BONES_BUTTON:
@@ -1766,10 +1766,10 @@ static BOOL CALLBACK _bone_influence_dialog_thunk(HWND hWnd,UINT message,WPARAM 
 {
 	SkinModifierClass * skinmod = (SkinModifierClass *)GetWindowLong(hWnd,GWL_USERDATA);
 	if (!skinmod && message != WM_INITDIALOG) return false;
-	
+
 	if (message == WM_INITDIALOG) {
 			skinmod = (SkinModifierClass *)lParam;
-			SetWindowLong(hWnd,GWL_USERDATA,(LONG)skinmod);			
+			SetWindowLong(hWnd,GWL_USERDATA,(LONG)skinmod);
 	}
 
 	return skinmod->Bone_Influence_Dialog_Proc(hWnd,message,wParam,lParam);
@@ -1788,19 +1788,19 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 			LinkByNameButton = GetICustButton(GetDlgItem(hWnd, IDC_LINK_BY_NAME_BUTTON));
 			AutoLinkButton = GetICustButton(GetDlgItem(hWnd, IDC_AUTO_LINK_BUTTON));
 			UnLinkButton = GetICustButton(GetDlgItem(hWnd, IDC_UNLINK_BUTTON));
-			
+
 			LinkButton->SetType(CBT_PUSH);
 			LinkButton->SetTooltip(true, _T("Link Vertices to a bone by selecting the bone"));
 
 			LinkByNameButton->SetType(CBT_PUSH);
 			LinkByNameButton->SetTooltip(true, _T("Link Vertices to a bone by name"));
-			
+
 			AutoLinkButton->SetType(CBT_PUSH);
 			AutoLinkButton->SetTooltip(true, _T("Link Vertices to nearest bone"));
-			
+
 			UnLinkButton->SetType(CBT_PUSH);
 			UnLinkButton->SetTooltip(true, _T("Unlink selected vertices"));
-			
+
 			return true;
 
 		case WM_DESTROY:
@@ -1822,7 +1822,7 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 			return false;
 
 		case WM_COMMAND:
-			switch (LOWORD(wParam)) 
+			switch (LOWORD(wParam))
 			{
 				case IDC_LINK_BUTTON:
 				{
@@ -1832,7 +1832,7 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 					assert(WSMObjectRef != NULL);
 					INodeTab * bonetab = &(WSMObjectRef->Get_Bone_List());
 					TheBonePicker.Set_User(this,true,bonetab);
-					InterfacePtr->SetPickMode(&TheBonePicker); 
+					InterfacePtr->SetPickMode(&TheBonePicker);
 					break;
 				}
 
@@ -1850,10 +1850,10 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 
 				case IDC_AUTO_LINK_BUTTON:
 				{
-					Auto_Attach_Verts();					
+					Auto_Attach_Verts();
 					break;
 				}
-				
+
 				case IDC_UNLINK_BUTTON:
 				{
 					Unlink_Verts();
@@ -1867,17 +1867,17 @@ BOOL SkinModifierClass::Bone_Influence_Dialog_Proc(HWND hWnd,UINT message,WPARAM
 }
 
 static TriObject * Get_Tri_Object(TimeValue t,ObjectState & os,Interval & valid,BOOL & needsdel)
-{	
+{
 	needsdel = false;
 	valid &= os.Validity(t);
-	
+
 	if (os.obj->IsSubClassOf(triObjectClassID)) {
 		return (TriObject *)os.obj;
 	} else {
 		if (os.obj->CanConvertToType(triObjectClassID)) {
 			Object * oldObj = os.obj;
-			TriObject * tobj = (TriObject *)os.obj->ConvertToType(t,triObjectClassID);			
-			needsdel = (tobj != oldObj);			
+			TriObject * tobj = (TriObject *)os.obj->ConvertToType(t,triObjectClassID);
+			needsdel = (tobj != oldObj);
 			return tobj;
 		}
 	}
@@ -1909,7 +1909,7 @@ int SkinModifierClass::NumSubObjTypes()
 	return 1;
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-ISubObjType *SkinModifierClass::GetSubObjType(int i) 
+ISubObjType *SkinModifierClass::GetSubObjType(int i)
 {
 
 	static bool _initialized = false;

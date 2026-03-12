@@ -72,7 +72,7 @@ typedef struct _PERFORMANCE_SETTING
 const int MAX_PERFORMANCE_LEVELS	= 4;
 const int MAX_EXPERT_OPTIONS		= 7;
 
-PERFORMANCE_SETTING _PerformanceLevels[MAX_PERFORMANCE_LEVELS][MAX_EXPERT_OPTIONS] = 
+PERFORMANCE_SETTING _PerformanceLevels[MAX_PERFORMANCE_LEVELS][MAX_EXPERT_OPTIONS] =
 {
 	//
 	//	Low detail
@@ -279,7 +279,7 @@ DlgConfigPerformanceTabClass::Setup_Controls (void)
 		TRANSLATE (IDS_MENU_MP_LIGHTMAPS),
 		TRANSLATE (IDS_MENU_MT_LIGHTMAPS)
 	};
-	
+
 	Set_Dlg_Item_Text (IDC_LIGHTING_MODE, PRELIT_MODE_NAMES [WW3D::Get_Prelit_Mode()]);
 	Enable_Dlg_Item (IDC_LIGHTING_MODE,	false);
 
@@ -593,12 +593,12 @@ DlgConfigPerformanceTabClass::On_Apply (void)
 	SliderCtrlClass *texture_slider			= (SliderCtrlClass *)Get_Dlg_Item (IDC_TEXTURE_DETAIL_SLIDER);
 	SliderCtrlClass *surface_effect_slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_SURFACE_DETAIL_SLIDER);
 	SliderCtrlClass *particle_slider			= (SliderCtrlClass *)Get_Dlg_Item (IDC_PARTICLE_DETAIL_SLIDER);
-	
+
 	//
 	//	Attempt to open the config file
 	//
 	INIClass ini(W3D_CONF_FILE);
-	
+
 	//
 	//	Get the current settings from the dialog
 	//

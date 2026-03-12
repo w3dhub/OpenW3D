@@ -68,12 +68,12 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 	bool retval = (point->X != temp_point.X);
 	retval		|= (point->Y != temp_point.Y);
 	retval		|= (point->Z != temp_point.Z);
-	
+
 	//
 	//	Pass the new point back to the caller
 	//
 	(*point) = temp_point;
-	
+
 	return retval;
 }
 
@@ -86,7 +86,7 @@ Clip_Point (Vector3 *point, const AABoxClass &box)
 void
 MoverClass::Get_Mouse_Ray
 (
-	const POINT &	mouse_pos, 
+	const POINT &	mouse_pos,
 	float				length,
 	Vector3 &		start,
 	Vector3 &		end
@@ -101,7 +101,7 @@ MoverClass::Get_Mouse_Ray
 	float xpos = mouse_pos.x;
 	float ypos = mouse_pos.y;
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
-	
+
 	// The 'end' of the ray is the world coordinates of the supplied point
 	::Get_Camera_Mgr ()->Get_Camera ()->Device_To_World_Space (Vector2 (xpos, ypos), &end);
 
@@ -146,7 +146,7 @@ MoverClass::Get_Mouse_Ray
 void
 MoverClass::Get_LOS_Ray
 (
-	const POINT &	/* mouse_pos */, 
+	const POINT &	/* mouse_pos */,
 	float				length,
 	Vector3 &		start,
 	Vector3 &		end
@@ -154,7 +154,7 @@ MoverClass::Get_LOS_Ray
 {
 	// Get the transformation matrix for the camera
 	Matrix3D camera_tm = ::Get_Camera_Mgr ()->Get_Camera ()->Get_Transform ();
-	
+
 	//
 	//	The start and end's of the ray are the camera's position
 	// and 'length' down the camera's -z axis.
@@ -197,7 +197,7 @@ MoverClass::Get_LOS_Ray
 ///////////////////////////////////////////////////////////////////////
 void
 MoverClass::Position_Node (NodeClass *node)
-{	
+{
 	float distance			= 1000.0F;
 
 	//
@@ -219,7 +219,7 @@ MoverClass::Position_Node (NodeClass *node)
 ///////////////////////////////////////////////////////////////////////
 void
 MoverClass::Position_Node_Along_Ray (NodeClass *node)
-{	
+{
 	//
 	//	Determine what ray to cast the node along
 	//
@@ -298,15 +298,15 @@ MoverClass::Position_Nodes_Along_Ray
 	int index;
 	for (index = 0; index < list.Count (); index ++) {
 		PhysClass *phys_obj = list[index]->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {			
+		if (phys_obj != NULL) {
 			phys_obj->Inc_Ignore_Counter();
 		}
-	}	
+	}
 
 	//
 	// Cast the ray into the world so we can stop the objects at whatever it hits
 	//
-	CastResultStruct res;							
+	CastResultStruct res;
 	if (Cast_Ray (res, start, end, GAME_COLLISION_GROUP) != NULL) {
 		position = start + (end - start) * res.Fraction;
 	}
@@ -321,8 +321,8 @@ MoverClass::Position_Nodes_Along_Ray
 		NodeClass *node = list[index];
 
 		PhysClass *phys_obj = node->Peek_Physics_Obj ();
-		if (phys_obj != NULL) {			
-			
+		if (phys_obj != NULL) {
+
 			//
 			//	Move the node and turn collision back on
 			//
@@ -362,20 +362,20 @@ MoverClass::Position_Node_Along_Ray
 		//
 		// Cast the ray into the world so we can stop the object at whatever it hits
 		//
-		CastResultStruct res;							
+		CastResultStruct res;
 		if (Cast_Ray (res, start, end, GAME_COLLISION_GROUP) != NULL) {
 
 			//
 			// Determine the new position based on whether or not the
 			// ray-cast hit anything.
-			//			
+			//
 			position = start + (end - start) * res.Fraction;
-			
+
 			//
 			//	Get the collision box for this render obj
 			//
 			AABoxClass box;
-			RenderObjClass *model = phys_obj->Peek_Model ();		
+			RenderObjClass *model = phys_obj->Peek_Model ();
 			RenderObjClass *world_box = model->Get_Sub_Object_By_Name ("WORLDBOX");
 			if (world_box != NULL) {
 				world_box->Get_Obj_Space_Bounding_Box (box);
@@ -384,7 +384,7 @@ MoverClass::Position_Node_Along_Ray
 				model->Get_Obj_Space_Bounding_Box (box);
 			}
 			box.Extent.Z = WWMATH_EPSILON;
-			
+
 			//
 			//	Move the object so its not embedded in the surface
 			//
@@ -550,10 +550,10 @@ MoverClass::Transform_Node
 {
 	//
 	// Move this node by the translation delta
-	//	
+	//
 	Matrix3D curr_transform = node->Get_Transform ();
 	Move_Node (node, transform.Get_Translation () - curr_transform.Get_Translation ());
-	
+
 	//
 	// Determine a rotation matrix that is relative to the node's current transform
 	//
@@ -561,7 +561,7 @@ MoverClass::Transform_Node
 	curr_transform.Get_Orthogonal_Inverse (relative_transform);
 	Matrix3D rotation_matrix = relative_transform * transform;
 	rotation_matrix.Set_Translation (Vector3 (0, 0, 0));
-	
+
 	//
 	// Rotate the node by this matrix, centered about the new position.
 	//
@@ -617,7 +617,7 @@ MoverClass::Transform_Nodes
 	curr_transform.Get_Orthogonal_Inverse (relative_transform);
 	Matrix3D rotation_matrix = relative_transform * transform;
 	rotation_matrix.Set_Translation (Vector3 (0, 0, 0));
-	
+
 	//
 	// Rotate the list of nodes by this matrix, centered about the new position.
 	//
@@ -684,7 +684,7 @@ MoverClass::Move_Nodes (NODE_LIST &list, const Vector3 &tracking_point)
 	//
 	// Calculate the new position for the group
 	//
-	Matrix3D coord_system (1);		
+	Matrix3D coord_system (1);
 	Vector3 new_pos = Calc_New_Position (coord_system, tracking_point);
 
 	//
@@ -692,7 +692,7 @@ MoverClass::Move_Nodes (NODE_LIST &list, const Vector3 &tracking_point)
 	//
 	for (int index = 0; index < list.Count (); index ++) {
 		NodeClass *node = list[index];
-		
+
 		//
 		// Move the node
 		//
@@ -732,21 +732,21 @@ MoverClass::Calc_New_Position
 	//
 	CPoint point;
 
-	if (mouse_pos == NULL) {		
+	if (mouse_pos == NULL) {
 		::GetCursorPos (&point);
 		::Get_Main_View()->ScreenToClient (&point);
 	} else {
 		point = (*mouse_pos);
 	}
-	
+
 	float xpos = point.x;
 	float ypos = point.y;
 	::Constrain_Point_To_Aspect_Ratio (xpos, ypos);
-	
+
 	//
 	// The 'end' of the ray is the world coordinates of the mouse point
 	//
-	Vector3 ray_end;				
+	Vector3 ray_end;
 	::Get_Camera_Mgr ()->Get_Camera ()->Device_To_World_Space (Vector2 (xpos, ypos), &ray_end);
 
 	//
@@ -758,7 +758,7 @@ MoverClass::Calc_New_Position
 	ray_end				= coord_system_inv * ray_end;
 	start_point			= coord_system_inv * start_point;
 	return_point		= coord_system_inv * return_point;
-	
+
 	//
 	// Move the ray's endpoint along the line 1000 meters
 	//
@@ -773,7 +773,7 @@ MoverClass::Calc_New_Position
 		// Determine which plane (y-z or x-z) to base the movement on
 		float deltax = ::fabs (ray_end.X - ray_start.X);
 		float deltay = ::fabs (ray_end.Y - ray_start.Y);
-		
+
 		// Determine where the ray intersects this plane
 		if (deltax > deltay) {
 
@@ -782,7 +782,7 @@ MoverClass::Calc_New_Position
 			if (Calc_Ray_Intersection_YZ (start_point.X, ray_start, ray_end, result)) {
 				return_point.Z = result.Z;
 			}
-			
+
 		} else {
 
 			// Determine where the ray intersects the XZ plane
@@ -790,14 +790,14 @@ MoverClass::Calc_New_Position
 			if (Calc_Ray_Intersection_XZ (start_point.Y, ray_start, ray_end, result)) {
 				return_point.Z = result.Z;
 			}
-		}	
+		}
 
 	} else {
-		
+
 		// Determine where the ray intersects the XY plane
 		Vector3 result;
 		if (Calc_Ray_Intersection_XY (start_point.Z, ray_start, ray_end, result)) {
-			
+
 			//
 			// Now apply the axis restrictions
 			//
@@ -809,8 +809,8 @@ MoverClass::Calc_New_Position
 				return_point = result;
 			}
 		}
-	}	
-	
+	}
+
 	//
 	// Now convert the return value to world coords
 	//
@@ -863,7 +863,7 @@ MoverClass::Rotate_Nodes
 	// Are we restricting movement to a specific axis?
 	//
 	switch (::Get_Current_Document ()->Get_Axis_Restriction ()) {
-	
+
 		case CLevelEditDoc::RESTRICT_X:
 			rotation_matrix.Rotate_X (deltax * 3.0F);
 			break;
@@ -964,7 +964,7 @@ MoverClass::Rotate_Nodes_Z
 	float			multiplier
 )
 {
-	Matrix3D coord_system (1);	
+	Matrix3D coord_system (1);
 	coord_system.Set_Translation (center);
 
 	//
@@ -998,7 +998,7 @@ MoverClass::Rotate_Nodes_Z
 		node->Rotate (rotation_matrix, coord_system);
 	}
 
-	Set_Modified ();		
+	Set_Modified ();
 	return ;
 }
 
@@ -1064,7 +1064,7 @@ MoverClass::Rotate_Node_Z90
 		//
 		// Translate the matrix as necessary
 		//
-		transform.Set_Translation (translation);	
+		transform.Set_Translation (translation);
 
 		//
 		// Pass the new transformation matrix onto the object
@@ -1099,7 +1099,7 @@ MoverClass::Rotate_Node_Freely
 		//
 		Matrix3D coord_inv;
 		Matrix3D coord_to_obj;
-		
+
 		coord_system.Get_Orthogonal_Inverse (coord_inv);
 		Matrix3D::Multiply (coord_inv, tm, &coord_to_obj);
 
@@ -1158,7 +1158,7 @@ void
 MoverClass::Translate_Node (NodeClass *node, const Vector3 &vector)
 {
 	if (node->Is_Locked () == false) {
-		
+
 		//
 		//	Move the physics object by the requested amount
 		//

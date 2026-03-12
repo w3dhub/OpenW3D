@@ -114,7 +114,7 @@ public:
 	PushRecordClass(PhysClass * obj) : Object(NULL), Next(NULL)	{ REF_PTR_SET(Object,obj); WWASSERT(obj); Transform = obj->Get_Transform(); }
 	~PushRecordClass(void)													{ REF_PTR_RELEASE(Object); };
 
-	void Revert(void)															{ Object->Set_Transform(Transform); }	
+	void Revert(void)															{ Object->Set_Transform(Transform); }
 
 	PushRecordClass * Get_Next(void) const								{ return Next; }
 	void Set_Next(PushRecordClass * next)								{ Next = next; }
@@ -126,7 +126,7 @@ public:
 		new_rec->Set_Next(*head);
 		*head = new_rec;
 	}
-	
+
 	static void Revert_List(PushRecordClass * head)
 	{
 		while (head) {
@@ -135,8 +135,8 @@ public:
 		}
 	}
 
-	static void Delete_List(PushRecordClass * head)	
-	{ 
+	static void Delete_List(PushRecordClass * head)
+	{
 		while (head) {
 			PushRecordClass * next = head->Get_Next();
 			delete head;
@@ -171,7 +171,7 @@ enum
 	ANIMCOLLISIONMANAGER_VARIABLE_LOOPEND,
 	ANIMCOLLISIONMANAGER_VARIABLE_PREVFRAME,
 	ANIMCOLLISIONMANAGER_VARIABLE_PREVANIMATIONNAME,
-};										
+};
 
 
 /********************************************************************************************
@@ -275,7 +275,7 @@ AnimCollisionManagerClass::CollideableObjClass::~CollideableObjClass(void)
  * HISTORY:                                                                                    *
  *   8/9/2000   gth : Created.                                                                 *
  *=============================================================================================*/
-AnimCollisionManagerClass::CollideableObjClass &	
+AnimCollisionManagerClass::CollideableObjClass &
 AnimCollisionManagerClass::CollideableObjClass::operator = (const CollideableObjClass & that)
 {
 	if (this != &that) {
@@ -285,7 +285,7 @@ AnimCollisionManagerClass::CollideableObjClass::operator = (const CollideableObj
 	}
 	return *this;
 }
-	
+
 
 /***********************************************************************************************
  * AnimCollisionManagerClass::CollideableObjClass::Set_Collision_Object -- set collision mesh  *
@@ -301,9 +301,9 @@ AnimCollisionManagerClass::CollideableObjClass::operator = (const CollideableObj
  * HISTORY:                                                                                    *
  *   8/9/2000   gth : Created.                                                                 *
  *=============================================================================================*/
-void 
+void
 AnimCollisionManagerClass::CollideableObjClass::Set_Collision_Object(RenderObjClass * mesh)
-{	
+{
 	REF_PTR_SET(CollisionMesh,mesh);
 	StartTransform = EndTransform = CollisionMesh->Get_Transform();
 }
@@ -321,7 +321,7 @@ AnimCollisionManagerClass::CollideableObjClass::Set_Collision_Object(RenderObjCl
  * HISTORY:                                                                                    *
  *   8/9/2000   gth : Created.                                                                 *
  *=============================================================================================*/
-void 
+void
 AnimCollisionManagerClass::CollideableObjClass::Intersect_Scene
 (
 	int colgroup,
@@ -410,7 +410,7 @@ void AnimCollisionManagerClass::CollideableObjClass::Restore_Collision_Bits(int 
 	CollisionMesh->Set_Collision_Type(oldbits);
 }
 
- 
+
 /********************************************************************************************
 **
 ** AnimCollisionManagerClass Implementation
@@ -495,7 +495,7 @@ void AnimCollisionManagerClass::Set_Animation_Mode(AnimModeType mode)
  * HISTORY:                                                                                    *
  *   8/9/2000   gth : Created.                                                                 *
  *=============================================================================================*/
-AnimCollisionManagerClass::AnimModeType 
+AnimCollisionManagerClass::AnimModeType
 AnimCollisionManagerClass::Get_Animation_Mode(void)
 {
 	return AnimationMode;
@@ -517,7 +517,7 @@ AnimCollisionManagerClass::Get_Animation_Mode(void)
 void AnimCollisionManagerClass::Set_Animation(const char * anim_name)
 {
 	Internal_Set_Animation(anim_name);
-	
+
 	/*
 	** Automatically loop this animation by default
 	*/
@@ -745,7 +745,7 @@ void AnimCollisionManagerClass::Set_Current_Frame(float frame)
 {
 	CurFrame = frame;
 	Parent.Enable_Is_State_Dirty(true);
-	
+
 #if VERBOSE_LOGGING
 	WWASSERT(!Is_Intersecting());
 #endif
@@ -830,8 +830,8 @@ void AnimCollisionManagerClass::Init(const AnimCollisionManagerDefClass & def)
 	** Plug in the animation
 	*/
 	if (Parent.Peek_Model()) {
-		Set_Current_Frame(0.0f);		
-		
+		Set_Current_Frame(0.0f);
+
 		/*
 		** Get the name of the animation from the definition
 		*/
@@ -847,7 +847,7 @@ void AnimCollisionManagerClass::Init(const AnimCollisionManagerDefClass & def)
 			anim_name+=".";
 			anim_name+=model_name;
 		}
-				
+
 		Set_Animation(anim_name);
 	}
 }
@@ -875,7 +875,7 @@ void AnimCollisionManagerClass::Update_Cached_Model_Parameters(void)
 	int count = Recursive_Count_Collision_Models(Parent.Peek_Model());
 	CollisionMeshes.Delete_All();
 	CollisionMeshes.Resize(count);
-	
+
 	Recursive_Collect_Collision_Models(Parent.Peek_Model());
 }
 
@@ -1022,7 +1022,7 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 			CollisionMeshes[i].Cache_Start_Transform();
 		}
 	}
-	
+
 #if VERBOSE_LOGGING
 	bool started_intersecting = false;
 	if (CollisionMode != COLLIDE_NONE) {
@@ -1036,10 +1036,10 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 	*/
 	if (CurAnimation != NULL) {
 		switch (AnimationMode) {
-		
+
 			case ANIMATE_LOOP:
 				CurFrame += CurAnimation->Get_Frame_Rate() * dt;
-				
+
 				if (CurFrame >= LoopEnd) {
 					CurFrame -= (LoopEnd - LoopStart);
 				}
@@ -1049,7 +1049,7 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 				if (CurFrame < TargetFrame) {
 					CurFrame += CurAnimation->Get_Frame_Rate() * dt;
 					// if we overshoot targetframe, snap to targetframe
-					if (CurFrame >= TargetFrame) {								
+					if (CurFrame >= TargetFrame) {
 						CurFrame = TargetFrame;
 					}
 				} else if (CurFrame > TargetFrame) {
@@ -1061,7 +1061,7 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 				}
 				break;
 
-			case ANIMATE_MANUAL:	
+			case ANIMATE_MANUAL:
 				break;
 
 			default:
@@ -1089,7 +1089,7 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 		*/
 		object_animated = true;
 		bool intersecting = false;
-		
+
 		if (CollisionMode != COLLIDE_NONE) {
 			int ci;
 
@@ -1110,16 +1110,16 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 				CollisionMeshes[ci].Install_End_Transform();
 				intersecting |= Check_Collision(CollisionMeshes[ci]);
 			}
-			
+
 			/*
 			** If we ended up intersecting, then we have to revert
 			*/
 			if (intersecting) {
 				Revert_Animation_State();
 				object_animated = false;
-			} 
+			}
 
-#if VERBOSE_LOGGING	
+#if VERBOSE_LOGGING
 			WWDEBUG_SAY(("checking is_now_intersecting\r\n"));
 			bool is_now_intersecting = Is_Intersecting();
 			if ( (started_intersecting == false) && (is_now_intersecting == true)) {
@@ -1128,7 +1128,7 @@ bool AnimCollisionManagerClass::Timestep(float dt)
 #endif
 		}
 	}
-	
+
 	/*
 	** Release the push records
 	*/
@@ -1211,7 +1211,7 @@ bool AnimCollisionManagerClass::Check_Collision(CollideableObjClass & collisiono
 	**     - Determine how the collided object should move and try to move it
 	**     - If still colliding, SQUISH and REVERT
 	**     - Else OK
-	** - If no object caused a revert, ACCEPT new animation state and return. 
+	** - If no object caused a revert, ACCEPT new animation state and return.
 	** - Else REVERT and return
 	*/
 
@@ -1284,11 +1284,11 @@ bool AnimCollisionManagerClass::Check_Collision(CollideableObjClass & collisiono
 	NonRefPhysListIterator it(&intersection_list);
 	for (it.First();!it.Is_Done();it.Next()) {
 		PhysClass * obj = it.Peek_Obj();
-		
+
 		VERBOSE_LOG(("intersecting object: %s\r\n",obj->Peek_Model()->Get_Name()));
-		
+
 		if (RiderManager.Contains(obj) && (obj->Peek_Carrier_Sub_Object() == collisionobj.Peek_Collision_Object())) {
-		
+
 			/*
 			** If an object that we hit is attached to us already, squish and revert
 			*/
@@ -1296,7 +1296,7 @@ bool AnimCollisionManagerClass::Check_Collision(CollideableObjClass & collisiono
 			revert = true;
 // FIXME (gth) commenting out rider squishing code for critical review!
 			VERBOSE_LOG(("Squishing a rider!\r\n"));
-		
+
 		} else {
 
 			/*
@@ -1306,7 +1306,7 @@ bool AnimCollisionManagerClass::Check_Collision(CollideableObjClass & collisiono
   			if (Push_Collided_Object(obj,delta_transform) == false) {
 				VERBOSE_LOG(("SAPO %s Failed to push a rider\r\n",Parent.Peek_Model()->Get_Name()));
 				revert = true;
-			} 
+			}
 			collisionobj.Restore_Collision_Bits(collision_bits);
 		}
 	}
@@ -1354,7 +1354,7 @@ bool AnimCollisionManagerClass::Push_Collided_Object(PhysClass * obj,const Matri
 	bool result = false;
 	MoveablePhysClass * move_obj = obj->As_MoveablePhysClass();
 	if (move_obj != NULL) {
-		
+
 		VERBOSE_LOG(("Pushing object: %s, vector: (%f, %f, %f)\r\n",move_obj->Peek_Model()->Get_Name(),
 				delta_transform.Get_Translation().X,
 				delta_transform.Get_Translation().Y,
@@ -1362,7 +1362,7 @@ bool AnimCollisionManagerClass::Push_Collided_Object(PhysClass * obj,const Matri
 
 		PushRecordClass::Add_To_List(&PushList,obj);
 		result = move_obj->Push(delta_transform.Get_Translation());
-	} 
+	}
 
 	return result;
 }
@@ -1425,11 +1425,11 @@ bool AnimCollisionManagerClass::Load(ChunkLoadClass &cload)
 	** Read in the chunks from the file
 	*/
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case ANIMCOLLISIONMANAGER_CHUNK_VARIABLES:
-			
+
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
 						READ_MICRO_CHUNK(cload,ANIMCOLLISIONMANAGER_VARIABLE_COLLISIONMODE,CollisionMode);
@@ -1442,7 +1442,7 @@ bool AnimCollisionManagerClass::Load(ChunkLoadClass &cload)
 						READ_MICRO_CHUNK(cload,ANIMCOLLISIONMANAGER_VARIABLE_LOOPSTART,LoopStart);
 						READ_MICRO_CHUNK(cload,ANIMCOLLISIONMANAGER_VARIABLE_LOOPEND,LoopEnd);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 
@@ -1450,7 +1450,7 @@ bool AnimCollisionManagerClass::Load(ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		};
-				
+
 		cload.Close_Chunk();
 	}
 
@@ -1467,7 +1467,7 @@ bool AnimCollisionManagerClass::Load(ChunkLoadClass &cload)
 	}
 
 	return true;
-}	
+}
 
 
 /********************************************************************************************
@@ -1478,10 +1478,10 @@ bool AnimCollisionManagerClass::Load(ChunkLoadClass &cload)
 **
 ********************************************************************************************/
 
-enum 
+enum
 {
 	ANIMCOLLISIONMANAGERDEF_CHUNK_VARIABLES							= 525000306,
-	
+
 	ANIMCOLLISIONMANAGERDEF_VARIABLE_COLLISIONMODE					= 0x00,
 	ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONMODE,
 	ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONNAME,
@@ -1508,9 +1508,9 @@ bool AnimCollisionManagerDefClass::Save(ChunkSaveClass &csave)
 	Validate_Parameters();
 
 	csave.Begin_Chunk(ANIMCOLLISIONMANAGERDEF_CHUNK_VARIABLES);
-	WRITE_MICRO_CHUNK(csave,ANIMCOLLISIONMANAGERDEF_VARIABLE_COLLISIONMODE,CollisionMode);	
-	WRITE_MICRO_CHUNK(csave,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONMODE,AnimationMode);	
-	WRITE_MICRO_CHUNK_WWSTRING(csave,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONNAME,AnimationName);	
+	WRITE_MICRO_CHUNK(csave,ANIMCOLLISIONMANAGERDEF_VARIABLE_COLLISIONMODE,CollisionMode);
+	WRITE_MICRO_CHUNK(csave,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONMODE,AnimationMode);
+	WRITE_MICRO_CHUNK_WWSTRING(csave,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONNAME,AnimationName);
 	csave.End_Chunk();
 
 	return true;
@@ -1525,11 +1525,11 @@ bool AnimCollisionManagerDefClass::Load(ChunkLoadClass &cload)
 			case ANIMCOLLISIONMANAGERDEF_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
-						READ_MICRO_CHUNK(cload,ANIMCOLLISIONMANAGERDEF_VARIABLE_COLLISIONMODE,CollisionMode);	
-						READ_MICRO_CHUNK(cload,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONMODE,AnimationMode);	
-						READ_MICRO_CHUNK_WWSTRING(cload,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONNAME,AnimationName);	
+						READ_MICRO_CHUNK(cload,ANIMCOLLISIONMANAGERDEF_VARIABLE_COLLISIONMODE,CollisionMode);
+						READ_MICRO_CHUNK(cload,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONMODE,AnimationMode);
+						READ_MICRO_CHUNK_WWSTRING(cload,ANIMCOLLISIONMANAGERDEF_VARIABLE_ANIMATIONNAME,AnimationName);
 					}
-					cload.Close_Micro_Chunk();	
+					cload.Close_Micro_Chunk();
 				}
 				break;
 

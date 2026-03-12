@@ -44,7 +44,7 @@ public:
 	CSliderCtrl	m_MoveZSlider;
 	//}}AFX_DATA
 
-	PhysControllerClass		Controller;	
+	PhysControllerClass		Controller;
 
 // Overrides
 	// ClassWizard generated virtual function overrides

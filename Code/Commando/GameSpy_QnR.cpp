@@ -145,7 +145,7 @@ A simple game object. Consists of some data and a main loop function.
 CGameSpyQnR::CGameSpyQnR(void) : m_GSInit(false), m_GSEnabled(false)
 {
 	// Secret keys removed per Security review requirements. LFeenanEA - 27th January 2025
-	
+
 	//set the secret key, in a semi-obfuscated manner
 	// tY1S8q = FULL , LsEwS3 = DEMO
 
@@ -160,7 +160,7 @@ CGameSpyQnR::CGameSpyQnR(void) : m_GSInit(false), m_GSEnabled(false)
 	secret_key[6] = '1'; if (secret_key[2])
 	secret_key[5] = '2';  if (secret_key[5])
 	secret_key[4] = '3';
-#else 
+#else
 	secret_key[5] = 'R';  if (secret_key[5])
 	secret_key[4] = 'E';  if (secret_key[4])
 	secret_key[6] = 'M'; if (secret_key[4])
@@ -241,7 +241,7 @@ void CGameSpyQnR::Shutdown(void) {
 	if (m_GSInit) {
 		/*
 		We don't really need to set the mode to exiting here, since we immediately
-		send the statechanged heartbeat and kill off the query sockets 
+		send the statechanged heartbeat and kill off the query sockets
 		gamemode = "exiting";*/
 		ConsoleBox.Print("Shutting down GameSpy Q&R\n");
 		qr_send_exiting(query_reporting_rec);
@@ -258,7 +258,7 @@ void CGameSpyQnR::Init(void) {
 		m_Offline = FALSE;
 
 		if (m_GSEnabled && !m_GSInit && The_Game() && The_Game()->Get_Game_Type() == cGameData::GAME_TYPE_CNC) {
-		
+
 			ConsoleBox.Print("Initializing GameSpy Q&R\n");
 
 			BOOL test = false;
@@ -290,7 +290,7 @@ void CGameSpyQnR::Init(void) {
 			m_Offline = FALSE;
 		}
 		test = qr_init(&query_reporting_rec, ip, cUserOptions::GameSpyQueryPort.Get(),
-			gamename, secret_key, c_basic_callback, c_info_callback, c_rules_callback, 
+			gamename, secret_key, c_basic_callback, c_info_callback, c_rules_callback,
 			c_players_callback, this);
 		WWASSERT(!test);
 		if (!m_Offline) {
@@ -305,7 +305,7 @@ void CGameSpyQnR::Init(void) {
 
 /*******
  DoGameStuff
-Simulate whatever else a game server does 
+Simulate whatever else a game server does
 ********/
 void CGameSpyQnR::DoGameStuff(void)
 {
@@ -332,7 +332,7 @@ void CGameSpyQnR::Think()
 		GameSpyBanList.Think();
 		ttime = TIMEGETTIME();
 	}
-	
+
 #ifndef BETACLIENT
 //	DoGameStuff();
 	if (m_GSInit && m_GSEnabled && GameInitMgrClass::Is_LAN_Initialized() &&
@@ -345,7 +345,7 @@ void CGameSpyQnR::Think()
 
 /*************
 basic_callback
-sends a (sample) response to the basic query 
+sends a (sample) response to the basic query
 includes the following keys:
 \gamename\
 \gamever\
@@ -378,7 +378,7 @@ void CGameSpyQnR::basic_callback(char *outbuf, int maxlen)
 
 /************
 info_callback
-Sends a (sample) response to the info query 
+Sends a (sample) response to the info query
 including the following keys:
 \hostname\
 \hostport\
@@ -462,7 +462,7 @@ void CGameSpyQnR::info_callback(char *outbuf, int maxlen)
 rules_callback
 Sends a response to the rules query. You may
 need to add custom fields for your game in here. Some are provided
-as an example 
+as an example
 The following rules are included:
 \timelimit\
 \fraglimit\
@@ -498,7 +498,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 //			GetVersionInfo(filename, &version);
 //			int ver = version.dwFileVersionMS;
 //
-//			b.Format("%s %s V%d.%3.3d(%s-%d)", "Win-X86", bname, (ver&0xffff0000)>>16, ver&0xffff, 
+//			b.Format("%s %s V%d.%3.3d(%s-%d)", "Win-X86", bname, (ver&0xffff0000)>>16, ver&0xffff,
 //				BuildInfoClass::Get_Builder_Initials(), BuildInfoClass::Get_Build_Number());
 //		}
 //		if (!Append_InfoKey_Pair(outbuf, maxlen, "Version", b)) break;
@@ -525,7 +525,7 @@ void CGameSpyQnR::rules_callback(char *outbuf, int maxlen)
 //		if (!Append_InfoKey_Pair(outbuf, maxlen, "RadarMode", value)) break;
 		value.Format("%d", The_Game()->As_Cnc()->Get_Starting_Credits());
 		if (!Append_InfoKey_Pair(outbuf, maxlen, "SC", value)) break;
-		
+
 //		cTeam * p_team;
 //		for (SLNode<cTeam> * objnode = cTeamManager::Get_Team_Object_List()->Head()
 //				; objnode != NULL; objnode = objnode->Next()) {
@@ -706,10 +706,10 @@ BOOL CGameSpyQnR::Append_InfoKey_Pair(char *outbuf, int maxlen, const char *key,
 
 /***************
 players_callback
-sends the players and their information. 
+sends the players and their information.
 Note that \ characters are not stripped out of player names. If
 your game allows players or team names with the \ character, you will need
-to strip or change it here. 
+to strip or change it here.
 The following keys are included for each player:
 \player_N\
 \frags_N\
@@ -737,7 +737,7 @@ void CGameSpyQnR::players_callback(char *outbuf, int maxlen)
 	outbuf[0] = 0;
 
 	for (SLNode<cPlayer> *player_node = cPlayerManager::Get_Player_Object_List ()->Head ();
-			player_node != NULL; 
+			player_node != NULL;
 			player_node = player_node->Next ()) {
 
 		cPlayer *player = player_node->Data ();
@@ -792,16 +792,16 @@ void CGameSpyQnR::players_callback(char *outbuf, int maxlen)
 
 			// Set the Player's Class (ie: Technician,Sakura,Havok)
 			keyval.Format("class_%d", pindex);
-			if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), 
+			if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(),
 				WideStringClass(TRANSLATE(game_obj->Get_Translated_Name_ID())) )) break;
-			
+
 			SoldierGameObj *soldier = game_obj->As_SoldierGameObj();
 			VehicleGameObj *vehicle = soldier->Get_Vehicle ();
 
 			// If they're in a vehicle set the vehicle name
 			keyval.Format("vehicle_%d", pindex);
 			if (vehicle != NULL) {
-				if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), 
+				if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(),
 					WideStringClass(TRANSLATE(vehicle->Get_Translated_Name_ID())) )) break;
 			} else {
 				if (!Append_InfoKey_Pair(outbuf, maxlen, keyval.Peek_Buffer(), "None")) break;
@@ -838,7 +838,7 @@ int main(int argc, char* argv[])
 	CGameSpyQnR mygame1("Test Game Server 1"), mygame2("Test Game Server 2");
 
 	srand( TIMEGETTIME() );
-	
+
 	printf("Press any key to quit\n");
 	while (!_kbhit())
 	{

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/scobeliskevent.cpp                 $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 1/04/02 7:23p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 1                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/scobeliskevent.cpp                 $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 1/04/02 7:23p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 1                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "scobeliskevent.h"
@@ -91,7 +91,7 @@ cScObeliskEvent::Act(void)
 
 	ExplosionManager::Explode( DefID, Position, OwnerID );
 
-	WWDEBUG_SAY(("cScObeliskEvent::Act: Def %d, at (%5.2f, %5.2f, %5.2f) Owner %d\n", 
+	WWDEBUG_SAY(("cScObeliskEvent::Act: Def %d, at (%5.2f, %5.2f, %5.2f) Owner %d\n",
 		DefID, Position.X, Position.Y, Position.Z, OwnerID ));
 
 	Set_Delete_Pending();

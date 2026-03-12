@@ -16,20 +16,20 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/airstripgameobj.h                                                                                                                                        $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 10/01/01 3:44p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 6                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/airstripgameobj.h                                                                                                                                        $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 10/01/01 3:44p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 6                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -57,7 +57,7 @@ class BaseControllerClass;
 class AirStripGameObjDef : public VehicleFactoryGameObjDef
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Friends
 	////////////////////////////////////////////////////////////////
@@ -142,7 +142,7 @@ public:
 	//	From BuildingGameObj
 	//
 	void					CnC_Initialize (BaseControllerClass *base) override;
-	
+
 	//
 	//	GameObj methods
 	//
@@ -161,7 +161,7 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected member data
 	////////////////////////////////////////////////////////////////
-	float					CinematicStartTimer;	
+	float					CinematicStartTimer;
 	float					EndTimer;
 	float					DisplayVehicleTimer;
 	float					ClearDropoffZoneTimer;

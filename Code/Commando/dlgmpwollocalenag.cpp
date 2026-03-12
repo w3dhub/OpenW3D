@@ -70,7 +70,7 @@ MPWolLocaleNagDialogClass::~MPWolLocaleNagDialogClass (void)
 //////////////////////////////////////////////////////////////////////
 void
 MPWolLocaleNagDialogClass::On_Init_Dialog (void)
-{	
+{
 	//
 	//	Fill the combobox with all the locales
 	//
@@ -93,7 +93,7 @@ void
 MPWolLocaleNagDialogClass::On_Command (int ctrl_id, int message_id, unsigned int param)
 {
 	if (ctrl_id == IDOK) {
-		
+
 		//
 		//	Get the selected locale from the combobox
 		//

@@ -172,7 +172,7 @@ CMixViewerView::Reload (const char *filename)
 	//
 	MixFileFactoryClass mix_factory (filename, _TheFileFactory);
 	if (mix_factory.Build_Filename_List (FilenameList)) {
-	
+
 		//
 		//	Add each filename to the list
 		//
@@ -189,7 +189,7 @@ CMixViewerView::Reload (const char *filename)
 		GetListCtrl ().SortItems (MixFilenamesListSortCallback, 0);
 
 	} else {
-		
+
 		//
 		//	Notify the user
 		//
@@ -197,7 +197,7 @@ CMixViewerView::Reload (const char *filename)
 		message.Format ("Error reading the filename list from %s.", filename);
 		MessageBox (message, "Mix File Error", MB_ICONERROR | MB_OK);
 	}
-	
+
 	return ;
 }
 
@@ -223,7 +223,7 @@ CMixViewerView::Reset (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 int
-CMixViewerView::OnCreate (LPCREATESTRUCT lpCreateStruct) 
+CMixViewerView::OnCreate (LPCREATESTRUCT lpCreateStruct)
 {
 	if (CListView::OnCreate (lpCreateStruct) == -1)	{
 		return -1;
@@ -260,7 +260,7 @@ MixFilenamesListSortCallback
 	StringClass *item_data2 = (StringClass *)lParam2;
 	if (item_data1 != NULL && item_data2 != NULL) {
 
-		
+
 		bool is_1_dir = (::strrchr (*item_data1, '\\') != NULL);
 		bool is_2_dir = (::strrchr (*item_data2, '\\') != NULL);
 
@@ -269,14 +269,14 @@ MixFilenamesListSortCallback
 		} else if (is_1_dir == false && is_2_dir) {
 			retval = 1;
 		} else {
-		
+
 			//
 			//	Do a simple string compare
 			//
 			retval = item_data1->Compare_No_Case (*item_data2);
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -287,7 +287,7 @@ MixFilenamesListSortCallback
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-CMixViewerView::OnDeleteitem (NMHDR *pNMHDR, LRESULT *pResult) 
+CMixViewerView::OnDeleteitem (NMHDR *pNMHDR, LRESULT *pResult)
 {
 	NM_LISTVIEW* pNMListView = (NM_LISTVIEW *)pNMHDR;
 	*pResult = 0;
@@ -316,10 +316,10 @@ CMixViewerView::OnDeleteitem (NMHDR *pNMHDR, LRESULT *pResult)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-CMixViewerView::OnWindowPosChanging (WINDOWPOS FAR *lpwndpos) 
+CMixViewerView::OnWindowPosChanging (WINDOWPOS FAR *lpwndpos)
 {
 	if ((lpwndpos->flags & SWP_NOSIZE) == 0) {
-		
+
 		//
 		//	Get the current percent of the column width
 		//

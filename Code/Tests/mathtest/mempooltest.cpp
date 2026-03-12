@@ -56,15 +56,15 @@ public:
 	int x;
 };
 
-D::D(void) 
-{ 
-	ptr = new char[500]; 
+D::D(void)
+{
+	ptr = new char[500];
 	x = 7;
 }
-D::~D(void) 
-{ 
-	delete[] ptr; 
-	x = 2; 
+D::~D(void)
+{
+	delete[] ptr;
+	x = 2;
 }
 
 DEFINE_AUTO_POOL(B,5);

@@ -108,7 +108,7 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 
 		//////////////////////////////////////////////////////////////////////
 		//	Conversion methods
-		//////////////////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////////////////
 		virtual Sound3DClass *			As_Sound3DClass (void) 			{ return NULL; }
 		virtual SoundPseudo3DClass *	As_SoundPseudo3DClass (void) 	{ return NULL; }
 		virtual FilteredSoundClass *	As_FilteredSoundClass (void) 	{ return NULL; }
@@ -128,14 +128,14 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 
 		//////////////////////////////////////////////////////////////////////
 		//	Event handling
-		//////////////////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////////////////
 		virtual void			On_Event (AudioCallbackClass::EVENTS event, uintptr_t param1 = 0, uintptr_t param2 = 0);
 		virtual void			Register_Callback (AudioCallbackClass::EVENTS events, AudioCallbackClass *callback);
 		virtual void			Remove_Callback (void);
 
 		//////////////////////////////////////////////////////////////////////
 		//	Position/direction methods
-		//////////////////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////////////////
 		virtual void			Set_Position (const Vector3 &position)	= 0;
 		virtual Vector3		Get_Position (void) const = 0;
 
@@ -184,7 +184,7 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 
 		//////////////////////////////////////////////////////////////////////
 		//	From PersistClass
-		//////////////////////////////////////////////////////////////////////				
+		//////////////////////////////////////////////////////////////////////
 		bool						Save (ChunkSaveClass &csave) override;
 		bool						Load (ChunkLoadClass &cload) override;
 
@@ -192,7 +192,7 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 
 		//////////////////////////////////////////////////////////////////////
 		//	Handle information
-		//////////////////////////////////////////////////////////////////////				
+		//////////////////////////////////////////////////////////////////////
 		virtual SoundCullObjClass *	Peek_Cullable_Wrapper (void) const					{ return m_PhysWrapper; }
 		virtual void						Set_Cullable_Wrapper (SoundCullObjClass *obj)	{ m_PhysWrapper = obj; }
 
@@ -200,7 +200,7 @@ class SoundSceneObjClass : public MultiListObjectClass, public PersistClass, pub
 		//	Sound object managment
 		//////////////////////////////////////////////////////////////////////
 		static void				Register_Sound_Object (SoundSceneObjClass *sound_obj);
-		static void				Unregister_Sound_Object (SoundSceneObjClass *sound_obj);		
+		static void				Unregister_Sound_Object (SoundSceneObjClass *sound_obj);
 		static bool				Find_Sound_Object (uint32 id_to_find, int *index);
 
 		//////////////////////////////////////////////////////////////////////

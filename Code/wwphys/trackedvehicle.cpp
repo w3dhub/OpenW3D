@@ -62,13 +62,13 @@ DECLARE_FORCE_LINK(trackedvehicle);
 
 
 
-static bool _is_left_track_name(const char * name) 
+static bool _is_left_track_name(const char * name)
 {
 	const char * LEFT_TRACK_NAME0 = "V_TRACK-L";
 	const char * LEFT_TRACK_NAME1 = "V_TREAD-L";
 	const char * LEFT_TRACK_NAME2 = "V_TRACK_L";
 	const char * LEFT_TRACK_NAME3 = "V_TREAD_L";
-	
+
 	/*
 	** Track skins can only be sub-objects of a hierarchy so check the name
 	** after the hierarchy name.
@@ -77,9 +77,9 @@ static bool _is_left_track_name(const char * name)
 	if (sub_name != NULL) {
 		sub_name++;
 		if (	(strnicmp(sub_name,LEFT_TRACK_NAME0,strlen(LEFT_TRACK_NAME0)) == 0) ||
-				(strnicmp(sub_name,LEFT_TRACK_NAME1,strlen(LEFT_TRACK_NAME1)) == 0) || 
-				(strnicmp(sub_name,LEFT_TRACK_NAME2,strlen(LEFT_TRACK_NAME2)) == 0) || 
-				(strnicmp(sub_name,LEFT_TRACK_NAME3,strlen(LEFT_TRACK_NAME3)) == 0)) 
+				(strnicmp(sub_name,LEFT_TRACK_NAME1,strlen(LEFT_TRACK_NAME1)) == 0) ||
+				(strnicmp(sub_name,LEFT_TRACK_NAME2,strlen(LEFT_TRACK_NAME2)) == 0) ||
+				(strnicmp(sub_name,LEFT_TRACK_NAME3,strlen(LEFT_TRACK_NAME3)) == 0))
 		{
 			return true;
 		}
@@ -102,9 +102,9 @@ static bool _is_right_track_name(const char * name)
 	if (sub_name != NULL) {
 		sub_name++;
 		if (	(strnicmp(sub_name,RIGHT_TRACK_NAME0,strlen(RIGHT_TRACK_NAME0)) == 0) ||
-				(strnicmp(sub_name,RIGHT_TRACK_NAME1,strlen(RIGHT_TRACK_NAME1)) == 0) || 
-				(strnicmp(sub_name,RIGHT_TRACK_NAME2,strlen(RIGHT_TRACK_NAME2)) == 0) || 
-				(strnicmp(sub_name,RIGHT_TRACK_NAME3,strlen(RIGHT_TRACK_NAME3)) == 0)) 
+				(strnicmp(sub_name,RIGHT_TRACK_NAME1,strlen(RIGHT_TRACK_NAME1)) == 0) ||
+				(strnicmp(sub_name,RIGHT_TRACK_NAME2,strlen(RIGHT_TRACK_NAME2)) == 0) ||
+				(strnicmp(sub_name,RIGHT_TRACK_NAME3,strlen(RIGHT_TRACK_NAME3)) == 0))
 		{
 			return true;
 		}
@@ -118,7 +118,7 @@ static bool _is_right_track_name(const char * name)
 ** TrackedVehicleClass Implementation
 **
 **************************************************************************************/
-												
+
 /*
 ** Declare a PersistFactory for TrackedVehicleClasses
 */
@@ -127,7 +127,7 @@ SimplePersistFactoryClass<TrackedVehicleClass,PHYSICS_CHUNKID_TRACKEDVEHICLE>	_T
 /*
 ** Chunk-ID's used by tracked vehicle class
 */
-enum 
+enum
 {
 	TRACKEDVEHICLE_CHUNK_VEHICLEPHYS			= 0x00119801,
 	TRACKEDVEHICLE_CHUNK_VARIABLES,
@@ -145,10 +145,10 @@ TrackedVehicleClass::TrackedVehicleClass(void) :
 	RightTrackLastPosition(0,0,0)
 {
 }
- 
-void TrackedVehicleClass::Init(const TrackedVehicleDefClass & def) 
+
+void TrackedVehicleClass::Init(const TrackedVehicleDefClass & def)
 {
-	VehiclePhysClass::Init(def);	
+	VehiclePhysClass::Init(def);
 }
 
 TrackedVehicleClass::~TrackedVehicleClass(void)
@@ -170,14 +170,14 @@ void TrackedVehicleClass::Render(RenderInfoClass & rinfo)
 	tm.Get_X_Vector(&forward);
 
 	Vector3 move;
-	Vector3::Subtract(left_track_position,LeftTrackLastPosition,&move);										
+	Vector3::Subtract(left_track_position,LeftTrackLastPosition,&move);
 	LeftTrackMovement = Vector3::Dot_Product(move,forward);
 
 	Vector3::Subtract(right_track_position,RightTrackLastPosition,&move);
 	RightTrackMovement = Vector3::Dot_Product(move,forward);
 	LeftTrackLastPosition = left_track_position;
 	RightTrackLastPosition = right_track_position;
-	
+
 	/*
 	** Update the mappers
 	*/
@@ -212,7 +212,7 @@ void TrackedVehicleClass::Update_Cached_Model_Parameters(void)
 	** Reset our array of mapper pointers
 	*/
 	TrackMappers.Delete_All(false);
-	
+
 	/*
 	** Make sure that this model has unique meshes for its tracks
 	** and grab pointers to the mappers.
@@ -235,7 +235,7 @@ void TrackedVehicleClass::Grab_Track_Mappers(RenderObjClass * model)
 				Add_Track_Mappers((MeshClass*)sub_obj,RIGHT_TRACK);
 			}
 		}
-		
+
 		Grab_Track_Mappers(sub_obj);
 		REF_PTR_RELEASE(sub_obj);
 	}
@@ -259,7 +259,7 @@ void TrackedVehicleClass::Add_Track_Mappers(MeshClass * mesh,int track_type)
 				}
 				REF_PTR_RELEASE(mapper);
 			}
-		}			
+		}
 		REF_PTR_RELEASE(matinfo);
 	}
 
@@ -268,7 +268,7 @@ void TrackedVehicleClass::Add_Track_Mappers(MeshClass * mesh,int track_type)
 	*/
 	if (has_mapper) {
 		mesh->Make_Unique();
-		
+
 		MaterialInfoClass * matinfo = mesh->Get_Material_Info();
 
 		if (matinfo != NULL) {
@@ -295,7 +295,7 @@ void TrackedVehicleClass::Add_Track_Mappers(MeshClass * mesh,int track_type)
 					}
 					REF_PTR_RELEASE(mapper);
 				}
-			}			
+			}
 			REF_PTR_RELEASE(matinfo);
 		}
 	}
@@ -340,7 +340,7 @@ void TrackedVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * tor
 #endif
 
 		}
-		
+
 		/*
 		** Update each wheel's torque.
 		*/
@@ -386,8 +386,8 @@ bool TrackedVehicleClass::Save (ChunkSaveClass &csave)
 bool TrackedVehicleClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case TRACKEDVEHICLE_CHUNK_VEHICLEPHYS:
 				VehiclePhysClass::Load(cload);
@@ -422,7 +422,7 @@ DECLARE_DEFINITION_FACTORY(TrackedVehicleDefClass, CLASSID_TRACKEDVEHICLEDEF, "T
 /*
 ** Chunk ID's used by TrackedVehicleDefClass
 */
-enum 
+enum
 {
 	TRACKEDVEHICLEDEF_CHUNK_VEHICLEPHYSDEF			= 0406001454,			// (parent class)
 	TRACKEDVEHICLEDEF_CHUNK_VARIABLES,
@@ -431,7 +431,7 @@ enum
 	TRACKEDVEHICLEDEF_VARIABLE_TRACKUSCALEFACTOR,
 	TRACKEDVEHICLEDEF_VARIABLE_TRACKVSCALEFACTOR,
 	TRACKEDVEHICLEDEF_VARIABLE_TURNTORQUESCALEFACTOR,
-	
+
 };
 
 
@@ -448,9 +448,9 @@ TrackedVehicleDefClass::TrackedVehicleDefClass(void) :
 	FLOAT_EDITABLE_PARAM(TrackedVehicleDefClass, TurnTorqueScaleFactor, 0.0f, 1.0f);
 }
 
-uint32 TrackedVehicleDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_TRACKEDVEHICLEDEF; 
+uint32 TrackedVehicleDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_TRACKEDVEHICLEDEF;
 }
 
 const PersistFactoryClass & TrackedVehicleDefClass::Get_Factory (void) const

@@ -65,7 +65,7 @@ PresetDialogueTabClass::PresetDialogueTabClass (PresetClass *preset)
 	//{{AFX_DATA_INIT(PresetDialogueTabClass)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
-	
+
 	//
 	//	Dig the soldier game object definition out from the preset
 	//
@@ -146,13 +146,13 @@ PresetDialogueTabClass::HandleInitDialog (void)
 	m_ListCtrl.InsertColumn (COL_EVENT, "Event");
 	m_ListCtrl.InsertColumn (COL_TEXT, "Text");
 	m_ListCtrl.SetExtendedStyle (m_ListCtrl.GetExtendedStyle () | LVS_EX_FULLROWSELECT);
-	
+
 	//
 	//	Choose a size for the list control's columns
 	//
 	CRect rect;
 	m_ListCtrl.GetClientRect (&rect);
-	rect.right -= ::GetSystemMetrics (SM_CXVSCROLL);	
+	rect.right -= ::GetSystemMetrics (SM_CXVSCROLL);
 	m_ListCtrl.SetColumnWidth (COL_EVENT, rect.Width () / 2);
 	m_ListCtrl.SetColumnWidth (COL_TEXT, rect.Width () / 2);
 
@@ -160,18 +160,18 @@ PresetDialogueTabClass::HandleInitDialog (void)
 	//	Allocate our own copy of the dialog list
 	//
 	m_DialogueList = new DialogueClass[DIALOG_MAX];
-	
+
 	//
 	//	Get the list of dialogues from the definition
 	//
 	DialogueClass *dialog_list = m_Definition->Get_Dialog_List ();
 	for (int index = 0; index < DIALOG_MAX; index ++) {
-		
+
 		//
 		//	Copy this dialog from the definition's list to our own internal list
 		//
 		m_DialogueList[index] = dialog_list[index];
-		
+
 		//
 		//	Add an entry to the list control for this dialogue
 		//
@@ -209,7 +209,7 @@ PresetDialogueTabClass::Apply_Changes (void)
 	//
 	//	Copy the changes into the definition's dialog list
 	//
-	for (int index = 0; index < DIALOG_MAX; index ++) {		
+	for (int index = 0; index < DIALOG_MAX; index ++) {
 		dialog_list[index] = m_DialogueList[index];
 	}
 
@@ -241,7 +241,7 @@ PresetDialogueTabClass::OnDblclkDialogueList
 		//	Show a dialog to the user that will allow them to edit this entry
 		//
 		EditDialogueDialogClass dialog (this);
-		dialog.Set_Dialogue (&m_DialogueList[index]);				
+		dialog.Set_Dialogue (&m_DialogueList[index]);
 		if (dialog.DoModal () == IDOK) {
 			Update_Entry (index);
 			InvalidateRect (NULL, true);
@@ -266,14 +266,14 @@ PresetDialogueTabClass::Update_Entry (int index)
 	//
 	DIALOGUE_OPTION_LIST	&option_list = m_DialogueList[index].Get_Option_List ();
 	if (option_list.Count () > 0) {
-		
+
 		//
 		//	Lookup the string entry in our translation database
 		//
 		int conversation_id = option_list[0]->Get_Conversation_ID ();
 		ConversationClass *conversation = ConversationMgrClass::Find_Conversation (conversation_id);
-		if (conversation != NULL) {					
-			
+		if (conversation != NULL) {
+
 			//
 			//	Put this text into the appropriate column in the list control
 			//
@@ -284,6 +284,6 @@ PresetDialogueTabClass::Update_Entry (int index)
 	} else {
 		m_ListCtrl.SetItemText (index, COL_TEXT, "");
 	}
-	
+
 	return ;
 }

@@ -53,13 +53,13 @@ public:
 
 	// Set the time (in milliseconds) at which the subtitle is to be displayed.
 	void Set_Display_Time(unsigned int time) { mTimeStamp = time; }
-	
+
 	// Retrieve the time in ticks (1/60 seconds) this subtitle is to be displayed.
 	unsigned int Get_Display_Time(void) const { return mTimeStamp; }
 
 	// Set the time duration in ticks (1/60 seconds) for the subtitle to remain displayed.
 	void Set_Display_Duration(unsigned int duration) { mDuration = duration; }
-	
+
 	// Retrieve the duration time in ticks (1/60 seconds) for the subtitle.
 	unsigned int Get_Display_Duration(void) const { return mDuration; }
 
@@ -75,7 +75,7 @@ public:
 		WWASSERT((linePos >= 1) && (linePos <= 15));
 		mLinePosition = linePos;
 	}
-	
+
 	// Retrieve the line position to display the subtitle at.
 	int Get_Line_Position(void) const { return mLinePosition; }
 

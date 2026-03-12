@@ -147,17 +147,17 @@ NodeInfoPageClass::Apply_Changes (void)
 
 	// Pass the new name onto the node
 	CString name;
-	GetDlgItemText (IDC_NAME_EDIT, name);	
+	GetDlgItemText (IDC_NAME_EDIT, name);
 	m_pNode->Set_Name (name);
 
 	// Pass the new comments onto the base
 	CString comments;
 	GetDlgItemText (IDC_COMMENTS_EDIT, comments);
 	m_pNode->Set_Comments (comments);
-	
+
 	// If the ID was changed then verify that it is unique before actually
 	// changing it for the object.
-	uint32 id = GetDlgItemInt(IDC_ID_EDIT, NULL, false);	
+	uint32 id = GetDlgItemInt(IDC_ID_EDIT, NULL, false);
 	if (m_pNode->Get_ID() != id) {
 
 		//

@@ -94,7 +94,7 @@ InternetOptionsMenuClass::On_Init_Dialog (void)
 		bar->Add_Button (IDC_MP_SHORTCUT_ACCOUNT, entry_text);
 
 		entry_text = TRANSLATE (IDS_MP_SHORTCUT_NET_STATUS);
-		bar->Add_Button (IDC_MP_SHORTCUT_NET_STATUS, entry_text);		
+		bar->Add_Button (IDC_MP_SHORTCUT_NET_STATUS, entry_text);
 	}
 
 	MenuDialogClass::On_Init_Dialog ();

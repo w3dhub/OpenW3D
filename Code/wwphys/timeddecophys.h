@@ -55,7 +55,7 @@ class TimedDecorationPhysClass : public DecorationPhysClass
 public:
 
 	TimedDecorationPhysClass(void);
-	
+
 	void									Init(const TimedDecorationPhysDefClass & def);
 	virtual bool						Needs_Timestep(void) override										{ return true; }
 	virtual void						Timestep(float dt) override;
@@ -88,9 +88,9 @@ private:
 class TimedDecorationPhysDefClass : public DecorationPhysDefClass
 {
 public:
-	
+
 	TimedDecorationPhysDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;

@@ -63,7 +63,7 @@ void
 ToolTipMgrClass::Initialize (void)
 {
 	ToolTipDisplayed = false;
-	
+
 	//
 	//	Allocate the tooltip object
 	//
@@ -136,21 +136,21 @@ ToolTipMgrClass::Update (const Vector2 &mouse_pos)
 	}
 
 	if (ToolTipDisplayed == false && mouse_pos == LastMousePos) {
-		
+
 		//
 		//	Begin waiting for the mouse to move
 		//
 		if (PauseTime == -1) {
 			PauseTime = (int)DialogMgrClass::Get_Time ();
 		} else if (((int)DialogMgrClass::Get_Time () - PauseTime) > ToolTipDelay) {
-			
+
 			//
 			//	What control are we over?
 			//
 			DialogControlClass *control = DialogMgrClass::Find_Control (mouse_pos);
 			if (control != NULL && control->Wants_Tooltip ()) {
 				CurrentControl = control;
-				
+
 				//
 				//	Update the text of the tooltip
 				//
@@ -174,20 +174,20 @@ ToolTipMgrClass::Update (const Vector2 &mouse_pos)
 
 	} else if (mouse_pos != LastMousePos) {
 		PauseTime = -1;
-		
+
 		if (ToolTipDisplayed) {
-			
+
 			//
 			//	Did we move onto a different control?
 			//
 			DialogControlClass *control = DialogMgrClass::Find_Control (mouse_pos);
 			if (control != CurrentControl) {
-				
+
 				//
 				//	Force the tooltip to be hidden
 				//
 				ToolTipDisplayed	= false;
-				CurrentControl		= NULL;				
+				CurrentControl		= NULL;
 			}
 		}
 	}

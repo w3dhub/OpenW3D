@@ -39,7 +39,7 @@ class DockableFormClass : public CWnd
 	public:
 		DockableFormClass (UINT nIDTemplate);
 		virtual ~DockableFormClass ();
-        
+
 
 // Attributes
 public:
@@ -55,7 +55,7 @@ public:
 	//}}AFX_VIRTUAL
 
 // Implementation
-protected:	
+protected:
 
 	// Generated message map functions
 	//{{AFX_MSG(DockableFormClass)

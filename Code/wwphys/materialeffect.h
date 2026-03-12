@@ -75,9 +75,9 @@ class	MaterialPassClass;
 **  flag so the phys object can discard it after rendering is complete if necessary.
 **
 **  If we want to also use the stealth object for game logic, we need to ensure that its internal
-**  variables update even when it doesn't get rendered.  The PhysClass could timestep all of the 
-**  currently attached material effects.  The only ones attached during timestep would be the 
-**  "persistant" ones...  
+**  variables update even when it doesn't get rendered.  The PhysClass could timestep all of the
+**  currently attached material effects.  The only ones attached during timestep would be the
+**  "persistant" ones...
 **
 */
 
@@ -111,9 +111,9 @@ private:
 /**
 ** SimpleEffectClass
 ** This is a material effect object which simply causes a material pass to be added.  The texture
-** projection system uses this in "Auto Remove" mode to simply get the shadow pass applied to 
+** projection system uses this in "Auto Remove" mode to simply get the shadow pass applied to
 ** each object that the shadow falls on.  These objects are Auto-Pooled for fast allocation and
-** de-allocation so the user cannot derive a class from SimpleEffectClass.  
+** de-allocation so the user cannot derive a class from SimpleEffectClass.
 */
 
 #define SIMPLE_EFFECT_GROWTH_STEP 256

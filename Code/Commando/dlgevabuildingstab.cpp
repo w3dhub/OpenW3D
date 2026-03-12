@@ -63,7 +63,7 @@ EvaBuildingsTabClass::On_Init_Dialog (void)
 	//	Let the base class know where to get its data
 	//
 	Set_INI_Filename ("buildings.ini");
-	
+
 	EvaViewerTabClass::On_Init_Dialog ();
 	return ;
 }

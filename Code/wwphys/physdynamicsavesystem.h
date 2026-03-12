@@ -54,7 +54,7 @@
 class PhysDynamicSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	virtual uint32				Chunk_ID (void) const override;
 
 protected:
@@ -68,7 +68,7 @@ protected:
 	/*
 	** internal chunk id's
 	*/
-	enum 
+	enum
 	{
 		PDSSC_CHUNKID_SCENE			= 0x00007001,
 		PDSSC_CHUNKID_CONSTANTS,

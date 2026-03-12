@@ -218,7 +218,7 @@ void BaseControllerClass::On_Building_Damaged(BuildingGameObj* building)
 		if (COMBAT_STAR) {
 			int playersTeam = COMBAT_STAR->Get_Player_Type();
 			bool isAllied = (playersTeam == PlayerType);
-		
+
 			float seconds = TimeManager::Get_Total_Seconds();
 			int elapsed = 0;
 
@@ -227,7 +227,7 @@ void BaseControllerClass::On_Building_Damaged(BuildingGameObj* building)
 			} else {
 				elapsed = (int)(seconds - AnnouncedEnemyBldgDamageTime);
 			}
-		
+
 			if (elapsed >= AnnounceInterval) {
 				Play_Announcement(def.Get_Damage_Report(playersTeam));
 
@@ -251,7 +251,7 @@ void BaseControllerClass::On_Building_Damaged(BuildingGameObj* building)
 //
 ////////////////////////////////////////////////////////////////
 void BaseControllerClass::On_Building_Destroyed(BuildingGameObj* building)
-{	
+{
 	const BuildingGameObjDef& def = building->Get_Definition();
 
 	if (COMBAT_STAR) {
@@ -309,7 +309,7 @@ void BaseControllerClass::On_Vehicle_Delivered(VehicleGameObj * /* vehicle */)
 	if (isAllied) {
 		// Play unit ready report for the current player.
 		CNCModeSettingsDef* cncDef = CNCModeSettingsDef::Get_Instance();
-		
+
 		if (cncDef) {
 			Play_Announcement(cncDef->Get_Unit_Ready_Report(PlayerType));
 		}
@@ -324,7 +324,7 @@ void BaseControllerClass::On_Vehicle_Damaged(VehicleGameObj* vehicle)
 		if (COMBAT_STAR) {
 			int playersTeam = COMBAT_STAR->Get_Player_Type();
 			bool isAllied = (playersTeam == PlayerType);
-		
+
 			float seconds = TimeManager::Get_Total_Seconds();
 			int elapsed = 0;
 
@@ -333,7 +333,7 @@ void BaseControllerClass::On_Vehicle_Damaged(VehicleGameObj* vehicle)
 			} else {
 				elapsed = (int)(seconds - AnnouncedEnemyBldgDamageTime);
 			}
-		
+
 			if (elapsed >= AnnounceInterval) {
 				const VehicleGameObjDef& def = vehicle->Get_Definition();
 				Play_Announcement(def.Get_Damage_Report(playersTeam));
@@ -362,7 +362,7 @@ void BaseControllerClass::On_Vehicle_Destroyed(VehicleGameObj* vehicle)
 void BaseControllerClass::On_Beacon_Armed(BeaconGameObj* beacon)
 {
 	CNCModeSettingsDef* cncDef = CNCModeSettingsDef::Get_Instance();
-		
+
 	if (cncDef) {
 		bool isNuke = beacon->Get_Definition().Is_Nuke();
 
@@ -384,7 +384,7 @@ void BaseControllerClass::On_Beacon_Armed(BeaconGameObj* beacon)
 void BaseControllerClass::On_Beacon_Disarmed(BeaconGameObj* beacon)
 {
 	CNCModeSettingsDef* cncDef = CNCModeSettingsDef::Get_Instance();
-		
+
 	if (cncDef) {
 		bool isNuke = beacon->Get_Definition().Is_Nuke();
 		if (COMBAT_STAR != NULL) {
@@ -405,7 +405,7 @@ void BaseControllerClass::On_Beacon_Disarmed(BeaconGameObj* beacon)
 void BaseControllerClass::On_Beacon_Warning(BeaconGameObj* beacon)
 {
 	CNCModeSettingsDef* cncDef = CNCModeSettingsDef::Get_Instance();
-		
+
 	if (cncDef) {
 		bool isNuke = beacon->Get_Definition().Is_Nuke();
 		if (COMBAT_STAR != NULL) {
@@ -438,7 +438,7 @@ BaseControllerClass::Are_All_Buildings_Destroyed (void)
 	//
 	for (int index = 0; index < BuildingList.Count (); index ++) {
 		BuildingGameObj *building = BuildingList[index];
-		
+
 		//
 		//	If this building has any health left, then the base is not
 		// completely destroyed.
@@ -460,7 +460,7 @@ BaseControllerClass::Are_All_Buildings_Destroyed (void)
 ////////////////////////////////////////////////////////////////
 void
 BaseControllerClass::Notify_Team (Notification /* event */, BuildingType /* type */)
-{	
+{
 	return ;
 }
 
@@ -495,7 +495,7 @@ BaseControllerClass::Check_Base_Power (void)
 	}
 
 	//	Change the powered state of the base
-	Power_Base(is_powered);	
+	Power_Base(is_powered);
 }
 
 
@@ -528,8 +528,8 @@ BaseControllerClass::Power_Base (bool onoff)
 				building->Enable_Power (BasePowered);
 			}
 		}
-	
-		// Notify that the base 
+
+		// Notify that the base
 		if (!BasePowered) {
 			const CNCModeSettingsDef* def = CNCModeSettingsDef::Get_Instance();
 
@@ -549,8 +549,8 @@ BaseControllerClass::Power_Base (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-BaseControllerClass::Set_Operation_Time_Factor (float factor)	
-{ 
+BaseControllerClass::Set_Operation_Time_Factor (float factor)
+{
 	OperationTimeFactor = factor;
 
 	Set_Object_Dirty_Bit( NetworkObjectClass::BIT_OCCASIONAL, true );
@@ -563,8 +563,8 @@ BaseControllerClass::Set_Operation_Time_Factor (float factor)
 //
 ////////////////////////////////////////////////////////////////
 void
-BaseControllerClass::Set_Base_Powered (bool onoff)	
-{ 
+BaseControllerClass::Set_Base_Powered (bool onoff)
+{
 	BasePowered = onoff;
 
 	Set_Object_Dirty_Bit( NetworkObjectClass::BIT_OCCASIONAL, true );
@@ -577,8 +577,8 @@ BaseControllerClass::Set_Base_Powered (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-BaseControllerClass::Set_Can_Generate_Soldiers (bool onoff)	
-{ 
+BaseControllerClass::Set_Can_Generate_Soldiers (bool onoff)
+{
 	CanGenerateSoldiers = onoff;
 
 	Set_Object_Dirty_Bit( NetworkObjectClass::BIT_OCCASIONAL, true );
@@ -591,8 +591,8 @@ BaseControllerClass::Set_Can_Generate_Soldiers (bool onoff)
 //
 ////////////////////////////////////////////////////////////////
 void
-BaseControllerClass::Set_Can_Generate_Vehicles (bool onoff)	
-{ 
+BaseControllerClass::Set_Can_Generate_Vehicles (bool onoff)
+{
 	CanGenerateVehicles = onoff;
 
 	Set_Object_Dirty_Bit( NetworkObjectClass::BIT_OCCASIONAL, true );
@@ -621,7 +621,7 @@ BaseControllerClass::Request_Harvester (int def_id)
 		//
 		//	If we have a vehicle factory that isn't busy, then start building a harvester
 		//
-		if (factory->Is_Available ()) {			
+		if (factory->Is_Available ()) {
 			float time = 8.0F;
 			factory->Request_Vehicle (def_id, time * OperationTimeFactor);
 		}
@@ -725,7 +725,7 @@ BaseControllerClass::Find_Building (BuildingConstants::BuildingType type)
 	//	Search through each building
 	//
 	for (int index = 0; index < BuildingList.Count (); index ++) {
-	
+
 		//
 		//	Is this the type of building we are looking for?
 		//
@@ -734,7 +734,7 @@ BaseControllerClass::Find_Building (BuildingConstants::BuildingType type)
 			break;
 		}
 	}
-	
+
 	return building;
 }
 
@@ -761,11 +761,11 @@ BaseControllerClass::Distribute_Funds_To_Each_Teammate (int funds)
 	SLNode<SoldierGameObj> *node	= NULL;
 	for (node = list->Head(); node != NULL; node = node->Next()) {
 		SoldierGameObj *player = node->Data();
-		
+
 		//
 		//	Is this a player on our team?
 		//
-		if (	player != NULL && 
+		if (	player != NULL &&
 				(player->Get_Player_Type () == PlayerType) )
 		{
 			//
@@ -803,7 +803,7 @@ BaseControllerClass::Deposit_Funds (int funds)
 	}
 
 	DynamicVectorClass<SoldierGameObj *> team_players;
-	
+
 	//
 	//	Loop over all the players in the game
 	//
@@ -811,11 +811,11 @@ BaseControllerClass::Deposit_Funds (int funds)
 	SLNode<SoldierGameObj> *node	= NULL;
 	for (node = list->Head(); node != NULL; node = node->Next()) {
 		SoldierGameObj *player = node->Data();
-		
+
 		//
 		//	Is this a player on our team?
 		//
-		if (	player != NULL && 
+		if (	player != NULL &&
 				(player->Get_Player_Type () == PLAYERTYPE_GDI && Team == TEAM_GDI) ||
 				(player->Get_Player_Type () == PLAYERTYPE_NOD && Team == TEAM_NOD))
 		{
@@ -832,7 +832,7 @@ BaseControllerClass::Deposit_Funds (int funds)
 		//	Now distribute the funds to each player
 		//
 		int funds_per_player = funds / team_players.Count ();
-		for (int index = 0; index < team_players.Count (); index ++) {		
+		for (int index = 0; index < team_players.Count (); index ++) {
 			PlayerDataClass *player_data = team_players[index]->Get_Player_Data ();
 			if (player_data != NULL) {
 
@@ -930,7 +930,7 @@ void
 BaseControllerClass::Destroy_Base (void)
 {
 	for (int index = 0; index < BuildingList.Count (); index ++) {
-		
+
 		//
 		//	Destroy this building
 		//
@@ -980,7 +980,7 @@ BaseControllerClass::Add_Building (BuildingGameObj *building)
 
 			//
 			//	Add the building to our list
-			//			
+			//
 			building->CnC_Initialize (this);
 			BuildingList.Add (building);
 
@@ -988,7 +988,7 @@ BaseControllerClass::Add_Building (BuildingGameObj *building)
 			//	Find the beacon zone if this is the first building added...
 			//
 			if (BuildingList.Count () == 1) {
-				
+
 				//
 				//	Get the position of the first building in our list
 				//
@@ -1041,7 +1041,7 @@ BaseControllerClass::Import_Occasional (BitStreamClass &packet)
 	packet.Get(BasePowered);
 
 	packet.Get(CanGenerateSoldiers);
-	packet.Get(CanGenerateVehicles);	
+	packet.Get(CanGenerateVehicles);
 	packet.Get(IsBaseDestroyed);
 	packet.Get(DidBeaconDestroyBase);
 
@@ -1074,7 +1074,7 @@ BaseControllerClass::Export_Occasional (BitStreamClass &packet)
 	packet.Add (OperationTimeFactor);
 	packet.Add (BasePowered);
 	packet.Add (CanGenerateSoldiers);
-	packet.Add (CanGenerateVehicles);	
+	packet.Add (CanGenerateVehicles);
 	packet.Add (IsBaseDestroyed);
 	packet.Add (DidBeaconDestroyBase);
 	packet.Add (IsRadarEnabled);
@@ -1091,11 +1091,11 @@ BaseControllerClass::Enable_Radar (bool onoff)
 {
 	if (IsRadarEnabled != onoff) {
 		IsRadarEnabled = onoff;
-		
+
 		//
 		//	Check to see if the current player belongs to this base
 		//
-		if (	COMBAT_STAR != NULL && 
+		if (	COMBAT_STAR != NULL &&
 				(COMBAT_STAR->Get_Player_Type () == PlayerType) )
 		{
 			//
@@ -1120,7 +1120,7 @@ VehicleGameObj *
 BaseControllerClass::Get_Harvester_Vehicle (void)
 {
 	VehicleGameObj *retval = NULL;
-	
+
 	//
 	//	Find our refinery (if we have one)
 	//
@@ -1153,7 +1153,7 @@ void BaseControllerClass::Play_Announcement(int text_id)
 
 		if (string) {
 			CombatManager::Get_Message_Window()->Add_Message(string, Vector3(1, 1, 1));
-		}		
+		}
 
 		// Play the sound effect
 		int soundID = (int)translate_obj->Get_Sound_ID();

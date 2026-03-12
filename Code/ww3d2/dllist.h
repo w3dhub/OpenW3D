@@ -77,7 +77,7 @@ class DLDestroyListClass : public DLListClass<T>
 public:
 	virtual ~DLDestroyListClass()
 	{
-		while (T* t=Head()) {		
+		while (T* t=Head()) {
 			delete t;
 		}
 	}

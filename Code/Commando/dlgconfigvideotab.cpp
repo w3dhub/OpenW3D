@@ -144,7 +144,7 @@ DlgConfigVideoTabClass::On_Init_Dialog (void)
 	//
 	slider = (SliderCtrlClass *)Get_Dlg_Item (IDC_CONTRAST_SLIDER);
 	slider->Set_Range (CONTRAST_SLIDER_MIN, CONTRAST_SLIDER_MAX);
-	
+
 	// Now the gamma can take effect.
 	UpdateGamma = true;
 	slider->Set_Pos (ContrastLevel);
@@ -182,13 +182,13 @@ DlgConfigVideoTabClass::On_SliderCtrl_Pos_Changed
 )
 {
 	const unichar_t *formatstring = U_CHAR("%.2f");
-		
+
 	WideStringClass settingstring;
 
 	if (UpdateGamma) {
-	
-		int g, b, c;	
-		
+
+		int g, b, c;
+
 	 	g = ((SliderCtrlClass *)Get_Dlg_Item (IDC_GAMMA_SLIDER))->Get_Pos();
 		b = ((SliderCtrlClass *)Get_Dlg_Item (IDC_BRIGHTNESS_SLIDER))->Get_Pos();
 		c = ((SliderCtrlClass *)Get_Dlg_Item (IDC_CONTRAST_SLIDER))->Get_Pos();
@@ -201,12 +201,12 @@ DlgConfigVideoTabClass::On_SliderCtrl_Pos_Changed
 			settingstring.Format (formatstring, Gamma_Scale (slider_ctrl->Get_Pos()));
 			Set_Dlg_Item_Text (IDC_GAMMA_SETTING, settingstring);
 			break;
-	
+
 		case IDC_BRIGHTNESS_SLIDER:
 			settingstring.Format (formatstring, Gamma_Scale (slider_ctrl->Get_Pos()));
 			Set_Dlg_Item_Text (IDC_BRIGHTNESS_SETTING, settingstring);
 			break;
-	
+
 		case IDC_CONTRAST_SLIDER:
 			settingstring.Format (formatstring, Gamma_Scale (slider_ctrl->Get_Pos()));
 			Set_Dlg_Item_Text (IDC_CONTRAST_SETTING, settingstring);

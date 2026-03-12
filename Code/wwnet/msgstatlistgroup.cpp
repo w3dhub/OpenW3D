@@ -18,10 +18,10 @@
 
 //
 // Filename:     msgstatlistgroup.cpp
-// Project:      
+// Project:
 // Author:       Tom Spencer-Smith
-// Date:         
-// Description:  
+// Date:
+// Description:
 //
 //------------------------------------------------------------------------------------
 #include "msgstatlistgroup.h" // I WANNA BE FIRST!
@@ -66,7 +66,7 @@ void cMsgStatListGroup::Init(int num_lists, int num_stats)
 void cMsgStatListGroup::Increment_Num_Msg_Sent(int list_num, int message_type, int increment)
 {
 	WWASSERT(list_num >= 0 && list_num < NumLists);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStatList[list_num].Increment_Num_Msg_Sent(message_type, increment);
 	PStatList[NumLists].Increment_Num_Msg_Sent(message_type, increment);
@@ -76,7 +76,7 @@ void cMsgStatListGroup::Increment_Num_Msg_Sent(int list_num, int message_type, i
 void cMsgStatListGroup::Increment_Num_Byte_Sent(int list_num, int message_type, int increment)
 {
 	WWASSERT(list_num >= 0 && list_num < NumLists);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStatList[list_num].Increment_Num_Byte_Sent(message_type, increment);
 	PStatList[NumLists].Increment_Num_Byte_Sent(message_type, increment);
@@ -86,7 +86,7 @@ void cMsgStatListGroup::Increment_Num_Byte_Sent(int list_num, int message_type, 
 void cMsgStatListGroup::Increment_Num_Msg_Recd(int list_num, int message_type, int increment)
 {
 	WWASSERT(list_num >= 0 && list_num < NumLists);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStatList[list_num].Increment_Num_Msg_Recd(message_type, increment);
 	PStatList[NumLists].Increment_Num_Msg_Recd(message_type, increment);
@@ -96,7 +96,7 @@ void cMsgStatListGroup::Increment_Num_Msg_Recd(int list_num, int message_type, i
 void cMsgStatListGroup::Increment_Num_Byte_Recd(int list_num, int message_type, int increment)
 {
 	WWASSERT(list_num >= 0 && list_num < NumLists);
-	WWASSERT(increment > 0); 
+	WWASSERT(increment > 0);
 
 	PStatList[list_num].Increment_Num_Byte_Recd(message_type, increment);
 	PStatList[NumLists].Increment_Num_Byte_Recd(message_type, increment);

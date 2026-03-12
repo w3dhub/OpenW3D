@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/SerialDialog.h $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/12/01 7:35p                $* 
- *                                                                                             * 
- *                    $Revision:: 4                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/SerialDialog.h $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/12/01 7:35p                $*
+ *                                                                                             *
+ *                    $Revision:: 4                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _SERIAL_DIALOG_H
 #define _SERIAL_DIALOG_H
@@ -47,7 +47,7 @@ class SerialDialogClass : public InstallMenuDialogClass
 {
 	public:
 		SerialDialogClass() : InstallMenuDialogClass (IDD_DIALOG_SERIAL) {}
-		
+
 		// RTTI.
 		void *As_SerialDialogClass() {return (this);}
 
@@ -56,7 +56,7 @@ class SerialDialogClass : public InstallMenuDialogClass
 		bool Get_Serial_Number (StringClass &serialnumber);
 
 	protected:
-		
+
 		void On_Init_Dialog (void);
 		void On_Unicode_Char (uint16 unicode);
 };

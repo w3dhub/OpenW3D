@@ -264,7 +264,7 @@ RefPtr<WaitCondition> WOLQuickMatch::Disconnect(void)
 			}
 		}
 
-	return NULL;	
+	return NULL;
 	}
 
 
@@ -456,7 +456,7 @@ void WOLQuickMatch::ParseResponse(const unichar_t* message)
 *     Process information messages.
 *
 * INPUTS
-*     Message - 
+*     Message -
 *
 * RESULT
 *     NONE

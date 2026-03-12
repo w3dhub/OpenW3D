@@ -122,7 +122,7 @@ EditorPropSheetClass::Reposition_Buttons (int cx, int cy)
 	//
 	CRect button_rect;
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDCANCEL), &button_rect);
-	ScreenToClient (&button_rect);		
+	ScreenToClient (&button_rect);
 
 	//
 	//	Reposition the OK and Cancel buttons
@@ -163,8 +163,8 @@ EditorPropSheetClass::OnSize
 	// Allow the base class to process this message
 	CDialog::OnSize (nType, cx, cy);
 
-	if (::IsWindow (m_TabCtrl) && (cx > 0) && (cy > 0)) {		
-		
+	if (::IsWindow (m_TabCtrl) && (cx > 0) && (cy > 0)) {
+
 		//
 		//	Get the dimensions of the buttons
 		//
@@ -182,9 +182,9 @@ EditorPropSheetClass::OnSize
 		//
 		cx -= BORDER_TAB_X * 2;
 		cy -= (BORDER_TAB_Y * 2) + (button_rect.Height () + BORDER_BUTTON_Y);
-		
+
 		// Resize the tab control to fill the entire contents of the client area
-		m_TabCtrl.SetWindowPos (NULL, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOMOVE);	
+		m_TabCtrl.SetWindowPos (NULL, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOMOVE);
 
 		// Get the display rectangle of the tab control
 		CRect rect;
@@ -198,7 +198,7 @@ EditorPropSheetClass::OnSize
 		for (int tab = 0;
 			  tab < m_TabList.Count ();
 			  tab ++) {
-				
+
 			// Get a pointer to this tab
 			DockableFormClass *ptab = m_TabList[tab];
 			if (ptab != NULL) {
@@ -207,8 +207,8 @@ EditorPropSheetClass::OnSize
 			}
 		}
 	}
-		
-	return ;	
+
+	return ;
 }
 
 
@@ -222,7 +222,7 @@ EditorPropSheetClass::OnSelchangeTabCtrl
 (
 	NMHDR* /* pNMHDR */,
 	LRESULT* pResult
-) 
+)
 {
 	// Which tab is selected?
 	int newtab = m_TabCtrl.GetCurSel ();
@@ -243,9 +243,9 @@ EditorPropSheetClass::OnSelchangeTabCtrl
 		}
 
 		// Remember what our new current tab is
-		m_iCurrentTab = newtab;		
+		m_iCurrentTab = newtab;
 	}
-	
+
 	(*pResult) = 0;
 	return ;
 }
@@ -257,30 +257,30 @@ EditorPropSheetClass::OnSelchangeTabCtrl
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-EditorPropSheetClass::OnInitDialog (void) 
+EditorPropSheetClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
 	CDialog::OnInitDialog ();
 
 	// Move the tab control so it starts at 2, 2
 	m_TabCtrl.SetWindowPos (NULL, BORDER_TAB_X, BORDER_TAB_Y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-	
+
 	// Loop through all the tabs in our list
 	int cx = 0;
 	int cy = 0;
 	for (int tab = 0;
 		  tab < m_TabList.Count ();
 		  tab ++) {
-			
+
 		// Get a pointer to this tab
 		DockableFormClass *ptab = m_TabList[tab];
-		
+
 		// Was the tab pointer valid?
 		ASSERT (ptab != NULL);
 		if (ptab != NULL) {
 
 			// Create the window associated with this tab
-			ptab->Create (this, 100 + tab);			
+			ptab->Create (this, 100 + tab);
 
 			// Hide the tab if it isn't the first one
 			ptab->ShowWindow ((tab == 0) ? SW_SHOW : SW_HIDE);
@@ -288,7 +288,7 @@ EditorPropSheetClass::OnInitDialog (void)
 			// Get the name of this tab from its form
 			CString tab_name;
 			ptab->GetWindowText (tab_name);
-			
+
 			// Determine if we need to stretch our cx and cy
 			CRect rect = ptab->Get_Form_Rect ();
 			cx = (rect.Width () > cx) ? rect.Width () : cx;
@@ -314,7 +314,7 @@ EditorPropSheetClass::OnInitDialog (void)
 
 		CRect button_rect;
 		::GetWindowRect (::GetDlgItem (m_hWnd, IDCANCEL), &button_rect);
-		ScreenToClient (&button_rect);		
+		ScreenToClient (&button_rect);
 
 		// Find a rectangle large enough to hold the tab control
 		::AdjustWindowRectEx (&rect, ::GetWindowLong (m_hWnd, GWL_STYLE), false, ::GetWindowLong (m_hWnd, GWL_EXSTYLE));
@@ -322,14 +322,14 @@ EditorPropSheetClass::OnInitDialog (void)
 		rect.InflateRect (BORDER_TAB_X, BORDER_TAB_Y);
 
 		// Resize the dialog to be large enough to hold the tab control
-		SetWindowPos (NULL, 0, 0, rect.Width (), rect.Height (), SWP_NOZORDER | SWP_NOMOVE);				
+		SetWindowPos (NULL, 0, 0, rect.Width (), rect.Height (), SWP_NOZORDER | SWP_NOMOVE);
 	}
 
 	if (m_IsReadOnly) {
 		::ShowWindow (::GetDlgItem (m_hWnd, IDC_OK), SW_HIDE);
 		SetDlgItemText (IDCANCEL, "Close");
 	}
-	
+
 	return false;
 }
 
@@ -351,7 +351,7 @@ EditorPropSheetClass::OnCommand
 		m_TabList[m_iCurrentTab]->SendMessage (WM_COMMAND, wParam, lParam);
 		return true;
 	}
-	
+
 	// Allow the base class to process this message
 	return CDialog::OnCommand(wParam, lParam);
 }
@@ -384,7 +384,7 @@ EditorPropSheetClass::Apply_Changes (void)
 	bool is_valid = true;
 
 	for (int index = 0; index < m_TabList.Count (); index ++) {
-		DockableFormClass *tab = m_TabList[index];		
+		DockableFormClass *tab = m_TabList[index];
 		ASSERT (tab != NULL);
 		if (tab != NULL) {
 
@@ -405,19 +405,19 @@ EditorPropSheetClass::Apply_Changes (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-EditorPropSheetClass::OnCancel (void) 
+EditorPropSheetClass::OnCancel (void)
 {
 	for (int tab = 0;
 		  tab < m_TabList.Count ();
 		  tab ++) {
-			
+
 		// Get a pointer to this tab
 		DockableFormClass *ptab = m_TabList[tab];
-		
+
 		// Was the tab pointer valid?
 		ASSERT (ptab != NULL);
 		if (ptab != NULL) {
-			
+
 			// Have the tab discard its changes
 			ptab->Discard_Changes ();
 		}

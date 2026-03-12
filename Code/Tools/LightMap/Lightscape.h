@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 7/03/01 3:07p       $* 
- *                                                                                             * 
- *                    $Revision:: 38                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 7/03/01 3:07p       $*
+ *                                                                                             *
+ *                    $Revision:: 38                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef _LIGHTSCAPE_H
@@ -88,7 +88,7 @@ class SolveStatistics {
 			FaceCount	= facecount;
 			for (unsigned s = 0; s < SOLVE_STATISTIC_COUNT; s++) Count [s] = 0;
 		}
-		
+
 		bool Valid_Vertex_Solve() const {
 			return (((Count [VERTEX_NOT_FOUND] == 0) || (Count [VERTEX_NOT_FOUND] < VertexCount)) && (Count [VERTEX_NO_COLOR] == 0));
 		}
@@ -98,14 +98,14 @@ class SolveStatistics {
 		}
 
 		bool operator == (unsigned c) {
-			
+
 			unsigned sum;
 
 			sum = 0;
 			for (unsigned s = 0; s < SOLVE_STATISTIC_COUNT; s++) sum += Count [s];
 			return (sum == c);
 		}
-		
+
 		unsigned	VertexCount;
 		unsigned FaceCount;
 		unsigned Count [SOLVE_STATISTIC_COUNT];
@@ -128,7 +128,7 @@ class ColorVector : public Vector3
 		void Set (const LtTRGBColor &irradiance, const RadianceMap &radiancemap)
 		{
 			const double oopi = 1.0 / M_PI;
-			
+
 			X = irradiance.GetR() * oopi;
 			Y = irradiance.GetG() * oopi;
 			Z = irradiance.GetB() * oopi;
@@ -145,7 +145,7 @@ class LightscapeSolve : public LightmapPacker
 		LightscapeSolve (const char *solvedirectoryname, const char *solvefilenamelist, CStatusBar* statusptr, const char *statusbarmessage, bool blendnoise = false);
 		Finish();
 	  ~LightscapeSolve ();
-		 
+
 		// Database ammendment functions.
 	   void Set_Is_Solution (bool issolution)		{IsSolution = issolution;}
 		void Set_Brightness (float brightness)		{Brightness = brightness;}
@@ -168,7 +168,7 @@ class LightscapeSolve : public LightmapPacker
 		bool					 Is_Exterior()				  {return (IsExterior);}
 		bool					 Is_M2T_Solve()			  {return (IsM2TSolve);}
 		float					 Filter_Sharpness()		  {return (FilterSharpness);}
-		ProceduralTexture *Procedural_Texture()	  {return (ProceduralTexture);}		
+		ProceduralTexture *Procedural_Texture()	  {return (ProceduralTexture);}
 		unsigned				 Light_Count()				  {return (Lights.Count());}
 		LightClass			*Get_Light (unsigned l)	  {return (Lights [l]);}
 		const char			*Light_Exclusion_String() {return (LightExclusionString);}
@@ -210,7 +210,7 @@ class LightscapeSolve : public LightmapPacker
 
 			// Equality operator.
 			bool operator == (const VerticesStruct &v) {
-				return ((Point == v.Point) && 
+				return ((Point == v.Point) &&
 						  (FaceNormal == v.FaceNormal) &&
 						  (PatchIndex == v.PatchIndex) &&
 						  (ValidColor == v.ValidColor) &&
@@ -227,11 +227,11 @@ class LightscapeSolve : public LightmapPacker
 			Vector3		Point;
 			Vector3		FaceNormal;
 			unsigned		PatchIndex;
-			bool			ValidColor;	
+			bool			ValidColor;
 			ColorVector	Color;
-			bool			ValidUV;	 
+			bool			ValidUV;
 			Vector2		UV;
-   	};	
+   	};
 
 		struct PatchFaceStruct {
 
@@ -239,7 +239,7 @@ class LightscapeSolve : public LightmapPacker
 				VERTICES_PER_PATCH_FACE = 4
 			};
 
-			// To indicate whether a patch face vertex index is valid. 
+			// To indicate whether a patch face vertex index is valid.
 			enum VertexIndexValidity {
 				VERTEX_INDEX_INVALID = -1
 			};
@@ -271,7 +271,7 @@ class LightscapeSolve : public LightmapPacker
 		// Miscellaneous convenience functions.
 		FaceSizeEnum  Face_Size (const Vector3 *points, unsigned count);
 		unsigned		  Longest_Edge (const Vector3 *points, unsigned count, bool *usededges);
-		
+
 		float	Manhatten_Distance (const Vector3 &v)
 		{
 			return (WWMath::Fabs (v.X) + WWMath::Fabs (v.Y) + WWMath::Fabs (v.Z));
@@ -283,15 +283,15 @@ class LightscapeSolve : public LightmapPacker
 		static int Compare_Patch_Faces (const void *patchface0, const void *patchface1);
 
 		// Member data.
-		float												 SmoothingAngle;	
-		float												 SpatialTolerance;		
+		float												 SmoothingAngle;
+		float												 SpatialTolerance;
 		float												 FilterSharpness;
-		bool												 IsSolution;						// Is the currently imported file a valid solve file?	
+		bool												 IsSolution;						// Is the currently imported file a valid solve file?
 		int												 PatchClusterCount;				// Total patch cluster count over all parsed solve files.
 		float												 Brightness;
 		float												 Contrast;
 		bool												 IsDaylight;
-		bool												 IsExterior;	
+		bool												 IsExterior;
 		bool												 IsM2TSolve;
 		ProceduralTexture								*ProceduralTexture;
 		CProgressCtrl									*ProgressBar;
@@ -300,7 +300,7 @@ class LightscapeSolve : public LightmapPacker
 		DynamicVectorClass <VerticesStruct>		 Vertices;							// <point, uv coordinate, normal, material index> tuples for all vertices in the solve.
 		DynamicVectorClass <unsigned>				 VertexIndices;					// Indices into Vertices.
 		DynamicVectorClass <PatchFaceStruct>	 PatchFaces;						// <patch index, face> pairs for all faces in the solve.
-		DynamicVectorClass <LightClass*>			 Lights;								// All active lights in the solve.	
+		DynamicVectorClass <LightClass*>			 Lights;								// All active lights in the solve.
 		const char										*LightExclusionString;			// Do not add lights that contain this string.
 
 		// Static data.
@@ -330,7 +330,7 @@ class LsPreparationFactory : public LtTBuilderFactory
 class LsMainFactory : public LtTBuilderFactory
 {
 	public:
-		
+
 		LsMainFactory();
 
 		unsigned Patch_Face_Count()		{return (PatchFaceIndex);}
@@ -341,13 +341,13 @@ class LsMainFactory : public LtTBuilderFactory
 		void		Patch_Increment()			{PatchIndex++; LightscapeSolve::Importer()->Step_It();}
 
 	protected:
-		
+
 		virtual LtTInfoBuilderApi		 *OnGetInfoBuilder();
 		virtual LtTParameterBuilderApi *OnGetParameterBuilder();
 		virtual LtTMeshBuilderApi		 *OnGetMeshBuilder();
 
 	private:
-		
+
 		unsigned PatchFaceIndex;
 		unsigned VertexIndex;
 		unsigned PatchIndex;
@@ -358,7 +358,7 @@ class LsInfoBuilder : public LtTBaseInfoBuilder
 {
 	protected:
 	   LsInfoBuilder (LtTBuilderFactory *factory);
-		LtTBool Finish(); 
+		LtTBool Finish();
 
 	friend class LsInformationFactory;
 	friend class LsPreparationFactory;
@@ -370,7 +370,7 @@ class LsParameterBuilder : public LtTBaseParameterBuilder
 {
 	protected:
 	   LsParameterBuilder (LtTBuilderFactory *factory);
-		LtTBool Finish(); 
+		LtTBool Finish();
 
 	friend class LsInformationFactory;
 	friend class LsPreparationFactory;
@@ -382,7 +382,7 @@ class LsMaterialBuilder : public LtTBaseMaterialBuilder
 {
 	protected:
 		LsMaterialBuilder (LtTBuilderFactory *factory);
-		LtTBool Finish(); 
+		LtTBool Finish();
 
    friend class LsPreparationFactory;
 };
@@ -395,7 +395,7 @@ class LsLampBuilder : public LtTBaseLampBuilder
 		LtTBool Finish();
 
 	friend class LsPreparationFactory;
-};		
+};
 
 
 class LsMeshInquirer : public LtTBaseMeshBuilder
@@ -413,15 +413,15 @@ class LsMeshBuilder : public LtTBaseMeshBuilder
 	protected:
 		 LsMeshBuilder (LtTBuilderFactory *factory);
 		~LsMeshBuilder();
-		
-		LtTBool			Finish(); 
+
+		LtTBool			Finish();
 		void				SetFaces (const int facecount, const LtTFace *v);
-		int				GetFaceCount() const; 
-		const LtTFace *GetFaces() const; 
+		int				GetFaceCount() const;
+		const LtTFace *GetFaces() const;
 
 		LsMainFactory *FactoryPtr;
 
-	private:	
+	private:
 
 		struct FaceVertexStruct {
 
@@ -438,7 +438,7 @@ class LsMeshBuilder : public LtTBaseMeshBuilder
 			Vector3		Point;
 			ColorVector Color;
 			float			Weight;
-		};	
+		};
 
 		LtTFace		  *Faces;
 		int				FaceCount;
@@ -451,7 +451,7 @@ class LsMeshBuilder : public LtTBaseMeshBuilder
 
 class VertexUser
 {
-	public:	
+	public:
 		 VertexUser (const LsMeshBuilder &meshbuilder);
 		~VertexUser () {delete [] UsedVertexIndices;}
 
@@ -460,17 +460,17 @@ class VertexUser
 			ASSERT (vertexindex < Count);
 			return (UsedVertexIndices [vertexindex] != UNUSED);
 		}
-		
+
 		void Set_Index (unsigned vertexindex, unsigned usedvertexindex)
 		{
 			ASSERT (Is_Used (vertexindex));
 			UsedVertexIndices [vertexindex] = usedvertexindex;
 		}
-		
+
 		unsigned Get_Index (unsigned vertexindex)
 		{
 			ASSERT (vertexindex < Count);
-			
+
 			// This vertex must have previously been set.
 			ASSERT (UsedVertexIndices [vertexindex] >= 0);
 
@@ -498,21 +498,21 @@ class LightscapeMeshSolve
 		~LightscapeMeshSolve();
 
 		W3dRGBStruct				 Vertex_Color (unsigned vertexindex) const;
-		unsigned						 Vertex_Color_Count() const	{return (VertexCount);}	
+		unsigned						 Vertex_Color_Count() const	{return (VertexCount);}
 		const char					*Lightmap_Pathname (unsigned lightmapindex) const;
 		unsigned						 Lightmap_Index (unsigned faceindex) const;
 		W3dTexCoordStruct			 Lightmap_UV (unsigned facevertexindex) const;
 	   unsigned						 Lightmap_Count() const {return (LightmapCount);}
-		const SolveStatistics	*Get_Statistics() const {return (&Statistics);}	
+		const SolveStatistics	*Get_Statistics() const {return (&Statistics);}
 
 	private:
-		
-		unsigned			  VertexCount;						// No. of vertices in mesh.		
+
+		unsigned			  VertexCount;						// No. of vertices in mesh.
 		unsigned			  FaceCount;						// No. of faces in mesh.
 		unsigned			  FaceVertexCount;				// No. of face-vertices in mesh.
 		unsigned			  LightmapCount;					// No. of lightmaps used by mesh.
 
-		W3dRGBStruct	 *VertexColors;					// Array of vertex colors. 		
+		W3dRGBStruct	 *VertexColors;					// Array of vertex colors.
 		Vector2 			 *FaceVertexUVs;					// Array to map a face-vertex index to a UV coordinate.
 		unsigned			 *FaceRemapLightmapIndices;	// Array to map a face to a zero-based lightmap index.
 		unsigned			 *LightmapIndices;				// Array to map a zero-based lightmap index to a 'real' lightmap index.

@@ -46,7 +46,7 @@
 
 DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 {
-	
+
 	enum {HAVOCS_SCRIPT};
 	bool objective [3];
 	int spawn_loc;
@@ -69,7 +69,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 
 		Commands->Start_Timer (obj, this, 1.0f, HAVOCS_SCRIPT);
 		Commands->Enable_Hibernation(obj, false);
-		
+
 		spawn_loc = 0;
 
 		for (int x = 0; x <= 2; x++)
@@ -81,7 +81,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 		block2 = 0;
 		block3 = 0;
 		block4 = 0;
-					
+
 	}
 
 	void Remove_Pog(int id)
@@ -89,38 +89,38 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 		switch (id)
 		{
 		// New Primary Mission Objective:  Retrieve the Mobile Power Suit for Dr. Mobius
-		case 901: 
+		case 901:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M09_1_01.tga", IDS_POG_RETRIEVE);
 			}
 			break;
 		// New Primary Mission Objective: Escort Dr. Mobius to the Surface
-		case 902: 
+		case 902:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M09_1_02.tga", IDS_POG_ESCORT);
 			}
 			break;
 		// New Primary Mission Objective: Escort Dr. Mobius to the Rendezvous Point
-		case 903: 
+		case 903:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M09_1_03.tga", IDS_POG_ESCORT);
 			}
-			break;	
+			break;
 		}
 	}
 
 	void Add_An_Objective(int id)
 	{
 		GameObject *object;
-						
+
 		switch (id)
 		{
 		// New Primary Mission Objective:  Protect Mobius
 
-		case 900: 
+		case 900:
 			{
 				Commands->Add_Objective(900, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M09_04, NULL, IDS_Enc_Obj_Primary_M09_04);
-				
+
 				object = Commands->Find_Object(2000010);
 				if(object)
 				{
@@ -132,10 +132,10 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 
 		// New Primary Mission Objective:  Retrieve the Mobile Power Suit for Dr. Mobius
 
-		case 901: 
+		case 901:
 			{
 				Commands->Add_Objective(901, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M09_01, NULL, IDS_Enc_Obj_Primary_M09_01);
-				
+
 				object = Commands->Find_Object(2002239);
 				if(object)
 				{
@@ -145,7 +145,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 			}
 			break;
 		// New Primary Mission Objective: Escort Dr. Mobius to the Surface
-		case 902: 
+		case 902:
 			{
 				Commands->Add_Objective(902, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M09_02, NULL, IDS_Enc_Obj_Primary_M09_02);
 
@@ -158,7 +158,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 			}
 			break;
 		// New Primary Mission Objective: Escort Dr. Mobius to the Rendezvous Point
-		case 903: 
+		case 903:
 			{
 				Commands->Add_Objective(903, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Primary_M09_03, NULL, IDS_Enc_Obj_Primary_M09_03);
 
@@ -171,19 +171,19 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 			}
 			break;
 		// New Hidden Mission Objective: Eliminate the NOD Resistance at Checkpoint A
-		
-		case 904: 
+
+		case 904:
 			{
 				Commands->Add_Objective(904, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_Enc_ObjTitle_Hidden_M09_01, NULL, IDS_Enc_Obj_Hidden_M09_04);			}
 			break;/*
 		// New Hidden Mission Objective: Comandeer the NOD Stealth Tank.
-		case 905: 
+		case 905:
 			{
 				Commands->Add_Objective(905, OBJECTIVE_TYPE_TERTIARY, OBJECTIVE_STATUS_HIDDEN, IDS_M09_T02, NULL);
 			}
 			break;
 		// New Hidden Mission Objective: Comandeer the NOD Stealth Tank.
-		case 906: 
+		case 906:
 			{
 				Commands->Add_Objective(906, OBJECTIVE_TYPE_PRIMARY, OBJECTIVE_STATUS_PENDING, IDS_M09_P05, NULL);
 			}
@@ -262,7 +262,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 
 		switch (param)
 		{
-			case 1: 
+			case 1:
 				{
 					//Commands->Clear_Radar_Marker (type);
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_ACCOMPLISHED);
@@ -274,20 +274,20 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_FAILED);
 				}
 				break;
-			case 3: 
+			case 3:
 					Add_An_Objective(type);
 				break;
-			case 4: 
+			case 4:
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_PENDING);
 				break;
-			case 5: 
+			case 5:
 					Commands->Set_Objective_Status(type, OBJECTIVE_STATUS_HIDDEN);
 				break;
 		}
-		
+
 		if(type == 666 && param == 666)
 		{
-			
+
 			Commands->Start_Timer (obj, this, 0.10f, M09_DEAD_HAVOC);
 		}
 
@@ -297,7 +297,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 		}
 	}
 
-		
+
 	void Timer_Expired(GameObject * /* obj */, int timer_id ) override
 	{
 		if (timer_id == 333)
@@ -312,7 +312,7 @@ DECLARE_SCRIPT(M09_Objective_Controller, "") // Object Controller id: 2000071
 		if (timer_id == 40)
 		{
 			Commands->Mission_Complete(false);
-		}	
+		}
 	}
 };
 
@@ -351,15 +351,15 @@ DECLARE_SCRIPT (M09_Havoc_Script, "")
 
 	void Destroyed(GameObject * obj) override
 	{
-		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 666, 666, 0.0f);	
+		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 666, 666, 0.0f);
 	}
 };
 
 DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -369,7 +369,7 @@ DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 
 	void Created (GameObject * /* obj */) override
 	{
-		already_entered = false;			
+		already_entered = false;
 	}
 
 	void Custom (GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */) override
@@ -395,7 +395,7 @@ DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 			already_entered = true;
 
 			//Commands->Destroy_Object (Commands->Find_Object (1202323));
-			
+
 			if (mobius)
 			{
 				Vector3 havoc_loc = Commands->Get_Position (STAR);
@@ -404,18 +404,18 @@ DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 				havoc_loc.Z += 7.0f;
 				mobius_loc.Z += 7.0f;
 
-				
+
 				Commands->Action_Reset(mobius, 100);
 				Commands->Set_Position (STAR, havoc_loc );
 				Commands->Set_Position (mobius, mobius_loc );
 
 				//Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), SPAWN_LOC, INCREMENT, 0.0f);
 				//Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 901, 1, 0.0f);
-							
+
 				GameObject * powermob = Commands->Create_Object ( "Invisible_Object", Vector3(0.0f, 0.0f, 0.0f));
 				Commands->Set_Facing(powermob, 0.0f);
 				Commands->Attach_Script(powermob, "Test_Cinematic", "X9C_MIDTRO.txt");
-				
+
 				Commands->Set_Model ( mobius, "c_ag_gdi_pmob" );
 				Commands->Give_PowerUp(mobius, "POW_LaserChaingun_AI", false);
 				Commands->Select_Weapon (mobius, "Weapon_LaserChaingun_Ai" );
@@ -442,20 +442,20 @@ DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 			Commands->Join_Conversation(mobius, conv_id, false, false, true);
 			Commands->Join_Conversation(STAR, conv_id, false, false, true);
 			Commands->Start_Conversation (conv_id, 901);
-			Commands->Monitor_Conversation (obj, conv_id);			
+			Commands->Monitor_Conversation (obj, conv_id);
 		}
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if(action_id == 900 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
-		{			
+		{
 			/*GameObject *mobius = Commands->Find_Object (2000010);
 			Commands->Set_Model ( mobius, "c_ag_gdi_pmob" );
 			Commands->Give_PowerUp(mobius, "POW_LaserChaingun_AI", false);
 			Commands->Select_Weapon (mobius, "Weapon_LaserChaingun_Ai" );*/
-			
-			//Commands->Set_Animation ( mobius, "h_a_a0a0_l26da", false, NULL, 0.0f, -1.0f, false);			
+
+			//Commands->Set_Animation ( mobius, "h_a_a0a0_l26da", false, NULL, 0.0f, -1.0f, false);
 		}
 
 		if(action_id == 901 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
@@ -472,18 +472,18 @@ DECLARE_SCRIPT (M09_Mobius_Suit_Objective, "")
 DECLARE_SCRIPT (M09_Surface_Objective, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
-		already_entered = false;				
+		already_entered = false;
 	}
 
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
@@ -491,14 +491,14 @@ DECLARE_SCRIPT (M09_Surface_Objective, "")
 		if (!already_entered)
 		{
 			already_entered = true;
-			
+
 			//Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), SPAWN_LOC, INCREMENT, 0.0f);
 
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 902, 1, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 903, 3, 0.0f);
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(2000955), FLYOVER, 0, 0.0f);
 			//Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 906, 3, 0.0f);
-			
+
 			Commands->Destroy_Object ( Commands->Find_Object (2000614));
 			Commands->Destroy_Object ( Commands->Find_Object (2000954));
 		}
@@ -556,7 +556,7 @@ DECLARE_SCRIPT (M09_Evac_Point_Objective, "")
 			if (mobius_in_zone)
 			{
 				Commands->Attach_Script(mobius, "M00_Damage_Modifier_DME", "0.05f, 1, 1, 0, 0");
-				Commands->Start_Timer (obj, this, 1.0f, M09_MISSION_COMPLETE);				
+				Commands->Start_Timer (obj, this, 1.0f, M09_MISSION_COMPLETE);
 			}
 
 			if (!mobius_in_zone)
@@ -575,14 +575,14 @@ DECLARE_SCRIPT (M09_Evac_Point_Objective, "")
 				Commands->Start_Timer (obj, this, 1.0f, M09_MISSION_COMPLETE);
 			}
 		}
-	
+
 		/*GameObject *mobius = Commands->Find_Object (2000010);
 		float mobius_distance = Commands->Get_Distance(Commands->Get_Position (Commands->Find_Object (2000969)), Commands->Get_Position (mobius));
 
 		if (mobius_distance < 15.0f)
 		{
 			//Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 903, 1, 0.0f);
-		
+
 			Commands->Start_Timer (obj, this, 5.0f, M09_MISSION_COMPLETE);
 
 			GameObject * chin_loc = Commands->Find_Object (2000259);
@@ -605,7 +605,7 @@ DECLARE_SCRIPT (M09_Evac_Point_Objective, "")
 			Commands->Start_Timer (obj, this, 3.0f, TIMER_RESET);
 		}*/
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		if (timer_id == M09_MISSION_COMPLETE)
@@ -621,7 +621,7 @@ DECLARE_SCRIPT (M09_Evac_Point_Objective, "")
 			if (mobius_distance < 15.0f)
 			{
 				//Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 903, 1, 0.0f);
-			
+
 				Commands->Start_Timer (obj, this, 1.0f, M09_MISSION_COMPLETE);
 
 				GameObject * chin_loc = Commands->Find_Object (2000259);
@@ -651,8 +651,8 @@ DECLARE_SCRIPT (M09_LabRoom_Zones, "Mutant_Num:int, Mutant_Goto:int")
 {
 	int mutant;
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -669,13 +669,13 @@ DECLARE_SCRIPT (M09_LabRoom_Zones, "Mutant_Num:int, Mutant_Goto:int")
 		//already_entered = false;
 
 		Commands->Send_Custom_Event (obj, Commands->Find_Object(mutant), GOTO, anim_loc, 4.0f);
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
 	{
 		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000279), CONVERSATION, TRIGGERED, 0.0f);
-		
+
 		Commands->Action_Reset ( Commands->Find_Object (mutant), 100.0f );
 	}
 
@@ -756,7 +756,7 @@ DECLARE_SCRIPT (M09_LabRoom_Controller, "")
 {
 	bool triggered;
 	bool mobius_ready;
-	
+
 
 	REGISTER_VARIABLES()
 	{
@@ -777,9 +777,9 @@ DECLARE_SCRIPT (M09_LabRoom_Controller, "")
 			if (type ==	CONVERSATION && param == TRIGGERED)
 			{
 				triggered = true;
-				
+
 				GameObject *mobius = Commands->Find_Object (2000010);
-				
+
 				const char *conv_name = ("M09CON014");
 				int conv_id = Commands->Create_Conversation (conv_name, 99, 200, false);
 				Commands->Join_Conversation(mobius, conv_id, true, true, true);
@@ -820,7 +820,7 @@ DECLARE_SCRIPT (M09_Mobius_Initial_Conversation, "")
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		if (timer_id == 20)
-		{	
+		{
 			const char *conv_name = ("IDS_M09_D07");
 			int conv_id = Commands->Create_Conversation (conv_name, 99, 200, false);
 			Commands->Join_Conversation(obj, conv_id, false, false, true);
@@ -834,12 +834,12 @@ DECLARE_SCRIPT (M09_Mobius_Initial_Conversation, "")
 	{
 		Commands->Set_Health (obj, max_health);
 	}*/
-	
+
 	void Killed(GameObject * obj, GameObject * /* killer */ ) override
 	{
-		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), MOBIUS_KILLED, 0, 0.0f);		
+		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), MOBIUS_KILLED, 0, 0.0f);
 	}
-	
+
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if(action_id == 900 && reason == ACTION_COMPLETE_CONVERSATION_ENDED)
@@ -859,13 +859,13 @@ DECLARE_SCRIPT (M09_Mobius_Initial_Conversation, "")
 			params.Set_Basic( this, 99, 101 );
 			params.Set_Movement( Vector3(0,0,0), WALK, 0.5f);
 			params.WaypathID = 2000275;
-			
+
 			Commands->Action_Goto (obj, params);
 		}
 
 		if (action_id == 101)
 		{
-			
+
 			/*ActionParamsStruct params;
 			params.Set_Basic( this, 99, 150 );
 			params.Set_Face_Location( Commands->Get_Position (STAR), 10.0f);
@@ -921,7 +921,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 	bool stationary;
 	bool nofollow;
 
-	
+
 
 	REGISTER_VARIABLES()
 	{
@@ -937,7 +937,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		SAVE_VARIABLE( nofollow, 10 );
 		SAVE_VARIABLE( elev_num, 11 );
 	}
-	
+
 	void Follow_Function (GameObject * obj, int waypath_id)
 	{
 		attack_path = waypath_id;
@@ -951,11 +951,11 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		Commands->Action_Goto (obj, params);
 
 		/*ActionParamsStruct params;
-		
+
 		params.Set_Basic (this, (INNATE_PRIORITY_ENEMY_SEEN - 5), 1);
 		params.Set_Movement (STAR, RUN, 0.5f);
 		params.MoveFollow = true;
-		Commands->Action_Goto (obj, params);*/	
+		Commands->Action_Goto (obj, params);*/
 	}
 
 	/*void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
@@ -968,14 +968,14 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		params.Set_Attack(enemy, 100.0f, 1.0f, true);
 		params.AttackCheckBlocked = true;
 		params.AttackActive = true;
-		
-		Commands->Action_Attack (obj, params);				
+
+		Commands->Action_Attack (obj, params);
 	}*/
 
 	void Killed(GameObject * obj, GameObject * /* killer */ ) override
 	{
         Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), MISSION09_CHECK, MISSION09_CHECK, 0.0f);
-		
+
 		if (objective_901 == false)
 		{
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 901, 2, 0.0f);
@@ -990,7 +990,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		{
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 903, 2, 0.0f);
 		}
-		
+
 		Commands->Mission_Complete(false);
 	}
 
@@ -1018,7 +1018,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 					objective_901 = param;
 				}
 				break;
-			
+
 			case 902:
 				{
 					objective_902 = param;
@@ -1035,9 +1035,9 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 
 		if (type == WAYPATH)
 		{
-						
+
 			ActionParamsStruct params;
-			
+
 			params.Set_Basic( this, 99, 951 );
 			params.Set_Movement( Commands->Find_Object (param), 1.2f, 0.5f);
 			Commands->Action_Goto( obj, params );
@@ -1051,7 +1051,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		if (type == ELEVATOR_EXIT)
 		{
 			attack_path = param;
-			
+
 			ActionParamsStruct params;
 
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, MOBIUS_GOTO );
@@ -1070,9 +1070,9 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 
 			params.Set_Basic( this, 99, ELEV_WAYPOINT );
 			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (param)), 1.2f, 1.0f);
-						
+
 			Commands->Action_Goto (obj, params);
-								
+
 		}
 
 		if (type == ELEVATOR_DOWN)
@@ -1084,9 +1084,9 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 
 			params.Set_Basic( this, 99, ELEV_WAYPOINT2 );
 			params.Set_Movement( Commands->Get_Position (Commands->Find_Object (param)), 1.2f, 1.0f);
-						
+
 			Commands->Action_Goto (obj, params);
-								
+
 		}
 	}
 
@@ -1099,7 +1099,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		{
 			cover_distance [x] = 900;
 		}
-		
+
 		cover_id [0] = 2000006;
 		cover_id [1] = 2000007;
 		cover_id [2] = 2000008;
@@ -1110,9 +1110,9 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		stationary = false;
 
 		nofollow = false;
-		
+
 		closest = 0;
-		
+
 		last_health = Commands->Get_Max_Health(obj);
 		damage_tally = 0;
 
@@ -1125,7 +1125,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		float damage = ((last_health - current_health) + damage_tally);
 		float mod_damage = (damage * .15);
 		damage_tally += mod_damage;
-		
+
 		Commands->Set_Health (obj, (last_health - mod_damage));
 		last_health = Commands->Get_Health (obj);
 		current_health = Commands->Get_Health (obj);
@@ -1137,7 +1137,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		}
 	}*/
 
-	
+
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 
@@ -1186,7 +1186,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		if(action_id == 952)
 		{
 			Commands->Start_Timer (obj, this, 0.0f, 953);
-			
+
 		}
 
 		if (action_id == ELEV_WAYPOINT && reason == ACTION_COMPLETE_NORMAL)
@@ -1199,9 +1199,9 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 		{
 			Commands->Set_Innate_Is_Stationary ( obj, true );
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (elev_num), SET_MOBIUS, 0, 0.0f);
-		}		
+		}
 	}
-	
+
 	/*void Poked(GameObject * obj, GameObject * poker)
 	{
 		if (poker == STAR)
@@ -1209,7 +1209,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			if (stationary == false)
 			{
 				stationary = true;
-				
+
 				Commands->Set_Innate_Is_Stationary ( obj, true );
 
 				const char *conv_name = ("IDS_M09_D03");
@@ -1229,7 +1229,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 				stationary = false;
 
 				Commands->Action_Reset ( obj, 100 );
-				
+
 				Commands->Set_Innate_Is_Stationary ( obj, false );
 
 				const char *conv_name = ("IDS_M09_D04");
@@ -1247,7 +1247,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			}
 		}
 	}*/
-	
+
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
 		if (timer_id == RESEND_GOTO)
@@ -1298,7 +1298,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			int poke_id = Commands->Get_Random_Int(1, 3);
 
 			Commands->Start_Timer (obj, this, 5.0f, CHECK_DISTANCE);
-			
+
 
 			// Don't leave me here
 			if(timer_id == CHECK_DISTANCE && poke_id == 2)
@@ -1316,7 +1316,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 
 					Follow_Function (obj);
 				}
-				
+
 			}
 			// Hey!  Wait for me!
 			else if(timer_id == CHECK_DISTANCE && poke_id == 1)
@@ -1348,7 +1348,7 @@ DECLARE_SCRIPT (M09_Mobius_Follow, "")  //Mobius (Pre-Suit): 2000010
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (2000453), VERIFY, STOP, 3.0f );
 
 		}
-		
+
 	}
 };
 
@@ -1364,7 +1364,7 @@ DECLARE_SCRIPT (M09_Stationary, "Reward_override=0:int")
 	void Created(GameObject *obj) override
 	{
 		Commands->Set_Innate_Is_Stationary ( obj, true );
-		
+
 		reward = Commands->Get_Random_Int ( 1, 101 );
 
 		if (Get_Int_Parameter("Reward_override") == 1)
@@ -1377,7 +1377,7 @@ DECLARE_SCRIPT (M09_Stationary, "Reward_override=0:int")
 	{
 		Commands->Set_Innate_Is_Stationary ( obj, false );
 	}
-	
+
 	/*void Killed( GameObject * obj, GameObject * killer ) override
 	{
 		if (Get_Int_Parameter("Reward_override") == 0)
@@ -1387,7 +1387,7 @@ DECLARE_SCRIPT (M09_Stationary, "Reward_override=0:int")
 				Vector3 powerup_loc = Commands->Get_Position (obj);
 				powerup_loc.Z += 1.0f;
 				Commands->Create_Object("Health 025 PowerUp", powerup_loc);
-			}		
+			}
 
 			if (reward > 80)
 			{
@@ -1433,7 +1433,7 @@ DECLARE_SCRIPT (M09_Stationary_Nod, "")
 	{
 		Commands->Set_Innate_Is_Stationary ( obj, false );
 	}
-	
+
 	/*void Killed( GameObject * obj, GameObject * killer ) override
 	{
 		if (reward > 25)
@@ -1450,7 +1450,7 @@ DECLARE_SCRIPT (M09_Stationary_Nod, "")
 			Commands->Create_Object("Armor 025 PowerUp", powerup_loc);
 		}
 	}*/
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		if (type == CHANGE_PLAYERTYPE)
@@ -1475,21 +1475,21 @@ DECLARE_SCRIPT (M09_Home_Location_10, "")
 DECLARE_SCRIPT (M09_Mutant_Ambush_Zone_01, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
@@ -1509,7 +1509,7 @@ DECLARE_SCRIPT (M09_Mutant_Ambush_Zone_01, "")
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000129), false );
 
 			//Mutant soldiers
-			
+
 			Commands->Send_Custom_Event (obj, Commands->Find_Object (2000122), CHANGE_PLAYERTYPE, MUTANT, 0.0f);
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000122), false );
 			Commands->Attach_Script(Commands->Find_Object (2000122), "M09_Mutant_Damage_Mod_10", "");
@@ -1536,15 +1536,15 @@ DECLARE_SCRIPT (M09_Mutant_Damage_Mod_10, "")
 		SAVE_VARIABLE( last_health, 1 );
 		SAVE_VARIABLE( current_health, 2 );
 		SAVE_VARIABLE( damage_tally, 3 );
-	}	
-	
+	}
+
 	void Created (GameObject * obj) override
 	{
 		last_health = Commands->Get_Max_Health(obj);
 		damage_tally = 0;
-				
+
 	}
-	
+
 	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if (damager != STAR)
@@ -1553,7 +1553,7 @@ DECLARE_SCRIPT (M09_Mutant_Damage_Mod_10, "")
 			float damage = ((last_health - current_health) + damage_tally);
 			float mod_damage = (damage * .10);
 			damage_tally += mod_damage;
-			
+
 			Commands->Set_Health (obj, (last_health - mod_damage));
 			last_health = Commands->Get_Health (obj);
 			current_health = Commands->Get_Health (obj);
@@ -1564,21 +1564,21 @@ DECLARE_SCRIPT (M09_Mutant_Damage_Mod_10, "")
 DECLARE_SCRIPT (M09_Mutant_Damage_Mod_50, "")
 {
 	float last_health, current_health, damage_tally;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( last_health, 1 );
 		SAVE_VARIABLE( current_health, 2 );
 		SAVE_VARIABLE( damage_tally, 3 );
 	}
-	
+
 	void Created (GameObject * obj) override
 	{
 		last_health = Commands->Get_Max_Health(obj);
 		damage_tally = 0;
-				
+
 	}
-	
+
 	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if (damager != STAR)
@@ -1587,7 +1587,7 @@ DECLARE_SCRIPT (M09_Mutant_Damage_Mod_50, "")
 			float damage = ((last_health - current_health) + damage_tally);
 			float mod_damage = (damage * .25);
 			damage_tally += mod_damage;
-			
+
 			Commands->Set_Health (obj, (last_health - mod_damage));
 			last_health = Commands->Get_Health (obj);
 			current_health = Commands->Get_Health (obj);
@@ -1604,15 +1604,15 @@ DECLARE_SCRIPT (M09_Nod_Damage_Mod_10, "")
 		SAVE_VARIABLE( last_health, 1 );
 		SAVE_VARIABLE( current_health, 2 );
 		SAVE_VARIABLE( damage_tally, 3 );
-	}	
-	
+	}
+
 	void Created (GameObject * obj) override
 	{
 		last_health = Commands->Get_Max_Health(obj);
 		damage_tally = 0;
-		
+
 	}
-	
+
 	void Damaged( GameObject * obj, GameObject * damager, float /* amount */ ) override
 	{
 		if (damager != STAR)
@@ -1621,7 +1621,7 @@ DECLARE_SCRIPT (M09_Nod_Damage_Mod_10, "")
 			float damage = ((last_health - current_health) + damage_tally);
 			float mod_damage = (damage * .08);
 			damage_tally += mod_damage;
-			
+
 			Commands->Set_Health (obj, (last_health - mod_damage));
 			last_health = Commands->Get_Health (obj);
 			current_health = Commands->Get_Health (obj);
@@ -1636,17 +1636,17 @@ DECLARE_SCRIPT (M09_Stealth_Tank_Pilot, "")
 		Commands->Set_Facing(obj, 35.0f);
 		Commands->Innate_Disable ( obj );
 	}
-	
+
 	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		if (enemy == STAR)
 		{
 	//		Vector3 location = Commands->Get_Position (Commands->Find_Object (2000091));
-			
+
 			ActionParamsStruct params;
 
 			params.Set_Basic( this, 99, RUN_TO_TANK );
-			params.Set_Movement( Commands->Find_Object (2000090), RUN, 4.0f );		
+			params.Set_Movement( Commands->Find_Object (2000090), RUN, 4.0f );
 			Commands->Action_Goto( obj, params );
 		}
 	}
@@ -1663,10 +1663,10 @@ DECLARE_SCRIPT (M09_Stealth_Tank_Pilot, "")
 
 };
 
-DECLARE_SCRIPT (M09_Stationary_StealthTank, "")	
+DECLARE_SCRIPT (M09_Stationary_StealthTank, "")
 {
-	
-	
+
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /* sender */) override
 	{
 		if (type == ATTACK && param == ATTACK)
@@ -1679,7 +1679,7 @@ DECLARE_SCRIPT (M09_Stationary_StealthTank, "")
 			Commands->Attach_Script (stealth_tank, "M09_Vehicle_Attack_01", "");
 			Commands->Attach_Script (stealth_tank, "M09_CheckpointA_Counter", "");
 		}
-		
+
 		if (type == CUSTOM_EVENT_VEHICLE_ENTERED)
 		{
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), 905, 3, 0.0f);
@@ -1689,7 +1689,7 @@ DECLARE_SCRIPT (M09_Stationary_StealthTank, "")
 };
 
 
-DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")	
+DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 {
 	bool attacking, charge, charging;
 
@@ -1706,7 +1706,7 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 		SAVE_VARIABLE( charge, 2 );
 		SAVE_VARIABLE( charging, 3 );
 		SAVE_VARIABLE( current_loc, 4 );
-		SAVE_VARIABLE( enemy_loc, 5 );		
+		SAVE_VARIABLE( enemy_loc, 5 );
 	}
 
 	void Created(GameObject * obj) override
@@ -1721,7 +1721,7 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 10 );
 		params.Set_Movement( Vector3(0,0,0), 1.0f, 0 );
 		params.WaypathID = 2000095;
-		
+
 		Commands->Action_Attack (obj, params);
 	}
 
@@ -1729,13 +1729,13 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 	{
 		current_loc = Commands->Get_Position ( obj );
 		enemy_loc = Commands->Get_Position ( enemy );
-		
+
 		if (!attacking && !charge)
 		{
 			if ((Commands->Get_Distance(current_loc, enemy_loc)) < 65)
 			{
 				attacking = true;
-				
+
 				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN +5, 10 );
 				params.Set_Movement( Vector3(0,0,0), 1.0f, 0 );
@@ -1744,9 +1744,9 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 				params.AttackCheckBlocked = false;
 				params.AttackActive = true;
 				Commands->Modify_Action(obj, 10, params, true, true);
-				
+
 				Commands->Start_Timer(obj, this, 5.0f, ATTACK_OVER);
-				
+
 				if (!charging)
 				{
 					charging = true;
@@ -1782,7 +1782,7 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 
 				Commands->Start_Timer(obj, this, 6.0f, CHARGE_COMPLETE);
 			}
-			
+
 		}
 
 		else if (timer_id == CHARGE_COMPLETE)
@@ -1802,10 +1802,10 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_01, "")
 		}
 
 	}
-	
+
 };
 
-DECLARE_SCRIPT (M09_Vehicle_Attack_02, "")	
+DECLARE_SCRIPT (M09_Vehicle_Attack_02, "")
 {
 	bool attacking, charge, charging;
 
@@ -1822,7 +1822,7 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_02, "")
 		SAVE_VARIABLE( charge, 2 );
 		SAVE_VARIABLE( charging, 3 );
 		SAVE_VARIABLE( current_loc, 4 );
-		SAVE_VARIABLE( enemy_loc, 5 );		
+		SAVE_VARIABLE( enemy_loc, 5 );
 	}
 
 	void Created(GameObject * obj) override
@@ -1831,29 +1831,29 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_02, "")
 		Commands->Enable_Enemy_Seen( obj, true);
 		attacking = false;
 		charge = false;
-		charging = false;		
+		charging = false;
 	}
 
 	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		current_loc = Commands->Get_Position ( obj );
 		enemy_loc = Commands->Get_Position ( enemy );
-		
+
 		if (!attacking)
 		{
 			if ((Commands->Get_Distance(current_loc, enemy_loc)) < 200.0f)
 			{
 				attacking = true;
-				
+
 				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
 				params.Set_Attack(STAR, 200.0f, 5.0f, true);
 				params.AttackCheckBlocked = false;
 				params.AttackActive = true;
-				Commands->Action_Attack (obj, params);				
-				
+				Commands->Action_Attack (obj, params);
+
 				Commands->Start_Timer(obj, this, 1.0f, ATTACK_OVER);
-								
+
 			}
 		}
 
@@ -1866,14 +1866,14 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_02, "")
 		if (timer_id == ATTACK_OVER)
 		{
 			attacking = false;
-			
+
 		}
 
 	}
-	
+
 };
 
-DECLARE_SCRIPT (M09_Sam_Engineer_1, "")	
+DECLARE_SCRIPT (M09_Sam_Engineer_1, "")
 {
 	void Created(GameObject * obj) override
 	{
@@ -1895,7 +1895,7 @@ DECLARE_SCRIPT (M09_Sam_Engineer_1, "")
 	}
 };
 
-DECLARE_SCRIPT (M09_Sam_Engineer_2, "")	
+DECLARE_SCRIPT (M09_Sam_Engineer_2, "")
 {
 	void Created(GameObject * obj) override
 	{
@@ -1974,7 +1974,7 @@ DECLARE_SCRIPT (M09_Excavation_Tunnel_Controller, "")  //2000406
 	}
 };
 
-DECLARE_SCRIPT (M09_Vehicle_Attack_03, "")	
+DECLARE_SCRIPT (M09_Vehicle_Attack_03, "")
 {
 	bool attacking, charge, charging;
 
@@ -1991,7 +1991,7 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_03, "")
 		SAVE_VARIABLE( charge, 2 );
 		SAVE_VARIABLE( charging, 3 );
 		SAVE_VARIABLE( current_loc, 4 );
-		SAVE_VARIABLE( enemy_loc, 5 );		
+		SAVE_VARIABLE( enemy_loc, 5 );
 	}
 
 	void Created(GameObject * obj) override
@@ -2000,29 +2000,29 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_03, "")
 		Commands->Enable_Enemy_Seen( obj, true);
 		attacking = false;
 		charge = false;
-		charging = false;		
+		charging = false;
 	}
 
 	void Enemy_Seen(GameObject * obj, GameObject *enemy ) override
 	{
 		current_loc = Commands->Get_Position ( obj );
 		enemy_loc = Commands->Get_Position ( enemy );
-		
+
 		if (!attacking)
 		{
 			if ((Commands->Get_Distance(current_loc, enemy_loc)) < 200.0f)
 			{
 				attacking = true;
-				
+
 				ActionParamsStruct params;
 				params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
 				params.Set_Attack(enemy, 200.0f, 10.0f, true);
 				params.AttackCheckBlocked = false;
 				params.AttackActive = true;
-				Commands->Action_Attack (obj, params);				
-				
+				Commands->Action_Attack (obj, params);
+
 				Commands->Start_Timer(obj, this, 10.0f, ATTACK_OVER);
-								
+
 			}
 		}
 
@@ -2035,11 +2035,11 @@ DECLARE_SCRIPT (M09_Vehicle_Attack_03, "")
 		if (timer_id == ATTACK_OVER)
 		{
 			attacking = false;
-			
+
 		}
 
 	}
-	
+
 };
 
 DECLARE_SCRIPT (M09_Tunnel_Spawner_357, "")
@@ -2049,7 +2049,7 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_357, "")
 			ActionParamsStruct params;
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 10 );
 			params.Set_Movement( Vector3(0,0,0), RUN, 0 );
-			params.WaypathID = 2000364;			
+			params.WaypathID = 2000364;
 			Commands->Action_Goto (obj, params);
 	}
 
@@ -2070,7 +2070,7 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_354, "")
 			ActionParamsStruct params;
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 10 );
 			params.Set_Movement( Vector3(0,0,0), RUN, 0 );
-			params.WaypathID = 2000370;			
+			params.WaypathID = 2000370;
 			Commands->Action_Goto (obj, params);
 	}
 
@@ -2090,7 +2090,7 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_356, "")
 			ActionParamsStruct params;
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN - 5, 10 );
 			params.Set_Movement( Vector3(0,0,0), RUN, 0 );
-			params.WaypathID = 2000375;			
+			params.WaypathID = 2000375;
 			Commands->Action_Goto (obj, params);
 	}
 
@@ -2112,7 +2112,7 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_384_382, "")
 		ActionParamsStruct params;
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
 		params.Set_Movement( Vector3(0,0,0), RUN, 0.25f );
-		params.WaypathID = 2000385;			
+		params.WaypathID = 2000385;
 		Commands->Action_Goto (obj, params);
 	}
 
@@ -2122,7 +2122,7 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_384_382, "")
 		if(action_id == 10)
 		{
 			Commands->Action_Reset ( obj, 100 );
-			
+
 			Commands->Enable_Enemy_Seen( obj, true);
 		}
 	}
@@ -2137,7 +2137,7 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_383_381, "")
 		ActionParamsStruct params;
 		params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
 		params.Set_Movement( Vector3(0,0,0), RUN, .25f );
-		params.WaypathID = 2000397;			
+		params.WaypathID = 2000397;
 		Commands->Action_Goto (obj, params);
 	}
 
@@ -2147,7 +2147,7 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_383_381, "")
 		if(action_id == 10)
 		{
 			Commands->Action_Reset ( obj, 100 );
-			
+
 			Commands->Enable_Enemy_Seen( obj, true);
 		}
 	}
@@ -2157,21 +2157,21 @@ DECLARE_SCRIPT (M09_Tunnel_Spawner_383_381, "")
 DECLARE_SCRIPT (M09_Excavation_Tunnel_3, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
@@ -2194,21 +2194,21 @@ DECLARE_SCRIPT (M09_Excavation_Tunnel_3, "")
 DECLARE_SCRIPT (M09_Entrance_Zone, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
@@ -2221,33 +2221,33 @@ DECLARE_SCRIPT (M09_Entrance_Zone, "")
 			//Nod soldiers
 			Commands->Attach_Script(Commands->Find_Object (2000234), "M09_Nod_Damage_Mod_10", "");
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000234), false );
-			Commands->Attach_Script(Commands->Find_Object (2000235), "M09_Nod_Damage_Mod_10", "");						
+			Commands->Attach_Script(Commands->Find_Object (2000235), "M09_Nod_Damage_Mod_10", "");
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000235), false );
-			Commands->Attach_Script(Commands->Find_Object (2000236), "M09_Nod_Damage_Mod_1", "");						
+			Commands->Attach_Script(Commands->Find_Object (2000236), "M09_Nod_Damage_Mod_1", "");
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000236), false );
 
 			//Mutant soldiers
-			Commands->Attach_Script(Commands->Find_Object (2000216), "M09_Mutant_Damage_Mod_10", "");						
+			Commands->Attach_Script(Commands->Find_Object (2000216), "M09_Mutant_Damage_Mod_10", "");
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000216), false );
-			Commands->Attach_Script(Commands->Find_Object (2000217), "M09_Mutant_Damage_Mod_10", "");						
+			Commands->Attach_Script(Commands->Find_Object (2000217), "M09_Mutant_Damage_Mod_10", "");
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000217), false );
-			Commands->Attach_Script(Commands->Find_Object (2000218), "M09_Mutant_Damage_Mod_10", "");						
+			Commands->Attach_Script(Commands->Find_Object (2000218), "M09_Mutant_Damage_Mod_10", "");
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000218), false );
 
 			ActionParamsStruct params;
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 10 );
 			params.Set_Movement( Vector3(0,0,0), 1.0f, 0 );
-			params.WaypathID = 2000222;			
+			params.WaypathID = 2000222;
 			Commands->Action_Goto (Commands->Find_Object (2000217), params);
-			
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 11 );
 			params.Set_Movement( Vector3(0,0,0), 1.0f, 0 );
-			params.WaypathID = 2000230;			
+			params.WaypathID = 2000230;
 			Commands->Action_Goto (Commands->Find_Object (2000216), params);
-			
+
 			params.Set_Basic( this, INNATE_PRIORITY_ENEMY_SEEN + 5, 12 );
 			params.Set_Movement( Vector3(0,0,0), 1.0f, 0 );
-			params.WaypathID = 2000226;			
+			params.WaypathID = 2000226;
 			Commands->Action_Goto (Commands->Find_Object (2000218), params);
 		}
 	}
@@ -2260,7 +2260,7 @@ DECLARE_SCRIPT (M09_CheckpointA_Controller, "") //2000969
 
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( count, 1 );		
+		SAVE_VARIABLE( count, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -2287,7 +2287,7 @@ DECLARE_SCRIPT (M09_CheckpointA_Counter, "")
 {
 	void Killed( GameObject * obj, GameObject * /* killer */ ) override
 	{
-		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000969), COUNTER, COUNTER, 0.0f);	
+		Commands->Send_Custom_Event (obj, Commands->Find_Object(2000969), COUNTER, COUNTER, 0.0f);
 	}
 };
 
@@ -2303,12 +2303,12 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 		SAVE_VARIABLE(dead, 2);
 		SAVE_VARIABLE(out, 3);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Vector3 loc = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
-		
+
 		GameObject *chinook_rail = Commands->Create_Object("Generic_Cinematic", loc);
 		Commands->Set_Model(chinook_rail, "X5D_Chinookfly");
 		Commands->Set_Facing(chinook_rail, facing);
@@ -2325,7 +2325,7 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 		Commands->Attach_Script(chinook, "M03_Reinforcement_Chinook", params);
 
 		chinook_id = Commands->Get_ID(chinook);
-		
+
 		// Destroy Chinook
 		Commands->Start_Timer(obj, this, 280.0f/30.0f, 0);
 		// Parachutes
@@ -2337,7 +2337,7 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 		Commands->Start_Timer(obj, this, 155.0f/30.0f, 5);
 		Commands->Start_Timer(obj, this, 165.0f/30.0f, 6);
 
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id) override
@@ -2348,12 +2348,12 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 
 		switch (timer_id)
 		{
-		case 0: 
+		case 0:
 			GameObject *chinook;
 			chinook = Commands->Find_Object(chinook_id);
 			Commands->Destroy_Object(chinook);
 			break;
-		case 1: 
+		case 1:
 			if (out >= 1)
 			{
 				GameObject *para1;
@@ -2365,7 +2365,7 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para1, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 2: 
+		case 2:
 			if (out >= 2)
 			{
 				GameObject *para2;
@@ -2377,7 +2377,7 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para2, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 3: 
+		case 3:
 			if (out == 3)
 			{
 				GameObject *para3;
@@ -2389,10 +2389,10 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para3, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 4: 
+		case 4:
 			if (!dead)
 			{
-			
+
 			GameObject *box1 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box1, "X5D_Box01");
 			Commands->Set_Facing(box1, facing);
@@ -2412,10 +2412,10 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}
-		
+
 			}
 			break;
-		case 5: 
+		case 5:
 			if (!dead)
 			{
 
@@ -2438,10 +2438,10 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}
-				
+
 			}
 			break;
-		case 6: 
+		case 6:
 			if (!dead)
 			{
 
@@ -2464,10 +2464,10 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}
-			
+
 			}
 			break;
-		
+
 		}
 	}
 
@@ -2483,30 +2483,30 @@ DECLARE_SCRIPT(M09_Chinook_ParaDrop, "Preset:string")
 DECLARE_SCRIPT (M09_First_Mutant_Encounter_Zone, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
 	{
 		if (!already_entered)
 		{
 			GameObject *mutant1 = Commands->Find_Object (2000280);
-			
+
 			if (mutant1)
 			{
-				
+
 				Commands->Attach_Script (mutant1, "M09_First_Mutant_Encounter", "");
 				Commands->Start_Timer (obj, this, 1.0f, 100);
 			}
@@ -2529,7 +2529,7 @@ DECLARE_SCRIPT (M09_First_Mutant_Encounter_Zone, "")
 
 DECLARE_SCRIPT (M09_First_Mutant_Encounter, "")
 {
-	
+
 	void Created (GameObject *obj) override
 	{
 		Commands->Start_Timer (obj, this, 2.0f, 20);
@@ -2580,27 +2580,27 @@ DECLARE_SCRIPT (M09_Mutant, "")
 DECLARE_SCRIPT (M09_Explosion_Zone_Lab01, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
 	{
 		if (!already_entered)
 		{
 			already_entered = true;
-			
+
 			Commands->Create_Explosion("Ground Explosions Twiddler", Vector3 (-102.560f, 483.462f ,-155.543f), NULL);
 			Commands->Start_Timer (obj, this, 1.0f, 100);
 		}
@@ -2610,27 +2610,27 @@ DECLARE_SCRIPT (M09_Explosion_Zone_Lab01, "")
 DECLARE_SCRIPT (M09_Explosion_Zone_Lab02, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * /* obj */, GameObject * /* enterer */) override
 	{
 		if (!already_entered)
 		{
 			already_entered = true;
-			
+
 			Commands->Create_Explosion("Ground Explosions Twiddler", Vector3 (-6.151f, 494.846f ,-151.888f), NULL);
 			GameObject *blocker1;
 			blocker1 = Commands->Create_Object ( "M08_Rubble_Stub", Vector3 (-6.151f, 494.846f ,-151.888f));
@@ -2642,27 +2642,27 @@ DECLARE_SCRIPT (M09_Explosion_Zone_Lab02, "")
 DECLARE_SCRIPT (M09_Explosion_Zone_Tunnel01, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
 	{
 		if (!already_entered)
 		{
 			already_entered = true;
-			
+
 			Commands->Send_Custom_Event (obj, Commands->Find_Object(2000071), SPAWN_LOC, INCREMENT, 0.0f);
 
 			Commands->Create_Explosion("Ground Explosions Twiddler", Vector3 (-70.356f, 475.905f ,-63.233f), NULL);
@@ -2687,7 +2687,7 @@ DECLARE_SCRIPT (M09_Sam_Controller, "") //2000331
 
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( count, 1 );		
+		SAVE_VARIABLE( count, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -2720,21 +2720,21 @@ DECLARE_SCRIPT (M09_Unteamed, "")
 DECLARE_SCRIPT (M09_Mutant_Excavation_Zone_01, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
@@ -2742,7 +2742,7 @@ DECLARE_SCRIPT (M09_Mutant_Excavation_Zone_01, "")
 			already_entered = true;
 
 			//Mutant soldiers
-			
+
 			Commands->Send_Custom_Event (obj, Commands->Find_Object (2000158), CHANGE_PLAYERTYPE, MUTANT, 0.0f);
 			Commands->Set_Innate_Is_Stationary ( Commands->Find_Object (2000158), false );
 			Commands->Send_Custom_Event (obj, Commands->Find_Object (2000159), CHANGE_PLAYERTYPE, MUTANT, 0.0f);
@@ -2787,21 +2787,21 @@ DECLARE_SCRIPT (M09_Custom_Attack, "")
 DECLARE_SCRIPT (M09_Flamer_Attack_Zone, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
@@ -2817,20 +2817,20 @@ DECLARE_SCRIPT (M09_Flamer_Attack_Zone, "")
 	}
 };
 
-DECLARE_SCRIPT (M09_Cryo_Mutant_Zone_01, "")	
+DECLARE_SCRIPT (M09_Cryo_Mutant_Zone_01, "")
 {
 	bool already_entered;
 
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );	
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_entered = false;
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * enterer) override
 	{
 		if ((Commands->Is_A_Star(enterer)) && (!already_entered))
@@ -2854,7 +2854,7 @@ DECLARE_SCRIPT (M09_Cryo_Mutant_Zone_01, "")
 	}
 };
 
-DECLARE_SCRIPT (M09_Mutant_Path_01, "")	
+DECLARE_SCRIPT (M09_Mutant_Path_01, "")
 {
 	void Action_Complete(GameObject * obj, int /* action_id */, ActionCompleteReason /* reason */) override
 	{
@@ -2863,12 +2863,12 @@ DECLARE_SCRIPT (M09_Mutant_Path_01, "")
 		params.Set_Basic( this, 99, 101 );
 		params.Set_Movement( Vector3(0,0,0), RUN, 0.5f);
 		params.WaypathID = 2000425;
-		
+
 		Commands->Action_Goto (obj, params);
 	}
 };
 
-DECLARE_SCRIPT (M09_Mutant_Path_02, "")	
+DECLARE_SCRIPT (M09_Mutant_Path_02, "")
 {
 	void Created (GameObject *obj) override
 	{
@@ -2877,18 +2877,18 @@ DECLARE_SCRIPT (M09_Mutant_Path_02, "")
 		params.Set_Basic( this, 99, 101 );
 		params.Set_Movement( Vector3(0,0,0), RUN, 0.5f);
 		params.WaypathID = 2000443;
-		
+
 		Commands->Action_Goto (obj, params);
 	}
 };
 
-DECLARE_SCRIPT (M09_Key_Grant, "")	
+DECLARE_SCRIPT (M09_Key_Grant, "")
 {
 	void Poked(GameObject * /* obj */, GameObject * poker) override
 	{
 		if (poker == STAR)
 		{
-			
+
 			GameObject *key1 = Commands->Create_Object ( "Level_01_Keycard", Vector3 (-97.303f, 520.441f, -153.080f) );
 			Commands->Attach_Script (key1, "M09_Containment_Key_1", "");
 		}
@@ -2901,9 +2901,9 @@ DECLARE_SCRIPT (M09_Lab_Key_Controller, "") //2000452
 
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( key_counter, 1 );	
+		SAVE_VARIABLE( key_counter, 1 );
 	}
-	
+
 	void Created (GameObject * /* obj */) override
 	{
 		key_counter = 0;
@@ -2911,7 +2911,7 @@ DECLARE_SCRIPT (M09_Lab_Key_Controller, "") //2000452
 
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * sender ) override
 	{
-		if ( type == KEY_COUNTER ) 
+		if ( type == KEY_COUNTER )
 		{
 			if (param == INCREMENT)
 			{
@@ -2930,7 +2930,7 @@ DECLARE_SCRIPT (M09_Containment_Key_1, "")
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (2000452), KEY_COUNTER, INCREMENT, 0.0f );
 
@@ -2950,7 +2950,7 @@ DECLARE_SCRIPT (M09_Containment_Key_2, "")
 {
 	void Custom( GameObject * obj, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (2000452), KEY_COUNTER, INCREMENT, 0.0f );
 
@@ -2970,7 +2970,7 @@ DECLARE_SCRIPT (M09_Containment_Key_2, "")
 		}
 	}
 
-		/*if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		/*if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (2000452), KEY_COUNTER, INCREMENT, 0.0f );
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (2000709), GOAL, DECREMENT, 0.0f );
@@ -2982,22 +2982,22 @@ DECLARE_SCRIPT (M09_Key_Controller_Zones, "")
 {
 	bool already_triggered;
 	int key_count;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_triggered, 1 );
-		SAVE_VARIABLE( key_count, 2);		
+		SAVE_VARIABLE( key_count, 2);
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		already_triggered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
 	{
 		if (!already_triggered)
@@ -3008,7 +3008,7 @@ DECLARE_SCRIPT (M09_Key_Controller_Zones, "")
 
 	void Custom( GameObject * /* obj */, int type, intptr_t param, GameObject * /* sender */ ) override
 	{
-		if ( type == COUNT ) 
+		if ( type == COUNT )
 		{
 			key_count = param;
 		}
@@ -3019,7 +3019,7 @@ DECLARE_SCRIPT (M09_Key_Box, "")
 {
 	bool poke;
 	bool opened;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( poke, 1 );
@@ -3047,8 +3047,8 @@ DECLARE_SCRIPT (M09_Key_Box, "")
 			Commands->Join_Conversation(mobius, conv_id, false, false, true);
 			Commands->Join_Conversation(STAR, conv_id, false, false, true);
 			Commands->Start_Conversation (conv_id, 999);
-			Commands->Monitor_Conversation (obj, conv_id);			
-		}		
+			Commands->Monitor_Conversation (obj, conv_id);
+		}
 	}
 
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason /* reason */) override
@@ -3058,10 +3058,10 @@ DECLARE_SCRIPT (M09_Key_Box, "")
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (2000010), FOLLOW, 2000860, 0.0f );
 		}
 	}
-	
+
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /* sender */ ) override
 	{
-		if ( type == VERIFY ) 
+		if ( type == VERIFY )
 		{
 			if (param == GO)
 			{
@@ -3085,7 +3085,7 @@ DECLARE_SCRIPT (M09_Key_Box, "")
 					Commands->Monitor_Conversation (obj, conv_id);
 
 					Commands->Send_Custom_Event( obj, Commands->Find_Object (2000010), WAYPATH, 2000462, 0.0f );
-				}			
+				}
 			}
 		}
 	}
@@ -3096,8 +3096,8 @@ DECLARE_SCRIPT (M09_MrShuman_Zone, "")
 	bool star_in_zone;
 	bool fired_off;
 	bool key;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3112,7 +3112,7 @@ DECLARE_SCRIPT (M09_MrShuman_Zone, "")
 		star_in_zone = false;
 		fired_off = false;
 		key = false;
-				
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id) override
@@ -3239,14 +3239,14 @@ DECLARE_SCRIPT (M09_Invincible_MrShuman, "")
 		}
 	}
 };
-		
+
 
 
 DECLARE_SCRIPT (M09_Elevator_Movement_Zone, "Direction:int, Anim_num:int, Elev_obj_num:int")
 {
 	void Entered (GameObject * /* obj */, GameObject * enterer) override
 	{
-		static constexpr const char* elevators[9] = 
+		static constexpr const char* elevators[9] =
 		{
 			"l09_res_elev06.l09_res_elev06",
 			"elev01.elev01",
@@ -3284,14 +3284,14 @@ DECLARE_SCRIPT (M09_Elevator_All_Zone, "Controller_num:int")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( star_in_zone, 1 );
-		SAVE_VARIABLE( mobius_in_zone, 2 );		
+		SAVE_VARIABLE( mobius_in_zone, 2 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
 		star_in_zone = false;
-		
-		
+
+
 		mobius = Commands->Find_Object (2000010);
 	}
 
@@ -3302,7 +3302,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Zone, "Controller_num:int")
 		{
 			star_in_zone = true;
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(Get_Int_Parameter("Controller_num")), SET_STAR, ENTER, 0.0f);
-		}		
+		}
 	}
 
 	void Exited(GameObject * obj, GameObject * exiter) override
@@ -3311,7 +3311,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Zone, "Controller_num:int")
 		{
 			star_in_zone = false;
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(Get_Int_Parameter("Controller_num")), SET_STAR, EXIT, 0.0f);
-		}		
+		}
 	}
 };
 
@@ -3321,7 +3321,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Controller, "Waypoint_num:int, Elev_obj_num:int
 	bool mobius_in_zone;
 	bool transition;
 	int block1, block2, block3, block4;
-	
+
 
 	GameObject *mobius;
 
@@ -3355,7 +3355,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Controller, "Waypoint_num:int, Elev_obj_num:int
 			"cent_elev01.cent_elev01",
 			"lab_spn_door08.lab_spn_door08",
 		};
-		
+
 		mobius = Commands->Find_Object (2000010);
 
 		Commands->Static_Anim_Phys_Goto_Last_Frame ( Get_Int_Parameter("Elev_obj_num"), elevators [Get_Int_Parameter("Anim_num")] );
@@ -3431,7 +3431,7 @@ DECLARE_SCRIPT (M09_Elevator_All_Controller, "Waypoint_num:int, Elev_obj_num:int
 				{
 					Commands->Send_Custom_Event( obj, obj, ACTIVATEDOWN, 0, 0.0f);
 				}
-			}			
+			}
 		}
 
 		if (type == SET_STAR)
@@ -3464,14 +3464,14 @@ DECLARE_SCRIPT (M09_Elevator_All_Controller, "Waypoint_num:int, Elev_obj_num:int
 				}
 
 			}
-			
+
 			if (param == EXIT)
 			{
 				star_in_zone = false;
 				//Commands->Send_Custom_Event(obj, Commands->Find_Object (2000010), FOLLOW, Get_Int_Parameter("Mobius_exit_goto"), 0.0f);
 			}
 		}
-		
+
 		if (type == ACTIVATE)
 		{
 			if (star_in_zone && mobius_in_zone)
@@ -3532,7 +3532,7 @@ DECLARE_SCRIPT (M09_Mutant_Attack, "Target_num:int")
 		target = Get_Int_Parameter ("Target_num");
 
 		ActionParamsStruct params;
-		
+
 		if ( sound.Type == M09_INNATE_ENABLE )
 		{
 			Vector3 loc = Commands->Get_Position (Commands->Find_Object (target));
@@ -3544,7 +3544,7 @@ DECLARE_SCRIPT (M09_Mutant_Attack, "Target_num:int")
 
 			params.Set_Basic( this, 99, RUN_TO_TARGET );
 			params.Set_Movement( loc, 1.2f, 0.75f);
-						
+
 			Commands->Action_Goto (obj, params);
 		}
 	}
@@ -3575,7 +3575,7 @@ DECLARE_SCRIPT (M09_Waypath_Run, "Waypath_num:int, Attacker_num:int, Controller_
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( mutant_id, 1 );
-		SAVE_VARIABLE( attackee_id, 2 );		
+		SAVE_VARIABLE( attackee_id, 2 );
 	}
 
 	void Created (GameObject *obj) override
@@ -3586,7 +3586,7 @@ DECLARE_SCRIPT (M09_Waypath_Run, "Waypath_num:int, Attacker_num:int, Controller_
 		Commands->Send_Custom_Event(obj, Commands->Find_Object (Get_Int_Parameter("Controller_num")), MUTANT_ATTACKEE, attackee_id, 0.0f);
 
 		Commands->Start_Timer (obj, this, 1.0f, START);
-		
+
 		if (Get_Int_Parameter("Waypath_num") != 0)
 		{
 			ActionParamsStruct params;
@@ -3594,7 +3594,7 @@ DECLARE_SCRIPT (M09_Waypath_Run, "Waypath_num:int, Attacker_num:int, Controller_
 			params.Set_Basic( this, 99, RUN_TO_TARGET );
 			params.Set_Movement( Vector3(0,0,0), RUN, 0.5f);
 			params.WaypathID = Get_Int_Parameter("Waypath_num");
-			
+
 			Commands->Action_Goto (obj, params);
 		}
 	}
@@ -3645,11 +3645,11 @@ DECLARE_SCRIPT (M09_Waypath_Run, "Waypath_num:int, Attacker_num:int, Controller_
 		{
 			Commands->Action_Reset ( obj, 100 );
 		}
-	}	
+	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
 	{
-		
+
 		if(timer_id == START)
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object (Get_Int_Parameter("Controller_num")), ATTACKER_CHECK, 0, 0.0f);
@@ -3666,7 +3666,7 @@ DECLARE_SCRIPT (M09_Mutant_Encounter_Controller, "")
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( mutant_id, 1 );
-		SAVE_VARIABLE( attackee_id, 2 );		
+		SAVE_VARIABLE( attackee_id, 2 );
 	}
 
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
@@ -3723,7 +3723,7 @@ DECLARE_SCRIPT (M09_Damage_Modifier, "Damage_multiplier:float")
 		if (damager != STAR)
 		{
 			current_health = Commands->Get_Health (obj);
-			if (current_health == 0) 
+			if (current_health == 0)
 			{
 				damage = ((last_health - current_health) + damage_tally);
 				damage_tally = 0;
@@ -3736,7 +3736,7 @@ DECLARE_SCRIPT (M09_Damage_Modifier, "Damage_multiplier:float")
 			}
 			float mod_damage = (damage * (Get_Float_Parameter("Damage_multiplier")));
 			damage_tally += mod_damage;
-			
+
 			Commands->Set_Health (obj, (last_health - mod_damage));
 			last_health = Commands->Get_Health (obj);
 			current_health = Commands->Get_Health (obj);
@@ -3748,7 +3748,7 @@ DECLARE_SCRIPT (M09_Zone_Enabled_Mobius, "Waypath_id:int, Condition=0:int")
 {
 	bool already_entered;
 	int goal;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3824,7 +3824,7 @@ DECLARE_SCRIPT (M09_Flyover_Controller, "")
 	}
 
 	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
-	{		
+	{
 		if (type == FLYOVER)
 		{
 			static constexpr const char *flyovers[8] =
@@ -3833,22 +3833,22 @@ DECLARE_SCRIPT (M09_Flyover_Controller, "")
 				"X9A_Apache_01.txt",
 				"X9A_Apache_02.txt",
 				"X9A_Apache_03.txt",
-				
+
 				"X9A_Trnspt_00.txt",
 				"X9A_Trnspt_01.txt",
 				"X9A_Trnspt_02.txt",
 				"X9A_Trnspt_03.txt",
-		
+
 			};
 			int random = int(Commands->Get_Random(0, 8-WWMATH_EPSILON));
-		
+
 			while (random == last) {
 				random = int(Commands->Get_Random(0, 8-WWMATH_EPSILON));
 			}
 			GameObject *controller = Commands->Create_Object("Invisible_Object", Vector3(0,0,0));
 			Commands->Attach_Script(controller, "Test_Cinematic", flyovers[random]);
 			last = random;
-		}	
+		}
 	}
 };
 
@@ -3860,10 +3860,10 @@ DECLARE_SCRIPT (M09_Flyover_Recycle, "")
 	}
 };
 
-DECLARE_SCRIPT (M09_Weather_On, "")	
+DECLARE_SCRIPT (M09_Weather_On, "")
 {
 	void Entered (GameObject * /* obj */, GameObject * /* enterer */) override
-	{		
+	{
 		Commands->Set_Fog_Enable ( true );
 		Commands->Set_Fog_Range (0.0, 150.0, 2.0);
 		Commands->Set_Lightning (0.25f, 0.0f, 0.2f, 265.0f, 0.3f, 2.0f);
@@ -3871,10 +3871,10 @@ DECLARE_SCRIPT (M09_Weather_On, "")
 	}
 };
 
-DECLARE_SCRIPT (M09_Weather_Off, "")	
+DECLARE_SCRIPT (M09_Weather_Off, "")
 {
 	void Entered (GameObject * /* obj */, GameObject * /* enterer */) override
-	{		
+	{
 		//Commands->Set_Fog_Enable ( false );
 		Commands->Set_Fog_Range (0.0, 1000.0, 2.0);
 		Commands->Set_Lightning (0.0f, 0.0f, 0.2f, 265.0f, 0.3f, 2.0f);
@@ -3886,7 +3886,7 @@ DECLARE_SCRIPT(M09_Evac_Transport, "")  //2000969
 {
 	bool already_entered;
 	float facing;
-				
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -3910,30 +3910,30 @@ DECLARE_SCRIPT(M09_Evac_Transport, "")  //2000969
 			facing = Commands->Get_Facing (Commands->Find_Object (2000969));
 
 			Vector3 loc = Commands->Get_Position (Commands->Find_Object (2000969));
-			
+
 			GameObject * bone = Commands->Create_Object ( "Invisible_Object", loc );
 			Commands->Set_Facing(bone, facing);
 			Commands->Attach_Script(bone, "M09_Evac_Bone", "");
 			Commands->Set_Model ( bone, "XG_TransprtBone" );
 			Commands->Set_Animation ( bone, "XG_TransprtBone.XG_EV2_PathA", false , NULL, 0.0f, -1.0f, false);
-			
+
 			GameObject * chinook = Commands->Create_Object_At_Bone( bone, "GDI_Transport_Helicopter", "XG_TransprtBone" );
 			GameObject * troop = Commands->Create_Object_At_Bone( bone, "GDI_RocketSoldier_2SF", "SPAWNER" );
 			Commands->Attach_Script(troop, "M00_Damage_Modifier_DME", "0.05f, 1, 1, 0, 0");
-			
+
 			char param1[12];
 			sprintf(param1, "%d", Commands->Get_ID(troop));
-			
+
 			Commands->Set_Facing(chinook, facing);
 			Commands->Attach_Script(chinook, "M09_Evac_Helicopter", param1);
 			Commands->Attach_To_Object_Bone ( chinook, bone, "BN_Trajectory" );
 			Commands->Set_Animation ( chinook, "v_GDI_trnspt.XG_EV2_trnsA", false , NULL, 0.0f, -1.0f, false);
-						
+
 			Commands->Attach_Script(troop, "M09_Gunner", "");
 			Commands->Attach_Script(chinook, "M09_No_Obj_Damage", "");
 			Commands->Attach_To_Object_Bone ( troop, chinook, "SPAWNER" );
 
-			//Commands->Set_Facing(troop, facing - 180.0);			
+			//Commands->Set_Facing(troop, facing - 180.0);
 		}
 	}
 };
@@ -3970,7 +3970,7 @@ DECLARE_SCRIPT(M09_Evac_Helicopter, "Gunner:int")
 	{
 		Commands->Mission_Complete(false);
 	}
-	
+
 	void Timer_Expired (GameObject* obj, int timer_id) override
 	{
 		if (timer_id == COLLISION)
@@ -4002,7 +4002,7 @@ DECLARE_SCRIPT(M09_Gunner, "")
 
 			params.Set_Basic( this, 99, 101 );
 			params.Set_Movement( Commands->Find_Object (2000970), RUN, 1.5f);
-									
+
 			Commands->Action_Goto (obj, params);
 
 			//Commands->Set_Innate_Aggressiveness ( obj, 1.0f );
@@ -4017,8 +4017,8 @@ DECLARE_SCRIPT(M09_Gunner, "")
 		params.Set_Attack(enemy, 100.0f, 5.0f, true);
 		params.AttackCheckBlocked = true;
 		params.AttackActive = true;
-		
-		Commands->Modify_Action(obj, 10, params, true, true);				
+
+		Commands->Modify_Action(obj, 10, params, true, true);
 	}
 
 	void Damaged( GameObject * obj, GameObject * /* damager */, float /* amount */ ) override
@@ -4062,7 +4062,7 @@ DECLARE_SCRIPT(M09_Innate_Disable, "")
 	void Sound_Heard(GameObject* obj, const CombatSound & sound) override
 	{
 		ActionParamsStruct params;
-		
+
 		if ( sound.Type == M09_INNATE_ENABLE )
 		{
 			Commands->Innate_Enable(obj);
@@ -4098,7 +4098,7 @@ DECLARE_SCRIPT(M09_Innate_Disable, "")
 			float damage = ((last_health - current_health) + damage_tally);
 			float mod_damage = (damage * 0.05f);
 			damage_tally += mod_damage;
-			
+
 			Commands->Set_Health (obj, (last_health - mod_damage));
 			last_health = Commands->Get_Health (obj);
 			current_health = Commands->Get_Health (obj);
@@ -4110,12 +4110,12 @@ DECLARE_SCRIPT(M09_Innate_Enable_Zone, "SoundProjector:int, Radius=7.0:float, To
 {
 	bool already_entered, all_checked_in;
 	int enemies;
-				
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
@@ -4125,7 +4125,7 @@ DECLARE_SCRIPT(M09_Innate_Enable_Zone, "SoundProjector:int, Radius=7.0:float, To
 	}
 
 	/*void Sound_Heard(GameObject* obj, const CombatSound & sound)
-	{		
+	{
 		if ( sound.Type == M09_CHECK_IN )
 		{
 			enemies++;
@@ -4142,7 +4142,7 @@ DECLARE_SCRIPT(M09_Innate_Enable_Zone, "SoundProjector:int, Radius=7.0:float, To
 		{
 			Vector3 projector = Commands->Get_Position (Commands->Find_Object (Get_Int_Parameter ("SoundProjector")));
 			float rad = Get_Float_Parameter("Radius");
-			
+
 			Commands->Create_Logical_Sound (obj, M09_INNATE_ENABLE, projector, rad);
 
 			//Commands->Start_Timer (obj, this, 4.0f, INNATE_RECYCLE);
@@ -4158,7 +4158,7 @@ DECLARE_SCRIPT(M09_Innate_Enable_Zone, "SoundProjector:int, Radius=7.0:float, To
 
 			Vector3 projector = Commands->Get_Position (Commands->Find_Object (Get_Int_Parameter ("SoundProjector")));
 			float rad = Get_Float_Parameter("Radius");
-			
+
 			Commands->Create_Logical_Sound (obj, M09_INNATE_ENABLE, projector, rad);
 
 			Commands->Start_Timer (obj, this, 4.0f, INNATE_RECYCLE);
@@ -4167,7 +4167,7 @@ DECLARE_SCRIPT(M09_Innate_Enable_Zone, "SoundProjector:int, Radius=7.0:float, To
 };
 
 DECLARE_SCRIPT(M09_Zone_Destroy, "")
-{	
+{
 	void Entered (GameObject *obj, GameObject * /* enterer */) override
 	{
 		Commands->Destroy_Object(obj);
@@ -4178,7 +4178,7 @@ DECLARE_SCRIPT (M09_Lab_Powerup, "Target:int")
 {
 	void Custom( GameObject * /* obj */, int type, intptr_t /* param */, GameObject * /* sender */ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Grant_Key (Commands->Find_Object (Get_Int_Parameter("Target")), 10, true);
 			Commands->Debug_Message("Key granted to %d.\n", Get_Int_Parameter("Target"));
@@ -4203,7 +4203,7 @@ DECLARE_SCRIPT (M09_Ambient_Clutter, "")
 
 	void Created (GameObject *obj) override
 	{
-				
+
 		float delayTimer = Commands->Get_Random ( 1, 5 );
 		/*int chooser = Commands->Get_Random_Int (0, 7);
 		float rand_dist = Commands->Get_Random ( 15, 20 );
@@ -4215,7 +4215,7 @@ DECLARE_SCRIPT (M09_Ambient_Clutter, "")
 		sound_loc.Z += rand_dist;
 
 		//Commands->Create_Sound ( ambients [chooser], sound_loc, obj );*/
-				
+
 		Commands->Start_Timer(obj, this, (20.0f - delayTimer), AMB_SOUND);
 		Commands->Start_Timer(obj, this, (8.0f + delayTimer), AMB_EXPLOSION);
 	}
@@ -4292,18 +4292,18 @@ DECLARE_SCRIPT (M09_Scientist_Cower, "")
 DECLARE_SCRIPT (M09_Destroy_Self_Zone, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /* obj */) override
 	{
-		already_entered = false;				
+		already_entered = false;
 	}
 
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
@@ -4342,7 +4342,7 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 		SAVE_VARIABLE( star_in_zone, 3 );
 		SAVE_VARIABLE( fired_off, 4 );
 	}
-	
+
 	void Created (GameObject * /* obj */) override
 	{
 		star_in_zone = false;
@@ -4370,7 +4370,7 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 		}
 	}
 
-		
+
 	void Entered (GameObject * obj, GameObject * /* enterer */) override
 	{
 		star_in_zone = true;
@@ -4395,15 +4395,15 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 	{
 		star_in_zone = false;
 	}
-	
+
 	void Custom( GameObject * obj, int type, intptr_t param, GameObject * /* sender */ ) override
 	{
 		if (type == INITIATION)
 		{
 			//initiation = true;
 		}
-						
-		if ( type == COUNT ) 
+
+		if ( type == COUNT )
 		{
 			if (param == 0)
 			{
@@ -4421,21 +4421,21 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 			if (param == 1)
 			{
 				//initiation = true;
-				
+
 				const char *conv_name = ("IDS_M09_D15");
 				int conv_id = Commands->Create_Conversation (conv_name, 99, 200, false);
 				Commands->Join_Conversation(mobius, conv_id, false, false, true);
 				Commands->Join_Conversation(STAR, conv_id, false, false, true);
 				Commands->Start_Conversation (conv_id, 905);
-				Commands->Monitor_Conversation (obj, conv_id);			
+				Commands->Monitor_Conversation (obj, conv_id);
 			}
 
 			if (param == 2)
 			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object (2000452), KEY_COUNTER, INCREMENT, 0.0f );
-				
+
 				Commands->Static_Anim_Phys_Goto_Frame ( 1265140, 0, "lab_spn_door08.lab_spn_door08" );
-							
+
 				const char *conv_name = ("IDS_M09_D18");
 				int conv_id = Commands->Create_Conversation (conv_name, 99, 200, false);
 				Commands->Join_Conversation(mobius, conv_id, false, false, true);
@@ -4443,8 +4443,8 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 				Commands->Start_Conversation (conv_id, 910);
 				Commands->Monitor_Conversation (obj, conv_id);
 
-						
-			}			
+
+			}
 		}
 	}
 
@@ -4464,7 +4464,7 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 			//Commands->Send_Custom_Event( obj, Commands->Find_Object (2000010), FOLLOW, 0, 0.0f );
 		}
 
-		
+
 
 		if(action_id == 906)
 		{
@@ -4503,9 +4503,9 @@ DECLARE_SCRIPT (M09_KeyCard_Zone, "")
 		/*if(action_id == 910)
 		{
 			Commands->Send_Custom_Event( obj, Commands->Find_Object (2000010), WAYPATH, 2000462, 0.0f );
-						
+
 		}*/
-		
+
 	}
 };
 
@@ -4621,7 +4621,7 @@ DECLARE_SCRIPT(M09_Destroy_Zone, "")
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id ) override
-	{		
+	{
 		if(timer_id == 10)
 		{
 			Commands->Destroy_Object (obj);
@@ -4632,8 +4632,8 @@ DECLARE_SCRIPT(M09_Destroy_Zone, "")
 DECLARE_SCRIPT(M09_Elevator_Exit, "Mobius_exit_goto:int")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -4643,7 +4643,7 @@ DECLARE_SCRIPT(M09_Elevator_Exit, "Mobius_exit_goto:int")
 
 	void Created (GameObject * /* obj */) override
 	{
-		already_entered = false;			
+		already_entered = false;
 	}
 
 	void Entered (GameObject * obj, GameObject * /* enterer */) override

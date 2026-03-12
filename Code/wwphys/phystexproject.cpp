@@ -60,7 +60,7 @@
  * HISTORY:                                                                                    *
  *   3/30/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-PhysTexProjectClass::PhysTexProjectClass(void) 
+PhysTexProjectClass::PhysTexProjectClass(void)
 {
 }
 
@@ -111,7 +111,7 @@ bool PhysTexProjectClass::Compute_Perspective_Projection
 	AABoxClass box;
 	model->Get_Obj_Space_Bounding_Box(box);
 	const Matrix3D & tm = model->Get_Transform();
-	
+
 	return TexProjectClass::Compute_Perspective_Projection(box,tm,lightpos,nearz,farz);
 }
 
@@ -185,7 +185,7 @@ bool PhysTexProjectClass::Compute_Texture(PhysClass * obj,bool additive_projecti
 	LightEnvironmentClass lenv;
 	if (!additive_projection) {
 		lenv.Reset(Vector3(0,0,0),Vector3(0,0,0));		// light env that makes everything black
-	
+
 		MaterialPassClass * shadow_mtl = PhysicsSceneClass::Get_Instance()->Get_Shadow_Material_Pass();
 		if (shadow_mtl) {
 			pushed_mtls = true;

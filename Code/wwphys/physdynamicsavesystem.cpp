@@ -64,7 +64,7 @@ bool PhysDynamicSaveSystemClass::Contains_Data(void) const
 }
 
 bool PhysDynamicSaveSystemClass::Save(ChunkSaveClass &csave)
-{	
+{
 	WWMEMLOG(MEM_GAMEDATA);
 
 	csave.Begin_Chunk(PDSSC_CHUNKID_SCENE);
@@ -100,7 +100,7 @@ bool PhysDynamicSaveSystemClass::Load(ChunkLoadClass &cload)
 		}
 		cload.Close_Chunk();
 	}
-	
+
 	SaveLoadSystemClass::Register_Post_Load_Callback(this);
 	return true;
 }

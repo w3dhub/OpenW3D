@@ -98,7 +98,7 @@ protected:
 			RESTRICT_X,
 			RESTRICT_Y,
 			RESTRICT_Z
-			
+
 		} AXIS_RESTRICTION;
 
 
@@ -106,17 +106,17 @@ protected:
 			COORD_WORLD	= 0,
 			COORD_OBJECT,
 			COORD_VIEW
-			
+
 		} COORD_SYSTEM;
 
-	
+
 		///////////////////////////////////////////////
 		//
 		//	Public methods
 		//
 		void								Init_Scene (void);
 		class SceneEditorClass *	Get_Scene (void) const { return m_pScene; }
-		
+
 		//
 		//	Save methods
 		//
@@ -136,14 +136,14 @@ protected:
 		//
 		int								Get_Mode_Modifiers () const { return m_ModeModifiers; }
 		void								Set_Mode_Modifiers (int modifiers) { m_ModeModifiers = modifiers; }
-		
+
 		//
 		//	Cleanup routines
 		//
 		void								CleanupResources (void);
 
 		//
-		//	Performance sampling methods		
+		//	Performance sampling methods
 		//
 		bool								Is_Performance_Sampling_On (void) const { return m_bPerformanceSampling; }
 		void								Performance_Sampling_On (bool sampling_on) { m_bPerformanceSampling = sampling_on; }
@@ -189,7 +189,7 @@ protected:
 		//
 		void								Set_Debug_Script_Mode (bool onoff);
 		bool								Get_Debug_Script_Mode (void) const	{ return m_DebugScriptsMode; }
-		
+
 		//
 		//	Preload methods
 		//
@@ -203,7 +203,7 @@ protected:
 		static bool						Is_Batch_Export_Mode (void)				{ return IsBatchExportMode; }
 		static void						Set_Is_Batch_Export_Mode (bool onoff)	{ IsBatchExportMode = onoff; }
 
-	protected:		
+	protected:
 
 		//
 		//	VSS methods

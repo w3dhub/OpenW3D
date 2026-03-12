@@ -129,7 +129,7 @@ DynamicSpeechAnimClass::DynamicSpeechAnimClass (const char *skeleton_name)
 		//
 		for (int index = 0; index < CHANNEL_MAX; index ++) {
 			REF_PTR_RELEASE (animations[index]);
-		}		
+		}
 	}
 
 	return ;
@@ -166,7 +166,7 @@ DynamicSpeechAnimClass::Generate_Animation (const char *text, float duration)
 	Release_Keys ();
 
 	//
-	// Get the list of mouth poses based on the phrase through the viseme manager	
+	// Get the list of mouth poses based on the phrase through the viseme manager
 	//
 	bool retval = false;
 	int pose_table[256] = { 0 };
@@ -184,7 +184,7 @@ DynamicSpeechAnimClass::Generate_Animation (const char *text, float duration)
 		//
 		// Always start the animation with the closed mouth
 		//
-		Insert_Morph_Key (CHANNEL0, 0, 0);	
+		Insert_Morph_Key (CHANNEL0, 0, 0);
 		curr_frame += frame_inc;
 
 		//
@@ -238,7 +238,7 @@ DynamicSpeechAnimClass::Generate_Eyebrows (float duration, float /* frequency */
 	int current_frame	= 0;
 	int current_pose	= NORMAL;
 	while (current_frame < max_frames) {
-		
+
 		//
 		//	Wait a random amount of time before we blink
 		//
@@ -258,7 +258,7 @@ DynamicSpeechAnimClass::Generate_Eyebrows (float duration, float /* frequency */
 
 			//
 			//	Lock the last pose at this frame
-			//			
+			//
 			Insert_Morph_Key (CHANNEL1, current_frame, EYEBROW_POSES[current_pose]);
 
 			//
@@ -270,7 +270,7 @@ DynamicSpeechAnimClass::Generate_Eyebrows (float duration, float /* frequency */
 
 			//
 			//	Choose a random eyebrow pose
-			//			
+			//
 			current_pose = FreeRandom.Get_Int (EYEBROW_POSE_COUNT);
 			Insert_Morph_Key (CHANNEL1, current_frame, EYEBROW_POSES[current_pose]);
 		}
@@ -304,7 +304,7 @@ DynamicSpeechAnimClass::Generate_Idle_Animation (float duration, float frequency
 	//
 	// Make the mouth closed
 	//
-	Insert_Morph_Key (CHANNEL0, 0, 0);	
+	Insert_Morph_Key (CHANNEL0, 0, 0);
 
 	//
 	//	Generate 20 seconds worth of animation data for the eyebrows
@@ -326,7 +326,7 @@ DynamicSpeechAnimClass::Insert_Blink (int current_frame, int current_pose)
 	//	Insert a placeholder key so we don't "slow-mo" blink
 	//
 	Insert_Morph_Key (CHANNEL1, current_frame, current_pose);
-	
+
 	//
 	//	Wait a small amount of time
 	//

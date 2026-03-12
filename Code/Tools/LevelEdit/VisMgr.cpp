@@ -58,7 +58,7 @@
 enum
 {
 	CHUNKID_VIS_OBJECT	=	0x06150222,
-	CHUNKID_VIS_DATA	
+	CHUNKID_VIS_DATA
 };
 
 
@@ -102,16 +102,16 @@ VisMgrClass::Export_Remap_Data (ChunkSaveClass &csave)
 			::lstrcpy (obj_info.mesh_name, static_phys_obj->Peek_Model ()->Get_Name ());
 			obj_info.transform	= static_phys_obj->Get_Transform ();
 			obj_info.vis_id		= static_phys_obj->Get_Vis_Object_ID ();
-			
+
 			//
 			//	Save the object info to its own chunk
 			//
 			csave.Begin_Chunk (CHUNKID_VIS_OBJECT);
 				csave.Write (&obj_info, sizeof (obj_info));
 			csave.End_Chunk ();
-		}			
-	}		
-	
+		}
+	}
+
 
 	//
 	//	Now export all the vis data
@@ -142,7 +142,7 @@ VisMgrClass::Import_Remap_Data (ChunkLoadClass &cload)
 	//	Process all the chunks in this file
 	//
 	while (is_valid && cload.Open_Chunk ()) {
-		
+
 		switch (cload.Cur_Chunk_ID ())
 		{
 			//
@@ -190,7 +190,7 @@ VisMgrClass::Import_Remap_Data (ChunkLoadClass &cload)
 							"Import Error",
 							MB_ICONERROR | MB_OK);
 	}
-	
+
 	return ;
 }
 
@@ -210,7 +210,7 @@ VisMgrClass::Find_Static_Phys_Object (LPCTSTR mesh_name, const Matrix3D &tm)
 	//
 	RefPhysListIterator iterator = ::Get_Scene_Editor ()->Get_Static_Object_Iterator ();
 	for (iterator.First (); retval == NULL && !iterator.Is_Done (); iterator.Next ()) {
-		
+
 		//
 		//	Double-check to make sure this object is static
 		//
@@ -223,7 +223,7 @@ VisMgrClass::Find_Static_Phys_Object (LPCTSTR mesh_name, const Matrix3D &tm)
 			//
 			LPCTSTR curr_name	= static_phys_obj->Peek_Model ()->Get_Name ();
 			Matrix3D curr_tm	= static_phys_obj->Get_Transform ();
-			if ((::lstrcmpi (curr_name, mesh_name) == 0) && (curr_tm == tm)) {							
+			if ((::lstrcmpi (curr_name, mesh_name) == 0) && (curr_tm == tm)) {
 				retval = static_phys_obj;
 			}
 		}
@@ -243,11 +243,11 @@ VisMgrClass::Build_Node_List (DynamicVectorClass<NodeClass *> &node_list, bool s
 {
 	if (selection_only) {
 		SelectionMgrClass &sel_mgr = ::Get_Scene_Editor ()->Get_Selection_Mgr ();
-		
+
 		//
 		//	Build a list of the selected nodes that should be used to calculate
 		// vis renders
-		//		
+		//
 		for (int index = 0; index < sel_mgr.Get_Count (); index ++) {
 			NodeClass *node = sel_mgr.Get_At (index);
 			if (node != NULL && node->Is_Static ()) {
@@ -270,7 +270,7 @@ VisMgrClass::Build_Node_List (DynamicVectorClass<NodeClass *> &node_list, bool s
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -288,14 +288,14 @@ VisMgrClass::Add_Nodes_To_List
 )
 {
 	//
-	// If the node is an aggregate (like a terrain), we are adding the 
+	// If the node is an aggregate (like a terrain), we are adding the
 	// sub-nodes directly into the list
 	//
 	int sub_count = node->Get_Sub_Node_Count ();
 	if (sub_count > 0) {
 		for (int index = 0; index < sub_count; index ++) {
 			NodeClass *sub_node = node->Get_Sub_Node (index);
-			
+
 			//
 			//	Recurse into this node
 			//
@@ -369,7 +369,7 @@ VisMgrClass::Render_Manual_Vis_Points
 
 	//
 	//	Loop over all manual vis points in the level
-	//	
+	//
 	for (int index = 0; index < point_list.Count (); index ++)
 	{
 		DWORD before = ::GetTickCount ();
@@ -408,9 +408,9 @@ VisMgrClass::Render_Manual_Vis_Points
 
 		//
 		//	Notify the callback that we've renedered a point
-		//				
+		//
 		if (callback != NULL) {
-			DWORD after	= ::GetTickCount ();		
+			DWORD after	= ::GetTickCount ();
 			keep_going	= (*callback) (after - before, param);
 		}
 	}

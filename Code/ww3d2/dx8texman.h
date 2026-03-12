@@ -65,7 +65,7 @@ public:
 	Format(format),
 	Mip_level_count(count),
 	RenderTarget(rt),
-	Texture(tex)	
+	Texture(tex)
 	{
 	}
 private:

@@ -116,7 +116,7 @@ public:
 	bool				Remove_Column (int col_index);
 	void				Delete_All_Columns (void);
 	int				Get_Column_Count(void) const;
-	
+
 	//
 	//	Content control
 	//
@@ -212,7 +212,7 @@ protected:
 	void				Scroll_Page (int direction);
 	int				Find_End_Of_Page (void);
 	int				Find_Top_Of_Page (int bottom_index);
-	
+
 	void				Render_Entry (const RectClass &rect, int col_index, int row_index);
 
 	static int 	Default_Sort_Callback (ListCtrlClass *list_ctrl, int item_index1, int item_index2, uint32 user_param);
@@ -239,7 +239,7 @@ protected:
 	////////////////////////////////////////////////////////////////
 	Render2DClass				HilightRenderer;
 	Render2DClass				ControlRenderer;
-	Render2DClass				UnderlineRenderer;	
+	Render2DClass				UnderlineRenderer;
 	Render2DSentenceClass	HeaderRenderer;
 	Render2DSentenceClass	TextRenderer;
 	ListIconMgrClass			IconMgr;
@@ -255,14 +255,14 @@ protected:
 	bool							IsMultipleSelection;
 	int							SortColumn;
 	SORT_TYPE					SortType;
-									
+
 	float							PulsePercent;
 	float							PulseDirection;
 	float							MinRowHeight;
-									
+
 	RectClass					TextRect;
 	RectClass					HeaderRect;
-									
+
 	COL_LIST						ColList;
 	ROW_LIST						RowInfoList;
 };
@@ -276,7 +276,7 @@ protected:
 class ListEntryClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -295,7 +295,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Name access
 	//
@@ -342,7 +342,7 @@ private:
 class ListColumnClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -361,7 +361,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Name access
 	//
@@ -389,10 +389,10 @@ public:
 	int					Get_Entry_Count (void) const								{ return EntryList.Count (); }
 	bool					Delete_Entry (int index);
 	void					Delete_All_Entries (void);
-	
+
 	void					Set_Entry_Text (int index, const unichar_t *text)		{ EntryList[index]->Set_Name (text); }
-	const unichar_t *		Get_Entry_Text (int index) const							{ return EntryList[index]->Get_Name (); }	
-	
+	const unichar_t *		Get_Entry_Text (int index) const							{ return EntryList[index]->Get_Name (); }
+
 	void					Set_Entry_Color (int index, const Vector3 &color)	{ EntryList[index]->Set_Color (color); }
 	const Vector3 &	Get_Entry_Color (int index) const						{ return EntryList[index]->Get_Color (); }
 
@@ -414,7 +414,7 @@ private:
 	////////////////////////////////////////////////////////////////
 	//	Private methods
 	////////////////////////////////////////////////////////////////
-	void					Free_Data (void);	
+	void					Free_Data (void);
 
 	////////////////////////////////////////////////////////////////
 	//	Private data types
@@ -438,7 +438,7 @@ private:
 class ListRowClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -458,7 +458,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Height access
 	//

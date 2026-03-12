@@ -62,7 +62,7 @@ class Matrix3D;
 class VehicleDriverClass
 {
 public:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ public:
 
 	void					Initialize (SmartGameObj *game_obj, PathClass *path);
 	void					Reset (void);
-	
+
 	void					Set_Dest_Position (const Vector3 &pos)	{ m_FinalDest = pos; }
 	void					Set_Next_Position (const Vector3 &pos)	{ m_CurrentDest = pos; }
 	bool					Drive (void);
@@ -98,7 +98,7 @@ public:
 	//	Save/load support
 	//
 	void					Save (ChunkSaveClass &csave);
-	void					Load (ChunkLoadClass &cload);	
+	void					Load (ChunkLoadClass &cload);
 
 
 protected:

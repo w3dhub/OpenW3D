@@ -52,7 +52,7 @@ namespace Mission3Var
 DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 {
 	enum {WEATHER_TIMER};
-	
+
 	int sam_count_1, sam_count_2;
 	bool gunboat_triggered, rain;
 	bool gunboat1, gunboat2, gunboat3;
@@ -77,7 +77,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 	{
 		Commands->Set_Num_Tertiary_Objectives ( 4 );
 
-		Commands->Set_Wind(90.0f, 5.0f, 2.0f, 0.0f);	
+		Commands->Set_Wind(90.0f, 5.0f, 2.0f, 0.0f);
 		Commands->Start_Timer(obj, this, Commands->Get_Random(20.0f, 40.0f), WEATHER_TIMER);
 
 		sam_count_1 = sam_count_2 = 0;
@@ -93,7 +93,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 
 		//Commands->Create_Sound ( "03_AmmoClip", Vector3(0,0,0), obj );
 	}
-	
+
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		GameObject *object;
@@ -155,7 +155,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 			}
 		}
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == GUNBOAT_KILLED)
@@ -186,7 +186,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 		{
 			sender1 = Commands->Get_ID ( sender );
 		}
-		
+
 		if (type >= 300 && type <= 312)
 		{
 			switch(param)
@@ -237,44 +237,44 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 		switch (id)
 		{
 		// Locate Nod Communications Center
-		case 1000: 
+		case 1000:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M03_1_01.tga", IDS_POG_RESCUE);
 			}
 			break;
 		// Help GDI forces secure beachhead
-		case 1001: 
+		case 1001:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M03_2_01.tga", IDS_POG_RESCUE);
 			}
 			break;
 		// Destroy village SAM sites
-		case 1002: 
+		case 1002:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M03_2_02.tga", IDS_POG_RESCUE);
 			}
 			break;
 		// Destroy SAMs near shore defense cannon
-		case 1004: 
+		case 1004:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M03_2_02.tga", IDS_POG_RENDEZVOUS);
 			}
 			break;
 		// Acquire security card from Nod officer
-		case 1007: 
+		case 1007:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M03_1_02.tga", IDS_POG_RENDEZVOUS);
 			}
 			break;
 		// Access Communications center Mainframe
-		case 1008: 
+		case 1008:
 			{
 				Commands->Set_Objective_HUD_Info(id, -1, "POG_M03_1_03.tga", IDS_POG_ASSIST);
 			}
-			break;		
+			break;
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		/*if (timer_id == WEATHER_TIMER)
@@ -302,11 +302,11 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 		if (timer_id == 1004)
 		{
 			//Commands->Create_Object("Level_3_Objective_Powerup_Temp", Vector3(48.3f, 79.2f, 21.0f));
-			
+
 			GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Vector3(47.70f, 78.07f, 20.26f));
 			Commands->Set_Facing(chinook_obj, 0.0f);
 			Commands->Attach_Script(chinook_obj, "Test_Cinematic", "X3I_GDI_Drop_PowerUp.txt");
-			
+
 			Commands->Set_Objective_Status(1004, OBJECTIVE_STATUS_ACCOMPLISHED);
 			Sam_Sites_2_Complete_Dialog();
 		}
@@ -346,7 +346,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 
 
 	}
-	
+
 	void Add_Mission_Objective(int id)
 	{
 		GameObject *object;
@@ -390,7 +390,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 				//Commands->Monitor_Conversation(controller, id);
 			}
 			break;
-		case 1002: 
+		case 1002:
 			{
 				Commands->Add_Objective(1002, OBJECTIVE_TYPE_SECONDARY, OBJECTIVE_STATUS_PENDING, IDS_Enc_ObjTitle_Secondary_M03_02, NULL, IDS_Enc_Obj_Secondary_M03_02);
 				object = Commands->Find_Object(300056);
@@ -513,7 +513,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 		Commands->Join_Conversation(star, id, true, true, true);
 		Commands->Start_Conversation(id, 0);*/
 	}
-	
+
 	void Complete_Mission_Objective(int id)
 	{
 		GameObject *controller = Commands->Find_Object (1100004);
@@ -597,7 +597,7 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 				Commands->Monitor_Conversation(controller, convo_id);
 
 				//Commands->Create_Object("Level_3_Objective_Powerup_Temp", Vector3(73.624f, -78.110f, 0.7f));
-				
+
 				GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Vector3(73.0f, -80.04f, 0.2f));
 				Commands->Set_Facing(chinook_obj, 0.0f);
 				Commands->Attach_Script(chinook_obj, "Test_Cinematic", "X3I_GDI_Drop_PowerUp.txt");
@@ -639,11 +639,11 @@ DECLARE_SCRIPT(M03_Objective_Controller, "")  //1100004
 		if (id == 1001)
 		{
 			//Commands->Create_Object("Level_3_Objective_Powerup_Temp", Vector3(-94.945f, -66.073f, 2.0f));
-			
+
 			GameObject * chinook_obj = Commands->Create_Object ( "Invisible_Object", Vector3(-96.2f, -75.8f, 1.4f));
 			Commands->Set_Facing(chinook_obj, 0.0f);
 			Commands->Attach_Script(chinook_obj, "Test_Cinematic", "X3I_GDI_Drop_PowerUp.txt");
-			
+
 			GameObject * gunboat = Commands->Find_Object(1100003);
 			if (gunboat && !gunboat_triggered)
 			{
@@ -717,12 +717,12 @@ DECLARE_SCRIPT(RMV_Test_Big_Gun_Turning, "")
 		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Join_Conversation(STAR, id, true, true, true);
 		Commands->Start_Conversation(id, 0);*/
-	}		
+	}
 
 	void Sound_Heard(GameObject * /*obj*/, const CombatSound & sound) override
 	{
 		if (sound.Type == SOUND_TYPE_DESIGNER04)
-		{			
+		{
 			Commands->Shake_Camera(sound.Position, 40, 0.3f, 1.0f);
 			//Commands->Apply_Damage ( Commands->Find_Object(1100003), 20.0f, "EXPLOSIVE", Commands->Find_Object(1100002));
 			if (!gunboat_warned)
@@ -769,7 +769,7 @@ DECLARE_SCRIPT(RMV_Test_Big_Gun_Turning, "")
 		}
 	}
 
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == GUNBOAT_KILLED)
@@ -807,7 +807,7 @@ DECLARE_SCRIPT(RMV_Test_Big_Gun_Turning, "")
 			count++;
 			if (count == 2 && Commands->Find_Object(1100003) != NULL)
 			{
-				Commands->Start_Timer(obj, this, 2.0f, ORCA_TIMER);			
+				Commands->Start_Timer(obj, this, 2.0f, ORCA_TIMER);
 			}
 		}
 		if (type == 2450 && param == 2450)
@@ -954,16 +954,16 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 				{
 					Commands->Action_Reset (obj, 100);
 				}
-			case STATE_IN_TRANSIT: 
+			case STATE_IN_TRANSIT:
 				switch (last_state)
 				{
-				case STATE_AT_BEACH: 
+				case STATE_AT_BEACH:
 					{
 					params.Set_Movement(village_start, 0.5f, 3);
 					if (!had_conv)
 					{
 						had_conv = true;
-						
+
 						/*int id = Commands->Create_Conversation("Gunboat_To_Inlet", 0, 0, true);
 						Commands->Join_Conversation(NULL, id, true, true, true);
 						Commands->Join_Conversation(STAR, id, true, true, true);
@@ -980,7 +980,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 			Commands->Start_Timer(obj, this, 1.5f, GUNBOAT_TIMER);
 		}
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (type == CANNON_KILLED)
@@ -1005,7 +1005,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 				inlet_fire = false;
 			}
 		}
-		
+
 		ActionParamsStruct params;
 		params.Set_Basic(this, 90, GUNBOAT_ACTION);
 		if ((type == Get_Int_Parameter("Receive_Type")) && (param == Get_Int_Parameter("Receive_Param_Destroy")))
@@ -1044,7 +1044,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 		{
 			return;
 		}
-		
+
 		if (reason != ACTION_COMPLETE_NORMAL)
 			return;
 		if (action_id == GUNBOAT_ACTION)
@@ -1092,7 +1092,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 			Commands->Start_Conversation(id, 0);*/
 		}
 	}
-	
+
 	void Damaged(GameObject * obj, GameObject * damager, float /*amount*/) override
 	{
 
@@ -1139,7 +1139,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 	void Killed(GameObject * obj, GameObject * killer) override
 	{
 		Commands->Create_Explosion_At_Bone("Ground Explosions Twiddler", obj, "TURRET", NULL);
-		
+
 		if (killer == Commands->Find_Object (1100002))
 		{
 			int id = Commands->Create_Conversation("M03CON031", 0, 0, true);
@@ -1175,7 +1175,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 	{
 		SAVE_VARIABLE( last, 1 );
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		last = 0;
@@ -1184,7 +1184,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		char *list[11];
-		
+
 		list[0] = "00-N184E";	//Locate Comm Center
 		list[1] = "00-N186E";	//Secure Beachhead
 		list[2] = NULL;//"00-N188E";	//Destroy SAM #1
@@ -1196,12 +1196,12 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 		list[8] = "00-N210E";	//Access Comm Center Terminal
 		list[9] = "00-N204E";	//Destroy Power Plant Terminal
 		list[10] = "00-N150E";	//Escape via the sub
-		
+
 		if (param == 1)
 		{
 			Commands->Start_Timer(obj, this, 2.0f, 0);
 		}
-		
+
 		if (type == last) return;
 		if ((param == 3) || (param == 4))
 		{
@@ -1225,7 +1225,7 @@ DECLARE_SCRIPT(M03_Gunboat_Controller_RMV, "Receive_Type:int, Receive_Param_For_
 		taunts[1] = "lefty1";
 		taunts[2] = "bombit1";
 		taunts[3] = "keepem1";
-		
+
 		float random = Commands->Get_Random(0, 11);
 		if (random < 8.0f)
 		{
@@ -1245,7 +1245,7 @@ DECLARE_SCRIPT(Sakura_Killed, "")
 	{
 		SAVE_VARIABLE(music_id, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		if (Commands->Find_Object(1144518)) {
@@ -1253,7 +1253,7 @@ DECLARE_SCRIPT(Sakura_Killed, "")
 		}
 	}
 
-	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override 
+	void Damaged( GameObject * obj, GameObject * damager, float /*amount*/ ) override
 	{
 		if (damager != STAR)
 		{
@@ -1263,7 +1263,7 @@ DECLARE_SCRIPT(Sakura_Killed, "")
 			}
 		}
 	}
-	
+
 	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 		GameObject *temp;
@@ -1283,7 +1283,7 @@ DECLARE_SCRIPT(M03_Outro_Cinematic, "")
 	{
 		SAVE_VARIABLE( star_id, 1 );
 	}
-	
+
 	void Entered(GameObject * obj, GameObject * enterer) override
 	{
 		{
@@ -1334,7 +1334,7 @@ DECLARE_SCRIPT(RMV_M03_Comm_Center_Terminal, "")
 	{
 		has_been_poked = false;
 	}
-	
+
 	void Poked(GameObject * obj, GameObject * poker) override
 	{
 		if (!has_been_poked && Commands->Is_A_Star(poker))
@@ -1356,12 +1356,12 @@ DECLARE_SCRIPT(RMV_M03_Comm_Center_Terminal, "")
 		if (action_id == 100008)
 		{
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(1100004), SAKURA_DOGFIGHT, 0, 0.0f);
-			
+
 			/*int id = Commands->Create_Conversation("M03CON010", 99, 2000, true);
 			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Start_Conversation(id, 100010);
 			Commands->Monitor_Conversation(obj, id);*/
-			
+
 			//Commands->Grant_Key(STAR, 2, true);
 			//Commands->Grant_Key(STAR, 3, true);
 			Commands->Grant_Key(STAR, 5, false);
@@ -1398,7 +1398,7 @@ DECLARE_SCRIPT(RMV_Volcano_And_Lava_Ball_Creator, "")
 		Commands->Enable_Cinematic_Freeze( obj, false );
 
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == 500) && (param == 500))
@@ -1426,7 +1426,7 @@ DECLARE_SCRIPT(RMV_Volcano_And_Lava_Ball_Creator, "")
 
 			Commands->Start_Timer(obj, this, 55.0, MESSAGE_DELAY);
 			Commands->Start_Timer(obj, this, 10.0, ANNOUNCEMENT_DELAY);
-			
+
 			Commands->Start_Timer (obj, this, 0.1f, 1001);
 			GameObject *temp = Commands->Find_Object(1144977);
 			if (temp)
@@ -1607,14 +1607,14 @@ DECLARE_SCRIPT(M03_CommCenter_SateliteDish_Controller_JDG, "")
 				Commands->Send_Custom_Event( obj, obj, 0, play_sounds, 0 );
 			}
 		}
-	
+
 		if (param == play_sounds)
 		{
 			const char *soundName = "Satelite Dish Moving Twiddler";
 			Vector3 soundPosition (-110.26f, 41.30f, 19.37f);
 
 			Commands->Create_Sound ( soundName, soundPosition, obj );
-			
+
 			float delayTimer = Commands->Get_Random ( 0, 3 );
 			if (obj) {
 				Commands->Send_Custom_Event( obj, obj, 0, play_sounds, delayTimer );
@@ -1658,19 +1658,19 @@ DECLARE_SCRIPT(M03_CommCenter_SateliteDish_Controller_JDG, "")
 				Commands->Send_Custom_Event( obj, obj, 0, play_sounds, 0 , 0.0f);
 			}
 		}
-	
+
 		if (param == play_sounds)
 		{
 			char *soundName = "Refinery Crusher Twiddler";
 			Vector3 soundPosition (-179.60f, -2.03f, 3.42f);
 
 			Commands->Create_Sound ( soundName, soundPosition, obj );
-			
+
 			float delayTimer = Commands->Get_Random ( 0, 5 );
 			if (obj) {
 				Commands->Send_Custom_Event( obj, obj, 0, play_sounds, delayTimer , 0.0f);
 			}
-			
+
 		}
 	}
 };*/
@@ -1713,14 +1713,14 @@ DECLARE_SCRIPT(M03_Ambient_Birdcall_Controller_JDG, "")
 				Commands->Send_Custom_Event( obj, obj, 0, play_birdcall, 0 );
 			}
 		}
-	
+
 		if (param == play_birdcall)
 		{
 			const char *soundName = "Birdcall Twiddler";
 			Vector3 soundPosition;
 
 			GameObject * star = Commands->Get_A_Star (Vector3(0.0f,0.0f,0.0f));
-			if ( star != NULL ) 
+			if ( star != NULL )
 			{
 				Vector3 playerPosition = Commands->Get_Position ( star );
 
@@ -1845,7 +1845,7 @@ DECLARE_SCRIPT(M03_Announce_PowerPlant_Controller_JDG, "")
 
 	void Custom( GameObject * obj, int /*type*/, intptr_t param, GameObject * /*sender*/ ) override
 	{
-		
+
 
 		if (param == stop_announcements)
 		{
@@ -1874,7 +1874,7 @@ DECLARE_SCRIPT(M03_Announce_PowerPlant_Controller_JDG, "")
 			if (obj) {
 				Commands->Send_Custom_Event( obj, obj, 0, play_sound, 1.25 );
 			}
-			
+
 		}
 
 		else if (param == play_sound)
@@ -1910,18 +1910,18 @@ DECLARE_SCRIPT(M03_Announce_PowerPlant_Controller_JDG, "")
 			Commands->Create_Sound ( soundName, spkr_6_spot, obj );
 			Commands->Create_Sound ( soundName, spkr_7_spot, obj );
 
-		
+
 			float delayTimer = Commands->Get_Random ( announce_delay_min, announce_delay_max );
 			if (obj) {
 				Commands->Send_Custom_Event( obj, obj, 0, pick_sound, delayTimer );
 			}
-			
+
 		}
 
 		else if (param == pick_sound)
 		{
 
-			
+
 			float lineNumber = Commands->Get_Random ( 0.5f, total_number_of_sounds+0.5);
 
 			if ((lineNumber >= 0.5) && (lineNumber < 1.5))
@@ -2114,7 +2114,7 @@ DECLARE_SCRIPT(M03_Announce_PowerPlant_Controller_JDG, "")
 				}
 			}
 
-			else 
+			else
 			{
 				//soundName = "01-i022e";
 				sound = 18;
@@ -2129,9 +2129,9 @@ DECLARE_SCRIPT(M03_Announce_PowerPlant_Controller_JDG, "")
 	{
 		//soundName = "Klaxon Loop";
 
-		//Commands->Send_Custom_Event( obj, obj, 0, play_sound, 0 );		
+		//Commands->Send_Custom_Event( obj, obj, 0, play_sound, 0 );
 	}
-	
+
 
 };
 
@@ -2359,7 +2359,7 @@ DECLARE_SCRIPT(M03_Announce_Refinery_Controller_JDG, "")
 			Commands->Create_Sound ( soundName, spkr_16_spot, obj );
 			Commands->Create_Sound ( soundName, spkr_17_spot, obj );
 
-		
+
 			float delayTimer = Commands->Get_Random ( announce_delay_min, announce_delay_max );
 			if (obj) {
 				Commands->Send_Custom_Event( obj, obj, 0, pick_sound, delayTimer );
@@ -2516,7 +2516,7 @@ DECLARE_SCRIPT(M03_Announce_Refinery_Controller_JDG, "")
 				//soundName = "01-i074e";
 				sound = 14;
 				//01-i074E	"Additional tests are required for current Tiberium batch. Highest priority."
-				
+
 				if (obj) {
 					Commands->Send_Custom_Event( obj, obj, 0, play_klaxon, 0 );
 				}
@@ -2642,7 +2642,7 @@ DECLARE_SCRIPT(M03_Announce_Refinery_Controller_JDG, "")
 				}
 			}
 
-			else 
+			else
 			{
 				//soundName = "01-i022e";
 				sound = 27;
@@ -2658,7 +2658,7 @@ DECLARE_SCRIPT(M03_Announce_Refinery_Controller_JDG, "")
 		//soundName = "Klaxon Loop";
 
 		//Commands->Send_Custom_Event( obj, obj, 0, play_sound, 0 );
-		
+
 		Commands->Destroy_Object( Commands->Find_Object ( 600067 ) );
 		Commands->Destroy_Object( Commands->Find_Object ( 600068 ) );
 		Commands->Destroy_Object( Commands->Find_Object ( 600069 ) );
@@ -2813,7 +2813,7 @@ DECLARE_SCRIPT(M03_Announce_CommCenter_Controller_JDG, "")
 			Commands->Create_Sound ( soundName, spkr_6_spot, obj );
 			Commands->Create_Sound ( soundName, spkr_7_spot, obj );
 
-		
+
 			float delayTimer = Commands->Get_Random ( announce_delay_min, announce_delay_max );
 			if (obj) {
 				Commands->Send_Custom_Event( obj, obj, 0, pick_sound, delayTimer );
@@ -2979,7 +2979,7 @@ DECLARE_SCRIPT(M03_Announce_CommCenter_Controller_JDG, "")
 				}
 			}
 
-			else 
+			else
 			{
 				//soundName = "01-i022e";
 				sound = 14;
@@ -2995,7 +2995,7 @@ DECLARE_SCRIPT(M03_Announce_CommCenter_Controller_JDG, "")
 		//soundName = "Klaxon Loop";
 
 		//Commands->Send_Custom_Event( obj, obj, 0, play_sound, 0 );
-		
+
 		Commands->Destroy_Object( Commands->Find_Object ( 600042 ) );
 		Commands->Destroy_Object( Commands->Find_Object ( 600056 ) );
 		Commands->Destroy_Object( Commands->Find_Object ( 600057 ) );
@@ -3008,18 +3008,18 @@ DECLARE_SCRIPT(M03_Announce_CommCenter_Controller_JDG, "")
 		Commands->Destroy_Object( Commands->Find_Object ( 600064 ) );
 		Commands->Destroy_Object( Commands->Find_Object ( 600065 ) );
 	}
-	
+
 
 };
 
 //Grants initial weapons and key needed for Level 3
 DECLARE_SCRIPT(M03_Initial_Powerups, "")
 {
-	enum 
+	enum
 	{
 		POWERUP_TIMER,
 	};
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 0.5f, POWERUP_TIMER);
@@ -3045,7 +3045,7 @@ DECLARE_SCRIPT(M03_Initial_Powerups, "")
 			{
 				Commands->Start_Timer(obj, this, 1.0f, POWERUP_TIMER);
 			}
-		}	
+		}
 	}
 
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
@@ -3061,19 +3061,19 @@ DECLARE_SCRIPT(M03_Commando_Script, "Controller_ID:int")
 {
 	bool has_escort;
 	int follower_id;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE(has_escort, 1);
 		SAVE_VARIABLE(follower_id, 2);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		has_escort = false;
 		follower_id = 0;
 	}
-	
+
 	void Sound_Heard(GameObject * /*obj*/, const CombatSound & sound) override
 	{
 		if (sound.Type >= 991)
@@ -3105,7 +3105,7 @@ DECLARE_SCRIPT(M03_Commando_Script, "Controller_ID:int")
 				has_escort = true;
 				follower_id = Commands->Get_ID(sender);
 			}
-			
+
 		}
 
 		if (type == 3100 && param == 3100)
@@ -3117,7 +3117,7 @@ DECLARE_SCRIPT(M03_Commando_Script, "Controller_ID:int")
 			}
 		}
 	}
-	
+
 	void Destroyed(GameObject * obj) override
 	{
 		GameObject *con = Commands->Find_Object(Get_Int_Parameter("Controller_ID"));
@@ -3137,7 +3137,7 @@ DECLARE_SCRIPT(M03_Commando_Script, "Controller_ID:int")
 				Commands->Send_Custom_Event(obj, escort, 1001, 1001, 0.0f);
 			}
 		}
-		
+
 		// HACK
 		GameObject *tailgun_zone = Commands->Find_Object(1141168);
 		if (tailgun_zone)
@@ -3151,12 +3151,12 @@ DECLARE_SCRIPT(M03_Commando_Script, "Controller_ID:int")
 DECLARE_SCRIPT(M03_Move_Commando_To_Start, "")
 {
 	enum {M03_COMMANDO_MOVE_TIMER};
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 1.0f, M03_COMMANDO_MOVE_TIMER);
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int timer_id) override
 	{
 		if (timer_id == M03_COMMANDO_MOVE_TIMER)
@@ -3166,7 +3166,7 @@ DECLARE_SCRIPT(M03_Move_Commando_To_Start, "")
 			Commands->Set_Position(star, pos);
 		}
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == 100) && (param == 100))
@@ -3190,7 +3190,7 @@ DECLARE_SCRIPT(M03_Chinook_Drop_Soldiers_GDI, "Controller_ID:int")
 		SAVE_VARIABLE( count, 2);
 		SAVE_VARIABLE( count2, 2);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		con_id = Get_Int_Parameter("Controller_ID");
@@ -3201,11 +3201,11 @@ DECLARE_SCRIPT(M03_Chinook_Drop_Soldiers_GDI, "Controller_ID:int")
 	{
 		return type - 4001;
 	}
-	
+
 	void Custom(GameObject * /*obj*/, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		GameObject *soldier;
-		
+
 		soldier = Commands->Find_Object(param);
 		if (type > 4000)
 		{
@@ -3214,7 +3214,7 @@ DECLARE_SCRIPT(M03_Chinook_Drop_Soldiers_GDI, "Controller_ID:int")
 				char params[80];
 				sprintf(params, "%d,2000,%d", Find_Location(type), con_id);
 				Commands->Attach_Script(soldier, "M03_Chinook_Spawned_Soldier_GDI", params);
-				
+
 				if (Find_Location(type) == 1)
 				{
 					char params2[80];
@@ -3257,7 +3257,7 @@ DECLARE_SCRIPT(M03_Inlet_Soldier_GDI, "Number:int")
 			Commands->Start_Timer(obj, this, 10.0f, 0);
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int /*timer_id*/) override
 	{
 		ActionParamsStruct params;
@@ -3291,7 +3291,7 @@ DECLARE_SCRIPT(M03_Beach_Soldier_GDI, "Number:int")
 	//		Commands->Start_Timer(obj, this, 10.0f, 0);
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int /*timer_id*/) override
 	{
 		ActionParamsStruct params;
@@ -3302,7 +3302,7 @@ DECLARE_SCRIPT(M03_Beach_Soldier_GDI, "Number:int")
 	}
 };
 
-//Keeps track of current GDI soldiers and brings in area-specific reinforcements when they 
+//Keeps track of current GDI soldiers and brings in area-specific reinforcements when they
 //are gone.  Also tracks "Fortify Beachhead" objective status
 DECLARE_SCRIPT(M03_Chinook_Reinforcements, "Beach_Preset:string, Inlet_Preset:string, Base_Preset:string, Trigger_Count:int")
 {
@@ -3352,13 +3352,13 @@ DECLARE_SCRIPT(M03_Chinook_Reinforcements, "Beach_Preset:string, Inlet_Preset:st
 					GameObject *objective_controller;
 					objective_controller = Commands->Find_Object(1100004);
 					if (objective_controller && !objective_completed)
-					{						
+					{
 						//Commands->Send_Custom_Event(obj, objective_controller, 301, 1, 0.0f);
 						//objective_completed = true;
 					}
 				}
 			}
-			
+
 			if ((current[param] >= count) && (active[param]) && Commands->Find_Object(1100003))
 			{
 				current[param] = 0;
@@ -3383,7 +3383,7 @@ DECLARE_SCRIPT(M03_Chinook_Reinforcements, "Beach_Preset:string, Inlet_Preset:st
 					con = Commands->Create_Object(inlet, Vector3(84.398f, -45.703f, 1.0f));
 					Commands->Set_Facing(con, 100.0f);
 					break;
-				case 2: const char *base; 
+				case 2: const char *base;
 					base = Get_Parameter("Base_Preset");
 					con = Commands->Create_Object(base, Vector3(-94.822f, 15.727f, 10.0f));
 					Commands->Set_Facing(con, -155.0f);
@@ -3435,7 +3435,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 	int area, send_type, target_id, null_count;
 	bool in_place, en_route, escorting, diverted;
 
-	enum 
+	enum
 	{
 		BUNKER_OCCUPY = 50
 	};
@@ -3451,7 +3451,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 		SAVE_VARIABLE( escorting, 7 );
 		SAVE_VARIABLE( diverted, 8);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		escorting = false;
@@ -3547,7 +3547,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 			{
 				Commands->Send_Custom_Event(obj, bunker, 3000, 3000, 0.0f);
 			}
-			
+
 			GameObject *target = Commands->Find_Object(target_id);
 			if (target)
 			{
@@ -3601,7 +3601,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 			{
 				Commands->Set_Innate_Soldier_Home_Location(obj, Commands->Get_Position(obj), 2000.0f);
 			}
-			
+
 			int id = Commands->Create_Conversation("M03CON040",99, 200, false);
 			Commands->Join_Conversation(obj, id, true, true, true);
 			Commands->Start_Conversation(id, 100040);
@@ -3638,7 +3638,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 		if (type == 999 && param == 999)
 		{
 			Vector3 dest = Vector3(0,0,0);
-			
+
 			Commands->Action_Reset(obj, 100);
 
 			switch (area)
@@ -3650,7 +3650,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 			case 2: dest.Set(-125, 13, 9.362f);
 				break;
 			}
-			
+
 			if (escorting)
 			{
 				escorting = false;
@@ -3672,7 +3672,7 @@ DECLARE_SCRIPT(M03_Chinook_Spawned_Soldier_GDI, "Area:int, Send_Type_When_Killed
 		{
 			escorting = false;
 			Vector3 dest = Vector3(0,0,0);
-			
+
 			Commands->Action_Reset(obj, 100);
 
 			switch (area)
@@ -3708,7 +3708,7 @@ DECLARE_SCRIPT(M03_Objective_Tracker, "")
 	{
 		number_completed = 0;
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if ((type == 300) || (type == 308) || (type == 309))
@@ -3742,14 +3742,14 @@ DECLARE_SCRIPT(M03_Intro_Substitute, "")
 		GameObject *target;
 		target = Commands->Find_Object(1111000);
 		if (target) {
-			
+
 			Commands->Send_Custom_Event(obj, target, 100, 100, 0.0f);
 			Commands->Send_Custom_Event(obj, target, 200, 200, 420.0f/30.0f);
 			Commands->Start_Timer(obj, this, 420.0f/30.0f, 0);
 		}
 		target = Commands->Find_Object(1100004);
 		if (target) {
-			Commands->Start_Timer(obj, this, 8.5f, 9997);			
+			Commands->Start_Timer(obj, this, 8.5f, 9997);
 		}
 	}
 
@@ -3806,7 +3806,7 @@ DECLARE_SCRIPT(M03_Intro_Substitute, "")
 
 
 	void Timer_Expired(GameObject * obj, int timer_id) override
-	{		
+	{
 		if (timer_id == 9997)
 		{
 			int id = Commands->Create_Conversation("M03CON039", 99, 2000, false);
@@ -3821,7 +3821,7 @@ DECLARE_SCRIPT(M03_Intro_Substitute, "")
 DECLARE_SCRIPT(M03_Alternate_Sam_Site, "Chinook_Controller_ID:int")
 {
 	bool spoke;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE(spoke, 1);
@@ -3830,9 +3830,9 @@ DECLARE_SCRIPT(M03_Alternate_Sam_Site, "Chinook_Controller_ID:int")
 	void Created(GameObject * /*obj*/) override
 	{
 		spoke = false;
-		
+
 	}
-	
+
 	void Custom(GameObject * obj, int /*type*/, intptr_t param, GameObject * /*sender*/) override
 	{
 		if (Commands->Find_Object(1100003) == NULL)
@@ -3864,7 +3864,7 @@ DECLARE_SCRIPT(M03_Alternate_Sam_Site, "Chinook_Controller_ID:int")
 		if (target) {
 			target_pos = Commands->Get_Position(target);
 		}
-		if (target) 
+		if (target)
 		{
 			float range = Commands->Get_Distance(obj_pos, target_pos);
 			if (range <= 60.0f)
@@ -3885,7 +3885,7 @@ DECLARE_SCRIPT(M03_Alternate_Sam_Site, "Chinook_Controller_ID:int")
 			}
 			Commands->Start_Timer(obj, this, 1.0f, timer_id);
 		}
-	} 
+	}
 };
 
 DECLARE_SCRIPT(M03_Flyover_Controller, "")
@@ -3898,7 +3898,7 @@ DECLARE_SCRIPT(M03_Flyover_Controller, "")
 		SAVE_VARIABLE(last, 1);
 		SAVE_VARIABLE(comanches, 2);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 25.0f, 0);
@@ -3946,7 +3946,7 @@ DECLARE_SCRIPT(M03_Flyover_Controller, "")
 				Commands->Start_Timer(obj, this, 25.0f, 0);
 				return;
 			}
-		while (random == last) 
+		while (random == last)
 		{
 			random = int(Commands->Get_Random(0, 17-WWMATH_EPSILON));
 		}
@@ -3965,7 +3965,7 @@ DECLARE_SCRIPT(M03_Destroyed_Chinook, "Controller_ID:int, Simple_ID:int")
 		Commands->Join_Conversation(NULL, id, true, true, true);
 		Commands->Join_Conversation(STAR, id, true, true, true);
 		Commands->Start_Conversation(id, 0);*/
-		
+
 		GameObject *con = Commands->Find_Object(Get_Int_Parameter("Controller_ID"));
 		GameObject *sim = Commands->Find_Object(Get_Int_Parameter("Simple_ID"));
 		if (con) {
@@ -3994,7 +3994,7 @@ DECLARE_SCRIPT(M03_Chinook_Fodder_Creator, "")
 		if ((type == 3000) && (param == 3000))
 		{
 			GameObject *obj_con = Commands->Find_Object(1100004);
-			if (obj_con) 
+			if (obj_con)
 			{
 				Commands->Send_Custom_Event(obj, obj_con, 302, 3, 0.0f);
 			}
@@ -4012,7 +4012,7 @@ DECLARE_SCRIPT(M03_Chinook_Fodder_Creator, "")
 			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Start_Conversation(id, 100043);
 			Commands->Monitor_Conversation(obj, id);
-						
+
 			//Commands->Attach_Script(obj, "M03_Chinook_Troop_Drop", "ChinookTest.txt, 78.08 -36.88 1.20, 130.00");
 		}
 	}
@@ -4022,7 +4022,7 @@ DECLARE_SCRIPT(M03_Chinook_Fodder_Creator, "")
 		if (action_id == 100043)
 		{
 			GameObject *obj_con = Commands->Find_Object(1100004);
-			if (obj_con) 
+			if (obj_con)
 			{
 				Commands->Send_Custom_Event(obj, obj_con, 302, 3, 0.0f);
 			}
@@ -4059,7 +4059,7 @@ DECLARE_SCRIPT(M03_Tailgun_Fodder_Zone, "Spawner_ID_1:int, Spawner_ID_2:int, Spa
 		Commands->Enable_Spawner(Get_Int_Parameter("Spawner_ID_2"), false);
 		Commands->Enable_Spawner(Get_Int_Parameter("Spawner_ID_3"), false);
 	}
-	
+
 	void Entered(GameObject * /*obj*/, GameObject * /*enterer*/) override
 	{
 		{
@@ -4096,7 +4096,7 @@ DECLARE_SCRIPT(M03_Tailgun_Fodder_Zone, "Spawner_ID_1:int, Spawner_ID_2:int, Spa
 				Exited(obj, STAR);
 			}
 		}
-		
+
 		if ((type == 200) && (param == 200))
 		{
 			Commands->Destroy_Object(obj);
@@ -4150,14 +4150,14 @@ DECLARE_SCRIPT(M03_Inlet_Nod_Reinforcements, "")
 #define FACE1 75.0f
 #define FACE2 170.0f
 #define FACE3 70.0f
-		
+
 	int count;
 
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( count, 1 );
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		count = 0;
@@ -4186,14 +4186,14 @@ DECLARE_SCRIPT(M03_Inlet_Nod_Reinforcements, "")
 			Commands->Attach_Script(con, "M03_Chinook_ParaDrop", "M03_Paratrooper");
 		}
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
 		if ((type == 300) && (param == 300))
 		{
 			count++;
 		}
-		
+
 		if (count >= 2)
 		{
 			Commands->Start_Timer(obj, this, 1.0f, 0);
@@ -4215,7 +4215,7 @@ DECLARE_SCRIPT(M03_Base_Patrol, "WaypathID:int")
 		params.WaypathID = Get_Int_Parameter("WaypathID");
 		Commands->Action_Goto(obj, params);
 	}
-	
+
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if (action_id == 0 && reason == ACTION_COMPLETE_LOW_PRIORITY)
@@ -4249,7 +4249,7 @@ DECLARE_SCRIPT(M03_Base_Harvester, "Tiberium_Loc:vector3, Dock_Location:vector3,
 		SAVE_VARIABLE(anim_count, 4);
 		SAVE_VARIABLE(power_off, 5);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		harvest_count = 0;
@@ -4257,7 +4257,7 @@ DECLARE_SCRIPT(M03_Base_Harvester, "Tiberium_Loc:vector3, Dock_Location:vector3,
 		playing_anim = false;
 		anim_count = 0;
 		power_off = false;
-		
+
 		ActionParamsStruct params;
 		params.Set_Basic(this, 99, HARVESTER_GOTO_TIBERIUM);
 		params.Set_Movement(Get_Vector3_Parameter("Tiberium_Loc"), 1.0f, 1.0f);
@@ -4289,15 +4289,15 @@ DECLARE_SCRIPT(M03_Base_Harvester, "Tiberium_Loc:vector3, Dock_Location:vector3,
 			params.Set_Movement(Vector3(0,0,0), 1.0f, 1.0f);
 			params.Dock_Vehicle(Get_Vector3_Parameter("Dock_Location"), Get_Vector3_Parameter("Dock_Entrance"));
 			Commands->Action_Dock(obj, params);
-			
-		} 
+
+		}
 		else
 		{
 			harvest_count++;
 			Gather_Tiberium();
 		}
 	}
-	
+
 	void Action_Complete(GameObject * obj, int action_id, ActionCompleteReason reason) override
 	{
 		if (reason != ACTION_COMPLETE_NORMAL)
@@ -4333,7 +4333,7 @@ DECLARE_SCRIPT(M03_Base_Harvester, "Tiberium_Loc:vector3, Dock_Location:vector3,
 		params.Set_Movement(Get_Vector3_Parameter("Tiberium_Loc"), 1.0f, 1.0f);
 		Commands->Action_Goto(obj, params);
 	}
-	
+
 	void Gather_Tiberium(void)
 	{
 		ActionParamsStruct params;
@@ -4392,14 +4392,14 @@ DECLARE_SCRIPT(M03_Reinforce_Area, "")
 #define BASE_FACING2 -120.0f
 #define BEACH_POSITION Vector3(-95.656f, -68.236f, 1.433f)
 #define BEACH_FACING -180.0f
-	
+
 	bool inlet_active, base_active, beach_active;
 	bool switcher, forced;
 	int count;
 	int target_killed[3];
 	int custom_count[3];
 	int max_reinforcements[3];
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE(inlet_active, 1);
@@ -4412,7 +4412,7 @@ DECLARE_SCRIPT(M03_Reinforce_Area, "")
 		SAVE_VARIABLE(forced, 8);
 		SAVE_VARIABLE(max_reinforcements, 9);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		inlet_active = base_active = switcher = false;
@@ -4429,7 +4429,7 @@ DECLARE_SCRIPT(M03_Reinforce_Area, "")
 	{
 		GameObject * officer1 = Commands->Find_Object (300009);
 		GameObject * officer2 = Commands->Find_Object (300010);
-		
+
 		/*if (inlet_active)
 		{
 			if (officer1 || officer2)
@@ -4598,7 +4598,7 @@ DECLARE_SCRIPT(M03_Reinforce_Area, "")
 			{
 				return;
 			}
-			
+
 			GameObject * con = Commands->Create_Object("Invisible_Object", (switcher) ? INLET_POSITION1 : INLET_POSITION2);
 			Commands->Set_Facing(con, (switcher) ? INLET_FACING1 : INLET_FACING2);
 			Commands->Attach_Script(con, "M03_Chinook_ParaDrop", "M03_Paratrooper");
@@ -4666,12 +4666,12 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 		SAVE_VARIABLE(dead, 2);
 		SAVE_VARIABLE(out, 3);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		Vector3 loc = Commands->Get_Position(obj);
 		float facing = Commands->Get_Facing(obj);
-		
+
 		GameObject *chinook_rail = Commands->Create_Object("Generic_Cinematic", loc);
 		Commands->Set_Model(chinook_rail, "X5D_Chinookfly");
 		Commands->Set_Facing(chinook_rail, facing);
@@ -4688,7 +4688,7 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 		Commands->Attach_Script(chinook, "M03_Reinforcement_Chinook", params);
 
 		chinook_id = Commands->Get_ID(chinook);
-		
+
 		// Destroy Chinook
 		Commands->Start_Timer(obj, this, 280.0f/30.0f, 0);
 		// Parachutes
@@ -4700,7 +4700,7 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 		Commands->Start_Timer(obj, this, 155.0f/30.0f, 5);
 		Commands->Start_Timer(obj, this, 165.0f/30.0f, 6);
 
-		
+
 	}
 
 	void Timer_Expired(GameObject * obj, int timer_id) override
@@ -4711,12 +4711,12 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 
 		switch (timer_id)
 		{
-		case 0: 
+		case 0:
 			GameObject *chinook;
 			chinook = Commands->Find_Object(chinook_id);
 			Commands->Destroy_Object(chinook);
 			break;
-		case 1: 
+		case 1:
 			if (out >= 1)
 			{
 				GameObject *para1;
@@ -4728,7 +4728,7 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para1, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 2: 
+		case 2:
 			if (out >= 2)
 			{
 				GameObject *para2;
@@ -4740,7 +4740,7 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para2, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 3: 
+		case 3:
 			if (out == 3)
 			{
 				GameObject *para3;
@@ -4752,10 +4752,10 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 				Commands->Attach_Script(para3, "M03_No_More_Parachute", "");
 			}
 			break;
-		case 4: 
+		case 4:
 			if (!dead)
 			{
-			
+
 			GameObject *box1 = Commands->Create_Object("Generic_Cinematic", loc);
 			Commands->Set_Model(box1, "X5D_Box01");
 			Commands->Set_Facing(box1, facing);
@@ -4775,10 +4775,10 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}*/
-		
+
 			}
 			break;
-		case 5: 
+		case 5:
 			if (!dead)
 			{
 
@@ -4801,10 +4801,10 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}*/
-				
+
 			}
 			break;
-		case 6: 
+		case 6:
 			if (!dead)
 			{
 
@@ -4827,10 +4827,10 @@ DECLARE_SCRIPT(M03_Chinook_ParaDrop, "Preset:string")
 			{
 				dead = true;
 			}*/
-			
+
 			}
 			break;
-		
+
 		}
 	}
 
@@ -4859,12 +4859,12 @@ DECLARE_SCRIPT(M03_Reinforcement_Chinook, "Controller_ID:int")
 	{
 		SAVE_VARIABLE(sound_id, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		sound_id = Commands->Create_3D_Sound_At_Bone("Chinook_Idle_01", obj, "V_FUSELAGE");
 	}
-	
+
 	void Killed(GameObject * obj, GameObject * /*killer*/) override
 	{
 		GameObject * con = Commands->Find_Object(Get_Int_Parameter(0));
@@ -4991,10 +4991,10 @@ DECLARE_SCRIPT(M03_SAM_Site_Logic, "")
 		SAVE_VARIABLE(ignore_ids, 2);
 		SAVE_VARIABLE(current, 3);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
-				
+
 		Commands->Enable_Enemy_Seen(obj, true);
 		target_acquired = false;
 		current = 0;
@@ -5004,7 +5004,7 @@ DECLARE_SCRIPT(M03_SAM_Site_Logic, "")
 		}
 		Commands->Start_Timer(obj, this, Commands->Get_Random(2, 3), 1);
 	}
-	
+
 	bool Is_Ignore_Target(int id)
 	{
 		bool retval = false;
@@ -5018,7 +5018,7 @@ DECLARE_SCRIPT(M03_SAM_Site_Logic, "")
 		}
 		return retval;
 	}
-	
+
 	void Enemy_Seen(GameObject * obj, GameObject * enemy) override
 	{
 		if (target_acquired)
@@ -5148,12 +5148,12 @@ DECLARE_SCRIPT(M03_Beach_Scenario_Controller, "")
 	{
 		SAVE_VARIABLE(count, 1);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		count = 0;
 	}
-	
+
 	void Custom(GameObject * obj, int /*type*/, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
 		count++;
@@ -5187,12 +5187,12 @@ DECLARE_SCRIPT(M03_Beach_Scenario_Controller, "")
 	{
 		SAVE_VARIABLE(active, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		active = false;
 	}
-	
+
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * sender) override
 	{
 		if (type == 100 && param == 100)
@@ -5243,10 +5243,10 @@ DECLARE_SCRIPT(M03_Beach_Scenario_Controller, "")
 {
 	void Created(GameObject * obj) override
 	{
-				
+
 		Commands->Grant_Key(obj, 6, true);
 		Commands->Grant_Key(obj, 2, true);
-		
+
 		ActionParamsStruct params;
 		params.Set_Basic(this, 99, 0);
 		params.Set_Movement(Vector3(0,0,0), RUN, 1.0f);
@@ -5257,8 +5257,8 @@ DECLARE_SCRIPT(M03_Beach_Scenario_Controller, "")
 
 	int Get_Waypath(int building)
 	{
-		int waypaths[3][4] = {{1144741, 1144741, 1144767, 1144767}, 
-								{1144800, 1144785, 1144816, 1144835}, 
+		int waypaths[3][4] = {{1144741, 1144741, 1144767, 1144767},
+								{1144800, 1144785, 1144816, 1144835},
 								{1144920, 1144851, 1144898, 1144873}};
 		return waypaths[building][Get_Int_Random(0, 3)];
 	}
@@ -5328,10 +5328,10 @@ DECLARE_SCRIPT(M03_Beach_Scenario_Controller, "")
 {
 	void Created(GameObject * obj) override
 	{
-				
+
 		Commands->Grant_Key(obj, 6, true);
 		Commands->Grant_Key(obj, 2, true);
-		
+
 		ActionParamsStruct params;
 		params.Set_Basic(this, 99, 0);
 		params.Set_Movement(Vector3(0,0,0), RUN, 1.0f);
@@ -5381,7 +5381,7 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 	float rumble_delay_max;
 	bool volcano_active;
 	bool debug_mode;
-	
+
 	float explosion_delay;
 	float rumble_delay;
 	Vector3 exploc[16];
@@ -5414,7 +5414,7 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 		explosion_delay_max = Get_Float_Parameter("Explosion_Delay_Max");
 		rumble_delay_min = Get_Float_Parameter("Rumble_Delay_Min");
 		rumble_delay_max = Get_Float_Parameter("Rumble_Delay_Max");
-		
+
 		volcano_active = false;
 
 		exploc[0].Set(11.53f,20.95f,50.73f);
@@ -5434,7 +5434,7 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 		exploc[14].Set(-144.31f,44.4f,9.33f);
 		exploc[15].Set(-68.42f,22.18f,20.73f);
 
-		
+
 
 	}
 
@@ -5443,7 +5443,7 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 		if((type == receive_type) && (param == receive_param))
 		{
 			Commands->Start_Timer(obj, this, 5.0, CLOUD_DELAY);
-			
+
 			volcano_active = true;
 			explosion_delay = Commands->Get_Random(explosion_delay_min, explosion_delay_max);
 			Commands->Start_Timer(obj, this, explosion_delay, 6701);
@@ -5453,9 +5453,9 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 			{
 				Commands->Start_Timer(obj, this, volcano_delay, volcano_timer_id);
 			}
-			
+
 		}
-				
+
 	}
 
 	void Timer_Expired(GameObject* obj, int timer_id) override
@@ -5476,16 +5476,16 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 		}
 
 		if (timer_id == MESSAGE_DELAY)
-		{			
+		{
 			int id = Commands->Create_Conversation("M03CON011", 99, 2000, true);
 			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Join_Conversation(STAR, id, true, true, true);
 			Commands->Start_Conversation(id, 100011);
-			Commands->Monitor_Conversation(obj, id);		
+			Commands->Monitor_Conversation(obj, id);
 		}
 
 		if (timer_id == ANNOUNCEMENT_DELAY)
-		{			
+		{
 			int id = Commands->Create_Conversation("M03CON048", 99, 2000, true);
 			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Start_Conversation(id, 100048);
@@ -5520,7 +5520,7 @@ DECLARE_SCRIPT(DLS_Volcano_Active, "Receive_Type=0:int, Receive_Param=0:int, Vol
 		}
 	}
 
-	
+
 	void Entered(GameObject* /*obj*/, GameObject* /*enterer*/) override
 	{
 			volcano_active = false;
@@ -5533,7 +5533,7 @@ DECLARE_SCRIPT(M03_Sakura_Explosion, "")
 	{
 		Commands->Create_Explosion_At_Bone( "Air Explosions Twiddler", obj, "ROTOR00", NULL);
 		Commands->Create_Explosion_At_Bone( "Air Explosions Twiddler", obj, "TURRET", NULL);
-		Commands->Create_Explosion_At_Bone( "Air Explosions Twiddler", obj, "ROTOR01", NULL);	
+		Commands->Create_Explosion_At_Bone( "Air Explosions Twiddler", obj, "ROTOR01", NULL);
 	}
 };
 
@@ -5541,7 +5541,7 @@ DECLARE_SCRIPT(M03_Sakura_Explosion, "")
 
 DECLARE_SCRIPT(DLS_Volcano_Stumble, "Debug_Mode=0:int")
 {
-	enum {FALL_FORWARD, FALL_BACK, RISE_FORWARD, RISE_BACK, 
+	enum {FALL_FORWARD, FALL_BACK, RISE_FORWARD, RISE_BACK,
 			FLEE_VOLCANO, STUMBLE};
 
 	bool animating;
@@ -5558,7 +5558,7 @@ DECLARE_SCRIPT(DLS_Volcano_Stumble, "Debug_Mode=0:int")
 		Commands->Set_Innate_Take_Cover_Probability ( obj, 100.0f );
 		Commands->Set_Innate_Aggressiveness ( obj, 100.0f );
 	}
-	
+
 	/*void Timer_Expired(GameObject* obj, int timer_id)
 	{
 		if(timer_id == 4455)
@@ -5575,7 +5575,7 @@ DECLARE_SCRIPT(DLS_Volcano_Stumble, "Debug_Mode=0:int")
 				Commands->Action_Play_Animation(obj, params);
 				//Commands->Start_Timer(obj, this, 6.0f, 4455);
 			}
-			
+
 			if(i == 1)
 			{
 				ActionParamsStruct params;
@@ -5585,7 +5585,7 @@ DECLARE_SCRIPT(DLS_Volcano_Stumble, "Debug_Mode=0:int")
 				Commands->Action_Play_Animation(obj, params);
 				//Commands->Start_Timer(obj, this, 6.0f, 4455);
 			}
-			
+
 			if(i == 2)
 			{
 				ActionParamsStruct params;
@@ -5616,7 +5616,7 @@ DECLARE_SCRIPT(DLS_Volcano_Stumble, "Debug_Mode=0:int")
 				Commands->Action_Play_Animation(obj, params);
 				//Commands->Start_Timer(obj, this, 6.0f, 4455);
 			}
-			
+
 			if(i == 1)
 			{
 				ActionParamsStruct params;
@@ -5626,7 +5626,7 @@ DECLARE_SCRIPT(DLS_Volcano_Stumble, "Debug_Mode=0:int")
 				Commands->Action_Play_Animation(obj, params);
 				//Commands->Start_Timer(obj, this, 6.0f, 4455);
 			}
-			
+
 			if(i == 2)
 			{
 				ActionParamsStruct params;
@@ -5732,7 +5732,7 @@ DECLARE_SCRIPT(M03_Beach_Radio, "")
 				"M03CON045",
 				"M03CON046"
 			};
-			
+
 
 			conv_id = Commands->Create_Conversation(conv[conv_count++], 0, 0, true);
 			Commands->Join_Conversation(NULL, conv_id, true, true, true);
@@ -5770,7 +5770,7 @@ DECLARE_SCRIPT(M03_Protect_The_MCT, "Building:int")
 	{
 		completed = false;
 	}
-	
+
 	void Enemy_Seen(GameObject * obj, GameObject * enemy) override
 	{
 		if (!completed && Commands->Is_A_Star(enemy))
@@ -5780,7 +5780,7 @@ DECLARE_SCRIPT(M03_Protect_The_MCT, "Building:int")
 			/*int id = Commands->Create_Conversation("Protect_The_MCT", 0, 0, true);
 			Commands->Join_Conversation(obj, id, true, true, true);
 			Commands->Start_Conversation(id, 0);*/
-			
+
 			switch (Get_Int_Parameter("Building"))
 			{
 			case 0: // Refinery
@@ -5882,27 +5882,27 @@ DECLARE_SCRIPT(M03_Area_Troop_Counter, "")
 DECLARE_SCRIPT(M03_Mission_Complete_Zone, "")
 {
 	bool already_entered;
-	
-		
+
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /*obj*/) override
 	{
 		already_entered = false;
-				
+
 	}
-	
+
 	void Entered (GameObject * /*obj*/, GameObject * /*enterer*/) override
 	{
 		if (!already_entered)
 		{
 			already_entered = true;
-			
+
 			Commands->Mission_Complete ( true );
 		}
 	}
@@ -6099,7 +6099,7 @@ DECLARE_SCRIPT (M03_CommCenter_Arrow, "")
 			{
 				Commands->Send_Custom_Event( obj, Commands->Find_Object (1100004), 308, 2 , 0.0f);
 				Commands->Set_HUD_Help_Text ( IDS_M03DSGN_DSGN0206I1DSGN_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY );
-				
+
 				Commands->Start_Timer(obj, this, 4.0f, MISSION_FAIL);
 			}
 		}
@@ -6108,16 +6108,16 @@ DECLARE_SCRIPT (M03_CommCenter_Arrow, "")
 
 DECLARE_SCRIPT (M03_Mct_Poke, "")
 {
-	bool already_poked;	
-		
+	bool already_poked;
+
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_poked, 1 );		
+		SAVE_VARIABLE( already_poked, 1 );
 	}
 
 	void Created (GameObject * /*obj*/) override
 	{
-		already_poked = false;				
+		already_poked = false;
 	}
 
 	void Poked(GameObject * obj, GameObject * /*poker*/) override
@@ -6134,7 +6134,7 @@ DECLARE_SCRIPT (M03_Comm_Killed, "")
 {
 	bool base_entered;
 	float max_health;
-		
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( base_entered, 1 );
@@ -6161,7 +6161,7 @@ DECLARE_SCRIPT (M03_Comm_Killed, "")
 			Commands->Set_Health (obj, max_health);
 		}
 	}
-	
+
 	void Killed (GameObject * obj, GameObject * /*killer*/) override
 	{
 		Commands->Send_Custom_Event( obj, Commands->Find_Object (2009818), COMM_KILLED, 0 , 0.0f);
@@ -6173,7 +6173,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 {
 	bool already_entered;
 	bool first_conv_played;
-		
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( already_entered, 1 );
@@ -6214,7 +6214,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 			GameObject *objective_controller;
 			objective_controller = Commands->Find_Object(1100004);
 			if (objective_controller)
-			{						
+			{
 				Commands->Send_Custom_Event(obj, objective_controller, 307, 3, 0.0f);
 			}
 		}
@@ -6239,7 +6239,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 
 			int id = Commands->Create_Conversation("M03CON006", 99, 2000, true);
 			Commands->Join_Conversation(STAR, id, true, true, true);
-			Commands->Join_Conversation(NULL, id, true, true, true);			
+			Commands->Join_Conversation(NULL, id, true, true, true);
 			Commands->Start_Conversation(id, 100006);
 			Commands->Monitor_Conversation(obj, id);
 		}
@@ -6248,7 +6248,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 		{
 			switch(Get_Int_Parameter("Conv_Num"))
 			{
-			case 2: 
+			case 2:
 				{
 					already_entered = true;
 
@@ -6260,7 +6260,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					Commands->Start_Timer (obj, this, 2.0f, 100000);
 				}
 				break;
-			case 3: 
+			case 3:
 				{
 					already_entered = true;
 
@@ -6273,7 +6273,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					Commands->Monitor_Conversation(obj, id);
 				}
 				break;
-			case 4: 
+			case 4:
 				{
 					if (!Commands->Has_Key(STAR, 1))
 					{
@@ -6290,7 +6290,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					}
 				}
 				break;
-			case 7: 
+			case 7:
 				{
 					if (Commands->Has_Key(STAR, 1))
 					{
@@ -6307,7 +6307,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					}
 				}
 				break;
-			case 9: 
+			case 9:
 				{
 					if (Commands->Has_Key(STAR, 1))
 					{
@@ -6320,7 +6320,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					}
 				}
 				break;
-			case 16: 
+			case 16:
 				{
 					if (!Commands->Has_Key(STAR, 20))
 					{
@@ -6333,7 +6333,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					}
 				}
 				break;
-			case 22: 
+			case 22:
 				{
 					already_entered = true;
 
@@ -6344,7 +6344,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					Commands->Monitor_Conversation(obj, id);
 				}
 				break;
-			case 61: 
+			case 61:
 				{
 					already_entered = true;
 
@@ -6354,7 +6354,7 @@ DECLARE_SCRIPT (M03_Conversation_Zone, "Conv_Num:int")
 					Commands->Start_Conversation(id, 100061);
 					Commands->Monitor_Conversation(obj, id);
 				}
-				break;				
+				break;
 			}
 		}
 	}
@@ -6430,9 +6430,9 @@ DECLARE_SCRIPT(M03_KaneHead_JDG, "") //2017221
 	{
 		switch (complete_reason)
 		{
-			case ACTION_COMPLETE_CONVERSATION_ENDED: 
+			case ACTION_COMPLETE_CONVERSATION_ENDED:
 				{
-					if (action_id == 100061) 
+					if (action_id == 100061)
 					{
 						Commands->Debug_Message ( "***************************kane conversation 02 is over--sending delete custom\n" );
 						Commands->Send_Custom_Event ( obj, obj, 0, 8000, 2 );
@@ -6473,7 +6473,7 @@ DECLARE_SCRIPT(M03_Beach_Reinforce, "")
 	#define BASE_FACING1 -30.0f
 	#define BASE_POSITION2 Vector3(-79.0f, 59.0f, 9.5f)
 	#define BASE_FACING2 -120.0f
-	
+
 	int current_loc;
 	int counter;
 	int switcher;
@@ -6498,7 +6498,7 @@ DECLARE_SCRIPT(M03_Beach_Reinforce, "")
 	}
 
 	void Created (GameObject * /*obj*/) override
-	{	
+	{
 		current_loc = 0;
 		counter = 2;
 		switcher = 0;
@@ -6592,7 +6592,7 @@ DECLARE_SCRIPT(M03_Beach_Reinforce, "")
 				Commands->Attach_Script(con, "M03_Chinook_ParaDrop", "M03_Paratrooper");
 			}
 		}
-	}	
+	}
 
 	void Custom (GameObject *obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
@@ -6618,7 +6618,7 @@ DECLARE_SCRIPT(M03_Beach_Reinforce, "")
 				//counter = 4;
 			}
 		}
-		
+
 		if (type == INLET)
 		{
 			if (param == 1)
@@ -6762,7 +6762,7 @@ DECLARE_SCRIPT(M03_Engineer_Repair, "Repair_Priority=96:int")
 				target_id = Commands->Get_ID ( sound.Creator );
 
 				ActionParamsStruct params;
-				
+
 				params.Set_Basic( this, repair_priority, MOVE_TO_HEAL );
 				params.Set_Movement( Commands->Get_Position (sound.Creator), RUN, 5.0f );
 
@@ -6798,15 +6798,15 @@ DECLARE_SCRIPT(M03_Engineer_Repair, "Repair_Priority=96:int")
 DECLARE_SCRIPT(M03_Radar_Scramble, "")
 {
 	bool already_entered;
-	
+
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /*obj*/) override
 	{
-		already_entered = false;				
+		already_entered = false;
 	}
 
 	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
@@ -6848,7 +6848,7 @@ DECLARE_SCRIPT(M03_Radar_UnScramble, "")
 DECLARE_SCRIPT (M10_Elevator_All_Zone, "Controller_num:int")
 {
 	bool star_in_zone;
-	
+
 	REGISTER_VARIABLES()
 	{
 		SAVE_VARIABLE( star_in_zone, 1 );
@@ -6866,7 +6866,7 @@ DECLARE_SCRIPT (M10_Elevator_All_Zone, "Controller_num:int")
 		{
 			star_in_zone = true;
 			Commands->Send_Custom_Event(obj, Commands->Find_Object(Get_Int_Parameter("Controller_num")), ACTIVATE, 0, 0.0f);
-		}		
+		}
 	}
 };
 
@@ -6928,7 +6928,7 @@ DECLARE_SCRIPT (M10_Elevator_All_Controller, "")
 
 	void Custom (GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
 	{
-		
+
 		if (type == ACTIVATE)
 		{
 			Commands->Start_Timer (obj, this, 5.0f, 333);
@@ -6966,7 +6966,7 @@ DECLARE_SCRIPT (M10_Elevator_All_Controller, "")
 			Commands->Static_Anim_Phys_Goto_Frame ( 1300881, 0, "cave_lift.cave_lift" );
 		}
 
-		
+
 	}
 };
 
@@ -6994,7 +6994,7 @@ DECLARE_SCRIPT(M03_Paratrooper_Run, "")
 {
 	bool initial_damage;
 	float initial_health;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -7006,7 +7006,7 @@ DECLARE_SCRIPT(M03_Paratrooper_Run, "")
 	void Created( GameObject * /*obj*/ ) override
 	{
 		initial_damage = false;
-		
+
 	}
 
 	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
@@ -7060,13 +7060,13 @@ DECLARE_SCRIPT (M03_Damage_Modifier_All, "Damage_multiplier:float")
 		damage_tally = 0;
 	}
 
-	void Damaged( GameObject * obj, GameObject * /*damager*/, float /*amount*/ ) override 
+	void Damaged( GameObject * obj, GameObject * /*damager*/, float /*amount*/ ) override
 	{
 		float damage;
 
-		
+
 		current_health = Commands->Get_Health (obj);
-		if (current_health == 0) 
+		if (current_health == 0)
 		{
 			damage = ((last_health - current_health) + damage_tally);
 			damage_tally = 0;
@@ -7079,11 +7079,11 @@ DECLARE_SCRIPT (M03_Damage_Modifier_All, "Damage_multiplier:float")
 		}
 		float mod_damage = (damage * (Get_Float_Parameter("Damage_multiplier")));
 		damage_tally += mod_damage;
-		
+
 		Commands->Set_Health (obj, (last_health - mod_damage));
 		last_health = Commands->Get_Health (obj);
 		current_health = Commands->Get_Health (obj);
-		
+
 	}
 };
 
@@ -7101,15 +7101,15 @@ DECLARE_SCRIPT(M03_Cine_Explosion, "")
 DECLARE_SCRIPT(M03_ConYardSeen, "")
 {
 	bool already_entered;
-	
+
 	REGISTER_VARIABLES()
 	{
-		SAVE_VARIABLE( already_entered, 1 );		
+		SAVE_VARIABLE( already_entered, 1 );
 	}
 
 	void Created (GameObject * /*obj*/) override
 	{
-		already_entered = false;				
+		already_entered = false;
 	}
 
 	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
@@ -7134,7 +7134,7 @@ DECLARE_SCRIPT(M03_DataDiscMessage, "")
 {
 	void Custom( GameObject * /*obj*/, int type, intptr_t /*param*/, GameObject * /*sender*/ ) override
 	{
-		if ( type == CUSTOM_EVENT_POWERUP_GRANTED ) 
+		if ( type == CUSTOM_EVENT_POWERUP_GRANTED )
 		{
 			Commands->Set_HUD_Help_Text ( IDS_M00EVAG_DSGN0104I1EVAG_TXT, TEXT_COLOR_OBJECTIVE_PRIMARY  );
 		}

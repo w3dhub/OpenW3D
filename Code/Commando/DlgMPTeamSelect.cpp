@@ -297,7 +297,7 @@ void DlgMPTeamSelect::On_Init_Dialog(void)
 #endif
 
 		list->Add_Column(TRANSLATE (IDS_MENU_KD_RATIO),   0.15F, Vector3(1, 1, 1));
-		list->Add_Column(TRANSLATE (IDS_MENU_SCORE), 0.20F, Vector3(1, 1, 1));		
+		list->Add_Column(TRANSLATE (IDS_MENU_SCORE), 0.20F, Vector3(1, 1, 1));
 		}
 
 	int sidePref = -1;
@@ -309,16 +309,16 @@ void DlgMPTeamSelect::On_Init_Dialog(void)
 			{
 			const RefPtr<LoginInfo>& login = mWOLSession->GetCurrentLogin();
 			WWASSERT(login.IsValid());
-		
+
 			LoginProfile* profile = LoginProfile::Get(login->GetNickname());
-	
+
 			if (profile)
 				{
 				sidePref = profile->GetSidePreference();
 				profile->Release_Ref();
 				}
 			}
-	
+
 		// The start button is disabled until we hear from the host.
 		Enable_Dlg_Item(IDC_STARTGAME, false);
 
@@ -485,7 +485,7 @@ void DlgMPTeamSelect::InitSideChoice(int sidePref)
 * DESCRIPTION
 *
 * INPUTS
-*     Side - 
+*     Side -
 *
 * RESULT
 *     NONE
@@ -508,7 +508,7 @@ void DlgMPTeamSelect::SelectSideChoice(int side)
 * DESCRIPTION
 *
 * INPUTS
-*     Side - 
+*     Side -
 *
 * RESULT
 *     NONE
@@ -587,7 +587,7 @@ void DlgMPTeamSelect::ShowTimeRemaining(float remainingSeconds)
 
 	WideStringClass timeString(0, true);
 	timeString.Format(U_CHAR("%02d:%02d:%02d"), hours, mins, seconds);
-	
+
 	WideStringClass text(0, true);
 	text.Format(U_CHAR("%s: %s"), TRANSLATION(IDS_MP_TIME_REMAINING), (const unichar_t*)timeString);
 	Set_Dlg_Item_Text(IDC_TIME_REMAINING_TEXT, (const unichar_t*)text);
@@ -657,7 +657,7 @@ bool DlgMPTeamSelect::FindPlayerInListCtrl(const unichar_t* name, ListCtrlClass*
 *     Handle channel events that occur while the user is deceiding on the team.
 *
 * INPUTS
-*     ChannelEvent - 
+*     ChannelEvent -
 *
 * RESULT
 *     NONE
@@ -760,7 +760,7 @@ void DlgMPTeamSelect::HandleNotification(UserEvent& userEvent)
 *     Handle game options messages that come in from the server.
 *
 * INPUTS
-*     GameOpts - 
+*     GameOpts -
 *
 * RESULT
 *     NONE
@@ -847,7 +847,7 @@ void DlgMPTeamSelect::ProcessWOLGameInfo(DlgMPTeamSelect& dialog, const char* da
 
 		StringClass mapname(64, true);
 		ModPackageMgrClass::Find_Filename_From_CRC ("*.mix", mapCRC, &mapname);
-		
+
 		WideStringClass text(255, true);
 		text.Format(TRANSLATE (IDS_MENU_MAP_NAME_FORMAT), (const char*)mapname);
 		dialog.Set_Dlg_Item_Text(IDC_MAPNAME_TEXT, text);
@@ -979,7 +979,7 @@ void DlgMPTeamSelect::ProcessWOLPlayerInfo(DlgMPTeamSelect& dialog, const char* 
 			playerName = name;
 
 			int itemIndex = list->Find_Entry(COL_NAME, playerName);
-			
+
 			if (itemIndex == -1)
 				{
 				itemIndex = list->Insert_Entry(list->Get_Entry_Count(), U_CHAR(""));
@@ -1006,7 +1006,7 @@ void DlgMPTeamSelect::ProcessWOLPlayerInfo(DlgMPTeamSelect& dialog, const char* 
 						}
 					}
 #endif
-				
+
 				text.Format(U_CHAR("%d/%d"), kills, deaths);
 				list->Set_Entry_Text(itemIndex, COL_KD, text);
 
@@ -1099,7 +1099,7 @@ void DlgMPTeamSelect::AddLANPlayerInfo(cPlayer* player)
 	{
 	WWASSERT(player != NULL);
 	RemoveLANPlayerInfo(player);
-	
+
 	int playerType = player->Get_Player_Type();
 	int listID = ((playerType == PLAYERTYPE_GDI) ? IDC_GDI_LIST_CTRL : IDC_NOD_LIST_CTRL);
 

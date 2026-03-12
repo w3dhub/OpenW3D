@@ -29,7 +29,7 @@
 ** This is a timestep function for RigidBodyClass that tried to do orientation and
 ** position updates independently when a collision occured
 */
-#if 0  
+#if 0
 void RigidBodyClass::Timestep(float dt)
 {
 	const int MAX_BUMPS = 5;
@@ -109,7 +109,7 @@ void RigidBodyClass::Timestep(float dt)
 															Get_Collision_Group(),
 															COLLISION_TYPE_PHYSICAL);
 		PhysicsSceneClass::Get_Instance()->Cast_OBBox(boxmove);
-	
+
 		if (result.StartBad) {
 			remaining_time = 0;
 			State = oldstate;
@@ -122,13 +122,13 @@ void RigidBodyClass::Timestep(float dt)
 				// accepting the entire move
 				remaining_time -= timestep;
 				State.Position = p0 + 0.99f * move;
-				
+
 			} else {
 
 				// IMPACT!
 				// only take the fraction of time
 				remaining_time -= result.Fraction * timestep;
-				
+
 				// only move up to the collision point, minus a padding amount
 #if 0
 				float len = (result.Fraction * move).Length();
@@ -156,7 +156,7 @@ void RigidBodyClass::Timestep(float dt)
 
 				Vector3 impulse;
 				Compute_Impact(result,&impulse);
-				
+
 				Vector3 padot0,padot1;
 				Compute_Point_Velocity(result.Point,&padot0);
 
@@ -173,8 +173,8 @@ if (StickCount > 3) {
 	Apply_Impulse(result.Normal * 0.25f * Get_Weight());
 }
 Assert_State_Valid();
-			
-			
+
+
 			}
 		}
 
@@ -189,14 +189,14 @@ Assert_State_Valid();
 	Assert_State_Valid();
 
 
-	if (ContactBox != NULL) { 
+	if (ContactBox != NULL) {
 		ContactBox->Compute_Forces();
 	}
 
 #ifdef WWDEBUG
 	if(Is_Debug_Display_Enabled()) {
 		Add_Debug_Vector(State.Position,Velocity,LMOMENTUM_COLOR);
-		Add_Debug_Vector(State.Position,AngularVelocity,AMOMENTUM_COLOR);	
+		Add_Debug_Vector(State.Position,AngularVelocity,AMOMENTUM_COLOR);
 	}
 #endif
 
@@ -234,7 +234,7 @@ void RigidBodyClass::Timestep(float dt)
 	int collisions = 0;
 	float remaining_time = dt;
 	float timestep;
-	
+
 #ifdef RBODY_DEBUGGING
 	WWDEBUG_SAY(("clock counter begin:\r\n"));
 #endif
@@ -258,7 +258,7 @@ void RigidBodyClass::Timestep(float dt)
 		** Check the final state of the object for collision.
 		*/
 		if (!ContactBox->Is_Intersecting()) {
-		
+
 			/*
 			** Not intersecting so we're accepting the entire move
 			*/
@@ -271,7 +271,7 @@ void RigidBodyClass::Timestep(float dt)
 		} else {
 #ifdef RBODY_DEBUGGING
 			WWDEBUG_SAY(("Collision!  Searching for TOC.\r\n"));
-#endif			
+#endif
 			/*
 			** Sample the start and end positions and orientations.
 			*/
@@ -283,7 +283,7 @@ void RigidBodyClass::Timestep(float dt)
 			/*
 			** Assert that our start point was not intersecting.
 			*/
-#ifdef WWDEBUG			
+#ifdef WWDEBUG
 #ifdef RBODY_DEBUGGING
 			WWDEBUG_SAY(("Prev Position: %f %f %f\r\n",oldstate.Position.X,oldstate.Position.Y,oldstate.Position.Z));
 			WWDEBUG_SAY(("New Position: %f %f %f\r\n",State.Position.X,State.Position.Y,State.Position.Z));
@@ -335,7 +335,7 @@ void RigidBodyClass::Timestep(float dt)
 					t0 = t;
 				}
 			}
-	
+
 			/*
 			** t0 is guaranteed to be non-intersecting so use it for TOC
 			*/
@@ -361,7 +361,7 @@ void RigidBodyClass::Timestep(float dt)
 #ifdef RBODY_DEBUGGING
 //			WWDEBUG_SAY(("Position: %f %f %f\r\n",State.Position.X,State.Position.Y,State.Position.Z));
 //			WWDEBUG_SAY(("Orientation: %f %f %f %f\r\n",State.Orientation.X,State.Orientation.Y,State.Orientation.Z,State.Orientation.W));
-			WWASSERT(!ContactBox->Is_Intersecting());	
+			WWASSERT(!ContactBox->Is_Intersecting());
 #endif
 
 			/*
@@ -374,7 +374,7 @@ void RigidBodyClass::Timestep(float dt)
 
 			Vector3 point;
 			Vector3 normal;
-			
+
 			for (int i=0; i<ContactBox->Get_Contact_Count(); i++) {
 				if (ContactBox->Get_Contact(i).Fraction < frac) {
 					point = ContactBox->Get_Contact(i).Point;
@@ -400,7 +400,7 @@ void RigidBodyClass::Timestep(float dt)
 				int i;
 				Vector3 * impulses = new Vector3[ContactBox->Get_Contact_Count()];
 				for (i=0; i<ContactBox->Get_Contact_Count(); i++) {
-							
+
 					Vector3 point;
 					Vector3 normal;
 					point = ContactBox->Get_Contact(i).Point;
@@ -408,9 +408,9 @@ void RigidBodyClass::Timestep(float dt)
 					Compute_Impact(point,normal,&(impulses[i]));
 
 				}
-			
+
 				for (i=0; i<ContactBox->Get_Contact_Count(); i++) {
-							
+
 					Vector3 point;
 					point = ContactBox->Get_Contact(i).Point;
 					impulses[i] /= ContactBox->Get_Contact_Count();
@@ -419,18 +419,18 @@ void RigidBodyClass::Timestep(float dt)
 				}
 			}
 
-#endif	
+#endif
 #if 0		// Repeatedly compute impulses until the object is happy.
 
 			int cur_contact = 0;
 			int impact_count = 0;
 			bool done = false;
 			while (!done && (impact_count < 100)) {
-				
+
 				Vector3 impulse;
 				const Vector3 & point = ContactBox->Get_Contact(cur_contact).Point;
 				const Vector3 & normal = ContactBox->Get_Contact(cur_contact).Normal;
-							
+
 				if (Is_Colliding(point,normal)) {
 					Compute_Impact(point,normal,&impulse);
 					Apply_Impulse(impulse,point);
@@ -467,7 +467,7 @@ void RigidBodyClass::Timestep(float dt)
 #ifdef WWDEBUG
 	if(Is_Debug_Display_Enabled()) {
 		Add_Debug_Vector(State.Position,Velocity,LMOMENTUM_COLOR);
-		Add_Debug_Vector(State.Position,AngularVelocity,AMOMENTUM_COLOR);	
+		Add_Debug_Vector(State.Position,AngularVelocity,AMOMENTUM_COLOR);
 	}
 #endif
 

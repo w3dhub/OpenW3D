@@ -53,11 +53,11 @@ const int BACKFACE_VIS_ID	= 0x00FFFBAC;						// Vis id for backface pixels
 
 
 /*
-** VisRenderContextClass 
+** VisRenderContextClass
 ** This is a class derived from RenderInfoClass which is used by the visibility
 ** system.  It adds features needed in building the pre-calculated visibility tables
 ** for a level.  The way this is typically used is you set the vis id, then render
-** an object (and flush it) and then call the scan function to update the visibility 
+** an object (and flush it) and then call the scan function to update the visibility
 ** table.
 */
 class VisRenderContextClass : public SpecialRenderInfoClass
@@ -86,7 +86,7 @@ protected:
 
 	void						Scan_Frame_Buffer(const Vector2 & min_v,const Vector2 & max_v,VisSampleClass * sample);
 	void						Compute_2D_Bounds(const AABoxClass & wrld_bbox,Vector2 *	min_v,Vector2 * max_v);
-	
+
 	bool						VisIgnoreNonOccluders;
 
 private:

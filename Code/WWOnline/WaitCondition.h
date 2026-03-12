@@ -107,15 +107,15 @@ class SingleWait :
 
 		virtual void WaitBeginning(void) override;
 		virtual WaitResult GetResult(void) override;
-		
+
 		virtual void EndWait(WaitResult, const unichar_t*) override;
 
 		virtual const unichar_t* GetResultText(void) const override;
-		
+
 		virtual const unichar_t* GetWaitText(void) const override;
-		
+
 		virtual void SetWaitText(const unichar_t* waitText);
-	
+
 		virtual unsigned int GetTimeout(void) const override;
 
 	protected:
@@ -147,9 +147,9 @@ class SerialWait :
 		int RemainingWaits(void) const;
 
 		virtual void WaitBeginning(void) override;
-		
+
 		virtual WaitResult GetResult(void) override;
-		
+
 		virtual void EndWait(WaitResult, const unichar_t*) override;
 
 		virtual const unichar_t* GetResultText(void) const override;
@@ -190,11 +190,11 @@ class ANDWait :
 		virtual void WaitBeginning(void) override;
 
 		virtual WaitResult GetResult(void) override;
-		
+
 		virtual void EndWait(WaitResult, const unichar_t*) override;
 
 		virtual const unichar_t* GetResultText(void) const override;
-		
+
 		virtual const unichar_t* GetWaitText(void) const override;
 
 		virtual unsigned int GetTimeout(void) const override;
@@ -230,11 +230,11 @@ class ORWait :
 		virtual void WaitBeginning(void) override;
 
 		virtual WaitResult GetResult(void) override;
-		
+
 		virtual void EndWait(WaitResult, const unichar_t*) override;
 
 		virtual const unichar_t* GetResultText(void) const override;
-		
+
 		virtual const unichar_t* GetWaitText(void) const override;
 
 		virtual unsigned int GetTimeout(void) const override

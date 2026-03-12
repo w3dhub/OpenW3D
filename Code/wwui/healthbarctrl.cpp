@@ -79,7 +79,7 @@ HealthBarCtrlClass::HealthBarCtrlClass (void)	:
 //
 //////////////////////////////////////////////////////////////////////
 HealthBarCtrlClass::~HealthBarCtrlClass (void)
-{	
+{
 	return ;
 }
 
@@ -91,7 +91,7 @@ HealthBarCtrlClass::~HealthBarCtrlClass (void)
 ////////////////////////////////////////////////////////////////
 static void
 Blit_Section
-(	
+(
 	Render2DClass &		renderer,
 	const Vector2 &		screen_pos,
 	const Vector2 &		texture_pos,
@@ -111,7 +111,7 @@ Blit_Section
 	//
 	RectClass uv_rect (texture_pos.X, texture_pos.Y, texture_pos.X + pixels.X, texture_pos.Y + pixels.Y);
 	uv_rect.Inverse_Scale (Vector2 (texture_dimensions.X, texture_dimensions.Y));
-	
+
 	//
 	//	Draw the chunk
 	//
@@ -140,7 +140,7 @@ HealthBarCtrlClass::Create_Control_Renderer (void)
 	} else if (Percent <= 0.5F) {
 		color = RGB_TO_INT32 (255, 255, 0);
 	}
-	
+
 	//
 	//	Calculate how long to draw the texture
 	//
@@ -169,13 +169,13 @@ HealthBarCtrlClass::Create_Control_Renderer (void)
 		//
 		::Blit_Section (ControlRenderer, Vector2 (x_pos, Rect.Top), *texture_pos,
 			*size, TEXTURE_SIZE, color);
-		
+
 		//
 		//	Advance to the next section
 		//
 		x_pos					+= size->X;
 		remaining_width	-= size->X;
-		
+
 		//
 		//	Advance to the next texture chunk
 		//
@@ -185,7 +185,7 @@ HealthBarCtrlClass::Create_Control_Renderer (void)
 			texture_pos		= &texture_pos2;
 		}
 	}
-	
+
 	return ;
 }
 
@@ -225,7 +225,7 @@ HealthBarCtrlClass::Render (void)
 
 	//
 	//	Render the bar...
-	//	
+	//
 	ControlRenderer.Render ();
 
 	DialogControlClass::Render ();

@@ -105,7 +105,7 @@ DummyObjectNodeClass::DummyObjectNodeClass (const DummyObjectNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 DummyObjectNodeClass::~DummyObjectNodeClass (void)
-{	
+{
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_DisplayObj);
 	MEMBER_RELEASE (m_RealObj);
@@ -128,7 +128,7 @@ DummyObjectNodeClass::Initialize (void)
 	// Build the phys obj that is used as the position locator in the world.
 	// This is usefull for things like emitters which do not have anything
 	// to 'grab'...
-	//	
+	//
 	if (m_DisplayObj == NULL) {
 		m_DisplayObj = new DecorationPhysClass;
 		m_DisplayObj->Set_Model_By_Name ("DUMMY");
@@ -136,24 +136,24 @@ DummyObjectNodeClass::Initialize (void)
 		m_DisplayObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		::Set_Model_Collision_Type (m_DisplayObj->Peek_Model (), COLLISION_TYPE_0);
 	}
-		
+
 	DummyObjectDefinitionClass *definition = static_cast<DummyObjectDefinitionClass *> (m_Preset->Get_Definition ());
 	if (definition != NULL) {
 		MEMBER_RELEASE (m_RealObj);
 
 		//
 		//	Make sure we have all the assets loaded into memory that this object needs.
-		//			
+		//
 		m_Preset->Load_All_Assets ();
-		
+
 		//
 		//	Create the real physics object that will get exported to the game
 		//
 		m_RealObj						= new DecorationPhysClass;
 		CString render_obj_name		= ::Asset_Name_From_Filename (definition->Get_Model_Name ());
-		RenderObjClass *render_obj	= ::Create_Render_Obj (render_obj_name);		
+		RenderObjClass *render_obj	= ::Create_Render_Obj (render_obj_name);
 		if (render_obj != NULL) {
-			
+
 			//
 			//	Start the emitter if necessary
 			//
@@ -161,10 +161,10 @@ DummyObjectNodeClass::Initialize (void)
 				((ParticleEmitterClass *)render_obj)->Start ();
 				render_obj->Set_User_Data (m_RealObj);
 			}
-			
-			m_RealObj->Set_Model (render_obj);			
+
+			m_RealObj->Set_Model (render_obj);
 			MEMBER_RELEASE (render_obj);
-		}		
+		}
 
 		//
 		//	Update the transforms of both objects
@@ -183,7 +183,7 @@ DummyObjectNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 DummyObjectNodeClass::Get_Factory (void) const
-{	
+{
 	return _DummyNodePersistFactory;
 }
 
@@ -211,7 +211,7 @@ DummyObjectNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_DisplayObj != NULL && m_IsInScene) {
@@ -283,7 +283,7 @@ DummyObjectNodeClass::Remove_From_Scene (void)
 
 		MEMBER_RELEASE (m_RealObj);
 	}
-	
+
 	NodeClass::Remove_From_Scene ();
 	return ;
 }
@@ -308,7 +308,7 @@ DummyObjectNodeClass::Handle_Emitter_Transform (void)
 			if (buffer != NULL) {
 				buffer->Set_Transform (m_Transform);
 			}
-		}	
+		}
 	}
 
 	return ;
@@ -334,13 +334,13 @@ Remove_Particle_Buffers (RenderObjClass *render_obj)
 		}
 		MEMBER_RELEASE (sub_obj);
 	}
-	
+
 	//
 	// Is this the emitter we are requesting?
 	//
 	if ((render_obj != NULL) &&
 		 (render_obj->Class_ID () == RenderObjClass::CLASSID_PARTICLEEMITTER))
-	{		
+	{
 		ParticleBufferClass *buffer = ((ParticleEmitterClass *)render_obj)->Peek_Buffer ();
 		if (buffer != NULL && buffer->Peek_Scene () != NULL) {
 			::Get_Scene_Editor ()->Remove_Render_Object (buffer);

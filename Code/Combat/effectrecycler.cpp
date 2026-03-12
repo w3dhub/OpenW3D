@@ -242,8 +242,8 @@ RenderObjClass * EffectRecyclerClass::internal_get_model(const char * robj_name,
 		** Auto play an anim if we find it
 		*/
 		StringClass	anim_name;
-		anim_name.Format( "%s.%s", 
-			model->Get_HTree()->Get_Name(), 
+		anim_name.Format( "%s.%s",
+			model->Get_HTree()->Get_Name(),
 			model->Get_HTree()->Get_Name() );
 		WWASSERT(WW3DAssetManager::Get_Instance() != NULL);
 		HAnimClass * anim = WW3DAssetManager::Get_Instance()->Get_HAnim( anim_name );

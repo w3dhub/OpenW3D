@@ -54,7 +54,7 @@ const float SPAWN_TRANSITION_TIME = 2.0f;
 
 
 
-TransitionEffectClass * 
+TransitionEffectClass *
 CombatMaterialEffectManager::Get_Spawn_Effect(void)
 {
 	TransitionEffectClass * effect = NEW_REF(TransitionEffectClass,());
@@ -71,7 +71,7 @@ CombatMaterialEffectManager::Get_Spawn_Effect(void)
 	return effect;
 }
 
-TransitionEffectClass * 
+TransitionEffectClass *
 CombatMaterialEffectManager::Get_Death_Effect(void)
 {
 	TransitionEffectClass * effect = NEW_REF(TransitionEffectClass,());
@@ -85,11 +85,11 @@ CombatMaterialEffectManager::Get_Death_Effect(void)
 	TextureClass * tex = WW3DAssetManager::Get_Instance()->Get_Texture(DEATH_TRANSITION_TEXTURE);
 	effect->Set_Texture(tex);
 	REF_PTR_RELEASE(tex);
-  
+
 	return effect;
 }
 
-TransitionEffectClass * 
+TransitionEffectClass *
 CombatMaterialEffectManager::Get_Health_Effect(void)
 {
 	TransitionEffectClass * effect = NEW_REF(TransitionEffectClass,());
@@ -108,7 +108,7 @@ CombatMaterialEffectManager::Get_Health_Effect(void)
 	return effect;
 }
 
-TransitionEffectClass * 
+TransitionEffectClass *
 CombatMaterialEffectManager::Get_Electrocution_Effect(void)
 {
 	TransitionEffectClass * effect = NEW_REF(TransitionEffectClass,());

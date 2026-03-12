@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/sbbomanager.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/27/01 12:13p                                             $* 
- *                                                                                             * 
- *                    $Revision:: 6                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/sbbomanager.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/27/01 12:13p                                             $*
+ *                                                                                             *
+ *                    $Revision:: 6                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "sbbomanager.h"
@@ -77,7 +77,7 @@ cSbboManager::Think
 	// spending way too much time doing network updates.
 	//
 
-	if (!IsEnabled) 
+	if (!IsEnabled)
 	{
 		return;
 	}
@@ -86,7 +86,7 @@ cSbboManager::Think
 
 	float total_time = AccumTimeSNetUpdate + AccumTimeSCombatThink;
 
-	if (AccumTimeSCombatThink > 0 && total_time > 2) 
+	if (AccumTimeSCombatThink > 0 && total_time > 2)
 	{
 		NetToCombatRatio = AccumTimeSNetUpdate / AccumTimeSCombatThink;
 		AccumTimeSNetUpdate = 0;
@@ -118,7 +118,7 @@ cSbboManager::Think
 		}
 	}
 }
-			
+
 //-----------------------------------------------------------------------------
 void
 cSbboManager::Increment_Accum_Time_S_Net_Update
@@ -153,7 +153,7 @@ cSbboManager::Get_Net_To_Combat_Ratio
 )
 {
 	WWASSERT(cNetwork::I_Am_Server());
-	
+
 	return NetToCombatRatio;
 }
 

@@ -54,7 +54,7 @@
 // from TileClass so it can be used with the static culling system.
 //
 class StaticSoundCullObjClass : public TileClass
-{		
+{
 	public:
 
 		//////////////////////////////////////////////////////////////////////
@@ -97,10 +97,10 @@ class StaticSoundCullObjClass : public TileClass
 		virtual Sound3DClass *		Peek_Sound_Obj (void) const					{ return m_SoundObj; }
 
 	protected:
-		
+
 		//////////////////////////////////////////////////////////////////////
 		//	Protected methods
-		//////////////////////////////////////////////////////////////////////		
+		//////////////////////////////////////////////////////////////////////
 
 	private:
 
@@ -140,7 +140,7 @@ StaticSoundCullObjClass::Set_Transform (const Matrix3D &transform)
 }
 
 
-inline Sound3DClass *		
+inline Sound3DClass *
 StaticSoundCullObjClass::Get_Sound_Obj (void) const
 {
 	if (m_SoundObj != NULL) {
@@ -168,7 +168,7 @@ StaticSoundCullObjClass::Set_Sound_Obj (Sound3DClass *sound_obj)
 inline const AABoxClass &
 StaticSoundCullObjClass::Get_Bounding_Box (void) const
 {
-	// Get the 'real' values from the 
+	// Get the 'real' values from the
 	if (m_SoundObj != NULL) {
 		m_Transform = m_SoundObj->Get_Transform ();
 		m_AABox.Extent.X = m_SoundObj->Get_DropOff_Radius ();

@@ -81,10 +81,10 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 {
 	Vector2 point;
 	const int RADIUS = 4;
-	
+
 	switch (message)
 	{
-	
+
 	case WM_LBUTTONDOWN:
 		::SetCapture(hwnd);
 		break;
@@ -96,7 +96,7 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 	case WM_MOUSEMOVE:
 
 		if (wparam & MK_LBUTTON) {
-			
+
 			float ex,ey,cx,cy;
 			short x = LOWORD(lparam);
 			short y = HIWORD(lparam);
@@ -115,14 +115,14 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 
 			point.X = ((float)x - cx) / ex;
 			point.Y = ((float)y - cy) / ey;
-			
+
 			::SendMessage(GetParent(hwnd),JOYSTICK_UPDATE_COMMAND,GetWindowLong(hwnd,GWL_ID),(int)&point);
 			::InvalidateRect(hwnd,NULL,false);
 			::UpdateWindow(hwnd);
 
 			SetProp(hwnd,"XCOORD",(HANDLE)x);
 			SetProp(hwnd,"YCOORD",(HANDLE)y);
-		}	
+		}
 		break;
 
 	case WM_PAINT:
@@ -132,7 +132,7 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 			HDC hdc = GetDC(hwnd);
 			FillRect(hdc,&rect,(HBRUSH)GetStockObject(WHITE_BRUSH));
 			FrameRect(hdc,&rect,(HBRUSH)GetStockObject(BLACK_BRUSH));
-			
+
 			MoveToEx(hdc,rect.right/2,0,NULL);
 			LineTo(hdc,rect.right/2,rect.bottom);
 			MoveToEx(hdc,0,rect.bottom/2,NULL);
@@ -153,7 +153,7 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 		}
 		break;
 	}
-	
+
 	WNDPROC oldwndproc = (WNDPROC)GetProp(hwnd,"OldWndProc");
 	//return CallWindowProc(oldwndproc,hwnd,message,wparam,lparam);
 	return DefWindowProc (hwnd, message, wparam, lparam);
@@ -162,15 +162,15 @@ LRESULT CALLBACK JoystickWndProc(HWND hwnd,unsigned int message,WPARAM wparam,LP
 /////////////////////////////////////////////////////////////////////////////
 // CVJoyDialog message handlers
 
-BOOL CVJoyDialog::OnInitDialog() 
+BOOL CVJoyDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	RECT rect;
-	
-	HWND movexy_wnd = ::GetDlgItem(m_hWnd,IDC_MOVEXY_STATIC);	
+
+	HWND movexy_wnd = ::GetDlgItem(m_hWnd,IDC_MOVEXY_STATIC);
 	void *oldproc = (void *)SetWindowLongPtr(movexy_wnd,GWL_WNDPROC,(LONG_PTR)JoystickWndProc);
 	SetProp(movexy_wnd,"OldWndProc",(void*)oldproc);
-	
+
 	::GetClientRect(movexy_wnd,&rect);
 	SetProp(movexy_wnd,"XCOORD",(HANDLE)(rect.right/2));
 	SetProp(movexy_wnd,"YCOORD",(HANDLE)(rect.bottom/2));
@@ -190,7 +190,7 @@ BOOL CVJoyDialog::OnInitDialog()
 }
 
 
-LRESULT CVJoyDialog::WindowProc(UINT message, WPARAM wParam, LPARAM lParam) 
+LRESULT CVJoyDialog::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == JOYSTICK_UPDATE_COMMAND) {
 		Vector2 * point = (Vector2*)lParam;
@@ -201,27 +201,27 @@ LRESULT CVJoyDialog::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 			// Nothing to do here anymore...
 		}
 	}
-	
+
 	return CDialog::WindowProc(message, wParam, lParam);
 }
 
-void CVJoyDialog::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) 
+void CVJoyDialog::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	if (pScrollBar == GetDlgItem(IDC_MOVEZ_SLIDER)) {
 		Controller.Set_Move_Up(1.0f - 2.0f * (float)m_MoveZSlider.GetPos() / (float)SLIDER_RESOLUTION);
-	} 
+	}
 #if 0
 	else if (pScrollBar == GetDlgItem(IDC_TURNZ_SLIDER)) {
 		Controller.Set_Turn_Left(1.0f - 2.0f * (float)m_TurnZSlider.GetPos() / (float)SLIDER_RESOLUTION);
 	}
 #endif
-	
+
 	CDialog::OnVScroll(nSBCode, nPos, pScrollBar);
 }
 
-void CVJoyDialog::OnDestroy() 
+void CVJoyDialog::OnDestroy()
 {
-	HWND movexy_wnd = ::GetDlgItem(m_hWnd,IDC_MOVEXY_STATIC);	
+	HWND movexy_wnd = ::GetDlgItem(m_hWnd,IDC_MOVEXY_STATIC);
 	RemoveProp(movexy_wnd,"OldWndProc");
 	RemoveProp(movexy_wnd,"XCOORD");
 	RemoveProp(movexy_wnd,"YCOORD");

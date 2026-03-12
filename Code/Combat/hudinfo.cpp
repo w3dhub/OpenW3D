@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/hudinfo.cpp                           $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/03/02 8:16p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 17                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/hudinfo.cpp                           $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/03/02 8:16p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 17                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "hudinfo.h"
@@ -59,7 +59,7 @@ bool					HUDInfo::IsMCT	 = false;
 **
 */
 void	HUDInfo::Set_Info_Object( DamageableGameObj * obj, bool is_mct )
-{ 
+{
 	static void * last_info_object = NULL;
 	static float  last_info_health = 0;
 
@@ -83,8 +83,8 @@ void	HUDInfo::Set_Info_Object( DamageableGameObj * obj, bool is_mct )
 		last_info_object = obj;
 		last_info_health = obj->Get_Defense_Object()->Get_Health();
 	}
-	InfoObject = obj; 
-	InfoObjectTimer = 0; 
+	InfoObject = obj;
+	InfoObjectTimer = 0;
 
 //	Debug_Say(( "Set Info Object %s\n", obj ? obj->Get_Definition().Get_Name() : "NONE" ));
 
@@ -153,7 +153,7 @@ void	HUDInfo::Update_Info_Object( void )
 
 
 void	HUDInfo::Set_Weapon_Target_Object( DamageableGameObj * obj )
-{ 
+{
 //	Debug_Say(( "Set Weapon Target %s\n", obj ? obj->Get_Definition().Get_Name() : "NONE" ));
-	WeaponTargetObject = obj; 
+	WeaponTargetObject = obj;
 }

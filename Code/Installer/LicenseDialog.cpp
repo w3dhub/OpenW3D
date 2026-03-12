@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/LicenseDialog.cp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 12/04/01 5:17p                $* 
- *                                                                                             * 
- *                    $Revision:: 7                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/LicenseDialog.cp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 12/04/01 5:17p                $*
+ *                                                                                             *
+ *                    $Revision:: 7                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -53,7 +53,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LicenseDialogClass::On_Init_Dialog (void)
 {
@@ -82,7 +82,7 @@ void LicenseDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LicenseDialogClass::Load_License (const char *licensefilename)
 {
@@ -92,7 +92,7 @@ void LicenseDialogClass::Load_License (const char *licensefilename)
 	// Load up the license agreement text.
 	// NOTE: This agreement should be in Unicode.
 	file = CreateFile (licensefilename, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0L, NULL);
-	
+
 	// If the file exists...
 	if (file != INVALID_HANDLE_VALUE) {
 
@@ -112,7 +112,7 @@ void LicenseDialogClass::Load_License (const char *licensefilename)
 				unsigned s, d;
 
 				buffer [length] = L'\0';
-				
+
 				// Advance past header.
 				s = 1;
 
@@ -146,7 +146,7 @@ void LicenseDialogClass::Load_License (const char *licensefilename)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void LicenseDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
@@ -155,7 +155,7 @@ void LicenseDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 		case IDC_LICENSE_CHECK:
 		{
 			CheckBoxCtrlClass *check =	Get_Dlg_Item (IDC_LICENSE_CHECK)->As_CheckBoxCtrlClass();
-	
+
 			if (check->Get_Check()) {
 				check->Set_Text (TxWideStringClass (IDS_AGREE_TO_TERMS));
 			} else {
@@ -194,7 +194,7 @@ void LicenseDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void NDADialogClass::On_Init_Dialog (void)
 {

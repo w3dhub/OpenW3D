@@ -79,7 +79,7 @@ BOOL CSimpleGraphDoc::OnNewDocument()
 	CSimpleGraphView *view = (CSimpleGraphView *)GetNextView (pos);
 	view->Set_Ranges (Vector2 (0, 0), Vector2 (100, 100));
 	view->InvalidateRect (NULL, true);
-	view->UpdateWindow ();	
+	view->UpdateWindow ();
 
 	return true;
 }
@@ -100,7 +100,7 @@ void CSimpleGraphDoc::Serialize(CArchive& ar)
 		file.Attach ((void *)ar.GetFile ()->m_hFile);
 		ChunkSaveClass csave (&file);
 
-		Vector2 range_min,range_max;		
+		Vector2 range_min,range_max;
 		view->Get_Ranges(range_min,range_max);
 		_TheLookupTableManager.Save_Table_Desc(csave, m_Spline, range_min, range_max);
 

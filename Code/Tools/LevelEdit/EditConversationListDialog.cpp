@@ -91,7 +91,7 @@ EditConversationListDialogClass::OnInitDialog (void)
 	//
 	m_ListCtrl.InsertColumn (0, "Name");
 	m_ListCtrl.SetExtendedStyle (m_ListCtrl.GetExtendedStyle () | LVS_EX_FULLROWSELECT);
-	
+
 	//
 	//	Choose an appropriate size for the columns
 	//
@@ -108,7 +108,7 @@ EditConversationListDialogClass::OnInitDialog (void)
 		ConversationClass *conversation = ConversationMgrClass::Peek_Conversation (index);
 		Add_Conversation (conversation);
 	}
-	
+
 	return true;
 }
 
@@ -126,7 +126,7 @@ EditConversationListDialogClass::OnAdd (void)
 	//
 	EditConversationDialogClass dialog (this);
 	if (dialog.DoModal () == IDOK) {
-		
+
 		//
 		//	Add this new conversation to the list control
 		//
@@ -150,14 +150,14 @@ EditConversationListDialogClass::OnOK (void)
 {
 	//
 	//	Start fresh
-	//	
+	//
 	ConversationMgrClass::Reset ();
 
 	//
 	//	Get all the conversations from the list control and add them to the
 	// conversation manager
-	//	
-	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {		
+	//
+	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
 		ConversationClass *conversation = (ConversationClass *)m_ListCtrl.GetItemData (index);
 		if (conversation != NULL) {
 			ConversationMgrClass::Add_Conversation (conversation);
@@ -182,7 +182,7 @@ EditConversationListDialogClass::Add_Conversation (ConversationClass *conversati
 	if (conversation == NULL) {
 		return ;
 	}
-	
+
 	//
 	//	Insert this conversation into the list control
 	//
@@ -246,7 +246,7 @@ EditConversationListDialogClass::OnDblclkConversationList
 			dialog.Set_Conversation (conversation);
 			if (dialog.DoModal () == IDOK) {
 				Update_Conversation (sel_index);
-			}			
+			}
 		}
 	}
 
@@ -297,7 +297,7 @@ EditConversationListDialogClass::OnKeydownConversationList
 	(*pResult) = 0;
 
 	if (pLVKeyDow->wVKey == VK_DELETE) {
-		
+
 		//
 		//	Delete all the selected items
 		//

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/building.h                            $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 1/07/02 3:52p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 42                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/building.h                            $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 1/07/02 3:52p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 42                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -78,7 +78,7 @@ namespace BuildingConstants
 		TYPE_VEHICLE_FACTORY,
 		TYPE_REFINERY,
 		TYPE_COM_CENTER,
-		TYPE_REPAIR_BAY,		
+		TYPE_REPAIR_BAY,
 		TYPE_SHRINE,
 		TYPE_HELIPAD,
 		TYPE_CONYARD,
@@ -101,7 +101,7 @@ namespace BuildingConstants
 /**
 ** Building Game Obj Def
 ** This class is an editable definition for a building.  It contains all constant data needed to initialize
-** a BuildingGameObj. 
+** a BuildingGameObj.
 */
 class BuildingGameObjDef : public DamageableGameObjDef
 {
@@ -116,7 +116,7 @@ public:
 	virtual const PersistFactoryClass &	Get_Factory( void ) const override;
 
 	DECLARE_EDITABLE( BuildingGameObjDef, DamageableGameObjDef );
-	
+
 	void										Set_Type (BuildingConstants::BuildingType type) { Type = type; }
 	BuildingConstants::BuildingType				Get_Type (void) const	{ return Type; }
 
@@ -141,15 +141,15 @@ protected:
 
 /*
 ** Building Game Obj
-** This class encapsulates the basic building functionality.  
+** This class encapsulates the basic building functionality.
 **
 ** At initialization, the following things need to happen.
 ** - Collects all of the meshes that are part of the building using proximity, prefix matching
 **   and the "house" naming convention (# indicates an interior mesh, ^ indicates an exterior mesh).
 ** - Collect all of the BuildingAggregates that are part of the building using proximity and
 **   prefix matching.
-** - Collect all light sources associated with the building using proximity and prefix matching.  
-** - Install itself as an observer into each StaticPhysClass (meshes and aggregates) that is part 
+** - Collect all light sources associated with the building using proximity and prefix matching.
+** - Install itself as an observer into each StaticPhysClass (meshes and aggregates) that is part
 **   of the building.
 **
 ** During gameplay, the building code does the following things:
@@ -203,13 +203,13 @@ public:
 	/*
 	** Damage interface, designed to work similarly to a game object
 	*/
-	virtual	void								Apply_Damage( const OffenseObjectClass & damager, 
-																	  float scale = 1.0f, 
+	virtual	void								Apply_Damage( const OffenseObjectClass & damager,
+																	  float scale = 1.0f,
 																	  int alternate_skin = -1 ) override;
 	void											Apply_Damage_Building(	const OffenseObjectClass & offense,
-																				StaticPhysClass * component ); 
+																				StaticPhysClass * component );
 	void											Apply_Damage_Building(	const OffenseObjectClass & offense,
-																				bool mct_damage ); 
+																				bool mct_damage );
 	void											Set_Normalized_Health (float health);
 
 	/*
@@ -270,14 +270,14 @@ public:
 	*/
 	bool	Is_GDI( void )						{ return Get_Player_Type() == PLAYERTYPE_GDI; }
 	bool	Is_Nod( void )						{ return Get_Player_Type() == PLAYERTYPE_NOD; }
-																			
+
 	static void	Set_Can_Repair_Buildings(bool flag)		{CanRepairBuildings = flag;}
 	static bool	Get_Can_Repair_Buildings(void)			{return CanRepairBuildings;}
 
 	//
 	//	Informational
 	//
-	void											Find_Closest_Poly (const Vector3 &pos, float *distance2);	
+	void											Find_Closest_Poly (const Vector3 &pos, float *distance2);
 
 protected:
 
@@ -306,7 +306,7 @@ protected:
 
 	static bool									CanRepairBuildings;
 
-	void											Initialize_Building(void);	
+	void											Initialize_Building(void);
 
 	void											Reset_Components(void);
 	void											Add_Mesh(StaticPhysClass * terrain);

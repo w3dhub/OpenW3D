@@ -50,7 +50,7 @@ namespace WWOnline {
 *     WOLLadder - WOLAPI ladder structure
 *
 * RESULT
-*     Ladder - 
+*     Ladder -
 *
 ******************************************************************************/
 

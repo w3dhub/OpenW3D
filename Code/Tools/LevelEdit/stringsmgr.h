@@ -103,7 +103,7 @@ class StringsMgrClass
 		static void		Convert_Newline_To_Chars (WideStringClass &string);
 		static void		Convert_Chars_To_Newline (WideStringClass &string);
 		static void		Apply_Characteristics (WideStringClass &english_string, WideStringClass &translated_string);
-		
+
 	private:
 
 		//////////////////////////////////////////////////////////

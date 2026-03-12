@@ -57,7 +57,7 @@ DECLARE_SCRIPT(MXX_Group_Member_DEL, "GroupName:string")
 		controller->AddToGroup(mGroupName, owner);
 		}
 
-	
+
 	// Remove the object from the group when it is destroyed.
 	void Destroyed(GameObject* owner)
 		{
@@ -83,7 +83,7 @@ DECLARE_SCRIPT(MXX_Group_Member_DEL, "GroupName:string")
 		group->SendCustomEvent(owner, SCMD_GROUP_EVENT, (int)&info);
 		}
 
-	
+
 	// Notify group that a member was damaged.
 	void Damaged(GameObject* owner, GameObject* damager)
 		{

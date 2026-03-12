@@ -67,7 +67,7 @@ public:
 	CollectionClass &operator = (const CollectionClass &);
 	virtual ~CollectionClass(void);
 	virtual RenderObjClass *	Clone(void) const override;
-	
+
 	virtual int						Class_ID(void)	const override;
 	virtual int						Get_Num_Polys(void) const override;
 
@@ -122,7 +122,7 @@ protected:
 
 	void								Free(void);
 	void								Update_Sub_Object_Transforms(void) override;
-	
+
 	DynamicVectorClass <ProxyClass>			ProxyList;
 	DynamicVectorClass <RenderObjClass *>	SubObjects;
 	SnapPointsClass *								SnapPoints;

@@ -124,7 +124,7 @@ public:
 	bool				Is_Snap_Shot_Mode( void )				{ return SnapShotMode == SNAPSHOT_ON; }
 
 protected:
-	
+
 	// Camera Host Model
 	RenderObjClass	 *		HostModel;
 
@@ -135,7 +135,7 @@ protected:
 	// Current orientation of the camera
 	float						Tilt;
 	float						Heading;
-	float						DistanceFraction;			
+	float						DistanceFraction;
 
 	bool						Enable2DTargeting;
 	float						LagPersistTimer;
@@ -185,13 +185,13 @@ protected:
 	/*
 	**
 	*/
-	Vector3					Get_Camera_Pos( const Vector3 & offset, 
+	Vector3					Get_Camera_Pos( const Vector3 & offset,
 													float distance, Vector3 * intermediate_pos );
 	void						Use_Host_Model( void );
-	void						Handle_Input();	
+	void						Handle_Input();
 
 	// Targeting
-	bool				Determine_Targeting_Position( void );	
+	bool				Determine_Targeting_Position( void );
 	void				Apply_Weapon_Help( void );
 	void				Update_Sniper_Listener_Pos( void );
 	void				Handle_Snap_Shot_Mode( void );

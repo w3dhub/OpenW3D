@@ -56,7 +56,7 @@
 ** This is the state vector for a Projectile.  It has three
 ** degrees of freedom in translation
 */
-struct ProjectileStateStruct 
+struct ProjectileStateStruct
 {
 	Vector3	Position;
 	Vector3	Velocity;
@@ -67,7 +67,7 @@ class ProjectileDefClass;
 
 /*
 ** ProjectileClass
-** 
+**
 ** This class is used for things like grenades which do not need to have "size" and
 ** do not allow other objects to collide with them.  Projectiles are basically
 ** an optimization, they are represented only by a point to the collision system
@@ -148,7 +148,7 @@ protected:
 		ORIENTATION_TUMBLING,
 		ORIENTATION_ALIGNED_FIXED,
 	};
-	
+
 	int								OrientationMode;
 	Vector3							TumbleAxis;
 	float								TumbleRate;
@@ -181,7 +181,7 @@ private:
  *=============================================================================================*/
 inline void ProjectileClass::Get_Velocity(Vector3 * set_vel) const
 {
-	*set_vel = State.Velocity; 
+	*set_vel = State.Velocity;
 }
 
 
@@ -220,7 +220,7 @@ inline void ProjectileClass::Get_Angular_Velocity(Vector3 * set_avel) const
 inline void ProjectileClass::Set_Velocity(const Vector3 & newvel)
 {
 	State.Velocity = newvel;
-	
+
 	if (OrientationMode == ORIENTATION_ALIGNED_FIXED) {
 		Matrix3D tm;
 		tm.Obj_Look_At(State.Position,State.Position + State.Velocity,0.0f);
@@ -242,8 +242,8 @@ inline void ProjectileClass::Set_Velocity(const Vector3 & newvel)
  * HISTORY:                                                                                    *
  *   9/18/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-inline void	ProjectileClass::Set_Angular_Velocity(const Vector3 & newavel) 
-{ 
+inline void	ProjectileClass::Set_Angular_Velocity(const Vector3 & newavel)
+{
 	TumbleAxis = newavel;
 	TumbleRate = TumbleAxis.Length();
 	TumbleAxis *= (1.0f / TumbleRate);
@@ -258,9 +258,9 @@ inline void	ProjectileClass::Set_Angular_Velocity(const Vector3 & newavel)
 class ProjectileDefClass : public MoveablePhysDefClass
 {
 public:
-	
+
 	ProjectileDefClass(void);
-	
+
 	// From Definition
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;

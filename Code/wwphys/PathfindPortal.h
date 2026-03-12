@@ -137,7 +137,7 @@ private:
 	////////////////////////////////////////////////////////////////////
 	uint16 		m_DestSector1;
 	uint16 		m_DestSector2;
-	AABoxClass	m_BoundingBox;	
+	AABoxClass	m_BoundingBox;
 	uint32		m_ID;
 	uint32		m_HeapLocation;
 };
@@ -171,7 +171,7 @@ PathfindPortalClass::Add_Dest_Sector (int sector_index)
 {
 	WWASSERT (m_DestSector1 == (uint16)-1 || m_DestSector2 == (uint16)-1);
 	WWASSERT (sector_index != -1);
-	
+
 	if (m_DestSector1 == (uint16)-1) {
 		m_DestSector1 = sector_index;
 	} else {
@@ -287,7 +287,7 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	Public methods
 	////////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Action identification
 	//
@@ -347,7 +347,7 @@ private:
 	uint32								m_MechanismID;
 	PathClass::ACTION_ID				m_ActionID;
 	PathfindPortalClass *			m_ExitPortal;
-	PathfindActionPortalClass *	m_EnterPortal;	
+	PathfindActionPortalClass *	m_EnterPortal;
 };
 
 

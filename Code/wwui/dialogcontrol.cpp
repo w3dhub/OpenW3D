@@ -64,7 +64,7 @@ DialogControlClass::DialogControlClass (void)	:
 	TextColor (0, 0, 0),
 	IsTextColorOverridden (false)
 {
-	
+
 	INT32_TO_VRGB (StyleMgrClass::Get_Text_Color (), TextColor);
 	return ;
 }

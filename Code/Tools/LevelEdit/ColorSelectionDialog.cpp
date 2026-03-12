@@ -145,7 +145,7 @@ ColorSelectionDialogClass::OnHScroll
 	// Are the sliders moving together?
 	if (SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_GETCHECK)) {
 		int position = 0;
-		
+
 		// Determine which slider sent this message and
 		// use its current positions
 		if (pScrollBar == GetDlgItem (IDC_SLIDER_RED)) {
@@ -181,10 +181,10 @@ ColorSelectionDialogClass::OnHScroll
 //	OnPaint
 //
 void
-ColorSelectionDialogClass::OnPaint (void) 
+ColorSelectionDialogClass::OnPaint (void)
 {
 	CPaintDC dc (this);
-        
+
 	// Paint the gradients for each color
 	::Paint_Gradient (::GetDlgItem (m_hWnd, IDC_RED_GRADIENT), 1, 0, 0);
 	::Paint_Gradient (::GetDlgItem (m_hWnd, IDC_GREEN_GRADIENT), 0, 1, 0);
@@ -206,17 +206,17 @@ ColorSelectionDialogClass::Paint_Color_Window (void)
 	// Get the client coords of the 'color' window
 	CRect rect;
 	m_ColorWindow.GetClientRect (&rect);
-	
+
 	// Fill the window with the selected color
 	CDC *pdc = m_ColorWindow.GetDC ();
 	::FrameRect (*pdc, &rect, (HBRUSH)::GetStockObject (BLACK_BRUSH));
 	rect.DeflateRect (1, 1);
 	pdc->FillSolidRect (&rect, RGB (int(m_PaintColor.X * 255), int(m_PaintColor.Y * 255), int(m_PaintColor.Z * 255)));
 	m_ColorWindow.ReleaseDC (pdc);
-	
+
 	// Let the window know it doesn't need to be repainted
 	m_ColorWindow.ValidateRect (NULL);
-	return; 
+	return;
 }
 
 
@@ -229,7 +229,7 @@ ColorSelectionDialogClass::OnGrayscaleCheck (void)
 {
 	// Is the checkbox checked?
 	if (SendDlgItemMessage (IDC_GRAYSCALE_CHECK, BM_GETCHECK)) {
-		
+
 		// Make the green and blue sliders the same as red
 		m_GreenSlider.SetPos (m_RedSlider.GetPos ());
 		m_BlueSlider.SetPos (m_RedSlider.GetPos ());
@@ -240,7 +240,7 @@ ColorSelectionDialogClass::OnGrayscaleCheck (void)
 		light_settings.Z = float(m_BlueSlider.GetPos ()) / 100.00F;
 
 		// Update the window that displays the color the user has selected
-		Paint_Color_Window ();		
+		Paint_Color_Window ();
 	}
 
 	return ;

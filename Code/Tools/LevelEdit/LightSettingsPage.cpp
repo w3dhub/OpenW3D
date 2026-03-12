@@ -187,7 +187,7 @@ LightSettingsPageClass::Discard_Changes (void)
 	m_pLight->Set_Diffuse_Color (m_OrigDiffuse);
 	m_pLight->Set_Specular_Color (m_OrigSpecular);
 	m_pLight->Set_Intensity (m_OrigIntensity);
-	m_pLight->Set_Attenuation (m_OrigInnerAttenuation, m_OrigOuterAttenuation);	
+	m_pLight->Set_Attenuation (m_OrigInnerAttenuation, m_OrigOuterAttenuation);
 
 	// Now update the light with these changes
 	m_pLight->Update_Light ();
@@ -204,7 +204,7 @@ LightSettingsPageClass::OnDrawItem
 (
 	int nIDCtl,
 	LPDRAWITEMSTRUCT lpDrawItemStruct
-) 
+)
 {
 	// Determine what color to paint the button
 	Vector3 color (0, 0, 0);
@@ -231,7 +231,7 @@ LightSettingsPageClass::OnDrawItem
 	temp_dc.Attach (lpDrawItemStruct->hDC);
 	temp_dc.FillSolidRect (&rect, RGB (int(color.X * 255), int(color.Y * 255), int(color.Z * 255)));
 	temp_dc.Detach ();
-	
+
 	// Draw the focus rectangle if necessary
 	if (lpDrawItemStruct->itemState & ODS_FOCUS) {
 		::DrawFocusRect (lpDrawItemStruct->hDC, &rect);
@@ -239,7 +239,7 @@ LightSettingsPageClass::OnDrawItem
 
 	// Allow the base class to process this message
 	//DockableFormClass::OnDrawItem (nIDCtl, lpDrawItemStruct);
-	return; 
+	return;
 }
 
 
@@ -248,14 +248,14 @@ LightSettingsPageClass::OnDrawItem
 // OnChangeInnerAttenEdit
 //
 void
-LightSettingsPageClass::OnChangeInnerAttenEdit (void) 
+LightSettingsPageClass::OnChangeInnerAttenEdit (void)
 {
 	float inner = ::GetDlgItemFloat (m_hWnd, IDC_INNER_ATTEN_EDIT);
 	float outer = ::GetDlgItemFloat (m_hWnd, IDC_OUTER_ATTEN_EDIT);
 	m_InnerAttenSlider.SetPos (int(inner * 100.00F));
-	
+
 	// Update the light with these new settings
-	m_pLight->Set_Attenuation (inner, outer);	
+	m_pLight->Set_Attenuation (inner, outer);
 	m_pLight->Update_Light ();
 	::Refresh_Main_View ();
 	return ;
@@ -274,7 +274,7 @@ LightSettingsPageClass::OnChangeOuterAttenEdit (void)
 	m_OuterAttenSlider.SetPos (int(outer * 100.00F));
 
 	// Update the light with these new settings
-	m_pLight->Set_Attenuation (inner, outer);	
+	m_pLight->Set_Attenuation (inner, outer);
 	m_pLight->Update_Light ();
 	::Refresh_Main_View ();
 	return ;
@@ -291,16 +291,16 @@ LightSettingsPageClass::OnHScroll
 	UINT nSBCode,
 	UINT nPos,
 	CScrollBar *pScrollBar
-) 
+)
 {
 	if (pScrollBar == GetDlgItem (IDC_INTENSITY_SLIDER)) {
-		
+
 		// Pass the new intensity onto the UI and the light
 		int position = m_IntensitySlider.GetPos ();
 		m_pLight->Set_Intensity ((((float)position) / 100.00F));
-		
+
 	} else if (pScrollBar == GetDlgItem (IDC_OUTER_ATTEN_SLIDER)) {
-		
+
 		// Determine the radii of the inner and outer attenuation spheres
 		int position = m_OuterAttenSlider.GetPos ();
 		float outer = (((float)position) / 100.00F);
@@ -316,7 +316,7 @@ LightSettingsPageClass::OnHScroll
 		m_pLight->Set_Attenuation (inner, outer);
 
 	} else {
-		
+
 		// Determine the radii of the inner and outer attenuation spheres
 		int position = m_InnerAttenSlider.GetPos ();
 		float inner = (((float)position) / 100.00F);
@@ -328,7 +328,7 @@ LightSettingsPageClass::OnHScroll
 		}
 
 		// Reset the UI and the light to match these settings
-		::SetDlgItemFloat (m_hWnd, IDC_INNER_ATTEN_EDIT, inner);		
+		::SetDlgItemFloat (m_hWnd, IDC_INNER_ATTEN_EDIT, inner);
 		m_pLight->Set_Attenuation (inner, outer);
 	}
 
@@ -349,25 +349,25 @@ LightSettingsPageClass::OnHScroll
 // OnKillfocusOuterAttenEdit
 //
 void
-LightSettingsPageClass::OnKillfocusOuterAttenEdit (void) 
+LightSettingsPageClass::OnKillfocusOuterAttenEdit (void)
 {
 	float inner = ::GetDlgItemFloat (m_hWnd, IDC_INNER_ATTEN_EDIT);
 	float outer = ::GetDlgItemFloat (m_hWnd, IDC_OUTER_ATTEN_EDIT);
 
 	// If we need to normalize the data, then do so now...
 	if (outer < inner) {
-		
+
 		// Reset the UI
 		outer = inner;
 		::SetDlgItemFloat (m_hWnd, IDC_OUTER_ATTEN_EDIT, outer);
 		m_OuterAttenSlider.SetPos (int(outer * 100.00F));
 
 		// Update the light with these new settings
-		m_pLight->Set_Attenuation (inner, outer);	
+		m_pLight->Set_Attenuation (inner, outer);
 		m_pLight->Update_Light ();
 		::Refresh_Main_View ();
 	}
-		
+
 	return ;
 }
 
@@ -384,18 +384,18 @@ LightSettingsPageClass::OnKillfocusInnerAttenEdit (void)
 
 	// If we need to normalize the data, then do so now...
 	if (outer < inner) {
-		
+
 		// Reset the UI
 		inner = outer;
 		::SetDlgItemFloat (m_hWnd, IDC_INNER_ATTEN_EDIT, inner);
 		m_InnerAttenSlider.SetPos (int(outer * 100.00F));
 
 		// Update the light with these new settings
-		m_pLight->Set_Attenuation (inner, outer);	
+		m_pLight->Set_Attenuation (inner, outer);
 		m_pLight->Update_Light ();
 		::Refresh_Main_View ();
 	}
-		
+
 	return ;
 }
 
@@ -427,7 +427,7 @@ LightSettingsPageClass::OnAmbientButton (void)
 // OnDiffuseButton
 //
 void
-LightSettingsPageClass::OnDiffuseButton (void) 
+LightSettingsPageClass::OnDiffuseButton (void)
 {
 	// Display a dialog to the user that will allow them to select a color
 	ColorSelectionDialogClass dialog (m_pLight->Get_Diffuse_Color (), this);
@@ -440,7 +440,7 @@ LightSettingsPageClass::OnDiffuseButton (void)
 		::Refresh_Main_View ();
 	}
 
-	return; 
+	return;
 }
 
 
@@ -462,5 +462,5 @@ LightSettingsPageClass::OnSpecularButton (void)
 		::Refresh_Main_View ();
 	}
 
-	return; 
+	return;
 }

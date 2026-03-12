@@ -76,7 +76,7 @@
 #define M06_CHATEAU_COLLAPSE		6026
 #define	M06_RELOCATE				6027
 #define	M06_MIDTRO_EXPLOSION		6028
-	
+
 
 // Logical Sound Types
 #define M06_SOUND_ALARM_ON			16600

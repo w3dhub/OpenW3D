@@ -59,7 +59,7 @@ class PresetClass;
 class VisPointNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -89,7 +89,7 @@ public:
 	// From PersistClass
 	//
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	
+
 	//
 	// From NodeClass
 	//

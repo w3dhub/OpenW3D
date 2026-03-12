@@ -100,7 +100,7 @@ private:
 	StringClass								m_ModelName;
 	StringClass								m_LightFilename;
 
-	
+
 };
 
 

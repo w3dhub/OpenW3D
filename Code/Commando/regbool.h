@@ -20,7 +20,7 @@
 // Filename:     regbool.h
 // Author:       Tom Spencer-Smith
 // Date:         Dec 1998
-// Description:  
+// Description:
 //
 //-----------------------------------------------------------------------------
 #if defined(_MSV_VER)
@@ -36,7 +36,7 @@
 class cRegistryBool
 {
 	public:
-      cRegistryBool(const char *registry_location, const char *key_name, 
+      cRegistryBool(const char *registry_location, const char *key_name,
 			bool initial_value = false);
 
       bool Toggle(void);

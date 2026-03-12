@@ -30,7 +30,7 @@
 //             shell extensions are called when the user right clicks on a file
 //             (of the type registered for the shell extension--see SHELLEXT.REG
 //             for details on the registry entries.  In this sample, the relevant
-//             files are of type .W3D) in the Explorer, or selects the File menu 
+//             files are of type .W3D) in the Explorer, or selects the File menu
 //             item.
 //
 

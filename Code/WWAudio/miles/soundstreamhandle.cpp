@@ -279,7 +279,7 @@ SoundStreamHandleClass::Get_Sample_MS_Position (int *len, int *pos)
 		S32 total_ms;
 		S32 current_ms;
 		::AIL_stream_ms_position (StreamHandle, &total_ms, &current_ms);
-		
+
 		if (len != NULL) {
 			*len = int(total_ms);
 		}
@@ -334,9 +334,9 @@ SoundStreamHandleClass::Get_Sample_User_Data (int i)
 //////////////////////////////////////////////////////////////////////
 int
 SoundStreamHandleClass::Get_Sample_Playback_Rate (void)
-{	
+{
 	int retval = 0;
-	
+
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		retval = ::AIL_stream_playback_rate (StreamHandle);
 	}
@@ -368,9 +368,9 @@ SoundStreamHandleClass::Set_Sample_Playback_Rate (int rate)
 //////////////////////////////////////////////////////////////////////
 float
 SoundStreamHandleClass::Get_Sample_Pitch (void)
-{	
+{
 	float retval = 0;
-	
+
 	if (StreamHandle != (HSTREAM)INVALID_MILES_HANDLE) {
 		retval = ::AIL_stream_playback_rate (StreamHandle) / float(Buffer->Get_Rate ());
 	}

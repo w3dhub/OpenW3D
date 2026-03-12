@@ -64,12 +64,12 @@ class HexToStringByteClass : public HexToStringClass
 {
 public:
 	HexToStringByteClass(const uint8 * data,uint32 size);
-	
+
 	bool				Is_Done(void);
 	CString			Get_Next_Line(void);
 
 private:
-	
+
 	void				Reset(void);
 
 	const uint8 *	CurPos;
@@ -79,12 +79,12 @@ class HexToStringShortClass : public HexToStringClass
 {
 public:
 	HexToStringShortClass(const uint8 * data,uint32 size);
-	
+
 	bool				Is_Done(void);
 	CString			Get_Next_Line(void);
 
 private:
-	
+
 	void				Reset(void);
 
 	const uint16 *	CurPos;
@@ -94,12 +94,12 @@ class HexToStringLongClass : public HexToStringClass
 {
 public:
 	HexToStringLongClass(const uint8 * data,uint32 size);
-	
+
 	bool				Is_Done(void);
 	CString			Get_Next_Line(void);
 
 private:
-	
+
 	void				Reset(void);
 
 	const uint32 *	CurPos;

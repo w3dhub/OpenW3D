@@ -94,11 +94,11 @@ PathObjectClass::Initialize (PhysClass &phys_obj)
 {
 	RenderObjClass *render_obj = phys_obj.Peek_Model ();
 	if (render_obj != NULL) {
-		
+
 		//
 		//	Lookup the render object's collision box
 		//
-		::Get_Collision_Box (render_obj, m_CollisionBox);		
+		::Get_Collision_Box (render_obj, m_CollisionBox);
 	}
 
 	//
@@ -126,7 +126,7 @@ void
 PathObjectClass::Init_Human (void)
 {
 	m_Flags			= CAN_USE_EQUIPMENT;
-	m_TurnRadius	= 0;	
+	m_TurnRadius	= 0;
 	m_WheelOffset	= 0;
 
 	// Use some default numbers for the human...
@@ -155,12 +155,12 @@ Get_Collision_Box (RenderObjClass *render_obj, OBBoxClass &bounding_box)
 		//
 		RenderObjClass *world_box = render_obj->Get_Sub_Object_By_Name ("WorldBox");
 
-		// If we didn't finde WorldBox, try to find the LOD named "WorldBox" 
+		// If we didn't finde WorldBox, try to find the LOD named "WorldBox"
 		// The LOD code generates a unique name for the mesh by appending A,B,C, etc to the name.
 		// A is the lowest LOD, B is the next, and so on.  Our worldbox is specified in the highest
 		// LOD so we have to construct the name by appending 'A'+LodCount to the name... icky
 		if ((world_box == NULL) && (render_obj->Class_ID () == RenderObjClass::CLASSID_HLOD)) {
-			
+
 			char namebuffer[64];
 			sprintf(namebuffer,"WorldBox%c",'A' + ((HLodClass *)render_obj)->Get_Lod_Count() - 1);
 			world_box = render_obj->Get_Sub_Object_By_Name (namebuffer);

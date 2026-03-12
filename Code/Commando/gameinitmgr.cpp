@@ -136,15 +136,15 @@ GameInitMgrClass::Start_Game (const char *map_name, int teamChoice, unsigned int
 
 	// NOTE: Multi-play does not need this fix because it does not sound page swap.
 	if (IS_SOLOPLAY) {
-	
+
 		// IML: First, allow a short period to process any outstanding sound effects that may have
 		// been started by the caller.
 		time = TIMEGETTIME();
 		while (TIMEGETTIME() - time < PRE_SERVICE_TIME) {
 			WWAudioClass::Get_Instance ()->On_Frame_Update (0);
 		}
-		
- 		// IML: Ensure that there are no sound effects lingering on any playlist. 
+
+ 		// IML: Ensure that there are no sound effects lingering on any playlist.
 		WWAudioClass::Get_Instance ()->Flush_Playlist();
 
 		// IML: Allow audio system to clean-up after flush.
@@ -184,7 +184,7 @@ GameInitMgrClass::Start_Game (const char *map_name, int teamChoice, unsigned int
 	//
 	#ifdef WWDEBUG
 	WideStringClass outMsg;
-	
+
 	if (!The_Game()->Is_Valid_Settings(outMsg)) {
 		WWDEBUG_SAY(("ERROR: %S\n", (const unichar_t*)outMsg));
 		WWASSERT("The_Game()->Is_Valid_Settings()");
@@ -293,7 +293,7 @@ GameInitMgrClass::End_Game (void)
 			WWAudioClass::Get_Instance ()->On_Frame_Update (0);
 		}
 
-		// IML: Ensure that there are no sound effects lingering on any playlist. 
+		// IML: Ensure that there are no sound effects lingering on any playlist.
 		WWAudioClass::Get_Instance ()->Flush_Playlist();
 
 		// IML: Allow audio system to clean-up after flush.

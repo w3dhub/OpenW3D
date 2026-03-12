@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 7/17/01 3:17p       $* 
- *                                                                                             * 
- *                    $Revision:: 27                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 7/17/01 3:17p       $*
+ *                                                                                             *
+ *                    $Revision:: 27                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -101,11 +101,11 @@ LightMapDoc *LightMapView::_Document = NULL;
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 LightMapView::LightMapView()
 {
-	MeshIndexTable = NULL;	
+	MeshIndexTable = NULL;
 }
 
 
@@ -119,7 +119,7 @@ LightMapView::LightMapView()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 LightMapView::~LightMapView()
 {
@@ -137,7 +137,7 @@ LightMapView::~LightMapView()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapView::OnInsertSolve()
 {
@@ -145,9 +145,9 @@ void LightMapView::OnInsertSolve()
 	InsertSolveDialog insertsolvedialog (GetDocument()->GetPathName());
 
 	if (insertsolvedialog.DoModal() == IDOK) {
-		
+
 		char *inclusionstring;
-		
+
 		if (!insertsolvedialog.Apply_Selective()) {
 			inclusionstring = NULL;
 		} else {
@@ -168,9 +168,9 @@ void LightMapView::OnInsertSolve()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-void LightMapView::OnUpdateInsertSolve (CCmdUI *cmdui) 
+void LightMapView::OnUpdateInsertSolve (CCmdUI *cmdui)
 {
 	cmdui->Enable (GetDocument()->Can_Insert_Solve());
 }
@@ -186,9 +186,9 @@ void LightMapView::OnUpdateInsertSolve (CCmdUI *cmdui)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-int LightMapView::OnCreate (LPCREATESTRUCT lpCreateStruct) 
+int LightMapView::OnCreate (LPCREATESTRUCT lpCreateStruct)
 {
   	static LV_COLUMN _meshname			= {LVCF_TEXT | LVCF_FMT, LVCFMT_LEFT, 0, "Mesh Name", 0, 0};
 	static LV_COLUMN _meshanomalies	= {LVCF_TEXT | LVCF_FMT, LVCFMT_LEFT, 0, "Mesh Anomalies", 0, 0};
@@ -204,8 +204,8 @@ int LightMapView::OnCreate (LPCREATESTRUCT lpCreateStruct)
 	// Enable report style for the list view.
 	flags |= LVS_REPORT | LVS_NOSORTHEADER;
 	SetWindowLong (list.GetSafeHwnd(), GWL_STYLE, flags);
-	list.SetExtendedStyle (LVS_EX_ONECLICKACTIVATE | LVS_EX_UNDERLINEHOT | LVS_EX_GRIDLINES); 
-	
+	list.SetExtendedStyle (LVS_EX_ONECLICKACTIVATE | LVS_EX_UNDERLINEHOT | LVS_EX_GRIDLINES);
+
 	list.InsertColumn (0, &_meshname);
 	list.InsertColumn (1, &_meshanomalies);
 	list.InsertColumn (2, &_solveanomalies);
@@ -226,7 +226,7 @@ int LightMapView::OnCreate (LPCREATESTRUCT lpCreateStruct)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
 void LightMapView::OnUpdate (CView* pSender, LPARAM lHint, CObject* pHint)
 {
@@ -282,7 +282,7 @@ void LightMapView::OnUpdate (CView* pSender, LPARAM lHint, CObject* pHint)
 	GetClientRect (&rect);
 	w = (float) rect.right;
 	for (unsigned c = 0; c < sizeof (_widthratio) / sizeof (float); c++) {
-		
+
 		float columnwidth;
 
 		columnwidth = w * _widthratio [c];
@@ -303,9 +303,9 @@ void LightMapView::OnUpdate (CView* pSender, LPARAM lHint, CObject* pHint)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   6/1/99    IML : Created.                                                                  * 
+ *   6/1/99    IML : Created.                                                                  *
  *=============================================================================================*/
-void LightMapView::OnToolsOptions() 
+void LightMapView::OnToolsOptions()
 {
 	OptionsDialog options;
 
@@ -323,9 +323,9 @@ void LightMapView::OnToolsOptions()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/03/00    IML : Created.                                                                * 
+ *   02/03/00    IML : Created.                                                                *
  *=============================================================================================*/
-void LightMapView::OnToolsPacking() 
+void LightMapView::OnToolsPacking()
 {
 	PackingDialog packing;
 
@@ -343,9 +343,9 @@ void LightMapView::OnToolsPacking()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/03/00    IML : Created.                                                                * 
+ *   02/03/00    IML : Created.                                                                *
  *=============================================================================================*/
-void LightMapView::OnUpdateToolsPacking (CCmdUI *cmdui) 
+void LightMapView::OnUpdateToolsPacking (CCmdUI *cmdui)
 {
 	cmdui->Enable (GetDocument()->Solve_Inserted());
 }
@@ -361,7 +361,7 @@ void LightMapView::OnUpdateToolsPacking (CCmdUI *cmdui)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/03/00    IML : Created.                                                                * 
+ *   02/03/00    IML : Created.                                                                *
  *=============================================================================================*/
 void LightMapView::OnLButtonDown (UINT flags, CPoint point)
 {
@@ -401,13 +401,13 @@ void LightMapView::OnLButtonDown (UINT flags, CPoint point)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/03/00    IML : Created.                                                                * 
+ *   02/03/00    IML : Created.                                                                *
  *=============================================================================================*/
 int LightMapView::Compare_Names (const void *index0, const void *index1)
 {
 	ASSERT (_Document != NULL);
 	return (strcmp (_Document->Mesh_Name (*((unsigned*) index0)), _Document->Mesh_Name (*((unsigned*) index1))));
-}		
+}
 
 
 /***********************************************************************************************
@@ -420,7 +420,7 @@ int LightMapView::Compare_Names (const void *index0, const void *index1)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   02/03/00    IML : Created.                                                                * 
+ *   02/03/00    IML : Created.                                                                *
  *=============================================================================================*/
 BOOL MeshDialog::OnInitDialog()
 {

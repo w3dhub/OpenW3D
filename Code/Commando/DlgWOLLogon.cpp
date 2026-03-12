@@ -187,7 +187,7 @@ void DlgWOLLogon::On_Init_Dialog(void)
 
 	UpdatePersonas();
 	SelectPersona(mLogin);
-	
+
 	PopupDialogClass::On_Init_Dialog();
 	}
 
@@ -219,7 +219,7 @@ void DlgWOLLogon::On_Command(int ctrl, int message, unsigned int param)
 			// If this login is not stored then always use the password typed by the user.
 			const unichar_t* name = Get_Dlg_Item_Text(IDC_PERSONA_COMBO);
 			RefPtr<LoginInfo> login = LoginInfo::Find(name);
-			
+
 			if (login.IsValid() && !login->IsStored())
 				{
 				const unichar_t* password = Get_Dlg_Item_Text(IDC_PASSWORD_EDIT);

@@ -54,7 +54,7 @@
 ** a separate sub-system in order to allow our Editor to save it without also saving the
 ** static objects which exist inside the "framework".  The editor normally doesn't save the
 ** objects in the physics scene since it re-creates them from their "definitions" each
-** time a level is loaded into it.  However, this data (visibility, pathfinding...) is too 
+** time a level is loaded into it.  However, this data (visibility, pathfinding...) is too
 ** expensive to simply re-create each time so we put it into a separate sub-system that it
 ** can save.
 **
@@ -62,7 +62,7 @@
 class PhysStaticDataSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	virtual uint32				Chunk_ID (void) const override;
 
 protected:
@@ -75,7 +75,7 @@ protected:
 	/*
 	** internal chunk id's
 	*/
-	enum 
+	enum
 	{
 		PSDSSC_CHUNKID_SCENE				= 0x04433220,
 		PSDSSC_CHUNKID_PATHFIND
@@ -94,15 +94,15 @@ extern PhysStaticDataSaveSystemClass _PhysStaticDataSaveSystem;
 ** This SaveLoadSubSystem handles saving the static objects in the physics system.
 ** This sub-system is not called by the editor so data which needs to persist through
 ** an editor save-load needs to be placed in the PhysStaticFrameworkSaveSystem.  On
-** the other hand, all of the objects that are re-created by the editor need to be 
+** the other hand, all of the objects that are re-created by the editor need to be
 ** saved by this sub-system in order for them to persist when a level is exported to
-** the game.  
+** the game.
 **
 */
 class PhysStaticObjectsSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	virtual uint32				Chunk_ID (void) const override;
 
 protected:
@@ -115,7 +115,7 @@ protected:
 	/*
 	** internal chunk id's
 	*/
-	enum 
+	enum
 	{
 		PSOSSC_CHUNKID_SCENE				= 0x06090609,
 	};

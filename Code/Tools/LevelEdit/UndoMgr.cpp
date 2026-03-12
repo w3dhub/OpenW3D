@@ -107,7 +107,7 @@ UndoMgrClass::Begin_Operation
 		// Pass the identifcation information onto the new buffer
 		pbuffer->Set_Operation_Type (type);
 		pbuffer->Set_ID (m_dwNextOperationID++);
-		
+
 		// Capture the current state of the world in the buffer
 		switch (type)
 		{
@@ -118,7 +118,7 @@ UndoMgrClass::Begin_Operation
 				pbuffer->Capture_Position (nodes_affected);
 			}
 			break;
-			
+
 			case OPERATION_DELETE:
 			{
 				// Make 'backups' of the node that will be deleted
@@ -153,12 +153,12 @@ UndoMgrClass::Push_Buffer (UndoBufferClass *pbuffer)
 	// Param OK?
 	ASSERT (pbuffer != NULL);
 	if (pbuffer != NULL) {
-		
+
 		// Can we just add the buffer onto the end of the array?
 		if (m_iCurrentBuffer < UNDO_LEVELS) {
 			m_pBuffers[m_iCurrentBuffer++] = pbuffer;
 		} else {
-			
+
 			// Push the first entry off the list and move everything else down a position
 			SAFE_DELETE (m_pBuffers[0]);
 			::memmove (&m_pBuffers[0], &m_pBuffers[1], sizeof (UndoBufferClass *) * (UNDO_LEVELS - 1));
@@ -204,7 +204,7 @@ UndoMgrClass::Perform_Undo (int ilevels)
 	// Loop through the undo levels and restore the world state at each...
 	int imin_index = std::max((m_iCurrentBuffer - ilevels), 0);
 	for (int index = (m_iCurrentBuffer - 1); index >= imin_index; index --) {
-		
+
 		// Undo this level
 		m_pBuffers[index]->Restore_State ();
 		SAFE_DELETE (m_pBuffers[index]);
@@ -268,7 +268,7 @@ UndoBufferClass::Capture_Dimensions (const NODE_LIST &node_list)
 
 		NodeClass *node = node_list[index];
 		if (node != NULL) {
-		
+
 			//
 			// This operation only applies to zones.  Is this a zone?
 			//
@@ -276,7 +276,7 @@ UndoBufferClass::Capture_Dimensions (const NODE_LIST &node_list)
 					node->Get_Type () == NODE_TYPE_DAMAGE_ZONE)
 			{
 				Box3DClass *box = NULL;
-				
+
 				if (node->Get_Type () == NODE_TYPE_ZONE) {
 					ZoneNodeClass *zone = (ZoneNodeClass *)node;
 					box = zone->Get_Box ();
@@ -318,8 +318,8 @@ UndoBufferClass::Capture_Existence (const NODE_LIST &node_list)
 
 		NodeClass *node = node_list[index];
 		if (node != NULL && node->Get_Type () != NODE_TYPE_WAYPOINT) {
-		
-			// Store this node in our state manager			
+
+			// Store this node in our state manager
 			NodeStateClass state;
 			MEMBER_ADD (state.node_ptr, node);
 
@@ -345,7 +345,7 @@ UndoBufferClass::Capture_Position (const NODE_LIST &node_list)
 
 		NodeClass *node = node_list[index];
 		if (node != NULL) {
-		
+
 			// Copy the node's state information
 			NodeStateClass state;
 			MEMBER_ADD (state.node_ptr, node);
@@ -406,9 +406,9 @@ UndoBufferClass::Restore_State (void)
 				//
 				if (	node->Get_Type () == NODE_TYPE_ZONE ||
 						node->Get_Type () == NODE_TYPE_DAMAGE_ZONE)
-				{					
+				{
 					Box3DClass *box = NULL;
-					
+
 					if (node->Get_Type () == NODE_TYPE_ZONE) {
 						ZoneNodeClass *zone = (ZoneNodeClass *)node;
 						box = zone->Get_Box ();
@@ -416,7 +416,7 @@ UndoBufferClass::Restore_State (void)
 						DamageZoneNodeClass *zone = (DamageZoneNodeClass *)node;
 						box = zone->Get_Box ();
 					}
-					
+
 					ASSERT (box != NULL);
 					box->Set_Dimensions (state.dimensions);
 					node->Set_Transform (state.transform);
@@ -435,7 +435,7 @@ UndoBufferClass::Restore_State (void)
 				}
 			}
 			break;
-		}			
+		}
 	}
 
 	// Ensure the main view is updated

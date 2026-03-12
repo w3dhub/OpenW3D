@@ -16,39 +16,39 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*************************************************************************** 
- ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     *** 
- *************************************************************************** 
- *                                                                         * 
- *                 Project Name : G                                        * 
- *                                                                         * 
- *                     $Archive:: /Commando/Code/ww3d2/pot.cpp            $* 
- *                                                                         * 
- *                      $Author:: Greg_h                                  $* 
- *                                                                         * 
- *                     $Modtime:: 1/08/01 10:04a                          $* 
- *                                                                         * 
- *                    $Revision:: 1                                       $* 
- *                                                                         * 
- *-------------------------------------------------------------------------* 
- * Functions:                                                              * 
- *   Find_POT -- finds closest inclusive power of 2 to a value             * 
- *   Find_POT_Log2 -- finds log2 of closest inclusive power of 2 to a value* 
+/***************************************************************************
+ ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     ***
+ ***************************************************************************
+ *                                                                         *
+ *                 Project Name : G                                        *
+ *                                                                         *
+ *                     $Archive:: /Commando/Code/ww3d2/pot.cpp            $*
+ *                                                                         *
+ *                      $Author:: Greg_h                                  $*
+ *                                                                         *
+ *                     $Modtime:: 1/08/01 10:04a                          $*
+ *                                                                         *
+ *                    $Revision:: 1                                       $*
+ *                                                                         *
+ *-------------------------------------------------------------------------*
+ * Functions:                                                              *
+ *   Find_POT -- finds closest inclusive power of 2 to a value             *
+ *   Find_POT_Log2 -- finds log2 of closest inclusive power of 2 to a value*
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "pot.h"
 
-/************************************************************************** 
- * Find_POT -- finds closest inclusive power of 2 to a value              * 
- *                                                                        * 
- * INPUT:                                                                 * 
- *                                                                        * 
- * OUTPUT:                                                                * 
- *                                                                        * 
- * WARNINGS:                                                              * 
- *                                                                        * 
- * HISTORY:                                                               * 
- *   10/20/1997 PWG : Created.                                            * 
+/**************************************************************************
+ * Find_POT -- finds closest inclusive power of 2 to a value              *
+ *                                                                        *
+ * INPUT:                                                                 *
+ *                                                                        *
+ * OUTPUT:                                                                *
+ *                                                                        *
+ * WARNINGS:                                                              *
+ *                                                                        *
+ * HISTORY:                                                               *
+ *   10/20/1997 PWG : Created.                                            *
  *========================================================================*/
 int Find_POT(int val)
 {
@@ -77,17 +77,17 @@ int Find_POT(int val)
 }
 
 
-/************************************************************************** 
- * Find_POT_Log2 -- finds log2 of closest inclusive power of 2 to a value * 
- *                                                                        * 
- * INPUT:                                                                 * 
- *                                                                        * 
- * OUTPUT:                                                                * 
- *                                                                        * 
- * WARNINGS:                                                              * 
- *                                                                        * 
- * HISTORY:                                                               * 
- *   12/23/1998 NH : Created.                                             * 
+/**************************************************************************
+ * Find_POT_Log2 -- finds log2 of closest inclusive power of 2 to a value *
+ *                                                                        *
+ * INPUT:                                                                 *
+ *                                                                        *
+ * OUTPUT:                                                                *
+ *                                                                        *
+ * WARNINGS:                                                              *
+ *                                                                        *
+ * HISTORY:                                                               *
+ *   12/23/1998 NH : Created.                                             *
  *========================================================================*/
 unsigned int Find_POT_Log2(unsigned int val)
 {

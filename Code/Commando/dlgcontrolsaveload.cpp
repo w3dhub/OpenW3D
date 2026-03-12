@@ -78,15 +78,15 @@ ControlSaveLoadMenuClass::On_Init_Dialog (void)
 		//
 		//	Configure the column
 		//
-		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));		
-		
+		list_ctrl->Add_Column (U_CHAR(""), 1.0F, Vector3 (1, 1, 1));
+
 		//
 		//	Loop over all the configurations
 		//
 		int count = InputConfigMgrClass::Get_Configuration_Count ();
 		int index;
 		for (index = 0; index < count; index ++) {
-			
+
 			//
 			//	Get information about this configuration
 			//
@@ -184,7 +184,7 @@ ControlSaveLoadMenuClass::Delete_Config (void)
 				DlgMsgBox::DoDialog (TRANSLATE (IDS_MENU_DELETE_SAVE_TITLE), message, DlgMsgBox::YesNo,
 								this, MBEVENT_DELETE_PROMPT);
 			}
-		}		
+		}
 	}
 
 	return ;
@@ -200,7 +200,7 @@ void
 ControlSaveLoadMenuClass::HandleNotification (DlgMsgBoxEvent &event)
 {
 	if (event.Get_User_Data () == MBEVENT_DELETE_PROMPT) {
-		
+
 		//
 		//	The user has confirmed the delete, so delete the configuration
 		//
@@ -259,13 +259,13 @@ ControlSaveLoadMenuClass::Load_Config (void)
 	//
 	int curr_sel = list_ctrl->Get_Curr_Sel ();
 	if (curr_sel != -1) {
-		
+
 		//
 		//	Get the configuration object associated with this entry
 		//
 		InputConfigClass *config = (InputConfigClass *)list_ctrl->Get_Entry_Data (curr_sel, 0);
 		if (config != NULL) {
-			
+
 			//
 			//	Load this configuration
 			//
@@ -296,13 +296,13 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 	//
 	int curr_sel = list_ctrl->Get_Curr_Sel ();
 	if (curr_sel != -1) {
-		
+
 		//
 		//	Get the configuration object associated with this entry
 		//
 		InputConfigClass *config = (InputConfigClass *)list_ctrl->Get_Entry_Data (curr_sel, 0);
 		if (config != NULL) {
-			
+
 			//
 			//	We can only save custom configurations...
 			//
@@ -311,7 +311,7 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 				//
 				//	Get the new display name for this configuration
 				//
-				const unichar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);			
+				const unichar_t *display_name = Get_Dlg_Item_Text (IDC_NAME_EDIT);
 				if (display_name[0] != 0) {
 
 					//
@@ -332,7 +332,7 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 						//
 						config->Set_Display_Name (display_name);
 						list_ctrl->Set_Entry_Text (curr_sel, 0, display_name);
-						
+
 						//
 						//	Save the configuration
 						//
@@ -341,7 +341,7 @@ ControlSaveLoadMenuClass::Save_Config (bool prompt)
 					}
 
 				} else {
-					
+
 					//
 					//	Let the user know they can't save a configuration without a name
 					//
@@ -465,7 +465,7 @@ ControlSaveLoadMenuClass::On_ListCtrl_Sel_Change
 	//
 	InputConfigClass *config = (InputConfigClass *)list_ctrl->Get_Entry_Data (new_index, 0);
 	if (config != NULL) {
-		
+
 		//
 		//	We want to disable the edit control if the user can't edit this entry
 		//
@@ -488,7 +488,7 @@ ControlSaveLoadMenuClass::On_ListCtrl_Sel_Change
 	//
 	//	Fix the enable state of the edit control
 	//
-	Enable_Dlg_Item (IDC_NAME_EDIT, enable_edit);	
+	Enable_Dlg_Item (IDC_NAME_EDIT, enable_edit);
 	return ;
 }
 
@@ -530,12 +530,12 @@ ControlSaveLoadMenuClass::ListSortCallback
 		} else if (config1->Is_Custom () == false && config2->Is_Custom ()) {
 			retval = 1;
 		} else {
-			
+
 			//
 			//	Sort based on the names
 			//
 			retval = ::u_strcasecmp (config1->Get_Display_Name (), config2->Get_Display_Name (), U_COMPARE_CODE_POINT_ORDER);
-		}	
+		}
 	}
 
 	return retval;

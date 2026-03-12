@@ -120,7 +120,7 @@ InputConfigClass::Load_Variables (ChunkLoadClass &cload)
 	//	Read all the microchunks
 	//
 	while (cload.Open_Micro_Chunk ()) {
-		switch(cload.Cur_Micro_Chunk_ID ()) {			
+		switch(cload.Cur_Micro_Chunk_ID ()) {
 
 			READ_MICRO_CHUNK_WIDESTRING	(cload, VARID_DISPLAY_NAME,	DisplayName);
 			READ_MICRO_CHUNK_WWSTRING		(cload, VARID_FILENAME,			Filename);

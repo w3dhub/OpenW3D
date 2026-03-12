@@ -52,7 +52,7 @@ GetCurrentDocument (void)
 
     // Get a pointer to the main window
     CMainFrame *pCMainWnd = (CMainFrame *)::AfxGetMainWnd ();
-    
+
     ASSERT (pCMainWnd);
     if (pCMainWnd)
     {
@@ -60,8 +60,8 @@ GetCurrentDocument (void)
         // to the current doc.
         pCDoc = (CW3DViewDoc *)pCMainWnd->GetActiveDocument ();
         ASSERT (pCDoc);
-    }    
-    
+    }
+
     // Return the doc pointer
     return pCDoc;
 }
@@ -78,13 +78,13 @@ CenterDialogAroundTreeView (HWND hDlg)
     {
         // Get a pointer to the main window
         CMainFrame *pCMainWnd = (CMainFrame *)::AfxGetMainWnd ();
-    
+
         ASSERT (pCMainWnd);
         if (pCMainWnd)
         {
             // Get the tree view pane so we can get its rectangle
             CDataTreeView *pCDataTreeView = (CDataTreeView *)pCMainWnd->GetPane (0, 0);
-            
+
             ASSERT (pCDataTreeView);
             if (pCDataTreeView)
             {
@@ -152,9 +152,9 @@ Paint_Gradient
         // Increment the current position
         posX += widthPerShade;
     }
-    
+
     // Release the DC
-    cDC.Detach ();    
+    cDC.Detach ();
     ::ReleaseDC (hWnd, hDC);
 
     // Validate the contents of the window so the control won't paint itself
@@ -220,7 +220,7 @@ Initialize_Spinner
 {
 	//
 	//	Convert the floats to ints and pass the settings onto the controls
-	//	
+	//
 	ctrl.SetRange32 (int(min * 100), int(max * 100));
 	ctrl.SetPos (int(pos * 100));
 
@@ -263,7 +263,7 @@ Update_Spinner_Buddy (CSpinButtonCtrl &ctrl, int delta)
 			float float_min = ((float)int_min) / 100;
 			float float_max = ((float)int_max) / 100;
 			value = std::clamp (value, float_min, float_max);
-			
+
 			// Pass the value onto the buddy window
 			::SetWindowFloat (*buddy, value);
 		}
@@ -378,10 +378,10 @@ Asset_Name_From_Filename (LPCTSTR filename)
 {
 	// Get the filename from this path
 	CString asset_name = ::Get_Filename_From_Path (filename);
-	
+
 	// Find the index of the extension (if exists)
-	int extension = asset_name.ReverseFind ('.');	
-	
+	int extension = asset_name.ReverseFind ('.');
+
 	// Strip off the extension
 	if (extension != -1) {
 		asset_name = asset_name.Left (extension);
@@ -524,7 +524,7 @@ Make_Bitmap_From_Texture ([[maybe_unused]] TextureClass &texture, [[maybe_unused
 		{
 			VariableTextureClass *psource = ((ResizeableTextureInstanceClass &)texture).Peek_Source();
 			if (psource != NULL) {
-				
+
 				// Hopefully get the image data
 				srTextureIFace::MultiRequest info = { 0 };
 				info.levels[0] = new srColorSurface (srColorSurface::ARGB0444, width, height);
@@ -548,25 +548,25 @@ Make_Bitmap_From_Texture ([[maybe_unused]] TextureClass &texture, [[maybe_unused
 			break;
 	}
 
-	
+
 	if (surface != NULL) {
-	
+
 		int src_width = surface->getWidth ();
 		int src_height = surface->getHeight ();
 
 		// Create a DIB section for fast 'blitting'
 		UCHAR *pbits = NULL;
 		hbitmap = ::Create_DIB_Section (&pbits, width, height);
-		
+
 		ASSERT (hbitmap != NULL);
 		ASSERT (pbits != NULL);
 		if (pbits != NULL) {
-			
+
 			float src_bits_per_pixel = (float)src_width / (float)width;
 			float src_bits_per_scanline = (float)src_height / (float)height;
 			float curr_src_pixel = 0;
 			float curr_src_row = 0;
-			
+
 			// Window's bitmaps are DWORD aligned, so make sure
 			// we take that into account.
 			int alignment_offset = (width * 3) % 4;
@@ -576,13 +576,13 @@ Make_Bitmap_From_Texture ([[maybe_unused]] TextureClass &texture, [[maybe_unused
 			int index = 0;
 			for (int y = 0; y < height; y ++) {
 				for (int x = 0; x < width; x ++) {
-					
+
 					// Grab the pixel from the source buffer and stuff it into the dest
 					srARGB pixel = surface->getPixel (curr_src_pixel, curr_src_row);
 					pbits[index++] = pixel[srARGB::B];
 					pbits[index++] = pixel[srARGB::G];
 					pbits[index++] = pixel[srARGB::R];
-					
+
 					// Increment our source counter (the src size and dest don't have to match)
 					curr_src_pixel += src_bits_per_pixel;
 				}
@@ -647,7 +647,7 @@ Get_Texture_Name (TextureClass &texture)
 			ASSERT (0);
 			break;
 	}
-#else 
+#else
 	name = texture.Get_Texture_Name();
 #endif
 
@@ -674,7 +674,7 @@ Build_Emitter_List
 
 			// Is this sub-obj an emitter?
 			if (psub_obj->Class_ID () == RenderObjClass::CLASSID_PARTICLEEMITTER) {
-				
+
 				// Is this emitter already in the list?
 				bool found = false;
 				for (int list_index = 0; (list_index < list.Count ()) && !found; list_index++) {
@@ -692,7 +692,7 @@ Build_Emitter_List
 			// Recursivly add emitters to the list
 			Build_Emitter_List (*psub_obj, list);
 			MEMBER_RELEASE (psub_obj);
-		}		
+		}
 	}
 
 	return ;
@@ -719,7 +719,7 @@ Is_Aggregate (const char *asset_name)
 
 	// Free our hold on the temporary render object
 	MEMBER_RELEASE (prender_obj);
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -755,7 +755,7 @@ Rename_Aggregate_Prototype
 			pnew_definition->Set_Name (new_name);
 			proto = new AggregatePrototypeClass (pnew_definition);
 			WW3DAssetManager::Get_Instance ()->Add_Prototype (proto);
-		}		
+		}
 	}
 
 	return ;
@@ -769,7 +769,7 @@ Rename_Aggregate_Prototype
 bool
 Is_Real_LOD (const char *asset_name)
 {
-	// Assume that the asset isn't a true LOD (HLOD w/ more than one 
+	// Assume that the asset isn't a true LOD (HLOD w/ more than one
 	bool retval = false;
 
 	// Check to see if this object is an aggregate
@@ -782,7 +782,7 @@ Is_Real_LOD (const char *asset_name)
 
 	// Free our hold on the temporary render object
 	MEMBER_RELEASE (prender_obj);
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -812,7 +812,7 @@ Get_File_Time
 										  OPEN_EXISTING,
 										  0L,
 										  NULL);
-	
+
 	ASSERT (hfile != INVALID_HANDLE_VALUE);
 	if (hfile != INVALID_HANDLE_VALUE) {
 
@@ -821,8 +821,8 @@ Get_File_Time
 
 		// Close the file
 		SAFE_CLOSE (hfile);
-	}		
-	
+	}
+
 	// Return the true/false result code
 	return retval;
 }
@@ -854,7 +854,7 @@ Load_RC_Texture ([[maybe_unused]] LPCTSTR resource_name)
 		if (surface != NULL) {
 			texture = new srTextureMap (surface);
 		}
-	}	
+	}
 #endif
 
 	// Reutrn a pointer to the new texture
@@ -929,7 +929,7 @@ Copy_File
 
 	// Make sure we aren't copying over ourselves
 	bool allow_copy = (::lstrcmpi (existing_filename, new_filename) != 0);
-	
+
 	// Strip the readonly bit off if necessary
 	DWORD attributes = ::GetFileAttributes (new_filename);
 	if (allow_copy &&

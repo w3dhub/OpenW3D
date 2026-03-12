@@ -74,7 +74,7 @@ MPWolQuickMatchOptionsMenuClass::On_Init_Dialog (void)
 	//
 	ShortcutBarCtrlClass* bar = (ShortcutBarCtrlClass*)Get_Dlg_Item(IDC_SHORTCUT_BAR);
 
-	if (bar) {		
+	if (bar) {
 		bar->Add_Button(IDC_MP_SHORTCUT_BUDDIES, TRANSLATE(IDS_MP_SHORTCUT_BUDDIES));
 		bar->Add_Button (IDC_MP_SHORTCUT_INTERNET_OPTIONS, TRANSLATE (IDS_INTERNET_OPTIONS));
 		bar->Add_Button(IDC_MP_SHORTCUT_CHAT, TRANSLATE(IDS_MP_SHORTCUT_CHAT));
@@ -91,7 +91,7 @@ MPWolQuickMatchOptionsMenuClass::On_Init_Dialog (void)
 	int pref = MPSettingsMgrClass::Get_QuickMatch_Mode_Preference(mode);
 	((SliderCtrlClass*)Get_Dlg_Item(IDC_DM_SLIDER))->Set_Pos(pref);
 	Update_Slider_Text(IDC_DM_SLIDER);
-	
+
 	((SliderCtrlClass*)Get_Dlg_Item(IDC_TDM_SLIDER))->Set_Range(0, 10);
 	mode = cGameData::Get_Game_Type_Name(cGameData::GAME_TYPE_TEAM_DEATHMATCH);
 	pref = MPSettingsMgrClass::Get_QuickMatch_Mode_Preference(mode);
@@ -137,7 +137,7 @@ MPWolQuickMatchOptionsMenuClass::On_Command (int ctrl_id, int message_id, unsign
 //	On_SliderCtrl_Pos_Changed
 //
 ////////////////////////////////////////////////////////////////
-void	
+void
 MPWolQuickMatchOptionsMenuClass::On_SliderCtrl_Pos_Changed
 (
 	SliderCtrlClass *	slider_ctrl,
@@ -155,13 +155,13 @@ MPWolQuickMatchOptionsMenuClass::On_SliderCtrl_Pos_Changed
 //	Update_Slider_Text
 //
 ////////////////////////////////////////////////////////////////
-void	
+void
 MPWolQuickMatchOptionsMenuClass::Update_Slider_Text(int ctrl_id)
 {
 	WideStringClass new_string;
 
 	int new_pos = ((SliderCtrlClass*)Get_Dlg_Item(ctrl_id))->Get_Pos();
-	
+
 	//	Determine which string to use for the given position
 	if (new_pos <= 2) {
 		new_string = TRANSLATE (IDS_MP_QM_UNDESIRABLE);
@@ -206,7 +206,7 @@ bool MPWolQuickMatchOptionsMenuClass::Save_Settings(void)
 	const char* mode = cGameData::Get_Game_Type_Name(cGameData::GAME_TYPE_DEATHMATCH);
 	MPSettingsMgrClass::Set_QuickMatch_Mode_Preference(mode, pref);
 	sum += pref;
-	
+
 	pref = ((SliderCtrlClass*)Get_Dlg_Item(IDC_TDM_SLIDER))->Get_Pos();
 	mode = cGameData::Get_Game_Type_Name(cGameData::GAME_TYPE_TEAM_DEATHMATCH);
 	MPSettingsMgrClass::Set_QuickMatch_Mode_Preference(mode, pref);

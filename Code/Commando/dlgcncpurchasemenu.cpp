@@ -68,13 +68,13 @@
 static const int	PURCHASE_ITEMS			= 10;
 static const int	PURCHASE_ALTERNATES	= 3;
 
-const int ITEM_CTRL_IDS[PURCHASE_ITEMS] = 
+const int ITEM_CTRL_IDS[PURCHASE_ITEMS] =
 {
 	IDC_ITEM_1, IDC_ITEM_2, IDC_ITEM_3, IDC_ITEM_4, IDC_ITEM_5,
 	IDC_ITEM_6, IDC_ITEM_7, IDC_ITEM_8, IDC_ITEM_9, IDC_ITEM_10
 };
 
-const int HOTKEY_CTRL_IDS[PURCHASE_ITEMS] = 
+const int HOTKEY_CTRL_IDS[PURCHASE_ITEMS] =
 {
 	IDC_HOTKEY_TEXT_01, IDC_HOTKEY_TEXT_02, IDC_HOTKEY_TEXT_03, IDC_HOTKEY_TEXT_04,
 	IDC_HOTKEY_TEXT_05, IDC_HOTKEY_TEXT_06, IDC_HOTKEY_TEXT_07, IDC_HOTKEY_TEXT_08,
@@ -137,7 +137,7 @@ CNCPurchaseMenuClass::On_Init_Dialog (void)
 	//	Initialize the purchase controls
 	//
 	for (int index = 0; index < PURCHASE_ITEMS; index ++) {
-		
+
 		//
 		//	Get the control for this entry
 		//
@@ -147,7 +147,7 @@ CNCPurchaseMenuClass::On_Init_Dialog (void)
 			//
 			//	Is this slot available?
 			//
-			int definition_id					= Definition->Get_Definition (index);				
+			int definition_id					= Definition->Get_Definition (index);
 			DefinitionClass *definition	= DefinitionMgrClass::Find_Definition (definition_id);
 			if (Is_Definition_OK (definition)) {
 
@@ -180,7 +180,7 @@ CNCPurchaseMenuClass::On_Init_Dialog (void)
 				}
 
 			} else {
-				
+
 				//
 				//	Remove and free the control if we aren't going to use it
 				//
@@ -328,7 +328,7 @@ CNCPurchaseMenuClass::Add_Item_To_Shopping_Cart (int ctrl_id)
 	int funds	= (int) COMBAT_STAR->Get_Player_Data ()->Get_Money ();
 	int cost		= Definition->Get_Cost (item_index) * CostScalingFactor;
 	if ((TotalCost + cost) <= funds) {
-		
+
 		//
 		//	Add this cost into our grand total
 		//
@@ -369,7 +369,7 @@ CNCPurchaseMenuClass::Clear_Shopping_Cart (void)
 	//	Reset our data
 	//
 	TotalCost	= 0;
-	
+
 	WWASSERT(COMBAT_STAR != NULL);
 	WWASSERT(COMBAT_STAR->Get_Player_Data() != NULL);
 
@@ -385,7 +385,7 @@ CNCPurchaseMenuClass::Clear_Shopping_Cart (void)
 	//	Reset the purchase counts
 	//
 	for (int index = 0; index < PURCHASE_ITEMS; index ++) {
-		
+
 		//
 		//	Get the control for this entry
 		//
@@ -406,27 +406,27 @@ CNCPurchaseMenuClass::Clear_Shopping_Cart (void)
 ////////////////////////////////////////////////////////////////
 void
 CNCPurchaseMenuClass::Purchase (void)
-{	
+{
 	bool allow_purchase = true;
 	VendorClass::PURCHASE_TYPE vendor_purchase_type = VendorClass::TYPE_CHARACTER;
 
-	switch (PurchaseType) 
+	switch (PurchaseType)
 	{
 	case PurchaseSettingsDefClass::TYPE_CLASSES:
 		vendor_purchase_type = VendorClass::TYPE_CHARACTER;
 		allow_purchase = true;
 		break;
-	
+
 	case PurchaseSettingsDefClass::TYPE_SECRET_CLASSES:
 		vendor_purchase_type = VendorClass::TYPE_SECRET_CHARACTER;
 		allow_purchase = true;
 		break;
-	
+
 	case PurchaseSettingsDefClass::TYPE_VEHICLES:
 		allow_purchase = Verify_Vehicle_Purchase();
 		vendor_purchase_type = VendorClass::TYPE_VEHICLE;
 		break;
-	
+
 	case PurchaseSettingsDefClass::TYPE_SECRET_VEHICLES:
 		allow_purchase = Verify_Vehicle_Purchase();
 		vendor_purchase_type = VendorClass::TYPE_SECRET_VEHICLE;
@@ -436,7 +436,7 @@ CNCPurchaseMenuClass::Purchase (void)
 	//
 	//	Puchase each item
 	//
-	if (allow_purchase) {		
+	if (allow_purchase) {
 		for (int index = 0; index < ShoppingList.Count (); index ++) {
 			WWASSERT (COMBAT_STAR != NULL);
 
@@ -448,7 +448,7 @@ CNCPurchaseMenuClass::Purchase (void)
 				int item_index		= (int)ctrl->Get_User_Data ();
 				int alt_index		= ctrl->Get_Selected_Alternate ();
 				VendorClass::Purchase_Item (COMBAT_STAR, vendor_purchase_type, item_index, alt_index);
-			}			
+			}
 		}
 	}
 
@@ -474,7 +474,7 @@ CNCPurchaseMenuClass::Verify_Vehicle_Purchase (void)
 	//
 	//	Find the base for this user
 	//
-	BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();		
+	BaseControllerClass *base = BaseControllerClass::Find_Base_For_Star ();
 	if (base != NULL) {
 
 		//
@@ -483,7 +483,7 @@ CNCPurchaseMenuClass::Verify_Vehicle_Purchase (void)
 		BuildingGameObj *building = base->Find_Building (BuildingConstants::TYPE_VEHICLE_FACTORY);
 		if (building != NULL && building->As_VehicleFactoryGameObj () != NULL) {
 			VehicleFactoryGameObj *factory = building->As_VehicleFactoryGameObj ();
-				
+
 			//
 			//	Determine if the factory is busy or destroyed
 			//
@@ -512,34 +512,34 @@ bool
 CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 {
 	bool retval = false;
-	
+
 	if (definition != NULL) {
 		retval = true;
-		
+
 		//
 		//	Are we purchasing equipment?
 		//
 		if (PurchaseType == PurchaseSettingsDefClass::TYPE_EQUIPMENT) {
 			int weapon_id = ((PowerUpGameObjDef *)definition)->Get_Grant_Weapon_ID ();
-			
+
 			//
 			//	Is this a weapon we're purchasing?
 			//
 			DefinitionClass *weapon_def = DefinitionMgrClass::Find_Definition (weapon_id);
 			if (weapon_def != NULL && weapon_def->Get_Class_ID () == CLASSID_DEF_WEAPON) {
-				
+
 				//
 				//	Is this a beacon?
 				//
 				if (((WeaponDefinitionClass *)weapon_def)->Style == WEAPON_HOLD_STYLE_BEACON) {
-					
+
 					//
 					//	Is this CnC mode?
 					//
 					/*
 					if (The_Game () != NULL && The_Game ()->As_Cnc () != NULL) {
 						cGameDataCnc *game_data = The_Game ()->As_Cnc ();
-						
+
 						//
 						//	Don't allow the player to purchase beacons unless the
 						// server settings allow it.
@@ -551,7 +551,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 						}
 					}
 					*/
-					if (The_Game () != NULL) {					
+					if (The_Game () != NULL) {
 
 						//
 						//	Don't allow the player to purchase beacons unless the
@@ -581,7 +581,7 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 
 		} else if (	PurchaseType == PurchaseSettingsDefClass::TYPE_VEHICLES ||
 						PurchaseType == PurchaseSettingsDefClass::TYPE_SECRET_VEHICLES)
-		{				
+		{
 			//
 			//	Lookup the physics object to determine if its valid to purchase
 			// this type of object on this map
@@ -589,20 +589,20 @@ CNCPurchaseMenuClass::Is_Definition_OK (DefinitionClass *definition)
 			int phys_def_id = ((PhysicalGameObjDef *)definition)->Get_Phys_Def_ID ();
 			PhysDefClass *phys_def = (PhysDefClass *)DefinitionMgrClass::Find_Definition (phys_def_id);
 			if (phys_def != NULL) {
-				
+
 				//
 				//	Don't allow flying vehicles on maps that aren't geared towards
 				// flying vehicles...
 				//
-				if (	MapMgrClass::Are_VTOL_Vehicles_Enabled () == false && 
+				if (	MapMgrClass::Are_VTOL_Vehicles_Enabled () == false &&
 						phys_def->Get_Class_ID () == CLASSID_VTOLVEHICLEDEF)
 				{
 					retval = false;
-				}					
+				}
 			}
 		}
-	}	
-	
+	}
+
 	return retval;
 }
 
@@ -663,7 +663,7 @@ bool
 CNCPurchaseMenuClass::On_Key_Down (uint32 key_id, uint32 key_data)
 {
 	bool retval = true;
-	
+
 	//
 	//	Check to see if a hotkey was pressed
 	//
@@ -776,7 +776,7 @@ CNCPurchaseMenuClass::Configure_Building_Icons (void)
 		}
 
 	} else {
-		
+
 		//
 		//	Determine which building icon to use...
 		//
@@ -821,7 +821,7 @@ CNCPurchaseMenuClass::Update_Enabled_Status (void)
 	//	Initialize the purchase controls
 	//
 	for (int index = 0; index < PURCHASE_ITEMS; index ++) {
-		
+
 		//
 		//	Get the control for this entry
 		//
@@ -831,7 +831,7 @@ CNCPurchaseMenuClass::Update_Enabled_Status (void)
 			//
 			//	Is this slot available?
 			//
-			int definition_id					= Definition->Get_Definition (index);				
+			int definition_id					= Definition->Get_Definition (index);
 			DefinitionClass *definition	= DefinitionMgrClass::Find_Definition (definition_id);
 			if (definition != NULL) {
 

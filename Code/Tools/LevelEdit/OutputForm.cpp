@@ -74,7 +74,7 @@ OutputFormClass::OutputFormClass()
 	if (file != INVALID_HANDLE_VALUE) {
 		LogFile.Attach (file);
 	}
-	
+
 	return ;
 }
 
@@ -137,13 +137,13 @@ void OutputFormClass::Dump(CDumpContext& dc) const
 // OnCreate
 //
 int
-OutputFormClass::OnCreate (LPCREATESTRUCT lpCreateStruct) 
+OutputFormClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 {
-    // Allow the base class to process this message	
+    // Allow the base class to process this message
 	if (DockableFormClass::OnCreate(lpCreateStruct) == -1) {
 		return -1;
 	}
-	
+
 	return 0;
 }
 
@@ -153,7 +153,7 @@ OutputFormClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 // HandleInitDialog
 //
 void
-OutputFormClass::HandleInitDialog (void) 
+OutputFormClass::HandleInitDialog (void)
 {
 	//
 	//	TODO - Any initialization
@@ -175,14 +175,14 @@ OutputFormClass::OnSize
 	int cy
 )
 {
-	// Allow the base class to process this message	
+	// Allow the base class to process this message
 	DockableFormClass::OnSize (nType, cx, cy);
 
 	if (::IsWindow (m_OutputEdit) && (cx > 0) && (cy > 0)) {
 		// Resize the tab control to fill the entire contents of the client area
-		m_OutputEdit.SetWindowPos (NULL, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOMOVE);	
+		m_OutputEdit.SetWindowPos (NULL, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOMOVE);
 	}
-	return ;	
+	return ;
 }
 
 
@@ -223,7 +223,7 @@ OutputFormClass::Output_Message (LPCTSTR new_message)
 		window_text[text_len-1]	= '\r';
 		window_text[text_len]	= '\n';
 		window_text[text_len+1]	= 0;
-	}		
+	}
 
 	// Put the text back into the edit control
 	m_OutputEdit.SetWindowText (window_text);

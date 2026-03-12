@@ -97,12 +97,12 @@ void CChunkTreeView::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CChunkTreeView message handlers
 
-void CChunkTreeView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint) 
+void CChunkTreeView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
 	// Reset the entire tree view
 	CTreeCtrl &tree = GetTreeCtrl();
 	tree.DeleteAllItems();
-	
+
 	// Set the style attributes
 	int flags = tree.GetStyle();
 	flags |= TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS | TVS_SHOWSELALWAYS | TVS_DISABLEDRAGDROP;
@@ -133,7 +133,7 @@ void CChunkTreeView::Insert_Chunk(const ChunkImageClass * chunk, HTREEITEM Paren
 }
 
 
-void CChunkTreeView::OnSelchanged(NMHDR* pNMHDR, LRESULT* pResult) 
+void CChunkTreeView::OnSelchanged(NMHDR* pNMHDR, LRESULT* pResult)
 {
 	NM_TREEVIEW* pNMTreeView = (NM_TREEVIEW*)pNMHDR;
 

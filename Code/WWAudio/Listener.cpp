@@ -82,7 +82,7 @@ Listener3DClass::Initialize_Miles_Handle (void)
 		// Associate this object instance with the handle
 		m_SoundHandle->Set_Sample_User_Data (INFO_OBJECT_PTR, this);
 	}
-		
+
 	return ;
 }
 
@@ -119,7 +119,7 @@ Listener3DClass::Free_Miles_Handle (void)
 void
 Listener3DClass::On_Added_To_Scene (void)
 {
-	Allocate_Miles_Handle ();		
+	Allocate_Miles_Handle ();
 	return ;
 }
 
@@ -132,7 +132,7 @@ Listener3DClass::On_Added_To_Scene (void)
 void
 Listener3DClass::On_Removed_From_Scene (void)
 {
-	Free_Miles_Handle ();		
+	Free_Miles_Handle ();
 	return ;
 }
 

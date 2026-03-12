@@ -97,7 +97,7 @@ MemLogDialogClass::OnInitDialog (void)
 	m_ListCtrl.InsertColumn (COL_CURRENT,	"Current Usage");
 	m_ListCtrl.InsertColumn (COL_PEAK,		"Peak Usage");
 	m_ListCtrl.SetExtendedStyle (m_ListCtrl.GetExtendedStyle () | LVS_EX_FULLROWSELECT);
-	
+
 	//
 	//	Choose an appropriate size for the columns
 	//
@@ -107,7 +107,7 @@ MemLogDialogClass::OnInitDialog (void)
 	m_ListCtrl.SetColumnWidth (COL_NAME,		(rect.Width () * 3) / 5);
 	m_ListCtrl.SetColumnWidth (COL_CURRENT,	rect.Width () / 5);
 	m_ListCtrl.SetColumnWidth (COL_PEAK,		rect.Width () / 5);
-	
+
 	//
 	//	Loop over all the categories in the logger
 	//
@@ -130,7 +130,7 @@ MemLogDialogClass::OnInitDialog (void)
 			m_ListCtrl.SetItemText (item_index, COL_PEAK, peak_mem_string);
 		}
 	}
-	
+
 	return true;
 }
 

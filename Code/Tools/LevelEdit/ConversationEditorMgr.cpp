@@ -59,7 +59,7 @@ ConversationEditorMgrClass::Create_Database_If_Necessary (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
@@ -69,20 +69,20 @@ ConversationEditorMgrClass::Create_Database_If_Necessary (void)
 	//	Check to see if the file exists in VSS
 	//
 	if (asset_db.Does_File_Exist (filename) == false) {
-		
+
 		//
 		//	Save a copy of the database to disk and add it to VSS
 		//
 		Save_Global_Database ();
 		asset_db.Add_File (filename);
 	} else {
-		
+
 		//
 		//	The file exists in VSS, so update our local copy
 		//
 		Get_Latest_Version ();
 	}
-	
+
 	return ;
 }
 
@@ -172,12 +172,12 @@ ConversationEditorMgrClass::Get_Latest_Version (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
 	CString filename = ::Get_File_Mgr ()->Make_Full_Path (CONV_DB_PATH);
-	
+
 	//
 	//	Ask VSS to get the latest version of the file for us
 	//
@@ -195,21 +195,21 @@ ConversationEditorMgrClass::Check_Out (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
 	CString filename = ::Get_File_Mgr ()->Make_Full_Path (CONV_DB_PATH);
-	
+
 	bool retval = true;
 	if (asset_db.Does_File_Exist (filename)) {
-	
+
 		//
 		//	Ask VSS to check out the file to us
 		//
 		retval = asset_db.Check_Out_Ex (filename, ::AfxGetMainWnd ()->m_hWnd);
 	}
-	
+
 	return retval;
 }
 
@@ -224,12 +224,12 @@ ConversationEditorMgrClass::Check_In (void)
 {
 	FileMgrClass *file_mgr			= ::Get_File_Mgr ();
 	AssetDatabaseClass &asset_db	= file_mgr->Get_Database_Interface ();
-	
+
 	//
 	//	Determine where the file should exist locally
 	//
 	CString filename = ::Get_File_Mgr ()->Make_Full_Path (CONV_DB_PATH);
-	
+
 	//
 	//	Ask VSS to check in the file for us
 	//

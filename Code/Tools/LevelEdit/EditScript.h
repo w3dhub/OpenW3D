@@ -61,7 +61,7 @@ class ChunkLoadClass;
 class EditScriptClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ public:
 	//////////////////////////////////////////////////////////////
 	EditScriptClass *	Clone (void)											{ return new EditScriptClass (*this); }
 	ScriptClass *		Create_Script (void);
-	
+
 	//
 	//	Name/string methods
 	//
@@ -112,7 +112,7 @@ protected:
 	//	Protected data types
 	//////////////////////////////////////////////////////////////
 	typedef struct _PARAM_VALUE
-	{						
+	{
 		CString			name;
 		CString			value;
 		PARAM_TYPES		type;
@@ -126,11 +126,11 @@ protected:
 	//	Protected methods
 	//////////////////////////////////////////////////////////////
 	bool						Load_Variables (ChunkLoadClass &cload);
-	CString					Build_Composite_String (void) const;	
+	CString					Build_Composite_String (void) const;
 	void						Update_Data (void);
 	PARAM_TYPES				String_To_Type (LPCTSTR type_name);
 	bool						Valid_Index (int index) const { return (index >= 0) && (index < m_ParamValues.Count ()); }
-	
+
 private:
 
 	/////////////////////////////////////////////////////////////////////
@@ -159,7 +159,7 @@ EditScriptClass::Set_Param_Desc (LPCTSTR param_desc)
 //////////////////////////////////////////////////////////////
 inline int
 EditScriptClass::Get_Param_Count (void)
-{	
+{
 	return m_ParamValues.Count ();;
 }
 
@@ -204,7 +204,7 @@ EditScriptClass::Get_Param_Type (int index)
 {
 	PARAM_TYPES type = PARAM_TYPE_INT;
 
-	if (Valid_Index (index)) {		
+	if (Valid_Index (index)) {
 		type = m_ParamValues[index].type;
 	}
 

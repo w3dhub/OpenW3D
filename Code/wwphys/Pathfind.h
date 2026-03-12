@@ -72,7 +72,7 @@ class PathfindClass
 		typedef enum
 		{
 			WAYPATH_PORTAL_ID_START		= 64000,
-			TEMP_PORTAL_ID_START			= 128000			
+			TEMP_PORTAL_ID_START			= 128000
 
 		} PORTAL_ID_RANGES;
 
@@ -86,7 +86,7 @@ class PathfindClass
 		/////////////////////////////////////////////////////////////////////////
 		// Public methods
 		/////////////////////////////////////////////////////////////////////////
-		
+
 		//
 		// Database methods
 		//
@@ -179,7 +179,7 @@ class PathfindClass
 
 		bool							Save_Culling_System (ChunkSaveClass &csave);
 		bool							Load_Culling_System (ChunkLoadClass &cload);
-		
+
 		void							Generate_Waypath_Sector_And_Portals (WaypathClass *waypath);
 		void							Add_Intersection_Portals_To_List (DynamicVectorClass<PathfindWaypathPortalClass *> &portal_list, WaypathClass *waypath, PathfindWaypathSectorClass *dest_sector);
 		int							Add_Waypath_Portal (PathfindWaypathPortalClass *portal);
@@ -194,7 +194,7 @@ class PathfindClass
 		/////////////////////////////////////////////////////////////////////////
 		// Private data types
 		/////////////////////////////////////////////////////////////////////////
-		typedef TypedAABTreeCullSystemClass<PathfindSectorClass>	SectorCullingSystem;		
+		typedef TypedAABTreeCullSystemClass<PathfindSectorClass>	SectorCullingSystem;
 		typedef DynamicVectorClass<PathfindSectorClass *>			SECTOR_LIST;
 		typedef DynamicVectorClass<PathfindPortalClass *>			PORTAL_LIST;
 		typedef DynamicVectorClass<PhysClass *>						DISPLAY_LIST;

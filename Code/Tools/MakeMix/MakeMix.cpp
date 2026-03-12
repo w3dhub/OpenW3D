@@ -39,7 +39,7 @@ int main (int argc, char *argv[])
 			unsigned		filecount;
 			StringClass basepath (argv [c]);
 			StringClass subpath;
-			
+
 			filecount = Add_Files (basepath, subpath, mixfile);
 			if (filecount > 0) {
 				printf ("%u files added\n", filecount);
@@ -61,8 +61,8 @@ unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, Mix
 	const char wildcardname [] = "*.*";
 
 	unsigned			 filecount;
-	StringClass		 findfilepathname;	
-	WIN32_FIND_DATAA finddata;	
+	StringClass		 findfilepathname;
+	WIN32_FIND_DATAA finddata;
 	HANDLE			 handle;
 
 	filecount = 0;
@@ -77,7 +77,7 @@ unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, Mix
 	findfilepathname += wildcardname;
 	handle = FindFirstFileA (findfilepathname, &finddata);
 	if (handle != INVALID_HANDLE_VALUE) {
-		
+
 		bool done;
 
 		done = false;
@@ -96,7 +96,7 @@ unsigned Add_Files (const StringClass &basepath, const StringClass &subpath, Mix
 
 				// Is it a subdirectory?
 	  			if ((finddata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-				
+
 					// Recurse on subdirectory.
 					filecount += Add_Files (basepath, subpathname, mixfile);
 

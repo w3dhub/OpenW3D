@@ -79,7 +79,7 @@ DECLARE_FORCE_LINK( buildingaggregate );
 
 SimplePersistFactoryClass<BuildingAggregateClass, PHYSICS_CHUNKID_BUILDINGAGGREGATE>	_BuildingAggregatePersistFactory;
 
-enum	
+enum
 {
 	BAG_CHUNK_STATICANIMPHYS			=	8281529,
 	BAG_CHUNK_VARIABLES,
@@ -177,7 +177,7 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 		AnimCollisionManagerClass & anim_mgr = Get_Animation_Manager();
 		const BuildingAggregateDefClass * def = Get_BuildingAggregateDef();
 		WWASSERT(def != NULL);
-		
+
 		switch (def->AnimLogicMode)
 		{
 			case BuildingAggregateDefClass::ANIM_LOGIC_LOOP:
@@ -188,9 +188,9 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 				*/
 				float normalized_frame = 0.0f;
 				float cur_loop_len = def->Frame1[CurrentState] - def->Frame0[CurrentState];
-				
+
 				if (cur_loop_len > 0.0f) {
-					normalized_frame = (anim_mgr.Get_Current_Frame() - def->Frame0[CurrentState]) / 
+					normalized_frame = (anim_mgr.Get_Current_Frame() - def->Frame0[CurrentState]) /
 														(def->Frame1[CurrentState] - def->Frame0[CurrentState]);
 				}
 
@@ -227,7 +227,7 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
 				** If we changed power states or animation is disabled, then we need to warp the current frame
 				*/
 				if (	(BuildingStateClass::Is_Power_On(new_state) != BuildingStateClass::Is_Power_On(CurrentState)) ||
-						(def->AnimationEnabled[new_state] == false)) 
+						(def->AnimationEnabled[new_state] == false))
 				{
 					anim_mgr.Set_Current_Frame(def->Frame0[new_state]);
 				}
@@ -268,7 +268,7 @@ void BuildingAggregateClass::Set_Current_State(int new_state,bool force_update)
  * HISTORY:                                                                                    *
  *   9/24/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-bool BuildingAggregateClass::Is_MCT(void) 
+bool BuildingAggregateClass::Is_MCT(void)
 {
 	return Get_BuildingAggregateDef()->IsMCT;
 }
@@ -290,7 +290,7 @@ bool BuildingAggregateClass::Is_MCT(void)
  * HISTORY:                                                                                    *
  *   8/29/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-const PersistFactoryClass & BuildingAggregateClass::Get_Factory(void) const 
+const PersistFactoryClass & BuildingAggregateClass::Get_Factory(void) const
 {
 	return _BuildingAggregatePersistFactory;
 }
@@ -342,7 +342,7 @@ bool BuildingAggregateClass::Load( ChunkLoadClass &cload )
 			case BAG_CHUNK_STATICANIMPHYS:
 				StaticAnimPhysClass::Load( cload );
 				break;
-		
+
 			case BAG_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -412,7 +412,7 @@ void	BuildingAggregateClass::Load_State( ChunkLoadClass &cload )
 			case BAG_CHUNK_STATICANIMPHYS:
 				StaticAnimPhysClass::Load_State( cload );
 				break;
-		
+
 			case BAG_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -456,21 +456,21 @@ DECLARE_DEFINITION_FACTORY(BuildingAggregateDefClass, CLASSID_BUILDINGAGGREGATED
 /*
 ** Chunk ID's used by BuildingAggregateDefClass
 */
-enum	
+enum
 {
 	BAGDEF_CHUNK_STATICANIMPHYS					= 8281441,
 	BAGDEF_CHUNK_VARIABLES,
 
-	BAGDEF_CHUNK_HEALTH100_POWERON_VARIABLES,						
-	BAGDEF_CHUNK_HEALTH75_POWERON_VARIABLES,						
-	BAGDEF_CHUNK_HEALTH50_POWERON_VARIABLES,						
-	BAGDEF_CHUNK_HEALTH25_POWERON_VARIABLES,						
-	BAGDEF_CHUNK_DESTROYED_POWERON_VARIABLES,						
-	BAGDEF_CHUNK_HEALTH100_POWEROFF_VARIABLES,					
-	BAGDEF_CHUNK_HEALTH75_POWEROFF_VARIABLES,						
-	BAGDEF_CHUNK_HEALTH50_POWEROFF_VARIABLES,						
-	BAGDEF_CHUNK_HEALTH25_POWEROFF_VARIABLES,						
-	BAGDEF_CHUNK_DESTROYED_POWEROFF_VARIABLES,					
+	BAGDEF_CHUNK_HEALTH100_POWERON_VARIABLES,
+	BAGDEF_CHUNK_HEALTH75_POWERON_VARIABLES,
+	BAGDEF_CHUNK_HEALTH50_POWERON_VARIABLES,
+	BAGDEF_CHUNK_HEALTH25_POWERON_VARIABLES,
+	BAGDEF_CHUNK_DESTROYED_POWERON_VARIABLES,
+	BAGDEF_CHUNK_HEALTH100_POWEROFF_VARIABLES,
+	BAGDEF_CHUNK_HEALTH75_POWEROFF_VARIABLES,
+	BAGDEF_CHUNK_HEALTH50_POWEROFF_VARIABLES,
+	BAGDEF_CHUNK_HEALTH25_POWEROFF_VARIABLES,
+	BAGDEF_CHUNK_DESTROYED_POWEROFF_VARIABLES,
 
 	BAGDEF_VARIABLE_ANIMLOGICMODE					= 0,
 	BAGDEF_VARIABLE_FRAME0,
@@ -496,7 +496,7 @@ enum
  * HISTORY:                                                                                    *
  *   8/29/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-BuildingAggregateDefClass::BuildingAggregateDefClass( void ) : 
+BuildingAggregateDefClass::BuildingAggregateDefClass( void ) :
 	StaticAnimPhysDefClass(),
 	AnimLogicMode(ANIM_LOGIC_LOOP),
 	IsMCT(false)
@@ -511,7 +511,7 @@ BuildingAggregateDefClass::BuildingAggregateDefClass( void ) :
 #ifdef PARAM_EDITING_ON
 	PARAM_SEPARATOR(BuildingAggregateDefClass, "Building Behavior Settings");
 
-	EnumParameterClass * anim_logic_param = new EnumParameterClass(&AnimLogicMode);		
+	EnumParameterClass * anim_logic_param = new EnumParameterClass(&AnimLogicMode);
 	anim_logic_param->Set_Name ("AnimLogicMode");
 	anim_logic_param->Add_Value("ANIM_LOGIC_LINEAR",ANIM_LOGIC_LINEAR);
 	anim_logic_param->Add_Value("ANIM_LOGIC_LOOP",ANIM_LOGIC_LOOP);
@@ -521,12 +521,12 @@ BuildingAggregateDefClass::BuildingAggregateDefClass( void ) :
 	EDITABLE_PARAM(BuildingAggregateDefClass, ParameterClass::TYPE_BOOL, IsMCT);
 
 	for (i=0; i<BuildingStateClass::STATE_COUNT; i++) {
-		
+
 		PARAM_SEPARATOR(BuildingAggregateDefClass, BuildingStateClass::Get_State_Name(i))
 		NAMED_EDITABLE_PARAM(BuildingAggregateDefClass, ParameterClass::TYPE_INT, Frame0[i], "Frame0");
 		NAMED_EDITABLE_PARAM(BuildingAggregateDefClass, ParameterClass::TYPE_INT, Frame1[i], "Frame1");
 		NAMED_EDITABLE_PARAM(BuildingAggregateDefClass, ParameterClass::TYPE_BOOL, AnimationEnabled[i], "AnimationEnabled");
-		
+
 	}
 #endif
 }
@@ -544,9 +544,9 @@ BuildingAggregateDefClass::BuildingAggregateDefClass( void ) :
  * HISTORY:                                                                                    *
  *   8/29/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-uint32 BuildingAggregateDefClass::Get_Class_ID(void) const	
-{ 
-	return CLASSID_BUILDINGAGGREGATEDEF; 
+uint32 BuildingAggregateDefClass::Get_Class_ID(void) const
+{
+	return CLASSID_BUILDINGAGGREGATEDEF;
 }
 
 bool BuildingAggregateDefClass::Is_Type(const char * type_name)
@@ -571,7 +571,7 @@ bool BuildingAggregateDefClass::Is_Type(const char * type_name)
  * HISTORY:                                                                                    *
  *   8/29/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-PersistClass *	BuildingAggregateDefClass::Create(void) const 
+PersistClass *	BuildingAggregateDefClass::Create(void) const
 {
 	BuildingAggregateClass * obj = new BuildingAggregateClass;
 	obj->Init( *this );
@@ -594,9 +594,9 @@ PersistClass *	BuildingAggregateDefClass::Create(void) const
  * HISTORY:                                                                                    *
  *   8/29/2000  gth : Created.                                                                 *
  *=============================================================================================*/
-const PersistFactoryClass & BuildingAggregateDefClass::Get_Factory(void) const 
-{ 
-	return _BuildingAggregateDefPersistFactory; 
+const PersistFactoryClass & BuildingAggregateDefClass::Get_Factory(void) const
+{
+	return _BuildingAggregateDefPersistFactory;
 }
 
 
@@ -677,7 +677,7 @@ bool	BuildingAggregateDefClass::Load( ChunkLoadClass &cload )
 			case BAGDEF_CHUNK_STATICANIMPHYS:
 				StaticAnimPhysDefClass::Load( cload );
 				break;
-  
+
 			case BAGDEF_CHUNK_VARIABLES:
 				while (cload.Open_Micro_Chunk()) {
 					switch(cload.Cur_Micro_Chunk_ID()) {
@@ -690,7 +690,7 @@ bool	BuildingAggregateDefClass::Load( ChunkLoadClass &cload )
 					cload.Close_Micro_Chunk();
 				}
 				break;
-			
+
 			case BAGDEF_CHUNK_HEALTH100_POWERON_VARIABLES:
 			case BAGDEF_CHUNK_HEALTH75_POWERON_VARIABLES:
 			case BAGDEF_CHUNK_HEALTH50_POWERON_VARIABLES:

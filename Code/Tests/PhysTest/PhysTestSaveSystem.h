@@ -54,7 +54,7 @@
 class PhysTestSaveSystemClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	virtual uint32				Chunk_ID (void) const override;
 
 protected:
@@ -65,7 +65,7 @@ protected:
 	/*
 	** internal chunk id's
 	*/
-	enum 
+	enum
 	{
 		CHUNKID_MAINFRAME			= 0x00667001,
 	};
@@ -79,7 +79,7 @@ extern PhysTestSaveSystemClass _PhysTestSaveSystem;
 
 /******************************************************************************************
 **
-** Chunk ID's used by PhysTest objects 
+** Chunk ID's used by PhysTest objects
 **
 ******************************************************************************************/
 enum

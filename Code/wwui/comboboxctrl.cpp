@@ -70,7 +70,7 @@ ComboBoxCtrlClass::ComboBoxCtrlClass (void)	:
 	StyleMgrClass::Configure_Renderer (&ControlRenderer);
 
 	//
-	//	Configure the hilight renderer 
+	//	Configure the hilight renderer
 	//
 	StyleMgrClass::Configure_Renderer (&HilightRenderer);
 
@@ -289,7 +289,7 @@ ComboBoxCtrlClass::Update_Client_Rect (void)
 	//
 	DropDownSize.X = int(ClientRect.Width ());
 	DropDownSize.Y = int(FullRect.Bottom - ClientRect.Bottom);
-	
+
 	//
 	//	Calculate the bounding rectangle for the drop-down control
 	//
@@ -318,7 +318,7 @@ ComboBoxCtrlClass::Update_Client_Rect (void)
 	//	Make the window rect and the client rect the same
 	//
 	Rect = ClientRect;
-	
+
 	//
 	//	Calculate where the button is located
 	//
@@ -363,7 +363,7 @@ ComboBoxCtrlClass::Render (void)
 	//
 	//	Recreate the renderers (if necessary)
 	//
-	if (IsDirty) {		
+	if (IsDirty) {
 		Create_Control_Renderers ();
 		Create_Text_Renderers ();
 	}
@@ -557,7 +557,7 @@ ComboBoxCtrlClass::On_Drop_Down_End (int curr_sel)
 
 	//	Hide the drop down
 	Display_Drop_Down (false);
-	
+
 	//
 	//	If we aren't embedding an edit control, then we
 	//	need to focus after the drop down exits
@@ -603,7 +603,7 @@ ComboBoxCtrlClass::Display_Drop_Down (bool onoff)
 		}
 
 	} else {
-		
+
 		//
 		//	Hide the drop down
 		//
@@ -626,7 +626,7 @@ ComboBoxCtrlClass::Display_Drop_Down (bool onoff)
 void
 ComboBoxCtrlClass::On_Mouse_Wheel (int direction)
 {
-	if (direction < 0) {		
+	if (direction < 0) {
 		Set_Sel (std::max<int>(0, (DropDownCtrl.Get_Curr_Sel () - 1)), true);
 	} else {
 		Set_Sel (DropDownCtrl.Get_Curr_Sel () + 1, true);
@@ -687,7 +687,7 @@ ComboBoxCtrlClass::Set_Sel (int index, bool notify)
 
 		if (CurrSel != newSel) {
 			Set_Dirty();
-	
+
 			// If this is a dropdown then automatically fill in the edit part with
 			// the new selection string.
 			if ((Style & 0x0F) == CBS_DROPDOWN) {

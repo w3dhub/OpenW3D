@@ -104,7 +104,7 @@ void init_bez_sin()
 // * u2 * u;
 
 		double wy = 4.0;
-		
+
 		for(double dy=1.000178; dy<1.000537; dy+=0.0000001)
 		{
 			bool b = false;
@@ -112,13 +112,13 @@ void init_bez_sin()
 			for(double dz=1.000534; dz<1.000715; dz+=0.0000001)
 			{
 
-	
-				double by = x * 8.0 / 27.0 + 
+
+				double by = x * 8.0 / 27.0 +
 							y * dy * 12.0 / 27.0 +
 							z * dz * 6.0 / 27.0 +
 							w / 27.0;
 
-				double bz = x / 27.0 + 
+				double bz = x / 27.0 +
 							y * dy * 6.0 / 27.0 +
 							z * dz * 12.0 / 27.0 +
 							w * 8.0 / 27.0;
@@ -246,19 +246,19 @@ void init_bez_acos()
 		double mz = 1.0;
 
 		double wy = 4.0;
-		
+
 		for(double dy=0.9996944; dy<=1.0006926; dy+=16.0/8388608)
 		{
 			bool b = false;
 			double wz = 4.0;
 			for(double dz=0.9997872; dz<=1.0011092; dz+=16.0/8388608)
 			{
-				double by = x * 8.0 / 27.0 + 
+				double by = x * 8.0 / 27.0 +
 							y * dy * 12.0 / 27.0 +
 							z * dz * 6.0 / 27.0 +
 							w / 27.0;
 
-				double bz = x / 27.0 + 
+				double bz = x / 27.0 +
 							y * dy * 6.0 / 27.0 +
 							z * dz * 12.0 / 27.0 +
 							w * 8.0 / 27.0;
@@ -459,7 +459,7 @@ float taylor_acos(float x)
 		(3*5*7*9*11*13*15)		/(2*4*6*8*10*12*14*16*17),
 		(3*5*7*9*11*13*15*17)	/(2*4*6*8*10*12*14*16*18*19),
 */
-	
+
 	float table[] =
 	{
 		1.f,
@@ -484,7 +484,7 @@ float taylor_acos(float x)
 		x = 0.707106781186547524400844362104849f - (x-0.707106781186547524400844362104849f);
 		flip = true;
 	}
-	
+
 
 	float r = 1.57079632679489661923132169163975f;
 	float x2 = x*x;
@@ -508,12 +508,12 @@ taylor acos
 
                          3      5      7       9       11
               %PI       X    3 X    5 X    35 X    63 X
-              --- - X - -- - ---- - ---- - ----- - ------ 
+              --- - X - -- - ---- - ---- - ----- - ------
                2        6     40    112    1152     2816
 
 
 
-taylor(sin(x),x,0,9);	
+taylor(sin(x),x,0,9);
 
                            3    5      7       9
                           X    X      X       X
@@ -568,7 +568,7 @@ void trash_the_cache(void)
 		CacheTrashBuffer[address] = ReadVar+1;
 		//cout<<ReadVar;
 	}
-}		
+}
 
 
 int jan_main(int argc, char* argv[])
@@ -586,7 +586,7 @@ int jan_main(int argc, char* argv[])
 //		float foo = i/float(47) * pi * 2;
 		float foo = float(i)/64.f;
 		float r0 = 0.0f;
-		float r1 = 0.0f; 
+		float r1 = 0.0f;
 		float r2 = 0.0f;
 		unsigned int acos_cycles = 0;
 		unsigned int bez_cycles = 0;
@@ -598,36 +598,36 @@ int jan_main(int argc, char* argv[])
 
 		{
 			for (int j=0; j<SAMPLE_COUNT; j++) {
-				foo = WWMath::Random_Float();	
+				foo = WWMath::Random_Float();
 				acos_cycles = Get_CPU_Clock();
 				r0 = acos(foo);
-				acos_sum += Get_CPU_Clock() - acos_cycles;	
+				acos_sum += Get_CPU_Clock() - acos_cycles;
 				trash_the_cache();
 			}
 		}
-		
+
 
 		{
 			for (int j=0; j<SAMPLE_COUNT; j++) {
-				foo = WWMath::Random_Float();	
+				foo = WWMath::Random_Float();
 				bez_cycles = Get_CPU_Clock();
 				r1 = bez_acos(foo);
-				bez_sum += Get_CPU_Clock() - bez_cycles;	
+				bez_sum += Get_CPU_Clock() - bez_cycles;
 				trash_the_cache();
 			}
 		}
 
 		{
 			for (int j=0; j<SAMPLE_COUNT; j++) {
-				foo = WWMath::Random_Float();	
+				foo = WWMath::Random_Float();
 				table_cycles = Get_CPU_Clock();
 				r2 = WWMath::Fast_Acos(foo);
-				table_sum += Get_CPU_Clock() - table_cycles;	
+				table_sum += Get_CPU_Clock() - table_cycles;
 				trash_the_cache();
 			}
 		}
 
-		
+
 //		cout << "x: " << setw(8) <<  foo << " sin(x): " << setw(8) << r0 << " bez_sin(x): " << setw(8) << r1 << " ratio: " << setw(8) << r0-r1 << endl;
 //		cout << "x: " << setw(8) <<  foo << " acos(x): " << setw(8) << r0 << " bez_acos(x): " << setw(8) << r1 << " ratio: " << setw(8) << r0/r1 << endl;
 		cout << "acos clocks: "<<acos_sum<<" bez clocks: "<<bez_sum<<" table clocks: "<<table_sum << endl;

@@ -54,10 +54,10 @@ DECLARE_FORCE_LINK(vtolvehicle);
 /*
 ** Constants for this module
 */
-const int		MAX_CAPTURED_BONE_COUNT			= 4;		
+const int		MAX_CAPTURED_BONE_COUNT			= 4;
 const char *	ENGINE_ANGLE_BONE_NAME			= "ENGINEANGLE";
 const char *	ROTOR_BONE_NAME					= "ROTOR";
-												
+
 /*
 ** Declare a PersistFactory for TrackedVehicleClasses
 */
@@ -66,7 +66,7 @@ SimplePersistFactoryClass<VTOLVehicleClass,PHYSICS_CHUNKID_VTOLVEHICLE>	_VTOLVeh
 /*
 ** Chunk-ID's used by VTOL vehicle class
 */
-enum 
+enum
 {
 	VTOLVEHICLE_CHUNK_VEHICLEPHYS			= 407001941,
 	VTOLVEHICLE_CHUNK_VARIABLES,
@@ -89,8 +89,8 @@ VTOLVehicleClass::VTOLVehicleClass(void) :
 		RotorAngleBones[i] = -1;
 	}
 }
- 
-void VTOLVehicleClass::Init(const VTOLVehicleDefClass & def) 
+
+void VTOLVehicleClass::Init(const VTOLVehicleDefClass & def)
 {
 	VehiclePhysClass::Init(def);
 }
@@ -134,12 +134,12 @@ void VTOLVehicleClass::Set_Model(RenderObjClass * model)
 }
 
 void VTOLVehicleClass::Timestep(float dt)
-{	
+{
 	{
 		WWPROFILE("VTOLVehicle::Timestep");
 
 		const VTOLVehicleDefClass * def = Get_VTOLVehicleDef();
-		
+
 		/*
 		** Update the rotor angle
 		*/
@@ -149,7 +149,7 @@ void VTOLVehicleClass::Timestep(float dt)
 		} else if (RotorAngle > 0.0f) {
 			RotorAngle += 2.0f * WWMATH_PI;
 		}
-		
+
 		/*
 		** Update the rotor angular velocity
 		*/
@@ -171,7 +171,7 @@ void VTOLVehicleClass::Timestep(float dt)
 			}
 		}
 	}
-	
+
 	VehiclePhysClass::Timestep(dt);
 }
 
@@ -187,8 +187,8 @@ void VTOLVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 		/*
 		** Yaw:
 		** Inputs set desired Z-Rotational Velocity
-		** Steering controller generates a torque to accelerate towards this.  
-		** 
+		** Steering controller generates a torque to accelerate towards this.
+		**
 		** Roll, Pitch:
 		** Inputs set desired roll and pitch (not velocity).  Desired pitch is
 		** a function of desired forward-backward acceleration.  E.g. if user wants
@@ -203,13 +203,13 @@ void VTOLVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 		** pushes us towards that.  Also maybe an additional ground-effect force could
 		** be added which checks the real geometry?
 		**
-		** Forward Translational motion: 
-		** Forward translational force is dependent on the orientation of the vehicle 
-		** and the control input.  The amount of lean and the controller input scales 
+		** Forward Translational motion:
+		** Forward translational force is dependent on the orientation of the vehicle
+		** and the control input.  The amount of lean and the controller input scales
 		** the max force exerted.
 		**
-		** Sideways Translational motion: 
-		** Sideways acceleration is dependent on the orientation and the controlls.  
+		** Sideways Translational motion:
+		** Sideways acceleration is dependent on the orientation and the controlls.
 		** The amount of force exerted is scaled by both the orientation and the
 		** strafe input.
 		*/
@@ -267,14 +267,14 @@ void VTOLVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 
 			DEBUG_RENDER_VECTOR(State.Position,pitch_torque,Vector3(0,1,0));
 			DEBUG_RENDER_VECTOR(State.Position,roll_torque,Vector3(1,0,0));
-			
+
 			*torque += pitch_torque;
 			*torque += roll_torque;
 			WWASSERT(torque->Is_Valid());
-			
+
 			// TRANSLATIONAL FORCES:
 			float forward_force = 0.0f;
-			float left_force = 0.0f; 
+			float left_force = 0.0f;
 
 			if (def->MaxFuselagePitch > 0.0f) {
 				float forward_fraction = WWMath::Fabs(pitch) / def->MaxFuselagePitch;
@@ -297,11 +297,11 @@ void VTOLVehicleClass::Compute_Force_And_Torque(Vector3 * force,Vector3 * torque
 			Vector3 yvec2d(yvec.X,yvec.Y,0.0f);
 			xvec.Normalize();
 			yvec.Normalize();
-			
+
 			*force += forward_force * xvec2d;
 			*force += left_force * yvec2d;
-			
-			// Lift force is related to several factors:  
+
+			// Lift force is related to several factors:
 			// - it cancels out gravity
 			// - it contains a component related to the user pressing jump/crouch
 			// - it contains a component related to the proximity of the flight ceiling or floor
@@ -341,7 +341,7 @@ float VTOLVehicleClass::Get_Normalized_Engine_Flame(void)
 }
 
 void VTOLVehicleClass::Release_Engine_Bones(void)
-{	
+{
 	// release any bones that we currently have captured
 	if (Model != NULL) {
 		for (int i=0;i<MAX_CAPTURED_BONE_COUNT; i++) {
@@ -367,18 +367,18 @@ void VTOLVehicleClass::Update_Cached_Model_Parameters(void)
 	for (ibone=0; (ibone < Model->Get_Num_Bones()) && (engine_bone_count < MAX_CAPTURED_BONE_COUNT); ibone++) {
 		const char * bone_name = Model->Get_Bone_Name(ibone);
         if (strnicmp(bone_name,ENGINE_ANGLE_BONE_NAME,strlen(ENGINE_ANGLE_BONE_NAME)) == 0) {
-			
+
 			EngineAngleBones[engine_bone_count] = ibone;
 			Model->Capture_Bone(ibone);
 			engine_bone_count++;
 		}
 	}
-	
+
 	// search through the model for bones names ROTORxxx
 	for (ibone=0; (ibone < Model->Get_Num_Bones()) && (rotor_bone_count < MAX_CAPTURED_BONE_COUNT); ibone++) {
 		const char * bone_name = Model->Get_Bone_Name(ibone);
         if (strnicmp(bone_name,ROTOR_BONE_NAME,strlen(ROTOR_BONE_NAME)) == 0) {
-			
+
 			RotorAngleBones[rotor_bone_count] = ibone;
 			Model->Capture_Bone(ibone);
 			rotor_bone_count++;
@@ -408,8 +408,8 @@ bool VTOLVehicleClass::Save (ChunkSaveClass &csave)
 bool VTOLVehicleClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case VTOLVEHICLE_CHUNK_VEHICLEPHYS:
 				VehiclePhysClass::Load(cload);
@@ -444,7 +444,7 @@ DECLARE_DEFINITION_FACTORY(VTOLVehicleDefClass, CLASSID_VTOLVEHICLEDEF, "VTOLVeh
 /*
 ** Chunk ID's used by TrackedVehicleDefClass
 */
-enum 
+enum
 {
 	VTOLVEHICLEDEF_CHUNK_VEHICLEPHYSDEF			= 408000936,			// (parent class)
 	VTOLVEHICLEDEF_CHUNK_VARIABLES,
@@ -478,10 +478,10 @@ VTOLVehicleDefClass::VTOLVehicleDefClass(void) :
 	RollControllerDamping(12.75),
 	MaxYawVelocity(DEG_TO_RADF(180.0f)),
 	YawControllerGain(5.0f),
-	MaxEngineRotation(DEG_TO_RADF(25.0f)),			
-	RotorSpeed(DEG_TO_RADF(360.0f)),		
+	MaxEngineRotation(DEG_TO_RADF(25.0f)),
+	RotorSpeed(DEG_TO_RADF(360.0f)),
 	RotorAcceleration(DEG_TO_RADF(180.0f)),
-	RotorDeceleration(DEG_TO_RADF(180.0f))	
+	RotorDeceleration(DEG_TO_RADF(180.0f))
 {
 	// make our parameters editable
 	FLOAT_UNITS_PARAM(VTOLVehicleDefClass,MaxVerticalAcceleration, 0.0f, 100000.0f,"m/s^2");
@@ -495,14 +495,14 @@ VTOLVehicleDefClass::VTOLVehicleDefClass(void) :
 	ANGLE_EDITABLE_PARAM(VTOLVehicleDefClass,MaxYawVelocity,DEG_TO_RADF(0.01f),DEG_TO_RADF(360.0f));
 	FLOAT_EDITABLE_PARAM(VTOLVehicleDefClass,YawControllerGain,0.0f,10000.0f);
 	ANGLE_EDITABLE_PARAM(VTOLVehicleDefClass,MaxEngineRotation,DEG_TO_RADF(0.01f),DEG_TO_RADF(50.0f));
-	ANGLE_EDITABLE_PARAM(VTOLVehicleDefClass,RotorSpeed,DEG_TO_RADF(0.01f),DEG_TO_RADF(640.0f));		
+	ANGLE_EDITABLE_PARAM(VTOLVehicleDefClass,RotorSpeed,DEG_TO_RADF(0.01f),DEG_TO_RADF(640.0f));
 	ANGLE_EDITABLE_PARAM(VTOLVehicleDefClass,RotorAcceleration,DEG_TO_RADF(0.01f),DEG_TO_RADF(640.0f));
 	ANGLE_EDITABLE_PARAM(VTOLVehicleDefClass,RotorDeceleration,DEG_TO_RADF(0.01f),DEG_TO_RADF(640.0f));
 }
 
-uint32 VTOLVehicleDefClass::Get_Class_ID (void) const	
-{ 
-	return CLASSID_VTOLVEHICLEDEF; 
+uint32 VTOLVehicleDefClass::Get_Class_ID (void) const
+{
+	return CLASSID_VTOLVEHICLEDEF;
 }
 
 const PersistFactoryClass & VTOLVehicleDefClass::Get_Factory (void) const

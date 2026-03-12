@@ -69,7 +69,7 @@ ReportMgrClass::Export_File_Usage_Report (const char *filename)
 	if (file.Open (FileClass::WRITE)) {
 		STRING_LIST file_list;
 		file_list.Set_Growth_Step (500);
-		
+
 		//
 		//	Loop over all the nodes in the current level
 		//
@@ -92,7 +92,7 @@ ReportMgrClass::Export_File_Usage_Report (const char *filename)
 				for (int index = 0; index < definition_list.Count (); index ++) {
 					Add_Definition_Dependencies (definition_list[index], file_list);
 				}
-			}			
+			}
 		}
 
 		//
@@ -105,8 +105,8 @@ ReportMgrClass::Export_File_Usage_Report (const char *filename)
 		//	Now add all W3D file-depenedencies to this list
 		//
 		int index;
-		for (index = 0; index < file_list.Count (); index ++) {			
-			StringClass next_filename (file_list[index], true);			
+		for (index = 0; index < file_list.Count (); index ++) {
+			StringClass next_filename (file_list[index], true);
 
 			//
 			//	If this is a W3D file, then enumerate its dependencies...
@@ -116,10 +116,10 @@ ReportMgrClass::Export_File_Usage_Report (const char *filename)
 				::Get_File_Mgr ()->Build_Dependency_List (next_filename, dep_list);
 				for (int new_index = 0; new_index < dep_list.Count (); new_index ++) {
 					CString rel_path = ::Get_File_Mgr ()->Make_Relative_Path (dep_list[new_index]);
-					
+
 					StringClass lower_name (rel_path, true);
 					::strlwr (lower_name.Peek_Buffer ());
-					
+
 					//
 					//	Don't add this file to the list if its already there
 					//
@@ -169,7 +169,7 @@ ReportMgrClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING
 	if (definition == NULL) {
 		return ;
 	}
-		
+
 	//
 	//	Find all 'filename' parameters to this definition.
 	//
@@ -179,7 +179,7 @@ ReportMgrClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING
 		ParameterClass *parameter = definition->Lock_Parameter (index);
 		if (	parameter->Get_Type () == ParameterClass::TYPE_FILENAME ||
 				parameter->Get_Type () == ParameterClass::TYPE_SOUND_FILENAME) {
-			
+
 			//
 			//	Add this filename dependency to the list
 			//
@@ -201,7 +201,7 @@ ReportMgrClass::Add_Definition_Dependencies (DefinitionClass *definition, STRING
 			}
 
 		} else if (parameter->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
-			
+
 			//
 			//	If this is param references a physics-definition, then add all its dependencies as well..
 			//
@@ -238,7 +238,7 @@ ReportMgrClass::Export_Missing_Translation_Report (const char *filename, int lan
 		//
 		int count = TranslateDBClass::Get_Object_Count ();
 		for (int index = 0; index < count; index ++) {
-			
+
 			//
 			//	Does this string contain the necessary translation?
 			//

@@ -17,23 +17,23 @@
 */
 
 /* $Header: /Commando/Code/Tools/W3DShellExt/External/quat.h 1     1/02/02 1:18p Moumine_ballo $ */
-/*************************************************************************** 
- ***                  Confidential - Westwood Studios                    *** 
- *************************************************************************** 
- *                                                                         * 
- *                 Project Name : WW3D PS2		                           * 
- *                                                                         * 
- *                    File Name : QUAT.H                                   * 
- *                                                                         * 
- *                   Programmer : Kenny Mitchell                           * 
- *                                                                         * 
- *                   Start Date : 11/16/99                                 * 
- *                                                                         * 
- *                  Last Update : 11/16/99			                        * 
- *                                                                         * 
- *-------------------------------------------------------------------------* 
+/***************************************************************************
+ ***                  Confidential - Westwood Studios                    ***
+ ***************************************************************************
+ *                                                                         *
+ *                 Project Name : WW3D PS2		                           *
+ *                                                                         *
+ *                    File Name : QUAT.H                                   *
+ *                                                                         *
+ *                   Programmer : Kenny Mitchell                           *
+ *                                                                         *
+ *                   Start Date : 11/16/99                                 *
+ *                                                                         *
+ *                  Last Update : 11/16/99			                        *
+ *                                                                         *
+ *-------------------------------------------------------------------------*
  * Based on Greg Hjelstrom 97 														   *
- * Functions:                                                              * 
+ * Functions:                                                              *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef QUAT_H
@@ -69,13 +69,13 @@ public:
 	void		Scale(float s) { X = (float)(s*X); Y = (float)(s*Y); Z = (float)(s*Z); W = (float)(s*W); }
 
 	// Array access
-	float &	operator [](int i) { return (&X)[i]; }     
-	const float &  operator [](int i) const { return (&X)[i]; }  
+	float &	operator [](int i) { return (&X)[i]; }
+	const float &  operator [](int i) const { return (&X)[i]; }
 
-	// Unary operators.  
-	// Remember that q and -q represent the same 3D rotation.  
-	Quaternion operator-() const { return(Quaternion(-X,-Y,-Z,-W)); } 
-	Quaternion operator+() const { return *this; } 
+	// Unary operators.
+	// Remember that q and -q represent the same 3D rotation.
+	Quaternion operator-() const { return(Quaternion(-X,-Y,-Z,-W)); }
+	Quaternion operator+() const { return *this; }
 
 	// Every 3D rotation can be expressed by two different quaternions,  This
 	// function makes the current quaternion convert itself to the representation
@@ -232,7 +232,7 @@ inline Vector3 Quaternion::Rotate_Vector(const Vector3 & v) const
 inline void Quaternion::Rotate_Vector(const Vector3 & v,Vector3 * result) const
 {
 	assert(result != NULL);
-	
+
 	float x = W*v.X + (Y*v.Z - v.Y*Z);
 	float y = W*v.Y - (X*v.Z - v.X*Z);
 	float z = W*v.Z + (X*v.Y - v.X*Y);
@@ -248,8 +248,8 @@ inline bool Quaternion::Is_Valid(void) const
 #if 1
 	return (1);
 #else
-	return (	Is_Valid_Float(X) && 
-				Is_Valid_Float(Y) && 
+	return (	Is_Valid_Float(X) &&
+				Is_Valid_Float(Y) &&
 				Is_Valid_Float(Z) &&
 				Is_Valid_Float(W) );
 #endif

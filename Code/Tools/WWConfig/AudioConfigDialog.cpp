@@ -112,10 +112,10 @@ END_MESSAGE_MAP()
 //	Modified: 12/06/2001 by	MML	- Retrieving strings from Locomoto file.
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-AudioConfigDialogClass::OnInitDialog (void) 
+AudioConfigDialogClass::OnInitDialog (void)
 {
 	char string [_MAX_PATH];
-	
+
 	CDialog::OnInitDialog ();
 
 	//
@@ -140,7 +140,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 	SetDlgItemText( IDC_CINEMATIC_CHECK, string );
 
 	Locale_GetString( IDS_QUALITY, string );
-	SetDlgItemText( IDC_QUALITY, string ); 
+	SetDlgItemText( IDC_QUALITY, string );
 	SendDlgItemMessage (IDC_QUALITY_COMBO, CB_RESETCONTENT, 0, 0);
 	SendDlgItemMessage (IDC_QUALITY_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString (IDS_8_BIT, string));
 	SendDlgItemMessage (IDC_QUALITY_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString (IDS_16_BIT, string));
@@ -168,7 +168,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 	//
 	WWAudioClass::Create_Instance();
 	WWAudioClass::Get_Instance ()->Initialize ();
-	
+
 	//
 	//	Read the audio library's settings from the registry
 	//
@@ -270,11 +270,11 @@ AudioConfigDialogClass::OnInitDialog (void)
 		case 1:
 			SendDlgItemMessage (IDC_SPEAKER_COMBO, CB_SETCURSEL, (WPARAM)1);
 			break;
-		
+
 		case 2:
 			SendDlgItemMessage (IDC_SPEAKER_COMBO, CB_SETCURSEL, (WPARAM)2);
 			break;
-	
+
 		case 3:
 			SendDlgItemMessage (IDC_SPEAKER_COMBO, CB_SETCURSEL, (WPARAM)3);
 			break;
@@ -300,13 +300,13 @@ AudioConfigDialogClass::OnInitDialog (void)
 	bool selected_default = false;
 	int driver_count = WWAudioClass::Get_Instance ()->Get_3D_Device_Count ();
 	for (int index = 0; index < driver_count; index ++) {
-		
+
 		//
 		//	Get information about this sound driver
 		//
 		const char *driver_info = NULL;
 		if (WWAudioClass::Get_Instance ()->Get_3D_Device (index, &driver_info)) {
-			
+
 			//
 			//	Add an entry to the list for this driver
 			//
@@ -335,7 +335,7 @@ AudioConfigDialogClass::OnInitDialog (void)
 	//
 	//	Update the enabled state of the volume sliders
 	//
-	Update_Slider_Enable_State ();	
+	Update_Slider_Enable_State ();
 
 	return true;
 }
@@ -371,7 +371,7 @@ AudioConfigDialogClass::Apply_Changes (void)
 	StringClass device_name;
 	int hertz			  = 44100;
 	int bits				  = 16;
-	int speaker_type	  = 0;	
+	int speaker_type	  = 0;
 	bool is_stereo		  = true;
 	bool sound_on		  = true;
 	bool music_on		  = true;
@@ -513,6 +513,6 @@ AudioConfigDialogClass::OnCommand (WPARAM wParam, LPARAM lParam)
 			Update_Slider_Enable_State();
 			break;
 	}
-	
+
 	return CDialog::OnCommand (wParam, lParam);
 }

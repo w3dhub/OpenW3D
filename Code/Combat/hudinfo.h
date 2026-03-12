@@ -53,7 +53,7 @@
 /*
 **
 */
-class HUDInfo 
+class HUDInfo
 {
 public:
 	// Where is the camera looking?

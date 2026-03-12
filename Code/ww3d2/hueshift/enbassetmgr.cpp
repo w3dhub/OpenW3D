@@ -80,36 +80,36 @@ public:
 };
 
 ENBPrototypeClass::ENBPrototypeClass(RenderObjClass * proto, const char *name)
-{ 
+{
 	Name=strdup(name);
-	Proto = proto; 
-	assert(Proto); 
-	Proto->Add_Ref(); 
+	Proto = proto;
+	assert(Proto);
+	Proto->Add_Ref();
 }
 
-ENBPrototypeClass::~ENBPrototypeClass(void)						
-{ 
+ENBPrototypeClass::~ENBPrototypeClass(void)
+{
 	delete [] Name;
-	if (Proto) { 
-		Proto->Release_Ref(); 
+	if (Proto) {
+		Proto->Release_Ref();
 	}
 }
 
-const char * ENBPrototypeClass::Get_Name(void) const			
-{ 
+const char * ENBPrototypeClass::Get_Name(void) const
+{
 	return Name;
-}	
-
-int ENBPrototypeClass::Get_Class_ID(void) const	
-{ 
-	return Proto->Class_ID(); 
 }
 
-RenderObjClass * ENBPrototypeClass::Create(void)					
-{ 
-	return (RenderObjClass *)( SET_REF_OWNER( Proto->Clone() ) ); 
+int ENBPrototypeClass::Get_Class_ID(void) const
+{
+	return Proto->Class_ID();
 }
-	
+
+RenderObjClass * ENBPrototypeClass::Create(void)
+{
+	return (RenderObjClass *)( SET_REF_OWNER( Proto->Clone() ) );
+}
+
 //---------------------------------------------------------------------
 // ENBAssetManager
 //---------------------------------------------------------------------
@@ -143,7 +143,7 @@ RenderObjClass * ENBAssetManager::Create_Render_Obj(const char * name,float Scal
 	// exisiting prototype
 	rendobj=WW3DAssetManager::Create_Render_Obj(name);
 	if (!rendobj) return NULL;
-	
+
 	Make_Unique(rendobj,scale,hsv_shift);
 	if (scale) rendobj->Scale(Scale);
 	if (hsv_shift) Recolor_Asset(rendobj,HSV_shift);
@@ -169,7 +169,7 @@ void ENBAssetManager::Make_Mesh_Unique(RenderObjClass *robj,bool geometry, bool 
 		// make all vertex materials unique
 		MaterialInfoClass	*material = mesh->Get_Material_Info();
 		for (i=0; i<material->Vertex_Material_Count(); i++)
-			material->Peek_Vertex_Material(i)->Make_Unique();	
+			material->Peek_Vertex_Material(i)->Make_Unique();
 		REF_PTR_RELEASE(material);
 		// make all color arrays unique
 		model->Make_Color_Array_Unique(0);
@@ -179,10 +179,10 @@ void ENBAssetManager::Make_Mesh_Unique(RenderObjClass *robj,bool geometry, bool 
 		// for the top mip level and then
 		// mip filter instead of converting all mip levels
 	}
-		
+
 	if (geometry)	{
-		// make geometry unique		
-		model->Make_Geometry_Unique();		
+		// make geometry unique
+		model->Make_Geometry_Unique();
 	}
 
 	REF_PTR_RELEASE(model);
@@ -200,7 +200,7 @@ void ENBAssetManager::Make_HLOD_Unique(RenderObjClass *robj,bool geometry, bool 
 
 void ENBAssetManager::Make_Unique(RenderObjClass *robj,bool geometry, bool colors)
 {
-	switch (robj->Class_ID())	{	
+	switch (robj->Class_ID())	{
 	case RenderObjClass::CLASSID_MESH:
 		Make_Mesh_Unique(robj,geometry,colors);
 		break;
@@ -237,8 +237,8 @@ void ENBAssetManager::Recolor_Vertex_Material(VertexMaterialClass *vmat,Vector3 
 
 void ENBAssetManager::Recolor_Vertices(unsigned int *color, int count, Vector3 &hsv_shift)
 {
-	int i;	
-	Vector4 rgba;	
+	int i;
+	Vector4 rgba;
 
 	for (i=0; i<count; i++)
 	{
@@ -250,21 +250,21 @@ void ENBAssetManager::Recolor_Vertices(unsigned int *color, int count, Vector3 &
 
 TextureClass * ENBAssetManager::Recolor_Texture(TextureClass *texture, Vector3 &hsv_shift)
 {
-	const char *name=texture->Get_Name();	
+	const char *name=texture->Get_Name();
 
 	// if texture is procedural return NULL
 	if (name && name[0]=='!') return NULL;
 
 	// make sure texture is loaded
-	if (!texture->Is_Initialized())	
+	if (!texture->Is_Initialized())
 		TextureLoader::Request_High_Priority_Loading(texture,0,(TextureClass::MipCountType) texture->Get_Mip_Level_Count());
 
 	SurfaceClass::SurfaceDescription desc;
 	SurfaceClass *newsurf, *oldsurf, *smallsurf;
-	texture->Get_Level_Description(desc);		
+	texture->Get_Level_Description(desc);
 
 	// if texture is monochrome and no value shifting
-	// return NULL	
+	// return NULL
 	smallsurf=texture->Get_Surface_Level((TextureClass::MipCountType)texture->Get_Mip_Level_Count()-1);
 	if (hsv_shift.Z==0.0f && smallsurf->Is_Monochrome())
 	{
@@ -276,10 +276,10 @@ TextureClass * ENBAssetManager::Recolor_Texture(TextureClass *texture, Vector3 &
 	oldsurf=texture->Get_Surface_Level();
 
 	// see if we have a cached copy
-	char newname[512];	
+	char newname[512];
 	StringClass lower_case_name(texture->Get_Name(),true);
 	_strlwr(lower_case_name.Peek_Buffer());
-	sprintf(newname,"#%s!H%gS%gV%g",lower_case_name,hsv_shift.X,hsv_shift.Y,hsv_shift.Z);	
+	sprintf(newname,"#%s!H%gS%gV%g",lower_case_name,hsv_shift.X,hsv_shift.Y,hsv_shift.Z);
 	TextureClass* newtex = TextureHash.Get(newname);
 	if (newtex)
 	{
@@ -287,8 +287,8 @@ TextureClass * ENBAssetManager::Recolor_Texture(TextureClass *texture, Vector3 &
 		REF_PTR_RELEASE(oldsurf);
 		return newtex;
 	}
-	
-	// no cached copy, make new recolorized texture	
+
+	// no cached copy, make new recolorized texture
 	newsurf=NEW_REF(SurfaceClass,(desc.Width,desc.Height,desc.Format));
 	newsurf->Copy(0,0,0,0,desc.Width,desc.Height,oldsurf);
 	newsurf->Hue_Shift(hsv_shift);
@@ -313,13 +313,13 @@ void ENBAssetManager::Recolor_Mesh(RenderObjClass *robj,Vector3 &hsv_shift)
 {
 	int i;
 
-	MeshClass *mesh=(MeshClass*) robj;	
+	MeshClass *mesh=(MeshClass*) robj;
 	MeshModelClass * model = mesh->Get_Model();
 	MaterialInfoClass	*material = mesh->Get_Material_Info();
 
 	// recolor vertex material
 	for (i=0; i<material->Vertex_Material_Count(); i++)
-			Recolor_Vertex_Material(material->Peek_Vertex_Material(i),hsv_shift);	
+			Recolor_Vertex_Material(material->Peek_Vertex_Material(i),hsv_shift);
 
 	// recolor color arrays
 	unsigned int * color;
@@ -343,7 +343,7 @@ void ENBAssetManager::Recolor_Mesh(RenderObjClass *robj,Vector3 &hsv_shift)
 		}
 	}
 
-	REF_PTR_RELEASE(material);	
+	REF_PTR_RELEASE(material);
 	REF_PTR_RELEASE(model);
 }
 
@@ -386,7 +386,7 @@ void ENBAssetManager::Recolor_ParticleEmitter(RenderObjClass *robj,Vector3 &hsv_
 
 void ENBAssetManager::Recolor_Asset(RenderObjClass *robj,Vector3 &hsv_shift)
 {
-	switch (robj->Class_ID())	{	
+	switch (robj->Class_ID())	{
 	case RenderObjClass::CLASSID_MESH:
 		Recolor_Mesh(robj,hsv_shift);
 		break;

@@ -50,12 +50,12 @@ bool	PhysAABTreeCullClass::_HierarchicalVisCullingEnabled = true;
 
 /*
 ** PhysAABTreeCullClass is a derived AABTree which assumes it contains PhysClasses
-** these two functions encapsulate some typecasting which happens in a lot 
+** these two functions encapsulate some typecasting which happens in a lot
 ** of places...
 */
 inline PhysClass * get_first_object(AABTreeNodeClass * node)
 {
-	return (PhysClass *)(node->Object);		
+	return (PhysClass *)(node->Object);
 }
 
 inline PhysClass * get_next_object(PhysClass * tile)
@@ -104,8 +104,8 @@ bool PhysAABTreeCullClass::Cast_Ray_Recursive
 	if (node->Object) {
 		PhysClass * obj = get_first_object(node);
 		while (obj) {
-			if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),raytest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()) 
+			if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),raytest.CollisionGroup) &&
+					!obj->Is_Ignore_Me())
 			{
 				res |= obj->Cast_Ray(raytest);
 			}
@@ -148,8 +148,8 @@ bool PhysAABTreeCullClass::Cast_AABox_Recursive
 	if (node->Object) {
 		PhysClass * obj = get_first_object(node);
 		while (obj) {
-			if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
-					!obj->Is_Ignore_Me()	) 
+			if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
+					!obj->Is_Ignore_Me()	)
 			{
 				res |= obj->Cast_AABox(boxtest);
 			}
@@ -192,7 +192,7 @@ bool PhysAABTreeCullClass::Cast_OBBox_Recursive
 	if (node->Object) {
 		PhysClass * obj = get_first_object(node);
 		while (obj) {
-			if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
+			if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
 					!obj->Is_Ignore_Me()	) {
 				res |= obj->Cast_OBBox(boxtest);
 			}
@@ -217,11 +217,11 @@ bool PhysAABTreeCullClass::Intersection_Test(PhysAABoxIntersectionTestClass & bo
 {
 	Reset_Collection();
 	Collect_Objects(boxtest.Box);
-	
+
 	PhysClass * obj = Get_First_Collected_Object();
 	while (obj != NULL) {
 
-		if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
+		if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
 				!obj->Is_Ignore_Me()	) {
 			if (obj->Intersection_Test(boxtest)) {
 				return true;
@@ -229,7 +229,7 @@ bool PhysAABTreeCullClass::Intersection_Test(PhysAABoxIntersectionTestClass & bo
 		}
 
 		obj = Get_Next_Collected_Object(obj);
-	}	
+	}
 
 	return false;
 }
@@ -242,7 +242,7 @@ bool PhysAABTreeCullClass::Intersection_Test(PhysOBBoxIntersectionTestClass & bo
 	PhysClass * obj = Get_First_Collected_Object();
 	while (obj != NULL) {
 
-		if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) && 
+		if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),boxtest.CollisionGroup) &&
 				!obj->Is_Ignore_Me()	) {
 			if (obj->Intersection_Test(boxtest)) {
 				return true;
@@ -250,7 +250,7 @@ bool PhysAABTreeCullClass::Intersection_Test(PhysOBBoxIntersectionTestClass & bo
 		}
 
 		obj = Get_Next_Collected_Object(obj);
-	}	
+	}
 
 	return false;
 }
@@ -259,11 +259,11 @@ bool PhysAABTreeCullClass::Intersection_Test(PhysMeshIntersectionTestClass & mes
 {
 	Reset_Collection();
 	Collect_Objects(meshtest.BoundingBox);
-	
+
 	PhysClass * obj = Get_First_Collected_Object();
 	while (obj != NULL) {
 
-		if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),meshtest.CollisionGroup) && 
+		if (	Scene->Do_Groups_Collide(obj->Get_Collision_Group(),meshtest.CollisionGroup) &&
 				!obj->Is_Ignore_Me()	) {
 			if (obj->Intersection_Test(meshtest)) {
 				return true;
@@ -271,7 +271,7 @@ bool PhysAABTreeCullClass::Intersection_Test(PhysMeshIntersectionTestClass & mes
 		}
 
 		obj = Get_Next_Collected_Object(obj);
-	}	
+	}
 
 	return false;
 }
@@ -304,7 +304,7 @@ bool PhysAABTreeCullClass::Verify_Recursive(AABTreeNodeClass * node,StringClass 
 					(dc.Z + box2.Extent.Z <= box.Extent.Z + WWMATH_EPSILON) &&
 					(dc.X - box2.Extent.X >= -box.Extent.X - WWMATH_EPSILON) &&
 					(dc.Y - box2.Extent.Y >= -box.Extent.Y - WWMATH_EPSILON) &&
-					(dc.Z - box2.Extent.Z >= -box.Extent.Z - WWMATH_EPSILON)) 
+					(dc.Z - box2.Extent.Z >= -box.Extent.Z - WWMATH_EPSILON))
 			{
 				outside = false;
 			} else {

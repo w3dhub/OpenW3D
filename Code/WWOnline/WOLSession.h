@@ -64,7 +64,7 @@ class WaitCondition;
 namespace WWOnline {
 
 // The version of WOLAPI this product was build with.
-#define WOLAPI_BUILD_VERSION MAKELONG(19,1) 
+#define WOLAPI_BUILD_VERSION MAKELONG(19,1)
 
 class ChatObserver;
 class NetUtilObserver;
@@ -446,7 +446,7 @@ class Session :
 		RefPtr<UserData> GetUserOrBuddy(const unichar_t*);
 
 		const CComPtr<WOL::IIGROptions>& GetIGRObject(void);
-		
+
 	private:
 		void ClearServers(void);
 

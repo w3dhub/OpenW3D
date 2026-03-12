@@ -68,7 +68,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	SplashIntroMenuDialogClass (void);
 	~SplashIntroMenuDialogClass (void);
-	
+
 	//
 	//	Inherited
 	//
@@ -104,7 +104,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	SplashOutroMenuDialogClass (void);
 	~SplashOutroMenuDialogClass (void);
-	
+
 	//
 	//	Inherited
 	//
@@ -136,7 +136,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	GameSpyMainDialogClass (void);
 	~GameSpyMainDialogClass (void);
-	
+
 	//
 	//	Inherited
 	//
@@ -179,7 +179,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	GameSpyOptionsDialogClass (void);
 	~GameSpyOptionsDialogClass (void);
-	
+
 	//
 	//	Inherited
 	//
@@ -217,7 +217,7 @@ public:
 	////////////////////////////////////////////////////////////////
 	InternetMainDialogClass (void);
 	~InternetMainDialogClass (void);
-	
+
 	//
 	//	Inherited
 	//
@@ -252,8 +252,8 @@ public:
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
-	StartSPGameDialogClass (void);	
-	
+	StartSPGameDialogClass (void);
+
 	void			On_Init_Dialog (void) override;
 	void			On_Command (int ctrl_id, int mesage_id, unsigned int param) override;
 
@@ -301,7 +301,7 @@ public:
 	MultiplayOptionsMainMenuClass (void)	:
 		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MENU_OPTION_MAIN_MULTIPLAY)) {}
 
-	
+
 	//
 	//	Inherited
 	//
@@ -371,7 +371,7 @@ public:
 	static QuitVerificationDialogClass *		Get_Instance (void)	{ return _TheInstance; }
 
 private:
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Static member data
 	////////////////////////////////////////////////////////////////
@@ -467,7 +467,7 @@ public:
 	MPServerStartMenuClass (void)	:
 		//IsServer (true),
 		MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MULTIPLAY_START_GAME))	{}
-			
+
 
 	void	On_Init_Dialog (void);
 	void	On_Command (int ctrl_id, int mesage_id, unsigned int param);

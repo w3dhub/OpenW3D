@@ -83,7 +83,7 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-LevelSettingsDialogClass::OnInitDialog (void) 
+LevelSettingsDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
@@ -108,7 +108,7 @@ LevelSettingsDialogClass::OnInitDialog (void)
 	//
 	//	Create and initialize the picker
 	//
-	FilePicker.Create_Picker (WS_CHILD | WS_TABSTOP | WS_VISIBLE, rect, this, IDC_MAP_FILENAME_EDIT);	
+	FilePicker.Create_Picker (WS_CHILD | WS_TABSTOP | WS_VISIBLE, rect, this, IDC_MAP_FILENAME_EDIT);
 	FilePicker.Set_Filter_String ("Texture Files (*.tga)|*.tga|All Files (*.*)|*.*||");
 
 	//
@@ -130,7 +130,7 @@ LevelSettingsDialogClass::OnInitDialog (void)
 	//
 	StringPicker.Create_Picker (WS_CHILD | WS_TABSTOP | WS_VISIBLE, rect, this, IDC_MAP_TITLE_EDIT);
 	StringPicker.Set_Entry (MapMgrClass::Get_Map_Title ());
-	
+
 	//
 	//	Configure the float controls
 	//
@@ -174,7 +174,7 @@ LevelSettingsDialogClass::OnOK (void)
 	int index = RestartScriptCombo.GetCurSel ();
 	if (index != CB_ERR) {
 		CString script_name;
-		RestartScriptCombo.GetLBText (index, script_name);		
+		RestartScriptCombo.GetLBText (index, script_name);
 		CombatManager::Set_Start_Script (script_name);
 	} else {
 		CombatManager::Set_Start_Script ("");
@@ -186,7 +186,7 @@ LevelSettingsDialogClass::OnOK (void)
 	index = RespawnScriptCombo.GetCurSel ();
 	if (index != CB_ERR) {
 		CString script_name;
-		RespawnScriptCombo.GetLBText (index, script_name);		
+		RespawnScriptCombo.GetLBText (index, script_name);
 		CombatManager::Set_Respawn_Script (script_name);
 	} else {
 		CombatManager::Set_Respawn_Script ("");
@@ -196,7 +196,7 @@ LevelSettingsDialogClass::OnOK (void)
 	//	Set the map title
 	//
 	MapMgrClass::Set_Map_Title (StringPicker.Get_Entry ());
-	
+
 	//
 	//	Set the map filename
 	//
@@ -232,13 +232,13 @@ LevelSettingsDialogClass::OnOK (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-LevelSettingsDialogClass::Fill_Script_Combobox (int ctrl_id, const char *default_name) 
+LevelSettingsDialogClass::Fill_Script_Combobox (int ctrl_id, const char *default_name)
 {
 	//
 	// Add the total list of scripts to the combobox
 	//
 	for (int index = 0; index < ScriptMgrClass::Get_Count (); index ++) {
-		EditScriptClass *script = ScriptMgrClass::Get_Script (index);		
+		EditScriptClass *script = ScriptMgrClass::Get_Script (index);
 		if (script != NULL) {
 
 			//

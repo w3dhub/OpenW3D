@@ -61,7 +61,7 @@ will you be ready to leave grasshopper.
 // This is needed because the streams return a pointer.  Every time you
 //  change the output device the old stream is deleted, and a new one
 //  is created.
-extern Sem4 DebugLibSemaphore; 
+extern Sem4 DebugLibSemaphore;
 
 // Print an information message
 #define INFMSG(X)\
@@ -110,7 +110,7 @@ extern Sem4 DebugLibSemaphore;
   if (MsgManager::infoStream()) \
     (*(MsgManager::infoStream())) << X;\
   DebugLibSemaphore.Post(); \
-}    
+}
 
 // Just get a stream to the warning device, no extra junk
 #define WRNSTREAM(X)\
@@ -119,7 +119,7 @@ extern Sem4 DebugLibSemaphore;
   if (MsgManager::warnStream()) \
     (*(MsgManager::warnStream())) << X;\
   DebugLibSemaphore.Post(); \
-}    
+}
 
 // Just get a stream to the error device, no extra junk
 #define ERRSTREAM(X)\
@@ -128,7 +128,7 @@ extern Sem4 DebugLibSemaphore;
   if (MsgManager::errorStream()) \
     (*(MsgManager::errorStream())) << X;\
   DebugLibSemaphore.Post(); \
-}    
+}
 
 #ifndef DEBUG
 
@@ -175,7 +175,7 @@ extern Sem4 DebugLibSemaphore;
   if (MsgManager::debugStream()) \
     (*(MsgManager::debugStream())) << X;\
   DebugLibSemaphore.Post(); \
-}    
+}
 
 // Verbosely execute a statement
 #define VERBOSE(X)\

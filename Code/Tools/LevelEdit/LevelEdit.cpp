@@ -145,7 +145,7 @@ bool File_Exists (LPCSTR filename)
 {
 	WIN32_FIND_DATA find_info;
    HANDLE file_handle = ::FindFirstFile (filename, &find_info);
-	
+
 	if (file_handle != INVALID_HANDLE_VALUE) {
 		::FindClose (file_handle);
 		return true;
@@ -192,7 +192,7 @@ CLevelEditApp::InitInstance (void)
 	WWMath::Init ();
 	WWPhys::Init ();
 	WWSaveLoad::Init ();
-	TranslateDBClass::Initialize ();	
+	TranslateDBClass::Initialize ();
 
 	// Standard initialization
 	// If you are not using these features and wish to reduce the size
@@ -205,7 +205,7 @@ CLevelEditApp::InitInstance (void)
 	// Change the registry key under which our settings are stored.
 	// You should modify this string to be something appropriate
 	// such as the name of your company or organization.
-	SetRegistryKey(_T("Westwood Studios"));	
+	SetRegistryKey(_T("Westwood Studios"));
 
 	//
 	//	Handle the command line
@@ -274,7 +274,7 @@ CLevelEditApp::InitInstance (void)
 	m_pMainWnd->DragAcceptFiles();
 
 	ProgramInstance	= m_hInstance;
-	MainWindow			= m_pMainWnd->m_hWnd;	
+	MainWindow			= m_pMainWnd->m_hWnd;
 	PresetMgrClass::Initialize ();
 
 	//
@@ -292,7 +292,7 @@ CLevelEditApp::InitInstance (void)
 									NULL,
 									&reg_key,
 									NULL) == ERROR_SUCCESS)
-	{		
+	{
 		::RegSetValueEx (	reg_key,
 								INSTALL_VALUE,
 								0L,
@@ -450,7 +450,7 @@ CLevelEditApp::ExitInstance (void)
 	//
 	// Free the audio manager
 	//
-	SAFE_DELETE (_pTheAudioManager);	
+	SAFE_DELETE (_pTheAudioManager);
 
 	//
 	//	Shutdown the libraries
@@ -465,7 +465,7 @@ CLevelEditApp::ExitInstance (void)
 	// Check for active refs
 	//
 	Debug_Refs ();
-	
+
 	// Allow the base class to process this message
 	return CWinApp::ExitInstance();
 }
@@ -476,7 +476,7 @@ CLevelEditApp::ExitInstance (void)
 //	OnFileOpen
 //
 void
-CLevelEditApp::OnFileOpen (void) 
+CLevelEditApp::OnFileOpen (void)
 {
 	CFileDialog dialog (true,
 							  ".lvl",
@@ -484,7 +484,7 @@ CLevelEditApp::OnFileOpen (void)
 							  OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_EXPLORER,
 							  "Level Files|*.lvl||",
 							  ::AfxGetMainWnd ());
-	
+
 	//
 	//	Setup the initial directory
 	//
@@ -509,7 +509,7 @@ CLevelEditApp::OnFileOpen (void)
 
 	// Allow the base class to process this message
 	CWinApp::OnFileOpen ();*/
-	return ;	
+	return ;
 }
 
 
@@ -590,7 +590,7 @@ Register_Light_Icon (void)
 //
 /////////////////////////////////////////////////////////////
 BOOL
-CLevelEditApp::PreTranslateMessage (MSG *pMsg) 
+CLevelEditApp::PreTranslateMessage (MSG *pMsg)
 {
 	BOOL retval = false;
 
@@ -607,14 +607,14 @@ CLevelEditApp::PreTranslateMessage (MSG *pMsg)
 			HACCEL accel_table = main_wnd->GetDefaultAccelerator ();
 			if (::TranslateAccelerator (main_wnd->m_hWnd, accel_table, pMsg)) {
 				retval = true;
-			}		
+			}
 		}
-	} 
-	
+	}
+
 	if (retval == false) {
 		retval = CWinApp::PreTranslateMessage (pMsg);
 	}
-		
+
 	return retval;
 }
 

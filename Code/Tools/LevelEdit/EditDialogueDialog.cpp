@@ -43,7 +43,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 enum
 {
-	COL_WEIGHT	= 0,	
+	COL_WEIGHT	= 0,
 	COL_TEXT
 };
 
@@ -129,14 +129,14 @@ EditDialogueDialogClass::OnInitDialog (void)
 	//
 	DIALOGUE_OPTION_LIST	&option_list = m_Dialogue->Get_Option_List ();
 	for (int index = 0; index < option_list.Count (); index ++) {
-		
+
 		//
 		//	Make a copy of the option and add it to our list
 		//
 		DialogueOptionClass *option = new DialogueOptionClass (*(option_list[index]));
-		Insert_Entry (option);	
+		Insert_Entry (option);
 	}
-	
+
 	//
 	//	Configure the silence controls
 	//
@@ -164,7 +164,7 @@ EditDialogueDialogClass::OnInitDialog (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-EditDialogueDialogClass::OnOK (void) 
+EditDialogueDialogClass::OnOK (void)
 {
 	//
 	//	Read the silence configuration
@@ -205,14 +205,14 @@ EditDialogueDialogClass::OnOK (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-EditDialogueDialogClass::OnAdd (void) 
+EditDialogueDialogClass::OnAdd (void)
 {
 	//
 	//	Display a dialog that allows the user to edit this option
 	//
-	ConversationPickerDialogClass dialog (this);	
+	ConversationPickerDialogClass dialog (this);
 	if (dialog.DoModal () == IDOK) {
-		
+
 		//
 		//	Create a new dialog option
 		//
@@ -275,12 +275,12 @@ EditDialogueDialogClass::OnDblclkOptionList
 			//	Display a dialog that allows the user to edit this option
 			//
 			ConversationPickerDialogClass dialog (this);
-			
+
 			ConversationClass *conversation = NULL;
 			conversation = ConversationMgrClass::Find_Conversation (option->Get_Conversation_ID ());
 			dialog.Set_Conversation (conversation);
 
-			if (dialog.DoModal () == IDOK) {				
+			if (dialog.DoModal () == IDOK) {
 
 				//
 				//	Update the entry in the list
@@ -320,7 +320,7 @@ EditDialogueDialogClass::OnDeleteitemOptionList
 		SAFE_DELETE (option);
 		m_ListCtrl.SetItemData (pNMListView->iItem, NULL);
 	}
-	
+
 	return ;
 }
 
@@ -348,16 +348,16 @@ EditDialogueDialogClass::Update_Entry (int index)
 		//
 		int conversation_id = option->Get_Conversation_ID ();
 		ConversationClass *conversation = ConversationMgrClass::Find_Conversation (conversation_id);
-		if (conversation != NULL) {					
-			
+		if (conversation != NULL) {
+
 			//
 			//	Put this text into the appropriate column in the list control
-			//		
+			//
 			m_ListCtrl.SetItemText (index, COL_TEXT, conversation->Get_Name ());
 			REF_PTR_RELEASE (conversation);
 		}
 	}
-	
+
 	return ;
 }
 
@@ -386,21 +386,21 @@ EditDialogueDialogClass::Insert_Entry (DialogueOptionClass *option)
 			//	Associate the object with the entry in the list control
 			//
 			m_ListCtrl.SetItemData (item_index, (DWORD_PTR)option);
-						
+
 			//
 			//	Lookup the string entry in our translation database
 			//
 			int conversation_id = option->Get_Conversation_ID ();
 			ConversationClass *conversation = ConversationMgrClass::Find_Conversation (conversation_id);
-			if (conversation != NULL) {					
-				
+			if (conversation != NULL) {
+
 				//
 				//	Put this text into the appropriate column in the list control
 				//
 				m_ListCtrl.SetItemText (item_index, COL_TEXT, conversation->Get_Name ());
 				REF_PTR_RELEASE (conversation);
 			}
-		}		
+		}
 	}
 
 	return ;
@@ -428,7 +428,7 @@ EditDialogueDialogClass::OnItemchangedRemarkList
 		//
 		//	Is there a currently selected item?
 		//
-		int item_index = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);	
+		int item_index = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);
 		if (item_index >= 0) {
 
 			//
@@ -440,7 +440,7 @@ EditDialogueDialogClass::OnItemchangedRemarkList
 			}
 		}
 	}
-	
+
 	return ;
 }
 
@@ -473,7 +473,7 @@ EditDialogueDialogClass::OnDeltaposSelectedWeightSpin
 (
 	NMHDR * /* pNMHDR */,
 	LRESULT *pResult
-) 
+)
 {
 	(*pResult) = 0;
 
@@ -506,12 +506,12 @@ EditDialogueDialogClass::Update_Current_Weight (void)
 	//
 	//	Is there a currently selected item?
 	//
-	int item_index = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);	
+	int item_index = m_ListCtrl.GetNextItem (-1, LVNI_SELECTED | LVNI_ALL);
 	if (item_index >= 0) {
 
 		DialogueOptionClass *option = (DialogueOptionClass *)m_ListCtrl.GetItemData (item_index);
 		if (option != NULL) {
-		
+
 			//
 			//	Get the weight
 			//

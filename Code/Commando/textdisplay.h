@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/textdisplay.h                       $* 
- *                                                                                             * 
- *                      $Author:: Jani_p                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 9/27/01 9:41a                                               $* 
- *                                                                                             * 
- *                    $Revision:: 29                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/textdisplay.h                       $*
+ *                                                                                             *
+ *                      $Author:: Jani_p                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 9/27/01 9:41a                                               $*
+ *                                                                                             *
+ *                    $Revision:: 29                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	TEXTDISPLAY_H
@@ -132,18 +132,18 @@ public:
 
 	void		Set_Input_Text( const char * text )
 	{
-		TextChanged|=InputText!=text; 
-		InputText = text; 
+		TextChanged|=InputText!=text;
+		InputText = text;
 	}
 	void		Set_Help_Text( const char * text )
 	{
-		TextChanged|=HelpText!=text; 
-		HelpText = text; 
+		TextChanged|=HelpText!=text;
+		HelpText = text;
 	}
 	void		Set_Verbose_Help_Text( const char * text )
 	{
-		VerboseTextChanged|=VerboseHelpText!=text; 
-		VerboseHelpText = text; 
+		VerboseTextChanged|=VerboseHelpText!=text;
+		VerboseHelpText = text;
 	}
 	void		Display_Vis_Warning( bool on )					{ DisplayVisWarning = on; }
 

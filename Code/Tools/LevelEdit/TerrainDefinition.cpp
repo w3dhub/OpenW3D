@@ -77,7 +77,7 @@ SimplePersistFactoryClass<TerrainDefinitionClass, CHUNKID_TERRAIN_DEF>			_Terrai
 //////////////////////////////////////////////////////////////////////////////////
 TerrainDefinitionClass::TerrainDefinitionClass (void)
 	:	DefinitionClass ()
-		
+
 {
 	FILENAME_PARAM (TerrainDefinitionClass, m_ModelName, "Westwood 3D Files", ".w3d");
 	FILENAME_PARAM (TerrainDefinitionClass, m_LightFilename, "Westwood Light Database", ".wlt");
@@ -142,7 +142,7 @@ TerrainDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_VARIABLES:
 				retval &= Load_Variables (cload);
 				break;
@@ -207,7 +207,7 @@ TerrainDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			case VARID_LOD_DIST:
 			{
 				uint32 distance = 0;

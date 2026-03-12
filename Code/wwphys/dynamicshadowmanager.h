@@ -53,7 +53,7 @@ class DynamicShadowManagerDefClass;
 /**
 ** DynamicShadowManagerClass
 ** This is another class designed to be embedded in a physics object.  It's responsibility
-** is to update and manage the dynamic shadow projection(s) for its parent.  
+** is to update and manage the dynamic shadow projection(s) for its parent.
 */
 class DynamicShadowManagerClass
 {
@@ -61,14 +61,14 @@ public:
 
 	DynamicShadowManagerClass(PhysClass & parent);
 	~DynamicShadowManagerClass(void);
-	
+
 	/*
 	** Call Update_Shadow in your Post_Timestep_Process function
 	*/
 	void								Update_Shadow(void);
 
 	/*
-	** You can explicitly set the nearz and farz planes for the shadow or 
+	** You can explicitly set the nearz and farz planes for the shadow or
 	** if they are set to -1.0f, the code will handle them automatically.
 	** Typically game objects like characters and vehicles should use the
 	** automatic setting while cinematics may need a manual setting.  For

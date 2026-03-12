@@ -95,7 +95,7 @@ SaveGameMenuClass::On_Init_Dialog (void)
 	if (edit_ctrl) {
 		edit_ctrl->Set_Text_Limit (64);
 	}
-	
+
 	//
 	//	Populate the list
 	//
@@ -163,7 +163,7 @@ SaveGameMenuClass::On_ListCtrl_Delete_Entry
 )
 {
 	if (ctrl_id == IDC_LOAD_GAME_LIST_CTRL) {
-		
+
 		//
 		//	Remove the data we associated with this entry
 		//
@@ -173,10 +173,10 @@ SaveGameMenuClass::On_ListCtrl_Delete_Entry
 		list_ctrl->Set_Entry_Data (item_index, 2, 0);
 		if (file_time != NULL) {
 			delete file_time;
-		}		
+		}
 		if (filename != NULL) {
 			delete filename;
-		}		
+		}
 	}
 
 	return ;
@@ -206,7 +206,7 @@ SaveGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_inde
 	} else {
 
 		if (sort_col_index == 0 || sort_col_index == 1) {
-			
+
 			//
 			//	Sort by time
 			//
@@ -215,7 +215,7 @@ SaveGameMenuClass::LoadListSortCallback (ListCtrlClass *list_ctrl, int item_inde
 			retval = ::CompareFileTime (file_time1, file_time2);
 
 		} else {
-			
+
 			//
 			//	Sort by name
 			//
@@ -369,7 +369,7 @@ SaveGameMenuClass::Get_Unique_Save_Filename (StringClass &filename)
 
 	while (!done) {
 		filename.Format ("save/savegame%.2d.sav", slot ++);
-		
+
 		//
 		//	Check to see if this file exists
 		//
@@ -468,7 +468,7 @@ SaveGameMenuClass::Delete_Game (bool prompt)
 
 		//
 		//	Determine what filename this entry refers to
-		//		
+		//
 		if (list_ctrl->Get_Entry_Data (item_index, 0) != 0) {
 			StringClass filename = ((StringClass *)list_ctrl->Get_Entry_Data (item_index, 2))->Peek_Buffer ();
 
@@ -493,7 +493,7 @@ SaveGameMenuClass::Delete_Game (bool prompt)
 				//
 				StringClass full_path = "data/save/";
 				full_path += filename;
-				
+
 				//
 				//	Delete the file and remove its entry from the list
 				//
@@ -558,7 +558,7 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 		WideStringClass description;
 		WideStringClass map_name;
 		SaveGameManager::Peek_Description (find_info.cFileName, description, map_name);
-				
+
 		//
 		//	Get the time this file was last written
 		//
@@ -582,14 +582,14 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 		if (item_index >= 0) {
 			list_ctrl->Set_Entry_Text (item_index, 1, date_string);
 			list_ctrl->Set_Entry_Text (item_index, 2, description);
-			
+
 			list_ctrl->Set_Entry_Data (item_index, 0, (uintptr_t)new FILETIME(local_time));
 			list_ctrl->Set_Entry_Data (item_index, 2, (uintptr_t)new StringClass(find_info.cFileName));
 
 			//
 			//	Select this entry if its the default
 			//
-			if (	current_filename != NULL && 
+			if (	current_filename != NULL &&
 					::stricmp (current_filename, find_info.cFileName) == 0)
 			{
 				list_ctrl->Set_Curr_Sel (item_index);
@@ -597,14 +597,14 @@ SaveGameMenuClass::Reload_List (const char *current_filename)
 		}
 	}
 
-	if (file_find != INVALID_HANDLE_VALUE) {			  
-		::FindClose (file_find); 
+	if (file_find != INVALID_HANDLE_VALUE) {
+		::FindClose (file_find);
 	}
 
 	//
 	//	Sort the list
 	//
-	list_ctrl->Sort (LoadListSortCallback, MAKELONG (CurrSortCol, IsSortAscending));		
+	list_ctrl->Sort (LoadListSortCallback, MAKELONG (CurrSortCol, IsSortAscending));
 
 	//
 	//	Update the sort marker
@@ -633,7 +633,7 @@ SaveGameMenuClass::HandleNotification (DlgMsgBoxEvent &event)
 		}
 
 	} else if (event.Get_User_Data () == MBEVENT_DELETE_PROMPT) {
-		
+
 		//
 		//	The user has confirmed the delete, so delete the file
 		//
@@ -717,7 +717,7 @@ SaveGameMenuClass::Check_HD_Space (void)
 		return false;
 	}
 	diskspace = freebytecount.QuadPart;
-	
+
 	//
 	//	Is there at least 2 megs of disk space available?
 	//

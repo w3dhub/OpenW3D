@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 7/24/01 4:53p       $* 
- *                                                                                             * 
- *                    $Revision:: 39                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 7/24/01 4:53p       $*
+ *                                                                                             *
+ *                    $Revision:: 39                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef LIGHTMAPDOC_H
@@ -63,7 +63,7 @@ class LightMapDoc : public CDocument
 		// Flags for anomalies in a W3D model.
 		// WARNING: Do not exceed no. of bits in unsigned int.
 		enum MeshFlagsEnum {
-				
+
 			// Unconditional errors.
 			MESH_HIDDEN,
 			MESH_PRELIT,
@@ -91,7 +91,7 @@ class LightMapDoc : public CDocument
 
 			// General warnings.
 			MESH_VERTEX_COLORING,
-			
+
 			MESH_FLAG_COUNT,
 
 			// Unconditional errors.
@@ -104,7 +104,7 @@ class LightMapDoc : public CDocument
 									(1 << MESH_HAS_SPECULAR) |
 									(1 << MESH_SPECULAR_TO_DIFFUSE) |
 									(1 << MESH_W3D_CHUNK_DEFORM) |
-									(1 << MESH_TWO_SIDED) |	
+									(1 << MESH_TWO_SIDED) |
 								   (1 << MESH_HAS_EMISSIVE) |
 									(1 << MESH_HAS_SCG),
 
@@ -126,14 +126,14 @@ class LightMapDoc : public CDocument
 
 		// Functions.
 		bool				  Is_Open() {return (W3dFile != NULL);}
-		bool				  Can_Insert_Solve()									{return (CanInsertSolve && SolveCount < MAX_SOLVE_COUNT);}	
+		bool				  Can_Insert_Solve()									{return (CanInsertSolve && SolveCount < MAX_SOLVE_COUNT);}
 
 		void				  Insert_Solve (const char *solvedirectoryname, const char *solvefilenamelist, const char *inclusionstring, bool invertselection, bool blendnoise);
-		
+
 		bool				  Solve_Inserted()									{return (SolveCount > 0);}
-		unsigned			  Mesh_Count()											{return (MeshStatus.Count());}	
+		unsigned			  Mesh_Count()											{return (MeshStatus.Count());}
 		const char		 *Mesh_Name (unsigned index)						{return (MeshStatus [index].Name);}
-		
+
 		const char		 *Mesh_Anomalies_String (unsigned meshindex, bool verbose, StringBuilder &string);
 		const char		 *Solve_Anomalies_String (unsigned meshindex, bool verbose, StringBuilder &string);
 		const char		 *Vertex_Solve_Status_String (unsigned meshindex, StringBuilder &string);
@@ -147,7 +147,7 @@ class LightMapDoc : public CDocument
 
 				 MeshInfoStruct (FileClass &meshfile);
 				~MeshInfoStruct ();
-				
+
 				unsigned Lightmap_Vertex_Material_Count() const {return (1);}
 				unsigned Lightmap_Shader_Count()				const {return (1);}
 
@@ -159,11 +159,11 @@ class LightMapDoc : public CDocument
 				ChunkClass												*ShaderChunk [PrelitModeEnum::COUNT];
 				ChunkClass												*ShaderIdChunk [PrelitModeEnum::COUNT][MeshMatDescClass::MAX_PASSES];
 				ChunkClass												*SCGChunk [PrelitModeEnum::COUNT][MeshMatDescClass::MAX_PASSES];
-				bool														 SCGsExist;	
+				bool														 SCGsExist;
 				bool														 DIGsExist;
-				bool														 DeformExists;	
+				bool														 DeformExists;
 				bool														 IsMultiStage;
-				bool														 VertexColorsExist;	
+				bool														 VertexColorsExist;
 
 			private:
 
@@ -203,15 +203,15 @@ class LightMapDoc : public CDocument
 				InsertedFlags = 0;
 			}
 
-			bool Can_Insert_Vertex_Solve() { 
+			bool Can_Insert_Vertex_Solve() {
 				return (((MeshAnomalies & MESH_VERTEX_ERROR_MASK) == 0) && SolveStatistics.Valid_Vertex_Solve());
 			}
 
-			bool Can_Insert_Multi_Pass_Solve() { 
+			bool Can_Insert_Multi_Pass_Solve() {
 				return (((MeshAnomalies & MESH_MULTI_PASS_ERROR_MASK) == 0) && SolveStatistics.Valid_Lightmap_Solve());
 			}
 
-			bool Can_Insert_Multi_Texture_Solve() { 
+			bool Can_Insert_Multi_Texture_Solve() {
 				return (((MeshAnomalies & MESH_MULTI_TEXTURE_ERROR_MASK) == 0) && SolveStatistics.Valid_Lightmap_Solve());
 			}
 
@@ -235,7 +235,7 @@ class LightMapDoc : public CDocument
 			}
 
 			char				 Name [W3D_NAME_LEN];
-			unsigned			 TriangleCount;	
+			unsigned			 TriangleCount;
 			unsigned int	 MeshAnomalies;
 			unsigned int	 InsertedFlags;			// Which prelit mode types were inserted with the most recent solve?
 			SolveStatistics SolveStatistics;
@@ -256,12 +256,12 @@ class LightMapDoc : public CDocument
 				SplitVertexInfoStruct() {ASSERT (false);}
 
 				unsigned				  VertexCount;
-				unsigned				  FaceVertexCount;	
+				unsigned				  FaceVertexCount;
 				uint32				 *RemapTable;
 				uint32				 *IndexTable;
 				W3dTexCoordStruct	 *UVTable;
 				W3dTexCoordStruct **UVPtrTable;
-		};	
+		};
 
 		struct MeshReorderStruct {
 
@@ -282,7 +282,7 @@ class LightMapDoc : public CDocument
 
 		// Functions.
 		bool Check_Document();
-		
+
 		void Reorder();
 
 		void Optimize();
@@ -295,7 +295,7 @@ class LightMapDoc : public CDocument
 		void Rename_Collection (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename);
 		void Rename_HLOD (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename);
 		void Rename_Dazzle (ChunkLoadClass &loadchunk, ChunkSaveClass &savechunk, const char *filename);
-		
+
 		void Save_Lights (const char *pathname);
 
  		void Translate_Mesh_Header3 (ChunkLoadClass &w3dchunk, unsigned int prelitflags, ChunkSaveClass &solvechunk, const SplitVertexInfoStruct &splitvertexinfo);
@@ -329,13 +329,13 @@ class LightMapDoc : public CDocument
 		RawFileClass								  *W3dFile;							// Ptr to current open w3d document.
 		unsigned											MeshCount;						// Total no. of meshes in this w3d document.
 		unsigned											TriangleCount;					// Total no. of triangles in this w3d document.
-		bool											   CanInsertSolve;				// Can a solve be inserted?						
+		bool											   CanInsertSolve;				// Can a solve be inserted?
 		unsigned											SolveCount;						// No. of solves inserted so far.
 		DynamicVectorClass <MeshStatusStruct>  MeshStatus;						// Mesh information database.
 		DynamicVectorClass <LightClass*>			Lights [MAX_SOLVE_COUNT];	// All active lights in the solves.
 
 		// Static data.
-		static const char							  *_TemporarySolveFilename [TEMPORARY_SOLVE_FILENAME_COUNT]; 
+		static const char							  *_TemporarySolveFilename [TEMPORARY_SOLVE_FILENAME_COUNT];
 		static const char							  *_TemporaryOptimizeFilename;
 		static const char							  *_TemporaryReorderFilename;
 

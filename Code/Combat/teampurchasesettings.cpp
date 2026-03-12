@@ -118,7 +118,7 @@ TeamPurchaseSettingsDefClass::TeamPurchaseSettingsDefClass (void)	:
 	//
 	NAMED_EDITABLE_PARAM (TeamPurchaseSettingsDefClass, ParameterClass::TYPE_STRINGSDB_ID,	BeaconNameID, "Beacon Name");
 	NAMED_EDITABLE_PARAM (TeamPurchaseSettingsDefClass, ParameterClass::TYPE_STRING,			BeaconTextureName, "Beacon Texture");
-	NAMED_EDITABLE_PARAM (TeamPurchaseSettingsDefClass, ParameterClass::TYPE_INT,				BeaconCost, "Beacon Cost");	
+	NAMED_EDITABLE_PARAM (TeamPurchaseSettingsDefClass, ParameterClass::TYPE_INT,				BeaconCost, "Beacon Cost");
 
 	#ifdef PARAM_EDITING_ON
 		GenericDefParameterClass *param = new GenericDefParameterClass (&BeaconDefinitionID);
@@ -137,7 +137,7 @@ TeamPurchaseSettingsDefClass::TeamPurchaseSettingsDefClass (void)	:
 	//	Add the enlisted parameters
 	//
 	for (int index = 0; index < MAX_ENTRIES; index ++) {
-		
+
 		//
 		//	Add a separator for this entry
 		//
@@ -189,8 +189,8 @@ TeamPurchaseSettingsDefClass::~TeamPurchaseSettingsDefClass (void)
 ///////////////////////////////////////////////////////////////////////////////////////////
 uint32
 TeamPurchaseSettingsDefClass::Get_Class_ID (void) const
-{ 
-	return CLASSID_GLOBAL_SETTINGS_DEF_TEAM_PURCHASE; 
+{
+	return CLASSID_GLOBAL_SETTINGS_DEF_TEAM_PURCHASE;
 }
 
 
@@ -201,8 +201,8 @@ TeamPurchaseSettingsDefClass::Get_Class_ID (void) const
 ///////////////////////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 TeamPurchaseSettingsDefClass::Get_Factory (void) const
-{ 
-	return _TeamPurchaseDefPersistFactory; 
+{
+	return _TeamPurchaseDefPersistFactory;
 }
 
 
@@ -212,7 +212,7 @@ TeamPurchaseSettingsDefClass::Get_Factory (void) const
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
 PersistClass *
-TeamPurchaseSettingsDefClass::Create (void) const 
+TeamPurchaseSettingsDefClass::Create (void) const
 {
 	WWASSERT (0);
 	return NULL;
@@ -239,7 +239,7 @@ TeamPurchaseSettingsDefClass::Save (ChunkSaveClass &csave)
 		WRITE_MICRO_CHUNK (csave, VARID_TEAM,									Team);
 		WRITE_MICRO_CHUNK (csave, VARID_BEACON_DEFINITION,					BeaconDefinitionID);
 		WRITE_MICRO_CHUNK (csave, VARID_BEACON_NAME,							BeaconNameID);
-		WRITE_MICRO_CHUNK (csave, VARID_BEACON_COST,							BeaconCost);		
+		WRITE_MICRO_CHUNK (csave, VARID_BEACON_COST,							BeaconCost);
 		WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_BEACON_TEXTURE_NAME,	BeaconTextureName);
 		WRITE_MICRO_CHUNK (csave, VARID_SUPPLY_NAME,							SupplyNameID);
 		WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_SUPPLY_TEXTURE_NAME,	SupplyTextureName);
@@ -250,8 +250,8 @@ TeamPurchaseSettingsDefClass::Save (ChunkSaveClass &csave)
 		for (int index = 0; index < MAX_ENTRIES; index ++) {
 			WRITE_MICRO_CHUNK (csave, VARID_INDEX,							index);
 			WRITE_MICRO_CHUNK (csave, VARID_DEFINITION,					DefinitionList[index]);
-			WRITE_MICRO_CHUNK (csave, VARID_NAME,							NameList[index]);			
-			WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_TEXTURE_NAME,	TextureList[index]);			
+			WRITE_MICRO_CHUNK (csave, VARID_NAME,							NameList[index]);
+			WRITE_MICRO_CHUNK_WWSTRING (csave, VARID_TEXTURE_NAME,	TextureList[index]);
 		}
 
 	csave.End_Chunk();
@@ -274,7 +274,7 @@ TeamPurchaseSettingsDefClass::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				DefinitionClass::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -304,14 +304,14 @@ TeamPurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 
 	while (cload.Open_Micro_Chunk ()) {
 		switch(cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			//
 			//	Read the type and team information
 			//
 			READ_MICRO_CHUNK (cload, VARID_TEAM,	Team);
 			READ_MICRO_CHUNK (cload, VARID_BEACON_DEFINITION,					BeaconDefinitionID);
-			READ_MICRO_CHUNK (cload, VARID_BEACON_NAME,							BeaconNameID);			
-			READ_MICRO_CHUNK (cload, VARID_BEACON_COST,							BeaconCost);		
+			READ_MICRO_CHUNK (cload, VARID_BEACON_NAME,							BeaconNameID);
+			READ_MICRO_CHUNK (cload, VARID_BEACON_COST,							BeaconCost);
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_BEACON_TEXTURE_NAME,	BeaconTextureName);
 			READ_MICRO_CHUNK (cload, VARID_SUPPLY_NAME,							SupplyNameID);
 			READ_MICRO_CHUNK_WWSTRING (cload, VARID_SUPPLY_TEXTURE_NAME,	SupplyTextureName);
@@ -320,7 +320,7 @@ TeamPurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 			//	Read the current list entry
 			//
 			READ_MICRO_CHUNK (cload, VARID_INDEX,	entry_index);
-																						
+
 			case VARID_DEFINITION:
 				if (entry_index >= 0 && entry_index < MAX_ENTRIES) {
 					LOAD_MICRO_CHUNK (cload, DefinitionList[entry_index]);
@@ -329,15 +329,15 @@ TeamPurchaseSettingsDefClass::Load_Variables (ChunkLoadClass &cload)
 
 			case VARID_NAME:
 				if (entry_index >= 0 && entry_index < MAX_ENTRIES) {
-					LOAD_MICRO_CHUNK (cload, NameList[entry_index]);			
+					LOAD_MICRO_CHUNK (cload, NameList[entry_index]);
 				}
 				break;
-			
+
 			case VARID_TEXTURE_NAME:
 				if (entry_index >= 0 && entry_index < MAX_ENTRIES) {
 					LOAD_MICRO_CHUNK_WWSTRING (cload, TextureList[entry_index]);
 				}
-				break;					
+				break;
 
 			default:
 				Debug_Say (("Unhandled Micro Chunk:%d File:%s Line:%d\r\n", cload.Cur_Micro_Chunk_ID (), __FILE__, __LINE__));

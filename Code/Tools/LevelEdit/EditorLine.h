@@ -99,7 +99,7 @@ EditorLineClass::EditorLineClass (void)	:
 	EditorPhysClass ()
 {
 	Line = new SegmentedLineClass;
-	
+
 	Vector3 locs[2] = { Vector3 (0,0,0), Vector3 (1,1,1) };
 	Line->Set_Points (2, locs);
 

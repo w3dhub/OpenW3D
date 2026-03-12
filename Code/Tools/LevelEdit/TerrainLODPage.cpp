@@ -102,7 +102,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 void
 TerrainLODPageClass::HandleInitDialog (void)
-{	
+{
 	//
 	//	Setup the lod-count controls
 	//
@@ -115,7 +115,7 @@ TerrainLODPageClass::HandleInitDialog (void)
 	//
 	m_LODListCtrl.InsertColumn (COL_NAME, "Level");
 	m_LODListCtrl.InsertColumn (COL_DISTANCE, "Switch Distance");
-	
+
 	CRect rect;
 	m_LODListCtrl.GetClientRect (&rect);
 	m_LODListCtrl.SetColumnWidth (COL_NAME, rect.Width () >> 1);
@@ -126,7 +126,7 @@ TerrainLODPageClass::HandleInitDialog (void)
 	//
 	for (int index = 0; index < m_SettingsList.Count (); index ++) {
 		unsigned int distance = m_SettingsList[index];
-		
+
 		CString text;
 		text.Format ("LOD %d", index + 1);
 		int real_index = m_LODListCtrl.InsertItem (index + 1, text);
@@ -175,7 +175,7 @@ TerrainLODPageClass::OnDblclkLodList
 (
 	NMHDR * /* pNMHDR */,
 	LRESULT *pResult
-) 
+)
 {
 	(*pResult) = 0;
 
@@ -221,8 +221,8 @@ TerrainLODPageClass::On_Count_Change (void)
 		//	Get the new count
 		//
 		int new_lod_count = GetDlgItemInt (IDC_LOD_COUNT_EDIT);
-		new_lod_count = std::max (0, new_lod_count);	
-		
+		new_lod_count = std::max (0, new_lod_count);
+
 		//
 		//	Get the current count
 		//
@@ -232,7 +232,7 @@ TerrainLODPageClass::On_Count_Change (void)
 		//	Determine if we should add or remove entries
 		//
 		if (new_lod_count < current_count) {
-			
+
 			//
 			//	Remove the unnecessary entries from the list control
 			//
@@ -241,7 +241,7 @@ TerrainLODPageClass::On_Count_Change (void)
 			}
 
 		} else if (new_lod_count > current_count) {
-			
+
 			//
 			//	Add the new entries to the list control
 			//
@@ -251,7 +251,7 @@ TerrainLODPageClass::On_Count_Change (void)
 				int real_index = m_LODListCtrl.InsertItem (index + 1, name);
 				m_LODListCtrl.SetItemText (real_index, COL_DISTANCE, "0 meters");
 				m_LODListCtrl.SetItemData (real_index, 0);
-			}		
+			}
 		}
 	}
 
@@ -264,7 +264,7 @@ TerrainLODPageClass::On_Count_Change (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-TerrainLODPageClass::OnUpdateLodCountEdit (void) 
+TerrainLODPageClass::OnUpdateLodCountEdit (void)
 {
 	On_Count_Change ();
 	return ;

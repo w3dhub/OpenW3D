@@ -20,9 +20,9 @@
 *
 * FILE
 *
-* DESCRIPTION				   
-*											 
-* PROGRAMMER				 
+* DESCRIPTION
+*
+* PROGRAMMER
 *     Byon Garrabrant
 *
 * VERSION INFO
@@ -198,7 +198,7 @@ public:
 	/*
 	** Loading the control file, line-by-line
 	*/
-	void	Load_Control_File( const char * filename ) 
+	void	Load_Control_File( const char * filename )
 	{
 		Commands->Debug_Message( "Loading Control File %s\n", filename );
 
@@ -875,7 +875,7 @@ public:
 	{
 		int onoff = atoi( Get_First_Parameter( params ) );
 		float time = atof( Get_Next_Parameter() );
-		
+
 		Commands->Enable_Letterbox(!!onoff,time);
 	}
 
@@ -893,14 +893,14 @@ public:
 	{
 		float opacity = atof( Get_First_Parameter( params ) );
 		float time = atof( Get_Next_Parameter() );
-		
+
 		Commands->Set_Screen_Fade_Opacity(opacity,time);
 	}
 
 	/*
 	**
 	*/
-	bool	Title_Match( char ** command, const char * title ) 
+	bool	Title_Match( char ** command, const char * title )
 	{
         if ( strnicmp( *command, title, strlen( title ) ) == 0 ) {
 			*command += strlen( title );
@@ -916,7 +916,7 @@ public:
 		return false;
 	}
 
-	void	Parse_Command( char *command ) 
+	void	Parse_Command( char *command )
 	{
 //		Commands->Debug_Message( "Parse %s\n", (int)command );
 
@@ -955,9 +955,9 @@ public:
 
 //		Commands->Debug_Message( "Cinematic Time %1.3f Frame %1.3f Bump Time %1.3f\n", Time, Time * 30.0f, bump_time );
 
-		// If Primary Destroyed, 
+		// If Primary Destroyed,
 		if ( PrimaryKilled ) {
-			// skip all timestamps < LAST_VALID_TIMESTAMP  
+			// skip all timestamps < LAST_VALID_TIMESTAMP
 			while ( Controls != NULL && Controls->Time <= LAST_VALID_TIMESTAMP ) {
 				Remove_Head_Control_Line();
 			}
@@ -1072,7 +1072,7 @@ TIME	Destroy_Object					SLOT
 TIME	Play_Animation					SLOT	ANIMATION_NAME	LOOPING	SUB_OBJ_NAME	IS_BLENDED
 TIME	Play_Audio						PRESET_NAME	HOST_SLOT	HOST_BONE_NAME
 TIME	Control_Camera					SLOT
-TIME	Send_Custon						[TO_ID/#TO_SLOT]	TYPE	[PARAM/#SLOT_PARAM]	
+TIME	Send_Custon						[TO_ID/#TO_SLOT]	TYPE	[PARAM/#SLOT_PARAM]
 TIME	Attach_To_Bone					SLOT	HOST_SLOT	HOST_BONE_NAME
 TIME	Attach_Script					SLOT	SCRIPT_NAME	"SCRIPT_PARAMETERS"
 TIME	Move_Slot						New_Slot, Old_Slot
@@ -1081,10 +1081,10 @@ TIME	Shake_Camera					SLOT, INTENSITY, DURATION
 TIME	Enable_Shadow					SLOT, [1/0]
 TIME	Enable_Letterbox				[1/0], TIME_TO_ANIMATE_IN
 TIME	Set_Screen_Fade_Color		RED,GREEN,BLUE,TIME_TO_FADE (all colors floating point 0.0-1.0)
-TIME	Set_Screen_Fade_Opacity		OPACITY,TIME_TO_FADE 
-	
+TIME	Set_Screen_Fade_Opacity		OPACITY,TIME_TO_FADE
 
-To fill a slot, Send_Custom to the controller with 
+
+To fill a slot, Send_Custom to the controller with
 type = M00_CUSTOM_CINEMATIC_SET_SLOT + SLOT_NUMBER
 parameter = OBJECT_ID
 

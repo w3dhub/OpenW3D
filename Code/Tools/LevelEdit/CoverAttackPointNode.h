@@ -64,7 +64,7 @@ class CoverSpotNode;
 class CoverAttackPointNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -91,7 +91,7 @@ public:
 	// From PersistClass
 	//
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	
+
 	//
 	// From NodeClass
 	//
@@ -147,7 +147,7 @@ protected:
 //////////////////////////////////////////////////////////////////
 inline void
 CoverAttackPointNodeClass::On_Rotate (void)
-{	
+{
 	if (m_CoverSpot != NULL) {
 		m_CoverSpot->Update_Lines ();
 	}

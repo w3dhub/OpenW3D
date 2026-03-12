@@ -49,12 +49,12 @@ GroupMgrClass::operator= (const GroupMgrClass &src)
 	m_LowZCenter		= src.m_LowZCenter;
 	m_AbsCenter			= src.m_AbsCenter;
 	m_Name				= src.m_Name;
-	m_bDirty				= src.m_bDirty;	
+	m_bDirty				= src.m_bDirty;
 
 	Free_List ();
 	Import_Nodes (src.m_GroupList);
 
-	// Return a reference to ourselves	
+	// Return a reference to ourselves
 	return *this;
 }
 
@@ -132,7 +132,7 @@ GroupMgrClass::Remove_Node (NodeClass *node_to_remove)
 	bool found = false;
 	for (int index = 0; !found && index < m_GroupList.Count (); index ++) {
 		NodeClass *node = m_GroupList[index];
-		
+
 		//
 		//	If this is the node we were looking for, then remove it
 		// from the list and free our hold on it.
@@ -215,7 +215,7 @@ GroupMgrClass::Is_Item_In_Group (NodeClass *node_to_find)
 /////////////////////////////////////////////////////////////
 void
 GroupMgrClass::Clone_Group (void)
-{		
+{
 	NODE_LIST temp_list;
 
 	//
@@ -237,7 +237,7 @@ GroupMgrClass::Clone_Group (void)
 		NodeClass *node		= temp_list[index];
 
 		if (node->Get_Type () == NODE_TYPE_WAYPOINT) {
-			
+
 			//
 			//	Find where this waypoint is on the path
 			//
@@ -245,7 +245,7 @@ GroupMgrClass::Clone_Group (void)
 			WaypathNodeClass *path			= waypoint->Peek_Waypath ();
 			int index							= path->Find_Index (waypoint);
 			if (index >= 0) {
-				
+
 				//
 				//	Insert a new point one after the given point
 				//
@@ -272,18 +272,18 @@ GroupMgrClass::Clone_Group (void)
 				//
 				NodeClass *new_node = node->Get_Parent_Node ()->Add_Child_Node (node->Get_Transform ());
 				if (new_node != NULL) {
-					SAFE_ADD_REF (new_node);	
+					SAFE_ADD_REF (new_node);
 					m_GroupList.Add (new_node);
 				}
 			}
-			
+
 		} else {
 
 			//
 			//	Create a new instance of this node, and add it to our list
 			//
 			NodeClass *new_node = ::Get_Scene_Editor ()->Clone_Node (node);
-			if (new_node != NULL) {				
+			if (new_node != NULL) {
 				m_GroupList.Add (new_node);
 			}
 		}
@@ -323,7 +323,7 @@ GroupMgrClass::Recalc_Stats (void)
 				m_LowZCenter		= render_obj->Get_Position ();
 				low_z					= m_LowZCenter.Z;
 			} else {
-			
+
 				//
 				//	Add this node's stats to the pot
 				//
@@ -359,7 +359,7 @@ GroupMgrClass::Hide (bool hide)
 	for (int index = 0; index < m_GroupList.Count (); index ++) {
 		NodeClass *node = m_GroupList[index];
 		if (node != NULL) {
-		
+
 			//
 			// Hide this node
 			//
@@ -418,9 +418,9 @@ SelectionMgrClass::Remove_Node (NodeClass *node)
 	//
 	// Remove the selection box from this node
 	//
-	if (node != NULL) {		
+	if (node != NULL) {
 		node->Show_Selection_Box (false);
-	}	
+	}
 
 	GroupMgrClass::Remove_Node (node);
 	return ;
@@ -434,12 +434,12 @@ SelectionMgrClass::Remove_Node (NodeClass *node)
 /////////////////////////////////////////////////////////////
 void
 SelectionMgrClass::Reset (void)
-{	
+{
 	// Loop through all the nodes in the group
 	for (int index = 0; index < m_GroupList.Count (); index ++) {
 		NodeClass *node = m_GroupList[index];
 		if (node != NULL) {
-			
+
 			//
 			// Remove the selection item from this node
 			//
@@ -459,14 +459,14 @@ SelectionMgrClass::Reset (void)
 /////////////////////////////////////////////////////////////
 void
 SelectionMgrClass::Clone_Group (void)
-{	
+{
 	//
 	// Remove the selection box from around all the items
 	//
 	int index;
 	for (index = 0; index < m_GroupList.Count (); index ++) {
 		NodeClass *node = m_GroupList[index];
-		node->Show_Selection_Box (false);		
+		node->Show_Selection_Box (false);
 	}
 
 	//
@@ -563,7 +563,7 @@ UserGroupMgrClass::Remove_Node (NodeClass *node)
 
 	// OK to process?
 	if (in_list && node != NULL) {
-		
+
 	}
 
 	return ;

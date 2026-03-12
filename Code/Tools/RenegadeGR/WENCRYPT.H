@@ -25,10 +25,10 @@ Author      : Joe Howes
 Start Date  : Jul 9, 1999
 Last Update :
 ------------------------------------------------------------------------------
- 
+
 A simple encryption system for game results packets.  Specifically designed
 to work only with unsigned char buffers of least 15 bytes long.
- 
+
 \****************************************************************************/
 
 
@@ -75,13 +75,13 @@ unsigned char*	SimpleDecrypt(unsigned char* buf, int* len);
 #define MSEED   161803398
 #define MZ      0
 #define FAC     (1.0/MBIG)
- 
+
 // Errors
 #define ERR_SPURIOUS_ESCAPE     -1      // A single escape was found at the end of a compressed
                                         // buffer.  Should never happen as escapes in the
                                         // stream are stuffed and should otherwise indicate
                                         // the start of a token.
- 
+
 #define ERR_BUFFER_TOO_SMALL    -2      // The buffer being passed to Simple Encrypt is
                                         // smaller than 15 bytes, which is too small to work
                                         // with it's seed-stuffing.  A gameres packet should

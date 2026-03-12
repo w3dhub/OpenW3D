@@ -117,7 +117,7 @@ GeneratingPathfindDialogClass::Set_State (STATE state)
 		::ShowWindow (::GetDlgItem (m_hWnd, IDC_COMPRESSING_MARK), SW_HIDE);
 	} else if (state == STATE_COMPRESS) {
 		::ShowWindow (::GetDlgItem (m_hWnd, IDC_FLOODFILL_MARK), SW_HIDE);
-		::ShowWindow (::GetDlgItem (m_hWnd, IDC_COMPRESSING_MARK), SW_SHOW);		
+		::ShowWindow (::GetDlgItem (m_hWnd, IDC_COMPRESSING_MARK), SW_SHOW);
 	}
 
 	return ;
@@ -135,7 +135,7 @@ GeneratingPathfindDialogClass::Set_Status (LPCTSTR text, float percent)
 	if (percent > 0) {
 		m_ProgressBar.SetPos (percent * 100);
 	}
-	
+
 	SetDlgItemText (IDC_STATUS_TEXT, text);
 	return ;
 }
@@ -156,7 +156,7 @@ GeneratingPathfindDialogClass::WindowProc
 {
 	if (message == WM_USER + 101) {
 		::DestroyWindow (m_hWnd);
-		::PostQuitMessage (0);		
+		::PostQuitMessage (0);
 	}
 
 	return CDialog::WindowProc (message, wParam, lParam);

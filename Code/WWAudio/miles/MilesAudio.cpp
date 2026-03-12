@@ -94,7 +94,7 @@ MilesAudioClass::MilesAudioClass (bool lite)
 	if (!lite) {
 		AIL_startup ();
 	}
-	
+
 	_theInstance = this;
 
 	m_Max3DBufferSize = m_Max3DBufferSize * 2.0F;

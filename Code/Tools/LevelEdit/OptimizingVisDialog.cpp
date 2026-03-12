@@ -166,7 +166,7 @@ OptimizingVisDialogClass::Update_Stats (void)
 	//
 	int total	= m_ProgressStats->Get_Total_Operation_Count ();
 	int current	= m_ProgressStats->Get_Completed_Operation_Count ();
-	
+
 	CString status_text;
 	status_text.Format ("%d of %d operations completed.", current, total);
 	SetDlgItemText (IDC_STATUS_TEXT,status_text);
@@ -193,7 +193,7 @@ OptimizingVisDialogClass::Set_Finished (void)
 	::EnableWindow (::GetDlgItem (m_hWnd, IDCANCEL), true);
 	Update_Stats ();
 	m_ProgressBar.SetPos (100);
-	
+
 	return ;
 }
 
@@ -222,7 +222,7 @@ OptimizingVisDialogClass::Optimize (void)
 
 	//
 	//	Now make sure each dynamic object has updated visibility
-	//	
+	//
 	::Get_Scene_Editor ()->Reset_Dynamic_Object_Visibility_Status ();
 
 	//
@@ -265,14 +265,14 @@ fnOptimizeVisDialogThread
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// OptimizingVisDialogClass::Set_Status_Object 
+// OptimizingVisDialogClass::Set_Status_Object
 //
 ////////////////////////////////////////////////////////////////////////////
-void 
-OptimizingVisDialogClass::Set_Status_Object (VisOptProgressClass *status_object)	
-{ 
-	m_ProgressStats = status_object; 
+void
+OptimizingVisDialogClass::Set_Status_Object (VisOptProgressClass *status_object)
+{
+	m_ProgressStats = status_object;
 	Update_Stats();
-	
+
 	return ;
 }

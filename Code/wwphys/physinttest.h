@@ -48,13 +48,13 @@
 #include "physlist.h"
 
 
-// 
+//
 // Derived versions of the Intersection Test Classes which contain
 // a list of intersected PhysObj's and the collision group.
 //
 
 ///////////////////////////////////////////////////////////////////////////
-// 
+//
 // PhysAABoxIntersectionTestClass
 // Axis-Aligned box intersections.  Derived from the W3D class for the
 // same thing.  Adds the collision group and intersected objects list.
@@ -88,7 +88,7 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////////
-// 
+//
 // PhysOBBoxIntersectionTestClass
 // Oriented box intersections.  Derived from the W3D class for the
 // same thing.  Adds the collision group and intersected objects list.
@@ -105,7 +105,7 @@ public:
 		CheckDynamicObjs(true)
 	{
 	}
-	
+
 	void							Add_Intersected_Object(PhysClass * obj) { if (IntersectedObjects) IntersectedObjects->Add(obj); }
 
 public:
@@ -122,7 +122,7 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////////
-// 
+//
 // PhysMeshIntersectionTestClass
 // Mesh intersections.  Currently there is no W3D equivalent.
 //
@@ -130,7 +130,7 @@ private:
 class PhysMeshIntersectionTestClass : public IntersectionTestClass
 {
 public:
-	
+
 	PhysMeshIntersectionTestClass(MeshClass * mesh,int col_group,int col_type,NonRefPhysListClass * result_list) :
 		IntersectionTestClass(col_type),
 		Mesh(NULL),
@@ -173,14 +173,14 @@ inline bool PhysMeshIntersectionTestClass::Cull(const Vector3 & cull_min,const V
 {
 	Vector3 box_min;
 	Vector3::Subtract(BoundingBox.Center,BoundingBox.Extent,&box_min);
-	
+
 	Vector3 box_max;
 	Vector3::Add(BoundingBox.Center,BoundingBox.Extent,&box_max);
 
 	if ((box_min.X > cull_max.X) || (box_max.X < cull_min.X)) return true;
 	if ((box_min.Y > cull_max.Y) || (box_max.Y < cull_min.Y)) return true;
 	if ((box_min.Z > cull_max.Z) || (box_max.Z < cull_min.Z)) return true;
-	
+
 	return false;
 }
 

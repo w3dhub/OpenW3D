@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/csdamageevent.cpp                      $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 11/24/01 10:36a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 6                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/csdamageevent.cpp                      $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 11/24/01 10:36a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 6                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "csdamageevent.h"
@@ -72,11 +72,11 @@ cCsDamageEvent::cCsDamageEvent(void)
 //-----------------------------------------------------------------------------
 void
 cCsDamageEvent::Init
-( 
-	int	damager_go_id, 
-	int	damagee_go_id, 
-	float	damage, 
-	int	warhead 
+(
+	int	damager_go_id,
+	int	damagee_go_id,
+	float	damage,
+	int	warhead
 )
 {
 	WWASSERT(CombatManager::I_Am_Only_Client());
@@ -97,7 +97,7 @@ cCsDamageEvent::Init
 //-----------------------------------------------------------------------------
 void
 cCsDamageEvent::Act
-(	
+(
 	void
 )
 {

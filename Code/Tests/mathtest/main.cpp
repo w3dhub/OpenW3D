@@ -114,7 +114,7 @@ void main(void)
 
 #if 0
 	Vector3 array[3];
-	
+
 	printf("%f",array[2].Y);
 	array[1] = Vector3(1,1,1);
 	array[2].X = 5.0f;
@@ -128,7 +128,7 @@ void main(void)
 	PlaneClass plane;
 	plane.N.Set(rand() & 0xFF,rand() & 0xFF,rand() & 0xFF);
 	plane.D = rand() & 0xFF;
-	
+
 	if (plane.In_Front(Vector3(5,5,5))) {
 		printf("hi");
 	} else {
@@ -152,11 +152,11 @@ void main(void)
 	test_quaternions();
 	test_animation();
 	test_ode_systems();
-	
+
 	Test_Rays();
 	test_planes();
 	test_concatenation();
-	
+
 	Test_Uarray();
 
 	test_sphere_intersection();
@@ -181,9 +181,9 @@ void test_fast_trig(void)
 	float START = -8.0f * WWMATH_PI;
 	float STOP = 8.0f * WWMATH_PI;
 	float error;
-	
+
 	for (float test=START; test < STOP; test+=(STOP-START) / STEPS) {
-		
+
 		error = WWMath::Fabs(WWMath::Sin(test) - WWMath::Fast_Sin(test));
 		if (error > max_sin_error) {
 			max_sin_error = error;
@@ -245,9 +245,9 @@ void test_vectors(void)
 	for (i=0; i<16000; i++) {
 		c = tab[0] + tab[i];
 	}
-	op_cycles = Get_CPU_Clock() - op_cycles;	
+	op_cycles = Get_CPU_Clock() - op_cycles;
 	c.Normalize();
-	
+
 	printf("Vector3::operator + cycles: %d\n",op_cycles);
 
 	unsigned int add_cycles = Get_CPU_Clock();
@@ -270,7 +270,7 @@ void test_lookat(void)
 	Matrix3D tm(1);
 	Matrix3D invtm;
 
-	tm.Look_At(Vector3(0,0,0),Vector3(-1,0,0),0); 
+	tm.Look_At(Vector3(0,0,0),Vector3(-1,0,0),0);
 	Quaternion q = Build_Quaternion(tm);
 
 	CHECK(check++,(fabs(q[0] - 0.5) < TOLERANCE));
@@ -315,8 +315,8 @@ void test_eulers(void)
 	mat2.Rotate_X(euler.Get_Angle(1));
 	mat2.Rotate_Y(euler.Get_Angle(2));
 
-	CHECK(0,(((mat2[0] - mat[0]).Length() < TOLERANCE) && 
-				((mat2[1] - mat[1]).Length() < TOLERANCE) && 
+	CHECK(0,(((mat2[0] - mat[0]).Length() < TOLERANCE) &&
+				((mat2[1] - mat[1]).Length() < TOLERANCE) &&
 				((mat2[2] - mat[2]).Length() < TOLERANCE)));
 
 	mat.Make_Identity();
@@ -326,21 +326,21 @@ void test_eulers(void)
 	xrot = euler2.Get_Angle(0);
 	yrot = euler2.Get_Angle(1);
 	zrot = euler2.Get_Angle(2);
-	
+
 	mat2.Make_Identity();
 	mat2.Rotate_X(xrot);
 	mat2.Rotate_Y(yrot);
 	mat2.Rotate_Z(zrot);
 
-	CHECK(0,(((mat2[0] - mat[0]).Length() < TOLERANCE) && 
-				((mat2[1] - mat[1]).Length() < TOLERANCE) && 
+	CHECK(0,(((mat2[0] - mat[0]).Length() < TOLERANCE) &&
+				((mat2[1] - mat[1]).Length() < TOLERANCE) &&
 				((mat2[2] - mat[2]).Length() < TOLERANCE)));
-}	
+}
 
 void test_matrix3(void)
 {
 	Print_Title("Testing Matrix3 Inversion");
-	
+
 	/*
 	** Testing Matrix3 Inversion function
 	*/
@@ -369,7 +369,7 @@ void test_ode_systems(void)
 	** Testing the new-style ODE solvers
 	**
 	** Suppose we have a point which is going to move around
-	** a 2-D circle. 
+	** a 2-D circle.
 	*/
 	int i;
 	float error = 0.0f;
@@ -378,9 +378,9 @@ void test_ode_systems(void)
 
 	circle_system.Point.Set(1,0,0);
 	for (i=0; i<100; i++) {
-		
+
 		IntegrationSystem::Euler_Integrate(&circle_system,1.0);
-		
+
 		error = circle_system.Point.Length() - 1.0;
 		if (fabs(error) > maxerror[0]) {
 			maxerror[0] = fabs(error);
@@ -390,7 +390,7 @@ void test_ode_systems(void)
 
 	circle_system.Point.Set(1,0,0);
 	for (i=0; i<100; i++) {
-		
+
 		IntegrationSystem::Midpoint_Integrate(&circle_system,1.0);
 
 		error = circle_system.Point.Length() - 1.0;
@@ -402,7 +402,7 @@ void test_ode_systems(void)
 
 	circle_system.Point.Set(1,0,0);
 	for (i=0; i<100; i++) {
-		
+
 		IntegrationSystem::Runge_Kutta_Integrate(&circle_system,1.0);
 
 		error = circle_system.Point.Length() - 1.0;
@@ -414,7 +414,7 @@ void test_ode_systems(void)
 
 	circle_system.Point.Set(1,0,0);
 	for (i=0; i<100; i++) {
-		
+
 		IntegrationSystem::Runge_Kutta5_Integrate(&circle_system,1.0);
 
 		error = circle_system.Point.Length() - 1.0;
@@ -434,11 +434,11 @@ void test_quaternions(void)
 	Quaternion q,p,pnew;
 	Matrix3 tm;
 	Vector3 vnew;
-	
+
 	// Testing rotation about the Z axis
 	q = Axis_To_Quat(Vector3(0,0,1),DEG_TO_RAD(45.0f));
 	p.Set(1.0,0.0,0.0,0.0);
-	
+
 	pnew = q*p*Conjugate(q);
 
 	vnew.Set(pnew.X,pnew.Y,pnew.Z);
@@ -452,7 +452,7 @@ void test_quaternions(void)
 	// Testing rotation about the Y axis
 	q = Axis_To_Quat(Vector3(0,1,0),DEG_TO_RADF(45.0f));
 	p.Set(0.0f,0.0f,1.0f,0.0f);
-	
+
 	pnew = q*p*Conjugate(q);
 
 	vnew.Set(pnew.X,pnew.Y,pnew.Z);
@@ -465,7 +465,7 @@ void test_quaternions(void)
 	// Testing rotation about the X axis
 	q = Axis_To_Quat(Vector3(1,0,0),DEG_TO_RADF(45.0f));
 	p.Set(0.0f,1.0f,0.0f,0.0f);
-	
+
 	pnew = q*p*Conjugate(q);
 
 	vnew.Set(pnew.X,pnew.Y,pnew.Z);
@@ -484,7 +484,7 @@ void test_quaternions(void)
 
 	// Euler integrate for 1 second at 45 deg/s
 	for (int i=0; i<100; i++) {
-		
+
 		// deriviative of orientation:
 		Quaternion dorient = 0.5 * omega * orientation;
 
@@ -493,7 +493,7 @@ void test_quaternions(void)
 
 		// new orientation
 		orientation = orientation + dorient;
-	
+
 		orientation.Normalize();
 	}
 
@@ -537,7 +537,7 @@ void test_quaternions(void)
 	}
 	cycles = Get_CPU_Clock() - cycles;
 	Print("building matrix cycles:                    %d\n",cycles / 256);
-	
+
 
 	// test speed of matrix-vector multiplication
 	cycles = Get_CPU_Clock();
@@ -555,7 +555,7 @@ void test_quaternions(void)
 	}
 	cycles = Get_CPU_Clock() - cycles;
 	Print("convert-matrix-vector cycles:              %d\n",cycles / 256);
-	
+
 	// test speed of naive quat-vector transform
 	cycles = Get_CPU_Clock();
 	for (i=0; i<256; i++) {
@@ -580,7 +580,7 @@ void test_quaternions(void)
 	for (i=0; i<256; i++) {
 		output_vec = input_quats[i].Rotate_Vector(input_vec);
 		verify_vec = Build_Matrix3D(input_quats[i]) * input_vec;
-		
+
 		tmp0.X = input_vec.X;
 		tmp0.Y = input_vec.Y;
 		tmp0.Z = input_vec.Z;
@@ -599,18 +599,18 @@ void test_animation(void)
 {
 	Print_Title("Testing animation speed");
 	int ci = 0;
-	
+
 	///////////////////////////////////////////////////////////////////////
 	// Animation calculation for a node consists of the following steps:
 	//
 	// - concatenate the root transform and the base pose transform
 	// - grab the translation (possible lerp), concatenate it in
 	// - grab the rotation (possible slerp), concatenate it in
-	///////////////////////////////////////////////////////////////////////	
+	///////////////////////////////////////////////////////////////////////
 	int i;
 	unsigned cycles;
 	float percentage = 0.5f;
-	
+
 	Matrix3D root_tm;
 	Matrix3D base_tm;
 	Matrix3D tm;
@@ -686,11 +686,11 @@ void test_animation(void)
 	cycles = Get_CPU_Clock() - cycles;
 	printf("Translation Base + Quaternion animation cycles:       %d\n",cycles / 256);
 
-	
+
 	// anim method, Matrix3D base and euler angles:
 	cycles = Get_CPU_Clock();
 	for (i=0; i<256; i++) {
-	
+
 		Matrix3D::Multiply(root_tm,base_tm,&tm);
 
 		Vector3 trans0(tx0,ty0,tz0);
@@ -708,7 +708,7 @@ void test_animation(void)
 	// anim method, Matrix3D base and quaternions:
 	cycles = Get_CPU_Clock();
 	for (i=0; i<256; i++) {
-	
+
 		Matrix3D::Multiply(root_tm,base_tm,&tm);
 
 		Vector3 trans0(tx0,ty0,tz0);
@@ -735,7 +735,7 @@ void test_planes(void)
 	PlaneClass p1(Vector3(1,0,0),0);
 	PlaneClass p2(Vector3(1,0,0),5);
 	PlaneClass p3(Vector3(1,0,0),-5);
-	
+
 	SphereClass s0(Vector3(0,0,0),0.5f);
 	SphereClass s1(Vector3(0,0,0),1.1f);
 
@@ -765,18 +765,18 @@ void test_concatenation(void)
 
 	a.Make_Identity();
 	a.Rotate_X(20.0f);
-	b.Make_Identity(); 
+	b.Make_Identity();
 	b.Rotate_X(20.0f);
-	
+
 	res1 = a*b;
-	print_matrix(res1);	
-	
+	print_matrix(res1);
+
 	// Result being placed into a third matrix
 	printf("\nResult being placed into third matrix c = a*b\n\n");
 	for (i=0; i<10; i++) {
 		a = random_matrix();
 		b = random_matrix();
-	
+
 		operator_cycles = Get_CPU_Clock();
 		res1 = a*b;
 		operator_cycles = Get_CPU_Clock() - operator_cycles;
@@ -790,7 +790,7 @@ void test_concatenation(void)
 				 (((res1[2] - res2[2]).Length()) < 0.001f) );
 
 		printf("Test %3d   op_cycles: %d\tc_cycles: %d\t",i,operator_cycles,concatenate_cycles);
-		if (ok) { 
+		if (ok) {
 			printf("passed\n");
 		} else {
 			printf("<<FAILED!>>\n");
@@ -818,7 +818,7 @@ void test_concatenation(void)
 					   (((res1[1] - res2[1]).Length()) < 0.001f) &&
 					   (((res1[2] - res2[2]).Length()) < 0.001f) );
 		printf("Test %3d   op_cycles: %d\tc_cycles: %d\t",i+10,operator_cycles,concatenate_cycles);
-		if (ok) { 
+		if (ok) {
 			printf("passed\n");
 		} else {
 			printf("<<FAILED!>>\n");
@@ -835,7 +835,7 @@ void print_matrix(const Matrix3D & m)
 }
 
 Matrix3D random_matrix(void)
-{	
+{
 	Quaternion q;
 	q.X = WWMath::Random_Float();
 	q.Y = WWMath::Random_Float();
@@ -875,15 +875,15 @@ void test_aabox_transform(void)
 	Vector3 newmin,newmax;
 	tm.Transform_Min_Max_AABox(vmin,vmax,&newmin,&newmax);
 
-	CHECK(ci++,	((newmin - Vector3(-10,-10,-10)).Length() < TOLERANCE) && 
+	CHECK(ci++,	((newmin - Vector3(-10,-10,-10)).Length() < TOLERANCE) &&
 					((newmax - Vector3(10,10,10)).Length() < TOLERANCE));
 
 	vmin.Set(-1,-10,-1);
 	vmax.Set(1,10,1);
-	tm = Matrix3D::RotateZ90;	
+	tm = Matrix3D::RotateZ90;
 	tm.Transform_Min_Max_AABox(vmin,vmax,&newmin,&newmax);
 
-	CHECK(ci++,	((newmin - Vector3(-10,-1,-1)).Length() < TOLERANCE) && 
+	CHECK(ci++,	((newmin - Vector3(-10,-1,-1)).Length() < TOLERANCE) &&
 					((newmax - Vector3(10,1,1)).Length() < TOLERANCE));
 
 
@@ -915,13 +915,13 @@ void test_vector_quick_length(void)
 	double latitude;
 
 	for (int long_index=0; long_index<LONGITUDE_SAMPLES; long_index++) {
-		
+
 		longitude = 2*WWMATH_PI*((float)long_index/(float)LONGITUDE_SAMPLES);
 
 		for (int lat_index=0; lat_index<LATITUDE_SAMPLES; lat_index++) {
 
 			latitude = -WWMATH_PI/2.0f + WWMATH_PI*((float)lat_index/(float)LATITUDE_SAMPLES);
-			
+
 			Matrix3D tm(1);
 			tm.Rotate_Z(longitude);
 			tm.Rotate_Y(latitude);
@@ -955,7 +955,7 @@ void test_sqrt_time(void)
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 20000.0f;
 		unsigned int cycles = Get_CPU_Clock();
-		float val = sqrt(f);	
+		float val = sqrt(f);
 		val+=sqrt(val);
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;
@@ -967,7 +967,7 @@ void test_sqrt_time(void)
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 6.28f;
 		unsigned int cycles = Get_CPU_Clock();
-		float val = sin(f);	
+		float val = sin(f);
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;
 	}
@@ -978,7 +978,7 @@ void test_sqrt_time(void)
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 6.28f;
 		unsigned int cycles = Get_CPU_Clock();
-		float val = cos(f);	
+		float val = cos(f);
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;
 	}
@@ -988,7 +988,7 @@ void test_sqrt_time(void)
 	// Time 100 multiplies
 	time = Get_CPU_Clock();
 	for (i=0; i<SAMPLES; i++) {
-		float val = results[i]*results[SAMPLES-i-1];	
+		float val = results[i]*results[SAMPLES-i-1];
 		results[i] = val;
 	}
 	time = Get_CPU_Clock() - time;
@@ -999,7 +999,7 @@ void test_sqrt_time(void)
 	// Time 100 adds
 	time = Get_CPU_Clock();
 	for (i=0; i<SAMPLES; i++) {
-		float val = results[i]+results[SAMPLES-i-1];	
+		float val = results[i]+results[SAMPLES-i-1];
 		results[i] = val;
 	}
 	time = Get_CPU_Clock() - time;
@@ -1010,7 +1010,7 @@ void test_sqrt_time(void)
 	// Time 100 multiplies
 	time = Get_CPU_Clock();
 	for (i=0; i<SAMPLES; i++) {
-		float val = results[i]*results[SAMPLES-i-1];	
+		float val = results[i]*results[SAMPLES-i-1];
 		results[i] = val;
 	}
 	time = Get_CPU_Clock() - time;
@@ -1020,14 +1020,14 @@ void test_sqrt_time(void)
 	// Time 100 adds
 	time = Get_CPU_Clock();
 	for (i=0; i<SAMPLES; i++) {
-		float val = results[i]+results[SAMPLES-i-1];	
+		float val = results[i]+results[SAMPLES-i-1];
 		results[i] = val;
 	}
 	time = Get_CPU_Clock() - time;
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];
 	printf("add cycles: %d\n",time);
 
-	
+
 }
 
 
@@ -1064,7 +1064,7 @@ void Transform_Min_Max_AABox_Brute_Force
 		if (newmin.X >= pts[i].X) newmin.X = pts[i].X;
 		if (newmin.Y >= pts[i].Y) newmin.Y = pts[i].Y;
 		if (newmin.Z >= pts[i].Z) newmin.Z = pts[i].Z;
-		
+
 		if (newmax.X <= pts[i].X) newmax.X = pts[i].X;
 		if (newmax.Y <= pts[i].Y) newmax.Y = pts[i].Y;
 		if (newmax.Z <= pts[i].Z) newmax.Z = pts[i].Z;
@@ -1081,7 +1081,7 @@ void test_point_containment(void)
 	points[1].Set(1.0f,37.7164f,-2.50006f);
 	points[2].Set(10.6566f,30.7858f,-2.50006f);
 	points[3].Set(1.0f,16.0f,-2.50006f);
-	
+
 	for (int vi=0; vi<3; vi++) {
 		tri0.V[vi] = &(points[vi]);
 		tri1.V[vi] = &(points[vi+1]);
@@ -1114,9 +1114,9 @@ float integrate(float (*f)(float),float start,float end,int slices)
 {
 	float sum = 0.0f;
 	float slice_width = (end-start)/slices;
-	
+
 	for (float sample = start; sample < end; sample += slice_width) {
-		
+
 		sum += f(sample) * slice_width;
 
 	}

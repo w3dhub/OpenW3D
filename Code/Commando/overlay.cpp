@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/commando/overlay.cpp                         $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 8/02/01 5:50p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 18                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/commando/overlay.cpp                         $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 8/02/01 5:50p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 18                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "overlay.h"
@@ -138,7 +138,7 @@ void 	Overlay3DGameModeClass::Render()
 	}
 }
 
-void 	Overlay3DGameModeClass::Release_Model( void ) 
+void 	Overlay3DGameModeClass::Release_Model( void )
 {
 	if (Model != NULL) {
 		Model->Remove ();
@@ -189,7 +189,7 @@ void 	Overlay3DGameModeClass::Think()
 			ModelTimer = 0;
 			Release_Model();
 
-			if ( EndScreen ) {				
+			if ( EndScreen ) {
 				GameInitMgrClass::End_Game();
 				RenegadeDialogMgrClass::Goto_Location (RenegadeDialogMgrClass::LOC_MAIN_MENU);
 			}

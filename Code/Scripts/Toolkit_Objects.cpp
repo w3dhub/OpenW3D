@@ -106,7 +106,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_RMV, "Receive_Type_Activate:int, Debug_Mode=0:
 		SAVE_VARIABLE(r_type, 1);
 		SAVE_VARIABLE(debug_mode, 2);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		r_type = Get_Int_Parameter("Receive_Type_Activate");
@@ -198,7 +198,7 @@ DECLARE_SCRIPT(M00_Object_Create_Attach_Script_RMV, "Start_Now=0:int, Receive_Ty
 			} else {
 				*output++ = *input++;
 			}
-			
+
 		}
 		*output = 0;  // null terminate
 	}
@@ -218,7 +218,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_Self_RMV, "Start_Now=1:int, Receive_Type=3:int
 		SAVE_VARIABLE(receive_param_off, 5);
 		SAVE_VARIABLE(receive_param_activate, 6);
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		active = (Get_Int_Parameter("Start_Now") == 1) ? true : false;
@@ -261,7 +261,7 @@ DECLARE_SCRIPT(M00_Object_Destroy_Self_RMV, "Start_Now=1:int, Receive_Type=3:int
 /***********************************************************************************************************
 *
 *	PowerUp Creation
-*	
+*
 *	- Includes ability to create any preset in the asset database by preset name
 *	- Includes ability to check a random to drop item (Drop_Percentage)
 *	- Arbitrary Create Position (Create_At_Death_Pos) & (Position)
@@ -282,7 +282,7 @@ DECLARE_SCRIPT(M00_PowerUp_Create_When_Killed_JDG, "Preset_Name:string,Drop_Perc
 		float z_offset;
 		float drop_percentage;
 		bool spawn_effect;
-		
+
 		preset_name = Get_Parameter( "Preset_Name" );
 		create_death_pos_flag = (Get_Int_Parameter( "Create_At_Death_Pos" ) == 1 ) ? true : false;
 		z_offset = Get_Float_Parameter( "Z_Offset" );
@@ -325,7 +325,7 @@ DECLARE_SCRIPT(M00_PowerUp_Create_When_Killed_JDG, "Preset_Name:string,Drop_Perc
 *
 *	One Time Special Effect Player
 *	Used with M00_PowerUp_Create_When_Killed_JDG
-*	
+*
 *	- Attach this script to an object that is created through script to play a W3d animation
 *	- (Effect_Model:string) is the name of the animation of the object.
 *
@@ -355,7 +355,7 @@ DECLARE_SCRIPT(M00_Create_Anim_Effect_DAY, "Effect_Model:string")
 /***********************************************************************************************************
 *
 *	One Time Damage Modifier
-*		
+*
 *	- Attach this script to an object that you do not want to recieve falling damage.
 *	  Such as from a paradrop.
 *
@@ -365,7 +365,7 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 {
 	bool ignore_next_dmg;
 	float initial_health;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -377,7 +377,7 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 	void Created( GameObject * /*obj*/ ) override
 	{
 		ignore_next_dmg = false;
-		
+
 	}
 
 	void Custom(GameObject * obj, int type, intptr_t /*param*/, GameObject * /*sender*/) override
@@ -387,13 +387,13 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 			ignore_next_dmg = true;
 			initial_health = Commands->Get_Health(obj);
 		}
-		
+
 	}
 
 	void Damaged( GameObject * obj, GameObject *damager, float /*amount*/) override
 	{
 		if (ignore_next_dmg && damager == NULL)
-		{			
+		{
 			Commands->Set_Health(obj, initial_health);
 		}
 		ignore_next_dmg = false;
@@ -404,7 +404,7 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 /***********************************************************************************************************
 *
 *	Permanent Damage Modifier
-*		
+*
 *	- Attach this script to an object that you do not want to recieve falling damage.
 *
 ***********************************************************************************************************/
@@ -412,7 +412,7 @@ DECLARE_SCRIPT(M00_No_Falling_Damage_DME, "")
 DECLARE_SCRIPT(M00_Permanent_No_Falling_Damage_IML, "")
 {
 	float initial_health;
-		
+
 	// Register variables to be Auto-Saved
 	// All variables must have a unique ID, less than 256, that never changes
 	REGISTER_VARIABLES()
@@ -453,7 +453,7 @@ DECLARE_SCRIPT (M00_Disable_Transition, "")
 /***********************************************************************************************************
 *
 *	Death Script for Fire, Gas and Electric troops.
-*		
+*
 *	- new script for default Fire, Gas and Electric troop deaths.
 *	- Takes preset DeathType:string ("Fire", "Gas", "Electric") and plays appropriate animation
 *		and weapon FX. (1 = flailing and smoke. 2 = Elec Twiching and smoke? 3 = choking and green smoke. )
@@ -491,10 +491,10 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 						params.Set_Animation( "S_A_HUMAN.H_A_6X05",0 ); // electric death
 					}
 					else params.Set_Animation( "S_A_HUMAN.H_A_6X01",0 ); // gas death
-				
+
 			Commands->Action_Play_Animation( obj, params );
 
-			// begin DeathType damage 
+			// begin DeathType damage
 			Commands->Apply_Damage( obj, 1.0f, Get_Parameter( "DeathType" ), NULL );
 			}
 		}
@@ -516,7 +516,7 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 				params.Set_Animation( "S_A_HUMAN.H_A_6X01",0 ); // Gas Death
 			}
 				else params.Set_Animation( "S_A_HUMAN.H_A_6X05",0 ); // Electrocution
-			
+
 		Commands->Action_Play_Animation( obj, params );
 	}
 
@@ -538,7 +538,7 @@ DECLARE_SCRIPT ( M00_Fire_Gas_Elec_Death_DAK, "DeathType=1:int,HealthThreshhold=
 /***********************************************************************************************************
 *
 *	Vehicle Health Regeneration Script for GDI Mammoth Tanks and Tiberium Harvesters.
-*		
+*
 *	- continually checks vehicle's health to see if it needs to be regenerated.
 *	- regenerates vehicle to 50% max health
 *
@@ -585,7 +585,7 @@ DECLARE_SCRIPT(M00_Send_Object_ID, "Receiver_ID:int, Param=0:int, Delay=1.0f:int
 		SAVE_VARIABLE(r_type, 1);
 		SAVE_VARIABLE(debug_mode, 2);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		// Send Custom and Parameter to Receiver object

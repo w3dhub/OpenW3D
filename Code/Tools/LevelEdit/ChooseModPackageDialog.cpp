@@ -77,7 +77,7 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-ChooseModPackageDialogClass::OnInitDialog (void) 
+ChooseModPackageDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
@@ -108,7 +108,7 @@ ChooseModPackageDialogClass::OnInitDialog (void)
 	for (int index = 0; index < package_list.Count (); index ++) {
 		int item_index = ListCtrl.InsertItem (index, package_list[index]);
 		if (item_index >= 0) {
-			
+
 			//
 			//	Is this the default entry?
 			//
@@ -125,7 +125,7 @@ ChooseModPackageDialogClass::OnInitDialog (void)
 	if (package_list.Count () > 0 && found) {
 		ListCtrl.SetItemState (0, LVIS_SELECTED, LVIS_SELECTED);
 	}
-	
+
 	return true;
 }
 
@@ -153,7 +153,7 @@ ChooseModPackageDialogClass::OnOK (void)
 		CDialog::OnOK ();
 
 	} else {
-		
+
 		//
 		//	Warn the user
 		//
@@ -170,7 +170,7 @@ ChooseModPackageDialogClass::OnOK (void)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ChooseModPackageDialogClass::OnNewButton (void) 
+ChooseModPackageDialogClass::OnNewButton (void)
 {
 	//
 	//	Display a dialog to the user allowing them to create a new mod package
@@ -188,7 +188,7 @@ ChooseModPackageDialogClass::OnNewButton (void)
 		//
 		int item_index = ListCtrl.InsertItem (0xFF, dialog.Get_Package_Name ());
 		if (item_index >= 0) {
-			
+
 			//
 			//	Select the new package
 			//
@@ -209,7 +209,7 @@ void
 ChooseModPackageDialogClass::OnDblclkModListCtrl (NMHDR * /* pNMHDR */, LRESULT *pResult)
 {
 	(*pResult) = 0;
-	
+
 	//
 	//	Simulate pressing the OK button
 	//

@@ -61,7 +61,7 @@ class PresetClass;
 class EditorOnlyObjectNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -82,7 +82,7 @@ public:
 	// From PersistClass
 	//
 	const PersistFactoryClass &	Get_Factory (void) const;
-	
+
 	//
 	// Inherited
 	//

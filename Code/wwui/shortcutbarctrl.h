@@ -68,12 +68,12 @@ public:
 
 	//
 	//	RTTI
-	//	
+	//
 	ShortcutBarCtrlClass *		As_ShortcutBarCtrlClass (void) override	{ return this; }
 
 	//
 	//	From DialogControlClass
-	//	
+	//
 	void					Render (void) override;
 	const RectClass &	Get_Window_Rect (void) const override;
 	bool					Wants_Tooltip (void) const override		{ return false; }
@@ -128,7 +128,7 @@ protected:
 
 		int					ctrl_id;
 		WideStringClass	text;
-		
+
 		bool operator== (const ShortcutInfoStruct &/* src*/)	{ return false; }
 		bool operator!= (const ShortcutInfoStruct &/* src*/)	{ return true; }
 	};

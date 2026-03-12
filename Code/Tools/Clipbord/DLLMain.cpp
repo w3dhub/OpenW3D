@@ -40,11 +40,11 @@ BOOL WINAPI DllMain
 	if ( ! controlsInit )
 	{
 		controlsInit = true;
-		
+
 		InitCustomControls(hInstance);		// jaguar controls
 		InitCommonControls();				// initialize Chicago controls
 	}
-			
+
 	return true;
 }
 

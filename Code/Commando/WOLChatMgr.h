@@ -75,7 +75,7 @@ class WOLChatMgr :
 		// Lobby Methods
 		void RefreshLobbyList(void);
 		const LobbyList& GetLobbyList(void);
-		
+
 		const RefPtr<WWOnline::ChannelData>& GetCurrentLobby(void);
 		const RefPtr<WWOnline::ChannelData> FindLobby(const unichar_t* name);
 
@@ -144,7 +144,7 @@ class WOLChatMgr :
 		WWOnline::UserList mUserInList;
 		WWOnline::UserList mUserOutList;
 		WideStringClass	mLocatingUserName;
-		
+
 		WWOnline::ChatMessageList mMessageList;
 	};
 

@@ -110,7 +110,7 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-ParameterInheritanceDialogClass::OnInitDialog (void) 
+ParameterInheritanceDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
@@ -171,7 +171,7 @@ ParameterInheritanceDialogClass::OnInitDialog (void)
 		enable_dialogue_ctrls = true;
 	}
 	::EnableWindow (::GetDlgItem (m_hWnd, IDC_PROPOGATE_DIALOGUE), enable_dialogue_ctrls);
-		
+
 	return true;
 }
 
@@ -190,7 +190,7 @@ ParameterInheritanceDialogClass::Populate_List_Ctrl (void)
 	//	Get the definition this preset sits on
 	//
 	DefinitionClass *definition = m_Preset->Get_Definition ();
-	ASSERT (definition != NULL);		
+	ASSERT (definition != NULL);
 	if (definition != NULL) {
 
 		//
@@ -230,7 +230,7 @@ ParameterInheritanceDialogClass::Add_Parameters_To_List
 			//	Is this parameter one we need to recurse into?
 			//
 			if (parameter->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
-				
+
 				//
 				//	Lookup the definition that this parameter points to
 				//
@@ -251,8 +251,8 @@ ParameterInheritanceDialogClass::Add_Parameters_To_List
 					MEMBER_RELEASE (def_param);
 				}
 
-			} else {									
-				
+			} else {
+
 				//
 				//	Insert this preset into the list control
 				//
@@ -292,7 +292,7 @@ ParameterInheritanceDialogClass::Populate_Tree_Ctrl (void)
 	//
 	//	Add all the presets that 'inherit' from this preset
 	//
-	Add_Children_To_Tree (TVI_ROOT, parent_id);	
+	Add_Children_To_Tree (TVI_ROOT, parent_id);
 	return ;
 }
 
@@ -308,7 +308,7 @@ ParameterInheritanceDialogClass::Add_Children_To_Tree (HTREEITEM parent_item, in
 	//
 	//	Lookup the parent preset
 	//
-	PresetClass *parent_preset = PresetMgrClass::Find_Preset (parent_id);	
+	PresetClass *parent_preset = PresetMgrClass::Find_Preset (parent_id);
 	if (parent_preset != NULL) {
 
 		//
@@ -343,7 +343,7 @@ ParameterInheritanceDialogClass::Add_Children_To_Tree (HTREEITEM parent_item, in
 			}
 		}
 	}
-	
+
 	//
 	//	Ensure this leaf is sorted
 	//
@@ -402,7 +402,7 @@ LocalCheckBoxSubclassProc
 )
 {
 	WNDPROC old_proc = (WNDPROC)::GetProp (hwnd, "OLDPROC");
-	
+
 	if (message == WM_LBUTTONUP) {
 
 		//
@@ -410,7 +410,7 @@ LocalCheckBoxSubclassProc
 		//
 		BOOL is_list_ctrl = (BOOL)(DWORD_PTR)::GetProp (hwnd, "IS_LIST_CTRL");
 		if (is_list_ctrl) {
-			
+
 			//
 			//	Find out where the user clicked
 			//
@@ -418,7 +418,7 @@ LocalCheckBoxSubclassProc
 			hittest.pt.x = LOWORD (lparam);
 			hittest.pt.y = HIWORD (lparam);
 			::SendMessage (hwnd, LVM_HITTEST, 0, (LPARAM)&hittest);
-			
+
 			//
 			//	Did the user click one of the checkboxes?
 			//
@@ -439,7 +439,7 @@ LocalCheckBoxSubclassProc
 			hittest.pt.x = LOWORD (lparam);
 			hittest.pt.y = HIWORD (lparam);
 			::SendMessage (hwnd, TVM_HITTEST, 0, (LPARAM)&hittest);
-			
+
 			//
 			//	Did the user click one of the checkboxes?
 			//
@@ -484,7 +484,7 @@ ParameterInheritanceDialogClass::WindowProc
 	WPARAM	wParam,
 	LPARAM	lParam
 )
-{	
+{
 	if (message == WM_USER + 102) {
 
 		//
@@ -542,7 +542,7 @@ ParameterInheritanceDialogClass::Update_Tree_Entry_Check (HTREEITEM parent_item,
 /////////////////////////////////////////////////////////////////////////////
 void
 ParameterInheritanceDialogClass::Update_List_Entry_Check (int index, bool checked)
-{	
+{
 	//
 	//	Is this entry part of a selection?
 	//
@@ -555,9 +555,9 @@ ParameterInheritanceDialogClass::Update_List_Entry_Check (int index, bool checke
 		while ((sel_index = m_ListCtrl.GetNextItem (sel_index, LVNI_ALL | LVNI_SELECTED)) >= 0) {
 			ListView_SetCheckState (m_ListCtrl, sel_index, checked);
 		}
-		
+
 	} else {
-		
+
 		//
 		//	Simply change the check state of this entry
 		//
@@ -583,7 +583,7 @@ TreeView_CustomSetCheckState (HWND hwndTreeView, HTREEITEM hItem, BOOL fCheck)
     tvItem.stateMask = TVIS_STATEIMAGEMASK;
 
     /*
-    Since state images are one-based, 1 in this macro turns the check off, and 
+    Since state images are one-based, 1 in this macro turns the check off, and
     2 turns it on.
     */
     tvItem.state = INDEXTOSTATEIMAGEMASK((fCheck ? 2 : 1));
@@ -598,13 +598,13 @@ TreeView_CustomSetCheckState (HWND hwndTreeView, HTREEITEM hItem, BOOL fCheck)
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-ParameterInheritanceDialogClass::OnOK (void) 
+ParameterInheritanceDialogClass::OnOK (void)
 {
 	DynamicVectorClass<PresetClass *>					preset_list;
 	DynamicVectorClass<DefinitionParameterClass *>	parameter_list;
 
 	//
-	//	Build a list of selected parameters and presets 
+	//	Build a list of selected parameters and presets
 	//
 	Build_Parameter_List (parameter_list);
 	Build_Preset_List (TVI_ROOT, preset_list);
@@ -616,7 +616,7 @@ ParameterInheritanceDialogClass::OnOK (void)
 	if (SendDlgItemMessage (IDC_PROPOGATE_DIALOGUE, BM_GETCHECK) == 1) {
 		propogate_dialogue_settings = true;
 	}
-	
+
 	//
 	//	Loop over all the selected presets and propagate the changes
 	//
@@ -634,7 +634,7 @@ ParameterInheritanceDialogClass::OnOK (void)
 			if (	propogate_dialogue_settings &&
 					base_def->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_SOLDIER &&
 					derived_def->Get_Class_ID () == CLASSID_GAME_OBJECT_DEF_SOLDIER)
-			{				
+			{
 				SoldierGameObjDef *base_soldier		= reinterpret_cast<SoldierGameObjDef *> (base_def);
 				SoldierGameObjDef *derived_soldier	= reinterpret_cast<SoldierGameObjDef *> (derived_def);
 
@@ -676,7 +676,7 @@ Find_Parameter_In_List
 	//
 	for (int index = 0; index < parameter_list.Count (); index ++) {
 		DefinitionParameterClass *def_param = parameter_list[index];
-		
+
 		//
 		//	Is this the parameter we were looking for?
 		//
@@ -685,7 +685,7 @@ Find_Parameter_In_List
 			break;
 		}
 	}
-	 
+
 	return retval;
 }
 
@@ -715,7 +715,7 @@ ParameterInheritanceDialogClass::Propagate_Changes
 		ParameterClass *curr_parameter	= derived_def->Lock_Parameter (param_index);
 		ASSERT (parameter != NULL);
 		ASSERT (curr_parameter != NULL);
-		
+
 		//
 		//	Are we comparing the same parameter? (We better be).
 		//
@@ -726,7 +726,7 @@ ParameterInheritanceDialogClass::Propagate_Changes
 			//	Do we need to recurse into this parameter?
 			//
 			if (parameter->Get_Type () == ParameterClass::TYPE_MODELDEFINITIONID) {
-				
+
 				//
 				//	Lookup the definitions that these parameters reference
 				//
@@ -745,19 +745,19 @@ ParameterInheritanceDialogClass::Propagate_Changes
 				}
 
 			} else {
-				
+
 				//
 				//	Should we propagate this parameter's value?
 				//
 				if (::Find_Parameter_In_List (parameter_list, parameter)) {
-					
+
 					//
 					//	Copy the parameter value from the parent.
 					//
 					curr_parameter->Copy_Value (*parameter);
 				}
 			}
-			
+
 		} else {
 			is_valid = false;
 		}
@@ -787,13 +787,13 @@ ParameterInheritanceDialogClass::Build_Parameter_List (DynamicVectorClass<Defini
 	for (int index = 0; index < m_ListCtrl.GetItemCount (); index ++) {
 		DefinitionParameterClass *parameter = NULL;
 		parameter = (DefinitionParameterClass *)m_ListCtrl.GetItemData (index);
-		
+
 		//
 		//	Add this parameter to the list if the user checked it
 		//
 		if (parameter != NULL && ListView_GetCheckState (m_ListCtrl, index)) {
 			parameter_list.Add (parameter);
-		}		
+		}
 	}
 
 	return ;
@@ -833,9 +833,9 @@ ParameterInheritanceDialogClass::Build_Preset_List
 			//	Recurse down the tree
 			//
 			Build_Preset_List (item, preset_list);
-		}		
+		}
 	}
-	
+
 	return ;
 }
 
@@ -847,7 +847,7 @@ ParameterInheritanceDialogClass::Build_Preset_List
 /////////////////////////////////////////////////////////////////////////////
 void
 ParameterInheritanceDialogClass::OnDeleteitemParameterList
-(	
+(
 	NMHDR *	pNMHDR,
 	LRESULT* pResult
 )

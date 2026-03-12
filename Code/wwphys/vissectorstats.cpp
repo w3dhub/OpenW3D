@@ -78,7 +78,7 @@ static void Count_Textures(RenderObjClass * obj)
 		Count_Textures(subobj);
 		REF_PTR_RELEASE(subobj);
 	}
-	
+
 	/*
 	** Count the textures for this object
 	*/
@@ -95,7 +95,7 @@ static void Count_Textures(RenderObjClass * obj)
 **
 ** VisSectorStatsClass Implementation
 **
-*********************************************************************************************/			
+*********************************************************************************************/
 
 
 /***********************************************************************************************
@@ -199,7 +199,7 @@ void VisSectorStatsClass::Compute_Stats(StaticPhysClass * obj,VisTableClass * vi
 		*/
 		RefPhysListIterator it = PhysicsSceneClass::Get_Instance()->Get_Static_Object_Iterator();
 		for (it.First(); !it.Is_Done(); it.Next()) {
-			
+
 			StaticPhysClass * next_obj = it.Peek_Obj()->As_StaticPhysClass();
 			if (next_obj && vistable->Get_Bit(next_obj->Get_Vis_Object_ID())) {
 

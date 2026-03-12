@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Blowfish Component                                           * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Launcher/BFISH.CPP                           $* 
- *                                                                                             * 
+/***********************************************************************************************
+ ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Blowfish Component                                           *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Launcher/BFISH.CPP                           $*
+ *                                                                                             *
  *                      $Author:: Denzil_l                                                    $*
- *                                                                                             * 
+ *                                                                                             *
  *                     $Modtime:: 12/02/97 9:35p                                              $*
- *                                                                                             * 
+ *                                                                                             *
  *                    $Revision:: 1                                                           $*
  *                                                                                             *
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  *   BlowfishEngine::Decrypt -- Decrypts data using blowfish algorithm.                        *
  *   BlowfishEngine::Encrypt -- Encrypt an arbitrary block of data.                            *
  *   BlowfishEngine::Process_Block -- Process a block of data using Blowfish algorithm.        *

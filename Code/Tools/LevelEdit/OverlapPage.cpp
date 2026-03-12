@@ -131,8 +131,8 @@ OverlapPageClass::OnSize
 	UINT	nType,
 	int	cx,
 	int	cy
-) 
-{	
+)
+{
 	// Allow the base class to process this message
 	CDialog::OnSize (nType, cx, cy);
 
@@ -141,7 +141,7 @@ OverlapPageClass::OnSize
 		// Get the bounding rectangle of the form window
 		CRect parentrect;
 		GetWindowRect (&parentrect);
-		
+
 		// Get the bounding rectangle of the toolbar
 		CRect toolbar_rect;
 		m_Toolbar.GetWindowRect (&toolbar_rect);
@@ -158,7 +158,7 @@ OverlapPageClass::OnSize
 		// Get the bounding rectnagle of the list ctrl
 		RECT list_rect;
 		m_TreeCtrl.GetWindowRect (&list_rect);
-				
+
 		CRect client_rect = list_rect;
 		ScreenToClient (&client_rect);
 		int list_height = ((cy - TOOLBAR_V_BORDER) - toolbar_rect.Height ()) - client_rect.top;
@@ -169,10 +169,10 @@ OverlapPageClass::OnSize
 											0,
 											cx-((list_rect.left - parentrect.left) << 1),
 											list_height,
-											SWP_NOZORDER | SWP_NOMOVE);	
+											SWP_NOZORDER | SWP_NOMOVE);
 	}
 
-	return ;	
+	return ;
 }
 
 
@@ -182,7 +182,7 @@ OverlapPageClass::OnSize
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-OverlapPageClass::OnDestroy (void) 
+OverlapPageClass::OnDestroy (void)
 {
 	// Free the state image list we associated with the control
 	CImageList *imagelist = m_TreeCtrl.GetImageList (TVSIL_STATE);
@@ -198,7 +198,7 @@ OverlapPageClass::OnDestroy (void)
 
 	// Allow the base class to process this message
 	CDialog::OnDestroy ();
-	return ;	
+	return ;
 }
 
 
@@ -222,7 +222,7 @@ OverlapPageClass::OnInitDialog (void)
 	//
 	CRect parentrect;
 	GetWindowRect (&parentrect);
-	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);	
+	m_Toolbar.SetWindowPos (NULL, 0, 0, parentrect.Width () - TOOLBAR_H_BORDER, TOOLBAR_HEIGHT, SWP_NOZORDER | SWP_NOMOVE);
 
 	//
 	// Pass the general use imagelist onto the tree control
@@ -247,7 +247,7 @@ OverlapPageClass::OnDeleteitemOverlapTree
 (
 	NMHDR *	/* pNMHDR */,
 	LRESULT *pResult
-) 
+)
 {
 	(*pResult) = 0;
 	return ;
@@ -282,7 +282,7 @@ void
 OverlapPageClass::Reset_Tree (void)
 {
 	m_TreeCtrl.DeleteAllItems ();
-	
+
 	//
 	//	Insert the root nodes
 	//
@@ -318,7 +318,7 @@ OverlapPageClass::Detect_Overlaps (HTREEITEM root_item, NODE_TYPE node_type)
 				node2 = NodeMgrClass::Get_Next (node2, node_type))
 		{
 			if (node1 != node2) {
-				
+
 				SphereClass sphere1 (node1->Get_Position (), node1->Get_Attenuation_Radius ());
 				SphereClass sphere2 (node2->Get_Position (), node2->Get_Attenuation_Radius ());
 
@@ -326,7 +326,7 @@ OverlapPageClass::Detect_Overlaps (HTREEITEM root_item, NODE_TYPE node_type)
 				//	Do these spheres intersect?
 				//
 				if (CollisionMath::Overlap_Test (sphere1, sphere2) != CollisionMath::OUTSIDE) {
-					
+
 					//
 					//	Add a tree entry for this node (if necessary)
 					//
@@ -340,7 +340,7 @@ OverlapPageClass::Detect_Overlaps (HTREEITEM root_item, NODE_TYPE node_type)
 					Insert_Node (tree_item, node2);
 				}
 			}
-		}		
+		}
 	}
 
 	return ;
@@ -363,7 +363,7 @@ OverlapPageClass::Insert_Node (HTREEITEM parent_item, NodeClass *node)
 																	icon_index,
 																	icon_index,
 																	parent_item);
-	
+
 	//
 	//	Save the node's ID with the tree entry so we can look it up later...
 	//
@@ -398,7 +398,7 @@ OverlapPageClass::OnDblclkOverlapTree
 (
 	NMHDR *		/* pNMHDR */,
 	LRESULT *	pResult
-) 
+)
 {
 	//
 	// Determine what client-coord location was double-clicked on
@@ -413,21 +413,21 @@ OverlapPageClass::OnDblclkOverlapTree
 	UINT flags				= 0;
 	HTREEITEM tree_item	= m_TreeCtrl.HitTest (hit_point, &flags);
 	if (tree_item != NULL && flags & TVHT_ONITEMLABEL) {
-		
+
 		//
 		//	Lookup the node from its ID
 		//
 		int node_id = m_TreeCtrl.GetItemData (tree_item);
 		NodeClass *node = NodeMgrClass::Find_Node (node_id);
 		if (node != NULL) {
-			
+
 			//
 			//	Reposition the camera so its looking at the node
 			//
 			::Get_Camera_Mgr ()->Goto_Node (node);
 		}
 	}
-		
+
 	(*pResult) = 0;
 	return ;
 }

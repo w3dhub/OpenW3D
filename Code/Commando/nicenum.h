@@ -29,7 +29,7 @@
 #include "bittype.h"
 
 //-----------------------------------------------------------------------------
-class cNicEnum 
+class cNicEnum
 {
 public:
 	static void			Init(void);

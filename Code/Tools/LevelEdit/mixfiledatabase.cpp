@@ -71,7 +71,7 @@ MixFileDatabaseClass::MixFileDatabaseClass (void)
 		const char * const RENEGADE_INSTALL_VALUE	= "InstallPath";
 		registry.Get_String (RENEGADE_INSTALL_VALUE, install_path);
 
-		if (install_path.Get_Length () > 0) {			
+		if (install_path.Get_Length () > 0) {
 
 			//
 			//	The mix files are contained in the data sub-directory
@@ -137,15 +137,15 @@ MixFileDatabaseClass::Open_Database
 		//
 		//	Add this mix file to our mix file factory list
 		//
-		CString full_path = ::Make_Path (MixFilePath, find_info.cFileName);		
+		CString full_path = ::Make_Path (MixFilePath, find_info.cFileName);
 		MainFileFactory.Add_FileFactory (new MixFileFactoryClass (full_path, &RenegadeDataFileFactory), find_info.cFileName);
 	}
 
 	//
 	//	Close the search handle
 	//
-	if (file_find != INVALID_HANDLE_VALUE) {			  
-		::FindClose (file_find); 
+	if (file_find != INVALID_HANDLE_VALUE) {
+		::FindClose (file_find);
 	}
 
 	return true;
@@ -191,7 +191,7 @@ MixFileDatabaseClass::Get (LPCTSTR local_filename)
 	//
 	if (Internal_Does_File_Exist (filename) == false && Is_Texture (filename)) {
 		Swap_Texture_Extension (filename);
-		
+
 		StringClass local_path = (const char *)::Strip_Filename_From_Path (local_filename);
 		full_local_path = ::Make_Path (local_path, filename);
 	}
@@ -270,7 +270,7 @@ MixFileDatabaseClass::Copy_File (FileClass *src_file, LPCTSTR local_filename)
 		int file_size = src_file->Size ();
 		uint8 buffer[4096];
 		while (file_size > 0) {
-			
+
 			//
 			//	Read the data from the source file
 			//
@@ -280,7 +280,7 @@ MixFileDatabaseClass::Copy_File (FileClass *src_file, LPCTSTR local_filename)
 			if (copied_size <= 0) {
 				break;
 			}
-			
+
 			//
 			//	Copy the data to the dest file (kick out of the loop on error)
 			//
@@ -293,7 +293,7 @@ MixFileDatabaseClass::Copy_File (FileClass *src_file, LPCTSTR local_filename)
 		//	Close the destination file
 		//
 		dest_file.Close ();
-	}	
+	}
 
 	return retval;
 }
@@ -320,7 +320,7 @@ MixFileDatabaseClass::Does_File_Exist (LPCTSTR local_filename)
 	//	If the file did not exists, check to see if its a texture...
 	//
 	if (retval == false && Is_Texture (filename)) {
-		
+
 		//
 		//	Check to see if either the compressed or uncompressed
 		// texture exists
@@ -375,7 +375,7 @@ MixFileDatabaseClass::Create_Directory_Structure (LPCTSTR path)
 		Create_Directory_Structure (::Strip_Filename_From_Path (path));
 		::CreateDirectory (path, NULL);
 	}
-	
+
 	return ;
 }
 
@@ -418,7 +418,7 @@ MixFileDatabaseClass::Swap_Texture_Extension (StringClass &filename)
 	//
 	char *tga_extension = ::strstr (filename.Peek_Buffer (), ".tga");
 	if (tga_extension != NULL) {
-		
+
 		//
 		//	Simply copy the new extension into the string
 		//
@@ -452,13 +452,13 @@ MixFileDatabaseClass::Find_Files (DynamicVectorClass<StringClass> &file_list, LP
 	//
 	int factory_count = MainFileFactory.Get_Factory_Count ();
 	for (int index = 0; index < factory_count; index ++) {
-		
+
 		//
 		//	Get a pointer to the current factory
 		//
 		FileFactoryClass *factory = MainFileFactory.Get_Factory (index);
 		if (factory != NULL) {
-			
+
 			//
 			//	We assume that this is a mix file factory (since all the factories
 			// we're adding are mix file factories).  Note:  This can easily
@@ -510,13 +510,13 @@ MixFileDatabaseClass::Get_All (LPCTSTR dest_path, LPCTSTR search_mask)
 	int factory_count = MainFileFactory.Get_Factory_Count ();
 	int index;
 	for (index = 0; index < factory_count; index ++) {
-		
+
 		//
 		//	Get a pointer to the current factory
 		//
 		FileFactoryClass *factory = MainFileFactory.Get_Factory (index);
 		if (factory != NULL) {
-			
+
 			//
 			//	We assume that this is a mix file factory (since all the factories
 			// we're adding are mix file factories).  Note:  This can easily
@@ -578,7 +578,7 @@ MixFileDatabaseClass::Get_File (LPCTSTR local_filename)
 		retval = new RawFileClass;
 		retval->Set_Name (local_filename);
 	} else {
-		
+
 		//
 		//	Get a pointer to the file in the mix file
 		//

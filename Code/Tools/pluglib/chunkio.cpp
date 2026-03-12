@@ -17,46 +17,46 @@
 */
 
 /* $Header: /Commando/Code/wwlib/chunkio.cpp 12    3/14/02 1:25p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Tiberian Sun / Commando / G Library                          * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/wwlib/chunkio.cpp                            $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/04/02 4:00p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 12                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
- *   ChunkSaveClass::ChunkSaveClass -- Constructor                                             * 
- *   ChunkSaveClass::Begin_Chunk -- Begin a new chunk in the file                              * 
- *   ChunkSaveClass::End_Chunk -- Close a chunk, computes the size and adds to the header      * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Tiberian Sun / Commando / G Library                          *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/wwlib/chunkio.cpp                            $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/04/02 4:00p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 12                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
+ *   ChunkSaveClass::ChunkSaveClass -- Constructor                                             *
+ *   ChunkSaveClass::Begin_Chunk -- Begin a new chunk in the file                              *
+ *   ChunkSaveClass::End_Chunk -- Close a chunk, computes the size and adds to the header      *
  *   ChunkSaveClass::Begin_Micro_Chunk -- begins a new "micro-chunk"                           *
  *   ChunkSaveClass::End_Micro_Chunk -- close a micro-chunk                                    *
- *   ChunkSaveClass::Write -- Write data into the current chunk                                * 
+ *   ChunkSaveClass::Write -- Write data into the current chunk                                *
  *   ChunkSaveClass::Write -- write an IOVector2Struct                                         *
  *   ChunkSaveClass::Write -- write an IOVector3Struct                                         *
  *   ChunkSaveClass::Write -- write an IOVector4Struct                                         *
  *   ChunkSaveClass::Write -- write an IOQuaternionStruct                                      *
- *   ChunkSaveClass::Cur_Chunk_Depth -- returns the current chunk recursion depth (debugging)  * 
- *   ChunkLoadClass::ChunkLoadClass -- Constructor                                             * 
- *   ChunkLoadClass::Open_Chunk -- Open a chunk in the file, reads in the chunk header         * 
+ *   ChunkSaveClass::Cur_Chunk_Depth -- returns the current chunk recursion depth (debugging)  *
+ *   ChunkLoadClass::ChunkLoadClass -- Constructor                                             *
+ *   ChunkLoadClass::Open_Chunk -- Open a chunk in the file, reads in the chunk header         *
  *   ChunkLoadClass::Peek_Next_Chunk -- sneak peek into the next chunk that will be opened     *
- *   ChunkLoadClass::Close_Chunk -- Close a chunk, seeks to the end if needed                  * 
- *   ChunkLoadClass::Cur_Chunk_ID -- Returns the ID of the current chunk                       * 
- *   ChunkLoadClass::Cur_Chunk_Length -- Returns the current length of the current chunk       * 
- *   ChunkLoadClass::Cur_Chunk_Depth -- returns the current chunk recursion depth              * 
+ *   ChunkLoadClass::Close_Chunk -- Close a chunk, seeks to the end if needed                  *
+ *   ChunkLoadClass::Cur_Chunk_ID -- Returns the ID of the current chunk                       *
+ *   ChunkLoadClass::Cur_Chunk_Length -- Returns the current length of the current chunk       *
+ *   ChunkLoadClass::Cur_Chunk_Depth -- returns the current chunk recursion depth              *
  *   ChunkLoadClass::Contains_Chunks -- Test whether the current chunk contains chunks (or dat *
  *   ChunkLoadClass::Open_Micro_Chunk -- reads in a micro-chunk header                         *
  *   ChunkLoadClass::Close_Micro_Chunk -- closes a micro-chunk                                 *
  *   ChunkLoadClass::Cur_Micro_Chunk_ID -- returns the ID of the current micro-chunk (asserts  *
  *   ChunkLoadClass::Cur_Micro_Chunk_Length -- returns the size of the current micro chunk     *
- *   ChunkLoadClass::Read -- Read data from the file                                           * 
+ *   ChunkLoadClass::Read -- Read data from the file                                           *
  *   ChunkLoadClass::Read -- read an IOVector2Struct                                           *
  *   ChunkLoadClass::Read -- read an IOVector3Struct                                           *
  *   ChunkLoadClass::Read -- read an IOVector4Struct                                           *
@@ -70,18 +70,18 @@
 #include <limits>
 
 
-/*********************************************************************************************** 
- * ChunkSaveClass::ChunkSaveClass -- Constructor                                               * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *  file - pointer to a FileClass object to write to														  * 
- * 																														  * 
- * OUTPUT:																												  * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkSaveClass::ChunkSaveClass -- Constructor                                               *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *  file - pointer to a FileClass object to write to														  *
+ * 																														  *
+ * OUTPUT:																												  *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 ChunkSaveClass::ChunkSaveClass(FileClass * file) :
 	File(file),
@@ -95,18 +95,18 @@ ChunkSaveClass::ChunkSaveClass(FileClass * file) :
 }
 
 
-/*********************************************************************************************** 
- * ChunkSaveClass::Begin_Chunk -- Begin a new chunk in the file                                * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *  id - id of the chunk																							  * 
- * 																														  * 
- * OUTPUT:																												  * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkSaveClass::Begin_Chunk -- Begin a new chunk in the file                                *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *  id - id of the chunk																							  *
+ * 																														  *
+ * OUTPUT:																												  *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 bool ChunkSaveClass::Begin_Chunk(uint32 id)
 {
@@ -117,17 +117,17 @@ bool ChunkSaveClass::Begin_Chunk(uint32 id)
 	if (StackIndex > 0) {
 		HeaderStack[StackIndex-1].Set_Sub_Chunk_Flag(true);
 	}
-	
+
 	// Save the current file position and chunk header
 	// for the call to End_Chunk.
 	chunkh.Set_Type(id);
 	chunkh.Set_Size(0);
-	filepos = File->Seek(0); 
-	
+	filepos = File->Seek(0);
+
 	PositionStack[StackIndex] = filepos;
-	HeaderStack[StackIndex] = chunkh;	
+	HeaderStack[StackIndex] = chunkh;
 	StackIndex++;
-	
+
 	// write a temporary chunk header (size = 0)
 	if (File->Write(&chunkh,sizeof(chunkh)) != sizeof(chunkh)) {
 		return false;
@@ -136,17 +136,17 @@ bool ChunkSaveClass::Begin_Chunk(uint32 id)
 }
 
 
-/*********************************************************************************************** 
- * ChunkSaveClass::End_Chunk -- Close a chunk, computes the size and adds to the header        * 
- *  																														  * 
- * INPUT:																												  * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkSaveClass::End_Chunk -- Close a chunk, computes the size and adds to the header        *
+ *  																														  *
+ * INPUT:																												  *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 bool ChunkSaveClass::End_Chunk(void)
 {
@@ -160,7 +160,7 @@ bool ChunkSaveClass::End_Chunk(void)
 	StackIndex--;
 	int chunkpos = PositionStack[StackIndex];
 	ChunkHeader chunkh = HeaderStack[StackIndex];
-	
+
 	// write the completed header
 	File->Seek(chunkpos,SEEK_SET);
 	if (File->Write(&chunkh,sizeof(chunkh)) != sizeof(chunkh)) {
@@ -171,7 +171,7 @@ bool ChunkSaveClass::End_Chunk(void)
 	if (StackIndex != 0) {
 		HeaderStack[StackIndex-1].Add_Size(chunkh.Get_Size() + sizeof(chunkh));
 	}
-	
+
 	// Go back to the end of the file
 	File->Seek(curpos,SEEK_SET);
 
@@ -201,14 +201,14 @@ bool ChunkSaveClass::Begin_Micro_Chunk(uint32 id)
 {
 	assert(id < 256);
 	assert(!InMicroChunk);
-	
+
 	// Save the current file position and chunk header
 	// for the call to End_Micro_Chunk.
 	MCHeader.Set_Type(id);
 	MCHeader.Set_Size(0);
-	MicroChunkPosition = File->Seek(0); 
-	
-	// Write a temporary chunk header 
+	MicroChunkPosition = File->Seek(0);
+
+	// Write a temporary chunk header
 	// NOTE: I'm calling the ChunkSaveClass::Write method so that the bytes for
 	// this header are tracked in the wrapping chunk.  This is because micro-chunks
 	// are simply data inside the normal chunks...
@@ -236,7 +236,7 @@ bool ChunkSaveClass::Begin_Micro_Chunk(uint32 id)
 bool ChunkSaveClass::End_Micro_Chunk(void)
 {
 	assert(InMicroChunk);
-	
+
 	// Save the current position
 	int curpos = File->Seek(0);
 
@@ -252,23 +252,23 @@ bool ChunkSaveClass::End_Micro_Chunk(void)
 	return true;
 }
 
-/*********************************************************************************************** 
- * ChunkSaveClass::Write -- Write data into the current chunk                                  * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkSaveClass::Write -- Write data into the current chunk                                  *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 uint32 ChunkSaveClass::Write(const void * buf, size_t nbytes)
 {
 	// If this assert hits, you mixed data and chunks within the same chunk NO NO!
 	assert(HeaderStack[StackIndex-1].Get_Sub_Chunk_Flag() == 0);
-	
+
 	// If this assert hits, you didnt open any chunks yet
 	assert(StackIndex > 0);
 
@@ -285,7 +285,7 @@ uint32 ChunkSaveClass::Write(const void * buf, size_t nbytes)
 
 	// track them in the wrapping chunk
 	HeaderStack[StackIndex - 1].Add_Size(nbytes32);
-	
+
 	// track them if you are using a micro-chunk too.
 	if (InMicroChunk) {
 		assert(nbytes32 <= std::numeric_limits<uint8>::max());	// micro chunks can only be 255 bytes
@@ -328,7 +328,7 @@ uint32 ChunkSaveClass::Write(const IOVector2Struct & v)
  *   1/4/99     GTH : Created.                                                                 *
  *=============================================================================================*/
 uint32 ChunkSaveClass::Write(const IOVector3Struct & v)
-{	
+{
 	return Write(&v,sizeof(v));
 }
 
@@ -349,7 +349,7 @@ uint32 ChunkSaveClass::Write(const IOVector4Struct & v)
 {
 	return Write(&v,sizeof(v));
 }
-	
+
 /***********************************************************************************************
  * ChunkSaveClass::Write -- write an IOQuaternionStruct                                        *
  *                                                                                             *
@@ -367,17 +367,17 @@ uint32 ChunkSaveClass::Write(const IOQuaternionStruct & q)
 	return Write(&q,sizeof(q));
 }
 
-/*********************************************************************************************** 
- * ChunkSaveClass::Cur_Chunk_Depth -- returns the current chunk recursion depth (debugging)    * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkSaveClass::Cur_Chunk_Depth -- returns the current chunk recursion depth (debugging)    *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 int ChunkSaveClass::Cur_Chunk_Depth(void)
 {
@@ -385,17 +385,17 @@ int ChunkSaveClass::Cur_Chunk_Depth(void)
 }
 
 
-/*********************************************************************************************** 
- * ChunkLoadClass::ChunkLoadClass -- Constructor                                               * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkLoadClass::ChunkLoadClass -- Constructor                                               *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 ChunkLoadClass::ChunkLoadClass(FileClass * file) :
 	File(file),
@@ -409,23 +409,23 @@ ChunkLoadClass::ChunkLoadClass(FileClass * file) :
 }
 
 
-/*********************************************************************************************** 
- * ChunkLoadClass::Open_Chunk -- Open a chunk in the file, reads in the chunk header           * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkLoadClass::Open_Chunk -- Open a chunk in the file, reads in the chunk header           *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 bool ChunkLoadClass::Open_Chunk()
 {
 	// if user didn't close any micro chunks that he opened, bad things could happen
-	assert(InMicroChunk == false);							
-	
+	assert(InMicroChunk == false);
+
 	// check for stack overflow
 	assert(StackIndex < MAX_STACK_DEPTH-1);
 
@@ -460,8 +460,8 @@ bool ChunkLoadClass::Open_Chunk()
 bool ChunkLoadClass::Peek_Next_Chunk(uint32 * set_id,uint32 * set_size)
 {
 	// if user didn't close any micro chunks that he opened, bad things could happen
-	assert(InMicroChunk == false);							
-	
+	assert(InMicroChunk == false);
+
 	// check for stack overflow
 	assert(StackIndex < MAX_STACK_DEPTH-1);
 
@@ -478,7 +478,7 @@ bool ChunkLoadClass::Peek_Next_Chunk(uint32 * set_id,uint32 * set_size)
 
 	int seek_offset = sizeof(ChunkHeader);
 	File->Seek(-seek_offset,SEEK_CUR);
-	
+
 	if (set_id != NULL) {
 		*set_id = temp_header.Get_Type();
 	}
@@ -489,29 +489,29 @@ bool ChunkLoadClass::Peek_Next_Chunk(uint32 * set_id,uint32 * set_size)
 	return true;
 }
 
-/*********************************************************************************************** 
- * ChunkLoadClass::Close_Chunk -- Close a chunk, seeks to the end if needed                    * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkLoadClass::Close_Chunk -- Close a chunk, seeks to the end if needed                    *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 bool ChunkLoadClass::Close_Chunk()
 {
 	// if user didn't close any micro chunks that he opened, bad things could happen
-	assert(InMicroChunk == false);							
+	assert(InMicroChunk == false);
 
 	// check for stack overflow
 	assert(StackIndex > 0);
-	
+
 	int csize = HeaderStack[StackIndex-1].Get_Size();
 	int pos = PositionStack[StackIndex-1];
-	
+
 	if (pos < csize) {
 		File->Seek(csize - pos,SEEK_CUR);
 	}
@@ -525,17 +525,17 @@ bool ChunkLoadClass::Close_Chunk()
 }
 
 
-/*********************************************************************************************** 
- * ChunkLoadClass::Cur_Chunk_ID -- Returns the ID of the current chunk                         * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkLoadClass::Cur_Chunk_ID -- Returns the ID of the current chunk                         *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 uint32 ChunkLoadClass::Cur_Chunk_ID()
 {
@@ -544,17 +544,17 @@ uint32 ChunkLoadClass::Cur_Chunk_ID()
 }
 
 
-/*********************************************************************************************** 
- * ChunkLoadClass::Cur_Chunk_Length -- Returns the current length of the current chunk         * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkLoadClass::Cur_Chunk_Length -- Returns the current length of the current chunk         *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 uint32 ChunkLoadClass::Cur_Chunk_Length()
 {
@@ -563,17 +563,17 @@ uint32 ChunkLoadClass::Cur_Chunk_Length()
 }
 
 
-/*********************************************************************************************** 
- * ChunkLoadClass::Cur_Chunk_Depth -- returns the current chunk recursion depth                * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkLoadClass::Cur_Chunk_Depth -- returns the current chunk recursion depth                *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 int ChunkLoadClass::Cur_Chunk_Depth()
 {
@@ -613,13 +613,13 @@ int ChunkLoadClass::Contains_Chunks()
 bool ChunkLoadClass::Open_Micro_Chunk()
 {
 	assert(!InMicroChunk);
-	
+
 	// read the chunk header
 	// calling the ChunkLoadClass::Read fn so that if we exhaust the chunk, the read will fail
 	if (Read(&MCHeader,sizeof(MCHeader)) != sizeof(MCHeader)) {
 		return false;
 	}
-	
+
 	InMicroChunk = true;
 	MicroChunkPosition = 0;
 	return true;
@@ -645,12 +645,12 @@ bool ChunkLoadClass::Close_Micro_Chunk()
 
 	int csize = MCHeader.Get_Size();
 	int pos = MicroChunkPosition;
-	
-	// seek the file past this micro chunk 
+
+	// seek the file past this micro chunk
 	if (pos < csize) {
 
 		File->Seek(csize - pos,SEEK_CUR);
-		
+
 		// update the tracking variables for where we are in the normal chunk.
 		if (StackIndex > 0) {
 			PositionStack[StackIndex-1] += csize - pos;
@@ -716,7 +716,7 @@ uint32 ChunkLoadClass::Seek(uint32 nbytes)
 	if (InMicroChunk && MicroChunkPosition + nbytes > MCHeader.Get_Size()) {
 		return 0;
 	}
-	
+
 	uint32 curpos=File->Tell();
 	if (File->Seek(nbytes,SEEK_CUR)-curpos != (int)nbytes) {
 		return 0;
@@ -733,17 +733,17 @@ uint32 ChunkLoadClass::Seek(uint32 nbytes)
 	return nbytes;
 }
 
-/*********************************************************************************************** 
- * ChunkLoadClass::Read -- Read data from the file                                             * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   07/17/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * ChunkLoadClass::Read -- Read data from the file                                             *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   07/17/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 uint32 ChunkLoadClass::Read(void * buf, size_t nbytes)
 {
@@ -769,7 +769,7 @@ uint32 ChunkLoadClass::Read(void * buf, size_t nbytes)
 			return 0;
 		}
 	}
-	
+
 	const size_t clamped_to_int = std::min(clamped_to_u32, static_cast<size_t>(std::numeric_limits<int>::max()));
 	assert(clamped_to_int == clamped_to_u32);
 	const int nbytes_int = static_cast<int>(clamped_to_int);

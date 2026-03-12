@@ -129,7 +129,7 @@ ColorBarClass::~ColorBarClass (void)
 		::DeleteObject (m_hMemDC);
 		m_hMemDC = NULL;
 	}
-		
+
 	Free_Marker_Bitmap ();
 	Free_Bitmap ();
 	return ;
@@ -162,14 +162,14 @@ RegisterColorBar (HINSTANCE hinst)
 	// Has the class already been registered?
 	WNDCLASS wndclass = { 0 };
 	if (::GetClassInfo (hinst, "WWCOLORBAR", &wndclass) == false) {
-		
+
 		wndclass.style = CS_GLOBALCLASS | CS_OWNDC | CS_VREDRAW | CS_HREDRAW | CS_DBLCLKS;
 		wndclass.lpfnWndProc = fnColorBarProc;
 		wndclass.hInstance = hinst;
 		wndclass.hbrBackground = (HBRUSH)(COLOR_3DFACE + 1);
 		wndclass.hCursor = ::LoadCursor (NULL, IDC_ARROW);
 		wndclass.lpszClassName = "WWCOLORBAR";
-		
+
 		// Let the windows manager know about this global class
 		::RegisterClass (&wndclass);
 	}
@@ -211,7 +211,7 @@ fnColorBarProc
 
 				// Let the window know its being created
 				pwnd->OnCreate (pcreate_info);
-				
+
 				WNDPROC *pOldWndProc = pwnd->GetSuperWndProcAddr ();
 				if (pOldWndProc) {
 					WNDPROC pold_proc = (WNDPROC)::SetWindowLongPtr (hwnd, GWLP_WNDPROC, (LONG_PTR)::AfxGetAfxWndProc ());
@@ -260,11 +260,11 @@ fnColorBarProc
 // OnCreate
 //
 int
-ColorBarClass::OnCreate (LPCREATESTRUCT lpCreateStruct) 
+ColorBarClass::OnCreate (LPCREATESTRUCT lpCreateStruct)
 {
 	if (CWnd::OnCreate (lpCreateStruct) == -1)
 		return -1;
-	
+
 	m_hMemDC = 	::CreateCompatibleDC (NULL);
 	Create_Bitmap ();
 	return 0;
@@ -326,7 +326,7 @@ ColorBarClass::Create_Bitmap (void)
 	m_ColorArea.top = 0;
 	m_ColorArea.right = m_iBMPWidth;
 	m_ColorArea.bottom = m_iBMPHeight;
-	
+
 	//
 	//	Deflate the rect to make room for any frame
 	//
@@ -337,7 +337,7 @@ ColorBarClass::Create_Bitmap (void)
 
 	//
 	//	Decrease the width or height if frame markers are shown
-	//	
+	//
 	if (style & CBRS_SHOW_FRAMES) {
 		Load_Key_Frame_BMP ();
 		if (style & CBRS_HORZ) {
@@ -356,7 +356,7 @@ ColorBarClass::Create_Bitmap (void)
 		} else {
 			m_ColorArea.top += 2;
 			m_ColorArea.bottom -= 2;
-		}		
+		}
 	}
 
 	// Set-up the fields of the BITMAPINFOHEADER
@@ -428,7 +428,7 @@ ColorBarClass::OnSize
 	UINT nType,
 	int cx,
 	int cy
-) 
+)
 {
 	// Allow the base class to process this message
 	CWnd::OnSize (nType, cx, cy);
@@ -456,7 +456,7 @@ ColorBarClass::Paint_Bar_Vert
 	// Loop through all the color switches
 	int row = y_pos;
 	for (int color_point = 0; color_point < m_iColorPoints; color_point ++) {
-		
+
 		// Get the starting red, green, and blue values for this color lerp
 		float red = m_ColorPoints[color_point].StartRed;
 		float green = m_ColorPoints[color_point].StartGreen;
@@ -515,8 +515,8 @@ ColorBarClass::Paint_Bar_Horz
 	if (style & CBRS_PAINT_GRAPH) {
 
 		// Loop through all the color switches
-		int col = x_pos;	
-		for (int color_point = 0; color_point < m_iColorPoints; color_point ++) {			
+		int col = x_pos;
+		for (int color_point = 0; color_point < m_iColorPoints; color_point ++) {
 			float graph_percent = m_ColorPoints[color_point].StartGraphPercent;
 
 			// Index into the bitmap's bits
@@ -526,12 +526,12 @@ ColorBarClass::Paint_Bar_Horz
 			int end_pos = m_ColorPoints[color_point].EndPos;
 			end_pos = (end_pos > (x_pos + width)) ? (x_pos + width) : end_pos;
 			for (; col < m_ColorPoints[color_point].EndPos; col ++) {
-				
+
 				// Paint a complete column of color data
 				int bitmap_offset = 0;
 				bool prev_was = true;
 				for (int row = y_pos; row < (y_pos + height); row ++) {
-					
+
 					float percent = 1 - graph_percent;
 					float height_percent = (((float)row) / ((float)height));
 					if (percent < height_percent) {
@@ -570,9 +570,9 @@ ColorBarClass::Paint_Bar_Horz
 	} else {
 
 		// Loop through all the color switches
-		int col = x_pos;	
+		int col = x_pos;
 		for (int color_point = 0; color_point < m_iColorPoints; color_point ++) {
-			
+
 			// Get the starting red, green, and blue values for this color lerp
 			float red = m_ColorPoints[color_point].StartRed;
 			float green = m_ColorPoints[color_point].StartGreen;
@@ -585,11 +585,11 @@ ColorBarClass::Paint_Bar_Horz
 			int end_pos = m_ColorPoints[color_point].EndPos;
 			end_pos = (end_pos > (x_pos + width)) ? (x_pos + width) : end_pos;
 			for (; col < m_ColorPoints[color_point].EndPos; col ++) {
-				
+
 				// Paint a complete column of color data
 				int bitmap_offset = 0;
 				for (int row = y_pos; row < (y_pos + height); row ++) {
-					
+
 					// Paint the pixel
 					pbits[bitmap_index + bitmap_offset]		= UCHAR(((int)blue) & 0xFF);
 					pbits[bitmap_index + bitmap_offset+1]	= UCHAR(((int)green) & 0xFF);
@@ -630,7 +630,7 @@ ColorBarClass::Paint_DIB (void)
 	CRect fill_rect (0, 0, m_iBMPWidth, m_iBMPHeight);
 	HBITMAP hold_bmp = (HBITMAP)::SelectObject (m_hMemDC, m_hBitmap);
 	::FillRect (m_hMemDC, &fill_rect, (HBRUSH)(COLOR_3DFACE + 1));
-	::SelectObject (m_hMemDC, hold_bmp);	
+	::SelectObject (m_hMemDC, hold_bmp);
 
 	//
 	//	Paint the border (if any)
@@ -664,8 +664,8 @@ ColorBarClass::Paint_DIB (void)
 
 	//
 	//	Do we need to paint the keyframe markers?
-	//	
-	if (style & CBRS_SHOW_FRAMES) {		
+	//
+	if (style & CBRS_SHOW_FRAMES) {
 
 		//
 		//	Setup the marker positions
@@ -697,10 +697,10 @@ ColorBarClass::Paint_DIB (void)
 		}
 
 	} else if (style & CBRS_HAS_SEL) {
-		
+
 		CRect frame;
 		Get_Selection_Rectangle (frame);
-		
+
 		//
 		//	Paint the selection rectangles
 		//
@@ -708,7 +708,7 @@ ColorBarClass::Paint_DIB (void)
 		frame.InflateRect (-1, -1);
 		::Frame_Rect (m_pBits, frame, RGB (255, 255, 255), m_iScanlineSize);
 	}
-	
+
 	return ;
 }
 
@@ -721,7 +721,7 @@ void
 ColorBarClass::OnPaint (void)
 {
 	CPaintDC dc (this);
-	Paint_Screen (dc);	
+	Paint_Screen (dc);
 	return ;
 }
 
@@ -734,7 +734,7 @@ void
 ColorBarClass::Paint_Screen (HDC hwnd_dc)
 {
 	if (m_hMemDC != NULL) {
-				
+
 		//
 		//	Blit the actual color bar to the screen
 		//
@@ -746,10 +746,10 @@ ColorBarClass::Paint_Screen (HDC hwnd_dc)
 		//	Do we have the focus?
 		//
 		if (::GetFocus () == m_hWnd) {
-						
+
 			LONG style = ::GetWindowLong (m_hWnd, GWL_STYLE);
 			if (style & CBRS_SHOW_FRAMES) {
-				
+
 				//
 				//	Calculate the current frame marker's current rectangle
 				//
@@ -763,20 +763,20 @@ ColorBarClass::Paint_Screen (HDC hwnd_dc)
 					focus_rect.top = m_ColorPoints[m_iCurrentKey].StartPos - (m_iMarkerHeight >> 1);
 				}
 				focus_rect.right = focus_rect.left + m_iMarkerWidth;
-				focus_rect.bottom = focus_rect.top + m_iMarkerHeight;	
+				focus_rect.bottom = focus_rect.top + m_iMarkerHeight;
 
 				//
 				//	Paint the focus rectangle
 				//
 				::DrawFocusRect (hwnd_dc, focus_rect);
 			} else if (style & CBRS_HAS_SEL) {
-				
+
 				//
 				//	Paint the focus rectangle
-				//				
+				//
 				CRect focus_rect;
 				Get_Selection_Rectangle (focus_rect);
-				::DrawFocusRect (hwnd_dc, focus_rect);				
+				::DrawFocusRect (hwnd_dc, focus_rect);
 			}
 		}
 	}
@@ -803,7 +803,7 @@ ColorBarClass::Get_Point
 	bool retval = false;
 
 	if ((index >= 0) && (index < m_iColorPoints)) {
-		
+
 		// Return the position to the caller if requested
 		if (position != NULL) {
 			(*position) = m_MinPos + (m_ColorPoints[index].PosPercent * (m_MaxPos - m_MinPos));
@@ -824,7 +824,7 @@ ColorBarClass::Get_Point
 			(*blue) = m_ColorPoints[index].StartBlue;
 		}
 	}
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -847,7 +847,7 @@ ColorBarClass::Insert_Point (CPoint point, DWORD flags)
 
 	//
 	//	Determine what properties the new point should have
-	//	
+	//
 	LONG style = ::GetWindowLong (m_hWnd, GWL_STYLE);
 	if (style & CBRS_HORZ) {
 		position = point.x - m_ColorArea.left;
@@ -865,11 +865,11 @@ ColorBarClass::Insert_Point (CPoint point, DWORD flags)
 		blue	= m_pBits[bmp_index];
 		green = m_pBits[bmp_index+1];
 		red	= m_pBits[bmp_index+2];
-	}	
+	}
 
 	//
 	//	Find the index where this point should be inserted
-	//	
+	//
 	bool found = false;
 	float graph_percent = 0;
 	for (int index = 0; (index < m_iColorPoints) && !found; index ++) {
@@ -885,7 +885,7 @@ ColorBarClass::Insert_Point (CPoint point, DWORD flags)
 			float key_percent = (((float)position) - ((float)m_ColorPoints[index].StartPos)) / float(m_ColorPoints[index].EndPos - m_ColorPoints[index].StartPos);
 			float graph_start = m_ColorPoints[index].StartGraphPercent;
 			float graph_delta = (m_ColorPoints[index].EndPos - m_ColorPoints[index].StartPos) * m_ColorPoints[index].GraphPercentInc;
-			graph_percent = graph_start + (key_percent * graph_delta);			
+			graph_percent = graph_start + (key_percent * graph_delta);
 		}
 	}
 
@@ -905,7 +905,7 @@ ColorBarClass::Insert_Point (CPoint point, DWORD flags)
 
 		Set_Redraw (true);
 	}
-	
+
 	return retval;
 }
 
@@ -944,7 +944,7 @@ ColorBarClass::Insert_Point
 		// Now all we have to do is modify the contents of the new point
 		retval = Modify_Point (index, position, red, green, blue, flags);
 	}
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -982,7 +982,7 @@ ColorBarClass::Delete_Point (int index)
 		Repaint ();
 		retval = true;
 	}
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -1007,7 +1007,7 @@ ColorBarClass::Modify_Point
 	bool retval = false;
 
 	if ((index >= 0) && (index < m_iColorPoints)) {
-		
+
 		// Update the information about this color point
 		m_ColorPoints[index].PosPercent = ((position - m_MinPos) / (m_MaxPos - m_MinPos));
 		m_ColorPoints[index].StartRed = red;
@@ -1030,7 +1030,7 @@ ColorBarClass::Modify_Point
 		// If the user wants to tag on onto the end, then insert a new point...
 		retval = Insert_Point (m_iColorPoints, position, red, green, blue);
 	}
-	
+
 	// Return the true/false result code
 	return retval;
 }
@@ -1061,9 +1061,9 @@ ColorBarClass::Set_Range
 //
 void
 ColorBarClass::Update_Point_Info (void)
-{	
+{
 	int width = m_ColorArea.Width ();
-	int height = m_ColorArea.Height ();	
+	int height = m_ColorArea.Height ();
 
 	LONG style = GetWindowLong (m_hWnd, GWL_STYLE);
 	if (style & CBRS_HORZ) {
@@ -1075,9 +1075,9 @@ ColorBarClass::Update_Point_Info (void)
 			m_ColorPoints[index].StartPos = m_ColorArea.left + int(m_ColorPoints[index].PosPercent * width);
 
 			// Update the color information for the previous point
-			if (index > 0) {			
+			if (index > 0) {
 				m_ColorPoints[index-1].EndPos = m_ColorPoints[index].StartPos;
-				
+
 				//
 				// Assign color increments to the previous color point
 				//
@@ -1106,9 +1106,9 @@ ColorBarClass::Update_Point_Info (void)
 			m_ColorPoints[index].StartPos = m_ColorArea.top + int(m_ColorPoints[index].PosPercent * height);
 
 			// Update the color information for the previous point
-			if (index > 0) {			
+			if (index > 0) {
 				m_ColorPoints[index-1].EndPos = m_ColorPoints[index].StartPos;
-				
+
 				// Assign color increments to the previous color point
 				int height = m_ColorPoints[index-1].EndPos - m_ColorPoints[index-1].StartPos;
 				m_ColorPoints[index-1].RedInc = (m_ColorPoints[index].StartRed - m_ColorPoints[index-1].StartRed) / ((float)height);
@@ -1210,7 +1210,7 @@ ColorBarClass::Load_Key_Frame_BMP (void)
 
 	// Copy the marker from the BMP to the DIB section
 	::BitBlt (m_hMemDC, 0, 0, m_iMarkerWidth, m_iMarkerHeight, htemp_dc, 0, 0, SRCCOPY);
-	
+
 	//	Restore the DCs
 	::SelectObject (m_hMemDC, hold_bmp1);
 	::SelectObject (htemp_dc, hold_bmp2);
@@ -1234,19 +1234,19 @@ ColorBarClass::Paint_Key_Frame (int x_pos, int y_pos)
 	int marker_scanline = (m_iMarkerWidth * 3) + alignment_offset;
 	int width_in_bytes = m_iMarkerWidth * 3;
 
-	if ((m_pBits != NULL) && (m_pKeyFrameBits != NULL)) {		
+	if ((m_pBits != NULL) && (m_pKeyFrameBits != NULL)) {
 		int dest_index = (m_iScanlineSize * y_pos) + (x_pos * 3);
 		int src_index = 0;
 
 		//
 		//	'Blit' the image from the source buffer to the dest buffer
 		//
-		for (int scanline = 0; scanline < m_iMarkerHeight; scanline ++) {			
+		for (int scanline = 0; scanline < m_iMarkerHeight; scanline ++) {
 			for (int pixel = 0; pixel < m_iMarkerWidth; pixel ++) {
 				BYTE blue	= m_pKeyFrameBits[src_index ++];
 				BYTE green	= m_pKeyFrameBits[src_index ++];
 				BYTE red		= m_pKeyFrameBits[src_index ++];
-				
+
 				if (blue == 255 && green == 0 && red == 255) {
 					dest_index += 3;
 				} else {
@@ -1287,8 +1287,8 @@ ColorBarClass::Marker_From_Point (CPoint point)
 	} else {
 		position = point.y;// - m_ColorArea.top;
 		accept_dist = (m_iMarkerHeight + 1) >> 1;
-	}	
-	
+	}
+
 	//
 	//	Search through all the points, trying to find the closest
 	//
@@ -1334,7 +1334,7 @@ ColorBarClass::OnLButtonDown
 
 	LONG style = ::GetWindowLong (m_hWnd, GWL_STYLE);
 	if (style & CBRS_SHOW_FRAMES) {
-		
+
 		//
 		//	Find the key frame the user clicked on
 		//
@@ -1371,7 +1371,7 @@ ColorBarClass::OnLButtonDown
 			::ReleaseCapture ();
 		}
 	} else if (style & CBRS_HAS_SEL) {
-		
+
 		Move_Selection (point);
 //		CRect rect;
 		//Get_Selection_Rectangle (rect);
@@ -1443,7 +1443,7 @@ ColorBarClass::OnMouseMove
 			if (m_iCurrentKey < (m_iColorPoints - 1)) {
 				max_percent = m_ColorPoints[m_iCurrentKey + 1].PosPercent - 0.01F;
 			}
-			
+
 			//
 			//	Determine where the marker should be
 			//
@@ -1472,7 +1472,7 @@ ColorBarClass::OnMouseMove
 			HDC hwnd_dc = ::GetDC (m_hWnd);
 			Paint_Screen (hwnd_dc);
 			::ReleaseDC (m_hWnd, hwnd_dc);
-			
+
 			//
 			//	Notify the parent window that the user dragged
 			// one of the keyframes
@@ -1522,11 +1522,11 @@ ColorBarClass::Send_Notification (int code, int key)
 // OnKillFocus
 //
 void
-ColorBarClass::OnKillFocus (CWnd *pNewWnd) 
+ColorBarClass::OnKillFocus (CWnd *pNewWnd)
 {
 	// Force a repaint
 	Repaint ();
-	
+
 	CWnd::OnKillFocus (pNewWnd);
 	return ;
 }
@@ -1537,7 +1537,7 @@ ColorBarClass::OnKillFocus (CWnd *pNewWnd)
 // OnSetFocus
 //
 void
-ColorBarClass::OnSetFocus (CWnd *pOldWnd) 
+ColorBarClass::OnSetFocus (CWnd *pOldWnd)
 {
 	// Force a repaint
 	Repaint ();
@@ -1559,22 +1559,22 @@ ColorBarClass::OnKeyDown
 	UINT nFlags
 )
 {
-	if ((nChar == VK_DELETE) && (::GetFocus () == m_hWnd)) {		
+	if ((nChar == VK_DELETE) && (::GetFocus () == m_hWnd)) {
 
 		//
 		//	Notify the parent window that we are deleting a key
 		// and ask them if its OK to contiue
 		//
 		if (Send_Notification (CBRN_DEL_POINT, m_iCurrentKey) != STOP_EVENT) {
-			
+
 			// Go ahead and delete the point
-			Delete_Point (m_iCurrentKey);			
+			Delete_Point (m_iCurrentKey);
 			Send_Notification (CBRN_DELETED_POINT, m_iCurrentKey);
 		}
 	}/* else if (::GetFocus () == m_hWnd) {
-		if (nChar == VK_RIGHT) && 
+		if (nChar == VK_RIGHT) &&
 	}*/
-	
+
 	CWnd::OnKeyDown(nChar, nRepCnt, nFlags);
 	return ;
 }
@@ -1589,18 +1589,18 @@ ColorBarClass::OnLButtonDblClk
 (
 	UINT nFlags,
 	CPoint point
-) 
+)
 {
 	int marker_clicked = Marker_From_Point (point);
 	if (marker_clicked != -1) {
-		
+
 		//
 		//	Notify the parent window that the user double-clicked
 		// one of the keyframes
-		//		
+		//
 		Send_Notification (CBRN_DBLCLK_POINT, marker_clicked);
 	}
-	
+
 	CWnd::OnLButtonDblClk(nFlags, point);
 	return ;
 }
@@ -1637,7 +1637,7 @@ ColorBarClass::Get_Selection_Rectangle (CRect &rect)
 			rect.right ++;
 		}
 	}
-	
+
 	return ;
 }
 
@@ -1673,9 +1673,9 @@ ColorBarClass::Move_Selection (CPoint point, bool send_notify)
 	if (style & CBRS_HORZ) {
 		percent = (((float)(point.x - m_ColorArea.left)) / ((float)m_ColorArea.Width ()));
 	} else {
-		percent = (((float)(point.y - m_ColorArea.top)) / ((float)m_ColorArea.Height ()));				
+		percent = (((float)(point.y - m_ColorArea.top)) / ((float)m_ColorArea.Height ()));
 	}
-	float new_pos = m_MinPos + (percent * (m_MaxPos - m_MinPos));			
+	float new_pos = m_MinPos + (percent * (m_MaxPos - m_MinPos));
 	new_pos = std::clamp (new_pos, m_MinPos, m_MaxPos);
 
 	// Do the actual move
@@ -1693,7 +1693,7 @@ ColorBarClass::Move_Selection (float new_pos, bool send_notify)
 {
 	if (new_pos != m_SelectionPos) {
 		m_SelectionPos = new_pos;
-		
+
 		//
 		//	Notify the parent window that the user changed the selection
 		//
@@ -1704,7 +1704,7 @@ ColorBarClass::Move_Selection (float new_pos, bool send_notify)
 			notify_hdr.hdr.idFrom = id;
 			notify_hdr.hdr.code = CBRN_SEL_CHANGED;
 			notify_hdr.position = m_SelectionPos;
-			
+
 			// Determine the color are this position
 			Get_Color (m_SelectionPos,
 							&notify_hdr.red,
@@ -1719,9 +1719,9 @@ ColorBarClass::Move_Selection (float new_pos, bool send_notify)
 								id,
 								(LPARAM)&notify_hdr);
 		}
-		
+
 		// Repaint the color bar with the new selection rectangle
-		Paint_DIB ();	
+		Paint_DIB ();
 
 		//
 		//	Repaint the screen
@@ -1768,11 +1768,11 @@ ColorBarClass::Get_Color
 		(*blue)	= m_pBits[bmp_index];
 		(*green) = m_pBits[bmp_index+1];
 		(*red)	= m_pBits[bmp_index+2];*/
-	}	
+	}
 
 	//
 	//	Find the index where this point should be inserted
-	//	
+	//
 	bool found = false;
 	int key_index = 0;
 	for (int index = 0; (index < m_iColorPoints) && !found; index ++) {
@@ -1830,7 +1830,7 @@ bool
 ColorBarClass::Set_User_Data (int index, DWORD data)
 {
 	bool retval = false;
-	if ((index >= 0) && (index < m_iColorPoints)) {		
+	if ((index >= 0) && (index < m_iColorPoints)) {
 		m_ColorPoints[index].user_data = data;
 		retval = true;
 	}
@@ -1847,7 +1847,7 @@ DWORD
 ColorBarClass::Get_User_Data (int index)
 {
 	DWORD data = 0;
-	if ((index >= 0) && (index < m_iColorPoints)) {		
+	if ((index >= 0) && (index < m_iColorPoints)) {
 		data = m_ColorPoints[index].user_data;
 	}
 
@@ -1919,7 +1919,7 @@ void
 ColorBarClass::Repaint (void)
 {
 	InvalidateRect (NULL, false);
-	if (m_bRedraw) {		
+	if (m_bRedraw) {
 		UpdateWindow ();
 	}
 

@@ -108,7 +108,7 @@ Vector3DialogClass::Set_Default_Value (const Vector3 &value)
 	//
 	::SetWindowFloat (m_XEdit, m_DefaultValue.X);
 	::SetWindowFloat (m_YEdit, m_DefaultValue.Y);
-	::SetWindowFloat (m_ZEdit, m_DefaultValue.Z);	
+	::SetWindowFloat (m_ZEdit, m_DefaultValue.Z);
 	return ;
 }
 
@@ -128,7 +128,7 @@ Vector3DialogClass::Get_Current_Value (void)
 	//
 	retval.X = ::GetWindowFloat (m_XEdit, true);
 	retval.Y = ::GetWindowFloat (m_YEdit, true);
-	retval.Z = ::GetWindowFloat (m_ZEdit, true);	
+	retval.Z = ::GetWindowFloat (m_ZEdit, true);
 	return retval;
 }
 
@@ -155,7 +155,7 @@ BOOL
 Vector3DialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog();
-	
+
 	//
 	//	Turn all the edit controls into 'float' controls that will
 	// allow the user to type only numbers (with decimals and signs)

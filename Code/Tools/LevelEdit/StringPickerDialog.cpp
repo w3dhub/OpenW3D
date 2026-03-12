@@ -133,7 +133,7 @@ StringPickerDialogClass::Resize_Controls (void)
 	CRect edit_rect;
 	GetClientRect (&rect);
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDC_STRING_EDIT), &edit_rect);
-	
+
 	//
 	//	Calculate some positions and widths
 	//
@@ -217,7 +217,7 @@ StringPickerDialogClass::Update_Page_Visibility (void)
 	//
 	int newtab = m_TabCtrl.GetCurSel ();
 	if (CurrentTab != newtab) {
-		
+
 		//
 		// Hide the old tab
 		//
@@ -253,10 +253,10 @@ StringPickerDialogClass::OnSize
 	UINT	nType,
 	int	cx,
 	int	cy
-) 
+)
 {
 	CDialog::OnSize (nType, cx, cy);
-	
+
 	if (IsInitialized) {
 		Resize_Controls ();
 	}
@@ -274,14 +274,14 @@ BOOL
 StringPickerDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
-	
+
 	//
 	//	Loop over all the categories in the database
 	//
 	int count = TranslateDBClass::Get_Category_Count ();
 	int index;
 	for (index = 0; index < count; index ++) {
-		
+
 		//
 		//	Lookup this category
 		//
@@ -308,7 +308,7 @@ StringPickerDialogClass::OnInitDialog (void)
 	if (CategoryPages.Count () > CurrentTab) {
 		CategoryPages[CurrentTab]->ShowWindow (SW_SHOW);
 	}
-	
+
 	Resize_Controls ();
 	Update_Selected_String ();
 
@@ -337,7 +337,7 @@ StringPickerDialogClass::Add_Category_Page (TDBCategoryClass *category)
 	//	Create a page for this new category
 	//
 	StringsCategoryViewDialogClass *child_wnd = new StringsCategoryViewDialogClass;
-	child_wnd->Set_Category_ID (category->Get_ID ());	
+	child_wnd->Set_Category_ID (category->Get_ID ());
 	child_wnd->Set_Edit_Mode (StringsCategoryViewDialogClass::EDIT_MODE_NONE);
 	child_wnd->Set_Selection (SelectedObjectID);
 	child_wnd->Set_Callback (this);
@@ -360,7 +360,7 @@ StringPickerDialogClass::Get_Selection (void)
 	//
 	//	Check to see if we need to update the cached selection ID
 	//
-	if (::IsWindow (m_hWnd)) {		
+	if (::IsWindow (m_hWnd)) {
 		SelectedObjectID = CategoryPages[CurrentTab]->Get_Selection ();
 	}
 
@@ -399,7 +399,7 @@ StringPickerDialogClass::Update_Selected_String (void)
 		TDBObjClass *object = TranslateDBClass::Find_Object (SelectedObjectID);
 		if (object != NULL) {
 			english_text = object->Get_English_String ();
-		}		
+		}
 	}
 
 	//

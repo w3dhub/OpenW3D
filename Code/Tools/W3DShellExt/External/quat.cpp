@@ -17,32 +17,32 @@
 */
 
 /* $Header: /Commando/Code/Tools/W3DShellExt/External/quat.cpp 1     1/02/02 1:18p Moumine_ballo $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Voxel Technology                                             * 
- *                                                                                             * 
- *                    File Name : QUAT.CPP                                                     * 
- *                                                                                             * 
- *                   Programmer : Greg Hjelstrom                                               * 
- *                                                                                             * 
- *                   Start Date : 02/24/97                                                     * 
- *                                                                                             * 
- *                  Last Update : February 28, 1997 [GH]                                       * 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
- *   Quaternion::Quaternion -- constructor                                                     * 
- *   Quaternion::Set -- Set the quaternion                                                     * 
- *   Quaternion::operator= -- Assignment operator                                              * 
- *   Quaternion::Make_Closest -- Use nearest representation to the given quaternion.           * 
- *   Trackball -- Computes a "trackball" quaternion given 2D mouse coordinates                 * 
- *   Axis_To_Quat -- Creates a quaternion given an axis and angle of rotation                  * 
- *   Slerp -- Spherical Linear interpolation!                                                  * 
- *   Build_Quaternion -- Creates a quaternion from a Matrix                                    * 
- *   Build_Matrix -- Creates a Matrix from a Quaternion                                        * 
- *   Normalize -- normalizes a quaternion                                                      * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Voxel Technology                                             *
+ *                                                                                             *
+ *                    File Name : QUAT.CPP                                                     *
+ *                                                                                             *
+ *                   Programmer : Greg Hjelstrom                                               *
+ *                                                                                             *
+ *                   Start Date : 02/24/97                                                     *
+ *                                                                                             *
+ *                  Last Update : February 28, 1997 [GH]                                       *
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
+ *   Quaternion::Quaternion -- constructor                                                     *
+ *   Quaternion::Set -- Set the quaternion                                                     *
+ *   Quaternion::operator= -- Assignment operator                                              *
+ *   Quaternion::Make_Closest -- Use nearest representation to the given quaternion.           *
+ *   Trackball -- Computes a "trackball" quaternion given 2D mouse coordinates                 *
+ *   Axis_To_Quat -- Creates a quaternion given an axis and angle of rotation                  *
+ *   Slerp -- Spherical Linear interpolation!                                                  *
+ *   Build_Quaternion -- Creates a quaternion from a Matrix                                    *
+ *   Build_Matrix -- Creates a Matrix from a Quaternion                                        *
+ *   Normalize -- normalizes a quaternion                                                      *
  *   Quaternion::Quaternion -- constructor                                                     *
  *   Slerp_Setup -- Get ready to call "Cached_Slerp"                                           *
  *   Cached_Slerp -- Quaternion slerping, optimized with cached values                         *
@@ -78,7 +78,7 @@ static float Project_To_Sphere(float, float, float);
  *                                                                                             *
  * INPUT:                                                                                      *
  * axis - axis of the rotation                                                                 *
- * angle - rotation angle                                                                      * 
+ * angle - rotation angle                                                                      *
  *                                                                                             *
  * OUTPUT:                                                                                     *
  *                                                                                             *
@@ -98,17 +98,17 @@ Quaternion::Quaternion(const Vector3 & axis,float angle)
 }
 
 
-/*********************************************************************************************** 
- * Quaternion::Normalize -- Normalize to a unit quaternion                                     * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/24/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Quaternion::Normalize -- Normalize to a unit quaternion                                     *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 void Quaternion::Normalize()
 {
@@ -120,17 +120,17 @@ void Quaternion::Normalize()
 	W *= mag;
 }
 
-/*********************************************************************************************** 
- * Quaternion::operator= -- Assignment operator                                                * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/24/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Quaternion::operator= -- Assignment operator                                                *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/24/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 Quaternion & Quaternion::operator = (const Quaternion & source)
 {
@@ -142,59 +142,59 @@ Quaternion & Quaternion::operator = (const Quaternion & source)
 	return *this;
 }
 
-/*********************************************************************************************** 
- * Q::Make_Closest -- Use nearest representation to the given quaternion.                      * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/28/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Q::Make_Closest -- Use nearest representation to the given quaternion.                      *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/28/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 Quaternion & Quaternion::Make_Closest(const Quaternion & qto)
 {
 	float cos_t = qto.X * X + qto.Y * Y + qto.Z * Z + qto.W * W;
 
 	// if we are on opposite hemisphere from qto, negate ourselves
-	if (cos_t < 0.0f) 
+	if (cos_t < 0.0f)
 	{
 		X = -X;
 		Y = -Y;
 		Z = -Z;
 		W = -W;
 	}
-	
+
 	return *this;
 }
 
-/*********************************************************************************************** 
- * Trackball -- Computes a "trackball" quaternion given 2D mouse coordinates                   * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- * x0,y0 - x1,y1 - "normalized" mouse coordinates for the mouse movement                       * 
- * sphsize - size of the trackball sphere                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- * a quaternion representing the rotation of a trackball                                       * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/28/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Trackball -- Computes a "trackball" quaternion given 2D mouse coordinates                   *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ * x0,y0 - x1,y1 - "normalized" mouse coordinates for the mouse movement                       *
+ * sphsize - size of the trackball sphere                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ * a quaternion representing the rotation of a trackball                                       *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/28/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 Quaternion Trackball(float x0, float y0, float x1, float y1, float sphsize)
 {
 	Vector3	a;
 	Vector3	p1;
 	Vector3	p2;
-	Vector3	d;	
+	Vector3	d;
 
 	float phi,t;
 
-	if ((x0 == x1) && (y0 == y1)) 
+	if ((x0 == x1) && (y0 == y1))
 	{
 		return Quaternion(0.0f, 0.0f, 0.0f, 1.0f);	// Zero rotation
 	}
@@ -227,22 +227,22 @@ Quaternion Trackball(float x0, float y0, float x1, float y1, float sphsize)
 }
 
 
-/*********************************************************************************************** 
- * Axis_To_Quat -- Creates a quaternion given an axis and angle of rotation                    * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/28/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Axis_To_Quat -- Creates a quaternion given an axis and angle of rotation                    *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/28/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 Quaternion Axis_To_Quat(const Vector3 &a, float phi)
 {
 	Quaternion q;
-	Vector3 tmp = a;  
+	Vector3 tmp = a;
 
 	tmp.Normalize();
 	q[0] = tmp[0];
@@ -255,44 +255,44 @@ Quaternion Axis_To_Quat(const Vector3 &a, float phi)
 	return q;
 }
 
-/*********************************************************************************************** 
- * Slerp -- Spherical Linear interpolation!                                                    * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *  p - start quaternion                                                                       * 
- *  q - end quaternion                                                                         * 
- *  alpha - interpolating parameter                                                            * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/28/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Slerp -- Spherical Linear interpolation!                                                    *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *  p - start quaternion                                                                       *
+ *  q - end quaternion                                                                         *
+ *  alpha - interpolating parameter                                                            *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/28/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 Quaternion Slerp(const Quaternion & p,const Quaternion & q,float alpha)
-{		
+{
 	float beta;				// complementary interploation parameter
 	float theta;				// angle between p and q
 	float sin_t,cos_t; 		// sine, cosine of theta
 	float oo_sin_t;
 	int qflip;					// use flip of q?
-	
+
 	// cos theta = dot product of p and q
 	cos_t = p.X * q.X + p.Y * q.Y + p.Z * q.Z + p.W * q.W;
 
 	// if q is on opposite hemisphere from A, use -B instead
-	if (cos_t < 0.0f) 
+	if (cos_t < 0.0f)
 	{
 		cos_t = -cos_t;
 		qflip = true;
 	}
-	else 
+	else
 	{
 		qflip = false;
 	}
 
-	if (1.0f - cos_t < SLERP_EPSILON) 
+	if (1.0f - cos_t < SLERP_EPSILON)
 	{
 
 		// if q is very close to p, just linearly interpolate
@@ -300,7 +300,7 @@ Quaternion Slerp(const Quaternion & p,const Quaternion & q,float alpha)
 		beta = 1.0f - (float)alpha;
 
 	}
-	else 
+	else
 	{
 
 		// normal slerp!
@@ -311,7 +311,7 @@ Quaternion Slerp(const Quaternion & p,const Quaternion & q,float alpha)
 		alpha = sinf(alpha*theta) * oo_sin_t;
 	}
 
-	if (qflip) 
+	if (qflip)
 	{
 		alpha = -alpha;
 	}
@@ -339,29 +339,29 @@ Quaternion Slerp(const Quaternion & p,const Quaternion & q,float alpha)
  *   2/27/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 void Slerp_Setup(
-	const Quaternion & p, 
-	const Quaternion & q, 
+	const Quaternion & p,
+	const Quaternion & q,
 	SlerpInfoStruct* slerpinfo)
 {
 	float cos_t;
-	
+
 	assert(!slerpinfo);
 
 	// cos theta = dot product of p and q
 	cos_t = p.X * q.X + p.Y * q.Y + p.Z * q.Z + p.W * q.W;
 
 	// if q is on opposite hemisphere from A, use -B instead
-	if (cos_t < 0.0f) 
+	if (cos_t < 0.0f)
 	{
 		cos_t = -cos_t;
 		slerpinfo->Flip = true;
 	}
-	else 
+	else
 	{
 		slerpinfo->Flip = false;
 	}
 
-	if (1.0 - cos_t < SLERP_EPSILON) 
+	if (1.0 - cos_t < SLERP_EPSILON)
 	{
 
 		slerpinfo->Linear = true;
@@ -369,13 +369,13 @@ void Slerp_Setup(
 		slerpinfo->SinT = 0.0f;
 
 	}
-	else 
+	else
 	{
 
 		slerpinfo->Linear = false;
 		slerpinfo->Theta = acosf(cos_t);
 		slerpinfo->SinT = sinf(slerpinfo->Theta);
-	
+
 	}
 }
 
@@ -392,9 +392,9 @@ void Slerp_Setup(
  *   2/27/98    GTH : Created.                                                                 *
  *=============================================================================================*/
 Quaternion Cached_Slerp(
-	const Quaternion & p, 
-	const Quaternion & q, 
-	float alpha, 
+	const Quaternion & p,
+	const Quaternion & q,
+	float alpha,
 	SlerpInfoStruct * slerpinfo)
 {
 	float beta;				// complementary interploation parameter
@@ -408,7 +408,7 @@ Quaternion Cached_Slerp(
 		beta = 1.0f - alpha;
 
 	}
-	else 
+	else
 	{
 
 		// normal slerp!
@@ -417,7 +417,7 @@ Quaternion Cached_Slerp(
 		alpha = sinf(alpha*slerpinfo->Theta) * oo_sin_t;
 	}
 
-	if (slerpinfo->Flip) 
+	if (slerpinfo->Flip)
 	{
 		alpha = -alpha;
 	}
@@ -440,15 +440,15 @@ void Cached_Slerp(
 	float beta;				// complementary interploation parameter
 	float oo_sin_t;
 
-	if (slerpinfo->Linear) 
+	if (slerpinfo->Linear)
 	{
 
 		// if q is very close to p, just linearly interpolate
 		// between the two.
 		beta = 1.0f - alpha;
 
-	} 
-	else 
+	}
+	else
 	{
 
 		// normal slerp!
@@ -457,7 +457,7 @@ void Cached_Slerp(
 		alpha = sinf(alpha*slerpinfo->Theta) * oo_sin_t;
 	}
 
-	if (slerpinfo->Flip) 
+	if (slerpinfo->Flip)
 	{
 		alpha = -alpha;
 	}
@@ -468,18 +468,18 @@ void Cached_Slerp(
 	set_q->W = beta*p.W + alpha*q.W;
 }
 
-/*********************************************************************************************** 
- * Build_Quaternion -- Creates a quaternion from a Matrix                                      * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
+/***********************************************************************************************
+ * Build_Quaternion -- Creates a quaternion from a Matrix                                      *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
  *   Matrix MUST NOT have scaling!                                                             *
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/28/1997 GH  : Created.                                                                 * 
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/28/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 Quaternion Build_Quaternion(const Matrix3D & mat)
 {
@@ -489,8 +489,8 @@ Quaternion Build_Quaternion(const Matrix3D & mat)
 
 	// sum the diagonal of the rotation matrix
 	tr = mat[0][0] + mat[1][1] + mat[2][2];
-	
-	if (tr > 0.0f) 
+
+	if (tr > 0.0f)
 	{
 
 		s = (float)sqrt(tr + 1.0f);
@@ -514,13 +514,13 @@ Quaternion Build_Quaternion(const Matrix3D & mat)
 		s = (float)sqrt((mat[i][i] - (mat[j][j] + mat[k][k])) + 1.0f);
 
 		q[i] = s * 0.5f;
-		if (s != 0.0f) 
+		if (s != 0.0f)
 		{
 			s = 0.5f / s;
 		}
 
 		q[3] = 	( mat[k][j] - mat[j][k] ) * s;
-		q[j] =	( mat[j][i] + mat[i][j] ) * s;    
+		q[j] =	( mat[j][i] + mat[i][j] ) * s;
 		q[k] =	( mat[k][i] + mat[i][k] ) * s;
 
 	}
@@ -536,8 +536,8 @@ Quaternion Build_Quaternion(const Matrix3 & mat)
 
 	// sum the diagonal of the rotation matrix
 	tr = mat[0][0] + mat[1][1] + mat[2][2];
-	
-	if (tr > 0.0f) 
+
+	if (tr > 0.0f)
 	{
 
 		s = (float)sqrt(tr + 1.0f);
@@ -547,9 +547,9 @@ Quaternion Build_Quaternion(const Matrix3 & mat)
 		q[0] = (mat[2][1] - mat[1][2]) * s;
 		q[1] = (mat[0][2] - mat[2][0]) * s;
 		q[2] = (mat[1][0] - mat[0][1]) * s;
-	
-	} 
-	else 
+
+	}
+	else
 	{
 
 		i = 0;
@@ -562,17 +562,17 @@ Quaternion Build_Quaternion(const Matrix3 & mat)
 		s = (float)sqrt( (mat[i][i] - (mat[j][j]+mat[k][k])) + 1.0f);
 
 		q[i] =	s * 0.5f;
-		
-		if (s != 0.0f) 
+
+		if (s != 0.0f)
 		{
 			s = 0.5f/s;
 		}
 
 		q[3] = 	( mat[k][j] - mat[j][k] ) * s;
-		q[j] =	( mat[j][i] + mat[i][j] ) * s;    
+		q[j] =	( mat[j][i] + mat[i][j] ) * s;
 		q[k] =	( mat[k][i] + mat[i][k] ) * s;
 	}
-	
+
 	return q;
 }
 
@@ -584,8 +584,8 @@ Quaternion Build_Quaternion(const Matrix4 & mat)
 
 	// sum the diagonal of the rotation matrix
 	tr = mat[0][0] + mat[1][1] + mat[2][2];
-	
-	if (tr > 0.0f) 
+
+	if (tr > 0.0f)
 	{
 
 		s = (float)sqrt(tr + 1.0f);
@@ -595,12 +595,12 @@ Quaternion Build_Quaternion(const Matrix4 & mat)
 		q[0] = (mat[2][1] - mat[1][2]) * s;
 		q[1] = (mat[0][2] - mat[2][0]) * s;
 		q[2] = (mat[1][0] - mat[0][1]) * s;
-	
+
 	}
-	else 
+	else
 	{
 
-		i = 0; 
+		i = 0;
 		if (mat[1][1] > mat[0][0]) i = 1;
 		if (mat[2][2] > mat[i][i]) i = 2;
 
@@ -610,30 +610,30 @@ Quaternion Build_Quaternion(const Matrix4 & mat)
 		s = (float)sqrt( (mat[i][i] - (mat[j][j]+mat[k][k])) + 1.0f);
 
 		q[i] =	s * 0.5f;
-		if (s != 0.0f) 
+		if (s != 0.0f)
 		{
 			s = 0.5f/s;
 		}
 		q[3] = 	( mat[k][j] - mat[j][k] ) * s;
-		q[j] =	( mat[j][i] + mat[i][j] ) * s;    
+		q[j] =	( mat[j][i] + mat[i][j] ) * s;
 		q[k] =	( mat[k][i] + mat[i][k] ) * s;
 	}
-	
+
 	return q;
 }
 
 
-/*********************************************************************************************** 
- * Build_Matrix -- Creates a Matrix from a Quaternion                                          * 
- *                                                                                             * 
- * INPUT:                                                                                      * 
- *                                                                                             * 
- * OUTPUT:                                                                                     * 
- *                                                                                             * 
- * WARNINGS:                                                                                   * 
- *                                                                                             * 
- * HISTORY:                                                                                    * 
- *   02/28/1997 GH  : Created.                                                                 * 
+/***********************************************************************************************
+ * Build_Matrix -- Creates a Matrix from a Quaternion                                          *
+ *                                                                                             *
+ * INPUT:                                                                                      *
+ *                                                                                             *
+ * OUTPUT:                                                                                     *
+ *                                                                                             *
+ * WARNINGS:                                                                                   *
+ *                                                                                             *
+ * HISTORY:                                                                                    *
+ *   02/28/1997 GH  : Created.                                                                 *
  *=============================================================================================*/
 Matrix3	Build_Matrix3(const Quaternion & q)
 {
@@ -687,11 +687,11 @@ Matrix4 Build_Matrix4(const Quaternion & q)
 	m[0][0] = (1.0f - 2.0f * (q[1] * q[1] + q[2] * q[2]));
 	m[0][1] = (2.0f * (q[0] * q[1] - q[2] * q[3]));
 	m[0][2] = (2.0f * (q[2] * q[0] + q[1] * q[3]));
-	       
+
 	m[1][0] = (2.0f * (q[0] * q[1] + q[2] * q[3]));
 	m[1][1] = (1.0f - 2.0f * (q[2] * q[2] + q[0] * q[0]));
 	m[1][2] = (2.0f * (q[1] * q[2] - q[0] * q[3]));
-	       
+
 	m[2][0] = (2.0f * (q[2] * q[0] - q[1] * q[3]));
 	m[2][1] = (2.0f * (q[1] * q[2] + q[0] * q[3]));
 	m[2][2] = (1.0f - 2.0f * (q[1] * q[1] + q[0] * q[0]));
@@ -704,22 +704,22 @@ Matrix4 Build_Matrix4(const Quaternion & q)
 	m[3][3] = 1.0f;
 	return m;
 }
-  
+
 void Quaternion::Rotate_X(float theta)
 {
-	// TODO: optimize this 
+	// TODO: optimize this
 	*this = (*this) * Quaternion(Vector3(1,0,0),theta);
 }
 
 void Quaternion::Rotate_Y(float theta)
 {
-	// TODO: optimize this 
+	// TODO: optimize this
 	*this = (*this) * Quaternion(Vector3(0,1,0),theta);
 }
 
 void Quaternion::Rotate_Z(float theta)
 {
-	// TODO: optimize this 
+	// TODO: optimize this
 	*this = (*this) * Quaternion(Vector3(0,0,1),theta);
 }
 
@@ -733,7 +733,7 @@ float Project_To_Sphere(float r, float x, float y)
 	{
 		z = (float)sqrt(r * r - d * d);
 	}
-	else 
+	else
 	{								// on hyperbola
 		t = r / (float)sqrt(2.0f);
 		z = t * t / d;
@@ -749,7 +749,7 @@ void Quaternion::Randomize(void)
 	Y = ((float) (rand() & 0xFFFF)) / 65536.0f;
 	Z = ((float) (rand() & 0xFFFF)) / 65536.0f;
 	W = ((float) (rand() & 0xFFFF)) / 65536.0f;
-	
+
 	Normalize();
 }
 

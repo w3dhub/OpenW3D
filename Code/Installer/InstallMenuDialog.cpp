@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/InstallMenuDialog.c $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 12/14/01 11:05a               $* 
- *                                                                                             * 
- *                    $Revision:: 5                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/InstallMenuDialog.c $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 12/14/01 11:05a               $*
+ *                                                                                             *
+ *                    $Revision:: 5                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -41,7 +41,7 @@
 #include "MenuBackDrop.h"
 #include "Scene.h"
 #include "Translator.h"
- 
+
 
 /***********************************************************************************************
  * InstallMenuDialogClass::InstallMenuDialogClass -- Constructor										  *
@@ -53,7 +53,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 InstallMenuDialogClass::InstallMenuDialogClass (int resourceid)
 	: 	CallbackMenuDialogClass (resourceid)
@@ -66,7 +66,7 @@ InstallMenuDialogClass::InstallMenuDialogClass (int resourceid)
 		const unsigned  supplementalmodelcount									= 2;
 		const char		*supplementalmodelname [supplementalmodelcount]	= {"IN_EVA", "IN_RENLOGO"};
 		const char		*supplementalanimname  [supplementalmodelcount] = {"IN_EVA.IN_EVA", "IN_RENLOGO.IN_RENLOGO"};
-		
+
 		Get_BackDrop()->Set_Model (basemodelname);
 		Get_BackDrop()->Set_Animation (baseanimname);
 
@@ -101,7 +101,7 @@ InstallMenuDialogClass::InstallMenuDialogClass (int resourceid)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 InstallMenuDialogClass::~InstallMenuDialogClass()
 {
@@ -118,7 +118,7 @@ InstallMenuDialogClass::~InstallMenuDialogClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void InstallMenuDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {

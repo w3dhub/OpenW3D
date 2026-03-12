@@ -90,7 +90,7 @@ class EditorAssetMgrClass : public WW3DAssetManager
 		///////////////////////////////////////////////////
 		EditorAssetMgrClass (void);
 		virtual ~EditorAssetMgrClass (void) {}
-		
+
 		///////////////////////////////////////////////////
 		//	Public methods
 		///////////////////////////////////////////////////
@@ -98,7 +98,7 @@ class EditorAssetMgrClass : public WW3DAssetManager
 		//
 		// Base class overrides
 		//
-		virtual RenderObjClass *		Create_Render_Obj (const char * name);	
+		virtual RenderObjClass *		Create_Render_Obj (const char * name);
 		virtual HAnimClass *				Get_HAnim (const char * name);
 		virtual HTreeClass *				Get_HTree (const char * name);
 		virtual TextureClass *			Get_Texture (const char *filename, TextureClass::MipCountType mip_level_count=TextureClass::MIP_LEVELS_ALL,WW3DFormat texture_format=WW3D_FORMAT_UNKNOWN, bool allow_compression=true);

@@ -77,8 +77,8 @@ SimplePersistFactoryClass<PathfindStartDefinitionClass, CHUNKID_PATHFIND_START_D
 PathfindStartDefinitionClass::PathfindStartDefinitionClass (void)
 	:	m_GameObjectID (0),
 		DefinitionClass ()
-		
-{	
+
+{
 	EDITABLE_PARAM( PathfindStartDefinitionClass, ParameterClass::TYPE_GAMEOBJDEFINITIONID, m_GameObjectID );
 	return ;
 }
@@ -119,7 +119,7 @@ PathfindStartDefinitionClass::Save (ChunkSaveClass &csave)
 
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		retval &= DefinitionClass::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		WRITE_MICRO_CHUNK (csave, VARID_GAME_OBJ_ID, m_GameObjectID);
@@ -141,7 +141,7 @@ PathfindStartDefinitionClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			case CHUNKID_BASE_CLASS:
 				retval &= DefinitionClass::Load (cload);
 				break;
@@ -171,7 +171,7 @@ PathfindStartDefinitionClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_GAME_OBJ_ID, m_GameObjectID);
 		}
 

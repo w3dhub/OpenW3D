@@ -73,7 +73,7 @@ public:
 		PASS_ALPHA,
 		PASS_COUNT
 
-	} TEXTURE_PASS_TYPE;	
+	} TEXTURE_PASS_TYPE;
 
 	///////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors

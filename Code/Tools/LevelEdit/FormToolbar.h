@@ -59,7 +59,7 @@ public:
         //
         //  Public Contructors
         //
-        FormToolbarClass ();        
+        FormToolbarClass ();
         virtual ~FormToolbarClass ();
 
 
@@ -75,7 +75,7 @@ public:
         CSize CalcDynamicLayout( int /* nLength */, DWORD dwMode )
         {
             if (dwMode & LM_VERTDOCK)
-            {                
+            {
                 if (::AfxGetMainWnd () &&
                     ::AfxGetMainWnd ()->GetDlgItem (AFX_IDW_PANE_FIRST))
                 {
@@ -89,7 +89,7 @@ public:
                 }
             }
             else if (dwMode & LM_HORZDOCK)
-            {                
+            {
                 if (::AfxGetMainWnd ())
                 {
 							CRect rect;
@@ -108,7 +108,7 @@ public:
         }
 
         void									OnUpdateCmdUI (class CFrameWnd*, int) {}
-        BOOL									Create (class DockableFormClass *pCFormClass, LPCTSTR pszWindowName, CWnd *pCParentWnd, UINT uiID);        
+        BOOL									Create (class DockableFormClass *pCFormClass, LPCTSTR pszWindowName, CWnd *pCParentWnd, UINT uiID);
 
 		  class DockableFormClass *		Get_Form (void) const { return m_pCForm; }
 
@@ -121,7 +121,7 @@ public:
 		//  Private member data
 		//
 		class DockableFormClass *m_pCForm;
-		CSize m_minSize;              
+		CSize m_minSize;
 };
 
 

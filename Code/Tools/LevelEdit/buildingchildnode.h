@@ -63,7 +63,7 @@ class PresetClass;
 class BuildingChildNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ public:
 	// From PersistClass
 	//
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
-	
+
 	//
 	// From NodeClass
 	//
@@ -142,7 +142,7 @@ protected:
 //////////////////////////////////////////////////////////////////
 inline void
 BuildingChildNodeClass::On_Rotate (void)
-{	
+{
 	if (Building != NULL) {
 		Building->Update_Lines ();
 	}

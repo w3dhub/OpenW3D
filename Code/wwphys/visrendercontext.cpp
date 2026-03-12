@@ -51,7 +51,7 @@
 const int CLEAR_VIS_COLOR	= 0x00000000;						// Vis id for background/clear pixels
 const float BACKFACE_OVERFLOW_FRACTION = 0.005f;			// max percentage of backface before overflow (rejection)
 
-static VisRasterizerClass			_VisRasterizer;			// Instance of a vis rasterizer 
+static VisRasterizerClass			_VisRasterizer;			// Instance of a vis rasterizer
 
 
 /***********************************************************************************************
@@ -224,7 +224,7 @@ void VisRenderContextClass::Scan_Frame_Buffer
 	/*
 	** Loop over the pixels, counting backfaces and enabling the visibility of
 	** each object encountered in the buffer
-	*/			
+	*/
 	for (int y=miny; y<maxy; y++) {
 
 		pixel_row = VisRasterizer->Get_Pixel_Row(y,minx,maxx);
@@ -244,12 +244,12 @@ void VisRenderContextClass::Scan_Frame_Buffer
 	if (sample != NULL) {
 		int total_pixels = (maxx-minx)*(maxy-miny);
 		float backface_fraction = (float)backface_count / (float)total_pixels;
-		
+
 		if (backface_fraction > BACKFACE_OVERFLOW_FRACTION) {
 
 			WWDEBUG_SAY(("%s Backface Overflow ",sample->Get_Cur_Direction_Name()));
 			sample->Set_Results(VIS_STATUS_BACKFACE_OVERFLOW,backface_fraction);
-		
+
 		} else {
 
 			if (backface_count > 0) {
@@ -260,7 +260,7 @@ void VisRenderContextClass::Scan_Frame_Buffer
 				sample->Set_Results(VIS_STATUS_OK,0.0f);
 			}
 		}
-	} 
+	}
 }
 
 
@@ -284,7 +284,7 @@ void VisRenderContextClass::Compute_2D_Bounds
 )
 {
 	#define NUM_BOX_VERTS 8
-	static float _boxverts[NUM_BOX_VERTS][3] = 
+	static float _boxverts[NUM_BOX_VERTS][3] =
 	{
 		{  1.0f, 1.0f, 1.0f },		// +z ring of 4 verts
 		{ -1.0f, 1.0f, 1.0f },
@@ -296,7 +296,7 @@ void VisRenderContextClass::Compute_2D_Bounds
 		{ -1.0f,-1.0f,-1.0f },
 		{  1.0f,-1.0f,-1.0f },
 	};
-	
+
 	// rotate and project the corners of the box
 	Vector3 corner[8];
 	int ivert;
@@ -304,14 +304,14 @@ void VisRenderContextClass::Compute_2D_Bounds
 		corner[ivert].X = wrld_bbox.Center.X + _boxverts[ivert][0] * wrld_bbox.Extent.X;
 		corner[ivert].Y = wrld_bbox.Center.Y + _boxverts[ivert][1] * wrld_bbox.Extent.Y;
 		corner[ivert].Z = wrld_bbox.Center.Z + _boxverts[ivert][2] * wrld_bbox.Extent.Z;
-		
+
 		if (Camera.Project(corner[ivert],corner[ivert]) == CameraClass::OUTSIDE_NEAR_CLIP) {
 			min_v->Set(0,0);
 			max_v->Set(1,1);
-			return;	
+			return;
 		}
 	}
-	
+
 	// scan for the min and max
 	min_v->X = max_v->X = corner[0].X;
 	min_v->Y = max_v->Y = corner[0].Y;

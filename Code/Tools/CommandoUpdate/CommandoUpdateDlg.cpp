@@ -50,7 +50,7 @@ typedef struct
 	LPCTSTR	title;
 	LPCTSTR	src;
 	LPCTSTR	default_dir;
-	LPCTSTR	reg_key;	
+	LPCTSTR	reg_key;
 	UINT		ctrl_id;
 	UINT		clean_ctrl_id;
 	UINT		dir_ctrl_id;
@@ -159,7 +159,7 @@ BOOL CCommandoUpdateDlg::OnInitDialog()
 		//
 		if (::RegOpenKeyEx (HKEY_CURRENT_USER, reg_key_name, 0L, KEY_READ, &hreg_key) == ERROR_SUCCESS) {
 			SendDlgItemMessage (app_info.ctrl_id, BM_SETCHECK, (WPARAM)true);
-			
+
 			//
 			//	Read the installation directory from the registry
 			//
@@ -194,7 +194,7 @@ BOOL CCommandoUpdateDlg::OnInitDialog()
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CCommandoUpdateDlg::OnPaint() 
+void CCommandoUpdateDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -259,7 +259,7 @@ CCommandoUpdateDlg::OnOK (void)
 			// Ensure the path doesn't contain a terminating delimiter
 			if (local_path[::lstrlen (local_path) - 1] == '\\') {
 				local_path.Delete (::lstrlen (local_path) - 1, 1);
-			}			
+			}
 
 			if (success) {
 				CWaitCursor wait_cursor;
@@ -267,7 +267,7 @@ CCommandoUpdateDlg::OnOK (void)
 				//
 				//	Clean the old version if necessary
 				//
-				if (SendDlgItemMessage (app_info.clean_ctrl_id, BM_GETCHECK) == 1) {									
+				if (SendDlgItemMessage (app_info.clean_ctrl_id, BM_GETCHECK) == 1) {
 
 					//
 					//	Special case the "game engine only" option.  Note: we only want
@@ -275,7 +275,7 @@ CCommandoUpdateDlg::OnOK (void)
 					//
 					if (index == APP_GAME_LEVELS || index == APP_GAME_MOVIES) {
 						if (SendDlgItemMessage (APPLICATIONS[APP_GAME_ENGINE].ctrl_id, BM_GETCHECK) == 0) {
-							
+
 							if (index == APP_GAME_MOVIES) {
 								CString data_dir = local_path + MOVIE_SUB_DIR;
 								::Clean_Directory (data_dir, app_info.is_recursive);
@@ -288,7 +288,7 @@ CCommandoUpdateDlg::OnOK (void)
 						::Clean_Directory (local_path, app_info.is_recursive);
 					}
 				}
-								
+
 				//
 				//	Special case the "game levels" option
 				//
@@ -303,13 +303,13 @@ CCommandoUpdateDlg::OnOK (void)
 					CString data_title	= "Game Movies";
 					success &= ::Update_App (this, data_title, src_data_dir, data_dir, app_info.is_recursive);
 				} else {
-				
+
 					//
 					//	Update the application's files
 					//
-					success &= ::Update_App (this, app_info.title, app_info.src, local_path, app_info.is_recursive);					
+					success &= ::Update_App (this, app_info.title, app_info.src, local_path, app_info.is_recursive);
 				}
-				
+
 				//
 				//	Write the app's installation dir to the registry if we
 				//	installed it correctly.
@@ -337,7 +337,7 @@ CCommandoUpdateDlg::OnOK (void)
 			}
 		}
 	}
-	
+
 	CDialog::OnOK ();
 	return ;
 }
@@ -360,7 +360,7 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 	browse_info.ulFlags = BIF_RETURNONLYFSDIRS;
 	LPITEMIDLIST pidl = ::SHBrowseForFolder (&browse_info);
 	if (pidl != NULL) {
-		
+
 		// Convert the 'PIDL' into a string
 		char path[MAX_PATH];
 		retval = (::SHGetPathFromIDList (pidl, path) == true);
@@ -376,12 +376,12 @@ Get_Install_Directory (HWND hparent_wnd, LPCTSTR title, CString &folder)
 		}
 	}
 
-	
+
 	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
 	//CFileDialog dialog (true, ".pth", "test.pth", OFN_PATHMUSTEXIST | OFN_EXPLORER | OFN_ENABLETEMPLATEHANDLE, "files *.*|*.*||", CWnd::FromHandle(hparent_wnd));
 	//dialog.m_ofn.lpTemplateName = MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG);
 	//dialog.m_ofn.hInstance = ::AfxGetInstanceHandle ();
-	//HRSRC resource = ::FindResource (::AfxGetInstanceHandle (), MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG), RT_DIALOG);	
+	//HRSRC resource = ::FindResource (::AfxGetInstanceHandle (), MAKEINTRESOURCE (IDD_DIR_SELECT_DIALOG), RT_DIALOG);
 	//dialog.m_ofn.hInstance = (HINSTANCE)::LoadResource (::AfxGetInstanceHandle (), resource);
 
 	//dialog.DoModal ();
@@ -458,7 +458,7 @@ Delete_File (LPCTSTR filename)
 		} else {
 			retval = ::DeleteFile (filename) == true;
 		}
-		
+
 	}
 
 	// Return the true/false result code
@@ -489,7 +489,7 @@ Copy_File
 
 		// Make sure we aren't copying over ourselves
 		bool allow_copy = (::lstrcmpi (existing_filename, new_filename) != 0);
-		
+
 		// Strip the readonly bit off if necessary
 		DWORD attributes = ::GetFileAttributes (new_filename);
 		if (allow_copy &&
@@ -534,7 +534,7 @@ Clean_Directory (LPCTSTR local_dir, bool is_recursive)
 
 	// Build a search mask from the directory
 	CString search_mask = CString (local_dir) + "\\*.*";
-	
+
 	// Loop through all the files in this directory and add them
 	// to our list
 	CStringList file_list;
@@ -543,13 +543,13 @@ Clean_Directory (LPCTSTR local_dir, bool is_recursive)
 	for (HANDLE hfind = ::FindFirstFile (search_mask, &find_info);
 		  (hfind != INVALID_HANDLE_VALUE) && bcontinue;
 		  bcontinue = ::FindNextFile (hfind, &find_info)) {
-		
+
 		// If this file isn't a directory, add it to the list
 		if (!(find_info.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
 			CString filename = find_info.cFileName;
 			file_list.AddTail (filename);
 		} else if (is_recursive && find_info.cFileName[0] != '.') {
-			
+
 			//
 			//	Recurse into this subdirectory
 			//
@@ -557,7 +557,7 @@ Clean_Directory (LPCTSTR local_dir, bool is_recursive)
 			::Delimit_Path (full_path);
 			full_path += find_info.cFileName;
 			Clean_Directory (full_path, is_recursive);
-			
+
 			//
 			//	Add this directory to the list so it will get
 			// deleted with the files...
@@ -571,7 +571,7 @@ Clean_Directory (LPCTSTR local_dir, bool is_recursive)
 	if (hfind != NULL) {
 		::FindClose (hfind);
 	}
-	
+
 	//
 	//	Now loop through all the files and delete them
 	//
@@ -602,7 +602,7 @@ Create_Dir_If_Necessary (LPCTSTR path)
 		Create_Dir_If_Necessary (::Strip_Filename_From_Path (path));
 		::CreateDirectory (path, NULL);
 	}
-	
+
 	return ;
 }
 
@@ -625,7 +625,7 @@ Build_File_List (LPCTSTR search_path, CStringList &file_list)
 	for (HANDLE hfind = ::FindFirstFile (search_path, &find_info);
 		  (hfind != INVALID_HANDLE_VALUE) && keep_going;
 		  keep_going = ::FindNextFile (hfind, &find_info))
-	{		
+	{
 		//
 		// If this file isn't a directory, add it to the list
 		//
@@ -686,7 +686,7 @@ Quick_Compare_Files
 
 			// Get information about these 2 files.
 			BY_HANDLE_FILE_INFORMATION file1_info = { 0 };
-			BY_HANDLE_FILE_INFORMATION file2_info = { 0 };			
+			BY_HANDLE_FILE_INFORMATION file2_info = { 0 };
 			::GetFileInformationByHandle (hfile1, &file1_info);
 			::GetFileInformationByHandle (hfile2, &file2_info);
 
@@ -697,7 +697,7 @@ Quick_Compare_Files
 		} else if ((hfile1 != INVALID_HANDLE_VALUE) && (hfile2 == INVALID_HANDLE_VALUE)) {
 			compare = 1;
 		}
-		
+
 		if (hfile1 != INVALID_HANDLE_VALUE) {
 			::CloseHandle (hfile1);
 		}
@@ -757,7 +757,7 @@ Update_App_Directory
 	for (HANDLE hfind = ::FindFirstFile (remote_search_mask, &find_info);
 		  (hfind != INVALID_HANDLE_VALUE) && keep_going && retval;
 		  keep_going = ::FindNextFile (hfind, &find_info))
-	{		
+	{
 		//
 		// If this file isn't a directory, add it to the list
 		//
@@ -765,17 +765,17 @@ Update_App_Directory
 			CString filename = find_info.cFileName;
 			file_list.AddTail (filename);
 		} else if (is_recursive && find_info.cFileName[0] != '.') {
-			
+
 			//
 			//	Recurse into this subdirectory
 			//
 			CString full_src_path	= src_dir;
-			CString full_dest_path	= dest_dir;			
+			CString full_dest_path	= dest_dir;
 			::Delimit_Path (full_src_path);
 			::Delimit_Path (full_dest_path);
 			full_src_path	+= find_info.cFileName;
 			full_dest_path	+= find_info.cFileName;
-			
+
 			retval &= ::Update_App_Directory (	dialog,
 															full_src_path,
 															full_dest_path,
@@ -787,7 +787,7 @@ Update_App_Directory
 	if (hfind != NULL) {
 		::FindClose (hfind);
 	}
-	
+
 	//
 	//	Now loop through all the files and copy them to the src
 	//
@@ -796,8 +796,8 @@ Update_App_Directory
 		CString &filename = file_list.GetNext (pos);
 
 		CString src_file	= src_dir + CString ("\\") + filename;
-		CString dest_file	= dest_dir + CString ("\\") + filename;			
-		
+		CString dest_file	= dest_dir + CString ("\\") + filename;
+
 		//
 		//	Make sure the destination directory exists
 		//
@@ -824,7 +824,7 @@ Update_App_Directory
 			}
 		}
 	}
-	
+
 	return retval;
 }
 
@@ -840,7 +840,7 @@ fnUpdateAppDirectory (LPVOID pParam)
 	UPDATE_INFO *info	= (UPDATE_INFO *)pParam;
 	ASSERT (info != NULL);
 	if (info != NULL) {
-				
+
 		//
 		//	Begin updating this directory...
 		//
@@ -878,7 +878,7 @@ Update_App
 
 	FileCopyDialogClass dialog (parent_wnd);
 	dialog.Set_Current_Application (title);
-	
+
 	//
 	//	Kick off a worker thread to do the actual file copy
 	//
@@ -888,7 +888,7 @@ Update_App
 	info->dest_dir			= dest_dir;
 	info->is_recursive	= is_recursive;
 	::AfxBeginThread (fnUpdateAppDirectory, (LPVOID)info);
-	
+
 	//
 	//	Display a dialog to monitor the progress
 	//
@@ -932,9 +932,9 @@ CCommandoUpdateDlg::OnCommand
 			//
 			::EnableWindow (::GetDlgItem (m_hWnd, app_info.clean_ctrl_id), enable);
 			::EnableWindow (::GetDlgItem (m_hWnd, app_info.dir_ctrl_id), enable);
-			
+
 		} else if (LOWORD (wParam) == app_info.dir_ctrl_id) {
-			
+
 			//
 			//	Change the installation directoy
 			//
@@ -968,7 +968,7 @@ CCommandoUpdateDlg::OnDefaults (void)
 			SetDlgItemText (app_info.dir_ctrl_id, app_info.default_dir);
 		}
 	}
-	
+
 	return ;
 }
 

@@ -16,8 +16,8 @@ UPDATED TODO LIST:
 agg_def:
 	- Texture replacement feature needs to be implemented
 assetmgr:
-	- Texture cache, 
-	- Dazzle loader, 
+	- Texture cache,
+	- Dazzle loader,
 bmp2d
 	- works. Code for setting aspect ratio was added but not used due to legacy - HY
 boxrobj
@@ -42,7 +42,7 @@ dynamesh
 font3d
 	- works
 intersec
-	- Compiles but not tested, 
+	- Compiles but not tested,
 	- Probably contains a lot of un-used functions because all intersect calls are now routing through Cast_Ray!
 line3d
 	- works except for alpha sorting
@@ -110,7 +110,7 @@ texfcach
 	- fully commented out
 texproject
 	- works except for the second stage stuff (is this generally broken?).
-textdraw	
+textdraw
 	- works. This is a legacy font system to be removed from Renegade.
 texture
 	- lots of miscellaneous missing features here
@@ -129,10 +129,10 @@ vertmaterial
 	- all users of VMC must configure the diffuse and emissive color source if they want per-vertex arrays...
 	- changed so the default is visible - HY
 	- TODO: Make Get_Preset const so no one can modify the static presets
-ww3d	
+ww3d
 	- TextureLoader support commented out of Begin_Render
 	- Statistics code commented out
-	- Read_Gerd_Render_Device_Description commented out (?)		
+	- Read_Gerd_Render_Device_Description commented out (?)
 	- Set/Get_Texture_Reduction commented out
 	- Flush_Texture_Cache function commented out
 	- Detect_Drivers commented out
@@ -155,9 +155,9 @@ Features we are removing support for (will need application changes):
 	- indirect textures (we will provide a (slow) function to swap textures)
 
 
-Ok, the WW3D2 skeleton program compiles and links now with no references to SR.  Some files I took more care on, others I blocked out the entire file for later.  Every piece of code is wrapped with #ifdef WW3D_DX8 with a matching #endif and comment, there should be no typo's in the #ifdef's because I used a macro to insert them all (so we can do searches and safely assume that we see all of them).  
+Ok, the WW3D2 skeleton program compiles and links now with no references to SR.  Some files I took more care on, others I blocked out the entire file for later.  Every piece of code is wrapped with #ifdef WW3D_DX8 with a matching #endif and comment, there should be no typo's in the #ifdef's because I used a macro to insert them all (so we can do searches and safely assume that we see all of them).
 Here are some (raw) notes I took while commenting out all references to SR:
- 
+
 X - VertexMaterialClass - need to separate from sr (SOON)
 X - Basic texture functionality (loading from files, etc)
 - More advanced texture handling code needs to be re-implemented, but try to maintain our current interfaces as much as possible.  Many issues here: background thread loader, texture file cache, texture LOD, indirect textures ?... (SOON)
@@ -177,7 +177,7 @@ X - DynaMeshClass - commented out, need materials, gerd replacement, new renderi
 X - Bitmap2DObjClass - commented out, do we need this any more? - depends on dynamesh
 X - BW Render, used for shadow rendering, uses some srVectorProcessor stuff
 X - Camera - internals commented out
-X - MatPass, CullableMatPass - all procedural material passes commented out, design new, low-level rendering interface, then port these to it.  
+X - MatPass, CullableMatPass - all procedural material passes commented out, design new, low-level rendering interface, then port these to it.
 X - passdata.h - no sure what this is for, it is commented out
 X - meshmodel - all material functions commented out, will also probably re-write the guts of meshmodel to store "sub-meshes" rather than material arrays.  depends on design of new low-level rendering system. (SOON)
 X - decal system - all material handling commented out, rendering commented out, depends on new low-level rendering system
@@ -233,23 +233,23 @@ Shaders have been converted to Shader->Apply() and the state is being tracked by
 Materials have been converted to Material->Apply() which calls Mapper->Apply()
 
 Now, some big issues we need to think about are (in no particular order):
- 
+
 SOME GOALS -   Maintain as many existing class interfaces as we can so that our apps don't have much re-coding!
                            Input data is existing W3D files, no format changes or new tools!  (for now anyway :-)
                            Incorporate the ideas in Jani's DX8 code, grouping small meshes together in larger VBs, etc
- 
-GERD Replacement - our new low-level rendering interface needs to be the replacement for everywhere we are using the GERD.  It needs to supply all of the features that we are using in the GERD currently while allowing us to use Jani's mesh optimizations.  There is a lot to think about here and almost everything depends on us doing this right.  It also might need to serve as an abstraction layer so that I can implement a software VIS-renderer behind it.  
+
+GERD Replacement - our new low-level rendering interface needs to be the replacement for everywhere we are using the GERD.  It needs to supply all of the features that we are using in the GERD currently while allowing us to use Jani's mesh optimizations.  There is a lot to think about here and almost everything depends on us doing this right.  It also might need to serve as an abstraction layer so that I can implement a software VIS-renderer behind it.
 SOLUTION: No GERD replacement, no abstraction layer.  DX8Wrapper will be a thin insulation layer though.
 
 VIS - I'll have to re-implement the rendering code for VIS.  It will be a 32bit, solid fill, zbuffering software rasterizer.  Not too hard but still a bit of work.  Needs to be done in a way that all render objects can be rendered through it easily.
 SOLUTION: Vis rendering will branch at the render object level to a new custom vis rasterizer possibly based on the bw shadow code
 
-TEXTURES - there are many features in the textures system, the "file cache", background loading, LOD, tga loading, global texture reduction factor, etc.  
+TEXTURES - there are many features in the textures system, the "file cache", background loading, LOD, tga loading, global texture reduction factor, etc.
 SOLUTION: Naty is working on this system.
- 
+
 MESHMODEL - I think we'll need to do some load-time conversion of all of our mesh-models into a form similar to Jani's dx8 mesh code.  More thought needs to be put into this.
- 
-ALPHA SORTING - This issue becomes especially complex when you think about mixing different types of render objects.  This issue will influence how we design the low level rendering interface.  
+
+ALPHA SORTING - This issue becomes especially complex when you think about mixing different types of render objects.  This issue will influence how we design the low level rendering interface.
 SOLUTION: There will be a custom alpha sorting/rendering system.  RenderObjects will be allowed to talk to either DX8 or this system.
 
 UNIX - It looks like Neal has put some effort into making ww3d compile under Unix.  We will probably make life very difficult for him if there are DX8 calls all over the place :-)
@@ -263,7 +263,7 @@ the asset manager for a new texture. We should probably use the hashtable templa
 for this instead.
 * The VectorProcessorClass stuff is completely unoptimized - we might want to
 optimize this in future.
- 
+
 
 ********* NEW STUFF ************
 DX8 Features which we currently do not support and might want to in future:

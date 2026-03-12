@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/transition.cpp                        $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 1/09/02 3:53p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 75                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/transition.cpp                        $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 1/09/02 3:53p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 75                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 /*
@@ -78,8 +78,8 @@ const char * TransitionTypeNames[] = {
 */
 bool	Is_Point_Inside( const Vector3 & pos, const Vector3 & min, const Vector3 & max )
 {
-	return ( ( pos.X >= min.X ) && ( pos.X <= max.X ) && 
-				( pos.Y >= min.Y ) && ( pos.Y <= max.Y ) && 
+	return ( ( pos.X >= min.X ) && ( pos.X <= max.X ) &&
+				( pos.Y >= min.Y ) && ( pos.Y <= max.Y ) &&
 				( pos.Z >= min.Z ) && ( pos.Z <= max.Z ) );
 }
 
@@ -129,7 +129,7 @@ bool TransitionDataClass::Save( ChunkSaveClass & csave )
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ZONE, Zone );
 		WRITE_MICRO_CHUNK( csave, MICROCHUNKID_ENDING_TM, EndingTM );
 		WRITE_MICRO_CHUNK_WWSTRING( csave, MICROCHUNKID_ANIMATION_NAME, AnimationName );
-		
+
 	csave.End_Chunk();
 	return true;
 }
@@ -160,7 +160,7 @@ bool TransitionDataClass::Load( ChunkLoadClass & cload )
 					cload.Close_Micro_Chunk();
 				}
 				break;
-			}	
+			}
 
 			default:
 				Debug_Say(( "Unrecognized Transition chunkID\n" ));
@@ -170,7 +170,7 @@ bool TransitionDataClass::Load( ChunkLoadClass & cload )
 		cload.Close_Chunk();
 	}
 
-	switch ( Type ) { 
+	switch ( Type ) {
 		case LEGACY_VEHICLE_ENTER_0:
 		case LEGACY_VEHICLE_ENTER_1:
 			Type = VEHICLE_ENTER;
@@ -278,17 +278,17 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 
 	// ignore triggers when transitioning
 	if ( obj->Is_State_Locked() ) {
-		return false;		
+		return false;
 	}
 
 	// Bail if not manually triggered and not ladder exit and
-	if ( !action_trigger && 
-		  ( Get_Type() != TransitionDataClass::LADDER_EXIT_TOP ) && 
+	if ( !action_trigger &&
+		  ( Get_Type() != TransitionDataClass::LADDER_EXIT_TOP ) &&
 		  ( Get_Type() != TransitionDataClass::LADDER_EXIT_BOTTOM ) ) {
 #if 0
 		// no auto transitions or not human controlled
 		if ( !CombatManager::Are_Transitions_Automatic() ||
-			  !obj->Is_Human_Controlled() ) 
+			  !obj->Is_Human_Controlled() )
 #endif
 		{
 			return false;
@@ -330,7 +330,7 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 				case TransitionDataClass::VEHICLE_ENTER:
 				case TransitionDataClass::VEHICLE_EXIT:
 					vel.Z = 0; // don't consider vertical
-					end_direction = EndingTM.Get_Translation() - Zone.Center; 
+					end_direction = EndingTM.Get_Translation() - Zone.Center;
 					end_direction.Normalize();
 					break;
 
@@ -429,12 +429,12 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 	//
 	Matrix3D dummy_tm;
 	MoveablePhysClass *move_phys = obj->Peek_Physical_Object()->As_MoveablePhysClass();
-	
+
 	switch ( Get_Type() ) {
 
 		case TransitionDataClass::LADDER_ENTER_TOP:
 		case TransitionDataClass::LADDER_ENTER_BOTTOM:
-		{			
+		{
 			//
 			//	Its not legal to get on a ladder when someone else is on the ladder.
 			// Try to detect this case.
@@ -450,12 +450,12 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 
 		case TransitionDataClass::LADDER_EXIT_TOP:
 		case TransitionDataClass::LADDER_EXIT_BOTTOM:
-			
+
 			//
 			// When exiting a Ladder, we just have to check for a dynamic object blocking our
 			// exit point.  (the third parameter to Can_Teleport_And_Stand is true...)
 			//
-			/*if (	move_phys != NULL &&	
+			/*if (	move_phys != NULL &&
 				   move_phys->Can_Teleport(EndingTM, true) == false)
 			{
 				condition = false;
@@ -463,30 +463,30 @@ bool	TransitionInstanceClass::Check( SoldierGameObj *obj, bool action_trigger )
 		break;
 
 		case TransitionDataClass::VEHICLE_EXIT:
-			
+
 			//
 			// When exiting a vehicle, we perform two steps:
 			// - ignore our vehicle and sweep the character to the exit transform
 			// - un-ignore the vehicle and do a teleport test.
 			//
 			if (move_phys != NULL) {
-				
+
 				bool can_move_to;
-				
+
 				VehicleGameObj * vgobj = Get_Vehicle();
 				PhysClass * pobj = vgobj->Peek_Physical_Object();
-				
+
 				pobj->Inc_Ignore_Counter();
 				can_move_to = move_phys->Can_Move_To(EndingTM);
 				pobj->Dec_Ignore_Counter();
 
-				if (	(can_move_to == false) || 
-						(move_phys->Can_Teleport_And_Stand(EndingTM,&dummy_tm) == false) ) 
+				if (	(can_move_to == false) ||
+						(move_phys->Can_Teleport_And_Stand(EndingTM,&dummy_tm) == false) )
 				{
 					condition = false;
 				}
 			}
-	
+
 		break;
 
 	}
@@ -547,7 +547,7 @@ void	TransitionInstanceClass::Start( SoldierGameObj *obj )
 
 		case TransitionDataClass::LADDER_ENTER_TOP:
 		case TransitionDataClass::LADDER_ENTER_BOTTOM:
-		{			
+		{
 			//
 			//	Mark this ladder as being "in use" so no one else tries to get on it
 			//
@@ -604,7 +604,7 @@ void	TransitionInstanceClass::Start( SoldierGameObj *obj )
 
 }
 
-void	TransitionInstanceClass::End( SoldierGameObj *obj, 
+void	TransitionInstanceClass::End( SoldierGameObj *obj,
 				TransitionCompletionDataStruct * completion_data )
 {
 	VehicleGameObj * vehicle = (VehicleGameObj *)completion_data->Vehicle.Get_Ptr();
@@ -695,7 +695,7 @@ void	TransitionManager::Reset( void )
 void	TransitionManager::Destroy_Pending( void )
 {
 	while ( TransitionsDestroy.Get_Count() ) {
-		TransitionInstanceClass * trans = TransitionsDestroy.Remove_Head(); 
+		TransitionInstanceClass * trans = TransitionsDestroy.Remove_Head();
 		Transitions.Remove( trans );
 		delete trans;
 	}
@@ -719,11 +719,11 @@ void	TransitionManager::Build_Ladder_List (DynamicVectorClass<TransitionInstance
 {
 	SLNode<TransitionInstanceClass> *ti_node = NULL;
 	for (	ti_node = Transitions.Head(); ti_node; ti_node = ti_node->Next()) {
-		
+
 		//
 		//	Is this a ladder transition?
 		//
-		TransitionDataClass::StyleType type = ti_node->Data()->Get_Type ();	
+		TransitionDataClass::StyleType type = ti_node->Data()->Get_Type ();
 		if (	type == TransitionDataClass::LADDER_EXIT_TOP || type == TransitionDataClass::LADDER_EXIT_BOTTOM ||
 				type == TransitionDataClass::LADDER_ENTER_TOP || type == TransitionDataClass::LADDER_ENTER_BOTTOM)
 		{

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : LightMap                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tool $* 
- *                                                                                             * 
- *                      $Author:: Ian_l               $* 
- *                                                                                             * 
- *                     $Modtime:: 6/06/01 5:40p       $* 
- *                                                                                             * 
- *                    $Revision:: 35                                                        $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : LightMap                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tool $*
+ *                                                                                             *
+ *                      $Author:: Ian_l               $*
+ *                                                                                             *
+ *                     $Modtime:: 6/06/01 5:40p       $*
+ *                                                                                             *
+ *                    $Revision:: 35                                                        $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef _LIGHTMAPPACKER_H
@@ -76,10 +76,10 @@ class TrueColorTarga : public Targa
 		void		 Reformat (unsigned width, unsigned height, unsigned pixeldepth);
 		void		 Reformat (unsigned width, unsigned height, unsigned pixeldepth, const W3dRGBStruct &clearcolor);
 
-		unsigned	 Width()	const											{return (Header.Width);}                                         
-		unsigned	 Height() const										{return (Header.Height);}                                        
-		unsigned	 Pixel_Depth()	const									{return (Header.PixelDepth);}                                    
-		void		 Scale (unsigned width, unsigned height)		{Scale (*this, width, height);}                                  
+		unsigned	 Width()	const											{return (Header.Width);}
+		unsigned	 Height() const										{return (Header.Height);}
+		unsigned	 Pixel_Depth()	const									{return (Header.PixelDepth);}
+		void		 Scale (unsigned width, unsigned height)		{Scale (*this, width, height);}
 		void		 Scale (TrueColorTarga &destination)			{Scale (destination, destination.Width(), destination.Height());}
 		void		 Scale (float filtererror)							{Scale (*this, filtererror);}
 		void		 Transpose()											{Transpose (*this);}
@@ -103,7 +103,7 @@ class TrueColorTarga : public Targa
 		bool Set_Color (unsigned x, unsigned y, const W3dRGBStruct &color);
 
 	protected:
-		
+
 		enum TransposeEnum {
 			UNTRANSPOSED,
 			TRANSPOSED,
@@ -116,8 +116,8 @@ class TrueColorTarga : public Targa
 			UnpackedTexelStruct (unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 			{
 				Set (r, g, b, a);
-			} 
-			
+			}
+
 			void Set (unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 			{
 				Byte [0] = a;
@@ -175,8 +175,8 @@ class TrueColorTarga : public Targa
 
 		void Clear (const UnpackedTexelStruct &cleartexel);
 
-	private:		
-	
+	private:
+
 		// Inlines.
 		unsigned char		  *Get_Texel (int x, int y) const;
 		UnpackedTexelStruct *Unpack_Texel (unsigned char *packedtexelptr, unsigned packedbytespertexel, UnpackedTexelStruct &unpackedtexel) const;
@@ -207,16 +207,16 @@ class Page : public TrueColorTarga
 		{
 			return (((float) UsedTexelCount) / (((unsigned) Width()) * ((unsigned) Height())));
 		}
-		
+
 		float	Replica_Efficiency() const
 		{
 			return (((float) ReplicaTexelCount) / (((unsigned) Width()) * ((unsigned) Height())));
 		}
-		
+
 	private:
-		
+
 		class Region : public GenericNode {
-			
+
 			public:
 
 				// Public functions.
@@ -241,13 +241,13 @@ class Page : public TrueColorTarga
 				unsigned X0, Y0;
 				unsigned X1, Y1;
 		};
-		
+
 		// Private functions.
 		bool Replica_Region (TrueColorTarga &targa, float epsilon, Region &replicaregion);
 		bool Lowest_Cost_Region (TrueColorTarga &targa, unsigned &lowestcost, Region &lowestcostregion);
 		void Insert_Region (const Region &insertionregion);
 		bool Contains (const Region &testregion);
-		
+
 		// Statistics functions.
 		void Reset_Statistics();
 
@@ -266,21 +266,21 @@ class TargaLoader {
 
 	public:
 
-		// Public functions.	
+		// Public functions.
 		TargaLoader (float samplerate, W3dRGBStruct fillcolor);
 	  ~TargaLoader();
-	
+
 		TrueColorTarga *Load (const Triangle &triangle);
-	
+
 	private:
-	
+
 		struct TargaCacheStruct {
-			
+
 			TargaCacheStruct()
 			{
 				Ptr = NULL;
 			}
-			
+
 			~TargaCacheStruct()
 			{
 				if (Ptr != NULL) delete Ptr;
@@ -303,18 +303,18 @@ class TargaLoader {
 
 		// Private functions.
 		TargaLoader() {}
-		
+
 		unsigned Index (unsigned id)
 		{
 			return (id % ((unsigned) Cache.Length()));
 		}
 
 		// Private data.
-		VectorClass			 <TargaCacheStruct> Cache;			// A simple array of targacache objects. 
+		VectorClass			 <TargaCacheStruct> Cache;			// A simple array of targacache objects.
 		DynamicVectorClass <TrueColorTarga*>  CleanupList;	// List of targas that have been displaced from the cache but cannot
-																			// yet be deleted because they may still be referenced.	
+																			// yet be deleted because they may still be referenced.
 		float											  SampleRate;	// No. of texels per unit length.
-		W3dRGBStruct								  FillColor;	// Color to replace during fill operations.	
+		W3dRGBStruct								  FillColor;	// Color to replace during fill operations.
 };
 
 
@@ -325,8 +325,8 @@ class TrianglePacker {
 		TrianglePacker (const PackingTriangle *principaltriangleptr, const DynamicVectorClass <Triangle> &adjtriangles, unsigned groupid, unsigned edgeblendthickness, float samplerate, W3dRGBStruct fillcolor);
 
 		DynamicVectorClass <PackingTriangle*> &Principal_Triangles() {return (PrincipalTriangles);}
-		
-		// Query functions. 
+
+		// Query functions.
 		unsigned	Width() const	{return (UpperBound.U - LowerBound.U);}
 		unsigned	Height() const {return (UpperBound.V - LowerBound.V);}
 
@@ -335,7 +335,7 @@ class TrianglePacker {
 		void Rasterize (TargaLoader &targaloader, ProceduralTexture *proceduraltexture, TrueColorTarga &rasterizedtarga);
 
 		// Statistics.
-		unsigned Adjacent_Face_Count() const 
+		unsigned Adjacent_Face_Count() const
 		{
 			return (AdjacentTriangles [ADJACENT_PROJECTION_COMMON].Count() +
 					  AdjacentTriangles [ADJACENT_PROJECTION_VALID].Count() +
@@ -370,13 +370,13 @@ class TrianglePacker {
 		};
 
 		class ProjectionTriangle {
-		  
+
 			public:
 
 				// Public functions.
 				ProjectionTriangle() {}
 				ProjectionTriangle (const Vector3 *points, const Vector2 *sourceuvs, const TrueColorTarga *sourcetargaptr, const Vector2 *projectionuvs);
-		
+
 				// Public data.
 				Vector3			 Points [Triangle::VERTICES_COUNT];
 				Vector2			 SourceUVs [Triangle::VERTICES_COUNT];
@@ -390,10 +390,10 @@ class TrianglePacker {
 
 				// Public functions.
 				SampleSurface (unsigned width, unsigned height, ProceduralTexture *blendtexture = NULL);
-				
+
 				bool Sample (const Vector2 &samplepoint, const ProjectionTriangle &projectiontriangle, unsigned priority);
 				bool Sample (float alpha, float beta, const ProjectionTriangle &projectiontriangle, unsigned priority);
-				
+
 				bool Get_Color (unsigned x, unsigned y, W3dRGBStruct &color)
 				{
 					SampleStruct *sampleptr;
@@ -401,7 +401,7 @@ class TrianglePacker {
 					ASSERT ((x < Width) && (y < Height));
 					sampleptr = Surface + (y * Width + x);
 					if (sampleptr->Count > 0) {
-			
+
 						float		oocount;
 						unsigned	r, g, b;
 
@@ -441,9 +441,9 @@ class TrianglePacker {
 
 				unsigned				 Width;
 				unsigned				 Height;
-				unsigned				 SampledTexelCount;	
+				unsigned				 SampledTexelCount;
 				SampleStruct		*Surface;
-				ProceduralTexture *BlendTexture;	
+				ProceduralTexture *BlendTexture;
 		};
 
 		// Private functions.
@@ -459,10 +459,10 @@ class TrianglePacker {
 
 		// Private data.
 		ProjectionEnum								  Projection;												// Texture projection to be used for rasterization.
-		unsigned										  GroupID;	
-		unsigned										  EdgeBlendThickness;	
+		unsigned										  GroupID;
+		unsigned										  EdgeBlendThickness;
 		float											  SampleRate;												// No. of texels per unit length.
-		W3dRGBStruct								  FillColor;													// Color to replace during fill operations.	
+		W3dRGBStruct								  FillColor;													// Color to replace during fill operations.
 		DynamicVectorClass <PackingTriangle*> PrincipalTriangles;										// Set of triangles that will be rasterized in their entirety (ie. not edge blended).
 		DynamicVectorClass <Triangle>			  AdjacentTriangles [ADJACENT_PROJECTION_COUNT];	// Set of triangles that will be edge-blended.
 		Vector2										  LowerBound;												// Lower bound of all principal triangle points projected onto the texel plane.
@@ -473,7 +473,7 @@ class TrianglePacker {
 class LightmapPacker {
 
 	public:
-	
+
 		enum ThicknessEnum {
 			EDGE_BLEND_THICKNESS = 2	// No. of texels to pad around every packed map.
 												// NOTE: The edge blend thickness is designed to prevent
@@ -496,13 +496,13 @@ class LightmapPacker {
 			STATISTICS_OVERSIZE_LIGHTMAPS,
 			STATISTICS_COUNT,
 
-			STATISTICS_STRING_SIZE = 32	// Size of statistic string in bytes.	
+			STATISTICS_STRING_SIZE = 32	// Size of statistic string in bytes.
 		};
 
 		 LightmapPacker();
 		 Finish();
 	   ~LightmapPacker();
-		
+
 		void					 Submit (PackingTriangle *principaltriangleptr, const DynamicVectorClass <Triangle> &adjtriangles);
 		TrianglePacker		*Merge (TrianglePacker *trianglepackerptr);
 		void					 Pack (ProceduralTexture *proceduraltexture = NULL);
@@ -522,8 +522,8 @@ class LightmapPacker {
 		void Update_Statistics (const Page &page);
 		void Update_Statistics (const TrianglePacker &trianglepacker);
 		void Collate_Statistics();
-		
-		W3dRGBStruct		  FillColor;				// Color used to pad unused texels in lightmaps. 
+
+		W3dRGBStruct		  FillColor;				// Color used to pad unused texels in lightmaps.
 		float					  ScaleFactor;				// Global lightmap scaling	factor (0.0...1.0).
 		float					  FilterError;				// Maximum allowed variance between a color component of original
 																// lightmap	and that of packed lightmap, expressed as a fraction
@@ -535,7 +535,7 @@ class LightmapPacker {
 
 
 		int					  CurrentPageIndex;		// Current page (-1 indicates no page exists).
-		
+
 		DynamicVectorClass <TrianglePacker*>  TrianglePackerPtrs;
 		DynamicVectorClass <Page*>				  PagePtrs;
 		TextureNameNode							 *PlaceholderTextureNameNodePtr;
@@ -544,7 +544,7 @@ class LightmapPacker {
 		unsigned  FaceCount;
 		unsigned	 LightmapCount;
 		unsigned	 AdjacentFaceCount;
-		unsigned	 BlendedFaceCount;	
+		unsigned	 BlendedFaceCount;
 		double	 EdgeBlendAreaSum;
 		int64_t	 UnscaledTexelCount;
 		int64_t	 ScaledTexelCount;
@@ -569,14 +569,14 @@ class LightmapPacker {
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/27/00    IML : Created.                                                                * 
+ *   06/27/00    IML : Created.                                                                *
  *=============================================================================================*/
 inline bool TrueColorTarga::Get_Color (const Vector2 &t, W3dRGBStruct &color)	const
 {
 	int						x, y;
 	unsigned char		  *texelptr;
 	UnpackedTexelStruct  unpackedtexel;
-	
+
 	x = t.U * Width();
 	y = t.V * Height();
 	texelptr = Get_Texel (x, y);
@@ -597,7 +597,7 @@ inline bool TrueColorTarga::Get_Color (const Vector2 &t, W3dRGBStruct &color)	co
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   06/27/00    IML : Created.                                                                * 
+ *   06/27/00    IML : Created.                                                                *
  *=============================================================================================*/
 inline bool TrueColorTarga::Set_Color (unsigned x, unsigned y, const W3dRGBStruct &color)
 {
@@ -625,7 +625,7 @@ inline bool TrueColorTarga::Set_Color (unsigned x, unsigned y, const W3dRGBStruc
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 inline unsigned char *TrueColorTarga::Get_Texel (int x, int y) const
 {
@@ -647,21 +647,21 @@ inline unsigned char *TrueColorTarga::Get_Texel (int x, int y) const
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 inline TrueColorTarga::UnpackedTexelStruct *TrueColorTarga::Unpack_Texel (unsigned char *packedtexelptr, unsigned packedbytespertexel, UnpackedTexelStruct &unpackedtexel) const
 {
 	switch (packedbytespertexel) {
 
 		case 4:
-			
+
 			// Packed format same as unpacked format.
 			ASSERT (sizeof (UnpackedTexelStruct) == 4);
 			unpackedtexel = *((UnpackedTexelStruct*) packedtexelptr);
 			break;
 
 		case 3:
-			
+
 			// Unpack to ordering ARGB. Set Alpha to zero.
 			unpackedtexel.Byte [0] = 0;							// Alpha
 			unpackedtexel.Byte [1] = *(packedtexelptr + 0); // Red
@@ -670,7 +670,7 @@ inline TrueColorTarga::UnpackedTexelStruct *TrueColorTarga::Unpack_Texel (unsign
 			break;
 
 		case 2:
-			{			
+			{
 				static unsigned char _alpha [2] = {0x00, 0xff};
 
 				unsigned short packedtexel = *((unsigned short*) packedtexelptr);
@@ -684,13 +684,13 @@ inline TrueColorTarga::UnpackedTexelStruct *TrueColorTarga::Unpack_Texel (unsign
 			break;
 
 		default:
-			
+
 			// Unrecognized byte count.
 			ASSERT (0);
 			break;
 	}
 	return (&unpackedtexel);
-}				
+}
 
 
 /***********************************************************************************************
@@ -703,7 +703,7 @@ inline TrueColorTarga::UnpackedTexelStruct *TrueColorTarga::Unpack_Texel (unsign
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   9/27/99    IML : Created.                                                                 * 
+ *   9/27/99    IML : Created.                                                                 *
  *=============================================================================================*/
 inline void TrueColorTarga::Pack_Texel (const UnpackedTexelStruct &unpackedtexel, unsigned char *packedtexelptr, unsigned packedbytespertexel)
 {
@@ -717,7 +717,7 @@ inline void TrueColorTarga::Pack_Texel (const UnpackedTexelStruct &unpackedtexel
 			break;
 
 		case 3:
-			
+
 			// Pack to ordering RGB. Lose Alpha.
 			*(packedtexelptr + 0) = unpackedtexel.Byte [1];
 			*(packedtexelptr + 1) = unpackedtexel.Byte [2];
@@ -738,12 +738,12 @@ inline void TrueColorTarga::Pack_Texel (const UnpackedTexelStruct &unpackedtexel
 			break;
 
 		default:
-			
+
 			// Unrecognized byte count.
 			ASSERT (0);
 			break;
 	}
-}				
+}
 
 
 #endif // LIGHTMAPPACKER_H

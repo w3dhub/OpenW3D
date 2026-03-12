@@ -63,7 +63,7 @@ class ChunkLoadClass;
 class TDBCategoryClass : public PersistClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
-	
+
 	//
 	// From PersistClass
 	//
@@ -95,14 +95,14 @@ public:
 	//
 	// TDBCategoryClass specific
 	//
-	
+
 	const StringClass &			Get_Name (void) const			{ return Name; }
 	void								Set_Name (const char *name)	{ Name = name; }
 
 	uint32							Get_ID (void) const				{ return ID; }
 	void								Set_ID (uint32 id)				{ ID = id; }
-	
-	
+
+
 protected:
 
 	//////////////////////////////////////////////////////////////

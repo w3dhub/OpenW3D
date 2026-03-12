@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/repairbaygameobj.h                    $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 7/16/01 11:20a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 6                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/repairbaygameobj.h                    $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 7/16/01 11:20a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 6                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -143,7 +143,7 @@ public:
 	//	From BuildingGameObj
 	//
 	void					CnC_Initialize (BaseControllerClass *base) override;
-	
+
 	//
 	//	GameObj methods
 	//
@@ -177,12 +177,12 @@ private:
 
 	////////////////////////////////////////////////////////////////
 	//	Private member data
-	////////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////////
 	float					RepairTimer;
 	OBBoxClass			RepairZone;
 	int					RepairAnimationID;
 	bool					IsReparing;
-	
+
 	DynamicVectorClass<GameObjReference>	VehicleList;
 	StaticPhysClass *								RepairMesh;
 

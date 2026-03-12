@@ -53,20 +53,20 @@ class LookupTableClass;
 
 
 /**
-** MotorVehicleClass 
-** This is simply a RigidBodyClass with an internal "engine".  In derived 
-** classes, the engine will propel the object in some way.  
-** 
+** MotorVehicleClass
+** This is simply a RigidBodyClass with an internal "engine".  In derived
+** classes, the engine will propel the object in some way.
+**
 ** NOTES:
-** March 13,2000:  
+** March 13,2000:
 ** --------------
-** Adding an engine model which simulates the interaction between the engine speeding up 
+** Adding an engine model which simulates the interaction between the engine speeding up
 ** and the wheel forces resisting, etc.  The goal is to get the following behaviours:
-** - when wheels aren't contacting the ground, the engine revs up 
+** - when wheels aren't contacting the ground, the engine revs up
 ** - if the engine is revved up and the wheels come in contact, there is a reaction force
 ** - wheels can "peel out" in low gears if the parameters are set correctly
 ** - we have a parameter (EngineAngularVelocity) which can nicely drive a realistic engine sound
-** 
+**
 ** To do this, I've added an EngineTorqueCurve which relates the rpm's of the engine
 ** to the torque it can output.  This is transmitted to the drive wheels (equally distributed
 ** between them).  The drive wheels "use up" as much of this torque as they can through
@@ -78,7 +78,7 @@ class LookupTableClass;
 ** (EngineTorque(EngineAngularVel) - ReactionTorque) / DriveTrainInertia = EngineAngularAccel
 ** ReactionTorque = MIN(EngineTorque,FrictionLimit)
 ** At higher speeds, something (DriveTrainInertia?) must bring EngineTorque down below
-** FrictionLimit or we'll be peeling out again!  
+** FrictionLimit or we'll be peeling out again!
 ** Maybe just fake this: if (gear>1) roll wheels according to actual movement
 **
 ** March 21, 2000:
@@ -89,12 +89,12 @@ class MotorVehicleClass : public VehiclePhysClass
 {
 public:
 
-	MotorVehicleClass(void);	
+	MotorVehicleClass(void);
 	virtual ~MotorVehicleClass(void);
 	virtual MotorVehicleClass * As_MotorVehicleClass(void) override { return this; }
 
 	void					Init(const MotorVehicleDefClass & def);
-	
+
 	virtual void		Timestep(float dt) override;
 
 	// Accessors for the current state
@@ -124,17 +124,17 @@ protected:
 
 	// Integration system
 	virtual int			Set_State(const StateVectorClass & new_state,int start_index) override;
-	
-	// Internal engine simulation methods	
+
+	// Internal engine simulation methods
 	float					Compute_Engine_Angular_Acceleration(void);
 	void					Shift_Up(void);
 	void					Shift_Down(void);
 
 	// Variables
 	float					EngineAngularVelocity;		// This is a state variable to be integrated with the others
-	int					CurrentGear;					
+	int					CurrentGear;
 	float					ShiftTimer;						// delay in seconds between allowed shifting
-		
+
 	float					AcceleratorFraction;			// amount of gas being given to the engine
 	bool					IsBraking;						// braking state
 
@@ -146,12 +146,12 @@ private:
 
 };
 
-inline const MotorVehicleDefClass * MotorVehicleClass::Get_MotorVehicleDef(void)						
-{ 
+inline const MotorVehicleDefClass * MotorVehicleClass::Get_MotorVehicleDef(void)
+{
 	// All motor vehicles have to have definitions... Most of their parameters are only
 	// stored in the definition now...
 	WWASSERT(Definition != NULL);
-	return (MotorVehicleDefClass *)Definition; 
+	return (MotorVehicleDefClass *)Definition;
 }
 
 
@@ -162,10 +162,10 @@ inline const MotorVehicleDefClass * MotorVehicleClass::Get_MotorVehicleDef(void)
 class MotorVehicleDefClass : public VehiclePhysDefClass
 {
 public:
-	
+
 	MotorVehicleDefClass(void);
 	virtual ~MotorVehicleDefClass(void);
-	
+
 	// From PersistClass
 	virtual uint32								Get_Class_ID (void) const override;
 
@@ -199,7 +199,7 @@ protected:
 	// Engine response
 	float				MaxEngineTorque;
 	StringClass		EngineTorqueCurveFilename;
-	LookupTableClass * EngineTorqueCurve;			// pointer to the torque curve 
+	LookupTableClass * EngineTorqueCurve;			// pointer to the torque curve
 
 	// Transmission and Differential Gear Ratios
 	enum { MAX_GEAR_COUNT = 6 };
@@ -208,7 +208,7 @@ protected:
 	float				GearRatio[MAX_GEAR_COUNT];
 	float				PeakEngineTorque[MAX_GEAR_COUNT];
 	float				FinalDriveGearRatio;
-	
+
 	// Inertias in the drive train
 	float				DriveTrainInertia;
 

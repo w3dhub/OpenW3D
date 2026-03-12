@@ -76,7 +76,7 @@ RenegadeTerrainMaterialPassClass::RenegadeTerrainMaterialPassClass (void)	:
 	::memset (VertexIndexMap, 0, sizeof (VertexIndexMap));
 	::memset (IndexBuffers, 0, sizeof (IndexBuffers));
 	::memset (VertexBuffers, 0, sizeof (VertexBuffers));
-	
+
 	//
 	//	Prep the lists
 	//
@@ -97,7 +97,7 @@ RenegadeTerrainMaterialPassClass::RenegadeTerrainMaterialPassClass (void)	:
 RenegadeTerrainMaterialPassClass::~RenegadeTerrainMaterialPassClass (void)
 {
 	REF_PTR_RELEASE (Material);
-	
+
 	//
 	//	Free the UV array
 	//
@@ -122,7 +122,7 @@ RenegadeTerrainMaterialPassClass::~RenegadeTerrainMaterialPassClass (void)
 			delete [] VertexIndexMap[index];
 			VertexIndexMap[index] = NULL;
 		}
-		
+
 		//
 		//	Release our hold on the index and vertex buffers for this pass
 		//
@@ -158,7 +158,7 @@ RenegadeTerrainMaterialPassClass::Allocate (int vertex_count)
 		GridUVs[index].Set (0.0F, 0.0F);
 	}
 
-	
+
 	//
 	//	Allocate the vertex index map
 	//
@@ -233,7 +233,7 @@ RenegadeTerrainMaterialPassClass::Save (ChunkSaveClass &csave)
 	//
 	int count = 0;
 	for (int index = 0; index < PASS_COUNT; index ++) {
-		
+
 		//
 		//	Save the quad list
 		//
@@ -257,7 +257,7 @@ RenegadeTerrainMaterialPassClass::Save (ChunkSaveClass &csave)
 		//
 		csave.Begin_Chunk (CHUNKID_VERTEX_INDEX_MAP);
 			csave.Write (VertexIndexMap[index], sizeof (int) * VertexCount);
-		csave.End_Chunk ();		
+		csave.End_Chunk ();
 	}
 
 	return true;
@@ -276,7 +276,7 @@ RenegadeTerrainMaterialPassClass::Load (ChunkLoadClass &cload)
 
 	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
-			
+
 			//
 			//	Load all the variables from this chunk
 			//
@@ -300,12 +300,12 @@ RenegadeTerrainMaterialPassClass::Load (ChunkLoadClass &cload)
 				Material = new TerrainMaterialClass;
 				Material->Load (cload);
 				break;
-			}			
+			}
 
 			case CHUNKID_QUAD_LIST:
 			{
 				pass ++;
-				
+
 				//
 				//	Read the number of quads
 				//

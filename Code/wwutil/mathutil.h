@@ -41,7 +41,7 @@ class cMathUtil
       static void		Rotate_Vector(double & vx, double & vy, double angle);
 
       //
-      // Random numbers generated according to simple 
+      // Random numbers generated according to simple
       // Probability Density Functions
       //
       static double  Get_Uniform_Pdf_Double(double lower, double upper);

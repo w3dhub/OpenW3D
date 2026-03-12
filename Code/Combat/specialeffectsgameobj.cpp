@@ -118,9 +118,9 @@ SpecialEffectsGameObjDef::~SpecialEffectsGameObjDef (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 uint32
-SpecialEffectsGameObjDef::Get_Class_ID (void) const	
-{ 
-	return CLASSID_GAME_OBJECT_DEF_SPECIAL_EFFECTS; 
+SpecialEffectsGameObjDef::Get_Class_ID (void) const
+{
+	return CLASSID_GAME_OBJECT_DEF_SPECIAL_EFFECTS;
 }
 
 
@@ -130,7 +130,7 @@ SpecialEffectsGameObjDef::Get_Class_ID (void) const
 //
 ///////////////////////////////////////////////////////////////////////////
 PersistClass *
-SpecialEffectsGameObjDef::Create (void) const 
+SpecialEffectsGameObjDef::Create (void) const
 {
 	SpecialEffectsGameObj *obj = new SpecialEffectsGameObj;
 	obj->Init (*this);
@@ -175,7 +175,7 @@ SpecialEffectsGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized SpecialEffectsGameObjDef chunk ID\n"));
 				break;
@@ -216,7 +216,7 @@ SpecialEffectsGameObjDef::Load_Variables (ChunkLoadClass &cload)
 
 			READ_MICRO_CHUNK_WWSTRING	(cload, VARID_DEF_ANIMATION_NAME,	AnimationName);
 			READ_MICRO_CHUNK				(cload, VARID_DEF_SOUNDID,				SoundDefID);
-			
+
 			default:
 				Debug_Say (("Unrecognized SpecialEffectsGameObjDef Variable chunkID %d\n", cload.Cur_Micro_Chunk_ID ()));
 				break;
@@ -234,9 +234,9 @@ SpecialEffectsGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-SpecialEffectsGameObjDef::Get_Factory (void) const 
-{ 
-	return _SpecialEffectsGameObjDefPersistFactory; 
+SpecialEffectsGameObjDef::Get_Factory (void) const
+{
+	return _SpecialEffectsGameObjDefPersistFactory;
 }
 
 
@@ -278,7 +278,7 @@ SpecialEffectsGameObj::~SpecialEffectsGameObj (void)
 //
 ///////////////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-SpecialEffectsGameObj::Get_Factory (void) const 
+SpecialEffectsGameObj::Get_Factory (void) const
 {
 	return _SpecialEffectsGameObjPersistFactory;
 }
@@ -311,7 +311,7 @@ SpecialEffectsGameObj::Init (const SpecialEffectsGameObjDef &definition)
 	if (phys_obj != NULL) {
 		phys_obj->Set_Collision_Group( UNCOLLIDEABLE_GROUP );
 	}
-	
+
 	return ;
 }
 
@@ -401,7 +401,7 @@ SpecialEffectsGameObj::Do_Effect (void)
 		//
 		const StringClass &anim_name = Get_Definition ().AnimationName;
 		if (anim_name.Get_Length () > 0) {
-			
+
 			//
 			//	Load the animation
 			//
@@ -452,7 +452,7 @@ SpecialEffectsGameObj::Load_Variables (ChunkLoadClass &cload)
 
 			READ_MICRO_CHUNK (cload, VARID_LIFE_REMAINING, LifeRemaining);
 			READ_MICRO_CHUNK (cload, VARID_IS_INITIALIZED, IsInitialized);
-			
+
 			default:
 				Debug_Say (("Unrecognized SpecialEffectsGameObj Variable chunkID %d\n", cload.Cur_Micro_Chunk_ID ()));
 				break;
@@ -491,7 +491,7 @@ SpecialEffectsGameObj::Think (void)
 			Set_Delete_Pending ();
 		}
 	}
-	
+
 	return ;
 }
 

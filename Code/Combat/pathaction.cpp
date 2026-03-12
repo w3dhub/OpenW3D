@@ -733,13 +733,13 @@ void
 PathActionClass::Reset (void)
 {
 	if (GameObj != NULL) {
-		
+
 		//
 		//	Check to see if this unit is "reserving" any of the ladders...
 		//
 		for (int index = 0; index < LadderList.Count (); index ++) {
 			if (LadderList[index] == GameObj) {
-				
+
 				//
 				//	Clear the ladder reservation
 				//

@@ -181,7 +181,7 @@ public:
 	//	Debug support for determine what sounds are playing on which "channels"
 	//
 	int						Get_2D_Sample_Count (void) const override
-	{ 
+	{
 		return m_2DSampleHandles.Count ();
 	}
 	int						Get_3D_Sample_Count (void) const override
@@ -224,7 +224,7 @@ protected:
 
 private:
 	DRIVER_TYPE_2D		Open_2D_Device (WAVEFORMAT *format = NULL);
-	
+
 	//////////////////////////////////////////////////////////////////////
 	//	Registry settings
 	//////////////////////////////////////////////////////////////////////
@@ -234,7 +234,7 @@ private:
 	SoundBufferClass *	Create_Sound_Buffer (FileClass &file, const char *string_id, bool is_3d);
 	SoundBufferClass *	Find_Cached_Buffer (const char *string_id);
 	bool						Cache_Buffer (SoundBufferClass *buffer, const char *string_id);
-	
+
 	//////////////////////////////////////////////////////////////////////
 	//	Miles File Callbacks
 	//////////////////////////////////////////////////////////////////////

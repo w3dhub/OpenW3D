@@ -85,7 +85,7 @@ END_MESSAGE_MAP()
 //
 /////////////////////////////////////////////////////////////////////////////
 BOOL
-EditStringDialogClass::OnInitDialog (void) 
+EditStringDialogClass::OnInitDialog (void)
 {
 	CDialog::OnInitDialog ();
 
@@ -108,7 +108,7 @@ EditStringDialogClass::OnInitDialog (void)
 	//
 	//	Configure the preset picker control
 	//
-	m_PresetPicker.Set_Class_ID (CLASSID_SOUND);	
+	m_PresetPicker.Set_Class_ID (CLASSID_SOUND);
 	if (m_Object != NULL && m_Object->Get_Sound_ID () > 0) {
 		PresetClass *preset = PresetMgrClass::Find_Preset (m_Object->Get_Sound_ID ());
 		m_PresetPicker.Set_Preset (preset);
@@ -120,7 +120,7 @@ EditStringDialogClass::OnInitDialog (void)
 	if (m_Object != NULL) {
 		CString text = static_cast<const char *>(m_Object->Get_English_String ());
 		Convert_Newline_To_Chars (text);
-		
+
 		SetDlgItemText (IDC_CODEID_EDIT, m_Object->Get_ID_Desc ());
 		SetDlgItemText (IDC_STRING_EDIT, text);
 		SetDlgItemText (IDC_ANIMATION_NAME_EDIT, m_Object->Get_Animation_Name ());
@@ -133,14 +133,14 @@ EditStringDialogClass::OnInitDialog (void)
 
 	} else {
 		SetDlgItemText (IDC_CODEID_EDIT, "IDS_");
-		
+
 		//
 		//	Select the CODE ID so the user can enter a valid ID
 		//
 		::SetFocus (::GetDlgItem (m_hWnd, IDC_CODEID_EDIT));
 		SendDlgItemMessage (IDC_CODEID_EDIT, EM_SETSEL, (WPARAM)0, (LPARAM)-1);
 	}
-	
+
 	return false;
 }
 
@@ -164,7 +164,7 @@ EditStringDialogClass::Convert_Newline_To_Chars (CString &string)
 	//	Copy characters between the strings
 	//
 	for (int index = 0; index < count; index ++) {
-		
+
 		if (string[index] == '\n') {
 			retval += "\\n";
 		} else if (string[index] == '\t') {
@@ -188,7 +188,7 @@ void
 EditStringDialogClass::Convert_Chars_To_Newline (CString &string)
 {
 	CString retval;
-	
+
 	//
 	//	Take a guess as to how large to make the final string
 	//
@@ -199,7 +199,7 @@ EditStringDialogClass::Convert_Chars_To_Newline (CString &string)
 	//	Copy characters between the strings
 	//
 	for (int index = 0; index < count; index ++) {
-		
+
 		if (index + 1 < count && string[index] == '\\' && string[index + 1] == 'n') {
 			retval += '\n';
 			index ++;
@@ -225,11 +225,11 @@ void
 EditStringDialogClass::OnOK (void)
 {
 	if (Validate_ID ()) {
-		
+
 		//
 		//	Create a new translation object (if necessary)
-		//		
-		if (m_Object == NULL) {						
+		//
+		if (m_Object == NULL) {
 			m_Object = new TDBObjClass;
 		}
 
@@ -252,7 +252,7 @@ EditStringDialogClass::OnOK (void)
 		m_Object->Set_ID_Desc (code_id);
 		m_Object->Set_English_String (text);
 		m_Object->Set_Animation_Name (anim_name);
-		
+
 		//
 		//	Pass the sound preset ID onto the translation object
 		//
@@ -262,7 +262,7 @@ EditStringDialogClass::OnOK (void)
 			sound_id = sound_preset->Get_ID ();
 		}
 		m_Object->Set_Sound_ID (sound_id);
-		
+
 		CDialog::OnOK ();
 	}
 	return ;
@@ -302,7 +302,7 @@ Validate_String_ID (HWND wnd, const char *string_id)
 	CString code_id = string_id;
 
 	if (code_id.GetLength () == 0) {
-		
+
 		//
 		//	Warn the user they need to enter some ID
 		//
@@ -316,25 +316,25 @@ Validate_String_ID (HWND wnd, const char *string_id)
 		::MessageBox (wnd, "Code identifier is too short. Please enter a more descriptive token for the code identifier.", "Invalid Code ID", MB_ICONERROR | MB_OK);
 
 	} else if (code_id[0] < 0x41 || code_id[0] > 0x7A || (code_id[0] >= 0x5B && code_id[0] <= 0x60)) {
-		
+
 		//
 		//	Warn the user the name must start with a character
 		//
 		::MessageBox (wnd, "The code identifier must begin with a character (not a number), please enter a valid identifier.", "Invalid Code ID", MB_ICONERROR | MB_OK);
 
 	} else {
-		
+
 		//
 		//	Check each character in the string to make sure its exceptable
 		//
 		int count		= code_id.GetLength ();
 		bool is_valid	= true;
-		for (int index = 1; is_valid && index < count; index ++) {			
+		for (int index = 1; is_valid && index < count; index ++) {
 			is_valid &= Is_Valid_ID_Char (code_id[index]);
 		}
 
 		if (is_valid == false) {
-			
+
 			//
 			//	Warn the user that the code ID contains an illegal character
 			//
@@ -359,7 +359,7 @@ bool
 Is_Valid_ID_Char (char ch)
 {
 	bool is_valid = false;
-	
+
 	//
 	//	The character if valid if its either a character, a number, or an underscore
 	//
@@ -367,7 +367,7 @@ Is_Valid_ID_Char (char ch)
 	is_valid |= (ch >= 'A' && ch <= 'Z');
 	is_valid |= (ch >= 'a' && ch <= 'z');
 	is_valid |= (ch == '_');
-	
+
 	return is_valid;
 }
 

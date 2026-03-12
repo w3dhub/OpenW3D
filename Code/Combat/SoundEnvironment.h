@@ -50,13 +50,13 @@ class PhysicsSceneClass;
 // above the camera (at any height). If so then an amplitude value is attenuated. If, the
 // camera is also in an environment zone, then the amplitude is attenuated further. Amplitude
 // values are in the range 0..1. This class also uses a small mixing buffer so that amplitude
-// changes occur smoothly over time. 
+// changes occur smoothly over time.
 class SoundEnvironmentClass : public RefCountClass
 {
 	public:
 		 SoundEnvironmentClass();
 		~SoundEnvironmentClass();
-		
+
 		void  Reset();
 		void  Update (PhysicsSceneClass *scene, CameraClass *camera);
 		float Get_Amplitude() 		{return (AmplitudeSum / AMPLITUDE_BUFFER_SIZE);}
@@ -65,7 +65,7 @@ class SoundEnvironmentClass : public RefCountClass
 		void Remove_User()	{UserCount--;}		// Call to indicate that you no longer need this object.
 
 	protected:
-		
+
 		static constexpr int AMPLITUDE_BUFFER_SIZE = 8;
 
 		unsigned	 UserCount;

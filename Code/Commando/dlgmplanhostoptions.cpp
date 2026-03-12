@@ -123,7 +123,7 @@ MPLanHostOptionsMenuClass::On_Init_Dialog (void)
 
 		TABCTRL_ADD_TAB (tab_ctrl, MPLanHostAdvancedOptionsTabClass);
 		TABCTRL_ADD_TAB (tab_ctrl, MPLanHostVictoryOptionsTabClass);
-		
+
 		//
 		//	Keep a pointer around to the map cycle tab so we can
 		// modify its contents as necessary
@@ -1165,7 +1165,7 @@ MPLanHostMapCycleOptionsTabClass::Enable_Mod_Selection (bool onoff)
 		Enable_Dlg_Item (IDC_MOD_PACKAGE_COMBO, true);
 	} else {
 		Enable_Dlg_Item (IDC_MOD_PACKAGE_COMBO, false);
-		
+
 		//
 		//	Ensure no mod package is selected and rebuild the map list if necessary
 		//

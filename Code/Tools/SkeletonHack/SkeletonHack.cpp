@@ -28,7 +28,7 @@ class HTreeHackClass
 public:
 	HTreeHackClass(void);
 	~HTreeHackClass(void);
-	
+
 	void	Load_W3D(ChunkLoadClass & cload);
 	void	Save_W3D(ChunkSaveClass & csave);
 
@@ -47,7 +47,7 @@ protected:
 
 	void	move_single_bone_to_end(unsigned int bone_index);
 	int	find_first_bad_bone(void);
-	
+
 	W3dHierarchyStruct		Header;
 	W3dPivotStruct *			Pivots;
 	W3dPivotFixupStruct *	PivotFixups;
@@ -55,7 +55,7 @@ protected:
 
 
 
-void Print_Usage(void) 
+void Print_Usage(void)
 {
 	printf("USAGE: SkeletonHack <W3D Filename> <BoneIndex>\r\n");
 	printf("WARNING: This program only works on w3d files that contain a skeleton *ONLY*\r\n");
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	// Try to open the file, 
+	// Try to open the file,
 	char * filename = argv[1];
 	int bone_index = atoi(argv[2]);
 
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	
+
 	// Open the file, read the first chunk, and verify that it is an HTree
 	in_file.Open();
 	ChunkLoadClass cload(&in_file);
@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
 	// Validate the bone_index parameter
 	if ((bone_index < 0) || (bone_index >= htree.Num_Pivots())) {
 		printf("Invalid bone index requested: %d\r\n",bone_index);
-		return 0;					
+		return 0;
 	}
 
 	// Edit the HTree, moving the specified bone to the end of the tree
@@ -139,7 +139,7 @@ HTreeHackClass::~HTreeHackClass(void)
 	delete[] Pivots;
 	delete[] PivotFixups;
 }
-	
+
 void HTreeHackClass::Load_W3D(ChunkLoadClass & cload)
 {
 	/*
@@ -236,7 +236,7 @@ bool HTreeHackClass::write_pivot_fixups(ChunkSaveClass & csave)
 	return true;
 }
 
-void HTreeHackClass::Move_Bone_To_End(int bone_index) 
+void HTreeHackClass::Move_Bone_To_End(int bone_index)
 {
 	move_single_bone_to_end(bone_index);
 
@@ -252,7 +252,7 @@ void HTreeHackClass::move_single_bone_to_end(unsigned int bone_index)
 	if (bone_index >= Header.NumPivots) {
 		return;
 	}
-	
+
 	// move entries at 'bone_index' to the ends of their arrays
 	W3dPivotStruct tmp_pivot = Pivots[bone_index];
 	W3dPivotFixupStruct tmp_fixup = PivotFixups[bone_index];

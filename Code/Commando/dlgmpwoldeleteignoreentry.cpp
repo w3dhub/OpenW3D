@@ -77,10 +77,10 @@ MPWolDeleteIgnoreEntryPopupClass::On_Command (int ctrl_id, int message_id, unsig
 	switch (ctrl_id)
 	{
 		case IDC_DELETE_BUTTON:
-		{	
+		{
 			//
 			//	Simply remove the user from the list
-			//		
+			//
 			if (UserName.Is_Empty () == false) {
 				WOLBuddyMgr* buddyMgr = WOLBuddyMgr::GetInstance(false);
 

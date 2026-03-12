@@ -72,7 +72,7 @@ extern class NodeMgrClass _TheNodeMgr;
 class NodeMgrClass : public SaveLoadSubSystemClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////
@@ -82,12 +82,12 @@ public:
 	//////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////
-	
+
 	// From SaveLoadSubSystemClass
-	virtual uint32				Chunk_ID (void) const;	
+	virtual uint32				Chunk_ID (void) const;
 	virtual void				On_Post_Load (void);
 	virtual const char *		Name (void) const			{ return "NodeMgrClass"; }
-	
+
 	// List management
 	static NodeClass *		Create_Node (PresetClass *preset, uint32 id);
 	static void					Add_Node (NodeClass *node);
@@ -103,7 +103,7 @@ public:
 	static NodeClass *		Get_First (NODE_TYPE type);
 	static NodeClass *		Get_First (PresetClass *preset);
 	static NodeClass *		Find_First (uint32 class_id);
-	static NodeClass *		Get_Next (NodeClass *current);	
+	static NodeClass *		Get_Next (NodeClass *current);
 	static NodeClass *		Get_Next (NodeClass *current, NODE_TYPE type);
 	static NodeClass *		Get_Next (NodeClass *current, PresetClass *preset);
 	static NodeClass *		Find_Next (NodeClass *current, uint32 class_id);
@@ -140,7 +140,7 @@ public:
 	//	Embedded node support
 	//
 	static void					Create_All_Embedded_Nodes (void);
-	
+
 protected:
 
 	//////////////////////////////////////////////////////////////
@@ -160,11 +160,11 @@ private:
 	//	Private methods
 	/////////////////////////////////////////////////////////////////////
 	static void					Link_Node (NodeClass *node);
-	static void					Unlink_Node (NodeClass *node);	
+	static void					Unlink_Node (NodeClass *node);
 
 	/////////////////////////////////////////////////////////////////////
 	//	Static member data
-	/////////////////////////////////////////////////////////////////////	
+	/////////////////////////////////////////////////////////////////////
 	static NodeClass *		_NodeListHead;
 	static uint32				_NextObjectNodeID;
 	static uint32				_NextStaticNodeID;
@@ -175,7 +175,7 @@ private:
 
 /////////////////////////////////////////////////////////////////////
 //	Get_First
-/////////////////////////////////////////////////////////////////////	
+/////////////////////////////////////////////////////////////////////
 inline NodeClass  *
 NodeMgrClass::Get_First (void)
 {

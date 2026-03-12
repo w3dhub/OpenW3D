@@ -125,7 +125,7 @@ DECLARE_SCRIPT(M00_Explosion_Create_At_Bone_RMV, "Start_Now=0:int, Receive_Type:
 		if ((type == custom_type) && (param == parameter))
 		{
 			SCRIPT_DEBUG_MESSAGE(("M00_Explosion_Create_At_Bone_RMV ACTIVATED.\n"));
-			if (Commands->Find_Object(target_id) != NULL)	
+			if (Commands->Find_Object(target_id) != NULL)
 				Commands->Create_Explosion_At_Bone(Get_Parameter("Explosion_Name"), Commands->Find_Object(target_id), Get_Parameter("Bone_Name"), obj);
 		}
 	}
@@ -138,7 +138,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 	int random;
 	int last;
 	int loc_id[10];
-	
+
 
 	enum{EXPLODE};
 
@@ -171,7 +171,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 
 	void Custom(GameObject * obj, int type, intptr_t param, GameObject * /*sender*/) override
 	{
-		
+
 		if(type == M00_CREATE_RANDOM_EXPLOSION && param == 1)
 		{
 			active = true;
@@ -189,7 +189,7 @@ DECLARE_SCRIPT(M00_Create_Random_Explosion_DLS, "Explosion_Name:string, Delay_Mi
 	{
 		if(timer_id == EXPLODE && active)
 		{
-			while (random == last || loc_id[random] == 0) 
+			while (random == last || loc_id[random] == 0)
 			{
 				random = Commands->Get_Random_Int(0, 9);
 			}

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/FolderDialog.h $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 11/24/01 8:52p                $* 
- *                                                                                             * 
- *                    $Revision:: 5                     $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/FolderDialog.h $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 11/24/01 8:52p                $*
+ *                                                                                             *
+ *                    $Revision:: 5                     $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 #ifndef _FOLDER_DIALOG_H
 #define _FOLDER_DIALOG_H
@@ -48,7 +48,7 @@ class FolderDialogClass : public InstallMenuDialogClass
 {
 	public:
 		FolderDialogClass() : InstallMenuDialogClass (IDD_DIALOG_FOLDER) {}
-		
+
 		// RTTI.
 		void *As_FolderDialogClass()		{return (this);}
 
@@ -64,7 +64,7 @@ class FolderDialogClass : public InstallMenuDialogClass
 class GameFolderDialogClass : public FolderDialogClass
 {
 	public:
-		
+
 		// RTTI.
 		virtual void *As_GameFolderDialogClass()		{return (this);}
 
@@ -78,7 +78,7 @@ class GameFolderDialogClass : public FolderDialogClass
 class WOLFolderDialogClass : public FolderDialogClass
 {
 	public:
-		
+
 		// RTTI.
 		virtual void *As_WOLFolderDialogClass()		{return (this);}
 

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/damageablegameobj.h                   $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 2/19/02 1:45p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 21                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/damageablegameobj.h                   $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 2/19/02 1:45p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 21                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -84,7 +84,7 @@ public:
 protected:
 	DefenseObjectDefClass						DefenseObjectDef;
 	StringClass									InfoIconTextureFilename;
-	int											TranslatedNameID;	
+	int											TranslatedNameID;
 	EncyclopediaMgrClass::TYPE					EncyclopediaType;
 	int											EncyclopediaID;
 	bool										NotTargetable;
@@ -138,7 +138,7 @@ public:
 	Vector3		Get_Team_Color(void);
 	bool		Is_Teammate(DamageableGameObj * p_obj);
 	bool		Is_Enemy(DamageableGameObj * p_obj);
-	
+
 
 	//
 	// Network support

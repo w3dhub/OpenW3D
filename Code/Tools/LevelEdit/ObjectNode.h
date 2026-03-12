@@ -61,7 +61,7 @@ class PresetClass;
 class ObjectNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -87,20 +87,20 @@ public:
 	//	RTTI
 	//
 	ObjectNodeClass *		As_ObjectNodeClass (void)		{ return this; }
-	
+
 	//
 	// From NodeClass
-	//	
+	//
 	void			Initialize (void);
 	NodeClass *	Clone (void)							{ return new ObjectNodeClass (*this); }
-	NODE_TYPE	Get_Type (void) const				{ return NODE_TYPE_OBJECT; }	
+	NODE_TYPE	Get_Type (void) const				{ return NODE_TYPE_OBJECT; }
 	int			Get_Icon_Index (void) const		{ return OBJECT_ICON; }
 	PhysClass *	Peek_Physics_Obj (void)	const;
 	bool			Is_Static (void) const				{ return false; }
 	bool			Show_Settings_Dialog (void);
 	void			Add_To_Scene (void);
 	void			Remove_From_Scene (void);
-	void			Set_ID (uint32 id);	
+	void			Set_ID (uint32 id);
 
 	//
 	//	From PersistClass
@@ -109,10 +109,10 @@ public:
 	bool			Load (ChunkLoadClass &cload);
 
 	//
-	// ObjectNode specific	
+	// ObjectNode specific
 	//
 	void					Copy_Scripts (const ObjectNodeClass &src);
-	SCRIPT_LIST &		Get_Scripts (void)				{ return m_Scripts; }	
+	SCRIPT_LIST &		Get_Scripts (void)				{ return m_Scripts; }
 	PhysicalGameObj *	Peek_Game_Obj (void) const;
 
 protected:
@@ -136,7 +136,7 @@ protected:
 //////////////////////////////////////////////////////////////////
 //	Peek_Game_Obj
 //////////////////////////////////////////////////////////////////
-inline PhysicalGameObj *	
+inline PhysicalGameObj *
 ObjectNodeClass::Peek_Game_Obj (void) const
 {
 	PhysicalGameObj *game_obj = NULL;

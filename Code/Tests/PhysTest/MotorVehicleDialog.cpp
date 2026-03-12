@@ -80,7 +80,7 @@ void CMotorVehicleDialog::SetDlgItemFloat(int controlid,float val)
 	SetDlgItemText(controlid,string);
 }
 
-BOOL CMotorVehicleDialog::OnInitDialog() 
+BOOL CMotorVehicleDialog::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 	m_TorqueSpin.SetRange(MIN_TORQUE * 100,MAX_TORQUE * 100);
@@ -91,10 +91,10 @@ BOOL CMotorVehicleDialog::OnInitDialog()
 	return true;
 }
 
-BOOL CMotorVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult) 
+BOOL CMotorVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResult)
 {
 	// make the spin controls work...
-	switch(wParam) 
+	switch(wParam)
 	{
 		case IDC_MVEHICLE_TORQUE_SPIN:
 			LPNMUPDOWN lpnmud = (LPNMUPDOWN) lParam;
@@ -111,7 +111,7 @@ BOOL CMotorVehicleDialog::OnNotify(WPARAM wParam, LPARAM lParam, LRESULT* pResul
 }
 
 
-void CMotorVehicleDialog::OnOK() 
+void CMotorVehicleDialog::OnOK()
 {
 	float mt = GetDlgItemFloat(IDC_MVEHICLE_TORQUE_EDIT);
 	EditedObject->Set_Max_Engine_Torque(mt);

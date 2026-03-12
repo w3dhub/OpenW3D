@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/smartgameobj.h                        $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 11/27/01 11:45a                                             $* 
- *                                                                                             * 
- *                    $Revision:: 124                                                         $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                 * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/smartgameobj.h                        $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 11/27/01 11:45a                                             $*
+ *                                                                                             *
+ *                    $Revision:: 124                                                         $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                 *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #ifndef	SMARTGAMEOBJ_H
@@ -130,7 +130,7 @@ public:
    void	Control_Enable( bool enable )				{ ControlEnabled = enable; }
    bool	Is_Control_Enabled( void )					{ return ControlEnabled; }
 	void	Reset_Controller( void );
-   
+
 	// Update this objects control by reading inputs or running AI/action code
 	virtual	void	Generate_Control( void );
 
@@ -199,7 +199,7 @@ public:
 
 	virtual	void	Get_Information( StringClass & string ) override;
 
-	// 
+	//
 	// Stealth interface
 	// Enable_Stealth - turn this object's cloaking device on or off
 	// Is_Stealth_Enabled - is this object's cloaking device turned on?  (may not be cloaked yet though)

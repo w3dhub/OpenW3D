@@ -49,7 +49,7 @@ class MeshClass;
 
 /**
 ** TrackedVehicleClass
-** This class is used for tanks, APCs, and other tracked vehicles.  Due to the way their 
+** This class is used for tanks, APCs, and other tracked vehicles.  Due to the way their
 ** treads can run in opposite directions and other differences, I do not derive these from
 ** MotorVehicleClass
 */
@@ -68,7 +68,7 @@ public:
 	virtual void					Set_Model(RenderObjClass * model) override;
 
 	/*
-	** Tracked vehicles, left side and right side movement.  
+	** Tracked vehicles, left side and right side movement.
 	*/
 	float								Get_Left_Track_Movement(void)		{ return LeftTrackMovement; }
 	float								Get_Right_Track_Movement(void)	{ return RightTrackMovement; }
@@ -104,7 +104,7 @@ protected:
 		LinearOffsetTextureMapperClass *		Mapper;
 		int											TrackType;
 	};
-	
+
 	SimpleDynVecClass<TrackMapperStruct>	TrackMappers;
 
 private:
@@ -124,7 +124,7 @@ class TrackedVehicleDefClass : public VehiclePhysDefClass
 {
 public:
 	TrackedVehicleDefClass(void);
-	
+
 	// From DefinitionClass
 	virtual uint32								Get_Class_ID (void) const override;
 	virtual PersistClass *					Create(void) const override;

@@ -116,7 +116,7 @@ void MPWolGameListMenuClass::DoDialog(void)
 		{
 		MPWolGameListMenuClass* dialog = new MPWolGameListMenuClass;
 		WWASSERT(dialog != NULL && "Failed to create WOL GameList dialog");
-		
+
 		if (dialog)
 			{
 			dialog->Start_Dialog();
@@ -637,13 +637,13 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 					SetGameTypeFlags(list, itemIndex, gameInfo);
 
 					// Show the map name
-					WideStringClass mapName(64, true);					
+					WideStringClass mapName(64, true);
 
 					//
 					//	If this is a mod'd game, then display the mod_name\map_name...
 					//
 					if (gameInfo.ModName() != NULL && gameInfo.ModName()[0] != 0) {
-						
+
 						//
 						//	Strip off the extension for both the map and the mod package
 						//
@@ -670,7 +670,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 					WideStringClass playersString(64, true);
 					playersString.Format(U_CHAR("%u/%u"), gameInfo.NumPlayers(), gameInfo.MaxPlayers());
 					list->Set_Entry_Text(itemIndex, COL_PLAYERS, playersString);
-					
+
 					// Show the ping time ranking
 					SetPingTimeIcon(list, itemIndex, gameInfo.PingTime());
 
@@ -1142,7 +1142,7 @@ void MPWolGameListMenuClass::HandleNotification(WWOnline::SquadEvent& event)
 				{
 				// Find entry with marker indicating clan vs clan
 				const int count = detailsList->Get_Entry_Count();
-		
+
 				for (int index = 0; index < count; ++index)
 					{
 					int marker = detailsList->Get_Entry_Data(index, 0);

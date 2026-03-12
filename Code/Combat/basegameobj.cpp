@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/basegameobj.cpp                       $* 
- *                                                                                             * 
- *                      $Author:: Byon_g                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 8/23/01 10:52a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 27                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/basegameobj.cpp                       $*
+ *                                                                                             *
+ *                      $Author:: Byon_g                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 8/23/01 10:52a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 27                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "basegameobj.h"
@@ -162,7 +162,7 @@ void	BaseGameObj::Init( const BaseGameObjDef & definition )
 	Definition = &definition;
 }
 
-const BaseGameObjDef &	BaseGameObj::Get_Definition( void ) const 
+const BaseGameObjDef &	BaseGameObj::Get_Definition( void ) const
 {
 	return *Definition;
 };
@@ -205,14 +205,14 @@ bool	BaseGameObj::Load( ChunkLoadClass &cload )
 	WWASSERT( cload.Cur_Chunk_ID() == CHUNKID_VARIABLES );
 	while (cload.Open_Micro_Chunk()) {
 		switch(cload.Cur_Micro_Chunk_ID()) {
-			
+
 			case MICROCHUNKID_IS_PENDING_DELETE:
 			{
 				bool is_delete_pending = false;
 				LOAD_MICRO_CHUNK( cload, is_delete_pending );
 				if (is_delete_pending) {
 					Set_Delete_Pending ();
-				}				
+				}
 				break;
 			}
 

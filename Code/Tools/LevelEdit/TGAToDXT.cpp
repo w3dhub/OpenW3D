@@ -97,7 +97,7 @@ bool TGAToDXTClass::Convert (const char *inputpathname, const char *outputpathna
 		// 4. Dimensions must be power of 2 (see below).
 		validbitdepth = ((targa.Header.PixelDepth == 24) || (targa.Header.PixelDepth == 32));
 		validsize	  = (targa.Header.Width >= 4) && (targa.Header.Height >= 4);
-		validaspect	  = ((float) MAX (targa.Header.Width, targa.Header.Height)) / ((float) MIN (targa.Header.Width, targa.Header.Height)) <= 8.0f; 
+		validaspect	  = ((float) MAX (targa.Header.Width, targa.Header.Height)) / ((float) MIN (targa.Header.Width, targa.Header.Height)) <= 8.0f;
 		if (validbitdepth && validsize && validaspect) {
 			crn_comp_params comp_params;
       comp_params.m_width = targa.Header.Width;
@@ -143,16 +143,16 @@ void TGAToDXTClass::Write (const char *outputpathname)
 	if (!Buffer) {
 		return;
 	}
-	
+
 	HANDLE hfile;
 	DWORD  bytecountwritten;
-	
+
 	hfile = ::CreateFileA (outputpathname, GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, 0L, NULL);
 	if (hfile != INVALID_HANDLE_VALUE) {
-      LockFile (hfile, 0, 0, BufferCount, 0); 
+      LockFile (hfile, 0, 0, BufferCount, 0);
       WriteFile (hfile, Buffer, BufferCount, &bytecountwritten, NULL);
-      UnlockFile (hfile, 0, 0, BufferCount, 0); 
-		
+      UnlockFile (hfile, 0, 0, BufferCount, 0);
+
 		// Stamp the write time (if one has been supplied).
 		if (WriteTimePtr != NULL) {
 			SetFileTime (hfile, NULL, NULL, WriteTimePtr);

@@ -84,7 +84,7 @@ CollisionMath::Overlap_Test(const OBBoxClass & box,const TriClass & tri)
 	return eval_overlap_collision(res);
 }
 
-CollisionMath::OverlapType 
+CollisionMath::OverlapType
 CollisionMath::Overlap_Test(const AABoxClass & aabox,const OBBoxClass & obbox)
 {
 	if (CollisionMath::Intersection_Test(aabox,obbox)) {
@@ -94,7 +94,7 @@ CollisionMath::Overlap_Test(const AABoxClass & aabox,const OBBoxClass & obbox)
 	}
 }
 
-CollisionMath::OverlapType 
+CollisionMath::OverlapType
 CollisionMath::Overlap_Test(const OBBoxClass & obbox,const AABoxClass & aabox)
 {
 	if (CollisionMath::Intersection_Test(obbox,aabox)) {

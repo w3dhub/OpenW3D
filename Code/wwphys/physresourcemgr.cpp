@@ -46,9 +46,9 @@
 /**
 ** Resources that the physics resource manager can allocate-on-demand
 */
-static TextureClass *			_ShadowBlobTexture = NULL;		
+static TextureClass *			_ShadowBlobTexture = NULL;
 static MaterialPassClass *		_HighlightMaterialPass = NULL;
-static TextureClass *			_StealthTexture = NULL;		
+static TextureClass *			_StealthTexture = NULL;
 static TextureClass *			_GridTexture = NULL;
 
 
@@ -67,7 +67,7 @@ void PhysResourceMgrClass::Shutdown(void)
 bool PhysResourceMgrClass::Set_Shadow_Blob_Texture(const char * texname)
 {
 	if (texname == NULL) return false;
-	
+
 	TextureClass * tex = WW3DAssetManager::Get_Instance()->Get_Texture(texname);
 	if (tex == NULL) return false;
 
@@ -95,7 +95,7 @@ MaterialPassClass * PhysResourceMgrClass::Get_Highlight_Material_Pass(void)
 {
 	// If we haven't initialized the highlight material, do it now.
 	if (_HighlightMaterialPass == NULL) {
-	
+
 		// otherwise, create and initialize it
 		_HighlightMaterialPass = NEW_REF(MaterialPassClass,());
 
@@ -107,7 +107,7 @@ MaterialPassClass * PhysResourceMgrClass::Get_Highlight_Material_Pass(void)
 		vmtl->Set_Opacity(1.0f);
 		vmtl->Set_Shininess(0.0f);
 		vmtl->Set_Lighting(true);
-		
+
 		_HighlightMaterialPass->Set_Material(vmtl);
 
 		REF_PTR_RELEASE(vmtl);

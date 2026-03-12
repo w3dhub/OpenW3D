@@ -67,9 +67,9 @@ RefCountListClass			RefCountClass::ActiveRefList;
  * HISTORY:                                                                                    *
  *   3/16/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-RefCountClass *	RefCountClass::Add_Active_Ref(RefCountClass *obj) 
-{ 
-	ActiveRefList.Add_Head(&(obj->ActiveRefNode)); 
+RefCountClass *	RefCountClass::Add_Active_Ref(RefCountClass *obj)
+{
+	ActiveRefList.Add_Head(&(obj->ActiveRefNode));
 	obj->ActiveRefInfo.File = NULL;	// default to no debug information added.
 	obj->ActiveRefInfo.Line = 0;
 	return obj;
@@ -87,15 +87,15 @@ RefCountClass *	RefCountClass::Add_Active_Ref(RefCountClass *obj)
  * HISTORY:                                                                                    *
  *   3/16/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-RefCountClass *	RefCountClass::Set_Ref_Owner(RefCountClass *obj,const char * file,int line) 
-{ 
+RefCountClass *	RefCountClass::Set_Ref_Owner(RefCountClass *obj,const char * file,int line)
+{
 //	static RefCountClass *hunt = (RefCountClass *)0x06558890;
 	static RefCountClass *hunt = (RefCountClass *)0x0;
 	if (obj == hunt) {
 		assert(0);
 	}
-	obj->ActiveRefInfo.File = file; 
-	obj->ActiveRefInfo.Line = line; 
+	obj->ActiveRefInfo.File = file;
+	obj->ActiveRefInfo.Line = line;
 	return obj;
 }
 
@@ -112,12 +112,12 @@ RefCountClass *	RefCountClass::Set_Ref_Owner(RefCountClass *obj,const char * fil
  * HISTORY:                                                                                    *
  *   3/16/98    GTH : Created.                                                                 *
  *=============================================================================================*/
-void RefCountClass::Remove_Active_Ref(RefCountClass * obj) 
-{ 
+void RefCountClass::Remove_Active_Ref(RefCountClass * obj)
+{
 #ifdef PARANOID_REFCOUNTS
 	assert(Validate_Active_Ref(obj));
 #endif
-	obj->ActiveRefNode.Unlink(); 
+	obj->ActiveRefNode.Unlink();
 }
 
 /***********************************************************************************************
@@ -168,9 +168,9 @@ void	RefCountClass::Inc_Total_Refs([[maybe_unused]] RefCountClass * obj)
 RefCountClass* BreakOnReference = 0;
 
 #ifndef NDEBUG
-void RefCountClass::Add_Ref(void)								
-{ 
-	NumRefs++;  	  
+void RefCountClass::Add_Ref(void)
+{
+	NumRefs++;
 
 	// See if programmer set break on for a specific address.
 	if (this == BreakOnReference) {
@@ -178,7 +178,7 @@ void RefCountClass::Add_Ref(void)
 	}
 	Inc_Total_Refs(this);
 }
-#endif																		
+#endif
 
 /***********************************************************************************************
  * RefCountClass::Validate_Active_Ref -- decrements the total reference count                   *

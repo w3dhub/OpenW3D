@@ -16,20 +16,20 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/airstripgameobj.cpp                                                                                                                                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 2/24/02 2:06p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 19                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/airstripgameobj.cpp                                                                                                                                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 2/24/02 2:06p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 19                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "airstripgameobj.h"
@@ -97,7 +97,7 @@ enum
 //	AirStripGameObjDef
 //
 ////////////////////////////////////////////////////////////////
-AirStripGameObjDef::AirStripGameObjDef (void)	:	
+AirStripGameObjDef::AirStripGameObjDef (void)	:
 	CinematicLengthToDropOff (0),
 	CinematicLengthToVehicleDisplay (0),
 	CinematicDefID (0),
@@ -105,10 +105,10 @@ AirStripGameObjDef::AirStripGameObjDef (void)	:
 {
 	//
 	//	Editable support
-	//		
+	//
 	EDITABLE_PARAM (AirStripGameObjDef, ParameterClass::TYPE_FLOAT,		CinematicLengthToDropOff);
 	EDITABLE_PARAM (AirStripGameObjDef, ParameterClass::TYPE_INT,			CinematicSlotIndex);
-	EDITABLE_PARAM (AirStripGameObjDef, ParameterClass::TYPE_FLOAT,		CinematicLengthToVehicleDisplay);	
+	EDITABLE_PARAM (AirStripGameObjDef, ParameterClass::TYPE_FLOAT,		CinematicLengthToVehicleDisplay);
 
 	#ifdef PARAM_EDITING_ON
 		GenericDefParameterClass *param = new GenericDefParameterClass (&CinematicDefID);
@@ -138,8 +138,8 @@ AirStripGameObjDef::~AirStripGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-AirStripGameObjDef::Get_Class_ID (void) const	
-{ 
+AirStripGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_AIRSTRIP;
 }
 
@@ -150,7 +150,7 @@ AirStripGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-AirStripGameObjDef::Create (void) const 
+AirStripGameObjDef::Create (void) const
 {
 	AirStripGameObj *building = new AirStripGameObj;
 	building->Init (*this);
@@ -167,7 +167,7 @@ AirStripGameObjDef::Create (void) const
 bool
 AirStripGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		VehicleFactoryGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
@@ -203,7 +203,7 @@ AirStripGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized AirStrip Def chunkID\n"));
 				break;
@@ -232,7 +232,7 @@ AirStripGameObjDef::Load_Variables (ChunkLoadClass &cload)
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_CINEMATIC_DEFID,					CinematicDefID);
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_CINEMATIC_SLOT_INDEX,			CinematicSlotIndex);
 			READ_MICRO_CHUNK (cload, MICROCHUNKID_DEF_DISPLAY_VEHICLE_TIME,			CinematicLengthToVehicleDisplay);
-		
+
 			default:
 				Debug_Say (("Unrecognized AirStrip Def Variable chunkID\n"));
 				break;
@@ -251,9 +251,9 @@ AirStripGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-AirStripGameObjDef::Get_Factory (void) const 
-{ 
-	return _AirStripGameObjDefPersistFactory; 
+AirStripGameObjDef::Get_Factory (void) const
+{
+	return _AirStripGameObjDefPersistFactory;
 }
 
 
@@ -290,7 +290,7 @@ AirStripGameObj::~AirStripGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-AirStripGameObj::Get_Factory (void) const 
+AirStripGameObj::Get_Factory (void) const
 {
 	return _AirStripGameObjPersistFactory;
 }
@@ -363,7 +363,7 @@ AirStripGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				VehicleFactoryGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -389,7 +389,7 @@ void
 AirStripGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:
@@ -431,7 +431,7 @@ AirStripGameObj::Think (void)
 	//	Begin the cinematic if necessary
 	//
 	if (IsDestroyed == false && GeneratingVehicleID != 0) {
-		
+
 		//
 		//	Start the cinematic (if necessary)
 		//
@@ -441,9 +441,9 @@ AirStripGameObj::Think (void)
 				Start_Cinematic ();
 				ClearDropoffZoneTimer = 0.8f * Get_Definition().CinematicLengthToDropOff;
 			}
-		} 
+		}
 	}
-	
+
 	if ((GeneratingVehicleID != 0) && (IsCinematicStarted)) {
 
 		//
@@ -452,7 +452,7 @@ AirStripGameObj::Think (void)
 		if (DisplayVehicleTimer > UNITIALIZED_TIMER) {
 			DisplayVehicleTimer -= TimeManager::Get_Frame_Seconds ();
 			if (DisplayVehicleTimer < 0) {
-				
+
 				//
 				//	Display the vehicle
 				//
@@ -481,7 +481,7 @@ AirStripGameObj::Think (void)
 		}
 	}
 
-	VehicleFactoryGameObj::Think ();	
+	VehicleFactoryGameObj::Think ();
 	return ;
 }
 
@@ -495,7 +495,7 @@ void
 AirStripGameObj::Begin_Generation (void)
 {
 	CinematicStartTimer	= GenerationTime - Get_Definition ().CinematicLengthToDropOff;
-	IsCinematicStarted	= false;	
+	IsCinematicStarted	= false;
 	return ;
 }
 
@@ -510,14 +510,14 @@ AirStripGameObj::Start_Cinematic (void)
 {
 	if (CombatManager::I_Am_Server () == false) {
 		return ;
-	}	
+	}
 
 	//
 	//	Create the vehicle
 	//
 	VehicleGameObj *vehicle = Create_Vehicle ();
 	if (vehicle != NULL) {
-		
+
 		//
 		//	Hide the vehicle until later
 		//
@@ -553,7 +553,7 @@ AirStripGameObj::Start_Cinematic (void)
 			for (int index = 0; index < script_list.Count (); index ++) {
 				GameObjObserverClass *script = script_list[index];
 				if (::stricmp (script->Get_Name (), "Test_Cinematic") == 0) {
-					
+
 					//
 					//	Attach the vehicle to the given slot in the cinematic
 					//

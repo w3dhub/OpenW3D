@@ -56,12 +56,12 @@ class LoginProfile :
 			};
 
 		static void EnableSaving(bool);
-		
+
 		static void SetCurrent(LoginProfile*);
 
 		// Get the profile for the specified login.
 		static LoginProfile* Get(const unichar_t* loginName, bool createOK = false);
-		
+
 		// Create a login profile.
 		static LoginProfile* Create(const unichar_t* loginName);
 

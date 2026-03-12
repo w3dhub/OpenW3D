@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*************************************************************************** 
- ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     *** 
- *************************************************************************** 
- *                                                                         * 
- *                 Project Name : G                                        * 
- *                                                                         * 
- *                     $Archive:: /Commando/Code/ww3d2/mapper.h           $* 
- *                                                                         * 
- *                      $Author:: Greg_h                                  $* 
- *                                                                         * 
- *                     $Modtime:: 1/06/02 10:53a                          $* 
- *                                                                         * 
- *                    $Revision:: 25                                      $* 
- *                                                                         * 
- *-------------------------------------------------------------------------* 
- * Functions:                                                              * 
+/***************************************************************************
+ ***    C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S     ***
+ ***************************************************************************
+ *                                                                         *
+ *                 Project Name : G                                        *
+ *                                                                         *
+ *                     $Archive:: /Commando/Code/ww3d2/mapper.h           $*
+ *                                                                         *
+ *                      $Author:: Greg_h                                  $*
+ *                                                                         *
+ *                     $Modtime:: 1/06/02 10:53a                          $*
+ *                                                                         *
+ *                    $Revision:: 25                                      $*
+ *                                                                         *
+ *-------------------------------------------------------------------------*
+ * Functions:                                                              *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSC_VER)
@@ -87,8 +87,8 @@ class TextureMapperClass : public RefCountClass
 		TextureMapperClass(const TextureMapperClass & src) : Stage(src.Stage) { }
 
 		virtual void Reset(void) { }
-		
-		virtual TextureMapperClass *		Clone(void) const=0;		
+
+		virtual TextureMapperClass *		Clone(void) const=0;
 		virtual int								Mapper_ID(void) const { return MAPPER_ID_UNKNOWN;}
 
 		virtual bool Is_Time_Variant(void) { return false; }
@@ -107,7 +107,7 @@ class TextureMapperClass : public RefCountClass
 */
 class ScaleTextureMapperClass : public TextureMapperClass
 {
-public:	
+public:
 	ScaleTextureMapperClass(unsigned int stage);
 	ScaleTextureMapperClass(const Vector2 &scale, unsigned int stage);
 	ScaleTextureMapperClass(const INIClass &ini, const char *section, unsigned int stage);
@@ -150,7 +150,7 @@ public:
 		UVOffsetDeltaPerMS = per_sec;
 		UVOffsetDeltaPerMS *= -0.001f;
 	}
-	
+
 protected:
 	Vector2			CurrentUVOffset;		// Current UV offset
 	Vector2			UVOffsetDeltaPerMS;	// Amount to increase offset each millisec
@@ -181,8 +181,8 @@ public:
 	void Set_Frame(unsigned int frame) { CurrentFrame=frame; }
 
 	void Set_Frame_Per_Second(float fps);
-	
-protected:	
+
+protected:
 	// Utility functions
 	void initialize(float fps, unsigned int gridwidth_log2);
 	void update_temporal_state(void);
@@ -217,7 +217,7 @@ public:
 	virtual TextureMapperClass *Clone(void) const override { return NEW_REF( RotateTextureMapperClass, (*this)); }
 
 	virtual void Apply(int uv_array_index) override;
-	
+
 	virtual void Reset(void) override { CurrentAngle = 0.0f; LastUsedSyncTime = WW3D::Get_Sync_Time(); }
 
 	virtual bool Is_Time_Variant(void) override { return true; }
@@ -245,9 +245,9 @@ public:
 	virtual TextureMapperClass *Clone(void) const override { return NEW_REF( SineLinearOffsetTextureMapperClass, (*this)); }
 
 	virtual void Apply(int uv_array_index) override;
-	
+
 	virtual void Reset(void) override { CurrentAngle = 0.0f; LastUsedSyncTime = WW3D::Get_Sync_Time(); }
-	
+
 	virtual bool Is_Time_Variant(void) override { return true; }
 
 private:
@@ -273,7 +273,7 @@ public:
 	virtual TextureMapperClass *Clone(void) const override { return NEW_REF( StepLinearOffsetTextureMapperClass, (*this)); }
 
 	virtual void Apply(int uv_array_index) override;
-	
+
 	virtual void Reset(void) override;
 
 	virtual bool Is_Time_Variant(void) override { return true; }
@@ -302,9 +302,9 @@ public:
 	virtual TextureMapperClass *Clone(void) const override { return NEW_REF( ZigZagLinearOffsetTextureMapperClass, (*this)); }
 
 	virtual void Apply(int uv_array_index) override;
-	
+
 	virtual void Reset(void) override;
-	
+
 	virtual bool Is_Time_Variant(void) override { return true; }
 
 private:
@@ -399,7 +399,7 @@ public:
 
 class GridEnvironmentMapperClass : public GridTextureMapperClass
 {
-public:	
+public:
 	GridEnvironmentMapperClass(float fps,unsigned int gridwidth, unsigned int stage):GridTextureMapperClass(fps,gridwidth,stage) { }
 	GridEnvironmentMapperClass(const INIClass &ini, const char *section, unsigned int stage) : GridTextureMapperClass(ini,section,stage) { }
 	GridEnvironmentMapperClass(const GridTextureMapperClass & src) : GridTextureMapperClass(src) { }

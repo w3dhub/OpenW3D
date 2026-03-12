@@ -54,7 +54,7 @@
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/16/01    IML : Created.                                                                * 
+ *   04/16/01    IML : Created.                                                                *
  *=============================================================================================*/
 SoundEnvironmentClass::SoundEnvironmentClass()
 	: UserCount (0)
@@ -76,7 +76,7 @@ SoundEnvironmentClass::SoundEnvironmentClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/16/01    IML : Created.                                                                * 
+ *   04/16/01    IML : Created.                                                                *
  *=============================================================================================*/
 void SoundEnvironmentClass::Reset()
 {
@@ -99,7 +99,7 @@ void SoundEnvironmentClass::Reset()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/20/01    PDS : Created.                                                                * 
+ *   04/20/01    PDS : Created.                                                                *
  *=============================================================================================*/
 SoundEnvironmentClass::~SoundEnvironmentClass()
 {
@@ -117,7 +117,7 @@ SoundEnvironmentClass::~SoundEnvironmentClass()
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   04/16/01    IML : Created.                                                                * 
+ *   04/16/01    IML : Created.                                                                *
  *=============================================================================================*/
 void SoundEnvironmentClass::Update (PhysicsSceneClass *scene, CameraClass *camera)
 {
@@ -144,12 +144,12 @@ void SoundEnvironmentClass::Update (PhysicsSceneClass *scene, CameraClass *camer
 			LineSegClass				  raycast (cameraposition, raycastendpoint);
 			CastResultStruct			  rayresult;
 			PhysRayCollisionTestClass raytest (raycast, &rayresult, TERRAIN_ONLY_COLLISION_GROUP, COLLISION_TYPE_PROJECTILE);
-			
+
 			scene->Cast_Ray (raytest);
-			
+
 			// Did the ray hit an object?
 			if (raytest.Result->Fraction < 1.0f) {
-				
+
 				// Is the camera in an environment zone (in which case environmental sounds should not be heard)?
 				if (GameObjManager::Is_In_Environment_Zone (cameraposition)) {
 					amplitude = 0.0f;

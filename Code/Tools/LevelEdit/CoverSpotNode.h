@@ -67,7 +67,7 @@ class CoverEntryClass;
 class CoverSpotNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ public:
 	//
 	virtual const PersistFactoryClass &	Get_Factory (void) const;
 	void											On_Post_Load (void);
-	
+
 	//
 	// From NodeClass
 	//
@@ -112,7 +112,7 @@ public:
 	bool			Show_Settings_Dialog (void);
 	bool			Can_Be_Rotated_Freely (void) const	{ return true; }
 	void			Add_To_Scene (void);
-	void			Remove_From_Scene (void);	
+	void			Remove_From_Scene (void);
 	void			Hide (bool hide);
 	NodeClass *	Add_Child_Node (const Matrix3D &tm);
 	bool			Can_Add_Child_Nodes (void) const		{ return true; }
@@ -143,8 +143,8 @@ protected:
 	//////////////////////////////////////////////////////////////////
 	//	Protected methods
 	//////////////////////////////////////////////////////////////////
-	bool			Load_Variables (ChunkLoadClass &cload);	
-	void			Free_Attack_Points (void);	
+	bool			Load_Variables (ChunkLoadClass &cload);
+	void			Free_Attack_Points (void);
 
 	//////////////////////////////////////////////////////////////////
 	//	Protected member data
@@ -155,7 +155,7 @@ protected:
 	DynamicVectorClass<Matrix3D>							m_AttackPointLoadList;
 	bool															m_RequiresCrouch;
 	CoverEntryClass *											m_GameCoverSpot;
-	
+
 	static PhysClass *										_TheCollisionObj;
 	static int													_InstanceCount;
 };
@@ -166,7 +166,7 @@ protected:
 //////////////////////////////////////////////////////////////////
 inline void
 CoverSpotNodeClass::On_Rotate (void)
-{	
+{
 	Update_Lines ();
 
 	NodeClass::On_Rotate ();

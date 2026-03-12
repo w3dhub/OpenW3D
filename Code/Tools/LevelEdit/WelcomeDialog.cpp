@@ -82,7 +82,7 @@ END_MESSAGE_MAP()
 //	DoModal
 //
 INT_PTR
-WelcomeDialogClass::DoModal (void) 
+WelcomeDialogClass::DoModal (void)
 {
 	int iret = IDOK;
 
@@ -101,20 +101,20 @@ WelcomeDialogClass::DoModal (void)
 //	OnInitDialog
 //
 BOOL
-WelcomeDialogClass::OnInitDialog (void) 
+WelcomeDialogClass::OnInitDialog (void)
 {
 	// Allow the base class to process this message
 	CDialog::OnInitDialog ();
 
 	// Check the 'yes' button by default
-	SendDlgItemMessage (IDC_YES_RADIO, BM_SETCHECK, (WPARAM)true);	
+	SendDlgItemMessage (IDC_YES_RADIO, BM_SETCHECK, (WPARAM)true);
 
 	// Put the base path in its dialog control
 	SetDlgItemText (IDC_ASSET_TREE_LOCATION, ::Get_File_Mgr()->Get_Base_Path ());
 
 	m_hBMP = ::LoadBitmap (::AfxGetResourceHandle (), MAKEINTRESOURCE (IDB_WELCOME_BMP));
 	if (m_hBMP != NULL) {
-		
+
 		// Determine the BMPs dimensions
 		BITMAP bitmap = { 0 };
 		::GetObject (m_hBMP, sizeof (BITMAP), &bitmap);
@@ -137,9 +137,9 @@ WelcomeDialogClass::OnOK (void)
 	m_bChangesTemp = (bool)(SendDlgItemMessage (IDC_NO_RADIO, BM_GETCHECK) == 1);
 
 	// Write an integer to the registry so we'll know whether to show this again or not.
-	int ishow_again = (SendDlgItemMessage (IDC_DONT_ASK_AGAIN, BM_GETCHECK) == 0);	
+	int ishow_again = (SendDlgItemMessage (IDC_DONT_ASK_AGAIN, BM_GETCHECK) == 0);
 	theApp.WriteProfileInt (CONFIG_KEY, SHOW_WELCOME_VALUE, ishow_again);
-	
+
 	// Allow the base class to process this message
 	CDialog::OnOK ();
 	return ;
@@ -151,12 +151,12 @@ WelcomeDialogClass::OnOK (void)
 //	OnOK
 //
 void
-WelcomeDialogClass::OnPaint (void) 
+WelcomeDialogClass::OnPaint (void)
 {
 	CPaintDC dc (this);
 
 	if (m_hBMP != NULL) {
-		
+
 		// Paint into the BMP window's contents
 		HWND hwnd = ::GetDlgItem (m_hWnd, IDC_BMP);
 
@@ -183,7 +183,7 @@ WelcomeDialogClass::OnPaint (void)
 					 0,
 					 0,
 					 SRCCOPY);
-					
+
 		// Release the DCs
 		::SelectObject (hmem_dc, hold_BMP);
 		::ReleaseDC (hwnd, hdc);
@@ -202,7 +202,7 @@ WelcomeDialogClass::OnPaint (void)
 //	OnDestroy
 //
 void
-WelcomeDialogClass::OnDestroy (void) 
+WelcomeDialogClass::OnDestroy (void)
 {
 	// Free the BMP if we need to
 	if (m_hBMP != NULL) {

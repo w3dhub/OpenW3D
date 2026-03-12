@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/playerkill.cpp                    $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 11/09/01 12:31p                                             $* 
- *                                                                                             * 
- *                    $Revision:: 10                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/playerkill.cpp                    $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 11/09/01 12:31p                                             $*
+ *                                                                                             *
+ *                    $Revision:: 10                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "playerkill.h"
@@ -87,7 +87,7 @@ cPlayerKill::Init(int killer_id, int victim_id)
 void
 cPlayerKill::Act(void)
 {
-	if (IS_MISSION || 
+	if (IS_MISSION ||
 		GameModeManager::Find("Menu")->Is_Active() ||
 		!GameModeManager::Find("Combat")->Is_Active()) {
 		return;
@@ -118,9 +118,9 @@ cPlayerKill::Act(void)
 
 		WideStringClass formatted_text;
 		formatted_text.Format(
-			U_CHAR("%s %s %s\n"), 
+			U_CHAR("%s %s %s\n"),
          killer_name,
-         TRANSLATION(IDS_MP_TREASON_PHRASE), 
+         TRANSLATION(IDS_MP_TREASON_PHRASE),
          victim_name);
 		WWASSERT(Get_Text_Display() != NULL);
 		Get_Text_Display()->Print_Informational(formatted_text);
@@ -129,14 +129,14 @@ cPlayerKill::Act(void)
 
 		WideStringClass formatted_text;
 		formatted_text.Format(
-			U_CHAR("%s %s %s\n"), 
+			U_CHAR("%s %s %s\n"),
          killer_name,
 			TRANSLATION(IDS_MP_DEFAULT_KILL_PHRASE),
          victim_name);
 		WWASSERT(Get_Text_Display() != NULL);
 		Get_Text_Display()->Print_Informational(formatted_text);
 
-		if (cNetwork::I_Am_Client() && KillerId == cNetwork::Get_My_Id() && 
+		if (cNetwork::I_Am_Client() && KillerId == cNetwork::Get_My_Id() &&
 			KillerId != VictimId) {
 			WWAudioClass::Get_Instance()->Create_Instant_Sound("My_Kill", Matrix3D(1));
 		}
@@ -144,8 +144,8 @@ cPlayerKill::Act(void)
 	*/
 
 	if (p_killer != NULL && p_victim != NULL) {
-		WWASSERT(CombatManager::Get_Message_Window() != NULL);		
-		
+		WWASSERT(CombatManager::Get_Message_Window() != NULL);
+
 		//
 		//	Determine which message to display
 		//
@@ -155,7 +155,7 @@ cPlayerKill::Act(void)
 		} else {
 			message.Format(TRANSLATION(IDS_MP_DEFAULT_KILL_PHRASE));
 
-			if (cNetwork::I_Am_Client() && KillerId == cNetwork::Get_My_Id() && 
+			if (cNetwork::I_Am_Client() && KillerId == cNetwork::Get_My_Id() &&
 				KillerId != VictimId) {
 				WWAudioClass::Get_Instance()->Create_Instant_Sound("My_Kill", Matrix3D(1));
 			}

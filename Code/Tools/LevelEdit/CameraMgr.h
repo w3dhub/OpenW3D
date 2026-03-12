@@ -155,7 +155,7 @@ class CameraMgr
 		float								Get_Speed_Modifier (void) const { return m_SpeedModifier; }
 
 	protected:
-			
+
 		///////////////////////////////////////////////////
 		//	Friends
 		///////////////////////////////////////////////////
@@ -189,7 +189,7 @@ class CameraMgr
 		//	Static member data
 		///////////////////////////////////////////////////
 		static bool						_pKeyboardState[256];
-		static UPDATE_CAMERA_FN		_pfnUpdateMethods[CAMERA_MODE::MODE_COUNT];	
+		static UPDATE_CAMERA_FN		_pfnUpdateMethods[CAMERA_MODE::MODE_COUNT];
 		static HHOOK					_hHook;
 
 	private:
@@ -197,7 +197,7 @@ class CameraMgr
 		///////////////////////////////////////////////////
 		//	Private member data
 		///////////////////////////////////////////////////
-		
+
 		bool							m_bAutoLevel;
 		CameraClass *				m_pCamera;
 		CAMERA_MODE					m_CameraMode;

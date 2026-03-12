@@ -75,7 +75,7 @@ MessageWindowClass::MessageWindowClass (void) :
 	Camera (NULL),
 	HeadModel (NULL),
 	IsRectangleDirty (true)
-{	
+{
 	MessageLog.Set_Growth_Step (1000);
 	MessageLogColor.Set_Growth_Step (1000);
 	return ;
@@ -142,7 +142,7 @@ MessageWindowClass::Initialize (void)
 	TextWindow->Set_Backdrop ("hud_6x4_Messages.tga", CurrentRect,
 		settings->Get_Messages_Texture_Size (), settings->Get_Messages_Endcap_Rect (),
 		settings->Get_Messages_Fadeout_Rect (), settings->Get_Messages_Background_Rect ());
-	
+
 	//
 	//	Configure the area where text can be displayed in the window
 	//
@@ -155,7 +155,7 @@ MessageWindowClass::Initialize (void)
 	//
 	TextWindow->Set_Heading_Font (HEADER_FONT_NAME);
 	TextWindow->Set_Text_Font (FONT_NAME);
-	
+
 	//
 	//	Configure the columns
 	//
@@ -179,7 +179,7 @@ MessageWindowClass::Initialize (void)
 	//	Create a camera to use in the "head-scene"
 	//
 	Camera = new CameraClass ();
-	Camera->Set_Position (Vector3 (0, 0, 2.0F));	
+	Camera->Set_Position (Vector3 (0, 0, 2.0F));
 	Camera->Set_View_Plane (DEG_TO_RADF (107.0), DEG_TO_RADF (74.0));
 	Camera->Set_Clip_Planes (0.1F, 100.0F);
 	Camera->Set_Projection_Type (CameraClass::ORTHO);
@@ -196,7 +196,7 @@ MessageWindowClass::Initialize (void)
 		//
 		Matrix3D tm (1);
 		tm.Rotate_Z (DEG_TO_RADF (90));
-		tm.Rotate_X (DEG_TO_RADF (90));		
+		tm.Rotate_X (DEG_TO_RADF (90));
 		tm.Set_Translation (Vector3 (-1.22F, 0.53F, 0));
 		HeadModel->Set_Transform (tm);
 
@@ -230,7 +230,7 @@ MessageWindowClass::Render (void)
 	if (TextWindow != NULL) {
 		TextWindow->Render ();
 	}
-	
+
 	//IconRenderer.Render ();
 
 	WW3D::Render (Scene, Camera);
@@ -260,7 +260,7 @@ MessageWindowClass::On_Frame_Update (void)
 		Reset_Current_Rect ();
 	} else {
 		int items_to_remove = TextWindow->Get_Item_Count () - TextWindow->Get_Display_Count ();
-		
+
 		//
 		//	Remove messages from the top of the list if we have more then we
 		// can display
@@ -274,7 +274,7 @@ MessageWindowClass::On_Frame_Update (void)
 		//	Decay the entries
 		//
 		for (index = TextWindow->Get_Item_Count () - 1; index >= 0; index --) {
-			
+
 			//
 			//	Decay the time remaining on this message
 			//
@@ -290,7 +290,7 @@ MessageWindowClass::On_Frame_Update (void)
 			}
 		}
 	}
-	
+
 	TextWindow->On_Frame_Update ();
 	return ;
 }
@@ -328,9 +328,9 @@ MessageWindowClass::Add_Message
 	//
 	if (message.Get_Length () > 0) {
 		int item_index = TextWindow->Insert_Item (TextWindow->Get_Item_Count (), message);
-		if (item_index != -1) {		
+		if (item_index != -1) {
 			TextWindow->Set_Item_Color (item_index, 0, color);
-			TextWindow->Set_Item_Data (item_index, decay_time_in_ms);		
+			TextWindow->Set_Item_Data (item_index, decay_time_in_ms);
 		}
 	}
 
@@ -362,9 +362,9 @@ MessageWindowClass::Add_Message
 				DynamicSpeechAnimClass *speech_anim = soldier->Get_Facial_Anim ();
 
 				if (speech_anim != NULL) {
-					HeadModel->Set_Animation( speech_anim, 0, RenderObjClass::ANIM_MODE_ONCE );			
+					HeadModel->Set_Animation( speech_anim, 0, RenderObjClass::ANIM_MODE_ONCE );
 				}
-			}	
+			}
 		}
 	}
 
@@ -446,9 +446,9 @@ MessageWindowClass::Update_Window_Rectangle (void)
 		//
 		text_rect.Top		= CurrentRect.Top + top_border;
 		text_rect.Bottom	= CurrentRect.Bottom - bottom_border;
-		TextWindow->Set_Text_Area (text_rect);		
+		TextWindow->Set_Text_Area (text_rect);
 	}
-	
+
 	IsRectangleDirty = false;
 	return ;
 }
@@ -521,6 +521,6 @@ MessageWindowClass::Reset_Current_Rect (void)
 	// it to grow to the right size later on).
 	//
 	CurrentRect				= settings->Get_Messages_Screen_Rect ();
-	CurrentRect.Bottom	= CurrentRect.Top + 1;	
+	CurrentRect.Bottom	= CurrentRect.Top + 1;
 	return ;
 }

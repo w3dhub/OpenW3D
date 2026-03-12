@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/team.cpp                      $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 2/05/02 11:22a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 58                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/team.cpp                      $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 2/05/02 11:22a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 58                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "team.h"
@@ -85,7 +85,7 @@ void cTeam::Init(int team_number)//, WideStringClass & name)
 
 	Set_Object_Dirty_Bit(NetworkObjectClass::BIT_CREATION, true);
 
-	/* 
+	/*
 	//
 	// This doesn't work because at this point we are not yet a client
 	//
@@ -101,7 +101,7 @@ void cTeam::Init(int team_number)//, WideStringClass & name)
 	Init_Team_Name();
 
 	//
-	// Special-case the IDs because this code is executed before loading, 
+	// Special-case the IDs because this code is executed before loading,
 	// and in loading the dynamic range is reset.
 	//
 	if (TeamNumber == PLAYERTYPE_NOD) {
@@ -139,7 +139,7 @@ void cTeam::Set_Kills(int new_kills)
 {
    WWASSERT(cNetwork::I_Am_Only_Client());
    WWASSERT(new_kills >= 0);
-   
+
    Kills = new_kills;
 
 	Set_Object_Dirty_Bit(NetworkObjectClass::BIT_RARE, true);
@@ -174,7 +174,7 @@ int cTeam::Tally_Size(void) const
    // team size, rather than storing and maintaining it.
    // To remind you of this I use "tally" instead of "get".
    //
-   
+
    return cPlayerManager::Tally_Team_Size(TeamNumber);
 }
 
@@ -221,14 +221,14 @@ void cTeam::Increment_Score(float increment)
 }
 
 //------------------------------------------------------------------------------------
-float cTeam::Get_Kill_To_Death_Ratio(void) const 
+float cTeam::Get_Kill_To_Death_Ratio(void) const
 {
 	//
 	// If Deaths = 0, return -1;
 	//
 	float ktd = -1;
 	if (Deaths > 0) {
-		ktd = Kills / (float) Deaths; 
+		ktd = Kills / (float) Deaths;
 	}
 
 	return ktd;
@@ -240,13 +240,13 @@ void cTeam::Get_Team_String(int /* rank */, WideStringClass & string) const
    //
    // Compose a string description of a team's stats for display
    //
-   
+
 	string.Format(U_CHAR(""));
 
 	WWASSERT(PTheGameData != NULL);
 	//bool is_verbose = The_Game()->IsIntermission.Get() || MultiHUDClass::Get_Verbose_Lists();
-	bool is_verbose = //force_verbose || 
-		               The_Game()->IsIntermission.Is_True() || 
+	bool is_verbose = //force_verbose ||
+		               The_Game()->IsIntermission.Is_True() ||
 							//MultiHUDClass::Get_Verbose_Lists();
 							(MultiHUDClass::Get_Playerlist_Format() == PLAYERLIST_FORMAT_FULL);
 
@@ -320,10 +320,10 @@ void cTeam::Get_Team_String(int /* rank */, WideStringClass & string) const
 #ifdef WWDEBUG
 		bool show = cDevOptions::ShowMoney.Is_True() ||
 #else
-		bool show = 
+		bool show =
 #endif // WWDEBUG
 			  cNetwork::I_Am_Only_Server() ||
-			 (cNetwork::I_Am_Client() && 
+			 (cNetwork::I_Am_Client() &&
 			  cNetwork::Get_My_Player_Object() != NULL &&
 			  (cNetwork::Get_My_Team_Number() == TeamNumber));
 
@@ -332,7 +332,7 @@ void cTeam::Get_Team_String(int /* rank */, WideStringClass & string) const
 		} else {
 	      substring.Format(U_CHAR("%-8s"), "-");
 		}
-      
+
       string += substring;
    }
 	/**/
@@ -346,7 +346,7 @@ void cTeam::Get_Team_String(int /* rank */, WideStringClass & string) const
 
 //------------------------------------------------------------------------------------
 Vector3 cTeam::Get_Color(void) const
-{	
+{
 	return Get_Color_For_Team(TeamNumber);
 }
 
@@ -356,14 +356,14 @@ int cTeam::Tally_Money(void) const
 	int tally = 0;
 
 	for (	SLNode<cPlayer> * player_node = cPlayerManager::Get_Player_Object_List()->Head();
-			player_node != NULL; 
+			player_node != NULL;
 			player_node = player_node->Next ())
 	{
 		cPlayer * p_player = player_node->Data();
 		WWASSERT(p_player != NULL);
 
-		if (p_player->Get_Is_Active().Is_True() && 
-			 p_player->Get_Player_Type() == TeamNumber) 
+		if (p_player->Get_Is_Active().Is_True() &&
+			 p_player->Get_Player_Type() == TeamNumber)
 		{
 			tally += (int) p_player->Get_Money();
 		}

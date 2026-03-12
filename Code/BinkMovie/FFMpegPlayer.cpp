@@ -77,7 +77,7 @@ FFMpegMovieClass::FFMpegMovieClass(const char *filename, const char *subtitlenam
 	}
 
 	unsigned poweroftwoheight = 1;
-	
+
 	while (poweroftwoheight < static_cast<unsigned>(Bink->Get_Height())) {
 		poweroftwoheight <<= 1;
 	}
@@ -85,7 +85,7 @@ FFMpegMovieClass::FFMpegMovieClass(const char *filename, const char *subtitlenam
 	if (poweroftwowidth > dx8caps.MaxTextureWidth) {
 		poweroftwowidth = dx8caps.MaxTextureWidth;
 	}
-	
+
 	if (poweroftwoheight > dx8caps.MaxTextureHeight) {
 		poweroftwoheight = dx8caps.MaxTextureHeight;
 	}
@@ -102,7 +102,7 @@ FFMpegMovieClass::FFMpegMovieClass(const char *filename, const char *subtitlenam
 
 	TextureInfos.resize(TextureCount);
 	unsigned cnt = 0;
-	
+
 	for (y = 0; y < Bink->Get_Height(); y += max_height-1) {
 		for (x = 0; x < Bink->Get_Width(); x += max_width-1) {
 			TextureInfos[cnt].Texture = new TextureClass(
@@ -176,7 +176,7 @@ void FFMpegMovieClass::Update()
 	}
 }
 
-void FFMpegMovieClass::Render() 
+void FFMpegMovieClass::Render()
 {
 	if (Bink == nullptr) {
 		return;
@@ -249,12 +249,12 @@ void FFMpegMovieClass::Render()
 				rect.right = w;
 				rect.bottom = h;
 				DX8_ErrorCode(d3d_texture->LockRect(0,&locked_rect,&rect,0));
-				
+
 				int dst_strides[] = { locked_rect.Pitch };
 				uint8_t *dst_data[] = { static_cast<uint8_t *>(locked_rect.pBits) };
 				[[maybe_unused]] int result =
 					sws_scale(ScalingContext, CurrentFrame->data, CurrentFrame->linesize, 0, h, dst_data, dst_strides);
-				
+
 				WWASSERT_PRINT(result > 0, ("Failed to scale frame"));
 				DX8_ErrorCode(d3d_texture->UnlockRect(0));
 			}
@@ -286,7 +286,7 @@ void FFMpegMovieClass::Render()
 }
 
 bool FFMpegMovieClass::Is_Complete()
-{ 
+{
 	if (Bink == nullptr) {
 		return true;
 	}

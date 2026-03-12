@@ -46,11 +46,11 @@ enum {
 class cPacket;
 
 //
-// This is used in single-player mode and is global, not owned by the 
-// C or S threads. A critical section is used to control access by 
-// the C and S threads. The client writes to the end of the Server list and 
+// This is used in single-player mode and is global, not owned by the
+// C or S threads. A critical section is used to control access by
+// the C and S threads. The client writes to the end of the Server list and
 // reads from the beginning of the Client list. Vice versa for the server.
-// Send_Packet handles everything transparently. 
+// Send_Packet handles everything transparently.
 // TSS - linked list
 //
 
@@ -72,4 +72,4 @@ class cSinglePlayerData
 //-----------------------------------------------------------------------------
 
 #endif // SINGLEPL_H
-  
+

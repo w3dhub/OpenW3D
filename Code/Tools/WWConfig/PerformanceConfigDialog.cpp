@@ -67,7 +67,7 @@ typedef struct _PERFORMANCE_SETTING
 const int MAX_PERFORMANCE_LEVELS	= 4;
 const int MAX_EXPERT_OPTIONS		= 8;
 
-PERFORMANCE_SETTING _PerformanceLevels[MAX_PERFORMANCE_LEVELS][MAX_EXPERT_OPTIONS] = 
+PERFORMANCE_SETTING _PerformanceLevels[MAX_PERFORMANCE_LEVELS][MAX_EXPERT_OPTIONS] =
 {
 	//
 	//	Low detail
@@ -233,7 +233,7 @@ PerformanceConfigDialogClass::OnInitDialog (void)
 {
 	char string [_MAX_PATH];
 
-	CDialog::OnInitDialog ();	
+	CDialog::OnInitDialog ();
 
 	//
 	// Set all the static strings for this dialog.
@@ -243,9 +243,9 @@ PerformanceConfigDialogClass::OnInitDialog (void)
 	SetDlgItemText( IDC_HIGH_DESC,		 Locale_GetString( IDS_HIGH_DESC, string ));
 	SetDlgItemText( IDC_EXPERT_CHECK,	 Locale_GetString( IDS_EXPERT_MODE, string ));
 	SetDlgItemText( IDC_EXPERT_SETTINGS, Locale_GetString( IDS_EXPERT_SETTINGS, string ));
-	
+
 	SetDlgItemText( IDC_AUTO_CONFIG_BUTTON, Locale_GetString( IDS_AUTOCONFIG, string ));
-	
+
 	SetDlgItemText( IDC_GEOMETRY_DETAIL,		 Locale_GetString( IDS_GEOMETRY_DETAIL, string ));
 	SetDlgItemText( IDC_CHARACTER_SHADOWS,		 Locale_GetString( IDS_CHARACTER_SHADOWS, string ));
 	SetDlgItemText( IDC_TEXTURE_DETAIL,			 Locale_GetString( IDS_TEXTURE_DETAIL, string ));
@@ -265,7 +265,7 @@ PerformanceConfigDialogClass::OnInitDialog (void)
 	SetDlgItemText( IDC_HIGH3,	string );
 	SetDlgItemText( IDC_HIGH4,	string );
 	SetDlgItemText( IDC_HIGH5,	string );
-	
+
 	SetDlgItemText( IDC_LIGHTING_MODE,	Locale_GetString( IDS_LIGHTING_MODE, string ));
 	SetDlgItemText( IDC_TEXTURE_FILTER,	Locale_GetString( IDS_TEXTURE_FILTER, string ));
 
@@ -282,7 +282,7 @@ PerformanceConfigDialogClass::OnInitDialog (void)
 	//	Set the visibility of the expert windows controls
 	//
 	Build_Expert_Window_List ();
-	Display_Expert_Settings (false);	
+	Display_Expert_Settings (false);
 
 	return true;
 }
@@ -301,7 +301,7 @@ PerformanceConfigDialogClass::Build_Expert_Window_List (void)
 	//
 	//	Find the y-position of the expert mode checkbox
 	//
-	CRect rect;	
+	CRect rect;
 	::GetWindowRect (::GetDlgItem (m_hWnd, IDC_EXPERT_CHECK), &rect);
 	float y_pos = rect.top;
 
@@ -311,7 +311,7 @@ PerformanceConfigDialogClass::Build_Expert_Window_List (void)
 	for (	HWND child_wnd = ::GetWindow (m_hWnd, GW_CHILD);
 			child_wnd != NULL;
 			child_wnd = ::GetWindow (child_wnd, GW_HWNDNEXT))
-	{		
+	{
 		//
 		//	If this child window is below the expert checkbox then its
 		// part of the expert settings
@@ -395,7 +395,7 @@ void
 PerformanceConfigDialogClass::Load_Values (void)
 {
 	//
-	//	Attempt to open the registry key 
+	//	Attempt to open the registry key
 	//
 	RegistryClass registry (KEY_NAME_SETTINGS);
 	INIClass ini(W3D_CONF_FILE);
@@ -405,11 +405,11 @@ PerformanceConfigDialogClass::Load_Values (void)
 	int static_shadows = 1;
 	int prelit_mode = WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE;
 	int texture_filter = TextureClass::TEXTURE_FILTER_BILINEAR;
-	int shadow_mode = PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS;		
+	int shadow_mode = PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS;
 	int texture_red = 0;
 	int surface_effect = 1;
 	int particle_detail = 1;
-	
+
 	if(ini.Is_Present(W3D_SECTION_SYSTEM))
 	{
 		//
@@ -423,7 +423,7 @@ PerformanceConfigDialogClass::Load_Values (void)
 
 		prelit_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE, WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
 		texture_filter	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, TextureClass::TEXTURE_FILTER_BILINEAR);
-		shadow_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS);		
+		shadow_mode		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SHADOW_MODE, PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS);
 		texture_red		= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_RES, 0);
 		surface_effect	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_SURFACE_EFFECT, 1);
 		particle_detail	= ini.Get_Int (W3D_SECTION_SYSTEM, VALUE_INI_PARTICLE_DETAIL, 1);
@@ -440,7 +440,7 @@ PerformanceConfigDialogClass::Load_Values (void)
 
 		prelit_mode		= registry.Get_Int (VALUE_NAME_PRELIT_MODE, WW3D::PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE);
 		texture_filter	= registry.Get_Int (VALUE_NAME_TEXTURE_FILTER, TextureClass::TEXTURE_FILTER_BILINEAR);
-		shadow_mode		= registry.Get_Int (VALUE_NAME_SHADOW_MODE, PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS);		
+		shadow_mode		= registry.Get_Int (VALUE_NAME_SHADOW_MODE, PhysicsSceneClass::SHADOW_MODE_BLOBS_PLUS);
 		texture_red		= registry.Get_Int (VALUE_NAME_TEXTURE_RES, 0);
 		surface_effect	= registry.Get_Int (VALUE_NAME_SURFACE_EFFECT, 1);
 		particle_detail	= registry.Get_Int (VALUE_NAME_PARTICLE_DETAIL, 1);
@@ -450,7 +450,7 @@ PerformanceConfigDialogClass::Load_Values (void)
 	//	Set the slider's positions to reflect the loaded values
 	//
 	m_CharShadowsSlider.SetPos (std::min (shadow_mode, 3));
-	m_TextureDetailSlider.SetPos (std::max (2 - texture_red, 0));		
+	m_TextureDetailSlider.SetPos (std::max (2 - texture_red, 0));
 	m_SurfaceEffectsSlider.SetPos (surface_effect);
 	m_ParticleSlider.SetPos (particle_detail);
 
@@ -470,16 +470,16 @@ PerformanceConfigDialogClass::Load_Values (void)
 	//	Check the checkbox controls (if necessary)
 	//
 	SendDlgItemMessage (IDC_TERRAIN_SHADOW_CHECK, BM_SETCHECK, (WPARAM)(static_shadows != 0));
-	
+
 	//
 	//	Select the correct setting from the lighting mode combo box
 	//
-	SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_SETCURSEL, prelit_mode);		
+	SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_SETCURSEL, prelit_mode);
 
 	//
 	//	Select the correct setting from the texture filtering mode combo box
 	//
-	SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_SETCURSEL, texture_filter);		
+	SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_SETCURSEL, texture_filter);
 
 	return ;
 }
@@ -558,7 +558,7 @@ PerformanceConfigDialogClass::Get_Settings (DynamicVectorClass<int> &settings)
 		int curr_value = 0;
 		int ctrl_id = _PerformanceLevels[0][index].ctrl_id;
 		switch (ctrl_id) {
-			
+
 			//
 			//	Read any of the slider positions
 			//
@@ -612,7 +612,7 @@ PerformanceConfigDialogClass::Update_Expert_Controls (int level)
 		//
 		int ctrl_id = _PerformanceLevels[level][index].ctrl_id;
 		switch (ctrl_id) {
-			
+
 			//
 			//	Update any of the sliders via the same mechanism
 			//
@@ -660,7 +660,7 @@ PerformanceConfigDialogClass::OnHScroll
 )
 {
 	int ctrl_id = ::GetWindowLong (pScrollBar->m_hWnd, GWL_ID);
-	
+
 	//
 	//	If this is the overall performance slider, then
 	// update the expert controls to reflect the new setting
@@ -691,7 +691,7 @@ PerformanceConfigDialogClass::Apply_Changes (void)
 	int texture_red		= 	m_TextureDetailSlider.GetPos ();
 	int surface_effect	= 	m_SurfaceEffectsSlider.GetPos ();
 	int particle_detail	= 	m_ParticleSlider.GetPos ();
-	int static_shadows	= SendDlgItemMessage (IDC_TERRAIN_SHADOW_CHECK, BM_GETCHECK);		
+	int static_shadows	= SendDlgItemMessage (IDC_TERRAIN_SHADOW_CHECK, BM_GETCHECK);
 	int prelit_mode		= SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_GETCURSEL);
 	// If card can't do multi-pass, value 1 means multi-texture (multi-pass selection is missing from the combo box)
 	if (!CanDoMultiPass) {
@@ -713,7 +713,7 @@ PerformanceConfigDialogClass::Apply_Changes (void)
 	}
 
 	//
-	//	Attempt to open the registry key 
+	//	Attempt to open the registry key
 	//
 	RegistryClass registry (KEY_NAME_SETTINGS);
 	if (registry.Is_Valid ()) {
@@ -786,7 +786,7 @@ PerformanceConfigDialogClass::WindowProc
 void AutoConfigSettings();
 
 
-void PerformanceConfigDialogClass::OnGraphicsAutoSetup() 
+void PerformanceConfigDialogClass::OnGraphicsAutoSetup()
 {
 	// TODO: Add your control notification handler code here
 
@@ -808,7 +808,7 @@ void PerformanceConfigDialogClass::OnGraphicsAutoSetup()
 		registry.Set_Int (VALUE_NAME_SURFACE_EFFECT, surface_effect);
 		registry.Set_Int (VALUE_NAME_PARTICLE_DETAIL, particle_detail);
 */
-void AutoConfigSettings() 
+void AutoConfigSettings()
 {
 	INIClass ini(W3D_CONF_FILE);
 
@@ -852,7 +852,7 @@ void AutoConfigSettings()
 		if (ini.Is_Present(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME)) {
 			ini.Get_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, "", device_name, sizeof(device_name));
 		}
-		
+
 		int adapter_count = d3d->GetAdapterCount();
 		for (int adapter_index=0; adapter_index<adapter_count; adapter_index++) {
 			D3DADAPTER_IDENTIFIER9 id;
@@ -887,7 +887,7 @@ void AutoConfigSettings()
 
 		// Store device name in config file
 		ini.Put_String(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_NAME, adapter_id.Description);
-		
+
 		// Set resolution to 800 x 600 x 16
 		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_WIDTH, 800);
 		ini.Put_Int(W3D_SECTION_RENDER, VALUE_INI_RENDER_DEVICE_HEIGHT, 600);
@@ -1146,7 +1146,7 @@ void AutoConfigSettings()
 //
 /////////////////////////////////////////////////////////////////////////////
 void
-PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus) 
+PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 {
 	char string[ _MAX_PATH ];
 
@@ -1201,7 +1201,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 				SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString( IDS_MULTI_PASS, string ));
 			}
 			if (caps.Get_Max_Textures_Per_Pass()>1) {
-				SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString( IDS_MULTI_TEXTURE, string ));	
+				SendDlgItemMessage (IDC_LIGHTING_MODE_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString( IDS_MULTI_TEXTURE, string ));
 			}
 
 			// Try to set the previous selection
@@ -1226,7 +1226,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 			}
 			else {
 				cur_sel_string[0]=0;
-				
+
 				if (ini.Is_Present(W3D_SECTION_SYSTEM, VALUE_INI_PRELIT_MODE)) {
 					sel = ini.Get_Int(W3D_SECTION_SYSTEM, VALUE_INI_TEXTURE_FILTER, TextureClass::TEXTURE_FILTER_BILINEAR);
 				}
@@ -1235,7 +1235,7 @@ PerformanceConfigDialogClass::OnShowWindow(BOOL bShow, UINT nStatus)
 			SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString( IDS_BILINEAR, string ));
 			SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString( IDS_TRILINEAR, string ));
 			if (caps.Support_Anisotropic_Filtering()) {
-				SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString( IDS_ANISOTROPIC, string ));	
+				SendDlgItemMessage (IDC_TEXTURE_FILTER_COMBO, CB_ADDSTRING, 0, (LPARAM)Locale_GetString( IDS_ANISOTROPIC, string ));
 			}
 
 			// Try to set the previous selection

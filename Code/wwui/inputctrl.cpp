@@ -62,7 +62,7 @@ InputCtrlClass::InputCtrlClass (void)	:
 	//	Set the font for the text renderers
 	//
 	StyleMgrClass::Assign_Font (&TextRenderer, StyleMgrClass::FONT_CONTROLS);
-	StyleMgrClass::Configure_Renderer (&ControlRenderer);	
+	StyleMgrClass::Configure_Renderer (&ControlRenderer);
 	return ;
 }
 
@@ -87,7 +87,7 @@ void
 InputCtrlClass::Create_Text_Renderers (void)
 {
 	HilightRenderer.Reset ();
-	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());		
+	HilightRenderer.Set_Coordinate_Range (Render2DClass::Get_Screen_Resolution());
 	StyleMgrClass::Configure_Hilighter (&HilightRenderer);
 
 	//
@@ -197,7 +197,7 @@ void
 InputCtrlClass::Render (void)
 {
 	if (PendingKeyID != -1) {
-		
+
 		//
 		//	Use the pending key
 		//
@@ -211,7 +211,7 @@ InputCtrlClass::Render (void)
 	//
 	//	Recreate the renderers (if necessary)
 	//
-	if (IsDirty) {		
+	if (IsDirty) {
 		Create_Control_Renderers ();
 		Create_Text_Renderers ();
 	}
@@ -337,7 +337,7 @@ InputCtrlClass::On_New_Key (int vkey_id)
 		//	Get information about this key from the parent
 		//
 		if (Parent->On_InputCtrl_Get_Key_Info (this, Get_ID (), vkey_id, key_name, &game_key_id)) {
-			
+
 			//
 			//	Display this information in the control
 			//

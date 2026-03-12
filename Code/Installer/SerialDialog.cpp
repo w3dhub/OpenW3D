@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Installer                                                    * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Installer/SerialDialog.cpp $* 
- *                                                                                             * 
- *                      $Author:: Ian_l                   $* 
- *                                                                                             * 
- *                     $Modtime:: 1/15/02 11:09a                $* 
- *                                                                                             * 
- *                    $Revision:: 10                    $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Installer                                                    *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Installer/SerialDialog.cpp $*
+ *                                                                                             *
+ *                      $Author:: Ian_l                   $*
+ *                                                                                             *
+ *                     $Modtime:: 1/15/02 11:09a                $*
+ *                                                                                             *
+ *                    $Revision:: 10                    $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 // Includes.
@@ -73,7 +73,7 @@ static char *_SerialNumberHighRange;
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void SerialDialogClass::On_Init_Dialog (void)
 {
@@ -130,7 +130,7 @@ void SerialDialogClass::On_Init_Dialog (void)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void SerialDialogClass::On_Unicode_Char (uint16 unicode)
 {
@@ -151,12 +151,12 @@ void SerialDialogClass::On_Unicode_Char (uint16 unicode)
 				case VK_BACK:
 					if (textlength == 0) {
 						if (i > 0) {
-						 
+
 							EditCtrlClass *preveditcontrol = Get_Dlg_Item (_EditControlIds [i - 1])->As_EditCtrlClass();
 							preveditcontrol->Set_Focus();
 							preveditcontrol->Set_Sel (-1, -1);
 						}
-					
+
 					} else {
 						InstallMenuDialogClass::On_Unicode_Char (unicode);
 					}
@@ -177,12 +177,12 @@ void SerialDialogClass::On_Unicode_Char (uint16 unicode)
 					break;
 
 				default:
-					
+
 					// Is it a numeric key?
 					if ((unicode >= L'0') && (unicode <= L'9')) {
 
 						if (textlength < _EditControlLengths [i]) {
-							
+
 							// Process the key.
 							InstallMenuDialogClass::On_Unicode_Char (unicode);
 							textlength = wcslen (editcontrol->Get_Text());
@@ -204,7 +204,7 @@ void SerialDialogClass::On_Unicode_Char (uint16 unicode)
 						} else {
 
 	 						if ((textlength == _EditControlLengths [i]) && (textlength == editcontrol->Get_Caret_Pos())) {
-							
+
 								// If the next edit control is empty switch focus to it and process the key.
 								if (i < EDIT_CONTROL_COUNT - 1) {
 
@@ -235,7 +235,7 @@ void SerialDialogClass::On_Unicode_Char (uint16 unicode)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 void SerialDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 {
@@ -253,7 +253,7 @@ void SerialDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 				#if NDEBUG
 				StringClass lowrange  (_SerialNumberLowRange);
 				StringClass highrange (_SerialNumberHighRange);
-			
+
 				// Limit range of serial number.
 				valid = !(((_strnicmp (serialnumber, lowrange, 4) < 0) || (_strnicmp (serialnumber, highrange, 4) > 0)));
 				#endif
@@ -261,7 +261,7 @@ void SerialDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 				if (valid) {
 
 					unsigned i, v;
-					
+
 					// Scan the string for all zeros.
 					v = 0;
 					for (i = 0; i < (unsigned) serialnumber.Get_Length(); i++) {
@@ -270,7 +270,7 @@ void SerialDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 					valid = (v > 0);
 
 					if (valid) {
-	
+
 						const unsigned offset = 18;
 
 						StringClass checksumstring (serialnumber);
@@ -290,7 +290,7 @@ void SerialDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
 			// Do nothing.
 			break;
 	}
-	
+
 	if (valid) {
 		InstallMenuDialogClass::On_Command (ctrl_id, message_id, param);
 	} else {
@@ -309,7 +309,7 @@ void SerialDialogClass::On_Command (int ctrl_id, int message_id, DWORD param)
  * WARNINGS:                                                                                   *
  *                                                                                             *
  * HISTORY:                                                                                    *
- *   08/22/01    IML : Created.                                                                * 
+ *   08/22/01    IML : Created.                                                                *
  *=============================================================================================*/
 bool SerialDialogClass::Get_Serial_Number (StringClass &serialnumber)
 {
@@ -321,7 +321,7 @@ bool SerialDialogClass::Get_Serial_Number (StringClass &serialnumber)
 
 		// Extract the serial number.
 		WideStringClass widedigits (editcontrol->Get_Text());
-		StringClass		 digits;		
+		StringClass		 digits;
 
 		// Ensure that the text contains correct no. of characters.
 		// NOTE: Non-numeric characters have already been filtered out, so no need to check for this.
@@ -378,7 +378,7 @@ unsigned int Check_Sum (char *str)
 	int	mult	= 0;
 	int	i;
 	int	j;
- 
+
 	const int skipa	=  7;		// part A's skip value
 	const int skipb	=  5;		// ... part B
 	const int offsa	= -5;		// Everywhere the skips are in phase is a place where an 2nd error can occur and not be detected.
@@ -393,7 +393,7 @@ unsigned int Check_Sum (char *str)
 		for ( j = 1; j < skipa; j++ ) {
 			mult *= 10;
 		}
- 
+
 		group = 0;
 		for ( j = i; j < MIN( len, i+skipa ); j++ ) {
 
@@ -406,7 +406,7 @@ unsigned int Check_Sum (char *str)
 		counter %= 97;
 	}
 	retval = counter * 100;
- 
+
 	//---------------------------------------------------------------------------
 	// Part2
 	//---------------------------------------------------------------------------
@@ -417,7 +417,7 @@ unsigned int Check_Sum (char *str)
 		for ( j = 1; j < skipb; j++ ) {
 			mult *= 10;
 		}
- 
+
 		group = 0;
 		for ( j = i; j < MIN( len, i+skipb ); j++ ) {
 
@@ -430,6 +430,6 @@ unsigned int Check_Sum (char *str)
     counter %= 93;
   }
   retval += counter;
- 
+
   return (retval);
 }

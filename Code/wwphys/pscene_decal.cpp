@@ -49,14 +49,14 @@
 
 
 /*
-** PhysicsSceneClass Decal Methods 
+** PhysicsSceneClass Decal Methods
 */
 
 void PhysicsSceneClass::Allocate_Decal_Resources(void)
 {
 	WWASSERT(DecalSystem == NULL);
 	DecalSystem = new PhysDecalSysClass(this);
-}	
+}
 
 void PhysicsSceneClass::Release_Decal_Resources(void)
 {
@@ -66,7 +66,7 @@ void PhysicsSceneClass::Release_Decal_Resources(void)
 }
 
 int PhysicsSceneClass::Create_Decal
-(	
+(
 	const Matrix3D &	tm,
 	const char *		texture_name,
 	float					radius,

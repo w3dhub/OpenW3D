@@ -58,7 +58,7 @@ void CVidinitDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DRIVERS, m_Drivers);
 	DDX_Check(pDX, IDC_CHECK1, m_RunFullScreen);
 	//}}AFX_DATA_MAP
-}															  
+}
 
 BEGIN_MESSAGE_MAP(CVidinitDlg, CDialog)
 	//{{AFX_MSG_MAP(CVidinitDlg)
@@ -81,7 +81,7 @@ BOOL CVidinitDlg::OnInitDialog()
 	//  when the application's main window is not a dialog
 	SetIcon(m_hIcon, true);			// Set big icon
 	SetIcon(m_hIcon, false);		// Set small icon
-	
+
 	// TODO: Add extra initialization here
 
 	WW3D::Init(GetSafeHwnd());
@@ -124,7 +124,7 @@ BOOL CVidinitDlg::OnInitDialog()
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
 
-void CVidinitDlg::OnPaint() 
+void CVidinitDlg::OnPaint()
 {
 	if (IsIconic())
 	{
@@ -156,7 +156,7 @@ HCURSOR CVidinitDlg::OnQueryDragIcon()
 	return (HCURSOR) m_hIcon;
 }
 
-void CVidinitDlg::OnOK() 
+void CVidinitDlg::OnOK()
 {
 	// TODO: Add extra validation here
 	UpdateData();
@@ -182,7 +182,7 @@ void CVidinitDlg::OnOK()
 	CDialog::OnOK();
 }
 
-void CVidinitDlg::OnCancel() 
+void CVidinitDlg::OnCancel()
 {
 	// TODO: Add extra cleanup here
 	WW3D::Shutdown();
@@ -192,7 +192,7 @@ void CVidinitDlg::OnCancel()
 	CDialog::OnCancel();
 }
 
-void CVidinitDlg::OnSelchangeDrivers() 
+void CVidinitDlg::OnSelchangeDrivers()
 {
 	// TODO: Add your control notification handler code here
 	int driver = m_Drivers.GetCurSel();
@@ -203,7 +203,7 @@ void CVidinitDlg::OnSelchangeDrivers()
 	SetDlgItemText(IDC_HARDWARE_CHIPSET, desc.Get_Hardware_Chipset());
 	SetDlgItemText(IDC_DRIVER_NAME, desc.Get_Device_Name());
 	SetDlgItemText(IDC_DRIVER_VENDOR, desc.Get_Device_Vendor());
-	
+
 	const DynamicVectorClass<ResolutionDescClass>& res = desc.Enumerate_Resolutions();
 	while (m_Resolutions.GetCount()) {
 		m_Resolutions.DeleteString(0);
@@ -216,10 +216,10 @@ void CVidinitDlg::OnSelchangeDrivers()
 	}
 
 
-	
+
 }
 
-void CVidinitDlg::OnTest() 
+void CVidinitDlg::OnTest()
 {
 	UpdateData(true);
 
@@ -233,7 +233,7 @@ void CVidinitDlg::OnTest()
 
 	const RenderDeviceDescClass &desc = WW3D::Get_Render_Device_Desc(driver);
 	const DynamicVectorClass<ResolutionDescClass>& res = desc.Enumerate_Resolutions();
-	
+
 	m_TestCWnd = new CSurrenderWnd(this, driver, res[sel].Width, res[sel].Height, res[sel].BitDepth, !m_RunFullScreen);
 
 	CWnd *wnd = GetDlgItem(IDTEST);
@@ -245,7 +245,7 @@ void CVidinitDlg::OnTest()
 }
 
 
-LRESULT CVidinitDlg::OnDeadBeef(WPARAM wParam, LPARAM lParam) 
+LRESULT CVidinitDlg::OnDeadBeef(WPARAM wParam, LPARAM lParam)
 {
 	if (m_TestCWnd && wParam == 0xDEADBEEF && lParam == 0xDEADBEEF) {
 		WW3D::Restore_Display_Mode();

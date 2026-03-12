@@ -72,7 +72,7 @@ const LoginInfoList& LoginInfo::GetList(void)
 	if (_mLoginList.empty())
 		{
 		RefPtr<Session> session = Session::GetInstance(false);
-	
+
 		if (session.IsValid() && session->IsStoreLoginAllowed())
 			{
 			// Four logins allowed per user
@@ -85,7 +85,7 @@ const LoginInfoList& LoginInfo::GetList(void)
 				const char* nickname = NULL;
 				const char* password = NULL;
 				chat->GetNick(index, &nickname, &password);
-		
+
 				if (nickname && (strlen(nickname) > 0))
 					{
 					RefPtr<LoginInfo> login = Create(nickname, password, true);
@@ -104,7 +104,7 @@ const LoginInfoList& LoginInfo::GetList(void)
 				}
 			}
 		}
-	
+
 	return _mLoginList;
 	}
 
@@ -556,7 +556,7 @@ int LoginInfo::IndexOf(const unichar_t* nick)
 *     NONE
 *
 * RESULT
-*     Index - 
+*     Index -
 *
 ******************************************************************************/
 

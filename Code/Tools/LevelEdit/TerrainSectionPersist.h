@@ -78,7 +78,7 @@ public:
 	void		Build_List (DynamicVectorClass<NodeClass *> &node_list);
 	void		Assign_Section_IDs (TerrainNodeClass *node);
 	void		Initialize_Virgin_Sections (void);
-	void		Free_List (void);	
+	void		Free_List (void);
 
 	void		Save (ChunkSaveClass &csave);
 	void		Load (ChunkLoadClass &cload);
@@ -101,7 +101,7 @@ class TerrainSectionPersistClass
 {
 
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@ public:
 	//////////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////////
-	
+
 	//
 	// Initialization
 	//
@@ -156,7 +156,7 @@ private:
 	uint32									m_VisSectorID;
 	uint32									m_CullLink;
 	StringClass								m_Name;
-	TerrainSectionPersistListClass	m_TerrainSectionInfo;	
+	TerrainSectionPersistListClass	m_TerrainSectionInfo;
 };
 
 

@@ -170,7 +170,7 @@ fnCameraKeyboardHook
 			CameraMgr::_pKeyboardState[wParam] = bool((lParam & 0x80000000) != 0x80000000);
 		}
 	}
-	
+
 	// Call the next hook procedure in the chain
 	return ::CallNextHookEx (CameraMgr::_hHook, code, wParam, lParam);
 }
@@ -186,7 +186,7 @@ CameraMgr::Init_Camera (void)
 {
 	if (m_pCamera == NULL) {
 		// Create a new camera object
-		m_pCamera = new CameraClass;		
+		m_pCamera = new CameraClass;
 	}
 
 	// Were we able to create a new object?
@@ -232,11 +232,11 @@ CameraMgr::Set_Camera_Mode (CAMERA_MODE new_mode)
 	// Is this really a new mode?
 	if (new_mode != m_CameraMode) {
 
-		if (new_mode == MODE_WALK_THROUGH) {			
+		if (new_mode == MODE_WALK_THROUGH) {
 			::Get_Scene_Editor ()->Set_Selection (NULL);
 
 			GameInFocus = true;
-			if (m_WalkThruObj == NULL) {				
+			if (m_WalkThruObj == NULL) {
 				Input::Init ();
 				Input::Load_Configuration (DEFAULT_INPUT_FILENAME);
 				Input::Set_Mouse_Invert (true);
@@ -272,12 +272,12 @@ CameraMgr::Set_Camera_Mode (CAMERA_MODE new_mode)
 
 
 		} else if (m_WalkThruObj != NULL) {
-						
+
 			m_WalkThruObj->Set_Delete_Pending ();
 			m_WalkThruObj = NULL;
 			Input::Shutdown ();
 		}
-		
+
 		m_CameraMode = new_mode;
 	}
 
@@ -305,9 +305,9 @@ CameraMgr::Update_Camera
 		_pfnUpdateMethods[m_CameraMode] (*m_pCamera, deltax, deltay);
 
 		if (m_bAutoLevel) {
-			
+
 			// If ew are auto-leveling, then reset the initial
-			// rotation matrix and percent			
+			// rotation matrix and percent
 			m_AutoLevelInitalMatrix = m_pCamera->Get_Transform ();
 			m_AutoLevelPercent = 0.00F;
 		}
@@ -350,7 +350,7 @@ CameraMgr::Auto_Level (void)
 
 	// Should we auto-level the camera?
 	if ((m_AutoLevelPercent <= 1) && (mouse_down == false)) {
-		
+
 		// Get the camera's current transformation matrix
 		Matrix3D matrix = m_pCamera->Get_Transform ();
 
@@ -362,7 +362,7 @@ CameraMgr::Auto_Level (void)
 
 		// Get a vector 1 meter below the camera position
 		cam_target = matrix * Vector3 (0.00F, 0.00F, -1.00F);
-		
+
 		// Force the z components of the 2 vectors to be the same.
 		cam_target.Z = cam_pos.Z;
 
@@ -374,7 +374,7 @@ CameraMgr::Auto_Level (void)
 		// Build quaternions for the start and end rotation matricies
 		Quaternion initial_quat = ::Build_Quaternion (m_AutoLevelInitalMatrix);
 		Quaternion end_quat = ::Build_Quaternion (new_matrix);
-		
+
 		// Linerally-interpolate between the 2 rotations (from 0.0 - 1.0)
 		Quaternion rotation_now;
 		::Slerp (rotation_now, initial_quat, end_quat, m_AutoLevelPercent);
@@ -384,7 +384,7 @@ CameraMgr::Auto_Level (void)
 
 		// Set the rotation for the camera's transormation matrix
 		matrix.Set_Rotation (rotation_now);
-	
+
 		// Set the camera's new rotation
 		Set_Transform (matrix);
 
@@ -458,10 +458,10 @@ CameraMgr::On_Frame (void)
 
 		// Get the camera's current position
 		Vector3 position = m_pCamera->Get_Position ();
-		
+
 		// Get the current direction the camera is looking at
 		Matrix3D matrix = m_pCamera->Get_Transform ();
-		
+
 		float delta = _pKeyboardState[VK_NUMPAD8] ? -0.35F : 0.35F;
 		delta *= speed_mod;
 
@@ -483,7 +483,7 @@ CameraMgr::On_Frame (void)
 		// Set the camera's new position
 		Set_Position (position);
 	}
-	
+
 	if ((_pKeyboardState[VK_NUMPAD9]) ||
 		 (_pKeyboardState[VK_NUMPAD3])) {
 
@@ -500,11 +500,11 @@ CameraMgr::On_Frame (void)
 		}
 
 		transform.Rotate_X (rotation);
-		
+
 		// Set the camera's new transform
 		Set_Transform (transform);
-	} 
-	
+	}
+
 	if ((_pKeyboardState[VK_NUMPAD4]) ||
 		 (_pKeyboardState[VK_NUMPAD6])) {
 
@@ -512,16 +512,16 @@ CameraMgr::On_Frame (void)
 
 			// Get the camera's current position
 			Vector3 position = m_pCamera->Get_Position ();
-			
+
 			float delta = (_pKeyboardState[VK_NUMPAD4]) ? -0.25F : 0.25F;
-			delta *= speed_mod;			
+			delta *= speed_mod;
 			position += (delta * m_pCamera->Get_Transform ().Get_X_Vector ());
 
 			// Set the camera's new position
 			Set_Position (position);
-			
-		} else {				
-			
+
+		} else {
+
 			// Get the pure rotation from the transform
 			Matrix3D transform = m_pCamera->Get_Transform ();
 			Vector3 translation = transform.Get_Translation ();
@@ -538,13 +538,13 @@ CameraMgr::On_Frame (void)
 
 			Matrix3D world_rotation(1);
 			world_rotation.Rotate_Z (delta);
-					
+
 			// Rotate using the world's coord system
 			transform = world_rotation * transform;
 			transform.Set_Translation (translation);
-			
+
 			// Set the camera's new transform
-			Set_Transform (transform);		
+			Set_Transform (transform);
 		}
 	}
 
@@ -553,7 +553,7 @@ CameraMgr::On_Frame (void)
 
 		// Get the camera's current position
 		Vector3 position = m_pCamera->Get_Position ();
-		
+
 		float delta = (_pKeyboardState[VK_NUMPAD1]) ? -0.25F : 0.25F;
 		delta *= speed_mod;
 		position.Z += delta;
@@ -596,16 +596,16 @@ CameraMgr::On_Frame (void)
 					}
 				}
 
-						
+
 				//
 				//	Allow the game object and physic object to think
-				//			
+				//
 				m_WalkThruObj->Generate_Control ();
-				m_WalkThruObj->Think ();								
+				m_WalkThruObj->Think ();
 				PhysClass *phys_obj = m_WalkThruObj->Peek_Physical_Object ();
 				if (phys_obj != NULL) {
 					phys_obj->Timestep (TimeManager::Get_Frame_Seconds ());
-				}			
+				}
 				m_WalkThruObj->Post_Think ();
 
 				CCameraClass *game_camera = CombatManager::Get_Camera ();
@@ -617,7 +617,7 @@ CameraMgr::On_Frame (void)
 					Input::Update ();
 					CombatManager::Handle_Input ();
 					CombatManager::Update_Star ();
-					
+
 					Matrix3D tm = m_WalkThruObj->Get_Transform();
 					game_camera->Update ();
 
@@ -680,7 +680,7 @@ CameraMgr::Update_Camera_MOVE_ZOOM
 {
 	// Get the camera's current position
 	Vector3 position = camera.Get_Position ();
-	
+
 	// Get the current direction the camera is looking at
 	Matrix3D matrix = camera.Get_Transform ();
 	Vector3 orientation = matrix.Get_Z_Vector ();
@@ -711,7 +711,7 @@ CameraMgr::Update_Camera_MOVE_PLANE
 {
 	// Get the camera's current position
 	Vector3 position = camera.Get_Position ();
-	
+
 	// Get the vector the camera is 'sliding' up and down on
 	Matrix3D matrix = camera.Get_Transform ();
 	Vector3 orientation = matrix.Get_Y_Vector ();
@@ -777,7 +777,7 @@ CameraMgr::Update_Camera_WALK_THROUGH
 	// Get the camera's current transformation matrix
 	//CamaraCharPhys *pcharacter = ::Get_Camera_Mgr ()->Get_Walkthru_Character ();
 	if (0) {//pcharacter != NULL) {
-		
+
 		/*Matrix3D transform = pcharacter->Get_Transform ();
 		transform.Rotate_Z (deltax * 2.0F);
 		pcharacter->Set_Transform (transform);*/
@@ -807,7 +807,7 @@ CameraMgr::Update_Camera_ROTATE_FREE
 
 	// Restrict the rotation to the current axis
 	switch (::Get_Current_Document ()->Get_Axis_Restriction ()) {
-		
+
 		case CLevelEditDoc::RESTRICT_X:
 		{
 			matrix.Rotate_X (deltay);
@@ -834,7 +834,7 @@ CameraMgr::Update_Camera_ROTATE_FREE
 		break;
 	}
 
-	// Set the camera's new rotation	
+	// Set the camera's new rotation
 	::Get_Camera_Mgr ()->Set_Transform (matrix);
 	return ;
 }
@@ -1012,7 +1012,7 @@ CameraMgr::Set_Camera_Pos (CAMERA_POS position)
 	distance = (distance < 1.0F) ? 1.0F : distance;
 	distance = (distance > 400.0F) ? 400.0F : distance;
 
-	Matrix3D transform (1);        
+	Matrix3D transform (1);
 
 	switch (position)
 	{
@@ -1095,7 +1095,7 @@ CameraMgr::Goto_Node (NodeClass *node)
 		// Move the camera back to get a good view of the object
 		//
 		Set_Transform (transform);
-		
+
 		// Ensure the window is updated
 		::Refresh_Main_View ();
 	}
@@ -1122,12 +1122,12 @@ CameraMgr::Goto_Group (GroupMgrClass *group)
 		distance = (distance < 1.0F) ? 1.0F : distance;
 		distance = (distance > 400.0F) ? 400.0F : distance;
 
-		Matrix3D transform (1);        
+		Matrix3D transform (1);
 		transform.Look_At (sp.Center + Vector3 (distance, distance, distance), sp.Center, 0);
 
 		// Move the camera back to get a good view of the object
 		Set_Transform (transform);
-		
+
 		// Ensure the window is updated
 		::Refresh_Main_View ();
 	}
@@ -1145,17 +1145,17 @@ void
 CameraMgr::Set_Transform (const Matrix3D &transform)
 {
 	if (m_pCamera != NULL) {
-		
+
 		// Set the camera's new location and orientation
 		m_pCamera->Set_Transform (transform);
 
 		// Update the the UI to reflect this new position
-		((CMainFrame *)::AfxGetMainWnd ())->Update_Camera_Location (transform.Get_Translation ());		
+		((CMainFrame *)::AfxGetMainWnd ())->Update_Camera_Location (transform.Get_Translation ());
 		Set_Modified (true);
 
 		// If the camera settings dialog is visible, update its contents
 		/*FormToolbarClass &toolbar = ((CMainFrame *)::AfxGetMainWnd ())->Get_Camera_Toolbar ();
-		if (::IsWindow (toolbar) && toolbar.IsVisible ()) {			
+		if (::IsWindow (toolbar) && toolbar.IsVisible ()) {
 			CameraSettingsFormClass *pform = (CameraSettingsFormClass *)toolbar.Get_Form ();
 			if (pform != NULL) {
 				pform->Update_Controls ();
@@ -1176,7 +1176,7 @@ void
 CameraMgr::Set_Position (const Vector3 &position)
 {
 	if (m_pCamera != NULL) {
-		
+
 		// Set the camera's new location and orientation
 		m_pCamera->Set_Position (position);
 
@@ -1186,7 +1186,7 @@ CameraMgr::Set_Position (const Vector3 &position)
 
 		// If the camera settings dialog is visible, update its contents
 		/*FormToolbarClass &toolbar = ((CMainFrame *)::AfxGetMainWnd ())->Get_Camera_Toolbar ();
-		if (::IsWindow (toolbar) && toolbar.IsVisible ()) {			
+		if (::IsWindow (toolbar) && toolbar.IsVisible ()) {
 			CameraSettingsFormClass *pform = (CameraSettingsFormClass *)toolbar.Get_Form ();
 			if (pform != NULL) {
 				pform->Update_Controls ();
@@ -1245,7 +1245,7 @@ CameraMgr::Update_Fly_To (void)
 {
 	const DWORD FLY_TICKS = 5000;
 	float fly_ticks = (float)FLY_TICKS;
-	
+
 	if (::GetAsyncKeyState (VK_CONTROL) < 0) {
 		fly_ticks = fly_ticks / m_SpeedModifier;
 	}
@@ -1275,7 +1275,7 @@ CameraMgr::Update_Fly_To (void)
 		Vector3 z_axis;
 		Vector3::Cross_Product (x_axis, y_axis, &z_axis);
 		Matrix3D orientation (x_axis, y_axis, z_axis, position);
-		
+
 		Matrix3D world_to_cam (Vector3 (0, -1, 0), Vector3 (0, 0, 1), Vector3 (-1, 0, 0), Vector3 (0, 0, 0));
 		Matrix3D camera_tm = orientation * world_to_cam;
 

@@ -73,11 +73,11 @@ class PathDebugPlotterClass : public RenderObjClass
 		int				Class_ID (void) const override	{ return CLASSID_LAST + 104L; }
 		void				Render (RenderInfoClass &rinfo) override;
 		const AABoxClass &Get_Bounding_Box(void) const override { return m_BoundingBox; }
-		
+
 		/////////////////////////////////////////////////////////////////////////
 		// Public methods
 		/////////////////////////////////////////////////////////////////////////
-		void				Add (const Vector3 &start, const Vector3 &end, const Vector3 &color);		
+		void				Add (const Vector3 &start, const Vector3 &end, const Vector3 &color);
 		void				Reset (void)				{ m_VectorList.Delete_All (); }
 		void				Display (bool display);
 		bool				Is_Displayed (void) const { return m_ShouldDisplay; }
@@ -132,7 +132,7 @@ class PathDebugPlotterClass : public RenderObjClass
 /////////////////////////////////////////////////////////////////////////
 inline void
 PathDebugPlotterClass::Add (const Vector3 &start, const Vector3 &end, const Vector3 &color)
-{	
+{
 	VECTOR_INFO info;
 	info.point	= start;
 	info.vector = end - start;
@@ -150,7 +150,7 @@ inline void
 PathDebugPlotterClass::Render (RenderInfoClass &rinfo)
 {
 	if (m_ShouldDisplay) {
-		
+
 		for (int index = 0; index < m_VectorList.Count (); index ++) {
 			VECTOR_INFO &info = m_VectorList[index];
 
@@ -171,7 +171,7 @@ PathDebugPlotterClass::Display (bool display)
 	PhysicsSceneClass *scene = PhysicsSceneClass::Get_Instance ();
 
 	if (scene != NULL) {
-		
+
 		if ((m_ShouldDisplay == false) && display) {
 
 			if (m_PhysObj == NULL) {

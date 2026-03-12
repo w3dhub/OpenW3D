@@ -56,7 +56,7 @@ DECLARE_SCRIPT(RMV_Test_Script, "")
 DECLARE_SCRIPT(M00_C130_Dropoff_RMV, "ObjToCreate=:string")
 {
 	enum {M00_TIMER_DROP_OBJECT_RMV};
-	
+
 	void Created( GameObject * obj ) override
 	{
 		Commands->Set_Animation ( obj, "V_NOD_C-130E3.M_cargo-drop", 0 , NULL, 0.0f, -1.0f, false);
@@ -121,12 +121,12 @@ DECLARE_SCRIPT(M00_Damaged_Warning, "")
 	{
 		SAVE_VARIABLE( just_sent, 1 );
 	}
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		just_sent = false;
 	}
-	
+
 	void Damaged(GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		if ((Commands->Get_Health(obj) <= 25.0f) && (!just_sent))
@@ -149,7 +149,7 @@ DECLARE_SCRIPT(M00_Damaged_Warning, "")
 DECLARE_SCRIPT(M00_Put_Script_On_Commando, "")
 {
 	enum {SCRIPT_ON_COMMANDO_TIMER};
-	
+
 	void Created(GameObject * obj) override
 	{
 		Commands->Start_Timer(obj, this, 0.2f, SCRIPT_ON_COMMANDO_TIMER);
@@ -274,7 +274,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		target -= Commands->Get_Position(Owner());
 		target.Rotate_Z(DEG_TO_RADF(angle));
 		target += Commands->Get_Position(Owner());
-		
+
 		return target;
 	}
 
@@ -293,7 +293,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 
 		return target;
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		switcher = enemy_id = sound_id = 0;
@@ -311,7 +311,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 
 	void Resume(void)
 	{
-		
+
 		enemy_id = 0;
 		enemy_seen = timer_expired = alert = attacking = false;
 
@@ -322,7 +322,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 	void Alarm(void)
 	{
 		Commands->Stop_Sound(sound_id, true);
-		
+
 		if (Get_Int_Parameter("Alarm_ID") != 0)
 		{
 			GameObject * alarm = Commands->Find_Object(Get_Int_Parameter("Alarm_ID"));
@@ -331,7 +331,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 				Commands->Send_Custom_Event(Owner(), alarm, M00_CUSTOM_CAMERA_ALARM, enemy_id, 0.0f);
 			}
 		}
-		
+
 		enemy_id = 0;
 		enemy_seen = timer_expired = alert = false;
 
@@ -346,12 +346,12 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		Commands->Stop_Sound(sound_id, true);
 
 		attacking = true;
-		
+
 		ActionParamsStruct params;
 		params.Set_Basic(this, 99, 3);
 		params.Set_Attack(Commands->Find_Object(enemy_id), 200.0f, 0.0f, true);
 		Commands->Action_Attack(Owner(), params);
-		
+
 		Commands->Start_Timer(Owner(), this, 3.0f, 10);
 	}
 
@@ -391,7 +391,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		else
 		{
 			++switcher %= 8;
-	
+
 			ActionParamsStruct params;
 			params.Set_Basic(this, 90, 0);
 			params.Set_Attack(Get_Target(), 0.0f, 0.0f, true);
@@ -406,7 +406,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 		{
 			return;
 		}
-		
+
 		if (action_id == 3)
 		{
 			enemy_id = 0;
@@ -427,7 +427,7 @@ DECLARE_SCRIPT(RMV_Camera_Behavior, "Angle:float, Alarm_ID=0:int, Is_Gun=0:int, 
 			params.Set_Basic(this, 99, 1);
 			params.Set_Attack(enemy, 0.0f, 0.0f, true);
 			Commands->Action_Attack(obj, params);
-			
+
 			enemy_id = Commands->Get_ID(enemy);
 			enemy_seen = true;
 			Commands->Start_Timer(obj, this, Get_Float_Parameter("Delay"), 1);
@@ -482,7 +482,7 @@ DECLARE_SCRIPT(RMV_Engine_Sound, "Preset:string, Bone:string")
 	{
 		SAVE_VARIABLE(sound_id, 1);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		const char * sound = Get_Parameter("Preset");
@@ -509,7 +509,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		SAVE_VARIABLE(traj_id, 3);
 		SAVE_VARIABLE(trans_id, 4);
 	}
-	
+
 	void Created(GameObject * obj) override
 	{
 		number = Get_Int_Parameter("Number");
@@ -541,7 +541,7 @@ DECLARE_SCRIPT(RMV_Transport_Evac, "Number:int, Nod=0:int")
 		GameObject * transport = Commands->Find_Object(trans_id);
 
 		int nod = Get_Int_Parameter("Nod");
-		
+
 		if (timer_id == 0)
 		{
 			char traj_anim[40];
@@ -635,7 +635,7 @@ DECLARE_SCRIPT(RMV_Test_Damage, "")
 		count = 0;
 		max_shield = Commands->Get_Shield_Strength(obj);
 	}
-	
+
 	void Damaged(GameObject * obj, GameObject * /*damager*/, float /*amount*/) override
 	{
 		count++;

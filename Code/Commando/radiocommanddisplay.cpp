@@ -181,7 +181,7 @@ RadioCommandDisplayClass::Update (DISPLAY_TYPE type)
 	//	Add all the radio commands to the text window
 	//
 	for (int index = 0; index < COMMAND_COUNT; index ++){
-		
+
 		int key_id = index + 1;
 		if (key_id >= 10) {
 			key_id -= 10;
@@ -189,7 +189,7 @@ RadioCommandDisplayClass::Update (DISPLAY_TYPE type)
 
 		WideStringClass command_key (0, true);
 		command_key.Format (U_CHAR("%s + %d"), access_key, key_id);
-		
+
 		//
 		//	Insert an item for this radio command
 		//
@@ -226,7 +226,7 @@ RadioCommandDisplayClass::Display (bool onoff, DISPLAY_TYPE type)
 	//
 	IsDisplayed	= onoff;
 	TextWindow->Display (onoff);
-	
+
 	//
 	//	Update the data in the window as necessary
 	//
@@ -243,8 +243,8 @@ RadioCommandDisplayClass::Display (bool onoff, DISPLAY_TYPE type)
 			WWAudioClass::Get_Instance ()->Create_Instant_Sound (sound_id, Matrix3D (1));
 		}
 	}
-	
-	return ;	
+
+	return ;
 }
 
 
@@ -271,7 +271,7 @@ RadioCommandDisplayClass::Render (void)
 	if (IsDisplayed) {
 		TextWindow->Render ();
 	}
-	
+
 	return ;
 }
 
@@ -324,7 +324,7 @@ RadioCommandDisplayClass::Check_Keys (void)
 				//
 				DisplayTimer -= TimeManager::Get_Frame_Seconds ();
 				if (DisplayTimer <= 0.0F) {
-					
+
 					//
 					//	Determine which page to display
 					//
@@ -334,8 +334,8 @@ RadioCommandDisplayClass::Check_Keys (void)
 							DisplayTimer = 0.0F;
 							break;
 						}
-					}					
-				}				
+					}
+				}
 			}
 		}
 
@@ -345,11 +345,11 @@ RadioCommandDisplayClass::Check_Keys (void)
 		//	Turn off the UI if the key is no longer being held
 		//
 		if (IsDisplayed) {
-			Display (false);			
+			Display (false);
 		}
 
 		DisplayTimer = 0.0F;
 	}
-	
+
 	return ;
 }

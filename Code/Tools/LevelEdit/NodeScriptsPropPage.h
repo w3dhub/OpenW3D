@@ -57,7 +57,7 @@ class ScriptListParameterClass;
 //	NodeScriptsPropPage
 //
 //////////////////////////////////////////////////////////////////////////////
-class NodeScriptsPropPage : public DockableFormClass 
+class NodeScriptsPropPage : public DockableFormClass
 {
 	public:
 		NodeScriptsPropPage (void);
@@ -85,7 +85,7 @@ public:
 	//}}AFX_VIRTUAL
 
 // Implementation
-protected:	
+protected:
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -102,7 +102,7 @@ protected:
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
 
-	
+
 public:
 
 	///////////////////////////////////////////////////////

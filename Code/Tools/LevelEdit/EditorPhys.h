@@ -85,10 +85,10 @@ EditorPhysClass::Cast_Ray (PhysRayCollisionTestClass &raytest)
 	WWASSERT (Model != NULL);
 
 	// Cast the ray and return the result
-	bool retval = false;	
+	bool retval = false;
 	if ((Model != NULL) &&
 	    (Model->Cast_Ray (raytest))) {
-			
+
 		// Success!
 		raytest.CollidedPhysObj = this;
 		retval = true;

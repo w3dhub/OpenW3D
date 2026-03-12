@@ -439,17 +439,17 @@ public:
 	virtual float								Get_Volume (void) const				{ return m_Volume; }
 	virtual float								Get_Volume_Randomizer (void) const	{ return m_VolumeRandomizer; }
 	virtual float								Get_Start_Offset (void) const		{ return m_StartOffset; }
-	virtual float								Get_Pitch_Factor (void) const		{ return m_PitchFactor; }	
-	virtual float								Get_Pitch_Factor_Randomizer (void) const	{ return m_PitchFactorRandomizer; }	
+	virtual float								Get_Pitch_Factor (void) const		{ return m_PitchFactor; }
+	virtual float								Get_Pitch_Factor_Randomizer (void) const	{ return m_PitchFactorRandomizer; }
 	virtual int									Get_Virtual_Channel (void) const	{ return m_VirtualChannel; }
 
 	virtual void								Set_Volume (float volume)				{ m_Volume = volume; }
-	virtual void								Set_Volume_Randomizer (float value)	{ m_VolumeRandomizer = value; }	
+	virtual void								Set_Volume_Randomizer (float value)	{ m_VolumeRandomizer = value; }
 	virtual void								Set_Max_Vol_Radius (float radius)	{ m_MaxVolRadius = radius; }
 	virtual void								Set_DropOff_Radius (float radius)	{ m_DropOffRadius = radius; }
 	virtual void								Set_Start_Offset (float offset)		{ m_StartOffset = offset; }
 	virtual void								Set_Pitch_Factor (float factor)		{ m_PitchFactor = factor; }
-	virtual void								Set_Pitch_Factor_Randomizer (float value)	{ m_PitchFactorRandomizer = value; }	
+	virtual void								Set_Pitch_Factor_Randomizer (float value)	{ m_PitchFactorRandomizer = value; }
 	virtual void								Set_Virtual_Channel (int channel)	{ m_VirtualChannel = channel; }
 
 	// Logical sound creation

@@ -70,19 +70,19 @@ public:
 	//////////////////////////////////////////////////////////////////////////////////
 	//	Public methods
 	//////////////////////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Stuff
-	//	
+	//
 	virtual bool		Create_Picker (DWORD style, const RECT &rect, CWnd *parent, UINT id);
-	virtual void		Initialize_Control (void);	
+	virtual void		Initialize_Control (void);
 	virtual void		Set_Read_Only (bool readonly = true);
 
 	//
 	//	Icon control
 	//
 	virtual void		Set_Icon (HICON icon)	{ m_Icon = icon; }
-	
+
 	//
 	//	Overrideables
 	//

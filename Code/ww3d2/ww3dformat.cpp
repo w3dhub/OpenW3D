@@ -114,7 +114,7 @@ void Vector4_to_Color(unsigned int *outc,const Vector4 &inc,const WW3DFormat for
 
 	switch (format)
 	{
-	case WW3D_FORMAT_R8G8B8:		
+	case WW3D_FORMAT_R8G8B8:
 	case WW3D_FORMAT_A8R8G8B8:
 	case WW3D_FORMAT_X8R8G8B8:
 		*outc=color;
@@ -158,12 +158,12 @@ void Vector4_to_Color(unsigned int *outc,const Vector4 &inc,const WW3DFormat for
 		*outc=lum;
 		break;
 	case WW3D_FORMAT_A8L8:
-		a=argb[0];		
+		a=argb[0];
 		lum=RGB_to_CIEY(inc);
 		*outc=(a<<8) | lum;
 		break;
 	case WW3D_FORMAT_A4L4:
-		a=argb[0] >> 4;		
+		a=argb[0] >> 4;
 		lum=RGB_to_CIEY(inc);
 		lum=lum>>4;
 		*outc=(a<<4) | lum;
@@ -209,7 +209,7 @@ void Color_to_Vector4(Vector4* outc,const unsigned int inc,const WW3DFormat form
 		g=argb[2]<<4;
 		b=argb[3]<<4;
 		break;
-	case WW3D_FORMAT_R3G3B2:		
+	case WW3D_FORMAT_R3G3B2:
 		r=argb[1]<<5;
 		g=argb[2]<<5;
 		b=argb[3]<<6;
@@ -287,7 +287,7 @@ WW3DFormat Get_Valid_Texture_Format(WW3DFormat format, bool is_compression_allow
 	int w,h,bits;
 	bool windowed;
 
-	if (!DX8Wrapper::Get_Current_Caps()->Support_DXTC() || 
+	if (!DX8Wrapper::Get_Current_Caps()->Support_DXTC() ||
 		!is_compression_allowed) {
 		switch (format) {
 		case WW3D_FORMAT_DXT1: format=WW3D_FORMAT_R8G8B8; break;
@@ -302,7 +302,7 @@ WW3DFormat Get_Valid_Texture_Format(WW3DFormat format, bool is_compression_allow
 		switch (format) {
 		case WW3D_FORMAT_DXT1:
 			// NVidia hack - switch to DXT2 is there is no DXT1 support (which is disabled on NVidia cards)
-			if (!DX8Wrapper::Get_Current_Caps()->Support_Texture_Format(WW3D_FORMAT_DXT1) && 
+			if (!DX8Wrapper::Get_Current_Caps()->Support_Texture_Format(WW3D_FORMAT_DXT1) &&
 				DX8Wrapper::Get_Current_Caps()->Support_Texture_Format(WW3D_FORMAT_DXT2)) {
 				format=WW3D_FORMAT_DXT2;
 			}

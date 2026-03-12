@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/objlibrary.cpp                        $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 10/23/01 12:14p                                             $* 
- *                                                                                             * 
- *                    $Revision:: 91                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/objlibrary.cpp                        $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 10/23/01 12:14p                                             $*
+ *                                                                                             *
+ *                    $Revision:: 91                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "objlibrary.h"
@@ -97,7 +97,7 @@ void Force_Link_Combat( void )
 	FORCE_LINK( Soldier );
 	FORCE_LINK( Vehicle );
 	FORCE_LINK( Zone );
-	FORCE_LINK( DamageZone );	
+	FORCE_LINK( DamageZone );
 	FORCE_LINK( Transition );
 	FORCE_LINK( Cinematic );
 	FORCE_LINK( SpecialEffects );
@@ -113,8 +113,8 @@ void Force_Link_Combat( void )
 	FORCE_LINK( ComCenter );
 	FORCE_LINK( RepairBay );
 	FORCE_LINK( AirStrip );
-	FORCE_LINK( WarFactory );	
-	
+	FORCE_LINK( WarFactory );
+
 	FORCE_LINK( doorphys );
 	FORCE_LINK( elevatorphys );
 	FORCE_LINK( damageablestaticphys );
@@ -122,9 +122,9 @@ void Force_Link_Combat( void )
 
 	FORCE_LINK( GlobalSettings );
 	FORCE_LINK( EvaSettings );
-	FORCE_LINK( CharClassSettings );	
+	FORCE_LINK( CharClassSettings );
 	FORCE_LINK( OratorTypes );
 	FORCE_LINK( PurchaseSettings );
-	FORCE_LINK( TeamPurchaseSettings );	
+	FORCE_LINK( TeamPurchaseSettings );
 }
 

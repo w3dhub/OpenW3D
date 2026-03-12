@@ -364,7 +364,7 @@ void MultiHUDClass::Show_Player_Names(void)
 		} else {
 			PhysicalGameObj * p_blocker = ((CombatPhysObserverClass *)raytest.CollidedPhysObj->Get_Observer())->As_PhysicalGameObj();
 	      //if (p_blocker != p_smart_obj) {
-	      if ((p_blocker == NULL) || 
+	      if ((p_blocker == NULL) ||
 				 ((p_blocker != p_smart_obj) && (p_blocker != p_vehicle))) {
 			   //
 				// The ray failed to collide with the soldier in question

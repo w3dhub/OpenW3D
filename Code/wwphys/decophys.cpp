@@ -62,14 +62,14 @@ SimplePersistFactoryClass<DecorationPhysClass,PHYSICS_CHUNKID_DECORATIONPHYS>	_D
 /*
 ** Chunk-ID's used by DecoPhys
 */
-enum 
+enum
 {
 	DECOPHYS_CHUNK_PHYS				=	0x005060000,			// old parent class data
 	DECOPHYS_CHUNK_DYNAMICPHYS,									// current parent class data
 };
 
 DecorationPhysClass::DecorationPhysClass(void)
-{ 
+{
 	ObjSpaceWorldBox.Center.Set(0,0,0);
 	ObjSpaceWorldBox.Extent.Set(1,1,1);
 }
@@ -85,10 +85,10 @@ void DecorationPhysClass::Set_Model(RenderObjClass * model)
 
 	// Initialize our copy of the world box
 	if (Model != NULL) {
-	
+
 		RenderObjClass * box = Model->Get_Sub_Object_By_Name("WORLDBOX");
 		if (box) {
-	
+
 			// Get the box when the model has an identity transform
 			Matrix3D old_transform = Model->Get_Transform();
 			Model->Set_Transform(Matrix3D(1));
@@ -99,7 +99,7 @@ void DecorationPhysClass::Set_Model(RenderObjClass * model)
 
 		} else {
 			Model->Get_Obj_Space_Bounding_Box(ObjSpaceWorldBox);
-		} 
+		}
 	}
 }
 
@@ -134,24 +134,24 @@ void DecorationPhysClass::Get_Shadow_Blob_Box(AABoxClass * set_obj_space_box)
 	}
 }
 
-bool DecorationPhysClass::Intersection_Test(PhysAABoxIntersectionTestClass & test)		
-{ 
+bool DecorationPhysClass::Intersection_Test(PhysAABoxIntersectionTestClass & test)
+{
 	WWASSERT(Model);
 	if (Model->Intersect_AABox(test)) {
 		test.Add_Intersected_Object(this);
 		return true;
 	}
-	return false; 
+	return false;
 }
 
-bool DecorationPhysClass::Intersection_Test(PhysOBBoxIntersectionTestClass & test)		
-{ 
+bool DecorationPhysClass::Intersection_Test(PhysOBBoxIntersectionTestClass & test)
+{
 	WWASSERT(Model);
 	if (Model->Intersect_OBBox(test)) {
 		test.Add_Intersected_Object(this);
 		return true;
 	}
-	return false; 
+	return false;
 }
 
 bool DecorationPhysClass::Cast_Ray(PhysRayCollisionTestClass & raytest)
@@ -202,8 +202,8 @@ bool DecorationPhysClass::Save (ChunkSaveClass &csave)
 bool DecorationPhysClass::Load (ChunkLoadClass &cload)
 {
 	while (cload.Open_Chunk()) {
-		
-		switch(cload.Cur_Chunk_ID()) 
+
+		switch(cload.Cur_Chunk_ID())
 		{
 			case DECOPHYS_CHUNK_PHYS:
 				PhysClass::Load(cload);
@@ -217,7 +217,7 @@ bool DecorationPhysClass::Load (ChunkLoadClass &cload)
 				WWDEBUG_SAY(("Unhandled Chunk: 0x%X File: %s Line: %d\r\n",cload.Cur_Chunk_ID(),__FILE__,__LINE__));
 				break;
 		}
-		
+
 		cload.Close_Chunk();
 	}
 	SaveLoadSystemClass::Register_Post_Load_Callback(this);
@@ -258,7 +258,7 @@ DECLARE_DEFINITION_FACTORY(DecorationPhysDefClass, CLASSID_DECOPHYSDEF, "Decorat
 /*
 ** Chunk ID's used by DecorationPhysDefClass
 */
-enum 
+enum
 {
 	DECORATIONPHYSDEF_CHUNK_PHYSDEF						= 0x01070003,			// old parent class
 	DECORATIONPHYSDEF_CHUNK_DYNAMICPHYSDEF,										// current parent class
@@ -271,7 +271,7 @@ DecorationPhysDefClass::DecorationPhysDefClass(void)
 
 uint32 DecorationPhysDefClass::Get_Class_ID (void) const
 {
-	return CLASSID_DECOPHYSDEF; 
+	return CLASSID_DECOPHYSDEF;
 }
 
 PersistClass * DecorationPhysDefClass::Create(void) const
@@ -282,8 +282,8 @@ PersistClass * DecorationPhysDefClass::Create(void) const
 }
 
 const char * DecorationPhysDefClass::Get_Type_Name(void)
-{ 
-	return "DecorationPhysDef"; 
+{
+	return "DecorationPhysDef";
 }
 
 bool DecorationPhysDefClass::Is_Type(const char * type_name)
@@ -305,7 +305,7 @@ bool DecorationPhysDefClass::Save(ChunkSaveClass &csave)
 	csave.Begin_Chunk(DECORATIONPHYSDEF_CHUNK_DYNAMICPHYSDEF);
 	DynamicPhysDefClass::Save(csave);
 	csave.End_Chunk();
-	
+
 	return true;
 }
 

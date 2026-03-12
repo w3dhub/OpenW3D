@@ -62,7 +62,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-class FrameGrabClass  
+class FrameGrabClass
 {
 public:
 	enum MODE {
@@ -92,11 +92,11 @@ protected:
 	void GrabRawFrame(void *BitmapPointer);
 
 	// avi settings
-	PAVIFILE				AVIFile;  
+	PAVIFILE				AVIFile;
 	int					*Bitmap;
-	PAVISTREAM			Stream;     
+	PAVISTREAM			Stream;
 	AVISTREAMINFOA		AVIStreamInfo;
-	BITMAPINFOHEADER	BitmapInfoHeader; 
+	BITMAPINFOHEADER	BitmapInfoHeader;
 
 	// general purpose cleanup routine
 	void CleanupAVI();

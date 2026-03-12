@@ -98,7 +98,7 @@ CoverSpotNodeClass::CoverSpotNodeClass (PresetClass *preset)
 	:	m_PhysObj (NULL),
 		m_RequiresCrouch (false),
 		m_GameCoverSpot (NULL),
-		NodeClass (preset)		
+		NodeClass (preset)
 {
 	_InstanceCount ++;
 	return ;
@@ -117,7 +117,7 @@ CoverSpotNodeClass::CoverSpotNodeClass (const CoverSpotNodeClass &src)
 		NodeClass (NULL)
 {
 	_InstanceCount ++;
-	*this = src;	
+	*this = src;
 	return ;
 }
 
@@ -128,7 +128,7 @@ CoverSpotNodeClass::CoverSpotNodeClass (const CoverSpotNodeClass &src)
 //
 //////////////////////////////////////////////////////////////////////////////
 CoverSpotNodeClass::~CoverSpotNodeClass (void)
-{	
+{
 	Free_Attack_Points ();
 	Remove_From_Scene ();
 	MEMBER_RELEASE (m_PhysObj);
@@ -164,10 +164,10 @@ CoverSpotNodeClass::Initialize (void)
 	RenderObjClass *render_obj = ::Create_Render_Obj ("COVERSPOT");
 	WWASSERT (render_obj != NULL);
 	if (render_obj != NULL) {
-		
+
 		// Create the new physics object
 		m_PhysObj = new DecorationPhysClass;
-		
+
 		//
 		// Configure the physics object with information about
 		// its new render object and collision data.
@@ -178,7 +178,7 @@ CoverSpotNodeClass::Initialize (void)
 		m_PhysObj->Peek_Model ()->Set_User_Data ((PVOID)&m_HitTestInfo, false);
 		m_PhysObj->Set_Transform (m_Transform);
 		::Set_Model_Collision_Type (m_PhysObj->Peek_Model (), COLLISION_TYPE_0);
-		
+
 		// Release our hold on the render object pointer
 		MEMBER_RELEASE (render_obj);
 	}
@@ -187,16 +187,16 @@ CoverSpotNodeClass::Initialize (void)
 
 		//
 		//	Create the collision physics object
-		//	
+		//
 		PresetClass *preset = PresetMgrClass::Find_Preset ("Walk-Thru");
 		if (preset != NULL && preset->Get_Definition ()  != NULL) {
-			
+
 			//
 			//	Load the assets for this preset and get its definition
 			//
 			preset->Load_All_Assets ();
 			SoldierGameObjDef *definition	= (SoldierGameObjDef *)preset->Get_Definition ();
-			
+
 			//
 			//	Create the collision physics object
 			//
@@ -218,7 +218,7 @@ CoverSpotNodeClass::Initialize (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 CoverSpotNodeClass::Get_Factory (void) const
-{	
+{
 	return _CoverSpotNodePersistFactory;
 }
 
@@ -237,7 +237,7 @@ CoverSpotNodeClass::Save (ChunkSaveClass &csave)
 
 	csave.Begin_Chunk (CHUNKID_VARIABLES);
 		WRITE_MICRO_CHUNK (csave, VARID_REQUIRES_CROUCH, m_RequiresCrouch);
-		
+
 		//
 		//	Save the list of cover point attack positions
 		//
@@ -263,13 +263,13 @@ CoverSpotNodeClass::Save (ChunkSaveClass &csave)
 bool
 CoverSpotNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -296,7 +296,7 @@ CoverSpotNodeClass::Load_Variables (ChunkLoadClass &cload)
 	//
 	while (cload.Open_Micro_Chunk ()) {
 		switch (cload.Cur_Micro_Chunk_ID ()) {
-			
+
 			READ_MICRO_CHUNK (cload, VARID_REQUIRES_CROUCH, m_RequiresCrouch);
 
 			case VARID_ATTACK_POINT:
@@ -385,7 +385,7 @@ CoverSpotNodeClass::Pre_Export (void)
 {
 	//
 	//	Remove ourselves from the 'system' so we don't get accidentally
-	// saved during the export. 
+	// saved during the export.
 	//
 	Add_Ref ();
 	if (m_PhysObj != NULL && m_IsInScene) {
@@ -399,7 +399,7 @@ CoverSpotNodeClass::Pre_Export (void)
 		m_GameCoverSpot = new CoverEntryClass;
 		m_GameCoverSpot->Set_Transform (Get_Transform ());
 		m_GameCoverSpot->Set_Crouch (m_RequiresCrouch);
-		AttackPositionListType *attack_list = m_GameCoverSpot->Get_Attack_Position_List ();			
+		AttackPositionListType *attack_list = m_GameCoverSpot->Get_Attack_Position_List ();
 
 		//
 		//	Remove the unnecessary UI elements from the scene
@@ -408,7 +408,7 @@ CoverSpotNodeClass::Pre_Export (void)
 			CoverAttackPointNodeClass *attack_point	= m_AttackPointNodes[index];
 			EditorLineClass *line							= m_AttackPointLines[index];
 			::Get_Scene_Editor ()->Remove_Object (line);
-			
+
 			attack_list->Add (attack_point->Get_Position ());
 		}
 
@@ -477,7 +477,7 @@ CoverSpotNodeClass::Add_Attack_Point (const Matrix3D &tm)
 	//
 	//	Create and add the line from the coverspot to the attack point
 	//
-	EditorLineClass *line = new EditorLineClass;	
+	EditorLineClass *line = new EditorLineClass;
 	line->Reset (m_Transform.Get_Translation () + LINE_OFFSET, tm.Get_Translation () + LINE_OFFSET);
 	m_AttackPointLines.Add (line);
 
@@ -503,13 +503,13 @@ CoverSpotNodeClass::Remove_Attack_Point (CoverAttackPointNodeClass *attack_point
 	//
 	for (int index = 0; index < m_AttackPointNodes.Count (); index ++) {
 		if (attack_point == m_AttackPointNodes[index]) {
-			
+
 			//
 			//	Free the attack point
 			//
 			MEMBER_RELEASE (attack_point);
 			m_AttackPointNodes.Delete (index);
-			
+
 			//
 			//	Remove and free the line to the attack point
 			//
@@ -519,7 +519,7 @@ CoverSpotNodeClass::Remove_Attack_Point (CoverAttackPointNodeClass *attack_point
 			break;
 		}
 	}
-	
+
 	return ;
 }
 
@@ -540,13 +540,13 @@ CoverSpotNodeClass::Free_Attack_Points (void)
 	for (int index = 0; index < m_AttackPointNodes.Count (); index ++) {
 		CoverAttackPointNodeClass *attack_point	= m_AttackPointNodes[index];
 		EditorLineClass *line							= m_AttackPointLines[index];
-		
+
 		scene->Remove_Object (line);
 		attack_point->Remove_From_Scene ();
 		MEMBER_RELEASE (attack_point);
 		MEMBER_RELEASE (line);
 	}
-	
+
 	//
 	//	Remove all the attack points from the list
 	//
@@ -563,7 +563,7 @@ CoverSpotNodeClass::Free_Attack_Points (void)
 /////////////////////////////////////////////////////////////////
 bool
 CoverSpotNodeClass::Show_Settings_Dialog (void)
-{	
+{
 	NodeInfoPageClass			info_tab (this);
 	PositionPageClass			pos_tab (this);
 	CoverSpotInfoPageClass	cover_info_tab (this);
@@ -575,7 +575,7 @@ CoverSpotNodeClass::Show_Settings_Dialog (void)
 
 	// Show the property sheet
 	UINT ret_code = prop_sheet.DoModal ();
-	
+
 	// Return true if the user clicked OK
 	return (ret_code == IDOK);
 }
@@ -627,7 +627,7 @@ CoverSpotNodeClass::Remove_From_Scene (void)
 			scene->Remove_Object (line);
 		}
 	}
-	
+
 	NodeClass::Remove_From_Scene ();
 	return ;
 }
@@ -644,7 +644,7 @@ CoverSpotNodeClass::Update_Lines (void)
 	for (int index = 0; index < m_AttackPointNodes.Count (); index ++) {
 		CoverAttackPointNodeClass *attack_point	= m_AttackPointNodes[index];
 		EditorLineClass *line							= m_AttackPointLines[index];
-		
+
 		line->Reset (Get_Transform ().Get_Translation () + LINE_OFFSET,
 							attack_point->Get_Position () + LINE_OFFSET);
 	}
@@ -686,7 +686,7 @@ CoverSpotNodeClass::Hide (bool hide)
 		attack_point->Hide (hide);
 		line->Hide (hide);
 	}
-	
+
 	NodeClass::Hide (hide);
 	return ;
 }

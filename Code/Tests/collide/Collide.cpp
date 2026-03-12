@@ -76,7 +76,7 @@ void main ()
 	box0.center[0] = 0.0f;
 	box0.center[1] = 0.0f;
 	box0.center[2] = 0.0f;
-	
+
 	box0.basis[0][0] = 1.0f;
 	box0.basis[0][1] = 0.0f;
 	box0.basis[0][2] = 0.0f;
@@ -100,7 +100,7 @@ void main ()
 	box1.center[0] = 0.0f;
 	box1.center[1] = -10.0f;
 	box1.center[2] = 20.0f;
-	
+
 	float line[3] = { 0.0f, 0.707f, 0.707f };
 	float length = float(sqrt(line[0]*line[0]+line[1]*line[1]+line[2]*line[2]));
 	line[0] /= length;
@@ -149,12 +149,12 @@ void main ()
 		cycles2 = Get_CPU_Clock(high) - cycles2;
 
 		cout << cycles0 << "   "<< cycles1 << "   " << cycles2 << "   " << type << "  " << mytype<< "  " << mytype2 << endl;
-		
+
 		box1.center[2] -= 1.0f;
 		mybox1.Center[2] -= 1.0f;
 
 	}
-	
+
 //	if (type == itIntersects) {
 //		ostr << "type = " << type << endl;
 //	}
@@ -207,14 +207,14 @@ void main ()
 	}
 #endif
 
-	
+
 	/*
 	** box0
 	*/
 	box0.center[0] = 6.1978f;
 	box0.center[1] = 2.6640f;
 	box0.center[2] = 0.840f;
-	
+
 	box0.extent[0] = 0.1341f;
 	box0.extent[1] = 0.320672f;
 	box0.extent[2] = 0.840f;
@@ -228,7 +228,7 @@ void main ()
 	box0.basis[1][0] = 0.514136f;
 	box0.basis[1][1] = 0.857709f;
 	box0.basis[1][2] = 0.0f;
-	
+
 	box0.basis[2][0] = 0.0f;
 	box0.basis[2][1] = 0.0f;
 	box0.basis[2][2] = 1.0f;
@@ -264,7 +264,7 @@ void main ()
 
 
 void benchmark_transformations(void)
-{ 
+{
 	unsigned int high;
 	unsigned int cycles0;
 	unsigned int cycles1;

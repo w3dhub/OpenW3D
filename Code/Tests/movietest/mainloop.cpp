@@ -17,22 +17,22 @@
 */
 
 /* $Header: /Commando/Code/Tests/movietest/mainloop.cpp 4     5/06/98 3:10p Greg_h $ */
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Tests/movietest/mainloop.cpp                 $* 
- *                                                                                             * 
- *                      $Author:: Greg_h                                                      $* 
- *                                                                                             * 
- *                     $Modtime:: 3/24/98 10:44a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 4                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Tests/movietest/mainloop.cpp                 $*
+ *                                                                                             *
+ *                      $Author:: Greg_h                                                      $*
+ *                                                                                             *
+ *                     $Modtime:: 3/24/98 10:44a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 4                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
@@ -163,9 +163,9 @@ void Load_Data(void)
 	WW3DAssetManager::Get_Instance()->Load_3D_Assets(RawFileClass("MOVIE.W3D"));
 }
 
-/*			  
-**  
-*/			   
+/*
+**
+*/
 void	Create_Objects(void)
 {
 	Camera = new CameraClass("CAMERA");
@@ -174,7 +174,7 @@ void	Create_Objects(void)
 //	Camera->Set_Clip_Planes(1.0f,5000.0f);
 	Camera->Set_Focal_Length(0.060f);
 	Camera->Set_Viewport(Vector2(0.3,0.3),Vector2(0.5,0.5));
-	
+
 	CameraAnim = WW3DAssetManager::Get_Instance()->Get_HAnim("Camera.Camera");
 	TestModel = WW3DAssetManager::Get_Instance()->Create_HModel("Movie");
 	assert(TestModel);
@@ -221,7 +221,7 @@ void	Destroy_Objects(void)
 		Camera->Release_Ref();
 		Camera = NULL;
 	}
-	
+
 	if (Light) {
 		Light->Remove();
 		Light->Release_Ref();
@@ -297,7 +297,7 @@ void	Init_Debug(void)
 	WWDebug_Install_Message_Handler(wwdebug_message_handler);
 	WWDebug_Install_Assert_Handler(wwdebug_assert_handler);
 	WWDebug_Install_Trigger_Handler(wwdebug_trigger_handler);
-	
+
 }
 
 void	Shutdown_Debug(void)
@@ -346,15 +346,15 @@ void Debug_Refs(void)
 		sprintf(buf,"Main Looop End %d refs\n", RefCountClass::Total_Refs());
 		MessageBox(NULL,buf,"Ref Debugging",MB_OK);
 	}
-	
+
 	SList<ActiveRefStruct> * reflist = RefCountClass::Get_Active_Ref_List();
 
 	SLNode<ActiveRefStruct> * objnode;
 
 	for (	objnode = reflist->Head(); objnode; objnode = objnode->Next()) {
-		
+
 		ActiveRefStruct * ref = objnode->Data();
-		
+
 		sprintf(buf,"Active Ref: %s Line: %d Pointer: %p\n", ref->File,ref->Line,ref->Object);
 		if (MessageBox(NULL,buf,"Ref Debugging",MB_OKCANCEL) == IDCANCEL) {
 			break;

@@ -64,7 +64,7 @@ class CollectionClass;
 class TerrainSectionNodeClass : public TileNodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -101,7 +101,7 @@ public:
 	void						Set_Terrain (TerrainNodeClass *terrain)	{ Terrain = terrain; }
 
 private:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Private member data
 	//////////////////////////////////////////////////////////////////
@@ -117,7 +117,7 @@ private:
 class TerrainNodeClass : public NodeClass
 {
 public:
-	
+
 	//////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	//////////////////////////////////////////////////////////////////
@@ -138,7 +138,7 @@ public:
 	//	RTTI
 	//
 	TerrainNodeClass *As_TerrainNodeClass (void)					{ return this; }
-	
+
 	//
 	// From NodeClass
 	//
@@ -193,7 +193,7 @@ protected:
 	//	Protected member data
 	//////////////////////////////////////////////////////////////////
 	DynamicVectorClass<NodeClass *>	m_Sections;
-	TerrainSectionPersistListClass	m_TerrainSectionInfo;			
+	TerrainSectionPersistListClass	m_TerrainSectionInfo;
 
 	friend TerrainSectionPersistClass;
 	friend TerrainSectionPersistListClass;

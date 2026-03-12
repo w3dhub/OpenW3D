@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Combat/soldierfactorygameobj.cpp             $* 
- *                                                                                             * 
- *                      $Author:: Patrick                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 8/22/01 4:54p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 5                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Combat/soldierfactorygameobj.cpp             $*
+ *                                                                                             *
+ *                      $Author:: Patrick                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 8/22/01 4:54p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 5                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "soldierfactorygameobj.h"
@@ -107,8 +107,8 @@ SoldierFactoryGameObjDef::~SoldierFactoryGameObjDef (void)
 //
 ////////////////////////////////////////////////////////////////
 uint32
-SoldierFactoryGameObjDef::Get_Class_ID (void) const	
-{ 
+SoldierFactoryGameObjDef::Get_Class_ID (void) const
+{
 	return CLASSID_GAME_OBJECT_DEF_SOLDIER_FACTORY;
 }
 
@@ -119,7 +119,7 @@ SoldierFactoryGameObjDef::Get_Class_ID (void) const
 //
 ////////////////////////////////////////////////////////////////
 PersistClass *
-SoldierFactoryGameObjDef::Create (void) const 
+SoldierFactoryGameObjDef::Create (void) const
 {
 	SoldierFactoryGameObj *building = new SoldierFactoryGameObj;
 	building->Init (*this);
@@ -136,7 +136,7 @@ SoldierFactoryGameObjDef::Create (void) const
 bool
 SoldierFactoryGameObjDef::Save (ChunkSaveClass &csave)
 {
-	csave.Begin_Chunk (CHUNKID_DEF_PARENT);		
+	csave.Begin_Chunk (CHUNKID_DEF_PARENT);
 		BuildingGameObjDef::Save (csave);
 	csave.End_Chunk ();
 
@@ -165,7 +165,7 @@ SoldierFactoryGameObjDef::Load (ChunkLoadClass &cload)
 			case CHUNKID_DEF_VARIABLES:
 				Load_Variables (cload);
 				break;
-	  
+
 			default:
 				Debug_Say (("Unrecognized Com Center Def chunkID\n"));
 				break;
@@ -187,7 +187,7 @@ void
 SoldierFactoryGameObjDef::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:
@@ -208,9 +208,9 @@ SoldierFactoryGameObjDef::Load_Variables (ChunkLoadClass &cload)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-SoldierFactoryGameObjDef::Get_Factory (void) const 
-{ 
-	return _SoldierFactoryGameObjDefPersistFactory; 
+SoldierFactoryGameObjDef::Get_Factory (void) const
+{
+	return _SoldierFactoryGameObjDefPersistFactory;
 }
 
 
@@ -242,7 +242,7 @@ SoldierFactoryGameObj::~SoldierFactoryGameObj (void)
 //
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
-SoldierFactoryGameObj::Get_Factory (void) const 
+SoldierFactoryGameObj::Get_Factory (void) const
 {
 	return _SoldierFactoryGameObjPersistFactory;
 }
@@ -268,7 +268,7 @@ void SoldierFactoryGameObj::Init (void)
 void
 SoldierFactoryGameObj::Init (const SoldierFactoryGameObjDef &definition)
 {
-	BuildingGameObj::Init (definition);	
+	BuildingGameObj::Init (definition);
 	return ;
 }
 
@@ -317,7 +317,7 @@ SoldierFactoryGameObj::Load (ChunkLoadClass &cload)
 			case CHUNKID_PARENT:
 				BuildingGameObj::Load (cload);
 				break;
-								
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -343,7 +343,7 @@ void
 SoldierFactoryGameObj::Load_Variables (ChunkLoadClass &cload)
 {
 	while (cload.Open_Micro_Chunk ()) {
-		
+
 		/*switch (cload.Cur_Micro_Chunk_ID ())
 		{
 			default:

@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/purchaseresponseevent.cpp               $* 
- *                                                                                             * 
- *                      $Author:: Tom_s                                                       $* 
- *                                                                                             * 
- *                     $Modtime:: 12/20/01 2:57p                                              $* 
- *                                                                                             * 
- *                    $Revision:: 10                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/purchaseresponseevent.cpp               $*
+ *                                                                                             *
+ *                      $Author:: Tom_s                                                       $*
+ *                                                                                             *
+ *                     $Modtime:: 12/20/01 2:57p                                              $*
+ *                                                                                             *
+ *                    $Revision:: 10                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "purchaseresponseevent.h"
@@ -114,14 +114,14 @@ cPurchaseResponseEvent::Act(void)
 		wide_string.Format( U_CHAR("%s\n"), TRANSLATION(IDS_MP_CNC_FACTORY_UNAVAILABLE) );
 	} else if ( ResponseId == VendorClass::PERR_OPERATION_PENDING ) {
 		wide_string.Format( U_CHAR("%s\n"), TRANSLATION(IDS_MP_CNC_TRANSACTION_PENDING) );
-	} else if ( ResponseId == VendorClass::PERR_NOT_IN_STOCK ) {			
+	} else if ( ResponseId == VendorClass::PERR_NOT_IN_STOCK ) {
 		wide_string.Format( U_CHAR("%s\n"), TRANSLATION(IDS_MP_CNC_NOT_IN_STOCK) );
 	}
 
 	//
 	//	Display the message...
 	//
-	CombatManager::Get_Message_Window ()->Add_Message (wide_string, Vector3 (0.7F, 0.7F, 0.7F));		
+	CombatManager::Get_Message_Window ()->Add_Message (wide_string, Vector3 (0.7F, 0.7F, 0.7F));
 	Set_Delete_Pending();
 }
 

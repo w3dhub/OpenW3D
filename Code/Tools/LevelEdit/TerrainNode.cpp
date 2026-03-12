@@ -195,7 +195,7 @@ TerrainNodeClass::Remove_From_Scene (void)
 
 		m_IsInScene = false;
 	}
-	
+
 	return ;
 }
 
@@ -209,7 +209,7 @@ void
 TerrainNodeClass::Set_Transform (const Matrix3D &tm)
 {
 	Special_Set_Transform (tm);
-	Transform = tm;	
+	Transform = tm;
 	return ;
 }
 
@@ -233,12 +233,12 @@ TerrainNodeClass::Special_Set_Transform (const Matrix3D &tm)
 		NodeClass *sub_node = (TerrainSectionNodeClass *)m_Sections[index];
 
 		if (sub_node->Get_Type () == NODE_TYPE_TERRAIN_SECTION) {
-			
+
 			//
 			//	Check to see if this sub-object is a dazzle.  If it is, then
 			// transform it relative to the terrain...
 			//
-			RenderObjClass *model = sub_node->Peek_Render_Obj ();		
+			RenderObjClass *model = sub_node->Peek_Render_Obj ();
 			if (model != NULL && model->Class_ID () == RenderObjClass::CLASSID_DAZZLE) {
 				Matrix3D sub_obj_tm		= sub_node->Get_Transform ();
 				Matrix3D rel_sub_obj_tm	= inv_tm * sub_obj_tm;
@@ -248,7 +248,7 @@ TerrainNodeClass::Special_Set_Transform (const Matrix3D &tm)
 			} else {
 				((TerrainSectionNodeClass *)sub_node)->Special_Set_Transform (tm);
 			}
-			
+
 		} else if (sub_node->Get_Type () == NODE_TYPE_TERRAIN) {
 			((TerrainNodeClass *)sub_node)->Special_Set_Transform (tm);
 		} else  {
@@ -289,7 +289,7 @@ TerrainNodeClass::Initialize (void)
 		//	Make sure all assets are loaded into memory before this tile is created...
 		//
 		m_Preset->Load_All_Assets ();
-		
+
 		CString filename		= definition->Get_Model_Name ();
 		CString asset_name	= ::Asset_Name_From_Filename (filename);
 
@@ -323,12 +323,12 @@ TerrainNodeClass::Initialize (void)
 							sub_node->Create (sub_obj);
 							sub_node->Set_Terrain (this);
 							m_Sections.Add (sub_node);
-							
+
 							MEMBER_RELEASE (sub_obj);
-						}																		
+						}
 					}
 				}
-				
+
 				//
 				//	Build a list of proxy objects
 				//
@@ -357,9 +357,9 @@ TerrainNodeClass::Initialize (void)
 						if (hlod->Get_Proxy (index, proxy)) {
 							proxy_list.Add (proxy);
 						}
-					}					
+					}
 				}
-				
+
 				//
 				//	Create the proxy objects
 				//
@@ -424,7 +424,7 @@ TerrainNodeClass::Build_Section_ID_List (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 TerrainNodeClass::Get_Factory (void) const
-{	
+{
 	return _TerrainNodePersistFactory;
 }
 
@@ -503,7 +503,7 @@ TerrainNodeClass::Save (ChunkSaveClass &csave)
 {
 	csave.Begin_Chunk (CHUNKID_BASE_CLASS);
 		NodeClass::Save (csave);
-	csave.End_Chunk ();	
+	csave.End_Chunk ();
 
 	//
 	//	Write a chunk for each section so we can store instance
@@ -529,13 +529,13 @@ TerrainNodeClass::Save (ChunkSaveClass &csave)
 bool
 TerrainNodeClass::Load (ChunkLoadClass &cload)
 {
-	while (cload.Open_Chunk ()) {		
+	while (cload.Open_Chunk ()) {
 		switch (cload.Cur_Chunk_ID ()) {
 
 			case CHUNKID_BASE_CLASS:
 				NodeClass::Load (cload);
 				break;
-			
+
 			case CHUNKID_VARIABLES:
 				Load_Variables (cload);
 				break;
@@ -565,7 +565,7 @@ TerrainNodeClass::Load_Variables (ChunkLoadClass &cload)
 		switch (cload.Cur_Micro_Chunk_ID ()) {
 
 			READ_MICRO_CHUNK (cload, VARID_TM, LoadedTransform)
-			
+
 			case VARID_SECTIONID_OLD:
 			case VARID_SECTIONID:
 			{
@@ -593,7 +593,7 @@ TerrainNodeClass::Load_Variables (ChunkLoadClass &cload)
 ////////////////////////////////////////////////////////////////
 void
 TerrainNodeClass::Create_Lights (void)
-{	
+{
 	if (::Get_Scene_Editor ()->Is_Proxy_Creation_Enabled () == false) {
 		return ;
 	}
@@ -619,14 +619,14 @@ TerrainNodeClass::Create_Lights (void)
 	//
 	DynamicVectorClass<LightNodeClass *> node_list;
 	::Get_Scene_Editor ()->Import_Lights (filename_list, &node_list);
-	
+
 	//
 	//	Add all these lights to our section list
 	//
 	for (int index = 0; index < node_list.Count (); index ++) {
 		LightNodeClass *node = node_list[index];
 		if (node != NULL) {
-			
+
 			//
 			//	Transform this light from world-relative to terrain relative
 			//
@@ -634,7 +634,7 @@ TerrainNodeClass::Create_Lights (void)
 
 			//
 			//	Add the light to our section list and 'remove' it from the node manager
-			//			
+			//
 			node->Lock (true);
 			m_Sections.Add (node);
 			NodeMgrClass::Remove_Node (node);
@@ -655,7 +655,7 @@ PresetClass *
 TerrainNodeClass::Find_Proxy_Preset (const char *preset_name)
 {
 	bool is_restricted_user = ::Get_File_Mgr ()->Is_Special_User ();
-	
+
 	PresetClass *retval = NULL;
 
 	//
@@ -672,7 +672,7 @@ TerrainNodeClass::Find_Proxy_Preset (const char *preset_name)
 		//	Is this the preset we are looking for?
 		//
 		if (::lstrcmpi (preset->Get_Name (), preset_name) == 0) {
-			
+
 			if (is_preferred == false) {
 				retval = preset;
 			}
@@ -681,7 +681,7 @@ TerrainNodeClass::Find_Proxy_Preset (const char *preset_name)
 				retval = preset;
 				keep_going = false;
 			} else if (is_restricted_user == preset->Is_A_Parent (SPECIAL_USER_FOLDER)) {
-				
+
 				//
 				//	Restricted users prefer presets under their folder, other's prefer
 				// presets not under the restricted presets folder.
@@ -712,7 +712,7 @@ TerrainNodeClass::Create_Proxies (DynamicVectorClass<ProxyClass> &proxy_list)
 	//
 	int count = proxy_list.Count ();
 	for (int index = 0; index < count; index ++) {
-		
+
 		//
 		// Get information about this proxy
 		//
@@ -723,15 +723,15 @@ TerrainNodeClass::Create_Proxies (DynamicVectorClass<ProxyClass> &proxy_list)
 		// Find the preset this placeholder references
 		//
 		PresetClass *preset = Find_Proxy_Preset (preset_name);
-		if (preset != NULL) {						
-			
+		if (preset != NULL) {
+
 			//
 			// Create the node from the base
 			//
 			NodeClass *node = ::Get_Scene_Editor ()->Create_Node (preset, &rel_transform, 0, false);
 			ASSERT (node != NULL);
 			if (node != NULL) {
-								
+
 				//
 				//	Change some flags on the object
 				//
@@ -865,19 +865,19 @@ TerrainNodeClass::Is_A_Child_Node (NodeClass *node) const
 	for (int index = 0; retval == false && index < m_Sections.Count (); index ++) {
 		NodeClass *curr_node = m_Sections[index];
 		if (curr_node != NULL) {
-			
+
 			//
 			//	Is this the node we are looking for?
 			//
 			if (curr_node == node) {
 				retval = true;
 			} else {
-				
+
 				//
 				//	Pass this call onto the child
 				//
 				retval = curr_node->Is_A_Child_Node (node);
-			}			
+			}
 		}
 	}
 
@@ -899,7 +899,7 @@ TerrainNodeClass::On_Post_Load (void)
 	//	Transform the terrain to its new position
 	//
 	if (m_IsProxied == false && LoadedTransform != Matrix3D::Identity) {
-		Set_Transform (LoadedTransform);	
+		Set_Transform (LoadedTransform);
 	}
 
 	return ;
@@ -920,7 +920,7 @@ TerrainNodeClass::On_Post_Load (void)
 ////////////////////////////////////////////////////////////////
 const PersistFactoryClass &
 TerrainSectionNodeClass::Get_Factory (void) const
-{	
+{
 	return _TerrainSectionNodePersistFactory;
 }
 
@@ -934,13 +934,13 @@ void
 TerrainSectionNodeClass::Create (RenderObjClass *render_obj)
 {
 	MEMBER_RELEASE (m_PhysObj);
-	
+
 	//
 	// Create the new terrain section from the render object
 	//
 	m_PhysObj = new StaticPhysClass;
 	m_PhysObj->Set_Model (render_obj);
-	m_PhysObj->Set_Transform (render_obj->Get_Transform ());	
+	m_PhysObj->Set_Transform (render_obj->Get_Transform ());
 
 	//
 	//	Give this section an ID (and pass it along to its physics obj)

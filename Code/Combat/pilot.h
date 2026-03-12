@@ -74,7 +74,7 @@ public:
 		MODE_CIRCLE_POINT,
 	}	MODE;
 
-	
+
 	////////////////////////////////////////////////////////////////
 	//	Public constructors/destructors
 	////////////////////////////////////////////////////////////////
@@ -99,13 +99,13 @@ public:
 	//                  our position.  Should be at least 10m more than Arrived_Distance!
 	// Target - point to aim at (if NULL is passed, vehicle will not aim in any particular direction)
 	//
-	
+
 	void					Set_Destination (const Vector3 &dest)	{ m_FinalDest = dest; m_NextPoint = dest; }
 	const Vector3 &	Get_Destination (void) const				{ return m_FinalDest; }
 
 	void					Set_Next_Point (const Vector3 &pos)		{ m_NextPoint = pos; }
 	const Vector3 &	Get_Next_Point (void) const				{ return m_NextPoint; }
-	
+
 	void					Set_Arrived_Dist (float dist)				{ m_ArrivedDist = dist; }
 	float					Get_Arrived_Dist (void) const				{ return m_ArrivedDist; }
 
@@ -170,8 +170,8 @@ protected:
 	////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////
-	void					Free () { }	
-	
+	void					Free () { }
+
 	//
 	//	Mode handlers
 	//
@@ -187,7 +187,7 @@ protected:
 	void					Calculate_Forward_Speed (float distance);
 	void					Calculate_Lift_Speed (void);
 	float					Calculate_Desired_Relative_Facing (void);
-	
+
 	void					Check_Completion (void);
 	void					Update_Transform (void);
 	float					Determine_Preferred_Height (void);
@@ -195,7 +195,7 @@ protected:
 	//
 	//	Game object control methods
 	//
-	void					Apply_Controls (void);	
+	void					Apply_Controls (void);
 
 	//
 	//	Information methods
@@ -220,13 +220,13 @@ private:
 	Vector3				m_ObjSpaceWaypoint;
 
 	PathClass *			m_CurrentPath;
-	SmartGameObj *		m_GameObj;	
+	SmartGameObj *		m_GameObj;
 	float					m_MaxSpeed;
 	float					m_SpeedFactor;
 	float					m_Aggressiveness;
 	float					m_ArrivedDist;
 	float					m_HoverDist;
-	
+
 	bool					m_IsExactZImportant;
 	bool					m_FaceTarget;
 	Vector3				m_TargetLocation;

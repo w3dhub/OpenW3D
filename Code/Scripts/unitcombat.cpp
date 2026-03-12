@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Scripts/unitcombat.cpp                       $* 
- *                                                                                             * 
- *                      $Author:: David_y                                                     $* 
- *                                                                                             * 
- *                     $Modtime:: 4/27/00 11:44a                                              $* 
- *                                                                                             * 
- *                    $Revision:: 2                                                           $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Scripts/unitcombat.cpp                       $*
+ *                                                                                             *
+ *                      $Author:: David_y                                                     $*
+ *                                                                                             *
+ *                     $Modtime:: 4/27/00 11:44a                                              $*
+ *                                                                                             *
+ *                    $Revision:: 2                                                           $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "scripts.h"
@@ -78,7 +78,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 	//		2 - Crouch Attack Only
 	//		3 - Stand in Place and Fire
 
-/*********************************************************************************************** 
+/***********************************************************************************************
 ** Script Events
 ************************************************************************************************/
 
@@ -267,7 +267,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 //  Handled by innate animation system.
 //			Function_Play_Knockdown_Anim( obj );
 
-		} 
+		}
 		else
 		{
 			Commands->Set_Animation( obj,NULL,0);
@@ -377,7 +377,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 		{
 			return;
 		}
-		
+
 		GameObject *target = Commands->Find_Object(enemy_id);
 
 		switch(reason)
@@ -509,7 +509,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 			Commands->Send_Custom_Event( obj, controller, OV_KILLED, 0);
 		}
 	}
-	
+
 	void Sound_Heard(GameObject * obj, const CombatSound &sound)
 	{
 		if ( script_override > 0 )
@@ -591,7 +591,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 			}
 		}
 	}
-	
+
 	void Timer_Expired(GameObject * obj, int timer ) override
 	{
 		if ( script_override > 0 )
@@ -650,9 +650,9 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 			}
 		}
 	}
-	
 
-/*********************************************************************************************** 
+
+/***********************************************************************************************
 ** Save / Load Events
 ************************************************************************************************/
 
@@ -717,7 +717,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 	}
 */
 
-/*********************************************************************************************** 
+/***********************************************************************************************
 ** Functions - SlaveCombat State Change Functions (Replace Old Queen Calls to Custom)
 ************************************************************************************************/
 
@@ -1043,7 +1043,7 @@ DECLARE_SCRIPT ( Unit_Combat,"Scoreboard_ID=0:int,Controller_ID=0:int,Script_Ove
 			{
 				Commands->Send_Custom_Event ( obj, scoreboard, HITDIRECTION, HD_BACKHIT );
 			}
-			
+
 			if (!strcmp(damaged_bone,"CHEADD"))
 			{
 				Commands->Send_Custom_Event ( obj, scoreboard, BODYLOCATION, BL_HEAD );

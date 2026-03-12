@@ -71,7 +71,7 @@ public:
 	////////////////////////////////////////////////////////////////////
 	//	Static methods
 	////////////////////////////////////////////////////////////////////
-	
+
 	//
 	//	Node 'casting' functions.
 	//	These position a node at the interesction point of a ray cast into the world.
@@ -82,7 +82,7 @@ public:
 	static void			Position_Nodes_Along_Ray (void);
 	static void			Position_Nodes_Along_Ray (const Vector3 &start, const Vector3 &end);
 	static Vector3		Position_Nodes_Along_Ray (NODE_LIST &list, const Vector3 &tracking_pt, const Vector3 &start, const Vector3 &end);
-	
+
 	static Vector3		Calc_New_Position (const Matrix3D &coord_system, const Vector3 &start_point_in_world_coords, LPPOINT mouse_pos = NULL);
 
 	//
@@ -92,7 +92,7 @@ public:
 	static void			Move_Nodes (const Vector3 &translation);
 	static Vector3		Move_Nodes (NODE_LIST &list, const Vector3 &tracking_point);
 	static void			Simple_Move_Nodes (NODE_LIST &list, const Vector3 &translation);
-	
+
 	//
 	//	Rotation functions
 	//
@@ -127,13 +127,13 @@ public:
 	static PhysClass *Cast_Box (CastResultStruct &result, const AABoxClass &box, const Vector3 &move, uint32 group = DEF_COLLISION_GROUP, uint32 type = COLLISION_TYPE_PHYSICAL | COLLISION_TYPE_PROJECTILE | COLLISION_TYPE_6);
 
 protected:
-	
+
 	////////////////////////////////////////////////////////////////////
 	//	Protected methods
 	////////////////////////////////////////////////////////////////////
-	static bool			Calc_Ray_Intersection_XY (float plane, const Vector3 &start, const Vector3 &end, Vector3 &result);	
+	static bool			Calc_Ray_Intersection_XY (float plane, const Vector3 &start, const Vector3 &end, Vector3 &result);
 	static bool			Calc_Ray_Intersection_XZ (float plane, const Vector3 &start, const Vector3 &end, Vector3 &result);
-	static bool			Calc_Ray_Intersection_YZ (float plane, const Vector3 &start, const Vector3 &end, Vector3 &result);	
+	static bool			Calc_Ray_Intersection_YZ (float plane, const Vector3 &start, const Vector3 &end, Vector3 &result);
 
 private:
 
@@ -155,7 +155,7 @@ MoverClass::Cast_Ray
 	uint32				group,
 	uint32				type
 )
-{	
+{
 	LineSegClass ray (start, end);
 	PhysRayCollisionTestClass raytest (ray, &result, group, type);
 	::Get_Scene_Editor ()->Cast_Ray (raytest);

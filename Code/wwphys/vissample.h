@@ -73,7 +73,7 @@ public:
 	float					Get_Biggest_Fraction(void) const;
 	int					Get_Biggest_Fraction_Index(void) const;
 	int					Get_Cur_Direction(void) const;
-	const char *		Get_Cur_Direction_Name(void) const;	
+	const char *		Get_Cur_Direction_Name(void) const;
 
 	void					Set_Cur_Direction(VisDirType direction_index);
 	void					Set_Results(VisStatusType status,float fraction);
@@ -95,5 +95,5 @@ protected:
 
 
 
-	
+
 #endif

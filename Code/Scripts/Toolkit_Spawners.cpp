@@ -41,7 +41,7 @@ DECLARE_SCRIPT(M00_Spawner_Controller_RMV, "Spawner_ID:int, Custom_Type_To_Enabl
 {
 	int id, enable, trigger;
 	bool start_on;
-	
+
 	void Created(GameObject * /*obj*/) override
 	{
 		id = Get_Int_Parameter("Spawner_ID");

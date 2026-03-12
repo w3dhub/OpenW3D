@@ -78,7 +78,7 @@ public:
 
 	////////////////////////////////////////////////////////////
 	//	Public operators
-	////////////////////////////////////////////////////////////	
+	////////////////////////////////////////////////////////////
 	bool operator== (const unichar_t *rvalue) const;
 	bool operator!= (const unichar_t *rvalue) const;
 
@@ -109,7 +109,7 @@ public:
 	////////////////////////////////////////////////////////////
 	int			Compare (const unichar_t *string) const;
 	int			Compare_No_Case (const unichar_t *string) const;
-	
+
 	inline int	Get_Length (void) const;
 	bool			Is_Empty (void) const;
 
@@ -364,7 +364,7 @@ WideStringClass::operator!= (const unichar_t *rvalue) const
 ///////////////////////////////////////////////////////////////////
 inline const WideStringClass &
 WideStringClass::operator= (const WideStringClass &string)
-{	
+{
 	return operator= ((const unichar_t *)string);
 }
 
@@ -430,7 +430,7 @@ WideStringClass::Erase (int start_index, int char_count)
 	int len = Get_Length ();
 
 	if (start_index < len) {
-		
+
 		if (start_index + char_count > len) {
 			char_count = len - start_index;
 		}
@@ -467,7 +467,7 @@ WideStringClass::operator= (const unichar_t *string)
 		Uninitialised_Grow (len + 1);
 		Store_Length (len);
 
-		::memcpy (m_Buffer, string, (len + 1) * sizeof (unichar_t));		
+		::memcpy (m_Buffer, string, (len + 1) * sizeof (unichar_t));
 	}
 
 	return (*this);
@@ -535,7 +535,7 @@ WideStringClass::operator+= (unichar_t ch)
 
 	m_Buffer[cur_len]			= ch;
 	m_Buffer[cur_len + 1]	= m_NullChar;
-	
+
 	if (ch != m_NullChar) {
 		Store_Length (cur_len + 1);
 	}
@@ -583,7 +583,7 @@ WideStringClass::operator+= (const WideStringClass &string)
 		//
 		//	Copy the new string onto our the end of our existing buffer
 		//
-		::memcpy (&m_Buffer[cur_len], (const unichar_t *)string, (src_len + 1) * sizeof (unichar_t));				
+		::memcpy (&m_Buffer[cur_len], (const unichar_t *)string, (src_len + 1) * sizeof (unichar_t));
 	}
 
 	return (*this);
@@ -635,7 +635,7 @@ WideStringClass::Get_Allocated_Length (void) const
 	//
 	//	Read the allocated length from the header
 	//
-	if (m_Buffer != m_EmptyString) {		
+	if (m_Buffer != m_EmptyString) {
 		HEADER *header = Get_Header ();
 		WWASSERT(header->allocated_length >= 0);
 		allocated_length = static_cast<size_t>(header->allocated_length);
@@ -658,7 +658,7 @@ WideStringClass::Get_Length (void) const
 	size_t length = 0;
 
 	if (m_Buffer != m_EmptyString) {
-		
+
 		//
 		//	Read the length from the header
 		//
@@ -699,7 +699,7 @@ WideStringClass::Set_Buffer_And_Allocated_Length (unichar_t *buffer, size_t leng
 	//
 	if (m_Buffer != m_EmptyString) {
 		Store_Allocated_Length (length);
-		Store_Length (0);		
+		Store_Length (0);
 	} else {
 		WWASSERT (length == 0);
 	}
@@ -718,7 +718,7 @@ WideStringClass::Allocate_Buffer (size_t length)
 	// bytes required to hold the header.
 	//
 	char *buffer = new char[(sizeof (unichar_t) * length) + sizeof (WideStringClass::_HEADER)];
-	
+
 	//
 	//	Fill in the fields of the header
 	//
@@ -782,14 +782,14 @@ WideStringClass::Store_Length (size_t length)
 ///////////////////////////////////////////////////////////////////
 // Convert_To
 ///////////////////////////////////////////////////////////////////
-inline bool	
+inline bool
 WideStringClass::Convert_To (StringClass &string)
 {
 	return (string.Copy_Wide (m_Buffer));
 }
 
 
-inline bool	
+inline bool
 WideStringClass::Convert_To (StringClass &string) const
 {
 	return (string.Copy_Wide (m_Buffer));

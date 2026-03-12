@@ -16,22 +16,22 @@
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*********************************************************************************************** 
- ***                            Confidential - Westwood Studios                              *** 
- *********************************************************************************************** 
- *                                                                                             * 
- *                 Project Name : Commando                                                     * 
- *                                                                                             * 
- *                     $Archive:: /Commando/Code/Commando/playermanager.h                 $* 
- *                                                                                             * 
- *                      $Author:: Denzil_l                                                    $* 
- *                                                                                             * 
- *                     $Modtime:: 2/27/02 5:51p                                               $* 
- *                                                                                             * 
- *                    $Revision:: 46                                                          $* 
- *                                                                                             * 
- *---------------------------------------------------------------------------------------------* 
- * Functions:                                                                                  * 
+/***********************************************************************************************
+ ***                            Confidential - Westwood Studios                              ***
+ ***********************************************************************************************
+ *                                                                                             *
+ *                 Project Name : Commando                                                     *
+ *                                                                                             *
+ *                     $Archive:: /Commando/Code/Commando/playermanager.h                 $*
+ *                                                                                             *
+ *                      $Author:: Denzil_l                                                    $*
+ *                                                                                             *
+ *                     $Modtime:: 2/27/02 5:51p                                               $*
+ *                                                                                             *
+ *                    $Revision:: 46                                                          $*
+ *                                                                                             *
+ *---------------------------------------------------------------------------------------------*
+ * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #if defined(_MSV_VER)
@@ -117,7 +117,7 @@ private:
 	//static int							Get_Ranked_Id(int rank);
 	static void							Remove_Inactive(void);
 	static int							Compute_Fast_Sort_Key(cPlayer * player);
-	
+
 	static SList<cPlayer>			PlayerList;
    static cPlayer *					Player_Array[MAX_PLAYERS];
 	static Render2DTextClass	*	PTextRenderer;

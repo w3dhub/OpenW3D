@@ -42,7 +42,7 @@ JNIEXPORT jint JNICALL Java_RenegadeNet__1nativeSendGR
 	// Build packetLogins array
 	jsize loginlen = env->GetArrayLength(loginArray);
 	packetLogins = new char*[loginlen];
-    for(i = 0; i < loginlen; i++) 
+    for(i = 0; i < loginlen; i++)
 	{
 		jstring jstr = (jstring)env->GetObjectArrayElement(loginArray, i);
 		const char *str = env->GetStringUTFChars(jstr, 0);
@@ -56,7 +56,7 @@ JNIEXPORT jint JNICALL Java_RenegadeNet__1nativeSendGR
 	jsize scorelen = env->GetArrayLength(scoreArray);
 	jdouble *jscores = env->GetDoubleArrayElements(scoreArray, 0);
 	packetScores = new double[scorelen];
-    for (i = 0; i < scorelen; i++) 
+    for (i = 0; i < scorelen; i++)
 		packetScores[i] = jscores[i];
 	env->ReleaseDoubleArrayElements(scoreArray, jscores, 0);
 
@@ -70,7 +70,7 @@ JNIEXPORT jint JNICALL Java_RenegadeNet__1nativeSendGR
 	renegadeGameRes.setMapName("Renegade Map");
 	renegadeGameRes.setSKU(GR_ENGLISH);
 	renegadeGameRes.setStyle(GR_DEATHMATCH);
-	renegadeGameRes.setNumClans(0);	
+	renegadeGameRes.setNumClans(0);
 	renegadeGameRes.setStartTime(100);
 	renegadeGameRes.setTournament(1);
 	for(i = 0; i < loginlen; i++)
@@ -99,13 +99,13 @@ JNIEXPORT void JNICALL Java_RenegadeNet_startWinSock(JNIEnv *, jclass)
 
 	wVersionRequested = MAKEWORD(1, 1);
 
-	err = WSAStartup( wVersionRequested, &wsaData); 
-	/*if (err != 0) 
+	err = WSAStartup( wVersionRequested, &wsaData);
+	/*if (err != 0)
 	{
 		LOG_END("failed");
 		//assert(false);
-	} 
-	else 
+	}
+	else
 	{
 		LOG_END("ok");
 	}*/
