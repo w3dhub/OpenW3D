@@ -615,9 +615,35 @@ bool RestartNeeded = true;
  * HISTORY:                                                                                    *
  *   12/3/2001 11:26PM ST : Created                                                            *
  *=============================================================================================*/
-void Get_Version_Number(unsigned int * /* major */, unsigned int * /* minor */)
-{
-	// Version info removed per Legal review requirements. LFeenanEA - 8th February 2025
+void Get_Version_Number(unsigned int * major, unsigned int * minor) {
+	unsigned int file_minor = 0;
+	unsigned int file_major = 1;
+	char filename[MAX_PATH];
+
+	GetModuleFileNameA(nullptr, filename, sizeof(filename));
+	DWORD dwHandle;
+	DWORD version_info_size = GetFileVersionInfoSizeA(filename, &dwHandle);
+	if (version_info_size == 0) {
+		return;
+	}
+	char *version_info_buffer = new char[version_info_size];
+	if (GetFileVersionInfoA(filename, 0, version_info_size, version_info_buffer)) {
+		VS_FIXEDFILEINFO * vs_fixed_file_info = nullptr;
+		UINT len = 0;
+		if (VerQueryValueA(version_info_buffer, "\\", reinterpret_cast<void **>(&vs_fixed_file_info), &len)) {
+			file_major = vs_fixed_file_info->dwFileVersionMS;
+			file_minor = vs_fixed_file_info->dwFileVersionLS;
+		}
+	}
+	delete[] version_info_buffer;
+
+	DebugManager::Set_Version_Number(file_major);
+	if (major != nullptr) {
+		*major = file_major;
+	}
+	if (minor != nullptr) {
+		*minor = file_minor;
+	}
 }
 
 
