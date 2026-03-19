@@ -1327,10 +1327,8 @@ void SoldierGameObj::Export_State_Cs(BitStreamClass & packet)
 //-----------------------------------------------------------------------------
 int SoldierGameObj::Check(void)
 {
-Matrix3D tm(1);
 #define	UNINITIALLIZED_CRC	0x78629140
 	static int crc = UNINITIALLIZED_CRC;
-tm.Rotate_X( 1.4f );
 	if ( crc == UNINITIALLIZED_CRC ) {
 		static const char * const filelist[] = {
 			"objects.ddb",
@@ -1402,37 +1400,27 @@ tm.Rotate_X( 1.4f );
 			"v_gdi_trnspt_m.w3d",
 		};
 		crc = 0;
-tm.Rotate_Y( 2.8f );
 		for ( int i = 0; i < ARRAY_SIZE(filelist); i++ ) {
 			const char * name = filelist[i];
-tm.Rotate_Z( 3.6f );
 //			Debug_Say(( "		\"%s\",\n", name ));
 			FileClass * file = _TheFileFactory->Get_File( name );
-tm.Pre_Rotate_X( 0.3f );
 			if ( file && file->Is_Available() ) {
 				size_t size = file->Size();
-tm.Pre_Rotate_Y( 0.4f );
 				file->Open();
-tm.Pre_Rotate_Z( 0.5f );
 				while ( size > 0 ) {
 					unsigned char buffer[ 4096 ];
 					const size_t chunk = std::min<size_t>(size, sizeof(buffer));
-tm.Translate_X( 3.1f );
 					const int amount = file->Read(buffer, static_cast<int>(chunk));
-tm.Translate_Y( 4.6f );
 			if (amount <= 0) {
 				break;
 					}
 					crc = CRC_Memory( buffer, amount, crc );
-tm.Translate_Z( 8.2f );
 					size -= static_cast<size_t>(amount);
 				}
 				file->Close();
 			} else {
 //				Debug_Say(( "***%s not found\n", name ));
 			}
-
-tm.Rotate_X( 1.4f );
 		}
 	}
 	return crc;
