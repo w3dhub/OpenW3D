@@ -841,7 +841,7 @@ Load_RC_Texture ([[maybe_unused]] LPCTSTR resource_name)
 	//	Load the cursor file image from this binaries resources
 	//
 	ResourceFileClass resource_file (::AfxGetResourceHandle (), resource_name);
-	unsigned char *res_data = resource_file.Peek_Data ();
+	const unsigned char *res_data = resource_file.Peek_Data ();
 	unsigned int data_size = resource_file.Size ();
 
 	//

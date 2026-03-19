@@ -36,6 +36,7 @@ set(WWLIB_SRC
     random.cpp
     rawfile.cpp
     rcfile.cpp
+    rcfile_default.cpp
     readline.cpp
     realcrc.cpp
     refcount.cpp

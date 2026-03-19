@@ -478,6 +478,12 @@ if(W3D_CLIENT) # Full game client
     target_link_libraries(renegade PRIVATE
         commando
     )
+
+    embed_resources(renegade
+        SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/renegade_resources.cpp"
+        RESOURCES
+            "${CMAKE_CURRENT_SOURCE_DIR}/Renegade.ico"
+    )
 endif()
 
 if(W3D_FDS) # Dedicated headless server

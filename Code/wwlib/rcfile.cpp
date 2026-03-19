@@ -38,10 +38,17 @@
 #include "rcfile.h"
 #include <stdlib.h>
 #include <string.h>
+#ifdef OPENW3D_SDL3
+#include <string>
+#include <unordered_map>
+#endif
 
-const char * RESOURCE_FILE_TYPE_NAME = "File";
+#if defined(OPENW3D_WIN32)
+static constexpr char RESOURCE_FILE_TYPE_NAME[] = "File";
+#endif
 
 
+#ifdef OPENW3D_WIN32
 ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 	ResourceName(NULL),
 	hModule(NULL),
@@ -63,6 +70,31 @@ ResourceFileClass::ResourceFileClass(HMODULE hmodule, char const *filename) :
 		}
 	}
 }
+#endif
+
+#if defined(OPENW3D_WIN32)
+ResourceFileClass::ResourceFileClass(char const *filename) :
+	ResourceFileClass(NULL, filename)
+{
+}
+#elif defined(OPENW3D_SDL3)
+ResourceFileClass::ResourceFileClass(char const *filename) :
+	ResourceName(NULL),
+	FileBytes(NULL),
+	FilePtr(NULL),
+	EndOfFile(NULL)
+{
+	Set_Name(filename);
+	if (const auto & pair = Static_Resources.find(ResourceName); pair != Static_Resources.end()) {
+
+		FileBytes = static_cast<const unsigned char *>(pair->second.data);
+		FilePtr = FileBytes;
+		EndOfFile = FileBytes + pair->second.size;
+	}
+}
+#else
+#error "Not implemented"
+#endif
 
 ResourceFileClass::~ResourceFileClass(void)
 {
