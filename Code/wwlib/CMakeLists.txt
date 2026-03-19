@@ -18,7 +18,6 @@ set(WWLIB_SRC
     ini.cpp
     int.cpp
     jshell.cpp
-    LaunchWeb.cpp
     lzo.cpp
     lzo1x_c.cpp
     lzo1x_d.cpp
@@ -89,7 +88,6 @@ set(WWLIB_SRC
     inisup.h
     int.h
     iostruct.h
-    LaunchWeb.h
     listnode.h
     lzo.h
     lzo1x.h
