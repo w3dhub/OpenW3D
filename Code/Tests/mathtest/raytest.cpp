@@ -45,6 +45,7 @@
 #include "obbox.h"
 #include "colmath.h"
 #include "p_timer.h"
+#include <cinttypes>
 #include <stdio.h>
 
 
@@ -251,7 +252,7 @@ void Test_Rays(void)
 {
 	CastResultStruct result;
 	CastResultStruct result_check;
-	volatile unsigned cycles;
+	uint64_t cycles;
 	int numtests;
 	int i;
 
@@ -273,7 +274,7 @@ void Test_Rays(void)
 		CollisionMath::Collide(testcase->LineSeg,testcase->Tri,&result);
 		cycles = Get_CPU_Clock() - cycles;
 
-		printf("Ray -> Tri cycles: %d\n",cycles);
+		printf("Ray -> Tri cycles: %" PRIu64 "\n", cycles);
 
 		CHECK(i,(fabs(testcase->Fraction - result.Fraction) < 0.001f));
 	}
@@ -296,7 +297,7 @@ void Test_Rays(void)
 		CollisionMath::Collide(testcase->LineSeg,testcase->Box,&result);
 		cycles = Get_CPU_Clock() - cycles;
 
-		printf("Ray -> AABox cycles: %d\n",cycles);
+		printf("Ray -> AABox cycles: %" PRIu64 "\n", cycles);
 
 		CHECK(i,(fabs(testcase->Fraction - result.Fraction) < 0.001f));
 	}
@@ -336,7 +337,7 @@ void Test_Rays(void)
 			passed = true;
 		}
 
-		printf("test %3d  cycles: %6d\tfraction: %1.8f\t",i,cycles,result.Fraction);
+		printf("test %3d  cycles: %6" PRIu64 "\tfraction: %1.8f\t",i,cycles,result.Fraction);
 		if (passed) {
 			printf("passed\n");
 		} else if (result.StartBad) {
@@ -350,12 +351,12 @@ void Test_Rays(void)
 	/*
 	** Test the Overlap_Test function on some random AABoxes
 	*/
-	int total_tests = 0;
-	int total_cycles = 0;
-	int outside_tests = 0;
-	int outside_cycles = 0;
-	int overlap_tests = 0;
-	int overlap_cycles = 0;
+	uint64_t total_tests = 0;
+	uint64_t total_cycles = 0;
+	uint64_t outside_tests = 0;
+	uint64_t outside_cycles = 0;
+	uint64_t overlap_tests = 0;
+	uint64_t overlap_cycles = 0;
 
 	CollisionMath::OverlapType overlap;
 	Print_Title("Testing ray-aabox overlap.");
@@ -376,7 +377,7 @@ void Test_Rays(void)
 		cycles = Get_CPU_Clock() - cycles;
 
 		// print what happened
-		printf("test %3d  cycles: %6d\tfraction: %1.8f\t",i,cycles,result.Fraction);
+		printf("test %3d  cycles: %6" PRIu64 "\tfraction: %1.8f\t",i,cycles,result.Fraction);
 		if (overlap == CollisionMath::OUTSIDE) {
 			printf("outside\n");
 		} else if (overlap == CollisionMath::INSIDE) {
@@ -397,11 +398,11 @@ void Test_Rays(void)
 		}
 	}
 
-	printf("Total Tests:              %d\n",total_tests);
+	printf("Total Tests:              %" PRIu64 "\n",total_tests);
 	printf("Average Cycles:           %f\n",(float)total_cycles / (float)total_tests);
-	printf("Outside Tests:            %d\n",outside_tests);
+	printf("Outside Tests:            %" PRIu64 "\n",outside_tests);
 	printf("Average Outside Cycles:   %f\n",(float)outside_cycles / (float)outside_tests);
-	printf("Overlap Tests:            %d\n",overlap_tests);
+	printf("Overlap Tests:            %" PRIu64 "\n",overlap_tests);
 	printf("Average Overlap Cycles:   %f\n",(float)overlap_cycles / (float)overlap_tests);
 
 }

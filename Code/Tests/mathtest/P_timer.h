@@ -19,28 +19,17 @@
 //****************************************************************************
 // Get_CPU_Clock -- Fetches the current CPU clock time.
 //
-//    This routine will return the internal Pentium clock accumulator. This
-//    accumulator is incremented every clock tick. Since this clock value can
-//    get very very large, the value returned is in 64 bits. The low half is
-//    returned directly, the high half is stored in location specified.
+//    This routine will return the internal clock accumulator. This
+//    accumulator is incremented approximately every clock tick.
 //
-// INPUT:   high  -- Reference to the high value of the 64 bit clock number.
-//
-// OUTPUT:  Returns with the low half of the CPU clock value.
-//
-// WARNINGS:   This instruction is only available on Pentium or later
-// processors.
+// OUTPUT:  Returns the CPU clock value.
 //
 // HISTORY:
 //   07/17/1996 JLB : Created.
 //============================================================================
 
-#ifdef __BORLANDC__
+#pragma once
 
-extern "C" unsigned Get_CPU_Clock ( void );
+#include <cstdint>
 
-#else
-
-unsigned Get_CPU_Clock ( void );
-
-#endif
+uint64_t Get_CPU_Clock ( void );

@@ -129,24 +129,23 @@ void main ()
 
 	BoxClass mybox0(box0);
 	BoxClass mybox1(box1);
-	unsigned int high;
-	unsigned int cycles0;
-	unsigned int cycles1;
-	unsigned int cycles2;
+	uint64_t cycles0;
+	uint64_t cycles1;
+	uint64_t cycles2;
 
 	while (box1.center[2] > -20.0f) {
 
-		cycles0 = Get_CPU_Clock(high);
+		cycles0 = Get_CPU_Clock();
 		IntersectType type = BoxesIntersect(1.0f,box0,box1);
-		cycles0 = Get_CPU_Clock(high) - cycles0;
+		cycles0 = Get_CPU_Clock() - cycles0;
 
-		cycles1 = Get_CPU_Clock(high);
+		cycles1 = Get_CPU_Clock();
 		IntersectType mytype = Boxes_Intersect(mybox0,mybox1,1.0f);
-		cycles1 = Get_CPU_Clock(high) - cycles1;
+		cycles1 = Get_CPU_Clock() - cycles1;
 
-		cycles2 = Get_CPU_Clock(high);
+		cycles2 = Get_CPU_Clock();
 		IntersectType mytype2 = Boxes_Intersect(mybox0,mybox1);
-		cycles2 = Get_CPU_Clock(high) - cycles2;
+		cycles2 = Get_CPU_Clock() - cycles2;
 
 		cout << cycles0 << "   "<< cycles1 << "   " << cycles2 << "   " << type << "  " << mytype<< "  " << mytype2 << endl;
 
@@ -266,8 +265,8 @@ void main ()
 void benchmark_transformations(void)
 {
 	unsigned int high;
-	unsigned int cycles0;
-	unsigned int cycles1;
+	uint64_t cycles0;
+	uint64_t cycles1;
 
 	/*
 	** Testing speed of the matrix library...
@@ -302,13 +301,13 @@ void benchmark_transformations(void)
 	Vector res;
 	Vector3 myres;
 
-	cycles0 = Get_CPU_Clock(high);
+	cycles0 = Get_CPU_Clock();
 	MultiplyVM (v,mat,res);
-	cycles0 = Get_CPU_Clock(high) - cycles0;
+	cycles0 = Get_CPU_Clock() - cycles0;
 
-	cycles1 = Get_CPU_Clock(high);
+	cycles1 = Get_CPU_Clock();
 	myres = mymat * myv;
-	cycles1 = Get_CPU_Clock(high) - cycles1;
+	cycles1 = Get_CPU_Clock() - cycles1;
 
 	cout << "c cycles = " << cycles0 << endl;
 	cout << "c++ cycles = " << cycles1 << endl;

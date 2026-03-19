@@ -50,6 +50,7 @@
 #include "wwmath.h"
 #include "colmath.h"
 #include "p_timer.h"
+#include <cinttypes>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -302,8 +303,8 @@ void test_obb_tri(void)
 	CastResultStruct result;
 	result.ComputeContactPoint = true;
 	int numtests = sizeof(OBBoxTriTestCases)/sizeof(OBBoxTriTestClass *);
-	unsigned cycles;
-	unsigned totalcycles = 0;
+	uint64_t cycles;
+	uint64_t totalcycles = 0;
 
 	// prime the cache
 	OBBoxTriTestClass * testcase = OBBoxTriTestCases[9];
@@ -340,13 +341,13 @@ void test_obb_tri(void)
 		if ((WWMath::Fabs(testcase->Fraction - result.Fraction) > WWMATH_EPSILON) ||
 			 (testcase->StartBad != result.StartBad))
 		{
-			printf("test: %3d  fraction: %8.6f   cycles: %12d \tfailed!\n",i,result.Fraction,cycles);
+			printf("test: %3d  fraction: %8.6f   cycles: %12" PRIu64 " \tfailed!\n",i,result.Fraction,cycles);
 		} else {
-			printf("test: %3d  fraction: %8.6f   cycles: %12d \tpassed...\n",i,result.Fraction,cycles);
+			printf("test: %3d  fraction: %8.6f   cycles: %12" PRIu64 " \tpassed...\n",i,result.Fraction,cycles);
 		}
 
 	}
-	printf("average cycles: %d\n",totalcycles / numtests);
+	printf("average cycles: %" PRIu64 "\n",totalcycles / numtests);
 	printf("\n");
 
 
@@ -403,7 +404,7 @@ void test_obb_tri(void)
 		CollisionMath::Intersection_Test(testcase->Box,testcase->Tri);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("CollisionMath::Intersect - average cycles: %d\n",cycles / REPEAT);
+	printf("CollisionMath::Intersect - average cycles: %" PRIu64 "\n",cycles / REPEAT);
 	printf("\n");
 
 	cycles = Get_CPU_Clock();
@@ -412,7 +413,7 @@ void test_obb_tri(void)
 		Oriented_Box_Intersects_Tri(testcase->Box,testcase->Tri);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("Oriented_Box_Intersects_Tri - average cycles: %d\n",cycles / REPEAT);
+	printf("Oriented_Box_Intersects_Tri - average cycles: %" PRIu64 "\n",cycles / REPEAT);
 	printf("\n");
 
 }
@@ -775,8 +776,8 @@ void test_obb_obb(void)
 	CastResultStruct result;
 	result.ComputeContactPoint = true;
 	int numtests = sizeof(OBBoxTestCases)/sizeof(OBBoxTestClass *);
-	unsigned cycles;
-	unsigned totalcycles = 0;
+	uint64_t cycles;
+	uint64_t totalcycles = 0;
 
 	// prime the cache
 	OBBoxTestClass * testcase = OBBoxTestCases[4];
@@ -814,12 +815,12 @@ void test_obb_obb(void)
 		if ((WWMath::Fabs(testcase->Fraction - result.Fraction) > WWMATH_EPSILON) ||
 			 (testcase->StartBad != result.StartBad))
 		{
-			printf("test: %5d\tcycles: %12d \t\tfailed!\n",i,cycles);
+			printf("test: %5d\tcycles: %12" PRIu64 " \t\tfailed!\n",i,cycles);
 		} else {
-			printf("test: %5d\tcycles: %12d \t\tpassed...\n",i,cycles);
+			printf("test: %5d\tcycles: %12" PRIu64 " \t\tpassed...\n",i,cycles);
 		}
 	}
-	printf("average cycles: %d\n",totalcycles / numtests);
+	printf("average cycles: %" PRIu64 "\n",totalcycles / numtests);
 	printf("\n");
 
 	/*
@@ -840,7 +841,7 @@ void test_obb_obb(void)
 										&result);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("average cycles: %d\n",cycles / REPEAT);
+	printf("average cycles: %" PRIu64 "\n",cycles / REPEAT);
 	printf("\n");
 
 	/*
@@ -852,7 +853,7 @@ void test_obb_obb(void)
 		CollisionMath::Intersection_Test(testcase->Box0,testcase->Box1);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("CollisionMath::Intersect - average cycles: %d\n",cycles / REPEAT);
+	printf("CollisionMath::Intersect - average cycles: %" PRIu64 "\n",cycles / REPEAT);
 	printf("\n");
 
 	cycles = Get_CPU_Clock();
@@ -861,7 +862,7 @@ void test_obb_obb(void)
 		Oriented_Boxes_Intersect(testcase->Box0,testcase->Box1);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("Oriented_Boxes_Intersect - average cycles: %d\n",cycles / REPEAT);
+	printf("Oriented_Boxes_Intersect - average cycles: %" PRIu64 "\n",cycles / REPEAT);
 	printf("\n");
 }
 

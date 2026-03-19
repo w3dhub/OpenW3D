@@ -520,15 +520,14 @@ CGraphicView::RepaintView
 		//
 		// Render the main scene
 		//
-		unsigned int pt_high = 0L;
 
 		// Wait for all previous rendering to complete before starting benchmark.
-		unsigned int profile_time = ::Get_CPU_Clock (pt_high);
+		uint64_t profile_time = ::Get_CPU_Clock ();
 
 		WW3D::Render (doc->GetScene (), m_pCamera, false, false);
 
 		// Wait for all rendering to complete before stopping benchmark.
-		unsigned int milliseconds = (::Get_CPU_Clock (pt_high) - profile_time) / 1000;
+		uint64_t clock_cycles = (::Get_CPU_Clock () - profile_time) / 1000;
 
 		//
 		// Render the cursor
@@ -560,7 +559,7 @@ CGraphicView::RepaintView
 		//
 		//	Update the frame time in the status bar
 		//
-		((CMainFrame *)::AfxGetMainWnd ())->Update_Frame_Time (milliseconds);
+		((CMainFrame *)::AfxGetMainWnd ())->Update_Frame_Time (clock_cycles);
 	}
 
 	_already_painting = false;

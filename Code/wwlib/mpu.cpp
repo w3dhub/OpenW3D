@@ -36,49 +36,55 @@
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include	"always.h"
-#include	"win.h"
 #include	"mpu.h"
 #include "math.h"
-#include <cassert>
-#include <cstdint>
+
+#if defined(OPENW3D_WIN32)
+#include <windows.h>
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL_timer.h>
+#endif
 
 /***********************************************************************************************
  * Get_CPU_Rate -- Fetch the rate of CPU ticks per second.                                     *
  *                                                                                             *
  *    This routine will query the CPU to determine how many clock per second it is.            *
  *                                                                                             *
- * INPUT:   high  -- Reference to the location that will be filled with the upper 32 bits      *
- *                   of the result.                                                            *
- *                                                                                             *
- * OUTPUT:  Returns with the lower 32 bits of the result.                                      *
+ * OUTPUT:  Returns the result.                                                                *
  *                                                                                             *
  * WARNINGS:   none                                                                            *
  *                                                                                             *
  * HISTORY:                                                                                    *
  *   05/20/1997 JLB : Created.                                                                 *
  *=============================================================================================*/
-unsigned int Get_CPU_Rate(unsigned int & high)
+uint64_t Get_CPU_Rate()
 {
+#if defined(OPENW3D_WIN32)
 	LARGE_INTEGER LargeInt;
 
 	if (QueryPerformanceFrequency(&LargeInt)) {
-		high = LargeInt.HighPart;
-		return(LargeInt.LowPart);
+		return(LargeInt.QuadPart);
 	}
-	high = 0;
-	return(0);
+	return 0;
+#elif defined(OPENW3D_SDL3)
+	return SDL_GetPerformanceFrequency();
+#else
+	assert(0);
+#endif
 }
 
 
-unsigned int Get_CPU_Clock(unsigned int & high)
+uint64_t Get_CPU_Clock()
 {
+#if defined(OPENW3D_WIN32)
 	LARGE_INTEGER LargeInt;
 	if (QueryPerformanceCounter(&LargeInt)) {
-		high = LargeInt.HighPart;
-		return(LargeInt.LowPart);
+		return LargeInt.QuadPart;
 	}
-	high = 0;
-	return(0);
+	return 0;
+#elif defined(OPENW3D_SDL3)
+	return SDL_GetPerformanceCounter();
+#else
+	assert(0);
+#endif
 }
-
-

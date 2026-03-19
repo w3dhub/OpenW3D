@@ -66,7 +66,7 @@
 #include	<imagehlp.h>
 #include <crtdbg.h>
 #include	<stdio.h>
-#include <inttypes.h>
+#include <cinttypes>
 
 #if defined(_M_IX86) || defined(__i386__)
 #define ARCH_REG_IP Eip

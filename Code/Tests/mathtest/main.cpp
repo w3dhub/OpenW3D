@@ -43,6 +43,7 @@
 #include "obbox.h"
 #include "plane.h"
 #include "colmath.h"
+#include <cinttypes>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -241,23 +242,23 @@ void test_vectors(void)
 
 	Vector3 c;
 
-	unsigned int op_cycles = Get_CPU_Clock();
+	uint64_t op_cycles = Get_CPU_Clock();
 	for (i=0; i<16000; i++) {
 		c = tab[0] + tab[i];
 	}
 	op_cycles = Get_CPU_Clock() - op_cycles;
 	c.Normalize();
 
-	printf("Vector3::operator + cycles: %d\n",op_cycles);
+	printf("Vector3::operator + cycles: %" PRIu64 "\n",op_cycles);
 
-	unsigned int add_cycles = Get_CPU_Clock();
+	uint64_t add_cycles = Get_CPU_Clock();
 	for (i=0; i<16000; i++) {
 		Vector3::Add(tab[0],tab[i],&c);
 	}
 	add_cycles = Get_CPU_Clock() - add_cycles;
 	c.Normalize();
 
-	printf("Vector3::Add cycles: %d\n",add_cycles);
+	printf("Vector3::Add cycles: %" PRIu64 "\n",add_cycles);
 	printf("Operator/Add ration: %f\n",(float)op_cycles / (float)add_cycles);
 }
 
@@ -505,7 +506,7 @@ void test_quaternions(void)
 
 
 	// Get ready for some speed tests
-	unsigned cycles;
+	uint64_t cycles;
 	Quaternion input_quats[256];
 	Quaternion output_quat;
 	Matrix3D input_tms[256];
@@ -525,7 +526,7 @@ void test_quaternions(void)
 		output_quat = input_quats[i] * input_quats[(i+5) & 0xFF];
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	Print("quaternion multiply cycles:                %d\n",cycles / 256);
+	Print("quaternion multiply cycles:                %" PRIu64 "\n",cycles / 256);
 
 	// test speed of building a matrix from euler angles
 	cycles = Get_CPU_Clock();
@@ -536,7 +537,7 @@ void test_quaternions(void)
 		output_tm.Rotate_X(1.23f);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	Print("building matrix cycles:                    %d\n",cycles / 256);
+	Print("building matrix cycles:                    %" PRIu64 "\n",cycles / 256);
 
 
 	// test speed of matrix-vector multiplication
@@ -545,7 +546,7 @@ void test_quaternions(void)
 		output_vec = input_tms[i] * input_vec;
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	Print("matrix-vector cycles:                      %d\n",cycles / 256);
+	Print("matrix-vector cycles:                      %" PRIu64 "\n",cycles / 256);
 
 	// test speed of convert matrix, then matrix-vector multiplication
 	cycles = Get_CPU_Clock();
@@ -554,7 +555,7 @@ void test_quaternions(void)
 		output_vec = tm * input_vec;
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	Print("convert-matrix-vector cycles:              %d\n",cycles / 256);
+	Print("convert-matrix-vector cycles:              %" PRIu64 "\n",cycles / 256);
 
 	// test speed of naive quat-vector transform
 	cycles = Get_CPU_Clock();
@@ -562,7 +563,7 @@ void test_quaternions(void)
 		output_quat = input_quats[i] * input_quat * Conjugate(input_quats[i]);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	Print("naive quat-vector cycles:                  %d\n",cycles / 256);
+	Print("naive quat-vector cycles:                  %" PRIu64 "\n",cycles / 256);
 
 	// test speed of quat-vector transform
 	cycles = Get_CPU_Clock();
@@ -570,7 +571,7 @@ void test_quaternions(void)
 		output_vec = input_quats[i].Rotate_Vector(input_vec);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	Print("fast quat-vector cycles:                   %d\n",cycles / 256);
+	Print("fast quat-vector cycles:                   %" PRIu64 "\n",cycles / 256);
 
 	// test accuracy of the quat-vector transform
 	Vector3 verify_vec;
@@ -608,7 +609,7 @@ void test_animation(void)
 	// - grab the rotation (possible slerp), concatenate it in
 	///////////////////////////////////////////////////////////////////////
 	int i;
-	unsigned cycles;
+	uint64_t cycles;
 	float percentage = 0.5f;
 
 	Matrix3D root_tm;
@@ -667,7 +668,7 @@ void test_animation(void)
 		tm.Rotate_Z((1.0 - percentage) * euler_z0 + (percentage) * euler_z1);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("Translation Base + Euler animation cycles:            %d\n",cycles / 256);
+	printf("Translation Base + Euler animation cycles:            %" PRIu64 "\n",cycles / 256);
 
 	// anim method, Translation base and quaternions:
 	cycles = Get_CPU_Clock();
@@ -684,7 +685,7 @@ void test_animation(void)
 		Matrix3D::Multiply(tm,Build_Matrix3D(q),&tm);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("Translation Base + Quaternion animation cycles:       %d\n",cycles / 256);
+	printf("Translation Base + Quaternion animation cycles:       %" PRIu64 "\n",cycles / 256);
 
 
 	// anim method, Matrix3D base and euler angles:
@@ -702,7 +703,7 @@ void test_animation(void)
 		tm.Rotate_Z((1.0 - percentage) * euler_z0 + (percentage) * euler_z1);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("Matrix3D Base + Euler animation cycles:               %d\n",cycles / 256);
+	printf("Matrix3D Base + Euler animation cycles:               %" PRIu64 "\n",cycles / 256);
 
 
 	// anim method, Matrix3D base and quaternions:
@@ -720,7 +721,7 @@ void test_animation(void)
 		Matrix3D::Multiply(tm,Build_Matrix3D(q),&tm);
 	}
 	cycles = Get_CPU_Clock() - cycles;
-	printf("Matrix3D Base + Quaternion animation cycles:          %d\n",cycles / 256);
+	printf("Matrix3D Base + Quaternion animation cycles:          %" PRIu64 "\n",cycles / 256);
 
 	printf("\n");
 
@@ -756,8 +757,8 @@ void test_planes(void)
 void test_concatenation(void)
 {
 	Print_Title("Testing Matrix Concatenation Code");
-	unsigned operator_cycles;
-	unsigned concatenate_cycles;
+	uint64_t operator_cycles;
+	uint64_t concatenate_cycles;
 	unsigned i;
 	Matrix3D a,b;
 	Matrix3D res1,res2;
@@ -789,7 +790,7 @@ void test_concatenation(void)
 				 (((res1[1] - res2[1]).Length()) < 0.001f) &&
 				 (((res1[2] - res2[2]).Length()) < 0.001f) );
 
-		printf("Test %3d   op_cycles: %d\tc_cycles: %d\t",i,operator_cycles,concatenate_cycles);
+		printf("Test %3d   op_cycles: %" PRIu64 "\tc_cycles: %" PRIu64 "\t",i,operator_cycles,concatenate_cycles);
 		if (ok) {
 			printf("passed\n");
 		} else {
@@ -817,7 +818,7 @@ void test_concatenation(void)
 		bool ok = ( (((res1[0] - res2[0]).Length()) < 0.001f) &&
 					   (((res1[1] - res2[1]).Length()) < 0.001f) &&
 					   (((res1[2] - res2[2]).Length()) < 0.001f) );
-		printf("Test %3d   op_cycles: %d\tc_cycles: %d\t",i+10,operator_cycles,concatenate_cycles);
+		printf("Test %3d   op_cycles: %" PRIu64 "\tc_cycles: %" PRIu64 "\t",i+10,operator_cycles,concatenate_cycles);
 		if (ok) {
 			printf("passed\n");
 		} else {
@@ -947,43 +948,43 @@ void test_sqrt_time(void)
 	Print_Title("Timing some built-in functions");
 
 	int i;
-	unsigned int time;
+	uint64_t time;
 	const int SAMPLES = 100;
 	float results[SAMPLES];
 
 	time = 0;
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 20000.0f;
-		unsigned int cycles = Get_CPU_Clock();
+		uint64_t cycles = Get_CPU_Clock();
 		float val = sqrt(f);
 		val+=sqrt(val);
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;
 	}
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];		// keeping the compiler from optimizing this away
-	printf("sqrt average cycles: %d\n",time / SAMPLES);
+	printf("sqrt average cycles: %" PRIu64 "\n", time / SAMPLES);
 
 	time = 0;
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 6.28f;
-		unsigned int cycles = Get_CPU_Clock();
+		uint64_t cycles = Get_CPU_Clock();
 		float val = sin(f);
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;
 	}
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];
-	printf("sin average cycles: %d\n",time / SAMPLES);
+	printf("sin average cycles: %" PRIu64 "\n", time / SAMPLES);
 
 	time = 0;
 	for (i=0; i<SAMPLES; i++) {
 		float f = WWMath::Random_Float() * 6.28f;
-		unsigned int cycles = Get_CPU_Clock();
+		uint64_t cycles = Get_CPU_Clock();
 		float val = cos(f);
 		time += Get_CPU_Clock() - cycles;
 		results[i] = val;
 	}
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];
-	printf("cos average cycles: %d\n",time / SAMPLES);
+	printf("cos average cycles: %" PRIu64 "\n", time / SAMPLES);
 
 	// Time 100 multiplies
 	time = Get_CPU_Clock();
@@ -993,7 +994,7 @@ void test_sqrt_time(void)
 	}
 	time = Get_CPU_Clock() - time;
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];
-	printf("multiply cycles: %d\n",time);
+	printf("multiply cycles: %" PRIu64 "\n", time);
 
 
 	// Time 100 adds
@@ -1004,7 +1005,7 @@ void test_sqrt_time(void)
 	}
 	time = Get_CPU_Clock() - time;
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];
-	printf("add cycles: %d\n",time);
+	printf("add cycles: %" PRIu64 "\n", time);
 
 
 	// Time 100 multiplies
@@ -1015,7 +1016,7 @@ void test_sqrt_time(void)
 	}
 	time = Get_CPU_Clock() - time;
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];
-	printf("multiply cycles: %d\n",time);
+	printf("multiply cycles: %" PRIu64 "\n", time);
 
 	// Time 100 adds
 	time = Get_CPU_Clock();
@@ -1025,7 +1026,7 @@ void test_sqrt_time(void)
 	}
 	time = Get_CPU_Clock() - time;
 	for (i=0; i<SAMPLES; i++) _Global+= results[i];
-	printf("add cycles: %d\n",time);
+	printf("add cycles: %" PRIu64 "\n", time);
 
 
 }

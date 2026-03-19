@@ -38,8 +38,10 @@
 #ifndef MPU_H
 #define MPU_H
 
-unsigned int Get_CPU_Clock(unsigned int & high);
-unsigned int Get_CPU_Rate(unsigned int & high);
+#include <cstdint>
 
+uint64_t Get_CPU_Clock(void);
+
+uint64_t Get_CPU_Rate(void);
 
 #endif

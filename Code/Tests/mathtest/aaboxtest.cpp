@@ -43,6 +43,7 @@
 #include "wwmath.h"
 #include "colmath.h"
 #include "p_timer.h"
+#include <cinttypes>
 #include <stdio.h>
 
 
@@ -227,7 +228,7 @@ void Test_AABoxes(void)
 	*/
 	CastResultStruct result;
 	int numtests = sizeof(AABoxTriTestCases)/sizeof(AABoxTriTestClass *);
-	unsigned cycles;
+	uint64_t cycles;
 
 	// prime the cache
 	AABoxTriTestClass * testcase = AABoxTriTestCases[4];
@@ -256,7 +257,7 @@ void Test_AABoxes(void)
 			CollisionMath::Collide(testcase->Box,testcase->BoxMove,testcase->Tri,&result);
 			cycles = Get_CPU_Clock() - cycles;
 
-			printf("AABox -> Tri cycles: %d\n",cycles);
+			printf("AABox -> Tri cycles: %" PRIu64 "\n",cycles);
 			cycle_counts[i] += cycles;
 
 			if ((WWMath::Fabs(testcase->Fraction - result.Fraction) > WWMATH_EPSILON) ||
