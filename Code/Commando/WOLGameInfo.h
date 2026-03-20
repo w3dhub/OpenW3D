@@ -36,6 +36,7 @@
 #define __WOLGAMEINFO_H__
 
 #include <WWOnline/RefPtr.h>
+#include <cstdint>
 
 class cGameData;
 
@@ -75,7 +76,7 @@ class WOLGameInfo
 
 		void ExportToChannel(const RefPtr<WWOnline::ChannelData>& channel);
 
-		unsigned int Version(void) const
+		uint32_t Version(void) const
 			{return mVersion;};
 
 		unsigned int GameType(void) const
@@ -160,7 +161,7 @@ class WOLGameInfo
 		bool mIsDataValid;
 		bool mIsMapValid;
 
-		unsigned int mVersion;
+		uint32_t mVersion;
 		unsigned int  mGameType;
 
 		char mMapName[MAX_TEXT_LENGTH];

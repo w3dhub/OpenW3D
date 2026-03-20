@@ -679,7 +679,7 @@ void MPWolGameListMenuClass::UpdateChannels(ListCtrlClass* list, const ChannelLi
 						selIndex = itemIndex;
 						}
 
-					if (gameInfo.Version() != (unsigned int)cNetwork::Get_Exe_Key() || !gameInfo.IsMapValid())
+					if (gameInfo.Version() != cNetwork::Get_Exe_Key() || !gameInfo.IsMapValid())
 						{
 						ChannelData* rawChannel = (ChannelData*)list->Get_Entry_Data(itemIndex, COL_HOST_NAME);
 
