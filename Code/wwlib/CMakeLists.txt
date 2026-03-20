@@ -165,11 +165,16 @@ add_library(wwlib STATIC)
 target_link_libraries(wwlib PRIVATE
     wwcommon
     wwutil
-    version
 )
 if(W3D_BUILD_OPTION_SDL3)
     target_link_libraries(wwlib PRIVATE SDL3::SDL3-shared)
     target_link_libraries(wwlib PUBLIC SDL3::Headers)
+endif()
+if(WIN32)
+    target_link_libraries(wwlib PRIVATE
+        version
+        winmm
+    )
 endif()
 
 target_sources(wwlib PRIVATE ${WWLIB_SRC})

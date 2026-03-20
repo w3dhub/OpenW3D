@@ -58,9 +58,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWDumpTreeView drawing
 
-void CWDumpTreeView::OnDraw(CDC* pDC)
+void CWDumpTreeView::OnDraw(CDC* /*pDC*/)
 {
-	CDocument* pDoc = GetDocument();
+	[[maybe_unused]] CDocument* pDoc = GetDocument();
 	// TODO: add draw code here
 }
 
@@ -82,7 +82,7 @@ void CWDumpTreeView::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CWDumpTreeView message handlers
 
-void CWDumpTreeView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
+void CWDumpTreeView::OnUpdate(CView* /*pSender*/, LPARAM /*lHint*/, CObject* /*pHint*/)
 {
 	// add all the chunk items to the view
 	CTreeCtrl &tree = GetTreeCtrl();
@@ -128,7 +128,7 @@ void CWDumpTreeView::InsertItem(ChunkItem * item, HTREEITEM Parent)
 
 	CTreeCtrl &tree = GetTreeCtrl();
 	HTREEITEM tree_item = tree.InsertItem(name, Parent);
-	tree.SetItem(tree_item, TVIF_PARAM,0,0,0,0,0, (int) item);
+	tree.SetItem(tree_item, TVIF_PARAM,0,0,0,0,0, reinterpret_cast<LPARAM>(item));
 
 	POSITION p = item->Chunks.GetHeadPosition();
 	while(p != 0) {
@@ -283,7 +283,7 @@ void CWDumpTreeView::SelectTreeItem (HTREEITEM treeitem, ChunkItem *chunkitem)
 
 		HTREEITEM subtreeitem;
 
-		if (tree.GetItemData (treeitem) == (DWORD) chunkitem) {
+		if (tree.GetItemData (treeitem) == reinterpret_cast<DWORD_PTR>(chunkitem)) {
 			tree.SelectItem (treeitem);
 		}
 		subtreeitem = tree.GetChildItem (treeitem);

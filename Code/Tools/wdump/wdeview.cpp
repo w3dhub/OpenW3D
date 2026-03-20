@@ -54,9 +54,9 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CWDumpEditView drawing
 
-void CWDumpEditView::OnDraw(CDC* pDC)
+void CWDumpEditView::OnDraw(CDC* /*pDC*/)
 {
-	CDocument* pDoc = GetDocument();
+	[[maybe_unused]] CDocument* pDoc = GetDocument();
 	// TODO: add draw code here
 }
 
@@ -78,7 +78,7 @@ void CWDumpEditView::Dump(CDumpContext& dc) const
 /////////////////////////////////////////////////////////////////////////////
 // CWDumpEditView message handlers
 
-void CWDumpEditView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
+void CWDumpEditView::OnUpdate(CView* /*Sender*/, LPARAM /*lHint*/, CObject* /*pHint*/)
 {
 	// TODO: Add your specialized code here and/or call the base class
 	CEdit &edit = GetEditCtrl();
