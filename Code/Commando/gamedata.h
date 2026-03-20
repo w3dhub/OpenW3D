@@ -128,7 +128,7 @@ class	cGameData :
 		bool				Set_Time_Limit_Minutes(int time_limit_minutes);
 		void				Set_Radar_Mode(RadarModeEnum mode);
 		void				Set_Intermission_Time_Seconds(int time);
-		void				Set_Version_Number(int version_number) {VersionNumber = version_number;}
+		void				Set_Version_Number(uint32_t version_number) {VersionNumber = version_number;}
 		bool				Set_Current_Players(int current_players);
 		void				Set_Ip_Address(unsigned int ip_address);
 		void				Set_Port(int port);
@@ -156,7 +156,7 @@ class	cGameData :
 		int				Get_Max_Players(void)				const	{return MaxPlayers;}
 		int				Get_Time_Limit_Minutes(void)		const {return TimeLimitMinutes;}
 		int				Get_Intermission_Time_Seconds(void) const {return IntermissionTimeSeconds;}
-		int				Get_Version_Number(void)			const {return VersionNumber;}
+		uint32_t			Get_Version_Number(void)			const {return VersionNumber;}
 		int				Get_Current_Players(void)			const	{return CurrentPlayers;}
 		unsigned int				Get_Ip_Address(void)					const	{return IpAddress;}
 		int				Get_Port(void)							const	{return Port;}
@@ -358,7 +358,7 @@ class	cGameData :
 		int					MaxPlayers;
 		int					TimeLimitMinutes;
 		int					IntermissionTimeSeconds;
-		int					VersionNumber; // for now use exe byte size
+		uint32_t				VersionNumber; // for now use exe byte size
 		bool					DoExeVersionsMatch;
 		bool					DoStringVersionsMatch;
 		unsigned int					IpAddress; // hosting address

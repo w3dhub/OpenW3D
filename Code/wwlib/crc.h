@@ -44,6 +44,8 @@
 #ifdef _UNIX
 	#include "osdep.h"
 #endif
+#include	<bit>
+#include	<cstdint>
 
 /*
 **	This is a CRC engine class. It will process submitted data and generate a CRC from it.
@@ -56,7 +58,7 @@ class CRCEngine {
 	public:
 
 		// Constructor for CRC engine (it can have an override initial CRC value).
-		CRCEngine(int initial=0) : CRC(initial), Index(0) {
+		CRCEngine(uint32_t initial=0) : CRC(initial), Index(0) {
 			StagingBuffer.Composite = 0;
 		};
 
@@ -67,10 +69,10 @@ class CRCEngine {
 		void operator() (char datum);
 
 		// Submits an arbitrary buffer to the CRC accumulator.
-		int operator() (void const * buffer, int length);
+		uint32_t operator() (void const * buffer, size_t length);
 
 		// Implicit conversion operator so this object appears like a 'int integer'.
-		operator int(void) const {return(Value());};
+		operator uint32_t(void) const {return(Value());};
 
 	protected:
 
@@ -78,9 +80,9 @@ class CRCEngine {
 			return(Index != 0);
 		};
 
-		int Value(void) const {
+		uint32_t Value(void) const {
 			if (Buffer_Needs_Data()) {
-				return int(_rotl(CRC, 1) + StagingBuffer.Composite);
+				return std::rotl(CRC, 1) + StagingBuffer.Composite;
 			}
 			return(CRC);
 		};
@@ -89,7 +91,7 @@ class CRCEngine {
 		**	Current accumulator of the CRC value. This value doesn't take into
 		**	consideration any pending data in the staging buffer.
 		*/
-		int CRC;
+		uint32_t CRC;
 
 		/*
 		**	This is the sub index into the staging buffer used to keep track of
@@ -115,19 +117,19 @@ class CRCEngine {
 //
 // 12/09/97 EHC - converted from c to c++ static class and added to crc.h and crc.cpp
 //
-#define CRC32(c,crc) (CRC::_Table[((unsigned int)(crc) ^ (c)) & 0xFFL] ^ (((crc) >> 8) & 0x00FFFFFFL))
+#define CRC32(c,crc) (CRC::_Table[((unsigned int)(crc) ^ (c)) & 0xFFU] ^ (((crc) >> 8) & 0x00FFFFFFU))
 class CRC {
 
 	// CRC for poly 0x04C11DB7
-	static unsigned int _Table[256];
+	static uint32_t _Table[256];
 
 public:
 
 	// get the CRC of a block of memory
-	static unsigned int	Memory( unsigned char *data, unsigned int length, unsigned int crc = 0 );
+	static uint32_t	Memory( unsigned char *data, size_t length, uint32_t crc = 0 );
 
 	// get the CRC of a null-terminated string
-	static unsigned int	String( const char *string, unsigned int crc = 0 );
+	static uint32_t	String( const char *string, uint32_t crc = 0 );
 };
 
 #endif

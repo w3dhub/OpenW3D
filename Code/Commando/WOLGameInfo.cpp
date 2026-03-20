@@ -43,6 +43,7 @@
 #include "modpackagemgr.h"
 #include <cstdio>
 #include <algorithm>
+#include <cinttypes>
 
 using namespace WWOnline;
 
@@ -298,16 +299,16 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 	mIsDataValid = true;
 
 	// Extract ExInfo settings
-	unsigned int fileCRC = 0;
-	unsigned int version = 0;
-	unsigned int clanID1 = 0;
-	unsigned int clanID2 = 0;
+	uint32_t fileCRC = 0;
+	uint32_t version = 0;
+	uint32_t clanID1 = 0;
+	uint32_t clanID2 = 0;
 	unsigned char gameType = 0;
 	unsigned char gameFlags1 = 0;
 	unsigned char gameFlags2 = 0;
 	unsigned char modMapIndex = 0;
 
-	int count = sscanf(exInfo, "%08lX%08lX%08lX%08lX%c%c%c%c", &version, &fileCRC,
+	int count = sscanf(exInfo, "%08" SCNx32 "%08" SCNx32 "%08" SCNx32 "%08" SCNx32 "%c%c%c%c", &version, &fileCRC,
 			&clanID1, &clanID2, &gameType, &gameFlags1, &gameFlags2, &modMapIndex);
 
 	// There should be 8 parameters in the exinfo
@@ -317,7 +318,7 @@ void WOLGameInfo::ImportFromChannel(const RefPtr<ChannelData>& channel)
 		mIsDataValid = false;
 		}
 
-	if (version != unsigned(cNetwork::Get_Exe_Key())) {
+	if (version != cNetwork::Get_Exe_Key()) {
 		mIsDataValid = false;
 		return;
 	}
@@ -571,7 +572,7 @@ void WOLGameInfo::ExportToChannel(const RefPtr<ChannelData>& channel)
 bool WOLGameInfo::IsValidGameChannel(const RefPtr<ChannelData>& channel)
 	{
 	WOLGameInfo gameInfo(channel);
-	return (gameInfo.IsDataValid() && (gameInfo.mVersion == (unsigned int)cNetwork::Get_Exe_Key()));
+	return (gameInfo.IsDataValid() && (gameInfo.mVersion == cNetwork::Get_Exe_Key()));
 	}
 
 
@@ -642,7 +643,7 @@ bool WOLGameInfo::CanUserJoin(const RefPtr<UserData>& user)
 		return false;
 		}
 
-	if (mVersion != (unsigned int)cNetwork::Get_Exe_Key())
+	if (mVersion != cNetwork::Get_Exe_Key())
 		{
 		return false;
 		}

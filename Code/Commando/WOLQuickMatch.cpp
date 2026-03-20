@@ -44,6 +44,7 @@
 #include "cnetwork.h"
 #include "translatedb.h"
 #include "string_ids.h"
+#include <cinttypes>
 
 
 using namespace WWOnline;
@@ -286,7 +287,7 @@ RefPtr<WaitCondition> WOLQuickMatch::Disconnect(void)
 
 bool WOLQuickMatch::SendClientInfo(void)
 	{
-	unsigned int ver = cNetwork::Get_Exe_Key();
+	uint32_t ver = cNetwork::Get_Exe_Key();
 
 	// Get CPU speed
 	int speed = CPUDetectClass::Get_Processor_Speed();
@@ -329,7 +330,7 @@ bool WOLQuickMatch::SendClientInfo(void)
 	// Generate client information message
 	//-------------------------------------------------------------------------
 	WideStringClass clientMsg(256, true);
-	clientMsg.Format(U_CHAR("CINFO VER=%lu CPU=%lu MEM=%lu TPOINTS=%ld PLAYED=%lu PINGS=%S"),
+	clientMsg.Format(U_CHAR("CINFO VER=%" PRIu32 " CPU=%lu MEM=%lu TPOINTS=%ld PLAYED=%lu PINGS=%S"),
 		ver, speed, memory, tpoints, played, pseudoPings);
 
 	WWDEBUG_SAY(("WOLQuickMatch: '%S'\n", (const unichar_t*)clientMsg));

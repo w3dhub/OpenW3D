@@ -159,9 +159,9 @@ public:
 
    static int	Get_My_Id(void);
 
-   static int	Get_Exe_Key(void)						{ return ExeKey; }
-	static int	Get_Exe_CRC(void)						{ return ExeCRC; }
-	static int	Get_Strings_CRC(void)				{ return StringsCRC; }
+	static uint32_t	Get_Exe_Key(void)						{ return ExeKey; }
+	static uint32_t	Get_Exe_CRC(void)						{ return ExeCRC; }
+	static uint32_t	Get_Strings_CRC(void)				{ return StringsCRC; }
 
    static void Set_Desired_Frame_Sleep_Ms(int b);
    static void Set_Simulated_Packet_Loss_Pc(int b);
@@ -223,9 +223,9 @@ private:
    //
    // Version validation data
    //
-	static int ExeKey;
-	static int ExeCRC;
-	static int StringsCRC;
+	static uint32_t ExeKey;
+	static uint32_t ExeCRC;
+	static uint32_t StringsCRC;
 
 	//
    // Server-specific data

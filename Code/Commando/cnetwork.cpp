@@ -101,9 +101,9 @@ extern bool g_is_loading;
 //
 char												cNetwork::MessageToSend[];
 char												cNetwork::Command[];
-int												cNetwork::ExeKey								= 0;
-int												cNetwork::ExeCRC								= 0;
-int												cNetwork::StringsCRC							= 0;
+uint32_t											cNetwork::ExeKey								= 0;
+uint32_t											cNetwork::ExeCRC								= 0;
+uint32_t											cNetwork::StringsCRC							= 0;
 char												cNetwork::ClientString[];
 char												cNetwork::ClientEnumerationString[];
 CombatNetworkReceiverInstanceClass *	cNetwork::NetworkReceiver					= NULL;
@@ -525,8 +525,7 @@ void cNetwork::Compute_Exe_Key(void)
 	key_string += " ";
 	const char *exe_string = string;
 	const size_t exe_string_length = ::strlen(exe_string);
-	WWASSERT(exe_string_length <= size_t(std::numeric_limits<int>::max()));
-	ExeCRC = CRCEngine()(exe_string, static_cast<int>(exe_string_length));
+	ExeCRC = CRCEngine()(exe_string, exe_string_length);
 
 	//
 	// TSS 09/07/01
@@ -547,8 +546,7 @@ void cNetwork::Compute_Exe_Key(void)
 	key_string += " ";
 	const char *tdb_string = string;
 	const size_t tdb_length = ::strlen(tdb_string);
-	WWASSERT(tdb_length <= size_t(std::numeric_limits<int>::max()));
-	StringsCRC = CRCEngine()(tdb_string, static_cast<int>(tdb_length));
+	StringsCRC = CRCEngine()(tdb_string, tdb_length);
 
 	//
 	// TSS102401 - we can't match always.dbs either.
@@ -560,8 +558,7 @@ void cNetwork::Compute_Exe_Key(void)
 	//
 	const char *key_string_buffer = key_string;
 	const size_t key_length = ::strlen(key_string_buffer);
-	WWASSERT(key_length <= size_t(std::numeric_limits<int>::max()));
-	ExeKey = CRCEngine()(key_string_buffer, static_cast<int>(key_length));
+	ExeKey = CRCEngine()(key_string_buffer, key_length);
 
 	//
 	// Include data file crc
@@ -1433,7 +1430,7 @@ REFUSAL_CODE cNetwork::Application_Acceptance_Handler(cPacket & packet)
 	packet.Get_Wide_Terminated_String(password.Get_Buffer(256), 256, true);
 
 	// Get clients exe version
-	int client_exe_key = packet.Get(client_exe_key);
+	uint32_t client_exe_key = packet.Get(client_exe_key);
 
 	// Make sure the clients password matches the games password.
 	WWASSERT(PTheGameData != NULL);

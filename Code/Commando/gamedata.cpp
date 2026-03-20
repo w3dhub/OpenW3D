@@ -853,6 +853,7 @@ void cGameData::Import_Tier_1_Data(cPacket & packet)
    Set_Game_Title(title);
 
 	int	i_placeholder;
+	uint32_t	u32_placeholder;
 	bool	b_placeholder;
 
    Set_Port(						packet.Get(i_placeholder));
@@ -863,8 +864,8 @@ void cGameData::Import_Tier_1_Data(cPacket & packet)
 	//
 	//	Compare the individual CRC's against our own
 	//
-	DoExeVersionsMatch		= (packet.Get(i_placeholder) == cNetwork::Get_Exe_CRC ());
-	DoStringVersionsMatch	= (packet.Get(i_placeholder) == cNetwork::Get_Strings_CRC ());
+	DoExeVersionsMatch		= (packet.Get(u32_placeholder) == cNetwork::Get_Exe_CRC ());
+	DoStringVersionsMatch	= (packet.Get(u32_placeholder) == cNetwork::Get_Strings_CRC ());
 
 	IsDedicated.Set(				packet.Get(b_placeholder));
 	IsTeamChangingAllowed.Set(	packet.Get(b_placeholder));
