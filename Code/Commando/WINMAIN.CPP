@@ -258,7 +258,7 @@ static bool Graphics_Settings_Trouble_Shooting()
 			return 1;
 		}
 		process->Wait();
-		bool success = *process->Return_Code() != 0;
+		bool success = *process->Return_Code() == 0;
 		delete process;
 		return success;
 	}
