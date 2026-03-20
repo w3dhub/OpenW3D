@@ -104,15 +104,19 @@ void SendGameResults(unsigned int gameID, cGameData* theGame, SList<cPlayer>* pl
 	stats.Add_Field("VERS", (unsigned int)version.dwFileVersionMS);
 
 	// Executable build date
-	FILETIME createTime;
-	GetFileCreationTime(filename, &createTime);
-
-	SYSTEMTIME time;
-	FileTimeToSystemTime(&createTime, &time);
+	FileCreationTime time;
+	GetFileCreationTime(filename, &time);
 
 	char buildDate[20];
+#if defined(OPENW3D_WIN32)
 	sprintf(buildDate, "%02d/%02d/%04d %02d:%02d:%02d",
 		time.wMonth, time.wDay, time.wYear, time.wHour, time.wMinute, time.wSecond);
+#elif defined(OPENW3D_SDL3)
+	sprintf(buildDate, "%02d/%02d/%04d %02d:%02d:%02d",
+		time.month, time.day, time.year, time.hour, time.minute, time.second);
+#else
+	#error "Not implemented"
+#endif
 	stats.Add_Field("DATE", buildDate);
 
 	// Proocessor information

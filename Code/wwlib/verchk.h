@@ -44,11 +44,21 @@
 
 #include <windows.h>
 
+#if defined(OPENW3D_WIN32)
+#include <windows.h>
+typedef SYSTEMTIME FileCreationTime;
+#elif defined(OPENW3D_SDL3)
+#include <SDL3/SDL_time.h>
+typedef SDL_DateTime FileCreationTime;
+#else
+#error "Not implemented"
+#endif
+
 // Obtain version information from the specified file.
 bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo);
 
 // Retreive creation time of specified file.
-bool GetFileCreationTime(char* filename, FILETIME* createTime);
+bool GetFileCreationTime(const char* filename, FileCreationTime* createTime);
 
 ////////////////////////////////////////////////////////////////////////
 //

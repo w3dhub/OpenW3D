@@ -36,10 +36,14 @@
 
 
 #include "verchk.h"
-#include <windows.h>
-#include <winnt.h>
 #include "rawfile.h"
 #include "ffactory.h"
+#if defined(OPENW3D_WIN32)
+#include <windows.h>
+#elif defined(OPENW3D_SDL3)
+#include <sys/types.h>
+#include <sys/stat.h>
+#endif
 
 
 /******************************************************************************
@@ -89,24 +93,49 @@ bool GetVersionInfo(char* filename, VS_FIXEDFILEINFO* fileInfo) {
 }
 
 
-bool GetFileCreationTime(char* filename, FILETIME* createTime)
+bool GetFileCreationTime(const char* filename, FileCreationTime* createTime)
 	{
 	if (filename && createTime)
 		{
-		createTime->dwLowDateTime = 0;
-		createTime->dwHighDateTime = 0;
+		#if defined(OPENW3D_WIN32)
+			memset(createTime, 0, sizeof(*createTime));
+		#elif defined(OPENW3D_SDL3)
+			SDL_zerop(createTime);
+		#else
+			#error "Not implemented"
+		#endif
 		FileClass* file = _TheFileFactory->Get_File(filename);
 
 		if (file && file->Open())
 			{
-			HANDLE handle = file->Get_File_Handle();
+			HANDLE_TYPE handle = file->Get_File_Handle();
 
-			if (handle != INVALID_HANDLE_VALUE)
+			if (handle != NULL_HANDLE)
 				{
-				if (GetFileTime(handle, NULL, NULL, createTime))
-					{
+				#if defined(OPENW3D_WIN32)
+					FILETIME fileTime;
+					if (!GetFileTime(handle, NULL, NULL, &fileTime))
+						{
+						return false;
+						}
+					SYSTEMTIME time;
+					if (!FileTimeToSystemTime(&fileTime, &time))
+						{
+						return false;
+						}
+					*createTime = time;
 					return true;
+				#elif defined(OPENW3D_SDL3)
+					struct stat statbuf;
+					if (fstat(fileno(handle), &statbuf) != 0) {
+						return false;
 					}
+					if (!SDL_TimeToDateTime(statbuf.st_ctime, createTime, false)) {
+						return false;
+					}
+				#else
+					#error "Not implemented"
+				#endif
 				}
 			}
 		}

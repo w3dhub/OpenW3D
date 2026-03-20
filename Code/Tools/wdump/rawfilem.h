@@ -165,7 +165,7 @@ class RawFileMClass : public FileClass
 
 		void Bias(int start, int length=-1);
 
-		HANDLE_TYPE Get_File_Handle(void) { return (Handle); };
+		virtual HANDLE_TYPE Get_File_Handle(void) override { return (Handle); };
 
 		/*
 		**	These bias values enable a sub-portion of a file to appear as if it

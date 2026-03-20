@@ -1219,7 +1219,7 @@ int RawFileClass::Raw_Seek(int pos, int dir)
  * HISTORY:                                                                                    *
  *   06/10/1999 PDS : Created.                                                                 *
  *=============================================================================================*/
-void RawFileClass::Attach (void *handle, int rights)
+void RawFileClass::Attach (HANDLE_TYPE handle, int rights)
 {
 	Reset ();
 

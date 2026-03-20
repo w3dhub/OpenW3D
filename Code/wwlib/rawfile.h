@@ -48,16 +48,6 @@
 
 // #include	"win.h"
 
-#ifdef _UNIX
-#include <stdio.h>
-#include "osdep.h"
-  #define	NULL_HANDLE	 	NULL
-  #define	HANDLE_TYPE		FILE*
-#else
-  #define	NULL_HANDLE		INVALID_HANDLE_VALUE
-  #define	HANDLE_TYPE		HANDLE
-#endif
-
 #include	"wwfile.h"
 #include "wwstring.h"
 
@@ -112,9 +102,9 @@ class RawFileClass : public FileClass
 		virtual bool Set_Date_Time(unsigned int datetime) override;
 		virtual void Error(int error, int canretry = false, char const * filename=NULL) override;
 		virtual void Bias(int start, int length=-1) override;
-		virtual void * Get_File_Handle(void) override { return Handle;  }
+		virtual HANDLE_TYPE Get_File_Handle(void) override { return Handle;  }
 
-		virtual void	Attach (void *handle, int rights=READ);
+		virtual void	Attach (HANDLE_TYPE handle, int rights=READ);
 		virtual void	Detach (void);
 
 		/*
@@ -141,11 +131,13 @@ class RawFileClass : public FileClass
 		/*
 		**	This is the low level DOS handle. A -1 indicates an empty condition.
 		*/
-		#ifdef _UNIX
-			FILE*  Handle;
-		#else
-			void * Handle;
-		#endif
+#if defined(OPENW3D_WIN32)
+		HANDLE Handle;
+#elif defined(OPENW3D_SDL3)
+		FILE *Handle;
+#else
+#error "Not implemented"
+#endif
 
 		StringClass Filename;
 
