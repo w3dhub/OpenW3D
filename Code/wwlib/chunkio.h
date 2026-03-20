@@ -129,10 +129,10 @@ struct MicroChunkHeader
 	uint8           Get_Type(void) { return ChunkType; }
 	void            Set_Size(uint8 size) { ChunkSize = size; }
 	void            Add_Size(uint8 add) {
-	const uint16	current_size = Get_Size();
-	[[maybe_unused]] const uint16	max_size = std::numeric_limits<uint8>::max();
+		const uint16	current_size = Get_Size();
+		[[maybe_unused]] const uint16	max_size = std::numeric_limits<uint8>::max();
 		assert(add <= max_size - current_size);
-					Set_Size(static_cast<uint8>(current_size + add));
+		Set_Size(static_cast<uint8>(current_size + add));
 	}
 	uint8           Get_Size(void) { return ChunkSize; }
 

@@ -67,7 +67,7 @@ BOOL CWdumpView::PreCreateWindow(CREATESTRUCT& cs)
 /////////////////////////////////////////////////////////////////////////////
 // CWdumpView drawing
 
-void CWdumpView::OnDraw(CDC* pDC)
+void CWdumpView::OnDraw(CDC* /*pDC*/)
 {
 	CWdumpDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);

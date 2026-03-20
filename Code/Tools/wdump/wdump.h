@@ -50,7 +50,7 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CWdumpApp)
 	public:
-	virtual BOOL InitInstance();
+	BOOL InitInstance() override;
 	//}}AFX_VIRTUAL
 
 // Implementation
