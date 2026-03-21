@@ -61,7 +61,7 @@
 STDMETHODIMP CShellExt::QueryContextMenu(HMENU hMenu,
                                          UINT indexMenu,
                                          UINT idCmdFirst,
-                                         UINT idCmdLast,
+                                         UINT /*idCmdLast*/,
                                          UINT uFlags){
     UINT idCmd = idCmdFirst;
     char szMenuText[64];
@@ -111,11 +111,11 @@ STDMETHODIMP CShellExt::InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi)
     }
     return hr;
 }
-STDMETHODIMP CShellExt::GetCommandString(UINT idCmd,
-                                         UINT uFlags,
-                                         UINT FAR *reserved,
+STDMETHODIMP CShellExt::GetCommandString(UINT_PTR idCmd,
+                                         UINT /*uFlags*/,
+                                         UINT FAR */*reserved*/,
                                          LPSTR pszName,
-                                         UINT cchMax){
+                                         UINT /*cchMax*/){
     switch (idCmd){
         case 0:
             lstrcpy(pszName, "New menu item number 1");
@@ -126,10 +126,10 @@ STDMETHODIMP CShellExt::GetCommandString(UINT idCmd,
 }
 
 STDMETHODIMP CShellExt::DoW3DMenu1(HWND hParent,
-                                   LPCSTR pszWorkingDir,
-                                   LPCSTR pszCmd,
-                                   LPCSTR pszParam,
-                                   int iShowCmd){
+                                   LPCSTR /*pszWorkingDir*/,
+                                   LPCSTR /*pszCmd*/,
+                                   LPCSTR /*pszParam*/,
+                                   int /*iShowCmd*/){
     MessageBox(hParent, "Not Implemented !", "Sorry !", MB_OK);
     return NOERROR;
 }

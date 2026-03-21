@@ -68,13 +68,13 @@
 //  COMMENTS:
 //
 
-STDMETHODIMP_(UINT) CShellExt::CopyCallback(HWND hwnd,
-                                            UINT wFunc,
-                                            UINT wFlags,
-                                            LPCSTR pszSrcFile,
-                                            DWORD dwSrcAttribs,
-                                            LPCSTR pszDestFile,
-                                            DWORD dwDestAttribs)
+STDMETHODIMP_(UINT) CShellExt::CopyCallback(HWND /*hwnd*/,
+                                            UINT /*wFunc*/,
+                                            UINT /*wFlags*/,
+                                            LPCSTR /*pszSrcFile*/,
+                                            DWORD /*dwSrcAttribs*/,
+                                            LPCSTR /*pszDestFile*/,
+                                            DWORD /*dwDestAttribs*/)
 {
     ODS("CShellExt::CopyCallback\r\n");
     return IDYES;

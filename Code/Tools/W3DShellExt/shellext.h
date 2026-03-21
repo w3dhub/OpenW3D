@@ -53,7 +53,6 @@
 //#include "w3d2dat.h"			/// LFeenanEA: Header file missing, perhaps this tool is outdated?
 
 
-class CWdumpDoc;
 // {556F8779-49C4-4e88-9CEF-0AC2CFD6B763}
 DEFINE_GUID(CLSID_ShellExtension, 0x556f8779L, 0x49c4, 0x4e88, 0x9c, 0xef, 0x0a, 0xc2, 0xcf, 0xd6, 0xb7, 0x63 );
 class CShellExtClassFactory : public IClassFactory
@@ -66,13 +65,13 @@ public:
 	~CShellExtClassFactory();
 
 	//IUnknown members
-	STDMETHODIMP			QueryInterface(REFIID, LPVOID FAR *);
-	STDMETHODIMP_(ULONG)	AddRef();
-	STDMETHODIMP_(ULONG)	Release();
+	STDMETHODIMP			QueryInterface(REFIID, LPVOID *) override;
+	STDMETHODIMP_(ULONG)	AddRef() override;
+	STDMETHODIMP_(ULONG)	Release() override;
 
 	//IClassFactory members
-	STDMETHODIMP		CreateInstance(LPUNKNOWN, REFIID, LPVOID FAR *);
-	STDMETHODIMP		LockServer(BOOL);
+	STDMETHODIMP		CreateInstance(LPUNKNOWN, REFIID, LPVOID *) override;
+	STDMETHODIMP		LockServer(BOOL) override;
 
 };
 typedef CShellExtClassFactory *LPCSHELLEXTCLASSFACTORY;
@@ -93,36 +92,36 @@ protected:
 	STDMETHODIMP DoW3DMenu1(HWND hParent, LPCSTR pszWorkingDir, LPCSTR pszCmd,LPCSTR pszParam, int iShowCmd);
 public:
 	bool NotAdded(char* name);
-	void Read_Selection(W3dMeshHeader3Struct&, W3D_HTree&, W3D_HAnim** );
+	//void Read_Selection(W3dMeshHeader3Struct&, W3D_HTree&, W3D_HAnim** );
 	CShellExt();
 	~CShellExt();
 
 	//IUnknown members
-	STDMETHODIMP			QueryInterface(REFIID, LPVOID FAR *);
+	STDMETHODIMP			QueryInterface(REFIID, LPVOID *);
 	STDMETHODIMP_(ULONG)	AddRef();
 	STDMETHODIMP_(ULONG)	Release();
 
 	//IShell members
-	STDMETHODIMP			QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags);
-	STDMETHODIMP			InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi);
-	STDMETHODIMP			GetCommandString(UINT idCmd, UINT uFlags, UINT FAR *reserved, LPSTR pszName, UINT cchMax);
+	STDMETHODIMP			QueryContextMenu(HMENU hMenu, UINT indexMenu, UINT idCmdFirst, UINT idCmdLast, UINT uFlags) override;
+	STDMETHODIMP			InvokeCommand(LPCMINVOKECOMMANDINFO lpcmi) override;
+    STDMETHODIMP			GetCommandString(UINT_PTR idCmd, UINT uFlags, UINT *reserved, LPSTR pszName, UINT cchMax) override;
 	//IShellExtInit methods
-	STDMETHODIMP		    Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hKeyID);
+	STDMETHODIMP		    Initialize(LPCITEMIDLIST pIDFolder, LPDATAOBJECT pDataObj, HKEY hKeyID) override;
     //IExtractIcon methods
-    STDMETHODIMP GetIconLocation(UINT   uFlags,LPSTR  szIconFile,UINT   cchMax,int   *piIndex,UINT  *pwFlags);
-    STDMETHODIMP Extract(LPCSTR pszFile,UINT   nIconIndex,HICON  *phiconLarge,HICON  *phiconSmall,UINT   nIconSize);
+    STDMETHODIMP GetIconLocation(UINT   uFlags,LPSTR  szIconFile,UINT   cchMax,int   *piIndex,UINT  *pwFlags) override;
+    STDMETHODIMP Extract(LPCSTR pszFile,UINT   nIconIndex,HICON  *phiconLarge,HICON  *phiconSmall,UINT   nIconSize) override;
     //IPersistFile methods
-    STDMETHODIMP GetClassID(LPCLSID lpClassID);
-    STDMETHODIMP IsDirty();
-    STDMETHODIMP Load(LPCOLESTR lpszFileName, DWORD grfMode);
-    STDMETHODIMP Save(LPCOLESTR lpszFileName, BOOL fRemember);
-    STDMETHODIMP SaveCompleted(LPCOLESTR lpszFileName);
-    STDMETHODIMP GetCurFile(LPOLESTR FAR* lplpszFileName);
+    STDMETHODIMP GetClassID(LPCLSID lpClassID) override;
+    STDMETHODIMP IsDirty() override;
+    STDMETHODIMP Load(LPCOLESTR lpszFileName, DWORD grfMode) override;
+    STDMETHODIMP Save(LPCOLESTR lpszFileName, BOOL fRemember) override;
+    STDMETHODIMP SaveCompleted(LPCOLESTR lpszFileName) override;
+    STDMETHODIMP GetCurFile(LPOLESTR * lplpszFileName) override;
     //IShellPropSheetExt methods
-    STDMETHODIMP AddPages(LPFNADDPROPSHEETPAGE lpfnAddPage, LPARAM lParam);
-    STDMETHODIMP ReplacePage(UINT uPageID, LPFNADDPROPSHEETPAGE lpfnReplaceWith, LPARAM lParam);
+    STDMETHODIMP AddPages(LPFNADDPROPSHEETPAGE lpfnAddPage, LPARAM lParam) override;
+    STDMETHODIMP ReplacePage(UINT uPageID, LPFNADDPROPSHEETPAGE lpfnReplaceWith, LPARAM lParam) override;
     //ICopyHook method
-    STDMETHODIMP_(UINT) CopyCallback(HWND hwnd, UINT wFunc, UINT wFlags, LPCSTR pszSrcFile, DWORD dwSrcAttribs,LPCSTR pszDestFile, DWORD dwDestAttribs);
+    STDMETHODIMP_(UINT) CopyCallback(HWND hwnd, UINT wFunc, UINT wFlags, LPCSTR pszSrcFile, DWORD dwSrcAttribs,LPCSTR pszDestFile, DWORD dwDestAttribs) override;
 public:
 	W3dAnimHeaderStruct	m_AnimInfos[MAX_ANIMS_INFILE];
 	W3dHierarchyStruct	m_Hierarchies[MAX_ANIMS_INFILE];
