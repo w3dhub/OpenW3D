@@ -19,9 +19,9 @@
 #include "StdAfx.h"
 #include "priv.h"
 #include "shellext.h"
-STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST pIDFolder,
+STDMETHODIMP CShellExt::Initialize(LPCITEMIDLIST /*pIDFolder*/,
                                    LPDATAOBJECT pDataObj,
-                                   HKEY hRegKey){
+                                   HKEY /*hRegKey*/){
     // Initialize can be called more than once
     if(m_pDataObj){
     	m_pDataObj->Release();

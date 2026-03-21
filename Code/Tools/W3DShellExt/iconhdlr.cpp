@@ -38,11 +38,11 @@ extern HINSTANCE g_DllInstance; // Handle to this DLL itself.
 
 // *********************** IExtractIcon Implementation *************************
 
-STDMETHODIMP CShellExt::GetIconLocation(UINT   uFlags,
+STDMETHODIMP CShellExt::GetIconLocation(UINT   /*uFlags*/,
                                         LPSTR  szIconFile,
                                         UINT   cchMax,
                                         int   *piIndex,
-                                        UINT  *pwFlags)
+                                        UINT  */*pwFlags*/)
 {
     GetModuleFileName(g_DllInstance, szIconFile, cchMax);
     *piIndex = (int)GetPrivateProfileInt("IconImage", "Index", 0, m_szFileUserClickedOn);
@@ -50,7 +50,7 @@ STDMETHODIMP CShellExt::GetIconLocation(UINT   uFlags,
 }
 
 
-STDMETHODIMP CShellExt::Extract(LPCSTR pszFile,UINT   nIconIndex,HICON  *phiconLarge,HICON  *phiconSmall,UINT   nIconSize)
+STDMETHODIMP CShellExt::Extract(LPCSTR /*pszFile*/,UINT   /*nIconIndex*/,HICON  */*phiconLarge*/,HICON  */*phiconSmall*/,UINT   /*nIconSize*/)
 {
     return S_FALSE;
 }
@@ -58,7 +58,7 @@ STDMETHODIMP CShellExt::Extract(LPCSTR pszFile,UINT   nIconIndex,HICON  *phiconL
 
 // *********************** IPersistFile Implementation ******************
 
-STDMETHODIMP CShellExt::GetClassID(LPCLSID lpClassID)
+STDMETHODIMP CShellExt::GetClassID(LPCLSID /*lpClassID*/)
 {
     return E_FAIL;
 }
@@ -68,25 +68,25 @@ STDMETHODIMP CShellExt::IsDirty()
     return S_FALSE;
 }
 
-STDMETHODIMP CShellExt::Load(LPCOLESTR lpszFileName, DWORD grfMode)
+STDMETHODIMP CShellExt::Load(LPCOLESTR lpszFileName, DWORD /*grfMode*/)
 {
     WideCharToMultiByte(CP_ACP,0,lpszFileName,-1,m_szFileUserClickedOn, sizeof(m_szFileUserClickedOn), NULL,NULL);
     return NOERROR;
 }
 
-STDMETHODIMP CShellExt::Save(LPCOLESTR lpszFileName, BOOL fRemember)
+STDMETHODIMP CShellExt::Save(LPCOLESTR /*lpszFileName*/, BOOL /*fRemember*/)
 {
     ODS("CShellExt::Save()\r\n");
     return E_FAIL;
 }
 
-STDMETHODIMP CShellExt::SaveCompleted(LPCOLESTR lpszFileName)
+STDMETHODIMP CShellExt::SaveCompleted(LPCOLESTR /*lpszFileName*/)
 {
     ODS("CShellExt::SaveCompleted()\r\n");
     return E_FAIL;
 }
 
-STDMETHODIMP CShellExt::GetCurFile(LPOLESTR FAR* lplpszFileName)
+STDMETHODIMP CShellExt::GetCurFile(LPOLESTR FAR* /*lplpszFileName*/)
 {
     ODS("CShellExt::GetCurFile()\r\n");
     return E_FAIL;

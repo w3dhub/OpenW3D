@@ -38,7 +38,7 @@ extern	HINSTANCE g_DllInstance; // Handle to this DLL itself.
 //          ***********   F U N C T I O N S  *********************
 
 ///////////////////////////////////////
-UINT CALLBACK W3DPageCallback(HWND hWnd,
+UINT CALLBACK W3DPageCallback(HWND /*hWnd*/,
                 UINT uMessage,
                 LPPROPSHEETPAGE  ppsp){
     switch(uMessage){
@@ -80,14 +80,14 @@ void GetItemName(ChunkItem *pItem, int id_of_interest, void* pInfo, int sizeof_s
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-BOOL CALLBACK AnimPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lParam){
-	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLong(hDlg, DWL_USER);
+INT_PTR CALLBACK AnimPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lParam){
+	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLongPtr(hDlg, DWLP_USER);
 	UINT iIndex=0;
 	LPCSHELLEXT lpcs;
 	char buf[MAX_PATH];
     switch (uMessage){
 		case WM_INITDIALOG:{
-            SetWindowLong(hDlg, DWL_USER, lParam);
+            SetWindowLongPtr(hDlg, DWLP_USER, lParam);
             psp = (LPPROPSHEETPAGE)lParam;
             lpcs = (LPCSHELLEXT)psp->lParam;
 				if(!lpcs->m_FileInMemory){
@@ -112,7 +112,7 @@ BOOL CALLBACK AnimPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
 					SetDlgItemText(hDlg, IDC_HNAME, pAnim->HierarchyName);
 					SetDlgItemInt(hDlg, IDC_NUMFRAMES, pAnim->NumFrames,false);
 					//FrameRate
-					sprintf(buf,"%i fps",pAnim->FrameRate,false);
+					sprintf(buf,"%i fps",pAnim->FrameRate);
 					SetDlgItemText(hDlg, IDC_FRAMERATE, buf);
 					//SetDlgItemInt(hDlg, IDC_FRAMERATE, pAnim->FrameRate,false);
 					//version
@@ -203,14 +203,14 @@ void SetDlgMeshParams(HWND hDlg, W3dMeshHeader3Struct*pInfo){
 	SetDlgItemText(hDlg, IDC_VERSION, msg);
 }
 //==========================================================================================================
-BOOL CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lParam){
-	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLong(hDlg, DWL_USER);
+INT_PTR CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lParam){
+	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLongPtr(hDlg, DWLP_USER);
 	UINT iIndex=0;
 	LPCSHELLEXT lpcs;
 
     switch (uMessage){
 		case WM_INITDIALOG:{
-            SetWindowLong(hDlg, DWL_USER, lParam);
+            SetWindowLongPtr(hDlg, DWLP_USER, lParam);
             psp = (LPPROPSHEETPAGE)lParam;
             lpcs = (LPCSHELLEXT)psp->lParam;
 				if(!lpcs->m_FileInMemory){
@@ -299,14 +299,14 @@ BOOL CALLBACK MeshPageDlgProc(HWND hDlg,UINT uMessage, WPARAM wParam, LPARAM lPa
 }
 
 /////////////////////////////////////////////////////////////
-BOOL CALLBACK PreviewPageDlgProc(HWND hDlg, UINT uMessage, WPARAM wParam, LPARAM lParam){
+INT_PTR CALLBACK PreviewPageDlgProc(HWND hDlg, UINT uMessage, WPARAM wParam, LPARAM lParam){
 
-	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLong(hDlg, DWL_USER);
+	LPPROPSHEETPAGE psp=(LPPROPSHEETPAGE)GetWindowLongPtr(hDlg, DWLP_USER);
     UINT iIndex(0);
     LPCSHELLEXT lpcs;
     switch (uMessage){
 		case WM_INITDIALOG:{
-            SetWindowLong(hDlg, DWL_USER, lParam);
+            SetWindowLongPtr(hDlg, DWLP_USER, lParam);
             psp = (LPPROPSHEETPAGE)lParam;
             lpcs = (LPCSHELLEXT)psp->lParam;
 				if(!lpcs->m_FileInMemory){
@@ -423,8 +423,8 @@ STDMETHODIMP CShellExt::AddPages(LPFNADDPROPSHEETPAGE lpfnAddPage,	//Pointer to 
     return NOERROR;
 }
 //  PURPOSE: Called by the shell only for Control Panel property sheet
-STDMETHODIMP CShellExt::ReplacePage(UINT uPageID,									//ID of page to be replaced
-                                    LPFNADDPROPSHEETPAGE lpfnReplaceWith,  //Pointer to the Shell's Replace function
-                                    LPARAM lParam){									//Passed as second parameter to lpfnReplaceWith
+STDMETHODIMP CShellExt::ReplacePage(UINT /*uPageID*/,									//ID of page to be replaced
+                                    LPFNADDPROPSHEETPAGE /*lpfnReplaceWith*/,  //Pointer to the Shell's Replace function
+                                    LPARAM /*lParam*/){									//Passed as second parameter to lpfnReplaceWith
     return E_FAIL;//we don't support this function.  It should never be
 }
