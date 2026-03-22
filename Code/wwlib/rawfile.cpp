@@ -63,11 +63,9 @@
 #if defined(OPENW3D_SDL3)
 #ifdef _WIN32
 #include <io.h>
+#include <sys/utime.h>
 #endif
-#include <SDL3/SDL_filesystem.h>
-#include <SDL3/SDL_stdinc.h>
-#include <SDL3/SDL_time.h>
-#include <SDL3/SDL_timer.h>
+#include <SDL3/SDL.h>
 #include <cassert>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -424,7 +422,7 @@ int RawFileClass::Open(int rights)
 					Handle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ,
 												NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 				#elif defined(OPENW3D_SDL3)
-					Handle = fopen(Filename, "rb");
+					Handle = SDL_IOFromFile(Filename, "rb");
 				#else
 					#error "Not implemented"
 				#endif
@@ -435,7 +433,7 @@ int RawFileClass::Open(int rights)
 					Handle = CreateFileA(Filename, GENERIC_WRITE, 0,
 												NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 				#elif defined(OPENW3D_SDL3)
-					Handle = fopen(Filename, "wb");
+					Handle = SDL_IOFromFile(Filename, "wb");
 				#else
 					#error "Not implemented"
 				#endif
@@ -447,11 +445,11 @@ int RawFileClass::Open(int rights)
 					//					does not get destroyed.
 					Handle = CreateFileA(Filename, GENERIC_READ | GENERIC_WRITE, 0,
 												NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-#elif defined(OPENW3D_SDL3)
-				Handle = fopen(Filename, "r+");
-				if (Handle == nullptr) {
-					Handle = fopen(Filename, "w+");
-				}
+				#elif defined(OPENW3D_SDL3)
+					Handle = SDL_IOFromFile(Filename, "r+");
+					if (Handle == nullptr) {
+						Handle = SDL_IOFromFile(Filename, "w+");
+					}
 				#else
 					#error "Not implemented"
 				#endif
@@ -531,7 +529,7 @@ bool RawFileClass::Is_Available(int forced)
 			Handle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ,
 											NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 		#elif defined(OPENW3D_SDL3)
-			Handle = fopen(Filename,"rb");
+			Handle = SDL_IOFromFile(Filename,"rb");
 		#else
 			#error "Not implemented"
 		#endif
@@ -551,8 +549,8 @@ bool RawFileClass::Is_Available(int forced)
 		if (!closeok) {
 			Error(GetLastError(), false, Filename);
 		}
-	#elif defined(OPENW3D_SDL3)
-		closeok=((fclose(Handle)==0)?true:false);
+    #elif defined(OPENW3D_SDL3)
+		closeok = SDL_CloseIO(Handle);
 		if (!closeok) {
 			Error(EIO, false, Filename);
 		}
@@ -598,7 +596,7 @@ void RawFileClass::Close(void)
 				Error(GetLastError(), false, Filename);
 			}
 		#elif defined(OPENW3D_SDL3)
-			closeok=(fclose(Handle)==0)?true:false;
+			closeok = SDL_CloseIO(Handle);
 			if (!closeok) {
 				Error(EIO, false, Filename);
 			}
@@ -674,9 +672,9 @@ int RawFileClass::Read(void * buffer, int size)
 		#if defined(OPENW3D_WIN32)
 			readok=ReadFile(Handle, buffer, size, &(DWORD&)bytesread, NULL);
 		#elif defined(OPENW3D_SDL3)
-			bytesread=fread(buffer,1,size,Handle);
-			if ((bytesread == 0)&&( ! feof(Handle))) {
-				readok=ferror(Handle);	            clearerr(Handle);
+			bytesread = SDL_ReadIO(Handle, buffer, size);
+			if (bytesread == 0) {
+				readok = (SDL_GetIOStatus(Handle) != SDL_IO_STATUS_ERROR);
 			}
 		#else
 			#error "Not implemented"
@@ -750,12 +748,11 @@ int RawFileClass::Write(void const * buffer, int size)
 			Error(GetLastError(), false, Filename);
 		}
 	#elif defined(OPENW3D_SDL3)
-		byteswritten = fwrite(buffer, 1, size, Handle);
-		if (ferror(Handle)) {
-	        clearerr(Handle);
-			writeok = false;
+		byteswritten = SDL_WriteIO(Handle, buffer, size);
+		if (byteswritten != size) {
+	        writeok = (SDL_GetIOStatus(Handle) != SDL_IO_STATUS_ERROR);
 		}
-		if (! writeok) {
+		if (!writeok) {
 			Error(EIO, false, Filename);
 		}
 	#else
@@ -898,12 +895,7 @@ int RawFileClass::Size(void)
 				Error(GetLastError(), false, Filename);
 			}
 		#elif defined(OPENW3D_SDL3)
-			struct stat statbuf;
-			SDL_zero(statbuf);
-			if (fstat(fileno(Handle), &statbuf) != 0) {
-				Error(0, false, Filename);
-			}
-			size = statbuf.st_size;
+			size = SDL_GetIOSize(Handle);
 		#else
 			#error "Not implemented"
 		#endif
@@ -1041,7 +1033,6 @@ int RawFileClass::Delete(void)
 }
 
 #if defined(OPENW3D_SDL3)
-#if defined(__linux)
 static SDL_Time FatTime_to_Nanoseconds(Uint32 fatDateTime)
 {
 	Uint16 fatDate = static_cast<Uint16>(fatDateTime >> 16);
@@ -1058,7 +1049,6 @@ static SDL_Time FatTime_to_Nanoseconds(Uint32 fatDateTime)
 	SDL_DateTimeToTime(&datetime, &result);
 	return result;
 }
-#endif
 
 static Uint32 Seconds_to_FatTime(time_t t)
 {
@@ -1101,9 +1091,29 @@ unsigned int RawFileClass::Get_Date_Time(void)
 	}
 	return(0);
 #elif defined(OPENW3D_SDL3)
-	struct stat statbuf;
-	fstat(fileno(Handle), &statbuf);
-	return Seconds_to_FatTime(statbuf.st_mtime);
+#ifdef _WIN32
+	HANDLE h = SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER, NULL);
+	BY_HANDLE_FILE_INFORMATION info;
+	if (h != nullptr && GetFileInformationByHandle(h, &info)) {
+		WORD dosdate;
+		WORD dostime;
+		FileTimeToDosDateTime(&info.ftLastWriteTime, &dosdate, &dostime);
+		return((dosdate << 16) | dostime);
+	}
+#endif
+	FILE *f = reinterpret_cast<FILE *>(SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_STDIO_FILE_POINTER, NULL));
+	if (f != nullptr) {
+		struct stat statbuf;
+		fstat(fileno(f), &statbuf);
+		return Seconds_to_FatTime(statbuf.st_mtime);
+	}
+	int fd = SDL_GetNumberProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER, 0);
+	if (fd != 0) {
+		struct stat statbuf;
+		fstat(fd, &statbuf);
+		return Seconds_to_FatTime(statbuf.st_mtime);
+	}
+	return 0;
 #else
 #error "Not implemented"
 #endif
@@ -1126,38 +1136,67 @@ unsigned int RawFileClass::Get_Date_Time(void)
  *=============================================================================================*/
 bool RawFileClass::Set_Date_Time(unsigned int datetime)
 {
-#if defined(_WIN32)
+#if defined(OPENW3D_WIN32)
 	if (RawFileClass::Is_Open()) {
 		BY_HANDLE_FILE_INFORMATION info;
-		HANDLE h;
 
- 		#if defined(OPENW3D_WIN32)
- 			h = Handle;
- 		#elif defined(OPENW3D_SDL3)
- 			h = reinterpret_cast<HANDLE>(_get_osfhandle(fileno(Handle)));
- 		#else
- 			#error "Not implemented"
- 		#endif
-
-		if (GetFileInformationByHandle(h, &info)) {
+		if (GetFileInformationByHandle(Handle, &info)) {
 			FILETIME filetime;
 			if (DosDateTimeToFileTime((WORD)(datetime >> 16), (WORD)(datetime & 0xFFFF), &filetime)) {
-				return(SetFileTime(h, &info.ftCreationTime, &filetime, &filetime) != 0);
+				return(SetFileTime(Handle, &info.ftCreationTime, &filetime, &filetime) != 0);
 			}
 		}
 	}
 	return(false);
-#elif defined(__linux)
-	SDL_Time time_ns = FatTime_to_Nanoseconds(DateTime);
+#elif defined(OPENW3D_SDL3)
 
+#ifdef _WIN32
+	HANDLE h = SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_WINDOWS_HANDLE_POINTER, NULL);
+	BY_HANDLE_FILE_INFORMATION info;
+	if (GetFileInformationByHandle(h, &info)) {
+		FILETIME filetime;
+		if (DosDateTimeToFileTime((WORD)(datetime >> 16), (WORD)(datetime & 0xFFFF), &filetime)) {
+			return(SetFileTime(h, &info.ftCreationTime, &filetime, &filetime) != 0);
+		}
+	}
+#endif
+	SDL_Time time_ns = FatTime_to_Nanoseconds(datetime);
+#ifdef _WIN32
+    struct _utimbuf tbuf;
+    tbuf.modtime = tbuf.actime = SDL_NS_TO_SECONDS(time_ns);
+#else
 	struct timespec timespec[2];
 	timespec[0].tv_sec = SDL_NS_TO_SECONDS(time_ns);
 	timespec[0].tv_nsec = (time_ns % 1'000'000'000);
 	timespec[1] = timespec[0];
-	if (futimens(fileno(Handle), timespec) != 0) {
-		return false;
+#endif
+	FILE *f = reinterpret_cast<FILE *>(SDL_GetPointerProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_STDIO_FILE_POINTER, NULL));
+	if (f != nullptr) {
+#ifdef _WIN32
+        if (_futime(fileno(f), &tbuf) != 0) {
+	        return false;
+        }
+#else
+		if (futimens(fileno(f), timespec) != 0) {
+			return false;
+		}
+#endif
+		return true;
 	}
-	return(true);
+	int fd = SDL_GetNumberProperty(SDL_GetIOProperties(Handle), SDL_PROP_IOSTREAM_FILE_DESCRIPTOR_NUMBER, 0);
+	if (fd != 0) {
+#ifdef _WIN32
+        if (_futime(fd, &tbuf) != 0) {
+	        return false;
+        }
+#else
+        if (futimens(fd, timespec) != 0) {
+			return false;
+        }
+#endif
+		return true;
+	}
+	return false;
 #else
 #error "Not implemented"
 #endif
@@ -1259,11 +1298,24 @@ int RawFileClass::Raw_Seek(int pos, int dir)
 			Error(GetLastError(), false, Filename);
 		}
 	#elif defined(OPENW3D_SDL3)
-		if (fseek(Handle, pos, dir) != 0) {
-			Error(EIO, false, Filename);
-			clearerr(Handle);
+		SDL_IOWhence whence;
+		switch (dir) {
+			case SEEK_SET:
+				whence = SDL_IO_SEEK_SET;
+				break;
+
+			case SEEK_CUR:
+				whence = SDL_IO_SEEK_CUR;
+				break;
+
+			case SEEK_END:
+				whence = SDL_IO_SEEK_END;
+				break;
 		}
-		pos = ftell(Handle);
+		if (SDL_SeekIO(Handle, pos, whence) == -1) {
+			Error(EIO, false, Filename);
+		}
+		pos = SDL_TellIO(Handle);
 		/*
 		**	If there was an error in the seek, then bail with an error condition.
 		*/

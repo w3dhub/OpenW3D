@@ -62,10 +62,8 @@
 #define	NULL_HANDLE		INVALID_HANDLE_VALUE
 #define	HANDLE_TYPE		HANDLE
 #elif defined(OPENW3D_SDL3)
-// FIXME: consider SDL_IOStream pointer
-#include <stdio.h>
 #define	NULL_HANDLE	 	NULL
-#define	HANDLE_TYPE		FILE*
+#define	HANDLE_TYPE		struct SDL_IOStream*
 #else
 #error "Not implemented"
 #endif
@@ -99,7 +97,7 @@ class FileClass
 		virtual void Close(void) = 0;
 		virtual unsigned int Get_Date_Time(void) {return(0);}
 		virtual bool Set_Date_Time(unsigned int ) {return(false);}
-		virtual void Error(int error, int canretry = false, char const * filename=NULL) = 0;
+		virtual void Error(int error, int canretry = false, char const * filename=nullptr) = 0;
 		virtual HANDLE_TYPE Get_File_Handle(void) { return nullptr; }
 		virtual void Bias(int start, int length=-1) = 0;
 
