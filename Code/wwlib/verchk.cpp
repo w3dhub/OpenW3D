@@ -97,46 +97,21 @@ bool GetFileCreationTime(const char* filename, FileCreationTime* createTime)
 	{
 	if (filename && createTime)
 		{
-		#if defined(OPENW3D_WIN32)
-			memset(createTime, 0, sizeof(*createTime));
-		#elif defined(OPENW3D_SDL3)
-			SDL_zerop(createTime);
-		#else
-			#error "Not implemented"
-		#endif
+		memset(createTime, 0, sizeof(*createTime));
 		FileClass* file = _TheFileFactory->Get_File(filename);
 
 		if (file && file->Open())
 			{
-			HANDLE_TYPE handle = file->Get_File_Handle();
-
-			if (handle != NULL_HANDLE)
-				{
-				#if defined(OPENW3D_WIN32)
-					FILETIME fileTime;
-					if (!GetFileTime(handle, NULL, NULL, &fileTime))
-						{
-						return false;
-						}
-					SYSTEMTIME time;
-					if (!FileTimeToSystemTime(&fileTime, &time))
-						{
-						return false;
-						}
-					*createTime = time;
-					return true;
-				#elif defined(OPENW3D_SDL3)
-					struct stat statbuf;
-					if (fstat(fileno(handle), &statbuf) != 0) {
-						return false;
-					}
-					if (!SDL_TimeToDateTime(statbuf.st_ctime, createTime, false)) {
-						return false;
-					}
-				#else
-					#error "Not implemented"
-				#endif
-				}
+			unsigned int dateTime = file->Get_Date_Time();
+			unsigned int fatDate = dateTime >> 16;
+			unsigned int fatTime = dateTime & 0xffff;
+			createTime->year = 1980 + (fatDate >> 9);
+			createTime->month = (fatDate >> 5) & 0xf;
+			createTime->day = fatDate & 0x1f;
+			createTime->hour = fatTime >> 11;
+			createTime->minute = (fatTime >> 5) & 0x3f;
+			createTime->second = 2 * (fatTime & 0x1f);
+			return true;
 			}
 		}
 

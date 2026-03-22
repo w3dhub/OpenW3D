@@ -131,13 +131,7 @@ class RawFileClass : public FileClass
 		/*
 		**	This is the low level DOS handle. A -1 indicates an empty condition.
 		*/
-#if defined(OPENW3D_WIN32)
-		HANDLE Handle;
-#elif defined(OPENW3D_SDL3)
-		FILE *Handle;
-#else
-#error "Not implemented"
-#endif
+		HANDLE_TYPE Handle;
 
 		StringClass Filename;
 
