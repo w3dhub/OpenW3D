@@ -314,9 +314,9 @@ bool StringClass::Copy_Wide (const unichar_t *source)
 		int32_t length;
 		UErrorCode error = U_ZERO_ERROR;
 		u_strToUTF8(nullptr, 0, &length, source, -1, &error);
+		++length; // Add space for null termination as ICU does not include that in calculated length.
 
 		if (length > 0) {
-			++length; // Add space for null termination as ICU does not include that in calculated length.
 			error = U_ZERO_ERROR;
 			u_strToUTF8(Get_Buffer(length), length, nullptr, source, -1, &error);
 
@@ -326,7 +326,7 @@ bool StringClass::Copy_Wide (const unichar_t *source)
 			}
 		}
 
-		WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed"));
+		WWDEBUG_SAY(("Conversion from utf-16 to utf-8 failed\n"));
 #else
 		int  length;
 

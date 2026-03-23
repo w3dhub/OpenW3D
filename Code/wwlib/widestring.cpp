@@ -337,9 +337,9 @@ bool WideStringClass::Convert_From (const char *text)
 		int32_t length;
 		UErrorCode error = U_ZERO_ERROR;
 		u_strFromUTF8(nullptr, 0, &length, text, -1, &error);
+		++length; // Add space for null termination as ICU does not include that in calculated length.
 
 		if (length > 0) {
-			++length; // Add space for null termination as ICU does not include that in calculated length.
 			error = U_ZERO_ERROR;
 			u_strFromUTF8(Get_Buffer(length), length, nullptr, text, -1, &error);
 
@@ -349,7 +349,7 @@ bool WideStringClass::Convert_From (const char *text)
 			}
 		}
 
-		WWDEBUG_SAY(("Conversion from utf-8 to utf-16 failed"));
+		WWDEBUG_SAY(("Conversion from utf-8 to utf-16 failed\n"));
 #else
 		int length;
 
