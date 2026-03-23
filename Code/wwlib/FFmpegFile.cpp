@@ -44,8 +44,8 @@ FFmpegFile::~FFmpegFile()
 
 bool FFmpegFile::Open(const char *file)
 {
-	WWASSERT_PRINT(File == nullptr, ("already open"));
-	WWASSERT_PRINT(file != nullptr, ("null file pointer"));
+	WWASSERT_PRINT(File == nullptr, ("already open\n"));
+	WWASSERT_PRINT(file != nullptr, ("null file pointer\n"));
 #ifdef WWDEBUG
 	av_log_set_level(AV_LOG_INFO);
 #endif
@@ -61,7 +61,7 @@ bool FFmpegFile::Open(const char *file)
 	// FFmpeg setup
 	FmtCtx = avformat_alloc_context();
 	if (!FmtCtx) {
-		WWDEBUG_SAY(("Failed to alloc AVFormatContext"));
+		WWDEBUG_SAY(("Failed to alloc AVFormatContext\n"));
 		Close();
 		return false;
 	}
@@ -69,14 +69,14 @@ bool FFmpegFile::Open(const char *file)
 	constexpr size_t avio_ctx_buffer_size = 0x10000;
 	uint8_t *buffer = static_cast<uint8_t *>(av_malloc(avio_ctx_buffer_size));
 	if (buffer == nullptr) {
-		WWDEBUG_SAY(("Failed to alloc AVIOContextBuffer"));
+		WWDEBUG_SAY(("Failed to alloc AVIOContextBuffer\n"));
 		Close();
 		return false;
 	}
 
 	AvioCtx = avio_alloc_context(buffer, avio_ctx_buffer_size, 0, File, &Read_Packet, nullptr, nullptr);
 	if (AvioCtx == nullptr) {
-		WWDEBUG_SAY(("Failed to alloc AVIOContext"));
+		WWDEBUG_SAY(("Failed to alloc AVIOContext\n"));
 		Close();
 		return false;
 	}
@@ -88,7 +88,7 @@ bool FFmpegFile::Open(const char *file)
 	if (result < 0) {
 		char error_buffer[1024];
 		av_strerror(result, error_buffer, sizeof(error_buffer));
-		WWDEBUG_SAY(("Failed 'avformat_open_input': %s", error_buffer));
+		WWDEBUG_SAY(("Failed 'avformat_open_input': %s\n", error_buffer));
 		Close();
 		return false;
 	}
@@ -97,7 +97,7 @@ bool FFmpegFile::Open(const char *file)
 	if (result < 0) {
 		char error_buffer[1024];
 		av_strerror(result, error_buffer, sizeof(error_buffer));
-		WWDEBUG_SAY(("Failed 'avformat_find_stream_info': %s", error_buffer));
+		WWDEBUG_SAY(("Failed 'avformat_find_stream_info': %s\n", error_buffer));
 		Close();
 		return false;
 	}
@@ -107,14 +107,14 @@ bool FFmpegFile::Open(const char *file)
 		AVStream *av_stream = FmtCtx->streams[stream_idx];
 		const AVCodec *input_codec = avcodec_find_decoder(av_stream->codecpar->codec_id);
 		if (input_codec == nullptr) {
-			WWDEBUG_SAY(("Codec not supported: '%s'", avcodec_get_name(av_stream->codecpar->codec_id)));
+			WWDEBUG_SAY(("Codec not supported: '%s'\n", avcodec_get_name(av_stream->codecpar->codec_id)));
 			Close();
 			return false;
 		}
 
 		AVCodecContext *codec_ctx = avcodec_alloc_context3(input_codec);
 		if (codec_ctx == nullptr) {
-			WWDEBUG_SAY(("Could not allocate codec context"));
+			WWDEBUG_SAY(("Could not allocate codec context\n"));
 			Close();
 			return false;
 		}
@@ -123,7 +123,7 @@ bool FFmpegFile::Open(const char *file)
 		if (result < 0) {
 			char error_buffer[1024];
 			av_strerror(result, error_buffer, sizeof(error_buffer));
-			WWDEBUG_SAY(("Failed 'avcodec_parameters_to_context': %s", error_buffer));
+			WWDEBUG_SAY(("Failed 'avcodec_parameters_to_context': %s\n", error_buffer));
 			Close();
 			return false;
 		}
@@ -132,7 +132,7 @@ bool FFmpegFile::Open(const char *file)
 		if (result < 0) {
 			char error_buffer[1024];
 			av_strerror(result, error_buffer, sizeof(error_buffer));
-			WWDEBUG_SAY(("Failed 'avcodec_open2': %s", error_buffer));
+			WWDEBUG_SAY(("Failed 'avcodec_open2': %s\n", error_buffer));
 			Close();
 			return false;
 		}
@@ -229,7 +229,7 @@ bool FFmpegFile::Decode_Packet()
 	if (result < 0) {
 		char error_buffer[1024];
 		av_strerror(result, error_buffer, sizeof(error_buffer));
-		WWDEBUG_SAY(("Failed 'avcodec_send_packet': %s", error_buffer));
+		WWDEBUG_SAY(("Failed 'avcodec_send_packet': %s\n", error_buffer));
 		return false;
 	}
 	av_packet_unref(Packet);
@@ -247,7 +247,7 @@ bool FFmpegFile::Decode_Packet()
 		if (result < 0) {
 			char error_buffer[1024];
 			av_strerror(result, error_buffer, sizeof(error_buffer));
-			WWDEBUG_SAY(("Failed 'avcodec_receive_frame': %s", error_buffer));
+			WWDEBUG_SAY(("Failed 'avcodec_receive_frame': %s\n", error_buffer));
 			return false;
 		}
 
@@ -269,7 +269,7 @@ void FFmpegFile::Seek_Frame(int frame_idx)
 		if (result < 0) {
 			char error_buffer[1024];
 			av_strerror(result, error_buffer, sizeof(error_buffer));
-			WWDEBUG_SAY(("Failed 'av_seek_frame': %s", error_buffer));
+			WWDEBUG_SAY(("Failed 'av_seek_frame': %s\n", error_buffer));
 		}
 	}
 }
