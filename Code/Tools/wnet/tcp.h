@@ -61,6 +61,7 @@ typedef signed int SOCKET;
 
 #define DEFAULT_PROTOCOL 0
 
+#include "wlib/wwformat.h"
 #include "wlib/wstypes.h"
 #include "wlib/wdebug.h"
 #include "wlib/wtime.h"
@@ -161,7 +162,7 @@ public:
   sint32  WriteNB(uint8 *msg,uint32 len,sint32 whichFD=0);
   sint32  EncapsulatedWrite(uint8 *msg,uint32 len,sint32 whichFD=0);
   sint32  WriteString(char *msg,sint32 whichFD=0);
-  sint32  Printf(sint32 whichFD,const char *format,...);
+  sint32  Printf(sint32 whichFD,const char *format,...) OPENW3D_PRINTF_VARARG_FUNC(3);
   sint32  Read(uint8 *msg,uint32 len,sint32 whichFD=0);
   sint32  TimedRead(uint8 *msg,uint32 len,int seconds,sint32 whichFD=0);
   sint32  Peek(uint8 *msg,uint32 len,sint32 whichFD=0);

@@ -40,6 +40,7 @@
 #ifndef EXPORTLOG_H
 #define EXPORTLOG_H
 
+#include "wwformat.h"
 #include <windows.h>
 
 /**
@@ -52,8 +53,8 @@ public:
 	static void Init(HWND parent);
 	static void Shutdown(bool wait_for_ok);
 
-   static void	printf(char *, ...);
-	static void rprintf(char *, ...);
+   static void	printf(char *, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
+	static void rprintf(char *, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
 	static void	updatebar(float position, float total);
 };
 

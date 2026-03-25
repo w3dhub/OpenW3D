@@ -38,6 +38,8 @@
 #ifndef _DPRINT_H_
 #define _DPRINT_H_
 
+#include "wwformat.h"
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -45,7 +47,7 @@ extern "C"
 
 #ifdef _DEBUG
 //! Ouput debug print messages to the debugger and log file.
-void DebugPrint(const char* string, ...);
+void DebugPrint(const char* string, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
 #else
 #define DebugPrint
 #endif

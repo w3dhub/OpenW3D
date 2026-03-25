@@ -49,6 +49,7 @@
 #include <stdarg.h>
 #include "trim.h"
 #include "wwdebug.h"
+#include "wwformat.h"
 #ifdef _UNIX
 #include "osdep.h"
 #endif
@@ -147,8 +148,8 @@ public:
 	bool			Is_Empty (void) const;
 
 	void			Erase (size_t start_index, size_t char_count);
-	int  Format (const char *format, ...);
-	int  Format_Args (const char *format, va_list arg_list );
+	int  Format (const char *format, ...) OPENW3D_PRINTF_VARARG_FUNC(2);
+	int  Format_Args (const char *format, va_list arg_list ) OPENW3D_PRINTF_VARARG_FUNCV(2);
 
 	// Trim leading and trailing whitespace characters (values <= 32)
 	void Trim(void);

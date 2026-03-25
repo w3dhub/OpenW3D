@@ -40,6 +40,7 @@
 #ifndef WWFILE_Hx
 #define WWFILE_Hx
 
+#include "wwformat.h"
 #ifdef _UNIX
 #include "osdep.h"
 #endif
@@ -96,13 +97,13 @@ class FileClass
 		}
 
 		// this form uses a stack buffer of PRINTF_BUFFER_SIZE
-		int Printf(char *str, ...);
+		int Printf(char *str, ...) OPENW3D_PRINTF_VARARG_FUNC(2);
 
 		// this form uses the supplied buffer if PRINTF_BUFFER_SIZE is expected to be too small.
-		int Printf(char *buffer, int bufferSize, char *str, ...);
+		int Printf(char *buffer, int bufferSize, char *str, ...) OPENW3D_PRINTF_VARARG_FUNC(4);
 
 		// this form uses the stack buffer but will prepend any output with the indicated number of tab characters '\t'
-		int Printf_Indented(unsigned depth, char *str, ...);
+		int Printf_Indented(unsigned depth, char *str, ...) OPENW3D_PRINTF_VARARG_FUNC(3);
 
 };
 

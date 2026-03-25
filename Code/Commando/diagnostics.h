@@ -37,6 +37,7 @@
 //
 
 #include "bittype.h"
+#include "wwformat.h"
 
 class Render2DTextClass;
 class Font3DInstanceClass;
@@ -51,7 +52,7 @@ class cDiagnostics
 
    private:
 		static void		Show_Object_Tally(void);
-		static void		Add_Diagnostic(const char *format, ...);
+		static void		Add_Diagnostic(const char *format, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
 
 		static Render2DTextClass	*	PRenderer;
 		static Font3DInstanceClass *	PFont;

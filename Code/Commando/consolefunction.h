@@ -44,6 +44,7 @@
 #ifndef	VECTOR_H
 	#include "vector.h"
 #endif
+#include "wwformat.h"
 
 
 /*
@@ -55,7 +56,7 @@ public:
    virtual	const char *	Get_Alias( void )	{ return nullptr; }//Get_Name(); }
 	virtual	const char *	Get_Help( void ) = 0;
 	virtual	void				Activate( const char * input ) = 0;
-	static	void				Print( const char *format, ... );
+	static	void				Print( const char *format, ... ) OPENW3D_PRINTF_VARARG_FUNC(1);
 
 	virtual ~ConsoleFunctionClass() {}
 };
@@ -77,7 +78,7 @@ public:
 
 	static	bool	Get_Command_Suggestion(const char * input,const char * cur_suggestion,char * suggestion,char * help,int len);
 
-	static	void	Print( const char *format, ... );
+	static	void	Print( const char *format, ... ) OPENW3D_PRINTF_VARARG_FUNC(1);
 
 private:
 

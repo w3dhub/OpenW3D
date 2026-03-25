@@ -37,6 +37,8 @@
 #ifndef	SCRIPTCOMMANDS_H
 #define	SCRIPTCOMMANDS_H
 
+#include "wwformat.h"
+
 #ifndef	VECTOR3_H
 	#include "vector3.h"
 #endif
@@ -120,12 +122,14 @@ enum {
 
 #define SCRIPT_COMMANDS_VERSION 174
 
+typedef void ScriptCommands_Debug_Message_cbfn(const char *format, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
+
 typedef struct {
 	unsigned int Size;
 	unsigned int Version;
 
 	// Debug messages
-	void (*	Debug_Message )( const char *format, ... );
+	ScriptCommands_Debug_Message_cbfn *Debug_Message;
 
 	// Action Commands
 	void ( * Action_Reset )( GameObject * obj, float priority );

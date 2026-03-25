@@ -21,6 +21,7 @@
 
 #include "tcpmgr.h"
 #include "wlib/arraylist.h"
+#include "wwlib/wwformat.h"
 
 class TCPMgr;
 
@@ -36,7 +37,7 @@ class TCPCon /// : OutputDevice
    sint32  read(OUT uint8 *msg, uint32 maxlen, sint32 wait_secs=-1);
    bit8    unread(uint8 *data, int length);
    bit8    getRemoteAddr(uint32 *ip, uint16 *port);
-   sint32  printf(const char *format, ...);
+   sint32  printf(const char *format, ...) OPENW3D_PRINTF_VARARG_FUNC(2);
    bit8    isConnected(void);
 
    bit8    setInputDelay(sint32 delay) { InputDelay_=delay; return(true); };

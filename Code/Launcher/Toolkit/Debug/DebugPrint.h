@@ -45,8 +45,8 @@ extern "C"
 #endif
 
 //! Ouput debug print messages to the debugger and log file.
-void DebugPrint(const char* string, ...);
-void PrintWin32Error(const char* string, ...);
+void DebugPrint(const char* string, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
+void PrintWin32Error(const char* string, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
 
 #ifdef __cplusplus
 }

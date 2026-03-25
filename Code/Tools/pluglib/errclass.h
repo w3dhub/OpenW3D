@@ -38,13 +38,14 @@
 #ifndef ERRCLASS_H
 #define ERRCLASS_H
 
+#include "wwformat.h"
 #include <stdarg.h>
 
 
 class ErrorClass
 {
 public:
-	ErrorClass(char * format,...);
+	ErrorClass(char * format,...) OPENW3D_PRINTF_VARARG_FUNC(2);
 	ErrorClass(const ErrorClass & that);
 	~ErrorClass(void) { if (error_message != nullptr) free(error_message); }
 

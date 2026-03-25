@@ -36,6 +36,7 @@
 
 
 #include <win.h>
+#include "wwformat.h"
 #include <cstddef>
 
 class WideStringClass;
@@ -71,9 +72,9 @@ class ConsoleModeClass
 		/*
 		** Console output.
 		*/
-		void Print(char const * string, ...);
-		void Print_Maybe(char const * string, ...);
-		static void Static_Print_Maybe(char const * string, ...);
+		void Print(char const * string, ...) OPENW3D_PRINTF_VARARG_FUNC(2);
+		void Print_Maybe(char const * string, ...) OPENW3D_PRINTF_VARARG_FUNC(2);
+		static void Static_Print_Maybe(char const * string, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
 		void Add_Message(WideStringClass *formatted_text, Vector3 *text_color, bool forced = false);
 
 		/*
@@ -90,7 +91,7 @@ class ConsoleModeClass
 		bool Is_Exclusive(void) {return(IsExclusive);}
 		HWND Get_Slave_Window_By_Title(char *name, char *settings);
 		StringClass Compose_Window_Title(char *name, char *settings, bool slave);
-		void cprintf(char const * string, ...);
+		void cprintf(char const * string, ...) OPENW3D_PRINTF_VARARG_FUNC(2);
 
 		/*
 		** File logging.
