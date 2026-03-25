@@ -1011,8 +1011,6 @@ bool Game_Init(void)
 	// After TextDisplay is created, install the Display Handler
 	DebugManager::Set_Display_Handler(&TextDisplayHandler);
 
-	//DEADMENU MenuManager::Set_Menu( "Menu_Main" );
-
 	// Load the accelerator table and hand it off to WWLIB.
 	// Note:  Accelerator tables that are loaded from resources (like
 	// we are doing here) do not need to be manually freed.  Windows
