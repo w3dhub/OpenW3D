@@ -62,7 +62,7 @@ class GameSideServerControlClass
 		static void Init(void);
 		static void Shutdown(void);
 		static const char *App_Request_Callback(char *request);
-		static void Print(const char *text, ...);
+		static void Print(const char *text, ...) OPENW3D_PRINTF_VARARG_FUNC(1);
 		static void Send_Message(const char *text, unsigned int ip, unsigned short port);
 		static void Set_Welcome_Message(void);
 

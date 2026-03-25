@@ -125,9 +125,9 @@ public:
 	void		Print( const char * text, const Vector3 & color = Vector3( 1,1,1 ) );
 	void		Print( const WideStringClass & text, const Vector3 & color = Vector3( 1,1,1 ) );
 
-	void		Print_System( const char * text, ... );
+	void		Print_System( const char * text, ... ) OPENW3D_PRINTF_VARARG_FUNC(2);
 	void		Print_System( const WideStringClass & string );
-	void		Print_Informational( const char * text, ... );
+	void		Print_Informational( const char * text, ... ) OPENW3D_PRINTF_VARARG_FUNC(2);
 	void		Print_Informational( const WideStringClass & string );
 
 	void		Set_Input_Text( const char * text )

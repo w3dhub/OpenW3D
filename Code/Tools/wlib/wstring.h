@@ -32,6 +32,7 @@ Last Update : June 17, 1997
 #include <stdio.h>
 #include <stdlib.h>
 #include "wstypes.h"
+#include "wwformat.h"
 
 class Wstring
 {
@@ -61,7 +62,7 @@ class Wstring
    char    set(IN char *str);
    char    set(uint32 size,IN char *str);
    bit8    set(char c, uint32 index);
-   char    setFormatted(IN char *str, ...);		// Added by Joe Howes
+   char    setFormatted(IN char *str, ...) OPENW3D_PRINTF_VARARG_FUNC(2);		// Added by Joe Howes
    void    setSize(sint32 bytes);  // create an empty string
    void    toLower(void);
    void    toUpper(void);

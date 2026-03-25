@@ -43,6 +43,7 @@
 
 #include "comnetrcv.h"
 #include "gamedata.h"
+#include "wwformat.h"
 
 /*
 ** Our Network Packet Receiver
@@ -55,8 +56,8 @@ public:
 	virtual void Server_Send_Delete_Notifications(void) override;
 	virtual bool Client_Update_Dynamic_Objects(bool is_urgent = false) override;
 
-	void	Print( const char *format, ... );
-	void	Print( const Vector3 & color, const char *format, ... );
+	void	Print( const char *format, ... ) OPENW3D_PRINTF_VARARG_FUNC(2);
+	void	Print( const Vector3 & color, const char *format, ... ) OPENW3D_PRINTF_VARARG_FUNC(3);
 };
 
 #endif // COMNETRCVINST_H

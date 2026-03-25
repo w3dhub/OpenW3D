@@ -34,8 +34,9 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "wwformat.h"
 
-void Print(const char * format,...);
+void Print(const char * format,...) OPENW3D_PRINTF_VARARG_FUNC(1);
 void Print_Title(const char * title);
 void Pass_Message(int test_index);
 void Fail_Message(int test_index);

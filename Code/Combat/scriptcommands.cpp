@@ -102,6 +102,7 @@ bool	DamageModelDirection;		// HACK
 /*
 ** Debug messages
 */
+void	Debug_Message( [[maybe_unused]] const char *format, ... ) OPENW3D_PRINTF_VARARG_FUNC(1);
 void	Debug_Message( [[maybe_unused]] const char *format, ... )
 {
 #ifdef WWDEBUG

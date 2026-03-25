@@ -41,6 +41,8 @@
 	#include "always.h"
 #endif
 
+#include "wwformat.h"
+
 
 #define	DIAG_LOG( a ) 		DiagLogClass::Log_Timed a
 
@@ -53,7 +55,7 @@ public:
 	static	void	Init( void );
 	static	void	Shutdown( void );
 
-	static	void	Log_Timed( const char * type, const char * format, ... );
+	static	void	Log_Timed( const char * type, const char * format, ... ) OPENW3D_PRINTF_VARARG_FUNC(2);
 };
 
 #endif	// DIAGLOG_H
