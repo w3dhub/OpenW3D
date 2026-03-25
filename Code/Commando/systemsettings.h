@@ -46,7 +46,6 @@
 class	SystemSettingEntry;
 class	RegistryClass;
 class INIClass;
-//DEADMENU class	MenuEntryClass;
 class	ConsoleFunctionClass;
 
 //
@@ -73,9 +72,6 @@ public:
 	// Registry save and load
 	static	void		Registry_Save( const char * sub_key );
 	static	void		Registry_Load( const char * sub_key );
-
-	// Menu Entry Access
-	//DEADMENU static	MenuEntryClass	*	Create_Menu_Entry( const char * setting_name );
 
 	// Console Access
 	static	void		Add_Console_Functions( DynamicVectorClass<ConsoleFunctionClass *>	& list );
@@ -109,9 +105,6 @@ public:
 	virtual	void	INI_Save( INIClass & ini )		= 0;
 	virtual	void	INI_Load( INIClass & ini )		= 0;
 
-	// Menu Entry Access
-	//DEADMENU virtual	MenuEntryClass	*	Create_Menu_Entry( void )			= 0;
-
 	// Console Access
 	virtual	ConsoleFunctionClass *	Create_Console_Function()	= 0;
 };
@@ -131,8 +124,6 @@ public:
 
 	virtual	void					INI_Save( INIClass & ini ) override;
 	virtual	void					INI_Load( INIClass & ini ) override;
-
-	//DEADMENU virtual	MenuEntryClass	*	Create_Menu_Entry( void );
 
 	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
@@ -162,7 +153,6 @@ public:
 
 	virtual	void					INI_Save( INIClass & ini ) override;
 	virtual	void					INI_Load( INIClass & ini ) override;
-	//DEADMENU virtual	MenuEntryClass	*	Create_Menu_Entry( void );
 
 	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
@@ -201,7 +191,6 @@ public:
 
 	virtual	void					INI_Save( INIClass & ini ) override;
 	virtual	void					INI_Load( INIClass & ini ) override;
-	//DEADMENU virtual	MenuEntryClass	*	Create_Menu_Entry( void );
 
 	virtual	ConsoleFunctionClass *	Create_Console_Function() override;
 
