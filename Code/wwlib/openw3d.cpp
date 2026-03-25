@@ -182,17 +182,6 @@ bool OpenW3D::Command_Line_Has_Arg(const char *command_line, const char *arg)
 	return false;
 }
 
-void OpenW3D::Append_Config_File_Arg(StringClass &command_line)
-{
-	if (!Has_Config_File_Path_Override()) {
-		return;
-	}
-
-	command_line += " --ini \"";
-	command_line += Get_Config_File_Path();
-	command_line += "\"";
-}
-
 bool OpenW3D::Save_Config(const INIClass &ini)
 {
 	const std::filesystem::path config_path = Get_Config_File_Path();
