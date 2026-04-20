@@ -6,7 +6,7 @@ _Learn about the person you're helping. Update this as you go._
 - **What to call them:** Dadud
 - **Pronouns:** _(optional)_
 - **Timezone:** UTC
-- **Notes:** Chose the assistant name Orbit and the 🛰️ emoji during first-run setup.
+- **Notes:** Chose the assistant name Orbit and the 🛰️ emoji during first-run setup. Prefers ADHD-friendly help: clear, scannable replies, low fluff, one thing at a time, and gentle next-step guidance.
 
 ## Context
 
