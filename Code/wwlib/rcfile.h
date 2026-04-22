@@ -114,10 +114,13 @@ struct StaticResourceFileClass {
 	size_t size;
 };
 
-// Executables can embed resources by defining a Static_Resources global variable.
-// The CMake embed_resources macro does this automatically.
-// This variable can be defined only ONCE for a executable.
-extern std::unordered_map<std::string, StaticResourceFileClass> Static_Resources;
+// GetStaticResources() uses a function-local static (Meyers singleton) so that
+// the map is initialized on first use, solving static-init-order ambiguity across TUs.
+// Executables must include the CMake-generated renegade_resources.cpp which populates it.
+inline std::unordered_map<std::string, StaticResourceFileClass>& GetStaticResources() {
+    static std::unordered_map<std::string, StaticResourceFileClass> map;
+    return map;
+}
 
 #endif
 

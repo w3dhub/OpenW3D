@@ -106,7 +106,7 @@ bool GetFileCreationTime(const char* filename, FileCreationTime* createTime)
 			unsigned int fatDate = dateTime >> 16;
 			unsigned int fatTime = dateTime & 0xffff;
 			createTime->year = 1980 + (fatDate >> 9);
-			createTime->month = (fatDate >> 5) & 0xf;
+			createTime->month = (fatDate >> 5) & 0x1f;
 			createTime->day = fatDate & 0x1f;
 			createTime->hour = fatTime >> 11;
 			createTime->minute = (fatTime >> 5) & 0x3f;

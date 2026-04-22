@@ -150,7 +150,7 @@ std::array<std::uint8_t, 2238> var_renegade_ico = {
 
 } // namespace
 
-std::unordered_map<std::string, StaticResourceFileClass> Static_Resources = {
+GetStaticResources() = {
   { "renegade.ico", { "renegade.ico", var_renegade_ico.data(), var_renegade_ico.size(), }, },
 };
 #endif // OPENW3D_SDL3

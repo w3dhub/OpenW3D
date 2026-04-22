@@ -446,9 +446,12 @@ int RawFileClass::Open(int rights)
 					Handle = CreateFileA(Filename, GENERIC_READ | GENERIC_WRITE, 0,
 												NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 				#elif defined(OPENW3D_SDL3)
-					Handle = SDL_IOFromFile(Filename, "r+");
+					// OPEN_ALWAYS semantics: open existing file for read+write, or create
+					// new file. Unlike "r+" (fails if missing) or "w+" (truncates if
+					// exists), try read-first to preserve existing file, then create.
+					Handle = SDL_IOFromFile(Filename, "r+b");
 					if (Handle == nullptr) {
-						Handle = SDL_IOFromFile(Filename, "w+");
+						Handle = SDL_IOFromFile(Filename, "w+b");
 					}
 				#else
 					#error "Not implemented"

@@ -57,7 +57,7 @@ def main():
             f_out.write(f"\n")
         f_out.write(f"}} // namespace\n")
         f_out.write(f"\n")
-        f_out.write(f"std::unordered_map<std::string, StaticResourceFileClass> Static_Resources = {{\n")
+        f_out.write(f"GetStaticResources() = {{\n")
         for name, (path, varname) in sources.items():
             f_out.write(f"  {{ \"{name}\", {{ \"{name}\", {varname}.data(), {varname}.size(), }}, }},\n")
         f_out.write(f"}};\n")

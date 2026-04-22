@@ -85,7 +85,7 @@ ResourceFileClass::ResourceFileClass(char const *filename) :
 	EndOfFile(NULL)
 {
 	Set_Name(filename);
-	if (const auto & pair = Static_Resources.find(ResourceName); pair != Static_Resources.end()) {
+	if (const auto & pair = GetStaticResources().find(ResourceName); pair != GetStaticResources().end()) {
 
 		FileBytes = static_cast<const unsigned char *>(pair->second.data);
 		FilePtr = FileBytes;
