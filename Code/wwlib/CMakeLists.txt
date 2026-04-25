@@ -18,7 +18,6 @@ set(WWLIB_SRC
     ini.cpp
     int.cpp
     jshell.cpp
-    LaunchWeb.cpp
     lzo.cpp
     lzo1x_c.cpp
     lzo1x_d.cpp
@@ -149,6 +148,8 @@ set(WWLIB_SRC
 
 if(WIN32)
     list(APPEND WWLIB_SRC
+        LaunchWeb.cpp
+        LaunchWeb.h
         msgloop.cpp
         registry.cpp
         verchk.cpp
