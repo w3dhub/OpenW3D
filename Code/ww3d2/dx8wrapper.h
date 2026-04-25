@@ -166,8 +166,14 @@ struct RenderStateStruct
 ** an WWINLINE function so that we can add stat tracking, etc if needed.  Direct access to the
 ** D3D device will require "friend" status and should be granted only in extreme circumstances :-)
 */
+class DX8Wrapper;
+class WW3DBackend;
+
 class DX8Wrapper
 {
+    friend class WW3DBackend;
+    friend class DX8Backend;
+
 	enum ChangedStates {
 		WORLD_CHANGED	=	1<<0,
 		VIEW_CHANGED	=	1<<1,

@@ -164,11 +164,6 @@ void DX8Backend::Clear(bool clear_color, bool clear_z_stencil, const Vector3 &co
     DX8Wrapper::Clear(clear_color, clear_z_stencil, color, z, stencil);
 }
 
-void DX8Backend::SetRenderType(SceneClass::PolyRenderType type)
-{
-    DX8Wrapper::SetRenderType(type);
-}
-
 void DX8Backend::Set_Swap_Interval(int swap)
 {
     DX8Wrapper::Set_Swap_Interval(swap);
