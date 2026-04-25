@@ -29,6 +29,7 @@ set(WW3D2_SRC
     dx8texman.cpp
     dx8vertexbuffer.cpp
     dx8wrapper.cpp
+    dx8backend.cpp
     dynamesh.cpp
     font3d.cpp
     formconv.cpp
@@ -135,6 +136,7 @@ set(WW3D2_SRC
     dx8texman.h
     dx8vertexbuffer.h
     dx8wrapper.h
+    dx8backend.h
     dynamesh.h
     font3d.h
     formconv.h
