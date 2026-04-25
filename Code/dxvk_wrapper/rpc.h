@@ -4,7 +4,9 @@
 
 #define __RPCNDR_H_VERSION__
 
+#ifdef _WIN32
 #include <dxvk/rpc.h>
+#endif
 
 #define __RPC_FAR
 #define __RPC_USER
