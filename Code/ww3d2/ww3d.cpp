@@ -78,6 +78,7 @@
 
 
 #include "ww3d.h"
+#include "ww3dbackend.h"
 #include "rinfo.h"
 #include "assetmgr.h"
 #include "boxrobj.h"
@@ -187,7 +188,10 @@ bool														WW3D::RecordNextFrame;
 int														WW3D::FrameCount = 0;
 int														WW3D::UserStat0 = 0;
 int														WW3D::UserStat1 = 0;
-int														WW3D::UserStat2 = 0;
+int														WWW3D::UserStat2 = 0;
+
+// Active render backend (DX8, DX9, DX12, Vulkan, Null)
+WW3DBackend*									WW3D::m_Backend = nullptr;
 
 float														WW3D::DefaultNativeScreenSize = 1.0f;
 

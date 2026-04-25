@@ -61,6 +61,7 @@ class		RenderInfoClass;
 class		RenderDeviceDescClass;
 class		StringClass;
 class		LightEnvironmentClass;
+class		WW3DBackend;
 class		MaterialPassClass;
 
 #define MESH_RENDER_SNAPSHOT_ENABLED
@@ -166,6 +167,10 @@ public:
    static unsigned int     Get_Frame_Time(void) { return SyncTime - PreviousSyncTime; }
    static unsigned int     Get_Frame_Count(void) { return FrameCount; }
 	static unsigned int		Get_Last_Frame_Poly_Count(void);
+
+	// Backend factory
+	static WW3DBackend*	Get_Backend(void) { return m_Backend; }
+	static void			Set_Backend(WW3DBackend* backend) { m_Backend = backend; }
 	static unsigned int		Get_Last_Frame_Vertex_Count(void);
 
 	/*
@@ -283,6 +288,9 @@ public:
    static int             UserStat0;
    static int             UserStat1;
    static int             UserStat2;
+
+	// The active render backend (DX8, DX9, DX12, Vulkan, Null)
+	static WW3DBackend*	m_Backend;
 
 private:
 
