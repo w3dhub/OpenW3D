@@ -1,3 +1,6 @@
+option(ENABLE_DX9_BACKEND "Enable DX9 backend" $<BOOL:${WIN32}>)
+add_feature_info(DX9_Renderer ENABLE_DX9_BACKEND "DX9 Backend")
+
 # Set source files
 set(WW3D2_SRC
     aabtree.cpp
@@ -135,6 +138,7 @@ set(WW3D2_SRC
     dx8texman.h
     dx8vertexbuffer.h
     dx8wrapper.h
+    dx8backend.h
     dynamesh.h
     font3d.h
     formconv.h
@@ -213,6 +217,7 @@ set(WW3D2_SRC
     w3d_obsolete.h
     w3d_util.h
     w3derr.h
+    ww3dbackend.h
     ww3d.h
     ww3dformat.h
     ww3dids.h
@@ -230,6 +235,10 @@ target_link_libraries(ww3d2 PRIVATE
 )
 
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
+
+if (ENABLE_DX9_BACKEND)
+    target_sources(ww3d2 PRIVATE dx8backend.cpp)
+endif()
 
 # This module needs building differently for the level editor
 if (W3D_TOOLS)
