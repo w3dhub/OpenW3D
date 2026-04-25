@@ -44,8 +44,19 @@
 
 #include "vector.h"
 #include "wwstring.h"
+
+#if defined(WW3D_RDDESC_NO_D3D)
+struct D3DCAPS9
+{
+};
+
+struct D3DADAPTER_IDENTIFIER9
+{
+};
+#else
 #include <d3d9types.h>
 #include <d3d9caps.h>
+#endif
 
 class ResolutionDescClass
 {

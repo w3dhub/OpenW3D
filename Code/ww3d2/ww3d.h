@@ -62,6 +62,7 @@ class		RenderDeviceDescClass;
 class		StringClass;
 class		LightEnvironmentClass;
 class		MaterialPassClass;
+class		WW3DBackend;
 
 #define MESH_RENDER_SNAPSHOT_ENABLED
 #define SNAPSHOT_SAY(x) if (WW3D::Is_Snapshot_Activated()) { WWDEBUG_SAY(x); }
@@ -350,6 +351,7 @@ private:
 	static bool							IsTexturingEnabled;
 
 	static bool							Lite;
+	static WW3DBackend *			Backend;
 
 	// This is the default native screen size which will be set for each
 	// RenderObject on construction. The native screen size is the screen size
