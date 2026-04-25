@@ -34,8 +34,6 @@
  * Functions:                                                                                  *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#pragma once
-
 #ifndef EXCEPT_H
 #define EXCEPT_H
 
@@ -83,6 +81,43 @@ typedef struct tThreadInfoType {
 
 
 
-#endif	//_MSC_VER
+#else // !_WIN32
+// Linux stubs for exception handling and thread registration
 
-#endif	//EXCEPT_H
+#ifndef HANDLE
+typedef void *HANDLE;
+#endif
+#ifndef UINT
+typedef unsigned int UINT;
+#endif
+#ifndef DWORD
+typedef unsigned long DWORD;
+#endif
+
+struct _EXCEPTION_POINTERS { void *context; };
+struct _CONTEXT { unsigned long regs[32]; unsigned long cpsr; };
+typedef _EXCEPTION_POINTERS EXCEPTION_POINTERS;
+typedef _CONTEXT CONTEXT;
+
+inline int Exception_Handler(int, EXCEPTION_POINTERS*) { return 0; }
+inline int Stack_Walk(void**, int, CONTEXT*) { return 0; }
+inline bool Lookup_Symbol(void*, char*, int&) { return false; }
+inline void Load_Image_Helper() {}
+inline void Register_Thread_ID(unsigned int, const char*, bool = false) {}
+inline void Unregister_Thread_ID(unsigned int, const char*) {}
+inline void Register_Application_Exception_Callback(void(*)(void)) {}
+inline void Register_Application_Version_Callback(const char*(*)(void)) {}
+inline void Set_Exit_On_Exception(bool) {}
+inline bool Is_Trying_To_Exit() { return false; }
+inline unsigned int Get_Main_Thread_ID() { return 1; }
+
+struct tThreadInfoType {
+    char ThreadName[128];
+    unsigned int ThreadID;
+    void *ThreadHandle;
+    bool Main;
+};
+
+#endif // !_WIN32
+
+#endif // EXCEPT_H
