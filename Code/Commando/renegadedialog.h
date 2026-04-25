@@ -109,6 +109,7 @@ enum class RenegadeDialogID {
     IDD_MP_DEBUG_ADD_PERSONA =        190,
     IDD_MP_WOL_MAIN =                 191,
     IDD_MP_WOL_QUICKMATCH =           192,
+    IDD_MP_WOL_GOODIES =              193,
     IDD_MP_WOL_BUDDIES =              194,
     IDD_MP_WOL_QUICKMATCH_OPTIONS =   195,
     IDD_DEATH_OPTIONS =               196,
