@@ -123,7 +123,7 @@
 #endif
 
 
-#ifndef _UNIX
+#ifdef _WIN32
 #include "framgrab.h"
 #endif
 
@@ -299,8 +299,10 @@ WW3DErrorType WW3D::Init(void *hwnd, char * /*defaultpal*/, bool lite)
 	WWDEBUG_SAY(("Allocate Debug Resources\n"));
 	Allocate_Debug_Resources();
 
+#ifdef _WIN32
  	[[maybe_unused]] MMRESULT r=timeBeginPeriod(1);
 	WWASSERT(r==TIMERR_NOERROR);
+#endif
 
 	/*
 	** Initialize the dazzle system
@@ -1248,6 +1250,11 @@ void WW3D::Normalize_Coordinates(int x, int y, float &fx, float &fy)
  *=============================================================================================*/
 void WW3D::Make_Screen_Shot( const char * filename_base )
 {
+#ifndef _WIN32
+	WWASSERT(!IsRendering);
+	WWDEBUG_SAY(( "Screen shots are not supported on this platform (%s)\n", filename_base ));
+	return;
+#else
 
 	WWASSERT(!IsRendering);
 
@@ -1328,6 +1335,7 @@ void WW3D::Make_Screen_Shot( const char * filename_base )
 
 	delete [] image;
 
+#endif
 }
 
 
