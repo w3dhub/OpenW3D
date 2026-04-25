@@ -53,7 +53,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPWolQuickMatchOptionsMenuClass::MPWolQuickMatchOptionsMenuClass (void)	:
-	MenuDialogClass (IDD_MP_WOL_QUICKMATCH_OPTIONS)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_QUICKMATCH_OPTIONS))
 {
 	return ;
 }

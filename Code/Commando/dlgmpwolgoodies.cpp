@@ -45,7 +45,7 @@
 //
 ////////////////////////////////////////////////////////////////
 MPWolGoodiesMenuClass::MPWolGoodiesMenuClass (void)	:
-	MenuDialogClass (IDD_MP_WOL_GOODIES)
+	MenuDialogClass (GetRenegadeDialog(RenegadeDialogID::IDD_MP_WOL_GOODIES))
 {
 	return ;
 }
