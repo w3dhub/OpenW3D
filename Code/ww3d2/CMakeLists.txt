@@ -1,7 +1,19 @@
 option(ENABLE_DX9_BACKEND "Enable DX9 backend" $<BOOL:${WIN32}>)
 add_feature_info(DX9_Renderer ENABLE_DX9_BACKEND "DX9 Backend")
 
+option(ENABLE_VULKAN_BACKEND "Enable Vulkan backend" ON)
+add_feature_info(Vulkan_Renderer ENABLE_VULKAN_BACKEND "Vulkan Backend")
+
+if (ENABLE_VULKAN_BACKEND)
+    find_package(Vulkan REQUIRED)
+endif()
+
 set_source_files_properties(nullbackend.cpp PROPERTIES COMPILE_DEFINITIONS WW3D_RDDESC_NO_D3D)
+
+# Vulkan backend also needs WW3D_RDDESC_NO_D3D to avoid D3D header conflicts
+if (ENABLE_VULKAN_BACKEND)
+    set_source_files_properties(backends/vulkan/vulkanbackend.cpp PROPERTIES COMPILE_DEFINITIONS WW3D_RDDESC_NO_D3D)
+endif()
 
 # Set source files
 set(WW3D2_SRC
@@ -127,12 +139,11 @@ set(WW3D2_SRC
     dazzle.h
     ddsfile.h
     decalmsh.h
-    decalsys.h
+    decalmsh.h
     distlod.h
     dllist.h
     dx8caps.h
     dx8fvf.h
-    dx8indexbuffer.h
     dx8list.h
     dx8polygonrenderer.h
     dx8renderer.h
@@ -184,7 +195,7 @@ set(WW3D2_SRC
     pointgr.h
     polyinfo.h
     predlod.h
-    prim_anim.h
+    prim_anim.cpp
     projector.h
     proto.h
     proxy.h
@@ -242,6 +253,10 @@ target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 if (ENABLE_DX9_BACKEND)
     target_sources(ww3d2 PRIVATE dx8backend.cpp)
     target_compile_definitions(ww3d2 PRIVATE WW3D_DX9_BACKEND)
+elseif (ENABLE_VULKAN_BACKEND)
+    target_sources(ww3d2 PRIVATE backends/vulkan/vulkanbackend.cpp)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_VULKAN_BACKEND)
+    target_link_libraries(ww3d2 PRIVATE Vulkan::Vulkan)
 else()
     target_sources(ww3d2 PRIVATE nullbackend.cpp)
 endif()
@@ -264,6 +279,10 @@ if (W3D_TOOLS)
     if (ENABLE_DX9_BACKEND)
         target_sources(ww3d2e PRIVATE dx8backend.cpp)
         target_compile_definitions(ww3d2e PRIVATE WW3D_DX9_BACKEND)
+    elseif (ENABLE_VULKAN_BACKEND)
+        target_sources(ww3d2e PRIVATE backends/vulkan/vulkanbackend.cpp)
+        target_compile_definitions(ww3d2e PRIVATE WW3D_VULKAN_BACKEND)
+        target_link_libraries(ww3d2e PRIVATE Vulkan::Vulkan)
     else()
         target_sources(ww3d2e PRIVATE nullbackend.cpp)
     endif()
