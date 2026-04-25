@@ -35,9 +35,10 @@
 #define WW3DBACKEND_H
 
 #include "vector3.h"
-#include "scene.h"
 #include "rddesc.h"
 #include "index.h"
+
+class SceneClass;
 
 class WW3DBackend
 {
