@@ -80,9 +80,6 @@ public:
     // Clear
     virtual void Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float z = 1.0f, unsigned int stencil = 0) = 0;
 
-    // Render type
-    virtual void SetRenderType(SceneClass::PolyRenderType) = 0;
-
     // VSync
     virtual void Set_Swap_Interval(int swap) = 0;
     virtual int Get_Swap_Interval() = 0;

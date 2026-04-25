@@ -76,8 +76,6 @@ public:
 
     virtual void Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float z = 1.0f, unsigned int stencil = 0) override;
 
-    virtual void SetRenderType(SceneClass::PolyRenderType) override;
-
     virtual void Set_Swap_Interval(int swap) override;
     virtual int Get_Swap_Interval() override;
 
