@@ -231,6 +231,54 @@ target_link_libraries(ww3d2 PRIVATE
 
 target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 
+# Additional backend options (DX8 is always available on Windows via ENABLE_DX9_BACKEND)
+# Vulkan: cross-platform, requires Vulkan SDK headers
+option(ENABLE_VULKAN_BACKEND "Enable Vulkan backend" OFF)
+add_feature_info(Vulkan_Backend ENABLE_VULKAN_BACKEND "Vulkan render backend (cross-platform)")
+
+# DX12: Windows-only, requires Windows 10 SDK
+option(ENABLE_DX12_BACKEND "Enable DirectX 12 backend" OFF)
+add_feature_info(DX12_Backend ENABLE_DX12_BACKEND "DirectX 12 render backend (Windows only)")
+
+# Vulkan backend sources
+if (ENABLE_VULKAN_BACKEND)
+    if (NOT WIN32)
+        find_package(Vulkan QUIET)
+        if (NOT Vulkan_FOUND)
+            message(STATUS "Vulkan not found; Vulkan backend will not be built")
+        endif()
+    else()
+        # On Windows, Vulkan is typically available via the GPU driver
+        find_package(Vulkan QUIET)
+    endif()
+    if (Vulkan_FOUND)
+        target_sources(ww3d2 PRIVATE
+            backends/vulkan/vulkanbackend.cpp
+        )
+        target_include_directories(ww3d2 PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/backends/vulkan
+        )
+        target_link_libraries(ww3d2 PRIVATE Vulkan::Vulkan)
+    else()
+        message(STATUS "Vulkan backend enabled but Vulkan not available — backend stub will be excluded")
+        # Still update cache so the option appears "on" even if unmet
+    endif()
+endif()
+
+# DX12 backend sources (Windows only)
+if (ENABLE_DX12_BACKEND)
+    if (WIN32)
+        target_sources(ww3d2 PRIVATE
+            backends/dx12/dx12backend.cpp
+        )
+        target_include_directories(ww3d2 PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/backends/dx12
+        )
+    else()
+        message(WARNING "ENABLE_DX12_BACKEND is Windows-only; ignoring on ${CMAKE_SYSTEM_NAME}")
+    endif()
+endif()
+
 # This module needs building differently for the level editor
 if (W3D_TOOLS)
     # Targets to build.
