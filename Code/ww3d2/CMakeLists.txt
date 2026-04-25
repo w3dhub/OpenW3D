@@ -1,6 +1,8 @@
 option(ENABLE_DX9_BACKEND "Enable DX9 backend" $<BOOL:${WIN32}>)
 add_feature_info(DX9_Renderer ENABLE_DX9_BACKEND "DX9 Backend")
 
+set_source_files_properties(nullbackend.cpp PROPERTIES COMPILE_DEFINITIONS WW3D_RDDESC_NO_D3D)
+
 # Set source files
 set(WW3D2_SRC
     aabtree.cpp
@@ -173,6 +175,7 @@ set(WW3D2_SRC
     metalmap.h
     missingtexture.h
     motchan.h
+    nullbackend.h
     nullrobj.h
     part_buf.h
     part_emt.h
@@ -238,6 +241,9 @@ target_sources(ww3d2 PRIVATE ${WW3D2_SRC})
 
 if (ENABLE_DX9_BACKEND)
     target_sources(ww3d2 PRIVATE dx8backend.cpp)
+    target_compile_definitions(ww3d2 PRIVATE WW3D_DX9_BACKEND)
+else()
+    target_sources(ww3d2 PRIVATE nullbackend.cpp)
 endif()
 
 # This module needs building differently for the level editor
@@ -254,4 +260,11 @@ if (W3D_TOOLS)
     target_compile_definitions(ww3d2e PRIVATE PARAM_EDITING_ON)
 
     target_sources(ww3d2e PRIVATE ${WW3D2_SRC})
+
+    if (ENABLE_DX9_BACKEND)
+        target_sources(ww3d2e PRIVATE dx8backend.cpp)
+        target_compile_definitions(ww3d2e PRIVATE WW3D_DX9_BACKEND)
+    else()
+        target_sources(ww3d2e PRIVATE nullbackend.cpp)
+    endif()
 endif()
